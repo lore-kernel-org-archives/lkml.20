@@ -1,62 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973316;
-	b=fVAfDXnTjNKmRcD8CZQEeVmOJ6HhiA8XZdbHcbUmj4Yb+JnBmBmwM+MiLQemDschXlAf
-	 V5v9k/mUw+Mwzg4dP+UoTNMgy75YRUSxirIGj3PqCg/6Gi5JqqQax/lWf5n48Gm+Z2G2r
-	 D09+zAyXzuCmItcErvcObOeQOy5/TEWI1rus5LmUju+F8vDyDi3ngpIWCfNzZnHFg8Pdh
-	 anLLAP3PIy3AtyIHIIh1kJzz0iCcVNmRhJUbhW++Nv5jy9Hyr7fD2kHcr7Uej+4nQMPLN
-	 DFQaZdP9g6etOqfG3S0sDDGx7/7Jiw7xqo9xQUVklTHw8tiMXTAouMrONFb6IlBFKQA==
+	t=1793973329;
+	b=PnMgYnrQ1d5RoYbSiVj8iLqPOlx9Db78tpL0Gv7I2//BNWAQvvqPTBalZKlE2ZuBuUAm
+	 o8TPEflj+wZ/Afy/uksIw2GD03th3E6yx2ImjRaHJn7XsXCPUoNG35O7t0oxYRcvJCrlY
+	 pUJR7EwkRoGH/qLlxy3QKL/hN3LVzuWBfnAnSBFSOQtDChiw7G216M4zFPeKPRV15VNxf
+	 35w6/oAJQq+BtahNtYs+wASgAXImkhlOTa4pq1owNcAHGfo4AACP9NYo246dpYrXnbZel
+	 sxPmUEPUfjn6Yo8oHp6CrrOSOyRwKRS4F1zl15u3nzIiVe5Eh1gxybnUx8hSjmMGhRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973316;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=W9g6FSXIUBy4xVtnJU8pOZa2xn9AERBrYFbo8nVZxe8=;
-	b=q84UJUuMWU/lieU3VcM591SGDDgQ/Fa0DjC1aPTHUL3LoJJRRsAnFwVdIUjeUETXkBv1
-	 R7fwvynN2eQT/ktyzy6krlOvZ5o4xjkBDA0dPBcswPkflZECm3yEqsKzvfuAU01OooH2r
-	 ADbMNoAiQthqRX6mQ9Dj2X24c0Xgn7kV+wdNBEwbXzkaODFNvJ0uyoVD3HHMOLOEIWDB4
-	 2Zo9oE1J8jNIcyj6/itcUjd6zEKU0rZWQWmfwjKyyC5EvIJDG/Jw3GEIkLr4HD0h4GpVl
-	 hISKk0WTCUfiYNx7B13K/VasETRwiNWK3DYMcBtjaEvRplNFTFBwJpogGwlFZ7mRiVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973329;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=TgR5F+iBiHqDbSrZbID4DhVkgUbDwbnclx1Ow0233B4=;
+	b=gwYG7YitLaNyE0cyEeXnTnnL2dLhfuTjOwYR0H97eqFIK98e9Bn1Vyfrq9JTmu5JoL0y
+	 SjsYQWadj33RWucOcb+HZNnfcMhWjE/FnDfD+jMzp4mQGGIe+DjJeANxbii5RGlnEsnT8
+	 eDhI5IU/LgSJTyVKdcI83DO/tYZhX6hwqNTocevXvrNuOzQJLoAa/QWBNrLhnIYRamBU+
+	 vxHPrfxkm4h3aj1QhxBPNSEJ3ueTujIGJNsen2g7kcsnsgNc8fm1lTO/8Cb/wlAn6mdJY
+	 4h1XgeO3ESHSOBJDB3i4mhDqW7andZQ5ndODjPsXDTOpcaJQexPa3EZfegc9FO+/lOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DwN5hUJy;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bm5Znuev;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=de+Ll0Td;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C87606D816
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:55:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9C87606D816
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DE1606D839
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:55:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73DE1606D839
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DwN5hUJy
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261106135508euoutp02168684cea9b21ac6b20737de0c5750e2~leTgQr1hf2469924699euoutp024
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:55:08 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261106135508euoutp02168684cea9b21ac6b20737de0c5750e2~leTgQr1hf2469924699euoutp024
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793973308;
-	bh=W9g6FSXIUBy4xVtnJU8pOZa2xn9AERBrYFbo8nVZxe8=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=DwN5hUJyRnhOREIpsoFp8j5R2yPehbtJBSMzRXNlQAvRXUgOYzgvCOANSLaa2rFj4
-	 WOFu1c/QAex08lt770s07uV31DrGCzVyC2NjDPxVPHUnV1ULCwBP8bDDWarOcYp/e1
-	 jtzWmG3DNfX7QtU9Q5swtvhUtrS5rxn05avKtcHY=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261106135507eucas1p2d0b9e53f934f69235757c8708b56fb45~leTfvSXY00626206262eucas1p2J;
-	Fri,  6 Nov 2026 13:55:07 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261106135506eusmtip2a94aefe6fc240dc09cd720946327c982~leTe3BHt_2312723127eusmtip2f;
-	Fri,  6 Nov 2026 13:55:06 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Fri, 06 Nov 2026 14:53:01 +0100
-Subject: [PATCH v7 3/5] phy: rockchip: inno-hdmi: Use the common Innosilicon
- PHY helpers
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bm5Znuev;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=de+Ll0Td
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6DoNuC3034442
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 13:55:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TgR5F+iBiHqDbSrZbID4DhVkgUbDwbnclx1Ow0233B4=; b=bm5Znuevrh4SmsgD
+	vb6RvI7iPS2Fr56sekLTNlHWe1dwdGAcyEAwWtZRcQMaUMpi2827p8iz5X0w73C6
+	gM8gsIdM3YDa6mN1YUYOTNTf0su8wIjuylpKeXBx7lfQ+zVSiB3eEJTtkkMyZde+
+	sCMr+9DiT5MeeBEJdblEkKQVe6cUswnuspjc6QZlyLtAnN6rdTqB5TUibrakXBbC
+	nKc/9yTZwxiJtJvoPJvxH7Aj6r/NsITdvweOxIE1xXU01WAITbBQLM1QufkfYvzV
+	DqfKEGR5ae2YOhA52leR+Zinzd5TjCrFVUhVQ9icA8GFKfzPGVEJZcHad7JvBbs2
+	p0HwyQ==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3paayh2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 13:55:27 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-99082f450bfso512050241.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:55:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793973327; x=1794578127; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TgR5F+iBiHqDbSrZbID4DhVkgUbDwbnclx1Ow0233B4=;
+        b=de+Ll0TdO6I3gn28LBdVHqdTL21TYIs3UW/Itx4mJT4H1C70WWUx2q7hh3OWlywq6s
+         6AlwHNnzCt81CPbaVb8YHTfiwtEmp5CvLbjajapScwB1/0sMpjtzs59iTMK/Mov55Lli
+         6BcGRKxhS2BmX2mOoXkwD/rMRya2x88hBuSb7F/zJ6omKAMWEsK/TNM2KqRPYLgP0Y+t
+         gDgrR8g3nvQKwA4AMDY1a+NrYNBG4+mQMz4Dy3IyGWOxgXjhiYM2BrMwA86ylf4mi9ln
+         KvHs7Lb7WgBZnoGNLCQ+3e+qTWXnvqiFOeLNn11jFgo1byLE47ZF9lzmaRqp9PwwpchR
+         lO5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793973327; x=1794578127;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TgR5F+iBiHqDbSrZbID4DhVkgUbDwbnclx1Ow0233B4=;
+        b=k/BJs52tfQ6feZIBdVv4vu6xJmz7v+PnQydQbIhpMOIQVrp8Tk9xTE33x5FhWbueZh
+         Mi1zpFI/VNtJbogCby2YoFML3TC33LwaKpUWK4AeJ3xo1NJq08CJtnDTkhFAai0+SHXc
+         X/l9av7fxuosIoe+qUrK3fHD8rYxX6zyheZiE7TlwmPoaGjOLqsC9Y4kOHm04LRSk0G7
+         cJELN8ksJcY3+9/z/Uw+Q/3mA5j9YaDuzrWkTfVu9XvMZUm8LXa37V7TxjggaNJQ3Gk/
+         5gTypp46cN+LT5WcIwf2PelZe8+K7aXKnQ0ty941OlPkRU80sg2JRSdp9hdO4z2wLogo
+         G8BA==
+X-Forwarded-Encrypted: i=1; AKwUvBwpuQGD4g+Ak/yMfwkiBzHdHBtpaW8yw6aXoA4PUvGkTRNtyHzCGXgh/NXSCo4w+oQJ1ur8zD1m7qg71mc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/et8vane43tJwU2QMbSMKCtnHtx4deHM6JpWuGnnoB0qZnNfEt
+	igCNF8LIOlRHxTvK7WRY77VhuM8Yks1EasjysdDxezqbZGhVBgUwOPTFz/y68C3HZmf1A3t59hO
+	8byxQlvgQz/+Qe/x9WIaUAGqfLunaNwxZWuWSYM0iBaZgeSYF2volEfSgvtrC9dx21DE=
+X-Gm-Gg: AYBFou0ZB8g5kF8Ge7z5A4M1ZG+oq+ZWVtRb98SfBlHqA0ehTG8DgodO4qkpCw9zh8d
+	n6TIdG1HQ4MPoHGGH4PxKz9qbDl+m2kwnKMcAzNagY1wguAClnUm6jG5uqrdHFTBvdHMSWTgcWB
+	4ZYgp5sr/fu1a5/1kHHXrqewm7U7fcgL6yrHs6sv8oJ4oENLGl9a99T/i7Ka87ke5uc0xIJDG7S
+	UiEMoiJR3/W6K8PgYfjfYvlbJqKnPdp5XwOtCFmyY2x3BVLlcy7yeUmXwvlg11+tHSb1xlxmqq0
+	lgZk+RYLK59Jt2p9o6eJyuen0HudzwVD8BD+YcrtocnxbBeyW3nV3m6eRAqhRbqHTpjOAioFyW8
+	f9KtMpwGW4p0QGLhEv+Uj4vqbER7O/SN5m2OCLt5nKnRfZCXyowVfDegi2o+LteftVJASjyQqRB
+	A3EF7k+PNwz4Vkj9ewCIt3x6AOoBFQXJv2Aw6k9TlGsHJ5/GTsy24sguTT7LW7cennhtLmRpbg5
+	oNBc5XgJVieOT/OYxyFvcFEhpcx
+X-Received: by 2002:a67:e70c:0:b0:7cc:828b:421b with SMTP id ada2fe7eead31-7d2a15097e6mr1816165137.6.1793973326663;
+        Fri, 06 Nov 2026 05:55:26 -0800 (PST)
+X-Received: by 2002:a67:e70c:0:b0:7cc:828b:421b with SMTP id ada2fe7eead31-7d2a15097e6mr1816146137.6.1793973326222;
+        Fri, 06 Nov 2026 05:55:26 -0800 (PST)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:f048:3e89:c517:10cd])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d809df2dsm3963256f8f.51.2026.11.06.05.55.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 05:55:24 -0800 (PST)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 06 Nov 2026 14:55:17 +0100
+Subject: [PATCH v14 1/9] media: qcom: camss: Add V4L2 meta format for CAMSS
+ ISP parameters
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,382 +117,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-jh7110-inno-hdmi-phy-v7-3-d49368303800@samsung.com>
-In-Reply-To: <20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com>
-To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
-	<neil.armstrong@linaro.org>,  Manivannan Sadhasivam <mani@kernel.org>, Rob
-	Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
-	Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,  Emil Renner
-	Berthing <kernel@esmil.dk>,  Hal Feng <hal.feng@starfivetech.com>, Dominique
-	Belhachemi <db@domibel.de>,  Michal Wilczynski <m.wilczynski@samsung.com>,
-	Andy Yan <andyshrk@163.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
-	Szyprowski <m.szyprowski@samsung.com>,  Icenowy Zheng
-	<zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Joshua Peisach <jpeisach@ubuntu.com>, Byron Stanoszek <gandalf@winds.org>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13127;
-	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=NDpW6YtGfPLxHeWmD/OLM9Btqlr05WAM8Gq3LG2Kuww=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9vWN+rMv7TJTer+4trnmCG6JV202XbZ/3QIA92HN+/
-	jbeF4L9HaUsDGIcDLJiiixnN0YbSf5jeFp+/PEvmDmsTCBDGLg4BWAie3IZGWY6TG65I/e0O89i
-	x7t1c7bdvBeab8r0wy0rXTLmU/O9/86MDPMXBXmIOdfP291gIKASrfPy8XRf62TPe8c+fylRN3L
-	6xgAA
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
-	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261106135507eucas1p2d0b9e53f934f69235757c8708b56fb45
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261106135507eucas1p2d0b9e53f934f69235757c8708b56fb45
-X-EPHeader: CA
-X-CMS-RootMailID: 20261106135507eucas1p2d0b9e53f934f69235757c8708b56fb45
-References: <20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com>
-	<CGME20261106135507eucas1p2d0b9e53f934f69235757c8708b56fb45@eucas1p2.samsung.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-camss-isp-ope-v14-1-49c426cd2715@oss.qualcomm.com>
+References: <20261106-camss-isp-ope-v14-0-49c426cd2715@oss.qualcomm.com>
+In-Reply-To: <20261106-camss-isp-ope-v14-0-49c426cd2715@oss.qualcomm.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Hans de Goede <johannes.goede@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-GUID: mmTs0omE294eFDXeOBScXsPixqOfT9nO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1NSBTYWx0ZWRfX/ktQ0skQSztt
+ XWrSjMDTdIb6HKXaQ1srgG4JQbTjYlBKnIPMLr7lb0ntLUVgoR1ZdF4aud3sFFnYwcR3nH04qoL
+ J384Wf0ZorXHIeMUQIW74DqsgZ/yLptrJal6WNFwd+N0Aj6Pw6iWwVWVDHmPc2j43RZ1USdXelZ
+ 2oY/s1dqRhdWaoeZX+dySd8yWAALBl7B0MQDsQphnPcgbJ/lQujz2cQMb5NBLhF0dRUPEDOiinu
+ 4oye2bA+c/BBmG2i8fW7b/lNZDpcvhG4QVae/hRRcDkRWSXHgLzpUBO3ahz2NDR3sm1VacUMo3c
+ YgQCFPKthf4ii24DbtaONnTNlUKH1xZFcuNihCfBp0gaT37J97J5o9+yG0KRkL79q0EUL3HsNSj
+ 9GIjiq3qFTaiXrVr8SqxnbLkQs85QjaQbJ2CM6d9ZlPdY5XCZEyLgf3Oa2+pgjn1T+pGrvmF3s0
+ 4YIUuUVLqKvsyb3AGxg==
+X-Proofpoint-ORIG-GUID: mmTs0omE294eFDXeOBScXsPixqOfT9nO
+X-Authority-Analysis: v=2.4 cv=X7rHu2Te c=1 sm=1 tr=0 ts=6aeddc4f cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=mDm0RygAtmZY0osY0NEA:9 a=QEXdDO2ut3YA:10 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1NSBTYWx0ZWRfX1MklkWZwlv/v
+ GQG0aOzBIMl/UfGw0NXX8O+gxRQ6BDDRhlrs1wzXVpz8gL2azDD8AntUoWRAoo9LEKvLzU5Uq+U
+ 8RdnGx1As0kXuRMX7Aay7v10sSrQLE0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0
+ bulkscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060055
 
-The RK3328 pre-PLL programming, its table lookup and its recalc_rate and
-determine_rate implementations are the generic Innosilicon ones, so drop
-the local copies and use the shared helpers instead.
+Add a V4L2 meta format code (V4L2_META_FMT_QCOM_ISP_PARAMS) for the
+Qualcomm CAMSS ISP parameter buffer. This format is used by the params
+video node exposed by CAMSS offline ISP drivers (e.g. OPE) to carry
+ISP tuning data such as white balance, color correction and chroma
+enhancement settings.
 
-The RK3228 pre-PLL sits at different register addresses, so it keeps its
-own register level code and only shares the table lookup.
-
-The now unused RK3328 pre-PLL register macros go with it, as does the
-local pre-PLL config lookup wrapper; both call sites already have the
-TMDS clock to hand and call inno_hdmi_phy_pre_pll_lookup() directly.
-
-The RK3328 recalc_rate used to log the pre-PLL output as "vco". The
-shared helper logs it too, and reports the actual VCO frequency
-alongside the rate, which is the value with the 1.4-3.2 GHz constraint.
-
-The register writes, their order and the values written are unchanged.
-No functional change intended.
-
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Tested-by: Byron Stanoszek <gandalf@winds.org>
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/phy/rockchip/Kconfig                  |   1 +
- drivers/phy/rockchip/phy-rockchip-inno-hdmi.c | 169 ++++----------------------
- 2 files changed, 26 insertions(+), 144 deletions(-)
+ drivers/media/v4l2-core/v4l2-ioctl.c | 1 +
+ include/uapi/linux/videodev2.h       | 3 +++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
-index 39759bb2fa1d10ca275fa9e449199f0a43d3e82f..c919a5bf5fa191e193e5aadcbff7d32575f1fee9 100644
---- a/drivers/phy/rockchip/Kconfig
-+++ b/drivers/phy/rockchip/Kconfig
-@@ -34,6 +34,7 @@ config PHY_ROCKCHIP_INNO_HDMI
- 	depends on COMMON_CLK
- 	depends on HAS_IOMEM
- 	select GENERIC_PHY
-+	select PHY_INNO_HDMI
- 	help
- 	  Enable this to support the Rockchip Innosilicon HDMI PHY.
+diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+index 17ba1ae707355a134047de646f61fcc2d1512d4c..cef1593c1835070f7b34a8b8c860738fb77f533a 100644
+--- a/drivers/media/v4l2-core/v4l2-ioctl.c
++++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+@@ -1471,6 +1471,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
+ 	case V4L2_META_FMT_C3ISP_STATS:		descr = "Amlogic C3 ISP Statistics"; break;
+ 	case V4L2_META_FMT_MALI_C55_PARAMS:	descr = "ARM Mali-C55 ISP Parameters"; break;
+ 	case V4L2_META_FMT_MALI_C55_STATS:	descr = "ARM Mali-C55 ISP 3A Statistics"; break;
++	case V4L2_META_FMT_QCOM_ISP_PARAMS:	descr = "Qualcomm CAMSS ISP Parameters"; break;
+ 	case V4L2_META_FMT_RPPX1_PARAMS:	descr = "Dreamchip RPP-X1 ISP Parameters"; break;
+ 	case V4L2_META_FMT_RPPX1_STATS:	descr = "Dreamchip RPP-X1 ISP Statistics"; break;
+ 	case V4L2_PIX_FMT_NV12_8L128:	descr = "NV12 (8x128 Linear)"; break;
+diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+index 5373dba640fae3d19247ab1c74ba336e05dc0fe0..70208a9443d8ade569f130e2fc3d6beebab6b636 100644
+--- a/include/uapi/linux/videodev2.h
++++ b/include/uapi/linux/videodev2.h
+@@ -893,6 +893,9 @@ struct v4l2_pix_format {
+ #define V4L2_META_FMT_RPPX1_PARAMS	v4l2_fourcc('D', 'R', '1', 'P') /* Dreamchip RPP-X1 Parameters */
+ #define V4L2_META_FMT_RPPX1_STATS	v4l2_fourcc('D', 'R', '1', 'S') /* Dreamchip RPP-X1 Statistics */
  
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
-index d2c2b17df5f340e4486d38c1a10a05a014b53e2e..14660144e475318c4e1a1835c7300d933490cdec 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
-@@ -17,6 +17,7 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
-+#include <linux/phy/inno-hdmi-phy.h>
- #include <linux/phy/phy.h>
- #include <linux/slab.h>
- 
-@@ -130,42 +131,14 @@
- #define RK3328_INT_VSS_AGND_ESD_DET			BIT(1)
- #define RK3328_INT_AGND_VSS_ESD_DET			BIT(0)
- /* REG: 0xa0 */
--#define RK3328_PCLK_VCO_DIV_5_MASK			BIT(1)
--#define RK3328_PCLK_VCO_DIV_5(x)			UPDATE(x, 1, 1)
- #define RK3328_PRE_PLL_POWER_DOWN			BIT(0)
- /* REG: 0xa1 */
--#define RK3328_PRE_PLL_PRE_DIV_MASK			GENMASK(5, 0)
--#define RK3328_PRE_PLL_PRE_DIV(x)			UPDATE(x, 5, 0)
- /* REG: 0xa2 */
--/* unset means center spread */
--#define RK3328_SPREAD_SPECTRUM_MOD_DOWN			BIT(7)
--#define RK3328_SPREAD_SPECTRUM_MOD_DISABLE		BIT(6)
--#define RK3328_PRE_PLL_FRAC_DIV_DISABLE			UPDATE(3, 5, 4)
--#define RK3328_PRE_PLL_FB_DIV_11_8_MASK			GENMASK(3, 0)
--#define RK3328_PRE_PLL_FB_DIV_11_8(x)			UPDATE((x) >> 8, 3, 0)
- /* REG: 0xa3 */
--#define RK3328_PRE_PLL_FB_DIV_7_0(x)			UPDATE(x, 7, 0)
- /* REG: 0xa4*/
--#define RK3328_PRE_PLL_TMDSCLK_DIV_C_MASK		GENMASK(1, 0)
--#define RK3328_PRE_PLL_TMDSCLK_DIV_C(x)			UPDATE(x, 1, 0)
--#define RK3328_PRE_PLL_TMDSCLK_DIV_B_MASK		GENMASK(3, 2)
--#define RK3328_PRE_PLL_TMDSCLK_DIV_B(x)			UPDATE(x, 3, 2)
--#define RK3328_PRE_PLL_TMDSCLK_DIV_A_MASK		GENMASK(5, 4)
--#define RK3328_PRE_PLL_TMDSCLK_DIV_A(x)			UPDATE(x, 5, 4)
- /* REG: 0xa5 */
--#define RK3328_PRE_PLL_PCLK_DIV_B_SHIFT			5
--#define RK3328_PRE_PLL_PCLK_DIV_B_MASK			GENMASK(6, 5)
--#define RK3328_PRE_PLL_PCLK_DIV_B(x)			UPDATE(x, 6, 5)
--#define RK3328_PRE_PLL_PCLK_DIV_A_MASK			GENMASK(4, 0)
--#define RK3328_PRE_PLL_PCLK_DIV_A(x)			UPDATE(x, 4, 0)
- /* REG: 0xa6 */
--#define RK3328_PRE_PLL_PCLK_DIV_C_SHIFT			5
--#define RK3328_PRE_PLL_PCLK_DIV_C_MASK			GENMASK(6, 5)
--#define RK3328_PRE_PLL_PCLK_DIV_C(x)			UPDATE(x, 6, 5)
--#define RK3328_PRE_PLL_PCLK_DIV_D_MASK			GENMASK(4, 0)
--#define RK3328_PRE_PLL_PCLK_DIV_D(x)			UPDATE(x, 4, 0)
- /* REG: 0xa9 */
--#define RK3328_PRE_PLL_LOCK_STATUS			BIT(0)
- /* REG: 0xaa */
- #define RK3328_POST_PLL_POST_DIV_ENABLE			GENMASK(3, 2)
- #define RK3328_POST_PLL_REFCLK_SEL_TMDS			BIT(1)
-@@ -218,11 +191,8 @@
- #define RK3328_TMDS_TERM_RESIST_1000			BIT(1)
- #define RK3328_TMDS_TERM_RESIST_2000			BIT(0)
- /* REG: 0xd1 */
--#define RK3328_PRE_PLL_FRAC_DIV_23_16(x)		UPDATE((x) >> 16, 7, 0)
- /* REG: 0xd2 */
--#define RK3328_PRE_PLL_FRAC_DIV_15_8(x)			UPDATE((x) >> 8, 7, 0)
- /* REG: 0xd3 */
--#define RK3328_PRE_PLL_FRAC_DIV_7_0(x)			UPDATE(x, 7, 0)
- 
- struct inno_hdmi_phy_drv_data;
- 
-@@ -240,6 +210,8 @@ struct inno_hdmi_phy {
- 	const struct inno_hdmi_phy_drv_data *plat_data;
- 	int chip_version;
- 
-+	struct inno_hdmi_phy_pre_pll pre_pll;
++/* Vendor specific - used for Qualcomm CAMSS ISP */
++#define V4L2_META_FMT_QCOM_ISP_PARAMS	v4l2_fourcc('Q', 'C', 'I', 'P') /* Qualcomm CAMSS ISP Parameters */
 +
- 	/* clk provider */
- 	struct clk_hw hw;
- 	struct clk *phyclk;
-@@ -248,21 +220,6 @@ struct inno_hdmi_phy {
- 	unsigned long opts_tmds_char_rate;
- };
- 
--struct pre_pll_config {
--	unsigned long pixclock;
--	unsigned long tmdsclock;
--	u8 prediv;
--	u16 fbdiv;
--	u8 tmds_div_a;
--	u8 tmds_div_b;
--	u8 tmds_div_c;
--	u8 pclk_div_a;
--	u8 pclk_div_b;
--	u8 pclk_div_c;
--	u8 pclk_div_d;
--	u8 vco_div_5_en;
--	u32 fracdiv;
--};
- 
- struct post_pll_config {
- 	unsigned long tmdsclock;
-@@ -291,7 +248,7 @@ struct inno_hdmi_phy_drv_data {
- 	const struct phy_config		*phy_cfg_table;
- };
- 
--static const struct pre_pll_config pre_pll_cfg_table[] = {
-+static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
- 	{ 25175000,  25175000,  3,  125, 3, 1, 1,  1, 3, 3,  4, 0, 0xe00000},
- 	{ 25175000,  31468750,  1,   41, 0, 3, 3,  1, 3, 3,  4, 0, 0xf5554f},
- 	{ 27000000,  27000000,  1,   36, 0, 3, 3,  1, 2, 3,  4, 0,      0x0},
-@@ -603,7 +560,7 @@ static irqreturn_t inno_hdmi_phy_rk3328_irq(int irq, void *dev_id)
- static int inno_hdmi_phy_validate(struct phy *phy, enum phy_mode mode,
- 				  int submode, union phy_configure_opts *opts)
- {
--	const struct pre_pll_config *cfg = pre_pll_cfg_table;
-+	const struct inno_hdmi_phy_pre_pll_config *cfg = pre_pll_cfg_table;
- 	unsigned long tmdsclock;
- 
- 	if (!(mode == PHY_MODE_HDMI && submode == PHY_HDMI_MODE_TMDS))
-@@ -717,23 +674,6 @@ static const struct phy_ops inno_hdmi_phy_ops = {
- 	.validate = inno_hdmi_phy_validate,
- };
- 
--static const
--struct pre_pll_config *inno_hdmi_phy_get_pre_pll_cfg(struct inno_hdmi_phy *inno,
--						     unsigned long rate)
--{
--	const struct pre_pll_config *cfg = pre_pll_cfg_table;
--	unsigned long tmdsclock = inno_hdmi_phy_get_tmdsclk(inno, rate);
--
--	for (; cfg->pixclock != 0; cfg++)
--		if (cfg->pixclock == rate && cfg->tmdsclock == tmdsclock)
--			break;
--
--	if (cfg->pixclock == 0)
--		return ERR_PTR(-EINVAL);
--
--	return cfg;
--}
--
- static int inno_hdmi_phy_rk3228_clk_is_prepared(struct clk_hw *hw)
- {
- 	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
-@@ -797,7 +737,7 @@ unsigned long inno_hdmi_phy_rk3228_clk_recalc_rate(struct clk_hw *hw,
- static int inno_hdmi_phy_rk3228_clk_determine_rate(struct clk_hw *hw,
- 						   struct clk_rate_request *req)
- {
--	const struct pre_pll_config *cfg = pre_pll_cfg_table;
-+	const struct inno_hdmi_phy_pre_pll_config *cfg = pre_pll_cfg_table;
- 
- 	req->rate = (req->rate / 1000) * 1000;
- 
-@@ -818,7 +758,7 @@ static int inno_hdmi_phy_rk3228_clk_set_rate(struct clk_hw *hw,
- 					     unsigned long parent_rate)
- {
- 	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
--	const struct pre_pll_config *cfg;
-+	const struct inno_hdmi_phy_pre_pll_config *cfg;
- 	unsigned long tmdsclock = inno_hdmi_phy_get_tmdsclk(inno, rate);
- 	u32 v;
- 	int ret;
-@@ -829,7 +769,7 @@ static int inno_hdmi_phy_rk3228_clk_set_rate(struct clk_hw *hw,
- 	if (inno->pixclock == rate && inno->tmdsclock == tmdsclock)
- 		return 0;
- 
--	cfg = inno_hdmi_phy_get_pre_pll_cfg(inno, rate);
-+	cfg = inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, rate, tmdsclock);
- 	if (IS_ERR(cfg))
- 		return PTR_ERR(cfg);
- 
-@@ -915,39 +855,9 @@ unsigned long inno_hdmi_phy_rk3328_clk_recalc_rate(struct clk_hw *hw,
- 						   unsigned long parent_rate)
- {
- 	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
--	unsigned long frac;
--	u8 nd, no_a, no_b, no_d;
--	u64 vco;
--	u16 nf;
--
--	nd = inno_read(inno, 0xa1) & RK3328_PRE_PLL_PRE_DIV_MASK;
--	nf = ((inno_read(inno, 0xa2) & RK3328_PRE_PLL_FB_DIV_11_8_MASK) << 8);
--	nf |= inno_read(inno, 0xa3);
--	vco = parent_rate * nf;
--
--	if (!(inno_read(inno, 0xa2) & RK3328_PRE_PLL_FRAC_DIV_DISABLE)) {
--		frac = inno_read(inno, 0xd3) |
--		       (inno_read(inno, 0xd2) << 8) |
--		       (inno_read(inno, 0xd1) << 16);
--		vco += DIV_ROUND_CLOSEST(parent_rate * frac, (1 << 24));
--	}
--
--	if (inno_read(inno, 0xa0) & RK3328_PCLK_VCO_DIV_5_MASK) {
--		do_div(vco, nd * 5);
--	} else {
--		no_a = inno_read(inno, 0xa5) & RK3328_PRE_PLL_PCLK_DIV_A_MASK;
--		no_b = inno_read(inno, 0xa5) & RK3328_PRE_PLL_PCLK_DIV_B_MASK;
--		no_b >>= RK3328_PRE_PLL_PCLK_DIV_B_SHIFT;
--		no_b += 2;
--		no_d = inno_read(inno, 0xa6) & RK3328_PRE_PLL_PCLK_DIV_D_MASK;
--
--		do_div(vco, (nd * (no_a == 1 ? no_b : no_a) * no_d * 2));
--	}
- 
--	inno->pixclock = DIV_ROUND_CLOSEST((unsigned long)vco, 1000) * 1000;
--
--	dev_dbg(inno->dev, "%s rate %lu vco %llu\n",
--		__func__, inno->pixclock, vco);
-+	inno->pixclock = inno_hdmi_phy_pre_pll_recalc_rate(&inno->pre_pll,
-+							   parent_rate);
- 
- 	return inno->pixclock;
- }
-@@ -955,20 +865,9 @@ unsigned long inno_hdmi_phy_rk3328_clk_recalc_rate(struct clk_hw *hw,
- static int inno_hdmi_phy_rk3328_clk_determine_rate(struct clk_hw *hw,
- 						   struct clk_rate_request *req)
- {
--	const struct pre_pll_config *cfg = pre_pll_cfg_table;
--
--	req->rate = (req->rate / 1000) * 1000;
--
--	for (; cfg->pixclock != 0; cfg++)
--		if (cfg->pixclock == req->rate)
--			break;
--
--	if (cfg->pixclock == 0)
--		return -EINVAL;
--
--	req->rate = cfg->pixclock;
-+	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
- 
--	return 0;
-+	return inno_hdmi_phy_pre_pll_determine_rate(&inno->pre_pll, req);
- }
- 
- static int inno_hdmi_phy_rk3328_clk_set_rate(struct clk_hw *hw,
-@@ -976,9 +875,8 @@ static int inno_hdmi_phy_rk3328_clk_set_rate(struct clk_hw *hw,
- 					     unsigned long parent_rate)
- {
- 	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
--	const struct pre_pll_config *cfg;
-+	const struct inno_hdmi_phy_pre_pll_config *cfg;
- 	unsigned long tmdsclock = inno_hdmi_phy_get_tmdsclk(inno, rate);
--	u32 val;
- 	int ret;
- 
- 	dev_dbg(inno->dev, "%s rate %lu tmdsclk %lu\n",
-@@ -987,39 +885,15 @@ static int inno_hdmi_phy_rk3328_clk_set_rate(struct clk_hw *hw,
- 	if (inno->pixclock == rate && inno->tmdsclock == tmdsclock)
- 		return 0;
- 
--	cfg = inno_hdmi_phy_get_pre_pll_cfg(inno, rate);
-+	cfg = inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, rate, tmdsclock);
- 	if (IS_ERR(cfg))
- 		return PTR_ERR(cfg);
- 
--	inno_update_bits(inno, 0xa0, RK3328_PRE_PLL_POWER_DOWN,
--			 RK3328_PRE_PLL_POWER_DOWN);
-+	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-+	inno_hdmi_phy_pre_pll_configure(&inno->pre_pll, cfg);
-+	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false);
- 
--	/* Configure pre-pll */
--	inno_update_bits(inno, 0xa0, RK3328_PCLK_VCO_DIV_5_MASK,
--			 RK3328_PCLK_VCO_DIV_5(cfg->vco_div_5_en));
--	inno_write(inno, 0xa1, RK3328_PRE_PLL_PRE_DIV(cfg->prediv));
--
--	val = RK3328_SPREAD_SPECTRUM_MOD_DISABLE;
--	if (!cfg->fracdiv)
--		val |= RK3328_PRE_PLL_FRAC_DIV_DISABLE;
--	inno_write(inno, 0xa2, RK3328_PRE_PLL_FB_DIV_11_8(cfg->fbdiv) | val);
--	inno_write(inno, 0xa3, RK3328_PRE_PLL_FB_DIV_7_0(cfg->fbdiv));
--	inno_write(inno, 0xa5, RK3328_PRE_PLL_PCLK_DIV_A(cfg->pclk_div_a) |
--		   RK3328_PRE_PLL_PCLK_DIV_B(cfg->pclk_div_b));
--	inno_write(inno, 0xa6, RK3328_PRE_PLL_PCLK_DIV_C(cfg->pclk_div_c) |
--		   RK3328_PRE_PLL_PCLK_DIV_D(cfg->pclk_div_d));
--	inno_write(inno, 0xa4, RK3328_PRE_PLL_TMDSCLK_DIV_C(cfg->tmds_div_c) |
--		   RK3328_PRE_PLL_TMDSCLK_DIV_A(cfg->tmds_div_a) |
--		   RK3328_PRE_PLL_TMDSCLK_DIV_B(cfg->tmds_div_b));
--	inno_write(inno, 0xd3, RK3328_PRE_PLL_FRAC_DIV_7_0(cfg->fracdiv));
--	inno_write(inno, 0xd2, RK3328_PRE_PLL_FRAC_DIV_15_8(cfg->fracdiv));
--	inno_write(inno, 0xd1, RK3328_PRE_PLL_FRAC_DIV_23_16(cfg->fracdiv));
--
--	inno_update_bits(inno, 0xa0, RK3328_PRE_PLL_POWER_DOWN, 0);
--
--	/* Wait for Pre-PLL lock */
--	ret = inno_poll(inno, 0xa9, val, val & RK3328_PRE_PLL_LOCK_STATUS,
--			1000, 10000);
-+	ret = inno_hdmi_phy_pre_pll_wait_locked(&inno->pre_pll, 10000);
- 	if (ret) {
- 		dev_err(inno->dev, "Pre-PLL locking failed\n");
- 		return ret;
-@@ -1418,6 +1292,13 @@ static int inno_hdmi_phy_probe(struct platform_device *pdev)
- 	if (IS_ERR(inno->regmap))
- 		return PTR_ERR(inno->regmap);
- 
-+	/* The PHY block starts the register space on these SoCs. */
-+	inno->pre_pll.dev = inno->dev;
-+	inno->pre_pll.regmap = inno->regmap;
-+	inno->pre_pll.offset = 0;
-+	inno->pre_pll.table = pre_pll_cfg_table;
-+	inno->pre_pll.table_size = ARRAY_SIZE(pre_pll_cfg_table);
-+
- 	/* only the newer rk3328 hdmiphy has an interrupt */
- 	inno->irq = platform_get_irq(pdev, 0);
- 	if (inno->irq > 0) {
+ #ifdef __KERNEL__
+ /*
+  * Line-based metadata formats. Remember to update v4l_fill_fmtdesc() when
 
 -- 
 2.34.1
