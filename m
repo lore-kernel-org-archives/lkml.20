@@ -1,108 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793934895;
-	b=Se+8P2pl0rro+YrXnmkVro7qRWArGph4tTF7Ho/CEOVPV1BMSpXbaZZWrqtsv4qI6DKF
-	 EN3Sp/NhIBUm6QR5pHppbpepvSB7WAGfpw1K6/NyvMuQahZ29kPzDqccjR7ROaKDwH6Cq
-	 z/fomjM7sdTfgurC9sI3FidCK9IaOzDUC51zrkPiJB/1LL48N/RJdNvB629nEgEAu9G2E
-	 PQRZ2C9+yI3y+Sa4M3nrgtRyBQjKz526LBrfYr8Uu+mkcAwazMDG/spy36IB2inaFCoS/
-	 JsXnmqVcHl5z8t7QUbPKq2sA+I3aJJlq6BbFu2hEFLBHeVKVcNn0uprqaOrJ6HAD+fA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934895;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wJj0oR2pSKsMay/M1e8Ih51asYPlBe9zasBmF6ztsDo=;
-	b=wt8KKlkZ9+WYlPDsLG67MOIuG12LqEE2Te3pdwknl8uNmQRaopbfan3TFBgfnx5ijdPQ
-	 e9cIp58SwuYU7ZiX1KE7n1VUP2hyQwTDxATC9q5oCq73Q5eEKTfm7KBBHuCCnxTc+w2eV
-	 AOIWfPHgjHGYkJHd8EEmhi848NGne1lzhBHSt+8Roipp2WPkQKipfXagpvei2PBoMm1rH
-	 2YZg/23rTfiOuf864qCDZP09+diKkRm1JMwA1h1PJ4i9E9YaTaJb/VU0IHkysxZO8+yY3
-	 WVE1zeLNOPmaCRiAB9bMG3rQK0h9kpwTVDAxAJDIMSgFcGPi1mB9C3U7CczCbQzeKHw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y2gj7zZJ;
-	arc=none smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.106
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793934929;
+	b=fLmmFl4csiX6P4ljl6xf3ubeK9aV4AU2hZcuvJ/EPfCPWhGAQhnUO/FJoByEUsJONk8t
+	 yLVcX18bOC+KRYKOxPxUrML+4juS+nhT83WH1TLMFenNYZs7Apgov2S6sOThf4l0aqoFf
+	 tQohWDmG1DjttnrCfKDp3e5YlAdsiHCk/7LwKtrZPD1wmIXHVPo4+s7sYwiNuP3QMr8se
+	 R5yJJDSdQ/eCxlPSorqzLpAFZsl6UoG/tLqIOwK3DJeI47NAn5vM+jvjnofID9KY69ltv
+	 RxoAC/z1m0q0sPLCRLKeqZSJMyCiElK/ftgM8C20Jg54KnUR7VWs24wEu50sJFcks+A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793934929;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=7rQdytvDsqHVy4X7k9Ar5sz//8F9PAiMyb4FMZqXv2E=;
+	b=O66pWntIr5eZASsmvUuqikwaOHkx1hDebHoi4eijhZrkN5QPLLM1Dh2+CLHdxjJ7l7vv
+	 gdcQssgT+dFQaKaoxkdndsirygfNzkc0aOdf2uSjMv3hGGQs3UYtj+fZFVW6u9XnafOxd
+	 oMprVoj7Kbr45fMOBprLfMc2aicUd/kobDFTYQ4nSp4M3/S4TuMho2K4VcUkFZImG1cmU
+	 MjASmqW7E7slfh/+PSZ0C6MYbTsqDCheXlIsawtkd4/rByT/UfAWm8cKYOL/HygQPHWmm
+	 MCKxlrviWqIqHquextKcPBungHsZc7XhFlP7Waqog4KZtwVUf/0VsGbdIFl44sR+Big==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=tn8SLTew;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.106
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023106.outbound.protection.outlook.com [40.107.44.106])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78DFD606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:14:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78DFD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB44E606A328;
+	Fri,  6 Nov 2026 03:15:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB44E606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y2gj7zZJ
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eafa528803so76321e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 19:14:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793934894; x=1794539694; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wJj0oR2pSKsMay/M1e8Ih51asYPlBe9zasBmF6ztsDo=;
-        b=y2gj7zZJ0s84u8Y3vAQA6OUE3k6+rRtGJ8LpvPBLcpePX2omhpXxg5HJV5wz5jodfw
-         6Zz9Ondu5uJBs0o0jaDhhgOVSCpujT6TiBFw1OBCN9+LBcZkhH11J2CltoZbCEj11ytS
-         tcSyV4q8ap42K0iPksccTp7UMzX6jMkZdygmrx+mgjw1tapU4z78oDH1tokeDA3dHFdR
-         HP4Kt6YqVDtbe9r7OwpsfRF/dIIJw9lPEqkPdWbw03xjxM/Dz3m9fMAwwj7n2mUeyrWI
-         65F5Gs01U4R0z2zvaup+YqCw+iU+jjjK3WjNHAXuMoKcK35Uuiyqlm/OKBtMPgJJaEQY
-         5BfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793934894; x=1794539694;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wJj0oR2pSKsMay/M1e8Ih51asYPlBe9zasBmF6ztsDo=;
-        b=FyKV+X1feqE0r3rSaMBMuJ6eFI14vPathVFm64KrMfJ8/WKWBDF16Ujfbt2JpLwx8z
-         pCm26y3SAFAZXYJa9uapftheBxGS3wDwBYAhdCJDn3zXrbQYeF0p43+p/puIIl9jSnpG
-         zP4zRi92c3NQPSiaz9+KoF1eXlPVrVZEUmalTAOxcrAzWRN3xIw3/dNE5zxEjRuNjlXV
-         4wQ1MOi24EX55kt6lm7EpMHDR2Q/A/LdDnGCaRGKSpmC8zh4Epjk1YBaha4JPJPTWvlP
-         Nsp2j3PKH3twntyPOHNM7epmlR6gdirwIDpflcpbeSx3/i8zLUbG3/ZRnwQjicCCwLTY
-         r0pw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+tYEcPW2j1pXxrWIAcmnbX2aZMoLn+hL0ySL/2ZnaNpERpVrlKBAdGt1zeD71vefYY1hECGYhYyog/CE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/tQcTKU9emJQPKXqWI7C9gfgeunwMqi8OK+kRiotz2N2RPBu3r
-	UigOZ695HUf7okw/3wDRniXGc34xd3ZZG0Z+crvGe4ZLAy3afT7rB0tP
-X-Gm-Gg: AYBFou2qYBUnKZtg6Tz2GwNN0rNT/kBpsC4wSJvR+47WQKLF/MR+rN4B2nY4ij/4TnK
-	dVsXKdvbTFezTA/IxQc7t03hGULc8XdIj0CRMHmPuhudPeLtzvNmnbCAhqKio+UinRZkPIlhpW2
-	ApqIx3mbA96Pty84EUcRSfAvh+SvsWvgIf3FIy0iAsS97A9kZX3AYYn/NlHbzAwMazkLk5yHUTn
-	KtwsVk1oyz6ZKlQ5sY/S+GemQZT0F0c/8DZbrioMfU4rdr2kVgu2ank5WBKp8/O29iwAi1iwpOh
-	vVURP5mu2XMgvtxy9y021dYP1KAKEFjsu/34X+cPJqecdE7Jj3accPu4CUTrC5Qy2xmDoi/KvgT
-	raetUNu3jLp6TJP2G4lcNiISlg/h6HT++iPMbQeOcK/g4ygPRXAoNJdy0BlXpn+V/dstzfvMdij
-	q8mFkdXitjHBI1gqshYW9PedpINSxUibTZq+3jYvgGrURMuTQ6/dBhdIh1F2bd5OOW0PNUKYjdo
-	8xFlvFQEdlnZoyll8DIiwr76ujPMgYXil//D2Z3W5j65r7OH4FwAykWp4cEGPBqu5+x+3x4qOmQ
-	wCG+M7IbApBDwJU4nczq+5ra9LNefTdqNecCP8ZbnjZ/IjH49mW7azqFVDBAewXR56k12uaSuAb
-	l03xLpnpooMBIHlMrLEfRi0ShIWEdwYaFp1VraOOBkdunVt4FMt/6Qj1GlEv7584NwZcS6eE=
-X-Received: by 2002:a05:6122:ec5:b0:5ea:dbae:3cb1 with SMTP id 71dfb90a1353d-5ecc4431e09mr715241e0c.19.1793934894431;
-        Thu, 05 Nov 2026 19:14:54 -0800 (PST)
-Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ecc64cb602sm473888e0c.7.2026.11.05.19.14.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 19:14:54 -0800 (PST)
-Date: Thu, 05 Nov 2026 22:14:53 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>, 
- netdev@vger.kernel.org
-Cc: dsahern@kernel.org, 
- idosch@nvidia.com, 
- davem@davemloft.net, 
- edumazet@kernel.org, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- willemdebruijn.kernel@gmail.com, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- yana06070@163.com, 
- shuah@kernel.org, 
- linux-kselftest@vger.kernel.org, 
- willemb@google.com
-Message-ID: <willemdebruijn.kernel.1e0038bcc3ef8@gmail.com>
-In-Reply-To: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
-References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
-Subject: Re: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK
- control messages
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=tn8SLTew
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Oq+Mn6+lP0HlvRR+yjpCB0TewnEHloqc8JWnShTrkwrVhKwxm+a3857tNPnI1xSPHMuY9k2dyDF/+vK26f6OB/npZKsmN5gPnvIwXmmsq1IV410SwRm7HlJPQEo/1DgV8puFPm8lSN1BZrE1EhoFyswZgc6Xc8qxIEF1hOqIe2fkv7dhUIHUuRAb+p5YXbacR7qwrKAXthwVhvMzlI6pxjfr0RYxmaNy4dNdI8shqjOA1k610AG/Ets7iIY81VfNbVqUWFnaerguBL/xJ5FGkFdN9IhZfmTIijZme9dIgj37SJ3mVrcX8AIqmUjbVq/ooJUyIv+JwXij0zRA6aZdng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7rQdytvDsqHVy4X7k9Ar5sz//8F9PAiMyb4FMZqXv2E=;
+ b=Wn789CciqmRZnw9PNgNwJmZI6I9/oKQSM0Kk+0xLa1PqQI1Tb+oZpTPWa9JCJMIcNTsss/y2qFnbEtdn0OdLwkAmSTxmptHlW6uVGSVvdHs9x0ZE0GQedrys8oJUlX7+VF5rwusqBdFtrd2Lubh226wq3Q9sz0yM2Ez5TrvvRZhxikspgQcx7aygNlGCKUu4X2Dl9OwSmv3ykA6WYBGMBbNw/TjHsU1qjoMdpGsS5/HLXX0hujBRnQLI7cPkrWm/h8QeX5o9Pb3Y3+4mYWkgpiam35N7rrHYKCIPwzvBjyxfGAWaF2wnx74nwow6s6BPwrS6+SM0O6xTpFPCEVuVxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7rQdytvDsqHVy4X7k9Ar5sz//8F9PAiMyb4FMZqXv2E=;
+ b=tn8SLTew5EvfNm2gkRJQdtsaCS6CRF6kbaYHKIRidLDu+RxNKejp96peJQOPZIvwDQEq35FSFom3KSk+kZafSlfyGnnplb2VGTuBZ+fNTKmvq7bvQohg1BO681tAKouE0SPFa7AyeHBxJQN0gqMx3qPVbIDOn8jjK2E61qOU1e7PwDwvHU43e0hVVNivjFdYsbwyiphh0/LFxD4QWWoFC0h3g1bjCgXn+gGCfO6kvo3dxy70ejkvohag/MD5aC8TrUaWaG1EXcbne9fiJE/YKtmzqKLN/SqkQMUr5w3V/bIK1MTLhU593c6spvsmCQvPX2GHFiRrKtKwwkYNAHjFOg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from JH0PR03MB9035.apcprd03.prod.outlook.com (2603:1096:990:7c::13)
+ by TYSPR03MB7941.apcprd03.prod.outlook.com (2603:1096:400:481::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
+ 03:15:23 +0000
+Received: from JH0PR03MB9035.apcprd03.prod.outlook.com
+ ([fe80::77d4:2931:4c4e:1cee]) by JH0PR03MB9035.apcprd03.prod.outlook.com
+ ([fe80::77d4:2931:4c4e:1cee%4]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 03:15:22 +0000
+Message-ID: <5ebaca7d-5295-4b0d-a6a2-0415d8db6f34@amlogic.com>
+Date: Fri, 6 Nov 2026 11:15:14 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/7] Bluetooth: hci_aml: take the address from the
+ firmware description
+To: christian.koever-draxl@student.uibk.ac.at, marcel@holtmann.org,
+ luiz.dentz@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192338.209574-6-christian.koever-draxl@student.uibk.ac.at>
+Content-Language: en-US
+From: Yang Li <yang.li@amlogic.com>
+In-Reply-To: <20261025192338.209574-6-christian.koever-draxl@student.uibk.ac.at>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TP0P295CA0053.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:3::8)
+ To JH0PR03MB9035.apcprd03.prod.outlook.com (2603:1096:990:7c::13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,146 +101,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: JH0PR03MB9035:EE_|TYSPR03MB7941:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53b87bb7-09cc-43b4-5027-08df3bb4316d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|261026121527099003|4143699003|11063799006|56012099006|261026140227099003|261021121427099003|261009223027099003|261022105027099003|261102123227099003|261028144727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XwIe7NbPojgnLg1aUXu9gv6Os28HJUz6wMMARApEJCgaT0qAjkmp0AzzpfpnNlLWK6/ONZOS8e1UDJfuJJT/qr8gJhOzMh4pLjFH67vyrMSQCZPEeuGSFvuj5Kt244jKBBIpsHetuJyDlMIRUZRpQ0Q3XqjLQluJXJBGgp1NgQSqORBeGtjMmo2eJU6X6dYHUcEGxQ6k5TJRRTb3LiCAgq++R7ch+yDSRDECuOqd2aAuwxtFt1G2m7PwSp1PdKgMvDJoNcagOetpJ3G3CtL93td5HLZ977Q7acL/FETbQFkWaWpjrJq6IM6OM0WaIVXRQCNdcW8G/Sy/7HikFoZZfATEIHfvkfp3tsKA8Z34R37ItLyVBmNW3A12H4pad2x9lsUPmhc9tJbWvkSJXKeVi0pXMCGg+ljp8Nuihscw0p+/CHHF0WTq4RdSbHGqqdnf/bLFu0pshuKXiZgh8WN3Ijcs+VHgdlxFMoexkSQhSg7Y3kIKQaq4zwHkqTp+sQKYvT0B/T6/XoK8L+iMDLdjlcccrQK7GSwYLCx6E6JhySlDaw/AyOn5htKFL3aT2ZSI78ww1354V66F/2g9ki0dWJ+iuIASzwPqkN4Nk2C55WMoMprZWp9iG1KQocc1kt8KVHe15bhpVDwR0Dz34dMcHlxWH/N8jpBlsX4vy7VvTv0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:JH0PR03MB9035.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(261026121527099003)(4143699003)(11063799006)(56012099006)(261026140227099003)(261021121427099003)(261009223027099003)(261022105027099003)(261102123227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WTdtRyt3cWdDWFo5RDdJbWpBRGNmQnNqTnFVcnNjTGUwUTZKVHNjVDN5WTRE?=
+ =?utf-8?B?d2lrRnpPbnJWZGltaHdlQmpxZTVqVWMyQk9ONUJJV0E0SWd0Zm5BTXJ2Y3M4?=
+ =?utf-8?B?akxpSXlUR2NFbWV0R0s2WkhrUDN3ZHlSeDZYcS96NWRzL2k4OENrb2lULzhO?=
+ =?utf-8?B?VDJTWGRCaXhSRnF3TEJqSkJ5dWRMQzVqYXVyeGVLUFZKcjNOVnFMbHAzMU9w?=
+ =?utf-8?B?RkVQS1NpcWl6NnhEdHBYV1g1RnpmRVFtbUk4UHZBRVR1RWpnMHNpZzdVSkJW?=
+ =?utf-8?B?MlV1dXQ1OFA5eWxvOXdjRFgyeEQwaS9hU2NKbWVIWmN3d3dKdkd2NnRJeTNp?=
+ =?utf-8?B?TE0vN1RNa0pWd1VxdG00UzVHMU9CQUx4Y1RmKzVJN1psb3B6c2t5R3I2VFdU?=
+ =?utf-8?B?N3IwSDIrZnhBYyt5Wm5VZ0JOL3pOaVZmOExJa1hDY21JYU92SDJ0MVdzTjZt?=
+ =?utf-8?B?cHZLdmJHRkFTeThWcmFndmk0TDVxYTBJaXVJQnkrWndPUHVKTWNnOWpOeUFD?=
+ =?utf-8?B?Lzhad0g1dkhhQlp6N1ZIN21IUnRqU25BbEtZMkNCR0t5NWlWdlB0RGdLcDE3?=
+ =?utf-8?B?UnRCVkZwYkxMVHFURTFNeElzdlhjRmxkS3RBa0JaVGtibEFzVFBUdTZ4NXZk?=
+ =?utf-8?B?bmhJYUlKWnNRMXZ6UzhITFJ3b3lUT1N0QVAwY0hyd2ZlTkNyK2cwMHlwdVBM?=
+ =?utf-8?B?emRwN2c4OGxDY21OOWpadGFKcEJOVHVOZzZLOFJZNFJaNXBOcW9ONHdOQTVh?=
+ =?utf-8?B?QUFZNUUwaVFwVC9ZLzIwQzBoZ1RXcHROTDJSQmpBdG05ZXY5c1ZISTNCdjZa?=
+ =?utf-8?B?U3JEU25pSW9ybWt1M0txdGJRYWpPTEh2VUZyUVNIQTF3eWpLMUM2US9na215?=
+ =?utf-8?B?cmhaVExpWEJ1TUw0NEl5NGxLVjh0cmI5d0NXYVdKbEFXQ285bktJeXB1N245?=
+ =?utf-8?B?czluR2VhaXJsV1JnRkdGaGtRUGdNYlBaVzg1Z05Uek1XSkVoWkppa3lKU0xt?=
+ =?utf-8?B?TjZrbWpoMjIvb0QwZWdlMnA3SzlPTHozY1JzZWhGQTdoMFJrMUNtdXFXUUtj?=
+ =?utf-8?B?TDJzZ2hMQ0VHeUVxUWw3SkNlb2trS0cyMitJZ0VQOEUxc0dzT1hJVHdxYnlj?=
+ =?utf-8?B?dlNUelZBVXVLV0xtSFJNQitQSkViYWZvOGVBMXlZWm1RWHJtL005T2dtdVov?=
+ =?utf-8?B?MUlnNFNVNkp6UTBRV09PcHMxY2V2TTdPT2ZQRkYxcFBnd0FpZk9GT2x5WXN0?=
+ =?utf-8?B?QlNaQlhJcjg5NVN4eWk0NndQcVZ0S280QVVIdVV2aFMyek9saFRrb2ZjWGhE?=
+ =?utf-8?B?VDFSaWlmSzRmRHR0MExjSUQxSlZQZkNpVm5mb3JuZWpwOUlhZ2oyak9vUXNk?=
+ =?utf-8?B?TmZkRzlMMWtiV1NsNUlKWGpSTnkwRkRScXVVc2d6NkpzalNNWUZpdUNzYW5B?=
+ =?utf-8?B?VThWeTFuMmZXU1hTN1hiOVpHZ3dSRGVpNGl0SEpGTjdIc1lYT29uNWQ1U3hN?=
+ =?utf-8?B?cW00RzBlL2w2TjEra3A2U3FQdnBrcFB3VnBsMDNKeHJBbXB1bUhiTGRzR2hr?=
+ =?utf-8?B?bVJsNVVTeGFMTUNoZGFQQ01rQlJYTjVDajNuVERTRXFhN1hFODNpWmhuUTJs?=
+ =?utf-8?B?clY5S0FZc3RzZk9LZG5SSWIvVmhmRExkZmxUL3YvMlE4aFpKVHhNdlBTeUJv?=
+ =?utf-8?B?N0MySGRucGU0S0xPazVSVzYxSDErNExhcThta1ZWUTJDZHphZ3dXUkJDN1lC?=
+ =?utf-8?B?VTVPYktIVG1Ma05JK2k0TmRmR1UzSGVZRzR0ak9ZN3d0WVp0VFptVnJZNHZy?=
+ =?utf-8?B?Um5BK1Q0cWJYY2tKU2kySVgycnlMVFRWbStoVUlLVlNHd0syQmFGUTV6TUll?=
+ =?utf-8?B?UjlmTmlmNllsMmJkcE4vNW9Na0NjVTlwcTlZM1RNNlBYNGkwK1NFMUxrZHlK?=
+ =?utf-8?B?WnJUaGk3a1kyT2x3aGhOcXNCNkw1TFRENWtxLzQvdE04SzB2RXByZFBMenli?=
+ =?utf-8?B?WUJnYWZ3SEU3WDg3M2ZEVzh5bFR5alFNQS9LTSt4c1ZTZGQ2T09NblNBRXVj?=
+ =?utf-8?B?TWUvN1dGNzlpSkEyRHFPdGEzQTNIaFpRdzFrTU1DSGt2YjB3T0tRcUVRU0R5?=
+ =?utf-8?B?eGRpUW9JQUV2d1pvRWh6cUlJOWNSUmU0azZJVTNnaG42bE1BdXlPdERqR01M?=
+ =?utf-8?B?U3BZWVhUMlcvN1ZaVW9WRzhwd1pMVzI4cUhWdW5PTkJHR2piclR1TlcrTWJm?=
+ =?utf-8?B?RDlVNnArRFI5cnJKN0N2RVdXRXBlbW0ySmxJdWV0M01Bb0xvVTE2blhhVlpV?=
+ =?utf-8?B?VmwzbVBGR0V4bUIwY1RJWGVEazBWb0pBdFdOZFRjZkhHbXJmS0k5QT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53b87bb7-09cc-43b4-5027-08df3bb4316d
+X-MS-Exchange-CrossTenant-AuthSource: JH0PR03MB9035.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 03:15:22.0865
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /JdKjd+C6TqA3HLPTfQRUt/q0xA3vMTXqOrZ67ciGiT3dSz1q8P5ZNoFVphjPwFlsy9Iz8NAZ+9FNUTjjhltDw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB7941
 
-Xia Yan wrote:
-> A connected IPv6 UDP or ping socket can reuse a route selected for the
-> socket mark when an SO_MARK control message supplies a different mark. A
-> packet can then bypass a prohibit rule for its per-message mark instead
-> of failing with EACCES.
-> 
-> ip6_sk_dst_lookup_flow() consults the socket dst cache even when
-> connected is false. That argument only controls whether a new route is
-> cached. The cache check does not compare the mark used for the lookup.
-> 
-> Record whether SO_MARK was supplied by the control messages, including
-> an explicit zero. For UDP and ping sends with that flag, call
-> ip6_dst_lookup_flow() directly. Keep the cache handling for sends
-> without SO_MARK unchanged.
+Hi,
 
-The extra cookie flag is unfortunate. Only to handle mark 0 as different
-from not set?
+Thank you for your patch!
 
-Another approach that may avoid this and simultaneously also solves the
-other inputs to policy routing:
-
-    IPv4 udp_sendmsg() avoids all of these with one rule: if
-    ip_cmsg_send() ran, connected = 0, and then sk_dst_check() is skipped
-    entirely. udpv6_sendmsg() already sets connected = false in that same
-    case. The only gap is that ip6_sk_dst_lookup_flow() ignores the flag
-    for the cache read.
-
-    Simpler and more complete: consult the cache only when connected, e.g.
-
-        struct dst_entry *dst = NULL;
-
-        if (connected) {
-            dst = sk_dst_check(sk, inet6_sk(sk)->dst_cookie);
-            dst = ip6_sk_dst_check(sk, dst, fl6);
-            if (dst)
-                return dst;
-        }
-
-Would this be a viable alternative solution?
-
-> The concurrent SO_MARK case was identified in the review of v1.
-> 
-> The issue was reproduced on UML with connected sockets and mark-based
-> routing. A separate test kernel paused the sender after it acquired a
-> cached dst reference; another thread then changed the socket mark to the
-> per-message mark. The old code still sent the packet. The fix bypasses
-> that cache path and returns EACCES. The 50 UDP/ping route checks and all
-> 54 cmsg_so_mark.sh cases pass with the fix.
-
-this can be skipped
-
-> Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+> [ EXTERNAL EMAIL ]
+>
+> From: Christian Stefan Kövér-Draxl<ckoever@outlook.de>
+>
+> When the controller reports the Amlogic default address the driver
+> marks it invalid, which leaves userspace to configure one before the
+> adapter can be used. The controller does not keep an address across a
+> power cycle, so there is nowhere else a stable one can come from.
+>
+> Set HCI_QUIRK_USE_BDADDR_PROPERTY as well, so that a local-bd-address
+> property, typically filled in by the bootloader, is used when present.
+>
+> Signed-off-by: Christian Stefan Kövér-Draxl<ckoever@outlook.de>
 > ---
-> v2:
->   - Replace the current sk_mark comparison with a flag recording whether
->     SO_MARK was supplied, and bypass the cache for those UDP/ping sends.
->   - Add connected-socket regression coverage in patch 2.
-> 
-> v1: https://lore.kernel.org/netdev/20261030141435.779302-1-yanxia@cmss.chinamobile.com/T/
-> Review: https://lore.kernel.org/netdev/179371875338.488856.4546363285391899557@kernel.org/
-> 
-> Tested on net cb284914e749388eef402938bdb3115fe1f6d337 with GCC 12.3.1:
->   - UML normal: baseline 41/50, v1 and v2 50/50; the same extended
->     cmsg_so_mark.sh has 2/54 failures on baseline and passes on v1/v2.
->   - Test-only pause: baseline/v1 retain the old cached dst and send after
->     the socket mark changes; v2 skips the cache helper and gets EACCES.
->   - x86_64 W=1: full vmlinux, bzImage and modules builds pass on baseline
->     and v2 using configs derived from allmodconfig and allyesconfig.
->     WERROR, KASAN and KCSAN are disabled; KUNIT_ALL_TESTS is also disabled
->     for allyesconfig. The unmodified configs fail on the same existing
->     GCC 12.3.1 Werror diagnostics on both sides. Derived-build diagnostics
->     are identical on both sides, including their occurrence counts.
-> 
-> 
->  include/net/ipv6.h  | 1 +
->  net/ipv6/datagram.c | 2 ++
->  net/ipv6/ping.c     | 5 ++++-
->  net/ipv6/udp.c      | 5 ++++-
->  4 files changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/net/ipv6.h b/include/net/ipv6.h
-> --- a/include/net/ipv6.h
-> +++ b/include/net/ipv6.h
-> @@ -353,6 +353,7 @@
->  	__s16 tclass;
->  	__u16 gso_size;
->  	__s8  dontfrag;
-> +	bool mark_set;
->  	struct ipv6_txoptions *opt;
->  };
->  
-> diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
-> --- a/net/ipv6/datagram.c
-> +++ b/net/ipv6/datagram.c
-> @@ -819,6 +819,8 @@
->  			err = __sock_cmsg_send(sk, cmsg, &ipc6->sockc);
->  			if (err)
->  				return err;
-> +			if (cmsg->cmsg_type == SO_MARK)
-> +				ipc6->mark_set = true;
->  			continue;
->  		}
->  
-> diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
-> --- a/net/ipv6/udp.c
-> +++ b/net/ipv6/udp.c
-> @@ -1693,7 +1693,10 @@
->  
->  	fl6->flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6->flowlabel);
->  
-> -	dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
-> +	if (ipc6.mark_set)
-> +		dst = ip6_dst_lookup_flow(sock_net(sk), sk, fl6, final_p);
-> +	else
-> +		dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
->  	if (IS_ERR(dst)) {
->  		err = PTR_ERR(dst);
->  		dst = NULL;
-> diff --git a/net/ipv6/ping.c b/net/ipv6/ping.c
-> --- a/net/ipv6/ping.c
-> +++ b/net/ipv6/ping.c
-> @@ -148,7 +148,10 @@
->  
->  	fl6.flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6.flowlabel);
->  
-> -	dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
-> +	if (ipc6.mark_set)
-> +		dst = ip6_dst_lookup_flow(sock_net(sk), sk, &fl6, daddr);
-> +	else
-> +		dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
->  	if (IS_ERR(dst))
->  		return PTR_ERR(dst);
->  	rt = dst_rt6_info(dst);
-> 
-> 
+>   drivers/bluetooth/hci_aml.c | 4 ++++
+>   1 file changed, 4 insertions(+)
 
+
+Reviewed-by: Yang Li <yang.li@amlogic.com>
+
+
+------
+
+Best regards,
+
+Yang Li
 
