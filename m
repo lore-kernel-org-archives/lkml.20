@@ -1,76 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979260;
-	b=lnaTK94z7pgmAhK8UXsdv3x3E9Jrxdbe5O2Y1VNru1im0BK6VRKgKAO72UGrwkctiiew
-	 ArT32ZvfsomquVRsC4+QkZl3gbCCvERx8U31+kWS68FCa5GaPTiPUCixgoJl7oGYJeiAp
-	 Ls9OWSY5bUcKYCqK8sQUI8uX4eApDoLaIHZ2sF3Sybq3JFNPGV03+M1v/E42f21iWLyv1
-	 zt65YWay1yJ4qK1xxev2o2E11NpnzlIYOv0eFfvHEOFdkKqr3/6gPXdmoIwuIjg9uky35
-	 nmOT1r4b0uBJ9SLM5mwBUdpVE4T2I4/8CmhU4N1RLSjlYKL5+PH5zrZxaW2+evQmJyg==
+	t=1793979263;
+	b=YMhkFr9yLP+IJ/5ZZG3ebjJEtbE3Mx0VbeHiHKvanp2h2NiDGWFXx6C13rV9qLOL3xZR
+	 wd0T03xIIXEJGXERzYnO/5EewDYfc7qyM5TlogvPnNCdD/dGeuvfIrPpXvg33/k2POY/5
+	 89eZ/Icft2nsKsI0uzdoiQLLl9vG92iPxVYc6Vn56rVFvYD7YjH3XxVnFb1o8nqzM3zOs
+	 hidQCNiowjGRK3z0d583J/mvY1GlUYd9Cd8/L/Mye5MRdSYsNCqxeX+H8sRzaOdMDRWWR
+	 ADhnNifsUM5TfL4fVRAZW86ik4hLMpOdySw5WJIjkaQMcntMO6XurNJtUzVCG7FjYcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979260;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3UAbQu4Zz7jM5fvfnVPIQRW8LGHO6T/qo7Hc+AehbY4=;
-	b=J3X7So5KD+7jGHqs3Mjp4v1mttHKVgm360ObcU5KfsHOnFiMJOhEIWBxVcyEgulIftgc
-	 /6GPDF8NkzKUpA+Imw/PxRRheG05oBQg+IB8tIIvBKogzqKLViw50QRqQ0Nh1uMKto5Pn
-	 zTVrgeBfJrdzR41JLYuMrqOXapYRR9qxGZZ7DEJGJi+9Z1u4/cfkvevUZ8lIHVCvfkCda
-	 wTUM2HiJUT3Wj0m8euFR1kegKnmAwMP9lQGXCRk9UEHTUVI1vVL5t2iv03tR80naHTi+x
-	 H2sTuNs0ec8ovNYDQA2jHnEm5KFbt5kEfrQ/m4Jm/66fKJvNrgNp66YxseMcI2PxlnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979263;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=/YxG2ZmZM2e9qBTSySrFx7lsy/MjifUIQN5iXXAUf9Y=;
+	b=P+szj8f+fBJCcXPdFdGiCTrPJLvfDlnhWr7LZIBg70mL/7bJJ0oSny12LEhOtn4WWBHj
+	 SokM6qqE7tcoJmGfPfP00I0FPQqzCTLfxCryOqK2Z06oO9y/+cUZFrEd5QAD3gE01g2Yv
+	 BQrzTsMomfdSkvWD25/CZeilG5IZTy7HCqJcb68aYlFzcjqLrAeIJm84XDHyaLDQczvNI
+	 9vs3L38YaTuX70zlD02DPCpocaP4AYOzoOKcTr4yzx/ahVPMzdweTpTJjDGkvkGTf7ZpZ
+	 Q/Sh/tRCznsEwPcWxSxTT4pVUIcXI2Yn26wd4htbRe7sbts9M56tMVUugWUcyyIgaIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VhokyNrA;
-	arc=none smtp.remote-ip=95.215.58.77
-Received: from mta1.migadu.com (out-77.mta1.migadu.com [95.215.58.77])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nwQSXUa2;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E41B606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E41B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0BE606A339
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:34:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA0BE606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VhokyNrA
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4IpYDm1JeTeVQryoSNRzjLLGuozzk6CpKr9+AhGJ6uY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793979257; v=1; x=1794584057;
- b=VhokyNrA9rO/IiddTY7Qj6x7ba7aZUn1FKhs7ajCtrOgaJAPnmZzejHHyYw4UfLOAiH5bxP+
- 4EWVftLheEtm70YmUWkm1Px7Rdi/ZpK1E+FLUi4G28bspY0FLOVM838t2GYXE+DcjLjAXlIXX6y
- nSKJFHy9h74g1jcO9X8vu3GA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 1c7542236927aa1f;
-	Fri, 06 Nov 2026 15:34:17 +0000
-X-Mizu-Trace-ID: 1c7542236927aa1f
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Hugh Dickins <hughd@google.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mm: free unused page table allocated by do_set_pmd()
-Date: Fri,  6 Nov 2026 07:34:13 -0800
-Message-ID: <20261106153414.2938216-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=nwQSXUa2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=/YxG2ZmZM2e9qBTSySrFx7lsy/MjifUIQN5iXXAUf9Y=; b=nwQSXUa2bxKpHSEVGdWaum6xXR
+	37cQdyep4RT0SyJtpDSFXQKFwmgnl/SHD3v1bS9x8dz+WfGChe4RZlQo6CMksMfLOQjOvd5WIf1Fv
+	FUY32LP0p9GqyFw4JkD6W6/tQouC6mOeunPW5U9N46Yj6ufJNgCch6IxSKxHVu8MbprY3loJygtuf
+	GNNwLKM9kOvePIQeF56CSSltpiSkeNjMUtU48twJPZEnvS4SBrpf84DwTK6sVYY9kCgaWiGoXJliK
+	hyW81dnLOPLA1/gIsMLFSc01fkOvYQ0v519R87UiwMiSJIHcPMnZLxLio1SfVs5EM0FId6L9Gyrqz
+	wdqi8GMA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xPLxA-009NnJ-1J;
+	Fri, 06 Nov 2026 15:34:08 +0000
+Date: Fri, 6 Nov 2026 07:34:02 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, baoquan.he@linux.dev, 
+	rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org, 
+	ruirui.yang@linux.dev, jbohac@suse.cz, david@kernel.org, hbathini@linux.ibm.com, 
+	kexec@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, kas@kernel.org, 
+	hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH] crash: keep crashkernel CMA pages reserved if activation
+ fails
+Message-ID: <au3zYIPmX8bvwjet@gmail.com>
+References: <20261104145600.3708886-1-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,75 +70,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104145600.3708886-1-usama.arif@linux.dev>
+X-Debian-User: leitao
 
-On Fri, 06 Nov 2026 13:36:12 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On Wed, Nov 04, 2026 at 06:56:00AM -0800, Usama Arif wrote:
+> reserve_crashkernel_cma() adds each crashkernel CMA area to
+> crashk_cma_ranges[] as soon as it is declared. If the area later fails
+> activation, e.g. because movablecore= put the ZONE_MOVABLE boundary
+> inside it, cma_activate_area() releases the pages to the buddy allocator
+> as ordinary memory. The range is still handed to the crash kernel and
+> excluded from the vmcore, so kernel data that lands there is overwritten
+> by the crash kernel and missing from the dump.
+> 
+> Mark the areas with cma_reserve_pages_on_error(), so that a failed
+> activation leaves the pages reserved: lost to the first kernel, but safe
+> for the crash kernel to use.
+> 
+> Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-> do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
-> deposited page table, such as PowerPC with the hash MMU. If the PMD is
-> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-> without consuming that table.
-> 
-> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-> userfaultfd operation can install a PTE table before taking the folio
-> lock. If that races with set_huge_pmd(), the unused preallocated table
-> is lost when its local vm_fault goes out of scope.
-> 
-> Track whether do_set_pmd() allocated the table and free it after dropping
-> the PMD lock if it was not consumed. Preserve any preallocated table
-> supplied by the caller for PTE fallback. Successful PMD installation
-> consumes the table and clears the pointer.
-> 
-> Returning without a preallocated table matches the existing behavior on
-> architectures that do not need a deposited table. All callers
-> already handle that case.
-> 
-> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/memory.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-
-Acked-by: Usama Arif <usama.arif@linux.dev>
-
-Reminded me of lazy pagetable deposit series :)
-
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index becf53a2a0944..421064aef3cf0 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5687,6 +5687,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->  	struct vm_area_struct *vma = vmf->vma;
->  	bool write = vmf->flags & FAULT_FLAG_WRITE;
->  	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
-> +	bool pgtable_allocated = false;
->  	pmd_t entry;
->  	vm_fault_t ret = VM_FAULT_FALLBACK;
->  
-> @@ -5725,6 +5726,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->  		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
->  		if (!vmf->prealloc_pte)
->  			return VM_FAULT_OOM;
-> +		pgtable_allocated = true;
->  	}
->  
->  	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
-> @@ -5755,6 +5757,10 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->  	count_vm_event(THP_FILE_MAPPED);
->  out:
->  	spin_unlock(vmf->ptl);
-> +	if (pgtable_allocated && vmf->prealloc_pte) {
-> +		pte_free(vma->vm_mm, vmf->prealloc_pte);
-> +		vmf->prealloc_pte = NULL;
-> +	}
->  	return ret;
->  }
->  #else
-> 
-> -- 
-> 2.43.0
-> 
-> 
+Tested-by: Breno Leitao <leitao@debian.org>
