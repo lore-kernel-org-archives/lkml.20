@@ -1,105 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793961852;
-	b=BAJaRTveNpFYqRe34cu/bf3fjdhWBu3Ci4Mbjhyo6BLrHTqagOzvccLY1/ICpp6Ia2+Z
-	 ZP0OxERmw/TTFXpObZHYJjwZSJwvXeL30AcuUUNmapO0+cu0yc9qiQrXFm9kfqRCMHEP9
-	 6b+Z2tfSTzkRirM4BWlwUk5dMa+RJ6jsirvlurpCJtowKxmzyDxZ2hqliqpsr3iJZ7TwK
-	 n08z6qQWfW44znoPoA/lOLF4zZZSRG8nC3/B+UVvjU1akdhSYjhA8bAxMnRwH7MQgtxDq
-	 X8bZbq8/e+miquQsRzGw2i7ylJk7noieW2X4nv5yInQNaM46Lvt9N+l2AS888Q6I6Rg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793961852;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=oTiRhwOL8L0AMD8du/ogqEbeV38LU+5l1kVkLLOBgZw=;
-	b=eEJxv3R0hkqJLyQu0eLn8S24zKIyKulfiwhsTGdrk//MQFeh8dYsihTIuMhjYP7YUTlY
-	 DQXk2KGE0VjL0LMPueNeVCDR8j81UjMwnH6/sYRVxtaFJvvWR+9qBRMr7N+j+9wcRRWS/
-	 QD26JNL7BXu5IXaohkRH5Sc+OUfEwAXhNyTXQvDf1XrFQOo+sql9lO1HDy57Rx+YcaZhh
-	 6+orNEU7QDy2FFClAvnGdarOoQW2NreIRGe8KeYDKesL61n5FPr6soNYQiRBmTcm4g1cU
-	 w7pt/pO5QYNHVXpl1VVCpqmujCcCTTvMQAIvZCYmAWqqzmXJnHpYs+kWu3DzLAi9Y3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iokpp.de;
-	spf=none smtp.mailfrom=iokpp.de;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=tdwUNit7;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=TcUF6uEL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.53
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.129
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793961909;
+	b=UoLxNMrj9t/N0SwFEupZR230LPGj/Q0wAQlbdMtpCA32mxa1nb8o2X25e/8xTQZ07bWI
+	 mfEP10fdYLeZC2Ware2kbe37He/Q8tYxeRi8/aAy6La76p7D39yCnh5ylxD2ddIvG52fq
+	 S29ecVP8uX/IDioBCBbiKyLXTVtm0MWwcw7rwIkYZziad5MJQxsT0qpDk13aFZaBqi9Kn
+	 52Z7PyUZkP44HV/UWnzKdLsDygdSUO2nb569JZloV2G7B5mWXy9Xq1s0IdJGcDhLVU1qc
+	 cQtKwoqIn2BLXwhNKfF6GDWs7z7ON0SMi9fPEPwA1C4y1/LZRN9L7QI9JT7thNLnpiQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793961909;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=mK5Jdfitjwy2qBnVXmB5t+/eIsoKS4R4I1jh8e8KWtg=;
+	b=z29cggOXMUbE5E97P1nWTPkVLLijVY8/+MBKZS4ImkTxESXPvj/Gf8Eq7IF43Z9X6Jvz
+	 bCyy+bP9w9yyi87UL4I83/w4hx/KnrLrmt80XZum1auXrmdTW/Jl0hJYIqW8HBcoqnyfp
+	 3mOwRFLJ039l1zoqZAnLgX/16PZfcyVMnoM8qu06jySxjqXWuIFOnL/Gc0IPT8SaeKCF/
+	 esZ6Bp8MBbxNWeyIV85EhsTZ3L0yQ8vdgXdPy0o294tv7ygG8MLecRv/ZGVO2LqPsiWo1
+	 iUlB8nv/wOVsrfTRcJ1s/NA9Y55u3euwRmi6ILQzGU9BEO67xmhcENjAH1mk3kKph8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFP2w+V4;
+	arc=none smtp.remote-ip=74.125.227.129
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6936606D809;
-	Fri,  6 Nov 2026 10:44:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6936606D809
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AD7606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:45:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76AD7606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=tdwUNit7;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=TcUF6uEL
-ARC-Seal: i=1; a=rsa-sha256; t=1793961823; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=VGupW5rfD4aEuBhuUODjXq1StMPbzSHwRvzDWgNtWFPKwa3sKZ4mWdvNL4+kfSUO2Z
-    ev2DSasbruGmEZwFkvpSgd77Dzf/FU2SGQeKRC3/Dlh1FpuBkdi6MxnHuCSytVnznO52
-    Fn7/JlMi9LT0wPeaNMxps1ltwDLOh7ceKBNzx4GIT8O77O6ztzEwDUoJbTH9Pr/L2TMA
-    78nrsDsBHDZeHqkGhB9yhz3OCNafMz0BqEho6LhRT1xnePkwlsuPlvcKGAWYJRo3h1+r
-    Iv4zAoIZcJTRkemIcjE2X2ERgtGFV5KuGcB6ljBHm2n9byvyitti90t76Tj+9Y7NtF3x
-    kh5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793961823;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=oTiRhwOL8L0AMD8du/ogqEbeV38LU+5l1kVkLLOBgZw=;
-    b=eZXFqVupWR1Ji7qxTBGIV1RQtxqBRbx1DZhQQpBWnB/Z3PsdLcYw3IsnmJwfKK3BoQ
-    f/HL++D0s8AQy4HFfKtjIbqNK759CCG0xwXdLD/ArDjNz5VawkOsodlRP55oWsjia4+X
-    NB8KdmRypc70gnVJ8wOXGFJ4AZ2uD+GcGSZfWUdqox4KUAZv0Sr19gVqJDk1eED+Vc8D
-    BWBYKPu2/JPTOSKzgUqmf9hfE/+Ch2kaKPFIWcq74HBrTgaTEl8fYKfMP5zHpST5qMYQ
-    xJvLuMf4VuclY1lxD+39EsZzxMyuZJrX8wKVKIk4zT2l8nPHJTIKbc6sBDHMD940PCE5
-    iZ6g==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793961823;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=oTiRhwOL8L0AMD8du/ogqEbeV38LU+5l1kVkLLOBgZw=;
-    b=tdwUNit7Opu3ks6K8mEhlULdqWlqZwPVIuI7b5AJ43z1pXfMQwlohT6M9kDn12TNnD
-    kq/uUboPg0bdJobTJTw9nSfxuU0V3A9by9vJBGFJ7jl7df+2qq4Oa4JZrffKYQY0+IVn
-    PWzcOeVkIzDWCb+5JVlPdHL0eWIkjoQUJK8vUAckD2qDJgu+CeDgAP61zLCYcOUH2kKE
-    2UnCZFBXXbLLbW0tMQu8zg0t33x7Q/sSX0qgtL+nUL8BLxN7zjRfwsFcTbo5ufXDFHK2
-    gr0PrbipvTV+puy/86TwtsJTRDSD9k7UduDR+n6QZqz+MDX8ySk+wJcMILHrOKLn0Rxg
-    bpvw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793961823;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=oTiRhwOL8L0AMD8du/ogqEbeV38LU+5l1kVkLLOBgZw=;
-    b=TcUF6uELeJ0vvRLwRnLnk+hkEyomP0511RJ+SILJiXZCJEa57IGTibQZsP1JHnPH5e
-    vNhI1dQI0eJ4E0vgJNDg==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaTpIu+r7SHz3oVvc+BBXFWWqpPHifFkxRYsbc="
-Received: from p200300c5872329ba1bf1a4d6a312338e.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad2A6AhgKnj
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 6 Nov 2026 11:43:42 +0100 (CET)
-Message-ID: <2e5f4086c248fddbd541d97dfe85ce594c0360c4.camel@iokpp.de>
-Subject: Re: [PATCH v7 2/2] scsi: ufs: mcq: poll OCS after sq cleanup for
- device management commands
-From: Bean Huo <beanhuo@iokpp.de>
-To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, jejb@linux.ibm.com, 
-	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com, 
-	hy50.seo@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com
-Date: Fri, 06 Nov 2026 11:43:42 +0100
-In-Reply-To: <a1af44cd90dca0dd8a9a06d09a254a4e7e0861b2.1793938245.git.kwmad.kim@samsung.com>
-References: <cover.1793938245.git.kwmad.kim@samsung.com>
-	 <CGME20261106041303epcas2p19b0c317d409503c833ae125ba91fe053@epcas2p1.samsung.com>
-	 <a1af44cd90dca0dd8a9a06d09a254a4e7e0861b2.1793938245.git.kwmad.kim@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFP2w+V4
+Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2ed408b0d0bso3264375ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:45:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793961909; x=1794566709; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mK5Jdfitjwy2qBnVXmB5t+/eIsoKS4R4I1jh8e8KWtg=;
+        b=IFP2w+V4jns0t4yYEy5GFCJrNcp9y71ad7pD++ZnOBHlKQctT+UyUxQcBDU8YViV9j
+         X4tmcb9ziENv/Bh7ir1qwdPfx9lTPXVZuB80HluQdBaN1r6aUl/6w4yYW5XjHJ9rw39y
+         ZRtowgsbzWkN9mCY6/oSPlcbeOQU0AHomUMjfv2CiGDrDjRPqoNTdI8FaYoLTYdFP2Ak
+         pzJAb/tt1X8tiZPYDImwjmPM8LkuYnshYIk8EgHCP/brvCh88/KWcua0BvQfMUeVsvjE
+         MtXSiqoew+qkr9lx3NZ/laHEBoEW7mzhGQXLEPzy+D2GXEERDkhEcjQxUoJilQsctZex
+         rlsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793961909; x=1794566709;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mK5Jdfitjwy2qBnVXmB5t+/eIsoKS4R4I1jh8e8KWtg=;
+        b=1dQ0eh5Zeq7ObGpVKpwSbWO62l7ZYHfoz3DAEkNfPbiMVargJIRr+p33VR82G8qF/K
+         2UZB4Qi3D9X4W8JpoSOw5gOXdXZNeWFE7QnUUu0bFJ6xwDS2WGv0QGccM3MgP4XY/T2h
+         ZpVmFpn5qfVHrymVXAMKtO0Xq7hUTNk1Eczk7bMfe4CogfgTynQam3ZP4QCOtIZxHfED
+         1hLOpBo4cLGadq/rYugKqITlItds5YkpJZEjaV4tTjauUmmu5TJDQk9s8TsPP9CKNL50
+         Ufp8pqu6YRyrD42VlasTLnyxWdjSJNWPxcHixDjmVHnw+sscpW4EgjCnhAQAGjpSjhm0
+         BoRQ==
+X-Forwarded-Encrypted: i=1; AL+hErEgwkxhdqO5QlmNNGRh8ksWOY9ilOghLLTvvz6HHXeRTIQJkO3BaRrZKdtJScZV4pJAngbvtHHgQwU7EDE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//OozgN1FjFcWc31jAPLvwCPgjKsk2rKpuX/l9qbps+DXNzyGx
+	aNcnvfjmGAbLPj8gn+rERV9DmAB1ESDA0JR/PN1rJdgz73nzluh1G6c2
+X-Gm-Gg: AYBFou1hCFO+wBqBUfqSdF/9SHPLVSgnGqKjboSSEe6L3R5Uu9FFbZPPq8ESg4ABMND
+	JjSbUfa9qpLOMzwg7Vtyv0IVWXG/3fPZSAWD4rEdXgHhg2rkLgHmsoYCx6xgmMuKRjjaFoR9c1F
+	G+xZyqUpBR40DL/5HawNLfE/2jtVxe//GPWKVgdflnk9vrjOmKEdC2/lERjIKftnFIrTizmn0G9
+	dSchDpuddwpCszxZYt7sZwzhBUIMaeetm7TiE0ykPv1LrnY/4c3eGCspQoAnFmZNRGW3EeJosWg
+	wzHY9BFHV39eEsAlmlpsVi441PtebsP7gl4v7opdeusodwaQpM8Z9BmzA/FO4bagWDFvDuO/yXq
+	0KRxd9qQm1usrhopeCXD32huh2X6/2NuvGnuL1jCr//Jf6XVs0lzd0fEerIZzDmEvPrzJ3t9GU5
+	GqHfcSbUpzrIwr4OnZaRJs/SGXrLoKvfAE4LK9LwpK9BLniUpXrZqALzoj0Pe8VkhOCJFUO8Z/U
+	rLuCwknzieCu+TL+l9MGRcguwuxGpQOLkHGS4E/OT9aZcqmZMBHHFB5CfyxCHKTtE9ttI9HFxq2
+	SEO5EAKOQyIz+gRHlfk9vEySO0Nv/w55pYxljfDST1oyGnb0hbCQg6c/3fM=
+X-Received: by 2002:a17:902:da87:b0:2ed:205e:eabc with SMTP id d9443c01a7336-2ed41bbd3d4mr26889285ad.32.1793961908564;
+        Fri, 06 Nov 2026 02:45:08 -0800 (PST)
+Received: from [192.168.100.182] ([110.93.227.81])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d8915esm4095755ad.67.2026.11.06.02.44.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 02:45:06 -0800 (PST)
+Message-ID: <c55c5878-d9c1-4863-bc55-99d334ba2ede@gmail.com>
+Date: Fri, 6 Nov 2026 15:44:50 +0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,10 +92,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
+ emac_suspend()
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>, netdev@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Yixun Lan <dlan@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>,
+ Chukun Pan <amadeus@jmu.edu.cn>, Siddharth Vadapalli <s-vadapalli@ti.com>,
+ Tomas Hlavacek <tmshlvck@gmail.com>, Muhammad Bilal <meatuni001@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261105123441.2524171-1-alitariq45892@gmail.com>
+ <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
+Content-Language: en-US
+From: Ali Tariq <alitariq45892@gmail.com>
+In-Reply-To: <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2026-11-06 at 13:12 +0900, Kiwoong Kim wrote:
-> Fixes: 8d7290348992 ("scsi: ufs: mcq: Add supporting functions for MCQ ab=
-ort")
-> Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+
+On 11/6/26 2:43 PM, Troy Mitchell wrote:
+> On Thu,  5 Nov 2026 17:34:37 +0500, Ali Tariq wrote:
+>> @@ -2056,7 +2059,9 @@ static int emac_suspend(struct device *dev)
+>>   		return 0;
+>>   	}
+>>   
+>> +	rtnl_lock();
+>>   	emac_stop(ndev);
+>> +	rtnl_unlock();
+>>   
+>>   	clk_disable_unprepare(priv->bus_clk);
+>>   	netif_device_detach(ndev);
+> This can deadlock. emac_stop() -> emac_down() calls
+> cancel_work_sync(&priv->tx_timeout_task) with RTNL now held, while
+> emac_tx_timeout_task() starts with rtnl_lock().
+> 
+
+Thanks Troy, that makes sense.
+
+For the deadlock, I think the correct function to call is rtnl_trylock() 
+inside the emac_tx_timeout_task(), which would return if the lock is 
+already held and will hold the lock if it is not.
+
+What are your thoughts on this? Does a v2 changing rtnl_lock() to 
+rtnl_trylock() inside emac_tx_timeout_task() make sense?
+
+Regards,
+Ali
