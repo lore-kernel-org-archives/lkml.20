@@ -1,117 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793983647;
-	b=FGcgDJEIvtxTywOtX5wDJQqojT+RrDJhu3SWPm60CUfZggVEozcgdXAczR5MwStAV9lw
-	 TZM4JVJpJtggq3uMhMeGrCzBG96o5iPkNXezGn6r/oHCIIJ6PW1YD8NREyEqoPaoactEu
-	 iGVQ7LgYxs9xiFOnILSUbad7g6qkvCg7xyvIaoosHdXLZzrDaSrRtEmW3xocgmq+c7Ndv
-	 oW1FJMq+/VZmvD7BqpMcCXTdSQvOWtunfOUM8aEU2TsYBOETcf8cbeI5SvoTbTY7/jovZ
-	 x9yKuodsbij82/MFOTO0znQHNDbyQbQ/Nnw9DhLhNtsOqAcFmh/tiiv2+hWE7ftrq0w==
+	t=1793983659;
+	b=zyaGl0p0xc69TcRMBiV2oc0wtTONd042NF0o06EcXUPjr1BcnAGZ5HoOJ3Oh9Cudm0b5
+	 FmrEmVWp6ffigOrpXOcdLtxeOJFbJGi03q6PdLKd5bynwYjeLIoUCBBBUy6/mSuvbgjgt
+	 Iv4IYjR1NQFNc+aAycT1t8qJxxQOKuIXJF8LFX0C1aWv2xtT+Y3zkvN+xLStNDIQ+4ZYd
+	 EdRMdkQnLxP/j20a5G+LGOOEz+74caHL4BM3pEDZT0P3VS+c94b/ogWHM5wBVlTyPObw2
+	 SvIQQ7DjN0t3DLRBMbPhjoM0AfBRgzlcqcaEZx40jkvmcgM7blKXgM1A/MsA0FQ82kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983647;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=wPWOls+GsP/LZWvFejuggf19NK8Hy8dSKnoByaWSWbU=;
-	b=USGPV8H5rEuFKKAVP/FO4eTpabR0a5kZb+jJr/qZinJGihiM3F6Vhq/Yg1FebJQjl8rN
-	 YKW9as7m/XcYm14P2NXyjOWQ2GfO/fFRIoieSon1KaiCZJuPjIcNC3EadO7DxOrolzZ+C
-	 bBdQK/A5KdV9DAtwK7gb405DXkUgybd+rLusvzs7ApAQoXcq0CiQc8T7+F366PEpvjkzC
-	 SjCTl2ytv/z2w0v0y9E6wBpy44Uk2XjCS6jwDNRMygnrWUiPC8Z1CUWmDUJBN/y7ybLvx
-	 U/yb+cRLe94UL3dVPxE8P0P8kAQlBtkrZ7K6RmhLGvT4tcvv6dDrjQnNIt4nXMVhUbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983659;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=zti4JuFLZG8tZuk4JJOYaWVhoy6VLoz9Y+1Og8ZFPPU=;
+	b=Hktu0EVi09Ehqvx7AJp9V3QHVJ+W+UQjqK/jcNiXY7GLqHTAS+b4a/AXIE1Y1OgA/8lt
+	 IS33qiXgp7iCUFdFxy8V+jeTtc928VLYYfaa8DKB5XAeKhvYhyasJur5Kt9R7Ts5wuSft
+	 mY1+0Ol7v2dEaBkPx+hZANZ2oLeyrFHG0l5qldbZQyKEUGBrm3XeH5A4lDs2aG6wPu74k
+	 xU8fBBDpZLBFlBJeWvZDdOHLxFhTgT/Y0PHxinGWMkCCT94iLHcFb63nRxj2pXybWB7Qs
+	 ENiWfApaEjANyt+V367aBcKDkLi0aPvICI8DjzNizwyHe3lCXcB0sTYLJ1/XdisGRyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="PxkzuLI/";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3G8zjDyi;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="PxkzuLI/";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3G8zjDyi;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EU+y8ts+;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2B7606A326;
-	Fri,  6 Nov 2026 16:47:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD2B7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5BB606A33B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:47:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD5BB606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PxkzuLI/;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3G8zjDyi;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PxkzuLI/;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3G8zjDyi
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B9E9F21FFC;
-	Fri,  6 Nov 2026 16:47:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793983643; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wPWOls+GsP/LZWvFejuggf19NK8Hy8dSKnoByaWSWbU=;
-	b=PxkzuLI/am9JnYTnTvuEijgDPYfeVBgSqbGO9O+MfngsRdJbzeo4biD6Plw7uupL+RkSYr
-	Hq4PezkwWHm8Dpu0ed6ywBjWd/rVb1h/Z2eDZ7IDZYVHxWLl2xSQ1CmK98wTvhGLERcOqE
-	zzN8n9ag1q/au621BObs+lVpZDXaLyA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793983643;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wPWOls+GsP/LZWvFejuggf19NK8Hy8dSKnoByaWSWbU=;
-	b=3G8zjDyiDhO0L5LiKBTyzfNc2Apd4rvaT59qMkS2k2mY0+P4MMnyI2VnRcnFe70HH1YDf6
-	Fs1bW31Ux15qoeBA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="PxkzuLI/";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3G8zjDyi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793983643; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wPWOls+GsP/LZWvFejuggf19NK8Hy8dSKnoByaWSWbU=;
-	b=PxkzuLI/am9JnYTnTvuEijgDPYfeVBgSqbGO9O+MfngsRdJbzeo4biD6Plw7uupL+RkSYr
-	Hq4PezkwWHm8Dpu0ed6ywBjWd/rVb1h/Z2eDZ7IDZYVHxWLl2xSQ1CmK98wTvhGLERcOqE
-	zzN8n9ag1q/au621BObs+lVpZDXaLyA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793983643;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wPWOls+GsP/LZWvFejuggf19NK8Hy8dSKnoByaWSWbU=;
-	b=3G8zjDyiDhO0L5LiKBTyzfNc2Apd4rvaT59qMkS2k2mY0+P4MMnyI2VnRcnFe70HH1YDf6
-	Fs1bW31Ux15qoeBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA6F3132C9;
-	Fri,  6 Nov 2026 16:47:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uO5eHpoE7mo4BAAAD6G6ig
-	(envelope-from <clopez@suse.de>); Fri, 06 Nov 2026 16:47:22 +0000
-From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
-To: akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: dave.hansen@linux.intel.com,
-	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-kselftest@vger.kernel.org (open list:KERNEL SELFTEST FRAMEWORK)
-Subject: [PATCH] selftests/mm: pkeys: wait for the child in become_child()
-Date: Fri,  6 Nov 2026 17:46:39 +0100
-Message-ID: <20261106164639.2959195-1-clopez@suse.de>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EU+y8ts+
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a59717b0c0so635093b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:47:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793983658; x=1794588458; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zti4JuFLZG8tZuk4JJOYaWVhoy6VLoz9Y+1Og8ZFPPU=;
+        b=EU+y8ts+c5IPNHBp7a/U5oL5cJJGNP6x78Zjw2VAaB5X5VijDh7NNxVGqF3c9JiMGT
+         M597ZT0+idqiWEcsSUPqWfWX5VEdcXMB+1S6rQ3POGjfAccdgZZsOERarQs/5bIEHZtD
+         /7SFGiNmgYdtCP1FpdiQQDXPOyr6gG9JFJaOKYo1nx4bQMeXKC2njLa+i0g1e5XL+HK1
+         zsqzw391h1iYcAuYhjjsupo0Qekkr95p50iteAee9eK9pbuxPZqj11DON/5gdgSiuRMc
+         j+8dK3jlA3j+i2ic9P712FZNTmECJ4Tux0JLHAITgnGNRy4qH7MUtM0qd66pGzTJoyhZ
+         Bk2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793983658; x=1794588458;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zti4JuFLZG8tZuk4JJOYaWVhoy6VLoz9Y+1Og8ZFPPU=;
+        b=07PrQeXI4cPu1RU+sTlDEiCNqhdSP++fifMZQk6zWjqf/ZE2Tu8fddkUDnDID6bvKJ
+         lnN3VjtWgdR0oy/vbnohVJAqouBoo916Ni+CwRIpvAHPFkgj7pkojHEG5lOzmkQkkLS/
+         ZnWRaRZ4DuFqdCbzwvvHYL28JoFgtSljAW9vaLStQLSw7xvhgtMRKlym+NAFOK6SBc47
+         qbSfXH0nM0uswPmn06HMsaYdWveNI8kxtz5+qnnNQEkcrqDcYDRFKR50SXGMyYQ8g4lz
+         Rk/88//7Jw4ms5GCFlpLcZLEMaikcZm0Ly/nnjlgmPZDwtoG37dA63YfuizG4StBDSwL
+         S1vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ+rOgJbo3jawgteR0BrOhqmsY06urr+9HDP1MT6WCjkZvnEdZiFzMzwOKY7QRZj6pqtahiSawtI4z5Ps=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82k8QPjLKJAyxmde2SwaoiBd8+tPZvcjMGythx8+BlG0PLfW/f
+	UNWep+VYTOYjbt9WIw6N0enIvpNo8qujtjZs2D6KgQ5t8FllznGw/Wdnxi9MMpwOfNZH45+abQn
+	QkoSV3Q==
+X-Received: from pfbfw6.prod.google.com ([2002:a05:6a00:61c6:b0:8a0:6a08:e927])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:140b:b0:8a0:3336:4b45
+ with SMTP id d2e1a72fcca58-8b37aa9f637mr3084436b3a.12.1793983657844; Fri, 06
+ Nov 2026 08:47:37 -0800 (PST)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri,  6 Nov 2026 08:47:32 -0800
+In-Reply-To: <20261105-tdx-selftests-v16-18-2024e8fa517a@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,105 +79,174 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: B9E9F21FFC
+Mime-Version: 1.0
+References: <20261105-tdx-selftests-v16-18-2024e8fa517a@google.com>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261106164732.3939387-1-seanjc@google.com>
+Subject: [PATCH v16.1] KVM: selftests: Add support for TDX ucalls, via TDVMCALL_REPORT_FATAL_ERROR
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sagi Shahar <sagis@google.com>, Lisa Wang <wyihan@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Ackerley Tng <ackerleytng@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-become_child() forks during test_pkey_alloc_exhaust() and has the parent
-exit, so that the remaining tests run in the child. However, the test
-runner only waits for the original process, so it sees the test finish
-early with a success status while the remaining tests keep running in
-the background. Failures after the first fork are thus not reported in
-the exit status, and the remaining tests overlap with the next selftest.
+Add support for doing ucalls on TDX by abusing TDVMCALL_REPORT_FATAL_ERROR
+to pass the address of the payload to the host.  The "fatal error" TDVMCALL
+is perfectly suited for passing information to host userspace, as both the
+TDX Module and KVM allow the guest to pass (almost) all registers to the
+host, i.e. provide enough of a data payload to make a collision with a real
+fatal error practically impossible.
 
-Fix this by waiting for the child in the parent and exiting with its
-status. A previous fix avoided waiting, arguing that the parents would
-keep holding their resources [1]. Particularly, the parent keeps the
-hugetlb reservation of its test memory, so the child runs out of hugetlb
-pages after a few iterations. Avoid this by freeing the test memory
-before waiting.
+TDX can't use port I/O, as the TDX ABI doesn't allow the guest to share
+arbitrary register state with the host on a port I/O exit, and the port I/O
+data payload is limited to 4 bytes, i.e. would potentially truncate the
+ucall address.
 
-Link: https://lore.kernel.org/all/20240419115027.3848958-1-usama.anjum@collabora.com [1]
-Fixes: e1812933b17b ("x86/selftests/pkeys: Fork() to check for state being preserved")
-Signed-off-by: Carlos López <clopez@suse.de>
+Alternatively, TDX could use MMIO, but using a magic emulated MMIO address
+is fragile (see the TODO in __vm_create()), especially for TDX since TDX
+doesn't support read-only memslots, i.e. doesn't have line of sight towards
+addressing the TODO.  E.g. TDX could hardcode the address to something that
+is all but guaranteed to be unused on x86, e.g. the I/O APIC base address
+or the HPET address, but that doesn't truly address the fragility concerns,
+and it's ugly because ucall_arch_init() would completely ignore the passed
+in @mmio_gpa despite obviously utilizing emulated MMIO.
+
+Use a simple flag to route vCPUs/VMs to the right do_ucall() routine, and
+take care to set the flag via write_guest_global() so that ucall_arch_init()
+is thread safe (in the *extremely* unlikely scenario a single test creates
+both TDX and non-TDX VMs *concurrently).
+
+Alternatively, a virtual function pointer could be used to dispatch to the
+correct do_ucall() via an indirect branch, but that has zero advantages
+other than making ucall_arch_do_ucall() look prettier, at the cost of being
+slightly harder to understand and making ucall_arch_init() uglier.  KISS.
+
+Cc: Sagi Shahar <sagis@google.com>
+Cc: Lisa Wang <wyihan@google.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: Ackerley Tng <ackerleytng@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- tools/testing/selftests/mm/protection_keys.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ .../selftests/kvm/include/x86/tdx/tdx.h       |  7 +++
+ .../testing/selftests/kvm/include/x86/ucall.h |  6 +--
+ tools/testing/selftests/kvm/lib/x86/ucall.c   | 53 +++++++++++++++++--
+ 3 files changed, 58 insertions(+), 8 deletions(-)
 
-diff --git a/tools/testing/selftests/mm/protection_keys.c b/tools/testing/selftests/mm/protection_keys.c
-index b7882ab97683..5dece144ab95 100644
---- a/tools/testing/selftests/mm/protection_keys.c
-+++ b/tools/testing/selftests/mm/protection_keys.c
-@@ -1009,9 +1009,10 @@ static void test_pkey_syscalls_bad_args(int *ptr, u16 pkey)
- 	pkey_assert(err);
- }
+diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
+index d41a1efc8a63..9982aaaba885 100644
+--- a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
++++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
+@@ -4,6 +4,13 @@
  
--static void become_child(void)
-+static void become_child(int *ptr)
- {
- 	pid_t forkret;
-+	int status;
+ #include <linux/types.h>
  
- 	forkret = fork();
- 	pkey_assert(forkret >= 0);
-@@ -1021,7 +1022,16 @@ static void become_child(void)
- 		/* in the child */
- 		return;
- 	}
--	_exit(0);
++/* TDX hypercall Leaf IDs */
++#define TDVMCALL_GET_TD_VM_CALL_INFO		0x10000
++#define TDVMCALL_MAP_GPA			0x10001
++#define TDVMCALL_GET_QUOTE			0x10002
++#define TDVMCALL_REPORT_FATAL_ERROR		0x10003
++#define TDVMCALL_SETUP_EVENT_NOTIFY_INTERRUPT	0x10004
++
+ u64 __tdvmcall(u64 fn, u64 r12, u64 r13, u64 r14, u64 r15);
+ 
+ #endif /* SELFTEST_KVM_TDX_TDX_H */
+diff --git a/tools/testing/selftests/kvm/include/x86/ucall.h b/tools/testing/selftests/kvm/include/x86/ucall.h
+index 0e4950041e3e..aca582bb2cd5 100644
+--- a/tools/testing/selftests/kvm/include/x86/ucall.h
++++ b/tools/testing/selftests/kvm/include/x86/ucall.h
+@@ -2,12 +2,8 @@
+ #ifndef SELFTEST_KVM_UCALL_H
+ #define SELFTEST_KVM_UCALL_H
+ 
+-#include "kvm_util.h"
++#include <linux/kvm.h>
+ 
+ #define UCALL_EXIT_REASON       KVM_EXIT_IO
+ 
+-static inline void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
+-{
+-}
+-
+ #endif
+diff --git a/tools/testing/selftests/kvm/lib/x86/ucall.c b/tools/testing/selftests/kvm/lib/x86/ucall.c
+index 38050c60a067..bb4a7215d9b1 100644
+--- a/tools/testing/selftests/kvm/lib/x86/ucall.c
++++ b/tools/testing/selftests/kvm/lib/x86/ucall.c
+@@ -5,16 +5,40 @@
+  * Copyright (C) 2018, Red Hat, Inc.
+  */
+ #include "kvm_util.h"
++#include "tdx/tdx.h"
++#include "tdx/tdx_util.h"
+ 
+-#define UCALL_PIO_PORT ((u16)0x1000)
++#define UCALL_PIO_PORT		((u16)0x1000)
++#define UCALL_TDX_MAGIC		0xabacadabaULL
+ 
+-void ucall_arch_do_ucall(gva_t uc)
++static void ucall_tdx_do_ucall(gva_t uc)
++{
++	__tdvmcall(TDVMCALL_REPORT_FATAL_ERROR, UCALL_TDX_MAGIC, uc, 0, 0);
++}
++
++static void *ucall_tdx_get_ucall(struct kvm_vcpu *vcpu)
++{
++	struct kvm_run *run = vcpu->run;
 +
 +	/*
-+	 * Wait for the child to finish the tests and pass on its result.
-+	 * Free the test memory first, as it may reserve pages from the
-+	 * small hugetlb pool that the child needs.
++	 * KVM_SYSTEM_EVENT_TDX_FATAL stores R0..R15 in data[0..15].  R12
++	 * holds the ucall magic and R13 holds the ucall GVA.
 +	 */
-+	free_pkey_malloc(ptr);
-+	if (waitpid(forkret, &status, 0) != forkret || !WIFEXITED(status))
-+		_exit(KSFT_FAIL);
-+	_exit(WEXITSTATUS(status));
++	if (run->exit_reason == KVM_EXIT_SYSTEM_EVENT &&
++	    run->system_event.type == KVM_SYSTEM_EVENT_TDX_FATAL &&
++	    run->system_event.data[12] == UCALL_TDX_MAGIC)
++		return (void *)(run->system_event.data[13]);
++
++	return NULL;
++}
++
++static void ucall_x86_do_ucall(gva_t uc)
+ {
+ 	asm volatile("in %[port], %%al"
+ 		: : [port] "d" (UCALL_PIO_PORT), "D" (uc) : "rax", "memory");
  }
  
- /* Assumes that all pkeys other than 'pkey' are unallocated */
-@@ -1060,7 +1070,7 @@ static void test_pkey_alloc_exhaust(int *ptr, u16 pkey)
- 		 * preserved across fork().
- 		 */
- 		if (i == NR_PKEYS*2)
--			become_child();
-+			become_child(ptr);
- 	}
+-void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
++static void *ucall_x86_get_ucall(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_run *run = vcpu->run;
  
- 	dprintf3("%s()::%d\n", __func__, __LINE__);
+@@ -26,3 +50,26 @@ void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
+ 	}
+ 	return NULL;
+ }
++
++static bool ucall_is_tdx_vm;
++
++void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
++{
++	write_guest_global(vm, ucall_is_tdx_vm, is_tdx_vm(vm));
++}
++
++void ucall_arch_do_ucall(gva_t uc)
++{
++	if (ucall_is_tdx_vm)
++		return ucall_tdx_do_ucall(uc);
++
++	return ucall_x86_do_ucall(uc);
++}
++
++void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
++{
++	if (is_tdx_vm(vcpu->vm))
++		return ucall_tdx_get_ucall(vcpu);
++
++	return ucall_x86_get_ucall(vcpu);
++}
 
-base-commit: 843c58022865a7b0f9743416c2b48bc2632da23c
+base-commit: 4aeb1c3931544fb3bb64397391c2e7153a81f824
 -- 
-2.51.0
+2.56.0.567.gdb80ae8cd5-goog
 
