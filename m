@@ -1,62 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793943333;
-	b=pOVTIeYRHF5UorIaSHE2trcGaJ/HGBmASBESk3D5NRlRGHMgYqe43C7Zv0bGgmJP2T66
-	 9ejI2xozVbwvKXLZPqyndL17TuLKbCueNMO1KgiRyB6kfxMT3wDXmzdGPtW/9tImdT0n6
-	 7XJ0bTE4JokesM/56bawTAiMPHIkQbag/4BU+atAjEyUC9LviCVzFSHvSgbH+TFGF9iJe
-	 bi/d7OcskoIUJs8gm96lEn4Nnr+SLKOSyHSXDOEbAlZ5iknzN1gjCxpovrVyFmhZLo/+r
-	 1zIXPz5Y6mTPjsZTG7iqt/T6zjpPby+6xrGmRohkX7YurUaxZ12vDP0769EEiMQpLeA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793943333;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=oR45jZ8MrDX685bi4FPGnx1DblWLTg6bSBZ2c8luTN0=;
-	b=R59ZVL03Qhmzt5tTqplqHMJhjJiZEvkzGPC/dzQmmoRyINnI/RtmhWdu9/AdKYuKi3RQ
-	 ur9tMbXcSBFtpM05By4kXlxETkbqWpG25ZelJeUWTOL3g3OvWGgQaRsO56PRBbLjh8XXO
-	 L0ySdS1dTDeU7YUqVuU714ptVmBRwFTIKXHPx0OQ5/JZA5PuVjPsRMYJx1uDo/ork1jWl
-	 1oXlZ0aK/gu/x8pUdmIu9ZJCbTb7+jwth8ddygPoTDolkZLOlG3L/NTVymSRX4LFCiRM4
-	 lYMBmM5X/B4thGnIYD8lB6x1uPCAdNF4covHAgWrw4izxqIMVhR2Vppm2qrvTwYlRkg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Miaq4Rb2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793943390;
+	b=Er/4AoKsbtdR7961FPYgVl/XAPVO+2Jc8WNAdtr1SGhn2kzSz0lbuNsb12D2oqLkmrYP
+	 v2e9mxvbbdY/gc2f9f/H2QDzxkVk5NsuE+gFCGR/x41IO6QTxVmetcmv8CWzzqBSQzHwS
+	 cPNx5Epm1dkYkWoaLx1oN7MKBznDxTjtAVTRrhQG7upd8PA8xM0n25op+PS5SLLTFdmuR
+	 sRTOOr2eOTh4i39w5ZgLnECuyqc6RiHK/1GuSoHE3iRM/bDqB2Z7D33MwuZarZbgnefjt
+	 hrYpcyG2DDZuuwpfjMnXdd1Wa8smRT5rTOfnuyktbRjqw5/oZP6R16SZElNhRO4/a1A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793943390;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=B2Xl0qwQ+HJfglChvJoCcSDLAUODoscudE1S8AAqSn4=;
+	b=X7kNm3NUNOJfiq5xYYRag8dXpjM1KNmde9VUAd/Vv6j1SyV3Br8lwnzFwECr8Ec0C83Q
+	 EfLdAzOyaXxTK/b0yWRVUIoue+rRXePhm98aemeJjX9TK/8gL4oUoi4z24z1cGdeR83ai
+	 ydbKHhv9R2b81P7dPQcd8QkCYoPnG4rBN02lmAQqFyKWoKZF+xGeYvlz0wrwfhORKGdZa
+	 aX8xa8DcQOlLtpAsNWsKcn2WXUf8FPulc7HLr8NQoWLMd4tXBP8Ljg96gq38u3Kacj9Qy
+	 i9Xw1hJMqSQs3wql03heQro2jvMEzZJo6g75qnS10IevAqGZMV3MxsJEfas9pL6vd0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kqvc0MGF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29F9606D811;
-	Fri,  6 Nov 2026 05:35:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875D1606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:36:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 875D1606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Miaq4Rb2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A43B1F00901;
-	Fri,  6 Nov 2026 05:35:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793943327;
-	bh=oR45jZ8MrDX685bi4FPGnx1DblWLTg6bSBZ2c8luTN0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Miaq4Rb2mGgS6lT2H44hAOqJDDsmBBA+39ZEtB1AfjnpSRjbXettBV74FvwKtL/Ob
-	 nZkt+hWyyzyWdy8Bu6s26oMAJzkEnQpmUmeyFnFofRpdzzr6qulaUERiC4BjZGjwS4
-	 H1dx0d5iQihaqxuBKDn5dk9JapnqyRd9vy3tF/udsD84IL+02QLy+cU877sd8qFben
-	 cgXN9uUqATj/4D9nRnxZEyyHrRTV9tLpEc/Gs18Nn1awr+21QGcN86nQrOULK88HBy
-	 qrKXDgT6pjgyPI5brUJ3qSNDk542vMg3tq07aFy/gsIHC5ltWHjKnRY3uGFMR4n0t1
-	 T0Z5QnKVykDVg==
-Subject: Re: [PATCH can-next v2 9/9] selftests: can: check SO_J1939_PROMISC
- receive effect
-From: netdev-bot+sashiko@kernel.org
-To: o.rempel@pengutronix.de
-Cc: robin@protonic.nl, socketcan@hartkopp.net, mkl@pengutronix.de,
- shuah@kernel.org, kernel@pengutronix.de, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- fmaurer@redhat.com, mailhol@kernel.org, alexander.hoelzl@gmx.net,
- quchaosheng000406@163.com, penguin-kernel@I-love.SAKURA.ne.jp,
- kuba@kernel.org
-Date: Fri, 06 Nov 2026 05:35:26 +0000
-Message-ID: <179394332621.488853.1609910990759756381@kernel.org>
-In-Reply-To: <20261104-j1939-selftests-v2-9-cf797c83317b@pengutronix.de>
-References: <20261104-j1939-selftests-v2-9-cf797c83317b@pengutronix.de>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kqvc0MGF
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b56c90b38eso2114a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:36:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793943388; cv=none;
+        d=google.com; s=arc-20260327;
+        b=e+PawVXVCB0yfUj4MfHDKNTKf39Si5RDBIOsmvQTpYlm/FRoISXqkWqym+u40oigrz
+         /wckgVZ7qy0HyKxK67AlptnsAjJK24J+U+H/9SjjMFoP/ACdeuVR3Bjq5J5/oagXTiBJ
+         ZvxH8bO8eoTWMzb0gVfnR0lWfbSFfSiHJgwOzSa5/ipMpWLyqG4xjjhHcdvtmFCI8ONZ
+         Pvb0ea3tBvYSfMMUWSUyucNSR7NkkaJPXmk4sr3jevxs1se9PVeKW1BfpBZAB+2Rv9uh
+         s3HJ6I/MOZWepor4MVTltad4rWmVED05nJt7U0hs/QsrkB2kaC2iZ9yviF2vEi3QGi4y
+         JUGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=B2Xl0qwQ+HJfglChvJoCcSDLAUODoscudE1S8AAqSn4=;
+        fh=AsCKxXA/CsEsZZPdV6AXAR2EL7L3ln9+lsJs/1/Fw9Q=;
+        b=aRPEppTfY1Mti9xFJqhsHiVI8P+3U7TqS6xK+klyo3SWX3I4BgmCwfKZxv7cJCT6dq
+         4T3ABMdhvDnW88yT+Cud6GeWRdAqCLu622sJoghJwHGzG5l87QV9roeyG08ZKZInFVWj
+         kU3iNjhWiUFu472J5uygLY6N9Q8H5/p+NR8xiKe+34vQGsN+z7jwdiSGJHAFbrPbeuoU
+         HL0MrTSrUCAqRfg0EElMu+uwaMeFtY2LWnhGeN2iZ7UGpfPPcbgfpc5YCkSHMBjKY//t
+         Tz6WQLJXBNSI3wYoBAtdN4OJCcP4LtSsV/KRvugYn5ktsALUzU2qXFeb4nm1mD8AzOao
+         hj3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793943388; x=1794548188; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B2Xl0qwQ+HJfglChvJoCcSDLAUODoscudE1S8AAqSn4=;
+        b=kqvc0MGFoFpVAj+E54Nk2wxEX1xKRGFhtJ1kqE+iQUCRYFBJVPbEPQcH5i37IpUoDo
+         vvwRCgA5RBv0wj2ya2+54CI3AefoA6N5RDa2AZNfcnmqQ8az51q9O8gaTKERYn/2hqLG
+         psPa6nPXukpRZ+1XnHiMy1/sx5BCC9C6zuOH2VLutLh/hChcXyAnfUZoJa/moBp/H35d
+         kpQW9srpcGo/qRx+l3+6aLN9FMznGb2xvKDS8jla9OLhGT8L728EY/QRu3dsNXNiWlT+
+         R0Zh67aamAJQVXhIIOA8+n/H8TWWbmhNn1y9JuifWBbgEencJM0SUs5wnFbixJ5Gae9W
+         WESw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793943388; x=1794548188;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B2Xl0qwQ+HJfglChvJoCcSDLAUODoscudE1S8AAqSn4=;
+        b=zGbAp5Jsz8GYwJimX2lGUzaOAllpDa0nISMoYvmqjHo/U+sQWKYOc67lCjx3YQp4pN
+         4nzR/LmogXP72IrrDxc9EIFljmPQ35Zylp0/BK8uK4W3H5kas8e/7G6YgCuQ/+YRRZ3G
+         rE4Qp+3Gc++nqMqXwBFJB3XfAIKdocBvgZnY43JQjB6ERjly7EUsUoJQ4ET0DfpQiEme
+         osh9HCc4LZOJEKdcbBwzp+YhpU6omny4HQkZwGQKyjHKfsYbJSLoWATSXQ7KFwZrzKi2
+         RGtJgc5bozfknGMTxlIjtm1O5FpKHvqHs4+sLckuLi42HB3QXUyh3YnI1ls2U9XBFGOz
+         vpzg==
+X-Forwarded-Encrypted: i=1; AKwUvBwH6IITA5mmWnEezCtnQ6SAlUOawTpyebbR/FkcpBkhSDZmN/PSPFKqFu30MdZGW2sQOU5bem/xQb/mJBY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GXzn441E6h6HXyqqrS8xVNcJcCKf/Z/tViXqyTvv+ZEXmJ6od
+	UAAZCAsRa9MvbRcWdLtwAUd4Vwfx1yT9YSUPXuNpQaQL3vS+O47ybykFPJzAtNjFFHQiPCnkov4
+	I9XqvY/BeRjmyAUxKwxAm1Tvc4eOKoZPt8UmvbNJB
+X-Gm-Gg: AYBFou0IOK2JlKemP5zxYZz8999BuC2eyjZECj+Vk7cHc6AOBthglOGlhGhNXFKRRvw
+	ehxKuYTkHT+khAYEUS+UgpPgjVM7btqbom4Tq/a/WttRKQn8EZxQpe2DlKKXGdSHvef6nsHv4qo
+	VzL2JEdVRAYfFMwipZSt0jGJpdpbiX2XJHPdtI7EuHnlqh8gzYPkJrx924lV63Fm4rhQg4Zs0Jo
+	4Zz5CVrsPp4nmw8fCnmieZBtOVsg19rH+X+xXS3MEf5mDKWnt1rw/T3/3N1YuOPyPpO7l0VedRF
+	BSUITjef2Td+cL1TmnaovT/NB+tTxFbVQk/iOL/iw7NRQV6tWzY61SAk1VyT7ZLbi9OYn2K+pM7
+	+CuujEHi8o/m9EY1YWa+k5y3ur9yAl67gufeurCwxJyR9N5m+aCuWlAbSaWs6jKnNiz5SMtna6v
+	N2/DU2b6S+LGCg+7MJH6Ff5++a
+X-Received: by 2002:a05:6402:1009:b0:6b4:597f:50ed with SMTP id
+ 4fb4d7f45d1cf-6b6e69f57c5mr9919a12.5.1793943387501; Thu, 05 Nov 2026 21:36:27
+ -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,118 +105,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20260930210750.1487547-1-chang.seok.bae@intel.com> <20260930210750.1487547-21-chang.seok.bae@intel.com>
+In-Reply-To: <20260930210750.1487547-21-chang.seok.bae@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 5 Nov 2026 21:36:14 -0800
+X-Gm-Features: AclHuK_U_9mpuiaWVuz8w3auJHuo9V9ud-NFm1xYXZaSVUoexqCjtHTFbrrgiRQ
+Message-ID: <CALMp9eRT-R18RT2iJLitYNYrqLn=qVFDdt1DYWHQbu20ks2Daw@mail.gmail.com>
+Subject: Re: [PATCH v8 20/20] KVM: x86: selftests: Add APX state handling and
+ XCR0 sanity checks
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: pbonzini@redhat.com, seanjc@google.com, kvm@vger.kernel.org, 
+	x86@kernel.org, linux-kernel@vger.kernel.org, zhao1.liu@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
-
-Low priority / nit picks for your consideration:
-
-- [Low] In TEST_F(j1939_opts, promisc_receive)
-  (tools/testing/selftests/net/can/test_j1939_opts.c), the post-promisc…
-
---
-
-selftests: can: check SO_J1939_PROMISC receive effect
-
-This adds a J1939 selftest that checks SO_J1939_PROMISC changes what the
-RX path delivers. It sends two probe frames, each missing either the bound
-address or the bound PGN, once before and once after enabling the flag.
-Only the frames sent after enabling the flag are expected to arrive.
-
-> diff --git a/tools/testing/selftests/net/can/test_j1939_opts.c b/tools/testing/selftests/net/can/test_j1939_opts.c
-> index 10d0e37984027..bbf2698de7d94 100644
-> --- a/tools/testing/selftests/net/can/test_j1939_opts.c
-> +++ b/tools/testing/selftests/net/can/test_j1939_opts.c
-
-[ ... ]
-
-> +static const struct {
-> +	uint8_t da;
-> +	pgn_t pgn;
-> +} promisc_probes[] = {
-> +	{ SA_RX, PGN_B },	/* the bound address, another PGN */
-> +	{ SA_OTHER, PGN_A },	/* another address, the bound PGN */
-> +};
+On Wed, Sep 30, 2026 at 2:40=E2=80=AFPM Chang S. Bae <chang.seok.bae@intel.=
+com> wrote:
+>
+> Now that KVM exposes the APX feature to guests, extend some existing
+> selftests to validate XCR0 configuration and state management.
+>
+> Since APX repurposes the XSAVE area previously used by MPX in the
+> non-compacted format, add a check to ensure that MPX state is not set
+> when APX is enabled.
+>
+> Also, load non-init APX state data in the guest so that XSTATE_BV[APX] is
+> set, allowing validation of APX state testing.
+>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> ---
+>  tools/testing/selftests/kvm/x86/state_test.c  |  3 +++
+>  .../selftests/kvm/x86/xcr0_cpuid_test.c       | 19 +++++++++++++++++++
+>  2 files changed, 22 insertions(+)
+>
+> diff --git a/tools/testing/selftests/kvm/x86/state_test.c b/tools/testing=
+/selftests/kvm/x86/state_test.c
+> index 4a1056a6cb8d..9727dbb2b981 100644
+> --- a/tools/testing/selftests/kvm/x86/state_test.c
+> +++ b/tools/testing/selftests/kvm/x86/state_test.c
+> @@ -164,6 +164,9 @@ static void __attribute__((__flatten__)) guest_code(v=
+oid *arg)
+>                         asm volatile ("vmovupd %0, %%zmm16" :: "m" (buffe=
+r));
+>                 }
+>
+> +               if (supported_xcr0 & XFEATURE_MASK_APX)
+> +                       write_egpr(16, 0xcccccccc);
 > +
-> +/* SO_J1939_PROMISC delivers frames that do not match the bound (addr, pgn). */
-> +TEST_F(j1939_opts, promisc_receive)
-> +{
-> +	uint8_t tx_buf[CAN_MAX_DLEN];
-> +	uint8_t rx_buf[CAN_MAX_DLEN];
-> +	int enable = 1;
-> +	size_t i;
-> +
-> +	fill_pattern(tx_buf, sizeof(tx_buf));
+
+Nit: to match MPX and PKU below:
+
+        if (this_cpu_has(X86_FEATURE_APX)) {
+            GUEST_ASSERT(supported_xcr0 & XFEATURE_MASK_APX);
+            write_egpr(16, 0xcccccccc);
+        }
 
 [ ... ]
 
-> +	for (i = 0; i < ARRAY_SIZE(promisc_probes); i++) {
-> +		ASSERT_TRUE(j1939_sendto_ok(self->tx, tx_buf, sizeof(tx_buf),
-> +					    self->ifindex, J1939_NO_NAME,
-> +					    promisc_probes[i].da,
-> +					    promisc_probes[i].pgn))
-> +			TH_LOG("sendto probe %zu failed: %d", i, errno);
-> +		EXPECT_EQ(recv_timeout(self->rx, rx_buf, sizeof(rx_buf),
-> +				       J1939_NEG_RECV_TIMEOUT_MS), -1)
-> +			TH_LOG("probe %zu was received without promisc", i);
-> +	}
+> +#define ASSERT_XFEATURE_CONFLICT(supported_xcr0, xfeatures, conflicts)  =
+               \
+> +do {                                                                    =
+               \
+> +       uint64_t __supported =3D (supported_xcr0) & ((xfeatures) | (confl=
+icts));          \
 
-[ ... ]
+Nit: u64
 
-> +	for (i = 0; i < ARRAY_SIZE(promisc_probes); i++) {
-> +		ASSERT_TRUE(j1939_sendto_ok(self->tx, tx_buf, sizeof(tx_buf),
-> +					    self->ifindex, J1939_NO_NAME,
-> +					    promisc_probes[i].da,
-> +					    promisc_probes[i].pgn))
-> +			TH_LOG("sendto probe %zu failed: %d", i, errno);
-> +		EXPECT_TRUE(recv_verify_ok(self->rx, tx_buf, sizeof(tx_buf),
-> +					   J1939_RECV_TIMEOUT_MS))
-> +			TH_LOG("probe %zu not received despite promisc", i);
-
-[Severity: Low]
-Can this check confirm that the message it read is really
-promisc_probes[i]?
-
-tx_buf is filled once by fill_pattern(), so all four frames carry the same
-payload. recv_verify_ok() passes src = NULL, and recvfrom_verify_ok() in
-j1939_tests.h only checks the length and the payload:
-
-tools/testing/selftests/net/can/j1939_tests.h:recvfrom_verify_ok() {
-    ...
-	ok = n == want_len && !memcmp(want, rx_buf, len);
-    ...
-}
-
-This means a stale or duplicated message in the rx queue can pass the
-check for a different probe. For example, on a buggy kernel:
-
-1. The pre-promisc probe 1 ({SA_OTHER, PGN_A}) gets delivered after the
-   300 ms J1939_NEG_RECV_TIMEOUT_MS window, so the
-   EXPECT_EQ(recv_timeout(...), -1) check still passes.
-
-2. Post-promisc probe 0 then reads that stale probe 1 message and passes.
-
-3. Post-promisc probe 1 reads the real probe 0 and passes, even if
-   promisc never delivered probe 1.
-
-Both the leak before promisc and the missing delivery after promisc would
-go unnoticed. A kernel that delivers duplicates could hide a missing probe
-in the same way.
-
-Under normal timing this does catch the regression the commit message
-targets (flag stored but ignored), because every post-promisc
-recv_verify_ok() times out.
-
-The v2 notes say the test should "check the address and the PGN filter
-each on its own". The kernel reports the PGN in msg_name, and the two
-probes use different PGNs. Could the post-promisc loop call
-recvfrom_verify_ok() with a struct sockaddr_can and check that
-src.can_addr.j1939.pgn matches promisc_probes[i].pgn? Giving each probe
-its own payload would work too.
-
-> +	}
-> +}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104-j1939-selftests-v2-0-cf797c83317b%40pengutronix.de
+Reviewed-by: Jim Mattson <jmattson@google.com>
