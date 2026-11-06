@@ -1,88 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964616;
-	b=OUcJNhWdg9lFIINXu8Pf2wU0Olk9CBt8FjIVHKMNIhumMD8qLzvu1n2djbBkSP16sU2F
-	 LIKMYzdVSacnhrw1a+npedLrYEMn5xSDWghMbiT1MeR8JqFYe7N9qKxnNc14LTYlbTSF5
-	 phevPQbhXdLK6j+AYdPotbHLTLgyQd2UCMebsTiG6K0lj/RkQCqXja7uNi6OH2HwCKl9G
-	 pQoPUoUO7IU1RW3KgdvPUNDOV4HeB5AufedD5OpOqJ0nUSNW9Ugh3BZSsNaGBmix3Djkl
-	 5DUyciDA1mM+elEebY0Q2WjRNFzPRWJ3jX9ngDG5bhllIr3D0gGJY1b28t/tLxVrgXg==
+	t=1793964621;
+	b=31u9n6+fCcVF/7PWkz+rNegJMlXpfurtsskIA32ARmvgDjIaOkawklj7U3r/ZF+6RslZ
+	 w34JGTRWaMx/4L0Fngbo5Swrs0Vvbb7gOU5zMYqfo2JO8ftetFiuZR+M5Jr4z/kN17yb6
+	 M61KhNbpWo0AwyDZeB7fW+FEiQmlUDd5p8pqglMzMSqgs1/26AUPzqfp96awN0Bkd9JkY
+	 7PZqO1SBp4+ZSuuFI405XuKB+9pmtcXU+pLFEDlugMxUi/a+tWD72RhybEiGYOC0zMRtd
+	 9ke4HBQ9lJEcYZ5yfMHW+pYyigw+DKOP+efH9L+a+CbnR72D93LhaUq87oaH7fxsSaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964616;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=I9u+1gPJ7RC1FD5Cq1A3nqgz7H8YeuGoMr0x60qRtl4=;
-	b=JYzbusKN5RimGCL6hH+TRnvHrFSuocO6lXJsBqqTJkosl6KAuBTypcE+l9vzMZ7uymhR
-	 dx/KoRW1xnKeutzlcHxOvjX9aAyOIVvquY68m3ErHG2VjvqVYmDkjTQpkkAiAk/pjmURu
-	 tiiXj/+UQiOuMryS5f1Txhh44sXNIk0STB3roOVIJZ9UD0tUQJRGm8Bij7QZJCfD+XnyL
-	 VQiREhzwlfjdoE+NKJxy8ZxvzXLD9A77Cjv7jAgECna9tjNZzlTzBY7k17mBao96xUvDB
-	 b4SXvp31jf0OTQRfvyuwaBYeKoJ1nAdxjjkMrnB93OIAsZM/0C1nNGQ+LUhm3Q8it/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964621;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=t10Ya2aUc/aUld7ozxXDBZbEBpBup1HZ/u7PW1HDHCU=;
+	b=BNDUT+tc4sHvwiaarqVNUF+cdMB2AZTf0WCuEUHPTQQVupV5MYG0p50vx777ZAWi/iv/
+	 WYOgS+ISUqiYibVeBMG5QkfqPcUahP0FHyULT9zAAUg+myzAsWlVPgWq5O3LJe2vvPuNY
+	 4JT49vnlbRn2vPVQg+6pKucDI/fFJfchOI/eDJg8SMzt2wrpcqJxN8AYQxZNIbBgTMb3x
+	 jl5JZJW0Y5J6IcIHRXiWMJCxxemIyHaXrf88Mnb/hfCZBnmB+PtZmZb47ZQeNF4lPAS3A
+	 9hDmbx1NdAnSMg9lLEu/GzKN8baP6542ansAWpygwzpTfRzkd22MveUsBSEjACEgrJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VMFFsHQy;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=FWeHtxUB;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EeAMtGwp;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D139A606D81B;
-	Fri,  6 Nov 2026 11:30:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D139A606D81B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1DD606EE8D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:30:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A1DD606EE8D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VMFFsHQy;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=FWeHtxUB
-Date: Fri, 6 Nov 2026 12:30:11 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793964613;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I9u+1gPJ7RC1FD5Cq1A3nqgz7H8YeuGoMr0x60qRtl4=;
-	b=VMFFsHQytI6ikZVFcZNI7JeYZPL1Gs9ZpQtcJowxramnxFu/cG+jJ8c3ozvb/sKTm6LqVn
-	SGYXzIheDlRepx0gYXWH48Ph3hVMMx27dmjb1bgxgjqVXKvy93GIC3VgAIkCIXmUS/bE4A
-	xuqnqwqEXwp1Y9bpWWM65qe5LszYubnZ8WrEKkh1Q+ZibH6iToqQlGnI6eAS3YPPuGrfOH
-	+zl0PqELSOsn8W7k/KPccuNmNJM5+/iZiRsxFgSVtT24uA/zJc1adC4MFH+lORezLxNt75
-	SwUMLB9RdnBgjiiHClTqdaSRxTJHOkfdiNgg/lib2H9m089uUrvwdSxTcma2OA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793964613;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I9u+1gPJ7RC1FD5Cq1A3nqgz7H8YeuGoMr0x60qRtl4=;
-	b=FWeHtxUBwziq1HFhfkWljmCdgpXsG7hw77f3rCpr8DJRqvVjpfkbaAk1Lk+JbN4kdf+FFY
-	Z836C5qhZA6/+zDQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Tejun Heo <tj@kernel.org>, linux-rt-devel@lists.linux.dev,
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: Re: [PATCH] sched: Remove CONFIG_RT_GROUP_SCHED
-Message-ID: <20261106113011.B7YxCMJS@linutronix.de>
-References: <20261105164724.yxONBd03@linutronix.de>
- <auy6nyTUuHBlgrV_@slm.duckdns.org>
- <20261105193010.tXUDDu2w@linutronix.de>
- <20261106105003.GU1813469@noisy.programming.kicks-ass.net>
- <20261106110435.5MWA_4Hw@linutronix.de>
- <20261106111213.GG1779021@noisy.programming.kicks-ass.net>
- <20261106112158.-VI88lZb@linutronix.de>
- <20261106112454.GI1779021@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EeAMtGwp
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso278215a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:30:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793964621; x=1794569421; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t10Ya2aUc/aUld7ozxXDBZbEBpBup1HZ/u7PW1HDHCU=;
+        b=EeAMtGwpBQE/MsPSHuBjd9rK5sedGjxaK+JplNCLQAs5sGBpNugqDUU9nMf+BhoRg7
+         dw7B0flZSomIHxRDI3rDFlUtyTMuoLwpevBUEIdQioa3SCHvu38VdMy8isA8W2H8gs+u
+         jjCEs30gHTFzZi4gVCwNkqQ501deMFPGumG+vZy04cMS7J85QDN0FdFYGBKgjTATHiCO
+         L9lY8VXCeHpt9fTfoaHj121VqhTUDnaLAxhSywnWcHkLeFX4Fmoh/9Ayd7G3wJBVu5PH
+         qv0eyPQqXcVcW+dDfRkitc5nZHNg/nwq2lKny/PjTeualUp98k9+u8x9EPAeFzCdqtX7
+         itMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793964621; x=1794569421;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t10Ya2aUc/aUld7ozxXDBZbEBpBup1HZ/u7PW1HDHCU=;
+        b=2OvE5nxiX0kZ+sjUCtpOnXkdttdKeiACegUIORuHjDxRuafylc/CPC9Vdz/QcTKXQB
+         fAkIaKN5gnfzXCUVXLFIZU7EcLySkMIJ2sPCcOpinktvul+TxMkVZQl8o6pqMtwjgg6S
+         9wtUjoJznb3WnaK8tr1sKMfwtS2Xd+opaYie3lSUySGfik92GtZBqNsr4WwqzRsH9BcC
+         ntxorKTycfFx3NNmpseSwlPDPRWiL1FeQsxryBKSBL/p5TzCq/+mZvOERkEeOn5AbqAV
+         TGBpiw+JveLAi+1eOe1RRK5KXJpzHfANv3GC/gEZGE70uQKSS4EBYITRLg0caTl5NlUh
+         pvbA==
+X-Forwarded-Encrypted: i=1; AL+hErEqoL+bPUJxkbOyzYgMRkuNSeKkvQj7bzwYXjxc/aPPtjGymIr8ZBmaFvKwxC6DjSVuj8d41F466mV6Xkc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TQKjCEMH7nbU/CdvWSow/A+yDWZqcMifvp8+xLIXkAxFnv+8M
+	amqr3yVkkvZYwVfwMp3Lrs7pRvK119+XJ5BtPe4piDZDMvma+tlvkJpJ
+X-Gm-Gg: AYBFou1e0hfFvYLe71ec+2ppCzUNSyeoGGve+RmRy/5OPiwY6MIRQRFEtt20f+YhqwW
+	H4tiKCnkhcYDOHGS/cpNwBBzS+AigLgcnUDq6og2mjEmb5/3MuNNPwql0264YxdYO52/gsSDOAn
+	DDg/b5zxHJS3RBMcyevVeC7w/rO9j1qj+JWIs7titD1RjAHR8tF/pOW1AWEQtDFPrDmUK9HHHgd
+	MecfqOdUe7zt/advoK+iWm5s01j/oGzKyaKm6vCQjTlyYG1SxqSXVeHLQo0wJrGy/PY4EK2dFzk
+	CpPacKYMU7Y3BOXe8jWPdtPCjrG5gjbDTk9lQQa9Krs88mZsVs65MTC4tCZgFVIJM2+GLsrk5Kd
+	WP8YM+5AnZaSvQZCNWJXULRlutr2sjb5WbWpxd6kVxh68xGCpqgmzhdI2YUL1nulqJSOhzDg/Dy
+	qEJ+sYazWimd4J8+6H5gdTWq58GrPYt6iAmZebRCRcriVWo5WOir93qo1L6IRIpVAgIzqf7qA0/
+	HeSJPEKHGPH7gmwV8dzerOsZSMPixh5IvI8Ya/l7vN15IctFOeDYRfwbzPTc2e1yJ8MyMmNe8u5
+	RKkqm7+uvz0LYAzPaUVI8mI0DMRUScPjt2XOND8UwgbOIvR9e4Wk6AqXFaZfv693MJKdogQUqha
+	PSxoJzQz6L7r3zy+vgJL29318jleKyVss6fIEZJDwZ+Em
+X-Received: by 2002:a17:90b:5545:b0:3b0:9691:a240 with SMTP id 98e67ed59e1d1-3b0db6eb3a2mr2106117a91.47.1793964620615;
+        Fri, 06 Nov 2026 03:30:20 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb70aa6ab9sm479228a12.27.2026.11.06.03.30.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 03:30:20 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Andrew Jackson <Andrew.Jackson@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Xingyu Wu <xingyu.wu@starfivetech.com>
+Cc: Tim Bird <tim.bird@sony.com>,
+	Yuri Zaporozhets <yuriz@vodafonemail.de>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Maxim Kochetkov <fido_max@inbox.ru>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 1/5] ASoC: dwc: Fix bit clock rate in TDM mode
+Date: Fri,  6 Nov 2026 18:29:36 +0700
+Message-ID: <20261106112940.53550-2-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106112940.53550-1-phucduc.bui@gmail.com>
+References: <20261106112940.53550-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,14 +108,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261106112454.GI1779021@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-06 12:24:54 [+0100], Peter Zijlstra wrote:
-> We can try marking it broken; see who screams this time ;-)
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-okay. Let me try that then. Which reminds me of something=E2=80=A6
+The bit clock is computed as rate * data_width * 2, which only fits
+a two-slot I2S frame. Use rate * data_width * tdm_slots in TDM mode.
 
-Sebastian
+Fixes: 221acc16aee1 ("ASoC: dwc: Add TDM mode support")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/dwc/dwc-i2s.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index dbda943cfaf3..9007ba1157ac 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -331,7 +331,10 @@ static int dw_i2s_hw_params(struct snd_pcm_substream *substream,
+ 			}
+ 		} else {
+ 			u32 bitclk = config->sample_rate *
+-					config->data_width * 2;
++				     config->data_width * 2;
++			if (dev->tdm_slots)
++				bitclk = config->sample_rate *
++					 config->data_width * dev->tdm_slots;
+ 
+ 			ret = clk_set_rate(dev->clk, bitclk);
+ 			if (ret) {
+-- 
+2.43.0
+
