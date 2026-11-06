@@ -1,100 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.215.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793934171;
-	b=3nkeN5d6YwyVSi9/9xnS805445dol5JI0f46HzrHNQ+aEV84f+NC1DWhVcgr0xXFvyke
-	 ODBoyGdvnuNYmUp0ARmQMLgOa5vQq1dtw/ZpqnxbDWiYQK7hKKopl6DphcHbzsr9mbNfR
-	 ELEnFHYhhW1DWhUkmzFaaJ/xYCeyByAMbT/2rSpEPq2WH4yN3/YzC/NoauusTu1aLcM9H
-	 q2KbuohyUQV8aNS7y82knrDpF0qEaOP+btGdYCxUjTfticijMWXP+gLG5BqGapTFCinBV
-	 xKIe/svFReR2JX8i+1yVURMraTMtr3WNClSK9kC8nDtvQlUtyJLZc/Q76goFfgkT0MA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934171;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gKlkPLsxQMeV+oJVtMekbD2xgsQAsa6FTULIvqAEmaw=;
-	b=fk6zQDNL0rZDE5JfvVIQ4eqf9e17u8Emd3LQORwparL68AYDmHlKe0n9vY3DTfRIPbgy
-	 s5i3qorhD68TaT+ANeG8cFCy3l4xAOx4CBoMbDNgU22ukoZ3Bjt69kFVLPv1h1hBGUsLh
-	 vqrre3mkJM8Aoay2D+lxwV2jydOA1/G27aEtnueMpzC7T91ilC8AvU6NqfYxujUZeCoxk
-	 ehK9SS8RTvLXkye49iVLPl+hqjo1tCp1i1xyInNjKD8+suuiGCpk2BKOVquqnU8vHWO+l
-	 WM5AY6ds+wN8DeeGP8SPyOZSDe4gBZEHUCggu/DHFzbWr1W2LiQYZRYyY28rihn7slw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lO4GhCfR;
-	arc=fail smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793934175;
+	b=zVWvOYSUSoi++CwVbxlXe/pXL9Sr59BmuaIJJaGPdo0hczYsfJqHK8XZpvRakBzi4r+w
+	 CQ5Ip+FNJzrYnM60NWszSNRC0kU74/Ok+HYg8CisftJBcLh2NybbMkOXWR/UtkFLZAvmh
+	 V9BqWsGgs5JHWLnz5QjDNLstMTLkIWETQiWIOwjINVu8J2boNY3io02m4tPndRS6CYMxe
+	 zMJ/jAdLMtsNXshWRJtRm1ZU9GukHdQkja5EOT+6hdcroYSNRRiNx0Q4h5e242k5NfSjR
+	 o2R8frBbSSml2PVz62F5XqIadCkjtKNVB9wIWIn+flHhs6klmFF9gnY2w8z/ckdyyxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793934175;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2YR8rl+GGFbncmUMrSW0eijCZeC2vAMN26k0XEift+0=;
+	b=FnlUc41OciVWAHOFcNtu8IjBkp+Vm9BPHQrJ0dSA+KPKOw3Ho5B1vQJJ1fvF4aqyOtC0
+	 xw9++0ASXLSi2awjNdchiNoMbi9wN7qSd+DKbWwNpmAXdZEMTG3IdCkonOVMamQOnPwh1
+	 jlEeqBEstq41+P/WrauvgXHPll7cruFrLoHT/4IPao0Xcq/hc1S2OqLmG2TkeMP8EOO0F
+	 rVcNGouzO8QijlVEd44DH0KVlaaeVru1QUxTj7/5Es02FXHK8EJWpBKGDbvBtCv2crJ3L
+	 Pe/7Tx4VmVYbTBL0m8uJl3Rg4JtF2WMB6MNHrhHOB71nspOlo7ohizK7wWqmx/+efCA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYBDRHMQ;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158D5606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:02:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 158D5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9C6606A330;
+	Fri,  6 Nov 2026 03:02:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD9C6606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lO4GhCfR
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc147d86bebso159678a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 19:02:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793934170; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gsqA1JtLnV3EjFooq3pY+DHIYFYwCmGI9IgriRhEpfUkwlGLx4EPlGIS0OpJYNyhIn
-         ChUIH+KbF7TEiHPe6CsJRIGZjZQeC5LAKJyXLaRPTAKQvBtnC0yuObseSyR81VraF5jR
-         IEKpRNQEXRXW9DGeMm3+6uBDxWUUpGw9QMDgcMJWBwzXgtq5CIRkqsG6Ud/sKIuBJoDs
-         GmiiJzVWctgNeGTcI58yYBEJTcmOc/2uI1tHN8381n6lr7M9OcKlgU6jEnvVGGqrYlj7
-         mkSS4otukUpaVp4PfCHK3S41raQHMKcBcSP+TtLHIR2C6mlRk4WGCIWs4El4Kuesj44W
-         yEhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gKlkPLsxQMeV+oJVtMekbD2xgsQAsa6FTULIvqAEmaw=;
-        fh=Xw08IVW80Pza6UN6EehYtEZvU8y6o7S3N98k7PIsZqo=;
-        b=D5NlTKcOJpwehomNX46X1dku319wDhiKWj7TCtuvHIkUxJRX05S4ZL1fcMp76IUKQp
-         Tts7Y2qnTYzfMmWB5rUOj0FzCnXxPeI2oQzF/fAWtCP6+Gs/XCfwnfSEbgWbp+Dqfsz1
-         HazGI7GtDAzvnAHPmi4cHiN+oXdHDE41HtPSiwmyzEvEbdftxewIjVL4f8Kir/xQtt7/
-         ywJqbBxV4w7+rY8yyQrFPO7Yc0l5HL9ikPYM4uLwah2L2Ij5tkc9PVPd9dfVDqE+yInh
-         Gbd1XMmTs0U8zvvJgE7Rywi+CBP33jELW/xTN2Eywd0JzvabVWhpU2r2Sldy9YPn7irZ
-         j7Ng==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793934170; x=1794538970; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gKlkPLsxQMeV+oJVtMekbD2xgsQAsa6FTULIvqAEmaw=;
-        b=lO4GhCfR/7BK9sJP+wnZzwv01sqFDJ6ywRWr7v1/5p4v1OpkpGnGEIex4w8uwuMax3
-         DHlkliHKM3d49/uXXoUbrqUS6d91d3TcHYqG2ONXJxa4RXf5Gbfe+xe1svYX163eGr+Q
-         gbIZB4PFTxOpM/8P0CDcnd6a4jClhYWysCAazejQOhg7CzbFEBAGN55ehTBvQuBxMYSQ
-         FSr/2oNXSDtscr9W/iWqwgzH4LYPKacxvAirGvLfjWvlwea7VM1lzSBzZTLpi5HOiEU1
-         zAasQsH0Ww9ieQDqgsy37/iIg2mF7kO5ZrYy77V3r6SMVeFKiAPJtGipHtzoIlXvnvIA
-         9pug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793934170; x=1794538970;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gKlkPLsxQMeV+oJVtMekbD2xgsQAsa6FTULIvqAEmaw=;
-        b=bAG7ZzXI5uyD0xFNiOKKY7/tKIM65YE/cuiWCY7I3hmYuZEGCCIuKk99ua8UB6oWoO
-         CuDKkZrjoVZloieUFAW038meoOLVxIlXIGlzRb3NCoaBtx/GZKwae6yQExcdjQziXqqH
-         imgnkrdwQhEbTFDZ5/aKNc63fUccJvQmbf792Pn2jkNLlJq6SGlNGba5TgT+nkaZKTeO
-         tQkQskP4aASdRjNpZRZaxWzDetWzoewWtb+6Ua3GuGH8Dp6xfBTsmt4U4ReEMeLG9wIA
-         27Rx2WlVKnQWas1Qe9HQzibEOMxITngbU2+V5uOKwAL1bqRpuXmqEaLf8elg/yPXaCtN
-         05Hw==
-X-Forwarded-Encrypted: i=1; AL+hErGnb6ztrKw1KnPeU6Vt9oXVk853dLK2eYxJQkm3syT5EYmggC5RCDska6U4+y6KMGzeYTYlUO56BsGDLP4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xSp84gm6oOLTVlS3OLw13PpvnpmK7JXy++L9We+UBbeE7FNDn
-	LvBwO8DjTINdJlWLIlyT8yh4fkWjHT8h3azFU0n6e1Qo0RAAWTYu+Tlrtvso7A3cltXR65Fmu5P
-	0+RxsB984CnYroUvyneXHFeb2hdWKcUM=
-X-Gm-Gg: AYBFou2kBjFwD8c9U3W7USEVocX/nS3YlAnOqKJ+meEKBNnU5DzoHbf/NHZhojtVpaY
-	Z+HRQMB2gEERXJNznbBC/F04fzI8JbzcKZsgZn+P4TgFY1R0lmZF01mTHmAyY6/IVwBQwLU73VB
-	pb1VJ/CsZlsKXRpmb47tCWB6ohZ6MdAzOmvSYmPJEW0WSIB+NFdSGvGk6p3cxsLtreBmhW05IYA
-	VRRqx5bS2x+f/IJ/4pZJImngt6JKjGZcqmvLJiO08xsiCW+it1Z2peZOlyycJ2tJkn97snHSQUq
-	choPC0kpOcd7dG2eBPCypr7mND8SaOUEDx5TOVeP9MYw6GZ94DNjARXl32QrBNXu1NTfojvHLwX
-	gcX5WYbGv/y7LObj+PFrvmQLq9RvR8OiU2mt+
-X-Received: by 2002:a17:90a:d88e:b0:3a4:b509:88bd with SMTP id
- 98e67ed59e1d1-3b0db608eb2mr752950a91.2.1793934170297; Thu, 05 Nov 2026
- 19:02:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYBDRHMQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793934175; x=1825470175;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oaSNQDemGHlJSYKH1ldJU5q8jgU2oc+ggmGZkRCO0vY=;
+  b=mYBDRHMQrDmFPK/wgsrAmBkHLUgyMOZhqhrJlSBNJ6EeE/kT/Wb5Ri7T
+   Q/6Cij2VVF5mdRRcpG/bqtTzBa3/lK4OnatnWgWAdVtzzXFEnSSEqubkP
+   t9EUHOOS2ZjNsrYK36g954J9eQSjJrEp7gqCegQmREBz/jNI13eDqqC7r
+   K6QYMZtiWqWgSjBuCB6sIoDihc5xogwAFxhdJqYpFpLxSrzBBcBpuYzhv
+   bUpp0ztdRnijOnP7snHaUNtdxZlKMw/DAT7aU9mZet2vFbgX8hMZGxLUW
+   TBm4I+cSeOFygcymAxuEMP5wOQswOq6UE/HH5ZdJUu0q+8YC6NHPhPRaC
+   w==;
+X-CSE-ConnectionGUID: LlUeD8pRRDinZxgM9ing8Q==
+X-CSE-MsgGUID: CrjQuDuyTWKlMNZ+2BfrBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2759320"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2759320"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 19:02:54 -0800
+X-CSE-ConnectionGUID: 0SsrEfIQTAyQZZu4/aazfg==
+X-CSE-MsgGUID: 7VdkqNl1SV6pApz3bPbGaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7206432"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 05 Nov 2026 19:02:54 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPAE6-00000000nDn-3z65;
+	Fri, 06 Nov 2026 03:02:50 +0000
+Date: Fri, 6 Nov 2026 11:02:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] power: sequencing: core: add a note on descriptor
+ serialization
+Message-ID: <202611061108.IT0tUaIe-lkp@intel.com>
+References: <20261105-pwrseq-core-desc-kerneldoc-v1-1-e10a2b03ce1f@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,63 +84,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102195228.4084438-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261102195228.4084438-1-Frank.Li@oss.nxp.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 6 Nov 2026 11:02:22 +0800
-X-Gm-Features: AclHuK-7yWfD5nIIYc699a1XBrVl3zaaX5gaE-98V3Kig8gZod2anKcZN_IDxRY
-Message-ID: <CAA+D8APkR05hUMm+KrRhZ+dkEzppNCqD9C3jSGiG42bFziE80Q@mail.gmail.com>
-Subject: Re: [PATCH 1/1] ASoC: fsl_asrc_m2m: use dma_chan directly for dma_async_issue_pending()
-To: Frank.Li@oss.nxp.com
-Cc: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
-	Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	"open list:FREESCALE SOC SOUND DRIVERS" <linux-sound@vger.kernel.org>, 
-	"open list:FREESCALE SOC SOUND DRIVERS" <linuxppc-dev@lists.ozlabs.org>, open list <linux-kernel@vger.kernel.org>, 
-	imx@lists.linux.dev, vkoul@kernel.org, Frank Li <Frank.Li@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-pwrseq-core-desc-kerneldoc-v1-1-e10a2b03ce1f@oss.qualcomm.com>
 
-On Tue, Nov 3, 2026 at 3:52=E2=80=AFAM <Frank.Li@oss.nxp.com> wrote:
->
-> From: Frank Li <Frank.Li@nxp.com>
->
-> Use pair->dma_chan[] directly instead of pair->desc[]->chan when calling
-> dma_async_issue_pending(), which is more straightforward and avoids
-> dereferencing the descriptor to get the channel.
->
-> Prepare to make struct dma_async_tx_descriptor private.
->
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Hi Bartosz,
 
-Reviewed-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+kernel test robot noticed the following build warnings:
 
-Best regards
-Shengjiu Wang
-> ---
->  sound/soc/fsl/fsl_asrc_m2m.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/sound/soc/fsl/fsl_asrc_m2m.c b/sound/soc/fsl/fsl_asrc_m2m.c
-> index c6970a7e88f3f..796a78124765f 100644
-> --- a/sound/soc/fsl/fsl_asrc_m2m.c
-> +++ b/sound/soc/fsl/fsl_asrc_m2m.c
-> @@ -257,12 +257,12 @@ static int asrc_m2m_device_run(struct fsl_asrc_pair=
- *pair, struct snd_compr_task
->
->         /* Submit DMA request */
->         dmaengine_submit(pair->desc[IN]);
-> -       dma_async_issue_pending(pair->desc[IN]->chan);
-> +       dma_async_issue_pending(pair->dma_chan[IN]);
->         if (out_dma_len > 0) {
->                 if (asrc->start_before_dma && asrc->m2m_output_ready)
->                         asrc->m2m_output_ready(pair);
->                 dmaengine_submit(pair->desc[OUT]);
-> -               dma_async_issue_pending(pair->desc[OUT]->chan);
-> +               dma_async_issue_pending(pair->dma_chan[OUT]);
->         }
->
->         if (!asrc->start_before_dma)
-> --
-> 2.43.0
->
+[auto build test WARNING on ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Bartosz-Golaszewski/power-sequencing-core-add-a-note-on-descriptor-serialization/20261105-165511
+base:   ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+patch link:    https://lore.kernel.org/r/20261105-pwrseq-core-desc-kerneldoc-v1-1-e10a2b03ce1f%40oss.qualcomm.com
+patch subject: [PATCH] power: sequencing: core: add a note on descriptor serialization
+config: arc-randconfig-1000-20261106 (https://download.01.org/0day-ci/archive/20261106/202611061108.IT0tUaIe-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261106/202611061108.IT0tUaIe-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611061108.IT0tUaIe-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: drivers/power/sequencing/core.c:282 Excess struct member 'note' description in 'pwrseq_desc'
+>> Warning: drivers/power/sequencing/core.c:282 Excess struct member 'note' description in 'pwrseq_desc'
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
