@@ -1,47 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968182;
-	b=qO1U8IDmHFEdl0R2yZBmc7BAcbgzy+iLxvViy6ZOlqvh2TZmKEbKAcjI+/VCgp+/rAgY
-	 S+Z8FThn6RO97Hk4t/3Ii0F4C4hH574Ft5Mx5iE1td/WtfRuX7m+1SoNp8Na1RIBds7DB
-	 suWIqKiC155+NHtUlNlK42SrSlGOVcwoQjEDFUyasGGLwc4Je2k7OW1wTgvUbYiLs7Y48
-	 VlPBohx9AEBkU1sYYfN7ApQgxoMyBSdCmXym2DSRbmtuWDijvFC4kg+/+HPdkG3c6DuO0
-	 AVUDliRH2g1Or23dKH72Nv5VXevGOiBDYvWJLe53YrR7184E32eWF7W4yAp3V9epZSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968182;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=E/qJOYK6EsQ+0HnufRvzr3oyqfusTYvNMauUgRpuc5o=;
-	b=W4sg1VZc+uon6xnXoAm/wxVpb+P6A5081x9DVJMEWSwy5uNXNEV9EcNQUjnIN1dWFLqF
-	 Zt/DBGDnZ3NnZsZdzo83yMIEXk/T6/pDoEW6bFtoRNj1MWoMn6qtcBu6sFxzbnW5e/ULD
-	 ybZy3Jm04A//K0T5qYSId+tgTw/hpdHmgZ4XsAiAJarXlS0XUwpzLZE02sSJ0TuSk8wWF
-	 UPcTm6o7iOT/Jqt+S4N0S4BLIQ8w+zXZCB6Fu8/lFkj1fSqXrfmg9V3Zclkhy4BWW1Vci
-	 FX+vNyzlszBAAywKaDXVuSzbh6HIyJJbgEnKp1sVBdsHokqUP3K47qxxKWV3djS0KqA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fVYEbyez;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.168
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793968200;
+	b=EvWSY4L2LfUISRm5WoR8IeBefOMMSOBwwAlGVCCeIzA/tbHnNgQ0cMrggIWUraozWuIP
+	 C35UDSNwOe8dx0rJPBsqWqUhuTdcse05XCOqMpcaM6Qq4L6suoo+LugChOuXzpCsKsb46
+	 ipkpQxxkxTmGDy2HXDMpDlI1U2tLAsxqS9m/wnD0Hx1mIuzctZWsKNLjGAX1rj2XUodDF
+	 g2HWVHQR2qAkOSbHfFYwNfV0SdjpgWW25KBw7plq3mG0Iam+OK/mWnxMtqkTMm2wW4B2d
+	 Gr1FF6IGdTa5wTvafFhxmaHmBnyuDXCnAV6AcXq5OxO/gXr3EIaIhnSTxSsH87GbZQQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968200;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=sY9IxkObF5QHGvv57BYmaIS7AhgjXyhTul2To8dMQ8Y=;
+	b=dQGs8eSBWle3629AsFILXX9FxecE9E507Bymg54U9lEMYpLp7hUGiC9Dj4ZYxwCRRu1B
+	 L7N6RWUpzUVTXz2P+qRwK2TVqnwnrmrOD/vtjkC2mN5tcDsEjdFHLEmR2fCQTBazf3Ib0
+	 T/EA9eGbk+FiOnETInyxAjRzA3x1nGZDV6M53tRrrlEY/9qjPXu18GI71neDgFv7Efit9
+	 6cGMj386yJAENEA7vcUlJfZor/ExDckoXCT7eqB99C14LWfZ5AxbYSLMHh6mnju9abI0q
+	 D1WneBiLOq6uu0Eu0k14aIygrHxDQr24q0/9QYTotO0jqehi77A/nUmPsGCzCxk6h5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=GLy0jVmV;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b="I+yw/HsA";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.168
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD28606A32D;
-	Fri,  6 Nov 2026 12:29:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7086606A32C;
+	Fri,  6 Nov 2026 12:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7086606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fVYEbyez
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF33F1F008A4;
-	Fri,  6 Nov 2026 12:29:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793968182;
-	bh=E/qJOYK6EsQ+0HnufRvzr3oyqfusTYvNMauUgRpuc5o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fVYEbyez7MLSFPPF0DqlzMCAspA/1SI3Pq88KEJDaICPyStfMIc+0Yf+tn/E5zntt
-	 YLGitZkVB6uUnNDR8g2MzKIINKY6SkvyeT1DAHf16xQiTD09h1/0QzQ+dHGbN1fUwl
-	 cBqRLzB34EAXRg38U0mPk39V4X7MqhrTxPH/nXnvtaG699XGwsQ9OdpLzF72xJlpuy
-	 ZhTn/5nr9I3YiayzJePVQEHpHqgoJqgwKMO2h1Z3tKn63PEyVaGQgrvoO8N3SFPOps
-	 g/BTLuERbEtVrdjpRm+4fwHCWHY9gn4Iu/lZavoSZfmElLbFi7Jvxjwm+njeZuR+cX
-	 l+hXTS0nO34lQ==
-Message-ID: <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
-Date: Fri, 6 Nov 2026 13:29:31 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=GLy0jVmV;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=I+yw/HsA
+ARC-Seal: i=1; a=rsa-sha256; t=1793968150; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=OJsZHe5hv7NE0Bx1FrLsota/0Ib4gujR9siCG6I57qsrjyBSjrwILvKNwx/iwlRmop
+    MV/OfRELHql4UZ7tD+3gVHtmCXwcxVAFGDjuU1/lpV74eTYLy+CALkmj4LLH5fvSP3lk
+    +6GQwqbXLPq8Py4g8/g9Fo86K+Xs+eo2q0d86/GMrLg3doTfukprCtWWpj7fVUi4jYrt
+    E2akJGgBYTGuCsJ1LOT4xs9j5TXnafiPHsyT0hf3eWLAZDhnXN3/a1sYVTV4exEotThb
+    tneFRSjfCjoRDb1CxEVpODSOgVldiJwz4QiZugUl5WI68JXgWDB3l9P5uqhHNstkLyyl
+    BxLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793968150;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=sY9IxkObF5QHGvv57BYmaIS7AhgjXyhTul2To8dMQ8Y=;
+    b=Gpr7JH+RRjhm8M/lm7UZ4X1bWDbzZnNTrVbVs77Ueu34YvAAIzFnmI/YCvocqVhmdd
+    SDLeT3GBe3BwgQGpsK0JCCQ4wcofF0nbm0Gi7Ls9T9lRaHtiCB9eFoTVWXG5i5+9dudu
+    MrG0a6W8xXa6dWRbazGNbqTcpKXHwHTdPcWaiuSsjFpr7lTaFnlnxb3i+lvoXD5HWIDE
+    V+S0sXYW78xmxrUaBPYHUvWqa/rjnAUyKvKYZKqVk1Lt8A3WCRjXHPyUusimP54u36J6
+    7hdErx88CdrX+leNaZL+PlZZJN8sArSDPgka2GUWu3uDbTTaIoq2XbRmNbWTDAMOUfZK
+    Wihw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793968150;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=sY9IxkObF5QHGvv57BYmaIS7AhgjXyhTul2To8dMQ8Y=;
+    b=GLy0jVmVCzRd3ZSjPNAXaoYRrEx8UiKxE0kQAoLPvf2g9z6Tee6im8Jo3eVwo7p1UI
+    btAhrm4cq238mQQz96X47dAPWRTEnoGvTHe44AMIXtzftgVP6OrJKBp7+vwlfHj0w7Zh
+    WsX3Hx33pObSncORVUsLbNasVTP/W7YMda7+I+tj+agx2/gdlrEnx8bsCZOK+ZRHdT2g
+    3HA0Od7D43OmGG/wJGAGCgWY/XCRfWzM4AWzrrL+O6GyI46JKxNZdTn2X8yWWChHpvwd
+    5K7LEAKjbEauFKU+3RdGHUWbBwWtY8z96Gf8VnY1ExXo+I4FFbWJeyWJ0HPUce37wSwi
+    VPfg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793968150;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=sY9IxkObF5QHGvv57BYmaIS7AhgjXyhTul2To8dMQ8Y=;
+    b=I+yw/HsAH/nifZuMnErMgS4a3Y56cfceeo7kHHREl9fpYP3bWoq743/bozm1rMfeWl
+    L7txQ38uciVx6Y+BxFBQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrVjZoMy8iN4frnsPsBQ4l+mfK4O7kvgww6TmAq"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22A6CT9nOb
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 6 Nov 2026 13:29:09 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,108 +93,193 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
- MADV_COLLAPSE
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins
- <hughd@google.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org
-References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
- <au3C8lNElGg4LnR1@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <au3C8lNElGg4LnR1@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
+ separately
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <23f5885b4339800f24ae33fbb782f43da931be10.camel@crapouillou.net>
+Date: Fri, 6 Nov 2026 13:28:38 +0100
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ Paul Boddie <paul@boddie.org.uk>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ "open list:INGENIC JZ47xx SoCs" <linux-mips@vger.kernel.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <80369640-E1F7-489A-B25B-69B83061C8DE@goldelico.com>
+References: <20261105203517.2293404-1-f.fainelli@gmail.com>
+ <5197EDEE-A739-4ADB-A1A9-08B0516735C7@goldelico.com>
+ <23f5885b4339800f24ae33fbb782f43da931be10.camel@crapouillou.net>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-On 11/6/26 13:09, Kiryl Shutsemau wrote:
-> On Thu, Nov 05, 2026 at 07:16:44PM +0100, David Hildenbrand (Arm) wrote:
->> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
->> uptodate. For example, shmem fallocate() can put such folios into the
->> page cache.
->>
->> collapse_file() already refuses to proceed with folios that are not
->> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
->> such folios, leaving handling to the page faults.
->>
->> Note that collapse_file() effectively clears shmem folios through
->> shmem_get_folio(); let's keep this fix simple and simply let the page
->> fault path deal with that.
->>
->> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
->> Reported-by: Chris Mason <mason@kernel.org>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> 
-> Separately from this fix: nothing on the mapping side catches this.
-> Every caller checks uptodate on its own (next_uptodate_folio(),
-> filemap_fault(), shmem_get_folio()), and khugepaged was the one that
-> went straight from filemap_lock_folio() to do_set_pmd().
-> 
-> Should do_set_pmd() and set_pte_range() assert it? Something like
-> 
->         VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
->                               !folio_test_uptodate(folio), folio);
 
-I think so. But looking at these hard-to-trigger but in the end very nasty
-problems, should we actually reject the operation and do a pr_warn_once() or
-something?
 
--- 
-Cheers,
+> Am 06.11.2026 um 13:21 schrieb Paul Cercueil <paul@crapouillou.net>:
+>=20
+> Nikolaus:
+>=20
+> Le vendredi 06 novembre 2026 =C3=A0 11:59 +0100, H. Nikolaus Schaller =
+a =C3=A9crit :
+>> Hi,
+>>=20
+>>> Am 05.11.2026 um 21:35 schrieb Florian Fainelli =
+<f.fainelli@gmail.com>:
+>>>=20
+>>> The LCD controller's internal bridge is embedded in an object =
+allocated
+>>> with drmm_encoder_alloc(). This initializes the encoder but leaves =
+the
+>>> bridge's reference count at zero. Since drm_bridge_attach() takes a
+>>> reference, probing the CI20 display produces addition-on-zero and
+>>> underflow warnings and fails to attach the HDMI bridge chain.
+>>>=20
+>>> Allocate the internal bridge with devm_drm_bridge_alloc() and =
+register
+>>> it with devm_drm_bridge_add() before attaching it. Keep the encoder =
+in a
+>>> separate DRM-managed allocation: encoder cleanup can drop the final
+>>> bridge reference before it has finished accessing the encoder. Find
+>>> the internal bridge through the encoder's bridge chain during mode
+>>> setting, and use the bridge argument directly in bridge callbacks.
+>>>=20
+>>> Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
+>>> drm_bridge_attach/detach()")
+>>> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+>>> ---
+>>> drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 =
++++++++++++++++--------
+>>> 1 file changed, 21 insertions(+), 10 deletions(-)
+>>>=20
+>>> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>> index 625ec76cf04d..520912f9ed0d 100644
+>>> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+>>> @@ -121,16 +121,15 @@ struct ingenic_drm {
+>>> };
+>>>=20
+>>> struct ingenic_drm_bridge {
+>>> - struct drm_encoder encoder;
+>>> struct drm_bridge bridge, *next_bridge;
+>>>=20
+>>> struct drm_bus_cfg bus_cfg;
+>>> };
+>>>=20
+>>> static inline struct ingenic_drm_bridge *
+>>> -to_ingenic_drm_bridge(struct drm_encoder *encoder)
+>>> +to_ingenic_drm_bridge(struct drm_bridge *bridge)
+>>> {
+>>> - return container_of(encoder, struct ingenic_drm_bridge, encoder);
+>>> + return container_of(bridge, struct ingenic_drm_bridge, bridge);
+>>> }
+>>>=20
+>>> static inline struct ingenic_drm_private_state *
+>>> @@ -738,7 +737,9 @@ static void =
+ingenic_drm_encoder_atomic_mode_set(struct
+>>> drm_encoder *encoder,
+>>> {
+>>> struct ingenic_drm *priv =3D drm_device_get_priv(encoder->dev);
+>>> struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
+>>> - struct ingenic_drm_bridge *bridge =3D =
+to_ingenic_drm_bridge(encoder);
+>>> + struct drm_bridge *first_bridge __free(drm_bridge_put) =3D
+>>> + drm_bridge_chain_get_first_bridge(encoder);
+>>> + struct ingenic_drm_bridge *bridge =3D =
+to_ingenic_drm_bridge(first_bridge);
+>>> unsigned int cfg, rgbcfg =3D 0;
+>>>=20
+>>> priv->panel_is_sharp =3D bridge->bus_cfg.flags & =
+DRM_BUS_FLAG_SHARP_SIGNALS;
+>>> @@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct =
+drm_bridge
+>>> *bridge,
+>>>     struct drm_encoder *encoder,
+>>>     enum drm_bridge_attach_flags flags)
+>>> {
+>>> - struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(encoder);
+>>> + struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
+>>>=20
+>>> return drm_bridge_attach(encoder, ib->next_bridge,
+>>> &ib->bridge, flags);
+>>> @@ -811,7 +812,7 @@ static int =
+ingenic_drm_bridge_atomic_check(struct
+>>> drm_bridge *bridge,
+>>>   struct drm_connector_state *conn_state)
+>>> {
+>>> struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
+>>> - struct ingenic_drm_bridge *ib =3D =
+to_ingenic_drm_bridge(bridge->encoder);
+>>> + struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
+>>>=20
+>>> ib->bus_cfg =3D bridge_state->output_bus_cfg;
+>>>=20
+>>> @@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device =
+*dev, bool
+>>> has_components)
+>>> drm_panel_put(panel);
+>>> }
+>>>=20
+>>> - ib =3D drmm_encoder_alloc(drm, struct ingenic_drm_bridge, encoder,
+>>> - NULL, DRM_MODE_ENCODER_DPI, NULL);
+>>> + ib =3D devm_drm_bridge_alloc(dev, struct ingenic_drm_bridge, =
+bridge,
+>>> +   &ingenic_drm_bridge_funcs);
+>>> if (IS_ERR(ib)) {
+>>> ret =3D PTR_ERR(ib);
+>>> + dev_err(dev, "Failed to allocate bridge: %d\n", ret);
+>>> + goto err_drvdata;
+>>> + }
+>>> +
+>>> + encoder =3D drmm_plain_encoder_alloc(drm, NULL,
+>>> +   DRM_MODE_ENCODER_DPI, NULL);
+>>> + if (IS_ERR(encoder)) {
+>>> + ret =3D PTR_ERR(encoder);
+>>> dev_err(dev, "Failed to init encoder: %d\n", ret);
+>>> goto err_drvdata;
+>>> }
+>>>=20
+>>> - encoder =3D &ib->encoder;
+>>> encoder->possible_crtcs =3D drm_crtc_mask(&priv->crtc);
+>>>=20
+>>> drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+>>>=20
+>>> - ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
+>>> ib->next_bridge =3D bridge;
+>>>=20
+>>> + ret =3D devm_drm_bridge_add(dev, &ib->bridge);
+>>> + if (ret)
+>>> + goto err_drvdata;
+>>> +
+>>> ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
+>>> DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>>> if (ret) {
+>>> --=20
+>>> 2.53.0
+>>=20
+>> Works for me on CI20 with HDMI display.
+>>=20
+>> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # CI20 V2a
+>=20
+> This patches basically overrides your "[PATCH v6] drm/ingenic: fix =
+bridge
+> allocation", correct?
 
-David
+Indeed.
+
+Well, I am not sure which is the right one. Both work for me. So you can =
+choose
+(e.g. if struct ingenic_drm_bridge should embed an struct drm_encoder =
+encoder
+or not.
+
+Best regards,
+Nikolaus
+
