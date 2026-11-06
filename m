@@ -1,53 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986359;
-	b=vj+jfHnFTDH1dY7vQS07dHALRg+N81dNrhQjRqUW0mbaECbQ7hFB75iGfo83tx3hvPka
-	 zzy9pzdED/E9GUr2NFPzXA2MMjDi2Pv33J37v0o3/TUH/InzjPP2kgVnTBHxOpswxwk7n
-	 Z8sc6hUl0Rd172cs3iybjQrTkilI7nNSqjIhLxrjn+VBfuVw1T2fFXSugtvRHGWV84zVS
-	 GjGVZuy7QkC19WDKmGpIyZvE5SLqdeL+OTFQA34i1Q48eJdrmG20fYVRLL9H2kG9Vr1Tw
-	 dfxjzJiTIW/LTmDxuo1KCnpdduqvGXNon5T0aUB5G60t+XJOsmgMUnaZTvv/T+Q9Sow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986359;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ybZChZ9rAXXJpYgVjjNMXpb0KllCBOdJmkiYdEAub2w=;
-	b=wJ5/jecRoGyRTb3w0PAcvsqNxq2CIP7K/HAFXBrdDlShojpwU8OX+Z7/bUIpy8Hi5aaO
-	 aP4Sbmewcl5/WJO+N554WLabSLUwQL5Q4SCW0n1Z+SH3pUIP6jgjHKrYvXD3ZHnrRFw3J
-	 t6z9FKlMEysfsGU52AkFmaAOaXtF+5/sxVA0SJVTNF++lF863I2fvuop/mmsnA5RLY/2m
-	 A/6ek1MfOq7G12mKKWjqZDdPstE6c3slt0a8UZ/h8+3BwlBHYO/aBaKjsfl0hIUewtxev
-	 cTjBIeW9I+TKFknqoTKVS8rQpjURw6nI+Hdlc/eOdPAsyAO8cDA0fPQOPppaAj0fDEg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf3kisSZ;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793986391;
+	b=QLpARtuj6csgKS85aPd8rlTv+DpiR3W5PhmfmcsYFD/dNsovI8x/1hdQsCuZjI+LJX30
+	 xGaU0gjb3IhV0JZNz9NuR2QCoCBIA+o92XZEvKfgFg4XWFQfoSG7U6WZIdrHB23kTQO9p
+	 aUjiwaD7YFLxlWeBr03zTQkgaaYi+BO8CwqzKtrF4H2KHxAPTrhs9TrOQlWO3qvVWpiOI
+	 3VUfGNCABnFlA67Lamcc9E0XSsgVY1rqGp6YD1ObVv5DRhTC98jSslhXe8d2cEzjWYfK9
+	 sdC+Xkm+ZbqihOQdWGQPzB/uopQRIzUknb4D9TFLZvW2M9MLmkoRAI43cTZjudnkqKw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986391;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cjTq7uySt7Rsv4iF42M6aoE6IA0xv74EAK545jm0SjY=;
+	b=Uo7vXkN2PhdRwnR198lnK2Vs8KNaLxAKk3MEK/WctwbyAVoiWSnejNod4hjhv058w3BD
+	 dE/xQpfBq72UXvZNpZfyja/s6JVbjW5SE6Dz758W0U5flOiAEBwHvBqIUOuk5t75XluUm
+	 YMJ0DZ+IackH8vzVqolWE5q4CYRr3A9blghPfwO7zYq/RjCK2yInn8K5+TX32Pv6AXNYd
+	 zMt9/nWR4tV6tfKDGuRDvWeqGdanexvYaAk7pSGmhny8haYY3hrFxr1SDLioQYSqNgn4Q
+	 nla+sKK232Y6oq28Z3IG6OX/84BSAVL6ZijSthRMePOPoyKK1tzQ7LjZEcUQm5Up/Ag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xzs7Dl3F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA001606A32C;
-	Fri,  6 Nov 2026 17:32:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF488606A326;
+	Fri,  6 Nov 2026 17:33:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf3kisSZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E95E1F008A2;
-	Fri,  6 Nov 2026 17:32:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xzs7Dl3F
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793986390;
+	b=J75dkUB0L8iCX8nt1Gktmh3THe8VS39miStJx1679b3DuHnXJoz9bMfTsF/0ljiLYKl1
+	 vo8DDD10pwYbDJgSMrcvIhKaq0e8CFCU4LUIbk1ouB4D2x/Blmn28q+Voh5dnKecz5ejl
+	 3BCoodJCMKo0KeE18oS/enQcDvYiv8Dls7GgXfBNwbM9t+pACUWFUoxjSxNSNK4iE/+dR
+	 DpBcSAzOGlil8gTvIets6fuShhjNzYw9EQkn+FQQ5h0Ugvr8rlwGafH0Rt5eqs8EhTX7D
+	 A/uU2PLyM/k5ENY//NY7z/0WC22iExuWz0YXv4Mguxscvmpb7qFU5vyTFf5nLi4fmgQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793986390;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=cjTq7uySt7Rsv4iF42M6aoE6IA0xv74EAK545jm0SjY=;
+	b=gRSqb/DH1jRQGBwTfZSmocE0TIjQzaFFVSz4zJj+WsnKJbpTgCeAKFDdWccLNt0LWh1f
+	 zjN8lIgKVuIdm9rJJoW3ihQAxbypRIFrGqEL1H6TDe3W+va4Ch5gIbUWT3RPPAQtJbyj4
+	 Ci1nf8HKRWMIbj0HSAt6UCW4YEUFpjR+g8W0Adt/12J+Vqxt77EJSiOaEAKqzhjWsqZqv
+	 fjbVvOC6E8uA1VzhN4G5BSAHarKOildoIN8pMXcBU640GXtlmI3qfJkMp130o3HsqI9Kk
+	 2XJLutAXHQFCbVO2odDsryqTDH+fgfM0mVZvS/npuNQgGG3bCDDPrsB6jg7ijFG+6qQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 36AB61F008A2;
+	Fri,  6 Nov 2026 17:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793986359;
-	bh=ybZChZ9rAXXJpYgVjjNMXpb0KllCBOdJmkiYdEAub2w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Jf3kisSZKUNQEmo4gG2lyzj11wxrXhVhlZ9uxM6uQcpiKNxiBQgZUvTs42wXPkBRh
-	 sdmu9pmR0qfc8PqeGFoHcF/YCDwRr7JBszTRd9qZJeE9l7bX1a8GUcpcJ++xMyljKg
-	 VqXgKCtEHSkpfj+j9Akjs1bUGCkaqiXNA+VBj4LXSUafSzIML90uC/l1K2iPx4tdY+
-	 W2EfU+NipLJDld7o8CbhfPKuNRrJ69qEa8zeMYTOPbrUjcly8ZUZJIKviq41nimBTO
-	 QkdprJA8+M0o/OJuFW12dxmyxKs3/hCW5PVubhJr/F6h3qxc/HpunevXPtIxM5tOGV
-	 KfYN3qziIb6ZA==
-Date: Fri, 06 Nov 2026 07:32:38 -1000
-Message-ID: <1ee462ef3e697e999011e4a0cd2864bd@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
-Cc: void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH bpf-next] sched_ext: Reset task fields on exit of an SCX_TASK_READY task
-In-Reply-To: <20261106142818.1475-1-rahadbhuiya2021@gmail.com>
-References: <20261106142818.1475-1-rahadbhuiya2021@gmail.com>
+	s=k20260515; t=1793986390;
+	bh=cjTq7uySt7Rsv4iF42M6aoE6IA0xv74EAK545jm0SjY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Xzs7Dl3Fd1TBw7hWdl6TK5um9aZQlAkKU5Q6AP+fW341qQHRMOhGcGP3Ud3GVKkM7
+	 q2RVjuu84wvSCdGlNFRrGq4gOR9P4Vf0CMY+rPDCbvGWZewNw6f+MaW275IHxnqaGl
+	 FvarqvMCIvloJoYkhyt/qcVF5eJEfgjTthXZnGRuNpgXbxl/DtE4mYv7dYJ/BBv6iP
+	 7oJkckC+Pmz66f5N4A2+hj9d9sAPqtVnBVwfJjWj6JU2rc+JVyBTpFFcrhnscMq+X+
+	 VlvLhxieDrZ4pcz2G9O6qGBtmzeNXXVI8q4oFof5Esu6Ye9e7Ryn9yHvqxpJvkZRkH
+	 01olyz4tG+aww==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9D80745E04;
+	Fri,  6 Nov 2026 17:33:09 +0000 (UTC)
+From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
+Date: Fri, 06 Nov 2026 22:33:09 +0500
+Subject: [PATCH v2 1/2] btrfs: tag tree block repair writes with REQ_META
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,49 +82,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-btrfs-sb-read-req-meta-v2-1-71c1afaf5c67@gmail.com>
+References: <20261106-btrfs-sb-read-req-meta-v2-0-71c1afaf5c67@gmail.com>
+In-Reply-To: <20261106-btrfs-sb-read-req-meta-v2-0-71c1afaf5c67@gmail.com>
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
+Cc: Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mark Korenberg <socketpair@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793986388; l=1104;
+ i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
+ bh=YFyzH7lKR5afoL8KflpNwQVQtbrBLsyNhI5jTu4GvOI=;
+ b=LRjo3+UMw8+Uy8gjTh53YtHvFCNT6N7/7K8GFHXitnuoTtAc8J97WHxEfKWx/uQ4POZDzrunT
+ 9u5k2VJl7DlB9efjzve4JIDeZSrmVrWTIPKnyRH5FqZAdDrsaZTQCcG
+X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
+ pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
+X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
+ auth_id=806
+X-Original-From: Mark Korenberg <socketpair@gmail.com>
+Reply-To: socketpair@gmail.com
 Content-Transfer-Encoding: 7bit
 
-Hello, Rahad.
+From: Mark Korenberg <socketpair@gmail.com>
 
-On Fri, Nov 06, 2026 at 08:28:18PM +0600, Rahad Bhuiya wrote:
-> However, in __scx_disable_and_exit_task(), an exiting task in state
-> SCX_TASK_READY (e.g., a forked task that was initialized via
-> ops.init_task() but never enabled under an ext_sched_class before exiting,
-> or a disabled task) currently breaks out of the state switch without
-> calling scx_reset_task_fields().
+When a tree block read finds a bad copy, btrfs_repair_eb_io_failure()
+rewrites it from a good one through btrfs_repair_bbio_failure().  That
+rewrite is a plain REQ_OP_WRITE | REQ_SYNC, while the read that found
+the bad copy and all other tree block writes carry REQ_META.
 
-Neither example has anything to reset. A forked task which exits while
-READY goes through sched_ext_dead() and is freed. A task disabled from
-ENABLED is already reset: both callers of scx_disable_task(), the
-ENABLED case here and switched_from_scx(), call scx_reset_task_fields()
-right after it.
+Tag it with REQ_META when the bbio belongs to the btree inode.
 
-A READY task is on a sched but outside the ext class. RT and DL tasks
-are always in that state, and so are non-SCHED_EXT tasks under a partial
-switch. The sched's BPF code can still write such a task's dsq_vtime and
-slice, and because the READY exit doesn't reset them, they carry over
-when the task moves to another sched.
+Signed-off-by: Mark Korenberg <socketpair@gmail.com>
+---
+ fs/btrfs/bio.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-For example, an RT task in a cgroup owned by sub-sched A gets its
-dsq_vtime set by A's ops.cgroup_move(), as scx_flatcg does. If the task
-is then moved to a cgroup owned by sub-sched B and later switches to
-SCHED_NORMAL, B's ops.enable() sees the dsq_vtime from A's clock.
+diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
+index 2e12a6d7e16f..efbce4d549ff 100644
+--- a/fs/btrfs/bio.c
++++ b/fs/btrfs/bio.c
+@@ -951,7 +951,8 @@ int btrfs_repair_bbio_failure(struct btrfs_bio *bbio, const struct bvec_iter *or
+ 	}
+ 
+ 	repair_bio = bio_alloc(smap.dev->bdev, max(1, length >> PAGE_SHIFT),
+-			       REQ_OP_WRITE | REQ_SYNC, GFP_NOFS);
++			       REQ_OP_WRITE | REQ_SYNC |
++			       (is_data_inode(inode) ? 0 : REQ_META), GFP_NOFS);
+ 	repair_bio->bi_iter.bi_sector = smap.physical >> SECTOR_SHIFT;
+ 	while (cur < length) {
+ 		struct page *page = bio_iter_page(&bbio->bio, iter);
 
-Can you rewrite the description around that case?
+-- 
+2.56.0
 
-> Fixes: a298fd5f4ee8 ("sched_ext: Fix use-after-free of a NONE rescuee leaving its sched while running")
 
-a298fd5f4ee8 didn't change the READY case. It was a bare break before
-and after. The gap goes back to 5771e79e461e ("sched_ext: Reset
-dsq_vtime and slice when a task leaves SCX"), which put the reset only
-on the ENABLED path, so that'd be the one to point at if the patch keeps
-a Fixes tag.
-
-sched_ext patches go through the sched_ext tree, not bpf-next. Can you
-repost with the above updated?
-
-Thanks.
-
---
-tejun
