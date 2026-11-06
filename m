@@ -1,94 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.40
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964756;
-	b=Jp7/elL8nCyrOjF9m+YXDdT+bBoEIhFuoMmFzDU9gGJXL+yfxP/zKgrx9MNEICoLceLq
-	 ctI21OOo0VWHfF1NxYioxU2U/QypCs7XldzWC9e+mecr+5tzjQohlr3ArcHNE5ZV8qe8G
-	 2UeDSYZSYq+TievgH22wNxCq3q5ADSWfTCXf0Sf/RMwjGMQFIdrNera6SgmtMOHxSy8vm
-	 StcVBqRu0QXD+a60LmrDmKQrQ91wc8Qc16JA4+9BZQM9T3xHoXby3s1zI/nknl3Go+p9G
-	 ZUlYX7t64skb/umdo8vhzgbaXDW1Cq3UsGhJuCrejuVeL3n8EKxbIYKnBCeM1p1agvg==
+	t=1793964763;
+	b=j8DDVzQ4Hz9pAfxxfElCMCT1okMHK4gn/DRBVmo2dz2xzPvHYyVLbtiBjnNugI5q7Es/
+	 HuX2rWPBBpcYV4Hp5ZsH8tte16Zv2m3oaeVhcduTXYaaCoHyxd/Zu9tUPwChgSf7iFhMW
+	 v1UERH+6ThTRACUkTlkaLayPZxKO/Whr2Zx02co065dGoiJaJBXSvLjwWoS7dgJp3Q0vl
+	 VC1DnXQnjV1OVannD5tKiaMUoNEtE9TUb4qzZ7JRbHZ3RyXGkxBSIHaa36tcUFkjwW0CF
+	 KasoyUaH2PgzZj7VLx5+JrQD6qW+1WtJTYPjqsst/DykQ/GSniJQn07xImnpZOicEaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964756;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wGiOeNE8Bnji04NKLc8q6Gdt5TOl+enDfg0BQ4VBWQY=;
-	b=4jRCsJ+uxY1u0d6JA9fJ5lR3KWqiQS89Q7aGMNXW6bPvH/vvKC0JsmS6+uInG9Re5u66
-	 ZtVFR2i19u+lUkGdRUMfQrxZqUxlV/mGtTV9LOgmwU2Z83ZWVH7R8W72cQltC+Qz/fPAX
-	 0LBINaklTo089AC4GEFZwIAK0U4PACoyDUJVAR5IG0k3W9GzkcEDfaXqLGz9bee9X2+YW
-	 YxaE0HkqCsjfPM/tWEopGC6dQSXC7YDemsm8A6zafp8N9bmk7cN9amlM8ODZctgjgqgvl
-	 POHmXbPupcL3yNeNbouqU2tDBfI6f1zSBxnM00ovvVvBlTpmO6maQAl+uBbzTn/CiQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964763;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=VwYktvc9ZuSAG/AWyoWRNsgxr2Z6jBVkd5OucG0+82I=;
+	b=MblEaGyLTye/pcAMT6A9y5szs8NjSRyGFeFUPVGgam9FpGGzwXFyjFgSl+vfmSQC3m30
+	 BS8QTKyU+827loNgf01zdZyF03Ei3uYHxAV/gQSgHhXNbAeZgS+Ri13x9w+MiS/JhUaIx
+	 eQovrUQPQsKYHArwepCrqGg/w/kcMuGh3S1QN0VT58ve/Ul2bo/wLwazVe3ATRkwVUDvb
+	 zFXONwVAKYoUIPsC6A4dk/osA2TgMDnYdDopXhXoikcPZzhwwybF1xtKNXvtQ4YexW4mu
+	 F++TD43IKJ5I+pPlOK3sr+rq5nXA9WrCME1CaOroj+evo8hyf7KhpBsdQvqSx0LBUxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="o/j/VoG0";
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WeqmzYVB;
+	arc=none smtp.remote-ip=95.215.58.40
+Received: from mta1.migadu.com (out-40.mta1.migadu.com [95.215.58.40])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0C860A6F6F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF0C860A6F6F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449BC60A3802
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 449BC60A3802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o/j/VoG0
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a208d93758so5411845e9.3
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WeqmzYVB
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zs6GksGR9IOQ4D/rhKg8wscXt05dWTxmDSpfW/B3uBQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793964760; v=1; x=1794569560;
+ b=WeqmzYVBURV01w5x7GcEBDYjXm9yKn0qQevURH3Nwq59SYpPGhK4Xwb0Bl0/xjBEkKks3HbY
+ 9FyqoQsmaghsqeYN6moedjufSp5oIWAzzLzlUJHw1W3EBHFo45Cj6Bc4Exr8Qu0VNUStdMm5G6E
+ hSY1LZ9e2cFF7KFuSJ794bXU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5cbb76e1fbfc8049;
+	Fri, 06 Nov 2026 11:32:40 +0000
+X-Mizu-Trace-ID: 5cbb76e1fbfc8049
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bff701efa5so3201e87.0
         for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:32:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964754; x=1794569554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wGiOeNE8Bnji04NKLc8q6Gdt5TOl+enDfg0BQ4VBWQY=;
-        b=o/j/VoG0Kz9bRK7eA6PJoiXwFDQJVm1yjK/TnARbK2bUS/WJqiaZJcqZ2lgUZiLW/Y
-         HDyVieowf7v0kAUVRn/jPWCAxMF3jiZzQHeCuI9zONuIjAPNq65WqT5Dx/cqZNNfBHcp
-         KvPrVqkIvi9yJAwwnW+AJKUxQuWoJZRtXZF9DSIonGIrZuym+mWLIwdbit8Az+kSJ008
-         AD++GY50KCGdlo2ojwyZsVHPhbJCMaGkT6ELgVSutk+fnam43nYikYtu2M9/hXGomXXY
-         IemweuIopL0dAAKctMSe9blRl5fFMjm4gjORpwzRAhJ29VW8DasindMbqK24/pCriPXm
-         C2Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964754; x=1794569554;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wGiOeNE8Bnji04NKLc8q6Gdt5TOl+enDfg0BQ4VBWQY=;
-        b=Vodocw1RawkmguXymzTIo7VMwa26gaD5zcvzDDq8tGzZAVGeYlyY/4SVVxsAub+TTH
-         qjtdeidIEduQoqbipL6SJynywiCnLLcfzw860v+UM+zy3h4F0f+KRyfAAcgvx9r7S4mM
-         bSYqNPxfxaafMsvaqwgY2erP6nRe+iebdtQ1aAXG9OOTy4Unj9dtNVuSpOmSWgx73Zue
-         Wud6Ctdsx0hSXh8JrOpJzjVmI8Jk5MZrW8worBV63FrDwNCIok4OahHZmeq7u86dOq2E
-         SRdZInn/C5guAY0VMuLXH1K8Yk+vZFDmEiO/E6xfWw6yQFYmU5A45BtQEqgoZedezYgl
-         zAOg==
-X-Forwarded-Encrypted: i=1; AKwUvBzjaAYsIDGytm5bIgrUIaGfda0VZUuHyXW41YNvnYgf0c9zCXd68UpZZiufHzkhcDqi36J+TbHyGXUuktw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9muQOwOl/ec1pqQA+m8arKIHGcBB006nR0pZ1wDgnUJWWrgLIR
-	+hLKSBbaKFh0KS7P69GS6xFlheFa9Ec44g9z+FZwzSbbmYYIBcUKxIoG
-X-Gm-Gg: AYBFou3ILGyKMMaMcl+EFLNoUykYQ6bQLcQgRyTsnm7SReCmPOj+RupFX5aPs6bxOPX
-	n+D4aEm9wT2cJxOonWksBA/E9Q4cLWdIn/9x/f6UOU+COVy665p33TpQdvB6pmON7Z1H+dubwdl
-	4+vPR/C8KZCryH4bLz99/CxSdZ3Md8idHWHzpnqFl2iVNBKBlcF/ywXuiFKfuKrt4oowxYFgJdV
-	oMTr1wC6lR+LM91Q/D4E9BfTffDKyyOYf1KUOXLdoSSNCZE1giRqQ8ioXm9rayyDoayNLG/802+
-	OyLu8dpKpF0oVhXc1vd+ptKnOeodeNtFvZZYImcqywvsSCMAT1eunh/zVqIGR8qPHQTVrMuFemb
-	v/O6Q8kGCS3D+k5SiQjGAAWAdEBUDCqn9dSPgeA2QPDK/bMrjsYVxnOyn2Hr0uinV6Ne2vNCh+Q
-	5mmI8I+ABNmJfIVwhB7nWPL7+rDa/OR6W3OU9rVwzfWVsLICMmaNljLZAykfHw3in6JVGf+Ospj
-	JqyrKXuEe+Bx45Mi9kvSGwU4DaEk6r9zQyPu3kB9h56joXv9mNxkJYXyC19XsI9cxis/LmXeiZr
-	3vcBhemLMzpeUH6wkN3X8WBN9tsv9VzqscXfUN99I7I66ju83ShG5b5SEdN3vJP4HfZKAQgcZpZ
-	FbBB8B5p5pohy+sEhNuUyrPS3TIVwZeICYw==
-X-Received: by 2002:a05:600c:4e90:b0:4a1:f7f4:7ced with SMTP id 5b1f17b1804b1-4b6df21362dmr38701455e9.17.1793964754034;
-        Fri, 06 Nov 2026 03:32:34 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-492d72333f9sm3254280f8f.29.2026.11.06.03.32.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:32:33 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v4 0/2] clk: en7523: full clk_hw + set_rate for en7581
-Date: Fri,  6 Nov 2026 12:32:23 +0100
-Message-ID: <20261106113227.182324-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+X-Forwarded-Encrypted: i=1; AKwUvBxWhiH2Lcv7mLBxmvBFZKK01klXscgQqc/jDyE5XrFVhTru+XPT9pjYOcR18o+texNHpC1fFMQ/nvUOZ+0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jK6Kmi23oVIaNL0DkvTJLM24EYU+z3VUa3bR8C14nUZlH+mHi
+	Jueafa6QqZeVeZvuuWF/J6t3hpCac5f6JI64CrOmw1ldwpj/UlNXd6NOMc4b9NgPLwR2rGm7RHI
+	tnU+7SjA0mSZAjMbeDM95jVn7Dbqs0lxr02LWJCCb
+X-Received: by 2002:a05:6512:3c84:b0:5c0:1b9:2de8 with SMTP id
+ 2adb3069b0e04-5c006378923mr59625e87.0.1793964754169; Fri, 06 Nov 2026
+ 03:32:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,37 +66,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261105-hyp-pool-and-map-v2-0-44a6ca90190b@cs.columbia.edu> <20261105-hyp-pool-and-map-v2-1-44a6ca90190b@cs.columbia.edu>
+In-Reply-To: <20261105-hyp-pool-and-map-v2-1-44a6ca90190b@cs.columbia.edu>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 6 Nov 2026 11:31:57 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTxXpA6sCrSmwRJBA=YKGfNP4zs-THhheRHTaq2BfYY-Lw@mail.gmail.com>
+X-Gm-Features: AclHuK9gc8zZSVttdzXS2GHVj1w7PkDDqC-dBzIEQ_RXvW813sjnQFEQOIIR5dE
+Message-ID: <CA+EHjTxXpA6sCrSmwRJBA=YKGfNP4zs-THhheRHTaq2BfYY-Lw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] KVM: arm64: Compute hyp early-allocation and pool
+ sizes in 64 bits
+To: xuheng@cs.columbia.edu
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Mostafa Saleh <smostafa@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-This simple patch convert the en7523 clk for EN7581
-to full clk and adds the .set_rate OPs.
+Hi Xuheng,
 
-Needed mostly to configure MDC clk rate.
+On Thu, 05 Nov 2026 22:59:48 +0000, Xuheng Li <xuheng@cs.columbia.edu> wrote:
+> hyp_early_alloc_contig() and hyp_pool_init() both take a page count as
+> an unsigned int and compute the size in bytes as nr_pages << PAGE_SHIFT
+> in 32 bits.  For 4 GiB or more (nr_pages >= 2^20 with 4 KiB pages) the
+> shift overflows.
 
-This will be also implemented by AN7583 since they share the
-same exact implementation.
+Mostafa (Cc'd) posted a fix for the same truncation in July [1],
+widening the parameters to unsigned long instead. Would you be OK
+picking up his patch for v3, keeping him as the author and your
+description and tags?
 
-Changes v4:
-- Fix regression where base_bits is 0
-- Handle divider_get_val returning -EINVAL
+> Two of the regions that pKVM carves out at boot are sized from the
+> amount of memory: hyp_s1_pgtable_pages() for the hyp page tables (hpool)
+> and host_s2_pgtable_pages() for the host stage-2 pool both provision
+> page-granular tables for all of memory, about one page per 2 MiB of
+> RAM, so they reach 4 GiB on a machine with about 2 TiB of RAM.  Arm
+> systems of that size exist, for example AWS Graviton4 x8g.metal-48xl
+> instances (3 TiB) and Ampere Altra Max servers (up to 4 TiB per
+> socket).
 
-Changes v3:
-- Rework to clock divisor API
-- Return error instead of -EINVAL
-- Use dev_err where possible
-- Use devm_kzalloc_obj
-- Revert to not fail on clk registration failure
+Could you also list the hyp vmemmap here? It's sized the same way and
+overflows at 2 TiB too.
 
-Changes v2:
-- Fix recalc_rate return value on error
+> On such a machine, divide_memory_pool() gets a truncated hyp page-table
+> region from hyp_early_alloc_contig(), so the host stage-2 region and the
+> FF-A proxy pages that follow it start inside the range that hpool will
+> own.  hyp_pool_init() then attaches all nr_pages pages of each pool to
+> its free lists, so hpool and host_s2_pool share pages and the same page
+> can be handed out twice, for example as a hyp stage-1 table and as a
+> host stage-2 table.  hyp_pool_init() also derives range_end and
+> max_order from the truncated size, so most of each pool is treated as
+> external order-0 pages; on a host whose IPA size makes the host stage-2
+> PGD a multi-page allocation (for example a 42-bit PARange), that
+> allocation fails and host_s2_zalloc_pages_exact() uses the NULL result.
 
-Christian Marangi (2):
-  clk: en7523: convert to full clk_hw implementation for en7581
-  clk: en7523: add support for .set_rate for en7581
+Could you describe here what actually happens? I think pKVM init fails
+before any page is handed out twice. Just below 2 TiB, hyp_pool_init()
+for host_s2_pool hits the BUG_ON() in hyp_set_page_refcounted() on
+hpool's page-table pages, and from 2 TiB up hyp_back_vmemmap() zeroes
+the new hyp page tables while they're being built.
 
- drivers/clk/clk-en7523.c | 301 ++++++++++++++++++++++++++++++++++++---
- 1 file changed, 281 insertions(+), 20 deletions(-)
+Cheers,
+/fuad
 
--- 
-2.55.0
-
+[1] https://lore.kernel.org/all/20260715150125.2798116-1-smostafa@google.com/
