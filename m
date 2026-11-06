@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981770;
-	b=M4vlgfXzxXCXja1Qaulx3wzzfemwiLpOUAIW3lLSob+MJvN2U+Xwjo385OGWzUkb+WLv
-	 g9Ow4mY1P/U8lwqLYqQOzelxuHBukYdhHesK66uV07gX0W/j/bzdZy3GIR1KdHrwQMwLX
-	 066gYJps4KUzfbkLnd/JfgxR0KhHJn0tBVuOY8FRtcIJQApr4WM4OCPasW3F+iBN+P1UA
-	 g7TQElG41+944ZcmGkXVxr088QHyvsXnF1ZRRqvyDkdeGWvWfooNd3Al6BoXbzOhxBgZZ
-	 3lSBniVlU/S7XKMe/5727516U6K1iklJFZvvT8z4KHzKrbCtxt0dxsHIMtY6AfeP9pg==
+	t=1793981772;
+	b=K17OY1ovUiv7dglQh5XpgODoMUeT0kbejv01pxuh/rCLzfhG4HsBwFfBvG5UAm7qVWBR
+	 nJl1dDiooqSKAQADl3SlEtlGGe8Nt3xbu3JqHg1eNTUg9F8lDvYhyf0ej7j3UpBUS5Nha
+	 kDMTLPAR2bhfbAgD//j9DdFl2GR8wHuWsJtgtE5nDI4cIIVCb7P9EGd2T9NLKVCzMQGDK
+	 /aP2QTzgPz7Rjbwa9PYdYU6kMVgaTWAAEGQdMfj6s8A5BEmBtLR08zy+bCd2KKa+qR7bf
+	 dUEni6+up2cJ4OfEZOkc+J/l3julnGtshveENwt0l/kbBBXJBRc8dzqbrIvFk9jAp6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981772;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=euUjs7g5m1kBgqRnzu/IvV2JEZwIjebPlXv93uatAJg=;
-	b=Ux11wQaKMeg8SvguEGt4rIXLHFALSV4xz03tuzWndPYfYPV9AEGSJprtm0kAFTVAi/h8
-	 YtO+4UMv+FR8G2xJ6b5BI4lSj9yi/XcxF455iKTDAy+0FhjlPpYwpBSdd53cmek9jp+kl
-	 sVGrxJ4nDetPcX1tB3QH29Ovl+xGFDBQEMGdesEITtk2q5+uO12ex96oTwGPNJHkS2UUp
-	 WzRdONrl9uPOnOrC4+B0JPP+XPDQg7bC5FwG/05Gzq80SLW55R7f+OMijuN4gWEnMbmLN
-	 DcQQOs3yv7TZfRqhnrSi1LH2vkf3Fw1jXCHMWL0ZyQu0NxBCui3SwQsUQJNIulK7bUg==
+	bh=hsl0QQWybUPfLDhb5yec+bu7WKSDxZCbELPP28t1jv4=;
+	b=3zqtteSDzBHYSwK4tzMU6CuDJhIilZ6FEGZs+MepGv/PWd9kqfhG690BAw2FFoHBgD5E
+	 AcYo7GqwYVs3cUoWgNb4pfXh87Ppn5BKW1gXvFvv5/LgyGcGqz3B4VSod8v9vwYwC1F1F
+	 GWyauCR4gOHdZ6RfX4Gda24XFCI7RID+7dM3tdK1ZJqIrNbj8cn+cfUU2IM4lwq0m0EBF
+	 gkKuk6UfCuOH4Xmg0JhvxWOkUxnFFq7CRjUBVIyMejsnwm3kISEwKkVRI+QA0zOtgbOfA
+	 IHpDZJBm0J82DWuv2oBjayi1m8idMrQsgKbRAxhUW7ebyMINjy8fxHkJDnmYk8U1zTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L3hiQZ05;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nSNRpvm1;
 	arc=none smtp.remote-ip=198.175.65.21
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C00606A32E;
-	Fri,  6 Nov 2026 16:16:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35C00606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A931606D802;
+	Fri,  6 Nov 2026 16:16:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A931606D802
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L3hiQZ05
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nSNRpvm1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793981770; x=1825517770;
+  t=1793981772; x=1825517772;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=J/JRYTAvKXFUHp2RZmX+Fogs7RGWrYI67ncXWIwYPxs=;
-  b=L3hiQZ0592b5JgCSwHT5vWqCgY4ObRzmd9PowYkNy+3C1kCJD2kSp0K7
-   BDLpnPa9VAGQAiv3sLuNnbxw3zoit+qJ4dMpVkFtGZXbW531EtqR0pr5c
-   w0XQ09XbQQtzFUE9BNMfxlXRgXFuaEhN2Ab7bYbFQYhv8ysE/K79AkmpA
-   Z6Bwp0GryBlboJTIGCa+hdYRhY5opCAyLYjP9szkNCmrsRN7CMdyLIXVh
-   s6lLi9Anuad9SjE3t33efRMYwqv/EhY3Ak/R7A3OC2KyzjtzX5G4YWGj9
-   y5Tn1NNd7lX687wjBG8IRPd39QDKGEEKHELIw6lTSmtprTLMTt89Uq521
-   g==;
-X-CSE-ConnectionGUID: nHdsK9J8SZG8hMr4TLlObw==
-X-CSE-MsgGUID: a36cZwnwRxOuVaNBzqNIdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2889297"
+  bh=QnkdNf3iCWDtNXj5pCbxys1qyiUGC1kosmViSL5C99Q=;
+  b=nSNRpvm13Bjj55R/ALqmNH0SySCVqZJeCHGJiDOgKWgECWl9DbyrBFhP
+   r/UMGyj53c5qzEt6VjTRGY3K+kzp/b4aI/q72Gr/s7FFK6/itnk6gy6o0
+   xwKZg/BrIYC18PnW2aTDI7QLIxE0kuvKu+EA4hNv0BT2W7VqneWSXdpD0
+   JPE5uUPuvejz0fc5CcbLCwkDaKQhYwaQHS2+vGkEbtwQD/BgWGrhoTDrv
+   yfXHR7aJDxD8ioNzaVGrjghMn1IXYLZpal8AEjvfD4R7OFn5SYzhxSTvg
+   JY62AIKq/Fok/2gkF8CKBNmb9UeSrWMPAjCKYCvpZXeX0VJyILuWQk6+A
+   A==;
+X-CSE-ConnectionGUID: YS7iHauRQjKyYxqrJR+OSg==
+X-CSE-MsgGUID: MfmIolr+S/CI5ZF4UaDS+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2889319"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2889297"
+   d="scan'208";a="2889319"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:16:05 -0800
-X-CSE-ConnectionGUID: uqBO6s9/TE6+rvyqXWJepA==
-X-CSE-MsgGUID: xkkP3+96Rp2KIPrzcML3/w==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:16:12 -0800
+X-CSE-ConnectionGUID: Fw1wY8wyQTKPJ6f/JZQFPg==
+X-CSE-MsgGUID: yaphdGjvSw2/wEBSFxJweQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7341886"
+   d="scan'208";a="7341907"
 Received: from ubuntu.igk.intel.com ([10.102.114.174])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:16:02 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:16:10 -0800
 From: Szymon Durawa <szymon.durawa@linux.intel.com>
 To: nirmal.patel@linux.intel.com,
 	bhelgaas@google.com,
@@ -72,9 +72,9 @@ To: nirmal.patel@linux.intel.com,
 	szymon.durawa@linux.intel.com
 Cc: linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 2/7] PCI: vmd: Add vmd_configure_cfgbar() helper function
-Date: Fri,  6 Nov 2026 18:42:50 +0000
-Message-ID: <20261106184256.4130-3-szymon.durawa@linux.intel.com>
+Subject: [PATCH v10 5/7] PCI: vmd: Replace hardcoded values with enum and defines
+Date: Fri,  6 Nov 2026 18:42:53 +0000
+Message-ID: <20261106184256.4130-6-szymon.durawa@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261106184256.4130-1-szymon.durawa@linux.intel.com>
 References: <20261106184256.4130-1-szymon.durawa@linux.intel.com>
@@ -89,69 +89,160 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the VMD CFGBAR initialization code to a new helper
-vmd_configure_cfgbar(). No functional changes.
+Add enum vmd_resource type to replace hardcoded values. Add defines for
+vmd bus start number based on VMD restriction value. No functional
+changes.
 
 Suggested-by: Nirmal Patel <nirmal.patel@linux.intel.com>
 Reviewed-by: Asutosh Pathak <asutosh.pathak@linux.intel.com>
 Signed-off-by: Szymon Durawa <szymon.durawa@linux.intel.com>
 ---
- drivers/pci/controller/vmd.c | 28 +++++++++++++++++-----------
- 1 file changed, 17 insertions(+), 11 deletions(-)
+ drivers/pci/controller/vmd.c | 52 +++++++++++++++++++++++-------------
+ 1 file changed, 34 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
-index e4ac04936320..4992682a69b1 100644
+index 2acabe05e909..09d3bf35c934 100644
 --- a/drivers/pci/controller/vmd.c
 +++ b/drivers/pci/controller/vmd.c
-@@ -954,6 +954,22 @@ static int vmd_pm_enable_quirk(struct pci_dev *pdev, void *userdata)
- 	return 0;
+@@ -26,6 +26,11 @@
+ #define VMD_MEMBAR1	2
+ #define VMD_MEMBAR2	4
+ 
++/* VMD restriction value determines secondary start bus number */
++#define VMD_RESTRICT_0_BUS_START 0x0
++#define VMD_RESTRICT_1_BUS_START 0x80
++#define VMD_RESTRICT_2_BUS_START 0xE0
++
+ #define PCI_REG_VMCAP		0x40
+ #define BUS_RESTRICT_CAP(vmcap)	(vmcap & 0x1)
+ #define PCI_REG_VMCONFIG	0x44
+@@ -43,6 +48,13 @@
+ #define BASE_ID_REG_28C1		0x2840
+ #define MEMBAR2_OFFSET_28C1		0x30d0
+ 
++enum vmd_resource {
++	VMD_RES_CFGBAR = 0, /* VMD Bus0 Config BAR */
++	VMD_RES_MBAR_1, /* VMD Bus0 Resource MemBAR 1 */
++	VMD_RES_MBAR_2, /* VMD Bus0 Resource MemBAR 2 */
++	VMD_RES_COUNT
++};
++
+ enum vmd_features {
+ 	/*
+ 	 * Device may contain registers which hint the physical location of the
+@@ -179,7 +191,7 @@ struct vmd_dev {
+ 	struct vmd_irq_list	*irqs;
+ 
+ 	struct pci_sysdata	sysdata;
+-	struct resource		resources[3];
++	struct resource		resources[VMD_RES_COUNT];
+ 	struct irq_domain	*irq_domain;
+ 	struct pci_bus		*bus;
+ 	u8			busn_start;
+@@ -590,7 +602,7 @@ static resource_size_t vmd_cfgbar_ecam_space(struct vmd_dev *vmd)
+ 	unsigned int ecam_start;
+ 
+ 	cfgbar_buses = resource_size(&vmd->dev->resource[VMD_CFGBAR]) >> 20;
+-	ecam_start = vmd_bus_to_ecam(vmd, vmd->resources[0].start);
++	ecam_start = vmd_bus_to_ecam(vmd, vmd->resources[VMD_RES_CFGBAR].start);
+ 	if (ecam_start >= cfgbar_buses)
+ 		return 0;
+ 
+@@ -598,14 +610,15 @@ static resource_size_t vmd_cfgbar_ecam_space(struct vmd_dev *vmd)
+ }
+ static void vmd_domain_reset(struct vmd_dev *vmd)
+ {
+-	u16 bus, max_buses = resource_size(&vmd->resources[0]);
++	u16 bus, max_buses = resource_size(&vmd->resources[VMD_RES_CFGBAR]);
+ 	u8 dev, functions, fn, hdr_type;
+ 	unsigned int ecam_bus;
+ 	char __iomem *base;
+ 
+ 	max_buses = min_t(u16, max_buses, vmd_cfgbar_ecam_space(vmd));
+ 	for (bus = 0; bus < max_buses; bus++) {
+-		ecam_bus = vmd_bus_to_ecam(vmd, vmd->resources[0].start + bus);
++		ecam_bus = vmd_bus_to_ecam(vmd, vmd->resources[VMD_RES_CFGBAR].start +
++					   bus);
+ 		for (dev = 0; dev < 32; dev++) {
+ 			base = vmd->cfgbar + PCIE_ECAM_OFFSET(ecam_bus,
+ 						PCI_DEVFN(dev, 0), 0);
+@@ -649,8 +662,8 @@ static void vmd_domain_reset(struct vmd_dev *vmd)
+ 
+ static void vmd_attach_resources(struct vmd_dev *vmd)
+ {
+-	vmd->dev->resource[VMD_MEMBAR1].child = &vmd->resources[1];
+-	vmd->dev->resource[VMD_MEMBAR2].child = &vmd->resources[2];
++	vmd->dev->resource[VMD_MEMBAR1].child = &vmd->resources[VMD_RES_MBAR_1];
++	vmd->dev->resource[VMD_MEMBAR2].child = &vmd->resources[VMD_RES_MBAR_2];
  }
  
-+static void vmd_configure_cfgbar(struct vmd_dev *vmd)
-+{
-+	struct resource *res = &vmd->dev->resource[VMD_CFGBAR];
-+	resource_size_t busn_end;
-+
-+	/* Do not let resource[0] end go out of bound.*/
-+	busn_end = vmd->busn_start + (resource_size(res) >> 20) - 1;
-+	busn_end = min_t(resource_size_t, busn_end, 0xff);
-+	vmd->resources[0] = (struct resource) {
-+		.name  = "VMD CFGBAR",
-+		.start = vmd->busn_start,
-+		.end   = busn_end,
-+		.flags = IORESOURCE_BUS | IORESOURCE_PCI_FIXED,
-+	};
-+}
-+
- static void vmd_bus_enumeration(struct pci_bus *bus, unsigned long features)
+ static void vmd_detach_resources(struct vmd_dev *vmd)
+@@ -726,14 +739,14 @@ static int vmd_get_bus_number_start(struct vmd_dev *vmd)
+ 
+ 		switch (BUS_RESTRICT_CFG(reg)) {
+ 		case 0:
+-			vmd->busn_start = 0;
++			vmd->busn_start = VMD_RESTRICT_0_BUS_START;
+ 			break;
+ 		case 1:
+-			vmd->busn_start = 128;
++			vmd->busn_start = VMD_RESTRICT_1_BUS_START;
+ 			break;
+ 		case 3:
+ 		case 2:
+-			vmd->busn_start = 224;
++			vmd->busn_start = VMD_RESTRICT_2_BUS_START;
+ 			break;
+ 		default:
+ 			pci_err(dev, "Unknown Bus Offset Setting (%d)\n",
+@@ -959,10 +972,10 @@ static void vmd_configure_cfgbar(struct vmd_dev *vmd)
+ 	struct resource *res = &vmd->dev->resource[VMD_CFGBAR];
+ 	resource_size_t busn_end;
+ 
+-	/* Do not let resource[0] end go out of bound.*/
++	/* Do not let resource[VMD_RES_CFGBAR] end go out of bound.*/
+ 	busn_end = vmd->busn_start + (resource_size(res) >> 20) - 1;
+ 	busn_end = min_t(resource_size_t, busn_end, 0xff);
+-	vmd->resources[0] = (struct resource) {
++	vmd->resources[VMD_RES_CFGBAR] = (struct resource) {
+ 		.name  = "VMD CFGBAR",
+ 		.start = vmd->busn_start,
+ 		.end   = busn_end,
+@@ -1019,14 +1032,15 @@ static int vmd_configure_membar1_membar2(struct vmd_dev *vmd,
  {
- 	struct pci_bus *child;
-@@ -1011,7 +1027,6 @@ static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
- 	LIST_HEAD(resources);
- 	resource_size_t offset[2] = {0};
- 	resource_size_t membar2_offset = 0x2000;
--	resource_size_t busn_end;
- 	bool vmd_in_guest;
  	int ret;
  
-@@ -1020,16 +1035,7 @@ static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
+-	ret = vmd_configure_membar(vmd, 1, VMD_MEMBAR1, 0, 0);
++	ret = vmd_configure_membar(vmd, VMD_RES_MBAR_1, VMD_MEMBAR1, 0, 0);
  	if (ret)
  		return ret;
  
--	/* Do not let resource[0] end go out of bounds */
--	res = &vmd->dev->resource[VMD_CFGBAR];
--	busn_end = vmd->busn_start + (resource_size(res) >> 20) - 1;
--	busn_end = min_t(resource_size_t, busn_end, 0xff);
--	vmd->resources[0] = (struct resource) {
--		.name  = "VMD CFGBAR",
--		.start = vmd->busn_start,
--		.end   = busn_end,
--		.flags = IORESOURCE_BUS | IORESOURCE_PCI_FIXED,
--	};
-+	vmd_configure_cfgbar(vmd);
+-	ret = vmd_configure_membar(vmd, 2, VMD_MEMBAR2, mbar2_ofs, 0);
++	ret = vmd_configure_membar(vmd, VMD_RES_MBAR_2, VMD_MEMBAR2, mbar2_ofs, 0);
+ 	if (ret) {
+-		devm_kfree(&vmd->dev->dev, (void *)vmd->resources[1].name);
+-		memset(&vmd->resources[1], 0, sizeof(vmd->resources[1]));
++		devm_kfree(&vmd->dev->dev, (void *)vmd->resources[VMD_RES_MBAR_1].name);
++		memset(&vmd->resources[VMD_RES_MBAR_1], 0,
++		       sizeof(vmd->resources[VMD_RES_MBAR_1]));
+ 		return ret;
+ 	}
  
- 	/*
- 	 * If the window is below 4GB, clear IORESOURCE_MEM_64 so we can
+@@ -1038,9 +1052,11 @@ static int vmd_create_bus(struct vmd_dev *vmd, struct pci_sysdata *sd,
+ {
+ 	LIST_HEAD(resources);
+ 
+-	pci_add_resource(&resources, &vmd->resources[0]);
+-	pci_add_resource_offset(&resources, &vmd->resources[1], offset[0]);
+-	pci_add_resource_offset(&resources, &vmd->resources[2], offset[1]);
++	pci_add_resource(&resources, &vmd->resources[VMD_RES_CFGBAR]);
++	pci_add_resource_offset(&resources, &vmd->resources[VMD_RES_MBAR_1],
++				offset[0]);
++	pci_add_resource_offset(&resources, &vmd->resources[VMD_RES_MBAR_2],
++				offset[1]);
+ 
+ 	vmd->bus = pci_create_root_bus(&vmd->dev->dev, vmd->busn_start,
+ 				       &vmd_ops, sd, &resources);
 -- 
 2.43.0
 
