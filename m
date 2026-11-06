@@ -1,52 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999073;
-	b=cPk1SC8OKQ0xnPFjCC7s47N1FMGJ3a+7k0Qj4QUYBugdJS7+B+fpKg4Lfd7sv7KQ99Qh
-	 8B5cJtlOU1utjLNBirq0KlPg+foRnlIit5n4kdaYUpiVQmhCI17T3I9h+6XWR9NFgG0aH
-	 Pz5vCFoT9FlsiCcW4t6poChIeWmoYY9WtmZMxbkV6nEChZVSflpvJsuccLVzbtGi/ZiNS
-	 CVKYwWuZKH1hhJjmXc8HfNtg2dkrBeRZu1HbVsYQgQ2vWeTgDwIBQX8oFw1ZZ2tX2WgBk
-	 SvBrcoFcWB2uZ5RPAiJ/975u6/IInmJtBg8tyZ3XhYjHz3K7Lx3aTdKicKsvGKurOOA==
+	t=1793999085;
+	b=h5mYVmy8oCZOASqLM+Pu4PBPZigflyxsqqtiTuJLFZe/1rt/kTPUR0QcYRqawWzZNPOL
+	 T/0ouvQ5oY9INe7Uqmf6ViWp9Gpmwt04t6fleSxojuVpxOjoXAiP5AvZebP5r3PhrNHSE
+	 I3zWvodmQnzgrfc5h/Vjdx9We3htHvUXgDy94NIFHOPXcviz7BBfIU41eE9yDz5RkWuIg
+	 2l1xssvL4HBEL9M9KRXo6ZVNXM/kZiaX0rupNuidoL4P+r8pbWUx2UA2wYm1lOmbdsiQH
+	 gkYrhzjSrm5oLe2lA7PrAPz41AXgyRlXXz/EuhfeFk3upr4wKkljXWyScsN3/w+54Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999073;
-	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc;
-	bh=naN7Do2XKnfBEEL8wixGrdg7/Y36Mq/NZw9Z3+PlXBI=;
-	b=FEYGB5ve8stjnS+gHWU12OuzOXY0l2aduFDbQusUYrPdabFqON+fCxkiDDjk0ntnb4CC
-	 XXJJPrHW8L/QGErp0vwLy1otSenhBrKTrugzTLrblMCE7+QCNgxuuLfJnIfqtWU6TP+GG
-	 TixkCnWItz5hCCYP8pn856/9B/8bZVvGbKBq2ehzuwkx1rnQWaDQZv6o6Bxe/ozc9g+hC
-	 JPRrmRVotzPdxBjbTfHuyRmbEExvcbD2VukpH8zN094Xr2GRfoyTAn4qOIVWfbKAKIGue
-	 uWriMMZ4gXWB1vX1DiskT8FFvFZRzrcleSovglgw8yk29XbpucyULJ3O+Ui0yX5rtbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999085;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9mCSh537Zkc+/ONs3x2e17S7D98n9pmc/4cO5WOehrg=;
+	b=slMhkJqeQ8u/82KIhDrvbNCo/s7Ms3ZTUE7u8ZeD2sIaVwWFnts2sdcLaDMwdobXxebm
+	 PFvT3i3kjzff8WN1tPfnnPtUUFRsydnpZ/SiEZGhHc/QpjA2UmzG4U15n4yaW1Y5RgIi2
+	 gYEJHWULh0rPSLBRz8CRawZ/5na/pTnNN+Jjgts6Zq0hK5pMnbQsyLkol8XtkN+yu+DKH
+	 UH1F9+EOGDP81tUfpwclYCxv9LZt1QuMBfTGShdDbRSv+EI4iknvLKGbEy6WIJnqulpJy
+	 ksteMvngLXNB9yddAYRrgPgr91PzribfW4atciRHYhI9vIuizORrBDV2jQQLofCmqrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cyberchaos.dev;
-	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=3c+SiJzj;
-	arc=none smtp.remote-ip=195.39.247.168
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTXFCK7J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3AC606D809;
-	Fri,  6 Nov 2026 21:04:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F3AC606D809
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB9C6083606;
+	Fri,  6 Nov 2026 21:04:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=3c+SiJzj
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1793999070;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=naN7Do2XKnfBEEL8wixGrdg7/Y36Mq/NZw9Z3+PlXBI=;
-	b=3c+SiJzjCODbfc1tsfQeAbiYCeHGStTsEsUhph7GCDyD7xL4PuYJiJr+zhCQX9P9orJ+oR
-	fti0ziRd1IX4+maEJUpa3WjS9HBgQXgIrnfGxjWq/7ysLshmo8zcXjghQPk/NeIthJEJVq
-	fuK5W0YbBt/7qjYiY+bi5xeyfV4meHI=
-Date: Fri, 06 Nov 2026 22:04:18 +0100
-Subject: [PATCH 09/15] dt-bindings: iommu: apple,sart: Add t8140
- compatibles
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTXFCK7J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0F81F00900;
+	Fri,  6 Nov 2026 21:04:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793999085;
+	bh=9mCSh537Zkc+/ONs3x2e17S7D98n9pmc/4cO5WOehrg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nTXFCK7Jc+NTi8DsdFSnKpsTSYiR0EiS80aHQjEiSi3hWiS8rGRqGMbGIjDc7ypdk
+	 jic6wILiR9Ven4Zdv+oRYeiuo/FsLjienATkzwOlxOcESC3psfpemR2N47BmQ6NWmo
+	 dyItIFYQVBVx8JlQSN9vuxohag9Uw0Wz7w1XIqEPWf7VVdgK8TiO5B5dEBKvKvlHwl
+	 tTtUEXwJVTxBqg5ZDYMNrknrDPfVLpT5fOV0pA03cYBsgwI2GM+RFGeL+SVPSAZ0Tb
+	 LQI64lX6ru2lcPMLPw3J0+zjR+ML3n2ZigVi+7xvNnUYCdJ3IUth7JOWkv755VOhhe
+	 PNJssHfgQeoTQ==
+Date: Fri, 6 Nov 2026 13:04:42 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Romit Sagu" <romit@romitsagu.com>
+Cc: <netdev@vger.kernel.org>, <linux@armlinux.org.uk>, <andrew@lunn.ch>,
+ <hkallweit1@gmail.com>, <davem@davemloft.net>, <edumazet@kernel.org>,
+ <pabeni@redhat.com>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] [PATCH net-next] net: sfp: add quirk for OEM
+ SFP+ONU-XGSPON
+Message-ID: <20261106130442.5ad3327b@kernel.org>
+In-Reply-To: <20261103011849.181392-1-romit@romitsagu.com>
+References: <20261103011849.181392-1-romit@romitsagu.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,42 +60,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-apple-dts-m4-m5-nvme-v1-9-22f4827b4ece@cyberchaos.dev>
-References: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
-In-Reply-To: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- iommu@lists.linux.dev, Yureka Lilian <yureka@cyberchaos.dev>
 
-The SART IOMMU in the Apple A18 Pro SoC is compatible to
-"apple,t6000-sart".
+On Tue,  3 Nov 2026 01:18:42 +0000 Romit Sagu wrote:
+> This XGS-PON ONU stick (vendor OEM, part SFP+ONU-XGSPON)
+> needs the same handling as other Potron-based modules. Without it,
+> the module fails to connect and the kernal shows these errors:
+> sfp sfp1: module transmit fault indicated
+> sfp sfp1: module persistently indicates fault, disabling
+> 
+> This module requires TX_FAULT/LOS behaviour and boot delay tuning.
+> Add a quirk using the existing sfp_fixup_potron.
+> 
+> Signed-off-by: Romit Sagu <romit@romitsagu.com>
+> ---
+>  drivers/net/phy/sfp.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/net/phy/sfp.c b/drivers/net/phy/sfp.c
+> index 85e57a16bb52..9435b25b54c9 100644
+> --- a/drivers/net/phy/sfp.c
+> +++ b/drivers/net/phy/sfp.c
+> @@ -623,6 +623,10 @@ static const struct sfp_quirk sfp_quirks[] = {
+>  
+>  	SFP_QUIRK_F("YV", "SFP+ONU-XGSPON", sfp_fixup_potron),
+>  
+> +	// OEM SFP+ONU-XGSPON is a XGS-PON ONT stick with broken TX_FAULT
+> +	// and slow startup, just like potron.
+> +	SFP_QUIRK_F("OEM", "SFP+ONU-XGSPON", sfp_fixup_potron),
+> +
+>  	// HORACO HC-10GE-113C uses Rollball protocol to talk to the PHY.
+>  	SFP_QUIRK_F("OEM", "HC-10GE-113C", sfp_fixup_rollball),
+>  
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
----
- Documentation/devicetree/bindings/iommu/apple,sart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+PS. AI also suggests mentioning LOS in the comment, since you have to
+respin
 
-diff --git a/Documentation/devicetree/bindings/iommu/apple,sart.yaml b/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-index 8cf41473b808..bf35ead191ec 100644
---- a/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-+++ b/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-@@ -37,6 +37,7 @@ properties:
-               - apple,t8112-sart
-               - apple,t8122-sart
-               - apple,t8132-sart
-+              - apple,t8140-sart
-           - const: apple,t6000-sart
-       - enum:
-           - apple,t6000-sart
-
--- 
-2.56.0
-
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103011849.181392-1-romit@romitsagu.com
