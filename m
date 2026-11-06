@@ -1,86 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963508;
-	b=U/T9jycgywyZ0g06MS+N8dBmvdUo4mDdVFRFEsrdSxvHPASYKacuBHGjYMuMvIcH6PjF
-	 44Z/YhFLE6MMMhlAmMMR6kSCJjMci0Y61t6fdgRieVPR2b6MI0GZNwH8Og4q7CyWGuzII
-	 4bmd8uNXErjhcdW3ousMcZs6IoTbfJBthCirlhxbk8WJw7ZQ/yYSRaKIBHclLwcE+UbuB
-	 dv+U1SCbNzQfA0x/72HjQMt2CGOWJ9zcWf2PLF4SVnRaIP670nQU6cA1s3qtB/H9c3Wrs
-	 vurWSngXaQJOZ43XLLV+lBGJhAmSpUO5WdrFv95zDboALllE/v9iss4S3g8FXs+ZXnw==
+	t=1793963523;
+	b=zGk/YTvfFejnfpi+GCkfPT/iZItfunZE4RY9wEdnRjNhJp50UPJBptkMFEc23Ys/Z/jx
+	 6CtTgbPvIhxXCRnhm+CiDgguccdMpBYcy2u5Prz5GQqflMkEVSKKsoIefr3KwLzkGnHQr
+	 2o1XilRqUQiEA5KzsT7GIFDKuUK21MUjcq5YCDChBlVLX6+kMfi8TNS2A5biwZD/sEL5Q
+	 TvWTr31Nfyb09EDmyeW4w9STlfK/uea9FEuSVdl3NmlthJRNgQhgI4bMWCMSvh8ohqoQw
+	 W9qatBKJzGVn1ErMR7TObR64uMsVZytRGnf7A9npayQZFLL8DeSGPzfPpASYUx4chEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963508;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=ymv0niTVnWnKS+pFTfZaMzhEe6bmcXaXyLur7KiR9IE=;
-	b=ICF3RCY6kzMYVgyaDiDeyVgwQS16YVDU/7ajyc/+R0icvRzQXS8mCCppTt11x8jcS2as
-	 mS/NfauKpueYZtwMYmUrJLVHNoi0DHMB4PmHBiU2kyOxn9YFcdFImGvlQL2yE9qIlHw58
-	 K6G1swYNelXFLhajtIecIToj7wz/6ZqCIcDS4iq49w6KdXSej04FFsjzmw+xGoG6hWwRo
-	 H2ZW1YjivqhJJDkuLizKUQHhZ6ArKdjH1iD6QpY9wm167GB8RPmGQH2oLqXayDWOSJR0r
-	 uMh39O2yEmjaMKQCMRuVr1Dv+sRGz6TeZEZTi9ut10ApZ6c49ZmGnf7RPFMm0exwJFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963523;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=qHsvtGSzruDpufmVgGB18b19oNg1SUnZv08yqQlPOS8=;
+	b=lA4y26b3iPNmnfOJy6ms+b5DHXJGloNboK73D8shevoAQjlx6sT7y+hBCnYPH+LEoAXz
+	 icdSIn0rwvU7V+KD4EVxNq3Sto3GL3g05192ppdQkTivwfXBEhR90G49vLW6U0EOsKpOM
+	 t3J35RkQJYEn7zQIfNEQxqRH6ZWYSFtoq+T/8Ex39qZYeiIfnDMbuc6aww3kBiOIdxhoj
+	 uPi4OWsjqRtg5v5Xt3cqpxGdUy50/5JenwgkwEvUJ5f27zYkVgEPNw/G03ybT3cDP9Mti
+	 tOLvomd6aIoEHVhF5WoE4tjWMKkY6jHhkjGodwjgbMsWCDTVfDIO7BKE7tU5GfPFLJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIXfAf5Z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=R2A6eVjD;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6444606A33E;
-	Fri,  6 Nov 2026 11:11:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C32A606A329;
+	Fri,  6 Nov 2026 11:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C32A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIXfAf5Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63A01F008BF;
-	Fri,  6 Nov 2026 11:11:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793963507;
-	bh=ymv0niTVnWnKS+pFTfZaMzhEe6bmcXaXyLur7KiR9IE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FIXfAf5Zx37NfO5GLrcenTXjpTMp1DBfUo4/QUReR8rF6AxsQTqUTrgRF+0j5apXe
-	 ZB0NsHvsFvk6EgsiTAMagSpL6uWWpVkZUO8r/FNZUMbhYtYG0rYa3GIKwaKCAp0us4
-	 m2XYoIP+BmjiDtH1xsZMGNKvkY2v/tVzeIN38VtoPTkjn6lQDWYpeUDZFqAW6ehXrX
-	 HhmpmyJ6/r3j3guRCsDqPXblfup0LMrZj9h4WhEYnNGLQLKxw7j5zgX+we3FnKEQaP
-	 LG3OckjSOE1p+dVd5p/tLlaFcGxSYVQbSNoO3UAmI3q0tAj/tgY6QsE4dkqT1/b3An
-	 NzwCDdtReyohQ==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 91F4627E8491; Fri, 06 Nov 2026 11:11:07 +0000 (GMT)
-Date: Fri, 6 Nov 2026 11:11:07 +0000
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jun Chang <jun.chang@metanoia-comm.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Sebastian Reichel <sre@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Ben Zong-You Xie <ben717@andestech.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
-	CL Wang <cl634@andestech.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Minas Harutyunyan <hminas@synopsys.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Randolph Sheng-Kai =?utf-8?B?TGluKOael+iBluWHsSk=?= <randolph@andestech.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 11/25] dt-bindings: spi: andestech,ae350-spi: make DMA
- and interrupts optional
-Message-ID: <07329076-00d4-49c6-a320-165910a364b9@sirena.org.uk>
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
- <20261106-mt2824-v1-11-86087eaf5af4@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=R2A6eVjD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=qHsvtGSzruDpufmVgGB18b19oNg1SUnZv08yqQlPOS8=; 
+	b=R2A6eVjDt8hq/OYN4TBmIILWlMHMTJo5MVY5Af74wlJUlr4KwgQrtfkZRHBz6Sa5DvxBzGnY4PW
+	tOtng6AJvil7nbCyKO+6Mz733dDQsi2yNoAohwBaP7NJ8ztTLn93pAm74bk04bVw/nZeWu9Qa3Uro
+	a75O7PA2nBVA5k1DMauM/PEALG4pX6Cc2ITI4ALulT1A4Oj5+RGxmr36h0NmMy4ST7wVyRIgLLzV7
+	lO92i6R8thvqehYIhD88SQu6SGxAU/fTBzTbFVjeGn6WQH9k1RuU0fmG9+tkg6/L7GjpngIvI8hcl
+	FroikT7/6Y0Ot8SQOoCTz4frO9TUjJmqp6FQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xPHrK-0000000BqVB-39Dr;
+	Fri, 06 Nov 2026 19:11:51 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 06 Nov 2026 19:11:50 +0800
+Date: Fri, 6 Nov 2026 19:11:50 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Laurent Vivier <lvivier@redhat.com>,
+	Olivia Mackall <olivia@selenic.com>,
+	Rusty Russell <rusty@rustcorp.com.au>, Amos Kong <akong@redhat.com>,
+	virtualization@lists.linux.dev, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwrng: virtio - prevent use-after-free after a failed
+ restore
+Message-ID: <au219vQfcYE0maYw@gondor.apana.org.au>
+References: <20261016103640.4989-2-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,39 +68,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0rA9jbrCb+ammo71"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106-mt2824-v1-11-86087eaf5af4@bootlin.com>
-X-Cookie: Whoever dies with the most toys wins.
+In-Reply-To: <20261016103640.4989-2-blum@kernel.org>
 
+On Fri, Oct 16, 2026 at 12:36:40PM +0200, Thorsten Blum wrote:
+> remove_common() frees the driver data during freeze, but does not clear
+> vdev->priv, which points to freed memory. If probe_common() then fails
+> during restore, a later remove or freeze can dereference the dangling
+> pointer.
+> 
+> Clear vdev->priv on the probe_common() error cleanup path and before
+> freeing the driver data in remove_common(). Also reset the device and
+> return early from remove_common() if vdev->priv is already NULL for a
+> safe teardown after a failed restore.
+> 
+> Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  drivers/char/hw_random/virtio-rng.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 
---0rA9jbrCb+ammo71
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Please respond to this comment:
 
-On Fri, Nov 06, 2026 at 10:30:08AM +0100, Beno=EEt Monin wrote:
-> The ATCSPI200 controller can be used in PIO mode, without DMA, and PIO
-> transfers can optionally use the controller's interrupt. Make dmas,
-> dma-names and interrupts optional, and require dma-names if dmas is
-> specified.
+https://sashiko.dev/#/patchset/20261016103640.4989-2-blum%40kernel.org
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
-
---0rA9jbrCb+ammo71
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau21ywAKCRAv73Ows9A4
-iUbmAP9uPXjuvImN4DYj7yBA9yMQ34eBI4TfDanUysfyegnzFwEA41yLk793Adlv
-ceQ4scKXQENx1b01FUJT30h4t/rYaA8=
-=PoeG
------END PGP SIGNATURE-----
-
---0rA9jbrCb+ammo71--
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
