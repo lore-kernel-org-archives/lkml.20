@@ -1,88 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793961909;
-	b=UoLxNMrj9t/N0SwFEupZR230LPGj/Q0wAQlbdMtpCA32mxa1nb8o2X25e/8xTQZ07bWI
-	 mfEP10fdYLeZC2Ware2kbe37He/Q8tYxeRi8/aAy6La76p7D39yCnh5ylxD2ddIvG52fq
-	 S29ecVP8uX/IDioBCBbiKyLXTVtm0MWwcw7rwIkYZziad5MJQxsT0qpDk13aFZaBqi9Kn
-	 52Z7PyUZkP44HV/UWnzKdLsDygdSUO2nb569JZloV2G7B5mWXy9Xq1s0IdJGcDhLVU1qc
-	 cQtKwoqIn2BLXwhNKfF6GDWs7z7ON0SMi9fPEPwA1C4y1/LZRN9L7QI9JT7thNLnpiQ==
+	t=1793961919;
+	b=doN7+SD+ueEpuEESyw8x/qjvVMpp9bMtVzXVgkhS9GkBJUAM/bQ5tiZSi5J+u0SL/aRb
+	 eHX0z6YsXoLnt0Q1P07D1Sfrj9oG2UQ1UmGuHuna+SY+oDFOQX4ZnbHTwWRpeA6gNBQBU
+	 JOuNj6k9oTgZCbfIdJD6wnfGC8iDKF3WePVhqujANKSoa+WttAuFsYLtd86bpk5pJmMHO
+	 MnobVBLmmkZj/3V4dbyCFZkb1nl9AEQ/5caNOIAuKVjoEtuA+3I2w7Br0DLMxMiw+o9Cf
+	 NZnGsAlo3F7JdH4NIlZ7e8R+GQAPiI5uEMw50aasA7ka96JdNdlTQUrNTx1eX5/BDlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793961909;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793961919;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mK5Jdfitjwy2qBnVXmB5t+/eIsoKS4R4I1jh8e8KWtg=;
-	b=z29cggOXMUbE5E97P1nWTPkVLLijVY8/+MBKZS4ImkTxESXPvj/Gf8Eq7IF43Z9X6Jvz
-	 bCyy+bP9w9yyi87UL4I83/w4hx/KnrLrmt80XZum1auXrmdTW/Jl0hJYIqW8HBcoqnyfp
-	 3mOwRFLJ039l1zoqZAnLgX/16PZfcyVMnoM8qu06jySxjqXWuIFOnL/Gc0IPT8SaeKCF/
-	 esZ6Bp8MBbxNWeyIV85EhsTZ3L0yQ8vdgXdPy0o294tv7ygG8MLecRv/ZGVO2LqPsiWo1
-	 iUlB8nv/wOVsrfTRcJ1s/NA9Y55u3euwRmi6ILQzGU9BEO67xmhcENjAH1mk3kKph8w==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=6ysUKDhkycj13Q2P+bjvds2QR5Xb4PbnZNX+l6BEN+k=;
+	b=JBJbysELkz1PpjQ2B9WKWiXSUS/+5LCBrYNVsWqATwzDclh8IcRQq3WWpaAmGcLOgQKQ
+	 P7LUsm7KJ37eBlBjaWMflxJlcC2SaAH5zKy71OQJcvAgrt6AHr/OIDUzWQffrpwSLuEUF
+	 undacO+B0lpDKL5PkbLfXAuhslOlRhjEkxUrISJjxYdPetQZdM4I13pR/CETFNqwP3seR
+	 GUvb7ADi0uEKwNwupBV6QCGjBrBlrXB/05SboWUsRiyg4h9R2E6JaLmLE2/ZeT0eXDVnF
+	 Ql6Lm/uaS9E06a+DxYo4+o51Ev0thck8LsjDCjLSHzRVJAkyLUYMEUxCSpLEDZY3+AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFP2w+V4;
-	arc=none smtp.remote-ip=74.125.227.129
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cxI0McVE;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AD7606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:45:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76AD7606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B3A606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:45:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B3A606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFP2w+V4
-Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2ed408b0d0bso3264375ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:45:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cxI0McVE
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so4534615e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:45:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793961909; x=1794566709; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mK5Jdfitjwy2qBnVXmB5t+/eIsoKS4R4I1jh8e8KWtg=;
-        b=IFP2w+V4jns0t4yYEy5GFCJrNcp9y71ad7pD++ZnOBHlKQctT+UyUxQcBDU8YViV9j
-         X4tmcb9ziENv/Bh7ir1qwdPfx9lTPXVZuB80HluQdBaN1r6aUl/6w4yYW5XjHJ9rw39y
-         ZRtowgsbzWkN9mCY6/oSPlcbeOQU0AHomUMjfv2CiGDrDjRPqoNTdI8FaYoLTYdFP2Ak
-         pzJAb/tt1X8tiZPYDImwjmPM8LkuYnshYIk8EgHCP/brvCh88/KWcua0BvQfMUeVsvjE
-         MtXSiqoew+qkr9lx3NZ/laHEBoEW7mzhGQXLEPzy+D2GXEERDkhEcjQxUoJilQsctZex
-         rlsQ==
+        d=google.com; s=20260707; t=1793961918; x=1794566718; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6ysUKDhkycj13Q2P+bjvds2QR5Xb4PbnZNX+l6BEN+k=;
+        b=cxI0McVEZxvYVPSgVvIQV5DYjt6Ul49jgRYb8ULILj7HzTvDDg6XMCwmvIxksapdoV
+         DNwMwogXSW2Ra1Sk4XmyjuYCGrtYj0xUtW0PWlmt1/Immcy8dqz+hHBJlXf6luqHht4e
+         a7tALuhWxrmIkYKz7/ovpz2IQGjFNHgQHofjvypTpbX866JoVqhPXsiuVMfUsIW9d3gw
+         TzyPSI97WZpDz5zDya5TYPrVp3jgeNZcvTYPjlmJG6EustmHJ4PnPuH/AUwNMGM+i/Og
+         FH4GavtEXnIiTRsferH1aH/s1fKo0NEEYtUHCLFVr+d9qw0jnmkK7fUZbRnkpkAMRXbS
+         LtZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793961909; x=1794566709;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mK5Jdfitjwy2qBnVXmB5t+/eIsoKS4R4I1jh8e8KWtg=;
-        b=1dQ0eh5Zeq7ObGpVKpwSbWO62l7ZYHfoz3DAEkNfPbiMVargJIRr+p33VR82G8qF/K
-         2UZB4Qi3D9X4W8JpoSOw5gOXdXZNeWFE7QnUUu0bFJ6xwDS2WGv0QGccM3MgP4XY/T2h
-         ZpVmFpn5qfVHrymVXAMKtO0Xq7hUTNk1Eczk7bMfe4CogfgTynQam3ZP4QCOtIZxHfED
-         1hLOpBo4cLGadq/rYugKqITlItds5YkpJZEjaV4tTjauUmmu5TJDQk9s8TsPP9CKNL50
-         Ufp8pqu6YRyrD42VlasTLnyxWdjSJNWPxcHixDjmVHnw+sscpW4EgjCnhAQAGjpSjhm0
-         BoRQ==
-X-Forwarded-Encrypted: i=1; AL+hErEgwkxhdqO5QlmNNGRh8ksWOY9ilOghLLTvvz6HHXeRTIQJkO3BaRrZKdtJScZV4pJAngbvtHHgQwU7EDE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//OozgN1FjFcWc31jAPLvwCPgjKsk2rKpuX/l9qbps+DXNzyGx
-	aNcnvfjmGAbLPj8gn+rERV9DmAB1ESDA0JR/PN1rJdgz73nzluh1G6c2
-X-Gm-Gg: AYBFou1hCFO+wBqBUfqSdF/9SHPLVSgnGqKjboSSEe6L3R5Uu9FFbZPPq8ESg4ABMND
-	JjSbUfa9qpLOMzwg7Vtyv0IVWXG/3fPZSAWD4rEdXgHhg2rkLgHmsoYCx6xgmMuKRjjaFoR9c1F
-	G+xZyqUpBR40DL/5HawNLfE/2jtVxe//GPWKVgdflnk9vrjOmKEdC2/lERjIKftnFIrTizmn0G9
-	dSchDpuddwpCszxZYt7sZwzhBUIMaeetm7TiE0ykPv1LrnY/4c3eGCspQoAnFmZNRGW3EeJosWg
-	wzHY9BFHV39eEsAlmlpsVi441PtebsP7gl4v7opdeusodwaQpM8Z9BmzA/FO4bagWDFvDuO/yXq
-	0KRxd9qQm1usrhopeCXD32huh2X6/2NuvGnuL1jCr//Jf6XVs0lzd0fEerIZzDmEvPrzJ3t9GU5
-	GqHfcSbUpzrIwr4OnZaRJs/SGXrLoKvfAE4LK9LwpK9BLniUpXrZqALzoj0Pe8VkhOCJFUO8Z/U
-	rLuCwknzieCu+TL+l9MGRcguwuxGpQOLkHGS4E/OT9aZcqmZMBHHFB5CfyxCHKTtE9ttI9HFxq2
-	SEO5EAKOQyIz+gRHlfk9vEySO0Nv/w55pYxljfDST1oyGnb0hbCQg6c/3fM=
-X-Received: by 2002:a17:902:da87:b0:2ed:205e:eabc with SMTP id d9443c01a7336-2ed41bbd3d4mr26889285ad.32.1793961908564;
-        Fri, 06 Nov 2026 02:45:08 -0800 (PST)
-Received: from [192.168.100.182] ([110.93.227.81])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d8915esm4095755ad.67.2026.11.06.02.44.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 02:45:06 -0800 (PST)
-Message-ID: <c55c5878-d9c1-4863-bc55-99d334ba2ede@gmail.com>
-Date: Fri, 6 Nov 2026 15:44:50 +0500
+        d=1e100.net; s=20260707; t=1793961918; x=1794566718;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6ysUKDhkycj13Q2P+bjvds2QR5Xb4PbnZNX+l6BEN+k=;
+        b=q0owszx0s4D3B71rngxFWI2dNZw0NFWWS91ip8sQnq1zOW2jpexa8aXZPi1K/MxZ68
+         PoA1ELVxoBS19ytYu0iE5TvXw4Jzxuy7IfFgXPm8OWu9FtCc2q6w0N/YSpQuMnGCBspH
+         AcR2aSPFKOdjI+FJZlaKbUwmoIFokJXzWvEG8t1H0/ejghTS3Gma4Si24KBLXGfvSNAQ
+         YpY1oYqkWgCv5tv0TBw5BHV9LCkFx8TAWhiHO1SvpoizohT2ddE7LozuJA9pNYDmWHkf
+         6HGDZ7XnBW+tz59wSuZ13a9meMJiPwoZjtjiFrpkGp3kTK8h9SBASJcKJefjzHEwrC63
+         qQOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxguNgjKdc3w7MFL43/63CA41g2A6uw+go2VSBwQcraeDddAnxxBshYekY3uitiqS/BbRFreClXPtLCOvA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+0FDANpGUK78j0GxDiS8L3ZkHRPn5j6WdYcBoF9YipE8Z1Qc6
+	beQmkhoRFBXElEoj+gdI/nULuStWDf7XUNXwxwr8e247aTFetAu8aq5jTteXJ80zrw==
+X-Gm-Gg: AYBFou1GYmHLCaBxH4NfM6gRe9XdzpT5J0ZYOXNqzwWK+ZJbCAiNrVOS25Rf8KcnTN6
+	x16R2+uUy9Tc12t5nB5ili09qQDv/WzEVWZpYxYfR/8LVW39sXnnj3GqCDpEhAulH2nsvw0HpSF
+	NBwgYxARO08XvQxpC3+LWLBnyjPpFDtLDauHtIWTsiz+ACF5FFH7tYuS8UcnDYyEJX4D4G9tbiN
+	MypG0GJ7fNvbpMEyRyuyxQa0v4h4Gt2+3/RiObb4CqqWfisPjN0PBWXj8CQImykoIRt499v3Gl4
+	TvIOY/eF4Q3ItKm9pWfLflmDxkvipuyBYOf01X1BFQE0qmIDAVakWX4s4HtiyY7u6LMc1dqThl5
+	LKqj6M4rwf3JhfPxMUIZZIuYI8oPS5DDgyV0KA+x+RBitPMGhp5Nxyd0/jI8yFjpQnSXBfshbKd
+	KHTvy83sEdVGfWMgaOwUyKuWgkpmd7EHiC43sDhOjDrdAM3B4aZt40R03DaideJhVxc5dt2aYWn
+	/TAcrmyzjXnDLeyHA5m5EgGvHhF+g32ZdxoXwsrWzyKxmqxsNY2dGYV5I/avrGOMy6SQ82DR2JV
+	3PDyVfv39c8ddo/NE05/R+TDeh4iUV5ObhiMoM+ycI8YlJktyX21YyG1YCjCPJjP
+X-Received: by 2002:a05:600c:3b02:b0:4a1:fe55:88ef with SMTP id 5b1f17b1804b1-4b6df5eab2emr32006075e9.20.1793961917300;
+        Fri, 06 Nov 2026 02:45:17 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b73d28cb10sm16111895e9.0.2026.11.06.02.45.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 02:45:14 -0800 (PST)
+Date: Fri, 6 Nov 2026 10:45:09 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: Will Deacon <will@kernel.org>, brendan.jackman@linux.dev,
+	catalin.marinas@arm.com, rppt@kernel.org, akpm@linux-foundation.org,
+	sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org,
+	mark.rutland@arm.com, ardb@kernel.org, thierry.reding@kernel.org,
+	david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <au2vtZFyfUVWeils@google.com>
+References: <are21BjeS1O3RYE3@sumit-xelite>
+ <aruh86rd5FMv2i9G@willie-the-truck>
+ <ar5TPvANFUoosxGW@sumit-xelite>
+ <asOAYODGZa-7EIV1@google.com>
+ <asOD31rTX6dNfD1o@google.com>
+ <aszdnInyJxLhSQRp@sumit-xelite>
+ <as3798SFCfKFirag@google.com>
+ <as4ATqhp0bPI03PA@sumit-xelite>
+ <auILvMVSXk9pZh6M@google.com>
+ <auQ5hCdPFz0BmvDG@sumit-xelite>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,55 +111,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
- emac_suspend()
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>, netdev@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Yixun Lan <dlan@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>,
- Chukun Pan <amadeus@jmu.edu.cn>, Siddharth Vadapalli <s-vadapalli@ti.com>,
- Tomas Hlavacek <tmshlvck@gmail.com>, Muhammad Bilal <meatuni001@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261105123441.2524171-1-alitariq45892@gmail.com>
- <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
-Content-Language: en-US
-From: Ali Tariq <alitariq45892@gmail.com>
-In-Reply-To: <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auQ5hCdPFz0BmvDG@sumit-xelite>
 
+[...]
 
-
-On 11/6/26 2:43 PM, Troy Mitchell wrote:
-> On Thu,  5 Nov 2026 17:34:37 +0500, Ali Tariq wrote:
->> @@ -2056,7 +2059,9 @@ static int emac_suspend(struct device *dev)
->>   		return 0;
->>   	}
->>   
->> +	rtnl_lock();
->>   	emac_stop(ndev);
->> +	rtnl_unlock();
->>   
->>   	clk_disable_unprepare(priv->bus_clk);
->>   	netif_device_detach(ndev);
-> This can deadlock. emac_stop() -> emac_down() calls
-> cancel_work_sync(&priv->tx_timeout_task) with RTNL now held, while
-> emac_tx_timeout_task() starts with rtnl_lock().
+> > > Yeah I saw that constraint too, let's leave it for future extension
+> > > then although having this reordering dependency fixed will be ideal.
+> > > 
+> > > >
+> > > > So the only case it would work would be when a reserved memory has set
+> > > > "linux,cma-default".
+> > > >
+> > > 
+> > > Let's rather just turn DT based default CMA pool to support PTE-level
+> > > mapping and keep it configurable via Kconfig or cmdline or DT.
+> > 
+> > If we need a DT declaration anyway, a Kconfig and a cmdline option aren't really
+> > necessary.
 > 
+> Agree, it rather makes sense for DT independent generic CMA pool.
+> 
+> > 
+> > Also, Rob wasn't very keen on having a DT option for the reserved memory and
+> > suggested to have a compatible string instead [1]. So perhaps we could have a
+> > a separate driver that handles the unmapping.
+> > 
+> > 	linux,cma {
+> > 		compatible = "shared-dma-pool", "unmap-on-alloc";
+> > 		reusable;
+> > 		linux,cma-default;
+> > 		...
+> > 	}
+> > 
+> > That "unmap-on-alloc" driver sets the memblock flags and register some cma hooks
+> > (to be defined) for cma_alloc/cma_free where it unmaps/re-maps into the linear
+> > map.
+> > 
+> > The nice property is optee won't need to be modified anymore. The downside is
+> > the entire pool is now mapped at PTE-level.
+> 
+> Sounds reasonable to me. If folks are really worried about performance
+> with generic CMA PTE-level map then OP-TEE already supports no-map based
+> reserved carveouts for protected DMABufs too.
+> 
+> -Sumit
+> 
+> > 
+> > [1] http://lore.kernel.org/all/20260902172436.GB1440252-robh@kernel.org/
+> > 
+> > -- 
+> > Vincent
 
-Thanks Troy, that makes sense.
+I have just looked deeper into and cma_alloc can't unmap automatically the
+default pool. Callers expect a valid linear mapping right after the alocation.
+dma_direct_alloc() and dma_direct_alloc_pages() zero the allocated page,
+dma_direct_alloc_no_mapping() runs cache maintenance on it, and the userspace
+available heap /dev/dma_heap/linux,cma zeroes it.
 
-For the deadlock, I think the correct function to call is rtnl_trylock() 
-inside the emac_tx_timeout_task(), which would return if the lock is 
-already held and will hold the lock if it is not.
+Also, it isn't possible to use two compatible strings for the reserved memory.
+The registration stops at the first matching compatible string. Layering drivers
+won't work either.
 
-What are your thoughts on this? Does a v2 changing rtnl_lock() to 
-rtnl_trylock() inside emac_tx_timeout_task() make sense?
+So while the pool can still be generic and serve as linux,cma-default:
 
-Regards,
-Ali
+  linux,cma {
+      compatible = "unmappable-dma-pool";
+      reusable;
+      linux,cma-default;
+  }
+
+We can't escape providing an additional API to unmap/remap in the linear map. 
+
+-- 
+Vincent
+
