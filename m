@@ -1,64 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793932578;
-	b=JcHF9x2m5cW8kSiFQ5YXMQbN86DPSJvOuVnW4PItqKtSaXlZSYcH/9ViTDnAbBVmLSyV
-	 xCIWFzrJ7sAjRsTQlQJ+uApgU2jFSMAv5tYGZ3IfQFhgudUfgL3ZBha8f8IHUuDwo9VOJ
-	 NH9UUPYkkGUWhQ9/okw9tX0/EEtGqlY/9Dlkdg79AsQYyCyZyL62eYUGfL0lMaUHbQNgN
-	 iF3K5/5c8BAW8wjViCv5SrvxBzsfo3hAU5a9dN7KetuCjhqIn1MdeQ2r8z3Tk0qYA9xoL
-	 5mJ5eKcdZtgxdqknNLf4hcK4o2hZKxFl85iWz02yDWrVUTyD3wj9D1vqAdzZNCU9UdQ==
+	t=1793932581;
+	b=V0Lzt/Y+05KDRiLgOi2RLFZvpMBW2SOKjD8RqBtO0A7oHZno+pjtAt28doo7LomPaxQi
+	 2uoE6Siy5tZE2tqGgHST/aXjv59C4K1/X2xerGHd0YGhwuPq3bgPd2HR9R7YwvA6ZaNfZ
+	 NJKFVsPvAso1BiUCv1oEqaRJGiHOGbNGTu3woG0LWX5QdU3hOmTD4a/D7Tx861NoYapCh
+	 Ml2PM3U51I1y9w89NzlQNWLlmTOytBRoUJL6NVNzqydIkibKfEcppFjlJkLviOeyek6Vu
+	 hnhby64Wa+VBu0qo2tPB3gtV/+SRCVp6LruFZRWXwOkjYc8l2RhyPUcXpqoovHHQdsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932578;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=jcBgtAR46gl2jf+vlHNoNjru3qa8PUHZcruVZJublq0=;
-	b=x0zocHmeqazPc9grnH5TpJhy8HJkTCXKhgXP8lnqLUU8nFtc4ZGWEIAvzCa0HSySaBp2
-	 iUJIbWKtrv8fzBynehA/opBDqhSFgAkpXayBCkgHvCi31iafozxOwtZiC+B67JKU4vw4d
-	 ooezlsPCM79BtsWeiuLiqeiA0E6RDvr04gnPKbLLhU8HX4ty8sQi1rQsg7tMoBWNODrZV
-	 zEYXUEsXbHE1yGhS6gpRrRcVKRE3hgkOhTOvf/nUXRX5n+etyrkokhxgEe+EPB1uwzejo
-	 7Te14PBQYkpWI89bGpX5c2E7kYO+74pemlXJnggQZ+iLmm1SdHWUCrx/h60x9efLahg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793932581;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fRBwZI5AAmJVvhkGhNHrJYHOCVFskpUHRt5+nUFd1+E=;
+	b=n4x4GHG14DoyTtmxL83zQ0L2D0LE6hF7pq2zn9XJctp0/lPbR7eheV/Mn3FdLpl7+Kno
+	 YaEVTX/BrcLc7xykUpAIX9jEQD5Zy/RaBHsTTPKl/t8CHhqyyphkvQbLB81TtoOltMz9a
+	 BQ+xbCukosMgFvKtr/H1Gq0Jy66PfJRyIqrWqYCJRZFppzgftSeoisz+9kLNc7Jo/cM3i
+	 7YxGxQ63NictPxumJlR2mM9wvA6GXmMFPLP5IAgQcHWCWQheFGZW03cmeGE+q3D5bMdGh
+	 Lo0PxXIJrecP6AkyxtvXWSHRHKevIyIz5+r26zkbiAx2FrRQXnJRv/xL2Vc9TPnYe3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYo8OIHr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDfg5sKS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9E1606A326;
-	Fri,  6 Nov 2026 02:36:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4ADF606A32E;
+	Fri,  6 Nov 2026 02:36:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYo8OIHr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69DE41F0089F;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDfg5sKS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3E31F008A1;
 	Fri,  6 Nov 2026 02:36:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793932578;
-	bh=jcBgtAR46gl2jf+vlHNoNjru3qa8PUHZcruVZJublq0=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=SYo8OIHrOcSd66XbUb9pzZUWJZ9DqK0Eyip3IEV84BOSDr3OCiOFlWKC3M3vRy62R
-	 1I88um9Uxi61uXz6XyVcOgeKFQmvlMcGB8+o2ujebyEEPFhVJxtFO+S6R42Kndxsp4
-	 Ey6XBe8srdGLqDItXS9I4sOP6eVgzgXq2CGdoIJV/9dfcKrAONJ+CyaWjSpaC4svEK
-	 NZXdYEU2/FCEMdG6nWfxGXoopq02k7nupDSC825CzDbhabFNfPb94Ql/h5Gm5gqvLn
-	 3izFMuUo+JUJLUHcc8ln3ya7jfAoCAr2RRbVURlCs/xpblG3xLVxsJtNCMP8WR+utU
-	 XLveo85b6kuVw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E2CC391B1BA;
-	Fri,  6 Nov 2026 02:36:18 +0000 (UTC)
-Subject: Re: [GIT PULL] platform-drivers-x86 for v7.4-2
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <pdx86-pr-20261105113441-239427279@linux.intel.com>
-References: <pdx86-pr-20261105113441-239427279@linux.intel.com>
-X-PR-Tracked-List-Id: <platform-driver-x86.vger.kernel.org>
-X-PR-Tracked-Message-Id: <pdx86-pr-20261105113441-239427279@linux.intel.com>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git tags/platform-drivers-x86-v7.4-2
-X-PR-Tracked-Commit-Id: 086aeca907789bd2604f16f07bfc073b19015015
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 2d2200551ccc3b9e444aecb59c4b53287e169266
-Message-Id: <179393257693.304043.468858539573566158.pr-tracker-bot@kernel.org>
-Date: Fri, 06 Nov 2026 02:36:16 +0000
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>, PDx86 <platform-driver-x86@vger.kernel.org>, Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>
+	s=k20260515; t=1793932580;
+	bh=fRBwZI5AAmJVvhkGhNHrJYHOCVFskpUHRt5+nUFd1+E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aDfg5sKSXMsUodp9jTIUWWSyt4aqd9MEGmLgibN5T715f42L2g86k+m7MDTbDq7cE
+	 DT46BEUux1mbXWBO0rgY+nczhCH/0Ri+tEx0gL5WGjgbqB6qnzI5aroAeaXKGMiO+B
+	 Us7XwlSXsMzV29H9ZEUwdTP5sisB+0KUezLlHbg6MA6GGRAAfhvCfojozhBv3nE3g5
+	 ysVEUpSCVhKJqHe/u1Nkor35q96XwkXXbYlAJVPotv1T6r9I9qDIE9kVwGZkhgNIeZ
+	 bEPWmGj/Il4ynJN07CU1TGWwE4ENsL1uei39KvZhmsJZw8lYRWOD1jE6y6hc1wPggb
+	 wkHrwQQPg9YKA==
+Date: Fri, 6 Nov 2026 02:36:12 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Viral Patel <viral8854@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: magnetometer: add Infineon
+ TLE493D-W2B6
+Message-ID: <20261106023612.344f3b86@jic23-hlaptop>
+In-Reply-To: <20261105-tle493d-v1-1-3246e91e6394@gmail.com>
+References: <20261105-tle493d-v1-0-3246e91e6394@gmail.com>
+	<20261105-tle493d-v1-1-3246e91e6394@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +63,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Thu, 05 Nov 2026 11:34:41 +0200:
+On Thu, 05 Nov 2026 21:23:47 +0530
+Viral Patel <viral8854@gmail.com> wrote:
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git tags/platform-drivers-x86-v7.4-2
+> Add a binding for the Infineon TLE493D-W2B6, a 3D Hall effect magnetic
+> sensor with 12-bit resolution per axis and an integrated temperature
+> sensor, accessed over I2C. The A0 to A3 variants of the part only differ
+> in their default I2C address, so a single compatible covers all of them.
+> 
+> The sensor's /INT output shares a pin with SCL and cannot be wired to an
+> interrupt controller as a separate line, so there is no interrupts
+> property.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/2d2200551ccc3b9e444aecb59c4b53287e169266
+I haven't looked at the driver yet, but your explanation in the cover letter
+of why it is a separate driver seems fine.
 
-Thank you!
+That doesn't exclude using a shared device tree binding (as it is a many
+to many relationship between bindings and drivers) and it seems like
+nothing stops you combining this with the tle493d-a1b6 binding.
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Thanks,
+
+Jonathan
+
+
+> 
+> Signed-off-by: Viral Patel <viral8854@gmail.com>
+> ---
+>  .../iio/magnetometer/infineon,tle493d-w2b6.yaml    | 48 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  6 +++
+>  2 files changed, 54 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml b/Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
+> new file mode 100644
+> index 000000000000..46f9c0e77e24
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
+> @@ -0,0 +1,48 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/magnetometer/infineon,tle493d-w2b6.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Infineon TLE493D-W2B6 3D Magnetic Sensor
+> +
+> +maintainers:
+> +  - Viral Patel <viral8854@gmail.com>
+> +
+> +description: |
+> +  Infineon TLE493D-W2B6 3D Hall effect magnetic sensor with an I2C interface
+> +  and an integrated temperature sensor. The A0, A1, A2 and A3 variants only
+> +  differ in their default I2C address (0x35, 0x22, 0x78 and 0x44).
+> +
+> +  The sensor's /INT output shares a pin with SCL, so it cannot be routed to
+> +  an interrupt controller as a separate line. The binding therefore has no
+> +  interrupts property.
+> +
+> +properties:
+> +  compatible:
+> +    const: infineon,tle493d-w2b6
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        magnetometer@35 {
+> +            compatible = "infineon,tle493d-w2b6";
+> +            reg = <0x35>;
+> +            vdd-supply = <&vdd_3v3>;
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0017755f593b..c8916e1286d3 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -13110,6 +13110,12 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/sound/infineon,peb2466.yaml
+>  F:	sound/soc/codecs/peb2466.c
+>  
+> +INFINEON TLE493D-W2B6 DRIVER
+> +M:	Viral Patel <viral8854@gmail.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
+> +
+>  INFINEON TLV493D Driver
+>  M:	Dixit Parmar <dixitparmar19@gmail.com>
+>  L:	linux-iio@vger.kernel.org
+> 
+
