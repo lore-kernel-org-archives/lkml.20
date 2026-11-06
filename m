@@ -1,65 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964755;
-	b=qkuH7cA9umW0EPaBJj63zBZeVtLqoH1pQk1TqOSbUMnw0zCpGWoandbQnk2wItxcXCJW
-	 eb7oOPYkdQrhxburrodlinAQIWU0rzyID541qnQeaumjbVbOUZhY80QRL8M9SzqfM/+mJ
-	 FwcZfElFaPP8dOWzJLkYXoq1RzwVE3g5tEcCz9UiogKiNypIiShCr5YV/lOmexog0S8Ng
-	 eF4jN7ajdS8v3S4nMcKDwljwRYXV8e1JnjOQb1ZAqwUZDmewI+Nx4QaJozAfetuXPkglf
-	 wFmJA+GnS4IbB6UGHb6Wc+MxPO0KlsCY6EC+PJC/1uTSw+FNYftxxdSTbNlokOmMRHg==
+	t=1793964756;
+	b=Jp7/elL8nCyrOjF9m+YXDdT+bBoEIhFuoMmFzDU9gGJXL+yfxP/zKgrx9MNEICoLceLq
+	 ctI21OOo0VWHfF1NxYioxU2U/QypCs7XldzWC9e+mecr+5tzjQohlr3ArcHNE5ZV8qe8G
+	 2UeDSYZSYq+TievgH22wNxCq3q5ADSWfTCXf0Sf/RMwjGMQFIdrNera6SgmtMOHxSy8vm
+	 StcVBqRu0QXD+a60LmrDmKQrQ91wc8Qc16JA4+9BZQM9T3xHoXby3s1zI/nknl3Go+p9G
+	 ZUlYX7t64skb/umdo8vhzgbaXDW1Cq3UsGhJuCrejuVeL3n8EKxbIYKnBCeM1p1agvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964755;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=RHThgPq8ETxy2w8YbH6+HBlKF4n78ToOruBNT76Nrpc=;
-	b=SXqfUU8k59ezDM3esRRPAkp9keXijOKDmxxKNPuzibzQr7Hqq2P2LL8qxr4zk6kY4e0o
-	 srAClt/CWbnK0TN5NztLCkVu9D3JzESamqZBi9uCo3fUBZb91cjp/pefRsfIofAnqoN8q
-	 qZFyyMRYyT2eWnKOwlmtP2no6VoU/eY53LesPbcAHOEYgspKrKent435dJufUYsuAAuZ9
-	 zOAqfNzvJ6zyntbwOfYLoFlTjcZWxzfp2S54/kdqmzXP7OTGZe1D77n6IG2xZGGSC/tgk
-	 PO3qZ8z93op2Mux34CbbMoZhDyUesYV+XNjKa+awaOax6FnGrSankNtQJO8aoDIdTag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964756;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wGiOeNE8Bnji04NKLc8q6Gdt5TOl+enDfg0BQ4VBWQY=;
+	b=4jRCsJ+uxY1u0d6JA9fJ5lR3KWqiQS89Q7aGMNXW6bPvH/vvKC0JsmS6+uInG9Re5u66
+	 ZtVFR2i19u+lUkGdRUMfQrxZqUxlV/mGtTV9LOgmwU2Z83ZWVH7R8W72cQltC+Qz/fPAX
+	 0LBINaklTo089AC4GEFZwIAK0U4PACoyDUJVAR5IG0k3W9GzkcEDfaXqLGz9bee9X2+YW
+	 YxaE0HkqCsjfPM/tWEopGC6dQSXC7YDemsm8A6zafp8N9bmk7cN9amlM8ODZctgjgqgvl
+	 POHmXbPupcL3yNeNbouqU2tDBfI6f1zSBxnM00ovvVvBlTpmO6maQAl+uBbzTn/CiQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=SgNe5ZeD;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="o/j/VoG0";
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C6CA860A6F53;
-	Fri,  6 Nov 2026 11:32:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6CA860A6F53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0C860A6F6F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF0C860A6F6F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=SgNe5ZeD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1793964751;
-	bh=RHThgPq8ETxy2w8YbH6+HBlKF4n78ToOruBNT76Nrpc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SgNe5ZeDNzDk8DsG2ojzwQWNtdeJyTylVAQIR7T2f9Qitl3VG91+DSuKgVpglRcRg
-	 Ek4Ai6zZJ4XzbvWBz7xzZKkkHy+sekPEJ2wqbSVwlYMLM2psbvcene/1lxn7I+Ul6s
-	 DmH5IvcRU2SJmozRHKtSGTOaFkxxpixSq29N9knBcN3lSl1alVU3Q3iYzK3eP6Tz70
-	 8+HBUNp4KAmEj2dy/lGgPqNnGZs3xurYeD0u6ukct1fNcNCLupissjXe2hRwFmM0Hm
-	 gGvKQgBX9rx0JdxvBAYDHnOt3dGojrWccJZTAyKIp1UKzoYi/ddqNU9ZZI+oPEQIaN
-	 qWC9BMvYINCYA==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 528676005F;
-	Fri,  6 Nov 2026 12:32:31 +0100 (CET)
-Date: Fri, 6 Nov 2026 12:32:29 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: luoqing <l1138897701@163.com>
-Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Patrick McHardy <kaber@trash.net>,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 1/2] netfilter: conntrack: avoid secs-to-jiffies
- overflow in SIP helper
-Message-ID: <au26zXXqfRh6t-kU@chamomile>
-References: <20261106060948.540233-1-l1138897701@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o/j/VoG0
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a208d93758so5411845e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:32:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793964754; x=1794569554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wGiOeNE8Bnji04NKLc8q6Gdt5TOl+enDfg0BQ4VBWQY=;
+        b=o/j/VoG0Kz9bRK7eA6PJoiXwFDQJVm1yjK/TnARbK2bUS/WJqiaZJcqZ2lgUZiLW/Y
+         HDyVieowf7v0kAUVRn/jPWCAxMF3jiZzQHeCuI9zONuIjAPNq65WqT5Dx/cqZNNfBHcp
+         KvPrVqkIvi9yJAwwnW+AJKUxQuWoJZRtXZF9DSIonGIrZuym+mWLIwdbit8Az+kSJ008
+         AD++GY50KCGdlo2ojwyZsVHPhbJCMaGkT6ELgVSutk+fnam43nYikYtu2M9/hXGomXXY
+         IemweuIopL0dAAKctMSe9blRl5fFMjm4gjORpwzRAhJ29VW8DasindMbqK24/pCriPXm
+         C2Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793964754; x=1794569554;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wGiOeNE8Bnji04NKLc8q6Gdt5TOl+enDfg0BQ4VBWQY=;
+        b=Vodocw1RawkmguXymzTIo7VMwa26gaD5zcvzDDq8tGzZAVGeYlyY/4SVVxsAub+TTH
+         qjtdeidIEduQoqbipL6SJynywiCnLLcfzw860v+UM+zy3h4F0f+KRyfAAcgvx9r7S4mM
+         bSYqNPxfxaafMsvaqwgY2erP6nRe+iebdtQ1aAXG9OOTy4Unj9dtNVuSpOmSWgx73Zue
+         Wud6Ctdsx0hSXh8JrOpJzjVmI8Jk5MZrW8worBV63FrDwNCIok4OahHZmeq7u86dOq2E
+         SRdZInn/C5guAY0VMuLXH1K8Yk+vZFDmEiO/E6xfWw6yQFYmU5A45BtQEqgoZedezYgl
+         zAOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzjaAYsIDGytm5bIgrUIaGfda0VZUuHyXW41YNvnYgf0c9zCXd68UpZZiufHzkhcDqi36J+TbHyGXUuktw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9muQOwOl/ec1pqQA+m8arKIHGcBB006nR0pZ1wDgnUJWWrgLIR
+	+hLKSBbaKFh0KS7P69GS6xFlheFa9Ec44g9z+FZwzSbbmYYIBcUKxIoG
+X-Gm-Gg: AYBFou3ILGyKMMaMcl+EFLNoUykYQ6bQLcQgRyTsnm7SReCmPOj+RupFX5aPs6bxOPX
+	n+D4aEm9wT2cJxOonWksBA/E9Q4cLWdIn/9x/f6UOU+COVy665p33TpQdvB6pmON7Z1H+dubwdl
+	4+vPR/C8KZCryH4bLz99/CxSdZ3Md8idHWHzpnqFl2iVNBKBlcF/ywXuiFKfuKrt4oowxYFgJdV
+	oMTr1wC6lR+LM91Q/D4E9BfTffDKyyOYf1KUOXLdoSSNCZE1giRqQ8ioXm9rayyDoayNLG/802+
+	OyLu8dpKpF0oVhXc1vd+ptKnOeodeNtFvZZYImcqywvsSCMAT1eunh/zVqIGR8qPHQTVrMuFemb
+	v/O6Q8kGCS3D+k5SiQjGAAWAdEBUDCqn9dSPgeA2QPDK/bMrjsYVxnOyn2Hr0uinV6Ne2vNCh+Q
+	5mmI8I+ABNmJfIVwhB7nWPL7+rDa/OR6W3OU9rVwzfWVsLICMmaNljLZAykfHw3in6JVGf+Ospj
+	JqyrKXuEe+Bx45Mi9kvSGwU4DaEk6r9zQyPu3kB9h56joXv9mNxkJYXyC19XsI9cxis/LmXeiZr
+	3vcBhemLMzpeUH6wkN3X8WBN9tsv9VzqscXfUN99I7I66ju83ShG5b5SEdN3vJP4HfZKAQgcZpZ
+	FbBB8B5p5pohy+sEhNuUyrPS3TIVwZeICYw==
+X-Received: by 2002:a05:600c:4e90:b0:4a1:f7f4:7ced with SMTP id 5b1f17b1804b1-4b6df21362dmr38701455e9.17.1793964754034;
+        Fri, 06 Nov 2026 03:32:34 -0800 (PST)
+Received: from Ansuel-XPS24.localdomain (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-492d72333f9sm3254280f8f.29.2026.11.06.03.32.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 03:32:33 -0800 (PST)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [PATCH v4 0/2] clk: en7523: full clk_hw + set_rate for en7581
+Date: Fri,  6 Nov 2026 12:32:23 +0100
+Message-ID: <20261106113227.182324-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,96 +98,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261106060948.540233-1-l1138897701@163.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+This simple patch convert the en7523 clk for EN7581
+to full clk and adds the .set_rate OPs.
 
-This is not net.git stuff, route this to nf-next.git
+Needed mostly to configure MDC clk rate.
 
-Thanks.
+This will be also implemented by AN7583 since they share the
+same exact implementation.
 
-On Fri, Nov 06, 2026 at 02:09:47PM +0800, luoqing wrote:
-> From: Qing Luo <luoqing@kylinos.cn>
-> 
-> refresh_signalling_expectation() converts the expiry from a SIP
-> REGISTER 2xx response with "expires * HZ" in 32-bit arithmetic and
-> stores it in a u32.  sip_strtouint() only rejects values above
-> UINT_MAX, so the answering registrar controls the input.
-> 
-> Expectations are reaped with "(__s32)(exp->timeout - nfct_time_stamp)
-> <= 0".  A wrapped product can only cut the lifetime short, never
-> extend it: at HZ=1000 an expiry of 2147484 seconds (24.9 days)
-> crosses 2^31, so the expectation is born expired and registration
-> refreshes break, while 4294968 seconds wraps to 704 jiffies and the
-> expectation is reaped almost immediately.
-> 
-> Add nf_ct_secs_to_jiffies(), which multiplies in u64 and saturates at
-> INT_MAX so the signed expiry test stays positive, and use it for the
-> SIP expectation refresh.  Oversized expiries now saturate to the
-> INT_MAX jiffies ceiling - about 24.8 days at HZ=1000 and 248 days at
-> HZ=100 - which is the same maximum a registrar could already request
-> with the largest non-wrapping value; the longest lifetime does not
-> change.
-> 
-> Sweeping all 2^32-1 inputs at HZ=1000, the helper never wraps, never
-> yields a value that reads as expired, and matches the old expression
-> up to INT_MAX / HZ.
-> 
-> Fixes: 0f32a40fc91a ("[NETFILTER]: nf_conntrack_sip: create signalling expectations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qing Luo <luoqing@kylinos.cn>
-> ---
-> 
-> v2: 
-> - Clarified in the commit message that this patch introduces the
->   nf_ct_secs_to_jiffies() helper, which the subsequent H.323 patch depends on.
-> - Added a note about the stable backporting dependency for the helper.
-> - Addressed the Sashiko AI review comments.
-> 
-> v1: https://lore.kernel.org/all/20261104085925.773471-1-l1138897701@163.com/
-> 
-> ---
->  include/net/netfilter/nf_conntrack.h | 10 ++++++++++
->  net/netfilter/nf_conntrack_sip.c     |  3 ++-
->  2 files changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/net/netfilter/nf_conntrack.h b/include/net/netfilter/nf_conntrack.h
-> index c39425e54d87..b32716084ea8 100644
-> --- a/include/net/netfilter/nf_conntrack.h
-> +++ b/include/net/netfilter/nf_conntrack.h
-> @@ -210,6 +210,16 @@ bool nf_ct_get_tuplepr(const struct sk_buff *skb, unsigned int nhoff,
->  void __nf_ct_refresh_acct(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
->  			  u32 extra_jiffies, unsigned int bytes);
->  
-> +/* Convert a timeout in seconds to jiffies, saturating at INT_MAX instead of
-> + * wrapping the "secs * HZ" product in u32.
-> + */
-> +static inline u32 nf_ct_secs_to_jiffies(u32 secs)
-> +{
-> +	u64 delta = (u64)secs * HZ;
-> +
-> +	return delta > INT_MAX ? INT_MAX : (u32)delta;
-> +}
-> +
->  /* Refresh conntrack for this many jiffies and do accounting */
->  static inline void nf_ct_refresh_acct(struct nf_conn *ct,
->  				      enum ip_conntrack_info ctinfo,
-> diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
-> index 64bc440b1181..e2fd97f53386 100644
-> --- a/net/netfilter/nf_conntrack_sip.c
-> +++ b/net/netfilter/nf_conntrack_sip.c
-> @@ -891,7 +891,8 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
->  		    exp->tuple.dst.protonum != proto ||
->  		    exp->tuple.dst.u.udp.port != port)
->  			continue;
-> -		WRITE_ONCE(exp->timeout, nfct_time_stamp + (expires * HZ));
-> +		WRITE_ONCE(exp->timeout,
-> +			   nfct_time_stamp + nf_ct_secs_to_jiffies(expires));
->  		WRITE_ONCE(exp->flags, exp->flags & ~NF_CT_EXPECT_INACTIVE);
->  		found = 1;
->  		break;
-> -- 
-> 2.25.1
-> 
+Changes v4:
+- Fix regression where base_bits is 0
+- Handle divider_get_val returning -EINVAL
+
+Changes v3:
+- Rework to clock divisor API
+- Return error instead of -EINVAL
+- Use dev_err where possible
+- Use devm_kzalloc_obj
+- Revert to not fail on clk registration failure
+
+Changes v2:
+- Fix recalc_rate return value on error
+
+Christian Marangi (2):
+  clk: en7523: convert to full clk_hw implementation for en7581
+  clk: en7523: add support for .set_rate for en7581
+
+ drivers/clk/clk-en7523.c | 301 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 281 insertions(+), 20 deletions(-)
+
+-- 
+2.55.0
+
