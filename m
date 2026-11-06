@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929844;
-	b=Yx1YWrdlwUBioSKW2dqm9IfA6p3Wc9krCYn2mzu/wY9LyqRIMzEKi4sTZIamV2z6bbmH
-	 b8HhMiK4Yumi2qXn3z83uvk9gKxKhQlMkt81JxG2/1201PZRsabAoRwBwzRcInljPvmXf
-	 wGddeTfWAh56pm4FNo5KtGImYcm0jp0TcoK7sZWr4Ud58L1LorDhrQun/wWvAjprcNLMM
-	 TKFcnbh+xjYe/nc03rz02Q+zHabKdAlz5mOI2OzepL94EzC+HaH7nNPct5/w4+FzxB1Y+
-	 hoW7oZiHTXQX8YjiU/rcE3u0sS20rbYrFjFfhseZDOOmZ3nWyuBqp4F9k6afFhGNmsg==
+	t=1793929840;
+	b=XZDRP2rajVn5tZoxOCNBawV10vUvq+JfTY8CeLQ77ZDC8tHGNnZNOTebSoy5pne/77x9
+	 1oqyUBseSUHnWhRxu0B4zWp55LSCBmreq2QhHePHWYLARevS1zupMxuIQp46x732pnSJ3
+	 i717qL842uMljw422akTk34Zeqj9QniRdPcLiQU4kcseQ8nLNLeiScBVmwhlQm4sbUPd8
+	 y2VLn5JHmqFu1s6kvSuBMu7qCz1P7m20yUhGpWyELt+CkTw6o8+fiGPUJVh45iDkHp3CA
+	 8lUEzurJaBVvdpDrHp+C/mErRsNkkZEZ+a/MrSkJ5xDxKUpHp3u/gBsMxCNyMOz90xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929844;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929840;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bMCFjChOWXQl08hcopau30f+4A1VG5iv+0pA9BSCQ9s=;
-	b=jvZ0t92iNBF7kQzDxdQpfDrEcmaHtrtHUtd4uAINrLDZ2BN/9wFyTQ3ozmZuE1smgfJf
-	 fnF0cNH9MluZ6rrKfJx3ACvC/0mF8WmwuDHYomO2IxLgLLudx4JGz+c8kktGeHXJ9vdGW
-	 YG5lye9ojkTo+AV6leWd8W4c34TkYHvAwAJoQHqVqGN4uxf70BdVIuzAqU6ytDlV13ekJ
-	 UiVm9kt64Pe8QR8V/Mtl+nebOZveep3mdAxnDiUOwOuMO+QhGTTsLNBzN/M0cG8m3Vprm
-	 zf8QlSQcXX1rNT4lqw5arcRDAUDn9eIPpHdOwbnohTf7go2DSOYDVoIrJWg1u7je/Lg==
+	bh=9TYqOXsew+Y+Q8c5CLe4mxAcwiCP6VtG9pQKJdgk8aI=;
+	b=gPFGi57Bwiog9Z7yDq3pDDFGGE8v6ukErhKeNL6JAaT4qMKg/UBZpWh1qAIvbx5pwn1P
+	 eilQyXfHpXATZTkSJeBLgmd2tuMzTXrciJfeJSZotI+4BAhuYGVyD5I4nyHIi6Czd0UO8
+	 muV0eiRFRdk2wbYgLycN1KSlaAad+nKoeSZYrR4u2jbsLHxn9rr4AwsT3cARpfkumuu4L
+	 Nyv3xX2V63UltNU8fBFlXWKOx1zaM3ASF0XxvBuraaXRkr3XiI/JyGRat9pATyTVUE//F
+	 AC4wciWteoKiDZtwXgg13PMNLoehzHQjglqgj4VzXWyJyEnKYkBj/sVditCgrlIP1Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=iFiGgm81;
-	arc=none smtp.remote-ip=209.85.160.49
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kPkdoKO5;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B53606A330
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61B53606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF832606D826;
+	Fri,  6 Nov 2026 01:50:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF832606D826
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=iFiGgm81
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-486f013db83so21823fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 17:50:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1793929842; x=1794534642; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bMCFjChOWXQl08hcopau30f+4A1VG5iv+0pA9BSCQ9s=;
-        b=iFiGgm81vaMCUIvQp0P8W9hQsBzQpyVVeiayZlgE/yRrYx/diZVQpRy1S9MtZcstGs
-         8f8rbNhbmL3dxI4BO/m7AJJWAWPOZM/zw3cEaKG15fv6idU0I2+vL1Z+ABuuGVyupR29
-         gISnEyCTgBHbx8tTUlHBk5hoPStY8wxRfpRDjCEM2DYtE/GMWby7rrDhGMPx+5KAHwTq
-         Uzp3v+Xi6/NyKJAnomo7Bn4clGD/ic8gu7k8WLodKyfOZVPZJMfr3AzauPlot/tjoby2
-         X3Vb1fN+YLnRKHduGJSyimAcYJ7VWXa80+rsqkNbO4n1awfE3zoS6tndR0kUg4V5LplX
-         Yz6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793929842; x=1794534642;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bMCFjChOWXQl08hcopau30f+4A1VG5iv+0pA9BSCQ9s=;
-        b=mdriYKOKf4AGSm/JNFkJxR8JK5KhOg4DPPiDcED1NHnQ44SDqVGByNAxo16QEv0/FT
-         eGxwdkCRNW7DdDusVi7/3vIXbIpto9IjfvIedF5g+ym10+67HM91CxbVh3IBkhn8VHlT
-         6Z7a+ZplGj8l/qoGVATObPeHdtLRoPMwA1fLeouluTxl41oSpL2wPlOybGYLKC/y5A8w
-         qYtsAwf+TbxxwUn4Nbg2uCPRLZANeV3FpxefDwJHGE7hz7l1YJGhCouue1yfqQl3zeQC
-         zP0mM8wtXrR8uyEL+AT7ehVlriokWwKxTjAafkoVBszxcRjX1lqqF8i6rmoOCpvJfI7n
-         yBeg==
-X-Forwarded-Encrypted: i=1; AKwUvBzlZzk6GA3pgVhlgvb6gN0kGNnkZIQrvst/d5yHqDK6WgjYt/9Frgc9cbjol+zanQXGxT9k4uooq+ZnaQ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cnzxlY5XD0rsOJdh2TnKobiI62BnmQwDfpNY/gotarmQxsI2n
-	pq6eVJbflfLitK5r4ViT72WjHuUAoZK/RV86QHeJtg7ZpNwg9yKyIA/h1EHGSTsNDAE=
-X-Gm-Gg: AYBFou1ivTxW1X2fwuohcFvIvk9lsNnoLbYeZpd6kTha95HpasvEuFqwluCs63ZZiu4
-	29fXcO6u4zXJMKO4zT0paIaRbQEqYPL7UcLsB0HPHF+EQ9DBTcCsnbK79vynlssjvPLsVllKAs4
-	3En37vxiJw5G0RCgtwWAk/+vtqgrnG2ErfkQJ5hy4E9ST1cu6TkeqDEIjIy3OPDleIMF66166u4
-	MGwah225hp5YrqWENwpIZvoguPlWWrmkeJ/ADCcU3feQGtdd6HA9UwGmjZ9hnTxLYZv3ZFbeP2K
-	9H7P4TAhTGnbZ1+v9Mpwxug/RUaHTdZKuvVRZpOGzBwc50xJ8cVZRMwG6UvPhXGctWAHuexs9Hh
-	+B6HqnidBXS499GHxmZkcxxmOP9DQKU1erOExBuijmPTDaExgzrBAWrOMwSwUx7lTFbPtqMVSvf
-	n4LExaql0FTNVZqESGuuqq5KiRietVJgRYZN4yGAaOrb22Cz51JRFIp/tkVWDpuIb9rJW3dtUXN
-	xpd0OpiWSThc/GLbKbEhLzHset5j8TSzK/Xfy5LU3H8aOn1FsUGeIsC0XhKBCWTVEhuOjcpVGLE
-	YzdJyzKDxsYV38DqohIrpnxKSbgY
-X-Received: by 2002:a05:6870:a0ab:b0:4ad:8800:b277 with SMTP id 586e51a60fabf-4ad98b4feb2mr759024fac.24.1793929842253;
-        Thu, 05 Nov 2026 17:50:42 -0800 (PST)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ad97887090sm817691fac.6.2026.11.05.17.50.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 17:50:41 -0800 (PST)
-Message-ID: <bbeb0df0-10ce-4f8c-8b2b-07437d959b3b@riscstar.com>
-Date: Thu, 5 Nov 2026 19:50:40 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kPkdoKO5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793929838; x=1825465838;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=QLNPLyxjRgFiTSVWFbWIdFOomaI9/H6t0hb0/RgMl4E=;
+  b=kPkdoKO53MoBtE8de6c9WNANadOUij7Plipsr01N1IbfRnX1n8+mXJwO
+   +2xQD6udJ0FctsqC+SY1NxAXq1xRthZoBORo6EFUEF34sj75maX0mIYqE
+   YpcWW3WdlL8uB0S0RDxuF7xqQx6opY1xsHwFxA3xh6bE2n5wlnjiV8RK2
+   CKeTqnIqJ2sgXRKV71w8+dWz5OxoSbqb5dWmMno1T6s2oUSLKgIOCdnRF
+   WMcuCAO6fa3DoNnCQGbT34ZAFfqHruk9SfXy0NSmThO9oGGSj+y+R8DiO
+   iSKMPVGttSANt5Ux2Qk1oLKzqKGtAOsiEP43frsTGjKeVLoz/e+HwB5Wf
+   Q==;
+X-CSE-ConnectionGUID: Kn1x2BGJRIy5nGQHy1yw4w==
+X-CSE-MsgGUID: scmoRnFJQzq8HId8kfLwCg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740195"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2740195"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:32 -0800
+X-CSE-ConnectionGUID: wdfob0K8Skq4iL/v4d871g==
+X-CSE-MsgGUID: wyx1utJ/QziQoE/F33shCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7067206"
+Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
+From: Zide Chen <zide.chen@intel.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: kvm@vger.kernel.org,
+	Jim Mattson <jmattson@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Andi Kleen <ak@linux.intel.com>,
+	Stephane Eranian <eranian@google.com>,
+	linux-kernel@vger.kernel.org,
+	Mingwei Zhang <mizhang@google.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Das Sandipan <Sandipan.Das@amd.com>,
+	Shukla Manali <Manali.Shukla@amd.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Xudong Hao <xudong.hao@intel.com>
+Subject: [PATCH v3 14/18] KVM: x86/pmu: Factor out fixed counter control bit calculation
+Date: Thu,  5 Nov 2026 18:39:23 -0700
+Message-ID: <20261106013927.166209-15-zide.chen@intel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106013927.166209-1-zide.chen@intel.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,53 +92,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] soc: toshiba: tc9564: config system controller
-To: Krzysztof Kozlowski <krzk@kernel.org>, sboyd@kernel.org,
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, p.zabel@pengutronix.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
- alexandre.torgue@foss.st.com, marex@nabladev.com,
- changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261104004332.2141282-1-elder@riscstar.com>
- <a724d159-1509-4649-afa7-a2669d37b4f6@kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <a724d159-1509-4649-afa7-a2669d37b4f6@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 2:26 PM, Krzysztof Kozlowski wrote:
-> On 04/11/2026 01:43, Alex Elder wrote:
->> This series is comprised of some code that was previously sent
->> separately.  It now incorporates a new system controller driver
->> that advertises clock and reset functionality, as well as regmap
->> access to its address range.  This combination is being treated
->> as a new series.  (Details of previous versions are below.)
->>
->> The Toshiba TC9564 is an SoC that attaches to a host system via PCIe.
->> It includes a PCIe switch with three downstream ports.  To one of
->> these ports an embedded PCIe endpoint is attached, and that implements
->> two PCI functions.  BAR 4 for both PCI functions provides access to
->> registers controlling blocks within the SoC.
->>
->> The system controller driver adds the clock and reset devices
->> using the mfd_add_devices() interface.  The clocks and resets
->> are implemented by drivers included in this series.
-> 
-> Toshiba TC9564 bindings and DTS should be posted completely. We spent
-> great amount of time on discussing already and I pointed more than once
-> that big picture is missing.
-> 
-> You are not describing here parts of a SoC.
-> 
-> You are describing one, single device how the host sees it and DT
-> maintainers (and writing bindings) ask for complete picture in such cases.
-> 
-> Best regards,
-> Krzysztof
+Rename intel_pmu_enable_fixed_counter_bits() to
+intel_pmu_fixed_ctrl_bits() and have it return the computed fixed
+counter control mask instead of updating fixed_ctr_ctrl_rsvd directly.
 
-https://github.com/riscstar/linux/blob/tc9564-dts/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+Accumulate the desired fixed counter control bits during PMU setup and
+apply them once in intel_pmu_refresh().
+
+Move the helper earlier in the file so it can also be reused for
+upcoming ANYTHREAD_DEPRECATION emulation.
+
+No functional change intended.
+
+Signed-off-by: Zide Chen <zide.chen@intel.com>
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Reviewed-by: Jim Mattson <jmattson@google.com>
+---
+v2:
+- New patch.
+---
+ arch/x86/kvm/vmx/pmu_intel.c | 32 +++++++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
+
+diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
+index 37b34b588601..6bd7c8e03c14 100644
+--- a/arch/x86/kvm/vmx/pmu_intel.c
++++ b/arch/x86/kvm/vmx/pmu_intel.c
+@@ -55,6 +55,18 @@ static struct x86_pmu_lbr *vcpu_to_lbr_records(struct kvm_vcpu *vcpu)
+ 
+ #pragma GCC poison to_vmx
+ 
++static u64 intel_pmu_fixed_ctrl_bits(struct kvm_pmu *pmu, u64 bits)
++{
++	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
++	u64 fixed_ctrl_bits = 0;
++	int i;
++
++	kvm_for_each_fixed_counter(i, fixed_mask)
++		fixed_ctrl_bits |= intel_fixed_bits_by_idx(i, bits);
++
++	return fixed_ctrl_bits;
++}
++
+ static void reprogram_fixed_counters(struct kvm_pmu *pmu, u64 data)
+ {
+ 	/*
+@@ -537,20 +549,12 @@ static __always_inline u64 intel_get_fixed_pmc_eventsel(unsigned int index)
+ 	return eventsel;
+ }
+ 
+-static void intel_pmu_enable_fixed_counter_bits(struct kvm_pmu *pmu, u64 bits)
+-{
+-	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+-	int i;
+-
+-	kvm_for_each_fixed_counter(i, fixed_mask)
+-		pmu->fixed_ctr_ctrl_rsvd &= ~intel_fixed_bits_by_idx(i, bits);
+-}
+-
+ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+ 	struct lbr_desc *lbr_desc = vcpu_to_lbr_desc(vcpu);
+ 	struct kvm_cpuid_entry2 *entry;
++	u64 fixed_enable_bits = 0;
+ 	union cpuid10_eax eax;
+ 	union cpuid10_edx edx;
+ 	u64 perf_capabilities;
+@@ -643,9 +647,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+ 					  kvm_pmu_cap.bit_width_fixed);
+ 	pmu->counter_bitmask[KVM_PMC_FIXED] = BIT_ULL(edx.split.bit_width_fixed) - 1;
+ 
+-	intel_pmu_enable_fixed_counter_bits(pmu, INTEL_FIXED_0_KERNEL |
+-						 INTEL_FIXED_0_USER |
+-						 INTEL_FIXED_0_ENABLE_PMI);
++	fixed_enable_bits |= INTEL_FIXED_0_KERNEL | INTEL_FIXED_0_USER |
++			     INTEL_FIXED_0_ENABLE_PMI;
+ 
+ 	counter_rsvd = ~((u64)kvm_gp_pmc_mask(pmu) |
+ 			 ((u64)kvm_fixed_pmc_mask(pmu) << KVM_FIXED_PMC_BASE_IDX));
+@@ -661,11 +664,14 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+ 			pmu->pebs_enable_rsvd = counter_rsvd;
+ 			pmu->eventsel_rsvd &= ~ICL_EVENTSEL_ADAPTIVE;
+ 			pmu->pebs_data_cfg_rsvd = ~0xff00000full;
+-			intel_pmu_enable_fixed_counter_bits(pmu, ICL_FIXED_0_ADAPTIVE);
++			fixed_enable_bits |= ICL_FIXED_0_ADAPTIVE;
+ 		} else {
+ 			pmu->pebs_enable_rsvd = ~(u64)kvm_gp_pmc_mask(pmu);
+ 		}
+ 	}
++
++	pmu->fixed_ctr_ctrl_rsvd &=
++		~intel_pmu_fixed_ctrl_bits(pmu, fixed_enable_bits);
+ }
+ 
+ static void intel_pmu_init(struct kvm_vcpu *vcpu)
+-- 
+2.56.0
 
