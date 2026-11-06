@@ -1,73 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793996410;
-	b=0UUoLbV4qep56HbbeiHdIPu5Vjhb/23Em6/pTTXa3/XrWuRKDk8iu82kQcm6812bFKPd
-	 9PWjvh8CVU4WL2JmSH5djs/IhnzpypEZdZ38i6x3ZRNvS+xc058GN2ijIExI3kNKr7ZD/
-	 GfCIg6m8alKQcw9T819XKkBTxvNGjLqSlKecohgU/dpamKdpMBxhCl+9qXqmfIufdRJxv
-	 X8YmA101Cci6nC5fOMBnPz1ZIArw3pfbyQ8FC/JvVbBUpB1rqa+wsgUjjRt6Y4DjQM7MN
-	 79kked49XO3mrmIggtjLGH5PVL2xNxsxOSS+GYvQd1PvXiwHsDnI32YGHg6VzvDz5fA==
+	t=1793996416;
+	b=T5yyPQXtAscwlCHs/HTMsjPUzg9Farty/Vx+HVnONb7u8ErooIQYMUoqk+2jfS4jNDK/
+	 2DAa2pYNHwhgZLTt+hUW8ih506fY/7zKx0Su5VnOBj2k6am24t7hmk8t56M+TJYIFzKW0
+	 igqatUX/EnsQd1uVOiyoyxvp5qd1KRP5/eab1oB0rcnnLT57fr+xoMI7yJ2YAQLJz6A0c
+	 wNmXWn/bC6h/zfnVXODKcwCwcjwUIluQed3W173L6s9HTSdkx5JNv0Yg2LEdkSOtY30O5
+	 KrGzUHI2Lq6c9G5XJBDtRNUmidPHKH+GU82NntKxRRN66wkgExcpSOLPDcrmjfnc+1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996416;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-B4-Tracking:X-Change-Id:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=2YbFKs9nRA6MfgMEJuRTCHwLHgaje7B0LRpZLEgpNVg=;
-	b=d5HfBfVpMgTZFpYQhXAmolBd90zFteJo+nPNEP717sNjt1VJbKHoSd/Rgr6WtS+pvOKe
-	 Lwv8z85Q7Qg+oJmY9ymsVBV2Tq7j2ClWgCJRm/mLHgyBO0oPwzHF2gUHN+8tzTwek97OR
-	 7Njtq6LdL36GFL+1D5vRcTBVNZPCz6lrreJBbcCGXEWboi3xtgG43D7GudRsy1k3lURWF
-	 cq/7L/8UT9Gwn+LwyPdPCAp/eIdpwM3+mYRIBeFojoORQP+DEVmdd6O2TYaYo43xWSfeY
-	 hm0vWR6GqzCpkWpLzI2UjXbQ8B5Eh5FnsVu4pNi88S3ZsWTx8cPpgpaA9+rDXiI8gHA==
+	bh=1hzY0cw9BMWvTkyeBTub5Gg24VJsRlhF2Jm/5qSvDcw=;
+	b=Kuu/A0Z6vnyeFWwPpF+zi+6Ha2gE5QTnCbVFvvwBw0n5WccfQ+YKzRSnT3P97PLaf4Z7
+	 4QIWqkevbv5isWS+SvX+R6dCOqgaMLBYIcw8WWAjuFQ0PgE+Y/GcGXwrVwQczLMa1ByTM
+	 TRrOU99t7GMLHJ8Hwyc/wSUwYlvpY9J6pi6LRjmA4xs/IopXATtlGZ8j2wHgfX548g3QB
+	 z9F5fjOcG8mpLQExXD/qA6KwztSy4eVTkwGsD50n70tZsOypH55SXyaaFHlY/weCmCH0b
+	 MrIFQ4y0J6nx+EzN651GEBWyfbdC1cZPvUh2XG5bHnif+dO0t/vDqq52MKiahrzvdFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oQqnp485;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=S50j6rFO;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B07606A330
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B07606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FE8606A335
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4FE8606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oQqnp485
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a030e0f9c1so1058282b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=S50j6rFO
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ac8f449d1bso989798a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793996409; x=1794601209; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2YbFKs9nRA6MfgMEJuRTCHwLHgaje7B0LRpZLEgpNVg=;
-        b=oQqnp48505ul8fce1kiykiCLp2RBCB0id+7wMmH30erQLzA8JQmunrOmBs4cSNdOnp
-         2iNKZqJWYUFQZ47unpZxxxX0f/iH/7ULrKTrrYMEEjQsDlWVORyHPyVBhvS8rCmZ/fhN
-         o7jT9adJGO14Qrl6r6L2xIM8t5Xg5yR/AaxTHGoKVbTTau2on1yr7YC6/P2TG8xvPXoC
-         FEMJZeADDOVyBg6XKdFgSjHTGG3FBAt4N4dQGuCI2/yuf2umK2hUZCoKNeGRw0pPFTnS
-         bcVkwTCIxGxdl78z4+gT0PSaYM3vIYomHZeF4LisCxXaNA4K5aqLiA0ut714gukBKsye
-         MUgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793996409; x=1794601209;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793996415; x=1794601215; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2YbFKs9nRA6MfgMEJuRTCHwLHgaje7B0LRpZLEgpNVg=;
-        b=MQW2GKpRYMk1hvZ75glfX7jVzRMpIuopx0i1fD2r0zCJimzBwQ6OBEkqzObITS1YpB
-         NifNZ+oHomK0x/3hFOL5p7EVn0VJ3Yc0Zu31rYYG5TFpYkFHmOV9pqjNf/2pTq9CBb0L
-         /kr0Rco+Xob3DHDdw2lXokRcbZA6LRsB1VkynfpATdlV3kdnf/RTp/1mAIVmzFZVqFAf
-         msWsb1hzU8czOxbgRMBCJWB5+jOxgdajzEq6L+WKvrBy7QZvj3VU3tt1so//F/qxguv1
-         nBUPxsaNiyDMc7DoLxk34bmpvIaGD6tvkjaJR04AmEGDecREFpcA2mS74qff27adIWtW
-         3bMA==
-X-Forwarded-Encrypted: i=1; AKwUvBzG+fQ6lKLBgvhHJPcWdS/khzlicAaUBoszry0h4Z+n1NNO3YDAA9nXYb1hBQz2Zjb6fzaYsUiJ33pYQPI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9WbcfpWvhAWC+11TuodC8uLH89Kp+/fY4R+uexBRVPZ8qn8mIO
-	xJ0HlsdQ3paCGf8QRRCV86oJyeF8MoY8A+S69U6Dju7Nol8c34akcGy8ThLKPoKMBHvUrXx+laY
-	ZQJQtp2VDzwNE7qsmlw==
-X-Received: from pfhx2.prod.google.com ([2002:a05:6a00:1882:b0:89f:5522:3f42])
+        bh=1hzY0cw9BMWvTkyeBTub5Gg24VJsRlhF2Jm/5qSvDcw=;
+        b=S50j6rFOKABKg8QjzJdY4Fcjzg2u7eml9qDESED1kumnHCljRSAKM0ss/dEBhbtzhN
+         A/H5roAo4TuUumBVUSwv/ZLF/j9UDTe/HpQ9fGXzV24LGXFLlaNH28MAFnd6kMykdWs9
+         G05A9wG1O2Jv93d5s25kMNhPozLXu4Q4M9MCkluqUrLP7NXXHpZy5JdH+3bjHM4nHX3b
+         Cu+ZF+OmytePj9bJ4XnIMrJjqe2zA4XGT5CBfELCsqMZXzdn+YV9UHBesvo/0xg5KuO4
+         1VZBoYHMXAEeF4wreQwQWy1vhjHq7FHl6M/PT58BKA3nIovh5XuBlTBHFxIr1GSWNoHA
+         cYZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793996415; x=1794601215;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1hzY0cw9BMWvTkyeBTub5Gg24VJsRlhF2Jm/5qSvDcw=;
+        b=PucvKZfpNK1iWnOrTBoAQDsSlbTpgbCB3S8DAvCXIPv93ffA5WEqLmm9MYOJZAwuYX
+         jji1brGuHTKsI7++CpUWHPVDd1jCw3Q9iC0xtTRJi5IcrqjxUoQd9WqVb4UAjufvXnoU
+         2cQRkUOafJz8qoIZC37caUYMaD5ls5mAXXVWjp7euGkvtblQXRqtl0nG93jCtuBm0TES
+         HSf4gk4DIYFPILoj2tyljvALyeDcetbW2fSCIEK70SlOL8yvBMSgYlC3gnsS6mSwqOs5
+         w4KdGwkCmyJBzt7qOqLLAFWS8aXkJO/3zsDVLqGFjxHg/AIs9QRdg5gUcHxGFLKqbz8V
+         T+1A==
+X-Forwarded-Encrypted: i=1; AL+hErEYFpzInGGus0gJNYRCL1tP4fu/Oy5zYJVwSnS6lVnfDaz35MPoWYzZzaPBEf+zVHJ7R05glukEIIkp8Bs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qIm1d527sbJiFWXwZ3n0A+ZnoIHLc8nz9nqnqk+w/ltfeqYnK
+	1cTn4EHoUyiBasgR7t8VT3jg6J290SR9mOXFTpF1M0s0/WOfP8RDhdObg3DQGwANCbl3PsKu8VE
+	Q8B1UkWB6iNjG15dGwg==
+X-Received: from pjbse12.prod.google.com ([2002:a17:90b:518c:b0:3ac:3bb4:e960])
  (user=sidnayyar job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:139c:b0:8a6:58cb:eeaa with SMTP id d2e1a72fcca58-8b37bb5f095mr3365577b3a.36.1793996408786;
- Fri, 06 Nov 2026 12:20:08 -0800 (PST)
-Date: Fri, 06 Nov 2026 20:19:47 +0000
+ 2002:a17:90b:3d4d:b0:3ad:50ef:f5ff with SMTP id 98e67ed59e1d1-3b0db6fdec5mr3753116a91.37.1793996414768;
+ Fri, 06 Nov 2026 12:20:14 -0800 (PST)
+Date: Fri, 06 Nov 2026 20:19:50 +0000
+In-Reply-To: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,12 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAGM27moC/x2MQQrCMBAAv1L27MJmLQW9Cn2AV/FQ040uljRko
- xRK/27qcQZmVjDJKgbnZoUsXzWdYwV3aMC/hvgU1LEyMHHnHDFO9pYJreSPLzgnQzrSiVpufRg YapayBF3+yxtc+8vuHilglKXAfdt+OM0/UHMAAAA=
-X-Change-Id: 20261102-lskel-struct-ops-03090424cfa2
+References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
 X-Mailer: b4 0.14.3
-Message-ID: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
-Subject: [PATCH RFC bpf-next 0/7] bpf: Support struct_ops in light skeletons
+Message-ID: <20261106-lskel-struct-ops-v1-3-a4486ffc79cb@google.com>
+Subject: [PATCH RFC bpf-next 3/7] libbpf: Support BPF_MAP_TYPE_STRUCT_OPS in bpf_gen__map_create()
 From: Siddharth Nayyar <sidnayyar@google.com>
 To: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
 	John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>, 
@@ -97,129 +97,83 @@ Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Maxime Ripard <mripard@kernel.org>, Siddharth Nayyar <sidnayyar@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-BPF light skeletons (bpftool gen skeleton -L) compile BPF object loading
-into a self-contained BPF_PROG_TYPE_SYSCALL loader program (gen_loader)
-embedded in a C header, removing any runtime dependency on libbpf or
-userspace BTF parsing. Currently, light skeletons do not support
-BPF_MAP_TYPE_STRUCT_OPS maps or BPF_PROG_TYPE_STRUCT_OPS programs
-because preparing a struct_ops map normally relies on libbpf parsing the
-target vmlinux or kernel module BTF in userspace to resolve type IDs,
-struct sizes, member byte offsets, and member indices.
-
-This series adds BPF_MAP_TYPE_STRUCT_OPS support for link-based
-(SEC(".struct_ops.link")) maps in light skeletons across both vmlinux
-and kernel module BTF targets:
-
-- Patch 1 adds a new bpf_btf_get_struct_member_info() helper for
-  BPF_PROG_TYPE_SYSCALL programs to query a struct's byte size (when the
-  member name is NULL) or a named member's byte offset and member index
-  from vmlinux or module BTF at load time.
-- Patches 2-5 wire up struct_ops initialization, map creation, program
-  loading, and map update in libbpf's gen_loader. At runtime, the loader
-  program resolves the kernel wrapper type bpf_struct_ops_<name> and
-  target <name> struct BTF IDs (and module BTF FDs) via
-  bpf_btf_find_by_name_kind(), queries struct sizes and member
-  offsets/indices via bpf_btf_get_struct_member_info(), constructs the
-  kernel vdata buffer in the loader data blob, passes the resolved BTF
-  metadata to BPF_MAP_CREATE and BPF_PROG_LOAD, and populates the
-  callback program FDs before issuing BPF_MAP_UPDATE_ELEM.
-- Patch 6 teaches bpftool to generate per-map skel_link_create() attach
-  functions and skel__attach() / skel__detach() plumbing for BPF_F_LINK
-  struct_ops maps in light skeletons, skips gen_st_ops_shadow() so the
-  light skeleton ctx layout is preserved, and rejects non-link
-  struct_ops maps.
-- Patch 7 adds light skeleton struct_ops selftests covering both vmlinux
-  (tcp_congestion_ops) and bpf_testmod (bpf_testmod_ops, including a
-  subset struct with reordered members, scalar fields, detach, and
-  re-attachment).
-
-Adding a new BPF helper and alternative kfunc approach
-======================================================
-I am aware that BPF helpers have been frozen for several years in favor
-of kfuncs. I propose adding bpf_btf_get_struct_member_info() as a BPF
-helper (restricted exclusively to BPF_PROG_TYPE_SYSCALL loader programs,
-alongside bpf_btf_find_by_name_kind()) because, to my knowledge, there
-is no better way to enable struct_ops support in light skeletons.
-
-Before settling on a BPF helper, I explored an alternative approach
-using a kfunc, which hit a roadblock. Calling a kfunc directly from the
-light skeleton loader program is not possible because kfunc calls
-(BPF_PSEUDO_KFUNC_CALL) require the target kfunc's BTF ID in insn->imm
-when the loader program itself is loaded, whereas light skeletons ship
-pre-generated loader bytecode without userspace BTF resolution. Although
-I was able to resolve a kfunc's BTF ID at runtime via
-bpf_btf_find_by_name_kind() and patch and load a separate BPF program to
-run the kfunc and gather struct_ops member info, running that program
-from the light skeleton loader required re-enabling BPF_PROG_TEST_RUN in
-bpf_sys_bpf(). Calling BPF_PROG_TEST_RUN from BPF programs was
-explicitly disabled in commit 86f44fcec22c ("bpf: Disallow bpf programs
-call prog_run command.") because the verifier cannot perform sufficient
-validation of the bpf_attr->test.ctx_in pointer.
-
-Non-link struct_ops support
-===========================
-I have not enabled non-link struct_ops programs/maps (SEC(".struct_ops")
-without BPF_F_LINK) in this series, though I intend to enable them in
-the future and can extend this series to support them if maintainers
-deem it necessary.
-
-I left non-link struct_ops out for now because in light skeletons,
-BPF_MAP_UPDATE_ELEM runs inside the loader program during skel__load().
-For non-link struct_ops maps, BPF_MAP_UPDATE_ELEM immediately registers
-and activates the struct_ops callbacks in the kernel before
-skel__attach() is called, prevents re-attaching after detach, and would
-leak an active registration if a later step in the loader program fails
-(since loader cleanup only closes FDs via bpf_sys_close() rather than
-issuing BPF_MAP_DELETE_ELEM). Supporting non-link struct_ops will
-require deferring BPF_MAP_UPDATE_ELEM to userspace skel__attach().
-
-AI assistance and testing
-=========================
-This series (code, selftests, commit messages, and cover letter) was
-developed interactively with an AI coding assistant (Google Gemini),
-with me guiding the design step by step across each patch and reviewing
-all changes.
-
-The series was built with clang/LLVM and tested in a QEMU x86_64 VM
-using test_progs (covering the new struct_ops_lskel selftests for both
-vmlinux tcp_congestion_ops and bpf_testmod_ops, as well as existing
-struct_ops and light skeleton tests), along with manual verification of
-loading and inspecting a struct_ops light skeleton via bpftool.
-
-Feedback on the overall approach and on introducing this
-BPF_PROG_TYPE_SYSCALL helper is very welcome.
+Handle BPF_MAP_TYPE_STRUCT_OPS in bpf_gen__map_create() when generating
+a light skeleton:
+- Extend map_create_attr size to include value_type_btf_obj_fd.
+- Populate attr.btf_fd from the loader stack when
+  btf_vmlinux_value_type_id is set.
+- Populate attr.value_size and attr.btf_vmlinux_value_type_id from the
+  runtime-resolved values in the loader data blob.
+- If the struct_ops type resides in a kernel module (btf_obj_fd > 0),
+  populate attr.value_type_btf_obj_fd, set BPF_F_VTYPE_BTF_OBJ_FD in
+  attr.map_flags, and close value_type_btf_obj_fd after BPF_MAP_CREATE.
 
 Signed-off-by: Siddharth Nayyar <sidnayyar@google.com>
 ---
-Siddharth Nayyar (7):
-      bpf: Add bpf_btf_get_struct_member_info() helper
-      libbpf: Implement bpf_gen__init_kern_struct_ops() for light skeletons
-      libbpf: Support BPF_MAP_TYPE_STRUCT_OPS in bpf_gen__map_create()
-      libbpf: Support BPF_PROG_TYPE_STRUCT_OPS in bpf_gen__prog_load()
-      libbpf: Implement bpf_gen__struct_ops_update_elem() for light skeletons
-      bpftool: Generate attach and detach for struct_ops in light skeletons
-      selftests/bpf: Add light skeleton struct_ops tests
+ tools/lib/bpf/gen_loader.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
- include/linux/bpf.h                                |   1 +
- include/uapi/linux/bpf.h                           |  13 +
- kernel/bpf/btf.c                                   |  73 +++++
- kernel/bpf/syscall.c                               |   2 +
- tools/bpf/bpftool/gen.c                            |  71 ++++-
- tools/include/uapi/linux/bpf.h                     |  13 +
- tools/lib/bpf/bpf_gen_internal.h                   |   7 +
- tools/lib/bpf/gen_loader.c                         | 297 ++++++++++++++++++++-
- tools/lib/bpf/libbpf.c                             |  59 ++--
- tools/lib/bpf/libbpf_internal.h                    |  26 ++
- tools/testing/selftests/bpf/Makefile.skel          |   3 +-
- .../selftests/bpf/prog_tests/struct_ops_lskel.c    | 122 +++++++++
- tools/testing/selftests/bpf/progs/struct_ops_mod.c |  51 ++++
- .../selftests/bpf/progs/struct_ops_vmlinux.c       |  42 +++
- 14 files changed, 747 insertions(+), 33 deletions(-)
----
-base-commit: 3e18218484126afb9da722080659c038cb2256ab
-change-id: 20261102-lskel-struct-ops-03090424cfa2
+diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
+index 09713c39f71e..6027a2762c35 100644
+--- a/tools/lib/bpf/gen_loader.c
++++ b/tools/lib/bpf/gen_loader.c
+@@ -508,7 +508,7 @@ void bpf_gen__map_create(struct bpf_gen *gen,
+ 			 __u32 key_size, __u32 value_size, __u32 max_entries,
+ 			 struct bpf_map_create_opts *map_attr, int map_idx)
+ {
+-	int attr_size = offsetofend(union bpf_attr, map_extra);
++	int attr_size = offsetofend(union bpf_attr, value_type_btf_obj_fd);
+ 	bool close_inner_map_fd = false;
+ 	int map_create_attr, idx;
+ 	union bpf_attr attr;
+@@ -532,7 +532,7 @@ void bpf_gen__map_create(struct bpf_gen *gen,
+ 		 map_name, map_idx, map_type, map_attr->btf_value_type_id,
+ 		 map_create_attr, attr_size);
+ 
+-	if (map_attr->btf_value_type_id)
++	if (map_attr->btf_value_type_id || map_attr->btf_vmlinux_value_type_id)
+ 		/* populate union bpf_attr with btf_fd saved in the stack earlier */
+ 		move_stack2blob(gen, attr_field(map_create_attr, btf_fd), 4,
+ 				stack_off(btf_fd));
+@@ -543,6 +543,27 @@ void bpf_gen__map_create(struct bpf_gen *gen,
+ 				stack_off(inner_map_fd));
+ 		close_inner_map_fd = true;
+ 		break;
++	case BPF_MAP_TYPE_STRUCT_OPS:
++		move_blob2blob(gen, attr_field(map_create_attr, value_size), 4,
++			       value_size);
++		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
++						 0, 0, 0, map_attr->btf_vmlinux_value_type_id));
++		emit(gen, BPF_LDX_MEM(BPF_DW, BPF_REG_0, BPF_REG_1, 0));
++		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
++						 0, 0, 0, map_create_attr));
++		emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++				      offsetof(union bpf_attr, btf_vmlinux_value_type_id)));
++		emit(gen, BPF_ALU64_IMM(BPF_RSH, BPF_REG_0, 32));
++		emit(gen, BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, 4));
++		emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++				      offsetof(union bpf_attr, value_type_btf_obj_fd)));
++		emit(gen, BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_1,
++				      offsetof(union bpf_attr, map_flags)));
++		emit(gen, BPF_ALU32_IMM(BPF_OR, BPF_REG_0,
++					tgt_endian(BPF_F_VTYPE_BTF_OBJ_FD)));
++		emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_0,
++				      offsetof(union bpf_attr, map_flags)));
++		break;
+ 	default:
+ 		break;
+ 	}
+@@ -568,6 +589,9 @@ void bpf_gen__map_create(struct bpf_gen *gen,
+ 	debug_ret(gen, "map_create %s idx %d type %d value_size %d value_btf_id %d",
+ 		  map_name, map_idx, map_type, value_size,
+ 		  map_attr->btf_value_type_id);
++	if (map_type == BPF_MAP_TYPE_STRUCT_OPS)
++		emit_sys_close_blob(gen,
++				    attr_field(map_create_attr, value_type_btf_obj_fd));
+ 	emit_check_err(gen);
+ 	/* remember map_fd in the stack, if successful */
+ 	if (map_idx < 0) {
 
-Best regards,
 -- 
-Siddharth Nayyar <sidnayyar@google.com>
+2.56.0.455.g6c5a503b38-goog
 
