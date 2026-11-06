@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.36.163.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793937435;
-	b=GHTYJbGCTuiXv+Ca90CONeV2G1hPQjdWaTP1PGiCYAMbLjCVrYk+ErTzVpKSzGlYaTib
-	 dE/GNsUc9ji3+wcfPHq6iLlO6+4bcy/OtAid3zG+uJG+kunjb5q4+g8W4baDQ4thAoy0C
-	 /wyTGUe7WHqSeML7XGLzPHQ76NOLnNMPLz9emCZFdlhg8DqSs6euJirsQpDOJjamf3hqN
-	 hUruljkVDkVizqH+JxibQ+6YLmD8o/orYuUUCfODvW13dbSQLUNTk3RHg2htjgecPIRpb
-	 ErNnZy2CjbONEvrOlse9awbvWza9D+lazVEPxGedLxERnBX8kWRikEeZTygNehmAx+A==
+	t=1793937442;
+	b=GXxysDP3fAGARv2aXQS1opN650HNLO7wq6uQmQ7ps0jzABcg4D31I/27Qalmxkbg2/Sa
+	 r9S+DS8aDEcokyIiAapTTLOxhs6hccAMNg00ls65Lte0pG0BAVH36nMrycIWiifVpboWu
+	 8sK0ei3l4cAy/yToUXwdkKNL+PW98b8zMOfB+1PHJriAiUaYlYQpp2eHAV/VrAv++Vyui
+	 c95yjiV1nKnSZ6iKvQe9PT4TANv4MUXy/UUVg4/9HPcUl3FAY49yDOyfgtPHjDKRHCsa7
+	 OC6vNbQ/Lc5H1GZTgimHDjl6NJVESY0KFn2rB1bY0iTeMiaLRkaiIsLZG0zqQjSD+yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793937435;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:References:
-	 In-Reply-To:Accept-Language:Content-Language:X-MS-Has-Attach:
-	 X-MS-TNEF-Correlator:x-originating-ip:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:X-SEG-SpamProfiler-Analysis:
-	 X-SEG-SpamProfiler-Score;
-	bh=OLYVLP7hIHAlNUnk9c8nHGLTclyt/oAp/IPAkfaIHH4=;
-	b=ifhpt5BTFadiwAKTeZcc45I4MBReieIwNBgTaZieec02hdIXvd4Na9SYYlLVbx13A2s+
-	 ELjpivPdLhxxuboTdmgOqSFv64vynhyOck+uGTDUs4xtnQfd7QXHAJU/YRsaCA9oE0c9j
-	 8ya8lteYqB1LdrVgpU0FgDpNckwebHD0jgLotqVFbmonqiwlNcI3G+Zj71/X7WJRJxtQn
-	 buet07pP8cRghkKEapAxL6PSrbInUsfhJH8ap8sv7YFYCFKJPzH4mCzI9m1qpEyczXdgf
-	 a1h19z47yRoX9yWxJVMD305f0CFOBz+ADB5XXY9sbznv/2zt238CdHiR/ZyNZiN13Ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793937442;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lHXR2FH3bh5spT35/G4nG+cv25q2yTDGLvo0NNx3ZVg=;
+	b=UE4PS6M8L2M7bcpLJ74b5bCMfiwR4e/3BUkkrGVq7Ib9RudIbwj9VPHAD3QImkcPcFIa
+	 QQTqjQoKiV52NprU+qDuyZUDgkoW8EH9/vQKlZQajV5yFXASSO5HOCbwKVLUvwHs13hwV
+	 u+fiXf4K/aohkYyU07v+KpcSyocFAPppW7lnlDnuf6Z+LI8fPQpxUA76AHvG4P3eHlMvq
+	 gGY64MpQOHmNKa3WZp5PA3yZyrK2qpAZlnB+MgBoUnQUxupAAaM+RDHLpjQR/oxUJo2pl
+	 XftrSvBWu/RT3aTATeGJN+As87jfRyBi6G4w+xr4fnrnUT+9z0rvmClaufCS/ZLG/Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alliedtelesis.co.nz;
-	spf=pass smtp.mailfrom=alliedtelesis.co.nz;
-	dkim=pass header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b="JR/7UvE1";
-	arc=none smtp.remote-ip=202.36.163.20
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EgFmAbUp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E745A606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:57:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E745A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C30606A331
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:57:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.a=rsa-sha256 header.s=mail181024 header.b=JR/7UvE1
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 094EF2C0404;
-	Fri,  6 Nov 2026 16:57:06 +1300 (NZDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1793937426;
-	bh=OLYVLP7hIHAlNUnk9c8nHGLTclyt/oAp/IPAkfaIHH4=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=JR/7UvE1oenV19Sv/89AMndwW6bbkzt2Ay5DZ2VzTe2OVK2GtrVvj8iYHpeSMqt9f
-	 QDdjyeT0VZlYIfUZmgQw4KK/BznFpYVENrIiYrdM6V6RkVBHHT/zO8J8JylaxZrzbZ
-	 EWyXgmlN73jiLiJgGdY/Qy5S6F7/KyX8kmQ6SMtEXGbvoFVHi8E5CkuZ5w6VJdOP6z
-	 MlyhySWJFm2lFOYUMkdoJx/D9PkcAYFrjro2mQYj5zi7gApKioEOusonAuTtnAMx+f
-	 dpEYxhxRdGgKVROePVDqwQ5jK0O6tsyI6T7xY8RwCoXf6kSMjBiSw5vywHt2bl7w45
-	 tHx8CQ621SqSA==
-Received: from svr-chch-ex2.atlnz.lc (Not Verified[2001:df5:b000:bc8::76]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B6aed50110001>; Fri, 06 Nov 2026 16:57:05 +1300
-Received: from svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8:f753:6de:11c0:a008) by
- svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8:f753:6de:11c0:a008) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 6 Nov 2026 16:57:05 +1300
-Received: from svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567]) by
- svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567%15]) with mapi id
- 15.02.2562.056; Fri, 6 Nov 2026 16:57:05 +1300
-From: Chris Packham <Chris.Packham@alliedtelesis.co.nz>
-To: Mike Schanne <mschanne@kns.com>, "'gregkh@linuxfoundation.org'"
-	<gregkh@linuxfoundation.org>
-CC: 'LKML' <linux-kernel@vger.kernel.org>, "'linux-rt-devel@lists.linux.dev'"
-	<linux-rt-devel@lists.linux.dev>, 'linux-rt-users'
-	<linux-rt-users@vger.kernel.org>, 'Sebastian Andrzej Siewior'
-	<bigeasy@linutronix.de>, 'Thomas Gleixner' <tglx@linutronix.de>, "'Steven
- Rostedt'" <rostedt@goodmis.org>, Todd Leitzel <tleitzel@kns.com>
-Subject: Re: [PATCH] Revert "uio: use threaded interrupts"
-Thread-Topic: [PATCH] Revert "uio: use threaded interrupts"
-Thread-Index: Ad1te4Ezu/k/o99STK2OTlNpcneIYv//dNQA
-Date: Fri, 6 Nov 2026 03:57:05 +0000
-Message-ID: <17b35fd1-13bd-4548-ad7c-5444cbc9a262@alliedtelesis.co.nz>
-References: <TY0PR01MB57238A4ACC7B9B3214A00A6CD2772@TY0PR01MB5723.apcprd01.prod.exchangelabs.com>
-In-Reply-To: <TY0PR01MB57238A4ACC7B9B3214A00A6CD2772@TY0PR01MB5723.apcprd01.prod.exchangelabs.com>
-Accept-Language: en-NZ, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <1FF90EB44285964C87E9C8304CB78B78@alliedtelesis.co.nz>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EgFmAbUp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D20E21F008A5
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:57:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793937440;
+	bh=lHXR2FH3bh5spT35/G4nG+cv25q2yTDGLvo0NNx3ZVg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EgFmAbUpAM2cjwI+PAsaOIcEAvxopqxzrr5ETtb9YJduifyoKzN8YwdyePG7jZcgl
+	 MAF1R31GIZ0XeuUOJ5ajpkRLAI0gc7RjT1TWr25oDrdTv5MC3GjICuS4R/pPi0d0Y+
+	 pCObQVcMyzbJ8upJobLZEEgDDMPAax+RNdKemLW9HXK51pfSHhspbfEziQxNccns9m
+	 V6Ao+kTwjY7l3VQQwr9rOMONlSWWfRMpgLakbtQVmIq6dK6cSWWL0ZgDvyUd9/JdBX
+	 zzAa59f4NI2tvQUjbttnwVD7TfUy2F0n9FlrD/xYew+h3qG/zcNr0KCdZAsNc+VsTK
+	 tfw0hgrFmLfHA==
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f36c18b75so12729785a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 19:57:20 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBw0OMRegdjPLIGsW44zcakb8I0ET2sMQ2e94+ybJCyWarpLmj43kfjQdIgv+s05QQT99g0Jjxmupn4tVVA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HpXq4ljWx/kOFrwgDE1SX+RWYgIV5M61Ya/zRziHBHDqDJ25e
+	4BIQGlfOnzESG0Zb3OMUdU1oITT6sl2OgzQuhvSHbfUKcf4Cx/+ETR+bAXEUsk7tgcqcDFST7cp
+	qA4oSV1Vl4uCwxS56hNXLTM2KdTRnho4=
+X-Received: by 2002:a05:620a:6c88:b0:939:b8d6:9b1c with SMTP id
+ af79cd13be357-945f34af2acmr198595685a.19.1793937440071; Thu, 05 Nov 2026
+ 19:57:20 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,66 +59,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=S4h6w5sP c=1 sm=1 tr=0 ts=6aed5011 a=Xf/6aR1Nyvzi7BryhOrcLQ==:117 a=xqWC_Br6kY4A:10 a=drD7vYo3kbIA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=UlNkbvKAAAAA:8 a=i3znQdv51DuuqUM6O5gA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=geFFMbpNSZSG5jv3XVn1:22
-X-SEG-SpamProfiler-Score: 0
+References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org> <20261105-late-2026-vma-flags-v1-3-0d3cd15ab75f@kernel.org>
+In-Reply-To: <20261105-late-2026-vma-flags-v1-3-0d3cd15ab75f@kernel.org>
+From: Barry Song <baohua@kernel.org>
+Date: Fri, 6 Nov 2026 11:57:08 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wCd_j5or0uHwPLq0PUixcXgiFim=_d7uUhUhAuQf0nTQ@mail.gmail.com>
+X-Gm-Features: AclHuK8deEInzaZZJ26UPrq6mS-8I8VnGN9Ocbio_nvLAi7VvywQ3Ss3UdDHcfM
+Message-ID: <CAGsJ_4wCd_j5or0uHwPLq0PUixcXgiFim=_d7uUhUhAuQf0nTQ@mail.gmail.com>
+Subject: Re: [PATCH 03/13] mm/rmap: convert remaining VMA flag tests to use vma_flags_t
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>, 
+	SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>, David Rientjes <rientjes@google.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>, John Johansen <john.johansen@canonical.com>, 
+	Georgia Garcia <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+	Roberto Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+	Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, damon@lists.linux.dev, 
+	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
+	linux-integrity@vger.kernel.org, selinux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgTWlrZSwNCg0KT24gMDYvMTEvMjAyNiAxMjoyMiwgTWlrZSBTY2hhbm5lIHdyb3RlOg0KPiBU
-aGlzIHJldmVydHMgY29tbWl0IGY4YTI3ZGZhNGI4MmQ0NDJhZjFjMDY0NWE1YWNjNzBjYzk3YzY3
-ZjYuDQo+DQo+IFRoZSBvcmlnaW5hbCBzb2x1dGlvbiBicmVha3MgdGhlIHRocmVhZGlycXMgY2Fz
-ZSBpbmNsdWRpbmcgUFJFRU1QVF9SVA0KPiBVbmRlciBQUkVFTVBUX1JULCBpdCBhZGRzIGFuIGV4
-dHJhIGt0aHJlYWQgcGVyIFVJTyBpcnEsDQo+IHdoaWNoIGFkZHMgYSBjb250ZXh0IHN3aXRjaCBw
-ZXIgaW50ZXJydXB0Lg0KPg0KPiBTZWU6DQo+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8y
-MDI0MDMyNjE5NTkyNy4zMjY1Mjk3LTEtY2hyaXMucGFja2hhbUBhbGxpZWR0ZWxlc2lzLmNvLm56
-Lw0KPiBodHRwczovL2dpdGh1Yi5jb20vdG9ydmFsZHMvbGludXgvY29tbWl0L2Y4YTI3ZGZhNGI4
-MmQ0NDJhZjFjMDY0NWE1YWNjNzBjYzk3YzY3ZjYNCj4NCj4gU2lnbmVkLW9mZi1ieTogTWljaGFl
-bCBTY2hhbm5lIDxtc2NoYW5uZUBrbnMuY29tPg0KQWNrZWQtYnk6IENocmlzIFBhY2toYW0gPGNo
-cmlzLnBhY2toYW1AYWxsaWVkdGVsZXNpcy5jby5uej4NCg0KSSdsbCBoYXZlIHRvIGRpZyBvdXQg
-dGhlIGJvYXJkIHRoYXQgaGFkIHRoZSBvcmlnaW5hbCBwcm9ibGVtIGFuZCBsb29rIA0KZm9yIGEg
-ZGlmZmVyZW50IGZpeC4NCg0KPiAtLS0NCj4gICBkcml2ZXJzL3Vpby91aW8uYyB8IDE5ICsrKysr
-LS0tLS0tLS0tLS0tLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCAxNCBk
-ZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdWlvL3Vpby5jIGIvZHJpdmVy
-cy91aW8vdWlvLmMNCj4gaW5kZXggZjhmYTIwNTIyNjYwLi45ZWY1YjI3NmIwOTAgMTAwNjQ0DQo+
-IC0tLSBhL2RyaXZlcnMvdWlvL3Vpby5jDQo+ICsrKyBiL2RyaXZlcnMvdWlvL3Vpby5jDQo+IEBA
-IC00NDIsMzAgKzQ0MiwyMSBAQCBFWFBPUlRfU1lNQk9MX0dQTCh1aW9fZXZlbnRfbm90aWZ5KTsN
-Cj4gICAgKiBAaXJxOiBJUlEgbnVtYmVyLCBjYW4gYmUgVUlPX0lSUV9DWUNMSUMgZm9yIGN5Y2xp
-YyB0aW1lcg0KPiAgICAqIEBkZXZfaWQ6IFBvaW50ZXIgdG8gdGhlIGRldmljZXMgdWlvX2Rldmlj
-ZSBzdHJ1Y3R1cmUNCj4gICAgKi8NCj4gLXN0YXRpYyBpcnFyZXR1cm5fdCB1aW9faW50ZXJydXB0
-X2hhbmRsZXIoaW50IGlycSwgdm9pZCAqZGV2X2lkKQ0KPiArc3RhdGljIGlycXJldHVybl90IHVp
-b19pbnRlcnJ1cHQoaW50IGlycSwgdm9pZCAqZGV2X2lkKQ0KPiAgIHsNCj4gICAgICAgICAgc3Ry
-dWN0IHVpb19kZXZpY2UgKmlkZXYgPSAoc3RydWN0IHVpb19kZXZpY2UgKilkZXZfaWQ7DQo+ICAg
-ICAgICAgIGlycXJldHVybl90IHJldDsNCj4NCj4gICAgICAgICAgcmV0ID0gaWRldi0+aW5mby0+
-aGFuZGxlcihpcnEsIGlkZXYtPmluZm8pOw0KPiAgICAgICAgICBpZiAocmV0ID09IElSUV9IQU5E
-TEVEKQ0KPiAtICAgICAgICAgICAgICAgcmV0ID0gSVJRX1dBS0VfVEhSRUFEOw0KPiAtDQo+IC0g
-ICAgICAgcmV0dXJuIHJldDsNCj4gLX0NCj4gLQ0KPiAgIC8qKg0KPiAgICAqIHVpb19pbnRlcnJ1
-cHRfdGhyZWFkIC0gaXJxIHRocmVhZCBoYW5kbGVyDQo+ICAgICogQGlycTogSVJRIG51bWJlcg0K
-PiAgICAqIEBkZXZfaWQ6IFBvaW50ZXIgdG8gdGhlIGRldmljZXMgdWlvX2RldmljZSBzdHJ1Y3R1
-cmUNCj4gICAgKi8NCj4gLXN0YXRpYyBpcnFyZXR1cm5fdCB1aW9faW50ZXJydXB0X3RocmVhZChp
-bnQgaXJxLCB2b2lkICpkZXZfaWQpDQo+IC17DQo+IC0gICAgICAgc3RydWN0IHVpb19kZXZpY2Ug
-KmlkZXYgPSAoc3RydWN0IHVpb19kZXZpY2UgKilkZXZfaWQ7DQo+ICsgICAgICAgICAgICAgICB1
-aW9fZXZlbnRfbm90aWZ5KGlkZXYtPmluZm8pOw0KPg0KPiAtICAgICAgIHVpb19ldmVudF9ub3Rp
-ZnkoaWRldi0+aW5mbyk7DQo+IC0NCj4gLSAgICAgICByZXR1cm4gSVJRX0hBTkRMRUQ7DQo+ICsg
-ICAgICAgcmV0dXJuIHJldDsNCj4gICB9DQo+DQo+ICAgc3RydWN0IHVpb19saXN0ZW5lciB7DQo+
-IEBAIC0xMDQ0LDggKzEwMzUsOCBAQCBpbnQgX191aW9fcmVnaXN0ZXJfZGV2aWNlKHN0cnVjdCBt
-b2R1bGUgKm93bmVyLA0KPiAgICAgICAgICAgICAgICAgICAqIEZEcyBhdCB0aGUgdGltZSBvZiB1
-bnJlZ2lzdGVyIGFuZCB0aGVyZWZvcmUgbWF5IG5vdCBiZQ0KPiAgICAgICAgICAgICAgICAgICAq
-IGZyZWVkIHVudGlsIHRoZXkgYXJlIHJlbGVhc2VkLg0KPiAgICAgICAgICAgICAgICAgICAqLw0K
-PiAtICAgICAgICAgICAgICAgcmV0ID0gcmVxdWVzdF90aHJlYWRlZF9pcnEoaW5mby0+aXJxLCB1
-aW9faW50ZXJydXB0X2hhbmRsZXIsIHVpb19pbnRlcnJ1cHRfdGhyZWFkLA0KPiAtICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5mby0+aXJxX2ZsYWdzLCBpbmZvLT5u
-YW1lLCBpZGV2KTsNCj4gKyAgICAgICAgICAgICAgIHJldCA9IHJlcXVlc3RfaXJxKGluZm8tPmly
-cSwgdWlvX2ludGVycnVwdCwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlu
-Zm8tPmlycV9mbGFncywgaW5mby0+bmFtZSwgaWRldik7DQo+ICAgICAgICAgICAgICAgICAgaWYg
-KHJldCkgew0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgaW5mby0+dWlvX2RldiA9IE5VTEw7
-DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICBnb3RvIGVycl9yZXF1ZXN0X2lycTsNCj4gLS0N
-Cj4gMi41My4wDQo+DQo+IFRoaXMgZW1haWwgaXMgbm9uLWJpbmRpbmcsIGlzIHN1YmplY3QgdG8g
-Y29udHJhY3QsIGFuZCBuZWl0aGVyIEt1bGlja2UgYW5kIFNvZmZhIEluZHVzdHJpZXMsIEluYy4g
-bm9yIGl0cyBzdWJzaWRpYXJpZXMgKGVhY2ggYW5kIGNvbGxlY3RpdmVseSDigJxLJlPigJ0pIHNo
-YWxsIGhhdmUgYW55IG9ibGlnYXRpb24gdG8geW91IHRvIGNvbnN1bW1hdGUgdGhlIHRyYW5zYWN0
-aW9ucyBoZXJlaW4gb3IgdG8gZW50ZXIgaW50byBhbnkgYWdyZWVtZW50LCBvdGhlciB0aGFuIGlu
-IGFjY29yZGFuY2Ugd2l0aCB0aGUgdGVybXMgYW5kIGNvbmRpdGlvbnMgb2YgYSBkZWZpbml0aXZl
-IGFncmVlbWVudCBpZiBhbmQgd2hlbiBuZWdvdGlhdGVkLCBmaW5hbGl6ZWQgYW5kIGV4ZWN1dGVk
-IGJldHdlZW4gdGhlIHBhcnRpZXMuIFRoaXMgZW1haWwgYW5kIGFsbCBpdHMgY29udGVudHMgYXJl
-IHByb3RlY3RlZCBieSBJbnRlcm5hdGlvbmFsIGFuZCBVbml0ZWQgU3RhdGVzIGNvcHlyaWdodCBs
-YXdzLiBBbnkgcmVwcm9kdWN0aW9uIG9yIHVzZSBvZiBhbGwgb3IgYW55IHBhcnQgb2YgdGhpcyBl
-bWFpbCB3aXRob3V0IHRoZSBleHByZXNzIHdyaXR0ZW4gY29uc2VudCBvZiBLJlMgaXMgcHJvaGli
-aXRlZC4=
+On Fri, Nov 6, 2026 at 5:32=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.or=
+g> wrote:
+>
+> Replace the remaining uses of the legacy vm_flags_t flags in the rmap log=
+ic
+> with vma_flags_t values.
+>
+> No functional change intended.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+
+LGTM,
+
+Reviewed-by: Barry Song <baohua@kernel.org>
+
+>  mm/rmap.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/rmap.c b/mm/rmap.c
+> index 1131b76bbbc2..cdc97fec8586 100644
+> --- a/mm/rmap.c
+> +++ b/mm/rmap.c
+> @@ -1196,7 +1196,7 @@ static bool page_mkclean_one(struct folio *folio, s=
+truct vm_area_struct *vma,
+>
+>  static bool invalid_mkclean_vma(struct vm_area_struct *vma, void *arg)
+>  {
+> -       if (vma->vm_flags & VM_SHARED)
+> +       if (vma_test(vma, VMA_SHARED_BIT))
+>                 return false;
+>
+>         return true;
+> @@ -1660,7 +1660,8 @@ void folio_add_new_anon_rmap(struct folio *folio, s=
+truct vm_area_struct *vma,
+>          * VM_DROPPABLE mappings don't swap; instead they're just dropped=
+ when
+>          * under memory pressure.
+>          */
+> -       if (!folio_test_swapbacked(folio) && !(vma->vm_flags & VM_DROPPAB=
+LE))
+> +       if (!folio_test_swapbacked(folio) &&
+> +           !vma_test_single_mask(vma, VMA_DROPPABLE))
+
+Right, VMA_DROPPABLE_BIT is not available on
+32-bit architectures, so vma_test() cannot be
+used here.
