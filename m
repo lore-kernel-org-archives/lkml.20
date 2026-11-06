@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794001498;
-	b=EWV5R0FlY8sdwwdAMlz7P6cF5M9tk1M2bCEoFweyZDHJa0X/GqNkKfIyK+TzthWCYjI0
-	 5y1+SnhH11LDiWXznJRzEf11UOGtGdMWtY5NziE5Cw4ayc6ziUNJnfQt3hYXt43qLXQDw
-	 HUIE8RrFd/hXHlnMW+5+/dXysZ8fcJF16u6LUM3EJETsEtD1+/cJWysId8BxTuqkP4D0S
-	 yPnaBNYtWXU+E49LqE3bOKd+E1T7A0J1vMjDMZvpN7OYVSdpC/rQIFjLVCX/FIJP+CjaX
-	 1OD+tJaIBp0FmjMpCw/YR96YAQcCTWGFcR/BSo5Vi8Fu3LUfZwBunstJalwpTR0z2UQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794001498;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=o6y7zpd4HTLdQTePgJ7BQ9bAxgxtM6ve+DgOROkBU0g=;
-	b=uZ5mteNaCPCrjCiBx13vEEFJXlIgx3JuPDEesUptCbaWyEVdpLTFK3jRBvBs+9wBGVL0
-	 pUtS0MNvpizjUfIHd0814tS2AN9wtFw8yf91qD4x3tVLL3Pi3LwXHAuLAS+rLTYS007xh
-	 J3RY164Eo/LZimDmrX2ULV82YW4Gxe6JSrF7scMkyR5fh2VnkSl9lRrmvHP2arWiSVGVA
-	 Dkx53CzeKkOOfTLIYtI68JREYG0Gs3TX22i/UujcMMee4cXdeC7BwQJpKOzPPJdGQOr+G
-	 rJT9BZa7ru1eg2q8XTJDhF2VnC1+BVcPuu8NeXpHhwxTk4qztMUVrbxxvqDp3EZcHgg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrT78GB+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794001543;
+	b=KNo/iCiuOBRxEWvFcBqKg0TGWf+tI5/EDKqgkQZTHk17DDBjIViKbYaiC2YlGSkC3B2J
+	 Iinc49AHINjDn7z2MIqntDq9i9E6SPYG3xbnBl5dMX6/7ym1gaFbaC1Gl9zw1OjsVlZ6q
+	 mfipbPWnYIAOSJ6wC+66lxc78tzl9mCUY4QPBhRmVIbluTuO1ISlt7cSmGrTiOpZYEVTH
+	 R6fPq27XeMjuIIvDShNTxCQtDKA+TaUs1DFOJVddSTsXXziUkBC6cSysU8QlW1MhmtzdS
+	 cuV7D5Gt5ZHlro4HbESC2doCVeUVG3HceZKXhbLI0twHARN0Ba46Pq+tAB+OuiQeujg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794001543;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=dzuwwfgS6TcLAvEBE1++RIfmgJzGGyqXdcAh98Sd13o=;
+	b=VuC+cQm2nEyUgEaS4g3GWahOVAcfjEUFdDViNNfZWhC1o43G6ZyKJCRNAQMFcgy9lRAu
+	 HKsf+5/lVhtvVUWBnoI31TGcrhHnlD/JRgu6BTjcipLw23t3yY7CkwXb9i20uPWm/o2pX
+	 AvHlLbdMJVGiM0XU/oWaaqlLpjEKGszFWbypTXoAWW+7oSuxIErxurMUjQ6wdLk0GTKHz
+	 GQ1vnRnp4xtQo90Cqytm0sUzrwNGs/0/Usj7Yy0aNF760xtly59GtGfHVKyUgEmvvXRvu
+	 hpOA6vs/Hwo0/gEbpFIRUc2L3El2UzNQGAut6YITITZy+ZK69BQdFNyT2zPX7W47KgQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=qYmiRLYM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF07606A326;
-	Fri,  6 Nov 2026 21:44:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D31A606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:45:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D31A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrT78GB+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F62C1F0089F;
-	Fri,  6 Nov 2026 21:44:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794001497;
-	bh=o6y7zpd4HTLdQTePgJ7BQ9bAxgxtM6ve+DgOROkBU0g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BrT78GB+0O1hMds4+JN9Mq9eJhh/79yUOP/77xeG04uqM7Hkh81IVFN7oRZZW+IvU
-	 SvBeBW18uN6VuyAdnwSNNlLS5LIJG+f78+KnXpbyy66k1tZ3pwoEqsbdBOF2yJflVX
-	 9ynwNOWm6Cj6Bl0YUJwQC69bzU6UORHYaZ/bo/COS/oI804EspBTSU1NTdFLVI9wXe
-	 AtqOvE3JnS68ngOtIoxCk9445DjfhbIlLQO0vjJSkAnB2a/b55hR2GmoTSZZL/zQ5g
-	 c5QWHcg31kYmtlONZ7mXGGXuRguXhXoN4y4XtIEUtZR5tG9kbIsmUklt5T47h2NfCi
-	 ZRiDhMkQOQ7zg==
-Date: Fri, 6 Nov 2026 13:44:54 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: Paul Moses <p@1g4.org>, acme@kernel.org
-Cc: peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-	irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org,
-	alexey.budankov@linux.intel.com, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf record: Skip affinity for per-thread mmap buffers
-Message-ID: <au5KVuPm-vZKSX3Z@google.com>
-References: <20261030065857.2157899-1-p@1g4.org>
- <au1_U_VQGMCLNih1@google.com>
- <WbYsffp5YfE6DLkD1OT419MobQzwgeDDX5a3V2uu_MWCiCVCNHTzTu2gu2mQ9174qccVUepCdcCJEzrgp_BDlmQSJRvX69vdDKIn3j4ex5w=@1g4.org>
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=qYmiRLYM
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67990a45e02so1209775d50.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 13:45:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794001542; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RM9K4zFZSUrn9mm+yBZG5x4/UsUTUPpSYgzYRCzIPYtwQIWdsvKcj7j/Ce0PuphVFo
+         GEzYcup7lJ1X9e3V4R4ti3LY5cqjaIldg7Gi2MOlBg/YaT4tXtx1KRD8FIsU3JbjaJD1
+         ugpuCesnGTJTNdm6gEg7pIqvTYmrPZrbPzUmFq26tMSICI0hDgrBXRuscpP8+hQuHvZV
+         9GMktst+L2ys1MR8SFzOvzocH7+6efYx8nF4fD3iyNvZLmKcOPMv4Hz9i7mKOo0a29fH
+         IxfZ0jX7Wc6gO6iQrj5+3I0zj3P6dAbAl1KqnK3ad284lsZ22XdTIr970vVF+FNDrPfN
+         MY+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dzuwwfgS6TcLAvEBE1++RIfmgJzGGyqXdcAh98Sd13o=;
+        fh=FzCD7HjpI4s9s1dTH0M/VFzDshr0hHwpePfqFBiSz2M=;
+        b=b/V0/1uPtVr4y8cRqmO3i7nRhlmvxf6xxwZ+gVj1mkVTsQTFVlcRjDaZsqN5Bu2kdQ
+         I8Y6Kdw5/Fzy0LATJ5eaP9WFeprt0+s7/jHIcIr+huHE3SH8dWfi+JUfggl6HaYOreUa
+         1qoOJSAMeTGDVYr54zwWvpeuZ9nvANhsMkU1nrphtMBrTwzwR+SeGTB2GTEGsU96dVHS
+         sRHRckPH53/mKRjIi1Hbgh3n/XVu5uFVdUA87J5TAY/DHTjtabfDWVVb/Ntu7YXKpWAV
+         UwUGwmDB8iCtB+42B/BOjiFr1+eC74yGKZ+8Wdu2Mt1qDpOgH0ah3X+iakUDuzLQXBRW
+         cioA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1794001542; x=1794606342; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dzuwwfgS6TcLAvEBE1++RIfmgJzGGyqXdcAh98Sd13o=;
+        b=qYmiRLYMaEH3km7EvRFCE30jwkK64M8WgJJ6HxdNx1TQ3+QthT+wioK00tdqj59ycS
+         GWAkdp5XyPdCD8PE5oJWExTAYcEkIFoF/jPGW2fDv9sDNsb9G87xVm7N3aVI68t71T6O
+         xO/0UE+qDiOFsGjhhCj4yKo6JKfsAzb72sobDc4Fy0iAizNrdAfNJ/NPuXbP25RtXKsq
+         ftD3DXcqMd8a0VD+6YOTdK1zqwKqoUBjsayfK2GeJPADaqV5G4r2DMH9pK116dei3q3B
+         czADuHqfuSdv7juZHhm/aHpoIaKAbooyrOdSK5dhY7ihe7SlQgzm/U934WaKiUtaPwqb
+         Ndgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794001542; x=1794606342;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dzuwwfgS6TcLAvEBE1++RIfmgJzGGyqXdcAh98Sd13o=;
+        b=Ynl7/0G/cmDdNEebLXhskLSsRYBBjqk7WCgSmShLq2xn1Nz7Ys1YU80WZ5gOWehjm4
+         TD96x0XQeNvx5GfQpKXXDBWzuoNX/wFLCay4HylICKJmUlwK+aqZe5VATbe9OxJ5epFT
+         PH7kAZDx5ihtmyRECglNmlaTIjB2iDF0DPvgWi+6tSqqz0669GkbNJIZ1KmOFcl7SEkl
+         0vqF/UKydjv4UrOK0+f1m1FacGzXa1Pmrq2kN1MEVfAVCxjcKMDoYGDVxX/sLKwaAG7m
+         QDB8VtUiHl096fThbjyK1p+X/ekg6lcCog6vuUwWkZVgol7ydG29gJsg4vytulxbZ5OB
+         LcHw==
+X-Forwarded-Encrypted: i=1; AL+hErGZdUZBOFZVmznXhU1tz+jbeHnnl6jDmrwfmIvc2fkd+xUEY/P7uVv6uItov564jwPYe1GiWf3Uis9Tq1I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+J12U/c4n+qFV7bn3SNlben8UMfXwV/nOoSho0pb7I1Ij3txd5
+	U3SuPPOzJ62cwIbyeRccM7qq5S+udyVYzuhcwCwgpYIODQ5OxJ2d3B+/vsiDujpxX8B+uyrjP0S
+	ECzEjnMnv255MT4gzAGJd565tMu1cNzQ=
+X-Gm-Gg: AYBFou0iFBxp4dIgd/GdnzsRqRW5Th0gKMP62BEJCqux1DMaZhBUv2zN8d+LFJogeHC
+	zKz590Y+xZilQlNxmuvSvo7l05zc1iSk9EnG0HaGe5ptaH4XH0SwSwT+2KakWZtC4QA3YZEQ6aj
+	mOU6tBth47rmqurjIEfzTjP4icuLI512Wi8PjqefgMEQOahfLhgKXQ4J+pYPIATzRBS2duyGJia
+	K5gblgBzf+L3AoewVfb7X9W0aJwxERfQwmKj+8xE6X2nK96JyVYaD48KDjVLQ/N5BP3Oql63h+8
+	g3hqsDQLMJ083puYxxU712REQakuiYbrrcrVQp/dDV59Uus+d5O1dIjrH6DI6OkoST7FYo1Z1HG
+	Vpe4aVtI7GjPpvTjBg4R3JpvukbVCk6ZUVKz6FTlouYVMqNNXluf3BF+5BxOxH5eg7OpllA==
+X-Received: by 2002:a53:b192:0:b0:67c:f37:109a with SMTP id
+ 956f58d0204a3-67c145cb6b0mr1746286d50.83.1794001542485; Fri, 06 Nov 2026
+ 13:45:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,127 +104,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <WbYsffp5YfE6DLkD1OT419MobQzwgeDDX5a3V2uu_MWCiCVCNHTzTu2gu2mQ9174qccVUepCdcCJEzrgp_BDlmQSJRvX69vdDKIn3j4ex5w=@1g4.org>
+References: <20261106130010.340950-1-mike.looijmans@topic.nl>
+ <1b153bce-a66a-45ee-a5c6-963ea6fb1c82.949ef384-8293-46b8-903f-40a477c056ae.6954786b-65e0-4206-a0c4-60cd251dbec9@emailsignatures365.codetwo.com>
+ <20261106130010.340950-2-mike.looijmans@topic.nl> <27e5c94a-acf2-4e32-92df-e3de124e0bc6@sirena.org.uk>
+In-Reply-To: <27e5c94a-acf2-4e32-92df-e3de124e0bc6@sirena.org.uk>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Fri, 6 Nov 2026 22:45:31 +0100
+X-Gm-Features: AclHuK_xnWO9aWUEaLJ0yqxJBQtPHxZZh8_5gdSI3LoMg1FuW6M0OnJWZBAFdTQ
+Message-ID: <CAFBinCCN+P0YRvOP9pwmxVXGv-MGyuZn_45nCZ-7ko8Ko3v+-A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] regulator: pwm-regulator: Revert "Add validity checks
+ in continuous .get_voltage"
+To: Mark Brown <broonie@kernel.org>
+Cc: Mike Looijmans <mike.looijmans@topic.nl>, linux-kernel@vger.kernel.org, 
+	Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 07:32:29AM +0000, Paul Moses wrote:
-> 
-> 
-> 
-> 
-> On Friday, November 6th, 2026 at 1:18 AM, Namhyung Kim <namhyung@kernel.org> wrote:
-> 
-> > Hello,
-> > 
-> > On Fri, Oct 30, 2026 at 06:59:28AM +0000, Paul wrote:
-> > > From: Paul Moses <p@1g4.org>
-> > >
-> > > Per-thread mmap buffers use CPU -1 to mean any CPU. Combining --per-thread
-> > > with --affinity=cpu passes this value to __set_bit() when constructing the
-> > > reader affinity mask, causing an out-of-bounds bitmap access and SIGSEGV.
-> > >
-> > > Program received signal SIGSEGV, Segmentation fault.
-> > > 0x0000555555f3488e in mmap.mmap ()
-> > > #0  0x0000555555f3488e in mmap.mmap ()
-> > > #1  0x0000555555e2f7bf in mmap_per_evsel (evlist=evlist@entry=0x7fffedcc1150, ops=ops@entry=0x7fffffffaf50, idx=idx@entry=0, mp=mp@entry=0x7fffffffaf70, cpu_idx=cpu_idx@entry=0, thread=thread@entry=0, _output=0x7fffffffaf08, _output_overwrite=0x7fffffffaf04, nr_mmaps=0x7fffffffaf0c) at evlist.c:598
-> > > #2  0x0000555555e2ef96 in mmap_per_thread (evlist=0x7fffedcc1150, ops=0x7fffffffaf50, mp=0x7fffffffaf70) at evlist.c:650
-> > > #3  perf_evlist__mmap_ops (evlist=0x7fffedcc1150, ops=0x7fffffffaf50, mp=0x7fffffffaf70) at evlist.c:748
-> > > #4  0x0000555555f2150d in evlist.mmap_ex ()
-> > > #5  0x0000555555db0b0a in record.open ()
-> > > #6  0x0000555555dadea7 in __cmd_record ()
-> > > #7  0x0000555555daca89 in cmd_record ()
-> > > #8  0x0000555555e27d53 in run_builtin ()
-> > > #9  0x0000555555e277cf in main ()
-> > 
-> > Please indent terminal outpus otherwise git will eat up lines start with
-> > the hash (#).
-> > 
-> > > rip            0x555555f3488e      0x555555f3488e <mmap.mmap+382>
-> > > rax            0x7fffef9e9bd0      140737213537232
-> > > rbx            0x7fffedd249a0      140737183369632
-> > > rcx            0x3ffffffffffffff   288230376151711743
-> > > rdx            0x8000000000000000  -9223372036854775808
-> > > rsi            0x0                 0
-> > > rdi            0x7fffef9e9bd0      140737213537232
-> > >    0x555555f34876 <mmap__mmap+358>:	movswq 0x10(%rbx),%rcx
-> > >    0x555555f3487b <mmap__mmap+363>:	mov    0xb8(%rbx),%rax
-> > >    0x555555f34882 <mmap__mmap+370>:	mov    $0x1,%edx
-> > >    0x555555f34887 <mmap__mmap+375>:	shl    %cl,%rdx
-> > >    0x555555f3488a <mmap__mmap+378>:	shr    $0x6,%rcx
-> > > => 0x555555f3488e <mmap__mmap+382>:	or     %rdx,(%rax,%rcx,8)
-> > >    0x555555f34892 <mmap__mmap+386>:	lea    0x17711b(%rip),%r14        # 0x5555560ab9b4 <verbose>
-> > >    0x555555f34899 <mmap__mmap+393>:	cmpl   $0x2,(%r14)
-> > >    0x555555f3489d <mmap__mmap+397>:	jne    0x555555f348f7 <mmap__mmap+487>
-> > >    0x555555f3489f <mmap__mmap+399>:	mov    0xb8(%rbx),%rdi
-> > >    0x555555f348a6 <mmap__mmap+406>:	mov    0xc0(%rbx),%esi
-> > >    0x555555f348ac <mmap__mmap+412>:	lea    -0x430(%rbp),%r12
-> > >
-> > > Only construct and apply reader affinity masks for buffers with a
-> > > nonnegative CPU. Skip the reader-side bitmap operations as well, since
-> > > per-thread buffers no longer allocate an affinity mask.
-> > 
-> > Maybe we can just reject those options when they are used together.
-> > 
-> > Thanks,
-> > Namhyung
-> > 
-> > >
-> > > Fixes: 8384a2600c7d ("perf record: Adapt affinity to machines with #CPUs > 1K")
-> > > Signed-off-by: Paul Moses <p@1g4.org>
-> > > ---
-> > >  tools/perf/builtin-record.c | 2 +-
-> > >  tools/perf/util/mmap.c      | 4 ++--
-> > >  2 files changed, 3 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/tools/perf/builtin-record.c b/tools/perf/builtin-record.c
-> > > index a57987851cf0..d7c8f490cb62 100644
-> > > --- a/tools/perf/builtin-record.c
-> > > +++ b/tools/perf/builtin-record.c
-> > > @@ -1565,7 +1565,7 @@ static struct perf_event_header finished_init_event = {
-> > >
-> > >  static void record__adjust_affinity(struct record *rec, struct mmap *map)
-> > >  {
-> > > -	if (rec->opts.affinity != PERF_AFFINITY_SYS &&
-> > > +	if (map->core.cpu.cpu >= 0 && rec->opts.affinity != PERF_AFFINITY_SYS &&
-> > >  	    !bitmap_equal(thread->mask->affinity.bits, map->affinity_mask.bits,
-> > >  			  thread->mask->affinity.nbits)) {
-> > >  		bitmap_zero(thread->mask->affinity.bits, thread->mask->affinity.nbits);
-> > > diff --git a/tools/perf/util/mmap.c b/tools/perf/util/mmap.c
-> > > index 358e70c4f3ed..be3dffdaede8 100644
-> > > --- a/tools/perf/util/mmap.c
-> > > +++ b/tools/perf/util/mmap.c
-> > > @@ -292,8 +292,8 @@ int mmap__mmap(struct mmap *map, struct mmap_params *mp, int fd, struct perf_cpu
-> > >  		return -1;
-> > >  	}
-> > >
-> > > -	if (mp->affinity != PERF_AFFINITY_SYS &&
-> > > -		perf_mmap__setup_affinity_mask(map, mp)) {
-> > > +	if (cpu.cpu >= 0 && mp->affinity != PERF_AFFINITY_SYS &&
-> > > +	    perf_mmap__setup_affinity_mask(map, mp)) {
-> > >  		pr_debug2("failed to alloc mmap affinity mask, error %d\n",
-> > >  			  errno);
-> > >  		return -1;
-> > > --
-> > > 2.56.GIT
-> > >
-> > >
-> > 
-> 
-> 
-> Hi Namhyung,
-> 
-> Can we please get this one settled first. There have been issues
-> with important patches being overlooked for months.
-> 
-> https://lore.kernel.org/linux-perf-users/20261020171946.3593127-1-p@1g4.org/
+On Fri, Nov 6, 2026 at 2:46=E2=80=AFPM Mark Brown <broonie@kernel.org> wrot=
+e:
+>
+> On Fri, Nov 06, 2026 at 01:59:56PM +0100, Mike Looijmans wrote:
+> > This reverts commit c92688cac239 ("regulator: pwm-regulator: Add validi=
+ty
+> > checks in continuous .get_voltage").
+>
+> And again...  please don't try to sneak changes past people :/
+Thank you for looping me in, Mark!
 
-Sorry about the delay.  But please understand that there can be some
-delays during a merge window.  I'll take a look at the link but you
-can ping me if it takes too long.
+> > The core, and in particular the machine_constraints_voltage() method,
+> > expects the regulator to report what the current setting is, even if th=
+at
+> > is outside the allowed range. The core will then bring the voltage into
+> > that range. It cannot do that if the regulator refuses to return its
+> > setting, and causes probe() to fail for a pwm-regulator when it has
+> > restrictions to the PWM range with messages like:
+> >   dsp7-pwm: failed to get the current voltage: -ENOTRECOVERABLE
+> >   pwm-regulator dsp7-supply-pwm: error -ENOTRECOVERABLE: Failed to regi=
+ster
+> >     regulator pwm-regulator
+> >   pwm-regulator dsp7-supply-pwm: probe with driver pwm-regulator failed
+> >     with error -131
+> >
+> > Besides that, regulator_get_voltage() is not supposed to return any
+> > state information, as is mentioned in the API documentation.
+according to include/linux/regulator/driver.h:
+ * @get_voltage: Return the currently configured voltage for the regulator;
+ *                   return -ENOTRECOVERABLE if regulator can't be read at
+ *                   bootup and hasn't been set yet.
 
-Arnaldo, I think it's simple enough to go to v7.4.
+Can you please specify which API documentation you are referring to?
 
-Thanks,
-Namhyung
+I believe back when this change was authored it didn't make a
+difference on my board (but made sense based on review feedback).
+So I'm not against reverting as long as we have a proper explanation
+why the original patch is incorrect.
 
+
+Best regards,
+Martin
