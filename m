@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.128
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.73
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793962062;
-	b=19zEpduIEAsq0SalR04MYYvXnanW1VFEjuxXMQ9U1KkKKha21dBRSKkPVlk5S/pGiNr/
-	 I1rg+g98uqe2dPw2c5S8OZqB7QTIdVUJb+4pFNllzutFWvE3IBrF91nUMaQRa0HWZAH8F
-	 +1oOdOeeogI0vt+DLybD7NgTxVrZuIhJnwfa3gm+qFU6HkHat3Y/0ZtjPNgWrUNj5mq6s
-	 JulUfW3Wj9iBc+z3UYxaWKNxP4o4r+IEdQoySiBN+I331ZmD5beBQeEBGsjXnaXH5nemT
-	 LhG/Z4opW9GEkMI6T2VCcmfviqJYe6L2sQyCKMvtp5MpLlrzmJCndG3z1aE2CiUPf4w==
+	t=1793962063;
+	b=Ao+tx0bUGih7GlotndNfQIdIyIBst5eMiC/psiTl2jGSfaW1077C6tHiSGKkEChYrtL5
+	 jijqh1CtThFIuGiy1bEip6PQK1vvDSPWLEUDO9rKR5hjrz44ThDJnn4WFrzWxQQUDL7TP
+	 I4/NvUM2f6MUBF/O1SR+AqspvBwHmOB6VhBqvra3v3cxIJz8g3c+XFp1s+OSlGIx5Zzws
+	 ro+dzhLV9bud4PL0MPmmdfdN6eU3pTBPA/zpOdhi9LpSy8f3gZ+H42Q1EmDwEgkz/GCIW
+	 zQ1mJZ5y5Peo/l/JSFk+lWT/RxDi3ygpg28xF3kvEeXgtzlVFRQzC25gHZAxfGaMW/A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962063;
 	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
 	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
@@ -25,44 +25,44 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=pGHjZZb01s//+FHZsg85wITdJCCurRihxWUJSHBj4ag=;
-	b=wFVlllv+lIrgIPAg2AFbtg0NZCGSsa24ErumpmZmeKFP33R1sI3WIP+EuSJ9GYGzyIqB
-	 d+0h77Yrv2vkv/L1QDNrdCWh2BLXFucEv/c1vm4Y+DFdzYLYRIUthCTKZK3bKcprmVTYc
-	 DxKeYkfVHKFUqrmkil2iEZqjEVLZx/D0M2FuKh31BL9W2jqwa0+BhbiaKlqLf2Lf66VJZ
-	 49jyU3in76DcklgqQeVxmWDqqvsvU6+q4RlGZiXzgW3h2L3EOUYxUO7bkte/oFcnfgKKg
-	 IB10eEFPU01q4m7PVZb3eNDgS3GcrKT7dUWxZ9IJq0l1XHsFFceU4netr7qjoAfbmng==
+	bh=WPlVlU2UV9mHMfaomqo6/Sg61l5uabak2Vep0xvsPN0=;
+	b=1JzDjpibn/fcpy3Y+BOIpjXHMlux/AQeIv7T/9EiJEoHKqR4kIbT61AdhzhxKzabBInE
+	 3Ldz4BKqtLt5IRtT3tWebxDERxerSh10GEZJXi+gvSkGXHDzkspJ1ckIBCEA++MUxD/6l
+	 g3hDG1GiUPcW5wI1PV8W9hH3BX1Zecn5sXpgYXy4K+sZNdVkTQ5+nOpfJdGwGiqLFnR8q
+	 fcqKR/o3OkF+dAAy4Zx5niEFgxKi9aYnGBVHznJv1bVY1NkQ2NbsArvsi1NMfl93TXGG5
+	 rpnGytCAr75vdlVHXCxXA1jbXPkTY/sXmGXPimxW5EX0e82TduCYwmRQHbUd2MYa0Tw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=cixtech.com;
 	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.128
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022128.outbound.protection.outlook.com [40.107.75.128])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.73
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023073.outbound.protection.outlook.com [40.107.44.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58618606D817;
-	Fri,  6 Nov 2026 10:47:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58618606D817
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA92606D818;
+	Fri,  6 Nov 2026 10:47:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA92606D818
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Sg7WxZAVIG1ZL+P2VnC39JWNz1lBPbXmy0fpNG2rGmTu73TRz9+FWeMf6WgiaiI2JtMVBfUSAE4bkqHaZTBR5/7tAHJKbUCVDofYbAfkQ7oC4ENKBVUMGn+2JnERLabOts78LjB3B0iofUtfYLZnFBH+Uwbzkvb1MJRsFjSZX++uvHgTTZ3UGLhNrSglQnA6cNZuwA8uBtkA0bRRdXlVUhpnPxvx1flwRUY5gHo+JBFPnawOn0hTf+Zx8lUqb2d262v0qwBvFGfjRFhzZg5fQv9tOj/uS6wx+EzxVfRBd1rXzYQ0xZa0rIeY3nhiyC5lU3rvkwRwyDmqdQ2UWlpamA==
+ b=VEk/Iz5eoMkHGHX5GlZfBbtq1/DJmyBodBF879VneXHiGIfHtSu2zUzvLEUkSnvNJPSat9PU1sEWnzJaZbbkHuz9AdMTTi5tCzlCYGWKCtWlF5xRkbHB4yi0h5GPnTuV40Gwvo9I8d7+SwoUSHUoMifJAolqhANWWMzBeSCw3jrH+bHpfbVWCLB0gMUOjsR1r/9ghYKJy7dIH0Mom59NNgW4HabYh2QvwsaxAibtsRssQfsSFbPgzkv0tHxTW7XOYYce176l6D+Y9A7n8MovpxyipnJYIFgbddKOkkHGDsgM8+2MJTeGw/4yFgjC3Wt19DzCM8+aylL7+TjsfZt0Rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pGHjZZb01s//+FHZsg85wITdJCCurRihxWUJSHBj4ag=;
- b=LnQJjSg57qwNBZU2E11tRDfJelnGxDwa6LR8vrUWIDfEGXJkUd+AaoHhklK3dR/uFOhhk/2zhADFTXERjFDaycqpaIRcQuL5PNSupqDE4EzCABJhnWR45kl6L96rQ7ZX6wNIwuxNq2N+PNGacHReXaa5aLfNjEaY6bdOQn0+QINGiJqWbmk69ZgcN/VEqBHAmsSit9OxOxwEn2nS4SyYdEdvj1K2bGbdZDdLcH03BjGUeON+i3qGDmZnvcwuaTs5DaIxjLOLml7TKtjQ1P46CDKhlTFGyLJao1EtugeM0yFFJxRt2F8U5duRL1LwL1vG/2AlrjX3P+nC/Q5SecjoTw==
+ bh=WPlVlU2UV9mHMfaomqo6/Sg61l5uabak2Vep0xvsPN0=;
+ b=gU3+PyWTsjFaRp7UajWsX0/GnxU4pFYw1+Jb4XeBndXFYTKG2qQKFzyRnVHh8bSJCizwyhz+CO26TxEV+q7byguE25M2a7fFlkolstOQHP1iZzlVzu2ckg463lqMIfd6EnnIYaV13K7zQ8tOFPfh16C6z6KO74pLCinEJnIVu99I3BxhZQK+Suv/YFWFkrg0wNUa1+BnNLK52r4/q1/RF+QWKldDEUIQbZkEZxaYI7hhPEIsD3mE+geW/XGH5arMuLm3ON3L1nj+ZwKZbFe0W56KcBZyriJTGqCueVrXoSJVTV7FL6tUxMnKet4QDgzxhgiXgtgKv/Ru/GySif6DxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
  dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
  not signed); arc=none (0)
-Received: from SI2PR06CA0016.apcprd06.prod.outlook.com (2603:1096:4:186::22)
- by SEZPR06MB8951.apcprd06.prod.outlook.com (2603:1096:101:33b::21) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from SI3PR01CA0006.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:296::19) by KUXPR06MB8294.apcprd06.prod.outlook.com
+ (2603:1096:d10:5f::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Fri, 6 Nov 2026
- 10:47:38 +0000
-Received: from SG1PEPF000082E7.apcprd02.prod.outlook.com
- (2603:1096:4:186:cafe::27) by SI2PR06CA0016.outlook.office365.com
- (2603:1096:4:186::22) with Microsoft SMTP Server (version=TLS1_3,
+ 10:47:37 +0000
+Received: from SG1PEPF000082E4.apcprd02.prod.outlook.com
+ (2603:1096:4:296:cafe::7b) by SI3PR01CA0006.outlook.office365.com
+ (2603:1096:4:296::19) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
  Nov 2026 10:47:37 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
@@ -72,11 +72,11 @@ Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
  222.71.101.198 as permitted sender) receiver=protection.outlook.com;
  client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
 Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E7.mail.protection.outlook.com (10.167.240.7) with Microsoft
+ SG1PEPF000082E4.mail.protection.outlook.com (10.167.240.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 10:47:37 +0000
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 10:47:36 +0000
 Received: from cix (unknown [172.16.64.42])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id C6C3D4102E6C;
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id B4C9D40920E1;
 	Fri,  6 Nov 2026 18:47:35 +0800 (CST)
 From: Cunyuan Liu <cunyuan.liu@cixtech.com>
 To: boris.brezillon@collabora.com,
@@ -98,9 +98,9 @@ Cc: daniel.almeida@collabora.com,
 	cix-kernel-upstream@cixtech.com,
 	robin.wang@cixtech.com,
 	cunyuan.liu@cixtech.com
-Subject: [PATCH 3/3] arm64: dts: cix: Add GPU support for Sky1 Orion O6
-Date: Fri,  6 Nov 2026 18:47:35 +0800
-Message-ID: <20261106104735.1651267-4-cunyuan.liu@cixtech.com>
+Subject: [PATCH 2/3] drm/panthor: Add initial support for CIX Sky1
+Date: Fri,  6 Nov 2026 18:47:34 +0800
+Message-ID: <20261106104735.1651267-3-cunyuan.liu@cixtech.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106104735.1651267-1-cunyuan.liu@cixtech.com>
 References: <20261106104735.1651267-1-cunyuan.liu@cixtech.com>
@@ -116,85 +116,260 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E7:EE_|SEZPR06MB8951:EE_
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E4:EE_|KUXPR06MB8294:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: a30b3b41-6682-4983-4254-08df3bf35f4e
+X-MS-Office365-Filtering-Correlation-Id: 08bd4072-ed13-489b-f634-08df3bf35f09
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|7416014|261009223027099003|261028144727099003|261026121527099003|261102123227099003|261022105027099003|56012099006|261026140227099003|261021121427099003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|376014|36860700016|7416014|1800799024|82310400026|261026121527099003|56012099006|261022075727099003|261102123227099003|261021121427099003|261028144727099003|261026140227099003|261021123027099003|261022105027099003|261009223027099003|22082099003|18002099003|6133799003|10067099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	OZLxn711cP+GHtaMSQtN/X5uZFd0561llgSbtTD/dlJM4bma6/4iipnvRRGu8iREw9kxJ1xXZLdxGPmQ9R/1eb0kq7TFgWrvjzX7BWR58T1nMjh7x/LWd1rLPl/WOFpi9z+4BeQLWcEuCx9H01fn3iYqXD6XyVsaH2RN5RzlAHM5XZ2mH07UJTju+kDqb9jzFJCbN+MaYv7UsiYlUGm9wXTS4rxn6HO6bvjPbH7D6km3YBNq8H+tzMS0JtvRvjAmUxROpoe+N61kDOo9GkQEkvxruElX1OhxVeAzfx7HbsNqZw7MgBuw3gzL9uqF4/ERBExGOB3sdr4+SXltDnuuETr1g2qZmSGNXzpW5Xrs5+RTw2jnti6tXxUsQxyirxXLfYC8hWJEziYHxf9oqCHGw4iLVVzZaM36LH12j2q80WI4mXFRH6tDkrX83uUvNKBKSVHwUvDoep1ZQK7JbgGPmOUAeVBS3wpmXZqNFuPqPO2Aq4CPCsZLO71Ucm0To/qJD3iJhmTqCrKS64X5qLUAMiFG4orKGs7cxtswIWuGVIvPnmIXYr8yC0RSMsw1Tj8Jni7KzWl0cS1bUne0coGB1i1jnStRIu0IOWMuv2YfEDnZAUqPZRD4eXXyu8mxTikumHzY0LmtY0zMs3OrY1L20Zop5eUQp8dFsASnJdnYs7jqMx+o2fllgj7AuljbVZZEi0wuPN8ZAtwQPfAID8NMlQ==
+	aJP1yRTLnRPT+s9HCOIY9c8PmyfhdRi4Hfk8IXuWlyum7dJ8wO6LyivxkBmQOmmCs90YDebSD8IDA4qJ5VdvvmoyiiCj3lbiVjh1qOKQ1iowkKSShMm6ReBRBSPTCMrgZc/M/Kpnz2wwrFtmwy6uuuxxFE1DB7iQbTy+f/HQEEZl2z8xi/yO7niCFO0g4+Y6Anj/+AxNTghUtaUGebHhZUYl7bvbEOmx/5gpdgLiO02OXVeKORWsvJNgu1uqKKnj6zy2LGB5uDbG9btGzy0pQO0jMeWWhN5ZhDuFpCr3ndiu63GFDFfiCtTAx1CBqQ9seg+fj7t2LBlRRyxGUlfSwdf9yquVYLrGrnZNe0u05lGUOPidjU3lpffxBuJvAhlbzilt9uO11y/2pbHAxunIBOrVFfmhpLhV1BtQXSgf+88mYqMZVR1cxGF4+hC4M9eDwO0VbQq03ojAAYJsiY8dvTLA64nVHhh7oTdQ0UZPEELYbQZHxuqem7I43XrI0VyfaXUJtMSCFd3EAWsbn5Wpq5wB+QTgC12g4CNdPGqIvii2KXapBhtbF/oSnn4vynl2Nt6tQoRUHe2as+Pzki5YaI0oSy5N3khKe7U6GIysb26gqrqF3QaX7T9nL4EvjFVeTgasUW45pz7UE0mmFHNu2K14WmwVzRHeHsIp40gNVMmZ/Opw7DCtCbGjm2sxqkrPsfksZCMCmh24bGBIOROmEA==
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(7416014)(261009223027099003)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(56012099006)(261026140227099003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(7416014)(1800799024)(82310400026)(261026121527099003)(56012099006)(261022075727099003)(261102123227099003)(261021121427099003)(261028144727099003)(261026140227099003)(261021123027099003)(261022105027099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(10067099003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Xq18TsqlHWzOsPf+mvWxPwSYrjSQauy1CCxHEA86e03tXoyHIxZ37KXhvbAJvIrKmLm4E3PuYmPiS8V47NaPvC/g0+v0V8160ndkQy2zpmNzKNePZTBMQXJt9HjPRlo+EqNwmkFdnzSo9xKeTLhQbIsSY0snZIxmnsRMYWx3u4Ntfls9Fk8Rc4Wi36UMLQaCjA6yCyQqYnKOcXH77eXHM9IXE3Bue65kQ18No011wdWxgX14UREildiCz5Sns5zcsmEJvMHRqooh7ugt9hrWJXc0ckMWcFrubQ8nDHA5aG1onNjf/Wf51LVVHkeVuuW7EJaYz2ICodVRFJjbET1s4kffUzDGG6Isb+yiV+SNLpgS2yxnC4Mbv/hj1wr6ycaarqTWotGh1p//OaOUFF+JDEWGnJqZDip99a1qTy+HQbEusHxKcdKNciS5ejMQ27D0
+	rhqusBKyonV5xorBIASXDSIv+G/WZ+ptxkOTELtTZpTyN6d5q1EpsF80L1cVPUTQww9k6WMEOcNNkLZdjNyQc4NOwHJsQMh1FourJ6Q3zF8vwvgngMaOJ6NVbc4Pya/LEthXW7CbFMYG9dhUTAmDu7iK/CO6FhOsK8Jgg98foP0/ZbgfUqvQE8gSKe981wcu+mgxvlE66pRc6mA6NufrN0xRxTbV+nYb3v89zvz1Z9oz2zXpkIBE16xC75PQOsPdoWWYubIFojuJh8OAnQ0sg/m6ryAQX+4o2hwduED7Dk9W3bfraMe3fyZd72IuEq4fRNcPNzDyHTcExbCyYaxs4aNNNA7dDl9wj1CC8fthM1/ovXUbD1te+MrMXBhOd5Bo63SecrPa1LXGBQCr9ax3ePi4Hru7wybws8MhD/Sg0i8AMKJmQe+ieBQPubyZqF0D
 X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:47:37.0260
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:47:36.3687
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a30b3b41-6682-4983-4254-08df3bf35f4e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08bd4072-ed13-489b-f634-08df3bf35f09
 X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E7.apcprd02.prod.outlook.com
+	SG1PEPF000082E4.apcprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB8951
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUXPR06MB8294
 
-Add the Sky1 Mali GPU node with its registers, interrupts, clocks,
-external reset and GPU power domain.
+Add Sky1 SoC data to support the external reset and system-level cache
+settings, and to skip devfreq.
 
-Keep the node disabled in the SoC file and enable it on Orion O6.
+The GPU on CIX Sky1 needs an external reset before the driver first
+accesses the hardware. Without this reset, the GPU hardware cannot be
+accessed correctly.
+
+Configure SYSC_ALLOC before L2 power-on. Without these settings, GPU
+rendering results are displayed incorrectly.
+
+Keep the clock settings provided by the PM firmware. This first version
+does not read OPPs or enable devfreq. It does not register a GPU cooling
+device.
+
+Tested on Orion O6: offscreen pixel readback, kmscube, glmark2 at 1080p,
+runtime suspend and resume with a retained EGL context, software-triggered
+reset-worker tests, and module unload and reload. Display tests used
+local Komeda support.
 
 Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
 ---
- arch/arm64/boot/dts/cix/sky1-orion-o6.dts |  4 ++++
- arch/arm64/boot/dts/cix/sky1.dtsi         | 16 ++++++++++++++++
- 2 files changed, 20 insertions(+)
+ drivers/gpu/drm/panthor/panthor_devfreq.c  | 11 +++++++++-
+ drivers/gpu/drm/panthor/panthor_device.c   | 15 +++++++++++++
+ drivers/gpu/drm/panthor/panthor_device.h   | 25 ++++++++++++++++++++++
+ drivers/gpu/drm/panthor/panthor_drv.c      | 15 +++++++++++++
+ drivers/gpu/drm/panthor/panthor_gpu.c      | 14 ++++++++++++
+ drivers/gpu/drm/panthor/panthor_gpu_regs.h |  2 ++
+ 6 files changed, 81 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/cix/sky1-orion-o6.dts b/arch/arm64/boot/dts/cix/sky1-orion-o6.dts
-index e39c87774c12..853c9c6f202c 100644
---- a/arch/arm64/boot/dts/cix/sky1-orion-o6.dts
-+++ b/arch/arm64/boot/dts/cix/sky1-orion-o6.dts
-@@ -52,6 +52,10 @@ &fch_gpio3 {
- 	status = "okay";
- };
+diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
+index 2249b41ca4af..1914549f7b1f 100644
+--- a/drivers/gpu/drm/panthor/panthor_devfreq.c
++++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+@@ -154,6 +154,12 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
  
-+&gpu {
-+	status = "okay";
+ 	ptdev->devfreq = pdevfreq;
+ 
++	/* Keep the firmware clock settings until Sky1 devfreq is supported. */
++	if (ptdev->soc_data && ptdev->soc_data->skip_devfreq) {
++		ptdev->fast_rate = clk_get_rate(ptdev->clks.core);
++		return 0;
++	}
++
+ 	/*
+ 	 * The power domain associated with the GPU may have already added an
+ 	 * OPP table, complete with OPPs, as part of the platform bus
+@@ -323,8 +329,11 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
+ 	unsigned long freq = 0;
+ 	int ret;
+ 
+-	if (!pdevfreq->devfreq)
++	if (!pdevfreq->devfreq) {
++		if (ptdev->soc_data && ptdev->soc_data->skip_devfreq)
++			return clk_get_rate(ptdev->clks.core);
+ 		return 0;
++	}
+ 
+ 	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+index 9687c59de350..1d682731a181 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.c
++++ b/drivers/gpu/drm/panthor/panthor_device.c
+@@ -229,6 +229,13 @@ int panthor_device_init(struct panthor_device *ptdev)
+ 		return ret;
+ 	}
+ 
++	if (ptdev->soc_data && ptdev->soc_data->needs_external_reset) {
++		ptdev->reset_control = devm_reset_control_get_exclusive(ptdev->base.dev, NULL);
++		if (IS_ERR(ptdev->reset_control))
++			return dev_err_probe(ptdev->base.dev, PTR_ERR(ptdev->reset_control),
++					     "Failed to get GPU reset\n");
++	}
++
+ 	ret = panthor_devfreq_init(ptdev);
+ 	if (ret)
+ 		return ret;
+@@ -511,6 +518,12 @@ int panthor_device_resume(struct device *dev)
+ 	if (ret)
+ 		goto err_disable_stacks_clk;
+ 
++	if (ptdev->reset_control && !panthor_device_is_initialized(ptdev)) {
++		ret = reset_control_reset(ptdev->reset_control);
++		if (ret)
++			goto err_disable_coregroup_clk;
++	}
++
+ 	panthor_devfreq_resume(ptdev);
+ 
+ 	if (panthor_device_is_initialized(ptdev) &&
+@@ -553,6 +566,8 @@ int panthor_device_resume(struct device *dev)
+ 
+ err_suspend_devfreq:
+ 	panthor_devfreq_suspend(ptdev);
++
++err_disable_coregroup_clk:
+ 	clk_disable_unprepare(ptdev->clks.coregroup);
+ 
+ err_disable_stacks_clk:
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index b55a3f9edd41..0923cc5df042 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -19,6 +19,8 @@
+ #include <drm/gpu_scheduler.h>
+ #include <drm/panthor_drm.h>
+ 
++struct reset_control;
++
+ struct panthor_csf;
+ struct panthor_csf_ctx;
+ struct panthor_device;
+@@ -34,10 +36,30 @@ struct panthor_pwr;
+ struct panthor_vm;
+ struct panthor_vm_pool;
+ 
++/**
++ * struct panthor_sysc_config - GPU system-cache configuration
++ */
++struct panthor_sysc_config {
++	/** @alloc: System-cache allocation policies for GPU access types. */
++	u32 alloc[8];
 +};
 +
- &iomuxc {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_hog>;
-diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-index 0a820f45feb9..d5d347964ad7 100644
---- a/arch/arm64/boot/dts/cix/sky1.dtsi
-+++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-@@ -762,6 +762,22 @@ ppi_partition1: interrupt-partition-1 {
- 			};
- 		};
+ /**
+  * struct panthor_soc_data - Panthor SoC Data
+  */
+ struct panthor_soc_data {
++	/**
++	 * @needs_external_reset: Reset the GPU after enabling its clocks
++	 * during initial probe.
++	 */
++	bool needs_external_reset;
++
++	/** @skip_devfreq: Keep the firmware clock settings without devfreq. */
++	bool skip_devfreq;
++
++	/** @sysc_config: System-cache configuration, or NULL to keep defaults. */
++	const struct panthor_sysc_config *sysc_config;
++
+ 	/** @asn_hash_enable: True if GPU_L2_CONFIG_ASN_HASH_ENABLE must be set. */
+ 	bool asn_hash_enable;
  
-+		gpu: gpu@15010000 {
-+			compatible = "cix,sky1-mali", "arm,mali-valhall-csf";
-+			reg = <0x0 0x15010000 0x0 0x480000>;
-+			interrupts = <GIC_SPI 237 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 238 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "job", "mmu", "gpu";
-+			clocks = <&scmi_clk CLK_TREE_GPU_CLK_CORE>,
-+				 <&scmi_clk CLK_TREE_GPU_CLK_STACKS>;
-+			clock-names = "core", "stacks";
-+			resets = <&s5_syscon SKY1_GPU_RESET_N>;
-+			power-domains = <&smc_devpd SKY1_PD_GPU>;
+@@ -138,6 +160,9 @@ struct panthor_device {
+ 	/** @soc_data: Optional SoC data. */
+ 	const struct panthor_soc_data *soc_data;
+ 
++	/** @reset_control: Optional external GPU reset. */
++	struct reset_control *reset_control;
 +
-+			status = "disabled";
-+		};
+ 	/** @phys_addr: Physical address of the iomem region. */
+ 	phys_addr_t phys_addr;
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+index dc8d0191aef4..766df6505a7b 100644
+--- a/drivers/gpu/drm/panthor/panthor_drv.c
++++ b/drivers/gpu/drm/panthor/panthor_drv.c
+@@ -1872,12 +1872,27 @@ static struct attribute *panthor_attrs[] = {
+ 
+ ATTRIBUTE_GROUPS(panthor);
+ 
++static const struct panthor_sysc_config sysc_config_cix_sky1 = {
++	/* Sky1 needs these SYSC_ALLOC policies for correct display of GPU output. */
++	.alloc = {
++		0x00230000, 0x00000023, 0x00000000, 0x00000000,
++		0x00523222, 0x00523200, 0x00000022, 0x00000032,
++	},
++};
 +
- 		s5_syscon: syscon@16000000 {
- 			compatible = "cix,sky1-s5-system-control", "syscon";
- 			reg = <0x0 0x16000000 0x0 0x1000>;
++static const struct panthor_soc_data soc_data_cix_sky1 = {
++	.needs_external_reset = true,
++	.skip_devfreq = true,
++	.sysc_config = &sysc_config_cix_sky1,
++};
++
+ static const struct panthor_soc_data soc_data_mediatek_mt8196 = {
+ 	.asn_hash_enable = true,
+ 	.asn_hash = { 0xb, 0xe, 0x0, },
+ };
+ 
+ static const struct of_device_id dt_match[] = {
++	{ .compatible = "cix,sky1-mali", .data = &soc_data_cix_sky1 },
+ 	{ .compatible = "mediatek,mt8196-mali", .data = &soc_data_mediatek_mt8196, },
+ 	{ .compatible = "rockchip,rk3588-mali" },
+ 	{ .compatible = "arm,mali-valhall-csf" },
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index a383b04f101e..9a6963fe62ae 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -63,6 +63,19 @@ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
+ 		  ptdev->gpu_info.selected_coherency);
+ }
+ 
++static void panthor_gpu_sysc_config_set(struct panthor_device *ptdev)
++{
++	const struct panthor_sysc_config *config;
++	unsigned int i;
++
++	if (!ptdev->soc_data || !ptdev->soc_data->sysc_config)
++		return;
++
++	config = ptdev->soc_data->sysc_config;
++	for (i = 0; i < ARRAY_SIZE(config->alloc); i++)
++		gpu_write(ptdev->gpu->iomem, GPU_SYSC_ALLOC(i), config->alloc[i]);
++}
++
+ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
+ {
+ 	struct panthor_gpu *gpu = ptdev->gpu;
+@@ -317,6 +330,7 @@ int panthor_gpu_l2_power_on(struct panthor_device *ptdev)
+ 	}
+ 
+ 	/* Set the desired coherency mode and L2 config before the power up of L2 */
++	panthor_gpu_sysc_config_set(ptdev);
+ 	panthor_gpu_coherency_set(ptdev);
+ 	panthor_gpu_l2_config_set(ptdev);
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+index 4c5b953796e4..f9b65a4dae83 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
++++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+@@ -116,4 +116,6 @@
+ #define   GPU_COHERENCY_ACE				1
+ #define   GPU_COHERENCY_NONE				31
+ 
++#define GPU_SYSC_ALLOC(n)				(0x340 + (n) * 4)
++
+ #endif /* __PANTHOR_GPU_REGS_H__ */
 -- 
 2.53.0
 
