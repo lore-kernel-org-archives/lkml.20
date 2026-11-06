@@ -1,89 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986333;
-	b=RSZYYwiF1LWhcF5qnKtnSqZFns8FxhcozJ5uqh6sOfLiX15JeirQAqQofGFV9buhuXN6
-	 K6Yj+aZzyDSbZ4iv4dkLUXxO8LHXJpI0vXZlvvzdJ+LcGoPcALpeizoybipbWoTItkslM
-	 rPmKzu76EP5OH59UfDiWcOfsbzd0QvJVOQPLidFCmVM0q8Lzy/2PbYVzz/Th/S9ZoFq+3
-	 CCUkQ6WmXu3yjgKaURKvMq7cdKyhPAgX4HriQ/8q7zl32PN/Fg2uvamSZiaJTbMHHSEae
-	 CFZDE5GByImRUxcd3H18umeLRkiM+kJkLZXL5gxROHhQLEPoTD6W/AOXo8c+rCcWKOA==
+	t=1793986359;
+	b=vj+jfHnFTDH1dY7vQS07dHALRg+N81dNrhQjRqUW0mbaECbQ7hFB75iGfo83tx3hvPka
+	 zzy9pzdED/E9GUr2NFPzXA2MMjDi2Pv33J37v0o3/TUH/InzjPP2kgVnTBHxOpswxwk7n
+	 Z8sc6hUl0Rd172cs3iybjQrTkilI7nNSqjIhLxrjn+VBfuVw1T2fFXSugtvRHGWV84zVS
+	 GjGVZuy7QkC19WDKmGpIyZvE5SLqdeL+OTFQA34i1Q48eJdrmG20fYVRLL9H2kG9Vr1Tw
+	 dfxjzJiTIW/LTmDxuo1KCnpdduqvGXNon5T0aUB5G60t+XJOsmgMUnaZTvv/T+Q9Sow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986333;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-TM-AS-GCONF:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=0gdqHym3akFKLre06jtI7PzOfjrwM4XU3jpMtUW/72c=;
-	b=J20z9GQTkOckg7l/awr6w1kXCfFwsSSwEBlI2Gl2WdwUqMdx4Kw4q+jQLtGXhIACoE03
-	 y4+2uJJDktv+qxkr15XEp7YfVIXw8sBhP70XMIN1Sp1iXAAKaS2Zw/5H7xBRQzde3Py22
-	 QQe8H/6z4LPjthqeZjeWBoT3FTUtlXA/tvAe36L/Mkk16avAAr/dNxnW0kv6Iiwst+VyE
-	 ans/gUb24LT58XfFX2T4AMv00hv5q7tMnCZSHJqJe3CAyW1CvLQzhtammnnbS552qxyDu
-	 Ll3Hu5robIAVL62Z3frgVRM3M1vllENGFOPjT2enwri1aCy3dRUepT/sKCDKu2JV3UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986359;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ybZChZ9rAXXJpYgVjjNMXpb0KllCBOdJmkiYdEAub2w=;
+	b=wJ5/jecRoGyRTb3w0PAcvsqNxq2CIP7K/HAFXBrdDlShojpwU8OX+Z7/bUIpy8Hi5aaO
+	 aP4Sbmewcl5/WJO+N554WLabSLUwQL5Q4SCW0n1Z+SH3pUIP6jgjHKrYvXD3ZHnrRFw3J
+	 t6z9FKlMEysfsGU52AkFmaAOaXtF+5/sxVA0SJVTNF++lF863I2fvuop/mmsnA5RLY/2m
+	 A/6ek1MfOq7G12mKKWjqZDdPstE6c3slt0a8UZ/h8+3BwlBHYO/aBaKjsfl0hIUewtxev
+	 cTjBIeW9I+TKFknqoTKVS8rQpjURw6nI+Hdlc/eOdPAsyAO8cDA0fPQOPppaAj0fDEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qxB18Hc+;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf3kisSZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D5D606A329;
-	Fri,  6 Nov 2026 17:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85D5D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA001606A32C;
+	Fri,  6 Nov 2026 17:32:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qxB18Hc+
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FE5TO1094483;
-	Fri, 6 Nov 2026 17:31:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=0gdqHym3akFKLre06jtI7PzOfjrwM4XU3jpMtUW/7
-	2c=; b=qxB18Hc+YZsduxuxaXEH5rMDVQATueWlJjuA6bebI9R+OYMkafWdmMn59
-	r5vBqgDEILLdBFHOpJBKNdyfjopHcROQw/Bih3PtKJ9kJRCXlieFD3t+hlIFkRbM
-	u7WoPLWgaKNO3zTYGEIAXwYfl4U+VGhENLBYHEL3AxJf2peKrnyqxjU/ZfxZNSII
-	chiuGS2zMQJt8OEQvWe3bBMSV7slCQJ1XkgPOXhIVcsqmjLV7YCBWfM8anPoBb8A
-	x7YeQjPVDTyxPh62GK4M7SjoVbxRiVk5SLYC2ScipwXSFG/jGQZmtf5W4RG4Rlxk
-	+SA89wqLSbzVPiLgQO7FVbGKwko/w==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3raxem6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 17:31:58 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6GxrSL3584920;
-	Fri, 6 Nov 2026 17:31:57 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrka72xkb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 17:31:57 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6HVtJR44499384
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 6 Nov 2026 17:31:55 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 636AF2004B;
-	Fri,  6 Nov 2026 17:31:55 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5FA9120043;
-	Fri,  6 Nov 2026 17:31:53 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com.com (unknown [9.61.47.32])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  6 Nov 2026 17:31:53 +0000 (GMT)
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: linux-integrity@vger.kernel.org
-Cc: Mimi Zohar <zohar@linux.ibm.com>, Jarkko Sakkinen <jarkko@kernel.org>,
-        David Howells <dhowells@redhat.com>,
-        Roberto Sassu <roberto.sassu@huawei.com>,
-        =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-        keyrings@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] ima: use the system blacklist in lieu of the IMA blacklist keyring
-Date: Fri,  6 Nov 2026 12:31:46 -0500
-Message-ID: <20261106173149.707244-1-zohar@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf3kisSZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E95E1F008A2;
+	Fri,  6 Nov 2026 17:32:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793986359;
+	bh=ybZChZ9rAXXJpYgVjjNMXpb0KllCBOdJmkiYdEAub2w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Jf3kisSZKUNQEmo4gG2lyzj11wxrXhVhlZ9uxM6uQcpiKNxiBQgZUvTs42wXPkBRh
+	 sdmu9pmR0qfc8PqeGFoHcF/YCDwRr7JBszTRd9qZJeE9l7bX1a8GUcpcJ++xMyljKg
+	 VqXgKCtEHSkpfj+j9Akjs1bUGCkaqiXNA+VBj4LXSUafSzIML90uC/l1K2iPx4tdY+
+	 W2EfU+NipLJDld7o8CbhfPKuNRrJ69qEa8zeMYTOPbrUjcly8ZUZJIKviq41nimBTO
+	 QkdprJA8+M0o/OJuFW12dxmyxKs3/hCW5PVubhJr/F6h3qxc/HpunevXPtIxM5tOGV
+	 KfYN3qziIb6ZA==
+Date: Fri, 06 Nov 2026 07:32:38 -1000
+Message-ID: <1ee462ef3e697e999011e4a0cd2864bd@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+Cc: void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH bpf-next] sched_ext: Reset task fields on exit of an SCX_TASK_READY task
+In-Reply-To: <20261106142818.1475-1-rahadbhuiya2021@gmail.com>
+References: <20261106142818.1475-1-rahadbhuiya2021@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,70 +57,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=QYDzLcbv c=1 sm=1 tr=0 ts=6aee0f0e cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=E4YdAB1t0zyyqKEc0TgA:9
-X-Proofpoint-GUID: PssQDz4LAqtCFmu0Sr5ARqd2cBVsAzTk
-X-Proofpoint-ORIG-GUID: PssQDz4LAqtCFmu0Sr5ARqd2cBVsAzTk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2OCBTYWx0ZWRfXxogpmN3O7sPT
- fd1zF2yum2jWtme54jIqjRu532AP+UnUVuPWmUvJDPwFy5IVxOou2LN9tSYTsvddFSkruIQDcVt
- Gz+zCaKcBfd/6nvlWWkWRRbvjuzofZU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2OCBTYWx0ZWRfX0WeiywnDLaRE
- tFe/vV0X0kQgKGfooJjBe4S+nDYJ1L0O3HGZ/LpIOAyTc7rwA8kSgur32U9Njy5tAazETWe08CL
- fUM5zkwmJsjvUtaLIDXy+HgpraJnv1/d9yUIZxi/uZRGs73WA2vk38x28m6aRKJlVrCODyfMhcc
- uS3jGtNxcq44yLB8W5HqqNPUygU/KSkp9/YMMCfcYOZLzMvWevw+Ukm8O38T5sHcyYgyu9V4EDG
- JoJML0bEEtJuqScj6ztAsOqn0Q0wqmojrAjGX4ncvOuM2GZsfU4cgxyFMZuh4aVsOAtULqAP2d/
- lSxZDAdULkkCbE+olxbtuFmZMn+PP7sJ6CunwSd2RCyl828TBhEIQS5UgThpmWluZfiv0SVRenZ
- wPuGNrm1bUCV4p6WFH6FTF2o8kSGO84uBwV2x3p+lh6jfsDgMxnDWIoPA6Gjc3yY9/VeBLEPYCt
- CATgBaCP7KPViMf13Xw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 impostorscore=0 suspectscore=0
- lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060068
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-The experimental IMA blacklist keyring accepts any certificate signed by
-a key on the builtin trusted keyring.  The certificate being revoked was
-created by such a key, so root can add it to the blacklist.  Nothing
-differentiates the authority to sign from the authority to revoke.
+Hello, Rahad.
 
-The system blacklist already supports signed updates
-(CONFIG_SYSTEM_BLACKLIST_AUTH_UPDATE), but cannot revoke a key that is
-already loaded on a keyring.
+On Fri, Nov 06, 2026 at 08:28:18PM +0600, Rahad Bhuiya wrote:
+> However, in __scx_disable_and_exit_task(), an exiting task in state
+> SCX_TASK_READY (e.g., a forked task that was initialized via
+> ops.init_task() but never enabled under an ext_sched_class before exiting,
+> or a disabled task) currently breaks out of the state switch without
+> calling scx_reset_task_fields().
 
-This series defines "skid:<hex>" entries and adds is_key_blacklisted()
-to the system blacklist, has IMA's asymmetric_verify() call it on the
-key it finds, and removes the IMA blacklist keyring.
+Neither example has anything to reset. A forked task which exits while
+READY goes through sched_ext_dead() and is freed. A task disabled from
+ENABLED is already reset: both callers of scx_disable_task(), the
+ENABLED case here and switched_from_scx(), call scx_reset_task_fields()
+right after it.
 
- 1/3 certs: blacklist: define skid: entries and add is_key_blacklisted()
- 2/3 integrity: use is_key_blacklisted() in asymmetric_verify()
- 3/3 ima: remove the experimental IMA blacklist keyring
+A READY task is on a sched but outside the ext class. RT and DL tasks
+are always in that state, and so are non-SCHED_EXT tasks under a partial
+switch. The sched's BPF code can still write such a task's dsq_vtime and
+slice, and because the READY exit doesn't reset them, they carry over
+when the task moves to another sched.
 
-Revocations for keys on the IMA keyring are now "skid:<hex>" entries in
-the system blacklist.
+For example, an RT task in a cgroup owned by sub-sched A gets its
+dsq_vtime set by A's ops.cgroup_move(), as scx_flatcg does. If the task
+is then moved to a cgroup owned by sub-sched B and later switches to
+SCHED_NORMAL, B's ops.enable() sees the dsq_vtime from A's clock.
 
-Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
+Can you rewrite the description around that case?
 
-Mimi Zohar (3):
-  certs: blacklist: define skid: entries and add is_key_blacklisted()
-  integrity: use is_key_blacklisted() in asymmetric_verify()
-  ima: remove the experimental IMA blacklist keyring
+> Fixes: a298fd5f4ee8 ("sched_ext: Fix use-after-free of a NONE rescuee leaving its sched while running")
 
- certs/blacklist.c                      | 83 ++++++++++++++++++--------
- include/keys/system_keyring.h          | 26 ++++----
- security/integrity/digsig_asymmetric.c | 25 ++++----
- security/integrity/ima/Kconfig         | 13 +---
- security/integrity/ima/Makefile        |  1 -
- security/integrity/ima/ima_mok.c       | 49 ---------------
- 6 files changed, 84 insertions(+), 113 deletions(-)
- delete mode 100644 security/integrity/ima/ima_mok.c
+a298fd5f4ee8 didn't change the READY case. It was a bare break before
+and after. The gap goes back to 5771e79e461e ("sched_ext: Reset
+dsq_vtime and slice when a task leaves SCX"), which put the reset only
+on the ENABLED path, so that'd be the one to point at if the patch keeps
+a Fixes tag.
+
+sched_ext patches go through the sched_ext tree, not bpf-next. Can you
+repost with the above updated?
+
+Thanks.
 
 --
-2.56.0
-
+tejun
