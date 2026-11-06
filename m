@@ -1,58 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988192;
-	b=KQudUdOnYVY5JNkUCpG0EK7OzodFSAPbDWzCGlg+5ANlcVM43pGBnHqcN8n3+lgKRKR7
-	 cQZjj1P3CGDzDCEPKALX1HpPefTeyekhy4cCyB9ZEa/YT00BDggXUA0HJJ99PiWXQ6IoG
-	 /R/o0Rq+8TBoX9MiBVZHJbOTNp/8+2BzBATzQNftR09+Zy6GLLlF+7Rwx7cYAccSEAfy+
-	 vQgKnoJFy0PWGvYqx1Ye7uo6MiJFEfcIkTKPfY1g0hAlNri3SppFlgWQnyl0LlrrhsfiE
-	 jYQce3QXrSFmxuvcuzRqCIRC9e9HxfC9i9ejO0jEHF/cHQDjVlLSO3LbXEmJiaLOaBg==
+	t=1793988209;
+	b=fJEXNWC65sfzu9qhGauBQ1lcSQqz8MuNQc8zgG5M51njFhlhjggKX0ilYG7rCVMrJ3iQ
+	 sxMg4WeGYNr2BqAH/LtNcGw1cslMsp5fw+AvqyEKvwKK8D/982wGikpzQHDJcARdph8FJ
+	 gxhW4NkqWxb8H1zuhQ1cwfEdMPs7HIsX/hjr5NZFAKuETH256ftWggFexY9/r79YDzcx8
+	 WLLAk+J482fG5WZK5J8755Hl1IYr3JtB8FHol9UTY+UpBgEfX8sBrytodmVAXeVQ9201K
+	 yHng4Za60SBxieZFuoa4sOkbAh6nZpVk93KRY793YM7f/pzKIV4JpxmUOzb+HK35tQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988192;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fMvbHjbrounMEsK+KmbC2zRyu4VI/xkNIv3ppg5CuXo=;
-	b=qsgTarAXGHW2HaFLkZMKriq/ozKQw8z87+g/ebcAUdbUMDS92VdUiT8rsIJ5/kznB46E
-	 vr+gE7fDFjA7a75+KGXK9PfhQFZAM3IIUgeMcwCjHKJWgZHyUoDhXH1u7eV21NCBfiy8o
-	 eJdeOr9gK4WkwRC6fvqnMHnM/b/VCZF9uVBpP6hvH6isZRW28OSt8dW+FAaXY7JTAW5JS
-	 79yUmRnggoq4SLUZsvAuzf0eKkcDz6zFNyKqwD9mKacb0VZRWucRy/HhHDlRAOz74wNn5
-	 mH3AXIt6eAJxCOE2alO4DA/1fYA2i7lU3Uczvam5SOYIh6EKRg3L17wQ9yMN3c+KjSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988209;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=H4JC89FtVyR6bVp+jdRxlev26LVtw5xFWty/pAHQfbQ=;
+	b=5bcGSVr1kyJs7bYSABO8DfkCX7WOOJhpKLq9tGRHVg70dwDQor5POam5GW2Q9aX7Lwll
+	 IqUZFp+bnJ7xGBOk3peEY+IiamnR9g9yTkNANwIUdnv2E2BtCRRUwr3VhkYaN4MS0hB5p
+	 Hi092qmkaZOIejLxs65xx/IYi3KXxszezxJbgImw1AgrKrxqnFtH8IAM0q93QqBJbS5IS
+	 Iu10G1MHbqJLTrAbNFUn98VIDP3gXFD/MseiX20zJutZuMN4215l5YaLbnL2AnQ1YHLxw
+	 U4ncTUPZ8s5wyFjoI8TFtdlO+jPl5g/gEpjwBphH09GjoxkDa8nK3PsDIzLda2qldpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XiKo5cHp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=czfank+a;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA8A606A326;
-	Fri,  6 Nov 2026 18:03:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2795606A326;
+	Fri,  6 Nov 2026 18:03:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2795606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XiKo5cHp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42B221F0089F;
-	Fri,  6 Nov 2026 18:03:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793988191;
-	bh=fMvbHjbrounMEsK+KmbC2zRyu4VI/xkNIv3ppg5CuXo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XiKo5cHpbKZRStKZLZ5RDNPvlZ1KS+/a0PFXfAy657J8U/ouykOZ1vPm99/l6QZG+
-	 ouMl40K/lth5kyNbqL2HzwbBBIKNhrKZxxB2CdrDoW19kBLo0P7sLAaGFD1jpPeRXB
-	 YNJQ4cqUusHfN3xyMC8jHAk43RXIvoicDGKkZ2wDNGYkwkImA+PEAeWNyDKDP21tsp
-	 sgMVi+PqaepvrDCtw/96PH+ImdvjQNw4vcZ+HMlpr2fpZNpcsL3cMvJikhjUjI+ho3
-	 iMI2EivXzGg24NJR5lEtmhtiy9lSt4nVDQxXF9iGhEjuvSl2TJh0GEvZoreTUGXun+
-	 ZN320n9FQ57zw==
-Date: Fri, 6 Nov 2026 18:03:07 +0000
-From: Simon Horman <horms@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Jian Shen <shenjian15@huawei.com>, Jijie Shao <shaojijie@huawei.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=czfank+a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793988208; x=1825524208;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=lCk/h8ygbgP+epzmfmv6nQwe4Y/dng1VVPwIVpqwZss=;
+  b=czfank+aoParhYgOfJ2/72btQkRasNl/s0g3ZKdMmr5OzplwyuWkMx0i
+   vxJlQjXEsfaJy0h8VzEsOlvKE05cfN1K+6onhL7CY7+D5gsFyU14MSedM
+   Xsn6THXdS5A8uIpR+XDlXXghlsDya2YXM08QNBfiOLo++CvWKQC9dytEo
+   lds5ro+8v1Ro1aCddYOKmSQ/R1y+YkmcjdUrtlJCG/TTPRPm0BIVWFTNA
+   c/KwQdiSxc6SdNoTE1j9OFFqFgEKoZablYS789ummmNDgXsR0BHHSNM7j
+   u5dFVeg7QuWQ8rvzG+XUHa16BlQSE1pFPeI04imUQ1bGm4re0FJ591DB+
+   A==;
+X-CSE-ConnectionGUID: 6W0xCCE9Rj+oRSh2OSH2Uw==
+X-CSE-MsgGUID: bGbpnRKXT5yrhPW3v7TrFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2675771"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2675771"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 10:03:26 -0800
+X-CSE-ConnectionGUID: +pXFL1TJS3GZbhDaO5V8hA==
+X-CSE-MsgGUID: syFtqdleSImvrpB4xOVoXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7169959"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa008.jf.intel.com with ESMTP; 06 Nov 2026 10:03:24 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 2B98899; Fri, 06 Nov 2026 19:03:23 +0100 (CET)
+Date: Fri, 6 Nov 2026 19:03:23 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>
+Cc: kernel@resetko.pl, Greg KH <gregkh@linuxfoundation.org>,
+	Guenter Roeck <linux@roeck-us.net>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Daniel Dev <daniel.dev@noex.uk>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] net: hns3: destroy the page pool if RX buffer allocation
- fails
-Message-ID: <20261106180307.GM865646@horms.kernel.org>
-References: <20261103100533.1310018-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH v2 2/2] usb: typec: ucsi: acpi: Assume UCSI 1.2 on Lenovo
+ ThinkPad T14 Gen 2a
+Message-ID: <au4Wa_xIfLp0UFjq@black.igk.intel.com>
+References: <20261103-ucsi-lenovo-t14g2a-v2-0-e85c659b56a2@resetko.pl>
+ <20261103-ucsi-lenovo-t14g2a-v2-2-e85c659b56a2@resetko.pl>
+ <au4GUwhJz1jxYnqF@black.igk.intel.com>
+ <79fec522-e734-4194-bf1d-57b1cb0b67c1@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,54 +86,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100533.1310018-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <79fec522-e734-4194-bf1d-57b1cb0b67c1@app.fastmail.com>
 
-On Tue, Nov 03, 2026 at 10:05:33AM +0000, Wentao Liang wrote:
-> hns3_alloc_ring_memory() creates the page pool and then fills the RX
-> ring with buffers from it. If filling the ring fails, the error path
-> only frees the descriptors and the descriptor callbacks, so the page
-> pool created a moment earlier is leaked.
+On Fri, Nov 06, 2026 at 12:54:27PM -0500, Mark Pearson wrote:
 > 
-> The page pool is normally destroyed by hns3_fini_ring(), but
-> hns3_init_all_ring() only cleans up the rings that were set up before
-> the failing one, so the pool of the failing ring is never released.
 > 
-> Destroy the page pool on the buffer allocation failure path too.
+> On Fri, Nov 6, 2026, at 11:54 AM, Heikki Krogerus wrote:
+> > On Tue, Nov 03, 2026 at 05:10:21PM +0100, Stanisław Titenko via B4 Relay wrote:
+> >> From: Stanisław Titenko <kernel@resetko.pl>
+> >> 
+> >> The Lenovo ThinkPad T14 Gen 2a exposes a functional UCSI ACPI PPM but
+> >> the firmware leaves the VERSION field of the UCSI mailbox at zero.
+> >> 
+> >> ucsi_register() rejects a zero version with -ENODEV, leaving the
+> >> system without registered USB Type-C connectors. Without an OPM, the
+> >> embedded controller does not complete DisplayPort Alternate Mode setup
+> >> when a USB-C dock or monitor that supplies power is connected after
+> >> boot, so the display stays dark while USB and charging work.
+> >> 
+> >> Use the zero version quirk for the ThinkPad T14 Gen 2a, matching the
+> >> two board names of this model (20XK and 20XL).
+> >
+> > So is the product family the same?
+> >
+> > Could you use DMI_MATCH(DMI_PRODUCT_FAMILY... instead of adding
+> > separate matches entry for both?
+> >
 > 
-> Fixes: 93188e9642c3 ("net: hns3: support skb's frag page recycling based on page pool")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/net/ethernet/hisilicon/hns3/hns3_enet.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-> index 47788be64be6..fe339ddc6379 100644
-> --- a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-> +++ b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-> @@ -5073,6 +5073,10 @@ static int hns3_alloc_ring_memory(struct hns3_enet_ring *ring)
->  
->  out_with_desc:
->  	hns3_free_desc(ring);
-> +	if (ring->page_pool) {
-> +		page_pool_destroy(ring->page_pool);
-> +		ring->page_pool = NULL;
-> +	}
+> The board names are what I recommended - they are pretty safe to guarantee
+> they won't change whereas other fields are less guaranteed (guidance given by
+> FW team). It is annoying there are two I know.
 
-The condition is not necessary as as page_pool_destroy is a no-op when
-passed NULL. Please remove it to simplify the code-flow.
+Okay, thanks. I had to double check. I guess you guys already talked
+about this. Sorry about the noise.
 
->  out_with_desc_cb:
->  	devm_kfree(ring_to_dev(ring), ring->desc_cb);
->  	ring->desc_cb = NULL;
-> -- 
-> 2.34.1
+> FWIW I would rather wait for confirmation from the FW team if they will fix
+> this before accepting the quirk. I am still waiting for a reply from them
+> though I'm afraid.
 
-You will also need to answer the questions about providence posed by the
-bot. Ideally in the patch description if you post a v2.
+Makes sense.
+
+Thanks,
+
+> >> Tested on a ThinkPad T14 Gen 2a (20XK) with BIOS 1.33 (R1MET63W):
+> >> both Type-C connectors register, and plugging and replugging a USB-C
+> >> monitor with an integrated hub and power delivery brings up
+> >> DisplayPort Alternate Mode each time.
+> >> 
+> >> Reported-by: Daniel Dev <daniel.dev@noex.uk>
+> >> Closes: https://lore.kernel.org/linux-usb/b1Wn_eFvTFShGbd970WWl4CWhge_6P2x7Wb6rab3QHNlE4OJ4p__O-QN3B6I-308ftr5oV5Zr7vywA0vdvmtNw6E0YJnVM2ek_5DcFnkXB0=@noex.uk/
+> >> Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
+> >> Cc: stable@vger.kernel.org
+> >> Assisted-by: pi:claude-opus-5-5
+> >> Signed-off-by: Stanisław Titenko <kernel@resetko.pl>
+> >
+> > Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> >
+> >> ---
+> >>  drivers/usb/typec/ucsi/ucsi_acpi.c | 16 ++++++++++++++++
+> >>  1 file changed, 16 insertions(+)
+> >> 
+> >> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> >> index 47ba0e15b8ba..d752fc7b61ec 100644
+> >> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
+> >> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> >> @@ -196,6 +196,22 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
+> >>  		},
+> >>  		.driver_data = (void *)&ucsi_zero_version_ops,
+> >>  	},
+> >> +	{
+> >> +		/* Lenovo ThinkPad T14 Gen 2a */
+> >> +		.matches = {
+> >> +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+> >> +			DMI_MATCH(DMI_BOARD_NAME, "20XK"),
+> >> +		},
+> >> +		.driver_data = (void *)&ucsi_zero_version_ops,
+> >> +	},
+> >> +	{
+> >> +		/* Lenovo ThinkPad T14 Gen 2a */
+> >> +		.matches = {
+> >> +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+> >> +			DMI_MATCH(DMI_BOARD_NAME, "20XL"),
+> >> +		},
+> >> +		.driver_data = (void *)&ucsi_zero_version_ops,
+> >> +	},
+> >>  	{
+> >>  		.matches = {
+> >>  			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
+> >> 
+> >> -- 
+> >> 2.56.0
+> >> 
+> >
+> > -- 
+> > heikki
 
 -- 
-pw-bot: changes-requested
+heikki
