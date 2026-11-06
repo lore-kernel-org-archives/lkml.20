@@ -1,77 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793940132;
-	b=gVTweyptxmq/pghx43+xRpaig+L+If3lGawjaUdXpZrtZwIQWMIgUd6UI1E0id4WN1j4
-	 3gHCFPNWQGW8l2WKYeNkUP/0vX9tR/EKo7/CNxomOuYfF5GykNIcvHZYW/So+V6GJKFZu
-	 DYI0F2rV9b0NhCb29R6bTTh4j9ISkry3/jhQBckNtAgDbyoTpMiJbnR3HQ0KfGAkFueK0
-	 mmq1GdMWp/fSrDVraiBPgiphSv5hMnZCnMgOOkggjPuk3rd2mId9vAJ147c/WaB41eFQx
-	 nB+MAMjhTD83gAg2z2ABxjHeVt8ve538Q+QjFicSnxLns3PvktErv3o85hNPQshce/A==
+	t=1793940156;
+	b=IcTMld1eZmUFNkvix/GqKX+EXATJiU4kvGFYLiuREPfyeHr5QpjXbliqxSkacYUAKJSp
+	 VmmJUgDKbGoNf3pwqlBjHVJxdzE1gkmr7dJZUR8z0mSO6LV1K6AjLJtcKCe/iKirF3OiG
+	 VB0q8Jd70pgyIXwazZ8ebt1oRZoCcpskPdPbgqRRotVDQOQ7Y5lScOslh3OeRxJgimDUm
+	 KU+oPesJOE1DGFaMYT+3GrohXj+AD2wryMwUVFhVW1ie10ldLa1AqoATRRLh8e9pimI4K
+	 vPYxbQAIy31JbNemVQg6kPXGUzG5s4CYXsCsEgFUF/tD5LSDVzJSYnufobJ9FCBO5Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793940132;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793940156;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=cH0k23uQ0R5ThMdjtKSKUDnfHUc+a7kfcJ8zCx6tF0M=;
-	b=I6iGfWdKXn1Mm6JYb6ePBINzhuDUM0436DATuiOHsCjOC42hyC5XyF4z5hJR95agfQqX
-	 ZzdmcKGLKQy8tmAeA11o+AigUekQYs2hvGqtDVkcJT5FCYQNK/aLla4fb1WC6qXz1PqwR
-	 spIR8HJFLSgFa+2mbdt1Z86M/QVtDXR1Et9Cbddd21GNoMBZB1ZX6jaw9b10sw2RtrASJ
-	 qBSf1/zkeNAyDOfN0oT6fdW0AornlhVEuP6houBwOvxpTq8BIEb8DM7p34L0akwm4qn1V
-	 IjrW0/2GNav3eB8L4bNzG7ussKSWSDH1bzaF/zl57/Geu82wLlGnwrtklgUZ5jc1WRQ==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fGvX3/a0vC7nlTjAHSMPcYCuo1tQSG8MJBCHqXDvNlw=;
+	b=G2B5XIlfEM63vdFLKNoyiN/8hPV4FPquvxF0vPX4IuUateR9iIyJlqvZ1HAxPe8+FSn3
+	 Z94TIEAS5HzQCkZ8IgIBb6acQb2Ymd/BkNMVoqP60N4atnUnB2B0Ah9e5eOrr1+WEiVXV
+	 vPH/QGZOxz63+RUpV+uL1f4s0UQHDL66vmSR+0cS3zDbEDFBPW1JhGB2LnT2D+PRntroF
+	 u4c4zKayno39CwSXi1fZDqqCm86ARoGjRqy1sEddxqLnFYJ4VKBdN8xPJgEYDllBacJyi
+	 Z77WwjNbL06F3i1SC4zaihOY7pDxzg4hQh7ogAkweM8E0Z0BG2FNm/OVkjtjmoIr7bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SNPNMi4M;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g2q+sw2C;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4163E606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:42:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4163E606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8067E606A338;
+	Fri,  6 Nov 2026 04:42:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8067E606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SNPNMi4M
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g2q+sw2C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793940131; x=1825476131;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=P89PlaK+/hvait3mFpoUo17/ifRpIJ9Cd+NQmTZRaj4=;
-  b=SNPNMi4MIar3OGIZxDJVEc+wacEYMxOQ7ak8XcjopsdRhB+MnUzv4Gzz
-   54Thj3sDlJAwMcOHR4/fNLqNKdqX3T78OoQTKAq9cYoQK8fu28vs4VxVx
-   hj7jf8VVDmcJsfBQMpc2ZyMgkiDg/+vRf6o7Q7VBtS5USYSwuAFnCmmto
-   gC9tvpbMT/k0iISOMGQVfuzAV1b6x/LLMi/hmYoOmmnUdUyg5gyKpLZU1
-   mL6+rFEqu+GIRo5TyZlEMhqoBNvNiOaG0oJxlpuG6p9PGBV+MfYCaC3IO
-   7sofhSc9lGBt1aQRndv69fT9X6zDBPYvRNaR3X+R+jJZRM7I/6vTNlcWR
-   A==;
-X-CSE-ConnectionGUID: jE7fkjj7RqanwtH3fwqoZQ==
-X-CSE-MsgGUID: xriqGzvnRBWxtL3mUzcapg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2787851"
+  t=1793940157; x=1825476157;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=anigBFNvLZFvrEcI1RE7HwrxHGo2njaEoqKnElay2RA=;
+  b=g2q+sw2CSiulqDqjncBvMe3dLFb7eqd/uDf3DRm/v3ySZmbBl71v/nOd
+   GRhDgBo3mQUNQyuxNEidBT0/vtre9bPyUnyxT5NPtqoXP2gkzXtb8b5mj
+   t7/sTLiYWZs9BoaHGPrHjODhwvzYkxgkXcxI5++ijh+jE9zZkZaJ32lAW
+   DTf55tYDIQyseQMlvJRsNQOzc8j+KbU5G3T+ZebfHf0yoV1TG5fUCtZYu
+   jhfCES/hM7TIGC2eJwG3JxT3LTQNJ/+gL/Hy6s5MIUxCiRaa3oI3pkhjm
+   XB7QokC0w0IFyFEFhv2qA9VGmyVOxwTULIwvWJYYkWZzcBq2dXX0r9dCe
+   w==;
+X-CSE-ConnectionGUID: 1rqMSTZ3Q7W9cJl4SsvGVw==
+X-CSE-MsgGUID: P3XALOGyShmFhEcEXEhezA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2780947"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2787851"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 20:42:10 -0800
-X-CSE-ConnectionGUID: CLdB014lRY+wouytS07x1g==
-X-CSE-MsgGUID: IOKiHfd5Qm6pFMR3YJ0Tew==
+   d="scan'208";a="2780947"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 20:41:54 -0800
+X-CSE-ConnectionGUID: IQwJY9/CSl2DmnoLrUVLaA==
+X-CSE-MsgGUID: klv1oIh7RXyIy6UmSgTv4Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7335016"
-Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
-  by fmviesa002.fm.intel.com with ESMTP; 05 Nov 2026 20:42:08 -0800
-Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xPBmA-00000000A1h-2kCl;
-	Fri, 06 Nov 2026 04:42:06 +0000
-Date: Fri, 06 Nov 2026 05:41:38 +0100
-From: kernel test robot <lkp@intel.com>
-To: "Thomas =?utf-8?Q?Hellstr=C3=B6m"?= <thomas.hellstrom@linux.intel.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Matthew Brost <matthew.brost@intel.com>
-Subject: drivers/gpu/drm/xe/xe_svm.c:1615:48-51: ERROR: Missing
- resource_size with res
-Message-ID: <202611060555.alPmrU8P-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+   d="scan'208";a="7223012"
+Received: from spr.sh.intel.com ([10.112.229.196])
+  by orviesa001.jf.intel.com with ESMTP; 05 Nov 2026 20:41:49 -0800
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>,
+	Sandipan Das <sandipan.das@amd.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Song Liu <song@kernel.org>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
+	Ananth Narayan <ananth.narayan@amd.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>
+Subject: [Patch v6 16/20] perf/x86/intel: Remove dead lbr_pebs_users
+Date: Fri,  6 Nov 2026 12:32:53 +0800
+Message-Id: <20261106043257.842864-17-dapeng1.mi@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106043257.842864-1-dapeng1.mi@linux.intel.com>
+References: <20261106043257.842864-1-dapeng1.mi@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,94 +99,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   f66469d9905b39d2c260a15d7d6db450f4db67c1
-commit: 8a52f4d9b1efc90eb338b0d59912e640400b9c63 drm/xe: Use the drm_pagemap cache and shrinker
-date:   11 months ago
-config: loongarch-randconfig-r2105-20261104 (https://download.01.org/0day-ci/archive/20261106/202611060555.alPmrU8P-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project e2e3d6c39cfebec9eace23629a5a103df2c79ba6)
+The lbr_pebs_users accounting is no longer used, so remove the dead
+field and the related code paths that maintain it.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 8a52f4d9b1ef ("drm/xe: Use the drm_pagemap cache and shrinker")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611060555.alPmrU8P-lkp@intel.com/
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+---
+ arch/x86/events/intel/lbr.c  | 5 -----
+ arch/x86/events/perf_event.h | 1 -
+ 2 files changed, 6 deletions(-)
 
-cocci warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/xe/xe_svm.c:1615:48-51: ERROR: Missing resource_size with res
+diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+index 27e4be839926..3500cf3518f4 100644
+--- a/arch/x86/events/intel/lbr.c
++++ b/arch/x86/events/intel/lbr.c
+@@ -617,8 +617,6 @@ void intel_pmu_lbr_add(struct perf_event *event)
+ 	 * be 'new'. Conversely, a new event can get installed through the
+ 	 * context switch path for the first time.
+ 	 */
+-	if (x86_pmu.intel_cap.pebs_baseline && event->attr.precise_ip > 0)
+-		cpuc->lbr_pebs_users++;
+ 	perf_sched_cb_inc(event->pmu);
+ 	if (!cpuc->lbr_users++ && !event->total_time_running)
+ 		intel_pmu_lbr_reset();
+@@ -688,11 +686,8 @@ void intel_pmu_lbr_del(struct perf_event *event)
+ 	if (event->hw.flags & PERF_X86_EVENT_LBR_SELECT)
+ 		cpuc->lbr_select = 0;
+ 
+-	if (x86_pmu.intel_cap.pebs_baseline && event->attr.precise_ip > 0)
+-		cpuc->lbr_pebs_users--;
+ 	cpuc->lbr_users--;
+ 	WARN_ON_ONCE(cpuc->lbr_users < 0);
+-	WARN_ON_ONCE(cpuc->lbr_pebs_users < 0);
+ 	perf_sched_cb_dec(event->pmu);
+ 
+ 	/*
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index fa0af528cd1e..0213e2a8efff 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -526,7 +526,6 @@ struct cpu_hw_events {
+ 	 * Intel LBR bits
+ 	 */
+ 	int				lbr_users;
+-	int				lbr_pebs_users;
+ 	u64				__lbr_stack[LBR_STACK_SIZE / sizeof(u64)];
+ 	u64				lbr_counters[MAX_LBR_ENTRIES]; /* branch stack extra */
+ 	union {
+-- 
+2.34.1
 
-vim +1615 drivers/gpu/drm/xe/xe_svm.c
-
-  1563	
-  1564	/**
-  1565	 * xe_pagemap_create() - Create a struct xe_pagemap object
-  1566	 * @xe: The xe device.
-  1567	 * @vr: Back-pointer to the struct xe_vram_region.
-  1568	 *
-  1569	 * Allocate and initialize a struct xe_pagemap. On successful
-  1570	 * return, drm_pagemap_put() on the embedded struct drm_pagemap
-  1571	 * should be used to unreference.
-  1572	 *
-  1573	 * Return: Pointer to a struct xe_pagemap if successful. Error pointer
-  1574	 * on failure.
-  1575	 */
-  1576	static struct xe_pagemap *xe_pagemap_create(struct xe_device *xe, struct xe_vram_region *vr)
-  1577	{
-  1578		struct device *dev = xe->drm.dev;
-  1579		struct xe_pagemap *xpagemap;
-  1580		struct dev_pagemap *pagemap;
-  1581		struct drm_pagemap *dpagemap;
-  1582		struct resource *res;
-  1583		void *addr;
-  1584		int err;
-  1585	
-  1586		xpagemap = kzalloc(sizeof(*xpagemap), GFP_KERNEL);
-  1587		if (!xpagemap)
-  1588			return ERR_PTR(-ENOMEM);
-  1589	
-  1590		pagemap = &xpagemap->pagemap;
-  1591		dpagemap = &xpagemap->dpagemap;
-  1592		INIT_WORK(&xpagemap->destroy_work, xe_pagemap_destroy_work);
-  1593		xpagemap->vr = vr;
-  1594	
-  1595		err = drm_pagemap_init(dpagemap, pagemap, &xe->drm, &xe_drm_pagemap_ops);
-  1596		if (err)
-  1597			goto out_no_dpagemap;
-  1598	
-  1599		res = devm_request_free_mem_region(dev, &iomem_resource,
-  1600						   vr->usable_size);
-  1601		if (IS_ERR(res)) {
-  1602			err = PTR_ERR(res);
-  1603			goto out_err;
-  1604		}
-  1605	
-  1606		pagemap->type = MEMORY_DEVICE_PRIVATE;
-  1607		pagemap->range.start = res->start;
-  1608		pagemap->range.end = res->end;
-  1609		pagemap->nr_range = 1;
-  1610		pagemap->owner = xe_svm_devm_owner(xe);
-  1611		pagemap->ops = drm_pagemap_pagemap_ops_get();
-  1612		addr = devm_memremap_pages(dev, pagemap);
-  1613		if (IS_ERR(addr)) {
-  1614			err = PTR_ERR(addr);
-> 1615			devm_release_mem_region(dev, res->start, res->end - res->start + 1);
-  1616			goto out_err;
-  1617		}
-  1618		xpagemap->hpa_base = res->start;
-  1619		return xpagemap;
-  1620	
-  1621	out_err:
-  1622		drm_pagemap_put(dpagemap);
-  1623		return ERR_PTR(err);
-  1624	
-  1625	out_no_dpagemap:
-  1626		kfree(xpagemap);
-  1627		return ERR_PTR(err);
-  1628	}
-  1629	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
