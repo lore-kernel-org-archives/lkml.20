@@ -1,17 +1,17 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.48
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.26
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793982881;
-	b=daSi69U759gqBNUxN8Ylq274i2IMK3XuTUTJxVonxh+z3cHXTBcqVuTEp0fcDBzq9c1V
-	 Ze9YLdni6wMeDxfbdVBxdN9KvaXf55EE//olUwwwu8ClNDnzukulSNxTu31gb4jAhTf0l
-	 NYjrkA2ikoHCRqXKYqvPWAD5ElXDguF8swnK4cN+8h5iiCogB2593qlsm97PBGFVw8IWX
-	 cxhLr2rFGR2Jm79eRiNVtJyZjjdzKuFd1UbeZ/b1t3f/M62tz19gA1lEVu1IW1/1+Ykuu
-	 9xSE6v6sF9JZFIL9JObOLnvcOAi/6pYSXao89luffQ/a7tJwmygchnmh0SSXzIhA2HQ==
+	t=1793982883;
+	b=1cNbPnv5JV9heTl6K1WO8SsNQe/P9HNiJl7Cf+9Lk5ybCMF2/1T7pmwgsYWLYbBnV18S
+	 wiR7v6tpiod+bz0hxe50vUZtA2CT+LicthxCspAlA+W7M4L4tn3wKQdpkU7b0D/TyLL9u
+	 TRkLqyFnUqKcrHS01Bys0Jk4WEyn5JDEe6vbMuG8NkOaR7mXjh8inIQi7FzONZC3ZKCfp
+	 ozt/r6bv7/7yKyo1zs21Bm+3roIDMWpkEnTxzbW1B4hoTEtdzBpK/wwcdlVJt0L2b8NIb
+	 bCw8fqMlBihEhBWegKNorG3Mtb4O9RWkwqREmySANfWaOuZEHrBXymBppxP5Lndw1Mg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982883;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
 	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
@@ -26,71 +26,72 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=nVLYRgUGSvhbBlPZbbSFWtM9nrTZqhbIpC40fGrd50I=;
-	b=bsTEmirui82QxcsWal4xHlJcMUwQHHowitlqa8zuLnRdjdMoHzv5CR1DXZ0ZTc2NzHLZ
-	 xDSSTTg0cSXcaMDG9cr+f2nOU2tkp/cEgZEj4uo/XA/AbqM0IJFerLipv5qpvJprMes2h
-	 xntyGjRRVIfxCI3UenKfa2jBTMs+2bVX0FB5dsGX5I/UI2RDY82xfY707Z5Hq97bNL6xO
-	 Af9w3dGPRP5D432b7qrBBaP7HDnKfsZkYcQYpfJ5rDY7kuyb1iAkYnxw3HQlzLhNZyndR
-	 MQFy9tXx83decaO0YZF0yVhX07AuGgon5c0A9nAFzQLpZafofgjt2ZDEk9gIGmzBFbA==
+	bh=TlSeaH9WciPV+BKuEAwTbEyKm5yMt12ZS68ISvgeS8M=;
+	b=uFnfNhvzfb+qIomejjrM0/MP7BF5Kso5N+aa4Bsm4t9CaG8tl+SJZ8+6SJjRbStPyWAy
+	 4DXApLoqNL6/wN1rIwOp5kQu84wpMDJDXYCHVrUp3o/ppo4EmWJrg6lGOJz1Zv4+13E4w
+	 fF2Vl9nstCypnEKuRKDMyf4n2AG+sL5ZXNWJBTJOxwFtJnMWoSMK1T/FZVjs25Ls8xEXy
+	 44RF55bD1yRwgr8wXSUmgKoCG7qwoNkovjvpRpDMOwvsN8MzzYjSPhtMNaMYSlfgOQz6v
+	 aJZqr5STT/LoXcGYua/2oML7cmTApmKJTmY8ndmMimlB0oBb8+qK4SvkOZSJfE3w7qA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foss.st.com;
 	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=VEjYXEMy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.48
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013048.outbound.protection.outlook.com [52.101.83.48])
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=axHllk57;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.26
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012026.outbound.protection.outlook.com [52.101.66.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DEB606A33C;
-	Fri,  6 Nov 2026 16:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6DEB606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B19606D835;
+	Fri,  6 Nov 2026 16:34:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11B19606D835
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=VEjYXEMy
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=axHllk57
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n6NAzZBgo8Q/85c9JdtUBHrWgWoUvN4dyoZLiahm9odViSHo2Tk4a8KIOw3uuuxaKUK4x1c//4lBAxprTo6J3r8OOvYfamXKaO8MV+V0X693xC2YykdAJqA3UD2wXc7jJohSaqU4Lar+z4gVORh/5DZHBCQUw0v7IVviM3WROHlm07430SAfb9skJtbci5V1v/6+jZVpf+RUopdetGkWbLtka29UPWt9YVzGUwmpCvUFTY/ANzSZ9U5lJcvHhz8cOSBPgMozv6pGiWwWsfgJI3DARu1mm9n+V+1CuOTkPqSL1rp5AxayOL8wDZQP70QVGbqJxMZAV6MX1rVF0Bkj6w==
+ b=Ih8OdYiQk175yoiK15ASwxyOfyvOdZetKdVJOfjXm2O+SToq2ChbVC9yxofcwN8GruGap1A9fLg8wg2tF+3AKMBfwjRVxloX16cE7d6yzhQxfUky2Nu4PPbdfiGmzJj/7VMr9CZJYbWl1MyN5Aba6tCR7KpB4/vo7/Z/6/s4DwJEoFuBtTLT4qmsy4Qa2PxCXkqIP7iNGU6cWNV+//gpNAHLCuiBf2ldX14w+HZigXgKqD/5aPOp61ohmfeN2lk07zOjcxJ3HoW6H+TewZ00gi47AoDOGl28rbmUSIU9rK+U5z8hVqXEG+DI6Gdth5kTGCy/6MKvS2bB+cRIfEVaPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nVLYRgUGSvhbBlPZbbSFWtM9nrTZqhbIpC40fGrd50I=;
- b=cerLUzEob3WINsei69x+1eZ3kNdarZllJUzsqirvsLxYKOZmf2pDAaoP77q18Zy/sK5AZPaXirD6YnB4zWGDrdtku4tL/NybdW6TgUgdU5RMLpggZewTIl/BBODPPzrxBIcRmtKbOIQt5W6BOyYFsSuBvSM0GzqoiqPgyRTccjHVH2RAaRavpwXLTWVORYWpUxrG9LSsvibwkck6im/5sX9WQ+k/W5E3VoRby3V/sPqkgbghxsutsE5UH4Raqjnmixq605s+JfU4luMG7Hb73HHyx1jE0te53rZ9ShMXGx/kgUJlvDYYXqn7sRsYUROAEIQfkmSa/opmelZs3Ep30Q==
+ bh=TlSeaH9WciPV+BKuEAwTbEyKm5yMt12ZS68ISvgeS8M=;
+ b=oWPgrbu6FX+me7iYgqat9S6moVV4C6UNbpVxvDpIh02gA8a+e0uv1uxpT5CeFYfGbPr688QeAOV9C0cLjk7F0HVTZHPSAyhPdtyNNgusciCze7mORwFCFrleKSIxfWb1pw632ZbahdQPGpOfJwDoSLjEoeSQggefnYn7zypm0lkA7aqhyRRN9ySsaem4okOqzGEyh49FXM+ELqrWr1ov1mF+4WWbLIkUVF1KGPioqMsMrGfxuHuk2Ecg87niHgBakigt7OObyi/jz9vBW85s9dqns2INqeYTySKGjrsGJ6f/1GZg0+I4I19hpYjao4saBjDKfoUiREyqp40uXr3kbA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nVLYRgUGSvhbBlPZbbSFWtM9nrTZqhbIpC40fGrd50I=;
- b=VEjYXEMy/bm9FK+tlSkoLB+0dEtu3l5JgmXmsTPgeiJV5/Kfw/ckhEA6fuVsuQfScEXF0/oWhYjXocYlX0nS9i3zHgfueOuejTu8BjxOzo3MH8uUwEEQfxQFwFVOEGXsHVpLlM8SMfHnZDt+yITmMdmVTALgKXfMAQrx4ptqBNcq8dX/VHRo1DPU8pX1GTc/BSb5c94DS6N5uKqjl2zABeAfiTH5qz0VRIOpzqn7dMjp4wBI8oDXv47Dr56FordLn5JDeFXf+8sfaTYuF1S7bivUN0uSp800eTKHhr1dkTt/mAoyvZUC8oWF+pBWW/QQhtqikm9QD78ojeoWZdv6YA==
-Received: from VI4PEPF00000146.AUTP296.PROD.OUTLOOK.COM (2603:10a6:808:1::890)
- by BR2PR10MB992286.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:2c8:17::11) with
+ bh=TlSeaH9WciPV+BKuEAwTbEyKm5yMt12ZS68ISvgeS8M=;
+ b=axHllk57svgMRdOZYMulYbYNN6vh7QUW2rkwoq+L+/Wzl5v3n5JOiMjrWTMHP5WhWvC8SQRUdGZNDVZXL8sJDg3avoBqWGB/7O1v4y+AmEaeWP+bfGqZRixhaFj/uy/Y6GEIMMxPN9Bmlq3ZZauAqdklBvz0ZT13o1F2h9C8sf2COJhmnUUCR3OH9jE+Hww9iE6V+opIyYxizYVmhbHvnBk8+lKjJV1FrcUGfPXNVDecp8ZNwNKZpGGUEzAgNWmbUnXV03AnRO+R2jd5ujSnVVwGMMEpY2Xl3BKISPQV+4Ne6e5BXy+10ySxPaC2kcgh1SF63dDNpnZF6BhGFWXBWw==
+Received: from DU7P190CA0011.EURP190.PROD.OUTLOOK.COM (2603:10a6:10:550::28)
+ by GV1PR10MB8754.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:1d6::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.5; Fri, 6 Nov 2026
- 16:34:35 +0000
-Received: from MI3PEPF00008482.eurprd02.prod.outlook.com (2603:10a6:298:1::69)
- by VI4PEPF00000146.outlook.office365.com (2603:10a6:808:1::890) with
- Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
- 15.21.592.11 via Frontend Transport; Fri, 6 Nov 2026 16:34:35 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
+ 16:34:39 +0000
+Received: from DB1PEPF00050A01.eurprd03.prod.outlook.com
+ (2603:10a6:10:550:cafe::4c) by DU7P190CA0011.outlook.office365.com
+ (2603:10a6:10:550::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 16:34:38 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MI3PEPF00008482.mail.protection.outlook.com (10.167.240.169) with Microsoft
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB1PEPF00050A01.mail.protection.outlook.com (10.167.242.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 16:34:35 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 16:34:38 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
- 2026 17:35:21 +0100
+ 2026 17:35:08 +0100
 Received: from localhost (10.48.87.124) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
- 2026 17:34:35 +0100
+ 2026 17:34:37 +0100
 From: Antonio Borneo <antonio.borneo@foss.st.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
@@ -102,9 +103,9 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 CC: Antonio Borneo <antonio.borneo@foss.st.com>,
 	<linux-watchdog@vger.kernel.org>, =?UTF-8?q?Cl=C3=A9ment=20Le=20Goffic?=
 	<clement.legoffic@foss.st.com>, Amelie Delaunay <amelie.delaunay@foss.st.com>
-Subject: [PATCH v3 02/13] watchdog: stm32_iwdg: detect whether the watchdog is running
-Date: Fri, 6 Nov 2026 17:34:18 +0100
-Message-ID: <20261106163429.618392-3-antonio.borneo@foss.st.com>
+Subject: [PATCH v3 07/13] ARM: dts: stm32: move arm smc watchdog to stm32mp151 SoC
+Date: Fri, 6 Nov 2026 17:34:23 +0100
+Message-ID: <20261106163429.618392-8-antonio.borneo@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261106163429.618392-1-antonio.borneo@foss.st.com>
 References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
@@ -117,138 +118,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF00008482:EE_|BR2PR10MB992286:EE_
-X-MS-Office365-Filtering-Correlation-Id: b38780d9-3559-4d16-6a12-08df3c23d816
+X-MS-TrafficTypeDiagnostic: DB1PEPF00050A01:EE_|GV1PR10MB8754:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ce1c26f-6cd1-494a-40dc-08df3c23d9da
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|7416014|376014|1800799024|22082099003|18002099003|10067099003|921020|11063799006|261028144727099003|261026140227099003|261026121527099003|261102123227099003|261022115727099003|261022075727099003|261021123027099003|261021121427099003|261022105027099003|56012099006|261009223027099003;
+	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|36860700016|82310400026|921020|56012099006|11063799006|261021123027099003|261021121427099003|261026121527099003|261102123227099003|261009223027099003|22082099003|18002099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	y4X2d3SP/YrvQQq47L9dG304WHjQjCw9GAP8rpw5QD3yD48sBnNmdNhDB4J4SWlXy5l6fYKhHvbAx1/pob3wSI0pPql+Q9KJ+wxdEXWLYeNlrd71MMU7U5pTRBFkIz1P2iy+CBCs8LC1fxk57ortkgGlIetpIT9jcyNCtOo1+c2m3EceYImbjpPX66tqTqN2e5pl/3g9pm6B57Igaa4cKRe0aO9qCcp99RsQtkQAXwAxEhC8MHQqe/bnGQvE0L/Mk/P0BAH3SxxM/Zie+PD1H4nT1Hr04oPd/4BpLoxGjRWYfOxVBWSEGhE0lPKVXA3re7OLx+GRye4Ly4NgjKaOI7T75oF5WgBSY5jtyUNMh9duyV4V85GglCiu0gMNS4G25Is/O55W7ZbTtVxQsjyO7EhF3sYTWDLQ0zDF6D9SQhuNtjDpewxnmMbNK+ySI7Ihy/nBBFuygBxCbpT6T1ok14QSm5X+wf+GLJDq8DCVjBG9myPguUkewx260VYkwJtQaBkei+Ad1ylqiePtbjmCYWePgEaQKYO14eZZY3DIu53Zu8V9bYcOdb0oPj+XjL5BYVNaH1uYjarwMQZWafN7nNBwAnYO2xucmOAdIoHdacQ7LTdh6YZ37163ozQ92cXPxoe/UcQC7YuIisjRMaed3JGzUcM7ifHV7+JeulDN0HYz19EV0quYAK714I/t5LiWWKVP8beax4e0N+KEiavSt0rNEHIBhiva/xOjUqBOMhGsYr2sHt4U7NIDpgcngVdq
+	xYQTzRme2uJgGy5DUp21EfbkJ7uqd0i9E7harDuL5+ruyh7ozviRLEkBKifc7kmf5Uo1F8LapcNNGZfkRQnY78IVj+Oh2J8+HhiMCDgg0iWV5Lx3QMflzWETaVQJVMhFUq/w8B+6NXcifKdo8qS09vEaNJFR2t7lybvoCEutbxd5SAz9f+A02aZbosr1utXAvN3k2XxIcrKESBTGQz7U8nsje4/e4IqNGI5tF7TXoimfvqF1JkqwXEwM3GZKlE/8JbTP/RkMCyqHldsJKx9J1vsuOd8i+HlwbGn9EKmNHsAPAMb1R7M1M0nnApdt0l1AzIe2LynyGePQr5UcXNv0+h3CiuMcqEcP+YXHzfAo43HB4q/68ZC052yIsq9LEu1lneozDtBA+dI5H7xjSRTInQ4HduzrwMg/Y3VTUH/KhMOYn9g9cKJxQtcWmRMDFaGaWXTeQKG1rix9i5Meogj7wo+Xu1NNs/kPpsUcuXW02W8BcbpRVpOeAMPbw478EKDP+PP5/pkROXP1TgSjLk+1y1ehywYHmGvhGRid7ZE1Z/YpDRzEBkHX5/b/3L7YC1MlPRueSzciCL7Q3rp+Ro3PhH0U+VM5Vszw/whdIl5ixs8rGQrxowl/4WOb9IaVV2Lez0Hec8Bw7JvD2jcvY9kmXT02598OQ0xClmFbj1D5PGMoPJwCnor69EjWNnh5DTbCrHxzVuoLHXUhBEee5P1izZOAl8NNCAUVN7Q9OoAYty+96k+1r6xi95I6CVxoaLeE
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(7416014)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(921020)(11063799006)(261028144727099003)(261026140227099003)(261026121527099003)(261102123227099003)(261022115727099003)(261022075727099003)(261021123027099003)(261021121427099003)(261022105027099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(36860700016)(82310400026)(921020)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261026121527099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	tx5lRcijuiiKoSraXr3/aBOiUWtHCOOXdlXnvKFL1WNfCEQFISzvp7frNr7tiloqUGuwGJ9QR42P9Wxqp72QHImIY1lSOStnUOzK96Z7tX887Z97Yg3Ds9F7cToZDjNIo5qu87GtQIMFXczjnOQ38l5KKnT7yptD0/6W3pUbkEivEsK/rdWWi/Jl2V975Uzxc4F8C3FdkEJ4swYnyu9lSrk1U2u/h+tifUg6e6w4oaZO6KP9rBLOc7hiLIce+G3dUMe2EkHTX646KtiUc3WNBGNfHspz+iUQ4POeW6ymLcf3yy0c4v/3B+xGeGWQ8YVNMI/xR0gr8Tvmv+qjCu06Mo5U5XTgIMtmdcVU6w/mIUagZd2IlODmsDU09QkstbWaef4oooWEuK7K+FdgD/NkJyfim+i+9Rm7EAfURNqAeJQ5QWeC3ELCVMXT61++E9KX
+	WGsYtnd3xEXjMgq/A2RyI1M9l3gfr0tDdFYvf8eBWCiTQAn8eIw5ifJUKICR0fzfsiJOhXTfoehaiX68GJVUWFiP/tYEWUnrQtjCym40VAb5ZR66XNXgVc98Mk9wbVaM65K3viKcCoCmWirB3ln6NERDmKFVHb/d/Peyt2YklQrFkqlY/2AZli20rP+IA58SgDKBh+MI++rXzQG8+nuFlb+OHfPrCHg0AD/ahXBBRgM6eckHTVFZy6PzUR3hJCNvF7KWM7NY7FCcK1TO8C0j+7ZGwC96iDslke/bxJ1Yz484q+fvcf0kTo0/Q3UVIDMlpZAr5j+f0F53/dFe0mEG8omtoGZ0YXwq4NQuBQKJSxya3d/1nNzzkYGlIH9fTXpgaZh3b16EWm3WfhFKpKXzIZJ+eceQ2Bhz+vRydYKPwSS5QJ3jjqL0quQYy8R5CmpS
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 16:34:35.6380
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 16:34:38.5270
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b38780d9-3559-4d16-6a12-08df3c23d816
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ce1c26f-6cd1-494a-40dc-08df3c23d9da
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008482.eurprd02.prod.outlook.com
+	DB1PEPF00050A01.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR2PR10MB992286
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB8754
 
-From: Clément Le Goffic <clement.legoffic@foss.st.com>
+On boards where IWDG1 is secure and monitored by OP-TEE, Linux
+must control the watchdog through SMC calls.
 
-On STM32MP13x and STM32MP2xx platforms, the ONF bit in the IWDG
-status register indicates whether the watchdog is running. This
-feature was introduced with IWDG hardware version 3.1 and is not
-available on older versions, such as the one used on STM32MP15x.
+Move the arm,smc-wdt node to the STM32MP151 SoC device tree so
+that board device trees can enable it as needed.
 
-On older hardware versions, determine the watchdog state by
-writing the current reload value back to the reload register,
-then checking the RVU (Reload Value Update) bit in the status
-register. The update completes only if the watchdog is already
-running.
-
-Use this state information to service only watchdogs that were
-started by earlier boot stages.
-
-Signed-off-by: Clément Le Goffic <clement.legoffic@foss.st.com>
 Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 ---
- drivers/watchdog/stm32_iwdg.c | 45 +++++++++++++++++++++++------------
- 1 file changed, 30 insertions(+), 15 deletions(-)
+ arch/arm/boot/dts/st/stm32mp151.dtsi           | 6 ++++++
+ arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi | 7 -------
+ 2 files changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-index 30b4cbf20afa9..ce3e1f96ef50a 100644
---- a/drivers/watchdog/stm32_iwdg.c
-+++ b/drivers/watchdog/stm32_iwdg.c
-@@ -49,6 +49,7 @@
- /* IWDG_SR register bit mask */
- #define SR_PVU	BIT(0) /* Watchdog prescaler value update */
- #define SR_RVU	BIT(1) /* Watchdog counter reload value update */
-+#define SR_ONF	BIT(8) /* Watchdog enable status bit */
+diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
+index e71b2ab58aa54..d00a36a8c93ba 100644
+--- a/arch/arm/boot/dts/st/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
+@@ -31,6 +31,12 @@ arm-pmu {
+ 		interrupt-parent = <&intc>;
+ 	};
  
- #define EWCR_EWIT	GENMASK(11, 0) /* Watchdog counter window value */
- #define EWCR_EWIC	BIT(14) /* Watchdog early interrupt acknowledge */
-@@ -57,6 +58,9 @@
- /* IWDG_VERR register mask */
- #define VERR_MASK	GENMASK(7, 0)
- 
-+/* IWDG Compatibility */
-+#define ONF_MIN_VER	0x31
++	arm_wdt: watchdog {
++		compatible = "arm,smc-wdt";
++		arm,smc-id = <0xbc000000>;
++		status = "disabled";
++	};
 +
- /* set timeout to 100000 us */
- #define TIMEOUT_US	100000
- #define SLEEP_US	1000
-@@ -250,6 +254,31 @@ static int stm32_iwdg_clk_init(struct platform_device *pdev,
- 	return 0;
- }
- 
-+static bool stm32_iwdg_is_running(struct stm32_iwdg *wdt)
-+{
-+	bool running;
-+	u32 rlr, sr;
-+	int ret;
-+
-+	if (wdt->hw_version >= ONF_MIN_VER)
-+		return (reg_read(wdt->regs, IWDG_SR) & SR_ONF) != 0;
-+
-+	/*
-+	 * Workaround for old versions without IWDG_SR_ONF bit:
-+	 * - write in IWDG_RLR_OFFSET
-+	 * - wait for sync
-+	 * - if sync succeeds, then iwdg is running
-+	 */
-+	reg_write(wdt->regs, IWDG_KR, KR_KEY_EWA);
-+	rlr = reg_read(wdt->regs, IWDG_RLR);
-+	reg_write(wdt->regs, IWDG_RLR, rlr);
-+	ret = readl_poll_timeout(wdt->regs + IWDG_SR, sr, !(sr & SR_RVU), SLEEP_US, TIMEOUT_US);
-+	running = ret ? false : true;
-+	reg_write(wdt->regs, IWDG_KR, KR_KEY_DWA);
-+
-+	return running;
-+}
-+
- static const struct watchdog_info stm32_iwdg_info = {
- 	.options	= WDIOF_SETTIMEOUT |
- 			  WDIOF_MAGICCLOSE |
-@@ -362,23 +391,9 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
- 	watchdog_set_nowayout(wdd, WATCHDOG_NOWAYOUT);
- 	watchdog_init_timeout(wdd, 0, dev);
- 
--	/*
--	 * In case of CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is set
--	 * (Means U-Boot/bootloaders leaves the watchdog running)
--	 * When we get here we should make a decision to prevent
--	 * any side effects before user space daemon will take care of it.
--	 * The best option, taking into consideration that there is no
--	 * way to read values back from hardware, is to enforce watchdog
--	 * being run with deterministic values.
--	 */
--	if (IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED)) {
--		ret = stm32_iwdg_start(wdd);
--		if (ret)
--			return ret;
+ 	psci {
+ 		compatible = "arm,psci-1.0";
+ 		method = "smc";
+diff --git a/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi b/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi
+index 172347769e025..27ea5e79efc66 100644
+--- a/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi
+@@ -13,13 +13,6 @@ optee@de000000 {
+ 			no-map;
+ 		};
+ 	};
 -
-+	if (IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED) && stm32_iwdg_is_running(wdt))
- 		/* Make sure the watchdog is serviced */
- 		set_bit(WDOG_HW_RUNNING, &wdd->status);
--	}
+-	arm_wdt: watchdog {
+-		compatible = "arm,smc-wdt";
+-		arm,smc-id = <0xbc000000>;
+-		status = "disabled";
+-	};
+-
+ };
  
- 	ret = devm_watchdog_register_device(dev, wdd);
- 	if (ret)
+ &adc {
 -- 
 2.34.1
 
