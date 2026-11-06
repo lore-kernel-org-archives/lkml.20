@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793985686;
-	b=R/h3ikqAv6zgLw8xBZkkKQ8zr1ZveKVSGRqhDtY7IdlaILi8IebN51Jk1KFBpKyPWVHE
-	 dJt5tEeMgzrRzD1c52/vCnJF5xh5+okPwYLs37vhe/whGhF4ZSa4Hgvb58p6NhpMwMb6n
-	 9eJJUHWBvQp0XpoYeeSp436HQ/W6nNWJvJRmbswXYwB7ICtL0xJbJJYd1s2yiy/RmOdDU
-	 zRL1SOT1EspyIUYC1tAAWD9emnl3mR9MJci54H7mNs5dapIpzx4Ln2TaqCOhZp97MDwvR
-	 1hg9ZQok25ztxVMXcAzXlmmZcbgA0JPOBlMiENtwNOCHEo+HXycLwvI1gt8VAWQH6ww==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985686;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793985693;
+	b=SN+tgpYHaOUTIEBT39veqKHpE6quUNP9cviWsrPVckfoL7nqLkZWSf2WvTKB8ZzJSlSy
+	 3awOUI3orxYTroXkp2n7rQqIyGH0gGFPMGuxkON7IjUxfTNHb5cQKGvjBAFNMRKaFxxm3
+	 Yjz0iF/WdFzex86y5J7hHAPK5c++/cNEskC+rviAEo4HEVTGSlB28vMuddBndD1tlgnjB
+	 +nHU7PmCjP7HswwAZU+5KA5e1sb8dTATdjqlumPFXAOsE7O/Hj9BT0MPB2MRbwltey9z3
+	 0iDwvq/aMBflve96emX7g9cEdrdT2ju4t9P2Tu+uXYvgZeYirBlM6ZeY660DLoNF5/Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985693;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3RKt6UkQZGhVMeIsFX1m9xEh639vUr0Dxv9GzpFuH2Y=;
-	b=KJV85DYSaOj54DUotAhbsIJN2A+DZgzLSoKYaqnBDGodVG+/qa5V1Y1kPr/GOjOt/QZV
-	 1MpSzXZFsjAFD4+fB2YYJgxiDGvnIzEubmP/EHLYGMoC+8eYESU80wgwa6z+qk/pv0S/R
-	 qFKdWfdxCoDUBBr2OOuSS/Dk0gVaeUfIZeufaXZKJm/VvoNYCy7IgOU8qRDzEq7Pi3tNn
-	 T0ocbZl2VwOeTJRwLMB9sdWd4qQ95LDRo1Cnde/sN5vbrcLeuoLiJ+pdYwSVkEXzImnk6
-	 eP3Pyi34BmP9p5PL82XFuqCmQTgwFzg1WKT7Cs7yG1/gInFDUDkhhu0vL6kM2vnnuMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=brHuzBNo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aNbq2rk41FUTgdli5n1bqp7QxFkeC+oD6L0hTPhyCB4=;
+	b=AB7PzzoNYIH4zThRMRv4Z7Eu6CRablABv8fRidrtFpl41GO3T5Ho8ta91uMoRtY6ROji
+	 n48WZFav0ReWzX6xeOe6hMybeprf2YoI626yoIEhX4wIEYz49XzOT3ZMrW+Wl6DFuxPdT
+	 mQ8tHQsxduy4/xNNWZ+sUWrsNH5zwHqP0hzK/nnqyJZvjsPWmmGEK7zl9xVt8CEJv19Rf
+	 +iDbjNO59kf4R6ThDBEmUuR8oT8+wdZ/6I3jZWRY3XJsbhS3pJTcuzisnBDWQxpbM8CO5
+	 8S8mgOXbdRbCgIKczljbfY4uOFYfiiuOiLPWUDIzpH5J5wYzZ1V9CfwqdJqxjf24krg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=KPSK3vu5;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B35606D802
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:21:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3B35606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03B0606D816
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:21:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C03B0606D816
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=brHuzBNo
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4b76c15ae36so965e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:21:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793985684; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LTQ3skzfs0pW+NtyieX2IFIWNxSTLD76GS0RZG6MvoxYPk/cQskmxeCGUZSQx1HwI3
-         GiN0Z3j1RxkUvm5b0s8yiUuhFq8S2AdN6RnCCMONrkHzT0EqfIB/ElmxoEsDH2NyvbTF
-         hAMZgUSpM+F7Y6sBdo0rWpEcv1x45S3NahPIwnud16yoD4qALNQyTwLB5+5gpMnRezrm
-         KSt/RJ+kOtZh372mp6JYp8AgMx2AINtmck50vAHkZdd/bpDE4GAzgnPVPpwGUq2SzH6d
-         2N7b3yu2vFm2WCrWw2MXCQYP9rdWDRtcFiyt4rulo0DmZxZffI//od6Uf4e79NJHY7oC
-         6dJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3RKt6UkQZGhVMeIsFX1m9xEh639vUr0Dxv9GzpFuH2Y=;
-        fh=0E5EQnk6w3dpYxgAx1bIx2N46BjYt0Mk2IR4mVILDHg=;
-        b=go+fndYxiEtVafZNRxaJmeU3RCpxYRp9+2nBfb7t6ngWgJMXGDZ1rBfmP+D+NYzJ8o
-         cFeQoOWufMHGGMEfIPol1ihDq/c/E3at871sQPSbyl0+6NFV6aU4opAcn8DY3GBIPG2C
-         gBF+3WGe3VuIo6EJxqxQLgzvOhTBCfPmAhVosK1fMcSkDdXpMSh9izFtps+5x7bGXP43
-         9UpTUwhoufOQkNrxycMeggEvMGUSgGjwlxVp3WUOBkeZazHS4rnISg5Pf3V750jCeJfO
-         VR1p5I7gudQRAHrtFWc54me/rPK6ttu9o4m5A1NbtVe8SalH3CqZP3TAnvnmZDElYjUa
-         cuEw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=KPSK3vu5
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so6998405e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:21:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793985684; x=1794590484; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3RKt6UkQZGhVMeIsFX1m9xEh639vUr0Dxv9GzpFuH2Y=;
-        b=brHuzBNooCSZjsSyXSFWMHBwfNjYNTG9a5Q3GfKsZ70yJN94/1w8oJ0YhXFD0HweTI
-         c6IcxLxcr92YlN/aRCSw1AAeONF2b2T3QTgT71unjiSJd5fE9tDAasfUf0PvDE/Z6Ilw
-         X/g6Cnh0qRbf0n2W6uL7JRiT4hiIN4Ik1e8K6GdO+BwIhEGoPL1NAnA4d+9ktJXdAlh8
-         xxgcRU7Ghap1GLjOorZx0V6eGPaWP/d6RiEHe8vigfy9F0RG1ujzhJTCLnKuHDDyRKrf
-         tz4kI9F4z4z8kTBYDRkYSH30f819pXVPbKnkddtLpC/W9IwCzgHGM+pPzaIVpPR7zN9m
-         wfHA==
+        d=suse.com; s=google; t=1793985691; x=1794590491; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aNbq2rk41FUTgdli5n1bqp7QxFkeC+oD6L0hTPhyCB4=;
+        b=KPSK3vu5qyyHRx+VS/Tc6SJFsl/yZn0bi7sitrQz/YxI560ouxsz9GxAhWpIkuY+Zy
+         aopIsr7tLilf54837NPnLLYjlEdg2mXYi0WYVJl4Z9KQQyDMeexVcByJeWvw+vyfRfDQ
+         s5z2Q1SUyFuiAiIrlqAJZEmM9WEzaT3Z0T/3JwdCSV/Za0oiLl0ddT75Uy7Z0Ye8Q9cB
+         UK2mZxPW0b2jzkPXsEGzCAvJQHynq4ELaedIMzv3vLVm2/8ObPex2VOkcOmvv/6X1x3X
+         48CRiBtsM04HnpxGlrc9KrZ4Rek8OVgEeisrrfvWzVXn19nwdxixX0+e3Ws8CwPebEjZ
+         MsBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793985684; x=1794590484;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3RKt6UkQZGhVMeIsFX1m9xEh639vUr0Dxv9GzpFuH2Y=;
-        b=ghKYJVZF+5UvMOPT04x3Ru7HqxNelyOP+0f6Jbgbm8+bpC3bR8fpIFNuUf6MiAMMUo
-         OouHDJ6pCdEVOwpUDrFltxGTrTp40jkiC7IGii8ylihPkXp+0Q99rArPAhCqp1NQj+vu
-         yzmTJKwQ0xkyZ6g07uqL1PV2ticvf/QIG9tkfE1W33nVWoGq52KXEYTA+h2rvGnGbpM6
-         3LMmATdtuzEPAcLKp41jESY35KuUhBn4pWEHluPw/4oPkd2YxacYawW7JTxAhwz2EbhM
-         opP5BC9XbXq60MucuZh9GViQW3eH9xcIcWsOG4K5CQgKcSjdutz81JwynR9hzd7b/Y8E
-         4UWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzWrX3z8uml9BHHxmDM273bwbMQw5shMNsTO3wyb39bq+hi/Apjn5pQDpE1oJrsppsqgd64bEfNBjp6QH8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8eNAzCfiVbpBXZ6x6TplYofJgAY2kL1v5kmwY3flAK6aZWczYR
-	2GtUTbW+RoYF9ufil3s6LRAS7e4CjKajVWyyOeBsfCdfjQsDlbRqjmIXFKA54f4OU/vp99BmXVc
-	IeCZeLSr+Zvf6zxwDW1PVuJ8MSTWlsUnE/klka8z7
-X-Gm-Gg: AYBFou0JuADGnl8dC+gb5qm9OBBOe/gZNZ93E2+vjwA2pUInSnfeT8kirqvp1lJCR1x
-	XacX18c1lNDWlwTyEKqZ1AKu3yIImm4WxXIlcGB5o+k7axj6Xqq6MVVv/0JYgDc/0EBZZRTJKh4
-	LXjyWx20JfXc5AvzQpqoQMJZd/2frmIlL5P7U0IwbMDzRUQZdoc0wVNmVtCmmIggJy9J+eXLUkT
-	ucYyOq7DF1phNWpjXkcIfun3zWyUmNaNWfQGcEUFq+6kJi/aFXIp12ATU7HK7Bj+3KxiUcTVM76
-	iDurOt7WvKHQP+8U4XL4P7t9XoPmn+xSYCSGlbe84tkdexGtVubJLyJmtpeZVJ3gmbU9NBi/bOq
-	1zNuK8Rhbf260mQjYnYxtDNmmXax2EUEgRa7OgSuSqUBbXdWfE/BfyJgOed6+KYtDutPEBg==
-X-Received: by 2002:a7b:c8d7:0:b0:4a1:eb02:37c with SMTP id
- 5b1f17b1804b1-4b76cdf14e3mr150235e9.6.1793985683858; Fri, 06 Nov 2026
- 09:21:23 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793985691; x=1794590491;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aNbq2rk41FUTgdli5n1bqp7QxFkeC+oD6L0hTPhyCB4=;
+        b=Qc0YSRV5IfL0Mlge6p5kLr0MtNPG7XqtEsKlneGASnTI8KRf+JKQIiF9ouYnI5L2sR
+         5PLn8X3R8K58jLsAGdVclxWgjyH4zBEDy6xHBtmwJokROE6pGUcQiPWqQJMP4NsnqxGf
+         BerASEHz92Qxsk6veL3Yg66GVvouyEwGtMgiLGzuJrzqRpvIe+YhqEDU0QzRGyGeS6VF
+         XgkHrAp9aHQL1YZIz5tLZrmvawdMizTZHEz3Mr4wok1q8JKtAX9TLxWlc1e7V3iqLZs5
+         UcTwM7Zw6bAz5gtwc/z2l/UZoI45rIrGwOBYrku3Dow2ZnBE2eRFCiGqAFlXXWFTPTRE
+         FZ4g==
+X-Forwarded-Encrypted: i=1; AKwUvBwtCSR97QoN4zHHrj5vcjzFVtdU28ledt2aucIuysz3OLfrIOcIL1ps6w+PD7e37l/2d8fJbXjZU25qqCw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9w4XKvIoU2Hq43dJZI7X4HCdNK33sLv/a35AM/QRg4OIvTHB5a
+	TeybQXsxIR2EADFsbZOOw8VFt1yxiFmhyNjs9h1S12gsNJsbpZITJx22NgeYs4vqQlc=
+X-Gm-Gg: AYBFou22jGr0EpmlgLmPjY7BQz9ZlbpZQGT3oXM+SdBMLOm+p/kw/+JjxCesXyaqrgd
+	ycYbWU93xsjqwtpOOWcj3nwTk5YwL3dMJA5EquYN67gbFlbSlZECS3+HzUFUu705M8Vbzz2iEeU
+	1jboGFCdfLaCvdFYrtcAQtFStb7hDH9Q6TtS/fzMYn+7txEbWZnFBJZRcF6WeSJr7CnbAtxUBC5
+	7ARTgMvXnr7Ku78xj4Va0XU5fFPz03j7MmEK6LcXg3rZSaTE1GA/pWRN037tx3RaF4+yTypm9wi
+	URA+XIz/qCuT2lcEWo5kEU2Uk2gDgRyeFV+M6qSD1aKRquFi9b8MR6S4sMOSC0qG1LUZDdK+vOG
+	pmWRpO4WXI5Mm+GdnXz25uu41JlFyzTcyPZo60LurofMfOa9ureduAkk+TZQko9Z+lYjIV4+X9X
+	2R+/BtOAA8q5ty3xv7xt1Jwd0/J+Zwqr1cXIEWtT/howelnltsz9E6falsHUQhp2lxXoQDNF/Xx
+	Zsoltalii/qs8FHMW3dW7h4jemiSWzFPkjDyJIanwLXapdRq/NkNyufI44PdZ3xzAc+Wqq45axo
+	E8PiPFWV8p/DccwLJDUizZWIGEtd+S91
+X-Received: by 2002:a05:600c:8885:b0:4a3:2f35:38aa with SMTP id 5b1f17b1804b1-4b6e007bf2emr45387165e9.29.1793985691171;
+        Fri, 06 Nov 2026 09:21:31 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6e28cce1fsm86878005e9.15.2026.11.06.09.21.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 09:21:30 -0800 (PST)
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Chris Down <chris@chrisdown.name>,
+	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
+	printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Petr Mladek <pmladek@suse.com>
+Subject: [PATCH v6 06/16] printk: Prefer the console either via name or devname exclusively
+Date: Fri,  6 Nov 2026 18:19:42 +0100
+Message-ID: <20261106171952.207909-7-pmladek@suse.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106171952.207909-1-pmladek@suse.com>
+References: <20261106171952.207909-1-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,90 +103,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <0cc1cac1-a500-489b-9c1b-b49598b5550b@kernel.org>
- <CAMOZA0JaiKsRgDdjHkL_N+MshhcyLSv+cT9SzEbNsC_sumHvOw@mail.gmail.com>
- <b31efcd5-149c-4edf-81a2-1744d363c390@kernel.org> <CAMOZA0+6kAbwgNwGTsCT5AqpwcZKz4pziEGC9UpHkNCVoqrF-Q@mail.gmail.com>
- <20261022201229.GH3381610@ziepe.ca> <CAMOZA0KaanmevmvWS=M3gKfBeborzfCQTiF_xbSeYMWbozG7Mg@mail.gmail.com>
- <20261023140107.GC3977851@ziepe.ca> <CAMOZA0J+MOLv+s4PAvsAK1jbasnbQRyHffZw1VEKutH9Vr6ODw@mail.gmail.com>
- <20261023145023.GH3977851@ziepe.ca> <20261103080933.GA4213@lst.de> <20261103151021.GK3889730@ziepe.ca>
-In-Reply-To: <20261103151021.GK3889730@ziepe.ca>
-From: Naman Gulati <namangulati@google.com>
-Date: Fri, 6 Nov 2026 09:21:08 -0800
-X-Gm-Features: AclHuK9QrDyTYpPe0hyDJDnSB0d1jRnWKMXKMwxckIvbaQIWb85nKJEtPirUyxs
-Message-ID: <CAMP57yWvHO0pWCR3-9q1gtwVe8WV4Y6i69trmw+BJRVYf3JB1g@mail.gmail.com>
-Subject: Re: [RFC: DMA_PMD 00/22] DMA_PMD: PMD_SIZE-backed IO buffer pools
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Christoph Hellwig <hch@lst.de>, Luigi Rizzo <lrizzo@google.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, Michael Chan <michael.chan@broadcom.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-mm@kvack.org, driver-core@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-I drafted an implementation [1] for premapped TX and RX buffers on top
-of the existing networking page_pool. It is implemented entirely in
-the networking layer and extends page_pool as the default RX
-allocator, to the TX path. There are no hooks in the IOMMU, DMA or
-page allocator code. I wanted to understand if this implementation
-correctly captured the feedback on this thread. Key components of this
-design:
+The commit 7640f1a44eba ("printk: Add
+match_devname_and_update_preferred_console()") added the possibility
+to prefer a console driver via device name. The name of the console driver
+gets assigned when the device gets initialized and it tries whether
+it is eligible for a console.
 
-- Chunks: as in Luigi's series, memory comes in 2 MiB chunks, but each
-chunk is mapped once per opted-in device through the DMA API and
-records its IOVA for each device, rather than using a shared IOVA
-window.
+The above mentioned commit ensures that __add_preferred_console() is called
+at least with name or devname value. But it does not check whether
+both are defined which is a nonsense.
 
-- TX: page_pool accepts a memory provider for pools that are not bound
-to an RX queue. Per-CPU page_pools take 32 KiB pages from the chunks
-of their NUMA node; TCP copies sendmsg() data into them through the
-task page_frag and allocates its skb heads from them.
+Add the check and do not fail quietly. Also shuffle the code a bit
+to make it ready for adding more checks.
 
-- RX: an instance of the same memory provider, sharing the chunk code,
-backs RX queue page_pools. RX chunks of order-0 pages belong to one
-device and NUMA node, and are shared by that device's queues on the
-node.
+Signed-off-by: Petr Mladek <pmladek@suse.com>
+Reviewed-by: John Ogness <john.ogness@linutronix.de>
+Acked-by: Chris Down <chris@chrisdown.name>
+---
+ kernel/printk/printk.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
 
-[1] https://github.com/torvalds/linux/compare/master...NamanGulati:linux:ne=
-tdev_dma_pool
+diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+index 6bba67e142e1..d082169a8615 100644
+--- a/kernel/printk/printk.c
++++ b/kernel/printk/printk.c
+@@ -2561,6 +2561,12 @@ asmlinkage __visible void early_printk(const char *fmt, ...)
+  * in register_console(). Finally, it enforces some rules:
+  *
+  *   1. Do not accept empty @name or @devname.
++ *
++ *   2. Either @name OR @devname are allowed. [*]
++ *
++ *  [*] A valid @name and @idx will get assigned for a devname later when
++ *	@devname matches during the device initialization, see
++ *	match_devname_and_update_preferred_console().
+  */
+ static int add_or_update_preferred_console(unsigned int i,
+ 					   const char *name, const short idx,
+@@ -2595,11 +2601,23 @@ static int add_or_update_preferred_console(unsigned int i,
+ 	if (!pc->name[0] && !pc->devname[0])
+ 		is_new_entry = true;
+ 
+-	if (is_new_entry) {
+-		if (devname)
+-			strscpy(pc->devname, devname);
+-		if (name)
+-			strscpy(pc->name, name);
++	if (is_new_entry && devname) {
++		/*
++		 * A valid console name and index will get assigned when
++		 * a matching device gets registered.
++		 */
++		if (name) {
++			pr_err("Adding a preferred console devname with a hard-coded console name: %s, %s\n",
++			       devname, name);
++			return -EINVAL;
++		}
++
++		strscpy(pc->devname, devname);
++		pc->index = idx;
++	}
++
++	if (is_new_entry && name) {
++		strscpy(pc->name, name);
+ 		pc->index = idx;
+ 	}
+ 
+-- 
+2.56.0
 
-
-
-On Tue, Nov 3, 2026 at 8:24=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> wrote=
-:
->
-> On Tue, Nov 03, 2026 at 09:09:33AM +0100, Christoph Hellwig wrote:
-> > On Fri, Oct 23, 2026 at 11:50:23AM -0300, Jason Gunthorpe wrote:
-> > > > Disk I/O is still potentially affected by the same problems
-> > > > (cost if io mapping/unmapping, iotlb thrashing, bounce buffers
-> > > > in confidential computing...)
-> > >
-> > > The disk folks already have a proposal to address all of this using
-> > > io_uring and preallocated buffers. I really doubt yet another version
-> > > is going to be interesting there.
-> >
-> > Huh?  If you mean the dma-buf I/O it doesn't really have anything
-> > to do with disks, except that this is the first user.
->
-> Yeah
->
-> > The dma-buf iovec can work for every ->read_iter/->write_iter
-> > consumer, and should be adopted more broadly.  Including by
-> > networking instead of their own totally weird different world.
->
-> I'm not holding my breath on that one..
->
-> Jason
->
