@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794003356;
-	b=JSvAe5ikRmSPnEzUfnQ39QP3AHrS53NAZETkzcr6XUqbL+Kxd21UgN+2HC5cE/QqFkXG
-	 xE0+X0ZBa2qItK4RicNSyRz5mTxn8KFqvBFZ0fL6ZSgq8g0oWczq5TnqSQQikT/GgHfAS
-	 vTar1t0QV9Tc6GU3T3RrmKx6ppcUOjJwb4G0vcVZJpp1WojGYNyq6IbtNHlx494cPEup8
-	 OIVopfbGxgdZ3prjwFISUfBsETdqaJlN5sGTxhDtaIT1v5z4U8z7Vem3PfWylGhOfOJck
-	 U3iLmP2Wf7lTC+oPdq9odeDmXfXhsVgxp2XOKdrzbFksv9RcUsnPs+evW2pq294maPA==
+	t=1794003373;
+	b=SMTpl3UPPizR57AQnanMFJYXbFP4pIGg8oIyYFAy4iGUCOgSqcUNdQ/KOMnFXZgWx29y
+	 IiwjxQPOlbBbXwAH1B4cYCv68sTBcfLe/06ws2qiObA7ir/792BTHlWcVDJpd93uo+MYR
+	 l7xm9QLp8TOd4uTyycnLrWvjS0waj04FQJN/4WbVwkHDt7TGgUfqAF5qaNCbP9tEim80Y
+	 f4oK/bMQc6zWiJxn/OvvHwwI2zn6LT+fVDruNnaJ/A9u+6OarN38q4CM6v+ZyEUWEdcTJ
+	 AxTku+6wXg3UcJAbg0l+vRx6NvHfWB7ZB28+KSyjWCw4gWbvds3BcEjm8kCSk5FEmJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794003356;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=eb/h6OpEiem7irOaFqKzJ0H8WLUMnDBlfsgGt6v9c0o=;
-	b=sV8cKrP7kiDyNZ+FXfFGpEfB8Pm3Dt5OstTsAZJn4W+c6+/7OCIyS0+Iaw7DEoVZYYGN
-	 z1AGRWMayVxJXHzCTXv6x2zttFFt77XREpR5v2SL5Tu3wFxuC4Av/GyBgYnYNfseTbvC4
-	 AbxIyzQhgUAsCYFJNbniHMNysqvcKb5vs/42E8bHQV4Ib83nDSzqSxsevrjgImj0iNbJS
-	 82gpRzKinX5laD+EGyZ6GWdleF+bIurzFmHppMvIIRabsopTDTa1QKK8c6a7Eui5FKaCj
-	 SXDfzAWl5rx22ADuYGqoV69zXcR5mk3t2OYKALBQm2XG8Zj/MWKwK4Bu1S8kLzaTItA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794003373;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=laRzMMYDJxkaw25Allc7O+S/jwUBfxfqJWPXHy4lzgc=;
+	b=Zbw1+D5rJmuuuA2lOfzsTRf8x4HW2jpVUGMZKeJfT09I7yUFIHPgThepkfM67Z81d/gC
+	 EdnvJcgWPZfEn1Iw43OeO+EjX8FeKkDbEpJeWiZ9E02Fihbc36YuPaULpwqyYa//YzNW9
+	 fixx8Vrw7vUaPARTddi9Crpp0I8+cZvUmlmagozBmfYrkeo+Y0UQPXzlsFAWKoQyXC47C
+	 PZ7b373kITNYsiOcSqPT9D3hzLYRebOesCZcmheXAXAAoI9V5hSAIwvqd4/e2vIukEa8B
+	 QMQZlgsOORQLwLERsTsYKvJBdR7/sS7qCTuWYIckdo/hUlMhb6dxsposPNrQEyZ7CRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTEirSm5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gQvBDgbF;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B3D606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA803606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:16:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA803606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTEirSm5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35A51F0089F;
-	Fri,  6 Nov 2026 22:15:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794003355;
-	bh=eb/h6OpEiem7irOaFqKzJ0H8WLUMnDBlfsgGt6v9c0o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TTEirSm5U3hLF9KDZraW1iseFyI1YmmYJI8eAgIiPyFp+GecZjC+1zNKZ8kacYSAi
-	 XPblzqrx3/FnHnpcXC1ZDvkMqEsmM6EkeR/bRCLauj4P/dInnYqoz8/VLgqCX4PhPb
-	 WJ2z6ptMhJfzQ/pbnkRvwOR0lxOmjPqVC2fr02ctiLy4W724lKMEpovV1lscTJKMIL
-	 g9CuGMsBwLBL1pTQmNo9nRdPz7Vbdo7FV9K/5xrdH9VqBpMTuGFLNo+u6quAS4feVz
-	 E9C4VmgDX7plwa6DZUFi9EbQp54Y3CKOtoPXOb59vrgZJK6280UWl0UXjRdie25jMo
-	 8AAX611MQMdwA==
-Date: Fri, 6 Nov 2026 23:15:52 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>,
-	Ingo Molnar <mingo@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH 1/3] tick/nohz: Re-evaluate the tick on polling idle and
- on user entry
-Message-ID: <au5RmN37RlOCp2m9@pavilion.home>
-References: <20261106160621.347228-1-marco.crivellari@suse.com>
- <20261106160621.347228-2-marco.crivellari@suse.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gQvBDgbF
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36ff9c9da34so1465214eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 14:16:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794003372; x=1794608172; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=laRzMMYDJxkaw25Allc7O+S/jwUBfxfqJWPXHy4lzgc=;
+        b=gQvBDgbFA/4j7YiasxpWEVpB7LYJeUQ/608Smr5g2DvH+4wlTZbamMoh/jom5eH60v
+         7BUPKgySkmsEwxedP9Ln5xYvxRy9RA5ntDOuslgf+6PaV5oxmPqlkDmop6XQ+CmCjX9J
+         w+M70TPMLFKiw85O6wmXSCoaCvINfkD6T/gjdRz24Naq2W+A3ib+9liMdZ17PfbFZQTu
+         eZPbWOI6gxdKvLOlUWQJxTRYKwlJj8nnCcbUVcTsywbFwEtwodL783omRdr4HwM3TE1u
+         DAKGmtbCjRtE4LGk5gYflfLh/OKzyabNe0XJx2vyd87u65ecHLu1fDD+U/3CeBEVu3QX
+         tEvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794003372; x=1794608172;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=laRzMMYDJxkaw25Allc7O+S/jwUBfxfqJWPXHy4lzgc=;
+        b=ZWoZtacohubzEb6CuDVBBAH3wQeBRyg1xjYvY92Eb+v5z32DZRTXVFmlr8CPl4tbga
+         L8kmfk/7fb0u/zKzKltElMfJez9fk2kS2dbQPgyCqDVIOOFpViGrBYe0Ip6aP12PqxYa
+         DTe2O9x9eT1v0xG+P2OrjF3IeN4mvq2iMVRmPqETjzV6olg/5cQKrSJBSYDBgGXhpQ2V
+         KH2iwkNLy9IcGGelgXq8u9IqkxafR5yxsbAbb+4YjhNCLplAk9Z/4QI6S5WOzIxrjqtL
+         elB7XGUJFCInPNuy2wPhVWHKcphz5V9c3QATfiDEJgQtIUN3LIU6JAPfsbV7Ov8unEmM
+         ef5g==
+X-Forwarded-Encrypted: i=1; AL+hErHx40mEtyABotEaWrw1vyX003lE93rFRv9eah8NnyDFCM9tjXfqblm5ITazB9uxeQcUX7i+nXtoGzwHkV8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+a9Mpm61KUe2ZoHkvB0ZNW2WYOmnBH+bQiV7LHtYoIjhNX5VZn
+	6m8HHRQxfkq780RmLSW8Z89dIGCQcXJluzFI+lC16snn8yUflenoHAta
+X-Gm-Gg: AYBFou1XyCweGQ9IVbGJjDEsMQ0KpEm3mgNE40v7emF1z60o6WX4eOEREjCIV/oWSxX
+	kWghXGOcf+BJuWMCzB6RHFoyqr3M8qhmy3rU26y4bQC8dZO+myBv1a6nbDplhnN8XNcmgQwXjI3
+	H1N9KoJYd3bjRTRBQ+Jy8+IjCYKgfpE3e3GXOdXJ7zt7069OE+60TIcAsycfo4x0oTHLzURZA0q
+	f1ujcjvWYa/WOy517+tE+cQP5FVGOlDTPqro0b+vNdT0DcpKN5u+/JKj8hABtNAt6/T6wR6OkMz
+	EdiwWs9iGYSLxg4OuBVEzaqEeCmSYsBCL1QSfoBou6HDinm74nP7DH1i4xHUpwTD2Z+hfvbmaGz
+	pVLrBew8xe4t8pbQOWAedCey1NKIef5032DAz1hgmclSUpkbFc6n75gtwSOfgdOStCGCCITbdaa
+	PudgxkoYrPFeCUBk80tAOfhldqUAkCdhLwU7tK9zsUCHKA2aVDdML6QOFDCsgUGUNCp34heHCij
+	7KGba9UuYZ7sGcMNCGQwp2Tp9sxmPhHDpKYokW7bT/HHN1WpszmUSa3GfiWPBEzdDkxSnNvhhWW
+	FASZkUsQay2a3u2BFJv/Qpa+/45Thoqjn9sjItxerHb39rXIwGM24wGK5WNRhusgvNWkhBGo/I1
+	nk9ym4Jd6crqtMTQTRteufSyVMtVeUGEX724DVkf8YFKka039Ot+ASPD8EOopNK+iPydzHIQk+q
+	EEsg==
+X-Received: by 2002:a05:7300:ce92:b0:36f:14ef:ad08 with SMTP id 5a478bee46e88-36f75253a9dmr4860666eec.9.1794003370707;
+        Fri, 06 Nov 2026 14:16:10 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa5afffasm11333663eec.25.2026.11.06.14.16.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 14:16:09 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Chris Snook <chris.snook@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net] net: ag71xx: let both QCA9550 MACs use MII, RGMII and SGMII
+Date: Fri,  6 Nov 2026 14:16:07 -0800
+Message-ID: <20261106221607.16215-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,202 +103,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261106160621.347228-2-marco.crivellari@suse.com>
 
-Le Fri, Nov 06, 2026 at 05:06:13PM +0100, Marco Crivellari a écrit :
-> On nohz_full CPUs the tick is re-evaluated on IRQ exit and on idle exit.
-> There are three places where this is not enough:
-> 
-> - A kick handled while the CPU is in polling idle: in idle,
->   tick_nohz_irq_exit() only does accounting and relies on the idle loop
->   iterating again. HLT and MWAIT return on any IRQ, but cpu_idle_poll()
->   only returns on TIF_NEED_RESCHED. The tick always runs in polling idle
->   for now, but once the next patch stops it there, a timer enqueued from
->   an interrupt on the polling CPU would not be programmed until something
->   else wakes the CPU up.
-> 
->   Set TIF_NEED_RESCHED on the idle task when the kick is handled in idle,
->   so that cpu_idle_poll() returns and tick_nohz_idle_exit() re-evaluates
->   the tick.
-> 
-> - The return to userspace: if the tick is left running in the kernel,
->   for example because a tick dependency was cleared (tick_nohz_dep_clear*()
->   don't kick the CPU) or a timer that kept it running was cancelled, it
->   fires at least once in userspace before tick_nohz_irq_exit() stops it.
-> 
->   Stop it from context tracking right before resuming userspace. When the
->   tick is already stopped, the common case, this costs a few flag tests
->   on each return to userspace.
+The GE0_SGMII bit of the QCA955x ETH_CFG register selects which GMAC
+gets the SerDes (QCA9558 datasheet, 10.8.1): when it is clear, GMAC0
+connects as RGMII/MII and GMAC1 as SGMII, and when it is set, the other
+way around. The driver only allows the second layout, with SGMII on
+GMAC0 and RGMII/MII on GMAC1, but boards like the TP-Link Archer C7
+use the first one, with GMAC0 on RGMII.
 
-This patch should only be about the return to userspace. Sorry if I
-confused you about that.
+Allow MII, RGMII and SGMII on both MACs.
 
-> 
-> - The expiry of a stopped tick in polling idle: a stopped tick is
->   programmed for the next timer only, and reprogramming it for the
->   following one is left to the idle loop, which doesn't run again while
->   cpu_idle_poll() spins. Timers that were already queued would then wait
->   for an unrelated wakeup.
-> 
->   Set TIF_NEED_RESCHED in tick_nohz_handler() when the stopped tick
->   fires in idle on a nohz_full CPU.
-> 
-> Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>
-> Cc: Thomas Gleixner <tglx@kernel.org>
-> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
-> ---
->  include/linux/tick.h      |  8 ++++++++
->  kernel/context_tracking.c |  9 +++++++++
->  kernel/time/tick-sched.c  | 41 ++++++++++++++++++++++++++++++++++++++-
->  3 files changed, 57 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/tick.h b/include/linux/tick.h
-> index b121c5d53e30..8bfbb053f4fd 100644
-> --- a/include/linux/tick.h
-> +++ b/include/linux/tick.h
-> @@ -269,6 +269,7 @@ static inline void tick_dep_clear_signal(struct signal_struct *signal,
->  extern void tick_nohz_full_kick_cpu(int cpu);
->  extern void __tick_nohz_task_switch(void);
->  extern void __init tick_nohz_full_setup(cpumask_var_t cpumask);
-> +extern void __tick_nohz_user_enter(void);
->  #else
->  static inline bool tick_nohz_full_enabled(void) { return false; }
->  static inline bool tick_nohz_full_cpu(int cpu) { return false; }
-> @@ -294,6 +295,7 @@ static inline void tick_dep_clear_signal(struct signal_struct *signal,
->  static inline void tick_nohz_full_kick_cpu(int cpu) { }
->  static inline void __tick_nohz_task_switch(void) { }
->  static inline void tick_nohz_full_setup(cpumask_var_t cpumask) { }
-> +static inline void __tick_nohz_user_enter(void) { }
->  #endif
->  
->  static inline void tick_nohz_task_switch(void)
-> @@ -302,6 +304,12 @@ static inline void tick_nohz_task_switch(void)
->  		__tick_nohz_task_switch();
->  }
->  
-> +static inline void tick_nohz_user_enter(void)
-> +{
-> +	if (tick_nohz_full_enabled())
-> +		__tick_nohz_user_enter();
-> +}
-> +
->  static inline void tick_nohz_user_enter_prepare(void)
->  {
->  	if (tick_nohz_full_cpu(smp_processor_id()))
-> diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
-> index a743e7ffa6c0..d4274698d6f3 100644
-> --- a/kernel/context_tracking.c
-> +++ b/kernel/context_tracking.c
-> @@ -24,6 +24,7 @@
->  #include <linux/export.h>
->  #include <linux/kprobes.h>
->  #include <trace/events/rcu.h>
-> +#include <linux/tick.h>
->  
->  
->  DEFINE_PER_CPU(struct context_tracking, context_tracking) = {
-> @@ -466,10 +467,18 @@ void noinstr __ct_user_enter(enum ctx_state state)
->  			 */
->  			if (state == CT_STATE_USER) {
->  				instrumentation_begin();
-> +				/*
-> +				 * On nohz_full CPUs the tick may have been left running in the
-> +				 * kernel, e.g. kept by a tick dependency that is now gone.
-> +				 * Stop it now rather than let it interrupt userspace once
-> +				 * more before the next IRQ exit notices.
-> +				 */
-> +				tick_nohz_user_enter();
->  				trace_user_enter(0);
->  				vtime_user_enter(current);
->  				instrumentation_end();
->  			}
-> +
->  			/*
->  			 * Other than generic entry implementation, we may be past the last
->  			 * rescheduling opportunity in the entry code. Trigger a self IPI
-> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-> index c6d86e4da8a9..a9f622fdeb12 100644
-> --- a/kernel/time/tick-sched.c
-> +++ b/kernel/time/tick-sched.c
-> @@ -323,8 +323,17 @@ static enum hrtimer_restart tick_nohz_handler(struct hrtimer *timer)
->  	 * - to the idle task if in dynticks-idle
->  	 * - to IRQ exit if in full-dynticks.
->  	 */
-> -	if (unlikely(tick_sched_flag_test(ts, TS_FLAG_STOPPED)))
-> +	if (unlikely(tick_sched_flag_test(ts, TS_FLAG_STOPPED))) {
-> +		/*
-> +		 * In polling idle on nohz_full the idle loop doesn't iterate on
-> +		 * interrupts, so it would never reprogram the tick for the next
-> +		 * timer. Make cpu_idle_poll() return.
-> +		 */
-> +		if (tick_sched_flag_test(ts, TS_FLAG_INIDLE) &&
-> +		    tick_nohz_full_cpu(smp_processor_id()))
-> +			set_tsk_need_resched(current);
->  		return HRTIMER_NORESTART;
-> +	}
+Tested on Archer C7 v2. RGMII on port 0 of the switch works.
 
-I don't think we need this. The change in nohz_full_kick_func() should be
-enough.
+Fixes: 0767ec042897 ("net: ag71xx: extend link validation to support other SoCs")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/ethernet/atheros/ag71xx.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
->  
->  	hrtimer_forward(timer, now, TICK_NSEC);
->  
-> @@ -414,6 +423,12 @@ static void nohz_full_kick_func(struct irq_work *work)
->  		if (WARN_ON_ONCE(tick_sched_flag_test(ts, TS_FLAG_INIDLE)))
->  			return;
->  		tick_nohz_full_update_tick(ts);
-> +	} else if (tick_sched_flag_test(ts, TS_FLAG_INIDLE)) {
-> +		/*
-> +		 * In idle, tick_nohz_irq_exit() doesn't re-evaluate the tick, and
-> +		 * cpu_idle_poll() only returns on need_resched().
-> +		 */
-> +		set_tsk_need_resched(current);
-
-And this part should move to the next patch.
-
-Thanks.
-
->  	}
->  }
->  
-> @@ -1071,6 +1086,30 @@ static void tick_nohz_full_update_tick(struct tick_sched *ts)
->  	__tick_nohz_full_update_tick(ts, ktime_get());
->  }
->  
-> +#ifdef CONFIG_NO_HZ_FULL
-> +void __tick_nohz_user_enter(void)
-> +{
-> +	struct tick_sched *ts;
-> +	int cpu;
-> +
-> +	lockdep_assert_irqs_disabled();
-> +
-> +	cpu = smp_processor_id();
-> +	if (!tick_nohz_full_cpu(cpu))
-> +		return;
-> +
-> +	ts = this_cpu_ptr(&tick_cpu_sched);
-> +	if (!tick_sched_flag_test(ts, TS_FLAG_NOHZ))
-> +		return;
-> +
-> +	if (tick_sched_flag_test(ts, TS_FLAG_STOPPED))
-> +		return;
-> +
-> +	if (can_stop_full_tick(cpu, ts))
-> +		tick_nohz_full_stop_tick(ts, cpu);
-> +}
-> +#endif
-> +
->  /*
->   * A pending softirq outside an IRQ (or softirq disabled section) context
->   * should be waiting for ksoftirqd to handle it. Therefore we shouldn't
-> -- 
-> 2.56.0
-> 
-
+diff --git a/drivers/net/ethernet/atheros/ag71xx.c b/drivers/net/ethernet/atheros/ag71xx.c
+index 16434a7139bc..b2d78819a0a2 100644
+--- a/drivers/net/ethernet/atheros/ag71xx.c
++++ b/drivers/net/ethernet/atheros/ag71xx.c
+@@ -1079,7 +1079,7 @@ static int ag71xx_phylink_setup(struct ag71xx *ag)
+ 	if ((ag71xx_is(ag, AR9330) && ag->mac_idx == 0) ||
+ 	    ag71xx_is(ag, AR9340) ||
+ 	    ag71xx_is(ag, QCA9530) ||
+-	    (ag71xx_is(ag, QCA9550) && ag->mac_idx == 1))
++	    ag71xx_is(ag, QCA9550))
+ 		__set_bit(PHY_INTERFACE_MODE_MII,
+ 			  ag->phylink_config.supported_interfaces);
+ 
+@@ -1089,7 +1089,7 @@ static int ag71xx_phylink_setup(struct ag71xx *ag)
+ 		__set_bit(PHY_INTERFACE_MODE_GMII,
+ 			  ag->phylink_config.supported_interfaces);
+ 
+-	if (ag71xx_is(ag, QCA9550) && ag->mac_idx == 0)
++	if (ag71xx_is(ag, QCA9550))
+ 		__set_bit(PHY_INTERFACE_MODE_SGMII,
+ 			  ag->phylink_config.supported_interfaces);
+ 
+@@ -1098,7 +1098,7 @@ static int ag71xx_phylink_setup(struct ag71xx *ag)
+ 			  ag->phylink_config.supported_interfaces);
+ 
+ 	if ((ag71xx_is(ag, AR9340) && ag->mac_idx == 0) ||
+-	    (ag71xx_is(ag, QCA9550) && ag->mac_idx == 1))
++	    ag71xx_is(ag, QCA9550))
+ 		__set_bit(PHY_INTERFACE_MODE_RGMII,
+ 			  ag->phylink_config.supported_interfaces);
+ 
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.56.0
+
