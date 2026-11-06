@@ -1,85 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793980315;
-	b=vDj0KUNMegWZlNsYO+c079G3IDw2or4Xm6fgjTGUMc22banXjJkg/AEudGiynfb4KEq1
-	 5VJwYufhbK7yXHaaq0njjXUb6pB6n8dnGr+vjeNcAMUSSDVuHSRbYTGZnVkXTR7AWBHd3
-	 iQRXPjjnDsZwFc/qM63xH1CYrFYPpKiBfkgbiIa7gOrlclDv2fyTQ49LQ/ew6pvFmreAT
-	 qvEZuDfPI4Zw3T2+kbq3K7ei/CZQGNH6dN+uuqTWXFBREXxHltoF4NHmxdHV0rMhSrn8o
-	 l9T9z8fy0Gwev+SL1tZ3AVH1BwfBG0n7RCgBPvMlRk6YHKNXRUmZfiQbsrjakgCA10w==
+	t=1793980424;
+	b=h2MvlIGDJ7tF/UpcHkTRK5TxkFfBl0zhnmbTRjmztJLgq8plY6ARo3w10PZZbUfWYnmd
+	 AqcqnCr1KneQhK13hbGDsWKcidQ9yDeaW4FbQIlzBTaO2WpTn2K6jBQBR7EdDPOc4QWcB
+	 vbAhFa8Oi0qigMpKangKVkjf6GhhdS8R+9Fi4YX6jT8nmvQX3ekvDcPwI1ioYjMre8xVe
+	 moBVN6RWupJ7K5BFHSn6JqMx1VBoKGz15M3dKDoFkxL2WbU8O2B+J7ELMpTnuviYislJx
+	 AymKKN3lJ4AM+fZLmuUud4ov42bQ+XNWXzfFmP+6tqZ6MRkCci1TdFr9eTz3EEo6ygA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793980315;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=qp/Cn94KwArfPWCyeLZRUZTdCMFqpznPg/yTOzrJyXA=;
-	b=VobnYj8fV09C/h2SWwapo7PjIPSeY/rrjC2ZlVOXigzrY8MYPUgoJcQUuT57VU1Rm5Pe
-	 OZJbTqyLY21qY5/zo0IQKBSkHP7+49rwG2AqMVaLJ2vOckXNAe97nPKfNyF3GBTnN972c
-	 MEfMbdAIv2sUeEynIt22SQbujxd75mVZdIugBLMOqP8JKoA/oi7XQCRbqACtVzuQw50mJ
-	 5xtaWSiSgP1LqlzL3FBPBky6+XTUkIO9fo36TPU+JriHQ9o+CjvnSUCHBEh6LtE8tvdaf
-	 dQv8inu64PaME4FAeYEnsqE6mVPrEZyTJQbBPAc8oi3VaP4HtINgGRhx+k5FFpV7FCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793980424;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding;
+	bh=lospR7RBEPbknyhbJlG75vO9FqI6EbinXMw9WPvqCLU=;
+	b=u86aG22z3+jHRcAQZm0iQlc5mupeahqf71eBihLIgBnjWQYqBlIqsP+Pu2OQVF/jIyh1
+	 M1+2iV6B5NAIokjNkP7g4LsdgYr31cFxm1pkYmmzIoJTH+tFsL0hTIP9U7uQjfeq+3wiJ
+	 Dl7Wik0aKYRqdOnAoiXUs0O+1sXrUQEDBt/SSlWMCMhHzO7a7YAYIb8guE1NIO3FW8K0k
+	 9ova6tCPJiAigaGhcrB4ku5bwqaF/mM7xvyS0zhcOWYkcd4WHLfJTbdmVDIui+qw5OTIi
+	 lKMUeq7oeokg1CH7jIgJ32bWFBADdi9obIRs+rceWmmgoTlJW/6S4+GrRjvSs7CQ0rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=cCim9Nrp;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=mcJk47gg;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A289606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:51:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A289606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A19606A32E;
+	Fri,  6 Nov 2026 15:53:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72A19606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=cCim9Nrp
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so6592365e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:51:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793980312; x=1794585112; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qp/Cn94KwArfPWCyeLZRUZTdCMFqpznPg/yTOzrJyXA=;
-        b=cCim9NrpgtZ0UMW1+22EDqlkGoHoeNlE+SAqAWEXwQ11zGfEZEQhQ5q94udT6+Rb3H
-         i35iCQ8hJp5skTJsGARR/UO8yEv03kNmSxawU+8VKwGAYlEsO3RQ691naC/BS4666M5z
-         zMYRnWR5dm8fLK5PAg4I9CgHkN1sAJL0HWdI3OO/Iw+gZSBzficMQ83ev2hVhpgKrHkD
-         fca9v7hFdDV/hXFx/ZS+sR4PhjfhOYxigoOwJryiyhXJo6wrf8HGWq2AmR5yaVBTv3OX
-         i6ZQ9fEmgN5wPtM2x/LRCHDiyqE8JGWmFB1wWpc4Bcdo1p8ju/IKnYkZ54YBbJPwIhxc
-         hAmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793980312; x=1794585112;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qp/Cn94KwArfPWCyeLZRUZTdCMFqpznPg/yTOzrJyXA=;
-        b=2Mda736gtsG9tLx5EVyT1cdipRVuKxf0Ue+fuGYMmPSFl/SkV9iws7f25dAebLBHgl
-         j2rvNKNCFObKJcxizSRQIXBDY318pa/H8jSG5U+QJYMTuq5PM+aR4FrbMkO0USdX3Twr
-         i7ZViUuMSQlA1Tj10P/INR/s+hkg1/LsGrVuesAfFhunYjlsfjr1wLBohGCTQ6vkjAep
-         b4u0y/v6cGi7YZgmHFn2lCVB2MuU8nqHWHZiHFLOkykeuVRkGwBm1THynACBE2A5ZJyU
-         SDj7CFKsv+iom/ZZG6pYjnzUXb6FX1N+TTKdWyjDc+xq+DsHS7jsXMkITzKa1gZWUSeD
-         gdHA==
-X-Forwarded-Encrypted: i=1; AKwUvBz1kEtBx2K/uihmor72JyMInYdeZn4CVAbYLTyDXrSjjd5mBd5tOnjUb6pV6PEujjlA7srZBBqLZghlb3Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LB3xh2sGxLW/xGYBHnhGstz7JtHQyyMnbfMj+7eweNRxeS6Yy
-	41aTInuYnvBJ0nVdy/ZnHryiIpWulCQaC+YHP4cy9YIna3995Uli5kM7QkZGFDqeOOQ=
-X-Gm-Gg: AYBFou0eir6HqbmczjtjXBiwgkc6Jw/in1f7r+M6ZZnOj/YQSpcIHBWDxAOrFGccqv9
-	Y8u2Ypwet2RkX3RjjhppVCjY5aenoGScte/SiclXZbFUuyf9EZCiiJIrI44vCO5kWKEteLmCou/
-	CSqAMtRBLaQxwc+Ck/1vLWFzopXzUG+Qvaoq5o25bn9KT7nyBm2Zhe+e3DPXEsBdkir9xjRuiH2
-	wP5JE5kkoYxLkZfeI48+h0Gs2ecZujRhlYEBm02rC/uBPUJYJXgsIf7G2lLM9yhjrf1BsryosOi
-	DUyQloB1yINDi0mR4P07N1mS1kknXlTcCRynDLE78QSzKB1e4SY+GKOC4bbbsLT+y6gUUo1aT2O
-	/dApibcUd8pwePHEd9B5FClZ6wdUtHvVgrO081MnnKhJmTPZ0ZvOkrEKLPuPsXlQru/kU68eSID
-	jaFZ+nyq2o3e96BhVeCJSxoscNlmuMR2+8CYXQm8S3nvUo/sGplen2rPtzyKQcKOvbwbDoBrzUz
-	jd070xiEYO9kSBzpiDQxj6N9F2MkrJryA9jZDEYGCTDjNoxU38Pt1lW5PoPX4TQAlVeHO6uaCuD
-	VK1FqXY2LY2r+E6u/qMWhSdeLkRbshV/5EIqUOG2O0Ctn1Nq
-X-Received: by 2002:a05:600c:1391:b0:4a6:44b:2593 with SMTP id 5b1f17b1804b1-4b6dfd97b6cmr50243775e9.29.1793980312099;
-        Fri, 06 Nov 2026 07:51:52 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6e1b5d745sm62876215e9.6.2026.11.06.07.51.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 07:51:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=mcJk47gg
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:From:Reply-To; bh=lospR7RBEPbknyhbJlG75vO9FqI6EbinXMw9WPvqCLU=;
+	t=1793980423; x=2109340423; b=mcJk47gg49gTxR/LSwkPyZCTDGPDPGgEVXmLVHJCYz4MmXi
+	SOULsOHSqzQB2QInHPBHaqpE+MhV7IkpUHqgIIlckN8QnE8sBvfocR8dt4/kdhzTB56Rk/8tMl6ie
+	/Nrx3Ysd1PsHb3Zt1tw6Zn8E5wMXFe05LkAFJLxsRQvsBp3XMG67s7tZ3AViKLuNh2zXtlbrzGiBL
+	d2Xg5ILnfbeFPRrfK44fAPZHbHnR2YmFIsNLkRSeizSy2i1QRZjCkWBuApLD9OTwDOvD608FLhiDR
+	BGRinwBA+tElexNfIs41Ousz3J2RJ8akQsAbicUY7JI0uDPmjnBzoYJ6sl5B8maw==;
+Received: from bl16-24-61.dsl.telepac.pt ([188.81.24.61] helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xPMG2-004YbS-9Z; Fri, 06 Nov 2026 16:53:38 +0100
+From: Luis Henriques <luis@igalia.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: luis@igalia.com,
+	mszeredi@redhat.com,
+	fuse-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Matt Harvey <mharvey@jumptrading.com>,
+	kernel-dev@igalia.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] fuse: fix 'inval_wq' parameter setting during module initialisation
+Date: Fri,  6 Nov 2026 15:55:12 +0000
+Message-ID: <20261106155512.24801-1-luis@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,63 +65,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/2] clk: divider: Fix the divisor for rates above 4.29
- GHz
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Brian Masney <masneyb@kernel.org>
-Cc: Carlo Caione <ccaione@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Brian Norris <computersforpeace@gmail.com>, 
- Brian Norris <briannorris@chromium.org>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- David Laight <david.laight.linux@gmail.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Stephen Boyd <sboyd@codeaurora.org>
-In-Reply-To: <179382912410.620422.14715602424648962218.b4-review@b4>
-References: <20261102-upstream-clk-divider-large-rates-v1-0-eb17035bfad2@baylibre.com>
- <20261102-upstream-clk-divider-large-rates-v1-1-eb17035bfad2@baylibre.com>
- <179382912410.620422.14715602424648962218.b4-review@b4>
-Date: Fri, 06 Nov 2026 16:51:50 +0100
-Message-Id: <179398031041.2573818.13317727784501684521.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1299; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=0DalZ75GCJ/Y2wzvrEds89TdSXOwZePw1AI9YnwLQBc=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlvv09Terx73ppqrvAZSmWa81euZd/jNaPhw9aX59bN6
- XR6bnttQUcpC4MYF4OsmCJLDXe1+DtJrS+zpuvchpnDygQyhIGLUwAmYp7P8L806Ue9pfPPB28P
- GW5ROua9w9ha0rbki/rbJY5ejV9KywQZGc4tK1v6OupqOj+XzLPqtO8lay/yiMrEpXO9k1liL8N
- wgwcA
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-04 16:52:04-05:00, Brian Masney wrote:
-> > DIV_ROUND_UP_ULL() takes a 32-bit divisor, so on 64-bit platforms a
-> > requested rate above 4.29 GHz is truncated. A divider fed by a 5.94 GHz
-> > PLL then computes a divisor of 7, not 1, for 5.94 GHz.
-> > 
-> > Use DIV64_U64_ROUND_UP(), which takes a 64-bit divisor.
-> > 
-> > Fixes: 9556f9dad8f5 ("clk: divider: handle integer overflow when dividing large clock rates")
-> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> > Signed-off-by: Carlo Caione <ccaione@baylibre.com>
-> 
-> Reviewed-by: Brian Masney <masneyb@kernel.org>
-> 
-> Since this is a core change to the framework, I'd also like to see what
-> Jerome thinks before we merge this.
+If the fuse module is loaded with a 'inval_wq' parameter the inval_wq_set()
+function will schedule work into dentry_tree_work.  However this worked is
+not initialised at this point because fuse_dentry_tree_init() will not have
+been executed yet.
 
-I've had not problem with the change initially but then the AI told me that
-it brings back the overflow problem fixed by 9556f9dad8f5.
+This can be fixed by delaying the work scheduling until later if the module
+is still being initialised.
 
-At first I thought it was crazy because it would mean parent_rate + rate is
-more than 18 billion GHz ... BUT, a common way to ask for the maximum rate a
-clock supports is clk_round_rate(clk, ULONG_MAX). This could trigger the overflow
-and there are instance of this in the kernel right now.
+While there, also simplify the sched/cancel by using mod_delayed_work()
+instead of schedule_delayed_work().  This will result in having the period
+being changed immediately instead of waiting for the next reschedule.
 
-A way to make the calculation without the overflow could be:
-parent_rate / rate + (parent_rate % rate ? 1 : 0)
+Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidate expired dentries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Luis Henriques <luis@igalia.com>
+---
+Hi!
 
--- 
-Jerome
+So, here's a different approach that tries to address sashiko comments:
+instead of checking the module state and going through all sort of races,
+simply define a new state variable and use it instead.  Simpler.  I hope.
 
+ fs/fuse/dir.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+index da23ccd8685c..32e052dac2f1 100644
+--- a/fs/fuse/dir.c
++++ b/fs/fuse/dir.c
+@@ -35,6 +35,7 @@ struct dentry_bucket {
+ #define FUSE_HASH_SIZE	(1 << FUSE_HASH_BITS)
+ static struct dentry_bucket dentry_hash[FUSE_HASH_SIZE];
+ static struct delayed_work dentry_tree_work;
++static bool dentry_tree_is_initialised __read_mostly;
+ 
+ /* Minimum invalidation work queue frequency */
+ #define FUSE_DENTRY_INVAL_FREQ_MIN 5
+@@ -43,7 +44,6 @@ unsigned __read_mostly inval_wq;
+ static int inval_wq_set(const char *val, const struct kernel_param *kp)
+ {
+ 	unsigned int num;
+-	unsigned int old = inval_wq;
+ 	int ret;
+ 
+ 	if (!val)
+@@ -62,11 +62,13 @@ static int inval_wq_set(const char *val, const struct kernel_param *kp)
+ 
+ 	*((unsigned int *)kp->arg) = num;
+ 
+-	if (num && !old)
+-		schedule_delayed_work(&dentry_tree_work,
+-				      secs_to_jiffies(num));
+-	else if (!num && old)
+-		cancel_delayed_work_sync(&dentry_tree_work);
++	if (READ_ONCE(dentry_tree_is_initialised)) {
++		if (num)
++			mod_delayed_work(system_percpu_wq, &dentry_tree_work,
++					 secs_to_jiffies(num));
++		else
++			cancel_delayed_work_sync(&dentry_tree_work);
++	}
+ 
+ 	return 0;
+ }
+@@ -217,6 +219,7 @@ void fuse_epoch_work(struct work_struct *work)
+ 
+ void fuse_dentry_tree_init(void)
+ {
++	unsigned int delay;
+ 	int i;
+ 
+ 	for (i = 0; i < FUSE_HASH_SIZE; i++) {
+@@ -224,6 +227,14 @@ void fuse_dentry_tree_init(void)
+ 		dentry_hash[i].tree = RB_ROOT;
+ 	}
+ 	INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
++
++	/* Start workqueue immediately if 'inval_wq' is already set */
++	delay = inval_wq;
++	if (delay)
++		schedule_delayed_work(&dentry_tree_work,
++				      secs_to_jiffies(delay));
++
++	WRITE_ONCE(dentry_tree_is_initialised, true);
+ }
+ 
+ void fuse_dentry_tree_cleanup(void)
