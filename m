@@ -1,68 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999800;
-	b=zDmlfzGTMDDok3EmamcdrgbI+VXzgJrBT80UH8iSOt8XixzfPO7xxbV22ekfj93SgCZt
-	 Av6hobhi+jdp21JpS+kcAm8EGHu3Gs2vg2KeNfKneaiEJUU9d7zxK8c5Q8AM8UJgv8eJR
-	 ibCcITN7wX3gPs+iAXj/UuoWUBiB7SPNIpuhMPvXTs/HNE19faKm+sU5MD5Hlu32GP74M
-	 HA3KH5RazyVjqblafZ9Kv4yAj9axcaThwwBSfy979qZrngoWLRa3XAmE4RinFHMfNw6Yk
-	 oxN1Pcboa/kUrP0pTIDdCVkTNCyLUVzeLWtNrTqSwJ7q6N61QxdXuG34Ee3y27CKKqA==
+	t=1793999901;
+	b=1ZoTV+4w2yTLdU1NFVEWdnSKlE8AysflBN+iRT4HqB949f+UebqrdyTtE1/abHNaenN9
+	 pzx0wNMSin6N3mrYoL0IrDcJDbWTa/aHxcFj7r5VVSBNxFt0k4fay3Zdw+rNIg3FaKsEH
+	 vkUFH6wV9Z9ZGs1O7ijltiIqHk3rgDdKrpRGALNU6Y6aonY2AvbK2T/9C9wy9ByumaJ6O
+	 f8KHZ60jeHD0cJC/d76hXDqLzod3K/gZGWmHgrxIk0CHz8dTilrxYhpxJXczO7NzpMYfz
+	 9w623dpv+ZrjM3TaalLQJPIShKiFIs6+eosikAuL6MaXliCTYmWcrtzk4ffcOjr3ElA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999800;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=O4oT9WjsnKSKstVjC6xepPmsJFnWbX3Rrq68PpATN1k=;
-	b=rL43Nf/rWfiTzcHB9b4KYMecEbSLGE2veq4rtzptFdsx659pWoMyupSoyUEnymq6K4Ko
-	 aXf25gIJB71Z+a8vX5+zD+8ow1kS7jfNHwAJnF4yjq/aJnmAfa5vfVlIDA6l3rCXoPr10
-	 n+/FB8JGk/B+YEgXg1R9UdoX//KvzM4D0+FV+MEdHda3C2/A7kKIX/kh/wOE+c3t056uz
-	 HvupIldwDN/TC38ngNw01IVUZzcnrfG4ZqoMaGT1bkKlP3Tx2+bglUB+MA3uEwF4MVVbb
-	 wop/KN6dLP48dVQMn4+Bhc80rifggOq09P8xyDjq91a/H5W0r/VA3TsbRphUvRvgSPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999901;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=toc3VIJtaDo7Q+DZvm/d/cwob9aXNkkAYYokvXPgfuM=;
+	b=IuGkfq5hsc8lQ3wvY4stcVZ2HvV9rkzgWcgsyhVfq45LH1VXcPD/CR4s26ZA59QXdkAm
+	 hE7mXm7Zm06QKpkxEfapIHXd6NpAA6Hib60AJ5+/xd+zzi1prjesRZU664hHjLFg3CjPg
+	 0gfbeFDL8OXlEOWqQ7AC6s2jpzrVnDd/aemSI/BizylsRN8685wICr4n63P5JpBmkIxge
+	 T2eWV4TnNITSIRVUZbR0BodoGl+FYrrow5qcnalAqmrKnnIkmrSVSawLZXX3tjNzPuqxN
+	 zXEOFp0MBi+q4kHPo9Xk1d3Fbga8e67x0po0Myx/XXFoqjl/gMNhl+zZ4aeWuWUzh/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hhjerrYN;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqf27qKh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243AE606A32C;
-	Fri,  6 Nov 2026 21:16:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 243AE606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BCC606A326;
+	Fri,  6 Nov 2026 21:18:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hhjerrYN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793999798; x=1825535798;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=dRDaSIdAHmc9ZFp2pefcjBDq4ERtrnsmqsxEG4QiqD0=;
-  b=hhjerrYN+s4q3NEPRyOmieGdo3Jdkozm5X414/Obi/tVW3TNHcrozqTL
-   1R1fLtp9fNAJrgtq0ZXmpVXilbzhAdPuDMFm2lIRK3wTRVq/HA5PQWdJp
-   xoBf2hN3E5QzKilPDLCTEVMsP0A7iYtxiwxs8BHh6REWgLv02bAGCap1o
-   eu3Hf3HFalEcc3rOMo7hdq/BoEj06IK8AJno8p/91xyqQdI//sjSsPFK6
-   iHztnH8TYwjrEqftcBzjSIsePY1WgQ/rP+17igSLV65+nagETr1bS99HQ
-   Pa3dWr3jsw/1p1N1OpYP11A8Tpibb8GLXu188rD26U7xEgfx+mOEMTuum
-   Q==;
-X-CSE-ConnectionGUID: IkRbucG4T5GxCkLa4MI/Hg==
-X-CSE-MsgGUID: Fht4RAN/TuyCRXFkVId/RA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2921852"
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="2921852"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 13:16:37 -0800
-X-CSE-ConnectionGUID: zreB1KstRSWymL3NIunppg==
-X-CSE-MsgGUID: BxoBiPwHQe6ZVj1fLHo4og==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="7245091"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 13:16:36 -0800
-Message-ID: <49798d13-f426-4834-9996-5d8f1f7dad4c@intel.com>
-Date: Fri, 6 Nov 2026 15:16:35 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqf27qKh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C7A1F008A1;
+	Fri,  6 Nov 2026 21:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793999900;
+	bh=toc3VIJtaDo7Q+DZvm/d/cwob9aXNkkAYYokvXPgfuM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fqf27qKh9kuiS1bdOgj+2GkXkpPZ3SdkT/+wvuXoy0ekj3K2nuRQNKTnq3cHKMnDW
+	 PFUebkFSpuv7V6Avcgv+EkFyYWy6BC6NhI0B0WY0zUul+y3RMJTws+UYWImFqY2kc/
+	 Dn6d3zXbpQVYhqOFyQfTntRPMuKHK4/GCUzaRC0sBYBTeR0MGGWt5NWT+eEFF0/r6f
+	 ledAefKk6vaLSKFLAn49wGOassovjoDJJkeipIV9ZQdyXqUNjFuDy5zIghWhDOvO+D
+	 ehF4UFWwC0JH/oNahgy/mfZDION/xUKWTw8xCLoVCHgClbY8/rlvo0CpFKuXNvHKVn
+	 TBbGjGrAQirjw==
+Date: Fri, 6 Nov 2026 15:18:15 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>
+Subject: Re: [PATCH] of: reserved_mem: Drop node_fixup, CMA can handle it
+ internally again
+Message-ID: <179399989427.1724666.16449745308990999422.robh@kernel.org>
+References: <CGME20261105215426eucas1p1fb2de3113bd185a84e1d0925e14fc4fc@eucas1p1.samsung.com>
+ <20261105215413.1439745-1-m.szyprowski@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,75 +59,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/18] KVM: x86/pmu: Rename reserved_bits to
- eventsel_rsvd in kvm_pmu
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-4-zide.chen@intel.com> <au4dVD2cZbvoqEa4@google.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <au4dVD2cZbvoqEa4@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105215413.1439745-1-m.szyprowski@samsung.com>
 
 
->> @@ -214,9 +214,15 @@ static void amd_pmu_refresh(struct kvm_vcpu *vcpu)
->>  
->>  	pmu->counter_bitmask[KVM_PMC_GP] = BIT_ULL(48) - 1;
->>  
->> -	pmu->reserved_bits = 0xfffffff000280000ull;
->> +	/*
->> +	 * AMD PerfEvtSeln registers do not support PinControl, and KVM does
->> +	 * not emulate AnyThread due to cross-VM information leakage on SMT
->> +	 * cores (as on the Intel side).
->> +	 */
->> +	pmu->eventsel_rsvd = GENMASK_ULL(63, 36) | ARCH_PERFMON_EVENTSEL_PIN_CONTROL |
->> +			     ARCH_PERFMON_EVENTSEL_ANY;
+On Thu, 05 Nov 2026 22:54:11 +0100, Marek Szyprowski wrote:
+> The separate fixup step was needed because node initialization used to
+> run too late, after paging_init(). Since commit aa05faf81583 ("of:
+> reserved_mem: allocate and map the reserved_mem array early") node_init
+> runs early enough again, so dma_contiguous_early_fixup() can be called
+> directly from rmem_cma_setup() once the CMA region has been successfully
+> initialized, as it was before commit 2c223f7239f37 ("of: reserved_mem:
+> Restructure call site for dma_contiguous_early_fixup()").
 > 
-> It's probably better if we diff against the generic pmu->eventsel_rsvd
-> set by kvm_pmu_refresh(), and explicitly add/remove bits as needed here,
-> like the Intel code. Then we also avoid re-iterating the AnyThread
-> rationale here.
+> Drop the now unused node_fixup callback and its helper. This also fixes
+> the premature call to fixup when region fails to initialize.
 > 
-> What do you think?
-
-
-Yes, I think this is better. How about this:
-
-diff --git a/arch/x86/kvm/svm/pmu.c b/arch/x86/kvm/svm/pmu.c
-index fb5a298244ec..15d4b94826f8 100644
---- a/arch/x86/kvm/svm/pmu.c
-+++ b/arch/x86/kvm/svm/pmu.c
-@@ -213,12 +213,11 @@ static void amd_pmu_refresh(struct kvm_vcpu *vcpu)
-        pmu->counter_bitmask[KVM_PMC_GP] = BIT_ULL(48) - 1;
-
-/*
--      * AMD PerfEvtSeln registers do not support PinControl, and KVM does
--        * not emulate AnyThread due to cross-VM information leakage on SMT
--        * cores (as on the Intel side).
-+        * AMD PerfEvtSeln registers do not support PinControl, but support
-+        * a 12-bit EventSelect (bits 35:32 in addition to 7:0).
-         */
--       pmu->eventsel_rsvd = GENMASK_ULL(63, 36) |
-ARCH_PERFMON_EVENTSEL_PIN_CONTROL |
--                            ARCH_PERFMON_EVENTSEL_ANY;
-+       pmu->eventsel_rsvd |= ARCH_PERFMON_EVENTSEL_PIN_CONTROL;
-+       pmu->eventsel_rsvd &= ~AMD64_EVENTSEL_EVENT;
-        if (guest_cpu_cap_has(vcpu, X86_FEATURE_SVM) &&
-kvm_vcpu_has_mediated_pmu(vcpu))
-                pmu->eventsel_rsvd &= ~AMD64_EVENTSEL_HOST_GUEST_MASK;
-
+> Closes: https://sashiko.dev/#/bug/linux-61818eaa-5dc1-4457-bd21-3a9be2ed4d6d
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+>  drivers/of/of_reserved_mem.c    | 34 ---------------------------------
+>  include/linux/of_reserved_mem.h |  2 --
+>  kernel/dma/contiguous.c         | 17 +++--------------
+>  3 files changed, 3 insertions(+), 50 deletions(-)
 > 
-> 
->>  	if (guest_cpu_cap_has(vcpu, X86_FEATURE_SVM) && kvm_vcpu_has_mediated_pmu(vcpu))
->> -		pmu->reserved_bits &= ~AMD64_EVENTSEL_HOST_GUEST_MASK;
->> +		pmu->eventsel_rsvd &= ~AMD64_EVENTSEL_HOST_GUEST_MASK;
+
+Applied, thanks!
 
