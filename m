@@ -1,127 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956376;
-	b=k2oT2Exh4slNuBAIbhj67S7U0MK4bTmOn+oaReWkoZl5m1D0ishajoxOFBEGktAC0R1F
-	 IHNq7/jipI2jBKKn5r4610EiNibM7z9cacAMLh+fwLqAEFPecN4dFq2imH+WM8XkJp8HU
-	 RARFhGFZBSeyG30hueBs/OF4mHmPekjmVdR/i6D4ydV9GvTG8HCLZRYmCgEVMK3L1vHhQ
-	 PEp22KdCRDSRYHLabCzM8SCweGoS7m6UrqMB8liGf9lf9ta1q6FWGhK2nfbwUmPTqDdCf
-	 1u2pbHYnsKKBnDp+DGf+xQoknio3FzWGOqCNRkxWNmzs1XTENbO+pm1kx6rYkBbX9EA==
+	t=1793956388;
+	b=RcmkOjClqdDqRxqDnSOFFsICLSVMfUuqZYLF0UlPrpjTbr/qsb/h32wM/hDvZN7TO0Ej
+	 NeoLP05qJ1afiX7tI1v41VOAxOoLjDOl4CQdWy9d8Bq8erdVHjFmJDFCKt4HPBJ5p/hB1
+	 1Eif4SQn5pi+Q2wIftazGdozlHDxCYOOrEGhBrgSIBgxtBj2EMzhGGqus4zZIy1j85E5d
+	 hqJ4ioO7Oq/a6ley2ebGCteak4/h84pQWM1cKzX1jCqwU3MP/CZZB/Ue1Z+rfqNZBe/T+
+	 89T2g8Q9ROUHxvTqkZGp5/mGmmMOMvrEbF9gOATej6QQ3hWKKzBcu26lrsEWjP/ttbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956376;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Fmoyspqstw2/9PiOOpzl/yM+dFrdSjNpOnDbiAxrbfI=;
-	b=mQYDZag7bZH2Ip6QV3Ofsx3POf5BHrOBtBfecfG9/YRiWPblP7hI6ic8ZlhECoSKRGK6
-	 owhnHeDYRsEpYZd46e0qeRrkzNZrYh6isfXsNZYp4lFSwv5dMCzpORNJg3EOm00TIBD3Q
-	 CwaBT5WYJhXvjre3zruxlq0jMVzpc/8Uld3SYxRiK/F3GZkZC1dHdveYNkYdwQqcPhvmi
-	 vXt2quN4WrvtlU1Zy2s546NIQgRzZywPtylb1AlAlVfDZZPGQn/9RMxkmY6JvgANQYhGr
-	 OU+Om+N9u5ieKP3jNKdxKJ1DIv6O0D12/wLePnLOGrbZI4L9DCth0PQCNP2IFkOh23Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956388;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type:Content-Transfer-Encoding;
+	bh=Znq6cS0uN2nkuyEyPFWuQgwErTPCUHQal/tKcU6i/fw=;
+	b=AIG39t+v66TSFJt0qp3fBmKOQGX7e7oeWLrw8JFIIC0No5ZnK8isvEoAM0pXgnw+3j4+
+	 HIdbOMPxQU30rcC2kiQfkUr5qHCXrUAOIhU2L54N6/lVO8uZv4L1ans/DqQxXv273o4kz
+	 lruzuytYdsNPX+JdVVTTEpRiDZtQYvQVbLI7NC7APCS2QNXVFNKmjez0ZpoUqakTOkdhX
+	 Q9N9MF6RJh70S74roEcKDJ++3ILPSGtvNdazMtdXJrxxUeqWFvSymHfoDupc4Y+MKxUwm
+	 XziQQr8INgd4r+YrZKXWh91/5UKuUiyNBSqlV01qlJsIUVrcZwQ1mci/YEpeVFf3V4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tomeuvizoso.net;
-	spf=pass smtp.mailfrom=tomeuvizoso.net;
-	dkim=pass header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=F7DCHBDW;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmqVVWPT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331AB606A33A
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 331AB606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AB7606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:13:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=F7DCHBDW
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so2871735e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:12:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tomeuvizoso-net.20260707.gappssmtp.com; s=20260707; t=1793956372; x=1794561172; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fmoyspqstw2/9PiOOpzl/yM+dFrdSjNpOnDbiAxrbfI=;
-        b=F7DCHBDWJZ+4W4fYCOJAzTGIPUZxKEM3GQC0UOoOPoAWs2sXUCP0NuFdJ6wVu2Os50
-         3wVL8GvuFQE9sHoxI8MVjxE6iTpOBUpa5gDiv+DeuFw4+Jk1J47d+J9iL2ailF9aRunt
-         evoZoHyEB8egMEAfX7568Yz8zZUnzf91RfioeY/omDmPu3ZKADe6339IZJqYWVHPc26J
-         z5VNCpWEHO2L7dXDObSFERCeTlRP/WQ8092QYY/fghw9MpgBbnJG83NLZf4fc2Y3H0ed
-         Y06oe2zadbaLO6k1LP9aUY+7pkHtxwkzuUfNJKb94ZaW874HUt18oTsDZzdhU8U4MzRj
-         c9mQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793956372; x=1794561172;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fmoyspqstw2/9PiOOpzl/yM+dFrdSjNpOnDbiAxrbfI=;
-        b=bVtlIlSzAjMpkgu03/Cm7PSVX3dy8o11f5uZnkkOapjiQAWsIk8NSuE9LSZmcpr+TV
-         pIDZVveRvhFCh/XyK7ZlEyltt07rW74nlf+xAXv3pdbcQZXkoCq2waM8DzJqgJ7f5Brq
-         eVIgqqSjhsxHuH708r+O+JfC4/mzjG511e6xgTKR0quvfRSRUZ1/eSi9amF87nvO7OZb
-         BhGemeCwdpmzEQ/FvA8wpBCyUzwdq9q8sbv0k6A2MZqbzhek9ZwMifsyhels5u//mQrG
-         gV5fTdBP4KAxemjmxdiPFEj59QroXAhBI9Z162jrBZsS4m6t2GCBjQK0ajoE3xkEz2Du
-         s3ZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMwytkgya/YmiWqDgrwesIjkudhWuGgnY44Iox2cEa68BljKVBjNfaL7Tkq6gYAtNeQuxJrXEzq5w7woY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aYBCf+42+iBN7xVZqpXCOEhOBjJdLXFWDwoH+cUXdOMOKX8JN
-	FyIJt/fdffLdNgY0PWIxrlmTC2GkJ8YcxIdDEYsRZGIiGBh1ev8LnyzF7i8NhXD5FWc=
-X-Gm-Gg: AYBFou3rbJWczJoVXsJIk2FDsHoFJwNjQgW3iKAJoKBXjkl2baamCUOmF289LqfJO0K
-	vIOOPJxb6IOH5XDIzSyUH5Zcq+oGaTjA1eFrV8Q+Zw2jj44ggVncpbOPda5Ju0MVMhqSc/3cLZJ
-	JEQsX5jm3bCLFLApFUdYX6zlwgTdt8IUBOkTHMpsYwfKBsdB1YsHmnVHWc9JXp71RBvf/ew4erZ
-	c/5qS7XbDhOmeE05tlnV5JKFdSgUVnfHVurolQGBn2yBsDb8m4xLTsDo6q2hHFu3YjE4CXDR/T+
-	qte9PCO154nsBAY3bzUCLK8jKrTeY+brQScoqFmQKp5Kvo9rtIcgtBij96kt4b5aYARRHEHrv/r
-	bBfLXgpWN0Jj9o5+vukdB0uolJmx6etR5frQiDNbG7xi6Ob3CtSLONh/4zIy2dDD0Ts7Huw4h35
-	cRpHAQKeNKQ/vO0nQikdiEXmBUBQhx+yKJ6mrUl+CMdX1EP1dOdDF8QGFfKNLLItbnXRt8eMpeV
-	MZIlL49A1XVhZlYnAce5BNJKBOvDvJmeZrgAr9qQ80yhngqL2XaUMR+NjivCidf03ih6UMS2eV7
-	UfXX3AmAe4XntVQcK7cREEdA1tTy6WjwZHWiQA6LZhIN11T8NQ67KLsxGAWvclZpxqSyt8YNZEy
-	MEq3GuUqv3CNanEcOBXump9DXLDiNEZznBudx14bI0Dxwz8YYig==
-X-Received: by 2002:a05:600c:a4b:b0:4a1:efba:511 with SMTP id 5b1f17b1804b1-4b6dff8449emr26012245e9.35.1793956372121;
-        Fri, 06 Nov 2026 01:12:52 -0800 (PST)
-Received: from alcachofa.home (cst-prg-36-190.cust.vodafone.cz. [46.135.36.190])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e58fcc6sm226920045e9.2.2026.11.06.01.12.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:12:51 -0800 (PST)
-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	dmitry.baryshkov@oss.qualcomm.com,
-	andersson@kernel.org,
-	krzk@kernel.org,
-	rob.clark@oss.qualcomm.com,
-	jgg@ziepe.ca,
-	lingtong@qti.qualcomm.com,
-	cacar@qti.qualcomm.com,
-	sandheep@qti.qualcomm.com,
-	Bharath Kumar <bkumar@qti.qualcomm.com>,
-	Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	Bharath Kumar <quic_bkumar@quicinc.com>,
-	Chenna Kesava Raju <quic_chennak@quicinc.com>,
-	Ekansh Gupta <ekangupt@qti.qualcomm.com>
-Subject: Re: [PATCH v4 00/25] accel/qda: Qualcomm DSP Accelerator driver
-Date: Fri,  6 Nov 2026 10:11:19 +0100
-Message-ID: <20261106091121.3958523-1-tomeu@tomeuvizoso.net>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
-References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmqVVWPT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03C11F008A4;
+	Fri,  6 Nov 2026 09:13:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793956387;
+	bh=Znq6cS0uN2nkuyEyPFWuQgwErTPCUHQal/tKcU6i/fw=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=CmqVVWPTfj7laY54cHNeOvPcMUhpm7APTZq3Gnz0ts58uFDGnY/qhU4KBbiTarFei
+	 ePZxz9Zx0YUt2KUQ8ID0ePsUL+7gy9cUIHJKwA5Sxc3WS7vvAooBTkAFJAEn/kjq34
+	 IL/GYc18x+A7GyaWSBGp2OWY9hCFmEwF+SSTEo2Q8gCvrVSRVKs92OyP5o/nrvmdav
+	 HSmY6VGISE+wi/qPhtlI+1rbIdJdFt2ytp56ENRdXddfbqAQviboMStjcHGzc8zm8P
+	 WdAEK5ji3s3AnxMwBECPMuOv8vJfYs1bqTudPLhc3WLstIOhS8bI6wSSCoInij+Ti3
+	 k4VbDHtIcqXbA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 12952198003A;
+	Fri,  6 Nov 2026 04:13:05 -0500 (EST)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 06 Nov 2026 04:13:05 -0500
+X-ME-Sender: <xms:H5rtajAcCU9YDD0R7TQk2cRwb0I7RzcuceklZ70mW6nlXuri9tUSEw>
+    <xme:H5rtakX0Ak6_6ApN0ch9xH2I6LY8-x90mGx2j15gCLR9HkM5hmnhtbWIsAWtC7qgt
+    vDTaFGdmqiLcGw3eHAW6XsQumYcENVaSsXzdkJKzEvUg1CasxP19mIkow>
+X-ME-Proxy-Cause: dmFkZTFZ4vEQcr9AnxghdG2Pkt6HQ4brNOxrnjbl4jc2zkD+YEauAFI2el7yCvdyK1omqM
+    9luID6QgzXTOA7pC+9FQxjEwXi6YYTSFHTOzQG1UztD6jekyNfkUwk6/XaM4LAXJ+at/VI
+    6srgTgDq6/g9FIyw8ZNUDcZviDWJ8ow7oaoD3jTJKpVUeboYWgIXAuCKqFmggcONzH+O9C
+    yQG2y9zA+arayknJTJ8vvAYVbaGC+zQFam93IikfYkzG54Vruza5g+2NKygB3yk+WZjhvj
+    jmHxB/cjdqKS509nfsQILz4u5v15WdKgGsk+X1OTsWJP/GCxKnHl9ht3wF/QsaJ/RKl+WL
+    8JkV3SxCGgLqSew7P3W6j5gxjbs+cKPYoGErg8dx8p1bNpStFgtnaxF9lkUTsnz5qWq8md
+    CPSUc4X/IqxjeffKd7/9LnNGOvIxidikGE3vjBcuF1jAw8I/IZNkrAmFI17AD4oB6Aibb3
+    +Rp9AnDCF7uPok2539WHDNWdtIsPWyWiflGKc/PemtkwMcEYhgjRJpd9TBlundweki+UCD
+    vBWd5SpqjVEjKcPWZKPVgKOgyki39unuVCCTV+7gvts8OviHa3nAsmew2/I6sk4ig9tsTc
+    2XxduUHmUv0VBH6rFyXLM9z1pw95hmNqe+1QWQHDw/Zsa84HRQ/9ywrLRpdA
+X-ME-Proxy: <xmx:IZrtatxOttryreUty0Fe_XcNxy9-FIMYj_lkBbzhuWHzjAsGjB1HUw>
+    <xmx:IZrtav0b_Zc4FmxItxYBYnxrc4fs0kjaXGK_Mb9qOWdCIChWQxmKqQ>
+    <xmx:IZrtaq8NRNg32OMfXy4sIQ0bhD1VuILFmnSBEWKMda-HPsydqgu6Jg>
+    <xmx:IZrtavrCJabYt9mHgNMCYpPNFn7edKLqvod99MBjQZssMjwWTHL3bA>
+    <xmx:IZrtakTQOLeiqxFh_-8IvofM-fmP3pHW2bsthAGqzUPlrk_EM9l9w_BJ>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 2B19DF8008E; Fri,  6 Nov 2026 04:13:03 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,24 +77,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 06 Nov 2026 10:12:42 +0100
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Guo Zihao" <guozh23@xiaopeng.com>, "Peter Huewe" <peterhuewe@gmx.de>,
+ "Jarkko Sakkinen" <jarkko@kernel.org>
+Cc: "Jason Gunthorpe" <jgg@ziepe.ca>,
+ "Matthew Garrett" <matthewgarrett@google.com>,
+ linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Message-Id: <73a5f412-0962-400d-9e80-5b9eef92bb8e@app.fastmail.com>
+In-Reply-To: <20261106014956.4129904-1-guozh23@xiaopeng.com>
+References: <20261106014956.4129904-1-guozh23@xiaopeng.com>
+Subject: Re: [PATCH] tpm: efi: reject a final events table with an oversized preboot
+ log
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 03:51 AM, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com> wrote:
-> User space
-> ==========
+
+On Fri, 6 Nov 2026, at 02:49, Guo Zihao wrote:
+> The preboot portion recorded in the main event log is subtracted from
+> the size of the final events table taken from the firmware:
 >
-> - FastRPC library: https://github.com/qualcomm/fastrpc
->   (accel support: https://github.com/qualcomm/fastrpc/tree/accel/staging)
-> - QAIC compiler:   https://github.com/qualcomm/QAIC
+> 	/*
+> 	 * The 'final events log' size excludes the 'final events preboot log'
+> 	 * at its beginning.
+> 	 */
+> 	final_events_log_size -= log_tbl->final_events_preboot_size;
+>
+> Both sizes come from EFI configuration tables and are not validated
+> against each other. A final events table claiming a preboot portion
+> larger than the table itself makes final_events_log_size go negative:
+> the subsequent devm_krealloc() can then end up with a wrapped, too
+> small allocation, and the memcpy() that appends the final events log
+> uses the negative value as its length, running far past the buffer.
+>
+> The boot path has no way to fix up such a table, so fail the final
+> events log instead of appending from it.
+>
+> Fixes: 166a2809d65b ("tpm: Don't duplicate events from the final event 
+> log in the TCG2 log")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+> ---
+>  drivers/char/tpm/eventlog/efi.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/char/tpm/eventlog/efi.c b/drivers/char/tpm/eventlog/efi.c
+> index 4e9d7c2bf..0a8006f3e 100644
+> --- a/drivers/char/tpm/eventlog/efi.c
+> +++ b/drivers/char/tpm/eventlog/efi.c
+> @@ -82,6 +82,9 @@ int tpm_read_log_efi(struct tpm_chip *chip)
+>  		goto out;
+>  	}
+> 
+> +	if (log_tbl->final_events_preboot_size > final_events_log_size)
+> +		goto out;
+> +
 
-Hi Ekansh,
-
-I'm still confused on how userspace gets to execute its compute kernels
-with this uAPI. Let's say I have a compiler and have compiled a function
-that reads some values from a buffer and writes to another buffer. Could
-you explain to me how should I use the uAPI so this kernel executes and
-I get the expected results in the buffers?
-
-Regards,
-
-Tomeu
+Should we add a pr_warn() here?
