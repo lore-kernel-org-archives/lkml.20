@@ -1,91 +1,164 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968818;
-	b=hIGG+3nxwXJBc9wJU34AWH+DVNU4jck7g8lKBP2ttSWaM9tqTQBsEl6yui0lxzrPkzra
-	 yRrXekml2zZ2E8Etstp1xz+dE3oU7N93JwHkesaUy6wHRnVA0bmM8nFprkwvk7fN2gSG4
-	 PZuXYfU1uvc3RsBmmCK5vzlxLZp1xcP1Q8jj6baPh4xmux7loL0foHyzPFxM+21GCcEeK
-	 AMYo8qkMd3PU2LGFtCri9Lw5JkML4BzFUKhmcLOX9ryWNnMV2B2JAReYCbdmjiFD1NqLR
-	 CmL5NSqLCcmBUIrLpUimG6FY2l3IAr5GTB117zi+6Mpkl9Z0wtqZDRUX0zAyQEJStIg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968818;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=I7rpnBx9YoXkP8aLjecj2KvEgsGyzrkFXLzcIf+WpQs=;
-	b=tjwfW5ZjMhz/fZkH23sHOIErQBrB/TgBAoZbdfaKAlw4vblVwvw+MpKbHMnGf1jVVCsp
-	 FbJYF14oftGdvaza21jB1Yw/dYsI77zT1BBPf4rxPCje2/ELTZBrrxI+JAGXCzQUjSvkP
-	 uZtl+2Kf25J1B/YAj9/uCXZDRK2P8/Ua0he52PQCGbekJCIDfKa+PvFaDbW6W+PjIbGdg
-	 Q0xSwwaMI022i2k/VLZsQj+XrbJQIEf5yFqHbvVtoWthssq4bzt4LmaeH2NkRbPEFcEg7
-	 XALqGQ6mnu1tma7yqLEPJ0s+MtRePD28AXPiH8VJi3DKlJK6Oh36LlcUYIWm3V+B3Hg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cv0gq7//";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793968842;
+	b=WQD9/lnv/twz6U5i1hTJ7JdZX5EeaKpVIv9WLRduyZwv6whD7DaFvWW9I+/Y0UdX4/tr
+	 Am+20UB4aFQ7Bo3tVtsL47v7AluRiPu8kaqg+VKgrEI494j0UEcXSg+nXQvFhgDCw2q5E
+	 G2VdxvqaEAIsbntEusKsREzpmUx8+HNwoP1KESDpLb4M5fBC+MlZZ269GAbprXq1pnC9U
+	 cTzNALKEoedVxWX95WbG3nvI+nySv/it4GTHGcFQuwxK5ncyurAgbwntuM7vroFk8E84M
+	 /jEHxl0H0+qnc7074LYTex8cKI3Zv7iMsPj22qaZr6eJU7z61FDT7g0YxQNxWb7QHxA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968842;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=N5D3y9IC4PPIpsHzhYq0VhtxWEfuISNFO0DXA3iQuz8=;
+	b=14Yy0p2D/3U6BSW7YvnQWrQWhpxOOUctqALPNvCOZ9XVTr4wCAa2Js540YUJ/LCGXCG0
+	 RGtKcHvIfAGdGy/IYtbRH0zfOmLQX2DbFSSml5cwrHQSUiPhBkhlqyZtvJkFtJbZK7xGp
+	 CublTrmhM768fZ7AeJptSxjcMWiKk/S4sF3sDYQAfwMb9Zy8Owe6J5ZWeUMMiMNIb1YE4
+	 htZXUb2yAYyQO412lFw/30KJDdHPOJA14WyV5joy0hiIq1pX80D2aXGS4IFhx3QaNE6eq
+	 8juodFM5rlhMlItyaJNQATugQdcJWg+5hSiQcUgsd7mU1KhAyQIdumfHQH8BQH/Rgjw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ct2t2lM9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.7
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D630606A326;
-	Fri,  6 Nov 2026 12:40:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDB9606A329;
+	Fri,  6 Nov 2026 12:40:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CDB9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cv0gq7//
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744301F0089F;
-	Fri,  6 Nov 2026 12:40:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793968818;
-	bh=I7rpnBx9YoXkP8aLjecj2KvEgsGyzrkFXLzcIf+WpQs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cv0gq7//oTp0dAwoAY2P60tkzG7qOXixypboCv6somxbv4RJe5y516ibiIt9yil0y
-	 6Xus26S5S7CjxFEgzJ6hZni98dpD8Y/omMUtCqA4qji8MxkiTaYplwOOW48zZztgn9
-	 biJBA8ky84yjfhdUFX9fRCe+oS8D893fUM9AYufhLCP12MMbLUTZ8mXNG/OPBCvc1G
-	 DIevwtEp6pl4GRQg1cF62xWNKe0C2Oa7ePx8fTta9k3W+1zeQkAVQDl44kBiPO2/LG
-	 dx8EhOOPaR6wOfy/YLyX01VcjVuebpZVFEllgtNJqAQKSVIn+yFsCLndqNWCvS3rdQ
-	 Fk78GnOIw8FXg==
-Date: Fri, 6 Nov 2026 13:40:15 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Frank.Li@oss.nxp.com, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Russell King <linux@armlinux.org.uk>, 
-	Richard Genoud <richard.genoud@bootlin.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Laxman Dewangan <ldewangan@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Chunyan Zhang <zhang.lyra@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Cunhao Lu <1579567540@qq.com>, 
-	Raul E Rangel <rrangel@chromium.org>, Yenchia Chen <yenchia.chen@mediatek.com>, 
-	Zhiyong Tao <zhiyong.tao@mediatek.com>, Carlo Caione <ccaione@baylibre.com>, Moteen Shah <m-shah@ti.com>, 
-	Kendall Willis <k-willis@ti.com>, Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>, 
-	Nicolai Buchwitz <nb@tipi-net.de>, Karl Mehltretter <kmehltretter@gmail.com>, 
-	Stefan =?utf-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>, Shitalkumar Gandhi <shital.gandhi45@gmail.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>, 
-	John Ogness <john.ogness@linutronix.de>, Pan Chuang <panchuang@vivo.com>, Petr Mladek <pmladek@suse.com>, 
-	Robin Gong <yibin.gong@nxp.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Stephan Gerhold <stephan.gerhold@linaro.org>, Zhaoyang Yu <2426767509@qq.com>, 
-	"Nikola Z. Ivanov" <zlatistiv@gmail.com>, Haoxiang Li <haoxiang_li2024@163.com>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Myeonghun Pak <mhun512@gmail.com>, 
-	Wenhua Lin <Wenhua.Lin@unisoc.com>, Cixi Geng <cixi.geng@linux.dev>, 
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>, 
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, 
-	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>, 
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>, 
-	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, vkoul@kernel.org
-Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
-Message-ID: <au3GYOP5P7B90-bX@orome>
-References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
- <aux2VKHnVLwq_wzi@orome>
- <auyQEVmA2KeGu9DL@ashevche-desk.local>
- <auyiAE3lhnFahBK2@orome>
- <auysTnqWgz2kE7e9@ashevche-desk.local>
- <2209947d-0b9b-417f-9ffb-1c81790af9db@kernel.org>
- <auzEupFd_Ek2HpLG@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ct2t2lM9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RIZ0KnX94Dfe5a3mPTTQRowmLdPnWnCFcJ85S5nZq6KsHYDAXn1rU9e3yARcA8G5AX8SP32T7e8PkoFUvi8teNt+CXVExPUqz0PtLVRBS1L6vrX0kjuXzwwDRozcbfYj0NwXLCR19fEgQlQyIEMsvII+GQv6o8VBdw0mdWUt1CBCI73bcz1lx7ZCxK9GRPLIjjpktI4vHRDrtXfqlqooP4Ut6u033PFnze73hFbqlGaaw6XAZ7Qj9S7XxTXI1TZ6eUbTiKMt1ZP5TiXOc2GcjTFCMDP5w1XgJ8iBUuYdKsYZMhzzBy9toBt0SoXdevw9JnJaGGN96CUSNZnTdlJTLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N5D3y9IC4PPIpsHzhYq0VhtxWEfuISNFO0DXA3iQuz8=;
+ b=vGkGitdY3HDm1nMd0RWHZVHIIrQz7VBTHT+38xqD/+2L+BdOkafK190ayk61itoCA0t8JkCW07cCeu7hxcpN3EGjcUUrS4TP2xDtu0y5IIGSA1oMp5XLetUGxdZfuAfsZKHG3FOOpTAIejozOW4IN8AztF4xuaI4grSr6XqM86VhSYhwJ0mq1TR35CbZyNoTZn+JmnxBRExs3Z+zFzoF5xLD8dW/sB7CVOV0QftvyX0hkHtxBaeimCJQte6iFEULi8OMeYYg4h6A2D1y0lXq52hqKX8cGjObYbQ6p2COq54qkLzzYYgCqm7GAfcOKWtBq3S7abEa1uLa9rtOd2C2YA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N5D3y9IC4PPIpsHzhYq0VhtxWEfuISNFO0DXA3iQuz8=;
+ b=ct2t2lM90bbpXPLBoj6mxFiaxVXfF9Jk/rnF/CcBhPd2V8sqB1ZpDuvFJUqdvvtD6cp6QE8Bbv0rp/ghFnR+S61SWJFIW1Yu3L7LThgu7TNE3B/BUbpORkUX2QK7d1Cdav5JK4gKM0NXSk3MbT2aEr6Gv7lYutgjn8O8Kp3FY5ixdbc5REB2o+f956ccahVrytOjvGfn9IBsMg1URP+OVlhfToRzkOQbSrhkzEON6QKfHTUO5yhB8pJtIz6xRelML08PVryofkV/w0pmXe9F8N7U32NSMAH4SSSez65MU2/WqzrKiZ0/pm9fECT+vaw0nmCAuC22o2/dGGHQ0U1Z9A==
+Received: from IA5PR12MB999278.namprd12.prod.outlook.com
+ (2603:10b6:208:603::24) by MN0PR12MB6247.namprd12.prod.outlook.com
+ (2603:10b6:208:3c1::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
+ 2026 12:38:36 +0000
+Received: from IA5PR12MB999278.namprd12.prod.outlook.com
+ ([fe80::a2b2:ace4:2cb8:24be]) by IA5PR12MB999278.namprd12.prod.outlook.com
+ ([fe80::a2b2:ace4:2cb8:24be%3]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 12:38:35 +0000
+From: Ankit Agrawal <ankita@nvidia.com>
+To: Richard Cheng <icheng@nvidia.com>
+CC: "linux-cxl@vger.kernel.org" <linux-cxl@vger.kernel.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"dave@stgolabs.net" <dave@stgolabs.net>, "jic23@kernel.org"
+	<jic23@kernel.org>, "dave.jiang@intel.com" <dave.jiang@intel.com>,
+	"alison.schofield@intel.com" <alison.schofield@intel.com>,
+	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>, Jason Gunthorpe
+	<jgg@nvidia.com>, "aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+	"aik@amd.com" <aik@amd.com>, "yilun.xu@linux.intel.com"
+	<yilun.xu@linux.intel.com>, "iweiny@kernel.org" <iweiny@kernel.org>,
+	"ming.li@zohomail.com" <ming.li@zohomail.com>, "bhelgaas@google.com"
+	<bhelgaas@google.com>, Srirangan Madhavan <smadhavan@nvidia.com>,
+	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
+	"Smita.KoralahalliChannabasappa@amd.com"
+	<Smita.KoralahalliChannabasappa@amd.com>, "andriy.shevchenko@linux.intel.com"
+	<andriy.shevchenko@linux.intel.com>, "linux-coco@lists.linux.dev"
+	<linux-coco@lists.linux.dev>, "terry.bowman@amd.com" <terry.bowman@amd.com>,
+	"nik.borisov@suse.com" <nik.borisov@suse.com>, "brads@mainlining.org"
+	<brads@mainlining.org>, "lukas@wunner.de" <lukas@wunner.de>,
+	"rrichter@amd.com" <rrichter@amd.com>, "gourry@gourry.net"
+	<gourry@gourry.net>
+Subject: Re: [RFC PATCH v2 3/5] PCI/TSM: Derive the coherent-range IPA from
+ CXL
+Thread-Topic: [RFC PATCH v2 3/5] PCI/TSM: Derive the coherent-range IPA from
+ CXL
+Thread-Index: AQHdbTp5Kg+4eVi9K0++/+gYyidN1Lcg0o2AgAAiFzSAAAZmFg==
+Date: Fri, 6 Nov 2026 12:38:35 +0000
+Message-ID:
+ <SAWPR12MB9992676C0AD7255BC8D9A6BD4AB0762@SAWPR12MB999267.namprd12.prod.outlook.com>
+References: <20261105152909.53452-1-ankita@nvidia.com>
+ <20261105152909.53452-4-ankita@nvidia.com> <au2j8EmUZmyeNs1h@MWDK4CY14F>
+ <SAWPR12MB999267C601F3B004A274DE4A72B0762@SAWPR12MB999267.namprd12.prod.outlook.com>
+In-Reply-To:
+ <SAWPR12MB999267C601F3B004A274DE4A72B0762@SAWPR12MB999267.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA5PR12MB999278:EE_|MN0PR12MB6247:EE_
+x-ms-office365-filtering-correlation-id: 319ecc71-9656-4809-5826-08df3c02e01d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|10067099003|22082099003|56012099006|18002099003|261022105027099003|4143699003|11063799006|261026121527099003|261026140227099003|261028144727099003|38070700021;
+x-microsoft-antispam-message-info:
+ nb0z+ohTdL82VTVj2M9X/cmgcrHBt9RxS8MC6sT8Kk1Uzh9fog7tBKOHr1ZLjm5h3dch1Cj98yTLDSfT8r3wbojYz12TFsPVnHyI19MByeTrwy4p5ZCEfzzSxdhWG5kv0FY6twyaKEREyGqlrS6D31g0zOZi+aSmNk/vvYODuMgddjVcX47/PskevFsMOElQar5R8yMGm5HwJQsaRud7Gno6yOfZ6AnMMi45+YIVuMAGCqR5Wrg3pqxBXNs4x+oEdEU19+/ZSBiXXarbSei6K6X67IuoqfE5hJp8PvtlI1IW8NKMc8NshgX58Lh2DU3aE3bCoC/poNPmV46bkXAonMKUFq/O3P/wB8TeuAiMcOxhK+FL0lWDRlmRYE9JxC6H0mlLSqMi32Iauxn8TR+yCbDdw/Y1hyIvWKgZy+vmNMf+4qiTQfcGVar3UPd15A0psKkIQ8FJHTyAzgRqM6QLwZdLFDXv6hXdmvweSNKQGxttvp98jHsGDkjLPyBJnQVbHd4tjlBKCkyxLadQMxqKm4DEiykKHkhsc5S/BPCn0wmAKZ7MUm93nFU3egaSHqk4ZETRnVN1j73ilcEkAnFheTtcRFZOqCqvEqyZyIILJiyx5NvC8sK5qOi3+vtjHy63UWnpAU21OS4ZcGnkxj0sQffR8wgixcXnwjv2Np+l7YDjBMsRmKKWrxsGZdbDGoUZcsdvk1JFyRdjkzNs/87vLmwmOB+UJmTUlc+zu8eQaCs=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA5PR12MB999278.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(10067099003)(22082099003)(56012099006)(18002099003)(261022105027099003)(4143699003)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?6GQBnxsIV6Zh1mSlMosZkHY1MMlz2Q/MNYCLiOWZhB4eC2d2hYUkA5wonl?=
+ =?iso-8859-1?Q?NcnRz4OwfaHwdGY3aABRPqbKBcXidijS50VYzV1w0PzDRgWdlHqeQLCLk0?=
+ =?iso-8859-1?Q?U35G8JU1rzL3EmC04/bo1bnIQ+oPBeMk4XB9Bb799IHg3C4S15F8g2aw9S?=
+ =?iso-8859-1?Q?+sBQ8X/jR7q/g4MeDfGC8t59uxnVYmiSQt3l/RhP/k/fuyxrnV9gUod5ku?=
+ =?iso-8859-1?Q?oRlhFtbGnPoDTPruadinVqezIYjgks6JxRuPtXoWye7PyI/x7UHNOEJ9uv?=
+ =?iso-8859-1?Q?OwpnDRxfxfLsaVw0Kr03Hul9pMOmL3FszFV+G5boyVs1ViUwP9GvM4Znr+?=
+ =?iso-8859-1?Q?9y+kn1ZPcyiPO5+aplCxh4ABMCV2OLTUB7isYqWrh+QU2jgwLQY5WdQwiI?=
+ =?iso-8859-1?Q?d+JqqueKwqtrSmkJ8/eeJpxB9+uc2OWojZapaRIdZAfzI+Pe8Y2eFVd+0G?=
+ =?iso-8859-1?Q?w43C6ixgQsTr4TBfiUh/bkE0RiE1U0DyiLwstnYWNyOnwgIyxRUOI7Px+2?=
+ =?iso-8859-1?Q?yTkcx6AQyhsz9z2yjDAu57fHa9l4BuFqifFdTpO73GWMhzdN0yIFFkx2Oe?=
+ =?iso-8859-1?Q?Ev6f0HwfnDv8nndXBYPeWNoK9f97DKGkvxAydyNKDXSlxfGZm9whTzxxhg?=
+ =?iso-8859-1?Q?n7B6mzxUHwLevmJ1QD820vAqGaiAho80xjl50rRvHPdXdFSpFbJy7Ju+Qu?=
+ =?iso-8859-1?Q?jmLyi/frc1StrY8oqunqdM+Pz6e9YwtGpT7GJh3RHP3VSQFRDVLO3VXRUu?=
+ =?iso-8859-1?Q?sO5HHmtiJZTcHMx4xFOEcIeGQCYqunmOaiUcCatReuaIxiJI8Q3WK1y+0R?=
+ =?iso-8859-1?Q?E4KQSZ7gEzvbKbX5PLuI+UfcVPxSFQJCsPFTlMii7a5Z3AV6+7l/mgiern?=
+ =?iso-8859-1?Q?U4n4S7LfowVQecWIKLMxapY8ZiFB8NdnRimK1K+GSpzQSYc/7rrrpgf8Kz?=
+ =?iso-8859-1?Q?aQXr/H3Lhqy3nvJjzwkTteOEyo5JAeaZexPKOQZwBHEuosM6eVkMHRMWPd?=
+ =?iso-8859-1?Q?4ZGjQuUh7CmklkODpCPLxJJ9z4LzIx5lXLFtdOt/8/jDqOGo31PDHc73NB?=
+ =?iso-8859-1?Q?S6DspZY/dCJwxvazshNq49+hnyPnNUckFjLStUgdmdFGqjWe3fHwteQ4/z?=
+ =?iso-8859-1?Q?nguYB3n+hPvtgDBJ73/O4mZr2AV59RYbYqWhwXbNR0QmDp8CfohiUYelIG?=
+ =?iso-8859-1?Q?sVouaeAeR6ILrXpdbXWnov/ZzuNC+yLejHQCLrKbD57fENopSr+yc/lSR0?=
+ =?iso-8859-1?Q?XuSQ4EOUDQq5bQTE0ls+xKYsa+/rQ65blwYZF+G4Z3OcVDyB4kfuAsa4tU?=
+ =?iso-8859-1?Q?81JrC8nTArrFkdlnto21Zjd+HMkVzu7rXyzrgN3JJ28ovWgNxh7Hx9gLBV?=
+ =?iso-8859-1?Q?GASR3EixlOof1Sdjabm7mXLQ5YBHjlfMVZO2Cm8GsY6vPRWfLnMXIwGaki?=
+ =?iso-8859-1?Q?btVJianswwf4rRfK7Aq1bfs6n2iuqBanaek6DhskWp0oPvox0l1zuDDG8k?=
+ =?iso-8859-1?Q?HvKI0Fb/My4cqKP/phuOOnMNakPfliUYzOt/RQg4XRHQwiaYt7I2/ndyeC?=
+ =?iso-8859-1?Q?UHexwsrrbZqzL9vsULrC/VTiahiaL1OZciHuKjL81youp/wFqwaTZH7QgE?=
+ =?iso-8859-1?Q?HbdNSjD7reBQBdxAVjW8AgqdHCJcb1cKMwCL8Z7hlUitk+Q3HJ7HzdU2T9?=
+ =?iso-8859-1?Q?upt050IatXS5GanEUhEPWotPv+e8Mh0E/Lv4PgfMLEY5ejl7/7+maoyKOy?=
+ =?iso-8859-1?Q?N8T+NWRoJS+ZXQDmlU+pY4V9kwglvbseUvav0/p9fYuC6h?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,155 +168,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bfkiplbygfje4qbi"
-Content-Disposition: inline
-In-Reply-To: <auzEupFd_Ek2HpLG@ashevche-desk.local>
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA5PR12MB999278.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 319ecc71-9656-4809-5826-08df3c02e01d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 12:38:35.7163
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CD3K9RD2PmvObY+AI/ABu0IfBhP1tJd3s0tLrIS2WIxWT1ci+S65lmcs6LcbgP8BiHkkayE+YXuqttUEltLEaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6247
 
-
---bfkiplbygfje4qbi
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
-MIME-Version: 1.0
-
-On Thu, Nov 05, 2026 at 08:02:34PM +0200, Andy Shevchenko wrote:
-> On Thu, Nov 05, 2026 at 05:21:06PM +0100, Krzysztof Kozlowski wrote:
-> > On 05/11/2026 17:18, Andy Shevchenko wrote:
-> > > On Thu, Nov 05, 2026 at 04:36:38PM +0100, Thierry Reding wrote:
-> > >> On Thu, Nov 05, 2026 at 04:17:53PM +0200, Andy Shevchenko wrote:
-> > >>> On Thu, Nov 05, 2026 at 01:28:46PM +0100, Thierry Reding wrote:
-> > >>>> On Mon, Nov 02, 2026 at 12:54:48PM -0500, Frank.Li@oss.nxp.com wro=
-te:
-> > >>>>>
-> > >>>>> Replace open-coded assignments to callback and callback_param fie=
-lds
-> > >>>>> of struct dma_async_tx_descriptor with calls to the
-> > >>>>> dmaengine_desc_set_callback() helper across serial drivers.
-> > >>>>>
-> > >>>>> No functional change intended. Prepare to make struct
-> > >>>>> dma_async_tx_descriptor private to the DMA engine.
-> > >>>>>
-> > >>>>> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > >>>>> ---
-> > >>>>>  drivers/tty/serial/8250/8250_dma.c  | 6 ++----
-> > >>>>>  drivers/tty/serial/8250/8250_mtk.c  | 3 +--
-> > >>>>>  drivers/tty/serial/8250/8250_omap.c | 6 ++----
-> > >>>>>  drivers/tty/serial/amba-pl011.c     | 6 ++----
-> > >>>>>  drivers/tty/serial/atmel_serial.c   | 6 ++----
-> > >>>>>  drivers/tty/serial/fsl_lpuart.c     | 6 ++----
-> > >>>>>  drivers/tty/serial/imx.c            | 6 ++----
-> > >>>>>  drivers/tty/serial/msm_serial.c     | 6 ++----
-> > >>>>>  drivers/tty/serial/mxs-auart.c      | 6 ++----
-> > >>>>>  drivers/tty/serial/pch_uart.c       | 6 ++----
-> > >>>>>  drivers/tty/serial/samsung_tty.c    | 6 ++----
-> > >>>>>  drivers/tty/serial/serial-tegra.c   | 6 ++----
-> > >>>>>  drivers/tty/serial/sh-sci.c         | 9 +++------
-> > >>>>>  drivers/tty/serial/sprd_serial.c    | 3 +--
-> > >>>>>  drivers/tty/serial/stm32-usart.c    | 6 ++----
-> > >>>>>  15 files changed, 29 insertions(+), 58 deletions(-)
-> > >>>>
-> > >>>> Reviewed-by: Thierry Reding <treding@nvidia.com>
-> > >>>
-> > >>> Krzysztof, now look at this case. I would argue that this is even l=
-ess fit than
-> > >>> # subpart(s) case, because it might imply anything. Again the probl=
-em is the
-> > >>> bundle, and for such a case (when tons of independent changes are b=
-undled in
-> > >>> the same stuff, *every* Rb tag has to be explained on what has been=
- reviewed!
-> > >>
-> > >> It may be a bit subtle, but the placement of the tag indicates that =
-it
-> > >> applies to the entirety of the changes. I didn't crop the list of
-> > >> changed files, nor did I omit the summary.
-> > >=20
-> > > This doesn't clarify the question. Wordless Rb tag on a bundles is an=
- oddity.
-> >=20
-> > No, it's perfectly normal and typical. I would not expect anything else,
-> > because writing "LGTM" is pointless. We are experienced reviewers and we
-> > do understand what Reviewer's statement of oversight means, thus giving
-> > the tag is obvious, explicit and not odd.
-> >=20
-> > >=20
-> > >> That bit of meta-data obviously isn't picked up into the tag line, b=
-ut
-> > >> I think the default meaning of Reviewed-by is that it applies to the
-> > >> entire thing.
-> > >=20
-> > > And I interpret it otherwise, because this is a set of independent ch=
-anges
-> > > bundled into a single patch!
-> >=20
-> > It's not set of independent changes, but even if it was then it would
-> > not matter. We review the code regardless how we actually judge the
-> > atomicity of a patch.
->=20
-> And I confront exactly that! When the patch may be split it has to. This =
-is
-> seems the outcome of this discussion to me. From now on I think I will NAK
-> any bundle patch until piece that I in charge to is split from the bundle.
-
-I'd like to caution against this. There's effectively one change in this
-patch and it converts all the drivers in the same way. This was probably
-generated using a script or semantic patch. Requiring this to be split
-up is going to make the author spend a lot of time creating 15 patches
-instead of just one. They will have to write the same commit message
-with tiny variations, which they'll most likely just use a script for
-because it's tedious. Or they don't use a script and likely get at least
-one commit message wrong. And then we're not reviewing a patch for
-technical correctness anymore but waste a lot of time on nit-picking on
-a subject or commit message. Each of these commit messages is not going
-to add any new information either, so the only thing you really achieve
-is to increase the signal-to-noise ratio.
-
-That's completely absurd.
-
-Also, reviewing 15 miniature patches is going to take much more time
-that reviewing this monolithic one, so I suspect potential reviewers are
-more likely to just stay away from it to begin with.
-
-In the end you make life miserable for everyone. Well, except for
-individual driver maintainers that want a quick and easy way to slap
-their approval onto only the one driver change that they really care
-about.
-
-But there's already a way that they can do that. Acked-by can just mean
-"I maintain this driver and I agree with the direction, but I haven't
-bothered to do a full technical review". That's what most of these
-"partial" Reviewed-bys are, so why not just use that existing tool?
-
-And I'm saying all of this without judgement, because sometimes you do
-not have the time to do a full review but you still want to lend your
-support to ongoing work. I do that quite often myself.
-
-But at other times I do want to look at something in more detail, or
-just ended up looking thoroughly enough for it to count as a full review
-and when I do I'll let people know with a Reviewed-by.
-
-Thierry
-
---bfkiplbygfje4qbi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrtyq0ACgkQ3SOs138+
-s6Fr4A/9FKItEmEcI7D1clbCnePcAJeqtYQ0rYq/qZQPbKo0mPQbeN5qKa1XDgHO
-o3ylZ3Piqsnzv+NNOe6cmtCjzv4Bb82/Z9g8metI4jz4gOraKos+oVhk2EIMFv7f
-yrPVGwcvgtlSnx6MO/kFoS+1JYbWlZ9JA7jJCTcXBUF28R780a2elyHAnxamdAQZ
-TrzhhmaRmsdt2TLYxJRPlrKWjfzhl/2HKGfFTTROXgaiaj8oQeCNcBGC1TKKtGls
-g4MQJ6AZ1Ke58gd3O1sYh3QUlOUewNawK+LOsDoGjooF6zg2loLypU6twHl7cBdH
-GoFRsLUImQvYXNUYhDxGCxNZ3OvMyIM+8X3G2xIJuHY8MEbJY5ukp/rPKi/4CQyK
-VxwvkHMoAX705PtVMKdY2ddQt9ceif+v7ohWDmce8B3NOopq0itUXxcU8Z2MWw99
-qEl1IoIYVXBYiJeaIcLzjSPmJeFPAJ49cJhNeqpH190C5hIqxPK75Jyh7+Pokx+y
-yWFEIla8n0+o14XOP9M2wnrvJ34EQI4aW8Ia/nFn3b1oONvBu+q8h8wMH5hH2fvJ
-O3QCmMyze7y03zKMQL2w8jE7qniSfi+wUNb318xOlXRqBKHTSGv7IEu5try/XdKo
-L8B242zIrUhLZ8MWwNSUfjq9qIT7PSG50W3uNxTv0hduJXFO13c=
-=a1fc
------END PGP SIGNATURE-----
-
---bfkiplbygfje4qbi--
+>>> +=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 reporting=
+_bar_base =3D tsm_offset &=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ~((u64)range_len(&wi=
+ndow) - 1);=0A=
+>>=0A=
+>> Hi Ankit,=0A=
+>> =0A=
+>> HDM decoder window can have non-power-of-2 sizes, why do we assume a pow=
+er-of-2 size for=0A=
+>> coherent window?=0A=
+>=0A=
+> Hi Richard, yeah the region base calculation needs to be updated=0A=
+> to correctly determine the CXL region base for the=0A=
+> non-powerof2 sizes.=0A=
+=0A=
+Just to add, IMO determining the base IPA of the CXL region using the=0A=
+interface report does not look straight forward for this case. Trying to=0A=
+figure out a proper solution. Missed to mention this as an open in the=0A=
+cover letter.=
