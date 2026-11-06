@@ -1,59 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984833;
-	b=3lvy9Y9is7udM5H4cHcj+WJU0Rzk8sOWWA0KeAloVlMuRahSPyBKEaeDUM2outONi0+m
-	 9+yFmO1P5tcDzZ74TUwy2E/nVNcqOiAMfu9/oqb8guFk1SW3u+qHTMgYhB8KSEkcmgmFW
-	 rV+8MVmh7Zd+pWBySi0Zhuk9lIQHXg1bsNciJQa4/Ayc1o6f93WwfHO/mwokP1zmB6FjV
-	 ZuPy0wo+J9NCz2ZkOzHhA4p0P8kpgpdj+vGSkiJU+TPv4hB04/VVf1nT744CeEkqROuRP
-	 nwqH6rpQHkBAkrOFB+hIBejeMonfgeofWH5OkfL3gl6ki0cQS9WkuqniX8VjQpMSRug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984833;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=0pHuyDdGFHrSjHAgPsM7O2JBzWQTNhkZRPUuo4cj1zQ=;
-	b=nYk/EgwCAHx98fMBpXSEqDRxChYm+GmuJFN7HK/SoWAUtXSS/uvtaa08lhPTMzrHdGlp
-	 du1cQXGLBAKvqcWkyiF6xO+r4UIZAE2Mor0+T+/LhP0TGIHi8GOZ08veIdZTQfcGg/US4
-	 9/HOdTonncyOKJvtlJXf6CB+YtHvOBGD5RgwlPKyJ7+DqtROpPXyQjGdpMe8gI/NfRUCs
-	 BvHNpw26pPJvwasaVbVBtEXxDVBYwg9VdI2anSgxX0HkgkT4pQnOI+ECDfP34xTBJByrF
-	 wvZ5KtYKsvRXKvVYRbIO3D1pr7giTrRak8aOr+5G+WWRjYrC4XALP7M6GFkNwR5Ik0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JwoAZg5E;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E094606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E094606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793984964;
+	b=X7pI1LlGdotE2k1YQezJ8+0u9P4ma1sxYgat285I0L/0V5BqmuEak6vnG2FwuEUAO8Qp
+	 1JhLo6ytgJUB1gZHAqzY3U7YkY/uVLJVMYAasEq33lrmFxRccj84O2H2NzFqAux00lczm
+	 cd4jwU1Aa1lqm+Q2QvKFHmpHG/G5gvFWxOpdBFWTkDXVr1LYm98Ri4hvzfQsv4zuadPjS
+	 LgfD+JXoMhWAoBQ8ry3Kf1z3EnQ1gQcp8OxBa8SERo4bpCpPrA4d/73JCBaGpRM8w48+4
+	 XdZCyAVJBMK3ANccD7nbTxW3j5oxITbxgukHt83y/q8lTRiSnXhqtCVnczkfTKslocg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984964;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=r+OQNVaBGZoh30028ZIRIrpjO9cRrUuo+bmNMdd+QDI=;
+	b=SMfSZYOJ19n72eyZHEn2P8z60jPwqxLrHE926FAhgKX3YYjyXNo7pJn7tJvRsm4//Y6E
+	 3GajMTOAZZ3dJ8ILjqYigAP9KEL2LNWxT5DNP/zC6DRybxCyQOA2Mu+R+4Irt9nkf/U9j
+	 eAH7j5P2lOk2pNMSNtA7IK8y0+8u42KVR0pq2K/79+Q3AjF8vFpvqQ+O8DrZ7csxMqHI6
+	 HfD7Dh+hiO5UIBAdTjmfHvMm7MrZKD8N1UMyn5ROgO9TM70QGxJXVM7pXwXMnBykSwFPs
+	 aDdRWpMj5iRDOoy8a1lQ72bSHPTjaaFLJgb7raLwrRvEYMVUV3/KfrZu0vUH33IjXsQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KBNjfHpO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.41
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013041.outbound.protection.outlook.com [40.93.201.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085B4606A326;
+	Fri,  6 Nov 2026 17:09:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 085B4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JwoAZg5E
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 73C7F1682;
-	Fri,  6 Nov 2026 09:07:08 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 750F13F632;
-	Fri,  6 Nov 2026 09:07:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793984831; bh=6ol2Z/D8V05yZ6or6LI2IXFUiWAfEVEFcBbNRI7igRs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JwoAZg5EVgwKh2wLqs1WliIdCo+Jfe1JYxHmcWG8yqrfzzJE+U64zgM/8LqFm/Vuh
-	 pkkyPGZB6Yf41ge3WPrhn+nKkojCwclMerf7UZDiTa7bmgmV7dusGidsTJa/Ppx3z8
-	 /OXYfs9RtlgS12Njn/g8z8FBTzv608nrFXDMVCxU=
-Date: Fri, 6 Nov 2026 17:07:06 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: will@kernel.org, mark.rutland@arm.com, pratyush@kernel.org,
-	leitao@debian.org, mpilaniy@redhat.com, yeoreum.yun@arm.com,
-	graf@amazon.com, pasha.tatashin@soleen.com,
-	akpm@linux-foundation.org, baoquan.he@linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	rppt@kernel.org
-Subject: Re: [PATCH v8] arm64: kexec_file: Stop using the Image text_offset
-Message-ID: <au4JOjnQlx2aSpiE@arm.com>
-References: <20261105125442.2282987-1-ruanjinjie@huawei.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KBNjfHpO
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uWrGJhTxM6xkW7V2bJny7wOLCdATqLUim3HDtEa0tAyBhW4MvYOuem2ptgJws4di8AIkIQK1eO1R01F7iM0XZ5GmW54azXbw/gPGl2JrfAXLi39TlsiLKMqC/eUFCfdBdVXpsR6URE2jEhF50vxOIgDmxawpiMqpb+SAdI8KyglbIMwdQ8ik1QoZMeZHHBhHrTAoXeUmY5kfJ/8DlB+l4teTNN8fuoDlkU0m3IrUQrlQgphCTVgJVdSLbAXG21AUNi9knSb0uVH0N2KBsQyYaZMIZ0stv5+TDtYwoaYSbMEyqNSRlE7CkdmbzdPwLd95Ux215ARpINgghnxEQzemrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r+OQNVaBGZoh30028ZIRIrpjO9cRrUuo+bmNMdd+QDI=;
+ b=iriLrVWcVEPCT3v1L2/HNXkj71/nlqckZQLRwVofkU55jw/KH3l9K+V4ETKlDKNMnN4BLhvdmR1CQyiC5pAeH2Xk5uNgYcvy+MxLacufxJw1qWOZfh+A3UpHDDx9UC4JG3NGda39JQYSOIaTsXmQZ+VJuTW4Dd+lAd0h1nVBbb1EUNMHlgdMrUrqS9k01/Jqr4j80XdEUfRaYot5spY+/G3WwhmwoqnDrMyz8fIZWQteLMjFHGo3+vKMfvmXZDXA9cw9qSGNBaNacYalldFcBu7WilCVBjWvGDKuk2goyjtzYKwzpwJj1esJjIUaIw+YIS4Y2/H5AiYq5tEi57lyZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r+OQNVaBGZoh30028ZIRIrpjO9cRrUuo+bmNMdd+QDI=;
+ b=KBNjfHpO+Q58hYE3ADT25rQrK0ZMyvJgE88b1HUEyDifA1jNLrVRLhsuj6O4yQtIcbWMqDSFTEGwPHRM3zGtS6JqfRTJc/vxOeFW2HyEvWNx/9Q9Frkte660ZtEtdnWp/w8j2H9cXeSM5fiD6omfW7LinpBPbkBXTcx4VjRmZf4=
+Received: from CH0PR03CA0079.namprd03.prod.outlook.com (2603:10b6:610:cc::24)
+ by SJ2PR12MB8926.namprd12.prod.outlook.com (2603:10b6:a03:53b::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 17:09:19 +0000
+Received: from BN3PEPF00022BBC.namprd04.prod.outlook.com
+ (2603:10b6:610:cc:cafe::9c) by CH0PR03CA0079.outlook.office365.com
+ (2603:10b6:610:cc::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 17:09:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF00022BBC.mail.protection.outlook.com (10.167.248.118) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 17:09:18 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
+ 2026 11:09:16 -0600
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 6 Nov 2026 11:09:13 -0600
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<michal.simek@amd.com>, <deller@gmx.de>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <git@amd.com>, Radhey Shyam Pandey
+	<radhey.shyam.pandey@amd.com>
+Subject: [PATCH 0/2] fbdev: remove the Xilinx framebuffer driver
+Date: Fri, 6 Nov 2026 22:39:00 +0530
+Message-ID: <20261106170902.3656809-1-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.44.4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,77 +109,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105125442.2282987-1-ruanjinjie@huawei.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBC:EE_|SJ2PR12MB8926:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4120d1aa-9d67-422a-61e8-08df3c28b1c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|82310400026|376014|261102123227099003|261009223027099003|261021121427099003|261021123027099003|261026121527099003|5023799004|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	z7B6o9lVIJWm5jVN2ZEd6s+x9Z437SEeKZpxeUy64SHFfSNnZx8PIjuU+U5phjgkfKW/dMIYTnthaH2bcsENamy4IHYqcq4j7VanLHSBjTn0yoSGcPcU+vKDxrNrFNwAVD7fwgyqKUnub3r4a+dE2gGcEzyradZCvdUpPjykegqIpiBCAmL8AKYs9rsXx2w4hg4J3iwsa/hZ+M7e6NQ24L2+WdZEiZmKvE9xMSKQA73HUKTpzbZA/NSlnH1+faHn9MRIpoTOAfh2DJUrHmJdfhkz2uPwBgBKHbmCczxWtzdz+4y7M05yjKGZy1h2IKtmxT2ZebmYTw0DJTgh3/JMdsF8niDoEyTTxM7QWtJ0q1um49aGy4frhdB+HFG0oaT+7ZT9NdKKMeO4xC2YPElnLo0RjaY6t7Oai1YL9tlHeCOpR0x3vPBkEa++IehU+VNhcfWVQRvjsJsDNx3oMP9b89bomvcDmF/9wMF/lKQC9iBCS2w81XYb5eFUwGr9sFi5GsBSq6iDxLtK6gGbQZtG11BwnIE+gzadnjIdRMCMWtix9pYGX/jS3LRQgd81cSG/4X9a2y9T7k1MAVfJ82Y5A+geqWxUbCIJljD2//w4ur2n2DB2j/CWalHYLXy67/ysNYitRYpVY9pUT5up/nEKXD18w3fDqWmWwG5DfjX5yWYyNRVGcr+86G590Sditevlow+0/2EiIoKmZ7wnUZ+4ZQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(376014)(261102123227099003)(261009223027099003)(261021121427099003)(261021123027099003)(261026121527099003)(5023799004)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	qpZP10ywsCnsksp4lxcGQqJSQmwor94lF9jDwlGAuzkY0Y/W28jNEE9x2q3D0Zasi3//lOXtPoiSJN84CcP8466+UUCk5oXxaFGyF+IWH5Env4viJu8lPFz/z6HQaeZ9ckVLwlzQAwfu+EL7aU4EZVCvo/JTpQnVhI1Blgo16/03okhCdVUJkTYLlMZ4PAqg7DE55nYUlZL1SYTcwmzhuHwGDtTmGit8UW9rEqIykDzm+qW6uE0/ulkTYHSVJntEE9BKLGI0AjwdixZ6xKZ4lIJv3QT/LrDg9Y6RJoYvBfu8ajUaB28XK00nrQMDVYfvIb3kBuAyTsyv0TB18Xk3qL71AlipwZQJ1tU6u5vbQQQmnL8Q/9GG5AOlzJduNvKCyCiusgoeTIp5gspTjvZmzPEwY41gCS+W6oEYaIcHdDA/E7/sSibMxbmalrpfxGby
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 17:09:18.8144
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4120d1aa-9d67-422a-61e8-08df3c28b1c2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BBC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8926
 
-On Thu, Nov 05, 2026 at 08:54:42PM +0800, Jinjie Ruan wrote:
-> image_load() adds text_offset to kernel_segment->mem and subtracts it
-> from kernel_segment->memsz.  For CMA backed segments this breaks the
-> load path: the payload is copied to page_address(cma), which is the CMA
-> base, while image->start is set to the adjusted address, so kexec jumps
-> into the middle of the kernel.  kimage_map_segment() has the same
-> mismatch when a segment has been moved.
-> 
-> The adjusted memsz also breaks the release path: the CMA pages are
-> freed using segment->memsz >> PAGE_SHIFT, which is fewer than were
-> allocated, leaking the tail of the allocation.
-> 
-> Since commit 751c263bb74f ("arm64: remove TEXT_OFFSET randomization")
+The Xilinx framebuffer is legacy soft IP for the ML300 and ML403 reference
+designs, built with the long discontinued Xilinx Platform Studio and ISE
+Design Suite. Nothing upstream carries any of its five compatible strings.
+Patch 1 removes the driver, patch 2 its documentation in 
+bindings/xilinx.txt. 
 
-This commit only removed the randomisation. The one you want mentioned
-here is cfa7ede20f13 ("arm64: set TEXT_OFFSET to 0x0 in preparation for
-removing it entirely"). Although this removing never happened (see more
-below).
 
-> TEXT_OFFSET is always zero.  This has been upstream since v5.8, so no
-> LTS kernel carries a non-zero text_offset.  Drop the adjustment and
-> reject images with a non-zero value instead of booting them from a
-> wrong address.  With the adjustment gone, segments stay at their CMA
-> base and the release size matches the allocation.
-> 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Link: https://lore.kernel.org/all/20260921090450.807575-2-ruanjinjie@huawei.com/
-> Link: https://lore.kernel.org/all/20260921090450.807575-3-ruanjinjie@huawei.com/
-> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-> Suggested-by: Mike Rapoport <rppt@kernel.org>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
-> v2:
-> - Split out from the patch set.
-> - Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
-> ---
->  arch/arm64/kernel/kexec_image.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
-> index 78b1f956d8d7..7d6baea3d28f 100644
-> --- a/arch/arm64/kernel/kexec_image.c
-> +++ b/arch/arm64/kernel/kexec_image.c
-> @@ -80,12 +80,17 @@ static void *image_load(struct kimage *image,
->  	kbuf.bufsz = kernel_len;
->  	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
->  	kbuf.memsz = le64_to_cpu(h->image_size);
-> +	/*
-> +	 * Pre-v5.8 images carry a non-zero text_offset, which is no longer
-> +	 * honored; reject them instead of loading them at a wrong address.
-> +	 */
->  	text_offset = le64_to_cpu(h->text_offset);
-> +	if (text_offset) {
-> +		pr_err("Unsupported Image text_offset 0x%lx\n", text_offset);
-> +		return ERR_PTR(-ENOEXEC);
-> +	}
+Radhey Shyam Pandey (2):
+  fbdev: xilinxfb: remove the driver
+  dt-bindings: xilinx: Remove description for framebuffer IP
 
-If it's only CMA getting it wrong, can we not just set
-image->no_cma = true here and continue as normal?
+ Documentation/devicetree/bindings/xilinx.txt |  13 -
+ drivers/video/fbdev/Kconfig                  |   9 -
+ drivers/video/fbdev/Makefile                 |   1 -
+ drivers/video/fbdev/xilinxfb.c               | 502 -------------------
+ 4 files changed, 525 deletions(-)
+ delete mode 100644 drivers/video/fbdev/xilinxfb.c
 
-While text_offset is 0 now, I don't think we concluded it should be
-deprecated. There was a recent push back on the attempt to document the
-always 0 behaviour:
 
-https://lore.kernel.org/all/20260604140839.1930847-1-linux@rasmusvillemoes.dk/
-
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
 -- 
-Catalin
+2.44.4
+
