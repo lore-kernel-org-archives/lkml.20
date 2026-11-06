@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985591;
-	b=huPgb3Y/FtuAiEY7LIyrmjorf5BN+Z1WCLfuQYts+HTZqpVRyYH2WRy01RD8ML7flWBH
-	 mPrq29gSlIHsajWVM/SaDm92WDxKGEuKuEY1GRDqqHBqFiXGc4moaKOgymLyj5RZ42crC
-	 IOLGjtaKxaHHQfoab2pP7e292dCifgEAEp62sirFBNAtr2I77cmmdW+BDRa9B3pkuZSzw
-	 gPSfOAJc28lG73nEMZWqc0sFnZTM681cLuh4667BR5cGRuV+xH3uhQO8+uE0Ct9BmrJTy
-	 FNjZWQs8GiR3vzJgzNMIRWDtHsQj1JHuGl1XwCEgDuteEzp5WRKANMKbo38aNNPbIgA==
+	t=1793985606;
+	b=uq5S1BT9ATBSmu7Ym910bqJMeZJm50i5UAw3SZ0F8p55C0zM2M5qQQ24FNrnO8KUKaN5
+	 aGvYAHXvJ/XfklPCwXHiftrxVcf80uKZma70bOLoPWg3R6orx96xKH1PzofBZpYGsleNt
+	 serEGgHQpcr4dZM41GU4+uh4mq5GvGakiNBVJORf5kpqE61xmkUV8Jmx7Yd7Aj3E/IzEj
+	 uSiLHnlagq7PioSAqdZj4AGdKhaMaM4ABsU0Zij/Cuc5elH2hKjiMoQAhWckaavB/r7SP
+	 2QZ9c5BC+HplRmVJQIwCWjo7j8aiVfeoU3JJtjvOQI61rTwgUaPpqaQOJvloYJvTOSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985591;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0iFTCwthtb4KQWJ3KgZO/eQr21RNoCfrtaNGVHe64Us=;
-	b=x1V9hOgCVbosvU4iPrEW+LRtIQ3B029u1oxFp1g1YiAjUIQy5g0YwiFv47YqtxlWdvKv
-	 eb/mTAyTsnBCl9a70/HLT3vnrH5ozJoHDcKE8dN440Iso25dYNfxVULOkl6QfU1m2DHZK
-	 2clSjyDt/mvjuObyoytEl8gb3YItgk8svKnZf7RR9w9HteRI6HOj1VAIoJ0fQgenufAPu
-	 JObVdpUW51WqMcwEyvZ3EOfLT0actSE0pwO7waMMVlfeywg3+lvSACQXgSLRYkByRgfuw
-	 +mt4FNCdpAsy1Megoj++gEkBTqopgNIG/88zk3iMtQFGArpX4Ka7ptFwhL7TI766crQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985606;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ACeSaby4ZJ/wanGmyynffXqjsOoMsFpWH9kzoGynS3I=;
+	b=X5RAFneOFNLCyMC3xZBQ0hzFbdW+UmuwtlE6gRIWdFQP3J5oUlDSUUPOQDr/WZcsvL5e
+	 nOTkyYbIOf/Qs9EI4JKDRQMxlDVbkcHvCz7DR3o/qPlwMTWQ811ySQff4n2DBuaKiARY3
+	 fYJ4N/306A2cE2s2bwBolIsfZSICdQ40v27dMR98ZqsJeVXzyJKzTyJBEp3RgXV3mh2YY
+	 NjPluigpHlyxmUgX2yixHbfWi4FI9xl8irxkr8/svv1v61hYWIaczvxJ9jzQI3/Qzlvcd
+	 JOt00xyf4zqOkpoIxos3NgAbraCXtT/l4mD7ysrqFhQiq4lRcuy+eu2YAHAgSaihgSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYSaZkGV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=msh.ge;
+	spf=pass smtp.mailfrom=msh.ge;
+	dkim=pass header.d=msh.ge header.i=@msh.ge header.a=rsa-sha256 header.s=protonmail2 header.b=JR9vOdk7;
+	arc=none smtp.remote-ip=79.135.106.25
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207D8606EEA5;
-	Fri,  6 Nov 2026 17:19:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EBE606D801
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:20:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3EBE606D801
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=msh.ge
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=msh.ge
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYSaZkGV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1E61F008A1;
-	Fri,  6 Nov 2026 17:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793985591;
-	bh=0iFTCwthtb4KQWJ3KgZO/eQr21RNoCfrtaNGVHe64Us=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nYSaZkGVHJuACXRFQhoLUAGx2gARxd2wREGPO2sCc1yXKN3RY46h7J5wDjOayccX6
-	 ++s4RgmjOlutg0e/O7i8kshnMl7BZ33JA2VknynORN5vKm54dpmRMwM0ZSTE7eXKis
-	 67cxNvgpIHRz0B4TKyHXXD/gjkI8DOldPxtIkBb2my9fuRqztQsV1wB7b0lGAdRwi0
-	 UmwMjlwomVzIsrh5D0Mouj6FFvLZQds7vivxE1bQcaxUmrsTC8Y85uRHieWDzZIzgV
-	 skz9Ek8c9DolL87XjnfHpm5A+8Cd1NfJSXWjiQiGrKsmnbP6c9jBXfnuT7Z171OmzB
-	 pYgt0jfrbH14w==
-Date: Fri, 6 Nov 2026 17:19:46 +0000
-From: Conor Dooley <conor@kernel.org>
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	neil.armstrong@linaro.org, khilman@baylibre.com,
-	jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
-Subject: Re: [PATCH 09/10] arm64: dts: amlogic: meson-s4: add the AO CEC
- controller
-Message-ID: <20261106-walk-overload-3ffa489c0af1@spud>
-References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
- <20261106104659.54656-10-christian.koever-draxl@student.uibk.ac.at>
+	dkim=pass (2048-bit key, unprotected) header.d=msh.ge header.i=@msh.ge header.a=rsa-sha256 header.s=protonmail2 header.b=JR9vOdk7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=msh.ge;
+	s=protonmail2; t=1793985602; x=1794244802;
+	bh=ACeSaby4ZJ/wanGmyynffXqjsOoMsFpWH9kzoGynS3I=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=JR9vOdk7g2Kkvf7OPpe4rfypREo6QkwI0n30lnQ393UnBmiqzK298NchK6sa94wai
+	 Ui/qOnJHCYmwOS0SSMXfnlJkWhc8eaDq9UvESzCggVvZmUHqBDCfntEkeDcqMMJzR6
+	 1sSrhGaKL5+IT7ImGsAPbI3BhotVNLvYqmY3B8D6sID/VOROJuUwtl+EeK7OHotJz0
+	 iDzdKg7J+3+i2gli3cVHXO9ulDCBLoNvDlHq17BaNIMRUJ9sPEnAhWlmCJH5bt8FgE
+	 FBj5jUK9dhkvh6U2A33xo8Ajwi1qxplUNl4cuXe6zAfUGNHL82qvfoQRSP/hg5VuzA
+	 pxE36jHTD/uMQ==
+Date: Fri, 06 Nov 2026 17:19:56 +0000
+To: Denis Benato <denis.benato@linux.dev>, 'Jiri Kosina' <jikos@kernel.org>
+From: Mirian Shilakadze <mirian@msh.ge>
+Cc: 'Benjamin Tissoires' <bentiss@kernel.org>, 'Dmitry Torokhov' <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, "Derek J. Clark" <derekjohn.clark@gmail.com>
+Subject: Re: [PATCH v5 0/2] HID: flydigi: add support for vader 5 pro
+Message-ID: <500ab61c-d6b9-4d31-8797-5118e9c331b9@msh.ge>
+In-Reply-To: <1a79cc1d-1c47-4a87-82bd-304c63deabd7@linux.dev>
+References: <befcd715-ecc8-463d-9617-a269dc7c62cf@msh.ge> <546fd97f-bbd6-4867-b86c-9a4a44ca44c6@linux.dev> <9231fd80-a35e-45e6-a608-858e60a7faee@msh.ge> <1a79cc1d-1c47-4a87-82bd-304c63deabd7@linux.dev>
+Feedback-ID: 170041685:user:proton
+X-Pm-Message-ID: 883de3037141f8161415c935f3f8ff0aeb15befe
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,90 +64,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pNM4qVg2gRPOW9R5"
-Content-Disposition: inline
-In-Reply-To: <20261106104659.54656-10-christian.koever-draxl@student.uibk.ac.at>
-
---pNM4qVg2gRPOW9R5
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 11:46:58AM +0100, christian.koever-draxl@student.ui=
-bk.ac.at wrote:
-> From: Christian Stefan K=F6v=E9r-Draxl <ckoever@outlook.de>
+On 11/6/26 8:46 PM, Denis Benato wrote:
+> I have requested him to contact you via email.
+
+Thanks, Adolfo got in touch.
+
+> Sure, I also have another driver version to be cleaned up with apex 6
+> support.
+
+Could you share it? A git branch or the patches would both work. I'd
+like to start from your latest code.
+
+> As per rules you will need to keep my signed-off-by and git send email
+> will automatically include me due to that.
 >=20
-> Add the AO_CEC_A controller and its pin group.
->=20
-> Signed-off-by: Christian Stefan K=F6v=E9r-Draxl <ckoever@outlook.de>
-> ---
->  arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 24 +++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
-dts/amlogic/meson-s4.dtsi
-> index 155997649dc3..dd51e786d29d 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> @@ -747,6 +747,14 @@ mux {
->  					};
->  				};
-> =20
-> +				ao_cec_a_pins: ao-cec-a {
-> +					mux {
-> +						groups =3D "ao_cec_a";
-> +						function =3D "ao_cec_a";
-> +						bias-disable;
-> +					};
-> +				};
-> +
->  			};
-> =20
->  			gpio_intc: interrupt-controller@4080 {
-> @@ -970,6 +978,22 @@ sec_ao: ao-secure@10220 {
->  				amlogic,has-chip-id;
->  			};
-> =20
-> +			cec_a: cec@44000 {
-> +				compatible =3D "amlogic,meson-gx-ao-cec";
+> I don't promise timely reviews as I have quite a few things to take care =
+of
+> (asus, mostly) but I will surely try.
 
-This is an s4, not a gx, so you need a specific compatible.
-pw-bot: changes-requested
+Understood, thanks!
 
-Thanks,
-Conor.
+Best regards,
+Mirian Shilakadze
 
-> +				reg =3D <0x0 0x44000 0x0 0x14>;
-> +				interrupts =3D <GIC_SPI 179 IRQ_TYPE_EDGE_RISING>;
-> +				clocks =3D <&clkc_periphs CLKID_CECA_32K_CLKOUT>;
-> +				clock-names =3D "core";
-> +				assigned-clocks =3D <&clkc_periphs CLKID_CECA_32K_DIV>,
-> +						  <&clkc_periphs CLKID_CECA_32K_SEL_PRE>,
-> +						  <&clkc_periphs CLKID_CECA_32K_SEL>;
-> +				assigned-clock-parents =3D <0>,
-> +							 <&clkc_periphs CLKID_CECA_32K_DIV>,
-> +							 <&clkc_periphs CLKID_CECA_32K_SEL_PRE>;
-> +				assigned-clock-rates =3D <32768>, <0>, <0>;
-> +				status =3D "disabled";
-> +			};
-> +
->  			ir: ir@84040 {
->  				compatible =3D "amlogic,meson-s4-ir";
->  				reg =3D <0x0 0x84040 0x0 0x30>;
-> --=20
-> 2.56.0
->=20
 
---pNM4qVg2gRPOW9R5
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4MMgAKCRB4tDGHoIJi
-0ntYAQDW1EKWgmTLaW09unAisYzkptD8uRbVDs3X4Om7xA7jpwEAqLxY4Kmoizv1
-p3w9XKAyw3cich6+tLlpCcPJ8D0vgAQ=
-=1s4Y
------END PGP SIGNATURE-----
-
---pNM4qVg2gRPOW9R5--
