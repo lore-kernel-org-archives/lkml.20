@@ -1,54 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793940876;
-	b=dvTe1Hso6CbKxVqa5fhb5/Brk/mmY8h5MIuCEEo2xFamoJacspvDaKZ9toWl7U6pUNs5
-	 ioaBaceOdRaFNLAIx+cBBbq2N0LyT292IE3p5YDGCyLkOaGOhvIxJ/Jw+ke629jBFyVrg
-	 MAoZe3OOXX1Qjf+aLTZyVNOS0q9S0IRhoMNHeTdhJSApuISQObEqhafYGYtGDZmuGq8Vm
-	 VosIbs9kP8EDNwdVCViPRKkDwucZ5wVYjUsrbNTXdKm59pWsUDvLQMJwapA8X88vkqqD4
-	 dI8zy9V5iez2KIYWkcDbcf6PLV8oKkCSQkxEuAmGbWM8R/IEvEQ5I7OuMiqTSj/yvWw==
+	t=1793940945;
+	b=W7R70hlJMWo3pGxz7r0DiegcYyaz+kZpvhmEDU8SHgKwOrNOIv4gpJEg0iqMp2ktSU4J
+	 5WhR4RwDhJEMT9BEQd1oS/AY5hR+1wlOK3zuPIf+Sw9vwyNUHCdXq0uUoaRevVtG2rjkN
+	 V9n07U9ZhmZkI4o8Mv5A4P/SOCDEjyUUwbQ1XD1i3HkxL5TGpFfhO8r2o8hcr/0gnC9JP
+	 ShwDHso1G7ZXYGXhiicrPDaWm0umo0WrOh7Yd8M5oWCiIznZR1Zaa/WLJoF+nfzRfirfJ
+	 OjdtEH9oWJH8iwqkqH8yJadlIDYQJwZPN1GheBeUAJciabQFf8XPYK7JBHFLhp8Yrkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793940876;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0XXMzfFrMuhQ4F+XnXsFq3w4XgRZy5QKJgrtlHXBe4k=;
-	b=Z+mfnvAWBbJbINDSqYFxlEb1zgiSQ4HQUbg0sbmvE9X3Nt3wX5uYy/PjFRSeefj3VGyd
-	 SYHOyhVZKuBzLA4s9vnb2Cz0ahekA/+uAZX71sMz1UdszzbR/JqFMR2f8lfZsOHoerITY
-	 2vcsp4+dqHh6vQcp9ghre1pOmlAE952StxLHS3bvTSz8soMhkiOv5IWKp6qQED2uTcmPL
-	 5PbmQEVGz2UKOLkmNzPCXNY04X6FiSckUc01LKoLzwEA5GTMGkOUSqAO8VTfux+pKOp6Z
-	 /dyYxrijJbtQl5ZxaTx/waqWSiRVkcNB1Hf9Eovy/pn8OQ3VYyUtGjBGJvoP5FHXSSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793940945;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=qLR80LYENxOJjQ+5aplov6yK5kPkun01wAwUopgoAys=;
+	b=1sHGOUAAjOhvMDOkwQjf7CF3vNA2y1gORa/A/KfrP/xVqHayrYFGcVONqIFFR1Uh5FTZ
+	 BKH4M1bWqNjnuJFvm0zrgSCQmtQqeTsLKuK7GHt4kBJK5EyRwzE05PiIau1tj7jflwnZB
+	 y6GAhnLEEMMV63SUd08E6wGN2MAxy6/dG+0KgN6YsZQyNDCEiRJ98rGuLPmcwjQhB/82y
+	 pv6vx7sbl8mjUfWPp4PiJRIBi+z6E48HOZp/vnT8vDaC25jqt8VP7zFl6+sdaqQQDo0IC
+	 ThrH8zR6A5WVwcnWFBcU+jufujNWPmG8WsdI7CwZV7aP9KZ0Faff13aazq5jrVbfGAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EBCH59/y";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NfhXkF4i;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E0E606A328;
-	Fri,  6 Nov 2026 04:54:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D753C606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D753C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBCH59/y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098411F008A3;
-	Fri,  6 Nov 2026 04:54:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793940876;
-	bh=0XXMzfFrMuhQ4F+XnXsFq3w4XgRZy5QKJgrtlHXBe4k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EBCH59/y9hilVF46mpV5nEtKYrzidn9xHBUwOKDUfytSuRZwVtYspUNP9VSGDt28B
-	 Rgcbt+W7bpMf+HAtpvA2n/TPaCgvQOAYwqEnL8XlwkeGhIAasR9/HImNm5gNBD3PYe
-	 9Zb/bbDwPxZMq/lzrmrFtkTfr94erDv9W98CG3cNvMI+jFeJKo9s/Ob05hig3pBmk/
-	 ofL+dsN2MsZI0j58TAMOWaOY3LB7dQdMPMQZolrjbfDIuPIVKgMwUgdg/V6brAVudm
-	 6vIgf4K/jcp4FQgXlqhsZWJFs+nn//23p7AyaZHc2S5LvNeZ1/zRnsOvPHZJ5NGVWs
-	 z+bsfUwPjBxQg==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: kernel test robot <yi1.lai@intel.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org, Martin Kaiser <martin@kaiser.cx>, Vinod Koul <vkoul@kernel.org>, linux-trace-kernel@vger.kernel.org
-Subject: Re: [linus:master] [tracing]  b5cc230af5: WARNING:at_kernel/trace/trace_events.c:#test_double_dereference
-Date: Fri, 06 Nov 2026 04:54:33 +0000
-Message-ID: <undine-1793940873129741182-d37e5f54bdcb36ed@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <202611060303.c90f27a7-lkp@intel.com>
-References: <202611060303.c90f27a7-lkp@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NfhXkF4i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793940943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qLR80LYENxOJjQ+5aplov6yK5kPkun01wAwUopgoAys=;
+	b=NfhXkF4i7kw0um5XJlkJZbIWUE7uq/gTNnlJvrYtCVkg2ysSCnvf3SgpO9DcnPA/Jtdrtb
+	TX/qs5JjxXXFOLf9nkchsxAZqGPDTlQf9VIEL8leI5BmW0STUqTQxtJdTNMwDUBmc6AbjE
+	7FlbPwgJPXYBfp0AqDqiqNQYMb0SROQ=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-696-AD-gd7j4O_-npBhV6jY7gg-1; Thu,
+ 05 Nov 2026 23:55:40 -0500
+X-MC-Unique: AD-gd7j4O_-npBhV6jY7gg-1
+X-Mimecast-MFC-AGG-ID: AD-gd7j4O_-npBhV6jY7gg_1793940939
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3BABB1944D17;
+	Fri,  6 Nov 2026 04:55:39 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 025903001DA7;
+	Fri,  6 Nov 2026 04:55:37 +0000 (UTC)
+Message-ID: <98a82cda-e363-449e-9b2b-8432f8fdcc3a@redhat.com>
+Date: Thu, 5 Nov 2026 23:55:37 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,59 +71,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] locking/rwsem: don't let a read lock steal from a queued
+ writer
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>
+Cc: linux-kernel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+References: <20261105-rwsem-dont-steal-from-queued-writer-v1-1-275e070f426f@kernel.org>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261105-rwsem-dont-steal-from-queued-writer-v1-1-275e070f426f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-
-On Fri, 6 Nov 2026 11:07:56 +0800, kernel test robot <yi1.lai@intel.com> wrote:
-> 
-> 
-> Hello,
-> 
-> kernel test robot noticed "WARNING:at_kernel/trace/trace_events.c:#test_double_dereference" on:
-> 
-> commit: b5cc230af5e536ff752f8bd5c30e23612936d5c3 ("tracing: Warn when an event dereferences a pointer in TP_printk()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-> 
-> [test failed on linux-next/master ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b]
-> 
-> in testcase: boot
-> 
-> config: x86_64-randconfig-r2309-20261012
-> compiler: gcc-14
-> test machine: qemu-system-x86_64 -enable-kvm -cpu Cascadelake-Server-noTSX,enforce -smp 4 -m 16G
-> 
-> (please refer to attached dmesg/kmsg for entire log/backtrace)
-> 
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <yi1.lai@intel.com>
-> | Closes: https://lore.kernel.org/oe-lkp/202611060303.c90f27a7-lkp@intel.com
-> 
-> 
-> [    0.808840][    T0] ------------[ cut here ]------------
-> [    0.810236][    T0] Event hfi1_txq_complete has double dereference in TP_printk: REC->sde ? REC->sde->this_idx : 0
-
-This seems to be expected behavior. Because "REC->sde" can point already
-freed/reused object, this should not be allowed. The event must save the
-sde->this_idx at TP_fast_assign() instead of recording sde.
-
-In drivers/infiniband/hw/hfi1/trace_tx.h:
-
-DECLARE_EVENT_CLASS(/* AIP  */
-        hfi1_ipoib_txq_template,
-	...
-        TP_printk(/* print  */
-                "[%s] txq %llx idx %u sde %llx:%u cpu %d head %lx tail %lx flow %x used %u stops %d no_desc %d stopped %u",
-                __get_str(dev),
-                (unsigned long long)__entry->txq,
-                __entry->idx,
-                (unsigned long long)__entry->sde,
-                __entry->sde ? __entry->sde->this_idx : 0, // this must be recorded as a value
-                __entry->sde ? __entry->sde->cpu : 0,	// ditto
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
 
-So this is a bug in an infiniband driver.
+On 11/5/26 3:24 PM, Lorenzo Stoakes (ARM) wrote:
+> Since commit 1a728dff855a ("locking/rwsem: Enable reader optimistic lock
+> stealing"), a racing read lock can steal an rwsem from under a queued
+> writer whose handoff timeout hasn't expired yet.
+>
+> This is most problematic when an rwsem read lock is released then
+> reacquired in order to relieve lock contention, as instead it will simply
+> have the lock handed right back to it ahead of the intended beneficiary.
+>
+> Naturally, this behaviour rather defeats the object of doing this kind of
+> thing, so this is less than ideal.
 
-Thank you,
+If there is only one reader doing this release and then acquire 
+operation, it will leave its task_struct value in the owner field. So we 
+can check if the owner field  to determine if we should skip the lock 
+stealing operation.
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Something like
+
+diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
+index b9c180ac1eee..1f0fffd75c18 100644
+--- a/kernel/locking/rwsem.c
++++ b/kernel/locking/rwsem.c
+@@ -1019,15 +1019,17 @@ rwsem_down_read_slowpath(struct rw_semaphore 
+*sem, long count, unsigned int stat
+         long adjustment = -RWSEM_READER_BIAS;
+         long rcnt = (count >> RWSEM_READER_SHIFT);
+         struct rwsem_waiter waiter, *first;
++       long owner = atomic_long_read(&sem->owner);
+         DEFINE_WAKE_Q(wake_q);
+
+         /*
+          * To prevent a constant stream of readers from starving a sleeping
+          * writer, don't attempt optimistic lock stealing if the lock is
+-        * very likely owned by readers.
++        * very likely owned by readers or when the current task is the
++        * previous owning reader.
+          */
+-       if ((atomic_long_read(&sem->owner) & RWSEM_READER_OWNED) &&
+-           (rcnt > 1) && !(count & RWSEM_WRITER_LOCKED))
++       if ((owner & RWSEM_READER_OWNED) && ((rcnt > 1) ||
++           (current == (struct task_struct *)(owner & 
+~RWSEM_OWNER_FLAGS_MASK))))
+                 goto queue;
+
+         /*
+
+------------------------------------------------------------------------------------------------------------------------
+
+Will this help?
+
+Cheers,
+Longman
+
