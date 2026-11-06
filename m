@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793946292;
-	b=3QUXubf5ZjAP/INsjupnjtx0hHkJW8sk1p0Oh2l799q4PuXj5K80+YrYO8Blea/tBwDg
-	 jVOF6aXocT+hDk5Cu8qMhoBYGvAay5YxkYa/D/J6hYnU4FkBJXPLgKVy08S0+dk7kf9Te
-	 73xwUzK2CMjvCLoMHgXnJcwmgKJ2XCn/4apy8U10e9Y3VzeajHhTPCeoolV+kDE8ffy/5
-	 x7STGybqdiojSASItWu4Jsd17Rufib2AXQdjqGJRK2nGwThtYx3Gt/OQUS/25Y45Ns36N
-	 7jBuwsw7aNyr7cO2D3sDqtxudOEffsJNcdZ4AZ9C/g1imzV2kqVEP2oTpLqlNrEQ1kw==
+	t=1793946312;
+	b=4ZFqqXwrg5V4DoiZxOF37AzjV4wf391rLB9wcSTmOiDuMRbm5dAyM+Vg6qgaIETb4WQW
+	 uqAcE+W84L3CIwtCTa4ckRuOm8K4fgSYMlTIjY+EC64X+pX3SmR3lJU1dj2DKNGdI4ICH
+	 xVEHseII65fZGTC7znwd0HBbmr9/TdMBaLfKcF0uRv+E1mA4uFBmjhLe79RldB4Jqw10H
+	 dhjbpDL69HFECRzDgfKTDSsh3Kd2Upwu+l0pLOwoLqEf3Ixk3tSYbDcoOQX0WOkzmZw+P
+	 jzTKlgjM1VH5HYJiyc/ykSE8eGFn54ELOAT84cCnAve4Yfh10163U08LKpjkvmuGXJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793946292;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hNhdEdbELbxYnbq7Z+uVlCghlviJuJjsxKDpjppnRdg=;
-	b=In2r84Y87bzTjfOhecxDHQ6ajVKMwLtpR8yANtZ9j2UmbwvGd/f+XD+pBdX+ifBoBz4M
-	 OLaJSgActp0yXCqV4UbXSyTbNi6a0a5gs+XwWtbrYpCjtLp1UnjeqtYTFsMjLJaRAc38V
-	 h9V/DYPjNhenn6K0eA4PTDaB2wtanuq4iSyCaxMzFrxm6O2/6VxosVG42KIfM1tOEFNtT
-	 K18i4KyFB1LkJgnxABS06oEW0HKXpk2yz/N21gW9sRCwmXQHrG2ouJa77cpe8WgkLRNcE
-	 JR0Q4Te7djcyt4cjd5r/52lDfQnJ8jfxpbL334SuExQWulGkOjjQwTmgquiahexDzLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793946312;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=4D5Aw1kmCq4DsiYS+lucaHDE9Hk1hB54tE80B9HVb3c=;
+	b=r255fUOdFJlXl6cOLrrmtSc75S7WgENzKncA521QhpR6VCOZSiEocf3Jp0d5Z5zpPFjh
+	 5EKJqLoU8AJauenxaXoYjS9VfygG7lxVeZN1mZH0/2HvKSkcVgmQ22XmvaShCNOsXqx9v
+	 KWkyh8WCCElumj8Lm2Q7oBD3FMgCBCHN3nPmfCWCRQB3huvfmyyRySsabFiW3FH/2k1JP
+	 UhtBUtWb7YO045r7nnvyg51yPEZyTgVDAORcuARofENSWg8jTvpPyRtwYZCce5OhTZvHo
+	 KAESV6sKiLsvuxF/39PeiBSH0s/9JkWyWUoUxL9CVTc1w6HJQ0sYP0DG9RxnTaV1RXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MaTl1+Ww;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=n2GjRFhM;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE50F606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:24:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC10606A326;
+	Fri,  6 Nov 2026 06:25:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CC10606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MaTl1+Ww
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BCE01F008A6
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:24:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793946291;
-	bh=hNhdEdbELbxYnbq7Z+uVlCghlviJuJjsxKDpjppnRdg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MaTl1+WwrS0vWZrUPOnAwM4Ajmv3xOdg4V7MhEl4HmgKLX+oOS9WwqCllQDH/js2y
-	 HGQiDNgggHLFyvmSfagsvVVlZeqz7MGStzuSzVHOeoE4OjQS31fiSo8diRFsz4UwF9
-	 3sK3J7h1MVgJvXGM2RLnr4mNFBxTlxiM39XsXlsUk04ReEuK/cdn5cGcYESSilupT/
-	 vMVUxmzSP50WgV3sSQqgER0SCpm8zHKcmpGIfc73jXkO5LmxE3XYlr8Ufet+7Ar5rh
-	 WbmFi4KDxVudDG0dYjbSybAIrfUcWEBRD/Wq94yzcvMyph5Gjvv/LkbRB0ChTn/5ZE
-	 OtgX3BjOTVsSQ==
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91b8306b9f8so5226556d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 22:24:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxZUgf4inpmCNOO3xpQYD/Hae1EMFyq2C0IlnN4/UTmRdO7EV1QpUWKExIDUegl9wRGyCpXRkvu8fiBntA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/g6QMv7Jw927Z8uT8R1+JQErYDbyxiQD3/4zqPaVgQD7IfhcPY
-	D/dAzL6gTFdWQc7UTg23D2YdMNCNv+AMuqMgKmXDIxuFggKKG3ku9FnH0QtgJ3MP8tbl96RtTpC
-	TJvpEQfobv6nINXHe93Y3DFIsRzZOShc=
-X-Received: by 2002:a05:620a:1a03:b0:93f:707f:28d2 with SMTP id
- af79cd13be357-945f344cc28mr233095685a.26.1793946290734; Thu, 05 Nov 2026
- 22:24:50 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=n2GjRFhM
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=4D5Aw1kmCq4DsiYS+lucaHDE9Hk1hB54tE80B9HVb3c=;
+	b=n2GjRFhMc3wafmSu0U5/Vh/pP/CTWJY5KQGQzAJoCaPmgHNoYobyrykNuXv3IfCpBNR349n5D
+	dHjjVD1bcXbz/NWYOSjsG02TYia5VQFMujxyP9bCTVYI96kqfKVLMSlesCdP62ogF/w/M0RGXIW
+	vvlTZHrUzYGEDVnK1WmNFL4=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jLTgB4lPHz1prmZ;
+	Fri,  6 Nov 2026 14:24:54 +0800 (CST)
+Received: from kwepemr200011.china.huawei.com (unknown [7.202.195.32])
+	by mail.maildlp.com (Postfix) with ESMTPS id 606B940561;
+	Fri,  6 Nov 2026 14:25:00 +0800 (CST)
+Received: from localhost.localdomain (10.50.159.234) by
+ kwepemr200011.china.huawei.com (7.202.195.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 6 Nov 2026 14:24:59 +0800
+From: zhangqiuhao <zhangqiuhao@huawei.com>
+To: <ldm@flatcap.org>, <axboe@kernel.dk>
+CC: <hewenliang4@huawei.com>, <yangyun50@huawei.com>,
+	<chenrenhui1@huawei.com>, <wuguanghao3@h-partners.com>, <wozizhi@huawei.com>,
+	<linux-ntfs-dev@lists.sourceforge.net>, <linux-block@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] block: partitions: ldm: avoid overflow in VMDB size check
+Date: Fri, 6 Nov 2026 14:16:15 +0800
+Message-ID: <20261106061615.1688398-1-zhangqiuhao@huawei.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <179360149774.20265.17257530536010482220@huawei.com>
+References: <179360149774.20265.17257530536010482220@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,171 +72,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
- <20261105045406.39871-1-lance.yang@linux.dev> <0ddaf336-7cb7-4e83-af2c-f60d23f7aafd@linux.dev>
- <f7bd740e-1328-473e-96f5-89658a08d514@linux.alibaba.com>
-In-Reply-To: <f7bd740e-1328-473e-96f5-89658a08d514@linux.alibaba.com>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 6 Nov 2026 14:24:39 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zHtv7hBCaW=wdfiM7yA4OJS7pcFomSo22bEzWHizYAXQ@mail.gmail.com>
-X-Gm-Features: AclHuK8sH4jIu7KkqgNySV7lEo_7cZEAX1FymEzj8OWRWHpCtROXagBOAzb0Q08
-Message-ID: <CAGsJ_4zHtv7hBCaW=wdfiM7yA4OJS7pcFomSo22bEzWHizYAXQ@mail.gmail.com>
-Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio sizes
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org, david@kernel.org, 
-	ljs@kernel.org, riel@surriel.com, liam@infradead.org, vbabka@kernel.org, 
-	harry@kernel.org, jannh@google.com, qi.zheng@linux.dev, pfalcato@suse.de, 
-	ayushr@modal.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemr200011.china.huawei.com (7.202.195.32)
 
-On Thu, Nov 5, 2026 at 5:00=E2=80=AFPM Baolin Wang
-<baolin.wang@linux.alibaba.com> wrote:
+Hi, maintainers
+
+Kindly ping.
+
+On Mon, 2 Nov 2026 14:38:17 +0800, zhangqiuhao wrote:
+> ldm_validate_vmdb() can accept a VMDB whose declared VBLK extent
+> exceeds the TOCBLOCK configuration bitmap.
 >
-> CC Barry, who added the TTU_SYNC in shrink_folio_list().
+> For example, these fields on a 4 MiB image pass the preceding PRIVHEAD
+> and TOCBLOCK bounds checks:
 >
-> On 11/5/26 1:48 PM, Lance Yang wrote:
-> >
-> >
-> > On 2026/11/5 12:54, Lance Yang wrote:
-> >>
-> >> On Thu, Nov 05, 2026 at 10:56:28AM +0800, Baolin Wang wrote:
-> >>> Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing
-> >>> mapped
-> >>> folios"), the '!pmd_present()' check in page_vma_mapped_walk() can
-> >>> also race
-> >>> with concurrent page table reclamation via zap_empty_pte_table().
-> >>
-> >> Good catch!
-> >>
-> >>> page_vma_mapped_walk() is used by many functions including
-> >>> try_to_unmap(),
-> >>> try_to_migrate(), folio_mkclean(), pfn_mkclean_range(),
-> >>> remove_migration_ptes(),
-> >>> page_mapped_in_vma(), and mapping_wrprotect_range(). Except for
-> >>> try_to_unmap()
-> >>> and try_to_migrate(), the other callers do not perform post-walk
-> >>> accounting
-> >>> checks, so the race has no observable impact on them.
-> >>>
-> >>> For migration, the race can cause unnecessary retries. For reclaim vi=
-a
-> >>> try_to_unmap(), the race can cause failure to reclaim a folio that is=
- in
-> >>> fact already unmapped (as shown below), which may lead to unexpected =
-OOM
-> >>> or increased refaults.
-> >>>
-> >>> CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
-> >>> --------------------------------    --------------------------------
-> >>> folio_lock(F)
-> >>> try_to_unmap(F, TTU_SYNC)
-> >>>                                     zap_pte_range(full PMD range)
-> >>>                                       spin_lock(ptl)
-> >>>                                       clear PTEs
-> >>>                                       zap_empty_pte_table()
-> >>>                                         spin_trylock(pml)
-> >>>                                         pmd_clear()
-> >>>                                         spin_unlock(pml)
-> >>>
-> >>>   page_vma_mapped_walk()
-> >>>     observe !pmd_present(pmde)
-> >>>     nr_pages < HPAGE_PMD_NR
-> >>>     skip synchronization
-> >>>     return false
-> >>>
-> >>> try_to_unmap() returns
-> >>> folio_mapped(F) =3D=3D true
-> >>> nr_unmap_fail +=3D folio_nr_pages(F)
-> >>>                                     tlb_flush_mmu_tlbonly()
-> >>>                                     tlb_flush_rmaps()
-> >>>                                       remove F's rmaps
-> >>>                                     spin_unlock(ptl)
-> >>>
-> >>> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
-> >>> folios")
-> >>> has already moved the PMD clear operation (via zap_empty_pte_table())=
- to
-> >>> after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs=
- to
-> >>> use sync_with_folio_pmd_zap() to synchronize and avoid memory orderin=
-g
-> >>> issues on weakly ordered CPUs.
-> >>>
-> >>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in
-> >>> madvise(MADV_DONTNEED)")
-> >>> Cc: stable@vger.kernel.org
-> >>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> >>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> >>> ---
-> >>> mm/page_vma_mapped.c | 5 +----
-> >>> 1 file changed, 1 insertion(+), 4 deletions(-)
-> >>>
-> >>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-> >>> index e6b6170c2f4f..8797467b6f0c 100644
-> >>> --- a/mm/page_vma_mapped.c
-> >>> +++ b/mm/page_vma_mapped.c
-> >>> @@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct
-> >>> page_vma_mapped_walk *pvmw)
-> >>>             spin_unlock(pvmw->ptl);
-> >>>             pvmw->ptl =3D NULL;
-> >>>         } else if (!pmd_present(pmde)) {
-> >>> -            if ((pvmw->flags & PVMW_SYNC) &&
-> >>> -                thp_vma_suitable_order(vma, pvmw->address,
-> >>> -                           PMD_ORDER) &&
-> >>> -                (pvmw->nr_pages >=3D HPAGE_PMD_NR))
-> >>> +            if (pvmw->flags & PVMW_SYNC)
-> >>
-> >> Right. Whether the folio can be PMD-mapped doesn't tell us whether its
-> >> PTE table can be reclaimed, so those extra checks can skip
-> >> synchronization
-> >> that the caller explicitly asked for ;)
-> >
-> > Ouch ... one thing I missed ... what about order-0 reclaim?
-> >
-> > shrink_folio_list() only sets TTU_SYNC for large folio, so can't we sti=
-ll
-> > hit the same race there?
+>     disk capacity = 8192 sectors
+>     config_start  = 6144 sectors
+>     config_size   = 2048 sectors
+>     bitmap1_start =   17 sectors
+>     bitmap1_size  = 1024 sectors (524288 bytes)
+>     vblk_size     =  128 bytes
+>     last_vblk_seq = 0x02000008 (33554440)
 >
-> Thanks Lance. But this matches the purpose of the TTU_SYNC flag, which
-> is used to avoid racy checks with PVMW_SYNC. If no TTU_SYNC flag is set,
-> it means the caller can tolerate some racy checks.
+> The configuration area fits on the disk, and the bitmap ends at sector
+> 1041 within the 2048-sector area. The VBLK extent is 128 * 33554440 =
+> 4294968320 bytes (4 GiB + 1024 bytes), so the VMDB should be rejected.
+> Both multiplicands are u32, however, so the product wraps to 1024 before
 >
-> For this case, I think we should set TTU_SYNC unconditionally in
-> shrink_folio_list(). Barry, what do you think?
-
-Baolin, thanks for reaching out to me. I added that flag
-mainly for large folios.
-
-I observed cases where PTEs for large folios are partially
-cleared during certain transition states, for example, when
-PTEs are cleared before being modified:
-
-pte =3D ptep_get_and_clear();
-pte modification;
-set_pte_at();
-
-In such cases, page_vma_mapped_walk() skips the empty
-entries and starts from the next valid one.
-
-This may result in partially unmapping PTEs for large folios
-and trigger unexpected folio splits. At the time, I was
-particularly concerned about unnecessary folio splitting,
-so my focus was mainly on large folios.
-
-However, I also noticed that a similar race can occur with
-small folios. In that case, the folio may simply remain
-unreclaimed by the reclamation path.
-
-However, my main concern at the time was avoiding
-unnecessary folio splits.
-
-Your new race also seems to amplify the same situation.
-However, I don't think this problem necessarily depends on
-the commit you mentioned. It has been around for a long time.
-
-If the concern is reclaim failure, I agree that there is no
-fundamental difference between large folios and small folios.
-
-Best,
-Barry
+> it is promoted to u64 for the comparison. The check evaluates
+> 1024 > 524288 as false and incorrectly accepts the VMDB.
+>
+> Cast vblk_size to u64 before multiplying. The check then evaluates
+>
+> 4294968320 > 524288 as true and rejects the out-of-range extent.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Signed-off-by: zhangqiuhao <zhangqiuhao@huawei.com>
+> ---
+>
+> Based on Jens Axboe's for-next at
+> 70866cfa169d5ee149364267289e71d50f9a7ae9.
+>
+>  block/partitions/ldm.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/block/partitions/ldm.c b/block/partitions/ldm.c
+> index c0bdcae58..d5c133a33 100644
+> --- a/block/partitions/ldm.c
+> +++ b/block/partitions/ldm.c
+> @@ -458,7 +458,8 @@ static bool ldm_validate_vmdb(struct parsed_partitions *state,
+>  	 * The last_vblkd_seq can be before the end of the vmdb, just make sure
+>  	 * it is not out of bounds.
+>  	 */
+> -	if ((vm->vblk_size * vm->last_vblk_seq) > (toc->bitmap1_size << 9)) {
+> +	if (((u64)vm->vblk_size * vm->last_vblk_seq) >
+> +	    (toc->bitmap1_size << 9)) {
+>  		ldm_crit ("VMDB exceeds allowed size specified by TOCBLOCK.  "
+>  				"Database is corrupt.  Aborting.");
+>  		goto out;
+> --
+> 2.33.0
