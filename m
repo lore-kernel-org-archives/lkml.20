@@ -1,140 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793959020;
-	b=fUlAcpiH+NPPkgUbLC3KHPb6+MUpUdOVFM5Msd3ppZ9viELwL2uR4LpNDR41jGL6JpVL
-	 BtvRh84r/jnccQwWw9MuiIv+MadmiePKrvC5iIIv+DSWk8fStqZX+QnMQ73KBp0xsRIsh
-	 EHcuZxXyMhSEJTDnMPfdwXC7yeXPl06hxMGlHvM8PPOuRVx2VEmdumuvsP4UD83ZsNn0E
-	 haLAGjF728ZuczXQk0kE7Gxyne88UZ0Bnuwe1ZhPUTAsoZ/FPc2mLI95XW14h+3eR0oS9
-	 V0F4nBmnhg9SU1bk9x1CyKOlWocsz6UUqwrV+K/6BKNQpQIYDJiM1Rc78Kc29oW4xPg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959020;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Reason;
-	bh=667ceIOEwUK9IBQJjmSZgfUKjSJi7uK/nF9EUx0W7qI=;
-	b=0mhVdgJH5jWeHYcCm9JkVY7HZ8hC1HRFoGNYBZKGn/IzOs2mjy6LOta/ijVRqWlOT4uA
-	 om6WAD5ZOlNWZQ8T5EZFtcoCw0DOh6jBPgV8NfXH28pb3cE8Ro9UMAvz9rFPQcVFQOEaP
-	 WfMx6ipVuRakv1ZRW35tti9P5LHv0FUx2SHJ3jwHRIkLmrdE7HpQ0t6dGBTR5NRXxJP8x
-	 Jp3IGbt7jjbtfbRrpf77CxMUkWCUsTAy5sFp0zu5JhvMpgWWqbACL7GY4f/L0YuT6QfTE
-	 w9NuzcS8EZ1zymeb5kxjRhJ+SYbZbtkV4veZ47LESujy5sEPSlI/izpimVl6EeJ+TdA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=GhYBTzkx;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=Ws86cQyA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793959068;
+	b=5UcGNc4iDpd1S1zPXQvCqvUqDMvHW9jsHTocq6cHMCmwdM89/wFvc/p2tVjNju06fdjM
+	 cq2xTUF/ecM0AORfeaT3ia683nwj9ut/b/nF5JcNaPgXWPFA34Cx3akI4XuvZDUAbW8SH
+	 jGeWlTxE3f8iS9quuJkY5Ju97hhOvJD/te/TszhXht797Pr6IjxjIsHSSb3gZikyGkBzx
+	 TagnzrL1wxBvOCPlFFQ4K+g3T8Bg/bfahlFuw3ag38sGZY6nlf8f2KRYNn1ypXO7Fa0iU
+	 FxT4EPzf6zLwYAEXAOe/kY+F3xRXEijV7abpehawqqFhoxHBUKlqO8F4uv5gn1vqfNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959068;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=A/eSH5p57mG74lmqugdknWlw8ZRhrWb7R8CRiW0eBZo=;
+	b=eKVrffJzfZC6wIfCO578mTGbZ721ulzealQJL9/P8Zj4NICfsh7LVTiYauVlWBaCmiO2
+	 +ezMa6fTc439Q7e+Pd4iaInY/xXo2fEhca9w1oD53sceum8CXxKKqr+I54ynmOoAHBGXh
+	 SoNhus4eTxOTEfjylPxQx4NDtc5R/YZng8F24cszYFuSivIc4B2nqosgKGAdgiSRvWtyt
+	 0zLNo217ZboBJfrXWueXb+FVEvME3gqJjyP+EWQ5uwHZhOiap3GVW3dha63dizRPOkieT
+	 9bg7EIqPI0u243Avz1wzHsDUH4ji7GzKL2+dgsD0WDe8uSYqw/BPEdymlAW2m92huLw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DouVJGNC;
+	arc=none smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A488606D829;
-	Fri,  6 Nov 2026 09:57:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A488606D829
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FDB606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:57:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67FDB606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=GhYBTzkx;
-	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=Ws86cQyA
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A69HRbK3497909;
-	Fri, 6 Nov 2026 03:55:27 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=667ceIOEwUK9IBQJjm
-	SZgfUKjSJi7uK/nF9EUx0W7qI=; b=GhYBTzkxVjyIg4cGYJICqztT3pnDAbxBud
-	q3Gzn4yScK925/xJS1+/ubTPP7pYvpb1bkBEK9xDuCRz0X94x9M9pqZSusqYiJLJ
-	fehSp5iVLoPfHsILk24bkzIlfgClBEg+mZIjI4tsgNdPk5W7IVuV4ER1LZJWBoYg
-	tA4EKKZUNJixFEcHA2vIpP8CkTggiYZqV5wXmn36ldOyc4m4B731/9FUiIuzf7ef
-	tUBazNLu7r8mtSgZ10FCZjlZj1Fmui+nlVNI3YrBK22VuAFMGezkpUgD9TsFI6Xr
-	5xkpAtQMdccMuBNXTeQDXDokIKTZ2yKLAIMOYZjznuouIJ0dlLxw==
-Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11020074.outbound.protection.outlook.com [52.101.193.74])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4hs3rb0hu4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 03:55:26 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jndk4f8nGTAR2YxkAhAaE9UFkGO0WOpzwL/Sk7kbLmT1KecEzVUzYTGqZEFopwKHCLwdO1u54BJfIzFaJTarZkfpWXLij3WWWWG92u/Q0IH4lJh1qOHNx8amLg/homCu/xFy4AOXCKSSGPkLoqGB0w8x4Edp06fSFCJNHJql+MjXEp5qCCVA+08eKlE3Z+GojW3ilEaqA6fVBTPfDcmfjgPuVixx3vZdspi65qeKI/uvp8jiNAzXXODv2eDQCghJ6JN8H045nPao+24zVUjo9th5tWSoTowBQsBCrOL15Tct3FQmDBDw5J8nxEDa+H2Qwtn5NbpN2T3AetA6YQJ27A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=667ceIOEwUK9IBQJjmSZgfUKjSJi7uK/nF9EUx0W7qI=;
- b=hxvWoHCJP4rwFBWKmmiBbl+JNhKUHbLbUPaLlo977vguIhIbQ2reDfe30bNg0p7EQaeY6QigtVhSf+BK43icJuyuvQiNrP4tQCV18aohl+1iA5mV8E+n4tD0gnVga6R5MavQfjxege/0G2qAdYHCMt4jadu9dNEmt7+dryhFbya8VrRKNkgaMWEeDpEHp6KHfdN0bFzBLr9QYBaXikoEB9E3TAZsL6xUQeO+Yah1saPpxmUyXHFCJt525k23DFwftYoDY78vBEIZJSJOjkJ2BS7l0AajmrZNg5U/dUYQex0ErGavQCGpUxwbxEFTEeuOlE9lfNVhw8NOvbT2gn4gRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=armlinux.org.uk
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DouVJGNC
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso345436e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:57:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=667ceIOEwUK9IBQJjmSZgfUKjSJi7uK/nF9EUx0W7qI=;
- b=Ws86cQyADTH7hf8yZsW3jCOShfjrO1hzRLNmK08lFpzO4GLx4rZT7WfE/Gw9QtkpWjFP66kBVKIwPdfmCg9Lt4YoKqTVOh3f41cezyzWXEJNfio2JqfNUiw/8DXznMwtdgZo78ZZCzJmCdSz5TuO3mFz8TF4BEEdbWv129vUTso=
-Received: from CH2PR08CA0012.namprd08.prod.outlook.com (2603:10b6:610:5a::22)
- by PH7PR19MB5703.namprd19.prod.outlook.com (2603:10b6:510:1e2::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
- 09:55:22 +0000
-Received: from CH2PEPF000166C0.namprd04.prod.outlook.com
- (2603:10b6:610:5a:cafe::af) by CH2PR08CA0012.outlook.office365.com
- (2603:10b6:610:5a::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
- Nov 2026 09:55:22 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- CH2PEPF000166C0.mail.protection.outlook.com (10.167.252.10) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Fri, 6 Nov 2026 09:55:21 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 26013406544;
-	Fri,  6 Nov 2026 09:55:20 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id F420D820273;
-	Fri,  6 Nov 2026 09:55:19 +0000 (UTC)
-Date: Fri, 6 Nov 2026 09:55:18 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Peter Griffin <peter.griffin@linaro.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Russell King <linux@armlinux.org.uk>, Mark Brown <broonie@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
-        mfd@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/4] mfd: wm831x: Support software nodes for DCDC
- regulators
-Message-ID: <au2kBlSsypdsdQve@opensource.cirrus.com>
-References: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com>
- <20261024-samsung-kp-v4-1-e21253295e68@gmail.com>
- <20261104181429.GE1650678@google.com>
- <ad02069b0cdede7ae191e4a3df57f33a@gmail.com>
- <20261105085321.GG1650678@google.com>
- <85817548-28f8-45ed-987d-a4996c2bc4ce@app.fastmail.com>
- <auy4Qbxg-pW_X37E@google.com>
- <9fa9add9-6bba-4cd9-9f15-d6ca222a1a23@app.fastmail.com>
+        d=gmail.com; s=20260707; t=1793959066; x=1794563866; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A/eSH5p57mG74lmqugdknWlw8ZRhrWb7R8CRiW0eBZo=;
+        b=DouVJGNCnZ8mLIJpy0xXOyy+odv0D/7Xj54tUSGfAvAoc5fCEYBAn7qeh5j5/X0YM2
+         SZQrsb4ol+j8eZ+F0z+IqEv/XFiyq6urFXnvgDrobRlNIQzsLUicCBj/cz37D58CLAaz
+         ebfg7uWASGIUb/oBp2OgZE5rFDBc94aL1mXMHUJPj89BV/Xn+jTXg8dN7Y32P+UKeMAz
+         Bb6f2XqjB+bVv+k5RkFx6qIEk74Wh1wLw/HahJMOffX6LWk6xFH6KxQkHjyaPitAHYDE
+         Sg6U/VS+eBZnDhYm+CszHC2PMiL3vhPaRCqwJfaHQIY8Tl8Mpyd4arnMkTzI9UwfDxGJ
+         RlIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793959066; x=1794563866;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A/eSH5p57mG74lmqugdknWlw8ZRhrWb7R8CRiW0eBZo=;
+        b=zBNpHcG5GWdr238qKSObo9gOssOevgBdo0RNH77V0wF1dOAvuaws8u297JnmFD7hKv
+         6PSDaJwdII37X3Rq5BhMa1DXOz0UNuKZZFSWyvls3ElzXHFR0UQRrWWzMy+y6YZ+d7eA
+         bR0gjBHNaDFN0c3+UxmEVHoKtK/M8D5kexVDW4PZzcJT7+znUhwHOiMgc10wJj6SiP+Z
+         hXKsV4tfmQaVhxuEC0+HLm07RTxpAv21HZ8E4v/7WoTn8E9eH++N5/TwaJGHOhgnbGVq
+         b71aIo/c7ClHlve7yxlxM3957R1KDuvqjW+nu+3oCibCrZcEoRtUbRFlMAafaOvVtNby
+         fS/w==
+X-Forwarded-Encrypted: i=1; AKwUvBxZs7xqngSmeC7R1Y9PTBdseUkOPzweWPQrEh6YSP7kbSOr0g1Gfp60+jkNBJ4CpWbM10x4G9qICeQ2P/U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/6HmWJ7DdpZpanTVbnVALoABLm0MNrx1iq+ThG1WYFqidf1mk
+	LK4WsHjI/oA0EW+rxBOcXe8ER9fMd1LXBIo1JMowvHBCCC2FO5eWx4hb
+X-Gm-Gg: AYBFou1xQliWUzRPmqIULu0WlGgJUC8HzWPe7/f0ZnoTU7olny023yE5kptFN+SjuH3
+	OJLKWCMUo3OJtBR0w8BZzx7CKhiL8NyvmNqLf/YpKg+1FXUOpyBK2Br3R4JpWN6ZUR9gHw000Zs
+	TiB49RYuOWhDge8ijJrQtLyYNkuaJvbdzsAl0sBakgQTCIy4HPWO+7tQmNx9qVStXXarg2Pg03X
+	ZvOl+UpRy4PBXTM5/q26+myJj2zszSTzryIUqVl7cO23cAzNBKpqeM/sX4C+ou5zq8mRoE3OysZ
+	BLx9R1AIBwx/Y35PNA1/rhjJkPUVmN8FZw+nD1FBuzOGgHs2RZPQevJpgx/f5tZMlwifkpExSy/
+	g8cXNFXuIWEpVghdZlSI9Y+6YAn63++AoqUDp//1W9wB21cReIhaa6FJUZkRCTihX6uCJozwhRC
+	cwncn+Rtedwnq2L/0AvlBs0eD4phkKOgIZapBaA3uvux04Q4H7qZrH3rMzM6wyc1IX4/Kr0qlWG
+	+D86bwFlTH7Uk6/pj9tQEExexI4fNP5JoablYqlaBhqy2myzQrJX98+qOdMr3fsvUbTE8rd5+i0
+	53lJRjFBeyBHsgh4VD5AcwqaYMnUMkgDEH6VS5MLu5GGj0PcIL+vEalH4sNKJycG4GyenB/P6/I
+	=
+X-Received: by 2002:a05:6512:2252:b0:5bf:e540:8606 with SMTP id 2adb3069b0e04-5c003aeacb8mr605722e87.59.1793959066166;
+        Fri, 06 Nov 2026 01:57:46 -0800 (PST)
+Received: from ahmad-HP-ZBook-17-G3 ([91.133.224.19])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c003069675sm293680e87.43.2026.11.06.01.57.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 01:57:44 -0800 (PST)
+From: ahmad baghereslami <ahmad.b1995@gmail.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ahmad baghereslami <ahmad.b1995@gmail.com>
+Subject: [PATCH v2] Input: synaptics - support the touchpad LED on RMI function $30
+Date: Fri,  6 Nov 2026 13:26:58 +0330
+Message-ID: <20261106095658.44166-1-ahmad.b1995@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
+References: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -144,104 +99,458 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9fa9add9-6bba-4cd9-9f15-d6ca222a1a23@app.fastmail.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166C0:EE_|PH7PR19MB5703:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89003289-7295-45c6-3333-08df3bec1230
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|7416014|376014|30052699003|61400799027|10067099003|16102099003|22082099003|18002099003|261021121427099003|4143699003|11063799006|261022075727099003|261026121527099003|261102123227099003|261026140227099003|261028144727099003|261021135927099003|56012099006|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	obBZQomvlx59jHh3u9cu2HHjSIN8Hw5MnI2osJUuDJKMEHLqZUNCRBjf5FxkURF0hdL1WaS5ElN1+z5vMc0fF7ehvtvUKgpV2EubNs4sm9YdWY7g186KZtXQj/kzW4uColWuC0ZwIStbq4kYZ0p4mHN5dQ7Lou/B5eItou+VP6r/ArY6v+csQQZQTp2/HGW4KURQzx2DCYPoADhqzmA25lRM3ZcfMR5BczHGZG59kfk6eNMxIlwTXdKria7eYHhqG0yORVelqg6WBGxGCieJI3ezUzmW1pcixVfLGwj8roeEFMo3NS9l5H/tkg5OCK0LrGdSDoB0bII+gj3t4lXDwpKAQqfgzLTOZxEzBSZfv6BTNEcGCfFFjRZPU8dj+Epseq4IfDKsakKGFAs4AmWLUd9dllbmcFm+wX3YCnwOLvzkkLea5c//9+ndxiPWo4bqSkXnrkFe+SjBG7NYz25UwHN0jT+42ib98kBCwbAUSKohRp0S5N0v7BE66kWk55q/yU1ijskR2dUnZgyeymMIY0om6aKrd83UrA8QuZjRt9sVeButvPI9Xz5xwXRe2Jb121F+x0s5ZQqnkB5/Njpm6v69nznfMPrpwPPESjfovEPFsSCeC03yLb7pxydyKgZ6whJSZkXcT5whBTR+mE1FXdKsalpuUboS8PkU2PPpzYCM8rlRtbS050zbna5pFm5TBWcKPgjRNS23abO0D++vpQ==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(376014)(30052699003)(61400799027)(10067099003)(16102099003)(22082099003)(18002099003)(261021121427099003)(4143699003)(11063799006)(261022075727099003)(261026121527099003)(261102123227099003)(261026140227099003)(261028144727099003)(261021135927099003)(56012099006)(261022105027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HlUUEVxiuNnJoQT3vIbuWfwgkB5Ql8T26LmWI7tDdm/PDlbYb9eUowJpTk2MHlTS6F7+5e8o/SSSQ63/FtyYxlK6Ng03BnBLjcXDPEYIG6QCLcRsBDbZS15ZTcSwCW/McNePWR2podIzK2Hu4qppp/i4V1V1dSmJDc+ROaTbpqxoTL0k0Kn0FVR80fS2WvUSw63RRj6v0VveCTC7rtv3mk3S2n4E9dqAbUUPhkJfYWIvXZyroxMYW9DJhVgtCWrkuFG8DPtvc/GhZ6HDazFluvk6uporBVkPnH7G82YR8RQYDph/Gg0Op5K6Tqhjno2jxt9VTc2NiuIcVhXHuXsbIHLELrbkThx1OE9g15N1EdiDYPIzhIefRyLmZI57qQoJrKiU1AA7s1OGGK2F6qDp0O7GgQ3oSatqJfBPNxbqQgOxLJ8Q6zcY9up/5t/lHcj+
-X-Exchange-RoutingPolicyChecked:
-	MmTPDSVH7VYbKIvQr6MHm0CS58KXslWBnT4rZwO7qW2dazX+RyWyQQ7inKgB2w4A7KtEnSu7wVCCSyKzQ8rYXcvGaxgpewoX/lKGrWvnwjpuOE6gey+xkp/PvRqYdl4HyQCwmR+1qxWSDN7JkDQc9YVwqCmUrcRCcyrC9Jwt12lCwsG/ALQ/fJJb1BxRNDE4GOuAUpcZsM04a1pVNWNZAbG8tmkkW9hE3WQcRHued/fmukB2CY7Cvo+nL7logLXgYvPrjFTZ+UsyMnYLY9SHuH6FN90LyCqCd3+1t2fJwWYUfv3xvERWLhqjeBIjLY6XI4qUMm0QLHtoDEqm4ux7rg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 09:55:21.0997
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89003289-7295-45c6-3333-08df3bec1230
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CH2PEPF000166C0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR19MB5703
-X-Authority-Analysis: v=2.4 cv=G6aJgNk5 c=1 sm=1 tr=0 ts=6aeda40e cx=c_pps
- a=1AroyRkDHmFDIQmzFtfJ8w==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=_PqjmCDASnPxqwVvx9YA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: mkSiAPpLaLXm3H41wM_yozL4oDttydmK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzOSBTYWx0ZWRfX56chczcjbFmx
- OGjBaVw8equs0hp66X87CYSyRPJuxcMT/kI+UNMzgabBJTMvLYU86M7vADyE0DTJPyEc39BCZ4E
- d9Ze0rrFWxEBr1b1mhL74vDegjP7T+uFdx/8C8m2iQ4FPJ1os657AsAI69+hdEyCytw3EUhj2dm
- vqdUFUeFyL8ENTzfq0wTKJOTPn9WrKXoL3gf4EjwBCfM88H+d6YeNMSx1uBeWDnfTbByIs+P/dH
- o6DCMFGQ7UW2pN+ndON1eRAl4E/eDcYAiWnxfqByEAIqSZhkE7FhVx9Y0ugC+ZePaP9x537cWoR
- p1wyh2ksImLwGHmiF1rUE8dc/z0CyXpkCa1S2ZSIeP7YEh4NxnS2LgUXlWYpQTGLeRE/KNXoh71
- tjMYidLq+4iOENvpNjUSRll3bfq6Ak4HYvSC9AV2f2r5nCg3cXlguxv5BqFjwiuHQ4r0Tg7ytuY
- oXtJgYbHE9yN3diK19g==
-X-Proofpoint-ORIG-GUID: mkSiAPpLaLXm3H41wM_yozL4oDttydmK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzOSBTYWx0ZWRfX4PrJKC9Nw052
- nGFBB0pQBDlnh5NSx4Ve3u+tJ3aqofYhVjjNAa1hwbMK2TOX4z7UgrQv/agRJB19Rog7IPUwnP8
- GEvG4plmtazqdqGlfs/dVnsf7c7myGI=
-X-Proofpoint-Spam-Reason: safe
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 06:24:48PM +0100, Arnd Bergmann wrote:
-> On Thu, Nov 5, 2026, at 18:12, Dmitry Torokhov wrote:
-> > On Thu, Nov 05, 2026 at 02:43:17PM +0100, Arnd Bergmann wrote:
-> >> 
-> >> As far as I understand the situation, wm831x was used on the
-> >> reference board (Samsung smdk6410, removed in 2019) in addition
-> >> to crag6410 but never anywhere else upstream. The question
-> >> then is whether we'll ever see a DT conversion of crag6410.
-> >> This would require finding someone willing to actually do
-> >> the work, and coming up with a way to handle the autodetection
-> >> in mach-crag6410-module.c so the correct spi/i2c codec
-> >> child devices are probed.
-> >
-> > So I guess the question then: do we need to keep this board at all? Or
-> > it is time for it to go the way of the dodo? And then we could drop some
-> > more drivers as well.
-> >
-> > My goal for the series was to move along legacy gpio API conversions, as
-> > well as move away from the GPIO lookup tables (ideally I want them gone
-> > now that we have software nodes supporting describing GPIOs).
-> 
-> Mark Brown is using the board for testing eight Cirrus/Wolfson
-> audio codecs:
-> 
->  - arizona and wm8994 have actual users with DT, but this is
->    the board he has for testing with platform_data
+Some HP laptops have an LED in the top left corner of the Synaptics
+touchpad that HP's Windows driver lights while the touchpad is disabled
+(double tap on that corner). On the HP ZBook 17 G3 (SYN3040, TM2706-002)
+the LED is not driven through the PS/2 deluxe LED command: the Windows
+driver (SynTP.sys 19.0.19.68) switches the touchpad to RMI register
+access over PS/2 with mode byte 0x7f, looks up function $30 (GPIO/LED)
+in the page description table and sets the LED bit in its control
+register:
 
-Yeah both of these series of parts sold into a lot of systems.
+  register write:  SetScale 2:1, SetRate <reg>, SetRate <value>
+  register read:   SetScale 2:1, SetRate <reg>, GetInfo (first byte)
 
->  - wm0010, wm1250-ev1, wm5100, wm8996 and wm9081 have no other
->    upstream users besides this board and no DT support, so arguably
->    these are probably obsolete and could also be removed.
+For touchpads in a new rmi_led_pnp_ids list, look up the F30 LED this
+way when the touchpad is set up and register a
+synaptics::touchpad_disabled LED class device. Setting it queues a work
+item that, with psmouse_mutex held like the protected psmouse
+attributes, deactivates the touchpad, writes the F30 registers and
+restores the mode byte, which leaves RMI access. synaptics_disconnect()
+cancels the work with psmouse_mutex held, so the work only tries to take
+the mutex and retries later when it is busy. psmouse_mutex is no longer
+static so that synaptics.c can take it. The LED is restored after
+reconnect.
 
-Personally, I am not super fussed about testing for any of these
-parts most of them didn't sell loads and they are quite old.
+On this touchpad F30 is on page 1 with control base 0x55 and four
+GPIO/LED pins; the LED is bit 3 of control register 0x59 and its
+brightness register is 0x5f.
 
-> I assume Charles can comment on how important the testing still
-> is for the codec above, or if there is other hardware that could
-> be used for testing the arizona and wm8994 drivers in case the
-> other ones are in fact as obsolete as they appear.
+Tested on an HP ZBook 17 G3 with Ubuntu's 7.0.0 kernel: the LED follows
+writes to its brightness file, the touchpad and the pointing stick keep
+working, and a userspace helper that turns the touchpad off on a double
+tap in the corner keeps the LED in step with GNOME's touchpad setting.
 
-Without wanting to put words into Mark's mouth (please do shout
-at me if I am off course here), I assume his use of Cragganmore
-is less about testing specific parts and more about it being a
-very flexible complex audio system with good debug, allowing
-testing parts of the core frameworks that would be hard to hit
-with off the shelf hardware.
+Reading HP's Windows driver (Ghidra) and writing this patch were done
+with the help of an AI coding assistant (Claude); I tested the LED and
+the touchpad on the machine.
 
-Thanks,
-Charles
+Signed-off-by: ahmad baghereslami <ahmad.b1995@gmail.com>
+---
+
+Notes:
+    v2:
+    - Fix the link failure reported by the kernel test robot when
+      CONFIG_LEDS_CLASS is not reachable: the register and unregister calls
+      are now behind IS_REACHABLE(CONFIG_LEDS_CLASS).
+    - Set the LED from a work item that holds psmouse_mutex instead of a
+      private mutex, so it cannot interleave with reconnect, resync or
+      attribute writes (sashiko review). The work uses mutex_trylock() and
+      retries, because synaptics_disconnect() cancels it with psmouse_mutex
+      held. If you would rather have this done another way, for example a
+      helper in psmouse-base.c instead of exporting psmouse_mutex to the
+      protocol code, I am happy to change it.
+    - Restore the mode with synaptics_mode_cmd(psmouse, priv->mode) instead of
+      synaptics_set_mode(), so SYN_BIT_FOUR_BYTE_CLIENT survives (sashiko).
+    - Set LED_RETAIN_AT_SHUTDOWN: synaptics_disconnect() resets the touchpad,
+      which turns the LED off, so unregistering no longer calls into the
+      driver with the touchpad in command mode (sashiko).
+    - Mask the F30 GPIO/LED count with 0x1f and give up on more than eight
+      pins (sashiko). The brightness register offset still counts every
+      GPIO pin, not only those below the LED: the brightness registers come
+      after one register per GPIO pin, which is how HP's driver computes it
+      and what this touchpad needs (three GPIO pins, brightness at 0x5f).
+    v1: https://lore.kernel.org/all/20261030070821.1716595-1-ahmad.b1995@gmail.com/
+
+ drivers/input/mouse/psmouse-base.c |   2 +-
+ drivers/input/mouse/psmouse.h      |   3 +
+ drivers/input/mouse/synaptics.c    | 282 +++++++++++++++++++++++++++++
+ drivers/input/mouse/synaptics.h    |  13 ++
+ 4 files changed, 299 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/input/mouse/psmouse-base.c b/drivers/input/mouse/psmouse-base.c
+index 231646882..020821be1 100644
+--- a/drivers/input/mouse/psmouse-base.c
++++ b/drivers/input/mouse/psmouse-base.c
+@@ -111,7 +111,7 @@ ATTRIBUTE_GROUPS(psmouse_dev);
+  * rarely more than one PS/2 mouse connected and since semaphore
+  * is taken in "slow" paths it is not worth it.
+  */
+-static DEFINE_MUTEX(psmouse_mutex);
++DEFINE_MUTEX(psmouse_mutex);
+ 
+ struct psmouse *psmouse_from_serio(struct serio *serio)
+ {
+diff --git a/drivers/input/mouse/psmouse.h b/drivers/input/mouse/psmouse.h
+index 90ed8cd15..77c137a57 100644
+--- a/drivers/input/mouse/psmouse.h
++++ b/drivers/input/mouse/psmouse.h
+@@ -136,6 +136,9 @@ int psmouse_reset(struct psmouse *psmouse);
+ void psmouse_set_state(struct psmouse *psmouse, enum psmouse_state new_state);
+ void psmouse_set_resolution(struct psmouse *psmouse, unsigned int resolution);
+ psmouse_ret_t psmouse_process_byte(struct psmouse *psmouse);
++/* Serializes connecting, reconnecting and reconfiguring PS/2 mice */
++extern struct mutex psmouse_mutex;
++
+ int psmouse_activate(struct psmouse *psmouse);
+ int psmouse_deactivate(struct psmouse *psmouse);
+ bool psmouse_matches_pnp_id(struct psmouse *psmouse, const char * const ids[]);
+diff --git a/drivers/input/mouse/synaptics.c b/drivers/input/mouse/synaptics.c
+index b007e642e..4186e4f53 100644
+--- a/drivers/input/mouse/synaptics.c
++++ b/drivers/input/mouse/synaptics.c
+@@ -589,6 +589,278 @@ static int synaptics_set_advanced_gesture_mode(struct psmouse *psmouse)
+ 	return 0;
+ }
+ 
++/*
++ * Some HP touchpads have an LED in the top left corner that HP's Windows
++ * driver lights while the touchpad is disabled. It is wired to RMI function
++ * $30 (GPIO/LED), which these touchpads also expose over PS/2: mode byte 0x7f
++ * switches them to RMI register access, where SetScale 2:1 followed by two
++ * SetRate commands writes a register, and SetScale 2:1, SetRate and GetInfo
++ * read one. Setting the normal mode byte again leaves RMI access.
++ */
++static const char * const rmi_led_pnp_ids[] = {
++	"SYN3040", /* HP ZBook 17 G3 */
++	NULL
++};
++
++#define SYN_RMI_MODE			0x7f
++#define SYN_RMI_PAGE_SELECT		0xff
++#define SYN_RMI_PDT_START		0xee
++#define SYN_RMI_PDT_END			0x0b
++#define SYN_RMI_PDT_ENTRY_SIZE		6
++#define SYN_RMI_NUM_PAGES		4
++#define SYN_RMI_F30			0x30
++#define SYN_RMI_F30_HAS_LED		BIT(2)
++#define SYN_RMI_F30_HAS_GPIO		BIT(3)
++#define SYN_RMI_F30_COUNT		GENMASK(4, 0)
++#define SYN_RMI_LED_BRIGHTNESS		0x0b	/* as set by HP's Windows driver */
++#define SYN_RMI_LED_RETRY_MS		50
++
++static int synaptics_rmi_write(struct psmouse *psmouse, u8 reg, u8 val)
++{
++	struct ps2dev *ps2dev = &psmouse->ps2dev;
++	int error;
++
++	error = ps2_command(ps2dev, NULL, PSMOUSE_CMD_SETSCALE21);
++	if (error)
++		return error;
++
++	error = ps2_command(ps2dev, &reg, PSMOUSE_CMD_SETRATE);
++	if (error)
++		return error;
++
++	return ps2_command(ps2dev, &val, PSMOUSE_CMD_SETRATE);
++}
++
++static int synaptics_rmi_read(struct psmouse *psmouse, u8 reg, u8 *val)
++{
++	struct ps2dev *ps2dev = &psmouse->ps2dev;
++	u8 param[3];
++	int error;
++
++	error = ps2_command(ps2dev, NULL, PSMOUSE_CMD_SETSCALE21);
++	if (error)
++		return error;
++
++	error = ps2_command(ps2dev, &reg, PSMOUSE_CMD_SETRATE);
++	if (error)
++		return error;
++
++	error = ps2_command(ps2dev, param, PSMOUSE_CMD_GETINFO);
++	if (error)
++		return error;
++
++	*val = param[0];
++	return 0;
++}
++
++/* Finds the LED of RMI function $30. Leaves the touchpad in RMI mode. */
++static int synaptics_rmi_led_probe(struct psmouse *psmouse)
++{
++	struct synaptics_data *priv = psmouse->private;
++	u8 fn, query, ctrl, caps, count, gpios;
++	unsigned int page, zeros, i;
++	int addr, error;
++
++	error = synaptics_mode_cmd(psmouse, SYN_RMI_MODE);
++	if (error)
++		return error;
++
++	for (page = 0; page < SYN_RMI_NUM_PAGES; page++) {
++		error = synaptics_rmi_write(psmouse, SYN_RMI_PAGE_SELECT, page);
++		if (error)
++			return error;
++
++		for (addr = SYN_RMI_PDT_START; addr >= SYN_RMI_PDT_END;
++		     addr -= SYN_RMI_PDT_ENTRY_SIZE) {
++			error = synaptics_rmi_read(psmouse, addr, &fn);
++			if (error)
++				return error;
++			if (!fn)
++				break;
++			if (fn != SYN_RMI_F30)
++				continue;
++
++			error = synaptics_rmi_read(psmouse, addr - 5, &query);
++			if (!error)
++				error = synaptics_rmi_read(psmouse, addr - 3, &ctrl);
++			if (!error)
++				error = synaptics_rmi_read(psmouse, query, &caps);
++			if (!error)
++				error = synaptics_rmi_read(psmouse, query + 1, &count);
++			if (error)
++				return error;
++
++			count &= SYN_RMI_F30_COUNT;
++			if (!(caps & SYN_RMI_F30_HAS_LED) || count > 8)
++				return -ENODEV;
++
++			priv->rmi_led_page = page;
++			if (!(caps & SYN_RMI_F30_HAS_GPIO)) {
++				priv->rmi_led_mask = BIT(0);
++				priv->rmi_led_ctrl = ctrl + 1;
++				priv->rmi_led_brightness = ctrl + 4;
++				return 0;
++			}
++
++			/*
++			 * GPIO/LED select: the LED is the first set bit. The
++			 * brightness registers follow one register for each
++			 * pin used as a GPIO, so count all of those.
++			 */
++			error = synaptics_rmi_read(psmouse, ctrl, &gpios);
++			if (error)
++				return error;
++
++			priv->rmi_led_mask = 0;
++			for (i = 0, zeros = 0; i < count; i++) {
++				if (!(gpios & BIT(i)))
++					zeros++;
++				else if (!priv->rmi_led_mask)
++					priv->rmi_led_mask = BIT(i);
++			}
++			if (!priv->rmi_led_mask)
++				return -ENODEV;
++
++			priv->rmi_led_ctrl = ctrl + 4;
++			priv->rmi_led_brightness = ctrl + 7 + zeros;
++			return 0;
++		}
++	}
++
++	return -ENODEV;
++}
++
++/* Sets the LED. Leaves the touchpad in RMI mode. */
++static int __synaptics_rmi_led_set(struct psmouse *psmouse, bool on)
++{
++	struct synaptics_data *priv = psmouse->private;
++	u8 val;
++	int error;
++
++	error = synaptics_mode_cmd(psmouse, SYN_RMI_MODE);
++	if (error)
++		return error;
++
++	error = synaptics_rmi_write(psmouse, SYN_RMI_PAGE_SELECT, priv->rmi_led_page);
++	if (error)
++		return error;
++
++	if (on) {
++		error = synaptics_rmi_write(psmouse, priv->rmi_led_brightness,
++					    SYN_RMI_LED_BRIGHTNESS);
++		if (error)
++			return error;
++	}
++
++	error = synaptics_rmi_read(psmouse, priv->rmi_led_ctrl, &val);
++	if (error)
++		return error;
++
++	val = on ? val | priv->rmi_led_mask : val & ~priv->rmi_led_mask;
++	return synaptics_rmi_write(psmouse, priv->rmi_led_ctrl, val);
++}
++
++/*
++ * Runs with psmouse_mutex held, like the protected psmouse attributes, so
++ * that it does not race with reconnect, resync or attribute changes.
++ * synaptics_disconnect() cancels it with psmouse_mutex held, so it must not
++ * wait for the mutex: when it is busy, try again a little later.
++ */
++static void synaptics_rmi_led_work(struct work_struct *work)
++{
++	struct synaptics_data *priv = container_of(to_delayed_work(work),
++						   struct synaptics_data,
++						   rmi_led_work);
++	struct psmouse *psmouse = priv->psmouse;
++	int error;
++
++	if (!mutex_trylock(&psmouse_mutex)) {
++		schedule_delayed_work(&priv->rmi_led_work,
++				      msecs_to_jiffies(SYN_RMI_LED_RETRY_MS));
++		return;
++	}
++
++	if (psmouse->state == PSMOUSE_RESYNCING) {
++		schedule_delayed_work(&priv->rmi_led_work,
++				      msecs_to_jiffies(SYN_RMI_LED_RETRY_MS));
++	} else if (psmouse->state == PSMOUSE_ACTIVATED) {
++		/* Otherwise the LED is restored on reconnect */
++		psmouse_deactivate(psmouse);
++
++		error = __synaptics_rmi_led_set(psmouse,
++						priv->rmi_led.brightness != LED_OFF);
++		if (error)
++			psmouse_warn(psmouse,
++				     "failed to set touchpad LED: %d\n", error);
++
++		/* Setting the mode byte again leaves RMI access */
++		if (synaptics_mode_cmd(psmouse, priv->mode))
++			psmouse_warn(psmouse, "failed to restore mode\n");
++
++		psmouse_activate(psmouse);
++	}
++
++	mutex_unlock(&psmouse_mutex);
++}
++
++static void synaptics_rmi_led_set(struct led_classdev *led,
++				  enum led_brightness value)
++{
++	struct synaptics_data *priv = container_of(led, struct synaptics_data, rmi_led);
++
++	mod_delayed_work(system_wq, &priv->rmi_led_work, 0);
++}
++
++static void synaptics_rmi_led_init(struct psmouse *psmouse)
++{
++	struct synaptics_data *priv = psmouse->private;
++
++	if (!IS_REACHABLE(CONFIG_LEDS_CLASS) ||
++	    !psmouse_matches_pnp_id(psmouse, rmi_led_pnp_ids))
++		return;
++
++	if (synaptics_rmi_led_probe(psmouse))
++		return;
++
++	psmouse_info(psmouse, "touchpad LED on RMI F30 (page %u, ctrl %#x, mask %#x)\n",
++		     priv->rmi_led_page, priv->rmi_led_ctrl, priv->rmi_led_mask);
++	__synaptics_rmi_led_set(psmouse, false);
++	priv->has_rmi_led = true;
++}
++
++static void synaptics_rmi_led_register(struct psmouse *psmouse)
++{
++	struct synaptics_data *priv = psmouse->private;
++	int error;
++
++	if (!IS_REACHABLE(CONFIG_LEDS_CLASS) || !priv->has_rmi_led)
++		return;
++
++	priv->psmouse = psmouse;
++	INIT_DELAYED_WORK(&priv->rmi_led_work, synaptics_rmi_led_work);
++	priv->rmi_led.name = "synaptics::touchpad_disabled";
++	priv->rmi_led.max_brightness = 1;
++	priv->rmi_led.brightness_set = synaptics_rmi_led_set;
++	/* synaptics_disconnect() resets the touchpad, which turns the LED off */
++	priv->rmi_led.flags = LED_RETAIN_AT_SHUTDOWN;
++	error = led_classdev_register(&psmouse->ps2dev.serio->dev, &priv->rmi_led);
++	if (error) {
++		psmouse_warn(psmouse, "failed to register touchpad LED: %d\n", error);
++		priv->has_rmi_led = false;
++	}
++}
++
++static void synaptics_rmi_led_unregister(struct psmouse *psmouse)
++{
++	struct synaptics_data *priv = psmouse->private;
++
++	if (!IS_REACHABLE(CONFIG_LEDS_CLASS) || !priv->has_rmi_led)
++		return;
++
++	led_classdev_unregister(&priv->rmi_led);
++	cancel_delayed_work_sync(&priv->rmi_led_work);
++}
++
+ static int synaptics_set_mode(struct psmouse *psmouse)
+ {
+ 	struct synaptics_data *priv = psmouse->private;
+@@ -1444,6 +1716,8 @@ static void synaptics_disconnect(struct psmouse *psmouse)
+ {
+ 	struct synaptics_data *priv = psmouse->private;
+ 
++	synaptics_rmi_led_unregister(psmouse);
++
+ 	/*
+ 	 * We might have left a breadcrumb when trying to
+ 	 * set up SMbus companion.
+@@ -1496,6 +1770,10 @@ static int synaptics_reconnect(struct psmouse *psmouse)
+ 		return error;
+ 	}
+ 
++	/* The reset turned the LED off; the mode byte below leaves RMI access. */
++	if (priv->has_rmi_led && priv->rmi_led.brightness)
++		__synaptics_rmi_led_set(psmouse, true);
++
+ 	error = synaptics_set_mode(psmouse);
+ 	if (error) {
+ 		psmouse_err(psmouse, "Unable to initialize device.\n");
+@@ -1616,6 +1894,8 @@ static int synaptics_init_ps2(struct psmouse *psmouse,
+ 	 */
+ 	priv->is_forcepad = psmouse_matches_pnp_id(psmouse, forcepad_pnp_ids);
+ 
++	synaptics_rmi_led_init(psmouse);
++
+ 	err = synaptics_set_mode(psmouse);
+ 	if (err) {
+ 		psmouse_err(psmouse, "Unable to initialize device.\n");
+@@ -1693,6 +1973,8 @@ static int synaptics_init_ps2(struct psmouse *psmouse,
+ 		}
+ 	}
+ 
++	synaptics_rmi_led_register(psmouse);
++
+ 	return 0;
+ 
+  init_fail:
+diff --git a/drivers/input/mouse/synaptics.h b/drivers/input/mouse/synaptics.h
+index 3853165b6..b792ac98a 100644
+--- a/drivers/input/mouse/synaptics.h
++++ b/drivers/input/mouse/synaptics.h
+@@ -6,6 +6,9 @@
+ #ifndef _SYNAPTICS_H
+ #define _SYNAPTICS_H
+ 
++#include <linux/leds.h>
++#include <linux/workqueue.h>
++
+ /* synaptics queries */
+ #define SYN_QUE_IDENTIFY		0x00
+ #define SYN_QUE_MODES			0x01
+@@ -202,6 +205,16 @@ struct synaptics_data {
+ 	bool					press;
+ 	bool					report_press;
+ 	bool					is_forcepad;
++
++	/* Touchpad LED on RMI function $30, reached over PS/2 */
++	struct psmouse				*psmouse;
++	struct led_classdev			rmi_led;
++	struct delayed_work			rmi_led_work;
++	bool					has_rmi_led;
++	u8					rmi_led_page;
++	u8					rmi_led_ctrl;
++	u8					rmi_led_mask;
++	u8					rmi_led_brightness;
+ };
+ 
+ void synaptics_module_init(void);
+
+base-commit: 97a889cad5dd8ff83f40514f2d67c565c0dc54b1
+-- 
+2.53.0
+
