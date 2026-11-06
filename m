@@ -1,116 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793924405;
-	b=wX4G08enEs/eXV7cn1CEYdtxtjzEpalPR5+X9wEvoDY0qhHt6ud3jTQkkUxs14UYmnvC
-	 0COoPDXlv4xM64m2Mp50UwLKAXaolUY8DdPtUl6EZ1gn2qLebH8mFwOrC99VOb0+B4U0B
-	 pkduU6UTiE0EPLhwYmW1yBmeDlJGSRktx4j5kjVrmzD/fVnbQIoqnVpjkld7mGin91pya
-	 TeOFGXAbM7Xv1GiiN1++mzhogxoKJEIRpc4cK6KyQxm7QK2v2GQDmJmJ/iDXMI0MaymqZ
-	 XOmoub/MyHx7421YQfrrUO2l4zby6TKPHes1iWI1qUz0AOQvdYhnCJPnuNLaVKLiFxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793924405;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793924426;
+	b=vnKZgTpDCiAg8kMEv1dDOeuQSxWwNMoXPIV7vqeRKYSolCRweu5Vm/uJqaKhxNJGBSsG
+	 PoGiO0gkH8t4AQAFNrG13VCD1epQOKHGpd6puDhpk656PTdExPua3wBbD66ktLVXUThBM
+	 ODL7fef77/h85euTUbqKfzPMOtj2nzCZNC7oiRFykfMyPmT2vWBbZ1mm1rpOCYJbsTwxr
+	 IIWHt4LGgcaFrJh3CXsFW+rB+MNSVr2bvJolubk5V19MtcV6dNbt+3D7C/xnD0d0VJtr6
+	 ZZMhB+0xMAIIUUEwOWorJ9qZzFkWyfYZRGE+Nz61VBzXd7SCNpy4cO2A2GjqYoslqJg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793924426;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Pt9rRtbReRuSITPC1rskmK8kbHNalDkIofRmPHbf5UA=;
-	b=G5cIVrNgTF2T+86qNX0usQh/viwb68mx7+moNEtKJl3lMOcCGghwWew67+1UiJKWpQIf
-	 W3cI/LqZtrbwgHxIo4nYmuQzHZCZMaxppW6G9LZ0WMVz3yyg1EEcXsJS4EKBhUBt6NVkd
-	 B2SSr/ANwnPsWwjFFfeVwqmuiaPOJdfftF/9CgRciHWq2Uz/Q5sEstwONlmtjI4j4eji+
-	 vblhtA8P5Mi5k/GvktoHubotr8O5/F6wIDIfpRBOIP0ll9NEl4NEHySAoiE/P2qHb47iG
-	 OUFDjo5zrlLrbBFQFFW7pLSmnll85fEs3XUW7sk6i31Z37mRLlAN89bD5VtYNOh6Dxg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ISsNCsgZ;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=CwXsNZ8+;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=e9LMdmFOmC6rg0VE0eXoC2u7iQIIpm6odUVAIwSl6rE=;
+	b=nYPCORiP2CaDlvltswWV9jWnJNufp2+a53ih1GJTbd+Bb5+emHS7VdYDtUu0oXw6cQeV
+	 I1/vpVjpZJQ1gh1TK6TFVNJpaoqDzA5T3YrA3i8cUjyS1Lw3NfD/ZNusX2Rvg/ITn/Jei
+	 GbtOZTvN8vYg7RTN+y44g3R8+TbseBQ+2gjVZ74HQ7cIwDuGwNA/BGPbET/HFRWSmFK7U
+	 zVZjkGAF7oWszNEkOXs7R7tgI5bqUl9Ft7C/shW8zSLsEh3v2jehyaw2/B2HocD+Yk1Lj
+	 i4gBzYdB6PDnHOp7uC+D5VEHEJxf4X65qHZfeel0zFnkFx4MKHUT2kXlCXCg7tmcF/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fay24KIV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6AE606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:20:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F6AE606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748D8606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:20:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 748D8606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ISsNCsgZ;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=CwXsNZ8+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793924403;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Pt9rRtbReRuSITPC1rskmK8kbHNalDkIofRmPHbf5UA=;
-	b=ISsNCsgZT9Usu3eLezaUcm05rG23BzOeZlCIK/+0RlqDrhyjc3jm9a1gVU66bb5b5RzZ/g
-	4neoALgK/i977o6rlT2VyKaJV1xIlckJvN0sL2XH4RGlP5Abvgl36KWqPU0oMbsmQpNZUN
-	tbhTG/G+yj8ds6aybo5vCdVjw4M24EE=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-154-FiZm1YKlPXWl0vXllEXeRA-1; Thu, 05 Nov 2026 19:20:02 -0500
-X-MC-Unique: FiZm1YKlPXWl0vXllEXeRA-1
-X-Mimecast-MFC-AGG-ID: FiZm1YKlPXWl0vXllEXeRA_1793924401
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a2063be141so910395e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:20:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fay24KIV
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df4f540ebso55129f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:20:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793924425; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hHLHVT+dgtM/4UQMe+ruGsBtL5VQEOBM4L660+5PUj0mZV1I9ZGdgxRFrzxGZdTymU
+         4h2GTe9oU5FSXzp++Crz1uo4/ZxctGsdNuiFV4dIPJ+QeNZkeMBVSYNIbLTdLy1t/Lm1
+         owXbHBK9soC/lhH7IbYeQSKsDN6+2pKYEzO7vvlpfj8tK5+kbAWVUKeUSvlH6WOUUZjy
+         aDSkCmV8/AKGRU6iDcF3hHB3Glpslf6xAXDH2AJyH0ZjlhevIjrs02AiGfLfaR/xKMNR
+         JWl9vox7R/3ZJ9WeHs4uotaHQmbAfYfoqfpNwVVLfjAFhJrTgrpiwqfrZ4D/EMzDShdy
+         h5ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=e9LMdmFOmC6rg0VE0eXoC2u7iQIIpm6odUVAIwSl6rE=;
+        fh=0QHtjwvGtXdd0bsVfSt/P7XRE/IGECiLo/Eiab/PLfs=;
+        b=BNPA1eXrJJZnuNcan9JPWtBZJOvtnvbdGbA6No0RAonljZdYBQCW2j22WosEZdQQ6k
+         wSvz2oiLJwfw1ESHh3hKuMLV513ykM1KLuyC/VvEDj1/z/DserN9YBw+jeIxSlW2sd5q
+         aJyETCZ188iJpHswrz3Og/HNJFm38hip1MLS351dbeF3DiLrxaO8swo47SDna5jHQ9Yp
+         LZ5Bp/KLjgnBXoApf85LdWnRUoYL72ephva4wXw/N85Iuncqjuq5pr7eVW6Jj0fXkMuo
+         MLzB+ZjpjSkMZQWE+yAkD0idTcDq4cqZYCfYLhE9dibYlJZQQd0p5UljjLsziDJ0KxXT
+         FaQw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793924401; x=1794529201; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20260707; t=1793924425; x=1794529225; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Pt9rRtbReRuSITPC1rskmK8kbHNalDkIofRmPHbf5UA=;
-        b=CwXsNZ8+6sHYd1fOaIcM0tqpnS1AeyEgFZBBefydaQQaUqn6pibv4yYSp60V+Asf6r
-         I8zFsfFDVOApum+exBAkbUFao63jUWtJKW+7GXCL+lizlsGnG6UmU7wwEKtzBSYrBIFt
-         ucN3xOoe0OBAUnVKkCuv16R729Qh5cK1wtanJRMutaE+6e1xxoKDuXQLSHv6wwS8VH4E
-         lQhrY1nU4vfINTyMplQagAzD4NLqRg4GhnZEKiJ6AX/E097X1i0K4YPw54nR4YHACWQa
-         KRRi9HkGHjosdCD8mfR0WMtruCAspVIaUfM3CsQIxhhTqvQTUMK2Pn/Fgdud6LLa62A8
-         JLpg==
+        bh=e9LMdmFOmC6rg0VE0eXoC2u7iQIIpm6odUVAIwSl6rE=;
+        b=fay24KIVxX1g2XaFUPj+mSXS0xXbKerfwx/+Af3Za6F+v3KzLCVGFA82hk3eVshmQI
+         l5D4k/97mNlDjxYLlOZUaKQc+7NUmJlY2NoX4n9hri/6orTNKUxn8wwxy4cxZ9kYH2Hq
+         O+puo6RCbSeCUfhHi3T+TA0HKeQ82eLArpjTIQ+uaFN34+nCb5OSArcPlM/Kv6xMLab4
+         1QY5Aw7vRJErWJ+KkwRK6hJ2VW2adTKLDsM13sc7EFcMx3tfROJ5LPQ3c0I1QdtAxW8t
+         IymtPLLzIfLeQCUkKKz051D2HX3Yy1Xb6F5Ncs3S3+i+DUxWATCarQ0JUC21JHU/L/hA
+         w4Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793924401; x=1794529201;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793924425; x=1794529225;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Pt9rRtbReRuSITPC1rskmK8kbHNalDkIofRmPHbf5UA=;
-        b=Uvv8rMZUH2UYWEkTeMo/1zmUPjYCPylVHXChDpmyMgDBQX1mpztV92JNMhAM/GU3eQ
-         T06YTHyKKoqlcQgLLMbSkdk9RyByaLiG1nhaVy1WyU/zf4VVoGWIHwGxe8SoygMfZd06
-         zBX5tp+XmrmAVjUhQn+gp5tfYZA0kV8L3WBYIqr+W/zPMJoV+ZDRUyeylP0dIljdD9/R
-         iekWY3u12/oqc7DvU6evlDZf8b0aamqKHfedjojU0i7marZFHB5CmjCDm7+mpxijGmr+
-         /ES7NnGqlu4vnGidGInIe+DHTtvwO2T1TqmmtYjgsrRwTfurfVyDDzd7meG1wdWOq2jC
-         kDbA==
-X-Forwarded-Encrypted: i=1; AKwUvByo/GViCHtezXPj2a/DGR/KpVoGWUQ+rLm2zuc9zpdrrRqCcs5RFC1GTyIadkqWCzqGI/BGc4wEly8D9Hk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9j2aZ6x8EgRM10dNGZug/1WMzekskcgJjiYI7thQLdSHOUlq/n
-	6BpmIL3el76EHFAeEMOQATrMi3Knf/Nf60UtDrzH3P19cy6ZiZgBT0dd3GxoqzzTibjBn7iia22
-	LGc2PIpCjrTrQFs47ElyKjVtRY46+m/UFibrgfKVmVfPzYZUkUE4LkU312H5xuMj+uA==
-X-Gm-Gg: AYBFou29/M6GKAZYMLxWIqqu6YpdPlgLx8URLtAM2FXs3rIYUBx82qlBQqnXnb21h4P
-	x8XO9qZK910/P4sc6SGZq5IG/qLELPdfY/FdmPsVeFwL3JO28h4rPSe9uYIA/jXKodWuf1glphO
-	9kP6C2QuiUMKb3jtjQ2FaWI0/KxoeQCoTGK10Zv944Ag87Ano2CexHFeChMgo4uoqSA1Lyc1ECY
-	Bra39H0UDWkepCuKIJreXZR12aVO3sgzv/6H7J1a6NPXhGBsPAClQbK+wuve8H7j/VTyA678qhz
-	6ffRdnbMj9dDSsPFJvckL06mm/aKDarGfc57Ww8tyEqMi4PFO/SDAFdyNgSbJcDQGINK0mA+L0c
-	OsJDCLLnrtiGM3ledXdP2XTgERkPE+SU/J3tTLTnJ1Q==
-X-Received: by 2002:a05:600c:1d0c:b0:4b2:612d:908c with SMTP id 5b1f17b1804b1-4b6df9beb91mr11444415e9.34.1793924400976;
-        Thu, 05 Nov 2026 16:20:00 -0800 (PST)
-X-Received: by 2002:a05:600c:1d0c:b0:4b2:612d:908c with SMTP id 5b1f17b1804b1-4b6df9beb91mr11443845e9.34.1793924400399;
-        Thu, 05 Nov 2026 16:20:00 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1401:db00:7367:7b9e:e66f:2b7d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6c776c90asm12554195e9.4.2026.11.05.16.19.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 16:19:58 -0800 (PST)
-Date: Thu, 5 Nov 2026 19:19:55 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Oleg Drokin <green@linuxhacker.ru>
-Cc: sgarzare@redhat.com, stefanha@redhat.com, jasowangio@gmail.com,
-	eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
-	bobbyeshleman@meta.com, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 3/3] vsock/virtio: queue at most one credit update
- per socket
-Message-ID: <20261105191917-mutt-send-email-mst@kernel.org>
-References: <20261105000141.3617241-1-green@linuxhacker.ru>
- <20261105000141.3617241-4-green@linuxhacker.ru>
+        bh=e9LMdmFOmC6rg0VE0eXoC2u7iQIIpm6odUVAIwSl6rE=;
+        b=ett/veDT8840+ZQafqv6qzh64Q+Q09af84pQaol9zea+MHCXGaerzMk3XtW+2tWMyv
+         xYPiqIs2NKwwFUMsD87mnilcaDzq6eEb1PNesAfJ6kniaF203sC89E6eCNNtW5Qt40nw
+         8/x/S55oGelNiS9bwfKM9C7VIYUiWWxhu0ti7iPtVTpDWW9OLCuh2r2hZH6R/PQCxI7s
+         PZNpm0y3UkR1UnIYQ0yqZvz3VK13f1AybISRZ+8cHRbDZmVqnfl4bsO2XihDsxXPEn0Y
+         haj0WEPDfNM251t/saTR+SXgUO4ntca7yKgIkA4x4TvCD0X6xifK9LO2Yn51UUemc7zE
+         LA7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy2kgkJ4FLcXCCOrlVSDXS0F5Wv5UsKse3j+w0v2AjZGiHi7CebTR4glHvQvBOpQXXv7PUAS6/pJeb9+oA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nMV4X7z9Ur6cpZ/yCfV4F1zEqpbbV/IVlySGlGid6Arnwjx3W
+	HvihAA3dyx8fEuTnmd5hVbQWWNf28WYbpy+++X7SveupNABgz9HBziobhsmB17tC2Q2uG4FAqDQ
+	ZkUFTY92gMD67e+/ejGgMHmS41eDXV3ee+oPIcUh5
+X-Gm-Gg: AYBFou3NXxQx3VTuE0WaOnUt88zT+FntgpVqk822cn5gS4HFrb9jQ5Ro6E3lxteOLWa
+	ojAooqC5SRnR+mY/st15IpfrqCX3zqRrp1SS8+wSE8pMc+SgEX9z1eoiIflCk15XWqAoQInEC2t
+	5fLRe82lpbkpdBzK2VBfc/JzLsb8o04w4MUcvLC2RAPkkGlI9F0MlY/If3tn6vUkvePjdRuZDZn
+	7X/ZKds0AoV5DxeDvuVmjZ9NpPmjuBzabmugAti0Z+scsaoSTHlasXo3pQSoLWDFxAr1r/fWfYm
+	enk7H+0kPKnGcHEd24TSO14uBSANZToCASOX97t6r+yWUoOmQKi6Btsc5bSRAvaopPMbZQr7Ux3
+	CrLwy1E5amiTSkNS5kDLxcYaGA2AaKHriUV3JqYafw3zHMZ3qMGpARx5UpfpvghKMw6lVUeXa8M
+	5ibvI2OEIIfdwnhslc9hour/gxq9eGSbfj5nFMM4MPW5CCxe+WYMD+sp87rDcxmu6GaEisOByOx
+	F/WzngtQBQgZPp2uNVds6O9f0WVIfmtigYX
+X-Received: by 2002:a05:6000:4a03:b0:48e:412:3829 with SMTP id
+ ffacd0b85a97d-492764aede3mr2311906f8f.15.1793924423911; Thu, 05 Nov 2026
+ 16:20:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,239 +106,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105000141.3617241-4-green@linuxhacker.ru>
+References: <20261104174554.1.I8556199ea4f1335169ce16e97309aa63ae2e2310@changeid>
+ <20261105052401.GA862715@ax162> <CAD=FV=Vx4gHvF0TegRBwZetTNjP5AsjbBK9+sjNA43OpL1Wjiw@mail.gmail.com>
+ <CAF1bQ=S52KWHopqxksctbBirFEr5Mz1dKKMAoWh-dqLHii3Nig@mail.gmail.com>
+ <CAD=FV=XE+KuTDCa3cLOsHPfQ9ngFOXrokFbxr=jDm_UFwKdQDQ@mail.gmail.com> <CAD=FV=Wow=+pDDu=RHkr5nekOjDNe5wGr+WsV_WFgh4YYnm5Hg@mail.gmail.com>
+In-Reply-To: <CAD=FV=Wow=+pDDu=RHkr5nekOjDNe5wGr+WsV_WFgh4YYnm5Hg@mail.gmail.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Thu, 5 Nov 2026 16:20:12 -0800
+X-Gm-Features: AclHuK9ycOqos5AEuWbFkVouFGAMYO4MjJByfnQj2RCd2P8bwTy6_fG6ZmWTcd0
+Message-ID: <CAKwvOdme+2Lrm7Ds8vp71WVzDXfW61o2eFRjjtTptpskLTuyeQ@mail.gmail.com>
+Subject: Re: [PATCH] kbuild: AutoFDO: Enable -salvage-stale-profile
+To: Doug Anderson <dianders@chromium.org>, Rong Xu <xur@google.com>, Yabin Cui <yabinc@google.com>, 
+	Yi Kong <yikong@google.com>, Han Shen <shenhan@google.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
+	Nicolas Schier <nsc@kernel.org>, Han Wang <nesthanwang@google.com>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
+	Bill Wendling <morbo@google.com>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Boqun Feng <boqun@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Justin Stitt <justinstitt@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, "Sriraman (Sri) Tallam" <tmsriram@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 07:01:41PM -0500, Oleg Drokin wrote:
-> A credit update carries no data, so the send credit never limits it,
-> and the peer can solicit one at will: with OP_CREDIT_REQUEST, or by
-> sending data that a local reader drains (a read that empties the
-> receive queue sends one). A peer that posts no rx buffers can therefore
-> make the other side queue credit updates without limit, about 1 KiB of
-> unaccounted slab each for a 44-byte packet.
-> 
-> Do not queue a credit update while the socket's last queued packet is
-> already one. Every packet carries fwd_cnt and buf_alloc, so a packet
-> queued later makes the queued update redundant and lets a new one be
-> queued after it. When a transport puts a queued update on the wire
-> (vhost once it has an rx buffer for it, the guest driver when it adds
-> it to the tx virtqueue, loopback when it delivers it) and nothing has
-> been queued after it, it refreshes the update's fwd_cnt and buf_alloc
-> and releases the socket. So a suppressed update always reaches the
-> peer, either in the queued one or in a later packet, and the fwd_cnt
-> the peer sees never goes back.
-> 
-> connect() can move a socket to another transport, freeing its
-> virtio_vsock_sock, while packets are still queued in the old one. So a
-> tracked update holds a reference on the virtio_vsock_sock, and its skb
-> destructor clears the socket's pointer to it and drops the reference,
-> however the skb is freed: sent, purged or dropped.
-> 
-> A peer can thus make a connection queue at most one credit update, plus
-> one per packet the socket itself queued after it.
-> 
-> Counting credit updates in queued_replies instead would not work: most
-> of them are sent by local reads, not in answer to the peer, and under
-> bidirectional traffic vhost would stop reading the guest's tx queue
-> while the guest stops reading its rx queue, each waiting for the other.
-> 
-> Fixes: 06a8fc78367d ("VSOCK: Introduce virtio_vsock_common.ko")
-> Signed-off-by: Oleg Drokin <green@linuxhacker.ru>
-> ---
->  drivers/vhost/vsock.c                   |  2 +
->  include/linux/virtio_vsock.h            |  5 ++
->  net/vmw_vsock/virtio_transport.c        |  2 +
->  net/vmw_vsock/virtio_transport_common.c | 62 ++++++++++++++++++++++++-
->  net/vmw_vsock/vsock_loopback.c          |  1 +
->  5 files changed, 71 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-> index b0004cb48999..f1b47a826ca4 100644
-> --- a/drivers/vhost/vsock.c
-> +++ b/drivers/vhost/vsock.c
-> @@ -176,6 +176,8 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
->  			break;
->  		}
->  
-> +		virtio_transport_credit_update_xmit(skb);
-> +
->  		if (out) {
->  			restart_tx |= vhost_vsock_drop_skb(vsock, skb);
->  			vq_err(vq, "Expected 0 output buffers, got %u\n", out);
-> diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
-> index f91704731057..6c3fc8faca0b 100644
-> --- a/include/linux/virtio_vsock.h
-> +++ b/include/linux/virtio_vsock.h
-> @@ -13,6 +13,7 @@ struct virtio_vsock_skb_cb {
->  	bool reply;
->  	bool tap_delivered;
->  	u32 offset;
-> +	struct virtio_vsock_sock *vvs;
->  };
->  
->  #define VIRTIO_VSOCK_SKB_CB(skb) ((struct virtio_vsock_skb_cb *)((skb)->cb))
-> @@ -167,6 +168,9 @@ struct virtio_vsock_sock {
->  	u32 buf_used;
->  	struct sk_buff_head rx_queue;
->  	u32 msg_count;
-> +	struct sk_buff *credit_update;
-> +
-> +	refcount_t refcnt;
+On Thu, Nov 5, 2026 at 3:17=E2=80=AFPM Doug Anderson <dianders@chromium.org=
+> wrote:
+>
+> Hi,
+>
+> On Thu, Nov 5, 2026 at 1:30=E2=80=AFPM Doug Anderson <dianders@chromium.o=
+rg> wrote:
+> >
+> > > While I haven't looked into this specific bug yet and am unsure if it
+> > > is unique to FS-AFDO, I recommend using -fno-sample-profile-use-profi
+> > > to disable Profi for now.
+> >
+> > Interesting. I can suggest that to the team digging into it and see if
+> > it solves the problem. My AI agent says it will though. It claims that
+> > the default flipped recently and "-fno-sample-profile-use-profi" will
+> > restore the old (tested) behavior.
+> >
+> > Should I send a patch adding that flag?
+>
+> I went ahead and posted the patch:
+>
+> https://lore.kernel.org/r/20261105151159.1.I0b27923381ef34cc99cdf8b65fea2=
+e1bafce6370@changeid
+>
+> Obviously that patch and this patch conflict because they touch the
+> same lines of code. If folks think we should still move forward with
+> both patches, I'm happy to rebase.
+>
+>
+> > > Regarding the "--mllvm=3D-salvage-stale-profile" flag, I also have
+> > > reservations about adding it for the following reasons:
+> > > 1.  It is heuristic-based and not enabled by default. I am unsure how
+> > > thoroughly it has been tested, so we should assess it further before
+> > > enabling it.
+> >
+> > FWIW, we did find that Android seems to enable this globally across
+> > its userspace, which suggests it has been fairly well tested. You can
+> > see the change here, which landed about 1.5 years ago.
+> >
+> > https://android-review.git.corp.google.com/c/platform/build/soong/+/352=
+4291
+> >
+> > A few notes:
+> >
+> > * That change _also_ adds
+> > "--salvage-stale-profile-max-callsites=3D2000". Internally, there has
+> > been debate about whether adding that would be a good idea, too.
+>
+> The conclusion of the internal debate is that, yes, we should add
 
-why all this complexity? can you not just peek at the queue tail
-instead?
+After Doug sent this email, him, I, Yabin, Rong, and a few others met
+and decided we probably want
+
+-fno-sample-profile-use-profi
+
+...but then I stepped out of that meeting and ran into Yi who
+extensively tested AutoFDO for Android userspace and suggested _the
+opposite_.
+
+i.e. Rong suggested:
+yes: -fno-sample-profile-use-profi
+no: --mllvm=3D-salvage-stale-profile
+
+Yi suggested:
+no: -fno-sample-profile-use-profi
+yes: --mllvm=3D-salvage-stale-profile
+
+Yi, can you share with the list why you hold that opinion?
+
+I suspect we'll want to disable "profi" for now, but likely will end
+up revisiting these pairs of flags in the near future.
+
+> `--salvage-stale-profile-max-callsites=3D2000` too. So if we decide to
+> move forward with this patch, I'll send a v2 that adds that flag as
+> well. For now I'll hold off until there is consensus. :-)
+>
+> -Doug
 
 
->  };
->  
->  struct virtio_vsock_pkt_info {
-> @@ -283,6 +287,7 @@ void virtio_transport_destruct(struct vsock_sock *vsk);
->  void virtio_transport_recv_pkt(struct virtio_transport *t,
->  			       struct sk_buff *skb, struct net *net);
->  void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *skb);
-> +void virtio_transport_credit_update_xmit(struct sk_buff *skb);
->  u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
->  void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
->  void virtio_transport_deliver_tap_pkt(struct sk_buff *skb);
-> diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
-> index 4f9aa9c4c3aa..82cd52249de3 100644
-> --- a/net/vmw_vsock/virtio_transport.c
-> +++ b/net/vmw_vsock/virtio_transport.c
-> @@ -104,6 +104,8 @@ static int virtio_transport_send_skb(struct sk_buff *skb, struct virtqueue *vq,
->  	int ret, in_sg = 0, out_sg = 0;
->  	struct scatterlist **sgs;
->  
-> +	virtio_transport_credit_update_xmit(skb);
-> +
->  	sgs = vsock->out_sgs;
->  	sg_init_one(sgs[out_sg], virtio_vsock_hdr(skb),
->  		    sizeof(*virtio_vsock_hdr(skb)));
-> diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-> index 74a8fdf825d5..65d6e0790e72 100644
-> --- a/net/vmw_vsock/virtio_transport_common.c
-> +++ b/net/vmw_vsock/virtio_transport_common.c
-> @@ -604,18 +604,68 @@ static void virtio_transport_dec_rx_pkt(struct virtio_vsock_sock *vvs,
->  	vvs->fwd_cnt += bytes_dequeued;
->  }
->  
-> +static void virtio_transport_put_vvs(struct virtio_vsock_sock *vvs)
-> +{
-> +	if (refcount_dec_and_test(&vvs->refcnt))
-> +		kfree(vvs);
-> +}
-> +
-> +static void virtio_transport_credit_update_destruct(struct sk_buff *skb)
-> +{
-> +	struct virtio_vsock_sock *vvs = VIRTIO_VSOCK_SKB_CB(skb)->vvs;
-> +
-> +	spin_lock_bh(&vvs->rx_lock);
-> +	if (vvs->credit_update == skb)
-> +		vvs->credit_update = NULL;
-> +	spin_unlock_bh(&vvs->rx_lock);
-> +
-> +	virtio_transport_put_vvs(vvs);
-> +	sock_wfree(skb);
-> +}
-> +
->  void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *skb)
->  {
->  	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> +	bool track = le16_to_cpu(hdr->op) == VIRTIO_VSOCK_OP_CREDIT_UPDATE &&
-> +		     skb->destructor == sock_wfree;
-> +
-> +	/* The skb pins vvs, which connect() may detach from the socket. */
-> +	if (track) {
-> +		refcount_inc(&vvs->refcnt);
-> +		VIRTIO_VSOCK_SKB_CB(skb)->vvs = vvs;
-> +		skb->destructor = virtio_transport_credit_update_destruct;
-> +	}
->  
->  	spin_lock_bh(&vvs->rx_lock);
->  	vvs->last_fwd_cnt = vvs->fwd_cnt;
->  	hdr->fwd_cnt = cpu_to_le32(vvs->fwd_cnt);
->  	hdr->buf_alloc = cpu_to_le32(vvs->buf_alloc);
-> +	vvs->credit_update = track ? skb : NULL;
->  	spin_unlock_bh(&vvs->rx_lock);
->  }
->  EXPORT_SYMBOL_GPL(virtio_transport_inc_tx_pkt);
->  
-> +/* Called by the transports when @skb is put on the wire. */
-> +void virtio_transport_credit_update_xmit(struct sk_buff *skb)
-> +{
-> +	struct virtio_vsock_sock *vvs = VIRTIO_VSOCK_SKB_CB(skb)->vvs;
-> +	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> +
-> +	if (!vvs)
-> +		return;
-> +
-> +	spin_lock_bh(&vvs->rx_lock);
-> +	/* Still the socket's last packet: carry what was suppressed. */
-> +	if (vvs->credit_update == skb) {
-> +		vvs->credit_update = NULL;
-> +		vvs->last_fwd_cnt = vvs->fwd_cnt;
-> +		hdr->fwd_cnt = cpu_to_le32(vvs->fwd_cnt);
-> +		hdr->buf_alloc = cpu_to_le32(vvs->buf_alloc);
-> +	}
-> +	spin_unlock_bh(&vvs->rx_lock);
-> +}
-> +EXPORT_SYMBOL_GPL(virtio_transport_credit_update_xmit);
-> +
->  void virtio_transport_consume_skb_sent(struct sk_buff *skb, bool consume)
->  {
->  	struct sock *s = skb->sk;
-> @@ -667,11 +717,20 @@ EXPORT_SYMBOL_GPL(virtio_transport_put_credit);
->  
->  static int virtio_transport_send_credit_update(struct vsock_sock *vsk)
->  {
-> +	struct virtio_vsock_sock *vvs = vsk->trans;
->  	struct virtio_vsock_pkt_info info = {
->  		.op = VIRTIO_VSOCK_OP_CREDIT_UPDATE,
->  		.vsk = vsk,
->  		.net = sock_net(sk_vsock(vsk)),
->  	};
-> +	bool queued;
-> +
-> +	spin_lock_bh(&vvs->rx_lock);
-> +	queued = vvs->credit_update;
-> +	spin_unlock_bh(&vvs->rx_lock);
-> +
-> +	if (queued)
-> +		return 0;
->  
->  	return virtio_transport_send_pkt_info(vsk, &info);
->  }
-> @@ -1086,6 +1145,7 @@ int virtio_transport_do_socket_init(struct vsock_sock *vsk,
->  	spin_lock_init(&vvs->rx_lock);
->  	spin_lock_init(&vvs->tx_lock);
->  	skb_queue_head_init(&vvs->rx_queue);
-> +	refcount_set(&vvs->refcnt, 1);
->  
->  	return 0;
->  }
-> @@ -1276,8 +1336,8 @@ void virtio_transport_destruct(struct vsock_sock *vsk)
->  
->  	virtio_transport_cancel_close_work(vsk, true);
->  
-> -	kfree(vvs);
->  	vsk->trans = NULL;
-> +	virtio_transport_put_vvs(vvs);
->  }
->  EXPORT_SYMBOL_GPL(virtio_transport_destruct);
->  
-> diff --git a/net/vmw_vsock/vsock_loopback.c b/net/vmw_vsock/vsock_loopback.c
-> index 8068d1b6e851..84342a97a513 100644
-> --- a/net/vmw_vsock/vsock_loopback.c
-> +++ b/net/vmw_vsock/vsock_loopback.c
-> @@ -134,6 +134,7 @@ static void vsock_loopback_work(struct work_struct *work)
->  	spin_unlock_bh(&vsock->pkt_queue.lock);
->  
->  	while ((skb = __skb_dequeue(&pkts))) {
-> +		virtio_transport_credit_update_xmit(skb);
->  		/* Decrement the bytes_unsent counter without deallocating skb
->  		 * It is freed by the receiver.
->  		 */
-> -- 
-> 2.56.0
-> 
 
+--=20
+Thanks,
+~Nick Desaulniers
