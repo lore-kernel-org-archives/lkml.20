@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793991077;
-	b=0VxLDOqT0nfodzVf2poudw/WQCfoVbI/JZdzDKnN7e/IMecmaYSE1o8xqey0GQHzmD/n
-	 iU+ODN1JdEjMPT3Y1awr20X3weHaZ4jhIR5apBDdVLh2kXYFwq0JG6qsTz/u8C9kat1mO
-	 LyTulKlQpiT7YLV9aKWnb2uB9eiOf71/eYQDrBamLekW0/NbkiGhxwmUM7uvdlOo89ZDi
-	 avWN5XZcZT5v1fAkk59c2LZ0QnaXcL91DDxUPU6igTNVoWP33OL8RopL3FmIv21wK+yuN
-	 MbLVPKS9C3l31goDuWUh5s8ie8a1waJOWI86ZRcppOWYh4uXcR4mY+3Uw69XwJ8xAmA==
+	t=1793991111;
+	b=jEkMUYF/avnER6kSs66ERY8DZoa9DrcgeKBYIl/6Etnl5nOBmW+T5C4MLmHNhOpu2cg4
+	 oXfGlGSol/yxZS03H08FBTDzHFMUMM5iZyNBxyHRR3MFs80nNNAbbOSCf1lTaV+gKUYxO
+	 slw+qsGyrB3JwecNMoRSG4x9G7ZekIm6xgLXTNcsdSirtr6mPohCxeOjaBpGPRtvudoY7
+	 9mmIaroScaqv3m5hHwTzAgvVkaHvWdiSLSdBngx1Tqa7FEf72qGpbwsEhY1YYJH52AfmO
+	 8eveViC2ejWGHez7BsuZdGHm2s52EAhi0O7TfhZSlU72ymZpGShPslOZzAjO7Nzt8og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793991077;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=x7k6+irpFO+kuKSMRhYM/fUvtg+NGs0wJW0nzxfmETk=;
-	b=hKAJpZXC9WnTOzVjpCok4Lu5HaS2BnpeYhNBd1scMIqjC2rdREdLdRUYMK0pWrGEg2Zr
-	 9q79CNAEcU9azgNIf3HzK9A1pwfkN/N74nVhJstkH5kMfuO5+BGiLND359sdhJqbvghJh
-	 BfGOCc+jaXl3qiXiFvsnxtluYf5DuIhCPNaNSIAhKsf8G6/xaPYrulLxuGuZ8/eCnKdxT
-	 yMd6gDb7jAJOwk8A3hgsN/xTyLSFFCb0JugWzZtN/pAFqumzGMC9EupdDYEq9jdxNfSKa
-	 5tyZdjTB3hcPIkAl2Sx26ikjw3aJJvy88xQrQxCQaUFUYOZEuMbr8zobnF18KCOgUrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793991111;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=iJbBBhTmKjC5dRrCLy16aHqmWzeHhMuPJOjPj2I65fU=;
+	b=Bpg56c3WF3iOrYsZ8x0eZM1P6xCF1VC84aNNDqBUS4SKLbnlZT3tJqil6M4FPq0qn3VL
+	 EZqtpY6tVmcP7sxOGBqMOk8rIUp9Vi1JvpY4aShmsF2Ik1WXzysU8RjHIcd6/YDlyNg2G
+	 tQ13VKYLQdznfjLLora8Kp3dzDuAXi54N8OwcpsGZ75pDYZx5Ex3QmV33Ma4w9GwPy3TI
+	 Nycgj7XhsGbGY/k35FhOvi7R0Xth9Se2YN1ZPy2uFbzFf29fS0/UBSp8I41LZE4PJ0YOq
+	 GfIZ3VS+7zQc6HZto4cZY+rW7CwYLuYJ1talrnLi4nFHLS3+8kpedy22Dv8atIJHopg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e42SqN0R;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=freeshell.de;
+	spf=pass smtp.mailfrom=freeshell.de;
+	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=KR+WWrD1;
+	arc=none smtp.remote-ip=116.202.128.144
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481DD606A326;
-	Fri,  6 Nov 2026 18:51:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D49606A329;
+	Fri,  6 Nov 2026 18:51:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48D49606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e42SqN0R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0CB71F0089F;
-	Fri,  6 Nov 2026 18:51:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793991076;
-	bh=x7k6+irpFO+kuKSMRhYM/fUvtg+NGs0wJW0nzxfmETk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e42SqN0Rnw8QzZ9vOKRbLsR3sY5kOxAccXrVxgmgl0kBZhx5zOkdFL6HM4xDozJ9r
-	 K87JrYBqmhJv5CDolQNq5aunZwkV4QVixTJaaGLrRebeKDorM9TuPVjMEK4kwaTV/A
-	 +F0QUc0WZ36CUJkdD463VI02bw3ao6dnq2WQpyx+sogv9jmqGw25T0ZMRnhjauVYZm
-	 YZUtazo7cJ2DFVek+TwOLlrbWeP95e/o1nPZWQ3pbVeV6CNrQ4j6476XxgGiWQ8xyH
-	 q2G220UrPL5y40HBa6sqDHerln57smZrMpZ+lpEJad7bxEHnzd/05W40OQt4BTo4LU
-	 kxq3DMX5gn2Eg==
-Date: Fri, 6 Nov 2026 12:51:11 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	gjorgji.rosikopulos@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com, 
-	jigarkumar.zala@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] arm64: dts: qcom: Add CSI2 PHY common-phy
- providers for SA8775P, QCS8300 and SC7280
-Message-ID: <au4hdnq9rjM6RKG3@zenbook>
-References: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=KR+WWrD1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1793991064;
+	bh=iJbBBhTmKjC5dRrCLy16aHqmWzeHhMuPJOjPj2I65fU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KR+WWrD108d0d/sYexPx39IKW86oSjbsjrOCmPuw3W34yzkDbyeNaeBIS8XMhO8WB
+	 7tMxeUMUhoTElvyviKL11+FSdDQlft2RsphBOXrxsir5wHr/h57XLvqyEYKBBFlPc9
+	 +80VI8yoTKjKH2oomZX1Bo+yyz1MtF4/RsEJ8WcaFi9MbdPwhSAkjxtWtRjwYAVraT
+	 3s+O/QIvfPivtDJg61+vT27QTIJE3j8WBZZuEU67v0cfHDA1dWTQcjULWLZI++/U7k
+	 0ySb2nbxgLCOLRbEYF8WjPbrxUfJl8KPlW9CtPraMUkH4t60DMg/gaa9hoXuP1jR6W
+	 ZqqRemClp+ETQ==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id 8823EB220432;
+	Fri,  6 Nov 2026 19:51:02 +0100 (CET)
+Message-ID: <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de>
+Date: Fri, 6 Nov 2026 10:51:00 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,93 +58,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
+ power LED on
+To: Owen O'Hehir <oo.hehir@gmail.com>, Conor Dooley <conor@kernel.org>,
+ Emil Renner Berthing <kernel@esmil.dk>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261106184055.3891621-1-oo.hehir@gmail.com>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <20261106184055.3891621-1-oo.hehir@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 07:02:09PM -0800, Anusha Arun Nandi wrote:
-> This series adds devicetree nodes for the generic Qualcomm MIPI CSI2
-> PHY driver on the three platforms whose compatibles/soc_cfg were added
-> by the companion "phy: qcom-mipi-csi2: Add D-PHY support for SA8775P,
-> QCS8300 and SC7280".
-> 
-> Each CSIPHY is exposed as a standalone generic-PHY provider node at
-> its existing register address, with its own OF graph (port@0
-> sensor-facing, port@1 CAMSS-facing), so that camss_detect_legacy_phy()
-> picks the non-legacy path once a board wires a sensor through one of
-> them. The camss node's own reg-names/clocks/interrupts for the
-> CSIPHYs are left unchanged, so boards that don't use a provider still
-> fall back to the legacy in-driver CSIPHY handling. All provider nodes
-> are added disabled by default; a board or camera overlay enables the
-> one(s) it actually uses.
-> 
-> The three patches are otherwise independent and split one-per-SoC
-> since each touches a different dtsi file:
-> 
->  - Patch 1 adds the four SA8775P CSIPHYs (csiphy0-3) as
->    qcom,sa8775p-csi2-phy nodes.
-> 
->  - Patch 2 adds the three QCS8300 CSIPHYs (csiphy0-2) as
->    qcom,qcs8300-csi2-phy nodes.
-> 
->  - Patch 3 adds the five SC7280 CSIPHYs (csiphy0-4) as
->    qcom,sc7280-csi2-phy nodes.
-> 
-> This series depends on the compatible strings and soc_cfg entries
-> introduced by the driver series referenced below and should be applied
-> on top of it.
-> 
-> Depends-on: https://lore.kernel.org/all/20261105235137.2635442-1-anusha.nandi@oss.qualcomm.com/
+Hi Owen,
 
-Since patch 1 was dropped, I'm dropping this series from my queue.
+On 11/6/26 10:40, Owen O'Hehir wrote:
+> The firmware turns the status power LED on, but the node has no
+> default-state, so the LED switches off when leds-gpio probes and the
+> board looks powered down.
+> 
+> Default the LED to on.
+> 
+> Tested on a VisionFive 2 v1.3B.
+> 
+> Fixes: 1ec99dfe9eb0 ("riscv: dts: starfive: jh7110-common: add status power led node")
+> Signed-off-by: Owen O'Hehir <oo.hehir@gmail.com>
+> ---
+>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> index 64de468f2..7ec94e968 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> @@ -44,6 +44,7 @@ leds {
+>  
+>  		led_status_power: led-0 {
+>  			gpios = <&aongpio 3 GPIO_ACTIVE_HIGH>;
+> +			default-state = "on";
+>  		};
+>  	};
+>  
+> 
+> base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
 
-Thanks,
-Bjorn
+I think this change may disagree with fastboot select function on
+VisionFive2 Lite, where (if I understand this correctly) it is read as
+an input; see that schematic listed as the "VisionFive 2 Lit Schematic":
 
-> Depends-on: https://lore.kernel.org/all/20261102213936.1251316-1-anusha.nandi@oss.qualcomm.com/
-> 
-> Changes in v3:
-> - Patch 1 (lemans): moved csiphy_opp_table out of the soc@0 simple-bus
->   to the root node (a simple-bus's direct children need reg/ranges,
->   which an OPP table has neither of), dropped the opp-300000000 entry
->   (SA8775P's camcc only defines a 400 MHz rate for this clock, so it
->   was unreachable), and reordered csiphy0..3 after camss so soc@0's
->   children stay sorted by ascending unit address.
-> - Patch 2 (monaco): same csiphy_opp_table root-node move, and dropped
->   both the opp-300000000 entry and the extra "csiphy_rx" clock from
->   csiphy0..2 (QCS8300 binds through the sa8775p soc_cfg, which only
->   declares two clocks, "core"/"timer", for this PHY).
-> - Patch 3 (kodiak): same csiphy_opp_table root-node move; its
->   opp-300000000 and opp-400000000 entries are both kept, since
->   SC7280's camcc genuinely supports both rates for this clock.
-> 
-> Link: https://lore.kernel.org/all/20261103221026.3662383-1-anusha.nandi@oss.qualcomm.com/
-> 
-> Changes in v2:
-> - Patch 1 (lemans): dropped the extra "csiphy_rx" clock from
->   csiphy0..3 (3 clocks -> 2: "core", "timer"), matching the driver's
->   sa8775p soc_cfg, which only declares two clocks for this SoC family.
-> - The "undocumented compatible" and "camss_detect_legacy_phy() does
->   not exist" comments on all three patches were resolved by the
->   companion phy-driver/binding series and CAMSS work landing, not by
->   a change to these dtsi patches themselves.
-> - Patches 2 (monaco) and 3 (kodiak) are otherwise unchanged from v1.
-> 
-> Link: https://lore.kernel.org/all/20261017001116.2318647-1-anusha.nandi@oss.qualcomm.com/
-> 
-> Anusha Arun Nandi (3):
->   arm64: dts: qcom: lemans: add CSI2 D-PHY common-phy providers
->   arm64: dts: qcom: monaco: add CSI2 PHY common-phy providers
->   arm64: dts: qcom: kodiak: add CSI2 D-PHY common-phy providers
-> 
->  arch/arm64/boot/dts/qcom/kodiak.dtsi | 172 +++++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/lemans.dtsi | 136 +++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/monaco.dtsi | 104 ++++++++++++++++
->  3 files changed, 412 insertions(+)
-> 
-> Best regards,
-> -- 
-> Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-> -- 
-> 2.34.1
-> 
+https://www.starfivetech.com/en/index.php?s=docs&c=search&keyword=schematic
+
+You may reference also the ghidra archive
+https://web.archive.org/web/20260718140236/https://freeshell.de/e/riscv64/hrv-jhre-JH-7110%20BootROM%20analysis_2026_02_22.gar
+for decompilation of JH-7110 BootROM loader, and there (to the best of
+my understanding) it is not interacting with that register so it must be
+purely the SoC reset state.
+
+-E
