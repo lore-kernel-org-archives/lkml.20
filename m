@@ -1,62 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979247;
-	b=HTi3JoCWA9ViXhbGsCRID9xO9pxSWOEPTHlZHY8zOOK5xYbqWH/AxdgYtmwR4EeHdQKC
-	 wqVYDgWdmKOA5t6d0uR4byW/XVWSfZH8KcH4iV/4xrTag1hyl9BoLZot+myrLIT2fs1Mv
-	 JGQauDqQj16Sioww6p/GwilJSH9yBW0SPGep5NskJJKfYgxZVp8HYmVeP3E+VWdufNVj5
-	 CNo32rBjpUqER9ziacJpM72gpP+XfR6ojaeRlk9exrel6ikD3vvsQqE56tM/L2OvREiYd
-	 pVV3Ygc/kOllXW4w6pYUi0h+PkoEk/iXwQYWhQIUAf8jWiMsh2MTzCvKZB11dWE26ng==
+	t=1793979260;
+	b=lnaTK94z7pgmAhK8UXsdv3x3E9Jrxdbe5O2Y1VNru1im0BK6VRKgKAO72UGrwkctiiew
+	 ArT32ZvfsomquVRsC4+QkZl3gbCCvERx8U31+kWS68FCa5GaPTiPUCixgoJl7oGYJeiAp
+	 Ls9OWSY5bUcKYCqK8sQUI8uX4eApDoLaIHZ2sF3Sybq3JFNPGV03+M1v/E42f21iWLyv1
+	 zt65YWay1yJ4qK1xxev2o2E11NpnzlIYOv0eFfvHEOFdkKqr3/6gPXdmoIwuIjg9uky35
+	 nmOT1r4b0uBJ9SLM5mwBUdpVE4T2I4/8CmhU4N1RLSjlYKL5+PH5zrZxaW2+evQmJyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979247;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=II+/X/AjHk0LYdYU8qce4WUbCQR7IugTOkyE8BsCIhw=;
-	b=VaJTQy5uaQELxEdb4nBbXOLKqRjPRV5GVQRQynca4GclIiDdt7J7S9mjvhpbh/EBCXG1
-	 e5RmfyDtDkzhL5L615YHzGZ/0NlC8PTsPEhUH3o+F9xviJ3cuvjb68vBEp2MGlaP07NQx
-	 s7J7b87er3uDaGwq3js6RJbJg8WZIitp+u0Ym5lsRwwTpdZzKuXPHgDCYrVjR1kOYdKgf
-	 qpbph5BxDSZ35O3Krvb6djO4l3Y5subWTIPjvAGGHDIJ7FiYhztFLXCTdsfQf+nk1kGUU
-	 g5C1UzgMQieDGy5e3vcFpzCnAJ0fBwxQwH6dlwActp3Dmid9mkTtmdCosGpDTq7bdrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979260;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3UAbQu4Zz7jM5fvfnVPIQRW8LGHO6T/qo7Hc+AehbY4=;
+	b=J3X7So5KD+7jGHqs3Mjp4v1mttHKVgm360ObcU5KfsHOnFiMJOhEIWBxVcyEgulIftgc
+	 /6GPDF8NkzKUpA+Imw/PxRRheG05oBQg+IB8tIIvBKogzqKLViw50QRqQ0Nh1uMKto5Pn
+	 zTVrgeBfJrdzR41JLYuMrqOXapYRR9qxGZZ7DEJGJi+9Z1u4/cfkvevUZ8lIHVCvfkCda
+	 wTUM2HiJUT3Wj0m8euFR1kegKnmAwMP9lQGXCRk9UEHTUVI1vVL5t2iv03tR80naHTi+x
+	 H2sTuNs0ec8ovNYDQA2jHnEm5KFbt5kEfrQ/m4Jm/66fKJvNrgNp66YxseMcI2PxlnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofnNNgjs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VhokyNrA;
+	arc=none smtp.remote-ip=95.215.58.77
+Received: from mta1.migadu.com (out-77.mta1.migadu.com [95.215.58.77])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28F8606A326;
-	Fri,  6 Nov 2026 15:34:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E41B606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E41B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofnNNgjs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288121F0089F;
-	Fri,  6 Nov 2026 15:34:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793979246;
-	bh=II+/X/AjHk0LYdYU8qce4WUbCQR7IugTOkyE8BsCIhw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ofnNNgjskEICYvaBMQ5Hxz2bF9n4sLEzhep/feYz49X59zjApKsMY9OE9pz2qlqY8
-	 mAqOwsksfHjWbUMw0F7zZ20suWnYkKVpNrZ3IcJvWPoTDb+jjQZnejbYVXq0a5hroi
-	 t/bAdCups3F9fq2K/2vn9ARUPX5zG7sQrF94/+0pJcd9kPB1q6/IgESQu7dQGAvhVU
-	 D65A/Y9Ry8DICZsndZx0xUSMBL2ysSK9VLYzqjt1dJfpEZc9RESdrJHWV9KPH7n/XZ
-	 S0Jy+01bWKjj4NJjAEADzoeTpWedtFeBAf/CG6MdJ7pXiiRljY7yU4N/tAor/3n5Ak
-	 VEYK51K2qEKnw==
-Date: Fri, 6 Nov 2026 16:34:04 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
- tegra_output_probe() optional
-Message-ID: <au3yeJQPgRNiOM_R@orome>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-7-clamor95@gmail.com>
- <au3dMlmsLEOUqan9@orome>
- <CAPVz0n3=R1UhyTw1o-ZR2hMyXwKAomNkb5O-cQbG+TBFJi5=JQ@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VhokyNrA
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4IpYDm1JeTeVQryoSNRzjLLGuozzk6CpKr9+AhGJ6uY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793979257; v=1; x=1794584057;
+ b=VhokyNrA9rO/IiddTY7Qj6x7ba7aZUn1FKhs7ajCtrOgaJAPnmZzejHHyYw4UfLOAiH5bxP+
+ 4EWVftLheEtm70YmUWkm1Px7Rdi/ZpK1E+FLUi4G28bspY0FLOVM838t2GYXE+DcjLjAXlIXX6y
+ nSKJFHy9h74g1jcO9X8vu3GA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 1c7542236927aa1f;
+	Fri, 06 Nov 2026 15:34:17 +0000
+X-Mizu-Trace-ID: 1c7542236927aa1f
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Hugh Dickins <hughd@google.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm: free unused page table allocated by do_set_pmd()
+Date: Fri,  6 Nov 2026 07:34:13 -0800
+Message-ID: <20261106153414.2938216-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,88 +80,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vsbcwdisnglh5dny"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n3=R1UhyTw1o-ZR2hMyXwKAomNkb5O-cQbG+TBFJi5=JQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
+On Fri, 06 Nov 2026 13:36:12 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
---vsbcwdisnglh5dny
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
- tegra_output_probe() optional
-MIME-Version: 1.0
+> do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
+> deposited page table, such as PowerPC with the hash MMU. If the PMD is
+> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
+> without consuming that table.
+> 
+> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
+> userfaultfd operation can install a PTE table before taking the folio
+> lock. If that races with set_huge_pmd(), the unused preallocated table
+> is lost when its local vm_fault goes out of scope.
+> 
+> Track whether do_set_pmd() allocated the table and free it after dropping
+> the PMD lock if it was not consumed. Preserve any preallocated table
+> supplied by the caller for PTE fallback. Successful PMD installation
+> consumes the table and clears the pointer.
+> 
+> Returning without a preallocated table matches the existing behavior on
+> architectures that do not need a deposited table. All callers
+> already handle that case.
+> 
+> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/memory.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-On Fri, Nov 06, 2026 at 04:09:36PM +0200, Svyatoslav Ryhel wrote:
-> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:=
-00 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Thu, Nov 05, 2026 at 04:05:06PM +0200, Svyatoslav Ryhel wrote:
-> > > The tegra_output_probe() performs panel parsing unconditionally, even=
- for
-> > > devices that do not require it (such as HDMI) or that handle panel pa=
-rsing
-> > > on their own (like DSI). Make panel parsing configurable.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/tegra/drm.h    |  2 +-
-> > >  drivers/gpu/drm/tegra/dsi.c    |  2 +-
-> > >  drivers/gpu/drm/tegra/hdmi.c   |  2 +-
-> > >  drivers/gpu/drm/tegra/output.c | 52 ++++++++++++++++++--------------=
---
-> > >  drivers/gpu/drm/tegra/rgb.c    |  2 +-
-> > >  drivers/gpu/drm/tegra/sor.c    |  2 +-
-> > >  6 files changed, 32 insertions(+), 30 deletions(-)
-> >
-> > Does it break anything to try and parse this even when it's not needed?
-> > In all cases we error out early, so there shouldn't be a whole lot of
-> > extra overhead either.
-> >
-> > Adding this extra parameter just adds extra complexity for seemingly no
-> > benefit.
-> >
->=20
-> Dual DSI panel fail for Xiaomi Mi Pad. Maybe you should check your
-> email a bit more often?
+Acked-by: Usama Arif <usama.arif@linux.dev>
 
-What's with the passive aggressivity?
+Reminded me of lazy pagetable deposit series :)
 
-> https://lore.kernel.org/lkml/20260305161035.64548-1-clamor95@gmail.com/#t
-
-That's a thread from over half a year ago. I don't usually keep track of
-email from that long ago.
-
-Also, I asked previously if this broke anything. If it does, then the
-commit message should say so to make it obvious that this is an actual
-fix. And it should explain the problem so people can think about the
-problem and judge whether this is a proper solution or not.
-
-Your commit message doesn't mention any of this and makes it look like
-you're trying to micro-optimize for no reason.
-
-Thierry
-
---vsbcwdisnglh5dny
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt82wACgkQ3SOs138+
-s6Ge9RAAs0gRNuV8ajPe0zMqQ7l0nh5k5pTb0yKxufq6QJJsYFvp/fivU8sBmS2L
-qq2gjLv/OnCZOmDdDWdfwUStRuTVzI7eQbFouVvGadxjxyWY0VfV7XSXcI6aCH2u
-s+hcgNEDaHy1YT+8tyUtOYm+3uVN+tJNnjIbFMxZ8q+s460Qh58+LRe8nyokwRVJ
-fjocfQUL7A2VSJWEakyoyD9KNasvaUZ9jTi4cJbxsSM+IfS4lohDFl2VoKZE4o+H
-j4QtGAdJu1fYPH8dDiY4160+zPqyQyDms6tw5ZuVA2BFZPRFrKcPgWnKuYNQbl1m
-DTMP2XzNO0+7c6m98CCcaBq4lo+jsmlyCkgaXkpLyRFpQP/0SfFD6DQUQHi6asUr
-NblJ95fJeYCS6+hlUJi4QJj1uSoqqa7lMeozkKCZGcBseJTnvIOi2d5pErL3dwmE
-BcsQk/yBd24kdmEAwN+v9Yz8L+5MfpOJ602GJWMrZ31Sj16CLbeBu6aTa8iE4hgb
-gKTG1omK/iF8FHZFzV5xeEHCa7U3LbscouO7o7hwHb6124QfNwBTNLJKC9CFMf6I
-yYgKCj2kMyAnEtl0fZCueYvRssTGVhUmHE8GuMBOv5UjCZWEotP2UMuHt6+w258f
-K9NmJpqT3ARg6tcamiSLKwUSoTR7yGdNNmGd02C7CPGsRoMWuoA=
-=t1Ik
------END PGP SIGNATURE-----
-
---vsbcwdisnglh5dny--
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index becf53a2a0944..421064aef3cf0 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -5687,6 +5687,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+>  	struct vm_area_struct *vma = vmf->vma;
+>  	bool write = vmf->flags & FAULT_FLAG_WRITE;
+>  	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
+> +	bool pgtable_allocated = false;
+>  	pmd_t entry;
+>  	vm_fault_t ret = VM_FAULT_FALLBACK;
+>  
+> @@ -5725,6 +5726,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+>  		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
+>  		if (!vmf->prealloc_pte)
+>  			return VM_FAULT_OOM;
+> +		pgtable_allocated = true;
+>  	}
+>  
+>  	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
+> @@ -5755,6 +5757,10 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+>  	count_vm_event(THP_FILE_MAPPED);
+>  out:
+>  	spin_unlock(vmf->ptl);
+> +	if (pgtable_allocated && vmf->prealloc_pte) {
+> +		pte_free(vma->vm_mm, vmf->prealloc_pte);
+> +		vmf->prealloc_pte = NULL;
+> +	}
+>  	return ret;
+>  }
+>  #else
+> 
+> -- 
+> 2.43.0
+> 
+> 
