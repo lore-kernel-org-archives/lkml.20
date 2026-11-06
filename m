@@ -1,87 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793979123;
-	b=ZQG7ENDF4fyydSN6ULu7vMcuBJ/ihbeC2U1msw7IyyH283pyf6G5hZfhtf5HR6eHmmWR
-	 vNJEBtfT8Y8d6LVZLhvgxfyqd4sloHO2HWpbqfxv1hVQJ4jpwkXpvuy15hF37Q5szZyp1
-	 5tfHhIQfRYzjAm0gOCsyRr6XhEBZBSrWxryLKMczrXXW9LIygzs4xRGdsA7GcwtMtj4YX
-	 MJrTE73nefy8JCTnUlC/1VaD6fC5gnrFTx2uXk40mkBjOMeNCLNhH73szieh0e0ildN/Q
-	 1GZRfEpnZH+RH+/0hg/SJKw1NxdLfsSeuYXaeuEzY0zPtbHl7tSjN4CTLRhXWB+qsyg==
+	b=pZudIYjcrUokhVjH5I66ziCsBT6/vmrClIIbn/iVZGCuooTtyBQdz0Hl4sIWxpqzDq12
+	 RKa1sxhXkL2lEDk7VmRthKKrZDc8dC/puQEcbZFf3kR6IYeBSn97L9cuKEUU6yG0bNvsZ
+	 qyPIZdtI+1i7Gbzx0vvPNxJ1kYxTQ/wzVEU2M0LVQqfQH77CpfBrnCalfokqLaRZ0hMAr
+	 zojBiCnGeyWh7t74r81r7i/I4jf7pMuoV2IwlZCXNKlqRKCP/lbVmPqE345C5FXLyuIxl
+	 Q9FMjboGpC7+XKApCQ4sws8OYafEe2aUeAdVtIYzpzaNAgjPCyQ7irS7x/LUu827G3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793979123;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=McD/94Qfb8FbdIRAdUd++77esqMBZsPQyz03PBXRHL4=;
-	b=QjkMdcQWY8NIUh1ZkrX6OVzkXEWPENyEcAtgZ+baZREpZGTH50AllxPzEoZm1xuiVWCE
-	 3727v2BRMDU/a91bpcGSjgD2hrqsBDpzN2aZN38F6oAOXz+mvlfqWToCUQabeGh0Vdq/G
-	 K41MFIlErHmqKOoPzPangJC3GZ/FXbg9OEmsZZDc3NXJh12YxtfM/xVICvgK1oX7jVQgd
-	 k6mCftNe8swscOqG2TULMFlYUvyI6ZBHXUY8mxFXGei3FrJOv13dcdUwgdh3WVk7iBPe2
-	 bke+Zg/Qf2ck37fYeG71JWkPpkHsiSmDEvqkcZwbHgZqqkjqUHUuG4LF+VRPHMQvdXw==
+	bh=gujsXkF4M2W68fWc7gnblFgKMixT7m5crNREsLfkkzU=;
+	b=QE4v/lybOvawExXrOzAEKT53hVjueTqo/czJhenLo4eOIpYBiouqYJ39v57H14Pl37I4
+	 uzMloQG564UV86rgm27s1gJkapglHQEbbqh7wCBJYHv/xBfzQDrN96ysu7fzyciOCRu/j
+	 aljbvWJc0QIASXMoC+FhUQxhTw9mPSLJMa61EH3/6po4BvnAwFqbS7GovKMV2erSywpCf
+	 CtS4kizb7Iq6JvLvTCsXuLsrMsDnfstgggGsznoJCKf2zAYOSGObtb+kum3F9WgcP0fjn
+	 r2ozJeQ9pFZLDWRNCUeF5ngroAVXniHcAmjeskaNnYZewUJlTqRJhYKm/hecvxKf82A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.ibm.com;
 	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="ocVt/e7D";
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Kcc8yb6S;
 	arc=none smtp.remote-ip=148.163.158.5
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF37606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38A7606A329;
 	Fri,  6 Nov 2026 15:32:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF37606A326
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C38A7606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ocVt/e7D
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FEKLJ2656486;
-	Fri, 6 Nov 2026 15:31:47 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Kcc8yb6S
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FEEGU2726891;
+	Fri, 6 Nov 2026 15:31:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=McD/94Qfb8FbdIRAdUd++77esqMBZsPQyz03PBXRH
-	L4=; b=ocVt/e7DlaQj1viqr5vF57rEPMme49JZ49QSzeQqOf81Wt9SCWIWZcaRw
-	MnrCQNkQuMFwkHmi049Wj3GsA9RsmjXwUjCvzfcjx74kBb8JKtuOSSqSLe+ykrMu
-	c2aP2LnR+ZjbHiIPNIrXp/HJ579eZsews7lxsy99KAepNIlaDCmROZpBm8EVbeei
-	RAU2IzlVDHmWQop0Eu42aJsdrGFpS9NZK3h9h7YhQsKkE4E5zo/FRVdo1zAHWeOa
-	WgMTF3uozW+DyEDnAmaCwmlWkXTGmqOeZVeiG/SmY0Bzwdbc2SglnSiYE1IWUx3r
-	uOP9d7viJwyh6Hl+opsqgjxNc2SnQ==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3rc565t-1
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=gujsXkF4M2W68fWc7
+	gnblFgKMixT7m5crNREsLfkkzU=; b=Kcc8yb6SQooaZtWPtI2DRhVfsR86Do2hQ
+	IqeTlLy6Mtyxujhoio/P/cAdVwHD2W56SLdBvEzJU25qicHLKIaef6ssk08w89XL
+	KKHqGV94cDCJeKG2X1l9x4CbxIcsNLK34IlvHUKbsIHiUmUIEP0L7lCKiukrsqXI
+	sRNsXURtaJYdCBXHQaJ7Y/Rq0c/HNTtaq8lkmg5jVOlkdazBI4PtWfZbgOe1tUzr
+	DL7CN9JYepT3p8cIa5Soss2R3fNuPsVtyGv3MTa1lwxbwGonm+A8pd5I51eILMp1
+	ZhSBzz0GdiTNmcuvqCkc7x6fz0GTkoTrKDvohKDjD4rHyI2bXbXgw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3r9d71m-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 15:31:47 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FK94o3577951;
-	Fri, 6 Nov 2026 15:31:46 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqv1v7yc0-1
+	Fri, 06 Nov 2026 15:31:53 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6F51XT2390205;
+	Fri, 6 Nov 2026 15:31:53 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hs7h13nmy-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 15:31:46 +0000 (GMT)
+	Fri, 06 Nov 2026 15:31:53 +0000 (GMT)
 Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6FVgAr56033718
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6FVlAT34865618
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 6 Nov 2026 15:31:42 GMT
+	Fri, 6 Nov 2026 15:31:47 GMT
 Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 861F020063;
-	Fri,  6 Nov 2026 15:31:42 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 8A4DB20063;
+	Fri,  6 Nov 2026 15:31:47 +0000 (GMT)
 Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 155E02005A;
-	Fri,  6 Nov 2026 15:31:40 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id DCF542005A;
+	Fri,  6 Nov 2026 15:31:44 +0000 (GMT)
 Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibmuc.com (unknown [9.39.29.160])
 	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  6 Nov 2026 15:31:39 +0000 (GMT)
+	Fri,  6 Nov 2026 15:31:44 +0000 (GMT)
 From: Gautam Menghani <gautam@linux.ibm.com>
 To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
         chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
         atrajeev@linux.ibm.com, tshah@linux.ibm.com
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] powerpc/perf: Fix vpa-pmu driver to report correct numbers
-Date: Fri,  6 Nov 2026 21:01:31 +0530
-Message-ID: <20261106153136.330165-1-gautam@linux.ibm.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v3 1/3] Revert "powerpc/perf: Add per-task/process monitoring to vpa_pmu driver"
+Date: Fri,  6 Nov 2026 21:01:32 +0530
+Message-ID: <20261106153136.330165-2-gautam@linux.ibm.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106153136.330165-1-gautam@linux.ibm.com>
+References: <20261106153136.330165-1-gautam@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,68 +96,159 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2MCBTYWx0ZWRfX6ZVdLCTgEOnB
- 7a2ZhXbxKLpCkVdy/WIGqsneso5V6xU0tYeUVKbVCzS0/eSMtxqe9WOc58GpTntZ7mwkO3S6rlE
- cYE4WG3aNsI+WrmUpAbft7Sx84ITejI=
-X-Proofpoint-GUID: ZXkr24dVxlue3lFuDPzDe9GJ_698cUWx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2MCBTYWx0ZWRfX9Sfk1KWupinf
- g2dpgDk76q20uQKIL9un4fjYguFvdZcCk9aPDqE3fo0ZHpXUeEeoD47i9y18So8Z08kYYU7yhOU
- 689hiwJft57CsGOKJbkZ54UHAWuHL1jHZ5ahYcrapA2NdYzgmROMdq4F13ZQ+iKP6Szhe8eAWiQ
- FMiJHFP75LNuQTfbzxT9tiHNTq5B+YGywMRGXnggPzjl8vme/KSN1nkHI1ljTjqcEmttHxpf8nr
- x25NiU6d2jhbo680b85YGeMx4nL+WmJoWvpRbswdS3WME8Nk1l9K5T2qAokk8R3n02eNB73db9Y
- WOayU4O3rQuz84DdvPUkF2cYdbF16GJEiNSc1sCNWfVL2W32EXaX89xXwt/yBmIkuRcqKru6kPL
- SdMtG0aOpUIgNBKEiWav/86Dzo1SaNS2pPfyKzX3rOMLHW/y3WdJZ0R+ZQ8A/yVVes1WbYTkyhL
- R7HAEkWlpHRGLpdyhag==
-X-Proofpoint-ORIG-GUID: TYM7-z7ONl445plmQtla8OWbCb5rRkUg
-X-Authority-Analysis: v=2.4 cv=CY+dd7rl c=1 sm=1 tr=0 ts=6aedf2e3 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+X-Authority-Analysis: v=2.4 cv=LKHz05W9 c=1 sm=1 tr=0 ts=6aedf2ea cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
  a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=aSoOVV5oyB5p4QsdXGgA:9
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=TkzngpjIQldC6vJonygA:9
+X-Proofpoint-GUID: epyXB5ABYhY70-51HJ7G1LVZHhzj52nG
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2MCBTYWx0ZWRfXzMHFRpg/lDGJ
+ k6HL2k62E5ikbmDjpy1s4Wl5HmXNUao/G7YIezTXL6dzeiUaAmUipj8xQaYp8qVveEEQZ4jGSzu
+ 1RLA9q2UcBE5VY5hGpFD9po1ynN+ERk=
+X-Proofpoint-ORIG-GUID: JbyDhRt6V24NASiasSb_8ZX3vESGfKlD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2MCBTYWx0ZWRfX9w2CbtOBnqpQ
+ FV3jd6Sc80bLDBtcNR/yzfRKPJQxOA8XoHHADU4fz/oK0okOu/Fp39+6vcn4DX+4mqFj0DhC1I6
+ 4dL8hVbBG85czoBIp1+WTGHrpVTGw7IN89AkgfCBFa54XAGZLG3Zbs2xbsTX10IxMNSXupJc3KO
+ 0L2uHcPm5bwGyV+8rvMUkiYvlgqSNhnmtMjvyIOvX8TxhrmU8Xx5DiiDpBcwxxwGaAOpYK2YywS
+ PoKGgmrWvTrmyACA8srdF5iAy6Vntw7nnfo5NISqcpYtXQT0hkaOAmgrPsZhpg1Aq/ow64l/+fZ
+ NPqNimQ3Luc165P8e1nF660liZhGb2VcuZN8ieBpOtYHh916LuyhyQFUXm8/gLmzAwsnYl64Ccq
+ hzSYC6b55bSAPy7rCwvm2iM3cYUXHvtm+PP2GcBS9C4q331suBg61AayZhRGn9Z326xgQdTwl0o
+ iQw8PQJdC85rl48qCgg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 adultscore=0
+ phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060060
 
-The vpa-pmu driver can sometimes report incorrect context switch latency
-numbers:
+This reverts commit f26f9933e3e31b2117b804b6b8932388db88a131.
 
-$ perf stat -e vpa_pmu/l1_to_l2_lat/  --tid=2061  -I 1000
-           time             counts unit events
-     1.001022517 18,446,744,073,708,177,408      vpa_pmu/l1_to_l2_lat/
-     2.002120674            345,092      vpa_pmu/l1_to_l2_lat/
-     3.003171582            406,342      vpa_pmu/l1_to_l2_lat/
-     4.004234838            340,836      vpa_pmu/l1_to_l2_lat/
+The local_paca holds a pointer to the vCPU currently running on the given
+host CPU. When the vpa-pmu driver tries to get the vCPU pointer from
+local_paca, it either receives NULL or the pointer to the vCPU which was
+running on that host CPU previously. This is because the vCPU pointer in
+PACA is updated by kvmhv_run_single_vcpu(), which runs after
+vpa_pmu_add(). Also, on vCPU exit, the vCPU pointer in PACA is never
+cleared. This results in incorrect numbers being reported by the vpa-pmu
+driver.
 
-These invalid numbers are observed because of 2 issues:
+Fix the problem by avoiding the use of vCPU pointer in PACA altogether.
+When a vCPU is scheduled in and out on a host vCPU, vpa_pmu_add() and
+vpa_pmu_del() can already calculate the correct latency values in
+event->count. Drop the usage of the vCPU pointer in PACA and just rely
+on the VPA counter values.
 
-1. The PACA never points to the correct vCPU running on a host vCPU when
-vpa_pmu_add() is called.
-
-2. When get_counter_data() reads the PACA counter values, it does not
-update the event->hw.prev_count.
-
-
-Changes in V3:
-1. Drop the usage of the PACA's vCPU pointer.
-2. Introduce a new patch to fix an issue seen when a tracepoint and vpa-pmu
-driver concurrently enable/disable access to latency counters in VPA.
-
-
-Gautam Menghani (3):
-  Revert "powerpc/perf: Add per-task/process monitoring to vpa_pmu
-    driver"
-  powerpc/perf: Update prev_count of event to get accurate values
-  KVM: PPC: Book3s HV: Ensure reliable usage of latency counters
-
+Fixes: f26f9933e3e3 ("powerpc/perf: Add per-task/process monitoring to vpa_pmu driver")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+---
  arch/powerpc/include/asm/kvm_book3s_64.h |  3 --
- arch/powerpc/kvm/book3s_hv.c             | 54 +++---------------------
- arch/powerpc/perf/vpa-pmu.c              | 16 ++-----
- 3 files changed, 11 insertions(+), 62 deletions(-)
+ arch/powerpc/kvm/book3s_hv.c             | 45 ------------------------
+ arch/powerpc/perf/vpa-pmu.c              | 15 ++------
+ 3 files changed, 3 insertions(+), 60 deletions(-)
 
+diff --git a/arch/powerpc/include/asm/kvm_book3s_64.h b/arch/powerpc/include/asm/kvm_book3s_64.h
+index b936e174eefd..f620e3126d68 100644
+--- a/arch/powerpc/include/asm/kvm_book3s_64.h
++++ b/arch/powerpc/include/asm/kvm_book3s_64.h
+@@ -691,9 +691,6 @@ void kvmhv_set_l2_counters_status(int cpu, bool status);
+ u64 kvmhv_get_l1_to_l2_cs_time(void);
+ u64 kvmhv_get_l2_to_l1_cs_time(void);
+ u64 kvmhv_get_l2_runtime_agg(void);
+-u64 kvmhv_get_l1_to_l2_cs_time_vcpu(void);
+-u64 kvmhv_get_l2_to_l1_cs_time_vcpu(void);
+-u64 kvmhv_get_l2_runtime_agg_vcpu(void);
+ 
+ #endif /* CONFIG_KVM_BOOK3S_HV_POSSIBLE */
+ 
+diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+index 22283d46e8fe..5fa6f93548ad 100644
+--- a/arch/powerpc/kvm/book3s_hv.c
++++ b/arch/powerpc/kvm/book3s_hv.c
+@@ -4212,51 +4212,6 @@ u64 kvmhv_get_l2_runtime_agg(void)
+ }
+ EXPORT_SYMBOL(kvmhv_get_l2_runtime_agg);
+ 
+-u64 kvmhv_get_l1_to_l2_cs_time_vcpu(void)
+-{
+-	struct kvm_vcpu *vcpu;
+-	struct kvm_vcpu_arch *arch;
+-
+-	vcpu = local_paca->kvm_hstate.kvm_vcpu;
+-	if (vcpu) {
+-		arch = &vcpu->arch;
+-		return arch->l1_to_l2_cs;
+-	} else {
+-		return 0;
+-	}
+-}
+-EXPORT_SYMBOL(kvmhv_get_l1_to_l2_cs_time_vcpu);
+-
+-u64 kvmhv_get_l2_to_l1_cs_time_vcpu(void)
+-{
+-	struct kvm_vcpu *vcpu;
+-	struct kvm_vcpu_arch *arch;
+-
+-	vcpu = local_paca->kvm_hstate.kvm_vcpu;
+-	if (vcpu) {
+-		arch = &vcpu->arch;
+-		return arch->l2_to_l1_cs;
+-	} else {
+-		return 0;
+-	}
+-}
+-EXPORT_SYMBOL(kvmhv_get_l2_to_l1_cs_time_vcpu);
+-
+-u64 kvmhv_get_l2_runtime_agg_vcpu(void)
+-{
+-	struct kvm_vcpu *vcpu;
+-	struct kvm_vcpu_arch *arch;
+-
+-	vcpu = local_paca->kvm_hstate.kvm_vcpu;
+-	if (vcpu) {
+-		arch = &vcpu->arch;
+-		return arch->l2_runtime_agg;
+-	} else {
+-		return 0;
+-	}
+-}
+-EXPORT_SYMBOL(kvmhv_get_l2_runtime_agg_vcpu);
+-
+ #else
+ int kvmhv_get_l2_counters_status(void)
+ {
+diff --git a/arch/powerpc/perf/vpa-pmu.c b/arch/powerpc/perf/vpa-pmu.c
+index bff4cfab7b94..01d9196fcb0f 100644
+--- a/arch/powerpc/perf/vpa-pmu.c
++++ b/arch/powerpc/perf/vpa-pmu.c
+@@ -98,22 +98,13 @@ static unsigned long get_counter_data(struct perf_event *event)
+ 
+ 	switch (config) {
+ 	case L1_TO_L2_CS_LAT:
+-		if (event->attach_state & PERF_ATTACH_TASK)
+-			data = kvmhv_get_l1_to_l2_cs_time_vcpu();
+-		else
+-			data = kvmhv_get_l1_to_l2_cs_time();
++		data = kvmhv_get_l1_to_l2_cs_time();
+ 		break;
+ 	case L2_TO_L1_CS_LAT:
+-		if (event->attach_state & PERF_ATTACH_TASK)
+-			data = kvmhv_get_l2_to_l1_cs_time_vcpu();
+-		else
+-			data = kvmhv_get_l2_to_l1_cs_time();
++		data = kvmhv_get_l2_to_l1_cs_time();
+ 		break;
+ 	case L2_RUNTIME_AGG:
+-		if (event->attach_state & PERF_ATTACH_TASK)
+-			data = kvmhv_get_l2_runtime_agg_vcpu();
+-		else
+-			data = kvmhv_get_l2_runtime_agg();
++		data = kvmhv_get_l2_runtime_agg();
+ 		break;
+ 	default:
+ 		data = 0;
 -- 
 2.56.0
 
