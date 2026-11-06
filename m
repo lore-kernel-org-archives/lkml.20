@@ -1,76 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.202.87.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793931309;
-	b=u5b/M6NECURGZOnDRWXq2Ope/KTy82BRDXbGDSQMw4pVpJxqpqS8YU0dw7G1PWMO8hv4
-	 /DWU4+f9ZZiwIAfADkMG6C1jsoBLDvIgjKNSG4xK2C18w9m/s4vcujWjtAFMoS22b8hPd
-	 3CV+8f0mnQfwgG93FICrL7Hfw/oS6hhDJXwYW9npFEqDkUSJuGd5LPLf2FCFFIuQxnIa6
-	 qRYiOVybzp2Y4Iqn7oJp0b1RxPjlDUYhFMCY9qi3GxQwtbj+PMX+/dytIZGFVp7R20ZfU
-	 5M+XPki4KuuwFNSKRD/qX7kutZeuSIKtlUXTWn+tzLAnJdfKqbqL/yPOZqkQh982Xjg==
+	t=1793931379;
+	b=lvPedd4KVQ7lr9bT6tr8Hc7yRmTDIuwqtLRj55HrWH2INu7P3r3KFrVLoBXfMN9r4giw
+	 7wNDFZQWIvam/bUj8VEbMD5B1AzK0UcyXdSlJ9Xpla17Uof07z+kfguIVjDDkbzagiLk1
+	 ++ZTA00qZYIRnAmMxtJNTeQx/OmwH0H1F1pw2ChJ92SHQal3bz4JQA3wmvvi9Vp0p25U1
+	 ravoFME5/9GPvIKy2hsPuo1hsVLC0gAs+HyPF9yzxtXTntzFtn1QBhNvGjFus0onlYXCv
+	 XpoSkBbqbxTYxoewzRU3/WB5by8lk9r8VEuou9M2SyyTIkZlXz4XRAk3M3lukrhyOvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793931309;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=4vnDvBUlIXZ+ZcvRqoDSheUxxBsto/lfaYqFOupf+M4=;
-	b=L+rmVnnrelMllFlcw7B/aZhAKxx5MEkqjVTiKsYputpQnTn2MxuUmSqMHQn/d044TXO1
-	 m8p1TAb0yEGUovusHyUNn9ygeZA/Vnhk0bd55MgIRFzhH0bjs/Swoz2P+lskaCGpNY562
-	 sSZig2vDM/bjzzm7NgyajWb5QXQMTLQ+Xq8zVXXma1IXmUPrwrCEgI6s6X1iVYCjbD0go
-	 yzcAPHtVzBrhBvVbJHJ0P9QcRGPPa4S5pXatJ1IBPL1D8Eg4BuO6JHjvVT9hAoHykdFBA
-	 nk0yYOnK12H7Blr8TzyqihPzME0/XOtSylMA8Lkq8lG+2zanETkTDmGlYrb3Kayx55w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793931379;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:x-tm-snts-smtp:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
+	bh=0Z6Dp4l7Y62hYWbt/NR163eT1AEccJLWoAE3Sck9re8=;
+	b=rkpq9Yjssh8SaF9LWQtgMG9c8MIonlO4V8PGYCa0w1/yJRNGV++n9Kq7JjNKO7FYUK66
+	 2sgm5TNIiH5Ku5NQUZx/yXB1Xqe1f5dEsvpBUn29cy2T66fERggYrFdBg8nxg3+jGzrI4
+	 iRv9k66A4uSI9/5E+7IBX9vkiHM10MN47p9U7a2tKg8BFuPbOfJE3MDRZzP/sR1tM3MW0
+	 5eJVTRK50kuQV02BMS7qen8OkRf4NvPz25ljUmgCf53BJGoJ8qHgsYd72qfMdDOgAuKMC
+	 OIazmlI8/3q2IV7mSDs+n0oz8TBdrkJ5n+NENn97k8ZhYXU/jVwNjN1DZtNHs/lRpsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qti.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GR7D5lh7;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ite.com.tw;
+	spf=pass smtp.mailfrom=ite.com.tw;
+	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=JZrvq0Tt;
+	arc=none smtp.remote-ip=210.202.87.179
+Received: from ironport.ite.com.tw (unknown [210.202.87.179])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733DF606A326;
-	Fri,  6 Nov 2026 02:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 733DF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=qti.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB45C606A326;
+	Fri,  6 Nov 2026 02:16:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB45C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GR7D5lh7
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5NeSFC3216022;
-	Fri, 6 Nov 2026 02:15:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=4vnDvBUlIXZ+ZcvRqoDSheUxxBsto/lfaYq
-	FOupf+M4=; b=GR7D5lh7e/bgxt8IRB/sHxBj+5Ij3PSj07ep5+p014vG3fEIxDa
-	m3iSJzz/igyDkWSEgT0TuITI11e8+5TmVbWMyiL79BWXSQLt0sKtds47+DbbfI/o
-	L4grVdF2Z3Iw6PK4sHXc9FwCHk8UWLv2ka3ynXNdq9gsksLHLHkpgHn2ODe0UGYb
-	AM7Aug9e+e1rFMm1u6Q9qb7o4uH/bj0/T82qAmHE2HQZxMIEVWvmyG3jO6OZ+Bzx
-	B/qMjpzSKVX5zeMWbxYIAQZWdXhrnnw8Rigp280W60XZ627W4dfm0yAs14xSMseM
-	RaXMW0xqv69yq2ezPi54Nh3zDk5gmcB+AEQ==
-Received: from aptaippmta02.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p9rfhn-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 02:15:02 +0000 (GMT)
-Received: from pps.filterd (aptaippmta02.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A62F1eR1526177;
-	Fri, 6 Nov 2026 02:15:01 GMT
-Received: from perf-sh02-lnx.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA02.qualcomm.com (PPS) with ESMTPS id 6A62F0SB1526167
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 02:15:00 +0000 (GMT)
-Received: by perf-sh02-lnx.ap.qualcomm.com (Postfix, from userid 3975139)
-	id BFFF9AC6; Fri,  6 Nov 2026 10:14:59 +0800 (CST)
-From: Wenwen Fu <wenwfu@qti.qualcomm.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
-        linux-trace-kernel@vger.kernel.org,
-        Wenwen Fu <wenwfu@qti.qualcomm.com>
-Subject: [PATCH] tracing: skip boot kprobe setup when no events were requested
-Date: Fri,  6 Nov 2026 10:14:57 +0800
-Message-ID: <20261106021457.2648231-1-wenwfu@qti.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=JZrvq0Tt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=0Z6Dp4l7Y62hYWbt/NR163eT1AEccJLWoAE3Sck9re8=;
+  b=JZrvq0TtrDAzPCPnItJgvn+C0fauptYHK4WiBmU/vQ6aYKxDeAb8lUoo
+   EpQ33n4SzYyJ458dscO70eQGW8Ot/2TcSPKAPmtV577ODLANj+ZxUXr1s
+   JTyc56TZQkfY+W/To//e1RQCUZpaiL4+UO8WKxmt5sWmF1qMkjtfwbPCe
+   K7M5RZUrs10YJBnj/qQD+FwzkNqzvgClg8849844SHTxXKe/C9ad5v9x3
+   /vZRdJkz7w4L48DtSImQn+2HMkLKJx3dNQLpjV+9G5TWi0z7GG5jRTpzU
+   sLo4nTzVyryuuUevap/C0Dk8cg5rbKBQVE2EWtCYwL9rl4dnyom2LeoUP
+   A==;
+X-CSE-ConnectionGUID: AS/o0JppTbe+lxxK7dX0+w==
+X-CSE-MsgGUID: cN3SfbVlR3G7Bf/djPDuMQ==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 06 Nov 2026 10:16:08 +0800
+Received: from hscmail1.internal.ite.com.tw (HSCMAIL1.internal.ite.com.tw [192.168.35.58])
+	by mse.ite.com.tw with ESMTP id 6A62G4JE029785;
+	Fri, 6 Nov 2026 10:16:04 +0800 (+08)
+	(envelope-from amber.kao@ite.com.tw)
+Received: from HSCMAIL1.internal.ite.com.tw (192.168.35.58) by
+ HSCMAIL1.internal.ite.com.tw (192.168.35.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 6 Nov 2026 10:16:03 +0800
+Received: from HSCMAIL1.internal.ite.com.tw ([fe80::d4ad:7d1f:bb56:79ee]) by
+ HSCMAIL1.internal.ite.com.tw ([fe80::d4ad:7d1f:bb56:79ee%6]) with mapi id
+ 15.02.2562.046; Fri, 6 Nov 2026 10:16:03 +0800
+From: <amber.kao@ite.com.tw>
+To: <edward.blair@gmail.com>, <ite_pd@ite.com.tw>
+CC: <W_Armin@gmx.de>, <gregkh@linuxfoundation.org>,
+        <heikki.krogerus@linux.intel.com>, <lenb@kernel.org>,
+        <linux-acpi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>, <mika.westerberg@linux.intel.com>,
+        <rafael@kernel.org>
+Subject: RE: [PATCH v3 2/2] usb: typec: ucsi: add ITE885x I2C transport driver
+Thread-Topic: [PATCH v3 2/2] usb: typec: ucsi: add ITE885x I2C transport
+ driver
+Thread-Index: AQHdY8AcuVqZ4jd75kmEYEi9svaOt7cMMrGAgBQtWrA=
+Date: Fri, 6 Nov 2026 02:16:03 +0000
+Message-ID: <c54acb44ee6e49949c69c9d84c19f350@ite.com.tw>
+References: <20260829145516.13500-3-edward.blair@gmail.com>
+ <20261002082552.7084-1-ite_pd@ite.com.tw>
+ <CAJDQNghzjreMHXTVEWTZ-Oyo1cCpzLyDUyt68EZvPD30Wp0txQ@mail.gmail.com>
+ <CAJDQNgiJCqAJQ+7zNLd+UD9vMuzu9e46zG5b5voKD+_gaKJcww@mail.gmail.com>
+In-Reply-To: <CAJDQNgiJCqAJQ+7zNLd+UD9vMuzu9e46zG5b5voKD+_gaKJcww@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: AE084F4A9C5FFA3D5030995CE64D295C0A80F95788C43523781FC904FB1994772002:8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,66 +96,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAwOCBTYWx0ZWRfXxWqu+dKJ291b
- Jv66+EzKvdO6ThswC7NSf0WGMoC7w8WvW30bvtxvuA0lv8vyMlLCo17V5CNCmrDIMTqRmjeQYNR
- H1SWm/6E9KmCodM4WqnKlUb8rfPkHtI=
-X-Proofpoint-GUID: c0Cy7r_RZLDJOusza7o69x4pEDqQ5KoP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAwOCBTYWx0ZWRfX17PAGPczXA1a
- Dp+JjxrU5mZ8GTcu4dtVRhGJ+KJ8V+3qzCF+VxOKsSlPjDCtYZwGcVz21rSL/kWMqEoDxVfHtlO
- +TcuJPf9NrGwP8kdXt6EN/x95qTX7hbfk0ItXbC2unBkIz0upgbVOxhno/vHL+/jHpJB6s26Yqf
- E+kzGbA9ueEX2k7dlGh01XI6nmUxExcNd/IATZorF0rGloo5p6fFE15pHa62anLn7Z1Go1cHP2Q
- 4Hmnjyw+6fsTQL4F9Z5dwOcNeP582NS+LTltDbolUztFI3yWAWYpL7MMot4nqe/OOEDWWrPWrxj
- BevzGCF76hCej80FT8GVeHw0RfjEEFg9pH0i0FVuOyB+mhcD+KkuJT2CBggW2siFt/MCye1OEgT
- VmUIeSf7HO5r33Nfcl2yPpjwa5jlrPtipGpXBMWTp1isY5k8yxRkN/EubeWRuw8G27PdLzVLs7z
- bxwsooLksfFCKijXfXw==
-X-Proofpoint-ORIG-GUID: c0Cy7r_RZLDJOusza7o69x4pEDqQ5KoP
-X-Authority-Analysis: v=2.4 cv=ZIZCCn7b c=1 sm=1 tr=0 ts=6aed3827 cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=cFI_XdFft7piRKW2HDgA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_06,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1011 suspectscore=0 bulkscore=0 impostorscore=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060008
+X-MAIL:mse.ite.com.tw 6A62G4JE029785
 
-setup_boot_kprobe_events() calls enable_boot_kprobe_events() even when
-the kprobe_event= boot parameter was not supplied. That call takes
-event_mutex without any command-line probes to enable.
-
-Asynchronous eval-map updates also hold event_mutex. A normal boot can
-therefore wait in init_kprobe_trace() for this background work despite
-having no boot probes to set up.
-
-Return early when the boot-event buffer is empty. Keep the mutex
-protection in trace_event_update_all() and retain setup for explicit
-kprobe_event= parameters. Bootconfig handles its own probe enablement,
-and the existing trace_eval_sync() still waits for background work
-before init memory is freed.
-
-Signed-off-by: Wenwen Fu <wenwfu@qti.qualcomm.com>
----
- kernel/trace/trace_kprobe.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/kernel/trace/trace_kprobe.c b/kernel/trace/trace_kprobe.c
-index ee8171b19bee..52ec16d8d838 100644
---- a/kernel/trace/trace_kprobe.c
-+++ b/kernel/trace/trace_kprobe.c
-@@ -1995,6 +1995,9 @@ static __init void setup_boot_kprobe_events(void)
- 	char *p, *cmd = kprobe_boot_events_buf;
- 	int ret;
- 
-+	if (!kprobe_boot_events_buf[0])
-+		return;
-+
- 	strreplace(kprobe_boot_events_buf, ',', ' ');
- 
- 	while (cmd && *cmd != '\0') {
+SGkgRWR3YXJkLA0KDQo+IEknbSBoYXBweSB0byBkcm9wIHRoZSBzZXBhcmF0ZSB0cmFuc3BvcnQg
+ZHJpdmVyIGluIGZhdm91ciBvZg0KPiB1Y3NpX2l0ZXBkLiBXb3VsZCB5b3UgYmUgd2lsbGluZyB0
+byB0YWtlIHRoZSBsZWFkIG9uIGFkZGluZyB0aGUgQUNQSQ0KPiBzdXBwb3J0IGFuZCBhbnkgaGFu
+ZGxpbmcgbmVlZGVkIGZvciB0aGVzZSBBU1VTIGJvYXJkcz8NCg0KVGhhbmsgeW91IGZvciB5b3Vy
+IHdvcmsgb24gQUNQSSBzdXBwb3J0IGZvciB0aGVzZSBjb250cm9sbGVycywgYW5kIGZvcg0KYWdy
+ZWVpbmcgdG8gY29uc29saWRhdGUgb24gdWNzaV9pdGVwZC4NCg0KWWVzLCB3ZSB3aWxsIHRha2Ug
+dGhlIGxlYWQuIEknbGwgc3RhcnQgYWRkaW5nIEFDUEkgc3VwcG9ydCB0bw0KdWNzaV9pdGVwZCwg
+Y292ZXJpbmcgdGhlIElURTg4NTMgYW5kIElURTg4MDAtSVRFODgwNSBJRHMgYXMgd2VsbCBhcw0K
+YW55IHBsYXRmb3JtLXNwZWNpZmljIGhhbmRsaW5nIHRoZSBBU1VTIGJvYXJkcyBuZWVkLg0KDQo+
+IFBsZWFzZSBmZWVsIGZyZWUgdG8gcmV1c2UgYW55dGhpbmcgdXNlZnVsIGZyb20gbXkgcGF0Y2hl
+cy4gSSBjYW4gaGVscA0KPiB0ZXN0IHlvdXIgY2hhbmdlcyBvbiBteSBBU1VTIFJPRyBTdHJpeCBa
+NzkwLUUgR2FtaW5nIFdpRmkgd2l0aCBJVEU4ODUzDQo+IGFuZCBwcm92aWRlIGxvZ3Mgb3IgQUNQ
+SSB0YWJsZXMuDQoNClRoYW5rIHlvdS4gWW91ciBwYXRjaGVzIGFyZSBhIHZlcnkgdXNlZnVsIHJl
+ZmVyZW5jZSwgYW5kIEknbGwgbWFrZSBzdXJlDQp5b3VyIHdvcmsgaXMgcHJvcGVybHkgY3JlZGl0
+ZWQgd2hlcmUgaXQgaXMgcmV1c2VkLiBJJ2xsIENjIHlvdSBvbiB0aGUNCnNlcmllcywgYW5kIHlv
+dXIgdGVzdGluZyBvbiB0aGUgWjc5MC1FIChhbmQgYSBUZXN0ZWQtYnksIGlmIGFsbCBnb2VzDQp3
+ZWxsKSB3b3VsZCBiZSBtdWNoIGFwcHJlY2lhdGVkLg0KDQo+IFRoZSBNU0ZUODAwMCBlbnVtZXJh
+dGlvbiBmaXggaW4gcGF0Y2ggMSBpcyBzZXBhcmF0ZSBmcm9tIHRoZSB0cmFuc3BvcnQNCj4gZHJp
+dmVyIGFuZCBoYXMgQXJtaW4ncyBSZXZpZXdlZC1ieSBhbmQgUmFmYWVsJ3MgQWNrZWQtYnkuIFRo
+YXQgc2hvdWxkDQo+IHJlbWFpbiBwYXJ0IG9mIHRoZSBzb2x1dGlvbiBmb3IgdGhlc2UgYm9hcmRz
+Lg0KDQpBZ3JlZWQuIFBhdGNoIDEgaXMgaW5kZXBlbmRlbnQgb2YgdGhlIHRyYW5zcG9ydCBkcml2
+ZXIgYW5kIHNob3VsZCBnbw0KaW4gYXMgaXMuIFRoZSBBQ1BJIHN1cHBvcnQgaW4gdWNzaV9pdGVw
+ZCB3aWxsIHJlbHkgb24gaXQgZm9yIHRoZXNlDQpib2FyZHMuDQoNCkZpbmFsbHksIGdpdmVuIHlv
+dXIgd29yayBvbiB0aGVzZSBjb250cm9sbGVycyBhbmQgeW91ciBhY2Nlc3MgdG8gdGhlDQpoYXJk
+d2FyZSwgd2Ugd291bGQgbGlrZSB0byBhZGQgeW91IGFzIG9uZSBvZiB0aGUgbWFpbnRhaW5lcnMg
+b2YNCnVjc2lfaXRlcGQgaW4gTUFJTlRBSU5FUlMuIFBsZWFzZSBsZXQgbWUga25vdyBpZiB5b3Ug
+YXJlIE9LIHdpdGggdGhhdC4NCg0KVGhhbmtzLA0KQW1iZXIgS2FvIDxpdGVfcGRAaXRlLmNvbS50
+dz4NCg==
