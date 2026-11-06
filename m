@@ -1,96 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958664;
-	b=AX/DGy5BVedkdtlz+QGkJwGXnJcUib/TQm0NoLsIgG2yo/zcZbrvSETTeOILqM8YiBvd
-	 ZAjINyhVanr8pbuhu6e3+Vzf8wzBJAgw8fGlViNrjyWDXOY2UuEwitey2vBI3GLkij8s1
-	 0W0tb/WE9tgdedXXoeFFyZoC8i7I92mhBVjRWXIVHDL5y5Faf0hXyOMchwd7Hh2mGx9TW
-	 V0kF3WQWPZni1HqYQEcwbhehAOJxTG8QbAyoERG/sz4yIQ23Ljor3ZWydjig0eYmlefGN
-	 rBedWC8CMo3Q6S0IRbRrDsoDON1XdgZ3iT6oyCoh5sLgvSNPTY3OD8EiAcSNQz6KZ+g==
+	t=1793958683;
+	b=mZ/rNAAn6JsQibwK5lb2i8+sXLhT7IBbqULmuUMhOB9Zy0l7byXbsGh6mHE/S4Kn9Ju2
+	 gH94lxOa14KuvxRVy7KCrGQiN0NbRDUvQl0UOWgHW/mJaFcdgaubqz1r5rKaLONlVCvtM
+	 5Yo2Sz0YJdJm8qjSlKIvv4+Wv4+grLcojhidn5a0s7kly5WBvPJuZA3efon0Z7uLYyoJZ
+	 f37SGshaZ4pwQqfs5hJrdDayhLoLoIqIltFHtNR8Y9WaWzR5pouU2RtViwH2QgOKDTQGr
+	 MC38epIrsk7eqInb5VERjXh5hgzgH/pScSuBeaSlO06QCpeLFDE6Uv5PbzQczwRQaew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958664;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958683;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=vQBnTQDeqPWib9HYEy/76nQqVu/AgiIe/ITMno6I1Ns=;
-	b=d+WjV3uu1pFFo77YI4IN3LgM5HYbe3Hk2Rh4Z2NEObME7xBv75U+ngdvQ0fYqHT3+v6T
-	 j3oONtzmu0y8KT0wEy1um7cg8Hv80z7BIzvEu8W0nToVNkY5BhpV+ZAmupowwXlJ5oIe3
-	 cJpeEbzko4JavLvXQViJ/ooNXPI54g6k2l05sjPYnmexxb16AO1IbZ2b6VXatSaIJ2ad9
-	 7f+ZOfOXvyhA7N4vNvjhebT5fXtR0sMUGjYFLEkW4zRh6nsMhZRYWYBpkQom2UExsL2LR
-	 FfHFFCBVvf5XD+34sRmcnmjKsVkZhV9yusuDHqbrPFKa3plEw5gPcjALZXA+4KENcoQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZKuqEEIUloaDKks8AnObg5jLkIg+139qL0t5VZAu9ww=;
+	b=0c56CFWFtRhrQGbuJ3Fb+o54sbDo2/V61Mw2C96LndygHjCli5PvAa7lI6QU5Dm5MWl0
+	 8ctZfX1cgBYBtpLHvUV9ukPkNzE55uF89T9Towtic8GuUaDcXVAZoWSBkW5a/G/r0sCWN
+	 hAgVuNFUP44At1THeffRQKXjcgoufZw3PuC9WZFHbrf3x/Jo9XIABQtTdlmikSGf/RCaK
+	 neGs0iplT+aJISfvVlI9MJDMnrYgLuVL1+Ur9EJCcYdnu1CawTNOG8LbAuaB2Nc/cxBEY
+	 q5WXqC8w1POoqNn/32wjhNJm62HiN+VSYZhFfImabIcoCBV0LNOHbiNZFXor3VJtthQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qYY0QYHf;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyNQbxxD;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FB4606A335
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:51:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93FB4606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235F5606A33D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:51:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 235F5606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qYY0QYHf
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so447948f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:51:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyNQbxxD
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ea7190aea1so1567005ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:51:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793958662; x=1794563462; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vQBnTQDeqPWib9HYEy/76nQqVu/AgiIe/ITMno6I1Ns=;
-        b=qYY0QYHfvwNgzBac0451gF21eaCM3pK7oCeOQyEt4slf1JpxRNomaS4qVWQMbcnkqp
-         j4jSn6fcIGVAucK0eb6HqE0aXCiGtWoZbEHIm1T2AFBTYeZhus4ahf83jMU/a+8rq/cg
-         empsweZSO3DbMUia2kJyQPcomGyMGC92/8jcLqFL0TXv+2kH8Ctz6FxuYuuqmuesiWvi
-         6HSYC+7UC6dOW2hzSHuBokB7Xu0I7wM8XZCTdhQEXdHYIMM7emtLRSGHdeiB/68SN/Ht
-         tfrd02vpVFZ2PcqEhO2o/oPIh10zOcV4xRiNfQzy3UZuQdn80aEXT07bAhpha1WG65Ss
-         /CPQ==
+        d=gmail.com; s=20260707; t=1793958682; x=1794563482; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZKuqEEIUloaDKks8AnObg5jLkIg+139qL0t5VZAu9ww=;
+        b=wyNQbxxDUhMGZu0OrP5JfdUttvmMPzDHm5uw8oxiIXO3EhaRIMqHlkcsxfh2QQ6N2R
+         Pu9FKSbMZGG2yR+Og3T0JjclKeUrgRE3g9LwHN4BLt0gQ67NmwdmaxnmxsV9PyAHFbNL
+         jhyT4do+w7ezAk/bwDT5vOo+4Us9AohdwPLm3qHWdqfGIwzSwYU7QngYiFkFsRdUpX5b
+         6F3CJWOE39aFkHa/LHbxT4vF8t/Qqipr21PutfvU82VyZXsYkSWnP4g3kMEY3B2/qU37
+         vjjB3GMYcFXjCQ/1s0K4kYEu4GJjEHN2o0AvEqEUyFMTA0Wndzv8QrwtIKaxUCZI0bj/
+         Pbmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793958662; x=1794563462;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vQBnTQDeqPWib9HYEy/76nQqVu/AgiIe/ITMno6I1Ns=;
-        b=vNThF3uuuYZusX8RkpaRypZpaTpVqayQc9IRQ7MvUYRvA2iWBqLd/EEOJsqsH6HhHw
-         Zab9mV8pJF7zA+tCbkoSzq4LooWQeUoQWL2nVOcHLQwwSIoVfHclE/oOHJbQmt/x+a1z
-         PwUc8o2r+2J7l3S/aRF9KXSMFZwfKmXl5ZQwgza4uQxhBz59FxNyIjJI6M1ZI0yTtECl
-         HtjPY0uvCKu+V3wh19he2bPbOB3updkSDRHxRA6gzodA+dEwe/dDxuD7iPEHD+nOOlEB
-         sJHuQtbZTEWW7sPORLvaES8fmKWIkOxys2Al8KBk9zPpjcwZDppoBU5NeolKWon4FHb0
-         tiqA==
-X-Forwarded-Encrypted: i=1; AL+hErGlTFxxM9HzL0v1JjNEFeWT2l4sftO9x9+LEHRKjvYtbXY9+X8Hw5aElTn4+ZiMJu1rmQ5/6ZrRp0Q7sq8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+wwsLc1I5VOYvhjj6cc5Fseiid4I0j7uZeIABC7oS/CU011sp
-	vAjfRcK9aT5TcLKsEsXxp/XOLCq6MCKJRtEyYjBdOvUA78dhofgGuzY8AP/1WY2K
-X-Gm-Gg: AYBFou0bKuGcqMpheo2JxUdU9iaEFV4emJBG4VFKikivSdVcuQfzaPgkT8u2V0pSMYw
-	SfABJfI6aT4AgeeSs9xqIGyoiTitrKjaZO6AnEwRGm3bryaC/ha2B6SgtGt8TUfZHN9K3JnCSw0
-	PCleD3mHqnzDc9p2ImjlCP9bpuhgOPjYX0Q4DVLjXtNKe2uTLC+c+ShNgww7bDMb3AATM85aQy9
-	v6l/uvX1g0Cu1tHKZzzk9dB6Yw1V+1gkUDStmPAHWzMSzTSxMZnRUo3HqBILeMdJ72w0snCIyJS
-	XqU4/EHyYevRK2/GT2yG4TtOdJQfYk9AJA5ZuzfAMPJgAnyy/1UNANyvAD4QJPmxbSBhtfkf9BR
-	Xm8VZGZ02D8qbu8smskJBLbQpruZo/QaNjv5oF1PxYDakf4KHGHTMzHqsRpFISU6L+7h4rX9bP8
-	4ZV4gdBpyfwrRDZdHtkCCxgSMBbIpVHZ981NdhbJByzgheiA2EjPghWLwqvrKmYbF1yjmqwR2kR
-	2cFbbOenkXE+tfFfQJJEbHZRUBlxgU48Lb/9cSf6IwpOMg5lNvxUen2CNqyqlftvFROMoZZAij2
-	/DKcKxis2QsElWCPLM97suIB516DvaUmyb5RX/o=
-X-Received: by 2002:a05:6000:40df:b0:492:3982:a80c with SMTP id ffacd0b85a97d-49276977cacmr4368036f8f.29.1793958661695;
-        Fri, 06 Nov 2026 01:51:01 -0800 (PST)
-Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d63accsm2813516f8f.17.2026.11.06.01.51.00
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Fri, 06 Nov 2026 01:51:01 -0800 (PST)
-Date: Fri, 6 Nov 2026 10:50:56 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Alan Stern <stern@rowland.harvard.edu>, Mathias Nyman
- <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] usb: usbfs: Require claiming a hub interface for hub
- class requests
-Message-ID: <20261106105056.4601f826.michal.pecio@gmail.com>
-In-Reply-To: <20261106091048.4056-1-25031212351@stu.xidian.edu.cn>
-References: <0aa5c25e-465f-4168-8833-387acced222f@rowland.harvard.edu>
-	<20261106091048.4056-1-25031212351@stu.xidian.edu.cn>
+        d=1e100.net; s=20260707; t=1793958682; x=1794563482;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZKuqEEIUloaDKks8AnObg5jLkIg+139qL0t5VZAu9ww=;
+        b=r4tp+8VcNWQPMPthwN9/GQivGod4YA3177hPIr06UhedTLpA2ikuivJaBAyuzpm+IE
+         iI2wp03Q5/Tc4bL0pUh64DhsUSCAeoy8pP9qq6ZGinPYQ7/it7LiNIyev6nccLWrrPUj
+         2+ouenP1Zi8Ja7D6fGV7BuFq6QVrdcnAL+NrZ299LGNerXOU9PqO1Zl2klphFiLOLT3w
+         vCzF+Kg4h7JaQO6Mu6pTvXBfwJG44D3QWbvT71ar6ccKIA8ElR0q1rJl/WPgVkyvZ0rj
+         5aKq7GcGqpRWNMqdL2/w0PDdjlEp98cV3fF5V/lpj6IVnsrGABhwwILVCQeogD2sTWXZ
+         FjWw==
+X-Forwarded-Encrypted: i=1; AL+hErFieMwYVFrdCD/rFgo7Quw3d0ThJSWXE3eG5JtaeSauwsRZGL4uGlY5h0BUvbXtL3ItN24e4RSTRpLgy/U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qNnPcv9MRMc5Tmj8qUpqXnl/6Ty9YWr+RV69uD+KoMsv7YP8z
+	YpiOUr20ul1wabK1B/xL7aftC1+0WoQQjb1VE2zCCHGgRF+iQlrcw/TnifOeO+yG
+X-Gm-Gg: AYBFou1eq6bOvCYpYp/Uy57QrtuiQkC8dG2FY74TXoyFcQBMy/VVz6Lj7/vI/S86vpN
+	ylvHfnR1sw9YBFKv4pLypbMBA7nl5gUpLh95AONSeW8N/99yUlowBPYgR9NP7EOliBpBIqLt8V7
+	KGiBDM/WAOUo3eokUPP3z0UcAzUrZ9+oWsAuUjYyPEFgGeEx/tmVfUHMdxYcX8+ntlqN52E/m/r
+	vlhdJWFjsZgrpvwG9PfSaL7JHsNl/huZD7nNm4xg4xQKTNPKwtXSI+SdXvoL0sQ+7srXv/JDVDB
+	8k9obPrYAXv82vTTN+DNMybuxqYTCRgxyDLwOMANFqs+y0LolYVvuV5zDeK9mWBHUs2bs2le3q/
+	YOXOPUljsvET+0RJAY7ihkSpf9BMaB9cI+49fX2BMCLOL5R7Ez76y/gFvmgd4CuplheGABBhcff
+	0I/ooi/hX8SXm25rZx8fSzZcH7v4C4XxkTbx/9tXG0wPJNhpsQUkGNf1fla/JCyYotfBRDUwUe4
+	7XuCka8nTusLUKtmo3t+r5E1VqRkN97UF1wGfXMEdAHLlzUYmZmchWczmPhj55jswb81UlsI+zf
+	7GgUm1y6pMNh4Pgvfyonpzc/I0PZKeeYvZ3BP90kujYr9oP3
+X-Received: by 2002:a17:903:191:b0:2ed:188d:3016 with SMTP id d9443c01a7336-2ed40e228dbmr21444695ad.73.1793958682380;
+        Fri, 06 Nov 2026 01:51:22 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47da40absm3636085ad.75.2026.11.06.01.51.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 01:51:21 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: David Woodhouse <dwmw2@infradead.org>,
+	Richard Weinberger <richard@nod.at>
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] jffs2: validate summary offset in the XIP scan path
+Date: Fri,  6 Nov 2026 18:51:07 +0900
+Message-ID: <20261106095108.2405364-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,112 +96,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri,  6 Nov 2026 17:10:48 +0800, YuanZhe Liu wrote:
-> check_ctrlrecip() requires the matching interface to be claimed for
-> requests addressed to an interface or an endpoint, but requests
-> addressed to the device or to a port are passed through without any
-> check.  For a hub that means userspace can send hub class requests
-> through usbfs without claiming the hub interface, while the hub driver
-> owns the ports.  Port requests use USB_RT_PORT, whose recipient is
-> USB_RECIP_OTHER, and SetPortFeature(PORT_SUSPEND) is one of them.
-> 
-> That is more than a policy question.  The request goes to the HCD, and
-> it can run concurrently with userspace releasing the hub interface
-> through USBDEVFS_DISCONNECT_CLAIM, which unbinds the hub driver and
-> disconnects the devices behind it.  xhci_hcd tracks the device behind
-> each port and issues stop endpoint commands for it in its port suspend
-> path, and it ended up reading a freed xhci_virt_device.
-> 
-> Require interface 0 to be claimed for every non-GET request to a hub.
-> The hub driver matches devices by device class or by interface class,
-> but a hub has a single interface either way, and that is the one the
-> driver holds.
-> 
-> Userspace can no longer change port settings while the hub driver is
-> bound.  USBDEVFS_CLAIM_PORT hands over the device behind a port, not the
-> port itself, so a request that pokes port state is not safe for a
-> claimed port either.  Programs that used to do this have to unbind the
-> hub driver first.
-> 
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-> ---
-> Hi Alan,
-> 
-> v5 takes both points.  is_hub() is tested first, and the comment now says
-> that IN requests are safe because they do not affect the hub, while OUT
-> requests need the interface claimed, instead of talking about recipients.
-> 
-> I will hold the URB synchronization patch for usb_hub_release_port() until
-> this one is settled.
-> 
-> YuanZhe
-> 
->  drivers/usb/core/devio.c | 29 +++++++++++++++++++++++++++++
->  1 file changed, 29 insertions(+)
-> 
-> diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
-> index e191934623c7..6d69a993c0f1 100644
-> --- a/drivers/usb/core/devio.c
-> +++ b/drivers/usb/core/devio.c
-> @@ -878,6 +878,23 @@ static int findintfep(struct usb_device *dev, unsigned int ep)
->  	return -ENOENT;
->  }
->  
-> +/*
-> + * Return true if @dev is a hub.  The hub driver matches devices by device
-> + * class or by interface class, and a hub has a single interface either way.
-> + */
-> +static bool is_hub(struct usb_device *dev)
-> +{
-> +	struct usb_host_config *config = dev->actconfig;
-> +
-> +	if (dev->descriptor.bDeviceClass == USB_CLASS_HUB)
-> +		return true;
-> +	if (!config || config->desc.bNumInterfaces < 1)
-> +		return false;
-> +	return config->interface[0] && config->interface[0]->cur_altsetting &&
-> +	       config->interface[0]->cur_altsetting->desc.bInterfaceClass ==
-> +			USB_CLASS_HUB;
-> +}
-> +
+From: Hyunjung Ko <hj351016@gmail.com>
 
-Does this really belong in devio.c?
+jffs2_scan_eraseblock() locates the summary node at the end of an
+eraseblock and derives both a pointer and a length from the on-flash
+summary marker:
 
-If anyone thinks that the trivial "bDeviceClass == USB_CLASS_HUB" isn't
-enough (Alan seemed to believe that it is, but hub_id_table has matches
-for interface class too), then perhaps this should be placed in hub.c
-near the ID table, so that it's more likely to be kept in sync?
+	sumptr = buf + je32_to_cpu(sm->offset);
+	sumlen = c->sector_size - je32_to_cpu(sm->offset);
 
->  static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
->  			   unsigned int request, unsigned int index)
->  {
-> @@ -891,6 +908,18 @@ static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
->  	if (USB_TYPE_VENDOR == (USB_TYPE_MASK & requesttype))
->  		return 0;
->  
-> +	/*
-> +	 * A hub driver owns the ports and the devices behind them.  Letting
-> +	 * userspace change hub or port state behind its back, for example
-> +	 * with a SET_FEATURE(PORT_SUSPEND) request while the hub interface is
-> +	 * being released, is not safe: the request is passed down to the HCD,
-> +	 * which may walk per-device state that is being torn down.  IN
-> +	 * requests are safe, they do not affect the hub, but OUT requests are
-> +	 * only allowed when the caller has claimed the hub interface.
-> +	 */
+In the non-XIP branch this is followed by
 
-Seems overly specific to this case. It isn't safe in general: it could
-confuse the hub driver itself, disrupt functioning of child devices and
-their drivers, or break HCDs relying on core serializing any actions.
+	if (sumlen > c->sector_size)
+		goto full_scan;
 
-> +	if (is_hub(ps->dev) && (requesttype & USB_DIR_IN) == 0)
-> +		return checkintf(ps, 0);
-> +
->  	/*
->  	 * check for the special corner case 'get_device_id' in the printer
->  	 * class specification, which we always want to allow as it is used
-> -- 
-> 2.34.1
-> 
+so a bogus sm->offset (for which sector_size - offset underflows to a
+large value) is rejected.  The XIP branch (taken when the whole device
+was successfully mtd_point()ed, e.g. an mtdram-backed MTD) is missing
+that check.
+
+On a crafted image an attacker controls the bytes of the summary marker
+at the end of the last eraseblock.  Setting sm->magic == JFFS2_SUM_MAGIC
+and sm->offset > sector_size makes sumlen wrap to ~4 GiB while sumptr
+still points inside the mapped flash.  jffs2_sum_scan_sumnode() then runs
+
+	crc = crc32(0, summary->sum,
+		    sumsize - sizeof(struct jffs2_raw_summary));
+
+with the attacker-controlled sumsize, reading far past the end of the
+mtd_point() mapping -- an out-of-bounds read (KASAN: vmalloc OOB /
+general protection fault) of controlled length.  The preceding header
+CRC checks are computed over data read from the attacker-controlled
+flash and can be satisfied, so they do not prevent the over-read.
+
+Mirror the non-XIP guard in the XIP branch.
+
+Reproduced under KASAN on 7.4-rc1 by mounting a crafted mtdram-backed
+image (the XIP mtd_point() branch): KASAN reports a vmalloc-out-of-bounds
+read in the summary-node crc32 over the mapped flash.
+
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ fs/jffs2/scan.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/fs/jffs2/scan.c b/fs/jffs2/scan.c
+--- a/fs/jffs2/scan.c
++++ b/fs/jffs2/scan.c
+@@ -495,6 +495,10 @@ static int jffs2_scan_eraseblock (struct jffs2_sb_info *c, struct jffs2_eraseblo
+ 			if (je32_to_cpu(sm->magic) == JFFS2_SUM_MAGIC) {
+ 				sumptr = buf + je32_to_cpu(sm->offset);
+ 				sumlen = c->sector_size - je32_to_cpu(sm->offset);
++
++				/* sm->offset may be garbage even if MAGIC matched */
++				if (sumlen > c->sector_size)
++					goto full_scan;
+ 			}
+ 		} else {
+ 			/* If NAND flash, read a whole page of it. Else just the end */
