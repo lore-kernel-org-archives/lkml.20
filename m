@@ -1,49 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973606;
-	b=l3mA70k9C2oYiUAStKIwwY3BX/a2BpKz22lTsQVVg2s/c4j6cO4MWVjloF7g3k35PiVc
-	 FFK3WCDyB/SWD66+jWU7MsA97YZsli5dhJ4pi02JGOpvSrAS+s/FjKq2ODGk870ploeHm
-	 gVhFepwk2OymoH0FdchKeqLYcB7jn0uBQaL9POn3UFlNTtBPZoJcwx3Uo9mNsEFF2pQrO
-	 RE2s7K0IowX01j+DjT/1aqmN8sXdwIFA2aYI2NBTASmYOqdBLOrffqgX67utwTXL0kiam
-	 YW+CIBj/3Xr+b0YHFN6yYoME09qCT2utrUbsz44HxhnDBCKJ9UDB1SMXL5fzwczpvDg==
+	t=1793973616;
+	b=KL277TMQ3a8VuH79SFijQXXfQF1eUF/LWUdTvdYXYywoz+5xT8bSV6JCsmCyaiNou3yo
+	 mMtPdJVH26js/ohhwG6l3sOvJjSrhFjCJBd8DOqYIX2vq0fINJUuAT+D4/659fNZ2SMFi
+	 9YX5SkY7nq8ISmJYLWjFHafym7j5+GF16MJzkW1rTPTdFcU78JJRj/HUbgDuZPdrhqOAi
+	 SUmkJJpc0WSqVGqNaaNnXmpGpPmSm34MAsek11gg7rOB+aOrpc8bnL6brV3J97woRi6iF
+	 WYV+i7Ts7YVUVUUIGYnTyTg8YnQa9Q4Cg6buj4Oy46TgmSQ4YWu3jLz0CHGp8UH9I2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973606;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=0s74ZEYdly1/UkkGryzb8KYuxZCSbi/EUf0lzGtMVLU=;
-	b=CfGyJfyC0rwBd2/XSACUBL9I8edxLZtkVM7GNkQouSk+xQgiExjrIKrdNSfHptWvTqlC
-	 Qm4zuveNclXYT8kjretVGtn5OmAvFoqYo4zWpr15dU4oEXuaj2tdAGJMK4dvGb/i+85dg
-	 nuOH+OumTCwOCIU33m9UWThEP3v48d4d1GxaIBRmboG2BOG4+eJzt/phXa1VSepSR02+/
-	 vdm5V93DznpupgeULF5BHIhYuN5hlbwblQ0NOc6JeDnSckp+uToyFQhRiioRAcwMKBvEZ
-	 orPEasCBD4Ss006MKu8cV6k06yQOF6pM20/PcDa3XyaNwHi3a2SbsLelNFmxsQwAV1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973616;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=1fOGWC1IPehrdOpwQpZifjsY9NFnCljgxd1K1pEMnZg=;
+	b=2oKeQf/00igVfqYvCpz927YFYX+x+daMFdL+dPMFbgc5/MId5bBEJcnozNcMZPWr7jBO
+	 hw2OxYBB8ZqureFXxmFBCjCzG+IYUY3W851Ui6BwXElOMGO6RXvjGZ3iXhMMBcu4XjY/2
+	 83DwHjVYfjsNrJXo5aH853cjvq6I/JrFAujL01TUtKs5Wo0R2mQOtF/+/MDmb75gpIIbj
+	 OQ0OFBV1zjiWkZ6uozkeqx4/Ja0RyXb/vG2TWQ/J2OLw6Zi5xL60L+FtiZ2dHd3nSRI64
+	 kj1lgahucqo9srQsq71vZUaaJLB5dDzbMMgFLCsOsBXVjvdmYLr3ri1dbaUntb894zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFT1Mkbp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QObvdsVt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8FB606D81D;
-	Fri,  6 Nov 2026 14:00:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA710606D81D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:00:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFT1Mkbp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2C491F00930;
-	Fri,  6 Nov 2026 14:00:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QObvdsVt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19ACC1F0092B;
+	Fri,  6 Nov 2026 14:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793973605;
-	bh=0s74ZEYdly1/UkkGryzb8KYuxZCSbi/EUf0lzGtMVLU=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=UFT1Mkbpzj/FgwZXmo3/zUgSAXZOzE0O9HPeYktfVJ5RHCBugmr1RmF5tt62cNqUj
-	 C7yBGaaEJV4Q+RRnJgs7iZn+ESrZYznI6mIBREwVd3+MtHWiVOEaGH052CzEY7FUyD
-	 ZvmSiCpC3ct9J8djnUwMS7jNgy6NdlTZWE3akXerqKfa6Fsijm8t0Kews8bf1sHahB
-	 seqs+Nm7zrIkpQ0fhu3/N2ANJ01pzoGty330V+9CuMWps6OAI6mnBPvrVJn1+NXdwG
-	 NBaVDIX/NVX/+/NC3xu5CIT6mr8e4Kdga0aeAXUeTGdto0hsFNNNTYWRTAh7CcpORC
-	 dt6k9NQahhOmQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D829439E9636;
-	Fri,  6 Nov 2026 14:00:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793973615;
+	bh=1fOGWC1IPehrdOpwQpZifjsY9NFnCljgxd1K1pEMnZg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=QObvdsVt4xv2Z2LNG6wWV9G6lIhzCjq7z+tSbzgeeVD40bRud7E+LlP7hmhsuuQdo
+	 7ZMsPtp01uPj2zRWLrYMb0RF59k854JniltM9xrwDGEY6A/w2twm5x/HTnEZpAHcSx
+	 bzxKlfvWLRXMh//Ro5f1OW73m8Xu6SW0sSzCKAErLfrOx5XL69bcL+snwbZVIHQNJw
+	 pUhfItMWGGgrnzcnk+JxzxtetRHIsaaVEhWr/86nYQjkvnVDzTnptnH2B5+YpeN6uV
+	 4rmdXz3lHU95VdYQQsBUxl3jygP8bjqQXM3bNGTyKRa/LLoVSKA64VZ+0R2egbZCDX
+	 F1Hl2jGKuedZA==
+From: David Hildenbrand <david@kernel.org>
+To: hughd@google.com, Hungyu Lin <dennylin0707@gmail.com>
+Cc: david@kernel.org, baolin.wang@linux.alibaba.com, 
+ akpm@linux-foundation.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261105055619.58289-1-dennylin0707@gmail.com>
+References: <20261105055619.58289-1-dennylin0707@gmail.com>
+Subject: Re: [PATCH v2] shmem: skip empty unmap ranges when punching holes
+Message-Id: <179397361279.3706.12765582085126746884.b4-ty@b4>
+Date: Fri, 06 Nov 2026 15:00:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,46 +58,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] net: stmmac: selftests: Add missing endianness
- conversions
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179397360441.639202.10722722859154063493.git-patchwork-notify@kernel.org>
-Date: Fri, 06 Nov 2026 14:00:04 +0000
-References: <20261103122249.951523-1-maxime.chevallier@bootlin.com>
-In-Reply-To: <20261103122249.951523-1-maxime.chevallier@bootlin.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: andrew+netdev@lunn.ch, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- linux@armlinux.org.uk, thomas.petazzoni@bootlin.com,
- alexis.lothore@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Tue,  3 Nov 2026 13:22:48 +0100 you wrote:
-> The kbuild bot found some endianness issues in the stmmac ethtool
-> selftests [1] let's address these.
+On Thu, 05 Nov 2026 05:56:19 +0000, Hungyu Lin wrote:
+> When a hole ends before the first page boundary, shmem_fallocate()
+> calculates unmap_end as -1. Casting it to u64 makes the range check
+> succeed even though the hole contains no complete pages.
 > 
-> In practice these missing conversions didn't cause any issue, as the
-> masks / values on which the conversions were missing were either always
-> 0 or ~0, so skipping the byte swaps lead to the same value being passed
-> anyway.
+> For example, punching one byte at offset zero calls unmap_mapping_range()
+> with a zero length, which means unmap to the end of the file. The file
+> contents are preserved outside the hole, but unrelated mappings are
+> removed and must fault back in. This can be reproduced with fallocate -p
+> -o 0 -l 1 on a mapped tmpfs file.
 > 
 > [...]
 
-Here is the summary with links:
-  - [net-next] net: stmmac: selftests: Add missing endianness conversions
-    https://git.kernel.org/netdev/net-next/c/bb67589c8724
+Applied, thanks!
 
-You are awesome, thank you!
+tree: mm/core.git
+branch: shmem-7.5.misc
+
+Applied patches will appear soon in mm-next, followed by linux-next.
+
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/1] shmem: skip empty unmap ranges when punching holes
+      https://git.kernel.org/mm/core/c/bf87d3fe
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Cheers,
 
+David
 
