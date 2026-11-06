@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978548;
-	b=ffkctUyVfLOQw9VQV8MEG3myIs9iNNNarii8gvgA/Nmtxy91XQAtW5dwkBNs1RKeG1oC
-	 uUttN0b2MFF1wXaSRAUWy4gPbEm1TwhjBiKlUs3Of9U2HO0Y9aaSXsMIfFX92l0holULW
-	 StcdTdvIy2dLDxZMQv6e3I8BbNqhEUJXX+6Aywj81BjnTfQJcoCkxKjzxbAUjZxWvx3bl
-	 1HpaDAsUoD4eK+Iz8m3sgld0GuoP9XkVQXFXvxrDeDK16iEpoq9N4YAym79sIQR0TN4su
-	 akrVUsXqEjOBXpNgEwMbvLPBB9lbIZPoztWUKSRywnKJGFCKRs8TUswaqlaqVlgc2Vw==
+	t=1793978593;
+	b=2Y3AF89dV2vZpMeodrgXu3W+j034Ixms4YaB1l8iVzaixb9eHZjdTuJubKGjrsl83yqW
+	 OJNLrQJ+MpCNf6N32kBwri/FkPZndvrJjhCdCDzTUCZCHfQHj1+aFJKBt5X+dA7YHv/2M
+	 5WAknjFS8ZrQBkYhnHbBRnVWquKnbZxD9eVDgc5uVBuQ779LYAZCsxzOApagTsiP/Vsf6
+	 cJjGgeUdXObpfWfvYaW9VYtsnUw2Gv1hqEb+cJiRpLWi8SZ9cw+hOpDlNpM6snSDewji8
+	 xGSJer+x5250etBc7axpqo65kXcjW1tjpv4fiqqSPWd/ELs6HcP4JRZxQ4nFW85mQ+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978548;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=z3y+DELGAxT9V5PmpfgouMZn+gCc4O45ROBPQSi1BPo=;
-	b=zvG/pFCnX+N7P6i/0L8qwFk3gaCDMZRqcH+u65PWyybcl0c3wqFXnuorIBNRP1hVhKeK
-	 jlyONjui4CHYxLfeEEnsGzzLnB+AsOSmTMzl6a5MdGQ6iGDxiIvMkYbknBYkJOjpt2A79
-	 Dz6RFjVa1ujDWoQHB3suVg3Js+XhFuOarcI0WRcYoGnAWcWmRJA3mlIwcYBhnHorG/c51
-	 xZjj8mf3L8QnVuuaYZHMi8hYpPFwD6VmEaErkHX/8l87a9LLh8TpnUpDIKWq6R3AmO7oQ
-	 7iu7flhqx22l8dE1RB5S8Roc0lKmwpTe0Ty259Vwqad+/nPnOiX8UI69o6SlRztdPKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978593;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=tfAMwDsZx9hT/XT628AckVBYddl5CGish4/yfUGXFg4=;
+	b=h3a+6fAc+/sJC8ry7kK5NwVdtdH3sWspjSz1XP5OiZCi8YF7R5akE3vyzQB/aqTXbdIK
+	 jD/J4kldStvOUEFPap1kpNPx7yYho28rcyNFSGxxc6VmNyedyK1D4HfUxENUDp70QrML2
+	 b1BbYiQw05tehpvHFIXd3JX2x9l3lhfIruI7HsTHV+ub3hJKSmOBK2hdc9jTcInNhYcLO
+	 JOjUMi3BvtdBinJ9LMKha8zz2cUX42f7fPgIOsoeQ23P8U/llFY+nfH7Lon4y0oF91bhT
+	 lkV734F3ElBHQSpt4IcAkdWD0+v3GgdC9x80Y8DjghT/WzEmelBRO/wzM3fRL+LqDTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0OBt12S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Zf7qdpzC;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E95606A32D;
-	Fri,  6 Nov 2026 15:22:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51115606A329;
+	Fri,  6 Nov 2026 15:23:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51115606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0OBt12S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C73F71F0089F;
-	Fri,  6 Nov 2026 15:22:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978547;
-	bh=z3y+DELGAxT9V5PmpfgouMZn+gCc4O45ROBPQSi1BPo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D0OBt12S5A0/61ajOHRCOvVj9Y496CxzkIZ539OmP2Egd7lJ1ZTg+93+bz35MlhhQ
-	 aEcmgJvs2K1rXKjoPty9afP418nmgDzNbNz3R49xM82YI+IZppcn7JPT2+rOR1oP3E
-	 aXPgvNxlojcYTHikG/NcZ6k0ko8+NVlu5A2DjoEJYkhK0Y6iRimNr2X51btaRYAQe4
-	 3oYkIoHH1FFpK2QL5UAfs5I6l1ULxHTF3yATZiallmsTHKUql1MDHJSRDkOp7LPZaS
-	 WDiRcIhr4R/mT8uJ1TsaVWpbDwDHCB8mxh70Ac0iVGTP+nI77JgCBpwlXJfuSijYjQ
-	 cOmEIk2xUD+nw==
-Date: Fri, 6 Nov 2026 15:22:08 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
-	Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>, SJ Park <sj@kernel.org>, 
-	Rakie Kim <rakie.kim@sk.com>, David Rientjes <rientjes@google.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	John Johansen <john.johansen@canonical.com>, Georgia Garcia <georgia.garcia@canonical.com>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
-	Roberto Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
-	Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, damon@lists.linux.dev, 
-	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, apparmor@lists.ubuntu.com, 
-	linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, selinux@vger.kernel.org
-Subject: Re: [PATCH 00/13] mm: continue vma_flags_t conversion
-Message-ID: <au3r0-geuwtRYPiC@gremlin>
-References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
- <d0ea7929-7c12-4245-ba3f-6dd5c0269e6b@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Zf7qdpzC
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FE8de2726615;
+	Fri, 6 Nov 2026 15:23:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=tfAMwDsZx9hT/XT628AckVBYddl5CGish4/yfUGXF
+	g4=; b=Zf7qdpzCbBNyMcToiJAdlFPy8Cblfy7mTCGX9LZYDQBNUJhzehWVwvppw
+	iW0ekfBOAZkzI0thgMECD/wUif0jVyycFs2LNMaxbRYy1E6+q1RHRrpvhr09+axB
+	wEFiAL22p8DtJM4O0uWvVCpfV+CZkvHYghmhbzpCW2XBWIYG4slQ55RI8KtjnJ2I
+	0nD0fejpCCXBCLm7wjwSbvmOBgNbZL3ZlOyks8VqkcLCsZfNs7lIqTkNp/HXiuku
+	ja/0dsKCXKJPWvxRe76VxR2aX3RNrVH1nMvyCvEG4mDCk9yPdtUVZ70qEuFD3WRE
+	sL8R0/VjvD5j7Ulc0RqI7mf0vsiaQ==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3r9d559-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 15:23:04 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FK8ka3577932;
+	Fri, 6 Nov 2026 15:23:03 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqv1v7wrp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 15:23:03 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6FN2hI10814116
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 6 Nov 2026 15:23:02 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 45FCA5803F;
+	Fri,  6 Nov 2026 15:23:02 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9F6BC58067;
+	Fri,  6 Nov 2026 15:23:00 +0000 (GMT)
+Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.114.69])
+	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  6 Nov 2026 15:23:00 +0000 (GMT)
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
+        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
+        gor@linux.ibm.com
+Subject: [PATCH v12 00/14] s390/vfio-ap: Add live guest migration support
+Date: Fri,  6 Nov 2026 10:22:45 -0500
+Message-ID: <20261106152259.1360651-1-akrowiak@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,49 +94,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d0ea7929-7c12-4245-ba3f-6dd5c0269e6b@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=LKHz05W9 c=1 sm=1 tr=0 ts=6aedf0d8 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=h7Q6_VbBB8FTHRuk9jsA:9
+X-Proofpoint-GUID: CWR6mAbmpXK2w4Sa_8Bpk1MwRhTH9Vy6
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2MCBTYWx0ZWRfX3V9d/64eskif
+ iYKsAtvWRHtrRM6wWanrHAbkUuIhYC+D5aO9LC2C61b/NSy1dz7nuB3szx2ibZIzMKHbnxXJino
+ /bhzislqvMcKug0ABFsJAcvq6S+TxvY=
+X-Proofpoint-ORIG-GUID: CWR6mAbmpXK2w4Sa_8Bpk1MwRhTH9Vy6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2MCBTYWx0ZWRfXw9+aNWYI+UJi
+ H5+ELuezPZIozi+6JsrBH/OkEs1zcG81ayvY3CV3AfoV+CSdFi9BmhI+jSRLWxiK4oHn0s7zc4P
+ 8AUHQ8E7tudigJpFl5AoNXAcTz4RLRDk0J3fgGY6QZc933JbxfT6hYnSU6SLOVD5deeDm16w+RT
+ /SQHWohCFa06i9ULUdkGLCzgnoYhfBVzuw2Lrf2rLOuFjOWYuuoDy7krfcf8uUsPGTaJM/u8z/w
+ /s4w1kKSWbU8L0i18nV141pyBQPbDFH+s4yBiSI1bqounxugRg0h77RJZ2Lr9yGJa7mt1oOxxhc
+ UGO31XqorpZtd78YHAEuQWJCw6s2HAkqDtMxIAX39OEpiIal0yINt5zHGxvKblV0rsHgk8hQkpm
+ XOShiEZEm9ZFb48HiWTjOaTccBF0MQSNNbeUoAMuLVFYR1hW9eDmxRvaYjUkml+nk5+VBP/m0rN
+ yEpeqJKOFxQn+VlN46g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060060
 
-On Fri, Nov 06, 2026 at 03:35:01PM +0100, David Hildenbrand (Arm) wrote:
-> I agree that this should be picked separately. For example, I will pick
-> everything that falls into my realm to reduce conflicts.
+This patch series implements live guest migration support for KVM guests
+with s390 AP (Adjunct Processor) devices passed through via the VFIO
+mediated device framework.
 
-Hmm, generally tree-wide mechanical changes are the exception to that rule
-no?
+Background
+~~~~~~~~~~
 
-It's going to make the rest of the VMA flags/mmap_prepare conversion really
-quite difficult if I have to chase every single driver maintainer in the
-kernel (literally in both cases pretty much :).
+The vfio-ap device driver differs from typical VFIO device drivers in that
+it does not virtualize a physical device. Instead, it manages AP
+configuration metadata identifying the AP adapters, domains, and controls390/vfio-ap: Add live guest migration support
+domains to which a guest will be granted access. These AP resources are
+configured by assigning them to a vfio-ap mediated device via its sysfs
+assignment interfaces. When the fd for the VFIO device is opened by
+userspace, the vfio_ap device driver sets the guest's AP configuration
+from the metadata stored with the mediated device. As such, the AP devices
+are not accessed directly through the vfio_ap driver, so the driver has no
+internal AP device state to migrate. What it does migrate is the AP
+configuration metadata of the source guest.
 
-And sometimes there are dependencies which mean you really can't split it
-across trees unless you establish functionality in one cycle and callers in
-another, but that seems a little silly.
+Implementation Approach
+~~~~~~~~~~~~~~~~~~~~~~~
 
-I was thinking that once the VMA tree is separate I'd put mechanical
-changes like this through it. Is that not the way to go?
+This series implements the VFIO migration protocol using the STOP_COPY
+migration flow. The key aspects are:
 
->
-> Ideally, patches really only touch one component.
+1. On transition of the migration state from STOP to STOP_COPY
+   - The vfio_ap device driver creates a filestream for userspace to use to
+     read the guest's AP configuration from the mdev
 
-Right, but sometimes functions are declared in one place and called in
-others. It is impossible to change the signature of one without also touching
-the others.
+2. During the STOP_COPY phase
+   - Userspace uses the filestream created in #1 to read the source guest's
+     AP configuration
+   - The vfio_ap device driver copies the source guest's AP configuration
+     information to userspace
 
->
-> [PATCH 07/13] mm/madvise: convert madvise_vma_behavior() to use vma_flags_t
->
-> is all over the place :)
+3. On transition of the migration state from STOP to RESUMING
+   - The vfio_ap device driver creates a filestream for userspace to use to
+     write the source guest's AP configuration information so it can be
+     restored to the mdev on the destination host.
 
-It's not really all over the place, it's converting vm_flags_t to
-vma_flags_t across madvise.c, which involves changing a few function
-signatures, whose callers must be updated.
+4. During the RESUMING phase
+   - Userspace uses the filestream created in #3 to send the source guest's
+     AP configuration information to the vfio_ap device driver on the
+     destination host.
+   - The vfio_ap device driver first verifies the source guest's AP
+     configuration is compatible with the destination host's.
+   - The driver restores AP configuration to the mdev on the destination
+     host which automatically hot plugs the AP resources identified
+     therein.
 
-I could split it up into 3 patches where 1 does internal-only, one changes 1
-function, and the next changes another, if that works?
+5. Documentation
+   - Add live guest migration chapter to vfio-ap.rst
 
-But there's no way for that change to only touch madvise() given the
-function decl/callers.
+Compatibility Validation
+~~~~~~~~~~~~~~~~~~~~~~~~
 
---
-Cheers, Lorenzo
+The series includes comprehensive validation to ensure source and
+destination AP configurations are compatible. For each queue, the following
+characteristics must match:
+
+- AP type (target must be same or newer than source)
+- Installed facilities (APSC, APQKM, AP4KC, SLCF)
+- Operating mode (CCA, Accelerator, XCP)
+- APXA facility setting
+- Classification (native vs stateless functions)
+- Queue usability (binding/associated state)
+
+When incompatibilities are detected, migration fails with detailed error
+messages identifying the specific queue and characteristic that caused
+the failure.
+
+Configuration Management
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+This implementation does not prevent configuration changes during
+migration. Configuration stability is an orchestration-layer
+responsibility, consistent with other VFIO device types. The driver's
+role is to validate configurations and provide clear diagnostics when
+incompatibilities are detected, enabling orchestration tools to implement
+appropriate policies.
+
+QEMU patches exploiting this series:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+https://lore.kernel.org/qemu-devel/20260409141352.997844-1-akrowiak@linux.ibm.com/
+
+Change log v11 => v12:
+~~~~~~~~~~~~~~~~~~~~~
+Patch 02/14: Data structures for facilitating vfio device migration
+* struct vfio_ap_migration_file
+  ~ Changed ap_config field from struct vfio_ap_config * to void *
+  ~ Updated kernel doc for @ap_config
+
+Patch 03/14: Functions to initialize/release vfio device migration data
+* Fixed commit message
+* vfio_ap_release_mig_files()
+  ~ Fixed kernel doc
+  ~ Rewrote kernel doc to describe that the files are reset, not freed
+* vfio_ap_release_migration_data()
+  ~ Added kernel doc stating it is called only from the release callback
+* vfio_ap_init_migration_data()
+  ~ Return 0 if mig_data already exists
+* vfio_ap_mdev_close_device()
+  ~ Removed call to vfio_ap_release_migration_data()
+* vfio_ap_mdev_open_device()
+  ~ Removed call to vfio_ap_release_migration_data() on set_kvm failure
+
+Patch 04/14: Reset migration state on VFIO_DEVICE_RESET and device close
+* Changed subject and commit message
+* vfio_ap_mdev_unset_kvm()
+  ~ Removed calls to get/release_update_locks_for_kvm()
+  ~ Added lockdep_assert_held() for mdevs_lock, kvm->lock and
+    lockdep_assert_held_write() for pqap_hook_rwsem
+* vfio_ap_mdev_close_device()
+  ~ Take locks with get_update_locks_for_kvm() around unset_kvm
+  ~ Call vfio_ap_reset_migration_state()
+* vfio_ap_reset_migration_state()
+  ~ Updated kernel doc
+
+Patch 08/14: Transition device migration state from STOP to RESUMING
+* vfio_ap_resuming_init()
+  ~ Dropped ap_config->num_queues initialization to MAX_AP_QUEUES
+  ~ Updated kernel doc
+
+Patch 09/14: File ops called to resume the vfio device migration
+* vfio_ap_resuming_write()
+  ~ Copy into mig_file->ap_config buffer without dynamic size bounds
+  ~ Evaluate ap_config header fields after offsetofend check
+
+Anthony Krowiak (14):
+  s390/vfio-ap: Provide function to get the number of queues assigned to
+    mdev
+  s390/vfio-ap: Data structures for facilitating vfio device migration
+  s390/vfio-ap: Functions to initialize/release vfio device migration
+    data
+  s390/vfio-ap: Reset migration state on VFIO_DEVICE_RESET and device
+    close
+  s390/vfio-ap: Callback to get/set vfio device mig state during guest
+    migration
+  s390/vfio-ap: Transition guest migration state from STOP to STOP_COPY
+  s390/vfio-ap: File ops called to save the vfio device migration state
+  s390/vfio-ap: Transition device migration state from STOP to RESUMING
+  s390/vfio-ap: File ops called to resume the vfio device migration
+  s390/vfio-ap: Transition device migration state to from/to STOP
+  s390/vfio-ap: Callback to get the size of data to be migrated during
+    guest migration
+  s390/vfio-ap: Set up for vfio-ap device migration
+  s390/vfio-ap: Add 'migration' feature to sysfs 'features' attribute
+  s390/vfio-ap: Add live guest migration chapter to vfio-ap.rst
+
+ Documentation/arch/s390/vfio-ap.rst     |  643 ++++++++--
+ drivers/s390/crypto/Makefile            |    2 +-
+ drivers/s390/crypto/vfio_ap_drv.c       |   14 +-
+ drivers/s390/crypto/vfio_ap_migration.c | 1456 +++++++++++++++++++++++
+ drivers/s390/crypto/vfio_ap_ops.c       |   71 +-
+ drivers/s390/crypto/vfio_ap_private.h   |   12 +
+ 6 files changed, 2092 insertions(+), 106 deletions(-)
+ create mode 100644 drivers/s390/crypto/vfio_ap_migration.c
+
+-- 
+2.53.0
+
