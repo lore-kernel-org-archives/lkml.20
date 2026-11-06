@@ -1,62 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.69.30.187
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793993347;
-	b=agWvms1/gkIQjPZuC+md1XSYNTixy+Mi9ntyE4tOe4UM+AYD+wB7yy5Y+k2cB9NW55II
-	 CsuTHxy/92J7uobsdq3RYLS5qw5vf+iInO3rrgv6AKcPOEo1wENUu8b9E2vWwxG6FMtAi
-	 R+m5SP45hfJ+Jwx5IYG1Lz6baHazGxDnX//+2hAJGMIem2mwn+gxREGjELHCVKCkoObof
-	 Vxr9eOHNddRmFDmD3+8Z/ESzpMndog8sj5nPgIi+KSmN9hvDGYcR4FsVa5w4zXalKewYT
-	 lC9lUSFvip31ahSmylh9cf89yaJgQ3sMvoSDL9pUddzC5eVCO1xdWsovB2kyimx6kNw==
+	t=1793993446;
+	b=AlN2pXMXuowmMs/5BmneMqywZRMzhMLICZFkgh8QOWOI9rIa2avNZwUyvhaDgQBJNE3m
+	 ULSdfSM57lDALIY5WLIGP/T/MVX5Lm8fx3mHkWqZDCoiGHtpLkCmDJ8lG0gwaUUY0Cwdg
+	 U5XF7mQbuKQEmU0RouQUXEbk+xPv3w2gojEXnM1e2MM3gmxUiqETKX+PCm1zQtIvlg3s0
+	 ddFgBiJLJ6CO4TW2779Ibd+U8523eII/XC2DBwD3gpJV3w6wjl6Uty5lBP55dIiyQLbUf
+	 XoQJm2J890Baw1uRH7dYYFuwgObRsA9FOTF9uLw3oOpsslLRqXJ3+K2dUwHaNJkOTlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993347;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UiuovoevWXu9XJy5bFhJVWdiIRXYyIvXEQ85Dby6mgk=;
-	b=hsJ6zpvYgIFsOJMi69ITIwpJzy4zcz74mmZrexC7SS7J3VRAYDpp9DGrKuSbmOPWDU4B
-	 9jJCKx6eT2T8yK8oqt2929rUPYXJBIV+FZrLghagnz6qh5qotH47+n5ECDqwO3GlZs6Wd
-	 ibFKD9VquI/4muG/iaihd4eDgUBtIG6YWrYZWqPUVnaiAv6Hb3Z7gPy0wXvfuEGgXBun3
-	 7eHTTGJUrWbZadEnG9JlIGyZxwcAtOw/47lIMRPs16EzZUqHlegRb1ag3ujK9Kv4e33ai
-	 FAPPFKdxmJxrnNZaUBU9SK1bymdyg97vuB16VHCIUlpv6DuEm+HKmsYdN4TjcUbfqHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793993446;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XmljEirP7g8E1aEpXYghzNW+MUBxa4234sIME/mYPkk=;
+	b=KoEjuKAKnZzTMmGq4rVPec8Jp3QL0S/h2OMYwKc3EvLbXL93Klbxaw1MStGksYEILmoi
+	 /j2rpmNywz7N03df3MmsLEBcuHyiwkVFbcStUs6ijZxUqG2mJs0TGuBPkuL7Rigz5jU13
+	 tqDL2uYO9FnaqcVwzSQGsIFh8Osk4sU0YiNiIxrXq/mJ9ZAZymh/VIo6MaxCxZ0FSKpH2
+	 xmvL/QDRb5SJgRe/yezV7yYDJiFgKOstCAGriG4d7GPpcxmTY+8/Iccfcd34khFoy8Q3j
+	 d2e7fVhs4Vnd7AQb4XlLLvOWZlEj4M717VHpqJs8SNESD5nw4Qlbd/6vyN+cZ/m1tZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freenixos.com;
-	spf=pass smtp.mailfrom=freenixos.com;
-	dkim=pass header.d=freenixos.com header.i=@freenixos.com header.a=rsa-sha256 header.s=mail header.b=lr0pDVYh;
-	arc=none smtp.remote-ip=54.69.30.187
-Received: from mail.freenixos.com (mail.freenixos.com [54.69.30.187])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fRgb09PY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B23A606A329;
-	Fri,  6 Nov 2026 19:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B23A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=freenixos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freenixos.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9BBEC606A326;
+	Fri,  6 Nov 2026 19:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=freenixos.com header.i=@freenixos.com header.a=rsa-sha256 header.s=mail header.b=lr0pDVYh
-From: Hex Lindqvist <hex@freenixos.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freenixos.com;
-	s=mail; t=1793993345;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UiuovoevWXu9XJy5bFhJVWdiIRXYyIvXEQ85Dby6mgk=;
-	b=lr0pDVYhUQPa9H+L629Nktye7hj/QSJsIRxA9WbdR2ytXVKmqkfkoophSyk++3zuwFfL7H
-	bdnDX5VyBVwCzYPKAu+6l1VOZ2EXnE68Eo6+ZyT39j94nqhtlw4dnZgpV5j/iqOJusp+Gy
-	vLdB2bYKUWd2O2QkigAr+yW8UhDRjOIWa/aZnOklUNLjLYNk5i9f6U3msoSHuJYWeQ+rNd
-	SPn7qLXrBmb5V0tw66XpN5mLONU/XI+Cc4pBFUB+tGNnXTjQE2vbZUO/oJx4zLFmJ43HtI
-	Dyi4XXq3JY0BNkm7mn38ktaOjVwLMFAkrGNnBMIrGrFeVh1dc4Nqpdh9VqcQQg==
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Bluetooth: qca: Disable SoC debug logging for WCN3990
-Date: Fri,  6 Nov 2026 11:29:01 -0800
-Message-ID: <20261106192901.1930168-1-hex@freenixos.com>
-In-Reply-To: <56866622-a854-4aae-9e97-40eecc4adbe1@molgen.mpg.de>
-References: <20261105201952.1556185-1-hex@freenixos.com> <56866622-a854-4aae-9e97-40eecc4adbe1@molgen.mpg.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fRgb09PY
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 89B181F0089F;
+	Fri,  6 Nov 2026 19:30:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793993445;
+	bh=XmljEirP7g8E1aEpXYghzNW+MUBxa4234sIME/mYPkk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fRgb09PYkaD6Phe8rymtD/OPdc3FEe5j7zptW9rqLEPiPGLt0uWIFNbksQ4JPPiQZ
+	 5WfFSlfOba/9Z/vwhRBxda9lXAmsvDNfxor5Em6lhAabuhK76HA5hjm51SebDcki+8
+	 a1p9eTkai4Ru7VKPtmdHMqDGBxt1SWHPZi7tB5xxS9JLePshmf9r47FNN1Akj639C4
+	 7uFyGvtNEP0qWBaT0RLU6kOfd8a79he64DQLSkYrv7ht0PnqOVA8H/004KNo1Fijlc
+	 J1VxpLGH1T7xTP4zpflSiCn/6oeBV5o6mb0faebPG9zFzPZwsNFEmpMKwVea6ITRse
+	 Vu6lbY0ezf8BQ==
+Date: Fri, 6 Nov 2026 21:30:41 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Hannes Reinecke <hare@suse.de>, David Howells <dhowells@redhat.com>,
+	bpf@vger.kernel.org, dm-devel@lists.linux.dev,
+	fsverity@lists.linux.dev, keyrings@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [PATCH v5 2/3] KEYS: Replace assoc_array with rhashtable
+Message-ID: <au4q4Wh7PK1-Ge9P@kernel.org>
+References: <20261105031401.956609-1-jarkko@kernel.org>
+ <20261105031401.956609-3-jarkko@kernel.org>
+ <27015846-0161-4700-b810-4643e1f7b63a@suse.de>
+ <20261106090516.GA1973@sol>
+ <93e6b4e6-43c3-462d-b57c-26676aec85ec@suse.de>
+ <au4k69xNBUjsNErr@kernel.org>
+ <20261106191920.GA3383096@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,35 +90,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106191920.GA3383096@google.com>
 
-On 06.11.26 11:57, Paul Menzel wrote:
-> Does Linux log anything about this? Maybe, also paste an excerpt from
-> btmon capture?
+On Fri, Nov 06, 2026 at 07:19:20PM +0000, Eric Biggers wrote:
+> On Fri, Nov 06, 2026 at 09:05:15PM +0200, Jarkko Sakkinen wrote:
+> > On Fri, Nov 06, 2026 at 02:02:11PM +0100, Hannes Reinecke wrote:
+> > > On 11/6/26 10:05 AM, Eric Biggers wrote:
+> > > > On Fri, Nov 06, 2026 at 09:21:32AM +0100, Hannes Reinecke wrote:
+> > > > > While I am pretty much in favour with this approach, is there a specific
+> > > > > reason why siphash has been chosen?
+> > > > 
+> > > > SipHash is the preferred choice for secure hash tables.  It is secure,
+> > > > performs well on short inputs, and doesn't require special instructions.
+> > > > See Documentation/security/siphash.rst
+> > > > 
+> > > > > Would there be a chance to make this configurable?
+> > > > > I do see slight complications when running in secure environments
+> > > > > (ie FIPS-certified environments) where most of the hash functions
+> > > > > might not be available ...
+> > > > 
+> > > > SipHash support is available even when the kernel is booted with fips=1,
+> > > > so there's no issue there.  It's already widely used in the kernel for
+> > > > hash tables, and that hasn't blocked FIPS certifications either.
+> > > > 
+> > > Ah, right. Thanks for the information. Just wanted to cross-check here.
+> > > 
+> > > > Side note: fips=1 actually has little do with security, and in some
+> > > > cases it actually decreases security.  See for example
+> > > > https://lore.kernel.org/linux-crypto/20261026183332.11402-1-ebiggers@kernel.org/
+> > > > where I'm fixing a vulnerability caused by fips=1.
+> > > > 
+> > > Oh, I am fully aware. FIPS is more a rubber-stamp than anything else.
+> > > Unfortunately, a pretty powerful one.
+> > 
+> > Just representing this as an option but in the current mainline indices
+> > are used instead of addresses, and thus it would be also an option to
+> > just jhash across the board, if that part is retained (now it is being
+> > removed).
+> > 
+> > On plus side, any security bugs in cryptography would not be a concern
+> > of keyrings.
+> 
+> SipHash is also useful for resistance against denial-of-service attacks,
+> where a user puts all their keys in one hash bucket.
+> 
+> As I mentioned, it's already used for secure hash tables elsewhere in
+> the kernel.  That is what it's for; see
+> Documentation/security/siphash.rst.  It's very fast as well, so if you
+> are thinking of cryptography as being something very slow and hard to
+> use, that is not what this is (or ever needed to be).
+> 
+> Let's just use it and not over-complicate things.
 
-No, Linux logs nothing; the packets only show up in btmon:
+I'm pretty much non-opionated when it comes to this detail. I just
+merely represent all the possible if anything comes up to mind. DoS
+protection that you explained was not something I did even consider so
+that seals it for me.
 
-  = Vendor Diagnostic (len 492)                      [hci0] 0.761331
-          dc 2e e8 01 e4 01 03 00 0a ff 10 04 01 00 55 53  ..............US
-  = Vendor Diagnostic (len 481)                     [hci0] 11.334015
-          dc 2e dd 01 d9 01 04 00 0a ff 10 04 01 00 51 d3  ..............Q.
+> 
+> - Eric
 
-I will add this to the commit message in v2.
-
-> Both firmware file names are the same. What is the difference?
-
-They are different builds with the same file name:
-
-  OnePlus:        BTFM.CHE.2.1.4.c2-00002-QCACHROMZ-2.184841.1
-                  (216380 bytes, built Jan 3 2019, shipped with OxygenOS)
-  linux-firmware: BTFM.CHE.2.1.3.c7-00024-QCACHROM-1
-                  (177060 bytes, built Dec 4 2018)
-
-Both TLV headers report the same ROM build (0x0201) and patch version
-(0x0002), so only the build label tells them apart. The controller
-returns the OnePlus label when asked with EDL_GET_BUILD_INFO_CMD;
-btqca does not send that for WCN3990, so it is not in the kernel log.
-
-Thank you for the review.
-
-Hex
+Br, Jarkko
