@@ -1,76 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958637;
-	b=vRfWFTiuQxpAd/kCI1EceuJoohqxlTZzKzPFFVk//Bqy1wz6sYRLh/ffZPJmHfsNxXvh
-	 s4D4PVBUIPwq/3PBDid/nx5BI32FY3H17FiojdVpWB5GHoOZEaydBd6f6C8oosDFnxoVJ
-	 v3+ZmQr7LH5aLDO3RxE/vChan5hYNHmAhQD+RN1mt7XGJ5IkCyxni6vY1s0tlpPWnIp91
-	 h5QuQmDY4VFt9DvgWLJ+TBKaULRcqIesJLdXotwkF9EJSpmHepq7VaG+TkhJv2HNavzwv
-	 9oYPrdeSzGs5CEpOOGU8X9NVQ6Eb0tt/xAAkU5yS8lYqWRUMU2K70Spb3OqcXxylqhg==
+	t=1793958638;
+	b=CCRQzmI8bdYb6gCM2ZhrUoU72pPpNoCb7+Mf7hU6hmY/Jhz07C7MM9S65+aZNEPuCI4P
+	 fUYUmTtyeCMn0Fmyw0XzvUlveBrnPc7YgORv1vusG9OVcVx9CM5dQ8jAqzIe5PlzbgfsS
+	 IAVeVkuL/9S2NvjYiWU2t5XU92LeLtj8X7uMDfWhVTr1gNZuO2FCtAcn3i+AtTrlToxdM
+	 /x+GpIsNJUnpfue8HMFDTX5al7Igrmp9yJiTAT8SK9srQLU/Meojtil7Ep3itaxVSSz+E
+	 pHpeWdjJwBqgDmWXHpjUKkonKnSHTJHARPr8ZT3aI06cpdf6qiXBbUCSTwsvtXFZ2sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958637;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958638;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=T2ukIQcyNu7w3VdRWu1sNYM1/yvv8vle3+cBmjCOGL4=;
-	b=Ww05WBov2yThFXTz9u1JT+sXrRUjnTXkhRD/UZLFkqsXV093lNqPA+kmNY+FybuLMe3Y
-	 Im/hDzPXwvvCR8uUPPIfZjf5jqkQsQBlRbF4QtvdNgqK9hCY29mfh+zx3k/DUOXe7kek5
-	 JnRE9h7t6y8zy7Xk2F7Yu0QuMxeYuTFkesEGp3cWCVfzUPkljiz09eXMF/6o+LfBigWVr
-	 XW1DJ/14HTaKrdHX5PA39+PYXQd41jwIwDxfbB/WL1+kpYUK2DOFgVvPEzk+jrTmHH7tB
-	 6Ke/O38/+FggI05g9Tjve/oVF+kfTsfxb/HQns0SELr2UKo2ofPLLURjqf83UHylNwQ==
+	bh=WdgcK7Try9jMgvI8kpyxuwDtPtoEhYE83ht6bokzE4w=;
+	b=Zr2bmyLNngXyVL2oAa60/BSNdfpcyB3mh4H/iB0lQ5JZzToaS88pWRfkdalUzB0ns/9t
+	 4dk4eA3FzKIEjjB5pyeiZf6a8ZpK7r0K0y4ZtbgkenChbzy9YEz/bBN5gDWblOLNi5fDN
+	 0RssG3o4eUvvpS7NRSjVjF+tZYWWqDMmuh4UW0UT5cPCv5N9NrVHL1DK6/SwkrHPBfo24
+	 PEbqW9Ga8x7Ljst22QGFzUFnoFPWGRbDoIF+PbR92psO7iPjjKNdEHALE87Uvconuayj0
+	 rAV7neDeW2RN2lcE8CnCIN6n3dwsgWNf+LnI3QwQINTr+IgyOIu99RhqFaLmHg/ICMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kYFdvNoq;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=lNIzHVOn;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=pOlGUSGj;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wPkVkjZb;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3249606A33D;
-	Fri,  6 Nov 2026 09:50:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3249606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F338606EE9F;
+	Fri,  6 Nov 2026 09:50:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F338606EE9F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kYFdvNoq;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=lNIzHVOn
-Date: Fri, 06 Nov 2026 09:50:33 -0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=pOlGUSGj;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wPkVkjZb
+Date: Fri, 06 Nov 2026 09:50:35 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793958635;
+	s=2020; t=1793958636;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=T2ukIQcyNu7w3VdRWu1sNYM1/yvv8vle3+cBmjCOGL4=;
-	b=kYFdvNoq7sFmer6MMEzbP8En69a7DdnCuYeefaQPDqwfe2r/I0+4ktaJbMOCOvlQiP6ukq
-	h1U19jE27FaJnKwP2yd0xa8BihZWGQMHw29za4Zg+jXtSyIiT2LPZJmsjvjRzt1jENJYDc
-	BhOPn86RC1oDrweLtYbAoPOHNg8j9jRq94SewKswx1R0rKYf9x+Gp9VhwEFzNNKJlFn2ES
-	EVcrIjx/fsS5xkc+VXyHCOrfielA3ctK0h9wh4MuETvcCFT3TzoWyOaRJViOHNsq7DwB2X
-	E3ulf6UeHG31CdsEfqWoMMNX5RXDZ+OLNat/KjZ0ckGFVjY60FB9OL5nBoHlfQ==
+	bh=WdgcK7Try9jMgvI8kpyxuwDtPtoEhYE83ht6bokzE4w=;
+	b=pOlGUSGj3GNP0yNLe8bJQpTGbKY1BYIXzskUtIgRIqhnxY9J2MSiy7IgUt0MJwY1SDP7cb
+	sVhLTd672Hv77xxL9alb7nWpgKi1V0A+2qvciuFTXqAX54TIT18gw/GsoQTVTJ6tgadKic
+	qEkS3lh88bXyQPY3GYfiGgo4VI1yu014z+7NmA66nQDVlycsgX8cmDs47g+jvFR4QVAgBy
+	YFGI/DV1NJ3JRmsrMW0LdQG60ewrTV525W7Dsi69M2nz4I7DYNwraUrpmAkTWzbLpC/imm
+	g2anm85Y3A6nP4mR0lWsA64V43dowa2hWwFCcyKoAWeui+/MP8N+NmgSpWruaA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793958635;
+	s=2020e; t=1793958636;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=T2ukIQcyNu7w3VdRWu1sNYM1/yvv8vle3+cBmjCOGL4=;
-	b=lNIzHVOnU5aBh9VwazGS9ml4jBihs740gBGtnzrN4pof6sL5EyS3mLPABe7xdPI5YT69y5
-	2dRYN0AY4IobtGAA==
-From: "tip-bot2 for Kayra Cizmeci" <tip-bot2@linutronix.de>
+	bh=WdgcK7Try9jMgvI8kpyxuwDtPtoEhYE83ht6bokzE4w=;
+	b=wPkVkjZbf/vrWn4aBjEfq63D+VdjI5HV19paqKnqL17Ob7YtvODqG+un3dfTepY0WJWD2C
+	iUPzc3+AKtkXSCCg==
+From: "tip-bot2 for Hui Su" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
 Subject:
- [tip: sched/urgent] sched/cache: Ignore non-fair current in alb_break_llc()
-Cc: Kayra Cizmeci <kayracizmeci@gmail.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, Tim Chen <tim.c.chen@linux.intel.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261020185402.57017-1-kayracizmeci@gmail.com>
-References: <20261020185402.57017-1-kayracizmeci@gmail.com>
+ [tip: sched/urgent] sched/topology: Balance cluster static-key updates
+Cc: Hui Su <sh_def@163.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, K Prateek Nayak <kprateek.nayak@amd.com>,
+ Kayra Cizmeci <kayracizmeci@gmail.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261021043834.1140951-1-sh_def@163.com>
+References: <20261021043834.1140951-1-sh_def@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,7 +80,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179395863356.1009794.10322114886183761945.tip-bot2@tip-bot2>
+Message-ID: <179395863508.1009794.5632256681899581681.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -90,56 +90,76 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the sched/urgent branch of tip:
 
-Commit-ID:     006991aa89974378ee579416dba87adc22cd60fd
-Gitweb:        https://git.kernel.org/tip/006991aa89974378ee579416dba87adc22c=
-d60fd
-Author:        Kayra Cizmeci <kayracizmeci@gmail.com>
-AuthorDate:    Tue, 20 Oct 2026 21:54:01 +03:00
+Commit-ID:     5ebdfe12ab96368d0339593129d4ce0bc2bd06f5
+Gitweb:        https://git.kernel.org/tip/5ebdfe12ab96368d0339593129d4ce0bc2b=
+d06f5
+Author:        Hui Su <sh_def@163.com>
+AuthorDate:    Wed, 21 Oct 2026 13:38:34 +09:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Fri, 06 Nov 2026 10:10:52 +01:00
+CommitterDate: Fri, 06 Nov 2026 10:04:57 +01:00
 
-sched/cache: Ignore non-fair current in alb_break_llc()
+sched/topology: Balance cluster static-key updates
 
-Commit d6b9afab44e23 ("sched/cache: Fix
-checking active load balance by only considering the CFS task")
-stopped using task_util() for non-fair cur.
+build_sched_domains() increments sched_cluster_active once per newly
+built partition that contains an SD_CLUSTER domain.
+detach_destroy_domains() instead tested the global static key before
+decrementing it, so destroying a cluster-less partition could drop a
+reference owned by another partition and disable cluster-aware
+scheduling while SD_CLUSTER domains remained installed.
 
-__active_load_balance_cpu_stop() calls detach_one_task(), that only looks
-to cfs_tasks list. So if the rq->curr is not fair, doing a decision
-according to it is wrong, since we only migrate tasks that is fair.
+Check the installed domains before detaching them, only while the key is
+enabled, and decrement only when the removed partition contains an
+SD_CLUSTER domain.
 
-Commit f0d243a96f26 ("sched/fair: Avoid creating misfits during
-cache-aware balancing") passes cur to task_misfits_asym_cpu()
-without checking if the cur is in fair class or not. Fix this.
+With two cluster-bearing partitions installed, removing a singleton
+partition left the baseline count at 1 where 2 partitions still
+carried SD_CLUSTER; the fixed kernel correctly reports 2.  On an
+asymmetric cluster topology where the parent partition gains no
+cluster domain, the baseline count drops to 0 while a cluster
+partition remains installed; the fixed kernel keeps it at 1.
 
-Fixes: f0d243a96f26 ("sched/fair: Avoid creating misfits during cache-aware b=
-alancing")
-Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Fixes: 8881e1639f1f ("sched/fair: Scan cluster before scanning LLC in wake-up=
+ path")
+Signed-off-by: Hui Su <sh_def@163.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-Link: https://patch.msgid.link/20261020185402.57017-1-kayracizmeci@gmail.com
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Link: https://patch.msgid.link/20261021043834.1140951-1-sh_def@163.com
 ---
- kernel/sched/fair.c |  9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ kernel/sched/topology.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index ad41453..79f6b3a 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -11029,7 +11029,14 @@ alb_break_llc(struct lb_env *env)
- 			return true;
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 919d0fb..9d3a1b8 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -3332,13 +3332,25 @@ int __init sched_init_domains(const struct cpumask *c=
+pu_map)
+ static void detach_destroy_domains(const struct cpumask *cpu_map)
+ {
+ 	unsigned int cpu =3D cpumask_any(cpu_map);
++	bool has_cluster =3D false;
+ 	int i;
 =20
- 		cur =3D rcu_dereference_all(env->src_rq->curr);
--		if (cur && cur->sched_class =3D=3D &fair_sched_class)
-+		/*
-+		 * Active balance only detaches CFS tasks, so a non-fair
-+		 * curr is never migrated. Ignore it and avoid using its
-+		 * state util in the misfit and LLC checks.
-+		 */
-+		if (cur && cur->sched_class !=3D &fair_sched_class)
-+			cur =3D NULL;
-+		if (cur)
- 			util =3D task_util(cur);
+ 	if (rcu_access_pointer(per_cpu(sd_asym_cpucapacity, cpu)))
+ 		static_branch_dec_cpuslocked(&sched_asym_cpucapacity);
 =20
- 		if (task_misfits_asym_cpu(env, cur) ||
+-	if (static_branch_unlikely(&sched_cluster_active))
+-		static_branch_dec_cpuslocked(&sched_cluster_active);
++	if (static_branch_unlikely(&sched_cluster_active)) {
++		rcu_read_lock();
++		for_each_cpu(i, cpu_map) {
++			if (lowest_flag_domain(i, SD_CLUSTER)) {
++				has_cluster =3D true;
++				break;
++			}
++		}
++		rcu_read_unlock();
++
++		if (has_cluster)
++			static_branch_dec_cpuslocked(&sched_cluster_active);
++	}
+=20
+ 	rcu_read_lock();
+ 	for_each_cpu(i, cpu_map)
