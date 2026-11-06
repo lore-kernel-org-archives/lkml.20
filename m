@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793972043;
-	b=DmSb+pHBY9cGq4T5prw6BlBpRwvr9Ale9lsi6o41RNPft3L70nMQdBDYRkcVFGcR4YTM
-	 5IZoEGQheEsvEgC4pRBOPEDttdJd2nrIZgAsgae5rj7efvwOuuFvc8TXtfq+B027FoY1J
-	 yXxyLWOOYJ09z33SI4ErunpISaa/acCnUdV01XE9YBkrMvVpi/TR0ylgw1OkwsEVluei1
-	 iHrpdmlh3Pi6PDrf+oHowQCXl2jIHHpum3xaTwzpZPEYwuentvyZSUcUVPrQeIKk7g714
-	 6Hhfysbs6KIMSA7CoGKYR9onoJZjJzsC/4VfJXH0eoNK7YpmVOqLgZmFw0bF3d0kidA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972043;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=NtqAQhuk2cOXTMXdJzFz0ccbG/cBpa5kodLVtyYa/Wg=;
-	b=cCkzbryqQVKTN9OTfcBVQC6+dUEfLnO2Rfo0IN3VLv2bNhjmgBPDVd/NlT41nBhYOtjK
-	 mKFDiAK6BImt7PfcInyOH7ZVP+JEegRFqhSaDCodKTe9ikizfPwJxSdLw1D3lDTM5sVT3
-	 mcdhiF2gPTnItoghNZp1G+zyHDtmqTR/Z8qIpxLiqH6/nPWYeh77J+l6XqpORxU3I/kw4
-	 nFwHOXmLIevQt7bVQO6BAhT9sqrjFnYup/a5mwW/bxij1Zhm86aHOpTKqD7INQyOGtm6p
-	 OBKGuwBGi2uCIOjTLLvnI7agpyW2Ux1FTLZzzyvDkEnytDX83cCk1Es8DdfDtfc3kSQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ttjlmue0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793972057;
+	b=jNBkv48pd8JgsQ38cxqqnIPlOof/ZKaF7CszSX9hKoA23GcKFgkAblETP2orqNlJRAco
+	 0q3AxwtU2fHFAcsOP0rds+WCS2sQkzYrWX9qYyRZIkwsBNi3QISljyH1uO9wgugJvc2PI
+	 xP08Z+H4XUksu1wf+O0+9u+nMoDTr7gtB5k96fDkuFy1JeK8NVDOot216iee/yUF7dSvh
+	 2HtAig0tZcbY0H4O8qpigWLo+l5mn9v70FEUKL7KCMGH3/FT2kQtLqpyQJD1ubJM26qk4
+	 rK0YmQcm173ebu6LkGtjHNaQzlJPLpj382Ec1uGRlqz/RiiFklAujadKDivY70fJzxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972057;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=XlyCuiYCYLYiAhem7h2HxbH+Am1L/zBAHUBkoLtrrX8=;
+	b=DvO7A6qGKPH2t/nzQ7zBCPrg0EZj3CpEVodVo8j+EYEo8iDTREn7r5w91ss9R216JXXu
+	 zev4EUV0XOb50Y/mj82/WqwtkNVs2hfuFMtWgP/bjwUmZqPsYVUagNhgd81ZBZ+5wn27C
+	 oh08PTaTfql/AeZvuTZznekvMmDKMe0HfrDCgaKNYHpuCINSukmKKiTSDcHfKQcSpUcw0
+	 ckIYWrEP2cqQ20xDEjHDHLWRRNtv/tRD6YpizK6nVaichcUU5+Xnanh0of2iSZTzmrnhJ
+	 f0CzYz2kXyyrfwQlbcOuKi6Jq6nr+F9owU2SaA83Lm+jgPaJqsgrSbOZmuQJL3srwsA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68D4606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:34:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C68D4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ttjlmue0
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f3c89594cso53517785a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:34:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793972042; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TX3vvEyf0fdzcQD+EKspL/Xs+k4XGU9zGprBFB6Yh6tFLK5OBOtCgm8ZX4EpMaccUM
-         6i76zp+ZW93pd1uRCinW7vkUOwvaQ/PdA5R7/CR9MdOhaxPnofU5BVN0AuI998lJlShz
-         2EwMasRsSkTudGyD4q54HMuc6r9sW3Owf4Y81rDCCJIkdxoPGFZggBDE+YR+q79l0Dzw
-         CQmiQRpvGIfTVnMl1tjzMjZPv2kOTV4t2k0X7sSL/1BlozNRuT/JDh7W96+55VHV5qLB
-         3T1LYOEpR2qIErv9pQrod7YQBd4Wnypj3cSiON2cMgVwishoSaSiYCogtRMxz4dD8Gh/
-         2ODA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=NtqAQhuk2cOXTMXdJzFz0ccbG/cBpa5kodLVtyYa/Wg=;
-        fh=8N4YsXPEe68qe1rC+X8dUgXrZL2Yg/KyG6cyg8YzPL4=;
-        b=sEYq9BmUSaKbLWQ1ixz3BW07WNa6GEIrbG706eRGqQ1GqKGFuscOWYq9ChJ1wvc+Xp
-         plVg/eYtO53n2dy/BM13wCXEjgVwZos+QI46RXRpjbHUBSxd4hPBtsH/Zl7rWQzBSu0G
-         JgdAu+pk/mqlrVdpPpeIGGjxw0E0U9mvt+4ZRMatnAQq7Xg+Qm+rxIZSlcaPGElilTkW
-         8HBsoNsWqYhxWGmhyZcnUUUO2RmiHW6+ZotQ2wAwqsdz8nHNv0/mpSjNYwTV6f1ux461
-         RWAHlsvSL7cbBobfcusnUmuoatr9kFEElctyTgbxLlCCh1CAmzIrKnhltECoeFntKe6h
-         gpVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793972042; x=1794576842; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NtqAQhuk2cOXTMXdJzFz0ccbG/cBpa5kodLVtyYa/Wg=;
-        b=Ttjlmue0egl4c8WOdmasrfXec+wFZZNAbDekmxsNKmz+lnBBrLd9pq4DLpH7O6khXs
-         FFyEch8l8sky4umt+hsaO49VdUEV3/UBPwbMZEgtR3qojkXTTVWxjriUYAf+ML84E1XF
-         uU+bilLdr8mxCwV8Nji1isK8iqcxnUzdH8R5KyYirKYpuvlawZ7sQbBRjgO+DXDJr9dT
-         /5PBuXjlJUyqZkGLtA3Nnbo5zTYf9IGg8OVvsi3d6tMg1D0YGoS3peSzMNnrZR9ws+Ra
-         7lRZ0wFLNx8LKHRsg2kC74MTr9JWrXpQE3+cg/EqV/MYxC1M/mbLFOGdP+d5J0LGeOMU
-         wruw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793972042; x=1794576842;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NtqAQhuk2cOXTMXdJzFz0ccbG/cBpa5kodLVtyYa/Wg=;
-        b=c6eQz6Ro7w8nWVccsgm7mNiT0PLngPu73Rag4AtgRQYE7VSKJhNkVXXQYduYG1nOj1
-         lc3IhQfCkKiDWKQ44MD6xhHwQbfOXq4ZTLpmHvyTgowq8GW93VFmIb/Y1fMH5bLKXP2C
-         43PUvgTzFjrYs6gmv0jcxhy+T674igm01q4DMENmqkvy2lrfflv7DGejmOIjnVRtGJpp
-         F9YoZbQzYlTaXD/LdAMpcxAjdqANxLtUSsuCXYKkjX0xhPLO0IDi2fsWqjRBpK4bbbdo
-         NFqOKFCPGHl4HvLYlNxIdEjbjeCIFa0/rU5n4yNf4M8jIipJSBf3nKU7HvoWmzb2dLgZ
-         mSUA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3bES7cUu68Ir3YM5SuqwVzDmWsZkddSRMhRk0wTApdyR/Si6+C/ekBzuuzAEE8JLQgrxbXC8v11jImPA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zXZU6adbP0tgHmFmkOlPNVMB2u2lC5JpCgDSbQ5BI1T1RBSnn
-	m+/g+tkLDY7etGApcFh6Tn8I4i/alYPk9reMSBhhTxC7jIlDmekCp7ejO38lQ2BDuQUisN6wr/L
-	ljasTsJD9CBrLpFUVnVr1bNcHW5u/D2Q=
-X-Gm-Gg: AYBFou1q76ABOZ9hRQb1JyLBdk09VRkxOF9o/9QZ73/wBi2kxIxKEFuhBT22E2hpPen
-	DsJqeKicDMyc3+tLKidlbabB2IEZcYFDZ8QjedOzlA1oimlGNEDTavLiJL47GA9coK8aa9OZyLN
-	LsbMyLBIsJ831MmLm9xtiv+Yde6sw4yLMSiS86PR++lbxPPo+OIPYlpzxD3wrnQOaryciMwLOvl
-	UlvJI3quqV7mecf6ezY1xmmnMpSiTICnF9EFu0Kj9D3OqNwlMEaVcJECn26bweStOTdWbsJaTH2
-	jYYXXhoY9bX+5/0bd/QSXpcPf+I7FeYktbXU2Q0mS5dJUOtb5BMLJa8RVhMRlNiefBkIGV0ZqUg
-	cQto/hwMGPLmMBUf4GZmM+vHkvkadJLGo1UlUlqZn9psP1obegAbpYZPxgfej4HxFaewq1D8zm+
-	qI+CgWNeQvkEB37b++
-X-Received: by 2002:a05:620a:26a9:b0:936:df48:d507 with SMTP id
- af79cd13be357-945f3464c12mr362644285a.18.1793972040894; Fri, 06 Nov 2026
- 05:34:00 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1609606A32C;
+	Fri,  6 Nov 2026 13:34:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1609606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net>
+Subject: Re: [PATCH v3 3/5] drm/ingenic: Add a driver for the X1600 display
+ controller
+From: Paul Cercueil <paul@crapouillou.net>
+To: Olivier Louvignes <olivier@mgcrea.io>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, Thomas Petazzoni	
+ <thomas.petazzoni@bootlin.com>
+Date: Fri, 06 Nov 2026 14:34:08 +0100
+In-Reply-To: <20261106112000.1612-4-olivier@mgcrea.io>
+References: <20261106112000.1612-1-olivier@mgcrea.io>
+	 <20261106112000.1612-4-olivier@mgcrea.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,452 +59,998 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103041134.33310-1-physicalmtea@gmail.com>
- <20261103041134.33310-6-physicalmtea@gmail.com> <auxK5K_n2hYw0ahW@sgarzare-redhat>
-In-Reply-To: <auxK5K_n2hYw0ahW@sgarzare-redhat>
-From: Jia Jia <physicalmtea@gmail.com>
-Date: Fri, 6 Nov 2026 21:33:23 +0800
-X-Gm-Features: AclHuK_YthVA56g7yPuUjiTIeBq5m7paXuETDAPfNffvF9ffxEzJmHnGnSoJ1Kk
-Message-ID: <CAJwVaM+-_pxC+wdXBFUOo2G8B1i+q4XxyZ-5SOw_2Kmr08fKAg@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 5/5] vsock/virtio: defer native RX readiness
- notifications until batch unlock
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: netdev@vger.kernel.org, stefanha@redhat.com, bobbyeshleman@gmail.com, 
-	mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com, 
-	xuanzhuo@linux.alibaba.com, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, kvm@vger.kernel.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
->
-> On Tue, Nov 03, 2026 at 12:11:34PM +0800, Jia Jia wrote:
-> >An RX batch can make a socket readable while the RX worker retains its
-> >socket lock. Waking a blocked reader before release_sock() merely makes it
-> >wait for the same lock.
-> >
-> >P4 coalesces native sk_write_space notifications while retaining their
-> >under-lock callback context. This patch also coalesces native sk_data_ready
-> >notifications and moves both callbacks after release_sock(), so awakened
-> >tasks do not immediately block on the RX worker's socket lock.
-> >
-> >Save the native data-ready callback before the AF_VSOCK socket is
-> >published. Batch only while the native protocol and both native readiness
-> >callbacks are present and no psock is observed under sk_callback_lock. A
-> >socket with a replacement callback continues down the existing per-packet
-> >path.
-> >
-> >At batch finish, deliver write-space before data-ready and hold the
-> >connected lookup reference until both callbacks return. Packets admitted on
-> >the native path continue to use their saved native callbacks. Loading a
-> >current sockmap callback at finish would not serialize its invocation
-> >against sockmap teardown and could lose the native wakeup or invoke a stale
-> >data-ready wrapper.
-> >
-> >Extract the data-ready predicate from vsock_data_ready() so the deferred
-> >and regular paths share the low-watermark test.
-> >
-> >Performance:
-> >
-> >P4-P5 contribution (P1-P3 vs P1-P5):
->
-> I'm still confused on the reason why P4-P5 are not squashed.
-> This patch is essentially changing 90% of the previous patch...
->
+Hi Olivier,
 
-I think I may have misunderstood how far to carry our v4 discussion
-into v5. I understood that keeping write-space coalescing under the
-socket lock as a complete intermediate step, before adding data-ready
-and moving both callbacks after release_sock(), would keep the two
-changes separately testable. That is why I kept the same split in v5.
+Le vendredi 06 novembre 2026 =C3=A0 12:19 +0100, Olivier Louvignes a =C3=A9=
+crit=C2=A0:
+> The X1600's display controller has none of the registers ingenic-drm
+> programs: it fetches each frame through a descriptor whose address it
+> takes from SRD_CHAIN_ADDR, and keeps its interface, TFT timings and smart
+> panel set-up in separate register blocks (X1600 programming manual,
+> chapter 10; the X2000's controller without the composer). This driver
+> handles parallel RGB panels on a 24-bit bus, with one full-screen RGB565
+> plane, and takes the colour order (RGB or BGR) from the panel's bus
+> format.
+>=20
+> Each descriptor points at itself, so a frame repeats until a flip hands
+> the controller the other one. The controller takes it "at appropriate
+> time", so a flip's event waits until the descriptor-site register
+> reports the new descriptor at the end of a frame, and a commit waits for
+> that event rather than for a vblank before the old framebuffer is
+> released: the controller can keep reading it for a frame after the flip.
+>=20
+> Tested on a HiBy R1 with its 480x800 panel: the fbdev console and
+> r1player, blanking and unblanking, and 60 fbdev pans in 0.97 s, one flip
+> per frame at about 61 Hz, none timing out.
+>=20
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> ---
+> v3:
+> - ingenic,x1600-dpu; the clock taken unnamed, as the binding no longer
+> =C2=A0 has clock-names (Krzysztof).
+> - "display controller" in the Kconfig prompt, the header and the
+> =C2=A0 descriptions.
+>=20
+> v2:
+> - A commit_tail that waits for flip_done, not for a vblank, before the
+> =C2=A0 planes are cleaned up.
+> - A CRTC being enabled sends its event once the controller runs, not
+> =C2=A0 from atomic_flush() before atomic_enable().
+> - Reject a plane that is not visible.
+> - atomic_disable() leaves the controller alone when atomic_enable()
+> =C2=A0 could not start the clock.
+>=20
+> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 1 +
+> =C2=A0drivers/gpu/drm/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/ingenic/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 22 +
+> =C2=A0drivers/gpu/drm/ingenic/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/ingenic/ingenic-x1600-drm.c | 744 +++++++++++++++++=
++++
+> =C2=A05 files changed, 769 insertions(+)
+> =C2=A0create mode 100644 drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a5160860ae26..5d992133e0d5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -13180,6 +13180,7 @@ INGENIC X1600 DRM DRIVER
+> =C2=A0M:	Olivier Louvignes <olivier@mgcrea.io>
+> =C2=A0S:	Maintained
+> =C2=A0F:	Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
+> +F:	drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+> =C2=A0
+> =C2=A0INJOINIC IP5xxx POWER BANK IC DRIVER
+> =C2=A0M:	Samuel Holland <samuel@sholland.org>
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index 2c6bc093a923..37dc781761d6 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -206,6 +206,7 @@ obj-$(CONFIG_DRM_STM) +=3D stm/
+> =C2=A0obj-$(CONFIG_DRM_STI) +=3D sti/
+> =C2=A0obj-y=C2=A0			+=3D imx/
+> =C2=A0obj-$(CONFIG_DRM_INGENIC) +=3D ingenic/
+> +obj-$(CONFIG_DRM_INGENIC_X1600) +=3D ingenic/
+> =C2=A0obj-$(CONFIG_DRM_LOGICVC) +=3D logicvc/
+> =C2=A0obj-$(CONFIG_DRM_MEDIATEK) +=3D mediatek/
+> =C2=A0obj-$(CONFIG_DRM_MESON)	+=3D meson/
+> diff --git a/drivers/gpu/drm/ingenic/Kconfig b/drivers/gpu/drm/ingenic/Kc=
+onfig
+> index 987ed42f6f7a..85ac9ca62d7d 100644
+> --- a/drivers/gpu/drm/ingenic/Kconfig
+> +++ b/drivers/gpu/drm/ingenic/Kconfig
+> @@ -20,6 +20,28 @@ config DRM_INGENIC
+> =C2=A0
+> =C2=A0	=C2=A0 If M is selected the module will be called ingenic-drm.
+> =C2=A0
+> +config DRM_INGENIC_X1600
+> +	tristate "DRM support for the Ingenic X1600 display controller"
+> +	depends on MIPS || COMPILE_TEST
+> +	depends on DRM
+> +	depends on OF
+> +	depends on COMMON_CLK
+> +	select APERTURE_HELPERS
+> +	select DRM_BRIDGE
+> +	select DRM_CLIENT_SELECTION
+> +	select DRM_PANEL_BRIDGE
+> +	select DRM_KMS_HELPER
+> +	select DRM_DISPLAY_HELPER
+> +	select DRM_BRIDGE_CONNECTOR
+> +	select DRM_GEM_DMA_HELPER
+> +	help
+> +	=C2=A0 Choose this option for DRM support for the display controller of
+> +	=C2=A0 the Ingenic X1600 SoC. It drives parallel RGB panels on a 24-bit
+> +	=C2=A0 bus from one full-screen RGB565 plane; the controller's smart pa=
+nel
+> +	=C2=A0 interface is not supported.
+> +
+> +	=C2=A0 If M is selected the module will be called ingenic-x1600-drm.
+> +
+> =C2=A0if DRM_INGENIC
+> =C2=A0
+> =C2=A0config DRM_INGENIC_IPU
+> diff --git a/drivers/gpu/drm/ingenic/Makefile
+> b/drivers/gpu/drm/ingenic/Makefile
+> index f10cc1c5a5f2..90072ad13158 100644
+> --- a/drivers/gpu/drm/ingenic/Makefile
+> +++ b/drivers/gpu/drm/ingenic/Makefile
+> @@ -2,3 +2,4 @@ obj-$(CONFIG_DRM_INGENIC) +=3D ingenic-drm.o
+> =C2=A0ingenic-drm-y =3D ingenic-drm-drv.o
+> =C2=A0ingenic-drm-$(CONFIG_DRM_INGENIC_IPU) +=3D ingenic-ipu.o
+> =C2=A0obj-$(CONFIG_DRM_INGENIC_DW_HDMI) +=3D ingenic-dw-hdmi.o
+> +obj-$(CONFIG_DRM_INGENIC_X1600) +=3D ingenic-x1600-drm.o
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+> b/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+> new file mode 100644
+> index 000000000000..e69c968ebcd9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+> @@ -0,0 +1,744 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * DRM driver for the display controller (DPU) of the Ingenic X1600
+> + *
+> + * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
+> + *
+> + * The X1600's display controller (X1600 programming manual, chapter 10)=
+ is
+> + * the simple read channel of the X2000's, without its composer. It shar=
+es no
+> + * registers with the JZ47xx and X1000 controllers that ingenic-drm driv=
+es:
+> it
+> + * fetches each frame through a descriptor whose address is in
+> SRD_CHAIN_ADDR,
+> + * and its interface and timings sit in register blocks of their own. It
+> + * drives parallel RGB (TFT) panels and smart panels; this driver handle=
+s
+> + * parallel RGB panels on a 24-bit bus, from RGB565 framebuffers.
+> + */
+> +
+> +#include <linux/aperture.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/completion.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/media-bus-format.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/spinlock.h>
+> +
+> +#include <drm/clients/drm_client_setup.h>
+> +#include <drm/drm_atomic.h>
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_bridge.h>
+> +#include <drm/drm_bridge_connector.h>
+> +#include <drm/drm_crtc.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_encoder.h>
+> +#include <drm/drm_fb_dma_helper.h>
+> +#include <drm/drm_fbdev_dma.h>
+> +#include <drm/drm_fourcc.h>
+> +#include <drm/drm_framebuffer.h>
+> +#include <drm/drm_gem_dma_helper.h>
+> +#include <drm/drm_gem_framebuffer_helper.h>
+> +#include <drm/drm_of.h>
+> +#include <drm/drm_plane.h>
+> +#include <drm/drm_print.h>
+> +#include <drm/drm_probe_helper.h>
+> +#include <drm/drm_vblank.h>
+> +
+> +#define X1600_LCD_SRD_CHAIN_ADDR	0x1000
+> +#define X1600_LCD_SRD_CHAIN_START	0x1004
+> +#define X1600_LCD_CTRL			0x2000
+> +#define X1600_LCD_ST			0x2004
+> +#define X1600_LCD_CLR_ST		0x2008
+> +#define X1600_LCD_INTC			0x200c
+> +#define X1600_LCD_INT_FLAG		0x2010
+> +#define X1600_LCD_COM_CONFIG		0x2014
+> +#define X1600_LCD_CHAIN_SITE		0x2204
+> +#define X1600_LCD_DISP_COM		0x8000
+> +#define X1600_LCD_TFT_HSYNC		0x9000
+> +#define X1600_LCD_TFT_VSYNC		0x9004
+> +#define X1600_LCD_TFT_HDE		0x9008
+> +#define X1600_LCD_TFT_VDE		0x900c
+> +#define X1600_LCD_TFT_TRAN_CFG		0x9010
+> +
+> +/* CTRL: stop the simple read channel at the end of the frame. */
+> +#define X1600_LCD_CTRL_GEN_STP_SRD	BIT(4)
+> +
+> +/* ST; CLR_ST (write 1 to clear), INTC and INT_FLAG have the same bits. =
+*/
+> +#define X1600_LCD_ST_WORKING		BIT(0)
+> +#define X1600_LCD_ST_STOP_SRD_ACK	BIT(7)
+> +#define X1600_LCD_ST_TFT_UNDR		BIT(8)
+> +#define X1600_LCD_ST_DISP_END		BIT(17)	/* a frame was
+> displayed */
+> +
+> +#define X1600_LCD_COM_CONFIG_BURST_LEN	GENMASK(5, 4)
+> +#define X1600_LCD_BURST_LEN_32		3
+> +
+> +#define X1600_LCD_DISP_COM_IF		GENMASK(1, 0)
+> +#define X1600_LCD_DISP_COM_IF_TFT	1
+> +#define X1600_LCD_DISP_COM_DITHER_EN	BIT(4)
+> +#define X1600_LCD_DISP_COM_TFT_CLKGATE	BIT(5)
+> +#define X1600_LCD_DISP_COM_SLCD_CLKGATE	BIT(6)
+> +
+> +/* TFT_HSYNC, TFT_VSYNC: sync length and total; TFT_HDE, TFT_VDE: active
+> area. */
+> +#define X1600_LCD_TIMING_START		GENMASK(27, 16)
+> +#define X1600_LCD_TIMING_END		GENMASK(11, 0)
+> +
+> +#define X1600_LCD_TFT_COLOR_EVEN	GENMASK(21, 19)
+> +#define X1600_LCD_TFT_COLOR_ODD		GENMASK(18, 16)
+> +#define X1600_LCD_TFT_PIX_CLK_INV	BIT(10)
+> +#define X1600_LCD_TFT_DE_DL		BIT(9)
+> +#define X1600_LCD_TFT_HSYNC_DL		BIT(8)
+> +#define X1600_LCD_TFT_VSYNC_DL		BIT(7)
+> +#define X1600_LCD_TFT_MODE		GENMASK(2, 0)
+> +#define X1600_LCD_TFT_MODE_24BIT	0
+> +#define X1600_LCD_TFT_COLOR_RGB		0
+> +#define X1600_LCD_TFT_COLOR_BGR		2
+> +
+> +#define X1600_LCD_DESC_CFG_FMT		GENMASK(22, 19)
+> +#define X1600_LCD_DESC_FMT_RGB565	2
+> +/* An interrupt at the end of the frame: DISP_END needs this and INTC se=
+t. */
+> +#define X1600_LCD_DESC_CTRL_EOD_MSK	BIT(17)
+> +
+> +#define X1600_LCD_MAX_PIXELS		(1280 * 720)
+> +/* A smaller frame breaks a continuous descriptor chain (manual, 10.7). =
+*/
+> +#define X1600_LCD_MIN_PIXELS		500
+> +#define X1600_LCD_STOP_TIMEOUT_MS	100
+> +
+> +/*
+> + * The controller reads a descriptor at the start of each frame and then
+> + * follows its next field. Each descriptor points at itself, so a frame
+> + * repeats until SRD_CHAIN_ADDR names another one.
+> + */
+> +struct x1600_lcd_desc {
+> +	u32 next;
+> +	u32 addr;
+> +	u32 stride;	/* in pixels */
+> +	u32 cfg;
+> +	u32 ctrl;
+> +} __aligned(64);
+> +
+> +struct x1600_lcd {
+> +	struct drm_device drm;
+> +	struct drm_plane plane;
+> +	struct drm_crtc crtc;
+> +	struct drm_encoder encoder;
+> +
+> +	void __iomem *base;
+> +	struct clk *clk;
+> +
+> +	struct x1600_lcd_desc *desc;
+> +	dma_addr_t desc_phys;
+> +	unsigned int cur;		/* the descriptor last handed over */
+> +	bool running;
+> +	struct completion stopped;
+> +	/* Serialises the read-modify-writes of INTC. */
+> +	spinlock_t irq_lock;
+> +
+> +	/* Under drm.event_lock: sent once the controller reads event_desc.
+> */
+> +	struct drm_pending_vblank_event *event;
+> +	u32 event_desc;
+> +
+> +	u32 bus_flags;
+> +	u32 color_order;
+> +};
+> +
+> +static const u32 x1600_lcd_formats[] =3D {
+> +	DRM_FORMAT_RGB565,
+> +};
+> +
+> +static struct x1600_lcd *to_x1600_lcd(struct drm_device *drm)
+> +{
+> +	return container_of(drm, struct x1600_lcd, drm);
+> +}
+> +
+> +static dma_addr_t x1600_lcd_desc_addr(struct x1600_lcd *lcd, unsigned in=
+t i)
+> +{
+> +	return lcd->desc_phys + i * sizeof(*lcd->desc);
+> +}
+> +
+> +static void x1600_lcd_irq_enable(struct x1600_lcd *lcd, u32 mask, bool
+> enable)
+> +{
+> +	unsigned long flags;
+> +	u32 val;
+> +
+> +	spin_lock_irqsave(&lcd->irq_lock, flags);
+> +	val =3D readl(lcd->base + X1600_LCD_INTC);
+> +	if (enable)
+> +		val |=3D mask;
+> +	else
+> +		val &=3D ~mask;
+> +	/* Seen on the R1: a bit still set when it is masked keeps the line
+> up. */
+> +	writel(mask, lcd->base + X1600_LCD_CLR_ST);
+> +	writel(val, lcd->base + X1600_LCD_INTC);
+> +	spin_unlock_irqrestore(&lcd->irq_lock, flags);
+> +}
+> +
+> +/* Stops at the end of the frame; false if the controller did not report=
+ it.
+> */
+> +static bool x1600_lcd_stop(struct x1600_lcd *lcd)
+> +{
+> +	unsigned long left;
+> +
+> +	reinit_completion(&lcd->stopped);
+> +	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_STOP_SRD_ACK, true);
+> +	writel(X1600_LCD_CTRL_GEN_STP_SRD, lcd->base + X1600_LCD_CTRL);
+> +	left =3D wait_for_completion_timeout(&lcd->stopped,
+> +					=C2=A0=C2=A0
+> msecs_to_jiffies(X1600_LCD_STOP_TIMEOUT_MS));
+> +	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_STOP_SRD_ACK, false);
+> +	return left;
+> +}
+> +
+> +static u32 x1600_lcd_timing(unsigned int start, unsigned int end)
+> +{
+> +	return FIELD_PREP(X1600_LCD_TIMING_START, start) |
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 FIELD_PREP(X1600_LCD_TIMING_END, e=
+nd);
+> +}
+> +
+> +/* Sends the commit's event once the controller has read the new descrip=
+tor.
+> */
+> +static void x1600_lcd_queue_event(struct x1600_lcd *lcd, struct
+> drm_crtc_state *crtc_state)
+> +{
+> +	struct drm_pending_vblank_event *event =3D crtc_state->event;
+> +	struct drm_crtc *crtc =3D &lcd->crtc;
+> +
+> +	if (!event)
+> +		return;
+> +
+> +	crtc_state->event =3D NULL;
+> +
+> +	/*
+> +	 * The controller takes a new descriptor "at appropriate time"
+> (manual,
+> +	 * 10.6.4): wait until it reports reading the one just handed over.
+> +	 */
+> +	spin_lock_irq(&crtc->dev->event_lock);
+> +	if (lcd->running && !WARN_ON(lcd->event) && drm_crtc_vblank_get(crtc)
+> =3D=3D 0) {
+> +		lcd->event =3D event;
+> +		lcd->event_desc =3D x1600_lcd_desc_addr(lcd, lcd->cur);
+> +	} else {
+> +		drm_crtc_send_vblank_event(crtc, event);
+> +	}
+> +	spin_unlock_irq(&crtc->dev->event_lock);
+> +}
+> +
+> +static void x1600_lcd_crtc_atomic_enable(struct drm_crtc *crtc,
+> +					 struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D
+> drm_atomic_get_new_crtc_state(state, crtc);
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
+> +	struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
 
-In the resulting v5 series, however, P5 changes too much of P4 for that
-split to remain useful. I will squash P4 and P5. Sorry for the confusion.
+This bothers me a bit, shouldn't it be using 'crtc_state'?
 
-> >
-> >End-to-end RX throughput (64K Guest recv() size, SO_RCVLOWAT=1; Gbit/s):
-> >
-> >  payload  P1-P3 RX  P1-P5 RX  throughput change (95% CI)
-> >           (Gbit/s)      (Gbit/s)
-> >  64B        0.2449       0.2463    +0.55% [-3.86%, +5.17%]
-> >  256B       0.9649       0.9931    +2.93% [+0.83%, +5.07%]
-> >  512B       1.8205       1.8260    +0.30% [-4.27%, +5.10%]
-> >  1K         3.3431       3.3420    -0.03% [-2.15%, +2.12%]
-> >  4K         5.6541       5.8428    +3.34% [+1.10%, +5.63%]
-> >  8K         5.4280       5.3364    -1.69% [-15.55%, +14.46%]
-> >  16K        5.5935       5.6701    +1.37% [-1.41%, +4.23%]
-> >  64K        5.6917       5.8351    +2.52% [-0.20%, +5.31%]
-> >
-> >Fixed-syscall stress test (receiver recv() size = sender write size;
-> >Gbit/s):
-> >
-> >  payload P1-P3 RX P1-P5 RX throughput change (95% CI)
-> >  recv() calls are listed as P1-P3/P1-P5.
-> >  64B      0.2553   0.2575   +0.87% [-3.68%, +5.63%]
-> >           1048577/1048577
-> >  256B     0.9069   0.9183   +1.26% [-3.96%, +6.76%]
-> >           1048577/1048577
-> >  512B     1.6048   1.6459   +2.56% [+0.98%, +4.18%]
-> >           1048577/1048577
-> >  1K       2.6939   2.7357   +1.55% [-1.35%, +4.54%]
-> >           1048577/1048577
-> >  4K       4.9168   4.9678   +1.04% [-1.84%, +4.00%]
-> >           524965/525283
-> >  8K       5.1476   5.2005   +1.03% [-4.02%, +6.34%]
-> >           262926/263156
-> >  16K      5.5964   5.6609   +1.15% [-2.86%, +5.33%]
-> >           131311/131475
-> >  64K      5.9439   5.9073   -0.62% [-3.00%, +1.83%]
-> >           32875/32937
-> >
-> >Guest CPU1 aggregate cycles per received byte
-> >(fixed 64K receiver, with perf):
-> >
-> >  payload     P1-P3     P1-P5  change (95% CI)
-> >  64B        60.281    58.258  -3.36% [-8.74%, +2.35%]
-> >  256B       14.242    13.648  -4.17% [-9.81%, +1.82%]
-> >  512B        7.547     7.211  -4.45% [-9.73%, +1.13%]
-> >  1K          3.987     3.853  -3.35% [-8.52%, +2.12%]
-> >  4K          1.983     1.880  -5.17% [-7.97%, -2.27%]
-> >  8K          1.665     1.620  -2.75% [-9.03%, +3.96%]
-> >  16K         1.409     1.346  -4.52% [-10.94%, +2.37%]
-> >  64K         1.322     1.281  -3.11% [-6.49%, +0.38%]
-> >
-> >Full-series cycles/B (baseline vs P1-P5):
-> >
-> >Guest CPU1 aggregate cycles per received byte
-> >(fixed 64K receiver, with perf):
-> >
-> >  payload  baseline     P1-P5  change (95% CI)
-> >  64B        65.282    57.843  -11.40% [-13.77%, -8.95%]
-> >  256B       14.710    13.813   -6.10% [ -7.89%, -4.28%]
-> >  512B        7.709     7.188   -6.75% [ -8.79%, -4.66%]
-> >  1K          4.075     3.862   -5.23% [ -6.80%, -3.63%]
-> >  4K          2.034     1.887   -7.21% [ -8.67%, -5.72%]
-> >  8K          1.664     1.568   -5.78% [ -7.83%, -3.69%]
-> >  16K         1.450     1.385   -4.48% [ -6.08%, -2.86%]
-> >  64K         1.338     1.317   -1.51% [ -3.21%, +0.22%]
-> >
-> >Signed-off-by: Jia Jia <physicalmtea@gmail.com>
-> >---
-> > include/linux/virtio_vsock.h            |  5 ++-
-> > include/net/af_vsock.h                  |  9 +++--
-> > net/vmw_vsock/af_vsock.c                | 27 ++++++++++---
-> > net/vmw_vsock/virtio_transport_common.c | 52 +++++++++++++++----------
-> > 4 files changed, 62 insertions(+), 31 deletions(-)
-> >
-> >Tested:
-> >  Concurrent map-entry attach/detach during sequenced RX and duplex traffic
-> >  passed on baseline, P1-P3, P1-P4, and P1-P5. The active SK_PASS case also
-> >  passed on each state, with 200,000 verdict invocations. The concurrent
-> >  SK_PASS attach/detach case completed 1,000 insert/remove pairs per state;
-> >  its 10,000-record suffix after the final detach was verified. No kernel
-> >  diagnostic markers were found in successful runs.
-> >
-> >  Sockmap may replace sk_data_ready and sk_write_space. With non-native
-> >  callbacks, native RX batching must be declined and the ordinary per-packet
-> >  receive path used. The active SK_PASS case covers the condition expected to
-> >  trigger this fallback. The test does not trace each packet's internal
-> >  branch, so it verifies the fallback scenario without asserting that every
-> >  packet took that branch.
-> >
-> >  The duplex cases exercised write-space backpressure: the guest's nonblocking
-> >  send reached EAGAIN while the host was not reading. After the host began
-> >  draining data, the guest observed POLLOUT and resumed sending. Counts below
-> >  are observed EAGAIN/POLLOUT recoveries.
-> >
-> >    Test / result                              baseline   P1-P3   P1-P4   P1-P5
-> >    No-verdict RX churn: attach/detach pairs     433493  455507  430985  380351
-> >    No-verdict duplex: attach/detach pairs       229793  212410  214198  148755
-> >    No-verdict duplex: EAGAIN/POLLOUT            365/365  266/266  264/264  443/443
-> >    Active SK_PASS: EAGAIN/POLLOUT              2548/2548 3013/3013 3093/3093 4208/4208
-> >    SK_PASS attach/detach: intervals with verdict progress 705 616 631 692
-> >    SK_PASS attach/detach: verdict invocations  99747   99894   97475   82409
-> >    Post-detach SK_PASS suffix                 10,000/10,000 records per run
-> >
-> >diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
-> >index bf28e8e32e280..2aa0e81e655d5 100644
-> >--- a/include/linux/virtio_vsock.h
-> >+++ b/include/linux/virtio_vsock.h
-> >@@ -287,14 +287,15 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
-> >  * Initialize a batch to zero before use. A non-empty batch owns @sk's socket
-> >  * lock and the reference returned by vsock_find_connected_socket_net(). The
-> >  * caller retains both until it calls virtio_transport_rx_batch_finish(). An
-> >- * empty batch owns neither. A pending native write-space notification belongs
-> >- * to the lock holder and is delivered by virtio_transport_rx_batch_finish().
-> >+ * empty batch owns neither. Pending native readiness notifications belong to
-> >+ * the lock holder and are delivered by virtio_transport_rx_batch_finish().
-> >  */
-> > struct virtio_transport_rx_batch {
-> >       struct sock *sk;
-> >       unsigned int pkts;
-> >       size_t bytes;
-> >       bool write_space_pending;
-> >+      bool data_ready_pending;
-> > };
-> >
-> > static inline bool
-> >diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
-> >index b76ab565ea58b..57ee545fdb496 100644
-> >--- a/include/net/af_vsock.h
-> >+++ b/include/net/af_vsock.h
-> >@@ -64,9 +64,10 @@ struct vsock_sock {
-> >       bool sent_request;
-> >       bool ignore_connecting_rst;
-> >       /*
-> >-       * Captured before the socket is published. This identifies AF_VSOCK's
-> >-       * native write-space callback after a consumer has replaced it.
-> >+       * Captured before the socket is published. These identify AF_VSOCK's
-> >+       * native readiness callbacks after a consumer has replaced them.
-> >        */
-> >+      void (*native_data_ready)(struct sock *sk);
-> >       void (*native_write_space)(struct sock *sk);
-> >
-> >       /* Protected by lock_sock(sk) */
-> >@@ -83,7 +84,9 @@ s64 vsock_stream_has_data(struct vsock_sock *vsk);
-> > s64 vsock_stream_has_space(struct vsock_sock *vsk);
-> > struct sock *vsock_create_connected(struct sock *parent);
-> > void vsock_data_ready(struct sock *sk);
-> >-bool vsock_write_space_is_native(const struct sock *sk);
-> >+bool vsock_data_ready_pending(struct sock *sk);
-> >+bool vsock_callbacks_are_native(const struct sock *sk);
-> >+void vsock_call_native_data_ready(struct sock *sk);
-> > void vsock_call_native_write_space(struct sock *sk);
-> >
-> > /**** TRANSPORT ****/
-> >diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-> >index e39567990539f..0617073e99ed8 100644
-> >--- a/net/vmw_vsock/af_vsock.c
-> >+++ b/net/vmw_vsock/af_vsock.c
-> >@@ -958,6 +958,7 @@ static struct sock *__vsock_create(struct net *net,
-> >               sk->sk_type = type;
-> >
-> >       vsk = vsock_sk(sk);
-> >+      vsk->native_data_ready = sk->sk_data_ready;
-> >       vsk->native_write_space = sk->sk_write_space;
-> >       vsock_addr_init(&vsk->local_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
-> >       vsock_addr_init(&vsk->remote_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
-> >@@ -1113,24 +1114,38 @@ s64 vsock_stream_has_space(struct vsock_sock *vsk)
-> > }
-> > EXPORT_SYMBOL_GPL(vsock_stream_has_space);
-> >
-> >-void vsock_data_ready(struct sock *sk)
-> >+bool vsock_data_ready_pending(struct sock *sk)
-> > {
-> >       struct vsock_sock *vsk = vsock_sk(sk);
-> >
-> >-      if (vsock_stream_has_data(vsk) >= sk->sk_rcvlowat ||
-> >-          sock_flag(sk, SOCK_DONE))
-> >+      return vsock_stream_has_data(vsk) >= sk->sk_rcvlowat ||
-> >+             sock_flag(sk, SOCK_DONE);
-> >+}
-> >+EXPORT_SYMBOL_GPL(vsock_data_ready_pending);
-> >+
-> >+void vsock_data_ready(struct sock *sk)
-> >+{
-> >+      if (vsock_data_ready_pending(sk))
-> >               sk->sk_data_ready(sk);
-> > }
-> > EXPORT_SYMBOL_GPL(vsock_data_ready);
-> >
-> >-bool vsock_write_space_is_native(const struct sock *sk)
-> >+bool vsock_callbacks_are_native(const struct sock *sk)
-> > {
-> >       const struct vsock_sock *vsk = vsock_sk(sk);
-> >
-> >-      return READ_ONCE(sk->sk_write_space) ==
-> >+      return READ_ONCE(sk->sk_data_ready) ==
-> >+             READ_ONCE(vsk->native_data_ready) &&
-> >+             READ_ONCE(sk->sk_write_space) ==
-> >              READ_ONCE(vsk->native_write_space);
-> > }
-> >-EXPORT_SYMBOL_GPL(vsock_write_space_is_native);
-> >+EXPORT_SYMBOL_GPL(vsock_callbacks_are_native);
-> >+
-> >+void vsock_call_native_data_ready(struct sock *sk)
-> >+{
-> >+      vsock_sk(sk)->native_data_ready(sk);
-> >+}
-> >+EXPORT_SYMBOL_GPL(vsock_call_native_data_ready);
-> >
-> > void vsock_call_native_write_space(struct sock *sk)
-> > {
-> >diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-> >index af26344678e41..9d02e81042c21 100644
-> >--- a/net/vmw_vsock/virtio_transport_common.c
-> >+++ b/net/vmw_vsock/virtio_transport_common.c
-> >@@ -1598,7 +1598,8 @@ virtio_transport_recv_enqueue(struct vsock_sock *vsk,
-> >
-> > static int
-> > virtio_transport_recv_connected(struct sock *sk,
-> >-                              struct sk_buff *skb)
-> >+                              struct sk_buff *skb,
-> >+                              bool *data_ready_pending)
-> > {
-> >       struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> >       struct vsock_sock *vsk = vsock_sk(sk);
-> >@@ -1617,7 +1618,12 @@ virtio_transport_recv_connected(struct sock *sk,
-> >                       vsock_remove_sock(vsk);
-> >                       break;
-> >               }
-> >-              vsock_data_ready(sk);
-> >+              if (data_ready_pending) {
-> >+                      if (!*data_ready_pending &&
-> >vsock_data_ready_pending(sk))
-> >+                              *data_ready_pending = true;
-> >+              } else {
-> >+                      vsock_data_ready(sk);
-> >+              }
-> >               return err;
-> >       case VIRTIO_VSOCK_OP_CREDIT_REQUEST:
-> >               virtio_transport_send_credit_update(vsk);
-> >@@ -1874,20 +1880,19 @@ __virtio_transport_rx_batch_can_receive(struct virtio_transport *t,
-> >               return false;
-> >
-> >       /*
-> >-       * Sockmap can replace sk_prot or sk_write_space, and publish a psock,
-> >-       * without the socket lock. Coalescing is safe only for the native
-> >-       * write-space callback, so a boundary that sees a replacement returns to
-> >-       * the existing per-packet path.
-> >+       * Sockmap can replace sk_prot or either readiness callback, and publish a
-> >+       * psock, without the socket lock. Coalescing is safe only for native
-> >+       * callbacks, so a boundary that sees a replacement returns to the existing
-> >+       * per-packet path.
-> >        */
-> >       return READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
-> >-             vsock_write_space_is_native(sk) &&
-> >+             vsock_callbacks_are_native(sk) &&
-> >              !virtio_transport_sock_has_psock(sk);
-> > }
-> >
-> > /*
-> >- * Sockmap teardown restores the native protocol and write-space callback
-> >- * under sk_callback_lock. Serialize each packet admission check with those
-> >- * updates.
-> >+ * Sockmap teardown restores the native protocol and callbacks under
-> >+ * sk_callback_lock. Serialize each packet admission check with those updates.
-> >  */
-> > static bool
-> > virtio_transport_rx_batch_can_receive(struct virtio_transport *t,
-> >@@ -1905,9 +1910,8 @@ virtio_transport_rx_batch_can_receive(struct virtio_transport *t,
-> > /*
-> >  * The caller holds sk's socket lock. If @batchable is non-NULL, update it
-> >  * after processing @skb to say whether a native STREAM/RW batch can continue.
-> >- * When @batch is non-NULL, record a native write-space notification for batch
-> >- * finish. A writer cannot consume the updated credit until this lock is
-> >- * released.
-> >+ * When @batch is non-NULL, record native readiness notifications for batch
-> >+ * finish. A reader or writer cannot make progress until this lock is released.
-> >  */
-> > static void
-> > virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-> >@@ -1917,6 +1921,7 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-> > {
-> >       struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-> >       struct vsock_sock *vsk = vsock_sk(sk);
-> >+      bool *data_ready_pending;
-> >       struct sockaddr_vm src;
-> >       bool space_available;
-> >
-> >@@ -1926,6 +1931,8 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-> >       if (batchable)
-> >               *batchable = false;
-> >
-> >+      data_ready_pending = batch ? &batch->data_ready_pending : NULL;
->
-> Can we just pass `batch` to virtio_transport_recv_connected and avoid
-> all of this complexity?
->
+> +	unsigned int hde =3D mode->htotal - mode->hsync_start;
+> +	unsigned int vde =3D mode->vtotal - mode->vsync_start;
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D clk_set_rate(lcd->clk, mode->crtc_clock * 1000);
+> +	if (ret)
+> +		dev_warn(lcd->drm.dev, "Unable to set the pixel clock: %d\n",
+> ret);
+> +	ret =3D clk_prepare_enable(lcd->clk);
+> +	if (ret) {
+> +		dev_err(lcd->drm.dev, "Unable to start the pixel clock:
+> %d\n", ret);
+> +		x1600_lcd_queue_event(lcd, crtc_state);
+> +		return;
+> +	}
+> +
+> +	writel(readl(lcd->base + X1600_LCD_ST), lcd->base +
+> X1600_LCD_CLR_ST);
 
-Sure, understood.
+Not fond of the writel(readl()) nesting here.
 
-> >+
-> >       /*
-> >        * The socket may have been closed or reassigned after lookup but before
-> >        * its socket lock was acquired. Listener sockets have no assigned
-> >@@ -1962,7 +1969,7 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
-> >               kfree_skb(skb);
-> >               break;
-> >       case TCP_ESTABLISHED:
-> >-              virtio_transport_recv_connected(sk, skb);
-> >+              virtio_transport_recv_connected(sk, skb, data_ready_pending);
-> >               break;
-> >       case TCP_CLOSING:
-> >               virtio_transport_recv_disconnecting(sk, skb);
-> >@@ -2036,32 +2043,37 @@ EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
-> >
-> > /*
-> >  * Release an active RX batch. A non-empty batch holds the socket lock and the
-> >- * reference returned by vsock_find_connected_socket_net(). Deliver any
-> >- * deferred native write-space notification while holding the lock, preserving
-> >- * the callback context of the regular receive path. An empty batch holds
-> >- * neither.
-> >+ * reference returned by vsock_find_connected_socket_net(). Release the lock,
-> >+ * deliver deferred native write-space and data-ready notifications in that
-> >+ * order, then drop the reference. An empty batch holds neither.
-> >  */
->
-> Really, avoid comments that just describe what a function is doing. They
-> really don't add much value and we need to update them every time, like
-> this...
->
-> Comments should explain reasons, hidden behaviours, etc.
-> Something unclear just looking at the code.
->
+> +	val =3D readl(lcd->base + X1600_LCD_COM_CONFIG) &
+> ~X1600_LCD_COM_CONFIG_BURST_LEN;
+> +	writel(val | FIELD_PREP(X1600_LCD_COM_CONFIG_BURST_LEN,
+> X1600_LCD_BURST_LEN_32),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lcd->base + X1600_LCD_COM_CONFIG);
+> +
+> +	/* In the manual's order: timings, output format, then the interface.
+> */
+> +	writel(x1600_lcd_timing(mode->hsync_end - mode->hsync_start, mode-
+> >htotal),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lcd->base + X1600_LCD_TFT_HSYNC);
+> +	writel(x1600_lcd_timing(mode->vsync_end - mode->vsync_start, mode-
+> >vtotal),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lcd->base + X1600_LCD_TFT_VSYNC);
+> +	writel(x1600_lcd_timing(hde, hde + mode->hdisplay),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lcd->base + X1600_LCD_TFT_HDE);
+> +	writel(x1600_lcd_timing(vde, vde + mode->vdisplay),
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lcd->base + X1600_LCD_TFT_VDE);
+> +
+> +	val =3D FIELD_PREP(X1600_LCD_TFT_COLOR_EVEN, lcd->color_order) |
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 FIELD_PREP(X1600_LCD_TFT_COLOR_ODD, lcd-=
+>color_order) |
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 FIELD_PREP(X1600_LCD_TFT_MODE, X1600_LCD=
+_TFT_MODE_24BIT);
+> +	if (lcd->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
+> +		val |=3D X1600_LCD_TFT_PIX_CLK_INV;
+> +	if (lcd->bus_flags & DRM_BUS_FLAG_DE_LOW)
+> +		val |=3D X1600_LCD_TFT_DE_DL;
+> +	/* The *_DL bits set the level outside the pulse. */
+> +	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
+> +		val |=3D X1600_LCD_TFT_HSYNC_DL;
+> +	if (mode->flags & DRM_MODE_FLAG_NVSYNC)
+> +		val |=3D X1600_LCD_TFT_VSYNC_DL;
+> +	writel(val, lcd->base + X1600_LCD_TFT_TRAN_CFG);
+> +
+> +	/* No dithering: it only applies to 888 sources. */
+> +	val =3D readl(lcd->base + X1600_LCD_DISP_COM);
+> +	val &=3D ~(X1600_LCD_DISP_COM_IF | X1600_LCD_DISP_COM_DITHER_EN);
+> +	val |=3D FIELD_PREP(X1600_LCD_DISP_COM_IF, X1600_LCD_DISP_COM_IF_TFT) |
+> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 X1600_LCD_DISP_COM_TFT_CLKGATE |
+> X1600_LCD_DISP_COM_SLCD_CLKGATE;
+> +	writel(val, lcd->base + X1600_LCD_DISP_COM);
 
-Understood, thanks. I have not been doing this well. I will be more careful.
+This whole block above looks like out of place. Why not do it in
+x1600_lcd_encoder_atomic_mode_set()?
 
-> > void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
-> > {
-> >       bool write_space_pending = batch->write_space_pending;
-> >+      bool data_ready_pending = batch->data_ready_pending;
-> >       struct sock *sk = batch->sk;
-> >
-> >       batch->sk = NULL;
-> >       batch->pkts = 0;
-> >       batch->bytes = 0;
-> >       batch->write_space_pending = false;
-> >+      batch->data_ready_pending = false;
-> >
-> >       if (!sk)
-> >               return;
-> >
->
-> Here should be nice to have a comment to explain WHY it's safe to
-> release in this new position...
->
+Bonus point, you wouldn't need the 'bus_flags' and 'color_order' variables.
 
-Sure. I will add a comment there.
+> +
+> +	writel(x1600_lcd_desc_addr(lcd, lcd->cur), lcd->base +
+> X1600_LCD_SRD_CHAIN_ADDR);
+> +	writel(1, lcd->base + X1600_LCD_SRD_CHAIN_START);
+> +	lcd->running =3D true;
+> +
+> +	drm_crtc_vblank_on(crtc);
+> +	x1600_lcd_queue_event(lcd, crtc_state);
+> +}
+> +
+> +static void x1600_lcd_crtc_atomic_disable(struct drm_crtc *crtc,
+> +					=C2=A0 struct drm_atomic_commit *state)
+> +{
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
+> +
+> +	/* atomic_enable() could not start the clock: nothing runs. */
+> +	if (!lcd->running)
+> +		return;
+> +
+> +	if (!x1600_lcd_stop(lcd))
+> +		dev_warn(lcd->drm.dev, "The controller did not stop\n");
+> +	lcd->running =3D false;
+> +
+> +	spin_lock_irq(&crtc->dev->event_lock);
+> +	if (lcd->event) {
+> +		drm_crtc_send_vblank_event(crtc, lcd->event);
+> +		drm_crtc_vblank_put(crtc);
+> +		lcd->event =3D NULL;
+> +	}
+> +	spin_unlock_irq(&crtc->dev->event_lock);
+> +
+> +	drm_crtc_vblank_off(crtc);
+> +	clk_disable_unprepare(lcd->clk);
+> +}
+> +
+> +static int x1600_lcd_crtc_atomic_check(struct drm_crtc *crtc,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_atomic_commit *state=
+)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D
+> drm_atomic_get_new_crtc_state(state, crtc);
+> +
+> +	/* Only when enabled: drm_atomic_helper_shutdown() disables both at
+> once. */
+> +	if (!crtc_state->enable)
+> +		return 0;
+> +
+> +	return drm_atomic_helper_check_crtc_primary_plane(crtc_state);
+> +}
+> +
+> +static void x1600_lcd_crtc_atomic_flush(struct drm_crtc *crtc,
+> +					struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D
+> drm_atomic_get_new_crtc_state(state, crtc);
+> +
+> +	/* The planes come first: a CRTC being enabled sends it once started.
+> */
+> +	if (crtc_state->active && drm_atomic_crtc_needs_modeset(crtc_state))
+> +		return;
+> +
+> +	x1600_lcd_queue_event(to_x1600_lcd(crtc->dev), crtc_state);
+> +}
+> +
+> +static enum drm_mode_status
+> +x1600_lcd_crtc_mode_valid(struct drm_crtc *crtc, const struct
+> drm_display_mode *mode)
+> +{
+> +	unsigned int pixels =3D mode->hdisplay * mode->vdisplay;
+> +
+> +	if (mode->htotal > FIELD_MAX(X1600_LCD_TIMING_END) ||
+> +	=C2=A0=C2=A0=C2=A0 mode->vtotal > FIELD_MAX(X1600_LCD_TIMING_END))
+> +		return MODE_BAD;
+> +
+> +	/* The sync pulses' end points must not be 0. */
+> +	if (mode->hsync_end =3D=3D mode->hsync_start)
+> +		return MODE_HSYNC_NARROW;
+> +	if (mode->vsync_end =3D=3D mode->vsync_start)
+> +		return MODE_VSYNC_NARROW;
+> +
+> +	if (pixels > X1600_LCD_MAX_PIXELS)
+> +		return MODE_MEM;
 
-> >+      release_sock(sk);
-> >+
-> >       /*
-> >-       * The packet was admitted with the native callback. Do not reload a current
-> >+       * Packets were admitted with native callbacks. Do not reload a current
->
-> Why this change?
->
+The max resolution is 1280x720 so you should check mode->hdisplay / mode-
+>vdisplay individually. Otherwise bogus resolutions like 1920x480 would be
+accepted.
 
-I only changed the wording because a batch
-can hold more than one packet and both callbacks are now deferred.
+> +	if (pixels < X1600_LCD_MIN_PIXELS)
+> +		return MODE_BAD;
+> +
+> +	return MODE_OK;
+> +}
+> +
+> +static int x1600_lcd_enable_vblank(struct drm_crtc *crtc)
+> +{
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
+> +
+> +	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_DISP_END, true);
+> +	return 0;
+> +}
+> +
+> +static void x1600_lcd_disable_vblank(struct drm_crtc *crtc)
+> +{
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
+> +
+> +	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_DISP_END, false);
+> +}
+> +
+> +static irqreturn_t x1600_lcd_irq(int irq, void *data)
+> +{
+> +	struct x1600_lcd *lcd =3D data;
+> +	u32 st =3D readl(lcd->base + X1600_LCD_INT_FLAG);
+> +
+> +	if (!st)
+> +		return IRQ_NONE;
+> +
+> +	writel(st, lcd->base + X1600_LCD_CLR_ST);
+> +	if (st & X1600_LCD_ST_STOP_SRD_ACK)
+> +		complete(&lcd->stopped);
+> +
+> +	if (st & X1600_LCD_ST_DISP_END) {
+> +		drm_crtc_handle_vblank(&lcd->crtc);
+> +
+> +		spin_lock(&lcd->drm.event_lock);
 
-> Sorry, this series is really hard to review :-(
->
+spin_lock() can sleep with CONFIG_PREEMPT_RT so it looks wrong in an IRQ
+handler. I *think* you don't need to lock it here anyway, as the spinlock i=
+s
+locked in other places using spin_lock_irq().
 
-Sorry again. This is related to my misunderstanding.
+> +		if (lcd->event &&
+> +		=C2=A0=C2=A0=C2=A0 readl(lcd->base + X1600_LCD_CHAIN_SITE) =3D=3D lcd-
+> >event_desc) {
+> +			drm_crtc_send_vblank_event(&lcd->crtc, lcd->event);
+> +			drm_crtc_vblank_put(&lcd->crtc);
+> +			lcd->event =3D NULL;
+> +		}
+> +		spin_unlock(&lcd->drm.event_lock);
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int x1600_lcd_plane_atomic_check(struct drm_plane *plane,
+> +					struct drm_atomic_commit *state)
+> +{
+> +	struct drm_plane_state *plane_state =3D
+> drm_atomic_get_new_plane_state(state, plane);
+> +	struct drm_crtc_state *crtc_state;
+> +	int ret;
+> +
+> +	if (!plane_state->crtc)
+> +		return 0;
+> +
+> +	crtc_state =3D drm_atomic_get_new_crtc_state(state, plane_state->crtc);
+> +	if (WARN_ON(!crtc_state))
+> +		return -EINVAL;
+> +
+> +	/* The plane covers the whole screen: no scaling, no position. */
+> +	ret =3D drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+> +						=C2=A0 DRM_PLANE_NO_SCALING,
+> +						=C2=A0 DRM_PLANE_NO_SCALING,
+> +						=C2=A0 false, true);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* The controller scans out a whole frame from the framebuffer. */
+> +	if (crtc_state->enable && !plane_state->visible)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +static void x1600_lcd_plane_atomic_update(struct drm_plane *plane,
+> +					=C2=A0 struct drm_atomic_commit *state)
+> +{
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(plane->dev);
+> +	struct drm_plane_state *plane_state =3D
+> drm_atomic_get_new_plane_state(state, plane);
+> +	struct drm_framebuffer *fb =3D plane_state->fb;
+> +	unsigned int next =3D lcd->running ? !lcd->cur : lcd->cur;
+> +	struct x1600_lcd_desc *desc =3D &lcd->desc[next];
+> +
+> +	if (!fb)
+> +		return;
+> +
+> +	desc->next =3D x1600_lcd_desc_addr(lcd, next);
+> +	desc->addr =3D drm_fb_dma_get_gem_addr(fb, plane_state, 0);
+> +	desc->stride =3D fb->pitches[0] / fb->format->cpp[0];
+> +	desc->cfg =3D FIELD_PREP(X1600_LCD_DESC_CFG_FMT,
+> X1600_LCD_DESC_FMT_RGB565);
+> +	desc->ctrl =3D X1600_LCD_DESC_CTRL_EOD_MSK;
+> +
+> +	if (!lcd->running)
+> +		return;
+> +
+> +	/*
+> +	 * The manual hands over a descriptor by writing SRD_CHAIN_ADDR; the
+> +	 * vendor kernel also sets SRD_CHAIN_START, and so does this.
+> +	 */
+> +	wmb();
+> +	writel(x1600_lcd_desc_addr(lcd, next), lcd->base +
+> X1600_LCD_SRD_CHAIN_ADDR);
+> +	writel(1, lcd->base + X1600_LCD_SRD_CHAIN_START);
+> +	lcd->cur =3D next;
+> +}
+> +
+> +/*
+> + * Panels with 18 data lines take the top six bits of each colour of the
+> + * 888 mode: in the 666 mode, the HiBy R1's panel shows wrong colours.
+> + */
+> +static int x1600_lcd_color_order(const struct drm_display_info *info)
+> +{
+> +	if (!info->num_bus_formats)
+> +		return X1600_LCD_TFT_COLOR_RGB;
+> +
+> +	switch (info->bus_formats[0]) {
+> +	case MEDIA_BUS_FMT_RGB666_1X18:
+> +	case MEDIA_BUS_FMT_RGB888_1X24:
+> +		return X1600_LCD_TFT_COLOR_RGB;
+> +	case MEDIA_BUS_FMT_BGR666_1X18:
+> +	case MEDIA_BUS_FMT_BGR888_1X24:
+> +		return X1600_LCD_TFT_COLOR_BGR;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int x1600_lcd_encoder_atomic_check(struct drm_encoder *encoder,
+> +					=C2=A0 struct drm_crtc_state *crtc_state,
+> +					=C2=A0 struct drm_connector_state
+> *conn_state)
+> +{
+> +	const struct drm_display_info *info =3D &conn_state->connector-
+> >display_info;
+> +
+> +	if (x1600_lcd_color_order(info) < 0) {
+> +		drm_dbg_kms(encoder->dev, "Unsupported bus format 0x%04x\n",
+> +			=C2=A0=C2=A0=C2=A0 info->bus_formats[0]);
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void x1600_lcd_encoder_atomic_mode_set(struct drm_encoder *encode=
+r,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_crtc_state
+> *crtc_state,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_connector_state
+> *conn_state)
+> +{
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(encoder->dev);
+> +	const struct drm_display_info *info =3D &conn_state->connector-
+> >display_info;
+> +
+> +	lcd->bus_flags =3D info->bus_flags;
+> +	lcd->color_order =3D x1600_lcd_color_order(info);
+> +}
+> +
+> +static const struct drm_plane_funcs x1600_lcd_plane_funcs =3D {
+> +	.update_plane		=3D drm_atomic_helper_update_plane,
+> +	.disable_plane		=3D drm_atomic_helper_disable_plane,
+> +	.atomic_create_state	=3D drm_atomic_helper_plane_create_state,
+> +	.destroy		=3D drm_plane_cleanup,
+> +	.atomic_duplicate_state	=3D
+> drm_atomic_helper_plane_duplicate_state,
+> +	.atomic_destroy_state	=3D drm_atomic_helper_plane_destroy_state,
+> +};
+> +
+> +static const struct drm_plane_helper_funcs x1600_lcd_plane_helper_funcs =
+=3D {
+> +	.atomic_check		=3D x1600_lcd_plane_atomic_check,
+> +	.atomic_update		=3D x1600_lcd_plane_atomic_update,
+> +};
+> +
+> +static const struct drm_crtc_funcs x1600_lcd_crtc_funcs =3D {
+> +	.set_config		=3D drm_atomic_helper_set_config,
+> +	.page_flip		=3D drm_atomic_helper_page_flip,
+> +	.atomic_create_state	=3D drm_atomic_helper_crtc_create_state,
+> +	.destroy		=3D drm_crtc_cleanup,
+> +	.atomic_duplicate_state	=3D
+> drm_atomic_helper_crtc_duplicate_state,
+> +	.atomic_destroy_state	=3D drm_atomic_helper_crtc_destroy_state,
+> +	.enable_vblank		=3D x1600_lcd_enable_vblank,
+> +	.disable_vblank		=3D x1600_lcd_disable_vblank,
+> +};
+> +
+> +static const struct drm_crtc_helper_funcs x1600_lcd_crtc_helper_funcs =
+=3D {
+> +	.atomic_check		=3D x1600_lcd_crtc_atomic_check,
+> +	.atomic_enable		=3D x1600_lcd_crtc_atomic_enable,
+> +	.atomic_disable		=3D x1600_lcd_crtc_atomic_disable,
+> +	.atomic_flush		=3D x1600_lcd_crtc_atomic_flush,
+> +	.mode_valid		=3D x1600_lcd_crtc_mode_valid,
+> +};
+> +
+> +static const struct drm_encoder_helper_funcs x1600_lcd_encoder_helper_fu=
+ncs =3D
+> {
+> +	.atomic_check		=3D x1600_lcd_encoder_atomic_check,
+> +	.atomic_mode_set	=3D x1600_lcd_encoder_atomic_mode_set,
+> +};
+> +
+> +/*
+> + * drm_atomic_helper_commit_tail(), waiting for the flip instead of a vb=
+lank:
+> + * the old framebuffer stays in use until the controller reads the new
+> + * descriptor, which can be a frame later.
+> + */
+> +static void x1600_lcd_commit_tail(struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *drm =3D state->dev;
+> +
+> +	drm_atomic_helper_commit_modeset_disables(drm, state);
+> +	drm_atomic_helper_commit_planes(drm, state, 0);
+> +	drm_atomic_helper_commit_modeset_enables(drm, state);
+> +	drm_atomic_helper_fake_vblank(state);
+> +	drm_atomic_helper_commit_hw_done(state);
+> +	drm_atomic_helper_wait_for_flip_done(drm, state);
+> +	drm_atomic_helper_cleanup_planes(drm, state);
+> +}
+> +
+> +static const struct drm_mode_config_funcs x1600_lcd_mode_config_funcs =
+=3D {
+> +	.fb_create		=3D drm_gem_fb_create,
+> +	.atomic_check		=3D drm_atomic_helper_check,
+> +	.atomic_commit		=3D drm_atomic_helper_commit,
+> +};
+> +
+> +static const struct drm_mode_config_helper_funcs
+> x1600_lcd_mode_config_helpers =3D {
+> +	.atomic_commit_tail	=3D x1600_lcd_commit_tail,
+> +};
+> +
+> +DEFINE_DRM_GEM_DMA_FOPS(x1600_lcd_fops);
+> +
+> +static const struct drm_driver x1600_lcd_driver =3D {
+> +	.driver_features	=3D DRIVER_MODESET | DRIVER_GEM |
+> DRIVER_ATOMIC,
+> +	.name			=3D "ingenic-x1600-drm",
+> +	.desc			=3D "DRM driver for the Ingenic X1600 display
+> controller",
+> +	.major			=3D 1,
+> +	.minor			=3D 0,
+> +	.fops			=3D &x1600_lcd_fops,
+> +	DRM_GEM_DMA_DRIVER_OPS,
+> +	DRM_FBDEV_DMA_DRIVER_OPS,
+> +};
+> +
+> +static int x1600_lcd_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct drm_connector *connector;
+> +	struct drm_bridge *bridge;
+> +	struct drm_device *drm;
+> +	struct x1600_lcd *lcd;
+> +	int irq, ret;
+> +
+> +	lcd =3D devm_drm_dev_alloc(dev, &x1600_lcd_driver, struct x1600_lcd,
+> drm);
+> +	if (IS_ERR(lcd))
+> +		return PTR_ERR(lcd);
+> +
+> +	drm =3D &lcd->drm;
+> +	platform_set_drvdata(pdev, lcd);
+> +	init_completion(&lcd->stopped);
+> +	spin_lock_init(&lcd->irq_lock);
+> +
+> +	lcd->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(lcd->base))
+> +		return PTR_ERR(lcd->base);
+> +
+> +	lcd->clk =3D devm_clk_get(dev, NULL);
+> +	if (IS_ERR(lcd->clk))
+> +		return dev_err_probe(dev, PTR_ERR(lcd->clk), "Unable to get
+> clock\n");
 
-> >        * callback here: sockmap can replace or remove its wrapper independently.
-> >        */
-> >       if (write_space_pending)
-> >               vsock_call_native_write_space(sk);
-> >
-> >-      release_sock(sk);
-> >+      if (data_ready_pending)
-> >+              vsock_call_native_data_ready(sk);
-> >+
-> >       sock_put(sk);
-> > }
-> > EXPORT_SYMBOL_GPL(virtio_transport_rx_batch_finish);
-> >--
-> >2.53.0
-> >
->
+You enable it later in the probe, so you could just use devm_clk_get_enable=
+d()
+here.
+
+> +
+> +	irq =3D platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return irq;
+> +
+> +	bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
+> +	if (IS_ERR(bridge))
+> +		return dev_err_probe(dev, PTR_ERR(bridge), "Unable to get the
+> panel\n");
+> +
+> +	lcd->desc =3D dmam_alloc_coherent(dev, 2 * sizeof(*lcd->desc),
+> +					&lcd->desc_phys, GFP_KERNEL);
+> +	if (!lcd->desc)
+> +		return -ENOMEM;
+> +
+> +	ret =3D drmm_mode_config_init(drm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Framebuffers, not modes: fbdev's double buffer is taller than
+> 720p. */
+> +	drm->mode_config.max_width =3D FIELD_MAX(X1600_LCD_TIMING_END);
+> +	drm->mode_config.max_height =3D FIELD_MAX(X1600_LCD_TIMING_END);
+> +	drm->mode_config.funcs =3D &x1600_lcd_mode_config_funcs;
+> +	drm->mode_config.helper_private =3D &x1600_lcd_mode_config_helpers;
+> +
+> +	ret =3D drm_universal_plane_init(drm, &lcd->plane, 1,
+> &x1600_lcd_plane_funcs,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 x1600_lcd_formats,
+> ARRAY_SIZE(x1600_lcd_formats),
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NULL, DRM_PLANE_TYPE_PRIMARY, N=
+ULL);
+> +	if (ret)
+> +		return ret;
+> +	drm_plane_helper_add(&lcd->plane, &x1600_lcd_plane_helper_funcs);
+> +
+> +	ret =3D drm_crtc_init_with_planes(drm, &lcd->crtc, &lcd->plane, NULL,
+> +					&x1600_lcd_crtc_funcs, NULL);
+> +	if (ret)
+> +		return ret;
+> +	drm_crtc_helper_add(&lcd->crtc, &x1600_lcd_crtc_helper_funcs);
+> +
+> +	ret =3D drmm_encoder_init(drm, &lcd->encoder, NULL,
+> DRM_MODE_ENCODER_DPI, NULL);
+> +	if (ret)
+> +		return ret;
+> +	lcd->encoder.possible_crtcs =3D drm_crtc_mask(&lcd->crtc);
+> +	drm_encoder_helper_add(&lcd->encoder,
+> &x1600_lcd_encoder_helper_funcs);
+> +
+> +	ret =3D drm_bridge_attach(&lcd->encoder, bridge, NULL,
+> +				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+> +	if (ret)
+> +		return ret;
+> +
+> +	connector =3D drm_bridge_connector_init(drm, &lcd->encoder);
+> +	if (IS_ERR(connector))
+> +		return PTR_ERR(connector);
+> +	drm_connector_attach_encoder(connector, &lcd->encoder);
+> +
+> +	ret =3D drm_vblank_init(drm, 1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_mode_config_reset(drm);
+
+I saw a patch from Maxime replacing these - you should be calling
+drm_mode_config_create_initial_state(drm) here (and handle the error).
+
+> +
+> +	/* Take over from a boot framebuffer, and stop what it left running.
+> */
+> +	ret =3D aperture_remove_all_conflicting_devices(x1600_lcd_driver.name);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D clk_prepare_enable(lcd->clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* No interrupt from what the boot loader left enabled or pending. */
+> +	writel(0, lcd->base + X1600_LCD_INTC);
+> +	writel(readl(lcd->base + X1600_LCD_ST), lcd->base +
+> X1600_LCD_CLR_ST);
+> +
+> +	ret =3D devm_request_irq(dev, irq, x1600_lcd_irq, 0, dev_name(dev),
+> lcd);
+> +	if (ret) {
+> +		clk_disable_unprepare(lcd->clk);
+> +		return dev_err_probe(dev, ret, "Unable to request the
+> IRQ\n");
+> +	}
+> +
+> +	/*
+> +	 * Seen on the R1: after an underrun (TFT_UNDR) the controller can
+> stop
+> +	 * answering GEN_STP_SRD, and only a reset brings it back.
+> +	 */
+> +	if (readl(lcd->base + X1600_LCD_ST) & X1600_LCD_ST_WORKING &&
+> !x1600_lcd_stop(lcd))
+> +		dev_err(dev, "The controller did not stop%s\n",
+> +			readl(lcd->base + X1600_LCD_ST) &
+> X1600_LCD_ST_TFT_UNDR ?
+> +			" after an underrun" : "");
+> +	clk_disable_unprepare(lcd->clk);
+> +
+> +	ret =3D drm_dev_register(drm, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_client_setup_with_fourcc(drm, DRM_FORMAT_RGB565);
+> +	return 0;
+> +}
+> +
+> +static void x1600_lcd_remove(struct platform_device *pdev)
+> +{
+> +	struct x1600_lcd *lcd =3D platform_get_drvdata(pdev);
+> +
+> +	drm_dev_unregister(&lcd->drm);
+> +	drm_atomic_helper_shutdown(&lcd->drm);
+> +}
+> +
+> +static void x1600_lcd_shutdown(struct platform_device *pdev)
+> +{
+> +	struct x1600_lcd *lcd =3D platform_get_drvdata(pdev);
+> +
+> +	drm_atomic_helper_shutdown(&lcd->drm);
+> +}
+> +
+> +static const struct of_device_id x1600_lcd_of_match[] =3D {
+> +	{ .compatible =3D "ingenic,x1600-dpu" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, x1600_lcd_of_match);
+> +
+> +static struct platform_driver x1600_lcd_platform_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "ingenic-x1600-drm",
+> +		.of_match_table =3D x1600_lcd_of_match,
+> +	},
+> +	.probe =3D x1600_lcd_probe,
+> +	.remove =3D x1600_lcd_remove,
+> +	.shutdown =3D x1600_lcd_shutdown,
+> +};
+> +module_platform_driver(x1600_lcd_platform_driver);
+> +
+> +MODULE_AUTHOR("Olivier Louvignes <olivier@mgcrea.io>");
+> +MODULE_DESCRIPTION("DRM driver for the Ingenic X1600 display controller"=
+);
+> +MODULE_LICENSE("GPL");
+
+Cheers,
+-Paul
