@@ -1,68 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.250.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979899;
-	b=yzTTYI7NlpEu9zUOOBnTsVUGKAk+VNABmpKYDhoIQEQXrDA6Urj/G9vhGZUqG9GNQMdz
-	 AAGF9VEem4KAHvEpnneiyhjzGLahQ/p2HRJcTpv7Qe1Il3uOd7Ml8FOHELNmEggPpNG0e
-	 JWTWqDdqzerDgJ6rR2+hXBJSfNUNi4r+cKNQA9tST57mJ5bHUI6JDzcORbM+X2ckbwaVs
-	 emDX8sABQFQ8auvyTqObK3jMjBPJlkLF/GruS7GtG42fLnnW1guUiHwkvQbBolr6AVREK
-	 tV2dni90ebb2kM7X5QkIJ2rVNDzXtLkKGPKS8RSJLJZ5fiq9R2rgjUnrMcfBY5B6SXQ==
+	t=1793979943;
+	b=UHP+dR19ft8Rq+95pKfv9DjYStlktEwOZPGsZBdzK13u3GK5vBMpRgWQOf8v0UV+lAC3
+	 zVEilrTZJUQyMZyN5pL2hgLMLZiioIc1S8DtzCS6tdoE39J18dwohWUKms4nhLJvd6M89
+	 E8bEH98kRZYscyzldM/Cy5uED0UYspaK7JtUsGcr8WCTYH/oIKY/fwJSOI6mMxOnC1zPu
+	 xLeiHUWgDulv7sWSNpH9kIg6aaS2Q5MQCg5n7LUQ3i0b+JsL5psSjjOLg54Z7aIpKO//p
+	 rJyjwslJpWDAeqLb+kcyN0CBzNLzTj6sqi2Twf9XVxog9/jeJODLv6himIJmlqy/UGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979899;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=m7TGBcFGJ25PzS3E5FjcY3XCx1Va4AtTHtI7meNpbaU=;
-	b=B+dZ88Zv8TcK9q/QNVB/170OI8zJGz9wMvBg/4VPrZbINgCrfHGNyetYSfdEK377cgG+
-	 q/Ox4kU02wfejhQo3lWP2xQZDds4O46VE/zSQVsCwOfu7hjRmqteTIVUEr7lNSS39fnKA
-	 5RilJ4mhfp0poFaUbS9NjnL4C08VW+A1K8byAl0ZS7QmxUU/nc73sg1ZHLB7cKgKZcVl1
-	 RZDnu/Czx/rKJP1nb6z/tZwfsLD+KN/OgStgXfzC+5kfktPzH9EURGgYHXIBWfCii8shj
-	 0bVBbgEHSh3Cnncea+V0jOXnL40gQjRfLIQyMqb4tsYQFCjGloXXuBhcmTaNP5ZqLAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979943;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=f1Vggd/CSfV+sAUe31A7z9uDKw+GeX3Dxz7Go8iocug=;
+	b=5qvytv0nDzzw6W84847DvwCHI+qeIBGM4dgeiipS7lntvt78yydlVbLX601dTGFzayt0
+	 ZqdpgNGC4fOgvmp04qU69fwa2D4wAfvBbi8oMNMzE50pDq7hBmfulYSWR1ad3xyhHBufV
+	 ON3p1NQE+OlnnOer9/7/TUehPxw4d3YDlUEsTuB8rCemK6YkFrb/tOKNnVaf02X4Nn3tc
+	 B//ViC+JczLQ6/DJAE9VzZABGvnkf2A2dXJWPaXgxBp3tsldgKdnPjX1j1DlP5ztYn+xJ
+	 aYfyHglrTXN4kGMPbtxsRpy+jZmXva6LuuQVJ7ekN47oZ/GnWMZcLZ22wohNlCcF7+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KxXy4qR8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=8bytes.org;
+	spf=pass smtp.mailfrom=8bytes.org;
+	arc=none smtp.remote-ip=85.214.250.239
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3940E606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:45:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3940E606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
+Received: from 8bytes.org (p200300f6af404a00c8b813848b737b26.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:c8b8:1384:8b73:7b26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A972606A326;
-	Fri,  6 Nov 2026 15:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KxXy4qR8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128ED1F0089F;
-	Fri,  6 Nov 2026 15:44:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793979898;
-	bh=m7TGBcFGJ25PzS3E5FjcY3XCx1Va4AtTHtI7meNpbaU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KxXy4qR8Ki5rez09gboTTO/asVqsZh7bhqaj7H0ubtK5UcVhdVXNvVphmGw+crUeU
-	 jBgvKz0u4gwBCPv+/f09/WHCQs5SflTaYwnT4ZYM/k/+0d9it6wH8PZV9SL0E9byYm
-	 9jf3V4E/IrxVIZUhQZp0f6K4TDhF6nx42wiM3ede/LBZTtNXgYwT0S+xg/sQGwY1u0
-	 ocU9HjN8/KCTBJZAGYUyXn+gS0o473ZB/9dR7w3NQbiK9sc2wje7dDl2BwEsSrKs75
-	 GMFOIzeF0YKp8IcSkK3bndx1ysdn0TUnAxFXTzFeTRtkQXn/KsJ+pGzJgMMab+JzId
-	 PItBYW1yiZ2mA==
-Date: Fri, 6 Nov 2026 09:44:54 -0600
-From: Rob Herring <robh@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@linux.dev>,
-	Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Russell King <linux@armlinux.org.uk>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH net-next v4 05/14] dt-bindings: net: dsa:
- renesas,rzn1-a5psw: Disallow ports beyond port@4
-Message-ID: <20261106154454.GA3654918-robh@kernel.org>
-References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261104182105.1102555-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	by mail.8bytes.org (Postfix) with ESMTPSA id A59682436CE;
+	Fri,  6 Nov 2026 16:45:34 +0100 (CET)
+Date: Fri, 6 Nov 2026 16:45:33 +0100
+From: Joerg Roedel <joro@8bytes.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org, 
+	iommu@lists.linux.dev
+Subject: [git pull] IOMMU Fixes for Linux v7.4-rc1
+Message-ID: <au32DJVMbP6j5_gq@8bytes.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,71 +50,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104182105.1102555-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On Wed, Nov 04, 2026 at 06:20:53PM +0000, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Restrict the A5PSW ethernet-ports node to ports 0 through 4, matching the
-> hardware configuration of four external ports and one CPU/management port.
-> 
-> Although the schema pattern limits port nodes to port@0 through port@4,
-> additionalProperties: true allows other port nodes to pass validation.
-> Set additionalProperties to false and explicitly allow #address-cells
-> and #size-cells so that ports beyond port@4 are rejected.
-> 
-> Existing in-tree device trees describe only port@0 through port@4 and
-> are unaffected by this change.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v3->v4:
-> - Added reg items validation for ethernet ports
-> 
-> v2->v3:
-> - New patch
-> ---
->  .../bindings/net/dsa/renesas,rzn1-a5psw.yaml         | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-> index 9c477ceb170b..250c59e58439 100644
-> --- a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-> +++ b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-> @@ -63,12 +63,22 @@ properties:
->  
->    ethernet-ports:
->      type: object
-> -    additionalProperties: true
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      '#address-cells':
-> +        const: 1
-> +      '#size-cells':
-> +        const: 0
-> +
+Hi Linus,
 
-Drop all this.
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
 
->      patternProperties:
->        "^(ethernet-)?port@[0-4]$":
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
 
-And make this "^(ethernet-)?port@". Then any node will get the 'reg' 
-schema applied. That doesn't check the unit-address, but the way to 
-check that is comparing it to the reg value (not yet implemented except 
-for specific buses in dtc).
+are available in the Git repository at:
 
+  git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git tags/iommu-fixes-v7.4-rc1
 
->          type: object
->          additionalProperties: true
->          properties:
-> +          reg:
-> +            items:
-> +              - maximum: 4
->            pcs-handle:
->              maxItems: 1
->              description:
-> -- 
-> 2.56.0
-> 
+for you to fetch changes up to 2cf4be57b301ed2d7af82e70cff5dfd96894d8de:
+
+  iommu/amd: Fix NULL pointer dereference for GPUs without upstream bridge (2026-11-06 13:22:44 +0100)
+
+----------------------------------------------------------------
+IOMMU Fixes for Linux v7.4-rc1
+
+Including:
+
+  - AMD IOMMU:
+    - Move PerfOpt management into the IOMMU domain attachment paths, enabling
+      it automatically for supported integrated GPUs in identity mode and
+      clearing it before switching to translated or blocked domains.
+
+    - Fix a boot panic in the GPU identity-mapping quirk when a GPU has no
+      upstream PCI bridge.
+
+    - Clear the IOMMU SNP enable flag when RMP table initialization fails,
+      preventing subsequent initialization from assuming SNP setup succeeded.
+
+    - Check IVRS subtable types before parsing memory definitions, avoiding
+      bogus PCI segments caused by misinterpreting IVHD entries under QEMU.
+
+    - Remove an obsolete warning on device release that incorrectly fires for
+      devices required to remain attached to an identity domain.
+
+----------------------------------------------------------------
+Akshay Jindal (1):
+      iommu/amd: Skip non-IVMD entries when parsing IVRS memory definitions
+
+Dheeraj Kumar Srivastava (1):
+      iommu/amd: Clear amd_iommu_snp_en if snp_rmptable_init() fails
+
+Jean-Christophe Guillain (1):
+      iommu/amd: Fix NULL pointer dereference for GPUs without upstream bridge
+
+Kevin Mitchell (1):
+      iommu/amd: remove obsolete domain pointer warning on release
+
+Mario Limonciello (AMD) (1):
+      iommu/amd: Enable PerfOpt automatically for integrated GPUs
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 ------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 --
+ drivers/iommu/amd/amd_iommu.h              |   3 +-
+ drivers/iommu/amd/amd_iommu_types.h        |   6 +-
+ drivers/iommu/amd/init.c                   | 106 ++++++-----
+ drivers/iommu/amd/iommu.c                  | 273 +++++------------------------
+ include/linux/amd-iommu.h                  |  11 --
+ 8 files changed, 115 insertions(+), 347 deletions(-)
+
+Please pull.
+
+Thanks,
+
+	Joerg
