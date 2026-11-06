@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793974081;
-	b=AtRHy12ficXMaBt797FPsOSZCraIHMbKB4XFCpjZJWXdTMmYslmmI064SZaF2yV68cti
-	 mddaMKq8p86MJ0OUkxwubKaGMxoJAz7poz/mCAWobqFaUnhkgunFDFBXvYLp03fWF0HUj
-	 070RCdmMDoO21q8AYjCuMpQNsDEzZWeq1265Es3KxWgKHH2sYhnsOylj7pT0yIk+p0Jgf
-	 yYDt2gN6Hf43CrmB37XrWfrh7yRMrUMOc82XlM1sVxn06RpyCp/5z6rxmoSsHbYLANMpd
-	 5+MlO/TyvrxBNFRUilqTFrXixioGfbPs+aiKphsgu0ErIqg08oORud5HQKgJluATi4w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974081;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=o0on77fT9cqdEenyVrlGJWJcAv5h/tUj6mGefibL4bI=;
-	b=y3p69d+G0iWK2T4YSw8IIjtUZFtxsbL1t3Hg6WnBBYhftqcVoqqDah+cFU9SbFW5LgnW
-	 L90sMXiXMfHqSYQyrJvXUn7B0mgYbdOpzVxy0uP7eM4TEdKt/4wQ8VccReL1nJggZ80d1
-	 xd9xAPFFTyFWe2yqLYZ1cvMdYt+WYf1l8cMHEdUv3bn1b8A/+5PFrLROw1FJOf2DQqT/V
-	 bVxuRdoZ2kXYWGdCKTKWiiNViQb0DJKvKEgepFWAnDuCi8apNYecXlfdFKDopAZSjSlh3
-	 5yM65SORGcLeLjaiwBhrq+cmzVYyEBpavOhgqm+qk6ZfYPpo5PukaAl9Q2ua09bHnxw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aa6gxFGh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793974089;
+	b=Tg1KQI0mNY5jZVd4l7Nbzn7NG1TGSDM1EVxgqAzLebOiGFMZvH3VGy5CN117Z1CApuYq
+	 POJYbFbIFNB81dU6EZcgtIu4Q4wpb8ky3mt2Pm8wmg90Q+/lgUM7S9F5svh7KfCBUxg92
+	 zWjID7HCszi7YjIevoIjWy23mbgs/J/3/Hz2e5cFBVfRaS6J4VXbbMnBrNkVIoBWz/kdq
+	 +CkuzoT8/y3YUzq+2JcRjQUyxWHcgSYSwiXNePkRyHL+lXvNjkOFLpgq5R3zeHhyG2qyv
+	 QrVecbQoY1mgxAwfDw/dQxIewlT2dFEh0MpU5rsEBkmAoD86Sc5KXJ1df97N4C4Bhsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974089;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Izey0YBOmcZkE1lp+pLrWr5YZYx/6LfMAQiArWMbf3s=;
+	b=zfsApr+6AlKeiPauhv1yiZCTHRU4pAWM4TS76ng9o5EdOFlqZ2TUKlq8h5FOFP/w6HQx
+	 wTGvr+DAC1+NtBXHJySaggbL/l29E0HUbmHZH4q7VYeTjY+xJdq/HzxRHu5JKQQtSIv6R
+	 0XFkHFxEIcF5mtbNz93YGLjsbzuh8Lomzwm70j9P8jXvniD/Sdb6dTfTplsI0kUw1hOZo
+	 WdXhz0Zcz4/Hoy6fq2NCwlRoksP1bqmfE/QLXh0/T1bUEhz8dUs1gfxzEi+OE5A2MB3E2
+	 xrUCY+7NKIJpml4QTuh9d8nxg3ksk7IC0ks6yd6k0berFolWER+JKTLBhS6TDq1eE+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=owrlddSJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFED606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:08:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAFED606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EB2606A329;
+	Fri,  6 Nov 2026 14:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aa6gxFGh
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b6966d9508so5390a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:08:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793974079; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qaQf9WLBIRkEaTp/Ff9rqb20n+8MQvzgGaNa0yFewfLdB1OSN6va9/lKpoipq33Er+
-         7AnxbcQvJnLwXscQMMDuguIpDWZ2nCRCRHSNtG04TS3vywIDAp1Fd/cGcOytrT22K1Bi
-         2/JC/CAS32P2GTU2PDf9o8YRAZibrDsSxt3Y83dka8RHcIgbpQPCKplwWh1VK/6yEZWJ
-         qXGhxIjJFlQOXjxLT/S4Brnh9pQqj4+txv+9+7X/mlaA/Ve+I/bHXdJ3KcoBrihDkiOl
-         MTdl3gbw5Tv1CLAI0H6vWb4woVRIr5cyeOMbqFP67iXVntA+n9tsidrePgV2+FrADY2c
-         1yIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=o0on77fT9cqdEenyVrlGJWJcAv5h/tUj6mGefibL4bI=;
-        fh=WrK6AYEkr16Ze+ZSua6tmG7jLYd+9dRgBhlECwM5LMc=;
-        b=Aw6kgFqgVwGqXLyIW4Ij4FGcgM+wb+Hmdelyu27JHzaznDL8C6/+OsMj/2V3DszPwc
-         Rt06uBY1SUSutmp7pOTKBI7y7hrLfEUDGEa/nPK2znyZPCsjtRXcXLEbL7HDd2ruOeTH
-         bb/6tRlz1h/CXIDsoV9xaFNDOsJfYyY3eAKBia+q6EqFS8evLOdy7a/YoOSODHkSBor/
-         2TM0TWRQlB7FlBJzimpNP4hihm8UPsxLv4DCKKH81WfJ3eGt+6N1bPxRRbXLASveQi7X
-         jIhpyYTDxPmA6nqpMxN+E+OVqRRGBp9hlgrdUgJBpjrL2Qigko77FoXmzF/sLgBfMsX7
-         X0rA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793974079; x=1794578879; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=o0on77fT9cqdEenyVrlGJWJcAv5h/tUj6mGefibL4bI=;
-        b=aa6gxFGhvb2UWZsRedcf7rghniRGHP5ZBpm+KRqG8m/EQ7v3jAyZ3NDAscezqBSJMk
-         chiNJhv4sM6RGck9jFJAGVS9T/Sv5XJDDl8Ak5f0AezAMK3un9me+1kJbbnvQ89mYiQ7
-         GuAtya0AhPxKnrzYFp8pXOT4V+NYPtKelypECKrJr9vbvj/ognpMgAvFENC9gG9Pbb1f
-         WHrtYn6Ieysst3JN+hLf8o3bHGW5OWRYlgeb7BtrNbp9M0RtW97xopHySPxSR79syOEv
-         1fbFhjKUlgR80KY2KADcDTnA9AsAgnQZ2z+7l2tP5CtvstGqSv82pmuCJTUniMreA1hD
-         L5jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793974079; x=1794578879;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o0on77fT9cqdEenyVrlGJWJcAv5h/tUj6mGefibL4bI=;
-        b=XwmcVP7ujAxZ485riMGkFLM6410INHAdT61qJFpaa5IxCVU+JHJpEGaa84ruSo/AyM
-         XAC0xZeO2TeqFDTexp3rD5DluNu+g/9LHKDvuaRJhBQp/GWPMkPwzdPf0BMqwWMndYlV
-         zrLyJ/Dyp7QeAiB5VUx0Q/YKhDaXOzkEyAXev5mCohZcfVspyQz3yw0dz6JJf+h9iew/
-         mmr7GY1VrQwMB4uPtXeXgSe+M5T6IkZ6HfrMtw7xn44anKXUoyKkmCqsUIuhQLUOdmFg
-         OoyiKRJZPWOHLTqxaZ2g7HHftqH/iLW6XDwVAC8Ke/40Z9PCN0bKmKJuHv6MWhDBACUW
-         WJOQ==
-X-Forwarded-Encrypted: i=1; AL+hErHGgKVb3g48qogDLW95v5712yQUHcT9SEq5GeaJKM/J9AZwkD666hcv2Z1rb7juC63/RcHtDzUZFVKyUFI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WMFiLGEVuwhR5VSTLELV1Zl8heHBUv7+NI2IGwvzBqMzkhQs7
-	q1VeeuEETez2TdnxHy3j5bGMxHfCgAOb+k1VrlZ45zB1JpWMeCWaENY+WZKqzmBlC3N/pZty8PK
-	LOefjvO1ENUSgt0qoCN/8LG/75hrTyNMD/vUfFDCA
-X-Gm-Gg: AYBFou1E8BRSWFhwClEENoUpa5JkmrpzsTSj20AmnyjuEY0DHRbA7jhay6jFJS+PYqq
-	eVnMzwttiJJiZSTCdJN4fo2B/1ZU6BkG5ju/3rC/D1j+8BEbcCt48zXwBPq/nJrWjeM2PkrFJhL
-	rJptCpgU9F4nsNCwu4I7N8uu69MOpy/TcYvs6uXfnrYBnSvRWiqcNxR/df+TfmGSCTbsMfjhdWR
-	41pUugNsqDD+a3vtNFNofi/XFh404/TKQ+a2J32E0uNZucymkSIINLA0jlLLoyUdMVllKMR/Avd
-	xUQcmZcHHc1u4Ox9l5R0EOQqq+tr2VJL4AQmz0SyYvkHEaGbeDmfnQBpaa7IgeTSflrxZgsz6tT
-	gPZUNXqkzq6RqETLAk2noXY+IAkPD+tVRxKDmoHR5Ix31kiDfNkFV7wZF1Bd7awBOHtqknrv8
-X-Received: by 2002:a05:6402:7d7:b0:6b6:eccd:ce77 with SMTP id
- 4fb4d7f45d1cf-6b6ecdd19f9mr22514a12.9.1793974078570; Fri, 06 Nov 2026
- 06:07:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=owrlddSJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82191F008A6;
+	Fri,  6 Nov 2026 14:08:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793974088;
+	bh=Izey0YBOmcZkE1lp+pLrWr5YZYx/6LfMAQiArWMbf3s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=owrlddSJvI7VaXhET0+UXtEfznGpZVWBtrnnW5ZIDM+EZk5h58b58LB7pjJoRy+rw
+	 qBdsFQ3jBMEdSMNYWCtXSKpI4fQVkKuRPI+sQy25ai1y2ErK8etdaFIOlJo7/KYfxz
+	 tFeDz6jwxqO7gwtENb38BrMK/iMTPKLSsmbp1568rjoQtq7AYr5BldsnMihy/HO6U2
+	 HEfpNB7xfsZ4PvDtMrgZR6hyenTgx/jxXf9L3m6RuhbBYBl9gW5DeSBHNT+Dt//MFg
+	 JEQdVO8/4Nx0nSrgsgXnLWCadVvoELRhnAL3B/GAoICoZjf3mqQKbGvv0Mb1+RwgDn
+	 huejvWYUdFyvA==
+Date: Fri, 6 Nov 2026 15:08:05 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+Message-ID: <au3etybQlb5CtjBL@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-10-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,120 +64,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260930210750.1487547-1-chang.seok.bae@intel.com>
- <20260930210750.1487547-13-chang.seok.bae@intel.com> <CALMp9eS_NHtj--citTS_PhrSSfUG=nfLNLDcDFBX9rhY2CqF=A@mail.gmail.com>
-In-Reply-To: <CALMp9eS_NHtj--citTS_PhrSSfUG=nfLNLDcDFBX9rhY2CqF=A@mail.gmail.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 6 Nov 2026 06:07:46 -0800
-X-Gm-Features: AclHuK_pQnHXIrAahfsAJ_BwTSTy_UF_hV02UanDHo6mauvJGquBLULaAFPOnyg
-Message-ID: <CALMp9eSZ7V=rOByRveQqCgAgnj_AwRKFa19X4_+4xRJh88H4sQ@mail.gmail.com>
-Subject: Re: [PATCH v8 12/20] KVM: x86: Support REX2-prefixed opcode decode
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: pbonzini@redhat.com, seanjc@google.com, kvm@vger.kernel.org, 
-	x86@kernel.org, linux-kernel@vger.kernel.org, zhao1.liu@intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="le22g3n3ml5qqrw4"
+Content-Disposition: inline
+In-Reply-To: <20261105140510.165165-10-clamor95@gmail.com>
+
+
+--le22g3n3ml5qqrw4
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+MIME-Version: 1.0
 
-On Thu, Nov 5, 2026 at 8:48=E2=80=AFPM Jim Mattson <jmattson@google.com> wr=
-ote:
->
-> On Wed, Sep 30, 2026 at 3:32=E2=80=AFPM Chang S. Bae <chang.seok.bae@inte=
-l.com> wrote:
-> >
-> > Extend the instruction decoder to recognize and handle the REX2 prefix,
-> > including validation of prefix sequences and correct opcode table
-> > selection.
-> >
-> > REX2 is a terminal prefix: once 0xD5 is encountered, the following byte
-> > is the opcode. When REX.M=3D0, most prefix bytes are invalid after REX2=
-,
-> > including REX, VEX, EVEX, and another REX2. Also, REX2-prefixed
-> > instructions are only valid in 64-bit mode.
-> >
-> > All of the invalid prefix combinations after REX2 coincide with opcodes
-> > that are architecturally invalid in 64-bit mode. Thus, marking such
-> > opcodes with No64 in opcode_table[] naturally disallows those illegal
-> > prefix sequences.
->
-> This is only true for 0x40..0x4F, 0xC4, 0xC5, and 0xD5.
+On Thu, Nov 05, 2026 at 04:05:09PM +0200, Svyatoslav Ryhel wrote:
+> Document 8-bit CPU parallel MIPI DBI Type B interface provided by
+> Tegra20/30 SoCs display controller.
+>=20
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 ++++++++++++++++++
+>  .../display/tegra/nvidia,tegra20-dc.yaml      |  22 ++++
+>  2 files changed, 135 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidi=
+a,tegra20-dbi.yaml
+>=20
+[...]
+> diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra=
+20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20=
+-dc.yaml
+> index 69be95afd5627..ffeb124905dbf 100644
+> --- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.y=
+aml
+> +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.y=
+aml
+> @@ -79,6 +79,16 @@ properties:
+>    rgb:
+>      type: object
+> =20
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^dbi@[0-1]$":
+> +    $ref: /schemas/display/tegra/nvidia,tegra20-dbi.yaml#
 
-"This" being a No64 entry in opcode_table[]. However, N (NotImpl)
-certainly subsumes No64.
+I think it might be better to group these under a separate dbi node at
+the top-level, making it a sibling to the "rgb" node. If you add
+#address-cells and #size-cells here, I think that means technically the
+"rgb" is now in the same address space as those new dbi nodes and would
+need its own "reg" property and such.
 
-> Per Section 3.1.2.1 ("REX2 Prefix") of the Intel APX Architecture
-> Specification (rev. 9.0):
->
->   Furthermore, since the byte following a REX2 prefix is always
->   interpreted as the main opcode byte, any legacy prefix byte (namely,
->   0x66, 0x67, 0xF0, 0xF2, 0xF3, and segment overrides), a REX prefix
->   byte (0x4*), a VEX prefix byte (0xC4 or 0xC5), an EVEX prefix byte
->   (0x62), or another REX2 prefix byte (0xD5) following a REX2 prefix
->   with REX2.M0 =3D 0 must #UD, because none of those bytes is the opcode
->   of a valid instruction in legacy map 0 in 64-bit mode.
->
-> and:
->
->   The 0x0F escape byte is neither needed nor allowed. (That is, the
->   REX2 prefix followed by 0x0F triggers #UD.)
->
-> In opcode_table[], 0x0F, 0x26, 0x2E, 0x36, 0x3E, 0x62, 0x64, 0x65, 0x66,
-> 0x67, 0xF0, 0xF2, and 0xF3 are all N (NotImpl), not No64. When any of the=
-se
-> bytes follows REX2 with M0=3D0, KVM will return EMULATION_FAILED to users=
-pace
-> instead of raising #UD.
+Thierry
 
-As in 11/20, this is utter nonsense. On EMULATION_FAILED,
-x86_emulate_instruction() will raise #UD, as it always has for N
-(NotImpl), with or without REX2.
+--le22g3n3ml5qqrw4
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> > Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-> > Tested-by: Zhao Liu <zhao1.liu@intel.com>
-> > Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-> > Link: https://lore.kernel.org/CABgObfYYGTvkYpeyqLSr9JgKMDA_STSff2hXBNch=
-LZuKFU+MMA@mail.gmail.com
-> > ---
->
-> [ ... ]
->
-> > @@ -4958,6 +4969,17 @@ int x86_decode_insn(struct x86_emulate_ctxt *ctx=
-t, void *insn, int insn_len, int
-> >                         ctxt->rex_prefix =3D REX_PREFIX;
-> >                         ctxt->rex_bits   =3D ctxt->b & 0xf;
-> >                         continue;
-> > +               case 0xd5: /* REX2 */
-> > +                       if (mode !=3D X86EMUL_MODE_PROT64)
-> > +                               goto done_prefixes;
-> > +                       if (rex2_invalid(ctxt)) {
-> > +                               opcode =3D ud;
-> > +                               goto done_modrm;
-> > +                       }
->
-> "ud" is defined as I(SrcNone, emulate_ud), and SrcNone is 0. Jumping to
-> done_modrm with opcode.flags =3D=3D 0 sets ctxt->d =3D 0, which then hits=
-:
->
->         /* Unrecognised? */
->         if (ctxt->d =3D=3D 0)
->                 return EMULATION_FAILED;
->
-> before ctxt->execute is ever set. As a result, rex2_invalid() always
-> returns EMULATION_FAILED instead of injecting #UD.
+-----BEGIN PGP SIGNATURE-----
 
-Once again, on EMULATION_FAILED,  x86_emulate_instruction() will raise #UD.
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt30UACgkQ3SOs138+
+s6GGVBAAubMFZSQ0mFCPlqAMqXSNCvqndsgYdUzR3UA/a03TL4Ii+ULGIqx6ux82
+uibYRjgtaTaAxeuGUvL2KWes1lkUvWGEGt9hD3BS0jHUGEiYJN0u7yx79oAho8DJ
+i+5HZ8CIpcERvEXpzczFo2vbw0ztc6sdvA+dsIo2S8pXTOCQ8GG8oTBZOMIADLBB
+mgALNPpt9nWpY+gZYo179Sr4TIPpuFXDEg/ZIv/qlV641SYuhi/Ahs1exBCAJAZ8
+CuOS1KAEVR9ZVVclHFN+24Hq+nbbX8giUue6Ii2dwL3YnBBmJaGdj0jbowdO1dQl
+VOQha1/l350eA0wgPl8q9P6xCKLDic9j40HpaLVRoH7hXbK+4ZwYy6iubx+2hKjD
+I7oPkf9BkCehmsPhPTim3yER6zV9eAnaHe+tm0TcCRw723d90dg4t8W/w22MGTr9
+YXcSd1DlDePAMyzt4KR968mvSaa1B0jzkRa2Y0oFFWJ4qyfP+I/Ovq0OrsfHtcRd
+UW0UtAE2JmFl2jLxaXsl+nIuX2bUNTBDwIfscb1n7oWr6fx4jxkL77yp8ffVxYrJ
+eVDs9GZpDInSjSO6tgMOFjSG0+sc3wfyHw95YVD+h/qb8wHmxmiEeSHL0bsBdiNT
+nK0YAYcHUjI7lGmB/uB6EWRCxs/9XX1iltQM1iAVawf4kNo1pD4=
+=F4XT
+-----END PGP SIGNATURE-----
 
-That leaves only this question on this patch...
-
-> Also, because any legacy prefix after a REX prefix resets ctxt->rex_prefi=
-x
-> to REX_NONE at the bottom of the prefix loop, a sequence such as 0x48 0x6=
-6
-> 0xD5 will not be caught by rex2_invalid().  Table 3.1 ("Legacy Prefix
-> Applicability with REX2") lists 0x4* (REX) under "Prefix before REX2" as
-> "Illegal", whereas the accompanying text says, "A REX prefix (0x4*)
-> immediately preceding the REX2 prefix is not allowed and triggers #UD."
-> Does hardware raise #UD on 0x48 0x66 0xD5, or does the intervening legacy
-> prefix nullify the REX prefix as in legacy encodings?
-
-The text clearly permits 0x48 0x66 0xD5, since the REX prefix doesn't
-*immediately* precede the REX2 prefix. The table is unclear.
+--le22g3n3ml5qqrw4--
