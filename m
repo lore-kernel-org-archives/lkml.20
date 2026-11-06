@@ -1,53 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950696;
-	b=ufxvK/j6AEx84ukFQ4WgClEGPLo648hFh0IkR7rVWTPa+PyX/G2wPX+xqb1igUp1IBey
-	 L3z3ZP1tsS9kt/RpWriDsMg8TTd0CXHz52nubLL6dUtJOm/BF7JECj9xadKrOl9TmorZQ
-	 gCdNhMx6B07ZlKQ0lJt4eyjdnV5DQn8yFQOZ17v5oqN/K42IQOH5qo80s/bZkTj3kHGln
-	 NFdd3JUME8IH9vvkc20bJeyjD4G03azLR7+tmBDfok29YUXRAYGz4o2TaKw3urcoxqvcs
-	 scx4cWK4N9EIFMryQ56j2/gn/8Qmtr5fdnSSIzLF2HkRulnrLt0/zx+DZAlpWOubL+Q==
+	t=1793950708;
+	b=TgbOQjXOiE1anEIsUERHAZb5G4TZh26j2COcQwUlotChfyc9K/dGi777FUwugPf+Z3Qy
+	 WlGChff8asIomJOU3wEvdhcV9eVoNjnLiJ3MPWPw/58zdqYNXKckocDNvwrcJqGXUGN3k
+	 ftt6z1U33sOQiVyL8DDeJPMhwLlnU4MaWVEclHQjnHO2H9wpFDd/z38IOzAGtfDaDeYci
+	 ABogJMnrLW8i5mj/dCJWP6vGYo2vWmguFHigb7u7ahzlpp1YGcsxUTpz2ss5cxAClN8ZU
+	 LspZSGU7mywXgA0Qzz02y+pJPApHzaX95BtLRevOhdaXqkzPt6S2f4wzszEbv4AOiug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950696;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=nup/d5xUjvEo1vx4q2sZoM+/UF0zitralJNNC5zemuA=;
-	b=Urc1ZzL/tjdEiY7poPDNea+LFPPkzD/eGYaCIYpQaxgTGyW0cDUVFvGLWngwvHtu8IDR
-	 yTOaZPTMwZWWxgTb9XMHh1TSedSK1gryQaswXBbLlcAAE1Gn6Ql8del9rUVEHq4Fz8q7D
-	 /kJINvtXMVROzBSapRWYe9eiy/vycPpI2H7WjVxNmGxoQSFzeonWTKIwvLgOsZKR2zDcP
-	 S6tTCoWl8Wq/tLM4tgriSVeGqAUdAu3vFaCPv9t3lY31EZUnTENl0ML8UqK/SJyfo/lKt
-	 i7MNTSfLH5tNadbbWPiLXM+cTE7sXDK7t1WLojiENlrL1LcfWh5j+aYc0rthX04YKfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950708;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=yqj2X60t6GkEB0Hd3slamrcdw7uuMt8wIZvLf0iaHgw=;
+	b=0oSGF4VmYF1kcTCHrt1A9j0Z/ILkj8Hk2M0w4BiCR4Bkjo0HXjPkduzmCPbqFIc+66nQ
+	 hEFrk+toQfWr7wZNN0+Dpn+fIWjS1c3/wEssgbLH9XaXBjXtIulKKC3C6VUFZ1yf0Ms8T
+	 vwJRj+wCtODOac6WIvNg0EVBPu0mcy+b2rjEpHUvLJnTWC8+Nm5zr3AW6ox3yVhFP5sbO
+	 skHl8mlRENuflvVFetlLXAMpuTZMSaIuoVvMfpV+HRDlHI3p71Wd+osQuIV4hjSaYKcaV
+	 I7FkpoynnFEHCJCrK/Sck+oB5Fzl+hFX5KtFxxWjsmAiw3PPKJw6P92ZxgLa7fFIVKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tH0ObvQ3;
+	arc=none smtp.remote-ip=91.218.175.70
+Received: from mta0.migadu.com (out-70.mta0.migadu.com [91.218.175.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59953606A326;
-	Fri,  6 Nov 2026 07:38:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59953606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADn9Zbdg+1qc_JpAA--.4027S2;
-	Fri, 06 Nov 2026 15:38:05 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: ayush.sawal@chelsio.com,
-	harsh@chelsio.com,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH v2] crypto: chelsio - Fix wrcount leak in AES encrypt and decrypt
-Date: Fri, 06 Nov 2026 07:38:14 -0000
-Message-Id: <179395069486.2116632.4190811765560584696@iscas.ac.cn>
-In-Reply-To: <arNk6ujyrvTsFBfS@gondor.apana.org.au>
-References: <20260916092359.2001753-1-vulab@iscas.ac.cn>
-	<arNk6ujyrvTsFBfS@gondor.apana.org.au>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FDB606A333
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:38:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7FDB606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tH0ObvQ3
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vxGWNLncSlcQs4swV+6nfyQ5Qh5FfXbxSfHWmDFVw98=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793950705; v=1; x=1794555505;
+ b=tH0ObvQ3DbFZNgYhD58A1r3joh7DYzbyq4OiGkSuCFTqclMOsVruo3MDEVMb/Zo26y+DDasD
+ LtuQLIAhVuby9stJeel9e+Q8keyCsV2cULbgZ+u2eH6trynM1duQEfE0ICZs7OoFyrZ1JngDrtA
+ OmoEorLIQV2H9Gy/q8A/vQeA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 288db3607269e5ae;
+	Fri, 06 Nov 2026 07:38:24 +0000
+X-Mizu-Trace-ID: 288db3607269e5ae
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 6 Nov 2026 15:38:14 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: netdev-bot+sashiko@kernel.org
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, justin.iurman@gmail.com, shuah@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, liuhangbin@kylinos.cn
+Subject: Re: [PATCH net v2 2/3] ipv6: ioam6: use transformed packet nexthdr
+ for ECMP re-lookup
+Message-ID: <au2D5hjp0U1ilXEI@fedora>
+References: <20261103-ipv6_ioam_ecmp-v2-2-6ef0318bdb5e@kylinos.cn>
+ <179388135485.488856.15442544337186327982@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,94 +69,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADn9Zbdg+1qc_JpAA--.4027S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWFWxXFy5Ww1xtryxJrykGrg_yoW5Xw13pF
-	s8CFZayr95Jry7GF97Jw4rWFy3uw43Cr13Kr4rt3W8uws8t3yxJ39rZF1YvF1UJF4kJ34U
-	X3yq9a4rZa4DZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvS1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2
-	z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcV
-	Aq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
-	6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
-	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
-	wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
-	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
-	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
-	8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
-	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
-	ZEXa7VU1pnQUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtTzW++AAAs3
+In-Reply-To: <179388135485.488856.15442544337186327982@kernel.org>
 
-chcr_aes_encrypt() and chcr_aes_decrypt() increment the device inflight
-count with chcr_inc_wrcount() before building the work request, but both
-can return early without dropping the count.
+On Thu, Nov 05, 2026 at 12:22:34PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 2 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] The encap cache-miss path in ioam6_output()
+>   (net/ipv6/ioam6_iptunnel.c:439) now sets `fl6.mp_hash =…
+> - [High] In IOAM6_IPTUNNEL_MODE_AUTO, local packets (inline, !skb->dev)
+>   and forwarded packets (encap, skb->dev set) share one per-CPU…
+> - [Medium] The new call `rt6_multipath_hash(net, &fl6, skb, NULL)` in
+>   ioam6_output() (net/ipv6/ioam6_iptunnel.c:439) passes an output-path…
+> 
+> --
+> 
+> ipv6: ioam6: use transformed packet nexthdr for ECMP re-lookup
+> 
+> This commit changes the dst_cache miss path in ioam6_output(). For inline
+> insertion it now reuses orig_dst and caches the fake null_rt. For
+> encapsulation it re-looks up the route with flowi6_proto taken from the
+> HBH next header and with fl6.mp_hash precomputed from the skb, so that
+> the ECMP hash matches the identical packet without IOAM (RFC 9486 C2).
+> 
+> > diff --git a/net/ipv6/ioam6_iptunnel.c b/net/ipv6/ioam6_iptunnel.c
+> > index cfb2c41634a0b..246533276be82 100644
+> > --- a/net/ipv6/ioam6_iptunnel.c
+> > +++ b/net/ipv6/ioam6_iptunnel.c
+> > @@ -405,34 +405,61 @@ static int ioam6_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+> >  
+> >  	if (unlikely(!dst)) {
+> >  		struct ipv6hdr *hdr = ipv6_hdr(skb);
+> > -		struct flowi6 fl6;
+> 
+> [ ... ]
+> 
+> > +		if (ilwt->mode == IOAM6_IPTUNNEL_MODE_INLINE ||
+> > +		    (ilwt->mode == IOAM6_IPTUNNEL_MODE_AUTO && !skb->dev)) {
+> > +			dst = orig_dst;
+> > +			dst_hold(dst);
+> > +
+> > +			local_bh_disable();
+> > +			dst_cache_set_ip6(&ilwt->cache, &ilwt->null_rt.dst,
+> > +					  &hdr->saddr);
+> > +			local_bh_enable();
+> 
+> [Severity: High]
+> In AUTO mode, can local and forwarded packets end up using each other's
+> cached dst? The miss path is now mode aware. The hit path at the top of
+> ioam6_output() still reads one per-CPU cache, whatever the mode:
+> 
+> 	dst = dst_cache_get(&ilwt->cache);
+> 	...
+> 	if (dst == &ilwt->null_rt.dst) {
+> 		dst_release(dst);
+> 
+> 		dst = orig_dst;
+> 		/* keep refcount balance: dst_release() is called at the end */
+> 		dst_hold(dst);
+> 	}
+> 
+> Suppose a local packet misses first, so null_rt is cached. A later
+> forwarded packet on that CPU then gets dst = orig_dst and is encapsulated
+> with daddr = tundst. Because dst is non-NULL, it skips the tundst
+> re-lookup. Because the lwtstates match, it leaves through
+> orig_dst->lwtstate->orig_output(). That uses the inner destination's
+> route and nexthop, not the route for tundst.
+> 
+> Now suppose a forwarded packet misses first. The encap branch caches the
+> tundst route:
+> 
+> 	dst_cache_set_ip6(&ilwt->cache, dst, &fl6.saddr);
+> 
+> Later local packets on that CPU hit this entry and are processed inline.
+> They are then sent through the tundst route instead of orig_dst:
+> 
+> 	if (orig_dst->lwtstate != dst->lwtstate) {
+> 		skb_dst_drop(skb);
+> 		skb_dst_set(skb, dst);
+> 		return dst_output(net, sk, skb);
+> 	}
+> 
+> The shared cache existed before this patch. However, the commit message
+> says inline will "reuse orig_dst and cache the fake null_rt, keeping the
+> sibling from the original lookup", and that encapsulation "still
+> re-looks up". In AUTO mode with mixed traffic, neither seems to hold.
+> null_rt is DST_OBSOLETE_NONE, so the stale entry stays until the cache is
+> reset.
+> 
+> Does the hit path need to be mode aware too, for example with separate
+> caches for the inline and encap cases?
+> 
+> > +		} else {
+> > +			/* Encapsulation may change the destination (tundst);
+> > +			 * re-lookup with the transformed packet keys so the
+> > +			 * outer hash matches the identical packet without IOAM.
+> > +			 */
+> > +			const struct ipv6_opt_hdr *hhdr;
+> > +			struct flowi6 fl6;
+> > +
+> > +			hhdr = (const struct ipv6_opt_hdr *)skb_transport_header(skb);
+> > +
+> > +			memset(&fl6, 0, sizeof(fl6));
+> > +			fl6.daddr = hdr->daddr;
+> > +			fl6.saddr = hdr->saddr;
+> > +			fl6.flowlabel = ip6_flowinfo(hdr);
+> > +			fl6.flowi6_mark = skb->mark;
+> > +			fl6.flowi6_proto = hhdr->nexthdr;
+> > +			fl6.mp_hash = rt6_multipath_hash(net, &fl6, skb, NULL);
+> 
+> [Severity: High]
+> Does computing mp_hash from the skb break the C2 equivalence that the
+> comment above claims? When fl6->mp_hash is non-zero, fib6_select_path()
+> uses it as is, so this skb-based value chooses the sibling.
+> 
+> The comment says the outer hash "matches the identical packet without
+> IOAM". A plain ip6ip6 tunnel, ip6_tnl_xmit(), routes with
+> ip6_route_output(net, NULL, fl6) and no skb, so it hashes the outer fl6
+> keys. With an skb, rt6_multipath_hash() behaves differently for each
+> policy.
+> 
+> Policy 1 returns the inner flow's hash early. ioam6_do_encap() never
+> clears that hash:
+> 
+> 	if (skb->l4_hash)
+> 		return skb_get_hash_raw(skb) >> 1;
+> 
+> Policy 2 dissects through the ip6ip6 header and hashes the inner
+> addresses, flowlabel and proto:
+> 
+> 	skb_flow_dissect_flow_keys(skb, &keys, 0);
+> 
+> Policy 3 calls rt6_multipath_custom_hash_skb(), which returns
+> jhash_2words(mhash, mhash_inner, 0). Plain ip6ip6 goes through
+> rt6_multipath_custom_hash_fl6() instead.
+> 
+> For policy 0 with flowi6_proto = 41, the skb result looks the same as
+> the fl6-only hash, so the precompute appears to do nothing there.
+> Without the companion patch "ipv6: route: consider IOAM options in ECMP
+> hash policy 0", it would hash ip_proto = NEXTHDR_HOP and undo the
+> flowi6_proto = 41 change. That matters for backports of this
+> Fixes:-tagged patch.
+> 
+> Setting fl6.flowi6_proto = hhdr->nexthdr on its own, without the
+> precompute, seems to match plain ip6ip6 under every policy. Would it be
+> better to drop the mp_hash precompute?
+> 
+> The commit message also says:
+> 
+>     precompute fl6.mp_hash from the packet, since ip6_route_output()
+>     carries no skb and would otherwise drop ICMPv6 quoted-flow and L4
+>     keys.
+> 
+> Can the ICMPv6 quoted-flow case happen here? ioam6_do_encap() always sets
+> tuninfo->eh.nexthdr = NEXTHDR_IPV6, so the header after the HBH is
+> always 41.
 
-chcr_aes_encrypt() leaks the count when process_cipher() fails or
-returns no skb. chcr_aes_decrypt() leaks it when the tx queue is full or
-when process_cipher() fails and returns no skb. No completion can
-balance those increments, so every failed request permanently skews the
-count and eventually blocks the device from being detached, with the
-detach worker warning "CHCR:request Still Pending".
+Thanks for the report. This part touch all the policies. I need to think
+if I should drop this patch until there is a better fix.
 
-chcr_aes_encrypt() already has an error label that calls
-chcr_dec_wrcount(), so jump to it on the remaining failure path. Add the
-same label to chcr_aes_decrypt() and jump to it from both of its failure
-paths, mirroring the encrypt side.
-
-Fixes: fef4912b66d6 ("crypto: chelsio - Handle PCI shutdown event")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Fix chcr_aes_encrypt() and chcr_aes_decrypt() in a single patch, as
-  requested. Sorry for the late reply.
-- Link to v1: https://lore.kernel.org/all/20260916092527.2002187-1-vulab@iscas.ac.cn/
-  https://lore.kernel.org/all/20260916092359.2001753-1-vulab@iscas.ac.cn/
----
- drivers/crypto/chelsio/chcr_algo.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
-index e2f2b2a6200e..9ce9eefef777 100644
---- a/drivers/crypto/chelsio/chcr_algo.c
-+++ b/drivers/crypto/chelsio/chcr_algo.c
-@@ -1359,7 +1359,7 @@ static int chcr_aes_encrypt(struct skcipher_request *req)
- 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
- 			     &skb, CHCR_ENCRYPT_OP);
- 	if (err || !skb)
--		return  err;
-+		goto error;
- 	skb->dev = u_ctx->lldi.ports[0];
- 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
- 	chcr_send_wr(skb);
-@@ -1397,16 +1397,21 @@ static int chcr_aes_decrypt(struct skcipher_request *req)
- 
- 	if (unlikely(cxgb4_is_crypto_q_full(u_ctx->lldi.ports[0],
- 						reqctx->txqidx) &&
--		(!(req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG))))
--			return -ENOSPC;
-+		(!(req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG)))) {
-+		err = -ENOSPC;
-+		goto error;
-+	}
- 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
- 			     &skb, CHCR_DECRYPT_OP);
- 	if (err || !skb)
--		return err;
-+		goto error;
- 	skb->dev = u_ctx->lldi.ports[0];
- 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
- 	chcr_send_wr(skb);
- 	return -EINPROGRESS;
-+error:
-+	chcr_dec_wrcount(dev);
-+	return err;
- }
- static int chcr_device_init(struct chcr_context *ctx)
- {
--- 
-2.34.1
-
+pw-bot: cr
