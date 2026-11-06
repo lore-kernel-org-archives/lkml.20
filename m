@@ -1,97 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930612;
-	b=niY3dBq4guLcVRF+RYhTk6ve48teXuYMQ7fv4VWuRV37jNmanitNIfbpFIhVSqTdP9wp
-	 +p1Tx3b/Y3u1NLfGJ1zHK94hrVYAxjCnOj7HPUsY3BtGfKuUQL8CBAmZ2cPptXMDzUyAx
-	 54Nqo2YEe66qdHAcFJtPnbaIgaQUrosfauyzgrzCD/folRSuV4P4iwAJlUZgNEoK/2AGv
-	 +Q7CReUFPWAeDYJrPSbhzITUUC3Cx9Vgv9VL2c7PEuLfDANOUn0dIHEDQD6NCY4My+pX4
-	 VJ39pCmCIpbG4blNVtitDT/N5EM7ApIabWFUx+gYRhHno5qRCz3s4xBJicMRAwZHtCA==
+	t=1793930767;
+	b=MiQx7ZSIwJp6Ns3PCsI/cY9Kx0H50NNyuNbRwI4EHNt4TXyyWxlCdqbIGKPUYnVLSYRU
+	 qqQnyF+pSOMA85j7Od5sagM1ItXbqqfkUREmzTYi/Y3T9IB75OwYj4ead4gm4xNYAf+x6
+	 bD/SHC2I2tvlGf6C3n05w3nVkX8nZFVTMmWVDU2Hg/CdFN3X8sOCRS1WULR7/7X/fiQ3u
+	 Ya2vVs92wxH/hv1uaLGEp5yQV5CUgSPwfP8nQVHx0ShV9CN3e+Ms3BxZ7skVM1Ouwbu6k
+	 zNNQhgdlpke8FmcXSXZwf4yg6fTM+mpyyxciSFwbLUM7kgLPGDvPo8N9xZyV1hL1DDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930612;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=hss8CMdUJlf/6WFGnheIgi73dz4MTpQCYfKabF+VIfc=;
-	b=x0bkzQfv/nDbNZKib37BnrFDwTToBaYTmL99q1yxMaBC3yftWMHosfXs8CtifT0VusdD
-	 zvg+LrLXn6VK4YIqXz/D/T3n1H4+wFYs8p9ugoeVwQK69lxeUIvvJ6JFabwwpnlw+mNSZ
-	 HMKHWA+nsmqkpSiGS9ZhvGHNVb0y/ejfiIlpWnP2CNW7jnfDj6GVjOspA86kOLtTVjPMC
-	 SfNzrm1FC+TMyhUtK+4XrSjHLgm1ecrb08vG2x53P8r5Ifude7c3NJb6nQkiISi/vNbo2
-	 n/wMjDbZh7Q3861b7f9VLhNOxvwXY42Caw7j+QI1PHEmTZdWDArV+6YIJZ+z4lYtOQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930767;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=33k/P5SFUfytPej7H77BAGZq9RIshANAPOsnx9OCzY0=;
+	b=tKOHH0pWuxq5ft8K87EX05UZi+x2dncKBM3reg0UvTVU2+XO3mp63nuFqGUyMF7l9LR8
+	 5fLo3fbUL5EhCgD6U/9nGSIEBv2meI4bLPLGpiS2j2/nW5iLCs8hMFCaDi0Z4BEFlKitx
+	 zK2EGfvxfhEFH7dmlFawVFYlB2uYX8U3ByJ8Ws1eMKuybJwClGQqnCd0EMbAVMBEaW2Cc
+	 jkVCe1uzf7aLxWnAzOjeJO15zIaViewcRYBMv0sb8l1qhNr0jHsIlkHBwljv43RNGclnw
+	 Xlyy/o3AdnEJpu5lJgQgskE4nDFlqY37CAMHe+pXOt4/oL94cM27FuPk/wHc37pOS8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ASWgsdHw;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgXUvtLp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F09606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:03:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F09606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52ADE606A326;
+	Fri,  6 Nov 2026 02:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ASWgsdHw
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b0e0e65adbso40043a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:03:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793930612; x=1794535412; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hss8CMdUJlf/6WFGnheIgi73dz4MTpQCYfKabF+VIfc=;
-        b=ASWgsdHwisTH46fTFqCyya8LlfSIKWbCuiz/7bjc/1cTLVfP0bYx/o6dRA9f4io12h
-         hYfQMj6bhQT2HAbi8kuBdc0ixh+/Lz+/CoSrjMzExKYiLuBROaWUuqqEaeDuPg7lG+qu
-         N0lGuQTr7eM/YxnZNnb211fTaC+nMZXkJEcTWM4iH4CEJTp7aCvmDRKrhCfONWA2s5CN
-         9v3IvXdTGelAfFmRlTwUKNOZkHGx/kB0TfQ5hXZBC3elKThccoS91WD1t3JORhmjccGw
-         XadSyMyBCR5KiD7bPEqsq1a9S12RzD1VVtsg6yIQwv5s4i1rhXmXt0kYGD9/mJGqNTNO
-         fxcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793930612; x=1794535412;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hss8CMdUJlf/6WFGnheIgi73dz4MTpQCYfKabF+VIfc=;
-        b=Y033KnfsiK/bIngiQAUMBvgrN9LTotmxSuK29NPedT3lgh7x2mQwUVggj07eQpe2WQ
-         5ewRAva13u2pNr3UdWN+qKeM8ebH9e2Oup196eeI3BIyG3fUYJTf58OLtK+QEEMgrltN
-         CJGkK6SmByC1VTOjEz/6AOUsPhHnWs/1ffsFxayMrXvWuwWqa+HffZCJZXijdxgQVGDd
-         0YFvDEK/au16+8kQ7pxzwibpDltnsBTQkxV8LrU+oC7qy1RdrRSejqeYz46WHrDcOHAy
-         0S3iGVXfzet1gWYw1hh+U1fp+wfIoAH2oLBkSYnPxJ3yhrZ9QbZihCE63eEjxlTioBoC
-         ZQww==
-X-Forwarded-Encrypted: i=1; AL+hErExHxO/OuDtvwApxiVxoGshapHMybuPQeTz0qgeXAO+TSynrCrevaSL/ePO/fXAWgYminbT0FYQBjfnQhk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rMVwsprIS/TXH/A1I/uVt6ITSPXwTMHSVfd3IYTpQdc+/dcls
-	sETwZMeMo2ZvARjDSMkw2lpto6iVosoBwHcVkF4GLZz07RzoNUKNv4lq
-X-Gm-Gg: AYBFou35FEGX97nDHSYvotdMDBRa+eO0P+MxLBm41RWlMLRpOzBGKidvI4Q12oXPByu
-	wx9t70TXv+/jmoc46r60oFp1/lRmQ9kvPgucCdfKxkfUB1dsjMRg6mbgXD69jSupsIULPSySJ1r
-	lG7HQmcFlUZCEjgLkYCvg1P/4QrePvvPvCfFusKQfVXB5V5I9QkMDybmE7oDyK2v9O61d2hwZR+
-	mssS8tmeUotFE86wNY3dxQnPe/lcT9nxSyrvG0yBWN2xe800jeyhAj3KEd+v+wwKGQG0W6N0Iqy
-	00q767kARz2O68RnXvRwW+ICZ7YEfC1Ee1fCuh+m1mpwAvkWMcl1Zcw5pZWGpii5xUjMu2TDzK1
-	0wl4hbCGCHdDrAuQOWEDme4VJl5Re8ITXm1y/Ui0z3tuXs66gVNoH6UAlABSaNUHGX3el+sdd6p
-	zaLDKxag7XRXmHEjuZgT3nj1Djbg/Z76AbFgRy1/8rMEjC7ZeIKrbpR3RPoMu6CMzl2PbdZbpRz
-	LHy3h+EwWPzKEgDt1jSGrUJezeRSY+y5RZhsbQX6cyKiuUpzCG/3bHwQ1KmDt1d2jj0VYssgn7h
-	4atStej8etn3EN6sep0EwUghIw==
-X-Received: by 2002:a17:90b:3846:b0:3ab:9f1a:3825 with SMTP id 98e67ed59e1d1-3b0db6218d4mr1002747a91.4.1793930611582;
-        Thu, 05 Nov 2026 18:03:31 -0800 (PST)
-Received: from localhost ([2001:19f0:8000:3bef:5400:6ff:fef9:667])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32baf86sm5589983a91.17.2026.11.05.18.03.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 18:03:30 -0800 (PST)
-Date: Fri, 6 Nov 2026 10:03:16 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: SeungJu Cheon <suunj1331@gmail.com>, anup@brainfault.org, 
-	atish.patra@linux.dev
-Cc: tjytimi@163.com, inochiama@gmail.com, pjw@kernel.org, 
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, andrew.jones@linux.dev, 
-	pbonzini@redhat.com, seanjc@google.com, kvm-riscv@lists.infradead.org, 
-	kvm@vger.kernel.org, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] KVM: riscv: Only fast-path dirty-log write faults on
- host-writable leaves
-Message-ID: <au01Qocxd1gsXs42@inochi.infowork>
-References: <20261017030927.345454-1-suunj1331@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgXUvtLp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C461F008A2;
+	Fri,  6 Nov 2026 02:06:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793930767;
+	bh=33k/P5SFUfytPej7H77BAGZq9RIshANAPOsnx9OCzY0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JgXUvtLpeaDJ5faRXg+ycd+p3SN66fZtkXH6+vfvMFQksU2hm4UKSTkuMEeQ6cu0o
+	 uidSPb+aN8cPaNo0DnPlx/qTCWTd7Qreo3yCMTbaobgwlGf9k1cmd/U9sfcaC+bs1S
+	 0YP3E13ViqO/t/4xUNN1GXVd/RWBReJPAZDu1kK02sO/4Q27GCqgcnmiwWBTjkflbC
+	 VFLv0TJ0SYKCQ80DUZ47CUZ2zRUFydTuCggjs0A3PI/gSYYnXBk5NWef28+uSUwm31
+	 zCt+UPkGL8dSCgI6ntFCvb9mHMVbRDuZFW/wEJzZTZNAoVOT9l6AX71jXc4Y00zsT/
+	 Dtqk7G5lDYm1Q==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Aveline Noir <jm5905938@gmail.com>
+Subject: [PATCH 1/4] mm/damon/core: add DAMOS_FILTER_TYPE_AGE_MS
+Date: Thu,  5 Nov 2026 18:05:55 -0800
+Message-ID: <20261106020559.98352-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261106020559.98352-1-sj@kernel.org>
+References: <20261106020559.98352-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,167 +61,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017030927.345454-1-suunj1331@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 12:09:26PM +0900, SeungJu Cheon wrote:
-> The dirty-log write fault fast path sets _PAGE_WRITE without checking
-> whether the backing page is host-writable. A read fault can install
-> a read-only mapping to the shared zero page. A subsequent guest write
-> then takes the fast path and writes into the zero page instead of
-> going through the slow path to break CoW.
-> 
-> Use RSW bit 9 to record host writability before dirty logging forces
-> the mapping read-only. Preserve this bit across write-protection and
-> fall back to the slow path when it is clear.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-174168@kernel.org/
-> Fixes: 7705be59eb2d ("KVM: riscv: Fast-path dirty logging write faults")
-> Cc: stable@vger.kernel.org # 7.2+
-> Signed-off-by: SeungJu Cheon <suunj1331@gmail.com>
-> ---
-> Testing:
-> 
-> 1. HiFive Premier P550
-> 
->    A selftest makes the guest read an untouched page, then write to
->    it with dirty logging enabled. Before the fix, the write corrupts
->    the host zero page. After the fix, CoW allocates a private page
->    and the zero page stays zero.
-> 
->    dirty_log_perf_test -v 3 -b 256M -i 3 shows no noticeable
->    regression (14-21s per iteration before and after).
-> 
-> 2. QEMU (-cpu rv64,h=true)
-> 
->    The same selftest reproduces the zero-page corruption before the
->    fix and passes after it.
-> 
-> This patch applies on top of the Accessed-bit fix [1].
-> 
-> [1] https://lore.kernel.org/all/20261016101458.221648-1-suunj1331@gmail.com/
-> 
->  arch/riscv/include/asm/kvm_gstage.h |  5 ++++-
->  arch/riscv/kvm/gstage.c             |  5 ++++-
->  arch/riscv/kvm/mmu.c                | 15 +++++++++++++--
->  3 files changed, 21 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm/kvm_gstage.h
-> index aaf080ba1b77..0d19ad6d7dfe 100644
-> --- a/arch/riscv/include/asm/kvm_gstage.h
-> +++ b/arch/riscv/include/asm/kvm_gstage.h
-> @@ -35,6 +35,9 @@ extern unsigned long kvm_riscv_gstage_max_pgd_levels;
->  #define kvm_riscv_gstage_pgd_xbits	2
->  #define kvm_riscv_gstage_pgd_size	(1UL << (HGATP_PAGE_SHIFT + kvm_riscv_gstage_pgd_xbits))
->  
-> +/* RSW bit 9: the host mapping behind this leaf is writable. */
-> +#define KVM_GSTAGE_PTE_HOST_WRITABLE	BIT(9)
-> +
->  static inline unsigned long kvm_riscv_gstage_gpa_bits(unsigned long pgd_levels)
->  {
->  	return (HGATP_PAGE_SHIFT +
-> @@ -61,7 +64,7 @@ bool kvm_riscv_gstage_try_update_pte(struct kvm_gstage *gstage, u32 level,
->  int kvm_riscv_gstage_map_page(struct kvm_gstage *gstage,
->  			      struct kvm_mmu_memory_cache *pcache,
->  			      gpa_t gpa, phys_addr_t hpa, unsigned long page_size,
-> -			      bool page_rdonly, bool page_exec,
-> +			      bool page_rdonly, bool page_exec, bool host_writable,
->  			      struct kvm_gstage_mapping *out_map);
->  
->  bool kvm_riscv_gstage_split_huge(struct kvm_gstage *gstage,
-> diff --git a/arch/riscv/kvm/gstage.c b/arch/riscv/kvm/gstage.c
-> index be70607a33ea..d9bfd0c6d5fd 100644
-> --- a/arch/riscv/kvm/gstage.c
-> +++ b/arch/riscv/kvm/gstage.c
-> @@ -207,7 +207,7 @@ static void kvm_riscv_gstage_update_pte_prot(struct kvm_gstage *gstage, u32 leve
->  int kvm_riscv_gstage_map_page(struct kvm_gstage *gstage,
->  			      struct kvm_mmu_memory_cache *pcache,
->  			      gpa_t gpa, phys_addr_t hpa, unsigned long page_size,
-> -			      bool page_rdonly, bool page_exec,
-> +			      bool page_rdonly, bool page_exec, bool host_writable,
->  			      struct kvm_gstage_mapping *out_map)
->  {
->  	bool found_leaf;
-> @@ -246,6 +246,9 @@ int kvm_riscv_gstage_map_page(struct kvm_gstage *gstage,
->  			prot = PAGE_WRITE;
->  	}
->  
-> +	if (host_writable)
-> +		prot = __pgprot(pgprot_val(prot) | KVM_GSTAGE_PTE_HOST_WRITABLE);
-> +
->  	found_leaf = kvm_riscv_gstage_get_leaf(gstage, gpa, &ptep, &ptep_level);
->  	if (found_leaf) {
->  		/*
-> diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-> index 042d1e3b3547..196cde6c40cd 100644
-> --- a/arch/riscv/kvm/mmu.c
-> +++ b/arch/riscv/kvm/mmu.c
-> @@ -586,6 +586,12 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fast(struct kvm *kvm,
->  			break;
->  		}
->  
-> +		/* Let the slow path handle host-side write protection and CoW. */
-> +		if (!(pte_val(old_pte) & KVM_GSTAGE_PTE_HOST_WRITABLE)) {
-> +			ret = false;
-> +			break;
-> +		}
-> +
->  		if (!dirty_marked) {
->  			mark_page_dirty_in_slot(kvm, memslot, gfn);
->  			dirty_marked = true;
-> @@ -630,6 +636,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
->  	bool is_hugetlb;
->  	bool unused = false;
->  	bool writable;
-> +	bool host_writable;
->  	unsigned int vma_pageshift;
->  	gfn_t gfn = gpa >> PAGE_SHIFT;
->  	struct vm_area_struct *vma;
-> @@ -714,6 +721,8 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
->  	if (is_error_noslot_pfn(hfn))
->  		return -EFAULT;
->  
-> +	host_writable = writable;
-> +
->  	/*
->  	 * If logging is active then we allow writable pages only
->  	 * for write faults.
-> @@ -739,10 +748,12 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
->  	if (writable) {
->  		mark_page_dirty_in_slot(kvm, memslot, gfn);
->  		ret = kvm_riscv_gstage_map_page(&gstage, pcache, gpa, hfn << PAGE_SHIFT,
-> -						vma_pagesize, false, true, out_map);
-> +						vma_pagesize, false, true, host_writable,
-> +						out_map);
->  	} else {
->  		ret = kvm_riscv_gstage_map_page(&gstage, pcache, gpa, hfn << PAGE_SHIFT,
-> -						vma_pagesize, true, true, out_map);
-> +						vma_pagesize, true, true, host_writable,
-> +						out_map);
->  	}
->  
->  	if (ret)
-> -- 
-> 2.52.0
-> 
+There is no way to specify DAMOS target regions with a deterministic
+time based age range.  Extend DAMOS core filter to specify target
+regions with age in milliseconds.  Introduce new damos_filter_type,
+DAMOS_FILTER_TYPE_AGE_MS in DAMON API, and implement support of the type
+in the core layer.
 
-I guess this fix miss a part:
+Convert the age in aggregation intervals to milliseconds and use it when
+the filter is evaluated.  Reuse damos_filter->range_{min,max} to save
+the age range.
 
-diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-index 53bb25a5a60b..1b35ab980a10 100644
---- a/arch/riscv/kvm/mmu.c
-+++ b/arch/riscv/kvm/mmu.c
-@@ -761,7 +761,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ include/linux/damon.h | 16 ++++++++++------
+ mm/damon/core.c       | 10 +++++++++-
+ 2 files changed, 19 insertions(+), 7 deletions(-)
+
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index 380f9cf6ddd82..1302ffb6f0bcb 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -394,13 +394,16 @@ struct damos_stat {
+  * @DAMOS_FILTER_TYPE_ADDR:	Address range.
+  * @DAMOS_FILTER_TYPE_TARGET:	Data Access Monitoring target.
+  * @DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:	probe_hits weighted sum range.
++ * @DAMOS_FILTER_TYPE_AGE_MS:	Region age range in milliseconds.
+  *
+- * All types except &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET and
+- * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM are handled by the underlying &struct
+- * damon_operations as a part of scheme action trying, and therefore accounted
+- * as 'tried'.  In contrast, &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET
+- * and &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM filters are handled by the core layer
+- * before trying of the action, and therefore not accounted as 'tried'.
++ * All types except &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET,
++ * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM and &DAMOS_FILTER_TYPE_AGE_MS are handled
++ * by the underlying &struct damon_operations as a part of scheme action
++ * trying, and therefore accounted as 'tried'.  In contrast,
++ * &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET,
++ * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM and &DAMOS_FILTER_TYPE_AGE_MS filters are
++ * handled by the core layer before trying of the action, and therefore not
++ * accounted as 'tried'.
+  *
+  * Support for the operations-handled filters depends on the running
+  * &struct damon_operations.
+@@ -415,6 +418,7 @@ enum damos_filter_type {
+ 	DAMOS_FILTER_TYPE_ADDR,
+ 	DAMOS_FILTER_TYPE_TARGET,
+ 	DAMOS_FILTER_TYPE_PROBE_HITS_WSUM,
++	DAMOS_FILTER_TYPE_AGE_MS,
+ };
  
- out_unlock:
- 	kvm_release_faultin_page(kvm, page,
--				 unused || (ret && ret != -EEXIST), writable);
-+				 unused || (ret && ret != -EEXIST), host_writable);
- 	write_unlock(&kvm->mmu_lock);
- 	return ret;
- }
-
-Regards,
-Inochi
+ /**
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index d36823f4d0928..0a056949604f9 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -659,6 +659,7 @@ bool damos_filter_for_ops(enum damos_filter_type type)
+ 	case DAMOS_FILTER_TYPE_ADDR:
+ 	case DAMOS_FILTER_TYPE_TARGET:
+ 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
++	case DAMOS_FILTER_TYPE_AGE_MS:
+ 		return false;
+ 	default:
+ 		break;
+@@ -1336,6 +1337,7 @@ static int damos_commit_filter_arg(
+ 		dst->sz_range = src->sz_range;
+ 		break;
+ 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
++	case DAMOS_FILTER_TYPE_AGE_MS:
+ 		if (src->range_max < src->range_min)
+ 			return -EINVAL;
+ 		dst->range_min = src->range_min;
+@@ -2552,7 +2554,7 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 	bool matched = false;
+ 	struct damon_target *ti;
+ 	int target_idx = 0;
+-	unsigned long start, end, wsum;
++	unsigned long start, end, wsum, age_ms;
+ 
+ 	*err = 0;
+ 	switch (filter->type) {
+@@ -2594,6 +2596,12 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 		matched = filter->range_min <= wsum &&
+ 			wsum <= filter->range_max;
+ 		break;
++	case DAMOS_FILTER_TYPE_AGE_MS:
++		age_ms = div_u64((u64)r->age * ctx->attrs.aggr_interval,
++				USEC_PER_MSEC);
++		matched = filter->range_min <= age_ms &&
++			age_ms <= filter->range_max;
++		break;
+ 	default:
+ 		return false;
+ 	}
+-- 
+2.47.3
