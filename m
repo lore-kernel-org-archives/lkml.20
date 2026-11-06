@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984481;
-	b=NdJb3hSrn/n5BznzSvt3QPHvScg2JVKQMbvFUvLY3wMPYi+1MGsT0pxSPw2XAezCfAJd
-	 QexzeCKrwoVgWqkSajM0rjpdU3KZZl13luYGdMIX1Wn298N7FliOP7wE8c6D+CLfTh5tC
-	 Cgoy0GAHpJpbtcN2VMUN1YzmcNdFDmQLvQESUul5Pdd9izMVVtEkjdMh7x4ADoLaoFFVL
-	 eaAXiqBW0f+VuebIMuoJb8YLQJ3rPjIiCFKrDfBUkz/SHlhbxPc9Slsl8Zygze/y0KVCp
-	 3fxhObUZtiDLpFF9yl1bNjVwcj1LUWgi+0MXialqIXfYJx24KhmwkPBujQZFTLoRnkQ==
+	t=1793984550;
+	b=w0ygoe9TEnXH00Qs/y+ijrsq+ic6YqXWsIaPEuwkdSAH0btZ1pVOH8fYosCfVMsWnsES
+	 tJf1nPpUVY3tFDaa9Ic7ZgmO61kepnRSJreQFKOjF8fMlGtgtfz3ESMZUbfaPRba4/2OK
+	 aYu3OIn94dty0QuthxuMj+mo5tksqI//Y5fjAodHRBSycZf7nwpDx31M4a3TSaWYz1fai
+	 bbMvYb+4doucIrDXB29un5RgQyAJHe8Wf6oWSR4UCeXXdSCZ9u+FGsqilkexYlnrwmwRP
+	 lllYRE2wugWkTje2LK9TRf8ozIxLTyZO+N5mijkOvd/HUsjf38uDRRhO8pIfkCl2rCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984481;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BN97gF7QYz3XCGGA/85Pdog3mwPsMOhrMb974nuHM04=;
-	b=jJdAspjAgGRzERxG9gxoVoVs7M5GRA70w4KXI69k9gN64XNp7hjNJjEr1KZdbpPyjhA5
-	 BzqnBwyu2ThRN17CEgnd/RYGGG4dAAec+qrLOZvkcubiHg89kBW8BDE5Lcacd5lJGiU1/
-	 +ewZQulP/v+p0o2yW0PFXWqGI94qEy+PF2MeP1o4xFDXYxT0caaGZrmIRKKF4ptfMLD/v
-	 FIvdpzFuT3PTMWm3nPQO00Y70VGPAvyB9OnqvgcbmPGC0cgSJre5qdPdXg5NemLLRzoTk
-	 mlfd/3Eb5PA1FjCGpNUGk+HGVa+V4sv4/qBhYj+KmuJSKOeVaYkcvPKjhXvLY9yAcRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984550;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=/qZTKeMtYLlan9SFU3DlCAiu7yexd3IDtiotPT8o4LQ=;
+	b=1LIqoPGWwecs9So6KDpQX/sY9Gag2kNnCinvUMzSKgIzMok21Iq+UeUtwad64G190QwB
+	 vQ4i4aoqg3dGIpNe0rVdGCVuO2SVewqOsjUzfuBY1js5oTqecgL4YW/5MBqTQdR3YwJw2
+	 MdilSnQHmy5jnNnCJAm3dbnpsdn7NaEP+L7oSCYlafFuCqbunYOAgWFf4j2qTszTN7v4i
+	 Fn20CNR0xfjgjJFR/BOCVUrm5dlXOqGLLRdcJMa6qNk10FQAUwNTvlqnm4eKYkYdMl5kV
+	 oOo3ZqOoA1YY3MekxiaTVeoa9zJ1QXAFN3E4zxV9JI3PoIi36opV1lSNz3nUGQJI7AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J05iHxb8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=la2KYYkN;
+	arc=none smtp.remote-ip=209.85.219.48
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81154606A331
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:01:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329CA606A338
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:02:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 329CA606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J05iHxb8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3BA1F008BE
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:01:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793984480;
-	bh=BN97gF7QYz3XCGGA/85Pdog3mwPsMOhrMb974nuHM04=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=J05iHxb82hwKC6d7cq94/xG61kvCDjT03AoTQksVf29Ch+qaGsI7gq+B/b32uYer8
-	 4hjiYauXXoAb9nZXehaIjdh07iud3pwvahOuRtkqqdHUCNk+TH0MZ67oR7aIFtH3wQ
-	 CJ4rDLj3qaBeiQGb89w4zQe5k+OsZsVvNBs5q5sIqpmSKCkxeqWiU6Xrb9v80FsZhG
-	 6psTOWsuH/Jtr9iTfRNFHKY/ox/JDsU+t6Q+8R5EIyHF8uxdReZRaFwxiIfJZseeCc
-	 VppunKgSfhRL0ICiIjF2t7bwYgYkPekztqFd9hC3UEfZb5vyWAKYSfMzn6/z8pbkdL
-	 pD/tiRy1yO6rw==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bffd1e177fso742258e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:01:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFevm3OVae/3Dw9r04Cc1+H/N/nLMOR+Y7WbZX4ZaJcsm4KBbAKzzEYP4hSqN/GAhceQ3S54BsolpHgX2s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qsKeFrHTw9OJcd5HMA6XAeaxJRf2XKJ8/T9HSipPggv1Qofb/
-	DuVruUACIJyVuVStRjau+WHOTC2C0a+jQKhwnFmjK0UahzuKzg3htK2QbSW/hsrf1FQ6LWVPtMb
-	GWv4THdo77uuNCYOhd0h8ym+ZCQC2YXQ=
-X-Received: by 2002:ac2:5690:0:b0:5bf:d29f:20b with SMTP id
- 2adb3069b0e04-5c003ac45cdmr1049767e87.11.1793984478465; Fri, 06 Nov 2026
- 09:01:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=la2KYYkN
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91eb53957cbso4923286d6.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:02:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1793984549; x=1794589349; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/qZTKeMtYLlan9SFU3DlCAiu7yexd3IDtiotPT8o4LQ=;
+        b=la2KYYkNdIoMoc6wEeIb+LbDPl6uyQUQpIfVl89pwSwtrSGbFTunXRL/lFB0HHbGhI
+         X376hmYEScQTcKJwZUtZ+vdZ6Pgc1ld83KsGwkwClcMPZDjj0fvJqCldasPof/eBi7Bm
+         uwEP/FyxQb4B/rn/PbVrDW4ujFfjzM0lVu8BohuxO92lUqF2l2AE4LyG+ZlcCEmUCNZx
+         3K99FJipn354A0jE7JlMSh7Cyn7axTGVKg1/J1Y9kw3oHDr+IWgH//MoxGF2e8ZscCod
+         nk37zD8oIoHkQV1sCfMDQSOolbvj6V20gRh0gyETflKTVOMZWIbzQqGB565HVcjZ/fyR
+         z1jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793984549; x=1794589349;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/qZTKeMtYLlan9SFU3DlCAiu7yexd3IDtiotPT8o4LQ=;
+        b=ulwqhRiXPfeqyEVQ3jKx23/+nFBxpbgr++A+vq0FSZHE2sQFeHOjnUCn3OQfiMcXJ+
+         9SXw+GZD229pvzwk3ftRB5QVxUABbo/LP9hSRH3lKHDmiKou74h52U9T9C7T+g6h0JqQ
+         sTzU0c0sdcTCRKxON25hqxfuJGaSh0wpRfj4sssLmMFmtB+SFKOsR+noFY2pzCWNfJeo
+         PgzD5ruJJRvBHs9CDVaLvCAmqy4yTsnf7hEsR2R26pYW3zipfdH6keNiweAV3NxDiRCV
+         PuPsuKhTi2DAnpi/mJ30F6O53DnldXPQZpNLiLFQT99KDM9YtYRS2t50g+abRWtB8G7X
+         SOFg==
+X-Forwarded-Encrypted: i=1; AL+hErEZTxVoI9WKVLB0MQpi8eiYtOz4IUvYU6OM+S93sVavOyjUz4MayVxZyq0PbuO6KQ2/dO03WAcjOMEN8MM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8t1t800P6JM+qq8UudTTKWsTuz8s1RXqT2l3SoxfFlxtpAWKfb
+	yBOixfa8gUSuxEWjJ65gzfHhPFLaFwMQreHbuK8THz13vLYYQpxA8XujNP0RcewxMQ==
+X-Gm-Gg: AYBFou1T5vp9zjdSs/p3fC6peHpcIwliXgBNldEE+mQLj7FVMIhRwFCYyHPwX587Ayh
+	T4U185Hy+nKJWQIiINq+IQVKkteqfCQ6iMU6//u+JcDgZigmmjjeN6OG73b1UwFw5FVnsEF860Y
+	YdKxzE3sfj+PPNSsvyUVTEoHBs/d4MuVrJjODtGsaEPIw+F4mcO5n//3YgUp6RuN+8V9F2vwtBP
+	kXHOGXpSTWeJQJZLqFCCjyDk0D6aww/HG4vahKbPNyPYBzWyuo61QEHQ7mh+S/60+CrMDv7QtBX
+	kWIAYjDdVp/eliEdEDmQq8oEMltx/8ZRz/xhcOTB8qQdfrxQ3uGasnx/qnfBJ6vfd7TnJZfqt1z
+	6Di7ma8KZxuLqPLOBVUHQCJcCQ1YGNHxayRPxCH2IrucoAr8tLK+oP4Yd9OI4bSPVzKL0XpSTkR
+	GX3t/4LgdkcmzBoEqbWpi6EzeU28uc8YgGKCWpeBSOSOjLkSeFHTZBBRR25rof5cE+JVALNqvAR
+	YGw502yosNc0JaxxHcar+1t6T44PsCNRM0C0AyTIEf+T7jIDxechzS4OeEToqCQEGZxskgOGzfC
+	PBtEBoM7GNms+hkMVPv4aI6zxy5b
+X-Received: by 2002:ad4:5dc8:0:b0:91e:9463:7194 with SMTP id 6a1803df08f44-91ea96643b4mr48110016d6.24.1793984548922;
+        Fri, 06 Nov 2026 09:02:28 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6aa7a97sm24230156d6.35.2026.11.06.09.02.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 09:02:28 -0800 (PST)
+Date: Fri, 6 Nov 2026 12:02:25 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: James Clark <jjc@jclark.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Johan Hovold <johan@kernel.org>, Bastien Nocera <hadess@hadess.net>,
+	Matthias Kaehlcke <mka@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Robert Nelson <robertcnelson@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH v4 1/2] usb: core: export the generic device driver's
+ operations
+Message-ID: <c267f8af-78eb-43b5-b6f8-98af6749db22@rowland.harvard.edu>
+References: <cover.1793941292.git.jjc@jclark.com>
+ <c1fdf2ed4c508b08734c7a9de002336f60d3b865.1793941292.git.jjc@jclark.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,118 +104,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030172745.2045743-1-sumitg@nvidia.com> <CAJZ5v0hDm=FMftFfxnzthRQXWzUqcm8SkAaxzVWZcsyQtNLj6g@mail.gmail.com>
- <5089e131-c904-471e-a078-5df7cc664372@arm.com>
-In-Reply-To: <5089e131-c904-471e-a078-5df7cc664372@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 6 Nov 2026 18:01:06 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jP-z=zu=S_aBc3JpocRWJXcjzB8WnXu2UHd3WBf9cE3g@mail.gmail.com>
-X-Gm-Features: AclHuK8wXaZq1Hr_UP644JEalxKPoT-S2zkrDebm7nAdRRzHx52J1jQGBBEt_ME
-Message-ID: <CAJZ5v0jP-z=zu=S_aBc3JpocRWJXcjzB8WnXu2UHd3WBf9cE3g@mail.gmail.com>
-Subject: Re: [PATCH v8 0/3] ACPI / cpufreq: CPPC: Add ospm_nominal_perf support
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Sumit Gupta <sumitg@nvidia.com>, viresh.kumar@linaro.org, 
-	pierre.gondois@arm.com, ionela.voinescu@arm.com, zhenglifeng1@huawei.com, 
-	zhanjie9@hisilicon.com, lenb@kernel.org, mario.limonciello@amd.com, 
-	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com, 
-	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, treding@nvidia.com, jonathanh@nvidia.com, 
-	vsethi@nvidia.com, ksitaraman@nvidia.com, sanjayc@nvidia.com, 
-	mochs@nvidia.com, bbasu@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c1fdf2ed4c508b08734c7a9de002336f60d3b865.1793941292.git.jjc@jclark.com>
 
-On Fri, Nov 6, 2026 at 5:59=E2=80=AFPM Christian Loehle
-<christian.loehle@arm.com> wrote:
->
-> On 11/6/26 16:08, Rafael J. Wysocki (Intel) wrote:
-> > Hi Sumit,
-> >
-> > On Fri, Oct 30, 2026 at 6:28=E2=80=AFPM Sumit Gupta <sumitg@nvidia.com>=
- wrote:
-> >>
-> >> This series adds support for the OSPM Nominal Performance register
-> >> (ACPI 6.6, Section 8.4.6.1.2.6) to the CPPC ACPI and cpufreq drivers.
-> >>
-> >> Unlike the read-only Nominal Performance register, OSPM Nominal
-> >> Performance is writable and lets OSPM request a nominal level below
-> >> the platform-reported nominal. The platform treats performance above
-> >> this level as boost and below as throttle.
-> >>
-> >>  - Patch 1: adds ACPI helpers to write the register and to check that
-> >>    the platform supports it.
-> >>
-> >>  - Patch 2: adds the per-policy ospm_nominal_freq attribute in kHz. Th=
-e
-> >>    value is kept across CPU hotplug and suspend/resume. The register
-> >>    cannot be read back, so a read returns the last value written.
-> >>
-> >>  - Patch 3: uses the OSPM nominal as the maximum frequency while boost
-> >>    is off. Lowering the nominal creates a boost range on a platform
-> >>    that has none, and boost can then be enabled.
-> >>
-> >> This series applies on top of v7 of:
-> >>   cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
-> >>   https://lore.kernel.org/lkml/20261030092416.1993889-1-sumitg@nvidia.=
-com/
-> >>
-> >> v7 -> v8:
-> >>  - Rebase on Christian's CPPC fixes series.
-> >>  - Patch 1:
-> >>    - use cpc_is_writable() from that series and drop cpc_reg_writable(=
-).
-> >>    - add the register to the list of controls the driver writes.
-> >>    - take cpc_desc_lock in cppc_ospm_nominal_perf_supported(), so the
-> >>      descriptor cannot be removed during the check.
-> >>  - Patch 2:
-> >>    - make ospm_nominal_freq read-write. A read returns the last value
-> >>      written, or "<unset>" before the first write. (Christian, Mario)
-> >>    - keep saving the values in the store handler, not at init(), so
-> >>      the driver writes the register only after the OS sets it. (Pierre=
-)
-> >>  - Patch 3:
-> >>    - document in the ABI file how the OSPM nominal sets cpuinfo_max_fr=
-eq
-> >>      and caps scaling_max_freq.
-> >>
-> >> Sumit Gupta (3):
-> >>   ACPI: CPPC: Add ospm_nominal_perf support
-> >>   cpufreq: CPPC: Add ospm_nominal_freq attribute
-> >>   cpufreq: CPPC: Reflect the OSPM nominal in boost and limits
-> >>
-> >>  .../ABI/testing/sysfs-devices-system-cpu      |  31 ++++
-> >>  drivers/acpi/cppc_acpi.c                      |  44 +++++
-> >>  drivers/cpufreq/cppc_cpufreq.c                | 173 +++++++++++++++++=
--
-> >>  include/acpi/cppc_acpi.h                      |  10 +
-> >>  4 files changed, 248 insertions(+), 10 deletions(-)
-> >>
-> >> v7: https://lore.kernel.org/lkml/20260807214837.863209-1-sumitg@nvidia=
-.com/
-> >> v6: https://lore.kernel.org/lkml/20260717215330.2215058-1-sumitg@nvidi=
-a.com/
-> >> v5: https://lore.kernel.org/lkml/20260615185934.2383514-1-sumitg@nvidi=
-a.com/
-> >> v4: https://lore.kernel.org/lkml/20260527194626.185286-1-sumitg@nvidia=
-.com/
-> >> v3: https://lore.kernel.org/lkml/20260514194822.1841748-1-sumitg@nvidi=
-a.com/
-> >> v2: https://lore.kernel.org/lkml/20260430142430.755437-1-sumitg@nvidia=
-.com/
-> >> v1: https://lore.kernel.org/lkml/20260427051823.280419-1-sumitg@nvidia=
-.com/
-> >>
-> >> --
-> >
-> > This would be good to go except that it doesn't apply for me on top of =
-7.4-rc1.
-> >
-> > Can you please rebase it and resend, with Christian's tags included?
-> >
-> > Thanks!
->
-> It's based on the hotplug/resume series, I guess Sumit could post them as=
- a combined patchset
+On Fri, Nov 06, 2026 at 01:12:50PM +0700, James Clark wrote:
+> Export usb_generic_driver_probe(), usb_generic_driver_disconnect(),
+> usb_generic_driver_suspend() and usb_generic_driver_resume(), and move
+> their declarations to include/linux/usb.h. This lets a driver whose
+> probe may return -EPROBE_DEFER leave generic_subclass unset and call
+> them itself, so that it can defer before the device is configured.
+> 
+> Say in the generic_subclass kerneldoc not to set it in that case.
+> 
+> Signed-off-by: James Clark <jjc@jclark.com>
+> ---
 
-That would help.
+It's ironic that the generic_subclass thing was added to support 
+onboard_usb_dev, after some debate about whether it would be better just 
+to export the generic callbacks.  Now you're going to implement the 
+alternative solution for onboard_usb_dev, while other drivers continue 
+to use generic_subclass.
+
+Oh well, I guess there's nothing wrong with having two ways to do it.
+
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+
+Alan Stern
+
