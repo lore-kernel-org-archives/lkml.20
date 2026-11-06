@@ -1,100 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793962008;
-	b=y3wTx1i7o/616UpHFXi5fOepCAJPflXBRzB6hHu4nKSzRSBc/r+HzvyLxHD+48iWLvUv
-	 fB9r5GKff/v1QgVUzpJ7w2nEa2oszMcEf7xJ71GKdn10U+scMSdg4ljgOZVOMj9f960UJ
-	 3FUh8fUo66BSufTbp6qs5s+hpGgVeeYj76JsZXnO1xsdYwXsKhqP4v2wp3Eid84JcX35g
-	 plbFCHCWO13hrtnVeuBL0NPaK9BcUkzn6IS25yPZJYjsm8f2h/vM5HMqZpc52UHvvFQnh
-	 k5dh7V0p+W4H0Ey7lIacisCZQ6rSwRgsBOVHcMrjGwa613VeTjAurPVfycwD3NCisdA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962008;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=yZK/9p/lI0oDfTydxKTTtrPDcqaWpU7s0elEWk4bJa0=;
-	b=enFwZC7DCXHZHKnDf/rWHVB1U45kk/7xzjPEVii4MgrdwW8OXmgpkWRVWX3UWFWPOcko
-	 cS9nPWV6v0QHJEQxyC9yAPerjbAj80okiRXXzqRInnot9NEICFfA1HKPBOVxcwLaEwVYQ
-	 45HGR1LxFfYa39hVTRw2KRO5VriUp4rWBt2h9fy8Rbsv8Dus+rK2p+F+R+UPsvAFtCEkh
-	 GBJqfuNSy+mqbCak12JYoAy4WGj19WRfYuudlIbunfLyBEcKowtivdU5kr4XuFysnYyZL
-	 prYF+VptN3glvCxo5niqQrwHZ+DNMcXAOt5uLNAPJqsLfRjNhaAXLjnODUrmVUkEEmg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=nNVM0Jf7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.47
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012047.outbound.protection.outlook.com [52.101.66.47])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793962010;
+	b=kZnHJrRQKvkDPG8LOe7V0K+CM/REhmGksf0GL9ElVxv2TnmqVCIlY2CZMo3FtuVrThNs
+	 suCr5p4+BJawEc/ErOm/SQ3y1C/N6ba7f9M2iixBNAPoN78pGJ3/VB5YG8bS4xDQJ9vT6
+	 YcIyqGOknXwZ5fUEwiO0JXJ9sN9Ue+DnmwiJrsQRc4BU8DV3imPe0XL2Rjgj0oZ5j/WcD
+	 9mspPpa9hLfbIIcrrWt7Zuy1DaohFPihrE8rrkFC6yiQT8ElWpUuR/jBTQeAp+YzBLsTJ
+	 H7V7GIMBpd09iwAOsVTp+kuHS4WK+WZ9PLZ4yzbKTt71w9czPOefpX82pvpV3vPjuKw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962010;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=R4UXJ8D6lFItiQJcibx9Gvr2Xk0BfzjmL2Cx9RaqZ2M=;
+	b=SYFEHufbF9aqOEa4yqDuFKtrfKTLwikOx0WKTz2EMr3NEcCX11zo8WkMwqFhN27XEQAO
+	 31oPPs2vE6wQ4VFbyBwx2lMHFwXpvC8PgCt53g+ye9NHX3iFBzg5NTEl2nRiF15fEAW95
+	 XU8tZsXQORW+PYcL6njFs8Wje3QMtsRglaiAVVAzu+wRCgvs8vVF4FpWqALi8zAMMT+Fw
+	 MJ1xVkJRhJulg+VIepQDUl9GJp4nfQOL/ru8piX8MclcIwroN9s7kSV3zv3Q3GQv/fi34
+	 VnwSdy99xsByE4evnoRTydyeRTsuMlxy/W4n2CNJXsWci0wI8TJaIIcar0U2unfAdIQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCunnEIZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6597606A329;
-	Fri,  6 Nov 2026 10:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6597606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB6A606A326;
+	Fri,  6 Nov 2026 10:46:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=nNVM0Jf7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C1DeOjzTaZ3RD5HiKafA5RYpsoJ+j2ELP96DnrP1o868c+X7IZK/sh0PP/QUDkX+NujzoWjmxrgt7+xAuuT3m30/X/yCkfh9jrXZ/3AwWSafaZAiFpp+NIZx6G9Sd17AyOZvDR2t4ZCiVmP7TjwkzVcKc0si5iR88HwFxODYXdEHXH2UgqTXee/IUwUYIVmLHtbM0VipUYMHAjbH9e2379FWFCnjZZQSEmu+bBlq8vcYLHT/W5Z17G7HKZ/Xf6Yi6GMD+bVMzpL6ovoBDt8zN2ipXqcpaR4aVu6Q9B2ww1KSWYucPQpsrtW62j/GupMdiSkO3jr1KzL6TtKlXrRgKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yZK/9p/lI0oDfTydxKTTtrPDcqaWpU7s0elEWk4bJa0=;
- b=owMuHVTgTc9E2yg+bvKasoFwn6v8++MCdcqKtexHCTSZdF78WlckChzQ8/IAKxSYr+rm3v22an2Ge9oKJWAYC4h2fEwFYujNNIgfFU6wD7u1ifwAONjM1607X6RUB8QyawJIOzVnZ0S3+zPh1/mJi8JEfj0siH3QnPIl+Lmd9g8u0H2+LU0Ku/7pGcXaIEqm9BMSFybVu6LfrGehidLyvpxqhE7LZUrccs+m6XyGgVocDjywHVowDq/g7oFQN8dm9nq+XgBMwIE95bpZHYemlZ1py+2LKT1QaBN/k/rxdRQ6Fv30FqNtHAOjZCn8znxiiAEMC9S+bnxeJApmZ5qOoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yZK/9p/lI0oDfTydxKTTtrPDcqaWpU7s0elEWk4bJa0=;
- b=nNVM0Jf7fg45bZjy47kfhF5ti9T0CiRACM4O3Jk6CY5L4yiOAp/pDRnBVnAZgbI5+de6yju6rQjwfraFNuFfwRnoIC/davfA0d2pVuO1Nj8sT0UrDHWaD1LXtwgfGnqIMcutf/Hs9W05EBhQPRFo0r8VXlXoTsh/DlgIUfIb/28oErrWc50IAUPdBct67Q5uW+tdHLv1fysa94Z4L95DKoe6vJBl3MnvPQJqQrOlrklGU0Xt1Mfh4+aGuUQUA8u/LqR/qjSC309e4C/IrZIaWxkEEOTVg6mpnh2VeXWnkJWHs9oR4dLl+wQkfhWpAG3G+HmiKybMnjaSHSoJud7L1Q==
-Received: from WA2P291CA0041.POLP291.PROD.OUTLOOK.COM (2603:10a6:1d0:1f::27)
- by GVXPR10MB8315.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:1e5::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
- 10:46:41 +0000
-Received: from WA1PEPF00009B3E.eurprd05.prod.outlook.com
- (2603:10a6:1d0:1f:cafe::89) by WA2P291CA0041.outlook.office365.com
- (2603:10a6:1d0:1f::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 10:46:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- WA1PEPF00009B3E.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 10:46:41 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
- 2026 11:47:21 +0100
-Received: from [10.252.31.114] (10.252.31.114) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
- 2026 11:46:34 +0100
-Message-ID: <795b43bf-f5c4-4b2d-9764-e0a9ae783fdc@foss.st.com>
-Date: Fri, 6 Nov 2026 11:46:32 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCunnEIZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0321F0089F;
+	Fri,  6 Nov 2026 10:46:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793962009;
+	bh=R4UXJ8D6lFItiQJcibx9Gvr2Xk0BfzjmL2Cx9RaqZ2M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hCunnEIZfKlr6qoMUNMOsdGsxQ7IjWUgxiafHv1Z+GtVnHVIkVloNm7JSe0jucf4v
+	 Be00OZ6LyBekuVn6BjvLPY9n2k+e1AmiDi7InnmDdbDQGdSnjuudqzxDjYAlNYhG2v
+	 SnIHZ4gjFJUpZLBedEUDIPptonWTz9uotLA6iRgOA5X7/RHU+Qv1IOi7Qmd5Lw5GMa
+	 S4EJI6CpXc1502QDo0gR7VlleOn0nXISLFq96tAGYmHD/6PzuqiHbzA0uFQN4lnX9K
+	 Fvb6evOecIr4CJf2MUAMnT/LJw8xU/8SNUha42jnLM4sIhXYighfjJoCreU0/7wDnB
+	 tlpx359Zg2mQQ==
+Date: Fri, 6 Nov 2026 10:46:29 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, jgg@ziepe.ca, 
+	jhubbard@nvidia.com, peterx@redhat.com, willy@infradead.org, jack@suse.cz, 
+	riel@surriel.com, liam@infradead.org, vbabka@kernel.org, harry@kernel.org, 
+	jannh@google.com, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com, 
+	apopple@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, 
+	kas@kernel.org, xu.xin@linux.dev, chengming.zhou@linux.dev, maddy@linux.ibm.com, 
+	npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org, ritesh.list@gmail.com, 
+	sshegde@linux.ibm.com, pfalcato@suse.de, kasong@tencent.com, qi.zheng@linux.dev, 
+	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
+	baoquan.he@linux.dev, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+	leon@kernel.org, sj@kernel.org, rakie.kim@sk.com, rientjes@google.com, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org, peterz@infradead.org, mingo@redhat.com, 
+	acme@kernel.org, namhyung@kernel.org, mark.rutland@arm.com, 
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
+	james.clark@linaro.org, mhiramat@kernel.org, oleg@redhat.com, 
+	john.johansen@canonical.com, georgia.garcia@canonical.com, paul@paul-moore.com, 
+	jmorris@namei.org, serge@hallyn.com, zohar@linux.ibm.com, roberto.sassu@huawei.com, 
+	dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com, wufan@kernel.org, 
+	stephen.smalley.work@gmail.com, omosnacek@gmail.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, damon@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
+	linux-integrity@vger.kernel.org, selinux@vger.kernel.org
+Subject: Re: [PATCH 09/13] fs/proc/task_mmu: convert VMA flag tests to use
+ vma_flags_t
+Message-ID: <au2tJWwPamlmx1Q4@gremlin>
+References: <20261105-late-2026-vma-flags-v1-9-0d3cd15ab75f@kernel.org>
+ <20261106065925.50906-1-lance.yang@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,147 +81,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] dt-bindings: arm: stm32: allow TAMP nvram child
- node for syscon
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla
-	<srini@kernel.org>, Simeon Marijon <simeon.marijon@foss.st.com>,
-	<linux-stm32@st-md-mailman.stormreply.com>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20261104-upstream_nvram_reworked-v4-0-144024496a44@foss.st.com>
- <20261104-upstream_nvram_reworked-v4-2-144024496a44@foss.st.com>
- <20261106-tireless-cobra-of-passion-1fca1d@quoll>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20261106-tireless-cobra-of-passion-1fca1d@quoll>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: WA1PEPF00009B3E:EE_|GVXPR10MB8315:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab4f831f-58a1-4f8e-0415-08df3bf33e51
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|7416014|376014|1800799024|18002099003|6133799003|22082099003|3023799007|10067099003|13003099007|56012099006|4143699003|11063799006|261026140227099003|261009223027099003|261102123227099003|261026121527099003|261021121427099003|261021123027099003|261028144727099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	6irj3x2srs/rmLbe35ypQia31EYBFUIlVzcOf7MB4OyRGJDaXDG/LCTDZgZgtQApQkQAba999W/y23VyNYyt9mvJIzAjVEZsPqih8HhsRmz+v3k5YEFfMK4hNNeWOSL7JbM9gcwcKbK1zmGAJJhDZr3x3YZTtVLk9OXfF2qCmG15TJOtAwu9o6TlcRI2870JY8JnlfbLhuJmuLVnqNVmKp8nvnPtAAcyWQpD6YaA62yzU/oegJE8tfI0HNYceCDTp11LqSLYR6BCOuoT1BPeT0qkhQ2WlCmbFEPRGP+fsimz47wkZilEYUwwDnf9gcIKmnBsK60YBhTfQn93rF09CVbC0JgsNngI6RGnA4QboWT6gXYXduMromdYP5TK0+T12WFhtldlLDlQb7W7RR1fR2lDpS/1eer5O7Qj6AL/9VTzk6fdtT5mpLjvljnMGH3MavQIn0AvbsSCzSgNe5Lj1Fc9MeyCVfXsI6vcCK2/CiSQgO+5S8DJyDmsAD7BZJZ6yjJyWNJFQrcD65tf6A8zy24qcYHW8/UsG5E//cYnNitzxCpCUI1vPEbV+714HWtnB6PDMWa/uWd8vysdLiKs7XuMzj7CFNRtX9PBdi9DHyvl3t3jEydXTVOE7dVscJA6gkObXEiJ0XakVsvrksIuZT+DLjmLXiniosIRaX9sWNQ=
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(7416014)(376014)(1800799024)(18002099003)(6133799003)(22082099003)(3023799007)(10067099003)(13003099007)(56012099006)(4143699003)(11063799006)(261026140227099003)(261009223027099003)(261102123227099003)(261026121527099003)(261021121427099003)(261021123027099003)(261028144727099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	KA2I5Jn5jXraCzflQJWf6YiovFyCvWud97YtTOF0ookjgiodfa71wateoN3CuD/JWQhxKE9n21NfGB47m+Q2drZ18NPqNG4876TXBCYHp2SYDymGyf3WqbJ8i/hHQSH/Wu7oxWntFxO4L1FnpCl1A9wyUkXYt6CS2RD8XwrbNg4+Xxk2DhQQYr6R+WseU3Vkg/kEx9A8nfEPrt/dTKYCL5UP//9G9b/l2kcnXz7PiHwqBc8ZmAMeNdQBeA0Dx45wctvtjPbsQyzONBs/Dd1DDevK4UFXf6Ed91a3uuqCujpK1xphiqQo3YzIbB63CUqcAPf4mgCp5F+27E4f9bD818W6v977MWrZ56qBAk9ywwusdT/9VU5Wxr2F+3PK4qLz8548ODN+wf0RbcurKLafWSMKLj4nNCgl8m16rmFz56N2QjQyVmNjKu6WCuUXlFBI
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:46:41.7531
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab4f831f-58a1-4f8e-0415-08df3bf33e51
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	WA1PEPF00009B3E.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR10MB8315
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106065925.50906-1-lance.yang@linux.dev>
 
+On Fri, Nov 06, 2026 at 02:59:25PM +0800, Lance Yang wrote:
+>
+> On Thu, Nov 05, 2026 at 09:31:00PM +0000, Lorenzo Stoakes (ARM) wrote:
+> >Replace use of the legacy vm_flags_t flags with vma_flags_t values where
+> >VMA flags are tested directly in /proc/$pid/[s]maps, pagemap, clear_refs
+> >and PROCMAP_QUERY.
+> >
+> >In replacing vm_flags_clear() (which takes the VMA write lock) with
+> >vma_clear_flags() (which does not) in clear_refs_write(), we explicitly
+> >write lock the VMA. The mmap write lock is already held at this point.
+> >
+> >The show_vma_header_prefix() and show_smap_vma_flags() output functions and
+> >the thp_vma_allowable_orders() call continue to use legacy flags for the
+> >time being.
+> >
+> >No functional change intended.
+> >
+> >Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >---
+> > fs/proc/task_mmu.c | 43 ++++++++++++++++++++++---------------------
+> > 1 file changed, 22 insertions(+), 21 deletions(-)
+> >
+> >diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> >index 22361607020d..b6e8ef15e40e 100644
+> >--- a/fs/proc/task_mmu.c
+> >+++ b/fs/proc/task_mmu.c
+> >@@ -569,18 +569,18 @@ static struct vm_area_struct *query_matching_vma(struct proc_maps_locking_ctx *l
+> >
+> > 	/* VMA permissions should satisfy query flags */
+> > 	if (flags & PROCMAP_QUERY_VMA_FLAGS) {
+> >-		u32 perm = 0;
+> >+		vma_flags_t perm = EMPTY_VMA_FLAGS;
+> >
+> > 		if (flags & PROCMAP_QUERY_VMA_READABLE)
+> >-			perm |= VM_READ;
+> >+			vma_flags_set(&perm, VMA_READ_BIT);
+> > 		if (flags & PROCMAP_QUERY_VMA_WRITABLE)
+> >-			perm |= VM_WRITE;
+> >+			vma_flags_set(&perm, VMA_WRITE_BIT);
+> > 		if (flags & PROCMAP_QUERY_VMA_EXECUTABLE)
+> >-			perm |= VM_EXEC;
+> >+			vma_flags_set(&perm, VMA_EXEC_BIT);
+> > 		if (flags & PROCMAP_QUERY_VMA_SHARED)
+> >-			perm |= VM_MAYSHARE;
+> >+			vma_flags_set(&perm, VMA_MAYSHARE_BIT);
+> >
+> >-		if ((vma->vm_flags & perm) != perm)
+> >+		if (!vma_test_all_mask(vma, perm))
+> > 			goto skip_vma;
+> > 	}
+> >
+> >@@ -647,13 +647,13 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+> > 	karg.vma_end = vma->vm_end;
+> >
+> > 	karg.vma_flags = 0;
+> >-	if (vma->vm_flags & VM_READ)
+> >+	if (vma_test(vma, VMA_READ_BIT))
+> > 		karg.vma_flags |= PROCMAP_QUERY_VMA_READABLE;
+> >-	if (vma->vm_flags & VM_WRITE)
+> >+	if (vma_test(vma, VMA_WRITE_BIT))
+> > 		karg.vma_flags |= PROCMAP_QUERY_VMA_WRITABLE;
+> >-	if (vma->vm_flags & VM_EXEC)
+> >+	if (vma_test(vma, VMA_EXEC_BIT))
+> > 		karg.vma_flags |= PROCMAP_QUERY_VMA_EXECUTABLE;
+> >-	if (vma->vm_flags & VM_MAYSHARE)
+> >+	if (vma_test(vma, VMA_MAYSHARE_BIT))
+> > 		karg.vma_flags |= PROCMAP_QUERY_VMA_SHARED;
+> >
+> > 	karg.vma_page_size = vma_kernel_pagesize(vma);
+> >@@ -970,7 +970,7 @@ static void smaps_pte_entry(pte_t *pte, unsigned long addr,
+> > {
+> > 	struct mem_size_stats *mss = walk->private;
+> > 	struct vm_area_struct *vma = walk->vma;
+> >-	bool locked = !!(vma->vm_flags & VM_LOCKED);
+> >+	bool locked = vma_test(vma, VMA_LOCKED_BIT);
+> > 	struct page *page = NULL;
+> > 	bool present = false, young = false, dirty = false;
+> > 	pte_t ptent = ptep_get(pte);
+> >@@ -1017,7 +1017,7 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+> > {
+> > 	struct mem_size_stats *mss = walk->private;
+> > 	struct vm_area_struct *vma = walk->vma;
+> >-	bool locked = !!(vma->vm_flags & VM_LOCKED);
+> >+	bool locked = vma_test(vma, VMA_LOCKED_BIT);
+> > 	struct page *page = NULL;
+> > 	bool present = false;
+> > 	struct folio *folio;
+> >@@ -1728,7 +1728,7 @@ static int clear_refs_test_walk(unsigned long start, unsigned long end,
+> > 	struct clear_refs_private *cp = walk->private;
+> > 	struct vm_area_struct *vma = walk->vma;
+> >
+> >-	if (vma->vm_flags & VM_PFNMAP)
+> >+	if (vma_test(vma, VMA_PFNMAP_BIT))
+> > 		return 1;
+> >
+> > 	/*
+> >@@ -1798,9 +1798,10 @@ static ssize_t clear_refs_write(struct file *file, const char __user *buf,
+> >
+> > 		if (type == CLEAR_REFS_SOFT_DIRTY) {
+> > 			for_each_vma(vmi, vma) {
+> >-				if (!(vma->vm_flags & VM_SOFTDIRTY))
+> >+				if (!vma_test(vma, VMA_SOFTDIRTY_BIT))
+> > 					continue;
+> >-				vm_flags_clear(vma, VM_SOFTDIRTY);
+>
+> vm_flags_clear() still warns on VM_SOFTDIRTY when pgtable_supports_soft_dirty()
+> is false. Did you mean to drop that?
 
+Yep it's silly. Checking every single operation with VMA_SOFTDIRTY_BIT for
+whether CONFIG_MEM_SOFT_DIRTY is enabled, which is not done for literally any
+other VMA flag, is ludicrous frankly :)
 
-On 11/6/26 11:21, Krzysztof Kozlowski wrote:
-> On Wed, Nov 04, 2026 at 04:20:09PM +0100, Patrice Chotard wrote:
->> The STM32 TAMP node (compatible "st,stm32-tamp", "syscon", "simple-mfd")
->> exposes its backup registers through an nvram child node described by
->> nvmem/st,stm32-tamp-nvram.yaml. That requires the TAMP node to carry
->> "#address-cells", "#size-cells", "ranges" and an "nvram@..." child.
->>
->> st,stm32-syscon.yaml uses "additionalProperties: false" and only allowed
->> into the DTSI made "make dtbs_check" fail on every STM32MP TAMP node:
->>
->>   tamp@5c00a000 (st,stm32-tamp): 'nvram@5c00a100', 'ranges' do not match
->>   any of the regexes: '^pinctrl-[0-9]+$'
->>
->> Allow the addressing properties and the nvram child, gated on the
->> st,stm32-tamp compatible so the other syscon variants stay strict.
->> "#size-cells" may be 1 or 2: the STM32MP21 soc bus uses two size cells
->> (an empty "ranges" requires the node to match its parent) while the
->> other STM32MP SoCs use one.
->>
->> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
->> ---
->>  .../bindings/arm/stm32/st,stm32-syscon.yaml        | 38 ++++++++++++++++++++--
->>  1 file changed, 35 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
->> index a559f8b03b84..51cb565e05ed 100644
->> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
->> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
->> @@ -43,13 +43,19 @@ properties:
->>      const: 1
->>  
->>    "#size-cells":
->> -    const: 1
->> +    enum: [1, 2]
->> +
->> +  ranges: true
-> 
-> Addition of ranges should be separate commit, because you are fixing
-> existing device which can have phy child.
-> 
->>  
->>  patternProperties:
->>    "^phy@2[48]00$":
->>      type: object
->>      $ref: /schemas/phy/st,stm32-usb2phy.yaml
->>  
->> +  "^nvram@[0-9a-f]+$":
->> +    type: object
->> +    $ref: /schemas/nvmem/st,stm32-tamp-nvram.yaml
->> +
->>  required:
->>    - compatible
->>    - reg
->> @@ -84,11 +90,37 @@ allOf:
->>          - phy@2800
->>      else:
->>        properties:
->> -        '#address-cells': false
->>          '#clock-cells': false
->> -        '#size-cells': false
->>          phy@2400: false
->>          phy@2800: false
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: st,stm32-tamp
->> +    then:
->> +      required:
->> +        - "#address-cells"
->> +        - "#size-cells"
->> +        - ranges
-> 
-> This has ABI impact and is not really necessary, as the child node is
-> not required either. Drop these three.
-> 
+>
+> (Vaguely recall you weren't too keen on that warn, though I could be wrong.)
+>
+> Otherwise, LGTM!
+>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
 
-I send this series too quickly, before you made your reply on v3 [1]
-[1] https://lore.kernel.org/linux-arm-kernel/b81b8404-572b-4ea4-91ab-6e201f0352b9@kernel.org/
+Thanks!
 
-Sorry for that, the v5 is already available on mailing list.
-
-Patrice
-
->> +    else:
->> +      properties:
->> +        ranges: false
->> +      patternProperties:
->> +        "^nvram@[0-9a-f]+$": false
-> 
-> Best regards,
-> Krzysztof
-> 
-
+--
+Cheers, Lorenzo
