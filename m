@@ -1,108 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793942399;
-	b=nh9y76Mab++52i72Yf4U4BHZhGpzPKIpv/Wvm8A0VNozPjghNWij7zQ7vZ/UGbn1EHdj
-	 39xM5YH4WncwL63HBuEDVxMZdlKhkUWrWctPfUmmKY5U0A4nnrqV9NLxDt2P9g8WFBPda
-	 isZhi81fMhIwwz6tmrrcWIV8WAJb2FmsTrjPoWV1hS1wR5XPDDV9U5VoF7VLdswK9SfVF
-	 JctYYm5ph0WdT2v6spHc6hI94xduv6aNRcD/JsnvdOTFUGaZQpkaBjH9JCc2oNuN7LAIj
-	 q8purftSrEToFmOOcec+uqnKRtzv5Ojr3M+edgJrud0i8acdEdGvyAU+fDzlgc+oyNA==
+	t=1793942403;
+	b=vbfI+bESgpgPGLTWI8kXZvZNUqzo7t2/Cx6gDyKmfngC8ZZM+OQs+E2RbVr2oWCb4MD+
+	 HzSZMBvOuUQqzbOssYnU5lxDtkVd5YiElMVp5RZfcU9kin5/xQ39mKlXsKZAiaWgHmbmh
+	 Gcsr4+k3AvjnlAr8f4kQOXICpTqAmje9CNOoflmcuf5J2wSQl7vc8327/WP/EvNRha1Wd
+	 l5Nrig9pirb9x6Las9gkQtZ5z+/ZRtIhPJVmPIoei7u9Mcr4VabRBSl+gCa0QXcAAnkQN
+	 Vq+BTO82ia8AjK3Po8mnD9n7rMU5B/O1v/FL7Q0KKqjRqQXBp1OPx7vJAbNHcJaGiiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793942399;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793942403;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=poLO/FYmmqcs1GTxITc1aAz5v4ON3pq6sok2GYQflVA=;
-	b=oCLnEobPEjK9LHqlcB+b7RJyq/9lXM+Q/sXNI1mgO20dL6hs7JRMD1mO0i6mByI4TjHW
-	 kZB40xei4cZ/+5yzMQ2/Y7YDWFDXDa9gtWCj9ZVfsUglQevZaoNXTp/NlE8qNSELgtLYC
-	 Vje+BXT7eNzaw4VJ46/9AoZUc/xhZlZ4QjXnPp3AE7sv+vwqpj8a93G1vts9Bc2i6zvuG
-	 krBAdqSJOQr472bT67fFuYmBWGnul4kPr8+SYftPGEPmpCzWSOY55EPHE+TvxWAgCCHN/
-	 G9XkWD3dVTjBxtpj3UJ5TsxRdQB40HM21uSaDju2NqmR6k4729aFH7VpkDxKKAspJ3Q==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=z2+CtnAKw9zVaO7DKjcalzaa1zs+ZwWIT2e9xPRBAnI=;
+	b=ucjUziWy4LqxI3xVzB2vH6uyzM6IJi1LewlNy8bKOw9LvBUGPGBRkwcvVcr5yVc9Mhe0
+	 kvh1qNNvgdPTXCBNoED0Z+B3bi2eqnasyFu3XVq62u43XkUeVayhmtcTA6i8Xfl0dB/jN
+	 WZ/lM4lqkIiv+02oaNOCx5CZGOnmmc2T/SIqbcd3NICXZShRrB+ws07dDlaN+SGR2RSVI
+	 bXUHSPQ4kIegQxiiI/x45t5wg0m4dxF8tFDcs1JDEQ43rGMeGsMTDQEiGk+gP+PHfgGgN
+	 YDf/z1d8O6mmfV1KtTltWzICUzt1L8hWcdv2knM9ye95CW+YBdzMoaKmvgyHi4FeKPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="dN0//pmJ";
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XljgWKs0;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96757606D811
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:19:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96757606D811
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E123606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:20:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E123606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dN0//pmJ
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e942864693so1397955ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:19:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XljgWKs0
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso1268285ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:20:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793942398; x=1794547198; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=poLO/FYmmqcs1GTxITc1aAz5v4ON3pq6sok2GYQflVA=;
-        b=dN0//pmJEAsF076fr7W5z5BEW5z1sCCCCExDgz3ojvuzceMpBTTCMJg3SFVrge2w5E
-         QIlfFUTXmg1u1F9Rx8NJo6+w8LouBjqmsSq6w2BBpHOm4PZ5/7S5SFrCpJw3JaOHl+cm
-         ebF1jrw5JlBru47P2yG894K7CYnr0KgBwzWvd7Zaflq3EfYhkPDzGAMgRLANXrLXwM0k
-         okjGUDtEgBC9zBCtIpbdzFK+siB7Lsv2I1bhRzgkHdem/Zff187B4YIo76S4S4y2WQlz
-         /OpY1tTt/UA8/TuJNZsxnOvjrxmNVLIwWDmdIK7h/3FYou/q0CfQlCKhc/6zcxfe2vXM
-         LAoA==
+        d=gmail.com; s=20260707; t=1793942403; x=1794547203; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z2+CtnAKw9zVaO7DKjcalzaa1zs+ZwWIT2e9xPRBAnI=;
+        b=XljgWKs03gzpkU7vULk7eIlUVEQQvSx56YZb5oHdKV6z9f+SElIdml7CFDFIOSto/R
+         FiUDmtZLIC4piN0AxzzKHsDs78Urk/KDcP6smfZgKY4whjeQTus6DogecdKualoeX94Z
+         h1F6fkCTEGazzlBBKRGRLgD5CpAYr2VL4XOSd6mP6F7MKP7AOOg63wkkm/DG13VKuCNZ
+         tkee2YiKjssuaZ0lD/jghKSy7mO9RwIEZnS2POWgpUma7DIrjXg7BCpeehpTrpBYxUzE
+         HdBWf5sqoNVu6KUA26azvW0U7vW1jA0vzme3iaY4eq9SJ8pDMY0mtSPUip7/p/fXNIaw
+         25sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793942398; x=1794547198;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=poLO/FYmmqcs1GTxITc1aAz5v4ON3pq6sok2GYQflVA=;
-        b=IOioxVWirTwq56hWIKsCALZp9iIJ8PWgqGsdAaY7d+0PKCZObeENzOkgaUGK+mj0FZ
-         kmMTP4kJexLZjXJ1kJJtJ6la/BcG1VZ+HGgKVSn4XTYwd6NqUDCfIZepZDV+Zo0mzKur
-         EPxki6vfRkcfvCJfaq5rVCN56ZPtUKBloStot05SsP0kXuAFOV28km9gjj+aBCeLwfUl
-         ZvstlnbUDpaW4yDPk00/3ZcEEqrJLVruLiYXptUs5hRRMHyl3BGA/SbUOsm1UX8e+ySk
-         d0uOGRfAchR51dUhTsMLeo3NIDYtjm15jEP3FuwMq9KJxYL722BWlSewECQefMutk+GM
-         EhUA==
-X-Forwarded-Encrypted: i=1; AL+hErF7B6HPpLWmjfXReQvW397IBMLAUHgGZy7PiVNkdX6KvtDUghCFsgsX6WzK1R2Hqsf0xQrTLIFr0FkXjPw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+oVLqr9BEY9bFD9Ldw1VlL6Y2T1puFZJxsEFl7uJNmq65vugiP
-	PtD0IBHGeQ/ubLuLDGRQOQdT6MViOOJ+hetwrACs6ZMdvIY2vqGHrTWo
-X-Gm-Gg: AYBFou18j3LtSbr33GiOIZ4BmmqMGz9n4aFauB72XtFqJrhCnAj4NzP7ieu6zyr78jn
-	9OasmWtU7+Ofyfwcj+9RQTrg8oaErDacyJlH1HmajO9zADRqQh9nVJwjz4mDJMcZUL7crFRdS06
-	Zhh/tk4v4J26jMv2Svs/CAXnRlqpxxrk2Z5r1jgf6bmcZjH4F8m5XlpI1/0FJInRg8oT5VEy3v6
-	83Hlen1J8yzz5eFym/8lQA14/QdatDcYBUocAqrf4Na1kFAyq8/I+iIROC5IjyW9AezIaPzopL9
-	X/TPw0F6PliVNAd1iuNt81o+3wHPtadIeHi2DAgXDXwKlJxiF/Kew0yBV+5wiPM4Eb/0MLzo21d
-	xpcVfeeum8pG3qXr+zmXJOHy+QSGenTnqMEiPDag6DB9RJv/i7IjgNKH7q+62t1f3KqyBfFD00+
-	SWYlLafMB+Ee9bgfcKcq9gfwPpIvm+HE/L3snlP3fgKGqzVJabS2jvxzR7e658QUy2mh5KeYNIP
-	RvNrReyjfbbbpUmruCTFdIykGEMCp1DirJnswltQd2MEWmNuAT6JTbXGwW6J+R5kj4bQNxsPSuJ
-	r+M2rCttQqC9pbAaeuWSayDm5PECor2nqL7UJReNVLRP7wUYWtRltPhvsiPya/+mf+vC8W+l1ST
-	XT7aNY0SS+y/dBkQjx9Y02EP5Cl0nNuovsxL29dlmbrhHmOdaCW2/oH58xyBZtYD8XywCo7G8An
-	6IcdU208d1La2MV+tibUIKxCPKcGzWzLwsBi32IsjO
-X-Received: by 2002:a17:903:1b67:b0:2e2:d77b:e587 with SMTP id d9443c01a7336-2ed40abb311mr24361185ad.18.1793942397995;
-        Thu, 05 Nov 2026 21:19:57 -0800 (PST)
-Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d7bd2esm1594465ad.56.2026.11.05.21.19.57
+        d=1e100.net; s=20260707; t=1793942403; x=1794547203;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z2+CtnAKw9zVaO7DKjcalzaa1zs+ZwWIT2e9xPRBAnI=;
+        b=H1gl0m42IbnptJTOm7JGsv8kDmTU4nUlgE98EB0stDG0rVW3+mIDfiicbpzKeRx+VO
+         EYZEOTYtIyXnG1yKQSYA8wRgYKk+89+WJ9bu7btwf3n2tP9rTl/GrnOCUDRpha0s3nS5
+         9AhhlBNQns1pY8WzvYE4eWeBkQ/rH1SmQAh2yRfcrEeltplMqi94uc0OWYpFEESZ2uEi
+         5Re5hF/PW04D3RqFHf0aihaT6Vmhlw9LrpeNcAicAXJi5qXQeCDumUku21rAKOkUjv1G
+         loRdripscUX+QA8rFudjYNhdY7AHt8KvlYJcATBYruVNQR/ObGca++D1sDBHnY+jSmlQ
+         JI8Q==
+X-Gm-Message-State: APuU4Z8xcfT+s18kzxwjnIKMXWiGA394EyMo1jZrmiwdTMgdG5I0z1Xm
+	A7Obw+Zt/bF0KujleOUpBl+hZkNWWZvePZvgdbd7BdbbwYKtK56YV6akx0zA6Q==
+X-Gm-Gg: AYBFou3cc/p7Dczrmp/nkYEanOHckE64Et3kqDMWc7Zk5lEPbU20/E1TRz+IwL7jl1y
+	Lv2dkpcInsAk/WQJJrn1GliEXKZE7cmgxbQlaroBcRgkxuub8EPwYF4Rj+Arj818Au+tpU8jkEB
+	Y8g7oF97xUpcqEH3nyT/jx6RsM1+psNbYSDLaMkrIY6cdk3MCQyvMoGkiGWJNNlgQhTn3qE4BI+
+	97v26xroJCvHJtpV5tO7nkYBwuC1gsh5QnbczYcH+QBuI9n2VEyAv7rLvvnAamzDe83EHMsgXD7
+	CVG+IJozvyWt+8OPXkHFQhhmuNA+zrDjoNNmx7HbiRRCWt+jwlCpy4cj/ydcsZwK1jQMbYyRBtU
+	aRd877tYkEGDOFFdm+KtS4geUwSY35lNnhD1RfazITQDK7Y6+ZfRs4VeICk+WpHrTPGlnC1VBop
+	Axic85NwbY6KVFOXr5R0hH1BX2M9TwA4UvN0/zmpBBFrHt6WKXRiERsL+JNWHE1YIJTUpYTSaUB
+	iR0TN5Ej+fOsXthfsgN8mWLuT30NM7vS7LZ7NXtRdcbxcRon7q3jzuueRJWrHVhyT9w6q7Sy4Ao
+	LG5/qCdIXVyNYE3v3YokRVFs7Cs36PbcF2EZjpdk6KIeuwDpiL0Vfmu8JSj+LkBopycaG51NwcU
+	ric35JFFErXzBWkgnzHzddwqyDOT/4QMJ1S1iqGRNqBDTiakDlSTLghy3QFoF25dkxjEew5aFG4
+	+vGw==
+X-Received: by 2002:a17:902:ce04:b0:2ed:1ca2:ea68 with SMTP id d9443c01a7336-2ed40e1af4fmr18894065ad.49.1793942402438;
+        Thu, 05 Nov 2026 21:20:02 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d837e6sm1653895ad.58.2026.11.05.21.20.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 21:19:57 -0800 (PST)
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-To: Kuniyuki Iwashima <kuniyu@google.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Jann Horn <jannh@google.com>,
-	Kirill Tkhai <tkhai@ya.ru>,
-	apais@microsoft.com,
-	rlmenge@gmail.com,
-	hargar@linux.microsoft.com,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Subject: [PATCH net 3/4] af_unix: Fix scm_stat.nr_fds leak in unix_dgram_disconnected().
-Date: Fri,  6 Nov 2026 05:19:04 +0000
-Message-ID: <20261106051905.218638-4-sidchintamaneni@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106051905.218638-1-sidchintamaneni@gmail.com>
-References: <20261106051905.218638-1-sidchintamaneni@gmail.com>
+        Thu, 05 Nov 2026 21:20:01 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Dmitry Ilvokhin <d@ilvokhin.com>,
+	Waiman Long <longman@redhat.com>,
+	Davidlohr Bueso <dbueso@suse.de>,
+	Marc Zyngier <maz@kernel.org>
+Subject: [PATCH] genirq: Ignore tot_count for handle_percpu_irq() interrupts
+Date: Thu,  5 Nov 2026 21:19:59 -0800
+Message-ID: <20261106051959.901861-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,104 +100,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a connected SOCK_DGRAM socket disconnects (e.g. via connect() with
-AF_UNSPEC), reconnects to a different peer, or observes a dead peer in
-unix_dgram_sendmsg(), unix_dgram_disconnected() purges all unread
-datagrams from sk->sk_receive_queue via skb_queue_purge_reason().
+handle_percpu_irq() only increments the per CPU statistics and leaves
+desc::tot_count untouched, but nothing marks the descriptors that use it
+as per CPU. Both /proc/interrupts and kstat_irqs_desc() treat such an
+interrupt as a device interrupt and trust desc::tot_count, which stays
+zero.
 
-Because skb_queue_purge_reason() frees each skb without calling
-scm_stat_del(sk, skb), any SCM_RIGHTS file descriptors attached to the
-purged skbs remain permanently accounted in u->scm_stat.nr_fds (reported
-as scm_fds in /proc/<pid>/fdinfo/<fd>) for the remaining lifetime of the
-socket.
+Since /proc/interrupts started to emit zeros for device interrupts with
+a zero desc::tot_count, every MIPS CPU interrupt reads as zero there,
+including the timer and every device behind it. /proc/interrupts also
+missed NMIs handled by handle_fasteoi_nmi(), which kstat_irqs_desc()
+already excluded. The /proc/stat counts of handle_percpu_irq() users
+have been zero since kstat_irqs_desc() started to use desc::tot_count.
 
-Move scm_stat_add() and scm_stat_del() above unix_dgram_disconnected()
-and dequeue each skb in unix_dgram_disconnected() so scm_stat_del() is
-called before kfree_skb_reason().
+Add irq_desc_has_tot_count(), which covers per CPU interrupts, NMIs and
+handle_percpu_irq() users, and use it in both places.
 
-Fixes: 3c32da19a858 ("unix: Show number of pending scm files of receive queue in fdinfo")
-Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Seen on ASUS RT-N16 and TP-LINK Archer C7 v2 (both MIPS 74K) router, where
+the "gpio, ttyS0" lines stayed at zero while the GPIO interrupts chained
+behind it counted.
+
+Fixes: 0179464391af ("genirq/proc: Utilize irq_desc::tot_count to avoid evaluation")
+Fixes: 1136b0728969 ("genirq: Avoid summation loops for /proc/stat")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- net/unix/af_unix.c | 52 +++++++++++++++++++++++++---------------------
- 1 file changed, 28 insertions(+), 24 deletions(-)
+ kernel/irq/internals.h | 12 ++++++++++++
+ kernel/irq/irqdesc.c   |  4 +---
+ kernel/irq/proc.c      |  7 +++----
+ 3 files changed, 16 insertions(+), 7 deletions(-)
 
-diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-index 44c0a81dd423..47120d81aca2 100644
---- a/net/unix/af_unix.c
-+++ b/net/unix/af_unix.c
-@@ -609,6 +609,28 @@ static void unix_write_space(struct sock *sk)
- 	rcu_read_unlock();
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index 703a062be878..70dd3a010ce8 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -302,6 +302,18 @@ static inline bool irq_is_nmi(struct irq_desc *desc)
+ 	return desc->istate & IRQS_NMI;
  }
  
-+static void scm_stat_add(struct sock *sk, struct sk_buff *skb)
++/*
++ * Per CPU interrupts, NMIs and interrupts handled by handle_percpu_irq()
++ * only update the per CPU statistics and leave desc::tot_count alone.
++ */
++static inline bool irq_desc_has_tot_count(struct irq_desc *desc)
 +{
-+	struct scm_fp_list *fp = UNIXCB(skb).fp;
-+	struct unix_sock *u = unix_sk(sk);
-+
-+	if (unlikely(fp && fp->count)) {
-+		atomic_add(fp->count, &u->scm_stat.nr_fds);
-+		unix_add_edges(fp, u);
-+	}
++	return !irq_settings_is_per_cpu_devid(desc) &&
++	       !irq_settings_is_per_cpu(desc) &&
++	       !irq_is_nmi(desc) &&
++	       desc->handle_irq != handle_percpu_irq;
 +}
 +
-+static void scm_stat_del(struct sock *sk, struct sk_buff *skb)
-+{
-+	struct scm_fp_list *fp = UNIXCB(skb).fp;
-+	struct unix_sock *u = unix_sk(sk);
-+
-+	if (unlikely(fp && fp->count)) {
-+		atomic_sub(fp->count, &u->scm_stat.nr_fds);
-+		unix_del_edges(fp);
-+	}
-+}
-+
- /* When dgram socket disconnects (or changes its peer), we clear its receive
-  * queue of packets arrived from previous peer. First, it allows to do
-  * flow control based only on wmem_alloc; second, sk connected to peer
-@@ -616,8 +638,12 @@ static void unix_write_space(struct sock *sk)
- static void unix_dgram_disconnected(struct sock *sk, struct sock *other)
- {
- 	if (!skb_queue_empty(&sk->sk_receive_queue)) {
--		skb_queue_purge_reason(&sk->sk_receive_queue,
--				       SKB_DROP_REASON_UNIX_DISCONNECT);
-+		struct sk_buff *skb;
-+
-+		while ((skb = skb_dequeue(&sk->sk_receive_queue)) != NULL) {
-+			scm_stat_del(sk, skb);
-+			kfree_skb_reason(skb, SKB_DROP_REASON_UNIX_DISCONNECT);
-+		}
+ #ifdef CONFIG_PM_SLEEP
+ void irq_pm_handle_wakeup(struct irq_desc *desc);
+ void irq_pm_install_action(struct irq_desc *desc, struct irqaction *action);
+diff --git a/kernel/irq/irqdesc.c b/kernel/irq/irqdesc.c
+index 7cbcc3fb9e6d..3f7bfe0adfd7 100644
+--- a/kernel/irq/irqdesc.c
++++ b/kernel/irq/irqdesc.c
+@@ -1020,9 +1020,7 @@ static unsigned int kstat_irqs_desc(struct irq_desc *desc, const struct cpumask
+ 	unsigned int sum = 0;
+ 	int cpu;
  
- 		wake_up_interruptible_all(&unix_sk(sk)->peer_wait);
+-	if (!irq_settings_is_per_cpu_devid(desc) &&
+-	    !irq_settings_is_per_cpu(desc) &&
+-	    !irq_is_nmi(desc))
++	if (irq_desc_has_tot_count(desc))
+ 		return data_race(desc->tot_count);
  
-@@ -2058,28 +2084,6 @@ static bool unix_skb_scm_eq(const struct sock *sk, struct sk_buff *skb,
- 	       unix_secdata_eq(scm, skb);
- }
+ 	for_each_cpu(cpu, cpumask)
+diff --git a/kernel/irq/proc.c b/kernel/irq/proc.c
+index 0c0df16de581..c985515f5030 100644
+--- a/kernel/irq/proc.c
++++ b/kernel/irq/proc.c
+@@ -559,11 +559,10 @@ static int irq_seq_show(struct seq_file *p, void *v)
+ 	seq_putc(p, ':');
  
--static void scm_stat_add(struct sock *sk, struct sk_buff *skb)
--{
--	struct scm_fp_list *fp = UNIXCB(skb).fp;
--	struct unix_sock *u = unix_sk(sk);
--
--	if (unlikely(fp && fp->count)) {
--		atomic_add(fp->count, &u->scm_stat.nr_fds);
--		unix_add_edges(fp, u);
--	}
--}
--
--static void scm_stat_del(struct sock *sk, struct sk_buff *skb)
--{
--	struct scm_fp_list *fp = UNIXCB(skb).fp;
--	struct unix_sock *u = unix_sk(sk);
--
--	if (unlikely(fp && fp->count)) {
--		atomic_sub(fp->count, &u->scm_stat.nr_fds);
--		unix_del_edges(fp);
--	}
--}
--
- static void unix_orphan_scm(struct sock *sk, struct sk_buff *skb)
- {
- 	scm_stat_del(sk, skb);
+ 	/*
+-	 * Always output per CPU interrupts. Output device interrupts only when
+-	 * desc::tot_count is not zero.
++	 * Always output interrupts which do not maintain desc::tot_count.
++	 * Output the others only when desc::tot_count is not zero.
+ 	 */
+-	if (irq_settings_is_per_cpu(desc) || irq_settings_is_per_cpu_devid(desc) ||
+-	    data_race(desc->tot_count))
++	if (!irq_desc_has_tot_count(desc) || data_race(desc->tot_count))
+ 		irq_proc_emit_counts(p, &desc->kstat_irqs->cnt);
+ 	else
+ 		irq_proc_emit_zero_counts(p, num_online_cpus());
 -- 
-2.43.0
+2.56.0
 
