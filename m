@@ -1,93 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793998265;
-	b=NQFTo2cUJFKoSvn2br40J7whfnA7rJEh7TMbas8k/oef2gRxt7tjL1PkloKHyx9FrKZi
-	 DTGWLKaRiFCcxV92vgkO3OPH/IIaJE7ivye2+6cxUfjssDsEm4CLq6oiSW+fV9hmo6r/i
-	 m8CYa1C73FbOA9FRwrpSMdyL6YIOGYtWfVJhxkfQZPPgv0v4xiWxa+/8/k6RZlrIHm71S
-	 aZJLBZWtdC2wrSEYB2M6AB0Khrx5ow82bmkpeQnHpdQSXTvWLTE/gS2t6ymeDv9sZ4fs1
-	 Qbg/WBc8YH5W9UP2CMqfRvOHaB7TyhwUFRg29hl7gkD5fmYn/kwdkjXnx9E2e08VXbg==
+	t=1793998269;
+	b=rXGmGz3VmqtM4XZM5gAYTCTUT4J8u6mgR9OkvE6CocdieeECwcuqyHiCQmlODT83yli4
+	 8G7dHvNJfWFt5ekCMYD9S81s0RwBwKrJwUsK4YH8NKern+ji7FrM3myUnymhk1YjzqazH
+	 XafeaSn64KosecloOozHRlLYwpd2vZ44ni+OFSS69Mj3HWTIWvwHUjY6s7eVQWkDGGo7p
+	 5h0meRet28dGI0cIq1Ole2FyoCcUImNLUNvc5mzLL9fVppf4QLJWAJAwPDvo0dSZFSYV/
+	 KhRCoxs80OwbiiL2x5yZp3F038cFfurXyabdnDiyMmJL5DZhC+SXRDB/F4yNSMMqH0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793998265;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793998269;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cLzvJMVvplTAItMLAARGpBIr6UmHk5O/wuxWTnhHIsk=;
-	b=BPbGdtTo9tpBAVRiuU5E4pbokz1wka6Pwsa1kecmEycRZHY5hiH2Ct59uWU5S2jvb5z4
-	 LKuNcLgBAqvW7IRCyQC4Wc9BqkYwyWtU5UM0fFH8QG7rUA5ZUSDONl02xsyjU/aNfFdWO
-	 G6xXNpgzlUoyJ7AEsPD5gkkFdGCOk+EA8IzzBX7Cily/JdaeXyWt/Y7VwHOzzTlYeCg6E
-	 TjVaMUJ4sC3/c6g/ncD6U04+yAhW4NM/32M2E+azxXocXG9AQwp6bBC3T0ZPqhYtZHfiA
-	 TKAdQT0f9yXtoMHyN6AK/+fBHND+5VcSvKetjCjMcwFuIGAtAFZO3anLPcF/DgLjDQg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=jYHr7n+/wWgPNZQyDSrxLVljYRX5eMWCFsLRVNc3/qI=;
+	b=aC1a8XITOusCsy2Qwy0Cn39PajLmYlMT4boe7SnGsuU7hcb4gHm/9ELAd3ibfXDsSqBx
+	 FNyJFesISTXcv3S1eGLnhTi2wuiLHXVEhGhRuJ+W41ggYTA6q5mt0yY50onkaAHRAa6kU
+	 srJLxILdJmLs336P43yAS+McZJ14ttsEsuNwOkVOCT+xehBwII3GkjRhvzOsR7N0pxD5W
+	 Jx/a+X1VB5gp/XZ/BK+wcvWC2AVxZAk8E/plvyGuYi/2Zgu/xATPv+C000cQ7fqqI1D3Y
+	 hMKgqHZ1Y+NdFdeMioPMk1WuYxpexJ5itvLPdVoCixBec6DbpJmqIzdKNywV++FM+kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NUBD40ky;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j3mt7+eX;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35375606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:51:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35375606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C739A606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:51:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C739A606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NUBD40ky
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a8cc11ac42so1084508c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:51:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j3mt7+eX
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1931ff67a29so3213673c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:51:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793998263; x=1794603063; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cLzvJMVvplTAItMLAARGpBIr6UmHk5O/wuxWTnhHIsk=;
-        b=NUBD40kyjtGjEy4a+yKQZ1M2hpN9/b2ZoS/It3RnkhS+524C0pYe+oy3I6tovE7bGs
-         GU9jF043Zt4whv7L1NfAQ5p04kxL/tP5RAnM49D5PNHA/YMjSrdkPd45DxQZ+51goPjh
-         VkUSbfHIohFl8db2DgBiEAERFX4d6JNSf33vcsNlmKpCNfPq7WWQjunnIb2xy2HS9D4y
-         FcwmlTqj+A7eYDGbnkv4WaEnZQFt/k3RHFzSVetQAdOyRCJuMzlQFKjtjPghJ0VKxijm
-         nzrBmloKmAQxvlroDdRQdQs4+GyOhlbTaH9yWSKPyF3vVOBDNepEfHnTCrxONMjBRZm/
-         g9bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793998263; x=1794603063;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793998268; x=1794603068; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cLzvJMVvplTAItMLAARGpBIr6UmHk5O/wuxWTnhHIsk=;
-        b=m0WVZiFrV2V1dQm1yNOyUk+apDhnV4Y1x7PMJd+H7QhF45EGuwDMvweGFnOlfCHdfy
-         t2XPEKJF22ZJom+tpPeX2ZIHTQ6CNlbZ3ewAsARUuMj1uFuU9hhJezTCpyxvg7vrr8nn
-         huOT+zTvijymmr8N1lySO5E+kSNf6WBR6FYnIlDce+OF3LqcR9rpQfkx0ZREB3XqR3q8
-         x8cTEmbC2hFnCOJ1jahOaNA8PzqQA4P8u0jzS46aQ6ypubKh1kYvKq6Seusv7qQ+m66U
-         7j/yDhahokhDYpqY0GbWdyXdFQ3nr/1/fUiQnXfbgiENkis/Pr8fHDS9OxJi+H+cw9w3
-         MgbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxnylZXd0H/jbJ/ZAIKCayhQp34AnYW2s1zqU51+giISCCteehKQTMXcByOECUFT5ARK26BZMd4pjwynW8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QnMQz/px4Wh/sOlsG9ps6fBZDxIQX7qvIFlef64jx1Kg1If4p
-	PyOaLPyAd5Wjl6hs2f1+1FYfm2ZofAn+xWn6g6Tq2x8KK3zAcJ/M9kSi
-X-Gm-Gg: AYBFou1h4DCgQNH8JZ7PKUxS1ci4XML5vvCV4WbQphQM4+u0mj3AhVx7jU2xMRrAKUd
-	Uum6ZD0T6pSi9qLBtY2hvWneai92BGUslfxBAR0VC+GkGZ+7+RF4iyILK9WvYs8Cpe0ThfEY0Cr
-	dY3Oz8pgyELhRZ9QUKNaHDMI9B4ZA7/cigAktkJtd7sACOG8Yxp3Z71ciB4q8+kI+uzQrdKYQId
-	Inx1vE7+p0z9tzyVx3UG3oochryxffp3JSKRgGHRrTywAU2MvNuvt9Tcr1p17qNG7xlDQDP6Krv
-	rNQ/9g9s+EcUO3iNpgh9h7T8QgKA+Cx0h75fj4pStlrvUA0Sy6rJcIfPhsQ6AH/K0PnjtlvgsJE
-	xw3SWxJPwAFnW8u6RcgNOEh/DrGHUDcmj9I4LwpTSLsXh6wlfTAGFD9yI8ThG8V1nzt6Hx8UsFr
-	QErQsC9uVETCQG/6xG8U85ZEOOCgaAA/rWb1aj5zQaRs/qAP4uZLsmt1Cpujbo4Hn8LOjUFLifa
-	zKCH3loky2bvpugtvm94Vp7YdAFkexhwHLIHFk/TiLB2uL4crukSUj0qJ2pNLMHbQOrbp9eQ7iJ
-	RhA3OgSLrH3JKbB557pNEa4LiNQ+TC25JaGauxb5ILlZaAkat7aQIVrH1KVpa1HWuI/KTR7vUyO
-	jRjZotb+S
-X-Received: by 2002:a05:701b:465a:b0:192:fd91:c567 with SMTP id a92af1059eb24-1b25d315b9amr4036297c88.11.1793998262901;
-        Fri, 06 Nov 2026 12:51:02 -0800 (PST)
+        bh=jYHr7n+/wWgPNZQyDSrxLVljYRX5eMWCFsLRVNc3/qI=;
+        b=j3mt7+eXVOm5o0TUcFU4Eyv53kXqVSqWOigIeqe21b3GkB279H12apMkhMlSByi5A1
+         S3f0ybtHKD3fDa7iBtPqNf18bLNJG2ovr6ZK//1GTyYqATFg9463difP/s3PFcHhVXXF
+         KM3nTKZdOtdgQDmW5nv6wKewVVsozx9SrX5yzy4WQLoT0R4fhUh93F+TaHgAN3uTNnLJ
+         hv3MiIVhVrlpa5fzOFGF3Og0RaPEuLEd/hEFQ4be226v9fbokeIsG1ehDeU2HAqTKrcs
+         ktDCSjkWCnURZfvJUNuVTWavjdEOBpxFAmSD9emh69CldBjNy9hPx3Nx3CaZGk9NyrHU
+         I1gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793998268; x=1794603068;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jYHr7n+/wWgPNZQyDSrxLVljYRX5eMWCFsLRVNc3/qI=;
+        b=dkQChn/MI0V75kKo/M/DBNoIhchoV/lJyj6yRM/AbslyfLDSwFQH/OM5GgD7DmwlJb
+         3//sMOsSi0gUdYElaPiphvuRnRLIJT/wNgS1m3QkPguJQPblbZyXPcyvpES4YrzHU/2B
+         uRSkZ/DqkAlamq8I80PHlaKZFF6PC4MOlNgtd3Ba3inlnUOXR4paEuLBaDdBnGlZwO5r
+         GTk0Zcw0ak8Jv46J0B+BV56npQ7k/DvZsfvIfzr4IS6ArzY4aK3Ac8Nn+6d2M/GEcIVN
+         VdSIKQMDh9Ux2fGG2CSmaD0n7srEpxDXr/GSyN0XmZYotBJ0N+CJzATu5eZZf12RaknQ
+         zGVg==
+X-Forwarded-Encrypted: i=1; AKwUvBwBl2V6JnSOEBEV0yv50IaDM2DUxe0I7YQOe2Jr3QVLXqJXposRHwoiEx90TTL6XJt0n91+02MDoq5yViw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Rr3GLUklrobccSlO9mpYQoGY6CBb/U/41Qn5vfCavjr2ra5HZ
+	OKv+424ST3Dp4Zv3Kvpj0J1KfN57Zghaj+FfkNWK6c+28Y0RDq1EEL+M
+X-Gm-Gg: AYBFou0gVf37XwvZk1C0N1XF2xthSlj7RVBzXtxIL12CzgW+EaXYyKfmrJwgN6Z5Ogi
+	iq4PvCoRHlgVlepWqehx365oHFR4ysV4I2NqTG9QlSTWAwbl4ifMDBzRaOvjmBKI6pZ+6+R0Pw0
+	E++PcSG5D3Kgslwx5fG443eMdi1FyNgV9KOfXYrEo/Ywwi9hFs4kMboboXT21xGn6La1CpEtWib
+	i4dVGh6mN2LfsP9k3fkGOVMvrTksNLW9lh79IgLseWN2z9Tg3+LUZqXBIkTUF9v/SWpOTiulsc1
+	gT0FabUXdLGNVIB3b+HqPyHKuUSlu1Ijlz08aqqUD4JRAHlyNkcYBu75I6G0reN4n/OkXcz5FA4
+	+BMDQP7NvJfbcdDASrOOBM5axjij9BnuSe9QetUvbDjMXxB/Ez2ofVCX6BNnKS8lST4sfRgoBav
+	w43706OJA2reRqv1A545CYmPO+2JW0ih0BleHoPQ1kkuKC0YIjW9Towa/il4DiDXzTu6By5iG0b
+	BSlKN4h++fO9qbqplmlzjmj9QEPHAQu4ArKDDS49VK5dTScV2C7AGRTVGz0K5kmmbvdeV7rs0xc
+	YbR1qCnuNYMLnE5iWF/RYOtu/Cgx6pne3Br693MDUGowuKFIqgp9zQVzquNxNueZ450ZU8mFL9u
+	CnJM8OKlV
+X-Received: by 2002:a05:7023:d01:b0:1ae:7fc5:662d with SMTP id a92af1059eb24-1b25d37e5d9mr4772806c88.42.1793998267505;
+        Fri, 06 Nov 2026 12:51:07 -0800 (PST)
 Received: from LAPTOP-DPAKMOI4.it.purdue.edu (pal-210-106-74.itap.purdue.edu. [128.210.106.74])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4d36efsm8445952c88.17.2026.11.06.12.51.01
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4d36efsm8445952c88.17.2026.11.06.12.51.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 12:51:02 -0800 (PST)
+        Fri, 06 Nov 2026 12:51:06 -0800 (PST)
 From: Yifei Gao <gyf161023@gmail.com>
 To: tiwai@suse.com,
 	perex@perex.cz
 Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yifei Gao <gyf161023@gmail.com>
-Subject: [PATCH 0/2] ALSA: hdsp, hdspm: Fix unlocked control_register updates in MIDI paths
-Date: Fri,  6 Nov 2026 20:50:45 +0000
-Message-ID: <20261106205050.8048-1-gyf161023@gmail.com>
+Subject: [PATCH 1/2] ALSA: hdsp: Serialize control_register updates in MIDI input paths
+Date: Fri,  6 Nov 2026 20:50:46 +0000
+Message-ID: <20261106205050.8048-2-gyf161023@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106205050.8048-1-gyf161023@gmail.com>
+References: <20261106205050.8048-1-gyf161023@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,29 +102,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hdsp and hdspm keep a software copy of the card's control register and
-update it read-modify-write under the card lock, except in some MIDI
-input paths, where concurrent updates can be lost.
+hdsp->control_register is a software copy of a hardware register. It is
+updated read-modify-write under hdsp->lock, except in two MIDI paths:
+snd_hdsp_midi_input_read() holds only the per-port hmidi->lock, and
+snd_hdsp_interrupt() holds no lock at all. Lock holders disable
+interrupts only on the local CPU, so updates can be lost across CPUs.
+A lost MIDI interrupt enable bit stops MIDI input on that port. Other
+lost updates revert control or PCM settings.
 
-In 2011, commit c0da00145f9a ("ALSA: hdspm - Fix locking in
-snd_hdspm_midi_input_read") fixed the MIDI work side in hdspm. The
-interrupt handler side was left unlocked, and hdsp has both problems.
-Patch 1 fixes hdsp. Patch 2 fixes the remaining interrupt handler side
-in hdspm.
+Take hdsp->lock in both places. In snd_hdsp_midi_input_read(), drop
+hmidi->lock before taking it, as commit c0da00145f9a ("ALSA: hdspm -
+Fix locking in snd_hdspm_midi_input_read") did for hdspm.
 
-Both issues were found by static analysis. The patches are
-compile-tested only (W=1). I have no access to this hardware, so tests
-on a real card would be very welcome.
+Found by static analysis. Compile-tested only; no hardware available.
 
-Yifei Gao (2):
-  ALSA: hdsp: Serialize control_register updates in MIDI input paths
-  ALSA: hdspm: Take hdspm->lock when masking MIDI interrupts in IRQ
-    handler
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+---
+ sound/pci/rme9652/hdsp.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
- sound/pci/rme9652/hdsp.c  | 16 ++++++++++++----
- sound/pci/rme9652/hdspm.c |  8 +++++---
- 2 files changed, 17 insertions(+), 7 deletions(-)
-
+diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
+index 7dce548b9f36..4e9f3a95fe0d 100644
+--- a/sound/pci/rme9652/hdsp.c
++++ b/sound/pci/rme9652/hdsp.c
+@@ -1347,6 +1347,10 @@ static int snd_hdsp_midi_input_read (struct hdsp_midi *hmidi)
+ 			}
+ 		}
+ 		hmidi->pending = 0;
++	}
++
++	/* control_register is shared by all users, serialize on hdsp->lock */
++	scoped_guard(spinlock_irqsave, &hmidi->hdsp->lock) {
+ 		if (hmidi->id)
+ 			hmidi->hdsp->control_register |= HDSP_Midi1InterruptEnable;
+ 		else
+@@ -3869,8 +3873,10 @@ static irqreturn_t snd_hdsp_interrupt(int irq, void *dev_id)
+ 	if (midi0 && midi0status) {
+ 		if (hdsp->use_midi_work) {
+ 			/* we disable interrupts for this input until processing is done */
+-			hdsp->control_register &= ~HDSP_Midi0InterruptEnable;
+-			hdsp_write(hdsp, HDSP_controlRegister, hdsp->control_register);
++			scoped_guard(spinlock, &hdsp->lock) {
++				hdsp->control_register &= ~HDSP_Midi0InterruptEnable;
++				hdsp_write(hdsp, HDSP_controlRegister, hdsp->control_register);
++			}
+ 			hdsp->midi[0].pending = 1;
+ 			schedule = 1;
+ 		} else {
+@@ -3880,8 +3886,10 @@ static irqreturn_t snd_hdsp_interrupt(int irq, void *dev_id)
+ 	if (hdsp->io_type != Multiface && hdsp->io_type != RPM && hdsp->io_type != H9632 && midi1 && midi1status) {
+ 		if (hdsp->use_midi_work) {
+ 			/* we disable interrupts for this input until processing is done */
+-			hdsp->control_register &= ~HDSP_Midi1InterruptEnable;
+-			hdsp_write(hdsp, HDSP_controlRegister, hdsp->control_register);
++			scoped_guard(spinlock, &hdsp->lock) {
++				hdsp->control_register &= ~HDSP_Midi1InterruptEnable;
++				hdsp_write(hdsp, HDSP_controlRegister, hdsp->control_register);
++			}
+ 			hdsp->midi[1].pending = 1;
+ 			schedule = 1;
+ 		} else {
 -- 
 2.34.1
 
