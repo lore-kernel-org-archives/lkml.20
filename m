@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997619;
-	b=yrln11jG+3NfdudLLeaeU9IzzJOMhOYiFjMzxt5+s6HCwhEIWD2bN2BSK5xknR07frOM
-	 Stpi5ioPc/dZ5OrYqe2R6kJs36GjKB+R3ijC0Ckevo0VZkFnrlIs6rD3O8BX8GcrSg7L3
-	 3pWzQaHFSED+E130nsdw3NXK3DkjF0NcgK/tYtlXsztRgEJ/2BtsRCWmC4cRDBTSIg80H
-	 jq5boRPL4MckcHBs1VX6/zMLM/CcELwYFtZCMZVZ21Q3VobnsU9E/vxrmGbyxB7D53ToO
-	 hOfsksor941emokf1Nj1gtWK9FzeqKGW/7VrbyHtsuULv5VqvBq/Mr8vbe4VarXMphw==
+	t=1793997652;
+	b=236fASGoExX/YvGicZ3po/LKRL9lsMnE8MSe0YHAyO5HzDwR3Mt8ll8mPcvezXld7O2r
+	 1kMwV4qYvDNEeQSCyr5G4apkbtdzN06NpDXOwOJcHXzEenC196RS7Gizpjakbic8/+TMz
+	 stfcD+U1FmOXkxxJYrTeeJAkhsCi6XdR5x9grRk15k5Kd2ESzWlBdMjU0HZyg6E9YtbwK
+	 7r4rnMj2h/bKKsenaDNgc6anymT4G551ADjlgpnJc9IFYlHVfdfeNWuhJXT5NlZcm8QrD
+	 9E1mnb/q5LVNy/XCjeHhblc9Eaz1qvqHFDn17vPcXEwXFxau2f1gdiDYmk0Nrw0iTUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997619;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=9JGXQWOdZTpjpg7isLPEgUXEisp9QAVDWGiK0jmFxb8=;
-	b=EnRMWXR4hRLR6S5A6j0r81pIO6QIlhDD6xXRxGSALIiOqRnrSe3MiGD3p4abxJfdNhdY
-	 8H0EuoBZFZwi59DMQLn9iH5adzxzW/51Mgtbt/foX5ALV4xpDM2Xvz8zH29tJjO4HBiiv
-	 Qfk6J/KAk/EX+cexJi9yfvzjDLu+KCZqbSs9o0FLeaITJsKRHeHELadiW0c8fi7wfQlMd
-	 W8fklIByGJZQe9viHzAEFIjaFdRXvErAGmuAg8thmjsiQWTfM2oXz2vkvl6pF9HfJ6WMx
-	 uglyoLsWRYwc0COwXzrZ+RJ3DampH7sPC2FOncaZc8z2DwizGQr6IIvZjYA+jFzstMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997652;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=kew4vr9D/lX65hyEZonw0fC/8LUorIYJxt0gwq9n5sA=;
+	b=LUxerYi3/gqrrVZ4maP7oXig9NQ9FfltTDhksb0by8hkof5VfpYKo2DqmYOUwVzHWDgr
+	 T2CosaA/WenNhdA78HaUhxiYXY6iOe4gXGNhTFBU10wBXgNI05Cg7yzO6rHlX5Ie20zMa
+	 3V+SmWFR1kwKM3ZVMyfaScOGh9IO/QaC2gtpIgPbDhv/ETJkz8nQ/SM4JcL8okvjW7OLg
+	 Dv31x37fcdI6FSBmq8nfNx0bWK47xt/bPnW5bhZhxVqGkJOg/q+6NXNq+r3yHm7/iVdVZ
+	 QO8Tff2BSxFPjaB0rUruYg7PgPDo6eaozfFAGh1FyJ9WxugPxncPJz6G7YE70BycIlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HMsxMf/7";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sc+5DKhr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE7F606A332;
-	Fri,  6 Nov 2026 20:40:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40ED3606A326;
+	Fri,  6 Nov 2026 20:40:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HMsxMf/7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452041F0089F;
-	Fri,  6 Nov 2026 20:40:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sc+5DKhr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304171F008A3;
+	Fri,  6 Nov 2026 20:40:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793997619;
-	bh=9JGXQWOdZTpjpg7isLPEgUXEisp9QAVDWGiK0jmFxb8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=HMsxMf/76WqOIXbIKkpw4MKq1u6/NLXV9UG7hplvuaGPln0LOEtXG/RwqrjuaAWB2
-	 YeNz6ihGPM5KIHmcb84htYfmM14Go0JgcVG2xGxsiMxTNPaqB55jyrPFfVGGxABGYK
-	 y7nYOMoLQEdIwFfCbxvrJLaUcrUlaAjmAvtWMJjO13l+LOh0a/SzNIavDqNWIHlJry
-	 basZXQXv0lhTdAjZzR5kWDHfLBHMhVKY+KbLxGjUNm5aBQcjKlXrF4cSglfFXYCCvp
-	 qt597okWuRwvV0jabii/1XCwb/XQ4aHvwYTffcO8/bsMRWWmSpIGiimr9AOw2RZej1
-	 qW9Xj1ZFbKlig==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3BDFC3A5499A;
-	Fri,  6 Nov 2026 20:40:19 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793997651;
+	bh=kew4vr9D/lX65hyEZonw0fC/8LUorIYJxt0gwq9n5sA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Sc+5DKhrEGxQ8PVCNss6z8vNbMZT2SqxCo7f9PHChsDmIJ/T91DbX6w9v6NrrsJSb
+	 xBNUrHov8e9TTWSgagYZwqNWmbLnOzIAKAkIer1QIsZdgwkVP5cELDlD/1g1V0pLGD
+	 tJ5xYnu96mcE14+m7LdUcfsS2r08BKJXg25jGmxLUokQS/tUvus4GP4lLnC925W6cx
+	 kelE/z+cJAYSEN5diBEJbia9TJhCCO5+hGvIvOM+YCbwG9N2mJFb1hYcdbs6G96q1c
+	 mLY8gAOm+3eUtUNFzbFVPUBdiitEFQbaXn6ZCwoBxt6y5BzPcebtl26h5Za9Cp5tFN
+	 1945f+TK3f7kQ==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Fri, 06 Nov 2026 15:40:27 -0500
+Subject: [PATCH v2 1/5] nfsd: Report vetted delegated timestamps in GETATTR
+ replies
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,44 +53,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net/mlx5e: IPOIB, Fix QPN lookup race
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179399761792.859444.16113939657791512927.git-patchwork-notify@kernel.org>
-Date: Fri, 06 Nov 2026 20:40:17 +0000
-References: <20261031225749.14214-1-prathameshdeshpande7@gmail.com>
-In-Reply-To: <20261031225749.14214-1-prathameshdeshpande7@gmail.com>
-To: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
-Cc: saeedm@nvidia.com, leon@kernel.org, tariqt@nvidia.com, mbloch@nvidia.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, dtatulea@nvidia.com, cjubran@nvidia.com,
- cratiu@nvidia.com, erezsh@mellanox.com, valex@mellanox.com,
- netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-deleg-cb-getattr-times-v2-1-8433618ab9a1@kernel.org>
+References: <20261106-deleg-cb-getattr-times-v2-0-8433618ab9a1@kernel.org>
+In-Reply-To: <20261106-deleg-cb-getattr-times-v2-0-8433618ab9a1@kernel.org>
+To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>
+Cc: Tom Haynes <loghyr@gmail.com>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1486; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=63CvdnJ3D30Wf4u4qYlU9zOOUTNaBtg7jPVJhlMIX/w=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq7jtRl6V5r5f4lpgNxbL29iA/ztdyZCw4VT90K
+ 6UIqzYJNNmJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCau47UQAKCRAADmhBGVaC
+ FexOEADTznPkDfrf+9e0aJ18BU/BcC8KbPt0gOWig0xHqhq9HfkFPwdfhHe2AtESZ18fQvs/xIo
+ OrqBpOrnoPC/OUyQ3FPOnssdbzTDCP58/GAJwYPcje1/P3fRqnJkGP90KaAuKIkzU9oqBtid1KG
+ 0j52WKNy76R4eP/fdHG/nYkzJOE+aT9oK4cjTzGlFGyX4XK7fC7/+qc/moLSNnuWoT7ywpt0IYI
+ PMNHJiPoV8LSvOSJ3WJfVpfiyiBdmtpVmmEN4nLKyCNwnJ+gs7MvNdOpk8d1SsPd/cPZaWCSIpi
+ 3ounDy5JK6q6LTonNWlEmQvT+OhfNuoyFA5V4C9H2pGrEv4vu007U0LPCBjVZzugMVzz/t0iPm9
+ FwKfjQFRpgmjBi2QAgAedVawaFfVouOy7k4IECeQok9OMwqg1BpIIafBum7bDnhb6TguFK61xEe
+ AptpIfPl+mxBOttP6YOnRdWbH3wS+HIMYGiVK1xPW6dKFoMzpNacu6/tKvDBsb3lisvR7i5h+nx
+ upN1FLVqlg4w87vcnP/ixKNHVBfOa/dYOBsLNyocvoaD2dqwTtyNjNbz2/0cIQqpQ/Qn6R+vet8
+ xFYN+CslNenEOAnk62nBEYdtLhlL0MVvcWNIZM+pkCwHU/XTAAlCBx7UOPLuHtlauuSxRSKCVAJ
+ KlejGvUtM+dy/rA==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-Hello:
+When a CB_GETATTR reply shows the file modified, nfsd4_encode_fattr4()
+overrides atime and mtime with the raw time_deleg_access and
+time_deleg_modify values from the reply. cb_getattr_update_times() has
+already vetted those values per RFC 9754 section 5 and written the
+result to the inode, so the override undoes that vetting:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+- a time older than at delegation grant, which the server ignores, is
+  still reported to the querying client
+- a time in the future is reported unclamped
 
-On Sat, 31 Oct 2026 22:57:13 +0000 you wrote:
-> The parent RX completion path can load a QPN hash entry before
-> mlx5i_pkey_del_qpn() unlinks and frees it, then dereference freed memory.
-> 
-> Use RCU hlist operations and defer freeing with kfree_rcu(). The existing
-> RCU read-side section in mlx5e_napi_poll() covers the lookup. Keep ht_lock
-> for writers and acquire it before looking up the entry to delete.
-> 
-> [...]
+vfs_getattr() runs after the update and already returns the vetted
+times. Drop the override.
 
-Here is the summary with links:
-  - [net,v2] net/mlx5e: IPOIB, Fix QPN lookup race
-    https://git.kernel.org/netdev/net/c/29066b0fc046
+Fixes: 6ae30d6eb26b ("nfsd: add support for delegated timestamps")
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ fs/nfsd/nfs4xdr.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-You are awesome, thank you!
+diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+index 90b44163f886..434b6cfc5741 100644
+--- a/fs/nfsd/nfs4xdr.c
++++ b/fs/nfsd/nfs4xdr.c
+@@ -4098,14 +4098,8 @@ nfsd4_encode_fattr4(struct svc_rqst *rqstp, struct xdr_stream *xdr,
+ 		if (ncf->ncf_file_modified) {
+ 			++ncf->ncf_initial_cinfo;
+ 			args.stat.size = ncf->ncf_cur_fsize;
+-			if (!timespec64_is_epoch(&ncf->ncf_cb_mtime))
+-				args.stat.mtime = ncf->ncf_cb_mtime;
+ 		}
+ 		args.change_attr = ncf->ncf_initial_cinfo;
+-
+-		if (!timespec64_is_epoch(&ncf->ncf_cb_atime))
+-			args.stat.atime = ncf->ncf_cb_atime;
+-
+ 		nfs4_put_stid(&dp->dl_stid);
+ 	} else {
+ 		args.change_attr = nfsd4_change_attribute(&args.stat);
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.56.0
 
