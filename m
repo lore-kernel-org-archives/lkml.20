@@ -1,75 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959000;
-	b=Kclaw/dLdX15kpPXxiN8WD7LoCkM74jhPeijFlnlGPzpONmDXR0e5AOhDIwn8cuE99OC
-	 yguBamErssqW0+6B7a0CqDemxhQBvdAwiEprDur7p9krBCSORrhbYV4iMdw7YV+Po8lMo
-	 1OPCVkPadsY0MNTXUyurZMkKfV26cB8a1DP9qQmxyaSdPyRIk9MP4Lt5B5+pl5DqvRus6
-	 Y7Vm4ugHlqoXCdk4IT7Hk+LgpeMhT3s+o0oHydqWFaW3PWbXuFRiow6kUibryEgzcAvJM
-	 UR4gsrIwHj1gFdoisZM/6s38fl8eDdHlpuHhJd4YNfxsQEVmdNx7VbCSGIN6bJbg4Vg==
+	t=1793959013;
+	b=UmLYoerm9zIolxwO/Rz6jecPTy2EvXDxdiTfYIbDPnpbZC+kMP0FjPetBk8kxV+ayszi
+	 bMjZ6EGnJKtNHODiObPq5xR18IxAaapOD4ZsgRJNQrQ7Z2SmgrWO4foNViqhxQBaXT3L/
+	 DmG/A/r23cpUW8Wvu6DvDItmWuprTdTBd0smz8A4hQh/46UDJdxoSoxowLyjtENfj1ar8
+	 k0S12YaEFbWZ2nIHPQavAhbdkpf87GuIWHGvMFZm0AJ6vINjlf5F64xiyOePr6jjMO5UB
+	 gEEy9rD8YXRn62RdWduWIXsme1N8cP/Kbb1sDJrb425DuP5VL814koWPlLwbVAoZEwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959000;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=hmQF3DH+D0wk7R8RwPJwStqSl320Tvz1z80N0E0KZBE=;
-	b=o6/C3nArYgoA/d5K2SjxQFVsibOim5lDVxpWYoUnGY2Ao7pB5Yp/WORWcs+W8o827N+W
-	 2fjw0YhwGspdVS8+0eXLOs/itKIDzdspJ4pzbDZ6hnsUCprPnWazkrRqXk8gnHAZleB0J
-	 iFM/KDKEhh+gNaGjsKZNfGktI3N7ogrmjSxZxxJhGpkNK06q4Me4tG1jVkLzEcW5CM8v0
-	 xzEDpYdhEUcVKkRqF0GstGyIRFolyakRv3SYhfQhMzU2MbakITN+6Tkj7a44zLCinXUU7
-	 7G9SH6fg3RnZkwv15TkcjKYc4ZmDN/xfJmkO+BtdEjllxNcp+Bux6ZEOzX0RxtWx/TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959013;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=XAkSWWlSKWrfSpGakr9IRtUKXWmzHK5177/xyA2/F6U=;
+	b=zN9FtcC8mqZFcMFBbCLAuk3ZMAhO4S2Juy4JV85yBh5BPjhYsT9ldaUowRRmxVqaRXg0
+	 uvUsGkgaa6+FZe/SamSagzOMLtq/V36kDsYTkVHu/yY1ezdeaCPYKLnd7I6UgtYFPdtUD
+	 +jsxjWdCALG27p8z55ObXjn8JL/lc5/Vcn55U1C5T/5Bqm/r0O830U/PAwgf15n1rsHRE
+	 In2yxEzeNqwjLCzDHTqbNLKA6SauiOd9c+5wyoq1jWwx81T2crPUbzQKpZmsKBONCmncB
+	 wkD2kIjSeoCREke+MhTnQ1hROTbeXysOwZEeW2HcFtemTW2B15K4JyFLusJX1aiL6gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=bKD17msz;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=DxTGCDmP;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50439606D81A;
-	Fri,  6 Nov 2026 09:56:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50439606D81A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hhrXfhLc;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DB62606D80B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:56:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB62606D80B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=bKD17msz;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=DxTGCDmP
-Date: Fri, 06 Nov 2026 09:56:36 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793958998;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hmQF3DH+D0wk7R8RwPJwStqSl320Tvz1z80N0E0KZBE=;
-	b=bKD17msz7kjrmZFjlhK+i/BXr95gr5r/X23rT4hbgj/aGxMvKNHdRhInya7X/8x5GVohTt
-	jZ0R/ABM8fd6zesXASeuIszGSkOyhDFXf28FTIguynX6Bs4EqRA43PCTjo8sPrvtdPtAVF
-	i/JDdRNGYMe598Mf7Q/biv5v3jBmu+IaEzzZy+vwNAvCg+p62DXPYhBtBr00lFmgTIuweI
-	QIHJoviCHyuFOybf5DDtz+xUaJJkf8gRuQpBcj6Ajb9u75/254yyobUdbx0aSbHPD0zjtP
-	zPPlpw3zuUhZOk+cc4xNOt+q5rQW6ng9JlKjCmLzvRfLjZTsOG3rvsl5hrEvkQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793958998;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hmQF3DH+D0wk7R8RwPJwStqSl320Tvz1z80N0E0KZBE=;
-	b=DxTGCDmPdSRNpB2hDhd0ZVwGk4PnoWh302M5S1JNkfxqT91EfFLTwVMQ0apUfEmjAAxAd7
-	9I5f+B2JVV0EWICw==
-From: "tip-bot2 for Breno Leitao" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/nmi: Ignore negative NMI handler durations
-Cc: Breno Leitao <leitao@debian.org>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261027-nmi_negative-v1-1-b436a005eb8a@debian.org>
-References: <20261027-nmi_negative-v1-1-b436a005eb8a@debian.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hhrXfhLc
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D20CB1476;
+	Fri,  6 Nov 2026 01:56:49 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D28BC3F628;
+	Fri,  6 Nov 2026 01:56:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793959012; bh=0WBXFs1MiLuO2PVoH0yOAYbRTTQ8cqOTi1RLFPjBnsk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=hhrXfhLcOF3M5cj3yeVnRsYrdvVg7xXEXL9iwfog98xq4ECNodhUH6MEsipsTN59D
+	 OjZzf8YM0s7KlZi/zE581GGp6U0IiJTOvaZrlrz1kcY4OrLFwT2PDs2DIfCyX23INa
+	 iyrfHDkmuTYW6J7UD5Pkio1isF8xpnQMJD2c2BlU=
+Message-ID: <17294983-0e81-4f73-928d-34e676807b29@arm.com>
+Date: Fri, 6 Nov 2026 09:56:50 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,90 +53,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179395899620.1009794.10278780048143042875.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] irqchip/gic-v3-its: Zero ITTs reused from the ITT
+ pool
+To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>, Steven Price <steven.price@arm.com>,
+ Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261106092625.3977163-1-fuad.tabba@linux.dev>
+ <20261106092625.3977163-3-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261106092625.3977163-3-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the x86/urgent branch of tip:
+On 06/11/2026 09:26, Fuad Tabba wrote:
+> Commit b08e2f42e86b5 ("irqchip/gic-v3-its: Share ITS tables with a
+> non-trusted hypervisor") moved sub-page ITTs from kzalloc_node() to a
+> genpool. The pages added to the pool are zeroed, but an ITT freed back
+> to it goes to the next device as the previous one left it. MAPD is then
+> UNPREDICTABLE: "When V == 1, the specified ITT does not contain all
+> zeros" (IHI 0069H.b, 5.3.10).
+> 
+> Zero the ITT when it comes from the pool.
+> 
+> Fixes: b08e2f42e86b5 ("irqchip/gic-v3-its: Share ITS tables with a non-trusted hypervisor")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>   drivers/irqchip/irq-gic-v3-its.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+> index 5613c52adf88e..5c3ab9d30f6af 100644
+> --- a/drivers/irqchip/irq-gic-v3-its.c
+> +++ b/drivers/irqchip/irq-gic-v3-its.c
+> @@ -267,8 +267,10 @@ static void *itt_alloc_pool(int node, int size)
+>   
+>   	do {
+>   		addr = gen_pool_alloc(itt_pool, size);
+> -		if (addr)
+> +		if (addr) {
+> +			memset((void *)addr, 0, size);
+>   			break;
+> +		}
 
-Commit-ID:     ade63af6cfb7b3ca19ced28730fd6461e8d1d410
-Gitweb:        https://git.kernel.org/tip/ade63af6cfb7b3ca19ced28730fd6461e8d=
-1d410
-Author:        Breno Leitao <leitao@debian.org>
-AuthorDate:    Tue, 27 Oct 2026 03:43:51 -07:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Fri, 06 Nov 2026 10:48:59 +01:00
+It is safer to do this at allocation than freeing something back to the 
+gen_pool.
 
-x86/nmi: Ignore negative NMI handler durations
+Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-I am seeing NMI handlers in the Meta fleet reported as running for
-about 584 years. Over 30 days, 11 AMD and Intel machines logged 637
-such lines, for example:
+>   
+>   		page = its_alloc_pages_node(node, GFP_KERNEL | __GFP_ZERO, 0);
+>   		if (!page)
 
-  AMD EPYC 9D25 (family 0x1a, model 0x11, stepping 0x0):
-  [ 1650.616627] INFO: NMI handler (nmi_cpu_backtrace_handler.llvm.9643156322=
-683129580) took too long to run: 18446744073709.551 msecs
-
-  Intel Xeon Platinum 8321HC (family 0x6, model 0x55, stepping 0xb):
-  [360448.230129] INFO: NMI handler (perf_event_nmi_handler) took too long to=
- run: 18446744071018.936 msecs
-
-  Intel Xeon D-2191A (family 0x6, model 0x55, stepping 0x4):
-  [81787.188959] INFO: NMI handler (ghes_notify_nmi) took too long to run: 18=
-446744073709.545 msecs
-
-nmi_handle() times each handler with two sched_clock() reads. When the
-second read is lower than the first, the u64 subtraction wraps, and
-nmi_check_duration() treats the result as a duration. In the three
-examples, the clock went back by less than 1 us, by 2.7 s and by about
-6 us.
-
-The wrapped value is also stored in action->max_duration. Every later
-real duration is smaller, so the handler is never reported again until
-the next boot.
-
-Whatever makes the clock read lower, a negative difference is not a
-duration, so return before it is stored or reported. A clock that steps
-forward is not covered, since that cannot be told from a real stall.
-
-A backwards clock is still worth knowing about, so print the size of
-the step once per boot. This uses pr_warn_once() rather than WARN, as a
-stack trace says nothing about the clock and panic_on_warn machines
-should not go down for it.
-
-Fixes: 2ab00456ea8a ("x86: Warn when NMI handlers take large amounts of time")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261027-nmi_negative-v1-1-b436a005eb8a@debian=
-.org
----
- arch/x86/kernel/nmi.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
-index 3c9f60d..cb46da4 100644
---- a/arch/x86/kernel/nmi.c
-+++ b/arch/x86/kernel/nmi.c
-@@ -115,6 +115,14 @@ static void nmi_check_duration(struct nmiaction *action,=
- u64 duration)
- {
- 	int remainder_ns, decimal_msecs;
-=20
-+	/* sched_clock() went backwards? */
-+	if ((s64)duration < 0) {
-+		pr_warn_once("NMI handler (%ps): sched_clock() went backwards by %lld ns o=
-n CPU%d\n",
-+			     action->handler, -(s64)duration,
-+			     smp_processor_id());
-+		return;
-+	}
-+
- 	if (duration < nmi_longest_ns || duration < action->max_duration)
- 		return;
-=20
