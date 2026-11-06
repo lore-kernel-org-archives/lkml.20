@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984550;
-	b=w0ygoe9TEnXH00Qs/y+ijrsq+ic6YqXWsIaPEuwkdSAH0btZ1pVOH8fYosCfVMsWnsES
-	 tJf1nPpUVY3tFDaa9Ic7ZgmO61kepnRSJreQFKOjF8fMlGtgtfz3ESMZUbfaPRba4/2OK
-	 aYu3OIn94dty0QuthxuMj+mo5tksqI//Y5fjAodHRBSycZf7nwpDx31M4a3TSaWYz1fai
-	 bbMvYb+4doucIrDXB29un5RgQyAJHe8Wf6oWSR4UCeXXdSCZ9u+FGsqilkexYlnrwmwRP
-	 lllYRE2wugWkTje2LK9TRf8ozIxLTyZO+N5mijkOvd/HUsjf38uDRRhO8pIfkCl2rCg==
+	t=1793984557;
+	b=EpRsK0oLkjHZXtNd4G7X5lYYBi/6p+kAlO46LO/s13Gq079j3E+6/UZ7/Z2qUVu02v2n
+	 wL/Um7LOYpkl8RC2tE5OWcEh/wre2rWB5QWh7G7iJhvlb8PyGyB1VvAG2jfgv24x5HSRe
+	 CfBGqAUGY9jZaKb9Gg+bjNPBimP5wlTZlgonFIQ8gGVJzhMFX4BLXujoFP+AkH/LVq2oJ
+	 xlLAV57XDUQ+gOUAXb1BFlFKZ0GIhabK3a+9X29nMJu6+Pp8infNSKVN1+5i+ENN4fD2s
+	 8CJ7VZYwFB4ViYn7Uub7e5rtnKaoD4AvPUSpe3kiPyUEqECZsDfnJlQwp2lJtvWntPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984550;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/qZTKeMtYLlan9SFU3DlCAiu7yexd3IDtiotPT8o4LQ=;
-	b=1LIqoPGWwecs9So6KDpQX/sY9Gag2kNnCinvUMzSKgIzMok21Iq+UeUtwad64G190QwB
-	 vQ4i4aoqg3dGIpNe0rVdGCVuO2SVewqOsjUzfuBY1js5oTqecgL4YW/5MBqTQdR3YwJw2
-	 MdilSnQHmy5jnNnCJAm3dbnpsdn7NaEP+L7oSCYlafFuCqbunYOAgWFf4j2qTszTN7v4i
-	 Fn20CNR0xfjgjJFR/BOCVUrm5dlXOqGLLRdcJMa6qNk10FQAUwNTvlqnm4eKYkYdMl5kV
-	 oOo3ZqOoA1YY3MekxiaTVeoa9zJ1QXAFN3E4zxV9JI3PoIi36opV1lSNz3nUGQJI7AQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984557;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=uCpeWlQQdxdzz6mCgMjmKUJ5dNpeztSx4jBC7z/bcZE=;
+	b=uelOf6Ai56OkaH3mgPGuEEVmP5zLnu+AAChoaJRa7DJKD05ECV5WCRKnwyGo4AMPbC++
+	 habZUBrhRkJnziwy+CKTsu2VCKnUKl2w03r+r19kG6vezH6AfFLCtmJeXgZlnh9K7SZt+
+	 Qm3lTmLUbo+YFY5RBeLSkVXWudnYW5iojFJEmfK/89l0GV0kWOfF6Fh+zOU07GSXikJn0
+	 jzd/CvOMPJmslP0CQ/CPrrlOqZLUqYmyMviBqKxMc9W2uWu9UH0F3cP+ZVbfB66Ezp56C
+	 xHlnQKHL9fIyP1FCztH3DZI3yTz1BwTdNvDWjWV2GhFLaPyYdZfrw/Ymtd3C+WsBAWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=la2KYYkN;
-	arc=none smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329CA606A338
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:02:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 329CA606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ovmLjpns;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9657E606D801
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:02:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9657E606D801
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=la2KYYkN
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91eb53957cbso4923286d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:02:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793984549; x=1794589349; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/qZTKeMtYLlan9SFU3DlCAiu7yexd3IDtiotPT8o4LQ=;
-        b=la2KYYkNdIoMoc6wEeIb+LbDPl6uyQUQpIfVl89pwSwtrSGbFTunXRL/lFB0HHbGhI
-         X376hmYEScQTcKJwZUtZ+vdZ6Pgc1ld83KsGwkwClcMPZDjj0fvJqCldasPof/eBi7Bm
-         uwEP/FyxQb4B/rn/PbVrDW4ujFfjzM0lVu8BohuxO92lUqF2l2AE4LyG+ZlcCEmUCNZx
-         3K99FJipn354A0jE7JlMSh7Cyn7axTGVKg1/J1Y9kw3oHDr+IWgH//MoxGF2e8ZscCod
-         nk37zD8oIoHkQV1sCfMDQSOolbvj6V20gRh0gyETflKTVOMZWIbzQqGB565HVcjZ/fyR
-         z1jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793984549; x=1794589349;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/qZTKeMtYLlan9SFU3DlCAiu7yexd3IDtiotPT8o4LQ=;
-        b=ulwqhRiXPfeqyEVQ3jKx23/+nFBxpbgr++A+vq0FSZHE2sQFeHOjnUCn3OQfiMcXJ+
-         9SXw+GZD229pvzwk3ftRB5QVxUABbo/LP9hSRH3lKHDmiKou74h52U9T9C7T+g6h0JqQ
-         sTzU0c0sdcTCRKxON25hqxfuJGaSh0wpRfj4sssLmMFmtB+SFKOsR+noFY2pzCWNfJeo
-         PgzD5ruJJRvBHs9CDVaLvCAmqy4yTsnf7hEsR2R26pYW3zipfdH6keNiweAV3NxDiRCV
-         PuPsuKhTi2DAnpi/mJ30F6O53DnldXPQZpNLiLFQT99KDM9YtYRS2t50g+abRWtB8G7X
-         SOFg==
-X-Forwarded-Encrypted: i=1; AL+hErEZTxVoI9WKVLB0MQpi8eiYtOz4IUvYU6OM+S93sVavOyjUz4MayVxZyq0PbuO6KQ2/dO03WAcjOMEN8MM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8t1t800P6JM+qq8UudTTKWsTuz8s1RXqT2l3SoxfFlxtpAWKfb
-	yBOixfa8gUSuxEWjJ65gzfHhPFLaFwMQreHbuK8THz13vLYYQpxA8XujNP0RcewxMQ==
-X-Gm-Gg: AYBFou1T5vp9zjdSs/p3fC6peHpcIwliXgBNldEE+mQLj7FVMIhRwFCYyHPwX587Ayh
-	T4U185Hy+nKJWQIiINq+IQVKkteqfCQ6iMU6//u+JcDgZigmmjjeN6OG73b1UwFw5FVnsEF860Y
-	YdKxzE3sfj+PPNSsvyUVTEoHBs/d4MuVrJjODtGsaEPIw+F4mcO5n//3YgUp6RuN+8V9F2vwtBP
-	kXHOGXpSTWeJQJZLqFCCjyDk0D6aww/HG4vahKbPNyPYBzWyuo61QEHQ7mh+S/60+CrMDv7QtBX
-	kWIAYjDdVp/eliEdEDmQq8oEMltx/8ZRz/xhcOTB8qQdfrxQ3uGasnx/qnfBJ6vfd7TnJZfqt1z
-	6Di7ma8KZxuLqPLOBVUHQCJcCQ1YGNHxayRPxCH2IrucoAr8tLK+oP4Yd9OI4bSPVzKL0XpSTkR
-	GX3t/4LgdkcmzBoEqbWpi6EzeU28uc8YgGKCWpeBSOSOjLkSeFHTZBBRR25rof5cE+JVALNqvAR
-	YGw502yosNc0JaxxHcar+1t6T44PsCNRM0C0AyTIEf+T7jIDxechzS4OeEToqCQEGZxskgOGzfC
-	PBtEBoM7GNms+hkMVPv4aI6zxy5b
-X-Received: by 2002:ad4:5dc8:0:b0:91e:9463:7194 with SMTP id 6a1803df08f44-91ea96643b4mr48110016d6.24.1793984548922;
-        Fri, 06 Nov 2026 09:02:28 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6aa7a97sm24230156d6.35.2026.11.06.09.02.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:02:28 -0800 (PST)
-Date: Fri, 6 Nov 2026 12:02:25 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: James Clark <jjc@jclark.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>, Bastien Nocera <hadess@hadess.net>,
-	Matthias Kaehlcke <mka@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	Robert Nelson <robertcnelson@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH v4 1/2] usb: core: export the generic device driver's
- operations
-Message-ID: <c267f8af-78eb-43b5-b6f8-98af6749db22@rowland.harvard.edu>
-References: <cover.1793941292.git.jjc@jclark.com>
- <c1fdf2ed4c508b08734c7a9de002336f60d3b865.1793941292.git.jjc@jclark.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ovmLjpns
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D401815A1;
+	Fri,  6 Nov 2026 09:02:31 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DE0383F673;
+	Fri,  6 Nov 2026 09:02:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793984554; bh=EC4LjuZjAr9z2qMOtu37LH8o0ZP8/mpIpNf7Oy6KkBg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ovmLjpnsCd5acNSdYx8x+aPDwhAL9hTDpSSvryG7MvpsdYfIK8g03EmsPRwf4Y56P
+	 io4DrUZDl0HDVkK8/cZli/nHQmb8RPEtrKkvTt+7xySuNPKfSJE9PfYUMKFGDhA6AY
+	 RRqRBPZUTX7cS+oF+Bw8EilaMTITbPfM16Vncq34=
+Message-ID: <60fe23f4-4fca-41b6-8489-a28ab7b281f9@arm.com>
+Date: Fri, 6 Nov 2026 17:02:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,31 +53,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c1fdf2ed4c508b08734c7a9de002336f60d3b865.1793941292.git.jjc@jclark.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v4 2/3] KVM: arm64: Introduce
+ KVM_PGTABLE_WALK_SKIP_LEVEL* walk flags
+To: Leonardo Bras <leo.bras@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+ Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
+ Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Raghavendra Rao Ananta <rananta@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261106161240.1345126-1-leo.bras@arm.com>
+ <20261106161240.1345126-3-leo.bras@arm.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261106161240.1345126-3-leo.bras@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 06, 2026 at 01:12:50PM +0700, James Clark wrote:
-> Export usb_generic_driver_probe(), usb_generic_driver_disconnect(),
-> usb_generic_driver_suspend() and usb_generic_driver_resume(), and move
-> their declarations to include/linux/usb.h. This lets a driver whose
-> probe may return -EPROBE_DEFER leave generic_subclass unset and call
-> them itself, so that it can defer before the device is configured.
+On 06/11/2026 16:12, Leonardo Bras wrote:
+> Add new walking flags KVM_PGTABLE_WALK_SKIP_LEVEL{0-3}.
+> When used, they make the kvm_pgtable_walk() skip the given level, as well
+> as levels higher than that.
 > 
-> Say in the generic_subclass kerneldoc not to set it in that case.
+> Being able to skip levels substancially decreases the runtime of a
+
+minor nit: substantially
+
+> pagetable walk when the callback function does nothing on that level.
 > 
-> Signed-off-by: James Clark <jjc@jclark.com>
+> Signed-off-by: Leonardo Bras <leo.bras@arm.com>
 > ---
+>   arch/arm64/include/asm/kvm_pgtable.h | 14 ++++++++++++++
+>   arch/arm64/kvm/hyp/pgtable.c         | 16 +++++++++++++---
+>   2 files changed, 27 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+> index 41a8687938eb..5f37ceef8d63 100644
+> --- a/arch/arm64/include/asm/kvm_pgtable.h
+> +++ b/arch/arm64/include/asm/kvm_pgtable.h
+> @@ -311,31 +311,45 @@ typedef bool (*kvm_pgtable_force_pte_cb_t)(u64 addr, u64 end,
+>    * @KVM_PGTABLE_WALK_SHARED:		Indicates the page-tables may be shared
+>    *					with other software walkers.
+>    * @KVM_PGTABLE_WALK_IGNORE_EAGAIN:	Don't terminate the walk early if
+>    *					the walker returns -EAGAIN.
+>    * @KVM_PGTABLE_WALK_SKIP_BBM_TLBI:	Visit and update table entries
+>    *					without Break-before-make's
+>    *					TLB invalidation.
+>    * @KVM_PGTABLE_WALK_SKIP_CMO:		Visit and update table entries
+>    *					without Cache maintenance
+>    *					operations required.
+> + * @KVM_PGTABLE_WALK_SKIP_LEVEL0:	Skip visiting level 0+ entries
+> + * @KVM_PGTABLE_WALK_SKIP_LEVEL1:	Skip visiting level 1+ entries
+> + * @KVM_PGTABLE_WALK_SKIP_LEVEL2:	Skip visiting level 2+ entries
+> + * @KVM_PGTABLE_WALK_SKIP_LEVEL3:	Skip visiting level 3 entries
+>    */
+>   enum kvm_pgtable_walk_flags {
+>   	KVM_PGTABLE_WALK_LEAF			= BIT(0),
+>   	KVM_PGTABLE_WALK_TABLE_PRE		= BIT(1),
+>   	KVM_PGTABLE_WALK_TABLE_POST		= BIT(2),
+>   	KVM_PGTABLE_WALK_SHARED			= BIT(3),
+>   	KVM_PGTABLE_WALK_IGNORE_EAGAIN		= BIT(4),
+>   	KVM_PGTABLE_WALK_SKIP_BBM_TLBI		= BIT(5),
+>   	KVM_PGTABLE_WALK_SKIP_CMO		= BIT(6),
+> +	/* SKIP_LEVEL* flags should not be split nor reordered */
+> +	KVM_PGTABLE_WALK_SKIP_LEVEL0		= BIT(7),
+> +	KVM_PGTABLE_WALK_SKIP_LEVEL1		= BIT(8),
+> +	KVM_PGTABLE_WALK_SKIP_LEVEL2		= BIT(9),
+> +	KVM_PGTABLE_WALK_SKIP_LEVEL3		= BIT(10),
+>   };
+>   
+> +#define KVM_PGTABLE_WALK_SKIP_LEVELS 	(KVM_PGTABLE_WALK_SKIP_LEVEL0 | \
+> +					 KVM_PGTABLE_WALK_SKIP_LEVEL1 | \
+> +					 KVM_PGTABLE_WALK_SKIP_LEVEL2 | \
+> +					 KVM_PGTABLE_WALK_SKIP_LEVEL3 )
+> +
+>   struct kvm_pgtable_visit_ctx {
+>   	kvm_pte_t				*ptep;
+>   	kvm_pte_t				old;
+>   	void					*arg;
+>   	struct kvm_pgtable_mm_ops		*mm_ops;
+>   	u64					start;
+>   	u64					addr;
+>   	u64					end;
+>   	s8					level;
+>   	enum kvm_pgtable_walk_flags		flags;
+> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+> index 7a51f78b6446..80744478c810 100644
+> --- a/arch/arm64/kvm/hyp/pgtable.c
+> +++ b/arch/arm64/kvm/hyp/pgtable.c
+> @@ -137,20 +137,27 @@ static bool kvm_pgtable_walk_continue(const struct kvm_pgtable_walker *walker,
+>   	 * Ignore the return code altogether for walkers outside a fault handler
+>   	 * (e.g. write protecting a range of memory) and chug along with the
+>   	 * page table walk.
+>   	 */
+>   	if (r == -EAGAIN)
+>   		return walker->flags & KVM_PGTABLE_WALK_IGNORE_EAGAIN;
+>   
+>   	return !r;
+>   }
+>   
+> +static bool kvm_pgtable_skip_level(s8 level, enum kvm_pgtable_walk_flags flags)
+> +{
+> +	u32 skip = FIELD_GET(KVM_PGTABLE_WALK_SKIP_LEVELS, flags);
+> +
+> +	return unlikely(skip && level >= ffs(skip) - 1);
+> +}
+> +
+>   static int __kvm_pgtable_walk(struct kvm_pgtable_walk_data *data,
+>   			      struct kvm_pgtable_mm_ops *mm_ops, kvm_pteref_t pgtable, s8 level);
+>   
+>   static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
+>   				      struct kvm_pgtable_mm_ops *mm_ops,
+>   				      kvm_pteref_t pteref, s8 level)
+>   {
+>   	enum kvm_pgtable_walk_flags flags = data->walker->flags;
+>   	kvm_pte_t *ptep = kvm_dereference_pteref(data->walker, pteref);
+>   	struct kvm_pgtable_visit_ctx ctx = {
+> @@ -185,35 +192,35 @@ static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
+>   	 * into a newly installed or replaced table.
+>   	 */
+>   	if (reload) {
+>   		ctx.old = READ_ONCE(*ptep);
+>   		table = kvm_pte_table(ctx.old, level);
+>   	}
+>   
+>   	if (!kvm_pgtable_walk_continue(data->walker, ret))
+>   		return ret;
+>   
+> -	if (!table) {
+> +	if (!table || kvm_pgtable_skip_level(level + 1, ctx.flags)) {
+>   		data->addr = ALIGN_DOWN(data->addr, kvm_granule_size(level));
+>   		data->addr += kvm_granule_size(level);
+>   		goto out;
+>   	}
+>   
+>   	childp = (kvm_pteref_t)kvm_pte_follow(ctx.old, mm_ops);
+>   	ret = __kvm_pgtable_walk(data, mm_ops, childp, level + 1);
+>   	if (!kvm_pgtable_walk_continue(data->walker, ret))
+>   		return ret;
+>   
+> -	if (ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
+> +out:
+> +	if (table && ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
+>   		ret = kvm_pgtable_visitor_cb(data, &ctx, KVM_PGTABLE_WALK_TABLE_POST);
+>   
+> -out:
+>   	if (kvm_pgtable_walk_continue(data->walker, ret))
+>   		return 0;
+>   
+>   	return ret;
+>   }
+>   
+>   static int __kvm_pgtable_walk(struct kvm_pgtable_walk_data *data,
+>   			      struct kvm_pgtable_mm_ops *mm_ops, kvm_pteref_t pgtable, s8 level)
+>   {
+>   	u32 idx;
+> @@ -242,20 +249,23 @@ static int _kvm_pgtable_walk(struct kvm_pgtable *pgt, struct kvm_pgtable_walk_da
+>   	u32 idx;
+>   	int ret = 0;
+>   	u64 limit = BIT(pgt->ia_bits);
+>   
+>   	if (data->addr > limit || data->end > limit)
+>   		return -ERANGE;
+>   
+>   	if (!pgt->pgd)
+>   		return -EINVAL;
+>   
+> +	if (kvm_pgtable_skip_level(pgt->start_level, data->walker->flags))
+> +		return 0;
+> +
 
-It's ironic that the generic_subclass thing was added to support 
-onboard_usb_dev, after some debate about whether it would be better just 
-to export the generic callbacks.  Now you're going to implement the 
-alternative solution for onboard_usb_dev, while other drivers continue 
-to use generic_subclass.
+Should we rather return an error here ? A walk skipping the start level,
+is that any meaningful ?
 
-Oh well, I guess there's nothing wrong with having two ways to do it.
+Suzuki
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
-Alan Stern
+>   	for (idx = kvm_pgd_page_idx(pgt, data->addr); data->addr < data->end; ++idx) {
+>   		kvm_pteref_t pteref = &pgt->pgd[idx * PTRS_PER_PTE];
+>   
+>   		ret = __kvm_pgtable_walk(data, pgt->mm_ops, pteref, pgt->start_level);
+>   		if (ret)
+>   			break;
+>   	}
+>   
+>   	return ret;
+>   }
 
