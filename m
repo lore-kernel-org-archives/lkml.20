@@ -1,68 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793932001;
-	b=sORxm63pgYXU/ufvYSaGIzzL++HipqZm6CIQxn1m0CdqMsPQGB36k/cUMvoFZCaCREuX
-	 LZeKsxvejXTO06As6CAGyQz+gyyhCTp6EkpURFb083AzQvMIAXGgEY8mxXR4dw4hvmhnY
-	 l17XxWssHZsgSgSykqrmECjsi2H4yF87WUHy6wJ8g37xLG1mtPffeWlqe0zBJmD24HLPX
-	 XnA90Kn0sFnlUpZlhFY/psowxggW1J83V/mUXXVlfjyI20bo1W49Fw0/kQojDFCEZkSke
-	 7/0NtzGyD7QNpcO8e98AxZmRguVJxOFKnJ4JH/w7t8ooVpHhEgUgmHNuZbksCmhFG8A==
+	t=1793932126;
+	b=KVn5gEd24WMYlRkG/ZrKqLVIwoUBD6eO+aHFaAckqmNm1rscSO3ZqOuYIXWGzXcLXEGP
+	 JXYJC5f5JdVcbIxK5dLtcFcFEB8xQm+LK2QO5JHdYF8Fc132r48p4PnckgRjuIe0fiD0k
+	 WBLENlfxWPXCcYCWEc02Fyr1lESUvjm7CsR8uglNjhHntl8kqKnEvNAQzAzHUbLriwTSc
+	 OXmw+wymsuo0ENNSNnS5762ppy/Xy+PS+Yjj6/KLn3GfX+uj7bVtugyZCUcbnYFjkXPCB
+	 ZFLq3FvgQ9W5f1au+4knO5wKKFGtZ5snryEj1p+e2ce1OsdlbLALUgE5MDDBjVcRtRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932001;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=67ZG0C954WH4z0hhj8FLydkFM+rD3K+nD2mWHyKFNLI=;
-	b=Yd/y75Y09YdpRlRVXHj2WUrPyXASOP+jNTtT5xJCuWckMFb4mM2R09Pb6zAk8Qvju45+
-	 nljCsEgBqCxUR2XaQx87nEYkptF3PpTU7RpSpe3/OqHRdkcyQIxZMcW/ml+3ZUB7uS2rp
-	 Q7lmsLhnG5S2DoOUHPJ0O/6cgsZFz+RsjqldRPplajjRY3wY8Ra9ffJKpz2BQNiSBuTDq
-	 P+loC5tn3cjmg1fhqVjF2duR8jOtuiKkG25o3TqAe0NBxkJkro7/Qzo9ijijxMuzJKb8y
-	 Gd7PZlSABAzGnfy6pyXtpF+3OnJGtRbddW1/HLckzF1wtec9nmepmj/96jgBnVXSx8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793932126;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mVFhMdPaOpZaZhoFk4x/27qwSHFs/IDKrnB1S7WQ5Wo=;
+	b=ebubImaaM5BE4cp/2c8B9USGj4sIV28Je3FijTeQIi5jooZMS+8GVJWtCrqNal1WHC7i
+	 ptA33uNrgEe94909QKZC0A2YwtYdYV+Hllhh9loLYIOE4/mY9rqf9m8aeO7A8ziT043G/
+	 bz6wwdOrHJCKz1QM4aX8o/BEICkIO109rBMG5n06+c5n0sn1VgA0y2dghZovsfcVlW+aA
+	 eJIv3K4O6niUYrWRqMrmHP5ycTiYiXoCdGNkO9LDauTVP6YG6rpCYcn9Ddz53G3YjwOII
+	 UQe/B8VNSZGpyvU+y5MJ1qBNNCvMy/lMFfjqZF8Io//w9tkNi33iYBE0w98qsa5L/BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V4uaPxWj;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE903606A31B;
-	Fri,  6 Nov 2026 02:26:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE903606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 7800f40ad98911f19a56ed5b684f684d-20261106
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:38c38c25-175a-4c65-ac52-fd7aa8749463,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:fc2bebf96f51b8357e197c781f36c292,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
-	,EDM:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7800f40ad98911f19a56ed5b684f684d-20261106
-X-User: chenchangcheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <chenchangcheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1725219923; Fri, 06 Nov 2026 10:26:27 +0800
-From: Chen Changcheng <chenchangcheng@kylinos.cn>
-To: laurent.pinchart@ideasonboard.com
-Cc: chenchangcheng@kylinos.cn,
-	hansg@kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF80606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:28:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF80606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V4uaPxWj
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so279845eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:28:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793932125; x=1794536925; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mVFhMdPaOpZaZhoFk4x/27qwSHFs/IDKrnB1S7WQ5Wo=;
+        b=V4uaPxWjkVoous4zrIsNkoyKhInuO7jZxNmIUliG6mOWkHMnHdRmXNxB/t6yC843BU
+         FIBulfB70A6G++DwfHF+3dAkfdszEW60CSWhgm/hHygI8CgdbQdLTpj5QJ8y2WQWAOpF
+         OUiytJMUSD+8SffcvsGK3MeV6Shjslmxa0v5Z0Um3cH+EncLu/YQNPKaf3h4sgIVkgqW
+         LUXfFkvrmVMropFNSDHAHkSjaGUv6XHqvhRsyRD9SOjdjgqyMJxpWIIo1jV4Y2n0NlTM
+         cYbagB4SkDHdGqBxqbj8/20WZQ8tzitgAojQZHDSaw5CYkMHSL+VU42l68aAPZITxrIv
+         4ufA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793932125; x=1794536925;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mVFhMdPaOpZaZhoFk4x/27qwSHFs/IDKrnB1S7WQ5Wo=;
+        b=vvOpAyNpnN/oj0V4bwht2gqZruJaXxP0GeYRMAEGrC3gE20BmP9HV1jdIosnUnuOoG
+         PlMuFcjnDqqB8XicKzMSSphcXNbXp+rM7jgc3J2rzNw55lmodB9AmD7Pmymg6kKlek9V
+         HDFY8rehnUYORBEv1RGksrLaXIJAnCkanc7EPvBelm4tbonu4DjfU/1NkwUtCRSAUyfR
+         ia6QWTQ/2b81/Gu6w7GYIsIb4faCEmYaoFeKWzfmpEKXxtTeStu2BQfVZ42coX9ijdD6
+         d4FV20f91YM+/lcmNyKoiVc0kXBSkTVRMtX6wDYJf9C+cXHtirrFf9K8PXpZL0uxOdVi
+         RwXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2c0OBMY5UKQDBZPMtckyq8hYzhJmgzxE+GOsojFfxU1wnVqJp284yHOFO+AHX7HWPUD8B36RJD5JQPrk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mg3AfLVIz3gl/TATt8ObFRitymKCEjiM8ccY7Z21ISAznl22o
+	o7atDU4ihGON6lVFCpladQPEk79g7IzKLd5TAlL93zwANU+tk/ezU6mZJDcmTw==
+X-Gm-Gg: AYBFou1AP6yCuX1A+fHxGz+O39RuAdx5DIJuz8MvsCsZ4v9Lnu2ajR06IAVz4KIkZR2
+	ZVGAn1aUWo/9njl7M+aP3bX6Ju3QZSkJYsGKBTOd5DD+8c7cfY/MQOyobeb1826lwbuGt9Ko1uW
+	NjcyJGYsAjmyJ4Wp0evqomyjOjH0cmW6qrlEDjfdhXD7Q3frVohyAACABcEv0lab1hu+h3y+mzb
+	6nLpXwUGPGJ2Jk8Y5LA7+tJed0J62Bpd8YaY/zAtaKU58ZlQXPoLyx10Nbww3zvP5q0Xnv2eLpw
+	w37AcGlAPeYiXF6nZwyraC1oQbpScBqUw/01XsoByzn8iFNL4skZ2KnOQNbC0z5FlVZ36bIVJSc
+	LhbBMPwawjWEqF+IKVIMG4PzZrFFidR+Z9apuKXWCSlnoHrA0vV6FXavKUKPuPguDc3WlOGXtSr
+	MeX76VPrtXmOdWzNrfx+/n13l+ZULtOF/F2qhbBLjnWQVn99/zpENv4X7B7JHcpOj9npKEedD77
+	O9doqAMTx1vxD1JVmHke6uCF4F5G4WvjgTfoUmuDpSk/tmbj5vwNoLMN/Fp4QDa8S022X4QqGRl
+	B4DIOYFsyngorMCbBnUEuTl9O0ct+tTKVD67GmcrPaXsgQ==
+X-Received: by 2002:a05:7301:929:b0:369:ef63:ea95 with SMTP id 5a478bee46e88-36f76814c3bmr1285854eec.6.1793932124917;
+        Thu, 05 Nov 2026 18:28:44 -0800 (PST)
+Received: from debian.prasanth ([103.183.205.43])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8e3a47esm1697186eec.6.2026.11.05.18.28.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 18:28:44 -0800 (PST)
+From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+To: linusw@kernel.org
+Cc: andrew@codeconstruct.com.au,
+	joel@jms.id.au,
+	ryan_chen@aspeedtech.com,
+	billy_tsai@aspeedtech.com,
+	brgl@kernel.org,
+	tan.siewert@9elements.com,
+	linux-aspeed@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fail probe when no video device is registered
-Date: Fri,  6 Nov 2026 10:26:24 +0800
-Message-Id: <20261106022624.42438-1-chenchangcheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261104074103.GA3896730@killaraus.ideasonboard.com>
-References: <20261104074103.GA3896730@killaraus.ideasonboard.com>
+	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Subject: [PATCH v4 0/2] Aspeed GPIOP handover with managed controller lifetime
+Date: Fri,  6 Nov 2026 07:58:33 +0530
+Message-ID: <20261106022835.10709-1-prasanth.padarthi10@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261105152348.8567-1-prasanth.padarthi10@gmail.com>
+References: <20261105152348.8567-1-prasanth.padarthi10@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,48 +109,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Laurent Pinchart,
+This series continues the AST2600 global-to-local GPIOP passthrough
+handover work, rebased on v7.4-rc1. It adds a shared pinctrl lifetime
+fix before the G6 handover change.
 
-The main reason is still that the userspace app uses a hotkey to call the unbind and bind nodes.
-When the key is pressed continuously and very rapidly for a period of time,
-the previously described problem occurs. Previously I made the following patch:
+The registration lifetime issue was identified by automated review:
+the G6 callback data is devm-allocated, while the shared helper used
+unmanaged pinctrl registration. Patch 1 switches registration to
+devm_pinctrl_register(), ensuring unregister runs before earlier
+devres allocations are freed. Patch 2 retains the v3 handover logic.
 
-	diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-	index e289cc71ba98..c08bad211408 100644
-	--- a/drivers/media/usb/uvc/uvc_driver.c
-	+++ b/drivers/media/usb/uvc/uvc_driver.c
-	@@ -1973,7 +1973,6 @@ static void uvc_delete(struct kref *kref)
-					struct uvc_streaming *streaming;
-	
-					streaming = list_entry(p, struct uvc_streaming, list);
-	-               usb_driver_release_interface(&uvc_driver, streaming->intf);
-					uvc_stream_delete(streaming);
-			}
-	
-	@@ -2021,6 +2020,9 @@ static void uvc_unregister_video(struct uvc_device *dev)
-			if (media_devnode_is_registered(dev->mdev.devnode))
-					media_device_unregister(&dev->mdev);
-	#endif
-	+
-	+       list_for_each_entry(stream, &dev->streams, list)
-	+               usb_driver_release_interface(&uvc_driver, stream->intf);
-	}
-	
-	int uvc_register_video_device(struct uvc_device *dev,
+Changes since v3:
+- Add managed registration as a separate prerequisite patch.
+- Keep the handover implementation unchanged.
+- Add KASAN lifecycle testing in QEMU and on B650D4U hardware.
+- Update validation statements to distinguish lifecycle and power tests.
 
-However, the testers found that the preview screen went black,
-so I considered whether there were other feasible solutions.
-Later it turned out to be caused by the app itself.
-After fixing the app, I tested it myself yesterday,
-and the above modification works normally.
+Validation:
+- Shared helper and G4/G5/G6 objects compile-tested with W=1 on ARM.
+- G7 SOC0 object compile-tested using ARM COMPILE_TEST; this was not
+  an ARM64 build or G7 runtime test.
+- Generic KASAN boot and one unbind/rebind cycle passed in AST2600
+  QEMU and on physical B650D4U hardware. Controller entries disappeared
+  on unbind and returned on rebind; a subsequent debugfs pins read
+  succeeded. No KASAN reports were observed in the captured tests.
+- The final v4 source tree matches the tested v3 tree plus the
+  managed-registration change; only commit order and messages differ.
+- Earlier remote power-on/off and physical-button power-on testing
+  used an OpenBMC 6.18.24-based kernel, not this v7.4-rc1 test kernel.
 
-But I found a similar piece of code/patch in the community at the following link:
-https://lore.kernel.org/all/20261022-uvc-release-intfs-v2-1-901bc1c47cfb@blueye.no/
+The unfixed runtime comparison has not been performed. Concurrent
+readers, probe-failure injection, mixed-pair forwarding, protected
+writes and SCU510[28] hardware handling remain unvalidated. Existing
+questions about probe-time normalization policy and concurrent SCU
+writers also remain open. Electrical measurements are outside the
+scope of this lifecycle test.
 
-Thank you for your review. Sorry for wasting your time.
+Supplementary procedure, exact source/config and logs:
+https://github.com/prasanthp20/asrock-b650d4u-bmc-support/tree/64eaccfde9ac4ec35646c0b7a8663486775b5d3b/docs/experiments/03-pinctrl-lifecycle-kasan
+
+Previous version:
+https://lore.kernel.org/r/20261105152348.8567-1-prasanth.padarthi10@gmail.com
+
+Please review the shared lifetime fix and the GPIOP handover policy.
 
 
---
-Regards
+Prasanth Kumar Padarthi (2):
+  pinctrl: aspeed: Use managed pinctrl registration
+  pinctrl: aspeed: Hand over global GPIOP passthrough to local mux
+    controls
 
-Chen Changcheng
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 145 ++++++++++++++++++++-
+ drivers/pinctrl/aspeed/pinctrl-aspeed.c    |   3 +-
+ 2 files changed, 143 insertions(+), 5 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.47.3
+
