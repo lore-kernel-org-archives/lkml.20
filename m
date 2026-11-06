@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982974;
-	b=wkcCpRAjqLW1tr2r6+TWYkbBIY1O7tzP7lc16EOnfvOoqIwWna74pRpgazqhy4sZ1APl
-	 ThEowV/Gutkbk91VrV6N0FvYH2eQCZZYWTV12mosKYA9ugf3ef+iY3dO1G3OKR/mJ39K7
-	 KyxvYgG6c9u9kch21GIZUEgBzenPRS64YSN/SUu0A9iuNb6TurJW6/NGeuA0PjpOHZ9rq
-	 OUuI7IHW05LieYo2NP0x6hBDs/Uvrpx4aykxAzHJqErHJ3voTEanqUiozWBv9ccyioorQ
-	 hsSoU0pGbnXfp0/CcfjrSyYLWacwBx/0adT5tcmbbYXPQ7NNMlBBmAr+TEQuZ7dAVqA==
+	t=1793983037;
+	b=ZCsDamA1I4k9N2Dt98laO57RrxPbk7D6irICkwz7Gs2oEPaDqv9VOYWLrwWkV2jHzDy9
+	 7kove1U4I3uFl3+DTgJn8xFN6wizTODqJ4m00IvIEg+FidF5ghAxbMOs8HI0Stfhpimcw
+	 kFBAPQTrZF/3QXfvL0dk4ui621I9wQuS33in6ZkRabaHGnjJ8Lo1rNgWgMM9dM91eH634
+	 w/1QDZnvIa2d2hSOOq2MN5nvcj10RYt98Q9zfF0oj6bmLRf5mhhLRpJ+mSi87wlmIvUME
+	 Or3GkkpMI3aZXgt5MXlSi6zgUAfw8adfO5obt0mAJJHn7tGxTKJlG2G5+rN98P4gG6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982974;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=f7QwotMZkYXsbgTCqlK9XdCUJPdjYh2tfsZr9k1KL7k=;
-	b=nfTfHLndcL723ALi5NcBCeF3sxZvV+VUTB1m7yiOs68G0QvQMsscvhKiY978EhIk0yvv
-	 iL4L/ZfIaanFesOLojS57+ZWn+pJcqsPrNnXJG/O2AVM6d8NoV9aIu1kesmCv2Fq0xFxY
-	 HEoJSQllF8xd5u4O2qpIBpHTMqJFCJkt1SL84oorPKJAPFnO7OAPUy3X36J4ayMo7LiEB
-	 WDYXNp+AZlbo9axNXXmskwOGQWLzPS3Um1BRjR5EhwWumArJDMyK9Cd/ZHqwdSl12Q25n
-	 5JV0X4e1ENMgYWHcw/TXzSSe5c0UOX1DYq0T0OF9khAeUqF6qnZxFLG6V2yTiKgefZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983037;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=idKupkFOoEuI1D0I9K3dkmHCv5t9EIMzKRFHoVTiEGg=;
+	b=UrfzthlBgK9ci0t+aA0pfnB8e1eTi2+S4HI0SskUceyHVLKO/xIpCDL0o4lPd8GhT21X
+	 7oharDEtDob+4xBffukUj8nYdCA9+oBkFF0fYO8oUZKtwPkt3T0AzccG3D7vehwKcsRi9
+	 JTasVn8ePCzPLX+bKoJ263AgiI8I0L8wZxItu46CM70gIM6KtLIJGX6Jieo/ruN3Cs857
+	 1uvEmg8WxHofRx2rj5uvVat2rAA7bFBItIOqto0ShFV0AdfHNr2qHEVFAODZvI5Ae3c9/
+	 QS/o3m18fZ7drqYRvk776+9TNOnPaYYLQ3sDJXkyDG7wGoE0FN9jDEkyOAZ70eQpoOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OflSYXy8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVvc8Do5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AF0606D80A;
-	Fri,  6 Nov 2026 16:36:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689A9606A326;
+	Fri,  6 Nov 2026 16:37:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OflSYXy8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A4131F008A4;
-	Fri,  6 Nov 2026 16:36:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVvc8Do5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE5C1F0089F;
+	Fri,  6 Nov 2026 16:37:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793982973;
-	bh=f7QwotMZkYXsbgTCqlK9XdCUJPdjYh2tfsZr9k1KL7k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OflSYXy8rHQqjplK+M2SKEYGh2EE29t3QlEFKrNOdli1TJD1b6ppHDDmRZAInBSSE
-	 Tq4gWnzWqzXJlmBqSSf67HszoAyCT++bJ8Rx53voxvcx6OzvkSr1zLPAfbSUI1PFPb
-	 AlIDUo+YQwUmRPyqMLPMcOvtIKEoYFT2PCW9GMaDfnFypPcwWpvgi0puq3RZhL/Zqs
-	 21AokdOadmrLch8la4AsJPz1UkgqqWlt3rMQhWvn4D5hFpZ/m2XKbLAEPWOgQgd7qd
-	 V5BlElriKxUdir3EC4pg5VDKav4fS90qLTdBjWRbnEhHDolbwvwsFKw8aka0gha9Lz
-	 IQObSQUFyxkfw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Magnus Lindholm <linmag7@gmail.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	linux-alpha@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Matt Turner <mattst88@gmail.com>
-Subject: Re: [PATCH 7.1.y 7.2.y 7.3.y] alpha: honor force_successful_syscall_return() again
-Date: Fri,  6 Nov 2026 11:35:50 -0500
-Message-ID: <2026-11-06-1-daily-reply-0015-alpha-force-success@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105-alpha-force-success-fix-v1-1-8c26d60c5fff@gmail.com>
-References: <20261105-alpha-force-success-fix-v1-1-8c26d60c5fff@gmail.com>
+	s=k20260515; t=1793983037;
+	bh=idKupkFOoEuI1D0I9K3dkmHCv5t9EIMzKRFHoVTiEGg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AVvc8Do5DhEJTvinbNvofpF85d0AnFK5LxSpPNKEK/+RJYxjclOcUMGpO59IMsc6K
+	 +l4jcD4d6K9LdExlJpzhCjb6xl4STFFJ0IvJ9zg1OsaKXefPClXEb5AifDXB/m5x4c
+	 nwQUqEimaX3EavfRkgtWMSEh1hSzVyo11Qif4bCJ5K4GJDVcN7z2e/+QFgWANs3cH+
+	 JpEdlDOiQquvPkJrqUEhRgbsRiAqs0GE0rchsRlfhyj1fpPP/NFNl0xL5Zbd+LAdaE
+	 YUz3VR9AmQLl/gkN3WmsaseMVSnvkxZuhMNqDWExC3nfrBNvR1Youvs8lKsDdbc54Y
+	 vrclTcUH6+Rjg==
+Date: Fri, 06 Nov 2026 06:37:15 -1000
+Message-ID: <e53ad4ab8640b5e95bdfaa916da884f1@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mani Tofigh <mt4022@columbia.edu>, Tao Cui <cui.tao@linux.dev>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH cgroup/for-7.4-fixes] cgroup/freezer: Fix exiting tasks left frozen forever after rmdir
+In-Reply-To: <20261105191951.3409248-1-tj@kernel.org>
+References: <20261105191951.3409248-1-tj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,12 +60,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-> This fix is for 7.1.y, 7.2.y and 7.3.y only.
+Applied to cgroup/for-7.4-fixes with the following tags added:
 
-Queued for 7.3, thanks.
+  Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+  Tested-by: Tao Cui <cuitao@kylinos.cn>
 
--- 
-Thanks,
-Sasha
+Thanks.
+
+--
+tejun
