@@ -1,49 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958068;
-	b=bFV7dN8k6j7hAfNcCsK6k2iiMvr94a5h+NZcs0ugjR0ogfDs44j6kbYs4QON2uBIYxfv
-	 T0Yj39gNSWupugqBxC7QpojLoRPv6zyWwGJIhRkR/gvAKnK9OvdeZ4J71W4f7sRkgFZAY
-	 /cnXEEXOiG2A+3+EfQG79fupT+t8UTyL1oiKIUfeiWuxhDx10YVeqWFUk8ph9/Nuewlw7
-	 nFZwxitH/CwVuMV9RtDA3l0GjJJ9fMJTRZOUJlQYIB9YJqZcLEqIAiqeRin23eTw/Q7D6
-	 BAjErT74594wENdx8ka6elOw0PH4KbIowlS+KP+06H5Uhi7XXP6tBOFVrVLAPTo8CiQ==
+	t=1793958063;
+	b=bzVAqdEWcAGep631JzlVc/b15eup9eTo8fPL5KKI9F8wb7bQSZ8JadamZR9X2uWfcIXF
+	 +xGOYXZZ++4h9Gc190i2jhIKJTwx4jADFc3THrFGiH0tnSJd+S2ti8mMPH2RVugiif7bS
+	 6iqO2aEVxYMBVJpn2MsLYACQ3B/b7UfVY4mNArt69hAa+iyKDA7scWqaGfl01AyAXKW74
+	 MmI+UfNF1o/UuugCiE4Gzh16Ym02dZz4cPePsdVboPT4m5ODAGQgE80dNKkNKIT7SwWdC
+	 Srye501LH1zA57G2kXQWqeIMHzOjvFRd2qjUE/yPCWy9Sm+OwHkK8YbhNnjcz2AIPDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958068;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=u++veeV2UEGzavVifT+Wy9EXLAeW8NwCQG/jN4kumaY=;
-	b=0XPUKRcCUtR3ElOniGz6IQfwjgm37AjvKekgni+SWWoRZZc86wYHsY4vQYuT2uU/PQbv
-	 KulIsVfdDfTZyLBylWIwJFUezFRFWUF/9NpkJ1pmi5Ftmy9aaU66ELxGLP2qwrkZKQ70y
-	 ghArKdysYg+DIu0I5e1vgTwKSUpDZA1S4xecWuaZwYMQbFGzy1LiWuxCk+dHu0z1mDKZO
-	 ckAfYx+lRznVPT7mV6W8UB+nxY9N8noQ4ULSB84hMKP6soV3cql+81pzjThbEkH+M58t/
-	 wUlxw+3XX28kBmZNiJnwm0kIPVmTbHD0mFgZ1+al0lbW2h2dNLzHQfZCWIBpr0nO7kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958063;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=sDfhFOPZ3KM2MaWTWl2qG7+3UHWyhGCSTPMLXUGyVC4=;
+	b=TmJ18JeRWXF58Z25KTH7pk570rk1MstPwy1IVt/Dc/8sj/I7Ua9l0Akl4MKCzx9oiooR
+	 9I2+BCIumJnPrVw1+VvrHePCYkY+2IKWXpusULzgvmYsn66hQyYBAmGLo315Z3hEXRViv
+	 iBUh39IPBEjOiKLV2wA8gSKpNCg/0+lr4p07o+zC1flkBWb+glU6xmT4IirEGFoNj0feX
+	 FS0IILi6dYSrLp0LNM0Ze/mr5VYHdf7x3ulng1FfUGG4/fxiMvvn4ZDLKXwaAjDgKjjTn
+	 owhv67lPFtMcu+t+DGlHSncAPF5iYwNjxzSTpjZ8t/hji3Lu1HIRO8En9ykjNLenwyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DkFigBwS;
-	arc=none smtp.remote-ip=115.124.30.132
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=EhBIwCaL;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7939606A337
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:41:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7939606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C92606A32F;
+	Fri,  6 Nov 2026 09:41:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C92606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DkFigBwS
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793958063; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=u++veeV2UEGzavVifT+Wy9EXLAeW8NwCQG/jN4kumaY=;
-	b=DkFigBwSugDesKuPqOGRhlGh/bpYVZBR8orKBKf1vZinqoGkmrFJAbKp9yP1uL2Vu/bdHFXzLPpeV/c6NMNoJq6hazGym3lWLYJzSQaIPgPC0tO4bG4IkPbN5DWXJIRKKvYe2EDQQsfzbOWJCVTKPFd20l/FNtY6GNurEB8oPDk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XEBIttq_1793958062;
-Received: from 30.74.144.130(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEBIttq_1793958062 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 17:41:03 +0800
-Message-ID: <76e89362-6c79-4231-9d0c-0688c026b9b0@linux.alibaba.com>
-Date: Fri, 6 Nov 2026 17:41:01 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=EhBIwCaL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793958062; x=1825494062;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CtjNrr0lV4K9AM7eEJ1v2UHLIwBoHkxGF4hGdBTO3p4=;
+  b=EhBIwCaLlJblGfi55TV/PH0nhLXxrX8AmSRHjnAbRDPTsZtI04uzhcvy
+   syqu5H2cKIwk5z6Qe+9Ui4/O6GBdpLPh72E6Lr3w5Mz9Skt80BGQkKYIH
+   qBP6Tdj1g1CkKCPPWc69rQ6sAO/SU9UG0aYiZtw1+Ua0E7+/JAyaMyA14
+   lv5D48fWjd8a5IzM/EFZVnfJdg1Ad7vldNFGBKFL3N22+VTiSxfZTTsr1
+   Y/8gG2KCd4WcZ91nz9GuE15k2f0FmZT/dfm4wWAVsSAT15ZiyLXvZdmmt
+   ig9lyEM4mWIw0tL1V4keGE8oIQrMM5ccuZD2HElxMsYqpK8DhPyBrEvMn
+   A==;
+X-CSE-ConnectionGUID: T9DjPCwITs2p8rbRmW24jg==
+X-CSE-MsgGUID: GRg268VCR9SZiv4y+/lP1w==
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="233190422"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 02:40:55 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Fri, 6 Nov 2026 02:40:55 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Fri, 6 Nov 2026 02:40:53 -0700
+Date: Fri, 6 Nov 2026 10:40:52 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Florian Fainelli <f.fainelli@gmail.com>
+CC: <netdev@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, open list
+	<linux-kernel@vger.kernel.org>, <macro@orcam.me.uk>
+Subject: Re: [PATCH net-next 1/3] net: sb1250-mac: Add ethtool link settings
+ support
+Message-ID: <20261106094052.ryeppkdb7otdmjko@DEN-DL-M70577>
+References: <20261105193435.2050321-1-f.fainelli@gmail.com>
+ <20261105193435.2050321-2-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,51 +82,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] Revert "mm/khugepaged: remove definition of struct
- khugepaged_mm_slot"
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
- <20261105-khugepaged-latency-fix-v2-1-4384bbfe4606@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261105-khugepaged-latency-fix-v2-1-4384bbfe4606@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261105193435.2050321-2-f.fainelli@gmail.com>
 
+> The driver connects to its PHY through phylib, but does not provide
+> ethtool operations. As a result, ethtool cannot report or configure the
+> link settings.
+> 
+> Use the phylib get_link_ksettings and set_link_ksettings helpers, and
+> provide ethtool_op_get_link for carrier reporting. The helpers return
+> -ENODEV when the PHY is not attached, as the driver attaches it when
+> the interface is opened and disconnects it when the interface is closed.
+> 
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-
-On 11/6/26 4:57 AM, Lorenzo Stoakes (ARM) wrote:
-> This partially reverts commit b4c9ffb54b32 ("mm/khugepaged: remove
-> definition of struct khugepaged_mm_slot"), as a subsequent commit needs to
-> resurrect this type to store additional data alongside the mm_slot.
-> 
-> The stated intent of the commit was to address a NULL check in
-> __khugepaged_exit():
-> 
-> 	mm_slot = mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
-> 
-> slot can be NULL and mm_slot_entry() is an alias for container_of(), so
-> this is container_of() a NULL value.
-> 
-> This was benign as there was only 1 field in khugepaged_mm_slot (offsetting
-> NULL at 0 results in NULL), however it was right to fix this, so retain the
-> fix.
-> 
-> It also unwrapped KMEM_CACHE() in khugepaged_init(). This was a mistake,
-> and was itself reverted in commit c14bdcc9f274 ("mm/khugepaged: use
-> KMEM_CACHE()"). Therefore, retain the KMEM_CACHE() form in this revert.
-> 
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
-
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
