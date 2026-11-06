@@ -1,54 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793931199;
-	b=VuFcIkzZlKBUK9/yr/hsOHy/YfqOpRaIYfsgGix4DtMbeTppWGWzuchmsR/79Q2a2Q86
-	 tOo7rcBlW4D22OvUKcp9/Xx5/BMMXCaE3AOisbG1kEXZFgs8ggRXVsmW66gjtrgesevYL
-	 kcPC7h353VXslC0aukQJ6Oim80RfTkmjXWt1jBtucjjiJxrGK3M+eQs8nwbrXCQjY+AHh
-	 7zM9rxCBwdka6Js1WnyMvwAvbEgFXk65IKVR53HXKP7zMfG2mqvGN8yiqR75Cx+L13jEO
-	 snNhYbRmkUkFrpeZKdpikdrfAYJqPEeo03i/QRDQGSQ98k4iRFLavlYsV98Wq1k63+Q==
+	t=1793931229;
+	b=IMUuvlRSHBULsZOPIMRPUg6XQQTZEf3/yxFfFGQxJWX0OFK7wn1/c/EMV/5t8SHcKnTr
+	 Rr0n88XLEM2XusXYMu83VLaNBFLwjiFwJyuNGvYwQtRZ8AsoJ24CL0Rc+k2TGPKzVDLac
+	 fzWnNJUA5n2cT/0BiLMxurD/w6lgx9YH1qsbfW7LFEHdceEhRUN4z9+oa9zd2Ah0l7ors
+	 mh8IRa9aVhimwJ0lY3xDfbc3e3VvaYjl0zPPD/PyhUzkTegzUb22SCzdKj+FQ8Wu36e/2
+	 1Knx8bydvOkoexdfHAx1ZCOk0VUWtlPzYNETF4pMwkRC7Gxkq7W0y4AHBnJFngaiiug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793931199;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-FangMail-Miltered:X-FangMail-Envelope:X-FangMail-Bounce-Flag:
-	 X-FangMail-Outinfo:X-CLEAN:Message-Id:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=IXDbLD8+07I3K03p4PVRKPsQ8QqKTTPpkBAUsJipFic=;
-	b=Y0tCiMZ8HdmUofDvfvPLzDkZvB/O6eSgFwzxxw63IsJ4hW1X2GoVSpbiWTlfx4gVNwCT
-	 qVBrozJox0U4EQilX1kanG3jmf0wtuZJxqR/bJYqWQQmiT2uN+xGMf4buJgogAQmJEszp
-	 DY/rIKxDNxg287UdZmcJcQK1CiLfBVfRTkD1g4SbpxYcfczSEFMzXcdZpUIio8zHrgtSa
-	 mkRKLTMt2OTelhHBr1PH+jAOkED4oC9P/xXbmZGpqFEr/iI08Ql3yl+wYuQJp9yoI4W3a
-	 QABTlVGniISt8oSuYCvjz8tULf7Pof/WvedcIlKOIrosThal6MX0+pevzGqo/S1cEpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793931229;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yBKPSv9wPtgQc2D10+KX9vKSUfiTfJxDfSRld3KeklA=;
+	b=d3TiDhl2gMFXnDdL9STit6T08Wh+qMvugNb970CJ7iKyKgEr8zmNz9AEocsbrtycmVUp
+	 4yCbdXSsTlz9R7hsyu8WRnF1mU6IN6+UNgn0Bmr3W/xxvq9DdC1LY3EW4wu/3NX6kO56M
+	 DCpIYpFFBJc6VQa2ogHYYZXkWa2ACpoOtjUysrxIkX6hkL7McVwHn6G0d0zh9VG9QDtxq
+	 26xCkL2FtdbNE4QEVmm+fXL8YNcL7n/ISRMN3jcPWlViXtqQUpG84LuNaqQET6PSLe7h4
+	 0cQ5q+IC+bdl8/QbE3+/UVq21TPAjXU1I1iAgjuJpJ2K904hp8ihLEThwZW8jaCEa+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=isoftstone.com;
-	spf=pass smtp.mailfrom=isoftstone.com;
-	arc=none smtp.remote-ip=219.143.121.9
-Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98C5606A31B;
-	Fri,  6 Nov 2026 02:13:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C98C5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
-Received: from ldzh.. (unknown [221.226.109.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dlzhangak@isoftstone.com)
-	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jLN4k2qrnz23wX;
-	Fri, 06 Nov 2026 10:13:10 +0800 (CST)
-From: zhangdaolong <dlzhangak@isoftstone.com>
-To: Ilya Dryomov <idryomov@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org,
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tHl8gJ+0;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4486606A31B;
+	Fri,  6 Nov 2026 02:13:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4486606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tHl8gJ+0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=tHl8gJ+0qX1w8HAaEWi7zluGSRQ37eZ1Y1z03LcoMKFskjvakFRX09I0hAif/JlxOIlswIt+aDbNb
+	 xYj+3ZZMPi14vA+dvYWKbGRWDx8r4zB17CN3ccTHlvUYV6opRag1fpiZV7bsWmh7gYjrgBeTb59dsE
+	 Hu4CtypZtwl1M+es=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aed37d9fdf-77866;
+	Fri, 06 Nov 2026 10:13:45 +0800 (CST)
+X-RM-TRANSID:2ee66aed37d9fdf-77866
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96aed37d798a-0dae7;
+	Fri, 06 Nov 2026 10:13:45 +0800 (CST)
+X-RM-TRANSID:2ee96aed37d798a-0dae7
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: willemdebruijn.kernel@gmail.com,
+	netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org,
+	dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
 	linux-kernel@vger.kernel.org,
-	zhangdaolong <dlzhangak@isoftstone.com>
-Subject: [PATCH] ceph: revalidate dentries under snapdir to drop stale snapshots
-Date: Fri,  6 Nov 2026 10:13:10 +0800
-X-Mailer: git-send-email 2.48.1
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	willemb@google.com,
+	tpluszz77@gmail.com
+Subject: Re: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK control messages
+Date: Fri,  6 Nov 2026 10:13:33 +0800
+Message-ID: <20261106021245.246267-1-yanxia@cmss.chinamobile.com>
+In-Reply-To: <179387153949.488856.16266299848614841295@kernel.org>
+References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com> <179387153949.488856.16266299848614841295@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,66 +82,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TLS: YES
-X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
-X-SOURCE-IP: 221.226.109.28 unknown Fri, 06 Nov 2026 10:13:10 +0800
-X-FangMail-Miltered: at fangwg01 with ID 6AED37B6.000 by FangMail milter!
-X-FangMail-Envelope: 1793931190/4jLN4k2qrnz23wX/6AED37B6.000/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
-X-FangMail-Bounce-Flag: 1793931190.6AED37B6.000
-X-FangMail-Outinfo: 1793931190/6AED37B6.000/4jLN4k2qrnz23wX/dlzhangak@isoftstone.com/1
-X-CLEAN: YES
-Message-Id: <1793931193.6AED37B6.000.4jLN4k2qrnz23wX@fangwg01>
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AED37B6.000/4jLN4k2qrnz23wX
+Content-Transfer-Encoding: 7bit
 
-When a snapshot is deleted on one client node, its corresponding
-'.snap/<snapname>' dentry cached in the VFS dcache on other client nodes
-never gets invalidated. As a result, recreating a snapshot with the same
-name on another node fails with -EEXIST, and removing it fails with
--ENOENT while still leaving the stale positive dentry in the dcache.
+Hi,
 
-In ceph_d_revalidate(), the condition 'if (ceph_in_snap(dir))' matches
-both immutable snapped directories (ceph_snap(dir) <= CEPH_MAXSNAP) and
-the mutable virtual '.snap' directory itself (ceph_snap(dir) ==
-CEPH_SNAPDIR). Because it unconditionally sets valid = 1 when dir is
-CEPH_SNAPDIR, the CEPH_MDS_OP_LOOKUPSNAP revalidation path below inside
-'if (!valid)' is rendered unreachable dead code.
+Thanks for the review. v2 fixes SO_MARK sends, including the concurrent
+sk_mark case that came up during the v1 review. Sends without an SO_MARK
+cmsg keep the current behavior.
 
-Fix this by excluding CEPH_SNAPDIR from the unconditional trust check in
-ceph_d_revalidate() so that cached dentries directly under '.snap' are
-revalidated via CEPH_MDS_OP_LOOKUPSNAP. Additionally, drop the dentry in
-ceph_unlink() when the MDS returns -ENOENT.
+Willem, you also raised the flowlabel and dscp cases in the v1 review:
+https://lore.kernel.org/netdev/willemdebruijn.kernel.6ba984cf38a@gmail.com/
 
-Fixes: 200fd27c8fa2 ("ceph: use lookup request to revalidate dentry")
-Link: https://tracker.ceph.com/issues/81579
-Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
----
- fs/ceph/dir.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+I'd like to keep the SO_MARK fix targeted at net and handle the
+remaining cache issues separately in net-next. Does that split make
+sense to you?
 
-diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
-index 6eb5b1cb039b..9f84beac189e 100644
---- a/fs/ceph/dir.c
-+++ b/fs/ceph/dir.c
-@@ -1475,6 +1475,8 @@ static int ceph_unlink(struct inode *dir, struct dentry *dentry)
- 		err = ceph_mdsc_do_request(mdsc, dir, req);
- 		if (!err && !req->r_reply_info.head->is_dentry)
- 			d_delete(dentry);
-+		else if (err == -ENOENT)
-+			d_drop(dentry);
- 	}
- 
- 	ceph_mdsc_put_request(req);
-@@ -2003,7 +2005,7 @@ static int ceph_d_revalidate(struct inode *dir, const struct qstr *name,
- 	mdsc = ceph_sb_to_fs_client(dir->i_sb)->mdsc;
- 
- 	/* always trust cached snapped dentries, snapdir dentry */
--	if (ceph_in_snap(dir)) {
-+	if (ceph_in_snap(dir) && ceph_snap(dir) != CEPH_SNAPDIR) {
- 		doutc(cl, "%p '%pd' inode %p is SNAPPED\n", dentry,
- 		      dentry, inode);
- 		valid = 1;
--- 
-2.48.1
+I'll wait for your feedback on the scope before posting v3.
+
+v3 will also add a fwmark 0/0xffffffff prohibit rule to the
+connected-socket selftest, so reusing the cached route instead of doing
+a fresh lookup fails the explicit-zero cases.
+
+Thanks,
+Xia Yan
+
+pw-bot: cr
+
 
