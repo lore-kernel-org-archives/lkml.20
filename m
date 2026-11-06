@@ -1,116 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973973;
-	b=18lpDRHZ5jyjFnQlj4mHZ3ZGO9T9A3qVY60jDyFaWq8Z0666WdRI/NGf9A8veGgtpcQE
-	 iq20X4b7TXyHr4aXwlLyhe5aRoy8lbtgcQfXhMqwxM4ZR4V8viS6fKcCWRaTuafuWnLAt
-	 Gad+JzPiQ3GGrBeF003pIzO8DuKgu38E9Cl9JPzIRe2/Y8QCKpuH1iu6JOuUSTNAn5oIt
-	 oPqMw06OF3zWDvLfyEPDS/b1rZvod/WesylwD5JEaxNjCf2vtcIQZS2F7WGGaV67p82n1
-	 h+HQ87UPaebJqt0OJzf4zd4wSie3kh4LNiYsfM5gtVYSicyDH38yjIudrmVyHGncNRQ==
+	t=1793973994;
+	b=euzd0KKXIZvndW6xATzfyeFsJ3UoONcB0wSy/cScoKN4SHE6pChlSXcOE4jJrI0PnoBW
+	 4rjvprWfYfcJRoXddhdx0y1f89zNxe9kg3Hyn8d3JkJN7WeA795+Cppa60dDbkLxqh1Nf
+	 OUKYGsiMnqJcDi1LzhTYkKpx03A9PNpHuex2VaqFbAbI89WmDF8gMVQgSbBdyLwzxd511
+	 ymr1SajAEItoZIpm4e653hRojxXhFoOestTsDw7t33Wk9UdEhHhryVHqq7CUVKGoKXNUg
+	 J4pEcO33ZlnUm2sUgqDwHW/EC7E1Nu7NwfglzoyImYiiqBJt3/RiSwAgZ/9RFGApPvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973973;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=eqhBVbUtw3dy734MGt0XscJMrayl/heBjdE55TwHpBE=;
-	b=jdcf4NG1cpFhxls8pZrV5YL74GmUN2KDlGWKZInFSYdqGl3oDkF9mx78UDWt0UbIZhKq
-	 RU8NVEF1oleIgBTGg5aN8AURdwHZo9XVjSQQxxdmsNo77rEkSBHmi0olEn87VUNyhRUZs
-	 ASQ0XflU+n0CdQ4NZKM3z549U+5qCjZuKLkvuM6X7PtqGAXUeJ9XcygZQvCojNor580MJ
-	 L93lpdVy2CEjAwefFneGqfBKQBmWPMTRTE6NPVZj9RHpddtD0pTfWkQm6Lov9KW34xzMe
-	 qO3yJcyGdhhBB57qzCcsAadw9D1l2QRsO8Z5ysvRCQP5KcIC/Cn+eyDeDUlrDKXZAeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973994;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
+	b=HwfnnseYPg8DJELdZRUWjDpkfkL3UPmRqO72EBXHhfrdECmA0C0LYFwHERgMH1gO2qxy
+	 PCbjJ/e26cUjM3tk3pjiSnKFUK6wUEEuhnQXAHFRJjfcNPURGTlnZ563TsPu7iTeT8gZ0
+	 95uoIkBQWEPFN4KPeF9bPCEw/pVZo/sxAJXd5N88kY4x2fb2LXI7BOIv/KhL0MdsiEwE1
+	 0aCHf1o7AUh06cWPY3QvRwFFYsqQTpveSNl/gAUkGFZe97gcjoavckE/mFVYDl/ESlv54
+	 9HDUww89aldxpQ+jtiBqCrH5myX30Y2q1jQLNukpE7NLb9YrNkJLyxlgNSenBiKkLkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=rEFjIsRc;
-	arc=none smtp.remote-ip=209.85.128.175
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="k6n/Kfux";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="k6n/Kfux";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29EE606A32F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:06:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E29EE606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543D3606A326;
+	Fri,  6 Nov 2026 14:06:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 543D3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=rEFjIsRc
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b0d63f60bcso7616447b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:06:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1793973967; x=1794578767; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eqhBVbUtw3dy734MGt0XscJMrayl/heBjdE55TwHpBE=;
-        b=rEFjIsRctA59Iu2/BHBn1Bio1Z530ac+g4EEE4umpjlRFctJ/W1yi+oJAJdR8sIKtC
-         0ANk4+IEeh+gWZdP8+5Abj0Wi+7JUGtI3eOPnJ0wMnngrGVtvT7+mdXKDwBc4VjMOreA
-         HRXNX16MAj9gPw3V6sQG29RsCMeifuq7vktm82eZ1OL9M0wUFDM8b1mHYrWOWDjP7hoA
-         FgchrqECOX93FzgDhG9Sn07L+FCR1PCSxN8pDG5a+ABli7EEuG5ifSugYUsuO9WbK3uX
-         2labLzJdsWWlMl8/Ibz30wICnbSFS6Rx+DAJRAtH3OrhgDaH9x+c/HNq/PuJNNkUGIVa
-         0UdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793973967; x=1794578767;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eqhBVbUtw3dy734MGt0XscJMrayl/heBjdE55TwHpBE=;
-        b=kNwiW7fWWM/bRBqVg3gvbbVVMv196y4FvARZjSJdrUgm+i58FqHLPRdh4i9jI6YyYH
-         NTo29p/W2cycIki5Qtw/Pzjfo9MLT36fW3WiPuZydgu3VyPV7wOlqGElAa0RP/b7XMiZ
-         ttQn0b0ZHPJjeuQJvb2TjVeZj8BHzwoI7pMnPonOU3zzzPbnd0yrefRuJPXjDtwEwtl1
-         6zD+riADYUKNSyJS67qq3qJPfayK+uWr6lic9BiCN2NAsLeiLzGPCKpDc2qnHLCff5ez
-         WCVF7OoYpN+12ORsZfpT9w/H1JSKLFLlNfFWhzjt3tMfJjXQncRT0Du8y8whA53FMWGb
-         +78g==
-X-Forwarded-Encrypted: i=1; AL+hErEUuZZujdSb4NgzYjMtA904njeyJQjC/G+Mey/jx0joWIwM1G3fviKhWFZPubEiAZon3wwTYxKRZKDFAys=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SIKrwYxIq8y9wEDSKWpwE/KacIlJHVbYOOktAiEZunmps9WF/
-	u5FsCoGHBeRLpinQF/j9i39kAX9q7tR+Q9j9nTqZEPP8vXSlbFeV7LY0WqZnG4g1zpo=
-X-Gm-Gg: AYBFou05nUfSpY/lpH56KsLwoa6pdD4nqdNIv8NdiGi2uAuL6v+QhWhjdYjzmiNi8fI
-	9oKKlPv7wacbKAA5gW5/bMkJzdEIP8fj6d+9cvoN5E3ZAO3MQ13JANeEKsIQj8QxW/2pIVQN189
-	vwzJylKYm832F+5cFRn5AL23vKqCRzlbelfJD1+gowNsO0xq9IztveVw9qY6F7ey6W+aE6CCBKc
-	s1X6NZS9cpzWj0OaT1aZwZwdW6pe6zeVhRA4qqJO4HfzvEcx5Ti68i+Aj1wDhSIURNpwOqSNoBv
-	BkuQvzdg/onrnKnr6QKzPC4Z5r/34KBOOMDfbmNKJgHRHkma9A+hTx45L/A5MoFdaQZYjXxL0cx
-	s/sFU8JUQtWmACxxY/EBTwWzTw8uHy0JB9AFxmglQmvtSZBl80ZoQ3GO2TwsI33kqrSdf1EEcj2
-	fSTesz1BE0uNnU5hYDi+POgIdL+aiCku7XVamiHernvaadPf+D0Upkixic6esjMFV3KftDkYPGh
-	7AXlWx1S4dkLXDgxvyXi3Z1squBqGHdGTdYVt/Sfqnz1axFyxW4ltkQI7eQxHCYNHbuRtWSRo8j
-	RsXYFc/TGgYZ2FGjMM5PZqneRIhG
-X-Received: by 2002:a05:690c:560f:10b0:8b3:10df:54a3 with SMTP id 00721157ae682-8b341b1ebe2mr10611897b3.65.1793973966605;
-        Fri, 06 Nov 2026 06:06:06 -0800 (PST)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f856f99sm19108527b3.34.2026.11.06.06.06.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 06:06:04 -0800 (PST)
-Date: Fri, 6 Nov 2026 09:06:00 -0500
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Dave Chinner <dgc@kernel.org>
-Cc: Kaitao Cheng <kaitao.cheng@linux.dev>, gregkh@linuxfoundation.org,
-	arve@android.com, tkjos@android.com, brauner@kernel.org,
-	cmllamas@google.com, aliceryhl@google.com, nat@pixelcluster.dev,
-	arunpravin.paneerselvam@amd.com, maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
-	simona@ffwll.ch, viro@zeniv.linux.org.uk, agruenba@redhat.com,
-	trondmy@kernel.org, anna@kernel.org, cel@kernel.org,
-	jlayton@kernel.org, cem@kernel.org, akpm@linux-foundation.org,
-	david@fromorbit.com, david@kernel.org, hughd@google.com,
-	yosry@kernel.org, nphamcs@gmail.com, matthew.auld@intel.com,
-	matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
-	jack@suse.cz, neil@brown.name, okorniev@redhat.com,
-	Dai.Ngo@oracle.com, tom@talpey.com, qi.zheng@linux.dev,
-	roman.gushchin@linux.dev, muchun.song@linux.dev, ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com, liam@infradead.org,
-	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
-	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
-	kas@kernel.org, mhocko@kernel.org, shakeel.butt@linux.dev,
-	ljs@kernel.org, kasong@tencent.com, axelrasmussen@google.com,
-	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
-	chengming.zhou@linux.dev, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
-	gfs2@lists.linux.dev, linux-nfs@vger.kernel.org,
-	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
-	Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: Re: [PATCH] mm/list_lru: Account node removals in isolation helpers
-Message-ID: <au3eyCrHiuhbJx3u@cmpxchg.org>
-References: <20261103045053.59548-1-kaitao.cheng@linux.dev>
- <aupITfr9pBKPrU20@dread>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=k6n/Kfux;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=k6n/Kfux
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5170C1F7F5;
+	Fri,  6 Nov 2026 14:06:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793973991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
+	b=HYCXuoierL737OpwGTSBiFtCNZsGHglPQTMPO4xMGvCJEhpXHAfWCPkjEWr2Zt6zeucAuZ
+	Aw4xlaalSlJRo6qbRgIiC3dhzTu20ZWsEdGWxzfIh2RaQfU3w05UqFuL8h3JeZirIKOt23
+	I9wm5k70zac1ek2/yfQvV33IYc++MrU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793973991;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
+	b=k6n/KfuxZ+6UVLlCllYhPpTvopJG2L2NtK31AQ3FXc0D8tanjreTzupE1aEZBil9oXPmfu
+	i75D+RtwwwZauaCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HYCXuoie;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="k6n/Kfux"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793973991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
+	b=HYCXuoierL737OpwGTSBiFtCNZsGHglPQTMPO4xMGvCJEhpXHAfWCPkjEWr2Zt6zeucAuZ
+	Aw4xlaalSlJRo6qbRgIiC3dhzTu20ZWsEdGWxzfIh2RaQfU3w05UqFuL8h3JeZirIKOt23
+	I9wm5k70zac1ek2/yfQvV33IYc++MrU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793973991;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
+	b=k6n/KfuxZ+6UVLlCllYhPpTvopJG2L2NtK31AQ3FXc0D8tanjreTzupE1aEZBil9oXPmfu
+	i75D+RtwwwZauaCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 14F53134E9;
+	Fri,  6 Nov 2026 14:06:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id JH6tL+Xe7WooXAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Fri, 06 Nov 2026 14:06:29 +0000
+Date: Fri, 6 Nov 2026 14:06:28 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins <hughd@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
+ MADV_COLLAPSE
+Message-ID: <au3bJel0YnSeowCq@pedro-suse.lan>
+References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
+ <au3C8lNElGg4LnR1@thinkstation>
+ <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,53 +120,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aupITfr9pBKPrU20@dread>
+In-Reply-To: <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
+X-Rspamd-Queue-Id: 5170C1F7F5
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -13.51
 
-On Wed, Nov 04, 2026 at 07:47:09AM +1100, Dave Chinner wrote:
-> On Tue, Nov 03, 2026 at 12:50:53PM +0800, Kaitao Cheng wrote:
-> > From: Kaitao Cheng <chengkaitao@kylinos.cn>
+On Fri, Nov 06, 2026 at 01:29:31PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/6/26 13:09, Kiryl Shutsemau wrote:
+> > On Thu, Nov 05, 2026 at 07:16:44PM +0100, David Hildenbrand (Arm) wrote:
+> >> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
+> >> uptodate. For example, shmem fallocate() can put such folios into the
+> >> page cache.
+> >>
+> >> collapse_file() already refuses to proceed with folios that are not
+> >> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
+> >> such folios, leaving handling to the page faults.
+> >>
+> >> Note that collapse_file() effectively clears shmem folios through
+> >> shmem_get_folio(); let's keep this fix simple and simply let the page
+> >> fault path deal with that.
+> >>
+> >> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
+> >> Reported-by: Chris Mason <mason@kernel.org>
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > > 
-> > Successful writeback calls zswap_entry_free(), which removes the entry
-> > from the LRU and decrements both the sublist and node item counts.
-> > shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU walker
-> > to decrement the node count again.
+> > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 > > 
-> > The affected call path before this change is:
+> > Separately from this fix: nothing on the mapping side catches this.
+> > Every caller checks uptodate on its own (next_uptodate_folio(),
+> > filemap_fault(), shmem_get_folio()), and khugepaged was the one that
+> > went straight from filemap_lock_folio() to do_set_pmd().
 > > 
-> >   __list_lru_walk_one()
-> >     shrink_memcg_cb()
-> >       zswap_writeback_entry()
-> >         zswap_entry_free()
-> >           zswap_lru_del()
-> >             list_lru_del()
-> >               __list_lru_del()
-> >                 atomic_long_dec()  /* first node count decrement */
-> >       return LRU_REMOVED_RETRY
-> >     atomic_long_dec()              /* second node count decrement */
+> > Should do_set_pmd() and set_pte_range() assert it? Something like
+> > 
+> >         VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
+> >                               !folio_test_uptodate(folio), folio);
 > 
-> That's a bug in the zswap code. You shouldn't be calling
-> list_lru_del() from __list_lru_walk_one() context.
+> I think so. But looking at these hard-to-trigger but in the end very nasty
+> problems, should we actually reject the operation and do a pr_warn_once() or
+> something?
+> 
 
-Grr, Kaitao you dropped the wrong thing that I thought had merit in my
-proposal...
+Yes. FWIW, this is something that's been going through my mind. Our page table
+manipulation APIs (and usage) are way too fragile and allow you to do the
+most insane things without ever realizing it (e.g you can clear a pte, set
+over a PTE, get-and-clear and discard the result, and do all of the above with
+no locks held, set a pte for a folio that's not uptodate, set a pte for a folio
+for which you don't have the lock, etc).
 
-Dave, would you mind taking a look at my patch at
-https://lore.kernel.org/all/auJkvb-Lq0M5Enkz@cmpxchg.org/?
+Some basic assertions (even if there's no easy way to back down from those)
+would be nice, or ideally yes a rejection.
 
-Ignore zswap for a second. I know it has problems. Most of it stems
-from the fact that we rely on the swap locking and do none of our own
-locking/lifetime on the zswap entry. As a result we work around it in
-odd ways. Sorry, you didn't ask :-) That's worth revisiting, although
-it's likely more invasive work.
+I would just add that these very much should be VM_WARN_ON_ONCE instead of
+pr_warn_once(). pr_warn_once() will (AIUI) not be caught by fuzzers, at least
+not as easily.
 
-The observation that led to the patch above was a much simpler one:
-since we now have the caller-locked __list_lru_del() anyway, the only
-difference between that and the list_lru_isolate* is the
-accounting. The patch is about one thing: removing the isolate helpers
-entirely. There is then simply one tool for caller-locked list
-unlinking, __list_lru_del(). It removes an avoidable distinction,
-shrinks the API surface, makes it harder to screw up.
+Also, if they're inexpensive enough, we might want to upgrade them to full
+WARN_ON_ONCE().
 
-The zswap weirdness made me look at list_lru. Consider it a stress
-test from idiotic code :-) But I would propose the list_lru
-simplification for its own sake, regardless of what we do with zswap.
+-- 
+Pedro
