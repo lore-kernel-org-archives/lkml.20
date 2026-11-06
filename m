@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793970246;
-	b=5DFJt0rFaZ7761f1DOPyTHgdjOOrDfNd+UWNOUqZgfp/AzR24DiRUBJxF73cGw85WsJh
-	 Py8T5qGnGdcEfg9tI2/YjPkURcKAowhs7MWPtO0r7u0DtOPChI6UJnCNW61Vgd5kLAAZ3
-	 KQtHBMKTFmPfjTkisZEqHSXOIqsWew88R7cCGWunuuzNXsL5zgWVS42qSZZV6giTPYd5V
-	 eBbQaGekFmIigCtdXv8Z/wBW38OcBBt59AlBJZ5mGVAldZMDqy2A9LKWl/7DE69cJxu3q
-	 62Fxs2GYkCjWyPcgmCcDcV6Eh0vRD0b9mkSsB2EDIsAvu3srQXpYFWAyukYrVoSjXVQ==
+	t=1793970262;
+	b=OMJ8/MKtEkyvhh+r577xSAupL3z1qYxnqYbc/h+9JiZPKnaU+ayVUcxsKYWfqjiqiEuU
+	 lZZy10TYPm2x5f1tLdVT4sAzOC/za9+ju+yw33FYIPDSuem8G49cCrAXyfPS1N5wdcfB6
+	 pEfWyLaQY9O8OHi7gj31MG7t67gZ/H8Uw8Z1HC+GdyTcZ3IFm5L8S+3lFFYS4JK5ZWcVR
+	 pTUoi3xF85R1F5BcoX3F5blNKtrcV3ZkwYFIiZSrrpTkdSSLsnLZjdn3Ac9wV79Lc+fD/
+	 U6xkJgjvXciaindWNBJB+jRPSqexPwLjgwWCO8fmXOt1vD7C72PyM1B3FqoIPRnftVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793970246;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793970262;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UCKBeOZ2ggoGewJRZ/nGZX9hVpqu5lT56pUi5B+/g3U=;
-	b=XknBW2rw974C49shKurE8VQKyBrleV1Xhf5MPoyCQfIdSjnkXgLnG5qAknYJLD8mOaq1
-	 UQme5E8gcu9f1pvKWqW7jAoQC7urKRttwgtqex4yqAhsz/PQcA55vpg3PxLEL6+U4P5eG
-	 dUAavskKNNpHDO/Ij5jzqd66/8pzUIzRNfCy5HctxhD9/ybSaH+L2z0KBsOJC0bB94NDN
-	 kivz0CgUh/PJgaO7MHyRT3qtgja8hk0gobKmslhSesZHebEwZq4mHyDb4shyQ1WhT8dVW
-	 v2i/SzWlIbsvZmlM28V4MUws3SZg3i7FDr/tA6I0dqKemEP//7UiMFxRdl/1ac2dm3w==
+	bh=ME2X2oedXhydVPPNVsakRcZ2pjykO1SLtyex8ETN3D8=;
+	b=LjzGTQdonzm4HFEIfc4ujS/44qYEAA/dmMMrahgUbBo1XQkP5GTLjBKZ9Xj8EIVpucE9
+	 U4mSouirBoGHmHOS7NhxSXa4XNEu+kaJd+51AC8kaSbLBBmmcJGip5eDdxR3nbcQLZvQB
+	 nk7Tayfv1okZSJcZGTtyqEXysCx7JyLpf+u28TlM6bzeudfM0Ts85PcQ2mcICfH01VV9T
+	 FMpsTLhCr7Z9irN56SVFZK6QVw4IRs4CmTiKxWn/kssq5KjIZHJc/aGvTBNRKFHOPN/ZX
+	 zSxsLyZ7uqHw+H/P5116je7GH1KPASRpGZ17dxyR3HPA7+GvHr3yu8GujlRML7Ehjmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b10CHmSn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmILPruh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34918606A326;
-	Fri,  6 Nov 2026 13:04:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F854606A326;
+	Fri,  6 Nov 2026 13:04:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b10CHmSn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4F51F0089F;
-	Fri,  6 Nov 2026 13:04:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmILPruh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1841F008A1;
+	Fri,  6 Nov 2026 13:04:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793970246;
-	bh=UCKBeOZ2ggoGewJRZ/nGZX9hVpqu5lT56pUi5B+/g3U=;
+	s=k20260515; t=1793970261;
+	bh=ME2X2oedXhydVPPNVsakRcZ2pjykO1SLtyex8ETN3D8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b10CHmSni3p1IQx+zj+Oxy9biEFFjGn4dFG1hcgJD4XJStyJvTSYsoAqotVFpjzEW
-	 wfR11z4t8IuTXMH7g5iH7ZHlAAquWOstgwVODu3ayQVRUqpkqnQbvVCbjEj8shp3AW
-	 FzRnKBCy8981CTK6EW6K7zQ3i8qKjcMfe+CFNjnYT96i1TiUxK69/5JOayqmTv7G1X
-	 bK1QJcUVY+oqu48+J4/EN+fmzcwMZiRyOHZr2euEGiCvMTIotUmw/Tah5Wjlp5hENR
-	 yXH17jV5Bp1Z6MUmbntpGD0ldNQjzwIeL5a1ImZM9l5mYDU5Km8RvZKB7gNHkn2SLP
-	 7QwUhEFQxW80A==
-Date: Fri, 6 Nov 2026 14:04:02 +0100
+	b=FmILPruhutiEAkEf0NHC1dlpTsUc4vh1kIRd9lKcwU5jkS0UzH/tW/VP9dbDjN4xR
+	 PoDrYUP2Y4w97+Zdd6F3svicIiJxsCdGvmzmluDJLARsbo084G8MSXf75PdEOTc31C
+	 Qsr8SFnSW81CVBJm4SuiObvfH1vcN+O53jA81FOk71YggHooXNllHK5XJkcQuPqufY
+	 yI7bcZZ4ANQOf3YSUMySxCrCKRW3yL4xI69YPVI/HwIDEDwNv0k5d1+/fUWWNLGUT+
+	 uDrvSVwFG00ezFoaHG7h5R/bYybTaprgeNUbRTJS8vJAfyC4bSfoccbO2R5RkKH8dK
+	 zaRrmL7z9gFAQ==
+Date: Fri, 6 Nov 2026 14:04:17 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	Sander Vanheule <sander@svanheule.net>, Bert Vermeulen <bert@biot.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] gpio: realtek-otto: Add RTL9311B support
-Message-ID: <20261106-glossy-tarantula-of-finesse-f9d724@quoll>
-References: <20261103215316.1544492-1-joshua.scott@alliedtelesis.co.nz>
- <20261103215316.1544492-3-joshua.scott@alliedtelesis.co.nz>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: serial: 8250: Allow unconnected interrupts
+Message-ID: <20261106-lumpy-just-mosquito-8ef62e@quoll>
+References: <20261103224409.865130-1-robh@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,54 +60,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103215316.1544492-3-joshua.scott@alliedtelesis.co.nz>
+In-Reply-To: <20261103224409.865130-1-robh@kernel.org>
 
-On Wed, Nov 04, 2026 at 10:53:16AM +1300, Joshua Scott wrote:
-> The Arm-based RTL9311B switch SoC has the same GPIO controller as the
-> RTL9310, with port A in the most significant byte of each register and
-> the same IMR layout. Add its compatible and allow the driver to be
-> built for ARCH_REALTEK.
+On Tue, Nov 03, 2026 at 04:44:09PM -0600, Rob Herring (Arm) wrote:
+> 8250-compatible UARTs can operate without a connected interrupt, using
+> polling. Requiring interrupts rejects valid descriptions such as the
+> HIP06 LPC UART.
 > 
-> Signed-off-by: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
->  drivers/gpio/Kconfig             | 5 +++--
->  drivers/gpio/gpio-realtek-otto.c | 3 +++
->  2 files changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index 55e4280029d8..bc584da1abbb 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -645,14 +645,15 @@ config GPIO_RDA
->  
->  config GPIO_REALTEK_OTTO
->  	tristate "Realtek Otto GPIO support"
-> -	depends on MACH_REALTEK_RTL || COMPILE_TEST
-> +	depends on MACH_REALTEK_RTL || ARCH_REALTEK || COMPILE_TEST
->  	default MACH_REALTEK_RTL
->  	select GPIO_GENERIC
->  	select GPIOLIB_IRQCHIP
->  	help
->  	  The GPIO controller on the Otto MIPS platform supports up to two
->  	  banks of 32 GPIOs, with edge triggered interrupts. The 32 GPIOs
-> -	  are grouped in four 8-bit wide ports.
-> +	  are grouped in four 8-bit wide ports. The Arm-based RTL9311B has
-> +	  the same controller.
->  
->  	  When built as a module, the module will be called realtek_otto_gpio.
->  
-> diff --git a/drivers/gpio/gpio-realtek-otto.c b/drivers/gpio/gpio-realtek-otto.c
-> index 5d98ad597d9e..a4f010a0d2cf 100644
-> --- a/drivers/gpio/gpio-realtek-otto.c
-> +++ b/drivers/gpio/gpio-realtek-otto.c
-> @@ -352,6 +352,9 @@ static const struct of_device_id realtek_gpio_of_match[] = {
->  	{
->  		.compatible = "realtek,rtl9310-gpio",
->  	},
-> +	{
-> +		.compatible = "realtek,rtl9311b-gpio",
+>  Documentation/devicetree/bindings/serial/8250.yaml | 1 -
+>  1 file changed, 1 deletion(-)
 
-Why do you need to add it if it is fully compatible?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
