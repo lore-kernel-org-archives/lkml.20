@@ -1,79 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793981632;
-	b=iF98YU+P+3/aWJcLpDRO0leZZRhd1m58D1yBum+Vp2CYCUZiCvO+0j1wgMIiyEX+WHsL
-	 KP40PgDf3ap3ufprEDiNeH0T+8bpFOwterYO1cnvbNjlf2OxQuOUFA6GYWbVwdzfNGFVV
-	 4KNBNR6AazK2aR84wqHZEXQXeoTYRYacYJNhQImG74LooRWtl9ZFk9FTHMD/TyXbVbvmU
-	 IFszLZvoMtCM2GbKw5G3VeLskXFtNVHGKG4PCfakV4jsQJqg9GJDv+Nt1A6O6uRVJ0Mc0
-	 FvYzqAoxYq+TCnL/cORqTf9WVlaZQ8y/XX7tZv8SRwOMoMpxqVUFyuBLV5FPCGmogSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981632;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4p/riUXFsjOjpa6ssGj7UaebkRyu/J5l9ryx35/Ead0=;
-	b=illZF/tbefrAWfJ6iNJE4PD9macj2C/yR6xzuH0xPmQ9ny9/Xg6p86u67LIDutEe+sZP
-	 eZk1eUvGTYuw1nSoIE1+EsHazm0JXUzLMGgrhA7f6OLURRaUVoWuXtsG40uUiOgw7Q3lp
-	 7dkxiohunGiZe54KMlvFvZ6fOvYatrtzCsyQ0KLYpGNWYPbKgASI08kdnMjGtq9mQV1hA
-	 0lP7wNgraXV8+wxbfHa5+vOXKc438F4Q0tvxMIPQtz9Cx7H9ShfzSMsTNcyft1q4Hq23q
-	 GyWKCP9c2DGeb7liIGZpt3Te4l95pBanQV9NuDKiEC+Qk/KXU7Yzf16t3DproUleKdA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I0qMmf5K;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE635606A9A3
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I0qMmf5K
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793981631;
-	b=SKErmvFo77OzRvd88ZNmFacYCOKN7tVF70yivRqeyB44Hobn0chBHDNAEGnUun/MmzsU
-	 BjOWNUjMpv0Mq+payrKqNRxjJqGyBO28bZdYide0KWrYPyDZaqKtpGIiWPvu4/sb5xyJk
-	 XavvoP0CgMKy+H8zmI7XxW8sQZh3CTsn7x2HmwNSbajaqs2usgTjUh9vw+iNi3QOMmiw4
-	 U6Cl15lf9zcIDoQ/wHidef5qH/cVwPjM1gl8Wor4rAFw5f4Nwobvg8KCGZxMuoO8xz7Xj
-	 dMYhJLVj4ZN/n8SpmVITnAU8fmO9m5EVeq2nLDLhMCYIiOkToOEjU7hDpC5J37uuNOg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793981631;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4p/riUXFsjOjpa6ssGj7UaebkRyu/J5l9ryx35/Ead0=;
-	b=yKqLvldurCWJACR5sqEfTxDt1izpJEY1R7uzfgSHNo1AuTh8QvebRSK2Kd8nJLrOnP2k
-	 9AeMcoWbJI/ejKYro+yaq2wNYOqPmNgTda8MoxXW79CRBvjXjl7W60eTICWEQSD5bOSK7
-	 x5hVzt1FDCRLvQxkt1ouLSGiF82EMOpjTJxjyuU/4aluG8BOf7+TsRfSn64+2nhjDsHQ5
-	 mx5OJTSutb/zjNJDzQuMNQr6fGEiC5eipmZLlPoQvnT9ZYAGFEnsROELI37fzh5wLgmeq
-	 diZciFQujFzr1Vk5CGS/xfmBZ8HFFHYwij/17mrnotWe+sGeBz+DSRQjah1qfCVDDGg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793981686;
+	b=3HfiXV2b4Dj7qnIZgS+GMPBKxN0oYeRA/M9wAsgauTo0SAS4vGWOcmP1qQBt1BbwmS9r
+	 LkxDsUkV0HHwVyRMNlM3bz9LyL72NZYbXxCWVChzZeVkGWVdPPDZtPlqN2AcKVjTZ9qGU
+	 zT+w5mFPwh8ZRkzFbFj9e62QLLfu+oWkbakZPRYa9ZHlM4LWfEgo6GkMWY7BeahC+LCqN
+	 HqoPjHbwlpOPNsWqyT4Niz158dI/otJx2kkfGv3OW810SZjuY/XCxQ1WcFMuwMpIMVz9w
+	 9LxaYJ8fqApH4vZFkvGPeA3cXleIEByku17UFVZSbBFjL7DUSQT8oZXWLOL5jKZHJ9g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981686;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Vfs6Gp27n5CuVhG0QqTC+w+/CbPNYwiZFwgux4fLn7c=;
+	b=ag5zMgxKry6MqwwvGou+AZY+1HX8ZAFBumFbenEFjDfzwD8qgix5/eGtQSTdYuHNq9+e
+	 RHYyWQ5gBnrJAYSHb4wJEG0FlkJkPCUSdRehiKBtNQLC5n3jj7SgjCgyRDamH9OdanRRh
+	 EKb07wxxuaie+/G1m6jtApq0FliTx9lBqJrGCJO3PJWJRXaXWpUNw6k+I7/HFOya2isBw
+	 gOzvaAucqJzL2kTh5PTROhN2CIbm7cbawjAJzXVDCIC8/g1GYHwhHF/FeT8LTC/F59pFo
+	 8lts8Svxsin55tLQ953RG4K3uJD82ksYFw1n+Yp8G8INModjl/+tkyCehg9rqP5G3wg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=it48pUKy;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0B5D51F008A4;
-	Fri,  6 Nov 2026 16:13:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793981631;
-	bh=4p/riUXFsjOjpa6ssGj7UaebkRyu/J5l9ryx35/Ead0=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=I0qMmf5K9UHM0ns1jIZ1Je72gmmyzEo7f2LR1wxuk1fyDsQ18v8kk4pgmOywUTqwl
-	 P2MS5qSWeRcXSe4yzDQrnHSq6zxiylb2r2eKb0akgucdE7PmaTZHc9etE5uHMexMsK
-	 /Ex08XQLsTEA5lveN10xjaNOzb61kCuuTHg4ut18Nl4Z3A/cZd5Ysc9MDbAJcaP0En
-	 rRPHsS3PoKnwkXsDNwJrbRHgzbvzxbj0R9u+E5iNJ2MryF2N18J3H4D/2a+87KIhkf
-	 TajiKsB9UVbc+RwmDRlmuaVe/Zo3RIgmxc56kUjuN4DIfNw9o9Q0phKBcEptniPr2A
-	 pjXYrpuXhjwkQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5A37A400A4;
-	Fri,  6 Nov 2026 16:13:50 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Fri, 06 Nov 2026 11:13:50 -0500
-Subject: [PATCH v3] smpboot: Run the thread function only once before
- parking
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AD4606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:14:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4AD4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=it48pUKy
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Vfs6Gp27n5CuVhG0QqTC+w+/CbPNYwiZFwgux4fLn7c=; b=it48pUKyg7t4dyGncuzbTzNx2R
+	YqTNAfMfFoNwk22GKiBnBpWu/XrzVc08u59jXbBhrz0gfwE0lyh7H80xxddQk1FKvvZuBe0c3hmcx
+	Bs2rUSJkOM+x+QuoZ9i5hQRwqMevf6B9wIUjVcZXbQeHekdhETepzT/HQLCrqH1XL6DYkQ7ML8OWd
+	DMmERtxrzc3W3ZABC4+iySg4EMBuR26AkXpO3ookzcpEpcR46BzcvOTpMp0t6jHnsJxY8oA5k0Gk8
+	eoqCi5nT+iW7cFN3FRbjab779+jOM1Y/xeEtS0uw9mMCf+c7vs3xgJ18G3uAPWWbYWVt9rujHLU/G
+	sWad6HRw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xPMaD-00000004v3C-2S1e;
+	Fri, 06 Nov 2026 16:14:30 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 7E781303154; Fri, 06 Nov 2026 17:14:28 +0100 (CET)
+Date: Fri, 6 Nov 2026 17:14:28 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Ruidong Tian <tianruidong@linux.alibaba.com>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, oliver.yang@linux.alibaba.com
+Subject: Re: [PATCH v2] sched: move stack_canary to the start of the
+ randomizable region
+Message-ID: <20261106161428.GC1922751@noisy.programming.kicks-ass.net>
+References: <20260509035014.2220372-1-tianruidong@linux.alibaba.com>
+ <20261106160730.GJ1779021@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,102 +70,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-smpboot-park-once-v3-1-86dadce65c63@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBQE0KuYrq1pPwLFlfcwLkr7kapQ0kKjI
- dzdFjfGGJeTzLyZiUdn0JPDZiYOg/HG9jFk2w1RrewvSI2OmQCDgnMG1HdDbe1IB+lu1PYKaVW
- wshFYlizTJO4Gh415rObp/M5+qq+oxgSlRmv8aN1zPQ089f75gVNOq1gQUGS5BnZU9j51tZE71
- BNJFwE+kf0vBCKCEgSqqtEixy9kWZYXs+xc7AwBAAA=
-X-Change-ID: 20261102-smpboot-park-once-9607f8e7703d
-To: Thomas Gleixner <tglx@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793981630; l=2770;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=hQCHuB1d9BRH2/8dcB77iRnc4fAbW9qf8O+O+kdrRw4=;
- b=POb6tSQ/ejI405B3M4LOQ80NK42gYvLvXTSTzWXlsOnoeevhpP692cq/zUuxtZ1UOKHR7Lod6
- dkPJjgTT5sDAI9iTHU60FYh6YFfIfj9oy/jzIcJnZD/Pirx2KLZKJa2
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106160730.GJ1779021@noisy.programming.kicks-ass.net>
 
-From: Mani Tofigh <mt4022@columbia.edu>
+On Fri, Nov 06, 2026 at 05:07:30PM +0100, Peter Zijlstra wrote:
 
-Since commit 4a3b51aab6e2 ("smpboot: Don't park the thread if work is
-pending"), smpboot_thread_fn() parks only once thread_should_run() is
-false.  CPU offline waits for that with no timeout and with
-cpu_hotplug_lock held for write.
+> Why not do something a little more structured; like so?
+> 
+> ---
+>  arch/riscv/include/asm/stackprotector.h | 4 ++--
+>  arch/riscv/include/asm/thread_info.h    | 7 +++++++
+>  arch/riscv/kernel/asm-offsets.c         | 7 +++----
+>  drivers/misc/lkdtm/bugs.c               | 4 ++--
+>  include/linux/sched.h                   | 6 +++++-
+>  kernel/fork.c                           | 2 +-
+>  6 files changed, 20 insertions(+), 10 deletions(-)
+> 
+> diff --git a/arch/riscv/include/asm/stackprotector.h b/arch/riscv/include/asm/stackprotector.h
+> index 43895b90fe3f..b56e49ce0580 100644
+> --- a/arch/riscv/include/asm/stackprotector.h
+> +++ b/arch/riscv/include/asm/stackprotector.h
+> @@ -15,8 +15,8 @@ static __always_inline void boot_init_stack_canary(void)
+>  {
+>  	unsigned long canary = get_random_canary();
+>  
+> -	current->stack_canary = canary;
+> +	tsk_stack_canary(current) = canary;
+>  	if (!IS_ENABLED(CONFIG_STACKPROTECTOR_PER_TASK))
+> -		__stack_chk_guard = current->stack_canary;
+> +		__stack_chk_guard = tsk_stack_canary(current);
+>  }
+>  #endif /* _ASM_RISCV_STACKPROTECTOR_H */
+> diff --git a/arch/riscv/include/asm/thread_info.h b/arch/riscv/include/asm/thread_info.h
+> index 55019fdfa9ec..eed764f06682 100644
+> --- a/arch/riscv/include/asm/thread_info.h
+> +++ b/arch/riscv/include/asm/thread_info.h
+> @@ -73,6 +73,9 @@ struct thread_info {
+>  	 */
+>  	unsigned long		a0, a1, a2;
+>  #endif
+> +#ifdef CONFIG_STACKPROTECTOR
+> +	unsigned long		stack_canary;
+> +#endif
+>  #ifdef CONFIG_RISCV_USER_CFI
+>  	struct cfi_state	user_cfi_state;
+>  #endif
+> @@ -86,6 +89,10 @@ struct thread_info {
+>  #define INIT_SCS
+>  #endif
+>  
 
-When the outgoing CPU keeps receiving more packets than it can process,
-ksoftirqd always has NET_RX pending and never parks.  The offline then
-waits for as long as the packets keep coming and everything that takes
-cpus_read_lock() waits with it.
+This should probably have a comment about 12 bit immediates somewhere.
 
-That commit only needs the work queued before the park request to run
-once on its own CPU.  Softirqs left pending are taken over by the
-dead-CPU callbacks as before.  So on a park request, run the thread
-function once if there is work and then park.  With the fix, the
-offline finishes under the same load.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 25s.
-
-Fixes: 4a3b51aab6e2 ("smpboot: Don't park the thread if work is pending")
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Changes in v3:
-- Drop the hung task traces (Sebastian)
-- Add Sebastian's Reviewed-by
-- Link to v2: https://lore.kernel.org/all/20261104-smpboot-park-once-v2-1-ea28ec9fd85e@columbia.edu/
-
-Changes in v2:
-- Use Sebastian's comment above the thread function call
-- Link to v1: https://lore.kernel.org/all/20261102-smpboot-park-once-v1-1-920282635d20@columbia.edu/
-
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/ksoftpark.c
----
- kernel/smpboot.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/smpboot.c b/kernel/smpboot.c
-index 3f60e8c6dd30..b477267903d7 100644
---- a/kernel/smpboot.c
-+++ b/kernel/smpboot.c
-@@ -119,9 +119,17 @@ static int smpboot_thread_fn(void *data)
- 		}
- 
- 		should_run = td->status == HP_THREAD_ACTIVE && ht->thread_should_run(td->cpu);
--		if (kthread_should_park() && !should_run) {
-+		if (kthread_should_park()) {
- 			__set_current_state(TASK_RUNNING);
- 			preempt_enable();
-+			/*
-+			 * Run pending work once to handle queued work prior the
-+			 * parking request. Don't try to process everything in case
-+			 * new work continues to come and the handler has a hotplug
-+			 * notifier for everything that was enqueued later.
-+			 */
-+			if (should_run)
-+				ht->thread_fn(td->cpu);
- 			if (ht->park && td->status == HP_THREAD_ACTIVE) {
- 				BUG_ON(td->cpu != smp_processor_id());
- 				ht->park(td->cpu);
-
----
-base-commit: 006991aa89974378ee579416dba87adc22cd60fd
-change-id: 20261102-smpboot-park-once-9607f8e7703d
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
-
+> +#ifdef CONFIG_STACKPROTECTOR
+> +#define tsk_stack_canary(p) ((p)->thread_info.stack_canary)
+> +#endif
+> +
+>  /*
+>   * macros/functions for gaining access to the thread information structure
+>   *
+> diff --git a/arch/riscv/kernel/asm-offsets.c b/arch/riscv/kernel/asm-offsets.c
+> index a75f0cfea1e9..eb694e1215bb 100644
+> --- a/arch/riscv/kernel/asm-offsets.c
+> +++ b/arch/riscv/kernel/asm-offsets.c
+> @@ -49,7 +49,9 @@ void asm_offsets(void)
+>  	OFFSET(TASK_TI_A1, task_struct, thread_info.a1);
+>  	OFFSET(TASK_TI_A2, task_struct, thread_info.a2);
+>  #endif
+> -
+> +#ifdef CONFIG_STACKPROTECTOR
+> +	OFFSET(TSK_STACK_CANARY, task_struct, thread_info.stack_canary);
+> +#endif
+>  	OFFSET(TASK_TI_CPU_NUM, task_struct, thread_info.cpu);
+>  #ifdef CONFIG_RISCV_USER_CFI
+>  	OFFSET(TASK_TI_CFI_STATE, task_struct, thread_info.user_cfi_state);
+> @@ -88,9 +90,6 @@ void asm_offsets(void)
+>  	OFFSET(TASK_THREAD_F30, task_struct, thread.fstate.f[30]);
+>  	OFFSET(TASK_THREAD_F31, task_struct, thread.fstate.f[31]);
+>  	OFFSET(TASK_THREAD_FCSR, task_struct, thread.fstate.fcsr);
+> -#ifdef CONFIG_STACKPROTECTOR
+> -	OFFSET(TSK_STACK_CANARY, task_struct, stack_canary);
+> -#endif
+>  
+>  	DEFINE(PT_SIZE, sizeof(struct pt_regs));
+>  	OFFSET(PT_EPC, pt_regs, epc);
+> diff --git a/drivers/misc/lkdtm/bugs.c b/drivers/misc/lkdtm/bugs.c
+> index 2761685cf4f8..977ee7584249 100644
+> --- a/drivers/misc/lkdtm/bugs.c
+> +++ b/drivers/misc/lkdtm/bugs.c
+> @@ -247,9 +247,9 @@ static noinline void __lkdtm_REPORT_STACK_CANARY(void *stack)
+>  	for (i = 1; i < 16; i++) {
+>  		canary = (unsigned long *)stack + i;
+>  #ifdef CONFIG_STACKPROTECTOR
+> -		if (*canary == current->stack_canary)
+> +		if (*canary == tsk_stack_canary(current))
+>  			current_offset = i;
+> -		if (*canary == init_task.stack_canary)
+> +		if (*canary == tsk_stack_canary(&init_task))
+>  			init_offset = i;
+>  #endif
+>  	}
+> diff --git a/include/linux/sched.h b/include/linux/sched.h
+> index e4f6323d7855..b7702fefed63 100644
+> --- a/include/linux/sched.h
+> +++ b/include/linux/sched.h
+> @@ -1083,7 +1083,7 @@ struct task_struct {
+>  	pid_t				pid;
+>  	pid_t				tgid;
+>  
+> -#ifdef CONFIG_STACKPROTECTOR
+> +#if defined(CONFIG_STACKPROTECTOR) && !defined(tsk_stack_canary)
+>  	/* Canary value for the -fstack-protector GCC feature: */
+>  	unsigned long			stack_canary;
+>  #endif
+> @@ -1697,6 +1697,10 @@ struct task_struct {
+>  	randomized_struct_fields_end
+>  } __attribute__ ((aligned (64)));
+>  
+> +#if defined(CONFIG_STACKPROTECTOR) && !defined(tsk_stack_canary)
+> +#define tsk_stack_canary(p) ((p)->stack_canary)
+> +#endif
+> +
+>  #ifdef CONFIG_SCHED_PROXY_EXEC
+>  DECLARE_STATIC_KEY_TRUE(__sched_proxy_exec);
+>  static inline bool sched_proxy_exec(void)
+> diff --git a/kernel/fork.c b/kernel/fork.c
+> index 5efceb8d58a7..878d586bda25 100644
+> --- a/kernel/fork.c
+> +++ b/kernel/fork.c
+> @@ -964,7 +964,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+>  	clear_syscall_work_syscall_user_dispatch(tsk);
+>  
+>  #ifdef CONFIG_STACKPROTECTOR
+> -	tsk->stack_canary = get_random_canary();
+> +	tsk_stack_canary(tsk) = get_random_canary();
+>  #endif
+>  	if (orig->cpus_ptr == &orig->cpus_mask)
+>  		tsk->cpus_ptr = &tsk->cpus_mask;
+> 
+> 
