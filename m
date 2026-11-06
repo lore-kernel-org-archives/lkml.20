@@ -1,53 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.202
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976923;
-	b=3BaqW9jYXlJcXWFlJt3YROH5NffIkOAEZUYz09B7L0ew3FuL7/PDYgD6Ct2gipot0snU
-	 uBc038Ys3Pnxp4j+VTv276e0FjVj8iMDWirT/+ENFVkLT6VXrEqiD9QMogKS/8zEZawMn
-	 XPjtRVgE5198YWR4h1qecX4YkddiYW2mG97KNZ9Pl24gpBBYeL1c19Grn9dI0Q6LY5m/t
-	 eEy2y+RgA1sDbpygccTF9QuQXhK2V9iir912dupLZx0uYTAgFPVmwXBI6fUpVZYbjcpCQ
-	 u6MNdz5TN3/MTw1I2FaFcvvwMXabtp50e0gC0XZjuERNs61U0Uq2W6Rkh9N0hlkZd1g==
+	t=1793976924;
+	b=U6+udi0+eQgJnPKRRnbaMebrKaD/kVTiwV/natzItgyxjKXMHkmg2uoi71gv1JcHB/KC
+	 kBo3/m+8Hj8ITaxP5ourFWdn6Oh4ouh66x5Wjpu6Us3AZypeBcUzNQ6HNo3HVhY4cLC0S
+	 XVY2DgXVaORjFyoGQ3VIYMVf8VGDASBoNFzXoCjTnq7el9VrP1sgWQfJZ121WAj0VwAzQ
+	 y6BUGuMXjvaEr+SQB8ZH6pWUQWCmizFTb73meaO6kYb+8K69Ft924CgQ9Samhjn/7XLVC
+	 UAmfHrUiOI7/GvKs09vjpBG0calyd74lBRYvQTeEzRh2vqWisWeQgJFS7Mp4OXwnWAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976923;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=L1JcU/04WRpSSTfXZx8VAoW2lVINFRv9RJraW5KWco0=;
-	b=oHvSU6O7W94P5WgDHaSYa/zmTuR6A/pHN28HaC4tsVK+cIx+8SgKAkaHg3FrjULlO6yd
-	 hfWkwX+3cG/Eage3halRxjROv4k99OFCzHpBosoEWOl4ok2WmNtlEgrhiHQ8tAs93oSde
-	 k4knc6XMoCLWZjPl7pZ3YSdiLkW8C0HqfYS+xlX5guBgSTls8Os75ZWb8dToJW5qAvPl0
-	 wrns+BvvtZJRn6vrtgr6jzxHqj9xTmT7I7wjdlKfKCciQLemRVt9rPsi3jtfN7nKHLYfn
-	 kbZiQqV7lI/Urt8PP4ndZnkmvKY0wbjca7Yewl1j8jw3HAay0aqa3UvQNEaywpCiqbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976924;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=CEvqs1X/nNyjFGF57/UwB1GPydCvgLvUiPVC3sYODKY=;
+	b=hZ4PmgwzAJOwOntGzmIUwxF11t7hiVTGorre+HLHiW8Rm5FTO2lJNxlyaOJESMIUDNbF
+	 PVr4Qm6u0k2e2u1IqtMcxFm4TUF+VrPrYnZLCohCcjOCX7wdnuXMgFmoGHewwLB3c3+3C
+	 htq8XtCrK5dEMNxEZPW4DQGKp6tXObByCsJe9XsSgQM3CxVaHwDyqvuY/pgB4pwaMyVhD
+	 jzS3/h0C3pmtHqvV70Z97bMjgbPIp9TqCqhHcEM9DqH3l+uFaaiQmDy+SG5qC4DxNF8pE
+	 ltObKOXrpAGaPc5i+z9bTxA1kqB/h+U9Aav1RZpg5C3JFCqdO/lD1DdKGRPC3Vf5G7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=74.125.231.202
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pvEcq5EW;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F687606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:55:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F687606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4c3bb46aaf0so250828b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:55:23 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0B8606A331
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:55:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F0B8606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pvEcq5EW
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b0d0b80fb9so444822a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:55:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793976923; x=1794581723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CEvqs1X/nNyjFGF57/UwB1GPydCvgLvUiPVC3sYODKY=;
+        b=pvEcq5EW5p5RyHhNApIpanjG+XM0py0wkLCpq1Xoa3Rz+fpzGcOAiH/VQsXsemgM2S
+         9/PT4v1X1PrWv/6wko+hr5538Uzoi1ZxC/AFsLOhd+bY+DRPLkKcZleqOOGtCDQoD8M1
+         mM+eeXRYItk6md6ykyYNeDjO7DnyXRssj+9poenaAlETqHqgC2ei9cd5PQGhXJvEHMpk
+         kpIkYRIWkVJQf+Vzm9fgwIXNAbdVd8ZfceNtJOW4YQRZKD/LlADYQsXXuNKPzzq4wbV4
+         10BaI/kiV81y1PXRDYlGI2+oI5LvaqZsbIOBT6KGXLMGbic1FIcM+oW6WCpBUL7XCdmP
+         vB+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793976922; x=1794581722;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=L1JcU/04WRpSSTfXZx8VAoW2lVINFRv9RJraW5KWco0=;
-        b=yh3YukKYXxk9duQ0Gb87K+A2AaGx9zSH7FvZcIQBvR6PZ6u5sV0eUGBlbDS5ym0MaG
-         sudNKfX+Lciy/wFLTLQuMa54eeHLFBOKSGAgWr3qUMbtHwC6KsjZ0eyAOPR6WYm2aL+O
-         pvS5Ky4WvcQdkthzI9dHp4AbRiEDdFm0bduEWQLD485wPwAu540WW1jnUBv+qpHktUQQ
-         Rt0nBANdRwL0Ilv5osrAhKJsPl3VokobKIhd6dTuyEryjskcg4ev1IFLJNbNWOHIIoKK
-         pDaqU+RT2soWvemTIfFhs3ZRI2kg0ysB+YylwLD4FD6CIxyXPqnwSAdYorY/vJ1RKaDo
-         1rzg==
-X-Gm-Message-State: APuU4Z8VZ1JIN11BaTrxTYF1ltVRQxkqxyi3IDzbplv7S2NvI0EosBez
-	9CpLRecZS2Y/IRgg8mWxWRdql88CEhSDkLV95O0jJv/n20LhmsSmMNveYNUM8h4Dk/Bl51dQnGH
-	wvFfcSYl+57Zndn0cm23cdEenZLY9hc43XaKdCvF+BGjmR8dVHTwozwzC70GSig==
+        d=1e100.net; s=20260707; t=1793976923; x=1794581723;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CEvqs1X/nNyjFGF57/UwB1GPydCvgLvUiPVC3sYODKY=;
+        b=i9C2TQJGF/6oAIXdotJBajKofQcw/3dQdwTXAOms83q3eDqrBXpJdHmS2e8B6WZtoN
+         J+ZbaxmSBXEH9lmHlmYTkY3eaGlcVvNPQt/16PGHbMbnFmuCeSpm0XV/reBu7hq5ntaV
+         3+W6GSTi7OgWBMUwl5LDphVSviPgI005EyeEfz/BxHTSt8JnqxZl/nDoFNb8qbvMslYW
+         HD2mw6Bn+36PQmpNC4LnqNC7iBJvxYgl0FrbhqdEAoIjrpiBd3ltmpN/2AUAOykWIucW
+         X95ho82MwOf8lGN9+XrdJm/Rj24sTBAEIzXwmgpWFTryA2WXpxm0rtx63DQDS9N4tmHn
+         3lFQ==
+X-Forwarded-Encrypted: i=1; AL+hErHPJRjEaJuDwbICy3f8xWBVI/4py4kxUu6kWfI6wnfHx5nYICmJXQ17mr6+VO9EQ6Jska465cZu8/pz1NQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/q/OIP5q6TkVoMOgnOClGkC8c9G2rlZPk+BtZ/XvvNdzsjO6y+
+	AVYBGAp8NxU5i5EZc/CGu6ZOJ85TaSemlh1uQdaEY96DXCfp7Mzzi85D
+X-Gm-Gg: AYBFou2czOKp90Ogfy1xFwxbDsvwFQ1FiqAhbvzLPd/4cWQ2dBfb9IHB56Znt4pwUwR
+	vLXQf9tvzwnffWRdutPyoLkXfqw1Rmi/DLMlvUrk2ORA/ZeI347ZEPuxMtxtWG0CPJXttJjWpRH
+	EWGiOfrTrvMoBo5nPtX0jKGl5xcUcyrSILTYX/YmbD9G5AIm37Va+bVIf+b5mPEHOr9UB9/EVp8
+	6qL1T2LhInSiO6V3WGrOPTR8bXoVd6eFf0y8EkwSUJpGlyEiuIMU59ygx7Sa+FWAzBUm1LiUtGJ
+	eZIVOjUXzpMyCXtj/cu3jdwz7Kbm5bXBXPn+FUa29telcln+VVSd2I3N4IJ/F5OnaWX9q7p8Y8A
+	tslbiX6ojd/UUfZrmABGNhBaDJgNxLaduNl/JSRNgK/qWY1fOSzzdil5wcYz/fyUPgsEYh9nY+k
+	WsifIH6sI15uneCMDvsyXnyUTyKymj8+dMXj1BFMCuQgHI9o4dDB1E6qr0dMn5ti9O4a3dFOhsO
+	jYOw3/8w+0ETYqtxZi2r5Csq2sq8r1shOjCPa9XxMBuiRDWy/LP2VaY01Ch+GN387JCsgFVv1B6
+	0rrE7IefIgMG8L7+vC/sQ+LXluFQhC9QGGBu6w3eGke65ULsr574sDU=
+X-Received: by 2002:a17:90b:2d85:b0:3ac:83c1:2c0 with SMTP id 98e67ed59e1d1-3b0db700c35mr2482629a91.64.1793976923367;
+        Fri, 06 Nov 2026 06:55:23 -0800 (PST)
+Received: from [192.168.255.10] ([111.55.212.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c42a72sm3783225a91.3.2026.11.06.06.55.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 06:55:22 -0800 (PST)
+Message-ID: <4c5e04a6-afba-4f7e-b790-c109ddad0318@gmail.com>
+Date: Fri, 6 Nov 2026 22:55:10 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,276 +90,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:192a:b0:4cb:f21b:6f91 with SMTP id
- 5614622812f47-567e152accfmr2392816b6e.36.1793976922272; Fri, 06 Nov 2026
- 06:55:22 -0800 (PST)
-Date: Fri, 06 Nov 2026 06:55:22 -0800
-In-Reply-To: <6a6944f5.e3659fcc.2a40b8.0021.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aedea5a.8be4ead1.3b45e1.0179.GAE@google.com>
-Subject: Forwarded: [PATCH RFC] usb: gadget: gadgetfs: dequeue pending ep0
- request before freeing
-From: syzbot <syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
-
-***
-
-Subject: [PATCH RFC] usb: gadget: gadgetfs: dequeue pending ep0 request before freeing
-Author: devnull@kernel.org
-
-From: Jing Lin <kayano050408@gmail.com>
-
-Please test this gadgetfs ep0 request lifetime fix
-The unpatched base reproduces the warning and use-after-free locally
-on arm64 QEMU with dummy_hcd and KASAN
-
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git f66469d9905b39d2c260a15d7d6db450f4db67c1
-
-gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
-the gadget, assuming that no I/O remains active
-
-With dummy_hcd, disconnecting does not necessarily drain ep0, so a delayed
-userspace response can leave dev->req queued when it is freed
-This triggers the warning in dummy_free_request() and a use-after-free
-when dummy_udc_stop() subsequently drains the endpoint queue
-
-Track dev->req from submission through completion under dev->lock and
-reject reuse while it is busy
-After waiting for active UDC users to finish, dequeue a pending request
-before freeing it and clearing ep0->driver_data
-Drop dev->lock around dequeue because the completion callback takes it
-Only dequeue pending requests to avoid errors from UDCs that reject
-cancellation of an unqueued request
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c73e1942197af9f54ca3
-Signed-off-by: Jing Lin <kayano050408@gmail.com>
----
-Local validation on arm64 QEMU with dummy_hcd, KASAN and lockdep:
-- The unpatched kernel reproduces the warning and use-after-free
-- The patched kernel runs the C reproducer and rebind/concurrency workload
-  without the warning, a KASAN report or a lockdep report
-- W=1 compilation of inode.o and the Image build completed successfully
-
-AI tools assisted with patch development, the commit description, review
-and local QEMU validation
-
-Related syzbot RFC:
-https://lore.kernel.org/all/161c70c4-a363-469d-8665-64f71763f84b@mail.kernel.org/
-This version tracks pending requests and guards reuse while they are busy
----
- drivers/usb/gadget/legacy/inode.c | 55 ++++++++++++++++++++++++++++++++-------
- 1 file changed, 46 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index 7f6d84601..d60df4ad3 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -140,6 +140,7 @@ struct dev_data {
- 					setup_abort : 1,
- 					gadget_registered : 1;
- 	unsigned			setup_wLength;
-+	bool				ep0_req_queued;
- 
- 	/* the rest is basically write-once */
- 	struct usb_config_descriptor	*config, *hs_config;
-@@ -984,6 +985,16 @@ static inline void ep0_readable (struct dev_data *dev)
- 	kill_fasync (&dev->fasync, SIGIO, POLL_IN);
- }
- 
-+static void dev_req_complete(struct usb_ep *ep, struct usb_request *req)
-+{
-+	struct dev_data		*dev = ep->driver_data;
-+	unsigned long		flags;
-+
-+	spin_lock_irqsave(&dev->lock, flags);
-+	dev->ep0_req_queued = false;
-+	spin_unlock_irqrestore(&dev->lock, flags);
-+}
-+
- static void clean_req (struct usb_ep *ep, struct usb_request *req)
- {
- 	struct dev_data		*dev = ep->driver_data;
-@@ -992,7 +1003,7 @@ static void clean_req (struct usb_ep *ep, struct usb_request *req)
- 		kfree(req->buf);
- 		req->buf = dev->rbuf;
- 	}
--	req->complete = epio_complete;
-+	req->complete = dev_req_complete;
- 	dev->setup_out_ready = 0;
- }
- 
-@@ -1004,6 +1015,7 @@ static void ep0_complete (struct usb_ep *ep, struct usb_request *req)
- 
- 	/* for control OUT, data must still get to userspace */
- 	spin_lock_irqsave(&dev->lock, flags);
-+	dev->ep0_req_queued = false;
- 	if (!dev->setup_in) {
- 		dev->setup_out_error = (req->status != 0);
- 		if (!dev->setup_out_error)
-@@ -1015,7 +1027,7 @@ static void ep0_complete (struct usb_ep *ep, struct usb_request *req)
- 	/* clean up as appropriate */
- 	if (free && req->buf != &dev->rbuf)
- 		clean_req (ep, req);
--	req->complete = epio_complete;
-+	req->complete = dev_req_complete;
- 	spin_unlock_irqrestore(&dev->lock, flags);
- }
- 
-@@ -1023,7 +1035,7 @@ static int setup_req (struct usb_ep *ep, struct usb_request *req, u16 len)
- {
- 	struct dev_data	*dev = ep->driver_data;
- 
--	if (dev->setup_out_ready) {
-+	if (dev->setup_out_ready || dev->ep0_req_queued) {
- 		DBG (dev, "ep0 request busy!\n");
- 		return -EBUSY;
- 	}
-@@ -1073,13 +1085,20 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 			struct usb_request	*req = dev->req;
- 
- 			if ((retval = setup_req (ep, req, 0)) == 0) {
-+				dev->state = STATE_DEV_CONNECTED;
-+				dev->ep0_req_queued = true;
- 				++dev->udc_usage;
- 				spin_unlock_irq (&dev->lock);
- 				retval = usb_ep_queue (ep, req, GFP_KERNEL);
- 				spin_lock_irq (&dev->lock);
- 				--dev->udc_usage;
-+				if (retval < 0) {
-+					dev->ep0_req_queued = false;
-+					clean_req(ep, req);
-+				}
-+			} else {
-+				dev->state = STATE_DEV_CONNECTED;
- 			}
--			dev->state = STATE_DEV_CONNECTED;
- 
- 			/* assume that was SET_CONFIGURATION */
- 			if (dev->current_config) {
-@@ -1270,6 +1289,7 @@ ep0_write (struct file *fd, const char __user *buf, size_t len, loff_t *ptr)
- 			retval = setup_req (dev->gadget->ep0, dev->req, len);
- 			if (retval == 0) {
- 				dev->state = STATE_DEV_CONNECTED;
-+				dev->ep0_req_queued = true;
- 				++dev->udc_usage;
- 				spin_unlock_irq (&dev->lock);
- 				if (copy_from_user (dev->req->buf, buf, len))
-@@ -1284,6 +1304,7 @@ ep0_write (struct file *fd, const char __user *buf, size_t len, loff_t *ptr)
- 				spin_lock_irq(&dev->lock);
- 				--dev->udc_usage;
- 				if (retval < 0) {
-+					dev->ep0_req_queued = false;
- 					clean_req (dev->gadget->ep0, dev->req);
- 				} else
- 					retval = len;
-@@ -1508,6 +1529,11 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 	} else if (dev->state == STATE_DEV_SETUP)
- 		dev->setup_abort = 1;
- 
-+	if (dev->ep0_req_queued) {
-+		spin_unlock(&dev->lock);
-+		return -EBUSY;
-+	}
-+
- 	req->buf = dev->rbuf;
- 	req->context = NULL;
- 	switch (ctrl->bRequest) {
-@@ -1626,6 +1652,7 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 				if (value < 0)
- 					break;
- 
-+				dev->ep0_req_queued = true;
- 				++dev->udc_usage;
- 				spin_unlock (&dev->lock);
- 				value = usb_ep_queue (gadget->ep0, dev->req,
-@@ -1633,6 +1660,7 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 				spin_lock (&dev->lock);
- 				--dev->udc_usage;
- 				if (value < 0) {
-+					dev->ep0_req_queued = false;
- 					clean_req (gadget->ep0, dev->req);
- 					break;
- 				}
-@@ -1664,16 +1692,18 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 		req->length = value;
- 		req->zero = value < w_length;
- 
-+		dev->ep0_req_queued = true;
- 		++dev->udc_usage;
- 		spin_unlock (&dev->lock);
- 		value = usb_ep_queue (gadget->ep0, req, GFP_KERNEL);
- 		spin_lock(&dev->lock);
- 		--dev->udc_usage;
--		spin_unlock(&dev->lock);
- 		if (value < 0) {
-+			dev->ep0_req_queued = false;
- 			DBG (dev, "ep_queue --> %d\n", value);
- 			req->status = 0;
- 		}
-+		spin_unlock(&dev->lock);
- 		return value;
- 	}
- 
-@@ -1771,6 +1801,7 @@ static void
- gadgetfs_unbind (struct usb_gadget *gadget)
- {
- 	struct dev_data		*dev = get_gadget_data (gadget);
-+	bool			queued;
- 
- 	DBG (dev, "%s\n", __func__);
- 
-@@ -1781,15 +1812,20 @@ gadgetfs_unbind (struct usb_gadget *gadget)
- 		usleep_range(1000, 2000);
- 		spin_lock_irq(&dev->lock);
- 	}
-+	queued = dev->ep0_req_queued;
- 	spin_unlock_irq (&dev->lock);
- 
-+	if (dev->req) {
-+		if (queued)
-+			usb_ep_dequeue(gadget->ep0, dev->req);
-+		usb_ep_free_request(gadget->ep0, dev->req);
-+		dev->req = NULL;
-+	}
-+
- 	destroy_ep_files (dev);
- 	gadget->ep0->driver_data = NULL;
- 	set_gadget_data (gadget, NULL);
- 
--	/* we've already been disconnected ... no i/o is active */
--	if (dev->req)
--		usb_ep_free_request (gadget->ep0, dev->req);
- 	DBG (dev, "%s done\n", __func__);
- 	put_dev (dev);
- }
-@@ -1816,11 +1852,12 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
- 	get_dev (dev);
- 
- 	/* preallocate control response and buffer */
-+	dev->ep0_req_queued = false;
- 	dev->req = usb_ep_alloc_request (gadget->ep0, GFP_KERNEL);
- 	if (!dev->req)
- 		goto enomem;
- 	dev->req->context = NULL;
--	dev->req->complete = epio_complete;
-+	dev->req->complete = dev_req_complete;
- 
- 	if (activate_ep_files (dev) < 0)
- 		goto enomem;
-
----
-base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
-change-id: 20261106-b4-gadgetfs-ep0-f814c14717a9
-
-Best regards,
---  
-Jing Lin <kayano050408@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: reuseport: avoid duplicate closed socket
+ insertion
+To: netdev-bot+sinfo@kernel.org
+Cc: Eric Dumazet <edumazet@kernel.org>, Kuniyuki Iwashima
+ <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Willem de Bruijn <willemb@google.com>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Simon Horman <horms@kernel.org>, Martin KaFai Lau <kafai@fb.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, TencentOS Corvus AI <corvus@tencent.com>,
+ stable@vger.kernel.org, Lin Jiapeng <jiapenglin@tencent.com>
+References: <20261106135841.418-1-ljp1205831794@gmail.com>
+ <179397371960.488859.17332481477084448537@kernel.org>
+From: Lin Jiapeng <ljp1205831794@gmail.com>
+In-Reply-To: <179397371960.488859.17332481477084448537@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
+
+On 2026-11-06 10:01 p.m., netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by code inspection). If it was triggered please include
+>     the symptoms, like the stack trace or error messages.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
+
+
+The issue was actually triggered, not found by code inspection.
+
+Reproducer outline (unprivileged, uid 65534, inside a fresh user + network
+namespace with net.ipv4.tcp_migrate_req = 1):
+
+   1. Create two TCP listeners in the same SO_REUSEPORT group (one is kept
+      hashed as an anchor).
+   2. setsockopt(SO_REUSEPORT, 0) on one listener: sk_reuseport is cleared
+      but sk_reuseport_cb stays attached.
+   3. Repeat connect(AF_UNSPEC) + listen() 129 times on that socket. Each
+      disconnect goes through inet_unhash() -> reuseport_stop_listen_sock(),
+      which re-inserts the same socket into the closed section until
+      num_closed_socks exceeds max_socks.
+   4. The 129th insertion writes socks[-1], which overlaps reuse->prog on
+      x86_64. Attaching a classic BPF filter with SO_ATTACH_REUSEPORT_CBPF
+      on the other socket then consumes the struct sock pointer stored in
+      reuse->prog as a struct bpf_prog *.
+
+Kernel: v7.4-rc1 based tree (d68ce4e71248), x86_64, CONFIG_KASAN=y,
+CONFIG_UBSAN_BOUNDS=y, QEMU.
+
+Symptoms, first the out-of-bounds write itself:
+
+   UBSAN: array-index-out-of-bounds in net/core/sock_reuseport.c:152:9
+   index -1 is out of range for type 'struct sock *[] 
+__counted_by(max_socks)'
+   CPU: 0 UID: 65534 PID: 22 Comm: poc
+   Call Trace:
+    __ubsan_handle_out_of_bounds+0x91/0xa0
+    reuseport_stop_listen_sock+0x290/0x310
+    inet_unhash+0xd5/0x400
+    tcp_set_state+0x125/0x260
+    tcp_disconnect+0x47/0x1950
+    __inet_stream_connect+0x2d0/0xab0
+    __x64_sys_connect+0x71/0x80
+
+then, after SO_ATTACH_REUSEPORT_CBPF is issued on the second listener, the
+corrupted prog pointer reaches the RCU free path as a struct sock *:
+
+   Oops: general protection fault, probably for non-canonical address
+   0xdffffc000000008e: 0000 [#1] KASAN
+   KASAN: null-ptr-deref in range [0x0000000000000470-0x0000000000000477]
+   RIP: 0010:call_rcu+0x10d/0x260
+   Call Trace:
+    ? reuseport_attach_prog+0x6c/0x140
+    reuseport_attach_prog+0xdd/0x140
+    sk_reuseport_attach_filter+0x97/0xf0
+    sk_setsockopt+0x973/0x1cc0
+    __x64_sys_setsockopt+0xac/0xc0
+
+   followed by "Kernel panic - not syncing: Fatal exception".
+
+With the proposed fix applied, the same reproducer completes cleanly: no
+UBSAN report, no oops, the SO_ATTACH_REUSEPORT_CBPF call and socket
+teardown all succeed, PoC exits 0.
+
+I can share the reproducer program if that is useful.
