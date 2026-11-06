@@ -1,95 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959068;
-	b=5UcGNc4iDpd1S1zPXQvCqvUqDMvHW9jsHTocq6cHMCmwdM89/wFvc/p2tVjNju06fdjM
-	 cq2xTUF/ecM0AORfeaT3ia683nwj9ut/b/nF5JcNaPgXWPFA34Cx3akI4XuvZDUAbW8SH
-	 jGeWlTxE3f8iS9quuJkY5Ju97hhOvJD/te/TszhXht797Pr6IjxjIsHSSb3gZikyGkBzx
-	 TagnzrL1wxBvOCPlFFQ4K+g3T8Bg/bfahlFuw3ag38sGZY6nlf8f2KRYNn1ypXO7Fa0iU
-	 FxT4EPzf6zLwYAEXAOe/kY+F3xRXEijV7abpehawqqFhoxHBUKlqO8F4uv5gn1vqfNQ==
+	t=1793959072;
+	b=RsJU12FsGUmzkoxGMFZIFI4dfgwRaJvR74ipF9mhAJzIO8kF+SaFrOOQaqJyjSR+0u0w
+	 XD6RlX2ayvPZce1tbg8ag5eojkpjSYJGIVcQzn81uszvqpwfT3Ipcvi8Y4MliPXZM/g6f
+	 yQcj3OMJ5Hp7xyxJRHMI70DNdSYT9azaobaXKxewDJKi+iucPsS3xjHNRakjAAoXZAOrk
+	 4RHMf1SJpokNbXH5zXmPENkhdI/+X7mhuS6aip917t0egBMRR0VM3zM3qY8xkeSLVe87x
+	 whVYMwR4I1KR/Ua/i5CQ5uw9uEFGbAr4dQnuKGrboniU0Hfowq05BjxB38V3HzNHVMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959068;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=A/eSH5p57mG74lmqugdknWlw8ZRhrWb7R8CRiW0eBZo=;
-	b=eKVrffJzfZC6wIfCO578mTGbZ721ulzealQJL9/P8Zj4NICfsh7LVTiYauVlWBaCmiO2
-	 +ezMa6fTc439Q7e+Pd4iaInY/xXo2fEhca9w1oD53sceum8CXxKKqr+I54ynmOoAHBGXh
-	 SoNhus4eTxOTEfjylPxQx4NDtc5R/YZng8F24cszYFuSivIc4B2nqosgKGAdgiSRvWtyt
-	 0zLNo217ZboBJfrXWueXb+FVEvME3gqJjyP+EWQ5uwHZhOiap3GVW3dha63dizRPOkieT
-	 9bg7EIqPI0u243Avz1wzHsDUH4ji7GzKL2+dgsD0WDe8uSYqw/BPEdymlAW2m92huLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959072;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qaNMR3nruX0CYwtyHVZpUwzyiLtHlWQmL7Y9VO2VBlY=;
+	b=EjMveGR0Wa+tt9/4XuiKudop3hb9PFTnb1T4GJCFnSrG5muH104+QL32jCpi92WNP8km
+	 mRKPg4FsY/+UiijGQZOzx3q/Ky3wAukYKwqo8qhxKqkvPY5S7jgZldHt2scm1AdioXwej
+	 ohqMfaWUnGfqcObAJpVlgxM51uxj2R1Lp0V9ZB2zoTknLEpnAhYa503dLRwgHwtIq7LHV
+	 KWJyfz+73E+MZGu8iMHx/rBLy2XoDawLknnCIP3U/sxWu96IE9qpPjVV0Pkv8s7C9vAx7
+	 Ume40ehg0VtwKg83Jrv9twS5O8moxLS8ViPD/4jN57LuQlCQmasU4GKYQwE3mNOoCDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DouVJGNC;
-	arc=none smtp.remote-ip=209.85.167.48
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FDB606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:57:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67FDB606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WpWTbD5O;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B24C5606D805
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:57:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B24C5606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DouVJGNC
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso345436e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:57:48 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WpWTbD5O
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793959066; x=1794563866; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A/eSH5p57mG74lmqugdknWlw8ZRhrWb7R8CRiW0eBZo=;
-        b=DouVJGNCnZ8mLIJpy0xXOyy+odv0D/7Xj54tUSGfAvAoc5fCEYBAn7qeh5j5/X0YM2
-         SZQrsb4ol+j8eZ+F0z+IqEv/XFiyq6urFXnvgDrobRlNIQzsLUicCBj/cz37D58CLAaz
-         ebfg7uWASGIUb/oBp2OgZE5rFDBc94aL1mXMHUJPj89BV/Xn+jTXg8dN7Y32P+UKeMAz
-         Bb6f2XqjB+bVv+k5RkFx6qIEk74Wh1wLw/HahJMOffX6LWk6xFH6KxQkHjyaPitAHYDE
-         Sg6U/VS+eBZnDhYm+CszHC2PMiL3vhPaRCqwJfaHQIY8Tl8Mpyd4arnMkTzI9UwfDxGJ
-         RlIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793959066; x=1794563866;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A/eSH5p57mG74lmqugdknWlw8ZRhrWb7R8CRiW0eBZo=;
-        b=zBNpHcG5GWdr238qKSObo9gOssOevgBdo0RNH77V0wF1dOAvuaws8u297JnmFD7hKv
-         6PSDaJwdII37X3Rq5BhMa1DXOz0UNuKZZFSWyvls3ElzXHFR0UQRrWWzMy+y6YZ+d7eA
-         bR0gjBHNaDFN0c3+UxmEVHoKtK/M8D5kexVDW4PZzcJT7+znUhwHOiMgc10wJj6SiP+Z
-         hXKsV4tfmQaVhxuEC0+HLm07RTxpAv21HZ8E4v/7WoTn8E9eH++N5/TwaJGHOhgnbGVq
-         b71aIo/c7ClHlve7yxlxM3957R1KDuvqjW+nu+3oCibCrZcEoRtUbRFlMAafaOvVtNby
-         fS/w==
-X-Forwarded-Encrypted: i=1; AKwUvBxZs7xqngSmeC7R1Y9PTBdseUkOPzweWPQrEh6YSP7kbSOr0g1Gfp60+jkNBJ4CpWbM10x4G9qICeQ2P/U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/6HmWJ7DdpZpanTVbnVALoABLm0MNrx1iq+ThG1WYFqidf1mk
-	LK4WsHjI/oA0EW+rxBOcXe8ER9fMd1LXBIo1JMowvHBCCC2FO5eWx4hb
-X-Gm-Gg: AYBFou1xQliWUzRPmqIULu0WlGgJUC8HzWPe7/f0ZnoTU7olny023yE5kptFN+SjuH3
-	OJLKWCMUo3OJtBR0w8BZzx7CKhiL8NyvmNqLf/YpKg+1FXUOpyBK2Br3R4JpWN6ZUR9gHw000Zs
-	TiB49RYuOWhDge8ijJrQtLyYNkuaJvbdzsAl0sBakgQTCIy4HPWO+7tQmNx9qVStXXarg2Pg03X
-	ZvOl+UpRy4PBXTM5/q26+myJj2zszSTzryIUqVl7cO23cAzNBKpqeM/sX4C+ou5zq8mRoE3OysZ
-	BLx9R1AIBwx/Y35PNA1/rhjJkPUVmN8FZw+nD1FBuzOGgHs2RZPQevJpgx/f5tZMlwifkpExSy/
-	g8cXNFXuIWEpVghdZlSI9Y+6YAn63++AoqUDp//1W9wB21cReIhaa6FJUZkRCTihX6uCJozwhRC
-	cwncn+Rtedwnq2L/0AvlBs0eD4phkKOgIZapBaA3uvux04Q4H7qZrH3rMzM6wyc1IX4/Kr0qlWG
-	+D86bwFlTH7Uk6/pj9tQEExexI4fNP5JoablYqlaBhqy2myzQrJX98+qOdMr3fsvUbTE8rd5+i0
-	53lJRjFBeyBHsgh4VD5AcwqaYMnUMkgDEH6VS5MLu5GGj0PcIL+vEalH4sNKJycG4GyenB/P6/I
-	=
-X-Received: by 2002:a05:6512:2252:b0:5bf:e540:8606 with SMTP id 2adb3069b0e04-5c003aeacb8mr605722e87.59.1793959066166;
-        Fri, 06 Nov 2026 01:57:46 -0800 (PST)
-Received: from ahmad-HP-ZBook-17-G3 ([91.133.224.19])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c003069675sm293680e87.43.2026.11.06.01.57.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:57:44 -0800 (PST)
-From: ahmad baghereslami <ahmad.b1995@gmail.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ahmad baghereslami <ahmad.b1995@gmail.com>
-Subject: [PATCH v2] Input: synaptics - support the touchpad LED on RMI function $30
-Date: Fri,  6 Nov 2026 13:26:58 +0330
-Message-ID: <20261106095658.44166-1-ahmad.b1995@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
-References: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=WpWTbD5O+I1qBhYxRhUoMwr1RkpnWbPp8QK3mp15S6j5u5W9JrH61xHYTQ/62/f7bX8/zwpYXkPR8
+	 /whB4ZNaXWb0dRbCdwgBtc9OYRUH8k57P7iTI7rbtLzjOwXxFyjpUUv0tfkLeQGWomy8uHRRojfx2X
+	 R4+l3kVYvrgHB/v0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46aeda49910d-50d56;
+	Fri, 06 Nov 2026 17:57:49 +0800 (CST)
+X-RM-TRANSID:2ee46aeda49910d-50d56
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76aeda49bbde-1be40;
+	Fri, 06 Nov 2026 17:57:48 +0800 (CST)
+X-RM-TRANSID:2ee76aeda49bbde-1be40
+From: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	David Airlie <airlied@gmail.com>
+Cc: tongzhiwei@cmss.chinamobile.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/syncobj: Fix fence and syncobj leak on dma_fence_chain_alloc failure
+Date: Fri,  6 Nov 2026 17:57:20 +0800
+Message-ID: <20261106095730.166-1-tongzhiwei@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.45.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,456 +74,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some HP laptops have an LED in the top left corner of the Synaptics
-touchpad that HP's Windows driver lights while the touchpad is disabled
-(double tap on that corner). On the HP ZBook 17 G3 (SYN3040, TM2706-002)
-the LED is not driven through the PS/2 deluxe LED command: the Windows
-driver (SynTP.sys 19.0.19.68) switches the touchpad to RMI register
-access over PS/2 with mode byte 0x7f, looks up function $30 (GPIO/LED)
-in the page description table and sets the LED bit in its control
-register:
+NOTE: this commit is worked by llm completely
 
-  register write:  SetScale 2:1, SetRate <reg>, SetRate <value>
-  register read:   SetScale 2:1, SetRate <reg>, GetInfo (first byte)
+In drm_syncobj_import_sync_file_fence(), when point is non-zero and
+dma_fence_chain_alloc() returns NULL, the function returns -ENOMEM
+without releasing the fence reference (obtained via sync_file_get_fence)
+or the syncobj reference (obtained via drm_syncobj_find).  Both
+references are permanently leaked.
 
-For touchpads in a new rmi_led_pnp_ids list, look up the F30 LED this
-way when the touchpad is set up and register a
-synaptics::touchpad_disabled LED class device. Setting it queues a work
-item that, with psmouse_mutex held like the protected psmouse
-attributes, deactivates the touchpad, writes the F30 registers and
-restores the mode byte, which leaves RMI access. synaptics_disconnect()
-cancels the work with psmouse_mutex held, so the work only tries to take
-the mutex and retries later when it is busy. psmouse_mutex is no longer
-static so that synaptics.c can take it. The LED is restored after
-reconnect.
+Add dma_fence_put(fence) and drm_syncobj_put(syncobj) before returning
+-ENOMEM on the allocation failure path.
 
-On this touchpad F30 is on page 1 with control base 0x55 and four
-GPIO/LED pins; the LED is bit 3 of control register 0x59 and its
-brightness register is 0x5f.
-
-Tested on an HP ZBook 17 G3 with Ubuntu's 7.0.0 kernel: the LED follows
-writes to its brightness file, the touchpad and the pointing stick keep
-working, and a userspace helper that turns the touchpad off on a double
-tap in the corner keeps the LED in step with GNOME's touchpad setting.
-
-Reading HP's Windows driver (Ghidra) and writing this patch were done
-with the help of an AI coding assistant (Claude); I tested the LED and
-the touchpad on the machine.
-
-Signed-off-by: ahmad baghereslami <ahmad.b1995@gmail.com>
+Assisted-by: LLM
+Signed-off-by: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
 ---
+ drivers/gpu/drm/drm_syncobj.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Notes:
-    v2:
-    - Fix the link failure reported by the kernel test robot when
-      CONFIG_LEDS_CLASS is not reachable: the register and unregister calls
-      are now behind IS_REACHABLE(CONFIG_LEDS_CLASS).
-    - Set the LED from a work item that holds psmouse_mutex instead of a
-      private mutex, so it cannot interleave with reconnect, resync or
-      attribute writes (sashiko review). The work uses mutex_trylock() and
-      retries, because synaptics_disconnect() cancels it with psmouse_mutex
-      held. If you would rather have this done another way, for example a
-      helper in psmouse-base.c instead of exporting psmouse_mutex to the
-      protocol code, I am happy to change it.
-    - Restore the mode with synaptics_mode_cmd(psmouse, priv->mode) instead of
-      synaptics_set_mode(), so SYN_BIT_FOUR_BYTE_CLIENT survives (sashiko).
-    - Set LED_RETAIN_AT_SHUTDOWN: synaptics_disconnect() resets the touchpad,
-      which turns the LED off, so unregistering no longer calls into the
-      driver with the touchpad in command mode (sashiko).
-    - Mask the F30 GPIO/LED count with 0x1f and give up on more than eight
-      pins (sashiko). The brightness register offset still counts every
-      GPIO pin, not only those below the LED: the brightness registers come
-      after one register per GPIO pin, which is how HP's driver computes it
-      and what this touchpad needs (three GPIO pins, brightness at 0x5f).
-    v1: https://lore.kernel.org/all/20261030070821.1716595-1-ahmad.b1995@gmail.com/
-
- drivers/input/mouse/psmouse-base.c |   2 +-
- drivers/input/mouse/psmouse.h      |   3 +
- drivers/input/mouse/synaptics.c    | 282 +++++++++++++++++++++++++++++
- drivers/input/mouse/synaptics.h    |  13 ++
- 4 files changed, 299 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/input/mouse/psmouse-base.c b/drivers/input/mouse/psmouse-base.c
-index 231646882..020821be1 100644
---- a/drivers/input/mouse/psmouse-base.c
-+++ b/drivers/input/mouse/psmouse-base.c
-@@ -111,7 +111,7 @@ ATTRIBUTE_GROUPS(psmouse_dev);
-  * rarely more than one PS/2 mouse connected and since semaphore
-  * is taken in "slow" paths it is not worth it.
-  */
--static DEFINE_MUTEX(psmouse_mutex);
-+DEFINE_MUTEX(psmouse_mutex);
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index f1d4da168545..1825055e9b54 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -743,8 +743,11 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
+ 	if (point) {
+ 		struct dma_fence_chain *chain = dma_fence_chain_alloc();
  
- struct psmouse *psmouse_from_serio(struct serio *serio)
- {
-diff --git a/drivers/input/mouse/psmouse.h b/drivers/input/mouse/psmouse.h
-index 90ed8cd15..77c137a57 100644
---- a/drivers/input/mouse/psmouse.h
-+++ b/drivers/input/mouse/psmouse.h
-@@ -136,6 +136,9 @@ int psmouse_reset(struct psmouse *psmouse);
- void psmouse_set_state(struct psmouse *psmouse, enum psmouse_state new_state);
- void psmouse_set_resolution(struct psmouse *psmouse, unsigned int resolution);
- psmouse_ret_t psmouse_process_byte(struct psmouse *psmouse);
-+/* Serializes connecting, reconnecting and reconfiguring PS/2 mice */
-+extern struct mutex psmouse_mutex;
-+
- int psmouse_activate(struct psmouse *psmouse);
- int psmouse_deactivate(struct psmouse *psmouse);
- bool psmouse_matches_pnp_id(struct psmouse *psmouse, const char * const ids[]);
-diff --git a/drivers/input/mouse/synaptics.c b/drivers/input/mouse/synaptics.c
-index b007e642e..4186e4f53 100644
---- a/drivers/input/mouse/synaptics.c
-+++ b/drivers/input/mouse/synaptics.c
-@@ -589,6 +589,278 @@ static int synaptics_set_advanced_gesture_mode(struct psmouse *psmouse)
- 	return 0;
- }
- 
-+/*
-+ * Some HP touchpads have an LED in the top left corner that HP's Windows
-+ * driver lights while the touchpad is disabled. It is wired to RMI function
-+ * $30 (GPIO/LED), which these touchpads also expose over PS/2: mode byte 0x7f
-+ * switches them to RMI register access, where SetScale 2:1 followed by two
-+ * SetRate commands writes a register, and SetScale 2:1, SetRate and GetInfo
-+ * read one. Setting the normal mode byte again leaves RMI access.
-+ */
-+static const char * const rmi_led_pnp_ids[] = {
-+	"SYN3040", /* HP ZBook 17 G3 */
-+	NULL
-+};
-+
-+#define SYN_RMI_MODE			0x7f
-+#define SYN_RMI_PAGE_SELECT		0xff
-+#define SYN_RMI_PDT_START		0xee
-+#define SYN_RMI_PDT_END			0x0b
-+#define SYN_RMI_PDT_ENTRY_SIZE		6
-+#define SYN_RMI_NUM_PAGES		4
-+#define SYN_RMI_F30			0x30
-+#define SYN_RMI_F30_HAS_LED		BIT(2)
-+#define SYN_RMI_F30_HAS_GPIO		BIT(3)
-+#define SYN_RMI_F30_COUNT		GENMASK(4, 0)
-+#define SYN_RMI_LED_BRIGHTNESS		0x0b	/* as set by HP's Windows driver */
-+#define SYN_RMI_LED_RETRY_MS		50
-+
-+static int synaptics_rmi_write(struct psmouse *psmouse, u8 reg, u8 val)
-+{
-+	struct ps2dev *ps2dev = &psmouse->ps2dev;
-+	int error;
-+
-+	error = ps2_command(ps2dev, NULL, PSMOUSE_CMD_SETSCALE21);
-+	if (error)
-+		return error;
-+
-+	error = ps2_command(ps2dev, &reg, PSMOUSE_CMD_SETRATE);
-+	if (error)
-+		return error;
-+
-+	return ps2_command(ps2dev, &val, PSMOUSE_CMD_SETRATE);
-+}
-+
-+static int synaptics_rmi_read(struct psmouse *psmouse, u8 reg, u8 *val)
-+{
-+	struct ps2dev *ps2dev = &psmouse->ps2dev;
-+	u8 param[3];
-+	int error;
-+
-+	error = ps2_command(ps2dev, NULL, PSMOUSE_CMD_SETSCALE21);
-+	if (error)
-+		return error;
-+
-+	error = ps2_command(ps2dev, &reg, PSMOUSE_CMD_SETRATE);
-+	if (error)
-+		return error;
-+
-+	error = ps2_command(ps2dev, param, PSMOUSE_CMD_GETINFO);
-+	if (error)
-+		return error;
-+
-+	*val = param[0];
-+	return 0;
-+}
-+
-+/* Finds the LED of RMI function $30. Leaves the touchpad in RMI mode. */
-+static int synaptics_rmi_led_probe(struct psmouse *psmouse)
-+{
-+	struct synaptics_data *priv = psmouse->private;
-+	u8 fn, query, ctrl, caps, count, gpios;
-+	unsigned int page, zeros, i;
-+	int addr, error;
-+
-+	error = synaptics_mode_cmd(psmouse, SYN_RMI_MODE);
-+	if (error)
-+		return error;
-+
-+	for (page = 0; page < SYN_RMI_NUM_PAGES; page++) {
-+		error = synaptics_rmi_write(psmouse, SYN_RMI_PAGE_SELECT, page);
-+		if (error)
-+			return error;
-+
-+		for (addr = SYN_RMI_PDT_START; addr >= SYN_RMI_PDT_END;
-+		     addr -= SYN_RMI_PDT_ENTRY_SIZE) {
-+			error = synaptics_rmi_read(psmouse, addr, &fn);
-+			if (error)
-+				return error;
-+			if (!fn)
-+				break;
-+			if (fn != SYN_RMI_F30)
-+				continue;
-+
-+			error = synaptics_rmi_read(psmouse, addr - 5, &query);
-+			if (!error)
-+				error = synaptics_rmi_read(psmouse, addr - 3, &ctrl);
-+			if (!error)
-+				error = synaptics_rmi_read(psmouse, query, &caps);
-+			if (!error)
-+				error = synaptics_rmi_read(psmouse, query + 1, &count);
-+			if (error)
-+				return error;
-+
-+			count &= SYN_RMI_F30_COUNT;
-+			if (!(caps & SYN_RMI_F30_HAS_LED) || count > 8)
-+				return -ENODEV;
-+
-+			priv->rmi_led_page = page;
-+			if (!(caps & SYN_RMI_F30_HAS_GPIO)) {
-+				priv->rmi_led_mask = BIT(0);
-+				priv->rmi_led_ctrl = ctrl + 1;
-+				priv->rmi_led_brightness = ctrl + 4;
-+				return 0;
-+			}
-+
-+			/*
-+			 * GPIO/LED select: the LED is the first set bit. The
-+			 * brightness registers follow one register for each
-+			 * pin used as a GPIO, so count all of those.
-+			 */
-+			error = synaptics_rmi_read(psmouse, ctrl, &gpios);
-+			if (error)
-+				return error;
-+
-+			priv->rmi_led_mask = 0;
-+			for (i = 0, zeros = 0; i < count; i++) {
-+				if (!(gpios & BIT(i)))
-+					zeros++;
-+				else if (!priv->rmi_led_mask)
-+					priv->rmi_led_mask = BIT(i);
-+			}
-+			if (!priv->rmi_led_mask)
-+				return -ENODEV;
-+
-+			priv->rmi_led_ctrl = ctrl + 4;
-+			priv->rmi_led_brightness = ctrl + 7 + zeros;
-+			return 0;
+-		if (!chain)
++		if (!chain) {
++			dma_fence_put(fence);
++			drm_syncobj_put(syncobj);
+ 			return -ENOMEM;
 +		}
-+	}
-+
-+	return -ENODEV;
-+}
-+
-+/* Sets the LED. Leaves the touchpad in RMI mode. */
-+static int __synaptics_rmi_led_set(struct psmouse *psmouse, bool on)
-+{
-+	struct synaptics_data *priv = psmouse->private;
-+	u8 val;
-+	int error;
-+
-+	error = synaptics_mode_cmd(psmouse, SYN_RMI_MODE);
-+	if (error)
-+		return error;
-+
-+	error = synaptics_rmi_write(psmouse, SYN_RMI_PAGE_SELECT, priv->rmi_led_page);
-+	if (error)
-+		return error;
-+
-+	if (on) {
-+		error = synaptics_rmi_write(psmouse, priv->rmi_led_brightness,
-+					    SYN_RMI_LED_BRIGHTNESS);
-+		if (error)
-+			return error;
-+	}
-+
-+	error = synaptics_rmi_read(psmouse, priv->rmi_led_ctrl, &val);
-+	if (error)
-+		return error;
-+
-+	val = on ? val | priv->rmi_led_mask : val & ~priv->rmi_led_mask;
-+	return synaptics_rmi_write(psmouse, priv->rmi_led_ctrl, val);
-+}
-+
-+/*
-+ * Runs with psmouse_mutex held, like the protected psmouse attributes, so
-+ * that it does not race with reconnect, resync or attribute changes.
-+ * synaptics_disconnect() cancels it with psmouse_mutex held, so it must not
-+ * wait for the mutex: when it is busy, try again a little later.
-+ */
-+static void synaptics_rmi_led_work(struct work_struct *work)
-+{
-+	struct synaptics_data *priv = container_of(to_delayed_work(work),
-+						   struct synaptics_data,
-+						   rmi_led_work);
-+	struct psmouse *psmouse = priv->psmouse;
-+	int error;
-+
-+	if (!mutex_trylock(&psmouse_mutex)) {
-+		schedule_delayed_work(&priv->rmi_led_work,
-+				      msecs_to_jiffies(SYN_RMI_LED_RETRY_MS));
-+		return;
-+	}
-+
-+	if (psmouse->state == PSMOUSE_RESYNCING) {
-+		schedule_delayed_work(&priv->rmi_led_work,
-+				      msecs_to_jiffies(SYN_RMI_LED_RETRY_MS));
-+	} else if (psmouse->state == PSMOUSE_ACTIVATED) {
-+		/* Otherwise the LED is restored on reconnect */
-+		psmouse_deactivate(psmouse);
-+
-+		error = __synaptics_rmi_led_set(psmouse,
-+						priv->rmi_led.brightness != LED_OFF);
-+		if (error)
-+			psmouse_warn(psmouse,
-+				     "failed to set touchpad LED: %d\n", error);
-+
-+		/* Setting the mode byte again leaves RMI access */
-+		if (synaptics_mode_cmd(psmouse, priv->mode))
-+			psmouse_warn(psmouse, "failed to restore mode\n");
-+
-+		psmouse_activate(psmouse);
-+	}
-+
-+	mutex_unlock(&psmouse_mutex);
-+}
-+
-+static void synaptics_rmi_led_set(struct led_classdev *led,
-+				  enum led_brightness value)
-+{
-+	struct synaptics_data *priv = container_of(led, struct synaptics_data, rmi_led);
-+
-+	mod_delayed_work(system_wq, &priv->rmi_led_work, 0);
-+}
-+
-+static void synaptics_rmi_led_init(struct psmouse *psmouse)
-+{
-+	struct synaptics_data *priv = psmouse->private;
-+
-+	if (!IS_REACHABLE(CONFIG_LEDS_CLASS) ||
-+	    !psmouse_matches_pnp_id(psmouse, rmi_led_pnp_ids))
-+		return;
-+
-+	if (synaptics_rmi_led_probe(psmouse))
-+		return;
-+
-+	psmouse_info(psmouse, "touchpad LED on RMI F30 (page %u, ctrl %#x, mask %#x)\n",
-+		     priv->rmi_led_page, priv->rmi_led_ctrl, priv->rmi_led_mask);
-+	__synaptics_rmi_led_set(psmouse, false);
-+	priv->has_rmi_led = true;
-+}
-+
-+static void synaptics_rmi_led_register(struct psmouse *psmouse)
-+{
-+	struct synaptics_data *priv = psmouse->private;
-+	int error;
-+
-+	if (!IS_REACHABLE(CONFIG_LEDS_CLASS) || !priv->has_rmi_led)
-+		return;
-+
-+	priv->psmouse = psmouse;
-+	INIT_DELAYED_WORK(&priv->rmi_led_work, synaptics_rmi_led_work);
-+	priv->rmi_led.name = "synaptics::touchpad_disabled";
-+	priv->rmi_led.max_brightness = 1;
-+	priv->rmi_led.brightness_set = synaptics_rmi_led_set;
-+	/* synaptics_disconnect() resets the touchpad, which turns the LED off */
-+	priv->rmi_led.flags = LED_RETAIN_AT_SHUTDOWN;
-+	error = led_classdev_register(&psmouse->ps2dev.serio->dev, &priv->rmi_led);
-+	if (error) {
-+		psmouse_warn(psmouse, "failed to register touchpad LED: %d\n", error);
-+		priv->has_rmi_led = false;
-+	}
-+}
-+
-+static void synaptics_rmi_led_unregister(struct psmouse *psmouse)
-+{
-+	struct synaptics_data *priv = psmouse->private;
-+
-+	if (!IS_REACHABLE(CONFIG_LEDS_CLASS) || !priv->has_rmi_led)
-+		return;
-+
-+	led_classdev_unregister(&priv->rmi_led);
-+	cancel_delayed_work_sync(&priv->rmi_led_work);
-+}
-+
- static int synaptics_set_mode(struct psmouse *psmouse)
- {
- 	struct synaptics_data *priv = psmouse->private;
-@@ -1444,6 +1716,8 @@ static void synaptics_disconnect(struct psmouse *psmouse)
- {
- 	struct synaptics_data *priv = psmouse->private;
  
-+	synaptics_rmi_led_unregister(psmouse);
-+
- 	/*
- 	 * We might have left a breadcrumb when trying to
- 	 * set up SMbus companion.
-@@ -1496,6 +1770,10 @@ static int synaptics_reconnect(struct psmouse *psmouse)
- 		return error;
- 	}
- 
-+	/* The reset turned the LED off; the mode byte below leaves RMI access. */
-+	if (priv->has_rmi_led && priv->rmi_led.brightness)
-+		__synaptics_rmi_led_set(psmouse, true);
-+
- 	error = synaptics_set_mode(psmouse);
- 	if (error) {
- 		psmouse_err(psmouse, "Unable to initialize device.\n");
-@@ -1616,6 +1894,8 @@ static int synaptics_init_ps2(struct psmouse *psmouse,
- 	 */
- 	priv->is_forcepad = psmouse_matches_pnp_id(psmouse, forcepad_pnp_ids);
- 
-+	synaptics_rmi_led_init(psmouse);
-+
- 	err = synaptics_set_mode(psmouse);
- 	if (err) {
- 		psmouse_err(psmouse, "Unable to initialize device.\n");
-@@ -1693,6 +1973,8 @@ static int synaptics_init_ps2(struct psmouse *psmouse,
- 		}
- 	}
- 
-+	synaptics_rmi_led_register(psmouse);
-+
- 	return 0;
- 
-  init_fail:
-diff --git a/drivers/input/mouse/synaptics.h b/drivers/input/mouse/synaptics.h
-index 3853165b6..b792ac98a 100644
---- a/drivers/input/mouse/synaptics.h
-+++ b/drivers/input/mouse/synaptics.h
-@@ -6,6 +6,9 @@
- #ifndef _SYNAPTICS_H
- #define _SYNAPTICS_H
- 
-+#include <linux/leds.h>
-+#include <linux/workqueue.h>
-+
- /* synaptics queries */
- #define SYN_QUE_IDENTIFY		0x00
- #define SYN_QUE_MODES			0x01
-@@ -202,6 +205,16 @@ struct synaptics_data {
- 	bool					press;
- 	bool					report_press;
- 	bool					is_forcepad;
-+
-+	/* Touchpad LED on RMI function $30, reached over PS/2 */
-+	struct psmouse				*psmouse;
-+	struct led_classdev			rmi_led;
-+	struct delayed_work			rmi_led_work;
-+	bool					has_rmi_led;
-+	u8					rmi_led_page;
-+	u8					rmi_led_ctrl;
-+	u8					rmi_led_mask;
-+	u8					rmi_led_brightness;
- };
- 
- void synaptics_module_init(void);
-
-base-commit: 97a889cad5dd8ff83f40514f2d67c565c0dc54b1
+ 		drm_syncobj_add_point(syncobj, chain, fence, point);
+ 	} else {
 -- 
-2.53.0
+2.43.0
+
+
 
