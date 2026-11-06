@@ -1,83 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793977278;
-	b=DW8viFSdlXaJ18fcIrwmXueSIm82vzGmomHD82h3wX2FZu6xIFraesWbt0ulzVcDKN6o
-	 eQEB2yZawWEfz3s0IxhB4H8tw/zpaA5JUR1dYFyFkHzaHVP6gbt1yv+z8H6v52rJnng45
-	 fGiNhWzhPGisGCDXItiaSUUg2GHJp2Foexa8K7agBwFgqQ8bVc55VrnRKHQPXXSFf5OFJ
-	 XtMDL/xQgkztdmcyDYbxescf6EwIPTj/9WYhsQOSJlNeGyUgnBq19biDj2vi8wtRhcCnn
-	 6x9BRZfcEgdBsayRpzOuH7PfSSGFfHFZTJuI3PczX7VP9hCjfti4FnT8PMu3Q3B6PtQ==
+	b=hbgAyRmF4j7C5JLdBJHjzZGhGule40n4AzUiWG7J/HaJvMCOYBpGE6G0POx6oiEg/6gB
+	 WbhqKmxpPpAnqNBy1vaIlLHvoNp2c3h+wCJsR2+0ifV/4iBW0Ekbbszakd0X2D3kZ0ZJO
+	 7yhS8UpaXf03hcXXiSJXXLZyh8fkTNOUXHH3tc3IEoufdKvdsuqGLUh54qEvCoNSNaeNP
+	 wkjkkLfeZvV6XYIDLrWOpz6wjeH7Jz2BXvA9okorUwPJSqvubTUYjBTJV2hBrICoxfX2R
+	 H6I0HvVj4fnWxJ3T7ecoydedHY8+3AFe2dAWS51roEcsjKu7ah7VYWDl8Ywe0WsSR+Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793977278;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=QOSfFfKgNyCA0ifvnyaw2Um6hrt2CJRTPoz0Nc739L8=;
-	b=jv8DyrUdOjOBRhWJIuEMUVN9EGE2xlCNEn8s+azd8PkWG0rAnTKCnG8SpmAou/sY9Vfp
-	 NVkPA0dslALqEUybc69BFnjqkSDwMsidji5l6opxO0D3T+Y+qX5/LAuUfsfio4nqiWUn3
-	 hke7GI7XgU5Xy+H1U1hcC8n7W8zWZGcEWV3tco+/9XpDEBTTMI9MtXpWNpOpcWT38tJff
-	 qqIAEl+KOBuj/dcjxcOxhaxzrjVu6FeaWymZb4NsATRJyTl6Mvf7zs5rKpT2yRgGZkNgo
-	 M5YPhTbQb6I5uMMm7rJCySCU9YtddcJ/3EHZkaiGqHXOy0lgZQNQm/Sv4invjzRDhRQ==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=mhQwmnf8HrttnxR0+Ej97RjKeJ9pmuRj6GhkgP1FRXA=;
+	b=V8l1YRe9yYEE4geL98r03nk/5s3ubSkFDQvLNmkXec8l7wy62SS3qJT1t9E/tKACIgEb
+	 CUknI71H59GIihWb9wLz0oxg590/NVHI6ubbD6ReE0mcOh5VlEF+AkdPYlAzOhR7fLftJ
+	 bdNJkrfja5ziMwMeIJGtPUK6SwUoODYMupg7pbN2Ry39H+rYmOiZV5jFC65SEuUtD/TBo
+	 ZqVvR8A7jEDqCF0LHXKTHbzqCQ8Xg0ITKxKS/v+HoWZHwsMj+xb2P5zL91rgZ5qib0cD5
+	 u6rMxrNc+qxpbA6PcZYo2tQam3IfEDVAdOC0Qg0Z1FrufTnICdF+dOgaV90chjXk6uw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=JbA+oDNX;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Mo2g717s;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F933606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA58606A32D;
 	Fri,  6 Nov 2026 15:01:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F933606A326
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FA58606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=JbA+oDNX
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Mo2g717s
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5B41620039C;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 61B5C2008B8;
 	Fri, 06 Nov 2026 16:01:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1793977274;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=QOSfFfKgNyCA0ifvnyaw2Um6hrt2CJRTPoz0Nc739L8=;
-	b=JbA+oDNXY+91mVKd4rXWmemuFqDclVIiquUfR5r8ffZEmkA7+G/VyGCnCQiZdsX5qVvRcJ
-	ByfYpgV379zWZf+LY6GqDL31ymwKBpN49LGwz7w8piV23gy920jB767dxwcyhV0IKAcMt4
-	434RXKchnuU+CMamffvqu+8OMJTK3ZuHnW2m3rD5aNJgpEToC02JToD4ws00Xw+EB+TuFH
-	dlED4IZxR5Vhd908PoFSfxplsREFGnmhQdrLkmjG9isuPOg5oF1YIXmAPynwKrhaQWHIuf
-	xLbsyBvHLofs1qDxFU0YJLrouYyLmVN/ly1gBF3Ef4uHrg9kpKKx3R9Mf+sbnA==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mhQwmnf8HrttnxR0+Ej97RjKeJ9pmuRj6GhkgP1FRXA=;
+	b=Mo2g717sk+G9vX7lpycruMNoEpOwCsz4et8WKS1bbC4KbCyHUny/vwZ0feaGbd35Al5/N/
+	AVFEd15qqCcmvN3BPncxkf3TgKkOe7KAZmN9JRN4qgVpLUmc1KbUAQezgij+p2hbfxgcPj
+	B9ACLrmwSNdH7t+x+Q/zkT39uMH2zMATfI+1HwQGkFt6Yq2h3rzjC6bUt8QP2M7ToVg4yJ
+	dciDWi4eDTYiu4hVWWE79JgM4KE10pylENUCYCT95At+o1RNMx8Vfz/Fo0l4dsGOgAM/Xy
+	1CXN850cVE7f+TTnRI6ymcxWgwXpw2qimaNWsbSYTnvBtduMSikwL77MpwLexA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1793977274;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=QOSfFfKgNyCA0ifvnyaw2Um6hrt2CJRTPoz0Nc739L8=;
-	b=bwDlA+Nt9LlHaKa/RfsRL0lTrx44xb0y8iLCX/8t5vlKNU9JNZYJmfMFdmtREFNJbWBYop
-	7E4+JpzfskpT1uQpwffTL7Mk6Q/RDoBGz/329Qe5P/WaMvW8PmME+Ch8T6u3UAYSBzsoN3
-	rEac3TWASq+sXbmCtG9qfBUHtiLLhL/Hfx/0+q6tdyF8VoQ88epLb4xEPMeY9HOe0tgkIE
-	RW0xhRoIZ5izMgzj1k/B5Kxdu3wLXnZZ2zzw5gKhAOnVF3xTLrXX/ITvGw4COQa7bT31ZV
-	b0xdi1D5TPuMeOjIeg0xNYMsSnl14OYtpFSZaBw8LZBO5mVnSJLKnAvNhX/GLA==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mhQwmnf8HrttnxR0+Ej97RjKeJ9pmuRj6GhkgP1FRXA=;
+	b=A/Lj4EMgQiO9dcsgw6yszkt4cGqxI/rJ7GLX4XsHp1UiA/2ZCqzy/W+0G+X//fWf2WIAfH
+	Z3KMMJL09JDiOfsAJBiZuw9Izh5MfF1VKWQzXlRfJexB3frykVewDa6vrIJ3UB6dhrpR/R
+	vwyJmiFWgrwZBA6Z/rQ1MnX/RuHoLgcsmZgDI/sMp0kl2AB99qGSWfRNKr7+9NMGNdXeMZ
+	z1m1XUYvvOhq0WVJqvh1lkYP6uQ0VYAd86jllfDd8pC88oJZYlGen3dc8IGB8fQhyZQX8M
+	FrJtlug1LcUR9Gw0RDBdiJGXcxEomHgfzi57i7+J++fMgVJb98UGWT4B0CKPHA==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793977274; a=rsa-sha256;
 	cv=none;
-	b=GWKT9WNaVL6vIsWby1CeXKRmowmxcR5W2F7w4cA5Pgf/Q1epPw9feqVreFxco/O5aKCJiY
-	EpanfILXEGPePIPl8a2PDocixHtiKS64K7QxbV63bvIMM0rWlTa7AjwaQp37V4QPTe+f3a
-	dBOE2pqHNq68/4TaterwKH4ZGhUEYFeXDAaT79387i2Z5tFlNRICZds8FVTSj6mxCdqD+J
-	OfGagpLSphur8mbi1IfFAjJmRXcXONAGHWmtTyezYXVts6nrrVM3UcjpQX9IAX/sA/t0TI
-	ruQAotouwUBTCvg2BJKCFtCTrYKerRGqHSodikr8XCHTUSR2X1o5sQegTBchCw==
+	b=V7Bd+g4PDy9GoaWzRPj8noPnZHGXNuA7B7mwtpHMeRDsE2qqDMruvyuI0IXwr3/Uea3DG4
+	BIhqhOQB5W9s7BcnJuG9w3d6mg9XKCd/pBR1zly+kQdW9uHzDFvL+DLWspKB7LaoLme7um
+	M7NwvTOBFsKIr/eW+tKPbVC90E5nBBhDHrzqLvREoKkut25Qk4AJpiOI7ZJXfmG/r875DC
+	fLYouh4Ko1iewZgGqD2F4EYmAx0jOyDRA5yWL+TOpgQxRlurjV1bbhc5M6D/2a0nziU5v4
+	7hFO3RnXg5A+NR2D/mr1FfELec32KlfMpteC31CvOd3b9FwJbcyjnw2X4Gw/8Q==
 Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <p.zabel@pengutronix.de>)
-	id 1xPLRK-002v0X-0n;
+	id 1xPLRK-002v0X-0w;
 	Fri, 06 Nov 2026 16:01:14 +0100
 From: Philipp Zabel <p.zabel@pengutronix.de>
-Subject: [PATCH 0/4] phy: Do not request resets by index
-Date: Fri, 06 Nov 2026 16:01:08 +0100
-Message-Id: <20261106-reset-deindex-phy-v1-0-6a9c9f428be8@pengutronix.de>
+Date: Fri, 06 Nov 2026 16:01:09 +0100
+Subject: [PATCH 1/4] phy: qcom-qusb2: Do not request reset by index
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,10 +90,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALTr7WoC/yXMQQ6CMBBG4auQWTtJC6FErkJcSPsXxkUlHTQYw
- t2puvwW7+2kyAKlvtop4y0qz1RgLxX5+Z4msIRiqk3trDWOMxQrB0gK2HiZP9yaJvpmjLi6jkq
- 3ZETZfs/h9re+xgf8+h3RcZzkvhdEdQAAAA==
-X-Change-ID: 20261106-reset-deindex-phy-503fc3bfe967
+Message-Id: <20261106-reset-deindex-phy-v1-1-6a9c9f428be8@pengutronix.de>
+References: <20261106-reset-deindex-phy-v1-0-6a9c9f428be8@pengutronix.de>
+In-Reply-To: <20261106-reset-deindex-phy-v1-0-6a9c9f428be8@pengutronix.de>
 To: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Manivannan Sadhasivam <mani@kernel.org>
@@ -100,31 +100,29 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
  linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
 X-Mailer: b4 0.15.2
 
-There is no need to request a single reset (or even the first
-of multiple resets) by index.
-
-Replace usage of devm/of_reset_control_get(_exclusive)_by_index()
-with devm/of_reset_control_get_exclusive() so the _by_index() API,
-which is only ever called with index == 0, can be phased out.
+There is no need to request a single reset by index.
+Use devm_reset_control_get_exclusive() to request the first and only
+reset.
 
 Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
 ---
-Philipp Zabel (4):
-      phy: qcom-qusb2: Do not request reset by index
-      phy: cadence-torrent: Do not request reset by index
-      phy: qcom-qmp-pcie-msm8996: Do not request reset by index
-      phy: qualcomm: qcom-m31: Do not request reset by index
+ drivers/phy/qualcomm/phy-qcom-qusb2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/phy/cadence/phy-cadence-torrent.c        | 2 +-
- drivers/phy/qualcomm/phy-qcom-m31.c              | 2 +-
- drivers/phy/qualcomm/phy-qcom-qmp-pcie-msm8996.c | 2 +-
- drivers/phy/qualcomm/phy-qcom-qusb2.c            | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261106-reset-deindex-phy-503fc3bfe967
+diff --git a/drivers/phy/qualcomm/phy-qcom-qusb2.c b/drivers/phy/qualcomm/phy-qcom-qusb2.c
+index 2e5fdb620cb2..6476ed0cb815 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qusb2.c
++++ b/drivers/phy/qualcomm/phy-qcom-qusb2.c
+@@ -1032,7 +1032,7 @@ static int qusb2_phy_probe(struct platform_device *pdev)
+ 	if (IS_ERR(qphy->iface_clk))
+ 		return PTR_ERR(qphy->iface_clk);
+ 
+-	qphy->phy_reset = devm_reset_control_get_by_index(&pdev->dev, 0);
++	qphy->phy_reset = devm_reset_control_get_exclusive(&pdev->dev, NULL);
+ 	if (IS_ERR(qphy->phy_reset)) {
+ 		dev_err(dev, "failed to get phy core reset\n");
+ 		return PTR_ERR(qphy->phy_reset);
 
-Best regards,
---  
-Philipp Zabel <p.zabel@pengutronix.de>
+-- 
+2.47.3
 
