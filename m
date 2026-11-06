@@ -1,89 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794002438;
-	b=P7xcd3xH/WgOZmvPQVSYcUJpRO1kwt06fUHiHBCf2+646Zgw+4plDdQDyii4gnG/yHXr
-	 KsEftkEhdFUEFxEfo3bFS4yD1dNhqv18FU8loM+K0/PliUDDAfTD0byn/pCMjQshGpGbc
-	 9j5+po5z22exoSanVB5EfdEIsuZUlxpSsToNQPLMMfwhnT6OoYDT+Q4ODk/mvw9Pk84kr
-	 ix2+n5tJqJ46kpHMTXQwmj/DnvfE3gPCgwZnBFup9ywmcI4bbgl/baL2LJ0Y7796pG9FN
-	 kiT7BUYGE5b9QAg1INODRySjwbsCHjodds4PrJkQq3zvnlN/EIoL17Trxm/I+dStefQ==
+	t=1794002525;
+	b=lWqdIyGH5Y6w+cgMbFDsBuIWbW0VveZOzMSDLhHqip0/fNF4TnzLxMGaPhdrHrHPSuMq
+	 n9BjoJGcUKbhfFlvZbxQmrN9viYbEAHdLYXL8sxK19S8n9N04bL7KqvKGRHHh9TwRaBYq
+	 AQUWtDnXU27XzmoIekMxs27jvHBY8huEwf8f6GbP0FfOwyKjpBKE8AlWoGsvcdCmb2eoT
+	 XtnthLTUyUwyWYNAkxhkXPEMwsESTdVMlFVR6ReMmdE0squ+B3HXxWeVVtvBL0GZ/yJap
+	 Zp19a6QepL1v2RtHN6TMQtP9ezD7t4ok2JTSMaDhTmwd2W1k+o5UMQEPqtGg+tc2hIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002438;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=4zRIr24RMockOcBqoMHX9eYkDrHMvoR/ITcYq1Fk2Z8=;
-	b=x/ldB00MJQx9Ob9lNNo9QJlKIUyjKvxylwmbwD4l9h+wg6yGipzm3SilnUJ4MhJWt8rq
-	 KPm8IgaQn+2k6ZzocV4JLbgeGno0VagAGMTieOo5NDprOAzygSdyx8x6GjwERmMznXdo/
-	 cjmQJyaHxfMjI/B24lND7b7m0oUqSsuXVRu+Te8mPXJYAAJPdlESwKeojpnVVng0Nw0Mo
-	 xYE/AUcsesf5fUH9h4jtZeAKCgJFE8Dz5dlDv6eMFsylRwQ7nUosI6oQSZmSoFTpy9DwY
-	 aKKOwvX6rcVcDlY7WhbemaQKUSX3MSkbUnfqHSViYqDUVVM1tST4cA6AfMVb/fGjekQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002525;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=7yEuGiHrl8v2KO1Qgqcvszxhl27VpOHCTIq8+dICIGk=;
+	b=snEu2VzdbXVPSeytob5g8cLJS5ylianzsIHEFLCzSIt/El3ic4J6B9gn7jQYLQCsvPpv
+	 lPcz9/Oa2O6t2S1zfxITEUOZEfw8rptAjoW17yUrvSt9RQwZvh5fwB+KUjf5YHAVhwJpp
+	 +6QzI710AqS1sAMp9/++cYeFfqrl2FJ7HDSE2yKV9Z63RTy4gr+Lx851+BmnKsBHs8oVX
+	 k5yh6dnk9FrV6otPjAMtC/mfzjZUJ9g5vI8T4+cjaS8aHMbVjPB3Yg+zunOMRmD8BoCH9
+	 AJQS1L+bQdDBoeqQQIqvMqOtD6ODY9Rrr7RIL64I7li8j1RiEcrwcFA1xkGx6HezfDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MMuPfx93;
-	arc=none smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i0L4edZR;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cb9Ev+QF;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473E7606A332
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:00:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 473E7606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A116D606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A116D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MMuPfx93
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4b28d7c729fso768620b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 14:00:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=i0L4edZR;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cb9Ev+QF
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6JN5Ha1292156
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 22:02:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=7yEuGiHrl8v2KO1Qgqcvsz
+	xhl27VpOHCTIq8+dICIGk=; b=i0L4edZR3i/ni09UBm5ll8dGWzoybXYNQLNY5V
+	vvjWK1712HYivGRWMj2Cr0tQQOVbdsYWGpi9Ro8Sdx9Q+FzOA2IjcGre3pVEBvTN
+	yKxbUZv/autEtk4P/XkFKPl7FkisApPEC8XEpZrsTOt8wKXrO3w4owjazw5HnVbU
+	qbIhobFg3jsbQNh+rZmmCm+y5+jU0SFsOvy6+0UAtJYIz1lvMWNWtwLCeyBOJdbc
+	B56m5Ok1h2o6OM73xtAi9rK+Nfr1nZh+627PEGtr+WKjYbqUp5WYGNFVC0TnUtjW
+	5L7Qgr0ZTEr58tCvpNvXtTcvtM9Fcvz+bRvSTkj8mgqCHo5Q==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsn0e0grp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 22:02:03 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7cc450e6dc2so993602137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 14:02:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794002437; x=1794607237; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4zRIr24RMockOcBqoMHX9eYkDrHMvoR/ITcYq1Fk2Z8=;
-        b=MMuPfx93FwNTDasyWxY2ab2EUWi9tQwbpCCbtJXUsw9QamHkjYEo0FdhjSIAwfRDlf
-         Aikkt/+1WewCZ8GMLccIGlRypPRQwTy2n2TP9ZpvVDaxmq3sXTgvVjw9N/yuGmK0aEas
-         iqgvROfo+AYtgFYAME0n0V4PlSHR/hOaCZrYVQ8ypxR/icoAULBbmTWBHxXcit3Lo/bD
-         W4jgJXXeagQtltxC/KbEwW/kp9QiXda4K6curJDy9+AIS3Zrf3gBgfINTff0JVvjqJmX
-         glwj4dXyl5zZYcf0rGNgirfF+H7XkdbeEBK8ZLSQDbDfnGTzolydfmP+2026ZFcGr8RZ
-         Pdzg==
+        d=oss.qualcomm.com; s=google; t=1794002523; x=1794607323; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7yEuGiHrl8v2KO1Qgqcvszxhl27VpOHCTIq8+dICIGk=;
+        b=cb9Ev+QF3A3U18mKZ9b8pMXoOzWDMSDM7qKajSNWixIqxQEvVigNNqodq1IgEGPFjF
+         ou0zLWFZyG1lZh8YadUaNgorBNdceTCEVO9/bAiFn5vb740e76kqOS8rUz1cLxtOOPIv
+         /H7YhGlt0JNHJkfaS3xLnWc/ejbmiptitqbytPa4r3dt/EsLyHUt8qdQSNypIK0d8voI
+         B2kXcOl3xIKEEt7WsN8r2ROHQBa17LenG1OJGnzm9ged61p4O+eTkc72tZubEN3oWIl8
+         zgIdAiLlRq0arosfmqiRO/7P7VIiQaPVqs++d/fxm7sqmcRevNGxV9zDkoh4vWOyluk+
+         v+9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794002437; x=1794607237;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4zRIr24RMockOcBqoMHX9eYkDrHMvoR/ITcYq1Fk2Z8=;
-        b=HZWk3LUEKRSo16vl49/0Q7FRXnqCuPQGAu2uzGuywn8/b8RzHygY6SUTkLoqKSOqyR
-         Hi6v+YPR0fjVzh16EpFLIUnwvOSmgdLeU8XOMzv4ZDNPzeME8K27d8gKGmx3e70hmkQB
-         7z/8LvBU/QD3PxafdKZ87VHoZFRRkBm+LyAVUZ3Hxpc6I19qKdmDFP2Cn2nc4+HAYb2G
-         WYCfu0M+S7R2LC+4NqyMesu/ZuPnSyjZGk1v9lKeqgVwuvJBwMF+y/8cjeQZtZ/3yUod
-         LcPX9/Ghtrd0BuDjCTtVsC6Svs4SoSfiBY8sPzOR6h9Yu2kWI2CkbXasM2JbDyQ4uUan
-         /IkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0KRnjs4vhkunJhVJaAdBvhUc0+sU9nR3XXb8gcJmkVoSt2jajpJbMX3wz0lLI2Lpsu9FF57+0z4Xw+Rw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/I82YPvAIHewh1Bp5Liadmi4VUu1bgNEGzLrbrZXXVOWKku/iF
-	sceuobGTe+/Cogup49uz2TIy1FWoxUvhex3V546OD2MPdRHgOoSIM2Ozb2gQ3xF1Loc=
-X-Gm-Gg: AYBFou1D4GhdA0Hyebshfr6TNi0tkHbRrMi5Hu+WbueFLRgBxKaEENpKfVUoM7Qlz3N
-	q7K++dMwCVPLuCcq9+3ixeUPYdt56Xw3NB14D3fEGZklE3pV9gzcrWcc4h21D/7qAFR0adtwzjn
-	3HL107cQiab2ozRcf4VhGNsCUG6s7V6RWtK5mNZqZP/Qea47fqf/5geP3EGyy9r+SZZ7dUQwhPe
-	eENF8IS62K0N5YsV7pr4We3ZI/2v9WhFhj5frg6iUmSPBiZRFdxyculN601LpQcdFCPcSEqhKry
-	hcRKFYuC40pl4oR6pFr/cQVKOf3ZI7yUUtl8vd1giLW6xpqJDGr/gQcW3pazacR7KA0B1oYBK1x
-	r1SVjxik71g0lty3SZghpQY8frjErXOe/xfsssaEWDckq3wMoHP6QIXYM068+b8utFnkF4oQZ/p
-	YBa5hVV0AYz6OkT02dbKe5s5XDAnobUtERV2DERHYQGyLNv9DAu2i0kQeYS2KopGRcvvWwC7NIK
-	WBupk87Gt8ZUVQ01Jwwip8/aHnj1A4s/Eab4mGOtLrFug2ijYkPYO65mXN03QZQXAyg9r7CVB5b
-	3VKnSi9CEQ9OdE+MpZznhgU/0DO0YyzQHA==
-X-Received: by 2002:a05:6808:1a21:b0:4b9:e65b:8c2c with SMTP id 5614622812f47-567e152dcb1mr2603511b6e.26.1794002437217;
-        Fri, 06 Nov 2026 14:00:37 -0800 (PST)
-Received: from [127.0.1.1] ([2600:8803:e7e4:500:ce15:58eb:7458:e922])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7f010e4sm2432116b6e.14.2026.11.06.14.00.35
+        d=1e100.net; s=20260707; t=1794002523; x=1794607323;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7yEuGiHrl8v2KO1Qgqcvszxhl27VpOHCTIq8+dICIGk=;
+        b=tlj6kQ7gFpWgN8V8NeQUwykOFr6HGO4gVsml13baQq2UEEIAYRkuG8MkrCYL3c/5GU
+         wGw8+Wg7X9JPsFOpuWYI/R2Q073L6UTmg44EsP/hdHWmAA8qeCsk5iRX4iUAqt8fHhLY
+         XCtlcaKcGHlM2krypi7680LRZVkzCZIoNE9H6RKy2X9Y7V4DVJpTuaBbl01b1s5551mW
+         RmpCL6G8gPbIS+K7mQLMmQ3EEBIBOsKOFq0s7FTTE6D5mcUD4PEPhUEADilFEmsYTh5W
+         6yosbloTF4ItuYkJTgjHZE4Oi9IcQ+x2qHGWnPhgY2vsMlbrfNV9w1DNEkyGdJKrgsUc
+         L9Og==
+X-Forwarded-Encrypted: i=1; AL+hErE35dCQN5+UER01wLuxqz4uiEUcFIfDmQSFhwzeyr+5kfZjEd/tUvhV+9C+mqoMDMD9KaiXjP+M+Sgzk9k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88JEk/dt7PoylvDOTrmBuk1ijoSuN5EfB7rK2ieE4EZp4hm5Y5
+	+98+7KwcdYsXq+mstBE/zZOVf7EiGtPact2QttrC5rmIYoLXCeQtoIbugEPWbOKv7y8tFZ0RXVE
+	vU9RgynHfgnjuCHbHfC38B87BxafmJ8uZ5mUJzSieqipSnVLPHcBXtt+65chBSWGX4Vg=
+X-Gm-Gg: AYBFou3SVD5lbmJgpJIIlBDujrdIbTG3RaV1e7oeNbPMl9agqN2ky7V0QfidMLBsg0c
+	OXMMGPS+ATs+HsbexCRZUjz9BcG2aepIiSBxotI9aCUg8l2D2m/Ywp7EEMEc6UqyOB4r6A/KZNK
+	r1acAugPviQuyV/uhrhNQ10DzR+sMig5vU7Ypwlbc/Sg4XxnOHUNy1fmLTW3h2tG2v+QUlph33h
+	cEsO54Jf8di9rlJA99Ll0FuAPDD4gs81hnCndwl2oaIhYBu9fR0yYPviiHP7bNBMu0qf0AXwMhj
+	feeE36l1dK1mFrQ3yCY06B2lqOZn+LEwO32KVH1sGccg5Xqc0jlMRzNKYtEadtuO047B1t6to2G
+	nGo8+3OugXQYDOvW31ycuiZkq6the6llxJgEMMKD4cto0OoPH2HfdGaDnjA==
+X-Received: by 2002:a05:6102:32d1:b0:7cc:174b:f7d8 with SMTP id ada2fe7eead31-7d2a12f2ea3mr2331134137.1.1794002522561;
+        Fri, 06 Nov 2026 14:02:02 -0800 (PST)
+X-Received: by 2002:a05:6102:32d1:b0:7cc:174b:f7d8 with SMTP id ada2fe7eead31-7d2a12f2ea3mr2331120137.1.1794002521849;
+        Fri, 06 Nov 2026 14:02:01 -0800 (PST)
+Received: from [127.0.1.1] ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc6162sm5812437f8f.47.2026.11.06.14.02.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 14:00:35 -0800 (PST)
-From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Fri, 06 Nov 2026 16:00:06 -0600
-Subject: [PATCH v3 1/2] iio: adc: ti-ads112c14: parameterize GPIO register
- field macros
+        Fri, 06 Nov 2026 14:02:00 -0800 (PST)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: [PATCH 0/3] platform: arm64: lenovo-thinkpad-t14s: Add support for
+ the Gen 7 EC
+Date: Sat, 07 Nov 2026 00:01:51 +0200
+Message-Id: <20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,103 +117,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-iio-adc-ti-ads112c14-gpio-v3-1-7578ae66ee19@baylibre.com>
-References: <20261106-iio-adc-ti-ads112c14-gpio-v3-0-7578ae66ee19@baylibre.com>
-In-Reply-To: <20261106-iio-adc-ti-ads112c14-gpio-v3-0-7578ae66ee19@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Chris Hall <c-hall@ti.com>, 
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>, 
- "David Lechner (TI)" <dlechner@baylibre.com>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3195; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=bAtnUumcuaTuT0OrX4ijsU3VvDIn8fzI9Lr9fbQwzDc=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBq7k3yqxofoIHMI56e0DWccHyiSyXkKlv2HKcGB
- mh6xdiWneGJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCau5N8gAKCRDCzCAB/wGP
- wOyOB/0caa18spBg4OxHINaKhalUp26+rrkIfjHSluwbgPUi9QlCrvpRwtp9475qAM/P6gDRamo
- FasNOWZfdvRHsaBtoaOfS55fsqvCYAr/w9SSV7dUsfYnNfHqe5bO6Lsa5hitxbe/cVCSj2kEvyz
- sLaiE11NPr0yvfM04Jynl8FUf5se0bViS8ryPjaUpZja1X6RNIvlgeT4yCKTXxfy2EbYmZkKEa7
- EtYtNzDWKKAkw0AFxXMtuAdS0NqLGWv16uF4YSXnSc0+DZGgnYMs1osX0xNl+DfFoCpub5AKUCP
- 950pTZxPlCor3sRig4FQKVpkEJchg/Yj45D1NzjgCH1rLhvd
-X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
- fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
+X-B4-Tracking: v=1; b=H4sIAE9O7moC/yXMTQ5AMBBA4avIrE3S1l+4ilhQg7Eo6SAScXfF8
+ lu8d4GQZxKoogs8HSy8uAAdR2Cn1o2E3AeDUSbXWuW46VRwJFcgWTRlkZVJ17dqsBCS1dPA57e
+ rm9+ydzPZ7X3AfT9++Z90cAAAAA==
+X-Change-ID: 20261106-t14s-gen7-ec-297593bda0fc
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1680;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=X8BfmvpE8W7+B2t4IJID/uS+mnVleh2clOpF9Xw2obo=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq7k5UdDjlMhFo+w5WSKkPrkrk+l7CpPlWADNeq
+ I1iEjXex7+JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCau5OVAAKCRAbX0TJAJUV
+ VhWdEACS/USlBGnUt5PP9IL9TAcO6sJr1IknBqkK0SmE1IfcRgn8wxVxGGncBrEUKS4ITqqP3Db
+ 5lvEwB9dLa5Z8Ww1rTDriz/D7YdFoftjvKfJwFtHzZieZkgKahhUAIcm617g1AdHU9kILP3PzVL
+ JgnEAi6Cs/G19V8njZ9oNJX1agC7gfijJqGkg8GQDVRpc0RfmBG33ZOlEd7jmcRQegM2dhTdaJ4
+ 5/qt/9bNQ1Cr06rMGwnVGsha0JUpNeAD2YKejDR9ZIUAk0lZgIMNysCqU8K3/WgwUOD1QPm3f7M
+ AODyrwLhcpCIzN9mGWyIFJEP2/PJyALm0xz1TNr5R1/hsVlcrKW1UoxSpWFCXrD+IMkQdozcpbL
+ 1wMGHZUvKrRTW/A0L4HhkdGj96UIrUWd0BACPZiSOrFnxfZAvMh5Ub6OuZaczAHiGXpC55HWiT5
+ rOIflvDFpXWVuqMwEoJDTEv5noN1VviR7pO3KapCuyR2J9gPpRl1RReuFs3tFIPWgLlWEr+JIZx
+ joX+wrHb3Uc9FPTtHHvIV+a26zJF02NPSjo9b/qWvzU/zHA6GDPZ5MYCusVYmW585pHUl2OE7ff
+ 6alck/OwziocUisB479c5SwqeCFlKgcXC658z9DhGRIkBmk+0K+n2CsgO159oANrnXLx9nWLMY6
+ GB8xlh5XYYFBUEg==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-GUID: lsTCgr-Grqvqc7-FUDaCNw-NvN-HLRMZ
+X-Authority-Analysis: v=2.4 cv=ffA4WEQF c=1 sm=1 tr=0 ts=6aee4e5b cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=7rjXLmKk895soiuU5V0A:9 a=QEXdDO2ut3YA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA4NyBTYWx0ZWRfXz81DQN7wYilo
+ /RbV+6Xf/HqQWK8YdkhTKXPsyD5FiQDkhyUY0wUAtqKgERjsVVmzOoPyf1abrVThCOv48TlPAzs
+ HgbXvGaMvFn1qlRH8cuXMYKPTRhBFIl086N0HxJx6zWn8ovNd8FVSMLydFRXO4dVONaalbmZwd6
+ Jjvyx02qbDKmabP/jy7AG9K2KIS0OgGAjRZkNV0ydaqu1lr2/tMPzoBfMntGsjogToe7ZQJoNNK
+ 5saNnSNlZIHEKVtBns0Kx6lWaQj6t5zlGngE1y08us1DuV/PdfizzMGyIGImfY9J3BAAylzPbff
+ w1uYofhT29aA4Gv5vEih2QT5t2yv2Tp6do/u2Q7tRZoVSEWvpB3GkbKYuA9cvPOxi7/Rsa7fhKm
+ 597dwUjADfckIV+nY/6GgyV0/2SR3DhhDy7O+IcX77zw7KS5a9OlCNgSU7QAFIdCLInlkgufFxf
+ 1GIMDvMnXRhTMixcJZA==
+X-Proofpoint-ORIG-GUID: lsTCgr-Grqvqc7-FUDaCNw-NvN-HLRMZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA4NyBTYWx0ZWRfXwOXA6feXjZwq
+ 5a4uss1rvk9qw0C+Dw2FAHRfGfgVXKKFKL15GYED0XZOyc4S0J5k6Y0OWqJ7ZprQh2w+Yh2oLNa
+ GlItzBiPOooteqfgWLM5fEKncZ4A/dg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_06,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 phishscore=0 priorityscore=1501
+ adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060087
 
-Replace the per-pin GPIO register field macros with parameterized ones.
-This will be used in a later patch to access the fields by GPIO offset.
+The Lenovo ThinkPad T14s Gen 7 (Snapdragon X2, Mahua) has an embedded
+controller at the same I2C address as the Gen 6 one, with the same
+register layout and event codes, but it speaks a different command
+protocol over I2C. With the existing driver the EC never reports any
+event and the LED and keyboard backlight writes have no effect.
 
-Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+The Gen 7 protocol is taken from the ACPI EC accessors in the Gen 7
+firmware (RDEC, WREC and QEVT): reads, writes and event reads use the
+0x80, 0x81 and 0x84 commands. The firmware also describes the EC
+interrupt as edge triggered, active low.
+
+Patch 1 adds a Gen 7 compatible to the binding, patch 2 adds the Gen 7
+variant to the driver and patch 3 describes the EC on the T14s Gen 7.
+
+Tested on a ThinkPad T14s Gen 7 (LCD): Fn+F4 reports KEY_MICMUTE, the
+mic mute and lid logo LEDs (including the hardware blinking) and the
+keyboard backlight work, and Fn+Space changes are reported through the
+LED class.
+
+Prepared with help from an LLM-based assistant.
+
 ---
- drivers/iio/adc/ti-ads112c14.c | 23 +++++++----------------
- 1 file changed, 7 insertions(+), 16 deletions(-)
+Abel Vesa (3):
+      dt-bindings: embedded-controller: lenovo,thinkpad-t14s-ec: Add Gen 7 support
+      platform: arm64: lenovo-thinkpad-t14s: Add Gen 7 EC support
+      arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Describe the Embedded Controller
 
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index c0374bd8d001..498893bd01bc 100644
---- a/drivers/iio/adc/ti-ads112c14.c
-+++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -63,10 +63,7 @@
- 
- #define ADS112C14_REG_STATUS_LSB			0x03
- #define   ADS112C14_STATUS_LSB_CONV_COUNT		GENMASK(7, 4)
--#define   ADS112C14_STATUS_LSB_GPIO3_DAT_IN		BIT(3)
--#define   ADS112C14_STATUS_LSB_GPIO2_DAT_IN		BIT(2)
--#define   ADS112C14_STATUS_LSB_GPIO1_DAT_IN		BIT(1)
--#define   ADS112C14_STATUS_LSB_GPIO0_DAT_IN		BIT(0)
-+#define   ADS112C14_STATUS_LSB_GPIO_DAT_IN(n)		BIT(n)
- 
- #define ADS112C14_REG_CONVERSION_CTRL			0x04
- #define   ADS112C14_CONVERSION_CTRL_RESET		GENMASK(7, 2)
-@@ -133,10 +130,7 @@
- #define   ADS112C14_DIGITAL_CFG_CODING			BIT(1)
- 
- #define ADS112C14_REG_GPIO_CFG				0x0B
--#define   ADS112C14_GPIO_CFG_GPIO3_CFG			GENMASK(7, 6)
--#define   ADS112C14_GPIO_CFG_GPIO2_CFG			GENMASK(5, 4)
--#define   ADS112C14_GPIO_CFG_GPIO1_CFG			GENMASK(3, 2)
--#define   ADS112C14_GPIO_CFG_GPIO0_CFG			GENMASK(1, 0)
-+#define   ADS112C14_GPIO_CFG_GPIO_CFG(n)		(GENMASK(1, 0) << (2 * (n)))
- #define     ADS112C14_GPIO_CFG_GPIO_CFG_DISABLED	  0
- #define     ADS112C14_GPIO_CFG_GPIO_CFG_INPUT		  1
- #define     ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_PUSH_PULL  2
-@@ -147,10 +141,7 @@
- #define     ADS112C14_GPIO_DATA_OUTPUT_GPIO3_SRC_DAT_OUT  0
- #define     ADS112C14_GPIO_DATA_OUTPUT_GPIO3_SRC_DRDY	  1
- #define   ADS112C14_GPIO_DATA_OUTPUT_GPIO2_SRC		BIT(6)
--#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO3_DAT_OUT	BIT(3)
--#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO2_DAT_OUT	BIT(2)
--#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO1_DAT_OUT	BIT(1)
--#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO0_DAT_OUT	BIT(0)
-+#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO_DAT_OUT(n)	BIT(n)
- 
- #define ADS112C14_REG_IDAC_MAG_CFG			0x0D
- #define   ADS112C14_IDAC_MAG_CFG_I2MAG			GENMASK(7, 4)
-@@ -2514,8 +2505,8 @@ static int ads112c14_probe(struct i2c_client *client)
- 		 * order to support open drain option here.
- 		 */
- 		ret = regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
--					 ADS112C14_GPIO_CFG_GPIO3_CFG,
--					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO3_CFG,
-+					 ADS112C14_GPIO_CFG_GPIO_CFG(3),
-+					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO_CFG(3),
- 						    ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_PUSH_PULL));
- 		if (ret)
- 			return ret;
-@@ -2550,8 +2541,8 @@ static int ads112c14_probe(struct i2c_client *client)
- 
- 	if (clk) {
- 		ret = regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
--					 ADS112C14_GPIO_CFG_GPIO3_CFG,
--					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO3_CFG,
-+					 ADS112C14_GPIO_CFG_GPIO_CFG(3),
-+					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO_CFG(3),
- 						    ADS112C14_GPIO_CFG_GPIO_CFG_INPUT));
- 		if (ret)
- 			return ret;
+ .../lenovo,thinkpad-t14s-ec.yaml                   |   4 +-
+ .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   |  24 +++
+ drivers/platform/arm64/lenovo-thinkpad-t14s.c      | 176 +++++++++++++++++++--
+ 3 files changed, 193 insertions(+), 11 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261106-t14s-gen7-ec-297593bda0fc
 
--- 
-2.53.0
+Best regards,
+--  
+
+Abel
 
