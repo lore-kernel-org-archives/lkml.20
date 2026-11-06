@@ -1,55 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794006411;
-	b=kv4koJIThoHQFPeiKLXzIh4t2Wt9oKgFjpWXOk9vbjtl5aQVVot94lhkmHgratxPhMAU
-	 ZXoV1+/TCNadvt76JUweh5Pe/uCSudi1RgtNiBsR7r/4uZDPZfeEqGYwNbZyRaAucYdei
-	 JIjNa0om3GAF9WkQq80v0dDcQGP1f+Dug/HyNOxDQJGPcCM30LIYiN0VTAyZ9jHbnfBUT
-	 epyj5oJHS8NNHc8XxOJLSsVf3W7i7iCV9KrbidROSwPlx6pPPLO+WpBEjBmkDPFrYDrUo
-	 I5FpsCr21v105z50j3Ksc2JfOqKXVgl2oiwiD0vBNlch3llw+YtIDQS7scbn6VUUdUA==
+	t=1794006478;
+	b=mbTsoIMMRVklHECwSS+5heoK9kS2KHhK/j196svAGt4IzOHJ19umc0za5F8uEHtCEt+o
+	 tiOiXjajymc91FoGY2ECVnpSImfqhGsL5ZEta5l6w8a1ZotLkprTnrXz9OF8MD2eRRmlS
+	 xCoDp+500BhRoNiAjxflo8cmnsDrx3YokUJ4YZi2nyBdGNC9Dh4nj347GDC5pIJj/AkKH
+	 imfX0xdkT8fvDD8WtWxokHlPjnjoIJGjP9CNMYEuPjFMxyCARutgA09h7itguOOt7qCBw
+	 v3BrMgsvk/0H2D2mEdN2gIQB5wg0ch01CLYMC5fnS23mbKagZ00mAiZswjscg/Sb86A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794006411;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OVffpMJpscIOft4NV2Jq0DE8YsEUp+bRS1xd5OErd84=;
-	b=vMhvyz7RUpzt8JhAyCK3cZv+6wK4hYXYvl2Jj0F5syR+po0/bw71EnSex+U1PfnQ+fAg
-	 088AVNS1sh7hHiPvu8BqqJpE/HywMT0cWZ/EDJc63hzia/6GtsoxNFksOAuFWf8FYAqIR
-	 DJdXg0P3FlzYOzqMW1rvb1S7Fnp4yAxiHcm/ZQinfvkBm5zE3QUhFD/21W4310H7vrMCH
-	 O1Qky2weyJ4TxIZOqGD1qUsLgiyjU93+ZAecOAA0kAOUbfC4XZBtpN/uQ3YqvZlwNcCaW
-	 MAqSo5ocSDxLzvz0DimgrZKNZJT/EwcoFJ5Zrh1LbuFcTH2aewXpQ+jS5ZYilnEN6ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794006478;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=+gyzgNhPsylvP06vZq5Elrbi2P3u4np1Q6XcqS10pRQ=;
+	b=WxxWaWLGO7AhpiqDKvUMoNp46nvKIIDoz+C8csZmo97LSeI45TMPCUc79qeJteheadlK
+	 zic1cam7WFuakkBF/DZ4U5pAEtnoVB2oAEK5a/cyh7X8TMgRMTw+YbgPSfNGR657yHqjh
+	 TlksjwgV8GTrj+70N3YFBcZNzMeU3ULPrHFwD2DrM2c4D2CWmadVCciGPG11wJo6bhpXb
+	 kqAdTY8WML8xoiBjbGj1vSTsz0gxIA0g6Dj0gqwK1ZBrK8yNZqgkiOUbFord0InN7j0h5
+	 URbl/zxDFRrrYsHzAwa0pCXw1WczAKOV1EotUYoAgPTfUyWx2v1pJC4hpcij7H0EODg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OYwNIh8Q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EBD9606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:06:51 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=A+qPZ9qe;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 981E4606A32C;
+	Fri,  6 Nov 2026 23:07:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 981E4606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OYwNIh8Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AB641F008A1
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:06:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794006411;
-	bh=OVffpMJpscIOft4NV2Jq0DE8YsEUp+bRS1xd5OErd84=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OYwNIh8QKo6/ciABJWZoZQ2F11ZJxzpsNlhkZ8/01rtd6f6oTTOdG1NxYR1HW9KuT
-	 LHEuJThM6xdBL1T7dj+RSPuu3ZR3wZBj5+lsFciuyUk5TgUIFP925g4XwXCptwPrdS
-	 cSGyEK2GDAjS4l2U7gLx29alPdQIGAbIofczc2ymmR0Ex1p8NQ7ObdTracIRtb7izs
-	 dblSPzucqwbwi2KyXyuYqjlEwKOqbdIW1AiqyzDkYGpDcanjOBNjZIdgtIciMT4KAK
-	 qX01LM2nNseoFhTVU/yeSZtXrxtvpZKax5Cw33IApSeqsQFrNfF8wUNucNfRwPdFje
-	 IQussb2MR1O5g==
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-85d363fb73cso710575a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 15:06:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBynsLCL6p2/oLm5dIVeexoppp7shI4+xFoIy7OwkaaTAVw4U20z5c7K6nojCuerPQU0LLvhuK/4ir1yEBU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CsguZNA6/Uz1n6W3MlV8IemZmPqCvDtuPjXq+Fd9k35EOMoGa
-	uRxJiErlo6jMrAcsOuLkE7C1ifXuzb56kNK0mjOCIV3/YMEziTWlkNDv96G0al2ArXT7MLo7eOf
-	26T8rNouOMGqmMKpwKyzQ6Q+DKDQar2s=
-X-Received: by 2002:a05:6830:2693:b0:82f:5471:4dd7 with SMTP id
- 46e09a7af769-85f1d16d8f2mr4156210a34.30.1794006410384; Fri, 06 Nov 2026
- 15:06:50 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=A+qPZ9qe
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CE1B11650;
+	Fri,  6 Nov 2026 15:07:53 -0800 (PST)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D216E3F632;
+	Fri,  6 Nov 2026 15:07:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794006476; bh=RJP+8WlqG/AN8bbXr0dcvH9Qfm+ONJlgtpsBrXaYgLk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=A+qPZ9qeYrog5H0PV6WbMfxCMDh5jvpniOk24HubukGL/m5QIsiHJKgayOMaz+FGW
+	 Kalpy6nnQROAErDm9Zk63zkruft/Zrg7oBdens2LnteHYp03qOBaDC4va0axjK3OJc
+	 OGBxNk0eVUlHwUlF/0U98vTxcm2KOfheIRTFd85U=
+Date: Sat, 7 Nov 2026 00:07:45 +0100
+From: Andre Przywara <andre.przywara@arm.com>
+To: Enzo Adriano <enzo.adriano.code@gmail.com>
+Cc: krzk@kernel.org, Ulf Hansson <ulfh@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Maxime
+ Ripard <mripard@kernel.org>, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, Junhui Liu
+ <junhui.liu@pigmoral.tech>
+Subject: Re: [PATCH] dt-bindings: mmc: describe the Allwinner A733 eMMC
+ controller
+Message-ID: <20261107000745.45b349d1@ryzen.lan>
+In-Reply-To: <20261103-a733-mmc3-withdraw-reply@gmail.com>
+References: <20261031020640-263f7b05-a7s-mmc-binding@gmail.com>
+	<20261102-steady-grateful-chimera-e2363a@quoll>
+	<20261103-a733-mmc3-withdraw-reply@gmail.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,61 +71,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
-In-Reply-To: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Sat, 7 Nov 2026 00:06:39 +0100
-X-Gmail-Original-Message-ID: <CAL4Wiiob6K=Y1ne0G+8L6b8fxNxdCz3z+THgCiCBX_5MjtSzcg@mail.gmail.com>
-X-Gm-Features: AclHuK85IAMcn42mvCatif5dGLCxV02KCNk7hXkKoMekgYmtNrFJzX8kSNTk-t4
-Message-ID: <CAL4Wiiob6K=Y1ne0G+8L6b8fxNxdCz3z+THgCiCBX_5MjtSzcg@mail.gmail.com>
-Subject: Re: [PATCH net] cipso: stop modifying live ip_options_rcu
-To: Jann Horn <jannh@google.com>
-Cc: Paul Moore <paul@paul-moore.com>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Simon Horman <horms@kernel.org>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
-	Casey Schaufler <casey@schaufler-ca.com>, netdev@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	selinux@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Le ven. 6 nov. 2026 =C3=A0 22:40, Jann Horn <jannh@google.com> a =C3=A9crit=
- :
->
-> cipso_v4_delopt() operates on the ip_options_rcu of a socket or a request
-> socket, and tries to remove CIPSO options from the middle by moving all
-> subsequent options.
-> That's not allowed - ip_options_rcu can be read locklessly and must alway=
-s
-> be consistent. For example, ip_options_undo() reads trusted offsets and
-> length values from the options buffer.
-> Fix it by doing the modification in a copy.
->
-> The core change is in cipso_v4_delopt(), the rest is ugly plumbing to
-> propagate memory allocation failures.
->
-> Triggering this bug requires that the system is configured to use CIPSO.
-> (Setting up CIPSO requires privileges in init_user_ns.)
->
-> Fixes: f6d8bd051c39 ("inet: add RCU protection to inet->opt")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jann Horn <jannh@google.com>
-> ---
-> I've sent a separate mail with a reproducer to Paul Moore.
+On Mon,  2 Nov 2026 19:41:55 -0500
+Enzo Adriano <enzo.adriano.code@gmail.com> wrote:
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Hi,
 
-Side note, not for this patch: Smack calls netlbl_sock_delattr()
-and netlbl_sock_setattr() under bh_lock_sock_nested() only, which does
-not exclude a concurrent lock_sock() owner such as
-setsockopt(IP_OPTIONS). Both sides can then kfree_rcu() the same
-old inet_opt. This already exists in the "cipso only" branch of
-cipso_v4_delopt() and in cipso_v4_sock_setattr(), and with this patch
-the copy branch has the same issue.
+> Hi Krzysztof,
+>=20
+> On Mon, Nov 02, 2026 at 08:27:19AM +0100, Krzysztof Kozlowski wrote:
+> > On Fri, Oct 30, 2026 at 10:26:47PM -0400, Enzo Adriano wrote:
+> >> AI assistance: Codex:gpt-6-astra.
+> >
+> > Drop, we do not advertise slop companies anymore.
+> >
+> >>
+> >> Assisted-by: LLM
+> > Drop
+>=20
+> Will do, here and in my other patches.
+>=20
+> >> This binding is a separate prerequisite for the disabled MMC3 node in
+> >
+> > How this can be a separate prerequisite? Binding without user is not a
+> > prerequisite.
+>=20
+> You're right, it isn't. It should not have been posted apart from its
+> user.
+>=20
+> >> the A733 DT v2. It does not add a sunxi-mmc driver match or claim an
+> >> operational eMMC path.
+> >
+> > Hm? Why?
+>=20
+> Because I can't test one. None of my three Cubie A7S boards detects an
+> eMMC, and their vendor device trees leave this controller disabled.
+>=20
+> [...]
+>=20
+> >> prerequisite-patch-id: 6fc03bfbd343042dd3b660938fcc09c5e7d48314
+> >
+> > So this cannot really be tested.
+>=20
+> Agreed. Those IDs came from my local tree and are no use to anyone else.
+>=20
+> I'm withdrawing this patch. Andr=C3=A9, you asked for the other MMC
+> controllers because the IP is the same, but the manual documents a
+> different descriptor layout for SMHC3 (A733 User Manual v1.00, tables
+> 11-3 to 11-6), and I have no hardware to test it on. The next DT
+> revision will describe MMC0-2 and leave SMHC3 out until someone can test
+> driver support. If either of you would rather have it described now,
+> tell me and I'll put it back, in the same series as its user.
 
-The rcu_dereference_protected(*opt_ptr, 1) in cipso_v4_delopt() hides
-this from lockdep. Smack should probably use lock_sock() like
-SELinux does in selinux_netlbl_socket_connect().
+Well, I was merely asking to list all instances that are the same. That
+one MMC controller is using a different IP is new, so I wasn't aware of
+that.
+And we don't submit bindings for something that has no driver and
+hasn't been tested. We have been bitten by subtle mistakes in the past,
+which lead to broken bindings, so just wait until we have some user for
+that. Adding to a binding and DT is always fine to do later.
 
-Thanks !
+Cheers,
+Andre
+
+
+>=20
+> Sorry for the noise.
+>=20
+> Best regards,
+> Enzo
+>=20
+
