@@ -1,95 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793960592;
-	b=x4hdJxVnRehQiAYztTm8udnlJDxShiDMLWBc6u+exPcgcZy6RUQvuoOskyXe8pJomYUl
-	 MlqEbYXDHzAGo45qNh7Jq2mYsoMtMdQfyBDGNCrQTw5o7NW/AIbL9d8PcABjlmHSflM8v
-	 TTyqxDcAOxuZgYjC4v4CSiaXd8eObXVbxYE/oW4i0mEFTPCfy3zq1vqYgv8mpvEWknma4
-	 kTwvR3RSpcSiU7TMSCL1+F5XnN9FVjgodkGNzOdk5bUyCO9OmSKWYlu7EIoVLPJnr23HH
-	 MO8fgDz9dg96VzlxTo4I5Z1hQKCqyScHyDdcyAiS/69GKmQcQBlE8cL5WDNDtz76UJg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960592;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zaQh/817iI+4/BcEunP8YSKGn7MHyBE9BsrR0admEkA=;
-	b=dfS/2Fv1k3LTXqKHlLNyodvJKXPay2w/S3KhUrrPwaihmIu48FqTKTO2U1SL2KveIou6
-	 Y2p/cUF5HlBi+xlHKHgap+XvfkFEvsEjRmzqBZE9b46CFrN6MZqvCnDff0c7OStkQtiBE
-	 aKimobwNMLIWt54dse6it+r1DuZgbAsWQgM2Ysp7xywR5VJyw9lvZgraGuprWQh0v6kww
-	 j8or88ZIrCnXxj11O7VRx3Q6IjOY/LObzmoW4kVLSvz7m6aJRP85LG4wVfyBRZWBqHU6x
-	 w9c1Fbpzvrnpg7vKHNzR50lsZsSAqN/yoRdy4MfXyigKV4bG0EYI9RoWi87CEteJd2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=fnFPTHZC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.25
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011025.outbound.protection.outlook.com [52.101.52.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793960586;
+	b=sQU51gUXeMtvT5ECXvv3jf5QFS/1x1gpckpk+OzgY4cmhfZ0mb14eIwFAjoeUz+cz01T
+	 xMFo37xEN8LMycdUMjFvP075JXYQnhM7jsf5lgidGSIwgnMqqf5qN5/u41+3y9ozzOXmp
+	 kTshCxoL/Tz5q2iHaCST0puC8VTYl2BEY8XqMZlC4Y+cBAkrhqa/L2kzN/p81CGSXIXqT
+	 egkZh+P0IumkioCWtn9Xqu2HcThniajKYL1K2h//Y11LzocqM+3wz7rY8Zk55oSpbCUKY
+	 6xyE92FsJGHZgW/KdapOeoXzJ1oc23YYBX259QifzchTKQHHNodm51fLir7ERz9NXxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960586;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Date:From:To:cc:Subject:Message-ID:
+	 MIME-Version:Content-Type;
+	bh=GEoC8F4eB0PfwmVCHxs7o9aZ4KaiSSvOJtT9yXnvsVw=;
+	b=32GWDFToS19QQhEu7VKWBHdw1mOYubFrA/M0r02vHKpbUduRDYdiEpprs3gwcraM5II8
+	 HFaXhpfkYX/9gyqDK5NdLyIJFnK/CeBeeF083y7/xB+PfmhEGVVTwjd7FYQaIS1iV4ICV
+	 kYT3XblHOnPDyx/lN4kt2mV879auZYhWxrZ97JXux+Q99J7bjvNu0iEDS/OWGfX4Ytg4M
+	 wXwS3tIYV6uBAkt/MUDgKWAYij9MyoXVfUjSl/GN1PT7kGPmLK7HSBGzQFa/r9N1L1iQ3
+	 brFHYrMFWhjNsunq5AVlF/1t3NgMFyd8nJ0v3Z6lK3byUpLHckLXVfAERASxDgo0wNw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b="kdaYF/9B";
+	arc=none smtp.remote-ip=192.134.164.83
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710E3606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:23:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 710E3606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC796606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:23:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC796606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=fnFPTHZC
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fla1GZzZLqgJr6ZJzmX2jqhc8EoH+izK/LGZm7GEXdG5mfch7bc1kvTJC81/kdQpiSSSRP8JV7b0WAoyxQxjaUSiP+CD7vEsIvafc52Xg3jyAGwZ4RD/PLdHS9+aKsOfKxeZJ8raZgo9MqdOOrqfDyj8N4pO2vynUoICI/dyxXkk3jgK5ix5vTbzJjOQHA1/qjfePzJFPTA47BpezohDDgu7xJwd4gzOPv4TTw1bIeIyShRwzsoNWPpsaZUo+1UouAZ83EL9JSBhW443EP+kRcP2MC+S4/2sENlscrSQNMZjzT1VuMIF4rZe3o6vzb5WEWtRtdP4skBd3n0s2Cuu+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zaQh/817iI+4/BcEunP8YSKGn7MHyBE9BsrR0admEkA=;
- b=XlQcrQBWF8cO2bhyvoDvq9A/+99Pt/VZpKF5I1pUha+OionbHs2/5CL3Y9uukuQ+xN/m8o/ckUBVq4X0ctD29Y04YwsLugjTqeuuvWHBxCkGAetc22qsyGEncpsTj7yYKg0PoXgzGeRqPyvgr5TuybrNaKgZ2A9EwOA/RamBvBwBdgmbkW+tul5ub4dg3psZNwI/1bfNbWXlV/w6NuxEDppB7wMUzOtChv1F4F8wq48FXL9oUd++3B5gLOoTm3AhjTC9wRM2xDs1noJyUmvhfNtjCZ0mnL0ucAPVQv8uhFtE98cdIcnU5j/NMM6lmROokvpau3SoAyH3AFmuaSAJTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zaQh/817iI+4/BcEunP8YSKGn7MHyBE9BsrR0admEkA=;
- b=fnFPTHZCwQcEPB0QbbLbYJYFR8pfOoqCgXEyEcJxbl2h4V3MXihYAzAdvUS24LXs7YITU1J/x4JDwKk1R0ev6EWMOaYIRvL7DFKuG/A4WWc63ZVX4qfyFoHZ3EGD6TVg6sU1wTuavmbaaq5gxMAEoUwGl7LK6QTeqQGN0PtrNuSSRmHcFqRqpjbEtyyyTHFRUH9a/tHo1tJhS1tNBeWnSUKBjR+e0jtFKiMW3X3SYwfdXdaITcG/4Fkc+oCeA/Yf8FS39xNpvQrD+fYveRpkxJRmsNI7zY0mhgJTugj2MUlX8fsmxHo/CMjnzOwtM2kYECuSn/Dlkf5rCBQ6ep8dIw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
- by MW4PR12MB7357.namprd12.prod.outlook.com (2603:10b6:303:219::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 10:23:07 +0000
-Received: from CH3PR12MB9730.namprd12.prod.outlook.com
- ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
- ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 10:23:07 +0000
-Date: Fri, 6 Nov 2026 21:23:02 +1100
-From: Balbir Singh <balbirs@nvidia.com>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
-	akpm@linux-foundation.org, rppt@kernel.org, apopple@nvidia.com,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap
- init
-Message-ID: <au2qhlsxQt3SRwIu@parvat>
-References: <20261105120615.16817-1-lizhe.67@bytedance.com>
- <20261105120615.16817-3-lizhe.67@bytedance.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105120615.16817-3-lizhe.67@bytedance.com>
-X-ClientProxiedBy: MEVPR01CA0018.ausprd01.prod.outlook.com
- (2603:10c6:220:205::13) To CH3PR12MB9730.namprd12.prod.outlook.com
- (2603:10b6:610:253::9)
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=kdaYF/9B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=GEoC8F4eB0PfwmVCHxs7o9aZ4KaiSSvOJtT9yXnvsVw=;
+  b=kdaYF/9BjSG25rSydb0MFf5icQnV7DqUixxdLNLIKzGlHXz1PDGKqWVu
+   7N3iZHmKAvYzVJ6suX35hI3rZ6JjgQebwINd6i3UI3y/bzJqXYglpL+md
+   pY9NYlAm9plxsAsobliznHn1kzT9hCC5wBE9GuQp6tju4j2TgicCn7HIm
+   k=;
+X-CSE-ConnectionGUID: ZxYoFyceSHWeOWkeGL67DA==
+X-CSE-MsgGUID: XxMv6/BKTRexXbFTkqgnAA==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,197,1787004000"; 
+   d="scan'208";a="304164825"
+Received: from dt-lawall.paris.inria.fr ([128.93.67.65])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 11:22:54 +0100
+Date: Fri, 6 Nov 2026 11:22:54 +0100 (CET)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Namjae Jeon <linkinjeon@kernel.org>
+cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org, 
+    Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@lst.de>
+Subject: fs/ntfs/iomap.c:481:14-15: WARNING kmalloc is used to allocate this
+ memory at line 460 (fwd)
+Message-ID: <598c2f18-21f3-d252-98da-e9288356c480@inria.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,137 +64,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|MW4PR12MB7357:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f818435-56e3-4f3b-759b-08df3beff2ed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|10070799003|366016|18002099003|22082099003|6133799003|10067099003|56012099006|4143699003|11063799006|261026121527099003|261026140227099003|261026130827099003|261026135527099003|261102123227099003|261028144727099003|261022113327099003|261022115727099003|261021121427099003|261021123027099003|261022105027099003|261021135927099003|261021133027099003|261021130227099003|261009223027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	yj7GJ6yoAcL8xSoFCFFY2PQAnLAeYpwnVrcvGNRQfIvveM2ciEroJhUfF7AZDpKqUGptrmP/ylrGfyU3El0anJ1+tw11D32EIxeW4I9dy1/zmoUwYz3M3nnGm7Bfy3mn0KteBE1bFGrpbN84f2sOPGBqtKDjyQkG53DpNSwb38iOBn6XmTAPL1ek4xnZuYQjBXml6FAUNnjVPo576T+7z8tIniv65L/DrsuA1b68Y8Y+3qEVu7kN6HGSPoxjnCaMgLeTJW3OS/NQfzt6Td5dwm7rbd1SbVTO7QsWRANqvaoPJdRf+gJ6nQ4tBsXV2KkDv2FoW3BCCkKBxHaUYDNnv/OwSDdhl8RhQUskNIfeKE6r9yQG8J6ZFvwHMoI5eu8uthLJYqbH+tvd8WEIRiRlSee6lTDnBVT0JP1M4Gs9SAT5agPViazUdB02g5RKZsaseMUlUe3l2oQ3TMpiaVPpR45PGkt/CmdduiZzg5utfuuWaxDrW4mjZNoqzlDE+Kvs5V0d4BdzEtuQ8cQIRTZlSmPJFP9MyAOmlbIHmDY/wgshgtMa+P4k1FYSyVI1PIfibZP4hbcYd+F/x5W59/WxFye3Dwq9rSfJTWSjfcWPYcrmQ7ksJSGkLu/HjwMhsn2qh6T3BLVI1qJjTaJ8a4jKXbm4FWxi5Ihpd03tcLFKfEA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB9730.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(10070799003)(366016)(18002099003)(22082099003)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(261026121527099003)(261026140227099003)(261026130827099003)(261026135527099003)(261102123227099003)(261028144727099003)(261022113327099003)(261022115727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261021135927099003)(261021133027099003)(261021130227099003)(261009223027099003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CfxgSo8SeTkzWLklC0HtQqC9+oQjb8mid1BEfVsCI/U3PQ6yTRkrA8q7TN3B?=
- =?us-ascii?Q?V10T6QSt2D7K9nTwc23DzPZ+d0CP4p6J7E9bpKD/nm1q4KOF8gVAteK68Q7R?=
- =?us-ascii?Q?mUs+BNv7WwlL22miGdU49Dq3ET1+S3ksq5FY56EEgrCtZueZ3tS5LvoXqxCs?=
- =?us-ascii?Q?/IMWSPBY/517w1eniDKx/qRrXTQL/PJcGx5jDZOzuQc6vzPYi3odKw37lH7L?=
- =?us-ascii?Q?+iZSA24tMWEdZOuE7kkXBdA7PQFubN07AVJaeWTtMTmV2BHp4WcFLH4cDVRZ?=
- =?us-ascii?Q?PfevWLLbZTP04HVoC4Bxjeqq05s4GXN+GyuwV7ijFdQYTMMtOofh35xCq+c7?=
- =?us-ascii?Q?7cdmjTWN+9ggvA2LxMvMthw6Kgde0dPqCdd8piKqi2hdoVfeKfVMI2U/jlzp?=
- =?us-ascii?Q?8i5kj2LbsqCPusbsj7jZyrt7T41t9HyLkrVrdJsRDlN4PuK5EMFEwi9TME7q?=
- =?us-ascii?Q?SZQne0nF2COZeF+Dhl8EP6erRKGrEQ1cgxgAx51Ay3grXkSkCGn9+pQjg3Xe?=
- =?us-ascii?Q?F/SUD/hQE/ZeG/3DUBnJNqhDT/lwc0JCL5Hl5sbeKtvJsf9CqPeUydTQcWad?=
- =?us-ascii?Q?0V4qSvBdDYVB11GMsvbfPufylrEC/pwutOEZBeW95TfZr0JUauqqN3pwLHeK?=
- =?us-ascii?Q?GUikjSgIUVL3npCUJ5yVCzPpznUD7x/q43eGOxWcn5FJ/ebmSTPjTEUBH0Fe?=
- =?us-ascii?Q?OmpFnwezoMtAAJtp63pEL8q03V0Wo7H8aaxEz9LTh4PXL0Krk6Gl331tKU5f?=
- =?us-ascii?Q?l28mGSdT1C4HbVu8VE+IPi0JCwzz+3b5M602ZXMpfPB4VThn5p3oFwaqov0Z?=
- =?us-ascii?Q?IBEudeMa5URKuq6Pizn0+x5IzFCLbjybtrh4Ma9RVsUvrTWFz40dLLHau6Lx?=
- =?us-ascii?Q?Rxg1Kh5VZL9BrMQIfgrCsXfsTRdA4X0W5ThG6NC6SYgezHRjUF7s+T0jf/PQ?=
- =?us-ascii?Q?0UH2VYbx1lwEs6ijFyrhYuopB89saRcg8Fd/T9QD4b7CD99kWvHbpBc6DhJh?=
- =?us-ascii?Q?/+UwNRG/cxq8Me3ZPY/cN2XkHZvZfdNbPhol3u1/4wsBqygYAFXqWIsZ9a3O?=
- =?us-ascii?Q?Vh6GSakhQwKddkDMuUF0pNRsk6BhBG/jXk3A7YkYqCW/DB1W6NiJg5zfA11r?=
- =?us-ascii?Q?qnC6wPRCJxxbH+mkmK/KKxd1fC/bGJaHxGOc7Fag1RJ+cSTEaUqkBGOwspDj?=
- =?us-ascii?Q?oUofZj1+Zr8PqkkIoG/QniPYlFFsoxvqrnrZO9CTVAfw0SwYmjHJ81MmfeTG?=
- =?us-ascii?Q?VfXPjakLlJbmdfmSGBHcfy3bRXfKU1FOj9Kg7lhe4AL8OOwX2Yt6UbM8gyLo?=
- =?us-ascii?Q?hF/VsqzHf4PuG7Md8y1GxrF42SNeUBXKSrpDIs0flwtRHelFG00v6HWzqN64?=
- =?us-ascii?Q?JkDirm5h1BDIlvT/VPYcQDBbCNpZ6a3DLQSGLPOXgbwZdq5xGd4B2+AUt9ei?=
- =?us-ascii?Q?ZeOCrYklFX6FbbEZGNU+qiNCaCN8TrDqHSBQ0vHASa6+VbL97VJbVWseG3o2?=
- =?us-ascii?Q?zuwzJfntxVZ8bgAFlseQLGhQG4wKrY1ytZw/AGg7zd6jaRWakpzUNXEfNN5H?=
- =?us-ascii?Q?aH/U7YyKsUjcz+0hz9nA5/8bkDP0TgAFJikesHYtMMB2x681T9tUJJd51/n+?=
- =?us-ascii?Q?jLxMR5vJvkfjPzxaXYOU4AwflwVxsNOCUliOXeOQp6GNz14JlAVDuh1toA8f?=
- =?us-ascii?Q?Q3f4vh62xD21bY0Oh2EVWYkV69ak5HRHSh9IcA6jS74+NznKeWIMasvo2d1L?=
- =?us-ascii?Q?q2y80zs6QyrvZX57wHTZeZpA7E3gUl5jIffNg4jMGQDJLJPu2tUZMNpCnaux?=
-X-MS-Exchange-AntiSpam-MessageData-1: zbrvju/R5R2vOg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f818435-56e3-4f3b-759b-08df3beff2ed
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:23:07.1538
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vttigTGxNXehUC44iwoSVxvsDYQjppqXtqO2wSZJAlWdY7BsjVf2BpHLxvGqDmtv93UqoswJnLTCSVJ51N2ODQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7357
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Nov 05, 2026 at 08:06:15PM +0800, Li Zhe wrote:
-> Boot-time HugeTLB allocation has to initialize tail struct pages itself
-> when HugeTLB vmemmap optimization (HVO) is unavailable or fails.  For
-> gigantic pages, this can cover a large number of tail pages.  Most state
-> installed by __init_single_page() and prep_compound_tail() is identical
-> for every tail page in the same huge page; only PFN-dependent fields
-> need refreshing.
-> 
-> Initialize the first tail page normally, copy it into a local template,
-> then initialize the remaining tails from that template with
-> memmap_init_page_from_template().  This avoids repeatedly doing the full
-> __init_single_page() and prep_compound_tail() sequence for state that is
-> identical across tail pages in the same huge page.
-> 
-> On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugepages
-> (HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
-> initialization time improved by 36.43%, measured with a temporary
-> jiffies-based printk modeled after the existing timing in
-> memmap_init_zone_device():
-> 
->   base:             318.4 ms
->   with this patch:  202.4 ms
-> 
-> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
-> ---
->  mm/hugetlb.c | 23 ++++++++++++++++++-----
->  1 file changed, 18 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index da5d04edf7c1..987f16a5ea27 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -3219,19 +3219,32 @@ static void __init hugetlb_folio_init_tail_vmemmap(struct folio *folio,
->  	enum zone_type zone = folio_zonenum(folio);
->  	int nid = folio_nid(folio);
->  	struct page *page = folio_page(folio, start_page_number);
-> +	struct page template;
->  	unsigned long head_pfn = folio_pfn(folio);
->  	unsigned long pfn, end_pfn = head_pfn + end_page_number;
->  	unsigned int order = huge_page_order(h);
->  
-> +	if (start_page_number >= end_page_number)
-> +		return;
-> +
 
-Can this actually happen?
 
->  	/*
->  	 * As we marked all tail pages with memblock_reserved_mark_noinit(),
->  	 * we must initialize them ourselves here.
->  	 */
-> -	for (pfn = head_pfn + start_page_number; pfn < end_pfn; page++, pfn++) {
-> -		__init_single_page(page, pfn, zone, nid);
-> -		prep_compound_tail(page, &folio->page, order);
-> -		set_page_count(page, 0);
-> -	}
-> +	pfn = head_pfn + start_page_number;
-> +
-> +	/*
-> +	 * Seed a template from the first real tail page and refresh only
-> +	 * PFN-dependent fields before copying it.
-> +	 */
-> +	__init_single_page(page, pfn, zone, nid);
-> +	prep_compound_tail(page, &folio->page, order);
-> +	set_page_count(page, 0);
-> +	memcpy(&template, page, sizeof(template));
+---------- Forwarded message ----------
+Date: Fri, 06 Nov 2026 07:59:12 +0100
+From: kernel test robot <lkp@intel.com>
+To: oe-kbuild@lists.linux.dev
+Cc: lkp@intel.com, Julia Lawall <julia.lawall@inria.fr>
+Subject: fs/ntfs/iomap.c:481:14-15: WARNING kmalloc is used to allocate this
+    memory at line 460
 
-Do we need a separate template and page?
+BCC: lkp@intel.com
+CC: oe-kbuild-all@lists.linux.dev
+CC: linux-kernel@vger.kernel.org
+TO: Namjae Jeon <linkinjeon@kernel.org>
+CC: Amir Goldstein <amir73il@gmail.com>
+CC: Christoph Hellwig <hch@lst.de>
 
-> +
-> +	for (pfn++; pfn < end_pfn; pfn++)
-> +		memmap_init_page_from_template(pfn_to_page(pfn), pfn, zone,
-> +					       &template);
->  }
->  
->  static void __init hugetlb_folio_init_vmemmap(struct folio *folio,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   f66469d9905b39d2c260a15d7d6db450f4db67c1
+commit: 47503f989736d6c4c9f8bfca1c28d267473ccd4b ntfs: add Kconfig and Makefile
+date:   9 months ago
+:::::: branch date: 5 hours ago
+:::::: commit date: 9 months ago
+config: loongarch-randconfig-r2105-20261104 (https://download.01.org/0day-ci/archive/20261106/202611060717.0Na5FqQR-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project e2e3d6c39cfebec9eace23629a5a103df2c79ba6)
 
-Acked-by: Balbir Singh <balbirs@nvidia.com>
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 47503f989736 ("ntfs: add Kconfig and Makefile")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Reported-by: Julia Lawall <julia.lawall@inria.fr>
+| Closes: https://lore.kernel.org/r/202611060717.0Na5FqQR-lkp@intel.com/
+
+cocci warnings: (new ones prefixed by >>)
+>> fs/ntfs/iomap.c:481:14-15: WARNING kmalloc is used to allocate this memory at line 460
+
+vim +481 fs/ntfs/iomap.c
+
+b041ca562526b3c Namjae Jeon 2026-02-13  378
+b041ca562526b3c Namjae Jeon 2026-02-13  379  static int ntfs_write_simple_iomap_begin_non_resident(struct inode *inode, loff_t offset,
+b041ca562526b3c Namjae Jeon 2026-02-13  380  						      loff_t length, struct iomap *iomap)
+b041ca562526b3c Namjae Jeon 2026-02-13  381  {
+b041ca562526b3c Namjae Jeon 2026-02-13  382  	struct ntfs_inode *ni = NTFS_I(inode);
+b041ca562526b3c Namjae Jeon 2026-02-13  383  	struct ntfs_volume *vol = ni->vol;
+b041ca562526b3c Namjae Jeon 2026-02-13  384  	loff_t vcn_ofs, rl_length;
+b041ca562526b3c Namjae Jeon 2026-02-13  385  	struct runlist_element *rl, *rlc;
+b041ca562526b3c Namjae Jeon 2026-02-13  386  	bool is_retry = false;
+b041ca562526b3c Namjae Jeon 2026-02-13  387  	int err;
+b041ca562526b3c Namjae Jeon 2026-02-13  388  	s64 vcn, lcn;
+b041ca562526b3c Namjae Jeon 2026-02-13  389  	s64 max_clu_count =
+b041ca562526b3c Namjae Jeon 2026-02-13  390  		ntfs_bytes_to_cluster(vol, round_up(length, vol->cluster_size));
+b041ca562526b3c Namjae Jeon 2026-02-13  391
+b041ca562526b3c Namjae Jeon 2026-02-13  392  	vcn = ntfs_bytes_to_cluster(vol, offset);
+b041ca562526b3c Namjae Jeon 2026-02-13  393  	vcn_ofs = ntfs_bytes_to_cluster_off(vol, offset);
+b041ca562526b3c Namjae Jeon 2026-02-13  394
+b041ca562526b3c Namjae Jeon 2026-02-13  395  	down_read(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  396  	rl = ni->runlist.rl;
+b041ca562526b3c Namjae Jeon 2026-02-13  397  	if (!rl) {
+b041ca562526b3c Namjae Jeon 2026-02-13  398  		up_read(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  399  		err = ntfs_map_runlist(ni, vcn);
+b041ca562526b3c Namjae Jeon 2026-02-13  400  		if (err) {
+b041ca562526b3c Namjae Jeon 2026-02-13  401  			mutex_unlock(&ni->mrec_lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  402  			return -ENOENT;
+b041ca562526b3c Namjae Jeon 2026-02-13  403  		}
+b041ca562526b3c Namjae Jeon 2026-02-13  404  		down_read(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  405  		rl = ni->runlist.rl;
+b041ca562526b3c Namjae Jeon 2026-02-13  406  	}
+b041ca562526b3c Namjae Jeon 2026-02-13  407  	up_read(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  408
+b041ca562526b3c Namjae Jeon 2026-02-13  409  	down_write(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  410  remap_rl:
+b041ca562526b3c Namjae Jeon 2026-02-13  411  	/* Seek to element containing target vcn. */
+b041ca562526b3c Namjae Jeon 2026-02-13  412  	rl = __ntfs_attr_find_vcn_nolock(&ni->runlist, vcn);
+b041ca562526b3c Namjae Jeon 2026-02-13  413  	if (IS_ERR(rl)) {
+b041ca562526b3c Namjae Jeon 2026-02-13  414  		up_write(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  415  		mutex_unlock(&ni->mrec_lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  416  		return -EIO;
+b041ca562526b3c Namjae Jeon 2026-02-13  417  	}
+b041ca562526b3c Namjae Jeon 2026-02-13  418  	lcn = ntfs_rl_vcn_to_lcn(rl, vcn);
+b041ca562526b3c Namjae Jeon 2026-02-13  419
+b041ca562526b3c Namjae Jeon 2026-02-13  420  	if (lcn <= LCN_RL_NOT_MAPPED && is_retry == false) {
+b041ca562526b3c Namjae Jeon 2026-02-13  421  		is_retry = true;
+b041ca562526b3c Namjae Jeon 2026-02-13  422  		if (!ntfs_map_runlist_nolock(ni, vcn, NULL)) {
+b041ca562526b3c Namjae Jeon 2026-02-13  423  			rl = ni->runlist.rl;
+b041ca562526b3c Namjae Jeon 2026-02-13  424  			goto remap_rl;
+b041ca562526b3c Namjae Jeon 2026-02-13  425  		}
+b041ca562526b3c Namjae Jeon 2026-02-13  426  	}
+b041ca562526b3c Namjae Jeon 2026-02-13  427
+b041ca562526b3c Namjae Jeon 2026-02-13  428  	max_clu_count = min(max_clu_count, rl->length - (vcn - rl->vcn));
+b041ca562526b3c Namjae Jeon 2026-02-13  429  	if (max_clu_count == 0) {
+b041ca562526b3c Namjae Jeon 2026-02-13  430  		ntfs_error(inode->i_sb,
+b041ca562526b3c Namjae Jeon 2026-02-13  431  				"runlist(vcn : %lld, length : %lld) is corrupted\n",
+b041ca562526b3c Namjae Jeon 2026-02-13  432  				rl->vcn, rl->length);
+b041ca562526b3c Namjae Jeon 2026-02-13  433  		up_write(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  434  		mutex_unlock(&ni->mrec_lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  435  		return -EIO;
+b041ca562526b3c Namjae Jeon 2026-02-13  436  	}
+b041ca562526b3c Namjae Jeon 2026-02-13  437
+b041ca562526b3c Namjae Jeon 2026-02-13  438  	iomap->bdev = inode->i_sb->s_bdev;
+b041ca562526b3c Namjae Jeon 2026-02-13  439  	iomap->offset = offset;
+b041ca562526b3c Namjae Jeon 2026-02-13  440
+b041ca562526b3c Namjae Jeon 2026-02-13  441  	if (lcn <= LCN_DELALLOC) {
+b041ca562526b3c Namjae Jeon 2026-02-13  442  		if (lcn < LCN_DELALLOC) {
+b041ca562526b3c Namjae Jeon 2026-02-13  443  			max_clu_count =
+b041ca562526b3c Namjae Jeon 2026-02-13  444  				ntfs_available_clusters_count(vol, max_clu_count);
+b041ca562526b3c Namjae Jeon 2026-02-13  445  			if (max_clu_count < 0) {
+b041ca562526b3c Namjae Jeon 2026-02-13  446  				err = max_clu_count;
+b041ca562526b3c Namjae Jeon 2026-02-13  447  				up_write(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  448  				mutex_unlock(&ni->mrec_lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  449  				return err;
+b041ca562526b3c Namjae Jeon 2026-02-13  450  			}
+b041ca562526b3c Namjae Jeon 2026-02-13  451  		}
+b041ca562526b3c Namjae Jeon 2026-02-13  452
+b041ca562526b3c Namjae Jeon 2026-02-13  453  		iomap->type = IOMAP_DELALLOC;
+b041ca562526b3c Namjae Jeon 2026-02-13  454  		iomap->addr = IOMAP_NULL_ADDR;
+b041ca562526b3c Namjae Jeon 2026-02-13  455
+b041ca562526b3c Namjae Jeon 2026-02-13  456  		if (lcn <= LCN_HOLE) {
+b041ca562526b3c Namjae Jeon 2026-02-13  457  			size_t new_rl_count;
+b041ca562526b3c Namjae Jeon 2026-02-13  458
+b041ca562526b3c Namjae Jeon 2026-02-13  459  			rlc = kmalloc(sizeof(struct runlist_element) * 2,
+b041ca562526b3c Namjae Jeon 2026-02-13 @460  					GFP_NOFS);
+b041ca562526b3c Namjae Jeon 2026-02-13  461  			if (!rlc) {
+b041ca562526b3c Namjae Jeon 2026-02-13  462  				up_write(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  463  				mutex_unlock(&ni->mrec_lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  464  				return -ENOMEM;
+b041ca562526b3c Namjae Jeon 2026-02-13  465  			}
+b041ca562526b3c Namjae Jeon 2026-02-13  466
+b041ca562526b3c Namjae Jeon 2026-02-13  467  			rlc->vcn = vcn;
+b041ca562526b3c Namjae Jeon 2026-02-13  468  			rlc->lcn = LCN_DELALLOC;
+b041ca562526b3c Namjae Jeon 2026-02-13  469  			rlc->length = max_clu_count;
+b041ca562526b3c Namjae Jeon 2026-02-13  470
+b041ca562526b3c Namjae Jeon 2026-02-13  471  			rlc[1].vcn = vcn + max_clu_count;
+b041ca562526b3c Namjae Jeon 2026-02-13  472  			rlc[1].lcn = LCN_RL_NOT_MAPPED;
+b041ca562526b3c Namjae Jeon 2026-02-13  473  			rlc[1].length = 0;
+b041ca562526b3c Namjae Jeon 2026-02-13  474
+b041ca562526b3c Namjae Jeon 2026-02-13  475  			rl = ntfs_runlists_merge(&ni->runlist, rlc, 0,
+b041ca562526b3c Namjae Jeon 2026-02-13  476  					&new_rl_count);
+b041ca562526b3c Namjae Jeon 2026-02-13  477  			if (IS_ERR(rl)) {
+b041ca562526b3c Namjae Jeon 2026-02-13  478  				ntfs_error(vol->sb, "Failed to merge runlists");
+b041ca562526b3c Namjae Jeon 2026-02-13  479  				up_write(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  480  				mutex_unlock(&ni->mrec_lock);
+b041ca562526b3c Namjae Jeon 2026-02-13 @481  				kvfree(rlc);
+b041ca562526b3c Namjae Jeon 2026-02-13  482  				return PTR_ERR(rl);
+b041ca562526b3c Namjae Jeon 2026-02-13  483  			}
+b041ca562526b3c Namjae Jeon 2026-02-13  484
+b041ca562526b3c Namjae Jeon 2026-02-13  485  			ni->runlist.rl = rl;
+b041ca562526b3c Namjae Jeon 2026-02-13  486  			ni->runlist.count = new_rl_count;
+b041ca562526b3c Namjae Jeon 2026-02-13  487  			ni->i_dealloc_clusters += max_clu_count;
+b041ca562526b3c Namjae Jeon 2026-02-13  488  		}
+b041ca562526b3c Namjae Jeon 2026-02-13  489  		up_write(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  490  		mutex_unlock(&ni->mrec_lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  491
+b041ca562526b3c Namjae Jeon 2026-02-13  492  		if (lcn < LCN_DELALLOC)
+b041ca562526b3c Namjae Jeon 2026-02-13  493  			ntfs_hold_dirty_clusters(vol, max_clu_count);
+b041ca562526b3c Namjae Jeon 2026-02-13  494
+b041ca562526b3c Namjae Jeon 2026-02-13  495  		rl_length = ntfs_cluster_to_bytes(vol, max_clu_count);
+b041ca562526b3c Namjae Jeon 2026-02-13  496  		if (length > rl_length - vcn_ofs)
+b041ca562526b3c Namjae Jeon 2026-02-13  497  			iomap->length = rl_length - vcn_ofs;
+b041ca562526b3c Namjae Jeon 2026-02-13  498  		else
+b041ca562526b3c Namjae Jeon 2026-02-13  499  			iomap->length = length;
+b041ca562526b3c Namjae Jeon 2026-02-13  500
+b041ca562526b3c Namjae Jeon 2026-02-13  501  		iomap->flags = IOMAP_F_NEW;
+b041ca562526b3c Namjae Jeon 2026-02-13  502  		if (lcn <= LCN_HOLE) {
+b041ca562526b3c Namjae Jeon 2026-02-13  503  			loff_t end = offset + length;
+b041ca562526b3c Namjae Jeon 2026-02-13  504
+b041ca562526b3c Namjae Jeon 2026-02-13  505  			if (vcn_ofs || ((vol->cluster_size > iomap->length) &&
+b041ca562526b3c Namjae Jeon 2026-02-13  506  					end < ni->initialized_size)) {
+b041ca562526b3c Namjae Jeon 2026-02-13  507  				loff_t z_start, z_end;
+b041ca562526b3c Namjae Jeon 2026-02-13  508
+b041ca562526b3c Namjae Jeon 2026-02-13  509  				z_start = vcn << vol->cluster_size_bits;
+b041ca562526b3c Namjae Jeon 2026-02-13  510  				z_end = min_t(loff_t, z_start + vol->cluster_size,
+b041ca562526b3c Namjae Jeon 2026-02-13  511  					      i_size_read(inode));
+b041ca562526b3c Namjae Jeon 2026-02-13  512  				if (z_end > z_start)
+b041ca562526b3c Namjae Jeon 2026-02-13  513  					err = ntfs_zero_range(inode,
+b041ca562526b3c Namjae Jeon 2026-02-13  514  							      z_start,
+b041ca562526b3c Namjae Jeon 2026-02-13  515  							      z_end - z_start);
+b041ca562526b3c Namjae Jeon 2026-02-13  516  			}
+b041ca562526b3c Namjae Jeon 2026-02-13  517  			if ((!err || err == -EPERM) &&
+b041ca562526b3c Namjae Jeon 2026-02-13  518  			    max_clu_count > 1 &&
+b041ca562526b3c Namjae Jeon 2026-02-13  519  			    (iomap->length & vol->cluster_size_mask &&
+b041ca562526b3c Namjae Jeon 2026-02-13  520  			     end < ni->initialized_size)) {
+b041ca562526b3c Namjae Jeon 2026-02-13  521  				loff_t z_start, z_end;
+b041ca562526b3c Namjae Jeon 2026-02-13  522
+b041ca562526b3c Namjae Jeon 2026-02-13  523  				z_start = (vcn + max_clu_count - 1) <<
+b041ca562526b3c Namjae Jeon 2026-02-13  524  					vol->cluster_size_bits;
+b041ca562526b3c Namjae Jeon 2026-02-13  525  				z_end = min_t(loff_t, z_start + vol->cluster_size,
+b041ca562526b3c Namjae Jeon 2026-02-13  526  					      i_size_read(inode));
+b041ca562526b3c Namjae Jeon 2026-02-13  527  				if (z_end > z_start)
+b041ca562526b3c Namjae Jeon 2026-02-13  528  					err = ntfs_zero_range(inode,
+b041ca562526b3c Namjae Jeon 2026-02-13  529  							      z_start,
+b041ca562526b3c Namjae Jeon 2026-02-13  530  							      z_end - z_start);
+b041ca562526b3c Namjae Jeon 2026-02-13  531  			}
+b041ca562526b3c Namjae Jeon 2026-02-13  532
+b041ca562526b3c Namjae Jeon 2026-02-13  533  			if (err == -EPERM)
+b041ca562526b3c Namjae Jeon 2026-02-13  534  				err = 0;
+b041ca562526b3c Namjae Jeon 2026-02-13  535  			if (err) {
+b041ca562526b3c Namjae Jeon 2026-02-13  536  				ntfs_release_dirty_clusters(vol, max_clu_count);
+b041ca562526b3c Namjae Jeon 2026-02-13  537  				return err;
+b041ca562526b3c Namjae Jeon 2026-02-13  538  			}
+b041ca562526b3c Namjae Jeon 2026-02-13  539  		}
+b041ca562526b3c Namjae Jeon 2026-02-13  540  	} else {
+b041ca562526b3c Namjae Jeon 2026-02-13  541  		up_write(&ni->runlist.lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  542  		mutex_unlock(&ni->mrec_lock);
+b041ca562526b3c Namjae Jeon 2026-02-13  543
+b041ca562526b3c Namjae Jeon 2026-02-13  544  		iomap->type = IOMAP_MAPPED;
+b041ca562526b3c Namjae Jeon 2026-02-13  545  		iomap->addr = ntfs_cluster_to_bytes(vol, lcn) + vcn_ofs;
+b041ca562526b3c Namjae Jeon 2026-02-13  546
+b041ca562526b3c Namjae Jeon 2026-02-13  547  		rl_length = ntfs_cluster_to_bytes(vol, max_clu_count);
+b041ca562526b3c Namjae Jeon 2026-02-13  548  		if (length > rl_length - vcn_ofs)
+b041ca562526b3c Namjae Jeon 2026-02-13  549  			iomap->length = rl_length - vcn_ofs;
+b041ca562526b3c Namjae Jeon 2026-02-13  550  		else
+b041ca562526b3c Namjae Jeon 2026-02-13  551  			iomap->length = length;
+b041ca562526b3c Namjae Jeon 2026-02-13  552  	}
+b041ca562526b3c Namjae Jeon 2026-02-13  553
+b041ca562526b3c Namjae Jeon 2026-02-13  554  	return 0;
+b041ca562526b3c Namjae Jeon 2026-02-13  555  }
+b041ca562526b3c Namjae Jeon 2026-02-13  556
+
+:::::: The code at line 481 was first introduced by commit
+:::::: b041ca562526b3c4a71b41b80ba5e520eac636ad ntfs: update iomap and address space operations
+
+:::::: TO: Namjae Jeon <linkinjeon@kernel.org>
+:::::: CC: Namjae Jeon <linkinjeon@kernel.org>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
