@@ -1,104 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.21.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945282;
-	b=GxeN762XN7V+bv3SvpJoXE8hPF2CtcuTr+8WPgElqWVm5ZceCVhM1EKMOk4dOpIV5ZJ4
-	 XwegXTn7ls0uCgCXuchz2IeKWecBYg8aTbAUmSgUXxWFq2fdXHj199A2+vI6ldY/pBKt6
-	 BQRHctjmeqT7XDWKEtfb+etFdkQ4kTgCZz3Aa0wXSNGWu2tLLh+kqqinpS0cvvw6f52ey
-	 F2VJAbNQMOcm/tcsaCoP5YAfGQPUJI2tCkbgKXj0SLMKP9f9u/EBT8CDeodpH/Ho9v2aW
-	 PgC4MI5EXSb6hrJd4zJM0reLHY9qYMw0mvL5B/QxzubysBdXCsqkgXdG3oWCiBQuPmA==
+	t=1793945377;
+	b=fAtPubQndBB/E2SlZFHWLSoamKFyNqglpEVEaJDSnBmCFAhyNPS2M9PJqVJYSR/4uECt
+	 HD+Z0eEjdqrVDBfWqjQX+jgcd/lVHFWWmtzRg8RPx4oqbs+mxPy7s6FaGKtBRqrUQCcl1
+	 vq/J/4eo/ks9SaaAN8rF5ntIZbj0I/FvQvQllEFf5r432K3yXUILboob9Yuz27EKFJcBY
+	 qHYichK/z+WX8R4BiHLazeJdgDzX6sqGN8gFFiFseK0zZqTXQ1C1H70fkaLvsHhgPmvav
+	 mq4OCrJXgmLaW8lJG7Rxb8H6fkcjvQUoVsUAe5R+pg2/SyN6LQSTCA27RcTgVYkrsAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945282;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:X-ME-Sender:
-	 X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-Greylist:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=YWfrO+3PGngce3vAA+WeVwidWQAaCmbQuGPi06xHNro=;
-	b=VhRA7XSyEIyeFPxCP/iP+kyClBznwWgCUHE1Wx3Fv5cCKmu5fbtKZdpmrUgkrmMwzXHu
-	 WD345Vl2BQJU+os0A9lbAT20O+8CkPA82GUjoPtHn/K3ngnqMiPVpR5cbVVCwZo51y3gz
-	 g8eb6kKV4PbGc15UglKwL8Z/K61Z4/K1ttxU2GUL8oa7T3wY65g+aSg6x6iSozoYScdOI
-	 /bO/yUecMDmRQkX1E51AqQ1NCYierZDooXYAQFJAv0TXttv7JiLJ9JckxXMxKkAlkjL4J
-	 KBf6z1kSZOZdZnmfoQPTPaOpNRvlFID/fOWhgsx49BmOhOE+YXpAfjbrrxpeTJVZiVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945377;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=H78gSmzAHOzV4l0I/w1s/VX9KmPbK8qgl1NsjdEHRpk=;
+	b=dxVsa25QTNCafxmPM8bhBqrcQGhO5Tttq7OX7JhLbNwej17HLMKblq/rXQigQVbugGyh
+	 EH7NOHUsjpw2+/HYpdW+9jTbFW1SbPX9DcL/E7eRegffmLWcQLV1n86gp0xPcUcBEQy9s
+	 L/aaE1A7Ni0eXM9Jv5MBBVUcvlIxZzL4i03wotjzlfx+Y+2dQanOIqNJQzjYe/QJJUFZV
+	 +an54cN+pi7cBZqtpsC9cmEkLqpwIJn/jgEdskFgIF7xe1q6l6Xe9BmH/ggQYH8l0aXN/
+	 paGWH98v9cat+mc8ECSY4fBbltX8uZCSMd6e2cTbq/BbRttYQutv+4TvLnOSySY5opA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sericyb.com.au;
-	spf=pass smtp.mailfrom=shining.glasswings.com.au;
-	dkim=pass header.d=sericyb.com.au header.i=@sericyb.com.au header.a=rsa-sha256 header.s=shining header.b=huNjMeSE;
-	arc=none smtp.remote-ip=178.63.21.144
-Received: from shining.glasswings.com.au (shining.glasswings.com.au [178.63.21.144])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtK2mIPm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2320A606A329;
-	Fri,  6 Nov 2026 06:07:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2320A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sericyb.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shining.glasswings.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9636606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sericyb.com.au header.i=@sericyb.com.au header.a=rsa-sha256 header.s=shining header.b=huNjMeSE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sericyb.com.au;
-	s=shining; t=1793945273;
-	bh=oxQ/XatkM5jxRdXO267bhYI/CjAhkGUFXp033JxNLIA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=huNjMeSExGDy27bXgm9B5b3lZufUTUe4yjSuMqmGCphhmRecJ2JtV/3GUvjjjkXOV
-	 nwK7S1bMYhaVmNw1KUGvJO45by9C1fCRwRxUQ+DYcjHP8gWYLH0WJQq94CERFTDgC9
-	 JlWR5bg4CV+jaevCDxSh2C+R9i+Ipnq2etvMBr1ReKaqxCFoxkZIo2Sn/F3icILqmy
-	 Kf5qclY04nv7YNpTPe8BtH9RCfD9zOaUg9itx9tN9dJ6VgkTh4CderDQPHFLBj3atU
-	 S4MFixFNocuBy3SvmcrP4fnU2v5ZGeLMGUyAfYE48Zw7/KtaoiVCfjAp3zOpeKDcXE
-	 GqoR3QARhPEXw==
-Received: from fauth-a2-smtp.messagingengine.com (fauth-a2-smtp.messagingengine.com [103.168.172.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by shining.glasswings.com.au (Postfix) with ESMTPSA id 3883710924117;
-	Fri,  6 Nov 2026 06:07:52 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 1127DF40066;
-	Fri,  6 Nov 2026 01:07:51 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Fri, 06 Nov 2026 01:07:51 -0500
-X-ME-Sender: <xms:t27taooP_xPYjbHlmXZ_RLLDecqBtppVYGKl6w7f890mVJNhXr5vAw>
-    <xme:t27tapCu_DEz1i-14dr6JoWPAjxvCBkqpz2C1vhe8upYM_qw2ddxpOjogAN3BlIVi
-    OsQU91HbRti0WHFh3J_m2uQwSikSXeFu3GzHCwEpgjdigjsLuB25G8O>
-X-ME-Received: <xmr:t27tajVT8sbmtTvvrJOe42AIwhmyyR11DVAj7LnlvVqqVMiN8r8fYQriKoX7PwDy9sSOOjrlIqrJ7wJ7F676PpAnXIQ4nK2kqEwywT3ObfY>
-X-ME-Proxy-Cause: dmFkZTGJt3n1PQXC/FQG1+B4dDYdd7jzhZlyl3cBdgxPjc5MzKuIVzENiuR0E8tXhVCYot
-    oOxwUXQVpp6VAEFUg+Uag3+jV3NxxQBqkuwqHRpa3avIMsMf5rLSrLvoU9/YiPtVmmw1Nh
-    zLPLiGNoLWEom9MXOxTuny0wuIwJj+YnwLd3gmlT78BD8tHIS3uMrtPiOeTkzb/BpfqHcJ
-    ZJYCN1MdLe92Bp5QjUXsKpkDjC+xSg0gfYGGYkLbuDh5Mj+BFcqCO2KyQpU99GhnUhksCQ
-    Jqp321gTZQ359Pfjg6F4oa2enLz7ZLclUfrma4OACrOvjp2Zeu6dpHGkjEpDMo+QrHIVq0
-    fPMM9bXKM6l+BG/yuRuKG111J+oroUSvT0iSmY9cALE5HIH87U21thWpHH6wHEgGQBiEtH
-    LntpzjCg88yRAeWhDp473vOfvzyI4VtD+LMyUNtFTBHpmgR//cy5duykjZy7NrqE3s7Atk
-    AeN4QILVnj7M7xU3FkkYEZUX4caYa8SC+PtRogk8XdWDnn+tIsSOGxNXeN1Sp87gpeQl5v
-    XLX8Lr8Lp+n85qJLkCNKagr4EhXLwYsx+CezzZQtxLXLmeKQ/wrO6ds6Z652jMUllzX/aa
-    ouFblC5kIhlM0jv2lkvZEMsqqSF4F5rjD6ey5P1IqGUybJe32nr0mCmQv7dA
-X-ME-Proxy: <xmx:t27tarAvMjJFfCKoMk1rogDHG53bwn-UI4vZMQA4lXh_SqEdgPcOnQ>
-    <xmx:t27tagdzoaA6rSFNBn5sN8c6lOJEW0eOFJNDUaZvCSm4-XdXYB_tgQ>
-    <xmx:t27taiq3NMLIoCTEcAMR_FsMIOf3xnBZLQGl_yHJ8map53LKJbICjQ>
-    <xmx:t27tahQpnbT_FgOeD1YdYjmmXJE_XpHFlYoATuDbFgVLZAKj-WcqgQ>
-    <xmx:t27taiVF1KYKvI0pyzH7ahYn11b_RUKhOiPUrIS1k0TzJHRreVnGe9lC>
-Feedback-ID: i558e4b61:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 01:07:46 -0500 (EST)
-From: Andrew Pam <andrew@sericyb.com.au>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: Andrew Pam <andrew@sericyb.com.au>,
-	Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	linux-nfs@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] SUNRPC: freeze rpciod and xprtiod across system sleep
-Date: Fri,  6 Nov 2026 17:07:29 +1100
-Message-ID: <20261106060735.637295-2-andrew@sericyb.com.au>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106060735.637295-1-andrew@sericyb.com.au>
-References: <20261106060735.637295-1-andrew@sericyb.com.au>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtK2mIPm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C061F0089F;
+	Fri,  6 Nov 2026 06:09:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793945376;
+	bh=H78gSmzAHOzV4l0I/w1s/VX9KmPbK8qgl1NsjdEHRpk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VtK2mIPmdOtcoCU5NUWc7mH9aLhWebzf0IBqCaPAEhNffYTrgEA5WSgTuGS80V6zh
+	 UOT5wKVYrVyZ5/BJU4JcUfsXbc0c+kMxSq4PBjHBQ8fd1S6r0tgO5NYVWIhY6s9Jt3
+	 UZZt22HxCBPyZ88q9P04SouS1EJjqoNAukx8vIuNmBFl8640K+WAKMOiYE7DcMrUq6
+	 xzotTWSrvVSLyxEMyO3uemVIVz8wFeTJQ21qPk+BDTTudzeFEMmbMbCJGhb5/74ljy
+	 2PY9uvZL0MByIjzNNwEqtO6znZkrrvRjDBz9m+CLdk35s4288xiQwgd+4OjcIequpC
+	 iZww5vss3e5Zw==
+Message-ID: <b9537359-9558-43b3-975f-de2a1017e463@kernel.org>
+Date: Fri, 6 Nov 2026 07:09:32 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,117 +51,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] MAINTAINERS: fix bouncing {sbranden,rjui}@broadcom.com
+To: Ray Jui <ray.jui@broadcom.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com, linux-arm-kernel@lists.infradead.org,
+ Scott Branden <scott.branden@broadcom.com>
+References: <510bf9b037c522ccfba270926c95170291115ef3.1793602003.git.jirislaby@kernel.org>
+ <CAJ8Y1dTUmFXTHnoPuYMNKULVdaQPtr4S8OiCqhHKZ05WeyGCFA@mail.gmail.com>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <CAJ8Y1dTUmFXTHnoPuYMNKULVdaQPtr4S8OiCqhHKZ05WeyGCFA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2 (shining.glasswings.com.au [178.63.21.144]); Fri, 06 Nov 2026 06:07:53 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 1.4.6 at shining
-X-Virus-Status: Clean
 
-After hibernation takes its snapshot, the kernel thaws devices to write
-the image, and the NIC with them. Freezable kernel threads and
-workqueues stay frozen until the image is restored, but rpciod and
-xprtiod are not freezable, so RPCs continue to be transmitted, and
-transports reconnected, until power-off. The server acts on them; the
-restored image knows nothing of them.
+On 02. 11. 26, 17:20, Ray Jui wrote:
+> Thanks, Jiri.
+I am not sure who can pick this up, I tried couple of recipients without 
+much success... I give up resending this for now -- you will likely need 
+to pursue this yourselves. Maybe feed it through some your (broadcom) tree?
 
-With NFSv4.1 this wedges the mount after resume. Captured between a
-client that hibernated and its server (Linux 7.0 client, 6.12 server):
+Thanks.
 
-  - 05:06:02 last exchange before the snapshot; client snd_nxt
-    2711544997.
-  - 05:06:15 hibernation entry.
-  - 05:06:44 and 05:07:48, after the snapshot: a lease-renewal
-    SEQUENCE on slot 0 (seqid 192219), the next (192220), and
-    DELEGRETURNs on slots 1-5. The server executes all of them and
-    acknowledges up to TCP sequence 2711546645.
-  - 14 hours later, on resume: the client retransmits the slot 0
-    SEQUENCE from TCP sequence 2711544997. The server discards it as a
-    duplicate and acknowledges 2711546645, which the client ignores as
-    acknowledging unsent data. Nothing more crosses the connection.
-  - On reconnecting, slot 0 gets NFS4ERR_SEQ_MISORDERED (server at
-    192220, client at 192219) every 15 seconds indefinitely; the state
-    manager waits in nfs4_begin_drain_session() for that task, and
-    every other RPC waits behind it.
+> On Sun, Nov 1, 2026 at 11:47 PM Jiri Slaby (SUSE) <jirislaby@kernel.org 
+> <mailto:jirislaby@kernel.org>> wrote:
+> 
+>     Both emails are bouncing like:
+>        Final-Recipient: rfc822; rjui@broadcom.com <mailto:rjui@broadcom.com>
+>        Action: failed
+>        Status: 5.1.3
+>        Diagnostic-Code: smtp; The email account that you tried to reach does
+>          not exist. Please try double-checking the recipient's email address
+>          for typos or unnecessary spaces.
+> 
+>     According to Florian, it should be first.lastname@broadcom.com
+>     <mailto:first.lastname@broadcom.com>.
+> 
+>     Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org
+>     <mailto:jirislaby@kernel.org>>
+>     Acked-by: Florian Fainelli <florian.fainelli@broadcom.com
+>     <mailto:florian.fainelli@broadcom.com>>
+>     Link: https://lore.kernel.org/all/688738af-100b-48af-
+>     bee1-4bcbe4422f94@broadcom.com <https://lore.kernel.org/
+>     all/688738af-100b-48af-bee1-4bcbe4422f94@broadcom.com>
+>     Cc: bcm-kernel-feedback-list@broadcom.com <mailto:bcm-kernel-
+>     feedback-list@broadcom.com>
+>     Cc: linux-arm-kernel@lists.infradead.org <mailto:linux-arm-
+>     kernel@lists.infradead.org>
+>     Cc: Scott Branden <scott.branden@broadcom.com
+>     <mailto:scott.branden@broadcom.com>>
+>     Cc: Ray Jui <ray.jui@broadcom.com <mailto:ray.jui@broadcom.com>>
+>     ---
+>     [v3] just resend, noone picked it up yet
+>     [v2] fix emails instead of their removal
+>     ---
+>       MAINTAINERS | 10 +++++-----
+>       1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+>     diff --git a/MAINTAINERS b/MAINTAINERS
+>     index 04f465490612..88e010e78eb4 100644
+>     --- a/MAINTAINERS
+>     +++ b/MAINTAINERS
+>     @@ -5318,8 +5318,8 @@ F:        drivers/iommu/generic_pt/fmt/*bcm2712*
+> 
+>       BROADCOM BCM281XX/BCM11XXX/BCM216XX ARM ARCHITECTURE
+>       M:     Florian Fainelli <florian.fainelli@broadcom.com
+>     <mailto:florian.fainelli@broadcom.com>>
+>     -M:     Ray Jui <rjui@broadcom.com <mailto:rjui@broadcom.com>>
+>     -M:     Scott Branden <sbranden@broadcom.com
+>     <mailto:sbranden@broadcom.com>>
+>     +M:     Ray Jui <ray.jui@broadcom.com <mailto:ray.jui@broadcom.com>>
+>     +M:     Scott Branden <scott.branden@broadcom.com
+>     <mailto:scott.branden@broadcom.com>>
+>       R:     Broadcom internal kernel review list <bcm-kernel-feedback-
+>     list@broadcom.com <mailto:bcm-kernel-feedback-list@broadcom.com>>
+>       S:     Maintained
+>       T:     git https://github.com/broadcom/mach-bcm <https://
+>     github.com/broadcom/mach-bcm>
+>     @@ -5616,8 +5616,8 @@ F:        drivers/net/mdio/mdio-bcm-unimac.c
+>       F:     include/linux/platform_data/mdio-bcm-unimac.h
+> 
+>       BROADCOM IPROC ARM ARCHITECTURE
+>     -M:     Ray Jui <rjui@broadcom.com <mailto:rjui@broadcom.com>>
+>     -M:     Scott Branden <sbranden@broadcom.com
+>     <mailto:sbranden@broadcom.com>>
+>     +M:     Ray Jui <ray.jui@broadcom.com <mailto:ray.jui@broadcom.com>>
+>     +M:     Scott Branden <scott.branden@broadcom.com
+>     <mailto:scott.branden@broadcom.com>>
+>       R:     Broadcom internal kernel review list <bcm-kernel-feedback-
+>     list@broadcom.com <mailto:bcm-kernel-feedback-list@broadcom.com>>
+>       L: linux-arm-kernel@lists.infradead.org <mailto:linux-arm-
+>     kernel@lists.infradead.org> (moderated for non-subscribers)
+>       S:     Maintained
+>     @@ -5654,7 +5654,7 @@ F:        drivers/net/ethernet/broadcom/bgmac*
+>       F:     drivers/net/ethernet/broadcom/unimac.h
+> 
+>       BROADCOM KONA GPIO DRIVER
+>     -M:     Ray Jui <rjui@broadcom.com <mailto:rjui@broadcom.com>>
+>     +M:     Ray Jui <ray.jui@broadcom.com <mailto:ray.jui@broadcom.com>>
+>       R:     Broadcom internal kernel review list <bcm-kernel-feedback-
+>     list@broadcom.com <mailto:bcm-kernel-feedback-list@broadcom.com>>
+>       S:     Supported
+>       F:     Documentation/devicetree/bindings/gpio/brcm,kona-gpio.yaml
+>     -- 
+>     2.56.0
+> 
 
-Other resumes produced the same rollback with different symptoms:
-requests accepted by the server's TCP but never reaching nfsd, or a
-partial overlap that left nfsd reading a session ID as a record marker
-("svc_tcp_read_marker nfsd RPC fragment too large"). Restarting the
-server is the only recovery.
 
-Make both workqueues freezable, as the SMB client already does for all
-of its workqueues (WQ_FREEZABLE | WQ_MEM_RECLAIM). Work queued while
-frozen runs after thaw_processes(), in the restored kernel, which is
-consistent with the server. Memory preallocation for the image happens
-before freeze_kernel_threads(), so writeback through rpciod is still
-available then, and pm_restrict_gfp_mask() keeps reclaim from issuing
-I/O while the image is written.
-
-WQ_FREEZABLE is consulted only when freezing and thawing, not when work
-is queued or run, so normal operation is unaffected. Entering system
-sleep now waits for in-flight rpciod and xprtiod items to finish; these
-are short state-machine steps with non-blocking sends and connects. If
-one ever blocked for longer than freeze_timeout_msecs, suspend or
-hibernation would fail, naming the busy workqueue, where today it
-proceeds. The SMB client and XFS accept the same trade-off for their
-reclaim workqueues.
-
-This does not stop the network stack from acknowledging data the
-server sends after the snapshot, such as a callback or a reply to a
-request still in flight when the snapshot was taken; that remains
-a general hibernation and TCP problem.
-
-No Fixes: tag: rpciod has never been freezable, so no single commit
-introduced this.
-
-Tested in QEMU/KVM: an NFSv4.2 client hibernating in test_resume mode
-(the image is written, then restored at once) against a 7.4-rc2 nfsd
-with a 10 second lease, with 1.2 GB of incompressible data in memory and
-the swap device throttled so that writing the image takes 81 seconds.
-Without this patch the server received 12 SEQUENCE renewals during the
-image write, none of which the restored client knew of; after the
-restore the client's mountstats show a SEQUENCE error, two extra
-connections and 10 seconds of queueing before it recovered. With this
-series the server received nothing from the snapshot until the restore,
-and the client resumed without errors. The indefinite hang seen on real
-hardware was not reproduced in the VM: it also needs a request holding
-a session slot across the restore.
-
-Drafted with an AI coding assistant (Claude), which analysed the packet
-capture, wrote the change and this description, and ran the test above.
-
-Signed-off-by: Andrew Pam <andrew@sericyb.com.au>
----
- net/sunrpc/sched.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/net/sunrpc/sched.c b/net/sunrpc/sched.c
-index 016f16ca5779..41f25309b8fb 100644
---- a/net/sunrpc/sched.c
-+++ b/net/sunrpc/sched.c
-@@ -1276,13 +1276,18 @@ static int rpciod_start(void)
- 	struct workqueue_struct *wq;
- 
- 	/*
--	 * Create the rpciod thread and wait for it to start.
-+	 * Both workqueues are freezable so that no RPC is transmitted, and
-+	 * no connection is made, between taking a hibernation snapshot and
-+	 * powering off. Anything sent then changes the server's state but is
-+	 * missing from the image, and is forgotten when the image is restored.
- 	 */
--	wq = alloc_workqueue("rpciod", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
-+	wq = alloc_workqueue("rpciod",
-+			     WQ_MEM_RECLAIM | WQ_UNBOUND | WQ_FREEZABLE, 0);
- 	if (!wq)
- 		goto out_failed;
- 	rpciod_workqueue = wq;
--	wq = alloc_workqueue("xprtiod", WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
-+	wq = alloc_workqueue("xprtiod",
-+			     WQ_UNBOUND | WQ_MEM_RECLAIM | WQ_FREEZABLE, 0);
- 	if (!wq)
- 		goto free_rpciod;
- 	xprtiod_workqueue = wq;
-
-base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
 -- 
-2.53.0
-
+js
+suse labs
