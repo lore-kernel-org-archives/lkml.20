@@ -1,88 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986326;
-	b=xDFrrX7f749e+7MDnngQx88B2rAYWeKLKiK6hZ2BXFIrsuL/X9aQTto1UzfQKDXH5t2i
-	 z+CDDzBQ5N39sUvl+75o+D30qSnm8H3UrPSpi6jBibRJO0rXw7qJKpJLVnKn2tONMMf9f
-	 r61FOM5LOE88woI7JarBFU0FznO8TCUxOUngCjK5ULsbONLTRZr4J/Ly8JMOb1tffgpA8
-	 bXdNwlVkTrZBPl8yANKxUS53zQKNLz22gwuAZHZsweEasKswUjoPqAntev99zynFxS1iu
-	 wfKtjm3EE+4r+fInrX3KApUjP/WDoRDJwj3rm2lkLWoE0ALVWnD+nZdkce9h8RpneoQ==
+	t=1793986339;
+	b=zbf9CuhEll/LaC1H3B+D9O9IIS13Fpmc5PDWWKZTQW1UiwRd2bNdmIxtE2C9njpuN6aY
+	 peH+IV99kYvg68bodHgpgprCEOzIz9ArUjp2XTnLkS6OFLbHXcOhEvcd+1yuHxy2utaHD
+	 uLE7XDMbZzDEgnCbZzygA3xxC2QF50Xf7+9NWu47uMWuud0sPizXlCzqe6A8Ccw3vRFnr
+	 Vz1/xc2KBNd+U6f3O+tceTEKVFMQMcUHMNPDrxPvdVSyhHIwmePuBmpWOoVcQp22m6C/o
+	 ehWcW4mYQk7vXU4Ky/DfOptKY2NMQFlXIobfQbR/d0eXQIyFPNsF+H6JAZeslyWkcXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986326;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PJcGPMT8Fx6QE2kW6pkiC9zThi76fzFYTSbuNCdri5s=;
-	b=OCiNorOHhQMrl6DbD12ncDvRx+p6oRM31CZQTXH1JC/nMImLNR7zP+u0WFXNXvDPZMjh
-	 XS2MvF1ZCdi4+0akz1/Mq6ljBXGj8KZg6nDubTw++FXln/cNMzXkNyO2HZPOSeiQkhv3c
-	 5fSN1DYMkksNOCnxN0UOd8YbltqPWvJmZkOZgax+mf/DtL2wavcXDJIo4WAl2xwfnVKP7
-	 MVIuYyZyZx4JdBAGeXAYiUbBYSeCRtbJDxywEou0An3uUCsKUP+dKhTswnsPO2W1XYvJq
-	 aLMWV0tQHLiq8CD8WJ+6gWQj9XXt6i2vs4O6dpxZwSx0/f3o1K8h+FafX+7GvH+fYAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986339;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=UnR2psYG/ks2tFhuBhZhgUCGkijI/HQcEJkVdPOQ9zY=;
+	b=StupcNqbehyDWzc2W4e23GIV0fHGgYgqbXBNWFgGQWeeVoiHjp/DUhNsdZmW1Dx8PuWq
+	 k904VsPdME3JA+FOFFeSCUdRQk7oMOu8++IZekVsOhfzNVIj5zj0BfBuaQeVO9vK6knxA
+	 YhRQ5GA/R81yukwinwOeLv6teYW0IDzwBGgrtZqMgf0Z0vnf2++0jPezWOavZWiC0kGeE
+	 fGtvVj4mTDmv/gGCmZ9DoBywWJujY5CurDQRqCrAcbL6vEcFyow1CitM19cVOFIA3zDuW
+	 MWLMiw/7SR6XpCe5Dec3q6QAocAzlslBIFHupLHN6US64Yc4KJYvZJbM01PN5qhWqSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=MYiEJzM3;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=gYnSUU4p;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA87606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:32:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCA87606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5F4606A338;
+	Fri,  6 Nov 2026 17:32:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B5F4606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=MYiEJzM3
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so8145255e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:32:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793986324; x=1794591124; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PJcGPMT8Fx6QE2kW6pkiC9zThi76fzFYTSbuNCdri5s=;
-        b=MYiEJzM3PTCcC3gQl5ZOiMrqNnlNgduH7XTVch1Kea1k+HVtZwtBp96yAfa0Sqs0Hz
-         LZajjTPHBYyqpsknU17/cFjdW05+ptECcgQ37vfM8HfVMYNn7L6TAGl9WVw8CsAgMRcB
-         xhf/E+nVQORxz6g0ZV6ameDxHU8gCCDJVY1yDHmqPjJxmJMCOMezQzZb1RALcMlZi3IT
-         mBViwVe1HJR2hCJWf/ijQ+p3JBa0KQNKk6lYUrkUuegkS3KBABIaCjOnCnJUZMqG3NPD
-         O3czCPGvrs0FDdH2B7ngWp/o4gf4sNL6hprDlemsG0K4N5CH4AGrdqP3KipSsiofuLUk
-         C8mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793986324; x=1794591124;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PJcGPMT8Fx6QE2kW6pkiC9zThi76fzFYTSbuNCdri5s=;
-        b=kyvG3DijuiLhLjVAPHLonC3gCkI7gimK4CqUD7c+6PaSPZM5lbJRhIjsU7G7GYCZBF
-         3nR2xRR5djoNPpSt4BymcU4T+2zrAi8jfqfun0jVUKg99zpkLV1AyTS8NtrbM4TczKLP
-         zlzikhn2TjQjFMblKvUX3NHLDsaXsOkIIJtG8FWapi76D7Nl2djH2TwufWuPiGMTI7JW
-         yTIRipyDZ4+mcawOSU/wmyUgphSHjTU2mpL1VJg11yqFfOCTz/tk/ie/GMgC+nAqz8o4
-         uMZHsiPKdQHcm/g+waXnHnkLsd7o1XHOA7gxdPi7aFH1d4oHez/0+mN4uSfoBsFc2U6M
-         rTkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxJe32y5MV0SQMOabJ5bNa9yOUghYm7ziq99nKWwDB62s0fnOYyZdayLGNer8OFGywCFcbtlWVv72utHgM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xU9NYTwrRY0zKDmwCZ7DnGI8+l6Sh7P8i1Gp/hnlc5AllPDSr
-	ni2DjYiyxiGNVL6BhsSq01Sx6jU82xH3fEvYRz1r/ss1bfzZneBHXqwmTUYSnRpgGhU=
-X-Gm-Gg: AYBFou15YiFFNkbybBS6s69ZDI9OjAyj2ljhjXe9jCj4p8Ix/cHu97NbZGtMqKifpmB
-	/+BQ+NBKptz8FljL41AmUdXkZM0LpiBLrTPdYMlFeRR4TmAblHAPC+3sK/k02W31ruAiC2EcQLH
-	OIvI+NHvh5CeOTqjE1cz6n6B6RtwDz8oyXwOn4mbkBOxX8I/UicRYDND+GEr0gz39YjykUEzMna
-	Pgjv9QbDygEgxmOavuBdJ1UlnQmVnYHpL3l0iJ7nzftUotMnuyEGQLspDJej9gBnshOhQL87NnP
-	El3PlkJvZ2NehawBwgaRBtSU5oSY+2HawHKNk2oTsaSL7ZHwWHGeInTbd0Y/E/CAz5HQ/Z1WbZ4
-	1m/f3hKMtK0Pi23Ko1nQY76VZ4YZVpq4/XsV5NJI/3k8ILJMbGWf4/eIP5wQimWjAf+QkMLqxii
-	LwF+yH5SztSCCLjLNZiJy+/PUiL5mmt1G4Kgpl6OMRGflDqfPbEMWOMcFbQnBTZ2bnrSPWo2nmg
-	B7uWoTuaBEOK3KwwXnr7V3+HAMYax/dSMBsEgH3AeHlg66oH6ISIyKZKdBkVfLNG/BDRmcSWIFF
-	gh++Tvy53PmaB2By27XVD/03pEONXtSA
-X-Received: by 2002:a05:600c:4f4c:b0:4a3:12fb:1ef1 with SMTP id 5b1f17b1804b1-4b6df9bf612mr65486685e9.29.1793986324272;
-        Fri, 06 Nov 2026 09:32:04 -0800 (PST)
-Received: from [192.168.0.20] ([212.21.133.107])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b79502d5b1sm1501575e9.5.2026.11.06.09.32.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 09:32:04 -0800 (PST)
-Message-ID: <2b2bae63-6917-4538-b99c-dc2b8656d123@suse.com>
-Date: Fri, 6 Nov 2026 19:32:02 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=gYnSUU4p
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FE7rG2935684;
+	Fri, 6 Nov 2026 17:32:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=UnR2psYG/ks2tFhuB
+	hZhgUCGkijI/HQcEJkVdPOQ9zY=; b=gYnSUU4pEgM48rSgE2WtMUgII8tZh8KI2
+	a+DQYwRQ2UPxDv3mZsLzYaQK+/+LOnjsUYxDqKJ+H07o3ipFpLKSMoDQ4Ej3pk8o
+	+dTLCAVjoP/IOhrlv+TJDKVW1gPsyETkIqKC209YEh29eEUVkWjYGGCVV9fmO92M
+	UikYTsLHWN8frJL2pAgkkwHWAQhEV798DsEuaVDszLmVF58YZ7sdcSazxd6KmdEl
+	uQlqwUOT5q8QWpAJXJDqJDrSrG0wfuOIlpIHEgV0+yayItpi8nUjwPnHPdqYvNx6
+	ctsCCHIN9yET3Vd7XM+kJ0n3tEGdEB6cA2J30iJYeGLXv63EeKVYQ==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3rcedsh-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 17:32:06 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6GxONR3617269;
+	Fri, 6 Nov 2026 17:32:06 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hrdd7vdm3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 17:32:05 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6HW3jl48955830
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 6 Nov 2026 17:32:03 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1DC352004D;
+	Fri,  6 Nov 2026 17:32:03 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EC79B20040;
+	Fri,  6 Nov 2026 17:32:00 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com.com (unknown [9.61.47.32])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  6 Nov 2026 17:32:00 +0000 (GMT)
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: linux-integrity@vger.kernel.org
+Cc: Mimi Zohar <zohar@linux.ibm.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+        David Howells <dhowells@redhat.com>,
+        Roberto Sassu <roberto.sassu@huawei.com>,
+        =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+        keyrings@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 3/3] ima: remove the experimental IMA blacklist keyring
+Date: Fri,  6 Nov 2026 12:31:49 -0500
+Message-ID: <20261106173149.707244-4-zohar@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106173149.707244-1-zohar@linux.ibm.com>
+References: <20261106173149.707244-1-zohar@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,75 +95,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/9] x86/apic: Implement self-NMI support
-To: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org
-Cc: x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, peterz@infradead.org, david.kaplan@amd.com
-References: <20261015211426.49114-1-chang.seok.bae@intel.com>
- <20261015211426.49114-5-chang.seok.bae@intel.com>
-Content-Language: en-US
-From: Nikolay Borisov <nik.borisov@suse.com>
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- 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
-In-Reply-To: <20261015211426.49114-5-chang.seok.bae@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: nlC2Z7uONPi49pq1mGwYTkCJ4D9u2NNf
+X-Authority-Analysis: v=2.4 cv=A635rKWG c=1 sm=1 tr=0 ts=6aee0f17 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=k-42gJp3AAAA:8
+ a=aDROAyrWbko_J3lkjIUA:9 a=uCSXFHLys93vLW5PjgO_:22
+X-Proofpoint-GUID: nlC2Z7uONPi49pq1mGwYTkCJ4D9u2NNf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2OCBTYWx0ZWRfX2jQmC4iaZmzJ
+ gkM6IzCTNNbcBhtvibZ1MrwhDegVEA7efBt/oUc2hEywo/sAbnfioiC7jrrBiaB6KKJIcp1mTvC
+ xsjPD9NWQdXPMXur6K9u+vPZOQCQ+SLyxS4iY0v1pq+cAzLtnAQXPISDF0PC5QxsAtpUbOpD0JQ
+ Pr9ACEDrvtnI/ueSZl30gFEObKPnLnOriXMg2Ba6VCX4YFSeHkTSj6IbNKwEF2+IzVWwCqzYBLb
+ 83v+h49PrF6gh4dDUDpKofTWkt7vF+vkUGpJREqVOFCCkoDdJKWolcRv5PgmLpMQ8ObfRz98A3s
+ yMC89QoRPyDhr7OnotMyq9TqUOBL4zTh6dl6Rf+2o5FgL2BNR9XfUDAnYvVEMqoeIy5/gwbgddC
+ 8458hi9ei7+ji2antH/5W9SWfPUM9t0MMYSTvKXBo5k3KGDtT5uF9DwaWOddXUPTsZm4zpOlRPW
+ C+p1k4PtGpQZ1wxBeww==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2OCBTYWx0ZWRfXxZLe9EePp/Ix
+ FLRYwQZgK7SuZ7uhCkhcZOr8tAMkGGVI8uUSuJWEElxq/YJftaJBIFniTXO3bPrdC3ywSZAqOuv
+ KLdSV7s7blTDLbAdhKx/lnxMf9lcBak=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0
+ malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060068
 
+The experimental IMA blacklist keyring accepts any certificate signed by
+a key on the builtin trusted keyring.  Since every certificate issued by
+such a key qualifies, root can add any of them, including legitimate
+ones.  Nothing differentiates the authority to sign from the authority
+to revoke.
 
+Remove CONFIG_IMA_BLACKLIST_KEYRING, the ".ima_blacklist" keyring in
+ima_mok.c, get_ima_blacklist_keyring() and the related Kconfig help
+text.
 
-On 16.10.26 г. 0:14 ч., Chang S. Bae wrote:
-> From: David Kaplan <david.kaplan@amd.com>
-> 
-> Add a function to send an NMI-to-self which is needed for stop-machine
-> NMI facility. Note that send_IPI_self() cannot be used to send an NMI so
-> send_IPI() is used.
-> 
-> Signed-off-by: David Kaplan <david.kaplan@amd.com>
-> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
+---
+ include/keys/system_keyring.h    | 14 ---------
+ security/integrity/ima/Kconfig   | 13 +--------
+ security/integrity/ima/Makefile  |  1 -
+ security/integrity/ima/ima_mok.c | 49 --------------------------------
+ 4 files changed, 1 insertion(+), 76 deletions(-)
+ delete mode 100644 security/integrity/ima/ima_mok.c
 
-This patch should come before patch 2, as it's a building block for it 
-or since it's small enough it can be part of patch 2.
+diff --git a/include/keys/system_keyring.h b/include/keys/system_keyring.h
+index 2ac1dae2063a..61e5aba26e24 100644
+--- a/include/keys/system_keyring.h
++++ b/include/keys/system_keyring.h
+@@ -119,20 +119,6 @@ static inline int is_key_on_revocation_list(struct pkcs7_message *pkcs7)
+ }
+ #endif
+ 
+-#ifdef CONFIG_IMA_BLACKLIST_KEYRING
+-extern struct key *ima_blacklist_keyring;
+-
+-static inline struct key *get_ima_blacklist_keyring(void)
+-{
+-	return ima_blacklist_keyring;
+-}
+-#else
+-static inline struct key *get_ima_blacklist_keyring(void)
+-{
+-	return NULL;
+-}
+-#endif /* CONFIG_IMA_BLACKLIST_KEYRING */
+-
+ #if defined(CONFIG_INTEGRITY_PLATFORM_KEYRING) && \
+ 	defined(CONFIG_SYSTEM_TRUSTED_KEYRING)
+ extern void __init set_platform_trusted_keys(struct key *keyring);
+diff --git a/security/integrity/ima/Kconfig b/security/integrity/ima/Kconfig
+index 72654cf797cd..fc42ddd34385 100644
+--- a/security/integrity/ima/Kconfig
++++ b/security/integrity/ima/Kconfig
+@@ -255,7 +255,7 @@ config IMA_KEYRINGS_PERMIT_SIGNED_BY_BUILTIN_OR_SECONDARY
+ 	select INTEGRITY_TRUSTED_KEYRING
+ 	default n
+ 	help
+-	  Keys may be added to the IMA or IMA blacklist keyrings, if the
++	  Keys may be added to the IMA keyring, if the
+ 	  key is validly signed by a CA cert in the system built-in,
+ 	  machine (if configured), or secondary trusted keyrings. The
+ 	  key must also have the digitalSignature usage set.
+@@ -265,17 +265,6 @@ config IMA_KEYRINGS_PERMIT_SIGNED_BY_BUILTIN_OR_SECONDARY
+ 	  provided they are validly signed by a key already resident in the
+ 	  built-in, machine (if configured) or secondary trusted keyrings.
+ 
+-config IMA_BLACKLIST_KEYRING
+-	bool "Create IMA machine owner blacklist keyrings (EXPERIMENTAL)"
+-	depends on SYSTEM_TRUSTED_KEYRING
+-	depends on INTEGRITY_TRUSTED_KEYRING
+-	default n
+-	help
+-	   This option creates an IMA blacklist keyring, which contains all
+-	   revoked IMA keys.  It is consulted before any other keyring.  If
+-	   the search is successful the requested operation is rejected and
+-	   an error is returned to the caller.
+-
+ config IMA_LOAD_X509
+ 	bool "Load X509 certificate onto the '.ima' trusted keyring"
+ 	depends on INTEGRITY_TRUSTED_KEYRING
+diff --git a/security/integrity/ima/Makefile b/security/integrity/ima/Makefile
+index b376d38b4ee6..ad5840ba085e 100644
+--- a/security/integrity/ima/Makefile
++++ b/security/integrity/ima/Makefile
+@@ -11,7 +11,6 @@ ima-y := ima_fs.o ima_queue.o ima_init.o ima_main.o ima_crypto.o ima_api.o \
+ ima-$(CONFIG_IMA_APPRAISE) += ima_appraise.o
+ ima-$(CONFIG_IMA_APPRAISE_MODSIG) += ima_modsig.o
+ ima-$(CONFIG_HAVE_IMA_KEXEC) += ima_kexec.o
+-ima-$(CONFIG_IMA_BLACKLIST_KEYRING) += ima_mok.o
+ ima-$(CONFIG_IMA_MEASURE_ASYMMETRIC_KEYS) += ima_asymmetric_keys.o
+ ima-$(CONFIG_IMA_QUEUE_EARLY_BOOT_KEYS) += ima_queue_keys.o
+ 
+diff --git a/security/integrity/ima/ima_mok.c b/security/integrity/ima/ima_mok.c
+deleted file mode 100644
+index 14d93d573a6a..000000000000
+--- a/security/integrity/ima/ima_mok.c
++++ /dev/null
+@@ -1,49 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * Copyright (C) 2015 Juniper Networks, Inc.
+- *
+- * Author:
+- * Petko Manolov <petko.manolov@konsulko.com>
+- */
+-
+-#include <linux/export.h>
+-#include <linux/kernel.h>
+-#include <linux/sched.h>
+-#include <linux/cred.h>
+-#include <linux/err.h>
+-#include <linux/init.h>
+-#include <linux/slab.h>
+-#include <keys/system_keyring.h>
+-
+-
+-struct key *ima_blacklist_keyring;
+-
+-/*
+- * Allocate the IMA blacklist keyring
+- */
+-static __init int ima_mok_init(void)
+-{
+-	struct key_restriction *restriction;
+-
+-	pr_notice("Allocating IMA blacklist keyring.\n");
+-
+-	restriction = kzalloc_obj(struct key_restriction);
+-	if (!restriction)
+-		panic("Can't allocate IMA blacklist restriction.");
+-
+-	restriction->check = restrict_link_by_builtin_trusted;
+-
+-	ima_blacklist_keyring = keyring_alloc(".ima_blacklist",
+-				KUIDT_INIT(0), KGIDT_INIT(0), current_cred(),
+-				(KEY_POS_ALL & ~KEY_POS_SETATTR) |
+-				KEY_USR_VIEW | KEY_USR_READ |
+-				KEY_USR_WRITE | KEY_USR_SEARCH,
+-				KEY_ALLOC_NOT_IN_QUOTA |
+-				KEY_ALLOC_SET_KEEP,
+-				restriction, NULL);
+-
+-	if (IS_ERR(ima_blacklist_keyring))
+-		panic("Can't allocate IMA blacklist keyring.");
+-	return 0;
+-}
+-device_initcall(ima_mok_init);
+-- 
+2.56.0
 
-<snip>
