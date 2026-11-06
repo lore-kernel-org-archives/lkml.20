@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953255;
-	b=4dQOh37hhxvHs4/iBO9s6LWJjZQ2FeJ3NPA2HkzMrT9dfNC8khZJbWTNaowm5UkHQDbx
-	 vQqyB6u3YiVmnk6Gb/SXoUUrQ1NST4dRkW9zKCSOqLCsV6pt+4dsP4jq4wbM5GI1D/Yd/
-	 3enLF0Cw0f1YLx0b2mPppq+vjW08u3wN4AThDhR1LKJhQ0Wknq1Q7YOVNvjDSCjuGrK20
-	 VE4rMuxgnODVAyRt/HPZo7BaI3m2DFHg1woC+dfQKPW5rbFDlS0Ff3C6bMN9pj5hVwFPF
-	 NI/v4NYVFn99oApP5XZ8v7LuNY4DItj0qKCildfQfiVYuS/u8e1RoSiWLyfvWlUPm2A==
+	t=1793953282;
+	b=IkZpCDUA2pgcDMrdNBBVkyVonvsmd7Ele5Ub2cOTN0lpbNGLjkJ0QZxGLmohxuViuyid
+	 kqkQo89QX9JeklyWQ2Cx7XHZHLCXr3bWYj5PindUYLdzUaN2LuF/ufM0Odpn5eeWrmDaJ
+	 ai2UDk50hpNJ9dSti0rMtaWCJ0t/Yjw0ot9ICTqzFpA8MH/gqgDTDl5scx5xdcd7Y+oSs
+	 v2VQSBWyGowIa7SN/RE93WrhJQh/d0IlN38t7A+ekq14fX3iK/PPDoEnhz3rkpnEfQOTS
+	 +NxNGFD83WiX4BcNvy80vvAFc7kT9sYSzVVuKegPOxfKaoLhje146M1gmHq0v7GPLfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953255;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953282;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8m9VNbUHSsZjDpQXOJ7mijVQXVGihNqWgKsG2q6oToM=;
-	b=Syb27TxAICDQ1JA38bZLSx5HZoCkUPUw2B176SE8BjtKsh9WNYkNEKH8ANEcZkrSzPSY
-	 HCum4K+1207STTw3QBHTKYxpQi9DV4PzXJPQwdoARp9T+QmMmsogkyKM5VMmO2zv4gPi8
-	 +MvU3QVJJfHzNSp3sPNojwvav2+IOZko0P7QhtNF7Jp5avZ3GM18zj66LdDlyxvAu0n46
-	 QVDRawg9zTZyvVPFf4vx0tLuRDA9Xof5cLpxucOhqJozeXLDoaQFwTYyMqHA8KaNdwvbt
-	 BnBhV8vToXAnhvGDADByR77JHhocKfQDZ79TEWkIUWYITvb3nceXCgf0XJ7CE6ds+vg==
+	bh=tXtS1Em7b2x/aoxEcgyB2IvYBL9Ky3IS8jlOY8JmCdw=;
+	b=AsIBFOrumCxvg2ITGWn2KsrwFLRvDBg+QL8+myfuDdMSD/tpi0VbwZ3Sz5cw7lY49Nd+
+	 eFjhlo0gEpNke8wjOSTsrNNPOD9hCbrdO+bbLCMxl/gZZN7ltPWnmSo49YmOFz6FHyj/Z
+	 YsCmUnx6xqclRvADrO3eJ+8fJDwN9TfUF2gkln1xn8c4ucXu7hbnbblZXCbK+78b8RU+q
+	 tLaWtFXsLcPUtHhTEjwdMu08er9aF5U1Uz1WA573jH/BaBAwUMPdAd6lt8N/UQzffRMaF
+	 WV9lG6tWjfRvFytEsdrOiuaIfUG3RQRmrtQUwffnZxXjfNtdTygp2xbGpW7UP7UNbYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mGucc50w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCfjJa6p;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E9B606A329;
-	Fri,  6 Nov 2026 08:20:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BF8606A326;
+	Fri,  6 Nov 2026 08:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mGucc50w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06BA1F008A3;
-	Fri,  6 Nov 2026 08:20:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCfjJa6p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E551F0089F;
+	Fri,  6 Nov 2026 08:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793953254;
-	bh=8m9VNbUHSsZjDpQXOJ7mijVQXVGihNqWgKsG2q6oToM=;
+	s=k20260515; t=1793953282;
+	bh=tXtS1Em7b2x/aoxEcgyB2IvYBL9Ky3IS8jlOY8JmCdw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mGucc50w9st8H4l0SGhUi8RQ2B3Fs68ci/z0pIvRBmwrI94kJHnjUfeiq0Xy1y5Mq
-	 j+ZkQOsNqWpMp5JV10RN9161jekIEkJbgpKE7Rkm+BSkHu80XgnHfTBwPKPzq7Xmri
-	 w21DC1K+T33EjQ9AGoJ2mJ4QJaowgXJ4hWcmzbJw1lm9qog2miIczg5GFYLz7NOOQs
-	 nxz+aIfYEkUxeZMAjmPVm7QH4xXalT6rXE9FJGe37dBrEdYsZSZYKy7riVJ7T//BkN
-	 L5dATkITXdlNULnDtjrLoH4vFGUL7Jnkh1TrwsHi9JwXZ0WUZoUUn2iPn2/o5JKGeA
-	 2sA476TGAOThg==
-Date: Fri, 6 Nov 2026 09:20:51 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>, 
-	Chris Morgan <macromorgan@hotmail.com>, Joshua Crofts <crofts@kernel.org>, kernel@axis.com, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v8 1/7] dt-bindings: iio: imu: icm42600: Drop interrupt
- requirement
-Message-ID: <20261106-jolly-hawk-of-spirit-d24cfa@quoll>
-References: <20261105-b4-inv_icm42370p-v8-0-b44eb96020b6@axis.com>
- <20261105-b4-inv_icm42370p-v8-1-b44eb96020b6@axis.com>
+	b=QCfjJa6pK3BRpFP825bjAs4y5WPmB3jWnmAyv5CHhIOXjDZ4msNgTD7x3+dGZxwwX
+	 z8ddU2hbVy48TfJHHsxKAq0IVG0j4vcCihKEwSnTI1o75Rb6kCsv5X0gPwo+PPtHVa
+	 bFUTFajGGPRncSHNlNf3WTD7tdodP+5JxbsulJA3uSK6kePQ+IiUdTfxiBFP1Va6dC
+	 oqqs34f+RY8Y0RftVN2B3ZQZPbwdtTvw+kZ/E9YGfom8EHajPhww6CGy55C3ekxY1m
+	 rWlKCffqZrENiNXvZfmd9Ri75CUTEZCpTfhpC2j4RpxMXfaCi8nvUzmNLu6yAWcaSN
+	 DkByMm3RF1HhQ==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xPFCJ-00000008NDB-1kVt;
+	Fri, 06 Nov 2026 09:21:19 +0100
+Date: Fri, 6 Nov 2026 09:21:19 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] USB: serial: mct_u232: fix NULL deref in open error path
+Message-ID: <au2N_7iL_eXU6RCy@hovoldconsulting.com>
+References: <20261106081254.1389-1-zhaofeng2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,32 +62,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105-b4-inv_icm42370p-v8-1-b44eb96020b6@axis.com>
+In-Reply-To: <20261106081254.1389-1-zhaofeng2@cmss.chinamobile.com>
 
-On Thu, Nov 05, 2026 at 04:48:49PM +0100, Kanak Shilledar wrote:
-> The devicetree documentation for the invensense,icm426xx devices was
-> documented wrongly. As per the discussion in the thread[1], the IMUs can
-> work in polling mode, making the interrupts as not required.
+On Fri, Nov 06, 2026 at 04:12:54PM +0800, Zhao Feng wrote:
+> The MCT U232-P9 has no bulk-in endpoint; received data arrives
+> through the interrupt-in endpoint of the second port, whose URB is
+> stashed in priv->read_urb by mct_u232_port_probe().  The generic
+> port->read_urb is only allocated for ports with a bulk-in endpoint
+> and therefore remains NULL for this device.
 > 
-> Fix the dt-binding to not have interrupt property as mandatory. The
-> driver will need to be fixed to not fail if interrupts are missing from
-> the device tree. This will be done in a separate patch.
+> If submitting the read URB fails in mct_u232_open(), the error
+> message dereferences port->read_urb->pipe, causing a NULL pointer
+> dereference at offset 0x50 (the pipe field of struct urb), as
+> reported by syzbot on KASAN-enabled kernels.
 > 
-> Link: https://lore.kernel.org/linux-iio/20261018034134.2bf170a0@jic23-hlaptop/ [1]
-> Fixes: 22addefdabdf ("dt-bindings: iio: imu: icm42600: Add icm42607")
-> Change-Id: I91ec65f6c00cbd6a48273ccd8cc476ee5266b995
+> Print the pipe of the URB that was actually submitted instead.
+> 
+> Reported-by: syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com
+> Closes: https://syzbot.org/bug?extid=58b2d8b19cd6761a395b
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+> ---
 
-Your work is going to worse direction - quality decreases :/.  This was
-not here before.
+Thanks for the fix. I apparently beat you to it, though:
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+	https://lore.kernel.org/linux-usb/sashiko-outbox-201021@kernel.org
 
-Best regards,
-Krzysztof
+> No Fixes tag: the buggy error message appears to date back to the
+> original driver import; the introducing commit could not be verified
+> with the trees available to me.
 
+No, this was introduced later by a clean up from myself.
+
+Johan
