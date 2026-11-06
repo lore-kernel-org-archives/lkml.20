@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793954324;
-	b=lktvGA/iOoNne8VDvzv0pRA7J4hnqiiAe2CqiR8n1X9vdjIXhH1UvkBrD0zXTEEn9RPM
-	 U2Ov58FivkQ6hxcihGGuTKpc9Ibn281hq2GqFhRYlPVdGjx5xqWIfAB+UIw18UXoKTqDR
-	 y1A7Yx0MxcFuvEjT5W97zifugpeQEw2tcZfM0CH/usqpSe9h1pcVrNpZ5KP9mO6T7NFmc
-	 AWlluKot0x6O2lKLSpPk9AqhLKZvwZXyDfi6i4Qex91BgFtjLkoSaD6FwL+kxrbeI3rO9
-	 fK8P+2ZMlTAWXX5ANBDmqhwcxIXUGPT0bfMeIdEMO72eG+zDIxe/RimzglvfjraRnXw==
+	t=1793954442;
+	b=BE9rx9OLlK6/W9s/96HmuIxw0vOyqA9+sZ2PbEeiaCxg7JIb8loX+7fAJ7alNlNXfPU3
+	 0rAGDwHI/LiNh9I8z1vrPIomYgjwPICtnsC8lTPkzISH65MEkDvFpguFd/9x8WAc3w29o
+	 rOW38U3FeamGL18b91VZUHBfgb5KM6YxUC/9z+ioPNwhZmrxqRKfTYMjU7DjnidqReMWX
+	 7dbZVg7TCVqp5hg1tHne8ygR8vOpk2G5iw0OXJ8/YdHRXfMH9my7tSyD/9wOHmcg8OT7O
+	 Xe3zORcnfko7p8d4mi4ikOiKlZulG4YtnzqvJoxMfS45bHTY+0mB+noDuXAv3TW3UDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793954324;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7HL2QGS1OX92aMQqi1SQISrpLABTArOf/d1xsMjIfRU=;
-	b=GdHYdYNZFuEQT+80SSZOK+Gtc7VGlgStwXixpFduMC8PrC1VUefRCezF8aCKbVNYxPhH
-	 YUMciRn6Juh7SAZ+fu75dhED3ITQrh/roCKk2jsLr5O1sB+rJvKwEW64+wIEkE9i0rXa/
-	 fqxH02fSxBYivxKEYsIKm2UjCGtsoMu30F6CwgdrK8bM0ZEY2C+GSxP7oiPyr6abiAxou
-	 WEJ5lXhV57FOsPgiKZnkCFK5WTq1V+Jpt5IUMcHR0Bih6emp2moCJY9PymVKzNewWS97l
-	 cd1ZB1JhQRNt65yyfhuY6R8ozfeBJqsWH8MOsbNV4IXrEwAzMpn0BHWLTdazAeOD8rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793954442;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=/55Dkn2zgwsP+rRdZdivaJ+Q4DO3a0dA94mr7obYiso=;
+	b=ZZDG5EY0tFtl7oiYrp0zbtDw9j7QQfWtCPdVtdpjt52S4ViJiUypAoQiJ4C99arfrmtG
+	 Np6fo8pbyWayGG0cblWc0t5opZb4zBHpuga/fNztPe/Njx41CVMY8bR+ziMUhsGrtNNC9
+	 JpgmxTvjLMNTm2jcq4rO+KyLNLqeWwyglSBTYaAiC0NnoSzuRPnrGUwFT6vikPh0DYy+d
+	 /anKjfKfUMcNTybiD8RiVYklJFu/5fai3UKfKUW1JxqLrZVT8cDCqpQVUgdCf45I+jTJx
+	 6FDr1w41yiyYEXv8SSNvefr26XwgBNW8gmJUiPFlFiTdbaCkjTeRqSeGZNn91vWEo6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=avLsiJ0U;
-	arc=none smtp.remote-ip=95.215.58.139
-Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccTflIib;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31F4606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:38:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D31F4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF99606A326;
+	Fri,  6 Nov 2026 08:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=avLsiJ0U
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OQv2V6wgOoL/c3SmQoZgSHZMEHskeM3NZ49yCaWoo0Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793954320; v=1; x=1794559120;
- b=avLsiJ0U8JkNoApkvbqr8ex0R1z0VcEIOEgvt78Xjk6zeNaX9AX6FOF114vxKtIRy6EwZDYp
- sljQMWyAxHutm56MKltEfZuB5ZwjqOlyDDSJj18Wfn107hqxWm2eiDlOZ9G4RwSE3+zzXoQti2c
- G4L/j7q1y6QOIZbU43ezAYDY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 36c4e4aa0a83de9a;
-	Fri, 06 Nov 2026 08:38:40 +0000
-X-Mizu-Trace-ID: 36c4e4aa0a83de9a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8e5956d5-ae03-40c0-b5a0-bd550f4c14b3@linux.dev>
-Date: Fri, 6 Nov 2026 16:38:35 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccTflIib
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A74D41F0089F;
+	Fri,  6 Nov 2026 08:40:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793954442;
+	bh=/55Dkn2zgwsP+rRdZdivaJ+Q4DO3a0dA94mr7obYiso=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ccTflIibXrpGdVo7tJurhvDJ01Sq1lQfBhwS8mFsurogFtzNR91NFv2UlnJqYYZPS
+	 Xx14iDYNyd1i6lH0WAPJ9lu6Vj6shM2lDcwtmZqV97dN4UB9neq8Jx4wm9zxnPm3Ds
+	 ejE4+EdIWqz2NcZEEqGBiQhpYvp4/QJQqsB39A3C4qhF6ILqbtfpw7E7+Ex+IY7iNr
+	 oJcko4KR9pkCLEBO5fWNlQD3NSZotNJy9cJPlTXPFFm2NuKXYlYhvxXlKyeL5Wsxga
+	 sUC9Cl5+iAjmlFrn0vbm7DKvy+/lOO2YOKVxh+9RmShxdWhejFBt1mRjY/8YkJKIR/
+	 hvgu4B/i/I7DQ==
+Subject: Re: [PATCH] net/sched: reset sch_plug epoch state
+From: netdev-bot+sashiko@kernel.org
+To: shawnq1@163.com
+Cc: jhs@mojatatu.com, jiri@resnulli.us, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org
+Date: Fri, 06 Nov 2026 08:40:41 +0000
+Message-ID: <179395444115.994134.1488731096234208258@kernel.org>
+In-Reply-To: <6AEA1C24.11E1A7.00008@m16.mail.163.com>
+References: <6AEA1C24.11E1A7.00008@m16.mail.163.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,194 +61,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (macOS/Intel)
-Subject: Re: [PATCH v2] mm/mglru: fix a no-op lru_gen_clear_refs() call in
- lru_lazyfree()
-To: Barry Song <baohua@kernel.org>, Kairui Song <ryncsn@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
-References: <20261026084035.535989-1-hui.zhu@linux.dev>
- <CAMgjq7AJSU9jUBTHGcm05mtGBH4EMQ_ua9YNwuLOGVzhkdLKkA@mail.gmail.com>
- <CAGsJ_4zPZg6pCuhDtTpSkueS2EDSfWeYa23h7kC9hEU0iGB-+w@mail.gmail.com>
- <CAMgjq7DvmrwTu0vz7oHx7y7w1B9uA0AbS3YJ5CcrDVg9VwKqpw@mail.gmail.com>
- <CAMgjq7A6jJQ_Ncp0BCqjQJ8pJXrjr1PoOu0rdj0NJOivKp6e+A@mail.gmail.com>
- <CAGsJ_4zO5S5XFc6dd70wKEs_mzqu_QW2bGOPyhKo4w2cjZrWUQ@mail.gmail.com>
-Content-Language: en-US
-From: Hui Zhu <hui.zhu@linux.dev>
-In-Reply-To: <CAGsJ_4zO5S5XFc6dd70wKEs_mzqu_QW2bGOPyhKo4w2cjZrWUQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-2026/11/6 05:13, Barry Song:
-> On Sat, Oct 31, 2026 at 3:27 PM Kairui Song <ryncsn@gmail.com> wrote:
-> [...]
->>>>>>   mm/folio.c | 6 ++----
->>>>>>   1 file changed, 2 insertions(+), 4 deletions(-)
->>>>>>
->>>>>> diff --git a/mm/folio.c b/mm/folio.c
->>>>>> index 35e242b48870..ea3adb6a89d7 100644
->>>>>> --- a/mm/folio.c
->>>>>> +++ b/mm/folio.c
->>>>>> @@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lruvec, struct folio *folio)
->>>>>>              folio_test_swapcache(folio) || folio_test_unevictable(folio))
->>>>>>                  return;
->>>>>>
->>>>>> +       lru_gen_clear_refs(folio);
->>>>>>          lruvec_del_folio(lruvec, folio);
->>>>>>          folio_clear_active(folio);
->>>>>> -       if (lru_gen_enabled())
->>>>>> -               lru_gen_clear_refs(folio);
->>>>>> -       else
->>>>>> -               folio_clear_referenced(folio);
->>>>>> +       folio_clear_referenced(folio);
->>>>> Why can't we just call folio_set_lru_refs(.., 0), and should we clear
->>>>> PG_workingset? Keeping it helps PSI on refualt / redirty tracking (not
->>>>> sure if meaningful but CLRU does this), clearing it makes eviction
->>>>> better, but the eviction issue is MGLRU-only, CLRU keeps it.
->>>> I recall that in v1 [1], Hui mentioned:
->>>>
->>>> "Use folio_clear_referenced() rather than
->>>> folio_set_lru_refs(), which is not defined without
->>>> CONFIG_LRU_GEN."
->>>>
->>> Or prehaps we can have a folio_clear_lru_refs() do in a unified way
->>> for For both CLRU / MGLRU? (Just like folio_migrate_lru_refs).
->> And it will be better if we can keep this operation off-list just like
->> right now :), some later works could benefit from it.
-> lru_gen_clear_refs() is currently multifunctional. It clears
-> refs/workingset, but also returns true to skip
-> folio_batch_add_and_move() in both deactivate_file_folio()
-> and folio_deactivate().
->
-> This actually looks a bit weird. However, following the current
-> logic, I've drafted a version that we can use as a starting point
-> for discussion:
->
-> diff --git a/mm/folio.c b/mm/folio.c
-> index dc2c796a4ea7..bc17cd3b6b6c 100644
-> --- a/mm/folio.c
-> +++ b/mm/folio.c
-> @@ -444,12 +444,12 @@ static bool lru_gen_clear_refs(struct folio *folio)
->          int type = folio_is_file_lru(folio);
->          unsigned long seq;
->
-> -       if (gen < 0)
-> -               return true;
-> -
->          folio_set_lru_refs(folio, 0);
->          folio_clear_workingset(folio);
->
-> +       if (gen < 0)
-> +               return true;
-> +
->          rcu_read_lock();
->          seq = READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
->          rcu_read_unlock();
-> @@ -465,6 +465,8 @@ static void lru_gen_inc_refs(struct folio *folio)
->
->   static bool lru_gen_clear_refs(struct folio *folio)
->   {
-> +       folio_clear_referenced(folio);
-> +       folio_clear_workingset(folio);
->          return false;
->   }
->
-> The another option is:
->
-> diff --git a/mm/folio.c b/mm/folio.c
-> index dc2c796a4ea7..8d1fd788188c 100644
-> --- a/mm/folio.c
-> +++ b/mm/folio.c
-> @@ -438,6 +438,12 @@ static void lru_gen_inc_refs(struct folio *folio)
->          } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
->   }
->
-> +static inline void __lru_gen_clear_refs(struct folio *folio)
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] plug_reset() (net/sched/sch_plug.c:205-215) always sets
+  `q->unplug_indefinite = false` and `q->throttled = true`.
+- [Low] The commit log is a bug-report email pasted in as-is: - It opens
+  with 'Hello,'.
+
+--
+
+net/sched: reset sch_plug epoch state
+
+This patch replaces sch_plug's reset callback, qdisc_reset_queue, with a
+new plug_reset(). The new function purges the queue, clears the epoch
+counters, clears unplug_indefinite and sets throttled. The aim is to stop
+a stale pkts_last_epoch from being used as release credit by a later
+TCQ_PLUG_RELEASE_ONE after a link reset.
+
+> Hello,
+
+[Severity: Low]
+This isn't a bug, but the commit log looks like a bug report email pasted
+in as-is. It opens with a salutation and carries reporter environment
+metadata:
+
+> HEAD commit:    c03c1a14507dfaf8b856c2608f9ac216021fc222
+> Git tree:       30fd2ef82912c26cf3a58ad0ba6afc375fa851ac
+> Source version: Linux 7.3
+> Compiler:       gcc 11.4.0, GNU ld 2.38
+
+It also has five external Gist URLs and a multi-step clone/build/run
+script. None of this describes the change itself, and the external links
+may not stay available.
+
+Could the log be cut down to a self-contained description of the problem
+and the fix?
+
+The log also doesn't mention that plug_reset() now clears
+unplug_indefinite and forces throttled to true, which users can see (see
+below).
+
+> diff --git a/net/sched/sch_plug.c b/net/sched/sch_plug.c
+> index b60ddfee6a68a..def95e8243ba9 100644
+> --- a/net/sched/sch_plug.c
+> +++ b/net/sched/sch_plug.c
+> @@ -202,6 +202,18 @@ static int plug_change(struct Qdisc *sch, struct nlattr *opt,
+>  	return 0;
+>  }
+>  
+> +static void plug_reset(struct Qdisc *sch)
 > +{
-> +       folio_set_lru_refs(folio, 0);
-> +       folio_clear_workingset(folio);
+> +	struct plug_sched_data *q = qdisc_priv(sch);
+> +
+> +	qdisc_reset_queue(sch);
+> +	q->pkts_current_epoch = 0;
+> +	q->pkts_last_epoch = 0;
+> +	q->pkts_to_release = 0;
+> +	q->unplug_indefinite = false;
+> +	q->throttled = true;
+
+[Severity: Medium]
+Is it intended that plug_reset() also takes the qdisc out of pass-through
+mode? Fixing the stale epoch credit described in the commit message only
+needs the three counters cleared.
+
+After TCQ_PLUG_RELEASE_INDEFINITE, plug_change() already zeroes every
+counter:
+
+	case TCQ_PLUG_RELEASE_INDEFINITE:
+		q->unplug_indefinite = true;
+		q->pkts_to_release = 0;
+		q->pkts_last_epoch = 0;
+		q->pkts_current_epoch = 0;
+		q->throttled = false;
+
+plug_enqueue() doesn't count packets while unplug_indefinite is set, so
+release credit can't go stale in that mode. With the old
+qdisc_reset_queue callback, pass-through mode survived a reset.
+
+With this change, a reset on carrier loss goes through this path:
+
+linkwatch_do_dev()
+  dev_deactivate(dev, true)
+    dev_deactivate_many()
+      dev_reset_queue()
+        qdisc_reset()
+          plug_reset()
+
+The same happens on ifdown/up or a parent qdisc reset. In each case the
+qdisc is left throttled with unplug_indefinite cleared. dev_activate()
+reattaches the same qdisc instance and doesn't restore these fields.
+
+>From then on plug_dequeue() returns nothing:
+
+	if (q->throttled)
+		return NULL;
+
+plug_enqueue() counts new packets into pkts_current_epoch and buffers
+them up to q->limit. After that, qdisc_drop() tail-drops the rest.
+
+Doesn't this contradict the uAPI comment in
+include/uapi/linux/pkt_sched.h?
+
+	 * TCQ_PLUG_RELEASE_INDEFINITE: Dequeue all packets from queue.
+	 *   Stop buffering packets until the next TCQ_PLUG_BUFFER
+	 *   command is received (just act as a pass-thru queue).
+
+If the controller has only ever used TCQ_PLUG_RELEASE_INDEFINITE, or has
+exited, would egress traffic stay stalled after a link flap until another
+release command is sent?
+
+Would it work to leave unplug_indefinite unchanged and set
+q->throttled = !q->unplug_indefinite, or to leave both fields alone?
+plug_dequeue() already re-throttles on its own when pkts_to_release is 0.
+
+The reproducer described in the commit message only exercises
+TCQ_PLUG_RELEASE_ONE epoch mode, so it wouldn't catch this.
+
 > +}
 > +
->   static bool lru_gen_clear_refs(struct folio *folio)
->   {
->          int gen = folio_lru_gen(folio);
-> @@ -447,8 +453,7 @@ static bool lru_gen_clear_refs(struct folio *folio)
->          if (gen < 0)
->                  return true;
->
-> -       folio_set_lru_refs(folio, 0);
-> -       folio_clear_workingset(folio);
-> +       __lru_gen_clear_refs(folio);
->
->          rcu_read_lock();
->          seq = READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
-> @@ -463,9 +468,10 @@ static void lru_gen_inc_refs(struct folio *folio)
->   {
->   }
->
-> -static bool lru_gen_clear_refs(struct folio *folio)
-> +static inline void __lru_gen_clear_refs(struct folio *folio)
->   {
-> -       return false;
-> +       folio_clear_referenced(folio);
-> +       folio_clear_workingset(folio);
->   }
->
->   #endif /* CONFIG_LRU_GEN */
-> @@ -659,10 +665,7 @@ static void lru_lazyfree(struct lruvec *lruvec,
-> struct folio *folio)
->
->          lruvec_del_folio(lruvec, folio);
->          folio_clear_active(folio);
-> -       if (lru_gen_enabled())
-> -               lru_gen_clear_refs(folio);
-> -       else
-> -               folio_clear_referenced(folio);
-> +       __lru_gen_clear_refs(folio);
->          /*
->           * Lazyfree folios are clean anonymous folios.  They have
->           * the swapbacked flag cleared, to distinguish them from normal
 
+[ ... ]
 
-Hi Barry, Kairui,
-
->
-> I would personally prefer the latter. What do you think, Hui and Kairui?
-
-I prefer option B too: it keeps the flag clearing independent of the
-list state and leaves the two deactivate callers untouched.
-
-But I'd suggest splitting this in two:
-
-1. Take v2 as the fix now. If that is acceptable, I will respin it
-    with Cc: stable added.
-
-2. Follow up with option B as a pure cleanup, no Fixes tag. The
-    lazyfree site then becomes the off-list __lru_gen_clear_refs()
-    call that Kairui wants for later work.
-
-The reason is backporting. Every stable from 6.14 (cc8ec7be78ff) to
-7.3 carries the regression, but B is written against
-folio_set_lru_refs(), which only landed in this merge window
-(64169ceea5b1e). None of the affected trees has that helper, so
-backporting B would drag the refs-flags rework along with it. v2
-applies to all of them with only the mm/swap.c -> mm/folio.c rename
-to adjust.
-
-B also starts clearing PG_workingset on the classic LRU. I agree
-with Kairui that this is the right semantics for MADV_FREE, but it
-is a change beyond this regression and deserves its own patch - it
-fits naturally in the MGLRU-FG flag cleanup, as does the sort_folio()
-lazyfree check.
-
-Best,
-Hui
-
-
-> Best,
-> Barry
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/6AEA1C24.11E1A7.00008%40m16.mail.163.com
