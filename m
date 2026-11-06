@@ -1,69 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793935073;
-	b=3W6lJxe/V724tVsNl/caYTBstu7KIozdVmpo3k7FtEKX51VKjvEgny/J6CmjnVQkIAFV
-	 xdL+lMkwNeOj/5vN6pBuxYyptQZY5rZUZV7siZjXDUdRxnaaXKGZ11E2HS/yhLrx5iKKy
-	 slY/fOHOHpitK7FnqL1mlzKM/Qexb1wAeSk5mP/cYYVdVkMeyuI4cOCjYd94xEULka8VZ
-	 Pz9gsB1botnGpW0ggJ1oGrHpPXs4TZg7s9nKmnIrudyoTJS3sZq2SGjmsZJSwEB537Y4U
-	 EBgP7Kna5NZg4+620MODYfztsUllC9+5Rd5cjaft3E0jTuNz0nvaUtXE2R18gmf4wuA==
+	t=1793935158;
+	b=eXTnMd8P5JM1/IOCoYzZCwsa9ia0+4v3frabdUw1RYYTti6wsoxNJZcbIfONXsWa5Sn4
+	 3F0B91H5fY9N4SJKTdT38xTN7DmUkAoXPDxfRTUDUxlE3MjeHAesTB8fzeSNzdQKwyR0b
+	 aX5119vR3U1FUVjHriHfoq0nkgEhv4pk9gc7JExkKAbv42bfmbdPL+xf6Yvdo+l7MlMM7
+	 WlMoDxRgZkBULGWjXJz7H3GS2FDFA4chiPKqkmhWEwsoPDAG/ifT1kUHRBE1xpYKYHf2S
+	 ESRZJ4S5xyYvAAoh80jrw0CY/WShdfTQuHabK5F7DBDw/Fgc6s4Qn//vj8HWWxArlNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793935073;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=03M13Azwyy0KMcFaGycRciB1g2jPBnLm5WvZcLiXzPk=;
-	b=b0844yyCCPr56vo7i22r3FRjQGIslMzj0XrSppfUDzqMzOQ2KE4/am/vJMqiJKlp++Qk
-	 Gg4KeRg4Tdl/l1liIQJ8gpIr78TMstnBiiorx5HJ/suKNLL5IS3oZ1zvR6evUL7TSz5Ue
-	 TseLyuFHlaaCpwwuMBPnF12CxOmswo+DfkC5VhrpEan5WQ3Uszy1qBTG5jvD7WQ3d5pAu
-	 YHxPNdfSBwzmA4xl86Z+mFDKs75zoGc3YttokCH2enYCta6BEfmeTFaiYKmKX1rEE0Tfx
-	 CNXE4GAqYSG4h1fUSxE6+LqS3o4wgo7xjSOWRnqTjuuHgDoF061ULSv+FjsoXR6cIPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793935158;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=HOEFc6X9iEnS9KdHNxrrJ/dUjt/+G7BU/XfJjODg9Ps=;
+	b=gD8kjGjQwwOQc+YLwo6PwOFA8VfBOQgJSMoKywpK3yRYNWheWoX03Rr2NpgTnuOfZ+RX
+	 bYvXbxR2bpNt1kCD+gaZNlt+ebDnvYALMcUryaIkriwRzx17EVhFYITzM+Z1vNhGRsLZt
+	 vNtIs8t2jVV+7QUrvgNy7sCM2swIT/53z/PeNMQb4+mME6zV1SOEDWxyBHgZ/VZQ35oa2
+	 ebBoXUEAN7VSupALU5H3vUZm9SvuCh+8mYb8YKw6qtwjN8eg3YoCA6C5HMwT4zTHBoFC4
+	 oD9zWNTfGBNHtrKpLv0crKTOUhJK7ahBiv5IZIQV8aUd0wvsn/G7t4OAlN5u0e9Tguw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=o7ID0tMj;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVVKqtip;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92609606A31B;
-	Fri,  6 Nov 2026 03:17:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92609606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10FB606A328;
+	Fri,  6 Nov 2026 03:19:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=o7ID0tMj
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=03M13Azwyy0KMcFaGycRciB1g2jPBnLm5WvZcLiXzPk=;
-	b=o7ID0tMj+vAhkN5NlLSPSi3OenycoPtYa2YIuF/rZcrZB80TE7RdcPkiFAzf8o2+CL9vXMsnq
-	n4Trg3YXhm25CX8LgoBuW32fpJp8dN082PEiz+h0j+VqSSUvplGgr8HEFDepKu2sLuJCsOGrnj+
-	JUBppBfPofEDRox2+fxOtgg=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jLPVz0W2SzLlWs;
-	Fri,  6 Nov 2026 11:17:31 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id 0114740563;
-	Fri,  6 Nov 2026 11:17:43 +0800 (CST)
-Received: from vm.huawei.com (7.238.34.231) by whupemk100010.china.huawei.com
- (7.152.184.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 6 Nov
- 2026 11:17:42 +0800
-From: Pengfei Lv <lvpengfei20@huawei.com>
-To: <gregkh@linuxfoundation.org>
-CC: <stern@rowland.harvard.edu>, <michal.pecio@gmail.com>,
-	<linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, <xuhaiyang5@hisilicon.com>, <xuetao09@huawei.com>,
-	<caiyadong@huawei.com>, <suzhuangluan@hisilicon.com>, Pengfei Lv
-	<lvpengfei20@huawei.com>
-Subject: [PATCH v2] usb: core: hub: Re-guess ep0 maxpacket size on reset
-Date: Fri, 6 Nov 2026 11:16:25 +0800
-Message-ID: <20261106031625.1824732-1-lvpengfei20@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261104124402.1269650-1-lvpengfei20@huawei.com>
-References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVVKqtip
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9212F1F0089F;
+	Fri,  6 Nov 2026 03:19:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793935157;
+	bh=HOEFc6X9iEnS9KdHNxrrJ/dUjt/+G7BU/XfJjODg9Ps=;
+	h=From:Date:Subject:To:Cc;
+	b=KVVKqtip7Gof3iCh8YYjKQeBkoyzgHLffrjtZPrPpya3vi03U4NNPTKmUhPeBVlhJ
+	 TmEKOV9jeVOrKwq+YdvDHxWm5g0IH3BgMLzGCG+LHEoeHh3sT18YH52VpR9Kse2OZT
+	 kUQjyF6BZwn/Szt1adiZDV1jd0c+25EcEWYVN9GIizLl15xf6/ot3VxDE9BBSR/gN0
+	 C9uXpuuRTwud5hTjavXvAn/45Bcq0eeuqL2biWgY3A6wNJ4wtJdzduRyf2vsB0p9f+
+	 dNd16e5HnQKfZ/1dOYRmbTG6fa+n2lVjvMDcBMLGiNuu9IIgaCPZkGYXoy33I7MHlb
+	 XHD91AGJlCEVg==
+From: "Harry Yoo (Meta)" <harry@kernel.org>
+Date: Fri, 06 Nov 2026 03:17:11 +0000
+Subject: [PATCH net-next] net: ena: reuse the whole RX page on 64kB page
+ kernels
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,189 +53,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-ena-rx-reuse-64k-page-v1-1-ac75b20c5de8@kernel.org>
+X-B4-Tracking: v=1; b=H4sIALZG7WoC/yWM0QrCMBAEf6XcswdJW6L1V8SHtK56CrHcpRIo/
+ XejPg67MysZVGB0bFZSvMXklSr4XUPTPaYbWC6VqXVt8N4FRoqshRWLgUP/5DnWU7cPw6Efxg4
+ OVN1ZcZXy654oIXNCyXT+L7aMD0z5m6Vt+wALp2s9gwAAAA==
+X-Change-ID: 20261106-ena-rx-reuse-64k-page-3769849b3e0e
+To: Arthur Kiyanovski <akiyano@amazon.com>, 
+ David Arinzon <darinzon@amazon.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Breno Leitao <leitao@debian.org>
+Cc: kernel-team@meta.com, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, "Harry Yoo (Meta)" <harry@kernel.org>
+X-Mailer: b4 0.16.0
 
-Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
-all device speeds except full-speed devices, where it can be 8, 16,
-32, or 64 bytes and can only be determined by reading the device
-descriptor.  During the initial enumeration of a full-speed device,
-the USB core guesses 64 bytes (hub_port_init() with initial=true);
-after reading the descriptor, the real value (e.g. 8) is stored in
-udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
-via an Evaluate Context command.
+Since commit ef5b0771d247 ("net: ena: fix driver when PAGE_SIZE ==
+64kB"), the RX buffer given to the device is limited to ENA_PAGE_SIZE
+(16kB) because the buffer length field in the RX descriptor is 16 bits.
+However, the driver still allocates a full page for each RX buffer, so
+on a 64kB page kernel only the first 16kB of the page is handed to the
+device and the remaining 48kB is never used.
 
-After a port reset (usb_reset_and_verify_device() -> hub_port_init()
-with initial=false), the "if (initial)" guard added by commit
-ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
-skips the ep0 maxpacket guess block, so
-udev->ep0.desc.wMaxPacketSize retains the real value (e.g. 8).  The
-xHCI Reset Device command preserves the ep0 context as well, so the
-xHC ep0 max_packet also stays at 8.
+The dynamic RX buffer recycling added by commit f7d625adeb7b ("net: ena:
+Add dynamic recycling mechanism for rx buffers") does not fully utilize
+the page because ena_try_rx_buf_page_reuse() only reuses what is left
+in the current buffer and ignores unused memory in the page.
 
-When the subsequent re-enumeration then uses the "new scheme" and
-issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
-the xHC queues a Data TRB of length 64 but applies ep0 max_packet=8
-for short-packet detection.  If the device's first data packet is
-exactly 8 bytes and it sends no ZLP, the xHC does not recognise a
-short packet, keeps issuing IN tokens for the remaining 56 bytes, and
-the control transfer hangs in the Data stage until URB timeout.
+This shows up when RX data stays in socket receive queues, as each
+queued skb keeps the whole 64kB page alive while at most 16kB of it
+holds data. On an EC2 t4g.large instance (64kB pages, 8GB memory) with
+519MB left unread across 64 TCP sockets, RX pages pinned 2869MB of
+memory while the socket layer accounted only 687MB.
 
-This is not merely theoretical.  It was observed in production on a
-6.6 LTS kernel with a Full-Speed USB banking token (bMaxPacketSize0
-= 8) in a virtual-machine USB passthrough scenario; the reset
-re-enumeration hangs 100% of the time after the VM issues
-USBDEVFS_RESET.  Bus captures with an Ellisys analyzer confirm that
-the device sends exactly one 8-byte packet for the 64-byte request
-and then stops responding to IN tokens, relying on the host's
-short-packet detection with max_packet=64 to terminate the transfer.
-For the subsequent 18-byte GET_DESCRIPTOR (usb_get_device_descriptor,
-wLength=18) the same device sends the full 18 bytes as 8 + 8 + 2;
-the final 2-byte packet is always a short packet regardless of
-max_packet, so that transfer succeeds on both kernels.  This is why
-the device completes initial enumeration yet hangs on reset
-re-enumeration.
+Fix this by mapping the whole page and letting
+ena_try_rx_buf_page_reuse() size the next buffer from the room left in
+the page instead of from what is left of ena_buf->len. ena_buf->len is
+then only the length written to the RX descriptor and stays capped at
+ENA_PAGE_SIZE. With this fixed, a comparable workload pins only 497MB.
 
-The device is not strictly compliant (it should continue answering
-IN tokens for the 64-byte request), but this class of USB banking
-token is widely deployed in enterprise environments, and the
-regression introduced by commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") breaks a configuration that
-previously worked.
+When PAGE_SIZE equals ENA_PAGE_SIZE, the room left in the page equals
+ena_buf->len, so nothing changes.
 
-Fix this by removing the "if (initial)" guard so that the ep0 maxpacket
-size is re-guessed from udev->speed on every reset, and by calling
-usb_ep0_reinit() afterwards when !initial so that the new software
-value is propagated to the xHCI ep0 context via an Evaluate Context
-command before the GET_DESCRIPTOR data stage.
-
-The usb_ep0_reinit() call is necessary because commit e34900f46cd6
-("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
-moved the ep0 maxpacket sync point from xhci_urb_enqueue()
-(xhci_check_maxpacket, lazy per-URB) to xhci_endpoint_reset()
-(xhci_check_ep0_maxpacket, eager), reachable only via
-usb_ep0_reinit() -> usb_enable_endpoint(reset_ep=true) ->
-usb_hcd_reset_endpoint() -> xhci_endpoint_reset().  Without the
-explicit usb_ep0_reinit() after the re-guess, no Evaluate Context
-command is issued on the reset path: the pre-existing
-usb_ep0_reinit() in usb_reset_and_verify_device() runs before
-hub_port_init() and thus syncs the stale value, and the subsequent
-hub_enable_device() -> xhci_setup_device(SETUP_CONTEXT_ONLY) returns
-early when the slot is already in SLOT_STATE_DEFAULT.
-
-The !initial guard on the new usb_ep0_reinit() call ensures that
-initial enumeration is unaffected: on first enumeration the ep0
-context is initialised by the Address Device command, so no extra
-Evaluate Context is needed.  For high-speed, low-speed, and
-SuperSpeed-or-faster devices, xhci_endpoint_reset() returns early
-(speed != USB_SPEED_FULL), so the call is a no-op on xHCI, and on
-non-xHCI host controllers endpoint_reset for control endpoints is
-likewise a no-op (e.g. ehci_endpoint_reset only handles bulk and
-interrupt endpoints).  The descriptor-immutability checks (!initial
-&& maxp0 != udev->descriptor.bMaxPacketSize0) remain unchanged;
-udev->ep0.desc is not part of udev->descriptor and is not the field
-involved in the read_descriptors() race that commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") fixed, so
-restoring the wMaxPacketSize re-guess does not reopen that race.
-
-Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
+Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
 ---
+ drivers/net/ethernet/amazon/ena/ena_netdev.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
 
-Changes in v2:
-- Add usb_ep0_reinit(udev) after the ep0 maxpacket re-guess block,
-  guarded by !initial, to propagate the new wMaxPacketSize to the
-  xHCI ep0 context.  v1 only removed the if(initial) guard, which
-  is insufficient after commit e34900f46cd6 ("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
-  moved the xHCI ep0
-  maxpacket sync point from xhci_urb_enqueue() (xhci_check_maxpacket,
-  lazy per-URB) to xhci_endpoint_reset() (xhci_check_ep0_maxpacket,
-  eager), reachable only via usb_ep0_reinit().  The !initial guard
-  avoids a redundant Evaluate Context on first enumeration, where the
-  Address Device command already initialises the ep0 context to 64.
-  (Sashiko AI review)
-- Expand commit message with observed-in-production evidence and the
-  wLength=64 vs wLength=18 device behavior distinction, per Alan
-  Stern's review.
-- Note: on kernels before e34900f46cd6 (e.g. 6.6 LTS), the xHCI ep0
-  maxpacket sync happens lazily in xhci_urb_enqueue() via
-  xhci_check_maxpacket(), so removing the if(initial) guard alone is
-  sufficient and the extra usb_ep0_reinit() call is a no-op for ep0
-  maxpacket sync (xhci_endpoint_reset returns early for control
-  endpoints on those kernels).  This patch targets current mainline
-  where e34900f46cd6 is already present.  Would the maintainers
-  prefer a separate, simpler patch (without the usb_ep0_reinit()
-  addition) for stable branches predating e34900f46cd6, or is this
-  single patch acceptable for backport given that the
-  usb_ep0_reinit() call is harmless on those kernels?
----
- drivers/usb/core/hub.c | 49 +++++++++++++++++++++---------------------
- 1 file changed, 25 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 199d3f535a89..a6c260d39094 100644
---- a/drivers/usb/core/hub.c
-+++ b/drivers/usb/core/hub.c
-@@ -4969,33 +4969,34 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
- 	}
- 	oldspeed = udev->speed;
+diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+index 7eb6456ed0d5..4a35cb6a7785 100644
+--- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
++++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+@@ -492,7 +492,7 @@ static struct page *ena_alloc_map_page(struct ena_ring *rx_ring,
+ 	/* To enable NIC-side port-mirroring, AKA SPAN port,
+ 	 * we make the buffer readable from the nic as well
+ 	 */
+-	*dma = dma_map_page(rx_ring->dev, page, 0, ENA_PAGE_SIZE,
++	*dma = dma_map_page(rx_ring->dev, page, 0, PAGE_SIZE,
+ 			    DMA_BIDIRECTIONAL);
+ 	if (unlikely(dma_mapping_error(rx_ring->dev, *dma))) {
+ 		ena_increase_stat(&rx_ring->rx_stats.dma_mapping_err, 1,
+@@ -544,7 +544,7 @@ static void ena_unmap_rx_buff_attrs(struct ena_ring *rx_ring,
+ 				    struct ena_rx_buffer *rx_info,
+ 				    unsigned long attrs)
+ {
+-	dma_unmap_page_attrs(rx_ring->dev, rx_info->dma_addr, ENA_PAGE_SIZE, DMA_BIDIRECTIONAL,
++	dma_unmap_page_attrs(rx_ring->dev, rx_info->dma_addr, PAGE_SIZE, DMA_BIDIRECTIONAL,
+ 			     attrs);
+ }
  
--	if (initial) {
--		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
--		 * it's fixed size except for full speed devices.
-+	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
-+	 * it's fixed size except for full speed devices.
-+	 */
-+	switch (udev->speed) {
-+	case USB_SPEED_SUPER_PLUS:
-+	case USB_SPEED_SUPER:
-+		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
-+		break;
-+	case USB_SPEED_HIGH:		/* fixed at 64 */
-+		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-+		break;
-+	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
-+		/* to determine the ep0 maxpacket size, try to read
-+		 * the device descriptor to get bMaxPacketSize0 and
-+		 * then correct our initial guess.
- 		 */
--		switch (udev->speed) {
--		case USB_SPEED_SUPER_PLUS:
--		case USB_SPEED_SUPER:
--			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
--			break;
--		case USB_SPEED_HIGH:		/* fixed at 64 */
--			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
--			break;
--		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
--			/* to determine the ep0 maxpacket size, try to read
--			 * the device descriptor to get bMaxPacketSize0 and
--			 * then correct our initial guess.
--			 */
--			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
--			break;
--		case USB_SPEED_LOW:		/* fixed at 8 */
--			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
--			break;
--		default:
--			goto fail;
--		}
-+		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-+		break;
-+	case USB_SPEED_LOW:		/* fixed at 8 */
-+		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
-+		break;
-+	default:
-+		goto fail;
- 	}
+@@ -926,19 +926,27 @@ static struct sk_buff *ena_alloc_skb(struct ena_ring *rx_ring, void *first_frag,
+ 	return skb;
+ }
  
-+	if (!initial)
-+		usb_ep0_reinit(udev);
+-static bool ena_try_rx_buf_page_reuse(struct ena_rx_buffer *rx_info, u16 buf_len,
++static bool ena_try_rx_buf_page_reuse(struct ena_ring *rx_ring,
++				      struct ena_rx_buffer *rx_info, u16 buf_len,
+ 				      u16 len, int pkt_offset)
+ {
++	int tailroom = SKB_DATA_ALIGN(sizeof(struct skb_shared_info));
+ 	struct ena_com_buf *ena_buf = &rx_info->ena_buf;
++	unsigned long room;
 +
- 	speed = usb_speed_string(udev->speed);
++	/* Room left up to the end of the page. On 64kB page kernels this
++	 * can be more than ena_buf->len, which is capped at ENA_PAGE_SIZE.
++	 */
++	room = PAGE_SIZE - rx_info->page_offset - rx_ring->rx_headroom - tailroom;
  
- 	/*
--- 
-2.34.1
+ 	/* More than ENA_MIN_RX_BUF_SIZE left in the reused buffer
+ 	 * for data + headroom + tailroom.
+ 	 */
+-	if (SKB_DATA_ALIGN(len + pkt_offset) + ENA_MIN_RX_BUF_SIZE <= ena_buf->len) {
++	if (SKB_DATA_ALIGN(len + pkt_offset) + ENA_MIN_RX_BUF_SIZE <= room) {
+ 		page_ref_inc(rx_info->page);
+ 		rx_info->page_offset += buf_len;
+ 		ena_buf->paddr += buf_len;
+-		ena_buf->len -= buf_len;
++		ena_buf->len = min(room - buf_len, ENA_PAGE_SIZE);
+ 		return true;
+ 	}
+ 
+@@ -1011,7 +1019,7 @@ static struct sk_buff *ena_rx_skb(struct ena_ring *rx_ring,
+ 
+ 	/* If XDP isn't loaded try to reuse part of the RX buffer */
+ 	reuse_rx_buf_page = !is_xdp_loaded &&
+-			    ena_try_rx_buf_page_reuse(rx_info, buf_len, len, pkt_offset);
++			    ena_try_rx_buf_page_reuse(rx_ring, rx_info, buf_len, len, pkt_offset);
+ 
+ 	if (!reuse_rx_buf_page)
+ 		ena_unmap_rx_buff_attrs(rx_ring, rx_info, DMA_ATTR_SKIP_CPU_SYNC);
+@@ -1055,7 +1063,8 @@ static struct sk_buff *ena_rx_skb(struct ena_ring *rx_ring,
+ 		pre_reuse_paddr = dma_unmap_addr(&rx_info->ena_buf, paddr);
+ 
+ 		reuse_rx_buf_page = !is_xdp_loaded &&
+-				    ena_try_rx_buf_page_reuse(rx_info, buf_len, len, pkt_offset);
++				    ena_try_rx_buf_page_reuse(rx_ring, rx_info,
++							      buf_len, len, pkt_offset);
+ 
+ 		dma_sync_single_for_cpu(rx_ring->dev,
+ 					pre_reuse_paddr + pkt_offset,
+
+---
+base-commit: 0822d2fe38262e8b55c5ea55c970022bca8dd2a9
+change-id: 20261106-ena-rx-reuse-64k-page-3769849b3e0e
+
+Best regards,
+--  
+Cheers,
+Harry / Hyeonggon
 
