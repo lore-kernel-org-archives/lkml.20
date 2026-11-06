@@ -1,51 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930909;
-	b=EKsMlVEmGwCEFMFA43a84pm04sldyFQDFUu6AW1RwzeF62cLJwxou7epfGUXnuf7vjyx
-	 XhNwrMAVMnNsOiThQAHMHu9zgninkJmu8Qfz0jsnjJ+SD2FzKckqyDjSlEP1aHiEhW2nV
-	 gpnSDxmy7ZvyHRPStpWORwf73Sa4ffdhhkDwedzi9Uuu46f5c0cKBpc5m8W3I9c2+9Ga+
-	 C+NEPQAuniuasQAfd9RT+v6+Eh/LluCbdXz/9UwgEwBdmafNCfbSlwzliFI5uFECOAruI
-	 Ei6PdTiInZhg9CKRK1lpuSdf/RWqBs4XmvCKG2Kbx4F/Ewca7e4+JCo5Nv369Kyb4tg==
+	t=1793931077;
+	b=psBnE9qVm30EWmrCowsWAFabpohAb6AX3Zv091DcFw2WH0E1CGbWZNamQF6epZ0UG97Y
+	 qrrZShmc+phM/h52erxwehfdXz79qus60mOqKH/g3Kq+Pl1MYC+rqkDSOavg8JUTvFTvm
+	 7JHRvrWy2Kxq7enNTnWvMZclEXolNUhok888mdzp69HCUIRWrMQe0KlyWOfxxVZb8cSyi
+	 bF17xxp2y7xMyMfcXnxPQ3QSLnRaJ4ZIavdC3w/nNiNx9DADzVijGpiTZgA3u1hABa0kq
+	 Tlh2U9Yo0SMU6Mut4M7+PUJOM3hOxp4qP3scTOBSDmTN5Xi73aXgwxNRG2nVy3u4rgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930909;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WS7CApNUNIMsQEToXiuZ7n60SsvckOdd5s0EGh2oKEk=;
-	b=4RwVlXPiVhR++JATU0y2Iuvq3255hCkfj7WiG4u/eJn0/1TpYNo9yfwbd5ZYcJZ4HK/+
-	 SoTPplZJ4kcZtZ/+Jv7ZHS3RZuHoUC7djUJM36rr5m/Q0vgFTp/C4lKGjF1NCC8ME9zqJ
-	 Dsqoej34hlB+CqKfVJAw+i1Pmuyo+LlTlq7ZIrU68iQucU3SiuK6Zs3DP4JZ8YELcTawm
-	 vrm6XaUdVovUsK26aGm1pak/I+YmD2weobzj17IM1aKsKerxOukk95j6nkhQbXMO2bpaS
-	 zZFc8+9dd78YoxMm144dlDK8G21xPpfPc8+BzpCJOev8pIRaajIWmtBbRMVdtttby0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793931077;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 Content-Transfer-Encoding:In-Reply-To:References:MIME-Version;
+	bh=jf62vaeUsY2yO43cSs/blH2TUhxnaYyy44Chrc7BGd4=;
+	b=HQmAyWsGC9mLMfzmWc4brm2ShVUc2f2dCDMqplw7n8YbgUsLo3RrN7/usN/RB5IGCoKw
+	 /gSUPoXbr7gm43dNVIo1hLOHgTo/lZXEIEt+j77mHCMJC86hYTLlM7RP8u9PoshI2iHVd
+	 +zTmx9zrl2/iBu/UIkVGTgFkmMKO9zq5qNyoqxePDAKUZvL69UBbiYXz8jkxFeg8Va74b
+	 oNgCRvrFsOweWr8KJZFH85qeSoL8VimQTS62vj2hIQXlOSOSBf9mB//HU8W7Em7mWwevo
+	 88iKZAQmTN0nscccyNZF/B0rQZ0eey88z1/pEcuevydDqgb9NLmZQqPe5TdbYbeCs6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.31
-Received: from mta1.migadu.com (out-31.mta1.migadu.com [95.215.58.31])
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b="bd/1gPIM";
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E63A606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:08:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E63A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/kWDopwCJ5iePiSx3eT6IBYLtMfFMyr3Ivlvyuz+EIw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793930905; v=1; x=1794535705;
- b=oqKc8MRTf95A1KgxEw0rvV6fGdEtAJU8uYL+ttm2EZCh52y7rLKY3GNRX1v9hQBCnPo+8VQ4
- nC3+Qq1pPWNaRKGHGoNZ2UuAfVEqKDtno1X6ibfhbuP9re9gTsal3OVzSlhwTqUAC+oglM4HPon
- Uv0VqgEE5lfFPPEPdoRkev1A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1da6eafb048a5403;
-	Fri, 06 Nov 2026 02:08:24 +0000
-X-Mizu-Trace-ID: 1da6eafb048a5403
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f15c49f5-724f-4101-806d-24303c5408a4@linux.dev>
-Date: Fri, 6 Nov 2026 10:08:16 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC9E606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:11:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC9E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=bd/1gPIM
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso466769eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:11:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1793931076; x=1794535876; darn=vger.kernel.org;
+        h=mime-version:references:in-reply-to:content-transfer-encoding:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jf62vaeUsY2yO43cSs/blH2TUhxnaYyy44Chrc7BGd4=;
+        b=bd/1gPIMML4DE+FFEFx8J25j7lGYR+PX0sSnFmHkdk/bm6JCWrsXM9/nNxODkEmv7v
+         KYTrQjqwUOlS5hJ32SIXnTgqZRCQUFhel1fwmuxL1iV4oDrFFbxGRi3/GoS4Hr/l8V7u
+         tSLNPHRwD+6ezTizTFhHUmfV7in9PQDZmcVdoW+BOz98YatfDA9PaI8sFjVHMfVCj54+
+         0+IsgPM2bWdNTaY/6Dz/IqRsPD7ndLzUU4r2wG8Skit2rcjfYkmTvAJCxN1oiFQ+vBfC
+         hDxhM3rLfxnZ43TGzhYgEFDOscXW/0apUlg5ejiR/7bf9HwuKqb3YBc3gGzJFfxk6V/R
+         L3Gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793931076; x=1794535876;
+        h=mime-version:references:in-reply-to:content-transfer-encoding:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jf62vaeUsY2yO43cSs/blH2TUhxnaYyy44Chrc7BGd4=;
+        b=hKnTdv2ind8fmx9Go/agTrWesIK5Dk6Ptit2vIudp5gSATAeU0mipmvLh8ZB1Hxw5E
+         vAI9LlELQSC+00s8f/VvEuGlpWvEdTEwG1IndovbKMfXSkURsw8U+Xf4LvsAuaF+gsmt
+         oeSr7wqgFI4SGvsTg5/vDyMk831j9i/lN8d2xkWGEhwIAE+puZBNW19JEYUN+WW4rmFv
+         xsW8SOesoxImNV1GgJ+eus+78yvsOxRUGwL69uVIKIWB0HQPxtbLKI0hMK5fqToXurnK
+         WmMMEpLBsd+N5nSWZ+5u1Ky530PygjldKsgBVTMXURIvQ0tViT+YCiJovkuXEtCs7I1W
+         qX3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwBiRbh8y7LGXUT8oM+hZtNLYLz6a2lJeKZvwiGR0OwW0UDpa2I4VacG0N97+5u6zdDP4iLhayXGzgxIII=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9y6+CeQaWLJ7qVfke2BUJm/4D/h6Mj2uepkdLl92XoPKtE0Yf8
+	TBY77QdWaNKybWKG/pXbBySEep0uKsRMYQfAoC8njPFQaHeJo3AqVqwnDTMqqAQ5Ivw=
+X-Gm-Gg: AYBFou2K7GdfQCPH+YXxA56l8yg+4Aw5u1k2KPxwsnvRC3ba/HGY2PVAVLVnTfQXqLS
+	lH2O8twR/jmEa5p7bev2F03vvsm2po6jTsDaEXxUOd2N79TND0keo1BzAJuh7EEquV0fsSd1Zpu
+	29R3+DCRQSzFy5nUubebg/FAE3qkgJfbj8JcN1KLbkHBaByNwZ5BApOqCrBl6W7b4tZ6ApvTVdp
+	3lrwKMjICLFDRzZ80wthtblKOi4HFBIqkrx/TNjQxsK1zRs1iSd++BA6MbZoN/nCKlOIBHSx8Bh
+	Udu8akoT0tjeo2jpObi2X10FH8TKq09iDCNE5CNr/ZNDXZQfaNspatvWMpr2m9LM9mFWFE1GBIF
+	N15vW7+71/spHPgIdgduKSbB+ccGaINk9tgXSHITpoIO7KUut0P3urFL9+TQVnvNIHd3rPZOJFc
+	WqX5aVfIvISvhBhAw5SEaB/XZNWdaIun0BDO7ciW1i0UyeN7Qt7O3fW1qyBmU/3Ei29QTKEP41F
+	YKeupW1RhAM5czGG7vohLhASQzniL699tExovmRMKZFys8MHN6CSLY/T8UY9sUXg8t4t5yjnKuF
+	dXN7wNQxQrvRxbFrBjyiY48+9PIgeQ==
+X-Received: by 2002:a05:7301:18ac:b0:36e:c04b:53ca with SMTP id 5a478bee46e88-36f76c11206mr1366102eec.28.1793931075409;
+        Thu, 05 Nov 2026 18:11:15 -0800 (PST)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faaa8f1e9sm1136097eec.28.2026.11.05.18.11.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 18:11:14 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 05 Nov 2026 18:11:14 -0800
+Message-Id: <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai>
+Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
+ <frowand.list@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Shawn
+ Guo" <shawnguo@kernel.org>, "Grant Likely" <grant.likely@secretlab.ca>,
+ "Grant Likely" <grant.likely@linaro.org>, "Pantelis Antoniou"
+ <pantelis.antoniou@konsulko.com>, "David Daney" <david.daney@cavium.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Rob Herring" <robh@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261105124030.GA1449284-robh@kernel.org>
+References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
+ <20261105124030.GA1449284-robh@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,116 +106,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC net] net: force software segmentation of PPPoE packets
-To: Alexander Duyck <alexander.duyck@gmail.com>,
- Eric Dumazet <edumazet@kernel.org>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- Stanislav Fomichev <sdf.kernel@gmail.com>, Hangbin Liu
- <liuhangbin@gmail.com>, Martin Karsten <mkarsten@uwaterloo.ca>,
- Felix Fietkau <nbd@nbd.name>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261020143031.1829-1-qingfang.deng@linux.dev>
- <CAL4Wiiptz1zyxRDKrCrnK2Q-qn0_1d1aSxuUPkJKWnODpjMp1g@mail.gmail.com>
- <c8be6713-2378-4dc5-9959-fc7eddd800e1@linux.dev>
- <CAKgT0Uf_yYxp+tUJt4xYAnwqtK6LZY0KQYt0h4kt78=oQZxd3g@mail.gmail.com>
-From: Qingfang Deng <qingfang.deng@linux.dev>
-In-Reply-To: <CAKgT0Uf_yYxp+tUJt4xYAnwqtK6LZY0KQYt0h4kt78=oQZxd3g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 2026/11/6 2:53, Alexander Duyck wrote:
-> On Thu, Nov 5, 2026 at 5:33 AM Qingfang Deng <qingfang.deng@linux.dev> wrote:
->> Hi,
->>
->> On 10/20/2026 11:08 PM, Eric Dumazet wrote:
->>> Le mar. 20 oct. 2026 à 16:30, Qingfang Deng <qingfang.deng@linux.dev> a écrit :
->>>> Ordinary TSO does not update the PPPoE payload length. A PPPoE GRO packet
->>>> forwarded by a bridge can retain hardware GSO features and reach the
->>>> driver without software segmentation, if the egress Ethernet interface
->>>> advertises TSO.
->>>>
->>>> To force software segmentation, clear the GSO feature mask for
->>>> ETH_P_PPP_SES in harmonize_features().
->>>>
->>>> Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
->>>> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
->>>> ---
->>>>    net/core/dev.c | 4 ++++
->>>>    1 file changed, 4 insertions(+)
->>>>
->>>> diff --git a/net/core/dev.c b/net/core/dev.c
->>>> index a6951ea08961..27483a2ad747 100644
->>>> --- a/net/core/dev.c
->>>> +++ b/net/core/dev.c
->>>> @@ -3831,6 +3831,10 @@ static netdev_features_t harmonize_features(struct sk_buff *skb,
->>>>           type = skb_network_protocol(skb, NULL);
->>>>           features = net_mpls_features(skb, features, type);
->>>>
->>>> +       /* Ordinary TSO does not update the PPPoE payload length. */
->>>> +       if (IS_ENABLED(CONFIG_PPPOE) && type == htons(ETH_P_PPP_SES))
->>>> +               features &= ~NETIF_F_GSO_MASK;
->>>> +
->>>>           if (skb->ip_summed != CHECKSUM_NONE &&
->>>>               !can_checksum_protocol(features, type)) {
->>>>                   features &= ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
->>>> --
->>>> 2.34.1
->>>>
->>> Ouch.
->>>
->>> harmonize_features() is called for every packet, GSO or not.
->>>
->>> This is a GSO-only problem, please do not add more protocol-specific
->>> tests in this path. gso_features_check() is only called for GSO
->>> packets, and the cost there is amortized over all segments.
->>>
->>> Devices without NETIF_F_HW_CSUM already lose GSO for ETH_P_PPP_SES
->>> because of the can_checksum_protocol() check in harmonize_features(),
->>> and fraglist GRO packets (the main use case for PPPoE GRO) are
->>> segmented in software anyway.
->>>
->>> This leaves bridged, non fraglist GRO PPPoE packets sent to a
->>> NETIF_F_HW_CSUM + TSO device. Have you hit this on real hardware?
->> +Cc: Alexander Duyck
->>
->> I ran the real hardware test on Intel igc.
->>
->> igc_tso() requires skb_network_header() to point to the IP header, which
->> is not the case for PPPoE packets, so it won't work on an unmodified
->> driver. I therefore used a kernel module to inject PPPoE GSO skbs
->> directly to the driver's TX path, deliberately pointing
->> skb_network_header() to IP.
->>
->> Test results show that the hardware can still perform TCP segmentation,
->> but it cannot update the length field in the PPPoE header. So
->> theoretically, we might be able to make GSO_PARTIAL work in PPPoE.
->>
->> Kind regards,
->> Qingfang
-> Is PPPoE being stacked similar to a VLAN or being ran as an L3? To be
-> able to make it work for the GSO_PARTIAL on most these parts it would
-> need to be inserted as part of the MAC/VLAN headers instead of as an
-> L3/network header. The main problem is that the drivers normally need
-> access to the L3 header in order to set the payload length and things
-> like the IPv4 ID field.
+On Thu, Nov 05, 2026 at 06:40:30AM -0600, Rob Herring wrote:
+> I'd rather have my added device working than refusing to probe because
+> some arbitrary device index couldn't be used. There may be some user
+> that has a working system today and then this change would break them.
+> We can't really have that. I view aliases as a request, not a
+> requirement. It's perfectly valid for an OS to just ignore them
+> completely.
+>
+> I have no issue if we make the failure to use an alias louder, but I
+> guess that's not your main issue.
 
-Currently, PPPoE occupies the skb's network-header (L3) position. 
-pppoe_xmit() points skb->network_header at the PPPoE header and sets 
-skb->protocol to ETH_P_PPP_SES. pppoe_gso_segment() temporarily pulls 
-the 8 bytes of PPPoE/PPP headers before calling the upper layer handler, 
-then restores network_header to PPPoE on the returned segments. For an 
-untagged frame, network_header therefore points at offset 14, while the 
-actual IP header starts at offset 22.
+OK. I'll drop that from overlay-notes.rst.
 
-> Really if you are going to support doing GSO with a PPPoE protocol in
-> there you probably need to look at adding a new gso feature flag bit
-> as any driver that will support it will need to know how to move the
-> header out of the way.
+Watchdog and rtc already treat an alias as a request: they try the
+aliased id and take a dynamic one if it is in use. The subsystems that
+fail are the ones that keep their dynamic range clear of boot-time aliases,
+which they cannot do for an overlay applied later: i2c, i3c, spi and
+mmc. On x86/ACPI and other systems booting without a base DT there are
+no boot-time aliases at all, so that range is empty and dynamic
+numbering starts at 0, right where overlay aliases would land.
 
-LLM suggested the same and wrote the code, which I have not tested. It 
-could make both hardware segmentation and software fallback work.
+Would you like v9 to give those four the same fallback, with a warning,
+so the behaviour is consistent across subsystems? For i2c, the alias
+lookup would move into i2c_allocate_adapter_id(), so i2c_add_adapter()
+just sets nr = -1:
 
+	if (adap->nr == -1)
+		alias = of_alias_get_id(adap->dev.of_node, "i2c");
+	...
+	mutex_lock(&core_lock);
+	if (alias >= 0) {
+		id = idr_alloc(&i2c_adapter_idr, NULL, alias, alias + 1,
+			       GFP_KERNEL);
+		if (id != -ENOSPC)
+			goto unlock;
+		pr_warn("adapter '%s': alias i2c%d already in use, using a dynamic bus number\n",
+			adap->name, alias);
+	}
+	id = idr_alloc(&i2c_adapter_idr, NULL, start, end, GFP_KERNEL);
+unlock:
+	mutex_unlock(&core_lock);
+
+i3c, spi and mmc would get the same few lines in their id allocation.
+mtd and serial don't keep a range clear for aliases, so boot-time
+aliases can already collide there today; I'd leave them for a
+follow-up.
+
+That would extend the series beyond drivers/of into four subsystems,
+with acks needed from their maintainers, so I wanted to check you're
+OK with that scope before going ahead.
+
+Your two earlier suggestions, keeping alias and dynamic ranges apart
+or only honoring overlay aliases whose names are absent from the base
+DT, run into the same empty range: the first would reject every
+overlay alias, the second would accept every one.
+
+Thanks,
+Abdurrahman
