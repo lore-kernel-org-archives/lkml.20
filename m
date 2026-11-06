@@ -1,84 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951889;
-	b=SuqpsT/nvfF8czQ5GOOnutVmKpXWVwJnzzx3J+dTBjtD7mJZB859HyqfnHms9/A4O7M7
-	 vG6hRKPdSQ+OkFIbXlZkWnUkLdQmq93JKF5yCgTNs+a5Du1rbnbCBMTuDLKaEdfnpXAjp
-	 pjh74dBUNeXoYGymOThgEPcm0OSEzCo1zIwF1HCZKB8XOJ7GVRgjUP6CQ1ZREBTascAF9
-	 YQO32C09IvfmqGkup/0SHw2KSaS8ESEgWxh0CDt41T9zu3i+DvLhKEHCfxbaOH243jClo
-	 zxBuOC6wPR2P2Tg8ePKvzwX61SaexIBPbVNbLMbRVSKfYEehU7J+DM9cLXRSh9o4yvQ==
+	t=1793951902;
+	b=m92XaiUJatPY8MB1CVDfzCRoog6EVcqlrMi1bqt67BsnOk2jUS2x06sPe9H3HBmblyBa
+	 2eJjy9IA13DLBsVFtnJNCqItev6tr2shHGnPnhIBhXOjaPEgs7VxGItDksGfP3qKbUQgT
+	 3Co19wWbsustMFoHJVv31VONxMUoqH7F+f/PM3uBaOtjKZSxHhLaT/0A37XT+l4gYaSRo
+	 lJoyre9cuSocqBOCIf7hbm5DCPd64o3BU6tf1/WylsQ+PLoGlwPJNs4GIjIUnBWvvzBAK
+	 3E6oNREvtdou16qyhXrbrF5z7iE71CQPvCYH2KS5M1bJVkuRYGsKL9UZAzz9nj33Img==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951889;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=N6IDFcqBT66Ly0mje/ldO2xjtUcjknZLvpb4a2Ah/h0=;
-	b=Wlnp7IN+t9CMfSUJtSDGlqpImhZvIibd73A00cfKYj9UQRwQAuMlgZpUwf+Upa77e2iu
-	 v55BA8rcjKpFtc9+pBbemy9vs/I4oxdtHRqm1n7Wk+/OGYX36ca3mQLU7iVCQap1pOS3O
-	 LK76JBDil6Ny3NtdOBzxThmMROMYxarm/pe6chCM8E/QvnrfXmuCFgBzMeDPiWhorodLO
-	 mw5u5qLItmUgZw6eZgSwtXXNu685HWLzfbaewRcToDFUooBnVDCIURMt6maGn2BD9zFXU
-	 V8kJ/D7j1j1gdulGTeTyaWrlCGmq7buYM0jFZIPL23GeA8hpzp165Od34rIL9/ZviTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951902;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=G7sxNEVsyIuTPV8a6FVFVg4qeZbioTDu21HyPpnSnRI=;
+	b=DIob5JZC+ZzeaetGDT8wC5roHrTp15zmyMJjzzaqq/bEUz0cq6I1rNd1EZPa+bgVZ2Ev
+	 mhLIGm43B32cjidY9uy+gzFTI0sor6dXztJYTKTQ1ojeSYPSnMoiKYBDWc8kJSvL54JUP
+	 chSy1dDXJ9EvDKEWDkRsyTWLSz06qL2mGVZyg56CgKPu3Bnn6XomAMnzYD6lmt/kREkNl
+	 gBhSJ0sZaKSZt3cB5sAYgLokyBHeFJUBa7PCc++7U6A/q783nsDh1Itie1OAsOyuEjcgO
+	 hY9gjV8wXs9SYNZA0fBEKAvKWWLxLgJ5sy1uaAtSW7XO3+3mcy36/hRtn9YfMVQN2tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xhZa5zyD;
-	arc=none smtp.remote-ip=162.62.57.210
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4PDt2E2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDCC606A326;
-	Fri,  6 Nov 2026 07:58:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFDCC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6435D606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:58:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xhZa5zyD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793951882; bh=N6IDFcqBT66Ly0mje/ldO2xjtUcjknZLvpb4a2Ah/h0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xhZa5zyDbr5HPXgRGg1FVidmH0ZxHc9an8PMxPY65XRPRaiHVbGFZzwq6uktWmsoI
-	 6tYohRjn4d50GkLYoaoKVrd/WqBZ+u4TxFDrEgxEIciRLYLoz1+WINUdTTkNgqd1ws
-	 eiMWIoim0Dykfhw27jUFue76agOzI+CeD9K1wz1U=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id E7B38225; Fri, 06 Nov 2026 15:57:59 +0800
-X-QQ-mid: xmsmtpt1793951879tivh0zjg2
-Message-ID: <tencent_9EF27B4D21B82E623513AEEE6ED2F92C7D08@qq.com>
-X-QQ-XMAILINFO: OATpkVjS499ug70r33O1iL5s+mMR3MjVq8p9aUJ5tubQwsA1Fuqm0IezGzcTN9
-	 X5aYwm/Sd1IArjjm+2fYkjUa+5/buca2pyh2KvE+g7gkaSDeQfQ2xkvvL4Tvo/7SjlOfjV7crtyh
-	 VdwgxmWl99qvHr+DwNnWm/I/78d4Lvt5FMTwQaDuTFacZKA3z9QbW0wa1o+cVYwAFuB/ncFZIy5u
-	 DJFKjr+PJtH9hqYnGY2u9iR7sFdTNtTUSpR3WsiStLOXMU0X+clA78DRzAxW3gFom7ZsSRXK7Dcc
-	 pDON58VYG0o9cp5Ub9trM6AzsBOWFLlcwx7lQ61jgAkzozTSNB7RvYNn8znG72SmctgYmPiAbQw9
-	 K4QCsoT6N3Hn6+ir3bVAnYtyKELchllRQkcRhlJOOqHyn2Kv67uE99Z4t2BqtyaX+iEYnYPHFWct
-	 luAyQ+IwVwPnKRGwYpc9N/piAwP+3KY8KbvLYwuP72CfJO0gGJKgi8rxmfymZ/4BHlNbSn7Zordu
-	 p/e7ZcP/wTMdMmnuD/i1W35OlK0/mNCS+RzcacyUHE4DT5ypZeMvIMYrIAzXYp9fIoxVC5k2KD4D
-	 oXN8CUlyN5HgUsJXx6po4Y+Rw5SbaD1FZYJ/z7pMvVcXDeKaBDzQln2gT/CVQPoLIaGHwrLtHO7C
-	 eZqivDqBqhSX8Cb4IKUG15rtUP45qJu1y/SiPCnyDXZWEJIZWBqgoqMghLaxCZ1qXG3g+qnF21a8
-	 HMUWdNELJdTpLjeC7DApZzKbuT+F5MKspJ4o3iB5f/DDUCk2jSbMTfoyoBYybaZEjstpjR4NoLEe
-	 7bCCvh8wPw61H30aH9uaRsSuNgTjHe+uE1hl+y3+x/UlonKuoL9KAn9QsioyRgQW+NicpzNFjJ1E
-	 15X/Zm00EAmwfoZfa82rl/IANDrdgYgOIrgoevQ0mNU5y4ka1ZIthzZllzXui0EFlLoBx9BEOFOp
-	 Dp10WhHRtYhOYgEms9M79727uDNeRbR9YHw1mq7sSX5Bkwn2JRf1b97inm61+QHWVOpzVMsnSN7Z
-	 F61CLbOKdkKrue7eZ8QYBbU9UzjwvTfqP3e8pyver1gPs0kLurKfIdhx/jB57UvP4BBAB0NFjP9X
-	 pEIi/Ho1+G2rdHehw=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-mtd@lists.infradead.org
-Cc: dwmw2@infradead.org,
-	richard@nod.at,
-	linux-kernel@vger.kernel.org,
-	syzbot+0727f46a0571de01bf93@syzkaller.appspotmail.com,
-	syzbot+48f2d47f83a4c223ad14@syzkaller.appspotmail.com,
-	syzbot+e4484dcf0982d86ca2e1@syzkaller.appspotmail.com,
-	me@eltavine.com,
-	sashiko-bot@kernel.org,
-	stable@vger.kernel.org,
-	Shuai Liu <847807867@qq.com>
-Subject: [PATCH v2] jffs2: fix kernel BUG in jffs2_sum_write_sumnode on empty summary
-Date: Fri,  6 Nov 2026 15:57:58 +0800
-X-OQ-MSGID: <20261106075758.671859-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179393007518.5660.257036208046697688@eltavine.com>
-References: <179393007518.5660.257036208046697688@eltavine.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4PDt2E2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF8F1F0089F;
+	Fri,  6 Nov 2026 07:58:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793951902;
+	bh=G7sxNEVsyIuTPV8a6FVFVg4qeZbioTDu21HyPpnSnRI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=N4PDt2E2G4E+VIbvP7UlpoJPj86dhujZdzHPEsZxc3xuXtlYhZskE4BayNPfpZ/oR
+	 P8gUzu9WnPVRdzSBSb2ePhoiGEmmDBep9EAQ6jSY1hXdRbpyyiRm2pc87Xx68vFi1/
+	 5Ny7OoMEhaXP2x8+4d0uWbuGxGEqY+IRHHOyMf+cVuzuMy6TwlFyLXbzMQTvbrYapr
+	 uoDtgKkKt1JJARcN0hgr0Vxtxsl4QYrrcrRlQuaxpX1KSflyhJkbvVjWnDfhI5DWt3
+	 zIbZxsASJ5jb6CgyhoBm9ppPnATR24JLITsmmbhiWMwPrw3rV/J55g4HWmJ1m8ct1Y
+	 Oot/kWOGNLORQ==
+Message-ID: <5d13a6f7-6b00-4557-9a1f-acc934a2c168@kernel.org>
+Date: Fri, 6 Nov 2026 08:58:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,77 +51,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: MAP_FIXED leaving holes on failure is very difficult to recover
+ from and can even be a security hole
+Content-Language: en-US
+To: Demi Marie Obenour <demiobenour@gmail.com>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linux kernel mailing list <linux-kernel@vger.kernel.org>,
+ linux-mm@kvack.org, Bert Karwatzki <spasswolf@web.de>,
+ Jiri Olsa <olsajiri@gmail.com>, Kees Cook <kees@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ Sidhartha Kumar <sidhartha.kumar@oracle.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>
+References: <8b45a161-101f-4f28-9b7a-c7c8b8a29f90@gmail.com>
+ <auyXeApQlV_CMQDm@gremlin> <310aec2d-3a83-4544-870a-ccd5abd78f48@gmail.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <310aec2d-3a83-4544-870a-ccd5abd78f48@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: eltavine <me@eltavine.com>
+On 11/6/26 00:59, Demi Marie Obenour wrote:
+> On 11/5/26 10:11, Lorenzo Stoakes (ARM) wrote:
+>> [ please check kernel mails in MAINTAINERS - my and Liam's at least were
+>>   incorrect, which makes it easy to miss. Fixed those up. ]
+> 
+> I thought I did that, but obviously I didn't do it properly.
+> 
+>> Thanks for the report.
+>> 
+>> In general linux system calls do not guarantee compound operation
+>> atomicity, and any assumption based on that is incorrect. If you see an
+>> error - the operation failed, perhaps partially.
 
-With CONFIG_JFFS2_SUMMARY enabled, jffs2_do_reserve_space() tries to
-write out the current block's summary when a node and its summary
-overhead do not fit. jffs2_sum_write_sumnode() assumes that at least
-one summary entry has been collected and calls BUG() otherwise.
+I'd think we only cared about not exposing the temporary state between unmap
+old and map new, right?
 
-An empty summary is a valid state. For example, the syzbot reproducer
-mounts an image whose selected nextblock contains only a cleanmarker
-and padding, leaving 140 bytes free and no summary entries. Creating
-a symlink needs 128 bytes for its inode node, but reserving another
-60 bytes for the summary reaches the BUG():
+>> Further, a failed MAP_FIXED leaving gaps was the case for most of the> history of linux. Avoiding that is infeasible.
+>> 
+>> I advise you to review the NOTES section
+>> https://man7.org/linux/man-pages/man2/mmap.2.html on MAP_FIXED - your
+>> suggested use of it is not recommended.
+> 
+> Does that mean that MAP_FIXED should be deprecated?  It seems that the
+> safe use-cases can all use MAP_FIXED_NOREPLACE, and that the use-cases
+> that cannot be served by MAP_FIXED_NOREPLACE cannot be served by current
+> Linux.
+> 
+> Specifically, if a MAP_FIXED mmap() fails,  the mapping might either
+> still be there (in which case one _must_ call munmap() to cleanup)
+> or it might not be there (in which case one _must not_ call munmap()).
+> There's no race-free way to tell which is the case.  This means that
+> MAP_FIXED is unusable in multithreaded programs, unless one is okay
+> with leaking address space.
 
-  kernel BUG at fs/jffs2/summary.c:868!
+You said "This was fixed in the past, but the fix was undone in
+4f87153e82c4". Any idea when exactly it was "fixed", whether the change was
+done consciously (or some refactoring side-effect) and if somebody started
+depending on it?
+4f87153e82c4 is from 6.12 (2 years old by now) and nobody complained so far...
 
-Large pristine-node GC reservations and xattr updates that fail after
-reserving space can also leave a newly selected block with an empty
-summary and reach the same check.
+> Are there cases, such as anonymous mappings, that cannot leave holes?
 
-Disable summary collection for the block and return through the
-existing exit path. jffs2_do_reserve_space() then retries the
-reservation without summary overhead, following the existing fallback
-for a summary that does not fit. Use dbg_summary() for this valid
-condition.
+(I don't have an immediate answer. I'd guess that if e.g. some kernel
+allocation can fail, this can happen)
 
-The block is scanned normally on the next mount. The on-flash format
-and xattr size limits are unchanged.
+> I believe there are some programs that depend on this to handle
+> SIGBUS faults from truncated mapped files.  If even that can leave
+> a hole, the only thread-safe alternative would be longjmp() out of
+> the SIGBUS handler.
 
-Fixes: e631ddba5887 ("[JFFS2] Add erase block summary support (mount time improvement)")
-Reported-by: syzbot+0727f46a0571de01bf93@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0727f46a0571de01bf93
-Reported-by: syzbot+48f2d47f83a4c223ad14@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=48f2d47f83a4c223ad14
-Reported-by: syzbot+e4484dcf0982d86ca2e1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e4484dcf0982d86ca2e1
-Cc: stable@vger.kernel.org
-Signed-off-by: eltavine <me@eltavine.com>
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
+A concrete example would help I guess.
 
-Changes in v2:
-  - Credit eltavine as the code author per his request, restoring his
-    original comment and debug wording, and carry his Fixes: tag, the
-    additional syzbot reports and the stable Cc from his RFC. (eltavine)
-  - Runtime-verified on x86_64 QEMU (block2mtd backing store, KASAN
-    kernel): the syzbot C reproducer hits the BUG 2/2 runs on the
-    unpatched kernel, and completes cleanly on the patched kernel.
+> An alternative behavior would be to unmap the pages, but keep the
+> address space reserved, as if the mapping was a PROT_NONE anonymous one.
+> That would avoid the "it may or may not have been freed" situation,
+> as it would be safe to retry the mapping or call munmap().
 
- fs/jffs2/summary.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/fs/jffs2/summary.c b/fs/jffs2/summary.c
-index 4521a7723f306..4a07b7911b210 100644
---- a/fs/jffs2/summary.c
-+++ b/fs/jffs2/summary.c
-@@ -864,8 +864,11 @@ int jffs2_sum_write_sumnode(struct jffs2_sb_info *c)
- 		goto out;
- 
- 	if (!c->summary->sum_num || !c->summary->sum_list_head) {
--		JFFS2_WARNING("Empty summary info!!!\n");
--		BUG();
-+		/* Nothing collected yet, e.g. freshly opened jeb */
-+		dbg_summary("empty summary, disabling it for jeb at 0x%08x\n",
-+			    jeb->offset);
-+		jffs2_sum_disable_collecting(c->summary);
-+		goto out;
- 	}
- 
- 	datasize = c->summary->sum_size + sizeof(struct jffs2_sum_marker);
--- 
-2.43.0
-
+It would probably have to be a new flag as that's a different semantic from
+what we have now. And the use case for adding it would have to be strong IMHO.
