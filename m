@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794004756;
-	b=oa6pHNroBU5tJQbnj5g+HnhyZAL5jDNZPfXdSncbPyePLCwrP5c+MPUlFSjmL1puDe+F
-	 XCv611NAxO9bC064KSNHrLvXIUzp3QHZ3oOPwZiyq7A48QUHoffydlcMfGa3AKq0r9rEH
-	 ASqpBxez9FMiaZqNmGr7q7flQAl4vG0SAhDBnXPOys9f6VbElkWZA5DRB6bXxRlWTbjmt
-	 /2nOsqn9Y/p+Vu2zCjdzMvUDiU1UtkKrha2lYWTXLsXZALWzocMHFx6uxZPbRlucYd9Af
-	 6ox1lzTCOIlEEOQOWDYBO3irZB7wzLN/qnUiKp4MIPhencpnK9aXnc2zbEEmpMGmHxg==
+	t=1794004869;
+	b=Zlr/lsNFmbagJ1lo5LN33gFZnaEy+wp7I5Hb0q/nrMCr5GTlV0aA07YlhQPVq5SmWVNX
+	 JUyBiHygz2X/ALdpTSC1ZnwHyq0HaCo4EAEY5ls7nMrJYLXebdcLcAUQAA7WOvTAom6tj
+	 AziX97Ta87CiduUdNyVatwv5/DDo/j5JH4FLmlT97wOMH0HgQO/e7S+wVroP032lJOdFU
+	 NP1vRTdr3wpew4BVHG0swLNJKuSFlg0ip4DRqyF23WO8d/fq9/CeQYiegsG2Kfru2tBTN
+	 3IdeBimtalpiSvpFaJbdDMFkIh5OaA4vFOlXfQPKFTV3FVITKseUkF9Gg6EEq9pzCSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794004756;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gusY0KSUVKJcXw6Hq1PL8ajvvWfgIQrgRs/gFrGi9gA=;
-	b=xV2FEy8PqCuEbRzEA/gPGAPbMbhwhTYBghw62u7t+c0uhy6BmaQH+U830cgjZvb8l/HP
-	 A8YkIDjill8HnxNJWRtaC7BlnCO/MCZC0bqKe4CaM3LsK4SmXlR2iz0XtXvpku4ijDpx8
-	 VPXXkGBmpnC+WaxXPdBEnKXNEHZlL3+k0SIWlDScx/QRIFoLnFrZ44D7gCt8W1fA56vX4
-	 WGADsgjIgU82Uiu+szjftx7Y1pejdC7m9Q4KILs21+WGAc0KQlSFB3sjF9I9gi57jROLp
-	 KAkX5xYLSuYIWJkQHZmPTdbQMxOtzyA5TPCjvrFchv3bm3KHLS2jQFfaAEWS8BDfm8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794004869;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+ty9wgDBmsLBWQWQcUOkua0bFjBDJLzoe/U2VROVMOM=;
+	b=GIuaJBXRXGzr+cbuGEv6zoX3jC4qre7lLVEO4cUBYBG4UoivQxoWQpYh/+yllsjhkW5B
+	 09rfSd3aJ0OyiC1dm0IeMAdtRsHcg7eDxUQsuFrDDzhA8M1Jtc1xwWYGWTd1U2ERyjuYI
+	 kI6zOa556NKicoNAHl8Fln+6O5TyV9WCFgegHF0Su0Cdp7BzVnqtMdxD3QuL5fUp7TJ+r
+	 YlzerayMhvqOscjZkBWLPlcYHz5G70r+lcPuzNJvsDA5C6STcG3qo+/cQYpepow+VpP8J
+	 tMsciqQhKYG3VZNZqnzmuZkkMHA971fId568/zXBxIuTDJADMyTvyWkFOWatwJLdsSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xNYCnS85;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=grapheneos.org;
+	spf=pass smtp.mailfrom=grapheneos.org;
+	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=cVrbK1v+;
+	arc=none smtp.remote-ip=206.220.120.4
+Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401DB606A326;
-	Fri,  6 Nov 2026 22:39:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF60D606A32D;
+	Fri,  6 Nov 2026 22:41:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF60D606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xNYCnS85
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CA091F0089F;
-	Fri,  6 Nov 2026 22:39:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794004756;
-	bh=gusY0KSUVKJcXw6Hq1PL8ajvvWfgIQrgRs/gFrGi9gA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=xNYCnS85enGxqL0orgxtArZoKCY5STlQNAhTy563XuE3RJgdU4JNFllcCADOnxuIY
-	 PRk4mq1utmrnYWLqkJwBzSijnliR4rjbFetNmdtJwT4DWUp4ple6ih0LYBA3R9Y7qC
-	 S3Rjwu5qLxnwrJxgOmqm2d9NLqtQtjyiX4auMD9E=
-Date: Fri, 6 Nov 2026 14:39:14 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: mt4022@columbia.edu
-Cc: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Miaohe Lin <linmiaohe@huawei.com>, David Hildenbrand <david@kernel.org>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Kiryl Shutsemau
- <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Matthew Wilcox
- <willy@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- tz2294@columbia.edu, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm/memory-failure: set PG_hwpoison of a non-hugetlb
- page under hugetlb_lock
-Message-Id: <20261106143914.16a42b8cdf7436d045b85aa6@linux-foundation.org>
-In-Reply-To: <20261106-hwpoison-hugetlb-ro-v3-1-c11186963647@columbia.edu>
-References: <20261106-hwpoison-hugetlb-ro-v3-1-c11186963647@columbia.edu>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=cVrbK1v+
+Received: by mail.grapheneos.org (Postfix) id EB1843C08EE8A;
+	Fri, 06 Nov 2026 22:40:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
+	s=default; t=1794004862;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+ty9wgDBmsLBWQWQcUOkua0bFjBDJLzoe/U2VROVMOM=;
+	b=cVrbK1v+t2M9gGIkrPEfWgq9MaHG5UFflP9CwgYIEJ2IGwiONaf0fkzZCG1xesIH8yNJIG
+	pi6aDn+5mJjRoAXWv9/CYIz8OHRrWy1b4cWLQPL9BN1zpJShdSo5WklBlPPzjCFCT6Qqpy
+	k5JGK9+5Es75Y9Ro74LW1lNngh3zOnYQfcpQxfPYhDTiSKnhY/tF404h6dcwtI16Dkj6NN
+	RGt2kO60nkIfIRIp67OsQrkKHDFfzez6VV8EnjU1kvVIWWCbJMQ0H6H7y6TD1odVA9PNye
+	+AqoZWTCtTOyZQKTlVamyzUX+qA3B7DqQVIfwqeH6TYWdPmOa1nkWpfk4RP6yQ==
+Message-ID: <c37801aa-94c0-455c-9b55-8746dec731e2@grapheneos.org>
+Date: Fri, 6 Nov 2026 22:40:53 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,74 +57,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Subject: Re: [RFC net-next 1/2] ipv4: Honor prohibit when oif specified
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ shuah@kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, liamsmith827 <liamsmith827@proton.me>
+References: <20261019032406.88874-1-liamsmith827@grapheneos.org>
+ <20261019032406.88874-2-liamsmith827@grapheneos.org>
+ <20261025171348.GA233026@shredder>
+Content-Language: en-US
+From: liamsmith827 <liamsmith827@grapheneos.org>
+In-Reply-To: <20261025171348.GA233026@shredder>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 06 Nov 2026 11:09:50 -0500 Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org> wrote:
-
-> From: Mani Tofigh <mt4022@columbia.edu>
+On 10/25/26 17:13, Ido Schimmel wrote:
+> Given the above, I think that the patch is too specific to your use
+> case. It doesn't make sense to only honor prohibit rules / routes. How
+> about checking for 'err == -ENETUNREACH' [1]?
 > 
-> memory_failure() checks under hugetlb_lock that the page isn't part of
-> a hugetlb folio and sets PG_hwpoison only after dropping the lock.  The
-> page can become a tail page of a new hugetlb folio in the meantime.
-> With hugetlb_free_vmemmap=on its struct page then lives in the tail
-> page that all such folios in the zone share, so the flag lands on tail
-> pages of every one of them:
-> 
->   Task A (memory_failure)              Task B (nr_hugepages write)
->   get_huge_page_for_hwpoison()
->     /* P not hugetlb */
->                                        alloc_fresh_hugetlb_folio()
->                                          /* P becomes a tail page */
->                                          hugetlb_vmemmap_optimize_folio()
->                                            /* P's struct page now in
->                                               the shared tail page */
->   TestSetPageHWPoison(P)
-> 
-> The error on P itself is ignored, while healthy pages of other folios
-> stay marked and are never reused once their folio is freed.  After
-> freeing the pool, /proc/kpageflags shows them as hwpoisoned.
-> 
-> This is the allocation side of the race that commit 32c877191e02
-> ("hugetlb: do not clear hugetlb dtor until allocating vmemmap") fixed
-> for freeing.
-> 
-> Set the hugetlb flag of a new folio under hugetlb_lock and set
-> PG_hwpoison of a non-hugetlb page inside the locked check, so that the
-> vmemmap can't be optimized in between.  The retry path clears it under
-> the same lock, unless the page has become part of a hugetlb folio in
-> the meantime and its struct page isn't in the first vmemmap page of the
-> folio, which HVO doesn't share.  The retry then knows the flag is its
-> own.  With the fix, no healthy page gets marked anymore.
-> 
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it within about 35s.
+> It doesn't allow us to distinguish between "no route" and "unreachable
+> rule", but we can probably ignore it given that it has always been the
+> case and nobody complained. It needs to be explained in the commit
+> message.
 
-Thanks.
+I was trying to sneak in just enough functionality for us to do what we 
+needed, but I'll gladly expand the scope.
 
-So as I understand it, if a single 4k page turns bad at just the right
-time, we can mark a lot of healthy 4k pages as bad (hence lost until
-reboot) while the bad 4k page remains in use?  But that race is very
-unlikely?
+I think if we were checking for -ENETUNREACH we would want to also check 
+for -EHOSTUNREACH to keep the semantics of unreachable consistent 
+between both the rule and route variants. However, I think we should 
+differentiate between a routing miss and an unreachable rule/route, 
+allowing the fallback only in the former case. Not only is this, as 
+you've said, the intention of the fallback, but it also has a concrete 
+benefit for Android's current networking implementation. Android 
+includes a final unreachable rule, so a routing miss is not possible. If 
+treated the same, this unreachable rule would not prevent apps from 
+being able to use the fallback to send traffic over interfaces which the 
+routing rules do not allow. This is a real cross-user leak which we were 
+going to fix by changing the final rule to prohibit (alongside the 
+original patch), but that would likely not have reached upstream.
 
-> Fixes: f41f2ed43ca5 ("mm: hugetlb: free the vmemmap pages associated with each HugeTLB page")
-> Cc: stable@vger.kernel.org
+This is easy to implement. In v2, I've added a FIB_LOOKUP_REPORT_MISS 
+flag that returns -ESRCH instead of -ENETUNREACH on an IPv4 lookup miss.
 
-I'm hoping we don't need to backport, because the race is so unlikely,
-the consequences aren't world-ending and the backporting story is
-messy.
+> Note that multicast needs to be exempted because of VRF. The lookup
+> fails on the unreachable default route in the VRF table (-EHOSTUNREACH)
+> and we construct the route anyway. It is also consistent with IPv6 where
+> these routes / rules do not affect multicast traffic since the
+> per-interface ff00::/8 routes in the local table are matched first.
 
-But I don't think I'll get my hope, because the consequences of this
-race are worse in older kernels:
+I do agree that multicast needs to be exempted, and that's not 
+exclusively because of VRF. That same -EHOSTUNREACH can be encountered 
+with multicast outside VRF. In addition to the IPv6 reasoning you've 
+provided, there are 2 instances within ip_route_output_key_hash_rcu() 
+where multicast traffic goes directly to make_route without a 
+fib_lookup(). Whether fib_lookup() should be consulted for all multicast 
+is another discussion altogether.
 
-In 6.6.162 HVO maps shared tail metadata read-only, so the misplaced
-PG_hwpoison write can cause an oops.
+> Why modify this hunk? Looks like an unrelated change.
 
-Also in 6.6.162 memory_failure() still has a ClearPageHWPoison(p) in
-its PageCompound retry block so with HVO enabled and
-CONFIG_TRANSPARENT_HUGEPAGE=n, its compound retry can still reach
-read-only tail metadata.
-
-Miaohe, wdyt?
+This comment does need to be updated because it has multiple 
+inaccuracies, both with and without the new changes. I'll split it out.
