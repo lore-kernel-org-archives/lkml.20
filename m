@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793984075;
-	b=wYVBG55KCMjP9RuiSz30r1UYfL+OWBuTNsMt+LNVHQrZhKpG2LPjR8ZkIeJKrsL4Cqc2
-	 3zJ2t7qo6Fpyh86JTsJw05BrYI8XPLUfN5S2g8unKPAF6g49ejm5pOWD5jF3f62MEWZug
-	 3j+uR5ZOpTt7L0YV9KHZKAuvVdxL04BHgI904MsWqusxyRR6Ol0a3QQOknbRYwlelakBD
-	 kOt9n7G1wsF/On2/TggbH90bHe/J4wKPzyuVHJ4Soz6r4PzvPk5QUDryXV4OwSV0sBrQu
-	 LBA3pjquUKOaBhYKfarnkhAyaPMagk/6JPMVSv7G8ad70WgUGbKKR+drS76a6qqFteA==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793984081;
+	b=f0o5bz8/9vkca+pUULPgCxI0qQAZS+8bBzl7KM+yb49J0cXLK8ouYrZY7vy91T0TMaC5
+	 61/f56u3lDu1p8Fy4Sf5VSpIaJ5YeNdEeZo5XYBRBXzkuUoYagm9P2q6LnRr3442NIg0X
+	 S6JJkcUm6Zdk4VgK4xr6fG38V8CUTvT/SQX15EorN1lRhx15O9eoEoOVnv/242A0gLk0a
+	 6LceFdYsJRoNfY5KLe+WHipf/0hwACxNjVdMIftuUHN2jiRhtzbGtR2lCD+PtsfYB457l
+	 /wBI/q/UuJqGqE2SWW7Xcfh2BMSDGstab1ZEnk+0NYKZTrr5Lfnmy1oA9XvMPqgVCEg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984075;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984081;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dkFzuHJuzHv5RFwHabaXe83i/n2wBUC3b7ZSZTt+kHU=;
-	b=QQmT+RxdocQemrB9EYKa53giJ7wiyVw9bzqIJzSsMatJkft0ZAoFl3PEYhC6fiESX6AN
-	 1ZQGlm+CMfbn/WbTabnSktO1KhdNn5PfDJpGr80zslL32Ze0n/0pzoJMMvrKHUr28lcf6
-	 GFzla4KO/C2zNzN+8PJguB771FBzVla+5BeMQ2qMXtJegtWJueb2R0+aFHe7dbo+i4DTC
-	 TXzrwemMZtpoG4DLtXjzo3Uhaeig/2Iyq+zIAUBMg1CWMUMjuA9444Ca8Pz1VExDVfuQN
-	 K8x0yUMSAzGlkLStuvsyqjGUzH55xHiLZ38fySe+xoQSucB7mJ2Y3//bQWdLVPM8IMg==
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=6i4oUXdP885wW7dG5qidGLk2DhrD6UR6ZQWDrphycws=;
+	b=iKX3KnTZMQOtuQ2Zq6/iPOoewBw/gj1G6XxPVVjLhles/6aj0rZ0tWX+QKyvCaUuBUZ1
+	 cF2SlMqxRn77Ia/HoE28iq3fxQXf08KPy2hLhKzFbCQnPogES1AuheW4LKGHO2bzPr4ci
+	 qxs/lUu3ZszlAzyYbt0LTQatqhsKY8muDKN21Gsdvul/I4r2+5zysgAO+UJU9gVA5dvSf
+	 x7ku015/v4jq7g7Z+kmHZu6Ow9Hz2Y3C/uyPsW/Y9AsVNEkVhz6G3Dve18kzD8OVKrVCe
+	 cA6JxVaRCEkjh3SRbyu1UlZ/JPmx9E4kz+8KXNyigwTr3/XGI7ad2GvTadrj3DHgAnw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZZ+ztJPy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.46
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SmHlFGNm;
+	arc=fail smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547FF606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:54:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 547FF606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E43A606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:54:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E43A606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZZ+ztJPy
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so868849e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:54:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793984072; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SmHlFGNm
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso5864775e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:54:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793984080; cv=none;
         d=google.com; s=arc-20260327;
-        b=lWGbpNgUDfhe+ovVMq4jJQnP4/25qvFiLBlPEW56eHn4eBKv3wrWPl3ZHmmsJjfRgD
-         kOrfarV5GKJ5uTIEB53bd3SqQuJWG5wbGMIvfasmzkCk7DLRfYePUBIw4zv1iRzB/4A9
-         8pgavRoU8DTD/UfWCWl7inmGP4IXitOvNlUxI1icpNXnp6OBugxx5Hvpt2tYlVrtOo2b
-         qFtzfuCOLmIPaf//JvnKeZMWu21OqdobLP4A5qpwmRJ36iQCBJU1LXyM4SB3vu7GxX1A
-         tyK/hVYDMKc4WRy0RNNFYZt5+u6RsT0nxUXhNEC6I77lFoEW7iNofZGv+aoHhQ+2+tSs
-         Kf7A==
+        b=fDbklkZbL+hBBK7SSB/wozQ2ZK63AOn14JoBRdCqAqVN9dLxrU1h8XykCdYV+Nkl4D
+         +tqXJNFH4ie+/H/vXXwFpUXi1sophV7slsQkLtdRSvnv5/feg2cISSuBjVm2gXpqhLiq
+         f4JGtsgm+gPGmWvJTWJe7uTsdx5TkLDG521jQuGfoI7N3mzlTsUZY2hZ+5zrgudACCVO
+         dJmCmu1/IxZgFP26sBjDJv2p2Z5hQZRZUAj9MsVgtS9ZsjxxWtdfK/dsEeNMJFpAXkXn
+         hi+SHfMtYs/wSA95JaMcpSK/fESr5ft2vr46gVUV0JINC6wz9Ij9HexKdf7bts3hyc6q
+         kJog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dkFzuHJuzHv5RFwHabaXe83i/n2wBUC3b7ZSZTt+kHU=;
-        fh=Ba4Q9+bYsk3NdnUJXwrpSotZoc3Q0emr69m7UlNLRko=;
-        b=Pvevj7v5WR7f5sHzWDFxR3FgXHT5Hp8tzmq/aQZrHwc9/4pXD422lmfj4rSuGBoGXM
-         UBY2fLMoqRydKuTu9wZ8ApHme7OYI4OIvJ46g8XzjUUDtH5W9wFC+9U2Q4qLSmpPGmPJ
-         kHhOfxqO/ns8T0Ty9LeSRV4ZJ+zvKSBNAiGFyg3cRo7reuhA2R3CixoRqxiG6wDK1Y+i
-         iPFQDQSb4tjvp+I1qBT5REB7LN8ZNFGwTNXNNVF1NwYsslvtqYuscjo4+cCrqFdxdy9S
-         wj3AFdiGQsBl6I1TQoo+lfDfg5KAurT1Az82DZReMtyhjWH7wkwOMF2dB+mxuzMQ4KR7
-         5CmA==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=6i4oUXdP885wW7dG5qidGLk2DhrD6UR6ZQWDrphycws=;
+        fh=dZ1n83eN7LS8STq9/mqyAq6pIKdoNynwZeza7Z2br/Q=;
+        b=WFoowXsAHaKp4pQCIMa1kzMFr3YqQo1XAPK6IOOp8DyDFzdl1/q0nnMay9ocEXTslC
+         VpW2xiWqsz4cwrtyBQhxl5cakhkjIua9A1O60AC4wWjkso8OAgaW5IDdL5qx2KzG26wZ
+         IspJ5g0RoDgDTpSij3OkKbEyisclvFQwKHizJJz7ZhlJm22KOAe4XhsN6FF+7HWU6juy
+         Orkud2A2GzgBDrATaDfupAiN7ppo/VADN5Rz1d5FphSUYQ4uMdNiV7IQvJoGKv8nFC4X
+         EzVHbxhMkpkHqbicbdBmau76Dw0msks9vytf6VqN/xHECyNbpwL+q0Xv9Kl6V6we/3o5
+         ssHw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793984072; x=1794588872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dkFzuHJuzHv5RFwHabaXe83i/n2wBUC3b7ZSZTt+kHU=;
-        b=ZZ+ztJPybuGEZDjDgu29EnZYCNLMrx4Qz1zhAInaF2quJFv+yTeOBJR5AcJy4dV6FG
-         DArFOitNv+XL0urRRS7nw8DyBASOAfCylSm5S3BraKZ6ZlyNoITijzVDXZAJf1qr8RuG
-         A2umrMt2opRiqasRjGPe3srtriCn1cAdYRz+qMHy0XttlZqHLvVqbs2CWwgAFxkXHWtJ
-         Mx9x9X9vkX339h/aZilD3laE+ec6c7hw29LPbLcQUVpz24Xcx5ncgtNZMrLAkFuATTHS
-         xLCJUuBcIE55Z4gSObocZC+ZeUnyXeXY6Dj2D3CHoXu0cOMKM3TdbMOEkf0RQMOWm+cj
-         gYbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793984072; x=1794588872;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793984080; x=1794588880; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dkFzuHJuzHv5RFwHabaXe83i/n2wBUC3b7ZSZTt+kHU=;
-        b=qpdel/A4D3IHE++RJIemHpTSnj/jS0JJk1E6u7A9WAZ+7PzVgQEOBBgqWR1FmbHgzz
-         rxDhUWT19fjqk+Hk6h9fapcs/wW+4BBNamdK9KLiyjXqya7xjO8HEspG0WvznJaZVFDp
-         h+2FOLPGXLOPS9Uk7hx4jLf5W48Z9bOhw2kESsU2fqsUcze6eoW/hpxo04OTvv7i/0w+
-         qICzcaTHxTGRx+XZL3e0bvNug8y7Ad0OdyRzmWQCFk77VU9JIoD+78ORAiPTWIHOnRxU
-         hZguJU+GJcOUceL1s5S1KbdDGSw81+0qc+/T5Nhji4hYJrOM3Lhc0MwrsbnOKiPrk9DG
-         wIAQ==
-X-Forwarded-Encrypted: i=1; AL+hErFWNgQ7aA5t401D4qt3hPEhPRl3F0ORJ/f4cdbDFHNSUEds+xwDBzNHsrjcHlaa5QrIh592UBPvKtodo2c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94UPszPF3XF8N17oyXu5dn1cRl8OkNxIHmtc5gW8GlTsUodrGO
-	Jz5XeKurJ8CBcb5aBatyIX6yCWs+5l0dmN4oJ6fWAXAggriIKW5yvRd1YVSTojUAwFj0acv8o6M
-	RAHL0pWUnP65EELChxJ28TLXre/1e0RQZx/8yuwjt
-X-Gm-Gg: AYBFou3ujVs1mXnojYbr0rA0SoKePByjI4XdRalV91TGUa2AOyqG6fNbJWtUcQvmC5u
-	SOgOmwajkIYzxgNT0320Nahn0SVfXikJvS8So5zu2TQwj7K1r9gc/RuVhBtw/g0uvuYehTro+3b
-	GBi07HkpKgK0xcsEvUsrvu1INe7DG3Y52a5UFHgoayr0g61l2/4PJfk0Kqt7LSrGnx1ClZZU7D3
-	7bcKcFpYSxyRxfOGsh25PdllI/G/j0LPiZmAD1uvjXhpZ+9ASvNf8ssAHUHReiyqoaWBdU5yA25
-	0EYf134yXbzQS4PdxcIlJyILKv81aYjU/yTVSJfJQPZezLyTNVGDYZpos18te4wJu0aE+RU4x1p
-	MHeNSpV0Mp69ZBLW2ErT7LXjm8Knx2rIAt7/srpP7ly2Nz//Zrlsi2/e9VWM772X+Q6B6ksbc6d
-	pDGfqJwvlmBRickdMJGXebY6Q/QmzNLEEJf6O3oXuJzQdMJRZVrkbjfRneZfozSNheTC545XFpY
-	jarYLbWjXBFUHm/
-X-Received: by 2002:a05:6512:b1e:b0:5be:3720:1393 with SMTP id
- 2adb3069b0e04-5c003adf778mr1037616e87.51.1793984072100; Fri, 06 Nov 2026
- 08:54:32 -0800 (PST)
+        bh=6i4oUXdP885wW7dG5qidGLk2DhrD6UR6ZQWDrphycws=;
+        b=SmHlFGNmIjwnF2DR6HyMJZLS9Z0G4KCuS9VIwzgtntwh7SHVYAa+aqmdgqQM58kmzU
+         U818gJGJXeEpPlLRbtB5p1E/s3HFYuv03oRspD1QMAEN8ewS0/FFrny6z5U4ajmdEc4U
+         ZPXH1FKEhomQbYsIQQ0CnfpJtcQiO+OSn3QZ+ItFPl+ChWgbC0bajWNWVJs8c2/0idaM
+         1nFml4+5UEmW0s42p68V40UgsuXOvyokl20xeCfrwrVgYWYTk0+r9sAQmYN2g0Tda1T8
+         sLzAzGvF7qDcmwU7dWt2qdZcaINHneZIzv23xaS00rwhp9i6zEMAjUwG2YYoFA6pxrqS
+         ntmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793984080; x=1794588880;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6i4oUXdP885wW7dG5qidGLk2DhrD6UR6ZQWDrphycws=;
+        b=Ig/JbHa7kfNTChav1Xeqc8XOIYH8IbZugLjwelRP4BrAeXCqt4p5wt6eWFSIa3OWFK
+         BGNWWvMvXg6DygSOM417ru4xrVkt7b+hy97Tr6RNLxS/CfYeissB7klmBr4cpQZiQLZL
+         PT0+KYsiEqk15pR7cTSxYIjjyPc030KlQ12+wqyAau/ZXkzK7wwCX5cJX6glv6LzJLG1
+         C4OXkeuoAVtwlADmADCNr+cIC7ckTeBpZ25wnv9yT9urOIINXVb6owEp/RMNRg07m0xm
+         SxbM93zKaNYl885fe2rFt9yfhh6LtXfW3H3gzKWcKXeS0b1BVbnj7QbakoGbpRlW1pUL
+         aU2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzgM4TXwtzE1b35AoT+XSFqiBNOY9c+05LwtOgFk5Ri65YlmZT1CcdgpUrOVSWVWTK16G682PiV8opq8IE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/mOsqj0f2dOZJKsy/gEfkmNwW54TbDv2J7PpbQTnVvrvqubd0e
+	Coc5RPgffenjZHXGd29A4L7VZL4rMIuR/uqorsHFNCdASYhFmnDNCkTHBgiftDdspvPHHGMIRmp
+	5Uo4t7wAFdAQxF00ttqbj1CWB36Ua/nY=
+X-Gm-Gg: AYBFou1AdI23Q094Hq0Ggbrik4/cLaNtT7jHxL1nHwEMkkDWnVgsLwLgM7wC13A5zgU
+	st7dg5rWRpocb6ij9gPNxmHrL5xtuhfMhLvX0NiSaDtKhkaJGNPaD+Zo3GHqxkQQuuUUCv1Grgo
+	UFkCU+OIc72Kw/wImtrBJfAjsdjlepgH+aGgimF5Q/vo19GFP3OciIaa7Fj2BjLsywqQRm7qTPq
+	9OQHlWTI887EbKTcdS5D4DUwyJfbgxLRbIVx+wYn/C9rWmbBKAwLOIlQVZQRZAj98dZxJMUBWxG
+	+LPJXt0fK2qZ9RBIefvm4HWeVHGMojGuSaGO54Q+HdYtuBoShA9cwgQKcYtZyNqBFStRIWmSa6K
+	RSWz4eMAa49aJY2ENWQP+sbvW5cXVq3WQqjLZO9zXUcG5ErXBLR+6KGaHMCA5Yfaf1KXliMiJJG
+	ZW+msracqqo/OnsvI=
+X-Received: by 2002:a05:600c:19d4:b0:4b4:49d7:bc25 with SMTP id
+ 5b1f17b1804b1-4b6dfd97b92mr54279315e9.21.1793984079658; Fri, 06 Nov 2026
+ 08:54:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,175 +104,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101092219.1278751-1-skalpesh942@gmail.com> <20261106142421.17793-1-skalpesh942@gmail.com>
-In-Reply-To: <20261106142421.17793-1-skalpesh942@gmail.com>
-From: Willem de Bruijn <willemb@google.com>
-Date: Fri, 6 Nov 2026 11:53:53 -0500
-X-Gm-Features: AclHuK_c_DfsmI33CCc1Uir_OkECB369Wp3N4hEOCBGMuQ9y0dY5VqQSiKnHFFY
-Message-ID: <CA+FuTSfzzoJN+wsVekOWcn18RKKYgp5AqCOpxh4taG=YAOQ9kg@mail.gmail.com>
-Subject: Re: [PATCH net v2] tun: disallow setting IEEE 802.15.4 link types via TUNSETLINK
-To: Kalpesh Solanki <skalpesh942@gmail.com>
-Cc: willemdebruijn.kernel@gmail.com, jasowangio@gmail.com, 
-	alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, linux-wpan@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+References: <20261105-tle493d-v1-0-3246e91e6394@gmail.com> <20261105-tle493d-v1-2-3246e91e6394@gmail.com>
+ <20261106030419.23ca9b26@jic23-hlaptop> <CAFkCdFyi0GD9aWMUZfx=QrZMg1ezjUDCdRr+LTsD0JMMT1DeiA@mail.gmail.com>
+In-Reply-To: <CAFkCdFyi0GD9aWMUZfx=QrZMg1ezjUDCdRr+LTsD0JMMT1DeiA@mail.gmail.com>
+From: Viral Patel <viral8854@gmail.com>
+Date: Fri, 6 Nov 2026 22:24:28 +0530
+X-Gm-Features: AclHuK-KYnr_aQ0yTXhRBn11b3ztP800Zk1SFF5R7aNF7AVjePHX5gpKZEe8GRQ
+Message-ID: <CAFkCdFztjTpXnm00C-TQuW0_GC0Mbm91gAa-JF-fuincgfAZVw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] iio: magnetometer: add Infineon TLE493D-W2B6 driver
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 6, 2026 at 9:32=E2=80=AFAM Kalpesh Solanki <skalpesh942@gmail.c=
-om> wrote:
->
-> A userspace application can set the link type of a TUN/TAP interface
-> to ARPHRD_IEEE802154 or ARPHRD_IEEE802154_MONITOR via ioctl(fd,
-> TUNSETLINK, arg) because tun_get_addr_len() explicitly recognized
-> these types.
->
-> However, TUN devices cannot function as IEEE 802.15.4 radios (they
-> lack wpan_phy, channels, PAN IDs, and MLME operations), and tun
-> never initializes dev->ieee802154_ptr or dev->ml_priv.
->
-> The IEEE 802.15.4 subsystem operates on the invariant that any
-> net_device with dev->type =3D=3D ARPHRD_IEEE802154 is a genuine WPAN devi=
-ce
-> with a valid dev->ieee802154_ptr context. When an unprivileged user
-> creates a TUN interface in a user+net namespace, changes its link type
-> to ARPHRD_IEEE802154, and issues a netlink dump request (such as
-> IEEE802154_LLSEC_LIST_KEY), ieee802154_llsec_dump_table()
-> unconditionally dereferences dev->ieee802154_ptr /
-> ieee802154_mlme_ops(dev), triggering a supervisor null-pointer
-> dereference / general protection fault. Similar dereferences occur
-> across net/ieee802154/nl-phy.c (ieee802154_del_iface) and
-> net/ieee802154/socket.c.
->
-> Rather than scattering NULL checks across every site in net/ieee802154/,
-> fix the issue at the source: validate that arg fits within unsigned short
-> (rejecting arg > USHRT_MAX to prevent upper-bit truncation), disallow
-> setting ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR via TUNSETLINK
-> by returning -EINVAL, and remove these unsupported types from
-> tun_get_addr_len() along with the unused <linux/ieee802154.h> include.
+On Fri, 6 Nov 2026 22:14:42 +0530, Viral Patel viral8854@gmail.com wrote:
 
-I don't think we can do this.
+> The Pi 5 controller doesn't support Quick, so
+> the reset was not exercised in my testing.
 
-TUNSETLINK is a weird quirk. It never intended to fully change the link
-layer. IFF_TAP still only supports Ethernet (calls eth_type_trans).
+Correction: that's true of the mainline DesignWare driver, but the
+Raspberry Pi kernel I tested on advertises I2C_FUNC_SMBUS_QUICK and
+sends zero-length messages as Quick commands, so the reset sequence
+was sent and worked in my testing.
 
-It was added in commit ff4cc3ac93e1 ("[TUNTAP]: Allow setting the linktype
-of the tap device from userspace"), seemingly exactly to be able to process
-other protocols.
-
-Kismet would write captured 802.11 frames into a tap. The device would be
-labelled ARPHRD_IEEE80211* so that tcpdump or wireshark interface would
-see the "right" link type for processing.
-
-> Fixes: cca8ea3b05c9 ("net: tun: set tun->dev->addr_len during TUNSETLINK =
-processing")
-> Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D9ea34da5ca6100593c90
-> Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
-> ---
-> v1 -> v2:
-> - Instead of adding NULL checks in net/ieee802154/nl-mac.c, disallow sett=
-ing
->   ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR link types via TUNSETLI=
-NK in
->   drivers/net/tun.c, as discussed with Andrew Lunn and identified in Sash=
-iko
->   bot review. Virtual IEEE 802.15.4 interfaces are properly provided by
->   mac802154_hwsim and fakelb; TUN devices cannot function as genuine 802.=
-15.4
->   radios and lack private 802.15.4 contexts.
-> - Add an explicit bounds check (arg > USHRT_MAX) to prevent integer trunc=
-ation
->   bypasses when casting 64-bit ioctl arg to 16-bit dev->type.
-> - Remove ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR from tun_get_add=
-r_len()
->   and drop unused <linux/ieee802154.h> header.
->
->  drivers/net/tun.c | 45 ++++++++++++++++++++++++++-------------------
->  1 file changed, 26 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-> index dcec7311e60..f2915e929e3 100644
-> --- a/drivers/net/tun.c
-> +++ b/drivers/net/tun.c
-> @@ -70,7 +70,6 @@
->  #include <linux/bpf.h>
->  #include <linux/bpf_trace.h>
->  #include <linux/mutex.h>
-> -#include <linux/ieee802154.h>
->  #include <uapi/linux/if_ltalk.h>
->  #include <uapi/linux/if_fddi.h>
->  #include <uapi/linux/if_hippi.h>
-> @@ -3183,9 +3182,6 @@ static unsigned char tun_get_addr_len(unsigned shor=
-t type)
->                 return 4;
->         case ARPHRD_ETHER:
->                 return ETH_ALEN;
-> -       case ARPHRD_IEEE802154:
-> -       case ARPHRD_IEEE802154_MONITOR:
-> -               return IEEE802154_EXTENDED_ADDR_LEN;
->         case ARPHRD_PHONET_PIPE:
->         case ARPHRD_PPP:
->         case ARPHRD_NONE:
-> @@ -3362,22 +3358,33 @@ static long __tun_chr_ioctl(struct file *file, un=
-signed int cmd,
->                         netif_info(tun, drv, tun->dev,
->                                    "Linktype set failed because interface=
- is up\n");
->                         ret =3D -EBUSY;
-> -               } else {
-> -                       ret =3D call_netdevice_notifiers(NETDEV_PRE_TYPE_=
-CHANGE,
-> -                                                      tun->dev);
-> -                       ret =3D notifier_to_errno(ret);
-> -                       if (ret) {
-> -                               netif_info(tun, drv, tun->dev,
-> -                                          "Refused to change device type=
-\n");
-> -                               break;
-> -                       }
-> -                       tun->dev->type =3D (int) arg;
-> -                       tun->dev->addr_len =3D tun_get_addr_len(tun->dev-=
->type);
-> -                       netif_info(tun, drv, tun->dev, "linktype set to %=
-d\n",
-> -                                  tun->dev->type);
-> -                       call_netdevice_notifiers(NETDEV_POST_TYPE_CHANGE,
-> -                                                tun->dev);
-> +                       break;
-> +               }
-> +
-> +               if (arg > USHRT_MAX) {
-> +                       ret =3D -EINVAL;
-> +                       break;
-> +               }
-> +
-> +               if (arg =3D=3D ARPHRD_IEEE802154 || arg =3D=3D ARPHRD_IEE=
-E802154_MONITOR) {
-> +                       ret =3D -EINVAL;
-> +                       break;
-> +               }
-> +
-> +               ret =3D call_netdevice_notifiers(NETDEV_PRE_TYPE_CHANGE,
-> +                                              tun->dev);
-> +               ret =3D notifier_to_errno(ret);
-> +               if (ret) {
-> +                       netif_info(tun, drv, tun->dev,
-> +                                  "Refused to change device type\n");
-> +                       break;
->                 }
-> +               tun->dev->type =3D (unsigned short)arg;
-> +               tun->dev->addr_len =3D tun_get_addr_len(tun->dev->type);
-> +               netif_info(tun, drv, tun->dev, "linktype set to %d\n",
-> +                          tun->dev->type);
-> +               call_netdevice_notifiers(NETDEV_POST_TYPE_CHANGE,
-> +                                        tun->dev);
->                 break;
->
->         case TUNSETDEBUG:
-> --
-> 2.53.0
->
->
+Thanks,
+Viral
