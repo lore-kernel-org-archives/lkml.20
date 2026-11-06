@@ -1,70 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974295;
-	b=qy2vLVYt2KkWoLb50Gb6ExYPvIklK6mDbjgFi/Zlz9aAlr9bUXtoGLz6tPyavJzH2WAw
-	 icyi+9y1CvbaZTm4GOV0bRpSw3Z7LlYwL7X/JYWzYJxwEi3HZ5pGUCbiJFF45iIQiK+Fk
-	 BtpplV+w73iFlTu5s3yxatE29ccL+OC5JsL8fCUaLFG2o/cgVkFHHgyLTyat2/ZV/GeKQ
-	 LlW6yrI4JgyIA+Xjl8XCSCAaQlyisoJtc3St9UF8r0Bq83CnG+Eo6rFBQ8vUPAm5yRfiy
-	 2XZBz2ItUlmsWUgpmPoxIW+VIzfEwspBzK88zIj/YwUdTCOE13mJZaoi6HLoZreAnCg==
+	t=1793974359;
+	b=D1ybuN5+ThypufYFcZu5hYbeVvys8kCnpfdIxSXfGGwGPjNpjHdONDNLa1BFLW7eF4Zy
+	 v4bnEeGFcIx6sRYSndYKdN3Zk2OQXG3R0jwXG3vpAlA2VTnaeGBOH3R2K5ItvfWiuG8CY
+	 BxAOksSSbVX6q7BUErutwNqMrLAaUUUv6nE6cQDaO6jqJMPwFr1MwGhNJXmRkpMco1bSb
+	 2SxJegMiyi0tzM+aHtNaLYe5pZgsg9ZH5nbx3xMIyYYjOJbukotxYAeWa7I8I09614EHW
+	 woWKCfDkj115YEr/5s5NI1SlMZCDgCpz1Ow540F7BSZWw6nrgOKN2GFRZ0TmWrGjuIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974295;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=BLPH8onp6C7AoW4lZMqXDExv0D9uGk4L9LfjO8m+oHo=;
-	b=F9eb6Ftw5C5DwPnXpWCmqZuEvgAB/JXvOvH9BkaZmozsSmXQUeKink/ZB4YfBDP8pbzi
-	 Vpcl5dCVsy+BzPPIyryXt32BAf/F6owhLKleTe2SdGWhW0tO573R2i3vahZmeRTdIYdmd
-	 lF3enq2BJIg4cpgeXW4WmfU8G/fmEeYCxnzL3cRH7cX4MWwEL3Qc9dHX9zq8u30eKnP2r
-	 Yw9wIpxYZHeas7aZWZWA4bWGYts037Eku/0CYjTY83JvX9H7DRT105kyT7FWMX0Srs1EB
-	 OaFL7WUrLAB+5zfAq8YPLd77HZWJE1ya2iUH1JnE6HRxBy9aUjZVjRkFLsf93Mdi/xA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974359;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Hy9Nb6PTTUob6aohVhlErbLUpEbw+NLmXu1l6Sjgt7M=;
+	b=B+fnj7ifxfM+DLDnbAvegeQMMHwCvmLDMLOt/zfgQtkPdCVXnePsuHD7qv6Tw6Y4sQc3
+	 098tih5e9PYusuTIh48Y+8sKYSnlTgC+TbAmDvGK6HRSD1cT2NPk3DcdX/3JXDvcdqZTS
+	 ySUC5Ch0ncaB1MFFLUUAm9OSvaL7YHNd78eeywSpMh8orWWh4UebBAeCj08qWTk/GM0tA
+	 VOVunrowsxIz2Ab9sk7JNgiweVl6Sdy3MSR6efnBJ3TYACnva+0ih2hzzOdv3SMxhmZXk
+	 f7kR6c4c2eVnQK3dOEMJJKCuf8z4IwlAyyjg6MwYhlqRfInsYwPCIAizSi96GjMJCVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g2ewZjrC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzH98RjQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D96606A332;
-	Fri,  6 Nov 2026 14:11:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2B3606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:12:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g2ewZjrC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2C2F1F008A3;
-	Fri,  6 Nov 2026 14:11:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzH98RjQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57BBF1F0089F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:12:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974294;
-	bh=BLPH8onp6C7AoW4lZMqXDExv0D9uGk4L9LfjO8m+oHo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=g2ewZjrCHw3WTRPfHVHQxqbS1wA2g3wTh8480oj0lnvKZf5Py0zb7HkGFUGjZ6QSA
-	 RBZ/BrP5GFgfXjKQaVwBIgtyh70yIGqFmj4eNHDJaFS+UrScNolIuIm1Irq/glNT9u
-	 RMDoXxZQVVC2FARzVwO+iCwWeWc9ptgaHE6/yBn88hSeN9ODaTw6HiftZ+zI5VCmSw
-	 G4llq4/bkghvyG2s/hIh6+lM2R0qBGt3H1Mi+CnIcMHeiJUSx23GA0JPC0gbGv+KTT
-	 KZ8ZhjL0UGyyvHaMcFPS0aaWi+hoWsnP7ATmE7NywBYeukjSNn2NrqVIxtLA9oW0aY
-	 RDRxL2XiQij7A==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: David Matlack <dmatlack@google.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush Yadav
- <pratyush@kernel.org>,  kexec@lists.infradead.org,
-  linux-doc@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-kselftest@vger.kernel.org,  linux-mm@kvack.org,  Alexander Graf
- <graf@amazon.com>,  Andrew Morton <akpm@linux-foundation.org>,  Baolin
- Wang <baolin.wang@linux.alibaba.com>,  Christian Brauner
- <brauner@kernel.org>,  David Hildenbrand <david@kernel.org>,  Hugh Dickins
- <hughd@google.com>,  Jonathan Corbet <corbet@lwn.net>,  "Liam R. Howlett"
- <liam@infradead.org>,  Lorenzo Stoakes <ljs@kernel.org>,  Michal Hocko
- <mhocko@suse.com>,  Mike Rapoport <rppt@kernel.org>,  Randy Dunlap
- <rdunlap@infradead.org>,  Samiullah Khawaja <skhawaja@google.com>,  Shuah
- Khan <skhan@linuxfoundation.org>,  Suren Baghdasaryan <surenb@google.com>,
-  Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v3 09/10] mm/shmem_luo: Allow retrieving tmpfs files
- with O_RDONLY
-In-Reply-To: <auuzKNZsPD10XM4q@google.com> (David Matlack's message of "Wed, 4
-	Nov 2026 22:35:20 +0000")
-References: <20261103010216.3447716-1-dmatlack@google.com>
-	<20261103010216.3447716-10-dmatlack@google.com>
-	<2vxz5wyck08d.fsf@kernel.org> <auuJ4msatqzoOrjN@google.com>
-	<auuzKNZsPD10XM4q@google.com>
-Date: Fri, 06 Nov 2026 15:11:29 +0100
-Message-ID: <2vxzse1ehwxa.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	s=k20260515; t=1793974359;
+	bh=Hy9Nb6PTTUob6aohVhlErbLUpEbw+NLmXu1l6Sjgt7M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TzH98RjQsHDOqeXhw7sIiddkbUl76gvevZ2XcY843kQ1SCq5N8euopxVsRxB9TIAe
+	 rwaJf+Rut6RsXnRzA28n5d0Hr4+eMNEjyAnfLRu4UShUUAN/jwWKql4t47hRzpu6DO
+	 Em3hWPDhvGt3eDEUiZv0euYdchAOf1WS15AgvkKqWIt8rUwgFO20KjGBGOyHxT7QeT
+	 T/1dxLzTDMJZ4iJXCwp8JbYF/mKTSaTDlbBWXOI9h/pdSkxpvjI5Bz+CeW5njrLrxr
+	 3L6XLS4cEveqTNRoakjgnBrNH55we73pSdMmq7UjiIHYzhXfsOpan383dscrdzvQxl
+	 /OOvDsNFsoWnw==
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67921b515a7so648323d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:12:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFKY7khSmlMh22psbu+TsRX4QoXEbMuqoCxf0561SvGTX2qDncARd9jjl6MJYIfNgtcS9ufeGhXmTSGnag=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8M1D1IhlUoy6NvxbyRM9Vz8muHjguKL1468DRMXvKeYxDLTqZ0
+	JPeXIUW+dyoHmKt9Yn9SAXhUfdrmxTYU6SPbcN2ns0gIOOtMyhWuSldJw5TEYvgWutL67hH4KLm
+	7SvgZafssJq/kp1Y6vDQcluMC7+4Xt7k=
+X-Received: by 2002:a53:e808:0:b0:67c:11a9:bbfe with SMTP id
+ 956f58d0204a3-67c142c4275mr1111242d50.20.1793974358607; Fri, 06 Nov 2026
+ 06:12:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,54 +59,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261106124553.2617026-4-wahidzk0091@gmail.com> <20261106133110.2659482-1-wahidzk0091@gmail.com>
+In-Reply-To: <20261106133110.2659482-1-wahidzk0091@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 6 Nov 2026 23:12:21 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
+X-Gm-Features: AclHuK_T2DQUMc0OEmrubLWb5yXs7ugphPBK2FPnifKmAkfBBAp1bb89FaW0bos
+Message-ID: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] ntfs: do not convert a named $DATA stream when
+ making room in a record
+To: Wahid Khan <wahidzk0091@gmail.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04 2026, David Matlack wrote:
-
-> On 2026-11-04 02:45 PM, Pasha Tatashin wrote:
->> On 11-04 17:52, Pratyush Yadav wrote:
->> > On Tue, Nov 03 2026, David Matlack wrote:
->> > [...]
->> > 
->> > Can't you put all your binaries in a separate session, retrieve it as
->> > the very first thing, and then finish the session? Then you can execute
->> > those and retrieve all the other sessions.
->> 
->> This is a good workaround. I am not opposed to this patch for 
->> completeness of functionality, but if we decide to keep it, perhaps it 
->> should simply be squashed into an earlier patch. The current diffstat
->> looks bad, as it mostly deletes code that was introduced earlier in this 
->> series.
->> 
->> In any case, given Pratyush's suggestion, we could also drop it.
->> 
->> > 
->> > Why do we need to support this in the kernel?
+On Fri, Nov 6, 2026 at 10:31=E2=80=AFPM Wahid Khan <wahidzk0091@gmail.com> =
+wrote:
 >
-> That would work for binaries, and I agree that use case alone doesn't
-> justify this. But I see O_RDONLY as part of the retrieve interface, not
-> a feature for one use case. The retrieve argument is modeled on
-> openat(), and openat() lets you open an existing file read-only.
+> Hi Namjae,
+Hi Wahid,
 >
-> open(O_TMPFILE) only requires write access because it creates an empty
-> file, and an empty read-only file is useless. A retrieved file isn't
-> empty, it has the preserved contents, so O_RDONLY makes as much sense as
-> it does for any other existing file. Without it, every retrieved file is
-> writable, even when userspace only needs to read it.
+> The Sashiko review of 3/3 also suggests skipping every AT_DATA
+> attribute in this loop, not only the named ones. I'd keep the unnamed
+> case as it is, for three reasons:
 >
-> Preserve already works the same way: a file can be preserved through a
-> read-only fd, as long as the caller has permission to write to it.
+> - Converting the unnamed $DATA from this loop is what the loop already
+>   did before the patch. The patch only stops it from pairing the length
+>   of a named stream with the unnamed inode.
 >
-> If we keep it, I'll squash it into patch 7 in v4, so retrieve supports
-> O_RDONLY from the start. The commit message will lead with the openat()
-> reasoning and keep binaries as just an example.
-
-I'm guessing this all goes away after you do Christian's suggestion? I
-don't think we should be retrieving anything into a file that userspace
-has opened O_RDONLY. Retrieval is in effect a write operation. So
-userspace _has_ to retrieve a file and reopen it O_RDONLY after
-finishing the session.
-
--- 
-Regards,
-Pratyush Yadav
+> - The lock order the review points at (mrec_lock held while
+>   ntfs_attr_make_non_resident() locks folio 0) is the same one used by
+>   the direct conversion near the top of ntfs_resident_attr_resize(),
+>   before the loop. So it is not specific to the loop.
+>
+> - When an EA or a stream grows in a full record, converting the unnamed
+>   $DATA is what frees the space. Skipping all of $DATA would turn those
+>   writes into failures.
+>
+> If you'd rather drop the unnamed case from the loop too, I can send
+> that as a separate patch so the two changes can be judged on their own.
+I think making the lock ordering consistent and using ntfs_attr_iget()
+for named $DATA would be the right approach. Please check it if you
+have the time.
+Thanks for the patches!
