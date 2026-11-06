@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967669;
-	b=NKx12NfqbuzY7EkT/WAtx8v8NjxzeVz5cM0yB4tvCrFE1/FyqUPM0KECAO6Ei+fpAiLt
-	 7ytwwd1XLwTjH4O5ytLXqdm5VR8PrFTxX5ya2Y8zeg702RPISPjPdURFH6Lt3O9iS3AxB
-	 1EB/ggzIN6AhNXyb+0i8WyV10ySHe2m2/wZSHj8L1oQ50BBC6tmt/gouQa9oe2FRQZus1
-	 4ao+eTOgDZjB3hWUUFFimPeylRJWsp0QraUg/+zyKNQh16BWwnC/HF6zh+rZil9kFLMVG
-	 6cdUHO/tykfn6L1lETGm9op+4+qFDWeb+TQwTy5lrZBiEwkZ2dYisnkqp/leCABp4ew==
+	t=1793967691;
+	b=r/vtSutJvzArlG+53h420b8RvqtIwHpjbaCoEeU9lav7ZaQp5UFSfxrePj0Gzjb+JgF7
+	 QSthgdeDwGa2eMF2n40nPwEiNuueWd13AtWa2oxiDvKQB07oRbjiM6WqXq26a/cmvtvnS
+	 EVB4t2hGPvdZZ08cXIsYBalY44OGXwkZCM3Yj8htF33XYNiP1T3b2nV3hWJRMoELRHNhU
+	 A6/ew3Sjrv4febOqlrJ7y2z60G1Yp7TnI3md0Lrji98ceE5vp6OZDR79OpMdpGJeBF//A
+	 eDozJYMV74cPLExhTFKuBrOc0q4htVHE/IrG9IruC0pQsJT8UENQOM+FGOC4GTLGR+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967669;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=T9WNqU5tTs7XaSiMPckeFnvQQmI6WgBjRQiyEOG7jjw=;
-	b=aDty2xeyYuyCvDz7+p9+j51Ht4GBAc1I2+YRSG4CFUYQAIBgmnMbaiHU8Xr6YPvJqe6t
-	 tmkxMUTV/7W3748b2QFGQm4KmXDjD0xw+tzP3zVy0ZGe8mvXgp3jgfeHa2XAljmXWGuip
-	 gnUMr6971e/+nw8tOSNRfD2depuQ3HTTK5qGFKxXweMN4Hp+4UlNywgv5YWdAea41GpmJ
-	 n4tP07QcRJZ0AHuTtZ9+haDR/CU5qrFuCMXrIRyDkPoyWIe46CLQYu2iBcGbigKIAY1YW
-	 WaVKHIvyjK5gmAan81Vn54PWLaFAKCTPmzXSmVrxovoiNGI+jufeHCHchtOOK7u9cFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967691;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cRzTH+yd4d8od9LM7sI2UHx2nrHb7DkZirOlIhvtcmU=;
+	b=cOGRsYFWj5AkxbiNgGVq+ofijt2Pcmc7lDWFkc3zZlXR2tQ65PQIWzFVJvKVgEBviajJ
+	 cjt+aT0ImWznCMEyoMWATUdtbAFawF0hwuIqMoVFjHhxvhiGOEW0+UrD9gXC2yk44SUys
+	 HeUYkAt61RhkBckdRjskw5xNorCau8n9goswhkWGbqoe6JkpkSJjGZ6ME4RLY45cvP93X
+	 Pa2jNAbVV6HSZPbGQDnb+PuAVV2QBMI7AnN9Ohk5fGKQ+6ZXWMsoI7Wwe/OB78lKttVey
+	 9FIFmvZpvOnqDRPRxJa9azRaEqJHIbzFg5V7xMbYkueHWTtGQGCyjZl05V1b/2LAf2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZILsJYw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15272606A326;
-	Fri,  6 Nov 2026 12:21:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15272606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <23f5885b4339800f24ae33fbb782f43da931be10.camel@crapouillou.net>
-Subject: Re: [PATCH] drm/ingenic: Allocate and register the internal bridge
- separately
-From: Paul Cercueil <paul@crapouillou.net>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, Florian Fainelli
-	 <f.fainelli@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Paul Boddie <paul@boddie.org.uk>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, "open list:INGENIC JZ47xx SoCs"	
- <linux-mips@vger.kernel.org>, "open list:DRM DRIVERS"	
- <dri-devel@lists.freedesktop.org>, Discussions about the Letux Kernel	
- <letux-kernel@openphoenux.org>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>
-Date: Fri, 06 Nov 2026 13:21:02 +0100
-In-Reply-To: <5197EDEE-A739-4ADB-A1A9-08B0516735C7@goldelico.com>
-References: <20261105203517.2293404-1-f.fainelli@gmail.com>
-	 <5197EDEE-A739-4ADB-A1A9-08B0516735C7@goldelico.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B4B606A326;
+	Fri,  6 Nov 2026 12:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZILsJYw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F25F1F0089F;
+	Fri,  6 Nov 2026 12:21:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793967691;
+	bh=cRzTH+yd4d8od9LM7sI2UHx2nrHb7DkZirOlIhvtcmU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GZILsJYwu5BayQcmz0opObBE0Ra84AH2emZVoDsYwET5lsnXq/90QfHCKSiuVcyng
+	 QK6GS6TxvENK+/sND0HJk/pISIlyglRaJyq+yYhObAQDtBYNHdEpVa63IlVAN5jN2n
+	 Bl71ZLc1hzVRPjVqVBic13CoXv5zTenBbEqK2e4ETjWnl2nEyM+OP3mMgP/jgfMMhI
+	 gkeW+EK9keSGXtJBvkIbdh35aMPfca1IHC/jAU7w9xnDnPoyviV3mUPcSBB7hkElxv
+	 wte2pRHKe9ddWnUtU/1XJDkCxQk3YddRhQ4Og723Jd8cfqg3VuPHeQIezaf2h/RZEN
+	 Fe1/F8bvxLhzA==
+Date: Fri, 6 Nov 2026 12:21:28 +0000
+From: Harry Yoo <harry@kernel.org>
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>, vbabka@kernel.org, 
+	paulmck@kernel.org, qiang.zhang@linux.dev, akpm@linux-foundation.org, 
+	hao.li@linux.dev, cl@gentwo.org, rientjes@google.com, roman.gushchin@linux.dev, 
+	linux-mm@kvack.org, rcu@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH 2/2] mm/slab: don't queue the page cache work under
+ krcp->lock
+Message-ID: <au3ELzm_s9vhs7UO@thinkstation>
+References: <20261028134647.3176080-1-zhanxusheng1024@gmail.com>
+ <20261028134647.3176080-2-zhanxusheng1024@gmail.com>
+ <au2fUYzBLv3uvj_2@milan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,144 +62,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au2fUYzBLv3uvj_2@milan>
 
-Nikolaus:
-
-Le vendredi 06 novembre 2026 =C3=A0 11:59 +0100, H. Nikolaus Schaller a =C3=
-=A9crit=C2=A0:
-> Hi,
->=20
-> > Am 05.11.2026 um 21:35 schrieb Florian Fainelli <f.fainelli@gmail.com>:
-> >=20
-> > The LCD controller's internal bridge is embedded in an object allocated
-> > with drmm_encoder_alloc(). This initializes the encoder but leaves the
-> > bridge's reference count at zero. Since drm_bridge_attach() takes a
-> > reference, probing the CI20 display produces addition-on-zero and
-> > underflow warnings and fails to attach the HDMI bridge chain.
-> >=20
-> > Allocate the internal bridge with devm_drm_bridge_alloc() and register
-> > it with devm_drm_bridge_add() before attaching it. Keep the encoder in =
-a
-> > separate DRM-managed allocation: encoder cleanup can drop the final
-> > bridge reference before it has finished accessing the encoder. Find
-> > the internal bridge through the encoder's bridge chain during mode
-> > setting, and use the bridge argument directly in bridge callbacks.
-> >=20
-> > Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
-> > drm_bridge_attach/detach()")
-> > Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+On Fri, Nov 06, 2026 at 10:35:13AM +0100, Uladzislau Rezki wrote:
+> On Wed, Oct 28, 2026 at 09:46:47PM +0800, Zhan Xusheng wrote:
+> > From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> > 
+> > run_page_cache_worker() runs under krcp->lock, from kvfree_call_rcu()
+> > callers that may hold more, such as set_cpus_allowed_force() under
+> > pi_lock, so it kicks the refill work from an hrtimer.  Under memory
+> > pressure it instead queues the work with a delay of
+> > rcutree.rcu_delay_page_cache_fill_msec, which may be 0, and a zero delay
+> > queues it at once, taking pool->lock under krcp->lock.
+> > 
+> > With the delay set to 0, calling kvfree_rcu() on vmalloc memory under
+> > pi_lock after a drop_caches makes lockdep report:
+> > 
+> >   Chain exists of:
+> >     &pool->lock --> &p->pi_lock --> krc.lock
+> > 
+> > Use the hrtimer when the delay is 0.
+> > 
+> > Fixes: d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory pressure")
+> > Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 > > ---
-> > drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 +++++++++++++++--------
-> > 1 file changed, 21 insertions(+), 10 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> > b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> > index 625ec76cf04d..520912f9ed0d 100644
-> > --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> > +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> > @@ -121,16 +121,15 @@ struct ingenic_drm {
-> > };
-> >=20
-> > struct ingenic_drm_bridge {
-> > - struct drm_encoder encoder;
-> > struct drm_bridge bridge, *next_bridge;
-> >=20
-> > struct drm_bus_cfg bus_cfg;
-> > };
-> >=20
-> > static inline struct ingenic_drm_bridge *
-> > -to_ingenic_drm_bridge(struct drm_encoder *encoder)
-> > +to_ingenic_drm_bridge(struct drm_bridge *bridge)
-> > {
-> > - return container_of(encoder, struct ingenic_drm_bridge, encoder);
-> > + return container_of(bridge, struct ingenic_drm_bridge, bridge);
-> > }
-> >=20
-> > static inline struct ingenic_drm_private_state *
-> > @@ -738,7 +737,9 @@ static void ingenic_drm_encoder_atomic_mode_set(str=
-uct
-> > drm_encoder *encoder,
-> > {
-> > struct ingenic_drm *priv =3D drm_device_get_priv(encoder->dev);
-> > struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
-> > - struct ingenic_drm_bridge *bridge =3D to_ingenic_drm_bridge(encoder);
-> > + struct drm_bridge *first_bridge __free(drm_bridge_put) =3D
-> > + drm_bridge_chain_get_first_bridge(encoder);
-> > + struct ingenic_drm_bridge *bridge =3D to_ingenic_drm_bridge(first_bri=
-dge);
-> > unsigned int cfg, rgbcfg =3D 0;
-> >=20
-> > priv->panel_is_sharp =3D bridge->bus_cfg.flags & DRM_BUS_FLAG_SHARP_SIG=
-NALS;
-> > @@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct drm_bri=
-dge
-> > *bridge,
-> > =C2=A0=C2=A0=C2=A0 struct drm_encoder *encoder,
-> > =C2=A0=C2=A0=C2=A0 enum drm_bridge_attach_flags flags)
-> > {
-> > - struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(encoder);
-> > + struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
-> >=20
-> > return drm_bridge_attach(encoder, ib->next_bridge,
-> > &ib->bridge, flags);
-> > @@ -811,7 +812,7 @@ static int ingenic_drm_bridge_atomic_check(struct
-> > drm_bridge *bridge,
-> > =C2=A0 struct drm_connector_state *conn_state)
-> > {
-> > struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
-> > - struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge->encod=
-er);
-> > + struct ingenic_drm_bridge *ib =3D to_ingenic_drm_bridge(bridge);
-> >=20
-> > ib->bus_cfg =3D bridge_state->output_bus_cfg;
-> >=20
-> > @@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device *dev,=
- bool
-> > has_components)
-> > drm_panel_put(panel);
-> > }
-> >=20
-> > - ib =3D drmm_encoder_alloc(drm, struct ingenic_drm_bridge, encoder,
-> > - NULL, DRM_MODE_ENCODER_DPI, NULL);
-> > + ib =3D devm_drm_bridge_alloc(dev, struct ingenic_drm_bridge, bridge,
-> > +=C2=A0=C2=A0 &ingenic_drm_bridge_funcs);
-> > if (IS_ERR(ib)) {
-> > ret =3D PTR_ERR(ib);
-> > + dev_err(dev, "Failed to allocate bridge: %d\n", ret);
-> > + goto err_drvdata;
-> > + }
-> > +
-> > + encoder =3D drmm_plain_encoder_alloc(drm, NULL,
-> > +=C2=A0=C2=A0 DRM_MODE_ENCODER_DPI, NULL);
-> > + if (IS_ERR(encoder)) {
-> > + ret =3D PTR_ERR(encoder);
-> > dev_err(dev, "Failed to init encoder: %d\n", ret);
-> > goto err_drvdata;
-> > }
-> >=20
-> > - encoder =3D &ib->encoder;
-> > encoder->possible_crtcs =3D drm_crtc_mask(&priv->crtc);
-> >=20
-> > drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
-> >=20
-> > - ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
-> > ib->next_bridge =3D bridge;
-> >=20
-> > + ret =3D devm_drm_bridge_add(dev, &ib->bridge);
-> > + if (ret)
-> > + goto err_drvdata;
-> > +
-> > ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
-> > DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-> > if (ret) {
-> > --=20
-> > 2.53.0
->=20
-> Works for me on CI20 with HDMI display.
->=20
-> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # CI20 V2a
+> >  mm/slab_common.c | 8 +++++++-
+> >  1 file changed, 7 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/mm/slab_common.c b/mm/slab_common.c
+> > index 3729aa7a6156..ef5ff0a20249 100644
+> > --- a/mm/slab_common.c
+> > +++ b/mm/slab_common.c
+> > @@ -1987,7 +1987,13 @@ run_page_cache_worker(struct kfree_rcu_cpu *krcp)
+> >  
+> >  	if (rcu_scheduler_active == RCU_SCHEDULER_RUNNING &&
+> >  			!atomic_xchg(&krcp->work_in_progress, 1)) {
+> > -		if (atomic_read(&krcp->backoff_page_cache_fill)) {
+> > +		/*
+> > +		 * A zero delay would queue the work right here, under
+> > +		 * krcp->lock and possibly the caller's pi_lock, so let the
+> > +		 * hrtimer do it.
+> > +		 */
+> > +		if (atomic_read(&krcp->backoff_page_cache_fill) &&
+> > +		    rcu_delay_page_cache_fill_msec) {
+> >  			queue_delayed_work(rcu_reclaim_wq,
+> >  				&krcp->page_cache_work,
+> >  					msecs_to_jiffies(rcu_delay_page_cache_fill_msec));
+> > -- 
+> > 2.43.0
+> > 
+> > 
+> Can we just clamp this to 1 - 100 seconds interval?
 
-This patches basically overrides your "[PATCH v6] drm/ingenic: fix bridge
-allocation", correct?
+You mean clamp to [1:100,000] milliseconds interval?
 
--Paul
+> <snip>
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index 7223a7596dab..2c9236236ac9 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -2249,12 +2249,12 @@ void __init kvfree_rcu_init(void)
+>  			WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
+>  	WARN_ON(!rcu_reclaim_wq);
+>  
+> -	/* Clamp it to [0:100] seconds interval. */
+> -	if (rcu_delay_page_cache_fill_msec < 0 ||
+> +	/* Clamp it to [1:100] seconds interval. */
+> +	if (rcu_delay_page_cache_fill_msec <= 0 ||
+>  		rcu_delay_page_cache_fill_msec > 100 * MSEC_PER_SEC) {
+>  
+>  		rcu_delay_page_cache_fill_msec =
+> -			clamp(rcu_delay_page_cache_fill_msec, 0,
+> +			clamp(rcu_delay_page_cache_fill_msec, 1,
+>  				(int) (100 * MSEC_PER_SEC));
+>  
+>  		pr_info("Adjusting rcutree.rcu_delay_page_cache_fill_msec to %d ms.\n",
+> <snip>
+> 
+> so we forbid zero as value to use?
+
+IMO in general we should keep existing behaviour unless we could
+demonstrate setting a delay < 1ms is fundamentally flawed?
+
+-- 
+Cheers,
+Harry / Hyeonggon
