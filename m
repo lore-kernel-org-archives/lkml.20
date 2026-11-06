@@ -1,61 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.21.23.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793926700;
-	b=BkubEA+W3p53rBFx8NL+LoI32sND2H+HnoKxiy0nbYGhcNBJb7oZlyGLveOJGzPkE2lr
-	 f1f4hYLGAhtUyOAFCgoCZiqVOBOJuzaXQ3QCXNK4NW8gkoULT2OiLt2cFDBijBAoW8nD+
-	 GRFlzzSWieQAjn6o84hLinYid9hRLgewILgeLjMuiPUNxEFgfPl1S1FnFnMwFHIUt6n4h
-	 UyZh97LQtoNh0IKaKq0Jfg+VY90WtL7i1Uc123LB0mgSfnbhymd8iKIOX799xSQ+XYoEK
-	 S2V3eMb1dZCo7CDO9KnzFNWCoLNg6h1FwKn9psJI+QqA1w/1i9srshkuGU/PZnlp/Jw==
+	t=1793926743;
+	b=oIxFo0petJSJEfBhMvA5b0PcRyzCVJ3zIl3R891CSte+7pr+XD9yLVUdMyzLL3kYvipi
+	 g+yvsdTcSRdC1d8NqN9H6Ur9FL4TjLzu/74ivtfI75w+U3LBCHjnL2UMuWOp7FalHgvGf
+	 CCpqNBB4M7mgmQKcFGoRfxYM8RXImExsZeZrOG+azrl6aN22nLbz80qinI01m8t6Q7P6w
+	 KVEDeczsTadnZcJq9K8qiQyuOEwx3M9hlByrcrcBHgXbdLXBU5bADxx2YCX1ED2CGkxNO
+	 0uNJUOZEK9VRFsEAlvT+2J+75WftJRDGbSx9GF/kWlzpYnGCa/vXOufIIPe9nQCJppw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793926700;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:X-Patch-Reply:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vjOXYVDqRH2HgoUzugKNvV8yU/Hk2+a8jJ4AiDy3/mo=;
-	b=kjtyAZAJ5Q+tGKvBAojXwJ1f2eL+xaviD18PFhHZ++y/gBCmnIXhMNZKjcKEFRuIQYPj
-	 xgxtx8dVKmwPLfZTo8Uk09vIdFMu/3PTxhL9YUZ2WAto2By928j6NIewbcapyop7D1+RZ
-	 EHMIDEKbcqOnLx4MoloVsp2Bru/m2qq4eWD8eQ8BjsrbqcsXeKvgCKm7L6zhvG8fnngMH
-	 wNxFYzKHv/oV/1/Jw6bkRh0KP7u9ZYE5XbiLOtQISlzG5rojs/XqFyYPwxn8xFQFSi82u
-	 VsGwyt+QkFLXciQIyladU2ZwVTwGfJ5fq0FMd2mqm8uGwQsqKnPl+jLaKhGhOj53x9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793926743;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:Date:MIME-Version:User-Agent;
+	bh=goHBFdJc1I9ikTvKKpUhfylXuKu9IMDZPMyzXqJcLXE=;
+	b=2hRHndfFEHWsIKkqrFwVhOgwHILKgIQbe8QtHCiEc6BiaRNYFpwmKoglTLqdgPBk8EB5
+	 xW6JJ7qU/KmRe5Q1ZLsRVZPIx2KZUOGeEhQxAfOEeaGYq7gbxzEWz2s+o4ksuSmm8liqw
+	 eYHkYhXQeWkSYluKga+iPSrTOdb4VKDNEjPGhrTyk905/eoUNybKPxHsA+95i7naV0StK
+	 XF3NMTf4eQF15shg0+1VFX2AWutlrXguJVDOBCnX2t220XtJk0U74gyzFUKUZiA73fLeX
+	 22ItEw26uV2vpG/5fkbjWxnTMdmCPGlxVfrvgYaqPa5wAHxVxF7TaLwP+xZ1C8uPgWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PsdcK2Nj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=disroot.org;
+	spf=pass smtp.mailfrom=disroot.org;
+	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b="hLcm/KUT";
+	arc=none smtp.remote-ip=178.21.23.139
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04E5606A31B;
-	Fri,  6 Nov 2026 00:58:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A52606A31B;
+	Fri,  6 Nov 2026 00:59:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85A52606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PsdcK2Nj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D714E1F008A5;
-	Fri,  6 Nov 2026 00:58:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793926700;
-	bh=vjOXYVDqRH2HgoUzugKNvV8yU/Hk2+a8jJ4AiDy3/mo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PsdcK2NjqIxUuSprRJR1YX930JwKVBJYJjhMiUN79i/9pCTIA7LP3Na30+GqiJzhs
-	 ruZKnpJ10ha84jILNfzy5F/NjkJFKIMaqIaYIow7F9+RYody5YR8uH9Ypm/WhiJuN5
-	 +AIqGKvVlGp6DFieUb6ql/HQt3RWJxlIyMFtNMnFnTi/q3OkPVCxIvVM4NlM8t6Uqg
-	 I4twseP80qEo5XYgBNxxDMERXHg40cn0zqDkHSJiQOApxtmcAoeiaL0XV0S2dUiCWk
-	 Kl6+CDEGCKhrXizZFfPLQ6jzvErQXUlziFAQTVj56p370eCk/+1qIuJg7ZUHgKm4iv
-	 GKR9DogOA+Rag==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Won Chung <wonchung@google.com>
-Subject: Re: [PATCH] driver core: fix memory leak in physical location error path
-Date: Fri,  6 Nov 2026 01:58:17 +0100
-Message-ID: <20261106005817.1353792-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102083018.1275566-1-johan@kernel.org>
-References: <20261102083018.1275566-1-johan@kernel.org>
-X-Patch-Reply: applied
+	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=hLcm/KUT
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 588C680A47;
+	Fri, 06 Nov 2026 01:59:00 +0100 (CET)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id XY4Jum9Sge5i; Fri,  6 Nov 2026 01:58:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1793926739; bh=goHBFdJc1I9ikTvKKpUhfylXuKu9IMDZPMyzXqJcLXE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=hLcm/KUTmXhQ2QVfnCgFQYStkpwmmGPaQz6OruRIJIoAv189GbkQsXh/jQrER1eTB
+	 KRwSuBXoQws5gVBiJ7zuFhXqdk6pkVa4XHHQdco7gqKCs8uo7IOAKIzv5fpuaogYuH
+	 m/AtA+bA9OtE49IOQaokNqSlBQoGxp741Seo16Ws/BM2pfHfNOF4ie6PO76q89RLyH
+	 GYGF6GNMgwNmvajnUtRE+3I1VU/AsPJENCcW0pKHhfJugWXE6odL6DmGp6uPlKr1w2
+	 AxDGPr2TSSf6YkSxRwbinvdI7DYzQwKW0CHvSIdvN5YK4YkbpZ2KjqkQs6+5c1Os1b
+	 aH8KxuuUwAqeQ==
+Message-ID: <2ed89d0f0114df0dc798dcc7dd1a6a4bd2d1fb7e.camel@disroot.org>
+Subject: Re: [PATCH ath-next v2 0/5] wifi: ath11k: firmware crash recovery
+ fixes
+From: Florian Maurer <fmaurer@disroot.org>
+To: Julius Bairaktaris <julius@bairaktaris.de>
+Cc: Jeff Johnson <jjohnson@kernel.org>, ath11k@lists.infradead.org, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, Baochen Qiang
+	 <baochen.qiang@oss.qualcomm.com>, Vasanthakumar Thiagarajan	
+ <vasanthakumar.thiagarajan@oss.qualcomm.com>, Rameshkumar Sundaram	
+ <rameshkumar.sundaram@oss.qualcomm.com>, P Praneesh	
+ <praneesh.p@oss.qualcomm.com>, Kalle Valo <kvalo@kernel.org>, Muhammad
+ Usama Anjum <usama.anjum@arm.com>, John Crispin <john@phrozen.org>, Sriram
+ R	 <sriram.ramachandran@oss.qualcomm.com>
+In-Reply-To: <20261101164716.302826-1-julius@bairaktaris.de>
+References: <20261018210153.1925962-1-julius@bairaktaris.de>
+	 <20261101131550.1890062-1-fmaurer@disroot.org>
+	 <20261101164716.302826-1-julius@bairaktaris.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 01:58:58 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,22 +78,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.56.2-0+deb13u1 
 
-On Mon,  2 Nov 2026 09:30:18 +0100, Johan Hovold wrote:
-> [PATCH] driver core: fix memory leak in physical location error path
+Hi Julius,
 
-Applied, thanks!
+On Sun, 2026-11-01 at 17:47 +0100, Julius Bairaktaris wrote:
+> I will run your crash 10-20 ms after "is now up" against v3 on my
+> AX3600 and post it with your three patches on top as one series, with
+> your From: and Signed-off-by kept and your Tested-by on my five. Is
+> that fine with you?
+>=20
 
-  Branch: driver-core-testing
-  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
+Yes, sure - thanks! I'll also test this again as needed.
 
-[1/1] driver core: fix memory leak in physical location error path
-      commit: c890943b295b
-
-The patch will appear in the next linux-next integration (typically within 24
-hours on weekdays).
-
-The patch is in the driver-core-testing branch and will be promoted to
-driver-core-next after validation.
+Thanks,
+Florian
