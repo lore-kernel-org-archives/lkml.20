@@ -1,69 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955212;
-	b=QT0zHsbBkIfe9oz0TUXydkgCmLpQeGF5CI5Gr2V/DVACf1AcXy9vb9d/Yu/2ueQHWlRL
-	 qskDnDc6iS4RX6Iyvhs3Yik9QGJdTufYkNjTL57AAtPme+iLp0FudT8S45LmCrr5u9Znp
-	 sBCXACV+i2BWBN7Ijbz0MPSAv6n7Plfgaxxbg3VbDAj94gMNWuATsv43Wjz+Avo6H0lcZ
-	 yK3tp6Vg0EL7TxcNtYWEybiB5iT45gYrX/U/zrCznrtI8MgHxy3/3PJdsKVywVasEaLtZ
-	 VaaM56JtUBnLrwFekc7NA+5QDyHUOAYn13qbPCgZMpFHKwI9rX3wLp8HAAD5lFmq+PQ==
+	t=1793955292;
+	b=UgfcWLOopH25n70osC4UCHaZksOj+tpnIHsUI+Hu7bDhiLf0Zhy/rV/9ZQs8T0XEkAry
+	 j86cqtALv8kALeHloI40Pg80Ot1ksxJASX/D5H8QG8L+OsVVaxS63UA/A4/Pw0iAw2BTD
+	 wvPtrUb+c72jvtamvqZ1F7ykimkU6nmER6nUmKkGWhSRZ75smtfmYGImbOsBbnPEhmCxf
+	 nXr8BKfBimx8hYgdgOaRMZmK6NFKu/0RCiYzZDdLXc/UJPi4UbxEu6Se3E1som7r83lrw
+	 6NsTYutWG7PltQ9aHmmPFzMeq4VkvL8lEjPT4gpFesmuooBt4kmLxq/aAWg25JIRs5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955212;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=McsrHN1OLvADKIlnH9mAKDVt7MK1OnBq7IFPGjbrecM=;
-	b=IWGw3FZdlvZSWuOaAYQ1xaJB5dRpSdcP5kbYNwuOvshmp75stAyH3arCzdtoqKZrxGvY
-	 Q8o7GhBrvX0pL0bdHsCuWKa/JcN/Y3Vy9DkRnMJDQq5dJJdyHfl0TlSxPRembcA8+JF3A
-	 oiCpi/kCu5AQPr0tsEby36C3p2+Oh0zv1rolp3eYm/92Sdk7vOdqVfyY2YzRO0tbCXoeQ
-	 PcD8bnbOZg2cfNcJCHPRLoQdf0ZcUYEBOoY8fwDuwUXVmdPu6KgUOQpjgI8jVL5l+KjXH
-	 dSlHYLJkDq25glqrAPiL807Kn/gnHiNLZYqh+6i3xQdNx7PMZWisc4fb6V5NI0aq5CQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955292;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=UG+Vd2lCqlDemW3CNow5760DJLHqRau7ZSJd7q+P4Rc=;
+	b=J+2fQZ/2ZgJLD0/Lg5EcpG96vh1rsTr/BI71bmzdD2SsYpkkwm5TbbL8mK/3ZOmPg5nn
+	 5TRozRiiuOb4PSqHaOZKHkmX6GMZPZ3z9mMdA02MLZEzX37r64ZeH+Js6hFAra/x2zIr9
+	 dCAToSjf2uG9eQV+ksyP8YO/UUiOvK0bf/w6nwhXDiCE8KIkhmXQQvDuYp97lxZNq2vER
+	 st8cQcHkr1FwrhTL6T8rQ4/813cr30vvVJt9dLhszMcjss2TwhtQIQ6cvAAO34YJZRWwA
+	 qqdO9v6GX6u0CY8rkhc+pfHPkkLx0TQS9RQ5Qg4+esvu7d1LXF3QORpRIsFdeXUUzhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=h8fQ3Sgq;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tcMi8JvE;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F9B606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:53:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47F9B606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A227606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:54:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A227606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=h8fQ3Sgq
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=McsrHN1OLvADKIlnH9mAKDVt7MK1OnBq7IFPGjbrecM=; b=h8fQ3SgqdurAZqrSrpnn4U+7v3
-	XTWWQxACJIOKJsD82+JTNVHh3oLg7ogpG8l8/70/TgefYe88R3RLRhdb2ixGpo9pZqdtwXfT1WjjN
-	bIuJzv9W1941HVf3JUixXYxyuroEwgtZysLbUad61eNS3E+4+rn8pk48xxV/P2aiLbL87QxyBYt5P
-	3qCiUJ1rFy4/xRrj0IAx9pWCh09FdQEPva1IhcCx4qsE2BPfA8QCWmmpgQSgnLUbj4NrZWmJdErsh
-	8i8LfTztVL+JCMybRAtBIyl/WgYK64+WL/r3RNMSnh282DWGluEH34ZXe3OHG6R8oupXuvCCpBuCR
-	wYG/fcSA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPFhK-00000002FyW-088u;
-	Fri, 06 Nov 2026 08:53:22 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E7313300302; Fri, 06 Nov 2026 09:53:20 +0100 (CET)
-Date: Fri, 6 Nov 2026 09:53:20 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, joshdon@google.com,
-	tj@kernel.org, jakub@okonski.org
-Subject: Re: [PATCH 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor
- tg::idle
-Message-ID: <20261106085320.GB1922751@noisy.programming.kicks-ass.net>
-References: <20261105165525.011876858@infradead.org>
- <20261105170157.616859418@infradead.org>
- <auzB7x4lVcFmTVMs@scheduler.schedules>
- <20261106083106.GC1779021@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tcMi8JvE
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793955288; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=UG+Vd2lCqlDemW3CNow5760DJLHqRau7ZSJd7q+P4Rc=;
+	b=tcMi8JvEbiphokvl55U/rQrh5+9ltpLhcg3BFz0fvB57kYbRgHWz65GygWODE+g1g3k6BMbCiggPjNCe0C2d8Bir9EA9BkmnwsTL19P1BUQCyBY+yab7mHsAArACUArsvBEUboxSsxaYGL9g4gfkOaQZYwH588Qb3ix8MGq51d8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XEBGmJx_1793955285;
+Received: from 30.74.144.130(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEBGmJx_1793955285 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 06 Nov 2026 16:54:46 +0800
+Message-ID: <453e2c18-4e79-4db2-b565-1af881925f08@linux.alibaba.com>
+Date: Fri, 6 Nov 2026 16:54:44 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,91 +53,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106083106.GC1779021@noisy.programming.kicks-ass.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio
+ sizes
+To: Barry Song <baohua@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org,
+ david@kernel.org, ljs@kernel.org, riel@surriel.com, liam@infradead.org,
+ vbabka@kernel.org, harry@kernel.org, jannh@google.com, qi.zheng@linux.dev,
+ pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
+ <20261105045406.39871-1-lance.yang@linux.dev>
+ <0ddaf336-7cb7-4e83-af2c-f60d23f7aafd@linux.dev>
+ <f7bd740e-1328-473e-96f5-89658a08d514@linux.alibaba.com>
+ <CAGsJ_4zHtv7hBCaW=wdfiM7yA4OJS7pcFomSo22bEzWHizYAXQ@mail.gmail.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <CAGsJ_4zHtv7hBCaW=wdfiM7yA4OJS7pcFomSo22bEzWHizYAXQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 09:31:06AM +0100, Peter Zijlstra wrote:
-> > > --- a/kernel/sched/fair.c
-> > > +++ b/kernel/sched/fair.c
-> > > @@ -15594,8 +15594,10 @@ static void set_next_task_fair(struct rq
-> > >  		hrtick_start_fair(rq, p);
-> > >  }
-> > >  
-> > > -void init_cfs_rq(struct cfs_rq *cfs_rq)
-> > > +void init_cfs_rq(struct cfs_rq *cfs_rq, struct cfs_rq *parent)
-> > >  {
-> > > +	if (parent)
-> > > +		cfs_rq->idle = parent->idle;
-> > 
-> > AFAICT this creates a race:
+
+
+On 11/6/26 2:24 PM, Barry Song wrote:
+> On Thu, Nov 5, 2026 at 5:00 PM Baolin Wang
+> <baolin.wang@linux.alibaba.com> wrote:
+>>
+>> CC Barry, who added the TTU_SYNC in shrink_folio_list().
+>>
+>> On 11/5/26 1:48 PM, Lance Yang wrote:
+>>>
+>>>
+>>> On 2026/11/5 12:54, Lance Yang wrote:
+>>>>
+>>>> On Thu, Nov 05, 2026 at 10:56:28AM +0800, Baolin Wang wrote:
+>>>>> Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing
+>>>>> mapped
+>>>>> folios"), the '!pmd_present()' check in page_vma_mapped_walk() can
+>>>>> also race
+>>>>> with concurrent page table reclamation via zap_empty_pte_table().
+>>>>
+>>>> Good catch!
+>>>>
+>>>>> page_vma_mapped_walk() is used by many functions including
+>>>>> try_to_unmap(),
+>>>>> try_to_migrate(), folio_mkclean(), pfn_mkclean_range(),
+>>>>> remove_migration_ptes(),
+>>>>> page_mapped_in_vma(), and mapping_wrprotect_range(). Except for
+>>>>> try_to_unmap()
+>>>>> and try_to_migrate(), the other callers do not perform post-walk
+>>>>> accounting
+>>>>> checks, so the race has no observable impact on them.
+>>>>>
+>>>>> For migration, the race can cause unnecessary retries. For reclaim via
+>>>>> try_to_unmap(), the race can cause failure to reclaim a folio that is in
+>>>>> fact already unmapped (as shown below), which may lead to unexpected OOM
+>>>>> or increased refaults.
+>>>>>
+>>>>> CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
+>>>>> --------------------------------    --------------------------------
+>>>>> folio_lock(F)
+>>>>> try_to_unmap(F, TTU_SYNC)
+>>>>>                                      zap_pte_range(full PMD range)
+>>>>>                                        spin_lock(ptl)
+>>>>>                                        clear PTEs
+>>>>>                                        zap_empty_pte_table()
+>>>>>                                          spin_trylock(pml)
+>>>>>                                          pmd_clear()
+>>>>>                                          spin_unlock(pml)
+>>>>>
+>>>>>    page_vma_mapped_walk()
+>>>>>      observe !pmd_present(pmde)
+>>>>>      nr_pages < HPAGE_PMD_NR
+>>>>>      skip synchronization
+>>>>>      return false
+>>>>>
+>>>>> try_to_unmap() returns
+>>>>> folio_mapped(F) == true
+>>>>> nr_unmap_fail += folio_nr_pages(F)
+>>>>>                                      tlb_flush_mmu_tlbonly()
+>>>>>                                      tlb_flush_rmaps()
+>>>>>                                        remove F's rmaps
+>>>>>                                      spin_unlock(ptl)
+>>>>>
+>>>>> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
+>>>>> folios")
+>>>>> has already moved the PMD clear operation (via zap_empty_pte_table()) to
+>>>>> after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs to
+>>>>> use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
+>>>>> issues on weakly ordered CPUs.
+>>>>>
+>>>>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in
+>>>>> madvise(MADV_DONTNEED)")
+>>>>> Cc: stable@vger.kernel.org
+>>>>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+>>>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>>>>> ---
+>>>>> mm/page_vma_mapped.c | 5 +----
+>>>>> 1 file changed, 1 insertion(+), 4 deletions(-)
+>>>>>
+>>>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+>>>>> index e6b6170c2f4f..8797467b6f0c 100644
+>>>>> --- a/mm/page_vma_mapped.c
+>>>>> +++ b/mm/page_vma_mapped.c
+>>>>> @@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct
+>>>>> page_vma_mapped_walk *pvmw)
+>>>>>              spin_unlock(pvmw->ptl);
+>>>>>              pvmw->ptl = NULL;
+>>>>>          } else if (!pmd_present(pmde)) {
+>>>>> -            if ((pvmw->flags & PVMW_SYNC) &&
+>>>>> -                thp_vma_suitable_order(vma, pvmw->address,
+>>>>> -                           PMD_ORDER) &&
+>>>>> -                (pvmw->nr_pages >= HPAGE_PMD_NR))
+>>>>> +            if (pvmw->flags & PVMW_SYNC)
+>>>>
+>>>> Right. Whether the folio can be PMD-mapped doesn't tell us whether its
+>>>> PTE table can be reclaimed, so those extra checks can skip
+>>>> synchronization
+>>>> that the caller explicitly asked for ;)
+>>>
+>>> Ouch ... one thing I missed ... what about order-0 reclaim?
+>>>
+>>> shrink_folio_list() only sets TTU_SYNC for large folio, so can't we still
+>>> hit the same race there?
+>>
+>> Thanks Lance. But this matches the purpose of the TTU_SYNC flag, which
+>> is used to avoid racy checks with PVMW_SYNC. If no TTU_SYNC flag is set,
+>> it means the caller can tolerate some racy checks.
+>>
+>> For this case, I think we should set TTU_SYNC unconditionally in
+>> shrink_folio_list(). Barry, what do you think?
 > 
-> > Or am I missing something?
+> Baolin, thanks for reaching out to me. I added that flag
+> mainly for large folios.
 > 
-> Nah, you're right, this needs rq->lock.
+> I observed cases where PTEs for large folios are partially
+> cleared during certain transition states, for example, when
+> PTEs are cleared before being modified:
+> 
+> pte = ptep_get_and_clear();
+> pte modification;
+> set_pte_at();
+> 
+> In such cases, page_vma_mapped_walk() skips the empty
+> entries and starts from the next valid one.
+> 
+> This may result in partially unmapping PTEs for large folios
+> and trigger unexpected folio splits. At the time, I was
+> particularly concerned about unnecessary folio splitting,
+> so my focus was mainly on large folios.
 
-Something like so..
+Thanks for the information.
 
----
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -8970,7 +8970,7 @@ void __init sched_init(void)
- 		rq->nr_running = 0;
- 		rq->calc_load_active = 0;
- 		rq->calc_load_update = jiffies + LOAD_FREQ;
--		init_cfs_rq(&rq->cfs, NULL);
-+		init_cfs_rq(&rq->cfs);
- 		init_rt_rq(&rq->rt);
- 		init_dl_rq(&rq->dl);
- #ifdef CONFIG_FAIR_GROUP_SCHED
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -15594,10 +15594,8 @@ static void set_next_task_fair(struct rq
- 		hrtick_start_fair(rq, p);
- }
- 
--void init_cfs_rq(struct cfs_rq *cfs_rq, struct cfs_rq *parent)
-+void init_cfs_rq(struct cfs_rq *cfs_rq)
- {
--	if (parent)
--		cfs_rq->idle = parent->idle;
- 	cfs_rq->tasks_timeline = RB_ROOT_CACHED;
- 	cfs_rq->zero_vruntime = (u64)(-(1LL << 20));
- 	raw_spin_lock_init(&cfs_rq->removed.lock);
-@@ -15648,7 +15646,7 @@ int alloc_fair_sched_group(struct task_g
- 			goto err;
- 
- 		se = tg_se(tg, i);
--		init_cfs_rq(cfs_rq, tg_cfs_rq(parent, i));
-+		init_cfs_rq(cfs_rq);
- 		init_tg_cfs_entry(tg, cfs_rq, se, i, tg_se(parent, i));
- 		init_entity_runnable_average(se);
- 	}
-@@ -15661,19 +15659,20 @@ int alloc_fair_sched_group(struct task_g
- 
- void online_fair_sched_group(struct task_group *tg)
- {
--	struct sched_entity *se;
--	struct rq_flags rf;
--	struct rq *rq;
- 	int i;
- 
- 	for_each_possible_cpu(i) {
--		rq = cpu_rq(i);
--		se = tg_se(tg, i);
--		rq_lock_irq(rq, &rf);
-+		struct cfs_rq *cfs_rq = tg_cfs_rq(tg, i);
-+		struct sched_entity *se = tg_se(tg, i);
-+		struct rq *rq = cpu_rq(i);
-+
-+		guard(rq_lock_irq)(rq);
-+
- 		update_rq_clock(rq);
- 		attach_entity_cfs_rq(se);
- 		sync_throttle(tg, i);
--		rq_unlock_irq(rq, &rf);
-+
-+		cfs_rq->idle = tg_cfs_rq(tg->parent, i)->idle;
- 	}
- }
- 
+> However, I also noticed that a similar race can occur with
+> small folios. In that case, the folio may simply remain
+> unreclaimed by the reclamation path.
+> 
+> However, my main concern at the time was avoiding
+> unnecessary folio splits.
+> 
+> Your new race also seems to amplify the same situation.
+> However, I don't think this problem necessarily depends on
+> the commit you mentioned. It has been around for a long time.
+
+Agree.
+
+> If the concern is reclaim failure, I agree that there is no
+> fundamental difference between large folios and small folios.
+
+OK. And I did a quick measurement to reclaim anon and file folios via 
+the memory.reclaim interface.
+
+ From test results, reclaiming 1G small anonymous folios (using zram as 
+swap) shows no significant performance change. However, reclaiming 1G 
+mapped clean small file folios does show an observable regression if the 
+TTU_SYNC flag is set.
+
+Without TTU_SYNC for small folios:
+time echo 1G > /sys/fs/cgroup/test/memory.reclaim
+real	0m0.178s
+user	0m0.000s
+sys	0m0.178s
+
+With TTU_SYNC for small folios:
+real	0m0.315s
+user	0m0.000s
+sys	0m0.314s
+
+So for the current patch, I'd prefer to keep things as is: only sync 
+when TTU_SYNC is set. Without setting the TTU_SYNC flag, keep the 
+original logic, meaning the caller can tolerate some racy checks.
+
+Any other thoughts?
