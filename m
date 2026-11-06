@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945129;
-	b=GkUuI3wxBYdBZ8SIUeY0FRFoJxsGZEtXXggU17nxXuFZQzs4XkVjKzE/dg35kYIxUnfy
-	 ikt9OhQYqVqWI1VJ5l0s0yUhbdgkslM/eD7pOhBd1D+gdJa3hzKX7J0XRUnnhN9xgE1eg
-	 x3qBM2TIdF+URvRjty1ZPdlK3I62DSOvXu8e/ufkaOrDS5wx/KNKEGKEFZJpY6fN8ie8N
-	 92KvvKOzPOwi3ffkwjITIFrwgJ1UoFxU2mjMGQEHi2YQvIpqnrLlS1mbpb8OQQmPhyjVZ
-	 4De3Lt/6UDM6IMcTsNvw2xQCfHs/pg9H8SC2kJldjgBdXHJdT9gKg3TkkAEVQEoxz6g==
+	t=1793945151;
+	b=a1h9YPKu/r7dGUNk62bDftJxgiXjAFkenX2pS4qLSqa6v+RWu39ZQ0+MvYjioNDShrck
+	 WQdGaQx6D5CcZtvJs6/KS41IMpBznpufG+g+SmwxU7ojXdrUH3HckRj1SCI6nkSfFGg2W
+	 6psbjhdLhqnE0TQ9NocxyiN1iMml+4a9BvCWXGN9oUPT9GQ/hv5tZve0vxXrUDuNUAv72
+	 UJuHO+HFj6lE9+V8ral53m7oFpyui3vmAp5KOkl2JAllGCJuV6b9R3fP9X1wOfm8rR65s
+	 X2CBUMjVUCC9W5SGzU6hbZPhkXF9X0371cYwDulfjvSwnEn481Ksvxvu2r6LMJUGDbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945129;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945151;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=5KBUz5itfW2H0npvZHDcjaGSjYLfy+DCPcwOiE7R4cY=;
-	b=E0GcUS7sQ2Vxjtdc3Vw3El7ArGnEKNDPpC8zIDlfKdRCDFgn4LAgkNcoeyZEpBIIZSoo
-	 1Krne4cuFWnj4SHdeeUjGeQQm6mYvKcVKP1fMzFfOget1FMOuVsc/Rw4FqAU8Ar8w02R9
-	 kjf6mv0inVjqwQBo6YVthFcSkDQOPsXzMNeYUgcEXdOciyDafTewsF/j9aEm5i5JTIhUb
-	 9zUmU+ae03+mhSN0a16ku0HvDzrKAZakB9FnBMr5HWnPwJ5+bIXV/8zwDXj5zgXYNck6z
-	 Yt8EbnSnrtQC8fdGELBXSAWXUx/+XbzLoQaxMirUbu7xVi604AyykkhTM7IMWmzpelg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QYzpgT5zWntgfM1mnEHxsXKCCGNOpHFfMxgWgIGdnmY=;
+	b=1inmPEjjoAUPf/oYbwE3yfbafWJbJnxDXZfxmg0+B1Tp26u7u6CcNMtf0ecC1fC6HmRY
+	 NMtsS89gn+a+aWfEegbM6s7/4vIKvle691po2iV/bACbBXTcFx1R7K/+YNhtj34sP3Sd3
+	 qSi9Jb7Vfkc/bldAVQnlGneB36DNg7fm5hqVU6sFe1mQyCVueUwcKIQmQnynUIpcfvUMP
+	 LJDb5vTjm2Ztq5NBeEQtIT4Ox3Km9Z9nsbHPmKX3FgPnLLq5gLZz3eOfVqPjksRdhVk5i
+	 QT6pG9NTU+cJIf38ipiu8p3NjZyYU5KeESDL+08yrTCwXQ80R80Ftk4C/pL5B8kbaJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D5xMsX5Q;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UitchYbS;
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8D1606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:05:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD8D1606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81254606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:05:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81254606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D5xMsX5Q
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-89f639ba307so85302b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 22:05:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UitchYbS
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso102893a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 22:05:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793945128; x=1794549928; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5KBUz5itfW2H0npvZHDcjaGSjYLfy+DCPcwOiE7R4cY=;
-        b=D5xMsX5Q5Y+ELb1XuZwb7AiDoSadX6UgEPUlS5WvNXHL33zjCUzQr0hbNSBgVmOF02
-         98n9gc4/ACh89x4RlkfqkaT0D2rZhfnyFm0Y1roVjJxqiOyTB4aMKuQgn4ShRIB5qaiV
-         ewksZawLdzpD+lSJvqtrRRmHByuk1RoJiHwmE0v4QmHHCxyZJwqbxkAZzSd5Qt/AZpP/
-         XdPXYfVvaZwqmNMlNokEyFPVqEpUBHMqtcw2K6U3khlFwe1Ro01kR1nXeCiQHRbp2Abv
-         s3UUNgbMO6YcxszmjLWASodBHsdSjrFx9K8qHetjhAwIn+DHdN4tfk8Dt99rUCzUPWAS
-         Gemw==
+        d=gmail.com; s=20260707; t=1793945150; x=1794549950; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QYzpgT5zWntgfM1mnEHxsXKCCGNOpHFfMxgWgIGdnmY=;
+        b=UitchYbS6lfBJSDhPoHzzUIm8XiykMpS6zDi9o+dMNbpgt5926amZaAMpeFhdg2PFD
+         Lm3hHkq8Th4Swk9bv78b04vYgmc0bdIcbQ62YAqrEo1Gm/mbjVsr1AoQfLZiG18R6uWl
+         t+2fFaaTHNleC7ZcuWwE2+0+tglJzEL1q5sxYCl16O10mxeaGew2n25PT/VkLLHJmHcs
+         i9VtEEzuUZmJwyAtRLpdfyUHX6veDO67r6HqSKfxuQiY0oQlXJdpBtRzVlVJc3g5JoP3
+         LoB1LzBjEhaecbDDxmELnEnfw2TLFFRTiR2Fh9PN9sJE9ZneWDVC+GAO4VfU7YpQ05es
+         Blfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793945128; x=1794549928;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5KBUz5itfW2H0npvZHDcjaGSjYLfy+DCPcwOiE7R4cY=;
-        b=1Myo1l6lWMtdkYnLXCZ9JPtXGjiIxSm0quuUsRUeZsbtfcLPkbmBIN2YTaAJE6VPbh
-         hVaLDbt1dfQ5NS7r3/117EZABGDmmphjGLBVv41U/sdpf5GOKRHdHW3phSyEorRTf33k
-         7nWo/SrQvpAFgCvO7o0sRHiVb6jOn9fmebSe2A3yAaqa5K31/ZeTR8wiUKdaF2hYgfq5
-         KU/y3/w1X4XNy8ixr/14F8nqNpcCN1ReqkabCztKCB4uIJZDnX0VDcB9luyEd+03PCXj
-         syEgZ32aRoOlnFuhmJiwmsQEocsV3RguUnkWESSdLnAwXVtsPXPgJ9DBHUnTsWud03PP
-         qCGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFJiiaTFns5SC7+xe0tXwOsfVPY7y14ufm9aOjYe7he3SESYrrjkOKfvv9Tb4JNaS49JGp3qyJVR+QtIc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uYOqt/ADp2JFELUmQBt1ubGRklL5wfPwcrFwxtuf+j9fnRhMt
-	pzBEtPhiws4jveooXh7XA42SEhwvhq18lGqLL6zkujmoToVQ/pZERZOMmzr2wwiL1g8=
-X-Gm-Gg: AYBFou1K8gKr6euJ8CpUBgeacqTtIKP+AZNOH94Y9zY+mLhPiCjN6PkWsBBTaI/Zqka
-	Thr5TryWpdqA0XXe2yoOkL8wcWe5P+yTQY3qVDgS2XcDcDBiQz4iKRxIEVsUucPImFFAnDKigYr
-	DbDQ9Z/dXoouNd496+DzL5VS1mlVghSpzFc8s4oooNPwgC/+bBH8SfcsteoncxSGj+e0xfTlBMN
-	cmzZAkEJUkl7EgYk3ZPz41UbjlyI9WlBKgsTjnGe1DL7DflSHnO5Zc+paI7Hv3iA6pvNTbkKZWL
-	456tj2k1Aq8gqAtJ1vllXVqDaMgrl6XxlOblWnaKjwtuWtErF/FZmvEHdYVmAuFN9MzgxvMAGGT
-	rE4mhQ0LuL8w4Ptngnq3N7LpNve3tqRhXzUyXPrJuhrMrTdykNXMnaQP6jtwzU8QJeB9FXgo+Z+
-	GcbQq267eA6NV/J5fuB8w+K0cPHRJ4kij9wJpzTt3DOIOUw4RNuc21GwVFljJPBppVpXcbPunZ/
-	EfTmP7PnGeZSzDe41QjTcdrASIb+AS/2NiPn78HQr80YZiVpZuAH+hF6bPmwW0LO9E9oLqGGTg5
-	OKm6xg/1VLGOE66TiTsdeLw65lLB
-X-Received: by 2002:a05:6a00:4211:b0:87c:e44e:5694 with SMTP id d2e1a72fcca58-8b37ae9cca3mr1380301b3a.21.1793945127925;
-        Thu, 05 Nov 2026 22:05:27 -0800 (PST)
-Received: from macbookair ([150.203.68.27])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3597f0161sm306194b3a.26.2026.11.05.22.05.21
+        d=1e100.net; s=20260707; t=1793945150; x=1794549950;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QYzpgT5zWntgfM1mnEHxsXKCCGNOpHFfMxgWgIGdnmY=;
+        b=UQp8i9yL7n/wm7yvVww/+D/ex6nM+qCeCSWX6gZIsxedqoqtJZMDl+68BkqmPSxDu2
+         vdcRZCknLMVrIfn8Npolv7JNO/QXC1WkivC/KHl5jXtqff/B4/sMjzM/e5unhF2E+Gvj
+         VhR60nV0tj3x+jivMk1BH+TPqMQo7n64aqn0dI2Yer35N4FhcWjPwuSEebOyLXV5rwgE
+         E5XN99PvnUEebMgo83S1QSTR6LizPB9MYKJgQbmF5MHrg86whqcRAWDIFRsX08qpfocr
+         +Xz/+ko859hIrze1EP8Zz2syUnQLlID5hPY+WVZcv1W+VNt/ZMDGaW+U+pZGSEY5Uies
+         mAxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCGX4eItCdsv0bp06J4Fvgzej5e/PvAxyQ20QLB9033scTRvabCq386UKh4SHXzaOYEfPgyQldR93dxkQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80JIT7JpEAfAkSMnLbswH3OwY7e3d0vrE6CBpRGrjgW/BZf9pY
+	dWCySQgn+Qy2+bmpj0sCcEjBrvuNGxuwdauHipyxbL92aNA5zn1oV79F
+X-Gm-Gg: AYBFou02iR6dMpr7JU5maID4MuPbriMy4wBVRraNjVyuH98zsqhiNhMf5bf3e/lrWQj
+	TORhqpZMDqLoiurdJNia6N94w9CCnUyuJiApeVqupY+93SA4TPGzzEMCel87ihnQxOPlxo1J0V+
+	y67ChIdmjHR2QkxDoEjSdOH3loCU4W16q+YNgab2lO/oNeMzE46BXBU9JaEkf8+71VqfNcVBzXM
+	SB/av4yyG+jFEISgJg3QjvRy77jSfhD/ih9ZDv9L3oDEPvFXVG0jGFjxzAUXrq56/gvKnqxWkwL
+	RQBxu1KBt+5p2xrvhAVBU4aVhfgIsmQEMauKXjCYK/OQ3Rr2mQYBdSj19YbrfPxekgxRBbYi1sb
+	ILlacccV5Zkao9sk65FpzQ4UO2JYZfP/yDTX6mAdTTu7wi9S0KLGnDnNTLKWVZdl6K8R3XgiZsi
+	fxZYvvYYP2ma731VlHmJBEAw+0ydpCy8NcrXRqN0BpL6HJbPEJZaufiYUv6m/RhUjsKbJHQiJy0
+	+yHPTobMLqH8AlnbenWugcBj/JBvy+FmSqKUc6+Xq2/ry2Aijy/r8zIz8R1WipymRj6kr8bB4OX
+	EE4OJh3WfhjRKlsRgypzNDEieybUNMpi0nKH1K5yKQ==
+X-Received: by 2002:a05:6a20:9e97:b0:3eb:ace1:4b4a with SMTP id adf61e73a8af0-3ebb2addc3cmr1804269637.71.1793945149791;
+        Thu, 05 Nov 2026 22:05:49 -0800 (PST)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb70661c74sm241209a12.10.2026.11.05.22.05.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 22:05:26 -0800 (PST)
-Date: Fri, 6 Nov 2026 17:05:19 +1100
-From: Myria Sarvay <myrialsarvay@gmail.com>
-To: Andre Eikmeyer <dev@deq.rocks>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
-	sven@kernel.org, j@jannau.net, neal@gompa.dev,
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Yossef Osman <Yossef.Osman@proton.me>,
-	Aditya Garg <aditya.garg@linux.dev>
-Subject: Re: [PATCH v2 1/2] Bluetooth: btbcm: raise ACL priority on Apple
- Broadcom controllers
-Message-ID: <au1uH6uxtsw2vHfP@macbookair>
-References: <20261105085750.120392-1-dev@deq.rocks>
- <20261105085750.120392-2-dev@deq.rocks>
+        Thu, 05 Nov 2026 22:05:49 -0800 (PST)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	akpm@linux-foundation.org
+Cc: david@kernel.org,
+	tj@kernel.org,
+	hongfu.li@linux.dev,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	4ncienth@gmail.com
+Subject: [PATCH v2 RESEND] mm/hugetlb_cgroup: prevent use-after-free during cgroup offlining
+Date: Fri,  6 Nov 2026 15:03:47 +0900
+Message-ID: <20261106060347.637480-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,35 +102,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105085750.120392-2-dev@deq.rocks>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 09:57:49AM +0100, Andre Eikmeyer wrote:
-> On the MacBookPro15,1 (BCM4364B0 over UART) A2DP audio drops out as
-> soon as WLAN runs on 2.4 GHz with traffic. The host keeps the eight ACL
-> buffers of the controller filled, but the controller holds single ACL
-> packets for 160-200 ms, so the sink runs dry.
-> 
-> Sending the Broadcom vendor command 0xfc57 (HCI_BRCM_SET_ACL_PRIORITY,
-> handle and priority, as used by the Android Broadcom vendor library) with
-> priority high for the audio link stops the dropouts. Setting it back to
-> normal brings them back right away. The BCM4377 of the MacBookAir9,1
-> accepts the command as well.
-> 
-> Raise the priority for every BR/EDR ACL link once its Connection Complete
-> event arrives. This covers audio as well as HID links. hci_bcm does this
-> on Apple machines only, hci_bcm4377 always, since it only runs on Apple
-> machines. The PCIe driver receives events in hard interrupt context, so
-> the command is queued from a work item.
-Hi Andre,
+A normal hugetlb charge obtains the current task's hugetlb cgroup with
+css_tryget(), charges its page counter, and drops the CSS reference before
+the folio is committed under hugetlb_lock.
 
-Just wanted to point it out, if you hadn't seen it before, that Sasha
-has in the past sent a different patch [1] to run these priority
-commands. They seem to take a different approach to when to enable/run
-them. Wasn't sure if one was better or worse though.
+The task can be migrated while the allocation is in progress.  If the old
+CSS is then offlined, its final active-folio scan can finish before the
+charge becomes visible.  The allocation can subsequently charge that dying
+CSS and commit its pointer to the folio.  Once the CSS is freed, uncharging
+the folio accesses the freed hugetlb_cgroup, including its page counter and
+per-node usage.
 
-Thanks,
-Myria
+Keep the reference acquired by the charge until commit or cancellation.  At
+commit time, while holding hugetlb_lock, move an uncommitted charge out of
+each dying CSS to the first live ancestor.  The hierarchical charge already
+includes every ancestor, so moving it only requires canceling each dying
+CSS's local count.
 
-[1]: https://lore.kernel.org/asahi/20260525-brcm-prio-v3-1-6259e10233f8@chaosmail.tech/
+This orders commit against the offline active-folio scan: either the scan
+runs after commit and reparents the folio, or commit observes the dying CSS
+after the scan and selects a live ancestor.  The retained reference also
+keeps the originally selected hugetlb_cgroup alive through this decision.
+Reservation charges retain their existing CSS lifetime and are not
+reparented.
+
+On an unmodified v7.3 kernel with a 128-page 2 MiB pool, a
+capability-free uid 1000 allocator racing administrator rmdir reproduced
+KASAN writes to a freed hugetlb_cgroup in three of three boots.  Controller
+disable reproduced the same fault.  With this change, 5,000 rmdir rounds
+with over 1 million successful faults and 2,000 controller-disable rounds
+with over 1.6 million successful faults completed without KASAN, LOCKDEP,
+page-counter, or refcount reports.
+
+AI-assisted source review was used to identify the race and to help draft
+the reproducer and fix.  The interleaving and the resulting allocation,
+free, and use-after-free stacks were verified with tracefs and KASAN.
+
+Fixes: da1def55919f ("hugetlb/cgroup: add support for cgroup removal")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+V2 RESEND:
+- Resend v2 unchanged as a standalone thread for easier tracking, as
+  suggested by Hongfu Li.
+
+V1 -> V2:
+- Remove the redundant disabled-controller check from uncharge, as requested
+  by Andrew Morton.
+
+v2: https://lore.kernel.org/r/20261022022146.506005-1-4ncienth@gmail.com
+v1: https://lore.kernel.org/r/20261020100345.1677643-1-4ncienth@gmail.com
+
+ mm/hugetlb_cgroup.c | 34 ++++++++++++++++++++++++++--------
+ 1 file changed, 26 insertions(+), 8 deletions(-)
+
+diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
+index 3fb41311e4c7dc..6921b185726662 100644
+--- a/mm/hugetlb_cgroup.c
++++ b/mm/hugetlb_cgroup.c
+@@ -310,11 +310,10 @@ static int __hugetlb_cgroup_charge_cgroup(int idx, unsigned long nr_pages,
+ 		css_put(&h_cg->css);
+ 		goto done;
+ 	}
+-	/* Reservations take a reference to the css because they do not get
+-	 * reparented.
++	/*
++	 * Hold the CSS reference until commit. Reservations keep it longer
++	 * because they are not reparented.
+ 	 */
+-	if (!rsvd)
+-		css_put(&h_cg->css);
+ done:
+ 	*ptr = h_cg;
+ 	return ret;
+@@ -337,9 +336,26 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
+ 					   struct hugetlb_cgroup *h_cg,
+ 					   struct folio *folio, bool rsvd)
+ {
++	struct hugetlb_cgroup *charged_h_cg = h_cg;
++
+ 	if (hugetlb_cgroup_disabled() || !h_cg)
+-		return;
++		goto out;
+ 	lockdep_assert_held(&hugetlb_lock);
++
++	/*
++	 * A task can be migrated after selecting h_cg. Once offlining starts,
++	 * redirect the uncommitted charge to a live ancestor. hugetlb_lock
++	 * serializes this decision with the offline scan, which reparents
++	 * earlier commits.
++	 */
++	if (!rsvd) {
++		while (css_is_dying(&h_cg->css)) {
++			page_counter_cancel(&h_cg->hugepage[idx], nr_pages);
++			/* The root CSS never dies. */
++			h_cg = parent_hugetlb_cgroup(h_cg);
++		}
++	}
++
+ 	__set_hugetlb_cgroup(folio, h_cg, rsvd);
+ 	if (!rsvd) {
+ 		unsigned long usage =
+@@ -352,6 +368,9 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
+ 		WRITE_ONCE(h_cg->nodeinfo[folio_nid(folio)]->usage[idx],
+ 			   usage + nr_pages);
+ 	}
++out:
++	if (!rsvd && charged_h_cg)
++		css_put(&charged_h_cg->css);
+ }
+ 
+ void hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
+@@ -419,15 +438,14 @@ static void __hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
+ 					     struct hugetlb_cgroup *h_cg,
+ 					     bool rsvd)
+ {
+-	if (hugetlb_cgroup_disabled() || !h_cg)
++	if (!h_cg)
+ 		return;
+ 
+ 	page_counter_uncharge(__hugetlb_cgroup_counter_from_cgroup(h_cg, idx,
+ 								   rsvd),
+ 			      nr_pages);
+ 
+-	if (rsvd)
+-		css_put(&h_cg->css);
++	css_put(&h_cg->css);
+ }
+ 
+ void hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
