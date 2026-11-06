@@ -1,52 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794025656;
-	b=JJWf4PTQFoJtMKGhPUUDNYGg3lqgwXhsA5T6vNEKYv0yW452hVD+hDhTCWNBuqXoBK9z
-	 Qk1oSuDjutcdNnap2CF1QZw2UjalLgUkQXTI8WVeGukGchRkYmxSWg11fqYs5dLTtLuQv
-	 euBQVbXYNUr+Cjo2mQYEw7USIT/G4Xex837a7wrnlxbS1HxnfeW8q45/LX3d+8HY4CRWX
-	 Tg8UoMRxmsX0z4csaxTOrVoeRt3anazoyqMiitN7xn+NNG6kFNyDggRZWRCW2P2MgjXOH
-	 bQON/3a0zHwWA4TXEGc374Dp6SyuePyfGiNodoN7e/BostEXzl+tam095znhK1Hb3AQ==
+	t=1794025753;
+	b=c3iPOb5anfxZ8TGTd1BJMTk91jMwXBX5uBDiizV3lnDwvpCqCuHBlyflHPAlXHl0LyWN
+	 vXYZo9/HoUtVyWrPb0i0FwMSvehoH6HTh++nha5pjYTcocIrcBXkXtB6amvxrhLfgRagp
+	 WHcVmHZWGVdtb0LP95gIRiRYuOwF6fFbV89oYXLiJimVyZCcOhfO5gb1Cx0hJiW4/AdQG
+	 cQqeKNPosoPUwRpyty9m8NBdGME0klLpXSGPTLLhfz99m/gDrnwWwDL3Na5/jajjNz4Lk
+	 QszjaKqQSoXO4GFZT5lhTnTZ2iYAN5Ai4StseISNIgUFuIM9eL1FhVo7YYxBRsjIU4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794025656;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=rAtQts0/y+DMr20KjfVhJrCziBiGrrN5MWPVuW3jcZ8=;
-	b=FPkisDdkph9JTVSJP8xkxzcHr+EsakW9fbklENqy7x7tuu5CcqubCoy/ON4/wl3p6P6P
-	 VOeFk+zSbQzGdkgIeKTL1loXkotAcNoVZrIozuKVppGBHAaKuwU1guBCWocoTTeSL1zIx
-	 rGePUh4xAunR6NBW0+7g4QNy1tMav36fkyy2WYxdA5gXSZMfk0185pL7+yLesRLnmxJI7
-	 FX3pRokgy3UJmotAGyBs3lCI5Px1MF0MPOZN1uLOeX8zObZnEaHGv1xHwn8Eg81gKO2wg
-	 erJefeNxMDnhnzAov7JZpVH67DxLgrSmGB2xV0p1uLHhHN1A4F6ulQ86sQJrQQlMbrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794025753;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:In-Reply-To:
+	 References:Date:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=iX4UozUO3MlxlRY8rbobS09QzTYf/voPJs4YZBBQplg=;
+	b=CgEfYOJKE/uFoB97NUftgXecaDbqgdN6Mb9XoxpwIAZHeANIsbCJ0adL51t/biT2Ca9V
+	 xQeSDc9VBc8420baSVUfErHS9jQOn+d+U+HT7Mm55wvpFlAWpCnGCzV4bBcWBCzCZ0D6D
+	 JRhMXiDqFxekJsMoN2Kn73gqRYiXBLm3leCrAu0SVryixrj2Pfapyr3hayoXjx8crguDW
+	 TQzwwizT6xpQ0fAchTNiCnGRpYkPTeuIWbdd0JEZWtwxlgyECSPW5/opghYI/w8wS9iHN
+	 rZj5WiE53+nYe6yVetPDWtTqc7HgbDhblw7GaHTunWoS8CMK2OUb2g//0uKtF9FmNZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=shlc24jQ;
+	arc=none smtp.remote-ip=203.205.221.245
+Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E72606A333;
-	Sat,  7 Nov 2026 04:27:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43E72606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADX24yvqO5qbSR5AA--.17892S2;
-	Sat, 07 Nov 2026 12:27:28 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Lee Jones <lee@kernel.org>
-Cc: linusw@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	pavel@kernel.org,
-	vulab@iscas.ac.cn,
-	stable@vger.kernel.org
-Subject: [PATCH v2] leds: netxbig: Fix platform device reference leak on successful probe
-Date: Sat,  7 Nov 2026 12:27:37 +0800
-Message-Id: <20261107042737.708109-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260922160323.GB3438784@google.com>
-References: <20260922160323.GB3438784@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771B3606A326;
+	Sat,  7 Nov 2026 04:29:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 771B3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=shlc24jQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794025743; bh=iX4UozUO3MlxlRY8rbobS09QzTYf/voPJs4YZBBQplg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=shlc24jQJ74+lIJeryVOU3Ie4wZZa93jFmqZaAcH2LIpeuTo1G8vkx4L6hVHT3cX3
+	 wL5Ku3/ISAVoG5Rus/iGgpSVL3B5H4jsx30ikHv03OZVjmYid6refOjJI7mrABvXD6
+	 q5FeRFAzJJUENxnBwJ08l8NRx9nww8+0lCeRymyA=
+Received: from [172.18.4.77] ([202.113.185.209])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 7411C4AF; Sat, 07 Nov 2026 12:29:01 +0800
+X-QQ-mid: xmsmtpt1794025741tbj3z0pz6
+Message-ID: <tencent_64A24695F85844F5A5227DB38C503A219B0A@qq.com>
+X-QQ-XMAILINFO: OdpilHhB3Diu2r6R4FAx8c2RirsIeTm5JbdNmOK7nBwz0WY/VumI1MvGEw0FG2
+	 ogEgiRKlib/BThli9MIVJbUQ7UNuJ6ON7Zs7C31Td1Y1rjWyLvmdDBoXv/+PbTznfn8E4C8Gimkh
+	 zW23l2yU7hdfda6Gsc6GKoizcI5ml1YwNFVAJgp6nHPX2w3CMlcQRqvjmoj5Db7ANX1H3gRuwRlb
+	 7s7g2Y1nZpHsvTwAdPc+Xcwr+nhrsmJ47K5fMoEm0+7M1XnNbyHbf3/u8y7ze23bnRswBboF3xwr
+	 +dd3/qI/g81GAzPI+HKoK9d9iEUsT9MyaY626SdQWWSXIM7z8fACyMZJVOfgp41KKXCdhxEx8k8K
+	 OBCtItnwlK7ISuhAUbfS1l33XOK7/0NoPPR7RsBCl2QtoPwxi11C/YYdDFqwjt46tAi6NJKOWOt+
+	 SFxT0L8WVrt8kZFwptgUGVmwzCrTmrgKl9Of/tplR47/Kg+WyRr71M8Rd8/+69FxL/SxOKOF2vj+
+	 nln10/A/MhAurVkCJxNOU6tEdFbBI7VZM50AAzfg2/FhfThx1mcI8/NkIFTYSbPMFQVfG6vMVvdE
+	 /ZsgeaFTD3lERGAkECJ7kg3NRRIeMGT75lEOxiGoJvm367HwB8lM4qiagbBX3U7TsjVh+5MKfr41
+	 ODKyZB5CvtZSpYjxtYfyHvLzBOVtzeKD9flN2nOsigtNltjGjAiPZyNGjAvRJx3EQ7OvApXFOjAh
+	 jHlZBOctFNWBrF/NwPwu8WXEgNPbcc5eX/vbqBhqOdr9PWks32lANlHE3ES5rl7qpo1kAkY4eGPM
+	 sAvItfKsbJ/H2qEzY5BbC2qLUbCIxhqiEOxMBH6KYxql4ILyBlCqJhkh5qghReU4DsNdiNhDMu0+
+	 BWiZ/v5tikGq0DdSLYKgsEf9yBusrPKXgDG4/rwU3CYOp84q+4z39x4KBADn9y2WvKLZvnBFGdky
+	 SemNPvk8tkxaoeDTTnoy4e3F92lyeFRr5cP1uVqh42QXO/Txq452PzgbVszYfTNyk/DRlTUdK6R7
+	 nVM2G2siFp6Yk2blcc7cONAzACkZnW4udyfQ5cPUMwjEgSEeFEExtXlCiVRWE=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: Guikun Yang <yangguikun19@qq.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: ntfs3: two out-of-bounds reads in $LogFile replay (restart page
+ resize, restart table offset)
+X-OQ-MSGID: <c26c27-ntfs3-logfile-more-20261106@qq.com>
+In-Reply-To: <c21c25-ntfs3-logfile-oob-20261106@qq.com>
+References: <c21c25-ntfs3-logfile-oob-20261106@qq.com>
+Date: Fri, 06 Nov 2026 23:30:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,198 +80,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADX24yvqO5qbSR5AA--.17892S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZr1Uuw4Uur4DGFWxZFyfXrb_yoWruF15p3
-	y5Cas0gFW8GFyIgF1kZa1UAFyUCr1IyayfKF1vkF9293WSvryFqFy0qF1YqFZYkFykZrW3
-	JF4rta1rJFWDZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvm1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcV
-	Aq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
-	6r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IY
-	c2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
-	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnU
-	UI43ZEXa7VUbLiSJUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEEA2rucYJjogAAs3
 
-of_find_device_by_node() returns the GPIO extension device with an
-elevated reference count.  The error paths release it through the
-put_device label, but the success path returns directly, so the
-reference is leaked whenever the LED driver probes successfully.
+Hi,
 
-Release the reference right after its last use and remove the put_device
-label and the gotos leading to it.
+Two more in the same path while re-checking it - one OOB read, one OOB
+write. Same forged-logfile setup as before, mainline 2026-11-06
+unchanged.
 
-Fixes: 9af512e81964 ("leds: netxbig: Convert to use GPIO descriptors")
-Suggested-by: Lee Jones <lee@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
- - Release the reference right after its last use and remove the put_device
-   label and the gotos, as suggested.
- - Apologies for the very late reply. 
- drivers/leds/leds-netxbig.c | 74 ++++++++++++++-----------------------
- 1 file changed, 27 insertions(+), 47 deletions(-)
+## 3. Undo pass indexes the open-attribute table without the bound the
+   redo pass has
 
-diff --git a/drivers/leds/leds-netxbig.c b/drivers/leds/leds-netxbig.c
-index 99df46f2d9f5..3a0456eae2c3 100644
---- a/drivers/leds/leds-netxbig.c
-+++ b/drivers/leds/leds-netxbig.c
-@@ -462,41 +462,36 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 	gpio_ext_dev = &gpio_ext_pdev->dev;
- 
- 	gpio_ext = devm_kzalloc(dev, sizeof(*gpio_ext), GFP_KERNEL);
--	if (!gpio_ext) {
--		of_node_put(gpio_ext_np);
-+	if (!gpio_ext)
- 		ret = -ENOMEM;
--		goto put_device;
--	}
--	ret = netxbig_gpio_ext_get(dev, gpio_ext_dev, gpio_ext);
-+	else
-+		ret = netxbig_gpio_ext_get(dev, gpio_ext_dev, gpio_ext);
-+
- 	of_node_put(gpio_ext_np);
-+	put_device(gpio_ext_dev);
- 	if (ret)
--		goto put_device;
-+		return ret;
-+
- 	pdata->gpio_ext = gpio_ext;
- 
- 	/* Timers (optional) */
- 	ret = of_property_count_u32_elems(np, "timers");
- 	if (ret > 0) {
--		if (ret % 3) {
--			ret = -EINVAL;
--			goto put_device;
--		}
-+		if (ret % 3)
-+			return -EINVAL;
- 
- 		num_timers = ret / 3;
- 		timers = devm_kcalloc(dev, num_timers, sizeof(*timers),
- 				      GFP_KERNEL);
--		if (!timers) {
--			ret = -ENOMEM;
--			goto put_device;
--		}
-+		if (!timers)
-+			return -ENOMEM;
- 		for (i = 0; i < num_timers; i++) {
- 			u32 tmp;
- 
- 			of_property_read_u32_index(np, "timers", 3 * i,
- 						   &timers[i].mode);
--			if (timers[i].mode >= NETXBIG_LED_MODE_NUM) {
--				ret = -EINVAL;
--				goto put_device;
--			}
-+			if (timers[i].mode >= NETXBIG_LED_MODE_NUM)
-+				return -EINVAL;
- 			of_property_read_u32_index(np, "timers",
- 						   3 * i + 1, &tmp);
- 			timers[i].delay_on = tmp;
-@@ -512,15 +507,12 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 	num_leds = of_get_available_child_count(np);
- 	if (!num_leds) {
- 		dev_err(dev, "No LED subnodes found in DT\n");
--		ret = -ENODEV;
--		goto put_device;
-+		return -ENODEV;
- 	}
- 
- 	leds = devm_kcalloc(dev, num_leds, sizeof(*leds), GFP_KERNEL);
--	if (!leds) {
--		ret = -ENOMEM;
--		goto put_device;
--	}
-+	if (!leds)
-+		return -ENOMEM;
- 
- 	led = leds;
- 	for_each_available_child_of_node_scoped(np, child) {
-@@ -531,40 +523,34 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 		ret = of_property_read_u32(child, "mode-addr",
- 					   &led->mode_addr);
- 		if (ret)
--			goto put_device;
-+			return ret;
- 
- 		ret = of_property_read_u32(child, "bright-addr",
- 					   &led->bright_addr);
- 		if (ret)
--			goto put_device;
-+			return ret;
- 
- 		ret = of_property_read_u32(child, "max-brightness",
- 					   &led->bright_max);
- 		if (ret)
--			goto put_device;
-+			return ret;
- 
- 		mode_val =
- 			devm_kcalloc(dev,
- 				     NETXBIG_LED_MODE_NUM, sizeof(*mode_val),
- 				     GFP_KERNEL);
--		if (!mode_val) {
--			ret = -ENOMEM;
--			goto put_device;
--		}
-+		if (!mode_val)
-+			return -ENOMEM;
- 
- 		for (i = 0; i < NETXBIG_LED_MODE_NUM; i++)
- 			mode_val[i] = NETXBIG_LED_INVALID_MODE;
- 
- 		ret = of_property_count_u32_elems(child, "mode-val");
--		if (ret < 0 || ret % 2) {
--			ret = -EINVAL;
--			goto put_device;
--		}
-+		if (ret < 0 || ret % 2)
-+			return -EINVAL;
- 		num_modes = ret / 2;
--		if (num_modes > NETXBIG_LED_MODE_NUM) {
--			ret = -EINVAL;
--			goto put_device;
--		}
-+		if (num_modes > NETXBIG_LED_MODE_NUM)
-+			return -EINVAL;
- 
- 		for (i = 0; i < num_modes; i++) {
- 			int mode;
-@@ -574,10 +560,8 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 						   "mode-val", 2 * i, &mode);
- 			of_property_read_u32_index(child,
- 						   "mode-val", 2 * i + 1, &val);
--			if (mode >= NETXBIG_LED_MODE_NUM) {
--				ret = -EINVAL;
--				goto put_device;
--			}
-+			if (mode >= NETXBIG_LED_MODE_NUM)
-+				return -EINVAL;
- 			mode_val[mode] = val;
- 		}
- 		led->mode_val = mode_val;
-@@ -598,10 +582,6 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 	pdata->num_leds = num_leds;
- 
- 	return 0;
--
--put_device:
--	put_device(gpio_ext_dev);
--	return ret;
- }
- 
- static const struct of_device_id of_netxbig_leds_match[] = {
--- 
-2.25.1
+The redo pass bounds target_attr (fs/ntfs3/fslog.c:5105):
+
+  t16 = le16_to_cpu(lrh->target_attr);
+  if (t16 >= bytes_per_rt(oatbl)) {
+          err = -EINVAL;
+          goto out;
+  }
+  oe = Add2Ptr(oatbl, t16);
+
+The undo pass does not (fslog.c:5251):
+
+  oe = Add2Ptr(oatbl, le16_to_cpu(lrh->target_attr));
+  oa = oe->ptr;
+
+check_log_rec() only validates target_attr when lcns_follow != 0, so a
+record with undo_op != Noop, lcns_follow = 0 and target_attr beyond
+the open-attribute table reaches oe->ptr outside the table:
+
+  BUG: KASAN: slab-out-of-bounds in log_replay+0xafda/0xf580
+  Read of size 8 ... located 104 bytes to the right of allocated
+  344-byte region (kmalloc-512)
+  Allocated by: init_rsttbl -> log_replay
+
+In our run the table is 0x158 bytes and target_attr = 0x1A0.
+
+Suggested fix: mirror the redo-pass check in the undo pass.
+
+## 4. Dirty page table size underflow in the analysis pass ->
+   OOB write via copy_lcns()
+
+The number of lcns per dirty-page entry is computed differently in
+two places. The version-0 conversion has a guard (fslog.c:4357):
+
+  t16 = le16_to_cpu(dptbl->size);
+  if (t16 < sizeof(struct DIR_PAGE_ENTRY)) { ... goto out; }
+  t32 = (t16 - sizeof(struct DIR_PAGE_ENTRY)) / sizeof(u64);
+
+The analysis pass does the same subtraction without the guard
+(fslog.c:4666):
+
+  if (dptbl) {
+          t32 = (le16_to_cpu(dptbl->size) -
+                 sizeof(struct DIR_PAGE_ENTRY)) / sizeof(u64);
+  }
+
+dptbl->size is an on-disk u16. A table header of size = 0x10, total = 0
+passes check_rstbl() (rsize nonzero, no allocated entries) and
+check_dp_table() (nothing to enumerate). The unsigned subtraction then
+wraps, and copy_lcns() copies lrh->lcns_follow = 0x60 entries into
+dp->page_lcns[] of a table that extend_rsttbl() allocated for the
+bogus per-entry size - the 29th entry writes past the end:
+
+  BUG: KASAN: slab-out-of-bounds in log_replay+0x8b01/0xf580
+  Write of size 8 ... located 0 bytes to the right of allocated
+  280-byte region (kmalloc-512)
+  Allocated by: extend_rsttbl -> log_replay
+
+This is an OOB write, unlike the three reads reported so far.
+
+Suggested fix: apply the same t16 < sizeof(struct DIR_PAGE_ENTRY)
+guard (or reject size < sizeof(struct DIR_PAGE_ENTRY) in
+check_rstbl()/check_dp_table() itself, which covers both sites).
+
+## Context
+
+Both reproduce 3/3 with panic_on_warn=1, mount(2) alone, clean image
+mounts fine as control. The forged volume is the same one used for
+reports 1 and 2 - each of the four findings differs from the last by
+one field of one log record.
+
+Four different missing-bound mechanisms are now known on this replay
+path: buffer resizing (report 1), unbounded in-record offset (report
+2), redo/undo asymmetry (3) and the version-0/analysis asymmetry plus
+underflow (4). Given the pattern, a systematic pass over the remaining
+offsets in log_replay() may be more effective than fixing these one by
+one - happy to test any patch.
+
+Both sites are unchanged in mainline as of 2026-11-06.
+
+Thanks,
+Guikun Yang
 
