@@ -1,88 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973761;
-	b=CJw22DVT+qMIeU2Sw6Lf/2w/1VU4frxY4oNkYtTbs6B9QE07Qo9Bg1u0zVpfU5J1QPB4
-	 5YQwPQbH+qyEPUMffxrpD9HhWo+Gp3Nk9d/KvGxMmyhUbIJC+B83iHaUiba7fWwhAGSXQ
-	 h5TXQD/cdfPvg1Q6AOxegkasqAlO5R9J4n6ZkbWeuMU3GpayUf9GZXOJsN1/3ZBVKauus
-	 H0jRz8WiVB13MaBXMcVX1avuCQGE9SKqmdp2vR1LjTOBQnbBBMjqFoXzpZM2LRGIOO/8E
-	 s10nEGXYC4WF93GMRpaszzxfo7jKTK7qDhk4CHxrT/L7wfyZjEXM1G+4KDidt6lOI1Q==
+	t=1793973777;
+	b=WsZqSQnoKGx60UxtndezasHtp+cIntQMxGRf12hIuCCAXZo4JD0WRrWJvoJ7mRlW7ByB
+	 6dMSBhMCpLUrPQrkkBgIYn8g8GYOvXB+zkpf8G2xtiznF0WKQBF0X5U7Ksg6iPnOC5Z37
+	 Lp10skSKWivni2NKcaTbmM3HB1X8gE4eaqAn7Ak54ocxSIACkY7tiNotu100ZIf3RjaIK
+	 MZSrTPLa6Id0u6uSUuyjcihygjD+JYK6589/ZhvC0EwR1S63SKrnXeMsY3aF0tZCA58Wl
+	 eXwexaswxhXZ3TPeZqFcu2Xj/eGG7yS+3S3Y2rD+osgg5CBF8esV6h8z0P2MjDc58Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973761;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973777;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=N5yrhr43s9PBw8/9aJgZ66lOjzGo86Es81MCcpqW2oE=;
-	b=NfDXmD2GwHB3oqKgWPEDn9HBnk3ELbFRH9cmJigcZJ4lX2BTuWb7cUkKYsHt1Oynl5Rj
-	 kpcMIyQNmHYPw6jju1QVZToBf4WAlNL6IT7iHGFUW6wg+IU+AMJUxku2BoBy7pGi5rQeH
-	 4rcPIeDlWHgOCHpxlrffNHaNrXHcnEmxAfyHy4zaTXbIofMCq3Vox9lRXQnbKDsTt8xjQ
-	 SRQPxbbKAduQR87lukQxQawvzqBjTF0qwAaL0TYM5ng/or46dblbA4WfRg+tmuk2mXOhj
-	 DFq5DKhDvJAOBr9335LBy6wLp28/fVGm+VCvj5aZi7q7elD16a0ARWViV9voyfKxYEg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mEgL0gkNdxC67fiPUJ6BbKjfka4sqNTfVjccvIe0kTw=;
+	b=iz/64FeUZ6SgVRUYscHHFW8mGCrnUC3u9W5D2O0QF2y2bgC/zHYziqt8gjg9GQ8/g76t
+	 0G/rIIzv+whUWRzND5o4zrSguthz5IhrP6nMmH52GGhfSD9zwnCDxSPgcG8Kjdx1cE/Tt
+	 wKZPSA3GF79cS5kMkwbv8sBPD3OxQCjDLSZAj8PNahFFtvGsbKUHPp4/MjHyUzl/dFhvs
+	 EZKM1bnvNR32E/T20KM1Cy49W7Nq4ZzoWfY9LrvluxPYdXFo0GvmGcXsjI+vn6NeDjoQg
+	 oDrwPTW7gYJ6VZo4ud/XBhBmbog3aTNZpu38U+7Ic+ICsEPYdoEtXsTyueZeUbw3Imw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=op+B56y1;
-	arc=none smtp.remote-ip=209.85.128.172
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ouzDy6FP;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221CE6082BE4
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:02:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 221CE6082BE4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F97606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:02:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54F97606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=op+B56y1
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b0cf2c0785so4985637b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:02:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ouzDy6FP
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso34875e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:02:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793973759; x=1794578559; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N5yrhr43s9PBw8/9aJgZ66lOjzGo86Es81MCcpqW2oE=;
-        b=op+B56y1Ei2OhEcPyLuoK58o88/nSdEVJ5Zfv3atw6wOxRdB6FIkvbNCgEbSVkkqF2
-         AsT9mtZuSC7spdEizP88kbUZJNwfn1toNczWp41UPwcMwf5KoK7+7BD/iY+cZ+2NTQ5B
-         ithkrgOqXdSObLZdcEgl5pUE90/a8rMQVVa4CXLrVyMpCYbwcMU3Uk/lOflir79nvwfm
-         fw6AtTG5pOKXX0M5Td+i2F5gmcLraVZHOcdGgK+oipI8pbo0Mcde8iOSdGcgLQETcumV
-         /V//fsAwXIl1S9/I1HVz7sgzQECxajJ7ofLYqVdWZS3RGemrMO8P0kbwFZlmgHXXlRtc
-         +P/g==
+        d=google.com; s=20260707; t=1793973776; x=1794578576; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mEgL0gkNdxC67fiPUJ6BbKjfka4sqNTfVjccvIe0kTw=;
+        b=ouzDy6FPW3tNNwKJxvAodqJrvJ12cwoBT+TJGg1nDZT6yggqkMRLFPgjHUlcLfR34M
+         gm8VcADPZyBtg1lzlJC843lqSIHUbPiTpGzt0qQUhtommV73GgEcprHoKuwwPqnZAMSH
+         GWd30DzkCIT5VpXYJxpZYUsAVaf/nrX84B54FRRgLsUWl6JuVashRsUrlctLhi8P7kCD
+         qZ8ydjF4PNHR4lVPNfiu7fBD0+xwp8Dn4WK5FvfUO28qwMKThcb8BovmGqbB5G2SKG3s
+         53UgAflV0ew9CFOX968SP4cPj94GUKaqxkBSg9NEGI4K22wRfUJIml9CbtgK5FeYrT72
+         fuNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793973759; x=1794578559;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793973776; x=1794578576;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=N5yrhr43s9PBw8/9aJgZ66lOjzGo86Es81MCcpqW2oE=;
-        b=Vu028+6ZNi+ykoEZ1dyKl+FntOIH1mueNw03suSiagI+8Csqc7wtlXRZjeBg6+Vdvn
-         0hCH5N+au4nrHp1o40KVn0Y7UfJBqBNg3YM4sxhBdncA5fXPLCmZ/JVoEuvhHo/D9O47
-         S187GFiUfNUeVnO7aOo6M+tVBCB3Y5/F2qvvVNkIKQYin51buImFw6eeqTKIrScawCaH
-         3iRtsBZPCVtmTyIhTPdFM0oaElcqq+HALfoKrkvcKrEh5AshKRjUFmAlbBwuiOHrphHE
-         miH+Lf2q0icPp86NW4k4H90Ty5Ufpcwd+pxIQjA0HSwvjAC1+o1eQBJ9aiDMAvZ2WDad
-         Dkcw==
-X-Forwarded-Encrypted: i=1; AL+hErGLvlpgeF8Ur+rml+b0oKmO4ATWl85PeNlUNMs9FU1t57RnhXTVeDSZRLdfIsDEW5HLxgc6wl//m58YYz0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+x1x8vK+2wHSzTS8UmWsV6n0UFqXub4VvaSHpSBKAmmP+TahJH
-	Q+5xQh71bvnmkv+kORNYbA5osXR4khB/6Pnmqly+R6HilnG+A/f8LWkz
-X-Gm-Gg: AYBFou3aed9ielGmV+D1KfP4/sFUUK3AFJGMeow7tVqVmplFuKnT/CJ0+WHZFwVONQj
-	ycuzAUdT7oyMaDNSJwBCmdrR5XmMKueQSjOvYAic9SiXqrj1/1o/o12jFaYJPoxb+vUnnzglQWm
-	K6Y561zs7/nr4xchuvrnRpNXdERwuldRsVcKrQQNSe7WL3P1CVHRqSCGlRLSB36uWT4VL7N6FaQ
-	M0iAa8NpMvD+o+Fwb2X1FEUwMWLwk+X3MvTnYRCKH6nFAr0zPcLPcfp/k3zI+7LmcLlphu2YPBs
-	0OUzctgP7Iu2sni89JR69+kDdNF1JU5mWi8vEGoMwHA4P6A8xtIAJSVTmLkLDoVbLwVBckQXVR6
-	H0Lv2tNcJD/ANGbSlOoJ0GK7b1N5QlUXlBgkSOeYy6VO6qdvbvP6s6rqNPbPViGWy+y/YHYCVUK
-	YlvF40B11a/lcJk700WtFBiDazBOs44PntHyo1E4n0I4pVUxEr74OR5sTXq/k1+j3v+OjERY99m
-	YsAM+hK8UEhbddQ5KHFeu5e3yM+CNx3ECzHnuIpLo6rdtrmmER7IrV9ItGrjtmvAgseM6wHeWBE
-	oXFiFgTsi/LJjlXsFPad5gshuYzqRWEJQCutLAV6F4A1xOGDeecTrbOrF4d3wOzVUwYhHFdoJU/
-	7J14qVqDy/sMn7NkyC+rl67bvmTA4MFFJjwgN4vmkJ+0nqDUvKZun7TYhNqiY
-X-Received: by 2002:a05:690c:c1c2:b0:8b0:e07c:a9b6 with SMTP id 00721157ae682-8b341b301a4mr9135947b3.103.1793973758826;
-        Fri, 06 Nov 2026 06:02:38 -0800 (PST)
-Received: from lab01.myowncloud.network ([2601:cb:4000:1c5:5396:7ba1:d08a:ebca])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f5f525fsm19090677b3.5.2026.11.06.06.02.37
+        bh=mEgL0gkNdxC67fiPUJ6BbKjfka4sqNTfVjccvIe0kTw=;
+        b=mj/fxy1ogZ5Al2mnFO3qQdurAztLLmyT128mjWpSTo6YbNo0j2HEtoiDvbXTNsBULI
+         aBpeH7NImzop/AomKvXqF+3Jvv3TmpyOiD1x99hmM9GTYLLlA46SiAuGPHKR7OplWk2x
+         BrGTmDNbOrfxbcwE+lyIfQT8hB3Eh5nFQaO+yfTcALFoWUtLzYeQSB5c/ZB8GDQAAfKW
+         OWS0Y0W4HGSUgHvi+I3Uultt4x6ZZGUssUGRZbHciKF0oFqtSrB4/1nHu3fNfkkTHcdv
+         XA0+35qGCFVaaSu7UysRBTvj1CohdmVxUxYz9XpndpX1qCnTJO6VlN4terHn1/x59xV0
+         cBpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxt6I/vIJtbbS5+37ULsvpI/dDSiiyHMHjBPHJjiE+podtNY3eRIGC3TuTrfIJTr7M8xGzzttiMR7tEhzc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8cVEK/ZE0Oo1IT+iF0VhdN76qaaH/L+XxpWHCpVgwpwM5MEnq
+	Vep+XibNoPAm/w0PabxGpnr7ZKuV37NLPbvclPYrspltJ72nyuCBnjWvxLmQG7ejyQ==
+X-Gm-Gg: AYBFou0lV4AZMhJFn6nJe8ulvOboytkeg+CxYhN/uR8gSc5gnL3LZ9Uux3aY8K5aaKV
+	xjWGaD+7Rr+iHkSGmztZaPensQ+y9J4YAUQ3Uw6+FYfKmCsZDcWUDlurh9TOATVSSc0rE7dKB+m
+	bC+oKE9ltmjZlBWGkDIcu4kBVLD56ocmzsBIAhXzTW7E/sRr2NoxtyB5hkCOfiq/cZAaroAJS4M
+	XMBKJ28nFh9DUoCuN4FARlnktLYbvcFkW7WfJ+yTAsfF0ko6LtPTm4QbbNWEG53usrU0jjjN7y5
+	L8dvpFoUdNm74yg/cELG5AXDS5IzhbzrpBjWr4rcPDTmamJco2/qVTh6PhwfDYe9VMfPUQu+kHq
+	aBcMNNDufJB4Mhg7lA5woBbU5RBSwkYy86Rbkc6jPDlgcyEuc1jr89zJZeUbnKdVeWrVav49np9
+	RSLVmkXcSXba/Lssq2CpcBd8o56wpqMpGHtOGWEpn0x2hti8ABq5ktSw1ANYq2Tr2ikWQHKnw5A
+	j/GERJ+8g4UodAwFilDGMm8yb3VpY9R2++VQrJsll6yru7xv7HluXdhwmR78VjTg4TlfneojeEg
+	b8PY4dW80TmQIiuJzSyh+Rs/lslRex+AX9XFtFP95NFPrwU=
+X-Received: by 2002:a05:600c:8a17:10b0:4aa:7270:60f with SMTP id 5b1f17b1804b1-4b743f9f46fmr464815e9.1.1793973775119;
+        Fri, 06 Nov 2026 06:02:55 -0800 (PST)
+Received: from google.com ([35.189.193.160])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d3d609b1sm3724515f8f.8.2026.11.06.06.02.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 06:02:38 -0800 (PST)
-From: Amit Patole <amit.patole@gmail.com>
-Date: Fri, 06 Nov 2026 09:02:33 -0500
-Subject: [PATCH 2/2] lib/tests: add KUnit tests for genalloc
+        Fri, 06 Nov 2026 06:02:54 -0800 (PST)
+Date: Fri, 6 Nov 2026 14:02:40 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: xuheng@cs.columbia.edu, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] KVM: arm64: Compute hyp early-allocation and pool
+ sizes in 64 bits
+Message-ID: <au3eALuLVKZ1WXhp@google.com>
+References: <20261105-hyp-pool-and-map-v2-0-44a6ca90190b@cs.columbia.edu>
+ <20261105-hyp-pool-and-map-v2-1-44a6ca90190b@cs.columbia.edu>
+ <CA+EHjTxXpA6sCrSmwRJBA=YKGfNP4zs-THhheRHTaq2BfYY-Lw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,613 +108,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-kunit-genalloc-v1-2-ba1ea397dfd8@gmail.com>
-References: <20261106-kunit-genalloc-v1-0-ba1ea397dfd8@gmail.com>
-In-Reply-To: <20261106-kunit-genalloc-v1-0-ba1ea397dfd8@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Fredrik Noring <noring@nocrew.org>
-Cc: Christoph Hellwig <hch@lst.de>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Rae Moar <raemoar63@gmail.com>, linux-kselftest@vger.kernel.org, 
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
- Amit Patole <amit.patole@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTxXpA6sCrSmwRJBA=YKGfNP4zs-THhheRHTaq2BfYY-Lw@mail.gmail.com>
 
-lib/genalloc.c is the allocator that drivers use for on-chip SRAM,
-IRAM and other special memory (i.MX SDMA, CODA, Tegra BPMP, s390 CIO,
-USB local memory and others), but it has no unit tests.
+On Fri, Nov 06, 2026 at 11:31:57AM +0000, Fuad Tabba wrote:
+> Hi Xuheng,
+> 
+> On Thu, 05 Nov 2026 22:59:48 +0000, Xuheng Li <xuheng@cs.columbia.edu> wrote:
+> > hyp_early_alloc_contig() and hyp_pool_init() both take a page count as
+> > an unsigned int and compute the size in bytes as nr_pages << PAGE_SHIFT
+> > in 32 bits.  For 4 GiB or more (nr_pages >= 2^20 with 4 KiB pages) the
+> > shift overflows.
+> 
+> Mostafa (Cc'd) posted a fix for the same truncation in July [1],
+> widening the parameters to unsigned long instead. Would you be OK
+> picking up his patch for v3, keeping him as the author and your
+> description and tags?
+> 
 
-Add a KUnit suite that covers:
+I was preparing v3 anyway, I can post it today.
 
-- gen_pool_size(), gen_pool_avail() and gen_pool_has_addr();
-- allocation and freeing, rounding to the allocation granule, zero
-  and oversized requests, and an exact fit;
-- the first fit, best fit (including the tie-break between equal
-  holes), first fit aligned, first fit order aligned and fixed
-  offset algorithms, and gen_pool_set_algo(pool, NULL, NULL);
-- aligned allocation from a chunk that does not start on the
-  alignment boundary;
-- pools with several chunks, gen_pool_virt_to_phys() and
-  gen_pool_for_each_chunk();
-- chunk owners;
-- the DMA helpers, including zeroing, alignment and a NULL pool;
-- devm_gen_pool_create() and gen_pool_get() with named and unnamed
-  pools on a KUnit device.
+Thanks,
+Mostafa
 
-gen_pool_destroy() BUGs on outstanding allocations, so the cleanup
-clears the chunk bitmaps first, and allocation results that are freed
-later are checked with assertions; a failing test then fails cleanly
-instead of crashing the kernel.
-
-An AI coding assistant (Claude Opus 5.5) was used to draft the tests.
-They were run with "tools/testing/kunit/kunit.py run" on UML (12/12
-pass), built with W=1 without warnings, and checked against
-deliberately broken versions of gen_pool_best_fit(),
-gen_pool_first_fit_align() and the accounting in gen_pool_free_owner(),
-each of which makes one test fail.
-
-Signed-off-by: Amit Patole <amit.patole@gmail.com>
----
- lib/Kconfig.debug          |  15 ++
- lib/tests/Makefile         |   1 +
- lib/tests/genalloc_kunit.c | 508 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 524 insertions(+)
-
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 2d22638ec13a..c66c3711e68c 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -3558,6 +3558,21 @@ config PRIME_NUMBERS_KUNIT_TEST
- 
- 	  If unsure, say N
- 
-+config GENALLOC_KUNIT_TEST
-+	tristate "KUnit test for the general purpose allocator" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	select GENERIC_ALLOCATOR
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This option enables the KUnit test suite for lib/genalloc.c, the
-+	  allocator drivers use to manage on-chip SRAM and other special
-+	  memory regions. The tests cover allocation and freeing, the
-+	  first fit, best fit, aligned, order aligned and fixed offset
-+	  algorithms, multiple chunks, virtual to physical translation,
-+	  the DMA helpers and the device-managed pools.
-+
-+	  If unsure, say N.
-+
- config GLOB_KUNIT_TEST
- 	tristate "Glob matching test" if !KUNIT_ALL_TESTS
- 	depends on GLOB
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index df0537e1b91f..f17e4241e148 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -23,6 +23,7 @@ CFLAGS_fortify_kunit.o += $(DISABLE_STRUCTLEAK_PLUGIN)
- obj-$(CONFIG_FORTIFY_KUNIT_TEST) += fortify_kunit.o
- CFLAGS_test_fprobe.o += $(CC_FLAGS_FTRACE)
- obj-$(CONFIG_FPROBE_SANITY_TEST) += test_fprobe.o
-+obj-$(CONFIG_GENALLOC_KUNIT_TEST) += genalloc_kunit.o
- obj-$(CONFIG_GLOB_KUNIT_TEST) += glob_kunit.o
- obj-$(CONFIG_HASHTABLE_KUNIT_TEST) += hashtable_test.o
- obj-$(CONFIG_HASH_KUNIT_TEST) += test_hash.o
-diff --git a/lib/tests/genalloc_kunit.c b/lib/tests/genalloc_kunit.c
-new file mode 100644
-index 000000000000..09b1bde9cf43
---- /dev/null
-+++ b/lib/tests/genalloc_kunit.c
-@@ -0,0 +1,508 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit tests for the general purpose allocator in lib/genalloc.c
-+ */
-+
-+#include <kunit/device.h>
-+#include <kunit/test.h>
-+#include <linux/bitmap.h>
-+#include <linux/err.h>
-+#include <linux/genalloc.h>
-+#include <linux/module.h>
-+#include <linux/numa.h>
-+#include <linux/string.h>
-+
-+/* Allocation granule used by most tests: 16 bytes. */
-+#define GP_ORDER	4
-+#define GP_UNIT		BIT(GP_ORDER)
-+#define GP_CHUNK	1024
-+
-+static void gp_clear_chunk(struct gen_pool *pool, struct gen_pool_chunk *chunk,
-+			   void *data)
-+{
-+	size_t size = chunk->end_addr - chunk->start_addr + 1;
-+
-+	bitmap_zero(chunk->bits, size >> pool->min_alloc_order);
-+}
-+
-+/*
-+ * gen_pool_destroy() BUGs on outstanding allocations. Clear them first so
-+ * that a test which fails half way does not take the whole run down.
-+ */
-+static void gp_destroy(void *data)
-+{
-+	struct gen_pool *pool = data;
-+
-+	gen_pool_for_each_chunk(pool, gp_clear_chunk, NULL);
-+	gen_pool_destroy(pool);
-+}
-+
-+static struct gen_pool *gp_create(struct kunit *test, int order)
-+{
-+	struct gen_pool *pool = gen_pool_create(order, NUMA_NO_NODE);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, pool);
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, gp_destroy, pool),
-+			0);
-+	return pool;
-+}
-+
-+/* Backing memory for a chunk, aligned to @size (a power of two). */
-+static unsigned long gp_mem(struct kunit *test, size_t size)
-+{
-+	void *mem = kunit_kzalloc(test, size, GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, mem);
-+	return (unsigned long)mem;
-+}
-+
-+static void genalloc_size_avail_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long base = gp_mem(test, GP_CHUNK);
-+
-+	KUNIT_EXPECT_EQ(test, gen_pool_size(pool), 0);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), 0);
-+	KUNIT_EXPECT_EQ(test, gen_pool_alloc(pool, GP_UNIT), 0);
-+
-+	KUNIT_ASSERT_EQ(test, gen_pool_add(pool, base, GP_CHUNK, NUMA_NO_NODE),
-+			0);
-+	KUNIT_EXPECT_EQ(test, gen_pool_size(pool), GP_CHUNK);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK);
-+
-+	KUNIT_EXPECT_TRUE(test, gen_pool_has_addr(pool, base, GP_CHUNK));
-+	KUNIT_EXPECT_TRUE(test, gen_pool_has_addr(pool, base + GP_CHUNK - 1, 1));
-+	KUNIT_EXPECT_FALSE(test, gen_pool_has_addr(pool, base + GP_CHUNK - 4, 8));
-+	KUNIT_EXPECT_FALSE(test, gen_pool_has_addr(pool, base + GP_CHUNK, 1));
-+	KUNIT_EXPECT_FALSE(test, gen_pool_has_addr(pool, base - 1, 2));
-+}
-+
-+static void genalloc_alloc_free_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long base = gp_mem(test, GP_CHUNK);
-+	unsigned long a, b, c;
-+
-+	KUNIT_ASSERT_EQ(test, gen_pool_add(pool, base, GP_CHUNK, NUMA_NO_NODE),
-+			0);
-+
-+	/* A zero-sized request fails. */
-+	KUNIT_EXPECT_EQ(test, gen_pool_alloc(pool, 0), 0);
-+
-+	a = gen_pool_alloc(pool, GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, a, base);
-+
-+	/* Sizes are rounded up to whole granules. */
-+	b = gen_pool_alloc(pool, 1);
-+	KUNIT_ASSERT_EQ(test, b, base + GP_UNIT);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK - 2 * GP_UNIT);
-+
-+	c = gen_pool_alloc(pool, GP_UNIT + 1);
-+	KUNIT_ASSERT_EQ(test, c, base + 2 * GP_UNIT);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK - 4 * GP_UNIT);
-+
-+	/* The pool size never changes. */
-+	KUNIT_EXPECT_EQ(test, gen_pool_size(pool), GP_CHUNK);
-+
-+	/* Freeing with the size used to allocate returns the whole granules. */
-+	gen_pool_free(pool, b, 1);
-+	gen_pool_free(pool, c, GP_UNIT + 1);
-+	gen_pool_free(pool, a, GP_UNIT);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK);
-+
-+	/* Too large a request fails; an exact fit succeeds. */
-+	KUNIT_EXPECT_EQ(test, gen_pool_alloc(pool, GP_CHUNK + 1), 0);
-+	a = gen_pool_alloc(pool, GP_CHUNK);
-+	KUNIT_ASSERT_EQ(test, a, base);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), 0);
-+	KUNIT_EXPECT_EQ(test, gen_pool_alloc(pool, 1), 0);
-+	gen_pool_free(pool, a, GP_CHUNK);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK);
-+}
-+
-+static void genalloc_first_fit_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long base = gp_mem(test, GP_CHUNK);
-+	unsigned long a, b, c, d;
-+
-+	KUNIT_ASSERT_EQ(test, gen_pool_add(pool, base, GP_CHUNK, NUMA_NO_NODE),
-+			0);
-+
-+	a = gen_pool_alloc(pool, 4 * GP_UNIT);
-+	b = gen_pool_alloc(pool, 4 * GP_UNIT);
-+	c = gen_pool_alloc(pool, 4 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, a, base);
-+	KUNIT_ASSERT_EQ(test, b, base + 4 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, c, base + 8 * GP_UNIT);
-+
-+	/* A hole left by a free is reused by the next request that fits. */
-+	gen_pool_free(pool, b, 4 * GP_UNIT);
-+	d = gen_pool_alloc(pool, 2 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, d, b);
-+
-+	/* A request too large for the hole goes after the last allocation. */
-+	b = gen_pool_alloc(pool, 3 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, b, base + 12 * GP_UNIT);
-+
-+	gen_pool_free(pool, a, 4 * GP_UNIT);
-+	gen_pool_free(pool, b, 3 * GP_UNIT);
-+	gen_pool_free(pool, c, 4 * GP_UNIT);
-+	gen_pool_free(pool, d, 2 * GP_UNIT);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK);
-+}
-+
-+static void genalloc_best_fit_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long base = gp_mem(test, GP_CHUNK);
-+	unsigned long big, sep, small, rest, addr;
-+	size_t rest_size = GP_CHUNK - 14 * GP_UNIT;
-+
-+	KUNIT_ASSERT_EQ(test, gen_pool_add(pool, base, GP_CHUNK, NUMA_NO_NODE),
-+			0);
-+
-+	/* Leave an 8 granule hole at the start and a 2 granule hole later. */
-+	big = gen_pool_alloc(pool, 8 * GP_UNIT);
-+	sep = gen_pool_alloc(pool, 4 * GP_UNIT);
-+	small = gen_pool_alloc(pool, 2 * GP_UNIT);
-+	rest = gen_pool_alloc(pool, rest_size);
-+	KUNIT_ASSERT_EQ(test, small, base + 12 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, rest, base + 14 * GP_UNIT);
-+	gen_pool_free(pool, big, 8 * GP_UNIT);
-+	gen_pool_free(pool, small, 2 * GP_UNIT);
-+
-+	/* First fit takes the first hole... */
-+	addr = gen_pool_alloc(pool, 2 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, addr, big);
-+	gen_pool_free(pool, addr, 2 * GP_UNIT);
-+
-+	/* ...best fit takes the smallest hole that is large enough. */
-+	gen_pool_set_algo(pool, gen_pool_best_fit, NULL);
-+	addr = gen_pool_alloc(pool, 2 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, addr, small);
-+
-+	/* With that hole used, best fit falls back to the larger one. */
-+	KUNIT_ASSERT_EQ(test, gen_pool_alloc(pool, GP_UNIT), big);
-+
-+	gen_pool_free(pool, addr, 2 * GP_UNIT);
-+	gen_pool_free(pool, big, GP_UNIT);
-+
-+	/*
-+	 * Of two equally good holes, best fit takes the first. Free the
-+	 * separator so granules 0-13 are free, then carve them into two
-+	 * three granule holes (0-2 and 4-6) with allocations in between.
-+	 */
-+	gen_pool_free(pool, sep, 4 * GP_UNIT);
-+	big = gen_pool_alloc(pool, 3 * GP_UNIT);
-+	sep = gen_pool_alloc(pool, GP_UNIT);
-+	small = gen_pool_alloc(pool, 3 * GP_UNIT);
-+	addr = gen_pool_alloc(pool, 7 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, big, base);
-+	KUNIT_ASSERT_EQ(test, sep, base + 3 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, small, base + 4 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, addr, base + 7 * GP_UNIT);
-+	gen_pool_free(pool, big, 3 * GP_UNIT);
-+	gen_pool_free(pool, small, 3 * GP_UNIT);
-+
-+	small = gen_pool_alloc(pool, 2 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, small, base);
-+
-+	gen_pool_free(pool, small, 2 * GP_UNIT);
-+	gen_pool_free(pool, sep, GP_UNIT);
-+	gen_pool_free(pool, addr, 7 * GP_UNIT);
-+	gen_pool_free(pool, rest, rest_size);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK);
-+
-+	/* Setting a NULL algorithm restores first fit. */
-+	gen_pool_set_algo(pool, NULL, NULL);
-+	KUNIT_EXPECT_TRUE(test, pool->algo == gen_pool_first_fit);
-+}
-+
-+static void genalloc_first_fit_align_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long mem = gp_mem(test, 2 * GP_CHUNK);
-+	/* A chunk that starts one granule past a 256 byte boundary. */
-+	unsigned long base = mem + GP_UNIT;
-+	struct genpool_data_align align = { .align = 256 };
-+	unsigned long a, b;
-+
-+	KUNIT_ASSERT_EQ(test, mem & 255, 0);
-+	KUNIT_ASSERT_EQ(test, gen_pool_add(pool, base, GP_CHUNK, NUMA_NO_NODE),
-+			0);
-+
-+	/* Alignment is of the address, not of the offset in the chunk. */
-+	a = gen_pool_alloc_algo(pool, GP_UNIT, gen_pool_first_fit_align,
-+				&align);
-+	KUNIT_ASSERT_EQ(test, a, mem + 256);
-+
-+	b = gen_pool_alloc_algo(pool, GP_UNIT, gen_pool_first_fit_align,
-+				&align);
-+	KUNIT_ASSERT_EQ(test, b, mem + 512);
-+
-+	/* The space skipped for alignment is still free for plain requests. */
-+	KUNIT_ASSERT_EQ(test, gen_pool_alloc(pool, GP_UNIT), base);
-+
-+	gen_pool_free(pool, a, GP_UNIT);
-+	gen_pool_free(pool, b, GP_UNIT);
-+	gen_pool_free(pool, base, GP_UNIT);
-+}
-+
-+static void genalloc_order_align_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long base = gp_mem(test, GP_CHUNK);
-+	unsigned long a, b, c;
-+
-+	KUNIT_ASSERT_EQ(test, gen_pool_add(pool, base, GP_CHUNK, NUMA_NO_NODE),
-+			0);
-+	gen_pool_set_algo(pool, gen_pool_first_fit_order_align, NULL);
-+
-+	a = gen_pool_alloc(pool, GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, a, base);
-+
-+	/* Three granules round up to an alignment of four granules. */
-+	b = gen_pool_alloc(pool, 3 * GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, b, base + 4 * GP_UNIT);
-+
-+	/* A single granule needs no alignment and fills the first gap. */
-+	c = gen_pool_alloc(pool, GP_UNIT);
-+	KUNIT_ASSERT_EQ(test, c, base + GP_UNIT);
-+
-+	gen_pool_free(pool, a, GP_UNIT);
-+	gen_pool_free(pool, b, 3 * GP_UNIT);
-+	gen_pool_free(pool, c, GP_UNIT);
-+}
-+
-+static void genalloc_fixed_alloc_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long base = gp_mem(test, GP_CHUNK);
-+	struct genpool_data_fixed fixed = { .offset = 8 * GP_UNIT };
-+	unsigned long a;
-+
-+	KUNIT_ASSERT_EQ(test, gen_pool_add(pool, base, GP_CHUNK, NUMA_NO_NODE),
-+			0);
-+
-+	a = gen_pool_alloc_algo(pool, 2 * GP_UNIT, gen_pool_fixed_alloc, &fixed);
-+	KUNIT_ASSERT_EQ(test, a, base + 8 * GP_UNIT);
-+
-+	/* The same offset cannot be handed out twice... */
-+	KUNIT_EXPECT_EQ(test, gen_pool_alloc_algo(pool, GP_UNIT,
-+						  gen_pool_fixed_alloc, &fixed),
-+			0);
-+
-+	/* ...nor an offset whose range overlaps it. */
-+	fixed.offset = 7 * GP_UNIT;
-+	KUNIT_EXPECT_EQ(test, gen_pool_alloc_algo(pool, 2 * GP_UNIT,
-+						  gen_pool_fixed_alloc, &fixed),
-+			0);
-+
-+	/* An offset just before it, that fits, works. */
-+	KUNIT_ASSERT_EQ(test, gen_pool_alloc_algo(pool, GP_UNIT,
-+						  gen_pool_fixed_alloc, &fixed),
-+			base + 7 * GP_UNIT);
-+
-+	gen_pool_free(pool, a, 2 * GP_UNIT);
-+	gen_pool_free(pool, base + 7 * GP_UNIT, GP_UNIT);
-+}
-+
-+static void genalloc_chunks_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long m1 = gp_mem(test, GP_CHUNK);
-+	unsigned long m2 = gp_mem(test, GP_CHUNK / 4);
-+	const phys_addr_t p1 = 0x100000, p2 = 0x200000;
-+	unsigned long a;
-+
-+	KUNIT_ASSERT_EQ(test, gen_pool_add_virt(pool, m1, p1, GP_CHUNK,
-+						NUMA_NO_NODE), 0);
-+	KUNIT_ASSERT_EQ(test, gen_pool_add_virt(pool, m2, p2, GP_CHUNK / 4,
-+						NUMA_NO_NODE), 0);
-+
-+	KUNIT_EXPECT_EQ(test, gen_pool_size(pool), GP_CHUNK + GP_CHUNK / 4);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK + GP_CHUNK / 4);
-+
-+	KUNIT_EXPECT_EQ(test, gen_pool_virt_to_phys(pool, m1), p1);
-+	KUNIT_EXPECT_EQ(test, gen_pool_virt_to_phys(pool, m1 + 100), p1 + 100);
-+	KUNIT_EXPECT_EQ(test, gen_pool_virt_to_phys(pool, m2 + GP_CHUNK / 4 - 1),
-+			p2 + GP_CHUNK / 4 - 1);
-+	KUNIT_EXPECT_EQ(test, gen_pool_virt_to_phys(pool, m2 + GP_CHUNK / 4),
-+			(phys_addr_t)-1);
-+
-+	/* A request that only fits in the larger chunk is served from it. */
-+	a = gen_pool_alloc(pool, GP_CHUNK / 2);
-+	KUNIT_ASSERT_EQ(test, a, m1);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK / 2 + GP_CHUNK / 4);
-+
-+	KUNIT_EXPECT_TRUE(test, gen_pool_has_addr(pool, m2, GP_CHUNK / 4));
-+	/* A range spanning two chunks is not in the pool. */
-+	KUNIT_EXPECT_FALSE(test, gen_pool_has_addr(pool, m1, 2 * GP_CHUNK));
-+
-+	gen_pool_free(pool, a, GP_CHUNK / 2);
-+	KUNIT_EXPECT_EQ(test, gen_pool_avail(pool), GP_CHUNK + GP_CHUNK / 4);
-+}
-+
-+static void genalloc_count_chunk(struct gen_pool *pool,
-+				 struct gen_pool_chunk *chunk, void *data)
-+{
-+	int *count = data;
-+
-+	(*count)++;
-+}
-+
-+static void genalloc_chunk_walk_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	int i, count = 0;
-+
-+	for (i = 0; i < 3; i++)
-+		KUNIT_ASSERT_EQ(test, gen_pool_add(pool, gp_mem(test, GP_CHUNK),
-+						   GP_CHUNK, NUMA_NO_NODE), 0);
-+
-+	gen_pool_for_each_chunk(pool, genalloc_count_chunk, &count);
-+	KUNIT_EXPECT_EQ(test, count, 3);
-+}
-+
-+static void genalloc_owner_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long base = gp_mem(test, GP_CHUNK);
-+	int token;
-+	void *owner = NULL;
-+	unsigned long a;
-+
-+	KUNIT_ASSERT_EQ(test, gen_pool_add_owner(pool, base, -1, GP_CHUNK,
-+						 NUMA_NO_NODE, &token), 0);
-+
-+	a = gen_pool_alloc_owner(pool, GP_UNIT, &owner);
-+	KUNIT_ASSERT_EQ(test, a, base);
-+	KUNIT_EXPECT_PTR_EQ(test, owner, (void *)&token);
-+
-+	owner = NULL;
-+	gen_pool_free_owner(pool, a, GP_UNIT, &owner);
-+	KUNIT_EXPECT_PTR_EQ(test, owner, (void *)&token);
-+
-+	/* A failed allocation reports no owner. */
-+	owner = &owner;
-+	KUNIT_EXPECT_EQ(test, gen_pool_alloc_owner(pool, 2 * GP_CHUNK, &owner),
-+			0);
-+	KUNIT_EXPECT_NULL(test, owner);
-+}
-+
-+static void genalloc_dma_test(struct kunit *test)
-+{
-+	struct gen_pool *pool = gp_create(test, GP_ORDER);
-+	unsigned long base = gp_mem(test, GP_CHUNK);
-+	const phys_addr_t phys = 0x40000000;
-+	dma_addr_t dma = 0;
-+	u8 *a, *b;
-+	int i;
-+
-+	memset((void *)base, 0xa5, GP_CHUNK);
-+	KUNIT_ASSERT_EQ(test, gen_pool_add_virt(pool, base, phys, GP_CHUNK,
-+						NUMA_NO_NODE), 0);
-+
-+	a = gen_pool_dma_alloc(pool, 2 * GP_UNIT, &dma);
-+	KUNIT_ASSERT_PTR_EQ(test, a, (u8 *)base);
-+	KUNIT_EXPECT_EQ(test, dma, (dma_addr_t)phys);
-+	/* gen_pool_dma_alloc() does not clear the memory. */
-+	KUNIT_EXPECT_EQ(test, a[0], 0xa5);
-+
-+	b = gen_pool_dma_zalloc(pool, 2 * GP_UNIT, &dma);
-+	KUNIT_ASSERT_PTR_EQ(test, b, (u8 *)base + 2 * GP_UNIT);
-+	KUNIT_EXPECT_EQ(test, dma, (dma_addr_t)(phys + 2 * GP_UNIT));
-+	for (i = 0; i < 2 * GP_UNIT; i++)
-+		KUNIT_EXPECT_EQ(test, b[i], 0);
-+	/* Only the requested memory is cleared. */
-+	KUNIT_EXPECT_EQ(test, b[2 * GP_UNIT], 0xa5);
-+
-+	gen_pool_free(pool, (unsigned long)a, 2 * GP_UNIT);
-+	gen_pool_free(pool, (unsigned long)b, 2 * GP_UNIT);
-+
-+	/* With the start in use, the aligned variant skips to 128 bytes. */
-+	a = gen_pool_dma_alloc(pool, GP_UNIT, NULL);
-+	KUNIT_ASSERT_PTR_EQ(test, a, (u8 *)base);
-+	b = gen_pool_dma_alloc_align(pool, GP_UNIT, &dma, 128);
-+	KUNIT_ASSERT_PTR_EQ(test, b, (u8 *)base + 128);
-+	KUNIT_EXPECT_EQ(test, dma, (dma_addr_t)(phys + 128));
-+	gen_pool_free(pool, (unsigned long)a, GP_UNIT);
-+	gen_pool_free(pool, (unsigned long)b, GP_UNIT);
-+
-+	/* A NULL @dma is allowed, and so is a NULL pool. */
-+	a = gen_pool_dma_alloc(pool, GP_UNIT, NULL);
-+	KUNIT_ASSERT_PTR_EQ(test, a, (u8 *)base);
-+	gen_pool_free(pool, (unsigned long)a, GP_UNIT);
-+	KUNIT_EXPECT_NULL(test, gen_pool_dma_alloc(NULL, GP_UNIT, &dma));
-+	KUNIT_EXPECT_NULL(test, gen_pool_dma_zalloc(NULL, GP_UNIT, &dma));
-+	KUNIT_EXPECT_NULL(test, gen_pool_dma_alloc_align(NULL, GP_UNIT, &dma,
-+							 128));
-+
-+	/* Exhaustion returns NULL. */
-+	KUNIT_EXPECT_NULL(test, gen_pool_dma_zalloc(pool, 2 * GP_CHUNK, &dma));
-+}
-+
-+static void genalloc_devm_test(struct kunit *test)
-+{
-+	struct gen_pool *named, *unnamed;
-+	struct device *dev;
-+
-+	dev = kunit_device_register(test, "genalloc-kunit");
-+	KUNIT_ASSERT_FALSE(test, IS_ERR(dev));
-+
-+	KUNIT_EXPECT_NULL(test, gen_pool_get(dev, NULL));
-+	KUNIT_EXPECT_NULL(test, gen_pool_get(dev, "sram"));
-+
-+	named = devm_gen_pool_create(dev, GP_ORDER, NUMA_NO_NODE, "sram");
-+	KUNIT_ASSERT_FALSE(test, IS_ERR(named));
-+	KUNIT_EXPECT_STREQ(test, named->name, "sram");
-+	KUNIT_EXPECT_EQ(test, named->min_alloc_order, GP_ORDER);
-+	KUNIT_EXPECT_PTR_EQ(test, gen_pool_get(dev, "sram"), named);
-+
-+	/* An unnamed lookup does not match a named pool, nor the reverse. */
-+	KUNIT_EXPECT_NULL(test, gen_pool_get(dev, NULL));
-+	KUNIT_EXPECT_NULL(test, gen_pool_get(dev, "other"));
-+
-+	unnamed = devm_gen_pool_create(dev, GP_ORDER, NUMA_NO_NODE, NULL);
-+	KUNIT_ASSERT_FALSE(test, IS_ERR(unnamed));
-+	KUNIT_EXPECT_PTR_EQ(test, gen_pool_get(dev, NULL), unnamed);
-+	KUNIT_EXPECT_PTR_EQ(test, gen_pool_get(dev, "sram"), named);
-+
-+	/* Each name, including no name, can only be used once per device. */
-+	KUNIT_EXPECT_EQ(test, PTR_ERR(devm_gen_pool_create(dev, GP_ORDER,
-+							   NUMA_NO_NODE,
-+							   "sram")),
-+			-EINVAL);
-+	KUNIT_EXPECT_EQ(test, PTR_ERR(devm_gen_pool_create(dev, GP_ORDER,
-+							   NUMA_NO_NODE, NULL)),
-+			-EINVAL);
-+
-+	/* Both pools are destroyed when the device goes away. */
-+}
-+
-+static struct kunit_case genalloc_test_cases[] = {
-+	KUNIT_CASE(genalloc_size_avail_test),
-+	KUNIT_CASE(genalloc_alloc_free_test),
-+	KUNIT_CASE(genalloc_first_fit_test),
-+	KUNIT_CASE(genalloc_best_fit_test),
-+	KUNIT_CASE(genalloc_first_fit_align_test),
-+	KUNIT_CASE(genalloc_order_align_test),
-+	KUNIT_CASE(genalloc_fixed_alloc_test),
-+	KUNIT_CASE(genalloc_chunks_test),
-+	KUNIT_CASE(genalloc_chunk_walk_test),
-+	KUNIT_CASE(genalloc_owner_test),
-+	KUNIT_CASE(genalloc_dma_test),
-+	KUNIT_CASE(genalloc_devm_test),
-+	{}
-+};
-+
-+static struct kunit_suite genalloc_test_suite = {
-+	.name = "genalloc",
-+	.test_cases = genalloc_test_cases,
-+};
-+
-+kunit_test_suite(genalloc_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit tests for the general purpose allocator");
-+MODULE_LICENSE("GPL");
-
--- 
-2.43.5
-
+> > Two of the regions that pKVM carves out at boot are sized from the
+> > amount of memory: hyp_s1_pgtable_pages() for the hyp page tables (hpool)
+> > and host_s2_pgtable_pages() for the host stage-2 pool both provision
+> > page-granular tables for all of memory, about one page per 2 MiB of
+> > RAM, so they reach 4 GiB on a machine with about 2 TiB of RAM.  Arm
+> > systems of that size exist, for example AWS Graviton4 x8g.metal-48xl
+> > instances (3 TiB) and Ampere Altra Max servers (up to 4 TiB per
+> > socket).
+> 
+> Could you also list the hyp vmemmap here? It's sized the same way and
+> overflows at 2 TiB too.
+> 
+> > On such a machine, divide_memory_pool() gets a truncated hyp page-table
+> > region from hyp_early_alloc_contig(), so the host stage-2 region and the
+> > FF-A proxy pages that follow it start inside the range that hpool will
+> > own.  hyp_pool_init() then attaches all nr_pages pages of each pool to
+> > its free lists, so hpool and host_s2_pool share pages and the same page
+> > can be handed out twice, for example as a hyp stage-1 table and as a
+> > host stage-2 table.  hyp_pool_init() also derives range_end and
+> > max_order from the truncated size, so most of each pool is treated as
+> > external order-0 pages; on a host whose IPA size makes the host stage-2
+> > PGD a multi-page allocation (for example a 42-bit PARange), that
+> > allocation fails and host_s2_zalloc_pages_exact() uses the NULL result.
+> 
+> Could you describe here what actually happens? I think pKVM init fails
+> before any page is handed out twice. Just below 2 TiB, hyp_pool_init()
+> for host_s2_pool hits the BUG_ON() in hyp_set_page_refcounted() on
+> hpool's page-table pages, and from 2 TiB up hyp_back_vmemmap() zeroes
+> the new hyp page tables while they're being built.
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20260715150125.2798116-1-smostafa@google.com/
