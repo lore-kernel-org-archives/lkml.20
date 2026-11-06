@@ -1,64 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960378;
-	b=diF1IN8zoDLcmiRaDQ9513jofcRBhxBASg5oSXtsprQsuOzxXMWh6lBwSJO/UpB/7wgq
-	 F6iDQvX6/UFsBAoboKw4winAKZLBRvs3yAUrVgkJ7zq5zB7rxNFld+pvMd5qPx/vjRnb0
-	 DF/wsRzWdYVaa+cfkP/K7xi9WVXpom2GyJ28/NUVPML9CxiHp2GKmGUZswGlcuJwHs6M4
-	 p9cMUW1XNloNnl2d0lnRTZng29ydZ/8TIrQkXrPu89ixBks2XWD+WVgju7vQXC83sLt1h
-	 9dbCbN2cUQki5lVSyPzXUeGOzthr6r/XFpEcYGGZ8SIS45WF0hmHH/g9K2GxxroBi9A==
+	t=1793960388;
+	b=vBg81althZBeln5+1VKQRftdcVPsDYUV0Tf16ELT/A86FPtDEMCIL6UzWHjDx1SBge7E
+	 1y+Vd7E3KDwiBw/AWILETJoRUyl5VkMcIZ73M5PJHau3WBdk3ll4iNW40plTlRQNfrb+Y
+	 gJZ+Wnsz2A46EM4VBPP5r9d5vUHTTc1vMj/CqPfUwTbj4IX1I3dPfPV0hLRGgvcOW/kmm
+	 GwcDiDPqBDBIlrYpCWxU+CTw9vy00yaeJFcEeoQKbo4DXG+WkvrPMvx1ISsosGZdmh58e
+	 i3lg1AXYTkjx8KkqV76uNPb/0x257NCp6NsECBMtOXU6mKRuWMiX47HIW33uopUxnWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960378;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=7koREli4+xjzmjk3ChLYml3FXKdK9kUFDeJvo8/SOyY=;
-	b=d55eMxR50HQaAh8Qybuez5hKfMr7GqU/W6fFWfwiQnG2pVhBuJuQa128lkfYnsYNK2KK
-	 aELUfDOchdmqfwR+obfWyZK54xPJqVRL3JX3hZa0Fg6FnnUlNpBkANUhoc4Fgt47H50te
-	 34kAWlvGBEtspBMUe7TH75+EEJb0HNPjoM4vWh+Y26eLpYENhswUgQa0/JvG+1qP2uj0a
-	 dDYov3T1bxEgzt17xm1+ImODBoBIaCQErPHD6wR3zedw4Oc9IT3wJkaOdJPRMn6V5MjaL
-	 EfSP7K/HjcQtCmSEZ3aXiBEATiux7GTSa9zDXBTLOxRUsEoqcXkMiaGs0KMotSygfBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960388;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
+	 Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=R82BS7g33XL5O8Vki5r+nohNubS/w5kTkPYHt8eGc6U=;
+	b=O4RzMdJEOkrHETUFP9rGmboA3cXCo/hAHDNwpSlf3YYvVBvDQu75ePqYcTgEFjlGBGOG
+	 eqVznua7WSAgDBNd8HfdI0mjkv3K35hG1DezykLnx4Ma+SKETUZVbfMWqzMYlf/2j5krP
+	 /E2zCWzBpohYeNLxpq4oewvqv6fxOrGf95n5EtGexjLmJ4fmUCuX/c7H9y4eUGCAjPI9Z
+	 v28kE8ob4tOSc2NSByylylKMlyxxQWlQY1Y5TcfVbr2SsMucDW7N6hp7Xt6d1qKK2ZuAs
+	 ZjqcExxnbquSZvNldedLRV6R3ZRU4zGsrBlyS603u0uf1slRwSLbC87weEPNADpx6QQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=student.uibk.ac.at;
-	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=lwxYVCwA;
-	arc=none smtp.remote-ip=138.232.1.140
-Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=21ZUQ2z5;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=7wYt8SEx;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313DA606D819;
-	Fri,  6 Nov 2026 10:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 313DA606D819
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2B7606A32F;
+	Fri,  6 Nov 2026 10:19:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C2B7606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=lwxYVCwA
-Received: from surface-pro-5 (ydWLT-U1-95-184.uibk.ac.at [172.25.95.184])
-	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6AJFCW1863929
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 6 Nov 2026 11:19:20 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6AJFCW1863929
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1793960361;
-	bh=7koREli4+xjzmjk3ChLYml3FXKdK9kUFDeJvo8/SOyY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lwxYVCwAZ/2lhaSlRBelJzQMl97+uAnO23vVuSgBfG1ajHNf9a0y7zNrmJA36/pZV
-	 qJFxCUoAiduIsio8TBeDJJwIr+5DKrot9Z8JnVCLorUggO683XHrf1mQTlcDHoMBg5
-	 cMgVjJfGC8rFzh+/BicK3xNZDRpWuj9sbkyEOINA=
-From: christian.koever-draxl@student.uibk.ac.at
-To: glaroque@baylibre.com, rafael@kernel.org, daniel.lezcano@kernel.org,
-        rui.zhang@intel.com, lukasz.luba@arm.com, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH v2 2/3] thermal/drivers/amlogic: add S4 support
-Date: Fri,  6 Nov 2026 11:19:12 +0100
-Message-ID: <20261106101913.46664-3-christian.koever-draxl@student.uibk.ac.at>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106101913.46664-1-christian.koever-draxl@student.uibk.ac.at>
-References: <20261106101913.46664-1-christian.koever-draxl@student.uibk.ac.at>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=21ZUQ2z5;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=7wYt8SEx
+Date: Fri, 06 Nov 2026 10:19:43 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793960385;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=R82BS7g33XL5O8Vki5r+nohNubS/w5kTkPYHt8eGc6U=;
+	b=21ZUQ2z54d0XcHqnT9v85PTxFNwfRDlKeBYbGEHnHXheKcy/t+OHGrTXVL8f0hNHKopynF
+	znfY3Tn2b6L5qBenvC+oRjhX9d+c1Cjf06tsfNSY3IAOSP9o7sFZw7porzaaEJWcxjRHyd
+	FkKjxBHr+KyAhpvsUawTF7jLjRYw147EiQWETYnrDo289ZCV3nrGK163opHHNjgpleH5C2
+	Sfq4+LWfxDid7xdGepTgKGTt+V4XPV/xvY6Z2t8XG5R4/OseVZlhYG626DJ4ow0HpyF813
+	2bZ7xGWmdi9Mdo3uS0EKVOg2/+gmcY0lJOcNy1mi+sE1e4PdPpSWVl1GFLDK6w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793960385;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=R82BS7g33XL5O8Vki5r+nohNubS/w5kTkPYHt8eGc6U=;
+	b=7wYt8SExxF2AKL9+7Td4GhsDEckGuxnKf9DGYtjYfCza1qKHm0okiVwxCCiPro0U4FqLUG
+	Yw8b+sryL3hE/wCg==
+From: "tip-bot2 for Peter Zijlstra" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: locking/urgent] locking/osq: Fix unlink queue corruption
+Cc: David Laight <david.laight.linux@gmail.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Waiman Long <longman@redhat.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,42 +75,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: () -13.0 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,U_H_APTO_LONG,U_RCPTS_11_PLUS
-X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
+Message-ID: <179396038359.1009794.1549407973153751210.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+The following commit has been merged into the locking/urgent branch of tip:
 
-The S4 CPU sensor reads its calibration through the secure monitor and
-otherwise matches the T7 setup, including the separate bus and
-functional clocks, so reuse the T7 data for it. The driver already
-enables every clock the device tree lists.
+Commit-ID:     408b129aac48b574c0c9d11137a89eefba825d5d
+Gitweb:        https://git.kernel.org/tip/408b129aac48b574c0c9d11137a89eefba8=
+25d5d
+Author:        Peter Zijlstra <peterz@infradead.org>
+AuthorDate:    Tue, 15 Sep 2026 13:51:12 +02:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Fri, 06 Nov 2026 11:16:14 +01:00
 
-Without the calibration the driver reported about -144 degrees Celsius
-on an S905W2 board; with it the readings are plausible and CPU
-throttling engages.
+locking/osq: Fix unlink queue corruption
 
-Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+Very similar to commit 50972fe78f24 ("locking/osq_lock: Fix osq_lock
+queue corruption"), make sure to order the prev->next store against
+the next->prev store.
+
+Fixes: 50972fe78f24 ("locking/osq_lock: Fix osq_lock queue corruption")
+Suggested-by: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Waiman Long <longman@redhat.com>
+Cc: linux-kernel@vger.kernel.org
 ---
- drivers/thermal/amlogic_thermal.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/locking/osq_lock.c | 60 ++++++++++++++++++++++++++++----------
+ 1 file changed, 45 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_thermal.c
-index 60728de6968a..4c107b3100c0 100644
---- a/drivers/thermal/amlogic_thermal.c
-+++ b/drivers/thermal/amlogic_thermal.c
-@@ -292,6 +292,10 @@ static const struct of_device_id of_amlogic_thermal_match[] = {
- 		.compatible = "amlogic,a1-cpu-thermal",
- 		.data = &amlogic_thermal_a1_cpu_param,
- 	},
-+	{
-+		.compatible = "amlogic,s4-thermal",
-+		.data = &amlogic_thermal_t7_param,
-+	},
- 	{
- 		.compatible = "amlogic,t7-thermal",
- 		.data = &amlogic_thermal_t7_param,
--- 
-2.56.0
-
+diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
+index 98b12d7..2bcc148 100644
+--- a/kernel/locking/osq_lock.c
++++ b/kernel/locking/osq_lock.c
+@@ -90,6 +90,49 @@ osq_wait_next(struct optimistic_spin_queue *lock,
+ 	}
+ }
+=20
++/*
++ * Set prev->next; this is the counterpart of osq_wait_next() in that
++ * by setting ->next the wait is terminated and progress is resumed.
++ */
++static inline void osq_link_next(struct optimistic_spin_node *prev,
++				 struct optimistic_spin_node *next)
++{
++	/*
++	 * Suppose:
++	 *
++	 *                   tail
++	 *                    |
++	 *                    V
++	 *   CPU1 -> CPU2 -> CPU3:
++	 *   n: 2    n: 3    n: nil
++	 *   p: nil  p: 1    p: 2
++	 *
++	 * And this is CPU2 doing the self-unqueue concurrent against CPU1s
++	 * unlock()/unqueue(). Since 'prev->next =3D=3D NULL' and CPU1 will be
++	 * stuck in osq_wait_next() until the below store of 'prev->next'.
++	 *
++	 * CPU2				CPU1
++	 *
++	 * next->prev =3D prev;		osq_wait_next()
++	 * WMB				MB
++	 * prev->next =3D next;		next->prev =3D prev
++	 *
++	 * Without the WMB it would be possible to have conflicting stores
++	 * like:
++	 *
++	 * CPU2				CPU1
++	 *
++	 * prev->next =3D next // CPU1.n =3D 3
++	 *				next =3D osq_wait_next() // =3D 3
++	 *				next->prev =3D prev // CPU3.p =3D nil
++	 * next->prev =3D prev // CPU3.p =3D 1
++	 *
++	 * Which would result in list corruption.
++	 */
++	smp_wmb();
++	WRITE_ONCE(prev->next, next);
++}
++
+ bool osq_lock(struct optimistic_spin_queue *lock)
+ {
+ 	struct optimistic_spin_node *node =3D this_cpu_ptr(&osq_node);
+@@ -113,20 +156,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+=20
+ 	prev =3D decode_cpu(old);
+ 	node->prev =3D prev;
+-
+-	/*
+-	 * osq_lock()			unqueue
+-	 *
+-	 * node->prev =3D prev		osq_wait_next()
+-	 * WMB				MB
+-	 * prev->next =3D node		next->prev =3D prev // unqueue-C
+-	 *
+-	 * Here 'node->prev' and 'next->prev' are the same variable and we need
+-	 * to ensure these stores happen in-order to avoid corrupting the list.
+-	 */
+-	smp_wmb();
+-
+-	WRITE_ONCE(prev->next, node);
++	osq_link_next(prev, node);
+=20
+ 	/*
+ 	 * Normally @prev is untouchable after the above store; because at that
+@@ -202,7 +232,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+ 	 */
+=20
+ 	WRITE_ONCE(next->prev, prev);
+-	WRITE_ONCE(prev->next, next);
++	osq_link_next(prev, next);
+=20
+ 	return false;
+ }
