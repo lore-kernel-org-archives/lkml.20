@@ -1,100 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793986265;
-	b=oLAV2LoqDmm7zgtaHRscCSsgfOCzXkHs+yEUEpRgRtcyE+eaCFY5AfbhkQdXl6UhLEUc
-	 jaZoC7Redb3SKeM5ymOGIsz8kFz2U6qC5kE11sm9eoKEA3tZNmIr2nQlDmBIBVkRiIWLf
-	 55wmWEAknFyLnlrq3GEHGRmDluk8TI3Kw+81qkqH22yOx8rmjPJ1QiHvSPFqe86+jZ/F1
-	 Ef5vZ3mfcfk3GwWPAJ0kpackviByfZFHQFg/ZUPZCbx+ivvAvqh4qovVkXM62k7ugj95z
-	 iuPrHJFKyMmGCLVBXi6oCbcdsJK0e4ig1WCLhsnFYKX3SNFyURlg+UOu99Fmpvc+ZFQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986265;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793986263;
+	b=G3gyF0v1V/FuYImeBRCRvuwhnPQk8ttLBfxzjd86AAMAPV952BTf/TE4NX1xWqUOlnQD
+	 1mpCyPCZncDxHSgekvD3zjgMEVcgG61vVyTbw0b2JC8S3TbUEgQrdgOIu5q0DeHY8sx6r
+	 /fn+kMCn2kUcVA51mfG3x/2KEjyOdGMaEj+5A0HpgBSJtr6r35GJmeyxlW8W84h94vHL/
+	 2JcBZB4CEXFXqYOqSD7sp3EMxYt/RgqIN7rPWLkhBGTCCasWlLLiTuZ0QHZWIn/O1gbwd
+	 C6SQYHhovrYTPBsMLVvFhLwj4SeGGrHNKQF3FxOCBIZxt7Q2CXZ9yXm/AYMbzpvx+aw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986263;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=1w1A0YYt3j2Y59sUP3f8dMzSN3FtGYjMk3VwQ7eTNTM=;
-	b=qRrkZQ4bmQrOo2khE+9S//p/24br55teIeaDGRlg8ZrDAABCNyyxy9jBGGHDJ0nzDvyF
-	 0pYuw7zuRdHz9A9Yn+DS1iaVrIgUoV+zgRMxZDGNrg61r5JtLHeRboDb+cUD/5iWE/+l/
-	 EeVAMi+Ry2zNW3ZJPKzAMyghNBykBwspr6aSFwTIckJdCR4NKMmFoOitkB+gYqtP+JOZM
-	 /tG5Jvxg6aHrWUnDSVEKGNidT0+1OF/5MSyT4jqLlC4zez32JKJQBFVXcuuYgiNCBAb4s
-	 Zlp7nSejFr1mbhkafYY7QLl2wMfCaGnOL16TOWwmHYTZQEZG6LELz4X6LmWfTCpV7pg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JtiRUZBh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=XofOEQXNLqFn+X/AdUrRbjVcp2Tpjks1Mv/4b0yulcU=;
+	b=XFoTzLWfOdD2pDy5yQ11rRCjrLl0Bo6y4j4m3lOAnxXD/61nHZJkk1vJN5YFLkA9e3e5
+	 ZUMQduKFJpLiT6qn8SBTAaFfuTjBygquaKlWUJTQ3Enmm/a4UDfwnUWgmt+/zSVApxjnS
+	 eulZaXXP78nV6Gtzq5gP3caTaXLOAKCpTiDiKTl+qdABRUA1KnbugedSKCBXRl33uxJwT
+	 R04zYTMbNYTmuWPWtlNZWgS/5fqH0y7iolBzc/UB388epKxnt2RSPM6wcJMo9u9x+to/Y
+	 +gWgGRrn/dZeucejl84YRU3/zAzYp/yGRcWhNV+KRusBOo1PtYcO2jwDj7aeRj6kyug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=fYsE2vYt;
+	arc=none smtp.remote-ip=209.85.219.48
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC92606A334
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:31:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FC92606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00CF606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:30:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B00CF606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JtiRUZBh
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c3fd91337baso165381866b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:31:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793986263; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gKXFbaNMeGKjGXj17gP8Z7rO3+HdhfD1cac2zfKm5BiCsDloj2Ip6IUg5hxZQF8ZBI
-         aByMJui8/uLGKyxuInQLiJuLKl3wlksUPNhiiHPYhUHxxih7DFIZhszFPmHRLuddd73H
-         tT+B0US9MZCumajbd7O+nGTfhgv7XQFn76VqEpVqJAhsyje8leO9St+UigBV8KHeIHs7
-         PtuzGZwqEs+550ZbcdMQREawhoZWp9fuVDKvcBvX+CfsC0A1BLU72VZp+n33QFwnSo8U
-         ykRvB7Oixn52JJitZdbyR61Nx2CwGS39Y62oO5j8XrIX3Fh1y4UVBe7D673mPRmXGITD
-         OptQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=1w1A0YYt3j2Y59sUP3f8dMzSN3FtGYjMk3VwQ7eTNTM=;
-        fh=o2KO8mnDulTfOZAjanDUQCGGYkOoNoS//91mAvJF4hE=;
-        b=l/PBriHDAwL5/5p0SxrQb24ysF7B2lOgq8Qni06t1xnVJr+famv9WeQpKMOqbSOzfi
-         p0ZbbnW8M+tPXsJ2k+o0NnAL9TK5xtjziKTNEYFjlwZKIj7PyeABggR4h3gOhO/06iEW
-         3tZWjcac7nNFa3dtX/iuBPSeA9UfE6SEnJKtDMscMKdS3FmCUDwRxwNDrdhSL7PxmyEI
-         zYlHgqOPwvDtUmqz9IT/YIPk9YgKIXH8Fn6atInpsElKU5bTTREi7MkKbLzpyuja1hhD
-         soLftGQRZtDS8cu7Q1WTYDxEotmMHDFtoRNkLYXD/Pp6PZbyYTj8uMF1D8HzSS5zdIsJ
-         Vapg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=fYsE2vYt
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91c67992ce5so7082166d6.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:30:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793986263; x=1794591063; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1w1A0YYt3j2Y59sUP3f8dMzSN3FtGYjMk3VwQ7eTNTM=;
-        b=JtiRUZBhEq8rmrwDGWUH05kEYwS9S1QWv5x6NGd1Yzw8iNIdfcCYtxnRcszo1dxFdb
-         q9tHslx3a7wF+S+pycyeM5qMvxra2vnxMuCMifQxMzKfvOS33pDGc5B2inDfVPwG91Ea
-         yX2GvcB44x5AkED0PFIfUWHjlES+iy7WV8zsymJhe21BKNOgiDGk2iPm0cj7t1K8rpBI
-         /3MzSFoqAPqzL2YWEoBu42pFkvgiFirPvw4Vo4ZCJoWsEHhDVOoD6/3kS2Ug51KZbUof
-         l4SHuZf/v89UFIpPXvtrGAg9zNT+Ws3FCL3AfD4d9SiLnJS6ydMU7UuE6FcThOwvtH+R
-         GrMQ==
+        d=ziepe.ca; s=google; t=1793986256; x=1794591056; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XofOEQXNLqFn+X/AdUrRbjVcp2Tpjks1Mv/4b0yulcU=;
+        b=fYsE2vYtjmjwrQWdM228+vJrfQI/zfz4d8EZd9hqS+Da5DuaJIGJN82jYUkEQnAQXJ
+         276pcvSkMpyOUA88uoZqfJepcWaH+fDLM3PeHPPLJDoYLRuQUX7KClXiaMPEZf13t3dS
+         8XHZFyigHL7ZxZuRJehfyQvVfxcrRxiGZrEzmXaZhQ4zBnxGZXUn9LMEIWIf5ZX+0oaj
+         PXesfT3jlDzAeRSoucM4rkP6lStrPSVTmMAUkaFTam6eIzVTnLRJ0Bq2t1kniLeeSNAI
+         PChUbgBgn1IddS4SmfD+bsmAlxXOMcHOE2hRzkm09lHStjx7NS5P6SVi6CHEW1xsdg47
+         Cdiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793986263; x=1794591063;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1w1A0YYt3j2Y59sUP3f8dMzSN3FtGYjMk3VwQ7eTNTM=;
-        b=EPW2Lu/EUhAfr9/hdY4oIqI2PA5uxDbA04s3bNH7AUPJFxQPCw3CRKfJMmSHyezZ/Z
-         rSo84tJhRl7JxN65HX3/VTZhEfO+hS1UQEP6ZqfxMldCRalt4jj2w+crExSk5vo/tMbK
-         LnylWdev89Rqnw8QyAnETCLPHt9hW/4ubo5vIqxJW2eXx+jYscs6XdgfKtuExGTk8bn2
-         XfFkOW2GDMOggH28bRuqgho8sm+jfYCLpRtnI3ZWYmTmDYv6QXFb7laPXM6BhGLE+5Mi
-         j3QXLAd9g68OrO+06Uk5PZlNiy3WoIYA3QJ6ICeC5WIevV9MwxrxS2BdguByy+dddAwI
-         MKDw==
-X-Forwarded-Encrypted: i=1; AKwUvByiO6erupoF831t/o7hj49Z2ZhMyqN+17EIXPcWu1hN0pGuZcJlogH0us/zfiYpkRldsE4TNPnGj5nXWgY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8eStKqEW2uuVHklnn0ICBW/xJ880uhPfN4f5ZwFxZn5zV02sqR
-	Zm1o6alVbCi1GutGY9jRByevbnnaMAVfhRA7SZyQjZroDzIht4Hmtda393Rayj9FQgVHp1zNCXJ
-	/Bf1l2yAp+EQ5uLEgBwS9Q3hY0v+X0MY=
-X-Gm-Gg: AYBFou1YPP/s7yNerZ9YCsjj/sxi/ZnZLLFgj1j8nloXO+7wCB3UTY0nA+USRmzzlNA
-	SAdqrclkIadqThusON36tLMmh1CL1Fnkgr7XxM8gFp7IvHes7hzVlQB3ytnjlENnNuVcjQNjqtd
-	u2gsSjLNx26rOSRyl9k7Lupmqit1djKxB8uzTm3w5VXMR3ifJZvxD6vKkZvzW2rgj0braIAFLdo
-	bnJgrqHeN7V5QnDmsYRDApkMZUvsRQERhSDr5JunHLRVLOIMPJ6VqXijro6raL++giPLt54sJPc
-	V7KFq1iLOfT+CfG73s0a8LERVAMs5ksUacug4lHDhEihUiP/zm1cLLx7ycxXdI+m3JlfuJhPR0g
-	Pf5o/XABMDFzE2VatGddUp+ujO7lXtIKXqh1revCrkNyxVWh2fljgE37vujKCy3JWvUdgAyuzjf
-	FNDmCvMfS1d36YhDJb0NHrMKBjp0uyy4gqeRsJ2v8=
-X-Received: by 2002:a17:907:c491:b0:c2e:378c:8ce3 with SMTP id
- a640c23a62f3a-c4d34d0b0ecmr280928366b.32.1793986262869; Fri, 06 Nov 2026
- 09:31:02 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793986256; x=1794591056;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XofOEQXNLqFn+X/AdUrRbjVcp2Tpjks1Mv/4b0yulcU=;
+        b=KndmX/hq0B9P/qvH9ge+LrXf9nUgdKVyeGsVGtit3OhhQ4jdp/I5I9YkAeNeElmXPs
+         sNgImMmub/Z0/hG/FZPlTXCsdWQOkssfOduI8XwDDzMC8UxkMLSrqpYOIoNt1J88mB8x
+         A7DfswDThgDzsLsLapqGguX+PGqXpsTFPvYHWvJN449pp+nTmFWRe/pJzYKMweo/Ly4F
+         zmffG6Mv28UKMhnUMz6fB3tDMmKq5oPN+Y9mW1aREskqB/U0TSJ2YOJOwCPuROcRhggZ
+         QzKSjTgkR1+Yv25UMuiSLwGVZnQSi7U8k6F9QoCmDJQWveYARm7UchZ2BmFe7ogoMyHT
+         RvgA==
+X-Forwarded-Encrypted: i=1; AL+hErF8NCorCk1N/tbOVyVTWOXJyIrmPFymrJxGJ6uNmvbzyZb3nrFnbID7MEgWRq1ZDwCz54Pn5IkwtEJJVT8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gunZfefvWEtyNp3kmIUM/LWqfvii8e39xtfdw1oJPwRQbd5XJ
+	61Tum3i1OxXnG6Kmj4ThgNq+eYios9r/1KZCvgIyAtp0DnLebc76sy/HrlCh1eL2z/0=
+X-Gm-Gg: AYBFou0bpRpsm46xmRmihUTS0b9IX1FWz1kxL+2bAzJHkBcfPFjF0JHtgqzMHnMUBdz
+	Qkwwiv58WVK9J+EMGblbaVq2MjOME8oh6Y2KMurkzdpXWGMnzJGeZ+N6bDYvhkzmNaXxIkorwgf
+	0sVfo2jRJOO6eE81G17Fb+qbEgP7u3mjxU+AJakGqlxWjHK/nY5PoqD2lf4ckztXyxg30xUKtvA
+	QW357DMlQSyxFRq7Joe+ptuGtP7T4+6scn7MBx2Vfy84cyaNMWE6Uuc8SlzCBq6P/C2pCo82Pko
+	EXvvJb92k8apZZqIlu5SXwPY3ljmFmWGO8DDOtEaHAa2hCzEc8a4Ur9kVUOgmBNxAsWsuHy05zZ
+	XbF+DqTKaiEIQs7T+dr4untlNl78F0lYzVqazctVcNk1/A815ktIuwsjvuOMUbL6+RoTAkVUOMR
+	MJev5m9fCyMzgr+0efLtQRL4PoXsoKFVLTkE4n13VfVU2ja6UJWEtSt5RPbK3TlyS0+qWxLsUHf
+	Pwb7SCVthe3gjqm0UFEmTJ5Ht8+oqIv4sehi0P3Lg0t1ix8c0ToNULZk7IvciUHRlpWx9N8zK/R
+	QKmtBR7tg6AQ/y71oE8EfMFVFVrjRoxxFYTXy6aqOWfQrxp/vwwSJdWVIPlAg0Vlzvw3lWgh03h
+	HNnqIUurUkRTSpt8GTzgqSpThLeFEocA=
+X-Received: by 2002:a05:6214:c69:b0:91c:73fc:a5a8 with SMTP id 6a1803df08f44-91ea9742db4mr40471196d6.9.1793986256339;
+        Fri, 06 Nov 2026 09:30:56 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6acceacsm25406486d6.43.2026.11.06.09.30.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 09:30:55 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xPNmA-000000076Mk-3tnC;
+	Fri, 06 Nov 2026 13:30:54 -0400
+Date: Fri, 6 Nov 2026 13:30:54 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Naman Gulati <namangulati@google.com>
+Cc: Christoph Hellwig <hch@lst.de>, Luigi Rizzo <lrizzo@google.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Joshua Washington <joshwash@google.com>,
+	Harshitha Ramamurthy <hramamurthy@google.com>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev,
+	netdev@vger.kernel.org, linux-mm@kvack.org,
+	driver-core@lists.linux.dev, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC: DMA_PMD 00/22] DMA_PMD: PMD_SIZE-backed IO buffer pools
+Message-ID: <20261106173054.GH663069@ziepe.ca>
+References: <b31efcd5-149c-4edf-81a2-1744d363c390@kernel.org>
+ <CAMOZA0+6kAbwgNwGTsCT5AqpwcZKz4pziEGC9UpHkNCVoqrF-Q@mail.gmail.com>
+ <20261022201229.GH3381610@ziepe.ca>
+ <CAMOZA0KaanmevmvWS=M3gKfBeborzfCQTiF_xbSeYMWbozG7Mg@mail.gmail.com>
+ <20261023140107.GC3977851@ziepe.ca>
+ <CAMOZA0J+MOLv+s4PAvsAK1jbasnbQRyHffZw1VEKutH9Vr6ODw@mail.gmail.com>
+ <20261023145023.GH3977851@ziepe.ca>
+ <20261103080933.GA4213@lst.de>
+ <20261103151021.GK3889730@ziepe.ca>
+ <CAMP57yWvHO0pWCR3-9q1gtwVe8WV4Y6i69trmw+BJRVYf3JB1g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,35 +138,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105165055.362-1-drifabdelmalekmohamedsaid@gmail.com> <au4DDpKhquR7oXwZ@gmail.com>
-In-Reply-To: <au4DDpKhquR7oXwZ@gmail.com>
-From: DRIF ABDELMALEK MOHAMED SAID <drifabdelmalekmohamedsaid@gmail.com>
-Date: Fri, 6 Nov 2026 18:30:52 +0100
-X-Gm-Features: AclHuK-I33fF8kfr0S1lbJN3JaH7H-mWL2RbJZGACBIaUUN__y3k2Wl4NUj4pS8
-Message-ID: <CA+xk8n8apsFgcWfzLtWrtL2wU2R0Rn31hU68oQ_PRJK+=dBc9w@mail.gmail.com>
-Subject: Re: [PATCH v3] configfs: fix slab-UAF Write in config_item_put
-To: Breno Leitao <leitao@debian.org>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com, 
-	Ran Hongyun <ranhongyun1@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMP57yWvHO0pWCR3-9q1gtwVe8WV4Y6i69trmw+BJRVYf3JB1g@mail.gmail.com>
 
-Hello Breno,
-> refcount_t: addition on 0; use-after-free.
->WARNING: lib/refcount.c:34 at refcount_warn_saturate+0x76/0xd0, CPU#1: ln/172
+On Fri, Nov 06, 2026 at 09:21:08AM -0800, Naman Gulati wrote:
+> I drafted an implementation [1] for premapped TX and RX buffers on top
+> of the existing networking page_pool. It is implemented entirely in
+> the networking layer and extends page_pool as the default RX
+> allocator, to the TX path. There are no hooks in the IOMMU, DMA or
+> page allocator code. I wanted to understand if this implementation
+> correctly captured the feedback on this thread. Key components of this
+> design:
+> 
+> - Chunks: as in Luigi's series, memory comes in 2 MiB chunks, but each
+> chunk is mapped once per opted-in device through the DMA API and
+> records its IOVA for each device, rather than using a shared IOVA
+> window.
+> 
+> - TX: page_pool accepts a memory provider for pools that are not bound
+> to an RX queue. Per-CPU page_pools take 32 KiB pages from the chunks
+> of their NUMA node; TCP copies sendmsg() data into them through the
+> task page_frag and allocates its skb heads from them.
+> 
+> - RX: an instance of the same memory provider, sharing the chunk code,
+> backs RX queue page_pools. RX chunks of order-0 pages belong to one
+> device and NUMA node, and are shared by that device's queues on the
+> node.
+> 
+> [1] https://github.com/torvalds/linux/compare/master...NamanGulati:linux:netdev_dma_pool
 
-So i think this is caused because i removed the null assignment on
-parent_item, so it catches
-what parent_item pointed to when refcount was 0 but before the free,
-and this is actually my mistake, i sent a syztest with the old
-parent_item = NULL after the put,
-and that is actually important here, because it protects uaf in
-out_put and out_put_target,
-so we either move the if (IS_DEADDIR(dir)) check after
-configfs_get_config_item and omit
-parent_item = NULL on the 1st lock, or we keep it as is.
-Should i send v4 or you can apply this directly (if good enough)
+IMHO the netstack should never read from shared/decrypted memory. If
+you put it in a SKB you have to be sure the only touch after that
+point will be a DMA read from an untrusted device on the TX side
+(sending it to a trusted device would be a fail) and the final copy to
+userspace on the RX side.
 
-Cordially,
+Everything else is very security questionable.
+
+It is unclear to me how any of these page pool proposals meet that
+requirement since page pool typically provides memory that ends up
+widely used in the netstack.
+
+Jason
