@@ -1,47 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997109;
-	b=tpxu+RT8QK3lb/tZWzp0bC4PoZqk5vQ06Db0T7eoVOAlJK3nYmnKDLGDadr0AO017jLN
-	 5QAwAM41mCY2xubgLrwyAgDxGxjbgDIPfPe06DJZJvALTXFq3kW1U9iX0E8hEgKJ9DhPn
-	 3QIZCilbPPYCBwpsd3uId5/YYStJLjH+ncUWhoTFwFQdUYidN3xL5ADxjx/92bNSXnRN3
-	 hEnqLPrrDpcE7QqdFBPSz04TyeLP2g1xefJ04QQsDFe+nB1JxupWN2DZNjplcStt/afyt
-	 Q/5TuAQZlISKIhVNh9nBtBNupmZYQkdtUDfGG3zzTia/9jKsZX9e7Bwcqqu+1YUDpFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997109;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Xq9yFMohso02mTNk00VqD923K83qztQ5KJV4mLYhzhs=;
-	b=N3DZ0PbcSZ2OHQOo70oTDPgOZ1LbKbrfoZhg3WgqVMBtqmOABl4CJ7RjZWS42vjsCR7F
-	 S5EqKiOLEZleDJ/EC9gSBdiiu8c2ctSUF87HmalqILfIVkOVuRYubqYsNd0f8M2PZEk6V
-	 UsXS7ELqCGSkhCDQdgdf4U8b7fwGqxPLLl7j/Grwhcmbm9EJpqMhGQ4Gc0rUehPCOJ4LQ
-	 uBmRiiPVV1J8f1gJjP2w2waxiUZlc16YURo/ApNXz4QtYheuIUZOJJcSx05OJ8ocH1PM1
-	 Xyy20H/f+Gpl8VMP82Z8jRH8eTqazslokP7xEpHPpVFVrXoKSveJO99HIHskNFQh+Zw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="onx2Fe3/";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793997121;
+	b=nlZ3Kk7MQqcPoS1h+JqW13Zu496B/YzdTr/wUdWUmap2hxWSkA+WJRmWShyTLV9r1X/Y
+	 BFp5sYJb82HhfjogAA2GtfQ/mVGa+zgCCTWGCB5rcjk+vOJCOejB7NqJ2z9CbLNUnNS6k
+	 6fgd3RwXjnA62JcCUjrKPNYSBLSBCadClYeSeBEWTA004XO4EI0LTzLsle/ev2RQFKPdD
+	 yip76H1PKMFsijq/9HPuQ/C5V9Cd0iKxiieq5TFjiltHS24WUbzTt78gZbitHdE4PvVEi
+	 3/OCOLVQQPm9wd5Qao8OLlQ3ndy/NlVPkToeosO2BDbnOUcR3KYeMzJctUWaPi/hxCw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997121;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bat6EXPt0m4/2kRoWfMYCbQkcNvBmzo6JgvQIOwR6Fs=;
+	b=KPBYBLS6cmT3/uDnoiTy+IgU/9quB+7xaRS8nc4u8sEdoRMubMMUFUB7CXBA9ydiCb63
+	 E883qA4dB37jq4BkEOmO2qe6vSlYOg2A6WoSdfozLbWarV8Iaf9hFVV1GgL9E/7pN+f6L
+	 fJclRByHxuj5vUkZ2FJ0GXh3zfmtaeENnC89RS1p6B/n43WWgo5UWALLC2IqlVss0/Tf8
+	 Fz1YBSr+j2cKLW3hBAJ27yG0fIDLcyMBGg5rXKY+iEAVgenNZJSggo95jjwHrm83J3amW
+	 Qwm6qlJg0B0xA9dzc3Nu1zdbdB0U/AcOm8O9+b6D3wTaVPZNapWbuZ9tgyPaN0X+nyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kU7IgwyO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2228606A326;
-	Fri,  6 Nov 2026 20:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB39A606A334;
+	Fri,  6 Nov 2026 20:32:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=onx2Fe3/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57D371F0089F;
-	Fri,  6 Nov 2026 20:31:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kU7IgwyO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793997120;
+	b=wGHgrMLqdN0roChN9RWwVJE6nCCm/FThDwX2WwovUD/vBSYeMzdNoOO1KK3nqJR551S6
+	 Nx0uFIvl5tv+XrN+C3QfM81RbD3iNc+GRhP5QPSVnfzPXsbyccRcTx4zzk5blCPEs+U95
+	 VOVV8G0uNcw6ifZy3mWWGgo1FSxgLyhtnEHb4yRROuYtZejdkMUIJmeF3kVG5+G8QL9uz
+	 Sw1oRy/I56fV8ineKPsDiY/g4n+Ts439Ay78xVVGy3DhcIz8bt4LIiPb7dbIFrNHnnBr0
+	 FMmr3y2SqKla2HLuO+1N9i6oLN0aja3Wi9C8WdCeaSOtUzwpYQET/DaKbIs0lMHZmzA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793997120;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bat6EXPt0m4/2kRoWfMYCbQkcNvBmzo6JgvQIOwR6Fs=;
+	b=E/CpSoXQVtVTwDdHyVhOfT+OZY80xuHSCc2hlYzlLDSFvcJpi3jiIBWw9KlzO+wFOicI
+	 i1AiN2wCIIF+vz8MKjsaod8vQJ2v2BkxLZ0i3Zlk4ofUiQPo3RFNIAfXcC1KMDZQtQt6U
+	 OVwyFz+euVfrMbbTuGR1QoTlURnGGtRmfEQlsihMMoW1R6KX3byXLckbYDEREaV9FmUhF
+	 QbVUbmOocc8VjjqWQEyoJBx/RJMt8SekhdMYR/pKxJFASea9q/G09t668n5VRqW0xRE87
+	 sjafSW5CgEbY/S7/GhxKj3hruSw0zsEhZ+B9WXvwuAnm8LM1kU5IHXTHkJm8Xl9VdSA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 50BEF1F008A2;
+	Fri,  6 Nov 2026 20:31:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793997109;
-	bh=Xq9yFMohso02mTNk00VqD923K83qztQ5KJV4mLYhzhs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=onx2Fe3/b1WKTp5swB/L4MGSd/EdFj14Ek4ih88s3c7F4zetFTEb2NfAHCtEW8l4+
-	 gzSUGvEr/M5n6ncDMjAF6g6AqZRfsfhSKOoUgTbhchFlv7Ib0YOn72yNSwIPtXyLzB
-	 UCm+IunXjY++n+yHh+c9ZRWwJVKniDegMUI/M7iMFggg55ROyyoI/3vV5jXW6INm4R
-	 QbnaVKskXdhf6VPOFNtybnIBJTtIWcfupuKoStKXWFmPOpnKOGn7JGKgIR3AB1j/ac
-	 IVa2CBSTN+KkIYa55J/Nv0weCJXbd10CjTrzjNbuBnWtz5TWeO07Zh6/ORnAhSseGb
-	 OexmN4msddMzQ==
-Message-ID: <238194a3-6a68-4508-adcc-d6e52004d3aa@kernel.org>
-Date: Fri, 6 Nov 2026 21:31:43 +0100
+	s=k20260515; t=1793997120;
+	bh=bat6EXPt0m4/2kRoWfMYCbQkcNvBmzo6JgvQIOwR6Fs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=kU7IgwyOgOHFMZRXyJ62iebdxN1vl1wHgzbKZgnORntaCyur1eIkNCQr7VY6D5iA/
+	 BJRH0c7dJhpc6KG+PLg87WItI7I42YGJJPcHOf6n4UechfKz5Kfcy6COojOKq2Dq5h
+	 E5qP+yuYfd+mDWBLLp/tH1hLcIYbSx+vlEhG64S7n4bpIewR9dGoD5hqHoEroMzofG
+	 JHILkdKWLTXdAq9Uj2GSlWDn0gU1ZzDZYVvujlsaA4kvYJEMDCcjvwRMq7cPxNVv7v
+	 iq9VAdCnTc90vdmJF0LkE42Xu6b/zUYQn0f/QmOPqETnf+i6s2Q/BZM+hkFAEFVUHM
+	 kYxkPUvs4DO7w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D532547873;
+	Fri,  6 Nov 2026 20:31:58 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Date: Fri, 06 Nov 2026 21:31:56 +0100
+Subject: [PATCH 2/2] thermal/drivers/tegra: Avoid SOC_THERM calculation
+ overflow on Tegra114
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,197 +83,255 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] mm: limit pagecache folio refcount
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Mason
- <mason@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Kiryl Shutsemau <kas@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev
-References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
- <2ab3b9da1c31ecfb5880542efa6508c8.josef@toxicpanda.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <2ab3b9da1c31ecfb5880542efa6508c8.josef@toxicpanda.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-upstream-soctherm-t114-v1-2-c875d1921084@tsv-stahl-riesa.de>
+References: <20261106-upstream-soctherm-t114-v1-0-c875d1921084@tsv-stahl-riesa.de>
+In-Reply-To: <20261106-upstream-soctherm-t114-v1-0-c875d1921084@tsv-stahl-riesa.de>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, linux-pm@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793997117; l=9502;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=phtH60/ywrZjJs3x+gxtlamVeIt7WyYa43cPSiih9qM=;
+ b=A3u8jhN3RkUy6Ow6SJZSo336q6LKHsu0jdIqDQ3ldSfFBPIFskkKM1adjBOTjRSR7Im3hkQk1
+ 8nOwDs6+j6GAdHbdALY4LRT5hBxoIvoGgb/kba915bqP6GU3izRiXjl
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
 Content-Transfer-Encoding: 7bit
 
-On 11/6/26 20:49, Josef Bacik wrote:
-> On Thu, Nov 05, 2026 at 02:10:09PM +0100, David Hildenbrand (Arm) wrote:
->> Users can create a lot of folio references to pagecache folios, making
->> it possible to overflow the refcount of large folios.
-> 
-> This is a summary of my Claude review of everything, minus what has
-> already been said on the thread.  The numbers are from a TCG guest with
-> the limits lowered to user 6000 and admin 9000.
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-Thanks.
+SOC_THERM calculates each sensor temperature in units of 0.5 C as
+THERMA * capture / 2^13 + THERMB. On Tegra114 the intermediate product
+THERMA * capture has to stay below 2^24. Above that the hardware sets
+TCALC_OVER in SENSOR_CONFIG0, clears TEMP_VALID in SENSOR_STATUS1 and
+the sensor drops out of its group. On a Tegra Note 7, 80 out of 80
+samples matched this rule: TEMP_VALID was set exactly when
+THERMA * capture < 2^24 (largest valid product 16747731, smallest
+invalid one 16877718).
 
-> 
-> 1) Small folios, 1/5 and 5/5
-> 
-> On an order-0 folio one FOLL_PIN is worth GUP_PIN_COUNTING_BIAS
-> references, so about 2M pins reach the limit.  That used to make GUP
-> refuse more pins, now it is also SIGBUS on new faults and failing fork
-> and splice for everybody else.  6 io_uring registered buffers on one
-> order-0 shmem page (ref 6146) and another task gets SIGBUS mapping it.
-> Mappings alone can't get a small folio near the limit, so could the
-> mapping and splice sites skip small folios?
+The fuse calibration itself is fine. As Mikko pointed out in the review
+of the Tegra114 series, the fuse corrections are in 0.5 C units on
+Tegra114 just as on Tegra124 and Tegra210, and
+2 * NOMINAL_CALIB_XX + shifted_xx is correct. This patch keeps it that
+way. The problem is the range: with T in C,
+THERMA * capture = (2 * T - THERMB) * 2^13, so a sensor only gives a
+valid result for T < (2048 + THERMB) / 2. On Tegra114 THERMB is close
+to -2000 (between -2117 and -1812 on the chip tested), which leaves
+almost no headroom. On that chip the sensors were valid only up to
+45 C (cpu2), 53 C (pllx) and 32 C (gpu), and cpu0, cpu1 and cpu3 not
+even at room temperature. The gpu zone therefore always reads 0 C, the
+cpu zone stops following the CPU at about 45 C, and neither the
+throttle levels nor thermtrip ever see the temperatures they are
+programmed for.
 
-Sure, our limit slightly lower, but not as much as we would care for small
-folios? I assume your LLM is confused about the actual limits vs. your fake limits?
+NVIDIA's downstream driver runs Tegra114 in "lower precision" mode for
+this reason (tegra11_soctherm.c: "We must use lower precision (0) due
+to cp_fuse corrections"): the sensors count in 1 C units, the readback
+is scaled by two and all thresholds are in 2 C steps.
 
-> 
-> 2) Migration, 1/5
-> 
-> remove_migration_pte() and remove_migration_pmd() check the limit for
-> whoever migrates, not for the owner of the mapping, and kcompactd always
-> gets the user limit.  With mappings in the admin reserve the next
-> migration drops whatever is over the user limit, in rmap walk order.
+Do the same with a lower_precision flag in the SoC data:
 
-Right.
+- keep the fuse calibration in 0.5 C units and halve THERMA and THERMB
+  only in the final rounding step, so THERMA * capture stays around
+  2^23 and the sensors report the same temperatures at half the
+  resolution,
+- double the readback in translate_temp(),
+- use a threshold grain of 2000 so that thermtrip, the throttle levels
+  and the trip interrupts are programmed in 2 C steps.
 
-> 
-> At ref 7681, move_pages(MPOL_MF_MOVE_ALL) without CAP_SYS_RESOURCE left
-> 1682 of 7168 PTEs unrestored, including all 512 of an mlock()ed VMA, and
-> touching them again got SIGBUS for all 1682.  Could the restore check
-> against the admin limit only?
+The use_lower_precision option in v3 of the Tegra114 series and the
+downstream driver halve the calibration temperatures before the
+calculation instead, which applies fuse_corr_beta at twice its weight.
+Here the result is exactly the current calibration divided by two. The
+PLLX hotspot offsets are left as they are, as in the downstream driver.
+Tegra124, Tegra132 and Tegra210 are unchanged.
 
-An actual admin access would, however, not SIGBUS. Sure, we harm mlock() as well
-but that's just expected.
+Tested on an NVIDIA Tegra Note 7 (P1640) together with the shifted_cp
+fix: THERMA * capture now stays between 7.7 and 9.2 million, and all
+eight sensors report TEMP_VALID in idle and after 60 s of load on all
+four cores at 1.12 GHz. The zones read cpu 43, gpu 39, pllx 43, mem
+39 C in idle (board thermistor 34 C) and cpu 63, gpu 55, pllx 62, mem
+53 C under load. Before, the gpu zone read 0 C and the cpu zone stopped
+at about 45 C. The thermtrip, throttle and trip thresholds are
+programmed as 51, 50 and 45, i.e. 102, 100 and 90 C.
 
-I don't see why the extra complexity for this temporary solution would be warranted.
+Fixes: 9d522a877b6f ("thermal/drivers/tegra: Add Tegra114 specific SOCTHERM driver")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/22816196.EfDdHjke4D@senjougahara/
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+---
+ drivers/thermal/tegra/soctherm-fuse.c     | 15 ++++++++++++---
+ drivers/thermal/tegra/soctherm.c          | 21 +++++++++++++--------
+ drivers/thermal/tegra/soctherm.h          |  6 ++++++
+ drivers/thermal/tegra/tegra114-soctherm.c |  4 +++-
+ 4 files changed, 34 insertions(+), 12 deletions(-)
 
-> 
-> 3) fork, 1/5
-> 
-> If the VMA is only copied because it has an anon rmap, the pagecache
-> PTEs could be left out to refault in the child, like copy_huge_pmd()
-> does, instead of failing the fork.  Only the VM_COPY_ON_FORK cases need
-> the error.
-
-That could be done indeed, although I am not sure if really relevant in practice.
-
-I'll see if it can easily be done.
-
-> 
-> 4) splice, 2/5
-> 
-> filemap_splice_read() fails where read() still works.  sendfile(), the
-> copy_file_range() fallback and overlayfs copy-up get -ENOMEM, and nfsd
-> turns it into nfserr_jukebox so the client retries for as long as the
-> folio stays at the limit.  Could do_splice_read() fall back to
-> copy_splice_read(), like it does for O_DIRECT and DAX?
-
-Same as the above. This solution here is not going to be the solution we'll have
-upstream soon, so I try to keep it as small as possible.
-
-I'll see if it can easily be done.
-
-> 
-> backing_file_splice_read() runs capable() under ctx->cred.  overlayfs
-> lowers CAP_SYS_RESOURCE there, so root never gets the reserve, and fuse
-> passthrough uses the server's cred, so an unprivileged reader may.
-> 
-> 5) Errors
-> 
-> The one condition comes out as SIGBUS, -ENOMEM, -EFAULT (tee, pipe to
-> pipe, MADV_POPULATE_READ, process_vm_readv), -EIO (/proc/pid/mem),
-> -EOVERFLOW (vm_insert_page) and -EINVAL (memfd_pin_folios,
-> fuse_dev_splice_write).  Nothing is logged or counted, so there is
-> nothing that points at the folio.
-
-Right, again, a temporary solution which we can reasonably backport to stable.
-
-> 
-> 6) khugepaged, 1/5
-> 
-> try_collapse_pte_mapped_thp() clears the PTEs and drops their
-> references, and then do_set_pmd() can refuse, so the mapping is gone
-> although the collapse would have lowered the refcount.
-
-Am I wrong or #nobodycares?
-
-> 
-> 7) Changelogs, comments, stable
-> 
-> - 3/5 doesn't say what goes wrong without it.  It is tagged for
->   10ebac4f95e7 (v6.9) while 1, 2 and 5 go back to v4.8, so 6.6 and older
->   get the limits without the flush, and it doesn't say why that is fine.
-
-Yeah, probably it should go further back. The PTE batching case was just one
-scenario. It was possible when batching over VMAs before (which my commit
-handles properly).
-
-
-> - 3/5 leaves the "queue is (now) full" comments in asm-generic/tlb.h and
->   above __tlb_remove_folio_pages_size() stale.
-
-That seems easy to fix.
-
-> - The ufolios_count fix in 4/5 doesn't depend on the rest of the series,
->   so it could be its own patch for stable.
-
-5/5 makes it easier to trigger. Which is how it was found in the first place.
-
-> - 5/5 needs 1/5 and 4/5, which isn't stated for stable.
-
-lol, they have the same Fixes tags, that sure is good enough in one series.
-
-> - After 5/5 the check is the only guard for pins on small folios, the
->   kernel-doc calls it "mostly unnecessary" for them.  The comment in
->   folio_maybe_dma_pinned() still describes the negative refcount scheme.
-
-Yeah, I'm trying not to change to much becuase the while thing will get ripped
-out soon again.
+diff --git a/drivers/thermal/tegra/soctherm-fuse.c b/drivers/thermal/tegra/soctherm-fuse.c
+index 2de1d0cb676e..bba563961da7 100644
+--- a/drivers/thermal/tegra/soctherm-fuse.c
++++ b/drivers/thermal/tegra/soctherm-fuse.c
+@@ -118,7 +118,7 @@ int tegra_calc_tsensor_calib(const struct tegra_tsensor *sensor,
+ 	u32 val, calib;
+ 	s32 actual_tsensor_ft, actual_tsensor_cp;
+ 	s32 delta_sens, delta_temp;
+-	s32 mult, div;
++	s32 mult, div, coeff;
+ 	s16 therma, thermb;
+ 	s64 temp;
+ 	int err;
+@@ -147,11 +147,20 @@ int tegra_calc_tsensor_calib(const struct tegra_tsensor *sensor,
+ 		((s64)actual_tsensor_cp * shared->actual_temp_ft);
+ 	thermb = div64_s64_precise(temp, delta_sens);
+ 
++	/*
++	 * With lower precision the sensors count in 1 C units, which keeps
++	 * THERMA * capture within the 24 bits the hardware calculates with.
++	 * Halve both coefficients in the final rounding step.
++	 */
++	coeff = CALIB_COEFFICIENT;
++	if (shared->lower_precision)
++		coeff *= 2;
++
+ 	temp = (s64)therma * sensor->fuse_corr_alpha;
+-	therma = div64_s64_precise(temp, CALIB_COEFFICIENT);
++	therma = div64_s64_precise(temp, coeff);
+ 
+ 	temp = (s64)thermb * sensor->fuse_corr_alpha + sensor->fuse_corr_beta;
+-	thermb = div64_s64_precise(temp, CALIB_COEFFICIENT);
++	thermb = div64_s64_precise(temp, coeff);
+ 
+ 	calib = ((u16)therma << SENSOR_CONFIG2_THERMA_SHIFT) |
+ 		((u16)thermb << SENSOR_CONFIG2_THERMB_SHIFT);
+diff --git a/drivers/thermal/tegra/soctherm.c b/drivers/thermal/tegra/soctherm.c
+index f74acf13b24d..0f6e5455ebb4 100644
+--- a/drivers/thermal/tegra/soctherm.c
++++ b/drivers/thermal/tegra/soctherm.c
+@@ -413,9 +413,10 @@ static void enable_tsensor(struct tegra_soctherm *tegra, unsigned int i)
+  *   TTTTTTTT H______N
+  * where T's contain the temperature in Celsius,
+  * H denotes an addition of 0.5 Celsius and N denotes negation
+- * of the final value.
++ * of the final value. With lower precision all of this is in
++ * units of 2 Celsius.
+  */
+-static int translate_temp(u16 val)
++static int translate_temp(const struct tegra_soctherm *ts, u16 val)
+ {
+ 	int t;
+ 
+@@ -424,6 +425,8 @@ static int translate_temp(u16 val)
+ 		t += 500;
+ 	if (val & READBACK_NEGATE)
+ 		t *= -1;
++	if (ts->soc->lower_precision)
++		t *= 2;
+ 
+ 	return t;
+ }
+@@ -435,7 +438,7 @@ static int tegra_thermctl_get_temp(struct thermal_zone_device *tz, int *out_temp
+ 
+ 	val = readl(zone->reg);
+ 	val = REG_GET_MASK(val, zone->sg->sensor_temp_mask);
+-	*out_temp = translate_temp(val);
++	*out_temp = translate_temp(zone->ts, val);
+ 
+ 	return 0;
+ }
+@@ -1287,7 +1290,7 @@ static int regs_show(struct seq_file *s, void *data)
+ 		state = REG_GET_MASK(r, SENSOR_STATUS1_TEMP_VALID_MASK);
+ 		seq_printf(s, "Temp(%d/", state);
+ 		state = REG_GET_MASK(r, SENSOR_STATUS1_TEMP_MASK);
+-		seq_printf(s, "%d) ", translate_temp(state));
++		seq_printf(s, "%d) ", translate_temp(ts, state));
+ 
+ 		r = readl(ts->regs + tsensors[i].base + SENSOR_STATUS0);
+ 		state = REG_GET_MASK(r, SENSOR_STATUS0_VALID_MASK);
+@@ -1325,14 +1328,14 @@ static int regs_show(struct seq_file *s, void *data)
+ 
+ 	r = readl(ts->regs + SENSOR_TEMP1);
+ 	state = REG_GET_MASK(r, SENSOR_TEMP1_CPU_TEMP_MASK);
+-	seq_printf(s, "Temperatures: CPU(%d) ", translate_temp(state));
++	seq_printf(s, "Temperatures: CPU(%d) ", translate_temp(ts, state));
+ 	state = REG_GET_MASK(r, SENSOR_TEMP1_GPU_TEMP_MASK);
+-	seq_printf(s, " GPU(%d) ", translate_temp(state));
++	seq_printf(s, " GPU(%d) ", translate_temp(ts, state));
+ 	r = readl(ts->regs + SENSOR_TEMP2);
+ 	state = REG_GET_MASK(r, SENSOR_TEMP2_PLLX_TEMP_MASK);
+-	seq_printf(s, " PLLX(%d) ", translate_temp(state));
++	seq_printf(s, " PLLX(%d) ", translate_temp(ts, state));
+ 	state = REG_GET_MASK(r, SENSOR_TEMP2_MEM_TEMP_MASK);
+-	seq_printf(s, " MEM(%d)\n", translate_temp(state));
++	seq_printf(s, " MEM(%d)\n", translate_temp(ts, state));
+ 
+ 	for (i = 0; i < ts->soc->num_ttgs; i++) {
+ 		seq_printf(s, "%s:\n", ttgs[i]->name);
+@@ -2159,6 +2162,8 @@ static int tegra_soctherm_probe(struct platform_device *pdev)
+ 	if (err)
+ 		return err;
+ 
++	shared_calib.lower_precision = soc->lower_precision;
++
+ 	/* calculate tsensor calibration data */
+ 	for (i = 0; i < soc->num_tsensors; ++i) {
+ 		err = tegra_calc_tsensor_calib(&soc->tsensors[i],
+diff --git a/drivers/thermal/tegra/soctherm.h b/drivers/thermal/tegra/soctherm.h
+index aa4af9268b05..67d4ca149e59 100644
+--- a/drivers/thermal/tegra/soctherm.h
++++ b/drivers/thermal/tegra/soctherm.h
+@@ -122,6 +122,7 @@ struct tegra_soctherm_fuse {
+ struct tsensor_shared_calib {
+ 	u32 base_cp, base_ft;
+ 	u32 actual_temp_cp, actual_temp_ft;
++	bool lower_precision;
+ };
+ 
+ struct tegra_soctherm_soc {
+@@ -133,6 +134,11 @@ struct tegra_soctherm_soc {
+ 	const int thresh_grain;
+ 	const unsigned int bptt;
+ 	const bool use_ccroc;
++	/*
++	 * Sensors count in 1 C instead of 0.5 C units: the readback and
++	 * the thresholds are in 2 C steps then.
++	 */
++	const bool lower_precision;
+ 	struct tsensor_group_thermtrips *thermtrips;
+ };
+ 
+diff --git a/drivers/thermal/tegra/tegra114-soctherm.c b/drivers/thermal/tegra/tegra114-soctherm.c
+index 688104f28052..0a30103c3f74 100644
+--- a/drivers/thermal/tegra/tegra114-soctherm.c
++++ b/drivers/thermal/tegra/tegra114-soctherm.c
+@@ -23,7 +23,8 @@
+ #define TEGRA114_THERMCTL_LVL0_UP_THRESH_MASK	(0xff << 17)
+ #define TEGRA114_THERMCTL_LVL0_DN_THRESH_MASK	(0xff << 9)
+ 
+-#define TEGRA114_THRESH_GRAIN			1000
++/* thresholds are in 2 C steps because of the lower precision */
++#define TEGRA114_THRESH_GRAIN			2000
+ #define TEGRA114_BPTT				8
+ 
+ static const struct tegra_tsensor_configuration tegra114_tsensor_config = {
+@@ -206,4 +207,5 @@ const struct tegra_soctherm_soc tegra114_soctherm = {
+ 	.thresh_grain = TEGRA114_THRESH_GRAIN,
+ 	.bptt = TEGRA114_BPTT,
+ 	.use_ccroc = false,
++	.lower_precision = true,
+ };
 
 -- 
-Cheers,
+2.56.0
 
-David
+
