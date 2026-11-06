@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793980888;
-	b=wJtZU0fWqTXmWsO4SgnHe1L5FfGJiE0w/3SsQVt0t+JVJHUrClGB5OgIE9FTyjvg0Gc2
-	 BejRtH25Y5H4rMj/Z7gayx9YOwKWPYTVeWfVQJuStoB5AxNDngs6R3MOE++DGsEMFEGAH
-	 5lzpcJ7Oi/6jKx2SzfXBgaw1xwMcwhWbwUWEg5BUgz6qpNTzXHOgTHmdQgzhxo1bNubG7
-	 z7za/QKdXk8s9DFehhJnFXZrzICIBq9DYGteBPHuZ7yQXefm4PW7fSn/kxuAOGd0xXyxC
-	 ELFuHjqorO9oBvFxpHyyBNo6k4m+owKiMvp7J7jP6jUQNDxfG6pVndBdjg98+Q8j7Bg==
+	t=1793980962;
+	b=m/j+Hb7z1NUg2chBh3/64xVe9ZYE0WFrwSlQ6Vlzuiex6Mv76QQIiE3vM7EaJWaZ6jI4
+	 A+qf7+TV7ZAz1u+jjS0jBIZ7fU3kMR8d4IF0YEhuOIYbXhMLx8gUrqwK3UYG8LuCz10Uc
+	 4DmZQM1xrHsRQMC4L477SWlLooMGk2+QYuEIOSUS3vdtH9j1qcY300WTAniEJ5BCIaad7
+	 mjqwGmPjWdSwFwvCul8PuT9xuy2Yw98RSvQ/NX7GbRUS4foWMFML+PVZrdw4MnNHU4OpA
+	 z4XcMHP9GbI4+XvHUl1xtHiMzq9YVtFNERuT3TQzX3LShC/3+5zb1ydS05MQSeQLgDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793980888;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=stncjCpIcaZGwyCzQ3Mf39ygwW1cfGfLhkLPVcA4MfQ=;
-	b=t3u4qVdqxTmJhTXO4VEPzpkPNRykStWLuAXCic67sjW0SKkjmbo/3klr+MCjZdaQ99f8
-	 in4KcxuMJoEneCnBfp/Yp5lqCfuv5IVjredi9OqB9Fid2s6J+D+NlD49EIf2JXNanp5O+
-	 I4MsuprKhxMFRiNopdEVsimdIlmMM43+WRkbaVYYdY1pzZvT1uaFkleMcQqOgP/z/UjDa
-	 ovCN3RvDyIJV7+U7NcTxK/+qAC5MaXatcrixMK/kCVXWOZcweRYNAAMB4H4o327XF6fSo
-	 rI4g9lD2xUWEOvnX5krcBDF1dNDwCZj8Mb4fY5pLDNCasX3NKh3tNt2UfJ/qPY8lq4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793980962;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=hB4t7lomzunxZk0X0m05JMwXZ0SRZi/SUaDJWWyv2/A=;
+	b=lCZdLSjZqJ6ZUiMppOUPRoqmoOdRNYYitP9MaNfz2NO3kVms8WUpKPYo1HCMvaXd+7Iz
+	 rG5a5RNh0eesFWM3odvoyRjDosgtDTLTJMlwBXRBg2dpogu6wsoCFAI9loqKcoKYSdpBV
+	 bvVpeAF8TT0xXp3d0PJe2Sbrsk+cmeUlD8YrKbT/LAJPI4evEC3DcguWqkqctJJUEn6+Z
+	 3jVHNUJLCs/igMYjDkV24vC+Bf8pi5ZaYkMo05MH/7WymoKHAhepJMp9mfvIjr/lUYlls
+	 g+gDxx479GWBho8lOPxcNjmT2KAn1yZBFWAQPo5MBp+wzO1CuQZOVo/a0luE096N/ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="JNYeCE/M";
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=acznaWDr;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F154606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F154606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25B0606A326;
+	Fri,  6 Nov 2026 16:02:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C25B0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JNYeCE/M
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso596396b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:01:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793980887; x=1794585687; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=stncjCpIcaZGwyCzQ3Mf39ygwW1cfGfLhkLPVcA4MfQ=;
-        b=JNYeCE/Mxw8oxc53cwlDWJ8UWIHSWiegfRoY9rC99+LORNBuj3X4QhcO5CeIwu48Cs
-         evXEjuSzZDMu74Y7n8Z086sfdrOKXCg5g15EumVHbPxFeTdIBDIIXhXp1c5vhs1z+3I6
-         ntc2rSc/6GKLOX7IrjD2bhstX3lVtbsHihsIAQIIZHCZEk4T+7qyH0axLZnuNmUoolG9
-         AV22BUo5isZUbdgBLgGRH9TNyOse5tIa38uEyy/JA6CuGfCzBouJr0owSTdPGbioUVef
-         q0HYDL5WD7VfHcFkmYKoBMeTWAzLFLgimWcKquPCCuI9E0SJgFx5TJGnyFtcxQZz8xT+
-         RHdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793980887; x=1794585687;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=stncjCpIcaZGwyCzQ3Mf39ygwW1cfGfLhkLPVcA4MfQ=;
-        b=hYzDNTtZvuxlvPgyQizzKm9KZQFBuYHdcI8mT67qaZQow9NQPomTe/nWr+uK1hG8ty
-         7LpAYW5HG893JI2XxuT7vaXSdhTY0JQk9euOls5KJLdjEIKt/u9p1KjwMaRKimc8kn6e
-         xElfUO87vEuM0gi70YVKe06z6dmpnjwgVi42Pjljgk0Qqu1NuHuNWQQ+AG8au3wHA1gq
-         EhAeu0HqyNqMLT0FnGH79nXxme2MjQWnGPlnNO3Bq8d4FHbghf9gal2aP8Uk8/GVHRNc
-         YG4w7jgdJuME8mQxYqNRuoSlOlFNZ0Y5hYVL9oZxsgR9T2vOJpVMq7hMAPQzS23PC5Nf
-         jjHg==
-X-Forwarded-Encrypted: i=1; AKwUvByaKUBVNat8oe16L0eOccRjuzOZLOEL3bKgkSvuR3T6lW5rxVe6s5RuPl7DvtwXvalmpI424L5Hu1ZUvo4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z98ECPwa8PafYmnTz+fxtqXZZW92qNhQ9cPHVyzNiXPXrGmmzLd
-	4w282UtjRlj6jDCf8AeEg6JWQJIUAd8rJAhHEQsQre0vWu5feqmEYTI3
-X-Gm-Gg: AYBFou22Z/Wsl1ZbLIWDVAC6I6Qphz7ym41OWaq7czN1IXuWekn5qsnHpGyCN72SUMF
-	VQ3fVgP79FYg7Ph4l4X480HmpvUwOW1oec/LwS4e5dLkU72ncotGTJN01Uc45WXfVs/W06zOXnU
-	GNYtHaWov1KrnKybWAodqukXagx+gvxw7ueBIugjhnfK8LzLeR3iPMq6wE5vkPMhbHHA+Oo8M3Y
-	q5vYoMlpNyufgfj1oRoPHlqT3CEmKuTnv5ytf2Evdprg2lIZrWGwE1Qm4ijeUqt9u/H+YCqm72J
-	Q0+fb67vaXMwys5DJPkWeUoLHjIvOPcuBq8J2TYA9E79PJOwxuw28xd59L0tZP9o7a1I1VK8nXs
-	1V5u5PbBszn2pBXqTH0/iimZ96fQmOioNuXkFrURDxNp6YI6QVseg41p499dPiXwi+0keqDMpUK
-	/VA2rPrPKB6bQ395n4QVZPvij0uBH4QWuVpbYUXtCkQcC4wwkibJvdizj/+dd0dB7NWOahVMZXp
-	ZJ5k69aim+y8paa7VLzFkDDLZW00AHvXmKcYMV0AvNwJ34JF5zw2h+0EQwa+Z5ajVtNmU3KUDW4
-	kcf7PjmXj0VgtQRmElpx2f+mgZsA0PkPpnPmQxMK4g9jA7Pv
-X-Received: by 2002:a05:6a21:599:b0:3eb:aa33:e586 with SMTP id adf61e73a8af0-3ebb29c72f3mr3246747637.32.1793980887506;
-        Fri, 06 Nov 2026 08:01:27 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb70a7fbcbsm727930a12.25.2026.11.06.08.01.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:01:26 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>,
-	linux-pm@vger.kernel.org
-Cc: Chen-Yu Tsai <wens@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] power: supply: mt6360_charger: drain chrdet_work before the power supply is freed
-Date: Sat,  7 Nov 2026 01:00:57 +0900
-Message-ID: <20261106160057.2754689-4-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106160057.2754689-1-hj351016@gmail.com>
-References: <20261106160057.2754689-1-hj351016@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=acznaWDr
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FE9JQ2726688;
+	Fri, 6 Nov 2026 16:02:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=hB4t7lomzunxZk0X0m05JMwXZ0SRZi
+	/SUaDJWWyv2/A=; b=acznaWDrm3C8X8dMZOufO4t0sVPuS3zc1xYhVpkXtBZVCi
+	5eTVaqQN0EDaKN1xyByhEy/5mYf9oZGhELEk1WhsNHeFMuPaqaej+4rFSA0qYDsw
+	zR2yvb5gB1/NG19N/O+zAcLH/Bnp2/R+Q7b1IV2F3w0hKMe57HfOToDMRnqtZFnR
+	On2TILkkV7ty+ANJS0bL/1/Sk/63kGzVyF4TdAlB2lXW1CQkY+V5X5ymd19tsA3a
+	ISyHuoT7D+fZi7B2HIEpF4IYEqN3WBEe6tGxt6APOmhPVQw3W/ZOjEfoexH+6lzs
+	74utCs2LhdefIu6idsdG9qgFGvn7iZltOJvDgxww==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3r9ddue-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 16:02:27 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6F4xrk3538379;
+	Fri, 6 Nov 2026 16:02:27 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrk9mt2p1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 16:02:26 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6G2NHc36897042
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 6 Nov 2026 16:02:23 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6656920040;
+	Fri,  6 Nov 2026 16:02:23 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9E8582004B;
+	Fri,  6 Nov 2026 16:02:20 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.39.29.160])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri,  6 Nov 2026 16:02:20 +0000 (GMT)
+Date: Fri, 6 Nov 2026 21:32:18 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        atrajeev@linux.ibm.com, tshah@linux.ibm.com
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v3 0/3] powerpc/perf: Fix vpa-pmu driver to report
+ correct numbers
+Message-ID: <au35t73S10aXgpYi@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+References: <20261106153136.330165-1-gautam@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,78 +93,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106153136.330165-1-gautam@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=LKHz05W9 c=1 sm=1 tr=0 ts=6aedfa14 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=jjOfc4w_Om44QiH6-5AA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: gv41lfcRHMda00r8k1NQBgu2bPir9Rnt
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2MiBTYWx0ZWRfX2M57DSAyjsYO
+ mudStF14o7h1KyA4jwUoHFFqiRMk8iMS7VeyFAQPDOojnFDR1qx5CyvshcXoIUHt5dZVknGNSez
+ 3NMLGPq9I0Qd75ziDUdYnfSBz+Rb+Ko=
+X-Proofpoint-ORIG-GUID: DdOAsDceh1iOtpLystqEkO3lhpRnxU3w
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2MiBTYWx0ZWRfX5Px/oIZS0u0w
+ 96bBqRNbdpek1wFfTuP+kX1yWT3gnUV+DklyM2qO8tPEd5COhCxCQ/kaSYq1/L1epybYbKy9UxH
+ xoqo/34Oc4YlEydCHzeiD+VoTthG/v6mywLPW7Cqu5SEbTIDdetvDrQ6GU5okFpSa2g7piI4CA6
+ 00WArMBob+lkmRy2uAohMprCsIk+4/ELSSJe1F/7Z6pFtFelbhEoAwX8W6BkAz1SnCIKvxCFP+z
+ M780qg6OAntKC7Wkrqe1S7zFqzK+mpEpesUe6H33dpzXUEFIpvw4doid91Rno0iTpyUEopMC/i8
+ KjT2DQfYISOJpy4XjEHWLKq+56rZ5i9ZFZBhtpGIs+HHyRJrt9YnHg0jJRWeb7zLkwk3+7qtyeu
+ f9RP32/EHuAdtQzp9DZZt0OQrxrlertgEFaSohvdh9sOBh3ek/e+ECauR4arjwuvkEvzJVnyevU
+ buVVBDQNAttfC37x5pQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060062
 
-From: Hyunjung Ko <hj351016@gmail.com>
+Forgot to add linuxppc-dev
 
-mt6360_charger_probe() registers the chrdet_work cancellation via
-devm_work_autocancel() *before* devm_power_supply_register(), so devres
-(which unwinds in reverse) frees the power supply device first and only
-then cancels the work:
-
-	devm_work_autocancel(..., &mci->chrdet_work, ...);   /* registered 1st */
-	...
-	mci->psy = devm_power_supply_register(...);          /* registered 2nd */
-	...
-	schedule_work(&mci->chrdet_work);
-
-The work handler mt6360_chrdet_work() runs mt6360_handle_chrdet_ext_evt(),
-which calls power_supply_changed(mci->psy). chrdet_work is scheduled at
-the end of probe, so on an unbind that races that work, devres tears down
-in reverse order: devm_power_supply_register()'s release frees the power
-supply device before the devm_work_autocancel action drains chrdet_work,
-and the work then dereferences the freed mci->psy -> use-after-free.
-
-Register the work cancellation after devm_power_supply_register() (and
-after the other devm resources), so reverse-order devres cleanup drains
-chrdet_work while mci->psy is still valid. chrdet_work is only scheduled
-later in probe, so moving the devm_work_autocancel() (which also
-initialises the work) down is safe.
-
-Found by code review; not runtime-reproduced (requires MT6360 PMIC
-hardware and a charger-detect event racing device unbind).
-
-[USER: add a Fixes: tag. SHA not verifiable in this graft-at-7.3 worktree.
- Blame the devm_work_autocancel() introduction in mt6360_charger.c on a
- full-history tree and confirm the 12-char SHA + subject before send.]
-Fixes: 0402e8ebb8b8 ("power: supply: mt6360_charger: add MT6360 charger support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- drivers/power/supply/mt6360_charger.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/power/supply/mt6360_charger.c b/drivers/power/supply/mt6360_charger.c
-index b4d4623..e382db4 100644
---- a/drivers/power/supply/mt6360_charger.c
-+++ b/drivers/power/supply/mt6360_charger.c
-@@ -790,9 +790,6 @@ static int mt6360_charger_probe(struct platform_device *pdev)
- 	mci->vinovp = 6500000;
- 	mutex_init(&mci->chgdet_lock);
- 	platform_set_drvdata(pdev, mci);
--	ret = devm_work_autocancel(&pdev->dev, &mci->chrdet_work, mt6360_chrdet_work);
--	if (ret)
--		return dev_err_probe(&pdev->dev, ret, "Failed to set delayed work\n");
- 
- 	ret = device_property_read_u32(&pdev->dev, "richtek,vinovp-microvolt", &mci->vinovp);
- 	if (ret)
-@@ -828,6 +825,16 @@ static int mt6360_charger_probe(struct platform_device *pdev)
- 	if (IS_ERR(mci->otg_rdev))
- 		return PTR_ERR(mci->otg_rdev);
- 
-+	/*
-+	 * Register the work cancellation only after the power supply is
-+	 * registered.  devres unwinds in reverse, so this guarantees the
-+	 * work (which calls power_supply_changed(mci->psy)) is drained
-+	 * before the power supply device is freed on unbind.
-+	 */
-+	ret = devm_work_autocancel(&pdev->dev, &mci->chrdet_work, mt6360_chrdet_work);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "Failed to set delayed work\n");
-+
- 	schedule_work(&mci->chrdet_work);
- 
- 	return 0;
--- 
-2.43.0
-
+On Fri, Nov 06, 2026 at 09:01:31PM +0530, Gautam Menghani wrote:
+> The vpa-pmu driver can sometimes report incorrect context switch latency
+> numbers:
+> 
+> $ perf stat -e vpa_pmu/l1_to_l2_lat/  --tid=2061  -I 1000
+>            time             counts unit events
+>      1.001022517 18,446,744,073,708,177,408      vpa_pmu/l1_to_l2_lat/
+>      2.002120674            345,092      vpa_pmu/l1_to_l2_lat/
+>      3.003171582            406,342      vpa_pmu/l1_to_l2_lat/
+>      4.004234838            340,836      vpa_pmu/l1_to_l2_lat/
+> 
+> These invalid numbers are observed because of 2 issues:
+> 
+> 1. The PACA never points to the correct vCPU running on a host vCPU when
+> vpa_pmu_add() is called.
+> 
+> 2. When get_counter_data() reads the PACA counter values, it does not
+> update the event->hw.prev_count.
+> 
+> 
+> Changes in V3:
+> 1. Drop the usage of the PACA's vCPU pointer.
+> 2. Introduce a new patch to fix an issue seen when a tracepoint and vpa-pmu
+> driver concurrently enable/disable access to latency counters in VPA.
+> 
+> 
+> Gautam Menghani (3):
+>   Revert "powerpc/perf: Add per-task/process monitoring to vpa_pmu
+>     driver"
+>   powerpc/perf: Update prev_count of event to get accurate values
+>   KVM: PPC: Book3s HV: Ensure reliable usage of latency counters
+> 
+>  arch/powerpc/include/asm/kvm_book3s_64.h |  3 --
+>  arch/powerpc/kvm/book3s_hv.c             | 54 +++---------------------
+>  arch/powerpc/perf/vpa-pmu.c              | 16 ++-----
+>  3 files changed, 11 insertions(+), 62 deletions(-)
+> 
+> -- 
+> 2.56.0
+> 
