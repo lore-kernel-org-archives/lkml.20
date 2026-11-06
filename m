@@ -1,114 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975376;
-	b=eCAbQ2ndLfXunq+PR95d3mOeeCLWy4Kw+XeH/WDAuWMW/7HQR21rmJ7Fejww7v5z+HYz
-	 NO6UbVDa0MyjRrKpUC7LyFb42zCcu6yGIGVYfzqU1P6yaIkyuPeSpgHmLppJinQG/noJt
-	 KzOBTsu8pLevkCOUPIg4gzknCTu6bXDPZzHZ/jSccgRJcoRIjaRUhUWL9iwv7FNc59v6g
-	 V4NO9F81UIkM3MXOA+GM2ZcVVJtr3Sl/ukDyJ7hZQ49Rggn8Fsc7aI6gMPU0Kpe7+Loy2
-	 MuJ9CiASUn5FkT4qq5blwa2JmnpYlaBCWtny+emUCZ6MPpOvv728x+n73w3qvV5eiDA==
+	t=1793975394;
+	b=UQPihn1F29XwvI1QDKMB2gF5z3jW8/bvEgResvC3L+Nuf/NOaNFeVl0kheZ7Bq3hPPl3
+	 0CbAQPuCQ3BFumdT1JQu1f3Cefy6tAj8D33hI0NLPA50Vk4Qv0QjHTn2U3ICLKnh3F3A4
+	 +PfviP5C8qqy4QJQz8DTwIE2P1i7TiDS04ckUnDE5nxNKnKLrScbv7EB3vnwE/rF97vDW
+	 zGPDJqwUavga0nd82CVvSXnhaG6B8/xPN25vgqnHh3SG7SUCXQBVV/qjyK6um16XL0a7c
+	 0Clc9i9Pw9WWZdV1d4JeisiDWu+xb6uroGUjKYP5Rr15+3ItRn3nabtMxuEbPdh8Tgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975376;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=lSRVU7RUuxh6puB6b5i6bOTbwTzK785NvXxbRg2foaM=;
-	b=rGCTYVMaI1eyrGQz2MyEpkYKhH/H2vGdnqtrmlTV34wUm+0u66euOO3Em6DbzV87LvSa
-	 b+ijEUvPzAbNxNooNVnCNhOmgxe2onUfXbFrHJFIDFn4ea6cXE2Di5t4yJA4eNqZ+JrsF
-	 oWETOEiXvpVyIFdXKOx+ibSYgRGmGTPyLndz7AR+MJ/0EOQNVDCZrq9odqgXcpEWevinB
-	 He7fWH9uCcAevz046BlQfQJF9nQ4TtjASfTNRsfzBGxSeMyFusTrR3E0tzUUGVqAEu++8
-	 z4gSvjSAWwGDiIAHng6oypyCgNZ+LtnHbR2doqQzO+ER59pDLz+fGq7aBYKRUxBh1Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975394;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=O3BxtbkW6dUgg0e4SBYmdv0h0k2sMGxdODd1ZfZ8Kws=;
+	b=Uv6H5nSx16/I/bEwUMME8wJ70mUHEnjShBHcJb0WNbJ1hrDEjvUnL8Npj+s6P15ZzeC/
+	 hFI11X7YoCe7Ya/L23OKLdvJ3MSUBOWXcVP3ljY0uiHHG9Vz4S2D/k+KB5W1G5aR57Dih
+	 N5z3ZhGTink5UDE0mV8NaUDPu3EfenTpQfHpPV2JqKgAzq9A0OXFSefGDfa4BFTV7Dxf5
+	 woCi+bk3H0wkl6N3OIGKmVW15VjkeLKt8YfDIZunU4YDjYv7tSWqDuT5MQjyb4GEDZxGE
+	 hMKqQazktvg5imp/+D9z9AwBfYdIw/6UTbLKndkloJ8yc8aDb4Mf16DgktMJizYKbTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YWQBit+A;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NiuANmX4;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=T9F6eGMH;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=T3BliDtd;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="wP9/6bwL";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JTKT7OmU;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D3D606D807
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:29:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78D3D606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D865B606A326;
+	Fri,  6 Nov 2026 14:29:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D865B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YWQBit+A;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NiuANmX4
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6EQVVp030261
-	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 14:29:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lSRVU7RUuxh6puB6b5i6bOTbwTzK785NvXxbRg2foaM=; b=YWQBit+ArHsWuZId
-	kUEzcqzG4QNF1fIC0/VMFdTjAuAAen8EgfGw8DAOsC4SpuaMyx7KjdPPZRavtpxS
-	MSQkWCjKF1VyUYPKVAazDJ2V601Tw8ytrJEcrHIe5d/vz2s4Pq2cUjD7TwvSxWHX
-	aChA0k2oWVAydjxyeXxqXy0XY+QDOXPyfZNm4G5TSjIWcoXHrvHDqmeJpLNqJmYS
-	Vixkm3ErADLZ9D9ess4fbF0qOiLTVNwRY5lWUgNeSXOfsCjsHnarsuyPIhbD6bw0
-	ficbzblHf7ht+Nk8no8GFxOPZjN3ZsLs1GRww5rwAGIVZfxKcistKIZP/MM4Z8Pa
-	cPRpeA==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa36cg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 14:29:34 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-887c99013edso439460b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:29:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793975373; x=1794580173; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lSRVU7RUuxh6puB6b5i6bOTbwTzK785NvXxbRg2foaM=;
-        b=NiuANmX4PIhci/hbJRjwpuDg/HPkRcMKXbQdol3YHU8fhb1Aq8F9BpTZGLkSzVrSZr
-         2+V3LNoTKmn1ztUYw20VWRZ7t20Qq7hqdVuN2wo9cLx3WBGIJ+MAXZIRbt8ikyYTu5uy
-         EBJvnXPE+I6xCwV07GvlTFzPLBXkVPooVTMkbIVPYYP0YaRRgg1dol1njBOJ0VLV54Gf
-         gP6y26C+Eih/HE8qPvmjbvnptlSlg5JOiA4TsEdRfxyqVmCrXRgo4oh+2gaVRrKRnlBK
-         EOKxRoMOMMDkyq0n91hfIzgwn6+iHMJ6FDdytKVrc2VJR4QJmIYyeftCzU5GZi19DRsF
-         sUNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793975373; x=1794580173;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lSRVU7RUuxh6puB6b5i6bOTbwTzK785NvXxbRg2foaM=;
-        b=YmydTMopYq7lI3aqwsbunm9mYxqsozQqQK6PhS1zI/9U1spZVgId7EpoaW1h2n9ACZ
-         knlgj4eolqcRNL60Sva8sPQaY5Bk3A1vLmdSCUPPhDulrTeQYMFklua3/nOynw5LTs2Q
-         q4kKHSoQj+pgyMg+YdaZbGKC2ZYufUnVkonlDDtKuF8N0MiNtEztputJENqILGf2XPfN
-         uc6HLXkDn8bB/kASWUdkOd/cd2o7RPQAevPwpIScPouBl1HmUS+VeIC2ycqPZ7gj94LX
-         WnVtgIY/lDS3pcRCxRcPw1FGrEJceJbkwliu3yfuwBcKexDEc+K/PlPDUH8AbcqGGHaE
-         7NWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxkscDkTMimQMOz+/0xsnD5eGv1yk3ElFx8myQwS52VqcfHkmPrRViNP4PJju0uaaVJ105cOm+EXa4+6lE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93LHmvonT807dvLEFHFe0EScZ0HCnRT3aLLee42UfuNrTBEcdu
-	/13nEdjgjqe7DecgyT+1u/rmcyCiPiG1K+O+N3ZEPUT0K4SwCG5y68uJd/MkhR3XXtQ/sRe5TOV
-	70OwRCerIC2z7XfOhY0JtGq/EGTfdGtx5OAfwpTASLlFng74vskm1y2CkjKpez3wdigAdHkPegT
-	g=
-X-Gm-Gg: AYBFou0hwG31/5plTlkHf+q/nKN8QCurw25t4gvKlU0tx/i9TMzzHyODGse3n87Kdei
-	OwtMbr/ughLoU03qI8tTOH4qSXR0rT1wWUeqZeQukfPll7VtYnQx7/s21qXak5kxWnTxyeSjfa7
-	PzWxLozF21HZEChgDjUH7z7BugquOt8rVtzs2M56NcNI9FEF8Xk34uYOUOvKWBVx3w+S5e6ep83
-	6Vwaytsfs9WOBGzqmx+b4fvP2rOHfeMWc+zKh3nr8S7wh2noB2Ev4MZeaD+Jvu/kM0GqslRSoDM
-	AX4bZzVRarp8OAI5HhZ1B7ZS8CHLm+icfuy0fiC8KT1ZBbR3sQZDnc8AEPqluxd9Vjxit+WmAL+
-	rz6xTqRSIgKgiEWlf9ncVac+4RF1X131MeK5aR46Uf92dD6k1co9yTbWs/SD6gRI6EgJRxRtJnc
-	SFTpKeag==
-X-Received: by 2002:a05:6a00:809:b0:8a0:2344:c44b with SMTP id d2e1a72fcca58-8b37b8694a8mr2601836b3a.40.1793975373248;
-        Fri, 06 Nov 2026 06:29:33 -0800 (PST)
-X-Received: by 2002:a05:6a00:809:b0:8a0:2344:c44b with SMTP id d2e1a72fcca58-8b37b8694a8mr2601802b3a.40.1793975372600;
-        Fri, 06 Nov 2026 06:29:32 -0800 (PST)
-Received: from hu-ptalari-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3597f0161sm690244b3a.26.2026.11.06.06.29.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 06:29:30 -0800 (PST)
-From: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Date: Fri, 06 Nov 2026 19:59:17 +0530
-Subject: [PATCH v2 2/2] i2c: qcom-geni: Add panic notifier to prevent
- transfers during panic
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=T9F6eGMH;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=T3BliDtd;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wP9/6bwL;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JTKT7OmU
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C76B222218;
+	Fri,  6 Nov 2026 14:29:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793975392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O3BxtbkW6dUgg0e4SBYmdv0h0k2sMGxdODd1ZfZ8Kws=;
+	b=T9F6eGMHRkO93M0BvqGAMusPFNwPVE2nZTwMPcHXoJFTTbB3+4NoLHOv1C+toGGOBKGOsM
+	Zk4TdOT631Sy0ozE6svg4m/sffbWzP/QAJ9aPH/eJBtbPI2nO8HVCr3M8wwf69BTk6F+b5
+	MK/wZecBX5OFBNb0NhG3xr2Kip7cVRY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793975392;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O3BxtbkW6dUgg0e4SBYmdv0h0k2sMGxdODd1ZfZ8Kws=;
+	b=T3BliDtd9hpp3d6y1F+DcpLXvmp5oYhKc7XGdJvyWIGfamCNevWsZnL5z/zeAONom/Wnl4
+	zQDZz8EVxlBqibBg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="wP9/6bwL";
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=JTKT7OmU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793975391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O3BxtbkW6dUgg0e4SBYmdv0h0k2sMGxdODd1ZfZ8Kws=;
+	b=wP9/6bwLd7Dg8vz1YAVSAYLlngNth8RT+ABVFG/3gC8noUpc2zJt3wyocGMDkrdQWl7x5I
+	WngtzrQB3YSlYjHF4Vl+HeqNxFwnSwYziKY4/4ODYOeCUmuJL3TWzdQFFciBGYPJk3dpMv
+	52qK1UnCZMrWr2M1XgV/nQ153kZ26bg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793975391;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O3BxtbkW6dUgg0e4SBYmdv0h0k2sMGxdODd1ZfZ8Kws=;
+	b=JTKT7OmUoUh5jLYQxMNsM55o6rRZZSOOxNxxzyR4vBWtUM8EmfkSYsSlSJG9eJG0uMLMFu
+	FomoGh0SM6bwlGBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7AA7D132C9;
+	Fri,  6 Nov 2026 14:29:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id eDMeN17k7WqTdAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 06 Nov 2026 14:29:51 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 7FBCE21B8E; Fri, 06 Nov 2026 15:29:35 +0100 (CET)
+Date: Fri, 6 Nov 2026 15:29:35 +0100
+From: Jan Kara <jack@suse.cz>
+To: Breno Leitao <leitao@debian.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Julian Sun <sunjunchao@bytedance.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	cgroups@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH 3/4] writeback: log the end of a slow writeback wait
+Message-ID: <ftkoesjrylhcmtij2gi63wnrkjdjf2ps65cwhz4g7rejhpjdh3@ieu2t4wtnjwo>
+References: <20261106-writeback_stall_report-v1-0-bf0c3b9023a5@debian.org>
+ <20261106-writeback_stall_report-v1-3-bf0c3b9023a5@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,136 +120,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-add-shutdown-and-panic-notifier-for-i2c-v2-2-d3011344fee8@oss.qualcomm.com>
-References: <20261106-add-shutdown-and-panic-notifier-for-i2c-v2-0-d3011344fee8@oss.qualcomm.com>
-In-Reply-To: <20261106-add-shutdown-and-panic-notifier-for-i2c-v2-0-d3011344fee8@oss.qualcomm.com>
-To: konrad.dybcio@oss.qualcomm.com,
-        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: chandana.chiluveru@oss.qualcomm.com, linux-i2c@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Praveen Talari <praveen.talari@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793975360; l=2868;
- i=praveen.talari@oss.qualcomm.com; s=20251114; h=from:subject:message-id;
- bh=z8OTmYoOW68Wr7bPMyY6C22t8YZnlBJl/0+EpX2cz9k=;
- b=n1Byg/UlMz833cQsKM8f3PbKdih2Pil67dVLYQL1TcyWewpIu3Ww1CCw/EEi95skq3mf8sk0u
- dTwBQJnFuX3DtLPJ9K+CjVddaFD2Km3W0o4uVaQQjly3ExRsGCdthEp
-X-Developer-Key: i=praveen.talari@oss.qualcomm.com; a=ed25519;
- pk=NGK/88fjyHXgfhIKwag7+uIytOmyOypvZ/hDFaYPEss=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1NyBTYWx0ZWRfX8bG6ccKNl+bA
- 7/g5tDFXdFE6p27xeQoGzTJ4VFRhzRpGcBpNjei1+BuyMCReQEjwD/G2fGL5Zfnwbbgsg7W2ngm
- W5wteupLh74Kd2hYwzjQWs+zANZWeDUTldAeW+F6nwmlZP5zIZ9XHPakrtLd5f+7fr8hTmBnBaw
- BBMQpC3Q0EP0ipKCBEDC0JFc3l3or7eEYmLLFXs/kmebQvip4kR+cQb5JvGj61t2YBwLLxCA1eC
- OyPTBG4tUYxUS6W85QfUdS2EjLINqyALZOfkjrTYxFDzOyCRCWs+P04U3RbdkkA+gmLLSWTisik
- BOGh97rVaSr+muMrBLJIcGXKITAP5zr3IM5rXl3hsJ9yTYUZ9oMWC5mkjtTo9fJaR9Z58wI4C+b
- sqz/nxnfuT0801xntXaVPIG376owaHDi+DXH/6s9wRiOJq643MFKND3618T8Vl7GEICRAv/EigO
- 4uIzI31djNQJX8hCP9A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1NyBTYWx0ZWRfX9QdUK8XHxG2i
- TG7L5PPnPja0N9WYNuhh6cDc0hKqn8K3X4U4gdod20pdJUgs1pgGhau6q9e1DuO/YH4KnY5Dl1l
- v+/bE+koF7VWd7lr3W07w6bSAa/vty8=
-X-Proofpoint-ORIG-GUID: 5JwC-cV-zZ1BPai8rvinOTs011xam5-g
-X-Authority-Analysis: v=2.4 cv=GpzXaU1C c=1 sm=1 tr=0 ts=6aede44e cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=0wxbfleT6UKSQBY2OSAA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-GUID: 5JwC-cV-zZ1BPai8rvinOTs011xam5-g
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0 malwarescore=0
- priorityscore=1501 phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060057
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-writeback_stall_report-v1-3-bf0c3b9023a5@debian.org>
+X-Rspamd-Queue-Id: C76B222218
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:dkim,suse.cz:email];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Score: -13.01
 
-When a VM crashes with an active I2C DMA transfer in progress, the
-SMMU raises context faults as the DMA engine continues to access IOVAs
-that are invalidated when the VM's memory context is torn down. These
-faults can affect other VMs sharing the same SMMU instance.
+On Fri 06-11-26 04:26:33, Breno Leitao wrote:
+> A slow writeback wait ends with one more "has been waiting" report,
+> printed by the wakeup that sees the last work item complete:
+> 
+>   INFO: The task sync:180 has been waiting for writeback completion for more than 29 seconds.
+>         bdi 252:0, work items left: 0
+> 
+> That line reads as if the task were still waiting. To tell a slow
+> writeback from a stuck one, the reader has to notice that the reports
+> stopped, which is easy to miss in a busy log.
+> 
+> Report only while work items are outstanding, and log how long the wait
+> took once it is over:
+> 
+>   The task sync:181 waited 29 seconds for writeback completion on bdi 252:0
+> 
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-Register a panic notifier that calls the same geni_i2c_quiesce()
-helper used by the shutdown path. This marks the I2C adapter
-suspended, preventing new transfers from being initiated, and
-cancels/aborts any transfer already in flight, limiting the window
-during which the DMA engine can access IOVAs that are about to be
-invalidated.
+Looks good. Feel free to add:
 
-Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
----
- drivers/i2c/busses/i2c-qcom-geni.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 79707095bbbd..6897cad0ddc0 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -16,6 +16,7 @@
- #include <linux/iopoll.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/panic_notifier.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/soc/qcom/geni-se.h>
-@@ -139,6 +140,7 @@ struct geni_i2c_dev {
- 	u32 num_msgs;
- 	struct geni_i2c_gpi_multi_desc_xfer i2c_multi_desc_config;
- 	const struct geni_i2c_desc *dev_data;
-+	struct notifier_block panic_nb;
- };
- 
- struct geni_i2c_err_log {
-@@ -1087,6 +1089,16 @@ static void geni_i2c_quiesce(struct geni_i2c_dev *gi2c)
- 	}
- }
- 
-+static int geni_i2c_panic_notifier(struct notifier_block *nb,
-+				   unsigned long action, void *data)
-+{
-+	struct geni_i2c_dev *gi2c = container_of(nb, struct geni_i2c_dev, panic_nb);
-+
-+	geni_i2c_quiesce(gi2c);
-+
-+	return NOTIFY_OK;
-+}
-+
- static int geni_i2c_init(struct geni_i2c_dev *gi2c)
- {
- 	u32 proto, tx_depth;
-@@ -1241,9 +1253,16 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = i2c_add_adapter(&gi2c->adap);
-+	gi2c->panic_nb.notifier_call = geni_i2c_panic_notifier;
-+	ret = atomic_notifier_chain_register(&panic_notifier_list, &gi2c->panic_nb);
- 	if (ret)
-+		return dev_err_probe(dev, ret, "Error registering panic notifier\n");
-+
-+	ret = i2c_add_adapter(&gi2c->adap);
-+	if (ret) {
-+		atomic_notifier_chain_unregister(&panic_notifier_list, &gi2c->panic_nb);
- 		return dev_err_probe(dev, ret, "Error adding i2c adapter\n");
-+	}
- 
- 	dev_dbg(dev, "Geni-I2C adaptor successfully added\n");
- 
-@@ -1254,6 +1273,8 @@ static void geni_i2c_remove(struct platform_device *pdev)
- {
- 	struct geni_i2c_dev *gi2c = platform_get_drvdata(pdev);
- 
-+	atomic_notifier_chain_unregister(&panic_notifier_list, &gi2c->panic_nb);
-+
- 	i2c_del_adapter(&gi2c->adap);
- 	release_gpi_dma(gi2c);
- }
+								Honza
 
+> ---
+>  fs/fs-writeback.c | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+> index 3dee9d65eaf721..cdb2631b8552e1 100644
+> --- a/fs/fs-writeback.c
+> +++ b/fs/fs-writeback.c
+> @@ -201,17 +201,18 @@ static bool wb_wait_for_completion_cb(struct wb_completion *done,
+>  {
+>  	unsigned long timeout = sysctl_hung_task_timeout_secs;
+>  	unsigned long waited_secs = (jiffies - done->wait_start) / HZ;
+> +	int left = atomic_read(&done->cnt);
+>  
+>  	done->progress_stamp = jiffies;
+> -	if (timeout && (waited_secs > timeout)) {
+> +	if (left && timeout && (waited_secs > timeout)) {
+>  		pr_info("INFO: The task %s:%d has been waiting for writeback "
+>  			"completion for more than %lu seconds.\n",
+>  			current->comm, current->pid, waited_secs);
+>  		pr_info("      bdi %s, work items left: %d\n",
+> -			bdi_dev_name(bdi), atomic_read(&done->cnt));
+> +			bdi_dev_name(bdi), left);
+>  	}
+>  
+> -	return !atomic_read(&done->cnt);
+> +	return !left;
+>  }
+>  
+>  /**
+> @@ -228,9 +229,18 @@ static bool wb_wait_for_completion_cb(struct wb_completion *done,
+>  void wb_wait_for_completion(struct wb_completion *done,
+>  			    struct backing_dev_info *bdi)
+>  {
+> +	unsigned long timeout, waited;
+> +
+>  	done->wait_start = jiffies;
+>  	atomic_dec(&done->cnt);		/* put down the initial count */
+>  	wait_event(*done->waitq, wb_wait_for_completion_cb(done, bdi));
+> +
+> +	timeout = sysctl_hung_task_timeout_secs;
+> +	waited = jiffies - done->wait_start;
+> +	if (timeout && waited > timeout * HZ)
+> +		pr_info("The task %s:%d waited %lu seconds for writeback completion on bdi %s\n",
+> +			current->comm, current->pid, waited / HZ,
+> +			bdi_dev_name(bdi));
+>  }
+>  
+>  #ifdef CONFIG_CGROUP_WRITEBACK
+> 
+> -- 
+> 2.53.0-Meta
+> 
 -- 
-2.34.1
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
