@@ -1,104 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.128.82
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953675;
-	b=aSQ9+uqUBXKpbQsX5Y7VUAQhn78/lZ9fSMCmOLROjryi424FG48SQiSxCgX7IePfSRPa
-	 DLQoURqt37ins1NwigmtvpPCKWLOfK1L2e1Vo1Ltr22UGM/RymDoMmaifI/BqW6wc40iN
-	 +uwp6TajCjM+3a9U2R2X3LfzjTkrte2r/T+/GlUMsMvfiVQxL1/5Ica2Fe4TEW+falOxu
-	 OZHS09GvRcgUzEwjdi24k3oHRh/S1k3BHE5tJRqrvsnq8D57p/5ODq6sAyoCmQfBvAV49
-	 wJdvzDzQxY7qbHo6MaJNSrfkq1YmJ3Z4Uv0U1VbCXdPBXn9ef1icO4cn4YII1CaLHEw==
+	t=1793953703;
+	b=sad0ZXbPXcqVEgqqnHGfjfY2tV1YQmwmnXyflBXbpoteNqtZHU+pC/AvaX3U1gFiu+N8
+	 xzTQsxnAbOXWmKX1sb9d//q229tn85Gh+tsJphNXgUDbVATDcF5QAcv94wDay4x0bebDM
+	 Rh6d7YaAorDrRgoWSfGUv9MTaq9OeQKv99lHehcnfkcR6U6GB1pICNKraSATOPuh47yqS
+	 Fjwtdi2gimRgN0fFQ3ohEE4Q0XDDCE2dnWFSWG6vofSVnKnFE4tZdygl4kQwvnLDJ0lHV
+	 f4i9PthualGYpHmEseIITpejHNJELutyqKcIhb/LcrNkLUjUSTkNjJlGyDe27HlqzBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953675;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=eFyf1J2eCmzdcygEsnj9uuRDnIkV5nwpe7sUFMbcNPA=;
-	b=fo3yT/PstroabOS4s9KdLvUE42ZmhoFWWT7eGSQCNgdfqbFTH4/2NTWwYPXbiD8hk/tM
-	 j8EOyPfuAis+plIYAaCcAkiMUAYDWqmMf/rht4+X8eAdWZRuYRKm8wJLtLdyJoDkkiv99
-	 BoCUwPwe3VnmqectVMbuv1FqZ6+RfRA4A4ZBxoLsparfYBn2PlHjNNnaWU5O9f3YHBS0r
-	 Po0bVB+stNJfIQ/0fpcB0P6OfQUaLGQdJMM2otL+6DEytNVa2deNn8ZFjFxYKRQCwYiDU
-	 EueqyWn0VT1+GSYcL7Ed44MxPhCtDtuNsbUkn0gHMYH+J+UkA8bGnzIiTwu8VKNKjBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953703;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AyrEz68c4VXjkE63VyLdaVtnntlu4dIYI0ACzIZ48uQ=;
+	b=lTOM8Lq2MeOgDNW66jKOs9E3CoORSI6cELkHI0vEaDPFcP3Kji8ZYz4AwHEXCjGpNP0G
+	 O9galAD5az2IwWufSCUZkqdYKDaCT3+fhu81rX3MBeMIJX/ByK+wvjFfZAYuY/yfgPKsc
+	 Do33wU7B5+XFUvTkTa1+gDiNvM574DmmNXBkXgRjV9i5yJkrHoBZEU9AYJFZMzW9X3Rq5
+	 UJPGZFnsoS3lfVeYAfhAj8tO2Xs4nDn2AZBshCBwhKmClBDdhoCcpiiOHUszocwfaFZXO
+	 FEmfvm+NFc7CW643Njxmu4ERZzuZvu+apU2DqRcpVb74BUSmhSM0g5hQJeQ+pDSxJuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b="B/rSxcDl";
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=TuLOvMqF;
+	arc=none smtp.remote-ip=74.6.128.82
+Received: from sonic312-20.consmr.mail.bf2.yahoo.com (sonic312-20.consmr.mail.bf2.yahoo.com [74.6.128.82])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A15D606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:27:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A15D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09FB9606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:28:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09FB9606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=B/rSxcDl
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so2485685e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:27:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793953668; x=1794558468; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eFyf1J2eCmzdcygEsnj9uuRDnIkV5nwpe7sUFMbcNPA=;
-        b=B/rSxcDlMYnthEPXsv+Dey7MmueZn3MQHpzmfFmdz1qKA5YAzHst+P9vXXtmfUjBQd
-         Hdo9pdjh+loJd+rBiJmMoikQfhb0UunnrP0Elsn0wtcOJK5yGfwrv7yB5A5r1O7aEZ6N
-         JKoqxQnRiR3gEpt3AYwAVsU2u4+l2q+hP33U4CSayE/Uxg/PHBIy+CSfOyKmo3a6U0hF
-         CoMD+sTdwlw31W6xMku/iAxMVKl4QD+AzugLDDpHwuzMW/hxt5bfWmEDVgpP/L4oJclM
-         6+zD7o/sl2wTljFv+oUaeCGHHdQWPtNEG2pghabPaWW4g0MZgOfU+JN06X9amJ35uAOt
-         hiZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793953668; x=1794558468;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eFyf1J2eCmzdcygEsnj9uuRDnIkV5nwpe7sUFMbcNPA=;
-        b=b5Aw616bt55KOrU2U7H+gr+lvqS/iESADWyqU3YELY/HbjZXC5pPbdPV1gaIqX2Xa8
-         RhIXnjeM7pK43xJMXw0Cq+RLq9W4EFUCr8QByA6kSjFcak7FZJVVaRJ2PvrnJvMetRkB
-         DEy1VCR8CkAdzdbO+pg8fQbfAlN4/HFWc7TTkdogoTa0A4pkzTWoyas+LMJnBg0CJwdV
-         Kr2C9axOJW+PgYPcQBcUFroM+rQhA+rmApivzfkjf0Wk/6A4RPBcjyfPaXgKCWuMMMCD
-         NrghAGjjCSl+bO6aEq09yIsNXwjS72C3NcWjhOahctlmQArPOL6MS2wqyJ15dNFZngj4
-         tIxQ==
-X-Forwarded-Encrypted: i=1; AKwUvByr62S0Nzs/YYS3dvNoh6oJRjlGlFg+fMY/FJWn9AsFSa1TyRoseRqzKJzrvzoUVSFVjfjer8YqzUUajd0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IHCDC8dQ9/XbKJJX9CwQYHfip5q1HC7fFyreefpor9AmG2RSZ
-	o9fIe/22cVImFtXntUCzAhC0vm75/iAtuXbSoeg8rcyejdjWlxU4vP0xMYS+u2N9msQ=
-X-Gm-Gg: AYBFou1iLGp5VE4QzFBmj7HriFv/O8kBboXaNzu/ija9YIKIDm0sj70wRssXiSPPxrn
-	q/Rg+hO85YDICVGVwYk8VVy/y6fxzCKFRSArzjlqixJFZdyC2ExWP0w6tSVsZgw+UOe30eU+SYq
-	er83yZJabIBNOvjI/6LVLkRqmigKj5p5D9Y/jh7j3j7TWH9zLN4V2crD962ZwG4uyQ9I8osXaxj
-	CdW1UeoiYNwJGgVV6TJgAJS1ujtll5Jemh9EMmPDEMIBabP61JAh2T4T7I3KIbE+3qhrxeYUjZp
-	soFMr/qBWdE+VAUusvFWcR6qT0qscPmdNZC/qg5IQASKkd/66GKRMJ9c/CieWEAI4nsCSMj6W4k
-	rHsf+lyJmApGru4DtqGfgI+JMk1/EeZ768gFjrGAYGyoALbpoFDB/iBdhEwUUdBUMM83FJY2Q4I
-	UjDLKG2Ui9GCmuDXCAtJU/ipO/UA2P1nqwQzLCYSmCDfyiq9HWZElxGY/1tZF7YY6qaLYGzn3tf
-	gxFOJKPr0tqmKS+JAuq8cPTqzZE9HQJSAVzO/rN8BAPesXrR0fWPOUX8v5V3v2lhurN5xGXoD7z
-	zeGaKdZQPb0z5Qof9eaFo3v4bDIWBk5l8+BWjiTWHHT1YPqyYIZnqhI2HmLw
-X-Received: by 2002:a05:600c:3e0e:b0:4a2:150f:1605 with SMTP id 5b1f17b1804b1-4b6dfba908bmr27264855e9.24.1793953667539;
-        Fri, 06 Nov 2026 00:27:47 -0800 (PST)
-Received: from localhost ([140.209.217.211])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b73ee651b7sm16201965e9.0.2026.11.06.00.27.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 00:27:46 -0800 (PST)
-Date: Fri, 6 Nov 2026 09:27:42 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com, aneesh.kumar@kernel.org
-Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
-Message-ID: <auy7IM0_S2tv7EZX@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-18-jiri@resnulli.us>
- <auuDcABX27EeTApl@e129823.arm.com>
- <20261104194622.GC3889730@ziepe.ca>
- <aux01NUd85PabtZu@FV6GYCPJ69>
- <auyKE2sGqtfjk4v5@e129823.arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=TuLOvMqF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793953702; bh=AyrEz68c4VXjkE63VyLdaVtnntlu4dIYI0ACzIZ48uQ=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=TuLOvMqFAVxvp4TRoiBRJzzXf86qD1+billAbVMaCX4HtX5egU3Bc8kjlCbFfJN7Fs67I7/RMz885ioITdU1HORxtv+xcf+fUbfMIt4jUBOWA/Ac+JAGZuCkb5MNLOYoilttofdFRC3jBr73pOGMsJBPiz9+akul/K6QZWdO+3an/Wohm3cSVYwXSW2AY8JhuZcCO9qidWamLrQxOinsMYbMYaT6jrQArZ5Y2DvkgktAEYwqqERgjjCM1YU6uQavEB8lsigxCAia4TryIsEnIlnjqIOu4u0EFtBQRiOggQUfRGbVPNPUQ3WYLr7BRN0XLxW34e717Px4KYJO4XjpwA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793953702; bh=ll9/EtSQe8lPn1juqfwP4UnDM3itVGpehm/EsO1dCZF=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=BwY4lEDqeqLM0SYEVbF2DpSvR0XrJFtwDTeNp1kuUrJFOl8ziSdHLBx+lRX7RsPs8myT9PxMF3wVYBM6iRfvV6Qdr2GPivHOWOwTwGjq7UjiSHT1AS0CrwLuyuSniNVoV3rwPJtl6gZJd4FKhxW44hZseuZVZpioGUwvJpgwQHdb1nmdjwitkfUVV3GYquaGoWOSiZMfE4g1rhlS/WF3oesZLmNAqmaZStHdukvOQqO0jE6ZFgxCN2xr4daZqsdyxT97jdGDiSvjOXhvehAF4b2IDtdOLJFq8afWt0fW7JLhFKH2JylZkqNQwWWmM5+EnphqLBPpCC6QpEq2FaRFsQ==
+X-YMail-OSG: 9AIiAmoVM1l9jHphb0ZchRqS4G08oSc5Ajgy0HtQNo0cwh4wYldNPq8YFFFU9gu
+ VpPNulzu8rNOX5nWHV8BdEoqOhlVU15JDsutcBsM6VByAGHWEuPHZZqbUgMP5O.jF84X3bXW.5d8
+ 6Ghy.yJo1Wm3sbon.fi8ZKIAKIinIfD8Vi4axdG0xjz6b2jSS3uk_cmd1NyBwnalg3T2X8sFJt6o
+ 1RUEi4hafWV0XpUERmxGLRhE5D0eBQkJ6aSzhnHneMsGU4mMUW4J0nkxv9b0q0fNMmUxkpKwMFRj
+ mzeQwz6E5u_aanbylkychAoY3Um7.OzzLCLgOqPI0JiFI2F4RmYELfslYr_krXXVKSusJFz1hb0w
+ vme38oAHK.5jO01ij729Kqve2szsj9Whfsp8hWEte4FH8LGkaYiiL.3MQ89iK4OBGvDo6gEvibty
+ A.1uRjTQdDyKQsdEoOk7d.toDSxpnxV._DrM8ghXr3y0tbh3V1KaZ6Ca5ri_R.FkRGRHT_ALY5JQ
+ jrW67ct1fSSNNiBgU6VzK7CLSdMyRcDyYcanSWiZFuaLgrn4hiMz3j8Zr41TJEMiHnxEfpCK2cm4
+ 11d_T7gU8ochaXfA3HgzmFh3FqbRV4bcvh_1Mw3Wsl66cXZ9p3H5T6Hj2Jly.ouMHM.MUpKxvYPf
+ 9VpQZq7Hv3gZcvwu12f8bJn1ZwBt7aZAbZYfY1udgBpn6cl9DQfWzUEpg7QenvAqy2CMYglKuPvM
+ 41zdBHBZDJPRLE5JAb5eFgf.i2wEdewnhYWZcfClXelj6ZnQsqHSjETryQArFXoLCxKudBSAsv40
+ fOwC7Jw78amBrUKGPbHVedDdaZCPbArPDAjcJL2zbp_OYkTUj.QbOPsWAQpUX9cng4RQICVyJSjr
+ ifog4jWF1GNjx0Bx5STlmCpRRmiR_ZeB6epIJgW.MiqLZzBblGbyR2XzbmPuwVXyd2r9cUVpYc6v
+ 9SXsVxB2CzIZp8ek2cAk7mIzxuUgfMGL0AMFYSKONVxhBVgl2hoCPH4La7162BPEsQaAavUCqrwn
+ r.Az8TN0hD2QpTLkReIFGgWuCkCJ9azWRlup9hvWX63OKZzAxzXOgv_NzHJL7qGdPZ.xFGyA_YMk
+ z90cQQjQw2SqdinG3U.xGGTa6_TT4sKr.LVBt_ztilEtbznDtazVXkHdsilQsvkLa2EQ9RAOar_m
+ B4Bz07pEO8XjkVQWPCBQ_9CT4sdnE8whESmudpA1Pl7kkkJ1Jpe7EX508P40wPWWEgP3mJIhgeid
+ MQ6rrB08hTFOIWQqBw4.LuRHHBrZn9fken.a2sHqJIKfcY5Zta0NZ0pmsKELIYEZJ9uUG8kJv1YJ
+ E0j7bNOT2vMvHyoQyaKSZmgQaUXKQsv624kOpdxxia91UH6BuATitfN.df.YF1i7nI.SoIZVdVPi
+ 9agXb88r7EdgvVV.SpEDAmtYniuoxWoohhhECFNEsTNbWX.IQ49KUoUqufMku.MZ3f0FLVNArht6
+ 90WTtemN4yoeMmGUkHNXOWg6hhLccvQYeGXHw6m5YptztOzKKtpzEZv8c565RBOXdDqsPTTFnLaP
+ uZJlISCuxOiGRr.v9Z.SbK5eziEGmo9XsOrIIO8qXzfnBPVBqLnv3EjPjPxisRhKxTun6Z9cIkac
+ ucQXB139uaRxBmhuNfZ4kHap1NCHeR1mqnoH4.DdXBMdSmyg5v57VKmmsh2Qsd2t5SKu.i0A31rN
+ 8FIFwxCZ8xPYC96Zat7ZBlYVXag27rW_8771yglQwfU7G8jmza4Jy4OEi8.1DQXj0kD.XYGyssIL
+ UfsU9mGSHxVDL0xb3QX7H7u7e_sDcxGTkiMMQ25dxhJ116uOw3swK_9wQkHY6xoBof1pHw5wbNxx
+ YsN8vA2yMMM.0QlUA0H3AdsrG6Xb3F7oTIqcfTjpSu4oauFi3i_d8wRTBUm1HA9xwKeKNX3KiACB
+ pursb.lomZSAH_xvY3l2U1JmijajqmIAhXS0YGKxfKZ5rnWsjR7ffLz.BH9K7pb.teVMoT_LDrOi
+ RBD1CGT8qB2Fu60ZKy6AleDvIVGxXIqzkHvM5JIlPGgqtnucUSjmg.kWjIVljgyqx6u2xBx_JWtW
+ sQoizicdanRMvme9Rf7uab.Nuibyahm1wahWDB92NvLNOwG5qj3owIDvuhLyrczbYon_siyh7s5W
+ vrQM5MFiMms8P0T5.elM_mxBuJMsyAIm8vy_ss9zECZd7ZlCgVLcS8BHen04KAlgbHLTjqRc9Zli
+ FyRmIZFgiC8DJE_FRGTfmn5iDSuK2JazhGO5xT4bF0GmDtsfwvMClS.xTwwdGFDWJWGA1.wCb7Pm
+ Ki9bBzLsZoeLMV.HI7taAu7mEKGapn.plbtUjBWUMVFVNH.N_F2jfDft.xetsmzkK37f6uQ2adKN
+ eQoij8q7Bf2wM
+X-Sonic-MF: <laurian.iacob@yahoo.com>
+X-Sonic-ID: 028e7991-cf75-4c7e-881c-e1bdadfdd0a5
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.bf2.yahoo.com with HTTP; Fri, 6 Nov 2026 08:28:22 +0000
+Received: by hermes--production-ir2-5dd9bf4598-xpdvn (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID b16bd38e526c6a11bd1e2ee5539bf549;
+          Fri, 06 Nov 2026 08:28:20 +0000 (UTC)
+From: Laurian Iacob <laurian.iacob@yahoo.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: staging/ipu7: use guard(mutex) in ipu7-buttress.c
+Date: Fri,  6 Nov 2026 10:28:18 +0200
+Message-ID: <20261106082818.2293-1-laurian.iacob@yahoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <auxWU5QgfZ8hrSAH@kekkonen.localdomain>
+References: <auxWU5QgfZ8hrSAH@kekkonen.localdomain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,184 +97,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auyKE2sGqtfjk4v5@e129823.arm.com>
+Content-Transfer-Encoding: 8bit
 
-Thu, Nov 05, 2026 at 02:52:19PM +0100, yeoreum.yun@arm.com wrote:
->On Thu, Nov 05, 2026 at 01:32:49PM +0100, Jiri Pirko wrote:
->> Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
->> >On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
->> >> [..snip..]
->> >> 
->> >> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
->> >> > +					       const struct ctlv_cursor *request,
->> >> > +					       struct attestation_evidence_request *decoded,
->> >> > +					       struct attestation_evidence_object_request **objects)
->> >> > +{
->> >> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
->> >> > +	u32 challenge_length;
->> >> > +
->> >> > +	decoded->challenge =
->> >> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
->> >> > +	decoded->challenge_length = challenge_length;
->> >> > +	if (challenge_length < caps->min_challenge_length ||
->> >> > +	    challenge_length > caps->max_challenge_length)
->> >> 
->> >> Hmm, I'm not sure whether this check is required for
->> >> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
->> >> 
->> >> for example, if the provider provides two evidence:
->> >>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
->> >>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
->> >> 
->> >> might challenge is reuiqred for generating the token
->> >> and this would be marked at min/max_challenge_size in evidence_cap.
->> >> 
->> >> However, in case of eventlog, it wouldn't require challenge.
->> >> for example, TPM event log or CCEL event log.
->> >
->> >Right
->> >
->> >> Do we need some field on attestation_evidence_supported_object whether
->> >> it requires challenge or not and applies this sanity check per the object?
->> >> 
->> >> Otherwise, to get eventlog, it would need to send *dummy* challenge
->> >> always.
->> >
->> >I wonder if we should have two interfaces here for signed and unsigned
->> >evidence? It would be clearer for userspace then when it needs to
->> >provide a challenge or not.
->> 
->> Isn't the challenge field provided/not-provided enough?
->> 
->> Currently on the introspection side, device-get op would provide
->> challenge-lengths array:
->> 
->>         evidence?:
->>           challenge-lengths[8]:
->>             length?: uint(..4096)
->>             min-length?: uint(..4096)
->>             max-length?: uint(..4096)
->>  	  objects[16]:
->>             blob-class: evidence-blob-class
->>             max-length: uint
->>             blob-instance?: uint(..u32-max)
->> 
->> I think it would make sense to have challenge-lengths array per object:
->> 
->>  	  objects[16]:
->>             blob-class: evidence-blob-class
->>             max-length: uint
->>             blob-instance?: uint(..u32-max)
->>             challenge-lengths[8]:
->>               length?: uint(..4096)
->>               min-length?: uint(..4096)
->>               max-length?: uint(..4096)
->> 
->> Then the unsigned object would just simply have challenge-lengths empty?
->
->This looks good to me. :)
+Hi Sakari,
 
-The challenge is one of several open points that all depend on what an
-evidence object is: Rick's TDREPORT, legacy versus DICE Quotes,
-"primary", "raw" and the format strings. Here is my proposal to settle
-these together:
+Understood, thanks for the heads up! I will drop this patch and look for other cleanup targets.
+Sorry for the inconvenience, this was my first technical patch, still learning the ropes.
 
-The model:
-
-1. device-get lists each object with an id, a class (signed, event-log,
-   cert-chain or auxiliary), the formats it may come in, its max-length
-   and, for signed objects only, challenge-lengths.
-2. evidence-get names objects by id, as MR ops name MRs, each with its
-   output blob. It carries a challenge exactly when it names a signed
-   object, and the challenge has to fit each of them.
-3. The reply gives each object's format, length and, where the TCB
-   vouches for it, the TCB's digest. The output is always {label, data}.
-4. A signed object is made by the call, over the challenge, and never
-   reused. The rest are read as they stand.
-
-This settles following issues discussed during this patchset review:
-
-1. One op, not two. Per-object challenge-lengths tell userspace when to
-   pass a challenge, and one call returns the signed object with the log
-   and certificates needed to check it.
-2. TDX's TDREPORT goes: it is MAC'd for the platform, not signed.
-   /dev/tdx_guest keeps TDX_CMD_GET_REPORT0.
-3. TDX's Quote object lists the legacy and the DICE format. The provider
-   labels what the host returned and fails on a Quote it cannot label.
-4. "primary" becomes "signed", manifest joins auxiliary, spdm-vca,
-   spdm-measurements and tdisp-report become formats, and signature
-   goes, as a signed object carries its own.
-5. "raw" goes with the representation attr. The TCB digest is a reply
-   field, so a blob always holds the object's own bytes.
-
-Formats become an enum each provider family defines, instead of free
-strings. I'm still unsure if format should be entirely provider-specific
-and defined as "extension", or it should be somehow mixture of common
-and provider-specific. Looks there is not really much common
-anyway, so I lean towards provider-specific only. So far I have:
-
-======  ============  ==========  =========  ===========================
-Family  Format        Class       Challenge  Bytes
-======  ============  ==========  =========  ===========================
-tdx     quote         signed      64         Intel TDX DCAP Quote
-tdx     quote-dice    signed      64         DICE-based TDX Quote
-tdx     ccel          event-log   none       ACPI CCEL log area, a TCG
-                                             crypto-agile event log
-spdm    cert-chain    cert-chain  none       SPDM certificate chain,
-                                             instance = slot 0-7
-spdm    vca           auxiliary   none       SPDM version, capabilities
-                                             and algorithms transcript
-spdm    measurements  signed      32         SPDM GET_MEASUREMENTS
-                                             response
-spdm    tdisp-report  auxiliary   none       TDISP interface report
-tpm     quote         signed      varies     TPM2_Quote's attestation
-                                             structure and signature
-tpm     event-log     event-log   none       TCG PC Client crypto-agile
-                                             event log
-tpm     ek-cert       cert-chain  none       EK certificate from NV
-armcca  token         signed      64         CCA attestation token,
-                                             platform and realm parts
-armcca  event-log     event-log   none       Realm firmware log, if any
-snp     report        signed      64         SNP attestation report
-snp     cert-table    cert-chain  none       VCEK or VLEK, ASK and ARK
-======  ============  ==========  =========  ===========================
-
-Did I miss something that would break us here?
-
-CTLV layout draft:
-
-    device-get reply, caps.evidence:
-      objects[16]:
-        id: uint(..15)
-        class: evidence-class
-        # The reply says which one was written.
-        formats[4]: evidence-format
-        max-length: uint
-        # Signed objects only, entries as today.
-        challenge-lengths[8]?: ...
-        # Descriptive, such as an SPDM slot.
-        instance?: uint(..u32-max)
-        # When the TCB vouches for the object with a digest.
-        tcb-digest-algo?: hash-algo
-
-    evidence-get request:
-      # Required exactly when a signed object is named.
-      challenge?: binary(1..4K)
-      objects[16]:
-        id: uint(..15)
-        data: blob(out, va memfd dma-buf)
-      # selection, privlevel, service and options as now.
-
-    evidence-get reply:
-      # In request order.
-      objects[16]:
-        format: evidence-format
-        length: uint
-        tcb-digest?:
-          hash-algo: hash-algo
-          data: binary(16..64)
-      # The generations as now.
-
-Makes sense?
+Best regards,
+Laurian
