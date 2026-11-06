@@ -1,62 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988798;
-	b=Wmky0ipkWqASAyRHx0fNSNVryKQtgevSYdqZI76eZSyVTLs+CIdTnSBwHEfpcoaaVfAH
-	 ac696Azbcix9xah5AaSpteaZDnSzi1+upm3qLAB9JC/oJwVll3RTwoDZOwRjRo26uZ78A
-	 oNUjSvSypT76cNy9HWj/Fk40SkoVtt3qlcYeqBNGGkUclzWCa5y5EHTju43qdv91eYahB
-	 6HdVdiAARouO7FnIiKaop7jVoqQNdODz/dXQpzHrJuqmNPDMbXeexI/1t2+tJ8Zs/VR4D
-	 Ou5B2MaQvWRUNc4Nz4W1fRyUZydxwiL5jjzxjapwW8Rkg33CX+cefgcgDNUjGj7RQTg==
+	t=1793988904;
+	b=OKsWZU5x+fB7vq78dmbYtL+DCPmglFG4uiMEGsvX6PoIBjO9NKuUjASe7CJr7EPraAUu
+	 houeZH8FzC9xk85a1oS6QMrmoELb/nbxEK6PQ/jnMjPV7z7p0qQKvuI5H/HMNilwq46Ec
+	 +4bo71cxhGyuf0EPDjM69aB4t2jFAkUIhsm7WHuUNeQ81Elxk+ZbUmoJNw5VpXXE9jJDZ
+	 I08ka/vLaOWVFLGOUwK9kjMjr/TplYfA/9Drv7I/pCXSCO7FCTAO5OeRDPGrwGq26QRc5
+	 4DgQCAVxx/cccxGvN3PGx/wrtMTixQGJAb88Idv/xoKdKNWStz6qnSMWhuUG9tlJAQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988798;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=n6neBvr0wzOJ2VVH/LYidFqNZx3hE/M3bOlYTCRTmTM=;
-	b=btgJKs5IiQIlA7YRCwtRafMwr/zBu5Morbmia2t5caV970CUhUZLgfpWOs8BtWD6i1kd
-	 hj/PzGdG9ACe6U6OFiZT0LGczLsOSWILtAnr6m8Hp8X7l+s5wU8vtY6zM1FEqwk7za4Gb
-	 Nukgwfd7vCYMiW3TOIfNVsD97qvxSFVUizNDHW9pB5D8e8FJVpE9MfGoM+p9IFAglyBeX
-	 JWhv6typqDPlkkZ6pjYbcBBdJMdKI/XYVxFePwY20I6LfLppY20ldn9djt4pvwlATEdVI
-	 b5+YLL+AOweHXGg8t0BRpW4q+tN5QjH/wiSjMBCwATjYqdx/fryWzFdaK8bQ0l3aocg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988904;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DfnthQGT530XBD4xK8fouGBMfFf3/AWAiNhXHcUmwcA=;
+	b=QyyrLtEFQPU/Fxq0ex2ldbfpPwAxKHd9tCNfu076lGY9xA9ZYp38VcBk/tcElxGqPyQi
+	 tYYMaBWxg6+TRin3JTU5k2ttbm5pwRLd295d7RE0O4M9JDByalkV3vTg9ek/iO/z9GiA5
+	 0aAiBB+0pwAStyw76n5ibfcFQhnT7TFFHIbHmawUANf1pBvmoRwuMOd7Q8uqYtzHQi6Aa
+	 dfoYA+BTlgdrLLUBuH3K7BeqmFZ3buE53OuEqY1+flDymJRcGTG0xtozpaZcnqbYB9YLp
+	 R0b7HR+alXx985aHgsnim3EwDAj6t9JTkf38RXWptu8tieF/xUrGnWsbFE0yiGmuXGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKmit2Va;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=openvz.org;
+	spf=pass smtp.mailfrom=openvz.org;
+	dkim=pass header.d=openvz.org header.i=@openvz.org header.a=rsa-sha256 header.s=google header.b=NyWNLTh2;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C380606A329;
-	Fri,  6 Nov 2026 18:13:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F78606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:15:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63F78606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvz.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openvz.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKmit2Va
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4A8A1F0089F;
-	Fri,  6 Nov 2026 18:13:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793988798;
-	bh=n6neBvr0wzOJ2VVH/LYidFqNZx3hE/M3bOlYTCRTmTM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TKmit2VaRab5+O+N4YXufxsAnlcJcuUgT7MNO0yB/XKc1B52C+yRKs+wPcANe1x7K
-	 Hj9OIF5b+4NTLzgkCJwL/hoUhsct01y/jJFkHqGhADUzZQVeq0G4vDdQm8Da4qhi7n
-	 pd7hfnQsl0glx155UqBtcnnJ4ZbLW1GjtVjOL8hE/9LcClH8r4JeCJgPN96SR/iUf8
-	 S+Ba+lgutXn5UoY6oFk5XuUjNqYRZXjbBteWGSdrRyQGT/geqU0z63OfydV5ftj7U1
-	 ggAnHfZUfPsYQep15DmAW3PdDl6xjCgNj7zWg+lXsR/OpA6wbphhBJwgzj0yutfKBx
-	 ipKf4ftOn7N8w==
-Date: Fri, 6 Nov 2026 10:13:16 -0800
-From: Oliver Upton <oupton@kernel.org>
-To: Leonardo Bras <leo.bras@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v4 2/3] KVM: arm64: Introduce
- KVM_PGTABLE_WALK_SKIP_LEVEL* walk flags
-Message-ID: <au4YvD_8B3PzbofZ@kernel.org>
-References: <20261106161240.1345126-1-leo.bras@arm.com>
- <20261106161240.1345126-3-leo.bras@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=openvz.org header.i=@openvz.org header.a=rsa-sha256 header.s=google header.b=NyWNLTh2
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4910b863b84so1410793f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:15:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openvz.org; s=google; t=1793988903; x=1794593703; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DfnthQGT530XBD4xK8fouGBMfFf3/AWAiNhXHcUmwcA=;
+        b=NyWNLTh2KuNktgWrvexNqLWSKsigmjEJFnz7uOMCFLGNIU8KwqCL4Vs0HKShgn+vx1
+         Qn/KQI28LgJV3lJidR1yF3kS3zjnNKU+wlyTyLPWHjTISQicY3Su0KmVTKEeAcv5EBzK
+         m4Lf1Nmhep8RUC9dt/LN2OtJfKDeULe/8l300kQingBcSuRG2Xmrk7bMvR03g/CIijt3
+         xD8uZRYYuTtlzP2b1x/BetuusQ10jCDMf/dZHjTWSaGXNG1GxyrszAfB1IWVf8xd5qJS
+         lQiEhZtjWRuUY6Cy6uF2ucgk0Zhq0b/1aUz28uitWx0NAL4TYgkK8hiGRfK4dRu5QZVK
+         x5BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793988903; x=1794593703;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DfnthQGT530XBD4xK8fouGBMfFf3/AWAiNhXHcUmwcA=;
+        b=BBsjxuTlz1UnAgi9gBNHDRsA1FhTWzeQnghqSoxuBpxiCuTsL8obSK+QQrPPW/vC6b
+         doaJhnUqC6aPam4+Ydu1aay4AiglzdXOCPUo9csRtURLlGonHi+r0bbPFh37FAmW2cMb
+         HziK4QACZgZaYIyJ1bAxE/luCVwuYDaOmxm058U86hNIZ5Etv5z1pOeuqMHSVhbmkD+8
+         NDk5MLZaUUDHecpqshX9drJEfmQas34Z5XSbD2CZ/oofhJEl0ytPgKaCJtJMNKBQjFgo
+         xwX736ZjcVTh9ZRsInw5EmjfNWprSVQABYxF8T6uz1lNOz84XjOLj5uDSjm4ZQVd2pxp
+         FhSA==
+X-Forwarded-Encrypted: i=1; AKwUvBwDv8kLioryfEAChWO2QRnT4PKlYtxsRTzZO+VvWbNzYSowNA3xdUU/MPOp7qSlaex/51Dpr+qdaSO95rI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WH7NJd/TFLOSVLh6fZbPy02OnDwzVYPQH2Qq9dVmNw0ZUbxz4
+	vliFje10VWMQSr40vGTQL1AjgUtireZST0zM+UXOGMHJEQ+h1lzC+XLrBdJK5zm1+ys=
+X-Gm-Gg: AYBFou3PHB9CoA2D0bbY5MZv9ncYd5ePLX5JuEN9XY66CmSnvwNx8m7pXpLQ8u1nu/D
+	DXxFEFBwg7u2n5Rq4AU3LeI9x6UwXaLabEjrczeDDp1HT9R8JjOP+o4fyDe/2R++nK9rqnqNUKY
+	kMNtpiKpzOxsZtqhG2q5K2YcwstHAWAC1VWhT3x4kH5Lom+JXH870DjfaogXPCLJ1cZQZY4MV98
+	03B/TMzVDTmJb+v66Ts0mu+3pvzqQ1vl9ae2sxQg7/tXTfJqi8nBWPZTOwh1QpFsCxPmiDaU6LI
+	TtWcBJLmJ82wlWc97KcOWqlZ8aUdco66ggHT/5ZIYFqpK2gRbCZCjDqq4ou9LJtkGauxLsbDcxH
+	XnBvwRHrH581hM5edpQT+I3I7yxteICqqtONcD7i+L0kYmdNGpEsdlukJ4iF3DWcSDnPhvgoeWh
+	pMOUl7FG6MUiPQSCrxakLdA/gOVDXWTS/A/EpcS5+K65uD54fyws3EWiIWxjp1GHUUM3hiQW6g8
+	sNEjO28WkyoJoV3Jz8fo5DjBrKL+7I5M0bVO7rFcuO9hEuHdKguvujwxe3U9oU+VdVLOV2y0xym
+	tDcjLli/cs2m+BzWdg==
+X-Received: by 2002:a05:600c:8b05:b0:4a1:efbe:529c with SMTP id 5b1f17b1804b1-4b6dff855a6mr64101605e9.12.1793988902485;
+        Fri, 06 Nov 2026 10:15:02 -0800 (PST)
+Received: from athena ([2a06:5b06:b600:300:1983:68c3:80e8:4ae2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6ed5b8159sm71788845e9.2.2026.11.06.10.15.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:15:01 -0800 (PST)
+From: "Denis V. Lunev" <den@openvz.org>
+To: miklos@szeredi.hu,
+	amir73il@gmail.com
+Cc: linux-unionfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Denis V. Lunev" <den@openvz.org>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
+Subject: [PATCH] ovl: release the upperdir/workdir in-use locks before the umount sync
+Date: Fri,  6 Nov 2026 19:14:59 +0100
+Message-ID: <20261106181459.4166343-1-den@openvz.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,254 +97,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106161240.1345126-3-leo.bras@arm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Leo,
+From: Denis V. Lunev <den@openvz.org>
 
-On Fri, Nov 06, 2026 at 04:12:37PM +0000, Leonardo Bras wrote:
-> Add new walking flags KVM_PGTABLE_WALK_SKIP_LEVEL{0-3}.
-> When used, they make the kvm_pgtable_walk() skip the given level, as well
-> as levels higher than that.
-> 
-> Being able to skip levels substancially decreases the runtime of a
-> pagetable walk when the callback function does nothing on that level.
-> 
-> Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+The in-use locks on upperdir and workdir are released by ovl_free_fs()
+from ->put_super(). generic_shutdown_super() calls sync_filesystem()
+before that, and ovl_sync_fs() syncs the whole upper filesystem, so the
+locks stay held across a journal commit and a cache flush of the upper
+fs after the overlay is gone. With index=on a new overlay that uses the
+same upperdir, or uses it as a lowerdir, fails to mount in that window:
 
-I'm still not crazy about using a flag per level... This is what I have
-stuffed on top locally. I've got a similar oneline fix for patch #3 to
-initialize the field with an offset.
+  overlayfs: upperdir is in-use as upperdir/workdir of another mount,
+  mount with '-o index=off' to override exclusive upperdir protection.
 
-Any opinions?
+Userspace hits this when the last reference is not dropped by umount(2)
+itself. Docker with the containerd snapshotter mounts a snapshot on a
+thread with a private mount namespace for docker cp and for buildkit,
+and the superblock dies when that thread exits, after the reply to the
+client has gone out. The next request then gets EBUSY. The window grows
+with the flush latency of the upper fs and is there even if nothing was
+written through the overlay, as the mount itself dirties the upper.
 
-Thanks,
-Oliver
+->kill_sb() is called once s_active drops to zero, with no mount and no
+open file left. Release the locks there, before generic_shutdown_super()
+runs. What the dying superblock still does to the upper fs, the sync and
+dropping its references to upper dentries and inodes, does not touch the
+contents of upperdir or workdir. ovl_free_fs() still releases the locks
+for a failed mount, so clear the *_locked flags to keep it from
+unlocking a second time and dropping the lock of a newer mount.
 
-commit cad2070228c4305b5a83ce0a4cfa4aaa3dc0eb44
-Author: Oliver Upton <oupton@kernel.org>
-Date:   Fri Nov 6 10:03:14 2026 -0800
+This takes the sync out of the window but does not close it: the final
+mntput of a dying mount namespace runs from task_work, after the exiting
+thread may have reported completion. Userspace that needs the
+directories free should umount(2) before saying the job is done.
 
-    squash! KVM: arm64: Introduce KVM_PGTABLE_WALK_SKIP_LEVEL* walk flags
-    
-    KVM: arm64: Add support for early termination of table walk recursion
-    
-    Add a new field to the walk flags that represents an offset from the
-    last level of the page table hierarchy at which recursion should
-    terminate.
+Fixes: 2cac0c00a6cd ("ovl: get exclusive ownership on upper/work dirs")
+Cc: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Amir Goldstein <amir73il@gmail.com>
+Cc: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
+Signed-off-by: Denis V. Lunev <den@openvz.org>
+---
+Tested on a 6.12-based distribution kernel, where this code is the
+same, with a reproducer built on unshare(1) and with docker cp and
+docker build in a container. Built and checked on master.
 
-    Signed-off-by: Leonardo Bras <leo.bras@arm.com>
-    [oliver: pass a numeric value instead of a flag per level]
-    Signed-off-by: Oliver Upton <oupton@kernel.org>
+ fs/overlayfs/overlayfs.h |  1 +
+ fs/overlayfs/params.c    |  5 +----
+ fs/overlayfs/super.c     | 12 +++++++++++-
+ fs/overlayfs/util.c      | 12 ++++++++++++
+ 4 files changed, 25 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-index 1d7a9125e522..18dcce3c506e 100644
---- a/arch/arm64/include/asm/kvm_pgtable.h
-+++ b/arch/arm64/include/asm/kvm_pgtable.h
-@@ -326,10 +326,8 @@ typedef bool (*kvm_pgtable_force_pte_cb_t)(u64 addr, u64 end,
-  * @KVM_PGTABLE_WALK_SKIP_CMO:		Visit and update table entries
-  *					without Cache maintenance
-  *					operations required.
-- * @KVM_PGTABLE_WALK_SKIP_LEVEL0:	Skip visiting level 0+ entries
-- * @KVM_PGTABLE_WALK_SKIP_LEVEL1:	Skip visiting level 1+ entries
-- * @KVM_PGTABLE_WALK_SKIP_LEVEL2:	Skip visiting level 2+ entries
-- * @KVM_PGTABLE_WALK_SKIP_LEVEL3:	Skip visiting level 3 entries
-+ * @KVM_PGTABLE_WALK_SKIP_OFFSET:	Offset from KVM_PGTABLE_LAST_LEVEL at
-+ * 					which the walk should stop descending
-  */
- enum kvm_pgtable_walk_flags {
- 	KVM_PGTABLE_WALK_LEAF			= BIT(0),
-@@ -339,18 +337,9 @@ enum kvm_pgtable_walk_flags {
- 	KVM_PGTABLE_WALK_IGNORE_EAGAIN		= BIT(4),
- 	KVM_PGTABLE_WALK_SKIP_BBM_TLBI		= BIT(5),
- 	KVM_PGTABLE_WALK_SKIP_CMO		= BIT(6),
--	/* SKIP_LEVEL* flags should not be split nor reordered */
--	KVM_PGTABLE_WALK_SKIP_LEVEL0		= BIT(7),
--	KVM_PGTABLE_WALK_SKIP_LEVEL1		= BIT(8),
--	KVM_PGTABLE_WALK_SKIP_LEVEL2		= BIT(9),
--	KVM_PGTABLE_WALK_SKIP_LEVEL3		= BIT(10),
-+	KVM_PGTABLE_WALK_SKIP_OFFSET		= GENMASK(9, 7),
- };
+diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+index 901335026a20..85e167a060f4 100644
+--- a/fs/overlayfs/overlayfs.h
++++ b/fs/overlayfs/overlayfs.h
+@@ -583,6 +583,7 @@ static inline int ovl_set_impure_dir(struct dentry *dentry)
+ bool ovl_inuse_trylock(struct dentry *dentry);
+ void ovl_inuse_unlock(struct dentry *dentry);
+ bool ovl_is_inuse(struct dentry *dentry);
++void ovl_inuse_unlock_all(struct ovl_fs *ofs);
+ bool ovl_need_index(struct dentry *dentry);
+ int ovl_nlink_start(struct dentry *dentry);
+ void ovl_nlink_end(struct dentry *dentry);
+diff --git a/fs/overlayfs/params.c b/fs/overlayfs/params.c
+index 5a15e5478a6b..82e270711dbc 100644
+--- a/fs/overlayfs/params.c
++++ b/fs/overlayfs/params.c
+@@ -849,11 +849,8 @@ void ovl_free_fs(struct ovl_fs *ofs)
+ 	iput(ofs->workdir_trap);
+ 	dput(ofs->whiteout);
+ 	dput(ofs->workdir);
+-	if (ofs->workdir_locked)
+-		ovl_inuse_unlock(ofs->workbasedir);
++	ovl_inuse_unlock_all(ofs);
+ 	dput(ofs->workbasedir);
+-	if (ofs->upperdir_locked)
+-		ovl_inuse_unlock(ovl_upper_mnt(ofs)->mnt_root);
  
--#define KVM_PGTABLE_WALK_SKIP_LEVELS 	(KVM_PGTABLE_WALK_SKIP_LEVEL0 | \
--					 KVM_PGTABLE_WALK_SKIP_LEVEL1 | \
--					 KVM_PGTABLE_WALK_SKIP_LEVEL2 | \
--					 KVM_PGTABLE_WALK_SKIP_LEVEL3 )
--
- struct kvm_pgtable_visit_ctx {
- 	kvm_pte_t				*ptep;
- 	kvm_pte_t				old;
-diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-index 6aaf2696c99a..3008817da6c5 100644
---- a/arch/arm64/kvm/hyp/pgtable.c
-+++ b/arch/arm64/kvm/hyp/pgtable.c
-@@ -147,9 +147,12 @@ static bool kvm_pgtable_walk_continue(const struct kvm_pgtable_walker *walker,
- 
- static bool kvm_pgtable_skip_level(s8 level, enum kvm_pgtable_walk_flags flags)
- {
--	u32 skip = FIELD_GET(KVM_PGTABLE_WALK_SKIP_LEVELS, flags);
-+	u8 offset = FIELD_GET(KVM_PGTABLE_WALK_SKIP_OFFSET, flags);
- 
--	return unlikely(skip && level >= ffs(skip) - 1);
-+	BUILD_BUG_ON(!FIELD_FIT(KVM_PGTABLE_WALK_SKIP_OFFSET,
-+				KVM_PGTABLE_LAST_LEVEL - KVM_PGTABLE_FIRST_LEVEL));
-+
-+	return unlikely(level > KVM_PGTABLE_LAST_LEVEL - offset);
+ 	/* Reuse ofs->config.lowerdirs as a vfsmount array before freeing it */
+ 	mounts = (struct vfsmount **) ofs->config.lowerdirs;
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index d9174eaccce2..c7018dde1228 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -1609,13 +1609,23 @@ int ovl_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	return err;
  }
  
- static int __kvm_pgtable_walk(struct kvm_pgtable_walk_data *data,
++static void ovl_kill_sb(struct super_block *sb)
++{
++	struct ovl_fs *ofs = OVL_FS(sb);
++
++	/* Nothing can modify them now, do not hold them across the sync */
++	if (ofs)
++		ovl_inuse_unlock_all(ofs);
++	kill_anon_super(sb);
++}
++
+ struct file_system_type ovl_fs_type = {
+ 	.owner			= THIS_MODULE,
+ 	.name			= "overlay",
+ 	.init_fs_context	= ovl_init_fs_context,
+ 	.parameters		= ovl_parameter_spec,
+ 	.fs_flags		= FS_USERNS_MOUNT | FS_ALLOW_IDMAP,
+-	.kill_sb		= kill_anon_super,
++	.kill_sb		= ovl_kill_sb,
+ };
+ MODULE_ALIAS_FS("overlay");
+ 
+diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+index 521717209b2e..517d503fc557 100644
+--- a/fs/overlayfs/util.c
++++ b/fs/overlayfs/util.c
+@@ -1050,6 +1050,18 @@ bool ovl_is_inuse(struct dentry *dentry)
+ 	return inuse;
+ }
+ 
++void ovl_inuse_unlock_all(struct ovl_fs *ofs)
++{
++	if (ofs->workdir_locked) {
++		ovl_inuse_unlock(ofs->workbasedir);
++		ofs->workdir_locked = false;
++	}
++	if (ofs->upperdir_locked) {
++		ovl_inuse_unlock(ovl_upper_mnt(ofs)->mnt_root);
++		ofs->upperdir_locked = false;
++	}
++}
++
+ /*
+  * Does this overlay dentry need to be indexed on copy up?
+  */
+-- 
+2.53.0
 
-> ---
->  arch/arm64/include/asm/kvm_pgtable.h | 14 ++++++++++++++
->  arch/arm64/kvm/hyp/pgtable.c         | 16 +++++++++++++---
->  2 files changed, 27 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-> index 41a8687938eb..5f37ceef8d63 100644
-> --- a/arch/arm64/include/asm/kvm_pgtable.h
-> +++ b/arch/arm64/include/asm/kvm_pgtable.h
-> @@ -311,31 +311,45 @@ typedef bool (*kvm_pgtable_force_pte_cb_t)(u64 addr, u64 end,
->   * @KVM_PGTABLE_WALK_SHARED:		Indicates the page-tables may be shared
->   *					with other software walkers.
->   * @KVM_PGTABLE_WALK_IGNORE_EAGAIN:	Don't terminate the walk early if
->   *					the walker returns -EAGAIN.
->   * @KVM_PGTABLE_WALK_SKIP_BBM_TLBI:	Visit and update table entries
->   *					without Break-before-make's
->   *					TLB invalidation.
->   * @KVM_PGTABLE_WALK_SKIP_CMO:		Visit and update table entries
->   *					without Cache maintenance
->   *					operations required.
-> + * @KVM_PGTABLE_WALK_SKIP_LEVEL0:	Skip visiting level 0+ entries
-> + * @KVM_PGTABLE_WALK_SKIP_LEVEL1:	Skip visiting level 1+ entries
-> + * @KVM_PGTABLE_WALK_SKIP_LEVEL2:	Skip visiting level 2+ entries
-> + * @KVM_PGTABLE_WALK_SKIP_LEVEL3:	Skip visiting level 3 entries
->   */
->  enum kvm_pgtable_walk_flags {
->  	KVM_PGTABLE_WALK_LEAF			= BIT(0),
->  	KVM_PGTABLE_WALK_TABLE_PRE		= BIT(1),
->  	KVM_PGTABLE_WALK_TABLE_POST		= BIT(2),
->  	KVM_PGTABLE_WALK_SHARED			= BIT(3),
->  	KVM_PGTABLE_WALK_IGNORE_EAGAIN		= BIT(4),
->  	KVM_PGTABLE_WALK_SKIP_BBM_TLBI		= BIT(5),
->  	KVM_PGTABLE_WALK_SKIP_CMO		= BIT(6),
-> +	/* SKIP_LEVEL* flags should not be split nor reordered */
-> +	KVM_PGTABLE_WALK_SKIP_LEVEL0		= BIT(7),
-> +	KVM_PGTABLE_WALK_SKIP_LEVEL1		= BIT(8),
-> +	KVM_PGTABLE_WALK_SKIP_LEVEL2		= BIT(9),
-> +	KVM_PGTABLE_WALK_SKIP_LEVEL3		= BIT(10),
->  };
->  
-> +#define KVM_PGTABLE_WALK_SKIP_LEVELS 	(KVM_PGTABLE_WALK_SKIP_LEVEL0 | \
-> +					 KVM_PGTABLE_WALK_SKIP_LEVEL1 | \
-> +					 KVM_PGTABLE_WALK_SKIP_LEVEL2 | \
-> +					 KVM_PGTABLE_WALK_SKIP_LEVEL3 )
-> +
->  struct kvm_pgtable_visit_ctx {
->  	kvm_pte_t				*ptep;
->  	kvm_pte_t				old;
->  	void					*arg;
->  	struct kvm_pgtable_mm_ops		*mm_ops;
->  	u64					start;
->  	u64					addr;
->  	u64					end;
->  	s8					level;
->  	enum kvm_pgtable_walk_flags		flags;
-> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-> index 7a51f78b6446..80744478c810 100644
-> --- a/arch/arm64/kvm/hyp/pgtable.c
-> +++ b/arch/arm64/kvm/hyp/pgtable.c
-> @@ -137,20 +137,27 @@ static bool kvm_pgtable_walk_continue(const struct kvm_pgtable_walker *walker,
->  	 * Ignore the return code altogether for walkers outside a fault handler
->  	 * (e.g. write protecting a range of memory) and chug along with the
->  	 * page table walk.
->  	 */
->  	if (r == -EAGAIN)
->  		return walker->flags & KVM_PGTABLE_WALK_IGNORE_EAGAIN;
->  
->  	return !r;
->  }
->  
-> +static bool kvm_pgtable_skip_level(s8 level, enum kvm_pgtable_walk_flags flags)
-> +{
-> +	u32 skip = FIELD_GET(KVM_PGTABLE_WALK_SKIP_LEVELS, flags);
-> +
-> +	return unlikely(skip && level >= ffs(skip) - 1);
-> +}
-> +
->  static int __kvm_pgtable_walk(struct kvm_pgtable_walk_data *data,
->  			      struct kvm_pgtable_mm_ops *mm_ops, kvm_pteref_t pgtable, s8 level);
->  
->  static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
->  				      struct kvm_pgtable_mm_ops *mm_ops,
->  				      kvm_pteref_t pteref, s8 level)
->  {
->  	enum kvm_pgtable_walk_flags flags = data->walker->flags;
->  	kvm_pte_t *ptep = kvm_dereference_pteref(data->walker, pteref);
->  	struct kvm_pgtable_visit_ctx ctx = {
-> @@ -185,35 +192,35 @@ static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
->  	 * into a newly installed or replaced table.
->  	 */
->  	if (reload) {
->  		ctx.old = READ_ONCE(*ptep);
->  		table = kvm_pte_table(ctx.old, level);
->  	}
->  
->  	if (!kvm_pgtable_walk_continue(data->walker, ret))
->  		return ret;
->  
-> -	if (!table) {
-> +	if (!table || kvm_pgtable_skip_level(level + 1, ctx.flags)) {
->  		data->addr = ALIGN_DOWN(data->addr, kvm_granule_size(level));
->  		data->addr += kvm_granule_size(level);
->  		goto out;
->  	}
->  
->  	childp = (kvm_pteref_t)kvm_pte_follow(ctx.old, mm_ops);
->  	ret = __kvm_pgtable_walk(data, mm_ops, childp, level + 1);
->  	if (!kvm_pgtable_walk_continue(data->walker, ret))
->  		return ret;
->  
-> -	if (ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
-> +out:
-> +	if (table && ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
->  		ret = kvm_pgtable_visitor_cb(data, &ctx, KVM_PGTABLE_WALK_TABLE_POST);
->  
-> -out:
->  	if (kvm_pgtable_walk_continue(data->walker, ret))
->  		return 0;
->  
->  	return ret;
->  }
->  
->  static int __kvm_pgtable_walk(struct kvm_pgtable_walk_data *data,
->  			      struct kvm_pgtable_mm_ops *mm_ops, kvm_pteref_t pgtable, s8 level)
->  {
->  	u32 idx;
-> @@ -242,20 +249,23 @@ static int _kvm_pgtable_walk(struct kvm_pgtable *pgt, struct kvm_pgtable_walk_da
->  	u32 idx;
->  	int ret = 0;
->  	u64 limit = BIT(pgt->ia_bits);
->  
->  	if (data->addr > limit || data->end > limit)
->  		return -ERANGE;
->  
->  	if (!pgt->pgd)
->  		return -EINVAL;
->  
-> +	if (kvm_pgtable_skip_level(pgt->start_level, data->walker->flags))
-> +		return 0;
-> +
->  	for (idx = kvm_pgd_page_idx(pgt, data->addr); data->addr < data->end; ++idx) {
->  		kvm_pteref_t pteref = &pgt->pgd[idx * PTRS_PER_PTE];
->  
->  		ret = __kvm_pgtable_walk(data, pgt->mm_ops, pteref, pgt->start_level);
->  		if (ret)
->  			break;
->  	}
->  
->  	return ret;
->  }
-> -- 
-> 2.55.0
-> 
