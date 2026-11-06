@@ -1,74 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.157.154.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929991;
-	b=B3RI1xGhUNBt7JU3xTKVaQMcZawVrUvtojcF7WaD0D9yI+/TeQpKSfkSwAHtZlArU5Yc
-	 6KwL64thAXSl+Hns7jqCrxHmLwx/FAzp1tr1IoIdxanjR2gHhBDFlBzERuH/2iahFFARa
-	 dBATBzYwBOKsBd5ky2i1F7yIc7XqGd41oEQ9lRhNZuIEIOB1V9gGBT/Q0z4RlvntasTgy
-	 i6KeovJtFrn4WAJFJLCraQxC8G7g0eYrpNhgVnziSLiH7t3T9W5iWgqc3zvdvtkZpx+FJ
-	 BSkVl+sOLp1bJ0p0XAexmRdkDLAvCOvsJbbEzb5BZbyF2gThPbifVhtKJE6XU4vyjwA==
+	t=1793930055;
+	b=WM8+/fR7rx4/dU2q5mqN5WoJ8UOP+BdwE+xoeAPtdWGLR27/KzB9iD8j0X0AiFka1nu9
+	 y6hmYoWDF+lWsqUD7g66oPYoXyrBkwoMOqxPqCDlyNIbirNxh5X1c+PAtC9KfAY1zYbDy
+	 r63s0njAaIA1DDjrcmsQtr1YLAcEyUzf3G43BkSEUq+b0OZlvGzub0YB9G7QgV7NOQ6HL
+	 3K5c9BCjr93VnxvFZTJJF38phuDBE3WPPZb69nOtjJknR2YUN+mqNzX6sZnGPyCAVqQWT
+	 D7QiuUxNaq6NeH78N2j6pKVnbA7QnYmhC2LXSBXBSb+JzZgN1+BdGws8ersTejNUMAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929991;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding;
-	bh=vphnmM+jwIoRrlB8iEsjeGpfpXI0diKX+EPHgC7tAik=;
-	b=4xEfBpqQV4BDj6Fv2zLUCpPzCA5uCWX5rm+AZeYppJJ3WgcUEYV6F2Amn4r8xjHwLF91
-	 Kg3DpNc4fcPQh9cMq4dNszHpU/BiDbLC5EGyJYigEiHGwo2AENHdVi72euW2Pkp7Bn0Er
-	 YASAjYPcruGKG+8bBG0gOKGAHWkjtrz3qU57hhPyxyhZ6sbvb22mxaffbY2stgBC1iCCC
-	 HiNT0bI0pBOIp/PzMuJkELw1r19lc63pmFds7QRuc1r2nYG6zAM27BIDxIy58QO5eSoOw
-	 E5VOBFy/+0RqJSc3TWK933XY4uhecHYt6pUV7H3XEjCYuf1enHeA0ATChlC8RBjaJ3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930055;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=GNXxh8Lf83NrQqN+daH2uR5w2/gfQKxV5ZK7nR4UdCc=;
+	b=vWUy7AIEc+CV9ZMB0EfCv6VZPCdfWuR7Cxg6tPMN3ssPA+yCtgEoPMt+UAoWF1wzTrEn
+	 zwWZ18/Jdtr2JiU45lHwQkECxsOfGNl4dOy6N71NVT/84YWNYGqHCN54qDEfi8ASoZBZY
+	 nx1NX3ZgHkylFS3wBOXMNLa5AFJQ+5IUbsNPwvkYVnSqMb1TgJ1KNvlocJiA8Sm6JIAcx
+	 NCOdWP/zDIM9L91tNY+esqORr3lqDiAAL8lWCVVn9wQHJs9cU4cBClkYAVUBXQiM7XGlx
+	 ioNULRQzDdcSBIGdAVhBwtNSY4osJI5xtX+1cbRWs4wBEVDouqv2Pt92Ytolzqp7w0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FQCSelky;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=cdrolet.dev;
+	spf=pass smtp.mailfrom=cdrolet.dev;
+	dkim=pass header.d=cdrolet.dev header.i=@cdrolet.dev header.a=rsa-sha256 header.s=default header.b=YVe7uPzn;
+	arc=none smtp.remote-ip=216.157.154.162
+Received: from opentek02.opentek.ca (opentek02.opentek.ca [216.157.154.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67B6606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:53:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A67B6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29AB606A31B;
+	Fri,  6 Nov 2026 01:54:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F29AB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cdrolet.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cdrolet.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FQCSelky
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793929991; x=1825465991;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Tz7i/BkGK7Upp9+h2GI/VokWmLavMPvpV1aNQOLIW8M=;
-  b=FQCSelkysRZFzxsrVq2c27K3uO2gbIKn6yGouj4/qGyPjEYDAwRf/Y38
-   BBSj32amEgBQeuzmE5Igm03Za1F5JuNsEr1j1T4TUtqbMiHLOCZ8tlm+D
-   2Pe3oYvuhu9w1oz9z7igtcd2wC7YfLZfem41IwG/F7Fd6z20+p79wKNtn
-   4LIw7g7BQVYCXwRSCvzNjYacs4NXAr0tE66Q7Dp0x+z4/u24e3d1K7HUJ
-   j8tpHygtwC3hpSpe2O02GwkCCcm9QK6JCcEjfCTV7P+xweh8uhF6SPbJc
-   tlofUr7Nf7eaLJQ169ahC30nqsqBzc53B1+zX+gklRxBkUMktjzW5GH8q
-   Q==;
-X-CSE-ConnectionGUID: 5D6+ydqwRRixDAJZBgg9SQ==
-X-CSE-MsgGUID: Jd7ZbhYwQKmLAi+2EcMVxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2634027"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2634027"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:53:10 -0800
-X-CSE-ConnectionGUID: TzwXlRPATqqMRLBfipF6OQ==
-X-CSE-MsgGUID: 85+2EOpoR0Gshj6zqJkAhQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7277393"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:53:09 -0800
-Date: Fri, 6 Nov 2026 09:53:05 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	aubrey.li@linux.intel.com, yu.c.chen@intel.com, yi1.lai@intel.com
-Subject: [linus:master] [sched/fair]  fb1050ac8e: stress-ng.sleep.ops_per_sec
- 29.9% regression
-Message-ID: <202611060925.fb5500b1-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=cdrolet.dev header.i=@cdrolet.dev header.a=rsa-sha256 header.s=default header.b=YVe7uPzn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cdrolet.dev;
+	s=default; t=1793930047;
+	bh=GNXxh8Lf83NrQqN+daH2uR5w2/gfQKxV5ZK7nR4UdCc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=YVe7uPznLyweeYl5ngydOtveu85VAgvyiUzLyH/+m2CDMufteT8IlefeoAjDnrXKE
+	 HF0UuYNnzmEemElKxOv81NRcto2bO/aIyi5FX/1CL9CbSXhFm5AxPbpT32pCUhMVVr
+	 kEhYcuYxn3bT+WohP5aHExraiTM501Ybgz8Tmb1WFyN8Qyn/fKixpMI8/It27ruHvO
+	 cZuJZGQccJrQO0z0KKYF5fg9KYYkrm8WSZqT+LG2yTmmy6/5H6PG2KBbjM/HE9ph0y
+	 n6CxVvqcplbgWy779lBdBCKkDRIQTVw/JdC4In3SBcAYhnEJPEEf+qFwsMdbPuxfEc
+	 xwWeem3cuo1oQ==
+Received: from localhost (bras-base-drumpq7715w-grc-39-174-89-1-234.dsl.bell.ca [174.89.1.234])
+	by opentek02.opentek.ca (Typewire) with ESMTPSA id 00FB81260B1F;
+	Fri,  6 Nov 2026 01:54:05 +0000 (UTC)
+From: Charles Drolet <linux@cdrolet.dev>
+To: devnull+b.danias.tutamail.com@kernel.org
+Cc: b.danias@tutamail.com,
+	bod@kernel.org,
+	hansg@kernel.org,
+	kieran.bingham@ideasonboard.com,
+	laurent.pinchart@ideasonboard.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	rfoss@kernel.org,
+	sakari.ailus@linux.intel.com,
+	serin.yeh@intel.com,
+	stable@vger.kernel.org,
+	Charles Drolet <linux@cdrolet.dev>
+Subject: Re: [PATCH 3/3] media: i2c: ov8856: Power off the sensor during system suspend
+Date: Thu,  5 Nov 2026 20:53:28 -0500
+Message-ID: <20261106015328.11301-1-linux@cdrolet.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104-ov8856-pm-fixes-v1-3-1958b730ce66@tutamail.com>
+References: <20261104-ov8856-pm-fixes-v1-3-1958b730ce66@tutamail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,115 +76,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: Typewire on 127.0.1.1
 
+Hi,
 
+I have tested this patch on a Dell Latitude 7320 Detachable with BIOS 1.48
+on Ubuntu 26.04.1 with Linux 7.4-rc1 + patches for TPS68470 board-data and
+TPS68470 privacy led (tied to VSIO).
 
-Hello,
+Without this patch, the privacy led turns on when entering s2idle and turns
+off on resume.
 
-kernel test robot noticed a 29.9% regression of stress-ng.sleep.ops_per_sec on:
+With this patch, the privacy led flashes once when entering s2idle and
+stays off. It stays off on resume.
 
-
-commit: fb1050ac8e40aaa014291b5b53612d27890c2b09 ("sched/fair: Change the default cgroup_mode to concur")
-https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
-parameters:
-
-  nr_threads: 100%
-  testtime: 60s
-  test: sleep
-  cpufreq_governor: performance
-
-
-In addition to that, the commit also has significant impact on the following tests:
-
-+------------------+---------------------------------------------------------------------------------------------+
-| testcase: change | netperf: netperf.Throughput_Mbps -15.9% regression                                          |
-| test machine     | 192 threads 2 sockets Intel(R) Xeon(R) 6740E  CPU @ 2.4GHz (Sierra Forest) with 256G memory |
-| test parameters  | cluster=cs-localhost                                                                        |
-|                  | cpufreq_governor=performance                                                                |
-|                  | ip=ipv4                                                                                     |
-|                  | nr_threads=200%                                                                             |
-|                  | runtime=300s                                                                                |
-|                  | test=TCP_STREAM                                                                             |
-+------------------+---------------------------------------------------------------------------------------------+
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202611060925.fb5500b1-lkp@intel.com
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261106/202611060925.fb5500b1-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-spr-r02/sleep/stress-ng/60s
-
-commit: 
-  507f910a4e ("sched/fair: Add cgroup_mode: tasks")
-  fb1050ac8e ("sched/fair: Change the default cgroup_mode to concur")
-
-507f910a4e1f140a fb1050ac8e40aaa014291b5b536 
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-  96108453           -29.9%   67358809        stress-ng.sleep.ops
-   1599640           -29.9%    1120640        stress-ng.sleep.ops_per_sec
-  46082447           -29.1%   32658369 ±  2%  stress-ng.time.involuntary_context_switches
-     15699           -11.3%      13918        stress-ng.time.percent_of_cpu_this_job_got
-      6459            -4.7%       6156        stress-ng.time.system_time
-      3034           -25.5%       2262        stress-ng.time.user_time
-  2.16e+09           -30.6%    1.5e+09        stress-ng.time.voluntary_context_switches
-
-
-***************************************************************************************************
-lkp-srf-2sp3: 192 threads 2 sockets Intel(R) Xeon(R) 6740E  CPU @ 2.4GHz (Sierra Forest) with 256G memory
-=========================================================================================
-cluster/compiler/cpufreq_governor/ip/kconfig/nr_threads/rootfs/runtime/tbox_group/test/testcase:
-  cs-localhost/gcc-14/performance/ipv4/x86_64-rhel-9.4/200%/debian-13-x86_64-20250902.cgz/300s/lkp-srf-2sp3/TCP_STREAM/netperf
-
-commit: 
-  507f910a4e ("sched/fair: Add cgroup_mode: tasks")
-  fb1050ac8e ("sched/fair: Change the default cgroup_mode to concur")
-
-507f910a4e1f140a fb1050ac8e40aaa014291b5b536 
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-      3415           -15.9%       2871        netperf.ThroughputBoth_Mbps
-   1311602           -15.9%    1102665        netperf.ThroughputBoth_total_Mbps
-      3415           -15.9%       2871        netperf.Throughput_Mbps
-   1311602           -15.9%    1102665        netperf.Throughput_total_Mbps
- 3.906e+08 ±  2%     -63.2%  1.439e+08 ±  2%  netperf.time.involuntary_context_switches
-    184303            -3.2%     178397        netperf.time.minor_page_faults
-     11296            +1.6%      11478        netperf.time.percent_of_cpu_this_job_got
-     33938            +2.0%      34626        netperf.time.system_time
-    444.02 ±  2%     -27.5%     321.87 ±  2%  netperf.time.user_time
-    425106 ± 27%     -48.3%     219585 ± 12%  netperf.time.voluntary_context_switches
- 3.002e+09           -15.9%  2.524e+09        netperf.workload
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
-
+Tested-by: Charles Drolet <linux@cdrolet.dev>
