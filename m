@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957752;
-	b=DVyK02SltqVDgsdWjDfehfYQxCR9oIq37tSRryfQJZn4/jCAZJs7lj+CL6pmiO4qq/sa
-	 bm2izhbbRzEIGnCUw+4jllS6QYMvJNKLxOlQY8uGUlryDR/x1lOlaB9J8xuXsY3z79K5o
-	 9DpPqjqdL7lGN11BqRVgDjnFMYkKZOS+bHeYLQsjM5VCVf7hPhVQfV8F6/WKNii6nVY3e
-	 jneN83q3XoF0XxgLP0ZF3TQ2ZylEg8pkaArb7v7dWSlJ6msNjqQueN2k+Zg+7o2Troc6w
-	 RD5AtC7GtdkHpGACMdOvEiZ0kcC0SscyIHXGOCz3WNQLwc18dSAXCYuq1TGZeMePexA==
+	t=1793957758;
+	b=2zBkQM56XZFzhluSNqxzkTP7xJttLxB/eecKPdJ4QEcZ2kZTahcUPP6bNTHnI7IhBYbj
+	 sVSByiTUgOuegrxQiNLzV4t+pTJoMQZi0kSO2vm+bN8/uZ9LsDfMBg8IBCPLuVoLNASCM
+	 dykE9KNaT4c3BqU9jXr8qkrbgTV2SY0LCWbg0BjkCbUr4JuDH7wkDeATCTmkLuPlb/NQ0
+	 I3X8x+ZZyPDBY/Um3+Ju+u4hnd8zsg6tVE/Ugqbkd1ji8ITfth4bKlYP2XoFfYGekucdr
+	 K82nXzEvu9ZGTOSfcvfaamhB4SAz29AnEHkVqbvQEwRQ9mcx1JdxfRSgcc1s5t4VvRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957758;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=hewMRascvr7AA+5OQppQsEVU0pRPp2P6p7ND6Q3Lz6o=;
-	b=v/1kbQVlql4Lys6UIZ7xwqPeXLs18Hl1B77fzYvNtNKb5x551eNMpxJRuSIEy57NuCnj
-	 fzqPFcUaw0KrbZAPoDehzGFmlHFMNQ++AtZfs1LbXh1hOnejYoMYZwnj+Be5NF4A+j747
-	 bf2e0viOWMF+mb5SGkDOTy51d5pDGLZiHRkrdwDK9yUWGBCJBC3gxS6Z17BwA4kmap+u+
-	 esJEz/c0evhFrZhw3BmUg/ZUKo5SivEHp/9JdQb3WO5tJRxnTgWxLg8PJJ2X1k7JZC5OR
-	 +BFghY2Mr12L0xmceC2GfGEhlDJLvcLZjSdIn55SAH4ccSzDEi1jcUEfintjzUOEMmg==
+	bh=RXIZGHHWpmZU5wtuEMm40/oCqY3PrRAXpzL3s/2FbDo=;
+	b=mRJi+tk4PAn847b9O4IPQIJS3pt9VFsBWiCk1u+JRcy/x29FWVOCRKF/w8SEhsp1iIBV
+	 wvDPjo/Se+3+y5JfUeyyuAuyy4/oqnIJ+eM6tMzCCS39U/ZjPISMPaIVQ2qaT3TQLCk1i
+	 yEG5wncj8Pgwtotf0KYBLWocKTWoVwbxcL/0+TbkioUAT0zNspbcTNHFfCp2TSTTVuy6S
+	 YaUIailjfANG09aF9Ai35e3Ip7cmdAYDHM02cnUEWqXmrHx/96YLKzmNJ8HHJA+RV3zJs
+	 36qKgJy1qU3VyJlJrhBjdNevSVx+LdC5gUKsyJ6/r0/g+Pnx0b8WjGTwz5vP0VZpkgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=LGNohDq8;
-	arc=none smtp.remote-ip=209.85.217.98
-Received: from mail-vs1-f98.google.com (mail-vs1-f98.google.com [209.85.217.98])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=YazukmSG;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8F5606D83A
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:35:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B8F5606D83A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C176082BDA
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:35:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C176082BDA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=LGNohDq8
-Received: by mail-vs1-f98.google.com with SMTP id ada2fe7eead31-7c33cc572e6so361052137.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:35:52 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=YazukmSG
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so278181a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:35:57 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793957751; x=1794562551;
+        d=1e100.net; s=20260707; t=1793957757; x=1794562557;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hewMRascvr7AA+5OQppQsEVU0pRPp2P6p7ND6Q3Lz6o=;
-        b=gc8dqXwWglF6pAk7WzNQPR2zHkLm4skXjICprBOJt3WNwM/PKsdDud86F9vbsxU6AW
-         +9IUQuCTmbQ1OnJBvUEOEv99aYZmVG3n3a2hvi3Z+R4EGtLxCLSxRo4sWHL+nc1nidNQ
-         jV656L0jjy0PMUo0px+QLtlXXchTDmuTBqGa3dPTrl2pviqQWcxaAxrhaULIR9etFaKb
-         BfIDgBIfxkbjWb4cK0ucGZ/hSB5WN9jkUrbyvFo2zoMz+m1SKEPx5bn58KMCH3vTvX/U
-         seQEJzrBwku4ju4DHq0OS1pgXpZM7cDCJTqKXvuylycyxtChNQry9Jk9smnVAyOG4iJU
-         bheg==
-X-Forwarded-Encrypted: i=1; AKwUvBxoAhXPxQNi9qI4oOp8OtqaVGnR3ABdhR7t981GHUWWWquSbNWMKoHm1uKVZcSy+QvqHO2fAsG0opF5r2c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oHDluLFekFP2AnCW4u09G6DuiG5emSrzz8I7C0TBIVq7DsiqT
-	QNxG4Jr11h3AUP1zDj9WeLfJ+hxX3BXhGcThcKt/v3/2UtaMm9HtxuaO0KcvmshCMm6+hzgOdCy
-	WklgHPO78eIM2AxqEt9SI/rm3SlOjyXAAVRFJyU4S6HBqOLNayTGGS1MMkV1ovnU4q8WZGggQfL
-	LFl6lN29jv1nROFVwxohzgfA9gF4XRg45xOqTP7n9RK9oaYrl71iWNQGQDCRKwA/6GRAZS7JKyg
-	UijWx6NTlkGVhfDRA==
-X-Gm-Gg: AYBFou2d8vHXbx+xGRU8c36O2ecGwyPtA2/ah6FVhO/5ChaCVtHRrsepjK6BWlt3yz4
-	wsxQ+ieq9zc6KGIVcqWr5HfCN71G2DPuYTKJsetBeyhWXOPi37PdyhoO5dKtv31XQJ81JxiilXD
-	o16uvk8o3NAPMj9T1+kByFqJgHxXGyVil9uoilRkKoVQzZpcSmdlPvf6ZBOO/1wa5mL9bzBhcxU
-	E5UK+CpxuZA6R5yj4ZtY0laCvkbgkZAztYj+8Af6SVuiiAHaP/aRGXL+dJV+ZkFB9W439ymaUS+
-	GxiEAj694LdSiLw1QMzRfvbNnXLwoog6PXJSfw6iIftFiMEuuE9mIwgxA625plkR7zPTx1ddzTh
-	QpPBHCpvOGmsHme1u5uURq5upDxF/jcludeVFTDcrDowo7lni8ZXZYLiEZA6iXyGZ7ytkjiuwdr
-	uOtvN7fyrD8ByrKAYCTgekR7RMm1V+t4s0zg==
-X-Received: by 2002:a05:6102:1481:b0:7b4:db17:bca4 with SMTP id ada2fe7eead31-7d2a155a9d5mr866780137.9.1793957751132;
-        Fri, 06 Nov 2026 01:35:51 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id ada2fe7eead31-7d2a855ee87sm15234137.1.2026.11.06.01.35.50
+        bh=RXIZGHHWpmZU5wtuEMm40/oCqY3PrRAXpzL3s/2FbDo=;
+        b=lAwv7zQXlO6nzVpbCbW33Dd8aPdiRbl6oIe+uHlI8IwAI7QyDaWJ45TjAWESfz+CFj
+         bvssVn7lR7h3Dh642aBqCdLI3v4UE63IUXxGvoUMkRGVMpkYzSDCcFlXNukptOISo56M
+         D18wqXklKmnPZaNcPL+M8EAtKqPsisT4/NGR2beDUOZovJ0X8rrkdU9biMmvkl7ZoNrF
+         kRDd35aMS52hHiV9vla0YaNFSiteXD2EsZRlspwF4vaZEuKZXAb0pWCg7R8ptYFD5OJ3
+         dPIwbTx2ftUnFzaBeZiy3o3biNdWAdrIqCH1zdyFNGYQ89JRFPMkzC4QbPhLznYnHr31
+         Eklw==
+X-Forwarded-Encrypted: i=1; AL+hErG0Eyy+JIcFcbnDQgLcyHRmGjOKyDTszm7m5AZHisFmrxJFA9pM8jBJqR+qeitHU5JjzXWqMtMwJtQg5EQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/26IqklrxzpLRbp50tU8lpFt4FQ/K6HnfMLQCQYJUgMlwgx9Ag
+	1CEV/86jnWZdGslGteU/+RqEHFlz5Xj9P0TDimt2ct4Dj/xrRXgk6t2nkzSzw0TCMDo3cfiuykl
+	n6Tc8k5i7+LcT+tLiPJlhSc0p0MIe7j5D+lUJUKLMDwCdxLX2dPRrbdFW0vvAPY0TZn6JxW/VbD
+	xxRrrMnCzGMmtJs6FPCeck15pTnlYEFznorMgVyy5n3uzeD7yI9aXTNHLIJTrbrpbFZ91eLYcKR
+	ArXNcw3o3PHMroneg==
+X-Gm-Gg: AYBFou1RXM8I+MRGZLy94Un17rYzM/fAYxo/EUVmMlRYLt3sS/UZSFLYp3mfGLTVw0J
+	/0EUXZvWE8MENy2sJWA8bJmZvsSdipZwK4RNt/fog/J9R/x9skvrv9F6wmqqElfODrKUJbc0YD2
+	dkCOo4co5gMGv7r0CxRrs5l8EbUkMtIZzqv5BxPy4xPrHfIt29jHAzgrkdm3Eeb9+N+ZlJ9mfqE
+	VzVhRRtN3JlTkfMn9ZAh0/pLW7r5nfOsYJFo2o/lTf2ohfEaI/RFAATKULDIvax1IimLya55rpD
+	H1AcSJTyKkLasTdhpJRMd/hWwZd/cznol/WhDLx5mMuk0jTcOHSpLidNuGXnlOqlCI9oy3TXlS7
+	L2nkxt5axMwf0qKmmWAyuxbNzG8tyGT+C5HH0KbRE7wDC7UrkMdUzB83Uqg59bl7s4vXDu5ndeM
+	EOiYr6WH3K4AZSZzhA7zJgxkwVuPFJ8B+aUQ==
+X-Received: by 2002:a17:90b:3804:b0:3ad:b7d1:8631 with SMTP id 98e67ed59e1d1-3b0db6bb484mr1946409a91.17.1793957757106;
+        Fri, 06 Nov 2026 01:35:57 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0d7de0ce5sm1466792a91.6.2026.11.06.01.35.56
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 06 Nov 2026 01:35:51 -0800 (PST)
+        Fri, 06 Nov 2026 01:35:57 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36cec75d8caso660239eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:35:50 -0800 (PST)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso960383eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:35:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793957750; x=1794562550; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1793957755; x=1794562555; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hewMRascvr7AA+5OQppQsEVU0pRPp2P6p7ND6Q3Lz6o=;
-        b=LGNohDq8dPlB/yNH/M/nDnI/3RvH6rYvhVajDHBsD77DfaI1KNczwfqwQ3tGDFZyRK
-         1/UcVw2HIfCwyMDUFN/0JhwJNRtnvrC96vTaBYCRfx0IqFlsvRJ/fcj+XxK7ACfwJ+Y5
-         QKS8w05D3P3yvVP32atdH8MmIYY3Eqq26XM5Q=
-X-Forwarded-Encrypted: i=1; AL+hErFGY+4ABkTOi48HsrZ+evYI73PHVf19K5egTz7P3h8iE7nLrJphG43agBod4dNDiSqAkmx0PQ6XoTMrT0g=@vger.kernel.org
-X-Received: by 2002:a05:7301:460f:b0:36a:15ba:43ea with SMTP id 5a478bee46e88-36f76d177bdmr2560055eec.5.1793957749945;
-        Fri, 06 Nov 2026 01:35:49 -0800 (PST)
-X-Received: by 2002:a05:7301:460f:b0:36a:15ba:43ea with SMTP id 5a478bee46e88-36f76d177bdmr2560018eec.5.1793957749226;
-        Fri, 06 Nov 2026 01:35:49 -0800 (PST)
+        bh=RXIZGHHWpmZU5wtuEMm40/oCqY3PrRAXpzL3s/2FbDo=;
+        b=YazukmSGcrM0rkNDsFlzo9CzeI1iWayrWYzbSb7bsdkKajFKYqqT4clTrd/uiNU5g6
+         s+JyeuiLN2rPe3iMceHQsw4PFDQHfvWOmZN1LKO3uF+DtFiS5ilnfhw8qu5KyBjSIwSg
+         OZClRaVslNIB3BkSAssDfugUP/6guUwauqah4=
+X-Forwarded-Encrypted: i=1; AL+hErGNkzyi5R2vm5XNF6PjJ8Iz+ptdPr1JmqoZJDpsmn1JbOXiGiVAcaFTbd00Mxau6qQPopOpNjAdMtKRrb0=@vger.kernel.org
+X-Received: by 2002:a05:693c:40c8:b0:36d:2b02:86a6 with SMTP id 5a478bee46e88-36f72cc1ae3mr3296010eec.4.1793957755019;
+        Fri, 06 Nov 2026 01:35:55 -0800 (PST)
+X-Received: by 2002:a05:693c:40c8:b0:36d:2b02:86a6 with SMTP id 5a478bee46e88-36f72cc1ae3mr3295959eec.4.1793957754343;
+        Fri, 06 Nov 2026 01:35:54 -0800 (PST)
 Received: from H5-S1 ([192.19.203.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fc92fasm6447726eec.19.2026.11.06.01.35.44
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fc92fasm6447726eec.19.2026.11.06.01.35.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:35:48 -0800 (PST)
+        Fri, 06 Nov 2026 01:35:54 -0800 (PST)
 From: Vikas Gupta <vikas.gupta@broadcom.com>
 To: davem@davemloft.net,
 	edumazet@google.com,
@@ -109,9 +109,9 @@ Cc: netdev@vger.kernel.org,
 	dharmender.garg@broadcom.com,
 	ajit.khaparde@broadcom.com,
 	Vikas Gupta <vikas.gupta@broadcom.com>
-Subject: [PATCH net-next v6 03/10] bnge: add helper functions for multi RSS contexts
-Date: Fri,  6 Nov 2026 15:05:17 +0530
-Message-ID: <20261106093524.838341-4-vikas.gupta@broadcom.com>
+Subject: [PATCH net-next v6 04/10] bnge: add RXFH ethtool support
+Date: Fri,  6 Nov 2026 15:05:18 +0530
+Message-ID: <20261106093524.838341-5-vikas.gupta@broadcom.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20261106093524.838341-1-vikas.gupta@broadcom.com>
 References: <20261106093524.838341-1-vikas.gupta@broadcom.com>
@@ -127,216 +127,518 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Add infrastructure for creating, modifying, and deleting user-defined
-RSS contexts. This helps the next patch implement commands for ethtool.
-For each user RSS context, a VNIC is allocated.
+Introduce ethtool RXFH operations including get/set_rxfh for
+reading and programming the RSS hash key and indirection table.
+
+Currently set_rxfh and set_rxfh_fields are supported only while the
+device is down. A future patch series will rework
+bnge_close_core()/bnge_open_core() so they can be driven safely
+from the ethtool path, adding full functionality by applying the
+configuration on a live device.
+
+The default RSS key changes. It used to be a per-device
+get_random_bytes() key created on first open in bnge_init_vnics().
+It is now the system-wide netdev_rss_key_fill() key set in
+bnge_netdev_alloc(), and rss_hash_key_valid is removed.
 
 Signed-off-by: Vikas Gupta <vikas.gupta@broadcom.com>
 Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
 ---
- .../net/ethernet/broadcom/bnge/bnge_netdev.c  |  14 +--
- .../net/ethernet/broadcom/bnge/bnge_netdev.h  |   2 +
- .../net/ethernet/broadcom/bnge/bnge_vnic.c    | 113 ++++++++++++++++++
- .../net/ethernet/broadcom/bnge/bnge_vnic.h    |  15 +++
- 4 files changed, 132 insertions(+), 12 deletions(-)
+ drivers/net/ethernet/broadcom/bnge/bnge.h     |   1 +
+ .../net/ethernet/broadcom/bnge/bnge_ethtool.c | 345 ++++++++++++++++++
+ .../ethernet/broadcom/bnge/bnge_hwrm_lib.c    |   2 +
+ .../net/ethernet/broadcom/bnge/bnge_netdev.c  |  11 +-
+ .../net/ethernet/broadcom/bnge/bnge_netdev.h  |   1 -
+ .../net/ethernet/broadcom/bnge/bnge_resc.c    |   7 +-
+ .../net/ethernet/broadcom/bnge/bnge_vnic.h    |   1 +
+ 7 files changed, 358 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-index 3248aae88c8d..e81c7b8634c2 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-@@ -1102,7 +1102,7 @@ static int bnge_alloc_vnic_attributes(struct bnge_net *bn)
- {
- 	struct bnge_dev *bd = bn->bd;
- 	struct bnge_vnic_info *vnic;
--	int i, size;
-+	int i;
- 
- 	for (i = 0; i < bn->nr_vnics; i++) {
- 		vnic = &bn->vnic_info[i];
-@@ -1127,18 +1127,8 @@ static int bnge_alloc_vnic_attributes(struct bnge_net *bn)
- 		}
- 
- 		/* Allocate rss table and hash key */
--		size = L1_CACHE_ALIGN(BNGE_MAX_RSS_TABLE_SIZE);
--
--		vnic->rss_table_size = size + HW_HASH_KEY_SIZE;
--		vnic->rss_table = dma_alloc_coherent(bd->dev,
--						     vnic->rss_table_size,
--						     &vnic->rss_table_dma_addr,
--						     GFP_KERNEL);
--		if (!vnic->rss_table)
-+		if (bnge_alloc_vnic_rss_table(bn, vnic))
- 			goto err_free_vnic_attributes;
--
--		vnic->rss_hash_key = ((void *)vnic->rss_table) + size;
--		vnic->rss_hash_key_dma_addr = vnic->rss_table_dma_addr + size;
- 	}
- 	return 0;
- 
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h
-index c47a874df4ba..3c0fea0a7608 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h
-@@ -371,6 +371,8 @@ struct bnge_net {
- 
- 	u8			pri2cos_idx[8];
- 	bool			pri2cos_valid;
-+
-+	u16			num_rss_ctx;
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge.h b/drivers/net/ethernet/broadcom/bnge/bnge.h
+index 3e8210626062..aeb4b1ef628a 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge.h
++++ b/drivers/net/ethernet/broadcom/bnge/bnge.h
+@@ -85,6 +85,7 @@ enum {
+ 	BNGE_RSS_CAP_AH_V6_RSS_CAP			= BIT(5),
+ 	BNGE_RSS_CAP_ESP_V4_RSS_CAP			= BIT(6),
+ 	BNGE_RSS_CAP_ESP_V6_RSS_CAP			= BIT(7),
++	BNGE_RSS_CAP_IPV6_FLOW_LABEL_RSS_CAP		= BIT(8),
  };
  
- #define BNGE_DEFAULT_RX_RING_SIZE	511
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
-index d98a6196c859..a44971a7c74d 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
-@@ -129,3 +129,116 @@ int bnge_alloc_rfs_vnic(struct bnge_net *bn)
- 	vnic = &bn->vnic_info[BNGE_VNIC_NTUPLE];
- 	return bnge_alloc_and_setup_vnic(bn, vnic, bn->bd->rx_nr_rings);
+ #define BNGE_MAX_QUEUE		8
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c b/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
+index 2467e44de291..878fe4888160 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
+@@ -10,6 +10,9 @@
+ #include <linux/ethtool_netlink.h>
+ 
+ #include "bnge.h"
++#include "bnge_netdev.h"
++#include "bnge_vnic.h"
++#include "bnge_resc.h"
+ #include "bnge_ethtool.h"
+ #include "bnge_hwrm_lib.h"
+ 
+@@ -740,6 +743,336 @@ static int bnge_set_pauseparam(struct net_device *dev,
+ 	return rc;
  }
-+
-+void bnge_modify_rss(struct bnge_net *bn, struct ethtool_rxfh_context *ctx,
-+		     struct bnge_rss_ctx *rss_ctx,
-+		     const struct ethtool_rxfh_param *rxfh)
+ 
++static u64 bnge_get_ethtool_ipv4_rss(struct bnge_dev *bd)
 +{
-+	struct bnge_dev *bd = bn->bd;
-+
-+	if (rxfh->key) {
-+		if (rss_ctx) {
-+			memcpy(rss_ctx->vnic.rss_hash_key, rxfh->key,
-+			       HW_HASH_KEY_SIZE);
-+		} else {
-+			memcpy(bn->rss_hash_key, rxfh->key, HW_HASH_KEY_SIZE);
-+			bn->rss_hash_key_updated = true;
-+		}
-+	}
-+
-+	if (rxfh->indir) {
-+		u32 i, pad, tbl_size = bnge_get_rxfh_indir_size(bd);
-+		u32 *indir_tbl = bd->rss_indir_tbl;
-+
-+		if (rss_ctx)
-+			indir_tbl = ethtool_rxfh_context_indir(ctx);
-+		for (i = 0; i < tbl_size; i++)
-+			indir_tbl[i] = rxfh->indir[i];
-+		pad = bd->rss_indir_tbl_entries - tbl_size;
-+		if (pad)
-+			memset(&indir_tbl[i], 0, pad * sizeof(*indir_tbl));
-+	}
-+}
-+
-+void bnge_del_one_rss_ctx(struct bnge_net *bn, struct bnge_rss_ctx *rss_ctx,
-+			  bool all)
-+{
-+	struct bnge_vnic_info *vnic = &rss_ctx->vnic;
-+	int i;
-+
-+	bnge_hwrm_vnic_free_one(bn->bd, &rss_ctx->vnic);
-+	for (i = 0; i < BNGE_MAX_CTX_PER_VNIC; i++) {
-+		if (vnic->fw_rss_cos_lb_ctx[i] != INVALID_HW_RING_ID)
-+			bnge_hwrm_vnic_ctx_free_one(bn->bd, vnic, i);
-+	}
-+
-+	if (!all)
-+		return;
-+
-+	if (vnic->rss_table)
-+		dma_free_coherent(bn->bd->dev, vnic->rss_table_size,
-+				  vnic->rss_table,
-+				  vnic->rss_table_dma_addr);
-+	bn->num_rss_ctx--;
-+}
-+
-+void bnge_hwrm_realloc_rss_ctx_vnic(struct bnge_net *bn)
-+{
-+	u32 tpa_flags = bn->priv_flags & BNGE_NET_EN_TPA;
-+	struct ethtool_rxfh_context *ctx;
-+	unsigned long context;
-+
-+	xa_for_each(&bn->netdev->ethtool->rss_ctx, context, ctx) {
-+		struct bnge_rss_ctx *rss_ctx = ethtool_rxfh_context_priv(ctx);
-+		struct bnge_vnic_info *vnic = &rss_ctx->vnic;
-+
-+		if (bnge_hwrm_vnic_alloc(bn->bd, vnic, bn->bd->rx_nr_rings) ||
-+		    bnge_hwrm_vnic_set_tpa(bn->bd, vnic, tpa_flags) ||
-+		    bnge_setup_vnic(bn, vnic)) {
-+			netdev_err(bn->netdev, "Failed to restore RSS ctx %d\n",
-+				   rss_ctx->index);
-+			bnge_del_one_rss_ctx(bn, rss_ctx, true);
-+			ethtool_rxfh_context_lost(bn->netdev, rss_ctx->index);
-+		}
-+	}
-+}
-+
-+void bnge_clear_rss_ctxs(struct bnge_net *bn)
-+{
-+	struct ethtool_rxfh_context *ctx;
-+	unsigned long context;
-+
-+	xa_for_each(&bn->netdev->ethtool->rss_ctx, context, ctx) {
-+		struct bnge_rss_ctx *rss_ctx = ethtool_rxfh_context_priv(ctx);
-+
-+		bnge_del_one_rss_ctx(bn, rss_ctx, false);
-+	}
-+}
-+
-+struct bnge_rss_ctx *bnge_get_rss_ctx_from_index(struct bnge_net *bn, u32 idx)
-+{
-+	struct ethtool_rxfh_context *ctx;
-+
-+	ctx = xa_load(&bn->netdev->ethtool->rss_ctx, idx);
-+	if (!ctx)
-+		return NULL;
-+	return ethtool_rxfh_context_priv(ctx);
-+}
-+
-+int bnge_alloc_vnic_rss_table(struct bnge_net *bn,
-+			      struct bnge_vnic_info *vnic)
-+{
-+	unsigned int size = L1_CACHE_ALIGN(BNGE_MAX_RSS_TABLE_SIZE);
-+
-+	vnic->rss_table_size = size + HW_HASH_KEY_SIZE;
-+	vnic->rss_table = dma_alloc_coherent(bn->bd->dev,
-+					     vnic->rss_table_size,
-+					     &vnic->rss_table_dma_addr,
-+					     GFP_KERNEL);
-+	if (!vnic->rss_table)
-+		return -ENOMEM;
-+
-+	vnic->rss_hash_key = ((void *)vnic->rss_table) + size;
-+	vnic->rss_hash_key_dma_addr = vnic->rss_table_dma_addr + size;
++	if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_IPV4)
++		return RXH_IP_SRC | RXH_IP_DST;
 +	return 0;
 +}
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
-index 72357e0b37ac..382df442789e 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
-@@ -58,10 +58,25 @@ struct bnge_vnic_info {
- 	u32		vnic_id;
++
++static u64 bnge_get_ethtool_ipv6_rss(struct bnge_dev *bd)
++{
++	if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6)
++		return RXH_IP_SRC | RXH_IP_DST;
++	if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6_FLOW_LABEL)
++		return RXH_IP_SRC | RXH_IP_DST | RXH_IP6_FL;
++	return 0;
++}
++
++static int bnge_get_rxfh_fields(struct net_device *dev,
++				struct ethtool_rxfh_fields *cmd)
++{
++	struct bnge_net *bn = netdev_priv(dev);
++	struct bnge_dev *bd = bn->bd;
++
++	cmd->data = 0;
++	switch (cmd->flow_type) {
++	case TCP_V4_FLOW:
++		if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_TCP_IPV4)
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv4_rss(bd);
++		break;
++	case UDP_V4_FLOW:
++		if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_UDP_IPV4)
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv4_rss(bd);
++		break;
++	case AH_ESP_V4_FLOW:
++		if ((bd->rss_hash_cfg &
++		     (VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4 |
++		      VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV4)) ==
++		    (VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4 |
++		     VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV4))
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv4_rss(bd);
++		break;
++	case AH_V4_FLOW:
++		if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4)
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv4_rss(bd);
++		break;
++	case ESP_V4_FLOW:
++		if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV4)
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv4_rss(bd);
++		break;
++	case SCTP_V4_FLOW:
++	case IPV4_FLOW:
++		cmd->data |= bnge_get_ethtool_ipv4_rss(bd);
++		break;
++	case TCP_V6_FLOW:
++		if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_TCP_IPV6)
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv6_rss(bd);
++		break;
++	case UDP_V6_FLOW:
++		if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_UDP_IPV6)
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv6_rss(bd);
++		break;
++	case AH_ESP_V6_FLOW:
++		if ((bd->rss_hash_cfg &
++		     (VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV6 |
++		      VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV6)) ==
++		    (VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV6 |
++		     VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV6))
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv6_rss(bd);
++		break;
++	case AH_V6_FLOW:
++		if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV6)
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv6_rss(bd);
++		break;
++	case ESP_V6_FLOW:
++		if (bd->rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV6)
++			cmd->data |= RXH_IP_SRC | RXH_IP_DST |
++				     RXH_L4_B_0_1 | RXH_L4_B_2_3;
++		cmd->data |= bnge_get_ethtool_ipv6_rss(bd);
++		break;
++	case SCTP_V6_FLOW:
++	case IPV6_FLOW:
++		cmd->data |= bnge_get_ethtool_ipv6_rss(bd);
++		break;
++	default:
++		return -EOPNOTSUPP;
++	}
++
++	return 0;
++}
++
++#define RXH_4TUPLE (RXH_IP_SRC | RXH_IP_DST | RXH_L4_B_0_1 | RXH_L4_B_2_3)
++#define RXH_2TUPLE (RXH_IP_SRC | RXH_IP_DST)
++
++static int bnge_set_rxfh_fields(struct net_device *dev,
++				const struct ethtool_rxfh_fields *cmd,
++				struct netlink_ext_ack *extack)
++{
++	struct bnge_net *bn = netdev_priv(dev);
++	struct bnge_dev *bd = bn->bd;
++	u32 rss_hash_cfg;
++	int tuple;
++
++	rss_hash_cfg = bd->rss_hash_cfg;
++
++	if (cmd->data == RXH_4TUPLE ||
++	    cmd->data == (RXH_4TUPLE | RXH_IP6_FL))
++		tuple = 4;
++	else if (cmd->data == RXH_2TUPLE ||
++		 cmd->data == (RXH_2TUPLE | RXH_IP6_FL))
++		tuple = 2;
++	else if (!cmd->data)
++		tuple = 0;
++	else
++		return -EINVAL;
++
++	if (cmd->data & RXH_IP6_FL &&
++	    !(bd->rss_cap & BNGE_RSS_CAP_IPV6_FLOW_LABEL_RSS_CAP))
++		return -EINVAL;
++
++	if (cmd->flow_type == TCP_V4_FLOW) {
++		rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_TCP_IPV4;
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_TCP_IPV4;
++	} else if (cmd->flow_type == UDP_V4_FLOW) {
++		rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_UDP_IPV4;
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_UDP_IPV4;
++	} else if (cmd->flow_type == TCP_V6_FLOW) {
++		rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_TCP_IPV6;
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_TCP_IPV6;
++	} else if (cmd->flow_type == UDP_V6_FLOW) {
++		rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_UDP_IPV6;
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_UDP_IPV6;
++	} else if (cmd->flow_type == AH_ESP_V4_FLOW) {
++		if (tuple == 4 &&
++		    (!(bd->rss_cap & BNGE_RSS_CAP_AH_V4_RSS_CAP) ||
++		     !(bd->rss_cap & BNGE_RSS_CAP_ESP_V4_RSS_CAP)))
++			return -EINVAL;
++		rss_hash_cfg &= ~(VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4 |
++				  VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV4);
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4 |
++					VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV4;
++	} else if (cmd->flow_type == AH_ESP_V6_FLOW) {
++		if (tuple == 4 &&
++		    (!(bd->rss_cap & BNGE_RSS_CAP_AH_V6_RSS_CAP) ||
++		     !(bd->rss_cap & BNGE_RSS_CAP_ESP_V6_RSS_CAP)))
++			return -EINVAL;
++		rss_hash_cfg &= ~(VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV6 |
++				  VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV6);
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV6 |
++					VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV6;
++	} else if (cmd->flow_type == AH_V4_FLOW) {
++		if (tuple == 4 && !(bd->rss_cap & BNGE_RSS_CAP_AH_V4_RSS_CAP))
++			return -EINVAL;
++		rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4;
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV4;
++	} else if (cmd->flow_type == ESP_V4_FLOW) {
++		if (tuple == 4 && !(bd->rss_cap & BNGE_RSS_CAP_ESP_V4_RSS_CAP))
++			return -EINVAL;
++		rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV4;
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV4;
++	} else if (cmd->flow_type == AH_V6_FLOW) {
++		if (tuple == 4 && !(bd->rss_cap & BNGE_RSS_CAP_AH_V6_RSS_CAP))
++			return -EINVAL;
++		rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV6;
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_AH_SPI_IPV6;
++	} else if (cmd->flow_type == ESP_V6_FLOW) {
++		if (tuple == 4 && !(bd->rss_cap & BNGE_RSS_CAP_ESP_V6_RSS_CAP))
++			return -EINVAL;
++		rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV6;
++		if (tuple == 4)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_ESP_SPI_IPV6;
++	} else if (tuple == 4) {
++		return -EINVAL;
++	}
++
++	switch (cmd->flow_type) {
++	case TCP_V4_FLOW:
++	case UDP_V4_FLOW:
++	case SCTP_V4_FLOW:
++	case AH_ESP_V4_FLOW:
++	case AH_V4_FLOW:
++	case ESP_V4_FLOW:
++	case IPV4_FLOW:
++		if (tuple == 2)
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_IPV4;
++		else if (!tuple && cmd->flow_type == IPV4_FLOW)
++			rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_IPV4;
++		else if (!tuple &&
++			 (rss_hash_cfg & VNIC_RSS_CFG_REQ_HASH_TYPE_IPV4))
++			goto err_l3_shared;
++		break;
++
++	case TCP_V6_FLOW:
++	case UDP_V6_FLOW:
++	case SCTP_V6_FLOW:
++	case AH_ESP_V6_FLOW:
++	case AH_V6_FLOW:
++	case ESP_V6_FLOW:
++	case IPV6_FLOW:
++		if (cmd->data & RXH_IP6_FL) {
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6_FLOW_LABEL;
++			rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6;
++		} else if (tuple == 2 ||
++			   (tuple == 4 &&
++			    (rss_hash_cfg &
++			     VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6_FLOW_LABEL))) {
++			rss_hash_cfg |= VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6;
++			rss_hash_cfg &= ~VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6_FLOW_LABEL;
++		} else if (!tuple && cmd->flow_type == IPV6_FLOW) {
++			rss_hash_cfg &= ~(VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6 |
++					  VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6_FLOW_LABEL);
++		} else if (!tuple &&
++			   (rss_hash_cfg &
++			    (VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6 |
++			     VNIC_RSS_CFG_REQ_HASH_TYPE_IPV6_FLOW_LABEL))) {
++			goto err_l3_shared;
++		}
++		break;
++	default:
++		return -EOPNOTSUPP;
++	}
++
++	if (bd->rss_hash_cfg == rss_hash_cfg)
++		return 0;
++
++	if (netif_running(dev)) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "RSS configuration can only be changed while the interface is down");
++		return -EBUSY;
++	}
++
++	bd->rss_hash_cfg = rss_hash_cfg;
++
++	return 0;
++
++err_l3_shared:
++	NL_SET_ERR_MSG_MOD(extack,
++			   "2-tuple hashing is shared by all flows of an IP version, use ip4/ip6 to disable it");
++	return -EINVAL;
++}
++
++static u32 bnge_get_rxfh_indir_size_eth(struct net_device *dev)
++{
++	struct bnge_net *bn = netdev_priv(dev);
++	struct bnge_dev *bd = bn->bd;
++
++	return bnge_get_rxfh_indir_size(bd);
++}
++
++static u32 bnge_get_rxfh_key_size(struct net_device *dev)
++{
++	return HW_HASH_KEY_SIZE;
++}
++
++static int bnge_get_rxfh(struct net_device *dev,
++			 struct ethtool_rxfh_param *rxfh)
++{
++	struct bnge_net *bn = netdev_priv(dev);
++	struct bnge_dev *bd = bn->bd;
++	u32 i, tbl_size;
++	u32 *indir_tbl;
++
++	indir_tbl = bd->rss_indir_tbl;
++	rxfh->hfunc = ETH_RSS_HASH_TOP;
++
++	if (rxfh->indir && indir_tbl) {
++		tbl_size = bnge_get_rxfh_indir_size(bd);
++		for (i = 0; i < tbl_size; i++)
++			rxfh->indir[i] = indir_tbl[i];
++	}
++
++	if (rxfh->key)
++		memcpy(rxfh->key, bn->rss_hash_key, HW_HASH_KEY_SIZE);
++
++	return 0;
++}
++
++static int bnge_set_rxfh(struct net_device *dev,
++			 struct ethtool_rxfh_param *rxfh,
++			 struct netlink_ext_ack *extack)
++{
++	struct bnge_net *bn = netdev_priv(dev);
++
++	if (rxfh->hfunc && rxfh->hfunc != ETH_RSS_HASH_TOP)
++		return -EOPNOTSUPP;
++
++	if (netif_running(dev)) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "RSS configuration can only be changed while the interface is down");
++		return -EBUSY;
++	}
++
++	bnge_modify_rss(bn, NULL, NULL, rxfh);
++
++	return 0;
++}
++
++static u32 bnge_get_rx_ring_count(struct net_device *dev)
++{
++	struct bnge_net *bn = netdev_priv(dev);
++	struct bnge_dev *bd = bn->bd;
++
++	return bd->rx_nr_rings;
++}
++
+ static const struct ethtool_ops bnge_ethtool_ops = {
+ 	.cap_link_lanes_supported	= 1,
+ 	.get_link_ksettings	= bnge_get_link_ksettings,
+@@ -757,6 +1090,18 @@ static const struct ethtool_ops bnge_ethtool_ops = {
+ 	.get_eth_ctrl_stats	= bnge_get_eth_ctrl_stats,
+ 	.get_pause_stats	= bnge_get_pause_stats,
+ 	.get_rmon_stats		= bnge_get_rmon_stats,
++	/* RXFH */
++	.rxfh_per_ctx_key	= 1,
++	.rxfh_max_num_contexts	= BNGE_MAX_ETH_RSS_CTX + 1,
++	.rxfh_indir_space	= BNGE_MAX_RSS_TABLE_ENTRIES,
++	.rxfh_priv_size		= sizeof(struct bnge_rss_ctx),
++	.get_rx_ring_count	= bnge_get_rx_ring_count,
++	.get_rxfh_indir_size	= bnge_get_rxfh_indir_size_eth,
++	.get_rxfh_key_size	= bnge_get_rxfh_key_size,
++	.get_rxfh		= bnge_get_rxfh,
++	.set_rxfh		= bnge_set_rxfh,
++	.get_rxfh_fields	= bnge_get_rxfh_fields,
++	.set_rxfh_fields	= bnge_set_rxfh_fields,
  };
  
-+struct bnge_rss_ctx {
-+	struct bnge_vnic_info vnic;
-+	u32 index;
-+};
+ void bnge_set_ethtool_ops(struct net_device *dev)
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
+index 91d246c8dcf2..86edb70d323e 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
+@@ -676,6 +676,8 @@ int bnge_hwrm_vnic_qcaps(struct bnge_dev *bd)
+ 			bd->rss_cap |= BNGE_RSS_CAP_ESP_V4_RSS_CAP;
+ 		if (flags & VNIC_QCAPS_RESP_FLAGS_RSS_IPSEC_ESP_SPI_IPV6_CAP)
+ 			bd->rss_cap |= BNGE_RSS_CAP_ESP_V6_RSS_CAP;
++		if (flags & VNIC_QCAPS_RESP_FLAGS_RSS_IPV6_FLOW_LABEL_CAP)
++			bd->rss_cap |= BNGE_RSS_CAP_IPV6_FLOW_LABEL_RSS_CAP;
+ 	}
+ 	bnge_hwrm_req_drop(bd, req);
+ 
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+index e81c7b8634c2..2e39b12a3323 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+@@ -1747,13 +1747,6 @@ static void bnge_init_vnics(struct bnge_net *bn)
+ 				u8 *key = (void *)vnic->rss_hash_key;
+ 				int k;
+ 
+-				if (!bn->rss_hash_key_valid &&
+-				    !bn->rss_hash_key_updated) {
+-					get_random_bytes(bn->rss_hash_key,
+-							 HW_HASH_KEY_SIZE);
+-					bn->rss_hash_key_updated = true;
+-				}
+-
+ 				memcpy(vnic->rss_hash_key, bn->rss_hash_key,
+ 				       HW_HASH_KEY_SIZE);
+ 
+@@ -1761,7 +1754,6 @@ static void bnge_init_vnics(struct bnge_net *bn)
+ 					continue;
+ 
+ 				bn->rss_hash_key_updated = false;
+-				bn->rss_hash_key_valid = true;
+ 
+ 				bn->toeplitz_prefix = 0;
+ 				for (k = 0; k < 8; k++) {
+@@ -3400,6 +3392,9 @@ int bnge_netdev_alloc(struct bnge_dev *bd, int max_irqs)
+ 	bn->tx_ring_size = BNGE_DEFAULT_TX_RING_SIZE;
+ 	bn->rx_dir = DMA_FROM_DEVICE;
+ 
++	netdev_rss_key_fill(bn->rss_hash_key, sizeof(bn->rss_hash_key));
++	bn->rss_hash_key_updated = true;
 +
- void bnge_fill_hw_rss_tbl(struct bnge_net *bn, struct bnge_vnic_info *vnic);
- int bnge_hwrm_vnic_rss_cfg(struct bnge_net *bn,
- 			   struct bnge_vnic_info *vnic);
- int bnge_setup_vnic(struct bnge_net *bn, struct bnge_vnic_info *vnic);
- void bnge_set_dflt_rss_indir_tbl(struct bnge_dev *bd);
- int bnge_alloc_rfs_vnic(struct bnge_net *bn);
-+int bnge_alloc_vnic_rss_table(struct bnge_net *bn,
-+			      struct bnge_vnic_info *vnic);
-+struct bnge_rss_ctx *bnge_get_rss_ctx_from_index(struct bnge_net *bn, u32 idx);
-+void bnge_modify_rss(struct bnge_net *bn, struct ethtool_rxfh_context *ctx,
-+		     struct bnge_rss_ctx *rss_ctx,
-+		     const struct ethtool_rxfh_param *rxfh);
-+void bnge_del_one_rss_ctx(struct bnge_net *bn, struct bnge_rss_ctx *rss_ctx,
-+			  bool all);
-+void bnge_hwrm_realloc_rss_ctx_vnic(struct bnge_net *bn);
-+void bnge_clear_rss_ctxs(struct bnge_net *bn);
- #endif /* _BNGE_VNIC_H_ */
+ 	bnge_set_tpa_flags(bd);
+ 	bnge_init_ring_params(bn);
+ 	bnge_set_ring_params(bd);
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h
+index 3c0fea0a7608..0512d983519e 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h
+@@ -335,7 +335,6 @@ struct bnge_net {
+ 	u16			rx_dma_offset;
+ 
+ 	u8			rss_hash_key[HW_HASH_KEY_SIZE];
+-	u8			rss_hash_key_valid:1;
+ 	u8			rss_hash_key_updated:1;
+ 	int			rsscos_nr_ctxs;
+ 	u32			stats_coal_ticks;
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
+index 4f4c0a2f40bd..55ba58c7b9b0 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
+@@ -366,7 +366,7 @@ int bnge_reserve_rings(struct bnge_dev *bd)
+ 
+ int bnge_alloc_irqs(struct bnge_dev *bd)
+ {
+-	u16 aux_msix, tx_cp, num_entries;
++	u16 aux_msix, tx_cp, num_entries, old_rx;
+ 	int i, irqs_demand, rc;
+ 	u16 max, min = 1;
+ 
+@@ -403,12 +403,17 @@ int bnge_alloc_irqs(struct bnge_dev *bd)
+ 	 * We dont need to consider NQs as they have been calculated
+ 	 * and must be more than irqs_demand.
+ 	 */
++	old_rx = bd->rx_nr_rings;
+ 	rc = bnge_adjust_rings(bd, &bd->rx_nr_rings,
+ 			       &bd->tx_nr_rings,
+ 			       irqs_demand - aux_msix, min == 1);
+ 	if (rc)
+ 		goto err_free_irqs;
+ 
++	/* The indirection table may point at rings that were just removed */
++	if (bd->rx_nr_rings != old_rx)
++		bnge_set_dflt_rss_indir_tbl(bd);
++
+ 	tx_cp = bnge_num_tx_to_cp(bd, bd->tx_nr_rings);
+ 	bd->nq_nr_rings = (min == 1) ?
+ 		max_t(u16, tx_cp, bd->rx_nr_rings) :
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
+index 382df442789e..d11bd33fe254 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
+@@ -16,6 +16,7 @@ struct bnge_l2_filter;
+ #define BNGE_MAX_RSS_TABLE_ENTRIES				\
+ 	(BNGE_RSS_TABLE_ENTRIES * BNGE_RSS_TABLE_MAX_TBL)
+ 
++#define BNGE_MAX_ETH_RSS_CTX	32
+ #define BNGE_MAX_CTX_PER_VNIC	8
+ 
+ #define BNGE_MAX_MC_ADDRS	16
 -- 
 2.52.0
 
