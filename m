@@ -1,95 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984477;
-	b=3NYITnWPStxWNamNRolTDJQx745sGxjZ6s2POZmqWaWKQg0CB/fGPovjnsAe4zgoa0JS
-	 xaQpyWRuoZAJsETmak2QHis2+e5J5cgE1N6CNXfFwI0DnYci8Nbeb4+95aMz/bW6ddkrg
-	 iAuRhTS234HmFeQALbCEmoXWxdA2BalQMqPE7Oz7Jy5VNytVReWXYRdgTH2C0YNxxciZ4
-	 hGhkh+S5DGunkMQZSQphjAh5N8RGWOGRYyUrvlAEh2FE1iAd1qyj8Y8NX4SQJdCYe0O89
-	 D2sJosqucZm0P3oD0EUkUvpaPgRWzRi4GcQUAh6xmg/RKbruHsKm2drEHB42kfw3zPA==
+	t=1793984481;
+	b=NdJb3hSrn/n5BznzSvt3QPHvScg2JVKQMbvFUvLY3wMPYi+1MGsT0pxSPw2XAezCfAJd
+	 QexzeCKrwoVgWqkSajM0rjpdU3KZZl13luYGdMIX1Wn298N7FliOP7wE8c6D+CLfTh5tC
+	 Cgoy0GAHpJpbtcN2VMUN1YzmcNdFDmQLvQESUul5Pdd9izMVVtEkjdMh7x4ADoLaoFFVL
+	 eaAXiqBW0f+VuebIMuoJb8YLQJ3rPjIiCFKrDfBUkz/SHlhbxPc9Slsl8Zygze/y0KVCp
+	 3fxhObUZtiDLpFF9yl1bNjVwcj1LUWgi+0MXialqIXfYJx24KhmwkPBujQZFTLoRnkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984477;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=3okvGIPuT9iWl4myy0QkIT0Qs33y5/YWxTYMyFUZVhM=;
-	b=b45sk9cOgIyh4jqDKml40Won5sDELryiY5nWYsTqLJ1208YdTWLYkaXQiO0VHC2z+xIM
-	 T6QgMdY30SIoPQDdBn/NeLjyGStomZpnMIcEUqYQrlViUIqaJEskXPB8okkoiiDfdhskc
-	 iBnZYVNLX6fjJknZyZRozwa+mCu7T0cMfxyxrUTdp495CzlBpPuWEQY8uFfbvMIwzB7RZ
-	 BpngnGpanpErmuOL+KL7E33XaFN+AeZLkVe/ZEAjVycZejMCybmq9a2BUgIk3dRQXg9TV
-	 DdR9kkBM9ohzSp9E2VYofYeZJJbzeT/QJuodqbQpnBvSYlUn1VRK6Rh7oTbK8kfpHzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984481;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=BN97gF7QYz3XCGGA/85Pdog3mwPsMOhrMb974nuHM04=;
+	b=jJdAspjAgGRzERxG9gxoVoVs7M5GRA70w4KXI69k9gN64XNp7hjNJjEr1KZdbpPyjhA5
+	 BzqnBwyu2ThRN17CEgnd/RYGGG4dAAec+qrLOZvkcubiHg89kBW8BDE5Lcacd5lJGiU1/
+	 +ewZQulP/v+p0o2yW0PFXWqGI94qEy+PF2MeP1o4xFDXYxT0caaGZrmIRKKF4ptfMLD/v
+	 FIvdpzFuT3PTMWm3nPQO00Y70VGPAvyB9OnqvgcbmPGC0cgSJre5qdPdXg5NemLLRzoTk
+	 mlfd/3Eb5PA1FjCGpNUGk+HGVa+V4sv4/qBhYj+KmuJSKOeVaYkcvPKjhXvLY9yAcRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Ng3OOWZ8;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J05iHxb8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA5B606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CA5B606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81154606A331
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:01:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Ng3OOWZ8
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4922dbcee23so505151f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:01:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793984476; x=1794589276; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3okvGIPuT9iWl4myy0QkIT0Qs33y5/YWxTYMyFUZVhM=;
-        b=Ng3OOWZ8IrmsKsrad6/RsItRavtMbiq19ZqOmOWfNLvU1P+payjbAeAl1898rL6uhy
-         0kJP6UXDC5E0M8Hzgq9/diGGQ8nCXbNcDtMx1dSVJWRUJzSoMu0z8H6Odxpx/wt7v6aO
-         8KLWIW9+mc2rnCnGkRvdIg8WL6Q049lubnkUaJuqz2dDUIqn7wPpZ/1e81CyOJJDzxbV
-         CTXzg2sYJh6akoPBXGAeWqlue9uUNUIwnC/Buw5oDrPPD/WzuiiAgzBpRQ3QV7gvD/n2
-         XyO4XN3vGG1k2Bsf4P8HVsZSh8wGx8DmPTRNA9Ma51Q1UGAyLRplO0+mIwySZM6a0K9A
-         2HtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793984476; x=1794589276;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3okvGIPuT9iWl4myy0QkIT0Qs33y5/YWxTYMyFUZVhM=;
-        b=n0HHjEs9KCLvaV4/IxzqWI0EFQp1Aphqgv04BXF45FVlGnkJm+pj21JakcPUygM48+
-         vhvqdEaeXm62YHSLFAnQQo0h+E0Vr4R8PmRxcHUP26aQI0fv71JanJ6RM1o5NWFTZmRE
-         6dlzad0cpgvXxluX4xa9h2Aax2Do01yEa1/Yqv09fmar90dIluqNwT0WgNzUTm/qsxYX
-         NIhSew2k3CfOU/xgy/RAcabjO7IFisgHzJLMkm77syLe4+4iS1O9elU+Clz8CZnqwYT4
-         b7+6vMzjqCPo1HyBhIt3n7nvW9xrcYvQx5TzGRRzX9Wv3Xr34+12MjWG6uho8FS8MlGj
-         DK+w==
-X-Forwarded-Encrypted: i=1; AKwUvBzgLGp8WBzRgDz6uYqkwuTVm5yVGpzcGN8wuUgNmsSKlMFr0S6ELoABZwhNejYa3vH/Y/FGKsjuVepIuqI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hgtdrS/1NkJ1z0bORdS5QOaJBCdUyneNgoEodRUXV5D1MO/6N
-	9k8MQ0CS6E4m798aQICMC7QO99L++C0i6ax9zgrTRGNMhKwAL257v+OSOFKejk3spD4=
-X-Gm-Gg: AYBFou1VpJ0qC8SO++kH9o/M36gFt+F8pORMn0UfU3xW3I3MxstN1/JvVzrFeS0uIm4
-	3RSd3wiuerRAlu5pe3vPxiZxj8/X/DLvdWjpDWd1QhSFeJMINQ54BIs9UNdp1v1GnNi/zx08Ko8
-	OWfJ8bGmREdiwLy7RTTUtAJa4B9G0NdOilb/zcUd5rIc4/hff2Z1G3MZd4CiH27668m3vWLxwHw
-	apjGzQrwEvGs0lIMP5DD4V2d8z59fxf2rMNsPmMjYkjSAvhLHGsmyl6U/EgVvstfVnnzMfbK+BV
-	3ZjA1E5wvCT3iiblHv4UZdrJu8dwadHa3JEZN0gnVz4wD5tTy0J+MDAdYD5fVJHqq73oEXUoe7G
-	LEFQx9IeGCicioq5YyHtI8TFE8u/qEvw0BhR3740edU0U/POOSa3qIQj7cdk7KODMgsTqjLGFwo
-	PplVlHcgBSIzepv5wg+7nLcVNWMbXDIqD6n0+Gv8rE36hKYxHRdyBinmudtDCL4ioUzzKKP7Qnh
-	LwEjsBkvY0i0PKf88OkjzGotm9lArmPDp4j6rnLqUL26NWFHsw7tVGtWcBLV9a71wBILg70rE/K
-	c33D5XNnerfj6aLHIcdox4YXz1HQMHFCBg==
-X-Received: by 2002:a05:600c:4e8b:b0:4b2:61e5:b2f4 with SMTP id 5b1f17b1804b1-4b6de4a6fc0mr55956715e9.11.1793984475474;
-        Fri, 06 Nov 2026 09:01:15 -0800 (PST)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-492d809ddbbsm4804011f8f.53.2026.11.06.09.01.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:01:13 -0800 (PST)
-Date: Fri, 6 Nov 2026 18:01:12 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Chuanhong Guo <gch981213@gmail.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] pinctrl: Add Siflower SF19A2890 pin controller driver
-Message-ID: <au4HsW2aMYKyMspF@monoceros>
-References: <20261104-sf19a2890-pinctrl-v1-0-4bb83afdbacf@telaak.dev>
- <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J05iHxb8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3BA1F008BE
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793984480;
+	bh=BN97gF7QYz3XCGGA/85Pdog3mwPsMOhrMb974nuHM04=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=J05iHxb82hwKC6d7cq94/xG61kvCDjT03AoTQksVf29Ch+qaGsI7gq+B/b32uYer8
+	 4hjiYauXXoAb9nZXehaIjdh07iud3pwvahOuRtkqqdHUCNk+TH0MZ67oR7aIFtH3wQ
+	 CJ4rDLj3qaBeiQGb89w4zQe5k+OsZsVvNBs5q5sIqpmSKCkxeqWiU6Xrb9v80FsZhG
+	 6psTOWsuH/Jtr9iTfRNFHKY/ox/JDsU+t6Q+8R5EIyHF8uxdReZRaFwxiIfJZseeCc
+	 VppunKgSfhRL0ICiIjF2t7bwYgYkPekztqFd9hC3UEfZb5vyWAKYSfMzn6/z8pbkdL
+	 pD/tiRy1yO6rw==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bffd1e177fso742258e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:01:19 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFevm3OVae/3Dw9r04Cc1+H/N/nLMOR+Y7WbZX4ZaJcsm4KBbAKzzEYP4hSqN/GAhceQ3S54BsolpHgX2s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qsKeFrHTw9OJcd5HMA6XAeaxJRf2XKJ8/T9HSipPggv1Qofb/
+	DuVruUACIJyVuVStRjau+WHOTC2C0a+jQKhwnFmjK0UahzuKzg3htK2QbSW/hsrf1FQ6LWVPtMb
+	GWv4THdo77uuNCYOhd0h8ym+ZCQC2YXQ=
+X-Received: by 2002:ac2:5690:0:b0:5bf:d29f:20b with SMTP id
+ 2adb3069b0e04-5c003ac45cdmr1049767e87.11.1793984478465; Fri, 06 Nov 2026
+ 09:01:18 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,46 +59,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="o4uxavg4tbipdm4x"
-Content-Disposition: inline
-In-Reply-To: <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev>
+References: <20261030172745.2045743-1-sumitg@nvidia.com> <CAJZ5v0hDm=FMftFfxnzthRQXWzUqcm8SkAaxzVWZcsyQtNLj6g@mail.gmail.com>
+ <5089e131-c904-471e-a078-5df7cc664372@arm.com>
+In-Reply-To: <5089e131-c904-471e-a078-5df7cc664372@arm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 6 Nov 2026 18:01:06 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jP-z=zu=S_aBc3JpocRWJXcjzB8WnXu2UHd3WBf9cE3g@mail.gmail.com>
+X-Gm-Features: AclHuK8wXaZq1Hr_UP644JEalxKPoT-S2zkrDebm7nAdRRzHx52J1jQGBBEt_ME
+Message-ID: <CAJZ5v0jP-z=zu=S_aBc3JpocRWJXcjzB8WnXu2UHd3WBf9cE3g@mail.gmail.com>
+Subject: Re: [PATCH v8 0/3] ACPI / cpufreq: CPPC: Add ospm_nominal_perf support
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Sumit Gupta <sumitg@nvidia.com>, viresh.kumar@linaro.org, 
+	pierre.gondois@arm.com, ionela.voinescu@arm.com, zhenglifeng1@huawei.com, 
+	zhanjie9@hisilicon.com, lenb@kernel.org, mario.limonciello@amd.com, 
+	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com, 
+	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, treding@nvidia.com, jonathanh@nvidia.com, 
+	vsethi@nvidia.com, ksitaraman@nvidia.com, sanjayc@nvidia.com, 
+	mochs@nvidia.com, bbasu@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Nov 6, 2026 at 5:59=E2=80=AFPM Christian Loehle
+<christian.loehle@arm.com> wrote:
+>
+> On 11/6/26 16:08, Rafael J. Wysocki (Intel) wrote:
+> > Hi Sumit,
+> >
+> > On Fri, Oct 30, 2026 at 6:28=E2=80=AFPM Sumit Gupta <sumitg@nvidia.com>=
+ wrote:
+> >>
+> >> This series adds support for the OSPM Nominal Performance register
+> >> (ACPI 6.6, Section 8.4.6.1.2.6) to the CPPC ACPI and cpufreq drivers.
+> >>
+> >> Unlike the read-only Nominal Performance register, OSPM Nominal
+> >> Performance is writable and lets OSPM request a nominal level below
+> >> the platform-reported nominal. The platform treats performance above
+> >> this level as boost and below as throttle.
+> >>
+> >>  - Patch 1: adds ACPI helpers to write the register and to check that
+> >>    the platform supports it.
+> >>
+> >>  - Patch 2: adds the per-policy ospm_nominal_freq attribute in kHz. Th=
+e
+> >>    value is kept across CPU hotplug and suspend/resume. The register
+> >>    cannot be read back, so a read returns the last value written.
+> >>
+> >>  - Patch 3: uses the OSPM nominal as the maximum frequency while boost
+> >>    is off. Lowering the nominal creates a boost range on a platform
+> >>    that has none, and boost can then be enabled.
+> >>
+> >> This series applies on top of v7 of:
+> >>   cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
+> >>   https://lore.kernel.org/lkml/20261030092416.1993889-1-sumitg@nvidia.=
+com/
+> >>
+> >> v7 -> v8:
+> >>  - Rebase on Christian's CPPC fixes series.
+> >>  - Patch 1:
+> >>    - use cpc_is_writable() from that series and drop cpc_reg_writable(=
+).
+> >>    - add the register to the list of controls the driver writes.
+> >>    - take cpc_desc_lock in cppc_ospm_nominal_perf_supported(), so the
+> >>      descriptor cannot be removed during the check.
+> >>  - Patch 2:
+> >>    - make ospm_nominal_freq read-write. A read returns the last value
+> >>      written, or "<unset>" before the first write. (Christian, Mario)
+> >>    - keep saving the values in the store handler, not at init(), so
+> >>      the driver writes the register only after the OS sets it. (Pierre=
+)
+> >>  - Patch 3:
+> >>    - document in the ABI file how the OSPM nominal sets cpuinfo_max_fr=
+eq
+> >>      and caps scaling_max_freq.
+> >>
+> >> Sumit Gupta (3):
+> >>   ACPI: CPPC: Add ospm_nominal_perf support
+> >>   cpufreq: CPPC: Add ospm_nominal_freq attribute
+> >>   cpufreq: CPPC: Reflect the OSPM nominal in boost and limits
+> >>
+> >>  .../ABI/testing/sysfs-devices-system-cpu      |  31 ++++
+> >>  drivers/acpi/cppc_acpi.c                      |  44 +++++
+> >>  drivers/cpufreq/cppc_cpufreq.c                | 173 +++++++++++++++++=
+-
+> >>  include/acpi/cppc_acpi.h                      |  10 +
+> >>  4 files changed, 248 insertions(+), 10 deletions(-)
+> >>
+> >> v7: https://lore.kernel.org/lkml/20260807214837.863209-1-sumitg@nvidia=
+.com/
+> >> v6: https://lore.kernel.org/lkml/20260717215330.2215058-1-sumitg@nvidi=
+a.com/
+> >> v5: https://lore.kernel.org/lkml/20260615185934.2383514-1-sumitg@nvidi=
+a.com/
+> >> v4: https://lore.kernel.org/lkml/20260527194626.185286-1-sumitg@nvidia=
+.com/
+> >> v3: https://lore.kernel.org/lkml/20260514194822.1841748-1-sumitg@nvidi=
+a.com/
+> >> v2: https://lore.kernel.org/lkml/20260430142430.755437-1-sumitg@nvidia=
+.com/
+> >> v1: https://lore.kernel.org/lkml/20260427051823.280419-1-sumitg@nvidia=
+.com/
+> >>
+> >> --
+> >
+> > This would be good to go except that it doesn't apply for me on top of =
+7.4-rc1.
+> >
+> > Can you please rebase it and resend, with Christian's tags included?
+> >
+> > Thanks!
+>
+> It's based on the hotplug/resume series, I guess Sumit could post them as=
+ a combined patchset
 
---o4uxavg4tbipdm4x
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/2] pinctrl: Add Siflower SF19A2890 pin controller driver
-MIME-Version: 1.0
-
-Hello,
-
-On Wed, Nov 04, 2026 at 02:21:18AM -0500, Joseph Telaak wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
-
-Please don't use <linux/mod_devicetable.h>. <linux/platform_device.h> is
-good enough to provide of_device_id already. If you insist on full iwyu,
-please use <linux/device-id/of.h> instead.
-
-Best regards
-Uwe
-
-
---o4uxavg4tbipdm4x
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmruB9YACgkQj4D7WH0S
-/k70YAgAhxWSI5oFd+bG1IqCr9QN4qV0nHY8dR0wZt/s30JOYWejw0raTnkHbfMt
-1cLN0THKoG3qMmY2yzVpFoHtreyYlcQK6NcK5fqhPRSFwniSgluT/eWevLV4H6NN
-oVxFxC97OUD3EpjECtS4q8VTVZWg8kFbqxwARQl208IoayGOXIVNe9/A+/U1rHTJ
-DNyJB0xyoYCnDmd0WA/wYkSx6HlNHUbTW4aDPaR6cW2G217wQnIQBzsnb2dUFn9S
-q9yhYPN09un908r9vZU8s/sz/mY0bppEUg3ak/jVp1gJfu69jFo14DiN74abx3Ui
-N6+6B5mC+kJGbjRTDMCieCzt0cZHEw==
-=/RG4
------END PGP SIGNATURE-----
-
---o4uxavg4tbipdm4x--
+That would help.
