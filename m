@@ -1,115 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.96.220.36
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951398;
-	b=uK/ZXEVfZdkEisDu6OmgroihxZu/pO5lU2GHPQz5wqP9uvSXbU7XSOcDQBIl3uRJi46O
-	 QbIX0msuRsaQAxqQplm2yxKxKa45TEe7xwxfOmHsZ/Sr/8vgSGsgXe5c+XFc7Tnh7vCiy
-	 MesRMCdOqOMs4KnBg7rIrgjqyFUdlAg5ARUDre5BS2Y1exIvI59ZwsEYE/MtPhyVyJZBA
-	 figLRcQVwDrZ/nY2Dl53CNe5Tw95ev8T6gkPELzkmsuHvB2XjQhywU9LEHEOxazG2hEiG
-	 QiCq5y+n0BwreIu8V7upcHjosM+gqeaErkOXEaYJIxho1qDM7US0QKEPxdqtsUpnGQQ==
+	t=1793951482;
+	b=lRfxFlHhcLSWkSTNFiCJ3jKXajYGnm4CLjydRROirjRXBBHkEZISz1Xd7mOMY6TIUGPh
+	 +SuE+qME/rh/4qacfX/ibu+FVsfduPcTH9D7mfYIlSSei5XsUJH2BWN1coAYcesLX4EwQ
+	 Q9Um40vhRIndCe/0zQOLzgM4aClQoFQDUVP/VedRqKEc79HmGMqccOQLyKE1SNyQvHJOM
+	 XGTLpekQ7eM4SadggYTYQu23hSoas5GLVdc6y0se8zyiNI2lO8GCrnmmMZsFOnIpENF34
+	 0cMQCgLnyDNkrITepdlVxO0PGmOHRpo/JaLetT/SdF+gtj9QlF8CZdPujIorCNLMe6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951398;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1AHI0cHVScIUZqupXxfL2S2LYfFvIDAWL/E9K98CHlg=;
-	b=qlcnuxeXMM05bYTg15QLjUwg3W8R4YetjoOabK7SpNfjuM1am4sIQtLsZB+u6dD08PlK
-	 aVeEaWFWvfsGAnaad4K6dct2Zh98Lx4MTckuC8jnF8mxK4K4nKl7iF5txhCChHDwPm8e5
-	 D6sRQPePJ6APnNfdvfAsx4fcnqolb8Yd5TLLbl4ex5H0RfpCXZrgmZCZsiBeNzUm19OQm
-	 poHHnQhULoKu0+i3QONjX5xajFNRAN3JRQxcnMKDb2r1J92JBon5vBQtOFG37ECKjKiYJ
-	 fXLXwxPc9bzvRRSTNQ+WToDi72yFwEytM1tS2rtziJxUmqb/qOQOCirEqcdKjuMe/VQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951482;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
+	 DKIM-Signature:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy;
+	bh=ZHr7cnKxJ5lZjyr/KeuRcLqoFP/w9L5fnd5tVVZvABY=;
+	b=g8CSdEl3tGuJbM0HnDCY2rzmpnqUXsAqcH2RzxmRu+picashM/qNni5IIhGy2gpkU6z/
+	 JgCuarBfMH9Zx52tEapErycnRL9L6yVv4W1k9azMYJSzc/AA+Xr3Ia4obfh7b5chPgzjc
+	 rYkkGxNKo7I2Ktk2Xu1jbkcML2wgAiDdbuo0H631gJ/98wz0zUbgpfipRNwl4A6huriIl
+	 ESwU14DHLkW8Jrf1yg2sONdg5xSqEOchezLn8/a2kRdU15VKbtdjddL9JwwDwtN5BNXLr
+	 +fUswKRVJ9JMOaZ6pgsfBPPVwBXaQL4kdkgey7tlwrmScfxxzlB9tKWwkDlIHeZybQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=AhYgfsmG;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="GMU+T/4y";
-	arc=none smtp.remote-ip=103.168.172.146
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=secunet.com;
+	spf=pass smtp.mailfrom=secunet.com;
+	dkim=pass header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=zG3tmDTz;
+	arc=none smtp.remote-ip=62.96.220.36
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C3E606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C3E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F59606A326;
+	Fri,  6 Nov 2026 07:51:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0F59606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=AhYgfsmG;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=GMU+T/4y
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.phl.internal (Postfix) with ESMTP id ED7AAEC0241
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:49:56 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-10.internal (MEProxy); Fri, 06 Nov 2026 02:49:56 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793951396;
-	 x=1794037796; bh=1AHI0cHVScIUZqupXxfL2S2LYfFvIDAWL/E9K98CHlg=; b=
-	AhYgfsmGeDZa4/y4l3w/90waPCwb35P8koRZwK1P67HFJrdLKmLlKD9Yr+jNClix
-	thttOryLmGVvG93sREOKNtvjn4jrn9RdBeBEgGq3Yvijd99tGCFt2K4y4BVWnJRV
-	OTn/NoiVdlBFJfWJDUjqleDVezpnzAsdPMfjcaq16atGeEeQfefUQUFJCeWV8Ogr
-	2focazJ7DGMuDwSeu9UL3QMV11Y0Q/OstcA+90emcsjenb+RgfqzKi8drvS/u0PI
-	XJ5nEvxadFT9iVcxQCeaF/L3d/609R4o3CrtpPK1mTvVcSqPtSncB/dAPLtFs050
-	WCyO4b8EBqSYm/MoztQBPw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793951396; x=
-	1794037796; bh=1AHI0cHVScIUZqupXxfL2S2LYfFvIDAWL/E9K98CHlg=; b=G
-	MU+T/4yC3xU7sJY4lwPdj3Jd+cy9+eLdZPQJA9OXCyaL+jGsPkpnzLnAoYPl50d5
-	iicgCraTfSdKoluVdA5NIkyD9y5msb/kcl9WZ059rMglzbspFaJhKy39L39mKIBY
-	ZXd6lRAqRKxEzB8nm3vgWmwbqRQKUKSi7x+uyQMXLtFyCA5yW+lHPtmQWCDy37BD
-	0GocPCMLOFustRNxJ+Ei6xAaExiooHHlzkb3NMeiprGbGdR4cFc2OHA7BL8pS6s6
-	MWsJfRENJbfa+crYg2SBTkxsygoFu+4FY+j86oMH+9ZbxMEipS74CRMNfepsHctI
-	iuMSWIPJORf6oS07usewQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793951396; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:GSuvbnDaj2b7FlFvwjZA61aFaFd+Ju/4tH8icLvhOejXvPn
-	OHcywiHIlTEq72V+5S38jGaAHgPQd9p8BwwBGRKnl5pq6QJHbXhxgnxpc5IqMb80
-	/9HEH7YfljX83qkjtO7kl0pB7vezVRvi8m3j/VMdb3yWVrJhW+nMqNSpBOSEIzMJ
-	RoCt4j+vC7xODUt3X4eHC+uOc8EXwTdDuSOuZeb80v4kDI9MG/SrmLNYh5lhRcwC
-	Gt6bQyNQn0zdZLiJG1uBINAjzVq5+EdRDilfBqT5PZemQLOxOCv1A9r54Yh24Xye
-	c96hbSzpuiExC+cSxEW1L4Gu2fV/3xebvwIgggw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:KIHw2e3xfPS+YXrajfvk65Yocyqa030eA4wRjeVGb4w=:ZvUPCHxS3O6LS4EixgV6YSZVVcpJv+np6nRlhY7v1+4=;
-X-ME-Sender: <xms:pIbtakR_amYMBEUB6E-QWeefd2HVmu59l1dtAYPNgFs8oAmWihxKnQ>
-    <xme:pIbtatqWYnCwAHmfcHQBLikYyEAJkJq-9iAEX31vyzkAJAfZ7vDV_PHQDdP04dIkO
-    1TQ2Cq8sJDPOA1b4dTKxf9-rv-uEIjlQroMecnntAz3IFxt0rNUgF8>
-X-ME-Received: <xmr:pIbtatX9jZNMWsaLnEmAuD4i-1UMXNGwA_i3ry8118mqmjk7F5G0Fr4oOs4whZnNzB2R4L3kIQ3uWvQlgOSRSWS3Ptn7of4Y>
-X-ME-Proxy-Cause: dmFkZTEUI4H6PQciHH1C0CTjTEnjL/+AMWtSU2echlVeolgKazYD6YGf/jp1/AUiVQw0Vc
-    b22NY8UD7W0YPFI0J2KMmNRLoechu8v/kX7oOmBz84ncHJvjlSUovwz4qgMh1SKRVBe8Z/
-    5ZjCeXkmh3z8IuoYffyLxHtkGDLObwXWUm091vKQ3RUMT6pRfAog4p7mSkKalMV7vdAhuT
-    uUnBL7oi36i7Zah1e4k9lvlFnJTDxj60I6igSytI/qIkf672YZkuIUbB7Zc6Isas9YspU+
-    0mNlCtDXC1t6hCmqwQ5C/d85MR78RM/1srLqU5nc8fMEAsP8Iu+lM0E9MqRNR+Dz4XgSFy
-    0YNg6jYE/w0MrFPCfZA2FrqN7hrziXa9c59+Woa7xZyvN+MYSAztTxA7gXfYcNz8qXUUpE
-    tJQ946pwRgsNDOpNVBuT6dYeKWlT0Li1lbIDl/UrFvaEfZTUUDCVtIkde/+vZfYYvkxrIv
-    +2XYWrZT3FgyIS1Y6zuArYz1IgVgPm4ompaRP99c2ILbnh0ldSFmhTgnSCOWfyZ0QwLTmr
-    HuIV2udmQuoaGaQyzRUNY/39Pre8AFsNld87DnbcQC8S57tn9Cbu82Ir4OVNFUmAY8Bc4H
-    OAsgSMINGnSjxGogNtoHGqz3YbCvhp/Wgo5LfctWDnMnemHPIONhloZLZ62g
-X-ME-Proxy: <xmx:pIbtar9bUW_MOSTIJnBBYi7LyE7IbFRgPhPVkneRHn11isJhF-_Spg>
-    <xmx:pIbtalZjkS-co1ma0Jj1-GcIMF1nvPbd2ui2hV1iWK9vSA4xCsavfQ>
-    <xmx:pIbtajcmyse4no46AtwihIz3DohQdLOb7FNAHsDh6-ZSIuXb9_Quag>
-    <xmx:pIbtavrQ5aXKANpBHROOLlv9A9MkapwBVvLVBYxS0ozFKbb80QFnWw>
-    <xmx:pIbtavl57qGsT3499otKlSu6KzlMMghN7ADE7VbLpcCzQgXUTiVKlQpA>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 02:49:54 -0500 (EST)
-Message-ID: <49bb4977-b5f5-450e-b3ba-9d494fd5a7ad@pobox.com>
-Date: Thu, 5 Nov 2026 23:49:53 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=zG3tmDTz
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id 46E2F20870;
+	Fri,  6 Nov 2026 08:51:20 +0100 (CET)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id NBNz1GUpEhDM; Fri,  6 Nov 2026 08:51:19 +0100 (CET)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 7A79A2074F;
+	Fri,  6 Nov 2026 08:51:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 7A79A2074F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1793951479;
+	bh=ZHr7cnKxJ5lZjyr/KeuRcLqoFP/w9L5fnd5tVVZvABY=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=zG3tmDTz6wF4lMqixwlVM5xP6/ewlFBU2tcncbhm+Ok851o4sCZST/2tI31u0cpCM
+	 oUJOx7Fup94LhjtX2xLC2R1dOR3iZgYaPr/L8M2h8cRL9l+dCjQ4/7MWWY2j3sKk71
+	 gpPWUmkM8z5+iKZ2S/PgSAL3hiVlOORYALLZUh6mLTFieVPAhGWRVNbd1fkkCFurph
+	 LurDBdOIvLNeUdzTNKXIoLFKZSLQh1DKV/P1Jp97ZQo27QJ90lSpjwSQJwgY2pIrMM
+	 Wyarm4zPiRac0RvVC0KKCoe8v8BE1ldsl7lkJst6W272xY40iNnwKsB7I10MRgQkCt
+	 SrPS2P+N6Mslw==
+Received: from gauss4 (10.182.7.102) by EXCH-01.secunet.de (10.32.0.171) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 6 Nov
+ 2026 08:51:18 +0100
+Received: (nullmailer pid 3072074 invoked by uid 1000);
+	Fri, 06 Nov 2026 07:51:18 -0000
+Date: Fri, 6 Nov 2026 08:51:18 +0100
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Kyle Zeng <kylebot@openai.com>
+CC: <netdev@vger.kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, "David
+ S. Miller" <davem@davemloft.net>, <linux-kernel@vger.kernel.org>,
+	<outbounddisclosures@openai.com>
+Subject: Re: [PATCH] xfrm: serialize SA activation with state deletion
+Message-ID: <au2G9iC524N1gOjI@gauss4>
+References: <20261030042353.74606-1-kylebot@openai.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,51 +80,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261104211038.406938024@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261030042353.74606-1-kylebot@openai.com>
+X-ClientProxiedBy: EXCH-01.secunet.de (10.32.0.171) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-On 11/4/26 1:03 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.2 release.
-> There are 547 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, Oct 29, 2026 at 09:23:53PM -0700, Kyle Zeng wrote:
+> xfrm_add_sa() publishes a newly constructed state and arms its lifetime
+> timer before marking it VALID. The final VOID-to-VALID test and store
+> are not serialized with state deletion. If hard expiry deletes the state
+> between the test and the store, the store resurrects the unlinked state.
 > 
-> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
-> Anything received after that time might be too late.
+> An input lookup which found the state before it was removed can then add
+> it to the per-CPU cache after deletion has removed the cache entries.
+> Once the remaining references are dropped, the cache points to freed
+> memory.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.2-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
-> and the diffstat can be found below.
+> Take x->lock around the conditional transition, with bottom halves
+> disabled as in xfrm_state_delete(). This preserves DEAD if expiry won
+> the race. The same protection covers UPDSA when it installs a replacement
+> for an ACQ state.
 > 
-> thanks,
-> 
-> greg k-h
+> Fixes: cc01572e2fb0 ("xfrm: Add SA to hardware at the end of xfrm_state_construct()")
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
 
-I tested 7.3.1 + stable-queue as of commit
-aa65920a134b0366b65f438be80335f2060ed664 ("fuzz cleanup"). This is
-after the broken xfs patch was reverted, but before the tun patch
-was added to the queue.
-
-Tested on 3 amd64 systems and an arm64 virtual machine. Working
-well, no regressions observed.
-
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Applied, thanks a lot!
