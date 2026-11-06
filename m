@@ -1,55 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974359;
-	b=D1ybuN5+ThypufYFcZu5hYbeVvys8kCnpfdIxSXfGGwGPjNpjHdONDNLa1BFLW7eF4Zy
-	 v4bnEeGFcIx6sRYSndYKdN3Zk2OQXG3R0jwXG3vpAlA2VTnaeGBOH3R2K5ItvfWiuG8CY
-	 BxAOksSSbVX6q7BUErutwNqMrLAaUUUv6nE6cQDaO6jqJMPwFr1MwGhNJXmRkpMco1bSb
-	 2SxJegMiyi0tzM+aHtNaLYe5pZgsg9ZH5nbx3xMIyYYjOJbukotxYAeWa7I8I09614EHW
-	 woWKCfDkj115YEr/5s5NI1SlMZCDgCpz1Ow540F7BSZWw6nrgOKN2GFRZ0TmWrGjuIA==
+	t=1793974433;
+	b=N1R69VJPCVLb3FJdb7Avgca3DPtHoVHFG19070euL/tXL3e8GRURslVY+WZxxJ2SGym2
+	 X85nwkzzDlMf8kedpTZ/57Fk45xFduQORO4Wo/VrBMYI5O4FOlcJwaKbONfUxiElDwlWL
+	 UHHPZJNTZdxcO4U5oLKYutNoWqy6NA1xnEjkhBPqxK9dAwaifAKYoFZgq8QmeR6ZSZR73
+	 EdTtqTIoWyMlbYIbrlzORSWMtdedbQzPlrGkS5CR8iqgCUEjz/ecojMrUGLExbzuhM7la
+	 16GLePI8Nfq0Idz6X92Bw30TwfVXNo1i9ZIL04egrTw6fwBieu3eFxPm/Qmkzs6XRQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974359;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Hy9Nb6PTTUob6aohVhlErbLUpEbw+NLmXu1l6Sjgt7M=;
-	b=B+fnj7ifxfM+DLDnbAvegeQMMHwCvmLDMLOt/zfgQtkPdCVXnePsuHD7qv6Tw6Y4sQc3
-	 098tih5e9PYusuTIh48Y+8sKYSnlTgC+TbAmDvGK6HRSD1cT2NPk3DcdX/3JXDvcdqZTS
-	 ySUC5Ch0ncaB1MFFLUUAm9OSvaL7YHNd78eeywSpMh8orWWh4UebBAeCj08qWTk/GM0tA
-	 VOVunrowsxIz2Ab9sk7JNgiweVl6Sdy3MSR6efnBJ3TYACnva+0ih2hzzOdv3SMxhmZXk
-	 f7kR6c4c2eVnQK3dOEMJJKCuf8z4IwlAyyjg6MwYhlqRfInsYwPCIAizSi96GjMJCVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974433;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
+	b=NJ8rkXPeDLzHkUnuqtVnFj4vaiPYn8HK1SWyqTG4BGMAO69ald56DkcM2ci9khCtXei5
+	 /Gu8JUJnZR32SLp4t69U12mEwJ3xmW8GISvzlg8xTBYuI7KDQAAyaDQkKl63GZ0UrR1e4
+	 Fqr2rXVEADCy5hg5HfvVeb5lMe0CutcMnoUSPvcOWdB1yX3uVynjiHIkruLdLQMtlWzt+
+	 AQegRyL8ArImDhD3l1z8ZR6paX2PePhqVNiENNYZpjL4n/auTRB7f894EEPfsGG3ogN2a
+	 1SCuKdkWQ7+z9vMMUnqB4N/KgE5aI4Znm8kh0wtUgVLuyz6cQ7f6SdKwvg2togmlmtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzH98RjQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="pvRI/D8R";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AzVXIHVV;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="pvRI/D8R";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AzVXIHVV;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2B3606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:12:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54171606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:13:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54171606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzH98RjQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57BBF1F0089F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:12:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974359;
-	bh=Hy9Nb6PTTUob6aohVhlErbLUpEbw+NLmXu1l6Sjgt7M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TzH98RjQsHDOqeXhw7sIiddkbUl76gvevZ2XcY843kQ1SCq5N8euopxVsRxB9TIAe
-	 rwaJf+Rut6RsXnRzA28n5d0Hr4+eMNEjyAnfLRu4UShUUAN/jwWKql4t47hRzpu6DO
-	 Em3hWPDhvGt3eDEUiZv0euYdchAOf1WS15AgvkKqWIt8rUwgFO20KjGBGOyHxT7QeT
-	 T/1dxLzTDMJZ4iJXCwp8JbYF/mKTSaTDlbBWXOI9h/pdSkxpvjI5Bz+CeW5njrLrxr
-	 3L6XLS4cEveqTNRoakjgnBrNH55we73pSdMmq7UjiIHYzhXfsOpan383dscrdzvQxl
-	 /OOvDsNFsoWnw==
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67921b515a7so648323d50.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:12:39 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFKY7khSmlMh22psbu+TsRX4QoXEbMuqoCxf0561SvGTX2qDncARd9jjl6MJYIfNgtcS9ufeGhXmTSGnag=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8M1D1IhlUoy6NvxbyRM9Vz8muHjguKL1468DRMXvKeYxDLTqZ0
-	JPeXIUW+dyoHmKt9Yn9SAXhUfdrmxTYU6SPbcN2ns0gIOOtMyhWuSldJw5TEYvgWutL67hH4KLm
-	7SvgZafssJq/kp1Y6vDQcluMC7+4Xt7k=
-X-Received: by 2002:a53:e808:0:b0:67c:11a9:bbfe with SMTP id
- 956f58d0204a3-67c142c4275mr1111242d50.20.1793974358607; Fri, 06 Nov 2026
- 06:12:38 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=pvRI/D8R;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AzVXIHVV;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=pvRI/D8R;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AzVXIHVV
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A268E22130;
+	Fri,  6 Nov 2026 14:13:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793974430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
+	b=pvRI/D8RopcbFtgNPfW+iZ2eH21pmmfyjNXaTBk2vE1ikaUyi5ZiBfpUI9DBHxSg056LZ/
+	bgaYzzIfmdjyGKdvkKYDTONndhOEEdBNMQoBgWoZ/a8TN+unCtfVpYKTENumVFgNiyx8PU
+	jzG6MUyNuwxCdK8tH73YdFpwQlrjj68=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793974430;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
+	b=AzVXIHVVE8uagLfECKc27F9aiHHqwykOgSHiYeP032HqnsmkIBLN0HR+sxphwH+ZhZ+jLJ
+	ogoAPHclIxaMcyCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793974430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
+	b=pvRI/D8RopcbFtgNPfW+iZ2eH21pmmfyjNXaTBk2vE1ikaUyi5ZiBfpUI9DBHxSg056LZ/
+	bgaYzzIfmdjyGKdvkKYDTONndhOEEdBNMQoBgWoZ/a8TN+unCtfVpYKTENumVFgNiyx8PU
+	jzG6MUyNuwxCdK8tH73YdFpwQlrjj68=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793974430;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
+	b=AzVXIHVVE8uagLfECKc27F9aiHHqwykOgSHiYeP032HqnsmkIBLN0HR+sxphwH+ZhZ+jLJ
+	ogoAPHclIxaMcyCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7AC9C134E9;
+	Fri,  6 Nov 2026 14:13:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Ao+wFZ7g7WoTZAAAD6G6ig
+	(envelope-from <jbohac@suse.cz>); Fri, 06 Nov 2026 14:13:50 +0000
+Date: Fri, 6 Nov 2026 15:13:50 +0100
+From: Jiri Bohac <jbohac@suse.cz>
+To: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Dave Young <ruirui.yang@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Usama Arif <usama.arif@linux.dev>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kdump: Give crashkernel CMA areas unique names
+Message-ID: <au3gnsckVTK6tUs5@dwarf.suse.cz>
+References: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,47 +117,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106124553.2617026-4-wahidzk0091@gmail.com> <20261106133110.2659482-1-wahidzk0091@gmail.com>
-In-Reply-To: <20261106133110.2659482-1-wahidzk0091@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 6 Nov 2026 23:12:21 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
-X-Gm-Features: AclHuK_T2DQUMc0OEmrubLWb5yXs7ugphPBK2FPnifKmAkfBBAp1bb89FaW0bos
-Message-ID: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] ntfs: do not convert a named $DATA stream when
- making room in a record
-To: Wahid Khan <wahidzk0091@gmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Fri, Nov 6, 2026 at 10:31=E2=80=AFPM Wahid Khan <wahidzk0091@gmail.com> =
-wrote:
->
-> Hi Namjae,
-Hi Wahid,
->
-> The Sashiko review of 3/3 also suggests skipping every AT_DATA
-> attribute in this loop, not only the named ones. I'd keep the unnamed
-> case as it is, for three reasons:
->
-> - Converting the unnamed $DATA from this loop is what the loop already
->   did before the patch. The patch only stops it from pairing the length
->   of a named stream with the unnamed inode.
->
-> - The lock order the review points at (mrec_lock held while
->   ntfs_attr_make_non_resident() locks folio 0) is the same one used by
->   the direct conversion near the top of ntfs_resident_attr_resize(),
->   before the loop. So it is not specific to the loop.
->
-> - When an EA or a stream grows in a full record, converting the unnamed
->   $DATA is what frees the space. Skipping all of $DATA would turn those
->   writes into failures.
->
-> If you'd rather drop the unnamed case from the loop too, I can send
-> that as a separate patch so the two changes can be judged on their own.
-I think making the lock ordering consistent and using ntfs_attr_iget()
-for named $DATA would be the right approach. Please check it if you
-have the time.
-Thanks for the patches!
+On Fri, Nov 06, 2026 at 11:43:09AM +0100, Mikhail Zaslonko wrote:
+> reserve_crashkernel_cma() names every CMA area it reserves
+> "crashkernel". If the requested size can't be reserved in one piece,
+> it falls back to several smaller areas, all with the same name.
+> With CONFIG_CMA_SYSFS, cma_sysfs_init() then fails to create the second
+> directory:
+> 
+>   sysfs: cannot create duplicate filename '/kernel/mm/cma/crashkernel'
+> 
+> and the error path removes the sysfs entries of all CMA areas.
+> 
+> With CONFIG_CMA_DEBUGFS, debugfs refuses the duplicate directories as
+> well:
+> 
+>   debugfs: 'crashkernel' already exists in 'cma'
+> 
+> so only the first area shows up in debugfs.
+> 
+> Keep the name of the first area and add the index to the others:
+> crashkernel, crashkernel1, crashkernel2, ...
+> 
+> Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
+> Signed-off-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+
+Thanks for fixing this.
+
+I don't think we really need the special case for crashk_cma_cnt == 0 
+and that "crashkernel0" would be fine. But I don't mind either way.
+
+Acked-by: Jiri Bohac <jbohac@suse.cz>
+
+-- 
+Jiri Bohac <jbohac@suse.cz>
+SUSE Labs, Prague, Czechia
+
