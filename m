@@ -1,55 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984736;
-	b=GXDHQhWTw9kK5TDwezFig9ZWB0wNjOWKTpTtcXtnOGwGagGHGjF6352lDVtcWWtD/r8B
-	 pI4vxSJ1fjsfdT5Ll3LdlF4bdbiNJETZGEVunYD7cPvlSicKkLQOYFsBBS0xCFZxJMBWB
-	 +CcWHDIOE/usjPzXboEuZRk+Hn0u69ahpvFaWcT+IIR0BoEg0BtrhUEhOygeUWyZE/QOx
-	 7olXH+66Zqt/dTgswiAX/O1iB1yL7/jnTXC5kGNuheWCXcMXRgxbgfjqIvtgQgmTUrnyN
-	 ViLbx9lYsM5A5DAtFF9XAY5CbWL/6JGb6AprCjgYA2u/vvhoXBwgMx7rES6+2X+T+gg==
+	t=1793984735;
+	b=IUXX2DgVZ6/pTz/98INwDqBRZj0lR7/JCcOSBedvU1fZKt5oh30JzG149UZ7Ws0I83Rg
+	 H2wUNGo9XIB9w/J684Ry/wcvkyYiQIBucnTY9PlU0Ep82LkGtvvQ4zqucSiRJKn06uk/P
+	 JwLsIHZLn6LKrP777fwtZ5vzgGHKK0FN9S2miL9NvZJ/fwYKKiNqYhsoWYbpyNutvj7r9
+	 VaYOQOmS4xVKRnBl6e9DoIxL5a6eJ3pOKAIQoJFEfCYDyjQVMY6R6+5TIWSb94DiaLq3v
+	 2i+RVFGWDrlN86Qut7mwrZCt+LHkzHvE+ymrfy7Fr6HItxlyAiFDhvnPZyok7Gw9W4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984736;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=LqH9iMIGaGgfrltDU+0qHbUT1ie4g3kkbL58F1jr5Pc=;
-	b=tdjZXMdV/OL8aj9dpKROQVZ44QcXPOHeIgSv6aEilN1QQcJM9JJk2hqsy0SFEUYelji3
-	 n57E1T+jDFuhqq/NxChe/w42XeuBDjlxtOe0pxejSE0dl5SihR3W1SA+rRZJ0mFWVHOlE
-	 nVQEpK6UccP42ioYYqAoGpBn37wO3R7nTzsC2BnLq/HqPp/8u5x2u5FvFgOpPCef/8/vZ
-	 Ehp36usDl/cQg7ctwRHV+Jk5nOG8IlQpy2kRtCwDviUvY3MO1YT93Dj+BxsscLJvLHali
-	 dSuh4pClm3b9njKIl9vrW1Ed69LPjSUxvgp0+KksPKVX5WZseXZCxq4qax4xs3+spCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984735;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=JTlEFod2cjgS0LbAQsWexRzCJ68NZr8rhNXABouJAQw=;
+	b=McODVV6NDtEmJ0rwrsb/6Hgl2V66ajgj6yFVTGoRorEK5YcFo3oUX55eJfZDz9C0izTI
+	 e2AE+IMD0nTiimbwEtjWHFSJizRoFf5iJZL4TFkLegIz5cLDrkQSb0etqEg5EEJpf0tNv
+	 aTcn2bvQ9tmiw6wl7XdlZSOygBoSLMv9Ybv/cyEOwy/StrkPOwxB0xv1N6AqxJsl2Rg25
+	 hypC6sbp6MTLQQasuUFSUJaSItqqJ4y6/HdD4+6/tMhuULIAhHa9UVkTWo/gritWQMuST
+	 B3t6WZ/CkWAHB6zjW0jhK+GAeQlIb4zSDmhjrpo9SdJzcuJcHFlixYR8CZ7ASnof2bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=virtuozzo.com;
-	spf=pass smtp.mailfrom=virtuozzo.com;
-	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=Ago+KLWk;
-	arc=none smtp.remote-ip=130.117.225.111
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhgmYRf9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EDB606A338;
-	Fri,  6 Nov 2026 17:05:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50EDB606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF925606A337;
+	Fri,  6 Nov 2026 17:05:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=Ago+KLWk
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
-	:From; bh=LqH9iMIGaGgfrltDU+0qHbUT1ie4g3kkbL58F1jr5Pc=; b=Ago+KLWko091EDuZeHQ
-	xy4CpnbJrV3UtJFWa/DKDNjFPXScS1j02Z/HD+SIdAiU/sGojmXnMMdoBcpTl5UuNjnuPQcOBXYg5
-	tdY8AVDg0m9ETwjl0V+ANAPL/LzlSk4ZmQ2K8pR2Yuaih6M0O+Ah42qtt3fMvd/rS5UEAZ0+gg8Wo
-	aMQlfaunc7lyAcg0af9VGeEcgDBX6jaLKRBo80xp3fx8ndLNqW5kLe0tAAtJv+gscRrioHhxF1+9o
-	nqS2GnBc+Eg06N4bD0KqJyWaq/er2+KCnhK4v3X3OgcUw45U6Rou8m7F54o6XhdJAq/pGuFUsVxO9
-	LIn6HYM3b6a7Fnw==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xPNJS-00F6fe-1u;
-	Fri, 06 Nov 2026 18:05:18 +0100
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Fri, 06 Nov 2026 18:05:20 +0100
-Subject: [PATCH] mm/huge_memory: use folio_dup_file_rmap_pud() in
- copy_huge_pud()
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhgmYRf9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D2E1F008A5;
+	Fri,  6 Nov 2026 17:05:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793984734;
+	bh=JTlEFod2cjgS0LbAQsWexRzCJ68NZr8rhNXABouJAQw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LhgmYRf9RsD3jkt7XP0j5x6GVceyzZdxPZmBiATz86t4GWKKDfCr1RMuHVQsjnhKD
+	 K8hy6v4vBlzaZp8HABomM9YNM5Z2QB91duA/38Ni68uWbp1fKrWiZfq7CMnVN4/DQx
+	 4EQEtE84c9EfXGKcRhG88yib2HD5bjNrAgUmxjSfsrUNomwyyRUW6ENDJYFrI7sITI
+	 JoLR2yWeFvuJKN+DixGTRz0GQmsFknUviXNyag+oj13tq7yywSBdYxXvj69WU+OaYk
+	 2/hJ6Dh6lTz1ItTt+ownJdJdTjfELbifbUKhCJ/qeOOrj+uhKg5rw+Kzb6NkNfnrtH
+	 qA8BiWPOgyufQ==
+Date: Fri, 6 Nov 2026 09:05:32 -0800
+From: Drew Fustini <fustini@kernel.org>
+To: Zeng Heng <zengheng@picoheart.com>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sunil V L <sunilvl@oss.qualcomm.com>,
+	Tony Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org, yang.yicong@picoheart.com,
+	geshijian@picoheart.com
+Subject: Re: [PATCH v10 2/6] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+Message-ID: <au4I3E_qcPhIr-Qr@thelio>
+References: <20261104-dfustini-atl-sc-cbqri-dt-v10-0-1636a003a3c0@kernel.org>
+ <20261104-dfustini-atl-sc-cbqri-dt-v10-2-1636a003a3c0@kernel.org>
+ <02cf71f0-09d5-4dde-a8cf-3739583cc7fa@picoheart.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,131 +90,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-khorenko-vstor-151183-copy_huge_pud-dup-rmap-v1-1-cf8ee4fafabb@virtuozzo.com>
-X-B4-Tracking: v=1; b=H4sIAM8I7moC/yXNQQ6CMBBA0auQWTtJB6UBr2IIgXakldg2LSUaw
- t2tunyb/3dIHC0nuFY7RN5sst4V0KkCZUY3M1pdDLWoJZGQuBgf2S0et7T6iNQQtWdUPrwHk2c
- eQtaoc8D4HAO2tRDdRTVy6gSUZIh8t6/f7tb/nfL0YLV+H3AcH7uGbvCQAAAA
-X-Change-ID: 20261106-khorenko-vstor-151183-copy_huge_pud-dup-rmap-820094c56b90
-To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Dan Williams <djbw@kernel.org>
-Cc: linux-mm@kvack.org, nvdimm@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3715;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=gxuw6LjVBrmV9639XN62UX0bOkR/j46xaDVTVYxMcMc=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq7gjRCymH1gaE3n+O11UPy5GKgSUYwmvmhhEug
- XGKykHU5QWJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCau4I0QAKCRBRlgpH+WFc
- KiAYEACov2BLVf6uA7xgliUWGHkOGWR3GCd3SE5HdxqeC9cfajx1YRp+3ZXchQbMMFjnjzeq/md
- y086jisNW1nF4Th1SH8pAXOWOwD4PwbOW/GVAZrQFJcUFW4g48vZW/aFDOqThcvg1R9QUfpkYAF
- MjRrB0i3xJzMEMaXtWt44wQeeRxJP9tq3yMqJAoXz15NTStwwvdCG8PAAZ6pqoh5PezLcf5m59g
- udW0MGwNMOrC/IukbEzvSb+KuwSeOk63FS4dpDr+nJd0oPHzKTzLpJ7Cmio9Ge+FIWlN2mh6cdr
- 83SvhFTQG0GNCm0z8qTAe7TiJMEWcnTm6nIWA8B1jSCD7Zk9OTxe45GEdMmkfRZU+BYNIeq8jPU
- myeEL6Uyg5fzo9b0ch1ln9qXG0TIzs/LJ0dWkVsj5ikVLQjnIGSw3CarWo/3UQLsbGMFN03Yge4
- vi0mFfz8tplVJFzxHviraCZTnHqCVq/9K6gj9eOwdd1w78zjmmiKE7DGHcDQmlOisHbJoSnqS1W
- dvfXCimmSQITK9Sna9W7BJEDWzSZbw/QV+60OLvceSvmfqWEEpXiueADyXRHNHW8+95XSz+e/iD
- vFN2o92Y3OkOF2otlb9DeT6ZikMcAglhovQTQ+HyrYVdSo64RZTVFjNcCW8r4TnOaQOzr/BLhpW
- oJasVA+qM7v7wxw==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <02cf71f0-09d5-4dde-a8cf-3739583cc7fa@picoheart.com>
 
-copy_huge_pud() adds the child's rmap of a device DAX PUD with
-folio_add_file_rmap_pud(). That helper maps a folio afresh: it updates
-NR_FILE_MAPPED when the folio becomes mapped and mlocks it in a
-VM_LOCKED VMA. Neither applies at fork: the parent keeps the folio mapped
-under the page table lock, and dup_mmap() clears VM_LOCKED in the
-child's VMA.
+On Thu, Nov 05, 2026 at 04:05:29PM +0800, Zeng Heng wrote:
+> Hi Drew,
 
-copy_present_ptes() duplicates the rmap of a PTE with
-folio_dup_file_rmap_ptes(), which only raises the mapcounts. Add
-folio_dup_file_rmap_pud() for the PUD level and use it in copy_huge_pud().
+Hi, thanks for reviewing.
 
-No functional change.
+> 在 11/5/26 上午12:35, Drew Fustini 写道:
+> 
+> ...
+> 
+> > +/*
+> > + * Fill the rdt_resource fields for one picked rid. An rid with no picked
+> > + * controller is left untouched so it stays out of resctrl_arch_get_resource().
+> > + */
+> > +static void cbqri_resctrl_control_init(struct cbqri_resctrl_res *cbqri_res)
+> > +{
+> > +	struct rdt_resource *res = &cbqri_res->resctrl_res;
+> > +	struct cbqri_controller *ctrl;
+> > +
+> > +	if (!cbqri_res->nr_ctrls)
+> > +		return;
+> > +	ctrl = cbqri_res->ctrls[0];
+> > +
+> > +	switch (res->rid) {
+> > +	case RDT_RESOURCE_L2:
+> > +	case RDT_RESOURCE_L3:
+> > +		res->name = (res->rid == RDT_RESOURCE_L2) ? "L2" : "L3";
+> > +		res->schema_fmt = RESCTRL_SCHEMA_BITMAP;
+> > +		res->ctrl_scope = (res->rid == RDT_RESOURCE_L2) ?
+> > +				    RESCTRL_L2_CACHE : RESCTRL_L3_CACHE;
+> > +		res->cache.cbm_len = ctrl->cc.ncblks;
+> > +		res->cache.shareable_bits = 0;
+> > +		res->cache.min_cbm_bits = 1;
+> > +		res->cache.arch_has_sparse_bitmasks = false;
+> 
+> Currently, the driver sets arch_has_sparse_bitmasks to false, causing
+> resctrl to require a contiguous bits in cache allocation masks. For
+> example, L3:0=3 is accepted, whereas L3:0=11 is rejected because its
+> set bits are non-contiguous.
+> 
+> The default should allow both contiguous and non-contiguous masks,
+> provided they satisfy the other mask validity checks. A contiguity
+> restriction should only be imposed when a specific hardware
+> implementation can't support sparse masks explicitly.
+> 
+> So I propose enabling sparse cache allocation bitmasks by default.
+> Thanks.
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
----
-David's fix for the device DAX PUD fork bug, commit d90bdc02e36e
-("mm/huge_memory: properly handle refcounted PUD mappings on fork"),
-went in before v2 of my series for the same bug [1].
+Good point, I will change arch_has_sparse_bitmasks to true. The spec
+defines cc_block_mask as one bit per capacity block and there's no
+contiguity requirement.
 
-This is the follow-up David asked for [2].
+> > +		res->cdp_capable = ctrl->cc.supports_alloc_at_code;
+> > +		res->alloc_capable = ctrl->alloc_capable;
+> > +		INIT_LIST_HEAD(&res->ctrl_domains);
+> > +		INIT_LIST_HEAD(&res->mon_domains);
+> > +		break;
+> > +	default:
+> > +		break;
+> > +	}
+> > +}
+> 
+> Apart from this,
+> 
+> Reviewed-by: Zeng Heng <zengheng@picoheart.com>
 
-The Reviewed-by tags are from v2 patch 1, whose rmap.h hunk and
-copy_huge_pud() line this patch carries unchanged.
+Thanks!
 
-The selftest from v2 [3] is not included, as it needs a real devdax
-device. It is there for anyone who wants to run it.
-
-Based on thp-7.5.misc of the mm/core tree.
-
-[1] https://lore.kernel.org/all/20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-0-2828fe5a51ed@virtuozzo.com/
-[2] https://lore.kernel.org/all/6f035f97-8b55-47ad-bd52-833b86b8ae8f@kernel.org/
-[3] https://lore.kernel.org/all/20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-2-2828fe5a51ed@virtuozzo.com/
-
-Assisted-by: LLM
----
- include/linux/rmap.h | 22 ++++++++++++++++++++++
- mm/huge_memory.c     |  2 +-
- 2 files changed, 23 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/rmap.h b/include/linux/rmap.h
-index 74cca0e3c7264..52fff8dc74213 100644
---- a/include/linux/rmap.h
-+++ b/include/linux/rmap.h
-@@ -564,6 +564,28 @@ static inline void folio_dup_file_rmap_pmd(struct folio *folio,
- #endif
- }
- 
-+/**
-+ * folio_dup_file_rmap_pud - duplicate a PUD mapping of a page range of a folio
-+ * @folio:	The folio to duplicate the mapping of
-+ * @page:	The first page to duplicate the mapping of
-+ * @dst_vma:	The destination vm area
-+ *
-+ * The page range of the folio is defined by [page, page + HPAGE_PUD_NR)
-+ *
-+ * The caller needs to hold the page table lock.
-+ */
-+static inline void folio_dup_file_rmap_pud(struct folio *folio,
-+		struct page *page, struct vm_area_struct *dst_vma)
-+{
-+#if defined(CONFIG_TRANSPARENT_HUGEPAGE) && \
-+	defined(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD)
-+	__folio_dup_file_rmap(folio, page, HPAGE_PUD_NR, dst_vma,
-+			      PGTABLE_LEVEL_PUD);
-+#else
-+	WARN_ON_ONCE(true);
-+#endif
-+}
-+
- static __always_inline int __folio_try_dup_anon_rmap(struct folio *folio,
- 		struct page *page, int nr_pages, struct vm_area_struct *dst_vma,
- 		struct vm_area_struct *src_vma, enum pgtable_level level)
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index d0e19d9e6b651..13caf81cb51af 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2100,7 +2100,7 @@ int copy_huge_pud(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma
- 		 * TODO: once we support anonymous pages, use
- 		 * folio_try_dup_anon_rmap_*() and split if duplicating fails.
- 		 */
--		folio_add_file_rmap_pud(folio, page, dst_vma);
-+		folio_dup_file_rmap_pud(folio, page, dst_vma);
- 		add_mm_counter(dst_mm, mm_counter_file(folio), HPAGE_PUD_NR);
- 	}
- 
-
----
-base-commit: 31ea5515bf595046effc74a5bafdcc26320d2d86
-change-id: 20261106-khorenko-vstor-151183-copy_huge_pud-dup-rmap-820094c56b90
-
-Best regards,
---  
-Konstantin Khorenko,
-Virtuozzo Linux Kernel Team
-
+Drew
