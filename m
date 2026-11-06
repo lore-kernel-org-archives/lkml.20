@@ -1,69 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976349;
-	b=U8n+AeMtfXKWZ1n7SmllDZxPAraQk9i4st9I4vx31ziqtOLeRtozy8MkOGYjTHG6qemY
-	 ydD3odHWnH/3rC4sUkogVRCooAcNgoD5ql52tHHF1KbNwne3hxxt/V4hEPmyfeaPjKU+M
-	 cLeVqRzlyeViVvl/tnZiZfIwPYxfXPLendl0EzUNN1O6WVhELxmCVaZ3C8+ORdjqkMWGx
-	 eQHm4ZOtCJFVwkuZQgtmvlVFx+IqRbR6A42Kfa0RI8aqgG+fNJoyeoxLgEgrVM9m8jUje
-	 dIbqSk/WnzGNdQu96Ud1XwAnAnzSs3luiH9ic8SHb6HCL1BIz187NNlu+V9jbC/X5+Q==
+	t=1793976366;
+	b=NiCcGbIyzVr6WGg1z5v0B4Hh4l49b5RJ2YGctFkFMx+AYoVVSonOARrsfJebgK0AehWT
+	 4q+gtpB6KcDd8tCYNaEfJDdNS3yE5Jro0uU4Oji2vRJtOSxsbBsJW6JncsLdRzkRLrDu6
+	 FTzj5kFARuSmyRzmLKF6+cLLr4970uskmmElQh62k3XwzhRkjf/+QI3dpL/89dzast5Nm
+	 EYb43+tSx1mXog0XCYcxDLq3bjhdbV3boEEzgrxQ67xLXiylVJzF5Ob5GcuFsFkvqLY3y
+	 LX+4ldfUtg/mRA1gPzopf24WeoU8ucv7PGACnGKJpATrNo9zb+2+fRRNqmEvE3GwrTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976349;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nXpHtbwIXWqa0CUduYYty9A7kDwxd+/CalGYDzCTKjw=;
-	b=18t30N5TPrrJFJ0dqGk+vrjr6H8Q2/MmNMPu57K8dGsQHFk5wURPc/4udzcY2GlNeChd
-	 D7NXubpfPl4ws6oCBeyBPlDHb+MqnAX1142D0GYJq5+YFaT+K2+QcqVJLvx57Lr2QJBOh
-	 AQI6DoVu7WpDJpWgnMtVj90VDlGiO3z9tGGW541yXkHPEVK4tE9kNWmqYWVXNsCygr+Ly
-	 LXzTzlquUIeiIwh5UsI1cQKF2nRbvLJPMNZVbprQjllVavVJTdZwBUDC/q2Ts2dpUxROD
-	 LFDHA6NEUuIKoNsk2tyjQviI0hwqO09lm/na6k5NBVhyWHtVw0U7FJQDwUm8xsQ+3tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976366;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=m4jzlpwnCHP/iJRE3j/cC9ctgB4TV/ZSpibJ2GNxpak=;
+	b=D2WpEyW4D/LthaeDOuHe2iJCuhach/6I7ZCGgtYVQJHf1Z6L1yVmSS0+6y2aYDAkSfwv
+	 t50y0dNWxNe0DvFyU/PfyYAYKWoZ1gJxHPt49Rn49pNfh3mInUpScbPgapUr4a3SJmFeX
+	 zwx6RrcEq3c0E6CR+2SzrRlfz2cjUS/oKAM58A9dszh5bDrfS4SxkiWNIy+FNmwwEaYhc
+	 oz0Uu1tkAe+XW+MFv8Z4MtnUHF5SdRN36TFl2rUZdczwWSBzIjecn5fft68KqE5SP96/q
+	 /t58Pq83SUGxe2ucnhT74SU4eJnZ2vZMZznx5GyCKMlepdVceD1O2pwh3WHFy5DKTaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=grimler.se;
-	spf=pass smtp.mailfrom=grimler.se;
-	dkim=pass header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=kADcVJZM;
-	arc=none smtp.remote-ip=91.218.175.28
-Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=noIk3x1s;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED12D606A33B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:45:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED12D606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=grimler.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grimler.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B52F606A326;
+	Fri,  6 Nov 2026 14:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=kADcVJZM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dsRJ/0z/yE/5s58BMhmlVSFV04GmqnxwznaEjY/5328=;
- c=simple/simple; d=grimler.se;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793976343; v=1; x=1794581143;
- b=kADcVJZMgmNCz98SwUVAOSfSrkz7gIzWbzN1tnaTaC/CyM5NEQ9+X5mynXCfvmbkw7XuInM9
- NAROZSBHoV0/9CqgXDtzIomW7cYT/ppqX/Fhy/LhrHWO5UoPgPn3onXSrZp9k+rthRSGL4m1cHm
- gD0Trg+KBvMvns8fnRoJ1Jmg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id cf432eae1467532f;
-	Fri, 06 Nov 2026 14:45:39 +0000
-X-Mizu-Trace-ID: cf432eae1467532f
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 6 Nov 2026 15:45:36 +0100
-From: Henrik Grimler <henrik@grimler.se>
-To: Young-Jun Hong <nirvanah@nirvanahyj.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] clk: samsung: exynos5420: add VPLL rates for 650,
- 700 and 750 MHz
-Message-ID: <20261106144536.GA3678@localhost>
-References: <20261106054210.2893230-1-nirvanah@nirvanahyj.com>
- <20261106054210.2893230-3-nirvanah@nirvanahyj.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=noIk3x1s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE5021F0089F;
+	Fri,  6 Nov 2026 14:46:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793976366;
+	bh=m4jzlpwnCHP/iJRE3j/cC9ctgB4TV/ZSpibJ2GNxpak=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=noIk3x1s1aJaNOsWT2PiYRjaW3Fqgx2DaHi4yFS2pf6f9VK+xQ5IRYfDDgOnV7E+P
+	 oYfXNCxUlc7a4c0wCiJqf7PIKnRLulEpofSVUOv2RlMnuM7B1H2A9fLD78L7Pn28sU
+	 CXys6ABmH0zB1st1UCqlRo8SLytuaaYOlBt+wtYry/BL80RXiq9Mf2k2OT6pnASnKW
+	 e8DZDhfm8IBYPQr3jS17cZYkghZRBgAvTeLm4eEgHCCQMjKgC+DwUxwgYAsfbjhbtH
+	 1fPCvAp+Oivfy5+Oh3EJ8rPCq1jrJsQW3qmvoRQ+bxigKfgvlyxe0t6vtkGEfRDQ1l
+	 FEM6Lqomg9qug==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 2783F2882BFC;
+	Fri, 06 Nov 2026 14:46:02 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,58 +52,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106054210.2893230-3-nirvanah@nirvanahyj.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/3] regulator: Add RPMI voltage service
+From: Mark Brown <broonie@kernel.org>
+To: Joshua Yeong <joshua.yeong@starfivetech.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, rahul@summations.net, 
+ anup@brainfault.org, lftan.linux@gmail.com, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com, 
+ aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261007100022.2512187-3-joshua.yeong@starfivetech.com>
+References: <20261007100022.2512187-1-joshua.yeong@starfivetech.com>
+ <20261007100022.2512187-3-joshua.yeong@starfivetech.com>
+Date: Fri, 06 Nov 2026 14:46:00 +0000
+Message-Id: <179397636061.3231166.10683268235781980587.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2512; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=2ViexyKP3rKAYA4WhqMhgA31tYT59gK0ViKGcTvQbtQ=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLevtBU0po630513pvPrTrFEzlf8YWlzvFZLaU9Z2ra8
+ 40X72WqdJSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAipdkM/0yeuZx4e/rPVa7c
+ eo7fKo8nt7r8EbLabmLn7+GlczCzzYKR4V3UrOnfs2+d4Fb0O20r9nMOZ33QrU2s/1QDdx4ocdW
+ bxAgA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi Young-Jun,
+> The RPMI specification defines a voltage service group which can be
+> accessed via SBI MPXY extension or dedicated S-mode RPMI transport.
 
-On Fri, Nov 06, 2026 at 02:41:49PM +0900, Young-Jun Hong wrote:
-> The VPLL drives the G3D (Mali) clock on Exynos 5420/5422. Its rate table
-> stops at 600 MHz, so GPU OPPs above 600 MHz cannot be reached:
-> clk_set_rate() silently keeps fout_vpll at 600 MHz.
-> 
-> Add the 650, 700 and 750 MHz rows (VCO 1300/1400/1500 MHz, using the same
-> P/M/S style as the APLL rows).
+> Add a mailbox client based regulator driver for the RISC-V RPMI voltage
+> service group. The driver enumerates the voltage domains advertised by
+> the platform microcontroller, reads their supported voltage levels and
+> registers each of them as a regulator.
 
-What you mean with "using the same P/M/S style as the APLL rows"?
+> +++ b/drivers/regulator/riscv-rpmi-regulator.c
+> @@ -0,0 +1,908 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * RISC-V RPMI Based Regulator Driver through SBI MPXY
+> + *
 
-> Tested on Samsung ARTIK 10 (Exynos 5422): with these rows the G3D devfreq
-> reaches 700 and 750 MHz, and the OpenCL accuracy suite passes 96/96 at
-> 750 MHz with a board-specific 1.35 V OPP.
-> 
-> The analysis, the code and this changelog were produced with Claude
-> Code (Anthropic), a coding assistant.
+Please make the entire comment a C++ one so things look more
+intentional.
 
-Was it tested by a human?
+> +static int rpmi_reg_setup(struct rpmi_reg_domain *mpxy_reg)
+> +{
+> +	struct regulation_constraints *constraints = &mpxy_reg->init_data.constraints;
+> +	struct rpmi_reg_level_linear *linear_level;
+> +	struct linear_range *linear_ranges;
+> +	u32 i, linear_index, n_step, top;
+> +	u32 min_uV = U32_MAX, max_uV = 0;
+> +
+> +	mpxy_reg->desc.name = devm_kasprintf(mpxy_reg->dev, GFP_KERNEL, "%s", mpxy_reg->name);
 
-> Signed-off-by: Young-Jun Hong <nirvanah@nirvanahyj.com>
-> ---
->  drivers/clk/samsung/clk-exynos5420.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/clk/samsung/clk-exynos5420.c b/drivers/clk/samsung/clk-exynos5420.c
-> index 400a5c59815c..1b4b0ae16765 100644
-> --- a/drivers/clk/samsung/clk-exynos5420.c
-> +++ b/drivers/clk/samsung/clk-exynos5420.c
-> @@ -1451,6 +1451,9 @@ static const struct samsung_pll_rate_table exynos5420_epll_24mhz_tbl[] = {
->  };
->  
->  static const struct samsung_pll_rate_table exynos5420_vpll_24mhz_tbl[] = {
-> +	PLL_35XX_RATE(24 * MHZ, 750000000U,  125, 2, 1),
-> +	PLL_35XX_RATE(24 * MHZ, 700000000U,  175, 3, 1),
-> +	PLL_35XX_RATE(24 * MHZ, 650000000U,  325, 6, 1),
+Do we need to take this copy?
 
-Do you have any references, like vendor kernel sources, to back up
-these choices of dividers and scalar?
+> +	/*
+> +	 * Everything a regulator constraint would describe is already known:
+> +	 * the levels come from VOLT_GET_SUPPORTED_LEVELS and the always-on
+> +	 * capability from the VOLT_GET_ATTRIBUTES flags. Build the constraints
+> +	 * from that rather than from a device tree node, which would only be a
+> +	 * second copy of the same facts. Without them the core leaves
+> +	 * REGULATOR_CHANGE_VOLTAGE clear and refuses every set_voltage().
+> +	 */
+> +	constraints->name = mpxy_reg->desc.name;
+> +	constraints->min_uV = min_uV;
+> +	constraints->max_uV = max_uV;
+> +	constraints->always_on = mpxy_reg->always_on;
+> +	constraints->valid_ops_mask = REGULATOR_CHANGE_VOLTAGE;
 
-Best regards,
-Henrik Grimler
+No, the driver should not be specifying any constraints.  Those should
+come from the platform.  These regulators are described in DT, their
+constraints should come from DT as normal.
 
->  	PLL_35XX_RATE(24 * MHZ, 600000000U,  200, 2, 2),
->  	PLL_35XX_RATE(24 * MHZ, 543000000U,  181, 2, 2),
->  	PLL_35XX_RATE(24 * MHZ, 480000000U,  160, 2, 2),
-> -- 
-> 2.47.3
-> 
-> 
+> +		ret = rpmi_reg_get_attrs(rpmi_reg);
+> +		if (ret) {
+> +			dev_warn(rpmi_reg->dev,
+> +				 "voltage domain %d initialization failed\n",
+> +				 rpmi_reg->id);
+
+id is unsigned.
+
+> +
+> +	/*
+> +	 * One line for the lot. A domain that did not make it has already said
+> +	 * so above, so naming each one that did only buys a count.
+> +	 */
+> +	dev_info(dev, "%u MPXY voltage domains registered\n", registered);
+
+The core is fairly chatty...
+
+-- 
+Mark Brown <broonie@kernel.org>
