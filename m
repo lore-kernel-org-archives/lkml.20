@@ -1,90 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.97.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979139;
-	b=sMPa2TkT7i4NabsUikLWvG5M7bq1IrWYjnF1VvluAFK9Omy/ynPRzg9j6K7OKSoDPNO8
-	 gfBgM4EFKuKLXSGazo8iVJpdw7ar9vp2iDLGomGX2YZ5bGARvizyQecVC6xPI6FnEg162
-	 Vm8CfdP1qOLH60ww2xX9J+yz1JhUiQ3NlG7mkPLg1UMpPDZVgF436sqObri37eQwuPlc+
-	 QgeySPEJpSG6V0SyZuZmOZf42ahF9NAu54JuSNefgmKzVgvcJ2TY0LfKLIJUn6xRn4Eyb
-	 GBkBXesnYl0QQ3gsIQ1T3JvBD8PJvCYecPqVznxZXCKl/U36pDwvWul3soVHKSgF0MQ==
+	t=1793979159;
+	b=WzjOtO0/xOwe0ljgZXszzjjt9FpcbsbSoA1N8P27KJfiJpI4Y2ohPx94JVMHF+K4Busl
+	 TeijKUPWgEWRe7fQrhH2sM/OzMDdNP+g7laGZa1f32Cjro/nmEgB3v8SZAA08RdaccCyD
+	 0YFTlMSeoc8Engs1W/Cnz196NRzvmtyLFOLBhGEqM22NEwr3MpzGUZ5DdddWGioLwViox
+	 tG9EdlLSXenz83dqayCXo161tBKFB1/Xe5EsD+lg98e0FARDJaRtieNz5c/g3SFz98UwO
+	 E2qT3RpT4BvX/LSZfLQpitc3VSjnpPpad4PW4NuLMgAslL5hnhBKPFNpgVJaefaNRKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979139;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=uStDWQc2bk82UMtjaWT+HYg4LA8nDLHw2SL2ZgVvfxA=;
-	b=l7b4KtgRXAH/OAdp2zXlMXEMhIW2fYV15YRiVMI2WQAqoJhDf1Qx3Glm0MW607X3nIsd
-	 6TDgu8Xo8pFsqP4LCbQpFMjwP+GLfzgouIjgzWt6p48y6XJJskFG1WfEh+RlPJfPKODOX
-	 H1TJGbEiMjMHnrFL1wzUK961K0x0bvG1fZkYcF0BAUzuynK3d5hRz/Vt1YxzFk+dRfZYC
-	 vV1eJvMkV/38zQtnm6uPTzfggoOMu6wkKffJ+ji2iXbR7Bn9qb/sbDC9i5yJSHx1+j2a3
-	 3G9ZSlAy00E56mB8CSakId1Ri7MY26LyZgftCWtfNVb8dwVtlZ8y6TYFQ2vKO/aKHvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979159;
+	h=DMARC-Filter:DKIM-Signature:Received:X-Spam-Checker-Version:
+	 X-Spam-Level:X-Spam-Status:DKIM-Signature:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=P+m9BQcu9O/FHNLOowWjO5xa3x2BuTOUOzKKSEpxq9U=;
+	b=gvhmhDAU7Xdx9EQK3TbGO3RfHJMAFJ20Dumdtni7FBPXViSngFXd/qwLsDWR1xcps6vW
+	 SpoX1Nt5hxYMxPplyCuZjInE1sRQWO8jtSTQIpJLRVsXGtdILhI+u9Y9h9X2MSoRV7rN4
+	 idCZ81yGpvbT5ZW7oK6jivJ4LIoKfjCzFezPSIu/66tZH0sSnMO7vQz5QN32GZFaUZ11f
+	 vJ8KVfMio5Lb1Lcv8HUckpL8XMfSVCSVjixXNiby8xgFtzhAIRZmgWxBua/csVjxGN0oe
+	 95GG44WIV9bLPzf/zsfUiMc5I84fngva4IOP1f92j5XJKgec3s7QufPbxERk25VW1vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GZ8zeszi;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=none header.from=birger-koblitz.de;
+	spf=pass smtp.mailfrom=birger-koblitz.de;
+	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b="b8pae/Tu";
+	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b="w427/YYm";
+	arc=none smtp.remote-ip=23.88.97.239
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447CD606A326;
-	Fri,  6 Nov 2026 15:32:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 447CD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4337E606A326;
+	Fri,  6 Nov 2026 15:32:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4337E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GZ8zeszi
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FECrJ2711295;
-	Fri, 6 Nov 2026 15:32:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=uStDWQc2bk82UMtja
-	WT+HYg4LA8nDLHw2SL2ZgVvfxA=; b=GZ8zesziBHjwbQeEgHkHL302eKfaT/whL
-	fnRwSiq8ttCxQoYrjqB4fsXdnKxB24GFxSCiGqHjnmuQC6wYLRT5onjtF14I0N8N
-	2YIY4Ybz8P37xfNt+i3SLpcS14i6zufrdXTkzoc83b1E3WSvyp+QeSH4lY0fTq49
-	40ZuIC6r4YdzcRc9NZOyNW/B1gsh5U05bd+NjXbLRepAKz1C/OAioP8jOE95hQg0
-	GN9BKNdrvofMEDWOglHEKLo01lfYNNOuk8l5JoLKqRKV9sGN5hi49zW7Mogbgf/R
-	Rk2wyL+HTilhOldDBfr/hyOZCdGj5bkcNYIah5xuoXJme8sDMLg9g==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3r95868-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 15:32:05 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6F4sLN2390078;
-	Fri, 6 Nov 2026 15:32:04 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hs7h13nnx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 15:32:04 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6FVxql52429280
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 6 Nov 2026 15:31:59 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 03C7320063;
-	Fri,  6 Nov 2026 15:31:58 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 57B2320043;
-	Fri,  6 Nov 2026 15:31:55 +0000 (GMT)
-Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibmuc.com (unknown [9.39.29.160])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  6 Nov 2026 15:31:55 +0000 (GMT)
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        atrajeev@linux.ibm.com, tshah@linux.ibm.com
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v3 3/3] KVM: PPC: Book3s HV: Ensure reliable usage of latency counters
-Date: Fri,  6 Nov 2026 21:01:34 +0530
-Message-ID: <20261106153136.330165-4-gautam@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106153136.330165-1-gautam@linux.ibm.com>
-References: <20261106153136.330165-1-gautam@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=b8pae/Tu;
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=w427/YYm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1793979156;
+	bh=xHy9AAwYbUNDRIPqlGFP8rBNvBDMvPDQk8lTAq0vRB8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=b8pae/Tuh1waK9UCpykRDAPc2iXoXOsKS242SiVWo4sBDNyaO/hUml89ptZvsw2fx
+	 wFP76Ng3rzrTEDafJNx49BPuRsXg2pntDMuB4OYC9qgeueurSGZDOu4Bo6cX9Zss32
+	 T0248xVN0/Z2GNI8pnxPySq67VESEN+BidDWMI8ukC2qKKrOd7AWCtsU99bj2Kdfm2
+	 8DE8lPIQqtNtDQfLFtK1At1kdepFjAHioIWpBRpxCan7pHqzGAQ89s6h0fssGpjXWq
+	 6TlruDjR0njrtExbRpcvWl8Nq0UNy1O5zDOYpuHImJs9xCVd4NiWT95mzff1MOTI7K
+	 gnClIvaRCXt0A==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id 75ABF48BAB; Fri,  6 Nov 2026 15:32:36 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1793979154;
+	bh=xHy9AAwYbUNDRIPqlGFP8rBNvBDMvPDQk8lTAq0vRB8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=w427/YYm70AKnIjmqwOeLkuvEfLMrPh841E6+W65j1YHuy0vePY4VMnrFWKFhiPAS
+	 YutnMYtqG/7+CcBf3098NZ0Z+8xDb+pIyhdL6JWs9XrIWE5R1s2nmQ4VrAg2Tl2GlT
+	 VlOHkI6u6L+GAFW6aTOJU6MXK4Rx2a3uZ9r41MraU0VheSksRmePDSiwf1mb21tf8Z
+	 BMdb9AOxA4AzyOfKO4o5TL3SEY7ygL1bhm7C64V0GyBHl1UFh68BfFjKS4oAEqt0Vh
+	 xqeGI8HsxepVkZd79lTyb/Ke1BSytnbzLY1hW+4SsW7IBV/xTjcQSE+6bRHwmfA/zP
+	 rbyRfOqZ1lrjw==
+Received: from [IPV6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb] (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id DDA7C48B84;
+	Fri,  6 Nov 2026 15:32:33 +0000 (UTC)
+Message-ID: <27119213-dccc-4c17-bf7e-b39a038038cf@birger-koblitz.de>
+Date: Fri, 6 Nov 2026 16:32:30 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,78 +73,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=O86sLx9W c=1 sm=1 tr=0 ts=6aedf2f5 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=GgCYjPFYTpDDHSpCRZwA:9
-X-Proofpoint-ORIG-GUID: thakxKSSkMQkb2QsvHeNY0ezaM0ZunNE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2MCBTYWx0ZWRfX0YK0FAxN7GHR
- MTLDirfWyEIHicdb19vdz0x/ahhUGJ1i1igWpE3ASHQ9GA6BqgciOGFl3912zRkjkZDR46dZ0di
- pbxPwPbmOIUG7diyCuddvUf/fe2SxTB3ct/tUBArrQmm9ePsYpHzAxI877lrV2dfncpo3plDLSt
- m0eWTHQtFmxBycaEt6vlPr9AiKvbZD4AbaXaJ+qOEZE5qrGllLBD06FPgo/nFB3BzT+OYhH3tYs
- T459C/37fOsU8d+Xf3Z4UDeHefJTCXlDCawhMsgnJlcRtbnNAja5OapNn6eIGjaEQztVpeuZU+M
- XoUHjSXLcwirApfTDH7N3ZnA5EdGVmoCY+4Kn33l4QboJIW88Cz6Pc1NY5Hx2aTIw/rZQZzL+Lw
- spM+vRegsormkwDoSe4F/zBZqG72bKFuS9jogr/q6MxeP+INYH0WVjpe7ZKlBNWX5i9A+56TAza
- QjbhrFQMh2CNHT1RBBQ==
-X-Proofpoint-GUID: po2USU6AjBjATvqf-b9fyCsp9qI201lx
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2MCBTYWx0ZWRfX6SIBg3pSFSRj
- LaaS+RF17hDf+eZGurTclf6gSt1axsWa3VQV26X5qZsWJ20Ezphrhs+BmwggZ3jxhqR0vvyICC9
- RmQLf/zy2N3OVo/aDjauRRpxmQ0Iyuc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 adultscore=0 suspectscore=0 spamscore=0
- bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611060060
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v20 01/13] phylink: Add phylink_mac_interrupt
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Eric Dumazet <edumazet@kernel.org>
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ Jianhui Xu <neuromoments@gmail.com>,
+ Emir Beganovic <beganovic.emir@gmail.com>, Nicolai Buchwitz <nb@tipi-net.de>
+References: <20261106-ax88179a-v20-0-37b5a1189983@birger-koblitz.de>
+ <20261106-ax88179a-v20-1-37b5a1189983@birger-koblitz.de>
+ <69be2cfe-e296-4f90-ad19-0bd48a83e287@bootlin.com>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <69be2cfe-e296-4f90-ad19-0bd48a83e287@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The kvmppc_vcpu_stats tracepoint and the vpa-pmu driver can both enable
-and disable the latency counters in the VPA. When both are used
-together, they can step on each other and produce unreliable numbers.
-Since the VPA element for enabling/disabling counters
-(l2_counters_enable) continues counting with any value > 0, introduce a
-spinlock to ensure that the tracepoint and vpa-pmu driver can work
-correctly together.
+Thanks Maxime for reviewing!
 
-Fixes: e1f288d2f9c6 ("KVM: PPC: Book3S HV nestedv2: Add support for reading VPA counters for pseries guests")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
----
- arch/powerpc/kvm/book3s_hv.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+On 06/11/2026 11:11 am, Maxime Chevallier wrote:
 
-diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-index 5fa6f93548ad..e1bde3c6b0c4 100644
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -4142,14 +4142,19 @@ int kvmhv_get_l2_counters_status(void)
- 		get_lppaca()->l2_counters_enable;
- }
- 
-+static DEFINE_RAW_SPINLOCK(l2_counters_lock);
- void kvmhv_set_l2_counters_status(int cpu, bool status)
- {
-+	unsigned long flags;
-+
- 	if (!firmware_has_feature(FW_FEATURE_LPAR))
- 		return;
-+	raw_spin_lock_irqsave(&l2_counters_lock, flags);
- 	if (status)
--		lppaca_of(cpu).l2_counters_enable = 1;
-+		lppaca_of(cpu).l2_counters_enable++;
- 	else
--		lppaca_of(cpu).l2_counters_enable = 0;
-+		lppaca_of(cpu).l2_counters_enable--;
-+	raw_spin_unlock_irqrestore(&l2_counters_lock, flags);
- }
- EXPORT_SYMBOL(kvmhv_set_l2_counters_status);
- 
--- 
-2.56.0
+>>   
+>> +/**
+>> + * phylink_mac_interrupt() - wrapper for phy_mac_interrupt()
+>> + * @pl: a pointer to a &struct phylink returned from phylink_create()
+>> + *
+>> + * Passes a link-change interrupt received by the MAC to phylib.
+>> + * This function may be called in interrupt context, and therefore cannot take
+>> + * a mutex. However, it is safe to assume that the reference to phy does not
+>> + * disappear during the call, as only an SFP module may be unplugged to make a
+>> + * PHY disappear. SFP modules however do not support interrupts.
+> 
+> I don't see the relevance of PHY SFP supporting interrupts or not here,
+> this just re-triggers the PHY state machine. Looks like a comment to
+> make sashiko happy.
+Indeed, this is for sashiko. Unfortunately it followed up with: "The 
+function comment notes that SFP modules do not support interrupts. 
+However, when an SFP module is physically unplugged, the electrical link 
+drops. Could this link drop trigger the MAC interrupt being handled 
+here?", which is equally irrelevant, I believe.
 
+> 
+> Anyways, I'm OK with the approach, maybe reword that comment if you need
+> to respin,
+> 
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Thanks, will add.
+
+Birger
