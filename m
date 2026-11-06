@@ -1,66 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999474;
-	b=QKfJ/LSMvAB2wOIRJzFhbS43abJwFdpopIzoohWI3k8oBKVrrEwJh8E9zRyXzWFD7qwo
-	 9WdVO7SABBQQJeV7iDUJemXVrB+8y3kSbjBc5jpqbc5ypO6YZ6cRsJ26HiacuhZktgCDu
-	 Lu1vctyxiMvVU4iBLbbNBnF6VP1fJqGAqI4pqFpKxT99sewwUpCHEbjKcn45zyZTYaCq9
-	 2dfKdlE+B/nzQ9alIvECT+wk+k09E+Qt33ZLhpctB7wkCLEKNzUsuxeH6yK4Xwi8MU+ZB
-	 5SYDv0LY+Kq0lm4jU8y87LhbgiUjM7mdLMB/d6XO+GGtW4uZpX8qlzPSLXbxIV8pxyw==
+	t=1793999477;
+	b=sf3oQSQZtBMOQz3iP/kkbR/LVkPa4WTqLFItofsry4rtoMRPyvAUbbYgkOsCHMC+/v6l
+	 MeeVwseRudW2c4uNT6ycLZAXAk9eaA3PzE4nfG8rOmpRAzVTKewzSJxeQrRHuiej5qLmy
+	 w8wGu2YmKRhutPfQ/FCAEMlY5MV4AKzpSgI5WP+FIJawNEEJiTJzci6d1rqSAb+yGWfhM
+	 i5hjnQ77QtGigGlv4CR6IITAOTEFxYBydsMAU1AvDQgsoG8GkWIBAXzeTLE/tAt1ixtox
+	 5Rtgc2i1UoLoy3XEFUU5KrN+Inor11ZjGssFgSXc4C4BVfRdS/pxR/vevW5SJ+LQqJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999474;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xKjcuvfEsrQaalDXDb5/zzpQY2N+PE19jIG9FttWmsg=;
-	b=gTEq5YT/oUA2zBNDoYI1uBTtDyvoUfzBvOUJIFYF0uYlDTHJ6pUqIUNUxXpQKVYYAZQH
-	 x3Pp2HpriJmICcjOMT9WObu0FRNHTR1JBUkRhH+08k7VQCX+4CO0D78f5A7sHGTgdz4mg
-	 SyDa3wNJNd6XXIFkb9neeTumj9B21KVsVh98nkVTyxknIRgxiTbrq9NfnEPJTqss8+/hu
-	 RkVTWk1dfJT+e2CsEaevb6j0XpdSxL5FVG5a4t10NEsonqKeWtqMA3ES3vsDTQuPhVT7Q
-	 bds5f9KUhT/rMFKJ4NiGRQ9Q/Cq61pCE4o/CrfaRcjgIOll2QrcIDlR055YcuLqOjKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999477;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=qyq2PLhyOao6mpFoudZyaRzzk5GKGs33fo3H1xwZTCc=;
+	b=yxqetiNG/DXUQzN6MUE0GyYuFu5NXIolUutguOQTHWBbEBP+dMixtocWuEKorIBTQPLI
+	 9aB7geGs7axHa+mF1lB44bTq/VcQLJ4R9uLHwzubmEOpgBDDjVIYSqMKbc+EgMv4TRPlm
+	 10pQg2zsI32KNWRtuKTKNeHvnen/QAVipFFBalsuccm3dp1L2Ne43YoOP9l4zB7bAuX//
+	 z+lbXGJJpIDbr2fs5FZXLgqSPzHVJ4iaUmTPtz0BsvcHISR8mRcb/z1xB8yYmLnFYrIgh
+	 e75Evk7vsdoq18EzRTa3e1A83+HQXneTlmoeNBj/iFBwqK/qOYgOKgjJ3/CyWU1sKWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ULZJPgCF;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mB0kYrP5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0346A606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:11:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0346A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D430B606A32C;
+	Fri,  6 Nov 2026 21:11:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ULZJPgCF
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jLsKs2p6tz1XLyhh;
-	Fri,  6 Nov 2026 21:11:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793999469; x=1796591470; bh=xKjcuvfEsrQaalDXDb5/zzpQ
-	Y2N+PE19jIG9FttWmsg=; b=ULZJPgCFJAs7uYkZvw/AEp6SFwoUMH3c5Qnz7PpY
-	5IKb3jNrIg0ZYSo59tyqIVjuB5R6DifyGNZcgEfMA/Wn4Se26yorEzvWj73gYS3m
-	Oet/VTaoAgubyEkAkQ9xZXSLDxM5kc39zd+2TkIt9/5RqGzJ2D3uzKcp+zNBL8o2
-	bIZlY5rfN7bIWJsmzbqMvuXmnk4RHKrXJxMHUWHz+zJSg93btQqdKw36BcpBA5Jo
-	VHmFHrWBrF7oFVhnKXDXpNyQy4nZf+F6oVF2S3lbv8/3jr8HHVW2NEtPOlkKWZo7
-	CbidWRm9LHM0SG6QfKjAn8OcCIpndrhzAA8U0hwg4PoMzg==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id UDGiGonopHWh; Fri,  6 Nov 2026 21:11:09 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jLsKn2hQFz1XM0nn;
-	Fri,  6 Nov 2026 21:11:09 +0000 (UTC)
-Message-ID: <534257c9-6f48-4a01-8589-330e4e4e41e1@acm.org>
-Date: Fri, 6 Nov 2026 13:11:08 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mB0kYrP5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18B31F008A1;
+	Fri,  6 Nov 2026 21:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793999476;
+	bh=qyq2PLhyOao6mpFoudZyaRzzk5GKGs33fo3H1xwZTCc=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=mB0kYrP5E+kMoJW2mWs2JUrhZYEfNrOdE7QmZqdxLxBfLtwmvQzB2Oi6gKwS6ySzh
+	 1uZ7uHeKKX9x1VgJdIYDM+gglleI0ShCoN8TjDsCRRlm3pQG23X532TDgRxcyedFzM
+	 fKt4BqbNfFRXSRU7NHjCg7Rm9nkq8Pnwo3e3tRrubOWgF/KYO73uLd/xBdEgrXZbXv
+	 2jV+f5yPjI6EsOAX0kw3IoaZXYDj2tFvveOpkm6h8Z6PAYD5MbXqdWN+ZCf4vcB+FS
+	 Ms1TlwhnuUy3Y77es6z6Bxl6UBUE8De2KjirhvxnGwxspmDVQy96AcaZ6dlFOjIL/j
+	 qLu0fnWqjUi+Q==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 4E8A6CE0840; Fri,  6 Nov 2026 13:11:16 -0800 (PST)
+Date: Fri, 6 Nov 2026 13:11:16 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: Kunwu Chan <kunwu.chan@gmail.com>, dave@stgolabs.net,
+	josh@joshtriplett.org, frederic@kernel.org,
+	neeraj.upadhyay@kernel.org, boqun@kernel.org, urezki@gmail.com,
+	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com, qiang.zhang@linux.dev,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+Subject: Re: [PATCH 0/5] rcu: Record callback enqueue stacks and add torture
+ tests
+Message-ID: <dda59546-c03a-4c4c-9df3-a107bc629e2c@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261106143913.3627722-1-kunwu.chan@gmail.com>
+ <7883f32c-80b8-4bfa-a4e4-f1e04da647f3@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,72 +66,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mtd: spi-nor: Reschedule in spi_nor_wait_till_ready()
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>
-Cc: Takahiro Kuwano <takahiro.kuwano@infineon.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
- Brian Norris <briannorris@chromium.org>
-References: <1b755e40b80fded4b4b4c1f1c81f0d171012a1de.1793999093.git.bvanassche@acm.org>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <1b755e40b80fded4b4b4c1f1c81f0d171012a1de.1793999093.git.bvanassche@acm.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7883f32c-80b8-4bfa-a4e4-f1e04da647f3@nvidia.com>
 
-On 11/6/26 1:04 PM, Bart Van Assche wrote:
-> In spi_nor_wait_till_ready_with_timeout(), cond_resched() is only
-> called after spi_nor_ready() returns 0. If the flash is already ready on
-> the first status check, the function returns before reaching
-> cond_resched(). This happens e.g. under QEMU, where SPI NOR page
-> programs and sector erases complete synchronously during the MMIO write,
-> combined with a controller driver that polls without sleeping.
-> Consequently, multi-sector erases in spi_nor_erase() and multi-page
-> writes in spi_nor_write() may iterate over thousands of sectors or pages
-> without ever yielding the CPU on kernels built without
-> CONFIG_PREEMPTION, e.g. ARM32 kernels with CONFIG_PREEMPT_VOLUNTARY=y.
-> This triggers soft lockup and RCU stall reports.
+On Fri, Nov 06, 2026 at 01:49:04PM -0500, Joel Fernandes wrote:
 > 
-> Move cond_resched() to the start of the polling loop such that every
-> call reschedules if needed, even if the flash is ready on the first
-> check. Doing this in the shared wait helper instead of in the
-> spi_nor_erase() and spi_nor_write() loops covers all callers that wait
-> for a program or erase operation to complete.
 > 
-> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
-> ---
->   drivers/mtd/spi-nor/core.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+> On 11/6/2026 9:39 AM, Kunwu Chan wrote:
+> > This series adds KASAN auxiliary stack recording for RCU Tasks
+> > callbacks, rcutorture coverage for duplicate-callback detection,
+> > and KASAN aux-stack verification tests across RCU and SRCU flavors.
+> > 
+> > This series is based on [1]. For testing, I also applied Joel
+> > Fernandes' fix for debugobjects tracking of barrier callbacks
+> > [2], which is needed for the barrier tests.
+> > 
+> > The changes:
+> > - Record the enqueueing stack in call_rcu_tasks_generic().
+> > - Enable duplicate-callback testing for the "tasks" and
+> >   "tasks-tracing" torture types.
+> > - Add a KASAN aux-stack verification test module with a Kconfig
+> >   choice for each supported flavor.
+> > - Add one rcutorture scenario per flavor for the verification
+> >   test.
+> > 
+> > Tested on x86_64:
+> > 
+> > - TASKS01, TASKS02, TASKS03, TRACE01, and TRACE02 completed
+> >   3-minute runs successfully.
+> > 
+> > - With CONFIG_DEBUG_OBJECTS_RCU_HEAD=y and
+> >   rcutorture.object_debug=1, duplicate-callback detection was
+> >   triggered as expected for both torture types.
+> > 
+> > - TRACE01 was run for 1 minute with
+> >   CONFIG_DEBUG_OBJECTS_RCU_HEAD=y and
+> >   rcutorture.object_debug=1. The test detected both duplicate
+> >   callback heads through the SRCU enqueue path:
+> > [    0.405836] rcutorture: WARN: Duplicate call_tasks-tracing() test starting.
+> > [    0.405852] ODEBUG: activate active (active state 1) object: 0000000020df980d object type: rcu_head hint: 0x0
+> > [    0.734724] rcu: __call_srcu(): Duplicate call_srcu() CB 0000000020df980d->rcu_torture_leak_cb+0x0/0x10()
+> > [    0.734780] ODEBUG: activate active (active state 1) object: 000000006634e8c9 object type: rcu_head hint: 0x0
+> > [    0.776688] rcu: __call_srcu(): Duplicate call_srcu() CB 000000006634e8c9->rcu_torture_leak_cb+0x0/0x10()
+> > [    0.779126] rcutorture: WARN: Duplicate call_tasks-tracing() test complete.
+> > [   65.411342] tasks-tracing-torture:--- End of test: SUCCESS: ...
+> > 
+> > Both duplicate callback heads (the stack-allocated rh2 and
+> > the kmalloc-allocated rhp) were rejected and neither was invoked.
+> > 
+> > - With CONFIG_DEBUG_OBJECTS_RCU_HEAD=y,
+> >   object_debug=1, and n_barrier_cbs=4, the TASKS01 barrier
+> >   test completed 630/630 rounds without barrier errors.
+> >   The only debugobjects warnings were the four intentional
+> >   warnings from the duplicate-callback test at startup.
+> > 
+> > - All five aux-stack scenarios (TASKSKASAN01, TREEKASAN01,
+> >   SRCUKASAN01, TINYKASAN01, and SRCUTINYKASAN01) produced the
+> >   expected KASAN use-after-free reports. Each report's
+> >   "Last potentially related work creation" entry showed the
+> >   expected enqueue helper:
+> > 
+> > ===== TASKSKASAN01 =====
+> > [    1.244567] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0xb0
+> > [    1.244707] Last potentially related work creation:
+> > [    1.244716]  aux_test_call_rcu_tasks.constprop.0+0xc/0x20
+> > 
+> > ===== TREEKASAN01 =====
+> > [    0.670399] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0xb0
+> > [    0.670561] Last potentially related work creation:
+> > [    0.670571]  aux_test_call_rcu_tree.constprop.0+0xc/0x20
+> > 
+> > ===== SRCUKASAN01 =====
+> > [    0.658679] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0xc0
+> > [    0.658919] Last potentially related work creation:
+> > [    0.658932]  aux_test_call_srcu.constprop.0+0x16/0x30
+> > 
+> > ===== TINYKASAN01 =====
+> > [    0.951503] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0xb0
+> > [    0.951641] Last potentially related work creation:
+> > [    0.951650]  aux_test_call_rcu_tiny.constprop.0+0xc/0x20
+> > 
+> > ===== SRCUTINYKASAN01 =====
+> > [    1.009005] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0xc0
+> > [    1.009141] Last potentially related work creation:
+> > [    1.009150]  aux_test_call_srcu.constprop.0+0x16/0x30
 > 
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index 90524c58602e..3e3b727d262e 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -653,6 +653,8 @@ static int spi_nor_wait_till_ready_with_timeout(struct spi_nor *nor,
->   	deadline = jiffies + timeout_jiffies;
->   
->   	while (!timeout) {
-> +		cond_resched();
-> +
->   		if (time_after_eq(jiffies, deadline))
->   			timeout = 1;
->   
-> @@ -661,8 +663,6 @@ static int spi_nor_wait_till_ready_with_timeout(struct spi_nor *nor,
->   			return ret;
->   		if (ret)
->   			return 0;
-> -
-> -		cond_resched();
->   	}
->   
->   	dev_dbg(nor->dev, "flash operation timed out\n");
+> I'm not feeling very excited about adding more configs just for KASAN. That
+> sounds like a maintenance burden. I believe Paul already has KASAN testing in
+> his scripts. Is it possible to activate this testing only when those are enabled?
 
-(+Brian)
+The usual way that I do KASAN testing is with the --kasan argument
+to kvm.sh.  I use --kconfig and --bootargs to specify further testing,
+usually as another option in torture.sh.  This causes the testing to
+be carried out as a matter of course.
 
-The following probably should be added to the above patch:
+One good thing is that the Kconfig choice in patch 4/5 is automated so
+that RCU_KASAN_AUX_TEST causes the right testing to happen depending on
+what is configured.
 
-Fixes: a95ce92e4b28 ("mtd: spi-nor: improve wait-till-ready timeout loop").
+Is it possible to drive this from --kasan and the rcutorture.object_debug
+kernel boot parameter or something similar?  Or is there a better way
+to make the overall testing happen?
 
-Bart.
+							Thanx, Paul
