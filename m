@@ -1,52 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.245
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979238;
-	b=q+7pUkWQ7gwKTpJ6nuTlNZc2XcSNoLWAHwXWls1MapqkXKc4qfeij7rULsvFdhASzcL0
-	 G3tdYjtphWelS0123r3WoKcBbOmyNga9qgimZPHQgdIz31hmF3vmhhiYiuEAncP5g6lyr
-	 W+pGs6NNP53Wd3r6NVGwQIP9A/+b0SLdfLpe6aVBBptL2oe3JUZOeU2ZrV48szaePIw40
-	 vSh21ld3E+yuIqb2tNC8SlGbs0LrdDytY+f+Yh1myFI+3rZEuLLq5Qapg6U6D+/2f0oNt
-	 /xbaiHKi6rZITrQ3h24qN5cywZ0aQwU8PvnRcy5NeN0YhvTkoEBOfiQOOymLWtHplmQ==
+	t=1793979247;
+	b=HTi3JoCWA9ViXhbGsCRID9xO9pxSWOEPTHlZHY8zOOK5xYbqWH/AxdgYtmwR4EeHdQKC
+	 wqVYDgWdmKOA5t6d0uR4byW/XVWSfZH8KcH4iV/4xrTag1hyl9BoLZot+myrLIT2fs1Mv
+	 JGQauDqQj16Sioww6p/GwilJSH9yBW0SPGep5NskJJKfYgxZVp8HYmVeP3E+VWdufNVj5
+	 CNo32rBjpUqER9ziacJpM72gpP+XfR6ojaeRlk9exrel6ikD3vvsQqE56tM/L2OvREiYd
+	 pVV3Ygc/kOllXW4w6pYUi0h+PkoEk/iXwQYWhQIUAf8jWiMsh2MTzCvKZB11dWE26ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979238;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=xnFBbA5O9SNG3bMSQk3PMw7u0MrJOeyJ8JatdQVxblM=;
-	b=EO6n/PYWCVJ5df2veR9172+5zvSTtCX+xNbHiNxk0rmtj/RwbfW2EmzFbo8KVX31CoGK
-	 u7X+LUzif1hBzO4Lgj6JqZBYjlVPx5w5+uoJxNjpEfTl8imIyikZNKff2NAF74J3rQZUx
-	 A7FXv4skO/wRlAhfJLCpEE/TcbTt+QvAy6UudHRJWGfZH2lIhPGDJTGC25+xJUaBM/52O
-	 GyLpQFtb2q+Oub/4pZ+sDmmZqMGLq51iRIS0odxOOqhr0Q7H5Q99An6tpUvMvzqMCtehN
-	 PEFHaZXRAuW1JMhugY8fE/6ckcWTZsAxymmgubVaLhomgcvDCvgl1fnrkUTOHVfA+rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979247;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=II+/X/AjHk0LYdYU8qce4WUbCQR7IugTOkyE8BsCIhw=;
+	b=VaJTQy5uaQELxEdb4nBbXOLKqRjPRV5GVQRQynca4GclIiDdt7J7S9mjvhpbh/EBCXG1
+	 e5RmfyDtDkzhL5L615YHzGZ/0NlC8PTsPEhUH3o+F9xviJ3cuvjb68vBEp2MGlaP07NQx
+	 s7J7b87er3uDaGwq3js6RJbJg8WZIitp+u0Ym5lsRwwTpdZzKuXPHgDCYrVjR1kOYdKgf
+	 qpbph5BxDSZ35O3Krvb6djO4l3Y5subWTIPjvAGGHDIJ7FiYhztFLXCTdsfQf+nk1kGUU
+	 g5C1UzgMQieDGy5e3vcFpzCnAJ0fBwxQwH6dlwActp3Dmid9mkTtmdCosGpDTq7bdrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vAKdOg3E;
-	arc=none smtp.remote-ip=91.218.175.245
-Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofnNNgjs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A0C606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4A0C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28F8606A326;
+	Fri,  6 Nov 2026 15:34:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vAKdOg3E
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GFi60cn8i9cNl144LnrbpfpPJhWJ4UiTddospvWh4rs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793979234; v=1; x=1794584034;
- b=vAKdOg3ENFNMJVI6vA/NFPoNAYPOnWMT6wen/WtleCBtAy6WvbGoH3YNNrEtn0RWZj74hJm4
- nbwNl9K5//ex1VsjpyrUt8l3RjnTiz6z9xaTqFniwy3VFniWBtuIh3oDNkSKLyCRUIfB2+woak/
- 93lgqaxIumr3Oh8Lb18/90Nc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 570a4a2ffed2485c;
-	Fri, 06 Nov 2026 15:33:54 +0000
-X-Mizu-Trace-ID: 570a4a2ffed2485c
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofnNNgjs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288121F0089F;
+	Fri,  6 Nov 2026 15:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793979246;
+	bh=II+/X/AjHk0LYdYU8qce4WUbCQR7IugTOkyE8BsCIhw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ofnNNgjskEICYvaBMQ5Hxz2bF9n4sLEzhep/feYz49X59zjApKsMY9OE9pz2qlqY8
+	 mAqOwsksfHjWbUMw0F7zZ20suWnYkKVpNrZ3IcJvWPoTDb+jjQZnejbYVXq0a5hroi
+	 t/bAdCups3F9fq2K/2vn9ARUPX5zG7sQrF94/+0pJcd9kPB1q6/IgESQu7dQGAvhVU
+	 D65A/Y9Ry8DICZsndZx0xUSMBL2ysSK9VLYzqjt1dJfpEZc9RESdrJHWV9KPH7n/XZ
+	 S0Jy+01bWKjj4NJjAEADzoeTpWedtFeBAf/CG6MdJ7pXiiRljY7yU4N/tAor/3n5Ak
+	 VEYK51K2qEKnw==
+Date: Fri, 6 Nov 2026 16:34:04 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
+ tegra_output_probe() optional
+Message-ID: <au3yeJQPgRNiOM_R@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-7-clamor95@gmail.com>
+ <au3dMlmsLEOUqan9@orome>
+ <CAPVz0n3=R1UhyTw1o-ZR2hMyXwKAomNkb5O-cQbG+TBFJi5=JQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,69 +66,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 06 Nov 2026 15:33:49 +0000
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vsbcwdisnglh5dny"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n3=R1UhyTw1o-ZR2hMyXwKAomNkb5O-cQbG+TBFJi5=JQ@mail.gmail.com>
+
+
+--vsbcwdisnglh5dny
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <0dbdce9823a6ac3f68640fdeb3b3d1197b04fa58@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v2 2/2] wifi: rtw88: ps: Trigger firmware recovery when
- failing to leave LPS state
-To: "Kalpesh Solanki" <skalpesh942@gmail.com>, pkshih@realtek.com,
- kvalo@kernel.org
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Kalpesh
- Solanki" <skalpesh942@gmail.com>
-In-Reply-To: <20261103031434.14449-2-skalpesh942@gmail.com>
-References: <20261103031434.14449-1-skalpesh942@gmail.com>
- <20261103031434.14449-2-skalpesh942@gmail.com>
+Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
+ tegra_output_probe() optional
+MIME-Version: 1.0
 
-Hi Kalpesh,
+On Fri, Nov 06, 2026 at 04:09:36PM +0200, Svyatoslav Ryhel wrote:
+> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:=
+00 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Thu, Nov 05, 2026 at 04:05:06PM +0200, Svyatoslav Ryhel wrote:
+> > > The tegra_output_probe() performs panel parsing unconditionally, even=
+ for
+> > > devices that do not require it (such as HDMI) or that handle panel pa=
+rsing
+> > > on their own (like DSI). Make panel parsing configurable.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/gpu/drm/tegra/drm.h    |  2 +-
+> > >  drivers/gpu/drm/tegra/dsi.c    |  2 +-
+> > >  drivers/gpu/drm/tegra/hdmi.c   |  2 +-
+> > >  drivers/gpu/drm/tegra/output.c | 52 ++++++++++++++++++--------------=
+--
+> > >  drivers/gpu/drm/tegra/rgb.c    |  2 +-
+> > >  drivers/gpu/drm/tegra/sor.c    |  2 +-
+> > >  6 files changed, 32 insertions(+), 30 deletions(-)
+> >
+> > Does it break anything to try and parse this even when it's not needed?
+> > In all cases we error out early, so there shouldn't be a whole lot of
+> > extra overhead either.
+> >
+> > Adding this extra parameter just adds extra complexity for seemingly no
+> > benefit.
+> >
+>=20
+> Dual DSI panel fail for Xiaomi Mi Pad. Maybe you should check your
+> email a bit more often?
 
-Thanks for the patch. I know this is already applied, but I have two
-comments.
+What's with the passive aggressivity?
 
-November 3, 2026 at 4:14 AM, "Kalpesh Solanki" <skalpesh942@gmail.com> wr=
-ote:
+> https://lore.kernel.org/lkml/20260305161035.64548-1-clamor95@gmail.com/#t
 
-> diff --git a/drivers/net/wireless/realtek/rtw88/ps.c b/drivers/net/wire=
-less/realtek/rtw88/ps.c
-> index add5a20b8432..8dba60f3464c 100644
-> --- a/drivers/net/wireless/realtek/rtw88/ps.c
-> +++ b/drivers/net/wireless/realtek/rtw88/ps.c
-> @@ -166,6 +166,7 @@ static void rtw_fw_leave_lps_check(struct rtw_dev *=
-rtwdev)
->               rtw_write32_clr(rtwdev, REG_TCR, BIT_PWRMGT_HWDATA_EN);
->               rtw_warn(rtwdev, "firmware failed to leave lps state\n");
->               rtw_fw_dump_dbg_info(rtwdev);
-> +             rtw_fw_recovery(rtwdev);
->       }
->  }
+That's a thread from over half a year ago. I don't usually keep track of
+email from that long ago.
 
-As far as I can see, this timeout doesn't always mean the firmware is
-stuck. The comment in __rtw_fw_leave_lps_check_reg() says REG_TCR is
-only restored once the AP has acked the null frame, and 3a2dd6b7cadf
-("rtw88: check firmware leave lps successfully") says that frame can
-take much longer in a noisy environment. That is why the old code just
-cleared the bit and warned.
+Also, I asked previously if this broke anything. If it does, then the
+commit message should say so to make it obvious that this is an actual
+fix. And it should explain the problem so people can think about the
+problem and judge whether this is a proper solution or not.
 
-So if I read it right, a busy channel or a weak link now ends in the
-WARN() in __fw_recovery_work() and a full ieee80211_restart_hw(). The
-watchdog leaves LPS every two seconds on an idle link, and
-BCN_FILTER_NOTIFY_BEACON_LOSS leaves it right when the AP may be gone.
-This also reaches USB and SDIO now, which had no way to trigger
-rtw_fw_recovery() before.
+Your commit message doesn't mention any of this and makes it look like
+you're trying to micro-optimize for no reason.
 
-rtw89 only recovers after RTW89_PS_HANG_MAX_CNT failures in a row.
-Would you be willing to send a follow up that does the same here?
+Thierry
 
-There also seems to be a path where the recovery never completes.
-rtw_leave_lps() also runs from ieee80211_set_disassoc() through
-rtw_recalc_lps(). If the check times out there while the last interface
-goes down, or on a suspend without WoWLAN, the queued work runs before
-drv_stop(). mac80211 then never calls drv_reconfig_complete() with
-IEEE80211_RECONFIG_TYPE_RESTART, so RTW_FLAG_RESTARTING stays set and
-rtw_fw_recovery() does nothing until the driver is reloaded, also for
-real firmware crashes. Maybe rtw_ops_stop() could clear it as well?
+--vsbcwdisnglh5dny
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Best regards,
-Luka Gejak
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt82wACgkQ3SOs138+
+s6Ge9RAAs0gRNuV8ajPe0zMqQ7l0nh5k5pTb0yKxufq6QJJsYFvp/fivU8sBmS2L
+qq2gjLv/OnCZOmDdDWdfwUStRuTVzI7eQbFouVvGadxjxyWY0VfV7XSXcI6aCH2u
+s+hcgNEDaHy1YT+8tyUtOYm+3uVN+tJNnjIbFMxZ8q+s460Qh58+LRe8nyokwRVJ
+fjocfQUL7A2VSJWEakyoyD9KNasvaUZ9jTi4cJbxsSM+IfS4lohDFl2VoKZE4o+H
+j4QtGAdJu1fYPH8dDiY4160+zPqyQyDms6tw5ZuVA2BFZPRFrKcPgWnKuYNQbl1m
+DTMP2XzNO0+7c6m98CCcaBq4lo+jsmlyCkgaXkpLyRFpQP/0SfFD6DQUQHi6asUr
+NblJ95fJeYCS6+hlUJi4QJj1uSoqqa7lMeozkKCZGcBseJTnvIOi2d5pErL3dwmE
+BcsQk/yBd24kdmEAwN+v9Yz8L+5MfpOJ602GJWMrZ31Sj16CLbeBu6aTa8iE4hgb
+gKTG1omK/iF8FHZFzV5xeEHCa7U3LbscouO7o7hwHb6124QfNwBTNLJKC9CFMf6I
+yYgKCj2kMyAnEtl0fZCueYvRssTGVhUmHE8GuMBOv5UjCZWEotP2UMuHt6+w258f
+K9NmJpqT3ARg6tcamiSLKwUSoTR7yGdNNmGd02C7CPGsRoMWuoA=
+=t1Ik
+-----END PGP SIGNATURE-----
+
+--vsbcwdisnglh5dny--
