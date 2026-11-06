@@ -1,67 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951499;
-	b=QMVuXbPpXyoEK3aHmsOT2eZyVBQPSb2Rjt1RS4M5ChMoNSKav2ajIWdcjui7t7hKZ1kL
-	 sU+JhIjtkoegtOBiSQzVgLHLdkp9+MfFNCL7eaFcmEBSkz65R+wN9kmuZ4i0PKwCpURVv
-	 9ia3Z/K5KisT0Q+K2Q25EL9HhKWxSWORrLTHT0I4mU0QKWo2w64JNkv9B6o0+pUpxYlSi
-	 C8EvvTSOH5LmtoYj8o29Pm6hnu6R0iJA2AF2FrKeCAYpTymKqPwVjvV2KT4HxQ99Eubz2
-	 SzKXS2jh7KpMqRSfZUqI0p2zYYmnkAwq+qjlQ2wnFVGJjtyyRNKgM8l4KJ8VxzZcCrA==
+	t=1793951500;
+	b=lZ6WlkzVV99jE9pjOzQ+UFMt+Lzn5dgQS2cvcgLBJbEcZMJ/JXv0t20rr950oMjFVXmK
+	 bfUYBINuR4q1+UPQM7IJxDlIVqMKylM9EVwRqNHPDPGi2LTBcOP59q1A3AaBgFcuZiBBO
+	 lDNkTJotPEuavJJDo9KZptw3AssRcRgWNm+Ps+J7zDw/CCd7al/nRBAlqYo79Io2RQBNb
+	 woEA84kPSzNV4JVkB3grDYEk44onMrncoBZIWS4fxwQkIWcxAlzpD+SJl9NG9KW4bcMo4
+	 PnP2nwPDEltK0eLY9cDgUesDa3LyXsTDCLewjf6TZMkdiRIQ9AQCeKcbDJYfd7uQ0jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951499;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951500;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=X3nxSXG+H2J8k8t3k6poogjxQFJaTHXAguqehE2TWiY=;
-	b=W4cQHTbnMn0NwDBruLxGkAt3JN9MZpev8qUFxYsTW0lX/lBet741qs6GuwNG3rL+ZwLS
-	 ns0XluXDb8ZpXVG6bRX/odgSlJ8OZs0TFpoz3W3MPsCwCiCIcKkKZGbeYk2FFkwLZcY8+
-	 6AxYHrPXvaE8hushfAQ/yci5GioU8W2bxXk0WUEP/bntw9mpUGe8gZB0EYr9oGQYeXUxv
-	 yT5t0NgGwYhOzr+mgn8rTeAg6SsJSmYtT5jrGdf5YD021lXtxeXJNq9a9B0z3TDD+vAPD
-	 YQjXeweja2MllTmNXxAl37aMhv/PXBvbOSV/JboTBR9pR2+aYbhzsKFdG1p3jAheetg==
+	bh=A8L/HnUYVSEblkQSsd0Qj26nxFzNN+cxfs3MphjQg/M=;
+	b=aaXF5C34uER16kRH6nTa2FVCuzlXfzP/7tY+KRj44vZSYvujLU2T2G4ldkh6/k8mB3C0
+	 NAXcoMSQFop6VTAsyaEAYhBxLWxFPbYgrIJUNQfUpXz5wTS1QC/T/CYEhs7bwmayTS3yt
+	 HW5kIDW2sOm72Gf3pcRTsXZikldmuE/d9FAHMK+xtC+bhJbjgoRYjljFDTc1cJ+dT2NMG
+	 7aSDDRxUEVshUnrt+ra3qQdycTeY68syzM5Qn2HwXB/wn58KeFxjyO/Ey/aUbONKig8aO
+	 KoHZeII4geKPvht3mOIjXuTe2ghTwbTW9rU/n2F5+bRyzmSiqQSYCdNc8MV7b9rHP+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=EdBOOO5d;
-	arc=none smtp.remote-ip=115.124.28.97
-Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UPIJP6Q0;
+	arc=none smtp.remote-ip=95.215.58.210
+Received: from mta1.migadu.com (out-210.mta1.migadu.com [95.215.58.210])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576A7606A326;
-	Fri,  6 Nov 2026 07:51:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 576A7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACBE606A335
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:51:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ACBE606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=EdBOOO5d
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793951489; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=X3nxSXG+H2J8k8t3k6poogjxQFJaTHXAguqehE2TWiY=;
-	b=EdBOOO5d/HlK/xdK+U63qbsCipbHTOjNjstrXi49twguHyNCSFWfk4udWTjT++l+gs7f4/JjR6BY1sbl1pNhGqsabFd7UqgnLXopyDkZIJKCx6lqYgei7RSKnt1Kbx0fYVrLo9zU5ulAIWNisZgvIILVcRMU1/NTFOLmymFqTVY=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07707597|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.003847-0.000952075-0.995201;FP=12758894924369871956|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034254;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jy77D-U_1793951487;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jy77D-U_1793951487 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 15:51:28 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Juergen Borleis <jbe@pengutronix.de>,
-	Denis Carikli <denis@eukrea.com>,
-	Lee Jones <lee@kernel.org>,
-	fangxy@xiaopeng.com,
-	linux-input@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UPIJP6Q0
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=A8L/HnUYVSEblkQSsd0Qj26nxFzNN+cxfs3MphjQg/M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793951497; v=1; x=1794556297;
+ b=UPIJP6Q0nfXlvvfpln4wX/UfZkaGFDuF9gkUkIPdmlKEkN/imHhQCz3ox4XK08+ctE4izmGf
+ DHMetZz49duJzYzwzdygnE2PamAUcsl1T1fAJvv3Fb1FBZ7jr9ga5OWjU4lI/o1eRpS4xNVVWOu
+ khNo4qEaARHzv1qqESBWv7Y8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2a97fd523a3d8c6c;
+	Fri, 06 Nov 2026 07:51:35 +0000
+X-Mizu-Trace-ID: 2a97fd523a3d8c6c
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	jgg@ziepe.ca,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	willy@infradead.org,
+	jack@suse.cz,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	maddy@linux.ibm.com,
+	npiggin@gmail.com,
+	mpe@ellerman.id.au,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	pfalcato@suse.de,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	leon@kernel.org,
+	sj@kernel.org,
+	rakie.kim@sk.com,
+	rientjes@google.com,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	mhiramat@kernel.org,
+	oleg@redhat.com,
+	john.johansen@canonical.com,
+	georgia.garcia@canonical.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	zohar@linux.ibm.com,
+	roberto.sassu@huawei.com,
+	dmitry.kasatkin@gmail.com,
+	eric.snowberg@oracle.com,
+	wufan@kernel.org,
+	stephen.smalley.work@gmail.com,
+	omosnacek@gmail.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Input: mx25-tcq - clamp the FIFO sample count to the buffer size
-Date: Fri,  6 Nov 2026 15:51:27 +0800
-Message-ID: <20261106075127.3105907-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	linux-fsdevel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org,
+	damon@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	selinux@vger.kernel.org
+Subject: Re: [PATCH 13/13] security: convert VMA flag tests to use vma_flags_t
+Date: Fri,  6 Nov 2026 15:51:30 +0800
+Message-ID: <20261106075130.55333-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261105-late-2026-vma-flags-v1-13-0d3cd15ab75f@kernel.org>
+References: <20261105-late-2026-vma-flags-v1-13-0d3cd15ab75f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,35 +152,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-MX25_ADCQ_SR_FDN() reports up to 31 pending samples.  The IRQ thread
-aligns the count down to a multiple of the sample count but never
-bounds it by the size of sample_buf, so a FIFO backlog larger than
-TSC_MAX_SAMPLES overruns the stack buffer.
 
-Clamp the count before the alignment so that the result stays a
-multiple of sample_count.
+On Thu, Nov 05, 2026 at 09:31:04PM +0000, Lorenzo Stoakes (ARM) wrote:
+>Replace use of the legacy vm_flags_t flags with vma_flags_t values in the
+>mmap and mprotect LSM hooks of SELinux, AppArmor, IMA and IPE.
+>
+>No functional change intended.
+>
+>Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>---
 
-Fixes: 4f7ed234f2a5 ("Input: touchscreen: Add imx25 TCQ driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
----
- drivers/input/touchscreen/fsl-imx25-tcq.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/input/touchscreen/fsl-imx25-tcq.c b/drivers/input/touchscreen/fsl-imx25-tcq.c
-index ff270b3b8572..fa8d8b736723 100644
---- a/drivers/input/touchscreen/fsl-imx25-tcq.c
-+++ b/drivers/input/touchscreen/fsl-imx25-tcq.c
-@@ -319,6 +319,7 @@ static irqreturn_t mx25_tcq_irq_thread(int irq, void *dev_id)
- 	 */
- 	regmap_read(priv->regs, MX25_ADCQ_SR, &stats);
- 	samples = MX25_ADCQ_SR_FDN(stats);
-+	samples = min_t(unsigned int, samples, TSC_MAX_SAMPLES);
- 	samples -= samples % priv->sample_count;
- 
- 	if (!samples)
--- 
-2.50.1
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
