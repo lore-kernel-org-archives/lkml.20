@@ -1,78 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969198;
-	b=oEwjDS+O0tQG9Pei8RtKBPKa5oE2BMe6DuWh4T1mjRxyc1S4MQOt9F+jBrSFSCFm33i2
-	 SU9GT0KpRd/e0ofHs6VEEPL6ROki8nbaY8ff8VoEV+SoO7d9E/mLf+ptKBNXeGShZl3yJ
-	 77OZPd/Gnj3qpOc2l6OLviz/jR9kkEO9D4dPnIxuROxLNOp5lTHLqF05EM2vK2hC5eyTR
-	 XVbvdlmF5lKihGdtlRpP/f7Q6Rc9aagRaZrFNSCfxcTCIgnL++zFOeT1acMWbFxl7EYNj
-	 RRORpd7jfc4g9PFbJJunCV1pSNryHlStMhspJhUXsdtjjcW0lh+a0mofPLSt/IlsqUQ==
+	t=1793969256;
+	b=eGskjDdXycDT/OkUg8jGOvGqQ2QWJBEKU6Y+3QBjxoTmPEnXCKotwmf0PIlGQTc8qq9N
+	 BdOWV4Tu1WrcVfZBCpVbfSYbwHGKVwoFts5yzUICRG2R77x6fkxTiOa0AVCeyuazAlkA0
+	 juZ3h7xqJoRexNt3svQcNk+CQPBPM+NWMBVTue0OydvWkEXLqoQcEMtzpzfjKVAPSrZdg
+	 Qb7ydQ/9IpEeXO4ZuTTsHWO5/GM2BrlgQ3gmFSpdUBdEsJWB3ZPy1RkoGIM8Db7ruEkda
+	 OzKXgVK/Q+IWByYLm/lJWYRjOMlK74f9UMnUtgvDmQJ1H180QcgK64jOhZTX+Sj9GmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969198;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=SQstb3NAFozC6f5eba1HtcGxM2sdlpH0PEKeCTHX2NY=;
-	b=3rzUJjjErz9zWgDp9WXZmKVJakuka72djuMQobw5fg7vwwvfVPTDYq8TMzkaDmaH6ZSr
-	 UwzvvHVod9mNre7V/9ndKSrr2J6Nm4ge/XMtHYJw64G8u3xkmExa63TyfGSIyOiRoPMoH
-	 c/OmDWufHfHM2cBs8S/QRgKmDihc8R5ZzQdbjrwhYgiwQNBQyqzMnPiTylFzV2P0drY+T
-	 67VCw9ILSNV724Oa4quIgXXtyLd7IQYEHO/iZRKAOsWDst7zLfBZEkRFZqugl5h8On0Y5
-	 /aDKZnI6iGK/wqjGrHz8yvsAReYWTWzzBzIK01tqZDG7+TRklxlr30WjZXnLiMP7V3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969256;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
+	b=ORoGTkJLf3p0yaxy+FeeKiyj7xIchhz/AdsAMA9iwy+I18/1dtmOx4/HQvmJbfYQV1MM
+	 mCiZHqR8RRrhdsw0Nt4pP4acNockFQKkJXlMC2w44WjlQfhK5WWCsm772SLVe/U8tohE8
+	 +L9kV7VkTJ591m+SvtON1jARsMOPcQMKDxcMsSMzLknnxjNfHdpgspYcz4xlPhgTMHIlo
+	 N54+Dt15Gd1pcmseBcBXALoWyauAPriV9TDW4FD5ShaDBx7jgONKxotWU3RLKqAC2io+I
+	 HmV5hqHKxqWsE1Hst6p4pJ0/XP/dUvP89uwkMCZHFrSMVbHje+zfk0xiR3jELROVmUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n2zmnd5G;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYE8JxpC;
+	arc=none smtp.remote-ip=74.125.229.4
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83185606A339;
-	Fri,  6 Nov 2026 12:46:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83185606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35682606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:47:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35682606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n2zmnd5G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793969197; x=1825505197;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Y9Jb6Dw4T0rly+nidk/Mnv8ZptehDZunhuzxL5v2ZKA=;
-  b=n2zmnd5Gle41LsisTHpVNBR9TgIdCGssFfoN1HDXqikp2eQYMaNkuQ3v
-   ZNQxPqyOYGPNDI4c2PHXDbsbpG3oeTrkNR+A+pmuTslEUwu3J+dxhEw5N
-   LQ5s0bsX6QKqyHT00wksWQwvoEp3jwrtkIYPOrrLNGzDkbR4R8xaEmKU9
-   JKuZh3J84m24KoZfw1nbP27hCHbQxAadWaByDWkdN6ofzERSDKJoS+B47
-   RZw6XY2PZHYTrRMHLv6LsVjyEfIbM3ze/de2u21GqPd3RR0dvHKsLa3XZ
-   ZI4gzCy5TCjd5rSVZYVHClnjFs81jHEIhvdQvSecZVhK4kJG/oQ6cKytE
-   Q==;
-X-CSE-ConnectionGUID: 9XfxC7/MTTupeTG9QtArig==
-X-CSE-MsgGUID: 2GcBcFvvT+29ELHkr9Nr6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2657996"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2657996"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 04:46:37 -0800
-X-CSE-ConnectionGUID: BVknK8ovTLWpxtJYr28csA==
-X-CSE-MsgGUID: rkEpVAeFTgGVvaHfqyeJug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7435805"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa002.fm.intel.com with ESMTP; 06 Nov 2026 04:46:35 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 5199099; Fri, 06 Nov 2026 13:46:34 +0100 (CET)
-Date: Fri, 6 Nov 2026 13:46:34 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Badhri Jagan Sridharan <badhri@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: tcpm: Record the partner's Product Type VDOs
-Message-ID: <au3MKtjI0920w0Ym@black.igk.intel.com>
-References: <20261102-tcpm-product-type-vdo-v1-1-02e90dadbc2d@flipper.net>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYE8JxpC
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36f2f262b19so353396eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:47:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793969254; x=1794574054; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
+        b=GYE8JxpC/XsGkeI4sBpOQ6DJvE77JIlVnRsWlvafhf3pFfJET9MlXd8nPF2d5DgUP+
+         30WS2GXdlDp5aokJ22hMIPfJsRLfyGU0uIcm0w+YRP3oBnt0PJjqL0VfCVv6cMUmRwdc
+         1cnijDYPjmej/v5Qh8w8xNAlXKNpPqzt0UALSXJ2Wij/wThr1iZrHgNX2RsIv6YvstCf
+         65nNWEzTdciPyY6MSNg6KVCUPq/yYaxwVJrQ3Twvabjqwr7fcYH0ABw6WLAInNcndsbv
+         lGmqZIkfUzo/vmfc90H6TitpSeBrfZGWZ0O+q+qM7jL8CdR5Sf6dX3kw+KbaUpskv2MQ
+         wnDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793969254; x=1794574054;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
+        b=NbdMcFQXIOPgyns64ZpFqagsZtPHOdPU1hcOe5ad7fIf80xTLW9yJigdFokj3Ss6IK
+         oUy8oYYsh4xhz2I9Absxwh2iarpovPrVeJGMf5sVrKcS71oq8+jtFuZu2WrnK8Rfkewt
+         R8xz8HZjDgM7bCTYQ+/XOptI9gK7kFGNXdgXZ9cSioeRvnLfw0wDBr8UuqWSYPwlFc8O
+         TAfdCxLNROtigVB5WJm4rVe/JNaUFJIQCogTya8KT2+LV8S9YVr9K9XvklCtUwzD/fql
+         V59GgzTLNnLyFuE5krrz+VOcnwj5EgE1NJs1bndXCLssx7H6WLaj5euEgaCxUpVsttsV
+         /6Tg==
+X-Forwarded-Encrypted: i=1; AL+hErGt7JVOIDsyMNIx7HUO2H1WrkskGTirT7KYAlP+kti0U/c7ndCVnAvnq5bHUmP+lXbbK0ytLJzlre8Bt+c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9N0PLTpVO2yn9c9EbvXU6LGE9H18YuHFzTNFlxJRb1lldQyQAY
+	tEZ89BUOMXXuAewksBDQ8rIfMKJ9ieucRRbP2A00UNbuOcT+AOkPtmS4
+X-Gm-Gg: AYBFou3UjR1Oi1+hAmdfcx3pJd0LterdHxbn1m8Abw/9LUcVVjuURopWFm4I8YaXqKM
+	XimLYm+zrfne5r8oXmuXMrkDl1kMeR0i7wlG+zsYneLkUmICjhm10ykfAq1Z9+slJY/tBa7LNmH
+	d7557TsazTrUkix/utU/BxGcebdJYtDsunc7eKQlxnx3CnpIUHt5lr2GbTtVYL4SmXwZ8PX01XM
+	M9Ya2s8nKWyG1zGU92FpzS5ZxsIuOEu/5U9K8au5IlvT61b8ul69l06HaocGYTg4bdxFB3BIf2o
+	BZX25FcbTJR/tGF/jqcJHlWaI/xGy5BvHiz8ZPBi3PMA+IvgBB3UI9ArmUH5erZ4jepxmrHr3hf
+	ns3I51F3riSXJbfb0N1DrENK4eXncJzTBsnbMKGakPuUSILnRgtbFnMwlfPHOzsdLB0099Nr84F
+	8mAthfBVhzMz8AjWGv2nocP/wyI89g1l+sSfTuVcUQPSmrU3FxCipHTuFnsGKaUzusGlyAazzK1
+	kgWIMneyoMFKWTUX9o93Ox8CzeBc+YMaaKFGandotYAODz6zX4A57AjowP/DDDNls6MZU3YPiqo
+	TGpxiLHSLivYCoZOibDjLeW7SZoIt1gXMGkUxylpIN/tGeLg1nlToVaXVOmQD/bJJYM2VzB0UVc
+	JE+U7/c+hUsTFlwkOfyT7R1xYGax90Ckk07PuKg==
+X-Received: by 2002:a05:7300:ea18:b0:36a:12c4:8bdd with SMTP id 5a478bee46e88-36f7554337amr3612023eec.21.1793969254337;
+        Fri, 06 Nov 2026 04:47:34 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa30138fesm6844272eec.0.2026.11.06.04.47.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 04:47:33 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: davem@davemloft.net
+Cc: edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	n05ec@lzu.edu.cn,
+	ylong030@ucr.edu,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sashiko-bot@kernel.org,
+	dennylin0707@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH net] vlan: prevent cross-netns MII register writes
+Date: Fri,  6 Nov 2026 12:46:39 +0000
+Message-ID: <20261106124639.12584-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,60 +104,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-tcpm-product-type-vdo-v1-1-02e90dadbc2d@flipper.net>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 06:21:24PM +0400, Alexey Charkov wrote:
-> A Discover Identity response can carry up to three Product Type VDOs
-> after the Product VDO, describing what the partner is as a UFP, DFP or
-> alternate mode adapter. The Type-C class keeps them in the identity and
-> shows them as product_type_vdo1-3, but TCPM stores only the ID header,
-> Cert Stat and Product VDOs of a partner, so those always read 0. Cable
-> identities already get their VDOs.
-> 
-> Store the Product Type VDOs as received and zero the ones the partner
-> does not send, leaving their PD revision specific layout to the reader.
-> 
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+vlan_dev_ioctl() forwards SIOCSMIIREG to the underlying real
+device without checking whether the VLAN device and real device
+belong to the same network namespace.
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+A VLAN device can be moved into another network namespace while
+its real device remains in the host namespace. This allows a
+process with the required privileges in the VLAN device's
+namespace to modify PHY registers on the host's real device.
 
-> ---
->  drivers/usb/typec/tcpm/tcpm.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-> index d721baef5210..8fd6b1f842b3 100644
-> --- a/drivers/usb/typec/tcpm/tcpm.c
-> +++ b/drivers/usb/typec/tcpm/tcpm.c
-> @@ -2064,6 +2064,7 @@ static void svdm_consume_identity(struct tcpm_port *port, const u32 *p, int cnt)
->  {
->  	u32 vdo = p[VDO_INDEX_IDH];
->  	u32 product = p[VDO_INDEX_PRODUCT];
-> +	int i;
->  
->  	if (cnt <= VDO_INDEX_PRODUCT)
->  		return;
-> @@ -2073,6 +2074,10 @@ static void svdm_consume_identity(struct tcpm_port *port, const u32 *p, int cnt)
->  	port->partner_ident.id_header = vdo;
->  	port->partner_ident.cert_stat = p[VDO_INDEX_CSTAT];
->  	port->partner_ident.product = product;
-> +	/* Product Type VDOs, if any, follow the Product VDO */
-> +	for (i = 0; i < ARRAY_SIZE(port->partner_ident.vdo); i++)
-> +		port->partner_ident.vdo[i] = VDO_INDEX_PRODUCT + 1 + i < cnt ?
-> +					     p[VDO_INDEX_PRODUCT + 1 + i] : 0;
->  
->  	if (port->partner)
->  		typec_partner_set_identity(port->partner);
-> 
-> ---
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-> change-id: 20261102-tcpm-product-type-vdo-af873ef1fdf4
-> 
-> Best regards,
-> --  
-> Alexey Charkov <alchark@flipper.net>
+Reject SIOCSMIIREG when the two devices belong to different
+network namespaces. Preserve MII reads across namespaces and
+allow MII writes when both devices belong to the same namespace.
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ net/8021q/vlan_dev.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
+index bca0a3693636..0d0904103302 100644
+--- a/net/8021q/vlan_dev.c
++++ b/net/8021q/vlan_dev.c
+@@ -416,9 +416,12 @@ static int vlan_dev_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
+ 	ifrr.ifr_ifru = ifr->ifr_ifru;
+ 
+ 	switch (cmd) {
++	case SIOCSMIIREG:
++		if (!net_eq(dev_net(dev), dev_net(real_dev)))
++			break;
++		fallthrough;
+ 	case SIOCGMIIPHY:
+ 	case SIOCGMIIREG:
+-	case SIOCSMIIREG:
+ 		err = dev_eth_ioctl(real_dev, &ifrr, cmd);
+ 		break;
+ 	}
 -- 
-heikki
+2.43.0
+
