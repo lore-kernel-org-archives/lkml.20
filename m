@@ -1,83 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966937;
-	b=WxszsDGBLVIdbc27y0P7wI9XNUJYQn01qFe/rDE1R95Xpfu5yaAX6mAq9uBafsZdZv7W
-	 ZYcz7Swaa8Ej5kWZo9NulKrayi0m/WTyRSrktxLlYIcAJj2SKoKGCF4rEIJ/bIrcYSToV
-	 9cLjTd4lSvAn5zGa7VEsu0IzgHKEAJmAsb6TMGQNDIpmZKRt5y/hatcmT71MK6rwfkn+o
-	 kO9WDGVHQ68pRiLbOL7jc1iM1p5Bs/ulx5tTJBF06l1jG+NQJrDJ9VsD1JPAC3c68ztNi
-	 DJmUKYI6+Tr99h/qa1iFOeAV4Yz0LnhlA+Rkf2npaM7Qo7Z0jk6elu/IMNSQ5SqkkFw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966937;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KpRGszESBl5jvCJDwwoKr7LbLx+VTLH9IfxExLoguiM=;
-	b=DLKd/1gT7TSY56hVAaVQF5F5AW77m/zQj6yvhP7nf/Q7xKOES87Hr7I2fHK6XIGB++Yh
-	 t5l3EQSqEglhZCEPWtK2KX9tAQvyHH0an8i8bLY1xC4DTOzR1yUx1WmtF5rWXe3HEqoId
-	 jUuLCs+SvVmrdQc6p0CstVm7gEqJ1JlCVIxQYdic6Bpm1R4x6BG2CakSh7KWXqcKQ+QHv
-	 bM5z7OpCyRGdPomL5TingUVXomTiXzQPZEmw/xIMlPbTykgbuTU98+FIOF16fkULWZAjq
-	 MTtrMwdpbtivpZsYmMuQ570ZVNPeufmeguJDlZwYVs6pQkAWPcFXqVsR7dK6IVW7QBA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BYtyyDbe;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793966913;
+	b=gDcSH1ZIRj68GzxvqcfF6sxjb0NyQNWhmYiyQvqv/ET32Yp7kWXSTe3WkVZCNd8kDX+k
+	 qU5vrWy9Kv+s6wXdBsrExHPH+D1WTG1vcqmO1Dug0V8PdFNtuZf68u1ikAef6sDxLNA9C
+	 Y+PJ4z11NS9EGeiv1HM0uVq+6SfmVeXUTmsaccaLFTrtIx782XJtqRmMWkrZEA3M1FOYe
+	 HrrTS8QRfNSSJqOrwtWkMpElbUAEEe33wJciCEGCpYNX+qUJ7WlgK+W9/6ovbhpvwK/M0
+	 iw81RCqnnjqqToIRc+H5xyeHIRWWcnVOQpxhYBmGK+HDRKPc61oL+ZozttKqkMo1Xzg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966913;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
+	b=X8QDHgZqRE/m/pIvAjYCsgNVlrg5BPnsCsXdbFNTteWt4qv69YpzsnTOxGzpVBOaNdEq
+	 +GKOHvslhzCO2y4hzdGuGMrkOoFrIhYek87i8Qm7D9B+ydVycDc6mZ0RTAVI3tRhIdXfK
+	 ccc5g5j42Bs/YTPQ6VkF7UREo6HUpI5XtkMXGZt5ShNBuBe3131JyJu9FHwDfpdmPXrag
+	 osYYZ1qfijrQqmQ7uJ0hmCWa1Lr574Vq5tdJ5wFdY54IDUxMcIp4SC2gGQbJ9q+KcGPWR
+	 qIL35Ey+ZuWRHq16fdtAfJEFF0ylfGrLqaU2IUa9IdOCLzeNBP/2lVDHehVOaDq7v/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o9rmqepd;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=qS28xxyN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3996082BCD;
-	Fri,  6 Nov 2026 12:08:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB3996082BCD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE6A606A32E;
+	Fri,  6 Nov 2026 12:08:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE6A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BYtyyDbe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793966936; x=1825502936;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=kr2jtRk2KhfB8+fdvYQAEGVe0uHQVpzCVoHw03U9eV8=;
-  b=BYtyyDbeNnXC1IqPc081HQR983LhkbzA6flrhK11KUfTEX8JqtClBZ0v
-   EBGp1c6Jp2CCs16I9amDl1PApplaVgyy8fZzLtDk/bCP+ItL6Fumm4YCV
-   29eEtbrCbBmnZJ8Ui3Nm5nIw+7C4EZtTpNlo/vvzqlEk9NCSin7s23jc7
-   zMh7wyysL9rvV9+XUHTfLoVsbRoxV9DvVu/u8Rzb5MXNi6vLA0v0FN1K7
-   aN9NTFsqOCerjpRTdicdwvRgpinTKsH4b2eTDf8tW4wxG2rhVDLp71Ro8
-   LRorrGDAv7X0FzGcbK/YZnnmrynJQCilrK2zDgfld7joCrq3Yf8p05wRi
-   g==;
-X-CSE-ConnectionGUID: PPalcpCrR2aHYsKB0iPawg==
-X-CSE-MsgGUID: FzQasuayT7mar9JGujxCLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2655399"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2655399"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 04:08:56 -0800
-X-CSE-ConnectionGUID: 0Div734zRpOfImuA/9FhLw==
-X-CSE-MsgGUID: pwXMHTJqQHOIxzJvKoaEcQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7146654"
-Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by orviesa004.jf.intel.com with ESMTP; 06 Nov 2026 04:08:53 -0800
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: linux-sound@vger.kernel.org
-Cc: broonie@kernel.org,
-	tiwai@suse.com,
-	perex@perex.cz,
-	amade@asmblr.net,
-	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.dev,
-	yung-chuan.liao@linux.intel.com,
-	vkoul@kernel.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH v3 6/7] ASoC: Intel: avs: Expose common PCM functions
-Date: Fri,  6 Nov 2026 13:15:56 +0100
-Message-Id: <20261106121557.2338556-7-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261106121557.2338556-1-cezary.rojewski@intel.com>
-References: <20261106121557.2338556-1-cezary.rojewski@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o9rmqepd;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=qS28xxyN
+ARC-Seal: i=1; a=rsa-sha256; t=1793966901; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=JDAPGUGRPdUSvJn4Wu8v0f1eTCPjRVx2NF6ILteEuirA9XncE3YverJYaLCxiZCysp
+    32mAUqyi7VPMeiEvulp38kOKprTPOGwXfsQxvf5K17qlZ923Uo0hehkalFYDrb8b6YTk
+    ecnI8J5jYhfuLLg1yKC4mrXTn3PJT7nG8VhPwMcDKP2vjGNt4wIRiQwmkGTkIzU3ynOy
+    X3itaWFFY4+IvKbUqYn8EK/Xghl23VW24Ud2ZOBU4vhikXLy92ppq7EtnF5L0B/YfBaj
+    9yeEQM1ylOY3cUG/v49cLodxlNIHzlsZW0MYbDfD/hcsbs2DzN2CaTxJhdUWCZJ0MLMa
+    R9zA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793966901;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
+    b=lNGqd9gz1manGZIRqWmVtVCwxatG0vUQWNVJqKdx5KuHf9Gg2UAN8xkP4kSjPLfS6C
+    VIXfFuiebt4U6UoytOV7e8+/X4JRAp1hojpCW5rtD7xUqsNEIueaiSUzDwERWSPp08Pp
+    i4JYqffktuPZ/Nn+D+GHRW6gi0pQldlW+bPeS4XsvEoJkVz2So1F2RVnsmuy02KCr4vr
+    XtP7JXQiKBZcvbY5wgoYDhAQvkW5ezHEbdPXgbZC0A0G3FWCFEx0TtL/GUe4uu5nR2KY
+    5XsglSPH2NTYWtI6Brpw0vhH0IKJtjZpEVdVC++v4TruF/pylSw+MdTrn8K8vsEjGnyO
+    gbrA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793966901;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
+    b=o9rmqepdfAPTt8aI0tMoKKkAJ6J2ZVGfy7Nhbyx0MZAgWIwN/Y69GeDXez64nSlhTJ
+    WIU+Nd2Gh5Ipjtganfk1jOQq1OwR3f0OkrnnHdbWSgQHcfHQo46eBAqyqod4ZeEKrzsI
+    mD1Nbr/AjwL3nAEaAUT8SVbYmFSqYE0fep2nJ3RFkZZ0jY3RIHGKIfxvbJfuS2O0Y92o
+    HDBcmMRcaFFc3e73OZ3HtnHn3ULMGopNM9Z4MvCMjHDYjwTvLE/tiBnXDDYfn9JbU+2b
+    PgitfGbDGVw6OxG2uW0N6Zs/i5Hn026p9DlLRTGfvRAcOnsX3CyiHLJTnbo7De+NRdub
+    /5BQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793966900;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
+    b=qS28xxyN+IL3tnsQy1w6FGAyEUpwJI9p/qJtcOtFTfgvZhggwms4zIPfuApSsFmYQT
+    oLQdge3SQG9uufzZbbDw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrVjZoMy8iN4frnsPsBQ4l+mfK4O7kvgww6TmAq"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22A6C8JnIv
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 6 Nov 2026 13:08:19 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,195 +93,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
+ controller
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261106112128.14213-1-olivier@mgcrea.io>
+Date: Fri, 6 Nov 2026 13:07:48 +0100
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <875B7793-58C3-4659-B115-1B759D4F8C50@goldelico.com>
+References: <20261025191640.13592-3-olivier@mgcrea.io>
+ <09A3F895-9007-414E-8EE0-17BD18E63F53@goldelico.com>
+ <20261106112128.14213-1-olivier@mgcrea.io>
+To: Olivier Louvignes <olivier@mgcrea.io>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-All the PCM operations are currently bundled together within the pcm.c
-file regardless of which transfer type they cover. To allow for
-splitting them, provide a header that exposes the common operations
-outside.
+Hi Olivier,
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/avs/avs.h |  8 -------
- sound/soc/intel/avs/pcm.c | 42 +++++++++-------------------------
- sound/soc/intel/avs/pcm.h | 47 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 58 insertions(+), 39 deletions(-)
+> Am 06.11.2026 um 12:21 schrieb Olivier Louvignes <olivier@mgcrea.io>:
+>=20
+> Hi Nikolaus,
+>=20
+> On Thu, Nov 05, 2026 at 11:27:12AM +0100, H. Nikolaus Schaller wrote:
+>> The manual for the x1600 is a bit ambiguous, but the x2000 and x2600
+>> documentation identifies this block as the "DPU (Display Processing =
+Unit)
+>> Display Controller" (located at base address 0x13050000 on all three =
+SoC).
+> [...]
+>> Please update the compatible string to "ingenic,x1600-dpu" (with =
+"ingenic,dpu"
+>> as the fallback) and rename the file to ingenic-dpu.c to reflect that =
+this is
+>> a scalable DPU driver not limited to "LCD".
+>=20
+> Agreed on the name, v3 uses ingenic,x1600-dpu. The X1600 manual says
+> DPU too in its register and clock names, and when I checked the driver
+> against the X2000 manual it came out as the X2000's DPU without the
+> composer.
+>=20
+> No ingenic,dpu fallback though: writing-bindings.rst asks for SoC
+> compatibles rather than family names, so an X2000 would be
+> ingenic,x2000-dpu, with the X1600's as its fallback if its registers
+> allow.
+>=20
+> The driver keeps its file name for now. It only drives what the X1600
+> has and what I can test (parallel RGB from one plane), so the split
+> between the core and the interfaces, and the X2600's rotation, is =
+better
+> shaped by whoever adds the X2000 with a board to test it on.
 
-diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
-index 40e65639adb2..1b2f1e7d0556 100644
---- a/sound/soc/intel/avs/avs.h
-+++ b/sound/soc/intel/avs/avs.h
-@@ -347,14 +347,6 @@ struct avs_soc_component {
- 
- extern const struct snd_soc_dai_ops avs_dai_fe_ops;
- 
--int avs_register_dmic_component(struct avs_dev *adev, const char *name);
--int avs_register_i2s_component(struct avs_dev *adev, const char *name, unsigned long port_mask,
--			       unsigned long *tdms);
--int avs_register_hda_component(struct avs_dev *adev, const char *name);
--int avs_register_component(struct device *dev, const char *name,
--			   struct snd_soc_component_driver *drv,
--			   struct snd_soc_dai_driver *cpu_dais, int num_cpu_dais);
--
- int avs_register_all_boards(struct avs_dev *adev);
- void avs_unregister_all_boards(struct avs_dev *adev);
- 
-diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-index f17bbc2ba63d..fb1af3bb493f 100644
---- a/sound/soc/intel/avs/pcm.c
-+++ b/sound/soc/intel/avs/pcm.c
-@@ -22,26 +22,6 @@
- #include "utils.h"
- #include "../../codecs/hda.h"
- 
--struct avs_dma_data {
--	struct avs_tplg_path_template *template;
--	struct avs_path *path;
--	struct avs_dev *adev;
--
--	/* LINK-stream utilized in BE operations while HOST in FE ones. */
--	union {
--		struct hdac_ext_stream *link_stream;
--		struct hdac_ext_stream *host_stream;
--	};
--
--	struct snd_pcm_hw_constraint_list rate_list;
--	struct snd_pcm_hw_constraint_list channels_list;
--	struct snd_pcm_hw_constraint_list sample_bits_list;
--
--	struct work_struct period_elapsed_work;
--	struct hdac_ext_link *link;
--	struct snd_pcm_substream *substream;
--};
--
- static struct avs_tplg_path_template *
- avs_dai_find_path_template(struct snd_soc_dai *dai, bool is_fe, int direction)
- {
-@@ -117,7 +97,7 @@ static int avs_hw_constraints_init(struct snd_pcm_substream *substream, struct s
- 	return 0;
- }
- 
--static int avs_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
-+int avs_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
- {
- 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct avs_dev *adev = to_avs_dev(dai->component->dev);
-@@ -147,7 +127,7 @@ static int avs_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_d
- 	return avs_hw_constraints_init(substream, dai);
- }
- 
--static void avs_dai_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
-+void avs_dai_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
- {
- 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct avs_dma_data *data;
-@@ -165,10 +145,10 @@ static void avs_dai_shutdown(struct snd_pcm_substream *substream, struct snd_soc
- 	kfree(data);
- }
- 
--static int avs_dai_hw_params(struct snd_pcm_substream *substream,
--			     struct snd_pcm_hw_params *fe_hw_params,
--			     struct snd_pcm_hw_params *be_hw_params, struct snd_soc_dai *dai,
--			     int dma_id)
-+int avs_dai_hw_params(struct snd_pcm_substream *substream,
-+		      struct snd_pcm_hw_params *fe_hw_params,
-+		      struct snd_pcm_hw_params *be_hw_params,
-+		      struct snd_soc_dai *dai, int dma_id)
- {
- 	struct avs_dma_data *data;
- 	struct avs_path *path;
-@@ -199,9 +179,9 @@ static int avs_dai_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int avs_dai_be_hw_params(struct snd_pcm_substream *substream,
--				struct snd_pcm_hw_params *be_hw_params, struct snd_soc_dai *dai,
--				int dma_id)
-+int avs_dai_be_hw_params(struct snd_pcm_substream *substream,
-+			 struct snd_pcm_hw_params *be_hw_params,
-+			 struct snd_soc_dai *dai, int dma_id)
- {
- 	struct snd_pcm_hw_params *fe_hw_params = NULL;
- 	struct snd_soc_pcm_runtime *fe, *be;
-@@ -217,7 +197,7 @@ static int avs_dai_be_hw_params(struct snd_pcm_substream *substream,
- 	return avs_dai_hw_params(substream, fe_hw_params, be_hw_params, dai, dma_id);
- }
- 
--static int avs_dai_prepare(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
-+int avs_dai_prepare(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
- {
- 	struct avs_dma_data *data;
- 	int ret;
-@@ -1376,7 +1356,7 @@ static int avs_component_new(struct snd_soc_component *component,
- 	return 0;
- }
- 
--static struct snd_soc_component_driver avs_component_driver = {
-+struct snd_soc_component_driver avs_component_driver = {
- 	.name			= "avs-pcm",
- 	.probe			= avs_component_probe,
- 	.remove			= avs_component_remove,
-diff --git a/sound/soc/intel/avs/pcm.h b/sound/soc/intel/avs/pcm.h
-index 0f3615c90398..a5093e62da26 100644
---- a/sound/soc/intel/avs/pcm.h
-+++ b/sound/soc/intel/avs/pcm.h
-@@ -9,8 +9,55 @@
- #ifndef __SOUND_SOC_INTEL_AVS_PCM_H
- #define __SOUND_SOC_INTEL_AVS_PCM_H
- 
-+#include <linux/device.h>
-+#include <sound/hdaudio_ext.h>
- #include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc-acpi.h>
-+#include <sound/soc-acpi-intel-match.h>
-+#include <sound/soc-component.h>
-+#include <sound/soc-dai.h>
-+
-+struct avs_dma_data {
-+	struct avs_tplg_path_template *template;
-+	struct avs_path *path;
-+	struct avs_dev *adev;
-+
-+	/* LINK-stream utilized in BE operations while HOST in FE ones. */
-+	union {
-+		struct hdac_ext_stream *link_stream;
-+		struct hdac_ext_stream *host_stream;
-+	};
-+
-+	struct snd_pcm_hw_constraint_list rate_list;
-+	struct snd_pcm_hw_constraint_list channels_list;
-+	struct snd_pcm_hw_constraint_list sample_bits_list;
-+
-+	struct work_struct period_elapsed_work;
-+	struct hdac_ext_link *link;
-+	struct snd_pcm_substream *substream;
-+};
- 
- void avs_period_elapsed(struct snd_pcm_substream *substream);
-+int avs_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai);
-+void avs_dai_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai);
-+int avs_dai_hw_params(struct snd_pcm_substream *substream,
-+		      struct snd_pcm_hw_params *fe_params,
-+		      struct snd_pcm_hw_params *be_params,
-+		      struct snd_soc_dai *dai, int dma_id);
-+int avs_dai_be_hw_params(struct snd_pcm_substream *substream,
-+			 struct snd_pcm_hw_params *be_params,
-+			 struct snd_soc_dai *dai, int dma_id);
-+int avs_dai_prepare(struct snd_pcm_substream *substream, struct snd_soc_dai *dai);
-+
-+extern struct snd_soc_component_driver avs_component_driver;
-+int avs_register_component(struct device *dev, const char *name,
-+			   struct snd_soc_component_driver *drv,
-+			   struct snd_soc_dai_driver *cpu_dais, int num_cpu_dais);
-+
-+int avs_register_dmic_component(struct avs_dev *adev, const char *name);
-+int avs_register_i2s_component(struct avs_dev *adev, const char *name, unsigned long port_mask,
-+			       unsigned long *tdms);
-+int avs_register_hda_component(struct avs_dev *adev, const char *name);
- 
- #endif
--- 
-2.34.1
+So we will have:
+
+$ ls -1 drivers/gpu/drm/ingenic/*.c
+drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+drivers/gpu/drm/ingenic/ingenic-drm.mod.c
+drivers/gpu/drm/ingenic/ingenic-dw-hdmi.c
+drivers/gpu/drm/ingenic/ingenic-ipu.c
+drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+
+What about ingenic-dpu-x1600.c then? I.e. make the DPU variant a suffix?
+
+>> However, this approach triggered a kernel lockup during boot
+>> right after successfully running lg35583_get_modes().
+>=20
+> I can't reproduce it here, the R1 comes up with its panel at every =
+boot
+> (with v3 again today). With nothing on the pins I don't know yet where
+> it would hang. If you get a log of it (the last lines with
+> initcall_debug) I'll have a look.
+
+Indeed. What I have done is to hack some return 0; into the driver =
+because
+probe fails without missing SPI client - as it should and likely does if
+you disconnect the panel.
+
+So I should try to locate a non-SPI panel and pretend in the device tree
+it is connected...
+
+>=20
+> v3: https://lore.kernel.org/r/20261106112000.1612-1-olivier@mgcrea.io
+>=20
+> Thanks for the review,
+> Olivier
+
+You are welcome,
+Nikolaus
 
