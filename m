@@ -1,125 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967212;
-	b=EzOtnM134BeqRgqZ68q+xDTu4s9r9BcZt2HIB1lJJ9X4UWRoACGDru2zhsm5QuXLdEPB
-	 ZspUitRB6+2G/mf3a6t0gttOkCh9aVen0YpkbWYYLmGpFIx5PMYuhVYU7afBh/MkRaJyF
-	 oy/ciLxi3NjdOvycgvXirYBhLpiTNJQmQqynR27j0McLd0Q9eMXhyy/CIPLwPlmI/lG9e
-	 nkxWGEjJq73frQ78phabH62no7v7uhpQQyefDlMaIQPtWFWs0x2wfn7hRiuOE8dvq1HOL
-	 6nEQvqKUbEwPY+fSHbt7y7T1/MCRdczMLe0QGklVzAZDNhndeCURqEM9TXJ0Km/pFIw==
+	t=1793967365;
+	b=nADUlKATo4l0HutEE2Jj6ReBXPzyRvMR00deCvmmHffDZ+eWgEnQUJ4BYHx/Ywxc3sO7
+	 NAnDH4QQEsYk+duNEez5Yczi5sKHDTuo9SAiCC25Qzg24axo9JCGRPhuvAi46Ojs46+hU
+	 Q+9U7vGR6fZHSai+HsFufEO5N9j05nlCvlUZRcaT1AW82TSH7KPbVJZRYey/sBsghWX5T
+	 DqzDSFInt9YkLSLOZkSJ4DK9pUTlV2skAxsCfzVCp2z7FzKUUSRVy+rXTElTbjCEy3sL8
+	 yzEezfXC4In/rY7GqgzXFf+PyNMFzhZUsgn0aQIu/Ly9ns5xNH2BX4dYL7MPIiYMzWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967212;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=w0ggjq6I/XXbHR0zS8tnrBfiWpgxIQRt/7sxrjM/4G4=;
-	b=OPCoQWBA4WhGk4Uej+qCYrD21vzqXHJoSXMspmi6YjKZPTQRXpghM98x3n8pXDnalZQ/
-	 CSlvXN0cdUXH6fYCLnw1FUl8c5LR1OFw4hw/qq9iy7ZAgcTCXj7FUdiFMA4kzfNm3Sw7B
-	 nojWcO0vcJFjkwHTK/xYPP/revcT1bKUklKJTxbh2CX59be414RnmBYQ7pxQYWmNzvVFw
-	 LDKRorioe8RElilSSBJbaew6PEzU0P4IJkeiSh1RGv4ydl1Ktohb7ydSfY+0PbW2lo/PY
-	 OA9hDeSkuxbwrO9q5WlZNI3L3Xy5wihjNPtwwfIgqetYbXj618zJ0MEW4qH36Kk1XLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967365;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=GeKamPVoZL1FTnpLfPJEoUo6MPgLXcn6L2ctH3dFkr0=;
+	b=Gmrln6kYRJJYWoY2Rmdhi31zeB9tw8jaIF3g0I7vsGODpX5eQH8De1qXgai3X0rMelE/
+	 YRbsq2HSOAW05kt6NaSMPcRCVPbfqAZprj5bo5RQIwas1Y3ZM6dBUrHgBKmfGhF6MoPOb
+	 5PFehuqXKFLJnjjPafPA09w9kLd0dARE+DbMVbCKRqU0TavbgQ+rtMGT9OJIJ2Y08ZXi1
+	 rCjy7JzlbdNN65K+nrIoZbqMu0CAZnU2P+ALBaVE1pkJo5pcwlJio5CAEFcEUr7IujN2w
+	 2toisDwl84g3WANMz3uxPnz52AtqLqgF4sw4dD4/0fB3exMOTcc3e/UUXnWCGHiIBKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=C0rGGYaz;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=H2q7wvJY;
-	arc=none smtp.remote-ip=103.168.172.155
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iyylqCIR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39923606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:13:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39923606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52646606A326;
+	Fri,  6 Nov 2026 12:16:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=C0rGGYaz;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=H2q7wvJY
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 555CB14000B1
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:13:30 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Fri, 06 Nov 2026 07:13:30 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1793967210; x=
-	1794053610; bh=w0ggjq6I/XXbHR0zS8tnrBfiWpgxIQRt/7sxrjM/4G4=; b=C
-	0rGGYaz/wVylknO+nVJvF1oguMGaQ5I7/5A8Ljhe9ZuCCsbJ27ChSzMZl6c5ztFx
-	030n35VIumqHL8yMUOAh1dumlg5/Gp/0FJRYAq6Qn40tiqGpL4nmZyL4uB831U1i
-	ZKZGurhV3qWs/iVOD1xUg+7/pkgstOHf8AXA+dAmSaK5d1sI9bmLiA8AFTvHoiHh
-	HDpBJ28+r+HAmp9ouabhTJ4ePp5MccOerB238s3ZHoPLHVYxlvplamleyuBz3RQg
-	u6D6GHWwh9StF9wNrtJiejHZt+rle19jSgA9C6uXwTYZTaJAAmPldEREuFKzns/G
-	gb50v0+GMPRUacxlM75TQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1793967210; x=1794053610; bh=w
-	0ggjq6I/XXbHR0zS8tnrBfiWpgxIQRt/7sxrjM/4G4=; b=H2q7wvJYFw8Za4Apv
-	KjOrMGtl2fd2nkSJDf7zlK5LUconWoIE15GVDg8Bhp8vkBmVPiMyi68h0P7eHWFE
-	/4iHYan9tnixIhGVxyK9Gbgfr1nnapVdaxclpPlDmF8QM3FLgnlxUqyMSJNGu3IM
-	l/xWc/o2Y/0zLd52Fm7yZEZE9mhdojBsQzZhy2BxZUjN7KgC4kblvjI7mLazxkra
-	HjSQmISsUbYaTQIYU9fRrszpDyK5irX9UtJEH57oS7gQBlKdS3Hsfo11P1BPI4XX
-	+DwlSnjqASZIGsoOq0BFiNFmLrfPKuasb/631dtwl8LfktTOip8NYBLN5p28hQWA
-	o8gjg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793967210; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:SkTl6YvU+7pmJ8BwwJxVvt7dtYcCrSmgFsfToLESYjj1tN7
-	PlraanX2n/FsED+KT0ZT83EM5qURsCIvVJATo8zR3gXQJysmGqBHrIAOaHLHJGxM
-	pCHAN0dl6+vGqBKIZseTlugnU1Qd+40ykZzSh9aOEBd8H1wDpKq++iWkCvvrKSFL
-	vseNHB63h7LD4odADVRcQc9uCbRLfGRd+wPtPMw+9jPxt6QzaV5pmTyPwKdNWRiF
-	+0gE83rla9XNGpbq/VoLiwtShjMcRFsR6TYbmydfZvGum1TBDLeZDltrJunqOgX3
-	shs25HTt7cQRs6AP+wYPciNWhXKUy9xrLskQCSw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:lmL6gQqKZQSmUe7cC6wzm6Ps82i2lmjovLO7dhUrS/s=:w0ggjq6I/XXbHR0zS8tnrBfiWpgxIQRt/7sxrjM/4G4=;
-X-ME-Sender: <xms:acTtas44LQpMt8W3HaPXt_Omz-xvXm2Z4THQfYe7-gIHWZmhiASuaQ>
-    <xme:acTtaumx4Yaa8nXDw_sYCutdtnTlQft55SEzkSd_1a57jEmoJ3AEPlyEvHfBXYdoR
-    2B5nUvT8lkWTYynJEsz6-qE2obVjiOGhql6f7h4qWu8v3Dcal3cIuFR>
-X-ME-Received: <xmr:acTtaprqcIxrI5Jm66F0qQEaTHgZb8J2BZRq3Uod3mjEGztDAAXttmwK4Bmp2y1C>
-X-ME-Proxy-Cause: dmFkZTEBZQxQOvt8UiBAEprFZdlC8N3sasoObC5yyrRcViWdd1no+hwMz5vd/VH62K+5h/
-    mWiWnUnhg10vQA3hDEtmCyFK4JRUSU/JuRYWgxyEiW0vZihpbJHKbuBP7w72JVsJXvRwGx
-    zQqhJUXOxvbBNJaPYhToUx+TVHIeZ6RAgbmwzBJuIae0pP1T/9bLzqKSYmoYul574iw1f3
-    0Oa2iai3P3D97WfO+6wMu/0AWvLyMjmwOVnbwYTy1rQkuiNMK5zIoODZ46+RuNvHrZdQwp
-    FbdLn311Hfm3yB0t3swBNlbVznGxqzQIytmX5cu6hNnJRMbDsS5zUpOhxyoqNXbqV03LH6
-    h2Bm6APrQ7At/9wOC1GTvPu8GGrUiIZaJB0yLfMNzm7l+e08PTN72sRWFRPuBkLlxFABAN
-    6Muy/v3Jbt2tWPvOpNunnTdJguA/W8hPcwefuPdNPqlrGD6tRX1we3BqMBM1Wh4uNPxmW5
-    pRAl07e9iPBhsznmE4izXOesA/0KxvZBRS2olVL8sa/CTk+9qIWqqWR9ei3z5e68xanVye
-    UlReblfGerysOPxuQHCFzirTz0gKrzG6JQsr61/sB1jtmsXIjrgXW+Vob2aXFY6hn4ZylK
-    b1410rGdkoQX0RBQPxWEsvLjAtGQWdNxChG0/pvdoiyZSkzn9SB7aP04KNWQ
-X-ME-Proxy: <xmx:acTtalufH2NT3HVrvOFzjnoNDuACnqoyE4WV_Tfgjt3R07zDQjD9BA>
-    <xmx:acTtamH3YOPhZqZ8LKCjDO2HF4OvQrZDCyN0z5aOOhirWou8jzFkCA>
-    <xmx:acTtamZ1X6iUy64JF18po_Ras4GRar4h1747Jq3Ybq0eue3ZPM1sCg>
-    <xmx:acTtamVes7VYElFzVDCmAnklw5D0ET8ivPxLSqcqi16sJ85loe5J9g>
-    <xmx:asTtaoXedvKhQtk8GZttMILtXOwAYpjr_k-fhhgyEEwA62C3l1xd0gIv>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 07:13:28 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH v2 0/2] ksmbd: exclude metadata-only opens from sharing checks
-Date: Fri,  6 Nov 2026 06:13:16 -0600
-Message-ID: <20261106121316.979438-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAKYAXd9fstqtRHh8+Y1zkr47oq4F4nf99uU2tTuMcP0peXwnCQ@mail.gmail.com>
-References: <20261106035345.728454-1-icb@fastmail.org> <CAKYAXd9fstqtRHh8+Y1zkr47oq4F4nf99uU2tTuMcP0peXwnCQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iyylqCIR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9785E1F0089F;
+	Fri,  6 Nov 2026 12:15:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793967364;
+	bh=GeKamPVoZL1FTnpLfPJEoUo6MPgLXcn6L2ctH3dFkr0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iyylqCIRzomWH2XFeQa6wTnmJI1ts49z3C5b+O/3nRHaqtfnGT97H35hFnhKoESO0
+	 I3fgriaOvtxO/mwXkh+oI4qzkVUBVlcuZOylBTxX5zGvjjAgk6NeTX0zFPZ3LJXs3d
+	 RgTfg7eor3INyJgKdZl4u8LOHb27d4lfSHlhz0XgJ/AH1tKJulSSctmQj3c5Tg2C95
+	 BJjJelPnzyf3cF4HVZNWMF3cNYm7oOR/JXeB+n/5znYa5t0ruakJF1/c+sQF3gisnx
+	 rZFigGUtXmJ1zy7cHyUMlRgBfuOodkq2W/uCxHhHPSASoG3Nkry+GPyQxexCY80xwB
+	 NQOnxbkiz8kFw==
+Message-ID: <b6295fd3-0cb2-40aa-8da7-237d456d5abf@kernel.org>
+Date: Fri, 6 Nov 2026 13:15:56 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,33 +51,375 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+ CAMSS
+To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Namjae,
+On 06/11/2026 04:24, Andrew Gigena via B4 Relay wrote:
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,sm8150-camss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SM8150 Camera Subsystem (CAMSS)
+> +
+> +maintainers:
+> +  - Andrew Gigena <mail@andrewgigena.dev>
+> +
+> +description: |
 
-Both issues are older than this series. A test that runs smb2_open()
-on the base and on v2 gives the same results for each.
+Do not need '|' unless you need to preserve formatting.
 
-The first is about the earlier open. When an open overwrites or
-supersedes the file, or creates a named stream, without asking for
-FILE_WRITE_DATA, a later open that does not share write is still
-checked only against the earlier open's requested access. So it is not
-refused, also in the window before the earlier open truncates. v2
-counts the implied write for the new open, which is the case you
-reported on v1. For the earlier open, v2 uses the implied write only
-to decide whether the pair is checked.
+> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sm8150-camss
+> +
 
-The second is about attribute-only stream opens. Such an open that
-creates or overwrites a named stream is still skipped against opens
-that are not attribute-only, as before. The series keeps that rule
-unchanged. In the stream delete check, the base already refused every
-stream open without FILE_SHARE_DELETE, so patch 2 gives this open the
-same result as before.
+Missing reg and reg-names.
 
-So both look like real bugs, but they are separate from what this
-series changes. I'd argue that they should be dealt with in separate
-patches. But if you prefer, I can look into addressing them as part of
-this patch series. I suspect the fixes won't be small, though.
 
-Thanks,
-Ian
+> +  clocks:
+> +    minItems: 27
+> +    maxItems: 27
+> +
+> +  clock-names:
+> +    items:
+> +      - const: camnoc_axi
+> +      - const: cpas_ahb
+> +      - const: csiphy0
+> +      - const: csiphy0_timer
+> +      - const: csiphy1
+> +      - const: csiphy1_timer
+> +      - const: csiphy2
+> +      - const: csiphy2_timer
+> +      - const: csiphy3
+> +      - const: csiphy3_timer
+> +      - const: vfe0_axi
+> +      - const: vfe0
+> +      - const: vfe0_cphy_rx
+> +      - const: vfe0_csid
+> +      - const: vfe1_axi
+> +      - const: vfe1
+> +      - const: vfe1_cphy_rx
+> +      - const: vfe1_csid
+> +      - const: vfe_lite0
+> +      - const: vfe_lite0_cphy_rx
+> +      - const: vfe_lite0_csid
+> +      - const: vfe_lite1
+> +      - const: vfe_lite1_cphy_rx
+> +      - const: vfe_lite1_csid
+> +      - const: gcc_ahb
+> +      - const: gcc_axi_hf
+> +      - const: gcc_axi_sf
+> +
+> +  interrupts:
+> +    minItems: 12
+> +    maxItems: 12
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: csiphy0
+> +      - const: csiphy1
+> +      - const: csiphy2
+> +      - const: csiphy3
+> +      - const: vfe0
+> +      - const: csid0
+> +      - const: vfe1
+> +      - const: csid1
+> +      - const: vfe_lite0
+> +      - const: csid_lite0
+> +      - const: vfe_lite1
+> +      - const: csid_lite1
+
+Which schema did you take as starting point / example? Which one has
+similar order? Looks quite different than sm8250 and sm8650.
+
+> +
+> +  iommus:
+> +    maxItems: 8
+> +
+> +  interconnects:
+> +    maxItems: 4
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: cam_ahb
+> +      - const: cam_hf_0_mnoc
+> +      - const: cam_hf_1_mnoc
+
+hf_1 should probably go to the end, to match similar devices schemas.
+
+> +      - const: cam_sf_0_mnoc
+> +
+> +  power-domains:
+> +    items:
+> +      - description: IFE0 GDSC - Image Front End, Global Distributed Switch Controller.
+> +      - description: IFE1 GDSC - Image Front End, Global Distributed Switch Controller.
+> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: ife0
+> +      - const: ife1
+> +      - const: top
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    description:
+> +      CSI input ports.
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description:
+> +          Input port for receiving CSI data from CSIPHY0.
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +            required:
+> +              - data-lanes
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description:
+> +          Input port for receiving CSI data from CSIPHY1.
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +            required:
+> +              - data-lanes
+> +
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description:
+> +          Input port for receiving CSI data from CSIPHY2.
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +            required:
+> +              - data-lanes
+> +
+> +      port@3:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description:
+> +          Input port for receiving CSI data from CSIPHY3.
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +            required:
+> +              - data-lanes
+> +
+> +  reg:
+> +    minItems: 12
+> +    maxItems: 12
+> +
+
+Oh, oddly placed reg. Please move it to the top as expected by DTS
+coding style.
+
+
+> +  reg-names:
+> +    items:
+> +      - const: csiphy0
+> +      - const: csiphy1
+> +      - const: csiphy2
+> +      - const: csiphy3
+> +      - const: vfe0
+> +      - const: csid0
+> +      - const: vfe1
+> +      - const: csid1
+> +      - const: vfe_lite0
+> +      - const: csid_lite0
+> +      - const: vfe_lite1
+> +      - const: csid_lite1
+> +
+> +  vdda-phy-supply:
+> +    description:
+> +      0.88V supply to CSIPHY IP blocks.
+> +
+> +  vdda-pll-supply:
+> +    description:
+> +      1.2V supply to CSIPHY IP blocks.
+> +
+> +required:
+> +  - clock-names
+> +  - clocks
+> +  - compatible
+> +  - interconnects
+> +  - interconnect-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - iommus
+> +  - power-domains
+> +  - power-domain-names
+> +  - reg
+> +  - reg-names
+> +  - vdda-phy-supply
+> +  - vdda-pll-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/qcom,gcc-sm8150.h>
+> +    #include <dt-bindings/clock/qcom,sm8150-camcc.h>
+> +    #include <dt-bindings/interconnect/qcom,sm8150.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        camss: camss@ac65000 {
+
+isp@
+
+And drop unused label
+
+
+> +            compatible = "qcom,sm8150-camss";
+> +
+> +            reg = <0 0xac65000 0 0x1000>,
+> +              <0 0xac66000 0 0x1000>,
+> +              <0 0xac67000 0 0x1000>,
+> +              <0 0xac68000 0 0x1000>,
+> +              <0 0xacaf000 0 0x4000>,
+> +              <0 0xacb3000 0 0x1000>,
+> +              <0 0xacb6000 0 0x4000>,
+> +              <0 0xacba000 0 0x1000>,
+> +              <0 0xacc4000 0 0x4000>,
+> +              <0 0xacc8000 0 0x1000>,
+> +              <0 0xaccb000 0 0x4000>,
+> +              <0 0xaccf000 0 0x1000>;
+> +
+> +            reg-names = "csiphy0",
+> +              "csiphy1",
+> +              "csiphy2",
+> +              "csiphy3",
+
+All this looks unaligned.
+
+
+Best regards,
+Krzysztof
