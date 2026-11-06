@@ -1,61 +1,87 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966964;
-	b=Ve0RAdgmcF1SJDXYytrV7RmF2JCCzFzQkCjtRXSk6VeWEIyQjSC4Z5AmfkG3pC/bq3xd
-	 OAdwBxx+UdBkOQ9X3V44vV5JbU0xXh4RWMWrCQvWA/1IGzcj9Sjwqtn2Bn7mqe5ugFN+Y
-	 q39A4chbTa36r1MZ93dJUvQkhpWBxfTs5Rv3ufvKlcqI3y3PCPnIB4P+5uaHX/y/dNoQ4
-	 2wVZO8BSU9u8Z8iH/vMzMmDJbZDTShl5yZIQmHXywMIgcIo8ovKtem8HWA2ClCewRXoUK
-	 bKM+D1h7p5BEYTgx67PzKeaCj2v6IqMsk9Q4X50rWWTlI6aQemn5ks/tZ3KI5j23cBA==
+	t=1793966973;
+	b=ZP1c7Z3UkTxq+NjDJcksdxvBtLBqgzmIdh+B7qXh8OqUEHR1M3k7Eb0byHmAQeZRZN6A
+	 9+GPxZAd+NYXcM678OdN+Jm26LOpuVin6svqHdEWKo3ynTg2pH+3KJKXjYY8enD/yvogJ
+	 EBK0MV4pJcE5fwFSLLof0FEvNUr+h2BaaPIhtYkG+wW5WZcoFOOReP08QFpa/7zA3RP1J
+	 lZV2s7OoVWvG5/QjSVk/SQFtqoUNVMbIxW830yPTIQMMJacV0QHhcBEmsj+0vPRIXYOQ3
+	 Rsgaev7I5OBfUhUu+3XNyNdky5G3VkmKD+VJUtIRU+Fe/0EZmtX5diI+2idOZGE5CYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966964;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=rIJTGu4lQFEUcai9lQo31jwOxKOMF2xzMy8/uijRKkI=;
-	b=iYA5B8fNbKkQ5crkuN9IMcTwcDUf89D6gnujFb1wpQYjHLjKmpjFxonQShx0mlBEYCbI
-	 MH0B7hHPw82BxI2n8o1Cu0iHsx/mjtFnUVO18HFNv8OX/CvmYzDJ/1eYXyCRL9G0gCAwQ
-	 YOE/xQjxiSCQ+/eBgFD8Kh15h//LM1Sz3QkvC963vnln7Tnjcd0SErXm3sbs4mHK2Blfs
-	 fw+7e4lbz2M0HICfg3dPlqP6Nu5cSaN+/e82BIQdlpbEGipAp3lY6yyr0dcc0J/6X9q2z
-	 qWlVJURmBw+0NxVqj3+EblfIHI13BZ3c46qW33yn1kKS25YvGUl0/EQqSM7ZmUoYoHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966973;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3b/3qYRDMXJenPydA6vHboyvASPjz0NdoyZJUNW0tcQ=;
+	b=0dccL34Ti3QYnaXyHz/fpM3IPYIHaRil3R9E76XbCCoXa2rniRK8Kq4T4IuU3o0+V82g
+	 l10r2KAXmDq3PqIejvkN0gaANei4aG36Pm1l43Bkrbna3Ac3JzeSPFoQxpNfB/8+6WhZR
+	 znS6FgioOI36xhkoMSgeyTKtdgVYIf17MUnFUAWpbRHHLW1TdqQjay+NBFLjhiBpM8ZCW
+	 CSOEztFKhnS7bWxYHp3/HEloAQ69X8glVLzpi6Z0m6tzHGoh/i3YnEfj2JQPtpGFl+GHM
+	 n3BaWty4eJJg+/JyGG3oe7fiD68H6HEX64EaZOM82yI9dYiR9OGff5Ho8r6e1YUatVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ca7Tc1td;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSV8AS27;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3C1606D804;
-	Fri,  6 Nov 2026 12:09:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1620606EEA8
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:09:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ca7Tc1td
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30DA61F0089F;
-	Fri,  6 Nov 2026 12:09:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSV8AS27
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6C901F008A1;
+	Fri,  6 Nov 2026 12:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793966963;
-	bh=rIJTGu4lQFEUcai9lQo31jwOxKOMF2xzMy8/uijRKkI=;
+	s=k20260515; t=1793966972;
+	bh=3b/3qYRDMXJenPydA6vHboyvASPjz0NdoyZJUNW0tcQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ca7Tc1td1SVOvkCWqi93cF+4oicJ5D2n86/c9DyBbfQbeVGmJXBESJQp2eN000bX0
-	 bvVLAy3jSzzWeWhl2ZqBQ8HRH2529Br6caegJg/3QVBbNyUbBFcHrtL3jo5FFBhGDP
-	 VzmJsUc51vWvsuyXyk+W61mXRJo0foz4rQhNnZKr4lCVGJB1fNnCf3+ZpZ4z2PhN9D
-	 4twt87jfdZZccjiVJ0FuNKdrj3QxmgBCfIZV9Ma0R9cFdotSp5JRGXchyPUHni5kvG
-	 B1//EVUTUyy7RSvycpLtL7L9YuWwY+L2BwIYZg756Qyi5c4T8QtLxeweP0SrQwgn4d
-	 sLuBmDb8rGZcA==
-Date: Fri, 6 Nov 2026 12:09:18 +0000
-From: Simon Horman <horms@kernel.org>
-To: Vadluri Mukunda <vmukunda@marvell.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Sunil Goutham <sgoutham@marvell.com>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Geetha sowjanya <gakula@marvell.com>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Suman Ghosh <sumang@marvell.com>
-Subject: Re: [PATCH net v2] octeontx2-af: skip NPC_AF_MATCH_STATX access on
- cn20k
-Message-ID: <20261106120918.GH865646@horms.kernel.org>
-References: <20261103091831.914393-1-vmukunda@marvell.com>
+	b=SSV8AS2751IGaedM251Pc4kK1DfG/a5bXt5MUyMNuFjb3V6Vn4xUp3iR/L8tIzXEg
+	 fW4QFbnPW9W7EFxJK14UemEGPM3sJH8q9j+G7WwaoQm9O8Df1ERa66qRD3/FAlWTxP
+	 nWUN+s/FNTSF/IFYYiRX6jmkcO0Mt1AF6vtN0rX+pwFm65+yXDKIlIIJfYN1GjRDLT
+	 KHa+J7Uc512zgU/qKs5v0uq/r6j8OxdzBWrasIoTrJry2k59HpAyPhqYtJ5oUuZAMy
+	 rq+F+fgBjIH1SumhykP5qDVrutk32EhXAjAhaJXPidbzARM6gy4/UgMIXctumJc/sr
+	 tndge1RuvYGKg==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A07FB1980047;
+	Fri,  6 Nov 2026 07:09:26 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Fri, 06 Nov 2026 07:09:29 -0500
+X-ME-Sender: <xms:dsPtaqxrJTBKMp7OtKltwm2epPFXcBPMCXjHSnvSTBZiEgpTCoszRw>
+    <xme:dsPtaivhymwhYzphNsED75O-jVH3wrP7jKUF-fcFhrf_ltrIPQ1Mzf5fbdobahiN0
+    DXR0fXbL_820ZYAyXeNBir1bUGTL_6fHcfbQL5d88PmyZsoB-KaOpjJ>
+X-ME-Received: <xmr:dsPtajnMMIFZRQqyyuMajejjm8d7hjO0epIrwV9knfZzeapZLHElEqOGctw>
+X-ME-Proxy-Cause: dmFkZTFX6YYaRab9TtEmMZcJX+vH22GvpLmKiqkJD2aksNON1/L0ndlQvnX8flK4ouosr5
+    YGDUsiJ7BeAviv4JgQQ7uP7Q+wJ/EXSI9CRs9yYssUQBr42HFWwk4wrtc4JQdlkef7n68F
+    nkAp48OZv+C6deWppFMl1GEzsmXrXcRCtNlS1Qjs+aP6RV1JNO9OgT6J+XnDi7YVbuR8De
+    igCglYK6lQoAS4zHclSb0LfjyhmpZ/wcRoRbFIW9Kn8GxKsVqVGW+GF6OeO+8eok3lBCtN
+    1D4Z9CbSWh1tkn1l7VRQwMsJnnSTVAwraXBCXqv6KiYwLXUWwr7wRmk/4JXWi7hqf99OBt
+    0SzFoIlQgDEpMlYLsmsV44GLRWl8+6hUNbvse1m9zA3MICJRu2RPFptHarOrLNY4CY9lHd
+    cmD82b0qW6ldXjXoIYNwPaaIwA0Q1zJXsfoLpowA0oUagELfqFgfzmKhi9i7/hYJNMOboS
+    I80WilBCOxVz/X+dB1z4YwMbbGsJxJ0YGcdxwQ+oHybZTSxD49/KuR4HEZryIuuvDqnvYE
+    3NpNfqDnIjTqqTUq5Hcxvfxv3tsbi9yVToFzcrI3NWelhh3yRDTy2trG/3lYRieRDRkKmE
+    QS6adowkJkf/1ha5D61Y49oD8WyVzsZKzFUIOwtIblhjfFzxbZ8NKjXzIhHw
+X-ME-Proxy: <xmx:dsPtanBGI0m3xopWzemDYTi6JuRs1JLnAPlsouh3Y_0c8HYJfcb_CA>
+    <xmx:dsPtasQCcTihdD87s1X0vrmqulaZ4IXi8iL-xm-1W4DFdbuO3MPh_A>
+    <xmx:dsPtanI8ymsHX5TW3iOzWHpISJ_hH6rm0IAbh5X-NisdFWL8tDRDpA>
+    <xmx:dsPtal0dZAG_OiwyPICzFkV9pDGpdlM5nDgnzQIMZkTnC1gpHob_1A>
+    <xmx:dsPtajuRiOMZHIW4dzpShBuOzRcwTMEriXB5q7BFJkzYYX3quu2Zor2y>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 07:09:25 -0500 (EST)
+Date: Fri, 6 Nov 2026 12:09:24 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins <hughd@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
+ MADV_COLLAPSE
+Message-ID: <au3C8lNElGg4LnR1@thinkstation>
+References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,31 +93,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103091831.914393-1-vmukunda@marvell.com>
+In-Reply-To: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
 
-On Tue, Nov 03, 2026 at 09:18:31AM +0000, Vadluri Mukunda wrote:
-> From: Subbaraya Sundeep <sbhatta@marvell.com>
+On Thu, Nov 05, 2026 at 07:16:44PM +0100, David Hildenbrand (Arm) wrote:
+> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
+> uptodate. For example, shmem fallocate() can put such folios into the
+> page cache.
 > 
-> NPC_AF_MATCH_STATX is not present on cn20k silicon, and cn20k does
-> not set up an RX miss action counter. Two paths still access it:
-> the npc_delete_flow mailbox, which reads the counter of the deleted
-> rule, and the rx_miss_act_stats debugfs file, which would read
-> counter 0. Avoid the access on cn20k. Counter support for cn20k is
-> left for later.
+> collapse_file() already refuses to proceed with folios that are not
+> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
+> such folios, leaving handling to the page faults.
 > 
-> Found by code inspection. The issue was not triggered on hardware.
-> Compile tested only; not tested on real hardware.
+> Note that collapse_file() effectively clears shmem folios through
+> shmem_get_folio(); let's keep this fix simple and simply let the page
+> fault path deal with that.
 > 
-> Fixes: 4e527f1e5c15 ("octeontx2-af: npc: cn20k: Add new mailboxes for CN20K silicon")
-> Signed-off-by: Subbaraya Sundeep <sbhatta@marvell.com>
-> Signed-off-by: Vadluri Mukunda <vmukunda@marvell.com>
-> ---
-> v2:
->   - Fixes tag now points to the upstream commit
->   - Also skip creating the rx_miss_act_stats debugfs file on cn20k
->   - Use full name in Signed-off-by
->   - Add how the issue was found and what testing was done
-> v1: https://lore.kernel.org/netdev/20261026035140.666684-1-vmukunda@marvell.com/
+> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
+> Reported-by: Chris Mason <mason@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
+Separately from this fix: nothing on the mapping side catches this.
+Every caller checks uptodate on its own (next_uptodate_folio(),
+filemap_fault(), shmem_get_folio()), and khugepaged was the one that
+went straight from filemap_lock_folio() to do_set_pmd().
+
+Should do_set_pmd() and set_pte_range() assert it? Something like
+
+        VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
+                              !folio_test_uptodate(folio), folio);
+
+The ->mapping test is for set_pte_range(): finish_fault() also maps
+driver pages that never get PG_uptodate.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
