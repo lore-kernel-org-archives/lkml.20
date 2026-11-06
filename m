@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964972;
-	b=KNyUXx5hBxozOc+FEO/0iuTzeFUK3hk/pKsJmJJbMVqNLwSKQrOPrYCtCCnddu1z+18Z
-	 oik9bq7XOBc6yX01sWdZbEUKMdSIKhFpaQnhfANF5Ctc5H3Icq6noqSy62/02eO0ygJiq
-	 7AfYIaN9FdTO1UwqVHvsDaJ4NOcJx/jmXOU6Q2u3/DuXZ2xp3vABVgjjLnpuoUC8ccF4f
-	 whLy+erTV7DflIGPJw3nHe7M2+wiQGfBJp3kDHOUY21QFMJ/3T54H2uiRK1cT7RL9asVa
-	 9R6YQ/7P9xhvIEHAlTUL77mPAaWA4GVq0xDpG2PhusI12dntAmBioyOGs6bZ/TMaUXg==
+	t=1793964968;
+	b=hxVrBClm5Sf9t5Uvsuosad/0Mlk4PIh8WJOKphdQv36fxh/ywKAHME7RjMhTncBeGDl7
+	 3wgYXFp3XK9VzcyfNyAeWIqS8HGslxJIivVgJULZ10G2Cnbi8MeSTdTTl/uCloGtwlJWZ
+	 j1id7QZxNsvlgCWmm64dd5uWp1Ea80tV7Qk+4oQTm+IRLBXiWC4DGnPgOxm+3C9WlJ88D
+	 PvDJ2S4Y58TPY1f+CDHiMshbcMLRkfNzlCvDCLzoRr/R8f1nSD1ryOKvTnCOu88fuyD8H
+	 0sMpcsKu5sshOfGu0sxjCNaFjYm7tifWIfcqj6N0Abs7w5XFWxIm99OfcJGnuckgGUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964972;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964968;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZAoInwpVmTf98KNzozYKmGd6zYcTehn514sTek/ZM3g=;
-	b=z3cP+53lsqLW9olIKyprytamBxCuajmWlOSQFo+UKEYTGVlK5BERv+qTLpw1zaDtwy4r
-	 fmBRRFDUARCMyZJMWef5Z8oqUWcJQoYn3qFAhyCO7KKy7Yh7K1z/1d1MdlvTWs2tUk0Cu
-	 QhWA+JXWINb8thW8WWPIb9oBpQ5vSyoNulnYnvZYOV4G40lrRtnJ+x2lCwnaoV0MrX5+1
-	 oFZWm5creoVq0+h/XK1cEIlq3ZhkbKjOkcszUA50oLe8WEcOkiaz8WwbvHcfHm/1ib8Sj
-	 3IcOit51F5rATjFf6Ul0XA890umeP6keP83xXgEMQd3ZtS0GbFvhpMXNuzupT0rlDiQ==
+	bh=Zbmt2ixb0KFXB6Jaw3+0LqCyd2KJCA0Oxb5KRmGIPyU=;
+	b=3t5tCe+/6nOozI1Lw3RpwLXUT5PFNAQSqgnwdZAUY7zlS0JMr0GW1+iCE/NPOsNeCFOm
+	 XTHOWJbCN/FpkiUtBDQ96hn6Tu/IWaK25EkvZWJ1TH2uBs/hltNpFbowQT0N8Wkq45hfZ
+	 9SYXOc9VfbwglkdoF/hJC1weFkmjFa5FtrqJulSH0CdC5O0Zllt8m2B/gK161/2ZJ0nTv
+	 XI1pL/RfBLztGi06bfr6PtHJHma4//wLC567o5/m2nX0n+x2Y2h5xF+plxAwNv/wq0XfH
+	 JZxXCCvLSgHLdLRDWp7wKImkkUJsVtw6Q385nSRYoGiilrm//Gfz2KLPodo7N2o3q4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mf82WO3k;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jXbI4nn+;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540E560A2619
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:36:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 540E560A2619
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4B260A2601
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:36:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B4B260A2601
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mf82WO3k
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ad0c2e71ebso88174a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:36:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jXbI4nn+
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b09cc7ed1aso107185a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:36:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964971; x=1794569771; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793964966; x=1794569766; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZAoInwpVmTf98KNzozYKmGd6zYcTehn514sTek/ZM3g=;
-        b=mf82WO3kNncsEoXNuFlJ6Usw9tb9BfTdd2Ss/rBesMScDk3BZJJxtEThnLRj0zPSEN
-         CLmjdYHkeIEBCveLxOmZp3p/g71/PBYjuGQx3Vr3e4c8sPzf3flvhW+pgt/2f2gkiauq
-         hcGPyKRIPj6Nkn0FnFQ7JZFIznN3i4mBwJYXtKb5X24JArrb7073B4dYXEr9eHB6tTpt
-         HEpZK0sySCv55Z+IiBBnpi8LyAhIUZQjqeW1v06jVF/nmaQnVYYjlNvVGVHYQVsJVPgg
-         ZZUiyOi9x6SeFHYJLu8DeUrjVPQBtROIYFEdOEB+X/UswIqbE0RKUAq/CMbWD1V14PTG
-         ASfA==
+        bh=Zbmt2ixb0KFXB6Jaw3+0LqCyd2KJCA0Oxb5KRmGIPyU=;
+        b=jXbI4nn+tH5iyAAkhkkR2BCMVUpGnlPTxZrRJ/+i1aBKgVEAwuSbD9ldxM6uW9dAUw
+         GOvtNNzeLsFYoBfIK2Eo4+dhWx7midZAY3elxTJu6A1aFLgSgPGvOSmiARb5vq5czvyT
+         7SNGG6g7tEd6VRkj9wuIiAm3hsLJKZD55Kop8WgraJiVQkzQeDpX8mkmMV59F98vt1UH
+         76iBdQkwQBGdIDwvEm84DjJ8+tUGd38n0EMDmnExIStR3jacNzju99PUroSHOnDau2B3
+         HMr26euUSeSDGq/EXvpeJCq2qp3CvFK5eGp9GTGf3mHZ9OkMSQbs9FUD1/KpmxtAiKE1
+         buGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964971; x=1794569771;
+        d=1e100.net; s=20260707; t=1793964966; x=1794569766;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZAoInwpVmTf98KNzozYKmGd6zYcTehn514sTek/ZM3g=;
-        b=B/IwrBT27LS/UzYHV25/q7/ksFnWT1ZhPTXjtK3nDk3bFyy992/lRRu/MRs7e2e1EZ
-         3YfiaAe7WkUIC4LirDEcm46cBkY3oQbww7lTuFPInrck9xhdPgKANbG/9LZSiUPyIWxX
-         D0knB2Lj1SRpClum2ytaHy6vQ3SWJZbJhLmv1a+rWXN08FiHbvvSMv4g4liX+wK56Ami
-         xRz3V7oOZ3+qJn9y5fK1Zj4/Tq3P+Y3wWMm5dcwUVtk3o4/ihw5HdOqEK+R18ro0GaTx
-         WGe/vJq5pF8pIPITGdEJFTgAY0emFKNPq0+3WgUwWbUdH3XYX3w66ex53DMT50tWj8GZ
-         OEDw==
-X-Forwarded-Encrypted: i=1; AL+hErEjPKnKto9w3hoL7GSw6RQcIGQJxf8VdHda1vxOkUvfj5mosBVcyrLhlBHVH17LFK2BItC9kl3BqOke6x4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9C0wiMITlFSkMHTgxJ9TfRTlK0TcvmF/gIfvTWtzXw2dOfQpwr
-	AtUysCbiGi5kl/Vw2HF0/g/TO2KEYRQ8SjRwipaWzHVk5JHg/Fw1xMCV
-X-Gm-Gg: AYBFou3KgUWnPnW4f+apLUsIIbDWO50Ls4KgBaQ+TzFEbQL8QlUDWvJJ4mPrd3Y3Pna
-	75XEWwLBKYlmyHLiexJguyQvOP06MaUCCOXjzonH7+/h0mB2dnIjlkCkJg1F8vlqvL0YlEtPAiM
-	BpCERhYQ9v3Q6nUhHvZnZPoj49b97KJDBWlv0mV/Q/ghlHGRsL8uhGCKyN2pw3MesrePyjaMXcy
-	fCskL7ZTyS5CGmAYTQ9/mEELrwUz6BJumou0DO9fUF6QMLkBItBHU2HrXc9v+R822aoTyoY40MN
-	HOSNsKv6M0KKPR4TY1naCym6KO8BT9r+wGK6rfCyOyAOeEK5xhEzjOBviJlGe6S4PCrx2uChWjQ
-	4WmkHHNQwDyYAAsBj6BNSdZL2OqLTFAPZWHZ4mDhOSwMUBDpehhMicZVW4dLeA86pDoUb6QRzIx
-	bO+Fke24Kem1Z/HQRKLHiAs4nBS6GJGGBaP7Vm1g0DsehsTksptDvV7TN+ZSyVh3kwWHkVTL/AB
-	3Tonk6oXIXrthU3EE83/V76lItzNTeOp05dB5hzJUtt180AQOU1uSerbwy0d0tWkQ+crBhvUik9
-	GnwthNxsoDwrjPGXjfqdxzHgQvTh051/DMfvkdtMo8PlFUTp1gcd8/j4s0o9ebcWSF49y45LU3a
-	e72cSBr3/aqGo1zf4mpi1S2hc
-X-Received: by 2002:a17:90b:3b42:b0:3a7:fef3:8561 with SMTP id 98e67ed59e1d1-3b0db6f44efmr3151617a91.5.1793964970468;
-        Fri, 06 Nov 2026 03:36:10 -0800 (PST)
+        bh=Zbmt2ixb0KFXB6Jaw3+0LqCyd2KJCA0Oxb5KRmGIPyU=;
+        b=xcAjse/BQQLmBPgPGf0EmX/WQ7sr11gKfGFGivd6aolj1LM00KbFf1LAWmH1MnKAZb
+         YKy5lNmnhONRUjl37w58xydeQwpUNjR1C5jYwgcoHaZlODEn8E4m6rFPTpArYLRLIzWu
+         f3VIg6nbz8BxLoFS+9KzhVRlfb4oVVXyWBcgQD9OxiwJeGkkXGTi04RHgMBA6tUmZ3SW
+         62sC0IB38TdMDaXMTDFlMl6yw/Kf7BMoIxaIFKsvLGHrkvDzT6KhOA3mZsjQRs5Fs4HR
+         +qpgkzy3mh+QvWydmAippnBUdRLuCeHHgQp1o0aZPbu+j4kptgXAsgdcGHbVRi5nzfuP
+         HVYQ==
+X-Forwarded-Encrypted: i=1; AL+hErHmO5nuK4mkJSBv8RFcV1Fq2Y1/aXdnPf9PyIHTmw5pVfWCx7BMg0Yhuq2ORxFOZUUBD/FTnFKdwtqOQJQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lGvVgP+L44zbbyr+XS1S96wI5VQm6n0Sojwy1RmDcdOq70HRs
+	+VAGgR2hCsz1AGl/Ch7Y/fNti1N+mPWi7ZVDBjUGdpQfESgTSdbcDfh28u0e8/ov
+X-Gm-Gg: AYBFou2m57kH0/bicKeBThDhtFF39VPQ3tuVO+DOicVszdVwIi+wllymIvfqboDURwm
+	jn4pj7MJJl+bRbYPPCUxugI/k57XvZrzESs581pm0DJWDSnIqj16j4nrOfzaKb2INHAn1S3LB6Q
+	MZtlOJnWoxU52R4qOCaefQPr8QJ6ZHEwskNY0QZt+X0Y4jsezWPsYqyiEnYII0CLjDIU44q1XYc
+	gT954RPeyKdBo3/PEphjUkxaI6LHH4hhKC3KJK5VRvTiC5F9nM3kaU9kNDqMLIZmmCywh/jiz2W
+	5tLn0s7bV+KMRthAKrO0YupEF/bG8ee2zflvNX34h+BI0JfcwQ395GqCQWw/JjFdloP8GHiBo2A
+	xWhsvPlvyj29C0lFw0K2rtD+nQwFGoBdmL9hl2SLFK/hjWNuRC7+z2E6j+5JIkzzU3cbM+o/0f5
+	MfYpjYZ+Xdhwe5BubDP4/fyb4xNoh0nuM2eTz/Zn/sHabUBJ2ykHnGAT7YSFTzr0IW/2PYmhHjv
+	sSkkFPJPksgGmKgirAu0mw7ujO7LET/UDXfiTYadoblIMMabWcIDFACAmFOK5kPN6TbMAZVP5oB
+	VoBsnoZss/G8M6xa8Bj9KOGnQGoZP1NjlfNkMXNN65WO3P+yG1x64A9cQAmf8QgTAReWxyIr2bY
+	CgKAgdNnIfo2SLPMpzDpL/moobQ==
+X-Received: by 2002:a17:90b:4a89:b0:3b0:975b:2256 with SMTP id 98e67ed59e1d1-3b0db6f8e05mr3208766a91.4.1793964965999;
+        Fri, 06 Nov 2026 03:36:05 -0800 (PST)
 Received: from chenyou.ncku.edu.tw ([140.116.19.13])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32b6507sm8343173a91.16.2026.11.06.03.36.06
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32b6507sm8343173a91.16.2026.11.06.03.36.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:36:08 -0800 (PST)
+        Fri, 06 Nov 2026 03:36:05 -0800 (PST)
 From: Chen-Yu Yeh <chenyou910331@gmail.com>
 To: Alex Shi <alexs@kernel.org>,
 	Jonathan Corbet <corbet@lwn.net>
@@ -89,9 +89,9 @@ Cc: Weijie Yuan <wy@wyuan.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: [PATCH 05/13] docs/zh_TW: process: add changes.rst translation
-Date: Fri,  6 Nov 2026 19:35:36 +0800
-Message-ID: <20261106113545.708896-6-chenyou910331@gmail.com>
+Subject: [PATCH 04/13] docs/zh_TW: process: add maintainer-pgp-guide.rst translation
+Date: Fri,  6 Nov 2026 19:35:35 +0800
+Message-ID: <20261106113545.708896-5-chenyou910331@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261106113545.708896-1-chenyou910331@gmail.com>
 References: <20261106113545.708896-1-chenyou910331@gmail.com>
@@ -107,584 +107,846 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Translate Documentation/process/changes.rst into Traditional Chinese
-from the current English text, including the minimum version table
-(Clang/LLVM 17.0.1, Rust 1.85.0, bindgen 0.71.1, pahole 1.26) and the
-GNU AWK, mkimage and rustdoc sections.  There is no zh_CN translation
-of this file to consult.
+Translate Documentation/process/maintainer-pgp-guide.rst into
+Traditional Chinese from the current English text, including the
+GnuPG 2.4 requirement, the Nitrokey 3 entry, the B4 note on patatt and
+the updated kernel.org documentation links.  The zh_CN translation was
+consulted for wording only.
 
-List the new file in the toctree of process/index.rst, before
-programming-language as in the English index, and drop it from the
-TODOList.
+List the new file in the toctree of process/index.rst, after
+coding-style as in the English index, and drop it from the TODOList.
 
-update to commit fd5425b67355 ("docs, resolve_btfids: Document kfunc
-BTF annotation emission")
+update to commit 4a0be1a25d98 ("Documentation: process: Capitalize Git,
+Quilt, and Mercurial consistently")
 
 Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 ---
- .../translations/zh_TW/process/changes.rst    | 532 ++++++++++++++++++
  .../translations/zh_TW/process/index.rst      |   2 +-
- 2 files changed, 533 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/translations/zh_TW/process/changes.rst
+ .../zh_TW/process/maintainer-pgp-guide.rst    | 795 ++++++++++++++++++
+ 2 files changed, 796 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/translations/zh_TW/process/maintainer-pgp-guide.rst
 
-diff --git a/Documentation/translations/zh_TW/process/changes.rst b/Documentation/translations/zh_TW/process/changes.rst
+diff --git a/Documentation/translations/zh_TW/process/index.rst b/Documentation/translations/zh_TW/process/index.rst
+index 7917fb96dd01..7b830c48942a 100644
+--- a/Documentation/translations/zh_TW/process/index.rst
++++ b/Documentation/translations/zh_TW/process/index.rst
+@@ -42,6 +42,7 @@
+ 
+    programming-language
+    coding-style
++   maintainer-pgp-guide
+    email-clients
+    applying-patches
+    volatile-considered-harmful
+@@ -49,7 +50,6 @@
+ TODOList:
+ 
+ * changes
+-* maintainer-pgp-guide
+ * backporting
+ * adding-syscalls
+ * botching-up-ioctls
+diff --git a/Documentation/translations/zh_TW/process/maintainer-pgp-guide.rst b/Documentation/translations/zh_TW/process/maintainer-pgp-guide.rst
 new file mode 100644
-index 000000000000..1d30b22b7d31
+index 000000000000..34d920cb37cc
 --- /dev/null
-+++ b/Documentation/translations/zh_TW/process/changes.rst
-@@ -0,0 +1,532 @@
++++ b/Documentation/translations/zh_TW/process/maintainer-pgp-guide.rst
+@@ -0,0 +1,795 @@
 +.. SPDX-License-Identifier: GPL-2.0
 +
 +.. include:: ../disclaimer-zh_TW.rst
 +
-+:Original: Documentation/process/changes.rst
++:Original: Documentation/process/maintainer-pgp-guide.rst
 +
-+.. _tw_changes:
++.. _tw_pgpguide:
 +
-+編譯核心的最低需求
-+++++++++++++++++++
++=======================
++核心維護者 PGP 指南
++=======================
 +
-+簡介
-+====
++:作者: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
 +
-+本文件列出執行目前版本核心所需的最低軟體版本。
++本文件的對象是 Linux 核心開發者，特別是子系統維護者。內容是 Linux 基金會
++發布的、更通用的「`Protecting Code Integrity`_」指南中所討論資訊的一部分。
++若想更深入了解本指南提到的某些主題，請閱讀該文件。
 +
-+本文件最初是以我為 2.0.x 核心所寫的「Changes」檔案為基礎，因此要感謝的人
-+也和那份檔案相同（Jared Mauch、Axel Boldt、Alessandro Sigala，以及網路上
-+無數的其他使用者）。
++.. _`Protecting Code Integrity`: https://github.com/lfit/itpol/blob/master/protecting-code-integrity.md
 +
-+目前的最低需求
-+**************
++PGP 在 Linux 核心開發中的角色
++=============================
 +
-+在認為自己遇到缺陷之前，請 **至少** 先升級到下列軟體版本！如果不確定目前
-+執行的是哪個版本，表中建議的指令應該可以告訴你。如果要列出系統上這些程式
-+的版本，請執行 ./scripts/ver_linux
++PGP 有助於確保 Linux 核心開發社群所產出程式碼的完整性，並在較小程度上，
++透過 PGP 簽名的電子郵件往來，在開發者之間建立可信任的通訊管道。
 +
-+再次提醒，這份清單假設你已經能夠正常執行 Linux 核心。此外，並不是每個系統
-+都需要所有工具；舉例來說，如果你沒有任何 PC Card 硬體，大概就不必理會
-+pcmciautils。
++Linux 核心原始碼主要以兩種形式提供：
 +
-+====================== ===============  ========================================
-+程式                   最低版本         檢查版本的指令
-+====================== ===============  ========================================
-+bash                   4.2              bash --version
-+bc                     1.06.95          bc --version
-+bindgen（選用）        0.71.1           bindgen --version
-+binutils               2.30             ld -v
-+bison                  2.0              bison --version
-+btrfs-progs            0.18             btrfs --version
-+Clang/LLVM（選用）     17.0.1           clang --version
-+e2fsprogs              1.41.4           e2fsck -V
-+flex                   2.5.35           flex --version
-+gdb                    7.2              gdb --version
-+GNU awk（選用）        5.1.0            gawk --version
-+GNU C                  8.1              gcc --version
-+GNU make               4.0              make --version
-+GNU tar                1.28             tar --version
-+GRUB                   0.93             grub --version || grub-install --version
-+gtags（選用）          6.6.5            gtags --version
-+iptables               1.4.2            iptables -V
-+jfsutils               1.1.3            fsck.jfs -V
-+kmod                   13               kmod -V
-+mcelog                 0.6              mcelog --version
-+mkimage（選用）        2017.01          mkimage --version
-+nfs-utils              1.0.5            showmount --version
-+openssl & libcrypto    1.0.0            openssl version
-+pahole                 1.26             pahole --version
-+pcmciautils            004              pccardctl -V
-+PPP                    2.4.0            pppd --version
-+procps                 3.2.0            ps --version
-+Python                 3.9.x            python3 --version
-+quota-tools            3.09             quota -V
-+Rust（選用）           1.85.0           rustc --version
-+Sphinx\ [#f1]_         3.4.3            sphinx-build --version
-+squashfs-tools         4.0              mksquashfs -version
-+udev                   081              udevadm --version
-+util-linux             2.10o            mount --version
-+xfsprogs               2.6.0            xfs_db -V
-+====================== ===============  ========================================
++- 分散式原始碼儲存庫（Git）
++- 定期發布的快照（tarball）
 +
-+.. [#f1] 只有建置核心文件時才需要 Sphinx
++Git 儲存庫和 tarball 都帶有建立正式核心版本的核心開發者的 PGP 簽名。這些
++簽名提供密碼學上的保證，確保透過 kernel.org 或任何其他鏡像站提供下載的
++版本，與這些開發者工作站上的版本完全相同。為此：
 +
-+核心編譯
-+********
++- Git 儲存庫的所有標籤都附有 PGP 簽名
++- tarball 的所有下載檔都附有分離式（detached）PGP 簽名
 +
-+GCC
-+---
++.. _tw_devs_not_infra:
 +
-+gcc 的版本需求可能會因電腦的 CPU 類型而有所不同。
++信任開發者，而非基礎設施
++------------------------
 +
-+Clang/LLVM（選用）
++自從 2011 年 kernel.org 核心系統遭到入侵以來，Kernel Archives 專案的主要
++運作原則，就是假設基礎設施的任何部分都可能隨時遭到入侵。因此，管理員刻意
++採取措施，強調信任必須永遠放在開發者身上，而絕不放在程式碼託管基礎設施
++上，不論後者的安全實務做得多好。
++
++上述指導原則正是需要本指南的原因。我們希望確保，把信任放在開發者身上，並
++不只是把未來可能發生的安全事件的責任轉嫁給別人。本指南的目標是提供一套
++準則，讓開發者可以用來建立安全的工作環境，並保護用來確立 Linux 核心本身
++完整性的 PGP 金鑰。
++
++.. _tw_pgp_tools:
++
++PGP 工具
++========
++
++使用 GnuPG 2.4 或更新版本
++-------------------------
++
++你的發行版應該已經預設安裝了 GnuPG，你只需要確認你使用的是夠新的版本。
++要檢查版本，請執行::
++
++    $ gpg --version | head -n1
++
++如果你的版本是 2.4 或以上，那就沒問題了。如果版本更舊，表示你使用的
++GnuPG 版本已經不再維護，本指南中的某些指令可能無法運作。
++
++設定 gpg-agent 選項
++~~~~~~~~~~~~~~~~~~~
++
++GnuPG agent 是一個輔助工具，每當你使用 ``gpg`` 指令時就會自動啟動，並在
++背景執行，用途是快取私鑰的密碼短語。有兩個選項你應該知道，用來調整密碼
++短語何時從快取中失效：
++
++- ``default-cache-ttl`` （秒）：如果你在存活時間（time-to-live）到期前再次
++  使用同一把金鑰，倒數計時會重設，重新計算一段時間。預設值為 600（10 分
++  鐘）。
++- ``max-cache-ttl`` （秒）：不論你在第一次輸入密碼短語後最近一次使用金鑰
++  是什麼時候，只要最長存活時間的倒數計時到期，你就必須再次輸入密碼短語。
++  預設值為 30 分鐘。
++
++如果你覺得這兩個預設值太短（或太長），可以編輯 ``~/.gnupg/gpg-agent.conf``
++檔案，設定你自己的值::
++
++    # set to 30 minutes for regular ttl, and 2 hours for max ttl
++    default-cache-ttl 1800
++    max-cache-ttl 7200
++
++.. note::
++
++    現在已經不需要在 shell 工作階段開始時手動啟動 gpg-agent。你可能需要
++    檢查你的 rc 檔案，移除先前為舊版 GnuPG 所做的設定，因為它們可能已經
++    不再正確。
++
++.. _tw_protect_your_key:
++
++保護你的 PGP 金鑰
++=================
++
++本指南假設你已經有一把用於 Linux 核心開發的 PGP 金鑰。如果你還沒有，請
++參閱前面提到的「`Protecting Code Integrity`_」文件，了解如何建立新的金鑰。
++
++如果你目前的金鑰強度低於 2048 位元（RSA），你也應該建立一把新的金鑰。
++
++了解 PGP 子金鑰
++---------------
++
++PGP 金鑰很少只由單一金鑰對組成——通常它是一組彼此獨立的子金鑰，可依其
++建立時所指派的能力用於不同用途。PGP 定義了金鑰可以具備的四種能力：
++
++- **[S]** 金鑰可用於簽名
++- **[E]** 金鑰可用於加密
++- **[A]** 金鑰可用於身分驗證
++- **[C]** 金鑰可用於認證其他金鑰
++
++具備 **[C]** 能力的金鑰常被稱為「主」金鑰（master key），但這個說法容易
++造成誤解，因為它暗示認證金鑰可以取代同一條鏈上的任何其他子金鑰（就像實體
++的「萬能鑰匙」可以打開為其他鑰匙打造的鎖）。由於事實並非如此，本指南將它
++稱為「認證金鑰」（Certify key），以避免任何歧義。
++
++務必完全理解以下幾點：
++
++1. 所有子金鑰彼此完全獨立。如果你遺失了某把私有子金鑰，就無法從你鏈上的
++   任何其他私鑰還原或重新產生它。
++2. 除了認證金鑰之外，可以有多把能力相同的子金鑰（例如，你可以有 2 把有效
++   的加密子金鑰、3 把有效的簽名子金鑰，但只能有一把有效的認證子金鑰）。
++   所有子金鑰都完全獨立——加密給某一把 **[E]** 子金鑰的訊息，無法用你
++   可能擁有的任何其他 **[E]** 子金鑰解密。
++3. 單一子金鑰可以具備多種能力（例如，你的 **[C]** 金鑰也可以同時是你的
++   **[S]** 金鑰）。
++
++具備 **[C]** （認證）能力的金鑰，是唯一可以用來表示與其他金鑰之間關係的
++金鑰。只有 **[C]** 金鑰可以用來：
++
++- 新增或撤銷具備 S/E/A 能力的其他金鑰（子金鑰）
++- 新增、變更或撤銷與該金鑰關聯的身分（uid）
++- 新增或變更它自己或任何子金鑰的到期日
++- 為了信任網的目的簽署其他人的金鑰
++
++GnuPG 在產生新金鑰時，預設會建立以下內容：
++
++- 一把同時具備認證與簽名能力的子金鑰（**[SC]**）
++- 一把具備加密能力的獨立子金鑰（**[E]**）
++
++如果你產生金鑰時使用的是預設參數，那麼你擁有的就是這些。你可以執行
++``gpg --list-secret-keys`` 來確認，例如::
++
++    sec   ed25519 2022-12-20 [SC] [expires: 2024-12-19]
++          000000000000000000000000AAAABBBBCCCCDDDD
++    uid           [ultimate] Alice Dev <adev@kernel.org>
++    ssb   cv25519 2022-12-20 [E] [expires: 2024-12-19]
++
++``sec`` 項目下方那一長串就是你的金鑰指紋——在下面的範例中，每當你看到
++``[fpr]``，指的就是這個 40 個字元的字串。
++
++確保你的密碼短語夠強
++--------------------
++
++GnuPG 會先用密碼短語加密你的私鑰，再把它們儲存到磁碟上。如此一來，即使
++你的整個 ``.gnupg`` 目錄外洩或被竊，攻擊者若沒有先取得用來解密的密碼
++短語，也無法使用你的私鑰。
++
++用強度足夠的密碼短語保護你的私鑰是絕對必要的。要設定或變更密碼短語，請
++使用::
++
++    $ gpg --change-passphrase [fpr]
++
++建立獨立的簽名子金鑰
++--------------------
++
++我們的目標是把你的認證金鑰移到離線媒體上加以保護，所以如果你只有一把合併
++的 **[SC]** 金鑰，就應該另外建立一把獨立的簽名子金鑰::
++
++    $ gpg --quick-addkey [fpr] ed25519 sign
++
++備份你的認證金鑰以供災難復原
++----------------------------
++
++你的 PGP 金鑰上來自其他開發者的簽名越多，你就越有理由為了災難復原，建立
++一份存放在數位媒體以外的備份。
++
++要製作私鑰的可列印紙本，一個好方法是使用專為此目的撰寫的 ``paperkey``
++軟體。關於其輸出格式，以及它相較於其他方案的優點，請參閱
++``man paperkey``。大多數發行版應該都已經有 Paperkey 的套件。
++
++執行以下指令，建立私鑰的紙本備份::
++
++    $ gpg --export-secret-key [fpr] | paperkey -o /tmp/key-backup.txt
++
++把該檔案列印出來，然後拿一支筆，把你的密碼短語寫在紙張的邊緣。**強烈建議
++這麼做**，因為印出來的金鑰仍然是用該密碼短語加密的，而如果你哪天變更了
++密碼短語，你將不會記得建立備份時用的是哪一個——*保證如此*。
++
++把印好的紙本和手寫的密碼短語放進信封，存放在安全且受到妥善保護的地方，
++最好不在你家裡，例如銀行的保險箱。
++
++.. note::
++
++    金鑰仍然是用你的密碼短語加密的，所以即使用「整合雲端」的現代印表機
++    列印，也應該仍是相對安全的操作。
++
++備份你的整個 GnuPG 目錄
++-----------------------
++
++.. warning::
++
++    **!!!不要跳過這個步驟!!!**
++
++當你需要復原 PGP 金鑰時，手邊有一份隨時可用的備份是很重要的。這和我們用
++``paperkey`` 所做的災難等級準備不同。每當你需要使用認證金鑰時——例如變更
++你自己的金鑰，或在研討會和高峰會之後簽署其他人的金鑰——你也會依賴這些
++外部副本。
++
++首先，準備一張外接儲存卡（最好是兩張！）作為備份用途。你需要用 LUKS 在
++這個裝置上建立一個加密分割區——如何操作請參閱你的發行版文件。
++
++加密用的密碼短語可以和你的 PGP 金鑰使用同一個。
++
++加密程序完成後，重新插入你的裝置，並確認它已正確掛載。把你的整個
++``.gnupg`` 目錄複製到加密儲存裝置上::
++
++    $ cp -a ~/.gnupg /media/disk/foo/gnupg-backup
++
++現在你應該測試一下，確認一切仍然正常運作::
++
++    $ gpg --homedir=/media/disk/foo/gnupg-backup --list-key [fpr]
++
++如果沒有出現任何錯誤，那就沒問題了。卸載裝置，清楚地標示它，以免不小心
++覆寫，然後把它放在安全的地方——但不要放得太遠，因為你偶爾還需要用它來
++做一些事，例如編輯身分、新增或撤銷子金鑰，或簽署其他人的金鑰。
++
++從主目錄中移除認證金鑰
++----------------------
++
++我們主目錄中的檔案，並沒有我們想像中受到那麼好的保護。它們可能透過許多
++不同的途徑外洩或被竊：
++
++- 為了設定新工作站而快速複製主目錄時意外外洩
++- 系統管理員的疏忽或惡意
++- 保護不周的備份
++- 桌面應用程式（瀏覽器、pdf 檢視器等）中的惡意軟體
++- 跨越國境時遭到脅迫
++
++用好的密碼短語保護金鑰，可以大幅降低上述任何一種風險，但密碼短語仍可能
++透過鍵盤側錄程式、偷窺螢幕或其他各種方式被發現。因此，建議的做法是把
++認證金鑰從主目錄中移除，存放在離線儲存裝置上。
++
++.. warning::
++
++    請參閱上一節，確認你已經完整備份了 GnuPG 目錄。如果你沒有可用的
++    備份，我們接下來要做的事會讓你的金鑰變得無法使用！
++
++首先，找出你的認證金鑰的「keygrip」::
++
++    $ gpg --with-keygrip --list-key [fpr]
++
++輸出會類似這樣::
++
++    pub   ed25519 2022-12-20 [SC] [expires: 2022-12-19]
++          000000000000000000000000AAAABBBBCCCCDDDD
++          Keygrip = 1111000000000000000000000000000000000000
++    uid           [ultimate] Alice Dev <adev@kernel.org>
++    sub   cv25519 2022-12-20 [E] [expires: 2022-12-19]
++          Keygrip = 2222000000000000000000000000000000000000
++    sub   ed25519 2022-12-20 [S]
++          Keygrip = 3333000000000000000000000000000000000000
++
++找出位於 ``pub`` 那一行下方（就在認證金鑰指紋的正下方）的 keygrip 項目。
++它會直接對應到你 ``~/.gnupg`` 目錄中的一個檔案::
++
++    $ cd ~/.gnupg/private-keys-v1.d
++    $ ls
++    1111000000000000000000000000000000000000.key
++    2222000000000000000000000000000000000000.key
++    3333000000000000000000000000000000000000.key
++
++只要移除與認證金鑰 keygrip 對應的 .key 檔案就夠了::
++
++    $ cd ~/.gnupg/private-keys-v1.d
++    $ rm 1111000000000000000000000000000000000000.key
++
++現在如果你執行 ``--list-secret-keys`` 指令，它會顯示認證金鑰已經不在
++（``#`` 表示該金鑰無法使用）::
++
++    $ gpg --list-secret-keys
++    sec#  ed25519 2022-12-20 [SC] [expires: 2024-12-19]
++          000000000000000000000000AAAABBBBCCCCDDDD
++    uid           [ultimate] Alice Dev <adev@kernel.org>
++    ssb   cv25519 2022-12-20 [E] [expires: 2024-12-19]
++    ssb   ed25519 2022-12-20 [S]
++
++你也應該移除 ``~/.gnupg`` 目錄中所有的 ``secring.gpg`` 檔案，它們可能是
++舊版 GnuPG 留下來的。
++
++如果你沒有「private-keys-v1.d」目錄
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++如果你沒有 ``~/.gnupg/private-keys-v1.d`` 目錄，表示你的密鑰仍然儲存在
++GnuPG v1 所使用的舊式 ``secring.gpg`` 檔案中。對金鑰做任何變更，例如變更
++密碼短語或新增子金鑰，應該都會自動把舊的 ``secring.gpg`` 格式轉換為使用
++``private-keys-v1.d``。
++
++完成之後，務必刪除已過時的 ``secring.gpg`` 檔案，因為它仍然含有你的
++私鑰。
++
++.. _tw_smartcards:
++
++將子金鑰移到專用的加密裝置
++==========================
++
++雖然認證金鑰現在已經不會外洩或被竊，但子金鑰仍然在你的主目錄中。任何
++設法取得這些子金鑰的人，都能夠解密你的通訊或偽造你的簽名（如果他們知道
++密碼短語）。此外，每次執行 GnuPG 操作時，金鑰都會被載入系統記憶體，夠
++先進的惡意軟體可以從那裡把它們偷走（想想 Meltdown 和 Spectre）。
++
++要完整保護你的金鑰，一個好方法是把它們移到能夠執行智慧卡操作的專用硬體
++裝置上。
++
++智慧卡的好處
++------------
++
++智慧卡內含一顆加密晶片，能夠儲存私鑰，並直接在卡片上執行加密運算。由於
++金鑰內容永遠不會離開智慧卡，插入該硬體裝置的電腦，其作業系統無法取得私鑰
++本身。這和我們先前用於備份的加密儲存裝置大不相同——那個裝置在插入並掛載
++時，作業系統是能夠存取私鑰內容的。
++
++使用外接加密媒體並不能取代具備智慧卡功能的裝置。
++
++可用的智慧卡裝置
++----------------
++
++除非你所有的筆記型電腦和工作站都有智慧卡讀卡機，否則最簡單的做法是取得
++一個實作智慧卡功能的專用 USB 裝置。有幾種選擇：
++
++- `Nitrokey Start`_：開放硬體與自由軟體，以 FSI Japan 的 `Gnuk`_ 為
++  基礎。最便宜的選擇之一，但提供的安全功能最少（例如防竄改或抵抗某些
++  旁通道攻擊）。
++- `Nitrokey 3`_：與 Nitrokey Start 類似，但更能防竄改，並提供更多安全
++  功能和 USB 外形規格。支援 ECC 密碼學（ED25519 和 NISTP）。
++- `Yubikey 5`_：專有的硬體與軟體，但比 Nitrokey 便宜，功能也相近。支援
++  ECC 密碼學（ED25519 和 NISTP）。
++
++你的選擇將取決於成本、在你所在地區能否運送，以及對開放或專有硬體的考量。
++
++.. note::
++
++    如果你列在 MAINTAINERS 的 `M:` 項目中，或擁有 kernel.org 帳號，你就
++    `qualify for a free Nitrokey Start`_ （有資格免費獲得 Linux 基金會
++    提供的 Nitrokey Start）。
++
++.. _`Nitrokey Start`: https://www.nitrokey.com/products/nitrokeys
++.. _`Nitrokey 3`: https://www.nitrokey.com/products/nitrokeys
++.. _`Yubikey 5`: https://www.yubico.com/products/yubikey-5-overview/
++.. _Gnuk: https://www.fsij.org/doc-gnuk/
++.. _`qualify for a free Nitrokey Start`: https://www.kernel.org/nitrokey-digital-tokens-for-kernel-developers.html
++
++設定你的智慧卡裝置
 +------------------
 +
-+建置核心時支援 clang 與 LLVM 工具的最新正式版本（依據
-+`releases.llvm.org <https://releases.llvm.org>`_）。不保證舊版本可以正常
-+運作，而且我們可能會從核心中移除過去為了支援舊版本而加入的權宜措施。更多
-+說明請參閱 :ref:`使用 Clang/LLVM 建置 Linux <kbuild_llvm>`。
++你的智慧卡裝置一插上任何現代的 Linux 工作站，就應該能直接運作（Just Work
++(TM)）。你可以執行以下指令確認::
 +
-+Rust（選用）
-+------------
++    $ gpg --card-status
 +
-+需要較新版本的 Rust 編譯器。
++如果你看到完整的智慧卡詳細資訊，那就沒問題了。可惜的是，要排除所有可能
++導致無法運作的原因，遠遠超出本指南的範圍。如果你無法讓智慧卡與 GnuPG
++搭配運作，請透過一般的支援管道尋求協助。
 +
-+如何滿足 Rust 支援的建置需求，請參閱 Documentation/rust/quick-start.rst。
-+特別是 ``Makefile`` 的 ``rustavailable`` 目標，可以用來檢查為什麼偵測不到
-+Rust 工具鏈。
++要設定你的智慧卡，你需要使用 GnuPG 的選單系統，因為沒有方便的命令列
++選項::
 +
-+bindgen（選用）
-+---------------
++    $ gpg --card-edit
++    [...omitted...]
++    gpg/card> admin
++    Admin commands are allowed
++    gpg/card> passwd
 +
-+``bindgen`` 用來產生核心 C 語言端的 Rust 綁定，它依賴 ``libclang``。
++你應該設定使用者 PIN（1）、管理員 PIN（3）和重設碼（4）。請務必把這些
++記錄下來並存放在安全的地方——特別是管理員 PIN 和重設碼（重設碼可以讓你
++完全清除智慧卡）。你很少需要用到管理員 PIN，所以如果不記錄下來，你一定會
++忘記它是什麼。
 +
-+Make
-+----
++回到卡片主選單後，你也可以設定其他值（例如姓名、性別、登入資料等），但這
++並非必要，而且萬一你遺失了智慧卡，還會額外洩漏關於這張智慧卡的資訊。
 +
-+建置核心需要 GNU make 4.0 或更新版本。
++.. note::
 +
-+Bash
-+----
++    雖然名稱叫做「PIN」，但卡片上的使用者 PIN 和管理員 PIN 都不一定要是
++    數字。
 +
-+核心建置過程會用到一些 bash 指令稿，需要 Bash 4.2 或更新版本。
++.. warning::
 +
-+Binutils
-+--------
++    某些裝置可能要求你先把子金鑰移到裝置上，才能變更密碼短語。請查閱
++    裝置製造商提供的文件。
 +
-+建置核心需要 Binutils 2.30 或更新版本。
++將子金鑰移到你的智慧卡
++----------------------
 +
-+pkg-config
-+----------
++離開卡片選單（使用「q」）並儲存所有變更。接下來，我們把你的子金鑰移到
++智慧卡上。大多數操作都會同時需要你的 PGP 金鑰密碼短語和卡片的管理員
++PIN::
 +
-+從 4.18 開始，建置系統需要 pkg-config 來檢查已安裝的 kconfig 工具，並決定
-+'make {g,x}config' 所用的旗標設定。在此之前雖然已經使用 pkg-config，但並
-+沒有檢查，也沒有寫進文件。
++    $ gpg --edit-key [fpr]
 +
-+Flex
-+----
++    Secret subkeys are available.
 +
-+從 Linux 4.16 開始，建置系統會在建置期間產生詞法分析器，因此需要 flex
-+2.5.35 或更新版本。
++    pub  ed25519/AAAABBBBCCCCDDDD
++         created: 2022-12-20  expires: 2024-12-19  usage: SC
++         trust: ultimate      validity: ultimate
++    ssb  cv25519/1111222233334444
++         created: 2022-12-20  expires: never       usage: E
++    ssb  ed25519/5555666677778888
++         created: 2017-12-07  expires: never       usage: S
++    [ultimate] (1). Alice Dev <adev@kernel.org>
 +
++    gpg>
 +
-+Bison
-+-----
++使用 ``--edit-key`` 會讓我們再次進入選單模式，你會注意到金鑰列表有點
++不同。從這裡開始，所有指令都在這個選單模式中執行，如 ``gpg>`` 所示。
 +
-+從 Linux 4.16 開始，建置系統會在建置期間產生剖析器，因此需要 bison
-+2.0 或更新版本。
++首先，選擇我們要放到卡片上的金鑰——方法是輸入 ``key 1`` （它是列表中的
++第一把，也就是 **[E]** 子金鑰）::
 +
-+pahole
-+------
++    gpg> key 1
 +
-+從 Linux 5.2 開始，如果選擇了 CONFIG_DEBUG_INFO_BTF，建置系統會從 vmlinux
-+的 DWARF 產生 BTF（BPF Type Format），稍後也會從核心模組產生。這需要
-+pahole v1.22 或更新版本。
++現在你應該會在輸出中看到 **[E]** 金鑰變成 ``ssb*``。``*`` 表示目前「被
++選取」的是哪一把金鑰。它的作用是 *切換*，也就是說，如果你再輸入一次
++``key 1``，``*`` 就會消失，該金鑰也就不再被選取。
 +
-+可以在發行版的「dwarves」或「pahole」套件中找到它，或從
-+https://fedorapeople.org/~acme/dwarves/ 取得。
++現在，把那把金鑰移到智慧卡上::
 +
-+Perl
-+----
++    gpg> keytocard
++    Please select where to store the key:
++       (2) Encryption key
++    Your selection? 2
 +
-+建置核心需要 perl 5 以及下列模組：``Getopt::Long``、``Getopt::Std``、
-+``File::Basename`` 與 ``File::Find``。
++由於這是我們的 **[E]** 金鑰，把它放進加密（Encryption）槽位是合理的。
++送出選擇後，系統會先要求你輸入 PGP 金鑰的密碼短語，然後再要求輸入管理員
++PIN。如果指令執行完畢且沒有出現錯誤，你的金鑰就已經移過去了。
 +
-+Python
-+------
++**重要**：現在再輸入一次 ``key 1`` 取消選取第一把金鑰，然後輸入
++``key 2`` 選取 **[S]** 金鑰::
 +
-+有幾個設定選項需要它：arm/arm64 的預設設定、CONFIG_LTO_CLANG、某些 DRM
-+選用設定、kernel-doc 工具，以及文件建置（Sphinx）等都需要 Python。
++    gpg> key 1
++    gpg> key 2
++    gpg> keytocard
++    Please select where to store the key:
++       (1) Signature key
++       (3) Authentication key
++    Your selection? 1
 +
-+BC
-+--
++**[S]** 金鑰可以同時用於簽名（Signature）和身分驗證（Authentication），
++但我們希望確保它放在簽名槽位中，所以選擇（1）。同樣地，如果指令執行完畢
++且沒有出現錯誤，操作就成功了::
 +
-+建置 3.10 及更新版本的核心需要 bc。
++    gpg> q
++    Save changes? (y/N) y
 +
++儲存變更後，你移到卡片上的那些金鑰會從主目錄中刪除（不過沒關係，因為我們
++的備份裡還有，如果之後要為替換的智慧卡再做一次，就可以使用）。
 +
-+OpenSSL
-+-------
++確認金鑰已經移過去
++~~~~~~~~~~~~~~~~~~
 +
-+模組簽章與外部憑證處理會使用 OpenSSL 程式與加密函式庫來產生金鑰與簽章。
++如果你現在執行 ``--list-secret-keys``，會在輸出中看到細微的差異::
 +
-+如果啟用了模組簽章，建置 3.7 及更新版本的核心需要 openssl。建置 4.3 及
-+更新版本的核心還需要 openssl 的開發套件。
++    $ gpg --list-secret-keys
++    sec#  ed25519 2022-12-20 [SC] [expires: 2024-12-19]
++          000000000000000000000000AAAABBBBCCCCDDDD
++    uid           [ultimate] Alice Dev <adev@kernel.org>
++    ssb>  cv25519 2022-12-20 [E] [expires: 2024-12-19]
++    ssb>  ed25519 2022-12-20 [S]
 +
-+Tar
-+---
++``ssb>`` 中的 ``>`` 表示該子金鑰只存在於智慧卡上。如果你回到密鑰目錄檢視
++裡面的內容，會發現那裡的 ``.key`` 檔案都已經被替換成存根（stub）::
 +
-+如果要啟用透過 sysfs 存取核心標頭檔的功能（CONFIG_IKHEADERS），需要 GNU
-+tar。
++    $ cd ~/.gnupg/private-keys-v1.d
++    $ strings *.key | grep 'private-key'
 +
-+gtags / GNU GLOBAL（選用）
++輸出中應該會有 ``shadowed-private-key``，表示這些檔案只是存根，實際的
++內容在智慧卡上。
++
++確認智慧卡正常運作
++~~~~~~~~~~~~~~~~~~
++
++要確認智慧卡如預期運作，你可以建立一個簽名::
++
++    $ echo "Hello world" | gpg --clearsign > /tmp/test.asc
++    $ gpg --verify /tmp/test.asc
++
++執行第一個指令時，應該會要求你輸入智慧卡 PIN，接著在你執行
++``gpg --verify`` 後顯示「Good signature」。
++
++恭喜，你已經成功讓別人極難竊取你的數位開發者身分！
++
++其他常見的 GnuPG 操作
++---------------------
++
++以下是一些你會需要對 PGP 金鑰執行的常見操作的快速參考。
++
++掛載你的安全離線儲存裝置
++~~~~~~~~~~~~~~~~~~~~~~~~
++
++以下任何一項操作都需要用到認證金鑰，所以你首先需要掛載你的離線備份儲存
++裝置，並告訴 GnuPG 使用它::
++
++    $ export GNUPGHOME=/media/disk/foo/gnupg-backup
++    $ gpg --list-secret-keys
++
++你要確認輸出中顯示的是 ``sec`` 而不是 ``sec#`` （``#`` 表示該金鑰無法
++使用，而你仍在使用一般的主目錄位置）。
++
++延長金鑰的到期日
++~~~~~~~~~~~~~~~~
++
++認證金鑰的預設到期日是建立日起 2 年。這麼做既是出於安全考量，也是為了讓
++過時的金鑰最終從金鑰伺服器上消失。
++
++要把金鑰的到期日從今天起延長一年，只要執行::
++
++    $ gpg --quick-set-expire [fpr] 1y
++
++如果使用特定日期比較好記，你也可以這麼做（例如你的生日、1 月 1 日或
++加拿大國慶日）::
++
++    $ gpg --quick-set-expire [fpr] 2038-07-01
++
++記得把更新後的金鑰發送回金鑰伺服器::
++
++    $ gpg --send-key [fpr]
++
++做了任何變更之後更新你的工作目錄
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++當你使用離線儲存裝置對金鑰做了任何變更之後，會需要把這些變更匯入回你平常
++的工作目錄::
++
++    $ gpg --export | gpg --homedir ~/.gnupg --import
++    $ unset GNUPGHOME
++
++透過 ssh 使用 gpg-agent
++~~~~~~~~~~~~~~~~~~~~~~~
++
++如果你需要在遠端系統上簽署標籤或提交，可以透過 ssh 轉送你的 gpg-agent。
++請參考 GnuPG wiki 上提供的說明：
++
++- `Agent Forwarding over SSH`_
++
++如果你能修改遠端的 sshd 伺服器設定，運作起來會更順暢。
++
++.. _`Agent Forwarding over SSH`: https://wiki.gnupg.org/AgentForwarding
++
++.. _tw_pgp_with_git:
++
++在 Git 中使用 PGP
++=================
++
++Git 的核心特色之一是它的分散式本質——一旦把儲存庫複製到你的系統上，你就
++擁有該專案的完整歷史，包括它所有的標籤、提交和分支。然而，當外面流傳著
++數以百計的複製儲存庫時，任何人要如何確認自己手上的 linux.git 副本沒有
++被惡意第三方竄改？
++
++又或者，如果在核心中發現了惡意程式碼，而提交中的「Author」行說是你做的，
++但你很確定自己 `跟它毫無關係`_，那又會怎樣？
++
++為了同時解決這兩個問題，Git 引入了 PGP 整合。簽名標籤可以確保儲存庫的
++內容與建立該標籤的開發者工作站上的內容完全相同，藉此證明儲存庫的完整性；
++而簽名提交則讓別人在無法取得你的 PGP 金鑰的情況下，幾乎不可能冒充你。
++
++.. _`跟它毫無關係`: https://github.com/jayphelps/git-blame-someone-else
++
++設定 Git 使用你的 PGP 金鑰
 +--------------------------
 +
-+核心建置需要 GNU GLOBAL 6.6.5 或更新版本，才能透過 ``make gtags`` 產生
-+標籤檔，這是因為它用到 gtags 的 ``-C (--directory)`` 旗標。
++如果你的金鑰環中只有一把密鑰，那其實不需要做任何額外的事，因為它就會是你
++的預設金鑰。不過，如果你剛好有多把密鑰，可以告訴 Git 應該使用哪一把
++（``[fpr]`` 是你金鑰的指紋）::
 +
-+mkimage
-+-------
++    $ git config --global user.signingKey [fpr]
 +
-+建置 Flat Image Tree（FIT）時會用到這個工具，FIT 常見於 ARM 平臺。這個
-+工具可以從 ``u-boot-tools`` 套件取得，也可以從 U-Boot 原始碼建置。請參閱
-+https://docs.u-boot.org/en/latest/build/tools.html#building-tools-for-linux
-+的說明。
++如何使用簽名標籤
++----------------
 +
-+GNU AWK
-+-------
++要建立簽名標籤，請在 tag 指令加上 ``-s`` 選項::
 +
-+如果要讓核心建置產生內建模組的位址範圍資料
-+（CONFIG_BUILTIN_MODULE_RANGES），需要 GNU AWK。
++    $ git tag -s [tagname]
 +
-+系統工具
-+********
++我們建議一律簽署 Git 標籤，因為這能讓其他開發者確認他們拉取的 Git 儲存庫
++沒有遭到惡意竄改。
 +
-+架構上的變更
-+------------
++如何驗證簽名標籤
++~~~~~~~~~~~~~~~~
 +
-+DevFS 已經淘汰，改用 udev
-+(https://www.kernel.org/pub/linux/utils/kernel/hotplug/)
++要驗證簽名標籤，請使用 ``verify-tag`` 指令::
 +
-+32 位元 UID 支援現在已經就緒。好好享受吧！
++    $ git verify-tag [tagname]
 +
-+Linux 函式的文件正逐步改為行內文件，也就是寫在原始碼中函式定義附近、具有
-+特殊格式的註解。這些註解可以與 Documentation/ 目錄下的 ReST 檔案結合，
-+產生內容更豐富的文件，再轉換成 PostScript、HTML、LaTex、ePUB 與 PDF 檔案。
-+要把 ReST 格式轉換成你想要的格式，需要 Sphinx。
++如果你是從專案儲存庫的另一個分叉拉取標籤，Git 應該會自動驗證你所拉取的
++最新端點上的簽名，並在合併操作期間顯示結果::
 +
-+Util-linux
-+----------
++    $ git pull [url] tags/sometag
 +
-+新版的 util-linux 讓 ``fdisk`` 支援更大的磁碟、為 mount 提供新的選項、
-+能辨識更多種分割區類型，還有其他類似的好處。你大概會想升級。
++合併訊息中會包含類似以下的內容::
 +
-+Ksymoops
-+--------
++    Merge tag 'sometag' of [url]
 +
-+如果發生了難以想像的事，你的核心出現 oops，你可能需要用 ksymoops 工具來
-+解碼，不過大多數情況下並不需要。一般建議在建置核心時啟用
-+``CONFIG_KALLSYMS``，讓核心產生可以直接使用的可讀傾印（這也比 ksymoops
-+的輸出更好）。如果因為某些原因，你的核心沒有啟用 ``CONFIG_KALLSYMS``，而
-+你又沒辦法用該選項重新建置並重現 Oops，仍然可以用 ksymoops 解碼該 Oops。
++    [Tag message]
 +
-+Mkinitrd
-+--------
++    # gpg: Signature made [...]
++    # gpg: Good signature from [...]
 +
-+``/lib/modules`` 檔案樹配置的這些變更，也需要升級 mkinitrd。
++如果你要驗證別人的 Git 標籤，首先需要匯入他們的 PGP 金鑰。請參閱下面的
++「:ref:`tw_verify_identities`」一節。
 +
-+E2fsprogs
-+---------
++設定 Git 一律簽署附註標籤
++~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+最新版的 ``e2fsprogs`` 修正了 fsck 與 debugfs 的幾個缺陷。顯然，升級是個
-+好主意。
++如果你要建立附註標籤（annotated tag），你很可能也會想要簽署它。要強制
++Git 一律簽署附註標籤，可以設定一個全域設定選項::
 +
-+JFSutils
-+--------
++    $ git config --global tag.forceSignAnnotated true
 +
-+``jfsutils`` 套件包含這個檔案系統的工具程式，提供下列工具：
++如何使用簽名提交
++----------------
 +
-+- ``fsck.jfs`` - 啟動交易日誌的重播，並檢查與修復 JFS 格式的分割區。
++你也可以建立簽名提交，但它們在 Linux 核心開發中的用處有限。核心的貢獻
++流程仰賴寄送修補程式，而把提交轉換成修補程式並不會保留 Git 提交簽名。
++此外，把你自己的儲存庫 rebase 到較新的上游版本時，PGP 提交簽名最後也會
++被捨棄。因此，大多數核心開發者並不費心簽署自己的提交，也會忽略他們工作
++所依賴的任何外部儲存庫中的簽名提交。
 +
-+- ``mkfs.jfs`` - 建立 JFS 格式的分割區。
++話雖如此，如果你的工作用 Git 樹公開放在某個 Git 託管服務上（kernel.org、
++infradead.org、ozlabs.org 或其他），那麼即使上游開發者無法直接從這種做法
++中受益，我們仍建議你簽署所有的 Git 提交。
 +
-+- 這個套件裡也有其他檔案系統工具。
++我們建議這麼做的理由如下：
 +
-+Xfsprogs
-+--------
++1. 如果有一天需要進行程式碼鑑識或追查程式碼來源，即使是在外部維護、帶有
++   PGP 提交簽名的樹，對這類用途也很有價值。
++2. 如果你需要重新複製本地儲存庫（例如，重新安裝系統之後），這可以讓你在
++   繼續工作之前驗證儲存庫的完整性。
++3. 如果有人需要 cherry-pick 你的提交，這能讓他們在套用之前快速驗證這些
++   提交的完整性。
 +
-+最新版的 ``xfsprogs`` 包含 XFS 檔案系統的 ``mkfs.xfs``、``xfs_db`` 與
-+``xfs_repair`` 等工具。它與架構無關，2.0.0 以後的任何版本應該都能與這個
-+版本的 XFS 核心程式碼正常搭配（建議使用 2.6.0 或更新版本，因為有一些重大
-+改進）。
++建立簽名提交
++~~~~~~~~~~~~
 +
-+PCMCIAutils
-+-----------
++要建立簽名提交，請在 ``git commit`` 指令加上 ``-S`` 旗標（因為和另一個
++旗標衝突，所以是大寫的 ``-S``）::
 +
-+PCMCIAutils 取代了 ``pcmcia-cs``。如果核心採用模組化並使用熱插拔子系統，
-+它會在系統啟動時正確設定 PCMCIA 插槽，並為 16 位元 PCMCIA 裝置載入適當的
-+模組。
++    $ git commit -S
 +
-+Quota-tools
-+-----------
++設定 Git 一律簽署提交
++~~~~~~~~~~~~~~~~~~~~~
 +
-+如果要使用較新的第 2 版 quota 格式，必須支援 32 位元的 uid 與 gid。
-+Quota-tools 3.07 及更新版本提供這項支援。請使用上表建議的版本或更新版本。
++你可以告訴 Git 一律簽署提交::
 +
-+Intel IA32 微碼
-+---------------
++    git config --global commit.gpgSign true
 +
-+核心已加入一個驅動程式，可以更新 Intel IA32 微碼，它是一個一般的（misc）
-+字元裝置。如果你沒有使用 udev，在使用之前可能需要以 root 身分執行::
++.. note::
 +
-+  mkdir /dev/cpu
-+  mknod /dev/cpu/microcode c 10 184
-+  chmod 0644 /dev/cpu/microcode
++    在開啟這個選項之前，請務必先設定好 ``gpg-agent``。
 +
-+你大概也會想取得使用者空間的 microcode_ctl 工具來搭配使用。
++.. _tw_verify_identities:
 +
-+udev
-+----
++如何使用簽名修補程式
++--------------------
 +
-+``udev`` 是一個使用者空間應用程式，以動態方式在 ``/dev`` 中只建立實際存在
-+的裝置項目。``udev`` 取代了 devfs 的基本功能，同時能為裝置提供固定的
-+裝置名稱。
++你可以用 PGP 金鑰簽署發送到核心開發者郵件列表的修補程式。由於現有的電子
++郵件簽名機制（PGP-Mime 或 PGP-inline）往往會對一般的程式碼審查工作造成
++問題，你應該使用 kernel.org 為此目的建立的工具，它會把密碼學證明
++（attestation）簽名放進郵件標頭中（類似 DKIM）：
 +
-+FUSE
-+----
++- `Patatt Patch Attestation`_
 +
-+需要 libfuse 2.4.0 或更新版本。最低限度是 2.3.0，但 mount 選項
-+``direct_io`` 與 ``kernel_cache`` 將無法使用。
++.. _`Patatt Patch Attestation`: https://pypi.org/project/patatt/
 +
-+網路
-+****
++安裝與設定 patatt
++~~~~~~~~~~~~~~~~~
 +
-+一般變更
-+--------
++.. note::
 +
-+如果你有進階的網路設定需求，或許應該考慮使用 ip-route2 的網路工具。
++    如果你使用 B4 寄送修補程式，patatt 已經安裝好並整合進你的工作流程中。
 +
-+封包過濾 / NAT
-+--------------
-+封包過濾與 NAT 程式碼使用的工具與之前的 2.4.x 核心系列相同（iptables）。
-+它仍然包含與 2.2.x 風格的 ipchains 及 2.0.x 風格的 ipfwadm 向下相容的模組。
++許多發行版都已經有 Patatt 的套件，所以請先到那裡找找看。你也可以用
++「``pip install patatt``」從 pypi 安裝。
 +
-+PPP
-+---
++如果你已經在 Git 中設定好 PGP 金鑰（透過 ``user.signingKey`` 設定參數），
++那麼 patatt 不需要任何額外設定。你可以在想要的儲存庫中安裝 git-send-email
++掛鉤（hook），開始簽署你的修補程式::
 +
-+PPP 驅動程式已經重新架構，以支援多重連結（multilink），並能在多種不同的
-+媒介層上運作。如果你使用 PPP，請將 pppd 升級到至少 2.4.0。
++    patatt install-hook
 +
-+如果你沒有使用 udev，必須要有裝置檔案 /dev/ppp，可以以 root 身分執行下列
-+指令建立::
++現在，你用 ``git send-email`` 發送的任何修補程式，都會自動加上你的密碼學
++簽名。
 +
-+  mknod /dev/ppp c 108 0
++檢查 patatt 簽名
++~~~~~~~~~~~~~~~~
 +
-+NFS-utils
-+---------
++如果你使用 ``b4`` 取得並套用修補程式，它會自動嘗試驗證遇到的所有 DKIM 和
++patatt 簽名，例如::
 +
-+在古老的（2.4 及更早的）核心中，nfs 伺服器必須知道每個預期能透過 NFS 存取
-+檔案的用戶端。這些資訊會在用戶端掛載檔案系統時由 ``mountd`` 提供給核心，
-+或在系統啟動時由 ``exportfs`` 提供。exportfs 會從 ``/var/lib/nfs/rmtab``
-+取得活動中用戶端的資訊。
++    $ b4 am 20220720205013.890942-1-broonie@kernel.org
++    [...]
++    Checking attestation on all messages, may take a moment...
++    ---
++      ✓ [PATCH v1 1/3] kselftest/arm64: Correct buffer allocation for SVE Z registers
++      ✓ [PATCH v1 2/3] arm64/sve: Document our actual ABI for clearing registers on syscall
++      ✓ [PATCH v1 3/3] kselftest/arm64: Enforce actual ABI for SVE syscalls
++      ---
++      ✓ Signed: openpgp/broonie@kernel.org
++      ✓ Signed: DKIM/kernel.org
 +
-+這種做法相當脆弱，因為它依賴 rmtab 的正確性，而這並不容易做到，特別是在
-+嘗試實作容錯移轉（fail-over）時。即使系統運作正常，``rmtab`` 也會累積許多
-+永遠不會被移除的舊項目。
++.. note::
 +
-+在現代的核心中，可以選擇讓核心在收到未知主機的請求時通知 mountd，再由
-+mountd 把適當的匯出資訊提供給核心。這樣就不再依賴 ``rmtab``，而且核心只需
-+要知道目前活動中的用戶端。
++    Patatt 和 b4 仍在積極開發中，你應該查閱這些專案的最新文件，了解任何
++    新增或更新的功能。
 +
-+要啟用這項新功能，需要在執行 exportfs 或 mountd 之前執行::
++.. _tw_kernel_identities:
 +
-+  mount -t nfsd nfsd /proc/fs/nfsd
++如何驗證核心開發者的身分
++========================
 +
-+建議盡可能用防火牆保護所有 NFS 服務，使其不暴露在整個網際網路上。
++簽署標籤和提交很簡單，但要如何確認用來簽署某樣東西的金鑰，確實屬於那位
++核心開發者，而不是屬於惡意的冒名者？
 +
-+mcelog
-+------
++使用 WKD 和 DANE 設定自動擷取金鑰
++---------------------------------
 +
-+在 x86 核心上，啟用 ``CONFIG_X86_MCE`` 時需要 mcelog 工具來處理並記錄
-+機器檢查事件。機器檢查事件是 CPU 回報的錯誤，強烈建議處理這些事件。
++如果你還沒有大量收集其他開發者的公鑰，可以靠金鑰的自動探索與自動擷取來
++快速建立你的金鑰環。如果從零開始建立你自己的信任網（Web of Trust）讓你
++望而卻步，GnuPG 可以借助其他委派信任技術，也就是 DNSSEC 和 TLS，讓你
++先開始使用。
 +
-+核心文件
-+********
++把以下內容加到你的 ``~/.gnupg/gpg.conf``::
 +
-+Sphinx
-+------
++    auto-key-locate wkd,dane,local
++    auto-key-retrieve
 +
-+關於 Sphinx 需求的詳細資訊，請參閱 Documentation/doc-guide/sphinx.rst 中的
-+:ref:`sphinx_install`。
++基於 DNS 的具名實體認證（DNS-Based Authentication of Named Entities，
++「DANE」）是一種在 DNS 中發布公鑰，並使用 DNSSEC 簽名區域來保護它們的
++方法。Web 金鑰目錄（Web Key Directory，「WKD」）則是另一種方法，使用
++https 查詢來達到同樣的目的。使用 DANE 或 WKD 查詢公鑰時，GnuPG 會分別先
++驗證 DNSSEC 或 TLS 憑證，才把自動擷取到的公鑰加入你的本地金鑰環。
 +
-+rustdoc
-+-------
++Kernel.org 為所有擁有 kernel.org 帳號的開發者發布 WKD。在你的
++``gpg.conf`` 做了上述變更之後，就可以自動擷取 Linus Torvalds 和
++Greg Kroah-Hartman 的金鑰（如果你還沒有的話）::
 +
-+``rustdoc`` 用來產生 Rust 程式碼的文件。更多資訊請參閱
-+Documentation/rust/general-information.rst。
++    $ gpg --locate-keys torvalds@kernel.org gregkh@kernel.org
 +
-+取得更新的軟體
-+==============
++如果你有 kernel.org 帳號，那麼你應該 `把 kernel.org UID 加到你的金鑰`_，
++讓 WKD 對其他核心開發者更有用。
 +
-+核心編譯
-+********
++.. _`把 kernel.org UID 加到你的金鑰`: https://korg.docs.kernel.org/mail.html#adding-a-kernel-org-uid-to-your-pgp-key
 +
-+gcc
-+---
++信任網（WOT）與首次使用信任（TOFU）
++-----------------------------------
 +
-+- <ftp://ftp.gnu.org/gnu/gcc/>
++PGP 包含一種稱為「信任網」（Web of Trust）的信任委派機制。其核心是試圖
++取代 HTTPS/TLS 世界中對集中式憑證授權單位（Certification Authority）的
++需求。PGP 不讓各家軟體廠商來決定誰應該是你信任的認證實體，而是把這個責任
++交給每一位使用者。
 +
-+Clang/LLVM
-+----------
++可惜的是，很少有人了解信任網是如何運作的。雖然它仍是 OpenPGP 規範中重要
++的一部分，但較新版本的 GnuPG（2.2 及以上）已經實作了另一種稱為「首次使用
++信任」（Trust on First Use，TOFU）的機制。你可以把 TOFU 想成「類似 SSH 的
++信任方式」。使用 SSH 時，第一次連線到遠端系統，其金鑰指紋就會被記錄並
++記住。如果之後金鑰改變了，SSH 用戶端會警告你並拒絕連線，迫使你決定是否
++要信任改變後的金鑰。同樣地，第一次匯入某人的 PGP 金鑰時，它會被假定為
++有效。如果之後 GnuPG 在任何時候遇到另一把身分相同的金鑰，先前匯入的金鑰
++和新金鑰都會被標記為需要驗證，你必須手動判斷要保留哪一把。
 +
-+- :ref:`取得 LLVM <getting_llvm>`。
++我們建議你使用合併的 TOFU+PGP 信任模型（這是 GnuPG v2 新的預設值）。要
++設定它，請在 ``~/.gnupg/gpg.conf`` 中新增（或修改）``trust-model``
++設定::
 +
-+Rust
-+----
++    trust-model tofu+pgp
 +
-+- Documentation/rust/quick-start.rst。
++.. _tw_kernel_org_trust_repository:
 +
-+bindgen
-+-------
++使用 kernel.org 信任網儲存庫
++----------------------------
 +
-+- Documentation/rust/quick-start.rst。
++Kernel.org 維護一個存放開發者公鑰的 Git 儲存庫，用來取代過去幾年大多已經
++停擺的同步式金鑰伺服器網路。關於如何把該儲存庫設定為你的公鑰來源，完整
++文件可以在這裡找到：
 +
-+Make
-+----
++- `Kernel developer PGP Keyring`_
 +
-+- <ftp://ftp.gnu.org/gnu/make/>
++如果你是核心開發者，請考慮提交你的金鑰，讓它收錄到該金鑰環中。
 +
-+Bash
-+----
-+
-+- <ftp://ftp.gnu.org/gnu/bash/>
-+
-+Binutils
-+--------
-+
-+- <https://www.kernel.org/pub/linux/devel/binutils/>
-+
-+Flex
-+----
-+
-+- <https://github.com/westes/flex/releases>
-+
-+Bison
-+-----
-+
-+- <ftp://ftp.gnu.org/gnu/bison/>
-+
-+OpenSSL
-+-------
-+
-+- <https://www.openssl.org/>
-+
-+系統工具
-+********
-+
-+Util-linux
-+----------
-+
-+- <https://www.kernel.org/pub/linux/utils/util-linux/>
-+
-+Kmod
-+----
-+
-+- <https://www.kernel.org/pub/linux/utils/kernel/kmod/>
-+- <https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git>
-+
-+Ksymoops
-+--------
-+
-+- <https://www.kernel.org/pub/linux/utils/kernel/ksymoops/v2.4/>
-+
-+Mkinitrd
-+--------
-+
-+- <https://code.launchpad.net/initrd-tools/main>
-+
-+E2fsprogs
-+---------
-+
-+- <https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/>
-+- <https://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git/>
-+
-+JFSutils
-+--------
-+
-+- <https://jfs.sourceforge.net/>
-+
-+Xfsprogs
-+--------
-+
-+- <https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git>
-+- <https://www.kernel.org/pub/linux/utils/fs/xfs/xfsprogs/>
-+
-+Pcmciautils
-+-----------
-+
-+- <https://www.kernel.org/pub/linux/utils/kernel/pcmcia/>
-+
-+Quota-tools
-+-----------
-+
-+- <https://sourceforge.net/projects/linuxquota/>
-+
-+
-+Intel P6 微碼
-+-------------
-+
-+- <https://downloadcenter.intel.com/>
-+
-+udev
-+----
-+
-+- <https://www.freedesktop.org/software/systemd/man/udev.html>
-+
-+FUSE
-+----
-+
-+- <https://github.com/libfuse/libfuse/releases>
-+
-+mcelog
-+------
-+
-+- <https://www.mcelog.org/>
-+
-+網路
-+****
-+
-+PPP
-+---
-+
-+- <https://download.samba.org/pub/ppp/>
-+- <https://git.ozlabs.org/?p=ppp.git>
-+- <https://github.com/paulusmack/ppp/>
-+
-+NFS-utils
-+---------
-+
-+- <https://sourceforge.net/project/showfiles.php?group_id=14>
-+- <https://nfs.sourceforge.net/>
-+
-+Iptables
-+--------
-+
-+- <https://netfilter.org/projects/iptables/index.html>
-+
-+Ip-route2
-+---------
-+
-+- <https://www.kernel.org/pub/linux/utils/net/iproute2/>
-+
-+OProfile
-+--------
-+
-+- <https://oprofile.sf.net/download/>
-+
-+核心文件
-+********
-+
-+Sphinx
-+------
-+
-+- <https://www.sphinx-doc.org/>
-diff --git a/Documentation/translations/zh_TW/process/index.rst b/Documentation/translations/zh_TW/process/index.rst
-index 7b830c48942a..90c33d020d34 100644
---- a/Documentation/translations/zh_TW/process/index.rst
-+++ b/Documentation/translations/zh_TW/process/index.rst
-@@ -40,6 +40,7 @@
- .. toctree::
-    :maxdepth: 1
- 
-+   changes
-    programming-language
-    coding-style
-    maintainer-pgp-guide
-@@ -49,7 +50,6 @@
- 
- TODOList:
- 
--* changes
- * backporting
- * adding-syscalls
- * botching-up-ioctls
++.. _`Kernel developer PGP Keyring`: https://korg.docs.kernel.org/pgpkeys.html
 -- 
 2.43.0
 
