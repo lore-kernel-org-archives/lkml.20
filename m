@@ -1,62 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973621;
-	b=FAw8M9kSLizfeREd2LdMa9qWnDFud+3M40IUqS9rHEuQaxuh1X3jzzVSocqrXws5NZUa
-	 VAvIgJeWB4jFHd5FPq/pckKA/VTzaP7y5P6I6NhnoyjFJaNQLPuCA2DtzqzGofQgx5bfa
-	 ERYQ3SohN/CdTpyevLdBIQuRuIEtjrMdfuAm2kfBH0+Ybe8wDEy33QWNAgEjoVqkzxP3G
-	 INK2qQ/vjotjRzCC6IGx8MaCYYXbAIzJ6esrsR8HGapivfiYqsG1wDkGDU30zO2rEtKqC
-	 x0H3318+sq24/BS/S2YjoOGKkgByg6UD/bI4U7YZLOh0zwTXbO87xpzZK2lVXTUvg8Q==
+	t=1793973642;
+	b=jZ3HyzwpIBg5xJhl5g5B+87GJI6U6Sp1Sbqar0CzLzXBSmtkhr6hNHPeZpACJdpO+txD
+	 sbPMBD0jx7qoeAcr44Q04npu+hXuHJ5Ry6jw1AKVvRiuerM3k3BBLH+2lv/NWU0079jn2
+	 b2qqZMRT5fE7YpoN09hUN3jbi/MWVxyBKDrSNZAsGJxEymrV27WM8j0suAHBPEAcKWpkZ
+	 ALxMLq6kYSe6hfiUP3YM+RboUUSYNyRcn3gfsM5PK+O0BUquExyEuR0m0E++k43edSeLo
+	 JFGEbR0hpWNwLUbgbWOxp5M58l8dERqsntFohdFw0v/JBQDl4hbYl05+GTKNcT+VuGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973621;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=MMisgwf5ivCyneAXCg/69ag5tUf9sccmY26a8c7FNEM=;
-	b=erpWR01rBaXUAfN4SBtTe94TEDi00h2Xmi017utayXvxsNISxXk1pgGCTSrT4k+AzNCw
-	 EihMvDQdVT1gMrREdtUFXLk5YHQGKHFZFBMUVkFBpb+XPWY+hjUw+H8zVMHRCF73qs7V6
-	 lNeHArFnJGDg47CQAXq6L9jz/zarNFkYjEhdNCM8+DUb6uQrkZtt2tyfd0+NZlDRdl51n
-	 xMTwBAZqRKGAXp4DUyzIGBFFoLOD/JTrByna4+fjv/UGWTvcCyEBTYprTuwZ3fNSfC+8T
-	 GOdX/U/8zjSyuzejqiUmEh0XrMUs+8mH1bJ1sIHrPNEodlcxAnthOYOAUOI6JR+gP4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973642;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wRVjIXy9TGBWTWpR1Rc+WZB3zQiqe4/4/J3dFtbs9zY=;
+	b=RyGwowEvrgJJtevbOC+5f7Bd6W69DeR4SuaY0kam4C3Sdpgo4wyIzNcrx8UEQdJS51FZ
+	 +1zWW2eZxBY+LJsvxRZDygoiNAFtbSjWDfBLoykD8fu4XLk0/9W/w2gMJZ3UX5KLK6YkQ
+	 /Wf0bU+qxy9/w7GAVrszW2Uwj3bI2/rr+O/3s3qbymY/Q64mO1PeuxbAhGzclIdt0WgWE
+	 zJkJBhVQYduWxe0tVWIhWiSJNyEKqvQXIroE77Cyu0UMTilbE1KUcDOv2ISsTaFRj+wfw
+	 olaSxlJ9x5pR/8M63UrTwZwIjabIxSbe6jHYFlI7yIrFBG+5ECNwtGkRktCRiSdv4rQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NoMaartx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1420DWV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9075A606D81D;
-	Fri,  6 Nov 2026 14:00:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F4B606D81D;
+	Fri,  6 Nov 2026 14:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NoMaartx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E0DE1F0089F;
-	Fri,  6 Nov 2026 14:00:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1420DWV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F16201F0089F;
+	Fri,  6 Nov 2026 14:00:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793973621;
-	bh=MMisgwf5ivCyneAXCg/69ag5tUf9sccmY26a8c7FNEM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=NoMaartx2k1NoDKHbinjDj/PbXDYhvLBDoS7ThiZ6Zh8degSdrM/cbNrjWCvJFPXn
-	 IJa6OLrwSv7WeMgzoB3AuW/FePKuMzJwKFHbXEdI+ZYAwQGc/8vmhnKnmMjWU6LJ9x
-	 33ovPBGmrTbUtWQlZ8QAyW3GCySDsLz5acI0WwsJZ5luc2SvTKggPaXxOHYrDVTmU1
-	 D0Syu1/RiDILFaoQPgpwI3BeakKZgA8HYUcIZbDXsO1DAvgiVgvpXqbRHAyOx0m8ju
-	 kJuhvtjsTeuWAZga6LkTBCYXNU81R/1eVeG/45nAIROGbzedXUk1SOmtB8Ud+4XU9q
-	 KBbQqwdFHF80w==
-From: David Hildenbrand <david@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Qiliang Yuan <odys.yuan@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org
-In-Reply-To: <20261105-bug-mm-shmem-undo-batch-v2-1-ae5f89ced044@gmail.com>
-References: <20261105-bug-mm-shmem-undo-batch-v2-1-ae5f89ced044@gmail.com>
-Subject: Re: [PATCH v2] mm/shmem: remove truncated folios from the page
- cache in batches
-Message-Id: <179397361569.3706.17727764242079446039.b4-ty@b4>
-Date: Fri, 06 Nov 2026 15:00:15 +0100
+	s=k20260515; t=1793973641;
+	bh=wRVjIXy9TGBWTWpR1Rc+WZB3zQiqe4/4/J3dFtbs9zY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R1420DWVifmxmagNdoRxzZEgs/x2BPuX22tsR4ydJOJE6YHtmhXAJzuBQcwEb5i6z
+	 vyT3GFCozyBOdeA98m3xe70KhUAzyuc8GUyWYUlyDntqf355llVRiXcdbDF4laC0q8
+	 S8ah/xRCakntFQnqXwWIm0TpQT4wGxwa+jHDm8RMFqGgI+k2XixOfWoDGHvObjzsj1
+	 aOSze9h0zcQQvykGTKj5nCC4tUPzgCBOKrFZlJyxldUxzaJhykzDNXAS0pmT011gfv
+	 fypKx+hvGJkRIPrTVkstJE3TB3VuxCFFhIsf+1y2qxhX4dYseD8P9E0of6o4HdZKIF
+	 5wyrZYbqBtbiQ==
+Date: Fri, 6 Nov 2026 15:00:39 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
+ tegra_output_probe() optional
+Message-ID: <au3dMlmsLEOUqan9@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-7-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,46 +64,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n7bv3uwiurpn2o3g"
+Content-Disposition: inline
+In-Reply-To: <20261105140510.165165-7-clamor95@gmail.com>
 
-On Thu, 05 Nov 2026 07:32:11 -0500, Qiliang Yuan wrote:
-> truncate_inode_pages_range() takes the folios it finds out of the page
-> cache with delete_from_page_cache_batch(), which takes the inode's
-> i_lock and the i_pages lock once for each batch of up to
-> FOLIO_BATCH_SIZE folios.
-> 
-> shmem_undo_range() calls truncate_inode_folio() on each folio instead,
-> so filemap_remove_folio() takes and drops both locks once per folio.
-> Truncating, punching or freeing a tmpfs file or memfd made of small
-> folios, such as a large /dev/shm segment, pays for that on every page.
-> 
-> [...]
 
-Applied, thanks!
+--n7bv3uwiurpn2o3g
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
+ tegra_output_probe() optional
+MIME-Version: 1.0
 
-tree: mm/core.git
-branch: shmem-7.5.misc
+On Thu, Nov 05, 2026 at 04:05:06PM +0200, Svyatoslav Ryhel wrote:
+> The tegra_output_probe() performs panel parsing unconditionally, even for
+> devices that do not require it (such as HDMI) or that handle panel parsing
+> on their own (like DSI). Make panel parsing configurable.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/gpu/drm/tegra/drm.h    |  2 +-
+>  drivers/gpu/drm/tegra/dsi.c    |  2 +-
+>  drivers/gpu/drm/tegra/hdmi.c   |  2 +-
+>  drivers/gpu/drm/tegra/output.c | 52 ++++++++++++++++++----------------
+>  drivers/gpu/drm/tegra/rgb.c    |  2 +-
+>  drivers/gpu/drm/tegra/sor.c    |  2 +-
+>  6 files changed, 32 insertions(+), 30 deletions(-)
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+Does it break anything to try and parse this even when it's not needed?
+In all cases we error out early, so there shouldn't be a whole lot of
+extra overhead either.
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+Adding this extra parameter just adds extra complexity for seemingly no
+benefit.
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
+Thierry
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
+--n7bv3uwiurpn2o3g
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[1/1] mm/shmem: remove truncated folios from the page cache in batches
-      https://git.kernel.org/mm/core/c/b97fbd54
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Cheers,
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt3YcACgkQ3SOs138+
+s6E8exAAiH/mHZ9cuL6ulrpqerIySRaZiLUbRbSebdUEExACTAtEOTvyEZ56IQq6
+cR/IkBzw3iJ9JwIqPZzGa06Vn0PxjKspBQZvo07AaB7TlFEHMG6YHG0TVg3ZNWDs
+lRvkYey20lYjg8TlxyTsQYcbp4W0u61hauzvEXSLlLvKRNcJPeW6imxriMpdwlVB
+BAgE3r06ECHjirSDRS+ezIe6jtnB5ptx3lzPK1LZRoTXk2zAX0R8ccSKF/zWK6cp
+frsXwwOrobyjPdqx19tIAQmvGkyO60BYshMxX+zpoZnNkoaIoErgnZcqXZFoDw95
+I2VGZdJMEQmSH1At8ArHttea380qBSLTuPUs7D7U1xnlmSL7gk/3NwYa+/79B7ns
+66llAQNwxNSqiukjVBbKe8mTIXKWmTwWmcg6aAL+CrvajG13qbJW9mhQ5mX/Xh86
+y6I7PhQCuWiJ7iexFW+/4v6SF6T74d3aqa66EHPbu/dZmxQ71BZEn2Mu2e8hWK0e
+scMT6kYp557q63t68kUt8+9AvphY1seWA9EuDe36DxrmcuDSJh+dFO+53XbVGum9
+CuYXpEd0O8NRShfAYRbW6cWgekWhgq58ywU/dGxwNOgz2F7JBrMTa9919dXsVe7t
+te9UHAL/6gzYA6n1+3FYpoeefVIBL3TZar28SuKEY5mMxv2z98o=
+=Z25q
+-----END PGP SIGNATURE-----
 
-David
-
+--n7bv3uwiurpn2o3g--
