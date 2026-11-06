@@ -1,57 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793992188;
-	b=czjQNtsiXosFDN4puu0M7gdX5/hN7+GnXmhMLvh+oaoKzMsOBxcots50RQGbtel209Ls
-	 L7fPFHsQMjHGFZpheu2rjmpGempiWvwaWyhBF3syZhlyDTyzHdQW9VBy39TUhB/2QGk8w
-	 r78nNKswqxOQ/90n2wflw5giLnyCFI+QHetGuY2db9C38RLhuUWk2maS6lOQoHahnff3r
-	 AQHvtN481Pc2f26MZUtx2Ig6vBjX5xT7c9nnHj6q8+LBO/jXbh9WM+2y1iu5Pp3gOyIzA
-	 YU9s4OlsNpjCwu98AqvOb2Km+jPrZet8MKrdk1bBwG5+3oZkBobTl8sDdMiUi+uWjQA==
+	t=1793992227;
+	b=Pi5ADVQJSPyyBuX1z3vwT91KfOf9hT6HtM17nXqIp0pRHlGgCDuZZNxOYy29EX8AhdeP
+	 y1QaRysww4E4flY3071CaQ7+JiLgB8yFhjqsJBSeHxghySVINdGLBaupkABClx7zcFoFz
+	 Xw9FHDqwuSklOIj1J4wQbltI9KvbhTKGGZO4J6pHL+8VPAjKAmHjoc9XLgzZUxp5B7yfl
+	 HU6gVKU6Al1ahFcl7x1uUIryE1epcPAx/qbAG/ruvIDDbECwTnOJJf2gDLBBTqXlGFAo0
+	 ashydjB8KUmv2zjAFgiN/U+qzqTQZAJTWJypKAgME7zz4ySPz5XhVsLgeHqdQV1ZkJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793992188;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RDhcP0lja7u7niC0lecBHjsnrUkUgFUO1GdcbY/uzWU=;
-	b=k3KoLrPHEdyoORGgDwZoG+q6+XtyKw5KoUX/aCHiwEpstrWKdvVea2uEI3nofS2rYCcX
-	 +UZZvazch151Tavsn9dFbFnPoSEjyYCX3NxOBaa5yMCHl2ctzUs1fcIJ7WZqb0wS1nuds
-	 hIaG2w7dB+hciA0TYBrPO71OenEJ1OqNmGRk7rMf/hO4HOkJMCb7iJASgaXB3liVsvc1B
-	 lxmytTbjeuBdtya6HDAOYwZk+cOMivQQYEj756cjmS61RUqb2I2BDTvRqMiPDObHOGo5V
-	 YqKQ1Xvn6Wmj90Is6PPDbgziK685NDTH7I6KLpTocuQAg+K1R5Qoj2lTOzzZxIG1FwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793992227;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=TibEcO9CNVSZ8+bVlmwBX3YZ8Clr0IvZkR0Oo11qWYo=;
+	b=RnkXIU9rKOhuAOy4LHxbCIPZqbrq8neX8ZHj2PetnYXMgiWX4ZWoW1vSYV8v22y5EtZ6
+	 aNnfQtei9TG249ECIUOHTCzaP0+dxQyArkWIRelb024IivycsbCFRviaZY5xS1vdy2M6x
+	 2XoJOzgog23DbKZK/X+EqdgalOeKVNMt3/eyilV+kL4zBRSUqNXmcjT9JQD9FGrV+uW+A
+	 PPIeP063b2WcoQESRbxx27MHoYgNrUo9rDFJd4eE1MvY9Ukskk2OgTkma5trl2Ud6syq3
+	 N+tsJXl2b9tL9R7OeKWt1WRcKnXpIRNWcJdMHmvq84YWdZPHlfyOC7mXJkT6KHIUKHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=flc3ByXq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=W3aci0r3;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5238606A326;
-	Fri,  6 Nov 2026 19:09:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F819606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:10:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F819606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=flc3ByXq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228721F0089F;
-	Fri,  6 Nov 2026 19:09:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793992187;
-	bh=RDhcP0lja7u7niC0lecBHjsnrUkUgFUO1GdcbY/uzWU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=flc3ByXq2Rg/PYxoDGoDeuND0i5eBLtbotiMyfexYbsrSQztDdkn3K4xfmV/hShQd
-	 7kpabE5dZ1rEBQSvLJYEYqjn4EQpLFMengvjmRg9jiQlQ76By7mJfVZCu6g0dg16Wh
-	 HFE1r/huW7d2qevgBOUq3iWLA6F66QzsfXhd5LyK/nwjJmjTYpYfr2E5DCL1wXSj/e
-	 4Tg9eXjhM6Ar3sBoJ7CyjNTUMAiJRNg6AxzbXdvoVlZXAbYzEYo2AFAnhUkIjeyJMl
-	 PKc9GaCvOIUIUVLeMuqTgq24YQzLodLyU1P3cyBb/4xJ7hsG0utk1xwnPyjTSWHBMk
-	 YZH52Jm/HfnUQ==
-Date: Fri, 6 Nov 2026 19:09:45 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
-	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
-	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
-Message-ID: <au4kyULjUYdqbfIq@google.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-5-zide.chen@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=W3aci0r3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793992226;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TibEcO9CNVSZ8+bVlmwBX3YZ8Clr0IvZkR0Oo11qWYo=;
+	b=W3aci0r3qYw/l1QySup4jzijIjmKMd9M5m6vQHqbZViPWifKtkaDTnhTLvZ+W/T7kd3xSH
+	BlcjCamZYlXfaquRmmq4vDZQ8THyzEThe5MVgqXq/wEHT/yExnzQf/uIs73U+WhhgXrYRw
+	IFyvrUk3RIpJmih0ZbW4mFepZchokfU=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-499-DvM7aMjlMhGrBWybGLF7_w-1; Fri,
+ 06 Nov 2026 14:10:21 -0500
+X-MC-Unique: DvM7aMjlMhGrBWybGLF7_w-1
+X-Mimecast-MFC-AGG-ID: DvM7aMjlMhGrBWybGLF7_w_1793992219
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7CC371956060;
+	Fri,  6 Nov 2026 19:10:18 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1BCED1848D42;
+	Fri,  6 Nov 2026 19:10:15 +0000 (UTC)
+Message-ID: <fa9fa51a-6db3-4c2b-be06-6ba423108890@redhat.com>
+Date: Fri, 6 Nov 2026 14:10:15 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,166 +71,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106013927.166209-5-zide.chen@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] cgroup/cpuset: Reset partition data when an
+ invalid partition stays invalid
+To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: Chen Ridong <chenridong@huawei.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, Guopeng Zhang <zhangguopeng@kylinos.cn>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261106105538.2915492-1-ridong.chen@linux.dev>
+ <20261106105538.2915492-2-ridong.chen@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261106105538.2915492-2-ridong.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Thu, Nov 05, 2026 at 06:39:13PM -0700, Zide Chen wrote:
-> pmu->nr_arch_{gp,fixed}_counters is not able to represent that a PMU
-> may include non-contiguous GP or fixed counters.
-> 
-> pmu->pmc_exists already holds a bitmap indicating both fixed and
-> general-purpose counters, and loops over valid counters can be done via
-> pmu->pmc_exists alone. Extend it to a union so that the u64 alias is
-> available for convenient mask arithmetic operations.
-> 
-> Add the necessary helpers to prepare for bitmap-based PMC counter
-> implementation.
-> 
-> No functional change intended.
-> 
-> Co-developed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-> Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> Reviewed-by: Jim Mattson <jmattson@google.com>
+On 11/6/26 5:55 AM, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+>
+> When cpuset.cpus or cpuset.cpus.exclusive of a partition root is
+> changed, update_cpumask() and update_exclusive_cpumask() copy the new
+> effective_xcpus computed for the trial cpuset into the cpuset, and call
+> reset_partition_data() only if the partition was valid before and is
+> invalid now:
+>
+> 	if ((old_prs > 0) && !is_partition_valid(cs))
+> 		reset_partition_data(cs);
+>
+> An invalid partition root (old_prs < 0) that stays invalid is not
+> covered. Its effective_xcpus is then left with the trial value, which
+> is computed from user_xcpus() and so falls back to cpuset.cpus when
+> cpuset.cpus.exclusive is cleared. As an invalid partition root does not
+> own any exclusive CPUs, and rm_siblings_excl_cpus() treats a non-empty
+> effective_xcpus of a sibling without cpuset.cpus.exclusive as owned,
+> those CPUs can then no longer be claimed by a sibling:
+>
+>    # A1: cpuset.cpus=2-3, cpuset.cpus.exclusive=2-3, root, with tasks
+>    # offline CPUs 2-3 -> A1 becomes invalid
+>    echo > A1/cpuset.cpus.exclusive
+>    cat A1/cpuset.cpus.exclusive.effective    # 2-3, expected empty
+>    echo 3 > B1/cpuset.cpus.exclusive         # -EINVAL
+>
+> Reset the partition data whenever the cpuset is a partition root, valid
+> or not, and ends up invalid. As effective_xcpus may be cleared by that,
+> also force update_cpumasks_hier() to update the subtree, so that the
+> effective_xcpus of the descendants doesn't keep the released CPUs. Add
+> test cases for it.
+>
+> Fixes: de9f15e21c55 ("cpuset: use parse_cpulist for setting cpus.exclusive")
+> Fixes: c5866c9a007d ("cpuset: refactor CPU mask buffer parsing logic")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20261101114206.2434398-1-ridong.chen%40linux.dev?part=15
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 > ---
-> v3:
-> - Add BUILD_BUG_ON(). (Jim)
-> v2:
-> - Rename kvm_{gp,fixed}_pmc_supported() to kvm_is_{gp,fixed}_pmc_supported()
->   and simplify them by removing the temporary bitmap. (Sean)
-> - Split kvm_for_each_set_pmc_idx() to kvm_for_each_gp_counter()
->   and kvm_for_each_fixed_counter(). (Sean)
-> ---
->  arch/x86/include/asm/kvm_host.h |  5 +++-
->  arch/x86/kvm/pmu.c              |  2 ++
->  arch/x86/kvm/pmu.h              | 53 +++++++++++++++++++++++++++++----
->  3 files changed, 53 insertions(+), 7 deletions(-)
-> 
-> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-> index b8875ed5502c..4f192429ed93 100644
-> --- a/arch/x86/include/asm/kvm_host.h
-> +++ b/arch/x86/include/asm/kvm_host.h
-> @@ -595,7 +595,10 @@ struct kvm_pmu {
->  		DECLARE_BITMAP(reprogram_pmi, X86_PMC_IDX_MAX);
->  		atomic64_t __reprogram_pmi;
->  	};
-> -	DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
-> +	union {
-> +		DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
-> +		u64 pmc_exists64;
-
-__pmc_exists would be more consistent with __reprogam_pmi above.
-
-> +	};
->  	DECLARE_BITMAP(pmc_in_use, X86_PMC_IDX_MAX);
->  
->  	DECLARE_BITMAP(pmc_counting_instructions, X86_PMC_IDX_MAX);
-> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-> index cbd63329cf13..5e174d95f3b7 100644
-> --- a/arch/x86/kvm/pmu.c
-> +++ b/arch/x86/kvm/pmu.c
-> @@ -1024,6 +1024,8 @@ void kvm_pmu_init(struct kvm_vcpu *vcpu)
->  {
->  	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
->  
-> +	BUILD_BUG_ON(sizeof(pmu->pmc_exists) != sizeof(pmu->pmc_exists64));
+>   kernel/cgroup/cpuset.c                            | 10 ++++++++--
+>   tools/testing/selftests/cgroup/test_cpuset_prs.sh |  6 ++++++
+>   2 files changed, 14 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 3052413e41e7..cf38e8708ddd 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2607,8 +2607,11 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+>   	spin_lock_irq(&callback_lock);
+>   	cpumask_copy(cs->cpus_allowed, trialcs->cpus_allowed);
+>   	cpumask_copy(cs->effective_xcpus, trialcs->effective_xcpus);
+> -	if ((old_prs > 0) && !is_partition_valid(cs))
+> +	if (old_prs && !is_partition_valid(cs)) {
+>   		reset_partition_data(cs);
+> +		/* effective_xcpus may be cleared, update the subtree too */
+> +		force = true;
+> +	}
+>   	spin_unlock_irq(&callback_lock);
+>   
+>   	/* effective_cpus/effective_xcpus will be updated here */
+> @@ -2672,8 +2675,11 @@ static int update_exclusive_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+>   	spin_lock_irq(&callback_lock);
+>   	cpumask_copy(cs->exclusive_cpus, trialcs->exclusive_cpus);
+>   	cpumask_copy(cs->effective_xcpus, trialcs->effective_xcpus);
+> -	if ((old_prs > 0) && !is_partition_valid(cs))
+> +	if (old_prs && !is_partition_valid(cs)) {
+>   		reset_partition_data(cs);
+> +		/* effective_xcpus may be cleared, update the subtree too */
+> +		force = true;
+> +	}
+>   	spin_unlock_irq(&callback_lock);
+>   
+>   	/*
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index bdca6c471f87..32e1e44fa0b1 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -434,6 +434,12 @@ TEST_MATRIX=(
+>   	# cpuset.cpus is allowed, but those extra CPUs are ignored.
+>   	"  C2-3:P1   C3:P1  .      .      .     C2-4    .      .     0 A1:|A2:2-3 A1:P1|A2:P1"
+>   
+> +	# Clearing cpuset.cpus.exclusive of an invalid partition releases its
+> +	# exclusive CPUs, including those of its descendants, so a sibling
+> +	# can claim them.
+> +	" CX2-3:P1    .     .     C3  T:O2=0:O3=0:X  .     .      X3   0 XA1:|XB1:3 A1:P-1"
+> +	" CX2-3:P1   X3     .     C3  T:O2=0:O3=0:X  .     .      X3   0 XA1:|XA2:|XB1:3 A1:P-1"
 > +
->  	memset(pmu, 0, sizeof(*pmu));
->  	kvm_pmu_call(init)(vcpu);
->  }
-> diff --git a/arch/x86/kvm/pmu.h b/arch/x86/kvm/pmu.h
-> index 090c9bbb74f4..016935c3a8ec 100644
-> --- a/arch/x86/kvm/pmu.h
-> +++ b/arch/x86/kvm/pmu.h
-> @@ -88,6 +88,30 @@ static inline bool kvm_vcpu_has_mediated_pmu(struct kvm_vcpu *vcpu)
->  	return enable_mediated_pmu && vcpu_to_pmu(vcpu)->version;
->  }
->  
-> +static inline unsigned long kvm_gp_pmc_mask(struct kvm_pmu *pmu)
-> +{
-> +	return pmu->pmc_exists64 &
-> +	       GENMASK_ULL(KVM_MAX_NR_GP_COUNTERS - 1, 0);
-> +}
-> +
-> +static inline unsigned long kvm_fixed_pmc_mask(struct kvm_pmu *pmu)
-> +{
-> +	return (pmu->pmc_exists64 >> KVM_FIXED_PMC_BASE_IDX) &
-> +	       GENMASK_ULL(KVM_MAX_NR_FIXED_COUNTERS - 1, 0);
-> +}
-> +
-> +static inline bool kvm_is_gp_pmc_supported(struct kvm_pmu *pmu, unsigned int idx)
-> +{
-> +	return idx < KVM_MAX_NR_GP_COUNTERS &&
-> +	       test_bit(idx, pmu->pmc_exists);
-> +}
-> +
-> +static inline bool kvm_is_fixed_pmc_supported(struct kvm_pmu *pmu, unsigned int idx)
-> +{
-> +	return idx < KVM_MAX_NR_FIXED_COUNTERS &&
-> +	       test_bit(KVM_FIXED_PMC_BASE_IDX + idx, pmu->pmc_exists);
-> +}
-> +
->  /*
->   * KVM tracks all counters in 64-bit bitmaps, with general purpose counters
->   * mapped to bits 31:0 and fixed counters mapped to 63:32, e.g. fixed counter 0
-> @@ -104,11 +128,11 @@ static inline bool kvm_vcpu_has_mediated_pmu(struct kvm_vcpu *vcpu)
->   */
->  static inline struct kvm_pmc *kvm_pmc_idx_to_pmc(struct kvm_pmu *pmu, int idx)
->  {
-> -	if (idx < pmu->nr_arch_gp_counters)
-> +	if (kvm_is_gp_pmc_supported(pmu, idx))
->  		return &pmu->gp_counters[idx];
->  
->  	idx -= KVM_FIXED_PMC_BASE_IDX;
-> -	if (idx >= 0 && idx < pmu->nr_arch_fixed_counters)
-> +	if (kvm_is_fixed_pmc_supported(pmu, idx))
->  		return &pmu->fixed_counters[idx];
->  
->  	return NULL;
-> @@ -120,6 +144,17 @@ static inline struct kvm_pmc *kvm_pmc_idx_to_pmc(struct kvm_pmu *pmu, int idx)
->  			continue;				\
->  		else						\
->  
-> +/*
-> + * @mask is expected to be a scalar unsigned long derived from pmu->pmc_exists,
-> + * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
-> + * so iteration up to KVM's maximum counter count is safe.
-> + */
-> +#define kvm_for_each_gp_counter(i, mask)	\
-> +	for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
-> +
-> +#define kvm_for_each_fixed_counter(i, mask)	\
-> +	for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
+>   	# A child cannot recover until its exclusive CPUs are available again.
+>   	" CX1-4:P1 CX3-4:P1 .     .     X1-2     .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
+>   	" CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4   .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
 
-These are not used in this patch, are they?
+LGTM
 
-They should probably be introduced when they are used. Also, do we
-always end up passing kvm_gp_pmc_mask() and kvm_fixed_pmc_mask()? If
-yes, maybe we should pass in the pmu here instead?
+Reviewed-by: Waiman Long <longman@redhat.com>
 
-> @@ -183,9 +221,12 @@ static inline struct kvm_pmc *get_fixed_pmc(struct kvm_pmu *pmu, u32 msr)
->  {
->  	int base = MSR_CORE_PERF_FIXED_CTR0;
->  
-> -	if (msr >= base && msr < base + pmu->nr_arch_fixed_counters) {
-> +	if (msr >= base && msr < base + KVM_MAX_NR_FIXED_COUNTERS) {
->  		u32 index = array_index_nospec(msr - base,
-> -					       pmu->nr_arch_fixed_counters);
-> +					       KVM_MAX_NR_FIXED_COUNTERS);
-> +
-> +		if (!kvm_is_fixed_pmc_supported(pmu, index))
-> +			return NULL;
-
-Do all callers handle NULL correctly? At least
-reprogram_fixed_counters() doesn't look like it. It may be fine since
-NULL can already be returned today. Not sure if this series makes it
-more likely.
-
->  
->  		return &pmu->fixed_counters[index];
->  	}
-> -- 
-> 2.56.0
-> 
