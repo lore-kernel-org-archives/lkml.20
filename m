@@ -1,93 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.21
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793987022;
-	b=Tf4oJAYzanF10XljQsPs/571gEeziVSL0YxixbDTbLUf6Kes41A3Z6fKO/KhyE4m/qcl
-	 PNtPeebjiGTGeOrbUrfsASnsIKKh+rX/IRWh0j1d5TpZqw8eRWH7CuA0X/RLfTnIOQAWM
-	 fov2CBCeGG17X6j4iHbByEjLu2qKNspIuTU+92MwwCCPCDf+SVb0vxDIWiL05Q7oF/y+o
-	 43ogskCtEk4c/IqQGfYp3u7iwBMYBDD6FFYntj/2e1m2bkb2yvA77U20cjwIhJrWprXTa
-	 gIePSKMVQ5jO911FmeaHu4z411dDckzYMTfpO+YMBpaNMBUX1/ZB7X/qpf4WGZ0zFTQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987022;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=hhPLlf43hSxbGXoeqLOSauBXNEGYnNvjjcgPdU3ZUmI=;
-	b=30GZPNPzvhqfNdd15A0+KoZ7P78I6AcMgMO6H+DvDVfOUesoKyVvyOMrWwpLC8XwWi3I
-	 aq9YjfYllbiDDYwR8eFqRVmfOun9956MODsCHPCWM53AS6A7swOwYgrXOw9GbucLa3RVZ
-	 FVe4tPYz/l9wNw6gzBerEsGjITym4LAvuv0sPJ7udZ1P+5aEycPeY3cx/30RD4Z3V8OLc
-	 JEb5Skh3g+JpF2ECp+CPHH6h/VW7Gev3pP9dg0T71jXj6JyQ5guCAlvHEtNJWGY1xlMC7
-	 vS8Ad8kCsgfCDpJUxoT+Zcyo1EPg91ZFhUMDbPELQFnsQrzxxW3tMj6WY5sSfrtF3Sw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TZBpG3tj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.21
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010021.outbound.protection.outlook.com [52.101.201.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793987055;
+	b=EOW/oGRMTOygwHxsL8LBi3Rq0/pQFnFdBr3DLtoO1sIzX8TGRdEEyLUEscAOziF1KNHE
+	 k0FxTCJ3oXLS1RiNMdetlhdKeETubd1Go9VKItpcVmnx9yp7gUZdYy+r7NVtDe4GYjmEs
+	 kubf3tG4dZEFw046JPoWWQcppoBI/g0OQU2v8t2lrK+NF+5EvbXnzqGehAz8+l9HQpFXL
+	 8nlcb/ZfUJaK49E4JhFebr+ZnOWOwE1fthrZjnFbu1Ddu6Aa5bHnXQnnf3do0xBiLeEt3
+	 ZaoBETi4cosW4mAj1CvOUp5XbJMNl2sl8OzaDwSrBAZp1Wf+l1DbuM1VpCNn2lxKzLA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987055;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8lY1lf/ALSFACzs3R/fk17f4eRgsj/Rgpm1oAwZPuC8=;
+	b=b37ty7/vOc3xEQkzgIJBb9CJtALIsrUUFSEM2un5NKN5KGyx9N4sboERlbyU+VWnEUKA
+	 XwVFvFUlXSB1+tJMeExQGmvzUbI5EoZ0ywSe1eKMIl3uyS0eksZd3OOo1EaeHmw62A1ls
+	 QdFTnmJlewKU/kMW3KQ5F10C129wzIcK/g4POTzOQCPgKSXg556jnoZ6P4fmpds9W/B7G
+	 ehTC2ZrlyJHulG2jdHts3kjjYOvhXdElkPqSLXyrNnBBsfLGmRu9bt7pK9e5pPrQs02Fe
+	 eFOdK6BPtKsiCITHjf1NhOZO7GSNHRoFbILwTPndy/uaf6Qtl3fO9kVfaoS4qNYNLZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=D3sAEnu6;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57126606A32E;
-	Fri,  6 Nov 2026 17:43:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57126606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354B5606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:44:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 354B5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TZBpG3tj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MPj04mqAnNy8TliGG2uawANfnOcq87uE7qgjvHHItyFSelz19AdItvnNEosrZtRAkqyODAc6DC007wp1HV9wbWaiDh8hsuFcpIO86xQkO506oC3nEGbkf7aaXLQsZCcduZF6/U2rjLT2zHVyPUy0XQnmKnPiDc3pcrGxN2aq/DPGgps1dJmwefbTyr3FUiKEXF3iXryIKU5To09D0dHvRsppYQ1e/92IQEXf8s/WbA1bdw99A5qMymit1rwTd6wowo3DChnBROESkFaz48NI5vEXPGMJgPHMJxwXpBvdGYBXdruKwsxsm7m8FM/3pvAuPU5tF5J/ukeMNgx/xIPstg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hhPLlf43hSxbGXoeqLOSauBXNEGYnNvjjcgPdU3ZUmI=;
- b=Rbum5aBEkML6VihWhd64hv8oYLbjgdlovIYKIpDVsZ9QAHemt1ifPzskIdZeU2YwYGvfzrmJEtjCkHcUhO9FE1lKrSvyMYCoquoEnOsaMMWuzxK3CQN3ZrzjCWxuJj2jyANhz07UV6VxBQqLH4BJeM1pnYYv3zaAcXZqqqDZMqHZt4F8BVkZhpmeH5EQpFdxOoicM7yjj9FjP9A3pJlIVXUDQMNSIPyQVTuF/pmNUEQbCpmyRNbPy8d3bvcAEXLYf7yUFU0HfD2zyvoGRinrcK2e7Lhq38gTyTkVThxgeFVHzBDpkwIsQtYNOLmZb1TnuVyU9yGhHaP03SOXdi6peg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hhPLlf43hSxbGXoeqLOSauBXNEGYnNvjjcgPdU3ZUmI=;
- b=TZBpG3tjCb2gmO+MKxU/plmgNF2EAMZJHAL/yevNYNJbJjcLo8Wg943kvY/O+tjwu78WR1g2tV+4MvPpZsCd8SWGHD2XfdzAATZ3lejDHnwpIR9rUAlPDkkrt/c8ob3n4qU6JI3rLga4z18M5YB7xR63X2wbDRZznUdPHEjB+9t9Zk/7TKlF0SCzfFDWKcuZv3ds94V4jsJZuCf19LIlWUNFRTRw1Hz7dp8TsHW1dfknGiFqGFJZBP3YNV9vmpSbRSlJtin7bv0ExZPjYNeLInDhecJPA3G1hLpKSxdGobDhV/LnEugKc574sqgoo5irJ6Jx2HX4/9Nsyup+v6fXJg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by PH7PR12MB8777.namprd12.prod.outlook.com
- (2603:10b6:510:26b::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 17:43:32 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 17:43:32 +0000
-Date: Fri, 6 Nov 2026 13:43:31 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Jennifer Chan <jenniferchan@meta.com>, bhelgaas@google.com,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH] PCI: Add d3cold delay quirk for NVIDIA LR10 NVSwitch
-Message-ID: <20261106174331.GH770409@nvidia.com>
-References: <20261105201010.2297078-1-jenniferchan@meta.com>
- <20261105215148.GA1566818@bhelgaas>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105215148.GA1566818@bhelgaas>
-X-ClientProxiedBy: YT4PR01CA0502.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10c::11) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=D3sAEnu6
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so8905525e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:44:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793987053; x=1794591853; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8lY1lf/ALSFACzs3R/fk17f4eRgsj/Rgpm1oAwZPuC8=;
+        b=D3sAEnu6ob8itCe7vatu/Da3KrliNbRIEC37/WuAz9dXgrB/EKD2YGJjyZkRORcD8l
+         Xww4Y/GCQQ8TpAcMjGTOOsZm3aKKqeonWh4otc57NhFOHx+6KWZyd6IYDyahRndxvNKS
+         WkClHYt9O5WS+QRNTiB7u5W0IGXZh6Ni/tfTuevREZTxblyX+bIA47tvEfIsh+8chpz+
+         3JA+M027PlKMgyrXq1wx7ognVynrOTB04VqS8jiAFht9tU6/R/CSnYHVMpgzfgwYYJw0
+         ip0Ng1170Pak5pmaHthy1T/Kp8kDa0tmfdiEothpjgCyAhbF9HkEs7fhPpbP54Ho4U5S
+         pnKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793987053; x=1794591853;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8lY1lf/ALSFACzs3R/fk17f4eRgsj/Rgpm1oAwZPuC8=;
+        b=ZQCYqUY8W67rqijL8MnYZgq+Af/Szr3QeS22jVG4v3FLb0syPesG1oLLTM6rVLLlKC
+         M4/H+OBfjl83szZeWT0M4CGFlY8+1mhvJW7csrbFRviya/Px3mEus/rCrmE7s6zf7k8A
+         BSb/9LYNUZwVNvVnYtUdx3tbgvLQMrd82K+U7m4hYULpXaJ5vVe6dWeLGK95Udg1B7g+
+         Di1V7bqrf1vWKuRurhn680DXm+ibgPYr7MegZY8vUmccLcWydu9CHwrtDptsoFZGgabr
+         bJT4X+GjbDh+vgSW3I9rYLOxr4bx8J4g348duH8gzHm25WHg6/nuyappGtNkrtdRCxG9
+         VV4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwhpnbDQn534hapWXsrLMDLlqLlWOqviCr7HIyNZAgXcdO8LfZ3XqDWLuvdnkexFxBt9LsdZRpn0XIG6H4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oQdWX86656J4VPH0qIaDP/1Hg/gtM3srkcg7mVNC0w9U/z95L
+	4t4Km1K2RNUOYy6A7/javXZOV44NbgulVv+p8usOi7gHr5f1nCMYhNpt/hwL/hFSErg=
+X-Gm-Gg: AYBFou3zUb1EIruaMrhYMNGHSnJdOXkU9urcMRx0CdkWwi2nb2ACGu6xNlH71cEB+kN
+	uKkIjIK+VYq4K+e4OwgBZPEtZ3kIqpEcjBfZslE+cDjChfzR/r87Tnoe483MCWhwqNJoBOZtsxr
+	shrxTj95W4dcgY76NZ4X/uH3LwyuUCxDJNUzHkxTmVbi89uhWM1CfuKwj35ZO6XxF3yGkamaKMt
+	s7sJqjAjzJ0hC5bwCaJBRpOwY42Oag4jHKybHVsQgsuCComLBYAuZvAkESSM/4uJS04g9OyV2Lr
+	Vycime7r5fqJeCib3Ja5jzM+PdGwg9wF9WjsJnFrn5wBO6zZl4nzcXaXr/5r9phWtOftvMxzsbw
+	KiOCH/XHg0AkmrPSihHsx4/k2qqLP6DkFIBPjavfPbbu5nr+L/OHalHeWoxJjeXE1k9mQ1N+V/c
+	6jqX9dGBvi/uSJaQyz4bYR4gAwEZknAqw0t3OjUAB2M/nfS4ZVofmu7TbhefaMnwnoi6X/RQb5l
+	yNKdp94Omda8XK+t/B8DulL3wwJMslvXMdRJ1jDUnJCps9Qur1o1O3JVw94Fuirheo5AC2hEdSf
+	cCtYHeCcxzVjzlzwb0NKawze0+tMbZo=
+X-Received: by 2002:a05:600c:1c08:b0:4a5:5fb9:5d35 with SMTP id 5b1f17b1804b1-4b6df5eac1amr63450615e9.21.1793987053573;
+        Fri, 06 Nov 2026 09:44:13 -0800 (PST)
+Received: from [192.168.0.20] ([212.21.133.107])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76d83e539sm8359915e9.1.2026.11.06.09.44.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 09:44:12 -0800 (PST)
+Message-ID: <bfe8f403-06c9-4e93-9bcb-738c9128c557@suse.com>
+Date: Fri, 6 Nov 2026 19:44:11 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,73 +92,236 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|PH7PR12MB8777:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70400cab-21b6-4d20-6754-08df3c2d79cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|11063799006|4143699003|56012099006|261026121527099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	m9la8xJChdXzuLbgpsMNwT6VXKVI2Ik5ykqDMclbNjBkqDM7gjNOGSDo51M5tmagN+B6ZEkFqu2GnGla9U5AyIBvGfAy+Nmvronl8tRmoa82c5jkcKGfJbag/DC1mYBKQ4FauZgvCh/jraZ313pSkZpW83t6740isi6dZA+L9x+xyy1DlgIM9nXYJEJ4S6penRJpwPjykeWMYnOzMeQOwKP4JX3Ec6serZGWaIJh4RD6ZlM9Dj1/+n1IjyzgAOvRv5+/GFlwz7sb9zcyITlbOncdJiYwV4PZ3MPiy3Rdq3/6DMFUVfo/EB9uajQ1yDPvOu45mC/t9WcxycVHqy/DUiI1mmqs2mFqMRAj/O1UcolR/6TGcQPkLK42cJ0BR5k5+whc60NBz25PbwHMVR7al0xPfCtDfoSNBFWA1bYwOte8EIkQE39EgkDnZaR18221r0Mta5z4mrhmcLe8MWG6pG1+0yUY7pW5UuaYTfcPhFSZNyq+Vnq9DiM19snsNK2PpxhK2dF4krjZHzI3Q5ySbhHo5LK8LM2B4QUqhOeB5ECo1CH0wpRaC57e5Iht6lW+1k65iV0CiW6gG6M1+Et0TgT0JsBgvI0xp0bn0xFneT6S9cs5MuwQonA7YnlCvBx+2RFzo3FYNsul4NXbsdtr8XHV4GWkQXbBggbKrQroXqY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tE+fnkY9WXLgDkuYx+tMoscb4IGsoyMPlCzZI8uMa8BPrhylhSJhhjqM5PZQ?=
- =?us-ascii?Q?C7qlc8kBRM2foC5YoUvwCHRUPrZiE8F5oZVChV3aMI6KT3rTG9hjUX8GzC4m?=
- =?us-ascii?Q?Ed5NUHs4s//5krHJ2wfp2sokzuWSMB+TqUDJntIfQ0o6G39/zlYVKHWtbZa+?=
- =?us-ascii?Q?yA63qEU/s3UaMkW6EId4e2fZk7i/9DiYbwswkhoxAgZKSIbJAaEhAJM45+Nk?=
- =?us-ascii?Q?eDj7S+CGTl2WLVrZSL30tvmfLwPcV2WXIqQqzPNRi0GzO+/sgGOm2/yg+JKa?=
- =?us-ascii?Q?tM5QOK+FVSl4kveQBI/DSgtHe3+t79DDsoQxyjpzsQYYY16VSjBp2AcAchDN?=
- =?us-ascii?Q?u99Qe/XWhT2qc3U6ksIG0GciFh82L2PK1V0s8Ui+ezFRJfg2CdzDGLYxbZ/G?=
- =?us-ascii?Q?X81ZqXGL065Ok7EEjCTeMIyMFMVkeXvYhzxBfDbaibaO4t1fP3a715MK5LCP?=
- =?us-ascii?Q?szn6hmx37sg+zDbDXArQ6W6rikQ+n8sFnCEyVEO+JW7u5d2xTG1siTWnNG4/?=
- =?us-ascii?Q?Tf8ALG/nsM13v57bDsPWfCf1sxhnGTW0IMOQogLQEuKrChTLlbyX2WwNiwt2?=
- =?us-ascii?Q?l7lBDNqVj7PlwR8cCWZxxGwzgBuxjvR4xEuU1vqoCOJ+HB6CRhGjejMtn9aN?=
- =?us-ascii?Q?g3hFOEv60HRn4HUbhFMjyhlTL9Mz2QultdsIZc37crVF5ZR48jjbIks43MWh?=
- =?us-ascii?Q?Aw9sbO/6vEW2vTLPn8qkzs5nL6W8g+kanRYcNfpfB4hecvzWYxpl5iLbIPxP?=
- =?us-ascii?Q?P8UTqbWQt6A4NFw9EUTG1o/ileh2nlsXlgtFo7dzG23PzU1vcPgvmmYQ68Ya?=
- =?us-ascii?Q?tnQ9hCu5yqxIx/2ON+W/v70+v7H/6YZ0EidW60+NV3v1QNkNJlx2Rgyx5SgN?=
- =?us-ascii?Q?fnVxGU6nQnpsQxkmKGbEMMI74UrB3D0bfKBdgP9K7UrMK/0XXssyhRlLfwfB?=
- =?us-ascii?Q?McDEnUTjTmacbDhqeWDLQ/h3aGPuKfFjxXXjGh+4ohDb+mcY4L3eEKW3hPxA?=
- =?us-ascii?Q?+IoPmoOmQss+pn9EDB2SVhii9+ZDIgLPfshHGmdRH9+yOiCZB+AWpMJnw+Mw?=
- =?us-ascii?Q?2WOIVSmfUfXPKVv1tMk5ZyQFP442bsMB2yMzspG+YmxriPuDXD1B1h3AMkkg?=
- =?us-ascii?Q?Nl6BkKHdmLuk3R3QSyGMm5g2Dh7iu9o5vt64svStuClzFASrzOzECTBl7Vgs?=
- =?us-ascii?Q?nJsU1yBOS+VAJleo9H6tJs6N19ZfT/LYObuDiDe+ZKu0esOvnR2SFeTbbav2?=
- =?us-ascii?Q?rcZx02tJQijPHJgP1zHdKMoKNA3u+6G9/1l91AjGupnF7+Pli8uyyaPb9MRv?=
- =?us-ascii?Q?D3U24fiCnx81s1Uqih/uBT13sHLMEmM1v89JmpypkashTipTA0oG85Br4XJP?=
- =?us-ascii?Q?6xOHszwSaMf6aeZnmof5NA06iJKAUwMWOSL+3pqR1ttfcFPnSMXI6BIdm4q6?=
- =?us-ascii?Q?CB6lwDq8F8aTbA689WuMx03pTPF/o6W5G4HxBTfPs0tUMRr5G9db+Hs9Et3g?=
- =?us-ascii?Q?idLVwU/KLaBrxskay02VlzJLeSyWHABn5SZIUW1QmybbVv7XASzcplBMZ+2Q?=
- =?us-ascii?Q?3KEBtqNa6QNcF4EwDXTHjQToEXl2Oxm5SH/haSLVDC+wCcghPQawYcZySBWs?=
- =?us-ascii?Q?+0+Nzp4Yo5Z6BnvgOs2q1obuzQQyDhkNLcMvpvTdEn1sx2IwfnM3Bw91lwcl?=
- =?us-ascii?Q?6nLbkrKp7PbHzhI6q72XkBMJFhjue9eYJaqndLeRyBkmEkZq?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70400cab-21b6-4d20-6754-08df3c2d79cd
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 17:43:32.5721
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: korBmPjeyxD7KzhBhqCpYIhgCqQE/Knj+mxDNaUnpj1UxELWXasrUlAQi2SdiD5c
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8777
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/9] stop_machine: Add NMI-based execution path
+To: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org
+Cc: x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, peterz@infradead.org, david.kaplan@amd.com
+References: <20261015211426.49114-1-chang.seok.bae@intel.com>
+ <20261015211426.49114-3-chang.seok.bae@intel.com>
+From: Nikolay Borisov <nik.borisov@suse.com>
+Content-Language: en-US
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <20261015211426.49114-3-chang.seok.bae@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 03:51:48PM -0600, Bjorn Helgaas wrote:
-> [+cc Lukas, author of ac91e6980563, Jason in case NVIDIA knows
-> anything]
 
-Yeah, please don't take quirks for our server silicon unless we send
-them. I've seen this a few times and rarely do users understand enough
-to get this right.
 
-Lukas is correct that many bugs trace back go Broadcom's exciting
-interpretation of PCIe :\
+On 16.10.26 г. 0:14 ч., Chang S. Bae wrote:
+> Currently multi_cpu_stop() executes the stop function in the
+> MULTI_STOP_RUN state. But NMIs can still preempt the execution. For use
+> cases requiring stricter isolation from them, provide an option to run
+> the stop function from NMI context.
+> 
+> Then, the NMI stop function must be built without instrumentation, as
+> exceptions may re-enable NMIs on return via IRET. Annotate the NMI
+> handler entirely with noinstr.
+> 
+> However, objtool cannot reliably determine whether the indirect call
+> target is located in a noinstr section, so it may emit false positives.
+> To avoid this, temporarily lift the instrumentation restriction around
+> the indirect call site and document the intention.
+> 
+> The x86 microcode loader is currently the primary user for this. But
+> other architectures are not expected to use it. Add a build option to
+> make it opt-in.
+> 
+> Originally-by: David Kaplan <david.kaplan@amd.com>
+> Suggested-by: Borislav Petkov <bp@alien8.de>
+> Suggested-by: Thomas Gleixner <tglx@kernel.org>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> Link: https://lore.kernel.org/lkml/20260129121729.GRaXtP2aeWkQKegxC2@fat_crate.local
+> Link: https://lore.kernel.org/lkml/87wm0zl8p2.ffs@tglx
+> ---
+> V2 -> V3: Address Sashiko review
+> * Avoid instrumentable functions:
+>    smp_processor_id() -> raw_smp_processor_id()
+>    cpumask_test_and_clear_cpu() -> arch_test_and_clear_bit()
+> * Remove `done` tag to avoid false setting. Instead, data == NULL as indicator
+> ---
+>   arch/Kconfig                 |  3 ++
+>   include/linux/stop_machine.h | 16 ++++++
+>   kernel/stop_machine.c        | 99 +++++++++++++++++++++++++++++++++++-
+>   3 files changed, 117 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/Kconfig b/arch/Kconfig
+> index 45c657772362..afa564261e1c 100644
+> --- a/arch/Kconfig
+> +++ b/arch/Kconfig
+> @@ -1878,4 +1878,7 @@ config ARCH_HAS_CPU_ATTACK_VECTORS
+>   config HAVE_ARCH_GET_SECUREBOOT
+>   	def_bool EFI
+>   
+> +config STOP_MACHINE_NMI
+> +	bool
+> +
+>   endmenu
+> diff --git a/include/linux/stop_machine.h b/include/linux/stop_machine.h
+> index 84e7fb627ba4..b53b028296e0 100644
+> --- a/include/linux/stop_machine.h
+> +++ b/include/linux/stop_machine.h
+> @@ -20,6 +20,12 @@
+>    */
+>   typedef int (*cpu_stop_fn_t)(void *arg);
+>   
+> +/*
+> + * Stop function variant runnable from NMI context. This makes the
+> + * noinstr requirement explicit at the type level.
+> + */
+> +typedef int (*cpu_stop_nmisafe_fn_t)(void *arg);
+> +
+>   #ifdef CONFIG_SMP
+>   
+>   struct cpu_stop_work {
+> @@ -186,4 +192,14 @@ stop_machine_from_inactive_cpu(cpu_stop_fn_t fn, void *data,
+>   }
+>   
+>   #endif	/* CONFIG_SMP || CONFIG_HOTPLUG_CPU */
+> +
+> +#ifdef CONFIG_STOP_MACHINE_NMI
+> +
+> +void arch_send_self_nmi(void);
+> +bool noinstr stop_machine_nmi_handler(void);
+> +
+> +#else
+> +static inline bool stop_machine_nmi_handler(void) { return false; }
+> +#endif /* CONFIG_STOP_MACHINE_NMI */
+> +
+>   #endif	/* _LINUX_STOP_MACHINE */
+> diff --git a/kernel/stop_machine.c b/kernel/stop_machine.c
+> index 8dcd5be67b85..ad01b7c5266c 100644
+> --- a/kernel/stop_machine.c
+> +++ b/kernel/stop_machine.c
+> @@ -23,6 +23,7 @@
+>   #include <linux/atomic.h>
+>   #include <linux/nmi.h>
+>   #include <linux/sched/wake_q.h>
+> +#include <linux/delay.h>
+>   
+>   /*
+>    * Structure to determine completion condition and record errors.  May
+> @@ -175,6 +176,15 @@ struct multi_stop_data {
+>   
+>   	enum multi_stop_state	state;
+>   	atomic_t		thread_ack;
+> +
+> +#ifdef CONFIG_STOP_MACHINE_NMI
+> +	/* Used in the NMI stop_machine variant */
+> +	bool			use_nmi;
+> +	/* A separate function type to highlight noinstr requirement */
+> +	cpu_stop_nmisafe_fn_t	nmisafe_fn;
+> +	/* cpumask of CPUs on which to raise an NMI */
+> +	cpumask_var_t		nmi_cpus;
+> +#endif
+>   };
+>   
+>   static void set_state(struct multi_stop_data *msdata,
+> @@ -198,6 +208,8 @@ notrace void __weak stop_machine_yield(const struct cpumask *cpumask)
+>   	cpu_relax();
+>   }
+>   
+> +static int multi_stop_run(struct multi_stop_data *msdata);
+> +
+>   /* This is the cpu_stop function which stops the CPU. */
+>   static int multi_cpu_stop(void *data)
+>   {
+> @@ -236,7 +248,7 @@ static int multi_cpu_stop(void *data)
+>   				break;
+>   			case MULTI_STOP_RUN:
+>   				if (is_active)
+> -					err = msdata->fn(msdata->data);
+> +					err = multi_stop_run(msdata);
+>   				break;
+>   			default:
+>   				break;
+> @@ -713,3 +725,88 @@ int stop_machine_from_inactive_cpu(cpu_stop_fn_t fn, void *data,
+>   	mutex_unlock(&stop_cpus_mutex);
+>   	return ret ?: done.ret;
+>   }
+> +
+> +#ifdef CONFIG_STOP_MACHINE_NMI
+> +
+> +struct nmi_stop {
+> +	struct multi_stop_data	*data;
+> +	int			ret;
+> +};
+> +
+> +static DEFINE_PER_CPU(struct nmi_stop, nmi_stop);
+> +
+> +/*
+> + * Instrumentation may trigger nested exceptions such as #INT3, #DB,
+> + * or #PF. IRET from those would re-enable NMIs, which opposes the goal
+> + * of this NMI stop-machine facility.
+> + */
+> +bool noinstr stop_machine_nmi_handler(void)
+> +{
+> +	struct multi_stop_data *msdata = raw_cpu_read(nmi_stop.data);
+> +	unsigned int cpu = raw_smp_processor_id();
+> +	int ret;
+> +
+> +	if (!msdata || !arch_test_and_clear_bit(cpu, cpumask_bits(msdata->nmi_cpus)))
+> +		return false;
+> +
+> +	/*
+> +	 * The indirect call to @nmisafe_fn() is indistinguishable at
+> +	 * post-compilation. Temporarily enabling instrumentation avoids
+> +	 * objtool false positives.
+> +	 */
+> +	instrumentation_begin();
+> +	ret = msdata->nmisafe_fn(msdata->data);
+> +	instrumentation_end();
+> +
+> +	raw_cpu_write(nmi_stop.ret,  ret);
+> +	raw_cpu_write(nmi_stop.data, NULL);
+> +
+> +	return true;
+> +}
 
-The user should open a case with their NVIDIA support and if a kernel
-quirk is in fact the correct fix the someone from NVIDIA will send
-it..
+I think this function should be moved over to patch 5 and by having 
+moved/subsumed patch 4, Patch 5 should become patch 3 really so related 
+functionality is introduced in subsequent patches.
 
-Jason
+<snip>
