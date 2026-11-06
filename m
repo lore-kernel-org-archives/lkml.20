@@ -1,55 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958984;
-	b=tqglgh/OmtjPxWg94/o0+zZi4ri4sQDUhNDEXaFcruXmCMhHTXwcdhUUtlq1LmJezhRn
-	 y6qzvfDEEL+2wjDQVB6Ip8kxvjCG5yVbf+wt5UsgEzav8slVEY88l4g4Uaakww/amlPdh
-	 NmtP0yv1Ppj3wIYXWm/meqAAxdimxpY/JZTOxiMa9lTrz4dOgnb0R2pFZkpT9zc4ZP21p
-	 g4KwqSfmhOiePdvbAejTYWwvQ7SlXm21RPz4C0H8Tyl4hGrlGRjFRWXYVXMSQw+HgJVOQ
-	 c4TpODSxvqD0dwYURJuUJuvTZkDu3S1pLXDBW4Ywo4csowRx49lwzaqvRNZ3ZLABrDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958984;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=w8OzRqDZQKjlnkKE6E4d5qASDSC6RPN4pLC36VUFGsI=;
-	b=OvrNB8PsSxBXh12OCPFZIRXYGQC9m1B5lkxmsrATU1+Xt4HTAOqOGSswUakrTcirB9Hk
-	 FyFImEj4YhZC8CpIYBlWnlGXQTxnpd4tEenlgCZrIt2DieZb4TkvH8x8Me/6GG3Qf7Ad1
-	 KoIrtvWA/VBUAPyy2VNok1WHg8XymYWMG2pDIgaSvpD1/HMPYaQsiuNY2MjgZMT881RsA
-	 Dy37Z8Cc2XkRy/LLyb2B8RnlpepRNy1Iu07sFLPyRBVgkyqzog2NnZWrvm4EVJzCU7PjZ
-	 DqB/V15DhbqC6Ym3EgLGDMj0t+lWzicLMLTC+H3rlulDSBpnytDUpSkjdAWfdqOi0Sw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OkYMi/fF";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793958980;
+	b=d7yMKsF3oDsHcYmMZ1370i//XI6hwtFnzcU5vGHu2dE6nwtEHjxQH4Q6ge7z9gnt5mMk
+	 /iUZAIavWAi7tQEKHbuN7AF4vgo9sgOUIQG19eUqzl6QdZQaS4Q/uQ1tdxZZUDqbJxgAW
+	 wbq4gd2rVzjMKh0emYryqZQ+MGVq1MHqEQfa9KkvpnkUuLs5vqenpedVPipCIEwLWidBJ
+	 fJfTiEN+EnhdTgQjWC2aYRjX4+mRjigvETLOjmYihlv2dNgNMTolKqMVaf3OHjuQce1tI
+	 vXtx26HmiznocWnPoOynj7cI13iw4ns8O3OsTz8+V99/eYsaqdzs02dxkrNzCcgfN1g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958980;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=O6bNKP/PWu+XhHEmy9+0v2gCYo8Y74jTDprqO0ZB8Cs=;
+	b=T8pcGIRmQfha30K5QmfSoNwbbqyRcpStYHpgt63VYcpTWIb00+/OPETafsx3jSLBfSIk
+	 1DJ/OlFoNGjQmA5Z6WqIHOyvwg20qif5ezPo6Ak1DP4HRLVoXDM8vkUKD+9zgDpxGmDMH
+	 reDCtNNKulf1Q5e87PsiZ64K4EwxynxtnQxdTbkUGyAl7JOs5yD49Ia45IP2zMngAMWBe
+	 ANrsEOUGfutxo0iBu5k7SnsYA6FyXmVy5OzOBgCTpk5/v0Fu3zsJ95/Sl0Uv8WEnv0rJK
+	 xl280xjD4QS93s63ARwOcQ4HgfNT2iDSul4Oo/IaszJUi2vUYtACC/uBMUSw2nui/ug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=G2jvcPnt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D527606A333
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:56:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C35606A32F;
+	Fri,  6 Nov 2026 09:56:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C35606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OkYMi/fF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A5421F008A1
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:56:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793958984;
-	bh=w8OzRqDZQKjlnkKE6E4d5qASDSC6RPN4pLC36VUFGsI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OkYMi/fFnOE55CJ7cd/1YEvR4T/qaVbna+FxAJ0RGz1BJOMNCz7nXthukL33Izh8v
-	 Jts1gbVEXev5YDKBCendBcjZiYEO8zOcciVzOh1dc08wQlkc+hQ2Gc3LnvH7Jb1oo/
-	 16/SM/BsnS4jYHVaOusWKsOTxhqbQX08f24PrL8bcCajSyn0BIF5enyZ6+Jaf5edx+
-	 Q5u3ieOdb5821sqEgQ4b6L6rO9swJUiY9bN1gOkrfC4V+/3a/Tph9db/aWHHlrMtkT
-	 Ges8bTP8Kn/rjXd4j7CV+Dh6BkqbGseQEJ1QIDSwOuK8m+GHPPuZKe0DsUQFT9QGa5
-	 8glYSFl5V38ug==
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91b52ba422cso5187106d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:56:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBw9KI7ZtQm3brQ+94m9jGsbxCd4ofPW2CGEQkykM5FhX8m5xhIiVyDPNnhJX05wWD/IiBQI0wilu3+mcng=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qjlgA1D1xLK24+yOEYif+LwmE9a0ii6V8D7WV4YtD6qfQRnxE
-	trrYjvOnrG/acqw+fQ7hgRxMeotlyjFCkFJslgmLBAco8Xf+RmHIfu+Dm0omBAeC0Iwz0tyKmV2
-	pBpPhQUItWhU2puoZuH4G9nnvCp5AzuA=
-X-Received: by 2002:a05:620a:294a:b0:93e:ce12:aadd with SMTP id
- af79cd13be357-945f34ef78bmr296469885a.58.1793958983724; Fri, 06 Nov 2026
- 01:56:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=G2jvcPnt
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 74765200B4C;
+	Fri, 06 Nov 2026 10:56:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793958975;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O6bNKP/PWu+XhHEmy9+0v2gCYo8Y74jTDprqO0ZB8Cs=;
+	b=G2jvcPntNwss+Z/2TmYHjQFOX70vsp8lMtTLKgrIIE2PS4bz+GMg4XOxPwkMiX0tTu2QmB
+	4Hljng7r9uQKZqYd8Fz+4teUmFhPCMIUSxFOzrZqJkqWi6/mX64HYurOjhI3IwlzNW8ivY
+	JMJstQbpm8DgKnmpTmeoQLgPdTzRCsstgB4P1wszniBLoPb1ZLOcxOtphn/L99NkUWT5cf
+	JiV5RO1/TKWO4HD9YQoI/nmoCs6xTKreCxBVVcnRIOGuUj5/Vt/QBe7PuYsnZejWPBX1ld
+	uYUnD3JLA/tgVoSJc3zuBhgcIimbE293URqqG/4hDi9R5SUsddzWgtbKSA9Log==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793958975;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O6bNKP/PWu+XhHEmy9+0v2gCYo8Y74jTDprqO0ZB8Cs=;
+	b=a4Ju+cfO+qKHeqZZYBM0ICfE0szqnKTzYxbj5BaTDGhCqpENFATxO9jautw6TPedCiCAty
+	urdF0rANCIzYqDKn0h5nsx0nNOapYXF5qFZ1gw9c2FzC+X+eCrqgmsa6pZZ4X+pj5sCTCa
+	SdA9xhi1ziOFz8uLSVrcLZ2Qt9C7WWkcBof0n4r2rN6dHar89Fe3IPbvC13TQRxWxpCeAN
+	CtfXOm0B0foVCsRL6pdxY/cHbkwSk3jx6W28QqBmywQVrmQMCOVmxLhqvtl912fWbV2lYU
+	ewB9t7zc5IrdgDG7hLhELuzURxpA6wjHIS8DAH/LQjDKBQ7fiZ2TYxkgU65ykg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793958975; a=rsa-sha256;
+	cv=none;
+	b=hIH/6oo6yZquWNoVc16a0oxuSsS+WSHDOlmQihFSed6sWHGES4oUYNF0K34N0SXBrqlf9m
+	iHe9q4oJk6j3gnWMPvV3DqFiJpZniSf1+xNqZ7wKvDlClOQhH0Fp/HMNtaLBJ50/K7ej5/
+	3TDVuLDgKuLFX12a2GOdAFq0RE70GbRXykX5uQkZkdGsgbUL+a9ldki61DFDTgVq7eU/f/
+	lBLwlE4Ij4+vxC+7EniQglt00xDl1zn3s9iatii+9dE8IXwNtbRDyG2GEPajlO9lUYMZrt
+	WcOMwSMGwPVves1L4q8rDNTnS5QI32gKTokqcw0HESWONpt+ZnOG6UCwTM24yg==
+Message-ID: <f93de3b97219942fae8e3272f7c65c0d5f9fc9b8.camel@pengutronix.de>
+Subject: Re: [PATCH 22/25] phy: metanoia: add USB2 PHY driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: =?ISO-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>, Rob Herring	
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>, Paul
+ Walmsley	 <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou	
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Sebastian Reichel
+	 <sre@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Conor
+ Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>, Lad
+ Prabhakar	 <prabhakar.mahadev-lad.rj@bp.renesas.com>, Thomas Gleixner
+ <tglx@kernel.org>,  Radu Rendec <radu@rendec.net>, Samuel Holland
+ <samuel.holland@sifive.com>, Ben Zong-You Xie	 <ben717@andestech.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson	 <ulfh@kernel.org>,
+ Jisheng Zhang <jszhang@kernel.org>, CL Wang	 <cl634@andestech.com>, Mark
+ Brown <broonie@kernel.org>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Adrian Hunter
+ <adrian.hunter@intel.com>, Minas Harutyunyan	 <hminas@synopsys.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Randolph Sheng-Kai
+ =?UTF-8?Q?Lin=28=E6=9E=97=E8=81=96=E5=87=B1=29?=
+	 <randolph@andestech.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-pm@vger.kernel.org, linux-phy@lists.infradead.org, Paul Walmsley
+	 <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org, 
+	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-watchdog@vger.kernel.org
+Date: Fri, 06 Nov 2026 10:56:15 +0100
+In-Reply-To: <20261106-mt2824-v1-22-86087eaf5af4@bootlin.com>
+References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+	 <20261106-mt2824-v1-22-86087eaf5af4@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,129 +115,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
- <20261105045406.39871-1-lance.yang@linux.dev> <0ddaf336-7cb7-4e83-af2c-f60d23f7aafd@linux.dev>
- <f7bd740e-1328-473e-96f5-89658a08d514@linux.alibaba.com> <CAGsJ_4zHtv7hBCaW=wdfiM7yA4OJS7pcFomSo22bEzWHizYAXQ@mail.gmail.com>
- <453e2c18-4e79-4db2-b565-1af881925f08@linux.alibaba.com>
-In-Reply-To: <453e2c18-4e79-4db2-b565-1af881925f08@linux.alibaba.com>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 6 Nov 2026 17:56:10 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zLiwYf6LM_BWoZyiYWxvW2H_siZ0QC7FmEHazF_fLa6g@mail.gmail.com>
-X-Gm-Features: AclHuK95LDvF5ZiNBpoPTxiS2rEhGEEMq1D27yisdsMbvX4nhwqVupPOIZSeW-w
-Message-ID: <CAGsJ_4zLiwYf6LM_BWoZyiYWxvW2H_siZ0QC7FmEHazF_fLa6g@mail.gmail.com>
-Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio sizes
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org, david@kernel.org, 
-	ljs@kernel.org, riel@surriel.com, liam@infradead.org, vbabka@kernel.org, 
-	harry@kernel.org, jannh@google.com, qi.zheng@linux.dev, pfalcato@suse.de, 
-	ayushr@modal.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 6, 2026 at 4:55=E2=80=AFPM Baolin Wang
-<baolin.wang@linux.alibaba.com> wrote:
-[...]
-> >>> Ouch ... one thing I missed ... what about order-0 reclaim?
-> >>>
-> >>> shrink_folio_list() only sets TTU_SYNC for large folio, so can't we s=
-till
-> >>> hit the same race there?
-> >>
-> >> Thanks Lance. But this matches the purpose of the TTU_SYNC flag, which
-> >> is used to avoid racy checks with PVMW_SYNC. If no TTU_SYNC flag is se=
-t,
-> >> it means the caller can tolerate some racy checks.
-> >>
-> >> For this case, I think we should set TTU_SYNC unconditionally in
-> >> shrink_folio_list(). Barry, what do you think?
-> >
-> > Baolin, thanks for reaching out to me. I added that flag
-> > mainly for large folios.
-> >
-> > I observed cases where PTEs for large folios are partially
-> > cleared during certain transition states, for example, when
-> > PTEs are cleared before being modified:
-> >
-> > pte =3D ptep_get_and_clear();
-> > pte modification;
-> > set_pte_at();
-> >
-> > In such cases, page_vma_mapped_walk() skips the empty
-> > entries and starts from the next valid one.
-> >
-> > This may result in partially unmapping PTEs for large folios
-> > and trigger unexpected folio splits. At the time, I was
-> > particularly concerned about unnecessary folio splitting,
-> > so my focus was mainly on large folios.
->
-> Thanks for the information.
->
-> > However, I also noticed that a similar race can occur with
-> > small folios. In that case, the folio may simply remain
-> > unreclaimed by the reclamation path.
-> >
-> > However, my main concern at the time was avoiding
-> > unnecessary folio splits.
-> >
-> > Your new race also seems to amplify the same situation.
-> > However, I don't think this problem necessarily depends on
-> > the commit you mentioned. It has been around for a long time.
->
-> Agree.
->
-> > If the concern is reclaim failure, I agree that there is no
-> > fundamental difference between large folios and small folios.
->
-> OK. And I did a quick measurement to reclaim anon and file folios via
-> the memory.reclaim interface.
->
->  From test results, reclaiming 1G small anonymous folios (using zram as
-> swap) shows no significant performance change. However, reclaiming 1G
-> mapped clean small file folios does show an observable regression if the
-> TTU_SYNC flag is set.
->
-> Without TTU_SYNC for small folios:
-> time echo 1G > /sys/fs/cgroup/test/memory.reclaim
-> real    0m0.178s
-> user    0m0.000s
-> sys     0m0.178s
->
-> With TTU_SYNC for small folios:
-> real    0m0.315s
-> user    0m0.000s
-> sys     0m0.314s
->
-> So for the current patch, I'd prefer to keep things as is: only sync
-> when TTU_SYNC is set. Without setting the TTU_SYNC flag, keep the
-> original logic, meaning the caller can tolerate some racy checks.
->
-> Any other thoughts?
+On Fr, 2026-11-06 at 10:30 +0100, Beno=C3=AEt Monin wrote:
+> Add a minimal reset-only PHY provider for the Metanoia MT2824 USB2 PHY.
+> It deasserts the PHY reset required by the DWC2 USB controller on init
+> and asserts it again on exit.
+>=20
+> Originally-by: Jun Chang <jun.chang@metanoia-comm.com>
+> Signed-off-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+> ---
+>  drivers/phy/Kconfig             |  1 +
+>  drivers/phy/Makefile            |  1 +
+>  drivers/phy/metanoia/Kconfig    | 16 ++++++++
+>  drivers/phy/metanoia/Makefile   |  3 ++
+>  drivers/phy/metanoia/phy-usb2.c | 88 +++++++++++++++++++++++++++++++++++=
+++++++
+>  5 files changed, 109 insertions(+)
+>=20
+> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
+> index 105fbe408aa2..73ef61f1f53d 100644
+> --- a/drivers/phy/Kconfig
+> +++ b/drivers/phy/Kconfig
+> @@ -184,6 +184,7 @@ source "drivers/phy/intel/Kconfig"
+>  source "drivers/phy/lantiq/Kconfig"
+>  source "drivers/phy/marvell/Kconfig"
+>  source "drivers/phy/mediatek/Kconfig"
+> +source "drivers/phy/metanoia/Kconfig"
+>  source "drivers/phy/microchip/Kconfig"
+>  source "drivers/phy/motorola/Kconfig"
+>  source "drivers/phy/mscc/Kconfig"
+> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
+> index c6dd02003bbe..57991b50978c 100644
+> --- a/drivers/phy/Makefile
+> +++ b/drivers/phy/Makefile
+> @@ -36,6 +36,7 @@ obj-$(CONFIG_GENERIC_PHY)		+=3D allwinner/	\
+>  					   lantiq/	\
+>  					   marvell/	\
+>  					   mediatek/	\
+> +					   metanoia/	\
+>  					   microchip/	\
+>  					   motorola/	\
+>  					   mscc/	\
+> diff --git a/drivers/phy/metanoia/Kconfig b/drivers/phy/metanoia/Kconfig
+> new file mode 100644
+> index 000000000000..b8a49085bb95
+> --- /dev/null
+> +++ b/drivers/phy/metanoia/Kconfig
+> @@ -0,0 +1,16 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# Phy drivers for Metanoia platforms
+> +#
+> +
+> +config PHY_METANOIA_USB2
+> +	tristate "Metanoia USB2 PHY reset support"
+> +	depends on OF && (ARCH_METANOIA || COMPILE_TEST)
+> +	depends on RESET_CONTROLLER
 
-I'm still struggling to understand where the regression comes
-from. You're doing echo 1G > /sys/fs/cgroup/test/memory.reclaim
-without the concurrent CPU 1 (MADV_DONTNEED) operation that
-causes the race.
+No, it doesn't. This is only required for reset controller drivers.
+The reset control API is stubbed out when RESET_CONTROLLER is not set.
 
-so the regression actually comes from other places, maybe here?
 
-static bool map_pte(struct page_vma_mapped_walk *pvmw, pmd_t *pmdvalp,
-                    spinlock_t **ptlp)
-{
-        bool is_migration;
-        pte_t ptent;
-
-        if (pvmw->flags & PVMW_SYNC) {
-                /* Use the stricter lookup */
-                pvmw->pte =3D pte_offset_map_lock(pvmw->vma->vm_mm, pvmw->p=
-md,
-                                                pvmw->address, &pvmw->ptl);
-                *ptlp =3D pvmw->ptl;
-                return !!pvmw->pte;
-        }
-       ...
-}
-
-Am I missing something?
-
-Best,
-Barry
+regards
+Philipp
