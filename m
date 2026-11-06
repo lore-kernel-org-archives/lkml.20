@@ -1,99 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793990613;
-	b=o2RtRvLrJsMAVfZeLbUPc34mLGad5+otcdqyZDxMmlqJwZLaBXdixvjtqzkAhWuxqquQ
-	 bX4lLihZMM+Ugdt+p6AKHC3CavkukcsgcgMWSNQ49oL3sqKdeZXtQRZZJt9kb62yFXlqd
-	 lp1sBl4h9E/Kf1pBnJDptC0x86yl58224s+VWJDytPnBqemNyHgogesAHz0rxLhil9Jac
-	 lZGB8Lz624H4J1TtOYs0c8U0DN9UWJkTDp1bBkDghjF2uGxFNZ/GYxecZRzNQllBGUvJp
-	 LyGYEHXlFfh3IMhb0gc27l7vG91jcBhsRODM9rryMeFq7FMMXmId1SNq4rt+aODw8gw==
+	t=1793990607;
+	b=hrBhqBG2lsUHz1K/zcLDPcChxycarEDOCDkvfLGH/BW38zsKw8uDRt941QTbrlFehKtN
+	 T9LNv3rTACovRVSZFHcIvcTJax1nKFW1PkO6iB3Ysov3Hi3oibtPS4N1OxfO0BF9f/K0E
+	 g+dfGTyCxF6x/UNKw4mk+MvKstccH7P9bjLhVNyr2++034Y5VPIrnxi7EEuofaKG1MnJ8
+	 RaETzzNDMSIfCMGTN/wP2qVU2JMmMeEEKrH6JaizF2zywu+Ds/d2MY4ZLAGZ5jloByuxU
+	 c3xCkkRnvB6Z+iEIg/4tSEg+HTbMUy+jUaQt/04I5n7hr5UUTQjZyZYMpTEXvfSKSlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990613;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XsmSmsWKQODtDVmAU1jLzUrhG4gQLD90xJrz79Q20oc=;
-	b=wq0v3kykBnFu/7daxumSNiYKi+XjvN9cdwByRRU95RfuXB9dKVlIBEdQOLkvTZ1SJCWQ
-	 UNUUERypAt5VzTB5wD7m2/SSBKFZDF0rL2Z/W5yLI6XdrBBBkbNOsZ8/IqNNXhxgudeK0
-	 Fh45RARIUmZWxuE0watZAJhsiZeOSH0uiyD/7Ic/jdGyUVVyvP+CIpYcMxvUhitZe+SIU
-	 7kTK9dRoV6jbdOfuk0exhzmf7k2F5fXJg3qfCK9WVOy6cdrTJf3t0OqHmnDhs7I3wEApu
-	 OYIO44Pb0Ukl511IFgOaBBotR0UhqmY0tmzJM3bFEUlEHnfVEOsc8X7HAlQ+oVXwBdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793990607;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version;
+	bh=7cDWiUbcFlhnKGjqNM2nYKV6Y4p9T6n4qbUjHUCHRdQ=;
+	b=02j8pPYoA1kcPL0Y0TYtGpz0kOd//6eqNkoXrluvrIKXT+uUNnTw73Yhlv9X2X55pYgO
+	 IKSpLtS1QZMBJFUX9woFgbe9OgwYCyI1FT2HXcvN60ZQ0K3tVqNp7HzK1fk5P4BY9Sw7W
+	 G2OajjS1XpncP2vS9lkgAjFydunyamXMAnkEDqSvRikIy36/xdxPk6AyFXmaH49X/WImo
+	 RgZd5+kV8u9uufE8UOxLkYkpvdc1T9eTHyje7thOHvPNyOkzXIaOqTkIefbHs99+dLdGo
+	 N9BGNVpE1vU/nnnWklelHV+iIw46wav9e+6jvXmsQDxM+JtLOZH1jAEluXvKPLmAL0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BMWL8YiI;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=fail header.from=kernel.org;
+	spf=pass smtp.mailfrom=meta.com;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5360606A331
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:43:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5360606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BMWL8YiI
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-37000e7234bso548072eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:43:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793990612; x=1794595412; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XsmSmsWKQODtDVmAU1jLzUrhG4gQLD90xJrz79Q20oc=;
-        b=BMWL8YiI++mvB2+iBIl7SxpDY70MvHgOpCS3VUgI8aa3d4A19vIjQ9kG4X36UKlpIL
-         PvPbBpBn6lQN+f1BWsYsMt26DLPA6BydGxvfCR4ilo5BkyPF9Z0iDXCuq+dteIBtWI+k
-         O79B8sl/Cr8D/C+BxicSkv4d7j/j1yn4H/HeBW9xXu5XihcfbQISkMEEwUe3P3nZg4sm
-         bA/qlesPeqFwbhnunxXRb4ozrQSqAA/oJ2MDMu8c4ydu7BhNutywIXGQdmRk0ON21+U2
-         e+q18qTOVblBKlyKvbDof31/hQykNmbNB4sOgA1fgTBx1a1wZDlg2pM+JemOJsruILh1
-         SPCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793990612; x=1794595412;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XsmSmsWKQODtDVmAU1jLzUrhG4gQLD90xJrz79Q20oc=;
-        b=08JKICyH3K4wtihsjG0DFJBDfMW1k7PTORFoQj/oxoeldS/9k2Ow8jY8/LLk+tMo72
-         voOKlq/aYeW45j6RHEhZidM4GELEhtKnAJXICrGelP5xK5Ai+u1UXke+jcAO2DUFdizS
-         IRertJ6L3FUppmFZoUCP2uxDVkZoviVh7HxlvW5kSFEhPliBEGRTm3/0MiUOVIpTOZC5
-         vRAJ8Y7fjN4zOv6xCjgczLE2bt//TnWiEM+RZT7jhUEIcvSn553HiylybVjD37fLoeRb
-         rTC8Dxq5LXJxXMgsGyP4DIyhtOcyKxakbOoKrGlmIDozjxTuiZg+JU958J1mzWWJ8S9q
-         XKBg==
-X-Forwarded-Encrypted: i=1; AL+hErHAsu9FLUwDXroSDUfDlw9czrMbpfDOEewkdde40jiw4DTXyAPgilyHnbmxstEO8FCe5J5NyQzEyUwxobs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/IAzy7PrscFuxtqtfnNDT+q9torORNT2rDL2DOcIHEp89aqjlE
-	xc59m7jMGJQutMOAdN2pDws4+S8ciwOVburvJ/3/sXZ8feuXNg6sgABe
-X-Gm-Gg: AYBFou3Cg2Xwx+YkXyb64rWrT6IttMpEU+mjWezZl3LDZ6AvAePx2HN3FahGHK21qEK
-	Sx5YI+ZMVBw0AEp9e0yWWr6HRj11quiweqP92yeujrXSQ7ZKH3O3tww+KU5ymZoe4trXXrKRI3X
-	NKMQmvg2PdN5x1HqWzVj0RvoqBOGJIQ+4L3vMDjDFSWVp9PfidYNHadSCJW/zZI/DS2Zj9b0T4K
-	GNtoWz+Dpxp+Brgil0KRqq4eGmqGlljhM29Xx8tZnGY5PXnhlXuIMf7v3opFBxKgFlvQFaAD4GB
-	k+/OrQVvNJTHPu2QvmpFMKWh28i/BNDZH7zGMt95oH1gmTEJImhW14F0DzMLlRDAKSRcKf93QHv
-	pN/ZH0YCC5C6X+tjRW9sCHyZ3Ei5bCHy4k5loZ8N5Hsd6A/nRVLwAiiTF7p0NTsBetOexRmgzkd
-	PLVLgzH5SCwVafKgXrl80mwq62mNSoRBGpzBW5CF1W6i32FDXeUY1cHWwAdyZilbwr26dYzUJgG
-	L7m/5y6F+FxMC3ekDZA0mmdnRPUY3vqL2Boo+dGp9723yc2VnJ5NtUf8MRlPt+S1gR/3Kds0pZr
-	UQ1Hczjxaswe82Yvv9Xlav+nfF84
-X-Received: by 2002:a05:693c:2808:b0:36a:13df:749d with SMTP id 5a478bee46e88-36f76a1cc4bmr3692769eec.24.1793990611603;
-        Fri, 06 Nov 2026 10:43:31 -0800 (PST)
-Received: from JMD ([2405:201:d028:10ff:eceb:5028:6b10:da7c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9aea414sm8278073eec.16.2026.11.06.10.43.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 10:43:31 -0800 (PST)
-From: Atul Akella <atul.akella@gmail.com>
-To: andersson@kernel.org,
-	mathieu.poirier@linaro.org,
-	sibi.sankar@oss.qualcomm.com,
-	quic_srichara@quicinc.com
-Cc: linux-remoteproc@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Atul Akella <atul.akella@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/4] remoteproc: qcom: Fix bounds check in adsp_da_to_va()
-Date: Sat,  7 Nov 2026 00:13:08 +0530
-Message-ID: <20261106184312.100-2-atul.akella@gmail.com>
-X-Mailer: git-send-email 2.51.0.windows.1
-In-Reply-To: <20261106184312.100-1-atul.akella@gmail.com>
-References: <20261106184312.100-1-atul.akella@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02312606A334
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:43:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02312606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6IdlXl3508106
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 10:43:25 -0800
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hs3r36bbn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:43:25 -0800 (PST)
+Received: from twshared98006.17.frc2.facebook.com (2620:10d:c0a8:1b::8e35) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Fri, 6 Nov 2026 18:43:24 +0000
+Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
+	by devbig197.nha3.facebook.com (Postfix) with ESMTP id CD7B42E8EFD4D;
+	Fri,  6 Nov 2026 10:43:07 -0800 (PST)
+From: Keith Busch <kbusch@kernel.org>
+To: <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>, <shao.mingyin@zte.com.cn>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+In-Reply-To: <20261106230013815Squ68I1R3ds7pODmhHTwr@zte.com.cn>
+References: <20261106230013815Squ68I1R3ds7pODmhHTwr@zte.com.cn>
+Subject: Re: [PATCH v2 0/2] nvmet: fix stale log page data and a ZNS
+ Identify error
+Message-ID: <179399058783.513959.1663411821731805278.b4-ty@kernel.org>
+Date: Fri, 6 Nov 2026 10:43:07 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,53 +66,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
+X-FB-Internal: Safe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA3NCBTYWx0ZWRfX7rdnBzailh8e
+ OPWmoTfCLAd8sq/AWWRcv/5TA2NN4gcRMBVykrUYplTaWrx3BiPjcduqIJygnDcUJVF/Nb2eDa6
+ RqtOzfSxnjRVDVdhKLZOcSEkuQWiwOiRWgJ+7MT/FnVVLDa8qXkyOZrsL+QpCP2k6XZ6sicbyT4
+ TTy6Rd9Afhr5O19b0HLGdSoykzD/vmTFCaX9cDfllU0wRxwzv7khPNZNM52u0R3lpujpmnKvf//
+ j3axsBQCV92GspI2RunIRff8ZMn8oNEOZ/jP6jSwsxcd/Q1euPz/C1EiXPpLWrd9W+VU32+nV5+
+ cxdrH88GkSfglwKmfo2aloRVh+bL4HQ4OfwuICuHY45tCfPxMxn24B9vDIPojnsqyppVxGSm/qn
+ cvZq5oYZK/JCWFOVTLWTUs6wi0T1gT5faOVDiL/mJJsyjxIkHw8J/URLCf8EL4skEyS9HGRjYdr
+ +mwEGlh6i2tCKpKOC8A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA3NCBTYWx0ZWRfX6zu1QKZi/xT6
+ 6RSwAv08O+ypBRNZvxZmBkqNXTNPEpDCtRppMTpDPjXSmEeWqdrvkKOj2JyumR9DtZ/SYQm29pn
+ Ecq3cf5PxHt0JyzfFPKOdQAckzjZYDQ=
+X-Proofpoint-ORIG-GUID: HYX10FUZDv_wZAVvLsaIIH9oGM06b5-8
+X-Authority-Analysis: v=2.4 cv=N468hG9B c=1 sm=1 tr=0 ts=6aee1fcd cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=03ozwUkBphtHgyqjj1sw:22
+ a=1RTuLK3dAAAA:8 a=VwQbUJbxAAAA:8 a=W_VHsVsul2iShNWWr0sA:9 a=QEXdDO2ut3YA:10
+ a=ZXulRonScM0A:10 a=kRpfLKi8w9umh8uBmg1i:22
+X-Proofpoint-GUID: HYX10FUZDv_wZAVvLsaIIH9oGM06b5-8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_06,2026-11-06_01,2025-10-01_01
 
-offset is calculated as da - adsp->mem_reloc and stored in a
-32 bit signed int, while da and adsp->mem_reloc are both u64.
-For a sufficiently small da, the 64bit difference is truncated
-into the 32 bit int, bypassing the offset < 0 underflow check
-with a small positive value. Additionally, offset + len >
-adsp->mem_size can itself overflow when offset and len are both
-large, providing a second bypass.
+On Fri, 6 Nov 2026 23:00:13 +0800 (CST), shao.mingyin@zte.com.cn wrote:
+> This is v2 of the two-patch series.  Patch 1 now follows Christoph's
+> suggestion to zero the whole transfer buffer instead of only the unused
+> tail, and both commit messages are shorter.
+> 
+> Patch 1 zeroes the entire Get Log Page transfer buffer before filling
+> it, so a host that requests more bytes than the fixed structure no
+> longer receives stale kernel memory.  The Error log also clamps its
+> ring walk to the requested length instead of relying on a zeroed tail.
+> Patch 2 returns the namespace lookup error for a ZNS Identify on a
+> missing namespace instead of overwriting it with a successful copy.
+> 
+> [...]
 
-da and len come from firmware's ELF program headers via
-rproc_da_to_va(), and the result is used by the ELF loader
-to write firmware segments, so a malformed firmware image can
-cause writes outside the carveout.
+Thanks, applied to nvme-7.4.
 
-Rewrite the bounds check entirely in u64 arithmetic. Reject
-underflow before computing offset (da < adsp->mem_reloc).
-Replace the addition based overflow check with a
-subtraction based one (len > adsp->mem_size - offset) so no
-intermediate sum can wrap.
-
-Fixes: dc160e449122 ("remoteproc: qcom: Introduce Non-PAS ADSP PIL driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Atul Akella <atul.akella@gmail.com>
----
- drivers/remoteproc/qcom_q6v5_adsp.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/remoteproc/qcom_q6v5_adsp.c b/drivers/remoteproc/qcom_q6v5_adsp.c
-index 46d9169a37f6..1bf87cd0e9dd 100644
---- a/drivers/remoteproc/qcom_q6v5_adsp.c
-+++ b/drivers/remoteproc/qcom_q6v5_adsp.c
-@@ -486,10 +486,12 @@ static int adsp_stop(struct rproc *rproc)
- static void *adsp_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem)
- {
- 	struct qcom_adsp *adsp = rproc->priv;
--	int offset;
-+	u64 offset;
- 
-+	if (da < adsp->mem_reloc)
-+		return NULL;
- 	offset = da - adsp->mem_reloc;
--	if (offset < 0 || offset + len > adsp->mem_size)
-+	if (offset > adsp->mem_size || len > adsp->mem_size - offset)
- 		return NULL;
- 
- 	return (__force void *)adsp->mem_region + offset;
--- 
-2.43.0
+[1/2] nvmet: zero the entire Get Log Page transfer buffer
+      commit: ad606ae5635b68e324005aaa06421be752619dab
+[2/2] nvmet: zns: return the namespace lookup error for Identify
+      commit: 687f3014afcd5826fa3d8f40b445f647b5a379b6
+--
+Keith Busch <kbusch@kernel.org>
 
