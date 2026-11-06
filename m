@@ -1,78 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793931229;
-	b=IMUuvlRSHBULsZOPIMRPUg6XQQTZEf3/yxFfFGQxJWX0OFK7wn1/c/EMV/5t8SHcKnTr
-	 Rr0n88XLEM2XusXYMu83VLaNBFLwjiFwJyuNGvYwQtRZ8AsoJ24CL0Rc+k2TGPKzVDLac
-	 fzWnNJUA5n2cT/0BiLMxurD/w6lgx9YH1qsbfW7LFEHdceEhRUN4z9+oa9zd2Ah0l7ors
-	 mh8IRa9aVhimwJ0lY3xDfbc3e3VvaYjl0zPPD/PyhUzkTegzUb22SCzdKj+FQ8Wu36e/2
-	 1Knx8bydvOkoexdfHAx1ZCOk0VUWtlPzYNETF4pMwkRC7Gxkq7W0y4AHBnJFngaiiug==
+	t=1793931232;
+	b=HueFFd/ffY0An9PElJ4zWiJl7i/dBA1s7XV+sSv2wFd+LVwcBrlQqz+Q0YnIV4m9hiJc
+	 94fy85atPt6r0I/qF/KBlLcN49e8HYG1F32c1+ZXMh3g5E6P3nXP9sc98TDEIs1H6+59T
+	 buyiZ1HdSqRyMcNpS/CziymswLBzy7720v+/w+tPTHS6w13N45XqiGNJOowM+oGX4qO6Q
+	 KtDxW87uZJImynLtQFV8+p8Pci99UjqoU99Z7vV2rigQyDs+pqAEmuvwI2v/CGyhqRGz0
+	 SNXb6jKoBU310/kLspr/xg25xdyyD0AoqVHdEDOe6xTeg/pBToQGQDxi1N16kD2KxRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793931229;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yBKPSv9wPtgQc2D10+KX9vKSUfiTfJxDfSRld3KeklA=;
-	b=d3TiDhl2gMFXnDdL9STit6T08Wh+qMvugNb970CJ7iKyKgEr8zmNz9AEocsbrtycmVUp
-	 4yCbdXSsTlz9R7hsyu8WRnF1mU6IN6+UNgn0Bmr3W/xxvq9DdC1LY3EW4wu/3NX6kO56M
-	 DCpIYpFFBJc6VQa2ogHYYZXkWa2ACpoOtjUysrxIkX6hkL7McVwHn6G0d0zh9VG9QDtxq
-	 26xCkL2FtdbNE4QEVmm+fXL8YNcL7n/ISRMN3jcPWlViXtqQUpG84LuNaqQET6PSLe7h4
-	 0cQ5q+IC+bdl8/QbE3+/UVq21TPAjXU1I1iAgjuJpJ2K904hp8ihLEThwZW8jaCEa+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793931232;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=SwgrBjqkdHVN89k2r7i2yZAHCG31Diqb92PenA1gCr8=;
+	b=Pfzq5CkCRCFtjABDWNi1/moVmNzgRCFl7ceDHZDoexLxz/MSmtmqyoVq7Br+0/2nJL7t
+	 BZ2uiLU8SUzEOe4xq2p7sBM49chbVG7CgGiZcX8rKEsqdqpAs7qISBhUVOrEKCk5os0LM
+	 M9Vgu6E0RgEqkaiavRK9+wMXglMw/pGYcrSYBKkMB0JgQBP45Xaig1F/gJeubO/H6zH+t
+	 77Jpt9oy2l1nF4IDNhXz0uNJUrWTMUrMMoY+TVWbxhLjpi0ua11qVuC2rdze0nxfa6/2r
+	 XGVFcUSPxdnXPNZBPRhLq00UKk5dtqw404CXK2M6KcOgzVHZ2D+xoH/dQh7EVwHSj3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tHl8gJ+0;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4486606A31B;
-	Fri,  6 Nov 2026 02:13:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4486606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m3Em9F4P;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D9B606A32D;
+	Fri,  6 Nov 2026 02:13:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tHl8gJ+0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=tHl8gJ+0qX1w8HAaEWi7zluGSRQ37eZ1Y1z03LcoMKFskjvakFRX09I0hAif/JlxOIlswIt+aDbNb
-	 xYj+3ZZMPi14vA+dvYWKbGRWDx8r4zB17CN3ccTHlvUYV6opRag1fpiZV7bsWmh7gYjrgBeTb59dsE
-	 Hu4CtypZtwl1M+es=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aed37d9fdf-77866;
-	Fri, 06 Nov 2026 10:13:45 +0800 (CST)
-X-RM-TRANSID:2ee66aed37d9fdf-77866
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96aed37d798a-0dae7;
-	Fri, 06 Nov 2026 10:13:45 +0800 (CST)
-X-RM-TRANSID:2ee96aed37d798a-0dae7
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: willemdebruijn.kernel@gmail.com,
-	netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yana06070@163.com,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	willemb@google.com,
-	tpluszz77@gmail.com
-Subject: Re: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK control messages
-Date: Fri,  6 Nov 2026 10:13:33 +0800
-Message-ID: <20261106021245.246267-1-yanxia@cmss.chinamobile.com>
-In-Reply-To: <179387153949.488856.16266299848614841295@kernel.org>
-References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com> <179387153949.488856.16266299848614841295@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m3Em9F4P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 790111F0089F;
+	Fri,  6 Nov 2026 02:13:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793931231;
+	bh=SwgrBjqkdHVN89k2r7i2yZAHCG31Diqb92PenA1gCr8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=m3Em9F4PE9u33zUl2y6LstthDzhfyq4KiXR40nCfdoOgLbNJNF4jB/G4o35jsjeBd
+	 Bu32m130jQCns+cycWPMsKi7uBYNzQibEz6nuQw5Jar9DAEVlYxBIc7uoxf0ZlC13S
+	 zr7eWzKfM89ubx2jRQ2vMlCZNFZPnRvWGJ3xmXP//BA3yVW3HOUJobBxm6x4olJ/J3
+	 Ozb9428qhMeZOhSbxEnFaVhM4m9je+vTe89kaeLXeoEGunJy+1wXuFIgQpPTBmVzko
+	 ajpMRaFFDXnoEfOK+n3ExMWm0SO7U606rnluafcz/GcoQ7OdTOJN1xiSvdkxU4BWRU
+	 y6P4hTT++7Lnw==
+Message-ID: <bd783541-9ba8-46b9-b08b-0bd9d9ea6df8@kernel.org>
+Date: Thu, 5 Nov 2026 18:13:49 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,30 +51,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/13] security: convert VMA flag tests to use vma_flags_t
+To: Paul Moore <paul@paul-moore.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>,
+ SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>,
+ David Rientjes <rientjes@google.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, John Johansen
+ <john.johansen@canonical.com>, Georgia Garcia
+ <georgia.garcia@canonical.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+ Eric Snowberg <eric.snowberg@oracle.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ kvm@vger.kernel.org, damon@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-integrity@vger.kernel.org, selinux@vger.kernel.org
+References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
+ <20261105-late-2026-vma-flags-v1-13-0d3cd15ab75f@kernel.org>
+ <CAHC9VhSR=9YNhBxeFBcTR8wgG2yDP1fW590QKjzuc4Kq9ohaiQ@mail.gmail.com>
+ <CAHC9VhRDVz4M-m_4UZZDKMgs4uc+j-+-jwYEdBDfSD0rtd-1Og@mail.gmail.com>
+Content-Language: en-US
+From: Fan Wu <wufan@kernel.org>
+In-Reply-To: <CAHC9VhRDVz4M-m_4UZZDKMgs4uc+j-+-jwYEdBDfSD0rtd-1Og@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On 11/5/2026 5:22 PM, Paul Moore wrote:
+> On Thu, Nov 5, 2026 at 6:17 PM Paul Moore <paul@paul-moore.com> wrote:
+>> On Thu, Nov 5, 2026 at 4:35 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+>> >
+>> > Replace use of the legacy vm_flags_t flags with vma_flags_t values in the
+>> > mmap and mprotect LSM hooks of SELinux, AppArmor, IMA and IPE.
+>> >
+>> > No functional change intended.
+>> >
+>> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>> > ---
+>> >  security/apparmor/lsm.c           |  2 +-
+>> >  security/integrity/ima/ima_main.c |  2 +-
+>> >  security/ipe/hooks.c              |  2 +-
+>> >  security/selinux/hooks.c          | 14 +++++++-------
+>> >  4 files changed, 10 insertions(+), 10 deletions(-)
+>>
+>> Similar to the other patchset you just posted, is there any reason why
+>> individual subsystem maintainers can't pick these patches up, or is
+>> there some reason I'm missing and they need to go through a single
+>> tree?
+>>
+>> If they can go through multiple trees, can you split this patch up?
+>> AppArmor, Integrity/IMA, IPE, and SELinux are all maintained by
+>> different groups/people.
+> 
+> Since there seems to be a desire to bypass normal procedure in favor
+> of speed (surely that will never backfire), the SELinux changes look
+> fine to me, but please do wait to hear from the AppArmor, IMA, and IPE
+> maintainers before merging this patch.
+> 
+> Acked-by: Paul Moore <paul@paul-moore.com>
+> 
 
-Thanks for the review. v2 fixes SO_MARK sends, including the concurrent
-sk_mark case that came up during the v1 review. Sends without an SO_MARK
-cmsg keep the current behavior.
+For the IPE part:
 
-Willem, you also raised the flowlabel and dscp cases in the v1 review:
-https://lore.kernel.org/netdev/willemdebruijn.kernel.6ba984cf38a@gmail.com/
-
-I'd like to keep the SO_MARK fix targeted at net and handle the
-remaining cache issues separately in net-next. Does that split make
-sense to you?
-
-I'll wait for your feedback on the scope before posting v3.
-
-v3 will also add a fwmark 0/0xffffffff prohibit rule to the
-connected-socket selftest, so reusing the cached route instead of doing
-a fresh lookup fails the explicit-zero cases.
-
-Thanks,
-Xia Yan
-
-pw-bot: cr
-
-
+Acked-by: Fan Wu <wufan@kernel.org>
