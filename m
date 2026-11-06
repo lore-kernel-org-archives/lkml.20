@@ -1,134 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997566;
-	b=J0TnNKapgUlWpig31lfia1VLZBZ0NeabITBj/LzJDnxMAnMMMlXGEaoNsvs6tpEyHb5b
-	 g2qx3+rYDV9ebgOUvP0klks0rc0XPYffy3maz7tPOnXQ0i2LLdDnsFQd/P5kq3pgyraSR
-	 +ysSVSSOxVt+eMW/fCUFd9Iy23oOFD57d1qK55gkWB46frgBH9C2KGBb7p2ukV8UQr7LQ
-	 DmvNFmL5WbGDri4ltNoa0X7miVUSINa7nvlsMnZVjzUfBfUyApl+JYV/K0z61YMIkHEaW
-	 OXsyrduOhhmsFnzuiNkzJV8LxghyvlNZlZ1taEc9/eFSwd2lX5g8rBSqPbU529tp7UQ==
+	t=1793997594;
+	b=5eWMxyDICP798zEipuOLVrjPlTXiUZPwnYXdtKJcMb7rzv/n1aMM7u99l5L3X5vSknQG
+	 WE+SoRwhxi3lqgNalOCmG0APG5Hmd4DO9fhTWg9t9FAGbH0sTDYNTk5eeHZiZ9CoSKdUZ
+	 BwZcZ+mzTozEhLw1MJZREEY5yF6+4Hh8HPp6TMHXzt41qEC+8mWl6M58lLUsbyunsxH4T
+	 caxAjmD0Vs5V9Paqk49QdGdXd0nGZVsB8E4gMYbheo7CMSmZ9fe1tvG9IK/+a+lxXeNNm
+	 m3myggQmIpPcKWmuq6It/vvxhGljk6cAsfa5bVpZzE4HUb7EFdb2hzaMV9CHeu+QbRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997566;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=y0BVziaquUjVVAPoh4llDs6v2FQ9OhndML7IsF84gsc=;
-	b=GYS72dnHvNU6oFKQzRm1ZhBsEsiXp1jRWlEN/M3I33K8MUshYVJT/VeAcSk5GwB2F9Jy
-	 +hQn4Rsl5ytqfbkSRv7N5H7mK1xH8Ve9QIwgcy0qdzCXskaTDkBwVg/me7aq+9tfS6PyU
-	 EqQFSzHbRPpz8bBpdV2VNpzvD0M30pZFrqxN4/U4eB10wIvS8UbG+YuwCrN7WnAL2cdUw
-	 xYU5uf6G3eXCMCDgEv3WZWx9BImzUs9qa9BLrSwgK3eH85igHs8BcyFEgV7JLXcfrDEXk
-	 mKLtkpjUsXhMNnl7ifnoP2TKGu6THyosoRzTNClGor3fuMP6l0y18T9jnjlWKJb48jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997594;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=wJrOzcEQroAAuzq1S9zpcuWlXHd3ETBGQmhVYJ/5Neo=;
+	b=5eMWSrcjSrp+h5gRrGc/W6jcvUKGooGCv5ljbhfyNV+eqaSWC51TGbQAOK2cWUO7QOCd
+	 xcn/Nw4vF3uXBXi4dF4kakzwNPJz+sMTsiC2/7PyP4OFyTy1eSUDhqmSvltrjSrGV6mE+
+	 px1xsiN+rFWS//iiJZ+9LZniQ0aH4ZRzCn9pZb0HVjN+cYo8ZpWlcT4pUpesv4BPRqjsJ
+	 hFDJMQvv1VoVETn05RIKaVI9g9OOpxuL43UAQ1i+3Bm++fffLoYtz0KEqxVPaU5WMw9g3
+	 Vx5BMV0nMVo3mymjtpt10rbf+TItJfyk2sO5+/EmybbdnBQvnW/IJqEntRLcD9kqleA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=QFns8ebX;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jnaNMHw6;
-	arc=none smtp.remote-ip=103.168.172.146
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVgxCtXr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D80D606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:39:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D80D606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8854606A326;
+	Fri,  6 Nov 2026 20:39:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=QFns8ebX;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jnaNMHw6
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfout.phl.internal (Postfix) with ESMTP id 785DDEC01DB
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:39:24 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Fri, 06 Nov 2026 15:39:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793997564;
-	 x=1794083964; bh=y0BVziaquUjVVAPoh4llDs6v2FQ9OhndML7IsF84gsc=; b=
-	QFns8ebXFo0UFvT6+ZHPsjuq+ghcluonVEII3xNwxed3tzNZSMo0BDnZS3wq9lKo
-	0t5PE6BPBfCVD/nTpgG5nwaqP6/OX3R5qJ6KDfKf1RgOt86qNBb+s7sM0+uWuMIZ
-	H1+IEctvDJOBnF2LcVuu1jVTd2xWcB61EbuTFQIQIY6cKRq611Yhpo1ZXcNt2Xis
-	2v3z+2PCZgSpn0JazvwAKLS6Iw3/OgxnSfXbPL6M5J2U2zc2E3qYoNejg1j7oTJo
-	Yui5sKMjD7NzhcqC60CUNh3OL5V5TQjQ1hySMnCfJlm8QSwulyGCXh8F9s2KAaGF
-	Ghwbe1SB3VWQSdmDM4MrIw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793997564; x=
-	1794083964; bh=y0BVziaquUjVVAPoh4llDs6v2FQ9OhndML7IsF84gsc=; b=j
-	naNMHw6TOkiuBhQIxtaTCEmuvzmoa6wH6SL5N5kjy38vB1ucE+V8i3AQd0q9rb+h
-	dldrUfO0DPZZ7Xxim5fi08xJdLrHF71dihHNdTahXafS5oWt/OIW2/CRNjJyR2Th
-	Ceg0bMTZN1v2YKd3FqFuqnqqlF9W6ZQzYhUtp1OXeqCOD6tO6r207r/Pyp9eCoUi
-	Uw55yiI876gdEhjtzdmyFfHYJsoi75/Puatt0AasECt38B/r3sLUaKb69pATEuwf
-	CHPVG9LA3cl1um+RnAOjwiWRYFvutWcLPZc6M1LqemJvgeeZDdEVSBXXLQ7IQNtS
-	GZ5G+BAFYDz01NzSmuuAQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793997564; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:yWfiHDxG/jhvN2eK0Fetz7gXET88B3PIBbQNd3/VDwOoJ+z
-	dqFxu2YMw2A9kCHxZtYgdGFSQwIMg2b9ihnIce7xMrwtoZ8iCA1UswFiOOQJKg9X
-	KHWH8TrIHu0/hz/pqARpYSfGfYUAEFo+NDl2v/GUwsqGlCc4DwAPqsNendXCASno
-	0hQVjtNWGWWlymf8XPYZDOuQ98nbIQjLlCAdBRVkd8ewqdF+Hz8Wekyjj6806Y6L
-	BSmLFy3mmeMnS0S4kqxTod0qJkry8rvg9bWF6R7/CjyPMGy4pHI8hI0itT/pjJsr
-	g+IPkbjWoQonXjcJYlUhOX3vuV39ftjeGWvTc5A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:TC2OAASFXc/kqGL+CunvWFfjUQDUXEFfcgl8mkejbCw=:KLM1XTdGORKLzVXxMM2+MBqBSSgPSj1LNFXBZwNORQc=;
-X-ME-Sender: <xms:-zruapswx845re28jK7E-OISiOWhgLdGEzbA0gYJ4Jaukh4q8ERM5w>
-    <xme:-zruagGv_oYl0JasYwTqNuMV9YfG4cqnE57Xk0ZmwUhwx4wfvWkkZcKjTNiOcHNH5
-    f1ObK33XWf7tyXP_cUBksnGPcFiyply7mFddvMfjxbMyfhNaK9-Rg>
-X-ME-Received: <xmr:-zruakL7z03VZTgAiqT4Blwr0mVgipsBhSTSBlaAlE-iTpTJR0DAEzose6zAjw>
-X-ME-Proxy-Cause: dmFkZTGIbL7eiEY7X8p/l+CeUB7m44a61PuMeL+fbY3aREjzPUsLlzqVekELJvtGSYzY/I
-    nO/9fOkHagfaTDpr/q7Hu4ec1OgxpJzeR1b+u+/9ylFLL0hiPQ7Q5WGOti0WTlU639UET8
-    W0OANyCth0cdOR2e7W6mWO1PJHdl/BResgCHiTxzvLlqq3zCDX3wvzLg16WhpWjXSqlvxH
-    89LRMj0xWkNEZ4qN6TB296bhwMUVIMYXaAmu9mgVoI4iM8H8vundo/2ymieM+LgoFiwTPq
-    IhQxBsWs0Ga7dr1x8oM6/9wnzhBZVCQvByhcFz33jTVizQNgL5tYw3VmrPQxyPhLIvxifv
-    H7QY9kPySOCsFJrhxoC6uqsSDc1GcMOACH3r7Wrmfr/jnoMJGP58FMF4t2RcELJnfT33jD
-    je5SutMzSelw6oN50vcX7lIELIN9R0dR9ohFPMT4pfg+q7rmzgKEPWOhidL3uG4rHDfx8E
-    bdsoBTFLWpPoCvbhqBhLI+776dylwZRjCQk6W/hoGKw0YgFB8jgrcJoIK9CA/qxfCdKgtu
-    VpseP5mr6Y0vLjZMqZAROvOolYbNFuQE9hVhhbAwSnSVTI/Gge+4z1RvnWcKgImEeF39T+
-    OWgDl/6GYLI6UCeWNQ2UCfPZamPvO1USkUaKy4natYDrfR6Un0JmtJhr1VyA
-X-ME-Proxy: <xmx:-zruaoYTS6zaXrUnuamRBu1QXRKhqDl6CLVkSZ2bn8QMmD4Yem2QHw>
-    <xmx:-zruahps8Qx_fewfGVvHRM6AEFA-RYq-3pHwGw9P3jodAEu4HSumLg>
-    <xmx:-zruagHkcYHQpi7Qlk7TjgwSxyJUT48sIqyc-BBi0duFKzQbget_zg>
-    <xmx:-zrualdFIYqEPdPn5BJgS0ePxXMEsDJW9LK7HWSjS1lZq1TJQzK-pA>
-    <xmx:_DruatZac4csxBguHlwKZ6baZZokuGozy6Fj434FxEBTDO-Hb4g6MpQ1>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 15:39:21 -0500 (EST)
-Date: Fri, 6 Nov 2026 13:39:20 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: <mhonap@nvidia.com>
-Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
- <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
- <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <dave@stgolabs.net>, <alison.schofield@intel.com>,
- <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
- <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
- <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
- alex@shazbot.org
-Subject: Re: [PATCH v6 09/31] vfio/pci: Advertise the mmap areas around
- excluded ranges
-Message-ID: <20261106133920.144f0665@shazbot.org>
-In-Reply-To: <20261016161839.2765592-10-mhonap@nvidia.com>
-References: <20261016161839.2765592-1-mhonap@nvidia.com>
-	<20261016161839.2765592-10-mhonap@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVgxCtXr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9FD1F0089F;
+	Fri,  6 Nov 2026 20:39:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793997593;
+	bh=wJrOzcEQroAAuzq1S9zpcuWlXHd3ETBGQmhVYJ/5Neo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aVgxCtXrKIKwV8BnPAbg6C+6la+unNBGjIKGvx+9KLlUBqQAXpkd/70UiPVgVgMuU
+	 3+QI+vakOCthsK8j83gsY1JRor1AzSMzzfxRHfZY52bAzZzu8QlY+zkyAbSfIGPEzb
+	 ZvUazqMRKyeGzrvpvPQtk/X8PKqxLi3z8vx5mHaEvWs3OA0I7Lcei1jwaaJ9nguRv8
+	 o3dAtHq9PWJknTdDCMYOi/Op6pED0XiqbzvowCqbc3nrQpsgQzAh/18lsd+tnJq5/C
+	 F6PwxZGfM5yCCQqFHUVvmaN/hKYILeFVYwVRQu5SX9LWK44IXvpNA2IaspTLIXBGx9
+	 CfzZWcUAPmMOw==
+Date: Fri, 6 Nov 2026 14:39:50 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
+Cc: devicetree@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Dragos Bogdan <dragos.bogdan@analog.com>, linux@analog.com,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, jic23@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ad7405: Add
+ ADuM7801/7802/7811/7812 support
+Message-ID: <179399758998.1528830.11972412583872645520.robh@kernel.org>
+References: <20261105093531.7562-1-pop.ioan-daniel@analog.com>
+ <20261105093531.7562-2-pop.ioan-daniel@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,163 +65,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261105093531.7562-2-pop.ioan-daniel@analog.com>
 
-On Fri, 16 Oct 2026 21:48:16 +0530
-<mhonap@nvidia.com> wrote:
 
-> From: Manish Honap <mhonap@nvidia.com>
+On Thu, 05 Nov 2026 11:35:30 +0200, Pop Ioan Daniel wrote:
+> Add compatible strings for the ADuM7801, ADuM7802, ADuM7811 and
+> ADuM7812 16-bit isolated sigma-delta modulators.
 > 
-> A range excluded from mmap must not be reachable through an mmap of its
-> BAR. Refuse an mmap that overlaps such a range, and advertise the BAR
-> with a sparse mmap capability that lists the areas between the excluded
-> ranges, so a VMM maps those and traps the rest.
+> The ADuM7801 and ADuM7811 have the same ±320 mV full-scale input range
+> as the ADuM7701, and the ADuM7802 and ADuM7812 have the same ±64 mV
+> full-scale input range as the ADuM7702. Apart from that, software
+> handles them the same way. The ADuM780x support a master clock of up
+> to 25 MHz and the ADuM781x of up to 50 MHz, which needs no special
+> handling. Use the ADuM7701 and ADuM7702 as fallback compatibles.
 > 
-> mmap is page granular, so each range is rounded out to whole pages, and
-> ranges that meet after rounding form one hole. The sorted list gives the
-> areas in two walks: the first counts them and the second fills them.
-> 
-> A BAR without mmap-excluded ranges gets no new capability. The MSI-X
-> table is excluded from read and write only, so the MSI-X BAR is
-> unchanged.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
+> Signed-off-by: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
 > ---
->  drivers/vfio/pci/vfio_pci_core.c | 91 ++++++++++++++++++++++++++++++++
->  1 file changed, 91 insertions(+)
+> changes in v2:
+>  - use adi,adum7701 as fallback compatible for ADuM7801/7811 and
+>    adi,adum7702 for ADuM7802/7812
 > 
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index bee3d1b4d8d2..f099a294af34 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -1106,6 +1106,88 @@ static void vfio_pci_free_excluded_ranges(struct vfio_pci_core_device *vdev)
->  	}
->  }
->  
-> +/* True when [start, start + len) on @bar overlaps a range with any of @flags. */
-> +static bool vfio_pci_bar_range_excluded(struct vfio_pci_core_device *vdev,
-> +					int bar, u64 start, u64 len, u32 flags)
-> +{
-> +	struct vfio_pci_excluded_range *range;
-> +
-> +	/* Only BARs have excluded ranges; a device-specific region has none. */
-> +	if (bar >= PCI_STD_NUM_BARS)
-> +		return false;
-> +
-> +	list_for_each_entry(range, &vdev->excluded_ranges[bar], entry) {
-> +		if (range->start >= start + len)
-> +			break;
-> +		if ((range->flags & flags) &&
-> +		    start < range->start + range->size)
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +/*
-> + * Advertise a BAR with mmap-excluded ranges as the mmap-able areas between
-> + * them. mmap is page granular, so each range is rounded out to whole pages;
-> + * ranges that meet after rounding merge into one hole. The first walk counts
-> + * the areas and the second fills them.
-> + */
-> +static int vfio_pci_excluded_sparse_cap(struct vfio_pci_core_device *vdev,
-> +					int bar, struct vfio_info_cap *caps)
-> +{
-> +	struct vfio_region_info_cap_sparse_mmap *sparse __free(kfree) = NULL;
-> +	u64 bar_len = pci_resource_len(vdev->pdev, bar);
-> +	struct vfio_pci_excluded_range *range;
-> +	u32 nr_areas = 0;
-> +	bool holes = false;
-> +	u64 pos = 0;
-> +	u32 i = 0;
-> +
-> +	list_for_each_entry(range, &vdev->excluded_ranges[bar], entry) {
-> +		if (!(range->flags & VFIO_PCI_EXCLUDE_MMAP))
-> +			continue;
-> +		holes = true;
-> +		if (ALIGN_DOWN(range->start, PAGE_SIZE) > pos)
-> +			nr_areas++;
-> +		pos = max(pos, ALIGN(range->start + range->size, PAGE_SIZE));
-> +	}
-> +	if (!holes)
-> +		return 0;
-> +	if (pos < bar_len)
-> +		nr_areas++;
+>  .../bindings/iio/adc/adi,ad7405.yaml          | 25 +++++++++++++++----
+>  1 file changed, 20 insertions(+), 5 deletions(-)
+> 
 
-The number of sparse ranges is bounded by (num_mmap_excluded_ranges +
-1).  We're dealing with a very low number of excluded ranges, bounded by
-insertion via kernel drivers and core.  It seems worthwhile to avoid
-the duplication with a simple list walk that counts the mmap excluded
-ranges, then all of the alignment happens once, and the resulting
-nr_areas is calculated as we fill.
-
-Note that with the use of __free, it's generally recommended to
-allocate at the point it's declared and mixed declarations and
-statements are allowed for this.  We can therefore do the declaration
-and allocation after we've done the simple version of the counting loop.
-Thanks,
-
-Alex
-
-> +
-> +	sparse = kzalloc_flex(*sparse, areas, nr_areas);
-> +	if (!sparse)
-> +		return -ENOMEM;
-> +
-> +	sparse->header.id = VFIO_REGION_INFO_CAP_SPARSE_MMAP;
-> +	sparse->header.version = 1;
-> +	sparse->nr_areas = nr_areas;
-> +
-> +	pos = 0;
-> +	list_for_each_entry(range, &vdev->excluded_ranges[bar], entry) {
-> +		u64 hole = ALIGN_DOWN(range->start, PAGE_SIZE);
-> +
-> +		if (!(range->flags & VFIO_PCI_EXCLUDE_MMAP))
-> +			continue;
-> +		if (hole > pos)
-> +			sparse->areas[i++] = (struct vfio_region_sparse_mmap_area) {
-> +				.offset = pos,
-> +				.size = hole - pos,
-> +			};
-> +		pos = max(pos, ALIGN(range->start + range->size, PAGE_SIZE));
-> +	}
-> +	if (pos < bar_len)
-> +		sparse->areas[i] = (struct vfio_region_sparse_mmap_area) {
-> +			.offset = pos,
-> +			.size = bar_len - pos,
-> +		};
-> +
-> +	return vfio_info_add_capability(caps, &sparse->header,
-> +					struct_size(sparse, areas, nr_areas));
-> +}
-> +
->  int vfio_pci_core_register_dev_region(struct vfio_pci_core_device *vdev,
->  				      unsigned int type, unsigned int subtype,
->  				      const struct vfio_pci_regops *ops,
-> @@ -1254,6 +1336,10 @@ int vfio_pci_ioctl_get_region_info(struct vfio_device *core_vdev,
->  				if (ret)
->  					return ret;
->  			}
-> +			ret = vfio_pci_excluded_sparse_cap(vdev, info->index,
-> +							   caps);
-> +			if (ret)
-> +				return ret;
->  		}
->  
->  		break;
-> @@ -1947,6 +2033,11 @@ int vfio_pci_core_mmap(struct vfio_device *core_vdev, struct vm_area_struct *vma
->  	if (req_start + req_len > phys_len)
->  		return -EINVAL;
->  
-> +	/* An excluded sub-range is reachable only through its trap, not mmap. */
-> +	if (vfio_pci_bar_range_excluded(vdev, index, req_start, req_len,
-> +					VFIO_PCI_EXCLUDE_MMAP))
-> +		return -EINVAL;
-> +
->  	/*
->  	 * Ensure the BAR resource region is reserved for use.
->  	 */
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
