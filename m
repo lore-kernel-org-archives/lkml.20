@@ -1,96 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987884;
-	b=V0p6WnoJFJ3rsi7EMnQEXxihofGgd35QYLJVA23TikwSIQsQ/ZgPUnqkKga3OxboRy/y
-	 Ax6LV3Y7AGRtXRlFbfjiCTDvAW253zA/SHMCh2T/FupoEEj569UX+W45OiM0GquwUQeiW
-	 DKltdjkdKUdBq9b04aZmWkNdRFF6p4F/VoSRk9ykf3q243A7UFankk8p2P6VdBPdHctw2
-	 jh4bkL7G+V1AVDCr5PDSufclkVotZrSwBFOAnREsfvCDQkJ1BrvEiUepQnFHs+mOOSdHz
-	 nMG6v31xSRhzDLN/w/mwifxhlvvGQEuZPrTWn9iGgJk6eOsNvsSH+QrqoDXIbbl4FYw==
+	t=1793987879;
+	b=znGF5psj/VnQFHch9p6xGCwp2OGnd93u/zVCc3MH3lEWNJIcnAKGb2z934SnQlGcuRCj
+	 AnUk53WimgySAXnsCOBfs45U2i+OYAHjJkMwspq5py9FXn6wjv4VSd/47fKdLVQxG2oao
+	 tNmWQ56UiwS8i15VVCI1XqikAreUBejQd4+rU0DrTWojVcCJgVCdsodTyiKiDYqR8LH/I
+	 W5r1BJZJ4pjGNsWaMBVvFgvDUcQ8JxJDU8l/Ar21LbdtGKT00stm5RuCzwyS9JZ41JT9T
+	 OEFCVuPT5eAoWJST3XATuKoxTzHZmNTq++9eDjVSWzexz35ev0ktNO5wfN+X3rDcC+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987884;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987879;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=a15VN+jCu3B1XSBa24cW34JdNvW6biC29j8hroS+/qA=;
-	b=i/qk462yR/uqnHpj/QGhHxhFfXS0zjqrGhekcBawb9S9ZrtQBUwbNXBn89vcBEEO2Is4
-	 7umwEx1UL9REDYSERCc7jC2xTovTidP/s+jF53GQSHk5Rx2ZzrwLb1t9aqh44kBc43ERi
-	 D3uy4cIMSZMgi+vpH8bNRLMX3bx/vi1pOjZJFeAkTlMt1bseT6GTdJ4IrQZU+SihFXX4x
-	 EfKDmLD5piiqLaP8eZsTRAuz+1EkieLFJ0AH798K99t6wjUNekKpG9T2wsirSjDtm8iS/
-	 tl7H1sZXXPJUxzU0vWqo+YnJnFPs2Pe2iGXDm5za4V/+GD7t8lCBWvGawumX66Lm0lA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=voDoMNlhMmskvRoNZqg2fTx8P1tixWjDbm8HuJ9K4dA=;
+	b=t+ynNV2Kt5CpQr262NHXQi5Iw3btmvbB8/2vCPckmcE2VX/KrtCHbkGcMItzFKvS912I
+	 XvbZk9IRm9GMTl427YLJEtTY1g9AO9o8y9WSXstlax9+L7vsfk53Z+LbTpl49xgcVUz6G
+	 LXjOH5uKmcEeD2Ltt98DsWEUGB9jhsnxXabb7KSco1VeRhpcj0OsK2y5W4guRNwmX7TtH
+	 jh/sksgyopETSNjncIgcbVmA1OVmeYx4BmcbJeMJgDEhWcP6btyYTv0WJTCJdVHMQeKXR
+	 /X/XVOWMNWfyiQg7+2YHlItlZzm7Dq8TpQ5N9BCdYEXaFVpOoAFPdCJ0lowlDhgynfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=dama.to;
 	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MDnmLk0G;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=G3HViOdO;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA78606A33C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDA78606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5275C606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:57:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5275C606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MDnmLk0G
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso396589a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:58:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=G3HViOdO
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso676749b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:57:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1793987883; x=1794592683; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a15VN+jCu3B1XSBa24cW34JdNvW6biC29j8hroS+/qA=;
-        b=MDnmLk0GiJDtRvTa7rGzfrFLnLm5HhiK4yYkw80BDldZiGtLzXNUJmdv+kySQeX1VP
-         1lflO8pw3GDwG6HuCB2iT/IUFuUKWvUgbxPGNf0LtgPdS4MRr2tLgGSrKnm7mU2PAz/h
-         y2jNeunkWybBSYM2Tf03mTs7Q0Hkas1jq8ysHjx6frlAERZGpsB4mT8JcKuucb3znPgU
-         Vc2LVM4ZF0odCZxUFo6jql/0oo8Z54oIBIZ3v3wpMypdzcwmHPilW/zVL4s5ScmTGrrw
-         12a04uFqZo56A0FJ5ApPV48aKCTGenn597bpFP9+2xQptfYQhzSEwFYnr0WNhCWsqiG8
-         2Ztg==
+        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1793987877; x=1794592677; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=voDoMNlhMmskvRoNZqg2fTx8P1tixWjDbm8HuJ9K4dA=;
+        b=G3HViOdOmLqaB2Kcvg6dE7Aksy4a4FYV9KQmpeInft48jpobbG0B2bc4In9hFcRkzb
+         vXlJtIZmLUHp9rECiQmVNeHqt00YWzSv1aPj/wn+twwaHNDPzbMJLwFb+vsWNSz/4owT
+         Bg15qB0sCpdqIRxCJm3mRLZiyBa5c3TMTPDMSzBoNh/yX0kBfBmeSm2RnmZq30eXSjW0
+         BuLcBYZvbSTqvlBI6deXu388O1qm1XB+z+dqUzhJssyO8SdDcxA0TVmCcnLhM5FS8TPs
+         h7liaopIUy5WMMMWDOGcr5qLcypEGcXt0jlHruC2rkoRzi+dIT0/d0AD+/ynwX8sCJ47
+         tHFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793987883; x=1794592683;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a15VN+jCu3B1XSBa24cW34JdNvW6biC29j8hroS+/qA=;
-        b=uOCNCFGKRSoryzkOlGvJJwbWqIJ1a2C/gJD4XPRZD1kF074XRe4rbMr3/qhw2aKBOE
-         1Py1RoREdZ69/aiAYM7ZYNRa7aAUsPHyvaoOoYTGFnBRMvIw5XC29d6C0pGBYMM058JC
-         jOGOizEthqUMW2U83XyjR5tJVXVZ5hXmKCx5194975MgWHqKxxq+GIG9ip6uYp/HaWRL
-         eXro0aX9SyvuzHSKQ6E3zMQEumPGVFS0h7aTNnP+GyYQFUAahV/vbBNQkYuEenHhzDFM
-         YE1r+H/zedCWota1z7+qt6MRwfpwGtgEdfDtr4rW8o1sTf7mXtCkon5s7Q2MhTs9qdDG
-         h/pg==
-X-Forwarded-Encrypted: i=1; AL+hErE3AelGhd2EiGRNS/E0iiNhsidTFssRsK5+cOuhGaSQFSiZwrY/xxw9irHvSH3ibWYFq24IUoa9OtuOmVs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+oDgUWxZji+/oP2ce+xetXgrY8cq9TbWoEA3KkSKHFiTuOVoRO
-	XuXp+FMcNFTGAODEMjtblGCqVqr9h2NzSDGiafM9mgmmh1lUpPRFJKdVwi3VnfsAzLI=
-X-Gm-Gg: AYBFou2dGrQjKlF8QP0B+82hyLKyPCqJCmJrJlksPnsXqGs1YuulgQL0uUKGzYpmcpH
-	cirzsyTVgCVsQT13TyyKortSx6p1LKDuwDrPdnqLg2Fug0IRJqDplzosCMLID6F+9yeAG34dHbG
-	j0SVJn2jjJZEP7BfP4CmM+VmEud2IzBDUcLCEAlHVxEHig0eyNz5qo5fdnWwheOvtKQi1d3i7Bi
-	P5iAUcgcCD2ofrXuMenafwQ1X//ccSJAAVndet/yDpIobJJmbVvff0GwbA+OEUcxOIYblkbIScl
-	hJhOLwO+oslfUN4elrTA/eHEUtjjdXZhlMdT/kbCD30/hObzviIIcRL1iQrp2lvVpqKZI5Nb09f
-	BaVG/R4Lc714poNCqAUe4HLV5aQjRerY5g4tfqOkdOW/7QGETPsQuzGhoXT9/Kyn0tS2z+23ulp
-	emlH6pIxlg/HiFCirhIxsK5ZWQ3t62/p588z0G+gDg4HwWN/0YLvv4q9IMablSP9Ksz67VoDhHa
-	o+5hm4l+6Vc6Ffx1GVsvHiDGXnqSOExRDHUPrmyiiwQLYKYR0W+cbJFAr9GbE/UNcM21n4UoZmd
-	6pjMOnUXqzjMz0g+eymz8j8z80frnWATqsfadpQ2Cfa+pPt3wJg+w+NGI2ERHbKI
-X-Received: by 2002:a17:90b:5703:b0:3a0:abc3:afb5 with SMTP id 98e67ed59e1d1-3b0db6f46bemr3110575a91.34.1793987883162;
-        Fri, 06 Nov 2026 09:58:03 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:4a::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb70661c97sm891550a12.5.2026.11.06.09.58.01
+        d=1e100.net; s=20260707; t=1793987877; x=1794592677;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=voDoMNlhMmskvRoNZqg2fTx8P1tixWjDbm8HuJ9K4dA=;
+        b=fyTIGfbuUCUAlhIN7zAFi4k6ncklsvkaPWk9J2xechTDjwLZfya9BWBreYvhe+zZU6
+         5kC/iMb/sUpCKNbpxhBE+GUvpIs72P8Yg7/jGsrvYxM1Rx8DGGMarOX9mT/e9fjjN6U1
+         0TyuONlGIJ3qdtJ6N4iBRsIwg0VmHdA37PyB50NS8+x+xsV8v0LU6SYZKxZtDq0fQe09
+         EJC2qf+b4jsCpy26gSOqYGyY1+MK9AviIqBifqK+RZ61qjGp0ZLGAbhcbdRyG9zatmeh
+         HR7evEfTH3XUQkKm8KiTD8Ua0q+7IyxmohFn0dFx14MHIV/YWJtRK+Gc4cUUfQdEIzFQ
+         Ib+A==
+X-Forwarded-Encrypted: i=1; AKwUvBw+6aIALcuMXnfjDgxWrQULJHJqW/kizBG/B9k1VzOkvY54fNsA/xCXwuWSSd2/z4Dx1l+IbiBNZYm1be4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3CD6ObdvJkz7u9gg1Cc3hE3gTxWVPpQ40xKO0Y3jEKk4ZL7pe
+	32QZ7fta6wXZq/QHgfp639J+T/b/jFFRVcH1+AxnrlNFOZluHn+z3FfDdmA8u8Ef0cY=
+X-Gm-Gg: AYBFou3MrNKHCJYOjCGfVtCfyHIh3xQ640zqlsu8Gz6S1p331QpguCkYd40Hq1yuuhN
+	0XVAcStpqtKivQ4/RslRfCFhAGPldtyenRhsxeS9J1S7g/wULjhBT7kbwE1DaxyIC1cyvxI7u1R
+	0+lxbfrr0uKIDuph9unQrezyrGmgE9YahZKg0dXhVutAhtQKYKMqKWjfkw5VnhDoJoJsGiab3cj
+	ye0R+SLadrA+7uwEwa8ig2FN/uihmsjNdgqJJG9Q76rK/7lzsiqmdK527XP+LybupwDDwUMf6GP
+	+cDhNhiFocYxH54pr6+XUN/IXcUlT5B06aFSa7I1tMHnQRVOPZz7UXYYj60HQ4xAcWYoJ78mkJL
+	16PNRqByaOOG01QhEy+9E4rRz6vPtSM3BEDC/Qn00M9/sEGQpRBvs+AGMGO5Oyv6yOVKqEgwZ+Y
+	lZLqPNJ1DeK2ffT088Q8HWyrd7Xn8lbbg0wU3J6lWB9vapvH76d+dThDn3sf0frZ3jY7eXBANkl
+	q7hPT9IPrFAaPF3GLQ2hPK/ic7eir+EpFPeUIm+LlPoB9hqOswBIk5WIDAABPqiMeWJhIUkIDd4
+	NLC13h9xnTDsxNnF/n5U7jxjbKJAMYsRZcDpZUhoieo=
+X-Received: by 2002:a05:6a00:8c0f:b0:89d:faf6:c69d with SMTP id d2e1a72fcca58-8b37c9250b9mr3510452b3a.58.1793987877466;
+        Fri, 06 Nov 2026 09:57:57 -0800 (PST)
+Received: from localhost ([2a03:2880:2ff:50::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3597f0539sm881137b3a.31.2026.11.06.09.57.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:58:02 -0800 (PST)
+        Fri, 06 Nov 2026 09:57:55 -0800 (PST)
 From: Joe Damato <joe@dama.to>
-To: Robin Murphy <robin.murphy@arm.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>
+To: 
 Cc: Joe Damato <joe@dama.to>,
 	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] iommu/dma: Skip iova_to_phys() on unmap when unneeded
-Date: Fri,  6 Nov 2026 09:57:43 -0800
-Message-ID: <20261106175745.3362057-3-joe@dama.to>
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	linux-kernel@vger.kernel.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	Will Deacon <will@kernel.org>
+Subject: [PATCH 0/2] iommu/dma: Skip iova_to_phys() on unmap for coherent devices
+Date: Fri,  6 Nov 2026 09:57:41 -0800
+Message-ID: <20261106175745.3362057-1-joe@dama.to>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106175745.3362057-1-joe@dama.to>
-References: <20261106175745.3362057-1-joe@dama.to>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,37 +100,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iommu_dma_unmap_phys() looks up the physical address of every mapping
-with iommu_iova_to_phys() before unmapping it.
+Greetings:
 
-This is unneeded for a coherent device that does not use a swiotlb.
-Skipping this saves a page table walk.
+iommu_dma_unmap_phys() calls iommu_iova_to_phys() on every unmap, which
+walks the IOMMU page table. The physical address it returns is only used
+for devices that are non-coherent or use a swiotlb.
 
-iommu_dma_sync_single_for_cpu() already skips the walk for these
-devices, so do the same in iommu_dma_unmap_phys().
+For a coherent device that does not use swiotlb, the lookup is not
+needed. iommu_dma_sync_single_for_cpu() and
+iommu_dma_sync_single_for_device() already skip it for these devices, as
+does __iommu_dma_iova_unlink() for the dma_iova_link() API.
 
-Signed-off-by: Joe Damato <joe@dama.to>
----
- drivers/iommu/dma-iommu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Patch 1 factors the check out into a helper. Patch 2 uses the helper to
+skip the lookup in iommu_dma_unmap_phys().
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index a25ee287a5ac..c4a5fac4f7cb 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -1260,9 +1260,11 @@ dma_addr_t iommu_dma_map_phys(struct device *dev, phys_addr_t phys, size_t size,
- void iommu_dma_unmap_phys(struct device *dev, dma_addr_t dma_handle,
- 		size_t size, enum dma_data_direction dir, unsigned long attrs)
- {
-+	unsigned long skip_phys;
- 	phys_addr_t phys;
- 
--	if (attrs & (DMA_ATTR_MMIO | DMA_ATTR_REQUIRE_COHERENT)) {
-+	skip_phys = attrs & (DMA_ATTR_MMIO | DMA_ATTR_REQUIRE_COHERENT);
-+	if (skip_phys || dev_is_coherent_no_swiotlb(dev, size, dir)) {
- 		__iommu_dma_unmap(dev, dma_handle, size);
- 		return;
- 	}
+I split this into two patches because I thought it would make review and
+bisect easier, but I can make them a single patch if needed.
+
+One behavior change: for these devices the WARN_ON(!phys) in
+iommu_dma_unmap_phys() is no longer reached, so unmapping an IOVA that
+is not mapped no longer warns there. CONFIG_DMA_API_DEBUG still catches
+this class of driver bug.
+
+I tested on prod hosts serving TX heavy network traffic, which unmaps TX
+buffers on completion.
+
+Intel Xeon Gold 6138 (Skylake), VT-d:
+
+  - iova_to_phys() on unmap: 119-143 ns per TX packet (~0.5% of busy
+    CPU) before, 0 after
+
+AMD EPYC 9334 (Genoa), AMD IOMMU:
+
+  - iova_to_phys() on unmap: ~10 ns per TX packet (~0.1% of busy CPU)
+    before, 0 after
+
+So, the performance improvement is small, but measureable. The proposed
+change removes redundant work in the unmap, though, making it match the map
+path.
+
+Thanks,
+Joe
+
+Joe Damato (2):
+  iommu/dma: Add helper for coherent devs without swiotlb
+  iommu/dma: Skip iova_to_phys() on unmap when unneeded
+
+ drivers/iommu/dma-iommu.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
 -- 
 2.53.0-Meta
 
