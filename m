@@ -1,76 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793996211;
-	b=otUDWronZcAjGc9VtyZJRsUj3Ez1XfWM5sNEH8OFm1ynJkH/qWeb0kHOSQzuw+g1kEhF
-	 yW+Py9F6z9/YIKzetMXZq+pGCY4x5jfbHuRhuUzjtwPomMhtzbD7OakvnlZB73PhRoE0U
-	 SAtPwG6LVgfQr3Hnj6yoBpo44GvVZo7prna5y0Zm44N9yoyVqkWyU8KUjHt/Jzn3AnWkG
-	 Be8Wjj3GJdZsce93vEJimBy+CJ0RNQB/walBfBBLBfvTDkFR1WTDnhLxS8qvMAdmARwvi
-	 QM48GcpcJHRq/+Voz4ynwlhKyeKELRd0ovUx5vg44Mygp5mnjyz1kf9SvGf0aPuO/Pg==
+	t=1793996320;
+	b=IiV7NrzkWD3+j2jDv1VcxVFuP0ahZThxpG5CMHZ8pMJ03+koABAXLSxFkZqYS4X5SA2y
+	 lkohJajuqiUtw0t+Zpq5ZfXeSy227N5i1t22W3lFgKw2Z/+dhhTnN7radEelK6VT7nD+1
+	 H0v4kaauBAcnJ80cEdS9pVx0rMVctxVbeWWWGgQBjYFYvNSW1JWHLtq31Yok1TnbeSKRC
+	 7fmMEPjN0khhM1aDP/UuEGG16BG6lroAdl/GKmS1KddyO/eWLRx2SaRXx+plt0wwp8dcN
+	 RxjdvznRh6wcyEUFi68UGKvZRgH6XSHt4ymW+EcoxEwL74Kj0LxOMXvHFPNw0OCefEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996211;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=R/6NtbUQa5rkUAX4civmd/KFyWhiZkN3OJg5FyiXEDE=;
-	b=VlZXATE55YkHQpDqkv4im4HuXroX731LBJwqs3wZGd73rmzCOSxl127KesBHBI1mh1Cu
-	 8qvjubqh9VdNl12ejZ+xQrhtPKB1z2q6B3l1AJNuUb8Uo1e23+ikjMe1zKYbvNrrIIjbi
-	 jzQ9IPOD+j4kwlxYs2Iz5+kIwVB9NYYBoo0uaZDjg3erVRGVeJudbsWWUkHTbK5JsWP70
-	 5Yed78LQK8p1WXx4aN1ZdoKArXYCHDsZDhCRDuxnbEHFttKlKL6wcXXAoDsnz3SGFkmoF
-	 p0aofhCN8v7L0ROSHwFUc2I0ZbsYKKM+Z+lUaInuDn2CuY8oHrHjGQ2OVbeqpvVarSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996320;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=F7fQsHw/LRcfh1BCfg6ekMNR4e0098O9EarWCOnY1i4=;
+	b=PXZw6ZjZ2xOdh19kOTlIrfbap4OdUSScRV61AHfWPk2gT/HaFn/HvfSpujaPzCe3fcUi
+	 L/t5BR9uKtmF0c9rKj5OKuNFfolphgnRD1Tlf/GHQF8Y2Eu5qG+KaiGutUp8gKjayYpV8
+	 sdIxJYVK0Z9ZjT4GcC5A6wmvy99nWZPf3z0U7uOdgzGkz9lDqewgL6nGwPy5gcDPZ7BSi
+	 qeDqwIedQfqRG2f54xhhFd3eXVduMWy9T/meRoceu77eGFhfiAYS9agkqVniVLrITzTgB
+	 ch9EdD2MqL1u+4ByLdft+3JltdH1v5sAZGS0qenoRT9irrTDsq5/7zjSU2RLaonhRMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BS+ME5yG;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GUWsEY3y;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DA5606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:16:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11DA5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4773A606A331
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:18:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4773A606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BS+ME5yG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793996210;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R/6NtbUQa5rkUAX4civmd/KFyWhiZkN3OJg5FyiXEDE=;
-	b=BS+ME5yGPtHaeOQaSQ6S5H45e6bcykKAEip/Zar9t/yWKm3iaP+spX/NnuT9ltKHYKnhQn
-	/Q8ZoFR/5Ebgj8Zfn/KHJ/Ss33HHrcCUnQjR5wr2C3cjJCtHgAxEM2DVDUjnzaxk33BCEr
-	2F6lWs82AnoJJCGTosabiEVgKtPxf6M=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-362-fFPtTvuUO9euKw-Ve2lkUw-1; Fri,
- 06 Nov 2026 15:16:46 -0500
-X-MC-Unique: fFPtTvuUO9euKw-Ve2lkUw-1
-X-Mimecast-MFC-AGG-ID: fFPtTvuUO9euKw-Ve2lkUw_1793996205
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GUWsEY3y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793996317;
+	bh=2SHu5LqL4nbO5DBRC11DYAEvUpJB/1avdF8wS3M0G10=;
+	h=From:To:Cc:Subject:Date:From;
+	b=GUWsEY3yNz5v4hqgJ8ZZ5DaJQHIh3J1/xkG3Ntk/bHaxA9WW5zWOMnBZzTovz2D9e
+	 MsGnR8XvwPajXm6exKw4RBjfvojUPDLNedDOgw7KD4k5+PlIc1h9kwLhRPnRPAfAA7
+	 zyXo7jL4SJ1miKo5t0mqc6EuwJQsj9kd9OMaQVjHUgtnsK42o9a4emoD4Yr/IRzQzz
+	 0sQtlaYGZPvT5FyfQWsa06aB9Hq0GIzB1ira6SegHpbb5eFWJ8qmyjgWK4+JZFGGfJ
+	 VS/sets+r4Q3rnWcr6cVI1rxU1y3YTgT8r6rIeQLPexn5zuReBcBc3VnDdmuVUza9g
+	 czMTYI+Bf1dZQ==
+Received: from archlinux (unknown [100.64.1.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F3A8618007E7;
-	Fri,  6 Nov 2026 20:16:44 +0000 (UTC)
-Received: from dechen-thinkpadp1gen8.rht.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8790E3920B;
-	Fri,  6 Nov 2026 20:16:43 +0000 (UTC)
-From: Dennis Chen <dechen@redhat.com>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	linux-pm@vger.kernel.org,
+	(Authenticated sender: leandrohrb)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A7C7D17E05D6;
+	Fri, 06 Nov 2026 21:18:32 +0100 (CET)
+From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+To: louis.chauvet@bootlin.com
+Cc: airlied@gmail.com,
+	alex.hung@amd.com,
+	daniel@fooishbar.org,
+	hamohammed.sa@gmail.com,
+	harry.wentland@amd.com,
+	maarten.lankhorst@linux.intel.com,
+	melissa.srw@gmail.com,
+	mripard@kernel.org,
+	pekka.paalanen@collabora.com,
+	robert.mader@collabora.com,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] powercap: intel_rapl: Expose package CPUs in associated_cpus
-Date: Fri,  6 Nov 2026 15:16:42 -0500
-Message-ID: <20261106201642.231167-1-dechen@redhat.com>
-In-Reply-To: <d10e4235-dd25-40e6-b682-bf7530ab931d@linux.intel.com>
-References: <d10e4235-dd25-40e6-b682-bf7530ab931d@linux.intel.com>
+Subject: [PATCH v2 00/12] drm/vkms: improve color curve LUTs precision
+Date: Fri,  6 Nov 2026 17:18:01 -0300
+Message-ID: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,31 +79,56 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Hi Kuppuswamy,
+Currently VKMS only supports uniform LUTs. Besides the userspace
+provided LUTs, it also represents color curves with LUTs, as it can't
+simply implement the continuous curve formulas (floating-point would be
+required).
 
-On 11/6/2026 11:41 AM, Kuppuswamy Sathyanarayanan wrote:
-> Is there a user of associated_cpus? Neither perf nor turbostat reads it
-> today. The "any CPU in the package" support that turbostat needed comes
-> from commit 7537bae8b6eb ("powercap: intel_rapl: Remove incorrect CPU
-> check in PMU context") and from is_rp_pmu_cpu(). Your patch keeps both.
-> 
-> If there is no consumer, I would prefer a plain revert of 525e0064f3d8.
-> It fixes the issue with a smaller diff and does not add new sysfs ABI.
+This adds support to represent color curves with non-uniform LUTs,
+improving the precision significantly. It also provides a script
+that can be used to create these LUTs.
 
-There is no userspace consumer. My idea was to keep the flexibility for 
-userspace tools mentioned in the original commit by exposing the full
-set in associated_cpus.
+The optimized LUTs use more samples in regions where the interpolation
+and quantization errors are higher (usually in regions with a steeper
+slope). The LUT generator script compares different strategies and uses
+greedy subdivision, which outperformed the other methods, to generate
+the optimized LUTs for VKMS.
 
-In that case, I will send out a v2 as a revert of 525e0064f3d8.
+For now, only the existing sRGB and inverse sRGB curves are replaced.
+Support for more color curves will be added in future patchsets.
 
-> This has been in since v7.0, so please add Cc: stable@vger.kernel.org.
+v2:
+- Fixed a few minor issues spotted by Sashiko bot
+- Added reviewed-by and tested-by tags
+- Rebased
 
-Will do.
+Leandro Ribeiro (12):
+  drm/vkms: rename VKMS_LUT_SIZE to VKMS_GAMMA_LUT_SIZE
+  vkms: properly compute gamma LUT size in vkms_atomic_check()
+  drm/vkms: allow color curve LUTs to have different sizes
+  drm/vkms: remove TEST_LUT_SIZE
+  drm/vkms: remove linear_eotf
+  drm/vkms: improve the way in which we access LUT member
+  drm/vkms: rename struct vkms_color_lut::base to y
+  drm/vkms: rename get_lut_index() to get_uniform_lut_index()
+  drm/vkms: add support to non-uniform LUT for internal color curves
+  drm/vkms: test sRGB and inverse sRGB LUTs using more samples
+  drm/vkms: add script to create optimized LUTs for color curves
+  drm/vkms: replace uniform sRGB LUT and its inverse with optimal ones
 
-Thanks for the review.
+ .../gpu/drm/vkms/scripts/color-curve-lut.py   |  573 +++++++
+ drivers/gpu/drm/vkms/tests/vkms_color_test.c  |   48 +-
+ drivers/gpu/drm/vkms/vkms_composer.c          |  127 +-
+ drivers/gpu/drm/vkms/vkms_composer.h          |    2 +-
+ drivers/gpu/drm/vkms/vkms_crtc.c              |    4 +-
+ drivers/gpu/drm/vkms/vkms_drv.c               |    4 +-
+ drivers/gpu/drm/vkms/vkms_drv.h               |   13 +-
+ drivers/gpu/drm/vkms/vkms_luts.c              | 1469 ++++++++---------
+ drivers/gpu/drm/vkms/vkms_luts.h              |    3 -
+ 9 files changed, 1397 insertions(+), 846 deletions(-)
+ create mode 100644 drivers/gpu/drm/vkms/scripts/color-curve-lut.py
 
-Best,
-Dennis Chen
+-- 
+2.56.0
 
