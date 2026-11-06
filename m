@@ -1,99 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793983423;
-	b=nUQ2uaveQYk/hasDKPAqCS9kxqpycJQp93zZu2hzfDnZzj2HDjwRIf8F/3ObL/q8ljeO
-	 ezQFOC4Cu7Ia164Z6mwLRjMlhic7mzQiF7c6PqBLDbqmmVfhkg9j20xCQv4UJ3iWcaA5D
-	 TgVcoZxGHfOJhwIdZ5KhQlesK2+IYRLnmONzSyJu1mXgjqrxAGCuszcIKrzt7gOIRRfru
-	 ZG7q+O/7l7FpyvoUNltj1Pz4JesiZNwLtsGXPgYm+R4NXOAwOY/DtQ2+i6lU7+ROwjrRO
-	 QcqljgA5jPPqAggfFNHELE+X3slSXOmkihZbLzxe37qU5l+Hz8N5MCHTN80hd2hIUMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983423;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=tMALTkMSIX3ME5CabQqRd1nuB5iY+47EVIa07+/bvI8=;
-	b=1KyAD6LDZlwtQ4vfFSFtjL3xDcWDiERiRNY/0rXnAPSc1KpERrBafxaKTpHh0kzf1R+9
-	 Ro+JdbLFTLfVmpMJTpeUs+IadatpwFg62tx7SxTlJ8X06ETfTrYEYBHKEu7EnIT0ogkAV
-	 1OAEa//0B0qAsYOecH8clYpU3UvjeZWxj+YLNWAL2BwIWYfw9uXspg8IKVfJxFiCkpX47
-	 zX93cI3aZCuxMTbukbBnvlgw3F4hdcfAZs0/cxWDYEi/ADcUwFB87PG3x9z4UZg++BBs3
-	 A2MHdfMVFsNDHeO/bKt5+7Js2CKBsJaSY9kYJhyTdv4YPHTeLOv1bNiNLxK4RcllJJQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uaWwPo4P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793983417;
+	b=C3WjW6URcH8S/VRRgWQRrXXc5SXT2oxn3zeEzbQg27mEBz3s8o4v/YvoZAIkCLZAYXy5
+	 2VGd4LuVjbdBucUNMArg5rLpPAKGr+W50aqD72zcJD2jy6Q4do2MrW77xLMMhS1QG7VZ8
+	 qWU7FBNCAzAXoHRxg1x/PWHS+P+UTsq4zWncwhLeSK6D+2yVYURRJf0429pdojpV2/rS/
+	 +4nlQIpzwDH4J5SGf6Z5QwJOzPRnCCAYoB/aXDz2qI0F5SOm5H+g9PZdstMXfgqEbknoC
+	 PIcod+GQewPNxQAxfOBUR3TYnLesqrb2MXtukmONiNoiycGrJoZMf7drGW8dlt8uWsQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983417;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
+	 Content-ID;
+	bh=us6ixY8W3UTKAej6p/8rxcwNKirAySpEJwx0ogy/mTE=;
+	b=LsqXth7cpETyn2i6i4nLxFnHd5hmBb7Kjh0VpHwqUpYpvVIWOmWoZSqaW7taXABldqBF
+	 vMC8xzYVjthDSPChnuukPdFQFX44hoEAtEEg+f5ixW1uwWbrQdNo20e1slbAfMzsqJzGZ
+	 dG7PQTmelEsxCgR3lZGGES4nWX7LKVFNsDLvoF4cjHWQYjkh5F+GeDlovRGQivm4fWsC7
+	 EJ3ZG0zsMawcChkQD85C5CFO9fmLtxd3gDio/IikcAI7I9S34e3+qlNEkEGuhjQtsGNkq
+	 ln6xB+hxPToAr+nt+32CGlSNBQMAVwalYJbgsHLzR4dq3OJPy+XRNXxgTogVoO50vjw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WQOIdibp;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E31606A32F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:43:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8E31606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61B8606A326;
+	Fri,  6 Nov 2026 16:43:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A61B8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uaWwPo4P
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b581b6b0e9so1011184a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:43:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793983421; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cq7h7t6/S3oeXDj7Cu4vbGLzlW54IshbvLj4bbPSPunVBbFkGXS1zffVUFQ/g9Ocwx
-         oNHw+a3cjrStFpjUMOmrlO+KhwIGFIFCMy/xJX0HOy4w4kHfulDWDdqshvJamLqf8vd0
-         gE002Kf20mNQwCPqAyJG8cv+SksptAsYtv3Af1xYeXDOWyMyskkVioc8ydfFCZjfctnu
-         Eiqke0gsJ3AlOnLM1JrDxqMgElpb1Oij6eZ/q7KARLPMHypQa9AxHU/gNYZQllOtamLC
-         gqI//ge/fKGqUcE6ZJ3Jjp63ohNvAkS/jAZBkBil3gCT+hdL6SyJX3WhZFYlsTla9hsp
-         FZxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=tMALTkMSIX3ME5CabQqRd1nuB5iY+47EVIa07+/bvI8=;
-        fh=TvOPQyUQS4bL4eDK5hSAbB94S7pt9KP0K9pSr693DhM=;
-        b=JEmxiZ+uuaCcCJvmkBr0rF8+opcrt2a7DUoXfx7ZfyeLWvD09dgbYXO0Iu4HjlkJRC
-         SU9kkwQXIRARNoemkm/6Lt8Lz/SPUL2not2aemunByeY/3U0QZTlX9Bd5XXzk/GTQPzw
-         cnKTV7IkH8G1REvszpxwD8WtFaoJdLarJu64rwqZ5aPnuJef4MkfFGyvzO4XCIaaZj3Z
-         vhG0lJyFRBtDL7KOgS0DGL3odWYZdG9awMKjpX7GGGim3qQX8n/rO7ttic3J5wI5m0Up
-         pJqj58g+2bevwskKPbt/pxde+S3wjA0sKOGYHq9Mbt3M8O90DY+JJWjhRmeD5yGzUt3W
-         BtUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793983421; x=1794588221; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tMALTkMSIX3ME5CabQqRd1nuB5iY+47EVIa07+/bvI8=;
-        b=uaWwPo4PNXumAn5F5++/JBucJVmBGf5DrcZX8G4qSUDHJqnupBOyH5baGwJN1LNzQy
-         F7+FSppVU6Xjwj84O09nWVm2jsfjxC4WTsRasQ1M/T6cYplCGrX818lp6PbMNpGw+YnK
-         IbJTR33IKCkt4vhZidsIWUOGatYSaBaRHt8Htzgv0EHW9+Kgz48zZK5qbE/8n2Ymn6Uo
-         Bi4BB0CieSQjBRD1+kKm7dJL3kG/BejC999zF776fS2RLQvO2iaVrfHiQ0UQ3l57Z99F
-         D+dxl439N1XWz2B7zAAJAZdS/beoOlO51FPIePzu26fXxr044m9qraE5+vAgOgGfL76A
-         /DuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793983421; x=1794588221;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tMALTkMSIX3ME5CabQqRd1nuB5iY+47EVIa07+/bvI8=;
-        b=CaMFSyOwo630HKBuMk4rxCIYGlaSSeK/Zi1Poyog451uksNhx2nWMvWtn6XVqYm9JH
-         pBdugALSW5SmYQTNUaYd0bDpb4h4Px/Gu9itRFrFReTM1/Le+4MZjZmDr4EJ2sNVQvOX
-         2Rxfi6KiRFG+WMgB5R5Am8LhUIenC9rJMiikwitWh7H3lTay391GJ4Ae3ZUpKHsb3S1H
-         0XMkxQJ6ilQVgt2DZPie2wmfpOPalzEhYa7A0hkwm8ZZhEtJJ1E7R1mzPbjI9rF3TD1e
-         68/5iO/JGq+v5Drr9gQyey0jY5vsObLJXwoD75oURYS4QQUNV0BAR4D4gxIUqspc14Lr
-         qdWQ==
-X-Forwarded-Encrypted: i=1; AL+hErEAQPEdOudGKMvmoqbDf+AnohGNp0Dmu+T5SZo28t5pR7xGqyyY0YNjQDSAcx3U2BToVL/NjdlwJZBiPlM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95dSoLFAl7W4CGbhA/aCJhkxAV1kqPD2h9tB0sDiHfSgdE2O9X
-	L4m58kn1K9//oQpFBhrOuBEO5xPwP9A+lD+IDk4UziGzXuQzWAirh6Y41lcDpEKSCTuF8wp4fte
-	C6ZulCF+BLF0dSFbHea1JvZf7d1Ek6MbTrF8Qzj1Q4UcwNfwzI8msl4Y=
-X-Gm-Gg: AYBFou0rKT5X4oEZa+WQzqhS4Xj1nrMjqP3rw4e/V2xT2BUF9qKZh2tRuki//quGekT
-	VHKdOk3X+3yukh5Ld0qOGw6KWNBlqspZ0MCbP/YRXJlVmBdzpxdJTLNLTIQVAY2D9ijrM4sjplX
-	ThT7KtuDw8iPqOWkshaD5hRZ3THd4ILquGVsyGmNfGtSjHgiBG41oToz1PYmAV476HfcMjka9Ui
-	iTptcByBHvIbOl3dn2L6Gh/8jKwOAglxhk+mw9ZiOdg6gtnhZ4NbGr3ph5VcNdt8QV2hB8Rft5V
-	kZTSTxLehjmhfOrBvsBSTWzHPDW1NEyYMtZcZml+FkPUrYLvZ49G5d9GYZtmyCcIH0UEcwvsnX4
-	saRQ+m1u6XwEA8VB5MUoS004sO78CWQxoHVKj7wNuuCPtAliLgN7w9s8n/guK/5kO0eAU6Q==
-X-Received: by 2002:a05:6402:2809:b0:6b5:8247:7bd2 with SMTP id
- 4fb4d7f45d1cf-6b59752e5ecmr2382134a12.3.1793983421020; Fri, 06 Nov 2026
- 08:43:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WQOIdibp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793983417; x=1825519417;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=MtAYB1Tc16jEdD5vhwGbhz2IBJwJwK45LUW1VZ9l3ec=;
+  b=WQOIdibpbGoc3kokl2XcV4sEFM//v69CxzigOglgTRj9A6cj+a0fig3J
+   KAsOx5US2oraQIlzTmELNqSEcpYoJNPGPp2txaEHYJg+d/FxfOQTPMHRM
+   az8t6rAZm0Vb6P3e3Rkwq5L+Q3pv8nTtNsxHLWfrY7VkGDdZXPKRliQBq
+   PvS52uEr8tf4ud+9x7aCBj9xq/QRnrmg255r+Enjv6bLmHzYZ8JKe8KtU
+   CUD3oWBgSCCxHCBT4pKS5xev2hnxSlG4xMN2hsVn4i6t51f/a4TbnUEp8
+   sW7N6sLpuI6JdSN3i3yIEhitdXMNyhdZ5EXFES9+Qd3jebMgpuWelnkUo
+   Q==;
+X-CSE-ConnectionGUID: uiA/FdHoT+eQXVHKRkQGBA==
+X-CSE-MsgGUID: LlH+TfToR8WclxR3Pl3EyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2697224"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2697224"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:43:36 -0800
+X-CSE-ConnectionGUID: gKRMVcsrTWmqOuLPEHXQFQ==
+X-CSE-MsgGUID: p7eGWecCS+awl3UuXaUivQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="9080995"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.104])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:43:31 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 6 Nov 2026 18:43:28 +0200 (EET)
+To: Nikolas Joshua Britton <nbritton@exabit.io>
+cc: Maciej Grochowski <Maciej.Grochowski@sony.com>, 
+    Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>, 
+    Alexey Fomenko <alexey.fomenko@intel.com>, 
+    Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+    Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
+    Rob Herring <robh@kernel.org>, 
+    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kw@linux.com>, 
+    Mesih Kilinc <Mesih.Kilinc@sony.com>, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v5 00/14] PCI: Resource placement algorithm fixes
+In-Reply-To: <20261106152642.23118-1-nbritton@exabit.io>
+Message-ID: <a4723f5d-b948-b5da-4f86-4c822bd2d8b3@linux.intel.com>
+References: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com> <20261106152642.23118-1-nbritton@exabit.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,144 +85,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CANGjgd=yr4Zy+SMUsDnBSw05hhn9086NVc9g9SaG0y804=WWrg@mail.gmail.com>
- <37fb82ff-ed5d-41d7-91b7-afe4379a636c@linux.alibaba.com> <CANGjgdkx8DJLjD-j86p7pUqY+uNukSHqHyOFuMfK5YqSAX6knA@mail.gmail.com>
-In-Reply-To: <CANGjgdkx8DJLjD-j86p7pUqY+uNukSHqHyOFuMfK5YqSAX6knA@mail.gmail.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Fri, 6 Nov 2026 17:43:28 +0100
-X-Gm-Features: AclHuK83tz4prU1XgdIH6VmPsnrpjq62FwhlAceTLKXcfpxZGT4RYIeIEQa_8X4
-Message-ID: <CAKfTPtCJVBpZNm7bVUSQZ01Q-iStNZvdz6BiNw1NN9+7y0+=mA@mail.gmail.com>
-Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
-To: Chengfeng Lin <lin2530632123@gmail.com>
-Cc: Tianchen Ding <dtcccc@linux.alibaba.com>, Mike Galbraith <efault@gmx.de>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; BOUNDARY="8323328-2046532658-1793979215=:2032"
+Content-ID: <f9d0a09d-42df-fbfc-27b0-d6763622f861@linux.intel.com>
 
-On Tue, 3 Nov 2026 at 10:46, Chengfeng Lin <lin2530632123@gmail.com> wrote:
->
-> Hi Tianchen, Mike,
->
-> Thanks for the suggestion. Disabling DELAY_ZERO also improves the
-> 15-worker pipe-handoff case here.
->
-> I tested the same v7.3 kernel image across three fresh boots with
-> DELAY_ZERO on, off, and on again. Both 333238da9a19 and DELAY_DEQUEUE
-> were retained. I ran context_switch1_threads with -s 15 and -t 2 or
-> -t 15, keeping the native CORE affinity on the same eight P-cores.
->
-> Each entry below is the mean of nine runs, using the native 15-second
-> post-warmup measurement window. Throughput is in millions of handoffs/s:
->
->   Workers     On A       Off       On B     Off vs. mean of On A/B
->         2    1.156     1.159      1.158             +0.17%
->        15    9.172    10.425      9.165            +13.70%
->
-> The largest within-boot CV was 0.60%. The 15-worker on-again baseline
-> was 0.08% below the first one.
->
-> GNU time's counters from the same calls, covering the whole invocation
-> including warmup, also show a change in switch types. At 15 workers,
-> the mean involuntary share of context switches was 0.36%, 41.48%, and
-> 0.36% for on/off/on. These results are consistent with your handoff
-> explanation and Mike's point that the added accounting changes
-> DELAY_DEQUEUE's behavior, beyond the cost of the update itself.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-333238da9a19 ("sched: Update time before requeueing delayed entities")
-fixes a bug in how the lag of a delayed dequeued task is accounted.
+--8323328-2046532658-1793979215=:2032
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <f5d1156c-9447-0811-6b74-38981169920a@linux.intel.com>
 
-Let take the example of 2 tasks TA and TB running on root
+On Fri, 6 Nov 2026, Nikolas Joshua Britton wrote:
 
-Without 333238da9a19:
+> On Fri, 6 Nov 2026, Ilpo J=E4rvinen wrote:
+> > There have been major changes so any retesting is appreciated (the
+> > 4 candidates patch is largely the same so I kept the Tested-by tags but
+> > everything around has been changing so even that is on the borderline
+> > when it comes to the validity of the existing tags).
+>=20
+> I retested v5 on the Mac Pro 7,1 from my report (two Vega II Duo cards,
+> four Vega 20 dies behind two root ports, BAR0 resized to 32G on every
+> die).
+>=20
+> v7.3 and later don't boot on this machine for reasons unrelated to this
+> series, so I tested on v7.2.15 plus 5012a6953208 ("PCI: Do not add
+> hotplug reservation multiple times"), which 11/14 and 12/14 depend on.
+> All 14 patches then apply as posted, and drivers/pci/setup-bus.c and
+> drivers/pci/setup-res.c come out byte-identical to v7.4-rc1 + v5.
+>=20
+> Every BAR is assigned, both root port windows are 96G, and all four dies
+> get their 32G BAR0. The first root port:
+>=20
+>   pci 0000:06:00.0: bridge window [mem 0x9e800000000-0x9ffffffffff 64bit =
+pref]: assigned
+>   pci 0000:07:00.0: bridge window [mem 0x9e800000000-0x9ffffffffff 64bit =
+pref]: assigned
+>   pci 0000:08:08.0: bridge window [mem 0x9f7ffe00000-0x9ffffffffff 64bit =
+pref]: assigned
+>   pci 0000:08:10.0: bridge window [mem 0x9e800000000-0x9f0001fffff 64bit =
+pref]: assigned
+>   pci 0000:0b:00.0: BAR 0 [mem 0x9f800000000-0x9ffffffffff 64bit pref]: a=
+ssigned
+>   pci 0000:0b:00.0: BAR 2 [mem 0x9f7ffe00000-0x9f7ffffffff 64bit pref]: a=
+ssigned
+>   pci 0000:0e:00.0: BAR 0 [mem 0x9e800000000-0x9efffffffff 64bit pref]: a=
+ssigned
+>   pci 0000:0e:00.0: BAR 2 [mem 0x9f000000000-0x9f0001fffff 64bit pref]: a=
+ssigned
+>=20
+> The second root port (14:00.0) has the same layout at 0xbe800000000.
+>=20
+> Compared with v4, the two die chains swapped ends of the window: 08:08.0
+> and the windows nested below it (09:00.0, 0a:00.0) now sit at the top,
+> with the 2M BAR2 at their left edge. That is the case the dropped
+> nested-window fix covered, and it still assigns without that patch.
+> amdgpu binds all four dies and compute across them works.
 
-- task TA  starts to sleep and is delayed dequeued with a negative lag
-of -1 usec
-- task TB becomes the current running task
-- During tick, update_curr() updates TB and moves forward its vruntime
-(and avg_vruntime) but it is still behind deadline/vprot so no
-resched().
-- TA's vruntime is now behind avg_vruntime (i.e. its lag is positive)
-- task TA wakes up just before the next tick so TB has not yet been
-updated for the last ongoing tick (up to 10ms)
-    enqueue_task_fair( TA )->requeue_delayed_entity( TA) ->
-update_entity_lag( TA ) -> TA lag is cleared and TA vruntime ==
-avg_vruntime == TB vruntime at tick N-1
-    wakeup_preempt_fair() --> update_curr_fair() -> TB vruntime is
-updated with the ongoing tick, avg_vruntime move forward by almost
-half a tick and TA now gained a positive lag of half a tick (up to 5ms
-capped by its slice) whereas it had a neg lag when it slept. This
-positive lag for TA is wrong as well as the negative lag for TB
-- Because of this wrong positive lag, TB is ineligible, and TA preempts TB.
+Also the candidate selection precedence change impacts ordering. TBH, I=20
+liked the v4 order better because it really tried to preserve the left=20
+edge for large blocks better but there were just so many corner cases with=
+=20
+it so v5 now uses the largest contiguous size before the largest natural=20
+size. I might revisit this at some point but getting these regressions=20
+addressed in mainline is more important than perfection and my=20
+preferences.
 
-With 333238da9a19, the main difference is that we update TB before
-updating TA lag to make sure that past exec time has been accounted.
-i.e.:
-- task TA  starts to sleep and is delayed dequeued with a negative lag
-of -1 usec
-- task TB becomes the current running task
-- During tick, update_curr() updates TB and moves forward its vruntime
-(and avg_vruntime) but it is still behind deadline/vprot so no
-resched().- TA's vruntime is now behind avg_vruntime (i.e. its lag is
-positive)
-- task TA wakes up just before the next tick so TB has not yet been
-updated for the last ongoing tick (up to 10ms)
-    enqueue_task_fair( TA )->requeue_delayed_entity( TA) ->
-update_curr() update TB
-            tehn update_entity_lag( TA ) -> TA lag is cleared and TA
-vruntime == avg_vruntime == TB vruntime at now
-    wakeup_preempt_fair() --> update_curr_fair() -> nothing to do. If
-TB is still protected by its vprot then TA does not preempt TB
+> Tested-by: Nikolas Joshua Britton <nbritton@exabit.io>
 
-That's also why when you disable DELAY_ZERO, you get the past behavior
-because we don't reset this positive lag accumulated during delayed
-dequeue. But this is still unfair... If TA has a null lag when is goes
-to sleep, it will wake with this same zero lag and will not preempt TB
-but with a -1 usec lag,  it will gain half a tick of lag (up to 5ms)
-compared to others
+Thanks for testing.
 
+All looks promising, sashiko came up nothing interesting. It took=20
+quite long to get to that point but I think the overall feel I've the=20
+series feels much more polished now than what v4 was.
 
-
-
-
-
-
-
-
->
-> Thanks,
-> Chengfeng
->
->
->
-> On Tue, 03 Nov 2026 15:07:41 +0800, Tianchen Ding
-> <dtcccc@linux.alibaba.com> wrote:
-> > Hi Chengfeng,
-> >
-> >
-> > We also observed a regression in a pipe-based context-switch benchmark and
-> > bisected it to commit 333238da9a19 ("sched: Update time before requeueing
-> > delayed entities").
-> >
-> > Our working explanation is that updating curr before calculating the delayed
-> > wakee's lag advances the runqueue's average virtual runtime. With DELAY_ZERO
-> > enabled, the wakee's positive lag is clipped to zero, triggering repositioning.
-> > With only curr and the wakee in the same cfs_rq, this can align the wakee's
-> > vruntime with curr's, making both tasks eligible.
-> >
-> > Curr can then retain the CPU through slice protection. With equal weights and
-> > slices, the wakee's newly assigned deadline can also be later than curr's
-> > remaining deadline.
-> >
-> > Before this commit, the wakee would commonly preempt curr after being woken by
-> > curr's pipe write, while curr remained runnable. After the commit, curr
-> > typically continues until its subsequent read finds the reply pipe empty, then
-> > blocks and voluntarily switches out. We believe this change is the main cause of
-> > the benchmark performance regression.
-> >
-> > We observed a throughput recovery after disabling DELAY_ZERO. It would be useful
-> > to try this with your benchmark as well.
-> >
-> > With 333238da9a19 retained, lag compensation on delayed requeue uses up-to-date
-> > runtime accounting. Should we consider making DELAY_ZERO default-off?
-> >
-> > Thanks.
+--=20
+ i.
+--8323328-2046532658-1793979215=:2032--
