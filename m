@@ -1,75 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988489;
-	b=uYFPB18Bc7Lv3f+CokBGwzIQxcMIl8Mc86dkfpOr14tQL3bL+Dh7KkWa+hIsnKnCwErE
-	 xivR4Qb5Vr9ALAjM0iSTfFNapS1ERNU0Zo5MS3NppW4M1cjubMlkpea+07beOfrL0WXmV
-	 OBDTVAZbx7LewdmGgWM8maATEdjqwFGLFyR6AaQAMZ4niJnZg3xcJ5DFQxiimCFSCVVW6
-	 O3ZtSvvMwxG7lVZDzPEtCqztyAsalCuElYawApyeNxKXDzOxgZzkoi9RazU/IPXM/b9vS
-	 YL33595spEyqxZTYkgfPyEZUTiwmi7fWjo5JK2Pl3x7ADclT8gcnS89C1w89+C56Jpw==
+	t=1793988493;
+	b=Ie4eSI9xG8vSM72UfnuxErRcslvKqanvW1uo7Ukb3OOs1cB+hSydVCTfozRgYESNI6Du
+	 pCXg/hUTS1kzGD/curURfm+B3CzioQV99jYLjncQ6VvfuhdOPdqY9iS9TCIQWdr0kk5Gs
+	 mkvcBrRMDJ6yfG6Uvx8rcpQcpWuNSEyggfDiEeh6Tus5qCduf/g0G7/UTFrSwK7LRgsNN
+	 ZC1RyGVZkfhb78loNbl4Qx+yrJ0cYrv6bMjwmNZxZzpZWQaaPvP2kPoblgg/kv8+sKpVC
+	 M/wrWxTldxtZxgas5eDeKjGML4KCGlA9FV3eVxH0Ekr+/6wLxsin//2L+6F9olUCmUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988489;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988493;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=4vKIezds5HgToeKN7rpTMi6dAL5ph8OiV9mNm2KF8oo=;
-	b=NcauKlCEJ2nIJswU06Z93GHMuFSH3ekNpp092Mv3ywMtWy1k5CJKF+G3MCBuOK1qrZyS
-	 JDqHUE4HIOcAJNl3SwN+/tK34vlqn3nfK36rxY9U9xfPR5trfkuwQxnd0cf5uDzGdu19z
-	 CCvN0OLkqGMt+4G81yJm5tCsyBL6Zm1IUhQlHxTjdKaY6Ot7iXVoy7+zsTwiVd4asS963
-	 vBNdkfxmNiHijnH/N+NpS8U1w8nibppAjXiOBAn0GqnVxRPyitHIfpht6Vd7wNFs+6DcU
-	 KmiMvKfD3FfKE6CJxIL8k8GyKIk6egeqBHHpwWRRYGsh/0V5w9Q70trsuozQma7afhg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=4SY/KgBc5jPjR7kY6LZ58uTUj68rwgS+h0034ZsmJvw=;
+	b=mzBKNa8LXztuvK4or684gPCBXlJrttdDsuRNmuk/MfEfFgc3gg2F1dgJ9YNWJj8NXSG+
+	 nSCTAFd1PEReelp5V3XNwdC/T2nmyT7RrqfT1rNhcJXbPZbY9fRCWvcyTGOKs5A0VuTrd
+	 mXHSdyZFSI7cKeS/qAST6TSY6lnbofkm6+CAQ6k8rguK+LIzDZgniHytI4b3DuYZ/rYvd
+	 Ry/nLc4hSp5cgIPmG+CDjna7kqDzqFVhAnitkP8c5bHLMz6QGAWd0Etz610WrM/MGSVNj
+	 lAKX8ubpuvrBIZdEiUMkS4lOy19fKpO7umjI4OgsraYblwBMs/YGa5vYsmfuEQIb3TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SEBbxGvb;
-	arc=none smtp.remote-ip=209.85.208.72
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eg3g87tP;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC156082BFD
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:08:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EC156082BFD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606AF606EE8A
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:08:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 606AF606EE8A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SEBbxGvb
-Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6b6723180baso1046672a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:08:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eg3g87tP
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e46e449e8so601383f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:08:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793988483; x=1794593283; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4vKIezds5HgToeKN7rpTMi6dAL5ph8OiV9mNm2KF8oo=;
-        b=SEBbxGvbbsmeDjz67kNskQJOS+p3q8eJHU1Hht91BVDFnfp+MD3KezwfzvMMh7fGeT
-         cpnfAUnYzaBvihk9J9GSwr7dEkiQhTrIMF2z2Xg1b/fB/PiDaDTtUMATet53nNnqp5N3
-         sD+B3SL81XHZa4zG+Pqbvcj9f/6j7Qp/3LAERbrmLMXH7/4vtLtWYUECAOmev/Cy+PiO
-         wAjbkKBunNuaNTpfABi9Ha19peLXsfwGkr+1oa5DlJXoLPcviuWbOFKF9MQPpLtFk9qE
-         gZxClq1/RFzAMYCzmi7tl78T4FBrNXvi5luyka90n/mLKfhgNChq1r4mWlLfohVHgZao
-         FBTA==
+        d=gmail.com; s=20260707; t=1793988492; x=1794593292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4SY/KgBc5jPjR7kY6LZ58uTUj68rwgS+h0034ZsmJvw=;
+        b=eg3g87tP5Bh515faKrCEqgJd0gAd7dhAmq53sTBq8Yr8HcVOUMAaJpogGoG3dXhm/O
+         G4QmKXoXySuj9nh0JIbFuGxW7VcgSl45SpHMSZ8PYd0XU+EXnEWca1dC6+2TTFC8dg0F
+         clW3kJPqtYi5NWWLR9iP/7CAzJFhshKFlVHKa1C/bvpcXKiyoRrdoq86+Iofbh8/TfF6
+         UhpubSHgDbp3OAiynlOuFY+TeDpycXmp4uTCff8aTBOioOKzgyZFVR0SjioKBuUehMbU
+         CiLjYkgsYHbEa+Y/H5eMMyFDzt8r1FuKgyk2tTDf60VtEJ6v+VPJQyV57kQPHiLsOisy
+         XiHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988483; x=1794593283;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793988492; x=1794593292;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4vKIezds5HgToeKN7rpTMi6dAL5ph8OiV9mNm2KF8oo=;
-        b=f2dy6xW2m9Zm81oHcU3hB1Q10Js3YYtNDBmntXLk2ChJEVFMkWfcbWHMztyWQ2k8tT
-         Ssxaa/MY6FnWgsZ17M1KjnaSC8o6q2SUPVYzaFCW+rjBZRU374GMMd0J/PUnrAScsCy+
-         d3dp5Yalo/UQNeq+GRLrwK+iI1g+pOoYELmjf/NQv1BVc5YnJBaWFEZ+95vhvuYJG6xa
-         xUan+2916xDu2JKWYLigzn1HBzEzufYLF7lQXcTdbv/UN5EfYc4gpyR3c825/JjzhGMX
-         cs/itPT/hAb1adUGCr7u67dj1zwvYiBjWFpFzMl3LbZ6luXd0huzBnDHzIqf1ooFhQjj
-         J3tQ==
-X-Forwarded-Encrypted: i=1; AL+hErHCyfOHEqc5H9DBLdeXPPKu9G9dZC1mzlmyx5GUZy8GS4Q6o87g1owm//INELQKjINOmO7cNUVNjWdzkwE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mqXcf3a1emPbdaMtZsLaHON8bhfzsAuJMF5KmupUFcecFdgNZ
-	ImLyQ2uUofZ+V0ZoKpORKFsJ7spjcBwXIGYJjldc9RRgMXH7/lGoAeaGq+a6ArLqGcxt7pwMnU4
-	S4vf12ZjjOFyFTAcCholtwA==
-X-Received: from edsy25.prod.google.com ([2002:aa7:c4f9:0:b0:6b5:6e54:b86d])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:2743:b0:6b1:c1e5:a85b with SMTP id 4fb4d7f45d1cf-6b59752807amr2467339a12.3.1793988482623;
- Fri, 06 Nov 2026 10:08:02 -0800 (PST)
-Date: Fri,  6 Nov 2026 18:06:53 +0000
-In-Reply-To: <20261106180657.2460376-1-vdonnefort@google.com>
+        bh=4SY/KgBc5jPjR7kY6LZ58uTUj68rwgS+h0034ZsmJvw=;
+        b=BplTzkf2Xa/9N/l+B9YAkCdalv9ok9rqez2WTCeKHd8eBn9kt3A3PyLQoM+NEV+WP4
+         /0TLgFTFMfi4FX+D31ISqzZtYSS+V3E82Rqo1Oah1yKaJQv128mazjrO0Py8OnkfXKYO
+         V3aeu2IjMR/frBJaAsSHEDvRnzkIztyvm1IyO9IbGmhRQQ+1EByuikPyI2yKm+1iItSm
+         V3Iw59tLHWhKeq1XG8cRavsxG4Cu84lWSXUqHJ7jT6EFpHV1F+v0koGUuulwyy2tlOlF
+         vRWE8zqeKAhOKM5TdVDCzopKEwOGuBCaFPdLxXVKzCzS7DGj8qKsyAvE8/eahPONiMba
+         cRiw==
+X-Gm-Message-State: APuU4Z952E0+bi87kEoghVsF06BsS0W5+b/5QFqqtVDKfeodcqpBxAdJ
+	70TlM3kks1ho7i1umxWdqi6tZ+8US05kCrTs51wtVpIwSuN49tTgogvD
+X-Gm-Gg: AYBFou3SyfHUN9Iud//piYVT4fxJtpcJyccMkI9a9Uls6XYu38ieoJRKF4RkS7MeeHZ
+	/4YUkJAvZV9E/Lz35bNCLXJuHce0YXL6KXLnbxvB0WteGDzXY1zifK09bA9zJuDvE85YbwFbsMW
+	1f4gjsEUVUKE8Rxvdj7AVGouEJ0VAxZAJNOaQMHfJkrFaeBYzMh3k8YxQDnATDuROQQseWzcnTd
+	ZUA6KTUglMC/08G4Rv6D+LFtWSdlGmx70FBs/Nr8/utmBYEo0smzHNvyf+xCwg0+LAxlii3pWWY
+	2bY+dAbVZ5TUAFyh5NRwnVOCYCy5ZgPwiCxwFVxjgY2nJRt7l8OVS5TcvYv2JW32XbsnabLuA0b
+	85tFY+SawO1qz9gmb65Rh0WLVvmi02icOgkvORfbD4z6Bm1C0lH1rrG1no+PaW7jGNiNoX+bwlT
+	s0iQzDJQQ1+zvM2+463HhYBdMmZ3wvDkpHBqxXZ1oSHH6eGdOlr7YEYS2lBLVPNVIc3z5DKfnrE
+	WYstadRtOHED5Lvntjpqky0/qwqRfMee+I71v4NU8m5Jq+KdHVk84zacNZiqw5qFJpyS7xkshiq
+	u6JOSq3SJJjbprV5IP9Ou/BACZbAyRkhZvM9mq12Px+cRQdxn61KhEwGAtMf3D2MFCoJPL+AGWH
+	4fALkEyyrQUOMuoU/2EPgyZ7Zm4rnAbceDiOQAFHZC4kZLDWKY+zIjErU3BfO
+X-Received: by 2002:a05:6000:4818:b0:492:820d:5e6 with SMTP id ffacd0b85a97d-492820d0d4amr5606669f8f.49.1793988491610;
+        Fri, 06 Nov 2026 10:08:11 -0800 (PST)
+Received: from DESKTOP-IR7J1S9.localdomain ([105.99.148.33])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7232832sm4830636f8f.25.2026.11.06.10.08.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:08:11 -0800 (PST)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	dm-devel@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Subject: [PATCH] dm cache: fix divide error in too_many_discard_blocks()
+Date: Fri,  6 Nov 2026 19:08:08 +0100
+Message-ID: <20261106180809.1419-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,116 +98,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106180657.2460376-1-vdonnefort@google.com>
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106180657.2460376-18-vdonnefort@google.com>
-Subject: [PATCH v8 17/21] tracing/remotes: selftests: Add a test for the
- dump_on_panic tracefs file
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Exercise the newly introduced dump_on_panic tracefs file that turns on
-or off the trace remote buffer dump on system panic.
+too_many_discard_blocks() uses sector_div(), whose divisor is a u32.
+discard_block_size is a 64-bit sector_t that calculate_discard_block_size()
+keeps doubling, so once it reaches a multiple of 2^32 the divisor is
+truncated to 0 and the division traps with a divide error. Smaller values
+above 2^32 are also silently truncated, giving a wrong quotient.
 
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+This needs an origin of more than 2^45 sectors, which is unrealistic (this
+is a thing still in 2026!!) for a real device but reachable with a fuzzer.
+
+Use div64_u64 so the full 64-bit divisor is used.
+
+Reported-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3e16980543e238b95bd1
+Fixes: 08b184514f65d ("dm cache: revert "prevent corruption caused by
+				discard_block_size > cache_block_size"")
+Cc: stable@vger.kernel.org
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
 ---
- .../remotes/00hypervisor/dump_on_panic.tc     | 11 ++++
- .../ftrace/test.d/remotes/dump_on_panic.tc    | 50 +++++++++++++++++++
- .../selftests/ftrace/test.d/remotes/functions |  1 +
- 3 files changed, 62 insertions(+)
- create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc
- create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc
+ drivers/md/dm-cache-target.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc b/tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc
-new file mode 100644
-index 000000000000..1b6bf21c5d9c
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc
-@@ -0,0 +1,11 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# description: Test hypervisor trace dump_on_panic
-+# requires: remotes/hypervisor/write_event remotes/hypervisor/dump_on_panic
-+
-+SOURCE_REMOTE_TEST=1
-+. $TEST_DIR/remotes/dump_on_panic.tc
-+
-+set -e
-+setup_remote "hypervisor"
-+test_dump_on_panic
-diff --git a/tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc b/tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc
-new file mode 100644
-index 000000000000..ff5ca29fb1b5
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc
-@@ -0,0 +1,50 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# description: Test trace remote dump_on_panic
-+# requires: remotes/test remotes/test/dump_on_panic
-+
-+. $TEST_DIR/remotes/functions
-+
-+test_dump_on_panic()
-+{
-+    #
-+    # Toggle when the buffer is loaded
-+    #
-+    assert_loaded
-+    echo 1 > dump_on_panic
-+    echo 0 > dump_on_panic
-+
-+    #
-+    # Toggle when the buffer is unloaded
-+    #
-+    echo 0 > tracing_on
-+    assert_unloaded
-+    echo 1 > dump_on_panic
-+    echo 0 > dump_on_panic
-+
-+    #
-+    # Load and unload buffer while dump_on_panic is enabled
-+    #
-+    echo 0 > tracing_on
-+    assert_unloaded
-+
-+    echo 1 > dump_on_panic
-+    echo 1 > tracing_on
-+    echo 0 > tracing_on
-+
-+    [ -z "$TRIGGER_PANIC" ] && return
-+
-+    echo 1 > tracing_on
-+
-+    for i in $(seq 1 32); do
-+        echo $i > write_event
-+    done
-+
-+    echo c > /proc/sysrq-trigger
-+}
-+
-+if [ -z "$SOURCE_REMOTE_TEST" ]; then
-+    set -e
-+    setup_remote_test
-+    test_dump_on_panic
-+fi
-diff --git a/tools/testing/selftests/ftrace/test.d/remotes/functions b/tools/testing/selftests/ftrace/test.d/remotes/functions
-index c368dea2ac4e..f0225af23714 100644
---- a/tools/testing/selftests/ftrace/test.d/remotes/functions
-+++ b/tools/testing/selftests/ftrace/test.d/remotes/functions
-@@ -9,6 +9,7 @@ setup_remote()
- 	cd remotes/$name/
- 	echo 0 > tracing_on
- 	[ -f dmesg ] && echo 0 > dmesg
-+	[ -f dump_on_panic ] && echo 0 > dump_on_panic
- 	clear_trace
- 	echo 7 > buffer_size_kb
- 	echo 0 > events/enable
+diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
+index 1a5072425c4a..2d40d6047ef1 100644
+--- a/drivers/md/dm-cache-target.c
++++ b/drivers/md/dm-cache-target.c
+@@ -2383,9 +2383,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
+ static bool too_many_discard_blocks(sector_t discard_block_size,
+ 				    sector_t origin_size)
+ {
+-	(void) sector_div(origin_size, discard_block_size);
+-
+-	return origin_size > MAX_DISCARD_BLOCKS;
++	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
+ }
+ 
+ static sector_t calculate_discard_block_size(sector_t cache_block_size,
 -- 
-2.56.0.455.g6c5a503b38-goog
+2.43.0
 
