@@ -1,110 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953983;
-	b=G0r/eielRzd/5fwIHmENtndbBJkMspJPkhe7y6hCRWhQK4ILSZ7xA+b2gIpY8cBvk+39
-	 3tlRHSwWkfXO4RoCkM8qE4VR9ANLBrKB15PpDBTCNX3eID5B79jbvbwM0pBOP6/Y0YrJE
-	 +aAD38MvBRtOK4Vj+qZdWG0NzfznmmNg4tU9oek3rYUJJ8G1s7aVueE7zrPzfMpmxePSF
-	 hvf/bLFXtoB2+Et7UnojzoI4FlTnNj+JS9tnYaKG1nf+1ZBcx+zo0vqtaietFm5FzmN1M
-	 oQRmml2cMaPYI6Jenhw4W+VgqiAvDryCK/Jt7mZEhPatZz4iu/rj9B+s8ZE+7x5iSqA==
+	t=1793954012;
+	b=BzwmwP5fhYGmxTrqiZHjRk7E94XFGf+jXDLqF5Nh2lezfcOrUS5+wqSNIK5r30udw+4p
+	 HFsMfc64PP8tvT5F11AE89yxhsTNgu7yanNmclthPivcp7UiYunGpjFGjIp+tz0PaQflj
+	 R0KtBhSxCcRmsa7P1ioZ9NJzI0AVX7WZ0B4fwLAvtF67WdGEnYqZEGjmht1amMT38CHDm
+	 NfkSNhGf+wfvUlD0jaC6Tp6WhegvmYgWfoctIqF54+OpZXCtOKq/x7j8fgE87c+yf8/rE
+	 dXbCWn/y2FxtOAA5cMIHEWMB1iDyRsyfPboZvz0dawCiazy7LWkDpioo7kVnSk5RYaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953983;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
-	b=M8UfG8z+T6ycJGCe7SP0IK8eBoAIso/GOMQwRHXlBkKFZ2XQ299Laka78l+ZLXWclxee
-	 pZgg01tXtMk4lvY6drU8GNpTw67F6hC0i5Dalk4KOVBqZ9ilu6t0WE/P/ObXBUGYprJ0+
-	 Saf39v7yLxF5B8hDWAjBWMwBEugOHfhzsdRPk6DK4nicyOaUom78c6nrsUI0pViwFqL1a
-	 yc1aS26TYs0Uz9KZWkUCu7joqKHkJ3BuCx0yweTQGMv5+u3nFkHOeX9FOtHpt2qCuiNfj
-	 BbWvHI43odbSNr17w4f2nnrP9lIMmYbTJeoCevawo3mQEUwvV/hpiED8K4Djd42m3SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793954012;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/Ds3C65fvT5xCzj/ZU+yWxOGchnXx9nGZT0Im7vt7Dg=;
+	b=sBlc+U1XAKijDp6Dov5N22t1vMRGrS/GRbRN6ELRvGqUo99BOY4Dib3LJOVHWFz0E5TY
+	 qV3C9VICoB/+04K+mZ8pC+pC8uA6BvOK7Z45KGuwiibsFBPRBKZD0omodDrN0VsvXTews
+	 0/iuXiuhThp+WskWfqU7PGD2hHsnMFfd27gDHlL58KIvqyeeRq4VXMRanfFK8oriyhdoP
+	 BuPglFWpa4E3Qtqf0AR2L34O2YvL/roTh0B1vm4NF5ZG64Ijl4N1xW+tL72c7DqL3epJo
+	 RyUWwtoBAtuAlsOjq2AHN50RNg2kGHhaFXFtYfYHSlQcuxlmxX1m/XNBreQSI6+ch9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=u1b2yEKn;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sZO5cXiD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=u1b2yEKn;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sZO5cXiD;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOvqxxLO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5C6606A326;
-	Fri,  6 Nov 2026 08:33:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E5C6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1457606A328;
+	Fri,  6 Nov 2026 08:33:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=u1b2yEKn;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sZO5cXiD;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=u1b2yEKn;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sZO5cXiD
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 514372227B;
-	Fri,  6 Nov 2026 08:33:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793953981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
-	b=u1b2yEKnANEWG3Z0h+pkZ5D51q34HP1Z2hK2Iy4ewFDMq9uWlmnF+mH4+cCB907/110IEl
-	WHOEaRugp/okQXuI+7Ss2FuWICtpg+ljpgUA3WlcqO7a9nciHJxfJhF/GwqLZyZ91hCkMB
-	N4tR9euFrZ8MSs4CkeuQsb4KqbLKFPI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793953981;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
-	b=sZO5cXiDIZyLoC6LtENpj8BkutBAw38UPqKWlM1dulS36AjKmnwBpgyl7UeYCWNqfH2pU5
-	oqsnadd6C98a2dCQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=u1b2yEKn;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sZO5cXiD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793953981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
-	b=u1b2yEKnANEWG3Z0h+pkZ5D51q34HP1Z2hK2Iy4ewFDMq9uWlmnF+mH4+cCB907/110IEl
-	WHOEaRugp/okQXuI+7Ss2FuWICtpg+ljpgUA3WlcqO7a9nciHJxfJhF/GwqLZyZ91hCkMB
-	N4tR9euFrZ8MSs4CkeuQsb4KqbLKFPI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793953981;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
-	b=sZO5cXiDIZyLoC6LtENpj8BkutBAw38UPqKWlM1dulS36AjKmnwBpgyl7UeYCWNqfH2pU5
-	oqsnadd6C98a2dCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E24CE132C9;
-	Fri,  6 Nov 2026 08:33:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id b+ULLbyQ7WqgfQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 06 Nov 2026 08:33:00 +0000
-Date: Fri, 06 Nov 2026 09:33:00 +0100
-Message-ID: <87h5huqs03.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH v1] ALSA: hda: cs35l41: Override malformed _DSD properties for various laptops
-In-Reply-To: <20261105170341.219204-1-sbinding@opensource.cirrus.com>
-References: <20261105170341.219204-1-sbinding@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOvqxxLO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37D111F0089F;
+	Fri,  6 Nov 2026 08:33:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793954011;
+	bh=/Ds3C65fvT5xCzj/ZU+yWxOGchnXx9nGZT0Im7vt7Dg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kOvqxxLOekQ7EUVCDQNPtj/sHckLvw3Kf0CnNnFTN8zanboUDBRUbyAVWlYzAAyT1
+	 5F1O1z7WFQgGJpcFn2xfTSR1hog0cX5bEO6qercwxDDAbFb827qrKFScIC4X3epbRb
+	 N0iLBzT9BWrWzzekB0Lf9iOV/CiG0NAxW/kUB56IqLIrR17kk/2bs3uUNcGbmU6v4b
+	 J2VNtX6g1EnT9kT/r/ydbzE8ZjySAkhAbtvU0yGQ7Px2d0rQMyHmjTAVkPlihnX7Sf
+	 Jh4I99HWZMPXmaX7iKZvUAB414qD9opTp5xFzpD83B7W3WwJG67M5zFzgm+cYrlCNN
+	 wQvnHH1nhyjyg==
+Date: Fri, 6 Nov 2026 09:33:27 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jelly Jia <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, robin.murphy@arm.com, devicetree@vger.kernel.org, 
+	Frank.Li@kernel.org, cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 3/5] dt-bindings: dma: arm,dma-350: Describe the CIX
+ Sky1 integration
+Message-ID: <20261106-screeching-tireless-kingfisher-db6e07@quoll>
+References: <20261106013453.1134239-1-Jelly.Jia@cixtech.com>
+ <20261106013453.1134239-4-Jelly.Jia@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,64 +59,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 514372227B
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261106013453.1134239-4-Jelly.Jia@cixtech.com>
 
-On Thu, 05 Nov 2026 18:03:34 +0100,
-Stefan Binding wrote:
+On Fri, Nov 06, 2026 at 09:34:51AM +0800, Jelly Jia wrote:
+> DMA-350 integrations may gate the controller with a bus clock or hold it
+> in reset. Describe these standard resources on the DMA controller node.
 > 
-> Several HP laptops have malformed and incorrect _DSD properties used by
-> the CS35L41 HDA driver. This results in audio for those laptops being
-> broken. We can fix this by overriding the _DSD for those laptops,
-> ensuring the driver uses the correct settings.
+> Add the CIX Sky1 compatible with an arm,dma-350 fallback. Sky1 requires
+> a bus clock for both its FCH and AUDSS instances, while only the AUDSS
+> instance provides a reset. Require clocks for the Sky1 compatible and
+> keep resets optional.
 > 
-> The laptops whose _DSD will be overridden are:
+> Both resources remain optional for the generic compatible alone, so
+> existing device trees remain valid.
 > 
-> - 103C8E11
-> - 103C8E12
-> - 103C8E13
-> - 103C8E3A
-> - 103C8E3B
-> - 103C8E60
-> - 103C8E61
-> - 103C8E62
-> - 103C8E75
-> - 103C8F57
-> 
-> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+> ---
+>  .../devicetree/bindings/dma/arm,dma-350.yaml  | 30 ++++++++++++++++---
+>  1 file changed, 26 insertions(+), 4 deletions(-)
 
-Applied now.  Thanks.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
+Best regards,
+Krzysztof
 
-Takashi
