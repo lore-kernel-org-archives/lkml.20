@@ -1,120 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953548;
-	b=Z4crqTkYlXdDhQ4CFuNUBtiyH4RYvU30FhSxn/vIlGRqsnpVTb6Nyc7rO3FZcM2x8oev
-	 GCEhQI8p3Z2HwQO7v7dFC8GE304zOONandx7EIAqKncu1dvyTNhepjp4iolMbIod6e4/Q
-	 RblCiIiv1Yr0SdM8YhEVHIFpx38TKIs2GmWu/gZ4hqEENmNkEnua33Y91kEKUDYm6RMSA
-	 mKeNZwLSw2uWyDXTNy95TmLzi5ow1ArSW2TkMgGztZ5mt4cLqb875PDEX0VBfP6ikcLGw
-	 7zj3PJt885Z82Kli/hlUTimZQ8PDRgJswmboVuAW2gzWvjC3/Kvbw9RkE01llASPfgA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953548;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=pPUcN8Y0DEBYTymsQLP2R9H776VthPiOJucEBEeA9nY=;
-	b=KZ1x3ES6s3Bpyub82WjtT4PymMZNH6b99foCMr8q8MzVgWseW/YsA+1fyd42kq9b3eGm
-	 ysz4hnLXVlBciAijDQ5cYXofhr6utcTFv1sq/qdw7fK8aDiUXwcc87RejZfsTGo/T5jlX
-	 awGPPsuHQDfHfhcJqOT53B80Qe57fKB87YNfsSdlx4zkASCvWOIv1ZktEIMxR8sXciasV
-	 Zfj86Kzn41v7heJM39iwGjwNwQtFe73Eo6idvSznzmQ0kvbDOTI+VsXORwz49dDniyJ8E
-	 uX1A38wyJdPbmg2JDAzIQlJbwHlnw4drZHoPlylRa7ZtJlNnrbVNdy+A8WJJqFBY8yw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O0ghQTGI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IUI0Vq+5;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793953614;
+	b=jGCVI7qwV/fOyGbG6cJ8p8H0FjQYJ3EcYeJYDLm77lZur9EQyL4ZM/Hopdrt8hr+KIEo
+	 5I8frMLICZ6R9DMGU+v7Agq/ctmZ9Fdkv/KS5KD63gujWiY2kd6ZNvJqFrDNFCArMEq4e
+	 zXpJTvpPZ/+XmARFAS4s0eT2wJQEZEtEFckFObZAG09dngOSNOAAMCvf/ljA/WDegjQ6Y
+	 yTNRYwWVdQctB9wpa35ecBi+pjQ+40HO6/QIv1YpqE7H42Mr0/zfq8p+SvLEJOchB3OMZ
+	 +QanL8cNevCyRcby5Z+VUeVFufit2/5QoYzquN+EICGPFt5fowG7Yq4dUcOALkFD3Vw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953614;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+g3CgOQBQja35SrCUO5OXATSxdIzw2YKVSKOVYj99pY=;
+	b=DQnb55c9yySkKceD8sz3UyBqYSw/spyXveSmkro2f5XnV9tJs0PvcD7wf3+PGPU4mSZU
+	 fz5xTdpzlAWA3yKKTnAwRbQ3umAJnlz4LijNvn6DZ67nueVtR36uvKfV7ga95QaKKipib
+	 gserr0+tN7DjWLcW/XcXrMznh1C2ZFQr8na7vl/UOls/4JsbPNXWijKCh20uLbKmImaoF
+	 Uvy4e4AvhQuZiJ2VWrop7oC1yKZ0cOthqdf87n53aeABo1xIEonqR8bG2HrtBcEu0+O9I
+	 +3ZRza0E+fApuBbWC7YnlVqlTJzXMZAF5W4ZM3JOOlVbFIoQ8LGZ24bPORMmd0hppBA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TFp3y9MS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.53
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012053.outbound.protection.outlook.com [52.101.48.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC98C606D807
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:25:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC98C606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550F2606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:26:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 550F2606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O0ghQTGI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IUI0Vq+5
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67RNSb2933638
-	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 08:25:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=pPUcN8Y0DEB
-	YTymsQLP2R9H776VthPiOJucEBEeA9nY=; b=O0ghQTGIF+xmuXJFYJkvzw5CkkY
-	ctGxbUf6UskXn78fVlNSkVPQ4dw1EUhoR2Fv32Ovk7oRln0oMkrcLE9HK4AOc+gs
-	GvFiQHPRlmazi8SGgkFNEFYrsrbUYyE0s2XwvDhULyjb89j13gm73TjK4n6nruUK
-	9qBz3E4CL13mouE47/5GuNf2dZI+OFBUAGnc9WM/3APbwQiZZnBDf9cXaJkibV9j
-	yDcbLQMbdESXXzweslK9Du1bZjjGry2O/h9Hh8OrPLu+fd+o/b9WBuA681sAlaD8
-	6mZdcq7U/vIt8+mOjdkqMeoy8ro+kne0rzwcRwwGkzSFF3gKgilh+CFBblQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa1ut8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:25:31 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f559420f3so47353585a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:25:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793953531; x=1794558331; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pPUcN8Y0DEBYTymsQLP2R9H776VthPiOJucEBEeA9nY=;
-        b=IUI0Vq+5p30Arv7JhU8uyEHLOm4AivxH9a1zx1csAQVC2ANowCrlmiepwO/8D7lReV
-         rUcgv5nl3EMhZmteU6lCU3zbCGD9BkmY+xH9aMHzG38VKzAWnpP5FQceVLbkrQUcp02R
-         df/fM20miP8fdKJ1fxXcOeyyzstXmF0WQSyjs9AwHy0nDGLfnjKRKDR0tRAfltYMywKh
-         ARMTTcNf1jB0nDrvCOOqARPwliSGCvUoxBLSU9fp/nkN864FCJ3vaqoKqmu37YCAn8Qd
-         VlPDf6iDdmvMn4qOZ1th8eI3j9zybAgRe4Ba8TY8kBzqq0ir1qWf/XFh6iP2eL+rB2+K
-         UaNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793953531; x=1794558331;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pPUcN8Y0DEBYTymsQLP2R9H776VthPiOJucEBEeA9nY=;
-        b=p440guHGyItGvwSJ1IeC0jz9wlMZtDIVOZfoLshsGeXglFR/20YFvR5IhMq8F+KCXL
-         EslL3JCYZHinAcxV74E5opKBin4bZU6wndeIuwgXFKfG2FnfMVvBtszQ4q8x0uohGonb
-         tBaF9VF8upmvIC9sVrwb9ULyVV0N9VdOKbocTgjbSKtdDCz0j6HnyzuNNElx51yw1I5J
-         JA6wl83Da2cAj01bEW9tU1yYm9+NOv9p7RqabRHe/qVuY6bf0ZdyEGr4Bnvd/sLLLHSN
-         v/pgd18pzeRD3wU0mM+vbD2ceTdcDUWgh0FVPO6ZKhaq7TU96RtifUNgdWMLfYRmcWll
-         cAtQ==
-X-Forwarded-Encrypted: i=1; AKwUvByo3jZN6q+lQLJQEeINspe5CbD4r3CdzHbfmCkQyACzq62iBOo6xi+4S9opF8opr3g12z1VNdv9NJCIOWE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9cQrZnOFhUu3Jcr89FTodLNu3xV/4X+bj+c9yTA3HJM05MPHrB
-	UUQsXT2zvM7IGRWGl4wiCuiBPzRkjljg2sF9hUfBZbU7fXWLYmAUmvBhO0pMTy2LDN3e0CiUwYi
-	z7jq5zzJn/x+vcPJpBsyakNewX+QVpQP1WxgrvnW4zmFx3QPH6jwJd0khv/TeOzUciPk=
-X-Gm-Gg: AYBFou35a2uaoyOM3VTiN4fSY8Bk9jo9aEul6wtMtzW/ipC6MQEfVLOH6/+6BPFkaKx
-	Yuh8g4F1A6YFxPjYdnPH5BLY9btlIUQMzwEDt1cW/93VWcGj4FOR/8Z2DBR1HgbqK+imkWDbGqE
-	+Wuf2Pel7ZQmhdhtHnK8SVWdwOshm9O72X7LnlrtAAF5320h6x2jVhyBEKiy/P8t4EzgO0tisMQ
-	yotaU7TrUw8vITAbYYZhqs5nnHVzkEw26LBjm4mAJUjCAwDMqIH8c3oZ7ntkBI+b9Lg6Y7YcWCQ
-	+qxy5ObdwNLAJzW2kOnPQeptc0Y3OVHOQM6Hce6bY1tqF9ZCkLBNhK3xkxn6kFPt9WXroPtuvf0
-	19rm+VZAYN45aRbkf2Yr+pG1G5L3WMx4M7Ck0YZ85+bqQ0fa9oyRU3SA1qvvseRi8zxb90wMIyQ
-	==
-X-Received: by 2002:a05:620a:4690:b0:93f:ca9:3ee7 with SMTP id af79cd13be357-945f355bf60mr260829585a.57.1793953530758;
-        Fri, 06 Nov 2026 00:25:30 -0800 (PST)
-X-Received: by 2002:a05:620a:4690:b0:93f:ca9:3ee7 with SMTP id af79cd13be357-945f355bf60mr260825785a.57.1793953530191;
-        Fri, 06 Nov 2026 00:25:30 -0800 (PST)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56ba6bc36sm130723255e9.0.2026.11.06.00.25.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 00:25:29 -0800 (PST)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: linux-media@vger.kernel.org
-Cc: bod@kernel.org, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        loic.poulain@linaro.org, dmitry.baryshkov@oss.qualcomm.com,
-        gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        atanas.filipov@oss.qualcomm.com
-Subject: [PATCH v7 2/8] media: jpeg: Add JPEG baseline and JFIF APP0 constants
-Date: Fri,  6 Nov 2026 10:25:16 +0200
-Message-Id: <20261106082522.1448390-3-atanas.filipov@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TFp3y9MS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GRy0/w4YIQjxuKODz3sxLMdoDyLKsnWjHbg/lmea1NTO1sUNJkpRSHLkrYCZMSPKShZRjSzPdpeOraf2kpF44N6Ubw6DIamnDlCYfalmJCx80Dc7iUEaYCNiw/8a9vJR4oeqqiSAhYqNhpMGGhZac+YVZ3t8zOIHiIj9pal0nMbvh+N46Wg2ZxwjknKIcpm/cHmAQ622jT5u4Q7I3cz17H0qEKy4pee0uIJ0OtOVU5QacXgHBw5UCU1dupI5BJF2tAMNX0nS12An494StqD8e1Nn3j3q9a70e4YAWPQRqVDRQaO3oNxZFeHB0vEWm88dD1OXbu6BfFYnWYueOYMy3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+g3CgOQBQja35SrCUO5OXATSxdIzw2YKVSKOVYj99pY=;
+ b=qC8QvE/Q5vpbLIDeuVgP30067WVfiXsMf2R5o7AGtr2GXFo9LmWL3qNKPU3BnQYMXyngh0eyx5FOHEHt3d4hTUV9pJi97biKRP2o0afC2TE55P+ZITRQbIb/JQy3rGfIoas4i9yRJgNWOTWxXaOUOFxmDv7vXGljbPD2CqiRf/VxGdvuZD15biyqrgpRPauZHSjqIUeX7HgYu2npqW8FUaCG4Q0KxdiGEklYNhTHS2+yqWXqBZz/p3Vg64mR0uzEU/8h/VSZZTTEAvH+Y4/qL8Mn5wc1ZG2rNg20AnEDaOKomEphLL3vT7ibqMp95a+F2JNN5PDW3hbNoZeeV3iSbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+g3CgOQBQja35SrCUO5OXATSxdIzw2YKVSKOVYj99pY=;
+ b=TFp3y9MSe1JiWLpx8MRSaJrKGv+AFN2euaVQrooB8D9yZPMtBjTGUKSuGLeQ72ZjpIiz08Pv5JnH+ThOX61i6G1FS4RG1z2Lw4PZ+MAcL2GFEKJQfOStYin7QhGrCL3u/9nzQrHSp2vnTewCJCtHziurXXYsktOgbFn+m1sU9ns=
+Received: from MW4PR04CA0319.namprd04.prod.outlook.com (2603:10b6:303:82::24)
+ by LV3PR12MB9186.namprd12.prod.outlook.com (2603:10b6:408:197::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 08:26:51 +0000
+Received: from CO1PEPF0001885D.namprd02.prod.outlook.com
+ (2603:10b6:303:82:cafe::16) by MW4PR04CA0319.outlook.office365.com
+ (2603:10b6:303:82::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 08:26:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF0001885D.mail.protection.outlook.com (10.167.249.246) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 08:26:50 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
+ 2026 02:26:38 -0600
+From: Honglei Huang <honghuan@amd.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Akihiko Odaki
+	<odaki@rsg.ci.i.u-tokyo.ac.jp>, David Airlie <airlied@redhat.com>, "Gerd
+ Hoffmann" <kraxel@redhat.com>
+CC: Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+	<olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
+	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, Honglei Huang <honghuan@amd.com>
+Subject: [RFC PATCH v10 0/4] drm/virtio: userptr blobs for native-context compute
+Date: Fri, 6 Nov 2026 16:26:21 +0800
+Message-ID: <20261106082625.812860-1-honghuan@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261106082522.1448390-1-atanas.filipov@oss.qualcomm.com>
-References: <20261106082522.1448390-1-atanas.filipov@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,142 +109,167 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 39pO2tAyOaMd292en_gUp3IDz-2h-xiF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzMyBTYWx0ZWRfX0oZBewJTm6jC
- voe8L2tZwuv/f44wabIyL46M5i/1/D5xh7X0WsPuIp8Sewa6G0ZjC9tpcnfUkVL8mHZilpbJe8I
- 1RsQ0vg4a9DOBN9t8MhPb/C4gYlytP4uYAUnMvkV+ryAVQStkyUKTteTq0OM++euZHsnK2hJX0f
- P7xB9CHSXeFQ3/FvDCGUc1UDu4tCOBduUlY7rFfi17SFwRWbzUZ+JGdkvmvdO2iKADkqxRKBqH/
- qogBWItvRmqxe13Q42GfoOXJk9Ckqd0oMIk15bhl2ft5dJM6b0FypBsj8Ifqdjsbhqzneobl6nY
- Shl3VBC22MjTS23CVcsITHjoQj8RcpCW/yrOv2jpoMnFwSj+GmztaXq4DZsR3LLLtI+LSur2kL/
- LDphr0NB1HArZ4XznMQMi40vEAR39tGXyhq0Wre7srjZRR9eJO+mdMIbPefvcOYWj+3uQLSo4rp
- P331JV3kQV2B2R46TyQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzMyBTYWx0ZWRfX7iMbZVkZEBrA
- wfhfIUHdSw+PVbYKgJ4O8LS8zjlqTd5+57OrNfEhAUzMWbFJIQ60wRQif7SJ/AI9MAilNXfIh3L
- f/RvWASqRV0s08kcHBd3ulXtFIPJwJs=
-X-Proofpoint-ORIG-GUID: 39pO2tAyOaMd292en_gUp3IDz-2h-xiF
-X-Authority-Analysis: v=2.4 cv=CaKdd7rl c=1 sm=1 tr=0 ts=6aed8efb cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=SSmOFEACAAAA:8
- a=EUspDBNiAAAA:8 a=Rl42jcqtOcFU5aT7_7AA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 spamscore=0
- bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060033
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF0001885D:EE_|LV3PR12MB9186:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99eb9952-f165-43d9-fb06-08df3bdfb492
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|11063799006|56012099006|261022115727099003|261022113327099003|261022105027099003|261022075727099003|261021135927099003|261021133027099003|261021130227099003|261021123027099003|261021121427099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261102130727099003|261102123227099003|261026135527099003|261026121527099003|261026140227099003|261026130827099003|261028144727099003|10067099003|18002099003|6133799003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	+a//8waCvtQdZ1o5mJiJKDm29r53LVlI6XdSD7DHPEDR5GqUgmMgiM+3o+jOfdcf2B73m0hJGQg6B/xABqHlZ19AgrdxI1lUIICFhNgsvtfbSD72pBDC6lV9jPltrSJ1RpCENOa18AlUoh0MikRwfs6otQ8qsAxpZ8UzYhvQoA3hLkAZKOlfWbdLZULLEK0zmom+hh1OBDIuT9pR6iK0thndoacEfHwoF0laG4Hj2hnUPtc0rigOVW3981cpOiyZMptDibdwu8Z7kDGm6hAsRrbhZLiS5guf4CHfiZkY2PxG+gVsED3yu8XmtSERz8taRK+Vwk/7Ik8I1m0ma0HMsZk7/oNvTHXMug7+Gj9TIqIl4UF9n702nLEhZvIJCFKkmEMPeDIkh/M7pMYmuzK3Pj9miBOzhm5SXj2tDoQeCwQPDVtHQ6VrhoYNr3lmkIC/V19vSjYKUo43cPIotSgun1oJ1WWH/AKbaXEzKpNAuMCVSb1ebKwaaX2T46yw5cwiUWTg6Zu5n09x3c/HCqpIXsaDzAHE7AYkSBNT8zEASfNl9V9rUkdo1uG/fmwIZxdX0LMth6Y3Pegd1F68fPB+AMLnFdqsJbJ+NgsPARiGyGrgFekM1AiprQ+FRue2LX53mVQSBU0Ez7mok5sUK3ZuCQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261022115727099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021135927099003)(261021133027099003)(261021130227099003)(261021123027099003)(261021121427099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261102130727099003)(261102123227099003)(261026135527099003)(261026121527099003)(261026140227099003)(261026130827099003)(261028144727099003)(10067099003)(18002099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	sgi4Jf/T7RexU7+PdqMX1yUaltmSad+sQhtZtHPOVM6L4TtsDnLhfjYDXyjY3yrcPWzzsGS+QYFqzXMC1mWruORkCNUJOJ+Oorf+1+qMGTyvwCG5nbq/NHfMJI5KRTUZUAQ2nDgXwv/xxGjmfQbCloX4lzONkIsYXVt6PXcGUk5G0MZS30B7xW/alxG2/gj3FbluiwjpSZabLBm3PBV5D0oXTEAhMwr9kUHKRNURz0h8e4RxkoN1Dk89WHKZnbZ0Nsuij8wUWY2W88Xp2I/h/eKeTZuvma3cfYFqdowm2qRz/qb+ktdvrKCSOIbvFqUcd7GoGStHijYr40K7hfauN3e15Fd6djOOHYslNnk4KXP80tSj2d8y+ZUmg2sGPevfhzwXlsiJtT1Xkmc6AD0Pcog+VsdQFxIPXCKYDJ4A+KydKKAqoMBl+HJAvU5PKn28
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 08:26:50.2351
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99eb9952-f165-43d9-fb06-08df3bdfb492
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF0001885D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9186
 
-Add the standard field values of a baseline (ITU-T T.81) JFIF header
-to the shared JPEG marker header: sample precision, component counts,
-sampling factors, quantization table identifiers, SOS table selectors,
-spectral selection and successive approximation and the JFIF APP0
-payload values. Describe the marker segment header and the SOF0 and
-SOS headers and component specifications as packed structs, so their
-sizes and field offsets can be taken with sizeof() and offsetof().
+This series adds virtio-gpu userptr support for ROCm native compute
+contexts. The guest kernel pins an existing userspace mapping with
+FOLL_LONGTERM and exposes it to the host as ordinary CREATE_BLOB
+backing entries, avoiding a second shmem allocation and memcpy.
 
-Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
----
- include/media/jpeg.h | 79 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
+A non-zero userptr field selects that path. Probe
+VIRTGPU_PARAM_USERPTR before using the field so an older guest kernel
+rejects the request instead of silently creating a shmem blob.
 
-diff --git a/include/media/jpeg.h b/include/media/jpeg.h
-index a01e142e99a7d..a93d0a580bbe3 100644
---- a/include/media/jpeg.h
-+++ b/include/media/jpeg.h
-@@ -3,6 +3,8 @@
- #ifndef _MEDIA_JPEG_H_
- #define _MEDIA_JPEG_H_
- 
-+#include <linux/types.h>
-+
- /* JPEG markers */
- #define JPEG_MARKER_TEM		0x01
- #define JPEG_MARKER_SOF0	0xc0
-@@ -17,4 +19,81 @@
- #define JPEG_MARKER_APP0	0xe0
- #define JPEG_MARKER_COM		0xfe
- 
-+/* JPEG baseline sample precision (bits per sample) */
-+#define JPEG_SAMPLE_PRECISION_BITS	8
-+
-+/* Number of components: greyscale (1) and colour YCbCr (3) */
-+#define JPEG_COMP_MONO			1
-+#define JPEG_COMP_COLOR			3
-+
-+/* Chroma subsampling factors encoded in SOF0 sampling byte */
-+#define JPEG_SAMPLING_H1V1		0x11
-+#define JPEG_SAMPLING_H2V2		0x22
-+
-+/* Quantization table destination identifiers */
-+#define JPEG_QTABLE_LUMA		0
-+#define JPEG_QTABLE_CHROMA		1
-+
-+/* SOS spectral selection and approximation fields (baseline JPEG) */
-+#define JPEG_SPECTRAL_START		0x00
-+#define JPEG_SPECTRAL_END		0x3f
-+#define JPEG_APPROX_HIGH_LOW		0x00
-+
-+/* SOS table selector bytes (luma: DC=0/AC=0, chroma: DC=1/AC=1) */
-+#define JPEG_TABLE_SEL_LUMA		0x00
-+#define JPEG_TABLE_SEL_CHROMA		0x11
-+
-+/*
-+ * JFIF APP0 payload fields, as specified by the JFIF spec referenced from
-+ * ITU-T T.81 Annex B. See: https://www.w3.org/Graphics/JPEG/itu-t81.pdf
-+ */
-+#define JFIF_IDENT_TERM			0x00
-+#define JFIF_VERSION_MAJOR		0x01
-+#define JFIF_VERSION_MINOR		0x01
-+#define JFIF_UNITS_NONE			0x00
-+#define JFIF_DENSITY_HI			0x00
-+#define JFIF_DENSITY_LO			0x01
-+#define JFIF_THUMBNAIL_SIZE		0x00
-+
-+/* Marker segment header: marker and length (ITU-T T.81 B.1.1.4) */
-+struct jpeg_seg_hdr {
-+	__be16 marker;
-+	__be16 length;	/* bytes from the length field to the end of the segment */
-+} __packed;
-+
-+/* SOF0 frame header up to the component specifications (ITU-T T.81 B.2.2) */
-+struct jpeg_sof_hdr {
-+	struct jpeg_seg_hdr seg;
-+	u8 precision;
-+	__be16 height;
-+	__be16 width;
-+	u8 num_components;
-+} __packed;
-+
-+/* SOF0 frame component specification, one per component */
-+struct jpeg_sof_comp {
-+	u8 id;
-+	u8 sampling;
-+	u8 qtable;
-+} __packed;
-+
-+/* SOS scan header up to the component specifications (ITU-T T.81 B.2.3) */
-+struct jpeg_sos_hdr {
-+	struct jpeg_seg_hdr seg;
-+	u8 num_components;
-+} __packed;
-+
-+/* SOS scan component specification, one per component */
-+struct jpeg_sos_comp {
-+	u8 id;
-+	u8 tables;	/* DC and AC entropy table selectors */
-+} __packed;
-+
-+/* SOS fields after the component specifications */
-+struct jpeg_sos_tail {
-+	u8 spectral_start;
-+	u8 spectral_end;
-+	u8 approx;
-+} __packed;
-+
- #endif /* _MEDIA_JPEG_H_ */
+See overall detail in virglrenderer pr [1]
+
+Patches overview:
+1. Add VIRTIO_GPU_CAPSET_ROCM capability for compute workloads
+2. Extend DRM/virtio UAPI with userptr, PARAM_USERPTR,
+   USE_READONLY, and F_BLOB_READONLY
+3. Implement core userptr functionality with page management
+4. Wire blob ioctl creation to userptr objects and probe the
+   readonly feature
+
+V10 changes:
+- Require DMA_ATTR_REQUIRE_COHERENT on create and restore mappings.
+- Use drm_gem_object_put() after UUID assignment or handle creation
+  failure.
+- Drop the new_pinned < 0 check.
+- Validate the userptr address against the host's blob_alignment in
+  verify_blob().
+
+V9 changes:
+- Marked series RFC pending a virtio-gpu spec update for
+  F_BLOB_READONLY / BLOB_FLAG_USE_READONLY (Odaki)
+- Moved VIRTIO_GPU_CAPSET_ROCM/VIRTGPU_DRM_CAPSET_ROCM from ID 8 to
+  10 to avoid the gfxstream/rutabaga_gfx 7-9 collision (Odaki)
+- Added the missing VIRTGPU_DRM_CAPSET_ROCM alias (Odaki, sashiko-bot)
+- Dropped the kernel/guest-internal wire-flag comment from the UAPI
+  header and reworded "Guest VA" to "address" in the userptr field
+  comment (Odaki)
+- Fixed a BUG() on every virtio-gpu probe: VIRTIO_GPU_F_BLOB_READONLY
+  was queried with virtio_has_feature() but never added to the
+  driver's features[] array (Odaki)
+- Removed the dead TRANSFER_TO_HOST userptr DMA-sync branches added
+  to virtgpu_vq.c; verify_blob() already rejects VIRTGPU_BLOB_MEM_GUEST
+  for that ioctl, so the branches were unreachable (Odaki)
+- Documented the DMA mapping and bounce buffer behavior of
+  virtio_gpu_userptr_restore() and dropped the zero-copy claim from
+  the commit title and message (Odaki)
+
+V8 changes:
+- Drop guest-only USERPTR ioctl flags; a non-zero userptr field
+  selects the path
+- Add VIRTGPU_PARAM_USERPTR so older kernels do not silently
+  ignore the new field
+- Request GPU-readonly backing with virtio wire flag USE_READONLY
+- Accept USE_READONLY and omit FOLL_WRITE only if the host
+  advertised VIRTIO_GPU_F_BLOB_READONLY
+- Restore userptr blobs after hibernation without the shmem path
+
+V7 changes:
+- Mask guest-only DRM flags out of CREATE_BLOB wire blob_flags
+- Clear userptr->pages after pin failure to avoid double-free
+- DMA-map userptr SG only when virtio_gpu_use_dma_api() is required
+- Use DMA_TO_DEVICE for readonly blobs
+- Sync userptr SG for the device on TRANSFER_TO_HOST
+- Mark writable pages dirty when unpinning
+- Reject USERPTR unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
+- Disallow PRIME export of userptr objects
+- Note that CAPSET_ROCM uses ID 8 because ID 7 is taken by VIRCL
+
+V6 changes:
+- Rebase onto drm-misc-next
+- Keep USE_USERPTR / USERPTR_RDONLY as guest-only DRM flags; drop the
+  virtio wire-header patch (5 patches down to 4)
+- Fix userptr lifetime, DMA mapping, memlock accounting, alignment
+  checks, and PRIME SG export
+- Updated corresponding cover letter and commit messages
+
+V5 changes:
+    - Add VIRTIO_GPU_BLOB_FLAG_USERPTR_RDONLY definition to patch 2
+    - Dropped unused VIRTIO_GPU_F_RESOURCE_USERPTR feature bit in patch 2
+    - Included VIRTIO_GPU_BLOB_FLAG_USERPTR_RDONLY in 
+      VIRTGPU_BLOB_FLAG_USE_MASK in patch 5
+    - Add check for userptr feature in patch 5 before creating userptr blob resource
+    - Updated corresponding cover letter and commit messages
+
+V4 changes:
+    - Renamed VIRTIO_GPU_CAPSET_HSAKMT to VIRTIO_GPU_CAPSET_ROCM
+    - Remove userptr feature probing cause it can reuse the guest
+      blob resource code path, reduce patch count from 6 to 5
+    - Updated corresponding commit messages
+    - Consolidated userptr feature detection in final patch
+    - Update corresponding cover letter content
+
+V3 changes:
+    - Split into focused patches for easier review
+    - Removed complex interval tree userptr management
+    - Simplified resource creation without deduplication
+    - Added VIRTGPU_PARAM_RESOURCE_USERPTR for feature detection
+    - Improved UAPI documentation and error handling
+    - Removed MMU notifier dependencies for simplicity
+    - Fixed resource lifecycle management issues
+
+V2: - Split add HSAKMT context and blob userptr resource to two patches.
+    - Remove MMU notifier related patches, cause use not moveable user space
+      memory with MMU notifier is not a good idea.
+    - Remove HSAKMT context check when create context, let all the context
+      support the userptr feature.
+    - Remove MMU notifier related content in cover letter.
+    - Add more comments  for patch 6 in cover letter.
+
+[1]: https://gitlab.freedesktop.org/virgl/virglrenderer/-/merge_requests/1708
+
+Honglei Huang (4):
+  drm/virtio: add VIRTIO_GPU_CAPSET_ROCM capability
+  drm/virtio: add userptr blob resource to the UAPI
+  drm/virtio: implement userptr resource support
+  drm/virtio: wire blob ioctl creation to userptr objects
+
+ drivers/gpu/drm/virtio/Makefile          |   3 +-
+ drivers/gpu/drm/virtio/virtgpu_debugfs.c |   1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.c     |   1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.h     |  42 +++
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c   |  49 +++-
+ drivers/gpu/drm/virtio/virtgpu_kms.c     |   8 +-
+ drivers/gpu/drm/virtio/virtgpu_object.c  |  22 ++
+ drivers/gpu/drm/virtio/virtgpu_userptr.c | 350 +++++++++++++++++++++++
+ include/uapi/drm/virtgpu_drm.h           |  11 +
+ include/uapi/linux/virtio_gpu.h          |   6 +
+ 10 files changed, 480 insertions(+), 13 deletions(-)
+ create mode 100644 drivers/gpu/drm/virtio/virtgpu_userptr.c
+
+
+base-commit: 1ecab8b0bad393750c60cc3819ce9c256595463c
 -- 
 2.34.1
 
