@@ -1,62 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950066;
-	b=28NfUsepYqBF+LNybqiiwr8TnsTAtrmLwMpeKwPcMNrIkQ1ajWHtmtJr2H90CeIVTflt
-	 CL6FJC4t3/o8WMTVS67BAJqA0hlG2ZPfVeDICPSjR2JLgbkdHq9TTsJzlXSq3n1cwLA3s
-	 E1WNrebH98KSEsjthuxP5x01ER5dzef1XU8RVeeyaMRq5ayCg1sj1jdc93VSrMYuJxSum
-	 WCY3bQ2L6nk7n9zeyKQy2UHl1QpVjEywh0HBXV9MnHq1PxmKX3J8t0V6dH/gIKXqCq5o2
-	 7uXkv3A3yORPDeCKnZRJDZJrzG10x2Ef4X3OVhrjjO9+pbxTxwUgxqEkXmGAg/L1NwA==
+	t=1793950094;
+	b=4MiJOeGJAgyr53tFj1RrnEVno/sFHNyscZJdQi6GSKXKAO6zhIgH2nqkcJCR2eoDFu0V
+	 Xm3ejGYfXmdD4kryHKvozR249EZ+wA2I0F1/ElT5KXtS09aOBhkgWryAcuvfw1JeM/t8R
+	 UtRO3K2uHOjZ/xfDSh2XdksNcXow/PtJX6R6j7fZQVDxEVLRIcTg339Kt/g2tJ2tvhKki
+	 zKvUhpVMPMSwfdYHuWuvlAQ7c9Mvj9+CjD5R0G3J7Zh3W2FIIFZs8g1SPg4DJKEBd9E9A
+	 DMduaf5qdme/Jh8e37HpA/Z5B82lipfZBra79Jb5SYjE5Z3i1yJi5gLUegm8HLp74iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950066;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	b=zB51csUn3+jXkaINxILRF8MBk/g+5oHekQQzrkY/CYjd53F4UKTTnKKb9RSjlBK6zw6o
-	 MIki3fApP5EnbuAa74u53DuRdtsUPbPX8VmV/iChE+OSwLVHc3Vt7YboysBt3dCcWsiGy
-	 5Ff3go1Lb4l5W9Q9OS7l+6XK4YIO3f+Xo0Ch9LsHU1ueBDbuzhx3I8rr34sf9Uy4gf14f
-	 X/KbA5tXEmKa7LcsNS1Ho+iYzoTaxdS/qlPdcKBnBMncDXCSxRYvGe/5SNJ1s2Bf8s+8h
-	 exYPXvGS0F7xDAPgUd+9lcXgf7efUdEFH2bq/t9JDe1V6MEtGEycYeve/SH5jHIndjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950094;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=9Oc7Fh23vn4yA1VJvjCDMyL41Ep+4U8V9Yc3ZxpGT3s=;
+	b=24Y/alGYLIFLaaBn4bbHCKBGk9gbB9shX+VA/URuOhrREJLbTodSkXtxWqq1WYerWsx5
+	 ocyrDRU6NQgs2W+ToaiklLYr45HXcZaLscYGAEWoJ2dixhs/bDOD3r9MHc0ETrRTahEgk
+	 tRgr4O+5tI0p+VX0NzA9zK0mvNc1Ofw0srpT6S6jkKMv5jbupoHm+TeuLthYNHS0gZ96R
+	 ZtfOQyaKjCdrngpb5/YHEXqb31O496VtJq10OacbgYv0fKVYeJoyuny1dzGel9DD+t/BL
+	 H+1RWq11AbrH+y4hsIAvBvlYibgFpT0USyeEX8TqKlxRS2jm/iqnJnCAdgoaUTIC4Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKNhEjMR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53047606A328;
-	Fri,  6 Nov 2026 07:27:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKNhEjMR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0AC61F008A1;
-	Fri,  6 Nov 2026 07:27:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793950066;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gKNhEjMR74cIFZOUA1+Ep9r3zugd2rYr3x7LAOhmt/iSSRTB1rheh65+EY25Thmdt
-	 INZRkytec0ymzJUuQzDfNSp3uEuqQhhBLBGcbBguorgyTfEg5k2B3gwX6FlEwHUMfY
-	 nufGX9aZECuMDIfagOMnVKh/GiIlrgfmZ8L3Lj7HeVWZ5f3INVHqVoabSbLKDLNSDv
-	 TxZnTIYt5SL9G9Z0zdFEtT3MIKNInMAc7fl6MA4XKiz/IKS5s8i673bdlwbc+9XhAY
-	 GeJWW10isTvnTepbZtY3PusFfEOpOz/hnXO9qBOkuIuWc6ffZs/yKCBmpXO2Lv6HUr
-	 lmqtBIQulCPJw==
-From: netdev-bot+sinfo@kernel.org
-To: Xia Yan <yanxia@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Eric Dumazet <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Alexandru Tachici <alexandru.tachici@analog.com>,
- Ciprian Regus <ciprian.regus@analog.com>, linux-kernel@vger.kernel.org,
- yana06070@163.com
-Subject: Re: [PATCH net-next] net: ethernet: adi: adin1110: Fix phy_device
- leak in probe_netdevs()
-Date: Fri, 06 Nov 2026 07:27:45 +0000
-Message-ID: <179395006518.488859.7603845397469844366@kernel.org>
-In-Reply-To: <1793949783000.333861.5224091507677300156@cmss.chinamobile.com>
-References: <1793949783000.333861.5224091507677300156@cmss.chinamobile.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46743606A333
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:28:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46743606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c7f887ac6bso463796b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:28:14 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793950093; x=1794554893;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9Oc7Fh23vn4yA1VJvjCDMyL41Ep+4U8V9Yc3ZxpGT3s=;
+        b=F4JlRGhakwt7jnYYjvdoRDnZsZBHDL04+LTCrdyETYwNL2bxIuqC7pjV3NDBsjkC48
+         ZSfz/d6cnI6gC6VKvQuTtIpldsZlX1ZPdcHloIaP625OwJUL6b2JRuoDI7uR8BJ70Ev2
+         rVFiUGk/ChDznq2+OSBbzXzzTO8NnFkPrKP0FelWhQy4GFUyRFTXmKE/jMYMq7q+D8li
+         du1adADA06TaVhCDWiGB0jn56H4vZAfOvkohJ1SBd/JxUHKJUdn8OBWY6iQU7+mRPGg6
+         A54nWJsaQ26aAtQ3wHr5UTibZ5PzZcMp0UbAbO8bGAgpryi57DbJ0eMZkjTCptA3907D
+         JaDg==
+X-Gm-Message-State: APuU4Z/1qepz/4tNgkfbZTndXrE/DWaHdHgyy68G5P1lYEx6HlBMPTSp
+	uFjydlAk7ZxVkilrQHGvOBkfAx3JAx7wk39zKz0bjVKiKv5eiicvqag2GxNSx79suQS2mJefLn1
+	0LdmcIqWNUCf6+9SMxCQJ8210x9sCOE5k3HgdHu9ACHXrksOT/UQgZNanRzQ=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,25 +57,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:19a5:b0:4d6:308d:4ca7 with SMTP id
+ 5614622812f47-567e14a5391mr1353265b6e.24.1793950093150; Thu, 05 Nov 2026
+ 23:28:13 -0800 (PST)
+Date: Thu, 05 Nov 2026 23:28:13 -0800
+In-Reply-To: <6aecf26b.382bd2ce.33e041.0002.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aed818d.02d3f859.2829d1.0009.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [netfilter?] WARNING in xt_dnat_target_v2
+From: syzbot <syzbot+2e819f6641708bb6ab9d@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi!
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+***
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Subject: Re: [syzbot] [netfilter?] WARNING in xt_dnat_target_v2
+Author: xujiahao@cmss.chinamobile.com
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git master
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Testing the attached patch for this crash.
