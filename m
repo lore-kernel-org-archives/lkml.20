@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794009386;
-	b=jWTqzqP7zI5pZzL4TWWUVOR7aPVOTxM8NMy6zM5ErqhvWk1Kh54grFMgbs07In3JE8Wq
-	 RobWNjwbIqzknwKHhFJxNakX24wQBs773Z7ZW6pPlww3qxDEkEoFviAx0UOqFgAehphpH
-	 nNUUYX70mhStrFj4rkrhq7uvTmPFw9IwdSA25CJkuu3RNKzsdT9s/itQOnbed+qlIXfwn
-	 ZJ0EimBHRFs2q6lQ673ODgJAqUskSD7f/L8Q3pTGCfbWmzfNSdLMczIDsRIIPyrbRjBdW
-	 QYOxbQJS37ZDL8knMyqI9rEhsAywJYEvU+/+m7z712HXZW9LwTwg/TyKHUaNXudfDSw==
+	t=1794009381;
+	b=bGDpza3xZKnuJM7FyOAe69vZshIxA0JIjtOnlvHq0tZhP8W8gSoHbk2aR6QHQ2r26POP
+	 Zpz2LpcGYodyRdkNRvAOSXtAclC//65qpL9qJ5ebZbG0WVHJ2gBrw+VqGu48j3wO0lD7W
+	 sWEuo6q8ap+QYWBMyExq7p3lry0IL6VknD7grpCmsz7fgr+/YLfSH4mvItKvxeae0koXt
+	 xAJ0hUFecwHKgTguuFHIe0bt8vyjOMmSno9K+/7LxOoDM8W3hDqGIR9fzXLOmWaOJQyYP
+	 K7LF/M0v/aHXD9v0fWvxwCYV1BW/S2UDVJwwzw8KQevZ6HXlemG6RqPXUz9zZ6Xm2ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794009386;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794009381;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jsbkn6JtM+uViWqPojCdZmp2+VpR908oaZhMpAVLBgc=;
-	b=Om5oGDvVHIJ3m9yZFaX/VJ5KpO3GtBRmGjXREmFXMnFeNolZ4Lkxf4Ka/cx7uMSPSvEE
-	 P/giMQ3VHF89BI5YvC5r6pH8EY+x1t1ccfeRPIh7LkPKc0zKH4Kjsm6N0W0JCzNtTiujs
-	 Qv+vC/cJtlJbVbwWXt88UPi/DPx6FboJhIMveQsiiIYN/sPdQWy+5kvg51+YNH2kZXf0Q
-	 +DqQdXkHMaZfjPu9BNTvoKxyHAZ0wloJdnj/nxXoXL8tvWk4t2AVVW1SrXP1pe0rYIV8s
-	 4/BE++ADDKyjXAHKrSKhi9WAFR0cJbL1go0EL56LsVCDojxbWu64Mm4Al6CRAa554qQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=re+IWocSwV5c8ScF+wx81yfMha910y/RtjGSN1S+bq0=;
+	b=wpV/uqP+y6kzxZySm8IqE4srj+1dtQK1EpxLoYSL6BUfBBpdnabz+bUMLkjZZ5HIHsix
+	 tD5jLDqPOifE+RY9nZZjfzTQtEW2VXdHEu1Dm/mdt8Iu+MJx3CfoJYo/tXg/ckPwazbbb
+	 RimOTSOYjmtAAgeS1yz+KEY+M+fS6CLZS0mQUc9mjgUxsWo4iv8Lmg6XxjWQFxsDOJm/J
+	 Gj7Xu36i273BciSa0yaDv4s5hbtqFxu3KqwZEhdQqLLWcqMz9/GMzk7hJKtwbA72JUJsK
+	 tJ0uKVMOTtZDg6BNg3weqEw0REZNBqmK1YBXLI7u+Xohp3UMzZ1oNHgWo+QP7vw17Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mblKDokH;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JHFdshfU;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD563606A332
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:56:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD563606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06EB606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:56:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C06EB606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mblKDokH
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b094e649d3so731525a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 15:56:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JHFdshfU
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ae1d0caaedso564476a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 15:56:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794009385; x=1794614185; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jsbkn6JtM+uViWqPojCdZmp2+VpR908oaZhMpAVLBgc=;
-        b=mblKDokHSLubiDUWUA/efr02qRXOAVSIL6WXu+Tyz03aBCkmGF0IQLkQ4zshri9ttC
-         TWIJ/JkBE2NSTJNOEJLp4DmzTBN/Cdq/7M19Xkre7xHh0I4h27bYyu9hZjenLBLP7Xl1
-         KNhFG0lqutu3puY08/eOgRzlS2Fkb9joLGdWJMxExERyQMdMp/fh+TRiaznv8/M+hV8t
-         OoKDy9Dd3xASlc3XCBTVY8zNy8X3iCBkKTFjqCMgCyeqMzu4HCRGCM5gAX/7Xutd9IMQ
-         uvporIWD3X4WIbgsCZI7OnzE19gQhIayPZQtBZSStgkXdMXpN1+8/Jzozz/I/PX1U5Vp
-         o94g==
+        d=gmail.com; s=20260707; t=1794009380; x=1794614180; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=re+IWocSwV5c8ScF+wx81yfMha910y/RtjGSN1S+bq0=;
+        b=JHFdshfUT9qoSR9FDXb7/aVXoyN04XIJIrqvL/j+0tnLQHAnp3vrV0v036nZgyh1bv
+         jrQXv0XmqRucKiI5Y/r//lEdBj2zxjxgDsuj0RTaMywRy9eaiI7I0jg6qPbwQhoDsVib
+         xfiA7K3jAGGGa5K9stI8zSKJFMomZsJ8eZM3bquczO1rsq4gIrtYk/0XtQCyrH10UAm0
+         eqqX7AQj6rianfVhqeJWIuODejfFxq7Dw+5jlskKs2IOsnlBmgo7rHjmja1XEbMVIKVh
+         9Ds4v1JX4DVY+clpMy8EvldFIdVVYGAuZl3O6VtmrKf9fp2h5QiTan0obXdhyT4g6rPU
+         ruzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794009385; x=1794614185;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jsbkn6JtM+uViWqPojCdZmp2+VpR908oaZhMpAVLBgc=;
-        b=Y9Ky3aQieI2S6EccLFQ/bfHVBC6UMXqr/Nm8of4gXG2JkdVx/u1AWwKYXFanwZLrTc
-         wl7XFfRkYAIQlLbvQBaTVJ+rh7HYpNlTpvKUcy/cRGdpfmBi9Q4F4Tf9Z1HoibCpJqNc
-         SJT0m0pJ5uz8S9xi4kBTJzyuTG9M/sbQbINyIQxdQAj5bUhjh0VW1351nxIujQMqbyDx
-         y5ECjsxTcWnfH6RF4QP0I02MwOqW4lHJQ2S+/mb0x7wjgW5fMnKFAM6PtctstI+a4hhM
-         r2uaIAYRH3WaalpGkxCekrFhGQwvPptm9PbQokW65c3bcZHgH5P3hhvrN1Nf9bUBoo9L
-         kPHQ==
-X-Forwarded-Encrypted: i=1; AL+hErEUT27wNYGO5V/uQQBw7r93Rh6JV+UnM49FR2ME5vpRhRXvF4xO2OfmH7r4AZAOqzFH2hBg7fdN+Y7/Y6o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+D4kNv9rvfCrl4wRlGf30nQHUimgrK7+bQc1fgNrPsRpxJIeV0
-	p5U28sK6KuEiFhduzyTezQFYv49eedej7HX9SCvJBHtzbqnPbJChcRNL
-X-Gm-Gg: AYBFou1zHQ7X8QlbbzrwJPaa85Km7Juk7iiSaDJ9c0x3Eh+/aFCf5BDq+tJPBQc0e0R
-	BT83rWCnEL7R1aC+VOb0xfhXcgcHnV0szaxbMHnuADAWE7czNeBpM8fQijawnzKHdRg5A37oSmB
-	pmQRzR9aOc7uQfBxzn+w5GSvfDAK8K3ExxkCYrtNxLAuZKM9qhoEl+8zGHMgwdej6mZXe96Lu9u
-	Yhgtc6trY3yTgaaI1KL0LDg6rLmNJxP/V+/KG/QJDxrnCQFE8OFu1yPM/xJnOsMleifJS4+UMyF
-	Bw0oXeL8Mrv+2pYdlydGAsSSi2C+EAoRlcnJiJNS3aEa+/w4oxW55I1HiYtX/VhegYpjEBxs2/x
-	vEaY7Tngmgz3itd68wv6KkaDlaelIb9t1RX2vXLHdNqcDKKng68VJ2lFvNPMl4qa3nRUc/baQKI
-	283JEwO3rX4h41t6xn4nh6Fo6WikjOcBt388EEf2HG2kLhmxAbPvEoqO5l6DsEABVCyHKGOOgGi
-	zXEFVMWVEhLBQsn+RT1Gc0Dre0ai1KqvfqvWLl/NxjDmQupY44TgvJi9DjJLSqN5aDbVDp6ZofO
-	Q6wMV4hU2v4exC6b2lhS
-X-Received: by 2002:a17:90b:530c:b0:3ab:2737:3393 with SMTP id 98e67ed59e1d1-3b0db6f4c26mr3934488a91.40.1794009385039;
-        Fri, 06 Nov 2026 15:56:25 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794009380; x=1794614180;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=re+IWocSwV5c8ScF+wx81yfMha910y/RtjGSN1S+bq0=;
+        b=dgq/6zW3nV5RPnnpPicjEoZf8xfugxk8gLxc8uILC9G1g+eNmfEMe0Xuewxi6Dd1AK
+         hwWg17d/MVysByRJppJfN90yZbUpogJ42b22ISOowf35CzbEJXqnj9VEeBqc4XmO3FN+
+         HiojYxt2FQoTqo7BkEma5o2nQkJHvo8jlxFfCmhtmETaaSoA+WkE261PpkjdNnj1j7Zs
+         PpgQSnnV0niK2k07z/MJcjllnTTOwnh5lfzxaSmH/REbU0KsIcaoirE8muxREJkvmI09
+         3XRrtq6ras20z7stWe36BDQRJwqmvdr2xpd1H4R0NIQT1ggXGpr3353XJy4oh/MX0J9Q
+         wB4A==
+X-Forwarded-Encrypted: i=1; AL+hErGeONj1evVh50Vv5E1kAFL4ThfBnFR1HyjTkdBBZPiZxj2Ey+AwpgqauegGYsvvGG1sHzhrl9n42ShwmJE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+55hAbcombiWpncKr3PAdGFV/rFhcw8MuYzTpB7XJTC67phkT1
+	9ENrSqz5ShukrKpbR87mfd6BAJoApMTZMIigods4iT/dTQhRWnXlog9pNk16ag==
+X-Gm-Gg: AYBFou1EHs5woxLGWgBR7yFp0DCK5X8xnJo//PFaRRs+DcnlD33JEQ74Ul3SoO/RRSj
+	zeZZDJdeGuZwi8WwKHUXRoInTRfeVK93Bf32PU/6g+MJxhGjdJriErLCK+VnQuqhB72bHgBufTn
+	5fWJGKSRe44pkqLqFRsABhsPgD9/s8WrGKTAeSU1QS1tkdgQuirCVQ8UDDO7PPLR4WApcjyGYP/
+	UUCZJbOci9WwgTNvWV8r8qUpRmsFacIZ6iH6NRamOKI6VNeDEy3PUcr0VqXdvvI3U7KridyRIDj
+	aDUjKFg9xr9mS+wMSXa8tN/kjVNQtfMUQ8rN0QN29Bw8kM2jmUov+QBeSZN8ekowCYL6zFbWyaD
+	JydfuTfbeU1Tw4B+o0EMfRG4w6ZH5Mkiru/bR5/HtuS3onNT8cXb71DWxRh6zeocxXXuPHkp3b5
+	zR7ScSL/JpC3ydv91bPYbU3LSapwgczfPhbdsRttEc+BjTRZu4EVmb7dtdlYkQ5e5vJK2q2n+2m
+	ZBgpBVq4sHx+7PVw9IpHewy7zD6Ijem8v9fDT0zYtOMT2/ZPRueTms21j/3td4Ek0KEP6/YRnGB
+	7SW1iRsTdmHVxqM+qyelZdgdkpekI14s0li/pmq6tA==
+X-Received: by 2002:a17:90b:3dc3:b0:3ac:7c52:fb04 with SMTP id 98e67ed59e1d1-3b0db71895cmr3876355a91.44.1794009380043;
+        Fri, 06 Nov 2026 15:56:20 -0800 (PST)
 Received: from a1-free ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057fda58sm852780a91.7.2026.11.06.15.56.22
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057fda58sm852780a91.7.2026.11.06.15.56.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 15:56:24 -0800 (PST)
+        Fri, 06 Nov 2026 15:56:19 -0800 (PST)
 From: TAKANO Mitsuhiro <takano32@gmail.com>
 To: Catalin Marinas <catalin.marinas@arm.com>,
 	Will Deacon <will@kernel.org>
@@ -88,12 +87,10 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH 2/2] arm64: errata: Fix Falkor E1041 Kconfig name in silicon-errata
-Date: Fri,  6 Nov 2026 23:56:16 +0000
-Message-ID: <20261106235616.1533003-3-takano32@gmail.com>
+Subject: [PATCH 0/2] arm64: errata: Fix two Kconfig column entries
+Date: Fri,  6 Nov 2026 23:56:14 +0000
+Message-ID: <20261106235616.1533003-1-takano32@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106235616.1533003-1-takano32@gmail.com>
-References: <20261106235616.1533003-1-takano32@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,38 +102,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Falkor E1041 entry in the arm64 silicon-errata table names
-QCOM_FALKOR_ERRATUM_1041, but the symbol defined in arch/arm64/Kconfig
-and used in arch/arm64/include/asm/assembler.h is
-QCOM_FALKOR_ERRATUM_E1041.  Correct the name in the table.
+Two entries in the arm64 silicon-errata table name Kconfig symbols that
+do not exist.  The GIC-700 #2941627 row names ARM64_ERRATUM_2941627, but
+the workaround has no Kconfig option at all; it is enabled from
+irq-gic-v3.c through gic_enable_quirks().  The Falkor E1041 row spells
+QCOM_FALKOR_ERRATUM_E1041 without the E.
 
-The E1003 and E1009 rows above name QCOM_FALKOR_ERRATUM_1003 and
-QCOM_FALKOR_ERRATUM_1009, without the E, so a missing E in the E1041 row
-looked right; only the E1041 symbol keeps it.
+The first patch marks the GIC-700 row "N/A", matching other workarounds
+that have no option.  The second corrects the Falkor symbol name.  Both
+changes touch only the text of the table; no Kconfig symbol or code
+changes, and no build was run.
 
-The Kconfig symbol stays as it is; only the table is wrong.
+TAKANO Mitsuhiro (2):
+  arm64: errata: Mark GIC-700 #2941627 N/A in silicon-errata
+  arm64: errata: Fix Falkor E1041 Kconfig name in silicon-errata
 
-Only the text of the table changes, and no build was run.
+ Documentation/arch/arm64/silicon-errata.rst | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Fixes: 932b50c7c1c6 ("arm64: Add software workaround for Falkor erratum 1041")
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
----
- Documentation/arch/arm64/silicon-errata.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index afea5e57ab95..f554fa04662c 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -360,7 +360,7 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | Qualcomm Tech. | QDF2400 ITS     | E0065           | QCOM_QDF2400_ERRATUM_0065   |
- +----------------+-----------------+-----------------+-----------------------------+
--| Qualcomm Tech. | Falkor v{1,2}   | E1041           | QCOM_FALKOR_ERRATUM_1041    |
-+| Qualcomm Tech. | Falkor v{1,2}   | E1041           | QCOM_FALKOR_ERRATUM_E1041   |
- +----------------+-----------------+-----------------+-----------------------------+
- | Qualcomm Tech. | Kryo4xx Gold    | N/A             | ARM64_ERRATUM_1463225       |
- +----------------+-----------------+-----------------+-----------------------------+
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
 -- 
 2.53.0
 
