@@ -1,56 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999085;
-	b=h5mYVmy8oCZOASqLM+Pu4PBPZigflyxsqqtiTuJLFZe/1rt/kTPUR0QcYRqawWzZNPOL
-	 T/0ouvQ5oY9INe7Uqmf6ViWp9Gpmwt04t6fleSxojuVpxOjoXAiP5AvZebP5r3PhrNHSE
-	 I3zWvodmQnzgrfc5h/Vjdx9We3htHvUXgDy94NIFHOPXcviz7BBfIU41eE9yDz5RkWuIg
-	 2l1xssvL4HBEL9M9KRXo6ZVNXM/kZiaX0rupNuidoL4P+r8pbWUx2UA2wYm1lOmbdsiQH
-	 gkYrhzjSrm5oLe2lA7PrAPz41AXgyRlXXz/EuhfeFk3upr4wKkljXWyScsN3/w+54Kg==
+	t=1793999107;
+	b=1D4NOrysGc52/EL1cZE6K3m+ZLKlFmdeUMPRhvuzxSJQ84FgLKVXvN1e3uvmt8m31TS3
+	 E/4jL90pCYSNSxn4P04KKwQ72QP1Ey6ILA+UtbY7KIvEfRT39929SJR92AQE30p+dTQQs
+	 ofq6h94hA2C7k/CbLK+3f6u/utICwzKXbPCe/ma9aek+RxuWGXJ8qcl2lCxgaHCichUGm
+	 qIAm3wZJGnjU3vce6ZsNprxbI3e8B53uNncoYOWStV8JBJrsuCPa2etnujig7lXVIcpzX
+	 ZwaDLKAqCgz9fT1JIfeOmGRZnHudFBfJ8souu2s3vPubrOnmA00HudBp1FTo7VfQCMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999085;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999107;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9mCSh537Zkc+/ONs3x2e17S7D98n9pmc/4cO5WOehrg=;
-	b=slMhkJqeQ8u/82KIhDrvbNCo/s7Ms3ZTUE7u8ZeD2sIaVwWFnts2sdcLaDMwdobXxebm
-	 PFvT3i3kjzff8WN1tPfnnPtUUFRsydnpZ/SiEZGhHc/QpjA2UmzG4U15n4yaW1Y5RgIi2
-	 gYEJHWULh0rPSLBRz8CRawZ/5na/pTnNN+Jjgts6Zq0hK5pMnbQsyLkol8XtkN+yu+DKH
-	 UH1F9+EOGDP81tUfpwclYCxv9LZt1QuMBfTGShdDbRSv+EI4iknvLKGbEy6WIJnqulpJy
-	 ksteMvngLXNB9yddAYRrgPgr91PzribfW4atciRHYhI9vIuizORrBDV2jQQLofCmqrA==
+	bh=zEQFtyuBkdyKKBuW0Kh8GMzWm2rOcSjD9Nn36fEIIAs=;
+	b=ZtB/RQWwK0Gr/ZwWC7GNOZurZ/Yqqmfe6Cx7MQ4PQRD9pPtW8lXrRgVpYj5uP0c2Mjak
+	 oW5m5ep7rZAAxzIIFtAqF1RjO36LulJeC+RvEYiS29yRsLIkZj3ZtbKwxpSsDQLsCzArB
+	 K+wwqG8qfxmYRFvoniSUoAHit7Bfr5b8uUurmeHaEk/tQj6PlyFzexp0ZGX/hP18b8AW1
+	 6vmGFIhbuPN/+shgx1K0O7bp2Nfbvzmjz93bbYgBbrhAwk3TdHv3bINqxc4OMSohnPNla
+	 sa4y+PNHoiAKxBdzB43CYI0K6OVrzw8Z+vqmMAUzrFDLhlYkOUhj16PSr9ZjIZ614RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTXFCK7J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=DfQ1D8jq;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB9C6083606;
-	Fri,  6 Nov 2026 21:04:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F54D606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:05:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F54D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTXFCK7J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0F81F00900;
-	Fri,  6 Nov 2026 21:04:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793999085;
-	bh=9mCSh537Zkc+/ONs3x2e17S7D98n9pmc/4cO5WOehrg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nTXFCK7Jc+NTi8DsdFSnKpsTSYiR0EiS80aHQjEiSi3hWiS8rGRqGMbGIjDc7ypdk
-	 jic6wILiR9Ven4Zdv+oRYeiuo/FsLjienATkzwOlxOcESC3psfpemR2N47BmQ6NWmo
-	 dyItIFYQVBVx8JlQSN9vuxohag9Uw0Wz7w1XIqEPWf7VVdgK8TiO5B5dEBKvKvlHwl
-	 tTtUEXwJVTxBqg5ZDYMNrknrDPfVLpT5fOV0pA03cYBsgwI2GM+RFGeL+SVPSAZ0Tb
-	 LQI64lX6ru2lcPMLPw3J0+zjR+ML3n2ZigVi+7xvNnUYCdJ3IUth7JOWkv755VOhhe
-	 PNJssHfgQeoTQ==
-Date: Fri, 6 Nov 2026 13:04:42 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: "Romit Sagu" <romit@romitsagu.com>
-Cc: <netdev@vger.kernel.org>, <linux@armlinux.org.uk>, <andrew@lunn.ch>,
- <hkallweit1@gmail.com>, <davem@davemloft.net>, <edumazet@kernel.org>,
- <pabeni@redhat.com>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] [PATCH net-next] net: sfp: add quirk for OEM
- SFP+ONU-XGSPON
-Message-ID: <20261106130442.5ad3327b@kernel.org>
-In-Reply-To: <20261103011849.181392-1-romit@romitsagu.com>
-References: <20261103011849.181392-1-romit@romitsagu.com>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=DfQ1D8jq
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jLsBn5Srkz1XM0nt;
+	Fri,  6 Nov 2026 21:05:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:mime-version:x-mailer:message-id:date
+	:date:subject:subject:from:from:received:received; s=mr01; t=
+	1793999101; x=1796591102; bh=zEQFtyuBkdyKKBuW0Kh8GMzWm2rOcSjD9Nn
+	36fEIIAs=; b=DfQ1D8jqexoyxiIZ07fqtjKqWkBrbl1UTvvzGlpspYlUyLcpex7
+	dYkEkcwzcBQJDo9lsvY/Y2rl6+HU8vfqriX+GpT4wcIdjuF9s5XElKULJJ3DRupB
+	T7Ty0J08oLMYtGhlkbOykWEELp8nMdbj8+oxHhgjGBgWHcA20gapSLmlj5cNZxeT
+	UchkfRwjVcwAtgbaKSSC8UuiByWP+3mh4X5GNUIun9/mhtPeMwRYrOvbeLKhgatO
+	foSkIJcQD9U8Ka5Z//Muy5U2BVgECSNIo1fuhGFrlgjgWNBsdzj67x6P2WiwxeBP
+	mIC2dUg/KUc9O6/aV/ZAErxIF1h5rxRzxtQ==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 0IBcUNscV8yE; Fri,  6 Nov 2026 21:05:01 +0000 (UTC)
+Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jLsBj3P2Xz1XM0nn;
+	Fri,  6 Nov 2026 21:05:01 +0000 (UTC)
+From: Bart Van Assche <bvanassche@acm.org>
+To: Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>
+Cc: Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: [PATCH] mtd: spi-nor: Reschedule in spi_nor_wait_till_ready()
+Date: Fri,  6 Nov 2026 13:04:53 -0800
+Message-ID: <1b755e40b80fded4b4b4c1f1c81f0d171012a1de.1793999093.git.bvanassche@acm.org>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,41 +80,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On Tue,  3 Nov 2026 01:18:42 +0000 Romit Sagu wrote:
-> This XGS-PON ONU stick (vendor OEM, part SFP+ONU-XGSPON)
-> needs the same handling as other Potron-based modules. Without it,
-> the module fails to connect and the kernal shows these errors:
-> sfp sfp1: module transmit fault indicated
-> sfp sfp1: module persistently indicates fault, disabling
-> 
-> This module requires TX_FAULT/LOS behaviour and boot delay tuning.
-> Add a quirk using the existing sfp_fixup_potron.
-> 
-> Signed-off-by: Romit Sagu <romit@romitsagu.com>
-> ---
->  drivers/net/phy/sfp.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/net/phy/sfp.c b/drivers/net/phy/sfp.c
-> index 85e57a16bb52..9435b25b54c9 100644
-> --- a/drivers/net/phy/sfp.c
-> +++ b/drivers/net/phy/sfp.c
-> @@ -623,6 +623,10 @@ static const struct sfp_quirk sfp_quirks[] = {
->  
->  	SFP_QUIRK_F("YV", "SFP+ONU-XGSPON", sfp_fixup_potron),
->  
-> +	// OEM SFP+ONU-XGSPON is a XGS-PON ONT stick with broken TX_FAULT
-> +	// and slow startup, just like potron.
-> +	SFP_QUIRK_F("OEM", "SFP+ONU-XGSPON", sfp_fixup_potron),
-> +
->  	// HORACO HC-10GE-113C uses Rollball protocol to talk to the PHY.
->  	SFP_QUIRK_F("OEM", "HC-10GE-113C", sfp_fixup_rollball),
->  
+In spi_nor_wait_till_ready_with_timeout(), cond_resched() is only
+called after spi_nor_ready() returns 0. If the flash is already ready on
+the first status check, the function returns before reaching
+cond_resched(). This happens e.g. under QEMU, where SPI NOR page
+programs and sector erases complete synchronously during the MMIO write,
+combined with a controller driver that polls without sleeping.
+Consequently, multi-sector erases in spi_nor_erase() and multi-page
+writes in spi_nor_write() may iterate over thousands of sectors or pages
+without ever yielding the CPU on kernels built without
+CONFIG_PREEMPTION, e.g. ARM32 kernels with CONFIG_PREEMPT_VOLUNTARY=3Dy.
+This triggers soft lockup and RCU stall reports.
 
-PS. AI also suggests mentioning LOS in the comment, since you have to
-respin
+Move cond_resched() to the start of the polling loop such that every
+call reschedules if needed, even if the flash is ready on the first
+check. Doing this in the shared wait helper instead of in the
+spi_nor_erase() and spi_nor_write() loops covers all callers that wait
+for a program or erase operation to complete.
 
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103011849.181392-1-romit@romitsagu.com
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+---
+ drivers/mtd/spi-nor/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index 90524c58602e..3e3b727d262e 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -653,6 +653,8 @@ static int spi_nor_wait_till_ready_with_timeout(struc=
+t spi_nor *nor,
+ 	deadline =3D jiffies + timeout_jiffies;
+=20
+ 	while (!timeout) {
++		cond_resched();
++
+ 		if (time_after_eq(jiffies, deadline))
+ 			timeout =3D 1;
+=20
+@@ -661,8 +663,6 @@ static int spi_nor_wait_till_ready_with_timeout(struc=
+t spi_nor *nor,
+ 			return ret;
+ 		if (ret)
+ 			return 0;
+-
+-		cond_resched();
+ 	}
+=20
+ 	dev_dbg(nor->dev, "flash operation timed out\n");
