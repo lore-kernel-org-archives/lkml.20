@@ -1,66 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981775;
-	b=3KQZUyjOGZ7iAEz0nBofnv2ju1P3wtAZJfXBVybJI0aeUmb3meKuHzKP8/C33SFHZVNB
-	 BHmrpa+pAq4qZPTvtbA5wllskVpaHt7gJKpzFy30IiqiF1UdMVbIILK/WnL1uuawPDyso
-	 HbBQOGFUpjiJ0cDm3Hvm+viHsmrvvOPchAORcjDFgJ7S7dIgqMUtFTOg52qd6N2K6ArE8
-	 GEOc+yyPBwqHqXTLO1C2s7ljaSztGXLc7ajzCEGcPckkgSeTLFB19CUuB+EHeVFWxL+Vz
-	 uHp46xUg3iDy9AIALdYjSOuneqmaIzMexKK0K9awoW/Hfmu9oM/lWizvrYZWB0ogmxg==
+	t=1793981770;
+	b=ZupZ2OhwsXvQj8EmYBvQv9N29Lp4kp/t2JfEsFZHvotFD1wd23bPOqjBGP6KYWNPZ5bC
+	 oJyC4ARu4loDuP2xfXFCVtaRdi1tL3fOe4m9EDAnW/v7lg5TGiBzjtoiwxjp84TxY5tvE
+	 mVXle0srM+ogx4ChaD+5aRpoH7d+nSZLDA3vOUe35pme+VuMZ2QN/GYxBTn6DOoqXQV7s
+	 eL8pB3ixrPS33l+Z6tKebfpwJg80dUGxyjwXx9kzMF6KoMJYKUgf47kPAkpjIIFIlcEqG
+	 llVufKt88AAF81jM4p/K0n6OL3d8aNyUSuPV2sxOcj9MIT9sS7aow+E4+daCjct+6gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981775;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981770;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WmCJv6xh2uQf28IF7XzJcCJf6KPQ/RKnUHBkCzuxbDE=;
-	b=l5cUiyAiHOuHyyMDGaXbKoOGBRoo4bPvyXmFkVmVrCsHXRlETiBVytfQhWeCvryc9neq
-	 cOopx4k4wwIoVSdpEkRvvDEWJ2polzj/zQEi5hEA0otVYLKhJ/4f00iLGHZnTlYZIJA9Y
-	 agIjL/3Y93xH/j0diHGRWhm4mQx9K2gQc4cmKF2F4lqtHAR2kcUbVai2AEBssFfAS/b6D
-	 3XrZZwFJ2PXIH0gPrJx8Xz7wmDUDgrTN2uOOTg8svtwdHXrjalePyPBazTGN30W7atNla
-	 h+jFJTf7rG9mrTHrDnG2cvi1x9n2jADi9umdhBu0B+OJ4xIV7/XSJWQRFupFrI3mqNw==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=vIkPoYE6MWQUTDbxc24Bt2PJiRan3qQAHh92crx/xhU=;
+	b=gUDTBmvai25ubNeqHl8X5ORv6z+xP4KUWtcq6IDqO5Rm3qPYdxFc0edxG2Gfs4lo5l4N
+	 lYzc+sNGivwPXP1h4qUj8zJsS2SWWGN9/Al2sQuXUJa9xaayY23350iT0CE8N4tKE1cwW
+	 tHifZxvOn2RodjQwj/x7scGO7ZkoLe24i5GGVRVLN3gotOeNgmlX+ZXWfcinpihR25oVK
+	 hDnT1n0kBABM8rx6RsQUI35KF84yUpw0Y+KAQlSitIkeAQYk0i7HJgkyW7BIAJZ9hZ6o6
+	 BC+y+kwiQfePvuB/gSqd8rn71pPNvl7qCRacfUzsi/BoxrXEqya/iijhD4+ywcnLWUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W81E2a73;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oElQBYlR;
 	arc=none smtp.remote-ip=198.175.65.21
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF62606A32C;
-	Fri,  6 Nov 2026 16:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF62606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E177B606A326;
+	Fri,  6 Nov 2026 16:16:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E177B606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W81E2a73
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oElQBYlR
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793981775; x=1825517775;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=R81F1ujtvLrcgOalXjPABvU4Ik47+8GC+WDlfNWSd90=;
-  b=W81E2a73lMWCEypvngRwKh6wc7ql3NPHczmxO09Nm3aAjApMIMheE8Te
-   tcWzlgsQC5U3oh8/XS0WGOS+ll1G8mj8EqNjkPwScBlUsgYPrsvsZqxue
-   Ouwy8FUUCsb0yJ726Yuthgu4disKMjjqgk70DHnmiRmjrlPbMh+HioKb2
-   3+J8oz3b6AzOeeG4vlJiMTVikOMln1gwpYHZgfqHDhaLqVEP1eLTCcTSA
-   JXChUXYTZMkFj1mbJJI6SrbYZJXCPezPPgQ8FhVYhPA8iw//CbXg3Tr3I
-   HfNExfs58kd6M6+eNm1VR69XNe5C/vN+6csfkUkXm3TBV7eUsfbdb7wvn
+  t=1793981769; x=1825517769;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=PYAIWQSou7Qn7SCeKsiOf0ig2VwaVhMX0wjIuVVVLGE=;
+  b=oElQBYlRouRVbuaVNGhZbJ7vT6y21e5cBi8RNRnJbWu8kHo26VN6SRQn
+   Lury/zLmEWv0RneQQn34PtbF832Mq77RqMUE8c7nRJ6N5TtQ1AWyv/oCb
+   +RofFEz2czW9KgeXqDR4VhnsLxUMjNjQIxV4lFjLfxP+Y+7rq+Jo2Ozic
+   JS6N/0ieuy1v5FG/hniQbB+XIbxq4PgwnDG4x+BS9xqZ2EXtgdw9q4MVd
+   5BYWxodbYTFO/9gQkHV8SytiC96PxiYbc7sYiXA8N74oHTneCMDuPjvw2
+   cIFcSQ6oKLSx+dHgJo9h/EZDF74ORXlkS1krxbQaXpzTmbRfgzVYVpEoZ
    g==;
-X-CSE-ConnectionGUID: guAs4FZuTxa1Loc8C1gT/A==
-X-CSE-MsgGUID: yKNiYDhNRs6T6YOeAVR2gg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2889325"
+X-CSE-ConnectionGUID: lZyBWZo5SdyNGDiAiQsaSw==
+X-CSE-MsgGUID: yH7Ktkg/T7CqUV0P6mIAPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2889283"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2889325"
+   d="scan'208";a="2889283"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:16:15 -0800
-X-CSE-ConnectionGUID: b3I1IKXpRoWz724mCCcNMA==
-X-CSE-MsgGUID: VJYDNksdQHyI2yiWIsMI4g==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:15:59 -0800
+X-CSE-ConnectionGUID: uDWYD+uVQBK8aJj/V4BcWA==
+X-CSE-MsgGUID: hXcdbHCYTUmG7MgCuGU1Lw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7341909"
+   d="scan'208";a="7341878"
 Received: from ubuntu.igk.intel.com ([10.102.114.174])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:16:12 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:15:57 -0800
 From: Szymon Durawa <szymon.durawa@linux.intel.com>
 To: nirmal.patel@linux.intel.com,
 	bhelgaas@google.com,
@@ -72,12 +71,10 @@ To: nirmal.patel@linux.intel.com,
 	szymon.durawa@linux.intel.com
 Cc: linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 6/7] PCI: vmd: Convert bus, busn_start and sysdata to an array
-Date: Fri,  6 Nov 2026 18:42:54 +0000
-Message-ID: <20261106184256.4130-7-szymon.durawa@linux.intel.com>
+Subject: [PATCH v10 0/7] VMD add second root bus support
+Date: Fri,  6 Nov 2026 18:42:48 +0000
+Message-ID: <20261106184256.4130-1-szymon.durawa@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106184256.4130-1-szymon.durawa@linux.intel.com>
-References: <20261106184256.4130-1-szymon.durawa@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,210 +86,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert bus, busn_start and sysdata in vmd_dev struct from scalar
-to an array to support multiple VMD buses in the future.
-No functional changes.
+This series adds support for a second VMD root bus.
+
+Today the VMD driver can enumerate and manage devices only behind the
+first VMD root bus. Starting with Intel Arrow Lake, VMD may expose a
+second root bus (BUS1), and devices behind that bus are not discovered
+by the current driver.
+
+The hardware model for Intel Arrow Lake VMD is slightly different
+from earlier VMD generations:
+
+- CFGBAR, MEMBAR1, and MEMBAR2 are shared by both VMD root buses.
+- Root ports on BUS1 have PCI_PRIMARY_BUS hardwired to 0x80.
+- Interrupt handling remains based on the existing VMD MSI/MSI-X and
+  irq_domain model; this series does not introduce a separate interrupt
+  domain for BUS1.
+
+To support that layout, the series first refactors the current code so
+resource setup, bus creation, and enumeration are split into helpers.
+It then partitions the shared CFGBAR/MEMBAR apertures between BUS0 and
+BUS1 and creates a second root bus in its own emulated PCI domain.
+Reads of PCI_PRIMARY_BUS from BUS1 root port bridges are emulated to
+return the actual root bus number, so PCI core bridge scanning does not
+detect a mismatch and lose BUS1 subordinate device discovery. This
+replaces the separate workaround patch used in v8.
+
+Patch overview:
+
+- Patches 1-4 extract helper functions for bus enumeration, CFGBAR and
+  MEMBAR configuration, and root-bus creation.
+- Patch 5 replaces hardcoded resource indices and constants with enums
+  and defines.
+- Patch 6 converts single-bus state (bus, busn_start, sysdata) into
+  per-root-bus arrays.
+- Patch 7 adds BUS1 resource partitioning, a separate PCI domain for
+  BUS1, PCI_PRIMARY_BUS read emulation for BUS1 root ports, and
+  second-root-bus support.
+
+Tested on an Arrow Lake platform with NVMe devices present behind both
+VMD root buses. With the series applied, devices behind BUS0 and BUS1
+are enumerated and become visible to the kernel.
+
+Changes from v1:
+- splitting series into more commits, requested by Bjorn
+- adding helper functions, suggested by Bjorn
+- minor typos and unclear wording updated, suggested by Bjorn
+
+Changes from v2:
+- wording update in commit logs, suggested by Bjorn
+
+Changes from v3:
+- using GENMASK() instead of manual bits shifting, suggested by Bjorn
+- converting decimal number to hex representation, suggested by Bjorn
+- wording update in commit logs, suggested by Bjorn
+
+Changes from v4:
+- Update Dan's email address
+- Resending the whole series to the correct mailing list
+
+Changes from v5:
+- Fixed correctness issues in BUS/resource layout in patches 7 and 8
+- Fixed lifetime and use-after-free issues in patches 3 and 7
+- Fixed resource tree integrity issues in patch 7
+- Fixed error-path leaks across patches 3, 4, and 5
+- Fixed allocation failure handling in patch 3
+- Note on Sashiko feedback: Pre-existing warnings (unrelated to
+  this feature series) were left untouched.
+
+Changes from v6:
+- Refactoring the series to align with recent changes in link below:
+ https://patchwork.kernel.org/project/linux-pci/patch/20260629165025.268836-1-nirmal.patel@linux.intel.com/
+- Fixed double free of the IRQ domain and emulated domain number
+- Fixed a race with concurrent readers when modifying sibling pointers
+- Fixed the MEMBAR2 split equations in
+  vmd_configure_membar1_membar2()
+- Fixed hardcoded resource indices in vmd_configure_membar()
+
+Changes from v7:
+- wording update in commit logs in patch 8, suggested by Bjorn
+
+Changes from v8:
+- Dropped patch 8 ("PCI: vmd: Workaround for hardwired BUS1 bus
+  number") along with the issues Sashiko reported against it. The
+  hardwired BUS1 primary bus number is now handled in patch 7 by
+  emulating PCI_PRIMARY_BUS reads for BUS1 root port bridges in
+  vmd_pci_read(), and BUS1 is assigned its own emulated PCI domain.
+- Patch 6: sysdata is converted to a per-root-bus array as well.
+- Patch 7: Fixed a data race reported by Sashiko where the MEMBAR
+  .sibling pointers were assigned manually while the resource tree
+  could be walked concurrently. BUS0/BUS1 MEMBAR resources are now
+  inserted and removed with request_resource()/release_resource().
+- Patch 7: Fixed an issue reported by Sashiko where resizing the CFGBAR
+  start address for BUS1 caused vmd_domain_reset() to skip the root
+  buses. The reset now starts from busn_start[VMD_BUS_0] and covers
+  the whole CFGBAR aperture when BUS1 is present.
+- Patch 7: BUS1 setup failures (domain allocation or bus creation) now
+  release BUS1 resources and fall back to BUS0 only.
+
+Changes from v9:
+- Rebased series to v7.4-rc1, suggested by Mani
+- Patch 7: VMD_FEAT_HAS_BUS1_ROOTBUS moved to bit 8, since bit 7 is now
+  used by upstream VMD_FEAT_INTERRUPT_QUIRK
 
 Suggested-by: Nirmal Patel <nirmal.patel@linux.intel.com>
 Reviewed-by: Asutosh Pathak <asutosh.pathak@linux.intel.com>
 Signed-off-by: Szymon Durawa <szymon.durawa@linux.intel.com>
----
- drivers/pci/controller/vmd.c | 64 +++++++++++++++++++++---------------
- 1 file changed, 37 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
-index 09d3bf35c934..5733faf972d1 100644
---- a/drivers/pci/controller/vmd.c
-+++ b/drivers/pci/controller/vmd.c
-@@ -55,6 +55,11 @@ enum vmd_resource {
- 	VMD_RES_COUNT
- };
- 
-+enum vmd_rootbus {
-+	VMD_BUS_0 = 0,
-+	VMD_BUS_COUNT
-+};
-+
- enum vmd_features {
- 	/*
- 	 * Device may contain registers which hint the physical location of the
-@@ -190,11 +195,11 @@ struct vmd_dev {
- 	int msix_count;
- 	struct vmd_irq_list	*irqs;
- 
--	struct pci_sysdata	sysdata;
-+	struct pci_sysdata	sysdata[VMD_BUS_COUNT];
- 	struct resource		resources[VMD_RES_COUNT];
- 	struct irq_domain	*irq_domain;
--	struct pci_bus		*bus;
--	u8			busn_start;
-+	struct pci_bus		*bus[VMD_BUS_COUNT];
-+	u8			busn_start[VMD_BUS_COUNT];
- 	u8			first_vec;
- 	char			*name;
- 	int			instance;
-@@ -203,7 +208,10 @@ struct vmd_dev {
- 
- static inline struct vmd_dev *vmd_from_bus(struct pci_bus *bus)
- {
--	return container_of(bus->sysdata, struct vmd_dev, sysdata);
-+	struct pci_sysdata *sd = bus->sysdata;
-+
-+	return pci_get_drvdata(sd->vmd_dev);
-+
- }
- 
- static inline unsigned int index_from_irqs(struct vmd_dev *vmd,
-@@ -412,7 +420,7 @@ static int vmd_create_irq_domain(struct vmd_dev *vmd)
- 	};
- 
- 	info.fwnode = irq_domain_alloc_named_id_fwnode("VMD-MSI",
--						       vmd->sysdata.domain);
-+						       vmd->sysdata[VMD_BUS_0].domain);
- 	if (!info.fwnode)
- 		return -ENODEV;
- 
-@@ -461,7 +469,7 @@ static unsigned int vmd_bus_to_ecam(struct vmd_dev *vmd, unsigned int busnr)
- 	if (!!(vmd->features & VMD_FEAT_USE_BIOS_INFO))
- 		return busnr;
- 
--	return busnr - vmd->busn_start;
-+	return busnr - vmd->busn_start[VMD_BUS_0];
- }
- 
- static void __iomem *vmd_cfg_addr(struct vmd_dev *vmd, struct pci_bus *bus,
-@@ -739,14 +747,14 @@ static int vmd_get_bus_number_start(struct vmd_dev *vmd)
- 
- 		switch (BUS_RESTRICT_CFG(reg)) {
- 		case 0:
--			vmd->busn_start = VMD_RESTRICT_0_BUS_START;
-+			vmd->busn_start[VMD_BUS_0] = VMD_RESTRICT_0_BUS_START;
- 			break;
- 		case 1:
--			vmd->busn_start = VMD_RESTRICT_1_BUS_START;
-+			vmd->busn_start[VMD_BUS_0] = VMD_RESTRICT_1_BUS_START;
- 			break;
- 		case 3:
- 		case 2:
--			vmd->busn_start = VMD_RESTRICT_2_BUS_START;
-+			vmd->busn_start[VMD_BUS_0] = VMD_RESTRICT_2_BUS_START;
- 			break;
- 		default:
- 			pci_err(dev, "Unknown Bus Offset Setting (%d)\n",
-@@ -783,7 +791,7 @@ static int vmd_get_bus_info_from_bar4(struct vmd_dev *vmd,
- 	bar4_2840 = readq(bar4 + BASE_ID_REG_28C1);
- 	base_id = bar4_2840 & 0xFFFFFF;
- 	base_bus = base_id >> 8;
--	vmd->busn_start = base_bus;
-+	vmd->busn_start[VMD_BUS_0] = base_bus;
- 
- 	/* Calculate offsets like vmd_get_phys_offsets() does */
- 	if (phys1)
-@@ -973,11 +981,11 @@ static void vmd_configure_cfgbar(struct vmd_dev *vmd)
- 	resource_size_t busn_end;
- 
- 	/* Do not let resource[VMD_RES_CFGBAR] end go out of bound.*/
--	busn_end = vmd->busn_start + (resource_size(res) >> 20) - 1;
-+	busn_end = vmd->busn_start[VMD_BUS_0] + (resource_size(res) >> 20) - 1;
- 	busn_end = min_t(resource_size_t, busn_end, 0xff);
- 	vmd->resources[VMD_RES_CFGBAR] = (struct resource) {
- 		.name  = "VMD CFGBAR",
--		.start = vmd->busn_start,
-+		.start = vmd->busn_start[VMD_BUS_0],
- 		.end   = busn_end,
- 		.flags = IORESOURCE_BUS | IORESOURCE_PCI_FIXED,
- 	};
-@@ -1058,9 +1066,10 @@ static int vmd_create_bus(struct vmd_dev *vmd, struct pci_sysdata *sd,
- 	pci_add_resource_offset(&resources, &vmd->resources[VMD_RES_MBAR_2],
- 				offset[1]);
- 
--	vmd->bus = pci_create_root_bus(&vmd->dev->dev, vmd->busn_start,
--				       &vmd_ops, sd, &resources);
--	if (!vmd->bus) {
-+	vmd->bus[VMD_BUS_0] = pci_create_root_bus(&vmd->dev->dev,
-+						  vmd->busn_start[VMD_BUS_0],
-+						  &vmd_ops, sd, &resources);
-+	if (!vmd->bus[VMD_BUS_0]) {
- 		pci_free_resource_list(&resources);
- 		return -ENODEV;
- 	}
-@@ -1071,13 +1080,13 @@ static int vmd_create_bus(struct vmd_dev *vmd, struct pci_sysdata *sd,
- 	 */
- 	if (!vmd_in_guest)
- 		vmd_copy_host_bridge_flags(pci_find_host_bridge(vmd->dev->bus),
--					   to_pci_host_bridge(vmd->bus->bridge));
-+					   to_pci_host_bridge(vmd->bus[VMD_BUS_0]->bridge));
- 
- 	vmd_attach_resources(vmd);
- 	if (vmd->irq_domain)
--		dev_set_msi_domain(&vmd->bus->dev, vmd->irq_domain);
-+		dev_set_msi_domain(&vmd->bus[VMD_BUS_0]->dev, vmd->irq_domain);
- 	else
--		dev_set_msi_domain(&vmd->bus->dev,
-+		dev_set_msi_domain(&vmd->bus[VMD_BUS_0]->dev,
- 				   dev_get_msi_domain(&vmd->dev->dev));
- 
- 	return 0;
-@@ -1133,7 +1142,7 @@ static void vmd_bus_enumeration(struct pci_bus *bus, unsigned long features)
- 
- static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
- {
--	struct pci_sysdata *sd = &vmd->sysdata;
-+	struct pci_sysdata *sd = &vmd->sysdata[VMD_BUS_0];
- 	resource_size_t offset[2] = {0};
- 	resource_size_t membar2_offset = 0x2000;
- 	bool vmd_in_guest;
-@@ -1212,10 +1221,11 @@ static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
- 		return ret;
- 	}
- 
--	WARN(sysfs_create_link(&vmd->dev->dev.kobj, &vmd->bus->dev.kobj,
--			       "domain"), "Can't create symlink to domain\n");
-+	WARN(sysfs_create_link(&vmd->dev->dev.kobj,
-+			       &vmd->bus[VMD_BUS_0]->dev.kobj, "domain"),
-+	     "Can't create symlink to domain\n");
- 
--	vmd_bus_enumeration(vmd->bus, features);
-+	vmd_bus_enumeration(vmd->bus[VMD_BUS_0], features);
- 
- 	return 0;
- }
-@@ -1252,7 +1262,7 @@ static int vmd_probe(struct pci_dev *dev, const struct pci_device_id *id)
- 		return -ENOMEM;
- 
- 	vmd->dev = dev;
--	vmd->sysdata.domain = PCI_DOMAIN_NR_NOT_SET;
-+	vmd->sysdata[VMD_BUS_0].domain = PCI_DOMAIN_NR_NOT_SET;
- 	vmd->features = features;
- 	vmd->instance = ida_alloc(&vmd_instance_ida, GFP_KERNEL);
- 	if (vmd->instance < 0)
-@@ -1292,7 +1302,7 @@ static int vmd_probe(struct pci_dev *dev, const struct pci_device_id *id)
- 		goto out_release_instance;
- 
- 	dev_info(&vmd->dev->dev, "Bound to PCI domain %04x\n",
--		 vmd->sysdata.domain);
-+		 vmd->sysdata[VMD_BUS_0].domain);
- 	return 0;
- 
-  out_release_instance:
-@@ -1312,14 +1322,14 @@ static void vmd_remove(struct pci_dev *dev)
- {
- 	struct vmd_dev *vmd = pci_get_drvdata(dev);
- 
--	pci_stop_root_bus(vmd->bus);
-+	pci_stop_root_bus(vmd->bus[VMD_BUS_0]);
- 	sysfs_remove_link(&vmd->dev->dev.kobj, "domain");
--	pci_remove_root_bus(vmd->bus);
-+	pci_remove_root_bus(vmd->bus[VMD_BUS_0]);
- 	vmd_cleanup_srcu(vmd);
- 	vmd_detach_resources(vmd);
- 	vmd_remove_irq_domain(vmd);
- 	ida_free(&vmd_instance_ida, vmd->instance);
--	pci_bus_release_emul_domain_nr(vmd->sysdata.domain);
-+	pci_bus_release_emul_domain_nr(vmd->sysdata[VMD_BUS_0].domain);
- }
- 
- static void vmd_shutdown(struct pci_dev *dev)
+Szymon Durawa (7):
+  PCI: vmd: Add vmd_bus_enumeration() helper function
+  PCI: vmd: Add vmd_configure_cfgbar() helper function
+  PCI: vmd: Add vmd_configure_membar() and
+    vmd_configure_membar1_membar2()
+  PCI: vmd: Add vmd_create_bus()
+  PCI: vmd: Replace hardcoded values with enum and defines
+  PCI: vmd: Convert bus, busn_start and sysdata to an array
+  PCI: vmd: Add support for second rootbus under VMD
+
+ drivers/pci/controller/vmd.c | 727 ++++++++++++++++++++++++++++-------
+ 1 file changed, 592 insertions(+), 135 deletions(-)
+
 -- 
 2.43.0
 
