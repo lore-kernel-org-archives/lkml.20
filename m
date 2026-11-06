@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793970345;
-	b=Fwq0/0URsYKx6tpOjHidFnHFiexmqeht84mgJ5r/1mbtPZGZTrYNK9iNLYLTekVTPDKo
-	 u1wKWomSPtWaIpoH27MhhJ76r8Fffzoq0INgyY2QgFYuCVrX25GKFjlRFRgfWYwAaVJE4
-	 nQnBtbf91S1NNa+ytGBg3Gjo5ob8J2yM3WBhh1Zw/v5Y51a724+/XoJIE7ObNsVtXPkx9
-	 uHzcNGZU6skB2nWCQIWHYtrBz6vM1Dd6TU78dRI7Vwz0BwSynhacBnNiHugiky81nEL2n
-	 m1qPa9h45sBHgzQcOdgD9sBGg/+O+y2kDrrq2wT0nKcc0RuWUhezdVx7v6FYMKH2Ybw==
+	t=1793970471;
+	b=5mLfoNexS2MGoU+vXOdqk0TeL3Yk9Awzu4B3NjFoXDzrdWbRKdNvZit1/D0rCDJ+NmpN
+	 92QwskmBOLYd7pIFPDN46mCiibhJtVLVne/rgKUcSwjCCHZ18kZRxlPbDx1mXOCgSyE55
+	 L8cCyeabBsy2DgB7qt9zLbMvlVmuro9CJBuNMKNELPg4xLUN31Cn63DYsOr8hb6B3tR9X
+	 YS9kff2iwfvjMDaApQa8pnpksUx+Aqfr8Yu7gN1EyQP22SzMWmrzz+mM6E/o+WZWWEeZ3
+	 0H8jlYJXYS6tkTMjBVC0dL8kXD3VwW0+QRhMh2BNqypopr/avxbup/TB8jz5s8Osrrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793970345;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pBWxQFjhyRq3d4shE+8OakD3aR4CPeQ8a9+WFLG+Iqg=;
-	b=gz24i++NBXiniU6qwapCVqRdKIFcOTYJmpr4g8O6E7ZoIMGYpy0CSDsAj9K7uPK5+FIv
-	 S3tH2OWf8PYdU7soGk2dXhoA8VRcZKUEI4lNInEqbAakLsORN1mlhKvbRImFFwOg+TjSk
-	 C0Ujd2JVnesXYnPPaG94b2CP1bRrLqwGL4VKXf2uO/aM9IsS7gFqgKXadmGUZ6WvKKKJA
-	 5Oj/QMR5r1S+6FW6x2eEgVNhaIhEuRN8/9GSxSQLOtA7tca3pnZe06AncNczIyRX5vFXr
-	 qU1CLSLbLRIlZTmmKlIkNQjb7O5wxK3Wfvti9dgGh1yHoVQkLBCDn9TbJO3CLye8wtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793970471;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=EpybBfrU4lUbKoWf/7zO/ipxZKcf3Adr06zFMm4/OD4=;
+	b=EcXbW+7EjRg6bELQihJxfO/MMxJPBJiHudXArNW1f0AfLQ9aRG//n4WsCLKhYIeEFlOE
+	 oGfRwL4Rs9PtvvseUbR0Xdtb5eguf4RL/L6ziD9k4RaGnQX6ZeYZ0+FPFD7FW+NHv88J9
+	 5tn4AMcH8iIsAUZbzeAhsR/EF+slyHGxz/ILZtHij0c+aurJat2syfXq9KpgW3mL82N7j
+	 M4/5XkO6z26LVevoyk//iix93Cph/plCLaJimfyG0ryIqkETrpPqqGEdr8yMTiwqa2Y8x
+	 dtLE3i2Vryvi7pxOvwtnVXwjmBnqd1lyCPg1WVr3Rl/j/Ea0s0WEEFmW5tgU0ML6L8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQgad3aS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=siemens-energy.com;
+	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
+	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b="bsfAH+/F";
+	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=OvnC4pqF;
+	arc=none smtp.remote-ip=185.136.64.136
+Received: from mta-64-136.flowmailer.net (mta-64-136.flowmailer.net [185.136.64.136])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2593F606A326;
-	Fri,  6 Nov 2026 13:05:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A0E606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:07:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1A0E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQgad3aS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CDA01F0089F;
-	Fri,  6 Nov 2026 13:05:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793970344;
-	bh=pBWxQFjhyRq3d4shE+8OakD3aR4CPeQ8a9+WFLG+Iqg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mQgad3aSAqUFj0r/XixB4G/WUAQdOzbvPk1WY6sO1OxWaXmN5KZlBW15owLGNfboF
-	 nFG0Q+uutTQhsWmbAT25sxkhrnGO02PY8BbAr+XlANnllU6/uQIc99TV8VMzgFyp7r
-	 Dsupb4A8GsVCcwQHs/BKmXKgHF7SHcgGspqoSn5MWuRWUkieS2iH1m0RBsm6s6KkR6
-	 vXPL98tNyWNDtzjVwvrX7ietyUNzct4/1efaYTZAvUUlOff4v9hbgiy4A7ulhmGZDb
-	 0Cgw+VOqah+zf8aujqPHB9kQpp0Dq5vNPZsj76ZKTmwWgZBBuo5oC6mgmprDOIHok8
-	 eyQd8DyZxcUiA==
-Message-ID: <e56dadce-5205-4b4c-9d1d-f215be7c9442@kernel.org>
-Date: Fri, 6 Nov 2026 14:05:39 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=bsfAH+/F;
+	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=OvnC4pqF
+Received: by mta-64-136.flowmailer.net with ESMTPSA id 2026110613073948f7d5a4360019fd3e
+        for <linux-kernel@vger.kernel.org>;
+        Fri, 06 Nov 2026 14:07:39 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
+ d=flowmailer.net;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=EpybBfrU4lUbKoWf/7zO/ipxZKcf3Adr06zFMm4/OD4=;
+ b=bsfAH+/FufM4Wo41KeHkmC5djQXna5lhSGUKjQ96mibtvsenni559J62Tqj5ESsbEI3Hzi
+ 1L+DtX7GcUJ/N2rvcyhadvMbHtju8xpTerbD5kmtQ1aVX9z6Zkbelgu3/kV5sj6oklKt4dY9
+ J1UyVaQRcCcI6dgARUkWwIOvCDfEQ=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
+ d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=EpybBfrU4lUbKoWf/7zO/ipxZKcf3Adr06zFMm4/OD4=;
+ b=OvnC4pqFx+g/B3A5yt0kM+dcsSmnUnyO4GvaOPI1VKE3sAXC0pGOM9P4dTNv7LG/2bUQ5U
+ jv8Cvoo8h3yXYDFYBnHF0NSo5dToue9ONZHXDnxSZntmhg2cXav1uw4+XXfMwcgOgRHvKJS0
+ XATOE0fLdHu6SO7Jri3r4FM3DN5xpGf2Rld/apgB/Z1YoyS1h90KfqeMbcSRaQzBRuVJ5Alw
+ VQV83LJqjidYmlrp3jBidwoCq/gsLlRjYFN3rUSwvbFGwX+WZ2uEJtrGaGaaTcKYA1wyNG/D
+ 5qFpxUo2Tj+KpcENtUHeta9o7Sqdw00GbWk5FBLvMN5BPWQkCHGa74Yw==;
+Date: Fri, 6 Nov 2026 14:07:38 +0100
+From: Simon Schuster <schuster.simon@siemens-energy.com>
+To: Vineet Gupta <vgupta@kernel.org>
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Arnd Bergmann <arnd@arndb.de>, Sasha Levin <sashal@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	David Laight <david.laight.linux@gmail.com>
+Subject: Re: [PATCH v2 1/3] lib: extract 32bit mul/div helpers from nios2
+ into GENERIC_LIB
+Message-ID: <20261106130738.avum4t2nhdnmenyu@dev-vm-schuster>
+References: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
+ <20261103-nios2-remove-usage-of-libgcc-v2-1-5fabbedc49ec@siemens-energy.com>
+ <bba7f6da-82ee-46cc-bd8f-b0e3e027f5e2@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,84 +76,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: proximity: vl53l1x: Fix trigger reference leak in
- vl53l1x_probe()
-To: Wentao Liang <vulab@iscas.ac.cn>, Jonathan Cameron <jic23@kernel.org>
-Cc: andy@kernel.org, dlechner@baylibre.com, email@sirat.me,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com
-References: <20260916164255.2084644-1-vulab@iscas.ac.cn>
- <20260917014027.757b0677@jic23-hlaptop>
- <179396508517.2291875.13493077005928497044@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <179396508517.2291875.13493077005928497044@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bba7f6da-82ee-46cc-bd8f-b0e3e027f5e2@kernel.org>
 
-On 06/11/2026 12:38, Wentao Liang wrote:
-> Hi Jonathan,
-> 
-> Sorry for the very late reply.
-> 
-> I understand your feedback: this fix should not depend on a subtle
-> ordering constraint in the driver. Trigger lifetime handling needs a
-> broader solution in the IIO core, as you explained in the bma220 thread.
-> 
-> Please disregard this patch; I will not resend this approach as v2.
-> Thank you for the review.
-> 
-> For transparency, we use static analysis tools to identify candidates,
-> then DeepSeek and GPT-6.1 Sol to assist with auditing and preparing fixes.
-> I am responsible for verifying the findings and changes before submission.
-> 
+Hello Vineet,
 
-Why are you top-posting without even any parts of the quote?
+On Tue, Nov 03, 2026 at 08:23:23PM -0800, Vineet Gupta wrote:
+> > +/*
+> > + * Software 32-bit multiply for cores built without the hardware multiplier.
+> > + */
+> > +s32 notrace __mulsi3(s32 a, s32 b);
+> > +s32 notrace __divsi3(s32 a, s32 b);
+> > +s32 notrace __udivsi3(s32 a, s32 b);
+> > +s32 notrace __modsi3(s32 a, s32 b);
+> > +s32 notrace __umodsi3(s32 a, s32 b);
+> 
+> Shouldn't the 'u' prefixed functions have unsigned int args, result.
+> It seems libgcc/?divmod.c doesn't but ARC does have nint_t for those which
+> is unsigned.
+> Nios it seems was removed from gcc?
 
-This is more of your semi-automated replies by bot/agent.
+As David has correctly pointed out, nios2 was dropped from gcc with
+release line 14.y being the last one to contain it.
+So at least for nios2, it seems like it has always been the case that
+__udivsi3/__umodsi3 were declared as taking and returning SItypes:
 
-Best regards,
-Krzysztof
+https://github.com/gcc-mirror/gcc/blob/releases/gcc-14/libgcc/config/nios2/lib2-divmod.c#L106
+
+Given that both implementations continue to pass it through to a very
+similarly looking udivmodsi4 as u32, I would assume that this has partly
+relied on 'why should the compiler do any strange upcasts here, it will
+just pass through the registers and be done with it and this is
+implementation-defined-good-enough', so I would not mind rolling a v3
+with u32s for __umodsi3 and __udivsi3. Are these the only two symbols
+you are concerned about, and would these signatures work for you?
+
+u32 notrace __udivsi3(u32 a, u32 b);
+u32 notrace __umodsi3(u32 a, u32 b);
+
+Best regards
+Simon
