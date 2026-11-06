@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793948644;
-	b=T7xscb0xExUZVvTwMhjM9OsU9LuUORTt85LN8EKzQ758jsTKR7buyDqjP6R7oEQXbA25
-	 uRb33PjCVl6u/nqYBRV9UBe+S9nm6436gjDg4i0N5RQUxxLe/V5jdZJpnE8bLdEdrLyuc
-	 b+k1vWKsTV+ipQbnxdrA+t9MC2W83xiFStKqYDxHUIYyTKHj2MjZ042LNdFLQsB1M+yRJ
-	 pmZqc4/7feaTBj/8uRARfeLNj3+aBZPPSHC7ahQI1lUbhusBBxWugLyTkob3ley0GrrS6
-	 du/9OLMvf3MLPWTPh7G6dUBhldo93bwH/7lZHF7KvGqDUPAo1YnmuCUsjVvV7crJAGw==
+	t=1793948648;
+	b=IjLekURoEFIuYRnrLYg+TiqZ6J6++rmug3qE1u3MXi+KnQY3RGGBg/2Vz4WqTRndqfab
+	 6mNnZhTiLuPp4tH1rV35FOfOoMuQd8oEYm78kX0mEtFDZc68aJZDN5BStECVI0aSq8bgX
+	 S+KSoycuyZdwlhIqWMnE8+uMmTCph+5/HVBRDXnr2FLO1AMVI9D1zIsMYqWLOOvCZMWnL
+	 K8unhMI8HsOm3hCWLICsVii81Vkz7pdeoa8iFEItOgOicRPEPd7aOaR5f8jwItdrXwULd
+	 8mRWheeb4dLWhC+Rwzi0/89o/7+XpVVsrTeaXVxu4jCVYqYbjNAshCiuKz+rCB4kZFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793948644;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793948648;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=dlGmy1iETR07VpwAF3gSNr7L3yDUEizC6SlTALxKZy0=;
-	b=0ZfpanFIQ6mbFAsHbaqA28vu9jPFcGbOcKF1jznaypnLR5Uo9Is/WFtTJ0XVoiNUBzdq
-	 AeO6n55uoXq20Qf640Zuf7xT3UQbQ8gu9Ez9W8x9ZzhdUi30X/XsJCCUhwkiX4BKDEVPy
-	 hz8dk1vvNttan6BzjT2PA8EOIx2sLJpv6/gJJe2hDHnaTQTwq+PFQB9Urhvrrs0kOYiAT
-	 4+jtVRcogAUSfiejGMpgoE5m8fJO2DUTnmCCwkwzoSu4cz1fwnopQfaF3j0Jbtt87cYi2
-	 gE8BDvbdqpUX+Xdr+X8Gk0FWQ4UgS1lq9LblcZAcqEtiXlpqPxG+brK+hdqEnMGituA==
+	bh=t2QoGiIe6qh+xXGRXPEuyCoTeHTjKPAeQiniSi4k+CI=;
+	b=UAPs5pkahYEPxIy7qlK5sKsWK5Ofl3satwDCbw3yy9Tu5dp82IIHnpTT9bQl5d3/1q5a
+	 3RbUZrVPvFsRqdDD5eF70BsBaDUfS7wIfbVE+63/lV1MInSH5EoizhEFMkY+CuDamJk5R
+	 f+A4GMr8wW0GjPKu7smrHZWIjTptWHrvoy7hj9UR9WH7B2usmWre5wZdcXhPmJozCPwkX
+	 DlDNNkF4vThtoE5wI8PLacxi0hKqCMax6XEd5Fic/xockElYY3K9l8ZTolYFwPqWs4bJB
+	 et/cO/io4douc/QZnLSLtP11dF2UfDFg/4/dK/vwnyAnCAsxTYv5YOkNDV4DRJmDk8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=glmXlu7G;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="b/186WZj";
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5849C606A33F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:04:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5849C606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C49606A33F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:04:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66C49606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=glmXlu7G
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c0d568830so705149eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:04:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b/186WZj
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36cec75d8caso501899eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:04:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793948643; x=1794553443; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793948648; x=1794553448; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dlGmy1iETR07VpwAF3gSNr7L3yDUEizC6SlTALxKZy0=;
-        b=glmXlu7GQIswPutY3CMwwBHfn4dj6yvsNrnSScZmfh+i3gcKOKHVC5zE5Fmdm38fC0
-         l8ck8guO6lHPapJgkWRUwb+5VKsZL/c9Vzh0p0ODUHXrlBa+WjRaprGHIOoxyQmrbGEH
-         sKLK2JsACi9sPSwFObiwb1Q/L6qfKLvy2k0cXcvWtr5qFsCShoLCujWRsq6VviyYkvnC
-         J9lT8WcDVoKm4mU4sVnEy1U6ukQB21ao04tYFqn2RokZIkPHo7ivtMiD2pwhKSLA+C6n
-         ktBOClq5oPNK9ZBLmSerCq3IfWvFyT3GphCq4p9+YgJ70h98QtMwMgn55ulzqn3P8gAr
-         t7zA==
+        bh=t2QoGiIe6qh+xXGRXPEuyCoTeHTjKPAeQiniSi4k+CI=;
+        b=b/186WZjdUcEGHi11cfLhTmIWiMRf8+y71myAj15VS82yiPGfy4w8LOyrTbFsahmXN
+         hw3pE11QO8nEIU56uAl9G6lj3rqD4F/1TvUEZJe4XRVpfibQwATVESP7YCj/+olrc9ML
+         mJSCtd/w1zOpKVjkWiRsbAs3I/ZenZCkFVminypu9X+6EdrDk2mROIIP8/OsWzvmBvuk
+         Ta85e8IlCKz/EzTT9qhQczGFvsKzozwFMBTjDTZRguoetneAfWArdHnBcMV/R/XwtCdq
+         gGgsbI1AZODsP8jNcWyGDeWCdNePNRwamYIymYFRV8ujIBsEQ8rbsnzYg425q+yctOpi
+         1IWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793948643; x=1794553443;
+        d=1e100.net; s=20260707; t=1793948648; x=1794553448;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dlGmy1iETR07VpwAF3gSNr7L3yDUEizC6SlTALxKZy0=;
-        b=MQaKvRx3hO4bQKyt0723lJFc/Gb0B5fxVYC86N7ieiNwGE7Kz3uLlwVl+FCKuiztIV
-         mmrK90rfYv3f7PJ8X3y/t7kmRXrww74zoZVqWK86yMI/tDXuE+Dp7myNdGFU255xX3gp
-         lH7k9zvBl+mh+PgK4uhGC/BbEmQeHfMNaQTUxYnIHNhmSb1dDiBBpnccdjO/jfFIkoCr
-         Okk/RoUMoVISEl9O/00TelZKQV0ZzD/v1iXvI0pEcJ2dpKyDIyVPJ+lDqfzuaJQzQn6F
-         6vYqtA5Kr2mZPB+wxQj+WVe4bVrnCQUwXsGkTxC89O4oXA3z1VIdOIcyWuR/0KAbKgW4
-         gclA==
-X-Forwarded-Encrypted: i=1; AL+hErG3i2bHLhocqF6QKY0vbL016WOXrcIoYycmTZ+KcI4siLe0BZRVYlLP+N7WONSJPGBTsdHKDTsoy6UNgF4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5VdsmWgIMWMpKP2PwCKpAW32mGJM2wnXMNuFUQLEzIFtulJtC
-	wapKihkrmbufgCX4dQl4gtcAA2c59sHHkHlGAddHG3YcsenlNUPUDO7HsUMuE0V65W7zbsQpLsE
-	nndFeKNsxTQ==
-X-Received: from dycrv5.prod.google.com ([2002:a05:693c:2e85:b0:36e:b3e6:ebe2])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:80db:b0:36a:1f4f:3e9
- with SMTP id 5a478bee46e88-36f75444e55mr1973496eec.20.1793948643167; Thu, 05
- Nov 2026 23:04:03 -0800 (PST)
-Date: Thu,  5 Nov 2026 23:03:30 -0800
+        bh=t2QoGiIe6qh+xXGRXPEuyCoTeHTjKPAeQiniSi4k+CI=;
+        b=BXwZWijHaacRUTXkcGUpSl45Jxm72I6wcLIgGtujEM/NFQGbA/IRFW6gJ8nCiHmw2H
+         uhuCYCeU+dm98crMXTPMKxL+X/YQSrXhugqI1oOafoz+5QdnSlgVhYljCsmNELEEy3pX
+         vO8gDIc3GJJVFr4hlM+e1NIo+h9dVGQWMIzvYdkZS/7ZUnGuqyw86jQPYWFJdR7MpQbe
+         FPmsKqTBNUdGoKginz2qFxPVDwXLNaBEnzjZjw7eDhW38chnMqzOfai7X2urYxUAkacK
+         5A7PNf0z/GSq1aRhKZ6DwMUaGpDVgEMhQLyFDuH9W07D3AMdGaNIpPWTBV3gN1IGvF6C
+         1GqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx8u+YgXG1RApmNSPDIIemlV05rQ0CwygMpfENRqT1Z3liYWlM3R8MtR1QbtqRYYzKlmSj2+puXir7VM9Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rHU+xsV6yaVifSAkx1KWJVijSdBdexoEY1pc7dnlT7GBAiCdt
+	k6yafb8mhqx2gSvlCnxytf/xfZjxWbQGXcmn6omc0Ey7GoxSAzQY+vNE6CmaoVD0C5vysZPAyho
+	NkyOEWefdUQ==
+X-Received: from dyaa13.prod.google.com ([2002:a05:693c:40cd:b0:36a:209:2e4])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:6188:20b0:359:3991:ce1a
+ with SMTP id 5a478bee46e88-36de6b52a0amr6511094eec.16.1793948647424; Thu, 05
+ Nov 2026 23:04:07 -0800 (PST)
+Date: Thu,  5 Nov 2026 23:03:32 -0800
 In-Reply-To: <20261106070344.329897-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261106070344.329897-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106070344.329897-7-irogers@google.com>
-Subject: [PATCH v10 06/20] perf comm: Add __guarded_by annotations to struct comm_strs
+Message-ID: <20261106070344.329897-9-irogers@google.com>
+Subject: [PATCH v10 08/20] perf dsos: Skip BPF and OOL DSOs in dsos__find_kernel_dso()
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, bvanassche@acm.org, elver@google.com, 
@@ -92,32 +92,61 @@ Cc: adrian.hunter@intel.com, bvanassche@acm.org, elver@google.com,
 	ndesaulniers@google.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Annotate strs, num_strs, and capacity in struct comm_strs with
-__guarded_by(&lock) and __pt_guarded_by(&lock) so Clang verifies all
-accesses hold comm_strs->lock.
+In machine__process_ksymbol_register(), set the binary type of non-OOL
+ksymbol DSOs to DSO_BINARY_TYPE__BPF_IMAGE (which
+machine__process_bpf_event_load() upgrades to
+DSO_BINARY_TYPE__BPF_PROG_INFO on PERF_BPF_EVENT_PROG_LOAD), and update
+dsos__find_kernel_dso_cb() to skip DSO_BINARY_TYPE__BPF_PROG_INFO,
+DSO_BINARY_TYPE__BPF_IMAGE, and DSO_BINARY_TYPE__OOL so that
+dsos__find_kernel_dso() does not match ksymbol DSOs in machine->dsos.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/comm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ tools/perf/util/dsos.c    | 3 +++
+ tools/perf/util/machine.c | 9 ++++-----
+ 2 files changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/tools/perf/util/comm.c b/tools/perf/util/comm.c
-index 6343a3c9debe..9fc4e91a36e9 100644
---- a/tools/perf/util/comm.c
-+++ b/tools/perf/util/comm.c
-@@ -16,9 +16,9 @@ DECLARE_RC_STRUCT(comm_str) {
+diff --git a/tools/perf/util/dsos.c b/tools/perf/util/dsos.c
+index 1574c8885d78..fbbf98c4ccae 100644
+--- a/tools/perf/util/dsos.c
++++ b/tools/perf/util/dsos.c
+@@ -475,6 +475,9 @@ static int dsos__find_kernel_dso_cb(struct dso *dso, void *data)
+ 	 * is_kernel_module() treats it as a kernel cpumode.
+ 	 */
+ 	if (!dso__kernel(dso) ||
++	    dso__binary_type(dso) == DSO_BINARY_TYPE__BPF_PROG_INFO ||
++	    dso__binary_type(dso) == DSO_BINARY_TYPE__BPF_IMAGE ||
++	    dso__binary_type(dso) == DSO_BINARY_TYPE__OOL ||
+ 	    is_kernel_module(dso__long_name(dso), PERF_RECORD_MISC_CPUMODE_UNKNOWN))
+ 		return 0;
  
- static struct comm_strs {
- 	struct rw_semaphore lock;
--	struct comm_str **strs;
--	int num_strs;
--	int capacity;
-+	struct comm_str **strs __pt_guarded_by(&lock) __guarded_by(&lock);
-+	int num_strs __guarded_by(&lock);
-+	int capacity __guarded_by(&lock);
- } _comm_strs;
+diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+index 076d167380f2..b958c6935a56 100644
+--- a/tools/perf/util/machine.c
++++ b/tools/perf/util/machine.c
+@@ -769,6 +769,10 @@ static int machine__process_ksymbol_register(struct machine *machine,
+ 			dso__set_binary_type(dso, DSO_BINARY_TYPE__OOL);
+ 			dso__data(dso)->file_size = event->ksymbol.len;
+ 			dso__set_loaded(dso);
++		} else {
++			dso__set_binary_type(dso, DSO_BINARY_TYPE__BPF_IMAGE);
++			if (is_bpf_image(event->ksymbol.name))
++				dso__set_long_name(dso, "", false);
+ 		}
  
- static void comm_strs__remove_if_last(struct comm_str *cs);
+ 		map__set_start(map, event->ksymbol.addr);
+@@ -780,11 +784,6 @@ static int machine__process_ksymbol_register(struct machine *machine,
+ 		}
+ 
+ 		dso__set_loaded(dso);
+-
+-		if (is_bpf_image(event->ksymbol.name)) {
+-			dso__set_binary_type(dso, DSO_BINARY_TYPE__BPF_IMAGE);
+-			dso__set_long_name(dso, "", false);
+-		}
+ 	} else {
+ 		dso = dso__get(map__dso(map));
+ 	}
 -- 
 2.56.0.455.g6c5a503b38-goog
 
