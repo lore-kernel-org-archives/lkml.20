@@ -1,77 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958623;
-	b=igEYap/E+0WVe+LPs5CtYWvM1+V33fTKglIVfb/eS+sxTDtpBld1lFZZvhZsCzXTNWh/
-	 xz1NQM8s8MGg2Qgl6DbiQfCkOn2bwFYObJj7OFR0q/0LD9YAyLDZHWGfX1b0fXIFiPKH0
-	 75iwda8pGVzPAdPKTQZ/I3H5PWmza7qGsDTHZlqT61KpkvSx7hBjDKs1Lnd1GUFMdhqo5
-	 xOJYBubcGjYK07iV/TRF69Sy55KzDXie2tSyav5BRHxqDtOnNzB2ztFbJRnvyNnUwttLn
-	 jqDDfAEHYuYawp5zDcaQbtt48TayVJPeNX0y00Qtac7DuLuPxBQvnEI4q88mDkswSQw==
+	t=1793958624;
+	b=vfAUGrxbgo/rsc2kMS5jndxZZajf7LFIMNiC3XnisUo+JIkvjEN1NiKHejTNBWA39oUt
+	 rZ7OSE4OI2feVr5n47xqbrcmlPx1lEcbzXgyVBFtojuSouF852wofgVWp9nAM6z2ZejJA
+	 730FsTD+Tfj9IE72wk19fpmZemdB6bfXvuQRhgxGte24JaDYlBdd6n7kgNewQSBe1Gl42
+	 MBbRrKfvaX/TGx3t5Il3ewhsUbWREqU+E1e8UmlI7b1dKAuVFma4kA2wbjpCukOZ6s+im
+	 kL1ziZXcBVU+4JkGWpwUFjR8otpOmLvX+YfEVa2ZSKGxOVfnd0ietYykFQEQ5/kCeQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958624;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=NAKuvuZEzUVCw79xQcFqn2glQI+ubr72wYQP3xWIYHg=;
-	b=Bk32WDh0qvCLJUbp9/XWwwV2O4QbIcp76JffY0FIsLYKyET9gjfzG5G0tysvmuaBC66I
-	 GPTDAbmMsNgVCD8bFIMsL5eMZSGzqoH7eumqon3eKKKMESGdUpuTFSw3B8aBnr9GLzFR7
-	 8GgeT1jKXUWm1ihuqxtxKmUYx/tBza97lB2fanr6wBF5UylUX33Ru399p5EmBw5JLHpZv
-	 +UgozTlbOu5i1JNT5IMkrr2lFOCVQH5j3lrn2nj6/EGQPF0HGpV3EgY2A8qXlTQ8ALo4J
-	 IRKu4kW6tGMnHjK4qjiDQj0KifpIpEJqVrBiRLz7S5NIu/TcnfILwviYHftGvrqtg/w==
+	bh=9lbjNCwvn/VsFTMhsMK+kRtIbp5EoP1q2579NPuNAE0=;
+	b=k8h1Nz/RALtIMYBi/zW4cvQ+wk38cE1zbqYOrbF3YPsYIkUxo8+PeaUs/zXE6ipm2Dk5
+	 ZPi4lhvyOzBEdU3Xgj7sNldGbiv1ZJpWYqgzZw/i0Ra+E2mbj4CQQhmaR0kaGb3IdO0kB
+	 NUyY08pWfkIoXhZSEDrXr4Ml5O6ccXwsgRdbIgBo6Yb1mq2UqKOQecaIzl8Z3iltI66vI
+	 KLmrJGgi2I4MRl9uCaa99pMpDhHUwPGU8P6ZSbbmqJzkBFvoH06+uiNjM24iy0VFl7F/H
+	 qlqNbgjWKAHFrL1W3dUUNCIr8jCP5iGX0bB8HT9LdVmFRugI/mC4yWm0LrEFqknVj0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="QGe/UCZq";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8BaXNb8X;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="VOWN/pSw";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PV9f3sty;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B15E606A328;
-	Fri,  6 Nov 2026 09:50:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B15E606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68528606A339;
+	Fri,  6 Nov 2026 09:50:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68528606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=QGe/UCZq;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8BaXNb8X
-Date: Fri, 06 Nov 2026 09:50:18 -0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VOWN/pSw;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PV9f3sty
+Date: Fri, 06 Nov 2026 09:50:20 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793958620;
+	s=2020; t=1793958622;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NAKuvuZEzUVCw79xQcFqn2glQI+ubr72wYQP3xWIYHg=;
-	b=QGe/UCZqczqRNU8DD79/641qxk4CHn9xcf3J9X0IRqeRqsyE2PuV3oEH/jHRgJhS97O5V6
-	9O/s9xr3uQ4aKp9s4fiSj0u3bFG0dGrRZlZwF2E7wmt0UbgkKtucnN7WmAgEMS2sgsFlrz
-	14TIsCOpz/OF8tpQBuyr3gi4CTDKFDzvLvvkCgT2naZVzvXa3ullz5pdIkCVqrPVLwKpzi
-	vLugHBw1Ia1y4rOjNBjmhkE67WKwYg7LRuzkU26zQuXnhcF/Kx6jyicFfLbktTGKNottpw
-	nt0cQwv9P3WTi/9y2yBxq00EQylO7k6gqwOdTloeTvMwmr5CpgK5jeuw3pQ69g==
+	bh=9lbjNCwvn/VsFTMhsMK+kRtIbp5EoP1q2579NPuNAE0=;
+	b=VOWN/pSww4ehscEYTP3L22FsgtRKLKq5f3DRxQsJcl6BJWQz5QOna452z6BSmMQpkiNnOg
+	KB+7sRdrHpsEDPl5zQeWaudYDY3/qgsL6w7qtpGfz4PoroE/e9Zcsd82qPKb4WfBHAa6d6
+	ZUGTZhwmuOjWWVSjq/HqJHraq4DBbwZ8GWPKt2n1w0Nr1x+lqblO8nDTna4NlyIDY2LnOa
+	clMxq/X3hDS8BfLLZjzcD47JGqrbhCknQjyOplFKHjVwgP8FPhgynVYD5iIc3h1VLBeKev
+	E4+ajVPyzYUB5cF1WktpYGa/NoKQpPRUAiTdfb0b3ZXoaK0/Co1+MDASXq9aIQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793958620;
+	s=2020e; t=1793958622;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NAKuvuZEzUVCw79xQcFqn2glQI+ubr72wYQP3xWIYHg=;
-	b=8BaXNb8XkUCHHhrzfhldjVuTeC66iQSEuZ53Vz5d4hALkgMdsk49qcSjoh0rP9ixM5TTJr
-	ggFk3OJfPqTSxrDA==
-From: "tip-bot2 for Leo Yan" <tip-bot2@linutronix.de>
+	bh=9lbjNCwvn/VsFTMhsMK+kRtIbp5EoP1q2579NPuNAE0=;
+	b=PV9f3styv2S9xNtkgC9xSSLGe/jVRmSCd+ueV4fhGv7XsKDhS9/IR12biV5mkJsVWf9AI0
+	bPDke3Kn/d7OjgCg==
+From: "tip-bot2 for Ravi Bangoria" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/urgent] Revert "perf/aux: Allocate non-contiguous AUX
- pages by default"
-Cc: Leo Yan <leo.yan@arm.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, James Clark <james.clark@linaro.org>,
- Dev Jain <dev.jain@arm.com>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To:
- <20261025-perf_revert_prefer_large_alloc-v1-1-5fb431bbd624@arm.com>
-References:
- <20261025-perf_revert_prefer_large_alloc-v1-1-5fb431bbd624@arm.com>
+Subject: [tip: perf/urgent] perf/amd/ibs: Simplify event state handling with
+ IBS_CAPS_DIS
+Cc: Jim Mattson <jmattson@google.com>, Ravi Bangoria <ravi.bangoria@amd.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261026041838.941-4-ravi.bangoria@amd.com>
+References: <20261026041838.941-4-ravi.bangoria@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,7 +79,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179395861895.1009794.8348264739147746810.tip-bot2@tip-bot2>
+Message-ID: <179395862060.1009794.12554125086657970042.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -91,155 +89,247 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the perf/urgent branch of tip:
 
-Commit-ID:     526d945ad9c09d42f2482f058e1f41376681627e
-Gitweb:        https://git.kernel.org/tip/526d945ad9c09d42f2482f058e1f4137668=
-1627e
-Author:        Leo Yan <leo.yan@arm.com>
-AuthorDate:    Sun, 25 Oct 2026 16:24:06=20
+Commit-ID:     927f9c5cdadbc4ac6973bcd1690107fcb392612c
+Gitweb:        https://git.kernel.org/tip/927f9c5cdadbc4ac6973bcd1690107fcb39=
+2612c
+Author:        Ravi Bangoria <ravi.bangoria@amd.com>
+AuthorDate:    Mon, 26 Oct 2026 04:18:37=20
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Fri, 06 Nov 2026 09:50:37 +01:00
+CommitterDate: Fri, 06 Nov 2026 09:50:21 +01:00
 
-Revert "perf/aux: Allocate non-contiguous AUX pages by default"
+perf/amd/ibs: Simplify event state handling with IBS_CAPS_DIS
 
-This reverts commit 18049c8cff9cc89daadc4df6975f7d9069638926.
+The IBS_{FETCH|OP}_CTL2[Dis] bit allows IBS sampling to be stopped without
+a RMW of IBS_{FETCH,OP}_CTL. Systems providing this bit therefore do not
+require the IBS_STARTED and IBS_STOPPED states used to coordinate control
+MSR updates with late NMIs.
 
-The original commit claimed that contiguous AUX pages unnecessarily
-exacerbate fragmentation for SPE, TRBE and ETR. This is not generally
-valid: larger allocations can keep pages with the same lifetime
-together, while order-0 allocations can scatter them across large
-blocks and prevent free pages from coalescing [1]. The follow-up
-discussion [2] has not established how forcing order-0 allocations
-addresses the reported problem.
+Add a separate stop path for these systems. Preserve the Val bit while
+disabling the event so that a delayed NMI can be identified and consumed,
+and wait briefly for such an NMI before restarting the event.
 
-TRBE and SPE write to virtually addressed buffers. The TRBE L1 TLB
-has one entry on Neoverse V2 [3] and two on Neoverse V3 [4]. Small
-mappings increase translation pressure, and TTW stalls can contribute
-to FIFO overflow and trace loss on TRBE.
+Leave the existing handling unchanged on systems without IBS_CAPS_DIS.
 
-Larger allocations provide contiguous, aligned chunks for PMD or
-contiguous-PTE mappings with the proposed vmap() support [5].
-With the proposed vmap() support already applied, the tests in [2]
-showed that preferring larger AUX allocations reduced L2 data TLB
-refills by 99.68% in the TRBE test and 34.74% in the SPE test.
-
-Restore the previous policy of trying higher-order allocations first.
-The allocator already uses __GFP_NORETRY and falls back to smaller
-orders, including order 0, when larger allocations fail.
-
-Remove PERF_PMU_CAP_AUX_PREFER_LARGE, since the restored default
-provides that preference. Intel PT retains its existing allocation
-behaviour, with no functional change.
-
-[1] https://lore.kernel.org/all/aPjrRkjiIt6HmXmT@casper.infradead.org/
-[2] https://lore.kernel.org/linux-arm-kernel/20260810-perf_aux_trace_large_gr=
-anule-v1-0-03306c9339e3@arm.com/
-[3] https://documentation-service.arm.com/static/633fe1ec4c59b30b517730b8#pag=
-e=3D52
-[4] https://documentation-service.arm.com/static/67361bd2c7fc0d1f211da382#pag=
-e=3D54
-[5] https://lore.kernel.org/linux-mm/20260715120813.3609949-1-jiangwen6@xiaom=
-i.com/
-
-Signed-off-by: Leo Yan <leo.yan@arm.com>
+Closes: https://lore.kernel.org/r/20261007234815.4026028-1-jmattson@google.com
+Fixes: efa5700ec0da ("perf/amd/ibs: Support IBS_{FETCH|OP}_CTL2[Dis] to elimi=
+nate RMW race")
+Reported-by: Jim Mattson <jmattson@google.com>
+Signed-off-by: Ravi Bangoria <ravi.bangoria@amd.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: James Clark <james.clark@linaro.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Link: https://patch.msgid.link/20261025-perf_revert_prefer_large_alloc-v1-1-5=
-fb431bbd624@arm.com
+Reviewed-by: Jim Mattson <jmattson@google.com>
+Link: https://lore.kernel.org/r/20261007234815.4026028-1-jmattson@google.com
+Link: https://patch.msgid.link/20261026041838.941-4-ravi.bangoria@amd.com
 ---
- arch/x86/events/intel/pt.c  |  2 --
- include/linux/perf_event.h  |  5 ++---
- kernel/events/ring_buffer.c | 29 +++++++++--------------------
- 3 files changed, 11 insertions(+), 25 deletions(-)
+ arch/x86/events/amd/ibs.c | 145 +++++++++++++++++++++++++++++++------
+ 1 file changed, 122 insertions(+), 23 deletions(-)
 
-diff --git a/arch/x86/events/intel/pt.c b/arch/x86/events/intel/pt.c
-index 49349af..3782af4 100644
---- a/arch/x86/events/intel/pt.c
-+++ b/arch/x86/events/intel/pt.c
-@@ -1896,8 +1896,6 @@ static __init int pt_init(void)
+diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
+index 010d14d..66e67e2 100644
+--- a/arch/x86/events/amd/ibs.c
++++ b/arch/x86/events/amd/ibs.c
+@@ -28,6 +28,7 @@ static u32 ibs_caps;
+ #include <linux/hardirq.h>
 =20
- 	if (!intel_pt_validate_hw_cap(PT_CAP_topa_multiple_entries))
- 		pt_pmu.pmu.capabilities =3D PERF_PMU_CAP_AUX_NO_SG;
--	else
--		pt_pmu.pmu.capabilities =3D PERF_PMU_CAP_AUX_PREFER_LARGE;
+ #include <asm/nmi.h>
++#include <asm/delay.h>
+ #include <asm/amd/ibs.h>
 =20
- 	pt_pmu.pmu.capabilities		|=3D PERF_PMU_CAP_EXCLUSIVE |
- 					   PERF_PMU_CAP_ITRACE |
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index 7884489..e1e1150 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -304,9 +304,8 @@ struct perf_event_pmu_context;
- #define PERF_PMU_CAP_AUX_OUTPUT		0x0080
- #define PERF_PMU_CAP_EXTENDED_HW_TYPE	0x0100
- #define PERF_PMU_CAP_AUX_PAUSE		0x0200
--#define PERF_PMU_CAP_AUX_PREFER_LARGE	0x0400
--#define PERF_PMU_CAP_MEDIATED_VPMU	0x0800
--#define PERF_PMU_CAP_SIMD_REGS		0x1000
-+#define PERF_PMU_CAP_MEDIATED_VPMU	0x0400
-+#define PERF_PMU_CAP_SIMD_REGS		0x0800
+ /* attr.config2 */
+@@ -73,7 +74,12 @@ static u32 ibs_caps;
+  *
+  * XXX: we could probably be using !atomic bitops for all this.
+  */
+-
++/*
++ * NOTE: IBS_CAPS_DIS eliminates the RMW race on the IBS_{FETCH|OP}_CTL, mak=
+ing
++ * IBS_STARTED and IBS_STOPPED states unnecessary. We use only IBS_ENABLED a=
+nd
++ * IBS_STOPPING states when IBS_CAPS_DIS is present. Semantics of IBS_STOPPI=
+NG
++ * changes a bit as well.
++ */
+ enum ibs_states {
+ 	IBS_ENABLED	=3D 0,
+ 	IBS_STARTED	=3D 1,
+@@ -557,7 +563,9 @@ static void perf_ibs_start(struct perf_event *event, int =
+flags)
+ 	struct hw_perf_event *hwc =3D &event->hw;
+ 	struct perf_ibs *perf_ibs =3D container_of(event->pmu, struct perf_ibs, pmu=
+);
+ 	struct cpu_perf_ibs *pcpu =3D this_cpu_ptr(perf_ibs->pcpu);
++	unsigned int delay =3D 50;
+ 	u64 period, config =3D 0;
++	u64 ctl;
 =20
- /**
-  * pmu::scope
-diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
-index 64d4dbd..95f4fbd 100644
---- a/kernel/events/ring_buffer.c
-+++ b/kernel/events/ring_buffer.c
-@@ -684,15 +684,7 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_eve=
-nt *event,
- {
- 	bool overwrite =3D !(flags & RING_BUFFER_WRITABLE);
- 	int node =3D (event->cpu =3D=3D -1) ? -1 : cpu_to_node(event->cpu);
--	bool use_contiguous_pages =3D event->pmu->capabilities & (
--		PERF_PMU_CAP_AUX_NO_SG | PERF_PMU_CAP_AUX_PREFER_LARGE);
+ 	if (WARN_ON_ONCE(!(hwc->state & PERF_HES_STOPPED)))
+ 		return;
+@@ -575,23 +583,87 @@ static void perf_ibs_start(struct perf_event *event, in=
+t flags)
+ 	}
+ 	config |=3D period >> 4;
+=20
 -	/*
--	 * Initialize max_order to 0 for page allocation. This allocates single
--	 * pages to minimize memory fragmentation. This is overridden if the
--	 * PMU needs or prefers contiguous pages (use_contiguous_pages =3D true).
+-	 * Reset the IBS_{FETCH|OP}_CTL MSR before updating pcpu->state.
+-	 * Doing so prevents a race condition in which an NMI due to other
+-	 * source might accidentally activate the event before we enable
+-	 * it ourselves.
 -	 */
--	int max_order =3D 0;
--	int ret =3D -ENOMEM;
-+	int ret =3D -ENOMEM, max_order;
+-	perf_ibs_disable_event(perf_ibs, hwc, 0);
++	if (ibs_caps & IBS_CAPS_DIS) {
++		/*
++		 *      IBS HW                     SW
++		 *
++		 *  o Capture sample       o ->stop()
++		 *  o Set VAL bit            CTL2[Dis] =3D 1
++		 *  o Raise NMI --.        o ...
++		 *                 \       o ->start()
++		 *                  \        wrmsr(IBS_{FETCH|OP}_CTL, new value);
++		 *                   \       (wrmsr clears the VAL bit)
++		 *                    `--> o Receives delayed NMI
++		 *                           (Unknown NMI since VAL bit is cleared)
++		 *
++		 * Handle this with induced delay.
++		 */
++		rdmsrq(hwc->config_base, ctl);
++		while ((ctl & perf_ibs->valid_mask) && delay--) {
++			udelay(1);
++			rdmsrq(hwc->config_base, ctl);
++		}
++	} else {
++		/*
++		 * Reset the IBS_{FETCH|OP}_CTL MSR before updating pcpu->state.
++		 * Doing so prevents a race condition in which an NMI due to
++		 * other source might accidentally activate the event before we
++		 * enable it ourselves.
++		 */
++		perf_ibs_disable_event(perf_ibs, hwc, 0);
++		/*
++		 * Set STARTED before enabling the hardware, such that a
++		 * subsequent NMI must observe it.
++		 */
++		set_bit(IBS_STARTED,    pcpu->state);
++		clear_bit(IBS_STOPPING, pcpu->state);
++	}
++	perf_ibs_enable_event(perf_ibs, hwc, config);
++
++	perf_event_update_userpage(event);
++}
++
++/* ->stop() for platforms with additional CTL2[Dis] bit. */
++static void perf_ibs_stop_dis(struct perf_event *event, int flags)
++{
++	struct hw_perf_event *hwc =3D &event->hw;
++	struct perf_ibs *perf_ibs =3D container_of(event->pmu, struct perf_ibs, pmu=
+);
++	struct cpu_perf_ibs *pcpu =3D this_cpu_ptr(perf_ibs->pcpu);
++	u64 config;
++	u64 ctl2;
++
++	WARN_ON_ONCE(test_bit(IBS_STOPPING, pcpu->state));
++
++	set_bit(IBS_STOPPING, pcpu->state);
++
++	rdmsrq(hwc->extra_reg.reg, ctl2);
++	if (ctl2 & perf_ibs->disable_mask)
++		goto reset_state;
++
++	wrmsrq(hwc->extra_reg.reg, perf_ibs->disable_mask);
++
++	WARN_ON_ONCE(hwc->state & PERF_HES_STOPPED);
++	hwc->state |=3D PERF_HES_STOPPED;
++
++	if (hwc->state & PERF_HES_UPTODATE)
++		goto reset_state;
++
++	rdmsrq(hwc->config_base, config);
++
++	config &=3D ~perf_ibs->valid_mask;
 =20
- 	if (!has_aux(event))
- 		return -EOPNOTSUPP;
-@@ -702,8 +694,8 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_even=
-t *event,
+ 	/*
+-	 * Set STARTED before enabling the hardware, such that a subsequent NMI
+-	 * must observe it.
++	 * Clear the Val bit otherwise ->start() will unnecessarily
++	 * wait for 50us.
+ 	 */
+-	set_bit(IBS_STARTED,    pcpu->state);
+-	clear_bit(IBS_STOPPING, pcpu->state);
+-	perf_ibs_enable_event(perf_ibs, hwc, config);
++	if (in_nmi())
++		wrmsrq(hwc->config_base, config);
 =20
- 	if (!overwrite) {
- 		/*
--		 * Watermark defaults to half the buffer, to aid PMU drivers
--		 * in double buffering.
-+		 * Watermark defaults to half the buffer, and so does the
-+		 * max_order, to aid PMU drivers in double buffering.
- 		 */
- 		if (!watermark)
- 			watermark =3D min_t(unsigned long,
-@@ -711,19 +703,16 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_ev=
-ent *event,
- 					  (unsigned long)nr_pages << (PAGE_SHIFT - 1));
+-	perf_event_update_userpage(event);
++	perf_ibs_event_update(perf_ibs, event, &config);
++	hwc->state |=3D PERF_HES_UPTODATE;
++
++reset_state:
++	clear_bit(IBS_STOPPING, pcpu->state);
+ }
 =20
+ static void perf_ibs_stop(struct perf_event *event, int flags)
+@@ -602,6 +674,9 @@ static void perf_ibs_stop(struct perf_event *event, int f=
+lags)
+ 	u64 config;
+ 	int stopping;
+=20
++	if (ibs_caps & IBS_CAPS_DIS)
++		return perf_ibs_stop_dis(event, flags);
++
+ 	if (test_and_set_bit(IBS_STOPPING, pcpu->state))
+ 		return;
+=20
+@@ -1416,19 +1491,43 @@ static int perf_ibs_handle_irq(struct perf_ibs *perf_=
+ibs, struct pt_regs *iregs)
+ 	unsigned int msr;
+ 	u64 *buf, *config, period, new_config =3D 0;
+ 	int br_target_idx =3D -1;
++	u64 ctl2, ctl;
+=20
+-	if (!test_bit(IBS_STARTED, pcpu->state)) {
+-fail:
++	if (ibs_caps & IBS_CAPS_DIS) {
  		/*
--		 * If using contiguous pages, use aux_watermark as the basis
--		 * for chunking to help PMU drivers honor the watermark.
-+		 * Use aux_watermark as the basis for chunking to
-+		 * help PMU drivers honor the watermark.
+-		 * Catch spurious interrupts after stopping IBS: After
+-		 * disabling IBS there could be still incoming NMIs
+-		 * with samples that even have the valid bit cleared.
+-		 * Mark all this NMIs as handled.
++		 * ->stop() {
++		 *     set_bit(IBS_STOPPING);
++		 *                               <-- NMI (race 1)
++		 *     CTL2[Dis]=3D1;
++		 *     ...                       <-- NMI (race 2)
++		 * }
  		 */
--		if (use_contiguous_pages)
--			max_order =3D get_order(watermark);
-+		max_order =3D get_order(watermark);
- 	} else {
- 		/*
--		 * If using contiguous pages, we need to start with the
--		 * max_order that fits in nr_pages, not the other way around,
--		 * hence ilog2() and not get_order.
-+		 * We need to start with the max_order that fits in nr_pages,
-+		 * not the other way around, hence ilog2() and not get_order.
- 		 */
--		if (use_contiguous_pages)
--			max_order =3D ilog2(nr_pages);
-+		max_order =3D ilog2(nr_pages);
- 		watermark =3D 0;
+-		if (test_and_clear_bit(IBS_STOPPED, pcpu->state))
+-			return 1;
++		rdmsrq(perf_ibs->msr2, ctl2);
++		if (test_bit(IBS_STOPPING, pcpu->state) /* race 1 */ ||
++		    (ctl2 & perf_ibs->disable_mask) /* race 2 */) {
++			rdmsrq(perf_ibs->msr, ctl);
++			if (ctl & perf_ibs->valid_mask) {
++				ctl &=3D ~(perf_ibs->enable_mask |
++					 perf_ibs->valid_mask);
++				wrmsrq(perf_ibs->msr, ctl);
++				return 1;
++			}
++			return 0;
++		}
++	} else {
++		if (!test_bit(IBS_STARTED, pcpu->state)) {
++fail:
++			/*
++			 * Catch spurious interrupts after stopping IBS: After
++			 * disabling IBS there could be still incoming NMIs
++			 * with samples that even have the valid bit cleared.
++			 * Mark all this NMIs as handled.
++			 */
++			if (test_and_clear_bit(IBS_STOPPED, pcpu->state))
++				return 1;
+=20
+-		return 0;
++			return 0;
++		}
  	}
 =20
+ 	if (WARN_ON_ONCE(!event))
