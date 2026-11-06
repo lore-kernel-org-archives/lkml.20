@@ -1,62 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956958;
-	b=VktB0uZbeMyiiwM+XZSrNpof3yUlzbEdgjAQssFN9F/bNS3IdIhvHQqRuR9s2tHMsSCW
-	 0bcqMYaFo07LU43SofekvK4R4JdLjkZQaxwNxePWiiW/aXqwDL21FqFkvvqA3Phpmxe0C
-	 mb0tckw/Bu19wj7sD+YRHlYNUifTtXAeXYFDh91u1j6pv7GgWF1t1QT2GsPk8fBpWPJyA
-	 sbL6zmRYQTZeeJU+ncEMSMF2yRb0dH7WAK9Nc8pTqtGIz59eikGDBNLpfSapCnMRrXQWw
-	 /9u4cpzHe4xJZB538YWeHF+2migXMyabXCBZ9ClWT1q0EURIoqzNZf9fM3e76Ogpjqg==
+	t=1793956969;
+	b=V9udbh4ielcEEyshhQmQa1KB9ut7HbJ3X9+c6Jq0m7Ev9/3z8xEYtVqGrQtUnU7/kf0n
+	 0BBlwCLACEZcPfMohbesEL8cT2h1mwbzD5IxuOfqsqgdAL/CB99M7/zVVMb2R0mU10jVH
+	 GktiCtvv2a+zyrL3+DXrICf5hK/XoMmpoAOYhitYyfQJpIAWbPfTxBor303tbNlLL0cqh
+	 Kf2LWQjMcO0K7Zd6h9iZS34runv7wg1ByCmYtpHzW1Ln/yi3wu+juEgUxqIwelKywXl4E
+	 YmKhAThjCwtTqhMK++UGspGNg+WpM3wnpvAmjhOv+8z/O8xUJiwJNZGUVx6ADBDHYMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956958;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=D4CgicPmSEsVHLuBA6xfR1jgrxPW6tB2c2qahPK26hw=;
-	b=wLCm283DdKf5zkpYqXFr2OsbZ3ndPRK/DC5n8cAYCC62a7mCiqbc6+SRRT7+cfxbLP5m
-	 4vI/oJA8LbCEHDdYZXo2aGUII73SudOMC2l3DIvFqn+yBPMz2X1ZzwzEsMdhlP2D+Z7VY
-	 Q3piKQHtqhtTDH6PlSA2xWFU6qg+CZUodCBazz17eV67x89yzZEnlDsR4MBdly5g8/SwQ
-	 xMYhHxm+qNNBzwkIPzvy/pH5TtHqWBtvluXKhHMLTDZtHouHJEgB+eQEkNW9Q/REdqyY+
-	 0xxBYfHl1++pC/9/trT2uSQch7bbUqKeNqqBar5HsjLdPOv+43qik3bid/9GsmGiXSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956969;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=B2VlpYxIyrjBwpfsYj6tday8nvUyo3/23/5HWi7DkJA=;
+	b=Uj4KRAKwrOM4dHungbn9dq/gCEm7PNbfoOk1TqK8fKz3qGRWVZqQiKgfiC3xwe4fHoBL
+	 DOTq13BQ3kvdUZ0P0Qo5a40DrcwzWhwuZctCCRvvAIpNjI3diQfoesv+DimYF6DohraKM
+	 Es8qWhfQe96XYF+ZzX6mWtG/yjQKBx6LFrFDXzXUKYNLUcwd91uFGlhB6cGueVhDy9jtK
+	 6BW+eoXDpqeyyD3wuP6CKVMegx99Sf5lv2Uh28HP4OyBQnzNKqjVD2iCkrp2L0zttiiHb
+	 HOotNl5Q0sGboo0R/CDd4AhBnMKpJodEacfp70C1XI9nUPKCwIvjZmr3uumgr+2q0Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jrl5jBjk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ed+zaeMM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DEF606D808;
-	Fri,  6 Nov 2026 09:22:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E67B5606D813;
+	Fri,  6 Nov 2026 09:22:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jrl5jBjk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EDD1F0089F;
-	Fri,  6 Nov 2026 09:22:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ed+zaeMM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81F01F0089F;
+	Fri,  6 Nov 2026 09:22:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793956958;
-	bh=D4CgicPmSEsVHLuBA6xfR1jgrxPW6tB2c2qahPK26hw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jrl5jBjk4QkB0weWayMYDtKpOcbZVxw9GUH7dREHmZtjYCu3IzyTCQ8P6lAQWydw5
-	 SjGSytGp1ENxJkOtRqM5EIg4VM9YilcWWRGcFIKgXvatVuKSGKiAGP0LjPvbr246eW
-	 JIn/I1ueo0P+kJwfVgcf+i75dduSsONfXRtNN00oNtf/vwVUhDcjQpd++HvYDUVCiz
-	 zDiDcuFMkKfIoH8/PJpz30JiQhJPOqSq44gkSFWQKJaLpbkdadWze5zs6FAKhK+j8r
-	 qEW/ThnIriClbbH7j0zvx9WKp1FkPJwBnyHonyvZD7N7vCaT1YuEzXPAXpCvPN0d5h
-	 14HrPkSL3YSug==
-Date: Fri, 6 Nov 2026 10:22:17 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Satyam Gupta <sgsatyam@google.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, "Nuno =?UTF-8?B?U8Oh?=" <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Benson Leung <bleung@chromium.org>, Guenter
- Roeck <groeck@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, Enric
- Balletbo i Serra <eballetbo@kernel.org>, linux-iio@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] iio: cros_ec: Use platform sensor_num to unregister
- FIFO callback
-Message-ID: <20261106102217.3bd67592@systembl0wer>
-In-Reply-To: <20261106071904.142937-1-sgsatyam@google.com>
-References: <au1FF5K9EALuqnNR@google.com>
-	<20261106071904.142937-1-sgsatyam@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=k20260515; t=1793956968;
+	bh=B2VlpYxIyrjBwpfsYj6tday8nvUyo3/23/5HWi7DkJA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ed+zaeMMxZkk0sMX866f+hgUL+LQdcH7o/qgyoCCXq+vPhec3VXmkvw9H9xDLigWw
+	 UY59NgQpfozxZ25pJ/8Qp3Y5hEdCF2kdkNTJ5B2MucLA/3E8ng0Wu3PnU1+gE0FSmt
+	 BMi33657UPtzIj6cpgeskuDgJH/84aPM+MoqyBa1+cVAkwhijctC2I/DVbGdVgYkKV
+	 m+M56yMwhFwDD5wSM8d/QfYvFNONQo6b7EiQMaUSm3gpmeHGevg0deKPMUxWX2Rv7n
+	 YQkXB0lwcKfVPiIluNdn/qZXDQaiJPNjFwS3NJLFi9pDniyKA11Sp2ciLyv0ng2bSe
+	 I3AhH3FJxH26A==
+From: Simon Horman <horms@kernel.org>
+To: thnkslprpt@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	richardcochran@gmail.com,
+	netdev@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] ptp: Report clock removal to poll waiters
+Date: Fri,  6 Nov 2026 09:22:06 +0000
+Message-ID: <20261106092205.1168004-2-horms@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102122340.1160733-1-thnkslprpt@gmail.com>
+References: <20261102122340.1160733-1-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,40 +64,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri,  6 Nov 2026 07:19:04 +0000
-Satyam Gupta <sgsatyam@google.com> wrote:
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102122340.1160733-1-thnkslprpt@gmail.com?part=1
+---
+ptp: Report clock removal to poll waiters
 
-> cros_ec_sensors_core_register() registers the FIFO callback for the
-> sensor number found in the platform data. The matching cleanup action,
-> cros_ec_sensors_core_clean(), reads the number back from
-> st->param.info.sensor_num instead.
-> 
-> st->param is the EC host command buffer. Drivers fill it in under
-> cmd_lock before each command, while the cleanup action reads it without
-> that lock. It is also set only for physical sensors. If the field holds
-> another value when the device is unbound, the cleanup clears the wrong
-> slot and leaves the callback in place, still pointing to the iio_dev
-> that is about to be freed.
-> 
-> Use the platform data in the cleanup action too, and pass the struct
-> device pointer directly to devm_add_action_or_reset(), so it always
-> unregisters the slot that cros_ec_sensors_core_register() registered.
-> 
-> Fixes: aa984f1ba4a4 ("iio: cros_ec: Register to cros_ec_sensorhub when EC supports FIFO")
-> Signed-off-by: Satyam Gupta <sgsatyam@google.com>
-> ---
-> Changes in v3:
-> - Pass dev instead of pdev to devm_add_action_or_reset() and drop the
->   unused pdev local variable (Tzung-Bi).
-> - Move the note about out-of-tree triggers and how the issue was found
->   below '---' (Tzung-Bi).
-> 
+The patch adds a check of ptp->defunct to ptp_poll(), placed after
+poll_wait() has registered on tsev_wq. ptp_poll() now returns EPOLLERR
+when the clock is being removed, so a poll waiter that consumes the
+removal wakeup no longer stays blocked until timeout.
 
-No, don't send a new version of a patch as a reply to the
-previous version, it may break tooling like b4 for example.
+> diff --git a/drivers/ptp/ptp_chardev.c b/drivers/ptp/ptp_chardev.c
+> index f63b45f5ee6ae..01adc70ad97b4 100644
+> --- a/drivers/ptp/ptp_chardev.c
+> +++ b/drivers/ptp/ptp_chardev.c
+> @@ -593,6 +593,9 @@ __poll_t ptp_poll(struct posix_clock_context *pccontext, struct file *fp,
+>
+>  	poll_wait(fp, &ptp->tsev_wq, wait);
+>
+> +	if (READ_ONCE(ptp->defunct))
+> +		return EPOLLERR;
+> +
 
+[Severity: Low]
+This isn't a bug, but should the other accesses to ptp->defunct be
+annotated to match this new READ_ONCE()?
+
+The only writer still uses a plain store, so this load has no
+WRITE_ONCE() to pair with:
+
+drivers/ptp/ptp_clock.c:ptp_clock_unregister() {
+    ...
+	ptp->defunct = 1;
+	wake_up_interruptible(&ptp->tsev_wq);
+    ...
+}
+
+The other lockless reader in this file, ptp_read(), still uses plain
+loads:
+
+drivers/ptp/ptp_chardev.c:ptp_read() {
+    ...
+	if (wait_event_interruptible(ptp->tsev_wq, ptp->defunct || queue_cnt(queue)))
+		return -ERESTARTSYS;
+
+	if (ptp->defunct)
+		return -ENODEV;
+    ...
+}
+
+After this patch, ptp_poll() and ptp_read() read the same flag in two
+different ways. Other code in this subsystem pairs its annotations
+explicitly. For example, queue_cnt() in ptp_private.h notes that its
+READ_ONCE() is "Paired with WRITE_ONCE() in
+enqueue_external_timestamp(), ptp_read(), extts_fifo_show()".
+
+Would it be more consistent to use WRITE_ONCE(ptp->defunct, 1) in
+ptp_clock_unregister() and READ_ONCE() in ptp_read()? The other option
+is to leave the new check unannotated like the existing ones.
+
+>  	return queue_cnt(queue) ? EPOLLIN : 0;
+>  }
 -- 
-Joshua Crofts
+pw-bot: changes-requested
