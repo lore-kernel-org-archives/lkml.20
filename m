@@ -1,57 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975609;
-	b=JgtosejUvGJl8b3Y8JGGpDttuNWc5yZ0QPlksBP7LDhpOruhuzh0wKK1426j37AspBJZ
-	 /0WmhxLq/iPVR2qK7AbS4Kdz+tS3QsYq8+epoOR5oH9i2Rj5ikm6+mWu4SbJUx3wPwHEd
-	 eY8EOfokacNvOxT+k7cMjOWB+GE32D2OFlvEMG/zoZU7YFETlsww+pIlvUXxef1XMU/Hi
-	 VAAu4WYwsdd7ulRtTtdCJL1dUy0mHPfbcx0E5/QL4Lv92k2EjSKjvEWbOlBas0A/suikO
-	 H7JfnXvLjJjDcdhOdnXiTKh37zySxIqE20DhaGxRHXu1d/pqSdAO5mh6QMv98IKBKHA==
+	t=1793975613;
+	b=AeTVxuLf0qLwKHd+IkUm5D7v2jpznp+3fZ/67pICoFmcTJc21xa0qcKAGBKuVYBHxSpr
+	 vw4v+/U/fpHVMR/FsNFYyPOuNIa10thNe1UEv4YHVfhFsObEpn0pr7zh+2jZx+84LJrFM
+	 jdsseEObkoEyY+bBG5zU+tOM2BGLsP9BeGXV33t+Uv+Ir4Ag9d8yt7/qHucYvFQHyWQFm
+	 PPJPMJ05aQbl0Be6xWRFqJY/ETtQXwxbviFGDSPa3TXHhsiuOsZLKi2o5Yj05ot+Cq3Uh
+	 04MOP0pZsE9efNAmCaeC+j1zEUhn/AUt5si2AXWOxRXOr71evhWp6o+PlYGpyVq6PWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975609;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/eAhhOve+UaRgXRGweA394kXwzaPcnWOPVCBN849Nb0=;
-	b=u1A+i+CreNTckJxPc1PnCJYIWt065KMSzviLFVujDwVg3nha7+5nViKhafbFWVBQ8CCk
-	 CU3mbW4ZlvKoyfpPj5/d3I4vKrrTzOsOytBMr8CUPi3KTfuV2WW2zKnso3zI3g/rFzqXi
-	 toHaJPayHEl2f/ViTRloEON+GyBnCyfqThh7K0oqcDMKBJop7AUMnX59Kn76nOsJBoOC0
-	 J/FutNLmW1GSS7zUg6psUov01Ai22KzSI8vv5qj5uH7sPlQDcuvhnG2YENvGo2b6qJmLg
-	 1XB2MGKb2O3vr6ETIuReVMxTMAK6/thHmoQAM7S7uyLWgQh9PO3+jm2IkDAw1NvV4sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975613;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=NLBSWvQdzP4LSJXmaAVuA3LXFwQgtJwF9yGVYnQFGaA=;
+	b=UrFqPDi0J9xiHQFFcK6XeFlzbWA2Hgwb8lOPU2Ghw5k+kGC300ORGL3kHAp+1bfQhChx
+	 ASyaBn2TN1N3LlluqISjfaYut9nE1TP9uXF33rld96P2IqARMbhda3wn25Zzwq4zyLcxr
+	 JDNFjyt4TL0Ne9IyH8b+GqsgMKz+w6mwh5JlBIdLSmwg006i35wKgmEGph5VgStr648Av
+	 dTW5Vf2dUw+CKqiKwUUPLE7Yhjbz7z963B2WPAisx0d3KeQ6Wcoxa+vhtoMWkF43eSnM8
+	 UR5lZKlmLv1BXcvLM+JNwnIdjSBjLdcR7XQkVTyCUrFRtwPxg4Bumpj8yObPtEJk6Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=IUJgd8rt;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KpvsFqQy;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833A2606A326;
-	Fri,  6 Nov 2026 14:33:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 833A2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B4A606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:33:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7B4A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=IUJgd8rt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793975605; x=1794234805;
-	bh=/eAhhOve+UaRgXRGweA394kXwzaPcnWOPVCBN849Nb0=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=IUJgd8rtV09L/PpUNdx5Lf+uDwImmskIZKG3FntEQcznMhDhaLHHKZ5ol4hyKAjKW
-	 Yq2zEg8tOAx3sPy4lCFBHvbwlkeObePdbDJV3+iS8qsC/YXKLCw4TClmb9gafQeNBB
-	 73J3MO2wSxPeiRKnfg35Lkc4OFkztYVXIwtk9Vyg7aCKiinhG9+7whIp36dnxF9uQj
-	 0plHUImfBBerIelL2Nj/jPp/NvX1XZGtxHhY58ockAN2mxXOVl2pndmsB3oSi5hblZ
-	 0d1ov909pSsw8frJNChjc0gRnUYZkY+rqj1yDRzlepdMgZURk2NXVy2s0PQd7Yrv8F
-	 NnWT0MB/sbR7g==
-Date: Fri, 06 Nov 2026 14:33:17 +0000
-To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: Yun Wang <7z0423arsenova@proton.me>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, Mingyou Chen <qby140326@gmail.com>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, Armin Wolf <W_Armin@gmx.de>, Chris Taraszka <chris@miget.com>
-Subject: [PATCH] platform/x86: bitland-mifs-wmi: Add Redmi G 2022 (TM2135) quirk
-Message-ID: <20261106143114.95008-1-7z0423arsenova@proton.me>
-Feedback-ID: 227066774:user:proton
-X-Pm-Message-ID: 896d83f527b801804ebbfd88a4f151f0b8facdbc
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KpvsFqQy
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a214af2076so4889765e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:33:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793975611; x=1794580411; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NLBSWvQdzP4LSJXmaAVuA3LXFwQgtJwF9yGVYnQFGaA=;
+        b=KpvsFqQyT+4PvH8vA69l/0yBU492aWoqPZPKV1SgAh4+lquKB5hc+H14GIXq+RbmkF
+         OMMW12q5VourcFLQN7J82S001rGQz+0kMZfQ1vA3FtAXfXNxIpX2LhIh4AsXh4+kUjW9
+         AQTIpyYzpygXO9ub7MPLKTOa5WJI8ut+kYDtrV2gwtBGRZo92By2t/0RT8qBJqyC8yM9
+         jayCAvsAlISbFF3imuY0ocrXoQXM9SsTMQKTNgUgpLjPoppZYgPa4FxdBlLxrl/5Xld3
+         JgCgNoB8/BLNLk+uGM3j7wHHC5O8K+AFBtwqgZVYpjGi3vRPmWdK01ApftHinGZkbiFT
+         W7vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793975611; x=1794580411;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NLBSWvQdzP4LSJXmaAVuA3LXFwQgtJwF9yGVYnQFGaA=;
+        b=ZavMmqMLs8rPhppp/K7m/tt8eNUCdXG5yA/FJI1sd7gAgGjR6EgnEtFuIrY+YPPUKl
+         El0ZcJh1bKF5SyKmVTRpEhjePTEsGqH5GYjlxB4yIIfoYvXoTmIwqYE2iK4HZBssAtR5
+         SGHCk3sLjwRAIEBL93AQ5mqtYK+8RrXxgbPItGZWw05dgIVH5Wa4wdxXtBfE7sLNRe9U
+         osZ1JQUO3K0j6GZRhFfxp8foy4yca/8eyNCnDJnz8DJdkmyQNmyDpFvvWQ7fm7KdRrA7
+         BRi5ahDcQJEaxpL+bfgkUWfQFc5tcU4HtWt3yimBXvlS5yZ0ppYvOtJehhBrbUR2Lg2X
+         Y/lw==
+X-Forwarded-Encrypted: i=1; AKwUvBwm4zRcfgCLQgy80oZ3VTJ0CfQ31xh8zQ5YfxM71UHqAO4ydNh2VAnPL9HG/Lo1SOT6/tJLzRjt2VzyjnA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mgYEb44PXV1EHf3t3B3FW0sgQpWpSEmRxcrEAD/JYVgH5i8Ad
+	CHO4K9iJbCHglN6pBjxjns2L8lppwVTbFzh9n3zVh4+spjwC8yBffD9qmvtE3E1zxA==
+X-Gm-Gg: AYBFou1RsWzzl1qWfqbBQK/EX7Maj9+yxyuAf46I98WrXecTu2sKhnqBcanyC+jK5wP
+	SRa8qW2B2e+o3R3apnfLcIVcNxzASbwAT7YtMQb+9GuB0z+3LYxVcVm8hlsv8Xxszm9msi+IGbv
+	yJEeRKeHMFdYqIJcA2NI1oNXOxvTr8nKdLQSX2GYzOVmYOscNzXebI+kaWr87fLXZZfAi77J3y/
+	WApsTBiZX73/vj7T5fNX9LtimhGLqVYH5OwcSt1FxlfgBJKBHYLNSYIypb0tMYIEbGJU9j22Fj4
+	8XIJs7Hib4ZfLmC6MvwvlKA5hKSXfjviRSJOj18dTxiQt6wTz/2UtqDgYJtd0IlIXFi66P/Uzsl
+	wL1bftBmpI43RNJNuq4wgXfJn6N8qiUrh+xxSZ7oJ5rLDaYko9rmV5t2xlbtklmTcv0sObRNb7/
+	pIqFuzi9N7bz0Jx9n/rhE/3EWCJmMPb78WHwics2hhr+3rlHEDFQkRHEnTZB/fPhVcTs4+JheIj
+	C9aS8/A07kK/g1vjnKA2au1rSXhiCKrsoNB2wF6766OOKBrWPt7cjSvzaxNM16amb3oQWmS3aaa
+	bZP/BWNHIxZ7ktFbsUbqnP7GPkU+Ft7YXq7tin/jeAEJNJX/3vUAU+HutWd7ihro
+X-Received: by 2002:a05:600c:46c8:b0:4a3:59c9:a744 with SMTP id 5b1f17b1804b1-4b6dd82aa22mr47981875e9.7.1793975610579;
+        Fri, 06 Nov 2026 06:33:30 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm137145675e9.9.2026.11.06.06.33.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 06:33:29 -0800 (PST)
+Date: Fri, 6 Nov 2026 14:33:26 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: xuheng@cs.columbia.edu, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] KVM: arm64: Don't replace a valid hyp block
+ mapping with a table
+Message-ID: <au3lNp0vzK94uwap@google.com>
+References: <20261105-hyp-pool-and-map-v2-0-44a6ca90190b@cs.columbia.edu>
+ <20261105-hyp-pool-and-map-v2-3-44a6ca90190b@cs.columbia.edu>
+ <CA+EHjTx-X_2DaO6Yt-AHsP55SFWjz_EYxEr-TB9WSN-ZT+d3FQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,96 +107,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTx-X_2DaO6Yt-AHsP55SFWjz_EYxEr-TB9WSN-ZT+d3FQ@mail.gmail.com>
 
-The Redmi G 2022 (board TM2135, BIOS RMGAD6T0P1313) implements only
-three modes: 0x02 for quiet, 0x01 for balanced and 0x03 for performance.
-The default profile table maps balanced to 0x00, but this firmware
-recognizes it as the performance mode. Because the firmware does not
-implement the AC adapter type query, setting balanced-performance or
-performance fails with -ENODATA.
+On Fri, Nov 06, 2026 at 12:03:29PM +0000, Fuad Tabba wrote:
+> Hi Xuheng,
+> 
+> On Thu, 05 Nov 2026 22:59:50 +0000, Xuheng Li <xuheng@cs.columbia.edu> wrote:
+> [...]
+> > No in-tree caller maps into an existing hyp block mapping today, so this
+> > cannot be triggered in mainline.  Fail such a request with -EEXIST
+> > instead, so that a future caller gets an error rather than silently
+> > losing the rest of the block.
+> 
+> Could you mention in the message that the WARN_ON() is fatal at EL2,
+> so a caller there gets a hyp panic rather than -EEXIST?
+> kvm_pgtable_hyp_map() is already documented as rejecting such a
+> mapping "with an error and a WARN()", which is a better reason than a
+> future caller.
+> 
+> Also, please don't respin series so fast. Give us time to digest the
+> series first :)
+> 
+> Cheers,
+> /fuad
+>
 
-Add a DMI entry with a three-entry profile table for this model and
-enable skip_ac_type_check. 0x04 is not used for performance: writing it
-succeeds and the value reads back as 0x04, but in three test runs on
-7.2.11 the firmware did not emit WMI event 0x16, which it emits after
-every other mode change. The Fn+K hotkey also cycles only through the
-three modes above.
+Actually, why making it fatal? All callers of kvm_pgtable_hyp_map() are checking
+for the returned error.
 
-Tested on this machine with this patch and the series it depends on,
-built as an out-of-tree module and loaded on a 7.2.14 kernel. Writing
-low-power, balanced, and performance succeeds, the profile reads back
-correctly, and the firmware emits one 0x16 event for each (values 2, 1,
-and 3). Writing balanced-performance is rejected, and Fn+K cycles
-through low-power, balanced, and performance.
-
-Claude Code (claude-opus-5-5) analyzed the ACPI tables, wrote the test
-scripts, specified the change and corrected this changelog. I wrote the
-code and the changelog and ran the tests on this machine.
-
-Link: https://lore.kernel.org/platform-driver-x86/OT2JfRLDi6yHShYvywRZoFBYd=
-W-TUgdKqKtahRM5b0cZxNo6eGZHnO5dKf4oYFaEtZhEsqU-Q-2OFe0D-qToJMVUrS5_d2aa2Q5L=
-D50ISIc=3D@proton.me/
-Link: https://lore.kernel.org/all/BelDdF5woNEBX6dZ3_zJDEbVkifs1pdxEjtQ1yC-a=
-KyZahijFJCllxm0l_SqZ5Hsj61D8wfJNa7uDSuNKmyyxo2S0tZp9QS5yaafeZUxvxE=3D@proto=
-n.me/
-Suggested-by: Mingyou Chen <qby140326@gmail.com>
-Signed-off-by: Yun Wang <7z0423arsenova@proton.me>
----
-This patch applies on top of all patches of Mingyou Chen's v15 series:
-https://lore.kernel.org/all/20261028112742.674847-1-qby140326@gmail.com/
-
-It adds to the same two places as Chris Taraszka's TM2424 series, so
-whichever is applied second needs a small conflict resolution that keeps
-both entries:
-https://lore.kernel.org/all/20261106114300.936782-1-chris@miget.com/
-
- drivers/platform/x86/bitland-mifs-wmi.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86=
-/bitland-mifs-wmi.c
-index a431d3fef7..48a81e0655 100644
---- a/drivers/platform/x86/bitland-mifs-wmi.c
-+++ b/drivers/platform/x86/bitland-mifs-wmi.c
-@@ -113,7 +113,26 @@ static const struct bitland_mifs_quirks default_quirks=
- =3D {
- =09.num_profile_entries =3D ARRAY_SIZE(default_profile_entries),
- };
-=20
-+static const struct bitland_profile_entry tm2135_profile_entries[] =3D {
-+=09{ PLATFORM_PROFILE_LOW_POWER,=09=090x02 },
-+=09{ PLATFORM_PROFILE_BALANCED,=09=090x01 },
-+=09{ PLATFORM_PROFILE_PERFORMANCE,=09=090x03 },
-+};
-+
-+static const struct bitland_mifs_quirks tm2135_quirks =3D {
-+=09.profile_entries =3D tm2135_profile_entries,
-+=09.num_profile_entries =3D ARRAY_SIZE(tm2135_profile_entries),
-+=09.skip_ac_type_check =3D true,
-+};
-+
- static const struct dmi_system_id bitland_mifs_dmi_table[] =3D {
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "TIMI"),
-+=09=09=09DMI_EXACT_MATCH(DMI_BOARD_NAME, "TM2135"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&tm2135_quirks,
-+=09},
- =09{}
- };
-=20
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-prerequisite-patch-id: 99b10cd2b70d630ab65d8a8bb02c1d4bf89b1a63
-prerequisite-patch-id: 27db041f827872b8be142c310a14c79962154bd5
-prerequisite-patch-id: 74fc3298fa3dceb2224dfc3d2ae4cc6d4be61c01
-prerequisite-patch-id: 254b8455d8a7f56b730e842207d91bd6904a50ce
-prerequisite-patch-id: 9708c81da6b4ed6c2d47eb927efcd64ce4ed2ecf
-prerequisite-patch-id: 2fe8c043993034f1a2cde98b1b2e299987d5ac7f
---=20
-2.56.0
-
-
+-- 
+Vincent
