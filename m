@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949310;
-	b=lmX0+NUDtoXDm/Pps0lRLbMziU9gWgwVlYCSXxD7qehlolVPb9FgMxNt8u2lnFPEfkpw
-	 P9V40l2gi8kuke41o/oxi3jfh1OiX0DVamSdu29tzeX25ITeLjJ5OiYxWLslgkwOebDBD
-	 i23QJHkwKlAGEqiJnvd3YUOTFR3SoajRWWXJ9kMSve/tt+lFHqNZV+5E8qAimAUx78vwH
-	 7tQD0sxeC3nIIzQ+Dtx+o8uCxqEzPYMxKb9hupXYrHyd7h5z12GeVV2nSWH/n8AmR0q/Z
-	 SEh8sgZPOSc1xeVBF6oGe+uElNL3yvcL3gHymUOqNKIKdGOOErZ0J9Bvz/zQuHo5r4g==
+	t=1793949311;
+	b=LzBsoRpSU/N+iWq32GmSKrz279Oq5YSDScfmK0aDwcSphrKhk0pEm1G8f/NXJMWt0MbR
+	 xvoTe5LMtz8YTcM4xFyunVUWYfdg48Gtk1YJ7zYBmep5Zwhq7TvSuSoNUDmvnCCrd40r0
+	 mAhtJ1K8M6j9wxPirfFCVEAT6PAUUJE+73Jwl+zudpBbA4mXp2nFI2ZDTBLQG42503+cP
+	 Vn9NldXxZGAEn7LhVGFQIKXn0UY46nJFzmhh28v9JSV+InXMqLWvHEiDPrxPjK/9MpVTh
+	 XGikqZkqQvQrvIVxw7zdkLlxmWq7y/xxT8xnDOCVOvUul2unbLL2LoM1QdYGPEXZm8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949310;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949311;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Q+m8DC4cfdQZ3xwF8aoJbUjRqYnCvVbB75BJhmdshTY=;
-	b=rAIq3Uxk8tEMeAuLqYrV1J9WXU5FLT3GFXT5q2pDQ1Jkv+zmHDjZ+bhPR0tHKD7OlscZ
-	 oyeuDe7sCbLURlZjvDVHHlwAeChjb6d5oTAJ0uvAvl7iOwvD3iXpRURgkGZwZ7t/jOCiN
-	 QKeymPwg0B1gnDSwv17haSBiq27Iz+9qfJEHVPqa50eaj864f6G7Q1igqug7DzyGLA8CI
-	 ayUEElJQBxf9RklqMdLrEz31VuPdGwm6NFN6aCWZ7nUwgbaBmp/iPuV4HogM6DOIaTgTP
-	 mJiv08AcV3aFjd4qNr6FiNM9NaTQdD0xFt3gNDb0UaxkjG7qeokR/Oh7pxm+Ga46Qtg==
+	bh=d6ydCQ+GA/r9O1lqv1CIkHCaiuKsabnmgnyXnw1pfuk=;
+	b=wbs366nCJOoclwlxU35RiR2L2VCsxkYMqCk8rBMtd3fnflCNw81b1GtsFcrNA3jlMbHp
+	 m+hhJpOnfYmFMPVSzsh1RTKaXOT9kXhI4tbzDGKBtwXb5GL/BmIP/1Frs0TWdQwARXlV1
+	 AnVmfoOrs0nOSNmBYAoLP5NCfn22oV8XokbTONI17tLFEMYh6F0Yg2cgX5MUq0gOi35Gt
+	 dyD+kjXcIAb1rOjNFAcYkFW3RhL71Mlk5Pd58sSseeux4B1ZMiUEFTu4BXGEAp9tlHrxM
+	 6AyxB0D087ZbVmvCo8RgOKStoNxurgnBrARWQU/WtA6MHr9L1JZSbWGeIKsv4xwYyxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Hl3o2weq;
-	arc=none smtp.remote-ip=115.124.30.110
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=mD9uVWVk;
+	arc=none smtp.remote-ip=115.124.30.130
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E07606D809;
-	Fri,  6 Nov 2026 07:15:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61E07606D809
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD6D606A326;
+	Fri,  6 Nov 2026 07:15:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACD6D606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Hl3o2weq
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=mD9uVWVk
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1793949305; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Q+m8DC4cfdQZ3xwF8aoJbUjRqYnCvVbB75BJhmdshTY=;
-	b=Hl3o2weqnkZwsYIusJDJryh5AJmTnOZWZcfU4b19UghowGy3k+O08szVVPnN6JFBN58y+ixQIXkz+lf0/LsTxTW2BXFlSTZTiXfRwSGzcQfQ0KcgFtgOuCXTTPvv1GWzUEwxXs7h+2stdyf4NGWh9qOc9IBnGwTbc7yfs2Im05A=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XEAtjMh_1793949304;
-Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XEAtjMh_1793949304 cluster:ay36)
+	t=1793949306; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=d6ydCQ+GA/r9O1lqv1CIkHCaiuKsabnmgnyXnw1pfuk=;
+	b=mD9uVWVkJsLNiO4/se3MP1sPfn2e/Yp5Jl0u5Hq5TQuBdMeXEQMlDudiUOLqlyUWOA37mAqw6Jg2hit4INsya/1IT6mn8O7k4tBiGO4xg97DLX8pdTPXQxymSa99Ve6jUWFKfs/g1xmue8H/SrnXe/9QpE3+2q1KMGcMdsBVOok=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XEAtjNb_1793949305;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XEAtjNb_1793949305 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 15:15:04 +0800
+          Fri, 06 Nov 2026 15:15:06 +0800
 From: Chen Pei <cp0613@linux.alibaba.com>
 To: pjw@kernel.org,
 	palmer@dabbelt.com,
@@ -57,9 +57,9 @@ Cc: guoren@kernel.org,
 	linux-mm@kvack.org,
 	linux-kselftest@vger.kernel.org,
 	kexec@lists.infradead.org
-Subject: [PATCH v3 1/4] riscv: Call early_ioremap_setup() before parsing the DTB
-Date: Fri,  6 Nov 2026 15:14:56 +0800
-Message-ID: <20261106071459.2003-2-cp0613@linux.alibaba.com>
+Subject: [PATCH v3 3/4] selftests: kho: Add riscv support
+Date: Fri,  6 Nov 2026 15:14:58 +0800
+Message-ID: <20261106071459.2003-4-cp0613@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261106071459.2003-1-cp0613@linux.alibaba.com>
 References: <20261106071459.2003-1-cp0613@linux.alibaba.com>
@@ -74,38 +74,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-parse_dtb() can reach early_memremap(), whose return value is composed
-from the slot table that early_ioremap_setup() fills in - and on RISC-V
-that setup ran after the scan, so the mapping came back NULL. The DT
-based kexec handover parsing is the first caller to hit this:
-kho_populate() cannot map the handover FDT and the handover is dropped.
-
-Run early_ioremap_setup() before parse_dtb(), as arm64 and x86 already
-do.
+Describe the machine the KHO vmtest runner needs to boot riscv64, so the
+test stops being skipped on this architecture.
 
 Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
 ---
- arch/riscv/kernel/setup.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/riscv/kernel/setup.c b/arch/riscv/kernel/setup.c
-index d79f99b86033..45e2ef9d32fa 100644
---- a/arch/riscv/kernel/setup.c
-+++ b/arch/riscv/kernel/setup.c
-@@ -308,12 +308,12 @@ extern void __init init_rt_signal_env(void);
- 
- void __init setup_arch(char **cmdline_p)
- {
-+	early_ioremap_setup();
- 	parse_dtb();
- 	setup_initial_init_mm(_stext, _etext, _edata, _end);
- 
- 	*cmdline_p = boot_command_line;
- 
--	early_ioremap_setup();
- 	sbi_init();
- 	jump_label_init();
- 	parse_early_param();
+Test: qemu-system-riscv64 (virt, -cpu max, TCG), in-tree runner
+"tools/testing/selftests/kho/vmtest.sh -t riscv64" (boots the Image
+and kexec'es into the same Image).
+
+  KHO: found kexec handover data.
+  test_kho: KHO restore succeeded
+  ok 1 KHO succeeded
+  # Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
+
+ tools/testing/selftests/kho/riscv.conf | 9 +++++++++
+ tools/testing/selftests/kho/vmtest.sh  | 3 ++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/kho/riscv.conf
+
+diff --git a/tools/testing/selftests/kho/riscv.conf b/tools/testing/selftests/kho/riscv.conf
+new file mode 100644
+index 000000000000..ec2a46cd45d5
+--- /dev/null
++++ b/tools/testing/selftests/kho/riscv.conf
+@@ -0,0 +1,9 @@
++QEMU_CMD="qemu-system-riscv64 -M virt -cpu max"
++QEMU_KCONFIG="
++CONFIG_SERIAL_8250=y
++CONFIG_SERIAL_8250_CONSOLE=y
++CONFIG_SERIAL_OF_PLATFORM=y
++CONFIG_SPARSEMEM_MANUAL=y
++"
++KERNEL_IMAGE="Image"
++KERNEL_CMDLINE="console=ttyS0"
+diff --git a/tools/testing/selftests/kho/vmtest.sh b/tools/testing/selftests/kho/vmtest.sh
+index 1e86ffcc3a79..56cac6ae3cf9 100755
+--- a/tools/testing/selftests/kho/vmtest.sh
++++ b/tools/testing/selftests/kho/vmtest.sh
+@@ -21,7 +21,7 @@ Options:
+ 	-d)	path to the kernel build directory
+ 	-j)	number of jobs for compilation, similar to -j in make
+ 	-t)	run test for target_arch, requires CROSS_COMPILE set
+-		supported targets: aarch64, x86_64
++		supported targets: aarch64, x86_64, riscv64
+ 	-h)	display this help
+ EOF
+ }
+@@ -127,6 +127,7 @@ function target_to_arch() {
+ 	case $target in
+ 	     aarch64) echo "arm64" ;;
+ 	     x86_64) echo "x86" ;;
++	     riscv64) echo "riscv" ;;
+ 	     *) skip "architecture $target is not supported"
+ 	esac
+ }
 -- 
 2.50.1
 
