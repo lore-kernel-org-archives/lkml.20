@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949972;
-	b=ZtQojeIBQNoh8FWL/gkuUaRkj6+Sm+TzjSeVjJkwhZfY0ntypkz8mVjvQMQNOH/MZGBs
-	 cnTkh1RRNgP+GutWGEGf6MWUKRxoTAUEgTcIJvCbNdUQxZr+17obCSqzwZY9ZxA4GLROR
-	 ZMyJtMavFROzifaA0bhQpVdRXrLlMb7Dg1ByJCij+jTpT37mdx9F12vCckUbRO2ZHafVJ
-	 7MyDqZAgH8e7C31BAgljolS4VhuILbSWBsORA1frAbc69DIR5Eeb49CRC1vcAyKfcSGf5
-	 Ngiba0BETpJvdqSQsDhEqHczScMBuc/4WIO5Qf2eH+QPgggylrTa+lEHi0czkcgZe8w==
+	t=1793949975;
+	b=FVheB6DqJwgUK9nBulQcuIvbZfZX/Pin4j180dC48xDYCmy5I3/Fs0YvubwUqkhOWGXU
+	 noSeVPEcW/myRmDUIWwn/948MiiLYeX/8IinLk4RfuLcex9E6RMnXYh1PTV+hfQUBYazc
+	 YT3Cu/mFlE2icmu+TeLPd9VHuEN4kPXrpUtxZMMlenHjcmWQdcay/yJUxPD2/ta1ybM6V
+	 q5hAO/enpmuCxu8ICoAzZOQ/sEps7hMFiXfrE8/RN9N3CI5Qk/AllhGlnL27Fv1MkxaBT
+	 2XSb44fMEvZ1MNUHIhd2MUA53WrTLAaCR74YxRklZaYHD+mPlsk2PvnDEFLB7zwuOWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949972;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949975;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=h6iC1BFKziQSdkT7Y3Z7o7DDpetOO4YQdmgmOckELCw=;
-	b=ES1DNw4JG6QnPb93d63LoYggTAoI5FP0WoQuDr5+p8eOUmqq7Abf7OiJiZvhK2G31ohB
-	 AVqON2BHEayQnmKcGdbjin0LL97Xk31856L+pO5gsLPDxTivi9rYdUprvpFIM+wj41VuD
-	 UaadP0AJHHr1L57LSXdkb9t8iPcJAfqxLnOOL6AHn1fUdBpit/Nuk5LFEjoL9UP9G2J7D
-	 ibyZvvnozjDeSQjRsClXLKf5SsA1iftmbe4vLkni8EtBM7kZm/XjDhQsv4R3CeFKSIwzJ
-	 mW1tkC8AW9/noxTfMGiP6uZURgLL4d6LPTM633khk4CJ2o3ATQDmf1NNj4hfYEybG1Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=HtJkfenG8lvFVEaE6QRe6qjgr1soq+sJRZ57WrAL0YE=;
+	b=16+MrjrpulzL8LcISuuNcHFzPjvYFqOIjNPvRNFcXRVcgjlIvgwELIQxu1v9yiCrOmUU
+	 G9VKFOioEa5DeD10o/HpCS38hKVaXpEjL5rak3QcKMiLNGvMZlgyrOBMz33Z2oOH43OiU
+	 AahdarJwf9zwkfnHEsEGe/ZSvp8ASUE1JBGMuje7vPaJJlgCweqkUVwd6boa22nQ66a1A
+	 sZiGGalqDR52N+w+oHPISpfAwRFGqzHXA4kXGuzHXE6VlRGBFLPHNQTre9LNplNlHAObE
+	 xcpWeXng3wiL+HoTyVksU/+9W4CVyH8sMrckeztxJopRt25bQ+avfuVD1q9Oz0G5jjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MemkxiN8;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nmb9c61q;
+	arc=none smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8828606A335
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:26:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8828606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182E7606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:26:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 182E7606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MemkxiN8
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ed1e9ae5a8so1151115ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:26:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nmb9c61q
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso136491a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:26:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793949971; x=1794554771; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h6iC1BFKziQSdkT7Y3Z7o7DDpetOO4YQdmgmOckELCw=;
-        b=MemkxiN8/ymp8wHEishBUH1i7zVz0CW1FMzpMHzBbgM9Ip93h/prcUolyjq8y7f/pk
-         KcKzls839oqBARMiSLwn2NpM1qrjKTeIRP+kZ0GeGuK8NisutI7qItJ7PPt7RumuIbtS
-         pj9cgd6cn+/iK0kW8K/37J7JiKGMIXGzngWaoRz/piRe4/zmFdUl3+ECJCmFJ7wPzXIY
-         svOEJQ9mAHayTHEuF5opvpSLIEM4a/En3uaKJGzs3pJzRakN3JBebvqvccQ8gFAlphxc
-         05UcUwLXsV/Beu9UTXO2Ps/Ktt64HI3+FPKGxQJjwk2Vv8xSZF0V3rOZREopuaX+r+tp
-         1w7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793949971; x=1794554771;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793949974; x=1794554774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=h6iC1BFKziQSdkT7Y3Z7o7DDpetOO4YQdmgmOckELCw=;
-        b=2bYPQZUX7ef991nqGTc++tZubbyqQD38d5Wjfd/xUHDQjCZSR++2O/nYiADXaKAV3N
-         r58NG3goKiQNl0bFalCsHcjCN6KhQNga53gWbB831g4B8eZwJ2xPdhylCxOLPS/JM2zF
-         c7+0yf+PQamC5tYSzDg4kF+qF7Jvwxv6QhslgW+7crfq2SxWoPB3E5MpdtYW+R9Vo33C
-         tw+eu6b8R5bcTlSmGRLnjWmM2eqZ2LI2Dk4BZz0K97dMT3tc96wy3r5xVAv0AHpW/lZJ
-         ljD9P7nPMdbWZEanvWVoj0wUFrChyJOPXoS2SN4EDqCtepV6CYRC5gnkuXyWY4rb7wG8
-         1scQ==
-X-Forwarded-Encrypted: i=1; AL+hErEBTOeJn0KJFxazfhXR2/6GQfd8CuFjLw6Dzj1kBigfu33bZ1tzlMaCuq9VzRHow+aphhKLzZ6sE90n+0s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8m7ixdaHU43z/BSDgGVm0w/JALSh+VE/THdYELxlMgiqIuJvrE
-	ogbnTZqGljQZeAtE0ZUg05zl8G1XzqqbyQ2+5y1l9gKFtNYCWFAGWayZ
-X-Gm-Gg: AYBFou1lQZXN30oWGmx9z9oHUG5J3mTmriQOO/ANonzfYJ+QdOwz/Tcm+XvMK13xRs5
-	6lsmmiyFFWbKJSZLUE78oFqbwjmgPXM/+nlbbPCmQUpftZ09G4dXd9r+ptW5DcQOFZRyVmH00UF
-	boFojceLWD7+7w64i5PntlNJqD35Gx309iE85jQCUjLGqJQ+6REw8vhM2hA75bI/IXhtPCocHiH
-	zz7E8bmq9XRgoBVDmvu424kGRt+Ta+0Uf6Ik0TbRRai6nk/7re3lEBuljnZ6azbixWhxDVJx4F2
-	o8IQ30AWCSdSWj6xT2P6z3UybWoVGknmkYyj/LuMEhlBqsd4e4G0AA2twI26ZXLrfPvNwY1wgqp
-	KDAYSvct7P7oO/yfPVexrfasb4TNuOTQ5SjvGuN5DIe2KRcCdbSVkJxuyBu2eiEYi1Gs1VLjRSa
-	ZGovEDhISaZRpK9opxWd2whZ5v9tABLw6KhlACCKBNh1BARpv2PrBSdgEqpfYpwlAJRc8yG6xC3
-	In6xqWB78SDe9st5KOVswAIlG4SzNeasApdj+yc0sRW44RPjlLyFYg9D1OjxLgk/xbnk5Vh2pts
-	KsvWXkhgxcNYtN6DNgz+W0ZZIQcuAQcia3B2wn3O0HYr67ptomMq
-X-Received: by 2002:a17:902:e5c3:b0:2e9:5d1f:dffe with SMTP id d9443c01a7336-2ed40dec190mr22310705ad.57.1793949971038;
-        Thu, 05 Nov 2026 23:26:11 -0800 (PST)
+        bh=HtJkfenG8lvFVEaE6QRe6qjgr1soq+sJRZ57WrAL0YE=;
+        b=nmb9c61qzXEgGvlgzwcJ/PwxYR1fZX/IynQhLVwOBco8DAhpuncz+xKDdrOBc94Mwt
+         VVBoqeIErKjj/mgyanew6pk8us7e3/dyEYcWFU6QUcPvCj8ZnZDN3iOs8dPhvstU9YVg
+         T/GBGB3RuBmWGfGv93MpaZWaR9yaDRTMhWNeler0YDpv0ZVwGGr/AgZQn6U5BXWahQDY
+         uTd3WtwqBUrxzYMhOExJYXNouB0sLQkvV+bxBuQ8H/ry1KTwQXokYBC3IU/Pr/ydRRFy
+         7WKaFACHmYdLbz4tXpA+5ZBBnhWdGVFQBg9NcHxKSLuGpZxnhtUqYcjJgrZ5jXrQ+m32
+         //mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793949974; x=1794554774;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HtJkfenG8lvFVEaE6QRe6qjgr1soq+sJRZ57WrAL0YE=;
+        b=YC+pS8jzAKXseK1eH5KfI9ewWOWu1QF/bpjvcPXXWNVQ5MP3NTYBXHwEX4o9C74Rrm
+         VvsQBnfQMaWpkPwz1S08CW8rJJ8/EIa3U2CmNbX4FhJF/L+acyaNYOumBIV5XFo1fZ7n
+         r6RQaZk0AhdcaSF2DEqkAFaXChaqO5uvtPjCpBSyEttpTphqa+mHAgNAlnRr5zyxwzIt
+         9VJu+TnUsiMC49cYBc4tbBLv0DN+LTbsURmFeipbu0+PHrlmrmPsHr90VLvXBz+ncfwq
+         vxVNZePlqYh/deV3HRggUVUPPfLjWgTHg1vHKJ9A0DeY6LEGuLk1NJcXdMdjCTd8GZGS
+         DIEg==
+X-Forwarded-Encrypted: i=1; AL+hErGjzjoJin7Dgvoe/CAF0BqdENgCBcHKroABLnIVJtP45tN7dJWF5TMBIu5RKCSIs9q+cqiYdFfUOD+1Fmg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TpdkY0xanu9Ffak6OGI8yIoqxjZsaa1sBQq04cjFvX/zvAx7C
+	iAxPZ13djVxjgxp6yUAHeRnBfxi8AGSsseVtDnvTdbQjOMKCpxP4WxLQ
+X-Gm-Gg: AYBFou06h/OwNWz8IH5iXq+n1uvyc2PZfSsoNjtT66uEoGKUJcFveEwkCh+LQPxUBkW
+	CMoCZF/DsPUIVU80jUR7FTDiMI/dpAVdWrSBjZp9G+rI0remPglucWbC+C7b+mJu+O3XsVMC7bP
+	9a092bKEV8A5OrZDVZSjhOFmh0LwBqKnLhPm4+2gS9twpbGtz6qSPjF9Vb8oufhPr3lHSwv5gEx
+	NurC3GG+X5nCxU3fScP4SEekzWnQzyZS2rfqbdHwIpQhU/8ePpUfF+3QpFVQmtA/cUEU7whpqTA
+	my4oLAoZuyaU4w2pQCCWynOWan1JGLw2e0qj7ZjZAgIE4A0gg7VohkpcTsWVCA6kYabcvyU+HgZ
+	mdrOWGmWLQjs9xIWhexqCbe7tiiqlv06oK5W255fpFMvoKimLHj0hY6WvWQ/lcoNccZiZEYs3EV
+	y/xiw5MMNofDa+TMWI13jTAcd63AzirU0bcoOY5phWnycJOtZpbSB+cULsKs7D0A4PV7QCLG52X
+	SHeO+GlX1VuU4cF6mtbsj28EWy+HO+9zF6TMyMCdybzubMUdtSCzHEkjMC3ICo2DIBcgHgVb59t
+	P1/IoQ5HUwrmjIzUTof3C8GpgQDQjxTTpHEkEzTE1XBo6FTyYLbsKtJ9QISO47C0v21nTw/ZqA=
+	=
+X-Received: by 2002:a17:90b:2649:b0:3a8:86b7:ad95 with SMTP id 98e67ed59e1d1-3b0db723881mr1592667a91.60.1793949974260;
+        Thu, 05 Nov 2026 23:26:14 -0800 (PST)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d89976sm2633715ad.66.2026.11.05.23.26.08
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d89976sm2633715ad.66.2026.11.05.23.26.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 23:26:10 -0800 (PST)
+        Thu, 05 Nov 2026 23:26:14 -0800 (PST)
 From: David Yang <mmyangfl@gmail.com>
 To: dmaengine@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -84,10 +86,12 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Frank Li <Frank.Li@kernel.org>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] dmaengine: pl08x: Support the Hi3798MV100 PL080 variant
-Date: Fri,  6 Nov 2026 15:25:57 +0800
-Message-ID: <20261106072602.77560-1-mmyangfl@gmail.com>
+Subject: [PATCH v2 1/2] dmaengine: pl08x: Release the reset before reading registers
+Date: Fri,  6 Nov 2026 15:25:58 +0800
+Message-ID: <20261106072602.77560-2-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106072602.77560-1-mmyangfl@gmail.com>
+References: <20261106072602.77560-1-mmyangfl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,28 +103,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi3798MV100 (HiSilicon HiSTB) carries a PL080-class DMAC. The block
-reports 0x0a141080 -- the ID reserved for Samsung's PL080S -- while its
-register map is plain PL080 and the instance has 4 channels instead of
-the 8 the plain PL080 entry claims.
+amba_read_periphid() happens to release the reset. A node that carries
+arm,primecell-periphid never reaches it. Take the reset shared and
+release it ourselves.
 
-Set the DT node to arm,primecell-periphid = <0x00041080> and
-dma-channels = <4>, and apply the two patches to add that support.
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+---
+ drivers/dma/amba-pl08x.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Tested on Hi3798MV100 hardware.
-
-v2:
- - fix for shared reset
- - use local copy of vendor_data
-v1: https://lore.kernel.org/r/20261104154542.3131916-1-mmyangfl@gmail.com/
-
-David Yang (2):
-  dmaengine: pl08x: Release the reset before reading registers
-  dmaengine: pl08x: Use the channel count from the device tree
-
- drivers/dma/amba-pl08x.c | 34 ++++++++++++++++++++++++++++++++--
- 1 file changed, 32 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/dma/amba-pl08x.c b/drivers/dma/amba-pl08x.c
+index 543c2eb8cfa8..9f5e4f5fb877 100644
+--- a/drivers/dma/amba-pl08x.c
++++ b/drivers/dma/amba-pl08x.c
+@@ -75,6 +75,7 @@
+ #include <linux/of.h>
+ #include <linux/of_dma.h>
+ #include <linux/pm_runtime.h>
++#include <linux/reset.h>
+ #include <linux/seq_file.h>
+ #include <linux/slab.h>
+ #include <linux/amba/pl080.h>
+@@ -2695,6 +2696,7 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+ 	struct pl08x_driver_data *pl08x;
+ 	struct vendor_data *vd = id->data;
+ 	struct device_node *np = adev->dev.of_node;
++	struct reset_control *rst;
+ 	u32 tsfr_size;
+ 	int ret = 0;
+ 	int i;
+@@ -2725,6 +2727,13 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+ 		goto out_no_ioremap;
+ 	}
+ 
++	/* Release the reset before reading registers */
++	rst = devm_reset_control_get_optional_shared_deasserted(&adev->dev, NULL);
++	if (IS_ERR(rst)) {
++		ret = PTR_ERR(rst);
++		goto out_no_platdata;
++	}
++
+ 	if (vd->ftdmac020) {
+ 		u32 val;
+ 
 -- 
 2.53.0
 
