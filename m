@@ -1,48 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793990433;
-	b=LIHxnTvGvypkZMfHrbsbM6rTbpfvMr8OjT20USK0SOJgQrqSDdx+Bm68tCyrCFDc3/IB
-	 Q7auUwkHesQBL1sSRJ2/unAQy5h/QxMbHkAmxrDaAVR8Tz7Wz1lyockxfecoawP0UwO1E
-	 Na2CvqqUe7HpdYlBAdKfrVFSTLGLtFXyFc6gmfYrl/fCR/srpZDjIjXAgnfDZ0Yg+bHl1
-	 cWS/M4HoQPttUKPOhh+Knyo7T3R5tlpLRcyVIBIBSFC26l2QBey2CAL9Og0o/DlwyJmCv
-	 mu6/frKqgoHtEk2WlHCGTJq/5cI/OAOj2/FBwVlDTSlgk4HjK9f/fkwtKg3DW0iL33g==
+	t=1793990459;
+	b=cpILO/mh3xlDSanMGr+9LbGW6V5ZtZIQkOByimyVJ/Q2pJPFcoG1PXEK6Irx6RwalTfo
+	 9xuYEBlNZUt+3gGpI8ZixEWRnqbxN4zbpXgspOx1iV8k3PK0fynPfolnqEmarA4biusRm
+	 p/FWG485L/e2X6oU+Xv59C1B5+0naRw2HOBfupvTlmBWZBRhmtaB8c6QYyrkWDZGvvcrf
+	 7Ikq3WGx1bGNwBfsZFWiQTQW6UdKQzM1lA0jwY5Bmf891F23rJq8n8NcAlAux8f0hV2PR
+	 xw7PvY9Mq8Xy1uI+ezuzBjrktQtjC0bcxwCVgTvXLEdie8P7Rz6Fbc/jFAU7a/Xie7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990433;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:DKIM-Signature;
-	bh=dD9Jc4MUJJjWX3IdDDc2c7Pi6LPWA9Vl7DVbTkz35WA=;
-	b=wayWZzXSN+nMaqoqEXIHV6NHk/6txW9+HMk3TvVAfS5Bse23zyQ0tH8I8HmfQnZaZsZW
-	 H/UARydqGKHD2LjiF+S+tcnDgjGZNU57GYTxCN2UeoA2Dyz5OzFQ9syxdHY8C5BxqQtJa
-	 zarCSHSJJLT3D3oou09U5wyPtuo65rS73dCMBeMT6fMjUxFppvpPm6V5ABb5ffNaQaQKq
-	 Zj0sDsSA6NejWl5OELcM8nTnN9QONC98//ZwpAQ+fK2ZRJ4w0DPOwsq679QneptLLbAh+
-	 /p2yWQJYKZ8hqsqUzBN/FJTucmau8WxLzuF/mvGxetMK+4zWQkkU2g75hDk+CFQkMCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793990459;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZaelhNqiG1jjnWUS7DQjeKgvGs8acmmgXW1oDJtzlqs=;
+	b=zNtOYlk8A/dXqVdIP80MDcgSvJ91iibTNyt8s7shVl6slOzCjjk+GwzE2i8nECk6gGYS
+	 HEQ29D3dFeh0uKoSF6esAAhTrXGJOyt8hbdRRnhH1rC3bfwNmZNqKF5bm6MJykZMFHNmL
+	 6orBCGIsJIDfffKIGIeFnllDIvwLnud64QqYnM19TbGQFStvaSGwTHRhHidWf/2dP7gd5
+	 Hnu508mIPmSxoihoAoLccFUvGpq/BNCBn2v6cbyAQB8YWBvW7zAzGHrPoVOdan37d2tj+
+	 5E6YsKXrjm612wGv0d5AzrqNBXrlSsBDtbEeCA3qVNaczsPd5R061m1ZkwFF4mo1JRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=L6hwz7HK;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 2275E606A32C;
-	Fri,  6 Nov 2026 18:40:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2275E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CIcvlfK0;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84191606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:40:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84191606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=L6hwz7HK
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>, Viresh Kumar
-	<viresh.kumar@linaro.org>, <linux-pm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <zhongqiu.han@oss.qualcomm.com>, Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH v5 2/2] cpufreq: acpi-cpufreq: don't mask firmware P-state changes
-Date: Sat, 7 Nov 2026 02:40:08 +0800
-Message-ID: <20261106184008.1728-3-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20261106184008.1728-1-lirongqing@baidu.com>
-References: <20261106184008.1728-1-lirongqing@baidu.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CIcvlfK0
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso10737795e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:40:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793990458; x=1794595258; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZaelhNqiG1jjnWUS7DQjeKgvGs8acmmgXW1oDJtzlqs=;
+        b=CIcvlfK0T97zL65/lt/VU2YSyMBUSNWeRflPH5i85jlUbN8I7vxRaCjPgGLFM71CB/
+         J6tmTh2JODT5XeBVjRm5cCHRUZ8Pf3zqA1LzacR3iEmzWW2mb2jJVoos/JXATF7Zcizu
+         Kye3RzREd3l4jdOj0McItLU9V4gm2gvLhJUiFrah/7oR6DNFRUrp4bNz9qw4wiKO/53W
+         btZ+AP1cKWGkrretllnu4yVFaB5pL8lGf3FaAvT8AZ1gJJW5Awc7n0T6AD5FnW2eMOKk
+         iTN2r+YcXF1GPp+TfrB7Y2qS/+c33vaYXUH4ujPS1CXsVJlDiSYAAvaAr3FJeiQ88KnD
+         HGfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793990458; x=1794595258;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZaelhNqiG1jjnWUS7DQjeKgvGs8acmmgXW1oDJtzlqs=;
+        b=v0HqzdLkyo7CJHCtKkq2hnFl0pPg7yKI8Ch+b2Si9qG97y4nnI8+xY/lQex5tt/n07
+         PmKk257oRA4IUmgbQclaY+Kk4Xs1YM2NP36BPdyz8JaigjUcY+p9uOjzGG03xr3Xmn4G
+         RDuJ5Uy9oNlADOrtOTjWHN7ByEr9hgBcnBaWai6+Rxb0o0JEGsyDbZuFsAOyp1WtY4W9
+         RPt9Kso5B1nX3ZDbQFM2QUnU1UXadrq2qg2GeA86CwGlqMuY7ujLFKUGU4EVcAL4nIOn
+         kFrapDfG0X4bOywWkQRx2+eYPf+Jwe+ygmqY8t6julYT4m03V58mzoSaarued6b0punJ
+         RUDw==
+X-Forwarded-Encrypted: i=1; AKwUvBydp8bgb45WJub4PC5GucPlaXOPLNI4kJn0KRX0ewUwCqyCllVLKZxfA26ega5Dp3ZbA0RK/shUmSlY4qM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8S9mIAPYOvGp/Ul/bMMc35KGj5OImmOpkQYkAvMbRJuo/D/eht
+	YIp+vaNJhS9nOQl80Sh4FDWeHsVr7LgzFW5NcFKlMnm2VVvCNQRjWQoH
+X-Gm-Gg: AYBFou3QNo21Pvfl4cXMM4ABa8Ug6iwcGJB3Xsi5FGQRSw6cXhPopsvBJL00zuiebPn
+	K8IhL1EZ7fAFOUWE4x5Wtj8i2gr7McjPQNHSQ0Bf452lXaNNzwvHpWVwf1F2nyjcSLd1B2cVcYj
+	aqlvnPJTUjq/dbIJ1gTNGwVj6Sn7rcih5Ob6kGAD/TGBRvSdEOqtDtUjZ5JHHcJl6KaBl06wOEL
+	6GVhl4OS7Mmk4UcQNuIzsVCRvtYQzctL1fNmrjIjeKmiCzo5LIHDkYe4VIZ/DeCEibi77Fybglg
+	lwUlO4h2q1iNPN3GzE+nphTQGhUCaCGATs7sq2lnG1Hdyj2/X40O3tom6PSF1UPt4H4pU8q7UHT
+	72rnu+zQ5csMwiZowIatAFwAbEYQexkaA+1vXDHlK9b0rU40cbNOqtVacly9mXbhlR2BqaAPYSs
+	X8eDAzAtsWDZbmo2jcqnM+T+k56D3oRfhaYaQb5IBeGdHozr0AgM9oGWi5+9lpLuItIfT+MKSbz
+	dLz5PGQrCiIJSI7DMKc+g5FPSJK8noeRGmzhWgqgzCzDabQHayGSPY+u06GevmPgUaly0IFzhwX
+	zi7TDPEZ++t5PWv2hv8wYAiSzEflch0=
+X-Received: by 2002:a05:600c:4443:b0:4b6:b2cf:3088 with SMTP id 5b1f17b1804b1-4b6ddcf59abmr64076295e9.14.1793990457805;
+        Fri, 06 Nov 2026 10:40:57 -0800 (PST)
+Received: from hp-z640.fritz.box ([64.43.161.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b795012503sm3874945e9.2.2026.11.06.10.40.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:40:57 -0800 (PST)
+From: Owen O'Hehir <oo.hehir@gmail.com>
+To: Conor Dooley <conor@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>
+Cc: E Shattow <e@freeshell.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] riscv: dts: starfive: jh7110-common: keep the status power LED on
+Date: Fri,  6 Nov 2026 18:40:55 +0000
+Message-ID: <20261106184055.3891621-1-oo.hehir@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,92 +103,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjhj-exc7.internal.baidu.com (172.31.3.17) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1793990423;
-	bh=dD9Jc4MUJJjWX3IdDDc2c7Pi6LPWA9Vl7DVbTkz35WA=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=L6hwz7HKrJRlIgewUpsC3itxSUudwcKAQi0p1FauYQKC7s7aJ/uB39u0c9cI0qiDk
-	 EN/LWPm3j8LxZL6JumgJlEFkdoMK1n6ShGsxGbqdwct7B7+/dY9/hQhJ7VBnfIcjpa
-	 l5xP1rYkNuPMnzJOP51NlH1RcKMsqpnG9gD0hC6ichZm4cJTqmxZg5LgKyhF9eZl/H
-	 OTRvp0+mhJ1XNVCZQC9T9af3d4GyvqtTDlyiByR7GPTxBr/Skbx/D8zeyAOPABSH1N
-	 uq4nkvJAfcQMiAS49MLpRly5tIUnARQowRVBN5MEwyZW8x6hhFZQ2YN/4evmj7B8sm
-	 H0pQZqHIi+Iqw==
+Content-Transfer-Encoding: 8bit
 
-From: Li RongQing <lirongqing@baidu.com>
+The firmware turns the status power LED on, but the node has no
+default-state, so the LED switches off when leds-gpio probes and the
+board looks powered down.
 
-get_cur_freq_on_cpu() detects a firmware frequency change behind the
-OS's back by comparing the frequency decoded from the hardware with the
-frequency cached by the cpufreq core. The previous patch fixes the
-cached side of that comparison; this patch fixes the decoded side.
+Default the LED to on.
 
-policy->freq_table is built by filtering out _PSS entries that are not
-lower in frequency than the previous one, so firmware may autonomously
-switch the CPU to one of the filtered-out P-states. The status of such
-a P-state matches no freq_table entry, and extract_msr() then falls
-back to freq_table[0].frequency, i.e. the highest frequency, instead of
-reporting that the status is unknown.
+Tested on a VisionFive 2 v1.3B.
 
-As a result the comparison is defeated exactly when the OS is already
-at the P-state corresponding to freq_table[0], which is particularly likely 
-under the performance governor: freq equals cached_freq, data->resume is
-left clear, and the next ->target() call short-circuits without
-rewriting the control register, leaving the CPU at the firmware-selected
-P-state. Fixing the index mismatch alone therefore does not make the
-detection work in that case.
-
-Return 0 from extract_msr() when the status cannot be matched so that
-the fallback no longer hides the firmware change, and treat a zero
-result as a firmware frequency change in get_cur_freq_on_cpu(). Keep
-returning the cached frequency to the cpufreq core in that case: a zero
-return value there would be indistinguishable from a read failure and
-would feed 0 into the cpufreq statistics. This also covers the
-ACPI_ADR_SPACE_SYSTEM_IO path, where extract_io() already returns 0 for
-an unmatched status.
-
-check_freqs() is unaffected: it compares against a frequency taken from
-freq_table, which is never 0, so an unknown status keeps the
-verification loop from declaring success.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260910111329.2220-1-lirongqing@baidu.com
-Fixes: e56a727b023d ("[CPUFREQ] Make acpi-cpufreq more robust against BIOS freq changes behind our back.")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
+Fixes: 1ec99dfe9eb0 ("riscv: dts: starfive: jh7110-common: add status power led node")
+Signed-off-by: Owen O'Hehir <oo.hehir@gmail.com>
 ---
- drivers/cpufreq/acpi-cpufreq.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ arch/riscv/boot/dts/starfive/jh7110-common.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufreq.c
-index 2d7d147..1e7dc1c 100644
---- a/drivers/cpufreq/acpi-cpufreq.c
-+++ b/drivers/cpufreq/acpi-cpufreq.c
-@@ -225,7 +225,7 @@ static unsigned extract_msr(struct cpufreq_policy *policy, u32 msr)
- 	cpufreq_for_each_entry(pos, policy->freq_table)
- 		if (msr == perf->states[pos->driver_data].status)
- 			return pos->frequency;
--	return policy->freq_table[0].frequency;
-+	return 0;
- }
+diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+index 64de468f2..7ec94e968 100644
+--- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
++++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+@@ -44,6 +44,7 @@ leds {
  
- static unsigned extract_freq(struct cpufreq_policy *policy, u32 val)
-@@ -373,12 +373,14 @@ static unsigned int get_cur_freq_on_cpu(unsigned int cpu)
- 	cached_freq = perf->states[perf->state].core_frequency * 1000;
+ 		led_status_power: led-0 {
+ 			gpios = <&aongpio 3 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
+ 		};
+ 	};
  
- 	freq = extract_freq(policy, get_cur_val(cpumask_of(cpu), data));
--	if (freq != cached_freq) {
-+	if (!freq || freq != cached_freq) {
- 		/*
- 		 * The dreaded BIOS frequency change behind our back.
- 		 * Force set the frequency on next target call.
- 		 */
- 		data->resume = 1;
-+		if (!freq)
-+			freq = cached_freq;
- 	}
- 
- 	pr_debug("cur freq = %u\n", freq);
+
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
 -- 
-2.9.4
+2.43.0
 
