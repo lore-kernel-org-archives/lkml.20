@@ -1,105 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793992024;
-	b=nVetIpOCPoJZ1bLKfdbIeR6/Ys6ZMToWmSuPDqLGb7RjiGIzVAv6h3crOIlM+dIFxeJz
-	 Mxe8a53z62m29RVEGyZHTvPYNzWxMRMnRBwuuJY8GQ9BqBwWnks0NQ95Z5X/e/ppKhMCh
-	 lldDtif5deFQ67Ljm3SeS1zs8aTrYRt13G0LYs6q9ZV2OOl7djZi5YkqGAmYLMPwdlGgc
-	 uUEjAwRYRYJSJeRvtfwK54otYjeEzNB3Pny11vazqqawCs5LaWmNb8ZzpjsXmKClqvpsv
-	 8hCMvMa5rFmUrcS4DBWf657GlFfCB6ozUkxUhQ2yZ31q2nYQla/Pqpj/3uY9JGmUQJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793992024;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YMJu4XLBqQ/fEGisX73M6D244sbUdTxsQ1NSbRoweVc=;
-	b=2XoOUWzexjPibO87v3buRTLeid9poXXdTTTzm2uDjVJbuZ9XKwCqJfWqkzBJHUpnUg63
-	 rqHWAXvZodqoG/8B75hm0yEhyIlKZSpmE6S646tUGi8JL/pgRoA3OHeC7Gl1re/I2LI+L
-	 Fq24aczv9hpXFSiRhkaRIUwQJV1EfRC305cDXhsKZ4db/5U6CmegliswVu61az2P5Yr1K
-	 Rrb1F+ByU3bSAMRnEnt+wTofElnVBtK9Ck4p0dJirpkwO/jjWM+irpbEd6gCowhwCBVvZ
-	 iev72tqBAO9NPvxq6tfIcE7+VegnTENBlpnGmcgabyQvgypkeCsQRTpvjCm0qkIStdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="wUtTXUy/";
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793992135;
+	b=zTvu/nZAEugY9wpt8nkWrrgfsh9na6f7fzOY42dXjzA6KrNYOx91ttzh10oFzzdOq1UD
+	 2bENXhIJI8+OZbAKKQ05I1CNmucuwGS3YWfoJc9AQFi3j46PrVrLd6qHJGu4g0q6QZQkh
+	 dTQ88jKr0DO1dCMAl4UMraQtOhUv5Zb4XcT9kJi90saFiE7dDG0PauBEV9p9jyopOPM+k
+	 KlJNhfa4bpJZNNdsRZgbaqvj0wc/BLB+Tt8TcRbI1FM4pyLbCIJVXxriHuTqqyLlyc5GX
+	 6bhJn6+K4vOi3gzJj2p27Opn50Gf3k5W33jRqM65BzdNh7JeRSxQHQhbhQczHOY0TFw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793992135;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Dfz06uyEH0WMW48I0eiFiHa5o/v99I/A9YzZqqFlVAg=;
+	b=2N+fQvVjgbaCZVrwAu1I6q1+48sxkpCgVlUXnFyOIwq+F3s48Ng66HfJXcE4VIQCNA+1
+	 nnYUHY/Xro0uVseBW+mtB1uZiVvMqvlR+4TqmInYSNfqG+6TNEzNX4tbYFY8aaQrxJMRB
+	 +3DTTKc5aVLkxYtLKHUd7Vhrx0tzkPE8F/uk7bfTmbbkEQj69urX8baSFxIDcDgudnzG1
+	 DmINXaRSnGngYyBwbyAOI1NbpWsO7EPdhO0e+0tOw8DoxVF+GeuFv5ZRdnnPMWQyYD2Sf
+	 QKsED399xxXTXzy6Qr9M1zaYaiJMxeaj0fuUGpfDdWSC08Gsafl/HvwixzFFc/ZUiCw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mGbbdJDI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.58
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012058.outbound.protection.outlook.com [40.93.195.58])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9CD606A330
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:07:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D9CD606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448CF606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:08:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 448CF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wUtTXUy/
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso459423f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:07:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793992023; x=1794596823; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YMJu4XLBqQ/fEGisX73M6D244sbUdTxsQ1NSbRoweVc=;
-        b=wUtTXUy/GvL1ymzkcDRgg6xpVxA1BZEB7KkgnwMqpQO5bTNN74ON1+fT6zkGlJlm34
-         /rbI2zJZETBP6tU5Oq+AqkP2KvVuvPOTe22ruPWbPBtmUcm5yih9bOelUjfTMz2V9mkT
-         b7+mbqaqSfYM2ZAoKchwTcRJiEQCpP1gznRY3tI+eAla24c/cjrC2b7sP3yq5AaHKmco
-         p3P8j5L04jyBAqNPs9RRushrAlNAZSExy/fLKZNVdKh/q3Sv3BRZuk3M4ut1AwvBp+dU
-         A35pGA+70UDUHabCbUdhKjQOgrl0cQceDy9caSk2RpIwDmDNNQfnhS/jQ7wBG8s87FnV
-         QsUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793992023; x=1794596823;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YMJu4XLBqQ/fEGisX73M6D244sbUdTxsQ1NSbRoweVc=;
-        b=jckETZbvcNWSzmyK4drMbLeE3mpzknVKHGGPrsT6AEDqzHZjwo7PhO5eehsEOYtr3V
-         jw9N8f4DPPYT0gDhKrpnzSSyvZkNajGHE6Do6UXw+dhGJR4VR+2C4a3nPpxBgR+9Db8x
-         JhcU4TIoKl/tNN0GD7iqGB+bBQkIJoe/veL6AfSIGA7jHVB9UWJyZpY8e5gVsRNV/vZF
-         aeFTJ6lFS8hfjOIkgKdBz+2b3jo+N8F5HwYVL7KNmVDiwqN2xhDAxwH/qF2nNVSwqQYr
-         5J3j1Wb+xKe6bl8TeI27NzFngsK+k7iKvv0mB8uObJ88lZpUSq3XiP9wy8sCaDSzQ4ph
-         iUBg==
-X-Forwarded-Encrypted: i=1; AL+hErHq+Ht/trltcYJl2wzVYewvjqeLFtN75Fb4omT//nDnr33r1gOCfUZDuFd0Rrl/8XtcY9c/ydj+/1WfuUM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/X/usHxnuCeffdhXVEyDoY2O2Sm9BmGWpgIgd/mB6Id7AhwFjH
-	5uutbYOhhUVmWS2Orh5ndVfYY0LB6HMxsh9w29sMVh8Ust2xjdU+8H9o
-X-Gm-Gg: AYBFou3zjMjfF7kggXn1sO4lHlJaXde0nnwo5haYeH+yZcJ8l7Dn4waj41j7+aDEVlG
-	YXeijtaddo7YFMo3YH8zslCJnvOHVLmkcGBrYQuMWnAfj/NCo4aLhEtteA7lAzR5GDM2EFW13/k
-	2iel+63H86kchq1tKbAPySNMOqzN6daUm/sjaXl3TqlpcdwKb7E+6WITujlGwVt3xMeIqaUTKsU
-	UPqzzRQJ2EHhW0k4XHWu8yekWH5IQ+9ODKlXYcXxXTHQfEc6LKOkKGGm07EYBrmrjqGu8kHa7i5
-	8kbCyVvv55Iql8VDb2IevvM5K7xmrBJxBnB7Ko/ih77k3ATAWz2TutslylcR/AScrwObtW2xEp0
-	U9xOayZK5igXlhttDlPvZ3WgkhVKgIRw1cP+KDH3UNvChUW/aXBQeR6AhGMZviYZR6euJ0Vq3Ke
-	HT1f8tptH0R/+t9yG2+1bt4BgJLXkKg37IGcNfHTgfg3zkZG9G0QWm9fFqP0+dKCh6F7mBuVTRi
-	rYeRUEkJhTtbWN9UT0veAWs9FjauukgiFUkpKOOyNQ31MpJrtlfOotPyyBk9KeTUUKqHuGr9+q8
-	11nWujjuc7SEdLrqHJKHP8iO8YyEPYNXU3US+osV7eaZCJTZ8I+YFrs5NyrUfWFxCvr+dVyyqxW
-	sgp0ae5yq/6vUD3s=
-X-Received: by 2002:a5d:5d83:0:b0:48d:fbf4:895e with SMTP id ffacd0b85a97d-492764aedeemr6683116f8f.11.1793992022611;
-        Fri, 06 Nov 2026 11:07:02 -0800 (PST)
-Received: from localhost.localdomain ([74.244.226.39])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4930a5a91dbsm3960533f8f.35.2026.11.06.11.06.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 11:07:02 -0800 (PST)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: linkinjeon@kernel.org,
-	stfrench@microsoft.com
-Cc: icb@fastmail.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	ematsumiya@suse.de,
-	lsahlber@redhat.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] ksmbd: check a request before signing STATUS_NETWORK_SESSION_EXPIRED
-Date: Fri,  6 Nov 2026 20:06:22 +0100
-Message-ID: <20261106190622.20990-5-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106190622.20990-1-mike.michalo@gmail.com>
-References: <20261103171742.18816-1-icb@fastmail.org>
- <20261106190622.20990-1-mike.michalo@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mGbbdJDI
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qicz+A0lsFUujQmktGTPH+o6pnp4VxQfrOOGu3L5ttfr9otMlmn1djeXGYuUU8OsQsVHVJRV47XXpn3BKlDiXbZIdkI8fJJcSxhOrxHKs/Pw2mwoJ5kQ2EHfZtj0ZJuUU8drvYDUMxYIImtnIpcKRnQqKfxqYjq524bDr+Ni/McIvq5DifLY8vIZ6vJIgaxnpl6/1tp34ZYwzDKSLGgYLTYavO6UZSM9MWv4dbvh8aS2czxEPGDJXqdurJ0aAPkS3R+9ZSPWeBcOFSSONrxYpxkJIpMhIW9WuVIakxuXmVot7mGPppVvgzFEo61Y4dLchm6HbhG9fYC7e7sY/pCuAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Dfz06uyEH0WMW48I0eiFiHa5o/v99I/A9YzZqqFlVAg=;
+ b=dLGcYQO25xarGp8U69sC7tdtNzJOCP8SyX0hl5ArJmGvRc/GBwN4UHdgow/DLr5FiCLnGnpe8+OAvZ4pRKHMNyrB81D9a+du5JeNyn9SSQPL0ifSqg5BRrvmTSl1akoB6CM8R9yFYX7J5XVH2xRzNW69YqMfk0NkCPSB+2QkCGVejBWJZ4SiIWYj9wqm0UpUjpwEb4Mu1tPopePiI9YD8qX2VU13n/Xb5VS5k64iS6+7Lhv+ePJ6wg+dC3cgMOlRXbe42lr0rp1S/JrbAE627HikT7vkKgYpUENam9B5fQeQgpF+So93wBurd086GGFOX6nNkjkD9QRbO2gRQ6vDXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dfz06uyEH0WMW48I0eiFiHa5o/v99I/A9YzZqqFlVAg=;
+ b=mGbbdJDI0DsICsR5cqbqcn1R2WPeae/INCa5MhrDULPJXb55ORoGvIZEQYuaFmSadCvo+mnUsQMm6VQ1/U42heT61/PCqjNGc06j3omiOGUH4R1DnRHtjjNbavmtpypGsBXqAGL+oWZdVezwcY3J5tlOLoAEhM86PN1+EfcK3FA8ULiNqzyoxDmIEu4RjWPy0kS9hpJHS0R2IX1/aMcquSskkrN0r87Uvb/ZrKh6t8vDEbXyfnnoJ05LmNwU/zb3YhWdpATPKjKrTIg/P0uB6FBo6R8tymeLmLhjaTVMwrVxuCroHtvoUOY+0ql9TkFjYEhCILXJWJPimDiibdLsjA==
+Received: from SJ0PR13CA0126.namprd13.prod.outlook.com (2603:10b6:a03:2c6::11)
+ by CH1PPF5EBD457EF.namprd12.prod.outlook.com (2603:10b6:61f:fc00::610) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
+ 2026 19:08:50 +0000
+Received: from CO1PEPF00018862.namprd02.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::3c) by SJ0PR13CA0126.outlook.office365.com
+ (2603:10b6:a03:2c6::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.5 via Frontend Transport; Fri, 6
+ Nov 2026 19:08:49 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CO1PEPF00018862.mail.protection.outlook.com (10.167.249.251) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 19:08:49 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 6 Nov
+ 2026 11:08:30 -0800
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 6 Nov
+ 2026 11:08:29 -0800
+Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Fri, 6 Nov 2026 11:08:26 -0800
+Date: Fri, 6 Nov 2026 11:08:23 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
+	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
+	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
+	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>
+Subject: Re: [PATCH v9 16/25] iommu/arm-smmu-v3-kvm: Emulate CMDQ for host
+Message-ID: <au4lp8sAnWm3/Sw5@nvidia.com>
+References: <20261015200903.2735565-1-smostafa@google.com>
+ <20261015200903.2735565-17-smostafa@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,88 +118,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261015200903.2735565-17-smostafa@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00018862:EE_|CH1PPF5EBD457EF:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7806c83-bf3d-48d2-9690-08df3c3963eb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|23010399003|10067099003|22082099003|18002099003|261102123227099003|3023799007|56012099006|4143699003|261022075727099003|261021121427099003|11063799006|261021135927099003;
+X-Microsoft-Antispam-Message-Info:
+	VP9Pfj37HmicBiONQto109CWNu33yKdt17W915Dxh6ZsHQt6f9DonCWTbv+7eqFfdziDKzieLJ6APRcKKsmaJs6WwrjeYTnXDIu73mX/zV35cmK9s/D6okNJHMegSxe87QMqSSwBQ30PTblWsLYy8/A34ZsTGYBGLzHbxgcKEB9ZEZb/fmH/kIS04+Q23RXkpRmjgx4U4h32R/+rSRrH/GnvukaN66VTi3cJBgoDPRn8GwOfwwKIG/DhiACBhsVouFuauAeoNzC8rCsXT/K5lhdblD0tVUPYoi5gMQJYrL0/B9wM1pEGPzzAMr5XrXgYrDP0jhrDls9Wv+nwH7gGlO+WJc1dRivubkEfpgjmMAtPbDVFVXjKjtWcsghKd3qDnc3JaDlhatiUU+rpLNhhF2P0C/QCFWYErRbSmBRttfOKB5FVGm/S6y47oebOHqSJFAZmCgrVbHVxrTrh8+L0tQwEeRK0ahnXQ4poOr+RNS/ZKHB6kO9YUp/GQMCmXdls/HJFdN0Q//g2eq9rYr9Ov1sqWMzERT3udzwzjaJsqyHuGTuIkSjgS/cL4IOYmRWJPyBm30QVjNcbZ6Ud/PpbMDHrXxf2AntxXWlPO6sVxmGAcApRnaAl/mps9AufYNWKbId4N3E2uxHZ862kL37ygg4NtGGMgiVVZGA5qvj3oPm6FE6xGz6xWHYDXCzKqlp4sehFuuYyufHLeNlT4r1Rjg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(10067099003)(22082099003)(18002099003)(261102123227099003)(3023799007)(56012099006)(4143699003)(261022075727099003)(261021121427099003)(11063799006)(261021135927099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	K3CC555CfZAZ1lr1l43Xf0v7fmiImH1xAbfqwCVNU66NswQirp7zMMXE1TZ2zREcZt+76MDn1zw4/hCk5licsVk39CI6+pJkp5kGgsaiuDil4SVG1E4KF6o5RfpehFbVUAjyrKnfe1xbqMTFsyN2hsvDjiWuEOmVaBJC/WdjEVD4tmz/DCcDbi2VsI2+3M2TXwyfMfRiHd7q108DUl6Zxipuw5Z7vfvCVIa16l2jsl9f0LJpmYtnspuCHQAUfZ+k2HjK3gfRUQZh4XWtqUM568RJ2g3b21Q+RF5BDCRDmJC2yOQzajrT1UfNOS8NjKIWODbau01yF8JD73zwd0edYmFuebO8ZX4PzTrb/uzlMWMtyJ3gNNStqOpyYgqpt5M0uGioSLrD4xSGwosJLRK0+yFRJJICmw7FqwJKEoeaNIHqyF/shky7BeIEM1WQJueU
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 19:08:49.6095
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7806c83-bf3d-48d2-9690-08df3c3963eb
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00018862.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF5EBD457EF
 
-When a session's Kerberos ticket has expired, smb2_check_user_session()
-returns -EKEYEXPIRED and __handle_ksmbd_work() signs the
-STATUS_NETWORK_SESSION_EXPIRED response if the request has
-SMB2_FLAGS_SIGNED set. This happens before __process_request(), which
-is where the MessageId and the request signature are checked. So the
-response is signed with the session's key for a request whose
-signature was never verified, at a MessageId that was never checked.
+On Thu, Oct 15, 2026 at 08:08:47PM +0000, Mostafa Saleh wrote:
+> @@ -385,18 +482,51 @@ static bool smmu_dabt_device(struct hyp_arm_smmu_v3_device *smmu,
+>  		 */
+>  		mask = read_only & ~(IDR0_S2P | IDR0_VMID16 | IDR0_MSI | IDR0_HYP | IDR0_ATS);
+>  		break;
+> -	/* Passthrough the register access for bisectability, handled later */
+>  	case ARM_SMMU_CMDQ_BASE:
+> +		/*
+> +		 * Although allowed to use smaller size, we rely on the SMMUv3 driver
+> +		 * using 64-bit store instruction for simplicity.
+> +		 */
+> +		if (len != sizeof(u64))
+> +			break;
+>  		if (is_write) {
+>  			/* Not allowed by the architecture */
+>  			if (is_cmdq_enabled(smmu))
 
-Anyone who can inject requests into the connection can then get
-responses signed with that key at MessageIds of their choice: a
-signing oracle. Reauthentication keeps the session's keys, so the effect
-lasts for the rest of the session.
+The spec says the register is RO when CMDQEN=0. So, maybe it should
+be allowed by just ignoring the write?
 
-MS-SMB2 checks the MessageId (3.3.5.2.3) and the signature (3.3.5.2.4)
-before the session (3.3.5.2.9). Do the same: sign the response only if
-the request passes both checks, and otherwise answer with an unsigned
-STATUS_INVALID_PARAMETER or STATUS_ACCESS_DENIED, as
-__process_request() does.
+>  	case ARM_SMMU_CMDQ_CONS:
+> +		if (len != sizeof(u32))
+> +			break;
+> +		if (is_write) {
+> +			if (WARN_ON(is_cmdq_enabled(smmu)))
+> +				break;
 
-For a later command of a compound, the response that is current at this
-point is still the previous one, so the old code re-signed that response
-instead. Leave the expired response of such a command unsigned.
+Ditto
 
-An AI assistant was used to draft the patch and as an independent
-reviewer.
-
-Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets expire")
-Reported-by: Ian Bridges <icb@fastmail.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
----
- fs/smb/server/server.c | 28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
-index 4430c8d6393e..bd4db44f06cd 100644
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -107,6 +107,32 @@ static inline int check_conn_state(struct ksmbd_work *work)
- 	return 0;
- }
- 
-+/*
-+ * The keys of a session whose Kerberos ticket has expired are still valid,
-+ * so STATUS_NETWORK_SESSION_EXPIRED is signed. Check the MessageId and the
-+ * signature first (MS-SMB2 3.3.5.2.3 and 3.3.5.2.4), so that the key never
-+ * signs a response to a request it did not sign.
-+ */
-+static void ksmbd_sign_expired_rsp(struct ksmbd_work *work)
-+{
-+	struct ksmbd_conn *conn = work->conn;
-+
-+	/*
-+	 * For a later command of a compound, the current response is still
-+	 * the previous one here, so signing would corrupt that response.
-+	 * Leave this one unsigned.
-+	 */
-+	if (work->next_smb2_rcv_hdr_off)
-+		return;
-+
-+	if (ksmbd_verify_smb_message(work))
-+		conn->ops->set_rsp_status(work, STATUS_INVALID_PARAMETER);
-+	else if (!conn->ops->check_sign_req(work))
-+		conn->ops->set_rsp_status(work, STATUS_ACCESS_DENIED);
-+	else
-+		conn->ops->set_sign_rsp(work);
-+}
-+
- #define SERVER_HANDLER_CONTINUE		0
- #define SERVER_HANDLER_ABORT		1
- 
-@@ -276,7 +302,7 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
- 					rsp_hdr = ksmbd_resp_buf_curr(work);
- 					if (rc == -EKEYEXPIRED && work->sess &&
- 					    conn->ops->set_sign_rsp)
--						conn->ops->set_sign_rsp(work);
-+						ksmbd_sign_expired_rsp(work);
- 					else
- 						rsp_hdr->Flags |= SMB2_FLAGS_SIGNED;
- 				}
--- 
-2.43.0
-
+Nicolin
