@@ -1,62 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793990221;
-	b=SktosXE9mr08XV8ZxTf5zSx8LZXPBrSee0MQ17qo+6FaN7rGQ2Ml6cKgPVfbxpWiNSlj
-	 XR4ZQ8zCVAMu/8RSobXhE3kGXMSKmhiccOhNZys9nPXLePIr1vSoft4fKrHyBhU0kGj2p
-	 8TwpgpUykmtMmb+TCrd3vJHrB22YcG4xc/s0BzEjx8dVT4Sl6NNkQaid5AFmtegxz4bAw
-	 Q/HFdFXHCZKQ5HZ5RY41jzzTtV9X2+3MJk9Q+zkykzVKHdkP0dDSTuhwOSBYMZo2C89mZ
-	 dzvIxTyjOyiBEbNR5lSUbpH4H5geJKHJfSuTuej9gFKVxtT5lsD6jqXg36B+EwUS9IQ==
+	t=1793990224;
+	b=l8bph0/7+be4y/bgu7G3wm8DV6kX3D3IdLoAjEUrS849O7KlXcV2Ebtt9/K0lecoa/ky
+	 QMT5LsZTF3Y1XHANDIMmI9kay7jE1udEoS7xuCBH7BEB+UJSBILl4nHv9VhX51ypFq/J2
+	 3phv9/NN38a2xdO/bLG7jBxoBdlWuOyzZ4Sx6lWYRmG+v2ZQFahKqcCbY4QY3BjyuIiu+
+	 8OKTsV11V862D8TjBTETDIDGTC8gzM6ZftllcIzqBbgynANCwgw038rPr2ZOwAjkcDwkR
+	 1Z0VOQjLiVqzAigCMD4aVdF+JLt2sFeU5ATE3AdzdM9dghzrzhc0PuXTLU8+y2/MbDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793990224;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XXD9tIfIeyyf1tgZA9qRzZVpi+ZbPumJ8KIZL1TcJBo=;
-	b=Y/0XjQ408TW0A1C1hQYYt1we6ONRCjOf3Zh/icRXl9V91h/1G6CvJGEHCDXm2ei6q5lh
-	 6Q4hVxIkqPSpQx4vD3CArrF8TBaKdWiJavUunuEhZyTIv5a0HPl0emneZtYawzNh6tfyn
-	 BG7qT0iEb8f07CPwcvu1cAA92v+puxWMAP7UDW1+txpwEHKnL6w0o8xBiUbsE0+MWMY9u
-	 yqh4Mpn0pZv6af3zSIk3j/iTYvzKlmPP5SPMTziTQe7BCycy788sxSiAZAQmBbZvMZVpK
-	 t9PSN7mb3QwoqDIJF8/DQWaUiJyHX3EQjRB2AQuUnFAjPZEhGL4gYyvh5QJFwx4Rsug==
+	bh=nwmGbMmc/+3I+KKxxtFTReRzpqbjsS9Rdng+DNRWEjM=;
+	b=HlwEb+s4VYt+Ut2UKSy9O4AkT9W5kSQeu2oppqLYTEvM4e6LPD/XI69yK8X8HlOoAzFe
+	 BU7rkI6sQaaHml/kFbkxIzRp5+PwUR3qBgDTzyublas4jzw1E9ribyU843/E2tPjN5Fs6
+	 DQv5AcnhCtv+UCUeNM/+KEtO5DYV0s/MGOSpy+3fjJ0ko0g5FgG+a7n/9SFm+/f7GUsE3
+	 dmw8McA30AlARu1rMm85SZGTg90qNkG4EZn7RdlJrkSXJ73B+q+58z2BS1zzKeEK9Swpz
+	 ZccO09rWobuVIuDTsID8Q0cPhqAu32dyM0u7OqnvX9NIexAqKXgF/7gMPJYVRp2Znbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JP6yeHxm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTlarG8g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 18AF0606A326;
-	Fri,  6 Nov 2026 18:37:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 268D3606A335;
+	Fri,  6 Nov 2026 18:37:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JP6yeHxm
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A888B1F00904;
-	Fri,  6 Nov 2026 18:36:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTlarG8g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A24F1F00906;
+	Fri,  6 Nov 2026 18:37:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793990220;
-	bh=XXD9tIfIeyyf1tgZA9qRzZVpi+ZbPumJ8KIZL1TcJBo=;
+	s=k20260515; t=1793990223;
+	bh=nwmGbMmc/+3I+KKxxtFTReRzpqbjsS9Rdng+DNRWEjM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JP6yeHxmQzRl5hfaLX5+I2lT3SyYTBGhNYkoVJ3v7G8tYwAX5YnJz4/yR2RLzU6p5
-	 dyY+S9mRtfq3RtXpFzlRtNxJIQODDnmiIvrqTvMZBUyddA4H+AoMT7HIE9PjZ1n5Gh
-	 kpPk7c8qekKzTxRGBdZgcniYKpIiNah6X3+S8+6NvTiFw6wP25AwjWIV1AKKzURFjn
-	 PMFAdKiFHETWQEPItd/Xpy41tEJkfjvBp9XuIhI7b+vCTQh3hPXaDh4xcs+1kk53Eu
-	 +ATMDnWpC4Qs7IaKVqlay7SJbrE6J18NQXtYwMh5FtAqf2hDbRahmX7p6c2VT5//dD
-	 2nZa/uyHZxolQ==
-Date: Fri, 6 Nov 2026 19:36:57 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Hector Martin <marcan@marcan.st>, Sasha Finkelstein <k@chaosmail.tech>, 
-	Linus Walleij <linusw@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 5/9] dt-bindings: pwm: apple,s5l-fpwm: Add t8142
- compatible
-Message-ID: <au4eDk3-bAQ-EjlD@monoceros>
-References: <20261104-apple-m5-initial-devicetrees-v2-0-fd727a82d380@cyberchaos.dev>
- <20261104-apple-m5-initial-devicetrees-v2-5-fd727a82d380@cyberchaos.dev>
+	b=NTlarG8g1mzPMEiwawgpKwZLsA+lya3SE4HOyO+AkbnfybQOSBn97TOBcoBI08Hwn
+	 18WYc+9qmyLhFkPlc0ja4+zcz08uVo3lGs6AykaTPp0zxF5PB/moG/wu1v//A7p2mj
+	 oLAWyye5C8kszrSY6cAhWxuUrXYmdnI4BdLabLTuXkjCGkTdP6tmaZ4YZY8oDwXgv2
+	 csIFTvCZ3N5aU+Ccgt4H+m/CO8F2ggLv8h4a0JiXNlvDiQ3HVk+sRmD4dsGGmV/JZY
+	 +WmSPEWbJuDHA9rXeXSPL4aAX4q9DkSRlXx6VyvH5eTV1dyapq8UYNZyrStIH1T0li
+	 cIuQZoVofbZjQ==
+Date: Fri, 6 Nov 2026 18:37:01 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
+	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [PATCH v3 03/18] KVM: x86/pmu: Rename reserved_bits to
+ eventsel_rsvd in kvm_pmu
+Message-ID: <au4dVD2cZbvoqEa4@google.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
+ <20261106013927.166209-4-zide.chen@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,48 +62,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cpcwbv7z5gtj3ayx"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104-apple-m5-initial-devicetrees-v2-5-fd727a82d380@cyberchaos.dev>
+In-Reply-To: <20261106013927.166209-4-zide.chen@intel.com>
+
+On Thu, Nov 05, 2026 at 06:39:12PM -0700, Zide Chen wrote:
+> This field stores the bits that are reserved in guest IA32_PERFEVTSELx
+> MSRs. Rename it to eventsel_rsvd to better reflect its purpose and to
+> align with other field names in struct kvm_pmu.
+> 
+> Opportunistically, replace magic numbers with macros.
+> 
+> No functional change intended.
+> 
+> Suggested-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+> Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> Reviewed-by: Jim Mattson <jmattson@google.com>
+> Reviewed-by: Sandipan Das <sandipan.das@amd.com>
+> ---
+> v3:
+> - Mention "magic numbers" in changelog to cover AMD as well.
+> 
+> v2:
+> - Replace magic numbers in AMD pmu->eventsel_rsvd.
+> ---
+>  arch/x86/include/asm/kvm_host.h |  2 +-
+>  arch/x86/kvm/pmu.c              |  6 +++++-
+>  arch/x86/kvm/svm/pmu.c          | 12 +++++++++---
+>  arch/x86/kvm/vmx/pmu_intel.c    | 12 ++++++------
+>  4 files changed, 21 insertions(+), 11 deletions(-)
+> 
+> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+> index 72b8fbf432a2..b8875ed5502c 100644
+> --- a/arch/x86/include/asm/kvm_host.h
+> +++ b/arch/x86/include/asm/kvm_host.h
+> @@ -581,7 +581,7 @@ struct kvm_pmu {
+>  	u64 counter_bitmask[2];
+>  	u64 global_ctrl_rsvd;
+>  	u64 global_status_rsvd;
+> -	u64 reserved_bits;
+> +	u64 eventsel_rsvd;
+>  	u64 raw_event_mask;
+>  	struct kvm_pmc gp_counters[KVM_MAX_NR_GP_COUNTERS];
+>  	struct kvm_pmc fixed_counters[KVM_MAX_NR_FIXED_COUNTERS];
+> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+> index 83883191d124..cbd63329cf13 100644
+> --- a/arch/x86/kvm/pmu.c
+> +++ b/arch/x86/kvm/pmu.c
+> @@ -983,7 +983,11 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
+>  	pmu->nr_arch_fixed_counters = 0;
+>  	pmu->counter_bitmask[KVM_PMC_GP] = 0;
+>  	pmu->counter_bitmask[KVM_PMC_FIXED] = 0;
+> -	pmu->reserved_bits = 0xffffffff00200000ull;
+> +	/*
+> +	 * KVM is not able to emulate the AnyThread bit due to cross-VM
+> +	 * information leakage on SMT cores.
+> +	 */
+> +	pmu->eventsel_rsvd = GENMASK_ULL(63, 32) | ARCH_PERFMON_EVENTSEL_ANY;
+>  	pmu->raw_event_mask = X86_RAW_EVENT_MASK;
+>  	pmu->global_ctrl_rsvd = ~0ull;
+>  	pmu->global_status_rsvd = ~0ull;
+> diff --git a/arch/x86/kvm/svm/pmu.c b/arch/x86/kvm/svm/pmu.c
+> index c18286545a7a..52224872e0d4 100644
+> --- a/arch/x86/kvm/svm/pmu.c
+> +++ b/arch/x86/kvm/svm/pmu.c
+> @@ -163,7 +163,7 @@ static int amd_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+>  	/* MSR_EVNTSELn */
+>  	pmc = get_gp_pmc_amd(pmu, msr, PMU_TYPE_EVNTSEL);
+>  	if (pmc) {
+> -		data &= ~pmu->reserved_bits;
+> +		data &= ~pmu->eventsel_rsvd;
+>  		if (data != pmc->eventsel) {
+>  			pmc->eventsel = data;
+>  			pmc->eventsel_hw = (data & ~AMD64_EVENTSEL_HOSTONLY) |
+> @@ -214,9 +214,15 @@ static void amd_pmu_refresh(struct kvm_vcpu *vcpu)
+>  
+>  	pmu->counter_bitmask[KVM_PMC_GP] = BIT_ULL(48) - 1;
+>  
+> -	pmu->reserved_bits = 0xfffffff000280000ull;
+> +	/*
+> +	 * AMD PerfEvtSeln registers do not support PinControl, and KVM does
+> +	 * not emulate AnyThread due to cross-VM information leakage on SMT
+> +	 * cores (as on the Intel side).
+> +	 */
+> +	pmu->eventsel_rsvd = GENMASK_ULL(63, 36) | ARCH_PERFMON_EVENTSEL_PIN_CONTROL |
+> +			     ARCH_PERFMON_EVENTSEL_ANY;
+
+It's probably better if we diff against the generic pmu->eventsel_rsvd
+set by kvm_pmu_refresh(), and explicitly add/remove bits as needed here,
+like the Intel code. Then we also avoid re-iterating the AnyThread
+rationale here.
+
+What do you think?
 
 
---cpcwbv7z5gtj3ayx
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 5/9] dt-bindings: pwm: apple,s5l-fpwm: Add t8142
- compatible
-MIME-Version: 1.0
-
-On Wed, Nov 04, 2026 at 06:24:18PM +0100, Yureka Lilian wrote:
-> The PWM controller on the Apple silicon t8142 (M5) SoC is compatible
-> with t8103. Add "apple,t8142-fpwm" as SoC specific compatible under
-> "apple,s5l-fpwm".
->=20
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-
-Fine for me to let this go through apple-soc.
-
-Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
-
-Best regards
-Uwe
-
---cpcwbv7z5gtj3ayx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmruHkcACgkQj4D7WH0S
-/k6/Mgf+MNkIvT5Osv2p9FD0hPlNyAR3xgH22Qg5GmwtX8sdRXqeW/pfzrRa0gxC
-7KfnB3QUi973Kv/P/KotlgUNMyclAouMDla3PK9/qB154h/I2mAyYaxkMFxA6hiM
-BcmpD9nehcFqa11ZbSyK7woPht/jT/p0lGV/zwWtF8e9xauuKUJACSdOC0ZqCQ7s
-MEKrMqfFW1X0vkX7u1pIgM1/xOou1cM7QcCa7c5R3iH6Pikl0yNUE4orNB/C5DXm
-0zNp2ZaGX9KJY6GdRk0Lmx/01kAcUXUPo3qed3VVwfvZBI24n3tXoq2j1k3LmMQf
-OfVVqtR4am7GiKEOUkgkxdfS+ZLHxQ==
-=jNQA
------END PGP SIGNATURE-----
-
---cpcwbv7z5gtj3ayx--
+>  	if (guest_cpu_cap_has(vcpu, X86_FEATURE_SVM) && kvm_vcpu_has_mediated_pmu(vcpu))
+> -		pmu->reserved_bits &= ~AMD64_EVENTSEL_HOST_GUEST_MASK;
+> +		pmu->eventsel_rsvd &= ~AMD64_EVENTSEL_HOST_GUEST_MASK;
