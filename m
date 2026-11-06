@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.189.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793983380;
-	b=GTjPGUUGqtwhs0d6anHlY1N++IELoH8pNCKb25/UaJEK2IrLUuJ/e0BxBy8JoaoXrB5a
-	 Fv4EqpbeMtyqgTRTQ7MQ4xI3Ic5MuTOIQX4ZQPkXfapJZ2NOIw7pBIDXZ71oxqjkjYZc2
-	 TWN9spQeSO/hv7lLRuL0UxLxcF8qXTcrkJdThj89JOhM609HblSICddk4G0Xk20hZuWZM
-	 bUZDw0rsXUSWKv9KW2/azGzQiue85lO7p542NuCTMJUedBzIWT9mYaxNteNOw84+Vhp/8
-	 JGM0cuMuELK8ts2oZ2zyfUOv7GWNEMt41STwHPX3q3W1ScJirLKhHOd8RYQIptm39+Q==
+	t=1793983396;
+	b=JWwLUM0YZA11yRT8MkaerVzghwBRye8VfnKKfFn+EoiSC9FuFSfSzYIwpUnZJePhRUYh
+	 gtfLgUyykw1pEGv29bB+drusW1hJzuNLLNgogrRqIs2Nem/8n4s9IfRI0Rp27O95XsBQJ
+	 09sU/WgSLicrf/lg65545iZ9npvdWDMy2z85JCwogvES6r+S3BGDEY5I3eDk2aJarLwlg
+	 isENItwyENqzYQXUbVHefMfOc/RQih5IIV0WiAdAz7vbg8dkB3ewIqeaz3JqVSCx7bh9S
+	 bwdvKmeMIOkWNTFsnFLVeMFwYpDEhzLnISEFFVgmZ/684zzTgG3UqV52gmtfnkyYYkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983380;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=sOSTmZKcrJ1kJMPBeiZzfbNHAaw+xN5ssuPT1uHWyXE=;
-	b=PxHvAeMi8P0lEUEKgUQG9LVfIehsx6ubxoMii0v6lB391E5FAdesXtKHdWAduNYaqkCI
-	 Mc34192dMCO8RSirl48i/4wZGppDGLTmThR4wc5HsWtFAjghQyHIWPZvgsbYc1gB2Y3PV
-	 p7hpUUH+wRPVfFs6FjN1sC6pNWdPKRhPQINlqA5vY+KsPaPbN8HheuaB9Nt0GiSam61DP
-	 9bbZqQhTY7BzQzE/99MPgVNapcggdtqAPiJDEwz+U/fznph8BViWfwwCoERO4waB45lrO
-	 r1NDFXDhPSGWTWnfjbTv8Hg5lR/vc4erjzgC1C+rH5qHF4rvqIcVyjF8PmgJz/Xf12w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983396;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=lHtWxeOu+Vjsidq/9GE7H1E4u5AgSxusjUPdoEWHkm4=;
+	b=S977fmysYKPio2OyQLUa6mHw+ayLBpacrgI9mNi6H6YzBBgZ8QU+CrsDvVYYk25EXIqy
+	 WwQO8V6hzHZbIH7pdrFC0WKRgQ7WYUa9Tkc1CtiwXyKIXrXAennl0gHZRlyZaHqq/y1pH
+	 IyDZrxP17XSVOLX45H8K7Jia/fmSaTCdcoGifGQ6kFGD20oOttv1myRve/8TRxwYbRL9Y
+	 Sz+2koWkdEhe1iIAsB+BpwIT/qMdc9g6VLQF3UwuSH/YlG1KIbAcxoFT360bd4ses2ztg
+	 YzDYuJQCL/2Pwxr5CScR8l09zBJk3GJXFFFFiQr9JKnQ1nNyBf/OfFl3JtMZXdup95Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OfKfcCJu;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="k4eXN/Uo";
+	arc=none smtp.remote-ip=66.163.189.146
+Received: from sonic314-20.consmr.mail.ne1.yahoo.com (sonic314-20.consmr.mail.ne1.yahoo.com [66.163.189.146])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627BF606A326;
-	Fri,  6 Nov 2026 16:43:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 627BF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B54606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B54606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OfKfcCJu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793983381; x=1825519381;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=DtSzl4OkluS1AquIQlPMXdHmZEU1A74G5s2HtG/AMYY=;
-  b=OfKfcCJu+UKgaDTLw8R/sSrBnZ1J4c+CMzhv/B6ZkMWw+sPcrGD1fafs
-   RL1a5obKXJiDax5M6TqKBtmRk9SVorO6yjq/w0VnBzJzBqZ5DiYBiAAaL
-   zHPQMgcjNLQbJsroNwrYl+b4r7oA6a3wCCOo1+hcwCdmrZjaNHyTZEtjQ
-   6lNUpn/p1od4DXyubLt9+mcfCjOQPOVGu3Xon8ft95OvXZ5UEV9er3Uw/
-   G272RGOAlkUme2mXjm3kGg4XrlBIDux87byp+OARPN+G0hUdSjUKB4McO
-   QmQxXF6nM57RTP9DxMcJaj5hIq22z5CCP9MPlgqM9DRIWeQ8PtmJRv1OL
-   A==;
-X-CSE-ConnectionGUID: IWkc9kqQTlSa/OPtASAeOA==
-X-CSE-MsgGUID: 5Z4vJdz6Q6+0KFVHCcoEng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2832121"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2832121"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:43:00 -0800
-X-CSE-ConnectionGUID: 5kTaVGYwRrOE2rN5egO1BQ==
-X-CSE-MsgGUID: ASPBrMcTQrOOcy2RCl6P+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7747948"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa007.fm.intel.com with ESMTP; 06 Nov 2026 08:42:58 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id E1E3699; Fri, 06 Nov 2026 17:42:56 +0100 (CET)
-Date: Fri, 6 Nov 2026 17:42:56 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: kernel@resetko.pl
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Guenter Roeck <linux@roeck-us.net>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mark Pearson <mpearson-lenovo@squebb.ca>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] usb: typec: ucsi: acpi: Rename the Acer zero
- version quirk
-Message-ID: <au4DkMViEzQEHLHd@black.igk.intel.com>
-References: <20261103-ucsi-lenovo-t14g2a-v2-0-e85c659b56a2@resetko.pl>
- <20261103-ucsi-lenovo-t14g2a-v2-1-e85c659b56a2@resetko.pl>
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=k4eXN/Uo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793983395; bh=lHtWxeOu+Vjsidq/9GE7H1E4u5AgSxusjUPdoEWHkm4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=k4eXN/UoC+3L1x6z0LGjcncS91d+I0jc8r6sBacjlb7hKXyS3ubpIKk961953+qqLIqdL63lzNoAIrGtIHUfZ8WyjJGUamW3IXCOy0DyjEDykFEADZ5dYIoXE7KKPiIj1Vva3FuIjj7kRFTFRcDdBS+FTAx4YKcEeJ8AaFAzccwO/mh+kGatMA5VRxhpoF0etJ0VycIRgllOLIWb6Xg7D6PQ6HdHDqbonXukLSY8CdgsKVAbvuk/nlRUOg/qXXr28fvlxPTxrL/dUhsrix+W+qXNM4pjKgDI3Bf5WYQO+c8y1Kg92Ir7jZO5wImspf64j7LyKB7UjOe0P281cM2eFQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793983395; bh=xeGXEN7xVuIfZ+ZQdgxXxQeg3Nn1ehlJr7QQJbMrz50=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=gaUFAvAlsYIpP0fvEZxuY+/sWCny307gGq55Ez/xdbob/Ykzg22qlPZ1kd/owK74tN5ko0kfIWAW2OxMaCofq0pb8iDUX7Zqn8BhojMAaYY9BDx5ixWzawJRMeGG8r52jab/wlLMNGX+IutAzq5if1zghI+NAnrfXFlbtofjiYjiCvjsugWchKvyaJA/3PGA8EGLcFdJurpcurWslKG72kiLT8geaPzgf0eXjlffcDOGXRk0dKpMFH2TjpfOw4IJ0F4N+tMg7spt1wwHRSV3NqocFZnmvRwI0KTOiB844Ax2SsswaQt4oT7+vgzcyJdRP5Yx+Y7lRjKvhWen/dh2AQ==
+X-YMail-OSG: OIdV4lwVM1lPmZAovyYZP5BgZ8acuGF1ApxlFCYkwNXE2BMQd85mdoHC9KwKreH
+ WuCdBA_4i2NPC1nAeW84lkg5t1Ibn7tlSEYn_dommb8N0OqBHfguNVgPT7QdmoJkq.RmbnlSkr_I
+ X.bFTHpqlN6PXjCCqiOLBV5DiauNdXmTmwdZHzdrlnG2Dm8PaI9x2Afauy6gKuGNSkInsWdCL_To
+ nL5pQNn8op2NHLswzYR8RQhdTJ0bPMhXBbMBovUHlfMj.y.ztfsqggYpfP5u4hva5jqveMPfRTWZ
+ NcP5yDgLOnz4Ay5uRPcB2Ye3dXjGcq3W1TAye4CsnHa9Xrck2RXCXgCc6_n_O6FvUEWk.zN.Hicc
+ a3A9qbnpcdz4br18N6V9MSsNIECWcbcsbrkgk4CJHbT0yIepqG7TN_Vw8fMfaUoY9uJ7qOgsTYE2
+ WFvNtg.Sdho9ez57ybQP2qtGVXQR3ZSswsAWzyL.VZdMCCCvSgCfsqgvxTLw_Duzp_y8HB0JxyZ3
+ yZaoZgf.IEfXKE0xXa3ewA.I3LZLRIAw9Gxgn8S2XwDqCrQzzzw_PRpw0wylPjQUCd5zGy0t16tI
+ 5Y8gEmOENMK3XwvUDJF8YKIilLlD.GHV.NUl80ENQITlEA155ZGmjuV11.LcEaeFt6oRTkEbnErC
+ 1sDM1rUZqPhO5JEFIn4INzr0DpSukFkdrDVs6ZkDHEQpMihOLBUFOcYKU3hnfPDiKVzO_eIWX8yi
+ QCJVeHtKMyJS2w8wAzatAe5h_zoKnegkJjj9nf63DQntlVKFeJYSY.YHv5Hibg5rIzfCSNa0pzm.
+ QYuj.svWqNmbfSUXIsn6Plp4ACe1e5.5i9wF7ZZAiCCjMuw2pTOBKFB7NaYXWNWApY_Va5S2LpKT
+ SoHFLM4B5eJlhxZE0SgndQw1hlAzOVFxh1jAgC3y61GmySzrOnta9O2rNZNI0qZW5gaSBSrq7u4N
+ SRKpe5dBqFnd4jy5ow3K2qINws_aEUJuatLp_yQK51.wSMi5aE4ueFHwMLrNBFLH1cXAqiuH.P2R
+ h8LBvJAxrwSvt6eqbnc01TvAmhj9iEfUZsLyZ1JG8OM2FyL.DEYXORf8obNR1klxDsTc4poLvBy7
+ j8UbyjNIJ_ImTdOFHniQsKyufwibh2lekKyaiMfbEnfis6W96RI0GGDbzq01OcnVl59Wp9__D0xx
+ kXbstQi9e6q90l3n9N_QdAneqbgW83w0jyeRpUeBueVo7UJO78jGBPrTZ.iBnq6ykAPFRrc632Eq
+ GsF8ywISpQKFUUAx3P5xgWogJM5gA4BLexuYb_Aq6ggdSHpzQ.gtz0QTNn9B6sQsJGUmcQUDzNpB
+ OWcH.D8I7MjUZTU6bnekSYonIn9YqSK7bun1wHQbi3lmbAJVsyOVnQ52tJQdWm_ewWqf9M8IGStt
+ peoUD5P2DX0VAVr8rMezeji8PzlywaiCjgVZUDtX.QfuqXU0jTSaqhJoSDPtwLZBLsd7Apvu5mM_
+ gnbPODsl3sP5_9uDt3UtdIT1zE3RGf0jdj1azU5QyCyuiZ6llyQ_YOj9LQ.fsep5lzHevSr.xlx5
+ 2UJE2penUPvka0heqdBR7leVfAFk.OcU7Tkn9o3TxNhFBlPaY1L4ojEmfMa.JaHJMd8bX9XOWWzB
+ Bcf1hO_uYepwSy.JSLfDA9jSYjzfIPf4YNXKYHPbOnxNXIxe8_AI5f28170p5MWOoRfjM1te6HWP
+ R4FvwPUNaIRsTaN7YqVg0PhoO3XZR78UPQdb1no6VTrmAOS5.FRpyXdVwZyW6vSSo9bdT5vzI1Vg
+ B0neQ_oSA3UoP3ODNvAFJR_HCzaP.8cspcpHzjo5h1Zoac86N9pf_ajv8fFGjhLzmvONMRWir7Pl
+ I1V0_WcBSjw7KFH1l4WizDGAxPX0O3dco.yeqfL7DIhqRE7kSwL1wZzEYUCQznkkI5F5Xl_9rxYl
+ n2BEnYJ.BM1onjH6n_ijRyPgcF38h48cwSfPkqsT57MZLYfycXkSuP6q4tR85Gx00.8sscXNV58E
+ DFqMu_cJQHlYI4SwCS9PN0ztetrY2_NlUShDfuC5KbF0.Hg_6_iBO.Av2U9G7zFtBq3YXLcULuIr
+ DxEU14.0qC2DBCIPJ6R8a_ZOkCUqOLXYSL2jMVYg8VvLme0HL.j6JP7TyAkvtOUiEkz3YdnXSrRu
+ DLZlvtU72SWxqAcjdAZqNS9fKTDMRI6lz7a6Htg7DWWjO7ff6rrvpSzE1Fpn38UCK6GF1cAr31Po
+ IyU3ibCiGU359fEjTjs_Hfv8Qlv.5Y0MOuWeTdP0FR28SaTzTD3vBPX.zhAq7ZEFi58F3b0Q.5RF
+ CCx2ciawjDSeiHy2Pt8xpOcZSNnQ_a4E4D.b4Iko-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: c1d3fb05-0050-4afb-8b7c-fa4c4a0a3348
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.ne1.yahoo.com with HTTP; Fri, 6 Nov 2026 16:43:15 +0000
+Received: by hermes--production-bf1-6d6877594b-clgz5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 8dc6823223f8f1de6ed049ff776f8c37;
+          Fri, 06 Nov 2026 16:43:11 +0000 (UTC)
+Message-ID: <29bfb266-8bd4-4c59-868a-cc27259c1f16@yahoo.com>
+Date: Fri, 6 Nov 2026 17:43:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,71 +84,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v7 04/10] net: dsa: realtek: rtl8365mb: set RGMII
+ mode for family D
+To: =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>
+Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
+ <2befac48-25eb-4c1b-9632-2f3237d68a3d@yahoo.com>
+ <auskP2mSY4sCRa6x@analog.com>
+ <82c96971-be5b-4c11-b20f-c4b074181515@yahoo.com>
+ <aux1v3R-efbWF2GD@analog.com>
+ <e66204e5-ac33-4a35-8d36-6f37372da97f@yahoo.com>
+ <au3WTtBo3qk4nQvf@analog.com>
+ <014d5582-8ce2-46dc-911b-397862492421@yahoo.com>
+ <au3t3XC2b0ZGLN4A@analog.com>
+Content-Language: pl
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+In-Reply-To: <au3t3XC2b0ZGLN4A@analog.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103-ucsi-lenovo-t14g2a-v2-1-e85c659b56a2@resetko.pl>
+X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Tue, Nov 03, 2026 at 05:10:20PM +0100, Stanisław Titenko via B4 Relay wrote:
-> From: Stanisław Titenko <kernel@resetko.pl>
-> 
-> The quirk added for the Acer Nitro ANV15-41 is not specific to that
-> machine: it substitutes UCSI 1.2 when the firmware reports a zero
-> version, which other platforms with the same firmware bug need too.
-> 
-> Rename ucsi_acer_read_version() and ucsi_acer_ops to
-> ucsi_zero_version_read_version() and ucsi_zero_version_ops, so that
-> they can be shared with other machines.
-> 
-> No functional change.
-> 
-> Cc: stable@vger.kernel.org # needed by the next patch
-> Assisted-by: pi:claude-opus-5-5
-> Signed-off-by: Stanisław Titenko <kernel@resetko.pl>
+On <DATA>, Alvin Šipraga wrote:
+> On Fri, Nov 06, 2026 at 03:56:18PM +0100, Mieczyslaw Nalewaj wrote:
+> > I do not have the hardware, so I cannot read the reset default of
+> > MAC4_SEL_EXT1 myself. [...]
+>
+> If you don't have the HW, how are you testing these patches...?
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+The code was tested by users of RTL8367S-VB devices from the OpenWrt
+GitHub and the OpenWrt forum, who built it and reported back to me.
+These were basic functionality tests only. I do not test it myself, and
+I should have said so in the cover letter.
 
-> ---
->  drivers/usb/typec/ucsi/ucsi_acpi.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-> index 5697ccc24ec3..47ba0e15b8ba 100644
-> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-> @@ -121,7 +121,7 @@ static const struct ucsi_operations ucsi_acpi_ops = {
->  	.async_control = ucsi_acpi_async_control
->  };
->  
-> -static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
-> +static int ucsi_zero_version_read_version(struct ucsi *ucsi, u16 *version)
->  {
->  	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
->  	int ret;
-> @@ -138,8 +138,8 @@ static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
->  	return 0;
->  }
->  
-> -static const struct ucsi_operations ucsi_acer_ops = {
-> -	.read_version = ucsi_acer_read_version,
-> +static const struct ucsi_operations ucsi_zero_version_ops = {
-> +	.read_version = ucsi_zero_version_read_version,
->  	.read_cci = ucsi_acpi_read_cci,
->  	.poll_cci = ucsi_acpi_poll_cci,
->  	.read_message_in = ucsi_acpi_read_message_in,
-> @@ -194,7 +194,7 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
->  			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
->  			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
->  		},
-> -		.driver_data = (void *)&ucsi_acer_ops,
-> +		.driver_data = (void *)&ucsi_zero_version_ops,
->  	},
->  	{
->  		.matches = {
-> 
-> -- 
-> 2.56.0
-> 
+> I think we will need a Tested-by: tag from someone(s) with both a family
+> C and D to get this series in, if you are unable to test things
+> yourself.
 
--- 
-heikki
+Understood. I have already asked those users to respond on this mailing
+list and give their Tested-by tags, 
+
+> Please also do not submit anything if it has not been tested. Maybe it
+> was, but then please get that person's Tested-by and put them on
+> CC. Otherwise maintainers might merge this assuming it was tested, if
+> you got the reviews... It is a basic assumption that non-RFC stuff has
+> been tested when posted to the list.
+
+Noted, and sorry for the confusion.
+
+Kind regards,
+Mieczyslaw
