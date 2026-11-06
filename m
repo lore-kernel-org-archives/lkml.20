@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.16
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793939651;
-	b=BKBeFDBmmPPBCdE+7/clCuPPzPhxhQHzlUIJlcC7sD6jgpnY4RoIl7pz4PG5J2AgqxkX
-	 tYx/M/Pyo6el9iP6fF35QDb3k2hkxCqqYgQxsNJfWA+9l5xRATykXJwqLKUfB0Lk3jb37
-	 QjEYbcudKLB9irXNXbJOj5gLyLORBWbHAwn6aqLCK6F5GAzzCkk4+8RErznTszgAupmgG
-	 6HX0juWUVGl1KgH/xoDIzw2Q11VksOrpBbsXsIK8nflRi4IEqhq2Ku6dOeKthodMK132E
-	 uJxWcFQeNgVG6jo/H1AvJiqrZIgj3Se6LGpCUSOWJBLYCMcdklHzePu5DyRav0IIQag==
+	t=1793939683;
+	b=275w+kZnsVm2CY/RWTAvZsm1bkidgmnfviOgXuYg5Jmp/pkweC8nQY5lGEdtm4DVfw43
+	 LFiBU7uqtKL6I1yxhpGXeer0G2TaaPGYLSxVem8KPt/U+tMJMfYGzXyMWfd68tCIBpUEL
+	 YAoTjszhEqkVlq+KSd85jZQt427LYpwo7+v734zYfwuqwqQxIBlgEZ50+m76A/XD8vtWv
+	 qTihoolsKVF3haVzufv6IgyfCQmRKFxBXLHSuDBIi9UXZbC+fvQh+Ci6VfXya1OKIx5EB
+	 BDUwDjWM81ghWgYc2n6GpxpHy8d+Mw2I0U1UnkiDzwwoTukwLdoSKRX37pZro3crUJQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793939651;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JmLeKu7GIq24i16gKKnQOpVP5+9fQMP3BO6YX5Z9BdM=;
-	b=yaOlcJTWF6CBh1OHuDd/5SQSLPnR9W0BbPjwUizO79dw68VCAORV9ae9Dv4xoLXgDDFQ
-	 nCiWh8Qk3I+Spq0kV3W4cOqi2c1HvLoKqHxNhYpBjvygbtMGXfcYLkkywhR6UYEmA/qTP
-	 i7lflhy6WT1gz36vZoWpQPqVHUFF5ZG45Y6+80PK3QZNy4ds27SUyir8Z1RqKjcPVYQS7
-	 C3vbJLqSy5Er2auA8x2cxjWTBxUT7z3YcnvVoG55HFU9GG6NOW+15ny4UrsPYZh3FFQXq
-	 rjNyvVD279uXathoxP4KlKkcrzT05NhDiyNjdA7jwZ/YGTc2IctNCaCxC45lIKrpsJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793939683;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GTWpSOIrW/I0u+o69vNXQD1in08W0Oj8xg0zoxTU70I=;
+	b=r6lGw6xpyItgz65v8Isdvlc/EmXVYzI9Eo6z/Y1pCTNbIMvfw5HX+WrALuDmVwIRw8ME
+	 1XT4FIJplVFIRhBbmK1xSL2+4/1tBc98o30T+nFPmZgZXbfGC1j9y+KSFAW0aMN6y8BG5
+	 OqLD0WpHVsreCXy15sEgpB9FfcE2j1RZrKKCPZmeSjy1e1++7OH3R5P3CzSrYzd0hy25D
+	 FpXz1Lrk04jSRtNWokYoU6n0T+Dvgpv2vcH/nM6nRztVabQGBmEyqcVy/t2AzJlOh15MW
+	 8TgjHwAoNtxWR+i4ie06m1N7U2QVdiwKHpFSFw+bwfHI0fqLpGpi+St2Q39g808eDWg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=TqEJz46t;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.16
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011016.outbound.protection.outlook.com [52.101.70.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ehsHOBSU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC33606D81D;
-	Fri,  6 Nov 2026 04:34:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDC33606D81D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07AE606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:34:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C07AE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=TqEJz46t
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GrBbf2CBD92s7jPajDQC9V40FvER7LZ9jG2f/+uScCS6qt37eFUgJ6DRgDdayZTogfK8IXrri42qZhKrpk5S7be6PvjTXREyjkqbG+hlOnqlvjmnljSUCqZVln5OL6lLBKWuDMWXaqtnDWy8noprxeAJ0xMS3YLF0yqVDclcYc79jtuHzs+Ro8+EjggcKShMPHd5JZPf1cc75IyPEDSNyQmMgKZVZA7x4dTTPhxihO3KhnkSusNVUck/w2JaRt5rKjBeEuoAIi0T/KI45tzXuihNZ6mUfrnQIeraCHvlTL784ThLQWSIGRJIunGiyAzPS1+70hS/X6mN0hL2FZN/uA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JmLeKu7GIq24i16gKKnQOpVP5+9fQMP3BO6YX5Z9BdM=;
- b=FtvVWmEIaQPGXeGGJh1tsCModA1ssMBFPqr85NjUhHVXgEMb0or+oqfCqxSPdtsUfRg+qBs+KPq3NvaCGHFCtPtPrlz3qLuqSiaR+99TD43vUImoX1A2RdYfmMr1Vco4mxeET9KYMpO2y5su+ODvgKBddV6g2HHj7BWraYEw0J4rJOMyn920Y+m8XooWkJalof6xwQCA1scnEWanjBJHe19Ho3uLmGb52AU39hfVPbf43CvWGbM/bqN2Q5foc3BwaR7AUZ8djZKobxAu4/3jNOPsViPa2nil/EhaHeqPtKawgXJDe4HKy5wAK6Ie2/zWMif5Pug9iKaI0nqFj5YJ6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JmLeKu7GIq24i16gKKnQOpVP5+9fQMP3BO6YX5Z9BdM=;
- b=TqEJz46tlUvmyU36CA5JB//5xdIlePWZmW0rSV4Y7KYSVJwDe3N8JVAgXT9RfEl3JbrEZQmCgoa/CRP0WWukIY9FeKE15PPOauKPPndgdA/0/Z4V0WrFBbbQriYBkEstTBXxZEfSzgNxzKqlEvySWxzptUcISJm32vbn/KmmvERnIdCYUTGiJsM0FbTYWznQ/LbTiZheKyW9sgPSzsw5iBruTqP7z0KukP/BBKlsT7e5ZIadPLC64usaGWyJxW+DnyZAi2n57xtGdlvDtLA4lUN2NMe/UDBedtdKHMOJrNy2ocVPAVxtvfWMoDwnkd9FoYMnJmWhWEYEji5/4+h4Bw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM7PR04MB6902.eurprd04.prod.outlook.com (2603:10a6:20b:107::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 04:34:08 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 04:34:08 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Fri, 06 Nov 2026 12:38:38 +0800
-Subject: [PATCH v2 4/4] software node: pin remote endpoint swnode
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-swnode-race-v1-v2-4-f8bc7b14d578@nxp.com>
-References: <20261106-swnode-race-v1-v2-0-f8bc7b14d578@nxp.com>
-In-Reply-To: <20261106-swnode-race-v1-v2-0-f8bc7b14d578@nxp.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Daniel Scally <djrscally@gmail.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Johan Hovold <johan@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
- linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.16-dev-7bc12
-X-ClientProxiedBy: SI2P153CA0010.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::13) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ehsHOBSU
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b571a45a2aso1791a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 20:34:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793939681; cv=none;
+        d=google.com; s=arc-20260327;
+        b=V25uo/0Pri091R5iXloH4PbP15hnEHW8bCBns5lgqb6eac/A8Zauahj44GKXOqzbEf
+         oGryJNqk9sP/89XmJPQ/CUI0KhFNc1AVhu5Ng/k2AnkY/KrQTHm8sIgpmLScXCpOZ/dJ
+         axiadhz4rL8QJJxA9Cecb8retvOEwxJfZBJ9yq1ShcT3RRd1+211zpCuT2zM7zKaxxde
+         Ow98/MWSzdf+A3z1S07MS4wWLA7maHwSmccwUpYzOwbgboQHuEkSs9aunW1Q30Msyrf8
+         woqGcdjehOsZf4cjTJmFJJ1G6ynWVHKbnzh9aOINykXka2N/zNjhhQSXzRzgp2OtEkRm
+         d4xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GTWpSOIrW/I0u+o69vNXQD1in08W0Oj8xg0zoxTU70I=;
+        fh=F5QwjHJxR2ZykMJJCOH668lo3atL89Z6s2c2HVSw49o=;
+        b=Gf16ujlsbLR7rv7DzcFIlVfC2B4PSwc1RND0bfN6/xhygX4fB3lNA2TQxI/PmZkv/v
+         BCREvzmKkVSHogfE8qC4L9qxX5EdKMtouJ7WhwthNdRRJ9f1KGTgjn/D3YNysY3AGMnU
+         L+bedt33lQnz0IJonRSgJHk1kxk1rIEPhbJSz9TEVfVAZFVMTBtfs2umFhjdJBx/X8Hz
+         Cbb+4bUUo/a6leFI+rNJ96WwhbpHXiFwPSF7txKDqo2UN8JSbPT1FZqQz3QcChB/9wGA
+         dy164fDtsLgJBzlCLutl2uKoanAvFDCu/HqMiQupGUo/pp5uM2WqCzDJMa+I1w83XueO
+         4zaQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793939681; x=1794544481; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GTWpSOIrW/I0u+o69vNXQD1in08W0Oj8xg0zoxTU70I=;
+        b=ehsHOBSUrScJ0CckZozJsURRaHwfw7o+/weAZ+Groz3G/H9UusoTeLPSkyCa55ZBnq
+         ye3I+2cqUNJXW3pbYDMn6GxLfrcgGj3t8O1Lrol2OTUvARGsEcrMw64gqfqJQ7xRWwor
+         zehhfIRbFU0iuG7NrlrCnCscl8FUKhl2TR/v+q+gHHiscYfQyx8lF+GlKbr1u70hxYGR
+         KM7G7B3I/YsA66EcCBqqgnn+CE/k+GhcK31pNKGOOqu2QYQAgzuKs08wTCah7oA6v2zI
+         qxYMEdQoFQXaZ6kspc5KXxrK8WrP8SAbd4lxWAKpLICWkTVeEhLEyrY8VThYg89y9SNs
+         0CAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793939681; x=1794544481;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GTWpSOIrW/I0u+o69vNXQD1in08W0Oj8xg0zoxTU70I=;
+        b=qkHd3KnKpuZRV+Zr8D8viWA9KJ5/eWAB3Lhri+DOXUhdRrkM8Sy6UbT2jvf+rpk5kK
+         BXuFRhQRJjNdOA3X4ev7l2Bpd2MQLtpJCS128h+/kGashR4V6AV6a5mtBDvffID0KNtq
+         yDQSmCMyQ29nyIRifk4Do0giml92gObBkJl1/xCDwvI+Qwql0gO/COhuN9EqxDGUOUdv
+         IsYyRMcgUi4WOI6kFf3Uj/TxHGCRZl16yLJXphD+ksI4NgysEKZqroCytKPglm/aM6Fv
+         Rur34izLy2j/HdW3bI2KJJ5IwaS5RGADPGEYKAtMG4sRqmJGVKu5o3j4X4QJkdLyAnhA
+         +MEA==
+X-Forwarded-Encrypted: i=1; AKwUvBze8Jsmco0AdMsAY9t1Ue3AlYVxcwbi9QPEppYPeXKOgA79ruhE1yddrunheIhMCvneI3NoUPZ9QaLBMYo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Im2KNQftxkwlYQHIz/LPVwEwT3fE4L5kro9OJBWooygjYNuS1
+	0uOyiKGr5i9/nEnwE1MvwAyATcjTB9TF8LSB6zufEBZSLEPnN+QlKjk1S/rRO3D+6J/NWP2tXtS
+	3FHSrxMfyhXOXisxC0eUuve8CwYlONHOH9WlSavrF
+X-Gm-Gg: AYBFou3Dp7oLVtXc4s+DjDDRFTOiARJJEnMaMqP9I12nyle/ys5U2U67vATyf9ZOZ79
+	tLdk5asyCKRya1h3GdBSvlD2iKCHRMk6m8STE/HOTAWIoa8ZEGEiyMSD0RtMC4cGu33xpxz7YyG
+	qSSJBRsceUVH9vaJ+7kLF60jfFJLsJTXYjlZzEW8wOhzao9Hom61M/YGoXXqAPFB14ZoEHiYzn5
+	x746jM+iqEJKgnJtOKhVrCxpBgN+8amR63C0pQe+TKqIjM0ul0/vbzEMbU6FQLfobJIZPKpzFy5
+	OYeBQVpzmDnIih/fS3/SNxMSJ1TqYHlFJiEsXnN3uSrddZyuZMsz37n7XXzPOEpmMpeNG7IOAUg
+	hUtOcYsvmIQydyEcqEqvwvXo1pqssqOLNjNG14T8wLWeU10Q7XWksT9xYeRCtHMIoNx5SXoo2eR
+	X5AGCf6WKp25Q37yVjw28qOac8
+X-Received: by 2002:aa7:d691:0:b0:6b3:f12d:7405 with SMTP id
+ 4fb4d7f45d1cf-6b6e76232abmr107a12.14.1793939680539; Thu, 05 Nov 2026 20:34:40
+ -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,111 +105,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM7PR04MB6902:EE_
-X-MS-Office365-Filtering-Correlation-Id: f61ea3a0-c39f-44d0-7c8b-08df3bbf3275
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|19092799006|7416014|376014|23010399003|10067099003|18002099003|22082099003|56012099006|11063799006|261026140227099003|261022105027099003|261028144727099003|261102123227099003|261021123027099003|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	+mo3j7znLbvgOLqa+2BHBHMX0JYhViUxZy2j04GolWtAYFmDbJrhZY7laOPBE3EO2IVX4IeJPLFhXq+j4OdDUwzPC8ulPmh9LSCNaCBgzXWJmBWdGzoCUjIL90xehjItJoEYEc5lu208ZuRWWGF4BhVQtP4O2ZkIfIf52KOXS4nrKqSSymQKFU8wOoqkrlj0D8xvGjwf5yzQ1oJF9cXE+RWVNMnTb+kNIYs3fn6lmx3clL40EU8sUpurhGucdce0Mrx6iCXlPtsEnIKu3x+ly73BS8qZe0RqqYascApyvButeustI7THao/tlu2ST7AMYdKus8YeBswFUHuyW1hdjLkvWHfx6hY2FGiIcw7XMt76gQkoQcm2e3ktgBh0SunKXsPwAAXtB/TmxVAgnDTneEiwvLup071c8PzURLv42dxoOZzbI90xqI+KuaZc34GD6o5AJYOS9SgQTPua+O+yZxWWxAe+K0BSTdUzfYwneoQNl/iueR3DTTiulXt8qDmNNv59v/c2dXh+Guhv0hDXO/l1QrThd+86hPoQ1sPtIj5wo514mjJdd34owr0nm3Z94hqxGpV9OfLzmtY66Q+XRvURX6a4OJWjEotC6u4EI4VVpGxP+kp4kOhSTl7OJkNMOnoAKbqqgQg0JeYgAdTEPQqs9qYMJsqRvECvfKgvd80=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(376014)(23010399003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261026140227099003)(261022105027099003)(261028144727099003)(261102123227099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c0RTOEN5dVYvdWIxY3RwcmVUU014QTM2OEl2Q2FId3dxMTNLaWJhc3FLTFpW?=
- =?utf-8?B?RG1RY2hkTmpFcGpzT3MvT0NqakUyU2hWU1R2N2ZxbUY1VWl5ZzEydU9EWmNz?=
- =?utf-8?B?WjNvbzZLM3IyQnd5dmwzWis1UUwzV3p5VUN0cy9zYVlTUnVjK25kZnFpOS9a?=
- =?utf-8?B?SmZFeHNqWjFtL2lrSlIyUE02NVhaamJ3dVFyNmo3OGpkcmpSalVVdjNrSVdG?=
- =?utf-8?B?cGkyd0g3Vlo0WmhCd2tOOXgrMXppN2FwSnJ0WnBteTdheFk3REtlK0Q5bVZL?=
- =?utf-8?B?UVl6ejRvSmpwR1BJSHFJVU5yT1VBdHc3VjVzUWZ1R1RTTjlvekZjbm1zcTlJ?=
- =?utf-8?B?OS9xLzNyN1g1ZXFwdzNvMG1heG42K0k2cDZXMjNWaGZTeWw5Sk1TSXd1ZG4r?=
- =?utf-8?B?eEM3UnZFNVNJL08wZURUM1FndlVxdzlBakJjeUhZU29rekQ5S1VTUWc0WVBj?=
- =?utf-8?B?M1JubE5MaXMvMndKOVpzY2pNdW4xV2ZmcU9TalBveE0vSEhSRXNicEJjR2VQ?=
- =?utf-8?B?WklLb3BjcXcrckNtV0VUUGtNNTFHZDZVQ0dJKzY0WVhnei9wNTJBc3NDYy8z?=
- =?utf-8?B?aStaQTVBam5TQm1Lb29LMEhrOHdaZENmRUUxWHZMVC9Fbmo5U3lXUVlmY1RI?=
- =?utf-8?B?TWNmTThqRVhkVFkwR3BVbGNUQ1N4WDBJQ0lxQkpVZGxsWW12R3QzOU9Gb3d3?=
- =?utf-8?B?VGV6djlhSTF4Wm5rUmtpKzVPc0FSMmFrbEZoMDdXYUtKdi9GUlNwM21Ibk5q?=
- =?utf-8?B?dkZWKzZEem40bDRxZFliSFpPa2ZiaDV3R2xMQ3NPR2ZzWDk1c3dUa25Jeldj?=
- =?utf-8?B?cmIvK1BLMHA1T0pQNlk1bWluTFFzWUJmUFIzaFAySTR3V2k1aHNTcTJadXZ0?=
- =?utf-8?B?clUxdG9td3FlMFMweGF3RTJYSnBSRktsL2FhVUt0SVhTRmNhRnlXR2Iya3Z1?=
- =?utf-8?B?ZkF4dGtjdDlrT0VwL2pVMDA5YlV5VlR5emF5emRYWlI4eVFNOXN6SU9HYlFk?=
- =?utf-8?B?NUs1ZDM2anpCelN5QUVsaUNrVW0zbXFlb2ZIWEF6L2dlVmZ0K1AvbmlIQzUv?=
- =?utf-8?B?TnRETVhsOVJKL21Xa1M0ajRYVEFuUXJBeDJJOFgxRytLNmZqNTJDNi94NW1u?=
- =?utf-8?B?VDBHcjE0MUpNeU9BVjF5VmRnSUlVU1JMZm4rRTR1cVdpM1dhVTBhcnlkZ2hy?=
- =?utf-8?B?eVAyWUNZVmVISlhTTyt0TS9MMUlkR1o2N0xFb2VaSy9ZaTVHaHk5dXNYNGg1?=
- =?utf-8?B?dTlvTWpDcG9NSklsVmt2T3UwSHM2NmgvbktVZmFBMTkyV3dVemdBeDVrM3U1?=
- =?utf-8?B?U2tLc3EycTZvbU1WN3pWZVhUbEIxaWdYSjhxVDY3Yk1ST1FkSTNXdHBUdGMy?=
- =?utf-8?B?SW5YU3k1V2hMTTVRK1NERW1FOHdGODc5eW1BQUtROWdLa0E2SUxGYTYzR1BP?=
- =?utf-8?B?N0srdmc2bVE3c3BjMjc5MG1kU1JqUkRTU2dPZ0ZuT1E0WHROTVNFYkJxNkZT?=
- =?utf-8?B?TFRnWUwxbVpEcFBhNHpUb2tCMXVMMEM0NXdYaDM2NWRwRHVvNWZ1bjNhZG1S?=
- =?utf-8?B?dStYR1FGbVFFdWQxNlNEazVrU25sTUlFZm5VQWRRWXlTZU5STmQvUFhzMGdw?=
- =?utf-8?B?eFlEOU54enJXTkFCODMya2QwME1rRjZjNThIMzlaeUFBWDRJa0N6ekMxVy9z?=
- =?utf-8?B?dXVrTGdnbU5YV2ZyK1JQVlF2a2FxR3l0N09qMmVsSWVDMzlVZFVxMnBtMlAz?=
- =?utf-8?B?WktKVjI4UVJMOVhWMmFmYk5UYmhkZUlIUmErZVlUT1hpNXEyQk9ML21ERlBt?=
- =?utf-8?B?UzJTcjlsTU9DQVpUMXFQdWhYdlR3SnRBVVpXYTRvN1kzSHBCSERuOHJXR0ww?=
- =?utf-8?B?TG9IYm0rUi92TGl3QlB1SVpDTFFyOXRRSm1HTDRhbXR6Z2h1WGNIUFNlRG4x?=
- =?utf-8?B?MEVWN29QeXd6am0xbk0rd1VySkgzTnlVczh1eUFkaU9NMXhOSDI1RFN4Vlc3?=
- =?utf-8?B?NGhKdzl5c2xvQUhCS3ZVQnNQNTBuQ1ZJaDVZRW1palkxQk44RUF4bXNBaXJ0?=
- =?utf-8?B?YW0reVJoTUttdmlTMm1POXRiNXBOZmUvOUoyODNTT2F0VVBVbGMvNzM2UURE?=
- =?utf-8?B?eEl6dXNEYS82d2NOcDdVYW1KVjFxWHllczV0enNuNVdURzBLeDB5THljTWgx?=
- =?utf-8?B?QURaTWs3L2FNVnZHbzNCZTNhRDN0ZHVVTVFBVEc0c3pNYWhSMzlCczBwaVVN?=
- =?utf-8?B?RUduRVUzUVNxNDRkaXNMb251eVJzdXdBaFFwL0RRK015ZUVHbFBNOHBtbk05?=
- =?utf-8?B?Q3hPaEY4STRuTDlIbGdCQlh1MW4wallUdDhhRTV3U3BtekcrNWR0TUFkYzZB?=
- =?utf-8?Q?pIDpq6NiOq7Y2U4Df68ZOQzSB/6EAHFq9eCSc?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f61ea3a0-c39f-44d0-7c8b-08df3bbf3275
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 04:34:08.2115
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8Xy+Kfbt4cgFpGOJY2aGVBbVFfqYdGFtihnDDmqZ/1RSu2eo1di+Bb1EzT9wt7lS6f8ElTBxTdqAhTLRBKD0GTUXUqX4jgQShmX6cAxUdhIT5Q4Bo0bD/AHiqBwMVaQY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6902
+References: <20260930210750.1487547-1-chang.seok.bae@intel.com> <20260930210750.1487547-12-chang.seok.bae@intel.com>
+In-Reply-To: <20260930210750.1487547-12-chang.seok.bae@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 5 Nov 2026 20:34:28 -0800
+X-Gm-Features: AclHuK8Cx6t65NL8zYNN-6JjRZdlWwlMy8grczsKPGO2ySINkfgIV4cdy6ZZwi0
+Message-ID: <CALMp9eSqUV64WbzZ0xbAc42+nyBJLN7CQ-ark5j-4P8PNPwC5g@mail.gmail.com>
+Subject: Re: [PATCH v8 11/20] KVM: x86: Handle EGPR index and
+ REX2-incompatible opcodes
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: pbonzini@redhat.com, seanjc@google.com, kvm@vger.kernel.org, 
+	x86@kernel.org, linux-kernel@vger.kernel.org, zhao1.liu@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Peng Fan <peng.fan@nxp.com>
+On Wed, Sep 30, 2026 at 4:38=E2=80=AFPM Chang S. Bae <chang.seok.bae@intel.=
+com> wrote:
+>
+> Prepare the emulator for REX2 handling by introducing the NoRex2 opcode
+> flag and supporting extended register indices. For the latter, factor out
+> common logic for calculating register IDs.
+>
+> REX2 does not support three-byte opcodes. Instead, the REX2.M bit selects
+> between one- and two-byte opcode tables, which were previously
+> distinguished by the 0x0F escape byte.
+>
+> Some legacy instructions in those tables never reference extended
+> registers. When prefixed with REX, such instructions are treated as if
+> the prefix were absent. In contrast, a REX2 prefix causes a #UD, which
+> should be handled explicitly.
+>
+> Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
+> Tested-by: Zhao Liu <zhao1.liu@intel.com>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> Link: https://lore.kernel.org/1ebf3a23-5671-41c1-8daa-c83f2f105936@redhat=
+.com
+> ---
 
-software_node_graph_get_remote_endpoint() looks up the referenced node
-with software_node_fwnode() and then takes a reference with
-software_node_get(). The borrowed pointer can be released in between.
+[ ... ]
 
-Use software_node_to_swnode_get() directly and return the fwnode with
-the acquired reference retained.
+> @@ -1119,9 +1130,9 @@ static int decode_modrm(struct x86_emulate_ctxt *ct=
+xt,
+>         int rc =3D X86EMUL_CONTINUE;
+>         ulong modrm_ea =3D 0;
+>
+> -       ctxt->modrm_reg =3D (ctxt->rex_bits & REX_R ? 8 : 0);
+> -       index_reg =3D (ctxt->rex_bits & REX_X ? 8 : 0);
+> -       base_reg =3D (ctxt->rex_bits & REX_B ? 8 : 0);
+> +       ctxt->modrm_reg =3D rex_get_rxb(ctxt->rex_bits, REX_R);
+> +       index_reg       =3D rex_get_rxb(ctxt->rex_bits, REX_X);
+> +       base_reg        =3D rex_get_rxb(ctxt->rex_bits, REX_B);
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/base/swnode.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Per Section 3.1.2.1 ("REX2 Prefix") of the Intel APX Architecture
+Specification (rev. 9.0):
 
-diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
-index 1b0ecd3e814f9..e7c57cfb277c6 100644
---- a/drivers/base/swnode.c
-+++ b/drivers/base/swnode.c
-@@ -696,6 +696,7 @@ software_node_graph_get_remote_endpoint(const struct fwnode_handle *fwnode)
+  Note that the R, X and B register identifiers can also address
+  non-GPR register types, such as vector registers, segment registers,
+  control registers and debug registers. When any of them does, the
+  highest-order bits REX2.R4, REX2.X4 or REX2.B4 are generally
+  ignored, except when the register being addressed is a control or
+  debug register. Furthermore, if ModRM.Reg addresses a segment
+  register, both REX2.R4 and REX2.R3 are ignored. For example, using
+  the REX2 prefix, the instruction "ADDPD xmm1, xmm2/m128" can use all
+  32 GPRs as the base and/or index registers in its memory operand,
+  but it still cannot access XMM16 to XMM31 because REX2.R4 and
+  REX2.B4 are ignored when the R and B register identifiers address
+  vector registers.
+
+In __decode_register_operand(), unlike the Mmx case (which masks
+"reg &=3D 7;"), the Avx | Sse cases do not mask reg to 15 before setting
+op->addr.xmm and calling kvm_read_sse_reg(). If a guest executes a
+REX2-prefixed SSE instruction in twobyte_table (e.g., MOVAPS with
+REX2.M0=3D1 and REX2.R4=3D1 or REX2.B4=3D1) that traps into the emulator,
+reg will be in the range 16..31, hitting the default BUG() in
+_kvm_read_sse_reg() / _kvm_write_sse_reg() and crashing the host.
+
+Similarly, em_mov_rm_sreg() and em_mov_sreg_rm() use ctxt->modrm_reg
+directly without masking off REX.R / REX2.R3 and REX2.R4, so setting
+R3=3D1 or R4=3D1 on opcode 0x8C or 0x8E will erroneously inject #UD.
+
+[ ... ]
+
+> @@ -4297,15 +4308,15 @@ static const struct opcode opcode_table[256] =3D =
+{
+>         II(ImplicitOps | Stack, em_popf, popf),
+>         I(ImplicitOps, em_sahf), I(ImplicitOps, em_lahf),
+>         /* 0xA0 - 0xA7 */
+> -       I2bv(DstAcc | SrcMem | Mov | MemAbs, em_mov),
+> -       I2bv(DstMem | SrcAcc | Mov | MemAbs | PageTable, em_mov),
+> -       I2bv(SrcSI | DstDI | Mov | String | TwoMemOp, em_mov),
+> -       I2bv(SrcSI | DstDI | String | NoWrite | TwoMemOp, em_cmp_r),
+> +       I2bv(DstAcc | SrcMem | Mov | MemAbs | NoRex2, em_mov),
+> +       I2bv(DstMem | SrcAcc | Mov | MemAbs | PageTable | NoRex2, em_mov)=
+,
+> +       I2bv(SrcSI | DstDI | Mov | String | TwoMemOp | NoRex2, em_mov),
+> +       I2bv(SrcSI | DstDI | String | NoWrite | TwoMemOp | NoRex2, em_cmp=
+_r),
+
+Per Section 3.1.2.1 and Section 3.1.3.3 ("64-Bit Absolute Direct Jump
+(JMPABS)") of the Intel APX specification, opcode 0xA1 in legacy map 0 is
+an exception to row 0xA* being reserved under REX2; REX2 (with M0=3D0 and
+W=3D0) followed by 0xA1 encodes JMPABS. Marking 0xA1 with NoRex2 causes KVM
+to raise a bogus #UD on a valid JMPABS instruction.
+
+[ ... ]
+
+> @@ -4385,12 +4396,12 @@ static const struct opcode twobyte_table[256] =3D=
  {
- 	struct swnode *swnode = to_swnode(fwnode);
- 	const struct software_node_ref_args *ref;
-+	struct swnode *remote;
- 	const struct property_entry *prop;
- 
- 	if (!swnode)
-@@ -710,7 +711,11 @@ software_node_graph_get_remote_endpoint(const struct fwnode_handle *fwnode)
- 	if (!ref->swnode)
- 		return NULL;
- 
--	return software_node_get(software_node_fwnode(ref->swnode));
-+	remote = software_node_to_swnode_get(ref->swnode);
-+	if (!remote)
-+		return NULL;
-+
-+	return &remote->fwnode;
- }
- 
- static struct fwnode_handle *
+>         N, GP(ModRM | DstMem | SrcReg | Mov | Sse | Avx, &pfx_0f_2b),
+>         N, N, N, N,
+>         /* 0x30 - 0x3F */
+> -       II(ImplicitOps | Priv, em_wrmsr, wrmsr),
+> -       IIP(ImplicitOps, em_rdtsc, rdtsc, check_rdtsc),
+> -       II(ImplicitOps | Priv, em_rdmsr, rdmsr),
+> -       IIP(ImplicitOps, em_rdpmc, rdpmc, check_rdpmc),
+> -       I(ImplicitOps | EmulateOnUD | IsBranch | ShadowStack, em_sysenter=
+),
+> -       I(ImplicitOps | Priv | EmulateOnUD | IsBranch | ShadowStack, em_s=
+ysexit),
+> +       II(ImplicitOps | Priv | NoRex2, em_wrmsr, wrmsr),
+> +       IIP(ImplicitOps | NoRex2, em_rdtsc, rdtsc, check_rdtsc),
+> +       II(ImplicitOps | Priv | NoRex2, em_rdmsr, rdmsr),
+> +       IIP(ImplicitOps | NoRex2, em_rdpmc, rdpmc, check_rdpmc),
+> +       I(ImplicitOps | EmulateOnUD | IsBranch | ShadowStack | NoRex2, em=
+_sysenter),
+> +       I(ImplicitOps | Priv | EmulateOnUD | IsBranch | ShadowStack | NoR=
+ex2, em_sysexit),
+>         N, N,
+>         N, N, N, N, N, N, N, N,
 
--- 
-2.34.1
+Per Section 3.1.2.1 of the Intel APX specification, all opcodes in row 0x3*
+of legacy map 1 trigger #UD when prefixed with REX2. Leaving 0x36..0x3F as
+N (NotImpl) causes KVM to return EMULATION_FAILED to userspace instead of
+raising #UD when they are prefixed with REX2.
 
+[ ... ]
+
+> @@ -5001,6 +5012,13 @@ int x86_decode_insn(struct x86_emulate_ctxt *ctxt,=
+ void *insn, int insn_len, int
+>                 opcode =3D opcode_table[ctxt->b];
+>         }
+>
+> +       /*
+> +        * Instructions marked with NoRex2 ignore a legacy REX prefix, bu=
+t #UD
+> +        * should be raised when prefixed with REX2.
+> +        */
+> +       if (opcode.flags & NoRex2 && ctxt->rex_prefix =3D=3D REX2_PREFIX)
+> +               opcode.flags =3D Undefined;
+
+All other opcode attribute checks in x86_decode_insn() are performed on
+ctxt->d after the "while (ctxt->d & GroupMask)" loop. Checking NoRex2
+before group expansion means NoRex2 will be silently ignored if it is ever
+placed on a group table entry. Should this check be moved right after the
+GroupMask loop?
