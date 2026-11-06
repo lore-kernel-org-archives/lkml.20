@@ -1,48 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976366;
-	b=NiCcGbIyzVr6WGg1z5v0B4Hh4l49b5RJ2YGctFkFMx+AYoVVSonOARrsfJebgK0AehWT
-	 4q+gtpB6KcDd8tCYNaEfJDdNS3yE5Jro0uU4Oji2vRJtOSxsbBsJW6JncsLdRzkRLrDu6
-	 FTzj5kFARuSmyRzmLKF6+cLLr4970uskmmElQh62k3XwzhRkjf/+QI3dpL/89dzast5Nm
-	 EYb43+tSx1mXog0XCYcxDLq3bjhdbV3boEEzgrxQ67xLXiylVJzF5Ob5GcuFsFkvqLY3y
-	 LX+4ldfUtg/mRA1gPzopf24WeoU8ucv7PGACnGKJpATrNo9zb+2+fRRNqmEvE3GwrTw==
+	t=1793976375;
+	b=gQ4SEjtGK6qAJFLS7M50WRYB9/Z9ZbRI1QtJL7V5qu1w8oFzmBlaab2OIyeKJqcus4Le
+	 YHptff0BtFbXb0Rx7JcVw1dAsjTH7yv664F47ow6s8Hu40p4Osw5DbEF6AuUuuHt9WUF0
+	 lxz+0D1uyAsijlmX+a9X/8KWaUQB/Z1R9ZY+TOotMAcCJEC3LVg03x1/BAej2bgJlkpvc
+	 jACTWUGswu7dGd3OIqjrE9Aak0ZwfYwApvDJcZYYNUTTkv823ZGNN7tGGoIRQ1xl1Y8qd
+	 xJ283srD64VD5LQNbxdANNKfUl0uwVoEdtr+civmZeq0LuFdbWPclJfQnuiu5/OT+Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976366;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=m4jzlpwnCHP/iJRE3j/cC9ctgB4TV/ZSpibJ2GNxpak=;
-	b=D2WpEyW4D/LthaeDOuHe2iJCuhach/6I7ZCGgtYVQJHf1Z6L1yVmSS0+6y2aYDAkSfwv
-	 t50y0dNWxNe0DvFyU/PfyYAYKWoZ1gJxHPt49Rn49pNfh3mInUpScbPgapUr4a3SJmFeX
-	 zwx6RrcEq3c0E6CR+2SzrRlfz2cjUS/oKAM58A9dszh5bDrfS4SxkiWNIy+FNmwwEaYhc
-	 oz0Uu1tkAe+XW+MFv8Z4MtnUHF5SdRN36TFl2rUZdczwWSBzIjecn5fft68KqE5SP96/q
-	 /t58Pq83SUGxe2ucnhT74SU4eJnZ2vZMZznx5GyCKMlepdVceD1O2pwh3WHFy5DKTaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976375;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=bcf8NooVSigb4TfmPTaRxGuCBTM15fUvnjEuKFhLl1k=;
+	b=5R8pzFBs7wc6KXn5iM2nprwYAKJyAHZyKMGtmDo2VrXhEz18ORTmVtzHTOhto94kQWFA
+	 y8nXwzVRHKfV6EktO8KHNe1o36rnGI8IZ/dvBJRIsX1dG/TlkkA4azzzlN1fIZt9a4rpw
+	 CNxbkLQML70vvcXn0AJTaOYnH1gPTVgZTeYLcbmmJoCiKiqRGuEzjh1D8RG0024Puoyi/
+	 XEw/k0Y3pdC0RcL18fIOvCDm2RRORNHjRWnroVwL5B9I1HsgZF0Tx9aT1qVlJeROmqFRQ
+	 XfJ0c2O8G6jJbVFPPe5LJeq+3wdVSYdQM0QKAQMXdJdHfTWZePL+zjCGsmBCCvGYyGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=noIk3x1s;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.31
+Received: from mta0.migadu.com (out-31.mta0.migadu.com [91.218.175.31])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B52F606A326;
-	Fri,  6 Nov 2026 14:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=noIk3x1s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE5021F0089F;
-	Fri,  6 Nov 2026 14:46:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793976366;
-	bh=m4jzlpwnCHP/iJRE3j/cC9ctgB4TV/ZSpibJ2GNxpak=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=noIk3x1s1aJaNOsWT2PiYRjaW3Fqgx2DaHi4yFS2pf6f9VK+xQ5IRYfDDgOnV7E+P
-	 oYfXNCxUlc7a4c0wCiJqf7PIKnRLulEpofSVUOv2RlMnuM7B1H2A9fLD78L7Pn28sU
-	 CXys6ABmH0zB1st1UCqlRo8SLytuaaYOlBt+wtYry/BL80RXiq9Mf2k2OT6pnASnKW
-	 e8DZDhfm8IBYPQr3jS17cZYkghZRBgAvTeLm4eEgHCCQMjKgC+DwUxwgYAsfbjhbtH
-	 1fPCvAp+Oivfy5+Oh3EJ8rPCq1jrJsQW3qmvoRQ+bxigKfgvlyxe0t6vtkGEfRDQ1l
-	 FEM6Lqomg9qug==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 2783F2882BFC;
-	Fri, 06 Nov 2026 14:46:02 +0000 (GMT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5248606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:46:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5248606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2dbWv/ipPcBByrtWVppRgZPHES/QVz3Y/W26rsMlQ0o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793976370; v=1; x=1794581170;
+ b=qkG8a0sn6hJRKF9MRkMN65VJjDGQryVBJa36w08xlPDnYjkvEPsik8yvx0hCaSCjW51yh5eQ
+ CqRFaPlxDJdlOOg1HNDvoM6Zv+oFsf9WTmSqZ9XuY82/mS2bsvNK8PN0rBM0/H3mLwjpjlsdZ1g
+ jja1oFRWgR6JStXifi3buKi4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9a8c2e4ffcc01ae3;
+	Fri, 06 Nov 2026 14:46:10 +0000
+X-Mizu-Trace-ID: 9a8c2e4ffcc01ae3
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,95 +53,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Date: Fri, 06 Nov 2026 14:46:06 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 2/3] regulator: Add RPMI voltage service
-From: Mark Brown <broonie@kernel.org>
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, rahul@summations.net, 
- anup@brainfault.org, lftan.linux@gmail.com, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com, 
- aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261007100022.2512187-3-joshua.yeong@starfivetech.com>
-References: <20261007100022.2512187-1-joshua.yeong@starfivetech.com>
- <20261007100022.2512187-3-joshua.yeong@starfivetech.com>
-Date: Fri, 06 Nov 2026 14:46:00 +0000
-Message-Id: <179397636061.3231166.10683268235781980587.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2512; i=broonie@kernel.org;
- h=from:subject:message-id; bh=2ViexyKP3rKAYA4WhqMhgA31tYT59gK0ViKGcTvQbtQ=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLevtBU0po630513pvPrTrFEzlf8YWlzvFZLaU9Z2ra8
- 40X72WqdJSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAipdkM/0yeuZx4e/rPVa7c
- eo7fKo8nt7r8EbLabmLn7+GlczCzzYKR4V3UrOnfs2+d4Fb0O20r9nMOZ33QrU2s/1QDdx4ocdW
- bxAgA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <3c56f067d3d87156d8dad56c34b813543ef41d0f@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v8 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+To: "Alastair D'Silva" <alastair@d-silva.org>,
+ linux-wireless@vger.kernel.org, "Ping-Ke Shih" <pkshih@realtek.com>,
+ "Kalle Valo" <kvalo@kernel.org>
+Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org, "Alastair D'Silva" <alastair@d-silva.org>,
+ stable@vger.kernel.org
+In-Reply-To: <20261105025700.1655219-3-alastair@d-silva.org>
+References: <20261105025700.1655219-1-alastair@d-silva.org>
+ <20261105025700.1655219-3-alastair@d-silva.org>
 
-> The RPMI specification defines a voltage service group which can be
-> accessed via SBI MPXY extension or dedicated S-mode RPMI transport.
+Hi Alastair,
 
-> Add a mailbox client based regulator driver for the RISC-V RPMI voltage
-> service group. The driver enumerates the voltage domains advertised by
-> the platform microcontroller, reads their supported voltage levels and
-> registers each of them as a regulator.
+Thanks for the new version. Two comments below.
 
-> +++ b/drivers/regulator/riscv-rpmi-regulator.c
-> @@ -0,0 +1,908 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * RISC-V RPMI Based Regulator Driver through SBI MPXY
-> + *
+November 5, 2026 at 3:56 AM, "Alastair D'Silva" <alastair@d-silva.org> wr=
+ote:
 
-Please make the entire comment a C++ one so things look more
-intentional.
+> diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wi=
+reless/realtek/rtw88/sdio.c
+> index 172aa7ad4732a..e318fefe5b5e7 100644
+> --- a/drivers/net/wireless/realtek/rtw88/sdio.c
+> +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
 
-> +static int rpmi_reg_setup(struct rpmi_reg_domain *mpxy_reg)
-> +{
-> +	struct regulation_constraints *constraints = &mpxy_reg->init_data.constraints;
-> +	struct rpmi_reg_level_linear *linear_level;
-> +	struct linear_range *linear_ranges;
-> +	u32 i, linear_index, n_step, top;
-> +	u32 min_uV = U32_MAX, max_uV = 0;
+[ ... ]
+
+>  static void rtw_sdio_stop(struct rtw_dev *rtwdev)
+>  {
+
+[ ... ]
+
+> +     cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
 > +
-> +	mpxy_reg->desc.name = devm_kasprintf(mpxy_reg->dev, GFP_KERNEL, "%s", mpxy_reg->name);
+> +     for (i =3D 0; i < RTK_MAX_TX_QUEUE_NUM; i++)
+> +             ieee80211_purge_tx_queue(rtwdev->hw, &rtwsdio->tx_queue[i=
+]);
 
-Do we need to take this copy?
+ieee80211_purge_tx_queue() takes the frames off with __skb_dequeue(), so
+without the queue lock. rtw_sdio_tx_write() appends with skb_queue_tail()
+and does not look at running, so as far as I can see both can run on the
+same queue at once.
 
-> +	/*
-> +	 * Everything a regulator constraint would describe is already known:
-> +	 * the levels come from VOLT_GET_SUPPORTED_LEVELS and the always-on
-> +	 * capability from the VOLT_GET_ATTRIBUTES flags. Build the constraints
-> +	 * from that rather than from a device tree node, which would only be a
-> +	 * second copy of the same facts. Without them the core leaves
-> +	 * REGULATOR_CHANGE_VOLTAGE clear and refuses every set_voltage().
-> +	 */
-> +	constraints->name = mpxy_reg->desc.name;
-> +	constraints->min_uV = min_uV;
-> +	constraints->max_uV = max_uV;
-> +	constraints->always_on = mpxy_reg->always_on;
-> +	constraints->valid_ops_mask = REGULATOR_CHANGE_VOLTAGE;
+That seems possible on the firmware recovery path, where the device is
+stopped while mac80211 is still sending, since ieee80211_restart_hw()
+only comes afterwards:
 
-No, the driver should not be specifying any constraints.  Those should
-come from the platform.  These regulators are described in DT, their
-constraints should come from DT as normal.
+        rtw_fw_recovery_work()
+          __fw_recovery_work()
+            rtw_enter_ips()
+              rtw_core_stop()
+                rtw_power_off()
+                  rtw_hci_stop()
+                    rtw_sdio_stop()
+          ieee80211_restart_hw()
 
-> +		ret = rpmi_reg_get_attrs(rpmi_reg);
-> +		if (ret) {
-> +			dev_warn(rpmi_reg->dev,
-> +				 "voltage domain %d initialization failed\n",
-> +				 rpmi_reg->id);
+rtw_core_stop() clears RTW_FLAG_RUNNING, but it does not cancel
+rtwdev->tx_work, and __rtw_tx_work() does not check the flag. So a
+tx_work that is already pushing frames can append while the purge walks
+the queue, and the list and qlen get corrupted. On SDIO this path is
+reachable since dc16902cad9c ("wifi: rtw88: ps: Trigger firmware
+recovery when failing to leave LPS state"). If I read it right, that is
+the only rtw_fw_recovery() caller there, because rtw_fw_c2h_cmd_isr() is
+only called from pci.c.
 
-id is unsigned.
+A frame appended just after the purge also stays in tx_queue[] and goes
+out after the restart with the TX descriptor from before it, like with
+the rearm in v7.
 
-> +
-> +	/*
-> +	 * One line for the lot. A domain that did not make it has already said
-> +	 * so above, so naming each one that did only buys a count.
-> +	 */
-> +	dev_info(dev, "%u MPXY voltage domains registered\n", registered);
+Freeing with skb_dequeue() and ieee80211_free_txskb() in a loop would
+keep the list intact. Maybe a second pass in rtw_sdio_start(), before
+running is set, could drop the late frames too.
 
-The core is fairly chatty...
+> +     for (i =3D 0; i < IEEE80211_NUM_ACS; i++) {
+> +             queue =3D rtw_tx_ac_to_hwq(i);
+> +             if (rtwsdio->tx_queue_stopped[queue]) {
+> +                     rtwsdio->tx_queue_stopped[queue] =3D false;
+> +                     ieee80211_wake_queue(rtwdev->hw, i);
+> +             }
+> +     }
+>  }
 
--- 
-Mark Brown <broonie@kernel.org>
+When the 8723bs back pressure has stopped an AC, mac80211 marks its txqs
+with IEEE80211_TXQ_DIRTY the next time a dequeue is tried. On the
+recovery path above, this wake runs before ieee80211_restart_hw() sets
+in_reconfig. So if I read it right, the wake_txqs tasklet clears the flag
+and calls rtw_ops_wake_tx_queue(), which returns early because
+RTW_FLAG_RUNNING is already clear. After the restart those txqs only move
+again once another frame is queued on them.
+
+PCI does this reset in rtw_pci_start() since 6ac7db1cea43 ("wifi: rtw88:
+pci: wake the TX queues after restart_hw and interface up"), through
+rtw_pci_reset_tx_queue_state(). On restart_hw that runs while in_reconfig
+is set and the SUSPEND reason still holds the queues, so the marked txqs
+are woken at the end of the reconfig instead. I think moving the reset
+and the wake to rtw_sdio_start() would work here too. It could also take
+tx_queue[].lock there, like the 8723bs stop and wake helpers.
+
+Best regards,
+Luka Gejak
