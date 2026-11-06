@@ -1,62 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969374;
-	b=H7IkMGYrL8aS5+vHarNFtSmyzUYOUWpdhhfPmTpbhQ/6ucmGgvqiZMRtRuepqOtqIKRR
-	 BYrQjTTN4LehfF621lA0rMFVdwgKD2Js7PMCRsQmQX9iHkvEupHK0JNDk9dSTzfnRBYuQ
-	 lRghWS6iFJHAxDkYz4WcQEmxS3Hm5a6aqgXS8SEI30car3DlvAhRMvYeLTl3q45oUIM+t
-	 PLoVWZbAHQWfUSmHoUIYJvBrQqUOSekwNp92RqRqAS13CbeErzQ2WvVYdy56vK7gpSrC2
-	 Hp8cQ/VxKkfvtZ1k9wAaPY+bOttXKE6RcBSG3g7voInySGHEjKMSwZkQTLWYXS+D5iQ==
+	t=1793969389;
+	b=sgukNzKYwE/8Ygex3SuzSBcupnwsXoRdREllfItGAyFlLcfltaAkhcLAFkpVvh+3S6Bc
+	 aLmjzwaWSTbTDYJwvqepxl+aBd+UMQRK6jrbY2VnmYmM45P4v0bKMdf8pAJrd0Lrnq4P7
+	 mFp4PUF6PQK/xkHFGEvVub3nKjFd/3hQrd0sdBB7hEISPP35lIeaB1QwAl5yonCwRIvps
+	 3d7U2mHVbI+gzFC27aKIq18nBoxWcR4yJO/9CHzNRaTuFMEQHd3BtsFEONrpuL6BMEc4n
+	 1juWrOjbXlqm9fNtngy1WdI02yPhtoXRKMgNBtvpxgBGozZFO8HPk3YHROZk8mlz97g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969374;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=MfInTUzq1I5bmAHdpslIMIN8700/Qi0ASVtkQGQk8UQ=;
-	b=llcImx39G4RokfgCJD9WdTQcKkeWDUMHAvmgS3+tGl3kzS0eRr7iDhMT+w6PAecuZI9j
-	 3XfKfiJlxIAB66c4XXKXK1DDBgmODG11qJ4waXuyQrhyp/0vxcpCgcVrgtFit8xb6AX2F
-	 EXJmiWdZCJndrY+S1nP4nCmmqgQuqCLj681kJS7yG0Mbd3UY7z0nygYwOGUx5YttRa3er
-	 HonF2zIsWKM+VFIcN77JhRBXZaJXJ7IrNW9OsEhQB364a6HrIV+ycdESqg4+2GtZAhiBm
-	 RombijUFzpynZlggjsyHvyYumxYJ2efaI0K8m+hvZQcpdZAETF+ThWbdAMnN+zuKEAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969389;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qPhpf2p9MBpKx7W1eTbdSdi+i8GMw0zE6vGmAbKeBi8=;
+	b=GFw357ytDZSPXiYDU4RMBWsClLpO9W4XJHTqluO+Vsd4s620qeRmJgvoBHMVNJDrat9T
+	 9mGuvs6Ff6ZI9EwDl9ghfpC02hZIUvJBNcvW4cx42Sf9L50eEulxyzwAb3UdpUDoeWwGZ
+	 v7M1mTv6tzqA5joKN3dvLmRbsyFjmzDlPlsXhKTAAQwrsnknCEerzuTSNn8v09iSz/S2x
+	 O5dJeLzOEKK4kQFrzfClBxX50GX3MMtLh8383eTI0WFO73un48PS5WyUyZadv7b3IIvok
+	 oylPmusyOZZ9d076Sn2BOsZyCmdfMhCkyEzfDQOKvh9WV8cqTH8waxpCXLQG6E/xK5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQKuXGZh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=e4CTlE6U;
+	arc=none smtp.remote-ip=185.70.43.98
+Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495B3606A330;
-	Fri,  6 Nov 2026 12:49:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78634606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78634606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQKuXGZh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFFE1F0089F;
-	Fri,  6 Nov 2026 12:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969374;
-	bh=MfInTUzq1I5bmAHdpslIMIN8700/Qi0ASVtkQGQk8UQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=IQKuXGZhlNxc0vzYiGGG+WWptr0Cybd1J5cdy5LQiHbvReQTrkbSs0p4OiW+tZQpT
-	 DdesXCviqPJIoOTqGY/F3iBQfExbDFCnbkQurepOuHezZGxYNMtBbqrqE7pbIrPvvJ
-	 DJFaVWsGWQjtXfqcl5q+zddqS+az0RX7yMkmWHDDVPC8rViggdYUeU26RL8n/5iFrk
-	 +N3Ch4zil+t2FNEKgT5VinUrYkkoX2g6skrbpg9smn71JvMf/6m5IM9yX350EDKIZy
-	 GLIdJoluvgypaQIljk//9iv1WUuNZsphhnjfCZSYY8T0hnqyyh/GA57cclFQHOYzEa
-	 PgbjxcN1NSMhg==
-From: David Hildenbrand <david@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Hugh Dickins <hughd@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Zach O'Keefe <zokeefe@google.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-In-Reply-To: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
-References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
-Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate
- in MADV_COLLAPSE
-Message-Id: <179396936975.4326.8320211724584654723.b4-ty@b4>
-Date: Fri, 06 Nov 2026 13:49:29 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=e4CTlE6U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1793969386; x=1794228586;
+	bh=qPhpf2p9MBpKx7W1eTbdSdi+i8GMw0zE6vGmAbKeBi8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=e4CTlE6UIEFjDMVkIHybSKBQ+enJn2GNqVIn2Y5xuQP3PpbksfXwuAbLqILyuxRc8
+	 fZW57YexBljANZH4snonrZTKAcaG1h1esDIqbd4VXPnvgxwF+Q4PVVAqyqZZUnU0jo
+	 qv6n2c5xIFWJQ5/UwAUeoa/sKy153szezxROED/46yPROA1DNA0/edN13oINQBFA7a
+	 4rWtu4O4HPx514uskG0G1kL9VNPFaS345uGKVT8nKzZ87x+2KAVl1ROFm64i3fCkrh
+	 8Nsh6rJ+D+QoNgPBoZlkC45L6eewr8PPcNXSJ/L7Tk9P5NkjYF8i7A7gLsVRhYAdL5
+	 /WOoxm/gVnYxA==
+Date: Fri, 06 Nov 2026 12:49:43 +0000
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, linux-input@vger.kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] HID: sensor: custom: Set the owner of the misc file operations
+Message-ID: <20261106124914.2892604-2-ca@modelmiser.com>
+In-Reply-To: <20261106124914.2892604-1-ca@modelmiser.com>
+References: <20261106124914.2892604-1-ca@modelmiser.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: e90bc27ff54b1d55c1708261ebb21b58e7a5e218
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,44 +64,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 05 Nov 2026 19:16:44 +0100, David Hildenbrand (Arm) wrote:
-> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
-> uptodate. For example, shmem fallocate() can put such folios into the
-> page cache.
-> 
-> collapse_file() already refuses to proceed with folios that are not
-> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
-> such folios, leaving handling to the page faults.
-> 
-> [...]
+hid_sensor_custom_fops has no .owner, so an open file on the misc node
+does not pin the module: with the node open, the module can be
+unloaded, and the file's later release() calls into freed module text.
 
-Applied, thanks!
+Set .owner to THIS_MODULE so misc_open()'s fops_get() takes a module
+reference for each open file.
 
-tree: mm/core.git
-branch: for-next-fixes
+Found by review of the previous fix. Tested in QEMU with the driver
+built as a module and the uhid reproducer holding the node open. Without
+this change, rmmod succeeds and the later close() oopses in filp_flush()
+on a page fault in the unloaded module. With it, rmmod fails while the
+node is open, and succeeds after close() with no oops.
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+Fixes: 4a7de0519df5 ("HID: sensor: Custom and Generic sensor support")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+---
+ drivers/hid/hid-sensor-custom.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+diff --git a/drivers/hid/hid-sensor-custom.c b/drivers/hid/hid-sensor-custo=
+m.c
+index 47800efdaf..bee612eb1d 100644
+--- a/drivers/hid/hid-sensor-custom.c
++++ b/drivers/hid/hid-sensor-custom.c
+@@ -745,6 +745,7 @@ static __poll_t hid_sensor_custom_poll(struct file *fil=
+e,
+ }
+=20
+ static const struct file_operations hid_sensor_custom_fops =3D {
++=09.owner =3D THIS_MODULE,
+ =09.open =3D  hid_sensor_custom_open,
+ =09.read =3D  hid_sensor_custom_read,
+ =09.release =3D hid_sensor_custom_release,
+--=20
+2.43.0
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/khugepaged: don't map folios that are not uptodate in MADV_COLLAPSE
-      https://git.kernel.org/mm/core/c/d6d183ac
-
--- 
-Cheers,
-
-David
 
