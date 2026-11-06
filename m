@@ -1,88 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958640;
-	b=gt3SdAzbLmnWLqgwdhYCrqk8JKJ+CufZ4PaWyI3zqztHSscop2dADMNtXGNNtiOfNrFQ
-	 PnilOgSDpCWg6ISeI6kAxj8MUtK/JTYdpwqobrisV9tcP2m1iGImkHMoPPYLJl7V1GEgf
-	 /uQ87oGo2SFoplqpLloIPQuWqSJlzbnbz9gAQXEwwcwLmtCtW/UMVbKdQFkYuERm7QuuA
-	 wPQsJhtJ1MlcBWI0piIvrB1KAQBtlMozpzlo4Wphws58MbFkxUcoPW5Xi6Z1A1k4GTOiC
-	 x5bLRlc1fBeWn5pMmarH7T1dkJXeY3BeluOr2btWJ8wgUOCGSjzpDcbCpVT7P76+Pog==
+	t=1793958645;
+	b=P6ALPx1h/wkqIyq+ikdeWLjJTHIan77BpQC7bVFgh0uCcDbxlbowNOu/f4cLMiDKjPv8
+	 fkZayKHkZ6kKWD0Oe0V70VsNffoNOAyBlg7U7Wt4GToZz6Nde2BEE7h+BgkRVUSdfffuP
+	 54qX3U7aknQLbDyRlPXelyfHEL7W1lhrsCLzvwmv2MCBPk2yljnT+Bpn13zNVznJ9fWGy
+	 /WtH8MZXjK1sqGI1/a5WvCViTSB8unT9gWili9K3LMBijZVKtzQNSt+p1D6rQt1F+5ruL
+	 lC0KykKh6CkSgNIWM72LmGfxhuJnf9143Z1N4eJBUqzbQNMlN+95EbVHlG+iskZsasQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958640;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RupwrtSRCRknDTCP4U8+mHVorluG3D1aDqrqCuXGL/o=;
-	b=H5+8YVA17QG8OSHJ2jsyKTpDvNMsMJ0X1lO9auZVmS6ug4+QNVta7bzFL/h2MnQmc3V5
-	 KKuMcVGBPEF3FY6Z/ooeSp8TsiddnroFTKrhrtl0eCma8iTWP3IhJRW5wIqKLWj5PRqIR
-	 nCNyXMJwNQlza7jeX2IHilF+TNiiEpu3WwJdM80fvdV3Xf3sfTqOCNhcaRaYtx2NTq7T6
-	 ToQpdNLsf1RcbaDWooPta/FH7abN/y2dknleaIUFtQlNahugabyP85Yso/iWGezVP/ZDK
-	 fqOgoxdOrzYC5lHYlUWKN4QwdFYXrHt4UX4EK3uaCw3STMAdlIffjGum+WNfSCRdeuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958645;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=hgQgGBcIBM5U1Sq+2XdDaQC19jinwG2tz2ISob/Xdtg=;
+	b=TEYVg0AjKxTauGzmPJWtvex0SN3//NMtu78PIdyvxNnrRrNSFO/vkIJe6LesBqWt/fHw
+	 aJsLAWSy+zHkMBivk2pQA4BTvtdnVBB/O8kBhTSDYU5sWdpFs5nYA/flPeqLtgykxomw5
+	 sVOTkbSyksMeRT5wD9cmu3CcIfHgyTUynV9McuAfqtVM9Qqtkb1eJbhB/gqZM6MfF0MV9
+	 eY/5wm/+OAYWFqQNe0IUyz7RzhI/N+X1FH0kM2uUWBy5goaY159Cztb6IGBPuuo5Mef+s
+	 gRyc6q7zSSDBp7BQU4PH4taIJZgNSb2O58LSXbTuK6m5B2cj//IhghssVaw+NQEmCyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t1D9H5iu;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="m9/uXhCk";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=v2KgS68d;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC206606EEAF
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:50:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC206606EEAF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934A96082BE8;
+	Fri,  6 Nov 2026 09:50:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 934A96082BE8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t1D9H5iu
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so447401f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:50:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793958638; x=1794563438; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RupwrtSRCRknDTCP4U8+mHVorluG3D1aDqrqCuXGL/o=;
-        b=t1D9H5iuTUmjdPhOVJmZIub2cA7iiSUr41ZQ3yS+raxwi2K9JW5USUNO1Ej8W7ktyy
-         jDlpr6IYaICDt5N3782Vm+vT8R7N+VD6e282WCZUIr3qHs3ymqVae8nOek4p5Qr6O/oS
-         dqZpOzvc4Swchkzri6wDXvUOBTWJM5lyg5UOT7Y/iAiO/bDMWNay73N2vmeXoqlrNWa3
-         CWfy2PPZ8DtSbf0uhLB61kRz/tBH8yhEbP0mgAap9N/KETVXb+EF1zhC7HOG5tW8CGpR
-         ZOvm0YUZZDiDTRNjJd5C/6nVAnSAYqMrPeB1m3dSCFZzIl8NAmnARF5bgl9O49QSbyKD
-         /grw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793958638; x=1794563438;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RupwrtSRCRknDTCP4U8+mHVorluG3D1aDqrqCuXGL/o=;
-        b=TbpDJwgpyYztBgx+uCWzSv5LqVqBUxcbL5Z60/rxYiW38YwPLt8Qjc0TLzta6dc5ER
-         1lHH31lXF96czDylrQBqkg7vap8K8rvN150JrH9dXQ4XeI4+I6qYPy5K330yHUhvVEr4
-         +QeHrdDQF/HVopRW6Hy1u6HOAlQmWd7iKbEUEPCrPvvBJn5TuTtASiapzA9d3OLBTYkz
-         2i9v9osRimXXYg/Byl9ryKTdQgw/z5wa8ldIQ/wLLk7rXW38JjYfRbJFqbqAt2t/M/s1
-         2USXxHHGeEdBsyBzG6nNuh8kAzZcJ7uj5FuQxMk3skhXQ/P4aLU7acbTp1DCBG1CEq0y
-         +shQ==
-X-Forwarded-Encrypted: i=1; AL+hErEsYmWzFamjYBaICxVJQ/TiGtU1C/eZOKZabvXXXtQfO+Dx2mQ/Pj3I+taKytxBzNg7eHP6+7oNh1yy8JE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Hxnx0tUmjfo3UPg+1XE5bXPEImkZ6xppJkbjgUtUaiPgunNDs
-	H/HS1Dcsuh9y9M4B1i7fU2Ww1w5UKAva1hCvGFXmXc6AUp0SCyyI0G4n
-X-Gm-Gg: AYBFou0Pms+u5+5b96V2vLhFqL3Cr+rDFndj8MTG33GV13dvOyQXsyyB14CEmo2bB0H
-	9ppBUexb5i2BLxtU8wTY3e7QiLL4iu2UvumgoMIXB9MeJC4qkofkEsne50NnGDlMq3lpd3nP0rp
-	Df8SaUSHh2m5n7vtIRgttnM5kGgNk7bXK+RQYmvvhiflgOfEfwFlN0s4cpONqgJV2Z2g6/hxE0z
-	ZoyKzkraSItb5G0OV0oSXnYuQqFLimwbU0XwXyHOe7mnYRtct/0MVRAlfymQftvSPnLto2E3568
-	6HtqAmVc0LzLctnDuc7eW7cVsGDqfaYiFpBPIGP2pA6oBasrqFh7+I635DneDBe+Dq/WfuIOzl4
-	dkORA4tL4TfkPaHcHRAsbGSOZVsdgnlHmDi70Anijrt31qnY/yNAjwuTV+IRe8Ffs+UQQ/ZcU4u
-	gC6Hry9XGreHXQmekesFQQq7FpR/7zU5oMyOJvdky7MjqBmYWC1oQMYAz2TkeKFRB4WilwitRnB
-	kLKM8Bc3yUa0GJHGPIPlucIImqH1NKSIwWggcqL670tmdXm/Y5xJfuyXUN4mG7oLN95ofLbdxi3
-	RHoBp2JrXYv+zzuDQvfLGrI=
-X-Received: by 2002:a5d:5d82:0:b0:491:83e7:32bd with SMTP id ffacd0b85a97d-49277f88313mr3982559f8f.50.1793958637679;
-        Fri, 06 Nov 2026 01:50:37 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d3d60e78sm2755152f8f.1.2026.11.06.01.50.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 01:50:37 -0800 (PST)
-Message-ID: <6662ae76-c8dc-4bc5-9730-bf9f537ca9cb@gmail.com>
-Date: Fri, 6 Nov 2026 10:50:34 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=m9/uXhCk;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=v2KgS68d
+Date: Fri, 06 Nov 2026 09:50:41 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793958643;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hgQgGBcIBM5U1Sq+2XdDaQC19jinwG2tz2ISob/Xdtg=;
+	b=m9/uXhCki5dlb8jGW3Yi4FeHix+2zhND4LL/mPYHF/xEU6kCd2pIU4NT7dFGIBYbJJvU/l
+	sE9cnINSzDlMMNbn5KrB3e06r9f6wt4xv7vsBL+hGf2QJw4ToZa3LOTgJKTrOr29P9aESk
+	gdqGHhijRrvPoTgViJumkIrMH54l8CfJ3p/cpa2s4X0MT+Pf88QeyWXXLLoleidqLvdz2B
+	MAkmDEHdECFORbQoR6CC/kleYm9k9kli4NRNTesZU58LBFapDUxi1Jd6Rusl1UcRNP4UVN
+	PGkyU+OVhd777LtDK3qQ5EO1d/xp0iI0Kikh4gGs2/9HgoYdOUCWseSRrj7qqQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793958643;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hgQgGBcIBM5U1Sq+2XdDaQC19jinwG2tz2ISob/Xdtg=;
+	b=v2KgS68dFRktUt1cCxgUtBtSxiFQZr0e5K5rwqJWBduSWjOWvelx3s4AYUgcXkGgLMo2A7
+	CgTIwIdsb4YPYFAg==
+From: "tip-bot2 for Nickolai Zeldovich" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: sched/urgent] sched/deadline: Fix this_bw on class change of a
+ dying task
+Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261025124657.836229-1-nickolai@csail.mit.edu>
+References: <20261025124657.836229-1-nickolai@csail.mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,66 +80,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] mm: limit pagecache folio refcount when splicing into
- pipes
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard <jhubbard@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- iommu@lists.linux.dev, stable@vger.kernel.org
-References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
- <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Message-ID: <179395864120.1009794.11212049218049367777.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/5/26 2:10 PM, David Hildenbrand (Arm) wrote:
-> Similar to mapping pagecache folios into page tables, let's reject splicing
-> folios into a pipe if the refcount is at it's limit, similar to how we
-> handle it during GUP.
-> 
-> This will prevent more cases of possible folio refcount overflows with
-> large pagecache folios.
-> 
-> Let's keep it simple and check in the two callers of
-> splice_folio_into_pipe().
-> 
-> Also check in try_get_page() to cover pipe-buffer duplication by tee()
-> and partial pipe-to-pipe splicing.
-> 
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The following commit has been merged into the sched/urgent branch of tip:
 
-LGTM:
+Commit-ID:     0c93e25ef11a9dee43f6076bd1f09771dc2b167e
+Gitweb:        https://git.kernel.org/tip/0c93e25ef11a9dee43f6076bd1f09771dc2=
+b167e
+Author:        Nickolai Zeldovich <nickolai@csail.mit.edu>
+AuthorDate:    Sun, 25 Oct 2026 08:46:57 -04:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Fri, 06 Nov 2026 10:00:50 +01:00
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+sched/deadline: Fix this_bw on class change of a dying task
 
--- 
-cheers,
-jose a. p-a
+Moving a SCHED_DEADLINE task out of the class with sched_setscheduler(2)
+after it stored TASK_DEAD in do_task_dead(), but before __schedule()
+dequeued it, subtracts its bandwidth from the runqueue's this_bw twice.
+this_bw then stays short until reboot: __sub_rq_bw() warns about the
+underflow or about running_bw > this_bw, and GRUB reclaim for
+SCHED_FLAG_RECLAIM tasks on that CPU is miscomputed.
+
+The class change dequeues the still queued task with DEQUEUE_SAVE, which
+removes its bandwidth from running_bw and this_bw. switched_from_dl()
+then calls task_non_contending(), which, if the 0-lag time has passed,
+removes it from this_bw again because the task is TASK_DEAD. That
+removal is meant for the dying task's own DEQUEUE_SLEEP dequeue, which
+has removed nothing before it.
+
+Do the TASK_DEAD removal only on that dequeue path.
+
+Reproduced under QEMU on x86_64 and riscv64 by moving exiting deadline
+tasks to SCHED_OTHER in a loop; with this patch there is no warning.
+
+Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Acked-by: Juri Lelli <juri.lelli@redhat.com>
+Tested-by: Juri Lelli <juri.lelli@redhat.com>
+Link: https://patch.msgid.link/20261025124657.836229-1-nickolai@csail.mit.edu
+---
+ kernel/sched/deadline.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index c0ebdcd..dfae086 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -444,7 +444,7 @@ static void task_non_contending(struct sched_dl_entity *d=
+l_se, bool dl_task)
+ 			if (!dl_task || READ_ONCE(p->__state) =3D=3D TASK_DEAD) {
+ 				struct dl_bw *dl_b =3D dl_bw_of(task_cpu(p));
+=20
+-				if (READ_ONCE(p->__state) =3D=3D TASK_DEAD)
++				if (dl_task && READ_ONCE(p->__state) =3D=3D TASK_DEAD)
+ 					sub_rq_bw(dl_se, &rq->dl);
+ 				raw_spin_lock(&dl_b->lock);
+ 				__dl_sub(dl_b, dl_se->dl_bw, dl_bw_cpus(task_cpu(p)));
