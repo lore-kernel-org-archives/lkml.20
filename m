@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960847;
-	b=Rh6NRe/m3v2+pO0jXpM3lmvf6G98od2mtkUvE7gb0cApnYUgyUTfAIQDrAI8j/gXEcYW
-	 6uDbm7Weq+gNmKR0eq+EUW8nqWedOp4i0guj4BL2ExXuUqK03UNgOyLRkXVcPvog3h/+o
-	 1eeWEmNYE8LHj8AgU0i4MXkTntVO44wkkDpIT9qVF2XaEM5K1sAtdyK/0V5o0I53jaVrI
-	 zj8Q7KqlsX1Db6LF+j+FBOAwx/TbSpn5MlN7ku2FfPxsjhLAPgpS5wyUyjvSQ+7FuKZe9
-	 L2MPzB7QUEINRxo0d2Ul1sQe2OEAmx2Kn9sxVHIthBw8Mic9qN1mlWlYwCMM7/opLOQ==
+	t=1793960861;
+	b=yDTbj+dV5LD/SJufzOklD75+Xq/y34elCTuAcx2+gnCtjXf5iu+ScohjT1omkoTlY5tS
+	 mZDl1UuZ7ILhtRKup7VFVdky+UT8N7unaZNiBOv0/U8bZmzY1grMnyIgF57aiKZcZnroZ
+	 iI5o3DSHQvVc6xGyx1dkSy6B48siR5JbxgZbMSfocKCqOZHdMlcNgQQV0ZG+qDW67ze+d
+	 37adKWiSgNRpUTbucfkgwwMB23kswdcv1zyr4YwXR3YVTZ4b8zN4FYaU7jrBnj2aWc4AE
+	 uHSM7H7QwhPM/GgpWGAAuFcI8t4GBs/l43xKLuomOzRj5CroTfha5ZAYHhkxUKEF7tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960847;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EAbgVGUld3HpnIPduKowYF30RMUoJTrsR13doWBMVWU=;
-	b=fAGdCE4cYlyH4Yswj4C1bb7XGAf3NjihjdPng0wGXbarfjP/9u0IDPKA+y/tDl0clVBz
-	 rjNWjpHZoIQEAQPR4HuNXB+wTSUPE9SAcGa2pdAxMGBebaw6wr8y/U5jv/tXfNWQNmYLN
-	 +Dm5HtLMIPPH8oWx1o19Tb0Zd1S4EU2LTcM3wJ6HbZARiNuEP3ki1BL2lLirF9x+aTjjB
-	 ONTP/GHti8eOUdm6/ccfbsWUVp6gOnndwighAnvZZwW29uWGrF2Pdv+dVpKcWIBCzTGTu
-	 teK3CcfSMK4VKixguFivt5RprSSfxGmyl6c3U6CczEGMPwvtTZjybsVgeOtznc/EiOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960861;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=SxUZdl1nxNmZdMNHl/mAId5VPOOSyhyBaIunfeJwQ5s=;
+	b=k+mctIpF8SzeCDRbuJ1KMTEIgijLh/is/+rficm/qzy1b2mTq6ilqqGr3x8YqRZbMrYS
+	 pFLVIMzZh5Q1x2RDtkKuP9pD5LyOH/DkqDBOM7H/zj8rFkKnwi0jwiJK5koftayX280bG
+	 ICmrvO4/3oomXoE4uYUz3jqPqh+hVSxdSYLfe98WYFOuBWondNT1A9Itu0bLODt03LGhT
+	 FSk6odgrf/SxHTBNMhsNF+KYZlruUST2SKtZLy6fU9V2CMQO5kezOxzJtUYuHZNDgk323
+	 pFBu83bFJI0ZAtmNinjOjx0WnE0rTEAt7OKh0pB0IxGvbnOXIoXcZMv3JS2vsxaBc/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GC+TsGsE;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=h53tQAGQ;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE4A606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:27:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CE4A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C6E606A32E;
+	Fri,  6 Nov 2026 10:27:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C6E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GC+TsGsE
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so5044275e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:27:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793960845; x=1794565645; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EAbgVGUld3HpnIPduKowYF30RMUoJTrsR13doWBMVWU=;
-        b=GC+TsGsE8wO2Hqmh/BvcfoRAtl1hYOJCA591nhaN0pElgXjO4M20iBXdOIPR3RQliw
-         3qlaglFraP1oT1m4iODRdxxnTpqnFA3+vCr/3V7msrqxK4ZHzvxYrnVNN+YvsVNZ6n8X
-         RSYs8R+x3aGovviFhxMIPmkJ5JTzuWi+SsrBNx53LoqQq0YT2b+SO5ET5HXiA7wgA8pQ
-         glJJ3s7RN6tV0DY2ad7Pb+XT06BUX1wF423tkB2AGe1rUmodr15NWHEZbbIth4uAdpr3
-         sQRJw3yoUJ5ShRTxkaZhL37nzua6weueFVwHdIgRv3mph1yPnozKtZY5bq9F6AjIYjaC
-         rGvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793960845; x=1794565645;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EAbgVGUld3HpnIPduKowYF30RMUoJTrsR13doWBMVWU=;
-        b=Jt80Bg+UsgSHY1dBt/m97XPAYvqmuT+5ZTJMkoj6bRRj6Dc+mieVRVwjhmNdnW/lHF
-         Alz86H3PiJYb9yxqRmDRhdJIleVrxUP8IOetz3ZgIPhXUUtQLBI+bxyfJvMyYTnZ7x7v
-         9pAW4SAt6yBw3tyEpP+588UaWGsJaNO54kEWCtSASCwsQNkuzA4hXTIpDHTmHhVNin/e
-         zVOdZpsQ15LuXyCG6ByR3ML46Q4+Fu1L+GIhnXUFoZiGMFTyHyxhME21RPhl6O2iYhjE
-         kGy5pT0xk0K+VtKdsMeKRZYsHg/4GP/5djhyhAFaQG/2RuU11FDw6sjjs20HR+1mK/0d
-         hxaA==
-X-Forwarded-Encrypted: i=1; AKwUvBx58FjB0YeRiRBKCcYzU1e1SrX2w46J+5F1ecR6LnKoXGPHnuKr8mCx11jabOrOhRVhxoSOKe9pDfTPPfg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MqBfQRDvnC2zb8P0KBDwlRnclNmXLBBR6i6+ohOeNQViEE5jN
-	4XhTxO/Eb6yScab/qJqAId74L0q4Fyyq41WLonnhuTKH5aPBH9tol2cZ
-X-Gm-Gg: AYBFou1acB11rHAo9S8L+AWKu7XkWfSOV5WOExUU+AI8W6YrFodBJ4lqgPrV+9LAM9z
-	WNaKQtNDDyd9TdejPtdqr17YOwTpP9mg+tateeVvY1gw12UxsOcS9Vb+XTFyX2jpXxxyQ//8DlU
-	oTf63sotT8E5FpgeOzitLdli8jedMXMk1yWw7I5wdIyHHgFLlg3iVlnGDWGCwEYeff6wuCOkkPU
-	cRD9cl5ob5AenQ35MUb0qr6jOAAyCB1Esyv/+7vBtSF86UtbG7trt2NVRmSQ5OLZPX0nGd06iuC
-	B87q7fDsP05zVj/raTlwlSVWgd5CSzikx+5uhrfoD6cXmSRCwvIsC9+oB96resA+Byxjzdkw+YN
-	eTW8h8Dilb3Uz1Qtdqemr2SUSsxx3g//zwlQwR4A9TlXcMJcGfRwwrnTj5Lz4h9ufW1+29szEpc
-	wsTFXGihGLlZe8G3JMwVwf72M4VVlwUrPbY2rb0dhJJP6zEIG6tfUKIU6P+VESsST/WO2nY4JaX
-	LWBWjzFEvSsEcmsAkMNGu9gKTradECt3AEwW1fMBaGK6XjEAQQ/nZParqK2WsUCad/HrJWX7cEo
-	X2HjoapJWFMkcgAONsDYgRwsryRYxco+vi6Qrr/R0hZOHr8sxBoe9Cbng/zvigJ1
-X-Received: by 2002:a05:600c:190d:b0:4a3:59c7:f226 with SMTP id 5b1f17b1804b1-4b6de4a5d67mr34911775e9.6.1793960845310;
-        Fri, 06 Nov 2026 02:27:25 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6df5eab6esm59845305e9.1.2026.11.06.02.27.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 02:27:24 -0800 (PST)
-Date: Fri, 6 Nov 2026 10:27:23 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, mchehab@kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com,
- morbo@google.com
-Subject: Re: [PATCH] media: siano: Replace strlcat() with snprintf() in
- sms_ir_init()
-Message-ID: <20261106102723.1cc4d350@pumpkin>
-In-Reply-To: <CAPDEY+X7q2yeWaa7J=Nre+pQqUa2C760Hh9NovdGNSQ=VsEr8w@mail.gmail.com>
-References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
-	<ausVkYs1-3rJ5Fj0@devuan>
-	<20261105113229.4126d872@pumpkin>
-	<CAPDEY+X7q2yeWaa7J=Nre+pQqUa2C760Hh9NovdGNSQ=VsEr8w@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=h53tQAGQ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=SxUZdl1nxNmZdMNHl/mAId5VPOOSyhyBaIunfeJwQ5s=;
+	b=h53tQAGQkAc6oUDOj1QWs7jrAmp3A7l4aeZkvG4ny3FjBaa0BPtLnE9b1YH4Wi3QdvU+wQqJU
+	R/iZycLsdkiiUeQ73aC4bqFkUWlwU65f0HQ+xed9nr0AW0Rx9rnG98M0+I7MjNm+oGkad21luYh
+	jTSKQsEtgoATxj4BULMkQB0=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jLb2X2gsXzpSwn;
+	Fri,  6 Nov 2026 18:27:00 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0467B4063F;
+	Fri,  6 Nov 2026 18:27:29 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 6 Nov 2026 18:27:27 +0800
+Message-ID: <5a096cca-713a-4449-83dc-c763dc06c085@huawei.com>
+Date: Fri, 6 Nov 2026 18:27:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,94 +62,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 13/15] KVM: arm64: Add HDBSS buffer size ioctl for
+ dirty-bitmap mode
+To: Leonardo Bras <leo.bras@arm.com>
+CC: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
+	<yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>, <yangjinqian1@huawei.com>,
+	<caijian11@h-partners.com>, <liuyonglong@huawei.com>,
+	<tangchengchang@huawei.com>, <yezhenyu2@huawei.com>, <yubihong@huawei.com>,
+	<linuxarm@huawei.com>, <joey.gouly@arm.com>, <kvmarm@lists.linux.dev>,
+	<kvm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <seiden@linux.ibm.com>,
+	<suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>, <mark.rutland@arm.com>,
+	<seanjc@google.com>, <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <skhan@linuxfoundation.org>
+References: <20260929103655.85107-1-zhengtian10@huawei.com>
+ <20260929103655.85107-14-zhengtian10@huawei.com> <auioRICO9Frhk-zT@LeoBrasDK>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <auioRICO9Frhk-zT@LeoBrasDK>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-On Thu, 5 Nov 2026 17:44:00 -0800
-Mariia Nikitash <nikitash.mariiaw@gmail.com> wrote:
 
-> On Thu, Nov 5, 2026 at 3:32=E2=80=AFAM David Laight <david.laight.linux@g=
-mail.com>
-> wrote:
-> >
-> > On Wed, 4 Nov 2026 12:25:17 +0100
-> > Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
-> > =20
-> > > Hi Mariia,
-> > > =20
-> > > > Date: 2026-11-04 01:02:39-0800
-> > > > From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> > > >
-> > > > In preparation for removing the deprecated strlcat() API[1],
-> > > > replace the strscpy() and strlcat() calls with a single snprintf()
-> > > > call to construct the IR device path.
-> > > >
-> > > > Both the source and destination buffers have the same capacity, =20
-> > >
-> > > The line above seems irrelevant, and potentially confusing.
-> > > The size of the input is not important, because since we're appending
-> > > stuff after it, truncation may actually happen. =20
-> >
-> > And gcc's stupid format overflow check is going to complain. =20
->=20
-> Thanks for pointing this out! I initially tested with Clang, but reproduc=
-ed
-> the warning with GCC. I've switched to seq_buf for v3.
 
-That is entirely OTT.
-Currently scnprintf() doesn't complain.
+On 11/2/2026 11:12 PM, Leonardo Bras wrote:
+> On Tue, Sep 29, 2026 at 06:36:53PM +0800, Tian Zheng wrote:
+>> In dirty-bitmap mode, a larger HDBSS buffer lets the guest dirty more
+>> pages between VM exits, at the cost of memory. The default of one page
+>> per vCPU is a reasonable starting point, so allow userspace to opt
+>> into a larger buffer via KVM_CAP_ARM_HDBSS_BUFFER_SIZE.
+>>
+>> The size is specified in bytes through KVM_ENABLE_CAP and must be a
+>> power of two in [PAGE_SIZE, SZ_2M]: the upper bound is the largest
+>> HDBSSBR_EL2.SZ encoding, and the power-of-two requirement matches the
+>> buddy allocator. It must be set before any vCPU is created: -EINVAL
+>> after vCPUs exist, -EBUSY if already set.
+>>
+>> The capability is rejected in dirty-ring mode, where the size is
+>> pinned by kvm_arch_dirty_ring_size_updated().
+>>
+>> KVM_CHECK_EXTENSION returns the configured size for a VM, or SZ_2M
+>> when queried globally with a NULL kvm.
+>>
+>> Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+>> ---
+>>   arch/arm64/kvm/arm.c     | 34 ++++++++++++++++++++++++++++++++++
+>>   include/uapi/linux/kvm.h |  1 +
+>>   2 files changed, 35 insertions(+)
+>>
+>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+>> index 5a7046acb62e..eadbf3a88d31 100644
+>> --- a/arch/arm64/kvm/arm.c
+>> +++ b/arch/arm64/kvm/arm.c
+>> @@ -19,6 +19,7 @@
+>>   #include <linux/kvm.h>
+>>   #include <linux/kvm_irqfd.h>
+>>   #include <linux/irqbypass.h>
+>> +#include <linux/log2.h>
+>>   #include <linux/sched/stat.h>
+>>   #include <linux/psci.h>
+>>   #include <trace/events/kvm.h>
+>> @@ -203,6 +204,31 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+>>   		r = 0;
+>>   		set_bit(KVM_ARCH_FLAG_EXIT_SEA, &kvm->arch.flags);
+>>   		break;
+>> +	case KVM_CAP_ARM_HDBSS_BUFFER_SIZE: {
+>> +		u64 size = cap->args[0];
+>> +
+>> +		if (!system_supports_hdbss())
+>> +			break;
+>> +		if (kvm->dirty_ring_size)
+>> +			break;
+>> +		if (size < KVM_ARM_HDBSS_DEFAULT_SIZE ||
+>> +		    size > KVM_ARM_HDBSS_MAX_SIZE)
+>> +			break;
+>> +		if (!is_power_of_2(size))
+>> +			break;
+>> +
+>> +		mutex_lock(&kvm->lock);
+>> +		if (kvm->created_vcpus) {
+>> +			r = -EINVAL;
+>> +		} else if (kvm->arch.hdbss_buffer_size) {
+>> +			r = -EBUSY;
+>> +		} else {
+>> +			kvm->arch.hdbss_buffer_size = size;
+>> +			r = 0;
+>> +		}
+>> +		mutex_unlock(&kvm->lock);
+>> +		break;
+>> +	}
+>>   	default:
+>>   		break;
+>>   	}
+>> @@ -500,6 +526,14 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+>>   		else
+>>   			r = KVM_ARM_EAGER_SPLIT_CHUNK_SIZE_DEFAULT;
+>>   		break;
+>> +	case KVM_CAP_ARM_HDBSS_BUFFER_SIZE:
+>> +		if (!system_supports_hdbss())
+>> +			r = 0;
+>> +		else if (kvm)
+>> +			r = kvm->arch.hdbss_buffer_size ?: KVM_ARM_HDBSS_DEFAULT_SIZE;
+> 
+> This whole thing of allowing hdbss_buf_size to be set only once makes
+> everything more complex. Why do we have this limitation again?
+> 
+> I mean, if we want to restrict size changes after the first hdbss buffer
+> gets allocated, it makes sense, other than that, I would like to understand
+> the reason for that.
+> 
+> Thanks!
+> Leo
 
-David
+Hi Leo,
 
->=20
-> >
-> > David
-> > =20
->=20
-> Best,
-> Mariia
->=20
->=20
-> > > =20
-> > > > and the return values are unused. This preserves the resulting
-> > > > string, including truncation behavior.
-> > > >
-> > > > Link: https://github.com/KSPP/linux/issues/370 [1]
-> > > > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com> =20
-> > >
-> > > Except for the small comment above,
-> > >
-> > > Reviewed-by: Alejandro Colomar <alx@kernel.org>
-> > >
-> > >
-> > > Cheers,
-> > > Alex
-> > > =20
-> > > > ---
-> > > >  drivers/media/common/siano/smsir.c | 4 ++--
-> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/drivers/media/common/siano/smsir.c =20
-> b/drivers/media/common/siano/smsir.c
-> > > > index 283770d583d5..636ff228108b 100644
-> > > > --- a/drivers/media/common/siano/smsir.c
-> > > > +++ b/drivers/media/common/siano/smsir.c
-> > > > @@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
-> > > >     snprintf(coredev->ir.name, sizeof(coredev->ir.name),
-> > > >              "SMS IR (%s)", sms_get_board(board_id)->name);
-> > > >
-> > > > -   strscpy(coredev->ir.phys, coredev->devpath, =20
-> sizeof(coredev->ir.phys));
-> > > > -   strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
-> > > > +   snprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
-> > > > +            "%s/ir0", coredev->devpath);
-> > > >
-> > > >     dev->device_name =3D coredev->ir.name;
-> > > >     dev->input_phys =3D coredev->ir.phys;
-> > > > --
-> > > > 2.43.0
-> > > >
-> > > > =20
-> > > =20
-> > =20
+You're right, I re-examined the whole flow and the "set once"
+restriction isn't actually needed. I'll remove it.
+
+Thanks,
+Tian
 
