@@ -1,88 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929840;
-	b=jPfuCxlFGJQpY7BC5b4TxnRZDY7uMm9BuZMP+MKnVwOMIpTIjKCq9/3DJ5b4ptvsyxfY
-	 gmHWwmXX5yhp48syr/2UKClczU71vegX96my9Tt4UkR6b9ZyKGkgOxnRMDWgIX4jEyLJW
-	 oPpqcBPBWyo+Dwd80sDFAeboPaV/DxijwyGrLEU1xZu+o9NOIaLmeqjNccDnSuBnBz+Oe
-	 p/IyvVNgLVJx+jQ6OULN56zpvUDoa1UV5xDwBc6M8wEAQdTZ9cAylzI6eB53FO4+xwhq6
-	 p4vEgcmEZvln8knQ1wMNZzHMeVag19rL2cDBuvLPKchUpRc3RG0nFlWP7swKQDqMFWg==
+	t=1793929950;
+	b=xdVXGILbB1cbJMR1iE12x0ulnTkshZm+L5PdhRcPzQwdypbRqxhapblAe0tdVsslDyGa
+	 yBSBbDby1joGpb1fUgAuV6e5ls27YYFr4IxEu9YneVw1dROkR5g/Q3zPbRe7sKc7SBCXT
+	 QV6W6cc0mTOFOKe61QnreFhb030qclv2KtcgoXHC8fcywmgglrsCscjhazwL5u4sROy3n
+	 5SLy3nAoxcD8PkUnLFValQM/Zycw2uVEthuWibhsCZ0C1PgyUj5F28PoftPfvvY1nVuME
+	 Vaq/6qFB8W9EmZbC461B13JjC/PK6ojVbGuqnnhsuJoljPDgUz6DsqzFSOO1zBSomSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929840;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uXYpeHGRn7wQ7xsspYNmdUVAUinAM2aQKpQNWI4nncA=;
-	b=DZE1sjk0K0UNRuSMLea4mOUvKZvwd3w0ZqpSeNGGbricM8eaCy67vDSE/PaE4pyrFgBr
-	 pLeXN3+syfhnFDZfSzm5YMk24P7Uy6v7w9lbHanpV/Ntu2w5RSSI6JadmgADpml6MVEuo
-	 CWlYgohUd60IQSKFNbUIIYJDdrZWFESscKBbriA5XdbT7JFyjKdUTKPvuZN0jBrvEstih
-	 ofjOSaVjHwNiu+y++uZgyE5NcOvSJbXW7iJczuFpjyXz42C2cniwM1Mv+LhF9GR7NPc5F
-	 fI5APPAbl51XoEGI7zhwGamQ7VX8sRKvTL5JC5qZuzvPYljBvsSOfKCi7SS404nBeFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929950;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=3bd1KiA0pB2vbrGDlNRlcrXdbbR50j7O7RMZuib5bX8=;
+	b=ZEmFyp/jG4nIoXQfVSlxTS9W992VmDf8cLw/du0WXDwdQ6xraTVI1DrnhShvWEdwOQx2
+	 AjJVEFI8GEGpXaAw1N8MW+z5vrNY7aDe3/4VmcHGDGpwWNfSxbbHEWB5Ieoj02oPq+u/P
+	 VkzPjgAn+MCQXcRfykS+VN4u+gsed0YFEFSm6njjoZ8r5YXOxPEzqqreYi3CrjUg+4xyK
+	 T6dZtVo+SyJKTgBETUPzFgzPpVd4sIxyagJU8RyLEpItxfmV+vPQIpErIH55TcUYlsLYq
+	 w6C0gtSWQgCSq2V8KpxUZNKa+Jap8fNrCmnMZtwDaApp/VAqNftjDx044F1IovMYb/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kW2nNGhF;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRfGw593;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10921606A33D;
-	Fri,  6 Nov 2026 01:50:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10921606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6342606A31B;
+	Fri,  6 Nov 2026 01:52:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kW2nNGhF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793929839; x=1825465839;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=vlkUYFwGZv6L9tsESpFICo5n6dVHLA8uPTAuP4zASjk=;
-  b=kW2nNGhFZZlp0q1FYf7IF+wHmN1U8qcqYMgrHtfgFwUbKtZr4tRJomNC
-   KLqmONTQ60gat9oZIB+FwWVId7NoTs78iq5irSYEUt8s8PrHtKsfj+Z6G
-   R4W+o6GRsLsFcHSMEp7+A2qo2SFJzx0g9ezyF1eYA/0SqlQc+tJmrZFda
-   uN2UWWtC0ZakUBXcyLnzp6nxQNrq8IKnILhaYUSsFjFcF1xOTI9ezULDl
-   LVKAPH6svZKmNMW7mmGGPcpuGGAj06lLhEWmVXF6LlP1oTm4wnaqk2uJK
-   WDbzbiPBC4FFTiAFYk+x65iHzZ6DnmI4ibjW7muZ0ezrX8WXSL6ig3o1E
-   A==;
-X-CSE-ConnectionGUID: Di2ABCJpQLGjqd6xxnzTCA==
-X-CSE-MsgGUID: NKpDmI1fRpWaW/iCbOIxZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740190"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2740190"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:32 -0800
-X-CSE-ConnectionGUID: G1adTv1WQ5OV2/Fq+b4LnA==
-X-CSE-MsgGUID: p1dFLbBjQEqkwDungYJxQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7067203"
-Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
-From: Zide Chen <zide.chen@intel.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org,
-	Jim Mattson <jmattson@google.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Andi Kleen <ak@linux.intel.com>,
-	Stephane Eranian <eranian@google.com>,
-	linux-kernel@vger.kernel.org,
-	Mingwei Zhang <mizhang@google.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Das Sandipan <Sandipan.Das@amd.com>,
-	Shukla Manali <Manali.Shukla@amd.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v3 13/18] KVM: x86/pmu: Populate CPUID.0AH:ECX fixed-counter bitmap
-Date: Thu,  5 Nov 2026 18:39:22 -0700
-Message-ID: <20261106013927.166209-14-zide.chen@intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106013927.166209-1-zide.chen@intel.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRfGw593
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A0AD1F0089F;
+	Fri,  6 Nov 2026 01:52:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793929949;
+	bh=3bd1KiA0pB2vbrGDlNRlcrXdbbR50j7O7RMZuib5bX8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WRfGw593EM7T7lIMrOfsUn0/yD0X4yHccFfOojvCKgpzNVXetokkE7YRCkdjYt9v8
+	 pi/3RtQ+6VeXG+5UPedy8rt89CzJ20yzV94ZRukYsXUa7/W6HWw2vRo5t9zrNKQNkl
+	 028Bx7I5cobgAxwuPb7HmX4Q+hxXpZZYK33xLlaWATGuoDJy0aEJL0iHC/aRW0XFLe
+	 fvzOeI/5waeRZzQ1h9u1FHTdyTRrrvGzXQeTbhCWMaJ7q1GUF1xUrF8cQ0m8U1Mx3t
+	 YNw+IqHBGfP2gROvKdyA9eLrpnQuLI2arKHOszsQm1Jvmddm2aaWrKXUfWu/UpSVRz
+	 w165EjytChetw==
+From: Sasha Levin <sashal@kernel.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests: add namespaces to TARGETS
+Date: Thu,  5 Nov 2026 20:52:27 -0500
+Message-ID: <20261106015227.3718251-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105-burggraben-wegrand-seeufer-18d3c8517fef@brauner>
+References: <20261103165419.687806-1-sashal@kernel.org> <20261103165419.687806-4-sashal@kernel.org> <20261105-burggraben-wegrand-seeufer-18d3c8517fef@brauner>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,61 +64,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-PerfMon v5 adds a fixed-counter support bitmap in CPUID.0AH:ECX.
-This is the superset of EDX[4:0] which indicates the contiguous
-counters starting from 0. For backward compatibility, it's recommended
-to use the following to determine if a fixed counter is supported:
+The namespaces tests are not in TARGETS, so "make kselftest" and the CI
+systems that use the top-level Makefile never build or run them. Add
+them.
 
-FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i);
-
-Originally-by: Yang Weijiang <weijiang.yang@intel.com>
-Signed-off-by: Zide Chen <zide.chen@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v3:
-- Remove '&' when populating entry->ecx. (Jim)
-- Gate entry->ecx on kvm_pmu_cap.version >= 5 in intel_pmu_refresh() to
-  avoid enabling v5 fixed counters on hosts where KVM caps PMU at v2.
----
- arch/x86/kvm/cpuid.c         | 5 ++++-
- arch/x86/kvm/vmx/pmu_intel.c | 8 ++++++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+Tested on vfs-7.5.misc with gcc 16 and clang 21 on x86_64: all 13
+tests pass in a VM with the namespaces config fragment, and they also
+build for i386 and arm64.
 
-diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
-index 3310c370c5fa..00a2ca6d3049 100644
---- a/arch/x86/kvm/cpuid.c
-+++ b/arch/x86/kvm/cpuid.c
-@@ -1554,7 +1554,10 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
- 
- 		entry->eax = eax.full;
- 		entry->ebx = kvm_pmu_cap.events_mask;
--		entry->ecx = 0;
-+		if (kvm_pmu_cap.version >= 5)
-+			entry->ecx = (u32)kvm_pmu_cap.fixed_cntr_mask64;
-+		else
-+			entry->ecx = 0;
- 		entry->edx = edx.full;
- 		break;
- 	}
-diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 1372091dc1f8..37b34b588601 100644
---- a/arch/x86/kvm/vmx/pmu_intel.c
-+++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -597,7 +597,15 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
- 				  find_first_zero_bit(kvm_pmu_cap.fixed_cntr_mask,
- 						      KVM_MAX_NR_FIXED_COUNTERS));
- 
-+	/* FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i) */
- 	fixed_mask = BIT_ULL(nr_fixed_counters) - 1;
-+	/*
-+	 * Do not enable fixed counters via the v5 ECX bitmap if KVM caps
-+	 * PMU version below 5 (e.g. when mediated PMU is disabled or on
-+	 * older hosts), matching KVM's advertised CPUID.0AH:ECX capability.
-+	 */
-+	if (kvm_pmu_cap.version >= 5 && pmu->version >= 5)
-+		fixed_mask |= entry->ecx;
- 	fixed_mask &= kvm_pmu_cap.fixed_cntr_mask64;
- 
- 	/*
+ tools/testing/selftests/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
+index 07c3719f8b04b..f8fb771d3b0e8 100644
+--- a/tools/testing/selftests/Makefile
++++ b/tools/testing/selftests/Makefile
+@@ -85,6 +85,7 @@ TARGETS += mount_setattr
+ TARGETS += move_mount_set_group
+ TARGETS += mqueue
+ TARGETS += mseal_system_mappings
++TARGETS += namespaces
+ TARGETS += nci
+ TARGETS += net
+ TARGETS += net/af_unix
+
+base-commit: 8f92edb375bc5b54b211686231d489912a91b32a
 -- 
-2.56.0
+2.53.0
 
