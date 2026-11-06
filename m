@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982311;
-	b=YCOlwn8fo3ujvMFmLuQEMV9uQLl71sYfzpt7CPuP7A0ax78IvnaB/Mu6kU8PTaRxWC31
-	 AuRq6fTsr2IA7Hsybb4p0j9KJ2n4ZdhAf4cMHf4rHDWlzMeEitjhBlpGc7sXlpkU/ZHhK
-	 qQVqSL4VVzAR2XmjYqiQfySdcAfJZjHENoEO9vCCLP5KyCmSCZPQKalDzIAGxbsHHoGzs
-	 o9JIh4U9k8HG8ulGV3PXgurIhb/qQBfdrkXIkt9U2aJ/kM06Wfg0MS/Fh27Wvydibrxp3
-	 qRAudtjmvrz1vJvEJKGh1yRMKP1I7onLI1LYyCCFLVHQRxxGajAQIAwunOBjmjytZrg==
+	t=1793982355;
+	b=T3PHhDJox/0bpb8HuOq3/oz+uU3ZbpTPHVFh3nLCWGrKXYpBjACO6SO/okMa7roiNn0M
+	 EAC6FwvGmLIsVOykjz20MayNRzJG3F0V3KMuwSO294GRlwkpW0jK6TGw/R5jYynpT3Hpb
+	 9PsiMPv8bV3//NbfWNCZL9M5zQW2lSru6wHQpGiJWDJKFMN4IjbqWmDbrArBcC1BDPVpr
+	 pZYOoFE+Oo3+ZUPyeWuYa8H4n0DkKZgXmVTiX3TStut/9AjwhSu/nDGz9qrLIXSgrPXhO
+	 O+bP9DMIMXgqxgB0A3xcqzP1YfgHeKd6xcun7363OwNUAAVKBwu5wDEqDlpO07nV2cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982311;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Originating-IP:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID;
-	bh=LwVuwumg6MVzaxXGuVMtoZw9nRxEua1k0xUsXPLfG3g=;
-	b=2Y0M82duHZss2DhXBEiwl8Hcgg1dYJNcyx2QTxBf/D7EAqo3MZTT0d2moYZnDd4ARrWd
-	 4QuU6OX3AWA4XOoH8S0v5cCfMz1Gbn9wf6UonNpzBTN6B1bS1/DBvtkRkJTkfuTpHV/qO
-	 W5P4tpvDNTRj7vOTsdGlgsIuhl0TvzqToYzJTJKG8XFUjrFKVoBaWPhpgsCQI1OMzyOR5
-	 M2vb6oVxlYL4X0GnaDAZDVJVATW7SFGcneeaQiGDcBYw9578aiDcN3pQrYjDEsZyJVZgj
-	 BVvDTSr/GeR3nDN6QFC4xd7PJKCwNP6mNCecvGlSsdBHVd+16HL7+/n0dQYAsyuxlbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982355;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vbAdv7MCz2zJUTUDv7FqKwfaz+r2S2sDxgej+VGMxoc=;
+	b=a4cn1es+zEBUMIQbPCCV7TUmZySA4/fItFLFwnsPhSl0VMzB2DQDg3lPIBYX2OqwrVv9
+	 tsE049WQy4wCBqYipax9itwEIB6LOZ1K1aD7QXjGZLqOFnn9IXH5WHP/6miLrM28lxltH
+	 /B0rkwA+kTuj06EckAlnoxx0E/RyCmGBsvjr7Rnq7tKmUlVVcqqHBlkzUYr0B3L2vKxZm
+	 9R2aLB9SYaPDWXazJWCrCKc2PS1xm6j5tC3GUxqoLudLM4anas7tUkgMGKCRoC0GXewSv
+	 mMA2trrwESzOV6egXk3HmgLRE1DzMhceIXFM43lylBRT2UVf3SNbGPRPSfGFfOkpuxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=imgtec.com;
-	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b="GPJ/fK4u";
-	arc=none smtp.remote-ip=91.207.212.86
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=kd5p9nZS;
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2759B606A33D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:25:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2759B606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B74606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:25:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5B74606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=GPJ/fK4u
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6F1mTY3667811;
-	Fri, 6 Nov 2026 16:24:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=L
-	wVuwumg6MVzaxXGuVMtoZw9nRxEua1k0xUsXPLfG3g=; b=GPJ/fK4ueVzk9h8jh
-	HpkAcIQjgI1Cl9F05sMidAKV/aYdhNWm0/oaCsSxkgTGUNrks1EBNj1XkNUYAerC
-	KZ/dyNICXM+y6D5MqnVq3KmtGG4it2OfByFlR9HrcCPtq//EfdIdZ12fCCNQrIZd
-	OqsE9iyVrZcvuoJ3urroCb/U/vigX+7xO6r90TnxYDb0GZuv3LqztCcwt//DqMip
-	imwjouwCX1yYnOqGwIuqcYWAyIVVNgjfpi/vbVuKt1fLRffhIXX+IQMZb+NNbh0J
-	nJ9s15/EqjA58s2dCKDRxeY1ZoH5l533jL3T+fGZ7JAhL6VKoJId36NKqjFndXZt
-	jH7/Q==
-Received: from hhmail02.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hry5g0qwp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 16:24:42 +0000 (GMT)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.219) by
- HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 6 Nov 2026 16:24:41 +0000
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>,
-        Frank Binns
-	<frank.binns@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Brajesh Gupta <brajesh.gupta@imgtec.com>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>
-In-Reply-To: <20261106-fwversion-v5-1-d0074f992e75@imgtec.com>
-References: <20261106-fwversion-v5-1-d0074f992e75@imgtec.com>
-Subject: Re: [PATCH v5] drm/imagination: Support for querying Firmware
- information
-Message-ID: <179398228198.293284.1425834279889546916.b4-ty@b4>
-Date: Fri, 6 Nov 2026 16:24:41 +0000
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=kd5p9nZS
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 10ECC3FEEF
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1793982352;
+	bh=vbAdv7MCz2zJUTUDv7FqKwfaz+r2S2sDxgej+VGMxoc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type;
+	b=kd5p9nZS6m9QXbQsCgnbeR3HTP9si0Xc3gxnPyaFx3ySWcliQs6Fjiy8C0achSLqa
+	 /U6XYYnlIzrRXBkvKUWLMlTqJ4MYl9MK89jKcoJqhwW3SkW6y5DzSSng4RRK3DyCjS
+	 +qyYRDy0O8jZC6lhhEObm3bnFBNOVHLCPIiZlvlShvNZdb0PljY60dfgRqWfAX8pN2
+	 kOXbB5cSkZF3/CrT/emgPZHmPUH2V4z1nKHxNyvy3NVx+Dn9uZJVTjX2OhV+B/P02U
+	 WSDHWtHhEN2jOt7XnI8sRzKW9ZonuzBZxeFr0PRqAr5b2W1BdJ2e6dSczSoU9QaraT
+	 BtG6ZRI/o2o0QiFe8hA3QrhN/hFmt0rYJ0NV6yCg6O3UtD9icr1+dixDWaHrEP1i/H
+	 Q61xtgm4biH4cpKJIG20ezn2N3Uj5OeTa4qL/yDuPbU+6A/NwGzoOuT4zw5FJmygEC
+	 7+3juWsSn0IQ0yelMFLAhteGX7lkJqs3PaVi1VnYh6vsoY7nimnx/puuD8mAfejKPw
+	 De5UW6ryHuZRVVyMDmNM8JVnu3AInjDQK76yhxp+eZGuB24BOhD9Vc1+bSguuJuu5J
+	 lW9998owwbfmGrdbcnTcPyOUWyFhfuJuFkLhHPoV8Fuau9wdT2UCdE+HtTrfyhRJOX
+	 UhevWA6OviFhwEOZkQW5cVkM=
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a20fd059ddso6639745e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:25:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793982351; x=1794587151;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vbAdv7MCz2zJUTUDv7FqKwfaz+r2S2sDxgej+VGMxoc=;
+        b=2KlzuJCpj+iXHoTEPq20F8zjd3I3u8IEJA1ImH/nRknlcuXC9POLhSZkNgnYEzSNsk
+         MO//NyylJM6/oTKajYNn5RzQfYqhUy1zTw7GduoKetXXv2u5o4OLiZjspwMXemFgb58D
+         tDWmrc5EvdRehcXBieFEY0uoiRW4vypntGfGNe8/HmAGxrZZ/geihWd+FOF3Z8lNfGya
+         2GR3Yc4hI+t+un0sTjG0KlbM9336KFe5ZAvckuwy6lXQnyoUokwxpXCLK1jRwdTGIGXB
+         8tV3FS/hXdabCcxmu6DjGz5FAGFcHjQz/wKxnPYC0bCN4DoONnR3qGbtvfzntj2lEKwy
+         ExJw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4Oi7ie3UfHZp6tO5dBy5EAOUIAxw1JUksloKJac2Myz/A/2DCepVqinX3ljvgouo2LcZRZ6jNJKCacag=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8mX1jRyI7gYJhgiCpZ+qZi8MS8ZYWcWM/O1zE/HvM9mlKhAWWa
+	eRWLGr8cRUBmS1qu4JaH2z6E8IvLpOP0tS7b2L3xvxOvM2c4u8paoqGB8bLXiZ+/e3RLUSZdpEI
+	hM0voBwN6Xj0sl5dcLx5DHxyqGKyvIyb/Hng4W/H0MU7M9MiuOMM6Nrdzqgop9yOFuSjRjegwwa
+	eUI+RAEQ==
+X-Gm-Gg: AYBFou3L+q8L0PFXjdPui/VP/KRoHQqSco94/rAtlGhbhMPL82uU4RrwxcjMCbpx0IK
+	7aW3D2edxMwyhtLJpa44nmrEyQe4mmQYIih/875dawT8l9hm8DQEE7c0pGT0khI0PYqkDB4jAGC
+	30pw9orvv0+wgb0OJcCM6D9CnAEFOzlIZVwt2AWN2Zqc3de0in1f4Vmoxn8+Hwl3dbo+9RS420Y
+	knXrhajnSsL6iu29v37lZ17ehwD9+pqhNIidyZ2yPWTxba2egVJVNhDYVE3Mu+MTWKirk92727l
+	UhUFh08TfwpncZPp4BrAV2M5n9uNBHdtyHHenM83IXeTg8bajuplA/Q+5howsHgsM+3AO6Eq7pd
+	tWmi2JZ4ma2AovrElFhYYYWd3o1aYEUTm1s6kHZu4J84s/igJ+vw5TjZgAAoiSfrirfznTB8lA6
+	bI
+X-Received: by 2002:a05:600c:34d5:b0:4a3:59c2:b41e with SMTP id 5b1f17b1804b1-4b6dc6df61amr54605825e9.4.1793982351645;
+        Fri, 06 Nov 2026 08:25:51 -0800 (PST)
+X-Received: by 2002:a05:600c:34d5:b0:4a3:59c2:b41e with SMTP id 5b1f17b1804b1-4b6dc6df61amr54605455e9.4.1793982351340;
+        Fri, 06 Nov 2026 08:25:51 -0800 (PST)
+Received: from ?IPV6:2001:67c:1560:8007::aac:cab2? ([2001:67c:1560:8007::aac:cab2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6e28cce1fsm82686435e9.15.2026.11.06.08.25.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 08:25:50 -0800 (PST)
+Message-ID: <79211469-cf77-414c-9a10-2b684833ad64@canonical.com>
+Date: Fri, 6 Nov 2026 17:25:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,45 +103,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] riscv: dts: spacemit: k3-com260: Add SPI NOR flash
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
+ <20261105-k3-com260-module-sd-nor-mac-v1-3-138b39d74602@linux.spacemit.com>
+Content-Language: en-US
+From: Sarah Emery <sarah.emery@canonical.com>
+In-Reply-To: <20261105-k3-com260-module-sd-nor-mac-v1-3-138b39d74602@linux.spacemit.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2NSBTYWx0ZWRfX6gO/IGV2FNfI
- 3tumo8BWPzk5mybu34QBzm8zBl3Psa1Gu0xWvDQ66g8XV/t+1TZSGIEVITgNl908CiQJomVMVsW
- dVH1S3yUTLg7uOd0tXe2p5wsGQfDm3vPcrVpiKd3hxWUiHHOGY+imSEZ+6GrYPVxJQhARBO5dmI
- 9jf4XApW96om5Livpu/ohmxdHCC4ROJ6wKilIbRAxFHwqg6r2HvxbfdJGcXpnF5L1tgRKl0Yxtw
- OdvB1QdFS5+5FhBpA7R3Wgum1RU7o6+JqVrc5gm1WfLuVNj050iMnTf0tvfHQ0relOOl8uvMb6s
- jQ3UOSgc1aS5SCT8/DU/x6a6f21c/1s/3KcnUA4HfUbY2XIHbgY84rXPm6WVADB5tLzpryplPQJ
- exy4ZmtUX1fzsSawwog81joA9CE9E8gO9/V20A3rl6cCw3eh0Z7Kr1rzs6bEwy+wsFBcfL+y4+C
- K3M8FQo9RXtJJ5w17JQ==
-X-Proofpoint-GUID: Yjtk28LzhhvzQ6ADqjR7bhFO6t1t__Y-
-X-Authority-Analysis: v=2.4 cv=daIVTnXe c=1 sm=1 tr=0 ts=6aedff4a cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=Sf2g2yCNzfoA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=gQUwrIzfNSe-QFhc_YEA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2NSBTYWx0ZWRfX3J575n8qASX6
- zrAtNvpkLO7RRE1bKCBr/+DcAEA7ygdqc1l23dvwY2Lmn9BBvV0MJn//k2cmz/rhlx5fvZ7PNF0
- t8lSKra51G7gnPlgYMsY7Y96+rWgj0k=
-X-Proofpoint-ORIG-GUID: Yjtk28LzhhvzQ6ADqjR7bhFO6t1t__Y-
 
-On Fri, 06 Nov 2026 20:12:23 +0530, Brajesh Gupta wrote:
-> Add a new subtype DRM_PVR_DEV_QUERY_FW_INFO_GET under
-> DRM_IOCTL_PVR_DEV_QUERY to query Firmware information. This allows the
-> userspace to detect any bug fixes and features present in the Firmware
-> and take appropriate action.
-> Currently it supports querying major and minor version of the Firmware.
-> 
-> 
-> [...]
+Hi Troy,
 
-Applied to drm-misc-next, thanks!
+ > +			uboot@210000 {
+ > +				reg = <0x210000 0x5f0000>;
+ > +			};
 
-[1/1] drm/imagination: Support for querying Firmware information
-      commit: de30740dccd882b8177f260e7d8e26ad60f7c677
+This partition ends at 0x800000. On the CoM260 with EDK2, 0x700000 to
+0x7c0000 holds the variable store (NVRAM and FTW), so reflashing this
+partition from Linux would erase it.
 
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
+I think we could split it like this:
 
+    uboot@210000 {
+       reg = <0x210000 0x4f0000>;
+    };
+
+    var@700000 {
+       reg = <0x700000 0xc0000>;
+       read-only;
+    };
+
+What do you think?
+
+The Pico-ITX node also uses 0x5f0000, but I think it should be modified 
+to split out the var part too if it makes sense here.
+
+The Pico-ITX flash node also has vcc-supply = <&aldo2>.
+Shouldn't this be present here as well?
+
+The rest of the patch LGTM and matches what we have already tested in 
+the Ubuntu kernel.
+
+Thanks,
+Sarah
