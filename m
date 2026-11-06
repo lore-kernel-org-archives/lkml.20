@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959569;
-	b=AMEW9BVDOb9loaJZd7TDC5XR9g+EQpTevOYZYxBMKOk+i/UppM+RAaU9A10OvMRg9/pu
-	 4eIfqlEOWno3fN/x7DWapyxVe3yZjOmdMXMGhV5f9pgG4axSel0HxAuGTesJ/Dc7UvGfR
-	 RldQMrqZ86yCYFEyvhAoYn8vKUydxztgk3GSNIAgdzHsTOaSO8+IWDJhWPLJMb589LS1j
-	 eOOvdtxeU9GwlNLJ9nr91WDwJY3Xys6sDp5+RIP7US0lMgLYPpXpByyVZLSn2G3dn3USB
-	 zkv5r+HwJuOEllmX1kZd1mki9YpZ2e8AXJ8LmWprE5PtsZdVoCuqvaYKYABdQwUbc7g==
+	t=1793959576;
+	b=bOs6irXAVixqsZlf8W8Xn6NGIxsSAvjyO1UWrggPymHkCsqCESGSYoTHKWZy66dWy9aB
+	 CWcXdGUBehQNQXKHy33VaV/2rZYmNeYG6DsZrIUbp7r2/CRwB4Q+2GRFyUNYRoYzjq1Rv
+	 Eym+7LWhlK6sBAsdFUCvY2H06Nxj6r2KpMcqaPS8+qGz5Xx3S4znUNmy0ZD25XIs8Qc3A
+	 IUxi1cuAq27kaTqUYHAYktKmEuNWy34NzxLeBL1t1naOCTuGi9ARKW1iZ3hDGFZaqVogZ
+	 Dvgwu+O3CEXt5wbZVSzqP3LEszLwRM7X7g7e0L9yl6QdXWxxOkhZNVYEON7zAVptu8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959569;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959576;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FrQo1zWdhbR37KjzuqMTCbGMlx2UHVUhGDoqAfLgAy8=;
-	b=kW8S9JqcAPmdNGNQxch89KlefMId1PcpUbYRMVOnKC3HwAXGvITodv6GJGldgELvtTdz
-	 wcSR8oLKvvkL1vh4Zha/n4DTVPOx8sSW5TCXWdsXjsRWI86eShUG21I5PCZlhMo2ah4Te
-	 h3uo4CNQqY4eBAwxt/dbQJyllkS+GwdF/vWY0hdVtmrqXRqHnBnqbmdUN1Z0ChXt0NP3l
-	 j7pM6XXxtbRqxqxsEkYJvkwd2RJlOLE2oRd5uNb1uVmjdkIEGZgV3v+sGXrpGC6wkjCyb
-	 iYGzzb9lzhBsoFuHu6YSIZwv+KlavlT2UJEWdAlAr+SvL3T3lBaMIS0UQOKvqQ9+Gmg==
+	bh=84LIFW+AvMdbqkXSFm047CRtvQ9GP0clJy2Lqj2p5f8=;
+	b=ISGwAorhGtwt3++AqMdYNjpi2JWHjd5Db9Mzn4JbTqk2Q/vV/s4ZhzU0Kirw2fn2xqQK
+	 kVV/fQnw9hNtVOfdRWTgabbuQq98gWFjFszjER77eeJqaT6ZFtTi89d4cGYkEG6MSwl2C
+	 CsuCVpZpfOY0auhO5nIYhcvzMNNemdZxHGMnijsuSYmAqtTnU0oq2s74aGqSdRU0OjFmI
+	 RNX8nJA8BOKHkMPpX+5BXxg6qDVpnfIZfO7SYWK17+RcU6kt3mfRjDd9aiOj4g71zCGPV
+	 QIari2v7B0jq6AQqwj0gwBS4quhbpxq8TygOEpl/UOKkS973l7JQ5N+5nI3FAIL+pAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QQcQuH9V;
-	arc=none smtp.remote-ip=91.218.175.120
-Received: from mta0.migadu.com (out-120.mta0.migadu.com [91.218.175.120])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IgGruhZp;
+	arc=none smtp.remote-ip=95.215.58.175
+Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502FB606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:06:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 502FB606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A842A606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:06:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A842A606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QQcQuH9V
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IgGruhZp
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bNru5tLaTrRcZny2inHzZJIS32KRCi5plf6iM9ROkK0=;
+DKIM-Signature: a=rsa-sha256; bh=9W5E0aTicTRcozWJfG/+L+M5IQx5AOnpXJfN4HLzHSs=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793959566; v=1; x=1794564366;
- b=QQcQuH9VnzgGtpanWuXL2/YQfHVbyvzI/2MufWqAK8iHgjK9fxO0jO1ZBEOlJWmWvML6hs4y
- cXVhDX5Fi8xY0Llbfo1CLnKzo8/YXAKXuSAIO3xMs2is5wxAaEjhZlBHHgYwJfgoVaUgCoT2m97
- ajM6C2X2j/XcKzdf812B3tOo=
+ t=1793959573; v=1; x=1794564373;
+ b=IgGruhZpDLOXxyBCxUc7kPAa24gzvdY3E3hdfzGfdTdUF5ff7hZXhd4gSLMyKUpOSbrQP6Zf
+ A+cK0kK2jrHRc0rpNtXRDqRn6YgJbPa/LSybGQBsev36mKcNlQAuY5MvKiDojbJROMFhJ1+h1ja
+ yuudZFpe8iHYu9T0U5jnUa44=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f3d9d3dc338d93a1;
-	Fri, 06 Nov 2026 10:06:06 +0000
-X-Mizu-Trace-ID: f3d9d3dc338d93a1
+Received: by smtp.migadu.com with ESMTPS id 9dea5587c19e644f;
+	Fri, 06 Nov 2026 10:06:13 +0000
+X-Mizu-Trace-ID: 9dea5587c19e644f
 X-Migadu-Flow: FLOW_OUT
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Muchun Song <muchun.song@linux.dev>,
@@ -69,11 +69,10 @@ Cc: Mani Tofigh <mt4022@columbia.edu>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	cgroups@vger.kernel.org,
-	Kaitao Cheng <chengkaitao@kylinos.cn>,
-	Qi Zheng <qi.zheng@linux.dev>
-Subject: [PATCH v3 2/4] mm/hugetlb: Preserve persistent flags when returning folios to the pool
-Date: Fri,  6 Nov 2026 18:05:19 +0800
-Message-ID: <20261106100521.30099-3-kaitao.cheng@linux.dev>
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH v3 3/4] mm/hugetlb: fix NR_HUGETLB accounting for unused surplus folios
+Date: Fri,  6 Nov 2026 18:05:20 +0800
+Message-ID: <20261106100521.30099-4-kaitao.cheng@linux.dev>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261106100521.30099-1-kaitao.cheng@linux.dev>
 References: <20261106100521.30099-1-kaitao.cheng@linux.dev>
@@ -90,74 +89,57 @@ Content-Transfer-Encoding: 8bit
 
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-add_hugetlb_folio() returns a folio to the HugeTLB pool when vmemmap
-restoration fails. It clears folio->private and restores only
-HPG_vmemmap_optimized, losing other flags that must survive the rollback.
+free_huge_folio() unconditionally decrements NR_HUGETLB, but freshly
+allocated surplus folios can be freed before the counter has been
+incremented.
 
-Clearing HPG_cma causes a later free to bypass the CMA release path,
-leaving the CMA allocation bitmap set. Clearing HPG_raw_hwp_unreliable
-loses the indication that the locations of poisoned subpages are unknown,
-undermining the checks that prevent freeing or unpoisoning such folios.
+This happens when alloc_surplus_hugetlb_folio() rejects a fresh folio
+after its second surplus limit check. It also happens when
+gather_surplus_pages() frees folios because a reservation cannot be
+satisfied, or because concurrent pool changes leave excess folios
+after the reservation succeeds.
 
-Preserve the existing flags instead of resetting folio->private. Callers
-already clear HPG_restore_reserve, HPG_migratable and HPG_freed before
-returning a folio to the pool. Clear HPG_temporary in free_huge_folio()
-before attempting to free a temporary folio, so a failed vmemmap restore
-does not leave that flag set on a folio returned as surplus.
+These paths leave unmatched decrements, causing HugeTLB usage to be
+underreported and potentially underflowing the counter.
 
-Add a VM_WARN_ON_ONCE_FOLIO() check for flags other than
-HPG_vmemmap_optimized, HPG_raw_hwp_unreliable and HPG_cma to detect
-incomplete transient flag cleanup.
+Increment NR_HUGETLB before calling free_huge_folio() in both paths
+to balance its unconditional decrement.
 
-Fixes: 161df60e9e89 ("mm, hwpoison, hugetlb: support saving mechanism of raw error pages")
-Fixes: d2d786714080 ("mm/hugetlb: enable bootmem allocation from CMA areas")
-Closes: https://sashiko.dev/#/bug/linux-5363eb09-9c3c-4f8b-9f3c-a998a8c4b258
-Suggested-by: David Hildenbrand <david@kernel.org>
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Suggested-by: Zi Yan <ziy@nvidia.com>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
+Closes: https://sashiko.dev/#/bug/linux-860a3b8f-0b07-4cd5-a122-aa2288463bee
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- mm/hugetlb.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ mm/hugetlb.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 6fba92b0f674..5b5353ff5ee2 100644
+index 5b5353ff5ee2..31a92ed4165a 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -1450,6 +1450,12 @@ void add_hugetlb_folio(struct hstate *h, struct folio *folio,
- 
- 	lockdep_assert_held(&hugetlb_lock);
- 
-+	/* Callers must clear transient flags before returning to the pool. */
-+	VM_WARN_ON_ONCE_FOLIO((unsigned long)folio->private &
-+			      ~(BIT(HPG_vmemmap_optimized) |
-+				BIT(HPG_raw_hwp_unreliable) |
-+				BIT(HPG_cma)), folio);
-+
- 	INIT_LIST_HEAD(&folio->lru);
- 	h->nr_huge_pages++;
- 	h->nr_huge_pages_node[nid]++;
-@@ -1460,9 +1466,6 @@ void add_hugetlb_folio(struct hstate *h, struct folio *folio,
+@@ -2140,6 +2140,8 @@ static struct folio *alloc_surplus_hugetlb_folio(struct hstate *h,
+ 	if (h->surplus_huge_pages >= h->nr_overcommit_huge_pages) {
+ 		folio_set_hugetlb_temporary(folio);
+ 		spin_unlock_irq(&hugetlb_lock);
++		/* Balance the NR_HUGETLB decrement in free_huge_folio(). */
++		lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
+ 		free_huge_folio(folio);
+ 		return NULL;
  	}
+@@ -2384,9 +2386,13 @@ static int gather_surplus_pages(struct hstate *h, long delta)
+ 	/*
+ 	 * Free unnecessary surplus pages to the buddy allocator.
+ 	 * Pages have no ref count, call free_huge_folio directly.
++	 * These pages were not accounted in NR_HUGETLB, so balance the
++	 * decrement in free_huge_folio().
+ 	 */
+-	list_for_each_entry_safe(folio, tmp, &surplus_list, lru)
++	list_for_each_entry_safe(folio, tmp, &surplus_list, lru) {
++		lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
+ 		free_huge_folio(folio);
++	}
+ 	spin_lock_irq(&hugetlb_lock);
  
- 	__folio_set_hugetlb(folio);
--	/* Clear all folio->private flags except hugetlb_vmemmap_optimized. */
--	folio->private = NULL;
--	folio_set_hugetlb_vmemmap_optimized(folio);
- 
- 	arch_clear_hugetlb_flags(folio);
- 	enqueue_hugetlb_folio(h, folio);
-@@ -1750,6 +1753,7 @@ void free_huge_folio(struct folio *folio)
- 		h->resv_huge_pages++;
- 
- 	if (folio_test_hugetlb_temporary(folio)) {
-+		folio_clear_hugetlb_temporary(folio);
- 		remove_hugetlb_folio(h, folio, false);
- 		spin_unlock_irqrestore(&hugetlb_lock, flags);
- 		update_and_free_hugetlb_folio(h, folio, true);
+ 	return ret;
 -- 
 2.53.0
 
