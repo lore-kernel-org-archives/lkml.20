@@ -1,85 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966691;
-	b=4pPX+EAJWA9dhaJ0Fi+q60b6zB9xkMj6s6Mmhmo6YCcZuMB8PCJjZonPKqZIdJKA72kF
-	 Fskbem9tLQhf/DFOGne4ss4+6JKzszDB4R+A6zlq/rFChfouPmBOOU49HnRbEUKaD8rBe
-	 ifhzrPhVcjjSSJ644nz0KW3kTd+kLfI0ADiN3QBw6BagGN2BJNObxD7+aizZMUBnYTBEd
-	 1PdQNejuMOM+kVO1lSdy3RTbpD1FyiAV/de2hPFrlYKoCssjKl4DFiP8SLC8SakAiif/G
-	 YyI3dKsZyWZPPaCJclssR4Nw40n7dd/6ySiqqXwo+y8L7ZTNhlkBcYEMwQWtB4E/+4w==
+	t=1793966831;
+	b=e1826N/PFhYtDzbb+Rify9DQc3j0H/WVqf9ytZtH0DlFXmxu8VxuMpXaJwMfQnvZVkki
+	 1SwfNG9lCEBRBEPRSZ8AxTTIxYQp16jAks0KWBqDy6dauLizdDj11vZG0nlI95K2bMD/e
+	 /Y0zKH6eiqcVFTSEX7Jdi9qGwOnhFf78svFJfPrZmXuOHEw68YGWvBOz/IbnkmtuzTqkV
+	 6AROccptRgwV0eqZDs+rsVMKGIiiMX1iD6ValOde7mFVeBcVV4Q0WGUCCWZ4A972EpLnd
+	 6eq5hUvbSh7l2EMYDWfKgRu6XUejovW4UOWlapKGeMAFYU2rQeJ/qZRs5JMvcQ2kDIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966691;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=ohw14vtNVpaw39MdfleV/FhLdxvIV9Kq8xUs5QaqRDg=;
-	b=wzO/RvLAphl1suCclE624effLuExytuZKSdGOPcvHNOGAKzTB9PCefW5HhNou5RUQObH
-	 J8D/ykcYMFD/eu59JYxTVKzdfdZGY3hsC21FvmzEyJ0AG6Cb1gEBy/n6z5V0tAjuJ0mK8
-	 nZSNsA7vUqXv+SwJlDyIXnooox18tzlEFX7IMD48LP04QwVZmo64QELYdEpRiz3aeb7o8
-	 s7hAzzUckzLzl0RqxVKDe03a4tD3icr9HMNN0EE4UTxBU2gXmlh5LDHv2+/8h6iDa6WvL
-	 3tf1luUm17UKFpdTDrc5YKOHAIWI2ikBdjhTlrQVxiSAvKjIIKmmhKZ4HTmhSwTOR8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966831;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Content-Transfer-Encoding:
+	 From:Mime-Version:Subject:Date:Message-Id:References:Cc:In-Reply-To:
+	 To:X-Mailer;
+	bh=/UbyUKw9omZVMKFc8o2t5RKh2+gHKfyA/9nJyAlqI4Q=;
+	b=J021ZvwkZtASyW/VMQf6Vz5Mj+86Ua59d+PIZWC03osDSzIM6NuwE9AdJ3Au86okT4aA
+	 omPOZ/tclIz2F+rSL3TO57n8OtPhndDVXJSly0GVojVn1E9zOg9gsS+iisLxvkCNM5IvG
+	 QcUfAs2Tynze00J+kqdCk5HmjCautX4O3JNxNb33MOFdnaTHuLLBRcfcAzvWBYBZOOCJU
+	 up8DfsO9lUa5y/IxZiCTd60aW/eS8nzkcmHFUobSdAOdY+oPzVC8jAm1BuWosVoOHklUX
+	 8W997Yo1BtfDjc0nqJ4nph7R+uIZnXQdiRU8CLw17vUXkZQYTma16xU0fJtDZQeLvyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ldB0NtAV;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBF1B606D81A;
-	Fri,  6 Nov 2026 12:04:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBF1B606D81A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qP0gWheo;
+	arc=none smtp.remote-ip=95.215.58.78
+Received: from mta1.migadu.com (out-78.mta1.migadu.com [95.215.58.78])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D260606D80A
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:07:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D260606D80A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ldB0NtAV
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0AD421650;
-	Fri,  6 Nov 2026 04:04:47 -0800 (PST)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 80A033F673;
-	Fri,  6 Nov 2026 04:04:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793966690; bh=Zk/2kelxGIV5QGQC43f9+FkeyB8IVun3MQkt4kAhXew=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ldB0NtAV2HVZnAg2jAEn+stYKx+gAkfesFtazHTN2zlnLvpRzjaG4ep0uDtF9IOBV
-	 jjBom9QwOUlIrdLnEMGo3ZfaDpap1h8TCmN5qVfsjPNvk6U5DLKBj2ZYEaWPSFWvic
-	 poo7mVDjHXiGApAzxgxtVbYj+omuROC9n/KaBclw=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Tian Zheng <zhengtian10@huawei.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	maz@kernel.org,
-	oupton@kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	corbet@lwn.net,
-	pbonzini@redhat.com,
-	yuzenghui@huawei.com,
-	wangzhou1@hisilicon.com,
-	yangjinqian1@huawei.com,
-	caijian11@h-partners.com,
-	liuyonglong@huawei.com,
-	tangchengchang@huawei.com,
-	yezhenyu2@huawei.com,
-	yubihong@huawei.com,
-	linuxarm@huawei.com,
-	joey.gouly@arm.com,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	fuad.tabba@linux.dev,
-	mark.rutland@arm.com,
-	seanjc@google.com,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	skhan@linuxfoundation.org
-Subject: Re: [PATCH v5 05/15] KVM: arm64: Harvest stage-2 dirty state into the host folio account
-Date: Fri,  6 Nov 2026 12:04:29 +0000
-Message-ID: <au3CTZBpfN0VtO3_@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <6e6fb626-d3d4-46f7-93ac-94e3d243eb69@huawei.com>
-References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-6-zhengtian10@huawei.com> <at-WceRKAVM2kEnI@LeoBrasDK> <009b13c6-f618-43fe-8a56-8519d31b239b@huawei.com> <auSMkdEhLI7k8QbV@LeoBrasDK> <6e6fb626-d3d4-46f7-93ac-94e3d243eb69@huawei.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qP0gWheo
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/KEvK7dVaRMP9BRN0ZLePkyoaFXMxcTu+6guCCq8Id0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793966828; v=1; x=1794571628;
+ b=qP0gWheoGyWdYFfsKjXv/7Pk3nruqG3GTvwvickazzxd6yb5ebgRpNGCxAxubttan2CxxdTT
+ 4MDQT6pS0vy2HVCfGSRjjMhpzspiGy99jVO+CtBTGSQ3Qnp/29SzNot/K83mnurfPQE0lg0ppaV
+ Rz/Xu3xpxXdGahZ3Pilimsu0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 27daf28be36fd430;
+	Fri, 06 Nov 2026 12:07:08 +0000
+X-Mizu-Trace-ID: 27daf28be36fd430
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Aditya Garg <aditya.garg@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,109 +58,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH] wifi: brcmfmac: keep ARP and ND offload off on the BCM4364
+Date: Fri, 6 Nov 2026 17:36:54 +0530
+Message-Id: <1B9F864C-77C2-47D7-8E8C-E9F066C5D267@linux.dev>
+References: <20261104151620.70671-1-dev@deq.rocks>
+Cc: arend.vanspriel@broadcom.com, linux-wireless@vger.kernel.org,
+ brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+ linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>,
+ Yossef Osman <Yossef.Osman@proton.me>, stable@vger.kernel.org
+In-Reply-To: <20261104151620.70671-1-dev@deq.rocks>
+To: Andre Eikmeyer <dev@deq.rocks>
+X-Mailer: iPad Mail (24B119)
 
-On Fri, Nov 06, 2026 at 11:16:33AM +0800, Tian Zheng wrote:
-> 
-> 
-> On 10/30/2026 8:24 PM, Leonardo Bras wrote:
-> > On Thu, Oct 29, 2026 at 10:02:10PM +0800, Tian Zheng wrote:
-> > > 
-> > > 
-> > > On 10/27/2026 2:05 AM, Leonardo Bras wrote:
-> > > > Hi Tian,
-> > > > Sorry for the delay in reviewing...
-> > > > 
-> > > > On Tue, Sep 29, 2026 at 06:36:45PM +0800, Tian Zheng wrote:
-> > > > > With VTCR_EL2.HD set, hardware promotes writable-clean descriptors to
-> > > > > writable-dirty without any VM exit, and the only record of the write
-> > > > > is the S2AP[1] bit in the stage-2 PTE. The write never passed through
-> > > > > the host stage-1, and no unmap path reads the bit, so the record dies
-> > > > > with the PTE and reclaim may discard written guest data (silent
-> > > > > corruption).
-> > > > 
-> > > > Sorry, I didn't get what you are trying to achieve here.
-> > > > 
-> > > > On your patch, I see you marking backing pages dirty at wrprotect and unmap
-> > > > walkers, and it's very confusing to me on why you are doing this.
-> > > > 
-> > > > IIUC, what you are trying to do is make sure a page does not lose it's
-> > > > contents in case it is reclaimed by the OS.
-> > > > 
-> > > > IIUC, when a page is reclaimed, it will unmap the S2 PTE, and save it's
-> > > > contents to swap, so when the guest read or write to that page will cause
-> > > > it to fault.
-> > > > 
-> > > > The page can never be just unmaped, as if there was a single write to it,
-> > > > the backing pages should be writable, and the contents need to be saved
-> > > > somewhere.
-> > > > 
-> > > > So, if I was able to understand your suggestion, we don't need to worry
-> > > > about this, and this patch wouldn't be necessary.
-> > > > 
-> > > > Did you hit this issue?
-> > > > Can you please expand on your issue, if I could not describe it above?
-> > > > 
-> > > > Thanks!
-> > > > Leo
-> > > 
-> > > Hi Leo,
-> > > 
-> > > Thanks for the review. I haven't hit this in practice, and based on your
-> > > analysis the patch doesn't look necessary.
-> > > 
-> > > Reclaim only writes back folios whose PG_dirty flag is set; a clean
-> > > folio is simply freed. A stage-2 write never touches the host
-> > > stage-1, so the folio depends entirely on kvm_release_faultin_page()
-> > > at fault-in to be marked as dirty; without it, the page stays clean from
-> > > the host's perspective and reclaim drops the data.
-> > > 
-> > 
-> > Oh, okay. IIUC it will be enough if PG_dirty flag is set once, right?
-> > 
-> > While on HAFDBS/HDBSS we will skip the fault for marking them dirty again,
-> > we always take the first fault for every PTE (or prefault them), so
-> > PG_dirty should always be set once the page is first wroten to.
-> > 
-> > 
-> > > Your **RFC v1** patch 2 changed that marking from writable to dirty:
-> > > 
-> > > ```
-> > > - kvm_release_faultin_page(kvm, s2vi->page, !!ret, writable);
-> > > + kvm_release_faultin_page(kvm, s2vi->page, !!ret, dirty);
-> > > ```
-> > > 
-> > > During logging, a read fault maps the page as WC: the folio is not
-> > > marked PG_dirty in kvm_s2_fault_map() and hardware promotes the PTE to
-> > > WD on write without any fault, so reclaim frees the page without saving
-> > > it (the folio was treated as clean).
-> > 
-> > Ah, I see your point.
-> > During dirty-tracking guest reads a page, then HAFDBS promotes it to
-> > writable without marking it as dirty. Good catch!
-> > 
-> > But wouldn't a simpler solution be to change the conditions in the fault
-> > handler, so that it indeed marks it as dirty if dirty-tracking is on, even
-> > if it's just a read fault?
-> > 
-> > Thanks!
-> > Leo
-> > 
-> Hi Leo,
-> 
-> Yes, that's exactly the simpler fix, and it's what I already did in
-> HDBSS v5 patch 2 — the folio is marked dirty for any write-permitting
-> mapping, so a read fault on a tracked memslot also marks it.
-> 
-> Since patch 2 covers this, patch 5 isn't needed. I'll drop it in the next
-> version.
-> 
-> Thanks,
-> Tian
-> 
 
-Awesome, thanks!
-Leo
+
+> On 4 Nov 2026, at 8:46=E2=80=AFPM, Andre Eikmeyer <dev@deq.rocks> wrote:
+>=20
+> =EF=BB=BFbrcmfmac enables the firmware's ARP and IPv6 ND offload (ndoe) wh=
+enever
+> the interface is up and not promiscuous. On the Apple firmware for the
+> BCM4364, ndoe makes IPv6 downloads collapse. IPv6 downloads topped out
+> at 55 Mbit/s on a MacBookPro15,1 with the BCM4364/3 and on the
+> MacBookPro16,1 with the later revision. The BCM4377 is not affected.
+>=20
+> macOS enables ND offload for associated sleep only. A trace under
+> macOS 26.6.1 on a MacBookPro16,2 shows nd_hostip_clear, ndoe=3D1 and the
+> IPv6 addresses before sleep and ndoe cleared again on wake, see the
+> first report below. Keep them off on the BCM4364.
+>=20
+> Closes: https://github.com/t2linux/kernel/issues/34
+> Closes: https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/issues/227
+> Tested-by: Yossef Osman <Yossef.Osman@proton.me>
+> Tested-by: Aditya Garg <aditya.garg@linux.dev>
+> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+
+The bug is present even in 6.18 LTS
+
+Cc: stable@vger.kernel.org
+> ---
+> The KaiT2en community runs this patch with its kernels, no regression
+> was reported.
+>=20
+> .../net/wireless/broadcom/brcm80211/brcmfmac/core.c    | 10 ++++++++++
+> 1 file changed, 10 insertions(+)
+>=20
+> diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/dri=
+vers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+> index 92ec269f43b..6eae7135aeb 100644
+> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+> @@ -13,6 +13,7 @@
+> #include <net/addrconf.h>
+> #include <net/ieee80211_radiotap.h>
+> #include <net/ipv6.h>
+> +#include <brcm_hw_ids.h>
+> #include <brcmu_utils.h>
+> #include <brcmu_wifi.h>
+>=20
+> @@ -103,6 +104,15 @@ void brcmf_configure_arp_nd_offload(struct brcmf_if *=
+ifp, bool enable)
+>        return;
+>    }
+>=20
+> +    /* With ND offload on while awake, the Apple firmware for the BCM4364=
+
+> +     * makes IPv6 downloads drop to low rates. macOS runs ARP and ND
+> +     * offload only in sleep, keep both off on this chip.
+> +     */
+> +    if (enable && ifp->drvr->bus_if->chip =3D=3D BRCM_CC_4364_CHIP_ID) {
+> +        brcmf_dbg(TRACE, "Skip ARP/ND offload enable on BCM4364\n");
+> +        enable =3D false;
+> +    }
+> +
+>    if (enable)
+>        mode =3D BRCMF_ARP_OL_AGENT | BRCMF_ARP_OL_PEER_AUTO_REPLY;
+>    else
+>=20
+> base-commit: 991a73f4909f1348ffb4b38765cdb522a775e4c2
