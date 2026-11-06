@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976344;
-	b=XhNNJMbnKGA+bxF9ZnzdBvt6zq0Be6UtEZaZpark44e4S2sQ3wtYmpRqtyAGGzFGcjKA
-	 gj0PdD/U2Ioqr6Zu5ed4MLjPInWtJS2Wca8A2O1KlsKDc1a2b4Dh+sE4TQl+Xwe+wHX8J
-	 gwd3qQ57sVjqHMNePtWfiXoPsFma5Qte/sjuu6NxCPQg70/vtx6Hz/xzODD+oIzVuSq8A
-	 2ldzzSyqEWY/ETi/HmJRbL2x0Q2t7vSz5ltbn+rgEcG06vKxA9OMtEhPg5AoAqe4SkUnX
-	 dSfsdChvBp2hA1tPdOrRcknHpUCTnEvYIQEcvg2vCbgbyKZSsFt1xGX10pqSkc8pTYg==
+	t=1793976349;
+	b=U8n+AeMtfXKWZ1n7SmllDZxPAraQk9i4st9I4vx31ziqtOLeRtozy8MkOGYjTHG6qemY
+	 ydD3odHWnH/3rC4sUkogVRCooAcNgoD5ql52tHHF1KbNwne3hxxt/V4hEPmyfeaPjKU+M
+	 cLeVqRzlyeViVvl/tnZiZfIwPYxfXPLendl0EzUNN1O6WVhELxmCVaZ3C8+ORdjqkMWGx
+	 eQHm4ZOtCJFVwkuZQgtmvlVFx+IqRbR6A42Kfa0RI8aqgG+fNJoyeoxLgEgrVM9m8jUje
+	 dIbqSk/WnzGNdQu96Ud1XwAnAnzSs3luiH9ic8SHb6HCL1BIz187NNlu+V9jbC/X5+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976344;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=D8oZmxNlOKsm/Rp//d88vLIxrb2bjb3rSm4pQQTcZQA=;
-	b=zg0Q3ovPlCsrzvh8eQEmo9qEvomufb1HK9a8CUgdPU0HgZ6L4uuoqy2bYXFC6EexYiMu
-	 FHRVldfLOQC64zwni2gWwPh+MPbXnAisq4REwDesRMNwu7kUedrycmaZMC/zJ424fxc60
-	 2Zrw9iSsowUAPHpHoXJQo0r08AMgExtywfh3Y7H9SujwB7/0jM5kLnrQy4vD98KKotfC3
-	 Ls89yMe+q7VYDXGO+BSABgjg3jjm0Tm7xl/e6lhOPWuKkR1g2NgJ15TeKvvCBefQ5AK8h
-	 rawVStHjgHXwiMEXxHpM8FHJeVieYySu2rHF22XrUpi/gsBJ2hujrRcHB0+2LFhT82A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976349;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nXpHtbwIXWqa0CUduYYty9A7kDwxd+/CalGYDzCTKjw=;
+	b=18t30N5TPrrJFJ0dqGk+vrjr6H8Q2/MmNMPu57K8dGsQHFk5wURPc/4udzcY2GlNeChd
+	 D7NXubpfPl4ws6oCBeyBPlDHb+MqnAX1142D0GYJq5+YFaT+K2+QcqVJLvx57Lr2QJBOh
+	 AQI6DoVu7WpDJpWgnMtVj90VDlGiO3z9tGGW541yXkHPEVK4tE9kNWmqYWVXNsCygr+Ly
+	 LXzTzlquUIeiIwh5UsI1cQKF2nRbvLJPMNZVbprQjllVavVJTdZwBUDC/q2Ts2dpUxROD
+	 LFDHA6NEUuIKoNsk2tyjQviI0hwqO09lm/na6k5NBVhyWHtVw0U7FJQDwUm8xsQ+3tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O694iKXS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=grimler.se;
+	spf=pass smtp.mailfrom=grimler.se;
+	dkim=pass header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=kADcVJZM;
+	arc=none smtp.remote-ip=91.218.175.28
+Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B5F606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:45:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED12D606A33B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:45:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED12D606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=grimler.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grimler.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O694iKXS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43FA81F008BC
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:45:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793976344;
-	bh=D8oZmxNlOKsm/Rp//d88vLIxrb2bjb3rSm4pQQTcZQA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=O694iKXSJRyqv5P7AKWdMgVg7eGV5VUqteLay04fKbnkp91vwNvnX16VRNjlaStw3
-	 cYtFjfmZ90GRSfquVrpsyY1tr+Yv6Evr1KB2h1m6vRaKpmtfUSrJPyVWym4MxdqrWL
-	 8q2sl2nGqfQDnO8FMEngOW/krdseih27x3q7S/qgWv8Ts7HxFQ48RXc6IT0arBV2og
-	 FIzuqpHAOh/vi6Sf5lVzXlbRa/p1DdM6szpZxDSM5h8QToI/Im8Uo8TFS39fHaVYaF
-	 O1FnA3169YX/JYR2T8P8EwJa677u0bM37kegN4iE9hwZmiNx/qntsGTAAh/IxUkJKE
-	 /YjKJ14GC5Tuw==
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b4a13789b0so983223a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:45:44 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHbu8yrAI1jiost60JWYGzddjbDzr1k6dMt9DBFpoVjUg+xnny/bdWueQL5QMa6GLMlcCxEaqHdex19lsc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8n8QjfVS4uvBKNxUJ5ttx2AHFxIhp1nn/kJkKWaM1dHjYGYDqV
-	OykFseP0VtlrGnWSpYzu4FqUWjqWP/MH2dOYIGvB3aFY/Ig12cBtVnfDak5+HdYv9prIU2nbF5H
-	nRtZakVIyLWqPw752lq6N14usZ5q7tAQ=
-X-Received: by 2002:a05:6402:3207:b0:6b6:e808:96f7 with SMTP id
- 4fb4d7f45d1cf-6b6e80899eemr1325905a12.3.1793976342883; Fri, 06 Nov 2026
- 06:45:42 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=kADcVJZM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dsRJ/0z/yE/5s58BMhmlVSFV04GmqnxwznaEjY/5328=;
+ c=simple/simple; d=grimler.se;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793976343; v=1; x=1794581143;
+ b=kADcVJZMgmNCz98SwUVAOSfSrkz7gIzWbzN1tnaTaC/CyM5NEQ9+X5mynXCfvmbkw7XuInM9
+ NAROZSBHoV0/9CqgXDtzIomW7cYT/ppqX/Fhy/LhrHWO5UoPgPn3onXSrZp9k+rthRSGL4m1cHm
+ gD0Trg+KBvMvns8fnRoJ1Jmg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id cf432eae1467532f;
+	Fri, 06 Nov 2026 14:45:39 +0000
+X-Mizu-Trace-ID: cf432eae1467532f
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 6 Nov 2026 15:45:36 +0100
+From: Henrik Grimler <henrik@grimler.se>
+To: Young-Jun Hong <nirvanah@nirvanahyj.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] clk: samsung: exynos5420: add VPLL rates for 650,
+ 700 and 750 MHz
+Message-ID: <20261106144536.GA3678@localhost>
+References: <20261106054210.2893230-1-nirvanah@nirvanahyj.com>
+ <20261106054210.2893230-3-nirvanah@nirvanahyj.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,53 +73,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102072808.23080-3-yangtiezhu@loongson.cn>
- <c3b8e6ae47164ab1a643a1730f0600993de03c8a30e35122a9812ac73d807697@mail.kernel.org>
- <1276eb14-b851-aee7-36ad-d61e2ddd9ba4@loongson.cn>
-In-Reply-To: <1276eb14-b851-aee7-36ad-d61e2ddd9ba4@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Fri, 6 Nov 2026 22:45:32 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4GyC5=PvF5yvYnoBpUpU3VTuE8kdNUnApNqvN4vHZfhg@mail.gmail.com>
-X-Gm-Features: AclHuK_E27SlHuF9Up4hvhe95PGG3OxpyR3ULOjCKnQ_VAfUevX4tHqFUb9HhkY
-Message-ID: <CAAhV-H4GyC5=PvF5yvYnoBpUpU3VTuE8kdNUnApNqvN4vHZfhg@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] LoongArch: BPF: Use beqz and bnez instructions for trampoline
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: bot+bpf-ci@kernel.org, hengqi.chen@gmail.com, loongarch@lists.linux.dev, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, ast@kernel.org, 
-	andrii@kernel.org, daniel@iogearbox.net, martin.lau@kernel.org, 
-	eddyz87@gmail.com, yonghong.song@linux.dev, mason@kernel.org, 
-	ihor.solodrai@linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106054210.2893230-3-nirvanah@nirvanahyj.com>
 
-On Tue, Nov 3, 2026 at 10:27=E2=80=AFAM Tiezhu Yang <yangtiezhu@loongson.cn=
-> wrote:
->
-> On 2026/11/2 =E4=B8=8B=E5=8D=883:53, bot+bpf-ci@kernel.org wrote:
-> >> LoongArch: BPF: Use beqz and bnez instructions for trampoline
-> >
-> > TL;DR: Commit message only: the claimed branch-overflow risk looks impo=
-ssible,
-> > since trampolines fit in one page and the old code behaved identically,=
- so the
-> > Fixes: and Cc: stable tags may not be justified.
->
-> ...
->
-> > Could the changelog drop the overflow-risk wording, or describe the cha=
-nge
-> > as a cleanup, and could the Fixes: and Cc: stable tags be reconsidered =
-given
-> > that stable-kernel-rules requires a fix for a real bug?
->
-> Will update the commit message and remove the 'Fixes' and 'Cc: stable'
-> tags. If no more comments, I will send out v2 next week.
-Fixes can be removed but I suggest keep Cc: stable, the overflow risk
-actually exists.
+Hi Young-Jun,
 
-Huacai
+On Fri, Nov 06, 2026 at 02:41:49PM +0900, Young-Jun Hong wrote:
+> The VPLL drives the G3D (Mali) clock on Exynos 5420/5422. Its rate table
+> stops at 600 MHz, so GPU OPPs above 600 MHz cannot be reached:
+> clk_set_rate() silently keeps fout_vpll at 600 MHz.
+> 
+> Add the 650, 700 and 750 MHz rows (VCO 1300/1400/1500 MHz, using the same
+> P/M/S style as the APLL rows).
 
->
-> Thanks,
-> Tiezhu
->
+What you mean with "using the same P/M/S style as the APLL rows"?
+
+> Tested on Samsung ARTIK 10 (Exynos 5422): with these rows the G3D devfreq
+> reaches 700 and 750 MHz, and the OpenCL accuracy suite passes 96/96 at
+> 750 MHz with a board-specific 1.35 V OPP.
+> 
+> The analysis, the code and this changelog were produced with Claude
+> Code (Anthropic), a coding assistant.
+
+Was it tested by a human?
+
+> Signed-off-by: Young-Jun Hong <nirvanah@nirvanahyj.com>
+> ---
+>  drivers/clk/samsung/clk-exynos5420.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/clk/samsung/clk-exynos5420.c b/drivers/clk/samsung/clk-exynos5420.c
+> index 400a5c59815c..1b4b0ae16765 100644
+> --- a/drivers/clk/samsung/clk-exynos5420.c
+> +++ b/drivers/clk/samsung/clk-exynos5420.c
+> @@ -1451,6 +1451,9 @@ static const struct samsung_pll_rate_table exynos5420_epll_24mhz_tbl[] = {
+>  };
+>  
+>  static const struct samsung_pll_rate_table exynos5420_vpll_24mhz_tbl[] = {
+> +	PLL_35XX_RATE(24 * MHZ, 750000000U,  125, 2, 1),
+> +	PLL_35XX_RATE(24 * MHZ, 700000000U,  175, 3, 1),
+> +	PLL_35XX_RATE(24 * MHZ, 650000000U,  325, 6, 1),
+
+Do you have any references, like vendor kernel sources, to back up
+these choices of dividers and scalar?
+
+Best regards,
+Henrik Grimler
+
+>  	PLL_35XX_RATE(24 * MHZ, 600000000U,  200, 2, 2),
+>  	PLL_35XX_RATE(24 * MHZ, 543000000U,  181, 2, 2),
+>  	PLL_35XX_RATE(24 * MHZ, 480000000U,  160, 2, 2),
+> -- 
+> 2.47.3
+> 
+> 
