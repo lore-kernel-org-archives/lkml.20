@@ -1,87 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793995958;
-	b=UBdHqSvAOy+U83uhbnCvPWTJhBUcBS8T6zC8Um3Da7GerGrJO9cBie5QlRFZCYiRdHTr
-	 WgOIFs7BvOg0+/77HxGHuluU7biLdeXLaXFKVapiwfYYy5NUzV9VgN+hutOYLTg5HFm5t
-	 kkECL6e2p/jwCwqkTzR8sFJK2xo4i+kHOzU9gMSQNi8G0gL6Onwy2kR97f56K+mxA6gGw
-	 MF1jCTtB8MgVuKDy7rPmFEg9+94QiCSVA4Kt/0aDC9Aei0lbkJFyHvh0/sMeK33nUozvU
-	 Wg6eeM5STYylzXUVNZybHOW5eupneNmH+ht9UMrsn9t4MG9ZKO48fno5jr+92dDVXqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995958;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=AGC2UHq5fYfZGjr2L7smHUkvw2QF9M347vvqRSv/vzY=;
-	b=N3ezk5A7X3xyAZzZeiXCwjsCPH17A0xN8WAx36GaXNmCnaBxxIKvqDSL2lsW+Vzf7Ez+
-	 gYYki/ljObsa3wUZrMxQF0GIB61wBnOqSyHcpoVd1GFS0PNe9rDEyen/35Wxwx3cKAgGx
-	 kVu5vEoTQUiOPDw3UezjcBfOkVQ5EaAE4jNDOtx5I8FAvFGMW1XT2BnOp0aONNcUx1udm
-	 iHZS5xFZW5IJvsExVbehValy3ZZffNdURUDSjUQE8wIYzB8YTKIs0skF5vE7Jf8iW5NbI
-	 /6FUmlZ2X9As1amh/CemEldZpPvOFByfoedmlm3QVW8ShvmOgnTRjjISvIX5Zglv6tw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tHUUoCfz;
-	arc=none smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793995964;
+	b=bdyOjwbOdEba/G7q5uuKNgBFHnPrhjiP3uRl2bl+7jS7X+HM7wC5fIyf45iv/cFJqzpu
+	 aPqzEnahblPOcVFiADoRN8Xg27oJPnKdEmGYWFaHvs6Iulfzrd+bx3qMssb+ws5BIFefw
+	 1+pVB6SeD3x7RZn1nPHFCNZFB6wA+NHhYxwmwWLkd454eY1U4GbumwmjcKmFZqm7DVWNy
+	 AOp0RweXIblrObowwsmr+nl6wbdHWpwc2ZKRY5uHCBjUaymAXBDEk30E63LFTJt4u2DDI
+	 VOOMIAntyANY4zzNsaaogPskQFCGYREUSkzMpSPourCNaRY3+M8GCmSzoSHRi0hdYtg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995964;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
+	bh=/sGqIbCBX/s40K5TfRRMTZP3ixQz2840RM25eCeopZ0=;
+	b=vJJ7+ln4pKu3Uv8PglCEtnIwjOnV/a0+RuYSJhAUfuCjtuelARkZn3ocmmfcfCdS0Lz9
+	 Z2HDLet8lCcLFFSJr/bOFEBdz5SDS3T79TDoc5lVi3ImAgSTBq4oUjm4T09Bq5dMTw51Q
+	 CLKXozQLAuCEU/eF0hqz9uDHE4cRQx1UlSHfxh5LXS511Q/rhw2sRtTUZLggCG9zlBZBd
+	 cER3hAwQ/dR4vPWzVfvsqhnyGov/gnV0h4D1llV9/Pm5nYibN4Qqqgkl3rItQ8xGlz686
+	 MSo5dRYnIO+DactVVHpWcbMqDhihvcV7DU9Nq8bn14Vq5jhrmGFFu4a/CKixNg6Ycuw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oracle.com;
+	spf=pass smtp.mailfrom=oracle.com;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=q+h975Ec;
+	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=NKCuWjcx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE5C606A334
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:12:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE5C606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A00A606A326;
+	Fri,  6 Nov 2026 20:12:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A00A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tHUUoCfz
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b31fc13124so8129337b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:12:37 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=q+h975Ec;
+	dkim=pass (1024-bit key, unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=NKCuWjcx
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FT8PL4118773;
+	Fri, 6 Nov 2026 20:12:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=/sGqIbCBX/s40K5TfRRMTZP3ixQz2840RM25eCeopZ0=; b=
+	q+h975Ecre8GpoC3bGPgQRBXg96CcfQQA/i9FPQ4f6xeOqUVjHFoOxtCz+KTaSM3
+	hU89P3a/XAfuSd+/9A1JU65wCOhKWWfQkHIQh5cObkdcVbYLGJqR/BN+3guevqB0
+	MsVUP+dHn3GlJEggzfI1+tWKQIe1ronp0zty3nR4LhpaPYDo2Tv0gccs9DD/rtvH
+	X5m9NtlbiMj6Q7LRQmydV3cd81B/yCGKEbhOAOg7MTO+do7mTJFpheWgd6nri/yL
+	oQTyjJSwoxLDn2sYEgD7nxAiTx2A4LvMub3/LoYSRvhaYJldZ5GLD1kjjl+XFjnh
+	5D4jtZfV0kzDEKExyCpz4g==
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hs3qp9csd-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Fri, 06 Nov 2026 20:12:30 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6HrcSq1801961;
+	Fri, 6 Nov 2026 20:12:30 GMT
+Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11010047.outbound.protection.outlook.com [52.101.193.47])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4hsjx9y2sk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
+	Fri, 06 Nov 2026 20:12:29 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B5txFENIpw5EN+8AZNLo8ERD/zFSvpnRAYD2yVqna7hvP85v9HLr9wN9aI0S3k5GN+l39yPO7rNs9+cbwd1vwgqPRBts9rA51r/9DiBgdYI5iQpi59u7lD3i8VK+jST5hc09w9fDtVpXhhJIDt6dHq0+U2Fz+Ff3bUnnjMllOcgpH8tqiyxQqsCEFU8VBwMxCoL0El4xkr0gWSzqI50ppdXvEre/4eQu+UaiNlHiw/+F7aPfrJ4Y+s0FpNTZlZnMFfAw5vzlciUKqIsWTdgGJ86/Le7/A3MyTTEBHZYjQVNVoxCsGHV1YAsYISCLXBplTNb47GRKj2fN3zBuiI+DRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/sGqIbCBX/s40K5TfRRMTZP3ixQz2840RM25eCeopZ0=;
+ b=dNCFsr0WYlb1NnGEXUw8mka6lDEB6Z25R9ujbqFKM6vKpc2f8TYsEwzyPWmLbf/2j8tUBqSA82yWIQkqrJB3N+qTwkD/TIyBt+09cFoEszHQdAV7PbXF/Fzh7fduGKvO99X+EPHQ1qYB+99hNZ0n5Ct92rwonma3BRbncp/94RFSMGe4k/9ul8P8D02V3cKy3AnDtsx7FfrReue0/mP9Ts3v6Pq2CDEXm9E2qSK403bHQwZ+NpBEycfDlWgQ8JAAJz9zgDzKWvygT0KT9AbIFRZ4JOMVyOB+xQtZSiNQEM4y0pYEmfFj7scduN1uHMSK0m2bhoSbmHcajhXQw+S8mA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793995957; x=1794600757; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AGC2UHq5fYfZGjr2L7smHUkvw2QF9M347vvqRSv/vzY=;
-        b=tHUUoCfzY8ka5P269++VcDVl1mFjFyJSbCb6i9e08XBAgWn+fcm6EoF3Brwp/OGMzY
-         76u4QVhlItzX2fps2FNqekcWoankK+InNUCxJcDVe5sQGTk7ufe4+9CGL92b3j9jQawS
-         ogv3uKvJf3FmD3l+ehEF+nCdI+oLPI55xf/NQ+6TeCT+OXy1W9kLzrfsmKYD5gBTLAyh
-         fi6QUr//9gC31Y/aaxOxVqVLDgtMQd6f1KLWffD9QUfD7xzmenDBTsix1CzIOsEO4soR
-         4neYb5wv7rYebBxI3GEqWrheUIvR3CMBVavWWDr4iNUQ28QkF+P/VB3zxWTugU8p8U9C
-         JGLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793995957; x=1794600757;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AGC2UHq5fYfZGjr2L7smHUkvw2QF9M347vvqRSv/vzY=;
-        b=Kp6EAbRke9UApjA71FYdrJg20c3m6kHXFI1AAih0Iowf6NYYgAmx3RS0bo5jJ4OIqr
-         nMLaNDdsKnKOs3+N44RNZRAqDq5ArCClIXYQKGYy4DbDeGIwbR6i4EM9TdhEgj81VOcr
-         RWFX9B81tCEAkD26MHAcR/g/7W39Wi37ki2amAjQOqWE7IeQhCtgBjeBYwi1E/pfNyPz
-         bLEBZOTGzeP+TIvBB4kCrcrGEDa/c+6SOssFzfVXt0SI+ebc7/MPyKGXFWCRGvqYF6AB
-         kjqha3+/uE/OjdBX+e5ALfbJQ7iVh+y8K8buzDFrlAGBGBqy8fmv09npSnwdxAA2qCiq
-         974w==
-X-Forwarded-Encrypted: i=1; AL+hErGa59sK2zvyXXoaVqfIG/Ylk1jj5QQNhBclIGr56Gp1g2P3jzRIobHfvvP/KMlmk354sNz9iX56NUDCPI8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PDvMwPE2sYJgda6m+hPXCqdeOCoCULAnMLMBgNlIjvY3uAvPJ
-	LP/ZwnEI38c0WsmHh1plZp2s6RJTGJ1YkSX770S2/V3yoyE0j50U9G03
-X-Gm-Gg: AYBFou1B6E68yKbgccXMryaPceyJYk5w4YsdzLawziOflhUsrkcltTcOAPehWD7pVDh
-	BsQGmOY5rwZsjhyVjkpz2mcA3c7oywnMUsLkTYSbL0PcnCvW7SY9zs9mAIeRn/2DH/XXwDLHgQo
-	4XBDwQP9zLUuHq+8O177FaRoWvmdynWaaiKI3ghZ6kirVxDrUMbd5s0VAA9UnyVFGMCjZUteqq5
-	egLXRWv68YU6hrO47jKGsu5Y6NRJnmlisUQA31LzJuHa7OqV3lgrs8osHmT+L50RN8MLz6+rYa2
-	jr6i3BXJ8XP6+mA+KGK6tjzgwDWycf8lPo3r3Y5d8cDAe+J8wOzHf1/6Fn7a+tHmo4HHHIBoTRy
-	GKc8tZpXGg6kAYyZ/IAIiRYrKa/a31vuWDO2Oa4XqQA1a8bCaBtmsKrNZk3bpqzhjjfwqaZ2sQZ
-	2eAatSmmu3j8pBp85fu/RXsQ6G1+5bnxsETuYgEc0IXVAWuxOXhlvVInAz9Xy3A4g97oprBzLwn
-	rlQyuNNwWxp6eLK9HvrztigK4FayFu+qdB70KNC2KacXvHUWMvMyOy0iKSm5u23TRLZ7/Klzcdh
-	Dyug0hQOIyIGr7WS0a3T22x1YGA30incVF7W0GPG/o6M2sfx
-X-Received: by 2002:a05:690c:c354:b0:8b3:40ae:9720 with SMTP id 00721157ae682-8b341adc8cbmr18864637b3.47.1793995956700;
-        Fri, 06 Nov 2026 12:12:36 -0800 (PST)
-Received: from localhost ([2a03:2880:30ff:42::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f884790sm26771217b3.41.2026.11.06.12.12.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 12:12:36 -0800 (PST)
-From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Fri, 06 Nov 2026 12:12:13 -0800
-Subject: [PATCH net-next v3 5/5] selftests: drv-net: psp: add rekey tests
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/sGqIbCBX/s40K5TfRRMTZP3ixQz2840RM25eCeopZ0=;
+ b=NKCuWjcxxRBENK+sbyUFvZnHY6yxiawKr/2+kYrbCyiEU6psPnABeUNEkXAOGNu+bHx8X7BY9WPXqzIKRPczL72Tfou6nWuXVg8PXlcVkgQqvxT+nXh+DP8GryBYm5D/6S+UNow1jfDvtZde3SaVYMNkeVAoAvk7dTZw/AznLPE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from PH3PPF8C8C3D129.namprd10.prod.outlook.com
+ (2603:10b6:518:1::7b6) by IA3PR10MB8114.namprd10.prod.outlook.com
+ (2603:10b6:208:513::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 20:12:25 +0000
+Received: from PH3PPF8C8C3D129.namprd10.prod.outlook.com
+ ([fe80::1e13:1d2c:49a5:e8a1]) by PH3PPF8C8C3D129.namprd10.prod.outlook.com
+ ([fe80::1e13:1d2c:49a5:e8a1%5]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 20:12:21 +0000
+Message-ID: <92a8e5e4-2729-476f-82e5-e73e51a010e6@oracle.com>
+Date: Fri, 6 Nov 2026 14:12:19 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] scsi: virtio_scsi: implement eh_host_reset_handler
+To: Stefan Hajnoczi <stefanha@redhat.com>, Hannes Reinecke <hare@suse.de>
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, mst@redhat.com,
+        jasowangio@gmail.com, mkp@kernel.org,
+        James.Bottomley@hansenpartnership.com, pbonzini@redhat.com,
+        eperezma@redhat.com, virtualization@lists.linux.dev,
+        linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+        sashiko-bot@kernel.org, kwolf@redhat.com
+References: <20260911164417.33860-1-ngocthang2710.1999@gmail.com>
+ <28865bba-ac60-4c6e-aec8-64b1fcdb1c8f@suse.de>
+ <20260914133144.15509-1-ngocthang2710.1999@gmail.com>
+ <20261102200615.GC1738758@shajnocz.csb>
+ <c5460180-e134-423a-b67f-a58a00106eb8@suse.de>
+ <20261103135156.GB2072598@shajnocz.csb>
+Content-Language: en-US
+From: Mike Christie <michael.christie@oracle.com>
+In-Reply-To: <20261103135156.GB2072598@shajnocz.csb>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7P220CA0006.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:1ca::10) To PH3PPF8C8C3D129.namprd10.prod.outlook.com
+ (2603:10b6:518:1::7b6)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,525 +138,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-psp-v3-5-a8dd38f5a727@gmail.com>
-References: <20261106-psp-v3-0-a8dd38f5a727@gmail.com>
-In-Reply-To: <20261106-psp-v3-0-a8dd38f5a727@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Donald Hunter <donald.hunter@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org
-X-Mailer: b4 0.13.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH3PPF8C8C3D129:EE_|IA3PR10MB8114:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0f76bdc-f614-49ba-7760-08df3c4243ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|6133799003|10067099003|18002099003|22082099003|3023799007|261026121527099003|56012099006|5023799004|4143699003|261021121427099003|261009223027099003|261028144727099003|261102123227099003|261026140227099003|261022075727099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	Ar2NmQzwpiZqLV9fi0MUZpVFPZhWn+v6HU0eqqc6/DYLXvwPlH1Lu+QE3k79afsHkoCYfjXXedEOZWwv/DNCGgq670U+s4qnK7fCPFMxFuxFDhwv3mIXtOE2huY0j55YWGu+gNYM8I2x9Ff8UDS/jFjh98fp2pmro61EXUHJxUg2q+SEERxZRr2DOc0BnD6Ug8FrAjAOF2L60WTyQJa+bnGpB7Ai/bKMquiS3cl6yBsT7k0mR417to460rsqKMbyzMpZP4UEnotTIAQWhBXLhIrTX9lxsWfvecQMHEGDGX6YVVihhXCcaMqSOR/kIjV3ejHCvY1wYuhQgPi4+rd7WqDksZyMUYgYTgCogRIQ3VWmmZx/XYdGhuUGQdCIgnFEmmKDC/8s5qFVoEDCZmoe8buXRwWBm7+aY4h/KDSU/gjIld+zA6iq3K5fc90TnznjaVO8nzym1ciRz9WE41KOuFST2zOoeN1gVE4QHyM/N1O46D312AGx8JmzA5hAZMqD/QRE7na6KzSP5rEHf1xNIaus1Q7eHdv9t7BThD+OdfU5S7gicbpSUPgow2xvEvwCai1bYHl+NIeNPb1Noh8+GbDZ/ZrSpAclYYyK1QYybFS1mCMr8sXX286q49HxKvHDSC0KHGlkrQlq3qikiDLuwTzbQCIgfXSFQUw0RuIH2wo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH3PPF8C8C3D129.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(261026121527099003)(56012099006)(5023799004)(4143699003)(261021121427099003)(261009223027099003)(261028144727099003)(261102123227099003)(261026140227099003)(261022075727099003)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eWZIelhqVUwyZzAxanFHek9Ec3Bic1hZckZMdUZKeEZ3YVpqeFBQcG1kV2hY?=
+ =?utf-8?B?M1F5RTJDSUcrSHFrc0ZvQWttWnVCYVhvSi8wZlVlSVF6eHBYRU9qNGJYaWl3?=
+ =?utf-8?B?SjAyZVNudkdnd2dlaGRocWdXQkVSNUR6Tzl4cmkvRHY2VGExZkd1VUlDYndY?=
+ =?utf-8?B?WVFQN0p6TTF4K1AvVjB0YWpISERYVWRlK0pQS3pIS0JaS2YremFiRXdBZHRm?=
+ =?utf-8?B?NnU0dzhLaXBKRHZ2b1FvMUY3dkpNL1NCN0k0SWlPK1htVk9kY3BDTjJLM0VG?=
+ =?utf-8?B?ZmRjZTFLUGRNVkFpUDJnTUluZnRwYUxOcFJOTGZtNGFPZytnV1daY0s3WTZk?=
+ =?utf-8?B?OWRvQ3gvN3VVcFh2RTV0SkVGQUovSzVrVEFtd3YxMTN3aHk0cGI4ZXQwWENz?=
+ =?utf-8?B?NDlCM2FsMys0RU1BRVpwalRqcFBqaG9WNE81bGdad0N4dGFLREdGcjlsR2Nt?=
+ =?utf-8?B?VzYrenFIY2VVSFF1QUJKbVRPV1hodzE2Y2oxSC9sV2R1UitZUTEzbXBZOUJR?=
+ =?utf-8?B?NFhSOExWb2picjNoaS81K096THdFYmo5NmdOZmdxazZDamJad3h2RFNMWkZL?=
+ =?utf-8?B?YzE5RFR0VDVwbkRPcmV3aEdRb2EzdFU2cENOR3UyVVZ4TXJpN09HVkg1dmRU?=
+ =?utf-8?B?aWVqTEREY3NxRHM4VHJSOGdSNUJiRlhpU1hWVmFOS2RYV2VsemQ3MkFBN1JR?=
+ =?utf-8?B?TkpHZGFMYVV5QnNBMkxqa0E0bXRzemQ5Q0dsL2kxMjU1WTZ3dldwN1lpVlBO?=
+ =?utf-8?B?NGl6MmU4eXQwZHlsUWx6a25KRTZMV3FxYk44cTV2bmEyK2pISHBxZVQvZjE0?=
+ =?utf-8?B?MUxRZVhMeUFSTGowbGxSdHZKUHMzR0c0ZzhUM0FlSkVubUdZTzFWVVVQd3dQ?=
+ =?utf-8?B?S1FFY3BsY0VHR2NyWnUvSFRyU1hnak4zbzk3cGV4M3Bha0JrYlRYRXVHODJL?=
+ =?utf-8?B?UzB0aU1OOVgwMWxKK3FVMkJwUmFIUmhZdy9Kc1d4WU5EYUV1bFZkRlJ4d0xI?=
+ =?utf-8?B?bURYVjRWZjVBOVcreWxEbG5GdzZIT0Fxd01ndGUrMjZoOWkwRmowSmFRM0Fj?=
+ =?utf-8?B?YkQyeHVLU3d5TmhGcjB4czJFUkR1a09CNTVEeDVIK1BFMEFxeWM1VmxRQU9t?=
+ =?utf-8?B?ZVZ6Y3hWUFJuay9tNEVQa0hIZXZnUmtNaWk0cC9GeUpqeERiQjh1UTQ0TklY?=
+ =?utf-8?B?R1BqYVk5Z2F4T1NsbS9jaytWM1JpaHNxbkVqS1dQc1kzQjEraEowM2tMb214?=
+ =?utf-8?B?R2tsdWFDbWdPNTd1aUJnb2RqZVpGYTNEVnJmN0lFV3pjYWRra3BXUktHR21r?=
+ =?utf-8?B?Ylo3TlRxMCtaZDJZai9IUUQyb0ttNll2T0IvbU55T3lHWTQxSnp3emNERHZt?=
+ =?utf-8?B?NUhxN0hGZThPMUtuOC9wak5rczJHK0VML1E0ZW9qYWkwVnN0czNWdXZQNXhk?=
+ =?utf-8?B?M25FQWsyaDBzYUxFck5taEZMbitZeFl4RS9FVkhGanIrdmJTdWhMVHhzRVZw?=
+ =?utf-8?B?K3V6UTA5VUFPQzd6RVRuUmlOK0Y4d0dvTG5WbnVCQXRLQ1dWU0pONmRUQlRw?=
+ =?utf-8?B?N0pnbk5ZaW04SkpTekFiM2NUV1dKM2M3RnlKK3crSmZ1SXdyTmVGQmxJYk1i?=
+ =?utf-8?B?M3ZIWFhEVzlhcy8rSHpGazVpNXh0WTVlVXg5TkhOTHNya0NrWFlpR24zSTNV?=
+ =?utf-8?B?cldNTytiVkNqRkRMUVQ5K3dIVzY4QU1LYzFjaExtUVFpTkZ6eVVZS3lZYVJt?=
+ =?utf-8?B?T0FYZmt3Z3Z1Vk1MVnBnQ3A3NDdGMUEwRHZFZFlyQUJGdWNkdU5MWjVKSTlS?=
+ =?utf-8?B?OVZ4N1ZKY1NFcVoyYUdUQ0kra3l3dFc2MUdrdVVVVFpManVlQVRmN042aHE5?=
+ =?utf-8?B?NjFGNk8wajh5Z0w4VC9ERXJGd3BrVmtORXhkOE1xdzVjS05vdGl3R2VENzhR?=
+ =?utf-8?B?eWR3TkZxOEgyZnMwMUExbWFvMGFSZUhjdE9kaFU0cVFzRWFnNzdKSnVTK2w3?=
+ =?utf-8?B?ejJ4L3FkSUNmS2RtVVRPNnRuTVBzaW5XcDFpV2dwSkU1SlJJQ1lDeWFDMmhF?=
+ =?utf-8?B?Qk5ZVjdYdWtDZUsyeDJ3cVkzRVltWVRiZFk1Mm1hNDZpZFByTG8xSzdTYktC?=
+ =?utf-8?B?dGg0ODJXa29oN2Y1WnRoekFoZWYwK01oNWVkTGd1ZzkzV0FFRmtPQXp0UHgr?=
+ =?utf-8?B?cG8zQ2ExSUR4MEEwcXp2TzlnQk5TZDFNTjdpSm1ZTFdrcGZoV2d4OUkvaTNO?=
+ =?utf-8?B?ZkdQUXhyZnYxcEZMTmlJNUgwNHFVMWlkRGRnU2xMNkU1M3ZWNCtnZjEzdkI2?=
+ =?utf-8?B?bXFXZW1vanp2YTR0UDJsZXRoQ2oyV0NBR3B4elNMQytXekNSNTFhclNsWGlJ?=
+ =?utf-8?Q?N1cuRUFQuHJDS1Xs=3D?=
+X-Exchange-RoutingPolicyChecked:
+	ku3gVgUEzORBPuFx2TfITF6UbC1rCj71DkaD3vukPrMvH/SqtO8B0KpaJEmf7nIM3SrYwRgUH95nvkf1npdusA/Km/Bj7Ui6MDpG+961iKRwLQ/cRrqlUFTCaoCxnDVrCvCEc6g011PiLe1HWuY6GJ6KF/XNqu9q+NoB1dy/jfba660CscV9SpbDoEDOyqdKYGWxTCMr/eJ3dbwt8rQJ7HAibx61/jQkbnaxkqUHTa0dP+C7YcMeoF3dkrqrl43K66ZWokaK4cm7qozehRdWRXbxmyUJFLSFK40L8QE2aa7llkPxf1aUTzDo7+AJHSDcPqhhrP8hKlQptlG1ZxszSw==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	ZHdmX0OkNAT03J/7Dd7+Z/aHSwL+p4Y0xpQEJS8DwDt7Hmn7emceJ/Wuy1MgJ5DqX9gtPyYs8y5JzcKkNxqZk/+HBjdT4/b7ZMF8mCXCE3vlbkjAM7jMDgCXkxBalkHE3s2Tp1sdWq3MpV7L39hJZdXpstYXalEn1AJ0YqRk4sfZr3QyOEIW9YccRsK81FAphmwXQra5LHWsI3P/mOgS+sjrFXWk/glvlsrnf4m4GNRf/8wWFAbQ6gRxD/CoQjtZ/4vLKRRKUmX/VCWg05XVkQrJtbvvoL4c0XtX6SN842vUP5UVUYIBdFcAyN9iqnrchmJj54iLvMQCmD7LHVm6tWPEY9g4oIvN3jZSXpaMm3My5OVgPj9taXzIU9VgdBkcC94fJAt/wKGBlkuJ56R/QjuZeNIULrnF/eeKKEh+lagupeBJSkqFEVILYgkBrCl2yRYuantGlzbWIIVfJVTzRLDY6X5ke25I0t7aPIsRSsKKEYaRE0icRetOwbpwiqhAPRnRmtLNfsBgN0W5+FnSwIClsNcFuCoPHlpRHaQGtK8HBVyvaaj7+KsfcG6LoWXehiX8UwVCxYqOIbTejkDwzl3cFGDMWN7Il5/4cd7uBIA=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0f76bdc-f614-49ba-7760-08df3c4243ed
+X-MS-Exchange-CrossTenant-AuthSource: PH3PPF8C8C3D129.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 20:12:21.6664
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B8JtBagbHrvE+iXO6/wO3WCFfhbfFSGV263htWs0y2eoJ1DzYESXTVPXV8DkBqfguhHn3jiEjY4HxNGo61vqUll4/Y7V3WGQxlEEDM2osr8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR10MB8114
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_06,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ lowpriorityscore=0 spamscore=0 mlxscore=0 bulkscore=0 suspectscore=0
+ adultscore=0 malwarescore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2611040001 definitions=main-2611060080
+X-Proofpoint-GUID: uwB59zbep00PbSx4gPRmrYu3rmNLQ3KS
+X-Authority-Analysis: v=2.4 cv=GLqdgeNK c=1 sm=1 tr=0 ts=6aee34ae b=1 cx=c_pps
+ a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=EIcjfB9IiI4px24ztqRk:22 a=pGLkceISAAAA:8
+ a=puhylKk3kZJqiNpfFUoA:9 a=QEXdDO2ut3YA:10 a=5yU3S35YU4bGjq-dph-N:22
+ a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13532
+X-Proofpoint-ORIG-GUID: uwB59zbep00PbSx4gPRmrYu3rmNLQ3KS
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA4MCBTYWx0ZWRfX11n59r99ZMxZ
+ t2TG3tfQu6uBqzpkL7USOS1APKMRrx9q7BLeLzt1IHT8kAVIzSxeKNeIVl2Y/hHq4g7ZtU6iibW
+ +D8OBrvR0MCZY6HBDw7HUHFdLWrPrt136R77ArAN6ZyG2VsYMfDY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA4MCBTYWx0ZWRfX8F6Z89jQLCYc
+ /cGRa+casEsbKKvrH/KvDBzj+r0TjrXXjjAGBX+7d/f3EjnqZ34zrIl8gJgbHIILZhKfI0GS7d/
+ saZHvFTuc8svYLETjmCcpuG1Pzpoeoh3xKXQZS+4XOre50ShExXEk8nJLd8aYciPlefqwtBTYQS
+ 59Y667sm2qzVBw6TIdrlbMbcHv91JzECkWB+PMW5x8S/LFv8wVCyHKR5td82P3H6qh6C8mT1m59
+ X26U49o9jtTksvdfHQ9Pz7ULTuty4ntwe3AMkUGTQn6IkE/D379d8NfZnnu6UwwKtMWoEOaTyMp
+ UmMdpn2HJeqJ65vON62LXadbC0PcAxBsVld/nnxwgQZfGb+dY14eYlkYcr8mIuR9L4vPU95lL7f
+ x93Yenvh/v4Umfwfmk83d6np9CwbZZ3iHeS4gMQvJ1uW21jG7tXB4Uh/YQVFuY3AFnadthQMw1m
+ qTLU2Itbs4fVsj/XFryHooFh3hC5VOqqbODDKK5E=
 
-Add testcases for rekeying psp connections.
+On 11/3/26 7:51 AM, Stefan Hajnoczi wrote:
+> On Tue, Nov 03, 2026 at 08:27:52AM +0100, Hannes Reinecke wrote:
+>> On 11/2/26 9:06 PM, Stefan Hajnoczi wrote:
+>>> On Mon, Sep 14, 2026 at 08:31:44PM +0700, Nguyen Ngoc Thang wrote:
+>>>> Once virtscsi_eh_timed_out() lets SCSI EH run on an unresponsive host,
+>>>> abort and device reset both fail the same way (same dead ctrl vq), and
+>>>> since virtio_scsi implements neither target nor bus reset, EH falls
+>>>> through to scsi_eh_offline_sdevs(), which frees the stuck commands' DMA
+>>>> buffers without any guarantee the device has actually stopped touching
+>>>> them. If bus mastering (or whatever broke the transport) comes back
+>>>> later, the device can still write into memory the kernel has already
+>>>> reused.
+>>>>
+>>>> Add a real eh_host_reset_handler instead. virtio_reset_device() is the
+>>>> guarantee scsi_eh_offline_sdevs() was missing: once it returns, the
+>>>> device will not touch guest memory again, so it is safe to hand
+>>>> outstanding commands' buffers back. Reuse virtscsi_remove_vqs() +
+>>>> virtscsi_init() -- the exact sequence already used across
+>>>> suspend/resume -- to tear the virtqueues down and rebuild them.
+>>>>
+>>>> Verified with a QEMU virtio-scsi repro (PCI_COMMAND_MASTER cleared
+>>>> mid-write): EH now runs abort -> device reset -> host reset -> abort ->
+>>>> device reset -> host reset -> offline, then dd's stuck fsync returns
+>>>> EIO and D-state drains to 0, in ~244s total. No task remains
+>>>> uninterruptibly blocked.
+>>> By the way, there is a known limitation in the QEMU virtio-scsi
+>>> implementation where some reset-related operations are implemented
+>>> synchronously (can block vCPUs and QEMU activity while waiting for I/O
+>>> to drain in some situations) instead of asynchronously. Recently there
+>>> has been work in QEMU to make VIRTIO device reset asynchronous, for
+>>> example, but it needs to be implemented on a per-device basis and
+>>> virtio-scsi hasn't taken advantage of it yet.
+>>>
+>>> Please let me know if you'd like to discuss or contribute. It's
+>>> something that is on my radar but not until 2027.
+>>>
+>>>> Suggested-by: Hannes Reinecke <hare@suse.de>
+>>>> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+>>>> ---
+>>>> v1 -> v2: implemented eh_host_reset_handler as suggested by Hannes
+>>>> Reinecke in review of the original RFC, instead of relying solely on
+>>>> the EH loop falling through to offline.
+>>>> ---
+>>>>   drivers/scsi/virtio_scsi.c | 24 ++++++++++++++++++++++++
+>>>>   1 file changed, 24 insertions(+)
+>>>>
+>>>> diff --git a/drivers/scsi/virtio_scsi.c b/drivers/scsi/virtio_scsi.c
+>>>> index b4f20c487718..9698f4f91cc6 100644
+>>>> --- a/drivers/scsi/virtio_scsi.c
+>>>> +++ b/drivers/scsi/virtio_scsi.c
+>>>> @@ -833,6 +833,8 @@ static enum scsi_timeout_action virtscsi_eh_timed_out(struct scsi_cmnd *scmnd)
+>>>>   	return SCSI_EH_NOT_HANDLED;
+>>>>   }
+>>>> +static int virtscsi_host_reset(struct scsi_cmnd *sc);
+>>>> +
+>>>>   static const struct scsi_host_template virtscsi_host_template = {
+>>>>   	.module = THIS_MODULE,
+>>>>   	.name = "Virtio SCSI HBA",
+>>>> @@ -846,6 +848,7 @@ static const struct scsi_host_template virtscsi_host_template = {
+>>>>   	.eh_abort_handler = virtscsi_abort,
+>>>>   	.eh_device_reset_handler = virtscsi_device_reset,
+>>>>   	.eh_timed_out = virtscsi_eh_timed_out,
+>>>> +	.eh_host_reset_handler = virtscsi_host_reset,
+>>>>   	.sdev_init = virtscsi_device_alloc,
+>>>>   	.dma_boundary = UINT_MAX,
+>>>> @@ -947,6 +950,27 @@ static int virtscsi_init(struct virtio_device *vdev,
+>>>>   	return err;
+>>>>   }
+>>>> +/*
+>>>> + * No bus/target reset in virtio-scsi, so EH lands here after device
+>>> The choice to use the VIRTIO device reset in virtscsi_host_reset() looks
+>>> good to me, but I would like clarification on this comment. virtio-scsi
+>>> does have I_T_NEXUS_RESET and I believe this is the modern equivalent to
+>>> the pre-SCSI-6 TARGET RESET. Is it really the case that virtio-scsi
+>>> doesn't have target reset? And do you want to go ahead and implement
+>>> .eh_target_reset_handler() using I_T_NEXUS_RESET?
+>>>
+>> Would probably not a bad idea to use I_T_NEXUS_RESET here.
+>> Not sure what it does internally, though; _is_ there a nexus
+>> to reset?
+> Whether there is any benefit to I_T_NEXUS_RESET may depend on the device
+> implementation. In QEMU:
+> - LOGICAL_UNIT_RESET resets just 1 LUN
+> - I_T_NEXUS_RESET resets all LUNs
+> - VIRTIO device reset also resets the HBA itself
+> 
+> In practice QEMU's I_T_NEXUS_RESET is unlikely to fix things if
+> LOGICAL_UNIT_RESET wasn't sufficient. Maybe it will help on other device
+> implementations though.
+> 
+> I think the Linux driver mapping should be:
+> - .eh_device_reset_handler() -> LOGICAL_UNIT_RESET
+> - .eh_target_reset_handler() -> I_T_NEXUS_RESET
+> - .eh_host_reset_handler() -> VIRTIO device reset
 
-Tests include coverage for different cases where rx-assoc and tx-assoc
-should fail based on mismatched psp version and psp state.
+How are vhost drivers notified of the device reset? For qemu virtio-scsi
+this would call virtio_scsi_reset right?
 
-Add rpc endpoints for tx-assoc, rx-assoc, and key-rotate netlink calls
-to the psp_responder.
-
-Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
----
-v3:
-- drop test for rx rekey rejected without a device key rotation
-- fail fast in _recv_careful() if the peer closes the connection
-- in the basic rekey tests, run traffic across a rotation before the
-  rekey, and rotate again after it to verify the new key is in use
-- drop unneeded key rotation from rekey_rx_version_mismatch()
-- carry the key length in the responder's assoc message instead of
-  deriving it from the version
-
-v2:
-- add tests for rekeys rejected due to psp state and version mismatch
-- add test for rx rekey rejected without a device key rotation
-- add rx-assoc, tx-assoc, and key-rotate rpcs to psp_responder
----
- tools/testing/selftests/drivers/net/psp.py         | 255 ++++++++++++++++++++-
- .../testing/selftests/drivers/net/psp_responder.c  | 119 ++++++++++
- 2 files changed, 372 insertions(+), 2 deletions(-)
-
-diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/selftests/drivers/net/psp.py
-index 71eeade62ad2..004faf4bb57a 100755
---- a/tools/testing/selftests/drivers/net/psp.py
-+++ b/tools/testing/selftests/drivers/net/psp.py
-@@ -28,6 +28,10 @@ from lib.py import ip
- TCP_ULP = 31
- 
- 
-+_PSP_MAX_KEY_LEN = 32
-+_PSP_ASSOC_MSG = f'!IBB2x{_PSP_MAX_KEY_LEN}s'
-+
-+
- def _get_outq(s):
-     one = b'\0' * 4
-     outq = fcntl.ioctl(s.fileno(), termios.TIOCOUTQ, one)
-@@ -80,6 +84,33 @@ def _close_psp_conn(cfg, s):
-     _close_conn(cfg, s)
- 
- 
-+def _recv_all(s, target):
-+    data = b''
-+    while len(data) < target:
-+        chunk = s.recv(target - len(data))
-+        if not chunk:
-+            raise KsftFailEx(f"peer closed after {len(data)} of {target} bytes")
-+        data += chunk
-+    return data
-+
-+
-+def _remote_rx_assoc(cfg):
-+    _send_with_ack(cfg, b'rx assoc\0')
-+    msg = _recv_all(cfg.comm_sock, struct.calcsize(_PSP_ASSOC_MSG))
-+    spi, version, key_len, key = struct.unpack(_PSP_ASSOC_MSG, msg)
-+    return version, {'spi': spi, 'key': key[:key_len]}
-+
-+
-+def _remote_tx_assoc(cfg, version, rx):
-+    msg = struct.pack(_PSP_ASSOC_MSG, rx['spi'], version, len(rx['key']),
-+                      rx['key'])
-+    _send_with_ack(cfg, b'tx assoc\0' + msg)
-+
-+
-+def _remote_key_rotate(cfg):
-+    _send_with_ack(cfg, b'key rotate\0')
-+
-+
- def _spi_xchg(s, rx):
-     s.send(struct.pack('I', rx['spi']) + rx['key'])
-     tx = s.recv(4 + len(rx['key']))
-@@ -130,6 +161,44 @@ def _check_data_outq(s, exp_len, force_wait=False):
-     ksft_eq(outq, exp_len)
- 
- 
-+def _recv_careful(s, target, timeout=2):
-+    """Read exactly target bytes, tolerating short reads"""
-+    data = b''
-+    end = time.monotonic() + timeout
-+    while time.monotonic() < end:
-+        try:
-+            chunk = s.recv(target - len(data), socket.MSG_DONTWAIT)
-+            if not chunk:
-+                raise KsftFailEx(f"peer closed after {len(data)} of {target} bytes")
-+            data += chunk
-+            if len(data) == target:
-+                return data
-+        except BlockingIOError:
-+            time.sleep(0.001)
-+    raise KsftFailEx(f"short read, got {len(data)} of {target} bytes")
-+
-+
-+def _req_echo(cfg, s):
-+    """Ask the peer to echo, and check the reply arrives intact"""
-+    _send_with_ack(cfg, b'data echo\0')
-+    ksft_eq(_recv_careful(s, 5), b'echo\0')
-+
-+
-+def _psp_txrx(cfg, s, rounds, sent=0):
-+    """Send data both ways, and return the total bytes sent to the peer"""
-+    sent += _send_careful(cfg, s, rounds)
-+    _check_data_rx(cfg, sent)
-+    _req_echo(cfg, s)
-+    return sent
-+
-+
-+def _require_version(cfg, version):
-+    """Skip the test unless the device supports the given PSP version"""
-+    name = cfg.pspnl.consts["version"].entries_by_val[version].name
-+    if name not in cfg.psp_info['psp-versions-cap']:
-+        raise KsftSkipEx("PSP version not supported", name)
-+
-+
- def _get_stat(cfg, key):
-     return cfg.pspnl.get_stats({'dev-id': cfg.psp_dev_id})[key]
- 
-@@ -489,6 +558,186 @@ def _data_basic_send(cfg, version, ipver):
-     _close_psp_conn(cfg, s)
- 
- 
-+def _rekey_rx(cfg, s, version, sent):
-+    """Rekey the Rx direction, running traffic after each step"""
-+    rx_assoc = cfg.pspnl.rx_assoc({"version": version,
-+                                   "dev-id": cfg.psp_dev_id,
-+                                   "sock-fd": s.fileno()})
-+    sent = _psp_txrx(cfg, s, 1, sent)
-+
-+    _remote_tx_assoc(cfg, version, rx_assoc['rx-key'])
-+    return _psp_txrx(cfg, s, 1, sent)
-+
-+
-+def _rekey_tx(cfg, s, sent):
-+    """Rekey the Tx direction, running traffic after each step"""
-+    version, tx = _remote_rx_assoc(cfg)
-+    sent = _psp_txrx(cfg, s, 1, sent)
-+
-+    cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                        "version": version,
-+                        "tx-key": tx,
-+                        "sock-fd": s.fileno()})
-+    return _psp_txrx(cfg, s, 1, sent)
-+
-+
-+def rekey_rx_incomplete(cfg):
-+    """Test rejecting Rx rekey until the PSP connection is established"""
-+    psp_ver = 0
-+    _init_psp_dev(cfg)
-+
-+    with _make_lo_conn() as s:
-+        assoc = cfg.pspnl.rx_assoc({"version": psp_ver,
-+                                    "dev-id": cfg.psp_dev_id,
-+                                    "sock-fd": s.fileno()})
-+
-+        # Reject rekey before Tx state is configured.
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.rx_assoc({"version": psp_ver,
-+                                "dev-id": cfg.psp_dev_id,
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EBUSY)
-+
-+        cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                            "version": psp_ver,
-+                            "tx-key": assoc['rx-key'],
-+                            "sock-fd": s.fileno()})
-+
-+        # Reject rekey until authenticated PSP traffic has been received.
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.rx_assoc({"version": psp_ver,
-+                                "dev-id": cfg.psp_dev_id,
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EBUSY)
-+
-+
-+def rekey_tx_incomplete(cfg):
-+    """Test rejecting Tx rekey until the PSP connection is established"""
-+    psp_ver = 0
-+    _init_psp_dev(cfg)
-+
-+    with _make_lo_conn() as s:
-+        assoc = cfg.pspnl.rx_assoc({"version": psp_ver,
-+                                    "dev-id": cfg.psp_dev_id,
-+                                    "sock-fd": s.fileno()})
-+
-+        cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                            "version": psp_ver,
-+                            "tx-key": assoc['rx-key'],
-+                            "sock-fd": s.fileno()})
-+
-+        # Reject rekey until authenticated PSP traffic has been received.
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                                "version": psp_ver,
-+                                "tx-key": assoc['rx-key'],
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EBUSY)
-+
-+
-+def rekey_rx_version_mismatch(cfg):
-+    """Test rejecting an Rx rekey whose version does not match socket state"""
-+    _init_psp_dev(cfg)
-+    _require_version(cfg, 1)
-+
-+    s = _establish_psp_conn(cfg, 0)
-+    try:
-+        _psp_txrx(cfg, s, 1)
-+
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.rx_assoc({"dev-id": cfg.psp_dev_id,
-+                                "version": 1,
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EINVAL)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
-+def rekey_tx_version_mismatch(cfg):
-+    """Test rejecting a Tx rekey whose version does not match socket state"""
-+    _init_psp_dev(cfg)
-+    _require_version(cfg, 1)
-+
-+    s = _establish_psp_conn(cfg, 0)
-+    try:
-+        _psp_txrx(cfg, s, 1)
-+
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                                "version": 1,
-+                                "tx-key": {'spi': 0x12345678,
-+                                           'key': b'\xa5' * 32},
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.EINVAL)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
-+def _get_psp_ver_variants():
-+    for ver in range(4):
-+        yield KsftNamedVariant(f"v{ver}", ver)
-+
-+
-+@ksft_variants(_get_psp_ver_variants())
-+def rekey_rx_basic(cfg, version):
-+    """Test rekeying the Rx key of an established connection"""
-+    _init_psp_dev(cfg)
-+
-+    s = _establish_psp_conn(cfg, version)
-+    try:
-+        data_len = _psp_txrx(cfg, s, 1)
-+        cfg.pspnl.key_rotate({"id": cfg.psp_dev_id})
-+        data_len = _psp_txrx(cfg, s, 1, data_len)
-+        data_len = _rekey_rx(cfg, s, version, data_len)
-+        cfg.pspnl.key_rotate({"id": cfg.psp_dev_id})
-+        _psp_txrx(cfg, s, 1, data_len)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
-+@ksft_variants(_get_psp_ver_variants())
-+def rekey_tx_basic(cfg, version):
-+    """Test rekeying the Tx key of an established connection"""
-+    _init_psp_dev(cfg)
-+
-+    s = _establish_psp_conn(cfg, version)
-+    try:
-+        data_len = _psp_txrx(cfg, s, 1)
-+        _remote_key_rotate(cfg)
-+        data_len = _psp_txrx(cfg, s, 1, data_len)
-+        data_len = _rekey_tx(cfg, s, data_len)
-+        _remote_key_rotate(cfg)
-+        _psp_txrx(cfg, s, 1, data_len)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
-+@ksft_variants(_get_psp_ver_variants())
-+def rekey_both_sides(cfg, version):
-+    """Test rekeying both directions"""
-+    _init_psp_dev(cfg)
-+
-+    s = _establish_psp_conn(cfg, version)
-+    try:
-+        data_len = _psp_txrx(cfg, s, 10)
-+
-+        cfg.pspnl.key_rotate({"id": cfg.psp_dev_id})
-+        _remote_key_rotate(cfg)
-+
-+        # first, rx then tx
-+        data_len = _rekey_rx(cfg, s, version, data_len)
-+        data_len = _rekey_tx(cfg, s, data_len)
-+
-+        cfg.pspnl.key_rotate({"id": cfg.psp_dev_id})
-+        _remote_key_rotate(cfg)
-+
-+        # now, tx then rx
-+        data_len = _rekey_tx(cfg, s, data_len)
-+        _rekey_rx(cfg, s, version, data_len)
-+    finally:
-+        _close_psp_conn(cfg, s)
-+
-+
- def __bad_xfer_do(cfg, s, tx, version='hdr0-aes-gcm-128'):
-     # Make sure we accept the ACK for the SPI before we seal with the bad assoc
-     _check_data_outq(s, 0)
-@@ -1181,7 +1430,8 @@ def main() -> None:
-                                                           cfg.comm_port),
-                                                          timeout=1)
- 
--                cases = [data_basic_send, data_mss_adjust]
-+                cases = [data_basic_send, data_mss_adjust,
-+                         rekey_rx_basic, rekey_tx_basic, rekey_both_sides]
- 
-                 if has_cont:
-                     cases += [
-@@ -1197,7 +1447,8 @@ def main() -> None:
-                     ]
- 
-                 ksft_run(cases=cases, globs=globals(),
--                         case_pfx={"dev_", "data_", "assoc_", "removal_"},
-+                         case_pfx={"dev_", "data_", "assoc_", "rekey_",
-+                                   "removal_"},
-                          args=(cfg, ))
- 
-                 cfg.comm_sock.send(b"exit\0")
-diff --git a/tools/testing/selftests/drivers/net/psp_responder.c b/tools/testing/selftests/drivers/net/psp_responder.c
-index 14b179e1aec8..68a8a2b30c1a 100644
---- a/tools/testing/selftests/drivers/net/psp_responder.c
-+++ b/tools/testing/selftests/drivers/net/psp_responder.c
-@@ -5,6 +5,7 @@
- #include <sys/poll.h>
- #include <sys/socket.h>
- #include <sys/time.h>
-+#include <arpa/inet.h>
- #include <netinet/in.h>
- #include <unistd.h>
- 
-@@ -23,6 +24,7 @@ static bool should_quit;
- struct opts {
- 	int port;
- 	int ifindex;
-+	int devid;
- 	bool verbose;
- };
- 
-@@ -141,6 +143,108 @@ static void send_str(int sock, int value)
- 	send(sock, buf, ret + 1, MSG_WAITALL);
- }
- 
-+struct assoc_msg {
-+	__be32 spi;
-+	__u8 version;
-+	__u8 key_len;
-+	__u8 pad[2];
-+	char key[PSP_MAX_KEY_LEN];
-+};
-+
-+static void
-+handle_rx_assoc(struct ynl_sock *ys, int data_sock, int comm_sock)
-+{
-+	struct assoc_msg msg = {};
-+	unsigned int key_len;
-+	__u32 spi;
-+
-+	if (data_sock < 0) {
-+		fprintf(stderr, "WARN: rx assoc but no data sock\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	if (rx_assoc(ys, &spi, msg.key, &key_len, data_sock)) {
-+		fprintf(stderr, "ERROR: rx_assoc() failed\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	msg.spi = htonl(spi);
-+	msg.version = psp_vers.rx;
-+	msg.key_len = key_len;
-+	send_ack(comm_sock);
-+	send(comm_sock, &msg, sizeof(msg), MSG_WAITALL);
-+}
-+
-+static void
-+handle_tx_assoc(struct ynl_sock *ys, char *data, int data_sock, int comm_sock)
-+{
-+	struct assoc_msg msg;
-+
-+	if (data_sock < 0) {
-+		fprintf(stderr, "WARN: tx assoc but no data sock\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	memcpy(&msg, data, sizeof(msg));
-+	if (msg.key_len > PSP_MAX_KEY_LEN) {
-+		fprintf(stderr, "ERROR: tx assoc key too long\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	if (tx_assoc(ys, msg.version, ntohl(msg.spi), msg.key, msg.key_len,
-+		     data_sock)) {
-+		fprintf(stderr, "ERROR: tx_assoc() failed!\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	send_ack(comm_sock);
-+}
-+
-+static int rotate_key(struct ynl_sock *ys, int devid)
-+{
-+	struct psp_key_rotate_rsp *rsp;
-+	struct psp_key_rotate_req *req;
-+
-+	req = psp_key_rotate_req_alloc();
-+
-+	psp_key_rotate_req_set_id(req, devid);
-+
-+	rsp = psp_key_rotate(ys, req);
-+	psp_key_rotate_req_free(req);
-+
-+	if (!rsp) {
-+		perror("ERROR: failed to rotate key");
-+		return -1;
-+	}
-+
-+	psp_key_rotate_rsp_free(rsp);
-+
-+	return 0;
-+}
-+
-+static void
-+handle_key_rotate(struct ynl_sock *ys, struct opts *opts, int comm_sock)
-+{
-+	if (opts->devid < 0) {
-+		fprintf(stderr, "WARN: key rotate but no PSP device\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	if (rotate_key(ys, opts->devid)) {
-+		fprintf(stderr, "ERROR: rotate_key() failed\n");
-+		send_err(comm_sock);
-+		return;
-+	}
-+
-+	send_ack(comm_sock);
-+}
-+
- static void
- run_session(struct ynl_sock *ys, struct opts *opts,
- 	    int server_sock, int comm_sock)
-@@ -233,6 +337,9 @@ run_session(struct ynl_sock *ys, struct opts *opts,
- 			match;						\
- 		})
- 
-+#define cmd_w_msg(_name, _type)						\
-+		(off >= sizeof(_name) + sizeof(_type) && cmd(_name))
-+
- 			do {
- 				consumed = false;
- 
-@@ -247,6 +354,16 @@ run_session(struct ynl_sock *ys, struct opts *opts,
- 						fprintf(stderr, "WARN: echo but no data sock\n");
- 					send_ack(comm_sock);
- 				}
-+				if (cmd("rx assoc"))
-+					handle_rx_assoc(ys, data_sock,
-+							comm_sock);
-+				if (cmd_w_msg("tx assoc", struct assoc_msg)) {
-+					handle_tx_assoc(ys, buf, data_sock,
-+							comm_sock);
-+					__consume(sizeof(struct assoc_msg));
-+				}
-+				if (cmd("key rotate"))
-+					handle_key_rotate(ys, opts, comm_sock);
- 				if (cmd("data close")) {
- 					if (data_sock >= 0) {
- 						close(data_sock);
-@@ -277,6 +394,7 @@ run_session(struct ynl_sock *ys, struct opts *opts,
- 				}
- 				if (cmd("exit"))
- 					should_quit = true;
-+#undef cmd_w_msg
- #undef cmd
- 
- 				if (!consumed) {
-@@ -475,6 +593,7 @@ int main(int argc, char **argv)
- 		}
- 	}
- 	psp_dev_get_list_free(dev_list);
-+	opts.devid = devid;
- 
- 	if (opts.ifindex && devid < 0)
- 		fprintf(stderr,
-
--- 
-2.52.0
+For vhost-scsi though, do we need to add a similar reset function?
 
