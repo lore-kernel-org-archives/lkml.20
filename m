@@ -1,101 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793967094;
-	b=Mv0r+DHLx7yPrBH2MNMljClJG7Afp+BG3XM7bdWqteHHhoPL9KWOa+4Gupah356ifVDs
-	 3RS5F6AViFPjOfI88+1Wj3rxbTeRFQIYp++PaXv9Gi+9vvtYQBV2a6gfgA52FfxrJeWfg
-	 4vCDaiFTU9IyuOZjTVxfraufzEEy/5olFTV+G8yOCEw+fmY59a46TjbKxtqZklUP6PerO
-	 Lf0qWpgaH9ymt4TD8O9SDe4N0UwHVf3/xgoNtaGKSrbAhdWEAUaI7yEOyftShR0prkaJJ
-	 UatLkysedTPhybCIHcvHFJRMopDT3wu0Se0hjEaR4gavUeIstYSrLx3hb9fK4j6sJUQ==
+	t=1793967116;
+	b=CSKwNT1s7kombexokNFkgB9Wp/QKc9Nvh+d6WiF50qJAoF/0930ouhysgAiac0KnAp1j
+	 o2XoJwhQ4dmTYTn2YISHnzXITy+F3ov5pCbU1Ed9CVXqxpWTU4DZmodJtcDU60wxAngR3
+	 N2fIOIDeBJxtx3sQtq9r2khwXjOvg8VlV1ho2R/W/Bfmg4tOX8kfCcIppvTdxAs68O3l5
+	 DU0vX13AaN8pWIpdmx3xmVCEIv8lX5qG5nDZSSgMHlCQRSA8z98y/iFoYHBkY0RDqzLZU
+	 ZEf14tlKR1GqytIKi/njLXVeuRfaIZoqBzZuChLm8jMRHjRXqyD3nxbR0D4ihuP9bLg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967094;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HaMBJ9VdOEiBAxflufFgbsIfyCEF7W4YXAUVe1OEFHs=;
-	b=CeGfs+ISk/Aqm0Xb+zn2h07hVMuuFUjgshomz5PuLCXgZ0UMaTB46V9nzUa6AKZDuo9G
-	 m+6ox24iLtHvuHQ4I6jPcvSDxZKQlLFiPwIqB7WIs+YCIta31ZxkMWiPapt/QG4wSgWOZ
-	 q6FMXESNRbIjNOuihJbrCPOIUtOCXvOf2g5mULgLV1ceAU6+DY+hWfjjccrIzDhdY+7B7
-	 UGrSwtOniF4zoQ53dMqmc12IA4YyfUa0mConPXBAqUasEOyxqSUtALz+mGqjABQwHGS9K
-	 h9fjK2CXydPl7G2P8RsfN2q8hFU9in4zkBrED/aYOrgaJhWrX6R4bpBcBU9Lx1ocsdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967116;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=iq60MpWWr1FHZNJdGeNZTv+roUBF0vhdran7YFHQ1so=;
+	b=xMOOL0/S+bJPEOfO/XDGBVeDIDHba6XqD65YLun8zfiK1GFD5MlSSw+3mrmcG0ZOFwGC
+	 vBDyXj3FfSEQhpVys9gFiKC3M8Fq8CBn1zmkHIgWNLU5GZ2u0kQX4ZboKbdbphXcrubCL
+	 dNOjrvgVgPZI0IpH1f27CZ1EgEeg3BKz6xuMUUSfVd+z/agfwJdsc2tPuNfAig0n8ODCG
+	 M0VEv43NDb+lvccpf+LBmlZJt49EL6cm+4PhgiUEuZAnoVaJQ16LC4oS1cQH5veBYfsjG
+	 5TcsOimGOmXOIne0KlDlWOJDIY1pQITvp4gffTYs5G71mn8++h0Yw3Jj6y+xHFUa0oA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="IZF/Bzzd";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.179
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=gAMW9fXr;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=QNnH08J2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.82
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.82])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A43606EEB4
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:11:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64A43606EEB4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF34C606D824;
+	Fri,  6 Nov 2026 12:11:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF34C606D824
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IZF/Bzzd
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3ac65e845a8so6359731fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:11:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793967092; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WHbghcesSxf0dBjn23EX7GyfijgxlbrawQF8gp2z1+1c1BQtPAnjhVNljHT8FX+Jzu
-         mRX7WTvSaJUgdTyTdSaV4aq70dD5sVm1LhBvLQc9hYIc72DyZDk8QTYNHx0Yv3nGTHvs
-         v3XovZ16k8uMuqH8Lak23WLWnOmlSaEA1wTqfzKsgBDlfE+FOG/EBtf+mlU+FcfVv3xz
-         g4by5MggQojcMG3wzsfK7yCLjRMEpxBEmpj6Ns0mjLYa4gmMssvDTStV8IYQzaMsB0lQ
-         5IGRtXD9OI2wX4W8XnjrJHVoHQi44XeLaO4ELTbJwdjHoky7q+lWjXYAUk4wRCWS2sxq
-         t4jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HaMBJ9VdOEiBAxflufFgbsIfyCEF7W4YXAUVe1OEFHs=;
-        fh=dhCZjE5eN/Wp8uSwCp38R1NQGpS1JMN+3VjvDPm4sDE=;
-        b=nD3nUnxqwFhFZTLJnqT1MXaVUbolni2Qk+NOvTv0NmI+V9/hf+ZF6ghh98RRfmCneS
-         GRzW10+wZVCLGFoAAvT8XBrLbLFBfFZ0VanvCiJWdbyeAHDbgLa7Qojj520kGgXhF2Ih
-         PvKX2MhvPYrLYXWgwbgk8F+WtAvq3vE2kxFE/uCgUnkGjdO2JZEE/FV/msiBbG7jDrLz
-         VgnHuXGxHkJeW1h0GTDbKQNEDLccDBc/qupWjGbSQ5a0Tlz2g8keYuXluO4IfqH6dZr8
-         ZJ7u07A6kKSwiHWgTfN0spmETQckpKF1jWXv/q9n+pOQvuyJH/QDJqxhMQB++BaXEXce
-         DBZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793967092; x=1794571892; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HaMBJ9VdOEiBAxflufFgbsIfyCEF7W4YXAUVe1OEFHs=;
-        b=IZF/BzzdlFWylnYqA91PN1wF2Eg55i9A05RS9i/ErJ4lUQBhNYZjvV7H4H6QA9lOYu
-         k8IXKOgM5s0qvmdUJpxrH+FLbeQXhxW/HUtKyMCpfuYe5UF9DKy+RCYLEt26Hww0zRZV
-         qiBJxTwxm68aFeckSF4ZN/flpBBXa3AJ9N2RnUsn3v3eWpbDEmZH641WzQce421aQJuZ
-         KKcRSBTr2dfQMsVNqgsW2ibfXxlfov24+CPdNiVOogwZgFxJ2LQpak0F/xJE6af8Wc84
-         vf7x9f3rMk0FdrMlV29NwYL5IEWmoz2sNq5fo+5uIe5t7+mqnRG1AHe9Km6Nyy5qk8nW
-         AAQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793967092; x=1794571892;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HaMBJ9VdOEiBAxflufFgbsIfyCEF7W4YXAUVe1OEFHs=;
-        b=v3jcMZ6ufg/3iB/mOD4iwOYNfmQde/joKPt8HtRyW6frJ3AwxKgG4jR74NrnsEzGv9
-         E7tWzm+xF9ft31657tSjCRUF0qMoTexPqj6KOlovbAebWdAQunwcPHsfnStCFFkXfyRo
-         ry8jGcZjVrWWnNvia2qpLlRgX7jd3M0KkKeanUEZx7xVPCilWsAvy+crY9XH/jsEVcX6
-         NE4Jgnv8W35n6FY/ZGPgc1YpTGjSh/PiQu46SxizzGauQszZxCbid3Ne3mFCT0fLF4VS
-         9nCZFj6FMnuuPJ7jH+zz/kP4WEaZ56rSO8xDDbABZqSozo8+dCh9Guc1q8v+tT5FEzf3
-         SbBg==
-X-Forwarded-Encrypted: i=1; AKwUvBzpZdvRGacXeVTCWF3ESZ+FA+z9GtQJVtXX0PcDxPPmhvcVeqKWebx7yIef+ZQyd65zurichhNsAMKCh0w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nO76wn03OwZO/FCop9V/ML0fc6h/PBz4fdKoveFp1dgtLxZyU
-	DdsUgQJWRpxvAbp0QX1JQI9Sgv4BpF3QHpl+x5gFav4qSSodSZv1Drg7anzdAmsqt7LPqirxwxy
-	9I8b+bGIzIt1FINB/uRCuZ80voObl+D+f1Q==
-X-Gm-Gg: AYBFou0pVtVZwm2mhH0m9lvQtuH4s3mpotcURj1X/RSYxj2g+P6klw79U+FbwdjewbZ
-	BxaT2QqZy8lOsW6rPxpsmKON1cAXbXF8cfpi1ruCHv9hdLPKgrB2v42Nv03uFHWDYKzJKCwx+oI
-	QXsKy9+87xBfJA127TiMVjClgZ5uE0J5ZijR99aS4bZhoU5dAzRQygTkeMD6OiTx+xBZdHsoYjc
-	t9Rdzty5PlKbKVnYx2ZuraZ2YN1WfmS3kC48Is5oXeo8DhjpCyrpfkY3lsgztay3ew2TkRrrF3r
-	p72ECtVa/rqThTySUeNYs5nQdZ/hZvWGG46mJk+XjfB6jUdoVdcALjklgWVExLvx0nPAcZhNq3a
-	zuqhhL7Jes3lUCCDO+hJWQWc39n/7v3Hk3c0CXx6RziJmtgVOe6RXwZMuviuRGwUSzXgZf1129E
-	wj8W2QHgYUhT9bn0pqdbIrjZ0IDg==
-X-Received: by 2002:a05:651c:a168:b0:3ab:ac4c:186b with SMTP id
- 38308e7fff4ca-3acf3a17b03mr4522841fa.9.1793967092260; Fri, 06 Nov 2026
- 04:11:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=gAMW9fXr;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=QNnH08J2
+ARC-Seal: i=1; a=rsa-sha256; t=1793967069; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=aKMLhHyAjDV2B0Kd5fN7uWTUYmUIqv7oUH20rrwDJWK4yWpydOGsDcNtTjavVRtn7Z
+    03zeLW+aoU5rEt5pGYnIMBtQnavgYvocg98sYDLA0oy5ZL5GFxlmJCpozpcgvifMb3nY
+    QJccqrrb3vSWJ9XtuB9pYSaBfR2pzvB40dmNwndtREGllP+BS7e/G56hqf8IYJbq7Vpk
+    YsmVkl86/is2bJ0V7V3QOZxj8kGFIRbklr7nF4CrV5N/6lLZV+x5I2YLnx5LOK6VEmRM
+    sI6TfAXjvkT4YD8D5e/J019M4+2q0bk9zrTMOcmSSFu/xL4awsva11FQ9IQidE7/dZEs
+    QqzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793967069;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=iq60MpWWr1FHZNJdGeNZTv+roUBF0vhdran7YFHQ1so=;
+    b=MVJkQOBm4cfv+5I02uhULJCU+MBhU636GaWl0lNOawnAK2UD6oO5r1+nokbLVFNPhw
+    DYGFq/IKXqOWxJjBhD9D4xH5kILd4Y+/aQU0nDNW180gdo/iwCzyuDe+2bF1GoR/Ia80
+    5MXz0FPn/tS681kJeC/rcVTCHQk0rmDIwntvrbGntOJEcr01iWfguSxRk3k7W81UOKEp
+    2wVh1Ptk7n9Jh6nYAA0Xo6gdh7IVS7aUYHDb5mp0JBDMtclCk77/wq04TlL6cZ6rWWKo
+    DkdlRD+kmXDGvpPEdV//gaQoxu66TPP8/gvJxaFbgzkVVm4RdNdsH/Ocxu1mi4a+qzW/
+    PU6w==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793967069;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=iq60MpWWr1FHZNJdGeNZTv+roUBF0vhdran7YFHQ1so=;
+    b=gAMW9fXrUqZXT4FEQgwE//sTU0b9ZDAoCznBXEg5W9zudQT89Kv/KDTyJv8jIfwU9o
+    Fq2xzWb034iJAUaceQdmsiN3qpwN3VUjxhW8OyFmFpNXr6IQsDruqlFxjLGj6VGw1fXh
+    2KaWpOZNd1DfIkARye2XnaOJIXg6nQG9xX9JfH5KVl8avHhCnnuhC/LjHPS6muhfDGcq
+    8AUT0MlXMB0YUhseE8pcGsAwQL1Kq51F8psGjroeljB0gZJ9OeO9uhvXmHP7njPBIKj2
+    R1WzTQILQVl6fywDy9Rp3Cq+Raq4VC9wuajSsO85AZazk/VKM0Ql5m8jKy1bj2gdpMHb
+    6BSQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793967069;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=iq60MpWWr1FHZNJdGeNZTv+roUBF0vhdran7YFHQ1so=;
+    b=QNnH08J2KaocksIeZkmonMhg/dsaysJfwokZuc2yQn6canlLi1NBwz2Yvf22XBD4ZZ
+    IWr0clWIUrl9g4Cn4dBw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrVjZoMy8iN4frnsPsBQ4l+mfK4O7kvgww6TmAq"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22A6CB7nJj
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 6 Nov 2026 13:11:07 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,31 +93,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261106090342.2601665-1-hongxing.zhu@oss.nxp.com>
-In-Reply-To: <20261106090342.2601665-1-hongxing.zhu@oss.nxp.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Fri, 6 Nov 2026 09:11:19 -0300
-X-Gm-Features: AclHuK9TdxwLahGEGzjbAfd8oBsJGMVuCCTSxGyqd0oZVKPE9N9p0AqrQOMBJUs
-Message-ID: <CAOMZO5CQtcpb04Vp49Rg_+DHoozRpQthW3_YNAYQHqi=VOmpEg@mail.gmail.com>
-Subject: Re: [PATCH v1] PCI: imx6: Enable L1SS support when supports_clkreq is true
-To: hongxing.zhu@oss.nxp.com
-Cc: frank.li@oss.nxp.com, jingoohan1@gmail.com, l.stach@pengutronix.de, 
-	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
-	robh@kernel.org, bhelgaas@google.com, s.hauer@pengutronix.de, 
-	kernel@pengutronix.de, linux-pci@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Richard Zhu <hongxing.zhu@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH 2/3] MIPS: Ingenic: Add JZ4780 SMP support to the generic
+ platform
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <55de1cf30758cdc46c38f87520e6570d6e851a9b.camel@crapouillou.net>
+Date: Fri, 6 Nov 2026 13:10:36 +0100
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ linux-mips@vger.kernel.org,
+ =?utf-8?B?IuWRqOeQsOadsCAoWmhvdSBZYW5qaWUpIg==?= <zhouyanjie@wanyeetech.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Paul Burton <paulburton@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>,
+ Paul Boddie <paul@boddie.org.uk>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <AA66E3B9-DDEA-4D1D-86CB-1ACDDA1B9434@goldelico.com>
+References: <20261105203243.2292647-1-f.fainelli@gmail.com>
+ <20261105203243.2292647-3-f.fainelli@gmail.com>
+ <55de1cf30758cdc46c38f87520e6570d6e851a9b.camel@crapouillou.net>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-On Fri, Nov 6, 2026 at 6:00=E2=80=AFAM <hongxing.zhu@oss.nxp.com> wrote:
->
-> From: Richard Zhu <hongxing.zhu@nxp.com>
->
-> Add support L1SS support for the i.MX6 PCIe controller when the
-> `supports_clkreq` flag is set.
 
-Please explain why this is needed.
 
-Also, does it need a Fixes tag?
+> Am 06.11.2026 um 12:07 schrieb Paul Cercueil <paul@crapouillou.net>:
+>=20
+> Zhou's v8 supported the 4 mailboxes, this feels like a regression.
+>=20
+> I understand that we can't really test a quad-core system (unless =
+Nikolaus can?)
+> so I won't object, but that might need to change in the future.
+
+Well, I am not aware that a quad core Xburst processor exists... I can
+try to ask Lumissil staff next week on the Electronica Trade Fair.
+
+BR,
+Nikolaus=
