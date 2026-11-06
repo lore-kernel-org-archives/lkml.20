@@ -1,80 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.189.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793983396;
-	b=JWwLUM0YZA11yRT8MkaerVzghwBRye8VfnKKfFn+EoiSC9FuFSfSzYIwpUnZJePhRUYh
-	 gtfLgUyykw1pEGv29bB+drusW1hJzuNLLNgogrRqIs2Nem/8n4s9IfRI0Rp27O95XsBQJ
-	 09sU/WgSLicrf/lg65545iZ9npvdWDMy2z85JCwogvES6r+S3BGDEY5I3eDk2aJarLwlg
-	 isENItwyENqzYQXUbVHefMfOc/RQih5IIV0WiAdAz7vbg8dkB3ewIqeaz3JqVSCx7bh9S
-	 bwdvKmeMIOkWNTFsnFLVeMFwYpDEhzLnISEFFVgmZ/684zzTgG3UqV52gmtfnkyYYkg==
+	t=1793983405;
+	b=yB5usYDMZgPlpLMmmnd+EqOAHLS2YqD+62xfP7DA/NuKZtLNSf+5McaQozBuZtAYZVJf
+	 c6qcCXuB6LN7dmcf3HwYcdSwXA/GWL5yrablGKaKku/0iZIb3xLv2kyG2wUQYefnh8b82
+	 dmNRDm6ddFhzv6YOm7vXAoLEMWsiJx5cuHb+KjDL91yU8FCZHq8H5rkH969YtAmXHPkx1
+	 cqJytoc2Ik9JkYyq/rzXy18E0k03ynAe2d6MjKUZOQUvJwdsKaxM2aNngEH/S47v3amqa
+	 IlqnNHUd6VvENNR89QrSZn9X0Kw3mRSKrUOvC2KoY3ZCoumroz1Z/K2h7xbGeazlB2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983396;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=lHtWxeOu+Vjsidq/9GE7H1E4u5AgSxusjUPdoEWHkm4=;
-	b=S977fmysYKPio2OyQLUa6mHw+ayLBpacrgI9mNi6H6YzBBgZ8QU+CrsDvVYYk25EXIqy
-	 WwQO8V6hzHZbIH7pdrFC0WKRgQ7WYUa9Tkc1CtiwXyKIXrXAennl0gHZRlyZaHqq/y1pH
-	 IyDZrxP17XSVOLX45H8K7Jia/fmSaTCdcoGifGQ6kFGD20oOttv1myRve/8TRxwYbRL9Y
-	 Sz+2koWkdEhe1iIAsB+BpwIT/qMdc9g6VLQF3UwuSH/YlG1KIbAcxoFT360bd4ses2ztg
-	 YzDYuJQCL/2Pwxr5CScR8l09zBJk3GJXFFFFiQr9JKnQ1nNyBf/OfFl3JtMZXdup95Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983405;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=AKgfRWqpa4rK9V349FW23FUgQBz7Hu0ElZJb17dx9DY=;
+	b=PIcYfYuXqupgH57eiknFUjXGyMdxFtb5plkklKVuaNBvvTRT2p5yWrLVgQs2A1l8i/wI
+	 DwRprvLPWkR+gVTibBr63n00GE90YxlzgdDLGnXyuNQso6FcgKqDvdSOxR1PTeR1xw7Vx
+	 Yr3De0tgMq52xoBklOXiPIHdZGRLL7Y9U9s+8iDXVguBoEg895MMULylCzcOOlIet6MuZ
+	 32AhAdt8ZNv6xyMPZOUpjXF6OWEcB74Hp9wnZggP1ivyxlH3zpDeZXT1lxQDFs6jyG259
+	 QdVxjick8CQnf++tK1YeV0IkydJGWb9L5gqgCxxKgnJkXhKtJuTAn/0KG6i/YuW+JCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="k4eXN/Uo";
-	arc=none smtp.remote-ip=66.163.189.146
-Received: from sonic314-20.consmr.mail.ne1.yahoo.com (sonic314-20.consmr.mail.ne1.yahoo.com [66.163.189.146])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=mQfKAn9f;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B54606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B54606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987FB606A329;
+	Fri,  6 Nov 2026 16:43:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 987FB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=k4eXN/Uo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793983395; bh=lHtWxeOu+Vjsidq/9GE7H1E4u5AgSxusjUPdoEWHkm4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=k4eXN/UoC+3L1x6z0LGjcncS91d+I0jc8r6sBacjlb7hKXyS3ubpIKk961953+qqLIqdL63lzNoAIrGtIHUfZ8WyjJGUamW3IXCOy0DyjEDykFEADZ5dYIoXE7KKPiIj1Vva3FuIjj7kRFTFRcDdBS+FTAx4YKcEeJ8AaFAzccwO/mh+kGatMA5VRxhpoF0etJ0VycIRgllOLIWb6Xg7D6PQ6HdHDqbonXukLSY8CdgsKVAbvuk/nlRUOg/qXXr28fvlxPTxrL/dUhsrix+W+qXNM4pjKgDI3Bf5WYQO+c8y1Kg92Ir7jZO5wImspf64j7LyKB7UjOe0P281cM2eFQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793983395; bh=xeGXEN7xVuIfZ+ZQdgxXxQeg3Nn1ehlJr7QQJbMrz50=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=gaUFAvAlsYIpP0fvEZxuY+/sWCny307gGq55Ez/xdbob/Ykzg22qlPZ1kd/owK74tN5ko0kfIWAW2OxMaCofq0pb8iDUX7Zqn8BhojMAaYY9BDx5ixWzawJRMeGG8r52jab/wlLMNGX+IutAzq5if1zghI+NAnrfXFlbtofjiYjiCvjsugWchKvyaJA/3PGA8EGLcFdJurpcurWslKG72kiLT8geaPzgf0eXjlffcDOGXRk0dKpMFH2TjpfOw4IJ0F4N+tMg7spt1wwHRSV3NqocFZnmvRwI0KTOiB844Ax2SsswaQt4oT7+vgzcyJdRP5Yx+Y7lRjKvhWen/dh2AQ==
-X-YMail-OSG: OIdV4lwVM1lPmZAovyYZP5BgZ8acuGF1ApxlFCYkwNXE2BMQd85mdoHC9KwKreH
- WuCdBA_4i2NPC1nAeW84lkg5t1Ibn7tlSEYn_dommb8N0OqBHfguNVgPT7QdmoJkq.RmbnlSkr_I
- X.bFTHpqlN6PXjCCqiOLBV5DiauNdXmTmwdZHzdrlnG2Dm8PaI9x2Afauy6gKuGNSkInsWdCL_To
- nL5pQNn8op2NHLswzYR8RQhdTJ0bPMhXBbMBovUHlfMj.y.ztfsqggYpfP5u4hva5jqveMPfRTWZ
- NcP5yDgLOnz4Ay5uRPcB2Ye3dXjGcq3W1TAye4CsnHa9Xrck2RXCXgCc6_n_O6FvUEWk.zN.Hicc
- a3A9qbnpcdz4br18N6V9MSsNIECWcbcsbrkgk4CJHbT0yIepqG7TN_Vw8fMfaUoY9uJ7qOgsTYE2
- WFvNtg.Sdho9ez57ybQP2qtGVXQR3ZSswsAWzyL.VZdMCCCvSgCfsqgvxTLw_Duzp_y8HB0JxyZ3
- yZaoZgf.IEfXKE0xXa3ewA.I3LZLRIAw9Gxgn8S2XwDqCrQzzzw_PRpw0wylPjQUCd5zGy0t16tI
- 5Y8gEmOENMK3XwvUDJF8YKIilLlD.GHV.NUl80ENQITlEA155ZGmjuV11.LcEaeFt6oRTkEbnErC
- 1sDM1rUZqPhO5JEFIn4INzr0DpSukFkdrDVs6ZkDHEQpMihOLBUFOcYKU3hnfPDiKVzO_eIWX8yi
- QCJVeHtKMyJS2w8wAzatAe5h_zoKnegkJjj9nf63DQntlVKFeJYSY.YHv5Hibg5rIzfCSNa0pzm.
- QYuj.svWqNmbfSUXIsn6Plp4ACe1e5.5i9wF7ZZAiCCjMuw2pTOBKFB7NaYXWNWApY_Va5S2LpKT
- SoHFLM4B5eJlhxZE0SgndQw1hlAzOVFxh1jAgC3y61GmySzrOnta9O2rNZNI0qZW5gaSBSrq7u4N
- SRKpe5dBqFnd4jy5ow3K2qINws_aEUJuatLp_yQK51.wSMi5aE4ueFHwMLrNBFLH1cXAqiuH.P2R
- h8LBvJAxrwSvt6eqbnc01TvAmhj9iEfUZsLyZ1JG8OM2FyL.DEYXORf8obNR1klxDsTc4poLvBy7
- j8UbyjNIJ_ImTdOFHniQsKyufwibh2lekKyaiMfbEnfis6W96RI0GGDbzq01OcnVl59Wp9__D0xx
- kXbstQi9e6q90l3n9N_QdAneqbgW83w0jyeRpUeBueVo7UJO78jGBPrTZ.iBnq6ykAPFRrc632Eq
- GsF8ywISpQKFUUAx3P5xgWogJM5gA4BLexuYb_Aq6ggdSHpzQ.gtz0QTNn9B6sQsJGUmcQUDzNpB
- OWcH.D8I7MjUZTU6bnekSYonIn9YqSK7bun1wHQbi3lmbAJVsyOVnQ52tJQdWm_ewWqf9M8IGStt
- peoUD5P2DX0VAVr8rMezeji8PzlywaiCjgVZUDtX.QfuqXU0jTSaqhJoSDPtwLZBLsd7Apvu5mM_
- gnbPODsl3sP5_9uDt3UtdIT1zE3RGf0jdj1azU5QyCyuiZ6llyQ_YOj9LQ.fsep5lzHevSr.xlx5
- 2UJE2penUPvka0heqdBR7leVfAFk.OcU7Tkn9o3TxNhFBlPaY1L4ojEmfMa.JaHJMd8bX9XOWWzB
- Bcf1hO_uYepwSy.JSLfDA9jSYjzfIPf4YNXKYHPbOnxNXIxe8_AI5f28170p5MWOoRfjM1te6HWP
- R4FvwPUNaIRsTaN7YqVg0PhoO3XZR78UPQdb1no6VTrmAOS5.FRpyXdVwZyW6vSSo9bdT5vzI1Vg
- B0neQ_oSA3UoP3ODNvAFJR_HCzaP.8cspcpHzjo5h1Zoac86N9pf_ajv8fFGjhLzmvONMRWir7Pl
- I1V0_WcBSjw7KFH1l4WizDGAxPX0O3dco.yeqfL7DIhqRE7kSwL1wZzEYUCQznkkI5F5Xl_9rxYl
- n2BEnYJ.BM1onjH6n_ijRyPgcF38h48cwSfPkqsT57MZLYfycXkSuP6q4tR85Gx00.8sscXNV58E
- DFqMu_cJQHlYI4SwCS9PN0ztetrY2_NlUShDfuC5KbF0.Hg_6_iBO.Av2U9G7zFtBq3YXLcULuIr
- DxEU14.0qC2DBCIPJ6R8a_ZOkCUqOLXYSL2jMVYg8VvLme0HL.j6JP7TyAkvtOUiEkz3YdnXSrRu
- DLZlvtU72SWxqAcjdAZqNS9fKTDMRI6lz7a6Htg7DWWjO7ff6rrvpSzE1Fpn38UCK6GF1cAr31Po
- IyU3ibCiGU359fEjTjs_Hfv8Qlv.5Y0MOuWeTdP0FR28SaTzTD3vBPX.zhAq7ZEFi58F3b0Q.5RF
- CCx2ciawjDSeiHy2Pt8xpOcZSNnQ_a4E4D.b4Iko-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: c1d3fb05-0050-4afb-8b7c-fa4c4a0a3348
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.ne1.yahoo.com with HTTP; Fri, 6 Nov 2026 16:43:15 +0000
-Received: by hermes--production-bf1-6d6877594b-clgz5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 8dc6823223f8f1de6ed049ff776f8c37;
-          Fri, 06 Nov 2026 16:43:11 +0000 (UTC)
-Message-ID: <29bfb266-8bd4-4c59-868a-cc27259c1f16@yahoo.com>
-Date: Fri, 6 Nov 2026 17:43:06 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=mQfKAn9f
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=AKgfRWqpa4rK9V349FW23FUgQBz7Hu0ElZJb17dx9DY=; b=mQfKAn9f4rTREvupKtVQkzEJZY
+	rIcsvKh75/OlxsOlXmhFfFqNod98WDPB3l6iksRxJ7/BGYB7ehTx8FesG6JRUzV5QPC/EBWVunKHU
+	ErvyUVfmfpb4mKzZtU6jvZYUwahAJ15ynaoxy7/+Dz0YcuKiXLuX12z924UC7RbUy8gwWtMkoAqwV
+	dyVplN5mMwcUg+V+694Jslnmz5dPzKMV/YXsRKv1H74TfStMvOAfYCYqnEnJ5A6XZm/KpQbDTxMNW
+	gc7xki4F9IyQAzqhdbOi3Fpbb33SbgbtDgDe4Z1XiYnzO9i512P6xsxVj18+GSGs4FARS3TDZktdB
+	YmrvmEMw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xPN1y-009QCp-0g;
+	Fri, 06 Nov 2026 16:43:10 +0000
+Date: Fri, 6 Nov 2026 08:43:05 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com, Ran Hongyun <ranhongyun1@huawei.com>
+Subject: Re: [PATCH v3] configfs: fix slab-UAF Write in config_item_put
+Message-ID: <au4DDpKhquR7oXwZ@gmail.com>
+References: <20261105165055.362-1-drifabdelmalekmohamedsaid@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,56 +68,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v7 04/10] net: dsa: realtek: rtl8365mb: set RGMII
- mode for family D
-To: =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
- <2befac48-25eb-4c1b-9632-2f3237d68a3d@yahoo.com>
- <auskP2mSY4sCRa6x@analog.com>
- <82c96971-be5b-4c11-b20f-c4b074181515@yahoo.com>
- <aux1v3R-efbWF2GD@analog.com>
- <e66204e5-ac33-4a35-8d36-6f37372da97f@yahoo.com>
- <au3WTtBo3qk4nQvf@analog.com>
- <014d5582-8ce2-46dc-911b-397862492421@yahoo.com>
- <au3t3XC2b0ZGLN4A@analog.com>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <au3t3XC2b0ZGLN4A@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105165055.362-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Debian-User: leitao
 
-On <DATA>, Alvin Šipraga wrote:
-> On Fri, Nov 06, 2026 at 03:56:18PM +0100, Mieczyslaw Nalewaj wrote:
-> > I do not have the hardware, so I cannot read the reset default of
-> > MAC4_SEL_EXT1 myself. [...]
->
-> If you don't have the HW, how are you testing these patches...?
+On Thu, Nov 05, 2026 at 05:50:54PM +0100, Drif Abdelmalek Mohamed Said wrote:
+> ---
+> v3:
+>   - Removed redundant null assignment to parent_item
 
-The code was tested by users of RTL8367S-VB devices from the OpenWrt
-GitHub and the OpenWrt forum, who built it and reported back to me.
-These were basic functionality tests only. I do not test it myself, and
-I should have said so in the cover letter.
+It wasn't redundant, see below.
 
-> I think we will need a Tested-by: tag from someone(s) with both a family
-> C and D to get this series in, if you are unable to test things
-> yourself.
+>  
+> +	if (IS_DEADDIR(dir)) {
+> +		ret = -ENOENT;
+> +		goto out_put_target;
+> +	}
 
-Understood. I have already asked those users to respond on this mailing
-list and give their Tested-by tags, 
+I am seeing the following when running this version:
 
-> Please also do not submit anything if it has not been tested. Maybe it
-> was, but then please get that person's Tested-by and put them on
-> CC. Otherwise maintainers might merge this assuming it was tested, if
-> you got the reviews... It is a basic assumption that non-RFC stuff has
-> been tested when posted to the list.
+	refcount_t: addition on 0; use-after-free.
+	WARNING: lib/refcount.c:34 at refcount_warn_saturate+0x76/0xd0, CPU#1: ln/172
+	Call Trace:
 
-Noted, and sorry for the confusion.
+Can you help me to understand how this was tested?
 
-Kind regards,
-Mieczyslaw
+Thanks,
+--breno
+
