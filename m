@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929840;
-	b=XZDRP2rajVn5tZoxOCNBawV10vUvq+JfTY8CeLQ77ZDC8tHGNnZNOTebSoy5pne/77x9
-	 1oqyUBseSUHnWhRxu0B4zWp55LSCBmreq2QhHePHWYLARevS1zupMxuIQp46x732pnSJ3
-	 i717qL842uMljw422akTk34Zeqj9QniRdPcLiQU4kcseQ8nLNLeiScBVmwhlQm4sbUPd8
-	 y2VLn5JHmqFu1s6kvSuBMu7qCz1P7m20yUhGpWyELt+CkTw6o8+fiGPUJVh45iDkHp3CA
-	 8lUEzurJaBVvdpDrHp+C/mErRsNkkZEZ+a/MrSkJ5xDxKUpHp3u/gBsMxCNyMOz90xw==
+	t=1793929837;
+	b=Lov3JK615JA47MVbVXwGH542KcjBdRX/BIuq/QboCTPXg/Daie5/Ba10q07Wid5/iXQv
+	 fhifmoh71XkB8plYlJGb3s7IlC83nNWYjacoFrHgRlQDStAZL0sA3gutQx5iNYGvmC3QA
+	 wf0PTZ5tJ9vTbpvLjwJSdEiWKXVAaYUbnaG8DWf20Tp3GMNNOiDFXSb43H5SCy7IPfIIJ
+	 Wk2SUJlFbs2Qw4kayyd4qh8z38s2nsFj7gGFbvagbBN12Kgm9KaPYIC7G3mrgKcuZmnt+
+	 ElUE4zpITHItU/Lc9MmNyWMPwIhCqom+4ptKPSW5sMAHpzD/Mg0jncnyih69TM7D2cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929837;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9TYqOXsew+Y+Q8c5CLe4mxAcwiCP6VtG9pQKJdgk8aI=;
-	b=gPFGi57Bwiog9Z7yDq3pDDFGGE8v6ukErhKeNL6JAaT4qMKg/UBZpWh1qAIvbx5pwn1P
-	 eilQyXfHpXATZTkSJeBLgmd2tuMzTXrciJfeJSZotI+4BAhuYGVyD5I4nyHIi6Czd0UO8
-	 muV0eiRFRdk2wbYgLycN1KSlaAad+nKoeSZYrR4u2jbsLHxn9rr4AwsT3cARpfkumuu4L
-	 Nyv3xX2V63UltNU8fBFlXWKOx1zaM3ASF0XxvBuraaXRkr3XiI/JyGRat9pATyTVUE//F
-	 AC4wciWteoKiDZtwXgg13PMNLoehzHQjglqgj4VzXWyJyEnKYkBj/sVditCgrlIP1Cw==
+	bh=0/RWgiQ3XQTb5GJnhUqz4E6kcmy2ka2CbvDhjBbA4hs=;
+	b=KjMc0nUNJr+0BttprW91IVtmReHxSp52oe0Zbe2ZmNBf20rKxv/oSjfcf3g4YzAka2Aq
+	 nic6GE2w3TIVT5ufvc+FSfHzhW3xzbT7pi7r5eA9xu1B7mJEdwl0psDo488UzA7fvsRJV
+	 ZIioMWgQiJp89BJwBh5zqsG1J2F1XsbBNLLAC2usESS6kGMWJIjCwY3hpN+8edHyx+T+S
+	 ClyVIHOe/4SjJeVo9ZqH5PG3P5i+F8zXnC9dg2xe+2uppd6poZVVXouLlDupwrlrujzvX
+	 zmewkq7kG/Iv8UdtRRcTRxa/UsNO7g9URSL3CBAljiJEJRd3Te0knK/AmwqRpyZZhCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kPkdoKO5;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KsIA9w7e;
 	arc=none smtp.remote-ip=198.175.65.15
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF832606D826;
-	Fri,  6 Nov 2026 01:50:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF832606D826
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429FF606D81E;
+	Fri,  6 Nov 2026 01:50:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 429FF606D81E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kPkdoKO5
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KsIA9w7e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793929838; x=1825465838;
+  t=1793929836; x=1825465836;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=QLNPLyxjRgFiTSVWFbWIdFOomaI9/H6t0hb0/RgMl4E=;
-  b=kPkdoKO53MoBtE8de6c9WNANadOUij7Plipsr01N1IbfRnX1n8+mXJwO
-   +2xQD6udJ0FctsqC+SY1NxAXq1xRthZoBORo6EFUEF34sj75maX0mIYqE
-   YpcWW3WdlL8uB0S0RDxuF7xqQx6opY1xsHwFxA3xh6bE2n5wlnjiV8RK2
-   CKeTqnIqJ2sgXRKV71w8+dWz5OxoSbqb5dWmMno1T6s2oUSLKgIOCdnRF
-   WMcuCAO6fa3DoNnCQGbT34ZAFfqHruk9SfXy0NSmThO9oGGSj+y+R8DiO
-   iSKMPVGttSANt5Ux2Qk1oLKzqKGtAOsiEP43frsTGjKeVLoz/e+HwB5Wf
-   Q==;
-X-CSE-ConnectionGUID: Kn1x2BGJRIy5nGQHy1yw4w==
-X-CSE-MsgGUID: scmoRnFJQzq8HId8kfLwCg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740195"
+  bh=u3Go4M+v2dqbCzqe7zRCRS7sqaB/eyOouSmra48BVLc=;
+  b=KsIA9w7eR9LNeeUCu09op7qWR+n4B8FbztZPUcCQAyX1tkC7JVyg8Ev5
+   IClzrqMK2KO/0y3dIUp4ZVHRWbLd2EbcW4+SEoGtns349VX803+MMU7+C
+   NGRKt3WJ3i7YINfZA8z1OlsnRyqTVfEWISCd8e53JevAllj7FRjuBT14B
+   ogcIDcvMl1MRxbLFmK2TgRibtzETfeuC+81aGTn+ogScMbK+3vHeKcIIO
+   wZaEvFscwyki8HGbATpyvJJwiay65DerLei1G5vNquoViHXQkLBdCKRww
+   KUC5ojsMcvjfINZLd+i9Q+LP3LVEc2SB7Guwrff79MZN3cPEcgS6NysIU
+   w==;
+X-CSE-ConnectionGUID: nxdsd+coTN22hNe1NBlmJQ==
+X-CSE-MsgGUID: Inu2QEQCSE2GPQsaAtLSSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740163"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2740195"
+   d="scan'208";a="2740163"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:32 -0800
-X-CSE-ConnectionGUID: wdfob0K8Skq4iL/v4d871g==
-X-CSE-MsgGUID: wyx1utJ/QziQoE/F33shCA==
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
+X-CSE-ConnectionGUID: e4cTVBV2RUmwIhixwhsHQg==
+X-CSE-MsgGUID: QaY1qjEcQYOsB3NyB9gAOw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7067206"
+   d="scan'208";a="7067193"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
 From: Zide Chen <zide.chen@intel.com>
@@ -77,9 +77,9 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v3 14/18] KVM: x86/pmu: Factor out fixed counter control bit calculation
-Date: Thu,  5 Nov 2026 18:39:23 -0700
-Message-ID: <20261106013927.166209-15-zide.chen@intel.com>
+Subject: [PATCH v3 10/18] KVM: x86/pmu: Document GLOBAL_STATUS_RESET passthrough erratum
+Date: Thu,  5 Nov 2026 18:39:19 -0700
+Message-ID: <20261106013927.166209-11-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106013927.166209-1-zide.chen@intel.com>
 References: <20261106013927.166209-1-zide.chen@intel.com>
@@ -94,101 +94,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rename intel_pmu_enable_fixed_counter_bits() to
-intel_pmu_fixed_ctrl_bits() and have it return the computed fixed
-counter control mask instead of updating fixed_ctr_ctrl_rsvd directly.
+IA32_PERF_GLOBAL_STATUS_RESET, introduced in PerfMon version 4,
+inherits the MSR address and architecturally defined bits from
+IA32_PERF_GLOBAL_OVF_CTRL, while providing additional bits to clear
+new indicators in IA32_PERF_GLOBAL_STATUS.
 
-Accumulate the desired fixed counter control bits during PMU setup and
-apply them once in intel_pmu_refresh().
+From an emulation perspective, KVM handles it identically to the
+OVF_CTRL MSR: reads return zero, and intercepted writes are guarded
+against pmu->global_status_rsvd. No code changes are needed in KVM
+to emulate this MSR.
 
-Move the helper earlier in the file so it can also be reused for
-upcoming ANYTHREAD_DEPRECATION emulation.
+However, to reduce VM exits, KVM passes through this MSR in mediated
+PMU mode when GLOBAL_STATUS is also passed through. Consequently,
+writes to bits that are valid on the host but unvirtualized by KVM
+will not trigger a #GP (unlike when the MSR is intercepted). Except
+for the known limitation where host Intel PT in system mode can
+assert Trace_ToPA_PMI (bit 55), unvirtualized status bits are not set
+while the guest is running, so clearing them has no negative effects.
 
-No functional change intended.
+Document this divergence in errata.rst.
 
 Signed-off-by: Zide Chen <zide.chen@intel.com>
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Reviewed-by: Jim Mattson <jmattson@google.com>
 ---
-v2:
-- New patch.
+v3:
+- New patch prompted by Jim and Yosry's review on unvirtualized
+  status bits.
 ---
- arch/x86/kvm/vmx/pmu_intel.c | 32 +++++++++++++++++++-------------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ Documentation/virt/kvm/x86/errata.rst | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 37b34b588601..6bd7c8e03c14 100644
---- a/arch/x86/kvm/vmx/pmu_intel.c
-+++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -55,6 +55,18 @@ static struct x86_pmu_lbr *vcpu_to_lbr_records(struct kvm_vcpu *vcpu)
+diff --git a/Documentation/virt/kvm/x86/errata.rst b/Documentation/virt/kvm/x86/errata.rst
+index a9cf0e004651..161ba6d1beb4 100644
+--- a/Documentation/virt/kvm/x86/errata.rst
++++ b/Documentation/virt/kvm/x86/errata.rst
+@@ -84,4 +84,12 @@ memory.
  
- #pragma GCC poison to_vmx
- 
-+static u64 intel_pmu_fixed_ctrl_bits(struct kvm_pmu *pmu, u64 bits)
-+{
-+	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
-+	u64 fixed_ctrl_bits = 0;
-+	int i;
+ Note, this erratum does not affect AMD CPUs, which fully virtualize CR0.CD in
+ hardware, i.e. put the CPU caches into "no fill" mode when CR0.CD=1, even when
+-running in the guest.
+\ No newline at end of file
++running in the guest.
 +
-+	kvm_for_each_fixed_counter(i, fixed_mask)
-+		fixed_ctrl_bits |= intel_fixed_bits_by_idx(i, bits);
-+
-+	return fixed_ctrl_bits;
-+}
-+
- static void reprogram_fixed_counters(struct kvm_pmu *pmu, u64 data)
- {
- 	/*
-@@ -537,20 +549,12 @@ static __always_inline u64 intel_get_fixed_pmc_eventsel(unsigned int index)
- 	return eventsel;
- }
- 
--static void intel_pmu_enable_fixed_counter_bits(struct kvm_pmu *pmu, u64 bits)
--{
--	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
--	int i;
--
--	kvm_for_each_fixed_counter(i, fixed_mask)
--		pmu->fixed_ctr_ctrl_rsvd &= ~intel_fixed_bits_by_idx(i, bits);
--}
--
- static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
- 	struct lbr_desc *lbr_desc = vcpu_to_lbr_desc(vcpu);
- 	struct kvm_cpuid_entry2 *entry;
-+	u64 fixed_enable_bits = 0;
- 	union cpuid10_eax eax;
- 	union cpuid10_edx edx;
- 	u64 perf_capabilities;
-@@ -643,9 +647,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
- 					  kvm_pmu_cap.bit_width_fixed);
- 	pmu->counter_bitmask[KVM_PMC_FIXED] = BIT_ULL(edx.split.bit_width_fixed) - 1;
- 
--	intel_pmu_enable_fixed_counter_bits(pmu, INTEL_FIXED_0_KERNEL |
--						 INTEL_FIXED_0_USER |
--						 INTEL_FIXED_0_ENABLE_PMI);
-+	fixed_enable_bits |= INTEL_FIXED_0_KERNEL | INTEL_FIXED_0_USER |
-+			     INTEL_FIXED_0_ENABLE_PMI;
- 
- 	counter_rsvd = ~((u64)kvm_gp_pmc_mask(pmu) |
- 			 ((u64)kvm_fixed_pmc_mask(pmu) << KVM_FIXED_PMC_BASE_IDX));
-@@ -661,11 +664,14 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
- 			pmu->pebs_enable_rsvd = counter_rsvd;
- 			pmu->eventsel_rsvd &= ~ICL_EVENTSEL_ADAPTIVE;
- 			pmu->pebs_data_cfg_rsvd = ~0xff00000full;
--			intel_pmu_enable_fixed_counter_bits(pmu, ICL_FIXED_0_ADAPTIVE);
-+			fixed_enable_bits |= ICL_FIXED_0_ADAPTIVE;
- 		} else {
- 			pmu->pebs_enable_rsvd = ~(u64)kvm_gp_pmc_mask(pmu);
- 		}
- 	}
-+
-+	pmu->fixed_ctr_ctrl_rsvd &=
-+		~intel_pmu_fixed_ctrl_bits(pmu, fixed_enable_bits);
- }
- 
- static void intel_pmu_init(struct kvm_vcpu *vcpu)
++IA32_PERF_GLOBAL_STATUS_RESET
++-----------------------------
++To reduce VM-exits on performance-critical paths, KVM passes through writes
++to IA32_PERF_GLOBAL_STATUS_RESET (0x390) in mediated PMU mode when the guest's
++counters match hardware, without injecting #GP on unvirtualized bits.  Because
++the MSR is read-as-zero and write-to-clear, this cannot leak host information
++to the guest.
 -- 
 2.56.0
 
