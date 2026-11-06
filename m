@@ -1,90 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793995833;
-	b=4mFWOCNoFUbQewq/hPntgHS3z80ce8yyo7PseCbhKdaz3epuSNeAqvPZqzkOhKtLdGl5
-	 60OhA36ZI8GWBZmvGYErYbP75u2ts3w1Hx8k8SzjtDhqYlTfRCzQgcFGXodyMcY6qf/et
-	 7tueNBjvLYmBca2wfnc4FUsLCQQdz+R+0uoZac9vEtfdrL8zOvFBL0zPmD8nASIQfHYgp
-	 wvHJ0lAbIx7tvwvJaaAKYwECb62grGoXU3GUnRvW84b+ltibl+rSrExuXWsCqAmIWTRmW
-	 cyy+BzVHQls+pHoVAIpNnUysMFyWN+medcInJ3owYyvsu7FaMHqDII2SE0bwTR+z0Eg==
+	t=1793995843;
+	b=MaP048rLOkgO5N+29trIOkw+4HpFNHS45dk7LhpNJTZDzR0BVMnJ2XfIgRrSJVv5xmMl
+	 9SY3/i0+8yZcS1STWNwJKwa8fXcqF+OFzRXRL02vZGPz8jbasvQ/HtsMMPh3COFveudYV
+	 ZrQoA0CRm7j5ix7j2/0t5/qNFOiqyipwVwQOo2b3leGsU1Hfc56pCaV+BAxz0YrmBZsvz
+	 gpLqbmE/zpeKvtUFsqpZt1nkeEBR1mSmhw/yf2hZWZSM6UYfCzbwBxMFa4yzEJTJ9AAkx
+	 pV2gVXTWLSebFZhAY9KikWL3vOFLXfBIRJz+GvNXkXO3c3nbcPhaOaGRO5VSLCtvqgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995833;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=1PuD9l1hH8OOyees3FtjiIDpzh8LbMQefMah40HN15c=;
-	b=M+UJ4UXM+OQiyoLmqsAKGo8SKBipG/3LnAaB0G2ohYt7h7ug5nDBaYJpSvc/yDmey0LJ
-	 wrpOLrokHxShE/MSZEuo2ZZq3wiI9ew/odCXcZgogkItsFzmY9BkxLkXcZNDxoWsO0n56
-	 bpTV+IXEaHaqS0cRzaX3IPUzoxI5CNaxHr0rb3m6+CgtvkEzwkBwdl7V9KZv6Uk8KcfV+
-	 nHzO9r6qsk2zUywYvZa4fF2wnaFw+vFtY5fYdVlX8RqX6GfetJb6zlWHbZ7y9RmvVldWM
-	 CwGcLIruD1LnQDHl3vPxsH+C5Fe/5+RF78rs4MSLMbxZ7At01rB6KCwxKaUMSo4vc7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995843;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=mQgknlMcFh7YkLQGDtcBN7DE0e8P0JWuuv3aI+pCJYQ=;
+	b=4jOuS/pkFmwd1FMIsacolnwm3bqY9TIm5PXK/pdirO1nLERUxP9sH3X5pz7CUepEufDv
+	 ZJZtnAW++zoJiI6Kcw6CdjXsa2yWLCr8ODG4jRnIiqCfO0vXwD9eNgD/z6RFKVquiVJmZ
+	 Ogw1JVwTKruwnpNawfL8+6KUQDOFkTBAqkrZpj8EIIM4O9u3vlA91gMj4d4lwPcs1GbhS
+	 p/jgBzfBgaVBJ3gNYh8VjIaglo9tl4L51oLrCfFXQbgR1k1oYhst02rD7Xs1ojej4Zhc3
+	 cQ8bxnXJDmZyOmn6dTHlY+gcqE8xHyvfW4XIL5cmOqr8N7qV1umAm1zJ409TV9XcKig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=MhiSgMfh;
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnUdqwU6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030DB606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:10:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 030DB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343B5606A326;
+	Fri,  6 Nov 2026 20:10:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=MhiSgMfh
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b587538a37so1382436a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:10:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793995830; x=1794600630; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1PuD9l1hH8OOyees3FtjiIDpzh8LbMQefMah40HN15c=;
-        b=MhiSgMfhijLptj6lPoTvX15KIY6L7UlXEWtu97bHRZz2RLdkrQhDAYF3a8hG5uTkNx
-         oHVwliW9gsROgYSfdBjhX+Nh6TF/9br2CYUuDgU72TOoDW4LsCGk5SWbytkkwtJGF50H
-         1Z3npzHxuc2viHhG2m8aYLruxeghjRkW0mYMY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793995830; x=1794600630;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1PuD9l1hH8OOyees3FtjiIDpzh8LbMQefMah40HN15c=;
-        b=FcYb6c6Hiota692Wpy8ReY8gNeF4nDWDooJg5C++pt4D55oEuU89+n4cD/B1kwenYz
-         HVOIKdm2qk853PFmWEnwMtAXkRvBcdXjZF/0BNtA8HRhoEqi8vMNdGw49mOyANp516iz
-         8uVUGzmmaxNumDxx6Q9iZ0Lqhmim46jT3IYl3taYpksWWHNEFBuEUTetOqf5fadLThHQ
-         Yxxlt+hsZ5rBU5OGRlxn4Mf3IVMQ3JV0n+xhR+OPDF8pO3H87skG23+tX5PKPTwXC+rf
-         dzV8sPugfx324NdiSWqyr4Ef0bRgpjAJIjLWpVSI5He6MDmrMIBXvOMTvrYmC6ic7Le5
-         iqQQ==
-X-Forwarded-Encrypted: i=1; AL+hErGWuzxTBFfdGTNnrOwLiedfcMfHqqJawlFc82s2TjmnGqr3NwYTcs5onKVy6KYYy8bIFFyjv4BqT7u55XI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8n0vhZR59ksgsQm06o1K/nFO/St5y81LX69tYaZ7HP8O1oEGoy
-	An0sGfxUTxNXfMlABWfe35FGL0R+drGzmypKEwd3PXb3aZy5pJUey9nmBLo7r3AsK92Z45bVlH0
-	Rfmxe4lJJfQ==
-X-Gm-Gg: AYBFou14jyFhNDuj4G3+MFUqOWuBwJk0zEkIpPXxUPb+FcMgc1PzaqMwVLSQWz10v5X
-	F2bXO44f09VE4gKDG3bWTeTzOYkMPhtEUtS3e7WIi+S3FkiZ/sIi22kMCitnLdMCVdNe0wui97L
-	tu4ZUkka2gLCTXn/pkxgfevwH3S35IfuPHEZ6N/H7a6+AKjvdcVc08Jlas076J3AQUCTm3N6auC
-	KS2u4z4Mz63ZKDWN4sXV3U94rOhcCTUr3L7hb3WUMD7BtWaeKMgEgwuQQogtG97w97v2EzmlGsU
-	WCZY4EAL1GHj7gHbwN4uHEGjVrA8CxpQFJk7h8LdntyZ6npQ4ttoTgM76Hyqk4wmTUM9u/i/Z6t
-	JM04M5XTxnAA8C/5onkUk0dYpdmdGxxOaY4Cabyo9iCXkowtkHuyW8cPFKECjDdTtbcI+YMJuYw
-	6UTLWW6mpYFPieJH7A1TBLpzV6effK/1b79B7mMHTl/eZd5sjw7G0D468G3w5nKu2dd5yHwDIlq
-	shcaXh22orJjxoijTrofBY0mAAIQ1H69akGuoPIJc6ThVxsrdm8UJvhnJp+yPkEPD9B9hiJs6IX
-	UYZSIc2BeEGjeM/2sRqvp9EsqunNO3nUQ2NFZq5LA4MTUfFyH3gUHiapvH4A432CSv2KUzwnEPn
-	xSA==
-X-Received: by 2002:a05:6402:234b:b0:6b4:597f:9bc7 with SMTP id 4fb4d7f45d1cf-6b5977c04c9mr2507011a12.13.1793995830151;
-        Fri, 06 Nov 2026 12:10:30 -0800 (PST)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com. [209.85.208.44])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b669c4dcd0sm1017630a12.35.2026.11.06.12.10.29
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 12:10:29 -0800 (PST)
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b587538a37so1382409a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:10:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBytMvAG1bXSGx0ow+V1aI5E8CoMxh9UmCjJVGGcs3O/r4PCRYH1EH9jZQsJS6qn4U+jk4eQZCIM2YPCQQg=@vger.kernel.org
-X-Received: by 2002:a17:907:97d1:b0:c2d:ca32:2176 with SMTP id
- a640c23a62f3a-c4d3522bf11mr295774766b.8.1793995829552; Fri, 06 Nov 2026
- 12:10:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnUdqwU6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EDC1F0089F;
+	Fri,  6 Nov 2026 20:10:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793995842;
+	bh=mQgknlMcFh7YkLQGDtcBN7DE0e8P0JWuuv3aI+pCJYQ=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=RnUdqwU69JoRUt8RZUa4ecesZuW7rHh2EHuIQp68p38g3KmbYSlVv9nHAMpiRx1SO
+	 p9QxX95BJI8O2DoAVbKQjIud2xDDHvE58beRPR6kAoNDBWaAE9WQa0n33CJWPfwAEB
+	 i2i9Qjmqnk7TK4R2kf9J4UytS9J20gvwU8DhjifZHc2taGEJNw2dEZnzWZI0f6mmhC
+	 1GrHuRqdcjXF86swcy7V9fSYe+CzfBe0Bc8n2aXE8p0RTXwuzbklxuVeMEeoX34Xvp
+	 i4pxiPm+pNVaO6YfEq4rI/XFl98fmsRX41iQv8R2Xoqd/p2WE7aXtKcNGPs6mpUf/O
+	 nJE05GLp5WewA==
+Content-Type: multipart/mixed; boundary="===============1898950710558378953=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,47 +49,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
- <CAHk-=wj9Y9NcOesBBm+jhPjYa7qO00fD7g7uwX+H-k0-R2difA@mail.gmail.com>
- <20261104-allein-bepacken-hitzig-5e517d3c129f@brauner> <20261105-genehm-dachrinnen-infusion-9cdf4868d32e@brauner>
-In-Reply-To: <20261105-genehm-dachrinnen-infusion-9cdf4868d32e@brauner>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 6 Nov 2026 12:10:13 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wgLpWDjmcNWphCMkKXKwuZsa8KWRPvJ4j=C_ktCL4gBzg@mail.gmail.com>
-X-Gm-Features: AclHuK8u2vjwLORBZ85ALxektHeJKK64DjU4CTV-vhgdh1gurlxjwUzbjkbzF94
-Message-ID: <CAHk-=wgLpWDjmcNWphCMkKXKwuZsa8KWRPvJ4j=C_ktCL4gBzg@mail.gmail.com>
-Subject: Re: [PATCH RESEND v2 00/30] proc: convert the fs, kernel and mm
- entries (Part 5/7)
-To: Christian Brauner <brauner@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
-	Christoph Hellwig <hch@lst.de>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Message-Id: <f043064ddbaa8d0c3bd479100993d6f157076ed25b1ab98b78c05bb2f1effae8@mail.kernel.org>
+In-Reply-To: <20261106094343.174905-2-radu.m.toader@gmail.com>
+References: <20261106094343.174905-2-radu.m.toader@gmail.com>
+Subject: Re: [PATCH 1/2] sched_ext: Add scx_tickbug, a scheduler that holds a task on an idle CPU
+From: bot+bpf-ci@kernel.org
+To: radu.m.toader@gmail.com,peterz@infradead.org,mingo@redhat.com,tj@kernel.org,tglx@kernel.org
+Cc: juri.lelli@redhat.com,vincent.guittot@linaro.org,dietmar.eggemann@arm.com,rostedt@goodmis.org,bsegall@google.com,mgorman@suse.de,vschneid@redhat.com,kprateek.nayak@amd.com,void@manifault.com,arighi@nvidia.com,changwoo@igalia.com,frederic@kernel.org,anna-maria@linutronix.de,bigeasy@linutronix.de,joshdon@google.com,haoluo@google.com,brho@google.com,linux-kernel@vger.kernel.org,sched-ext@lists.linux.dev,bpf@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri,  6 Nov 2026 20:10:42 +0000 (UTC)
 
-On Wed, 4 Nov 2026 at 15:35, Christian Brauner <brauner@kernel.org> wrote:
->
-> A git tree with all of the patches can be found at:
->
->     https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git/log/?h=work.procfs.cleanup
+--===============1898950710558378953==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Next comment:  3c7a6276d211 ("scsi: core: NUL-terminate what is
-written to the host proc files") is nasty.
+> sched_ext: Add scx_tickbug, a scheduler that holds a task on an idle CPU
 
-It does compares 'count' to PROC_BLOCK_SIZE, and then after that it
-just allocates PAGE_SIZE and does
+TL;DR:
+- Possible starvation of a task pinned to the target CPU until the sched_ext
+  watchdog unloads the scheduler
+- Question whether this debug scheduler belongs in tree
+- README tense and a sleepable-comment nit
 
-    page[count] = '\0';
+> sched_ext: Add scx_tickbug, a scheduler that holds a task on an idle CPU
 
-and it all *works*, but it depends on that PROC_BLOCK_SIZE being a
-random value smaller than PAGE_SIZE:
+Tejun Heo replied to the posting of this patch:
 
-    #define PROC_BLOCK_SIZE (3*1024)
+> this scheduler is more of an one-off debug code and I'm not sure we want
+> to carry this in tree. Maybe put it in a github gist or sth and point to
+> it from the fix patch?
 
-and yes, the minimum page size we support across architectures is 4k.
+I didn't see a reply to this.  Is the plan still to carry scx_tickbug in
+tools/sched_ext?
 
-So this is a "it works, but it's still wrong" kind of thing. If making
-changes in this area, please just fix these kinds of issues. Use the
-*same* constant for size comparisons rather than two different ones.
+> diff --git a/tools/sched_ext/README.md b/tools/sched_ext/README.md
+> --- a/tools/sched_ext/README.md
+> +++ b/tools/sched_ext/README.md
 
-             Linus
+[ ... ]
+
+> +This is a test scheduler, not a policy. It exists so that the idle-time
+> +bookkeeping skipped by an interrupt taken in that state can be measured.
+
+The README says the scheduler measures the bookkeeping skipped by an
+interrupt in that state, which matches tick_irq_exit() at this commit.  The
+next commit in the series, 24b81cae8220 ("softirq: Treat an interrupted idle
+task as idle in tick_irq_exit()"), changes the gate so that skip no longer
+happens, and does not update this README.
+
+Meanwhile the header comment in scx_tickbug.bpf.c already says
+"tick_irq_exit() used to ask idle_cpu()", which is past tense.
+
+Could the README say that the scheduler reproduces the condition handled by
+the tick_irq_exit() change and can be used to check it, and could the README
+and the BPF header comment use the same tense?
+
+> diff --git a/tools/sched_ext/scx_tickbug.bpf.c b/tools/sched_ext/scx_tickbug.bpf.c
+> --- /dev/null
+> +++ b/tools/sched_ext/scx_tickbug.bpf.c
+
+[ ... ]
+
+> +void BPF_STRUCT_OPS(tickbug_dispatch, s32 cpu, struct task_struct *prev)
+> +{
+[ ... ]
+> +	if (cpu == target_cpu) {
+> +		if (release_now) {
+> +			release_now = false;
+> +			if (release_one())
+> +				return;
+> +		}
+> +
+> +		/*
+> +		 * Leave @target_cpu in the idle loop for as long as it is
+> +		 * holding something. Taking shared work here would end the
+> +		 * idle stretch under test, and the hold reported for the task
+> +		 * would cover time the CPU spent running.
+> +		 */
+> +		if (nr_held_now)
+> +			return;
+> +	}
+
+Can this starve an untagged task that is pinned to @target_cpu?
+
+tickbug_enqueue() sends everything except per-CPU kthreads and
+SCX_ENQ_LAST tasks to SHARED_DSQ, which includes a user task pinned with
+something like taskset -c 0.  While nr_held_now is non-zero, the early
+return above skips:
+
+    scx_bpf_dsq_move_to_local(SHARED_DSQ, 0);
+
+and no other CPU can consume that task, because it fails
+task_allowed_on_cpu() there.
+
+nr_held_now can stay non-zero at every dispatch when two tagged tasks hand
+off to each other.  For example, A wakes B and blocks; B's wakeup on
+@target_cpu is held, so nr_held_now is 1; ops.dispatch(target_cpu) returns
+early and the CPU idles; the timer releases B, B wakes A, A is held, B
+blocks, and so on.
+
+The pinned task would then sit on the runnable list until the watchdog
+(timeout_ms of 5000) raises SCX_EXIT_ERROR_STALL and unloads the scheduler,
+which doesn't match the commit message's "the machine stays usable".
+
+Would sending any task with nr_cpus_allowed == 1 to SCX_DSQ_LOCAL, as is
+done for per-CPU kthreads, address this?
+
+[ ... ]
+
+> +s32 BPF_STRUCT_OPS(tickbug_init_task, struct task_struct *p,
+> +		   struct scx_init_task_args *args)
+> +{
+> +	struct task_ctx *tctx;
+> +
+> +	/* Sleepable, so this allocation can use GFP_KERNEL. */
+> +	tctx = bpf_task_storage_get(&task_ctx_stor, p, 0,
+> +				    BPF_LOCAL_STORAGE_GET_F_CREATE);
+
+This isn't a bug, but is this comment accurate?  tickbug_init_task() is
+declared with BPF_STRUCT_OPS(), not BPF_STRUCT_OPS_SLEEPABLE() as scx_qmap
+and scx_sdt do for their init_task, so the program isn't sleepable.
+
+Also, since commit 136deea435dc ("bpf: Remove gfp_flags plumbing from
+bpf_local_storage_update()"), bpf_task_storage_get() allocates with
+bpf_map_kmalloc_nolock() regardless of sleepability.
+
+Should the comment be dropped, or should the op be declared with
+BPF_STRUCT_OPS_SLEEPABLE() if sleepability was intended?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42280840441
+--===============1898950710558378953==--
