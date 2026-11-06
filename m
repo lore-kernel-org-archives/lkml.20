@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951902;
-	b=m92XaiUJatPY8MB1CVDfzCRoog6EVcqlrMi1bqt67BsnOk2jUS2x06sPe9H3HBmblyBa
-	 2eJjy9IA13DLBsVFtnJNCqItev6tr2shHGnPnhIBhXOjaPEgs7VxGItDksGfP3qKbUQgT
-	 3Co19wWbsustMFoHJVv31VONxMUoqH7F+f/PM3uBaOtjKZSxHhLaT/0A37XT+l4gYaSRo
-	 lJoyre9cuSocqBOCIf7hbm5DCPd64o3BU6tf1/WylsQ+PLoGlwPJNs4GIjIUnBWvvzBAK
-	 3E6oNREvtdou16qyhXrbrF5z7iE71CQPvCYH2KS5M1bJVkuRYGsKL9UZAzz9nj33Img==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951902;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=G7sxNEVsyIuTPV8a6FVFVg4qeZbioTDu21HyPpnSnRI=;
-	b=DIob5JZC+ZzeaetGDT8wC5roHrTp15zmyMJjzzaqq/bEUz0cq6I1rNd1EZPa+bgVZ2Ev
-	 mhLIGm43B32cjidY9uy+gzFTI0sor6dXztJYTKTQ1ojeSYPSnMoiKYBDWc8kJSvL54JUP
-	 chSy1dDXJ9EvDKEWDkRsyTWLSz06qL2mGVZyg56CgKPu3Bnn6XomAMnzYD6lmt/kREkNl
-	 gBhSJ0sZaKSZt3cB5sAYgLokyBHeFJUBa7PCc++7U6A/q783nsDh1Itie1OAsOyuEjcgO
-	 hY9gjV8wXs9SYNZA0fBEKAvKWWLxLgJ5sy1uaAtSW7XO3+3mcy36/hRtn9YfMVQN2tg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4PDt2E2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793951947;
+	b=TaffJHdvUFjAF/gnzEWRmrJbRHO70nSKweHCLJnNv4vPj+QjJjGL8uPC9vDOHsKb5pfS
+	 wDBM4HmLhBBOoMew7LgWEo+3Hnxd3VBs2FxuPZi3bVTXdXMCe/a/dfLymGu2wJ3owl0eI
+	 NOsv+5Y/niakaty5oJu1Anhhsm54p18Iya52I1E7hz7VXPryK/2x0BICF3OHZxgK3DAv/
+	 f450JFZf/2Y9MjDDC6QLhBcTyryWc/TXu1ynXtXrZb9kIHJ9Pv8nkHmVm80A8HcS/mci2
+	 HESOZzvoWS6xx6rGSyQSk836pHOiyZL5eDVSfS55MwlrOpKThy0AldC3aNO/YrI9eJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951947;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=eXbCjigGU5BS75dolvYG5VKNnOMuu6Ek4bzwOKxp0Ac=;
+	b=wGqZpkRIp0jk/9ALuut2qU27UeStWvqJHz1OIxEuzjWSOIT8NZiyW2GbSF+OY98ALY64
+	 yO6SwcE4SmN+uiMSf/eni57nTKdEmy+o4XOMTkTxmV7WcXpkaZ18EUmJrQOA2tLRJVu6W
+	 sR0hW9XMIGptVmKIZIhzD9jChpZBvqWGqYofqFnYG6FBEeZw0UIBc+L0JJduwbEfOcf8V
+	 QxsbOZTsI+68tu6qOtf8C0+A+h49oLEBtDDMy98vXUKm/lSgruP5j6HmycrbaSS6b0l0f
+	 mqbPy+P03G6pHSWskFMgm/GP9a1GRjmZQVRYJsYLJ1fdtDg43yS4Lrgktw71jXfYpeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gDLYvGNQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6435D606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:58:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CB4606A328;
+	Fri,  6 Nov 2026 07:59:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60CB4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4PDt2E2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF8F1F0089F;
-	Fri,  6 Nov 2026 07:58:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793951902;
-	bh=G7sxNEVsyIuTPV8a6FVFVg4qeZbioTDu21HyPpnSnRI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=N4PDt2E2G4E+VIbvP7UlpoJPj86dhujZdzHPEsZxc3xuXtlYhZskE4BayNPfpZ/oR
-	 P8gUzu9WnPVRdzSBSb2ePhoiGEmmDBep9EAQ6jSY1hXdRbpyyiRm2pc87Xx68vFi1/
-	 5Ny7OoMEhaXP2x8+4d0uWbuGxGEqY+IRHHOyMf+cVuzuMy6TwlFyLXbzMQTvbrYapr
-	 uoDtgKkKt1JJARcN0hgr0Vxtxsl4QYrrcrRlQuaxpX1KSflyhJkbvVjWnDfhI5DWt3
-	 zIbZxsASJ5jb6CgyhoBm9ppPnATR24JLITsmmbhiWMwPrw3rV/J55g4HWmJ1m8ct1Y
-	 Oot/kWOGNLORQ==
-Message-ID: <5d13a6f7-6b00-4557-9a1f-acc934a2c168@kernel.org>
-Date: Fri, 6 Nov 2026 08:58:17 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gDLYvGNQ
+Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
+	(Authenticated sender: str@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 66CB620178A;
+	Fri, 06 Nov 2026 08:59:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793951943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eXbCjigGU5BS75dolvYG5VKNnOMuu6Ek4bzwOKxp0Ac=;
+	b=gDLYvGNQKrC0vSft805W2WWjHT75atIiGd8aK8pETwcsO5YDbouw+MZ9fj5fmrRutmldQ+
+	LE/9NQC6hGLPCuUVOUuXhqGysZehz+IQR7QB6IL2J2HmnJko8GV4R/+YNN75pGpMRfGtZM
+	TrzC3Pq/+K/qL9A/nGFTiJQ/xCPpwCduE+g2ujU2FcQVhAOT6y/7SN0rtSr3496vNftQc5
+	dmhCPoW1/iTNjGBOF1XprvHPgJcLresUxGbxFxY57uJYLIZYtsDUihGiil3noFlaBaWZ38
+	ivnIqw//la3AzzM+YJFCHAc21rW9l2DLXUrE1eTU+jzPr/6jL5JAxlzItmCqHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793951943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eXbCjigGU5BS75dolvYG5VKNnOMuu6Ek4bzwOKxp0Ac=;
+	b=W31InUM7Vkx4gbu9EAYsejRuJ2G21k8hpvdSgaqucK28vJEWjmwyqBb7KMF7tN4yV9Wqzw
+	xiGAq+ZLVUDl3ofYjoo+LwXzWFL3hQUxtFWdlPM1t0iPvQRr2fblrlW46q0qBoS1WDSN9A
+	yXXHynGge7qpdtD2A2b2oi4QTuJ3IRKD/NyQith4KzlorlqwjAW1+Yb18EDtvAhWDLN56g
+	nEvZaaWUzn6Jg27WWX18ZDQfb6kLlif2YC4dPM7zMyNyMjJM8i1D0f2GmFeeGANm02ufHB
+	DTsa6G/xe7Hba3RjUr8P0ezeEe1CaOdkW421HSUkckCo2vwaAMQcaEPAWXtEyA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793951943; a=rsa-sha256;
+	cv=none;
+	b=SbVbQcaoQhcofB8Qr1xkAGgqiq3TKkO+QRirDx1XwgK8NCuwmNcSikbh5lBz35qX7fyWqC
+	pFJ8wrLmpfdY/NTMNTAafjQn6A3Ape1SvGVK1KkYO38Ak4KPlAAMwIgxvGdiYaozc2HTqY
+	MXptJBl8u0HfTDwktM4O5vTBI8IPHSJ1NMDCGUHGA0w/k2y9pwosceam6Iym6X9w1Gnuev
+	7zDBp+pLjg0IWdjlgN530S3+erongjebbnbE9MaNNZWc+fqEtJHwbkcYTjYGtOltKEhn/6
+	KLIysmsfjgWzQEkUzzznRFhlj92cVe20I1O0huo9o2q7W1JTPXKlTEQsZ/uAew==
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Fri, 06 Nov 2026 08:47:26 +0100
+Subject: [PATCH net-next v3 2/5] dt-bindings: net: dp83867: add compatible
+ and reference ethernet-phy.yaml
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,123 +84,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: MAP_FIXED leaving holes on failure is very difficult to recover
- from and can even be a security hole
-Content-Language: en-US
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linux kernel mailing list <linux-kernel@vger.kernel.org>,
- linux-mm@kvack.org, Bert Karwatzki <spasswolf@web.de>,
- Jiri Olsa <olsajiri@gmail.com>, Kees Cook <kees@kernel.org>,
- Mark Brown <broonie@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- "Paul E. McKenney" <paulmck@kernel.org>, Paul Moore <paul@paul-moore.com>,
- Sidhartha Kumar <sidhartha.kumar@oracle.com>,
- Suren Baghdasaryan <surenb@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>
-References: <8b45a161-101f-4f28-9b7a-c7c8b8a29f90@gmail.com>
- <auyXeApQlV_CMQDm@gremlin> <310aec2d-3a83-4544-870a-ccd5abd78f48@gmail.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <310aec2d-3a83-4544-870a-ccd5abd78f48@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-v7-2-topic-dp83867-v3-2-45e1d3adf1bf@pengutronix.de>
+References: <20261106-v7-2-topic-dp83867-v3-0-45e1d3adf1bf@pengutronix.de>
+In-Reply-To: <20261106-v7-2-topic-dp83867-v3-0-45e1d3adf1bf@pengutronix.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Michal Simek <michal.simek@amd.com>, 
+ Eric Dumazet <edumazet@kernel.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Steffen Trumtrar <s.trumtrar@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2212;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=Sg2dYJ3IiZs2iqpA2t9cb0c8fY3JPwCcoA8EgjGoAdE=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9bbjqNlhxj92Jal8ZRPzrGtm6n+6xdTu9iJfQaTvvCZr
+ 7/56lpORykLgxgXg6yYIovKwgo+UY8PnpHTRLhg5rAygQxh4OIUgInYCDIytM9Urk59NZnrycvM
+ 8z+Wsgs7ufJvy/0eKh2/0imRqyl5A8M/TaMpAVuEzsqbnG9/8Mb77MMz1Uvu7jSu9jjz+khkT2g
+ kJwA=
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-On 11/6/26 00:59, Demi Marie Obenour wrote:
-> On 11/5/26 10:11, Lorenzo Stoakes (ARM) wrote:
->> [ please check kernel mails in MAINTAINERS - my and Liam's at least were
->>   incorrect, which makes it easy to miss. Fixed those up. ]
-> 
-> I thought I did that, but obviously I didn't do it properly.
-> 
->> Thanks for the report.
->> 
->> In general linux system calls do not guarantee compound operation
->> atomicity, and any assumption based on that is incorrect. If you see an
->> error - the operation failed, perhaps partially.
+The binding has neither a compatible nor a select, so dtschema never
+applies it to a node: neither the example nor any devicetree is checked
+against it.
 
-I'd think we only cared about not exposing the temporary state between unmap
-old and map new, right?
+Add the compatible of the PHY ID, optionally followed by the generic
+ethernet-phy-ieee802.3-c22, which several devicetrees use. Select on the
+PHY ID only, as the fallback alone would select every clause 22 PHY.
+Nodes without a compatible stay valid, but are not checked.
 
->> Further, a failed MAP_FIXED leaving gaps was the case for most of the> history of linux. Avoiding that is infeasible.
->> 
->> I advise you to review the NOTES section
->> https://man7.org/linux/man-pages/man2/mmap.2.html on MAP_FIXED - your
->> suggested use of it is not recommended.
-> 
-> Does that mean that MAP_FIXED should be deprecated?  It seems that the
-> safe use-cases can all use MAP_FIXED_NOREPLACE, and that the use-cases
-> that cannot be served by MAP_FIXED_NOREPLACE cannot be served by current
-> Linux.
-> 
-> Specifically, if a MAP_FIXED mmap() fails,  the mapping might either
-> still be there (in which case one _must_ call munmap() to cleanup)
-> or it might not be there (in which case one _must not_ call munmap()).
-> There's no race-free way to tell which is the case.  This means that
-> MAP_FIXED is unusable in multithreaded programs, unless one is okay
-> with leaking address space.
+The binding also references ethernet-controller.yaml, which describes
+MACs; its node name pattern does not match a PHY node. Reference
+ethernet-phy.yaml instead, which also describes reset-gpios and the
+other generic PHY properties existing devicetrees use.
 
-You said "This was fixed in the past, but the fix was undone in
-4f87153e82c4". Any idea when exactly it was "fixed", whether the change was
-done consciously (or some refactoring side-effect) and if somebody started
-depending on it?
-4f87153e82c4 is from 6.12 (2 years old by now) and nobody complained so far...
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ Documentation/devicetree/bindings/net/ti,dp83867.yaml | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-> Are there cases, such as anonymous mappings, that cannot leave holes?
+diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+index 4bc1f98fd9fe..2cd8311ece5e 100644
+--- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
++++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+@@ -8,7 +8,16 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: TI DP83867 ethernet PHY
+ 
+ allOf:
+-  - $ref: ethernet-controller.yaml#
++  - $ref: ethernet-phy.yaml#
++
++# only the PHY ID, not every PHY with the c22 fallback
++select:
++  properties:
++    compatible:
++      contains:
++        const: ethernet-phy-id2000.a231
++  required:
++    - compatible
+ 
+ maintainers:
+   - Andrew Davis <afd@ti.com>
+@@ -28,6 +37,12 @@ description: |
+     https://www.ti.com/lit/gpn/dp83867ir
+ 
+ properties:
++  compatible:
++    minItems: 1
++    items:
++      - const: ethernet-phy-id2000.a231
++      - const: ethernet-phy-ieee802.3-c22
++
+   reg:
+     maxItems: 1
+ 
+@@ -130,6 +145,7 @@ examples:
+       #address-cells = <1>;
+       #size-cells = <0>;
+       ethphy0: ethernet-phy@0 {
++        compatible = "ethernet-phy-id2000.a231";
+         reg = <0>;
+         tx-fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
+         rx-fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
 
-(I don't have an immediate answer. I'd guess that if e.g. some kernel
-allocation can fail, this can happen)
+-- 
+2.56.0
 
-> I believe there are some programs that depend on this to handle
-> SIGBUS faults from truncated mapped files.  If even that can leave
-> a hole, the only thread-safe alternative would be longjmp() out of
-> the SIGBUS handler.
-
-A concrete example would help I guess.
-
-> An alternative behavior would be to unmap the pages, but keep the
-> address space reserved, as if the mapping was a PROT_NONE anonymous one.
-> That would avoid the "it may or may not have been freed" situation,
-> as it would be safe to retry the mapping or call munmap().
-
-It would probably have to be a new flag as that's a different semantic from
-what we have now. And the use case for adding it would have to be strong IMHO.
