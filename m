@@ -1,94 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793998551;
-	b=kFabBeXN67cdRQVjxkpwAIsh8ReHgncpuK5GAOmbF4YOZI1CGgW/OEJetRiFbCSVWn3r
-	 LE/tP0wt/YsH8Jlwhu/wDatY6Z7Kvx9/XPNRFtLoLPQ1F2A9CV46bFO+xt3To5VfcK13T
-	 Kdii5WIZvS9/amesgD+7r8bkZ2RIzHkY/iR9mMm82cKXV/pHA89VktdIC4J00piqlcDLq
-	 ImKxaFKiMH4p5uCtj7NisDQqvEj8B0h3RCEjt+0DRV9X3Q190zDf7/ZOs1D2WqYS8iROt
-	 3Yo+2ZJ5qhE9eVUupE97wLL8ifsHrXWP2CfQ7bAdBqVWqNPQOb+X7r6GZm71MK7WAdA==
+	t=1793998596;
+	b=HjQhv5G7M6qdy9T/WEZFlBL1IOZiEVe1k2apgbV23GeqkIL7glZl918IpkZj61eqjxTD
+	 8jTWGRBt6pwVXfGHc+EM3n8EIr3cgHxx3PAdMhpaGbspgEv3C5IClVQ24dyDvKqxt8F+G
+	 3gtpx7x/V6Fsvim/l61Vz6vGFl15Aj06vqw9gx0T2t3MFDIUANgDej8ZEmIvC/zIIpcUw
+	 kvPlrH73E6BfCcbn8yDVq+1cg/ARHestR4NR224ZjQS/PVbg1peLS1Fy6wvD/TMGO8Hf8
+	 4mvZLU1sIvtAb9KkJXGt5i785t8z4TTLxpgx/pJqvybvxrfDvNDFszg9hWYmFc6bZtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793998551;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=R3GadRqkUrlUWiVQ1/haVsz74SA4u36BlKTcEUmJ2ko=;
-	b=1rnFBqXWhdB1gsq5cXVfAMAN5i2FziqCubrqJaylAt76DAvtdTTGx2Ea8Baaot5zQ/v0
-	 t+b9UdPn/C/8becHw2CJpWgRluihv505GS+gWXJkACfvT5lYbswKo/KeS3rinoUmpxUtv
-	 SD0WBRirQmoTWuqf4EykWshD6JYmZTiTdNVdgOqwb2AtXsrG0+4kk2PhFhopSzddrJ+g6
-	 3HVdZYnsxQ55oRsVtGUWQy3F18WvyynMKfZZ69WnltTw3nBveFe6+wpQYA27K4xC7V1Nk
-	 KHBBxwkocZexeE1C6H5QVPGRP7+hiKkR9oD31vHcWBKNOYA1jJ33KemBzg7O4KybXrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793998596;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=nCTjKoBXIdQnib56NT96nxkkq0Ed9HNtAzjdbvxg1vM=;
+	b=a75FlVG+/K4jU5QOfVwWBm9f7QJ8bDltNnFCSeFMo2zU4hHANrjvARiuYQdSliJ6BKUH
+	 G+57b+4y5g0nW7aeIMyFJQElxKQOi8nGnKfeQQ/9sJnlQqNCU18yVrKZRwPc4m2jjstAJ
+	 NoxuT0N9XpVXxsxEkF493+kGo4kLtNWebL429d6o4y/HxJTc+mpfykl1wUdXyKM1ni0H9
+	 Muk5ezPQT+XgzyqtuZw0NbnFeloIxIbzfdQpv11qIfJuBDcfgDP9N3vPxjsYcA9ET/vC9
+	 jJUNLLDCLBf2W5y8VFg0BtPkUvW7ce2aWwzkZRZzNh3jB9zbO0KNCPM5x8ovGNXQgoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="r/WC8+Pi";
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULSw1nRJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945DD606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:55:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 945DD606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2325F606A32C;
+	Fri,  6 Nov 2026 20:56:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r/WC8+Pi
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so9366515e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:55:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793998549; x=1794603349; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R3GadRqkUrlUWiVQ1/haVsz74SA4u36BlKTcEUmJ2ko=;
-        b=r/WC8+PiKuYGcgHsp53IhgtATamLlvmJ9DxHOqwkIsCelkKWWRQIrBdiCIZD1k0eJL
-         UosQXsLyF1Z7uEToXzt04F8abWfCoKztejsGn58VfW/HmzSB8UJMxcuk0SwF3Co0uJNr
-         Z/NmmI4XzLPCpudKJlLslycAYpZVnmiqSzKXhkD/7Yb2F16MsZlE0vU+vJchCXX+VlF4
-         l+ZDdF/lzQBnNI64oOQCRHKn/XLYq6BCZm4ESXKnrNjq+ZFxfSmSdvhbQtMoM4UClk4R
-         U5xXEwTNI/To0847cbJoe7RvXGtDPHYQNbaBNG8WF7wdmfXLe5FDIlmI2SXq0ES+2gqi
-         jpVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793998549; x=1794603349;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R3GadRqkUrlUWiVQ1/haVsz74SA4u36BlKTcEUmJ2ko=;
-        b=wbuZlKH984QRr4Y1TVMI6x2Pv17v717kSRBrYCb9Wcr8oKedxinB4zQJ0n2tuolih0
-         ASwuljX1wOtxqvQhgVzE6GqtdF1CwJAMozLWz7YMtRivrZ/uOUkKnjVIzlsquCTqJeqQ
-         eE6Lt8eWlG7t5+IyK9OkQ8a3eT464jmG4jULH75QDDqyp/hk0te2wEPc7xvnBed2KJYP
-         tpMBA6NgUNqmgaUI9sUf7Ae8Yz23gAwq8Ch65drGgQBtfM97Q6tiKp49GrnGCG9NnHwU
-         COhjeb0sMZi0k1ov/+kOye3xHL84eFzm+j4QOaAvQYTT97wsZDbSl5N15kKptaZR0fEu
-         PqrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBySupN2P4F55DJKyhg+CYLqu+YxAcf/Ch/u6hzmsxfKqsxWAx9OZVyRMSYjzItVBZla/tXs4v60I7thof4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ClvdwtIwFFbAtYTRd4PHoUxEQAkB+BHr2+3BGPSdDvolje1Yt
-	Vx7zi2yvM1uOXGrklxMgHNIJe/L63mJBpXkZ+W9mQsJhKiQFhIBs2hGcFirkRKBAsqs=
-X-Gm-Gg: AYBFou0ZVEx0HLtCEYDV9uL9urG0heSomryu8F60jlSFVAsGKaw3A+o25HhgmdLpQQF
-	EninrqeTv24YMfZw18w48YCokd/MGoJLF3t6Yrn3LSedk08Joo1a7nEfImnXwvhc3Tj9iN3xWZ1
-	8ZleaaLzxDHyhAR6wnLeJOUxWASB9hte54jH+nP6AI08tdPd9zeg4DAwNcY3RrsKYCcWCwAmHpn
-	CHUr1Cu9HSJoQblc3rtlGjAULj1ZrtmtwFqIoCn+H6FDzoN5cyx9hMqe0WEe+qG3dd4gyLUL52I
-	Ov/dBhUS7PKq2RLiC2ooip7Xc3ac6q5FVixJrD1q23VQwvS0EW6GoXSIiw0BM3UK5jtqY/ECgXz
-	yIMqgZmHEHLHkYwA3LdED+U8UUibWZdYI8eu8nVBpnXhALQ0FIkrHf4SFRVN+nnXmQ6oPBuvJ4x
-	RpPXccSGKzYUNJMrHRMRKgb0xB8pmoBhuhfaCiraz1t9RY95vCRfPciEx6M10eLFs3llRB+FbMX
-	WQNVUuKt2YYHIeRTt0Sh8VgvPTOHt4ACbb6xCcNOI3M5yrr6y1G+feofWEejcQPeKnZUOaAFbi3
-	GRf34zbcm93977b0zw93gh6p1D3C00s1MfbhrniYa33ivQWyb+vOWA==
-X-Received: by 2002:a05:600c:4fc9:b0:4a2:d99:3171 with SMTP id 5b1f17b1804b1-4b6e017053fmr65530385e9.23.1793998548862;
-        Fri, 06 Nov 2026 12:55:48 -0800 (PST)
-Received: from localhost.localdomain ([87.13.215.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3271abasm7354075e9.4.2026.11.06.12.55.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 12:55:48 -0800 (PST)
-From: Francesco Giandinoto <testata.nucleare13@gmail.com>
-To: sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Francesco Giandinoto <testata.nucleare13@gmail.com>
-Subject: [PATCH v2] staging: media: ipu3: Fix alignment issues and remove an unnecessary blank line in ipu3-v4l2.c
-Date: Fri,  6 Nov 2026 21:53:47 +0100
-Message-ID: <20261106205347.10407-1-testata.nucleare13@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULSw1nRJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF761F0089F;
+	Fri,  6 Nov 2026 20:56:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793998596;
+	bh=nCTjKoBXIdQnib56NT96nxkkq0Ed9HNtAzjdbvxg1vM=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=ULSw1nRJeIdVPu5m8k23tb5tXhXWcx0Z+3YVFReOPZNZHJUo42e5ISBoshhElnoP9
+	 HSjHKLTUq++cm12ZZP522Oq8ijXtmyfRu2XKU2JlqMK/YSf1qfHqQQExWybYWfngFk
+	 RN7Qox4gEtkxUyAdOLpq/UOZRt9qj9HYGR/rR00SITo7065oewf5flI262KdWTDFQR
+	 lZ1kAEUJfXcyLZQdO1aC6qW5ywhxr/jGmnCIjH99zP6p23wreJXMEheJCGwamP/xB7
+	 STZCyvKwX/0ftkUPO45T1opNzNU+9SSwxZ5PstEh2aagu9QDWJ80ZjFkkfuy7jPrNg
+	 PrB4Cku7dEU1g==
+Content-Type: multipart/mixed; boundary="===============1431297378942402890=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,55 +49,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <183165d7c572e2e569b9384d6ffeac0992a968d887ef64f65e85d9931590634f@mail.kernel.org>
+In-Reply-To: <20261106-lskel-struct-ops-v1-5-a4486ffc79cb@google.com>
+References: <20261106-lskel-struct-ops-v1-5-a4486ffc79cb@google.com>
+Subject: Re: [PATCH RFC bpf-next 5/7] libbpf: Implement bpf_gen__struct_ops_update_elem() for light skeletons
+From: bot+bpf-ci@kernel.org
+To: sidnayyar@google.com,ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,qmo@kernel.org,shuah@kernel.org
+Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,gprocida@google.com,nkapron@google.com,tweek@google.com,mripard@kernel.org,sidnayyar@google.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri,  6 Nov 2026 20:56:35 +0000 (UTC)
 
-Fix alignment issues and remove an unnecessary blank line before a closing
-brace in ipu3-v4l2.c, as reported by checkpatch.pl.
+--===============1431297378942402890==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Francesco Giandinoto <testata.nucleare13@gmail.com>
+> libbpf: Implement bpf_gen__struct_ops_update_elem() for light skeletons
+
+TL;DR: In gen_loader.c, the 8-byte store of a prog fd at a variable offset may
+be rejected by the verifier on strict-alignment kernels (e.g. riscv64), so
+light skeletons with struct_ops callbacks could fail to load with -EACCES.
+
+> diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
+> --- a/tools/lib/bpf/gen_loader.c
+> +++ b/tools/lib/bpf/gen_loader.c
+
+[ ... ]
+
+> +void bpf_gen__struct_ops_update_elem(struct bpf_gen *gen, int map_idx,
+> +				     struct btf *btf,
+> +				     struct bpf_struct_ops *st_ops)
+> +{
+
+[ ... ]
+
+> +		/* R2 = dynamic kernel member offset from off_slot */
+> +		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
+> +						 0, 0, 0, off_slot));
+> +		emit(gen, BPF_LDX_MEM(BPF_W, BPF_REG_2, BPF_REG_1, 0));
+> +		emit(gen, BPF_JMP_IMM(BPF_JLE, BPF_REG_2,
+> +				      KERN_VDATA_MAX_SIZE - sizeof(__u64), 2));
+> +		emit(gen, BPF_MOV64_IMM(BPF_REG_7, -E2BIG));
+> +		emit_check_err(gen);
+> +
+> +		/* R1 = kern_vdata_off + offset */
+> +		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
+> +						 0, 0, 0, st_ops->kern_vdata_off));
+> +		emit(gen, BPF_ALU64_REG(BPF_ADD, BPF_REG_1, BPF_REG_2));
+
+[ ... ]
+
+> +		/* Store prog_fd (R0) into kern_vdata + offset (R1) */
+> +		emit(gen, BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0, 0));
+
+Can this 8-byte store be rejected by the verifier on strict-alignment
+configurations?
+
+After the JLE check, R2 only has var_off = tnum_range(0, 4088), so the low
+three bits are unknown.  R1 = blob + kern_vdata_off + R2 then goes through
+check_ptr_alignment() -> check_generic_ptr_alignment():
+
+    reg_off = tnum_add(reg->var_off, tnum_const(off));
+    if (!tnum_is_aligned(reg_off, size)) {
+            ... "misaligned %saccess off %s+%d size %d\n" ...
+            return -EACCES;
+
+strict is set for every program when CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS
+is not enabled, which is the default on riscv64 (it is only selected by
+RISCV_EFFICIENT_UNALIGNED_ACCESS, which depends on NONPORTABLE).  The light
+skeleton loader is loaded without BPF_F_ANY_ALIGNMENT, so on such kernels a
+light skeleton with a struct_ops callback would fail to load with -EACCES.
+
+The other variable-offset blob access in gen_loader, emit_st_ops_member_val(),
+passes the pointer to bpf_probe_read_kernel(), and helper memory arguments
+are not alignment-checked.  Other direct blob stores use constant, 8-byte
+aligned offsets.
+
+Would masking the offset, e.g. BPF_ALU64_IMM(BPF_AND, BPF_REG_2, ~7), or
+copying through bpf_probe_read_kernel() make the alignment provable?
+
+
 ---
- drivers/staging/media/ipu3/ipu3-v4l2.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/staging/media/ipu3/ipu3-v4l2.c b/drivers/staging/media/ipu3/ipu3-v4l2.c
-index 61fdefe78..e9b2ce2b4 100644
---- a/drivers/staging/media/ipu3/ipu3-v4l2.c
-+++ b/drivers/staging/media/ipu3/ipu3-v4l2.c
-@@ -248,7 +248,7 @@ static int imgu_subdev_set_selection(struct v4l2_subdev *sd,
- 	struct v4l2_rect *rect;
- 
- 	dev_dbg(&imgu->pci_dev->dev,
--		 "set subdev %u sel which %u target 0x%4x rect [%ux%u]",
-+		"set subdev %u sel which %u target 0x%4x rect [%ux%u]",
- 		 imgu_sd->pipe, sel->which, sel->target,
- 		 sel->r.width, sel->r.height);
- 
-@@ -291,7 +291,7 @@ static int imgu_link_setup(struct media_entity *entity,
- 	WARN_ON(pad >= IMGU_NODE_NUM);
- 
- 	dev_dbg(&imgu->pci_dev->dev, "pipe %u pad %u is %s", pipe, pad,
--		 str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
-+		str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
- 
- 	imgu_pipe = &imgu->imgu_pipe[pipe];
- 	imgu_pipe->nodes[pad].enabled = flags & MEDIA_LNK_FL_ENABLED;
-@@ -306,7 +306,7 @@ static int imgu_link_setup(struct media_entity *entity,
- 		__clear_bit(pipe, imgu->css.enabled_pipes);
- 
- 	dev_dbg(&imgu->pci_dev->dev, "pipe %u is %s", pipe,
--		 str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
-+		str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
- 
- 	return 0;
- }
-@@ -753,7 +753,6 @@ static int imgu_fmt(struct imgu_device *imgu, unsigned int pipe, int node,
- 		} else {
- 			fmts[i] = &imgu_pipe->nodes[inode].vdev_fmt.fmt.pix_mp;
- 		}
--
- 	}
- 
- 	if (!try) {
--- 
-2.56.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42289585064
+--===============1431297378942402890==--
