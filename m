@@ -1,60 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955025;
-	b=sU9qcsbWu99cV+hBv8vRm5ZJgGa9oMeyCABVyGJw9wV167VaUk66uQKqmZ4VaqLQqsOg
-	 QV6lhAc8/3/3VDCb0GWpWXZkv9rI0zc7fokueKt1UefDotIeVb5HDgTUqULm1CvOGIaH3
-	 jxjQwIq8TYHlMKP3YJBJuxrfwNq+5kD86DwgbcvLsGFCZSswqenoc/Y9VayPYIHdZhPIy
-	 Vwt60ENkr93MqScFXed9vaM6nhHsnQobwDCUDLTP859e+gm7jauNJBFX/9D3ocdV6iwc3
-	 3eEfcyJB0oAKI/pM4GPJlKjlqPQA3rdwbNFXSQJ7fx3enE91rCCmNYw7YyE7qax2v+w==
+	t=1793955049;
+	b=mJE6hE646Ap3pBjqSFHk3HOttrsFopERwPr3APsgWCBtZJtSarN1NUsksaBuWRsFA+Ah
+	 NWK/Zs6YKJds3qvsc/bjChscv0iojQ1ndEw2aBBV/aTJ3rt+W5GHIihjgj9WYY1TE4bGZ
+	 PcJbVNelPjJsKXFs+L93ZdqRDN7aOLcDr0U00eN7rUfq4TFERsrV2OIw3gTEOs9X0V/FG
+	 qW83y60VcgEmHrXc1qwwovZ3ZdjyoHtMpKqRAmB+KhIyUQKapWTK0I/t5+f5zLSzdRvip
+	 TvUh61aBfC1FoZjOF7IG6OVkGVSXu5X2c93aMS+8216nRQjJPTJEhvokt5/neYF8eyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955025;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4KseLiEBWMKMKEx4omaKpJSqCgu67BaInGBjJdgTfdM=;
-	b=4QERjJ/QsDInX5tGNPEOAQcs7hMWH0gqIv9pQPYeY0oTqsd5TErQbYRxc2KKLa8/VUtf
-	 Zc2SOPJU90xnetEHrJJ+3y5Akg2lnjDtpNxdoEWevc6Yl6vOvLV5gWlvrqpS/6O7FoP8G
-	 iVfC72AjGYAAh9BOto7kAsSKjnaZjqMpHFtjL/QXfx/FT9zPgcwGEmJh+zUU+kFcwpnKH
-	 /9UtzhsObP4ezyNsFZ5iaTRX5a6UGPEdwMnwZDFOPAJkMFe8ojUCL70/s04ggHkHetHhv
-	 YKNevXuSb8mBpgmKJFk0ul0mFbJZa71nhuThnnWFfKNv1Jg/l8OsoCVOPQXPcAPdBBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955049;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=02bTvKdX/nLQXHFQBIjVYXN/kxrugSr5DOL02V9CjOk=;
+	b=B5EjEvjkIVD1FFb0UsbmfM3T0tjyugh+5l49NN+lXXSUcQgmPqBjaogEzw2PDtUqZ6uX
+	 05n3EBrQiewLn2yk/NB6zrKNRha9WQw9Bcx0BlisJ5nrvId7wLDCnVrA5bHF+Sl4n1rIx
+	 kRV+Wmh5KzsGRnRbhfGHExhQnN/xeWT0fsS5WBIfM+SD/0dMSzR/JK4d4AOYoE0cvKmY8
+	 EGNlYAGRjEwkoyhzx6+2yeKE3cKa6mY01egkA5NVXceyvwEkCskaV8wS9p99bHlnGf8jI
+	 1YeunayzmX5Oq9dEG1T1Ki7KWrIEaKs9sEtKw9Ld/fjZ4JPGOMhbBQQwpYSW5r+2C8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d9ZLa/JG";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHTrEBdD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEA2606A331;
-	Fri,  6 Nov 2026 08:50:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2BF606A32E;
+	Fri,  6 Nov 2026 08:50:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9ZLa/JG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771331F0089F;
-	Fri,  6 Nov 2026 08:50:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHTrEBdD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D05EF1F0089F;
+	Fri,  6 Nov 2026 08:50:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793955025;
-	bh=4KseLiEBWMKMKEx4omaKpJSqCgu67BaInGBjJdgTfdM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d9ZLa/JGZT6or8tOKU8/O3nPYCiPkCACpZUlioB89wkfa7M18Ke/75hB8gUisOFoL
-	 LtBjQijVcSaJfZtivfsR+SYheoXqCPqJiHSz3x4TecmILaqEgrxIl3bZxpnW77Ga0r
-	 vNLpam8s3DvDVuyw6sxS3M+ZiNjMdybsglCyNf+9Ilo57X2hzNKJFBUS7Elr4rWPh4
-	 JccxbKca5uA1e6WRMPnNNUTr4Y4JJ0VO1N5rFzGgAG/dSuHWWO+clk7Lj9vwxonKZK
-	 QSX10IvIDyJn8G14IBD/TQAhdaqQiQ8TG1YfKDFhC48bkuck+KcPBHtfjphQHFIRpS
-	 bAX/VBk6FQ/og==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xPFeQ-00000008NuF-38Yh;
-	Fri, 06 Nov 2026 09:50:22 +0100
-Date: Fri, 6 Nov 2026 09:50:22 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Songwei Chai <songwei.chai@oss.qualcomm.com>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	songchai@qti.qualcomm.com, linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
-	devicetree@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>
-Subject: Re: [PATCH v1] driver core: Demote "Fixed dependency cycle(s)"
- message to debug level
-Message-ID: <au2UzljzfMaiL7F6@hovoldconsulting.com>
-References: <20261106084034.1579494-1-songwei.chai@oss.qualcomm.com>
+	s=k20260515; t=1793955049;
+	bh=02bTvKdX/nLQXHFQBIjVYXN/kxrugSr5DOL02V9CjOk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=PHTrEBdDBSiwKzS96GP4yyPbf54VPsZhbqgUKooUIbljVADoG67pbUzARy3kLUqfn
+	 3sIZAg7KmzyWCHPA+ZdfHII8SIPAfdwqe4nc3g3VDWJq9ZmI15ZF3MDkQIZfRjNwsy
+	 v7FF6UEpMj9UjlNL8x2U7uPmVYS41Qnowsqk27Sbg/99eaX7YxroTO9KnXlhl536B4
+	 N5ec3hTgYO0RrMmJSC8aqug7YGJzjd2/NULM6TtRy2yW30Sp2JTe0j1vj0two5dH8S
+	 YGHlW3ge4m3cRbn3GxdEvcRP6VgGPiaC40z3Pnhcv/f5fr0BRrKXoRdQR9ezvfBmuD
+	 38wN3f+UpUJkA==
+From: Christian Brauner <brauner@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Luo Qiu <luoqiu@kylinsec.com.cn>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <A977B5B944F3C7C3+20261027122647.1837472-1-luoqiu@kylinsec.com.cn>
+References: <A977B5B944F3C7C3+20261027122647.1837472-1-luoqiu@kylinsec.com.cn>
+Subject: Re: [PATCH] fs: fix typo in do_open() comment
+Message-Id: <20261106-spinnen-infotag-rodung-330f26be4c2e@brauner>
+Date: Fri, 06 Nov 2026 09:50:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,35 +58,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106084034.1579494-1-songwei.chai@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-[ +CC: Saravana ]
-
-On Fri, Nov 06, 2026 at 04:40:34PM +0800, Songwei Chai wrote:
-> fw_devlink detects and relaxes dependency cycles automatically, so this
-> is not an error condition requiring user action. On complex DT
-> topologies (e.g. CoreSight), this message can fire for many node
-> pairs and adds noise to the boot log, even though it's primarily
-> useful for debugging. Switch pr_info() to pr_debug() so it stays
-> available via dynamic debug when actually needed, without cluttering
-> default boot logs.
+On Tue, 27 Oct 2026 20:26:47 +0800, Luo Qiu wrote:
+> Fix "acess" -> "access"
 > 
-> For example, on sm8750 this produces 125 such lines in the boot log in
-> total, 80 of which are CoreSight-related, e.g.:
-> 
-> [    0.057190] /soc@0/funnel@10041000: Fixed dependency cycle(s) with /soc@0/stm@10002000
-> [    0.057211] /soc@0/stm@10002000: Fixed dependency cycle(s) with /soc@0/funnel@10041000
-> [    0.057229] /soc@0/funnel@10041000: Fixed dependency cycle(s) with /soc@0/tpda@10004000
-> [    0.057249] /soc@0/tpda@10004000: Fixed dependency cycle(s) with /soc@0/funnel@10041000
-> [    0.057254] /soc@0/tpdm@1000f000: Fixed dependency cycle(s) with /soc@0/tpda@10004000
-> [    0.057260] /soc@0/tpda@10004000: Fixed dependency cycle(s) with /soc@0/tpdm@1000f000
+> Fixes: 161ce1e692d0 ("fs: avoid spurious dentry ref/unref cycle on open")
 
-I reported this elsewhere a while back:
+Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.misc branch should appear in linux-next soon.
 
-	https://lore.kernel.org/all/Z6t45aOGDkotqM4Z@hovoldconsulting.com/
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Are you sure it's not the coresight bindings that should be fixed?
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Johan
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.5.misc
+
+[1/1] fs: fix typo in do_open() comment
+      https://git.kernel.org/vfs/vfs/c/37ebe00ac282
+
