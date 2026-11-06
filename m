@@ -1,70 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794006755;
-	b=V+3huTqLGy+uq3qd34AwQM2+EM+Q/d1NlyH9Ir7TLn0be3VE7j6e33Y3WEXufpzPu+LF
-	 tMpb8YywU9BexhwVSfCJ78/zo60T1hf+0MRAJqdN4RMAgwndpiu99y7LHF8FyHnSSHk7A
-	 RJi1ZpUN+2WDtPgw9hfbmb0t3kNQLgCIdN4w0ja0w8RscKCSLK2/UOfLdlmVX85u+YX/5
-	 hNyT8B9/4vOwG6ExjcwcVbnwcpgPOSM3N1vxSN5deFldPrysaFyNKaP7lg259rGYO9N/1
-	 q0VVgRhKbSYLenMqBwyOHYgkblQmTGtdswYO7cAYQkX7VMZtzUfXgSNE23haQBdqCHA==
+	t=1794006791;
+	b=VMxWziE9OMyyc0qgJCF6L9gtjV41rO1AgloGI8E9QBL+G2tjruBnCl67WDKDHHZBtFO9
+	 4HiuoWJ5QkbUGPKiKu62ttkFaKr90Gp6LI8GVc2Yx0A4ug/JAk31LsHPFt7CdOOGsP84F
+	 EumIvipJJWR34RptZpNr6DQqGn1vS7gBor+4YAri3M9mc15FozICpivqZVsnlAw/MCKzK
+	 KLML1xaTgN5TL7ikI36nBdtwTRXZwaXs8U7RGtib8g3g9ssJcvDFwaNS++HtzpQyOQu94
+	 p+YKLkpXYBXkuGTF70MbtIpXMlirqgnh8tl95FO3K2kD87VpOJ5qpFBrvN2l+0wpcYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794006755;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lGe12Rz/dF9fridaVZTA/bLUfTQ5JtCEMNf4pJ2mgv4=;
-	b=QR6NcsBUfQD7k8YpuCLUeQsbQOfOfEsAQv7p6NSh61UvC8Mx05/mWOH5VBx/DDKiTZ7E
-	 d2D9sv6HfWWjcdRfxzfBYIlBkHmmvq3HvLNrxrLKtvrmZQ8lQb5TOAm/hTN6+mObtQWrU
-	 BfgsKm9i3Hop80EhzS1eHdMKgw6q/ngG7eVJkx5IHi02JR7lCAg3b9tFkM4nK09uHTkrt
-	 /Rch+AdjZohFlCtso5IGiMbeXzyhB3VQEbxyYNJ6DFOv4MVAXnEebv7OVTdBEU3aj4kac
-	 yRnHeqfCLKWn6JptAb/uEYTviUbqTYKd35Nm/PDd/L69CjFNJBcwn9sQF2SMNIkuM8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794006791;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=hPWKcpA8gbc6K+qpk4qE0+1VJLR5wZ99w4qWO8xJTy0=;
+	b=Y2pVIrZv0OeumlqkzTNgMrt9nfTeFnmXr875EQFckM3I/E0Zq2hXz41uG9GVIvcAjZTl
+	 98d57VpwSuzJVTa1yxjR5SXroZsp3eM2tCcCRp8Iqi5VGEUag1L8WZt1q245NwlZ4bPrv
+	 L/p66awkJfj7w77vA5mrX0bEqGjTdP1qcIWMpZdZgfcGdYtEug8EsHgeJK5UxGSkaV5Hk
+	 VYaL+2hCpqltUnxGS0eOZ1yuuQdnKz3+6MOt2ChYsYsA6P26H0XBQScGCpaOZxIOF4NwR
+	 S/d/ai802ZF+FzyUPy61mIVjaqqFpdYP6S/mMrAjld11qXHeoPZ3FS0hCR7dSVy2fHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="eOe+/7+J";
-	arc=none smtp.remote-ip=95.215.58.132
-Received: from mta1.migadu.com (out-132.mta1.migadu.com [95.215.58.132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G0UbGaI9;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39847606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:12:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39847606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90BD7606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:13:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90BD7606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eOe+/7+J
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=A5SmaMdhmWrhHg/dO6iE1ySj0GXEbBYh4k4qltZSYrE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794006753; v=1; x=1794611553;
- b=eOe+/7+JWixssUzEV/b8UFV7ji5/cNMD7zhnVd33wOA2KlSmeXqrJ6LLR/BX1vFPbX6xBKd8
- W7wT6NZBwtBKlnxbtKOZkhHRn5Vm7OXR++EDEXLMkL4DR39xoSfcTt4ZKUb394sbH63BtxJXgWQ
- V5IZ5vBv1VmaMziZ4Wugg2Ec=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id a1c50fc3341016db;
-	Fri, 06 Nov 2026 23:12:33 +0000
-X-Mizu-Trace-ID: a1c50fc3341016db
-X-Migadu-Flow: FLOW_OUT
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Amery Hung <ameryhung@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Nicholas Carlini <npc@anthropic.com>,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH bpf v1 4/4] selftests/bpf: Cover callback-frame map key lifetime
-Date: Fri,  6 Nov 2026 16:11:57 -0700
-Message-ID: <20261106231157.2840635-5-ihor.solodrai@linux.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106231157.2840635-1-ihor.solodrai@linux.dev>
-References: <20261106231157.2840635-1-ihor.solodrai@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G0UbGaI9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794006788; x=1825542788;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=NvBbdnT9G2yc1/b3L8ujEA7BGXcYFu+3P0AbMue/Nzs=;
+  b=G0UbGaI9u1e84cY9TvCalJAQjadZdvOznJQeDCtoV867ULF4mCtskFwi
+   dGQkLQlRsJkYD8COirRbOwsmS1tJUpfDlGi2s+TwAss+HnFoKFtGoyQDS
+   nMLNYNEF+ofaJxs+lXybAozVsWTmPuvOplYX0cpexypYDK9xuqlQj/rH3
+   8EGJCgkoxZapLCRWi3JqH9jHAK4SjNAQWTrzuJYKHwe+jBLRlYhbguJtZ
+   p0LnP7ff/8TjxbWySbmG2qy1clgCL3Qo3MvZmOIc2FUK2vceqmjeQD9Cb
+   CfLc87PbZJDOsmAQ+px5z5P/2VJCLBN9RC0QVtdofsIKrUmDxtGUy0d+2
+   w==;
+X-CSE-ConnectionGUID: Xi9bzpjZReG7sjzV0XWJ0A==
+X-CSE-MsgGUID: tyALKniLRaGohX+Jh7mO5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2706202"
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="2706202"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 15:13:04 -0800
+X-CSE-ConnectionGUID: h+2wbBgxTt6Vc+d+Gwt+gA==
+X-CSE-MsgGUID: ExUNlSkzSBG3AmjgmDAW8A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="7735845"
+Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
+  by fmviesa006.fm.intel.com with ESMTP; 06 Nov 2026 15:13:00 -0800
+Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xPT7B-00000000APL-2uLr;
+	Fri, 06 Nov 2026 23:12:57 +0000
+Date: Sat, 07 Nov 2026 00:12:36 +0100
+From: kernel test robot <lkp@intel.com>
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ "Ilpo =?utf-8?Q?J=C3=A4rvinen"?= <ilpo.jarvinen@linux.intel.com>
+Subject: base.c:undefined reference to `wmi_evaluate_method'
+Message-ID: <202611070038.qzOOv1De-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,130 +80,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
 
-Array and per-CPU array callbacks to bpf_for_each_map_elem() receive
-a key on the helper's stack.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   d48723711bae9b8cdc56719c448ba42fef28cbee
+commit: 884d53763d304af64a9b795161f9fc3b83a5e3d8 platform/wmi: Remove dependency on CONFIG_X86
+date:   4 weeks ago
+config: riscv-randconfig-r2108-20261106 (https://download.01.org/0day-ci/archive/20261107/202611070038.qzOOv1De-lkp@intel.com/config)
+compiler: riscv64-linux-gcc (GCC) 15.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261107/202611070038.qzOOv1De-lkp@intel.com/reproduce)
 
-Check that saving this key in the callback context and dereferencing
-it after iteration is rejected.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 884d53763d30 ("platform/wmi: Remove dependency on CONFIG_X86")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611070038.qzOOv1De-lkp@intel.com/
 
-Also require the same pattern to keep verifying for a hash key and
-an array value, whose storage outlives the callback. These controls
-guard the array-only and key-only scope of the lifetime restriction.
+All errors (new ones prefixed by >>):
 
-Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
----
- .../bpf/progs/verifier_iterating_callbacks.c  | 91 +++++++++++++++++++
- 1 file changed, 91 insertions(+)
+   riscv64-linux-ld: drivers/gpu/drm/nouveau/nvkm/subdev/mxm/base.o: in function `wmi_wmmx_mxmi':
+>> base.c:(.text+0x6e): undefined reference to `wmi_evaluate_method'
+>> riscv64-linux-ld: base.c:(.text+0x1de): undefined reference to `wmi_has_guid'
+   riscv64-linux-ld: drivers/gpu/drm/nouveau/nvkm/subdev/mxm/base.o: in function `mxm_shadow_wmi':
+   base.c:(.text+0x230): undefined reference to `wmi_evaluate_method'
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_iterating_callbacks.c b/tools/testing/selftests/bpf/progs/verifier_iterating_callbacks.c
-index 4dd98acc6436..da8068a1f004 100644
---- a/tools/testing/selftests/bpf/progs/verifier_iterating_callbacks.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_iterating_callbacks.c
-@@ -9,6 +9,20 @@ struct {
- 	__type(value, __u64);
- } map SEC(".maps");
- 
-+struct {
-+	__uint(type, BPF_MAP_TYPE_PERCPU_ARRAY);
-+	__uint(max_entries, 8);
-+	__type(key, __u32);
-+	__type(value, __u64);
-+} percpu_map SEC(".maps");
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_HASH);
-+	__uint(max_entries, 8);
-+	__type(key, __u32);
-+	__type(value, __u64);
-+} hash_map SEC(".maps");
-+
- struct {
- 	__uint(type, BPF_MAP_TYPE_USER_RINGBUF);
- 	__uint(max_entries, 8);
-@@ -804,4 +818,81 @@ __naked void check_add_const_regsafe_off(void)
- 	: __clobber_common);
- }
- 
-+struct key_ctx {
-+	__u32 *key;
-+};
-+
-+static long park_key_cb(struct bpf_map *map, __u32 *key, __u64 *value,
-+			void *context)
-+{
-+	struct key_ctx *c = context;
-+
-+	c->key = key;
-+	return 0;
-+}
-+
-+/* bpf_for_each_array_elem() passes a key from its own stack frame. */
-+SEC("?raw_tp")
-+__failure __msg("invalid mem access 'scalar'")
-+int array_park_map_key(void *ctx)
-+{
-+	struct key_ctx c = {};
-+
-+	bpf_for_each_map_elem(&map, park_key_cb, &c, 0);
-+	if (c.key)
-+		return *c.key;
-+	return 0;
-+}
-+
-+SEC("?raw_tp")
-+__failure __msg("invalid mem access 'scalar'")
-+int percpu_array_park_map_key(void *ctx)
-+{
-+	struct key_ctx c = {};
-+
-+	bpf_for_each_map_elem(&percpu_map, park_key_cb, &c, 0);
-+	if (c.key)
-+		return *c.key;
-+	return 0;
-+}
-+
-+/* A hash key points into the element, which outlives the callback. */
-+SEC("?raw_tp")
-+__success
-+int hash_park_map_key(void *ctx)
-+{
-+	struct key_ctx c = {};
-+
-+	bpf_for_each_map_elem(&hash_map, park_key_cb, &c, 0);
-+	if (c.key)
-+		return *c.key;
-+	return 0;
-+}
-+
-+struct value_ctx {
-+	__u64 *value;
-+};
-+
-+static long park_value_cb(struct bpf_map *map, __u32 *key, __u64 *value,
-+			  void *context)
-+{
-+	struct value_ctx *c = context;
-+
-+	c->value = value;
-+	return 0;
-+}
-+
-+/* Only the key is frame-scoped; the element lives until map teardown. */
-+SEC("?raw_tp")
-+__success
-+int array_park_map_value(void *ctx)
-+{
-+	struct value_ctx c = {};
-+
-+	bpf_for_each_map_elem(&map, park_value_cb, &c, 0);
-+	if (c.value)
-+		return *c.value;
-+	return 0;
-+}
-+
- char _license[] SEC("license") = "GPL";
--- 
-2.56.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
