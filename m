@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929494;
-	b=E87bNj7j3q6nSMYvqdz4uwtSXVuJJn/tzviHJEzyyUksiJmj5uLZHKV3gwlzasKVUMkc
-	 c0sRhyWt9sZzESurfCDIw8Q39ZhkisO05EmwvuwW/Rg3xJZllsLwLnrIW3p//PUvLy/dc
-	 W+mQv6PIgH870JAKMoCBIOSNLRSyvtwnR3J4/dEVFuIexbDVQgL3v5USqH4vx6734OtJp
-	 SDZbRjuvIWaqlZyRDKpk4DNRq8kJo0TzlMWEaxfY0he/HM/I/oZprwLsNzB29XJ+O3I1N
-	 nwv2v3Yb1pu0lo29MmADcT3rKn7ScNtCbFrmyClUOlhzvEQtNOSk/YKFKA4Eu6dLO0A==
+	t=1793929498;
+	b=btwkCpiXa7+dimP9hktBhHHQ259grftlZgGFNDDw5WIr4uuEQtHA54rLh5i7H1Sm0BpR
+	 a0Ank3Eb0FJla3f27Z/Z/RZeZ5cyCBheggH75rlQJpIqy3ybNF+nqFI9NA5CisX3IG3sx
+	 lqAet5TzAE1IkSV98WvLZ7pIjA6TAs6c89LXzTLsL3kLiOG/8CbD5T875jmtz2vlqedbl
+	 Oc38yHVXu91uVHpFnwcfykOaYbU9UVTFa0V1OWBWXYXiRALOaKW/YrKSeLYps5tp4Buej
+	 Mnso4BuOp1vSioWI/LJiBYI5zPa25qmwQgDefDIBowD071sUYGEVCzErHzgu8Njfdbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929494;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=D1BQyEii6F0Q1y4egErAzidghcHKqUk0a8SnAS5enws=;
-	b=IA/HDI7qL98Zvp64dAoxVcfD7RHFAL3iV3d7ZlYS6XDKJXnvmLpOAZbkuv9mk+1JCiJm
-	 Y7ONsOdB0lwf7hCLBdoUAPQ4aRhYzDVSTT/VuO3QDTvVmsaUYwj5Pn8U7Iw1bM/M7Hrby
-	 nUlwmGUP+p8EooS2NynDmBo9anUPkWFyPsU15oGtY/1D/2IQEvxYKlNeB5aLDmWvaVMVK
-	 T1LEabSon3IVSWtqcoAPphUSoO9MmYDvIMYjv+o/SYZqyCgfUyY/CM5IBjIMQKXhUOGNw
-	 fIDrnw61Z/bn/QgslJGK4ddJldU89LnbfNNv/2SFzVhvSoiS4+mz896W1PXAjx2usiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929498;
+	h=DMARC-Filter:DKIM-Signature:Date:Received:X-Original-From:Reply-To:
+	 From:User-Agent:References:Cc:Mime-Version:In-Reply-To:To:Subject:
+	 Message-Id:Content-Transfer-Encoding:X-Lms-Return-Path:Content-Type;
+	bh=o4pPrmBDJiBQchY+eYj3rF3LESB28usD21pFWJiMzzk=;
+	b=F+YiBwgQVtzOyXs0VZparEZfLc+pEBo8Szxz5/0MJKxolFWPMxjWIIuvG9M6TjI7JTUi
+	 KmVOgsIeB3SpPuYvQclLVTkqa0EKTZXuZJAuH4P3kK8wi5XhqfttoWmiX3S/CgP0mLD0M
+	 DmT4S05/qHFaGQKukqzwFlnIngIwy9r2h2vhgZwxT/WyZ+Cf5dQ1+9W4bQ5ECU/iYFtnQ
+	 C//Cl1pey4TzZRwX53fkIf5s8A9M+EqesJur0LQ0ch4qXurpEtryM94uyeqZuvbqdpzO+
+	 fi4U7kQi1VzDRnaMJ4jBBAVQruD3nMQa/bhepO8HYHImrj4T4ExSRBAVgIanS0c3TaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jYFWQMOg;
-	arc=none smtp.remote-ip=91.218.175.87
-Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=XhWWQRow;
+	arc=none smtp.remote-ip=209.127.231.53
+Received: from va-2-53.ptr.blmpb.com (va-2-53.ptr.blmpb.com [209.127.231.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFED3606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFED3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA7C606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:44:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCA7C606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jYFWQMOg
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=h0d+yOrZ64mGc0iSYwHwgGdKZilHQ9XexIhOgkjacwM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793929491; v=1; x=1794534291;
- b=jYFWQMOgfpkZ3mBb54JklcG6tzN9HnFBLmJXkcokoa2V6NhjxwFO0SANbAxuStk3vhzs13PK
- rcj/5dhCYzxFEvL1fa7/lj5SxJN4AE+F3z0hlp97Q6gr3qqzMQaGTUTTvVQLLb7g5UY7gMzKifJ
- lXdgdK5Tp3u0ic4lgbiJCIWA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ac22e0871729a49a;
-	Fri, 06 Nov 2026 01:44:51 +0000
-X-Mizu-Trace-ID: ac22e0871729a49a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <76fc7cbb-11e8-4591-bb2f-d6fb8ac1fbf3@linux.dev>
-Date: Fri, 6 Nov 2026 09:44:44 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=XhWWQRow
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793929491;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=o4pPrmBDJiBQchY+eYj3rF3LESB28usD21pFWJiMzzk=;
+ b=XhWWQRowQR2WeJBxcR2Jm1NhRUEgtTDOColGJYyDA4ftvaOfhoby2vEE7rTJtwjtneS7Ox
+ e56iMfIS4vIrRGg9/XXDWxya/zqdkHGf+jd5enFlAI671sGA6U/Yi2Zc0QJTAC8Oyv6dvp
+ 1BCBuFZ2PZLPIJhrVhFSM5BtIx0vWku/vsvT6NbJ30Iz3bu1VA2EAGkAG5QnDtma3+y3dN
+ lShUg5On2Pz0se88/4ia3ktRjbxGQvVTT4ptOtjeKG6zdp+oBAGqcz3KxEA/A+Fw0pVZkA
+ IdbMOdJrywSMssl30jpves9/Azahqw9qQRS3yAMaSejw6zT0fYWFJDFMG1Wmug==
+Date: Fri, 6 Nov 2026 09:44:45 +0800
+Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Fri, 06 Nov 2026 01:44:49 +0000
+X-Original-From: yu kuai <yukuai@fygo.io>
+Reply-To: yukuai@fygo.io
+From: "yu kuai" <yukuai@fygo.io>
+User-Agent: Mozilla Thunderbird
+References: <20261028152755.383821-1-gowtham398gs@gmail.com> <20261030044008.34293-1-gowtham398gs@gmail.com>
+Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<syzbot+fc26c366038b54261e53@syzkaller.appspotmail.com>, 
+	<syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,157 +62,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/hugetlb_cgroup: prevent use-after-free during
- cgroup offlining
-To: Daehyeon Ko <4ncienth@gmail.com>, muchun.song@linux.dev,
- osalvador@suse.de, akpm@linux-foundation.org
-Cc: david@kernel.org, tj@kernel.org, linux-mm@kvack.org,
- cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, hongfu.li@linux.dev
-References: <20261020103057.8066217f6f6fc5b3ed84c90b@linux-foundation.org>
- <20261022022146.506005-1-4ncienth@gmail.com>
-From: Hongfu Li <hongfu.li@linux.dev>
-In-Reply-To: <20261022022146.506005-1-4ncienth@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+In-Reply-To: <20261030044008.34293-1-gowtham398gs@gmail.com>
+To: "Gowtham S Bhushan" <gowtham398gs@gmail.com>, <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH v2] md/raid1: reject out-of-range raid_disks in setup_conf()
+Message-Id: <1a298f8e-84ce-4862-866a-b68766e590fb@fygo.io>
+Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26aed3112+c0420e+vger.kernel.org+yukuai@fygo.io>
+Content-Type: text/plain; charset=UTF-8
 
+Hi,
 
-在 10/22/26 10:21, Daehyeon Ko 写道:
-> A normal hugetlb charge obtains the current task's hugetlb cgroup with
-> css_tryget(), charges its page counter, and drops the CSS reference before
-> the folio is committed under hugetlb_lock.
+=E5=9C=A8 2026/10/30 12:40, Gowtham S Bhushan =E5=86=99=E9=81=93:
+> mddev->raid_disks can be set from user space with SET_ARRAY_INFO and
+> is not bounded before RUN_ARRAY reaches raid1_run(). With a very large
+> value, setup_conf() asks the allocator for more than KMALLOC_MAX_SIZE
+> when allocating conf->mirrors, and the allocator warns:
 >
-> The task can be migrated while the allocation is in progress.  If the old
-> CSS is then offlined, its final active-folio scan can finish before the
-> charge becomes visible.  The allocation can subsequently charge that dying
-> CSS and commit its pointer to the folio.  Once the CSS is freed, uncharging
-> the folio accesses the freed hugetlb_cgroup, including its page counter and
-> per-node usage.
+>    WARNING: mm/slub.c:5459 at ___kmalloc_large_node
+>     setup_conf+0x15d/0x700
+>     raid1_run+0x109/0x250
+>     md_run+0x6c3/0xec0
+>     do_md_run+0x27/0x3b0
+>     md_ioctl+0x163f/0x1ca0
 >
-> Keep the reference acquired by the charge until commit or cancellation.  At
-> commit time, while holding hugetlb_lock, move an uncommitted charge out of
-> each dying CSS to the first live ancestor.  The hierarchical charge already
-> includes every ancestor, so moving it only requires canceling each dying
-> CSS's local count.
+> The array fails to start, but machines running with panic_on_warn
+> crash and syzbot keeps reporting it.
 >
-> This orders commit against the offline active-folio scan: either the scan
-> runs after commit and reparents the folio, or commit observes the dying CSS
-> after the scan and selects a live ancestor.  The retained reference also
-> keeps the originally selected hugetlb_cgroup alive through this decision.
-> Reservation charges retain their existing CSS lifetime and are not
-> reparented.
+> Fail early instead. Version 1.x metadata can describe at most 1920
+> devices, so use that as the upper bound, and test the sign before the
+> value is used. At that limit the allocations that scale with
+> raid_disks (conf->mirrors, the r1bio mempool element and the resync
+> buffers) stay well below KMALLOC_MAX_SIZE.
 >
-> On an unmodified v7.3 kernel with a 128-page 2 MiB pool, a
-> capability-free uid 1000 allocator racing administrator rmdir reproduced
-> KASAN writes to a freed hugetlb_cgroup in three of three boots.  Controller
-> disable reproduced the same fault.  With this change, 5,000 rmdir rounds
-> with over 1 million successful faults and 2,000 controller-disable rounds
-> with over 1.6 million successful faults completed without KASAN, LOCKDEP,
-> page-counter, or refcount reports.
+> Reported-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D75f49ec552cc74d9d69b
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 >
-> AI-assisted source review was used to identify the race and to help draft
-> the reproducer and fix.  The interleaving and the resulting allocation,
-> free, and use-after-free stacks were verified with tracefs and KASAN.
->
-> Fixes: da1def55919f ("hugetlb/cgroup: add support for cgroup removal")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-
-Hi, Daehyeon,
-
-Would it be better to send v2 as a standalone thread rather
-than as a reply to the v1 review thread? It would be easier
-to track.
-
+> Signed-off-by: Gowtham S Bhushan <gowtham398gs@gmail.com>
 > ---
-> V1 -> V2:
-> - Remove the redundant disabled-controller check from uncharge, as requested
->    by Andrew Morton.
+>   drivers/md/raid1.c | 12 ++++++++++++
+>   1 file changed, 12 insertions(+)
 >
-> v1: https://lore.kernel.org/r/20261020100345.1677643-1-4ncienth@gmail.com
->
->   mm/hugetlb_cgroup.c | 34 ++++++++++++++++++++++++++--------
->   1 file changed, 26 insertions(+), 8 deletions(-)
->
-> diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
-> index 3fb41311e4c7dc..6921b185726662 100644
-> --- a/mm/hugetlb_cgroup.c
-> +++ b/mm/hugetlb_cgroup.c
-> @@ -310,11 +310,10 @@ static int __hugetlb_cgroup_charge_cgroup(int idx, unsigned long nr_pages,
->   		css_put(&h_cg->css);
->   		goto done;
->   	}
-> -	/* Reservations take a reference to the css because they do not get
-> -	 * reparented.
-> +	/*
-> +	 * Hold the CSS reference until commit. Reservations keep it longer
-> +	 * because they are not reparented.
->   	 */
-> -	if (!rsvd)
-> -		css_put(&h_cg->css);
->   done:
->   	*ptr = h_cg;
->   	return ret;
-> @@ -337,9 +336,26 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
->   					   struct hugetlb_cgroup *h_cg,
->   					   struct folio *folio, bool rsvd)
->   {
-> +	struct hugetlb_cgroup *charged_h_cg = h_cg;
+> diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+> index f0646fb24371..1cfe983167de 100644
+> --- a/drivers/md/raid1.c
+> +++ b/drivers/md/raid1.c
+> @@ -48,6 +48,13 @@ static void allow_barrier(struct r1conf *conf, sector_=
+t sector_nr);
+>   static void lower_barrier(struct r1conf *conf, sector_t sector_nr);
+>   static void raid1_free(struct mddev *mddev, void *priv);
+>  =20
+> +/*
+> + * Version 1.x md metadata keeps a 256-byte header and then 2 bytes per
+> + * device in a 4096-byte block, so no array described by it can have mor=
+e
+> + * devices than this. Arrays created through the ioctl alone have no
+> + * on-disk limit, so apply the same cap to them.
+> + */
+> +#define RAID1_MAX_DISKS	((4096 - 256) / 2)
+>   #define RAID_1_10_NAME "raid1"
+>   #include "raid1-10.c"
+>  =20
+> @@ -3051,6 +3058,11 @@ static struct r1conf *setup_conf(struct mddev *mdd=
+ev)
+>   	size_t r1bio_size;
+>   	int err =3D -ENOMEM;
+>  =20
+> +	/* raid_disks comes from user space and sizes the allocations below */
 > +
->   	if (hugetlb_cgroup_disabled() || !h_cg)
-> -		return;
-> +		goto out;
->   	lockdep_assert_held(&hugetlb_lock);
-> +
-> +	/*
-> +	 * A task can be migrated after selecting h_cg. Once offlining starts,
-> +	 * redirect the uncommitted charge to a live ancestor. hugetlb_lock
-> +	 * serializes this decision with the offline scan, which reparents
-> +	 * earlier commits.
-> +	 */
-> +	if (!rsvd) {
-> +		while (css_is_dying(&h_cg->css)) {
-> +			page_counter_cancel(&h_cg->hugepage[idx], nr_pages);
-> +			/* The root CSS never dies. */
-> +			h_cg = parent_hugetlb_cgroup(h_cg);
-> +		}
-> +	}
-> +
->   	__set_hugetlb_cgroup(folio, h_cg, rsvd);
->   	if (!rsvd) {
->   		unsigned long usage =
-> @@ -352,6 +368,9 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
->   		WRITE_ONCE(h_cg->nodeinfo[folio_nid(folio)]->usage[idx],
->   			   usage + nr_pages);
->   	}
-> +out:
-> +	if (!rsvd && charged_h_cg)
-> +		css_put(&charged_h_cg->css);
->   }
->   
->   void hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
-> @@ -419,15 +438,14 @@ static void __hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
->   					     struct hugetlb_cgroup *h_cg,
->   					     bool rsvd)
->   {
-> -	if (hugetlb_cgroup_disabled() || !h_cg)
-> +	if (!h_cg)
->   		return;
->   
->   	page_counter_uncharge(__hugetlb_cgroup_counter_from_cgroup(h_cg, idx,
->   								   rsvd),
->   			      nr_pages);
->   
-> -	if (rsvd)
-> -		css_put(&h_cg->css);
-> +	css_put(&h_cg->css);
->   }
->   
->   void hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
+> +	if (mddev->raid_disks <=3D 0 || mddev->raid_disks > RAID1_MAX_DISKS)
+> +		return ERR_PTR(-EINVAL);
 
--- 
-Best regards,
-Hongfu
+There is still the same kmalloc in raid1_reshape().
 
+> +
+>   	conf =3D kzalloc_obj(struct r1conf);
+>   	if (!conf)
+>   		goto abort;
+
+--=20
+Thanks,
+Kuai
