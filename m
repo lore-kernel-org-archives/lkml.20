@@ -1,117 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975884;
-	b=QcEWNderzz+vHcvB8Br+lRYq2R9hewKlgK8NBvBBwfKiwH1aPoGNnTVVhALoOYSQ1X+r
-	 EQHFrH+tBolB7YnSybI1wMP++Kxt7P31aIMg9+sArLgYxJmKXEohmYfhzjPCfAwzFPLfo
-	 CzIS75opkXIzObrj18WlAjCZyr0NPAxmVaBriuhO9oaZfdyjrK7PX8gGRuLpBCsvKioHQ
-	 whd/uoPrVro1rIk0wxj/539bsN5hM1HFpCw8+m9uuSCoPmSeTLcvgi8f/VRUGbMl9b3D5
-	 JkTtHAcR+qD2s/h04V141mNYK4ld+olSsm0jggIkeKWWDJjd1AQsU5/cvZY1nvS1ofQ==
+	t=1793975921;
+	b=j1r5UG8qCnELROVgXDrcI4RvZz0jxWKLqBJyWw/xVNNPVQNPoRY3pAqqNU2q5yZqzRtY
+	 vLyj3fPOS8aoBg2holDezLiJLae1ddimE2m6gQGEY5ROfrLmtzHbWQTkhcDAWA3mhunA5
+	 jTsEIv+8PfIlQH2cj3KSiX5V2MYfpoyrjVb+T7TTcDC1KcwiLnOuVj/bzeIrDF34ZZI+H
+	 BVimZRLQgnPIhGS+uaDtsc9vqoGOjRLm7pDR0H1DsXhrC0wWaWgDAmMaZc7giIAYJm0V/
+	 RlgyCCC+WSEoSOuT9AtGMAhT0dnQln6TX5G92PTEmEBOpJR1ueLlCLfTpS5W0SoXtUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975884;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=U1z9CMMlVvK3cpazVIozIjM4XgDTPtKDlnzc7HGPx3U=;
-	b=hHRr6VrSk2SNMnQob08iOkoPAwabHKCJFBqk3v/TcJGIOi1x8jUwHVQMs69eeRFe3EIa
-	 mF8Gjy74M7Au9QKtKEZM/gsYV/y6uzN0t8sCEwkhVeI2YQ/aeqwiOw4LDgpjWWPpfOtVd
-	 DkaqrYwi59zkhficT/+dK5d7IQpO3s1vvzdrT5vgsslv+2sOSBzScqhxrbrcti8BDTV/b
-	 /PpZX4Bc4wDfXnTMkfVTNoK4jijKqY9qzcWCB7rNIT20UxRBDEZbjcM63T4yjKz6e2bw8
-	 V5VkRfc1ghTgbT69NgTmL7QT/jCo7JreRtOVV5I2h6WUkLeY84txGLZPbjCabLIxQVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975921;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nYqkxv6TcTaA/kjBkYOTDNrRK7O6kHO8JqG0CWPQfYc=;
+	b=4msg7Vs6FfmJAuz0Oh4VcifjRdYT8vHOGqhdgXFU+4O/jQQlbZ0YBdENnNQW87ysQdKr
+	 3wC/sItt4KPBG/lZ1ZljOD4IHi/ojTMluj9g5h8kbb/1QnQcbyEZoG8J13AYHJX79UD93
+	 ZaCEg78PJUvMgOJG1JIJQSWUXJtjC2OqRPM/Xth6htBfnSnfiAmE9vQ5UgX5hBwKj6ml5
+	 JPXs195Vn5MZuwnQhizWngwt7FI8GUSkufQwgobJLs3Uj9bdX4AWVOAsf4RJwgxT2Othe
+	 90bORsOiuYJJpjaCvJQ7ubp8NmyfKRYQuzGuz9OtanN/z4/SelOp9t1yYlTUygxyMXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=M+zsClbe;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ypqcMtH1;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=M+zsClbe;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ypqcMtH1;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqzkEA0V;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB470606A32D;
-	Fri,  6 Nov 2026 14:38:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB470606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE62606A326;
+	Fri,  6 Nov 2026 14:38:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=M+zsClbe;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ypqcMtH1;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=M+zsClbe;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ypqcMtH1
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7646B221EB;
-	Fri,  6 Nov 2026 14:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793975881; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U1z9CMMlVvK3cpazVIozIjM4XgDTPtKDlnzc7HGPx3U=;
-	b=M+zsClbeXawKRmbSoqHB8vSnhYLKmJu0p6scG/XFngMrof4NKMW5WU57BX+ALDhhWh8zdA
-	HiEoHs64z4KRdRn/SjV56lAOiqqKPdqQGCnXOc/vTupbZySjLolBP6yyT+KwgH4B3PayaS
-	a/utAwrfz6visoWpK4l3sJhLXQi+t/o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793975881;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U1z9CMMlVvK3cpazVIozIjM4XgDTPtKDlnzc7HGPx3U=;
-	b=ypqcMtH1se1Qo38hsRbeYY9AZlO51QMWCAFqrzHQSnRWsVHs7k2atX/I9V1UzcS1gJuH3q
-	u6mepYdynYhyV5BQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=M+zsClbe;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=ypqcMtH1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793975881; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U1z9CMMlVvK3cpazVIozIjM4XgDTPtKDlnzc7HGPx3U=;
-	b=M+zsClbeXawKRmbSoqHB8vSnhYLKmJu0p6scG/XFngMrof4NKMW5WU57BX+ALDhhWh8zdA
-	HiEoHs64z4KRdRn/SjV56lAOiqqKPdqQGCnXOc/vTupbZySjLolBP6yyT+KwgH4B3PayaS
-	a/utAwrfz6visoWpK4l3sJhLXQi+t/o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793975881;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U1z9CMMlVvK3cpazVIozIjM4XgDTPtKDlnzc7HGPx3U=;
-	b=ypqcMtH1se1Qo38hsRbeYY9AZlO51QMWCAFqrzHQSnRWsVHs7k2atX/I9V1UzcS1gJuH3q
-	u6mepYdynYhyV5BQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D2FA132C9;
-	Fri,  6 Nov 2026 14:38:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GgbfCknm7WrifAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 06 Nov 2026 14:38:01 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id CB2B421B95; Fri, 06 Nov 2026 15:37:45 +0100 (CET)
-Date: Fri, 6 Nov 2026 15:37:45 +0100
-From: Jan Kara <jack@suse.cz>
-To: Breno Leitao <leitao@debian.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Julian Sun <sunjunchao@bytedance.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	cgroups@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 4/4] writeback: report a slow writeback wait once per
- timeout
-Message-ID: <ysxh2sfvjikoh6cw2qmk2i6p7xripwnqxkx43jj7unxop5tkiw@gws5wezjt34g>
-References: <20261106-writeback_stall_report-v1-0-bf0c3b9023a5@debian.org>
- <20261106-writeback_stall_report-v1-4-bf0c3b9023a5@debian.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqzkEA0V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40C71F0089F;
+	Fri,  6 Nov 2026 14:38:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793975920;
+	bh=nYqkxv6TcTaA/kjBkYOTDNrRK7O6kHO8JqG0CWPQfYc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TqzkEA0Vv6FiA/EyNHSGPazSRIxmze7NsRy2HS9UFnZLYngP5FU/k984j22IxxLSt
+	 G1mXSy3pJUZtcOX0uuCh0BGPfEtKxeqPMH7iMDq1BsZtJcBmY1BE0UVjD6CfBra6HG
+	 Ag+Be9z8npxA1OZxTFuN75Ezvh/jqeYPCyuiSOmri16kQEwfLaLejNUSC+x6slW0KF
+	 d5QZgMnG4JaXAkKum09Kqzk3Tq66QmT3NfSoU+yNr6XdAc6ce+jld5vFKHTk6MlHvd
+	 wjTgR+FYIcW4Gqo/TsLmp3ku1M5OmutAW9+ET0CKcI3MjvK/5ieNg8L0Aw5+JWl32a
+	 tAC9Z8tsKdIng==
+Date: Fri, 6 Nov 2026 15:38:37 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 10/10] drm/tegra: Add support for 8-bit CPU interface
+Message-ID: <au3fy-xiCqgSTB49@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-11-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,128 +63,361 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bfslmjupan46ngr7"
 Content-Disposition: inline
-In-Reply-To: <20261106-writeback_stall_report-v1-4-bf0c3b9023a5@debian.org>
-X-Rspamd-Queue-Id: 7646B221EB
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Score: -13.01
+In-Reply-To: <20261105140510.165165-11-clamor95@gmail.com>
 
-On Fri 06-11-26 04:26:34, Breno Leitao wrote:
-> The slow writeback report is printed on every wakeup of the waiter past
-> hung_task_timeout_secs, and the waiter is woken more often than that.
-> 
-> Each flusher working for it wakes it once it has not run for half the
-> timeout. All waiters on a bdi share bdi->wb_waitq, so a wakeup meant for
-> one of them reaches all of them.
-> 
-> A sync of files dirtied from two cgroups, on a throttled null_blk device
-> with the timeout set to 5 seconds, gets a report every half timeout,
-> each printed twice, 18 reports for a 29 second wait:
-> 
->   [   10.327992] INFO: The task sync:276 has been waiting for writeback completion for more than 8 seconds.
->   [   10.328000]       bdi 252:0, work items left: 2
->   [   10.328003] INFO: The task sync:276 has been waiting for writeback completion for more than 8 seconds.
->   [   10.328004]       bdi 252:0, work items left: 2
->   [   12.888187] INFO: The task sync:276 has been waiting for writeback completion for more than 10 seconds.
->   [   12.888195]       bdi 252:0, work items left: 2
->   [   12.888197] INFO: The task sync:276 has been waiting for writeback completion for more than 10 seconds.
->   [   12.888198]       bdi 252:0, work items left: 2
->   ...
-> 
-> Remember when the waiter last reported, and report again only once
-> another timeout has passed. The wakeups do not change, so the hung task
-> detector still sees the waiter making progress. The same test now
-> prints 5 reports:
-> 
->   [    7.661129] INFO: The task sync:277 has been waiting for writeback completion for more than 5 seconds.
->   [    7.661136]       bdi 252:0, work items left: 2
->   [   13.241102] INFO: The task sync:277 has been waiting for writeback completion for more than 11 seconds.
->   [   13.241109]       bdi 252:0, work items left: 2
->   ...
->   [   31.801068] The task sync:277 waited 29 seconds for writeback completion on bdi 252:0
-> 
-> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-Now I'm waiting for someone to complain it gets written out too
-infrequently :). Is this change substantially different from
-writeback_sb_inodes() waking up done->waitq less frequently?
+--bfslmjupan46ngr7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 10/10] drm/tegra: Add support for 8-bit CPU interface
+MIME-Version: 1.0
 
-								Honza
-
+On Thu, Nov 05, 2026 at 04:05:10PM +0200, Svyatoslav Ryhel wrote:
+> The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
+> that closely resembles the MIPI DBI Type B protocol and is referred to as
+> '8-bit CPU'. Each display controller provides two such interfaces, which
+> can be used to send MIPI DCS commands to initialize and control the panel
+> while image data is transmitted via 16/18/24-line RGB.
+>=20
+> The '8-bit CPU', although being the DC interface, is modeled using a
+> bridge framework for flexibility and convenience. This implementation does
+> not change the existing codebase besides registering the bus.
+>=20
+> Suggested-by: Mikko Perttunen <mperttunen@nvidia.com> # DC command transf=
+er
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->  fs/fs-writeback.c                | 5 ++++-
->  include/linux/backing-dev-defs.h | 1 +
->  2 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-> index cdb2631b8552e1..8d354784326f7a 100644
-> --- a/fs/fs-writeback.c
-> +++ b/fs/fs-writeback.c
-> @@ -204,7 +204,9 @@ static bool wb_wait_for_completion_cb(struct wb_completion *done,
->  	int left = atomic_read(&done->cnt);
->  
->  	done->progress_stamp = jiffies;
-> -	if (left && timeout && (waited_secs > timeout)) {
-> +	if (left && timeout &&
-> +	    time_after(jiffies, done->report_stamp + timeout * HZ)) {
-> +		done->report_stamp = jiffies;
->  		pr_info("INFO: The task %s:%d has been waiting for writeback "
->  			"completion for more than %lu seconds.\n",
->  			current->comm, current->pid, waited_secs);
-> @@ -232,6 +234,7 @@ void wb_wait_for_completion(struct wb_completion *done,
->  	unsigned long timeout, waited;
->  
->  	done->wait_start = jiffies;
-> +	done->report_stamp = done->wait_start;
->  	atomic_dec(&done->cnt);		/* put down the initial count */
->  	wait_event(*done->waitq, wb_wait_for_completion_cb(done, bdi));
->  
-> diff --git a/include/linux/backing-dev-defs.h b/include/linux/backing-dev-defs.h
-> index 4f10849373150d..f9fd3b1bf4c609 100644
-> --- a/include/linux/backing-dev-defs.h
-> +++ b/include/linux/backing-dev-defs.h
-> @@ -67,6 +67,7 @@ struct wb_completion {
->  	wait_queue_head_t	*waitq;
->  	unsigned long progress_stamp;	/* The jiffies when slow progress is detected */
->  	unsigned long wait_start;	/* The jiffies when waiting for the writeback work to finish */
-> +	unsigned long report_stamp;	/* The jiffies of the last report */
->  };
->  
->  #define __WB_COMPLETION_INIT(_waitq)	\
-> 
-> -- 
-> 2.53.0-Meta
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>  drivers/gpu/drm/tegra/Kconfig  |   1 +
+>  drivers/gpu/drm/tegra/Makefile |   1 +
+>  drivers/gpu/drm/tegra/dbi.c    | 576 +++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/tegra/dc.c     |   4 +
+>  drivers/gpu/drm/tegra/dc.h     |   3 +
+>  5 files changed, 585 insertions(+)
+>  create mode 100644 drivers/gpu/drm/tegra/dbi.c
+>=20
+> diff --git a/drivers/gpu/drm/tegra/Kconfig b/drivers/gpu/drm/tegra/Kconfig
+> index 8a3b16aac5d68..6f57fd3985edc 100644
+> --- a/drivers/gpu/drm/tegra/Kconfig
+> +++ b/drivers/gpu/drm/tegra/Kconfig
+> @@ -12,6 +12,7 @@ config DRM_TEGRA
+>  	select DRM_BRIDGE_CONNECTOR
+>  	select DRM_DISPLAY_DP_AUX_BUS
+>  	select DRM_KMS_HELPER
+> +	select DRM_MIPI_DBI
+>  	select DRM_MIPI_DSI
+>  	select DRM_PANEL
+>  	select FB_DMAMEM_HELPERS if DRM_FBDEV_EMULATION
+> diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makef=
+ile
+> index e399b40d64a1d..ae7fccb3d6421 100644
+> --- a/drivers/gpu/drm/tegra/Makefile
+> +++ b/drivers/gpu/drm/tegra/Makefile
+> @@ -18,6 +18,7 @@ tegra-drm-y :=3D \
+>  	hdmi.o \
+>  	mipi-phy.o \
+>  	dsi.o \
+> +	dbi.o \
+>  	sor.o \
+>  	dpaux.o \
+>  	gr2d.o \
+> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
+> new file mode 100644
+> index 0000000000000..32d390f64ddbd
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tegra/dbi.c
+> @@ -0,0 +1,576 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Nvidia Tegra20/30 MIPI-DBI Type B host driver
+> + *
+> + * Copyright (C) 2026 Svyatoslav Ryhel <clamor95@gmail.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/kernel.h>
+> +#include <linux/media-bus-format.h>
+> +#include <linux/module.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/property.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/string.h>
+> +
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_bridge.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_mipi_dbi.h>
+> +#include <drm/drm_mipi_dbi_bus.h>
+> +#include <drm/drm_of.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include "dc.h"
+> +
+> +enum tegra_dbi_dc_signal {
+> +	TEGRA_DBI_COMMAND,
+> +	TEGRA_DBI_DATA
+> +};
+
+These look like register offsets for sending DBI commands, so maybe just
+use defines for them?
+
+> +
+> +enum tegra_dbi_iface {
+> +	TEGRA_DBI_INTERFACE_PRIMARY,
+> +	TEGRA_DBI_INTERFACE_SECONDARY,
+> +	TEGRA_DBI_INTERFACE_MAX
+> +};
+
+The only place where this seems to be used is in the definition of the
+two interfaces. But in those cases PRIMARY and SECONDARY match the index
+into the array and MAX is the size of the array, which can be determined
+dynamically. Drop this.
+
+> +
+> +#define TEGRA_DBI_DATA_PINS_MAX			8
+> +#define TEGRA_DBI_DEFAULT_BUS_WIDTH		24
+> +
+> +struct reg_entry {
+> +	u32 offset;
+> +	u32 value;
+> +};
+> +
+> +static const u32 tegra_dbi_pin_regs[] =3D {
+> +	DC_COM_PIN_OUTPUT_ENABLE(0),
+> +	DC_COM_PIN_OUTPUT_ENABLE(1),
+> +	DC_COM_PIN_OUTPUT_ENABLE(2),
+> +	DC_COM_PIN_OUTPUT_ENABLE(3),
+> +	DC_COM_PIN_OUTPUT_POLARITY(0),
+> +	DC_COM_PIN_OUTPUT_POLARITY(1),
+> +	DC_COM_PIN_OUTPUT_POLARITY(2),
+> +	DC_COM_PIN_OUTPUT_POLARITY(3),
+> +	DC_COM_PIN_OUTPUT_DATA(0),
+> +	DC_COM_PIN_OUTPUT_DATA(1),
+> +	DC_COM_PIN_OUTPUT_DATA(2),
+> +	DC_COM_PIN_OUTPUT_DATA(3),
+> +	DC_COM_PIN_OUTPUT_SELECT(0),
+> +	DC_COM_PIN_OUTPUT_SELECT(1),
+> +	DC_COM_PIN_OUTPUT_SELECT(2),
+> +	DC_COM_PIN_OUTPUT_SELECT(3),
+> +	DC_COM_PIN_OUTPUT_SELECT(4),
+> +	DC_COM_PIN_OUTPUT_SELECT(5),
+> +	DC_COM_PIN_OUTPUT_SELECT(6),
+> +};
+> +
+> +struct tegra_dbi_priv {
+> +	struct device *dev;
+> +	struct tegra_dc *dc;
+> +
+> +	struct mipi_dbi dbi;
+> +	struct mipi_dbi_host dbi_host;
+> +
+> +	struct drm_bridge bridge;
+> +	struct drm_bridge *next_bridge;
+> +
+> +	const struct tegra_dbi_interface *interface;
+> +	struct reg_entry com_pin_backup[ARRAY_SIZE(tegra_dbi_pin_regs)];
+
+You can just make this a u32 array since you're always iterating over
+that tegra_dbi_pin_regs array anyway and can get the offset from there.
+No need to duplicate that data into another set of variables.
+
+[...]
+> +static void tegra_dbi_pin_set(struct tegra_dc *dc, const struct tegra_db=
+i_pin *pin, bool value)
+> +{
+> +	u32 val =3D BIT(pin->pos + 1); /* unmask is 1 bit above position */
+> +
+> +	if (value)
+> +		val |=3D BIT(pin->pos);
+> +
+> +	tegra_dc_writel(dc, val, pin->reg);
+> +}
+
+So the PIN_UNMASK exists for all registers. In that case, the definition
+should probably not be intermixed like it was in that header "refactor
+and expand" patch.
+
+> +
+> +static void tegra_dbi_write(struct tegra_dbi_priv *priv,
+> +			    enum tegra_dbi_dc_signal signal, u8 value)
+> +{
+> +	struct tegra_dc *dc =3D priv->dc;
+> +	const struct tegra_dbi_interface *interface =3D priv->interface;
+> +
+> +	tegra_dbi_pin_set(dc, &interface->dc, signal);
+> +
+> +	tegra_dbi_pin_set(dc, &interface->cs, 0);
+> +	tegra_dbi_pin_set(dc, &interface->rw, 0);
+> +
+> +	for (int i =3D 0; i < TEGRA_DBI_DATA_PINS_MAX; i++)
+> +		tegra_dbi_pin_set(dc, &interface->data[i], field_get(BIT(i), value));
+> +
+> +	tegra_dbi_pin_set(dc, &interface->cs, 1);
+> +	tegra_dbi_pin_set(dc, &interface->rw, 1);
+> +
+> +	udelay(10);
+
+Umpf... I guess we're effectively bit-banging here, but a udelay() here
+is potentially a lot of spinning time. If I recall correctly this can
+end up being called a lot, on the order of 100 or so times during panel
+initialization.
+
+> +
+> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
+> +				    struct drm_atomic_commit *state)
+> +{
+> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
+> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
+> +	struct tegra_dc *dc =3D priv->dc;
+> +	u32 value;
+> +
+> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
+> +	value &=3D ~DISP_CTRL_MODE_MASK;
+> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
+> +
+> +	/* Disable all options except cursor if enabled */
+> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_WIN_OPTIONS);
+> +	value &=3D CURSOR_ENABLE;
+> +	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
+> +
+> +	tegra_dc_commit(dc);
+> +
+> +	tegra_dc_writel(dc, V_PULSE1_ENABLE, DC_DISP_DISP_SIGNAL_OPTIONS0);
+> +	tegra_dc_writel(dc, PULSE_POLARITY_LOW, DC_DISP_V_PULSE1_CONTROL);
+> +
+> +	tegra_dc_writel(dc, PULSE_END(1), DC_DISP_V_PULSE1_POSITION_A);
+> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_B);
+> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_C);
+> +
+> +	value =3D 1 << FRAME_INIT_SEQ_CYCLES_SHIFT |
+> +		DC_SIGNAL_VPULSE1 << INIT_SEQ_DC_SIGNAL_SHIFT |
+> +		INIT_SEQUENCE_MODE_PLCD | SEND_INIT_SEQUENCE;
+> +	tegra_dc_writel(dc, value, DC_DISP_INIT_SEQ_CONTROL);
+> +
+> +	/* Init cycle 1: WRITE_MEMORY_START, set LCD_PCLK and COMMAND */
+> +	tegra_dc_writel(dc, MIPI_DCS_WRITE_MEMORY_START, DC_DISP_SPI_INIT_SEQ_D=
+ATA_A);
+> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_B);
+> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_C);
+> +	tegra_dc_writel(dc, BIT(12) | BIT(14), DC_DISP_SPI_INIT_SEQ_DATA_D);
+> +
+> +	/* Set LDC pin to V Pulse 1 */
+> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
+> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDC);
+> +	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
+> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
+> +
+> +	value =3D SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> +		SC0_V_QUALIFIER(SC_V_QUALIFIER_VACTIVE) |
+> +		SC0_H_QUALIFIER(SC_H_QUALIFIER_HACTIVE);
+> +	tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+> +
+> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_COLOR_CONTROL);
+> +	value &=3D ~BASE_COLOR_SIZE_MASK;
+> +
+> +	switch (priv->bus_width) {
+> +	case 16:
+> +		value |=3D BASE_COLOR_SIZE_565;
+> +		break;
+> +	case 18:
+> +		value |=3D BASE_COLOR_SIZE_666;
+> +		break;
+> +	case 24:
+> +		value |=3D BASE_COLOR_SIZE_888;
+> +		break;
+> +	default:
+> +		WARN(1, "%u bus width not supported\n", priv->bus_width);
+> +		value |=3D BASE_COLOR_SIZE_888;
+> +		break;
+> +	}
+> +
+> +	tegra_dc_writel(dc, value, DC_DISP_DISP_COLOR_CONTROL);
+> +
+> +	/*
+> +	 * Backup registers before unshadowing since actual register values
+> +	 * may differ and their state backed up now is the correct one.
+> +	 */
+> +	for (int i =3D 0; i < ARRAY_SIZE(tegra_dbi_pin_regs); i++)
+> +		priv->com_pin_backup[i].value =3D tegra_dc_readl(dc,
+> +			priv->com_pin_backup[i].offset);
+> +
+> +	/* Unshadow to set up command and data pins */
+> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
+> +
+> +	if (priv->interface->interface)
+> +		tegra_dbi_init_secondary_interface(priv);
+> +	else
+> +		tegra_dbi_init_primary_interface(priv);
+
+Maybe hook this into priv->interface directly using a .init() callback.
+That way you don't need to branch based on interface index here.
+
+[...]
+> +int tegra_dc_dbi_probe(struct tegra_dc *dc)
+> +{
+> +	struct device *dev =3D dc->dev;
+> +	struct device_node *dbi_np __free(device_node) =3D
+> +		of_get_available_child_by_name(dev_of_node(dev), "dbi");
+> +	struct mipi_dbi_device *dbidev;
+> +	struct tegra_dbi_priv *priv;
+> +	struct device_node *np;
+> +	u32 reg;
+> +	int ret;
+> +
+> +	/* Missing node means that DBI is not used, continue DC probe */
+> +	if (!dbi_np)
+> +		return 0;
+
+Maybe this should have an extra check to see if dbi_np is available.
+That would help create this node in a DTSI file and just keep it
+disabled by default.
+
+> +
+> +	priv =3D devm_drm_bridge_alloc(dev, struct tegra_dbi_priv, bridge,
+> +				     &tegra_dbi_funcs);
+> +	if (IS_ERR(priv))
+> +		return PTR_ERR(priv);
+> +
+> +	priv->dc =3D dc;
+> +	priv->dev =3D dev;
+> +
+> +	ret =3D of_property_read_u32(dbi_np, "reg", &reg);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get reg\n");
+> +
+> +	if (reg !=3D 0 && reg !=3D 1)
+> +		return dev_err_probe(dev, -EINVAL, "Wrong reg value: %d\n", reg);
+
+Maybe sort these before the call to devm_drm_bridge_alloc()?
+
+Thierry
+
+--bfslmjupan46ngr7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt5msACgkQ3SOs138+
+s6HbVA/+Irze+1lgUBGNGoqgvX6eTzI5eAKi5CDyxwOvFOj2ceKp6ymnZ1d7jDvP
+FKC/P5Oy0uizKDGpl2KLQ1vt9VwPpNIj6MsUe1wLzSyQbRoFOULt/pcJArd+peZa
+N6pw+4kp91kyCVJ35aDl2BOntlDP7HltoDPkp2IkxINm43e167aQqDfOrqNycl46
+3TCaCum2+AidUfE2vIYqMkpPnLO8jJVDy6dExkgX9JYTFDrBQ418R6GGAb81HlSQ
+L+otESxpgz8INwiRHv0p121Bo4tCPI3N1qTgXBDQHPgLCB/SlkznF9MpHfg/7502
+v6UQo/Sto4n41S+lG/8NXv8GiRh/ydZyZ3TEBQZ9+u/HT9mGmM14dKFR36CPVGbr
+g9mKNrectQMVYs1Bdo6AT3U+z4NTr5u3yxQygDgSQSMotzFrp4K0B72ozq27aTw8
+1kZj8OpdJ5bVwZiiluwKpVhbfGtgbbIBAg8QS8Zej4P/q0x6nRidwflWplILvFKy
+eoArEGgOLnbiPHS1VNTpTrL54wou151WA2mlvvhN63V+Viqpfptk9FfyjiB89rhW
+jCrk7UQgnEwHL4h4j3LY3wRlquEAFyFE7CA65CSEhhaOiqSZaqFUIIVorkKsytRk
+4gsS8zUz9OslndEa0caVrPbd3rhDdMMZv9HB4fuJPOHcPpYEekM=
+=vBTH
+-----END PGP SIGNATURE-----
+
+--bfslmjupan46ngr7--
