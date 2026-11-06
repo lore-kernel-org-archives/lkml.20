@@ -1,106 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.29
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793938702;
-	b=i+BQQnq3DuPxJIaro2ea6EaKL6xZErQq00taJFZ2907iHgHSxt+wYWHpnskO+Te0mCIg
-	 4s8Mari5pbxsVdvqv+q/YEEmmuepcN7ahkqqzlcfgdWuzKmly/eoT60UOmuuBaNBXV0KC
-	 bjtRFa1ZhiAJo31uzWTuQW2wROIYmDpGpoN1b2/G0jjtMzCgpwuGfjKu1AQWY9biUajvL
-	 3MWbN7xjhM9WbqKycqXuIwPw0tBBbQGYYLcSoXHy/FQpTNRN8kHbSABGERWXrrunt5ln2
-	 julFlNxTQ4JCvnVTU7ewSaoPA84kQrldLytRhGYlQI/LfjoWLBSeBDIwhUGAUSZK1ng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793938702;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1k3dkCONaNm0YVEN8kvF8z6C9HbY3uAbCGB2FGNPwcQ=;
-	b=fYcknce1diyo0rvmNXFG8Q+XgN7Y1KBtMftWYVXCitFDjvKSfTs7jGLdWi1gFhaA7K/x
-	 o1f8m0H6HBgkGUlwvZO4XikDD3VbjLXwkB4gxIh/iufAIA7PkX8CDs3qRDTiSPvvoUBN8
-	 GReIpOTlrOLHEWMr0FuvcYh7KDrphxRGp2gSIIipcFRE5vwsqGGjywKqRrRkhcdqAomqx
-	 3iL4HUa/plLIoNbCYx5oBPdRxgFo4ltf1KiK2m/rX9qir04p7foLo4KK9as/sDu3LqoLv
-	 JmXX89xpWTSa1l2DWYSXuAtEYGSSrbWIisGdY9+/kIi0r24g8XRO8jQqBD7xVO93M7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eBaKg6uU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.29
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.103
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793939130;
+	b=FfcG8Pv0qT7YHPYOHbHr9dP1qwI49hkyPhJXk2JfsgTcBaGghF7kX6F0ytX89hyusg+r
+	 ShNSdJ8x/cYBTAWwhtyoKOYhAzLYH1CC2I56Y99gJLcSf3epzkoluUJLXz59XsPyhIFof
+	 BYM8gMsvgF5YOZ+MaaL2/hh4K7kvOGV6Te8sz1fjqJoFlE7rKRBeEiwlrKyZIB/k8itJC
+	 Wb3377NLcBjmIarJMI9eFg+4gja+QQYUFYsGl7tn/HHctJQudhqk2nF29xndSofx8iF41
+	 CCzRwC/yNkik/PYzEbpZltvCH9TVkBkKvCFsUCFDcNDxHuX1RyYQZ0oSBfZV8Ex50BQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793939130;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=m3i35cTPpq5EVgKQXrBdfiivmSKz9fZ+AmK6CCiWbeo=;
+	b=D9yj4/i0ixLM/oPmEFY4O9/p9/vitMEBCml4HLEPgCczOnlATJs5EDRDOb1DeApj8MvN
+	 m3Di+khInzke+HoyROvRYsrkC1eiEeFafx3rAuGa8ydwnM5uassotvh+GFADR328HMUmb
+	 MJX7FmVl12U7UIjdOReyLFv5B/WYxX3AfL2F7safOtZuGmfsg+pevZcdKazAUzTtlDnUV
+	 lW4+XZaD2kEbNJaAWXHM5DgwTkzsSJaSvjFS9ymaJvZigIdyAw24B8HzLiqZlga3uh8kU
+	 Tp1a5T0LLuIqomrZpPzMleh1vBg8cXv7axhsZC55ASn5RaxgCuKIyyJtstnwsvlS5ig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=IRfId2d+;
+	arc=none smtp.remote-ip=185.70.43.103
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B035606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:18:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B035606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9180606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:25:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9180606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eBaKg6uU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yG8ASVCEPPDxM+s7uWSgXVZbvQsYM64rQPR/utKTJigV2hb2A7gYjQzadOS+0nKNHRT+mFgpZcYFhwK+51vJWqM4WfzI0LphzOsAmrFFCx8tiu0KJB9V65p8SKvNJ4mlDcHg5BEraLRYEpeawanvoUPTieBAayt/2lxU5dIUH98q3tRKkGry51SFb5XG3Qd2XF2bK1DyOUciK7C7v390Z+8xc9XkztcSq7bHZOrc06RyMOtPEF9bpxZENF07mcARuk2iJXYGf72kh56bEloXDSHZowOFBe+7id1iH3f2dSuc8EDSYL6Q6Mnf1fhu4fOy30DwhYjrKQ70uNz9VHOm1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1k3dkCONaNm0YVEN8kvF8z6C9HbY3uAbCGB2FGNPwcQ=;
- b=YDrcy1ajxyEGm21l5MDjH4Vk5AqqO+EWOnEmL2msXDpCQV6F4cWB8aluZ3vWMZZ2azzZvnkXc3SqQK9dI8X4W2EmNOyi5ZVWZGDNXMp+eeL/8FPfJ2sTolvXLx4f1SjKc+PEnfLzKX41moB0p0IpoOqvnK+FkSWS/JL6LDVtgPd6/IeTOtM0ZOYFukj4Hvpe0upho/EkhNRcVEbXs/gDoeu7HpgRGmoHEDcbtwvoNxrQLBA1OJ5XB3yQLudBuHp5CjHEsDf4rpxDInGMMoAbAIaCeDX/qDLK0UHf2cLGBGonCH+CZYitRwAFqlJRevNGjR/fRZsBQ8bIpXx7UZWn7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=8bytes.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1k3dkCONaNm0YVEN8kvF8z6C9HbY3uAbCGB2FGNPwcQ=;
- b=eBaKg6uUjEtDn5Ul5Lvo/s7vtsaU5SqZcHosGLRpQILmSBXyOz8sB902vttZ6rhB/gd6omh0ThhTN/Pyz9y3TcalcThXiUXI4mJ2lKIJafYh8aoaHiiCBUn1oZ4CMGcHCZjKfoXYsP1uILu2P8b/4rVcH8s7+ksckUiEs0ycsyQ=
-Received: from CH0PR08CA0001.namprd08.prod.outlook.com (2603:10b6:610:33::6)
- by DS7PR12MB9042.namprd12.prod.outlook.com (2603:10b6:8:ed::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 04:18:15 +0000
-Received: from CH2PEPF00000147.namprd02.prod.outlook.com
- (2603:10b6:610:33:cafe::11) by CH0PR08CA0001.outlook.office365.com
- (2603:10b6:610:33::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
- Nov 2026 04:18:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF00000147.mail.protection.outlook.com (10.167.244.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Fri, 6 Nov 2026 04:18:15 +0000
-Received: from BLR-L1-SARUNKOD.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
- 2026 22:18:11 -0600
-From: Sairaj Kodilkar <sarunkod@amd.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Adrian Huang
-	<ahuang12@lenovo.com>, Joerg Roedel <jroedel@suse.de>, Robin Murphy
-	<robin.murphy@arm.com>, Suravee Suthikulpanit
-	<suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, "Will
- Deacon" <will@kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-CC: Sairaj Kodilkar <sarunkod@amd.com>, Adam Pelka <adampelka26@gmail.com>
-Subject: [PATCH v3 3/3] iommu/amd: Rename unity_map_entry and unit_map to ivmd_entry and ivhd_entry_map
-Date: Fri, 6 Nov 2026 09:46:50 +0530
-Message-ID: <20261106041650.24076-4-sarunkod@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261106041650.24076-1-sarunkod@amd.com>
-References: <20261106041650.24076-1-sarunkod@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=IRfId2d+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793939128; x=1794198328;
+	bh=m3i35cTPpq5EVgKQXrBdfiivmSKz9fZ+AmK6CCiWbeo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=IRfId2d+lO7rsrlLdrL2iXUdFTjQN8YJNo4gwAZDmYWmY7UpEvahsdRX+7wTroAoq
+	 niNYXDJbmigDpfUs8SIYqq5Yf/t9JXW4hUwbXcGeRzDSno9zmcbjfcHf8ba/J1/Kv/
+	 4JYS4XOJpSU89TsXj4d7nvnRCxEq5GWqtTGbCiW7hujzBk1rrSS7BF7KuiDnu+xdxZ
+	 i1LisitDgqeA9bd5+pdVHpoZPQJ7hO1JMsosGzkNb0u9YpUYHBhtEQEQL0QhqVeLjV
+	 wrjyyyCQxoznG7oC8joY9DsIptBNkHe3OKi6qgcjJNlR/rbITiXuHc6VC1EKhV6Pii
+	 LkPmzye+6xp1g==
+Date: Fri, 06 Nov 2026 04:25:26 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: i2c: ov13858: cap analogue gain at 15.5x
+Message-ID: <20261106042520.83651-1-lsa.uz@pm.me>
+In-Reply-To: <20261002093507.43584-1-lsa.uz@pm.me>
+References: <20261002093507.43584-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 141d74d6cdcf69f3fc6fcb665f6e1f808aaa73a2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,195 +64,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000147:EE_|DS7PR12MB9042:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6c10cd9-563a-459d-1d89-08df3bbcfacd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|22082099003|18002099003|6133799003|10067099003|11063799006|56012099006|261026121527099003|261022075727099003|261026140227099003|261102123227099003|261028144727099003|261021123027099003|261022105027099003|261009223027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	JyQDv5QNPma0NsmoU1BRaI037w7WUOyfD7haWG5h93zTn6p0BWF2L2/FpC9i+EpJMXheBHc2a1tG+DPSimYaIN7IL9o6J/W6JzjNsmvmIZ5hsMktTVOb08oUcLMw6tA2gomG8Gm/5YNJDUSYjkUyvdlXqUiM+dPqDTU+21VeozLH5yF7W/rdlHpyMwsRSzAxVmdXOXBUjbL2yT5rKfipZp2twxJ3iK1X6SUa9FaRlO6se0PB4fmr88sthKIeKtjlOB6MGQdquWxaUmf8LT4Q16pXsUz4mEYE0FAvQH0XrqVcBNXvYj/H3izfeQ48rvpC5YQIyM+EGkT+sCZTIweldsAermpNE0ApfDeYdAVG0lzOalmWho5ul243YPoz4S/envCeX2W48IyXyAmh6VKZGP2eTexFNKSCXlkZDSsHouEd+VaziaoX145Uwp/PEFQWokZd9JjOnnZ3byzHDPFA0b9Ag3U0346Ezzu1GBePxUZTJ9CnrWAc7h/WtVchS1lp7CnLW6Jh8mkaWKZIsCqDrRFe58/9bj9VlIcS3Gnt47dXfUSlXfFkdT+Oo7BEW8jQhFsSS4AonqeigMEbte4lnS41zmmHI2qQ4PI1x54HC3kBMpyJGfiYkfqkL3Q64DbDDA4uPsFS45xQb+t4PVZSISvuutVRR71UAhb85dLvZtY/IGrQRvX9n2ZQ+2Wr4tPk0viEIm88R8SsRJZtrEwFqw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(6133799003)(10067099003)(11063799006)(56012099006)(261026121527099003)(261022075727099003)(261026140227099003)(261102123227099003)(261028144727099003)(261021123027099003)(261022105027099003)(261009223027099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	52KXsrUT0552rcK4mDcmo5W4ZDJiNNZnksUBVs2B/tfntIRGk3yFfdb3/hmC26DtOaucuXVmuWA21BGrg6UVM4Q8mLi7bmF4B5OxvF92Pu5kQ7j/Rq4Gj7n7gw+nhkLa53cDOhNT5R8p+fAJYjD9jX8o+gwOqJ7vUpUpHmZDKukBnrsXf8WvPdl3yJ03JdNE8qka1+X7guWczCQjTQRBDi78Ljz844CenP2gUZ7hXKLmbZ+LhAIQiCx2F5+kovbVGx++ak8D/jvvMtNsdFsTYm9bd3Mg67EnWJ5gy8NmI9BtRlipetwhRQTJ4IcVmz0SqTPojfi/acfLm3x8arRIrPqo2gVcdRpFlXbofE8fB0+zQDy18kLQo0c6ycbQrpFbEbqCoKa/6xSpDmkX2dKR0GHHBl0V6zW2y/D2CShKS7WmBYS7tXgWwjmgQThtuM6W
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 04:18:15.6976
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6c10cd9-563a-459d-1d89-08df3bbcfacd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000147.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9042
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Hi Sakari,
 
-Also, rename struct list_head unity_map to ivmd_entry_map along with
-renaming the unity-map helper functions and add error message when
-handling invalid IVMD entry.
+Is there anything you would like changed in v2? It applies to v7.4-rc1,
+before or after the ov13858 power-on v4:
+https://lore.kernel.org/all/20261016210246.58562-1-lsa.uz@pm.me/
 
-No functional change intended.
-
-Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-Signed-off-by: Sairaj Kodilkar <sarunkod@amd.com>
-Tested-by: Adam Pelka <adampelka26@gmail.com>
----
- drivers/iommu/amd/amd_iommu_types.h |  6 +++---
- drivers/iommu/amd/init.c            | 22 +++++++++++-----------
- drivers/iommu/amd/iommu.c           |  7 ++++---
- 3 files changed, 18 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-index bcb88b476167..033cabc5b73a 100644
---- a/drivers/iommu/amd/amd_iommu_types.h
-+++ b/drivers/iommu/amd/amd_iommu_types.h
-@@ -609,11 +609,11 @@ struct amd_iommu_pci_seg {
- 	u16 *alias_table;
- 
- 	/*
--	 * A list of required unity mappings we find in ACPI. It is not locked
-+	 * A list of required IVMD mappings we find in ACPI. It is not locked
- 	 * because as runtime it is only read. It is created at ACPI table
- 	 * parsing time.
- 	 */
--	struct list_head unity_map;
-+	struct list_head ivmd_entry_map;
- };
- 
- /*
-@@ -869,7 +869,7 @@ struct ivhd_dte_flags {
- /*
-  * One entry for unity mappings parsed out of the ACPI table.
-  */
--struct unity_map_entry {
-+struct ivmd_entry {
- 	struct list_head list;
- 
- 	/* starting device id this entry is used for (including) */
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index 1f0ca675df1c..9356efe14b3e 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -132,7 +132,7 @@ int amd_iommu_pprlog_size = PPRLOG_SIZE_DEF;
- 
- /*
-  * An AMD IOMMU memory definition structure. It defines things like exclusion
-- * ranges for devices and regions that should be unity mapped.
-+ * ranges, unity mapping for device and regions.
-  */
- struct ivmd_header {
- 	u8 type;
-@@ -1726,7 +1726,7 @@ static struct amd_iommu_pci_seg *__init alloc_pci_segment(u16 id,
- 
- 	pci_seg->id = id;
- 	init_llist_head(&pci_seg->dev_data_list);
--	INIT_LIST_HEAD(&pci_seg->unity_map);
-+	INIT_LIST_HEAD(&pci_seg->ivmd_entry_map);
- 	list_add_tail(&pci_seg->list, &amd_iommu_pci_seg_list);
- 
- 	if (alloc_dev_table(pci_seg))
-@@ -2319,8 +2319,8 @@ static int __init amd_iommu_init_pci(void)
- 	}
- 
- 	/*
--	 * Order is important here to make sure any unity map requirements are
--	 * fulfilled. The unity mappings are created and written to the device
-+	 * Order is important here to make sure any ivmd map requirements are
-+	 * fulfilled. The ivmd mappings are created and written to the device
- 	 * table during the iommu_init_pci() call.
- 	 *
- 	 * After that we call init_device_table_dma() to make sure any
-@@ -2606,17 +2606,17 @@ static int iommu_init_irq(struct amd_iommu *iommu)
-  *
-  * The next functions belong to the third pass of parsing the ACPI
-  * table. In this last pass the memory mapping requirements are
-- * gathered (like exclusion and unity mapping ranges).
-+ * gathered (like exclusion and ivmd mapping ranges).
-  *
-  ****************************************************************************/
- 
--static void __init free_unity_maps(void)
-+static void __init free_ivmd_maps(void)
- {
--	struct unity_map_entry *entry, *next;
-+	struct ivmd_entry *entry, *next;
- 	struct amd_iommu_pci_seg *p, *pci_seg;
- 
- 	for_each_pci_segment_safe(pci_seg, p) {
--		list_for_each_entry_safe(entry, next, &pci_seg->unity_map, list) {
-+		list_for_each_entry_safe(entry, next, &pci_seg->ivmd_entry_map, list) {
- 			list_del(&entry->list);
- 			kfree(entry);
- 		}
-@@ -2627,7 +2627,7 @@ static void __init free_unity_maps(void)
- static int __init init_unity_map_range(struct ivmd_header *m,
- 				       struct acpi_table_header *ivrs_base)
- {
--	struct unity_map_entry *e = NULL;
-+	struct ivmd_entry *e = NULL;
- 	struct amd_iommu_pci_seg *pci_seg;
- 	char *s;
- 
-@@ -2678,7 +2678,7 @@ static int __init init_unity_map_range(struct ivmd_header *m,
- 		    PCI_SLOT(e->devid_end), PCI_FUNC(e->devid_end),
- 		    e->address_start, e->address_end, m->flags);
- 
--	list_add_tail(&e->list, &pci_seg->unity_map);
-+	list_add_tail(&e->list, &pci_seg->ivmd_entry_map);
- 
- 	return 0;
- }
-@@ -3178,7 +3178,7 @@ static bool __init check_ioapic_information(void)
- static void __init free_dma_resources(void)
- {
- 	amd_iommu_pdom_id_destroy();
--	free_unity_maps();
-+	free_ivmd_maps();
- }
- 
- static void __init ivinfo_init(void *ivrs)
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 699b5f530f11..d0308fbceac6 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -3100,7 +3100,7 @@ static void amd_iommu_get_resv_regions(struct device *dev,
- 				       struct list_head *head)
- {
- 	struct iommu_resv_region *region;
--	struct unity_map_entry *entry;
-+	struct ivmd_entry *entry;
- 	struct amd_iommu *iommu;
- 	struct amd_iommu_pci_seg *pci_seg;
- 	int devid, sbdf;
-@@ -3113,7 +3113,7 @@ static void amd_iommu_get_resv_regions(struct device *dev,
- 	iommu = get_amd_iommu_from_dev(dev);
- 	pci_seg = iommu->pci_seg;
- 
--	list_for_each_entry(entry, &pci_seg->unity_map, list) {
-+	list_for_each_entry(entry, &pci_seg->ivmd_entry_map, list) {
- 		int type, prot = 0;
- 		size_t length;
- 
-@@ -3148,7 +3148,8 @@ static void amd_iommu_get_resv_regions(struct device *dev,
- 						 length, prot, type,
- 						 GFP_KERNEL);
- 		if (!region) {
--			dev_err(dev, "Out of memory allocating dm-regions\n");
-+			pr_err("%s: Out of memory allocating reserved regions for sbdf=%#x\n",
-+			       __func__, sbdf);
- 			return;
- 		}
- 		list_add_tail(&region->list, head);
--- 
-2.34.1
+Sergey
 
