@@ -1,90 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987562;
-	b=Ce2dEWkBeR7apCbaklQRejPVKqXO6BFWz2ron3+UYn+xLn6mqQDVD9K78u5kCGOI8RBl
-	 sKEbbpJdZDYtGt4VNdteiEaSKuyGbTWoERGMtPNGD/ix7AEcKWiomjma1N6KJO0UQSUgw
-	 PF04En6qz3AEthQniqfPRWCx/eqPH6H5z2jEvXANBLA/04VVFwe4BCkTNyd2yCvK7LZTT
-	 +MA/GJ2WVBsL3qBMtN8lqAi6Rfj/SiJbWfNNJtxWsmBEDkrJ1ckBHxiEoBbVoO28pJIco
-	 T9eRE3Y7BgQkqNoE6+9oJX4WcAouuZsatX60116Ebo1K2kdnByMVIWzfN2kbzFbhQiw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987562;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793987586;
+	b=qGWoQsVpCiY38dz5xTSYDqRA54tphV16228SdeYCu5/frhmRN57izz16B1fKOQjRVRc8
+	 iO+2VwCqgmx0YuZjjc3samejLtU/SO8UHIWbnUllm68ZX40f1GCGMDow5KM2d/ZEWtQLj
+	 7gsyxMRb6MIWiRfoDIA2FM3Bg0m3IPipH1zvRLx9TMXUS7j+C3Jk7hkiZY6RltYF7Z/Sw
+	 PG96bCnFbV4iU9eYQt62VnTtluEOxq3ulIMJL68ukLCdnbHZTVYSZUDF0wjWAAFUn8x8d
+	 VUbBBkXjWJHY5r9ORyhcTkqXWW6T9LC5Y4x8Ez+jyP4EHpko3P7Rz0CezHKx18OFKow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987586;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=sHP2oF/bjdk4Sr2x8S+jhHLHTWdyktVHIEfvBs5hv5Y=;
-	b=jmzbvRnjFqx24z4QPcTW7b4h44I8vOQr7+lV++hdWu1PmhGD/Yh1sxLH3k+yUEUYmNFx
-	 Nb7qUaxXiM32rWiGITDwBkc5fp7Ery69Y9ltKwgMq5nTpqv0HCRt4TNjltkZzSE0W/gSM
-	 7ThsLTz6XKqstKpkrijFRjksmnIR6JEXC/WLeiZqUipWTqBHrHOSIuJ7wDLyFCqRC/a82
-	 XolQw6KSDIhdeZmOa5buN1XGWCFB4zyxFvcHPh/xelBmcjhwTJwKX9PfP0/HuvVApq3jJ
-	 p2lJyIZF03VzGVpcsE36guTCkeAX1Z1FbUr3/Nle6QT72HTKcA4xBa9/wRZTBYHquSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=dJnL6VCC;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZZ43LFlhd+sk5fh/FJb4zHzz1CW3FUt2jfsXu1lejAk=;
+	b=P+fHBemHaOabgQEUONnNpWpLsioX2eHXegPJK3x1xqbFWYKLGnWaBqEDKcPvdfztM9UZ
+	 05pYDG+8OZ+dLubPmg93CnC5pJSe3peduKj8s64lYGMgFYKOhyD4LHgW7ahAM4VZPuYOH
+	 dRMm42pYidy39wbmFzp2g14EFsi2gqAalwKKDRrfAgeKf17JwGb+bpGca156N01SlPYNk
+	 rHK2N44JHLhlvBLsK0iQ/DSMX7J3e/1Q5tKO6uwJzFXOxCqdGoWwXnDnfIJemS6klFKmB
+	 5e20UynFLM8zsQNL1zB32k946jt4sLFhHq/hCNaPaViUPzNOqO4I5UrxxpLMhw2PI7g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NW8uuGdo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B38606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:52:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3B38606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15D9606A331
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:53:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C15D9606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=dJnL6VCC
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48fd2e38825so608615f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:52:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NW8uuGdo
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so8516605e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:53:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793987584; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hvJiwueeEXE7w92xcpwMFSbIbLgYscYR+ligx6dUOwQ/ST+esBjZDxfcdWdOg/MVdd
+         ARbdcBy+C4Hv3g7wp5W+ZfknoH1nTQw34gTJmnvFEiYVUnsbWJTW97EyBz0GayHnspA7
+         ukMUPF8aq347+Rx7ogrYIh0QMho9XgL5f1dbcZ2Ny60fh0mmCTJGbVFCluqWAbRjmow6
+         IRoDl1UwX9QbwjqUgLYOyKb7ZSVfWwLiqlVOzgTOocF00kFKAEKSXzB0nkBA0gGbbbRa
+         zAvBqxJUaaR3/3eyDkiRLuPs8H+/ENzhtDEphwktf0SfWBAgDfCr3e4xA1CTc5iVd99m
+         NpoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZZ43LFlhd+sk5fh/FJb4zHzz1CW3FUt2jfsXu1lejAk=;
+        fh=wrwW1+uJjm64BjRYHATcMUIGTYc+gwTUpftMQZYKIuA=;
+        b=W5JabC+gzoi+vpdX8VR4Vv/6zBC3PG0VJxhbKPDkmaA2Di6p5mymX0uD4wNQMjY0Gq
+         hU7fFF8f37lUUAfGmjKTa21G8gj53M/nR/e169Hq106IdrdgQE7rI6y9gvlTRDL3DMox
+         L/dpiTAVWKeoz4SNyBmGFB8Hed1OpiT7f2o9WyeaMqutaTT46ho+xQIIaKXXwADZA+AZ
+         I/DIQ7gST1IiUUFddcCDvQc2UjyFQBiuc6TkAS0h0m1EyMbOZMl4ZGi+RLKG03xUtYUu
+         EPoyppcm8JpSyyIxj+NSJuEefS2PjRXoCKWon6kFDXQlRcgLrKZwAzqA5VeUT3qLZcrI
+         KhFg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1793987560; x=1794592360; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=sHP2oF/bjdk4Sr2x8S+jhHLHTWdyktVHIEfvBs5hv5Y=;
-        b=dJnL6VCCzjqn0HtRC+I0cQEvdVy8RK/ZpiYGX7AetqpS0imrsttLKo2pQBEoybw7e8
-         ENPuVT194VNF4IeFX/wZif1U51zIXWpNbWI00p5B/+PRnVir1l4rwzP68+oOvP+/SgbS
-         zVqufQTjDULfOG5tkwVwwFfWNRWAqcOjYMvpe8OlRKoeR2O1d7OEVzPc1Bu/oMKsvpTj
-         m/3TQPrSIf3uvY0fyaO32bnslN4hSxIXT1uho1hgilMPZR9BPPWi60TT0YBi6XFGmsP/
-         vnRD/QTwwe+n08dhenpHMbEuatW5H9thqPSYqxhgb7VdzJNU43hNzmxfH2kqdAE3b/iN
-         XkMg==
+        d=google.com; s=20260707; t=1793987584; x=1794592384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZZ43LFlhd+sk5fh/FJb4zHzz1CW3FUt2jfsXu1lejAk=;
+        b=NW8uuGdomYzmuDtrXAWjZ1gtLZzmP/KNhlvC6gK50mW7XxvuKLLOP7EtsCLtPqcsjr
+         CVhVoqc/CQmnXOg48fJnD/JELJAgh4f17SX+kNmO+Swc+gsoVLoszlZRfBN9BT/HYA1Y
+         pT0aN7LyWPUNYf6+pfUM4omNBOYoHsgyvTFoj9xnJMSx305fiCvitTUSnTMK+hwxYgJF
+         8X/qVB0ZP36kaX7C1IBDUGacr/M84c8WJU7AAUqSsSFBymFezWmF3SGZ+dLclXmyfNYp
+         /hkKQ/z7Z0+SBl7ZAXfJHodjznt2X7lj8z6XBADnHfKKdxjOaUQIAGL22I30sDPxKhWT
+         AzLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793987560; x=1794592360;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=sHP2oF/bjdk4Sr2x8S+jhHLHTWdyktVHIEfvBs5hv5Y=;
-        b=Vx4qEK9E1dxknenQAeY5WxYJ4A8jgtLJVubVSb70aHRN/604ugXIAW4pm0RFid6n2T
-         UI/bbmn56pYpImAuuwuhdj+rFcqRUjob8bGjKSIEM0c+tqeyGaOyopNxP7mgDI7xRAKR
-         TcR3GFWpN1hF9ITfhRSBTvsFfhf5QqLyx7xTsUnv0jyre2Tq/+KUhLuP/u0Jt3+1Th3y
-         yYiriyLaYrxqvAnYhp3Qpv5dFi5Vlgn0KvGN6Md04Oy4Qk/tgmwqrfKibRnsOVDzFD+k
-         laVTrKrqXSAEx6OjoFBv66AtH35YSsa3ljlWZev8bRRXPo3anlZ+2YDv+dKLSsxv5UTO
-         YYlA==
-X-Forwarded-Encrypted: i=1; AL+hErEXi2uyiHRAqiS5Ii7l70cAQEQB0FuMRFNb6zfD66xHWX9tqbdCdWurx6fJMN/Zmzb/fe+EBI5UBNm+StI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+bdEO+WYtQbqkiqVsO7IWO5pp2CiZLuL1lFAvbuX+g/LjUM2Ai
-	V0u7EQcH4rT6U5YQ6Uz2jKbOr/tDKD7iy+oqtDOM7ahwXPmODNMXtRU3jAqdF/85V8SN3sH31hZ
-	Ag4Fu/ETV9A==
-X-Gm-Gg: AYBFou0EE0+mVl0WOI9vD5SQyXHESJOzZnqOSVDtU1hpRH2+gQe+mfhdoazrwy4YM7J
-	/uv6pobqPN4kB443Q/hdzxsr30oNLHRZ+Q/V9Mk/xNLrmCJsjf3LWH6DyyBmr1Q/43EQhkHWqPL
-	XJtY/0JS3Xk4rAPSQ50RR8nMmsS4s7ao7EAJ7ykqS/0WmnHmHyUJRb9RweH31ZkMvjKMiZu1BvH
-	ixXRcrYEB36yLYDcWhzrstsoje7HYTuESMs5WwgearuP7iJSIB08jQfTszHshAze4QuWZdNwZJ/
-	C9UfU+cqbhfPpMr7IIamDb9AiGmzbWY3ASGJ4JyEBJrUMto7sZ3KyGv+wScNPYgvXYm0V9rmqqp
-	nFon8cnAEvMxha4lKUmK8HWtRRM+1+6b+tJKGAD/CHNysE4Rz91+ktjLxfix8vgTZiXt2oWLlVU
-	tflYmO6bAiJmt4Wy5tgxFHkP2D+ZsuhX8dh9q1G96RI6qcFoS+iozRIblzBHZ6R09JupFZFE176
-	Zglwh4K52F+hkRhjYLsg1vPHJ9FtQCTPSGsx96zcG35ajdQtr9qnOXbzRbCX9gOGeaoKpagLRkR
-	CrEERuMCYyuO8XBlCmkBPBeDv5oXeh7HwOjfAuejuzORQqFhL78/t8zwLRpSEkeU/hs11HLzRTz
-	/bvm+3PQ5VA==
-X-Received: by 2002:a05:6000:4b17:b0:48e:4561:8a17 with SMTP id ffacd0b85a97d-49275fe4f50mr6153448f8f.16.1793987560021;
-        Fri, 06 Nov 2026 09:52:40 -0800 (PST)
-Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d6382dsm4427671f8f.19.2026.11.06.09.52.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:52:39 -0800 (PST)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 06 Nov 2026 21:52:35 +0400
-Subject: [PATCH] arm64: dts: rockchip: Describe the Type-C port on RK3576
- EVB1
+        d=1e100.net; s=20260707; t=1793987584; x=1794592384;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZZ43LFlhd+sk5fh/FJb4zHzz1CW3FUt2jfsXu1lejAk=;
+        b=hTLLpB5AVtr9ng0HGW/wA17ceJ061Yj5MkPJVw1bzEFMf+HpC7lkCLWr/ZTUdoU20X
+         HHz95pxCV6cDIIMp3MdWbBcfDFkijLJv5cb/OAEao6wPscWgsY1PunCtyKhRfrDU15R9
+         zA5ZX25auFiA33YpMsSwnNPBE7/5po8yca/kOh80BgfzX6/M/QHwEkMDR8HykTN7PeD+
+         cOaeiJTxPJrxnpYiF4gjI4h14cy8X77ZahpfjXY1j6StMaG9fzTgknbtOjRI6XUZLfi6
+         krHexSDUyiz30mxS/84UAWbyYrxl25AHnkkC37stXEq/ZzECwCcHYndQ6SXZOtwFreAv
+         8DFg==
+X-Forwarded-Encrypted: i=1; AKwUvBx+Kz4kS2u+2YryDgDLq3QoGiRVgYndLFsbnbr5tv5hmCpl1HvVR64pcAMHb+WrPQggBGCJ8L54yBpqDsI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XrdVwH+8IZ6Mtt+vjvi+7XbpUGQqfIuG2cBj3kQc+MkwLcBvn
+	xHkcDE0wyYe3mVm6JvLMK5XsVG2hcf498mORqco02QwMrZRi5WUFUFUGvipZZkZ0O+chpL3/gtb
+	uMmsSSSosDL/wwannyeUM/+ha09/Wf/8cqyf7rIOJ
+X-Gm-Gg: AYBFou2UctNOWSX5zh41AIFtuyojEHvC0IJCPIEwbj7rVotncYp2SsCMh5JUPqg8dr0
+	MEmbKF3JGMx5+Lt4FY4g+NmjGjyr/3Z9zb3Zi8lTRk9hyl7TIZQV1IELiYp21L7GEMGAAykQgN0
+	JOUY2EH7Ltq6ZzWfuqOWP1XQeeDl3pmeAATOtsLqMIHhS1PAk2B3DgDt107vS0bKVG2iNs6yuX0
+	t918Ofqa0I2zQqRo3r79y+CosgvpCzLOVMkVITXdVgZr77U98bNu34/vBfX+/W6DiC+jVKlEZOm
+	yw9UMHfMzIsWJGvrBodzuoQip0muJ57OqsD+jZmDI0V1cC5f9fgdyNQA2+7Z7HObfHBDYGiNcfR
+	wXpxORQ5yZTvgakjsAzL5IycYrfo3fQGpc7DthQiVVz/stGnZ3OHhPp0+Wg==
+X-Received: by 2002:a05:600c:6387:b0:4a7:9025:5c3b with SMTP id
+ 5b1f17b1804b1-4b6de1c6450mr56262855e9.19.1793987583819; Fri, 06 Nov 2026
+ 09:53:03 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,257 +104,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm3S8jMQr2JcMGMHqgmaKRATw
- t0ZZfkt3tvAJKkYXIsNkqxq+p4y+FJAGPtpENRHNpRUOmZymF5V0zqU1TOOi/mKGYkkhhjrvqM
- OcvlJEvX7v97up23xTwnzbwX7fgDI0qS2dwAAAA==
-X-Change-ID: 20261106-rk3576-evb1-husb311-00efcff4a808
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5103; i=alchark@flipper.net;
- h=from:subject:message-id; bh=Bsdyugnk6OoKTZGf3182OVL5hFUwb7G3DqCpOh/DVH8=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWS9E356PT+1Oc+onVHtN5c/m+fkZfEfbN/o3K4unBac9
- spw9eeVHRNZGMS4GCzFFFnmfltiO9WIb9YuD4+vMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
- oZGOsY4RAxenAEy1piHD/0jlzK8xASsOlqnsPih7Ujw6X1Byvvb29dkyOWdP9cVbqzMynN3n+Cw
- 3NoajdvvXrhNybAnxvYlB1670fhav3FKXwf+WBQA=
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+References: <20261105151159.1.I0b27923381ef34cc99cdf8b65fea2e1bafce6370@changeid>
+ <CAF1bQ=QkGntJu8G67ssH2dS3Sn200_JuYitjtAfNPBu_hn0fZA@mail.gmail.com> <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
+In-Reply-To: <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
+From: Snehasish Kumar <snehasishk@google.com>
+Date: Fri, 6 Nov 2026 09:52:27 -0800
+X-Gm-Features: AclHuK9INR2TnwJM3Zpn1cFZ_averI8IiQe0rbAuzb--L9go7NViW8h1McGlP0Q
+Message-ID: <CA+aGii5ZbLRMsvOZ=Xk_gS10O_WgjEc=oW9vJ2yYPrRdwpZbZA@mail.gmail.com>
+Subject: Re: [PATCH] kbuild: AutoFDO: Disable Profi (-fno-sample-profile-use-profi)
+To: Rong Xu <xur@google.com>
+Cc: Douglas Anderson <dianders@chromium.org>, llvm@lists.linux.dev, 
+	linux-kbuild@vger.kernel.org, Han Shen <shenhan@google.com>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
+	Nilanjana Basu <nilanjana.basu87@gmail.com>, Yabin Cui <yabinc@google.com>, stable@vger.kernel.org, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-RK3576 EVB1 has its USBDP PHY routed to a Type-C port with a HUSB311 CC
-controller and a fixed-voltage VBUS supply.
+On Fri, Nov 6, 2026 at 9:43=E2=80=AFAM Rong Xu <xur@google.com> wrote:
+>
+> Just one thing: I think we should also have this flag for Rust so Rust
+> and c are consistent.
+>
+> Rong
+>
+> On Fri, Nov 6, 2026 at 9:38=E2=80=AFAM Rong Xu <xur@google.com> wrote:
+> >
+> > This looks good to me. Thanks!
+> >
+> > Reviewed-by: Rong Xu <xur@google.com>
+> >
+> > -Rong
+> >
+> > On Thu, Nov 5, 2026 at 3:12=E2=80=AFPM Douglas Anderson <dianders@chrom=
+ium.org> wrote:
+> > >
+> > > Starting in Clang 21 (LLVM commit 2fc4a4a9d3a8 ("[Driver][SamplePGO]
+> > > Enable -fsample-profile-use-profi (#146795)") [1]), the Clang driver
+> > > automatically passes -mllvm -sample-profile-use-profi whenever
+> > > -fprofile-sample-use is specified, enabling LLVM's flow-based profile
+> > > inference algorithm (Profi) by default.
+> > >
+> > > However, as Rong Xu noted [2], the kernel's AutoFDO implementation us=
+es
+> > > flow-sensitive discriminators (FS-AFDO), and Profi has known issues w=
+ith
+> > > FS-AFDO that degrade runtime performance compared to LLVM's original
+> > > profile propagation algorithm. In addition, Profi's min-cost max-flow
+> > > solver (applyFlowInference) can hit pathological compile times (30+
+> > > minutes or hangs) on certain kernel control-flow graphs when profiles
+> > > drift slightly or when combined with GCOV [3].
 
-Describe it in the device tree, including the wiring for both the USB and
-the DP side.
+LGTM. I've seen degradations without FSAFDO too, reproducible on SPEC
+workloads 531.deepsjeng and 502.gcc while controlling for profile
+drift with newer versions of clang.
 
-This makes the data roles follow the Type-C port's negotiation, so the
-port stops being host only. It also leaves the VBUS regulator to be
-managed by TCPM instead of being hardwired via the tangentially related
-phy-supply on a USB controller. DP lanes are also muxed dynamically by
-the USBDP PHY based on the Type-C port's negotiation, so the hacky fixed
-lane muxing also goes away.
-
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts | 150 ++++++++++++++++++++++-
- 1 file changed, 147 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
-index f83d129f96f1..a9b27cdb2dfa 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
-@@ -11,6 +11,7 @@
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/rockchip.h>
- #include <dt-bindings/soc/rockchip,vop2.h>
-+#include <dt-bindings/usb/pd.h>
- #include "rk3576.dtsi"
- 
- / {
-@@ -334,6 +335,22 @@ &combphy1_psu {
- 	status = "okay";
- };
- 
-+&dp {
-+	status = "okay";
-+};
-+
-+&dp0_in {
-+	dp0_in_vp1: endpoint {
-+		remote-endpoint = <&vp1_out_dp>;
-+	};
-+};
-+
-+&dp0_out {
-+	dp0_out_con: endpoint {
-+		remote-endpoint = <&usbdp_phy_dp_in>;
-+	};
-+};
-+
- &gmac0 {
- 	clock_in_out = "output";
- 	phy-mode = "rgmii-rxid";
-@@ -772,6 +789,58 @@ regulator-state-mem {
- &i2c2 {
- 	status = "okay";
- 
-+	usbc0: typec-portc@4e {
-+		compatible = "hynetek,husb311", "richtek,rt1711h";
-+		reg = <0x4e>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <RK_PA5 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usbc0_int>;
-+		vbus-supply = <&vbus5v0_typec>;
-+
-+		connector {
-+			compatible = "usb-c-connector";
-+			label = "USB-C";
-+			data-role = "dual";
-+			power-role = "source";
-+			source-pdos = <PDO_FIXED(5000, 2000,
-+						 PDO_FIXED_USB_COMM | PDO_FIXED_DATA_SWAP)>;
-+
-+			altmodes {
-+				displayport {
-+					svid = /bits/ 16 <0xff01>;
-+					vdo = <0x00001c46>;
-+				};
-+			};
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					usbc0_hs: endpoint {
-+						remote-endpoint = <&usb_drd0_hs_ep>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					usbc0_ss: endpoint {
-+						remote-endpoint = <&usbdp_phy_ss_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+					usbc0_sbu: endpoint {
-+						remote-endpoint = <&usbdp_phy_dp_out>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
- 	hym8563: rtc@51 {
- 		compatible = "haoyu,hym8563";
- 		reg = <0x51>;
-@@ -944,6 +1013,14 @@ usb_otg0_pwren: usb-otg0-pwren {
- 		usbc0_int: usbc0-int {
- 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>;
- 		};
-+
-+		usbc0_sbu1: usbc0-sbu1 {
-+			rockchip,pins = <2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		usbc0_sbu2: usbc0-sbu2 {
-+			rockchip,pins = <2 RK_PA7 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
- 	};
- 
- 	wifi {
-@@ -1008,7 +1085,6 @@ &u2phy0 {
- };
- 
- &u2phy0_otg {
--	phy-supply = <&vbus5v0_typec>;
- 	status = "okay";
- };
- 
-@@ -1051,13 +1127,74 @@ &ufshc {
- };
- 
- &usbdp_phy {
--	rockchip,dp-lane-mux = <2 3>;
-+	mode-switch;
-+	orientation-switch;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&usbc0_sbu1 &usbc0_sbu2>;
-+	sbu1-dc-gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+
-+			usbdp_phy_ss_out: endpoint {
-+				remote-endpoint = <&usbc0_ss>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			usbdp_phy_ss_in: endpoint {
-+				remote-endpoint = <&usb_drd0_ss_ep>;
-+			};
-+		};
-+
-+		port@2 {
-+			reg = <2>;
-+
-+			usbdp_phy_dp_in: endpoint {
-+				remote-endpoint = <&dp0_out_con>;
-+			};
-+		};
-+
-+		port@3 {
-+			reg = <3>;
-+
-+			usbdp_phy_dp_out: endpoint {
-+				remote-endpoint = <&usbc0_sbu>;
-+			};
-+		};
-+	};
- };
- 
- &usb_drd0_dwc3 {
--	dr_mode = "host";
-+	usb-role-switch;
- 	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			usb_drd0_hs_ep: endpoint {
-+				remote-endpoint = <&usbc0_hs>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			usb_drd0_ss_ep: endpoint {
-+				remote-endpoint = <&usbdp_phy_ss_in>;
-+			};
-+		};
-+	};
- };
- 
- &usb_drd1_dwc3 {
-@@ -1079,3 +1216,10 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi_in_vp0>;
- 	};
- };
-+
-+&vp1 {
-+	vp1_out_dp: endpoint@a {
-+		reg = <ROCKCHIP_VOP2_EP_DP0>;
-+		remote-endpoint = <&dp0_in_vp1>;
-+	};
-+};
-
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261106-rk3576-evb1-husb311-00efcff4a808
-
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
-
+Reviewed-by: Snehasish Kumar <snehasishk@google.com>
