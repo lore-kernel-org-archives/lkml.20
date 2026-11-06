@@ -1,75 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793948648;
-	b=IjLekURoEFIuYRnrLYg+TiqZ6J6++rmug3qE1u3MXi+KnQY3RGGBg/2Vz4WqTRndqfab
-	 6mNnZhTiLuPp4tH1rV35FOfOoMuQd8oEYm78kX0mEtFDZc68aJZDN5BStECVI0aSq8bgX
-	 S+KSoycuyZdwlhIqWMnE8+uMmTCph+5/HVBRDXnr2FLO1AMVI9D1zIsMYqWLOOvCZMWnL
-	 K8unhMI8HsOm3hCWLICsVii81Vkz7pdeoa8iFEItOgOicRPEPd7aOaR5f8jwItdrXwULd
-	 8mRWheeb4dLWhC+Rwzi0/89o/7+XpVVsrTeaXVxu4jCVYqYbjNAshCiuKz+rCB4kZFg==
+	t=1793948641;
+	b=kSpUJZXWMN/pGkbozEQ41joWO4JVTrdTEPfESkbEA6yzYhdkeEGhm3NGalbDoy+x7OQc
+	 Q50zE4iBw0uSRhuyvyN3EyOAhv2wnf6vcce5DWMIlNxMzaAHYJ2Nw0MWGwphZRB/Ixv3E
+	 ewOD/Wo5gWZ7Y18Fywh3hbs8Vplo0WQbobq6wxx+VpFymKSQKlblWIyLox1HI6gV6zRc2
+	 iSDgxCp9Kl6138K6pxdXNie0zU+Njh7N334wi6adtuiHtgXm9ajzU+2szwMUWrka3fLlY
+	 K73xv3pm0vcmqZ7ejSEweNMo+E2eHuCirkggYH5KpzjhlwqPl7rpuiVFz2dSEv0Skrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793948648;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=t2QoGiIe6qh+xXGRXPEuyCoTeHTjKPAeQiniSi4k+CI=;
-	b=UAPs5pkahYEPxIy7qlK5sKsWK5Ofl3satwDCbw3yy9Tu5dp82IIHnpTT9bQl5d3/1q5a
-	 3RbUZrVPvFsRqdDD5eF70BsBaDUfS7wIfbVE+63/lV1MInSH5EoizhEFMkY+CuDamJk5R
-	 f+A4GMr8wW0GjPKu7smrHZWIjTptWHrvoy7hj9UR9WH7B2usmWre5wZdcXhPmJozCPwkX
-	 DlDNNkF4vThtoE5wI8PLacxi0hKqCMax6XEd5Fic/xockElYY3K9l8ZTolYFwPqWs4bJB
-	 et/cO/io4douc/QZnLSLtP11dF2UfDFg/4/dK/vwnyAnCAsxTYv5YOkNDV4DRJmDk8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793948641;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=xGUu4K6Hch737xk2AjXhVoXP8Oyq8YcHuX/+uNS+IWo=;
+	b=UKludR9z10zt+G2Jx5X4fjxYz9aQDub5a0IP4kx3BMdevAhMBfkLQ2qeHYC4I7Hq24+d
+	 M/TSOGj4a4NXOfghgI7bzRQTvaYsL+laUobhbQ1oLy51iYEyWh1/bblE7aS3LdMGPS0O4
+	 MSHm/K59brKAIIkO7rm6cqYkjG+SWNKEQj4Zl8D6kLU4EzWcwoFdIAmd9rabnNzIaD3F7
+	 0r0wLCabg6qPENXfcQqUhk2b9h0RALeqSX9J+cxR+KWSAu50++Cfh8PG1ONjxpUTEPZqu
+	 mgT6WIjRqi2tOT3oW1v3nHmtNrwLwhP1fUmUn8+lMSzgPXneYaJZZlIO9lEhA9V5fwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="b/186WZj";
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C49606A33F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:04:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66C49606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WQEpqa+x;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 17B0C606D812
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:03:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17B0C606D812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b/186WZj
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36cec75d8caso501899eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:04:08 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WQEpqa+x
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793948648; x=1794553448; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t2QoGiIe6qh+xXGRXPEuyCoTeHTjKPAeQiniSi4k+CI=;
-        b=b/186WZjdUcEGHi11cfLhTmIWiMRf8+y71myAj15VS82yiPGfy4w8LOyrTbFsahmXN
-         hw3pE11QO8nEIU56uAl9G6lj3rqD4F/1TvUEZJe4XRVpfibQwATVESP7YCj/+olrc9ML
-         mJSCtd/w1zOpKVjkWiRsbAs3I/ZenZCkFVminypu9X+6EdrDk2mROIIP8/OsWzvmBvuk
-         Ta85e8IlCKz/EzTT9qhQczGFvsKzozwFMBTjDTZRguoetneAfWArdHnBcMV/R/XwtCdq
-         gGgsbI1AZODsP8jNcWyGDeWCdNePNRwamYIymYFRV8ujIBsEQ8rbsnzYg425q+yctOpi
-         1IWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793948648; x=1794553448;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t2QoGiIe6qh+xXGRXPEuyCoTeHTjKPAeQiniSi4k+CI=;
-        b=BXwZWijHaacRUTXkcGUpSl45Jxm72I6wcLIgGtujEM/NFQGbA/IRFW6gJ8nCiHmw2H
-         uhuCYCeU+dm98crMXTPMKxL+X/YQSrXhugqI1oOafoz+5QdnSlgVhYljCsmNELEEy3pX
-         vO8gDIc3GJJVFr4hlM+e1NIo+h9dVGQWMIzvYdkZS/7ZUnGuqyw86jQPYWFJdR7MpQbe
-         FPmsKqTBNUdGoKginz2qFxPVDwXLNaBEnzjZjw7eDhW38chnMqzOfai7X2urYxUAkacK
-         5A7PNf0z/GSq1aRhKZ6DwMUaGpDVgEMhQLyFDuH9W07D3AMdGaNIpPWTBV3gN1IGvF6C
-         1GqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8u+YgXG1RApmNSPDIIemlV05rQ0CwygMpfENRqT1Z3liYWlM3R8MtR1QbtqRYYzKlmSj2+puXir7VM9Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rHU+xsV6yaVifSAkx1KWJVijSdBdexoEY1pc7dnlT7GBAiCdt
-	k6yafb8mhqx2gSvlCnxytf/xfZjxWbQGXcmn6omc0Ey7GoxSAzQY+vNE6CmaoVD0C5vysZPAyho
-	NkyOEWefdUQ==
-X-Received: from dyaa13.prod.google.com ([2002:a05:693c:40cd:b0:36a:209:2e4])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:6188:20b0:359:3991:ce1a
- with SMTP id 5a478bee46e88-36de6b52a0amr6511094eec.16.1793948647424; Thu, 05
- Nov 2026 23:04:07 -0800 (PST)
-Date: Thu,  5 Nov 2026 23:03:32 -0800
-In-Reply-To: <20261106070344.329897-1-irogers@google.com>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=WQEpqa+x8PBVgdfNxTxarECdINI6l66IdnQ/D3kbeAoZKGAMV1tdU0saC6Rh3FyWNY1eqOf1YXKNa
+	 hJdCdzqQLc2M7dty7K6cf2jvGeEpqX0wWHka5sAYzyyTDZYiVQQyV5kAIlOwJgqp31cI4+23C/rWox
+	 xbecbow8hfLTfjCI=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46aed7bddfe1-4db39;
+	Fri, 06 Nov 2026 15:03:57 +0800 (CST)
+X-RM-TRANSID:2ee46aed7bddfe1-4db39
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from cmss.chinamobile.com (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86aed7bdbeb1-1606d;
+	Fri, 06 Nov 2026 15:03:57 +0800 (CST)
+X-RM-TRANSID:2ee86aed7bdbeb1-1606d
+From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+To: linux-nvme@lists.infradead.org
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Andrew Stellman <astellman@stellman-greene.com>, Chaitanya Kulkarni <kch@nvidia.com>, Keith Busch <kbusch@kernel.org>, Maurizio Lombardi <mlombard@redhat.com>, Mohamed Khalfella <mkhalfella@purestorage.com>, Nitesh Shetty <nj.shetty@samsung.com>, Hannes Reinecke <hare@suse.de>, Randy Dunlap <rdunlap@infradead.org>, Aurelien Aptel <aaptel@nvidia.com>, Nilay Shroff <nilay@linux.ibm.com>, Jesse Taube <jtaubepe@redhat.com>, Rongzheng Wang <testwrzwrz@gmail.com>, Kees Cook <kees@kernel.org>, Rosen Penev <rosenp@gmail.com>, Guixin Liu <kanie@linux.alibaba.com>, Qing Zhang <diasyzhang@tencent.com>, Eric Biggers <ebiggers@kernel.org>, Julian Sun <sunjunchao@bytedance.com>, Yu Zhang <yuz08559@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvmet: clamp the last ANA group index against the real array size
+Date: Fri, 06 Nov 2026 15:03:55 +0800
+Message-ID: <20261106-nvmet-ana-grpid-followup-1-yuehongwu@cmss.chinamobile.com>
+In-Reply-To: <20261106-nvmet-ana-grpid-1-yuehongwu@cmss.chinamobile.com>
+References: <20261106-nvmet-ana-grpid-1-yuehongwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,75 +66,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106070344.329897-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106070344.329897-9-irogers@google.com>
-Subject: [PATCH v10 08/20] perf dsos: Skip BPF and OOL DSOs in dsos__find_kernel_dso()
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, bvanassche@acm.org, elver@google.com, 
-	james.clark@linaro.org, jolsa@kernel.org, justinstitt@google.com, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	llvm@lists.linux.dev, mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
-	ndesaulniers@google.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-In machine__process_ksymbol_register(), set the binary type of non-OOL
-ksymbol DSOs to DSO_BINARY_TYPE__BPF_IMAGE (which
-machine__process_bpf_event_load() upgrades to
-DSO_BINARY_TYPE__BPF_PROG_INFO on PERF_BPF_EVENT_PROG_LOAD), and update
-dsos__find_kernel_dso_cb() to skip DSO_BINARY_TYPE__BPF_PROG_INFO,
-DSO_BINARY_TYPE__BPF_IMAGE, and DSO_BINARY_TYPE__OOL so that
-dsos__find_kernel_dso() does not match ksymbol DSOs in machine->dsos.
+I missed that this was already reported: Andrew posted the same two-line
+change on 2026-09-10
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/util/dsos.c    | 3 +++
- tools/perf/util/machine.c | 9 ++++-----
- 2 files changed, 7 insertions(+), 5 deletions(-)
+  https://lore.kernel.org/linux-nvme/20260910154849.66095-1-astellman@stellman-greene.com/
 
-diff --git a/tools/perf/util/dsos.c b/tools/perf/util/dsos.c
-index 1574c8885d78..fbbf98c4ccae 100644
---- a/tools/perf/util/dsos.c
-+++ b/tools/perf/util/dsos.c
-@@ -475,6 +475,9 @@ static int dsos__find_kernel_dso_cb(struct dso *dso, void *data)
- 	 * is_kernel_module() treats it as a kernel cpumode.
- 	 */
- 	if (!dso__kernel(dso) ||
-+	    dso__binary_type(dso) == DSO_BINARY_TYPE__BPF_PROG_INFO ||
-+	    dso__binary_type(dso) == DSO_BINARY_TYPE__BPF_IMAGE ||
-+	    dso__binary_type(dso) == DSO_BINARY_TYPE__OOL ||
- 	    is_kernel_module(dso__long_name(dso), PERF_RECORD_MISC_CPUMODE_UNKNOWN))
- 		return 0;
- 
-diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
-index 076d167380f2..b958c6935a56 100644
---- a/tools/perf/util/machine.c
-+++ b/tools/perf/util/machine.c
-@@ -769,6 +769,10 @@ static int machine__process_ksymbol_register(struct machine *machine,
- 			dso__set_binary_type(dso, DSO_BINARY_TYPE__OOL);
- 			dso__data(dso)->file_size = event->ksymbol.len;
- 			dso__set_loaded(dso);
-+		} else {
-+			dso__set_binary_type(dso, DSO_BINARY_TYPE__BPF_IMAGE);
-+			if (is_bpf_image(event->ksymbol.name))
-+				dso__set_long_name(dso, "", false);
- 		}
- 
- 		map__set_start(map, event->ksymbol.addr);
-@@ -780,11 +784,6 @@ static int machine__process_ksymbol_register(struct machine *machine,
- 		}
- 
- 		dso__set_loaded(dso);
--
--		if (is_bpf_image(event->ksymbol.name)) {
--			dso__set_binary_type(dso, DSO_BINARY_TYPE__BPF_IMAGE);
--			dso__set_long_name(dso, "", false);
--		}
- 	} else {
- 		dso = dso__get(map__dso(map));
- 	}
--- 
-2.56.0.455.g6c5a503b38-goog
+and Sagi asked in that thread whether it had been tested.  That patch
+reasons the same way, and it also cites the spec wording for a valid ANA
+group identifier (non-zero and <= ANAGRPMAX), which mine should have
+quoted as well.
+
+What I can add is the evidence that was asked for.  On
+7.3.0-next-20261027, with two kernels built from the same tree that
+differ only in these two lines and no instrumentation, the nvme-loop
+transport shows: a group created as ports/1/ana_groups/128 is
+absent from the ANA log page before the patch (ngrps=1) and present
+after it (ngrps=2); 128 written to a namespace ana_grpid reads back as 0
+before the patch and as 128 after it, with the namespace accounted to
+group 128; and removing the group again adds a phantom group 128 (state
+inaccessible, 0 namespaces) to the ANA log page only in the unpatched
+kernel.  The exact steps are in the --- section of my patch.
+
+Andrew's patch is against a September tree and no longer applies, which
+is why I sent a rebased version.  If you would rather take his original,
+I have no objection.
+
+
 
