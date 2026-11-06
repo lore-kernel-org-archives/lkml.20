@@ -1,54 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962230;
-	b=GagFxeVQ+3RMIgGuWSUzcSe1W4nEG20TkfH3S4uUpTW3tVc6piCEEuUoHAVaTGDlZuLo
-	 QW4QWV5SvyQ5Tm5fbcOOH64/PTOaaz4sISWA2VNGPqZcYVLcCTWfhTpUQYXI7RP6YSz5i
-	 xxkj/vQvu6IucAlnHL4juCYHHs/m46n92xUUOe+F5xnYw6qvtn06WM2nbFbjTKO9pmOk1
-	 c21DrPiQv7KFTERofcvZ+AvDJ9zLMmAgxNG21vNEnWCeONYIyM82i49WJJqrjCrnqXHdp
-	 0mFag6HCh2q0HxQ2xXUmcNqvklQiKPabLP4jp26Ouh2X4akyZGi+MLZVFejWOvw5wSA==
+	t=1793962338;
+	b=JyScBfWH5PuCPiwBmnwzqlCIv85rM/g3P4RbRNXuaewmT+SJJdtpTGu7ZI9HEVewyHNj
+	 sDV+8N3XlhPsc5tO5vH/zxp2WuZEY3k1hpbT4a8RdmNw5ClidjqZHPIP2G3c0Jv0kGfKh
+	 TuaiFIYmt0u1bCyd0onqHUwRJFqZcBMqzwHmo59PtRwOCdjxWm3z9lpNUdApypFq4D0yT
+	 CVB+JAUMz8ULUf3PP3ZaYP3y3mSXYiLW2ZD3zwHSWJ1HqWJn5dt6BUjwMhNIAj5BHz4ob
+	 pfVf4RgWIl7LAFAxIWF8bkemIbdTCo+52uFpFCXYsYQRPskXtSwljBDLCUkEuuZsImg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962230;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=F3j0iHgsvVEM9g/FO+OCD0ojcpYSh6uoBVd9FxVq2l0=;
-	b=m/iVlqOba0fbwLk9kvW3AjuK/wX+EZvbrmJdJu9MZ5J4zy/Am/yoA7nb0qGYXqCaGCea
-	 CCuk7om7VkdFqgcYkgmzv3Wxqa9I5l5IuHrL67vN22Bk1Hem+MDerNOeWs83aUuk+9X6F
-	 OY4qA2X/q/BeDxFDqc4/kCk7kHAGa7CP0ywTo8SpqFm6XWblqi5INSFuKtsovzhtwLnR1
-	 oWcpqJKmZEGVUt0gmwbNOwFTC1Ife1wPSu88tFXmaxDD9QywUC7qqgXxrhFo6lwkFK/fs
-	 RMvqwQcnKvez/20pLyCvL2NXL/xLhpSrIKVJcQcofZIkMhQS44h/UizjasgJq+qVD7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962338;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=mDVydUmGj6EymxfHi9Cw3ENPwSNdO/hARLLpYkWQtHA=;
+	b=2u+/dLdENY5frAt3DSp0YiP2jeZ7cE3qX3/StTtswHsyxzFBK9SMwCxanD+Yd+b5MRSt
+	 rwf7T2Icud8k3OhlFJbNgCjU6vbz4FOkYcSbgpjqDEBp/r+FJ57XG5mnzbzhRjyhDj//x
+	 21V5YJEHr3Hm5R5NzIKE9mUpDDtqbd0vBLs73oq3zluGCQjxqbSZYsiFV5bzVaXhF7QbI
+	 V83KslG2YLEyKAF6+1xG8zvA199DEj3te54LXOk0O4yK7kmDSCqPsj3aYmnORg80lvy77
+	 Eo72tP5SioNr7s59a9nGsc8p1+PN+vLN0Tae4jLiFE86gyuBSloQWKIB3pp0wmTInPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnsTGtAh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B9402606D81F;
-	Fri,  6 Nov 2026 10:50:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnsTGtAh
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 718C71F0089F;
-	Fri,  6 Nov 2026 10:50:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793962229;
-	bh=F3j0iHgsvVEM9g/FO+OCD0ojcpYSh6uoBVd9FxVq2l0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VnsTGtAhSRzs7xTi91YjadjWR5t8/vPO/RM47Oqfj69hA43xVFGrxHne7Uy9DDKg6
-	 qtGsT2GjJR7roX6U8KjSJpKgVErUqTAnFnqsSkbfUkMbBtZFIcIG4A0mymYfQ1gfju
-	 3DKa7+wlxj9OEUx+2mBb+iZkR2W5hadY6weotTqKORoiSkBO61ZcaX74V5OpeprIuT
-	 DOivm9wndqSF27jdZ64nPLdsRmDR9VaUkiOZBFFZ0TBf2x+0eCwn7h/npb/zU9pRfY
-	 UXfjYZ0GjqEowYi03mRq2Iix4H7w3bqGAtSRM5UTC7kX3GFfoeNKOOxLfoK5jr4ck4
-	 9GGNoufhzmynQ==
-Date: Fri, 6 Nov 2026 11:50:24 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Tyler Baker <tyler.baker@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpio: shared: drop the parent check for reset-gpio
- devices
-Message-ID: <7n2raovkmf3obzq4d5fk3a4444oeyc4sen3vyqyt7r3xacgvrz@gr2kgob3kzod>
-References: <20261106052851.2741296-1-tyler.baker@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9638D606A338
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:52:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9638D606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 467C968BEB; Fri,  6 Nov 2026 11:52:13 +0100 (CET)
+Date: Fri, 6 Nov 2026 11:52:12 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Heming Zhao <heming.zhao@suse.com>
+Cc: joseph.qi@linux.alibaba.com, mark@fasheh.com, jlbec@evilplan.org,
+	hch@lst.de, ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v5 3/4] ocfs2: switch dio write path from
+ buffer_head to iomap
+Message-ID: <20261106105212.GC5746@lst.de>
+References: <20261105071930.16399-1-heming.zhao@suse.com> <20261105071930.16399-4-heming.zhao@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,40 +51,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106052851.2741296-1-tyler.baker@oss.qualcomm.com>
+In-Reply-To: <20261105071930.16399-4-heming.zhao@suse.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Fri, Nov 06, 2026 at 12:28:50AM -0500, Tyler Baker wrote:
-> gpio_shared_dev_is_reset_gpio() requires the reset-gpio device's parent
-> to carry the GPIO chip's fwnode. Once the reset core parents that device
-> to the GPIO controller instead, this fails on controllers with a
-> gpio_chip and fwnode per bank, so their shared reset lines are no longer
-> matched.
->
-
-Again: mixing up of the naming convention for devices. It should be:
-
-"gpio_shared_dev_is_reset_gpio() requires the reset-gpio device's parent
-to carry the GPIO controller's fwnode. Once the reset core parents that device
-to the GPIO controller's parent instead, this fails on controllers with a
-gpio_chip and separate fwnode per bank, so their shared reset lines are no
-longer matched."
-
-> The check is redundant: only devices compatible with "reset-gpio" get
-> here, and their reset-gpios reference must already name the chip's
-> fwnode. Drop it.
+On Thu, Nov 05, 2026 at 03:19:27PM +0800, Heming Zhao wrote:
+> Converts OCFS2's DIO write path from the legacy buffer_head
+> infrastructure to the modern iomap framework.
 > 
-> Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
-> ---
-> On top of Abel's "reset: gpio: Parent the reset-gpio device to the GPIO
-> controller":
-> https://lore.kernel.org/r/20261026-b4-reset-gpio-parent-to-gpio-controller-v1-1-11549e6ea930@oss.qualcomm.com
+> Key modifications and designs are as follows:
 
-This passes my tests, though I have it in the back of my head that there
-was a reason for this more strict check. I can't remember what it was
-anymore so I'm fine with the change, if it introduces a regression, we
-can revert it.
+That's a not very useful style of usually AI generated text.
 
-Abel's patch introduces a regression that this patch fixes so we should squash
-the two, get an Acked-by from Philipp and sent them via the GPIO tree.
+If a change is not key it should not be mentioned here.
 
-Bart
+As should "modifications" in general - what is changed is pretty
+obvious in the diff itself (and if it isn't it should be made more
+clear in the code/comments).  So what should go into the commit
+log really is the high-level considerations, pitfals and not quite
+clear bits.  The rest is just unhelpful noise.
+
+
+> +static int ocfs2_lock_map_blocks(struct inode *inode,
+> +				 struct ocfs2_map_block *map, int flags)
+> +{
+> +	int ret = 0;
+> +	struct ocfs2_inode_info *oi = OCFS2_I(inode);
+> +
+> +	down_read(&oi->ip_alloc_sem);
+> +	ret = ocfs2_map_blocks(inode, map, flags);
+> +	up_read(&oi->ip_alloc_sem);
+> +
+> +	return ret;
+> +}
+
+This pattern already showed up in the previous patch, why isn't the
+helper added there and used for reads as well?
+
+Also this and the next one have a very similar diffstat.  It would
+help reviewers a lot if you merged the two patches and did any pure
+code movements in a separate patch, so that the actual changes stick
+out instead of just adding a wall of new code here, and removing
+lots of old code in the next one.
+
