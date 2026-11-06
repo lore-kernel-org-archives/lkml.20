@@ -1,55 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794009592;
-	b=2Hb2rGZWQO0QHMwMVAOIrK1fom/g/Jlf8c+O0EbKrttwqwk0fQJNG/hYbhf+KOtZHcS7
-	 n1Lh0ZrkYc1+/tWybD/Ct9SUxlGsM7+z8fxwzJAVl5IKqTnt0JlGaS/mxN+3X9AkzevCK
-	 VOCTQ12ZO3oTH24ru8LcysN+6okQWg/vNWxdS/+cYKohVcvWskXgB273AQ8KqnZ9BrtX/
-	 LxjHBZVn6wQU7e048T9tYEyC+o59bkRel+XcpCOKi4j/mom03fWH6z9N62vsuEkkVRZgl
-	 LTccecNg541WA+sFiZ2t8Ktli9SQDZ3I3yj8vw7DDPK8Ds3OzT1O1zkLbn9FJKLnhnQ==
+	t=1794009586;
+	b=oGTQYGgmXFRdGVlAJbjRxUuGTRjHgoyNJww3/sWU1wTJuD6kSZBnS998Gy5knx9P8LLm
+	 HdX7TfuhSDGuymzxh11eWZBQ5eweOGydHBb44aqN6fjvvX/puXuSxxKGxdUQ5T+Swd33C
+	 ODQp+a7SEoz4efxqEqH+luy8/dINtfqBeNOjuxA+/99A9zUvKGv86dmSlxNnRyN2mSihE
+	 nOTXauXoIS5dwFKXWDQkua4h1LqOD+VPmyR89EM3jcQK1GJaWXW2e05eONhgp7tbYWgoy
+	 JYRauzc2HJmAjOkX7enDeGH9dGZiKfs24Ec5m5TFf36j/psKfnaE7zTrWzw1hIGAilQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794009592;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kSvS5npMsYGUescqYNHuwns+vY8BLGHpBcdfwZNgI9Y=;
-	b=ky63OViHFRmwwq9wwlT8c9CmPgrd3xoe1Qca+TO125zSJPlwX78CRaUBAvaGR9OlPu/F
-	 IvDYHgOohebdbp8pOKj0TmCtsG9aA86MAQMesqTqG56bYkf9FzMCJupUgLyPoyzwKzfO5
-	 4v98afW1l9wFojkC09Qv3cvg0jA7k26oMFhcJfDhgrFPYjoWzyqCsbTZJ/BwGXItM5Id0
-	 hHvB8vz9nRBHtXy3ONjD2vb4RAgjxuIBINBvBsdDxL7VaxZTxqOJumlqBuqt+tWB0tbqk
-	 A8DFr7Mn68887i+PIWnhXr1Fq1O8zT/sqNeRbHA5aAN89e3EhuKWHfibtSFSh0GdOQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794009586;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=yqLXf+mGS/hVPryb9Jb5sGJOrOI1a/GtAPkODUpEuoM=;
+	b=CAbAmp6kHAGJok388Bd9w6ItR6a9aD7RMZCgEpTRiWyDRiVShmg6eMeIgZ4j6yEQaDaR
+	 pO7hfbw4NbcZealUw5ZVak+5AToZgy4BvumIY1lT1e6ib4N3yOozWh5sLH9v7WRpd9sVP
+	 UsZsoN4LDfQsavyFBXzLt5Fx2HkmsbIVbiYiVkbCBSXHED/GZ3or5w9YhRjAgKXfVr6+5
+	 0uFFO1SNwyEZdlQFJcxHtRmNyLOLF9/pyoGHfe17ddyBUNhcfq/oe8G8RMUqqLMZ6Yg/T
+	 gPZo1af3Y54fH28ocT1OAn0AyntLw0mH4YQ7vR5U4rD72aYIBAo754roVUQWYjYETQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+UuiM0f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="h/ICyHcG";
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3C8606A326;
-	Fri,  6 Nov 2026 23:59:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855D3606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 855D3606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+UuiM0f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01B601F0089F;
-	Fri,  6 Nov 2026 23:59:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794009591;
-	bh=kSvS5npMsYGUescqYNHuwns+vY8BLGHpBcdfwZNgI9Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O+UuiM0fK4oR8EZ2meSl5yH/TC+kEPKIlSb/W1Vwccx2Z1x/oaRBC0rUxhzH3Q1FI
-	 wRyLE3mJycmci5fqln5NuoRHSLuj6uxKspkUt30qVSe6ZMLC2t0HcSDa1QCk6rmUKv
-	 5/lxEFfmz9oieM+b0kn/ggjdQzHdPIreM/pACSH1F7tXbDeuJH50ISgWKKLkxqOgN5
-	 DVti3roP66ChIWz4VIi8l2vpKFLkTPWljvM1kRxcKDPLo7BRWmAUjYmgKQi8KzBLX/
-	 9JTm2A0Xd7dQPFJbfWN/sa7XazXvjBwFWbXK2Yf5UM55JxgnYaFUmLkHKXzbUi8eSy
-	 MAbKibWYgvpeQ==
-Date: Fri, 6 Nov 2026 23:59:49 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	rientjes@google.com, willy@infradead.org, senozhatsky@chromium.org
-Subject: Re: [PATCH v3 0/8] Batched zswap_store() framework with compression
- batching.
-Message-ID: <au5l3KEjG_mri-br@google.com>
-References: <20261106072412.7909-1-kanchanapsridhar2026@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h/ICyHcG
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so962388a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 15:59:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794009586; x=1794614386; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yqLXf+mGS/hVPryb9Jb5sGJOrOI1a/GtAPkODUpEuoM=;
+        b=h/ICyHcGMWHc24f+MituXdi7xwjGLeaO5ixga8lv5LhPNuARERbus+LiCh9/WbcdnL
+         JpKYROxmeWOC8j8Zp/ry1ei1nFhKcJL5WcKf0jc13ynA/FsAIPy6mNFVlr+ll03o+F3c
+         plY7RF3Y0KY4BON5W+HhLYmbGYUOoSGkISKCNmd+zkN+qjo3gaGzS/K9PO6cWDxeK1U5
+         RXLE0qONQprr1Uocvf2/CgcFfMuTU9nQxbntCEKvKCYV4nT6gtWzDCzzXfUkoCEi8f9C
+         i3flnmKQ65DDmln2n60CaEYojKnRboVcOyUuh9UWceg2HHdZGaJ3IQHp/RwHIaD6D+Mj
+         AT+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794009586; x=1794614386;
+        h=mime-version:content-transfer-encoding:content-type:message-id
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yqLXf+mGS/hVPryb9Jb5sGJOrOI1a/GtAPkODUpEuoM=;
+        b=qHhUq/cF485JKiJxaPKF/Q/bpIMk0kVVyMEF1E6AWCygW8F37hC0G7MhW/fgPAmAWd
+         ooclT9f083IqrJuEaj1agfWFuAwRidtp8n+EWCOS8NCf6dlZvt/HjB88BhQJLBizruhH
+         LBx19JaGr36tTOu8T3dEtTLbxIFEL8QTxOFASUMxZc28AMQr/1BmiWwgdFATzT2B4O3D
+         iZOI6muyndTpyO1dDe3LtN1mdxn8E76uiLMZ4Q85N3U91sRtDk/WRH0fQNAJ+jef2PJ4
+         /HQdihbgEliAnWYVEQvEpoMgxeZ4wDoDismQEljzJeoyXULJRM3IU8uMX19lISkNJqps
+         0vsA==
+X-Forwarded-Encrypted: i=1; AL+hErGv3Bb9McQfjSsYLZ+MCSwnzfaneZnsaEy0CrpiVu/3sILnYHIB3bTZufdAys+4edrx3zK1sCrvPtIPF+Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+LUOjNN05TEq+jPu19aWnVeS0xlh0zLf/6pYRyqau2tWG1p4EK
+	TDcuWlk96zEwVNjcjYd7BouHHja8F1tvYnQqps55gOxNOSXZfB2GmKwk
+X-Gm-Gg: AYBFou2JJ4yNj9Dwi0CqrbdYHIB76NM3jrVEOdZmU+E8uq7SN2GyKO+2lWvIeukOGrY
+	GSyrRkJq9LNXoJWh/ZgG3PkUVWsZqe5IriGioOte68K1gZQOS0razfi3bblqbtyE1ViywPDotG9
+	XCqT3qMQAiCZqdCYlyQuoGtttrnrQaQ3ohE8CE3PFFxwTDynZz6QvZX391H56IdGCnqeDyCZDZC
+	dBmL6Aqx4zb81mMh5uvnzg4LydZJKoDCVzMyGRlJNJpwkgGqzHsLHhCUp4gKx2hZeYER5Dmg6EO
+	Y8r8k78H5PCk0fpRrXhUBIeUju2tqSR4rzW+M6hO4XJG/Zmzh1N1YgeiJyGttTPV3sqoN7z6uwI
+	FzeK6padRlguXx6lAd0XQYCQXyztmUA5nbGe0egmGBDpCQOUd7L0wuX/0iGvu6BEkaS3eB9OpiF
+	odN8g3Jg2bo1SRmA/0R16fZFA8hpvAyud2tl/U8MUhWXh099emDRfLd9EzDd8+2mJneuh7edeGM
+	2w2Xl1ROXggYKcid8UQSYwpffbapxtPNzeCglq5deBnw/crwBZ5
+X-Received: by 2002:a17:90b:5307:b0:3ab:24b2:9016 with SMTP id 98e67ed59e1d1-3b0db6c9e98mr4130726a91.25.1794009585770;
+        Fri, 06 Nov 2026 15:59:45 -0800 (PST)
+Received: from [127.0.1.1] ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm750767a91.10.2026.11.06.15.59.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 15:59:45 -0800 (PST)
+Date: Fri, 06 Nov 2026 15:59:45 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-arm-kernel@lists.infradead.org,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: Re: [PATCH 0/2] arm64: errata: Fix two Kconfig column entries
+In-Reply-To: <20261106235616.1533003-1-takano32@gmail.com>
+References: <20261106235616.1533003-1-takano32@gmail.com>
+Message-ID: <duplicate-notice-20261106-takano32@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,67 +100,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106072412.7909-1-kanchanapsridhar2026@gmail.com>
 
-On Thu, Nov 05, 2026 at 11:24:04PM -0800, Kanchana P. Sridhar wrote:
->  =============================================================================
->    usemem PMD THP BPFTRACE
->  =============================================================================
->            Baseline           zswap           zswap          Change    Change
->         mm-unstable           store        compress            with      with
->          10-25-2026        batching        batching        compress  compress
->                         (patch 6-7)       (patch 8)        batching  batching
->                                                                (ns)       %
->  =============================================================================
->   zswap_store_order0_folio (ns):
->  =============================================================================
->   p50        39,631          37,538          37,765          -1,866    -4.71% 
->   p95        53,088          49,690          49,349          -3,739    -7.04% 
->   p99        65,065          63,529          57,404          -7,661   -11.77%
->  =============================================================================
->   zswap_store_higher_order_folio (ns):
->  =============================================================================
->   p50    21,460,366      21,201,411      20,383,233      -1,077,133    -5.02%
->   p95    25,975,341      27,558,253      25,045,350        -929,991    -3.58%
->   p99    29,538,493      61,926,648      27,184,835      -2,353,658    -7.97%
->  =============================================================================
->   zswap_single_compress_per_page (ns):
->  =============================================================================
->   p50        37,545          39,320          37,218            -327    -0.87%
->   p95        51,549          66,503          51,481             -68    -0.13%
->   p99        89,866         134,854          87,091          -2,775    -3.09%
->  =============================================================================
->   zswap_batch_compress_per_page (ns):            
->  =============================================================================
->   p50                                        40,493           2,948     7.85%
->   p95                                        56,944           5,395    10.47%
->   p99                                        76,242         -13,624   -15.16%
->  =============================================================================
+Please disregard this copy -- it is a duplicate of the series sent
+earlier as <20261106234541.1474324-1-takano32@gmail.com>.
 
-As with previous versions, I cannot reproduce these results. I tried
-with a QEMU VM on a Cascade Lake host. I saw marginal improvements with
-patch 6 and no significant gain with patches 7-8.
-
-I noticed that you omitted high-level metrics (e.g. throughput), I
-didn't see significant changes in throughput, and I also ran a kernel
-build and saw a small regression in some cases (probably with order-0
-folios) and no significant improvement otherwise. Even if latency for
-some functions does improve slightly, it doesn't matter if it doesn't
-show up on higher-level metrics.
-
-It could be the difference in setups, or the overhead of bpftrace hooks
-for zswap_compress() might affect measured zswap_store() latencies, as
-you will have fewer zswap_compress() calls with patch 8.
-
-As advised previously, I would trim down patch 6 to the bare minimum
-(without all the scaffolding and prep work for patches 7-8), and send it
-separately (with patch 5), and we can check if it's worth adding, I am
-still concerned it might be adding overhead for order-0 to be honest.
-
-I am questioning the benefit of batching here without HW batching, so
-far the results are more concerning than encouraging. I already spent
-too much time trying to reproduce the performance gains. Also, sending
-new versions without resolving discussions on previous ones is not
-really productive.
+Sorry for the noise.
