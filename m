@@ -1,108 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793984974;
-	b=TD7Tp4KqC5nlxq4M/XOCCcZw4rZWXQAyaln+KE0Pp9kAnhah4n8KIkaaz0VJHL62JIRQ
-	 eqtCg7IkNWBx62cJvKBx0l8/VxdmiAmAhI+2Ik+ILArbgwPl8NRbfDvxAFs1wAoIPDy7e
-	 dw+fRhGLLTYg4Bh+jettNfE9rvgaogNH+ldWbQ6V5xwBgBs16P7LhC3QVu/RE8HQKhNGo
-	 23UjU4L0pf/2bon47dJa0SzWPAK7rnYfdL5OY22IUbJFhwP79YVNSYEpAsoNvql+8QVsR
-	 csYKrG+4H2unZVy729GRfWzjiPoGQ3NEt9aecR8oyDxVcTGJfagXVhwST5VByyYlRQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984974;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=i2+/+EoKVyasCsZIhp90OK+iUCDesX8pG4oXsVc0iUs=;
-	b=gGcYGDxXNtkhaGhJ45GRLI0afw4zHpM8sTbXsCIVZubh32s7db+OMWn2WWmj0KujlayM
-	 6f+Y6cjGHDPuqnyrXikgE9+FUYMW+Sx/+JefL2LBGw0/PTVHs0nm6dkhbHF6c1a90nIRX
-	 258D2u9lHluAyv4Qho9kbTpn2WNW4sPdAARHz8wmU6cDwmsPkzjBUz/CBDZFS+myG3227
-	 IHu1FxmLrapg5hPO1RrJHQcaN0Al2W/SBwxYEYXHryJuQv4cGx5s3YN0H3n9eh19aZeYJ
-	 GkGikHLvbk50SWXOoqsGJ8iQK5tI3HKbJmREAcQk0q+Wq5RNJdKq9LcHnbUIhU0Sw7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CqmfJGzB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.51
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010051.outbound.protection.outlook.com [52.101.85.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793985023;
+	b=l8b2E5zx+6wJwz5JEdNkV//yT9NCO1PeYIZRmYnZou1DD6rHQxQ10KXxEBMkZu1FVV/P
+	 3YyVwss8QvTmHlefeZyv4Sz0QSdbBVFoKcxniYNuz+QQ8iPeNfTLpSxC3WL/dREGhooJw
+	 /SWpLn/ACIKQmBNoGt1z22QMM68s0Yhb8vkOq9oQc36toi8bD1mA8ZO0+HlUVtne6KzBI
+	 OZc51zhfcpDdUItRpya/0YUueTUoghf6Ehc7ndyUSE5UWlakrqeRRYWntnhEVhjfoI0LX
+	 tlYINW9IfJRGixa9zBN1rorICxRdW+6006ctcSwzsYoC+36Q+4hnhV7VY5f/9d+6EeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985023;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-Mailer;
+	bh=V9n1CV17mWoyinWHCGFvDxtvvBlrLNzZtRYoJJeVLOM=;
+	b=MCLJigVmiKnOV95e+O7GDBGFUc1rb0/cj4u3sZKZfRjLhO3x0ncfJ/6Msv/Xm2hi43wF
+	 ytfbRT1UAPAM+uIxXsYxy6Y4/U3dGSOKEFjvV9QPkiEDCKFc7gxCyGJnjvmrYhczQvk7B
+	 Mf7ew9fvs3Y9s09TLPd9C0ETCj/UwPW+nj345sXea+iYcOPsBiU9/rywk7efpCFXfOOXD
+	 7aVrcawOMPUr5ubwhSb67zJ0hWZz+iXrBXmUi8aLzOAyXuYLwDk2QPrIsabItlP7Jkpk8
+	 EyXfrHEQ/EPhn27+ZE+o6J9DSpE74djoyQLX1pqeUv2YdINQM7X4tpMM0qHgwhm8iqw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JmCY9+dU;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5648606A335;
-	Fri,  6 Nov 2026 17:09:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5648606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF730606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:10:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF730606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CqmfJGzB
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jmb4iT3YC1XUMbj06YFPue5JsQkRia/ddzCOBtiO5+tbAD2GNBLzIaoy2sw13JVUlfDk1zWTBknMzuFHJ8z5oSAxjlBLoEC7hhGjafKn3TaGKkJPXS8FloupcO/Ejg6fGkHzlpVTZGs5BxQMnahpP+MRSlyjCYZBbQoMz6S860me8Q/Ab4Kmv0Mnx89yRtDcaMQzEb1sw9yOA17MTsQRwJ0KISXOSSF0neiYC89II+/tyyso+GVG6r71+oFkfF2jmJluEeROMm1PO+Bz/w9UGUq5nzIHIQaV2S/9nKfxvN3oI1GYDa99WK130G6FoHiVpoxXZ8r184Xw25B5BpP7GQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i2+/+EoKVyasCsZIhp90OK+iUCDesX8pG4oXsVc0iUs=;
- b=EuG+9RVS3FWgsPd/2+ATnEKm8QrGnbl5uzlgOxIG3nI4chWyJ8RofUUYDUOiWy13qTuIBp3gIiWRRSFFMMilqbY7tGbG75Af+HiW3+44MEJ0faMzOfBMGTgPSYgjuVVbzLt/Zd1C4PN6d/lS/UQz0igfmsZSUvzQ9RQdU4wISM1cTrsGUh6tHnaf3mTCar4V+7zaWd9GQ0KoTQsLlfa6Hf5rAxreYKIcqhhUdXdMEMEjnss7sf70nHgH7UTeNQY2IzKXrjxdVY/vjwtifWcwcYn/+u+n2Dd4NdpiH5XMVzgnfLe+rMqavcJMDyc6q2ADIpsR519tcV/VMqkEtyXimA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i2+/+EoKVyasCsZIhp90OK+iUCDesX8pG4oXsVc0iUs=;
- b=CqmfJGzBaBfdqFTkfnT/exbEdEtnsM4pkIIJmK8IiSrDhPntPnNMVGdDqwftrq3DbSaaaH53sL4A1dwufOYaNm3XSsBRzCKz0B913ad0Q9N8jATWB2tAg4hsSU56sWoG5fixqhrSzwAUGs8ScFukZ0p7IdK2517d8b0l5ZwG7LU=
-Received: from BN9PR03CA0713.namprd03.prod.outlook.com (2603:10b6:408:ef::28)
- by SJ2PR12MB9237.namprd12.prod.outlook.com (2603:10b6:a03:554::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 17:09:29 +0000
-Received: from BN3PEPF00022BC1.namprd04.prod.outlook.com
- (2603:10b6:408:ef:cafe::69) by BN9PR03CA0713.outlook.office365.com
- (2603:10b6:408:ef::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 17:09:24 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF00022BC1.mail.protection.outlook.com (10.167.248.120) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 17:09:24 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 11:09:23 -0600
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 6 Nov 2026 11:09:20 -0600
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<michal.simek@amd.com>, <deller@gmx.de>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <git@amd.com>, Radhey Shyam Pandey
-	<radhey.shyam.pandey@amd.com>
-Subject: [PATCH 2/2] dt-bindings: xilinx: Remove description for framebuffer IP
-Date: Fri, 6 Nov 2026 22:39:02 +0530
-Message-ID: <20261106170902.3656809-3-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.44.4
-In-Reply-To: <20261106170902.3656809-1-radhey.shyam.pandey@amd.com>
-References: <20261106170902.3656809-1-radhey.shyam.pandey@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JmCY9+dU
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a214af2076so6265745e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:10:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793985021; x=1794589821; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V9n1CV17mWoyinWHCGFvDxtvvBlrLNzZtRYoJJeVLOM=;
+        b=JmCY9+dUgxS5al2xR2i/XttbJnL8MfzEPMrncmnFAJnVL+gRl4itq+wpGv6Jzso3Yj
+         lsk9opNlfH1q6cogTLxcMOr/jZwaFd4QymTJydkFSRwHxhBqO5bObfC5so48hHssFmrq
+         sICMazWWuMHYi0vG8N6PXOEBpXAVQT9rLSS+ierixgnKOc2BfrhI3KS/yQhTLPPENp65
+         t4QE/4ntdP5IOo0BlYwugM8vilNwIsuvetXiqAeqJsnjdvK1Nk6hiXO3yzYG3Iy/6PeL
+         r1vVQNWfuH1vpSk1OE7ahsO4yut0wnGR1Np/teY+XPdds3Esv96rCGDLziZNRgq+sfZ3
+         SXmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793985021; x=1794589821;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V9n1CV17mWoyinWHCGFvDxtvvBlrLNzZtRYoJJeVLOM=;
+        b=uhtm0HYZHDYHudAZtTafElF0NsAYUmzkfV09V+SD3XZirL+lvwNfB/dRPKPFqQrqaF
+         CS7IZ9pn/+/UpulIXXxR3Ct1Zm0rw9dpaeH4OMiJKLXlg5aaXjhZLzutzDUVKyiSmRzi
+         k7IGgItoEWrSVxeK9BsSXiGrvPJf+vK6MzkJQBLKKrpoCSt7nOjJqY6xuZr9KKtGx6b+
+         S1YHk+AxOfXyqycRA4UAnUbeDgYhxqZA2TpKU3yLu8RCpihWXLChlLYdcRGlqP5PZaTN
+         jgYfWoQotoN+pKGtqYNCstN4crUVirfRj59nJWMOGPF+fORQJL21FfjU4jWEwx2RSZTL
+         F6VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw/H86ddgk+bzXN3lIVQ9XklCwcp9RTPvovpOMVZhKfOSBkFKgyueg2mdz//1db8WVROGFy21Kc8hi3I98=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LM+t3UsIrXtElxzj34smsXBKOUt+FB2sNYptrooc9cJpm5pgB
+	vgmhNNlyzulvfh+1k59epEkBTI+2+rpZRNWtmMFfwI9z4L6/yqVhK+Lj
+X-Gm-Gg: AYBFou2XuRFnKhd1aBcds705J+QUviTfL5RVyjYUtSJe13UvRD0GR/mEVfmiILMldGq
+	RJWcoG81nelYzFnr2p16qIW2NuPsAS7+PgEabjxZrGMILfs+Rj88NUqnj+4BuMkLaTp9KPBFSlD
+	RVU1z1Xg6so61Vck1awuiYU8wfzWiu7/2Xvzt1canQ4mx+6lar3hY11OadGNIINKN+sP513oWAB
+	1+e+N23xkjS3LnaPgJuNw3f3qRQqwGK22gwvHJl0HSrVuKNhfMNQjruCFVsKaTmSeoqN9bednex
+	C9dBzMAaQk2fyTust7vhs9nHGe06qWmmdx/bfG8xk3uGpeZiostmYE8+qTmsrOhca7ZAiytB3tD
+	i5PPz+r4W9dnhu9DFvRBkPrp+zmQl/d2tJZyvLsi726Yf7d6GGQh/fyIkT7ckVJHUMq1fvhrSLL
+	4inX5FKMO6macpTa64CYtUhk0va+SPHg29LceGdQ7w0ByESjXmvlZ91UiMVEF0lstJHQYbbXRHy
+	0Zm9QCMjIjTcj/3oBcLa8x/k7EOmWymShrfitbDUwYIWIOeeOaSNGaKqbkW174k1uV4sCleKbtx
+	Ox3ARBxwZSO789s5rPo87QiJYwJN08rm
+X-Received: by 2002:a05:600c:64c5:b0:4b0:a7aa:843 with SMTP id 5b1f17b1804b1-4b6df4f1dfdmr55413875e9.25.1793985021160;
+        Fri, 06 Nov 2026 09:10:21 -0800 (PST)
+Received: from localhost ([82.77.126.113])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57317cae5sm238886225e9.12.2026.11.06.09.10.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 09:10:20 -0800 (PST)
+Date: Fri, 6 Nov 2026 19:10:19 +0200
+From: Daniel Matyas <matyasdaniel006@gmail.com>
+To: Nam Cao <namcao@linutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-staging@lists.linux.dev,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alex Lanzano <lanzano.alex@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [RFC] staging: fbtft: Moving fb_ili9341 (and others) to DRM
+Message-ID: <au4J-0GOUuueHLZe@rabbit>
+References: <20261105201154.37294-2-matyasdaniel006@gmail.com>
+ <874idv2bol.fsf@yellow.woof>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,70 +109,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC1:EE_|SJ2PR12MB9237:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e1e14c2-1d9f-406a-6527-08df3c28b4fc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|11063799006|56012099006|261022075727099003|261021123027099003|261021121427099003|261009223027099003|261102123227099003|261026121527099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	tZlYDO6gQnjw0lZfuK7ub/G42HZhufZOHu7qS3waR7UYrqJ63U/VgIXhTI0MmwGCoNlxs4ku7ijm7wSWfHNaBIpu21SQAHBGFoUsbZRS7/RORv8uo4JJlaLAqcNnwEQZM/pAruDByKabAZrdSotGvRfoS9iGCT4Mrvx28hrnpGBGbyMC2cp6ntGWe7z8UUskOz+3XEOIcSDMZjK1ChUzoByfHWiX2aGw85VDHYtSLbW+TQl/9zIV4pObM6XSkmgR5ZVHaCGlQWJjY0Aa+l6o3/W/2onaxQny7M8M1F92I1KLySS+FYfX1cZzhLKVlAK6F1ufLehj5sC498gSNvJLNi9QM/fjI8jqUGhEaJvvd47GsvSzzI83lOkzLepkX0mPXl59Cy30r7NKmhadEZoVqj4g2Ik6rrjpFqgNscjeWgWnXvH3gORUO2PXgF4g5zWjxRvHvCXaY1T+Ibgn3m1Whdvsv3SlZMhyQkPs4wXX9WqU9x9FBhEua6MOl4f7ChyME2JhwnG8FpLy7JC9YbDZYvjNw4s3KtVMv6SCaiu2fUr8u72sUwy/UGhOj/7BJERwDNSsJWwdEKwOMkgr7MhaPzJR+PLWnPGSh12EGUNzsl5A6FHAokqWGfptK5LHgNMWQUVd9qCh4SrMVGBoS66Nbk8hSYEvZy828qK/u6gImnCzQSApPJh59cuOJgOFnyIQSO8DjUn4X9G6oeD6ADBN7Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(11063799006)(56012099006)(261022075727099003)(261021123027099003)(261021121427099003)(261009223027099003)(261102123227099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	qeO+OL5SwS2nSpYvs8ea3ufr4UwjdO0os9w9rNe2ZO5x4auGtLYZ8pCLZLKBRC2FmNK1Y3FPHZ3+YXb63M6Dh4veksfqRKujIGfRUZcj4lj1W5rYj3F00EQAGHgi3uxWDGDhykCCuNhtb93TGc2R+M4MlIkmVPtwdwHd6hAWn9qHc0Lt3ST0wwKImdeyJuP6eIPpR5IScVQD+AsWFOXGja2OzzXV7Pwoe3PESUrXNvNReTEZVNxAKfLyzXBmYOERxzGTttnwJELK4TeFPCcuXKbeFH3OM8HBmugikGctKRNyGO9x1P28+lu4WNSLtCosSIgn1wLoV3UPc+DGPBHIM/AuRhmDRGv4fTw9NG1KDiCskx6rnp+AUgUoM7UvcL5QyP+5Gfo0d5gtlffdBZY5XmQ2DH8wDP44B/YE/ZfCIa9JP+yBzTt1O8Vy6cW7e27Z
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 17:09:24.2310
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e1e14c2-1d9f-406a-6527-08df3c28b4fc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC1.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9237
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <874idv2bol.fsf@yellow.woof>
+X-Mailer: mutt
 
-The Xilinx framebuffer IP relies on Xilinx Platform Studio and the ISE
-Design Suite, both of which were discontinued years ago.
+On Thu, Nov 05, 2026 at 10:47:06PM +0100, Nam Cao wrote:
+> Daniel Matyas <matyasdaniel006@gmail.com> writes:
+> > Questions:
+> >  a) Is removing fb_ili9341 acceptable, pointing users of other ILI9341
+> >     modules to panel-mipi-dbi? The KD233 node would then have no driver.
+> >  b) Or should KD233 panel support go into a DRM driver first? I don't have
+> >     its init sequence or physical size, or the board...
+> >  c) Is removal of all of fbtft already planned?
+> >  d) Several other fbtft drivers have drm counterparts. Should I inspect those
+> >  to see if removal is needed?
+> 
+> IIRC the main reason fbtft needs to stay is because it supports parallel
+> interface which is missing in the DRM drivers.
+> 
+> Nam
 
-Driver support for the controller is removed by the preceding patch. Keep
-the bindings in sync by removing the corresponding Xilinx framebuffer
-description.
+Thank you for clarifying. However, the fb_ili9341 driver uses only the
+SPI interface. Is it alright then to move (or remove) those drivers that only use
+SPI interface and have DRM counterparts?
 
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
----
- Documentation/devicetree/bindings/xilinx.txt | 13 -------------
- 1 file changed, 13 deletions(-)
+Furthermore, would there be a need to enable parallel interface support
+in the DRM subsystem?
 
-diff --git a/Documentation/devicetree/bindings/xilinx.txt b/Documentation/devicetree/bindings/xilinx.txt
-index a1a2cde7b7d8..935700073216 100644
---- a/Documentation/devicetree/bindings/xilinx.txt
-+++ b/Documentation/devicetree/bindings/xilinx.txt
-@@ -1,18 +1,5 @@
-    Bindings for specific devices:
- 
--      i) Xilinx ML300 Framebuffer
--
--      Simple framebuffer device from the ML300 reference design (also on the
--      ML403 reference design as well as others).
--
--      Optional properties:
--       - resolution = <xres yres> : pixel resolution of framebuffer.  Some
--                                    implementations use a different resolution.
--                                    Default is <d#640 d#480>
--       - virt-resolution = <xvirt yvirt> : Size of framebuffer in memory.
--                                           Default is <d#1024 d#480>.
--       - rotate-display (empty) : rotate display 180 degrees.
--
-       v) Xilinx hwicap
- 
- 		Xilinx hwicap devices provide access to the configuration logic
--- 
-2.44.4
-
+Daniel M
