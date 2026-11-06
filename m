@@ -1,115 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966931;
-	b=mPWeOf+3kuRwhDklCW2tSAoTOCXywxJ02xysydhBUHbjXL5Zkzc3TUNOb+80E34UKk4h
-	 ecEGOHGaicBE1IYmfy4t6bocmkJZECRoq2MeTqSTo+C3zpDxNl8AaEp/4yAjlPW9w6NiR
-	 qYhYioO4RHCE7oFGTAa+WJg3L2aaWgFDYUVvcHvPFLVs0VO3EDSuoPMQgb+LRn3U5YqHl
-	 BOFq9iReY9gFeakMyO5FgFixYrLc68jwCdstX13noi1szYbVAr2XfBhdjiQ43lwNF2ySx
-	 +w6zjFzxyQvIDrd9HNCmb0eC+lXsUoti8csGU341JqfJS87YG6ArBECYmqxVHaHeKiQ==
+	t=1793966928;
+	b=GQ5BQGZ6bsJ56WcGAqSkiuW37rSQBfw4owspAjtuofzTbtw2wfaZ9k2UuX+4lbgKdy2o
+	 d1OeaRzB5Gp4AlyyN0sQNoAX2LN1s3Nv2DBeuVt2/+76xRdJAMRUWAe3lbuqh60HiI/ww
+	 cnxGC2w1WVb65D1/HHK2fnPWu3hzEs13D+p0nZUfj682FtAn8szRAY/aldzdWWh4tXsli
+	 Jjiw3qO5LuQrSRWfZW1yTKjy+Riv91oz3waZKD/JGAb2j9GxJaAKdi7+TGiDW29hgE7B2
+	 wMAEwCgCVe8NGx2xe1sKH+higvZNh8487nHmSpRfOQCJ+sM91dqulfdmsUJSkdzOvlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966931;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966928;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=W54/xbpGmZGa8KjiOUi1NHwwL0wDet2bTgr3FtF8FU8=;
-	b=5qd1NhSt6eTeJBtDdU2VLsw9mwGDrN1fqXwU3wvYRlB2AvAcTdZcCK9yjSZElrcn5vk4
-	 9TVN00z5a2F+4B95g0bqufAjHOkJs2jhqrVbLz0bozt6fdJNy7TjumViUecNxBcdGNUmj
-	 0qhD2jj5tJmd+EQOZV9UZjcHuvNSceMsHFfZS2odUF7VFN3Z8Xijg8vyErNnzilFsnRCn
-	 rFxN4oY93JS5tj4ceVrtJRNXbEoONU1UfLPW2p4shQzP+eq3OE99zbLnB5T9xuW6f2fC1
-	 RqSumwSF1ttsSRbDNz0dn9ZTgXRMr/8qNykaMY5XxSNggR1K6TUOuB4iRcmYmNJls8w==
+	bh=Lj4E18LF4xQ/yopc+o/wssobAmJgqPGBrk2/TmRnx+E=;
+	b=xBP2St4GUaS9FyryqPMafbeLQcyo1djD9Q6Uazr6BlcQcEJg74ath+T37drdpA2LK7vT
+	 D9YZB74bj0jFGIzFJIg8Qtq+q0uO7fKfXKK0t4za5Dj5p7C7Iwn/PL+8wwA9hNFVSKlyP
+	 8AXodCyjrkNFRwArGcMsQuK6E48hUAyJt34Bzbu2yIy8/BhWelA60xsoFxr6glcyupkpO
+	 pLAmX4KrJE++2yopXr9aasjEo3YTGaJREUl9Cxd/i1A9LqLuWR7L8wtwwnuIvtc4OCdve
+	 kMiD74PnRjH1TkUeSAAOC2M93oQ048SxRV0NLLPSGKs87+12fxXgDx1iTFBPvbcc/wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=polyxeno.com;
-	spf=pass smtp.mailfrom=polyxeno.com;
-	dkim=pass header.d=polyxeno.com header.i=@polyxeno.com header.a=rsa-sha256 header.s=fm3 header.b=Gw3R3hvo;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="ka86i1/v";
-	arc=none smtp.remote-ip=202.12.124.147
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="c31/rCLa";
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D9E606D81B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:08:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D9E606D81B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=polyxeno.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=polyxeno.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4A7606D818;
+	Fri,  6 Nov 2026 12:08:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D4A7606D818
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=polyxeno.com header.i=@polyxeno.com header.a=rsa-sha256 header.s=fm3 header.b=Gw3R3hvo;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ka86i1/v
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id 3EFD31D00135
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:08:50 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Fri, 06 Nov 2026 07:08:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=polyxeno.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1793966928;
-	 x=1794053328; bh=W54/xbpGmZGa8KjiOUi1NHwwL0wDet2bTgr3FtF8FU8=; b=
-	Gw3R3hvoDNctLuLtzfjmKNpSlMWoMQADqk5r4tZ+Ao9d0t+NfoGsS0JACpwRtl/M
-	dDLG9YMzuMuy1vZ9CRP2yk7yb4qGpPTuv5sx1jSuXhSRuz87x0runTKnCHGUSr5m
-	qUOwHW9d42v4yf8E3Bs7vFoh4Wci5uw4Yj2+udXr3aCydUJBBwXmd983Fqo7jmuF
-	uWKtbDV+U0ovUQTfPSWmRAADKn1dXJSm/snnuASAAiOIgaQuvXJ1w+Qm7HNqnwm6
-	h7x3VErBLyJV73zuFL5uGcMo55vFRIHqaAsESS23ugFhbpl9YPES9AkBwlrxUp4k
-	dUd/y7ZU+O97dgt5bd61pg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793966928; x=
-	1794053328; bh=W54/xbpGmZGa8KjiOUi1NHwwL0wDet2bTgr3FtF8FU8=; b=k
-	a86i1/vCxXzYkZGHAPAWrG+6K/zC49Q8NvdnU6aeVr0VdGaZ6KQJjOUkAJ/zXX/z
-	h2kqS5cYKzKu9dqkWWTWIcDIDuiMVwc1el3a4KljCYpY60s7F6Rkti4f/f/KRhTI
-	bOMxu+tMfXnRrcsPc3CTM7Cev4AH9XB0fQrv1eJJh7hGXQfe8YGccIowtA/LuspO
-	r3EWZ9Uk/KgDPRoJUTWfA3l+dxK/2cIoER+WN9ScTPdxH5zPlNA5jmdMu6c+idDJ
-	Io3//iRR22ODbPn26NM1QP5BCBIl9xEIe5zZ1CV5pIWDWf1oRUTcwGxw7ppmzQmh
-	cFLSV/j8/3Zk2cHAZZDAg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=polyxeno.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793966928; d=polyxeno.com;
-	mf=PGdlcmdAcG9seXhlbm8uY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:EzM3SIsp/mvhnSHPYS6i57MeWwNzMjk1/8btvDW8AWrbEzi
-	uTk+b/5MORbCmx71ZnQD9EPXp308y6a9E4gNG0UCVbmTJkzWUM50lOXBrXDWZRIz
-	6pO+hhs4g7UfH94l2Wd8W8iww6KAQP+jfQi3mmxmBubONcxN4KLvdmOeCLoD1eSX
-	aaYInRd4aqav8MPo6EnQyrvFRiR5zEw0hXYKS5xzCnYz/6l/sWoRwxinHieSJqTO
-	I/XqL6fqwyZZEjFA9JPOunEI287nkuCZLjyMgkfwnw5XmMoT2uyVdxVANV9Qu37N
-	w5P08ctS1/6XCQvWKalQ+PvRGLP0pHbeC/Kb+0w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:dqwlH5JiDOQVwm/0IH6ceSO+Axogg74CqwsRlelotDo=:0ychIidybPUlrdythwfHQK4JLYQJUfYjrKVosDQ6wSA=;
-X-ME-Sender: <xms:T8PtaloJzIkEMdv3yJvXLjvtBr8pNLSL5G9O3w31O_gbX0E22OvUFA>
-    <xme:T8PtavOm0P1Olpy_8BLuGLpIyn0ZNBvfMAqNJut4_NfdzB31BdC-7WjJ-boGKT1n2
-    TMMwRk5RaGSxEANhth6NjGLR2R3if_7j7cXH7L5WYAzFaaN9XbBndhw>
-X-ME-Received: <xmr:T8Ptah1yhEQjmOuQK7S9k7msJXgLQLg2UyHMga0Z2r1IBgoqqc7nFYUEaAMrta7zssy3QA>
-X-ME-Proxy-Cause: dmFkZTFKgXbpKYmlPU9EkHfb52mvEGbcM3NmrqZDY3l74hBhbOb3a1PMZPdApMLRP4RuVf
-    muLoFz8RdaqBUIjCA0h78xmpQBjLgZcmucDAI/I0MBr48zab5K+5wbaMxjuv53h76Nzhnp
-    HyrMtPJg2Z7nFbf1IMb6l0NsYq9dDKgA84Obb4qN2KPrDwXKxsb3dbH97+/mcE/SN8wgp0
-    UbZboCxUsj1Vy1ScAHJX720ZOtKl2S0/8XMlp+gSnGBzHWIyCsMUig3OgqpB9Cux+qFY23
-    NyKrZEZF5cxgBWBjgkI7qJcVdsLxldE/es4CBx/azUQebaxVocolUqrJonM4NX5exqZWZS
-    Z9W4cnQ2AtUXEoYQ3DNHsayibHp9X/87lB6c14torZecRqRpvqIAox3Q9ITlno8Zs1sZFH
-    BkMBSz0FLvuGGFwR3Hte6CcL8xfeNma6jnZfxzFkzBaerbC3dlNvmHLGqp6ZnWVpMf5eIq
-    HNC8/YQ7qKnf8CcFO67F13xfWddc7LXvNNojQUbN0avgnXdLTvM/TIXPlCpldcKOVCJIzT
-    joKc87HHU7+AYbQHrNNYpNTvdID9d0qVtAmgnExP4KG2U3m+h0zHQQ79Ln3+/jp3quW2Yj
-    3xIjI5u0HPt9LoMrrEbUCjr/oD7bRjEO3ajiaCWQ/ON0Lp7FmmeyxZc2zdjw
-X-ME-Proxy: <xmx:T8PtatoDWjdw6hYH-ql792Ark4utskpVmDjxlNc_JoR-0c-m17Na1g>
-    <xmx:T8PtarcHEx4Uyks1HVAZPyUDIni8sdX4MU-2vLWu0RPnw9Tff4kWiQ>
-    <xmx:T8PtavvwQpU3eNB_gTni-hcLssEbUNwJupHKYnobY8ORupu8qkUeSA>
-    <xmx:T8PtarU4YvmqwDVoXxxZjMWFGQQc5VhkHo-SnJDWsMrkJeWrSVlVMw>
-    <xmx:UMPtasUSd-Nz9RBUclqJ1OaT1EYV2_2nC_m84szWf2V5OONLLByENJ1z>
-Feedback-ID: i09fe4b60:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 07:08:42 -0500 (EST)
-Message-ID: <e6ed4165-03fd-4204-b25a-bafc37c3930c@polyxeno.com>
-Date: Fri, 6 Nov 2026 22:08:40 +1000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c31/rCLa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793966928; x=1825502928;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=ZbSVn+oSYkonO1FKuiMFkQ2Jkh9I6bmwcn7NMTdEBLw=;
+  b=c31/rCLaVab5KpgO1NS01YnEmnEG0a7cgpr82w/dGMnB3+3TlTvQutF8
+   /k+8VtUBAKGI9pG3J+qj3AZIz8vpgfc1YTJlMQZQQ6q/nKGqlrSZNwNAy
+   gyvufeOWkjWXG83iXlMX/TRnrPbql/7QWhU/aNYeaTe9bWJtZSU8ugYzn
+   WtmycIQpEGXIfsjx1VG1QoVdNh03cY9UlDD6xabyJscvHJlg0Gboc7ltS
+   brUAReny7jAHoqGbc9yu1bmAOIXbBKQqaXVyvO72hRVAIDzXAH83VKG+6
+   4ClUSb/Xcx0IV3y+Lxqz3PVIDKy+p1330pS0BBvEBFf2b5qwNX1owDW3U
+   A==;
+X-CSE-ConnectionGUID: +nEW6+59TKmE1eGFmb13mg==
+X-CSE-MsgGUID: a4w6qJiCRkSn0M1Lhf030A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2655369"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2655369"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 04:08:48 -0800
+X-CSE-ConnectionGUID: g9GX5v4wSjWVfcGZtmyaYg==
+X-CSE-MsgGUID: rkGFSbx7Q8+Lk5h+5eq5Fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7146624"
+Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
+  by orviesa004.jf.intel.com with ESMTP; 06 Nov 2026 04:08:46 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: linux-sound@vger.kernel.org
+Cc: broonie@kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz,
+	amade@asmblr.net,
+	linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.dev,
+	yung-chuan.liao@linux.intel.com,
+	vkoul@kernel.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: [PATCH v3 3/7] soundwire: intel: Split PDIs and DAIs initialization
+Date: Fri,  6 Nov 2026 13:15:53 +0100
+Message-Id: <20261106121557.2338556-4-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106121557.2338556-1-cezary.rojewski@intel.com>
+References: <20261106121557.2338556-1-cezary.rojewski@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,323 +87,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] mm/memory: use pmdp_get_lockless() for the pmd read in
- do_fault_around()
-To: Hui Zhu <hui.zhu@linux.dev>, "David Hildenbrand (Arm)"
- <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Geert Uytterhoeven <geert@linux-m68k.org>, Sam Creasey <sammy@sammy.net>
-Cc: Hui Zhu <zhuhui@kylinos.cn>, stable+noautosel@kernel.org,
- linux-m68k@lists.linux-m68k.org
-References: <20261104091050.117076-1-hui.zhu@linux.dev>
- <dec26f4a-138a-4cd7-b000-4bda7c61af82@kernel.org>
- <88a6bf17-2189-44a8-8255-50b7ee1d80f2@linux.dev>
-Content-Language: en-US
-From: Greg Ungerer <gerg@polyxeno.com>
-In-Reply-To: <88a6bf17-2189-44a8-8255-50b7ee1d80f2@linux.dev>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Not every client of the soundwire-driver needs the secondary
+soc-component and full range of DAIs immediately when initializing the
+device. As function intel_register_dai() does all of that on top of
+initializing PDIs, split it into two logical blocks to accommodate for
+both approaches. In consequence, register_dai() callback becomes
+optional.
 
-Hi Hui,
+To keep things in status quo for existing users, update
+intel_link_startup() to call sdw_intel_init_pdis().
 
-On 6/11/26 13:03, Hui Zhu wrote:
-> 2026/11/5 20:00, David Hildenbrand (Arm) :
->> On 11/4/26 10:10, Hui Zhu wrote:
->>> From: Hui Zhu <zhuhui@kylinos.cn>
->>>
->>> KCSAN reports a data-race in do_read_fault / pmd_install; the same code
->>> is in mainline:
->>>
->>>    write (marked) to 0xffff8d52a75fb810 of 8 bytes by task 27487 on cpu 5:
->>>     native_set_pmd arch/x86/include/asm/pgtable_64.h:83 [inline]
->>>     pmd_populate arch/x86/include/asm/pgalloc.h:84 [inline]
->>>     pmd_install+0xe0/0x120 mm/memory.c:444
->>>     finish_fault+0x5bc/0xb00 mm/memory.c:5204
->>>     do_cow_fault mm/memory.c:5432 [inline]
->>>     do_fault+0x5d0/0x6e0 mm/memory.c:5526
->>>     handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
->>>     __mm_populate+0x144/0x270 mm/gup.c:2207
->>>     __do_sys_mlockall+0x2cd/0x380 mm/mlock.c:764
->>>
->>>    read to 0xffff8d52a75fb810 of 8 bytes by task 27527 on cpu 9:
->>>     do_fault_around mm/memory.c:5341 [inline]
->>>     do_read_fault+0x162/0x670 mm/memory.c:5381
->>>     do_fault+0x31a/0x6e0 mm/memory.c:5524
->>>     handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
->>>     faultin_page_range+0x227/0x530 mm/gup.c:2156
->>>     __x64_sys_madvise+0x67/0x80 mm/madvise.c:1479
->>>
->>>    value changed: 0x0000000000000000 -> 0x000000001386c067
->>>
->>> Both paths only hold mmap_lock for read, so do_fault_around() tests
->>> vmf->pmd while pmd_install() populates it under the pmd lock.  The race is
->>> benign: a stale pmd_none() only wastes the prealloc_pte, which do_fault()
->>> frees again, and a pmd seen as populated only makes ->map_pages() find no
->>> PTE and do_read_fault() fall back to __do_fault().
->>>
->>> The load still has to be lockless-safe.  The store side already is: on
->>> i386-PAE, pmd_install() publishes both halves of the pmd with a single
->>> cmpxchg8b.  The load side is not.  pmdp_get() is a plain READ_ONCE() over
->>> a pmd_t that is wider than a word there, so it becomes two 32-bit loads
->>> and can return the low half of one pmd together with the high half of
->>> another.  Use pmdp_get_lockless(), the accessor for pmd reads that do not
->>> hold the pmd lock: it re-reads until both halves come from the same pmd.
->>> It is also what __pte_offset_map() already uses on this very pmd a few
->>> instructions later.
->>>
->>> Only X86_32+X86_PAE and SH+X2TLB compile the retry loop, these being the
->>> GUP_GET_PXX_LOW_HIGH selectors that have more than two page table levels.
->>> mips32 with 64-bit physical addresses selects GUP_GET_PXX_LOW_HIGH too,
->>> but is 2-level and so falls back to pmdp_get().  On every other
->>> configuration, x86-64 included, pmdp_get_lockless() is pmdp_get(): the
->>> pmd is loaded in one go, the READ_ONCE() silences the report the same
->>> way, and there is no functional change.
->>>
->>> Fixes: 7267ec008b5c ("mm: postpone page table allocation until we have page to map")
->>> Cc: stable+noautosel@kernel.org # KCSAN annotation only, no functional change
->>> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
->>> Acked-by: Lorenzo Stoakes <ljs@kernel.org>
->>> ---
->>> Changelog:
->>> v4:
->>> Commit message only, the diff is identical to v3.  Spell out the affected
->>> arches and add the lore links for v1-v3 (Lorenzo Stoakes).  Reword the
->>> cmpxchg8b sentence: the store is already atomic, it is the load that tears.
->>> Add the Fixes: tag (David Hildenbrand).
->>> v3:
->>> https://lore.kernel.org/all/20261103014749.96764-1-hui.zhu@linux.dev/
->>> Shorten the comment to one line (David Hildenbrand).
->>> v2:
->>> https://lore.kernel.org/all/20261102093120.92654-1-hui.zhu@linux.dev/
->>> Use pmdp_get_lockless() instead of pmdp_get() (David Hildenbrand).
->>> v1:
->>> https://lore.kernel.org/all/20261102031308.66177-1-hui.zhu@linux.dev/
->>>
->>>   mm/memory.c | 3 ++-
->>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/mm/memory.c b/mm/memory.c
->>> index 0fb676dd2bd63..f25c2ce0ef153 100644
->>> --- a/mm/memory.c
->>> +++ b/mm/memory.c
->>> @@ -6017,7 +6017,8 @@ static vm_fault_t do_fault_around(struct vm_fault *vmf)
->>>       to_pte = min3(from_pte + nr_pages, (pgoff_t)PTRS_PER_PTE,
->>>                 pte_off + vma_pages(vmf->vma) - vma_off) - 1;
->>>   -    if (pmd_none(*vmf->pmd)) {
->>> +    /* pmd_install() rechecks pmd_none() under the pmd lock. */
->>> +    if (pmd_none(pmdp_get_lockless(vmf->pmd))) {
->>>           vmf->prealloc_pte = pte_alloc_one(vmf->vma->vm_mm);
->>>           if (!vmf->prealloc_pte)
->>>               return VM_FAULT_OOM;
->> Fun, this breaks some odd m68k configs because they do some legacy weird stuff with pmd_none().
->>
->> I'll throw in the following cleanup. CCing m68k maintainers: I would drag
->> this along with this fix here unless you disagree.
->>
->>  From e3c739933a04743e3923f6f39a603e93f2700304 Mon Sep 17 00:00:00 2001
->> From: "David Hildenbrand (Arm)" <david@kernel.org>
->> Date: Thu, 5 Nov 2026 12:49:38 +0100
->> Subject: [PATCH] m68k/mm: simplify
->>   pmd_none()/pmd_val()/pmd_present()/pmd_bad()
->>
->> pmd_t on m68k used to contain 16 words. Commit ef22d8abd876 ("m68k:
->> mm: Restructure Motorola MMU page-table layout") reduced Motorola PMDs
->> to one word; Sun3 and ColdFire use word-sized folded PMDs.
->>
->> Use direct member access in pmd_val() and replace the Sun3 and ColdFire
->> pointer-taking predicate wrappers with inline functions taking values.
->>
->> This allows us to write something like:
->>
->>    if (pmd_none(pmdp_get(pmdp)))
->>
->> While at it remove unused pmd_present2() and commented-out pmd_bad()
->> on sun3.
->>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>   arch/m68k/include/asm/mcf_pgtable.h  | 20 +++++++++++++++-----
->>   arch/m68k/include/asm/page.h         |  2 +-
->>   arch/m68k/include/asm/sun3_pgtable.h | 23 +++++++++++++++--------
->>   3 files changed, 31 insertions(+), 14 deletions(-)
->>
->> diff --git a/arch/m68k/include/asm/mcf_pgtable.h b/arch/m68k/include/asm/mcf_pgtable.h
->> index f45a882238dbb..4efa8e3e1e98a 100644
->> --- a/arch/m68k/include/asm/mcf_pgtable.h
->> +++ b/arch/m68k/include/asm/mcf_pgtable.h
->> @@ -130,11 +130,21 @@ static inline void pte_clear(struct mm_struct *mm, unsigned long addr,
->>     #define pte_page(pte)    virt_to_page(__pte_page(pte))
->>   -static inline int pmd_none2(pmd_t *pmd) { return !pmd_val(*pmd); }
->> -#define pmd_none(pmd) pmd_none2(&(pmd))
->> -static inline int pmd_bad2(pmd_t *pmd) { return 0; }
->> -#define pmd_bad(pmd) pmd_bad2(&(pmd))
->> -#define pmd_present(pmd) (!pmd_none2(&(pmd)))
->> +static inline int pmd_none(pmd_t pmd)
->> +{
->> +    return !pmd_val(pmd);
->> +}
->> +
->> +static inline int pmd_bad(pmd_t pmd)
->> +{
->> +    return 0;
->> +}
->> +
->> +static inline int pmd_present(pmd_t pmd)
->> +{
->> +    return !pmd_none(pmd);
->> +}
->> +
->>   static inline void pmd_clear(pmd_t *pmdp) { pmd_val(*pmdp) = 0; }
->>     diff --git a/arch/m68k/include/asm/page.h b/arch/m68k/include/asm/page.h
->> index d30f8b2f15927..09a2c020ec992 100644
->> --- a/arch/m68k/include/asm/page.h
->> +++ b/arch/m68k/include/asm/page.h
->> @@ -17,7 +17,7 @@
->>    */
->>   #if !defined(CONFIG_MMU) || CONFIG_PGTABLE_LEVELS == 3
->>   typedef struct { unsigned long pmd; } pmd_t;
->> -#define pmd_val(x)    ((&x)->pmd)
->> +#define pmd_val(x)    ((x).pmd)
->>   #define __pmd(x)    ((pmd_t) { (x) } )
->>   #endif
->>   diff --git a/arch/m68k/include/asm/sun3_pgtable.h b/arch/m68k/include/asm/sun3_pgtable.h
->> index 704442a391fd7..5867d24032655 100644
->> --- a/arch/m68k/include/asm/sun3_pgtable.h
->> +++ b/arch/m68k/include/asm/sun3_pgtable.h
->> @@ -109,14 +109,21 @@ static inline void pte_clear (struct mm_struct *mm, unsigned long addr, pte_t *p
->>   #define pmd_page(pmd)        virt_to_page((void *)pmd_page_vaddr(pmd))
->>     -static inline int pmd_none2 (pmd_t *pmd) { return !pmd_val (*pmd); }
->> -#define pmd_none(pmd) pmd_none2(&(pmd))
->> -//static inline int pmd_bad (pmd_t pmd) { return (pmd_val (pmd) & SUN3_PMD_MASK) != SUN3_PMD_MAGIC; }
->> -static inline int pmd_bad2 (pmd_t *pmd) { return 0; }
->> -#define pmd_bad(pmd) pmd_bad2(&(pmd))
->> -static inline int pmd_present2 (pmd_t *pmd) { return pmd_val (*pmd) & SUN3_PMD_VALID; }
->> -/* #define pmd_present(pmd) pmd_present2(&(pmd)) */
->> -#define pmd_present(pmd) (!pmd_none2(&(pmd)))
->> +static inline int pmd_none(pmd_t pmd)
->> +{
->> +    return !pmd_val(pmd);
->> +}
->> +
->> +static inline int pmd_bad(pmd_t pmd)
->> +{
->> +    return 0;
->> +}
->> +
->> +static inline int pmd_present(pmd_t pmd)
->> +{
->> +    return !pmd_none(pmd);
->> +}
->> +
->>   static inline void pmd_clear (pmd_t *pmdp) { pmd_val (*pmdp) = 0; }
->>     /*
-> 
-> Hi David,
-> 
-> Thanks for picking this up, and for the m68k cleanup!
-> 
-> Tested-by: Hui Zhu <zhuhui@kylinos.cn>
-> 
-> Tested with gcc-m68k-linux-gnu 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04), on
-> three configs that between them cover all three m68k families:
-> 
->   amiga_defconfig                    Motorola MMU, PGTABLE_LEVELS=3
->   sun3_defconfig                     SUN3,  PGTABLE_LEVELS=2
->   m5208evb_defconfig + CONFIG_MMU=y  ColdFire,  PGTABLE_LEVELS=2
-> 
-> Without your patch none of the three can build mm/memory.o, and each fails
-> at a different site:
-> 
->   arch/m68k/include/asm/page.h:20:27: error: lvalue required as unary '&' operand
->   arch/m68k/include/asm/sun3_pgtable.h:113:33: error: lvalue required as unary '&' operand
->   arch/m68k/include/asm/mcf_pgtable.h:134:33: error: lvalue required as unary '&' operand
-> 
-> With it, all three build a full vmlinux with zero warnings.
-> 
-> Two things that might save you some time:
-> 
-> - m68k looks like the only arch with this pattern. Grepping arch/ and
->   include/ for '(&x)->pmd' and '(&(pmd))' finds nothing outside arch/m68k/,
->   and pmd_none2()/pmd_bad2()/pmd_present2() only exist in mcf_pgtable.h and
->   sun3_pgtable.h. So your three hunks look complete to me.
-> 
-> - No m52xx/m54xx defconfig enables CONFIG_MMU, so the ColdFire path through
->   mcf_pgtable.h has no defconfig coverage at all; you have to flip it on by
->   hand (scripts/config -e MMU && make olddefconfig) to reach it. That is
->   probably how this went unnoticed for so long - my patch has been breaking
->   m68k since v1, because pmdp_get() returns by value just like
->   pmdp_get_lockless() does.
+Cc: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+ drivers/soundwire/intel.c           | 25 ++++++++++++++++---------
+ drivers/soundwire/intel.h           |  9 ++++++++-
+ drivers/soundwire/intel_ace2x.c     | 25 ++++++++++++++++---------
+ drivers/soundwire/intel_auxdevice.c |  4 ++++
+ include/linux/soundwire/sdw_intel.h |  4 +++-
+ 5 files changed, 47 insertions(+), 20 deletions(-)
 
-The m5475evb_defconfig is supposed to have MMU enabled:
-
-     $ ARCH=m68k CROSS_COMPILE=m68k-linux-uclibc- make m5475evb_defconfig 
-       HOSTCC  scripts/basic/fixdep
-       [snip]
-       HOSTLD  scripts/kconfig/conf
-     #
-     # configuration written to .config
-     #
-     $
-     $ grep CONFIG_MMU .config
-     CONFIG_MMU=y
-     CONFIG_MMU_COLDFIRE=y
-     CONFIG_MMU_GATHER_NO_RANGE=y
-     CONFIG_MMU_GATHER_MERGE_VMAS=y
-     CONFIG_MMU_LAZY_TLB_REFCOUNT=y
-
-But something ends up disabling it when you compile.
-I'll fix this.
-
-
-> I also checked whether your patch changes code generation, by building the
-> same tree with and without it and comparing every object with objdump -d
-> (plain cmp is useless here, timestamps and link layout shift everything).
-> Counting only objects whose disassembly actually differs:
-> 
->   amiga      3733 objects, 0 changed
->   sun3       3553 objects, 3 changed: mm/memory.o, mm/pgtable-generic.o,
->                                       mm/vmalloc.o
->   m5208evb    716 objects, 1 changed: mm/pgtable-generic.o
-> 
-> amiga is the interesting one. It is the only config where pmd_val() itself
-> changed, and it comes out bit-for-bit identical, which also says the build
-> is reproducible enough for this comparison to mean anything. sun3 and
-> ColdFire differ because pmd_none() stops taking the address of its
-> argument, and the direction is an improvement. In mm/vmalloc.o on sun3 one
-> function loses a forced spill:
-> 
->   -  subql #4,%sp
->   -  movel %d0,%sp@(12)     /* spill the pmd value */
->   -  lea %sp@(12),%a1       /* &(pmd) */
->   -  moveal %a1@,%a0        /* read it back */
-> 
-> and turns into a 13 instruction function with no stack slot at all.
-> Instruction counts are otherwise flat (sun3 mm/memory.o 7373 -> 7373,
-> mm/vmalloc.o 5514 -> 5515), so it is not a size regression.
-> 
-> Dragging the cleanup along with the fix sounds right to me. It is a hard
-> prerequisite, and sent on its own it would just look like a cleanup with no
-> urgency. I assume it goes in ahead of 6ab55cfd in core-7.5.misc, so that
-> linux-next never sees a broken m68k in between.
-> 
-> One red herring in case anyone else pokes at this: m5208evb with its stock
-> defconfig (CONFIG_MMU not set) fails to build mm/memory.o for reasons that
-> have nothing to do with any of this - implicit declarations of
-> pte_is_uffd_wp_marker() and pmd_pgtable(), plus a parse error in
-> include/linux/mm.h. Pre-existing, and it goes away once MMU is on.
-
-You should not be able to set MMU=y if configured for the M5208.
-It doesn't have an MMU. You want the 5475, 5485 or 54418 to test
-valid MMU=y configurations.
-
-Regards
-Greg
-
-
-
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index 0baa032fb4e8..e18727695791 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -1023,23 +1023,29 @@ static int intel_create_dai(struct sdw_cdns *cdns,
+ 	return 0;
+ }
+ 
++static int intel_init_pdis(struct sdw_intel *sdw)
++{
++	struct sdw_cdns_stream_config config;
++	int ret;
++
++	/* Read the PDI config and initialize cadence PDI */
++	intel_pdi_init(sdw, &config);
++	ret = sdw_cdns_pdi_init(&sdw->cdns, config);
++	if (ret)
++		return ret;
++
++	intel_pdi_stream_ch_update(sdw, &sdw->cdns.pcm);
++	return 0;
++}
++
+ static int intel_register_dai(struct sdw_intel *sdw)
+ {
+ 	struct sdw_cdns_dai_runtime **dai_runtime_array;
+-	struct sdw_cdns_stream_config config;
+ 	struct sdw_cdns *cdns = &sdw->cdns;
+ 	struct sdw_cdns_streams *stream;
+ 	struct snd_soc_dai_driver *dais;
+ 	int num_dai, ret, off = 0;
+ 
+-	/* Read the PDI config and initialize cadence PDI */
+-	intel_pdi_init(sdw, &config);
+-	ret = sdw_cdns_pdi_init(cdns, config);
+-	if (ret)
+-		return ret;
+-
+-	intel_pdi_stream_ch_update(sdw, &sdw->cdns.pcm);
+-
+ 	/* DAIs are created based on total number of PDIs supported */
+ 	num_dai = cdns->pcm.num_pdi;
+ 
+@@ -1083,6 +1089,7 @@ const struct sdw_intel_hw_ops sdw_intel_cnl_hw_ops = {
+ 	.debugfs_init = intel_debugfs_init,
+ 	.debugfs_exit = intel_debugfs_exit,
+ 
++	.init_pdis = intel_init_pdis,
+ 	.register_dai = intel_register_dai,
+ 
+ 	.check_clock_stop = intel_check_clock_stop,
+diff --git a/drivers/soundwire/intel.h b/drivers/soundwire/intel.h
+index 7a2e7e73ad63..65f7d53a3d2b 100644
+--- a/drivers/soundwire/intel.h
++++ b/drivers/soundwire/intel.h
+@@ -154,11 +154,18 @@ static inline void sdw_intel_debugfs_exit(struct sdw_intel *sdw)
+ 		SDW_INTEL_OPS(sdw, debugfs_exit)(sdw);
+ }
+ 
++static inline int sdw_intel_init_pdis(struct sdw_intel *sdw)
++{
++	if (SDW_INTEL_CHECK_OPS(sdw, init_pdis))
++		return SDW_INTEL_OPS(sdw, init_pdis)(sdw);
++	return -ENOTSUPP;
++}
++
+ static inline int sdw_intel_register_dai(struct sdw_intel *sdw)
+ {
+ 	if (SDW_INTEL_CHECK_OPS(sdw, register_dai))
+ 		return SDW_INTEL_OPS(sdw, register_dai)(sdw);
+-	return -ENOTSUPP;
++	return 0;
+ }
+ 
+ static inline void sdw_intel_check_clock_stop(struct sdw_intel *sdw)
+diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
+index 642b33ab5526..67b5d54bb2a7 100644
+--- a/drivers/soundwire/intel_ace2x.c
++++ b/drivers/soundwire/intel_ace2x.c
+@@ -1058,10 +1058,24 @@ static int intel_create_dai(struct sdw_cdns *cdns,
+ 	return 0;
+ }
+ 
++static int intel_init_pdis(struct sdw_intel *sdw)
++{
++	struct sdw_cdns_stream_config config;
++	int ret;
++
++	/* Read the PDI config and initialize cadence PDI */
++	intel_pdi_init(sdw, &config);
++	ret = sdw_cdns_pdi_init(&sdw->cdns, config);
++	if (ret)
++		return ret;
++
++	intel_pdi_stream_ch_update(sdw, &sdw->cdns.pcm);
++	return 0;
++}
++
+ static int intel_register_dai(struct sdw_intel *sdw)
+ {
+ 	struct sdw_cdns_dai_runtime **dai_runtime_array;
+-	struct sdw_cdns_stream_config config;
+ 	struct sdw_cdns *cdns = &sdw->cdns;
+ 	struct sdw_cdns_streams *stream;
+ 	struct snd_soc_dai_driver *dais;
+@@ -1069,14 +1083,6 @@ static int intel_register_dai(struct sdw_intel *sdw)
+ 	int ret;
+ 	int off = 0;
+ 
+-	/* Read the PDI config and initialize cadence PDI */
+-	intel_pdi_init(sdw, &config);
+-	ret = sdw_cdns_pdi_init(cdns, config);
+-	if (ret)
+-		return ret;
+-
+-	intel_pdi_stream_ch_update(sdw, &sdw->cdns.pcm);
+-
+ 	/* DAIs are created based on total number of PDIs supported */
+ 	num_dai = cdns->pcm.num_pdi;
+ 
+@@ -1149,6 +1155,7 @@ const struct sdw_intel_hw_ops sdw_intel_lnl_hw_ops = {
+ 
+ 	.get_link_count = intel_get_link_count,
+ 
++	.init_pdis = intel_init_pdis,
+ 	.register_dai = intel_register_dai,
+ 
+ 	.check_clock_stop = intel_check_clock_stop,
+diff --git a/drivers/soundwire/intel_auxdevice.c b/drivers/soundwire/intel_auxdevice.c
+index 5983fbc5725a..9031c96f7e9d 100644
+--- a/drivers/soundwire/intel_auxdevice.c
++++ b/drivers/soundwire/intel_auxdevice.c
+@@ -423,6 +423,10 @@ int intel_link_startup(struct auxiliary_device *auxdev)
+ 	if (ret)
+ 		goto err_init;
+ 
++	ret = sdw_intel_init_pdis(sdw);
++	if (ret)
++		goto err_power_up;
++
+ 	/* Register DAIs */
+ 	ret = sdw_intel_register_dai(sdw);
+ 	if (ret) {
+diff --git a/include/linux/soundwire/sdw_intel.h b/include/linux/soundwire/sdw_intel.h
+index fbfb216bd90c..0efb05a25d12 100644
+--- a/include/linux/soundwire/sdw_intel.h
++++ b/include/linux/soundwire/sdw_intel.h
+@@ -433,7 +433,8 @@ struct sdw_intel;
+  * @debugfs_init: initialize all debugfs capabilities
+  * @debugfs_exit: close and cleanup debugfs capabilities
+  * @get_link_count: fetch link count from hardware registers
+- * @register_dai: read all PDI information and register DAIs
++ * @init_pdis: read all PDI information
++ * @register_dai: register DAIs
+  * @check_clock_stop: throw error message if clock is not stopped.
+  * @start_bus: normal start
+  * @start_bus_after_reset: start after reset
+@@ -459,6 +460,7 @@ struct sdw_intel_hw_ops {
+ 
+ 	int (*get_link_count)(struct sdw_intel *sdw);
+ 
++	int (*init_pdis)(struct sdw_intel *sdw);
+ 	int (*register_dai)(struct sdw_intel *sdw);
+ 
+ 	void (*check_clock_stop)(struct sdw_intel *sdw);
+-- 
+2.34.1
 
