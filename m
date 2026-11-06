@@ -1,68 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794003574;
-	b=aj8AG4MRViQYAFF22gT38EyePbNw80mtZbJkkFbsvabEzBZZ8XeWiEhuCp/82wVU+6vO
-	 OmU47tSfN8kPf83oY9U68nUgYmOYYsqsU+AtYkkp2Zo4uqLm+a3wU27SmXC8+NZRLRzf8
-	 8X7I75Nw2AQiK8SpK8Oo0CT+AxbhlmkAtRgSv3hEBH3IT3hFx6105tLO10X0lB2n2IexU
-	 ZIJBRbUprwy3FfpoMonUw5rVLNHuPfaXwnhtZD66oSBr8S1/bYMit6PIzGa601QxIJ5F0
-	 UpOv8gY4CnhE2vZ6OIwdJS8zaep8KQ3OBCteJbwep628TFhlzDZsF+Ibix4Nhbo6Hjg==
+	t=1794003607;
+	b=IeTaGqKb9lE4ccMioj3ArrLCWsJAcn3IliE22+QYcY5aoNBJ0H8UP2sBRGKHvC0DKQy4
+	 cE+aazQpnFhM5HK9GlobrP1+yRN0mtDiyRupGIFB8II0nNI8oaDoyQ2ryr6UD0hMT6gYq
+	 6AlQjxn3gMiBqkomI3uTMldDvcld6t87smbb1yTOf2B62hGeq2o4JE6VVOIr2LtQY4F0o
+	 4hmexQ6KWMugKfYq8h8pPG72tj/gbUVXT7mIZxpgQef9bp3SpUm4+jjhgZ9MsNE12K15v
+	 O+H0mCNzokVxUgCc8dLwDh9rOjQq8UgAlgfgCiM3utH94Xyim7vaMYnEjzQ9OVOiHHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794003574;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=1zCuzHohC5b/CUEfdv5fZDG/hMbseqishkj29tGgCF8=;
-	b=cDgQKNn9XPic/y64BYos227KGIS44xhZig4nD7ojyLmCgTbYl6ZRyytGksyK5/EhK2SO
-	 nbAyCLRoLo2PoBowV7ABVJQ/D6YFhE60VQx6G0/3MluiDj31EdB71UP7/ovIv8wGyGCKE
-	 3iGkXcMSNNmD/5PrhwehdseP21J6M6DF19RLH3HBV/S2tu/1q/PUMaiAEazX/jzOsRulO
-	 FtFxvX7bqhh6odh5HVfKpGqoJDybLhYQ5dXwodBnXYnF15513Xz3anJjngr2K+KaQq9+E
-	 Wc2VUXGlFjrRKtHKEl164UeLsbxw6e8rTzenghkH8B4ehJFxJ2biFB8br0dKRwpFZAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794003607;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=XF+1Knmn0XuRqRSB8aofDteqe8NFHgivVbWmlItkZ7Y=;
+	b=jjamebL8RIamoHON/B6CnvE14HDlCdn3mLIJbBtgF/N9eGKxYKvEKTWv4gMSarDJGtgX
+	 NEkeqLFUH1DeypM5edf2yuTyni8iIrUsJzBJkb1Z/UDgRdbskSvhrl1sJH/kirwjOCnzd
+	 cLF8BQjSeTAp0ejOtOlG0oRYgeG93WRUXXAyNnENeN9nVSfLLAmhfyX74xyMK/4NuaHgV
+	 LiotnIbxQU1BaBwb5zGKSOcLrIXmKZY6Nq48yMxCy5SX/FoXY0jxDJeUHTexoO0xMLb7C
+	 NvfM+AHSye21DsXNS9aVmhwZLptoB1i742yGi1YbjlpbUK6KSMgSECAO198FlVAhtmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZN0NZ9q+;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jXX0lI3i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476F0606A32C;
-	Fri,  6 Nov 2026 22:19:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 476F0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAC5606A326;
+	Fri,  6 Nov 2026 22:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZN0NZ9q+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794003572; x=1825539572;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=4VneRkBa1l3Igkh7ktlEK8Q22+2qdQIcynnaqMYNisM=;
-  b=ZN0NZ9q+br0Z4IhZI1F94knI2TdnsdK5vh04eoTn13ipKaQFjYo4ovHG
-   jg9l2Jzpp+CJp6Nl5h4qNJItbS9qkbeDtgEZCpUyZkwEObMlSgsVeMJuF
-   dgCYjwOW0UK/aAL/2fCojg2/WjNiop5jNmHVDBedIs/Odhg55txA7leCZ
-   qbCrnX0QkiSuq4NoEb7Y2ckIvW96xH1zwoHlK9RubwvfL6C7oUpv1Lf5i
-   u9o+S+wiJrnlNoI7LRoN5HZUn4wJV5USYVliCa/YJ9HSsNOq0TZyQUezP
-   NST0oGcVsHO2mvo79wrS+wo+hzDLOwtF6N50+bFYxVcqfw1zbB5aq61d4
-   A==;
-X-CSE-ConnectionGUID: lwsfTVMqSC6mK6N9T98FYw==
-X-CSE-MsgGUID: FeOV+6NxQg+kQcYId2P/bw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2710587"
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="2710587"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 14:19:32 -0800
-X-CSE-ConnectionGUID: mT3fDVW1Tj6CLhAFsJSIlw==
-X-CSE-MsgGUID: 15WtYQyzTEOPOgIp2m2xKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
-   d="scan'208";a="7820706"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 14:19:31 -0800
-Message-ID: <531bd088-dc5e-4b2e-953a-6d9d6f14b61e@intel.com>
-Date: Fri, 6 Nov 2026 16:19:30 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jXX0lI3i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89351F0089F;
+	Fri,  6 Nov 2026 22:20:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794003606;
+	bh=XF+1Knmn0XuRqRSB8aofDteqe8NFHgivVbWmlItkZ7Y=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=jXX0lI3igzd2P8zM8oiOqB6YZFPmdUtNMbKjPyBdyIA0w9ofOIbIcsI0nmKZSKCTE
+	 Gj7xOC/k2m6lQxjGUw2Ei4tmYsF7do+wt/f+bH8CNaEyy45yMazDPmGJAupFyMcors
+	 PAhYZR8aDLXfErfcNIjtRTMp4ziLYhHKCpMEMc4hkd5Cz3aH+Jh7M10t1SKSQRW8Xi
+	 uee4NBU6DyhtwPY/2jbKLkmIxBKKR04A8uMb5UCB8mmGalWxzR3M7xf6QtCmsvDjte
+	 nfN9cYmJFyfDhw1EJOoiMM/zaSnH9f19Ydz4lCzXy3s0usMpzgiNr5TtuFh3JhCGjQ
+	 Z4LV/ZIXhB9vg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B1E33A54A01;
+	Fri,  6 Nov 2026 22:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,132 +53,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-5-zide.chen@intel.com> <au4kyULjUYdqbfIq@google.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <au4kyULjUYdqbfIq@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] net/mlx4: drop the unused is_supported callback
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179400360543.903397.1123811450749688598.git-patchwork-notify@kernel.org>
+Date: Fri, 06 Nov 2026 22:20:05 +0000
+References: <20261103122109.1798144-1-pdmorrow@gmail.com>
+In-Reply-To: <20261103122109.1798144-1-pdmorrow@gmail.com>
+To: Peter Morrow <pdmorrow@gmail.com>
+Cc: tariqt@nvidia.com, horms@kernel.org, leon@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
 
+Hello:
 
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On 11/6/2026 1:09 PM, Yosry Ahmed wrote:
->> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
->> index b8875ed5502c..4f192429ed93 100644
->> --- a/arch/x86/include/asm/kvm_host.h
->> +++ b/arch/x86/include/asm/kvm_host.h
->> @@ -595,7 +595,10 @@ struct kvm_pmu {
->>  		DECLARE_BITMAP(reprogram_pmi, X86_PMC_IDX_MAX);
->>  		atomic64_t __reprogram_pmi;
->>  	};
->> -	DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
->> +	union {
->> +		DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
->> +		u64 pmc_exists64;
+On Tue,  3 Nov 2026 12:21:08 +0000 you wrote:
+> Since commit 557d80138618 ("net/mlx4: always create the eth and ib
+> auxiliary devices"), both is_supported callbacks return true, so the
+> checks in add_drivers() and delete_drivers() no longer decide
+> anything. Drop the callbacks and keep the aux device table as an array
+> of suffixes.
 > 
-> __pmc_exists would be more consistent with __reprogam_pmi above.
-
-I used the *64 suffix and without '__' to match the cntr_mask/cntr_mask64
-and fixed_cntr_mask/fixed_cntr_mask64 pattern in struct x86_pmu_capability
-(patch 7), whereas __reprogram_pmi used '__' because it is an atomic64_t
-rather than a scalar mask.
-
-Also, arch/x86/events/perf_event.h has similar names:
-
-        union {
-                        u64             cntr_mask64;
-                        unsigned long
-cntr_mask[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
-        };
-        union {
-                        u64             fixed_cntr_mask64;
-                        unsigned long
-fixed_cntr_mask[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
-        };
-
-Seems either way won't be absolutely unifie
-
->> @@ -120,6 +144,17 @@ static inline struct kvm_pmc *kvm_pmc_idx_to_pmc(struct kvm_pmu *pmu, int idx)
->>  			continue;				\
->>  		else						\
->>  
->> +/*
->> + * @mask is expected to be a scalar unsigned long derived from pmu->pmc_exists,
->> + * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
->> + * so iteration up to KVM's maximum counter count is safe.
->> + */
->> +#define kvm_for_each_gp_counter(i, mask)	\
->> +	for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
->> +
->> +#define kvm_for_each_fixed_counter(i, mask)	\
->> +	for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
+> Tested with this change applied to 6.12.113 on an Azure VM with two
+> ConnectX-3 VFs: both auxiliary devices are created at boot, and
+> removing mlx4_ib, mlx4_en and mlx4_core deletes them cleanly.
 > 
-> These are not used in this patch, are they?
-> 
-> They should probably be introduced when they are used. Also, do we
-> always end up passing kvm_gp_pmc_mask() and kvm_fixed_pmc_mask()? If
-> yes, maybe we should pass in the pmu here instead?
+> [...]
 
-The intent was to group all bitmap accessor helpers together in this
-patch for easier review so that the big patch 5/18 could be kept to
-mostly mechanical replacements.
+Here is the summary with links:
+  - [net-next] net/mlx4: drop the unused is_supported callback
+    https://git.kernel.org/netdev/net-next/c/6ee8e8d9227c
 
-But if you prefer introducing them on first use, I'll move their
-definitions to patch 5.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Regarding passing 'pmu' directly, I initially implemented it in this
-way, but I can't recall why I discarded it. I will take another look.
->> @@ -183,9 +221,12 @@ static inline struct kvm_pmc *get_fixed_pmc(struct kvm_pmu *pmu, u32 msr)
->>  {
->>  	int base = MSR_CORE_PERF_FIXED_CTR0;
->>  
->> -	if (msr >= base && msr < base + pmu->nr_arch_fixed_counters) {
->> +	if (msr >= base && msr < base + KVM_MAX_NR_FIXED_COUNTERS) {
->>  		u32 index = array_index_nospec(msr - base,
->> -					       pmu->nr_arch_fixed_counters);
->> +					       KVM_MAX_NR_FIXED_COUNTERS);
->> +
->> +		if (!kvm_is_fixed_pmc_supported(pmu, index))
->> +			return NULL;
-> 
-> Do all callers handle NULL correctly? At least
-> reprogram_fixed_counters() doesn't look like it. It may be fine since
-> NULL can already be returned today. Not sure if this series makes it
-> more likely.
-
-All other callers properly check NULL.
-
-In reprogram_fixed_counters(), 'i' comes from
-kvm_for_each_fixed_counter(), so it is guaranteed supported and cannot
-return NULL (just as it was safe previously via "i <
-pmu->nr_arch_fixed_counters").
-
-However, calling get_fixed_pmc() in reprogram_fixed_counters() was
-unnecessary indirection. In patch 5, I can clean this up to index directly:
-
-@@ -98,7 +98,7 @@ static void reprogram_fixed_counters(struct kvm_pmu
-*pmu, u64 data)
-                if (old_ctrl == new_ctrl)
-                        continue;
-
--               pmc = get_fixed_pmc(pmu, MSR_CORE_PERF_FIXED_CTR0 + i);
-+               pmc = &pmu->fixed_counters[i];
-
->>  
->>  		return &pmu->fixed_counters[index];
->>  	}
->> -- 
->> 2.56.0
->>
 
