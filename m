@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793936377;
-	b=ZAX4kNEE7lzhQKnj6YPxyluCVmHImRNauQlZqlkMQidHLAzdV5Dmsuzgj5peMLueo+nU
-	 hcnUTKe2fWPc17gM5vP9zDmRZDQo/yLEkY/wv+3AffHqDLw1RBxBgA8ZjB23c3+OrYVNL
-	 EqEWqOjqZLg9vb8ws5rR68ukJO+sEKxV8dLvmjsO7/aNDzPS2Jsmqq79xGL1fDDqBHMHM
-	 IaOaeTNwpbSz06XINzL+j4KHuYD4J6ouqyXq/yF+Y17QGBlbTkS6OyRqpDql9oWlMs2hm
-	 wN4leg/GXOKBgfDWjRQqsAPGk8XfOnOIPzfJ4NEA/gCf8CVXyQYwWqyFWcwp7Ux7sEQ==
+	t=1793936390;
+	b=bufPsgFadeiZwkt9KFUhC8vJUXBZPgiz9YPIz7ZUY8M7viP2xUW4YxcEDe7lvYpgy/p6
+	 w4hpq7cLg7XhODXMIyBVxYdwOcGO6zV+3LNIGxAMcbM1Ls6q5zK4+RMMAQT8Sx+YfIpSI
+	 sMxwgooIiU+nf1R9Z+BYlGTnWsJqIYD1YP4hz62GrEEvpELYDGckmo4jTw8JxIcd8iTm5
+	 /JOrkpiL0GIHR7/n6D62cv80TGgtQ9Fx9m6KKPBxTLTa2u1ioD7pdejEMqPg1IsrcMx7D
+	 OzxIkHGEL8gybvBXaoIuMY6Ze3FNrWtx1oPtJsDSy5OeS9HCoRTztcisCfFL7FtGTLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793936377;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Date:From:To:Cc:Reply-To:
-	 Message-ID:Subject:X-Mailer:MIME-Version:x-aliyun-im-through:
-	 References:x-aliyun-mail-creator:In-Reply-To:x-aliyun-mailtrack:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ylNb4lyoDnDVbeVYjsPUy5/EMBQ+X4muWILrXlRvMxo=;
-	b=toUUreB8AxBpuPGmoCj+DXeBNNOAhyR3bd2KP0iRO/1VQJ9TX8NJiZlzN7oBL5RhMIze
-	 dHx+HmNuenHVnuBrZFcfzrlUcDsQISJu1xaHFEtBKqfmcSvTBDn0hWuyTiVrPaVMQ/Nid
-	 9gY5JgQkzsr3CyosLldOWn1oMSgiC99VNzGKAQJwYxHWS5ufGaTEbj6dcK7XF3/hVD7TY
-	 rXjrXami4s0Eusw62j2SiovpafJi/JiERXN0NLIzEUPnR/eUtreEZN/+FpS6zifzWRpFt
-	 feomNYlFKNw+N2qucZWSh6SC82djgsmvy2p7KdvTTVTLWw0IWXQdZr+JV9Dyk6oQLwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793936390;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
+	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=YWjCVMH6QOR8U1HdP5g2Ap2iHKmTUMycrvWqvC+OZSg=;
+	b=u/fbSGJvRchLeJjeHBKH8KP3+t2ftVfKVZN75yWhXSSFnU3mx/wDcsHw//mf4C38UB8o
+	 tAu6ZnSu4swv+mr02zqUxesDJ9rq5K6s2zk/lL5uTqt4PfMbrU74A/7q2mDOX7ca2jRLB
+	 KvBOtfkmnLYu28/GHP0/aRKXUseD6r3skva7S7R2DCv37XAEILIKesCjcSblabdamx9Dk
+	 V8fQQv14hv8QxPXDX1dP1JbJpxcIYnZN+/8wOnK3jAi3XzvYqI2WSi0bKflMXd8ZwkTKb
+	 /oqetiyDRd2+e97hCCjaiRF711K0KCOoMYoAvPToqrhlU58YtlKaOr9wOvXxaWyXbSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.147
-Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=NdgnQtfW;
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9430606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:39:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9430606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1308854|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_news_journal|0.00454194-0.000177499-0.995281;FP=8458208776405753275|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=liaoxuan@open-hieco.net;NM=1;PH=DW;RN=9;RT=9;SR=0;TI=W4_0.2.3_v5ForWebDing_211855CA_1793935086753_o7001c533;
-Received: from WS-web (liaoxuan@open-hieco.net[W4_0.2.3_v5ForWebDing_211855CA_1793935086753_o7001c533] cluster:ay29) at Fri, 06 Nov 2026 11:39:26 +0800
-Date: Fri, 06 Nov 2026 11:39:26 +0800
-From: "=?UTF-8?B?5buW54WK?=" <liaoxuan@open-hieco.net>
-To: "Bjorn Helgaas" <helgaas@kernel.org>
-Cc: "kbusch" <kbusch@kernel.org>,
-  "axboe" <axboe@kernel.dk>,
-  "hch" <hch@lst.de>,
-  "sagi" <sagi@grimberg.me>,
-  "linux-nvme" <linux-nvme@lists.infradead.org>,
-  "linux-kernel" <linux-kernel@vger.kernel.org>,
-  "default avatarZheng Tan" <tanzheng@kylinos.cn>,
-  "=?UTF-8?B?SWxwbyBKw6RydmluZW4=?=" <ilpo.jarvinen@linux.intel.com>
-Reply-To: "=?UTF-8?B?5buW54WK?=" <liaoxuan@open-hieco.net>
-Message-ID: <d20d0f7a-6296-43e7-b27e-5a1ea3ae0607.liaoxuan@open-hieco.net>
-Subject: =?UTF-8?B?5Zue5aSN77ya5Zue5aSN77yaW1BBVENIIDEvM10gbnZtZTogQWRkIGFkYXB0aXZlIFBDSWUg?=
-  =?UTF-8?B?bGluayByYXRlIHN3aXRjaGluZyBmdW5jdGlvbg==?=
-X-Mailer: [Alimail-Mailagent][W4_0.2.3][v5ForWebDing][Chrome]
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426EC606A31B;
+	Fri,  6 Nov 2026 03:39:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 426EC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=NdgnQtfW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793936358;
+	bh=YWjCVMH6QOR8U1HdP5g2Ap2iHKmTUMycrvWqvC+OZSg=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=NdgnQtfWQTdDDLxkFVmyZenAyc2QFWutEtKY0BPTYdVsReEfuLs6n6HfLluLvXXlF
+	 2pJUBmMf1oyVBznkOa4Xwuld6C7+vfbTQBhDrNNOH2Gi5VxUUxExHJfcaEAfXXJree
+	 G95gYU4uFb6TEW6BRxQSSOpLKKGcnX5Vu0N4N6Ec=
+X-QQ-mid: esmtpgz13t1793936357t36e91489
+X-QQ-Originating-IP: C3yEeWDAIm4PyjGi5UJr3LByUX02//lzDscXXGL1zXk=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 06 Nov 2026 11:39:14 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9883087005053734820
+EX-QQ-RecipientCnt: 16
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,45 +58,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-x-aliyun-im-through: {"version":"v1.0"}
-References: <5453bf57-fd19-458b-a723-bc7ab99c2479.liaoxuan@open-hieco.net>,<20261105192228.GA1550766@bhelgaas>
-x-aliyun-mail-creator: W4_0.2.3_v5ForWebDing_SFRTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzE1Ni4wLjAuMCBTYWZhcmkvNTM3LjM2IEVkZy8xNTYuMC4wLjA=Ch
-In-Reply-To: <20261105192228.GA1550766@bhelgaas>
-x-aliyun-mailtrack: {"foreign-track":"0"}
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=fa641b20d767eb6dfceae802e81e79246e3b4039a9ed52a8760cf69df47f;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 06 Nov 2026 03:39:13 +0000
+Message-Id: <DMNTD3S9CNW1.1H4CMNHDJM69D@linux.spacemit.com>
+Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 BS01DCMA support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Emil Renner Berthing" <emil.renner.berthing@canonical.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Guodong
+ Xu" <docular.xu@gmail.com>, "Yangyu Chen" <cyy@cyyself.name>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <CAJM55Z9nuO3MneQqBm3K2V2SjOXqXsZcDx9pMzVhxMJJ73xc9Q@mail.gmail.com>
+References: <20261104-k3-bs01dcma-v1-0-794025247e4a@linux.spacemit.com>
+ <20261104-k3-bs01dcma-v1-2-794025247e4a@linux.spacemit.com>
+ <CAJM55Z9Yj87hqwMugqRsf_RL9np=KqzCj-J9RyutuWKd-w-n+g@mail.gmail.com>
+ <CAJM55Z9nuO3MneQqBm3K2V2SjOXqXsZcDx9pMzVhxMJJ73xc9Q@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NHLGb615Ee/ro7mEPxFyPT/euJjKyX5DrkSw9FAZqTBtDcM7sc8I3DMu
+	AE1/DV7bgQpR3g++m0bMtvu6v5lFl4fUFHssGtqnaRtVWEPfOJmIQIbc7y25gSDrSYE+VUf
+	Og9huuxlj/WC9a51hQaiowE6fqHYA6S/tVQxiZvDclUWoIDM9hO12Y/Q0P4G1Yz7/6tX6jf
+	a96E7bRck+x3YLEL+Cpz0s/RcI6uyqKR4sIS1T+2+9OHY5FSJG5nYZMfmYrmmIrkF1YROAS
+	JOsRH3kOt9/OUoYaGVtg+69G0xWCvfJ19ZN+gDELXlr/MIyawGe887xvX7u+Bu4y3BJN5Be
+	z07ST+UrPOm4mqMxc0PyQjJ9t+zcN4idxYDmm/BGRHInolOk4SECT5I9mfflhu7fKq5xzzp
+	IlIvkbBTFKCv42ZLKy26e0OHEAOaSpER5nV9JfrDIvaeCXbXecTmUHX73lFy70p7j2ve01h
+	lDahcqtREuEmqhPLR0CXfOOy3dETqG5c8M7IYl6tLo4ywobQJvdQoP+LylwFR6ib/P5urL6
+	LSJ2TNFTnXFeZ9dLKZBEJAENtoKCJZWQVFxdy6kycF4OZ4X7A6aECBH5xhUqnFSLq36lqMA
+	RQUKp0k+1MEyEFQcfoUKNrbtJXZQ36w645+5hjwVDFIMhmFfWaKRA3/BgNMKhbrOxm2fXuP
+	CDsF7BlSOOFGdBxwz/yWa8IViHeGa1OsfWtPeyOBQ5EZ7wJBeChJWDIjLjYgdQpg6KFX7lX
+	fwx2f1DfnRyY/eb3km4ujzEv7P5d83YdFW4NhTbfIdy3FfOcNfc76sPZdcZ+5uN9k3OtUM8
+	PcJ9Znd0RSgjp73sRw83Qz62e7IovqUzKxfa7iXlTSPFrhi8EesdakRXEqwLiYV5XYQN63I
+	JEIi1w24BKZaOnnRpC6u9N9V20VmJUDVA7WuTrbEGWHhIGADoyp5RhNXYsdVA+zA5Hs1iIb
+	fIVfbZTspW6BS+G85P8v/RQBxDABOK8hHlRWrJEjZ7V1Ok+2N01vxEZAqTEScO2E2jB0ZZ8
+	IO74eqMeF/EaGPt0Fh34frBhaVbAaZIVm7NRZRQzKWVVR24mwJTILTUXkYW8xexVbxcJ/Qf
+	rnO/VQhm4CGC0P5z/OL0yQEx/cGw/DyF+Jauoj9nWpd/b1bDFrjtd0=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-SGkgQmpvcm4sCgpUbyBpbXByb3ZlIGdlbmVyYWxpdHkgYW5kIG1ha2UgdGhlIGFzc3VtcHRpb24g
-ZXhwbGljaXQsIEkgd2lsbCBmb2xsb3cKeW91ciBzdWdnZXN0aW9uOiBJIHdpbGwgZW5jYXBzdWxh
-dGUgdGhlIHRocmVzaG9sZCBjYWxjdWxhdGlvbiBmbG93IGluCmEgc2VwYXJhdGUgZnVuY3Rpb24s
-IGFuZCBhZGQgYSBjb21tZW50IHRoZXJlIHN0YXRpbmcgdGhhdCB0aGlzIHBhcmFtZXRlcgppcyBw
-bGF0Zm9ybS1kZXBlbmRlbnQgYW5kIHRoYXQgdGhlIGN1cnJlbnQgdmFsdWUgaXMgZm9yIEh5Z29u
-IHBsYXRmb3Jtcy4KSSB3aWxsIHNlbmQgYW4gdXBkYXRlZCBwYXRjaCB3aXRoIHRoaXMgY2hhbmdl
-LgoKVGhhbmtzLApMaWFvIFh1YW4KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCuWPkeS7tuS6uu+8mkJqb3JuIEhlbGdhYXMg
-PGhlbGdhYXNAa2VybmVsLm9yZz4K5Y+R6YCB5pe26Ze077yaMjAyNuW5tDEx5pyINuaXpSjlkajk
-upQpIDAzOjIyCuaUtuS7tuS6uu+8miLlu5bnhYoiPGxpYW94dWFuQG9wZW4taGllY28ubmV0Pgrm
-ioTjgIDpgIHvvJprYnVzY2g8a2J1c2NoQGtlcm5lbC5vcmc+OyBheGJvZTxheGJvZUBrZXJuZWwu
-ZGs+OyBoY2g8aGNoQGxzdC5kZT47IHNhZ2k8c2FnaUBncmltYmVyZy5tZT47ICJsaW51eC1udm1l
-IjxsaW51eC1udm1lQGxpc3RzLmluZnJhZGVhZC5vcmc+OyAibGludXgta2VybmVsIjxsaW51eC1r
-ZXJuZWxAdmdlci5rZXJuZWwub3JnPjsgZGVmYXVsdCBhdmF0YXJaaGVuZyBUYW48dGFuemhlbmdA
-a3lsaW5vcy5jbj47ICJJbHBvIErDpHJ2aW5lbiI8aWxwby5qYXJ2aW5lbkBsaW51eC5pbnRlbC5j
-b20+CuS4u+OAgOmimO+8mlJlOiDlm57lpI3vvJpbUEFUQ0ggMS8zXSBudm1lOiBBZGQgYWRhcHRp
-dmUgUENJZSBsaW5rIHJhdGUgc3dpdGNoaW5nIGZ1bmN0aW9uCgoKT24gVGh1LCBOb3YgMDUsIDIw
-MjYgYXQgMDI6MzA6MTNQTSArMDgwMCwg5buW54WKIHdyb3RlOgo+IEhpIEJqb3JuLAo+IFRoYW5r
-IHlvdSBmb3IgdGhlIHJldmlldyBhbmQgZm9yIHRoZSBxdWVzdGlvbi4KPiAKPiBUaGUgcmVhc29u
-IGZvciByZXN0cmljdGluZyB0aGlzIGZlYXR1cmUgdG8gSHlnb24gcGxhdGZvcm1zIGlzIHRoYXQg
-dGhlCj4gUENJZSBsaW5rIHJldHJhaW5pbmcgdGltZSB2YXJpZXMgYWNyb3NzIGRpZmZlcmVudCBD
-UFUgcGxhdGZvcm1zLgo+IAo+IEluIHRoaXMgcGF0Y2gsIHRoZSBJL08gdGhyZXNob2xkIGZvciBk
-b3duZ3JhZGluZy91cGdyYWRpbmcgdGhlIGxpbmsgcmF0ZQo+IGlzIGRlcml2ZWQgYmFzZWQgb24g
-dGhpcyByZXRyYWluaW5nIHRpbWUuIEN1cnJlbnRseSwgaXQgaXMgaGFyZGNvZGVkIGFzCj4gMTAw
-dXMgaW4gbnZtZV9jYWxjX3NwZWVkX3RocmVzaG9sZCgpLCB3aGljaCBpcyB0aGUgdmFsaWRhdGVk
-IHZhbHVlIGZvcgo+IEh5Z29uLiBTaW5jZSB3ZSBoYXZlIG9ubHkgdmVyaWZpZWQgdGhpcyB0aW1p
-bmcgcGFyYW1ldGVyIG9uIEh5Z29uIHBsYXRmb3JtcywKPiB3ZSBhZGRlZCB0aGUgcmVzdHJpY3Rp
-b24gdG8gYXZvaWQgcG90ZW50aWFsIHBlcmZvcm1hbmNlIHJlZ3Jlc3Npb25zIG9uCj4gb3RoZXIg
-cGxhdGZvcm1zIHdoZXJlIHRoZSByZXRyYWluaW5nIHRpbWUgbWlnaHQgYmUgZGlmZmVyZW50LgoK
-U2VlbXMgc3VzcGVjdCB0byBoYXJkLWNvZGUgcGxhdGZvcm0gcGFyYW1ldGVycyBsaWtlIHRoaXMs
-IGJ1dCBpZiB5b3UKbXVzdCwgYXQgbGVhc3QgYWRkIGEgY29tbWVudCB0byB0aGUgZWZmZWN0IHRo
-YXQgdGhpcyBkZXBlbmRzIG9uIHRoZQpwbGF0Zm9ybSBhbmQgdGhlIGN1cnJlbnQgdmFsdWUgaXMg
-Zm9yIHBsYXRmb3JtIFguCg==
+--fa641b20d767eb6dfceae802e81e79246e3b4039a9ed52a8760cf69df47f
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+
+On Wed, 4 Nov 2026 07:43:03 -0500, Emil Renner Berthing wrote:
+> > I just had a talk with Dong from Spacemit. He tells me the
+> > BS01DCMA is the name of a module similar to the com260, only it has
+> > a different form factor and each module consists of 2 separate K3
+> > nodes. Similar to how the com260 module can be used in a small
+> > carrier board (spacemit,k3-com260-ifx) and in a 10-node server
+> > (spacemit,k3-com260-tq), I'd expect to see a
+> > common arch/riscv/boot/dts/spacemit/k3-bs01dcma.dtsi describing the
+> > module itself, and then an
+> > arch/riscv/boot/dts/spacemit/k3-bs01dcma-<something>.dts that
+> > describes the extra peripherals that can be accessed when the module
+> > is plugged into the server.
+> >
+> > [...]
+>
+> Ah, it's called the Cluster Server RV2768
+> https://spacemit.com/community/development-kit/cluster-server-rv2768
+
+Hi Emil,
+
+I've checked with our hardware team. BS01DCMA is indeed a module, so
+the "board" wording in this series is wrong and I'll fix it in the next
+version.
+
+I'd still like to keep a single k3-bs01dcma.dts though. The module is
+only used in the RV2768, and that carrier is essentially just cabling
+to PCIe network cards. Those are found by enumeration and there's
+nothing else on it for the K3 to control, so a
+k3-bs01dcma-rv2768.dts would have nothing to describe.
+
+Does that work for you?
+
+--=20
+Troy Mitchell
+
+--fa641b20d767eb6dfceae802e81e79246e3b4039a9ed52a8760cf69df47f
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCau1L4SEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC8bHwEA/wJFXrKpYftH
+FB5kzcPBx6DamUD5F+4zMd1bZudAqVUBAKPNyObrwunkgozWj9HWqQMnkYJyk6XD
+Wmy765878T8H
+=dLV/
+-----END PGP SIGNATURE-----
+
+--fa641b20d767eb6dfceae802e81e79246e3b4039a9ed52a8760cf69df47f--
