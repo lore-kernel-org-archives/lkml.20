@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987575;
-	b=E28nLBhMmYY5IxaMNx/NvRgPp7/gHDTPraryAGj05Q4bcxKTdL8szPmmPK4Z6zLFnlUa
-	 Xti1Hz9bQLt3rsKokoIaLg+ADaj9kdrH6lPNyIm4mkU4z7N69l+jiqPzPMyqhJ1yUr42f
-	 hVsGYuWxLvVAEzGvdLHyWdN4jfalvb2Lol1lvYNYw0m+bvfhR5eBEGfLE3Xm0LBedXwmU
-	 eW4pjubZP8bL/dEy/Ke9sK2R5SOlDyVFJmozXRSU4UqB0FrR3P5zeJnHET8yPkbigFYtt
-	 CPx8EhBrDwlSZyz+p/iaY4khnr4V9p4f3lofK1NimKIpAMvyT67tcyQ1Mj3HFSXjTeQ==
+	t=1793987585;
+	b=btjiYHVI8f8LZb53npm4UZK3QJU3st7CK6huQY1rG13g7umbahEo1Eg1UtZT3PwOSJwi
+	 pJfgU/XPBNWv1AHMhj48CnL6Yl8Rd84XdduHfGItciG/6g0wgmwDBMhISdIypKkKAwCl8
+	 Q4wZdDW7BzVrtOfLk7dIlkSL/skTvsZ3JnbIYBDTxb05EKIU5ir8OglROwikK+Ge5Mo5k
+	 4GYllOALF6p4ThDw1bkJvbbMuapjyxIiZLI3STDQt0eceb3C13UIImsmJJvaRH52J3ck7
+	 peQ/gGLzY62awzTWlDK3RutPRNasPMoGVkxeHp4u3YVYH286wQs5i+lZrJI5EeM+c1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987575;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=LH3cAN2f+M47HT94GXo4CX39wD6DPIcKQ9zFQmQCpeQ=;
-	b=wrKTx4D69sQnLI0ISg/ff1R0JF8/Dma3sMn3ybzY+RczMwXycH/zdg1PcI+YwSsF83Og
-	 vn2REctAcHGzn3uo9ZL9iS95mU8ATbl/2z/GyibP7Z4RkNtnguOEcr03k012r/pyqBVtX
-	 ldoashUSBMK5Wzej6MWo9PC5WWyHPnVRGRZv8mr6wToYdt0JCpNfLC9nq/hDGpm7vVm/D
-	 e0cJPT64e9gu2f9kOIb3Uz7QMovn/HFkHorM3BS++rp/ttDMJEwSDyirUIlP05n0/EU3y
-	 yQ6SQYWlgiHOoJ2EFaOSgBfqD9OGzwAZAn/WNxiFoa+CXFZKNUBqGq0PMl1nMj0dgcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987585;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=W4OAvocE0qlA1Amupm0niVySJp2DlanCzEnVSkIuQO4=;
+	b=A5E+8Z2IxSW43rohasXfezdB+2RzH9lMBLxIX+/ntHzUPm1IL1C2bKcRtAafFdcHgo4r
+	 N6jStde7Z7lB2IyRMDH4Er2LLsNY/MGG1T2k0jrx6DIUliUxXTOzbtOMIjAxJKvGluMif
+	 nsqtGkokk0Besd/uu36qqBZrO2zvrj8ZWJcKNHA0YEwAl8Z3Kq5iRtcjqQZLYvojt1nD2
+	 aYqljMGxhi7Qo8WzgwFKs5Il8egGprnMmora+SX1WQGm7VirDrxT9cpj97cEJWlXzYOot
+	 y5njYJiTH3oxxwhbDNzjZ13we7eUWvmj2BiY3PZVGgZ7S/DDzr6q73YXvoJ06LYLH8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XaNYbUWW;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9CA606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:52:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB9CA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5641cd2cc13so896966b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:52:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793987574; x=1794592374;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LH3cAN2f+M47HT94GXo4CX39wD6DPIcKQ9zFQmQCpeQ=;
-        b=FSt+c2SdHunFXmkTLkYgnkW6bvzYvT6aGEfiqa21ov+Byyeb/CSn7P1utU2f5oHF8j
-         MqoEVozXSMoOcILVxvLN7RboNVcaS6Vt5Yw5r6qtkZfZe70YEaE24j5D9xT8yepquQ9c
-         1JOVJa685hKOqlt4J/DpkUrc1Sx8v5hA5hikxF6dgvDMKoy7Aok+rlPpjdB5dc9TVnP8
-         imVfcz5gizsq80cJyOopLl/hpB3Nhwzohim/qfkzrXgw/n+vRJVR5pqDHWn/FtvtyWuP
-         R1ugQKMnHm1g883yyLfIEl+/75TIkc0mqTZa9wDqaNXOL264YdQn8iI9XfOf/22qmLUD
-         9NaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzYOMoY2cM5QUHYPn3KGP5CwDKFwWQh1aIGmPwqqlqNecqPy/mwmfcFEU0qnd53ITXKAnwqcvO9zV+clYE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+H7zpDM7qK5LC+d+IAPQPVIdeOF4D4KZFLFzh669Nbl7zPOLjH
-	2ONWy2ZG+ZTRFLRxkCSGxKwykJIntADIrckKyF6wZhEA6YnuLJDLV+1WwoeuT8DeFPM7GuMeJNJ
-	jRSFbN764DiXB6f3F6V3PejfBnSVzwmdURmhq/s0cQTaSNEMbZ0QTX3UjYYE=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F858606A330;
+	Fri,  6 Nov 2026 17:53:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F858606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XaNYbUWW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793987583; x=1825523583;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KnNMY4VUEpn1u3zJYQ28134e/qRwjrvFXhXZISGo0Ls=;
+  b=XaNYbUWWW2JDymefGDRUBAXe0jTS+hq+yPa3Zky10B8jenfCus6TgRtZ
+   5NMKIsi+WovvIzfYVz4ChSDsCINgfw2ixWTbQsFsqDT3Egi5V8EptOSBY
+   RSNepQBnXbxhn8WF+bfctTrMQ0bUICPOuyvKApcQLM9TxcDZQHA4l2tmZ
+   K/jwynG9xDkdTgoGyc/sTuBuGjrGe12Hzu+95AKuBnPJiCBsOtz+4Ll8E
+   9uSDy2RtA5TzWgka9W0QsEPFvEWZ7vSmAmV+VZz0BhrimGjHMNNZfA/me
+   kPhsL0oazOUCgvnNBeZ+kmi6mrNeuO7uhoXGxfYJ1dVFKLPgenQl0uOF4
+   w==;
+X-CSE-ConnectionGUID: K9BM+C8SQuWXydUtyNIUyw==
+X-CSE-MsgGUID: DTH/JOqfSECj9AZz5J0PBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2797061"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2797061"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 09:53:03 -0800
+X-CSE-ConnectionGUID: AwL697vRTeaX8tm3371aug==
+X-CSE-MsgGUID: pit4l2piQ7SuJujJJP8hog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="9098200"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa011.fm.intel.com with ESMTP; 06 Nov 2026 09:53:00 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 8D52299; Fri, 06 Nov 2026 18:52:58 +0100 (CET)
+Date: Fri, 6 Nov 2026 18:52:58 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Ajit Singh <blfizzyy@gmail.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	romain.gantois@bootlin.com, gregkh@linuxfoundation.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] usb: typec: mux: tusb1046: support HPD_IN override
+Message-ID: <au4T-tKDamfaTWuR@black.igk.intel.com>
+References: <20261104074202.76712-1-blfizzyy@gmail.com>
+ <20261104074202.76712-3-blfizzyy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,128 +83,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:192a:b0:567:c9d6:b2b2 with SMTP id
- 5614622812f47-567e15b4486mr2747150b6e.47.1793987573896; Fri, 06 Nov 2026
- 09:52:53 -0800 (PST)
-Date: Fri, 06 Nov 2026 09:52:53 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aee13f5.02d3f859.2829d1.0014.GAE@google.com>
-Subject: [syzbot] [block?] WARNING in bd_unlink_disk_holder
-From: syzbot <syzbot+0a8119ab801b078213ea@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104074202.76712-3-blfizzyy@gmail.com>
 
-Hello,
+On Wed, Nov 04, 2026 at 01:12:02PM +0530, Ajit Singh wrote:
+> For boards where HPD_IN is not asserted by hardware, software can
+> force it high over I2C using the HPDIN_OVERRIDE bit in the General
+> register (0x0A).
+> 
+> Add support for the optional ti,hpd-in-override property to force
+> HPD_IN high when DisplayPort mode is selected. Clear the override
+> when switching to USB or Safe mode, and preserve the existing
+> bit value when the property is absent.
+> 
+> Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
 
-syzbot found the following issue on:
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-HEAD commit:    b0958b1397fb arm64: mm: validate /dev/mem mmap ranges with..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=1018bddd580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
-dashboard link: https://syzkaller.appspot.com/bug?extid=0a8119ab801b078213ea
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1418bddd580000
+> ---
+>  drivers/usb/typec/mux/tusb1046.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/mux/tusb1046.c b/drivers/usb/typec/mux/tusb1046.c
+> index 34ef81f75693..c21b1f8b9786 100644
+> --- a/drivers/usb/typec/mux/tusb1046.c
+> +++ b/drivers/usb/typec/mux/tusb1046.c
+> @@ -21,6 +21,7 @@
+>  /* General register bits */
+>  #define TUSB1046_GENERAL_FLIPSEL BIT(2)
+>  #define TUSB1046_GENERAL_CTLSEL  GENMASK(1, 0)
+> +#define TUSB1046_GENERAL_HPDIN_OVERRIDE BIT(3)
+>  
+>  /* Mux modes */
+>  #define TUSB1046_CTLSEL_DISABLED          0x0
+> @@ -32,6 +33,7 @@ struct tusb1046_priv {
+>  	struct i2c_client *client;
+>  	struct typec_switch_dev *sw;
+>  	struct typec_mux_dev *mux;
+> +	bool hpdin_override;
+>  
+>  	/* Lock General register during accesses */
+>  	struct mutex general_reg_lock;
+> @@ -44,6 +46,7 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+>  	struct i2c_client *client = priv->client;
+>  	struct device *dev = &client->dev;
+>  	int mode, val, ret = 0;
+> +	bool dp_active = false;
+>  
+>  	if (state->mode >= TYPEC_STATE_MODAL &&
+>  	    state->alt->svid != USB_TYPEC_DP_SID)
+> @@ -67,9 +70,11 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+>  	case TYPEC_DP_STATE_C:
+>  	case TYPEC_DP_STATE_E:
+>  		mode = TUSB1046_CTLSEL_4LANE_DP;
+> +		dp_active = true;
+>  		break;
+>  	case TYPEC_DP_STATE_D:
+>  		mode = TUSB1046_CTLSEL_USB3_AND_2LANE_DP;
+> +		dp_active = true;
+>  		break;
+>  	case TYPEC_STATE_SAFE:
+>  	default:
+> @@ -80,6 +85,13 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+>  	val &= ~TUSB1046_GENERAL_CTLSEL;
+>  	val |= mode;
+>  
+> +	if (priv->hpdin_override) {
+> +		if (dp_active)
+> +			val |= TUSB1046_GENERAL_HPDIN_OVERRIDE;
+> +		else
+> +			val &= ~TUSB1046_GENERAL_HPDIN_OVERRIDE;
+> +	}
+> +
+>  	ret = i2c_smbus_write_byte_data(client, TUSB1046_REG_GENERAL, val);
+>  
+>  out_unlock:
+> @@ -131,6 +143,8 @@ static int tusb1046_i2c_probe(struct i2c_client *client)
+>  		return -ENOMEM;
+>  
+>  	priv->client = client;
+> +	priv->hpdin_override =
+> +		device_property_read_bool(dev, "ti,hpd-in-override");
+>  
+>  	mutex_init(&priv->general_reg_lock);
+>  
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/a1caa79f24c0/disk-b0958b13.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/99b068dd4197/vmlinux-b0958b13.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e135f96e545e/Image-b0958b13.gz.xz
-
-AI-generated root cause summary:
-In drivers/md/md.c:bind_rdev_to_array(), an rdev is added to mddev->disks and
-bd_link_disk_holder() is called to create the holder/slave relationship without
-checking its return value. If bd_link_disk_holder() fails (for example,
-returning -EINVAL when an array's own block device or partition is imported into
-itself, or on memory/sysfs failures), no bd_holder_disk entry is added to
-disk->slave_bdevs, yet the device remains bound to the array. When the array is
-subsequently stopped via do_md_stop() -> export_array() ->
-md_kick_rdev_from_array(), bd_unlink_disk_holder() is called and
-bd_find_holder_disk() returns NULL, triggering WARN_ON_ONCE(holder == NULL) at
-block/holder.c:147.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=0a8119ab801b078213ea
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+0a8119ab801b078213ea@syzkaller.appspotmail.com
-
-md: md4 stopped.
-------------[ cut here ]------------
-WARNING: block/holder.c:147 at bd_find_holder_disk block/holder.c:18 [inline], CPU#0: syz.4.21/5133
-WARNING: block/holder.c:147 at bd_unlink_disk_holder+0xd8/0x2d4 block/holder.c:146, CPU#0: syz.4.21/5133
-Modules linked in:
-CPU: 0 UID: 0 PID: 5133 Comm: syz.4.21 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : bd_unlink_disk_holder+0xd8/0x2d4 block/holder.c:18
-lr : bd_find_holder_disk block/holder.c:18 [inline]
-lr : bd_unlink_disk_holder+0xd8/0x2d4 block/holder.c:146
-sp : ffff800098f877e0
-x29: ffff800098f877e0 x28: 1fffe000192c2f06 x27: ffff0000d92043d0
-x26: 1fffe00018291306 x25: 1fffe0001b240879 x24: ffff0000d92043c8
-x23: dfff800000000000 x22: ffff0000c1489830 x21: ffff0000c1489700
-x20: ffff0000d9204000 x19: ffff0000d92043d0 x18: 1fffe000359cf228
-x17: 0000000000000003 x16: ffff8000898b7000 x15: ffff80008996b2a0
-x14: 00000000005a60a9 x13: 0000000000000001 x12: 0000000000000003
-x11: 0000000000000000 x10: 0000000000000001 x9 : 0000000000000000
-x8 : 0000000000000000 x7 : ffff8000818fb144 x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000001 x3 : ffff80008046bc7c
-x2 : 0000000000000001 x1 : ffff0000d96b0000 x0 : 0000000000000000
-Call trace:
- bd_find_holder_disk block/holder.c:18 [inline] (P)
- bd_unlink_disk_holder+0xd8/0x2d4 block/holder.c:146 (P)
- md_kick_rdev_from_array+0x8c/0x324 drivers/md/md.c:2683
- export_array drivers/md/md.c:2714 [inline]
- do_md_stop+0x708/0xe6c drivers/md/md.c:7252
- md_ioctl+0x14ec/0x23e4 drivers/md/md.c:8462
- blkdev_ioctl+0x574/0x904 block/ioctl.c:798
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __arm64_sys_ioctl+0x154/0x1cc fs/ioctl.c:583
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-irq event stamp: 2038
-hardirqs last  enabled at (2037): [<ffff8000804a3fb4>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (2038): [<ffff800086953878>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:483
-softirqs last  enabled at (1948): [<ffff8000801373b8>] local_bh_enable include/linux/bottom_half.h:33 [inline]
-softirqs last  enabled at (1948): [<ffff8000801373b8>] put_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:251 [inline]
-softirqs last  enabled at (1948): [<ffff8000801373b8>] do_sve_acc+0x3ac/0x56c arch/arm64/kernel/fpsimd.c:1333
-softirqs last disabled at (1946): [<ffff800080137110>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (1946): [<ffff800080137110>] get_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:234 [inline]
-softirqs last disabled at (1946): [<ffff800080137110>] do_sve_acc+0x104/0x56c arch/arm64/kernel/fpsimd.c:1308
----[ end trace 0000000000000000 ]---
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+-- 
+heikki
