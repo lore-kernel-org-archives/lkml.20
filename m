@@ -1,104 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971181;
-	b=KyzJKt7DdZP0b/nq0MRLPVfCAjDXr0Bcjr0SllNwZNz5sLl/OTFHrCRZAWA1Lkm0NfuD
-	 UcDtDAKzPuAVbHwro4W6eXN2uBYBDfnejPmgKE7aNqeDBWzkYSxe/RWfYFGOyASJbyXpq
-	 eMrUrZTsteeWwBwSAKFeBeeygXX7cjqVyU5JfqlWOP2fE3KATKBTjRnVZJ7YjwoJ3VyGN
-	 WwYkCCSP9ofiCxyybAX/mZ43XdQi27t6vEvFkXm8WrDrvMyfThgUg2rasO0pyN9vyYp6v
-	 wAm3pL/Z/UDsN/xJZ3DhaliC7m3a689fKtBs5xDaFxFLxkfVSlWULPwceYmRgPdP9bw==
+	t=1793971185;
+	b=frMIrCoqSQrkOPmoEsdqytqR4YxNweFb/KAbQqR4yUWGJF/BNuA1gViVxqb7cpynknqJ
+	 tfNgznwadZOHi/JOpknmpM8DmpEv4okckacGkT3dsQYZU++0z0DLICAyg7NGPkjm4lFyq
+	 NnjHsNFLhkixyUzTFpPjGFlqynS3J2QYs09A48/ju0g81JoF7+fE8rzFeL/l1dQ5vmqMc
+	 P1bgcYreyr6/9RcYV6rijNLg8LfG0CbPs1kqCbIOvdoMTAHybqX6XZHdHR6+DmU5S4Ydb
+	 1OH573pltmv52BTgw5a4dlWXKGSX6jOPo3JfkovXTJcXs7TFP3zSsFgEufYEfVCNoYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971181;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uHDTPFGM/AF1nyT/Yc6bbkTHW5yMlJbnq5ZETvmi2Vs=;
-	b=L9eWpJijlNtI8wEJIaUYfFxQ/D4ZG0mKhiVqdqHIxDhQ19/hKU5B3GquDC2OKIMYQQH9
-	 JEnFwKtV6a1cBKVnEi+j5wLnZiBgTRDtxvUgDSWzF33VUtWzKSOtMK8rnTXGQ5obYSfT+
-	 N6fVpZaqLUBdLwPvfD3JKjpoxdUHuIFjLNwMmrhlsgPIxpqBnZYEOLLS9PmfCl8qxQyXM
-	 och6u3cx7V+nDXd69DUhmdit6elQmWM/CsDRM/F/2l2Qjn8ijJV5hkNjCfxS40qCT9V7d
-	 fxQ0d2HUgzi5XWJRUOKesJhdgFNVwIcZI7M93Ep1tkoSSyNVGe/2XeTJRsYNPI9dMrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971185;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6xnoUPCG34prvBi+O4Scf73cUwDPa65VrgxlVCAgl8A=;
+	b=cc/ahCfurH6BQuKXY7q7xoIeK25PzUPARcQQPqFNJVssxUTQQelTdsQGboCmPltyu+GX
+	 1z0Ok/omvg8pZqwmszjkTNq4pKzDH+wZlIho+n4lfMHLftKde7YiPgQluRNswKSVdqPDF
+	 ll4Y/TglyQE0HIvGt7NRAl2SjZ9rwdKbvzIAMMTMrKTdgC9MOymsGSIBb+7qxxmXeJfBq
+	 i2JnvYavo6czQNw0PRiYGxOB+WdZl6RIraSnLvf2WabxuSKKADdR7u7lx03Pix9Qpt1uy
+	 24nxaJYjxUh3K6TSHCBxfGpFahrXq1sfrbVqL2kh8TQnO1vA/+YrqsbctZNlo2PQWjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e39dX1aD;
-	arc=none smtp.remote-ip=91.218.175.72
-Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfapB1fY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC43606A330
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:19:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CC43606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B1C606A32C;
+	Fri,  6 Nov 2026 13:19:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=e39dX1aD
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=55Gu1BuWJQRvJsCcgFgbtSGQhBxGx47gTgITgbn0eiI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793971178; v=1; x=1794575978;
- b=e39dX1aDFsU5NTPTFLe3+RT+3/gSUyvAl18yS049B+1+avfXR5NJDC/GkY5xOMwPLboBKIzd
- N/1dhMtcwKi5kzXqiwRZhxE3jiyRM5th46sYicPK4WAzdzE7WYf96hN+5fs28ZwivqYdNalGYQh
- JAlb8yu3ez3DJaz2LqvdS2LE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2231816b5623e6c8;
-	Fri, 06 Nov 2026 13:19:38 +0000
-X-Mizu-Trace-ID: 2231816b5623e6c8
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: akpm@linux-foundation.org,
-	dgilbert@interlog.com,
-	mkp@kernel.org,
-	loberman@redhat.com,
-	jmeneghi@redhat.com,
-	kraxel@redhat.com,
-	vivek.kasireddy@intel.com,
-	mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	stefanha@redhat.com,
-	sgarzare@redhat.com,
-	rostedt@goodmis.org,
-	vdonnefort@google.com,
-	mhiramat@kernel.org,
-	jgg@ziepe.ca,
-	kevin.tian@intel.com,
-	axboe@kernel.dk
-Cc: linux-mm@kvack.org,
-	James.Bottomley@HansenPartnership.com,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	phasta@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	linux-scsi@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org,
-	iommu@lists.linux.dev,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bobbyeshleman@meta.com,
-	mathieu.desnoyers@efficios.com,
-	robin.murphy@arm.com,
-	mason@kernel.org,
-	aesteve@redhat.com,
-	tjmercier@google.com,
-	harry@kernel.org,
-	vbabka@suse.cz,
-	cui.tao@linux.dev,
-	cuitao@kylinos.cn
-Subject: [PATCH 2/7] dma-buf/udmabuf: account the page array metadata to memcg
-Date: Fri,  6 Nov 2026 21:18:24 +0800
-Message-ID: <20261106131829.3228926-3-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106131829.3228926-1-cui.tao@linux.dev>
-References: <20261106131829.3228926-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfapB1fY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAF81F008A2;
+	Fri,  6 Nov 2026 13:19:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793971185;
+	bh=6xnoUPCG34prvBi+O4Scf73cUwDPa65VrgxlVCAgl8A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dfapB1fYp+dn4zwFiGHqN2ZrAZRdFsrB0ii13LZxXnvQcaNFx2af5pVDY3Wblq1Sh
+	 P5nrJ2ZW4pcmvMq/H4zsWS5p6tuiOJLF4kzlpMcLU/yQ6aJf8CyxzZw2UqnSUFHRHs
+	 LmbRE+tB7/jd1RNdX9AXyQaUpiWyNOM8Q4U7in+zD/EPr2WL4jAWDWDqIj0s1O3U1E
+	 x1HSPAhvpRrx0shqGa2pUFh4qlaeSaUIqOQ2lCyZIISNb1wGQCJkQ+nf0ps1lynMuS
+	 j507yF6D3qHk5oVWF1EgK/9OtAZZPdoLOrTTupj+K5JGDArlu2zIhdy32d7rXzt+MG
+	 4mCcWwtfioUug==
+Date: Fri, 6 Nov 2026 14:19:42 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 02/10] drm/panel: Convert Hitachi TX10D07VM0BAA to use
+ MIPI DBI bus
+Message-ID: <au3TcHXFt5Yhs_V8@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-3-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,56 +64,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="j6g7nrwzsepfj5te"
+Content-Disposition: inline
+In-Reply-To: <20261105140510.165165-3-clamor95@gmail.com>
 
-From: Tao Cui <cuitao@kylinos.cn>
 
-udmabuf pins the pages of a memfd and hands them out as a dma-buf.  The
-data pages keep the accounting of the memfd they were instantiated in,
-but the bookkeeping around them does not: the page pointer array and
-the pinned_folios array, both sized by the buffer page count, plus the
-transient folios array sized by the memfd folio count, are plain
-GFP_KERNEL.  A 1GB buffer costs about 4MB of uncharged SUnreclaim
-memory, and size_limit_mb defaults to INT_MAX.
+--j6g7nrwzsepfj5te
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 02/10] drm/panel: Convert Hitachi TX10D07VM0BAA to use
+ MIPI DBI bus
+MIME-Version: 1.0
 
-Charge the three kvmalloc allocations so the creator pays for the
-metadata it induces.  The system heap in the same subsystem already
-accounts its buffer allocation; the data pages here stay with the
-memfd.
+On Thu, Nov 05, 2026 at 04:05:02PM +0200, Svyatoslav Ryhel wrote:
+> Switch from a generic platform driver to a dedicated MIPI DBI driver.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 167 ++++++++----------
+>  1 file changed, 78 insertions(+), 89 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/driver=
+s/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> index 83c2af1be9755..d5d7ba2096608 100644
+> --- a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> @@ -14,6 +14,7 @@
+>  #include <video/mipi_display.h>
+> =20
+>  #include <drm/drm_mipi_dbi.h>
+> +#include <drm/drm_mipi_dbi_bus.h>
+>  #include <drm/drm_modes.h>
+>  #include <drm/drm_of.h>
+>  #include <drm/drm_panel.h>
+> @@ -25,7 +26,7 @@ static const struct regulator_bulk_data hitachi_tx10d07=
+vm0baa_supplies[] =3D {
+> =20
+>  struct hitachi_tx10d07vm0baa {
+>  	struct drm_panel panel;
+> -	struct mipi_dbi *dbi;
+> +	struct mipi_dbi_device *dbi;
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- drivers/dma-buf/udmabuf.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+It's somewhat difficult to exactly see the difference between mipi_dbi
+and mipi_dbi_device. Maybe that should be explained better in the cover
+letter of patch 1? Or the documentation added in patch1.
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd0046242..40182c82df6b 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -190,11 +190,12 @@ static void unpin_all_folios(struct udmabuf *ubuf)
- 
- static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
- {
--	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
-+	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt, GFP_KERNEL_ACCOUNT);
- 	if (!ubuf->pages)
- 		return -ENOMEM;
- 
--	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
-+	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt,
-+					    GFP_KERNEL_ACCOUNT);
- 	if (!ubuf->pinned_folios)
- 		return -ENOMEM;
- 
-@@ -387,7 +388,7 @@ static long udmabuf_create(struct miscdevice *device,
- 	if (ret)
- 		goto err;
- 
--	folios = kvmalloc_objs(*folios, max_nr_folios);
-+	folios = kvmalloc_objs(*folios, max_nr_folios, GFP_KERNEL_ACCOUNT);
- 	if (!folios) {
- 		ret = -ENOMEM;
- 		goto err;
--- 
-2.43.0
+> =20
+>  	struct regulator_bulk_data *supplies;
+>  	struct gpio_desc *reset_gpio;
+> @@ -36,13 +37,12 @@ static inline struct hitachi_tx10d07vm0baa *to_hitach=
+i_tx10d07vm0baa(struct drm_
+>  	return container_of(panel, struct hitachi_tx10d07vm0baa, panel);
+>  }
+> =20
+> -#define panel_dbi_command(priv, cmd, seq...) \
+> +#define panel_dbi_command(dbidev, cmd, seq...) \
+>  ({ \
+>  	const u8 d[] =3D { seq }; \
+> -	struct drm_panel *panel =3D &(priv)->panel; \
+> -	struct device *dev =3D panel->dev; \
+> +	struct device *dev =3D &(dbidev)->dev; \
+>  	int ret; \
+> -	ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d)); \
+> +	ret =3D mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SIZE(d))=
+; \
+>  	if (ret) \
+>  		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret,=
+ cmd); \
+>  	ret; \
+> @@ -54,10 +54,6 @@ static int hitachi_tx10d07vm0baa_prepare(struct drm_pa=
+nel *panel)
+>  	struct device *dev =3D panel->dev;
+>  	int ret;
+> =20
+> -	priv->dbi =3D dev_get_drvdata(dev->parent);
+> -	if (!priv->dbi)
+> -		return -ENODEV;
+> -
+>  	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+> =20
+>  	ret =3D regulator_bulk_enable(ARRAY_SIZE(hitachi_tx10d07vm0baa_supplies=
+), priv->supplies);
+> @@ -79,123 +75,116 @@ static int hitachi_tx10d07vm0baa_enable(struct drm_=
+panel *panel)
+>  {
+>  	struct hitachi_tx10d07vm0baa *priv =3D to_hitachi_tx10d07vm0baa(panel);
+> =20
+> -	panel_dbi_command(priv, MIPI_DCS_SET_PARTIAL_ROWS, 0x00, 0x00, 0x03, 0x=
+1f);
+> -	panel_dbi_command(priv, MIPI_DCS_SET_SCROLL_AREA, 0x00, 0x00, 0x03, 0x2=
+0,
+> +	panel_dbi_command(priv->dbi, MIPI_DCS_SET_PARTIAL_ROWS, 0x00, 0x00, 0x0=
+3, 0x1f);
+> +	panel_dbi_command(priv->dbi, MIPI_DCS_SET_SCROLL_AREA, 0x00, 0x00, 0x03=
+, 0x20,
+>  			  0x00, 0x00);
 
+The majority of the changes in this file are s/priv/priv->dbi/, so maybe
+just make it so that priv =3D priv->db and keep the changes to a minimum?
+
+Thierry
+
+--j6g7nrwzsepfj5te
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt0+4ACgkQ3SOs138+
+s6HbdQ/7Br6s4Wjew+x9l34Dl/Ffj0BbE/CYwRghGlNi3KCIKaIIfDn9gH9hRa00
+UJVYcOAD5llvog/Za0tGlyknycUZKMvxnR1nAlLGb8OGoHbFKnBYUdJnU2GicH5c
+LsNWPjZU3fxBOphqiTH1PqnvZ1R5h700IDYhZ4rIOGQSsmQanadtwwxczPCKvsLC
+dequH0ByrUopSXUTp/BIMxC/BQExwzn9VBCg3WDCCFF+wIKqZNpOJrAA7uiA+hyE
+Ar4t/udyzT38zgy2A5c/pwP1nDpJNjCq0N9lMJxjeup7CC6npifxeB9mjsNkNq1a
+NdygSaROA3GpvigMfBhvjJyGpbaVEPfLJZCa58kOBEoD3Eue9A1KWT+57SW0QZQk
+JnEG/RUMFzxANxiNLKBupjrzxisdSmEFhbfeS0N0P9bGC/gtlMOSPgTtQB/Rbwkj
+EmpuA7BCM1soKZ93qqKq3HvPodk9OINJks70qPwt6ifBRs3fGdoQ3cSJs59LWQ5T
+SWwnlpEbGMmPqgQvSw+syu+b+9zR9Wz+W0h3Cdn7xxAUZnjc96drwvdeAB5tkLlK
+gam7Mru1iepobA63VW2IdVJXKl/eK3Cd03VttopSWqOTZkb4hvMoAmRwYgJTAScs
+guoYPGjs1wCRbzIbNnxQ2L/nuKRcsxJljYrfBDkFAlevIEk+vrI=
+=ONe+
+-----END PGP SIGNATURE-----
+
+--j6g7nrwzsepfj5te--
