@@ -1,105 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988447;
-	b=BpB7S2yP6N7ueENy+7mGwjw7O/DSCkASwcg48ayDZXyxitWXQbE5O1h4pLEs2dmLnnkz
-	 hPuyCgEvS6kqKv/xcsqZHgOu3PZUpPwD+2CBVIm9HY4+U999tpeMPck1ZSPJGTpW0O2gc
-	 w5zyKO771uyI++PgWNOTkRWHVj5ALzbJlbX0x6opRetwjHcExgwspe5Fg6wciJI7E82VT
-	 /S/8BIBDfhcJgiozFe2eMF3+ZpGcmZnwUh44a6qNIPA531g+14Es+U31jUJYscxNCiJRk
-	 pr/pP6UpN2G5xyDnSksOOmRHe/HZJQG5AOpFgJauwPKo5xZXJibNz3yVqsC0/uWP/ZA==
+	t=1793988464;
+	b=u2MLApdaPMWU+10s4VX4BpAFuanik8ZmrCPe0fHHUrjkFRsp06zc4L/o2E3yukTl2+Ua
+	 NU9JVwvVjnwYOaW2Zcb+FAmHAOhjQQg+sPhs9bWAd4JsqhMJVzXSPAGC38kORQ3/QrUU1
+	 md2uhSIfHb1uI75wF4VpSxze/ho3qI4+rUYCO74qBwhP6wuT6xhCgaTwFkp04RNinH6cC
+	 SQZY2plh6+dkNpCe5AK/z5VG+XqYds89urCBPsa9JMMWcdeONsDFBVGYAkEhH0GZtdyYH
+	 fAP5VlpaGpaiNFtFGlMN4u2sNnf+eot7P70KlO8dThXMVvd/u3MFUG2YmRaXfrMzARw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988447;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988464;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:X-Google-Original-Message-ID:Date:From:To:Cc:Subject:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aTv8lkvWYYtmkfaYVZ3RQ1F7LBmnW9Tpy7fJ2ahU4OA=;
-	b=mACUIDWl1Dd4yQVkLOJrkbeVgVkzel1hnZ2VILOhlP1i0StOM9TgaOsTJAMtF+Z/Ti8y
-	 4yEcTKlayIrsdyA17ZwgGCXcIymuZdT4CtPEE3qjn7ZquF20XnXckxi6Vfz7EC9N7VPih
-	 oq99YocNy44P6iYb1rB2QKBz/UIBGGnBAHswewvHyTflIKkC25MfMxyTr7LA5Zd2xS7jr
-	 71W9C1b1B3yKj9ljk4WVF6JJFKXYLEOKmmdPSAvtvPbBFqrJ7/lTLHU/G6mIGtkaoWZRb
-	 O8gheB4h6Do1I3Jc+VTQ09tphtYuZwTNicVRd1AwilV1JRrL4csL15b9VAdVdICLsBA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=V9J2B7uJaZnPBR4r78rPATYLPeUqp87tolhGzh3XV5Y=;
+	b=Urv33U+Gugg/PAQt/K65XKVcQyh8PQAlAw/Vx0v+6KzTNMRFAUkxPykbvKL/u5nFOzAq
+	 tlktww7OG6M8C57PTBz5ohZ2T9nbyPBW/BpXhX3ZnplB9cTB5ZuK66I8EbyE/qhjkqAWw
+	 /+8RaHugGQpWNHHgKCSruYoLYpZrj08K+8cxxBnPSwwlK1C2FMXxM8f9Gg25oLn1io0Pe
+	 kzMXbT//WKKGbEgNW4c9ArfJKIPPpynqjivxdVHRewW2ypBLJVcYMjOWKFp0yTesRtZmI
+	 XQUvyznh2nzM8crO3AUbRLuQ0B2CS95L3fwYpeNqvTHdFsIId6S6RgOi0jf8jiLt85g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KbUnUMSQ;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ATCMNNwG;
+	arc=none smtp.remote-ip=209.85.128.71
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6D5606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:07:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD6D5606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B82606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:07:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15B82606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KbUnUMSQ
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso567745e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:07:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ATCMNNwG
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49febef74e3so12923365e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:07:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793988445; x=1794593245; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aTv8lkvWYYtmkfaYVZ3RQ1F7LBmnW9Tpy7fJ2ahU4OA=;
-        b=KbUnUMSQd5t/j3E8RLeWdRCbRs0NdNgN8nMaCA7IO68kJqdioMqCpQLNMJH4H0g87o
-         jrPY6IFoGXEboP6vHxQjNYNzF8wXguVzdux3dzoziKp74LeuS5qIi65/5nKsvDqnDH/V
-         FrX+vrC/I2hrZB/I3gF5ojm6t88sjkIBy/sOBiD8CngKhW5TUJKilJA33nUQlKrhJqNv
-         wk0D35TrgHIRvrHGAUuHvuroitlxoKWC9QkhURo47BzCXoGHGZ3hvKmNC2OoxMoWDKrT
-         gE7vAnH+LFd5qAX8P9ueSn3H031ktjAbRGYmVIs7FywSivan/EUkuilJsIYtv/wc/0WC
-         dnFg==
+        d=google.com; s=20260707; t=1793988462; x=1794593262; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V9J2B7uJaZnPBR4r78rPATYLPeUqp87tolhGzh3XV5Y=;
+        b=ATCMNNwGfsce7iutnocmc/UEnmNph/lus8rVFhMiN0tAxtcFYnnFNLHsi0x3TdrTMt
+         9+Xlh1dsL1hL3HtSHL1CoYfXcCaeN04OjXtKky4QFl75a/UJXvaw5xv1mRLyu74XsImF
+         1BQYs0QaztOp2bWA6zmD5RF00eIl/SazuyDu72Qode194QGe8Hhp/EMWhXyq9Gz9j2aO
+         ukkkQIpN4xOWF9uAMMSA8UtabvwAwEEQVy8Yk3dhGHX99XzJ5lb3lhFOKbdz8OvV/K+A
+         29hhQYZpMzI2H/yw7703HH87u7xJeYRHSjMdNxKFOKO5jRFwS1ZNRbesEZhg7YU+gJXi
+         SkLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988445; x=1794593245;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1793988462; x=1794593262;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aTv8lkvWYYtmkfaYVZ3RQ1F7LBmnW9Tpy7fJ2ahU4OA=;
-        b=ki63qivJlzKNpAu9ubMwa14xxdSYit+HeXxa311Mj/bbNuHTIVZyPEO2aWapHwR3p0
-         lt7Zq8/y2jH82AJcQvYprAXO0t9jaQ6i6ZlZAFmXbTudQGRUTp0mR0Al12nZMYRoHciN
-         plqOBp5rEiqBmfA2CYo2SWnQzfXHgi8TotWkgMaa9uTebhILfRs3AL2ix8iWKICLewZO
-         hVjEkLgB/PgSDPV/1mhFYQkZKjvFptZ8/biF4u8yalhTVfWjDaSE9i2yYcUUC3Xw9tkr
-         mxHmusUY5ZG+oOSBnd2WCNMiHoKBcYHq6eVr2SZTRT14DYwSCiadaHhtK0VEUNq/VBlS
-         NzLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwqH4JmgTLZAhoQA4Fe5R9XPk5ASJB3n6LPgVSPwnCJ8R6ASJzRrQxbG2kNXbl/OSQ6RGXRDqO83X+Y+AU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jKp0j5h+fNTKN1XLmPEXBA9GdxNXL372b3MabdsUgrBmvtywk
-	5PHlH8v4fULgcIk5fp7pYA7PA0RlJQa8YW3rMU/kLcpPNBEZPQMtysT/
-X-Gm-Gg: AYBFou2hHtXCcH5CbmnptuuY2Prl533cFxbtYqwnbZ+IyUsKp7DOwKpcH3JujuHJ6Ac
-	duXXWdo/G1rePAQrbwp4ZUv7lGSFrNWWDhysrY8e4gSOaMkQzkPfVeLP/0/JcZHhHxedGNrYvi8
-	1oOq9W4sFqGpJQlh6D5Wg1n0JBUsi5KHcfgyoC1b2LOLZakbNRaekGHjV4RorDICFcZt10T8pZ4
-	/5qfnE7QkBU0/3xS3yDRCmFwrwTfcMS/iyYQkKxlnndNahDlQvVbTj5ccLonFAAxFe70M3Vut1b
-	zYwg4vbr8XQcEe/t3387vfOmoXabOyO6tFKhoH+N6EPcC6K6dnFVAfa8EwXepag2o+Sm6uwpA6T
-	6+r+H24Q1HBH5ld5g9Ki+aiAwkYcA3r1yeUvdt1OIFmbVRlZNBNVsSmgo/qNYakpek4FJ+569Z+
-	W9chhDo48EoAMpe8/6RTLMlVMD69rZwHZjikvJRjdG3TUhB/j35kRSQqmcuC/z1yG0As8Xhlss2
-	YcxNrj90XA7PIeUFCjZ9EC9ZPTAwI0r+6ulqjqEMlevLKzfebRu8kplOJAlhzo5StHXoHzvMu+N
-	g1uIgASzzWPsSQ0QO9PTouF8ypFq6xpl2H2P7KCC4jZFuRKSGO4TcrgUVNNmI0PWe7mlGR4LCV8
-	qNg/oOTTWaq/P2uI=
-X-Received: by 2002:a05:600c:348f:b0:4a1:f377:5c6c with SMTP id 5b1f17b1804b1-4b6de788f12mr56588375e9.10.1793988445013;
-        Fri, 06 Nov 2026 10:07:25 -0800 (PST)
-Received: from Ansuel-XPS. (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7c8a01afbsm64905e9.12.2026.11.06.10.07.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 10:07:23 -0800 (PST)
-Message-ID: <6aee175b.f01aa0c8.37eba4.18ea@mx.google.com>
-X-Google-Original-Message-ID: <au4XV3gQmbXyvqIA@Ansuel-XPS.>
-Date: Fri, 6 Nov 2026 19:07:19 +0100
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Yongzhao Chen <yongzhao.derek@gmail.com>, netdev@vger.kernel.org,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	linux-kernel@vger.kernel.org, Ziyang Huang <hzyitc@outlook.com>,
-	Stanislaw Pal <kuncy7@gmail.com>
-Subject: Re: [PATCH net-next v8 1/2] net: dsa: qca8k: let regmap serialize
- register access
-References: <20261104120130.48455-1-yongzhao.derek@gmail.com>
- <20261104120130.48455-2-yongzhao.derek@gmail.com>
- <6aca850a-ef67-4451-aaf2-977be884d1b0@lunn.ch>
+        bh=V9J2B7uJaZnPBR4r78rPATYLPeUqp87tolhGzh3XV5Y=;
+        b=oqAsXiQ/EFN6p2TXzpwCV/cNV17QiH0/F4bCM8W0fAe4Sx5PbYcTXHlVhrLzr4yaFe
+         ERZTolDF/pg7bk7fMJeAL7cZC9Z4mTDUFMv76TCNQEcaiK8LEkZSmNFgGyFbYZCtKXzB
+         eaSsQSHh2+iCCwuZ+WI2Pnu/MGubeIOF4TFeSa8/djsXbG1LNFzaKjlrLIOvRDtaA2QX
+         Qy7czJQ/Rr8jJkRCuSTIgAbvo1HVXSz2yyofsb6P3GvRV4JBHEmESCyvqqymkAowALQA
+         lvu/1uVL3/9KmM+NQ7G5gN+fRU6jMol0WR3600tLGHuak0lZsdaWSXUD/3s/WIzSZzmY
+         BwFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0yh8UHqsLVMEjMKnoioJuZSXNb3OVVxvrexDBtiZVQ++udLxId2T7HJ3Dc4nMcnisk2LwCM5hjgYBHi0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nUl18ZPfiioUyzQqQ2VbCx4qvmFYB9+HmMHDnPMofPWYXVgJ7
+	17I0TPxHSmMYi5bowaW+0Szv0hBMoy3SmoTHYm5uDP/Ajg/Nw5LnQe2g8tPP4JheoSI2njiY0wO
+	cokHxd5ELZNHxxVTJlSK/Bg==
+X-Received: from wmep6.prod.google.com ([2002:a05:600c:4306:b0:4a5:7d42:bd0f])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:310f:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4b6dea69297mr54280945e9.6.1793988462339;
+ Fri, 06 Nov 2026 10:07:42 -0800 (PST)
+Date: Fri,  6 Nov 2026 18:06:36 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,53 +75,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6aca850a-ef67-4451-aaf2-977be884d1b0@lunn.ch>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261106180657.2460376-1-vdonnefort@google.com>
+Subject: [PATCH v8 00/21] tracing/remotes: Add printk, dump_on_panic and boot parameters
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Nov 06, 2026 at 02:38:37PM +0100, Andrew Lunn wrote:
-> On Wed, Nov 04, 2026 at 01:01:28PM +0100, Yongzhao Chen wrote:
-> > From: Stanislaw Pal <kuncy7@gmail.com>
-> > 
-> > The regmap is created with .disable_locking, on the ground that the
-> > qca8k read and write callbacks do their own locking. They only lock the
-> > bus transaction, though. Since the driver moved to the regmap
-> > read/write API, regmap formats the register and parses the value in the
-> > map's shared work_buf, outside of the callbacks, so two concurrent
-> > users can swap or corrupt each other's register and value.
-> > 
-> > Most register access runs under rtnl, but not all of it: phylink's
-> > resolve work (mac_link_up/down) and the LED class callbacks do not, so
-> > a link change can race with an ethtool or LED access and write the
-> > wrong switch register or read back the wrong value.
-> 
-> Do any of these operations which don't take RTNL do an open coded
-> read/modify/write? Does the regmap read/modify/write operations hold
-> the regmap mutex over the entire operation?
-> 
+This series extends the recently introduced trace remotes
+infrastructure, bringing useful features for developers:
 
-Maybe I'm just tired from destroying board from my HW project but... I'm a
-bit confused of when read/write are not serialized.
+  * dump_on_panic: Dump the trace remote buffer on system panic.
+  * dmesg: Redirect remote events to dmesg.
+  * trace_remote=: Configure a trace_remote from the commandline.
+  * poll_ms: Modify the polling period.
 
-Operation of the LED and on the port have their own dedicated register per
-port and for shared stuff, there is a dedicated mutex for it.
+It also brings a couple of optimisations:
 
-So I'm not sure what case this patch is fixing...
+  * In-header compressed length support for small events.
+  * Single work thread for remote polling.
 
-Both mgmt and mdio operation locks at the start and unlock at the end of
-the read/write or rmw operation.
+And some misc improvements:
 
-Using the regmap lock seems redundant and this is why I disabled
-originally. 
+  * Use kstrtobool where possible
+  * Free resources on remote registration failure
 
-I would like to have more explaination for the 
+Changelog:
 
-"regmap formats the register and parses the value in the
-map's shared work_buf, outside of the callbacks, so two concurrent
-users can swap or corrupt each other's register and value."
+v8:
 
-case.
+  * Use trylock in rb_reader_lock() when panic_on_this_cpu(). (Sashiko)
+  * Drop ring_buffer_read_remote_meta_page() and use ring_buffer_capacity() in trace_remote_has_cpu().
+  * Avoid mixing __free(kfree) with goto in trace_remote_iter(). (Sashiko)
+  * Cancel and reschedule poll_work on poll_ms update. (Sashiko)
+  * Validate buf_size and use WRITE_ONCE() for poll_ms in cmdline parsing. (Sashiko)
+  * Rebase on 7.4-rc1
 
+v7 (https://lore.kernel.org/all/20260924145754.1285146-1-vdonnefort@google.com/):
+
+  * Check for printk timestamps in dmesg selftest. (Sashiko)
+  * Touch NMI watchdog in the panic dump loop. (Sashiko)
+  * Add READ_ONCE()/WRITE_ONCE() for panic_on. (Sashiko)
+  * Defer dmesg and tracing enabling after all cmdline options are parsed. (Sashiko)
+  * Guard sysrq panic trigger in dump_on_panic.tc with TRIGGER_PANIC env variable. (Sashiko)
+  * Rebase on 7.3-rc4
+
+v6 (https://lore.kernel.org/all/20260817135517.3919534-1-vdonnefort@google.com/):
+
+  * Replace WARN_ON with pr_warn for buf_size in cmdline parsing. (Sashiko)
+  * Add READ_ONCE()/WRITE_ONCE() for poll_ms (Sashiko)
+  * Add support for HAVE_64BIT_ALIGNED_ACCESS arch is set in simple_ring_buffer. (Sashiko)
+  * Add selftest tracefs file requirements, TMPDIR leak, and awk regex. (Sashiko)
+  * Rebase on 7.2
+
+v5 (https://lore.kernel.org/all/20260812161340.2417322-1-vdonnefort@google.com/):
+
+  * Use seq_buf_str() for safe, properly terminated trace_seq extraction. (Steven)
+  * Remove destructive dmesg -c from selftests and rely on timestamp matching instead. (Steven)
+  * Allow several trace_remote=XXX cmdline options.
+  * Rebase on 7.2-rc7
+
+v4 (https://lore.kernel.org/all/20260804140333.797210-1-vdonnefort@google.com/):
+
+  * Rebase on 7.2-rc6
+  * Use trace_append_boot_param() to parse cmdline options.
+  * Fix trace_remote_iterator cleanup order for non-consuming iterators
+    (Sashiko).
+
+v3 (https://lore.kernel.org/all/20260721103603.342266-1-vdonnefort@google.com/):
+
+  * Make sure dmesg and panic handlers are using null-terminated
+    trace_seq.
+  * Make struct trace_remote more compact
+  * Fix dump_on_panic test unloaded case (Sashiko)
+  * Rebase on 7.2-rc4
+
+v2 (https://lore.kernel.org/all/20260605163825.1762953-1-vdonnefort@google.com/):
+
+Sashiko had a few spot-on comments on the v1 which forced me to heavily
+re-arrange the series, so I thought it'd be alright to send a v2
+already including those changes.
+
+  * dump_on_oops -> dump_on_panic
+  * printk -> dmesg
+  * Allow to configure poll_ms
+  * Make the ring_buffer_iter functions panic-friendly
+  * Gate tracefs .open on remote registration (Sashiko)
+  * Use irqsave for reader lock (Sashiko)
+  * Fix iter locking for TRI_DMESG (Sashiko)
+  * Yield in the dmesg work (Sashiko)
+
+v1 (https://lore.kernel.org/all/20260602171146.2238998-1-vdonnefort@google.com/)
+
+Vincent Donnefort (21):
+  tracing/remotes: Gate tracefs files opening on trace remote
+    registration
+  tracing/remotes: Release tracefs,eventfs on registration failure
+  tracing/remotes: Use kstrtobool for boolean tracefs files
+  tracing/remotes: Initialise pos in trace_start()
+  tracing/remotes: Annotate remote shared fields with
+    READ_ONCE/WRITE_ONCE
+  tracing/remotes: Use a single per-remote polling work
+  tracing/simple_ring_buffer: Add support for compressed length
+  tracing/remotes: Add dmesg tracefs file
+  tracing/remotes: selftests: Add a test for the dmesg tracefs file
+  tracing/remotes: selftests: Prefix hypervisor folder
+  ring-buffer: Use irqsave for the reader lock in
+    ring_buffer_poll_remote
+  ring-buffer: Avoid reader_lock deadlock during panic
+  ring-buffer: Use panic-friendly locking in ring_buffer_iter interface
+  ring-buffer: Add kerneldoc for ring_buffer_poll_remote
+  tracing/remotes: Use ring_buffer_capacity() in trace_remote_has_cpu()
+  tracing/remotes: Add dump_on_panic tracefs file
+  tracing/remotes: selftests: Add a test for the dump_on_panic tracefs
+    file
+  tracing/remotes: Add poll_ms tracefs file
+  tracing/remotes: Add trace_remote cmdline options
+  Documentation: tracing/remotes: Add detailed tracefs layout
+  Documentation/kernel-parameters: Add trace_remote
+
+ .../admin-guide/kernel-parameters.txt         |  19 +
+ Documentation/trace/remotes.rst               |  66 +-
+ kernel/trace/ring_buffer.c                    |  48 +-
+ kernel/trace/simple_ring_buffer.c             |  23 +-
+ kernel/trace/trace_remote.c                   | 848 +++++++++++++++---
+ .../buffer_size.tc                            |   0
+ .../test.d/remotes/00hypervisor/dmesg.tc      |  11 +
+ .../remotes/00hypervisor/dump_on_panic.tc     |  11 +
+ .../{hypervisor => 00hypervisor}/hotplug.tc   |   0
+ .../{hypervisor => 00hypervisor}/reset.tc     |   0
+ .../{hypervisor => 00hypervisor}/trace.tc     |   0
+ .../trace_pipe.tc                             |   0
+ .../{hypervisor => 00hypervisor}/unloading.tc |   0
+ .../selftests/ftrace/test.d/remotes/dmesg.tc  |  86 ++
+ .../ftrace/test.d/remotes/dump_on_panic.tc    |  50 ++
+ .../selftests/ftrace/test.d/remotes/functions |   2 +
+ 16 files changed, 1018 insertions(+), 146 deletions(-)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/buffer_size.tc (100%)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dmesg.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/00hypervisor/dump_on_panic.tc
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/hotplug.tc (100%)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/reset.tc (100%)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/trace.tc (100%)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/trace_pipe.tc (100%)
+ rename tools/testing/selftests/ftrace/test.d/remotes/{hypervisor => 00hypervisor}/unloading.tc (100%)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/dmesg.tc
+ create mode 100644 tools/testing/selftests/ftrace/test.d/remotes/dump_on_panic.tc
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-	Ansuel
+2.56.0.455.g6c5a503b38-goog
+
