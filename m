@@ -1,99 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794009383;
-	b=vqp7Qr5P+61vRrzSlDihLnEirwtvqHMd6Duc4sn3YgxVTZYyBbqsp9VJvSM8OSdSNpD2
-	 trNTcBBgdHy6bQWD+qFihNSY2bKZ39sBDyzK0DwomT/eeJCY98Gnrs13UKSY1hJL2SXH4
-	 /NbixTmnMqH/iT8W8SSSf+Tz6ngpZsTkRzuAhF3ebQwUa4ea7OFkqBb8iMgwJFLv1e8pL
-	 DQG3MEMm5L+ZHAf7Pjq0A4KvMBfgfHudHpoCNOI5zD521X3Bq1YYqrHP6BNwGPEohMSbp
-	 UG0SM9cest+d36OJiDYu5nfXRBuz0AnUJnIJ5zle1ak5pl6E7l/QGRjZ7f1JErDOWig==
+	t=1794009553;
+	b=36/eFBvI9dS+Q3g6PK0X31+8XXHTpaeHRTZ6CeOTrZ56vsaB8/mDkRfFp2xWBEZQVloL
+	 h30ISeglmHsb6SqLsSZyVG2ewUMFa24xmbJ+UiD3GJrzxnQKmVvQe4nf+cpNd79ia/Yb+
+	 mG77GLHxS7PT9CYUKlDfITGe+foTKeqez4XmleW4K6P/5shHBynwmECGp05n64BJzvrr0
+	 52ql/s+qtyuLA3miwF5o3QQ7b9BtGAdhVtFY2rU+d+s4gFQ+uPjuid60FhSaIaP4I6yAH
+	 /D1/p6tmKg8zYrHlk1CnKqfiHnE9fOVvjnBV09Xi4oB98zW4Dm4SwbcZnn8W2kuAWUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794009383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794009553;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=EqCmNfYKlNwsn1idkjaXW7TotQKUbQb2rBHLGM5f6tk=;
-	b=A3sQbr3JHOFFEf22qFkj2vrGrGE2uSzmcwPIu4EhKcZKDnV2D8EErqEto8RTZxE584vm
-	 Hjs9nMMylj3NcpCdzXiUCof+GyD1iWFswfMYQzHr94zJHM7r3HnsrAsqk7ohetA30En3y
-	 eGReTThSsUZSFi9QKpTWBHjdhgZjGo3vo0TgdB9egaW+Ndm1GuRtdXnBDATKcw+2VxNbW
-	 KRjLrxCPUYvVYlMlCaQMkAA2TPAa5MJ68J4L1GLPLf11sCGDD7rXIhGnCKqUFShIxjUfT
-	 AtGXGqSNPGgw0MRB4fHhGAvPxvl2Ix12aXdlUjm5a8YAFAmh+1eN9qiToYKfZVEVYcg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=QLxBnr2dWVF7awuaywn040Wg1Wa6I8q0xUXMqEWtl88=;
+	b=Hfct7WjfP5HCVhtB9ZSCwKCrvb2lwlLQjN5h7lQG2cme2XJpXzAwSPwo0x9XFunu63VV
+	 E2NvNkPUwHNb/XAKM+FkNXMe9+jfpMi1QOnHRvrNcDg+8xtj1vvn7VXgNuO+dspgHDurm
+	 YwgHlLU2MfrNVtKRFIzMcJgLZvwpo7dSVNlJAQ+A7AY7z73ihIQndZPua/MkkE/+2mUt8
+	 PtJ/oBc3jZP2LG1GkBg8VsA/JMqQWMVTERBr28YfBbawSAQmHh0l+D6wmg46EdibCWbwl
+	 aHwrYjFuurpMYu6+Yiz1GwM8iL76YbPYFX0MxZ7HLJuFByT9dQ3Eoes3Yxp7E9Ws+hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fQORgJoM;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OMpqWCP3;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B8D606A32F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:56:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37B8D606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9EC0606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:59:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9EC0606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fQORgJoM
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b0a2a44a0cso962573a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 15:56:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OMpqWCP3
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-567e742f481so725103b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 15:59:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794009382; x=1794614182; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EqCmNfYKlNwsn1idkjaXW7TotQKUbQb2rBHLGM5f6tk=;
-        b=fQORgJoMvYMnMUgWrF7PSo4bl3GM8XuDObpV/T9gO3XE0G0E7RHrm81nbJAeNKtxQm
-         HuE6sX+5mpPyMXwdj0Xjq6VWx3u5H3x1uLtno/M2ctX1LvDU1oT7v/Xb+lAvRIVUZtwF
-         KRsuOEZAG3ri45muOX+n7fESXmjexh0a92gD/4UfIeBVGgDzWsyKqtDuPjET1nVG8mOP
-         2vMwSOyrvTtqjjUXHopqj7ZICooVderjc/kbrWckppCYgIGtGquf7IhSzW6TS2/diP5b
-         XdlhLnJIyAiv/TWrpB0SCUEr7Yime1SeCu31F7sgw88yRKuKHUfqogXrZbcl1ZRdEL/4
-         34Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794009382; x=1794614182;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20260707; t=1794009552; x=1794614352; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EqCmNfYKlNwsn1idkjaXW7TotQKUbQb2rBHLGM5f6tk=;
-        b=y5iyhiYLH5uwSm7pQNBTZj1u0ArlEGF8ZN699o/CEUrvylrMI3ZmRNX1Mho83Eup2k
-         0/E2ZhKMoi153pxQ/r8H7nT2Z8D2edA/wLiPbW9G/IyQkY0FtSrt5uBugAYQFXNJAXNc
-         c2Xq3JUDI/wZAeG6aoghjJgvEbawiwU5ncEauHCt9eSLXiXjISLMUh2bGCjUhbfUAoMJ
-         bIfTwxdlXU+r13nITERhqrb4UvX3KSGBotyWd9wKKdLEVoLul+lXZ5QrWL9JNptJDmk/
-         OP5IR5MlUBxBmudBC9YcV1LkzQFtcgHlgUfpMocOt/TwtRRWil2ROWVJR5VhuItbAudQ
-         JK7g==
-X-Forwarded-Encrypted: i=1; AL+hErE+fClK7Ns8pY/RfrUqyWSBt+EH5SXoritrQO8DuUOAFUIXQNNxWYF6n2grCKB3js6dHlDLXF8SAN7odC4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9+7la8DJuvP1zicHzCfZTtJxDwB3QcnANPh2RtcmMAUWW1dd6T
-	pjIPNtxt23Ogifa5NRuGW8DiKr8dz0zJbEdoYz+0CKtGx1h/IhrLqYp0
-X-Gm-Gg: AYBFou0AMeQzhBWhmLM00sxqJW9QIKWF175stnsPRhQNGz/z0/Tb9qC1YGYcIeye2tO
-	FierUKyruFMQC91No4KREnYFfaL7w6zWkGgzq99k7UO5Ad+eWeQNoT35bdq2zHOaS0bOGtR7TeI
-	aLmu7GgE9SH36Al7tVTvjJ8Y8peYm7z6TX/wKO9cCmi1VqyfyTM5iY8bIP7jc4dxLQLfgzfNL3X
-	okfEijZSNluJJjl+nCjsR9qcQMXbdEwB5nBNROWkDPi1kBIn5T4O+UwQh7qxtRgYgdTDyZyUTJD
-	xd2Wq5Sz0r4DT44wBUvDoq3nEoi/i5ngCcgdSSrlf1mjRqY63klRjUyTlUCs68ruzc23hXW3Ht3
-	4F60XIFueF9j52R7EDKbnhhSesI0radk3iSKgkg4it8jBXPSxAOU8V9U5RWbmh18jRuGYeO6EmQ
-	+XEWDeXCB4gcpYkNgFYuj5iq1BjxRobn2RsoMVZqfWi79gQcpJ84JEnceFvOLCEM68X5wloSiz/
-	3/8Z9EnX+C0nhbqoWvMvjehJ2pYnF9EG1DkXRAEfPdCSS8Lfansrr04f0/NSfNXUi4lxb/1hRc0
-	EHboS4ekhazpovkFiDOs
-X-Received: by 2002:a17:90b:1a85:b0:3aa:fc22:8ab4 with SMTP id 98e67ed59e1d1-3b0db6f8318mr3721226a91.29.1794009382537;
-        Fri, 06 Nov 2026 15:56:22 -0800 (PST)
-Received: from a1-free ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057fda58sm852780a91.7.2026.11.06.15.56.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 15:56:21 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-arm-kernel@lists.infradead.org,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH 1/2] arm64: errata: Mark GIC-700 #2941627 N/A in silicon-errata
-Date: Fri,  6 Nov 2026 23:56:15 +0000
-Message-ID: <20261106235616.1533003-2-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106235616.1533003-1-takano32@gmail.com>
-References: <20261106235616.1533003-1-takano32@gmail.com>
+        bh=QLxBnr2dWVF7awuaywn040Wg1Wa6I8q0xUXMqEWtl88=;
+        b=OMpqWCP3w2TNWkCpaGDqlfhPWO7GAkSXve+GiumCIEy+wpd8n9eBF0ZdfrQjNkuexF
+         gRixkS6t0FqUbM2FyUoEePBUWNxCS7oL6wnv48is0SPAG3aDwgoou0I36MZSMari3V7x
+         rtRpPyXLBYy2mXYNv3VZuhjEiywNom6v5ZaIhrUPAl4FgYnZT4SZItLe+vkIxhvxkKYM
+         CZn/Pghml7RHbdGLmq6P93YVS57kGfAIZiZ7JCuP7rXpdstHK7IxhJ15p6FTSbLHwkjv
+         uMFnW9vCglhhTTWakcpZM0gfC7pPCUhMScxetQKFDT7LIkkruatKFs3c4y24gQjktgwL
+         nYAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794009552; x=1794614352;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QLxBnr2dWVF7awuaywn040Wg1Wa6I8q0xUXMqEWtl88=;
+        b=Xr/nfz0WGADz26l+OgcJAH2zD0Jak+Gd6T1hZ1A3snjEr3c1JqyurJOfoZOrJryw8g
+         7sslcshvGuzKEvHZVP5OfDQ0OkJRnBCf7zf/e6kiwyyTUpDEbswyaEn2tt30LhMQyBi/
+         OnNorHlduL6hvvV0BiKho4SkGk+kQq8o8M4ofcUdkKK0QAGRpBXgSIL+IKSlg82nJxot
+         5FU5R8Mz+IGrBrFo56IbWhYpc5+dBEqks3BVRUYDkAFmOKq9HaUdbV+AaAmIay+ghaJl
+         4woH3F60IW54jWpkIotUmCnlMtG9bxVj/ZPszw1j/g2ZQFb231kQCMVezmndI+mFW5fm
+         VAXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSwroH0nVAPK+wToCu0hEz4L12iEpeLFf4Es2Hln6ITgijWoC0YYZzvGlHK2PJO5p1BJyN3ijVH08Bxa0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dyGhulYnXAJa9dHF/G+U5Lfkzo7LBQSfNoKx9FqeNbMY02J7j
+	pz5/c6psvNbpCt0dmr2Sg6FOutYlqOilvfnxk+7IqAXrLVmo1DztPTaIHbvOymxOupvT0tUEF5T
+	qLAnI1ZQjSaTErCkvYA==
+X-Received: from iokk25-n1.prod.google.com ([2002:a05:6602:8319:10b0:9c4:de2b:c40f])
+ (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:1985:b0:55c:8ee:a9c4 with SMTP id 5614622812f47-567e115e036mr3038381b6e.43.1794009551333;
+ Fri, 06 Nov 2026 15:59:11 -0800 (PST)
+Date: Fri,  6 Nov 2026 15:59:04 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,46 +75,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261106235904.1092712-1-tjmercier@google.com>
+Subject: [PATCH] mm: workingset: compare shadow nodes node-wide without kmem accounting
+From: "T.J. Mercier" <tjmercier@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Qi Zheng <qi.zheng@linux.dev>, Dave Chinner <david@fromorbit.com>, 
+	"=?UTF-8?q?Michal=20Koutn=C3=BD?=" <mkoutny@suse.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, "T.J. Mercier" <tjmercier@google.com>, 
+	Jaewon Kim <jaewon31.kim@samsung.com>, Jaeseon Sim <jason.sim@samsung.com>, 
+	Youngchan Kim <ycshark.kim@samsung.com>, Dmitry Skiba <dskiba@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The GIC-700 #2941627 entry in the arm64 silicon-errata table names
-ARM64_ERRATUM_2941627 in its Kconfig column, but no Kconfig file defines
-that symbol and no code refers to it, so a reader who follows the name
-finds nothing at the other end.
+count_shadow_nodes() limits the number of xarray nodes holding shadow
+entries to 1/8th of the pages that could be using them. For a memcg, it
+counts the LRU and slab pages local to that memcg.
 
-The workaround has no Kconfig option: irq-gic-v3.c passes the GICD_IIDR
-value to gic_enable_quirks(), which matches it against gic_quirks[], and
-gic_enable_quirk_arm64_2941627() enables a static branch.  The table
-already records workarounds of that kind as "N/A", for example NVIDIA
-T241-FABRIC-4, a GIC workaround like this one.
+With kmem accounting disabled (cgroup.memory=nokmem), shadow nodes are
+not charged to any memcg and __list_lru_init() makes the shadow_nodes
+list_lru non-memcg-aware, so all shadow nodes of a NUMA node are on a
+single list. shrinker_alloc() falls back to a non-memcg-aware shadow
+node shrinker, which shrink_slab() only invokes for the root memcg.
+count_shadow_nodes() therefore compares every shadow node on the NUMA
+node against the pages local to the root memcg.
 
-Set the Kconfig column to "N/A", as the table does for workarounds
-that have no option.  The row stays because this file acts as the
-registry of software workarounds in the kernel: deleting it would drop
-the table's only pointer to gic_enable_quirk_arm64_2941627().
+When most tasks run in child memcgs, the root memcg only holds a small
+fraction of all pages, so the shadow node limit derived from the root
+memcg page count is far below the number of shadow nodes on the NUMA
+node. Since the shrinker has seeks == 0, every root shrink_slab() call
+trims about half of the "excess" shadow nodes. Most refault information
+is thrown away, so refaults of recently evicted file folios are not
+detected. Refaulted folios lose PG_workingset and the workingset_refault
+and workingset_restore stats drop.
 
-Only the text of the table changes, and no build was run.
+In testing on devices with kmem accounting disabled, moving tasks from
+the root memcg into per-application memcgs dropped workingset_nodes from
+~37,000 to ~900 and raised workingset_nodereclaim 4.6x while
+pgsteal_file rose by ~12%.
 
-Fixes: 6fe5c68ee6a1 ("irqchip/gic-v3: Workaround for GIC-700 erratum 2941627")
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+When kmem accounting is disabled, compare the shadow nodes against the
+whole NUMA node, as is done without memcg. Behavior with kmem
+accounting enabled is unchanged.
+
+Cc: Jaewon Kim <jaewon31.kim@samsung.com>
+Tested-by: Jaeseon Sim <jason.sim@samsung.com> # Galaxy A18 LTE
+Tested-by: Youngchan Kim <ycshark.kim@samsung.com> # Galaxy S27
+Tested-by: Dmitry Skiba <dskiba@google.com> # Pixel 10
+Signed-off-by: T.J. Mercier <tjmercier@google.com>
 ---
- Documentation/arch/arm64/silicon-errata.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/workingset.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index afe109afe692..afea5e57ab95 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -279,7 +279,7 @@ stable kernels.
- | ARM            | MMU S3          | #3995052,       | N/A                         |
- |                |                 | #3673557        |                             |
- +----------------+-----------------+-----------------+-----------------------------+
--| ARM            | GIC-700         | #2941627        | ARM64_ERRATUM_2941627       |
-+| ARM            | GIC-700         | #2941627        | N/A                         |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | SI L1           | #4311569        | ARM64_ERRATUM_4311569       |
- +----------------+-----------------+-----------------+-----------------------------+
+diff --git a/mm/workingset.c b/mm/workingset.c
+index 1504f91cdca5..87d5e55dd684 100644
+--- a/mm/workingset.c
++++ b/mm/workingset.c
+@@ -682,7 +682,16 @@ static unsigned long count_shadow_nodes(struct shrinker *shrinker,
+ 	 * PAGE_SIZE / xa_nodes / node_entries * 8 / PAGE_SIZE
+ 	 */
+ #ifdef CONFIG_MEMCG
+-	if (sc->memcg) {
++	/*
++	 * Without kmem accounting the shadow_nodes list_lru is not
++	 * memcg-aware. So the count above covers the whole NUMA node, and the
++	 * shrinker only runs for the root memcg, whose local pages can be a
++	 * small fraction of the node's when most tasks run in child memcgs.
++	 * Compare the shadow node count against the memcg page count only when
++	 * the shadow_nodes list_lru is memcg-aware. Otherwise use the NUMA node
++	 * page count as is done without memcg.
++	 */
++	if (sc->memcg && shadow_nodes.memcg_aware) {
+ 		struct lruvec *lruvec;
+ 		int i;
+ 
 -- 
-2.53.0
+2.56.0.455.g6c5a503b38-goog
 
