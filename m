@@ -1,65 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986460;
-	b=PlqrHUhmWg03eOvS8xjR8oxJl6558zOsAfQesNLbBg5p799DHW5giw5wJFCn9SGBa3xL
-	 7L9k8stBdjRTcQuAqRmwca/Es/0g5S0FGo4Pa6ZDjiqjWMShJOG8l9eDNmhnUL0K2Hstn
-	 mnEsv4U0NSYdXLIF0oMS5rCVVh9enB9J9qa46a7UIVkdO9MXePX+hpDGLXUMNzxo949VD
-	 wHgUgXwsoYrK49xUKmMTMXQth16AREmfyE0SKkktRe3PiMjkJ8XxpLvso5WWPTQjTAyyz
-	 JVyQRlyKqQgoBnuPEzxy0IXEdQCiyvZ/yll0Bo7XZrF6sNC4TUsjBsp0ZPsacUNAgyw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986460;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hFMlalDZMbanx0tgDq9U8d3R2Xv11f9p/o0xaL1x0bA=;
-	b=PhlTNUgwND+yN6nhxoS2WrHdFttIE11UQ9GBwcq3KCUMuPJsecg5wcys78VvjqCfkDeK
-	 Fb/1SmqjxdjYSq6ODCNwuRoA1ce0IXufnzXyIsn2ZzvVDtNM8WjF638IWtl5OcDbqYpuc
-	 rAqW04L6Flv5dZf87Qevfp9TA8UtUfH0DNrBJ/BE7urJVmzg3gv+oEO8VgVjLe9Ox8kQZ
-	 x6n1RLhH7hlMWiZS0cJrsqptCnpxHtn62dnL2NBXWZRfwQYn721tboOz8KRbX1e3DyHrs
-	 JpYj0hQFuHN33Ct6rTqRCzupAA4s3B+3uVkvc9WarAJvL4SArSVNWI+A+1c/Mrm0RFg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YhEJ4r2x;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.29
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793986456;
+	b=qot8CszaBNPvHrFayNBj9EUka6VKZIWwaHCdO4PuvsqVtwTLSKDrlsKeT667tzFm+xcj
+	 qXPG7LT/+V9e31M8DP/NnQgd/TX78hsZmQ8OmbKGaEO7seFwehTVPB0Uih8Tf/UaM79if
+	 jhSxoZGyIPy2rNvscEPAZLG98lCPxqdkDe287LDNS5z82QgLpYVFNHCG3XZtrnO2W/fVa
+	 bJOZxGlZG+eNR6leTtPDdtBYUR8hJJsnkk7CSmHEkynWReTl+rEPKbYXoAEcnAlDrYWq+
+	 91zOYDlAGQ3NIG50BD3Xq/fpPPeWVq9TXsIVM0DM2wMx6mzVK5PUh2KI6xBs0TTiZqQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986456;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zr5EsqAeRgl0PR9xLhThn3KngTsDBbfz9y5uLfr1pNs=;
+	b=5NtY4ELB3fogPzMznHn3xFJ/Tx4XR27ffUn+B4Jj09WE9sLW+KW76ZxA/AqL87nyec6n
+	 KqCOaedrE6JwrevBGktYS+eoqBNj62BSKwWRgvOPFge8DxN0wGDgOwIZ5r8ksrCvxK5Oe
+	 A5uaFwMusHDVuFK6LPyh+YU4PnO/mjtQHhJ0A4m4o79ikLYuYISahG2N5vb0lINem4hXZ
+	 E6ac5MCs0FlNEHnpiTTCK9bnp+6TwAXPQRSSbV0T62Ugv569ISsN6tnGIGn6pnwdQP8vZ
+	 FHjKN4dlat9C05qMfk0AupKpSge9HHVXdbn9QHq0Sni52OCzewtMGVFNnPgG3/G2UYg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XwCHydSH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.29
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012029.outbound.protection.outlook.com [52.101.53.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CC7606A326;
-	Fri,  6 Nov 2026 17:34:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96C2606A329;
+	Fri,  6 Nov 2026 17:34:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B96C2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YhEJ4r2x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0E11F008A1;
-	Fri,  6 Nov 2026 17:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793986459;
-	bh=hFMlalDZMbanx0tgDq9U8d3R2Xv11f9p/o0xaL1x0bA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YhEJ4r2xcd9gFTSR7DeenGNyPOaVKwo1XiAhHTNqw7tIB9iLDQnd39YQtg6rFU+MY
-	 s5epRcsds1MZ0wSATm4KkzRMKQOOcBSrfO2PFg4VCC9M3nZk1Un/JqohZMQCA6OB0x
-	 P6d7flY37+9Wnp8FnPxF3mvEoxG+QLu2XxNgWOY0ZQuEFMKIRnHnBKGFoF+0L7696s
-	 OPqC2LC/IK8reeWdu9c2oYsRUutJTTpxJUjQfCz1D57uvjkfzzE33nGVNXWwAisfEw
-	 0eeI65R2gDOvqBF4IJ4vvLQlRt786I61C850XB4RLQIPcNWvu4ZHRrxrD82ea2lu/o
-	 wOH3NCTCa8QIA==
-Date: Fri, 6 Nov 2026 17:34:14 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Carlo Caione <ccaione@baylibre.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 6/7] dt-bindings: clock: Add Amlogic S7 peripherals clock
- controller
-Message-ID: <20261106-unwilling-preoccupy-156dbb310448@spud>
-References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
- <20261106-upstream-s7-clk-v1-6-7d501d62621f@baylibre.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XwCHydSH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ycKSAJeI5GGMKL3yd0cgX04/QYJddRke7vGmbgNkOSDoYmozTHWhldvu/egiZRIdmJmFAZSNUE7O4ElSkbnfkOjHs5MdKMYj5dj+FLqmycb4/IQeQxwpFp3ULes2xUrd4iLFnARQETcFP3jcaz9DqD9nIVTn3ebvTX+avWUI9WCVeyjSgzyvgomhfACqO8Bxq3Dj7aC5htJ5wM/M7aT3qrd0a1Lb7mq/ilqXLp7IJPCYlfGue2xXN/xFyi2W6hhgZoTmC190DSW3fLdXDmCME87UfzAvo1IEGSNXjrBMAJyMQ8Iz6kPpeoYn+OlY+LdMX1ohe7cBLB/kwwJQgLudCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zr5EsqAeRgl0PR9xLhThn3KngTsDBbfz9y5uLfr1pNs=;
+ b=jWsnaiMoX4I2VWnxw5z8fWFhKUVWGhONz8W0iEcjcnqrz8RFfZSqiyqyfYOp+O1x3We/LbHtJkxaNHovcUw+Arh1+Hj7NQacN0uIy1RxL6OZh+NFL+LWuqN39H686OIFy0EuMQP3YGHqUI2WLetP69cCimBI7CFEJustrUgeAfjUbFi5e7g3J7kG+qtbWg5Icr/86OCEKLirEJnVjVmlvdAyOCVgRwqNnNRcAhghgQhkZ1aBEhdiuo0T8kzPRiIqNe2v37RJZRbtfjn0t8JS04eiaSh46Iaw9RO0fz4etvJfWq33TJ+14y/AMI52a3clJ3UNYNFSYAQqS/u6OMaDtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zr5EsqAeRgl0PR9xLhThn3KngTsDBbfz9y5uLfr1pNs=;
+ b=XwCHydSHGe0jOlEoJ2oXmByZC2WOWAeI2qjpxmBLRZvHmJnlczajMZR0yjeRoW7xIM2AbXBaEaqAl7eJTd1TysVcuA4kVEH8Hj40aw9xWIgq6jxCu5hR2EJSq6lvZ5gVNbSns1y3RaE3JCgMCBk1sYzprxd8FpRhrUHwDyEMW5M3YGJa0ZK01s8+yWuThosYImjKRFSLNmmxBcAuvp8tJnrvQLz+Nvj6V2Zafk/Da4a+9uKtKP4v6k0N5y6ZVg3bQy85f4YZnJxCcGZnhCOCFsqotwCtJlVOhsPAsNopj/mtKANeepR2n1JEq34dvNpnSKYuszHJ8f7x4y07frIfEQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by AT6PR12MB717548.namprd12.prod.outlook.com (2603:10b6:170:10f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 17:34:11 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%4]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
+ 17:34:10 +0000
+Date: Fri, 6 Nov 2026 12:34:07 -0500
+From: Yury Norov <ynorov@nvidia.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andrea Righi <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mel Gorman <mgorman@suse.de>, Mete Durlu <meted@linux.ibm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-s390@vger.kernel.org
+Subject: Re: [PATCH 0/6] sched: Expose writable interface for preferred CPUs
+ mask
+Message-ID: <au4PfYJkpKLsISqb@yury>
+References: <20261101192203.6979-1-ynorov@nvidia.com>
+ <20261102084704.GQ1779021@noisy.programming.kicks-ass.net>
+ <auoQfjpg3CRvV5yG@yury>
+ <20261105145537.GP1813469@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105145537.GP1813469@noisy.programming.kicks-ass.net>
+X-ClientProxiedBy: BN9PR03CA0296.namprd03.prod.outlook.com
+ (2603:10b6:408:f5::31) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,443 +122,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VLRYnidn3OdSiSvK"
-Content-Disposition: inline
-In-Reply-To: <20261106-upstream-s7-clk-v1-6-7d501d62621f@baylibre.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|AT6PR12MB717548:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8577c57b-a7b3-496e-7021-08df3c2c2ade
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|23010399003|376014|10070799003|366016|22082099003|18002099003|6133799003|10067099003|5023799004|56012099006|4143699003|11063799006|261026121527099003|261026140227099003|261102123227099003|261028144727099003|261022105027099003|261022115727099003|261021135927099003|261021121427099003|261009223027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	Bk6udFt41qfC9pkfEJd/qLNkQcpM7qRlAqsbAGheitOsEbIgsFGrh+24CoaJsOB+gMkvuFrC7YPX/RmVcyc/aYNsSA4nypAvrTY/pclT/kOtLufNoYGruaLnfSihNXHyBqQEi4KHnpqrEWhMX3SASHR5HNatCci2cJBMoOpNx9aoF9gaRHo8V9HYJadYx7BNDNRuBzSOXFAr1SGZ1kIjvte6oeiYMZl2Vr1nBQpW6RhRSktACz/fmHNPJXeoG9IH+eDI8nj8/DasWYSzW29M9JzUYldERsYqDbgf0o7auMWnDxDVfKBBjAvyBLJeVnahiClQPpNVweryCH/kBcePFZRffCD4Prv9FPemstx2bMtHylNAUVamsoegVBFhrJkpAi4FQoHJv//UI/BDbw2vHnibigi53UN5+zql2lulXVp/ZS3TpGXmrQvzdUiXU+BIv8qjgqqXlrCX48OWiGfpttK0HifkIgbIiVtn869f+WNirCbIm3mdMpaQXkrDzJWIDG38qwJDEeYRpQT3YPXGdkMr3SFguHy+9LYanb6UrLOr8g6npCtdDKaCF+mZ8HQ2fat+7AauklVXwb6+H48vW5SI9uB4OHrQz6cJ/4w8wON5mIRHKadYSgCTY0lF3CH/GGQR7Bp5hrWRh7plEI74/NVKrkwCFzZBdwQKYjhr8MA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(376014)(10070799003)(366016)(22082099003)(18002099003)(6133799003)(10067099003)(5023799004)(56012099006)(4143699003)(11063799006)(261026121527099003)(261026140227099003)(261102123227099003)(261028144727099003)(261022105027099003)(261022115727099003)(261021135927099003)(261021121427099003)(261009223027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ONj6MYRNU5GeOK5xNGOR8syM0nxEh3ZQ7Vmv/z79sFfpwc5fD7w2mAEIrvOS?=
+ =?us-ascii?Q?y1VsgfHdu1MhYz2sFvBd9ScybniN20gu2+c/lvkQKNBZ2O7UrwZXqLc4DmQG?=
+ =?us-ascii?Q?pzjcR6ePV4PA6lUbUf0ioYPvlQc3vusfNZIxQind4BLV6X9sysSVoywseAWb?=
+ =?us-ascii?Q?5/rovejGWgknz2PFH+Id9nXsPBc5aZCbpk/Y1czY9PwMENRvu4T6wWYTUe4m?=
+ =?us-ascii?Q?g7DzPXVWfhuuHP6DgKXJIR476pbkCJS+Qpm03/GyVVhMv5WmjwqSS8WEWO7u?=
+ =?us-ascii?Q?2k8Wn63m9FfpXSMFLbBahCbSU35d7gueQ/wXtQv/ZTENn/r72K64NoZzHYXs?=
+ =?us-ascii?Q?z9jIcaotVXSkvqW1gggzK7H/Fa9XDYbxhxNCBGC95cS4eIC7B6lj+Gi/CWUJ?=
+ =?us-ascii?Q?Tx6RU31lkS+Fu5cEvhEhwhyPjyjaif8l3/MH+PrKECQMfV9LbrAMmCHNr5D2?=
+ =?us-ascii?Q?Zw/Q++fkhWLy7WrVCtXG+/bttsudxzt5vrKmySfiJpeixBjcETOrnUHjrqKi?=
+ =?us-ascii?Q?kUrP1gE1Ws6vEzH+k5g6xXr29pQhAsOb8X13FkGMXxBVT41ov1ZIHxcU/9Zo?=
+ =?us-ascii?Q?wyME82/RY/Y6qFr/en3VViBUcU1eBMjJ18J6Cdrc6OASR0hICXA5xZTRCJBp?=
+ =?us-ascii?Q?bek/7zSXBlgFNRheVMur37ny3DW81FxlaZSQ8DbrvSDCjN8X24IQftpbJehv?=
+ =?us-ascii?Q?3FwxLNuyLHn7T4ROicD0PCVBHTLnvwnnS1/VOKFmw2+XWXUwdCDzsCjhxXUi?=
+ =?us-ascii?Q?fzn+xURPr7ZL3AsWUjrqBpeCw/S0PxWFIzVehxZO3i2AHH6rJuN5vh1GrZxn?=
+ =?us-ascii?Q?RTR/aIaczAji0daVYgyMfFw0n5/wOlrJ20f0iQuzhv98IaZ0TgvQ+kCnOS6V?=
+ =?us-ascii?Q?QKz4W3YrIbMlG4/xeEv7nsJxKlMJ/JWb3rnGtZJkqWAYBn9+aQvqQPSpBc0C?=
+ =?us-ascii?Q?Q+U99D/ctbKd77jCDcBu1W8gHQZA+zfClELG2Eox8r9dGk0H44dxabylIRXK?=
+ =?us-ascii?Q?fG6x0zYZdQ3YyiAPh617hbeapKEmdWrqxzcdyUXlgWkY4BFQC+Uuuk3Hnxx9?=
+ =?us-ascii?Q?IJrrZ9RJKh/YdkRS4X3fYkfBMuJYPvLlpuppiJ9APVmZvFDOaTplnWgdvyEc?=
+ =?us-ascii?Q?lABghcdU9WSI7o3yonGHlTNpS4L0tBCG/gHIvJFeorQ3vXlGcOkvsBIbEgdP?=
+ =?us-ascii?Q?kYmjcWY5UUCyai8h7y66VkOa1+TF12X7SK1q6ZriVo6fBwc69iVa2i/xqfw6?=
+ =?us-ascii?Q?+1PEdSKqfKo8VY4yKmU6nLkFDs17M730N3jOt0enjBtyu8LWPXD4/git2MsB?=
+ =?us-ascii?Q?zAUOEeyKitk1paTqQOawvuyreLZeKqPt4stzleZz6cJC2KF1XJ3o3alnpyhJ?=
+ =?us-ascii?Q?fzXb2hETafge+gC9rtp7zeKo+IAIKr9fmWPb9A1fPzq7ylxTWqMq8Xmupx0m?=
+ =?us-ascii?Q?HGC6Q2TNiLyBr4CLnkUmn6V5V7cRLmNIlwEUrbja+MZ5ED0S90KHembQuDuP?=
+ =?us-ascii?Q?B05C/626b5IRIMLxf9SFW0Hb02MfmdFlBx+ISnHRtGtuKaaB0q4WZO/4Bmul?=
+ =?us-ascii?Q?pjujw4ln5qK1+uIp6dikWRT/PiNfSwc50mysu+Dc5qZxHwC8EMswxVWuIkEw?=
+ =?us-ascii?Q?mGfwB2VPoPKeL0MtnAXPz/DMbWwTUMD+BN4iguypTMXWjuMJSC00NAQJJzly?=
+ =?us-ascii?Q?p3qppgJutPvELnuuvpiEcrh8h0g9kOogA9tBKmq9uYihPyJkLu+73+Ov6O1i?=
+ =?us-ascii?Q?0u3Y19PARg2noG8yjuAYhaJNxYiPO/SmwyOJHln8tUcbkjfIQv54?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8577c57b-a7b3-496e-7021-08df3c2c2ade
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 17:34:10.7989
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /k2FgHNyjlUeWvVm7jF+9eOK69UBPvKyUktiF6XS/mC7vvVJTpFTLWOHL5KvDvxFETA1rSLWDuNyX/dPm9riuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AT6PR12MB717548
 
---VLRYnidn3OdSiSvK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, Nov 05, 2026 at 03:55:37PM +0100, Peter Zijlstra wrote:
+> On Tue, Nov 03, 2026 at 11:49:02AM -0500, Yury Norov wrote:
+> > On Mon, Nov 02, 2026 at 09:47:04AM +0100, Peter Zijlstra wrote:
+> > > On Sun, Nov 01, 2026 at 02:21:56PM -0500, Yury Norov wrote:
+> > > > The preferred CPU mask currently lets the steal governor reduce vCPU
+> > > > demand when physical CPUs are contended. This series adds manual control,
+> > > > opening more use cases.
+> > > 
+> > > Sceptical, I am.
+> > > 
+> > > > For example, setting CPUs aside for selected fair tasks at runtime while
+> > > > steering other fair tasks toward the remaining CPUs.
+> > > 
+> > > That's exactly the kind of nonsense we don't need and makes me want to
+> > > stop reading right here.
+> > 
+> > OK, I started with the wrong argument. Please consider this as the argument
+> > #3.
+> > 
+> > #1 is: conceptually, preferred cpumask improves performance because it
+> > moves the scheduling decision from host to the guest level. The guest
+> > can do it better because it knows more about the workload. But then we'd
+> > consider moving steal governor logic to the guest userspace, because it
+> > knows the nature of user workload even more.
+> 
+> I am confused; it is a simple control loop and has nothing to do with
+> guest workload.
+> 
+> The host is over-committed, this results in vcpu steal time. The guests
+> observe steal time and reduce vcpu utilization.
+> 
+> It is a co-operative scheme; a bad actor can game the system. It is
+> imperative all guests behave the same or do not play at all.
+> 
+> If there is no level of trust (our coconut friends) do not use this.
 
-On Fri, Nov 06, 2026 at 09:30:29AM +0100, Carlo Caione wrote:
-> The S7 peripherals clock controller supplies the SoC buses and
-> peripherals, using sources from both the PLL controller and firmware.
->=20
-> Add the binding and clock identifiers so peripheral devices can
-> reference their clocks in devicetree.
->=20
-> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
-> ---
->  .../clock/amlogic,s7-peripherals-clkc.yaml         | 126 +++++++++++
->  .../clock/amlogic,s7-peripherals-clkc.h            | 245 +++++++++++++++=
-++++++
->  2 files changed, 371 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/clock/amlogic,s7-periphera=
-ls-clkc.yaml b/Documentation/devicetree/bindings/clock/amlogic,s7-periphera=
-ls-clkc.yaml
-> new file mode 100644
-> index 000000000000..980a215ed4dd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/amlogic,s7-peripherals-clkc=
-=2Eyaml
-> @@ -0,0 +1,126 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (c) 2026 BayLibre, SAS.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/amlogic,s7-peripherals-clkc.yam=
-l#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic S7 Series Peripherals Clock Controller
-> +
-> +maintainers:
-> +  - Neil Armstrong <neil.armstrong@linaro.org>
-> +  - Jerome Brunet <jbrunet@baylibre.com>
-> +  - Carlo Caione <ccaione@baylibre.com>
-> +
-> +description:
-> +  The peripherals clock controller provides the system (bus) clock, the =
-bus
-> +  clock gates and the clocks of the peripherals. Its inputs are the board
-> +  oscillator, the fixed PLL dividers and the GP0, HIFI0 and HIFI1 PLLs o=
-f the
-> +  PLL block, the GP1 PLL and the CPU AXI clock provided by the firmware,=
- the
-> +  HDMI PLL and its pixel clock, and a few optional sources from outside =
-the
-> +  clock controllers (pads, audio codec).
-> +
-> +properties:
-> +  compatible:
-> +    const: amlogic,s7-peripherals-clkc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#clock-cells':
-> +    const: 1
-> +
-> +  clocks:
-> +    minItems: 14
-> +    items:
-> +      - description: input fixed pll div2
-> +      - description: input fixed pll div2p5
-> +      - description: input fixed pll div3
-> +      - description: input fixed pll div4
-> +      - description: input fixed pll div5
-> +      - description: input fixed pll div7
-> +      - description: input hifi pll
-> +      - description: input gp0 pll
-> +      - description: input hifi1 pll
-> +      - description: input gp1 pll
-> +      - description: input hdmi pll
-> +      - description: input hdmi pll pixel clk
-> +      - description: input oscillator (usually at 24MHz)
-> +      - description: input axi clk from the cpu
-> +      - description: input external 32kHz reference (optional)
-> +      - description: input external rmii reference (optional)
-> +      - description: input audio codec dac clk (optional)
-> +
-> +  clock-names:
-> +    minItems: 14
-> +    items:
-> +      - const: fclk_div2
-> +      - const: fclk_div2p5
-> +      - const: fclk_div3
-> +      - const: fclk_div4
-> +      - const: fclk_div5
-> +      - const: fclk_div7
-> +      - const: hifi_pll
-> +      - const: gp0_pll
-> +      - const: hifi1_pll
-> +      - const: gp1_pll
-> +      - const: hdmi_pll
-> +      - const: vid_pix
-> +      - const: xtal
-> +      - const: axi_frcpu
-> +      - const: ext_32k
-> +      - const: ext_rmii
-> +      - const: acodec_dac
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#clock-cells'
-> +  - clocks
-> +  - clock-names
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/amlogic,s7-pll-clkc.h>
-> +    #include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
-> +
-> +    soc {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-> +
-> +        clock-controller@0 {
-> +            compatible =3D "amlogic,s7-peripherals-clkc";
-> +            reg =3D <0x0 0x0 0x0 0x49c>;
+That is correct. I'm just trying to let trusted userspace to be able to
+make a final decision, not to cheat the policy.
 
-What's with the weird numbers in this example?
+I believe that the preferred cpumask approach may find more use cases
+than just a blind vCPU throttling.
 
-Examples don't have to be real, but when it looks like this the
-immediate thought is that the modelling of the device might be
-incorrec.t
+Even in case of throttling, the userspace might know more about the
+nature of external pressure, workload and VM priorities, etc., so be
+able to make a better decision on the preferred vCPU candidates,
+beyond the steal time accounting.
 
-> +            #clock-cells =3D <1>;
-> +            clocks =3D <&clkc_pll CLKID_FCLK_DIV2>,
-> +                     <&clkc_pll CLKID_FCLK_DIV2P5>,
-> +                     <&clkc_pll CLKID_FCLK_DIV3>,
-> +                     <&clkc_pll CLKID_FCLK_DIV4>,
-> +                     <&clkc_pll CLKID_FCLK_DIV5>,
-> +                     <&clkc_pll CLKID_FCLK_DIV7>,
-> +                     <&clkc_pll CLKID_HIFI_PLL>,
-> +                     <&clkc_pll CLKID_GP0_PLL>,
-> +                     <&clkc_pll CLKID_HIFI1_PLL>,
-> +                     <&scmi_clk CLKID_GP1_PLL>,
-> +                     <&clkc_pll CLKID_HDMI_PLL>,
-> +                     <&clkc_pll CLKID_HDMI_PLL_PIX>,
-> +                     <&xtal>,
-> +                     <&scmi_clk CLKID_ACLKM>;
-> +            clock-names =3D "fclk_div2",
-> +                          "fclk_div2p5",
-> +                          "fclk_div3",
-> +                          "fclk_div4",
-> +                          "fclk_div5",
-> +                          "fclk_div7",
-> +                          "hifi_pll",
-> +                          "gp0_pll",
-> +                          "hifi1_pll",
-> +                          "gp1_pll",
-> +                          "hdmi_pll",
-> +                          "vid_pix",
-> +                          "xtal",
-> +                          "axi_frcpu";
-> +        };
-> +    };
-> diff --git a/include/dt-bindings/clock/amlogic,s7-peripherals-clkc.h b/in=
-clude/dt-bindings/clock/amlogic,s7-peripherals-clkc.h
-> new file mode 100644
-> index 000000000000..44bf1521e25e
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/amlogic,s7-peripherals-clkc.h
-> @@ -0,0 +1,245 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (c) 2026 BayLibre, SAS.
-> + */
-> +
-> +#ifndef _DT_BINDINGS_CLOCK_AMLOGIC_S7_PERIPHERALS_CLKC_H
-> +#define _DT_BINDINGS_CLOCK_AMLOGIC_S7_PERIPHERALS_CLKC_H
-> +
-> +#define CLKID_SYS_AM_AXI			0
-> +#define CLKID_SYS_DOS				1
-> +#define CLKID_SYS_ETH_PHY			2
-> +#define CLKID_SYS_MALI				3
-> +#define CLKID_SYS_AOCPU				4
-> +#define CLKID_SYS_AUCPU				5
-> +#define CLKID_SYS_CEC				6
-> +#define CLKID_SYS_SD_EMMC_A			7
-> +#define CLKID_SYS_SD_EMMC_B			8
-> +#define CLKID_SYS_SD_EMMC_C			9
-> +#define CLKID_SYS_SC				10
-> +#define CLKID_SYS_ACODEC			11
-> +#define CLKID_SYS_MSR				12
-> +#define CLKID_SYS_IR_CTRL			13
-> +#define CLKID_SYS_AUDIO				14
-> +#define CLKID_SYS_ETH				15
-> +#define CLKID_SYS_UART_A			16
-> +#define CLKID_SYS_UART_B			17
-> +#define CLKID_SYS_UART_C			18
-> +#define CLKID_SYS_UART_D			19
-> +#define CLKID_SYS_UART_E			20
-> +#define CLKID_SYS_TS_PLL			21
-> +#define CLKID_SYS_GE2D				22
-> +#define CLKID_SYS_SPICC				23
-> +#define CLKID_SYS_USB				24
-> +#define CLKID_SYS_I2C_M_A			25
-> +#define CLKID_SYS_I2C_M_B			26
-> +#define CLKID_SYS_I2C_M_C			27
-> +#define CLKID_SYS_I2C_M_D			28
-> +#define CLKID_SYS_I2C_M_E			29
-> +#define CLKID_SYS_HDMITX_APB			30
-> +#define CLKID_SYS_I2C_S_A			31
-> +#define CLKID_SYS_HDMI20_AES			32
-> +#define CLKID_SYS_MMC_APB			33
-> +#define CLKID_SYS_CPU_APB			34
-> +#define CLKID_SYS_VPU_INTR			35
-> +#define CLKID_SYS_SAR_ADC			36
-> +#define CLKID_SYS_PWM_J				37
-> +#define CLKID_SYS_GIC				38
-> +#define CLKID_SYS_PWM_I				39
-> +#define CLKID_SYS_PWM_H				40
-> +#define CLKID_SYS_PWM_G				41
-> +#define CLKID_SYS_PWM_F				42
-> +#define CLKID_SYS_PWM_E				43
-> +#define CLKID_SYS_PWM_D				44
-> +#define CLKID_SYS_PWM_C				45
-> +#define CLKID_SYS_PWM_B				46
-> +#define CLKID_SYS_PWM_A				47
-> +#define CLKID_RTC_DUALDIV_IN			48
-> +#define CLKID_RTC_DUALDIV_DIV			49
-> +#define CLKID_RTC_DUALDIV_SEL			50
-> +#define CLKID_RTC_DUALDIV			51
-> +#define CLKID_RTC				52
-> +#define CLKID_SYSCLK_A_SEL			53
-> +#define CLKID_SYSCLK_A_DIV			54
-> +#define CLKID_SYSCLK_A				55
-> +#define CLKID_SYSCLK_B_SEL			56
-> +#define CLKID_SYSCLK_B_DIV			57
-> +#define CLKID_SYSCLK_B				58
-> +#define CLKID_SYS_CLK				59
-> +#define CLKID_AXICLK_A_SEL			60
-> +#define CLKID_AXICLK_A_DIV			61
-> +#define CLKID_AXICLK_A				62
-> +#define CLKID_AXICLK_B_SEL			63
-> +#define CLKID_AXICLK_B_DIV			64
-> +#define CLKID_AXICLK_B				65
-> +#define CLKID_AXI_CLK				66
-> +#define CLKID_AXI_SYS_NIC			67
-> +#define CLKID_AXI_SRAM				68
-> +#define CLKID_AXI_DEV0_MMC			69
-> +#define CLKID_CECB_DUALDIV_IN			70
-> +#define CLKID_CECB_DUALDIV_DIV			71
-> +#define CLKID_CECB_DUALDIV_SEL			72
-> +#define CLKID_CECB_DUALDIV			73
-> +#define CLKID_CECB				74
-> +#define CLKID_SC_PRE_SEL			75
-> +#define CLKID_SC_PRE_DIV			76
-> +#define CLKID_SC_PRE				77
-> +#define CLKID_SC				78
-> +#define CLKID_CLK24M_IN				79
-> +#define CLKID_CLK12_24M				80
-> +#define CLKID_SD_EMMC_A_SEL			81
-> +#define CLKID_SD_EMMC_A_DIV			82
-> +#define CLKID_SD_EMMC_A				83
-> +#define CLKID_SD_EMMC_B_SEL			84
-> +#define CLKID_SD_EMMC_B_DIV			85
-> +#define CLKID_SD_EMMC_B				86
-> +#define CLKID_SD_EMMC_C_SEL			87
-> +#define CLKID_SD_EMMC_C_DIV			88
-> +#define CLKID_SD_EMMC_C				89
-> +#define CLKID_SPICC_SEL				90
-> +#define CLKID_SPICC_DIV				91
-> +#define CLKID_SPICC				92
-> +#define CLKID_PWM_A_SEL				93
-> +#define CLKID_PWM_A_DIV				94
-> +#define CLKID_PWM_A				95
-> +#define CLKID_PWM_B_SEL				96
-> +#define CLKID_PWM_B_DIV				97
-> +#define CLKID_PWM_B				98
-> +#define CLKID_PWM_C_SEL				99
-> +#define CLKID_PWM_C_DIV				100
-> +#define CLKID_PWM_C				101
-> +#define CLKID_PWM_D_SEL				102
-> +#define CLKID_PWM_D_DIV				103
-> +#define CLKID_PWM_D				104
-> +#define CLKID_PWM_E_SEL				105
-> +#define CLKID_PWM_E_DIV				106
-> +#define CLKID_PWM_E				107
-> +#define CLKID_PWM_F_SEL				108
-> +#define CLKID_PWM_F_DIV				109
-> +#define CLKID_PWM_F				110
-> +#define CLKID_SAR_ADC_SEL			111
-> +#define CLKID_SAR_ADC_DIV			112
-> +#define CLKID_SAR_ADC				113
-> +#define CLKID_GEN_SEL				114
-> +#define CLKID_GEN_DIV				115
-> +#define CLKID_GEN				116
-> +#define CLKID_TS_DIV				117
-> +#define CLKID_TS				118
-> +#define CLKID_ETH_125M_DIV			119
-> +#define CLKID_ETH_125M				120
-> +#define CLKID_ETH_RMII_SEL			121
-> +#define CLKID_ETH_RMII_DIV			122
-> +#define CLKID_ETH_RMII				123
-> +#define CLKID_MALI_0_SEL			124
-> +#define CLKID_MALI_0_DIV			125
-> +#define CLKID_MALI_0				126
-> +#define CLKID_MALI_1_SEL			127
-> +#define CLKID_MALI_1_DIV			128
-> +#define CLKID_MALI_1				129
-> +#define CLKID_MALI				130
-> +#define CLKID_VDEC_0_SEL			131
-> +#define CLKID_VDEC_0_DIV			132
-> +#define CLKID_VDEC_0				133
-> +#define CLKID_VDEC_1_SEL			134
-> +#define CLKID_VDEC_1_DIV			135
-> +#define CLKID_VDEC_1				136
-> +#define CLKID_VDEC				137
-> +#define CLKID_HEVCF_0_SEL			138
-> +#define CLKID_HEVCF_0_DIV			139
-> +#define CLKID_HEVCF_0				140
-> +#define CLKID_HEVCF_1_SEL			141
-> +#define CLKID_HEVCF_1_DIV			142
-> +#define CLKID_HEVCF_1				143
-> +#define CLKID_HEVCF				144
-> +#define CLKID_VPU_0_SEL				145
-> +#define CLKID_VPU_0_DIV				146
-> +#define CLKID_VPU_0				147
-> +#define CLKID_VPU_1_SEL				148
-> +#define CLKID_VPU_1_DIV				149
-> +#define CLKID_VPU_1				150
-> +#define CLKID_VPU				151
-> +#define CLKID_VPU_CLKB_TMP_SEL			152
-> +#define CLKID_VPU_CLKB_TMP_DIV			153
-> +#define CLKID_VPU_CLKB_TMP			154
-> +#define CLKID_VPU_CLKB_DIV			155
-> +#define CLKID_VPU_CLKB				156
-> +#define CLKID_VPU_CLKC_0_SEL			157
-> +#define CLKID_VPU_CLKC_0_DIV			158
-> +#define CLKID_VPU_CLKC_0			159
-> +#define CLKID_VPU_CLKC_1_SEL			160
-> +#define CLKID_VPU_CLKC_1_DIV			161
-> +#define CLKID_VPU_CLKC_1			162
-> +#define CLKID_VPU_CLKC				163
-> +#define CLKID_VAPB_0_SEL			164
-> +#define CLKID_VAPB_0_DIV			165
-> +#define CLKID_VAPB_0				166
-> +#define CLKID_VAPB_1_SEL			167
-> +#define CLKID_VAPB_1_DIV			168
-> +#define CLKID_VAPB_1				169
-> +#define CLKID_VAPB				170
-> +#define CLKID_GE2D				171
-> +#define CLKID_HDMITX_SYS_SEL			172
-> +#define CLKID_HDMITX_SYS_DIV			173
-> +#define CLKID_HDMITX_SYS			174
-> +#define CLKID_HDMITX_PRIF_SEL			175
-> +#define CLKID_HDMITX_PRIF_DIV			176
-> +#define CLKID_HDMITX_PRIF			177
-> +#define CLKID_HDMITX_200M_SEL			178
-> +#define CLKID_HDMITX_200M_DIV			179
-> +#define CLKID_HDMITX_200M			180
-> +#define CLKID_HDMITX_AUD_SEL			181
-> +#define CLKID_HDMITX_AUD_DIV			182
-> +#define CLKID_HDMITX_AUD			183
-> +#define CLKID_VDIN_MEAS_SEL			184
-> +#define CLKID_VDIN_MEAS_DIV			185
-> +#define CLKID_VDIN_MEAS				186
-> +#define CLKID_CDAC_SEL				187
-> +#define CLKID_CDAC_DIV				188
-> +#define CLKID_CDAC				189
-> +#define CLKID_VID_PLL_DIV			190
-> +#define CLKID_VID_PLL_SEL			191
-> +#define CLKID_VID_PLL				192
-> +#define CLKID_VCLK_SEL				193
-> +#define CLKID_VCLK2_SEL				194
-> +#define CLKID_VCLK_INPUT			195
-> +#define CLKID_VCLK2_INPUT			196
-> +#define CLKID_VCLK_DIV				197
-> +#define CLKID_VCLK2_DIV				198
-> +#define CLKID_VCLK				199
-> +#define CLKID_VCLK2				200
-> +#define CLKID_VCLK_DIV1				201
-> +#define CLKID_VCLK_DIV2_EN			202
-> +#define CLKID_VCLK_DIV4_EN			203
-> +#define CLKID_VCLK_DIV6_EN			204
-> +#define CLKID_VCLK_DIV12_EN			205
-> +#define CLKID_VCLK2_DIV1			206
-> +#define CLKID_VCLK2_DIV2_EN			207
-> +#define CLKID_VCLK2_DIV4_EN			208
-> +#define CLKID_VCLK2_DIV6_EN			209
-> +#define CLKID_VCLK2_DIV12_EN			210
-> +#define CLKID_VCLK_DIV2				211
-> +#define CLKID_VCLK_DIV4				212
-> +#define CLKID_VCLK_DIV6				213
-> +#define CLKID_VCLK_DIV12			214
-> +#define CLKID_VCLK2_DIV2			215
-> +#define CLKID_VCLK2_DIV4			216
-> +#define CLKID_VCLK2_DIV6			217
-> +#define CLKID_VCLK2_DIV12			218
-> +#define CLKID_ENCI_SEL				219
-> +#define CLKID_ENCP_SEL				220
-> +#define CLKID_ENCL_SEL				221
-> +#define CLKID_VDAC_SEL				222
-> +#define CLKID_VDAC_PRE_SEL			223
-> +#define CLKID_HDMITX_PIXEL_SEL			224
-> +#define CLKID_HDMITX_FE_SEL			225
-> +#define CLKID_ENCI				226
-> +#define CLKID_ENCP				227
-> +#define CLKID_ENCL				228
-> +#define CLKID_VDAC				229
-> +#define CLKID_HDMITX_PIXEL			230
-> +#define CLKID_HDMITX_FE				231
-> +#define CLKID_VID_LOCK_SEL			232
-> +#define CLKID_VID_LOCK_DIV			233
-> +#define CLKID_VID_LOCK				234
-> +
-> +#endif  /* _DT_BINDINGS_CLOCK_AMLOGIC_S7_PERIPHERALS_CLKC_H */
->=20
-> --=20
-> 2.56.0
->=20
+I can imagine a host running two VMs - one for performance critical
+workload like AI training, and another for latency critical inference. 
+In case of vCPU overcommitment, symmetrical throttling of both VMs
+may substantially affect user experience. The better solution would be
+allowing both VMs to communicate to each other and decide how many
+vCPUs should become non-preferred on each side.
 
---VLRYnidn3OdSiSvK
-Content-Type: application/pgp-signature; name=signature.asc
+Steal governor is a reasonable default approach to the vCPU overcommit
+problem. But I also want to be able to adjust it to my local needs, if
+I have to.
+ 
+> > #2: convenience and scope. Some systems don't allow loading modules -
+> > either on config level, through selinux, or somehow else. They don't
+> > even have compiler installed sometimes. 
+> 
+> You hurt if you shoot your foot off; not my problem. If you run guests
+> like that you don't use this.
 
------BEGIN PGP SIGNATURE-----
+I don't configure systems that way - I only request shared access to the
+particular hardware, i.e. to run some tests, often for just a few hours.
+Sometimes those machines don't allow loading modules, sometimes it takes
+few iterations to reach to admins and ask them to update drivers...
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4PlgAKCRB4tDGHoIJi
-0gUYAQD0mvv3ybMHlMmd3qFndpQ3uouyzxPPiUFp5DErqyMkdgD/TVJuU5i+du/G
-ULTU3yfqyAq9+0cBgOqqSGhf1+djTAw=
-=YWzt
------END PGP SIGNATURE-----
+> > > we already have cpusets that is more than capable of doing this.
+> > 
+> > Then why do we need the steal governor at all? We can steer all
+> > processes away from a given vCPU without any driver, only by playing
+> > with each individual process' affinity. For vCPU throttling, task
+> > isolation, or whatever purpose.
+> 
+> Different level of operation; different semantics. Cpusets is for strong
+> bounds on your own workloads, this preferred mask is weak bounds on the
+> system due to outside pressure.
+> 
+> In a way it isn't much different from ACPI idle injection.
 
---VLRYnidn3OdSiSvK--
+The idle-injection indeed has userspace interface. Powerclamp exposes
+its actuator through /sys/class/thermal/cooling_deviceXX, and documents
+userspace control loop.
+
+By the way, preferred CPUs approach may prepend hotplug in the overheat
+defense chain, as a cheap but weaker alternative.
+
+Thanks,
+Yury
