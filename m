@@ -1,55 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968063;
-	b=qyEYu0w92vthoQ+LY++4Rbqb7pztR83Zjk04RYIvaXlfLK05JZKPN5J2oM+cF2qRNfmP
-	 8IEV6Ulv0xx2wqdeYLspOFmVo3k+VXN5kWNocW1ntLooZ60b/lb0EwPHpj8EizgYPTDec
-	 vY3vsGsLPvoAAf95yFYytl64oKlGRErvfRSlmfXmkOQCNrrkvbikBITxKOqD1QFDRF+fN
-	 vPK5fx9jkNeIAIJkJ6PYLcAI5WCfEXRyW+uCefGY0k9vn3qm1fXhhWPSFeGF+DhF0bKLB
-	 iVDg+XJhN8G9bNDdqcZcTfG/BHurWi7zAObZAt+/xS+1bsj/5U3Ng7caVbDdmicPQlw==
+	t=1793968077;
+	b=KaNcdgfQrMC2iYxVZdKnshiptqqpiseBKAOiGRWIgOSc2IMbRckQYCCbEJW2hOmKiYGC
+	 xDsX18gVPb+SohwlNqGMZV14TXXNgfbdffd370vUN6ZOU4ooLprRDHan7XfAhGIlfyJVj
+	 iANhppLb3Nm2khpDXLgSOrR3yOAMNEQhS7pXdFZ9wgo4NWBAcXZtCogYK/2WkPCJysbRS
+	 N2FAc+5CCYahm9JDJHbSFGhyB7W60wqhuP9dn65ayGKi3cRXzzcVvVZ/aeLGWfSUuLlom
+	 Qd1KQqQPjbyEaEHzfLzuclKgPz79w8TNySowx1q9irRJ6ga9Y1s5If6T0UcyBk7Sx0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968063;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gXaYki6uWSOGEqG2nnwjkCld7NyYwmbFRUn/nj+UBJk=;
-	b=eEzIL9FHcx3JOvp0xtowRJyu3mzHCCBhJtW4zLDhZxsGx0BiKSBtc3bD2/T0iEJ2DUXH
-	 o/U3RYKQJm9N/eEhfY7/AT1WFxT2tDHFQn3Mo2eBmZJOjnPD9bRwZj2V2SwsjPsfKAg72
-	 uA0gZvjTqosHL9DLzmZ7+JypxNn3d+YOif3zJIxmiu7+OS1dFaNXGwTXTLJxYwk4QxeYp
-	 /gs2EJAxKtCO7XBLC8mMhPVL8m3r/jPriQwMO1IwUF8TohnGl9ffmY7GB2GCxzANxuoRc
-	 oMe4s2aFv0ENwV6AcLod7Jj3inXMSSmbX1Lk50gdDZFNqOcAoN36JrSqioH8JdvNzdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968077;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=jxg9YZCEig6aUovfMW9LERszjpC/Bi2+TpPnGTSoQi8=;
+	b=UHQzGZ6Rx2kiioIUEc7LUscy+VdMhn15iMA4/eNUb6GudwpZgJlV5Ysfn1LAK6lTa4Bl
+	 pb2CId9Umhc8+x0kHsZX2qXwhFgfZxnxO7XxETGHrTIBz+BLhn/jbTjCJwnjrc6UJHCI4
+	 QtZiFpt/d54KAvcDCMKztEyuAn3ZB9nFKWkE2KQsb53dW0VvWi/DQIIMmy2gKZyCfJD5g
+	 rVtX/DE/HkQa0s24VYcf6RrBQxLQdyJHV7sDvYS3kehS00dz6NIq+v3OvYSetzcqTKBGN
+	 jtQ4/Qlj0CdITf3IXC/D9BzljDHWt3xXrOLWfHsbPIJjMuNd6mo2M7zTvNVefkCg+jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRCNHhnj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vAKfrI77;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2174606A337
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:27:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1546C606A329;
+	Fri,  6 Nov 2026 12:27:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1546C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRCNHhnj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228BD1F00900
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:27:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793968062;
-	bh=gXaYki6uWSOGEqG2nnwjkCld7NyYwmbFRUn/nj+UBJk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WRCNHhnjK2/U6cTw19O5vG9KnmkI3EATjgbS8Vp12vvdhMZw0bS6+u2k25MpIX5OL
-	 DijLA0057PexK4ZzikC7TgmkBtj2z12XbLzUGW1HtdyFQM7tci5jDlubuBkxlYXlVW
-	 e4FxoCwwLEn+FCeZwcv17e4QFwMJv7QlTSaT3WvBrn4YjYa00g/SxWMlat3hOZtwzy
-	 jtfgUoSW489vYcpneHL6LHI2uSsRtrRndthhPlDUwBXQhtZt8S5+7nyTNxlEccLcsY
-	 pbB7E9esK+k5zo8A9LhxD0KUVVz3dYp249aLeA2wpE2QfWs7O8vYd4C4rnePrtv72K
-	 AJEfXS5X32zrw==
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso658013a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:27:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxsKyTMSgJ0GwYaQhyxyDTnWSSKG/N/x5RxS/XdqV34RGfTrpsq9hM8aZrspnxfuqGZvfBoj2UVi/L9hAE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8EvKUByV18o68hcYUokxEgYNawUEx8FWI0VOP8WyxCK+YyvsQ2
-	5e0leaxab59w5wbYy76a2vfNJ0nJ70S+IOA4+Tj6uHrVr30eZD30wdH+eCWIS2komoQhVkN6KfZ
-	mSZfjzhwwxr+2Li2ByiZzqBQHT8WODXs=
-X-Received: by 2002:a17:907:1b2a:b0:c42:102f:15e8 with SMTP id
- a640c23a62f3a-c4d35413244mr208015366b.14.1793968060730; Fri, 06 Nov 2026
- 04:27:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vAKfrI77
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=jxg9YZCEig6aUovfMW9LERszjpC/Bi2+TpPnGTSoQi8=; b=vAKfrI77DsSLod+Uczrvqv0Tjm
+	ULrjeHLN2Rut6XqF70F/+op1bDdDobytns5RumRz1iCQtdGynoyR9fEa0SwQv6YpKI3SC8ykaUgY0
+	i/SWyGlqVkJ82lNhPWpd5emu+d8doJhm52qVWwqwPkOYijL9rLtf0ZHHkvWfBV55sJvtw9oSMrAcX
+	Rtumffo1xchJf9z5Nh0Ss8d9fZ/Z2vBLbPOKULbbkIjM/mgkT8VSEgE9LtRU+FZP8uSpX5JuCjQwi
+	jDC0KLUFA3h4s32VBKUrZVWcjW9Xm9be30Kv0pm+ik9KStMV3cJOIUkesKqNHuFr+1cvcdm6HUCxR
+	9x7JgBMQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xPJ2i-009HTo-2N;
+	Fri, 06 Nov 2026 12:27:40 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 06 Nov 2026 04:26:31 -0800
+Subject: [PATCH 1/4] writeback: add the missing newline to the slow
+ writeback report
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,59 +63,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106091420.2461683-1-wahidzk0091@gmail.com>
-In-Reply-To: <20261106091420.2461683-1-wahidzk0091@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 6 Nov 2026 21:27:28 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_te6K0uKmJNQDzi9E5=-wqrQ6Vc7MP_cZpGCQZK1JaGQ@mail.gmail.com>
-X-Gm-Features: AclHuK9pyTUmpj4YjLkVERCMkUy0IHDLyx8Ch1ej0-bKsscvef4Mm_oafumewPk
-Message-ID: <CAKYAXd_te6K0uKmJNQDzi9E5=-wqrQ6Vc7MP_cZpGCQZK1JaGQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] ntfs: three fixes for crafted images, found by fuzzing
-To: Wahid Khan <wahidzk0091@gmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-writeback_stall_report-v1-1-bf0c3b9023a5@debian.org>
+References: <20261106-writeback_stall_report-v1-0-bf0c3b9023a5@debian.org>
+In-Reply-To: <20261106-writeback_stall_report-v1-0-bf0c3b9023a5@debian.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Julian Sun <sunjunchao@bytedance.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, cgroups@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>, kernel-team@meta.com, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1200; i=leitao@debian.org;
+ h=from:subject:message-id; bh=hXkUpm8Ppkso7pz3WNB+6bMAnx3JDLSgoZdBoLm0PN0=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq7cexSsgObTcm99v2R6oLzUKT4iRNgAWjgc1wj
+ fhbzzMWk4aJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCau3HsQAKCRA1o5Of/Hh3
+ bakDD/9OwZnPzwEaVdOCOEdmjSKRtZ3e3IIMxvSigJAkuxtCwyzcXS0/DwG/czZOVV0qUdveZs1
+ 13hwg4K5H65DpmE5q65wdYsoBQTaaYML5y4m+wgJLeBgAWF9lPikmN5lK5BbFDRPsoxJK7zOR97
+ CH9UzLEICJChYXSSEKZUO+JTsFpHoJ/ZqLB65xjW14vnQioYxDjfQXcDguoe/H5hHKzp7i3Y91x
+ 4jrdnA4AytGZRHzLYFZUsSbufyR49hLdd0jZ39cum0od09Clc5rU6kBTqC49ew9Pcxe9924vrya
+ 4ONFnDU70eSshiysy7FDIOYE53Jy/liUfU+HXGGjk+SyKC3hJmJCCpzY0fyVefXTronP3feUbgf
+ DMKOJg82Fnmy4jaLsc0UcajiWoXjEG9Vd3T9zUaoeqS0jHWDhhqstaSvraMdIQv+rEfULG5gWaa
+ BCP3bJujtqpJof0ZMTbAuXcEcCf61lJlDmlCNgramOPSwxPETG5XbpyCEmXIMPGFToT13MbsXDQ
+ w4gXLXe+kpiPQI2ODrOoTqlbikoAQ5Tns/dr2lAIb00cHHRuTYszNX0v9PFVCFmcPqbW7jYJx8r
+ G/TsCjvSmEkAQLO8nP8wTDiY5OkUHoG2/lq4njN+OJD6l1fiYjNL7s1/VfTxh86INnx8pOusu15
+ /ZmM5yj+D7ZKFYg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Fri, Nov 6, 2026 at 6:14=E2=80=AFPM Wahid Khan <wahidzk0091@gmail.com> w=
-rote:
->
-> I fuzz the new fs/ntfs driver with mutated images: an image from mkntfs
-> populated with ntfs-3g (directories, streams, sparse files, long names), =
-a
-> few bytes changed, then mount, walk the tree and write, under KASAN.
-> Three problems from that are still present in ntfs-next (e62b384ca).
-> Each patch has its own trace and the reproduction steps.
->
-> 1. ntfs: do not read an index block outside $INDEX_ALLOCATION
->    A directory without a usable $INDEX_ALLOCATION hangs on its first
->    lookup. The task waits for an mft record lock that it already holds.
->    It needs one changed byte in a crafted image.
->
-> 2. ntfs: open the index allocation before reading or writing an index blo=
-ck
->    NULL pointer dereference in ntfs_ib_write() on link() when the lookup
->    ended in the index root. This is not the path fixed by 9365c4a1357e.
->    It needs one changed byte in a crafted image.
->
-> 3. ntfs: open a named $DATA stream by name when making room in a record
->    WARN_ON() in ntfs_attr_make_non_resident(). This one does not need a
->    damaged volume: a file with an alternate data stream and a full mft
->    record is enough.
->
-> All three need an image to be mounted, so a crafted image, not a remote
-> attacker. I can send the images (about 380 KB each, compressed) if they
-> are useful.
->
->
-> Wahid Khan (3):
->   ntfs: do not read an index block outside $INDEX_ALLOCATION
->   ntfs: open the index allocation before reading or writing an index
->     block
->   ntfs: open a named $DATA stream by name when making room in a record
-Please check Sashiko's review comments:
+wb_wait_for_completion_cb() reports a writeback wait that exceeds
+hung_task_timeout_secs with a pr_info() that has no trailing newline.
+printk() keeps such a record open for a continuation and does not
+finalize it, so dmesg, the consoles and netconsole only see the report
+once the next message is logged.
 
-https://sashiko.dev/#/patchset/20261106091420.2461683-1-wahidzk0091%40gmail=
-.com
+Terminate the message with a newline.
 
-Thanks.
+Fixes: d6e621590764 ("writeback: Add logging for slow writeback (exceeds sysctl_hung_task_timeout_secs)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ fs/fs-writeback.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index 15260cf2a29b09..01a00d7542b371 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -204,7 +204,7 @@ static bool wb_wait_for_completion_cb(struct wb_completion *done)
+ 	done->progress_stamp = jiffies;
+ 	if (timeout && (waited_secs > timeout))
+ 		pr_info("INFO: The task %s:%d has been waiting for writeback "
+-			"completion for more than %lu seconds.",
++			"completion for more than %lu seconds.\n",
+ 			current->comm, current->pid, waited_secs);
+ 
+ 	return !atomic_read(&done->cnt);
+
+-- 
+2.53.0-Meta
+
