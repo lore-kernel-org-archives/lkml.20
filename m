@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793936712;
-	b=GTf3kSGB4rsOSPPU+DvUCLIcOR6x7us+6gXRuirWVMStVSwRbze1zh80dcFVdyErcUvi
-	 9g5c/E8M+eWNnHea3JhoT/TlvJf8kJkULJvikN+7GlADFT2qYUSB9wFim4knD+sl5mUFK
-	 Pw8SdxQqp4hdX3F3srVgnPdwyKDvy643twE8pvr6Y+hTMoZpf7VAbQUe5xkSVmPrDu5m7
-	 p8ijHpSow1K32wCSPXobcY4GKOo9/4/U/jbkqhl7zZGe2MYGb57+jkfJ/lxH+Ov3i2GXF
-	 YfgPbJU28kZLmyUjihnhLLlr8ZVG4x599igSnzWcZ2zxAFa2v5rc5Jzsydh2DwQN/WQ==
+	t=1793936864;
+	b=gaCQxYvN3tnu8b0psx6ucjJgYRUbdPDeTISAqg71EmF0ekcxPrF/pUJYnAFwWj1Fq7hu
+	 8YNU1XkPxte35t+Fnu2xKaE0cFaTw+HNDQXlkW7Ac5dDfR+uyzqkUFxojEsGrZ1F6dCvO
+	 uCXJEIjEeLH4xZxXnIAGhZdgIBpP1NZOlud7hpi5vpTtiS5ucYOIyKgxb69FEPUZaBU4M
+	 mQ2vCnpRie3jQsz8orWKTujm9FxZIkPEuZYVMqO3rImlOOQqQy+W39mJH79uh1Iu/1936
+	 cFytsXE/pZx7oKEwa+VpjsPqj569KQTMsjH8i8XTO96mf3u4RyrRU1xkPNYID74vkvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793936712;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Qa3Jdd3z9Vvc81S3y4DHQHJ7zKHZJOZDq4QmheJddA0=;
-	b=5UXStMjlOeyNYZvfh5cCmHaYrcBrGKNw+megm39p2VEwcOea6BmOkSpbirq2nfOcGQuS
-	 6kVj/z/qzpkKhz1FKpKRLDmXMw90u3gtgRIwOJNTmwX0a/uofk6AiB32AuKXWxUkgfOyZ
-	 RFx8Bo+CNoOnWG6EmdwbjW2h6M3yb3TomrAcH18uzN7MkK/sdQjZ+e3ZxoSeMcpBgEEwQ
-	 3MDM0q2mK+j9g05x9UYhRYqd5Creb+HR5KGrnkUFvGmF2P5xx78uc1dcy3mrE9ItGX1TG
-	 Qg1iOZH9VhGp0gd5Ye4IDnNBX6+wehtJzFMzmZTwE+5RzW49InJSmxqDFCtg/w0Gq6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793936864;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7itVVRO0OrCMzanAOyJRHIm0MPtgmrlnhYWCxSa5SEs=;
+	b=Tr5FyanJo2JzddZRozzLBHikAIkVzsky1u32GAdQiaqFmDnnDzYAcs6aZZhEodsSiuVP
+	 cD5RVdk4lf80C3fpywHi+6xxZZ+eeRaQazZVW+aCLCm+4KZxzyEtfxdDkGJ6dXRCbxkuM
+	 jZl9Ic8KzHfy7mWEz9Ky0nXOqb3vW+vg8tjRFeNJZXQ1ukcl+10I+YXt6o62A8jOAd6Pr
+	 WyYLqAHA2feIl9Nmoa1bmvRud9nQvTLr3apox7WauahK2g84h9Fznk/lJ1SrwLZwrSeyo
+	 dNV7KNYOpv+PbViLDJlnZwNsoB4yLpO9NAkj7s5eRE+A/ut6mvMUXWgaIAQ1dnm2B1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=R1AEfjq5;
-	arc=none smtp.remote-ip=115.124.30.113
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IboQVEBX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E726606A32D;
-	Fri,  6 Nov 2026 03:45:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E726606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62685606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:47:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=R1AEfjq5
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793936701; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Qa3Jdd3z9Vvc81S3y4DHQHJ7zKHZJOZDq4QmheJddA0=;
-	b=R1AEfjq5XbLNaK7A6moV+lNZD1EtvI1UEXlLf6hGIXu4q0bde1dZXma2LddMefjngiK3EP1br0VHrNs7fxN0gBXGZ652QkmYV/+X9mmV4HbQITvxrxMNrXvzwoG/UwBYdDvQKjEvQwduNF772bEIC3RxPXY3AeIMYT/KBGSR1pE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R531e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=tongweilin@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XEAF1-._1793936691;
-Received: from x31l07246.sqa.na131.tbsite.net(mailfrom:tongweilin@linux.alibaba.com fp:SMTPD_---0XEAF1-._1793936691 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 11:45:01 +0800
-From: Weilin Tong <tongweilin@linux.alibaba.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
-	Tony Luck <tony.luck@intel.com>,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Qinyun Tan <qinyuntan@linux.alibaba.com>
-Subject: [PATCH v2] EDAC/amd64: Fix double free of private data on registration failure
-Date: Fri,  6 Nov 2026 11:44:37 +0800
-Message-ID: <20261106034449.1659689-1-tongweilin@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261106000205.GBau0Y_faMvFp2_fM6@fat_crate.local>
-References: <20261106000205.GBau0Y_faMvFp2_fM6@fat_crate.local>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IboQVEBX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CFCB1F008A6
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:47:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793936864;
+	bh=7itVVRO0OrCMzanAOyJRHIm0MPtgmrlnhYWCxSa5SEs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IboQVEBXl4jWmUIvw0DOc0QCJjQ8dTtJqHWh38IstQq4GF/XzX2BgioRpgWgX6v3P
+	 D5fDo4sg7rNsqSrYNK8o/zN8HDEQJwDTBpkQc5B6wdsLuzlBioIZJ1JXxYScTaKhKq
+	 EXzy4QVcoH3qpcgpOmOr7ueMPQ0Pdq3rpjD4upTnMEExPCwaJHTNl7ZEa+kCA6YMjg
+	 V1+Zo6uLqCaTfqZG2lyPYI8f9v6lHJhj3xgryyJGW5y3JtAdTcHJwPwPYL8MTIL+j3
+	 DjsAyuNPIoqIO1HAGO1EEAT+4quG29QrQNBWH+drmvQELISCJ4FKo/roKRV/DkIV4c
+	 oMSGhP/EEgang==
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-9441591aa5cso169896185a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 19:47:44 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxh2DuIGMCHG0VDt436Pox+Ef0cODMEIMN5Q+bxNeC/AQFp6q5dyieeAoyGnVIx/ccnuXmQWJPlDqkVtYI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Clq6Z2bezVgbfPgqsm0150DKiUtA7OfdeZcxIQAY13Og5/Z9G
+	uLT81X+3yhJZ1xnWy+zfSdhpTLHTJVFrjaud40zZYXcrSeKbQdQm4eZn//SB8/OWg2CViygVB7s
+	9rHmBK+SEwhS4WsI/0xk+yPvtZICjChE=
+X-Received: by 2002:a05:620a:6ccd:b0:945:d3ba:7d99 with SMTP id
+ af79cd13be357-945f3593146mr175996585a.37.1793936862458; Thu, 05 Nov 2026
+ 19:47:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,50 +59,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org> <20261105-late-2026-vma-flags-v1-1-0d3cd15ab75f@kernel.org>
+In-Reply-To: <20261105-late-2026-vma-flags-v1-1-0d3cd15ab75f@kernel.org>
+From: Barry Song <baohua@kernel.org>
+Date: Fri, 6 Nov 2026 11:47:31 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wFi9mqSsq9RFoYP8m0GbqU01he_icbP2VLPhBfQAvCOg@mail.gmail.com>
+X-Gm-Features: AclHuK8VX6mOjbrvfm7oXhssK45doLoq2eZ9cV_P4690FurSVGBQe9E3r9SjObI
+Message-ID: <CAGsJ_4wFi9mqSsq9RFoYP8m0GbqU01he_icbP2VLPhBfQAvCOg@mail.gmail.com>
+Subject: Re: [PATCH 01/13] mm/gup: convert GUP code to use vma_flags_t
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>, 
+	SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>, David Rientjes <rientjes@google.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>, John Johansen <john.johansen@canonical.com>, 
+	Georgia Garcia <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+	Roberto Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+	Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, damon@lists.linux.dev, 
+	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
+	linux-integrity@vger.kernel.org, selinux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If edac_mc_add_mc_with_groups() fails, init_one_instance() calls
-edac_mc_free(), which frees mci->pvt_info. probe_one_instance() then
-accesses and frees the same private data, causing a use-after-free
-and a double free.
+On Fri, Nov 6, 2026 at 5:31=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.or=
+g> wrote:
+>
+> Replace use of the legacy vm_flags_t flags with vma_flags_t values
+> throughout the GUP logic, both for the MMU and nommu variants.
+>
+> No functional change intended.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Clear mci->pvt_info before calling edac_mc_free() to leave the cleanup
-to probe_one_instance(). The normal remove path already clears it.
+Reviewed-by: Barry Song <baohua@kernel.org>
 
-Fixes: 0bbb265f7089 ("EDAC/mc: Get rid of silly one-shot struct allocation in edac_mc_alloc()")
-Reported-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-Signed-off-by: Weilin Tong <tongweilin@linux.alibaba.com>
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
----
-v2:
-- Explain why probe_one_instance() retains ownership of pvt on failure.
-- Drop the stable Cc.
-- Add Yazen's Reviewed-by.
-- Rebase onto ras/edac-for-next (28f141ff14c48).
+> ---
+>  mm/gup.c | 45 ++++++++++++++++++++++++---------------------
+>  1 file changed, 24 insertions(+), 21 deletions(-)
+>
 
-v1: https://lore.kernel.org/linux-edac/20261021062925.1838750-1-tongweilin@linux.alibaba.com/
+> @@ -1514,9 +1514,8 @@ static bool vma_permits_fault(struct vm_area_struct=
+ *vma,
+>  {
+>         bool write   =3D !!(fault_flags & FAULT_FLAG_WRITE);
+>         bool foreign =3D !!(fault_flags & FAULT_FLAG_REMOTE);
+> -       vm_flags_t vm_flags =3D write ? VM_WRITE : VM_READ;
+>
+> -       if (!(vm_flags & vma->vm_flags))
+> +       if (!vma_test(vma, write ? VMA_WRITE_BIT : VMA_READ_BIT))
+>                 return false;
 
- drivers/edac/amd64_edac.c | 5 +++++
- 1 file changed, 5 insertions(+)
+This also improves readability. Thanks!
 
-diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
-index a8e76a79833b..d4abc5200ea1 100644
---- a/drivers/edac/amd64_edac.c
-+++ b/drivers/edac/amd64_edac.c
-@@ -3973,6 +3973,11 @@ static int init_one_instance(struct amd64_pvt *pvt)
- 	ret = -ENODEV;
- 	if (edac_mc_add_mc_with_groups(mci, amd64_edac_attr_groups)) {
- 		edac_dbg(1, "failed edac_mc_add_mc()\n");
-+		/*
-+		 * probe_one_instance() allocates pvt and frees it on failure.
-+		 * Keep edac_mc_free() from freeing it here.
-+		 */
-+		mci->pvt_info = NULL;
- 		edac_mc_free(mci);
- 		return ret;
- 	}
-
-base-commit: 28f141ff14c48abd38518a87d1026851dd12717e
--- 
-2.43.7
-
+>
