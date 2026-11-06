@@ -1,148 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793947249;
-	b=IEs6XZRh+m3/TM9XrkheWZoeg5a7HSZt+4aRddXDal2ElsJrfeW1zbBu80l9LcaSfpQ8
-	 LK6lw9dnKdb7eyQ4xZjwxXrb02f8qulfFqOgGdjsXY/FwCfGiUsQYK5gr9rN/JvgzdsDy
-	 LmbqRNfXg4Fc5OBKfOzQoZbX56XRxBuwZS7pCutc7Bg87Qqu4ki2m/L1tfIFWnjOIt7Jt
-	 dJZZjOg+uIz+YcjxYzS5hlEFlJJzYC0L4RtUiHnjIu/ciSvqCBBZH42R3DK6OhB5J5sUE
-	 TqZymQEd7Coq+fTdazoTYaUZGW1idEIryC/kiGlCmv57+B+vHhWkrqjQm0elZov8gsg==
+	t=1793947256;
+	b=i8VnVF5ICuXIrLi1vduyAwVnaPcrmQ83gOTshpwa4GszjHY+hmddmjRMr07SGIgUSiNL
+	 ubxkG5DVdP3RmAABZffwNrAI4EaI85ONLxyZCaKzEiM0iKrSFFFq0j2XuZQqcYV+dXYhE
+	 0smmznymlWHtnCmKDSSs5YxAjtJrhRdMkYtasA8bb1x2DiQC9QR72x8tS2X5kgULS5Uk2
+	 XLd7TnObo5RN+Ds3HJ4/+wkl/6sVNHKn+fqvQnLgK5wACEcRwdEPcJkXzhbdvB+ugpgfA
+	 C8DIy2/7XJlejE6R/3Dqruo9jcTqQCzugu/KKfJJ228xmmZtxLo6aQIFwwE6TUHUIYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793947249;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793947256;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=/4USJW9qcyUNn/FtQy4xUl++EAECigPJpoER1jiXivk=;
-	b=lZrE3RensCdNKkPe05fKLEGpN2d+XF2/MsPCa3KlzSbTj0ntHHrYG4/kO8eYpPwBIB/q
-	 9gPzcc60pyiF/Tmh80yxeD1nw0c4cL+EYIRFKx82fK0NYdzPscuxYDUqSFODlySc74uX4
-	 CbjvjtzR8KuwWiKDFBLiJWZhF9aSHTwUQavLGpWzk7TaDW/HAcsapxF6QEEhpmsgfcDxa
-	 hs/WlwVMG6B5qG93NkZJej5PLuvqSQovPxL8180rWkFB0mM1hwa49OuWxzfrvElrzK5HX
-	 Dc8Upol153R+h/YiXbB5erGuJsObWEzWZnfxG8teNp1LAM0OjfTLCMvwcxxTJAlPquA==
+	bh=y9kHH79sXvLdJ8c1WHqBXC13L6ROL+nCnwolQUHTp5s=;
+	b=vQVWrEWq2GJtuf7nY+bwtO6U14l842QJUqla83DJWw0dB5GnFtHDQDNlA0xWhlL9jWaT
+	 NmrGhnGqVFValEr2Kn5gt3uRVE7URLq5rA6CLkvzYLwTuqTQCmdSVveqKd8BG9tTzW350
+	 ObZzHGM3m2OdrMWODcG2D8y9Dhj4aIT2oz8auicK2nfOjvsU9oE1tKS/nwzGncUJIVSLz
+	 e4Ce7U3x5/V0/jzYS7/a5wHtZgHRgQ2Q/c9A9mbFN6o/soohQclQEnqG6Y1a+SWbcst6f
+	 2/3sO2GmqRs09LrPt5kpdg2i+GYWYw3kMrWUQ29UYdZGq31QqAImegSKudDI40mo9Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IcbILbbr;
-	arc=none smtp.remote-ip=91.218.175.142
-Received: from mta0.migadu.com (out-142.mta0.migadu.com [91.218.175.142])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AD6606A330
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6AD6606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IcbILbbr
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/4USJW9qcyUNn/FtQy4xUl++EAECigPJpoER1jiXivk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793947245; v=1; x=1794552045;
- b=IcbILbbryd1I3w1iL8fhJLF2OUYHv5Tyqkc68QQjOHZymCkhfCKDjFPt8t5LirvIlRN47tqe
- ee8LhFrRGDFMoSWHsHZ1JFPRE1zEzqKvRbBoUIV3cCuFStEPm2EHHYMP8JIUF+xhi6tgbXWaNEp
- SgWZgo+3zPwEUJKaCwLHEWp8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 500c6a5405d2c587;
-	Fri, 06 Nov 2026 06:40:42 +0000
-X-Mizu-Trace-ID: 500c6a5405d2c587
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	jgg@ziepe.ca,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	willy@infradead.org,
-	jack@suse.cz,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	lance.yang@linux.dev,
-	ziy@nvidia.com,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	byungchul@sk.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	apopple@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	maddy@linux.ibm.com,
-	npiggin@gmail.com,
-	mpe@ellerman.id.au,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	pfalcato@suse.de,
-	kasong@tencent.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	leon@kernel.org,
-	sj@kernel.org,
-	rakie.kim@sk.com,
-	rientjes@google.com,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	james.clark@linaro.org,
-	mhiramat@kernel.org,
-	oleg@redhat.com,
-	john.johansen@canonical.com,
-	georgia.garcia@canonical.com,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	zohar@linux.ibm.com,
-	roberto.sassu@huawei.com,
-	dmitry.kasatkin@gmail.com,
-	eric.snowberg@oracle.com,
-	wufan@kernel.org,
-	stephen.smalley.work@gmail.com,
-	omosnacek@gmail.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	kvm@vger.kernel.org,
-	damon@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	apparmor@lists.ubuntu.com,
-	linux-security-module@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	selinux@vger.kernel.org
-Subject: Re: [PATCH 08/13] mm: convert miscellaneous VMA flag tests to use vma_flags_t
-Date: Fri,  6 Nov 2026 14:40:36 +0800
-Message-ID: <20261106064036.47774-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261105-late-2026-vma-flags-v1-8-0d3cd15ab75f@kernel.org>
-References: <20261105-late-2026-vma-flags-v1-8-0d3cd15ab75f@kernel.org>
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 203B5606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:40:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 203B5606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=TCdreGreS8IsLXGTPV5IjCPYFKnAKRAtSsCJnSw5EVTrvoFaaRM4z0uWdnBc8bnWV3iW4qRMIJZwd
+	 QkUJlT3/qQsS7dGnsz2PpYnRbXFlg2AIhF77h0zR5z161a0/FUlk1onoKPo0HW7XRZ+iXR4/oSip1N
+	 459O1WNLXYTF2iT0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96aed7672e49-b2e93;
+	Fri, 06 Nov 2026 14:40:50 +0800 (CST)
+X-RM-TRANSID:2ee96aed7672e49-b2e93
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from cmss.chinamobile.com (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26aed76712be-154d7;
+	Fri, 06 Nov 2026 14:40:50 +0800 (CST)
+X-RM-TRANSID:2ee26aed76712be-154d7
+From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+To: linux-nvme@lists.infradead.org
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>, Keith Busch <kbusch@kernel.org>, Maurizio Lombardi <mlombard@redhat.com>, Mohamed Khalfella <mkhalfella@purestorage.com>, Nitesh Shetty <nj.shetty@samsung.com>, Hannes Reinecke <hare@suse.de>, Randy Dunlap <rdunlap@infradead.org>, Aurelien Aptel <aaptel@nvidia.com>, Nilay Shroff <nilay@linux.ibm.com>, Jesse Taube <jtaubepe@redhat.com>, Rongzheng Wang <testwrzwrz@gmail.com>, Kees Cook <kees@kernel.org>, Rosen Penev <rosenp@gmail.com>, Guixin Liu <kanie@linux.alibaba.com>, Qing Zhang <diasyzhang@tencent.com>, Eric Biggers <ebiggers@kernel.org>, Julian Sun <sunjunchao@bytedance.com>, Yu Zhang <yuz08559@gmail.com>, linux-kernel@vger.kernel.org
+Subject: [PATCH] nvmet: clamp the last ANA group index against the real array size
+Date: Fri, 06 Nov 2026 14:40:48 +0800
+Message-ID: <20261106-nvmet-ana-grpid-1-yuehongwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -152,18 +62,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
 
+NVMET_MAX_ANAGRPS is the highest valid ANA group id, not the size of
+nvmet_ana_group_enabled[]: the array has NVMET_MAX_ANAGRPS + 1 entries
+and the controller advertises anagrpmax == NVMET_MAX_ANAGRPS.  Both
+array_index_nospec() calls however pass NVMET_MAX_ANAGRPS as the size,
+so for the last group the mask is 0 and the index quietly becomes 0:
 
-On Thu, Nov 05, 2026 at 09:30:59PM +0000, Lorenzo Stoakes (ARM) wrote:
->Replace use of the legacy vm_flags_t flags with vma_flags_t values in the
->remaining straightforward VMA flag tests scattered throughout core mm, HMM
->(and its test module), DAMON and the OOM reaper.
->
->No functional change intended.
->
->Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->---
+ - nvmet_ana_groups_make_group() increments enabled[0] while the group
+   keeps grpid == 128, so the later nvmet_ana_group_release() decrements
+   enabled[128], which underflows to 0xffffffff.  The ANA log page then
+   reports group 128 as inaccessible forever even though the configfs
+   group no longer exists, and the increment on enabled[0] is never
+   undone.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+ - nvmet_ns_ana_grpid_store() accepts 128, stores 0 in ns->anagrpid and
+   returns success, so the namespace silently stays in the default ANA
+   group instead of the one the user asked for.
+
+Both failures are silent, and they change what the target reports in its
+ANA log page, which is what a host uses to select paths.
+
+Pass the real array size in both calls, so the masking is kept but the
+last group is no longer folded onto index 0.
+
+Fixes: 20dc66f2d76b ("nvme: prevent potential spectre v1 gadget")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+---
+Verified with nvme-loop in QEMU/KVM on 7.3.0-next-20261027, with two
+kernels built from the same tree and differing only in these two lines
+(no instrumentation):
+
+ - before the patch, a group created as ports/1/ana_groups/128 is absent
+   from the ANA log page (ngrps=1) even though configfs accepted it, and
+   it is reported as expected afterwards (ngrps=2, group 128 optimized);
+ - 128 written to a namespace ana_grpid reads back as 0 before the patch
+   and as 128 after it, and the namespace is accounted to group 128;
+ - removing the group again adds a phantom group 128 (state inaccessible,
+   0 namespaces) to the ANA log page before the patch, and leaves no
+   trace after it, even when creating and removing it repeatedly.
+
+ drivers/nvme/target/configfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
+index 8aea64d..48d3f68 100644
+--- a/drivers/nvme/target/configfs.c
++++ b/drivers/nvme/target/configfs.c
+@@ -701,7 +701,7 @@ static ssize_t nvmet_ns_ana_grpid_store(struct config_item *item,
+ 
+ 	down_write(&nvmet_ana_sem);
+ 	oldgrpid = ns->anagrpid;
+-	newgrpid = array_index_nospec(newgrpid, NVMET_MAX_ANAGRPS);
++	newgrpid = array_index_nospec(newgrpid, NVMET_MAX_ANAGRPS + 1);
+ 	nvmet_ana_group_enabled[newgrpid]++;
+ 	ns->anagrpid = newgrpid;
+ 	nvmet_ana_group_enabled[oldgrpid]--;
+@@ -2074,7 +2074,7 @@ static struct config_group *nvmet_ana_groups_make_group(
+ 	grp->grpid = grpid;
+ 
+ 	down_write(&nvmet_ana_sem);
+-	grpid = array_index_nospec(grpid, NVMET_MAX_ANAGRPS);
++	grpid = array_index_nospec(grpid, NVMET_MAX_ANAGRPS + 1);
+ 	nvmet_ana_group_enabled[grpid]++;
+ 	up_write(&nvmet_ana_sem);
+ 
+-- 
+2.43.0
+
+
