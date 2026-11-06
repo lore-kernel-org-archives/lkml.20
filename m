@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950739;
-	b=GQdTYTs5oRPhIhwoL2pPsvSVATFVePFb1PmHg1jb4KkGdA4i61JQeEDozHids6FD9GUf
-	 mgCfsnplhp8yFmS2TrwaCyChNtQcFqe4IDeZVNHops45WWfjGe9vlLj9ssKF/HsfCLJ93
-	 8c2bl8O4CSuLW1JjuRStW7y7+4tjvlJhXsOZrGFVupFBTYNehOI6gxKlend9bNEwLyFN2
-	 liZztOVH7fbJ8V755h1AWxF5cT/yCdvHIJWIxxgw9mslBD4g79oSAZRC9aGJFgGllRAMz
-	 juOxvYp19I1HGgvYjJ6sFJrPrlQIz42B2J9ppj0cxHZAvI+fS1MJlTg/GKX0bPa+XVQ==
+	t=1793950785;
+	b=mnY3Un5HlQ+wwX2kt19iIrNPoNTTZ8BywiApWivgk+xqYN3SAiUnx73hGvJpjMGX8aRb
+	 naiN8SxOiY8/qHmyOZl0Twfqw37jiItb1UD9bVAXxjyX77A4/KKaPHDvTTry09b4aQs/J
+	 VsFqH4bnYR7IHPCEJn/Zq9QT7n8yMqY5L+lEQp82coC5WYOvKLhfvOVzWC/5DaokOmYjk
+	 WKCoBGEKW+HiZqpg2PVUhMcsVwsmG1xifFnIM1gLr0cARJMugrtzOy6+7hQC+b6Lni/vF
+	 uWJ5E4vsOF0W392mX2SG2NLYLnCQRuSKwnI6XtE/Pli8VvhvchU4saWIlIeZ9MHVKsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950739;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8gASDMr3+aiXaCSJjYAmL3vSarYyK9/zWHfxGyG7lYc=;
-	b=rC/m3wKxmAZYybqRkQ8RFkXHjPfIRaXOKL+Pd8zBjli5geQ8QG95eZXXQZznvIXzX8t4
-	 mGGq/8cEcQ3AuPIRkNLAyzTx1r1iYsm0QbFml7sEMgN+FHpJkFXX1V/HUgRz6JontNvB2
-	 R56Q29UnFhav5xpCtartGScN88lK0ppO7F9oL5wJenKhHUlqDV+MftEbBkekpszZNLGJs
-	 ltbRTLMm1xVrewI0aOFbwT9++Opw8rJ8V1wQKs94AWvmuLqtpi4d7uVIJgxaQ/VY3ok7m
-	 dB/2iEQcANXQ29JMwShm7lxCxyHhere2U1XieeJiWwuBAdgOLQeinpjLr/zT/SI4bAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950785;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=1LnB0MeeLKel7mrx1PK22qmVuyKJMFV6DF88sqg6kSs=;
+	b=EZ3u6NyId2nupO14s1o0QfyABX/5LGRKjiXmikfGpD87jh9muKjF/1/q0iJAlrBpcp0t
+	 YoZFmfFuKXAvp/liKgJI+5QdewaNpEnsEwayI07Ezgt1LUIIKbicSDIIEGAxjrOwDt9EJ
+	 nJJAEs9iOky03+sXn7EdkPHmVAI2+U+mjMErILIT2g6YxXtTVEBt/vSlX5qMHPHUxrGBg
+	 QHfiO49VLACcE7qpSGXlsnLfP7QBNP76030jha1G3iy9m44N/TSUSqO6NPceWPn4K+xoB
+	 RfeY+v2zqmezjOhV5gZC18GasKYEYORdV9wBademe6uSeH3YjMwf7src2jHjj+N7eqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JaegnGB3;
-	arc=none smtp.remote-ip=209.85.210.176
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ljr/27uT";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DFA606D808
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:38:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2DFA606D808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728FA606A326;
+	Fri,  6 Nov 2026 07:39:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JaegnGB3
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a05f2d5cd3so162139b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:38:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793950738; x=1794555538; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8gASDMr3+aiXaCSJjYAmL3vSarYyK9/zWHfxGyG7lYc=;
-        b=JaegnGB3mHQIvxJOuQCfPVoM8jxNUknxlsCKaFPbBoFXH+DU7+2HgmVOpRKX6oHc35
-         dhimufJT16sMmybzbin8ZTG8pC+vXMwqRTmh1KAATEa8dkhCoDGD11jFqi6Ug/kUhhgf
-         zjY+o8o+wi+8lTZhaODjy7nAsEMbe0n+7T/5s6VNd6Z3vctAq3KpNG8rb+jnT7wKikqM
-         h1J+/rABXM9SQc3kLzixZGcOkn8l49WOT3aYwOjY0KQ0fW7hz/84oRs3g6Z8wuxQAPhh
-         cBb9gG/ALn5O9Qd6GEvPdoVBkRt1eNc+uROPEeZZ+QpltXUloEwsN9Sp3y/KFua1i0E5
-         D27g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793950738; x=1794555538;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8gASDMr3+aiXaCSJjYAmL3vSarYyK9/zWHfxGyG7lYc=;
-        b=RgOw0UM6hcFkDdy4N0dubpQI7eBkSQRmSAAyz4o6INpZ69t2C5FQxXPr19QzsuL1jT
-         3VDZ2pBAAViVsw3hFL2eqNeEtTInbX1uNIRg/fwEwHfi8QMqcPMvBnvDKxARVxMhQri7
-         skyD+9JD4qYE69+Pc7Sn1ImEpQbLMvRmEZEmxkri22YtiqdkdtmHveMWbyJB99+iUU7b
-         QkaMkXKnyOsqJU4aK2kXndFsIAwd/SYMBzlYuIMAZIJ8avaM+Cbp6tBxJgwZGO3L3yK3
-         HBfVx1xLWyrwiR9mnGhPy8BowkGLRGTDotkQMS6/aI2vX9FZ0l0ywsCk4/FxvDvZtpsh
-         /5iw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8lsKXIx2NGxhFaEU6H3W7xF+9BGHxz5lKw4u4iG8+JnMd+hfvCO0HOq62ZWZXF8iTPhomZHnqPl0L7e4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AtVQxKFi0ZnYCJfxlXEXyORlPtRzhvpj3o5hceGGwVoiihy+9
-	MrieAVKhCyNrYpke3R8w6Q8X9VlM+2CZVtXBkCz/aLrgqPRZsnuHdtTV
-X-Gm-Gg: AYBFou0IAybo4IlbZKUnAjKeLqh/Y475lAKveec2/wP77ZbqhOcmXCReRvrKyQMhAhZ
-	RHGXv8S/8iyJpOrxIBufCM+RLq8hy/iYqxp34QHUmpa37gqbbaeQQVdVOssvXDAoWMm5QvX0GPZ
-	PzzXBhJEz3cn9mSFZKitrtSc0rjwH1oHhmt0Jt1iqQ5ZBtjL7kPiJJX5tlC5J1JpGXQghUm3RBp
-	W9qRwSokDV/f+zsWSfB6q1CB4uZfN+Eo0pD0o2QcTAlV25aRbdpE5BHyo2eR+cQamBjwLMyYXfj
-	QdkYNd0R+tETmw+vjQrxV0XaX71OWwqnOvfg9sRCxwIl2o1vnzgmAcfkv9Cz2qCz0h/SGC3lyCZ
-	/yaMjZgDRElMzo/ZkRxA95+7+OVnBt13fmUSgZta+ZBrdqAl7OuvFhWiaC7QMkuu/XFVpwhF4Zc
-	f18BDkaQfAn5xXiQGfJdTpA78rnNuLr1Q6JV0EdiZbM5+sJoDas+aLQ8EUsUi63pe2Nj+xWWjyh
-	mZ16LpNAOEDzhaggBXFCqk2gptSFz5t4CfztV+0I6Zy/HbLG0EQST9mPpURB2Mw4jJTbHx8luMs
-	+//GWgYDwfkKrEamqtLJN9fCERO61bh3nYZMCAvyNvTuQkSXTW//
-X-Received: by 2002:a05:6a00:4b13:b0:88d:3f61:20f3 with SMTP id d2e1a72fcca58-8b37c531bd4mr1401050b3a.54.1793950737992;
-        Thu, 05 Nov 2026 23:38:57 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3597efd53sm373484b3a.23.2026.11.05.23.38.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 23:38:57 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 3/3] net: dsa: motorcomm: Delete the ACL rule of the port being unbound
-Date: Fri,  6 Nov 2026 15:38:02 +0800
-Message-ID: <20261106073806.112122-4-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106073806.112122-1-mmyangfl@gmail.com>
-References: <20261106073806.112122-1-mmyangfl@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ljr/27uT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742E41F0089F;
+	Fri,  6 Nov 2026 07:39:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793950785;
+	bh=1LnB0MeeLKel7mrx1PK22qmVuyKJMFV6DF88sqg6kSs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ljr/27uT4ZFJvPIv+E8IExj1bSp+ur0cnfqs/5R0WArZFouETDMwR33ibaNLiztpH
+	 ima13UfkUkdkx8J5Z+M7Jhklet9u5Ln2a9GIJ9C5cO+gu8A8MxWKIZvikfsggp1B5K
+	 7mftB+oWc0AyqzOgZ2BdWnC+LwFDPdfOF/6XfBN6SbMUUn53D1yw0Yq0hndtcpywXw
+	 7F58lEDqMJu6RWYQmG2V1xZzNvU08Jg63YrSlRedv+jOj/59Hw2mE7mRu83wm1QtPr
+	 WZSD7EKnRkisbvZ2AL7uVgD6Moh2shQwZA6c1QGmQ7DTAerUwCqWtJR3w2cbQtMYHN
+	 8OHY9IyrfchUA==
+Message-ID: <91d67c5d-d125-4834-b0c4-742951c59af8@kernel.org>
+Date: Fri, 6 Nov 2026 08:39:37 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,74 +51,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/3] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+To: Hongliang Yang <hongliang.yang@cixtech.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
+ Roger Quadros <rogerq@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ cix-kernel-upstream@cixtech.com, Gary Yang <gary.yang@cixtech.com>,
+ Fugang Duan <fugang.duan@cixtech.com>
+References: <20261105011803.4058557-1-hongliang.yang@cixtech.com>
+ <4d075b70-f2af-4aad-a1d7-cd8ea26387ca@kernel.org>
+ <20261106055050.948470-1-hongliang.yang@cixtech.com>
+ <8ffdf2f9-dd67-419f-83af-8dd4206d54de@kernel.org>
+ <20261106072849.985274-1-hongliang.yang@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261106072849.985274-1-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-A flower filter on a block shared across ports is offloaded as one
-hardware rule per port, all carrying the same classifier cookie.
-Deletion looked a rule up by cookie alone and could take another
-port's copy: with skip_sw, a filter silently stopped being enforced
-on a still-bound port, while the detached port kept enforcing it.
+On 06/11/2026 08:28, Hongliang Yang wrote:
+> On 06/11/2026 08:01, Krzysztof Kozlowski wrote:
+>> So instead of replying under each comment, you selected a few of them
+>> and expect me to map/figure out which ones you ignored?
+> 
+> No. Compressing eight separate comments into one mail was the wrong way
+> to answer a review, and it is what made you match numbered paragraphs to
+> quotes yourself. I will answer under the individual messages instead.
+> 
+>> OK, then find me where did you reply to this:
+>>
+>> "And do not combine USB patches with other subsystems."
+>>
+>> "I do not see how you addressed my feedback from v1. I asked, not to
+>> combine USB patches with other subsystems, within one patchset. These
+>> are separate patchsets."
+> 
+> The first one, in the v1 thread:
+> 
+>   https://lore.kernel.org/all/20260902032306.1182941-1-hongliang.yang@cixtech.com/
+> 
+> where I wrote "Done in v2: the combined bindings patch is split into
+> separate patches with dt-bindings: phy: and dt-bindings: usb: subject
+> prefixes, one schema per patch". That answer was only half true: v2
+> split the bindings into separate patches, but the PHY and the USB series
+> were still submitted together. The series were actually split in v4, and
+> have been separate since:
+> 
+>   [PATCH v4 0/3] Add CIX Sky1 USB3 PHY support
+>     <20260906032431.470744-1-hongliang.yang@cixtech.com>
+>   [PATCH v4 0/4] Add CIX Sky1 USBSSP controller support
+>     <20260906032440.470788-1-hongliang.yang@cixtech.com>
+> 
+> The second one, on the v3 cover (6ca4ba08): I did not reply to it. The
+> split went into v4 with no mail saying so. There is no reply I can point
+> you to for that message, and I am not going to claim there is.
+> 
+> What remains are the per-patch comments on the binding that my previous
+> mail answered in summary form. I will reply to those under your original
+> messages, one at a time, rather than restate them here.
 
-Delete the rule matching the port being unbound instead.
+You still combine USB with other subsystem. Identify subsystems here,
+please.
+1. USB
+2. SoC, no?
 
-Fixes: 8eb9e7520b17 ("net: dsa: yt921x: Add ACL support")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- drivers/net/dsa/motorcomm/tc.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+DTS cannot be placed here.
 
-diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-index 5c82719e461f..6192aa9f05be 100644
---- a/drivers/net/dsa/motorcomm/tc.c
-+++ b/drivers/net/dsa/motorcomm/tc.c
-@@ -1228,7 +1228,7 @@ static u16 yt921x_acl_activated_ports(const struct yt921x_priv *priv)
- 
- static unsigned int
- yt921x_acl_find(const struct yt921x_priv *priv, enum tc_setup_type type,
--		unsigned long tag)
-+		unsigned long tag, u16 ports_mask)
- {
- 	for (unsigned int blkid = 0; blkid < YT921X_ACL_BLK_NUM; blkid++) {
- 		const struct yt921x_acl_blk *aclblk = priv->acl_blks[blkid];
-@@ -1238,7 +1238,10 @@ yt921x_acl_find(const struct yt921x_priv *priv, enum tc_setup_type type,
- 
- 		for (unsigned int i = 0; i < YT921X_ACL_ENT_PER_BLK; i++)
- 			if (aclblk->rules[i] && aclblk->rules[i]->tag == tag &&
--			    aclblk->rules[i]->type == type)
-+			    aclblk->rules[i]->type == type &&
-+			    FIELD_GET(YT921X_ACL_KEYb_SPORTS_M,
-+				      aclblk->rules[i]->entries[0].key[1]) ==
-+			    ports_mask)
- 				return YT921X_ACL_ENT_PER_BLK * blkid + i;
- 	}
- 
-@@ -1366,7 +1369,7 @@ yt921x_acl_commit(struct yt921x_priv *priv, unsigned int entid, u8 entsmask)
- 
- static int
- yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
--	       unsigned long tag)
-+	       unsigned long tag, u16 ports_mask)
- {
- 	struct yt921x_acl_rule *aclrule;
- 	struct yt921x_acl_blk *aclblk;
-@@ -1380,7 +1383,7 @@ yt921x_acl_del(struct yt921x_priv *priv, enum tc_setup_type type,
- 	int res;
- 	int ret;
- 
--	entid = yt921x_acl_find(priv, type, tag);
-+	entid = yt921x_acl_find(priv, type, tag, ports_mask);
- 	if (entid == UINT_MAX)
- 		return -ENOENT;
- 
-@@ -1555,7 +1558,7 @@ yt921x_dsa_cls_flower_del(struct dsa_switch *ds, int port,
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
--	res = yt921x_acl_del(priv, TC_SETUP_CLSFLOWER, cls->cookie);
-+	res = yt921x_acl_del(priv, TC_SETUP_CLSFLOWER, cls->cookie, BIT(port));
- 	mutex_unlock(&priv->reg_lock);
- 
- 	return res;
--- 
-2.53.0
 
+Best regards,
+Krzysztof
