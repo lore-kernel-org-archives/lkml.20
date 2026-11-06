@@ -1,53 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956316;
-	b=5gHnlX7a04/0r6LbvJW7jboOIx/M9xPltv/MdQia25T+XwBKyGeoMq9C2rnI9vBf6ieW
-	 TaaP2ZtLnplozR4Rb+C7+XDg/gx67+QQH1F7L4hFJa0Oyu45IRPLodVWhY354sM0ACq1k
-	 da/Adb2c2HjdtEusXZUFSF3FuufDfVx6T6971Ld6CSD/z0BXzgjGS4vKJ7tosf7htNcSL
-	 3Y0oStPtDOvLat83Y+OS+DO2ufehESL77hY1sE7VfnmEdD4qRO330kk0KI8/wJFn18RTK
-	 3pq4EDXqy39oP3Py57DAzJBVt3fN6rn/zpe3AndrSIJMra46VYg/XuxWCKmUkogQuaQ==
+	t=1793956317;
+	b=iXMJL0S/dRQ1Yc4Z8goMHie7eErSJOf9uHG6Fjdc68EBtskxcH6fmEUtK4VLyK0tM4mT
+	 HRVYFYXlaRvZf81TdLvzO0rXc1R4BVrTHkgxs00nlCbvBNk1R2JIGGcAdzXkY6zRiupCN
+	 Y20xrLqJVCFr1a9CNdrSEAwqSrW4xgb1Z3D8vz4bIrPG2oF6s9sZGkZBI4PA/1/LCUyCJ
+	 qLYqTyo9ZlnHZHF7Y6G/BXUZ3xjCqe1BaDGtwEtU0mHIs/Dfd6RzpmHu/sBrSoebMYl4N
+	 wjLbDRTgy5BrlfrpdDJJBsSjHGytlJv6HFhUl4lf1M2PwGPBuvJvVJFzO2W1MCrTLEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956316;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=eA+Ud+gFJNcVj31tDphP7Ap6AZDSCnf20xd55ColT4w=;
-	b=UFfWJYtr40UmtsPm3SlGsjeTAGJb9G2x1KGpDNMfDynSMBfoj1e6S1fmjKmZec2KVccf
-	 jxkyxZ7/JRiujauNY93Hgqu1Y7TcQWsy5YXQoYKNdSZ2VycQWBT6F3UWCWVGfZjGyIcXF
-	 e/AIWB37da1q6ke3eddc2ikjzpTRHEE4Sp5btkA4Q7TDLuasWr6MPdg5C5huzl6O9FEq5
-	 kp9ajKzpz4Z/r5fvXL0OXohv69B/M2BIwFm66J/wnRpR+Z/lvTl2JuY5p7UICr4sFKkYR
-	 qiZOoTefuuQyHLP8MKIHBNtJE1HIIaSYwvMdTyUPeKNvFEzGX5jIsfRMqg0TAVlIMhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956317;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=AKi4F1XkSqKNw3b7+Ng4uXx+ZMXFkYDoN/Pwc1tdXyw=;
+	b=PykDlbFtdaRVawjXsXTMij4WnpuS7hY9tVPlIcFSpYlxWQvkIF4D4WEvgO8GvSPxYCEV
+	 GfYkEaQ9DooYd8Pxheeoj+xR3rS+L55Rm+JRicLzGQ/9uprEegT6PmvNhEi/mx5TXzRR/
+	 3nAK+l0wefHqWDBue1UzC+6xsBufM4tnui7PcjH7WZLM6eFgVyzLlyWOI4DknPRmWFjA3
+	 D0IlvhEaShhYf3RmuJrf/P/tN/QX5Rp14yN5O4jKmtKWnL6ho2z4A60boVI7RpbE5/swW
+	 9X6YNpXHCQiIm3YO/WhJNDdh8LXhfrSxR/C5KLuoLTH6buq2rgn2+9i/hJrO50Lx80Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.10
+Received: from mta0.migadu.com (out-10.mta0.migadu.com [91.218.175.10])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A04D606A326;
-	Fri,  6 Nov 2026 09:11:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A04D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <a19cb7baea1434ddbbffc3176bdf493c895c7ea3.camel@crapouillou.net>
-Subject: Re: [PATCH 1/3] clk: ingenic: Poll JZ4780 CPU1 power status
- atomically
-From: Paul Cercueil <paul@crapouillou.net>
-To: Florian Fainelli <f.fainelli@gmail.com>, linux-mips@vger.kernel.org
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Paul Burton	
- <paulburton@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
- =?UTF-8?Q?=E5=91=A8=E7=90=B0=E6=9D=B0?= "(Zhou Yanjie)"	
- <zhouyanjie@wanyeetech.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>, open
- list	 <linux-kernel@vger.kernel.org>, "open list:COMMON CLK FRAMEWORK"	
- <linux-clk@vger.kernel.org>, "H. Nikolaus Schaller" <hns@goldelico.com>, 
- Paul Boddie <paul@boddie.org.uk>
-Date: Fri, 06 Nov 2026 10:11:48 +0100
-In-Reply-To: <20261105203243.2292647-2-f.fainelli@gmail.com>
-References: <20261105203243.2292647-1-f.fainelli@gmail.com>
-	 <20261105203243.2292647-2-f.fainelli@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDF6606A32F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:11:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEDF6606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RB9jCfeGXFtAeNZRCJe7qF1HA2DzPZCiRtQ6f8rlwO8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793956308; v=1; x=1794561108;
+ b=SP14kqgHZegobLguKceMWVRaaEf3xj0wYia2VHIJv7nrvC8v/x1oCpRu272qEx3kMDDC6SEE
+ DlL0PmcvKPbKwAj+xL2YncyuVQl1aPxY6vKPhNcd0sk3NnzrIjyjhtFA8ayH6u8Qep1tmr357io
+ IqEHRdCNdAzL3+8AVKpJKnLM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a5d8b693a372ae24;
+	Fri, 06 Nov 2026 09:11:48 +0000
+X-Mizu-Trace-ID: a5d8b693a372ae24
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	peterx@redhat.com,
+	hannes@cmpxchg.org,
+	songliubraving@fb.com,
+	riel@surriel.com,
+	hughd@google.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	peterz@infradead.org,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	joro@8bytes.org,
+	robin.murphy@arm.com,
+	steven.sistare@oracle.com,
+	jhubbard@nvidia.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	iommu@lists.linux.dev,
+	mason@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] mm: limit pagecache folio refcount when mapping pages
+Date: Fri,  6 Nov 2026 17:11:39 +0800
+Message-ID: <20261106091139.67845-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261105-refcount_overflow_stable-v1-1-70b9c655da3e@kernel.org>
+References: <20261105-refcount_overflow_stable-v1-1-70b9c655da3e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,50 +107,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Florian,
 
-Le jeudi 05 novembre 2026 =C3=A0 12:32 -0800, Florian Fainelli a =C3=A9crit=
-=C2=A0:
-> The CPU1 clock enable callback runs under the clock framework's spinlock
-> with interrupts disabled. Its readl_poll_timeout() can sleep between
-> reads, which is invalid in this context when SMP powers up CPU1.
->=20
-> Use readl_poll_timeout_atomic() with the existing interval and timeout.
-> This is a prerequisite for the JZ4780 SMP bring-up path. The original
-> CPU1 clock implementation by Zhou Yanjie is already upstream.
->=20
-> Cross-built for CI20; the subsequent SMP-enabled image brought up both
-> CPU cores. Development and validation used Codex assistance.
->=20
-> Fixes: 6673db4f3f26 ("clk: JZ4780: Add function for enable the second cor=
-e.")
-> Link:
-> https://lkml.kernel.org/r/1582215889-113034-3-git-send-email-zhouyanjie@w=
-anyeetech.com
-> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+On Thu, Nov 05, 2026 at 02:10:10PM +0100, David Hildenbrand (Arm) wrote:
+>With large file folios, overflowing the folio mapcount and refcount
+>became possible. For anon folios it is currently not really an issue:
+>each large anon folio can only be mapped once into a process.
+>
+>That's not really big news, but it's about time that we do something
+>about it because some modern technology might find ways to abuse it :)
+>
+>One of the enablers for that was commit ddc58f27f9ee ("mm: drop tail page
+>refcounting"), however, file thp support was added later.
+>
+>File folios can be mapped multiple times into the same process, allowing
+>for processes to hold many references to the same folio.
+>
+>As a short-term solution, let's introduce two folio refcount limits:
+>one for ordinary consumers and one for admins. Leave some headroom
+>before the refcount goes negative, which we really don't want (having
+>the mapcount go negative is also not expected).
+>
+>Start reporting SIGBUS if we run into limits. When restoring mappings
+>from migration entries, instead zap the pte/pmd entry. We allow for
+>slightly exceeding the limit to keep things simpler.
+>
+>This is far from ideal, but better than all easy alternatives we can
+>backport comfortably. For now it fixes the big problem: letting
+>the refcount (+mapcount) go negative and cause trouble.
+>
+>This is only a temporary fix, we'll follow up with something better.
+>
+>While the refcount checks are not required for order 0 folios, let's
+>just add them for consistency: each folio_add_file_rmap*() and
+>folio_dup_file_rmap*() needs a prior check.
+>
+>Also, just document -EHWPOISON for copy_present_ptes() while at it.
+>
+>Reported-by: Chris Mason <mason@kernel.org>
+>Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+>Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+>Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
+> include/linux/mm.h | 33 +++++++++++++++++++++++++++++++++
+> mm/filemap.c       |  6 ++++++
+> mm/huge_memory.c   | 24 ++++++++++++++++++++++--
+> mm/memory.c        | 23 ++++++++++++++++++++---
+> mm/migrate.c       | 11 +++++++++++
+> mm/userfaultfd.c   |  4 ++++
+> 6 files changed, 96 insertions(+), 5 deletions(-)
 
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+Nice work! I just went through all folio_add_file_rmap*() and
+folio_dup_file_rmap*() callers, including callers of set_pte_range().
 
-Cheers,
--Paul
+All covered, looks good to me1
 
-> ---
-> =C2=A0drivers/clk/ingenic/jz4780-cgu.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/clk/ingenic/jz4780-cgu.c b/drivers/clk/ingenic/jz478=
-0-
-> cgu.c
-> index 1e88aef7ac0f..f5983033583a 100644
-> --- a/drivers/clk/ingenic/jz4780-cgu.c
-> +++ b/drivers/clk/ingenic/jz4780-cgu.c
-> @@ -242,7 +242,7 @@ static int jz4780_core1_enable(struct clk_hw *hw)
-> =C2=A0	spin_unlock_irqrestore(&cgu->lock, flags);
-> =C2=A0
-> =C2=A0	/* wait for the CPU to be powered up */
-> -	retval =3D readl_poll_timeout(cgu->base + CGU_REG_LCR, lcr,
-> +	retval =3D readl_poll_timeout_atomic(cgu->base + CGU_REG_LCR, lcr,
-> =C2=A0				 !(lcr & LCR_SCPUS), 10, timeout);
-> =C2=A0	if (retval =3D=3D -ETIMEDOUT) {
-> =C2=A0		pr_err("%s: Wait for power up core1 timeout\n", __func__);
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
