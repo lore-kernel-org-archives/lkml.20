@@ -1,104 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977409;
-	b=fMEWjezyFt4e/KQMTMzgm84qywVHWxN8aKyc+d07zLfQyvok2GS2uTDIBg4EScwDG2mY
-	 XwcgCsjkK0UvOqA2EDUvBaHQ5M7W0I1/YWeDaGOZdUn0Y9MheFgZp6ODmVOXRWB+1HvlV
-	 RnmEz9SPw3DxklRS0VptVcDcUHO4UIQXDkOuBKdPzaZiFvofQ7LfLPdaefGgaRQHiJNAu
-	 ws+Uw/6eIcJlcPeBbBUeCTKTyfXz9NQt1QybctKY40bH6xuCRaGqL5LMZ6HwKAZfN3pBU
-	 d0izc1g/aeAWAmWVXBluedsjQ8O4T3I1Dv0AaKzWRlX3UZxzI8OSJH5m5f5R0fA8nSg==
+	t=1793977463;
+	b=zX5rzVZYOcWV8HzdTTqHDfLeBUVQipnd3YQSTdukslIxmSvY9KmZTmsFfEcebHwoeVP2
+	 vT3m3IECMhDr8h/pmLIyyLVR95JnYQkn4Jl2TWsRDKK3HB0JUycjCM/uZFW2qHHoS1MVV
+	 g06OojZV0UIOZnJpWdA9BNL+tooxXm5MmDfvx7bZDg3r7XGEuiGIinvfu6UwTC8eqCgvA
+	 y0KbZ8fnBkEcT3v+/lDvhm5gI+mrHCIrbtmR7HrTkNuJjtMFOkT3Jz7qnaEH8rnRH6uKT
+	 uWvWyuSA3tsAKbUeZu0LH1uxz7UlDd5917eRHtQfKAfMhdrUDt0kPYYfOn74KszvPJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977409;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=6FoXJI83hjTO3ej0IaD9RjGbYyhgQtVCqkHhpUVyi4c=;
-	b=jcfvwMUD9nx27WsaiGBSpsngaXthCbm+PWF/bIJPXbWA8vJlWQHkrFr8BjWFOyp9RYYF
-	 fXshXnxGhbiXrT9oJeVHyJrwY3WfiCxLQAGV8bjUyy0xOyl6keD0giq1V+EzVLdPU3v9x
-	 UM2T/wqSeEYmtG02tu8EQkrhrpoMrxRiyagZGOp1wPaPoygEeUK/DdVObV+ZhtA0RXTTx
-	 BPva+/o4BR1pCG2/SN21f52yxjAhPRXX0ZawvCv2Wmsxpe8Z0lz0BBjpleEBYZLBArsFo
-	 QsxWduXGH/8tJIGyiD6p18EBqEQmgR3yMehWvr28mQTJ8xQ1espcvDA2PASPzp+YC7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977463;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=VFHEfM7uSHxmbeEDYFc714iPr6SLeYV/p8Cpk1n20G0=;
+	b=U5kJHQv1MTQ5owRxiNMscj5NUHU+IuI/lDFVHosHoErWqfNbBgawRBzzb1Z3tm3ThYQp
+	 D2iiV9lGjtuihkS7w06sVhjQSSMKyhecoInfZnIpdWNeAgn2rMUnVf/dLP5oq82Jvjbbz
+	 CovOOckwyWeEF4cBceB3L0joTTKw9mBFjy4Fkf9o+qoEm38qVqP/NzQN3ypMHhYUJmO/k
+	 m2TpT1h2vbEmR1skuBDtycYeEicvpS7++znZCjjHlouvzIijvsY+WnXLKFnNwy610904L
+	 MAewwKTnU/ZrjdsaxuPOmrlMN/XBXCR7t3/RtfMSI1GRvfZODXHlEpBJPviBaDovQ4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=T99h4t2e;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=A2iRrZUk;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TrP7zV8B;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pwChqOUr;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YWJI0aR8;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lH6F5qDZ;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DD9606A33F;
-	Fri,  6 Nov 2026 15:03:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6DD9606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BE0606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:04:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19BE0606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=T99h4t2e;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=A2iRrZUk;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TrP7zV8B;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pwChqOUr
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C528B1F452;
-	Fri,  6 Nov 2026 15:03:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793977407; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YWJI0aR8;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lH6F5qDZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793977462;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6FoXJI83hjTO3ej0IaD9RjGbYyhgQtVCqkHhpUVyi4c=;
-	b=T99h4t2eVaDmcmrjVcu27YVtUhLbvUNfnyHjcqGwmJAK8EY3JM5NW5F64yAYp/wwy8z4CL
-	OQ3ZR7qiT0H/FjFFL5nmUgbhfEZgFD9A5EtEfwwQfjsDhOuOnsVFcTehzefBuemiKXfZT6
-	E8gfqHNX/vfuRnQ1iXGfrwne/66b0go=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793977407;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6FoXJI83hjTO3ej0IaD9RjGbYyhgQtVCqkHhpUVyi4c=;
-	b=A2iRrZUkUprSGaX3DSBXtYraW62Mf+y73dvDiOil3BLXplUYqTBbKk5eyLZK8lPx4MkHqO
-	AdHMM067QoKSB0DQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TrP7zV8B;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=pwChqOUr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793977405; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6FoXJI83hjTO3ej0IaD9RjGbYyhgQtVCqkHhpUVyi4c=;
-	b=TrP7zV8B8N1md/3I8OjCcYITIt4ESSWHs0Yz8xJhnNoMmua2OoyrnWj4n7PNXBtu2z1R9G
-	90BoSMUNQDUeYsD97x9WMj89IbtxNHO6Bl24ZQQIgRG5rYGqdWpolgLjdvqds6BCDhpws1
-	YspriT66b/zBgFq/O7crDSGBMle7v+M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793977405;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6FoXJI83hjTO3ej0IaD9RjGbYyhgQtVCqkHhpUVyi4c=;
-	b=pwChqOUrbMtB61kYeSJynpZeIOHohxyjdHnde7E83dlZHSYA2ThLpp3JiZ/YStXID2sheR
-	ThpKDcjnpwj+lDBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 33B42132C9;
-	Fri,  6 Nov 2026 15:03:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id mWThNTvs7Wo+GAAAD6G6ig
-	(envelope-from <clopez@suse.de>); Fri, 06 Nov 2026 15:03:24 +0000
-Message-ID: <8e5f0caa-6292-4a65-ba8b-7ae647dd3b1f@suse.de>
-Date: Fri, 6 Nov 2026 16:03:19 +0100
+	bh=VFHEfM7uSHxmbeEDYFc714iPr6SLeYV/p8Cpk1n20G0=;
+	b=YWJI0aR83JkRMYKC0xUEf5vevtX22MosZC0Oecjg+f3OnI1AzAu5y0AbeQ+nnnrl0dbVTy
+	zZ4ilrR9UXX3PZMpj4qOjXR5a9A0numo2IMEuW0CPNvW8VecPl3lo+CsGzCfyrSNrE7V84
+	Y4IO5afjsaMgUNEZKHibuxJSXkSqjpM=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-646-4wqnm3mzN-a7BUfRlMPWmA-1; Fri, 06 Nov 2026 10:04:20 -0500
+X-MC-Unique: 4wqnm3mzN-a7BUfRlMPWmA-1
+X-Mimecast-MFC-AGG-ID: 4wqnm3mzN-a7BUfRlMPWmA_1793977460
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1f03f2e8aso8096505e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:04:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793977459; x=1794582259; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VFHEfM7uSHxmbeEDYFc714iPr6SLeYV/p8Cpk1n20G0=;
+        b=lH6F5qDZFAW2R8WRj/bfdN6KSiZ8hocg3KZYkH+5e7o/rAOjOz8TDo+8xuKLci11wC
+         XOD0efolga1GHdS5wVPvsygwjf5mJkNywIGTmf3NtJ6D59I7qD2xgaZE/MUncSyOsvqp
+         Cu5GufZasYC0x4y8kTR0gxk71rhIoGT8rjA3otvK67uWuWJ+ounZ/8G3LEy2QaBxkw04
+         zg3besPy9b154j5dH4lSk8E92Y6IdxilLaT8KrTJHeiOaHLIhReUJF/JgpUtv25/9EZ+
+         GxwSthaMDdbqU+qQSipE/V3/Fr+JcXtFrtkHr3Pf9pyiDaeY3+PICsRjrFxaWzRLXnjv
+         fdoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793977459; x=1794582259;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VFHEfM7uSHxmbeEDYFc714iPr6SLeYV/p8Cpk1n20G0=;
+        b=TqChzCmYc1ODFYrOoHHwV+RE0q6Sd8B3JT8y1luD58YuraBc8sUuUcdYTPryh/Shel
+         yOOL6Ywst2vFEfQctpi/DmMwoJmB8mtPNJpIYJHomgh5X5TR9VN60TUsu3ACXewQ86ji
+         yZkAwYsnybbc76dFSWbajft1cy4hF4RgsUZKXPr1er1n8fhPvm3eFaitp1cuYcSyq3Zg
+         tIbE3AZMxCl6Q2FRMQUfTyFxZ/0UfWDNWQCSsSlb6OgZzvICuB0wHegLwcjtiqOnQuTQ
+         /WLriuFijv5tpogxQZ8lDhnWAm70nrqvsgMz7EbXV1kz4oj+B5Sa5alCtTGGbXBBdr/M
+         Zyug==
+X-Forwarded-Encrypted: i=1; AKwUvBz1pZAoNDGM11jJTT/oLzlSsnesQxbrDgwMsO6hwpiQPMN7lac9kUwHWuShhik0bKTPK2fYmu/3Hphx3XU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8n7RYDJFv5oyMtpiSJ0yQFEQ/NMcmoXuAyfnf3Bd927vp2ddH/
+	cA6uLJ0vE8O0py+IMbsqCunEJ2jmYLMRZj80PSsDQXNZVoS0hTOso0bhOaSp28mnfv+lRC+zhg/
+	UWkY9bxJDdEH+mjItQIw6oNSLcB/su4Jl5JRP+JSROQiZA4uA0EP/ojAcya7R/nuStA==
+X-Gm-Gg: AYBFou1i0whfYjvkVmqX1ubnOTDQmDhXd7MykZtCvAh3nrHg1EWd5Pm5w67NSoj/AOq
+	0pfP3Jw8WNL0mzizKIxgpmQ6OAjAzXIA6U90XHPL3/vbGKZKS+8g44WeF7HxpPw1F/rQFmVoAMB
+	wjI1+uEDMQi7sbB+pxVuMxQeXS6OQ0pDOrRr7GmJh/400buVboKOw79HZSIDBte2fK1CfC7zyL6
+	DKBLLzesgFBzq7t/PoSEehu7jLirh5/naQ/eTcpqWYoF+yJqtD1SvxVBgNOCzfe0AU3K0Dc5Gzo
+	AqcQRitgtFeGSxSZj3ceuSSOT6cskLWyMCbNDt+wxWQNgIbZxYgy8cmfKQmtTEYhND81myTm426
+	H262ld5B+79KhltsXc4mQfWlgjHdFKmz8po5XNa2+mHB7DkJqbHy2m78SG79ydMKYBkjQL3QZRI
+	RUD23zqimP
+X-Received: by 2002:a05:600c:37c9:b0:4a1:e0d5:293e with SMTP id 5b1f17b1804b1-4b6df8c9cbbmr42830035e9.21.1793977459539;
+        Fri, 06 Nov 2026 07:04:19 -0800 (PST)
+X-Received: by 2002:a05:600c:37c9:b0:4a1:e0d5:293e with SMTP id 5b1f17b1804b1-4b6df8c9cbbmr42829535e9.21.1793977459116;
+        Fri, 06 Nov 2026 07:04:19 -0800 (PST)
+Received: from leonardi-redhat ([176.206.36.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7626a2804sm29251095e9.4.2026.11.06.07.04.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 07:04:17 -0800 (PST)
+Date: Fri, 6 Nov 2026 16:04:15 +0100
+From: Luigi Leonardi <leonardi@redhat.com>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Stefano Garzarella <sgarzare@redhat.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, Simon Horman <horms@kernel.org>, 
+	Xuewei Niu <niuxuewei.nxw@antgroup.com>, linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] hv_sock: Report no unread data before a channel is
+ available
+Message-ID: <au3sW3i2qjKDLMzq@leonardi-redhat>
+References: <20261106123920.162131-1-parri.andrea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,132 +121,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/9] mm/mprotect: keep writable entries writable on
- permission upgrades
-To: "David Hildenbrand (Arm)" <david@kernel.org>, kvm@vger.kernel.org,
- linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-riscv@lists.infradead.org, seanjc@google.com, pbonzini@redhat.com,
- akpm@linux-foundation.org, peterx@redhat.com, ljs@kernel.org,
- imbrenda@linux.ibm.com, borntraeger@linux.ibm.com, frankja@linux.ibm.com,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
-References: <20261105165004.2663799-4-clopez@suse.de>
- <20261105165004.2663799-9-clopez@suse.de>
- <60c4f0a0-e3c9-42dc-b2e0-0860ab6e30f0@kernel.org>
-From: =?UTF-8?Q?Carlos_L=C3=B3pez?= <clopez@suse.de>
-Content-Language: en-US
-In-Reply-To: <60c4f0a0-e3c9-42dc-b2e0-0860ab6e30f0@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-14.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[30];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -14.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: C528B1F452
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261106123920.162131-1-parri.andrea@gmail.com>
 
-On 11/5/26 6:06 PM, David Hildenbrand (Arm) wrote:
-> On 11/5/26 17:50, Carlos López wrote:
->> change_protection() applies vma->vm_page_prot, which lacks the write bit
->> for CoW and write-notified mappings, so it write-protects every entry
->> in them. When an entry would simply be made writable on fault without
->> further checks (e.g. dirty PTEs in shared mappings, exclusive anonymous
->> pages), MM_CP_TRY_CHANGE_WRITABLE makes the entry writable again to
->> avoid the future fault.
->>
->> However, writable entries in shared mappings that are not dirty still
->> become read-only. For example, a uffd-wp unprotect makes clean shmem
->> PTEs read-only even if they were never write-protected, e.g. when they
->> were mapped by a read fault before uffd-wp was registered. The next
->> write to each of them causes a fault that only restores the write bit.
->>
->> Now that MM_CP_PERM_UPGRADE indicates whether mprotect() only adds
->> permissions, change_protection() can tell, together with the
->> userfaultfd unprotect flags, when a change revokes no access. Keep
->> writable entries writable in these cases, at the PTE, PMD and PUD
->> levels. This is consistent with the write fault handler, as an entry
->> that is already writable needs no write fault.
->>
->> Signed-off-by: Carlos López <clopez@suse.de>
->> ---
->>  mm/huge_memory.c | 7 +++++++
->>  mm/internal.h    | 7 +++++++
->>  mm/mprotect.c    | 4 ++++
->>  3 files changed, 18 insertions(+)
->>
->> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->> index 506e1e61c0fd..6e23d0e4ae66 100644
->> --- a/mm/huge_memory.c
->> +++ b/mm/huge_memory.c
->> @@ -2809,6 +2809,10 @@ int change_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
->>  	if (userfaultfd_rwp(vma) && pmd_uffd(entry))
->>  		entry = pmd_modify(entry, PAGE_NONE);
->>  
->> +	/* See change_present_ptes(). */
->> +	if (mm_cp_is_perm_upgrade(cp_flags) && pmd_write(oldpmd))
->> +		entry = pmd_mkwrite(entry, vma);
->> +
->>  	/* See change_pte_range(). */
->>  	if ((cp_flags & MM_CP_TRY_CHANGE_WRITABLE) && !pmd_write(entry) &&
->>  	    can_change_pmd_writable(vma, addr, entry))
->> @@ -2885,6 +2889,9 @@ int change_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
->>  	 */
->>  	oldpud = pudp_invalidate(vma, addr, pudp);
->>  	entry = pud_modify(oldpud, newprot);
->> +	/* See change_present_ptes(). */
->> +	if (mm_cp_is_perm_upgrade(cp_flags) && pud_write(oldpud))
->> +		entry = pud_mkwrite(entry);
-> 
-> That looks completely hacked on. We do have can_change_pud_writable() below to
-> make such decisions.
+On Fri, Nov 06, 2026 at 01:39:18PM +0100, Andrea Parri wrote:
+>The Hyper-V transport is assigned before the asynchronous VMBus channel
+>offer completes.  Its zero-initialized hvsock therefore has a NULL chan
+>until hvs_open_connection() associates the channel with the socket.
+>
+>SIOCINQ can query the assigned transport while the socket is connecting,
+>or after connect() fails once the transport has been assigned.  Unlike
+>poll(), that path does not check stream_is_active() before calling the
+>transport's stream_has_data callback.  hvs_stream_has_data() then passes
+>the NULL channel to hvs_channel_readable_payload(), and any user in the
+>guest can trigger an oops:
+>
+>  BUG: kernel NULL pointer dereference, address: 0000000000000178
+>  RIP: 0010:hvs_stream_has_data+0x23/0x120
+>  Call Trace:
+>   <TASK>
+>   ? vsock_ioctl+0x74/0xf0
+>   sock_do_ioctl+0x42/0xf0
+>   sock_ioctl+0x27d/0x310
+>   do_vfs_ioctl+0x700/0x810
+>   __x64_sys_ioctl+0x7d/0xf0
+>
+>Return zero unread bytes when no channel is available, before accessing
+>the receive state or ring.  Leave the existing channel-backed receive
+>handling unchanged.
+>
+>The oops was reproduced on an unmodified v7.4-rc1 kernel in a WSL2
+>guest with a small user-space program, available on request.  With this
+>patch, the program reports zero unread bytes and the kernel logs nothing.
+>Other vsock_test cases were not run, as most of them need a host-side
+>peer.
+>
+>AI assistance was used to identify the issue and develop the fix.
+>
+>Fixes: f7c722659275 ("vsock: Add support for SIOCINQ ioctl")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+>---
 
-Okay, for v3 I can pass the old entry to can_change_{pmd,pud}_writable()
-and return true if it was writable, after the existing write-tracking
-checks (uffd-wp/soft-dirty). For PTEs, can_change_pte_writable() is not
-used on the change_protection() path, so the same check would go in
-set_write_prot_commit_flush_ptes().
+oops, thanks!
 
-Does that sound more reasonable?
+Reviewed-by: Luigi Leonardi <leonardi@redhat.com>
 
-> Whaatever you propose here is either wrong or way too shaky, sorry.
+Luigi
 
-The idea is that MM_CP_TRY_CHANGE_WRITABLE relies on the dirty bit to
-make entries in shared mappings writable, which misses clean entries
-that were already writable (e.g. shmem read-faulted before uffd-wp
-registration). Such entries can stay writable, as anything that relies
-on write faults write-protects the entry first.
