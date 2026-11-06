@@ -1,66 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984662;
-	b=enWUGqenUrwLK6RmNSzYpcV1zzaq5Ojk4Yuk4ZHK4RnCMHxjPUX3N9LrWOoYw3r+miBu
-	 pFhqHOi09d1k4RZ9tZJ4AUDAitFsWFX+5eesUFWM01GREK1YNeZYcczuz4+lsaMhJOtwG
-	 ZsDmdq9+TJcLJeRPt4ABREwd4FaZFsTNg2eDN62e+uJsUiq+atP/OzgxoRqI+BKtwQRlh
-	 BcgmtgMaDR8DSpL3juLWUnlY/onai9dPESmPhoYIvoDrHLbeXwRawHUAKoAeaGhv8br4v
-	 YrkiUde7HXsaK3eKeuEWLXmvh7hV+9OGRMRi9TqqyOPDKejHTUwHnv7/t7Hxru3kLUA==
+	t=1793984724;
+	b=FehOakbu44b+SCJHjrR1Ns3qnzLM5ikCQa/PSbFERKL5t72tWnGI8lRR8JVSRCPB0V7k
+	 ZchpKMYPTZGVhgoy5tsrGHCvXUWiYghZxT7oH/E5XrZJaI0In2lCz22grQCvGWfasCFIK
+	 XCHoiQRlZ2E6fDjNFLsrEmnR4kMbW6jYQviUbjGMxXDT2veomGq+LorQK49PCdRZQxzhT
+	 8M1bq3JUM3VHgtgdgAwEmP4q4hiywMUa/8b2HuaZ4wEj2+LYEVK+WizdixzIdmYpWnjQG
+	 PSq0Kr1ckJhfcjfdgdeE3puP3WYsv8fgUUBF/swQyNoo3/oyywJ/Q0oSyus0hO0OlCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984662;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984724;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/qwHj82ZGjV8oGUVTL0UP+HSV++lEMiXBJ4f5EpTCcs=;
-	b=Fn6rQyOr61qJVQ37Wvbv5WniE4yAUtMmkR6Cwg5gH6dtjyn4B4zr3PEH7xH1+On1SPkE
-	 c4mRj/TwQaSfiZ5bD3DJnAnIAxhXhzGw1nk90twUceVmGPOGu9EmS7TEMMC3qg9V580Hx
-	 W6I3H7Xydy4bzrMdtPjEkiPg0Temfowk0uHEKGMHAd19nQDkyoe/GkxCkHLNbCtg90Eyf
-	 8pNaXzsEwyCifvk7q++wW6GDGrYsFUJIpQ5a16me0vgVJ1vcmQJcfmLj7N4tWz4rvtb3z
-	 gjBX0HhBgeEHy02E6OF3JGbmeu+4oJCd/qcperP6Dp0vg2Wm4bleji8xUvd70U8VhzQ==
+	bh=4SttwiFqfOTk7qV+tK3jlNM8wt6TvO67mLzSeHcU888=;
+	b=VJgnu7gRs4Y/EksUUw8CdSjkLxqvalqzNmtethqJEoC9USRKkfx0/6koATndmgpmiMyE
+	 JsvXQlbHWvS+lqRhD6MQjuWRQgA/k0Fj47TH13ECkPIyuuW+GLn5p09JPuRdbWVkNJsyW
+	 Z+WDzwuRtD299IariQVCRRVLdI+l8w5D7TMJCy26m2/c6eaSqizc/op6uQkRyCYFHszVC
+	 GPE8FW2wOJPW7SW02Y1ieI+LiTl2Cd9I0nzmcuATti0JapQ9UmE1Yqm1mZ4IxDxg0M9ft
+	 1nT6rtIprQ3jWyAYVp7JnKahjsPEEfelS9Rx/0wgr7Pp0vrI4ykuI31cPuXL6Otxb1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FV5RO/mf";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8+aU8o5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92913606A326;
-	Fri,  6 Nov 2026 17:04:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742A9606A326;
+	Fri,  6 Nov 2026 17:05:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FV5RO/mf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01D31F008A4;
-	Fri,  6 Nov 2026 17:04:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8+aU8o5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C81B1F0089F;
+	Fri,  6 Nov 2026 17:05:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793984662;
-	bh=/qwHj82ZGjV8oGUVTL0UP+HSV++lEMiXBJ4f5EpTCcs=;
+	s=k20260515; t=1793984724;
+	bh=4SttwiFqfOTk7qV+tK3jlNM8wt6TvO67mLzSeHcU888=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FV5RO/mfnOhj/UXvGJ03d3YWAJx2H74CbqBHlVVxOJPrwBETRSSC37hgKtBSRXGsu
-	 0DQkoNaMhknpoCPGNv7g8Mz0JaCByZaApKpPgAsDTkePKkw7a1sxJ7Wq4CFVrIPPXM
-	 EEG6O3KzLNy4Xr4OHinQeRfouPSb4rZu9jMMz8fVfA7K4k+cAtts/KVbwKB1vbJ6jP
-	 B03nTF9deu+BdyIRyB/4aHf7DQcWvt6BSUiUXptKNup3D8dTZNE/JA7TZNDKWxraXO
-	 PauP2vYDcaIj4/mSopDwrObQqgA1Yagf3bM9smeZ8OQ0X67aTyGcPBl8LU5ukrZmkG
-	 ejHJemFOnpXag==
-Date: Fri, 6 Nov 2026 17:04:16 +0000
+	b=M8+aU8o556AFTD3MJUxxA97mQJ1vB35pWBmKebMRIUWmib/clE1TLaTXv9g1nEAt2
+	 IONg1v4uVCR4vTpJ6JT6QFZlQtFNSmRkVL/wurw3iyb+wl0g1luEdRwMCOcipecDuo
+	 MKX39mxdfPczUdt2+RcfrJBZmw8XV7ep6dmhP6FwkGBF21alxAWWSj3fBqETBSmgHz
+	 Bs2L8RPYfTkr/vIRlRhNUkwIngK3nVNi+5+Yg3R/XGpulOKRiInAON7QH+6OHfh/uL
+	 1I5TKl07J+iqPlNO+CUH6P2HX2aW2OtlHKpzkyTySogeBNrAGhaobSWqAHn0iP2vqd
+	 A8WVKh99lcXWg==
+Date: Fri, 6 Nov 2026 17:05:20 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+To: bengris32@protonmail.ch
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <michael.hennerich@analog.com>,
-	Trevor Gamblin <tgamblin@baylibre.com>,
-	Joshua Crofts <crofts@kernel.org>,
-	Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 6/7] dt-bindings: iio: adc: add adi,ltc2387
-Message-ID: <20261106-usage-sarcastic-ef377a65e293@spud>
-References: <20261106160529.876251-1-Nicolae-daniel.Deaconescu@analog.com>
- <20261106160529.876251-7-Nicolae-daniel.Deaconescu@analog.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] regulator: dt-bindings: fan53555: Add Silergy SYM827
+Message-ID: <20261106-flagstick-sublevel-aeddc552bbc2@spud>
+References: <20261106-fan53555-silergy-sym827-support-v1-0-4e871c7f475c@protonmail.ch>
+ <20261106-fan53555-silergy-sym827-support-v1-1-4e871c7f475c@protonmail.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,26 +62,26 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6Zm2+GCoGcbtJ0mH"
+	protocol="application/pgp-signature"; boundary="fayYFU1ql3xyLLhY"
 Content-Disposition: inline
-In-Reply-To: <20261106160529.876251-7-Nicolae-daniel.Deaconescu@analog.com>
+In-Reply-To: <20261106-fan53555-silergy-sym827-support-v1-1-4e871c7f475c@protonmail.ch>
 
---6Zm2+GCoGcbtJ0mH
+--fayYFU1ql3xyLLhY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---6Zm2+GCoGcbtJ0mH
+--fayYFU1ql3xyLLhY
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4IkAAKCRB4tDGHoIJi
-0iueAP9jmAfn1jcU1E0CQxnvOVAmJfHXQT7RW7NOL4BYmj04uQEA9fCtpJwivUlD
-/lvw4diYBrzR55OtM06oGpeAmRguMQo=
-=A6CV
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4I0AAKCRB4tDGHoIJi
+0titAP4gNj//i8T8/ls7UnQVYa+pQzCAP8sMIaukefApvX9TxAD+KLAaZFKxkhRq
+dC5ydWq8P0HqhQUYAd6fYougpcrRnA8=
+=Ll4g
 -----END PGP SIGNATURE-----
 
---6Zm2+GCoGcbtJ0mH--
+--fayYFU1ql3xyLLhY--
