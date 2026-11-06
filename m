@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929378;
-	b=bEJ2pxtAFT2K28eXrQajeEr2TzG24I4G0Dl08pPYtKw2bNhVBi6r2sGYHAT0Vynzcect
-	 35m/CoznADXtXAfZG8f54qZyH6v4V4I6Bn5pr8AHwpcSry/X5O0b3K+fBsQxp8G14SRHP
-	 xv+FOpS/Pdc69SnNN3KMl0WgTRgWtqHZ8RTezdD9vKUyHSjxDxeQarbzeb1fLG4wpVNQd
-	 j5ynrWlLXwwJmEdCIQwueed5nPLB/SG5YRNScW/byOUIuZG+YpY4qD9LJioKp9gVav/Um
-	 +IzNgFxVe2Rakhkl3y4HbIOUpHqzqa0bhfON14K6/6uqEiUNZSKd11MG8yM4D2F7Krw==
+	t=1793929452;
+	b=XWx7bWkCMhfEqBbRwt1IC8s6uY9nNTDs6wZrQKM1n2wtNH2GEgjRfnJhKh1DqUd6idaK
+	 T7uTy+Fppfmx7TweP02YUcy0q5/YnV9bFVX1E42nUXPUCfnCAmq2XHZSHZSjqraSib/Ce
+	 Hx4dgvt4ZCuC4q5p7AFdrkk1wuPzUDfzW4YQKEw7eNMznqg/BW+SgVs1ebP4Y1zde2CKc
+	 HfcQBffwvdzOr4Dm4F198C7IjVkVihqHlroO4k1iY/aE+AbRhZfVt0L0joSUON9BeLDFS
+	 tXTMqEcgitjvuY437Ku4mQU4SFR2GgxVdT1yy9K2VsKVkv33USiqOvOl27GA6CPeVEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929378;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929452;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=n++rx2vPRlANelrrltmpXRwH4hFgG58r1hhbvby3m58=;
-	b=k3vE/PoCKPn7C+RvGRSaz/CnNSPLK64R9L429y12R/Z4n2k1n9T4zwMnPeQu+RaKRcXU
-	 JSN7WqzcX0nWKWtzcMwdiBZ0sa9PPuZdZLAC7/CUmAhGkSSYaZwp0JmgXT1vUtSYf5ktI
-	 Q/KR0lO4Y5xtT31jHVL18PynWtNbVNZteETExGzDMQ60kTmZngl3HSCkzA/98hX8o1CoF
-	 XGi+LOaJvZopHZZNEcU24KDGD75nLmInqb/GlSMhCzVFEvJp3RH3T3iR7qAqYSMHC+BXu
-	 zvo+3B7r66ypEg1HF+Na443Ufpv/JHgaXXN6jSiJ2IFcMDXlM/5bCfRlFNhxYa4fNvw==
+	bh=dew6EzCqiWafyHsHJpopQwo/cXSuzlwoO/rf90tBbGc=;
+	b=yvf5cq8RwXPFWmiHv9oopTSB41sYyx17TIJ1lxgQBebiLqchZuqX9fbHgXPV+bZwxy27
+	 WBU5PmLS1D4YnQrDNZexsXHY79aUnrOgHMbjLHvRmjmzuy8BX+/LIeCNSYm4Y3zWggm0S
+	 yb4JsLNSoL0i+dzMT0ZqM6aumIRL7f+7IVRUaWMZ3btyZvtTC4t6P3xjlI20coZ+iPx9K
+	 CTRo534gqCN5ZorCSKhClFs0OROGtQGgHvGEnoV0ZoscAsIdM6Yx582HFa9sE+JHNQx8z
+	 Gi881lUJUgmx5cVDXWUuXeHyfV1M8QGUmMK1YyZkVHos0oFXyCn0nKpeALY4UjQl+PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HaHAd0so;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d1B3o4S9;
+	arc=none smtp.remote-ip=95.215.58.37
+Received: from mta1.migadu.com (out-37.mta1.migadu.com [95.215.58.37])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26F4606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:42:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E26F4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3A4606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:44:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC3A4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HaHAd0so
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so57498a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 17:42:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793929377; x=1794534177; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n++rx2vPRlANelrrltmpXRwH4hFgG58r1hhbvby3m58=;
-        b=HaHAd0soOlAW4xzktGagX/fsOKIBTHrUK2I/D74+/s6cDhxTtgZMsU9EWYTFEga3Gg
-         K74l4ODs8nRIMvZtTornOwqcKn2Fd+4Xx0436T0L1zxqJtzEBWXv0eoioPjccGm0oB2F
-         r9qpV36SOBqGXJS7KWxI/CnjPEO62vFusou4g5aCegr3lojny3x7JwmpEwgO+IOB0bri
-         aUtiIv3gXwuVMLAkrpfp7IJsXa5BcqNGubydO8MVdUVkuCXJAzWzSEiW1QUfGD36f8yh
-         RPeaiuGNUekSmSuXj5X+Io75F+S1X9oKE/gBzUfF0wWXaYaMwQWvsCEA8LsgO7CjLiVM
-         XgSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793929377; x=1794534177;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n++rx2vPRlANelrrltmpXRwH4hFgG58r1hhbvby3m58=;
-        b=uAvvIOKWRI9w9EDp9EcV+pVF004fZcyGIr271ZrTQVZa49ly0d9n/B71aMs7fcpJ1/
-         LgwROWUWFNcepxFxUxKyfXoal/CsJH0Ux39pHxIGaHzIlNpaPI9m8v2zgeEH1Bz3yVgV
-         jZYaDRc5gncvFqIccZLNnGLuc7ILT4yJvTovck9rgidpHFvqIosCrPXm496muHpChfi8
-         xvnlNChcgYkiQPA3ClA3dT6fV3lObFnEk7QDHo7iDLmG7DnG2sPzKAsdSSqlsL2lRWAJ
-         02GHtiKmPb2n/czdFEiSvsyYGnTNJya4sAr1mUZHAa8AQCl6qT5UYzEy2NoQm/3RJ53c
-         9Gyg==
-X-Forwarded-Encrypted: i=1; AL+hErELBGMwLYBKaThw9RLJV1S3VMS0e8If80d2pK2xLSyMDFdUr1anSj9Eepa+wql08XpKeXUfrT9djhRLTWM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+t8WNWFlEbSH6eQCvsog5vi1gKYAEabV6U56U73ophlH2fAYoz
-	mbFqEkyQM2HGjczelB1cuAJa0ouG2+0+jom7xonhxmJRaZntC7JPwaC+
-X-Gm-Gg: AYBFou0mlvrGC44yoLsx3eHa9jkTWtl5Q166VwJykL48Z1CxF6lWBFPDHdZAqhFiIqJ
-	6AmVgcofidI5aqjYgIFOGcen30jPCaoP4RBNPTeR04JJqwxT8kCklf4XdocSNmzP4tN0qIbNGAJ
-	i3//gx+noKy218wFl441eglrOyRgqKXGzjPnY6JxjZ3L0gTstR3bGU7cAa/djXV65sCOlEIt0xQ
-	jLTXiKBqXATlngGSiTQL9SHz+GWEBWu8i0NtuCpOsLoCSHIkEl7tZqxH7lXAP4C2vDUos12YKcT
-	uIecKfuWQnjZn5qKA6WGQ1p/6UMnJlEorwme62IKvvbsnZh3A/J0a9Xr0HPDwH04lFOYIhXQ9Ka
-	A4URk9sjDhiZaWQvUjTottfUyzsXrlv/ptoJ+wccit1/KG9DgwplQ6hbR3WrLH0FxZOKZ3eIgtr
-	8uH/95k2p4oh55CMfqAqjws5hYWHE5DIAVfnModwxX+HbtCCK1dNtlBGHKMGYokMmMsCyX9mHWm
-	T24zOcZNfDvdX+2EEAjSqZA+kJMeoSF2oEPwIKz/JX2RD0AIwjqcfNhEbsVq1NrbmE12QSo2rXP
-	avxmVdxcPzwsdLvtor9egY+aebMln6wXjJ/HOPR94+rAbxgPMLN0851qP+eS+XkGpcVaJ0gKKH3
-	ootSoVngJ/YNIpk3G3oW1fU48SccfQiVfpaiwBW/jguukzojdH0VmBdvZQW8r1E4dH2xqZRia6a
-	6JGA==
-X-Received: by 2002:a17:90b:3b8f:b0:3b0:ad42:dcb3 with SMTP id 98e67ed59e1d1-3b0db6e4166mr802421a91.14.1793929377014;
-        Thu, 05 Nov 2026 17:42:57 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3265a52sm5407994a91.10.2026.11.05.17.42.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 17:42:56 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-phy@lists.infradead.org
-Cc: Alban Bedel <albeu@free.fr>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-arm-msm@vger.kernel.org (open list:ARM/QUALCOMM MAILING LIST),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] phy: ath79-usb: support the analog reset
-Date: Thu,  5 Nov 2026 17:42:54 -0800
-Message-ID: <20261106014254.544923-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d1B3o4S9
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LvBe8nocYbjsZeluU6geuvGEmKucxs6vvjV6JlKiFg4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793929449; v=1; x=1794534249;
+ b=d1B3o4S9ZFZOdkWUdETH0Zg2IH/I6qGidl+KYL5yCW3S+ZmTlyS3V6DNZLs+u7OoVS72yQBg
+ 2qDjUyUD7rTlivDamcc9GTzrl1V4VrS2Ah/z/UB6t1lePzFaHZbZUciKw/eP0b2H1Jm+Wh9yl6b
+ HBg0rLbhHigb+BWFCPwx+s7s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e4cd8311743e1b88;
+	Fri, 06 Nov 2026 01:44:09 +0000
+X-Mizu-Trace-ID: e4cd8311743e1b88
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <57d2a4ca-8edc-4291-a919-8a74abda94a5@linux.dev>
+Date: Fri, 6 Nov 2026 09:43:59 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,93 +58,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/3] mm/mglru: skip the flags cmpxchg when nothing
+ changes
+To: Kairui Song <ryncsn@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Joanne Koong <joannelkoong@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
+References: <20261105132220.2233677-1-ridong.chen@linux.dev>
+ <20261105132220.2233677-3-ridong.chen@linux.dev>
+ <CAMgjq7DtU+tSOgQWgTaV0obLwkkUwQqgvtTXjG2qf8L+iPXbiQ@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAMgjq7DtU+tSOgQWgTaV0obLwkkUwQqgvtTXjG2qf8L+iPXbiQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From AR934x on, the analog part of the USB PHY has its own reset. The
-old platform code released it after the PHY reset on AR934x, and left
-it to the bootloader on QCA955x.
 
-Take it as an optional "phy-analog" reset, release it after the PHY one
-when powering on, and assert it first when powering off. This is the
-reset handling OpenWrt has used on its AR934x, QCA955x and QCA956x
-boards.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/phy/qualcomm/phy-ath79-usb.c | 33 +++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
+On 11/6/2026 12:21 AM, Kairui Song wrote:
+> On Thu, Nov 5, 2026 at 10:11 PM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> folio_update_gen() and folio_set_lru_refs() always end with a
+>> try_cmpxchg() on folio->flags, even when the new value equals the old
+>> one. The locked instruction still takes the struct page cacheline in
+>> exclusive state.
+>>
+>> That is common in practice: a folio mapped by many processes is visited
+>> once per mm during a page table walk, and after the first visit it is
+>> already in the youngest generation with refs cleared and PG_workingset
+>> set. isolate_folio() and the eviction paths also call
+>> folio_set_lru_refs(folio, 0) on folios whose refs are already zero.
+>>
+>> Break out of the loop when the flags would not change. The result is
+>> the same as a successful no-op cmpxchg. The only difference is that the
+>> full barrier implied by the locked instruction is gone on that path.
+>> No caller relies on it: the eviction and isolation callers run under
+>> the LRU lock, and the others (page table walks, folio_mark_accessed(),
+>> lru_gen_clear_refs()) only care about the resulting flags value, which
+>> is already in place. Note that lru_gen_inc_refs() already returns
+>> without any atomic when refs is at LRU_REFS_MAX and the folio is in
+>> the workingset.
+>>
+>> Tested on an i7-13700HX with turbo disabled and the performance
+>> governor. N processes map the same 2GiB tmpfs file (huge=never) and
+>> read every page, then one aging pass is triggered on their memcg
+>> through /sys/kernel/debug/lru_gen ("+ <memcg_id> 0 <max_seq> 200 1").
+>> Time per aging pass in ms, median of 5 runs of 10 passes each, averaged
+>> over 2 boots of each kernel:
+>>
+>>    processes    base   patched
+>>            1    32.9      31.7   -3.5%
+>>            8   195.1     160.2  -17.9%
+>>           32   755.8     592.2  -21.7%
+>>           64  1597.2    1260.6  -21.1%
+>>
+>> With one process, every visit changes the generation, so there is
+>> nothing to skip. Before the patch, perf annotate attributes 53-58% of
+>> the walk_update_folio() samples to the lock cmpxchg in the inlined
+>> folio_update_gen() in this test.
+>>
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+>>   include/linux/mm_inline.h | 2 ++
+>>   mm/vmscan.c               | 2 ++
+>>   2 files changed, 4 insertions(+)
+>>
+>> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+>> index b3d85fe91385..4ba9079f4dc8 100644
+>> --- a/include/linux/mm_inline.h
+>> +++ b/include/linux/mm_inline.h
+>> @@ -244,6 +244,8 @@ static inline void folio_set_lru_refs(struct folio *folio, unsigned int refs)
+>>          do {
+>>                  new_flags = old_flags;
+>>                  lru_set_refs_flags(&new_flags, refs);
+>> +               if (new_flags == old_flags)
+>> +                       break;
+>>          } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
+>>   }
+>>
+>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+>> index 50c352e9ffef..3fa76715382d 100644
+>> --- a/mm/vmscan.c
+>> +++ b/mm/vmscan.c
+>> @@ -3398,6 +3398,8 @@ static int folio_update_gen(struct folio *folio, int new_gen, int *type,
+>>                  lru_set_gen_flags(&new_flags, new_gen);
+>>                  lru_set_refs_flags(&new_flags, 0);
+>>                  new_flags |= BIT(PG_workingset);
+>> +               if (new_flags == old_flags)
+>> +                       break;
+>>          } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
+> 
+> Hi Ridong,
+> 
+> I had the same idea in V4 of MGLRU-FG which is posted a few weeks ago,
+> with the same code:
+> https://lore.kernel.org/linux-mm/20261016-mglru-fg-v4-4-2106750c0bfa@tencent.com/
+> 
+> + if (new_flags == old_flags)
+> + break;
+> 
 
-diff --git a/drivers/phy/qualcomm/phy-ath79-usb.c b/drivers/phy/qualcomm/phy-ath79-usb.c
-index 8e9565846b2f..1e7868fc0b5f 100644
---- a/drivers/phy/qualcomm/phy-ath79-usb.c
-+++ b/drivers/phy/qualcomm/phy-ath79-usb.c
-@@ -12,6 +12,7 @@
- 
- struct ath79_usb_phy {
- 	struct reset_control *reset;
-+	struct reset_control *analog_reset;
- 	/* The suspend override logic is inverted, hence the no prefix
- 	 * to make the code a bit easier to understand.
- 	 */
-@@ -30,7 +31,19 @@ static int ath79_usb_phy_power_on(struct phy *phy)
- 	}
- 
- 	err = reset_control_deassert(priv->reset);
--	if (err && priv->no_suspend_override)
-+	if (err)
-+		goto err_suspend_override;
-+
-+	err = reset_control_deassert(priv->analog_reset);
-+	if (err) {
-+		reset_control_assert(priv->reset);
-+		goto err_suspend_override;
-+	}
-+
-+	return 0;
-+
-+err_suspend_override:
-+	if (priv->no_suspend_override)
- 		reset_control_deassert(priv->no_suspend_override);
- 
- 	return err;
-@@ -41,14 +54,22 @@ static int ath79_usb_phy_power_off(struct phy *phy)
- 	struct ath79_usb_phy *priv = phy_get_drvdata(phy);
- 	int err = 0;
- 
--	err = reset_control_assert(priv->reset);
-+	err = reset_control_assert(priv->analog_reset);
- 	if (err)
- 		return err;
- 
-+	err = reset_control_assert(priv->reset);
-+	if (err) {
-+		reset_control_deassert(priv->analog_reset);
-+		return err;
-+	}
-+
- 	if (priv->no_suspend_override) {
- 		err = reset_control_deassert(priv->no_suspend_override);
--		if (err)
-+		if (err) {
- 			reset_control_deassert(priv->reset);
-+			reset_control_deassert(priv->analog_reset);
-+		}
- 	}
- 
- 	return err;
-@@ -78,6 +99,12 @@ static int ath79_usb_phy_probe(struct platform_device *pdev)
- 	if (IS_ERR(priv->no_suspend_override))
- 		return PTR_ERR(priv->no_suspend_override);
- 
-+	/* AR934x and later also hold the analog part in reset */
-+	priv->analog_reset = devm_reset_control_get_optional(&pdev->dev,
-+							     "phy-analog");
-+	if (IS_ERR(priv->analog_reset))
-+		return PTR_ERR(priv->analog_reset);
-+
- 	phy = devm_phy_create(&pdev->dev, NULL, &ath79_usb_phy_ops);
- 	if (IS_ERR(phy))
- 		return PTR_ERR(phy);
+Hi Kairui,
+
+Oh. Sorry about that. I read the series a few weeks ago, but as it is large
+I missed this change. I should have checked it again before sending.
+
+> I didn't have time to benchmark that one function but the e2e test
+> showed very trivial improvement, it's a good improvement though. Feel
+> free to add:
+> 
+> Reviewed-by: Kairui Song <kasong@tencent.com>
+> 
+
+Thanks for the Reviewed-by. If you don't mind, I'd suggest merging it as
+a separate patch, as the test shows the benefit of this small change,
+which makes the code easier to trace. I will also mention in the commit
+message that it is a small part of your series. Does that sound OK to
+you?
+
+> BTW there are a lot of concurrent activity is happening for MGLRU at
+> the moment so conflicts occur very frequently...
+
 -- 
-2.56.0
+Best regards
+Ridong
 
