@@ -1,47 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965996;
-	b=IzSgI7Jz7PsE1TYNG6pY43Nf7X9XSQQdhHHF2CBxMc/vav0GgjVvAnh0+jm/MOJ3myKl
-	 3FptFb69+E+u0RFx67mMa4+VSW8vvr8xUMGyaEFUevzMvcuLIuxZ7CtiXsNzVyZWWDNJG
-	 RiCgGM4LiiGsgVgeDk6xAZOlp8AfkffY/LtDyKH28dAKPKNFKtbYm7VnRFUBHGLy5u/h/
-	 nIDcTrFiqVEZQEdylIGGiWyoec2vUk7iPvOIZfBn4kXvYe00OsmlkrjQKclU547vswg61
-	 nSVChu3aI1jV2i99OkhA6LmVDLFn362t+T5jvm/+vX747bKNFIUjJ60jPWv9pbHqm1g==
+	t=1793966030;
+	b=KmqgSdTA9DEFVHz6RDVoidgOk4Z7sipRcs4/oIcxC8hKYprCHvhsl+mn9d9nn4AyYKB7
+	 OB7/Kb/viG7DLW9h+q+7D6VyvQ7E9TEftYsip9ZaPtkis/JBToYZBY7J1ks1N8lHH2LXO
+	 8zveXAzPc9Bjxx8DbeDjufongU87cnjup5XSK+5kCJCjPyzHdwUM+8w1UUa0MU+tpim6r
+	 44FT77T6ZUOuB/+nEEUY9/jYnVY/1LEPN5kxc3qQFpb8eK5gHphS8Bx5O1ekInO4O7l/o
+	 3huwHXIFdttacuteCPuTtV71t7lEE3o/hAbsdw2NnPT92MbGIpVPJkG8sulqiqkAICA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965996;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=I/OO/nNJKu96xyQLdYksv6ciskkjcoM0XRhrDbG7jEE=;
-	b=O3ftQ73Qp9y1yA2B6N0TvBkuSyIyGWHQRmBX6f6Tua2XJvN9wGq7E7J23mQlCXedTfVK
-	 4LEx4Zq9ssJRBOx/ECgEbdxkbwUaYlOU2ifnRoydbXe0YauBisYxVul3F/b+HwNq1KvoU
-	 cuDD9SKwV9XYxIKnopPP8I6B4+mNyFNHSYtxE6/DtqJ4CdoR50t4+ECM2E6gnxML4kM1Z
-	 QdG/Ggug7oOIZq/sD6GlUroQMlfuo48plmtsadCJwmJu9G9XJ7wvmaGSqWtb0nS38UImU
-	 6aZZnNBvcCuZMENaQxm/faMTyEO6DbIYN056JHwkBQ2d9N74MFxxAk11lMac0ozeDkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966030;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=rTSm4m0YE9cOhTEt8W9/Vkw9tzJ9/0MuQoBec6owO/8=;
+	b=fuX6daKa0q2ngS5fJ8D6ia10mI+hYaDDIxCJHhBQDFiMcG8kzH80u2KmCdDTp0flHUzG
+	 FshE/MHDn8ls4JXn8n6VZxbvqYT8ogLZ57h2Qfdb/f31FwVny1fN+JPYIEyLTLV5Ml8Xq
+	 ZV2vRelSZCe13y8rkVVkPpI+n1uaEoyPP52hHDTYq7VoZ61O7HqsM+K3/MYRkHdsU4xEt
+	 nnMiEuhrpF1lyScv6XKtlm9BFHeXgssbxwUR5MadpTg6aJWarYjiNZIrnZzv3lm7gpBYJ
+	 CsX2HNK9vkl2sVJdAoI3d2Bolagz81DeWXMjjYn7AFHaCYTZMsdqyAAZetfSLa5FzNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bqM/pnVy";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HifvEE0L;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312FB606A32C;
-	Fri,  6 Nov 2026 11:53:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2B0606A326;
+	Fri,  6 Nov 2026 11:53:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bqM/pnVy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06BB1F0089F;
-	Fri,  6 Nov 2026 11:53:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HifvEE0L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5146A1F0089F;
+	Fri,  6 Nov 2026 11:53:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793965995;
-	bh=I/OO/nNJKu96xyQLdYksv6ciskkjcoM0XRhrDbG7jEE=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=bqM/pnVytVbK/olqcwbBvt5em7AsA0fvQCg+IKlErWt5EjRt4X/SfSE6ob5YXuCsg
-	 Ukoz1b3NWtwfGMG34KTV9iZxNIUix3IJxm/c53385kgKZIDYq0XJ6XPwJfSP1tR6kT
-	 muXEX9uNXCzBPRKj2fnFH8nc1B5KpnlfK4PDInvpfSaBopPeM1wdaO1ZviNGdtpjGB
-	 7HmB/DgzYy33ARuYZvYXYKxpJjI9l3YLMUijNNlvSp48UvPx6FIc87hgMPq6FhCrA2
-	 /c/I4gKcPJTiGqJNOal1qY2wsRzIwQynVBif0qg6GDHdKE6owvKtLiWeSVQ3yS/nvD
-	 ukdbEBhSHpMOg==
-Message-ID: <28ab5309-8925-4df8-a366-78ab657ce486@kernel.org>
-Date: Fri, 6 Nov 2026 12:52:59 +0100
+	s=k20260515; t=1793966029;
+	bh=rTSm4m0YE9cOhTEt8W9/Vkw9tzJ9/0MuQoBec6owO/8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HifvEE0LMMeU67Ovf1WhYf7dYmkS0z4/qTxDUMOrS4AEs7uNnsEWqWvkNUHiNAB+m
+	 1CbOcAQmz68rOtj5ETQmfINwWDzB7+POgZWT/2rpOvB0EiVYJtroX6zLq4GekCAKiv
+	 Izy+4iP4Ibcr2Ems8GW0XYQwRZyTvnvOL0sp8gzaf5g391bzE60Oq/e+m3TkDQo1nW
+	 /TD41TsJTOP/eNvq3ediQlDbEMZ/aXviSygVvLyl/DJXcewSu2pmk8iRdYUhTgFYAi
+	 ec26t+0ji1cDLr7xukpUXUE8FpaNXQrO9bzF8FGouQ26sf8PmhcEidEeGTzWQYtd5f
+	 LDpbJT8EWFQKw==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id C72A127E907A; Fri, 06 Nov 2026 11:53:44 +0000 (GMT)
+Date: Fri, 6 Nov 2026 11:53:44 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@bgdev.pl>, mfd@lists.linux.dev,
+	linux-samsung-soc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] mfd: wm831x: Support software nodes for DCDC
+ regulators
+Message-ID: <356c5681-137f-40d3-88f0-b321ac1c092a@sirena.org.uk>
+References: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com>
+ <20261024-samsung-kp-v4-1-e21253295e68@gmail.com>
+ <20261104181429.GE1650678@google.com>
+ <ad02069b0cdede7ae191e4a3df57f33a@gmail.com>
+ <20261105085321.GG1650678@google.com>
+ <85817548-28f8-45ed-987d-a4996c2bc4ce@app.fastmail.com>
+ <auy4Qbxg-pW_X37E@google.com>
+ <9fa9add9-6bba-4cd9-9f15-d6ca222a1a23@app.fastmail.com>
+ <au2kBlSsypdsdQve@opensource.cirrus.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,105 +77,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 23/25] usb: dwc2: add support for Metanoia MT2824
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?UTF-8?Q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Samuel Holland <samuel.holland@sifive.com>,
- Ben Zong-You Xie <ben717@andestech.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>,
- Mark Brown <broonie@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>,
- Minas Harutyunyan <hminas@synopsys.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- =?UTF-8?B?UmFuZG9scGggU2hlbmctS2FpIExpbijmnpfogZblh7Ep?=
- <randolph@andestech.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-pm@vger.kernel.org, linux-phy@lists.infradead.org,
- Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-watchdog@vger.kernel.org
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
- <20261106-mt2824-v1-23-86087eaf5af4@bootlin.com>
- <20261106-glistening-flounder-from-mars-3ec4af@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261106-glistening-flounder-from-mars-3ec4af@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="F3w/WJqkylAFYNc8"
+Content-Disposition: inline
+In-Reply-To: <au2kBlSsypdsdQve@opensource.cirrus.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-On 06/11/2026 12:52, Krzysztof Kozlowski wrote:
-> On Fri, Nov 06, 2026 at 10:30:20AM +0100, Benoît Monin wrote:
->>  const struct of_device_id dwc2_of_match_table[] = {
->>  	{ .compatible = "brcm,bcm2835-usb", .data = dwc2_set_bcm_params },
->>  	{ .compatible = "hisilicon,hi6220-usb", .data = dwc2_set_his_params },
->> @@ -347,6 +358,8 @@ const struct of_device_id dwc2_of_match_table[] = {
->>  	  .data = dwc2_set_stm32mp15_hsotg_params },
->>  	{ .compatible = "intel,socfpga-agilex-hsotg",
->>  	  .data = dwc2_set_socfpga_agilex_params },
->> +	{ .compatible = "metanoia,mt2824-usb",
-> 
-> Please organize the patch documenting the compatible (DT bindings)
-> before the patch using that compatible.
-> See also: https://elixir.bootlin.com/linux/v6.14-rc6/source/Documentation/devicetree/bindings/submitting-patches.rst#L46
-> 
 
-Oh, apologies, patchset is fine, wrongly ordered in mutt.
+--F3w/WJqkylAFYNc8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Best regards,
-Krzysztof
+On Fri, Nov 06, 2026 at 09:55:18AM +0000, Charles Keepax wrote:
+> On Thu, Nov 05, 2026 at 06:24:48PM +0100, Arnd Bergmann wrote:
+
+> > I assume Charles can comment on how important the testing still
+> > is for the codec above, or if there is other hardware that could
+> > be used for testing the arizona and wm8994 drivers in case the
+> > other ones are in fact as obsolete as they appear.
+
+> Without wanting to put words into Mark's mouth (please do shout
+> at me if I am off course here), I assume his use of Cragganmore
+> is less about testing specific parts and more about it being a
+> very flexible complex audio system with good debug, allowing
+> testing parts of the core frameworks that would be hard to hit
+> with off the shelf hardware.
+
+Yes, exactly - especially relatively exotic configurations targeted at
+mobile phones.  Even when those appear on obtainable boards they're
+rarely wired up in a way that exposes all the functionality.  I'm not
+so interested in the specific parts as I am in what they can provide in
+terms of testing generic code.
+
+--F3w/WJqkylAFYNc8
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau2/yAAKCRAv73Ows9A4
+iRfRAP9nkL6GVcpRmfrpN7j6mExyCDTb/Sqd2UOTl+QNdMpBIwD7BoAX7/1bumaU
+DNdoPGJp9b9Jq7qCcHIBIw+32vKWuAw=
+=TBrU
+-----END PGP SIGNATURE-----
+
+--F3w/WJqkylAFYNc8--
