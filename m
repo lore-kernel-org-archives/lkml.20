@@ -1,94 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987879;
-	b=znGF5psj/VnQFHch9p6xGCwp2OGnd93u/zVCc3MH3lEWNJIcnAKGb2z934SnQlGcuRCj
-	 AnUk53WimgySAXnsCOBfs45U2i+OYAHjJkMwspq5py9FXn6wjv4VSd/47fKdLVQxG2oao
-	 tNmWQ56UiwS8i15VVCI1XqikAreUBejQd4+rU0DrTWojVcCJgVCdsodTyiKiDYqR8LH/I
-	 W5r1BJZJ4pjGNsWaMBVvFgvDUcQ8JxJDU8l/Ar21LbdtGKT00stm5RuCzwyS9JZ41JT9T
-	 OEFCVuPT5eAoWJST3XATuKoxTzHZmNTq++9eDjVSWzexz35ev0ktNO5wfN+X3rDcC+g==
+	t=1793987890;
+	b=h4b78dggL7ZB7HnS2G6RmV7IQxy/v44ZxRyOMYuL0jeLKkn3nzblIrI9rwKkJv9oldo6
+	 f8QbfBHfsgIGj9VGplKijb69JDu9quwCZjFD1+41A2QRabU6RDjq4QfZ9cne7qPY2tUK9
+	 Oa3ZQstaALdYocn8m5SYiDDnFvXK1Oj+uGE9/CjgxXGTHZ9wmHAvRaRuC61iZL7t9pQMX
+	 cNG2CCrSOqpJQ0w8gRlP01PZHRCCcpWvIJKqzCosvSEcgjbdCSVqCymovwGVA0ZgeihrI
+	 w+uv5nf/APSqO4HrRmsF5YacDdf93UzGnTWogV/E7zAjlUiC4CuduLp6faXD019TtAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987879;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987890;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=voDoMNlhMmskvRoNZqg2fTx8P1tixWjDbm8HuJ9K4dA=;
-	b=t+ynNV2Kt5CpQr262NHXQi5Iw3btmvbB8/2vCPckmcE2VX/KrtCHbkGcMItzFKvS912I
-	 XvbZk9IRm9GMTl427YLJEtTY1g9AO9o8y9WSXstlax9+L7vsfk53Z+LbTpl49xgcVUz6G
-	 LXjOH5uKmcEeD2Ltt98DsWEUGB9jhsnxXabb7KSco1VeRhpcj0OsK2y5W4guRNwmX7TtH
-	 jh/sksgyopETSNjncIgcbVmA1OVmeYx4BmcbJeMJgDEhWcP6btyYTv0WJTCJdVHMQeKXR
-	 /X/XVOWMNWfyiQg7+2YHlItlZzm7Dq8TpQ5N9BCdYEXaFVpOoAFPdCJ0lowlDhgynfA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=QgfTA5a+5MMLBq/A4jGpp86Ey0W49QUd8AMooz78Jz8=;
+	b=Jo2osaTt67kWDis7xJed8M89AY5M8hvVS4X5+iXW3rCUvcblIkvzxObzQOPkVHtQJB88
+	 MurRDnI+jIStRgMyMWFvZTvk25TOSfK7xeJi9RhEzlyozQKCbX9fQm2+D477W832UYeNv
+	 pG6yrSEGLqeDMn5BBXGizpt/I57P8oQ5XL6r3oz+zjoEqxUgqFXcj1Qs8c5TsMfFDQBJy
+	 L4TgP/OK2JS8NK+Ym9R0juUstDj8l/J4eblltHXjU6DG4paYQbNhBBlkLJA1soeXEWVDJ
+	 CvlCn6Rwc+c4Nx6O14OSsNXmlSHYpbQvWZI8KYg3a9iYuMs7yq6Fei+VYzsnyS3xwCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dama.to;
-	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=G3HViOdO;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="CqxfqR/c";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5275C606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:57:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5275C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4173A606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:58:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4173A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=G3HViOdO
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso676749b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:57:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CqxfqR/c
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so8380795e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:58:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1793987877; x=1794592677; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=voDoMNlhMmskvRoNZqg2fTx8P1tixWjDbm8HuJ9K4dA=;
-        b=G3HViOdOmLqaB2Kcvg6dE7Aksy4a4FYV9KQmpeInft48jpobbG0B2bc4In9hFcRkzb
-         vXlJtIZmLUHp9rECiQmVNeHqt00YWzSv1aPj/wn+twwaHNDPzbMJLwFb+vsWNSz/4owT
-         Bg15qB0sCpdqIRxCJm3mRLZiyBa5c3TMTPDMSzBoNh/yX0kBfBmeSm2RnmZq30eXSjW0
-         BuLcBYZvbSTqvlBI6deXu388O1qm1XB+z+dqUzhJssyO8SdDcxA0TVmCcnLhM5FS8TPs
-         h7liaopIUy5WMMMWDOGcr5qLcypEGcXt0jlHruC2rkoRzi+dIT0/d0AD+/ynwX8sCJ47
-         tHFw==
+        d=google.com; s=20260707; t=1793987889; x=1794592689; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QgfTA5a+5MMLBq/A4jGpp86Ey0W49QUd8AMooz78Jz8=;
+        b=CqxfqR/cUh8AJlLzkvgITLK1SmDNsBsLrV18EJse3aq9MPyMMqMXPA/aQCg/BBDu3d
+         yD7JVsBVbsDJen9/Uu0++vaTAFbuawnR0dBqvCnRsqNlIrRwNzTmiQ0Ecf6Fz1UfLpEY
+         MaFcUNJtauJ0cBjE6SdlDoe6+B7+/f6ewtoi7IaTPQiXP2BYBkMQ6/UVS5egaYIT5BDD
+         HD4th9ehFmy6QK8FUlQ3grqD/xZcClhNQo+MS98mVLq5iwwPKoI0EsF9rfkKzInXHtiH
+         GR+rJt1g4ar8ympxrmUW7IWuH8kbrNgOXjkLQKI9WdSMB/VzXAXW2nzfZzsmi+LY8MlY
+         tL0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793987877; x=1794592677;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=voDoMNlhMmskvRoNZqg2fTx8P1tixWjDbm8HuJ9K4dA=;
-        b=fyTIGfbuUCUAlhIN7zAFi4k6ncklsvkaPWk9J2xechTDjwLZfya9BWBreYvhe+zZU6
-         5kC/iMb/sUpCKNbpxhBE+GUvpIs72P8Yg7/jGsrvYxM1Rx8DGGMarOX9mT/e9fjjN6U1
-         0TyuONlGIJ3qdtJ6N4iBRsIwg0VmHdA37PyB50NS8+x+xsV8v0LU6SYZKxZtDq0fQe09
-         EJC2qf+b4jsCpy26gSOqYGyY1+MK9AviIqBifqK+RZ61qjGp0ZLGAbhcbdRyG9zatmeh
-         HR7evEfTH3XUQkKm8KiTD8Ua0q+7IyxmohFn0dFx14MHIV/YWJtRK+Gc4cUUfQdEIzFQ
-         Ib+A==
-X-Forwarded-Encrypted: i=1; AKwUvBw+6aIALcuMXnfjDgxWrQULJHJqW/kizBG/B9k1VzOkvY54fNsA/xCXwuWSSd2/z4Dx1l+IbiBNZYm1be4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3CD6ObdvJkz7u9gg1Cc3hE3gTxWVPpQ40xKO0Y3jEKk4ZL7pe
-	32QZ7fta6wXZq/QHgfp639J+T/b/jFFRVcH1+AxnrlNFOZluHn+z3FfDdmA8u8Ef0cY=
-X-Gm-Gg: AYBFou3MrNKHCJYOjCGfVtCfyHIh3xQ640zqlsu8Gz6S1p331QpguCkYd40Hq1yuuhN
-	0XVAcStpqtKivQ4/RslRfCFhAGPldtyenRhsxeS9J1S7g/wULjhBT7kbwE1DaxyIC1cyvxI7u1R
-	0+lxbfrr0uKIDuph9unQrezyrGmgE9YahZKg0dXhVutAhtQKYKMqKWjfkw5VnhDoJoJsGiab3cj
-	ye0R+SLadrA+7uwEwa8ig2FN/uihmsjNdgqJJG9Q76rK/7lzsiqmdK527XP+LybupwDDwUMf6GP
-	+cDhNhiFocYxH54pr6+XUN/IXcUlT5B06aFSa7I1tMHnQRVOPZz7UXYYj60HQ4xAcWYoJ78mkJL
-	16PNRqByaOOG01QhEy+9E4rRz6vPtSM3BEDC/Qn00M9/sEGQpRBvs+AGMGO5Oyv6yOVKqEgwZ+Y
-	lZLqPNJ1DeK2ffT088Q8HWyrd7Xn8lbbg0wU3J6lWB9vapvH76d+dThDn3sf0frZ3jY7eXBANkl
-	q7hPT9IPrFAaPF3GLQ2hPK/ic7eir+EpFPeUIm+LlPoB9hqOswBIk5WIDAABPqiMeWJhIUkIDd4
-	NLC13h9xnTDsxNnF/n5U7jxjbKJAMYsRZcDpZUhoieo=
-X-Received: by 2002:a05:6a00:8c0f:b0:89d:faf6:c69d with SMTP id d2e1a72fcca58-8b37c9250b9mr3510452b3a.58.1793987877466;
-        Fri, 06 Nov 2026 09:57:57 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:50::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3597f0539sm881137b3a.31.2026.11.06.09.57.54
+        d=1e100.net; s=20260707; t=1793987889; x=1794592689;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QgfTA5a+5MMLBq/A4jGpp86Ey0W49QUd8AMooz78Jz8=;
+        b=jBeP06wCSo6vRBnYklE1I5ggMEQQquBepQ8/5Za71a0FyOel9ydws9Q8HHchjlftWN
+         ejNcWCxiOQjs7iAweR4LsUJrC6scwlYuD5Q4nE8YOtgfGfyUW2/PhYVqQ2OWco3t/Ie9
+         HUdJ/uy8ccFPwiiqrx6o1tRMctyiPCrEvFOX3y/ZpGWX6RzrtPsRmvCLr/eJ6ew3HMaN
+         lS29+HFIMtOeL/PRGRlXYGEqgJr/nBZvuSN1CDFpyB56n06KU35JUc/L6tfsYJQAuw+q
+         d8Fg0U+eJpZXovng0BVi9Ps66gL/aNx9j/oapo8PWn/u3fyTWJvF9ohcXkKTKb8jmghU
+         1S6g==
+X-Forwarded-Encrypted: i=1; AKwUvBz+SUkDzdcz2Z8IQqgEsDHeftx+rOaFsUqRD5nUmb56oM+d4RlhgLRKY8Fp/fCHlBLoA9ddcjRlMKHmfZ0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tCRnU+EHYhuCFalNlAYQMi1Xr5aZQC51wE1Do6CKktEODD1lJ
+	X8F3lhHr/gS71x08jj8QJUJgxPwU4i+miLHSytC09QP601g6s7V0FHiV0ZkJ4g7fnA==
+X-Gm-Gg: AYBFou0C/pV7gJdP4IlXackvzb9Hic5umEAdiR+SX0kF4hTt6bqrCOxlJbYWSTZhJ8/
+	OjeE3T8JXHYDtO6DfUV1K4YMh/H6DfMXso0S6Em3pCirXCI+UyLecPiizAIDk4Asj1wxjFk8j6F
+	rZjW2QqlJ9SFq3+/cd6KcRWppgxA0ZWI1IYJYCyZWIkmKiGPqkcR//7tJ33IxyaBTAsgUquR7AU
+	t+hTe4ZpZRypa0gG6jbqThTxv9y54H3zOR+eDQUNlQScKeDVPLz6QeaeU/JITnIAftoUBqwE+gg
+	hohY3vhUzYOLcg9tfn738Fc6C1+hRSMoqIT4hZxjuMq2Z1vVUCKD1jRq677R8s2jvIj3ErTZmPQ
+	11aCzcGFZOAvJN0HF1ReFGQaT/tGzQ+aLE86CU+OVPkOZ/itQ+hPP/8AZUc7rcQcUbHj1NwKXFr
+	Z9H0Oz79Vw9/eqJzf8MkvV4jZHQHXZ8bV5tMOhwiTH/5/ot8kiIKyfeCC+RBAcM93KCUVWUC5ok
+	d4NqWDMivpNcA1jfPXbbTtPeG3SWdhx+sSzTcin32w3i+2MnU+Vv6QjoRKbIabfgIwqKv9ktaSd
+	uiH5wSleLk3lKRv+OKdNJ/OCffFP/TqiG+54CqigwJVyC5p/hQGk8ncNkpjNc6+fWCnATotfe6c
+	VIwYfyxA2Pg==
+X-Received: by 2002:a05:600c:3e08:b0:4a8:f2ad:a9e5 with SMTP id 5b1f17b1804b1-4b6db4a9ea1mr49691395e9.3.1793987888277;
+        Fri, 06 Nov 2026 09:58:08 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbd082dsm8048725e9.1.2026.11.06.09.58.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:57:55 -0800 (PST)
-From: Joe Damato <joe@dama.to>
-To: 
-Cc: Joe Damato <joe@dama.to>,
-	iommu@lists.linux.dev,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	linux-kernel@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>,
-	Will Deacon <will@kernel.org>
-Subject: [PATCH 0/2] iommu/dma: Skip iova_to_phys() on unmap for coherent devices
-Date: Fri,  6 Nov 2026 09:57:41 -0800
-Message-ID: <20261106175745.3362057-1-joe@dama.to>
-X-Mailer: git-send-email 2.53.0
+        Fri, 06 Nov 2026 09:58:07 -0800 (PST)
+Date: Fri, 6 Nov 2026 17:58:03 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Fuad Tabba <tabba@google.com>, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] KVM: arm64: Support SVE in protected VMs
+Message-ID: <au4VKxSnkJgDtcpG@google.com>
+References: <20261105130456.1617185-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,59 +105,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105130456.1617185-1-fuad.tabba@linux.dev>
 
-Greetings:
+On Thu, Nov 05, 2026 at 01:04:52PM +0000, Fuad Tabba wrote:
+> Hi folks,
+> 
+> This series adds SVE support for protected VMs. EL2 allocates a
+> protected vCPU's SVE state from its own heap rather than pinning the
+> host's buffer, so the host never sees the guest's vector registers. It
+> then advertises ID_AA64ZFR0_EL1 to protected VMs, and routes the SVE
+> trap to the lazy FP switch. The first patch is a small tidy-up of the
+> pKVM FP sync code that saves a guest's SVE state.
+> 
+> v2 of the pKVM selftests series [1] will add a selftest for this.
+> 
+> Based on Linux 7.4-rc1 (6628e7d4c6b25).
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20261104084842.132944-1-fuad.tabba@linux.dev/
+> 
+> Fuad Tabba (4):
+>   KVM: arm64: Remove redundant kern_hyp_va() calls from the pKVM FP sync
+>   KVM: arm64: Allocate a protected vCPU's SVE state at EL2
+>   KVM: arm64: Advertise ID_AA64ZFR0_EL1 to protected VMs
+>   KVM: arm64: Allow protected VMs to use SVE
+> 
+>  Documentation/virt/kvm/arm/pkvm.rst |  6 ++---
+>  arch/arm64/include/asm/kvm_hyp.h    |  2 ++
+>  arch/arm64/include/asm/kvm_pkvm.h   |  1 +
+>  arch/arm64/kvm/arm.c                |  1 +
+>  arch/arm64/kvm/hyp/nvhe/hyp-main.c  |  4 +--
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c      | 41 +++++++++++++++++++----------
+>  arch/arm64/kvm/hyp/nvhe/switch.c    |  1 +
+>  arch/arm64/kvm/hyp/nvhe/sys_regs.c  | 22 ++++++++++++++--
+>  arch/arm64/kvm/reset.c              |  2 ++
+>  9 files changed, 59 insertions(+), 21 deletions(-)
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.47.3
+> 
 
-iommu_dma_unmap_phys() calls iommu_iova_to_phys() on every unmap, which
-walks the IOMMU page table. The physical address it returns is only used
-for devices that are non-coherent or use a swiotlb.
+For the whole series
 
-For a coherent device that does not use swiotlb, the lookup is not
-needed. iommu_dma_sync_single_for_cpu() and
-iommu_dma_sync_single_for_device() already skip it for these devices, as
-does __iommu_dma_iova_unlink() for the dma_iova_link() API.
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Tested-by: Vincent Donnefort <vdonnefort@google.com>
 
-Patch 1 factors the check out into a helper. Patch 2 uses the helper to
-skip the lookup in iommu_dma_unmap_phys().
-
-I split this into two patches because I thought it would make review and
-bisect easier, but I can make them a single patch if needed.
-
-One behavior change: for these devices the WARN_ON(!phys) in
-iommu_dma_unmap_phys() is no longer reached, so unmapping an IOVA that
-is not mapped no longer warns there. CONFIG_DMA_API_DEBUG still catches
-this class of driver bug.
-
-I tested on prod hosts serving TX heavy network traffic, which unmaps TX
-buffers on completion.
-
-Intel Xeon Gold 6138 (Skylake), VT-d:
-
-  - iova_to_phys() on unmap: 119-143 ns per TX packet (~0.5% of busy
-    CPU) before, 0 after
-
-AMD EPYC 9334 (Genoa), AMD IOMMU:
-
-  - iova_to_phys() on unmap: ~10 ns per TX packet (~0.1% of busy CPU)
-    before, 0 after
-
-So, the performance improvement is small, but measureable. The proposed
-change removes redundant work in the unmap, though, making it match the map
-path.
-
-Thanks,
-Joe
-
-Joe Damato (2):
-  iommu/dma: Add helper for coherent devs without swiotlb
-  iommu/dma: Skip iova_to_phys() on unmap when unneeded
-
- drivers/iommu/dma-iommu.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-
-base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
 -- 
-2.53.0-Meta
-
+Vincent
