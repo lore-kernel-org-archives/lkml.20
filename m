@@ -1,158 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.86
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793980749;
-	b=x0LbhNVry2GB3Tz1y1cYHufB8V1zn+aHo16+TvSiqrNijMpz7JpPpoXkfHNnLQx5krTf
-	 +oo2f0+HGd812ElOTRL2TtXZWfE25ltbeBh7t5D+eXQ9dgubDHRZg30+qrEdiAFaN2mkO
-	 N+HbrMTK3Di0RtIhnJJttusPeUvnUZVPwFyTfSQkQPhd1nyWF+dZudM9MgqHYsjbKv6tK
-	 4CMVoCGu9bP5yL8qY4HZ0L2Gs8Uxq79ED+KzFA5LIddxaRW0NcfPFny3slmngTuSJy2TS
-	 wvQsF/O+6NduYoGyLC8y4DluVth9dxAZpXSbZ5SgCF+hIjf2ZL8eX87PAVxvFy5QL6A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793980749;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xxrVxEIlXSSpw5OA8VISAl6h2wSDNS4+/iyZA4/2NXk=;
-	b=GaJiM+kVNfoLHnOC+7sJ/8DTz/xxFfKA+0XBbGcCO2iQS52bPQazqTZ4BhqEYbu7pj6b
-	 QhCTWpt6cHiG0058xlLSLltgJtVziFeNZlvOZue4LZ5vFhfPupai2cqmwscH1JOUm99WV
-	 /QrzEHeLhR5aC/nl1TNRsmIQhZeqbJE4luXlyehOU4XZ/yOXmEypudh6OHbhW125VKlWK
-	 KGbY1jgkgH7wmDaygU7lNIO5RQIbIthTKUhBQpYmT2b8ASOiOwbMYFV4DEg7H0P8oiqqg
-	 bwsYiN4+KdptQ/YiBCeabphQjo5ZRD0Jy3qn3HEWO69QEkbGCLeIsMZMruv8sNJUKQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=CDKzNdt9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.86
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19013086.outbound.protection.outlook.com [52.103.14.86])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793980789;
+	b=LwmpaHxx7vOEhteaypj8UoKQLhQUtDQBJ4qYFQY27VEmLuXscAhXvBwjI1y7NUhMoDkz
+	 jWYYYlk4zNylvFsM+CnzUFCwKE5uAvlv9YkNpFkGXUpPvOqXHnw1O119QA5aE+ZOVObGX
+	 D4dKLRvlFdZ7nhAGPpudspr7M6x94ukuAcoJLBCWxahAYoR3XZv0zht0wrvF0rMHZ78Bv
+	 HJnULva8qBNARUxkgAEnlFtYiofh/IARC6gMgsL4H8P6xDDVmz8z6BxUFbobswJBbZvIX
+	 4nkn7q+mC1jl0m7HrV87wyaI5sYmJz346Qk73rDNmtiUQLG3g9MXY9p1scyaDXH1icg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793980789;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=5vCHEs/V9pwMAPmRu7ggjXlWX/ar9c5h5bZvjFU/NuY=;
+	b=wz+4Sj0eZtijzgujBfVHL9QpRnyv6hh6MeLnxl4p57Vd0x2Qi/ZkanIWu67c9OV/1NRV
+	 wxWEGnk+JVB7wDsKZMVivMeI+ykGx+SALN+wzHy+3EGIVAGSxIfsK1a3CdpFv6KUJRZC0
+	 cCPwhIYQHyVBso1P9fZr/f/5OH0oVN+j+jVM7uX+/TU64uBhvzl9rmsKcU5kO5qWbKbXD
+	 OgbNkOVb3o9pyuBwsHuI2oaJVVgvYpANHG3nmsJDTeO2/3eBBMzJMCybdGT02aU/Uhy+J
+	 gJnHi0Cm9qEfRpk8WRywfpoof3COLkC80nZz5vPrtrkX/tMjqBNdPbOZ4ZmG4ppDFSA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=shazbot.org;
+	spf=pass smtp.mailfrom=shazbot.org;
+	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=nERuFrRL;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="Z2//7IVs";
+	arc=none smtp.remote-ip=103.168.172.147
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3713A606A329;
-	Fri,  6 Nov 2026 15:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3713A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15864606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15864606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=CDKzNdt9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vg+nCZDDbVyi4CXe/SyveVdU7C/W/dSyYZtedVmgmPWDoqbomuLuI/1ONmxWhUsFjIYnaa9kem5I0+93p9uNo3pblTjh+YXd5ukiRah22kXTvjMumc4t3bIUjE9YLy4nJZLBTZMeJ9MtfxqvIPM0etkvsqQbiMEDDFh1LWo5NgQjv5SwgmDXRkRa8x2HhFCCMzJPaoCR+HX60eoQCCOa/51/6glL+wkD4/vwuiIVxmbZ0fJX++IcSjC9EFrcfWriVW1kMHzAMNvXB16Fosy7vcuqF+TXkOVChdM86rPRppKAAWyGHmYRkqh5hXrIwaYAcqwXvVW26n9L/zFbw7+7hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=xxrVxEIlXSSpw5OA8VISAl6h2wSDNS4+/iyZA4/2NXk=;
- b=R9jilPd6iItJUcxhSkWMpUKtevdkzpd9Tc3je59Hw62bgY8FCZCaBTmObLwhgFphJazBtLZgdwmsR5ayvTUUss6S3QTuGVL4nmDKN3kUAUaFTYiIKNytcXR1PuSleJ5pJPzpELyZr64aClmezpiJ0Z01Uq4axv2GT6r1MF7NQCwSDFlH8J3Tj/LABH2zkHGmpAqiQ+gd8Wvg+iojy5Y15TVYEjKJs2MEeuhSUT04DfOgLERsuKiQ+HgXaCt1EwSImcppUbM356PC2utoZfjwFlo84jBzu3EGUvWOqfmeefCP2BmRPgY9fxnPjWOl45V0Syp8gMcrCm2NSG7IlfoB+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xxrVxEIlXSSpw5OA8VISAl6h2wSDNS4+/iyZA4/2NXk=;
- b=CDKzNdt9ObtN93YmKtSsp2NFPz3Z6KXZeXksvkbGVI/qByyGpogRJuM43JKqBDE26v0OMpz5wKywPRH8Qyxa2XRLcDz5Jjf6PUgSwsEuHtmrv4YCguWNraP6zcVRjwX+zHYRaK7ky1GbmWVnaLWwNpCEUPhILd1n36petQKemEkJAJHkeRyWqmJdt2XhQabc0pLERRvRKkvAhrNo4bKWFCka7eQQropTMqbmKC7gLR5XeNiOlXhPBJOLsJQY6YfMgDODubNiQXYsgINQHEXxUl0VYjDtQ4sYzo0DOifNPHOrSxlSHWjaOfSjDTY1fW8dI7VOqFKCBjbCCwvtPZFE2w==
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- (2603:10b6:806:39d::17) by CH3PR05MB9457.namprd05.prod.outlook.com
- (2603:10b6:610:146::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Fri, 6 Nov 2026
- 15:59:07 +0000
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 15:59:06 +0000
-From: Yingjie Wang <x-professor@outlook.com>
-To: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>
-CC: Neill Kapron <nkapron@google.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.de>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] usb: gadget: midi2: copy configfs strings for live functions
-Thread-Topic: [PATCH] usb: gadget: midi2: copy configfs strings for live
- functions
-Thread-Index: AQHdbgfASwPl4p5AsEyV6ATtneB4gw==
-Date: Fri, 6 Nov 2026 15:59:06 +0000
-Message-ID:
- <e638dc9ab93c4b90c263d7ec836735eb17335cda.1793980732.git.x-professor@outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|CH3PR05MB9457:EE_
-x-ms-office365-filtering-correlation-id: 6aad3b1a-a876-4da3-376b-08df3c1ee321
-x-microsoft-antispam:
- BCL:0;ARA:14566002|4140399003|22091999003|38102599003|19110799012|25010399006|8060799015|8062599012|31061999003|15080799012|24121999003|24021099003|41001999006|12091999003|40105399003|52005399003|26121999007|102099032|3412199025|440099028;
-x-microsoft-antispam-message-info:
- =?utf-8?B?MkdVUDRrT1V5ZGt6L1gzNnBCeWpCcEd6R04ySWZoSG8zeVN1bE9CVGphTDBm?=
- =?utf-8?B?cUVEZjl4N2tob3FzdDMxd0xDSDFUTmZlbnovUCtOMmVPcmY1a1JEbmo0d1R3?=
- =?utf-8?B?UmF4Y3lrdE5KdmZQbnkxclljWEV0V29YbmNuc0t4TzY1THdoais1Y09iTDV3?=
- =?utf-8?B?cDBCQ3A4bEJUK0xHVWEyY0g4RmdINlZVVHA5MzNCN1YxL2VGSEs4MzFOSURz?=
- =?utf-8?B?a1d1Rm5QeDJsbURkMUJPdUlJU0dsOGRyeUxDcSs3enFmcExzSERseFhmR2tD?=
- =?utf-8?B?RUlRNTg5RkdOc3Z1MHJDNWh6UUllaUxOYXVBQTJTdGh4dktjTHFqKzNSNnNm?=
- =?utf-8?B?U3NOb2pOTXUreFBDck84R0s3ZFg5M0hXdXpSNlJpMk13cnVXS0I1WUxFVmJs?=
- =?utf-8?B?QStPbmVZVFZIcG9ZREVGZEYzNk12bGtUa2NZNEZFdmN4V0wraHNONmxOcDVF?=
- =?utf-8?B?WDVMKzBUVlJ1SWdoRmd1NkphOVVqemlyRFNNT1pwNWFqdUxnTDlDZnZEMTN2?=
- =?utf-8?B?NTZiM1FDaDRPWDZVN0puRXR2eUg5b0preENNUmNmTXNMYlBhNjk0Tndaekpw?=
- =?utf-8?B?REh4Mjk5OVUyejJ3T3pnUmppbFZaeFpjZWt0b05JL2RRWjd3cDZiL3hic3ls?=
- =?utf-8?B?MjY2Ymh6MVc4KzIzL2NLTUVVV0ppazhEanZDb2l3M2FGdHh2Sm11OU1DWjFO?=
- =?utf-8?B?RU9qMkIyLzFvZ05CTUlpWHhtYldFS0JWRnFDL0Q0cERQSjgyZUhuNm52UHJR?=
- =?utf-8?B?TXNsQytFeVVGWUI5NzFlVWluUHliby9FdVNHU2dzbXhzYlp3eXFMVjJDeXpB?=
- =?utf-8?B?NUdCZ0tYZmxBUUZTLzlzenFLZFh2TWp3Rlh4amdXeFJBakZXZ3ZNbG80amlD?=
- =?utf-8?B?Y1pmZTR6QkdPRmhpQWdoSHpnZ3lxS2hieklsc1N3QWhaeGtueHpTQ0dSMWYz?=
- =?utf-8?B?UTU4RkNzNlNHVlozR1BLYnA1RHBXYU5JSWtSSUhTOGlaUzZTWVk4UVZoRCtC?=
- =?utf-8?B?bDE5RHhkNkdJQzVUenl1VUUvcDlKVVdBNlVpZVZKTVBtM1krVGVEK0syZ2d6?=
- =?utf-8?B?NHorZEJFZHFlMTZqZFBvV1UrVzR5UW5TY09uMktIcVhIVEw2YjU0N0o3cEVm?=
- =?utf-8?B?NDNncTVITit3dnM1MU1GdUFVajR3bzh2V09QUU05VjNVOUpvT2hxMldkM0Ja?=
- =?utf-8?B?b1l6amIyUStUaWk3NUlZMWZybXRXSlYrL2RDWm5IYVZlNEE3QkdTM1IydXhW?=
- =?utf-8?B?ekNvd1dtMTcxeXUra3B6bDgrZ3RkcGZCZ1lKRXRkcEMyU2c0RmxxTVFrbWx0?=
- =?utf-8?B?RkQ2TmNKc2FTOWxrRndKdE85L0tFNDZjdURHNnhTT1V1QmJJUWc3Qkp6WEhY?=
- =?utf-8?B?WnlOblNTUDgvMlJtQis1WGJJSWFzNElyUUI2V3hzY2tMV3dmeVVCb0M0T2RN?=
- =?utf-8?B?OEZoajc1NStQTmFhRHh3aEYzVDE2cDVMSWFVR2lSU2l2MFBmNHR0eUVaNGw2?=
- =?utf-8?Q?C9o4ihghDFwlrd8T3nvsk1rL7DK?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Y041QXJkc2dYc3hZYVpNYlozQ0RyT2Y3eW9WZEZUVkoxZE5lYlNuM2NzUmgr?=
- =?utf-8?B?ejNmc0Y0Sng4NlduS2xZak1hZWlUL1RoZy8yZy9rR1ZrZWFqMGR1OFRUZngr?=
- =?utf-8?B?QkxjUW5NRURwL1VnMUZtOVJueVd5RDZpTHF0VWwzb3h4anRlOFZrVjE5ZDd4?=
- =?utf-8?B?UElYU2g1cmtSNUh5ZU5OblVsdXVvZXQ5NG5EY3FhbGdJTE8vR0pWbnVqMURB?=
- =?utf-8?B?THRkcHpGSTFJMG02Q2d3aGVwS29GdHNRT1NtR1lZYjFRQkZPSVlGTno3YjEx?=
- =?utf-8?B?c2hJamhMWnlwTFdWZUh6YjZaZzNrZ3FGck0zRzZIeHR5dmpyR2hkbkJCQnV5?=
- =?utf-8?B?RVNiOW5pbGFXWC80QUhkN1IyUzEvMnZJZUwwU0taUFF4ZEJSdG16c05XaUhy?=
- =?utf-8?B?WE1IYW5URUMvaG1NWXFkQURlUUM1dzdFNjBEcjlkOUkwMXhGc2tObmhzaU9i?=
- =?utf-8?B?V2JzMENNa04zQS9XWm4wU1lVY1pPNHJWbC9hdHU2dzQvVmpWeXl1d0Ewd09v?=
- =?utf-8?B?ZkU3eE4xeW42bU02bEZXU3Z6NlNsY05oWXZQNllEc0tjMkF6cmltNm9Jdnc2?=
- =?utf-8?B?OXZtYlJpT0FKci95RGM2SWFWQ2ZxN243MWt6ZWtVMkZheG52UkIwN25VSVFR?=
- =?utf-8?B?L2dheW5wcFJsdmtPa2hEOXNUNkozT3d5U1dFZVc2TmZ3MUhTZW8vL2VTNFV1?=
- =?utf-8?B?SmNpUjFjSnoydGZ1SG9rY1d4RnFZVDFkb0swQk1mcHZKSGRCbW1LL3MxVno3?=
- =?utf-8?B?RStzN2h5Z0lxVzFGR05sYll1YWZZSVM5ZkdyWEhwM1QyVGJjaHh0d0dxa0sv?=
- =?utf-8?B?NTlpbjFndHRnRGY5L3p3RzJLRU5iR2RsTVFQODgzck5xVGdYT3ptMGpVYVhv?=
- =?utf-8?B?RXk2UWEwNmgxZ0pLZ0xXcXVjS1ZpaDYxUW1EM0x6U1pmVU1zZmZPek9uTm5O?=
- =?utf-8?B?ZzR2QjdzTFFZS0NxcHlvbk1ia2JPZ3hOOTMrbm9WL00zc0FkNXJ3Smhiemcr?=
- =?utf-8?B?NTlxWXhEMTJ5UEgwR1ZsYTM0WEdWajBwNzZrNWVreko3RndMQUlmeGFEdldF?=
- =?utf-8?B?NS92NHFtellwSlNCZHlEUFZ1RE14dWFBR2psNGdmVW9XQkc3RlUyTEtNaU1N?=
- =?utf-8?B?RklCelB5bW0zNlp6bC82eVdYLzJSN0xiWlQ4Z005eG9FdFJFNFMwTHBiRmxG?=
- =?utf-8?B?am15RnU1TUptbXFJMEphUkN1dXJGV2luQmtua21sc05MWnRLcWpUdjJ2TDJ6?=
- =?utf-8?B?SmhDR3lUMm9KQlQ4aDB5T0x6UDFOQ3RqL1p0YzczNnFjaHBxRnRzL1hwMmtG?=
- =?utf-8?B?NVlnOExSZHRhVjQySGJ5d2QrUGhVWk53alpuSEQrV1E2ZzJjL3lMZnpXTzRR?=
- =?utf-8?B?aUpqcHpzN3pQdExMdUNRTmc5M0llbkFJSHJWQWZKTUw0ejdjVFExL25DVm5N?=
- =?utf-8?B?czNoUzVZNFFZaWNKbUY1VzBISWZBZ0VtenlyN2JxeUpjQlp6TUtqZG4xK0Vj?=
- =?utf-8?B?WVZLZmE4S2xpZlZGWHBuaGdkU2EyK25mVDFSVzV5Y2lScWV0Ull6ZExLYXFy?=
- =?utf-8?B?ZEtxSXhPckFMRXNVTno0ZkdEWGNNblZuTHJKUUNmVWNoYmc3OWYzUEI3RDZV?=
- =?utf-8?B?NGMxSTZ5Y001dU5FSmM5SGJwd3RkUFhDRncxaGRWajhUZWJTRE1QL3hlZThY?=
- =?utf-8?B?d2owNUIxQ2pGWGYxVGxaY2ttdHdTQUU3alBQdjFFZXpJNlJhZktGamc3Qmkz?=
- =?utf-8?B?ZVJoL3hxVUcrSUNvbDNlUU84WVVMYXhwSWdOVkpIKzhYSFoxWWZmZjZJdkVB?=
- =?utf-8?B?TFhoWEsrTEFHQzlKYUQwblpxd1hvYWIwczNJd1k5Skx2dStkVi8rV1RXVDZH?=
- =?utf-8?Q?xwDdv7PbbtWmF?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=nERuFrRL;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Z2//7IVs
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 3F7F5EC01CA
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:59:46 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Fri, 06 Nov 2026 10:59:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793980786;
+	 x=1794067186; bh=5vCHEs/V9pwMAPmRu7ggjXlWX/ar9c5h5bZvjFU/NuY=; b=
+	nERuFrRLTWYTI5xz0mw41UCpX7FH3vTABdoNJscvHHh/gDqqdGH7TKRh8W+DLUgy
+	tj3KLLe+YCaw9Uv+3ChAJ0YnBFp2NcTSdGrbpQl79iyyzyRkbRA6reG59gM4YDOn
+	BFXyGLvBND4jzoGeO7TnP4jXf8LpDN6BF5IQJCfzvjEaZNfitmsqcdG3ZaTkPtsn
+	Cezkzl8OpvNR8KV3D+wN4huCbbKYHwlag1VV0gXUjOcu2MB3waGf2S9ObNE5QZJP
+	zC41iNzBrZ/baSdQUtHYFhxzkpRR0etjsoSfaoCUGF4OK+E5X51tMA3DQFOWJoxN
+	UGhewNR6EnHWEdQb1l2CvA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793980786; x=
+	1794067186; bh=5vCHEs/V9pwMAPmRu7ggjXlWX/ar9c5h5bZvjFU/NuY=; b=Z
+	2//7IVsGyLgFWDQTyJFlcawLVyKEXf8AS1D25nd4BfdsvanttokG1zBxYwtBVdCJ
+	aP2gsIX5sT0UrRPQ4w9TgE34prZE2iDrfMxvPV76JXB//HNbULxf5mbgIlDFqsr6
+	9ZC7KeZVR8E0orAnskj5WeFKO41sTwMM32/+uKmPB6+uyxOt5A8eBDL4QYtuuQSY
+	R6V+UrbOmA322mkRfpAI/U+0f/0u714Oney7HQPqKRmZnppXxtwc7X9YZnbOW3Xp
+	VyROnJ1hwK4ixvi9he9koZkzCsZtMrkZzfrEgByyx3fRvb7Uh5sE7J6+qEtHh0bJ
+	fQyRJeBaymwceD7aRRKvg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793980786; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:VlWbNBsjHSujvOZC3EQiI3ppNt+CTvbTTLvtSUjUQdOo1Az
+	zLtvJqVrYz+Y28Sh/vZ73JqX2/5qf/vvuns1c+Rv0cys9RsADg+NLUrb9RGvzh7F
+	9vAQ9uaHU4SFAUdps2NLhfKYD4tzuNmQF7VeEIKAcw/cH3KCi2PtWno35fpVa5eA
+	zgPmI0GeDySK4kunosXl+LZDxIkLLjoMT0am8lwkDnBavTfcMynOxVTcegLdmcNP
+	JL8Y2h/veAO4I3Jzf975Wv3cSdfA+IVmiKGTvzQrWps/Ywp+ApOFUU9gNgBBvR6D
+	BAhkm57gXx3brTJYNqvN+HOvXRrudB0o7qFyahA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:CBv6ZLQEXEPM/QvmFdsa7reN9JhcaJ97AJYWwHzfetI=:81TKJqx7C5qiiTvWEFzqK95usjHpuInXwJRUhFglNhg=;
+X-ME-Sender: <xms:cfntarfKi8uqdpErz2J5U4rpxtOZ41MaPkmenwzc4OqEuykcC7I13A>
+    <xme:cfntasBLkqQCvCQB1iyInoG8NNveaNX6CyW6vPGuLuTOs6FnPmrnK2BIssT0hMeyJ
+    Pt6bns_BY1PgMoNrBHeekhbIrTKXDjITQoETC0xjW5GwbEdxENEriw>
+X-ME-Received: <xmr:cfntaiyNgKn5xqpkEe7xf2F8ALcspO6H1jmZ0vEogO9iZF1kRGck3-iqM3soCQ>
+X-ME-Proxy-Cause: dmFkZTFpUT5vBtxbnF/rnvk3LllbaN8gFpLNZfC6psZaVuAjZ2AADsNePuieI+jKlLbikJ
+    GZoOIky3XhhbwcwbpxVc5KI/rWpFcmhFEfDDSSzHfGoZM2o23k5o7UpOTux9cqU5RTCDHK
+    xYABdJQY+Kshd4AQeEPEGNe7hBkbw145KSxcKC4cHR1jNJnHJFVOD5xW56Eh3kW+NAtRWX
+    cNa4A0YM84Z6+ydCIxRtrg1JF/CEsXK5jSdn8xdISlKQ/fDA68pbUWQp+SOJ3V0MyYe42Z
+    SzHvx/hBcbCcsboQuFIaNmAof4Wseh8RGDxC1c6fLUk8/mrXgRoseDOjPHY8GNOYMP+iKU
+    5ThjqqxsbGjuL7i+qK+081ep8fiUYETNa4jtiIeOexhAjw00zLFYCBdqiHUuAM5bcwzT0X
+    +Uh7wvcKAslTF/AxFDIUjJRxY+0iETPeysggIiioj+j2m+0WDOxq7Scp/El0H6qFLMDlm9
+    o1kcK+HtBQFcknQdHE7Zx5ayTcXwoMjeeoJqy6ony1yNhVjVg4hxIBAOR9FkfCVPDlWtdK
+    f1T8wXktm3RV55jfyoLZXLYi9wuwW4TQN5SGqPG6IHtk/o3wXtq9D1NfkNCv8ww97C8BUg
+    0edHAKRJU59npRS7BTS7ZvHy1yuiaKxJ1YQ0RJ7PBd+SxTaeRsIcNslmauxA
+X-ME-Proxy: <xmx:cfntashbCQFnfXUc6hv2vGQmzCCYK630pYkP5PN2bzoJGlhI2Mp9pw>
+    <xmx:cfntahdFYcnBgtFPSQvkdDincNG5ksX8L_pvMCvk7h2GAGCoaLp2yw>
+    <xmx:cfntarVfj9BaexnCq2I2Sg0MtQocqRKiZ2getqdmOd5ChDhj2UZiLA>
+    <xmx:cfntajx6OYsy9DSFO2T1GJYAAAxO-9Ygp7IQBEsD0JELrNa-plhpww>
+    <xmx:cvntagsEMDxUFCpjoqrAndcmzhTqWg2xKKkyTyhPeBoo4hVD8gMDhEc0>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 10:59:42 -0500 (EST)
+Date: Fri, 6 Nov 2026 08:59:39 -0700
+From: Alex Williamson <alex@shazbot.org>
+To: <mhonap@nvidia.com>
+Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
+ <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
+ <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+ <dave@stgolabs.net>, <alison.schofield@intel.com>,
+ <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
+ <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
+ <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+ <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
+ alex@shazbot.org
+Subject: Re: [PATCH v6 08/31] vfio/pci: Add a generic excluded-range list
+Message-ID: <20261106085939.764b6dde@shazbot.org>
+In-Reply-To: <20261016161839.2765592-9-mhonap@nvidia.com>
+References: <20261016161839.2765592-1-mhonap@nvidia.com>
+ <20261016161839.2765592-9-mhonap@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -162,98 +137,421 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6aad3b1a-a876-4da3-376b-08df3c1ee321
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 15:59:06.7112
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR05MB9457
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Zl9taWRpMl9hbGxvYygpIHNoYWxsb3ctY29waWVzIHRoZSBjYXJkLCBlbmRwb2ludCwgYW5kIGJs
-b2NrIHN0cmluZwpwb2ludGVycyBmcm9tIGNvbmZpZ2ZzLiAgRHluYW1pYyBlcC4qIGFuZCBibG9j
-ay4qIGdyb3VwcyBtYXkgYmUgcmVtb3ZlZAphZnRlciB0aGUgZnVuY3Rpb24gaGFzIGJlZW4gYWxs
-b2NhdGVkLiAgVGhlaXIgcmVsZWFzZSBjYWxsYmFja3MgdGhlbiBmcmVlCnN0cmluZ3Mgc3RpbGwg
-dXNlZCBieSBsaXZlIFVTQiBzdHJpbmcgZGVzY3JpcHRvcnMgYW5kIFVNUCBkaXNjb3ZlcnkKcmVw
-bGllcy4KCkNvcHkgdGhlIG9wdGlvbmFsIHN0cmluZ3Mgd2hpbGUgb3B0cy0+bG9jayBpcyBoZWxk
-LCBzbyBjb25maWdmcyByZWxlYXNlCmNhbm5vdCBmcmVlIHRoZSBzb3VyY2Ugc3RyaW5ncyBkdXJp
-bmcgdGhlIGNvcHkuICBGcmVlIHRoZSBwcml2YXRlIGNvcGllcwp3aXRoIHRoZSBsaXZlIGZ1bmN0
-aW9uIGFuZCBidWlsZCB0aGUgVVNCIHN0cmluZyB0YWJsZSBmcm9tIHRob3NlIGNvcGllcy4KCkZp
-eGVzOiAyOWVlN2E0ZGRkZDUgKCJ1c2I6IGdhZGdldDogbWlkaTI6IEFkZCBjb25maWdmcyBzdXBw
-b3J0IikKClRlc3RlZDoKICB4ODZfNjQgS0FTQU4gZHVtbXlfaGNkOiB0aGUgYmFzZSBrZXJuZWwg
-cmVwb3J0cyB0d28gc2xhYi11c2UtYWZ0ZXItZnJlZQogIGVycm9ycyBhZnRlciByZW1vdmluZyBh
-IGR5bmFtaWMgYmxvY2sgYW5kIGVuZHBvaW50OyB0aGUgZml4ZWQga2VybmVsCiAgY29tcGxldGVz
-IHRoZSBzYW1lIGRlc2NyaXB0b3IgcmVxdWVzdHMgd2l0aG91dCBhIEtBU0FOIHJlcG9ydC4KICB4
-ODZfNjQgYW5kIGFybTY0IE1JREkyIGZ1bmN0aW9uIG9iamVjdCBidWlsZHMgd2l0aCBXPTEuClNp
-Z25lZC1vZmYtYnk6IFlpbmdqaWUgV2FuZyA8eC1wcm9mZXNzb3JAb3V0bG9vay5jb20+Ci0tLQog
-ZHJpdmVycy91c2IvZ2FkZ2V0L2Z1bmN0aW9uL2ZfbWlkaTIuYyB8IDU3ICsrKysrKysrKysrKysr
-KysrKysrKysrKystLQogMSBmaWxlIGNoYW5nZWQsIDUzIGluc2VydGlvbnMoKyksIDQgZGVsZXRp
-b25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy91c2IvZ2FkZ2V0L2Z1bmN0aW9uL2ZfbWlkaTIu
-YyBiL2RyaXZlcnMvdXNiL2dhZGdldC9mdW5jdGlvbi9mX21pZGkyLmMKaW5kZXggZDY5M2RlNDI3
-NjQxLi5jMDJkNmYxMWJlMTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvdXNiL2dhZGdldC9mdW5jdGlv
-bi9mX21pZGkyLmMKKysrIGIvZHJpdmVycy91c2IvZ2FkZ2V0L2Z1bmN0aW9uL2ZfbWlkaTIuYwpA
-QCAtMTcxLDYgKzE3MSwzMSBAQCBzdGF0aWMgY29uc3QgY2hhciAqdW1wX2ZiX25hbWUoY29uc3Qg
-c3RydWN0IGZfbWlkaTJfYmxvY2tfaW5mbyAqaW5mbykKIAlyZXR1cm4gaW5mby0+bmFtZSA/IGlu
-Zm8tPm5hbWUgOiAiTUlESSAyLjAgR2FkZ2V0IEkvTyI7CiB9CiAKK3N0YXRpYyBpbnQgZl9taWRp
-Ml9jb3B5X3N0cmluZyhjb25zdCBjaGFyICoqZHN0LCBjb25zdCBjaGFyICpzcmMpCit7CisJKmRz
-dCA9IE5VTEw7CisJaWYgKCFzcmMpCisJCXJldHVybiAwOworCisJKmRzdCA9IGtzdHJkdXAoc3Jj
-LCBHRlBfS0VSTkVMKTsKKwlyZXR1cm4gKmRzdCA/IDAgOiAtRU5PTUVNOworfQorCitzdGF0aWMg
-dm9pZCBmX21pZGkyX2ZyZWVfc3RyaW5ncyhzdHJ1Y3QgZl9taWRpMiAqbWlkaTIpCit7CisJaW50
-IGksIGJsazsKKworCWtmcmVlKG1pZGkyLT5pbmZvLmlmYWNlX25hbWUpOworCWZvciAoaSA9IDA7
-IGkgPCBtaWRpMi0+bnVtX2VwczsgaSsrKSB7CisJCXN0cnVjdCBmX21pZGkyX2VwICplcCA9ICZt
-aWRpMi0+bWlkaTJfZXBzW2ldOworCisJCWtmcmVlKGVwLT5pbmZvLmVwX25hbWUpOworCQlrZnJl
-ZShlcC0+aW5mby5wcm9kdWN0X2lkKTsKKwkJZm9yIChibGsgPSAwOyBibGsgPCBlcC0+bnVtX2Js
-a3M7IGJsaysrKQorCQkJa2ZyZWUoZXAtPmJsa3NbYmxrXS5pbmZvLm5hbWUpOworCX0KK30KKwog
-LyoKICAqIFVTQiBEZXNjcmlwdG9yIERlZmluaXRpb25zCiAgKi8KQEAgLTI3MDEsNiArMjcyNiw3
-IEBAIHN0YXRpYyB2b2lkIGRvX2ZfbWlkaTJfZnJlZShzdHJ1Y3QgZl9taWRpMiAqbWlkaTIsIHN0
-cnVjdCBmX21pZGkyX29wdHMgKm9wdHMpCiAJLS1vcHRzLT5yZWZjbnQ7CiAJbXV0ZXhfdW5sb2Nr
-KCZvcHRzLT5sb2NrKTsKIAlrZnJlZShtaWRpMi0+c3RyaW5nX2RlZnMpOworCWZfbWlkaTJfZnJl
-ZV9zdHJpbmdzKG1pZGkyKTsKIAlrZnJlZShtaWRpMik7CiB9CiAKQEAgLTI4MTEsNyArMjgzNyw3
-IEBAIHN0YXRpYyBzdHJ1Y3QgdXNiX2Z1bmN0aW9uICpmX21pZGkyX2FsbG9jKHN0cnVjdCB1c2Jf
-ZnVuY3Rpb25faW5zdGFuY2UgKmZpKQogCXN0cnVjdCBmX21pZGkyX29wdHMgKm9wdHM7CiAJc3Ry
-dWN0IGZfbWlkaTJfZXAgKmVwOwogCXN0cnVjdCBmX21pZGkyX2Jsb2NrICpicDsKLQlpbnQgaSwg
-bnVtX2VwcywgYmxrOworCWludCBpLCBudW1fZXBzLCBibGssIHJldDsKIAogCW1pZGkyID0ga3ph
-bGxvY19vYmooKm1pZGkyKTsKIAlpZiAoIW1pZGkyKQpAQCAtMjgyNiw3ICsyODUyLDYgQEAgc3Rh
-dGljIHN0cnVjdCB1c2JfZnVuY3Rpb24gKmZfbWlkaTJfYWxsb2Moc3RydWN0IHVzYl9mdW5jdGlv
-bl9pbnN0YW5jZSAqZmkpCiAJCXJldHVybiBFUlJfUFRSKG51bV9lcHMpOwogCX0KIAkrK29wdHMt
-PnJlZmNudDsKLQltdXRleF91bmxvY2soJm9wdHMtPmxvY2spOwogCiAJc3Bpbl9sb2NrX2luaXQo
-Jm1pZGkyLT5xdWV1ZV9sb2NrKTsKIApAQCAtMjg0MSwxOSArMjg2NiwzOCBAQCBzdGF0aWMgc3Ry
-dWN0IHVzYl9mdW5jdGlvbiAqZl9taWRpMl9hbGxvYyhzdHJ1Y3QgdXNiX2Z1bmN0aW9uX2luc3Rh
-bmNlICpmaSkKIAogCW1pZGkyLT5pbmZvID0gb3B0cy0+aW5mbzsKIAltaWRpMi0+bnVtX2VwcyA9
-IG51bV9lcHM7CisJcmV0ID0gZl9taWRpMl9jb3B5X3N0cmluZygmbWlkaTItPmluZm8uaWZhY2Vf
-bmFtZSwKKwkJCQkgIG9wdHMtPmluZm8uaWZhY2VfbmFtZSk7CisJaWYgKHJldCkKKwkJZ290byBl
-cnJfdW5sb2NrOwogCiAJZm9yIChpID0gMDsgaSA8IG51bV9lcHM7IGkrKykgewogCQllcCA9ICZt
-aWRpMi0+bWlkaTJfZXBzW2ldOwogCQllcC0+aW5mbyA9IG9wdHMtPmVwc1tpXS0+aW5mbzsKKwkJ
-ZXAtPmluZm8uZXBfbmFtZSA9IE5VTEw7CisJCWVwLT5pbmZvLnByb2R1Y3RfaWQgPSBOVUxMOwor
-CQlyZXQgPSBmX21pZGkyX2NvcHlfc3RyaW5nKCZlcC0+aW5mby5lcF9uYW1lLAorCQkJCQkgIG9w
-dHMtPmVwc1tpXS0+aW5mby5lcF9uYW1lKTsKKwkJaWYgKHJldCkKKwkJCWdvdG8gZXJyX3VubG9j
-azsKKwkJcmV0ID0gZl9taWRpMl9jb3B5X3N0cmluZygmZXAtPmluZm8ucHJvZHVjdF9pZCwKKwkJ
-CQkJICBvcHRzLT5lcHNbaV0tPmluZm8ucHJvZHVjdF9pZCk7CisJCWlmIChyZXQpCisJCQlnb3Rv
-IGVycl91bmxvY2s7CiAJCWVwLT5jYXJkID0gbWlkaTI7CiAJCWZvciAoYmxrID0gMDsgYmxrIDwg
-U05EUlZfVU1QX01BWF9CTE9DS1MgJiYKIAkJCSAgICAgb3B0cy0+ZXBzW2ldLT5ibGtzW2Jsa107
-IGJsaysrKSB7CiAJCQlicCA9ICZlcC0+Ymxrc1tibGtdOwogCQkJZXAtPm51bV9ibGtzKys7CiAJ
-CQlicC0+aW5mbyA9IG9wdHMtPmVwc1tpXS0+Ymxrc1tibGtdLT5pbmZvOworCQkJcmV0ID0gZl9t
-aWRpMl9jb3B5X3N0cmluZygmYnAtPmluZm8ubmFtZSwKKwkJCQkJCSAgb3B0cy0+ZXBzW2ldLT5i
-bGtzW2Jsa10tPmluZm8ubmFtZSk7CisJCQlpZiAocmV0KQorCQkJCWdvdG8gZXJyX3VubG9jazsK
-IAkJCWJwLT5ndGJfaWQgPSArK21pZGkyLT50b3RhbF9ibG9ja3M7CiAJCX0KIAl9CisJbXV0ZXhf
-dW5sb2NrKCZvcHRzLT5sb2NrKTsKIAogCW1pZGkyLT5zdHJpbmdfZGVmcyA9IGt6YWxsb2Nfb2Jq
-cygqbWlkaTItPnN0cmluZ19kZWZzLAogCQkJCQkgIG1pZGkyLT50b3RhbF9ibG9ja3MgKyAxKTsK
-QEAgLTI4NjIsOCArMjkwNiw4IEBAIHN0YXRpYyBzdHJ1Y3QgdXNiX2Z1bmN0aW9uICpmX21pZGky
-X2FsbG9jKHN0cnVjdCB1c2JfZnVuY3Rpb25faW5zdGFuY2UgKmZpKQogCQlyZXR1cm4gRVJSX1BU
-UigtRU5PTUVNKTsKIAl9CiAKLQlpZiAob3B0cy0+aW5mby5pZmFjZV9uYW1lICYmICpvcHRzLT5p
-bmZvLmlmYWNlX25hbWUpCi0JCW1pZGkyLT5zdHJpbmdfZGVmc1tTVFJfSUZBQ0VdLnMgPSBvcHRz
-LT5pbmZvLmlmYWNlX25hbWU7CisJaWYgKG1pZGkyLT5pbmZvLmlmYWNlX25hbWUgJiYgKm1pZGky
-LT5pbmZvLmlmYWNlX25hbWUpCisJCW1pZGkyLT5zdHJpbmdfZGVmc1tTVFJfSUZBQ0VdLnMgPSBt
-aWRpMi0+aW5mby5pZmFjZV9uYW1lOwogCWVsc2UKIAkJbWlkaTItPnN0cmluZ19kZWZzW1NUUl9J
-RkFDRV0ucyA9IHVtcF9lcF9uYW1lKCZtaWRpMi0+bWlkaTJfZXBzWzBdKTsKIApAQCAtMjg4NSw2
-ICsyOTI5LDExIEBAIHN0YXRpYyBzdHJ1Y3QgdXNiX2Z1bmN0aW9uICpmX21pZGkyX2FsbG9jKHN0
-cnVjdCB1c2JfZnVuY3Rpb25faW5zdGFuY2UgKmZpKQogCX0KIAogCXJldHVybiAmbWlkaTItPmZ1
-bmM7CisKK2Vycl91bmxvY2s6CisJbXV0ZXhfdW5sb2NrKCZvcHRzLT5sb2NrKTsKKwlkb19mX21p
-ZGkyX2ZyZWUobWlkaTIsIG9wdHMpOworCXJldHVybiBFUlJfUFRSKHJldCk7CiB9CiAKIERFQ0xB
-UkVfVVNCX0ZVTkNUSU9OX0lOSVQobWlkaTIsIGZfbWlkaTJfYWxsb2NfaW5zdCwgZl9taWRpMl9h
-bGxvYyk7CgpiYXNlLWNvbW1pdDogMzE0OWU4YjMyMzdmNThkNGRkNDQwZmM2NGM0NWM5MzQwNGM0
-YjA2NAotLSAKMi40My4wCgo=
+On Fri, 16 Oct 2026 21:48:15 +0530
+<mhonap@nvidia.com> wrote:
+
+> From: Manish Honap <mhonap@nvidia.com>
+> 
+> A provider such as vfio-cxl needs to keep sub-ranges of a BAR off the
+> direct guest path and serve them through its own trap. vfio-pci-core
+> already has one such window, the MSI-X table, open-coded in
+> vfio_pci_bar_rw().
+> 
+> Add vfio_pci_core_add_excluded_range(). Each BAR has its own list,
+> sorted by start, and an insert that overlaps a range on the same BAR or
+> ends past the BAR fails with -EINVAL. Ranges are added only while the
+> device is being opened and are freed in vfio_pci_core_disable(), so
+> readers on an open device take no lock.
+> 
+> The MSI-X table is virtualized in vfio_pci_bar_rw() by an open-coded
+> x_start/x_end window that fills reads with -1 and drops writes. Register
+> the MSI-X table as a read and write excluded range when the MSI-X
+> capability is parsed in vfio_pci_core_enable(), and walk the BAR's
+> ranges in order in vfio_pci_bar_rw(), so an access that spans several
+> ranges is handled in one pass. Only the part of the table inside its BAR
+> is registered, so a device whose MSI-X capability points outside the BAR
+> still opens, as before. The ROM BAR keeps its trailing -1 window,
+> outside the list.
+> 
+> No behavioral change for an MSI-X table in a standard BAR: an access to
+> it still reads -1 and drops writes.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Manish Honap <mhonap@nvidia.com>
+> ---
+>  drivers/vfio/pci/vfio_pci_core.c | 97 ++++++++++++++++++++++++++++++++
+>  drivers/vfio/pci/vfio_pci_priv.h |  8 +++
+>  drivers/vfio/pci/vfio_pci_rdwr.c | 67 +++++++++++++++++++---
+>  include/linux/vfio_pci_core.h    | 20 +++++++
+>  4 files changed, 185 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index e50b36751d9a..bee3d1b4d8d2 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -588,6 +588,8 @@ static const struct dev_pm_ops vfio_pci_core_pm_ops = {
+>  			   NULL)
+>  };
+>  
+> +static void vfio_pci_free_excluded_ranges(struct vfio_pci_core_device *vdev);
+> +
+>  int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
+>  {
+>  	struct pci_dev *pdev = vdev->pdev;
+> @@ -644,6 +646,7 @@ int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
+>  
+>  	msix_pos = pdev->msix_cap;
+>  	if (msix_pos) {
+> +		u64 bar_len = 0;
+>  		u16 flags;
+>  		u32 table;
+>  
+> @@ -654,6 +657,30 @@ int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
+>  		vdev->msix_offset = table & PCI_MSIX_TABLE_OFFSET;
+>  		vdev->msix_size = ((flags & PCI_MSIX_FLAGS_QSIZE) + 1) * 16;
+>  		vdev->has_dyn_msix = pci_msix_can_alloc_dyn(pdev);
+> +
+> +		/*
+> +		 * Virtualize the MSI-X table through the excluded-range list:
+> +		 * reads fill -1 and writes are dropped so the guest never
+> +		 * reaches the hardware table directly. BAR access never goes
+> +		 * past the BAR, so only the part of the table inside the BAR
+> +		 * needs a range; a table placed outside its BAR needs none.
+> +		 */
+
+AI comments.
+
+> +		if (vdev->msix_bar < PCI_STD_NUM_BARS)
+> +			bar_len = pci_resource_len(pdev, vdev->msix_bar);
+> +		if (vdev->msix_offset < bar_len) {
+> +			u64 len = min_t(u64, vdev->msix_size,
+> +					bar_len - vdev->msix_offset);
+> +
+> +			ret = vfio_pci_core_add_excluded_range(vdev, vdev->msix_bar,
+> +							       vdev->msix_offset, len,
+> +							       VFIO_PCI_EXCLUDE_READ |
+> +							       VFIO_PCI_EXCLUDE_WRITE);
+
+This is not a terribly elegant flow and I think the AI comment above
+misses the main point of what the apparently redundant BAR range and
+size cap test are trying to accomplish, compatibility.
+
+In the current code, it doesn't matter if BIR is bogus or the offset
+doesn't land in the BAR length or size overflows, those just generate
+non-matches when we read or write.
+
+I think this would be cleaner as a separate function that wraps the new
+function, returning success (perhaps even with a pci_warn_once) for an
+out of range BIR or offset, and performs silent cleanup on a range that
+exceeds the BAR, with a human generated comment explaining the
+compatibility argument.
+
+> +			if (ret) {
+> +				vfio_pci_free_excluded_ranges(vdev);
+> +				vfio_config_free(vdev);
+> +				goto out_free_zdev;
+
+This is mixing local cleanup with an unwind goto and it bites us later
+in the series when we end up leaving this in place and adding:
+
+out_free_config:
+        /* A failed first open never reaches vfio_pci_core_disable(). */
+        vfio_pci_core_free_dev_regions(vdev);
+        vfio_pci_core_unmap_bars(vdev);
+        vfio_pci_free_excluded_ranges(vdev);
+        vfio_config_free(vdev);
+
+after the cxl open.
+
+> +			}
+> +		}
+>  	} else {
+>  		vdev->msix_bar = 0xFF;
+>  		vdev->has_dyn_msix = false;
+> @@ -740,6 +767,7 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
+>  	vdev->region = NULL; /* don't krealloc a freed pointer */
+>  
+>  	vfio_config_free(vdev);
+> +	vfio_pci_free_excluded_ranges(vdev);
+
+Order is wrong, should be reverse of setup order.  Also doesn't match
+the correct ordering used in the error unwind above.
+
+>  
+>  	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+>  		bar = i + PCI_STD_RESOURCES;
+> @@ -1012,6 +1040,72 @@ static int msix_mmappable_cap(struct vfio_pci_core_device *vdev,
+>  	return vfio_info_add_capability(caps, &header, sizeof(header));
+>  }
+>  
+> +/**
+> + * vfio_pci_core_add_excluded_range() - keep a BAR sub-range off direct access
+
+"Exclude a BAR sub-range from user access"
+
+> + * @vdev: vfio PCI device being opened
+> + * @bar: BAR index, below PCI_STD_NUM_BARS
+> + * @start: offset of the range in @bar
+> + * @size: length of the range in bytes
+> + * @flags: VFIO_PCI_EXCLUDE_* paths the range is excluded from
+> + *
+> + * Call only while the device is being opened, from vfio_pci_core_enable() or
+> + * a provider's open hook; vfio_pci_core_disable() frees the ranges. Ranges on
+> + * one BAR must not overlap and must lie inside the BAR.
+
+Are we pushing an overly complicated model just to align with MSI-X?
+
+I think MSI-X is configured on open_device because it's trivial.  Just
+a couple config reads and extract the info.  Now it's becoming more
+complicated with allocations and lists, and I'm not sure why it doesn't
+at the same time move to the .init and .release callbacks instead.
+
+The AI comment also skips the important note reminding us that the
+exclude list is lockless and must be immutable while the device is
+opened, wherever we decide that boundary should be.
+
+> + *
+> + * Return: 0 on success, -EINVAL for an invalid or overlapping range or one
+> + * that ends past the BAR, or -ENOMEM.
+> + */
+> +int vfio_pci_core_add_excluded_range(struct vfio_pci_core_device *vdev, int bar,
+> +				     u64 start, u64 size, u32 flags)
+> +{
+> +	const u32 valid = VFIO_PCI_EXCLUDE_MMAP | VFIO_PCI_EXCLUDE_READ |
+> +			  VFIO_PCI_EXCLUDE_WRITE;
+> +	struct vfio_pci_excluded_range *range, *pos;
+> +	struct list_head *head;
+> +
+> +	if (bar < 0 || bar >= PCI_STD_NUM_BARS || !size ||
+> +	    start + size < start || !flags || (flags & ~valid))
+> +		return -EINVAL;
+> +	if (start + size > pci_resource_len(vdev->pdev, bar))
+> +		return -EINVAL;
+> +
+> +	/* Keep the list sorted by start; find the first range after @start. */
+> +	head = &vdev->excluded_ranges[bar];
+> +	list_for_each_entry(pos, head, entry) {
+> +		if (start < pos->start + pos->size && start + size > pos->start)
+> +			return -EINVAL;
+> +		if (pos->start > start)
+> +			break;
+> +	}
+> +
+> +	range = kmalloc_obj(*range);
+> +	if (!range)
+> +		return -ENOMEM;
+> +
+> +	*range = (struct vfio_pci_excluded_range) {
+> +		.start = start,
+> +		.size = size,
+> +		.flags = flags,
+> +	};
+> +	list_add_tail(&range->entry, &pos->entry);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(vfio_pci_core_add_excluded_range);
+> +
+> +static void vfio_pci_free_excluded_ranges(struct vfio_pci_core_device *vdev)
+> +{
+> +	struct vfio_pci_excluded_range *range, *tmp;
+> +
+> +	for (int bar = 0; bar < PCI_STD_NUM_BARS; bar++) {
+> +		list_for_each_entry_safe(range, tmp, &vdev->excluded_ranges[bar],
+> +					 entry) {
+> +			list_del(&range->entry);
+> +			kfree(range);
+> +		}
+> +	}
+> +}
+> +
+>  int vfio_pci_core_register_dev_region(struct vfio_pci_core_device *vdev,
+>  				      unsigned int type, unsigned int subtype,
+>  				      const struct vfio_pci_regops *ops,
+> @@ -2317,6 +2411,8 @@ int vfio_pci_core_init_dev(struct vfio_device *core_vdev)
+>  	INIT_LIST_HEAD(&vdev->dmabufs);
+>  	init_rwsem(&vdev->memory_lock);
+>  	xa_init(&vdev->ctx);
+> +	for (int bar = 0; bar < PCI_STD_NUM_BARS; bar++)
+> +		INIT_LIST_HEAD(&vdev->excluded_ranges[bar]);
+>  
+>  	ret = vfio_pci_core_cxl_init(vdev);
+>  	if (ret)
+> @@ -2332,6 +2428,7 @@ void vfio_pci_core_release_dev(struct vfio_device *core_vdev)
+>  		container_of(core_vdev, struct vfio_pci_core_device, vdev);
+>  
+>  	vfio_pci_core_cxl_release(vdev);
+> +	vfio_pci_free_excluded_ranges(vdev);
+>  
+>  	mutex_destroy(&vdev->igate);
+>  	mutex_destroy(&vdev->ioeventfds_lock);
+> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+> index 4e7162234a2e..53544e0cbedf 100644
+> --- a/drivers/vfio/pci/vfio_pci_priv.h
+> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+> @@ -44,6 +44,14 @@ ssize_t vfio_pci_config_rw_single(struct vfio_pci_core_device *vdev,
+>  ssize_t vfio_pci_bar_rw(struct vfio_pci_core_device *vdev, char __user *buf,
+>  			size_t count, loff_t *ppos, bool iswrite);
+>  
+> +/* A BAR sub-range kept off direct access; see vfio_pci_core_add_excluded_range() */
+> +struct vfio_pci_excluded_range {
+> +	struct list_head	entry;
+> +	u64			start;
+> +	u64			size;
+> +	u32			flags;
+> +};
+
+If we used struct range as a member here we could use range_contains()
+and range_overlaps(), for finding a matching range below and avoiding
+conflicts above (mind the inclusive end).
+
+> +
+>  #ifdef CONFIG_VFIO_PCI_VGA
+>  ssize_t vfio_pci_vga_rw(struct vfio_pci_core_device *vdev, char __user *buf,
+>  			size_t count, loff_t *ppos, bool iswrite);
+> diff --git a/drivers/vfio/pci/vfio_pci_rdwr.c b/drivers/vfio/pci/vfio_pci_rdwr.c
+> index 7f14dd46de17..93823c6391f6 100644
+> --- a/drivers/vfio/pci/vfio_pci_rdwr.c
+> +++ b/drivers/vfio/pci/vfio_pci_rdwr.c
+> @@ -198,6 +198,57 @@ ssize_t vfio_pci_core_do_io_rw(struct vfio_pci_core_device *vdev, bool test_mem,
+>  }
+>  EXPORT_SYMBOL_GPL(vfio_pci_core_do_io_rw);
+>  
+> +/*
+> + * Access @count bytes of @bar at @pos, walking the BAR's excluded ranges in
+> + * order: a range excluded for this direction reads as -1 and drops writes,
+> + * and the bytes around it reach the device. The MSI-X table is one such
+> + * range, and a BAR can hold several, for example the MSI-X table and a CXL
+> + * HDM decoder block.
+> + */
+> +static ssize_t vfio_pci_bar_do_io_rw(struct vfio_pci_core_device *vdev,
+> +				     int bar, bool test_mem, void __iomem *io,
+> +				     char __user *buf, loff_t pos,
+> +				     size_t count, bool iswrite,
+> +				     enum vfio_pci_io_width max_width)
+> +{
+> +	u32 want = iswrite ? VFIO_PCI_EXCLUDE_WRITE : VFIO_PCI_EXCLUDE_READ;
+> +	struct vfio_pci_excluded_range *range;
+> +	ssize_t done = 0;
+> +	ssize_t ret;
+> +
+> +	list_for_each_entry(range, &vdev->excluded_ranges[bar], entry) {
+> +		u64 end = range->start + range->size;
+> +		size_t chunk;
+> +
+> +		if (!(range->flags & want) || end <= pos)
+> +			continue;
+> +		if (range->start >= pos + count)
+> +			break;
+> +
+> +		/* Up to the end of this range; do_io_rw() fills it. */
+> +		chunk = min_t(u64, count, end - pos);
+> +		ret = vfio_pci_core_do_io_rw(vdev, test_mem, io, buf, pos, chunk,
+> +					     range->start, end, iswrite,
+> +					     max_width);
+> +		if (ret < 0)
+> +			return done ?: ret;
+> +
+> +		done += ret;
+> +		pos += ret;
+> +		buf += ret;
+> +		count -= ret;
+> +		if (!count)
+> +			return done;
+> +	}
+> +
+> +	ret = vfio_pci_core_do_io_rw(vdev, test_mem, io, buf, pos, count, 0, 0,
+> +				     iswrite, max_width);
+> +	if (ret < 0)
+> +		return done ?: ret;
+> +
+> +	return done + ret;
+> +}
+
+This is mixing fault semantics.  Currently on fault we return the
+errno, regardless of work that's been done.  With this, we potentially
+return a short read/write on fault if later errors occur.  That short
+return is not necessarily representative of the length of the actual
+operation, a partial operation in the last call to core_do_io_rw is
+discarded.
+
+Therefore, I think both of the above (ret < 0) return branches should
+just return ret, not the potentially incorrect done value.
+
+
+> +
+>  ssize_t vfio_pci_bar_rw(struct vfio_pci_core_device *vdev, char __user *buf,
+>  			size_t count, loff_t *ppos, bool iswrite)
+>  {
+> @@ -256,13 +307,15 @@ ssize_t vfio_pci_bar_rw(struct vfio_pci_core_device *vdev, char __user *buf,
+>  		}
+>  	}
+>  
+> -	if (bar == vdev->msix_bar) {
+> -		x_start = vdev->msix_offset;
+> -		x_end = vdev->msix_offset + vdev->msix_size;
+> -	}
+> -
+> -	done = vfio_pci_core_do_io_rw(vdev, res->flags & IORESOURCE_MEM, io, buf, pos,
+> -				      count, x_start, x_end, iswrite, max_width);
+> +	if (bar == PCI_ROM_RESOURCE)
+> +		done = vfio_pci_core_do_io_rw(vdev, res->flags & IORESOURCE_MEM,
+> +					      io, buf, pos, count, x_start,
+> +					      x_end, iswrite, max_width);
+> +	else
+> +		done = vfio_pci_bar_do_io_rw(vdev, bar,
+> +					     res->flags & IORESOURCE_MEM, io,
+> +					     buf, pos, count, iswrite,
+> +					     max_width);
+
+Seems like the wrong refactor to add a ROM specific branch, we should
+probably instead precede the excluded range loop by a test for a
+standard BAR and non-empty excluded range list.  That might mean the
+new function is reduced to only the excluded range handling and all
+non-excluded range handling falls through to a common call to the core
+function.
+
+>  
+>  	if (done >= 0)
+>  		*ppos += done;
+> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+> index 7f3a2bcb5830..70acb03d466e 100644
+> --- a/include/linux/vfio_pci_core.h
+> +++ b/include/linux/vfio_pci_core.h
+> @@ -162,6 +162,13 @@ struct vfio_pci_core_device {
+>  	struct notifier_block	nb;
+>  	struct rw_semaphore	memory_lock;
+>  	struct list_head	dmabufs;
+> +	/*
+> +	 * Excluded BAR sub-ranges, one list per BAR, sorted by start and not
+> +	 * overlapping. The lists are filled only while the device is being
+> +	 * opened and emptied in vfio_pci_core_disable(); every reader runs on
+> +	 * an open device in between, so readers take no lock.
+> +	 */
+
+I'll stop noting these, but I expect all gratuitous AI comments to be
+removed by default and evaluated as a human whether a comment is
+warranted.  AI assistance doesn't relieve authors of the responsibility
+to perform a thorough human self review.  /dismount-soapbox
+Thanks,
+
+Alex
+
+> +	struct list_head	excluded_ranges[PCI_STD_NUM_BARS];
+>  };
+>  
+>  enum vfio_pci_io_width {
+> @@ -172,6 +179,19 @@ enum vfio_pci_io_width {
+>  };
+>  
+>  /* Will be exported for vfio pci drivers usage */
+> +/*
+> + * A provider can keep a BAR sub-range off the direct guest path, reached only
+> + * through its own trap. The flags select which paths are excluded: mmap, and
+> + * region read and write (an excluded read fills -1, an excluded write is
+> + * dropped).
+> + */
+> +#define VFIO_PCI_EXCLUDE_MMAP	BIT(0)
+> +#define VFIO_PCI_EXCLUDE_READ	BIT(1)
+> +#define VFIO_PCI_EXCLUDE_WRITE	BIT(2)
+> +
+> +int vfio_pci_core_add_excluded_range(struct vfio_pci_core_device *vdev, int bar,
+> +				     u64 start, u64 size, u32 flags);
+> +
+>  int vfio_pci_core_register_dev_region(struct vfio_pci_core_device *vdev,
+>  				      unsigned int type, unsigned int subtype,
+>  				      const struct vfio_pci_regops *ops,
+
