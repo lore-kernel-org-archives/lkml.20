@@ -1,55 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971864;
-	b=vcKp3xe5CKzp3+7gM+p2cEdYEo43L1t29qj9rE1dd+z31qQsh1+Veps+R/vtAKQP8Twv
-	 /A9nOPGI9Q7/XA636++C4XF6DfMoaUutnmbLigNOmuNdc0VyXYsTbNSIGmVikk8shFs5+
-	 YTQSEjI1wYbPZQ62AvthpF8TwodzG4coLNTt5wGeIRvhKS5J58SvEdZaEeMMmbd1YQ3Wt
-	 q2QFmdOc0r0N0IxJatAm5Cjh/nWWclf3KZsBS4kjWVTv53Rmzwegmc8dJb7VHX2IHSaIx
-	 GCTLx9EJLxl98kcJC/wKXwi4SjYhB+jNANABQQL437RIaPnWvnDKuIQP1vqVtJMx6Yg==
+	t=1793971880;
+	b=3rHMNQPTZX98wiRIyLpi5na73naasSSSuD4uHc0ycLG5YqlmeahCAob15fIp9GFqyOHD
+	 ppbvx8Jw4w+ofDfsGuoMSj9LxnOWHfB8a/eF/EPjLOEeNBJROLk8W3RDbPnGy5EbiHE7z
+	 uVswjNj7iNm7jPrhnOHVbfL6Jt+Sa8vQSWpn0uw1u5z6RAfYwRk/TfRq+VNrnouCAcLsv
+	 0L8RPlJmOjRfwru2CX+YOqavh7a4bJLN62veSZXeeJbT0yG+wnHbT9uztQ8giP6ivlmVo
+	 XlgrbkXcl3lMeYMKJRfltXr9kfFueH4oweXcY+h4G5HhN1oybILzby1sMWFKV9uzsPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971864;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KsEtLjgYfHMgMWTCV9j/iE09UpigS3xHL/2sEbWoVtg=;
-	b=5SAB+krfu60PufjMxO8YaL5yaHRhgHNamgycgAQmm0oo3olzzDObSAzWUzJG2YfV4wNL
-	 ECcS2krsPckQaBy6TOh+7gnFVOr3FiTNtTxPRh7p/VeeX5EQNp6fnAZI5piSzrNWHq9ym
-	 qAh88gA+XebqO9Vs6DYeAO4PwsIe6TDWUoSvu8NBd2wwedHsIvSKyzNKIBVXndm2lRvUe
-	 Nj+JfJrvmw977ZtJZufJeYk6tr1At8tOvteXDfaqcrkNk2aFj28LBlZN0/w3uGUzlOfmx
-	 8C4gCDo7F0HY0BCx86SwBu55wAslJIQZl9dLnjxsql0EMTH5ftU6QHODW4EIoVU8gGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971880;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=G6DwXFsKVtS0DwVfDaHzAgdX+wZZI3a8OJ1eN4exF+E=;
+	b=qp9o9zT3pAnWmqum3dLB/UhSl1iuRYtcgdqDx6kxjJ7ALIid+y9hUqk1/vNMXilj38Ik
+	 O1kTN1GP7dLz1KNDJuPJd66w+YTcZfxmfQ01IsxAb8IMuJEE+wQTexwmhQpoHofbGVn9I
+	 TTwZpES4ON9U6AwsvZTNvFbYYsvqzHfs7hemsLJBLVG0sCo2SkQCNzWbyh/juuWQAwG1z
+	 OevZh4u+wJpeUuI1N1944rPEBv/gx8eChsdkkA8N+kHIT22mofh6FmC02LhRv/2fJd2Zh
+	 YfSbi41nf4RcMbcC+NvtWgESeH9QYduAgnInKYKwKqMqloGjEKKq133bDH388tMLo2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8AwD77Q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="S/NyLCh4";
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDC4606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7136B606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:31:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7136B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8AwD77Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C39E1F008A1
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:31:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793971864;
-	bh=KsEtLjgYfHMgMWTCV9j/iE09UpigS3xHL/2sEbWoVtg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=E8AwD77QNW1LVtfxAPc3MJzq50s/Zis9Wz94E8jJyMgAITfGeZzscXxrg62dfO2Sv
-	 7qSK6G3Sc1jJYb/N+VFWeVxaXHZpoUyeIwdN2Gos5qmAqDNn+5Mtj7r6Ct5f9IdByL
-	 FaMyHh0OmqA/oLxRQ6gNFpu6+i+Vo4Hq+66oZ3NUYFsxEZ0gF96jT0nTUlKIUnSDt/
-	 0JWU9OGEMzibsfZLBnD70X6AzKpZtgQhqn9tqNpbem7E5ik0OsP0sHvv+BLud9jk5X
-	 VdlCVo4n5R0FL30E6FphIQ4cLOlAkmNUfFhoRmrluqWtJibnyEBz4S76T4kJdhbf2y
-	 vhLCRZ/wiNn7A==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ba3fba0080so480213e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:31:04 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBz7wqdJ/NqfqjgUecFZb1mT5Zk5c2DkinO65CpAAgREOW/ozRJbQsCnUuEAEYxHJWeuEt6kHjMOE90KnvE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/g1MJQ3xtjMqBsMFDUu5aBS4VPqYYHDopDM/loJ4/2FgOODGr
-	dP/KJ9pQw6l34HwDkI7l2RKi0xK7rThbwBg+lH5JTlZOV41vbGnELFdjDGuIDYX3ww1owfqRaU5
-	CVjGMcG+YyVxr0s+JKl3bAf/7kZLWs2w=
-X-Received: by 2002:a05:6512:6603:b0:5c0:8dc:f2de with SMTP id
- 2adb3069b0e04-5c008dcf56dmr236139e87.23.1793971862818; Fri, 06 Nov 2026
- 05:31:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S/NyLCh4
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33fb4680717so1181864eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:31:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793971879; x=1794576679; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G6DwXFsKVtS0DwVfDaHzAgdX+wZZI3a8OJ1eN4exF+E=;
+        b=S/NyLCh45koJw3aWO9oB5LHT8jb/eDRdMkihc5/fHLq87Rg8V/uWFV4LxQKaaIj6Qp
+         PhXWXPSmnD3DlUYE/7htwlzCiWSlde8wBDIkKNetpQCFJKhsr9qKq7xk46cZCvm+RWNL
+         jWf+b1ZdcWA+HEOouHO1wapzkqHMx+M+XfgxP82RsnmpK9euNX1SgF1vqM87wmYh9l7W
+         ZTkuVwHz1V2b6nEcR/vs+ZfhJ+DiFnyKXXyka/0VE9T+XGGw5+vWaUAmyyQcZBZjcMQE
+         2KQ5JoHR8Bho+Ww5Kzq0W1IKWL7rJ3kEd4VFvr8/DjMFOd5LMW1zBGeeu1tHFHANWmRL
+         9FBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793971879; x=1794576679;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G6DwXFsKVtS0DwVfDaHzAgdX+wZZI3a8OJ1eN4exF+E=;
+        b=Sk2lYstX8EvnWac1t6Gvqi542IScOTOrmAKm5ok/dNIBAQOgA74kyVlmYUjLWp6YG0
+         P5Uzq4zhsEWBT1YpgqSYVLCUHecU1urnxInT2CYwxfjkY2QGybzqjlKwIVKQibhNSF1k
+         FLo1MklNFBF9M4462GCsm5gknNF+n8pmZ7sRO85OGUEGmlRqUnFWthRmFnHbe443gt0i
+         Tjk/FXIxWR5U+5wEQ0wpvZJKvfE2aXZI8z4+MT2fBF5Hu5Tbq1O8ctgiDYQFgtz78tBh
+         TmzpLI+ZhBBI9n7tOk2yOMehQM+NYfGj3Vb40sfRDBg4d0222di50f6U9WTJ8vE75SSk
+         Pv9w==
+X-Forwarded-Encrypted: i=1; AL+hErF9sc0cj4a7gGeylYSoi4lQxOlgClT6U+KdasySMMuHjseoxsN3IFJQBrH3nzdcG+/Ueh8Ci6AfIjef5ys=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DPaZio+D1Isj1qLtaQ1BimmaVy+79e9/VxY0GJZ96EyKD/+P/
+	xwCp/ljyKrCcJyFFNkg+k3/6Z8hTg+li9VDj8//rUB7ycG1VyjrYuB100PhZLEIshQ2KvQ==
+X-Gm-Gg: AYBFou2k2+zBVG5AlPyyZZoUJTKJNFBnWsTrVkcijauZqPYd7VcOGPppG2WVZxWbsZk
+	opanmWgTMFC6wDCug3VDIOW6mRz5lC8rWPcwINNfir/YDEuDU5kKRm7uB8t61NVh5irIGoeUxkE
+	MbfJo1kk61GmSezOWt3RjuYdWVQLrjVeu9XeS88p/Hgrt3CkCiDQ1IEPjwTcViFk0wb8Umtfnft
+	DtDnd0eGHo1i4wlln34s1AzqJvpDSb0mPJaC5eaNmVDo9V5Ypibhb9DsIV00ZMErseSktsCGrW7
+	mbiUDsa0TtcxTlPvU1OoBFqbojZVEOYyJmqeNDrZdu5wQWx1tXIgmRau3HxDksuMz2P7mORkltb
+	baw0XcBXs3nf0zi0v2pGlaeeYQJo6RUVe/mIEWmoULEAYWJ+ucAJgMj9un6qf+YbYgSrUzXd0YB
+	iIspMux8AKJDiaoYZ67Q3GMgVyrJ4LHZ1RPrqusY1/Ct2qfNVebw+1aHtfsvrxBaEXUpu9S2f5c
+	UE6c7NfJXwcfqLNq8jgDbWvn8qX/3G4pb3pFVIwwDSLWfT09mxlXdw3ZEbjo++Sv2jKN5Ka9GvP
+	qpH8zfS+nYcnYeQhMNBpjiKT9YYwNbA46z5koo5BQeqlEigw16qJvx4/zE6QtYN85c+ku3qUwAI
+	d8YSJHEjXRew=
+X-Received: by 2002:a05:7301:4701:b0:369:f0de:259f with SMTP id 5a478bee46e88-36f76c170e7mr2928285eec.35.1793971879318;
+        Fri, 06 Nov 2026 05:31:19 -0800 (PST)
+Received: from anon-laptop ([103.187.196.159])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa651e6b1sm15269305eec.3.2026.11.06.05.31.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 05:31:18 -0800 (PST)
+From: Wahid Khan <wahidzk0091@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>,
+	ntfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] ntfs: do not convert a named $DATA stream when making room in a record
+Date: Fri,  6 Nov 2026 19:01:10 +0530
+Message-ID: <20261106133110.2659482-1-wahidzk0091@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106124553.2617026-4-wahidzk0091@gmail.com>
+References: <20261106124553.2617026-4-wahidzk0091@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,45 +100,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105215223.1263415-1-christian.loehle@arm.com>
-In-Reply-To: <20261105215223.1263415-1-christian.loehle@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 6 Nov 2026 14:30:49 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0g2R3DwuUCH2Ai8W+RgY2XBbbn2XULLmypx7-k70KxeUw@mail.gmail.com>
-X-Gm-Features: AclHuK_yidvwwHstWNok0ryrQll26jqE7wFulYzd_5mzbyfaI6z7kXdudgvr6hQ
-Message-ID: <CAJZ5v0g2R3DwuUCH2Ai8W+RgY2XBbbn2XULLmypx7-k70KxeUw@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] cpufreq: Fix global boost state updates
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, viresh.kumar@linaro.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sumitg@nvidia.com, zhanjie9@hisilicon.com, 
-	superm1@kernel.org, zhangpengjie2@huawei.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 5, 2026 at 10:52=E2=80=AFPM Christian Loehle
-<christian.loehle@arm.com> wrote:
->
-> Preserve the global boost state on failure and serialize concurrent
-> global boost writes.
->
-> Changes in v3:
-> - Explain the concurrent-writer race in patch 2 (Zhongqiu Han, Rafael).
-> - Add Reviewed-by tags from Zhongqiu Han and Sumit Gupta.
-> - No code changes.
->
-> Changes in v2:
-> - Split rollback and serialization into separate patches, with the
->   corresponding Fixes tags (Zhongqiu Han)
-> - Carry Pengjie Zhang's Reviewed-by onto both patches since code
->   is unchanged.
->
-> v2: https://lore.kernel.org/r/20261105090311.1026648-1-christian.loehle@a=
-rm.com
-> v1: https://lore.kernel.org/r/20261104161657.546370-1-christian.loehle@ar=
-m.com
->
-> Christian Loehle (2):
->   cpufreq: Preserve global boost state on failed updates
->   cpufreq: Serialize global boost updates
+Hi Namjae,
 
-Both patches applied as 7.4-rc material, thanks!
+The Sashiko review of 3/3 also suggests skipping every AT_DATA
+attribute in this loop, not only the named ones. I'd keep the unnamed
+case as it is, for three reasons:
+
+- Converting the unnamed $DATA from this loop is what the loop already
+  did before the patch. The patch only stops it from pairing the length
+  of a named stream with the unnamed inode.
+
+- The lock order the review points at (mrec_lock held while
+  ntfs_attr_make_non_resident() locks folio 0) is the same one used by
+  the direct conversion near the top of ntfs_resident_attr_resize(),
+  before the loop. So it is not specific to the loop.
+
+- When an EA or a stream grows in a full record, converting the unnamed
+  $DATA is what frees the space. Skipping all of $DATA would turn those
+  writes into failures.
+
+If you'd rather drop the unnamed case from the loop too, I can send
+that as a separate patch so the two changes can be judged on their own.
+
+Thanks,
+Wahid
