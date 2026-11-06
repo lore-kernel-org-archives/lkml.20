@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793970848;
-	b=CKmsGqplxAQhIis/+Ohu5aotFG8nkCSI6Q4zr0Unyup1OaeGoRZlVoIpxQgxjym200xG
-	 o9VR7KZOG6E2ERm35+HvBkrQjVBcjGzpBxLdD6I7v+CTQ77yVCQ1c2nGoQqf9J4b0Fvyt
-	 TStZ4quEXBL2KZQKkCcsfuf0U90T2nGrDWYuWxvssHJsxzhhcBi3aPUbbvnvAN5ZfT1op
-	 nCpZhAVVeUSCvWk00t7CZ+tB61Bc1N5Fs+RVokkeUnR7T8bjvpdtOucH6v+C94NfD46ig
-	 fF02mnmDcIb/ODaeZzmpALYQ0N5GUW48AZGqyFfcOPH1RAjzV5jM7eM2KcGpKnGzzzw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793970848;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=XDj4Fz5MI5W96I8a8smZZO8uw7M1JDn7fdBwlab3epA=;
-	b=HLtaT9JWHwA8WN31gQb3kIbuZXS8s4l5xWkO6T6TfBZ4rWwmF+zVwa9KvdBVQW9qKtiL
-	 SB5hFIAor1+FPZTjVP34kYSCK5Xzi85gibncDGWp1mBXIk28QAbmTQ3b0mDZ7xcgr7ZTI
-	 kmkiKBkYYeph5UqM8VAEnJ35s+AYpFqLCzML2iN31cBeenqV4weyFg9vof299VrIRrbJp
-	 bn/tpa/UgfnBLDF5ONP8LnnEM46skYjtvs1/4ZgF4c72DxQSr5l2vpBlQWBbLvHV+Q460
-	 6I0t1NUcFUgn6nwqz+CI/VkKGRxMf15aYoeCzUPhaLcQCPh3J51f1rFqXBTl5Fm3VsA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rwLt3FRK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.46
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793970879;
+	b=dep8K63J9YezuDwRluQa8pMDvBuWdvPVJoJbdK85WD1NBah8NouKhSVMF4ODhN0msC1H
+	 31src+Q9xd9gn/GvrDe7/MC0Z7+Yu0H4htSU0rEYeKSSFAuNwbL4KwYTaHGeOUO6GcQVI
+	 hbHxryVtIEcZMoFH4or/SW7Xg2GoFzBCNzmfpDrZ1ZIc17Dll03+Ec3GK9darXcc0buM1
+	 PfiNN2zEZ0fuR6DG9GxPqKTV5HXAkuUWTEkI5QiTmJy+dz1URl3AjuaQN3ojAIiO2QMaA
+	 BlVZzyPh3NEsC8mquxlC4C/s0mesRXn/Z9tQENRNMQljzi1bsb5XMu63Cl1WotbcxFg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793970879;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wQd/1GxfqRGjuONMNO2FeyamvE0fWukXqcmiOK2zleQ=;
+	b=wikdBIZe/IPIGz7QvpVVxPfgKnOq8tJYgEaFSLJ19Ik9E5wMEvc54PBKtHCbgpdXYdCE
+	 ek/jIGoVMpSAOZ4YEEoNWeGZQbJHxMzhEBa7ntD5S6ParAINxb3llD17fQDEWdlUlGPYO
+	 ykwXv3nHr2ReiN8xq2pHRuaGbPlHSjIFZW4TjUiQfGbyVNer9e5UJAlpEx+fR0RTATXXn
+	 kv8yifPl0n7nMsC5vjONgQvTw7T/uNcW/O4jTo5OvNZdr6434ijeE0BucYPvw+fyqLfId
+	 gLDlNgsEfAYOTQl/Dirg4YJwknAA8TidczfLHxR6OHuUFkd9e1CQeZgwr/SxyPkAkeA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y8yIg0AE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E26D606A331
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:14:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E26D606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD7B606A326;
+	Fri,  6 Nov 2026 13:14:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rwLt3FRK
-Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-47b47de8b4cso316680fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:14:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793970847; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N/lNWJRbMaXguw47XjxdX7VJHKpQkHols43b9jcSr2RANsFcC6v62cYFg9zUofmzGy
-         I9kP8t92DtQhEnBmWmHHKeMK+aAGpwQVAUMqbqF5Zv24KFCU75CyeEgcyj6Jk+tbwzxP
-         26P+T2w1n9ffWr0AeOjh5bwXsF9AIt7nXFWsFoadIkVD4/yksL7C8Bbc3uUdGAo00qDv
-         W31zboLIRtoEbY2aXF66m+2HXcGhKP5KEAgV+ajQq62aHPGh3p/qWmIDFXO+cVr9YgDR
-         luoHW8Irq+cO8nAOaVLvRwBx6zc46FjN9M418hSw4giMgPGPZL3ER4pGjHJWjfhhEXA3
-         jnBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XDj4Fz5MI5W96I8a8smZZO8uw7M1JDn7fdBwlab3epA=;
-        fh=H502sxW550pMRwvrzOG5Sz1+Ysfqp3XXi2krdUgKKU0=;
-        b=pugc74ur/kr1M35k+lw3Lj6JqTCi3stwQiUpCOwmlmmOa199W3YjjQ64QEtKK5BPHB
-         PzlfnXTDG+sgnEKqbPL1rWN+VncRvI+P3NwVr+LhL9DngKyyBU7PsF4+Q9SHixDzXp5l
-         HA5QlBTGVlHCzRjShac/TBlRivR0QS9mxSPqsWS34zVhVZgNVU3eSu9Ob0CtcEuogahD
-         lMrnGXuLhkS6W++fihAHDjx/4nbnb1VsnyVnuttsuU0W1luTko9D5CTBtMMqn8ShEZSk
-         /eJYbqab95yyC9udr4sC7LUaLt7Oujkdiq01vdiaU0CLOtD7Zax+3f7imZN9LsGgv7qE
-         DbxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793970847; x=1794575647; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XDj4Fz5MI5W96I8a8smZZO8uw7M1JDn7fdBwlab3epA=;
-        b=rwLt3FRKaib2TbFpjgr7R2B5jwDhmJgnrUZ42NuQTG2wKLmY+40UGIeF45BD/GISqz
-         BVCDKLRZanqeVQh0U2YPak+Nagm4TNbvzx4lNoku/O3YcapsvfHeuqVgZ8lZ9gA7WlBU
-         FtThgZOryzszqriE/hmExA2KW5x9QEJNz9St9K9EgNa7C5b2xz8EWZ/HwOJoESAGpWfa
-         G0qvPeEMgkiD581SCsW0KtAziRF6vwQLOlO18x/nYsmxifFXTadrIlP6QuDcaf2YDHZc
-         j5T8pVmdZ9jMtoWdLD0DU/h0oyH8GLM73WauVLnljRW4l9KCeSuj1/nKXhsG5Njuho6i
-         iQLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793970847; x=1794575647;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XDj4Fz5MI5W96I8a8smZZO8uw7M1JDn7fdBwlab3epA=;
-        b=SGdXprJR1621S7YW22+rhPCkrdNEqO4oIod4IKcuzgExXRn+3s6UAmHEw0ODaSU2r7
-         jkMWVM3f4zNtw5MEPtG2WT6cJLGMxzNiLe6uBR0dxR4LiH2YPM3RRGPEZcFTnPJRUG48
-         riyhH7FS1hv8P6ibmn7wZYXBi1yGbsPT4u1cuVX0oXRNspYmrJc59BJrTmU1CX2ld5Zn
-         Nkxgqupr2BxjF0P67ZExfHXtk9Z4TM/uj2RN05x+20WLcGHJEPbpUA/L5R9kUzbNlbIx
-         qyPHsjHj8u6nnAdxVTl3QNcvGyQcHpKGkE0GcHM8raMattYnGtVkEjkGyv2gjH+k3CFk
-         HqGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7ityjAq++5qM84HRhWLbtBEQ0mwhzKYfhPsigpaiT00EMixDbsuOOvA0llKbTdTRpEDgl/DU2Qv4Uv5A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LOyzWy8ntcsfInB02RTt3Hk+4ijG0nyQB4qlig2HE0IXRSur6
-	ZSLB54GlY5NR9KH8aJyyPS4Dl6IFxQCyUtUKxsCgQxX1/+sARQgFGOKrPi5rRh27AP80j1C4Bhs
-	YXYKeJRHSX+hn/eM6pmpeCWg3Y4re20U=
-X-Gm-Gg: AYBFou2eRjW+zZFpLRRO5eaDqSv74FWytXKSzDAXwc/RgwORVKqA1VEKd5Ead1hyOCU
-	wBdjPfB2ekCOHeiDEfRY0EoMPs/zwzCiXBNgHEU/WjbLYuGxwCtR71GHWIoWutyJQGKA4NXwlXU
-	2L/y2rfKhI3hplgnetUZO+UsTOsJQ69gZoFKrP2WyMWCR49SZzNgSmzgJpDpoVbfr8xptmNlqDY
-	9TEPYIaFXtHjKWPvL7ps28hwkvHW6I8c0pt0zRATIjvkvEN3tjyYJH4HJ7qrT2g5ZrbsOOYoff5
-	5D93SIMHXd3msDGgjFiV81ccCge3MtIr8UDSmVToB8NKPp8oeEqq+AqlIlvR1qhrZRZgTobAHt3
-	Da2esjqhd3aYy7iGAFyYDT2NE9IovkY8BJzuYYw4rPqsSen7yH3BnZcTUWCyWkJ60drwGEb6oxd
-	p8xVXLTyNLiz5gsW1JXg==
-X-Received: by 2002:a05:6808:4f6a:b0:4f2:ac42:656b with SMTP id
- 5614622812f47-567e098b95bmr2036164b6e.7.1793970847328; Fri, 06 Nov 2026
- 05:14:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y8yIg0AE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7694E1F0089F;
+	Fri,  6 Nov 2026 13:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793970879;
+	bh=wQd/1GxfqRGjuONMNO2FeyamvE0fWukXqcmiOK2zleQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y8yIg0AE5QNEjX4VYWP+MQ/Q6EvOq3BLHAn/bicgSvUSY4BIP6y/IgCyhyfU75VcC
+	 Sz2RRAEibULmlgBF6A65oE0KcOMc8zIH2c+AnbY5bBk5dDP6AeKX7sQdFxs5PZQVhi
+	 kt735/mHkkjl19/kHmIfhboGUiEAl4aTfFa3rNnR92QA3vfmthoV+88y1P21Gc/I7d
+	 GsdEP2JlpBkNenBpnOp00TNZ55KkFjCs+mKPdb1fOKzBe5N08B/aFKWOkMR98sOqpA
+	 +HNKXlbmhmY7pozDu41dx6KU95l4aq0ZVsb2CViLALyBJMMzdDaPiAnw0m+TSTF/g5
+	 zDi1E7vB4UX7w==
+Date: Fri, 6 Nov 2026 14:14:36 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 01/10] drm: Add MIPI DBI bus support for MIPI DBI Type
+ A and B
+Message-ID: <au3NWsXz-hg2LNr_@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-2-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,37 +64,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261004-ftrace-mod-bsearch-v2-0-c1de73e72e73@gmail.com> <20261004-ftrace-mod-bsearch-v2-2-c1de73e72e73@gmail.com>
-In-Reply-To: <20261004-ftrace-mod-bsearch-v2-2-c1de73e72e73@gmail.com>
-From: Mitch Hen Chez <mitch9654@gmail.com>
-Date: Fri, 6 Nov 2026 14:13:56 +0100
-X-Gm-Features: AclHuK-4pAGkIQBSKZ8F_59E3K5aQv6zvde8cyI5-gaZYBULE-9BuBhH3eqMpKo
-Message-ID: <CALr3rD93RT_=w8VB6aKfuV5crbwXK4Tffq9bLD=eJBj07Tv1=A@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] ftrace: Drop weak function locations of modules
- when loading them
-To: deduce@gmail.com
-Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Stanislaw Gruszka <stf_xl@wp.pl>, 
-	David Laight <david.laight.linux@gmail.com>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jmfgirtvictr6chv"
+Content-Disposition: inline
+In-Reply-To: <20261105140510.165165-2-clamor95@gmail.com>
 
-Hey crew :)
 
-I was also seeing a stall (~2s) on my Fedora 45 machine, and when I
-applied this patch, my userspace startup time dropped from ~4.5s to
-2.4s.
+--jmfgirtvictr6chv
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v6 01/10] drm: Add MIPI DBI bus support for MIPI DBI Type
+ A and B
+MIME-Version: 1.0
 
-Hardware: Ryzen 9 5900X CPU, RX 6900 XT GPU
-Kernel (base, as well as patched): 7.2.15-300 (fc45)
+On Thu, Nov 05, 2026 at 04:05:01PM +0200, Svyatoslav Ryhel wrote:
+[...]
+> diff --git a/drivers/gpu/drm/drm_mipi_dbi_bus.c b/drivers/gpu/drm/drm_mipi_dbi_bus.c
+[...]
+> +/**
+> + * devm_mipi_dbi_device_register() - create a managed MIPI DBI device
+> + * @dev: device to tie the MIPI-DBI device lifetime to
+> + * @host: DBI host to which this device is connected
+> + * @np: device tree node associated with the panel MIPI DBI device
+> + *
+> + * This function is called by DBI host driver to create panel device.
+> + * It automatically calls mipi_dbi_device_unregister() when @dev is
+> + * unbound. It does not automatically free passed device node pointer,
+> + * it must be put manually.
+> + *
+> + * Returns:
+> + * A pointer to the newly created MIPI DBI device, or, a pointer encoded
+> + * with an error.
+> + */
+> +struct mipi_dbi_device *
+> +devm_mipi_dbi_device_register(struct device *dev, struct mipi_dbi_host *host,
+> +			      struct device_node *np)
+> +{
+> +	struct mipi_dbi_device *dbidev;
+> +	int ret;
+> +
+> +	if (!host || !host->dev || !host->dbi || !host->dbi->command ||
+> +	    !host->ops || !host->ops->attach || !host->ops->detach || !np)
+> +		return ERR_PTR(-EINVAL);
 
-Would it be possible to have another review pass on this patch? I
-don't want it to fall between the cracks :)
+Do we want dev->of_node to serve as a fallback for !np?
 
-Thanks,
-Mitch
+> +
+> +	if (!of_device_is_available(np))
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	dbidev = kzalloc_obj(*dbidev);
+> +	if (!dbidev)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	if (of_node_test_and_set_flag(np, OF_POPULATED)) {
+> +		kfree(dbidev);
+> +		return ERR_PTR(-EBUSY);
+> +	}
+> +
+> +	dbidev->host = host;
+> +	dbidev->dbi = host->dbi;
+> +	device_initialize(&dbidev->dev);
+> +	dbidev->dev.parent = host->dev;
+> +	dbidev->dev.bus = &mipi_dbi_bus_type;
+> +	dbidev->dev.release = mipi_dbi_device_release;
+> +	device_set_node(&dbidev->dev, of_fwnode_handle(of_node_get(np)));
+> +
+> +	ret = dev_set_name(&dbidev->dev, "%s:%s", dev_name(host->dev), np->full_name);
+> +	if (ret)
+> +		goto put_device;
+> +
+> +	ret = device_add(&dbidev->dev);
+> +	if (ret)
+> +		goto put_device;
+> +
+> +	ret = devm_add_action_or_reset(dev, mipi_dbi_device_unregister,
+> +				       &dbidev->dev);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	return dbidev;
+> +
+> +put_device:
+> +	of_node_clear_flag(np, OF_POPULATED);
+> +	put_device(&dbidev->dev);
+> +	return ERR_PTR(ret);
+> +}
+> +EXPORT_SYMBOL_GPL(devm_mipi_dbi_device_register);
+
+Don't we need to of_node_put() here on failure? Otherwise we're leaking
+the reference that we obtained inside the device_set_node() argument.
+
+> +static int mipi_dbi_drv_remove(struct device *dev)
+> +{
+> +	struct mipi_dbi_driver *drv = to_mipi_dbi_driver(dev->driver);
+> +	struct mipi_dbi_device *dbidev = to_mipi_dbi_device(dev);
+> +
+> +	drv->remove(dbidev);
+> +
+> +	return 0;
+> +}
+
+Might as well make drv->remove() return an error and propagate that
+here.
+
+Thierry
+
+--jmfgirtvictr6chv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt0rkACgkQ3SOs138+
+s6GqSQ/8Djjroo6Enqv66xMCla9Ww7WZy+XrFpOUFb9u33ltccrv2kkVlqKln+AP
+/YR8KGS64GDgYgYbdpqup7+937gAV015x50hq6W/R3mCWlRqV2kmEMRv+ujBFVg6
+kKXBJMxhl3JmqX+lqw30nx//W8bC29XPCRVY8xL/N2q70NW5z6go9BKMuin8qTHr
+d1xYgAH5YsWW6WiE3WmzqbmDJVl4BBMkBnihuHORk4FY+atq5T/iYSLLDnCrWhhE
+YOcb0JmmXCqOZmQK+hiQA11CeWofXJ6klkehbZrKP+OcXEVnw/NS5RYwcba+3XaE
++vYTvx7/kEwaCVRQL7JN6PKSqVUonAy5Hb0lKsjfZMF5G0AnQ+A7xmJemDj4hXHc
+QK1XU3ppdwpeNkY4OdYGZdoZ5OSd/o8YoqLXFmzO1FSWKossx/Ec5NHs/aBS/rV2
+yiQs1u6fY7YaD7gOktNKHNJttRHQ0DiOWwti2041fYUAguUsu6XZbk8SS8RCczHq
+u3r0/1gxv8a0O2Tn+9Bdfmnu9srEt1lp9zjpv0lcHFuLjkZXPyRnIKhylXk5Ujdh
+efaaCN3UXDI1MpMEXN5j1XH6s7DwmlVRdWkxDkwxQw84piMKEn1MdoqReoe4j+tV
+MZgXudfbhJBY2ZVwq4hR6yDBKfTCemk3UQliHwY1Kz4y1oUUIJE=
+=C0s4
+-----END PGP SIGNATURE-----
+
+--jmfgirtvictr6chv--
