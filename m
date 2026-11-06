@@ -1,74 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793970932;
-	b=hlex0UfPqlp0mtF55lNvZsyiMaoyKTAtjrIDlx9F1CtfmjxS0nESu9urvJ8+A9b2ETw0
-	 czNLjt1QpJ6fa3LG7JqtYdA/VQllIRnSoRZpRcIxk6tFMEPw2LFWmB5xa+maXUhZkNhNT
-	 zhced5qhwmYb5Zs5aL1wDp1DOgqAVEB35zlnDwP8gS9cS0aJntnfD+P/9SnzcRzGKKphX
-	 807F8M8R0y9M0Lrn3oXftb8wP/z5qM0DEE/Vi3ndHmLCnrCxNd/ibgNlALgCJ4RHr31rk
-	 w3LMbz0fe4oO9ydfG7IAgYHo6WyWuc/3ZVymVHsaciSGs2zpmQrrs49SiqYBAfHp2Bg==
+	t=1793970983;
+	b=4SWVzGO4z0Pir4MCrt8t4kXHc+Fj14aZvJjkJ1Vh8I8z8saH9oR62DhxKKyxa+p1ZZoq
+	 VdxO6Lvx+cijm16u/tgQzltmR7ENjIyMmn0uUAYUXHUF58q3PJKYT5gXiLDDqvFFf4pKz
+	 9PjGx04Y6mXtnl4Fn2m8PHJFWk4n5mtnxH9cga8HM8uN9FrdjYq7ZdBcvl99dVPcNg5j/
+	 GteBfkZTkAS9WYKJAvHU6sIEXPcwSBCr87BVYhBAO8wR6xvfH0buQ9ddHp6C56pZl3Ofq
+	 QpukleqaShDfULTm0mnZqtdM4YmY3AXvzso4FTw0a+D2Ohx8UknvAMPreHjbByrP6Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793970932;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6TXkLHscwSMqxJsLbmecxFsJw68c+CWaCGWTtaOz1TU=;
-	b=fUSoqnnTXPsW/fuDN0mZNpElxnJgewV8qzmdHlsds0MUrvNiB/1kJ0mAJo1XyZiOgzQ+
-	 jUSoZbYF1hgoKzj5JmMC7ZI7ySN0P7GE+HexO+c+hFVM9Gjn2qKs9zXqpAs0MdRjZhKjr
-	 N+tS3oEtKBe4KW/bTE26tzcfbz0Wb6+qX5ya2oWtHzC/5Bh6FUPe24Ar4gUpm8gLgZpxq
-	 Ze8jXLEf5miYcNO6b1PMmsrwF4nwEKVAuoaKPdlRmcOQtn9jqAtBZQfWmlOTvJm9QCsMU
-	 9yZ6s0xajHFxYKejZij3vEBYrgs8s6fSBwbyr1eSSIengRZ512vKhDJgIMBT8VsX+5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793970983;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=54/+rHQFMYvpuWYFEAf46nqywk/lWRkyCTOs1SPupfE=;
+	b=tc/PHVPcbGTcSPp/ZqRQnfxbs959bl137Jzb6pYzVf1hfNpHvYlvhgrC3UCHR1WvACRI
+	 k4Rl/mAKpVpqbDLAEnQcfYyqkXm9JhHLbChJmo8lqVsAHR4GQiYzpS7VsGFKXnmBl6PTm
+	 OLvVDeNSi3SkRLTo3Sw/x8tPkYktKIjOISQBVW9ZI+XFUjcex3WYK72oPJEN7ABGAjmJB
+	 dhNtcwi5GTbcg6ReLEGByR1hD5AVs4xQFIV2NQgqdxFbts4Ld5U3fpWaIFFZsuNo2bUh4
+	 lWQMCddrW2cDNsHTEMIv/SS7qDbQZKghYs5ier3TgZP8tipp0VGYMjK4RQwWjZaSqIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="bVLFw/pv";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 003B3606A33A
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:15:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 003B3606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gtrtT3f7;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4364E606A326;
+	Fri,  6 Nov 2026 13:16:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4364E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bVLFw/pv
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 054A21596;
-	Fri,  6 Nov 2026 05:15:27 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 232E33F628;
-	Fri,  6 Nov 2026 05:15:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793970930; bh=Oc8nVxfpMQKJNDpsFeRnkG5aGJsyD4jQTTT2hvVB/ZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bVLFw/pvUgSmVuQ7mtMONAlEQZ+X/4aGTifq/SNv8S6MB50rGt0Vk2B8CRnaXOs65
-	 GKcIegd54xg0BNbFjSGPQufYPOjDAO+o12gJLw758dv8nUiDkOgPXYCQZGUGQ21IGY
-	 JvtOPLCYOUTxMc1ypMdmW1SvBRiOxbUf55/sKNyg=
-Date: Fri, 6 Nov 2026 13:15:25 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Rik van Riel <riel@surriel.com>,
-	Yuan-Hao Hsu <aa9736195201@gmail.com>
-Subject: Re: [PATCH v2 2/4] mm: internal: fix inconsistent in
- folio_pte_batch_flags() for shadow stack
-Message-ID: <au3S7XlzNi1FktdA@e129823.arm.com>
-References: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
- <20261102-refactor_gup_fast-v2-2-bc1ac018c834@arm.com>
- <85c4a87b-2c8b-4ef5-bb30-6518080f8be0@kernel.org>
- <auiI8jzumVHmmSV9@e129823.arm.com>
- <9a67e7f6-0ec6-414d-8689-c70eeed6100c@kernel.org>
- <auiZFJ7Bb6cQnqtX@e129823.arm.com>
- <d70b6ac2-a8b2-4c34-acc4-ee421eb70aac@kernel.org>
- <au2cKP0SWaaHQPrg@e129823.arm.com>
- <5521e876-3edb-4862-8b45-96118a21ab6a@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gtrtT3f7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=54/+rHQFMYvpuWYFEAf46nqywk/lWRkyCTOs1SPupfE=; b=gtrtT3f7dWuXt+w/aww8AhVVBL
+	wAv1YnSmmC0EWAmfyfsO0pItJaixnOL2/M4L860NwcVyt7gfkmSmedZs6g/tTrwGWtI7c8rPhppfG
+	6jrCLT1SaqgZOuQhOnx0Ol/XEnTERl/uXCRPfXnAovOLFHX4i5ImAQBFTJaE7h+PkHcM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xPJnf-00Elui-KS; Fri, 06 Nov 2026 14:16:11 +0100
+Date: Fri, 6 Nov 2026 14:16:11 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+	Jens Emil Schulz =?iso-8859-1?Q?=D8stergaard?= <jensemil.schulzostergaard@microchip.com>
+Subject: Re: [PATCH net-next 1/3] net: dsa: microchip: ksz9477: apply a
+ shorter ageing time at once
+Message-ID: <fcf99993-fdc3-4563-a93a-d5b5298b3302@lunn.ch>
+References: <20261104-ksz-stp-ageing-v1-0-2c2bc7217dea@pengutronix.de>
+ <20261104-ksz-stp-ageing-v1-1-2c2bc7217dea@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,26 +71,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5521e876-3edb-4862-8b45-96118a21ab6a@kernel.org>
+In-Reply-To: <20261104-ksz-stp-ageing-v1-1-2c2bc7217dea@pengutronix.de>
 
-On Fri, Nov 06, 2026 at 01:43:11PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/6/26 10:21, Yeoreum Yun wrote:
-> >> On 11/2/26 15:07, Yeoreum Yun wrote:
-> >>>
-> >>> That's my preference too and we've discussed :)
-> >>> I'll repost with below unless anyone has any strong comment.
-> >>
-> >> Yes, best to wait a couple of days for people to catch up.
-> > 
-> > If there is no comments for prohibiting to set VM_HUGEPAGE for
-> > shadow stack as David's suggestion, I'll post with this on early next
-> > week.
-> 
-> Yes. Can you do me a favor and move the fix to #1
-> Also, I think we'll CC stable.
+> +	/* On a KSZ9893 a new period applies only when the running one ends,
+> +	 * and entries keep the Age Count they were stored with. If the total
+> +	 * time or the Age Count got smaller, pulse Fast Aging; on a KSZ9893
+> +	 * that removed the dynamic entries and started the new period.
 
-Acked. Thanks!
+The tenses are wrong here.
 
--- 
-Sincerely,
-Yeoreum Yun
+    On a KSZ9893 that removes the dynamic entries and starts the new
+    period.
+
+Otherwise the logic seems sensible.
+
+	  Andrew
