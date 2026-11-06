@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794000754;
-	b=nWp0S82lwXD4YuhfyTLB3ojQEOKZCxsIXmUhhP1C1QhRcHpenNebrFGMFt0gfo+u4M4S
-	 UNUIohpzIQKfAvgQjNn+zr8TKlIjsH/SmFiNxg1rJieWUQRtMgetjLnUNAGaV5Ay8A3Ol
-	 eGcODb/5EOdum+3ytJH5IXaScyFSvMK2S7T1r9CnxS92oy/awN0PWYNYWEGLzn7iGVxb7
-	 2r+ZFeb7s3RBwXUQUfd7d/dMKzsZN2ID7i7ZZEmbrPA5d0SHgDTkQPR2M1ufV80zHjVYB
-	 kcHOunn0QXC5kSPL9akS6MeWoWHqFHxMxbsLBtEaWOun/yoLzFaBfNbLfqaOj2pP/cA==
+	t=1794000801;
+	b=Xu1NLtKkAgT++iuwFJqUwHUI6DnhPmsV2rka33B6ggSn5bve0K6GB7+4jHRJ0fVJHdtT
+	 jgbdDuAnkZdQNwM3eW/7drAKNW7/UJXGeLDvi0kx6Q3IjTdUlofL1erZtH0z5xuxjF5HH
+	 3xHfPVfrSw5Xruwd9uOi7YW7hZg8O00Dpo+hrdRuTb9EGDmktUJJEJ5Ds3Rs1Ho1yQu3Y
+	 AhlXreFKwcQRBJGJiXQFZxMBAdOtNvln/Bpzc3YZmqWtGrLcfNTHKDb072RZ24Sbv117b
+	 I7lNjiF7ScGXnqK6lUc3AE2palNwQ1KGLWOoTNiSCI3byhoXNk5WAUVLoMX3RN7Xk+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794000754;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=UBO1YKLCosQ4vsHbuZMHhER7fPDsXXqPC9c9DvGzmd4=;
-	b=ZLIMu/IyGyQ5IasFK7G3ETN4pfSIc0foSnL5YqHgNW9WH/Ey4S8hct2/JEN4a84vL3s1
-	 iDQ3x7gTP5ICn3q3aPo7bSREAznlcuF+6L3JTEwvtDm8sYV4CT8GVC1qENx5Bi8g3BVM6
-	 9ghYZuPgpCAxd00A+0xrF/ULDK5AcHTUC/3Y3yjKABWEf0nQiw2p+TCgrXkE0y4ErK5Xi
-	 lk8z6zybibVdq/+CIRfDs/2++O7WLwScksQk4X9fOIKNtas+lw4BUjKHgfRr1eobdIgXh
-	 I8bEzLd4A/1/bfXuE1QABaMrbi1qbJHmy0Zy6cbLD8eM3sHULUiFE4b7SuMn1vZaj1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794000801;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=wIpKQDsh/yOzhOKZHhW/5XtxRKTngpabn3QNYnDjDus=;
+	b=0PDlAEPtguOxYcx7RQs9dLWymSVALOn1oEFsqOmr/sVATMpCS660eBWlp1zbywW2sQ8B
+	 vBfRVGST4qYY232TV/ayVp/ECQwW9CLBeF+Xn9ka3gAAMckT8MvxvNjy1f93FNU/qpzKt
+	 WuLH0Q+ntMdUI63EHw6e/6w9mqunth/iRnCXIOFG8qby9l3cl+VzI1WQ3HutSsqxY/sgo
+	 z4CGxdQ9G2yBZx3/NPNBMTQoreyEnuCMUaqCJ1NtbQy8viYJti86hF/FaS3i8G+TZOKhW
+	 uUvP3s42jnKo/pbrxgItcdtda2NCpNxqPxLGvFVL1a5zELffQsI+7rxVa8vd6joVmXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RG1w5szR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T7wwe2pw;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF30606A32E;
-	Fri,  6 Nov 2026 21:32:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AF3606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:33:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0AF3606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RG1w5szR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67AA1F008A3;
-	Fri,  6 Nov 2026 21:32:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794000754;
-	bh=UBO1YKLCosQ4vsHbuZMHhER7fPDsXXqPC9c9DvGzmd4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=RG1w5szRWqmsQuAXORwSurVH2I28UPQyFnIPJ7hgXD/9+WkFjepM6QglHpuhawZHg
-	 IoSzUYqc0I/UQWkRXWdABK/598JQRABoTTKRSQJ5RguyYHFcVw7IOyMgTRGFDOYW1e
-	 jWbofU8eFVzOLlYrZLxzIw+bQ8gh9qS8JEHL/hN1gqAFQ1o8HQcP6/pOQktQxQkoI2
-	 lLWdOE7VYk7w/JrxwhW6g8v6JnTY3JP+rp43U1RzedaHkf3KbVDVjQCzjDni8iPXA7
-	 PnLnTh5yqG+4WttYOff0W87lD6ZHNQ24hUX2KC/YoUcYvluKQTltATtxm2KX5fHLFU
-	 57X4ANEt5TpDA==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Ian Rogers <irogers@google.com>, Kan Liang <kan.liang@linux.intel.com>, 
- Yanbo Zhao <yzhao62@ncsu.edu>
-Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- James Clark <james.clark@linaro.org>, Zecheng Li <zli94@ncsu.edu>, 
- Xu Liu <xliuprof@google.com>, linux-perf-users@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261105181949.43198-1-yzhao62@ncsu.edu>
-References: <20261105181949.43198-1-yzhao62@ncsu.edu>
-Subject: Re: [PATCH v5 0/3] perf annotate: Data type profiling support for
- C++ classes and virtual calls
-Message-Id: <179400075255.23155.12765347975568669027.b4-ty@b4>
-Date: Fri, 06 Nov 2026 13:32:32 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T7wwe2pw
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a215e64962so12729235e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 13:33:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794000799; x=1794605599; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wIpKQDsh/yOzhOKZHhW/5XtxRKTngpabn3QNYnDjDus=;
+        b=T7wwe2pwM8JaPUx0w3QuWttchC/LyJ97IohB1LI322K1zgLprOGMPddmGK8X/fF+R+
+         iq8lHQgSODEac9uoJv5J/Lm9B5x863MxGiBjUQj/Wp1+KRMwsjxjmrpPvYnKOSwyo+j2
+         /KW1IH/46KvckHMbwoFBVplgnDjK3zDbU31H/MxxAbK4LGcPyqf7wjRAnm4BjGsls9ng
+         vCzlm8V6+NZ+G/EyLgUprWqQeOLW7T5qqOvlnbj6sDrq6vJOROP/2insBBqgCsQxVM5P
+         zH08pndcKBHnWMhnbHRG8ufBKaDayPlGYqrZBrRNlPMsNmTKHx1XaRTrL64rG6tVfN3j
+         tfyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794000799; x=1794605599;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wIpKQDsh/yOzhOKZHhW/5XtxRKTngpabn3QNYnDjDus=;
+        b=QHoeb2vH69sZU6j8bzJON/kQoHwA+ottxOfURtkZGethjCzO652KRIAKfr55fvR+R3
+         1yyooVlBu/GXVBbHEQT2BSGURB96RArYPNEQQzTXt1fLM8eWzZda4ytUfpb+xYDMo/QD
+         ghzyE+gdjIotC+59y5yksLaxCBpnyMycthj4kn5oIvlQ7PV18+ZaQv9NL9jWmbI8mFn+
+         //xMuMCJE71XtTDIkNwoJxLLb+N0NQDv/P/L+YoyheG+WxBgwOO3pyiS1b+Ni5Q8ZwZ+
+         0o4r32/koLnv3vqMS7LJaXjJpb0LQhFvqpLQOcDfP0YKp5bah/+PB2JhqBXwgUKxSWiF
+         XVyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxiHgSEUQjkDeh7IeP1gLQ3IPmZ95Iozvkrp0dQji3yALSS/ExS0+ige051M1VwTEtLskRUaX+MPYuhNnc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1M26HfFdHrWmqpbOfnHL6XvbuC8VPApoCEaamj8WrfcaAeQsg
+	2niFJBpVsT+kMq9/m09ryNV/RSun3vWtmrt6htbZ89hBSfbCtEsB18uM
+X-Gm-Gg: AYBFou05eXoWYKr2Lzio/m8y9UIDwUhzX3uwMqlMo1iSf6msVwr9dP9+fVXoGN/0Nw3
+	+02qsR0M6ckCDfQBhB1M1sH2CmVhJeCiQZm4COniK8JAm0yM6vcnXrDYr8Ya3X/diM8tiXiTpFA
+	lxJ9P7Wa26PQIlWdAPSfEZSP8IkAOnB5EJ8egBeDl971hRkXQvh5QWjUCqpyqBf6cR5zUluJklx
+	Sd73qA/ShdzAynJQ/9kxYru83fTWQH82r7n/D4P62l/KYaFjQBmYDcpuKDxJHWPxwN12y0tQT3m
+	r1ZPi1T/8vCUPvOzLUFSclHLf3kEv8iSNKgUueI66+0TgMDp+Bkfa1g99Q1UyP+UMxGss86DgdD
+	8oyBDfxuUc00TPqKQxB97yvEUbkhSB+yl8ApGInjIHHRMv8mpMhY16gcb8jNkLoN+u63omkYzvJ
+	OVgyIXCVpdZ10strLDWHO3YgnPC5gCOkPmtOVfZsaY9S5DGUAZJ8Dv8QJ/BPX3TZOn0brP7XAxd
+	E+mB6qnpMtXi/KUDh+ADk0+Yixu9d9tmUQcuATyARo4alSGwsHCVZXg2izxdEdISoT91l3CowQs
+	uTvjjkD0sQXYU9oxur1PRYa5ORIhU/NtV2z7E7hAEOvgR6R2aQmJvtongB8KFd/xbRfvKcvFlRF
+	CxMsw+wjIOsrkHrQ=
+X-Received: by 2002:a05:600c:8b05:b0:4a7:462c:6b9e with SMTP id 5b1f17b1804b1-4b6e0172847mr72592585e9.32.1794000799410;
+        Fri, 06 Nov 2026 13:33:19 -0800 (PST)
+Received: from figssurface ([176.223.29.246])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d72333f9sm5758043f8f.29.2026.11.06.13.33.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 13:33:18 -0800 (PST)
+From: Afonso Figuinha <afonso.figuinha@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Bingbu Cao <bingbu.cao@amd.com>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tianshu Qiu <tian.shu.qiu@intel.com>
+Subject: Re: [PATCH 0/4] media: ov9734: Support the Microsoft Surface Laptop 1 front camera
+Date: Fri,  6 Nov 2026 21:33:16 +0000
+Message-ID: <20261106213316.104672-1-afonso.figuinha@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105230327.10852-1-afonso.figuinha@gmail.com>
+References: <20261105230327.10852-1-afonso.figuinha@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,24 +104,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 05 Nov 2026 13:19:46 -0500, Yanbo Zhao wrote:
-> Data type profiling currently only understands C struct/union types.
-> For C++ workloads, member accesses through base class subobjects
-> cannot be resolved, and virtual function calls (indirect calls through
-> the vtable) lose the return type of the callee: the register holding
-> the returned value becomes unknown, which matters when it's used
-> directly to access memory like 'p->next()->val' where no DWARF
-> variable describes the temporary.
-> 
-> [...]
+Hi all,
 
-Applied to perf-tools-next, thanks!
+Please disregard this series. I missed that Tin Posavec posted the same
+changes on 17 October:
+https://lore.kernel.org/linux-media/20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com/
 
-Best regards
-Namhyung
+Patches 1 to 3 of my series duplicate that series. I will test it on
+the Surface Laptop 1 (IPU3) and reply there.
 
+Patch 4 (control event support) is not in Tin's series. I can send it
+on its own, on top of Tin's series, later.
 
+Sorry for the noise.
+
+Afonso
