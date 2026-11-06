@@ -1,67 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793952126;
-	b=UQqtkr1VWrOA4k8Kx9YinqV3NkkusdfE/EgksDiYUUqcbKKb2cXn6xtaCh7q8hnKE2gE
-	 4GpHsL9SF+pPYbzH6nZpgQiX1U+6TWMiHprZB+RHA6Ud1F98p8hrpwkMCrwpqxFYqSH6W
-	 gK3c6y82ZltTWc/B1Z/8CQpARyid17awwYJwh0CqFyfGpyXvhiDafe3Ycb7n9bkgvrWzm
-	 urvvNq5+7cdBGWBl8xjH8IQWpHaf2Oe1JOxGmA+f3x8kZwlhV/u/f9cxDmpEvEOulzpGQ
-	 EREekrG1nkRkZuYIbc11jymbsYmL1tNEa1swz8UFF2sMs2p3C/yLBerwLgbj6Y1Dxhw==
+	t=1793952186;
+	b=YhIiwnfSUxI22hFdJEwHo0gIuV8AsWGaW0RQPpsU3k/YSfEdXmbhD8K9EZt/zB4sc5Cy
+	 u2qJ/a/HhEdvO9GvIj82bxL+KlhBOOFCyHNfosJDUTPYvScXWNlPsnKTT7qOsUYeQ/nII
+	 /pzvwX1for93MnVQOaaD1P0ezVsnULrb7Vmsi02QP0peKLNCIyK87EUxJ8RI/ChZ8B6hh
+	 aW2SSnPZdAOZAImYb0y0zbZj8XUE6r70QP441CNziW6m8r5BzMjdJyQ+FVdg0uLvdzAgw
+	 IhletUoGfhfFsk9CTUjdCszef681XbL1t02zDWjI3JFfMsuy/UlHzbE7qUFqddkN1Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952126;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=upa7e4x4UrpEceLbmQEOyIgK5o4Ta8XgOf1XRCNdVeE=;
-	b=1po6HhuQxRA9UAuL38MqVqs7NCuPhMx0XluuY+gbvmLjaffXHlKbexaQjrrPB4anlKn3
-	 FxuHi+jycUG6XOiM2MR8/ia9DFehdRd9Um97U9X8Qi1lN0bbXslkPmfzIP8uzsvLIna4Z
-	 gPrjflxuUhP31sdCwqltI9ui2oKAqFiUa1PLGnkotVlgqZOyGD3+8u2YJMiBYVMiv5NXi
-	 TIFDVuJBP4Pu+mx24RMcVJI9Q0n9Qys1J54TK/oZm6HFm1+taXHHzzRKf7cRHnEAVUBWQ
-	 A8BI9JCleXjHHK3NazkEnj+OWh9JCQookM0YqM6eCjpaA+m4Npv1GNlQptAf0E8xUag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793952186;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:X-Hop-Count:X-CMS-RootMailID:
+	 References;
+	bh=iLBysE6phjT4HHU22Lu68jiD8gY2MEIXZr3J4Uqoc5I=;
+	b=29V1mq1Nw+VcNJnM8nUT382WpEiSTv+118Uz8q5/pWW7Yjj8iqU+0BI9BLO8ZOTbkASu
+	 iLAyua2sS6mtfr0eF3rHgCKFl9oYK73oW9xzhzuDmXsFey+/c+DGKxOHaOZM1nYljORLf
+	 hfquxf4gSGLFm9EW+nCdfgrumgOmP8UFvgSbRe9hIv6DBXuZLDPMtUZteqRf98BIWOs9T
+	 m10VYyntvMtHf5hkW+2xKOwGVE8HIDcAayFgGzHKznfbSZNYcASt2rFipmk29COT2l/si
+	 mK01IMoJ7/Ki976B9PaMonFSsnk/s6gXhiplcwH5oCB3TDF9ep95OaBGIudIQXNzSOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=OZaIcwHb;
-	arc=none smtp.remote-ip=91.218.175.227
-Received: from mta0.migadu.com (out-227.mta0.migadu.com [91.218.175.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="Vo/k75ZW";
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72042606D827
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:02:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72042606D827
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACD0606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:03:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ACD0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=OZaIcwHb
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EQD6iBRuzY9Hc1wA37z098al2hhKb1UV+0Ibj8J0Ad4=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793952123; v=1; x=1794556923;
- b=OZaIcwHb+DDIsVd1foyZgUzl6VTxzGHo4JVrl6m333TRfD3OV9/kxYXAiIuIClM6uQ6nyDqd
- vYPW7SL4InuoXwLVWgRszicy7yciyx8aFxzXdOoG6NJlhenwUknYe4aYQT8mPmWdK6e7XstG96F
- 7QhM/sY4GrnUUo2B24sdRy2t+os1tR4Qp6Pcyr7EoboyxezoDIiAPtWTnv3comdBML60RL2zkqp
- rN97WTxhxzQ8Elhf8aZcbaXrz1hNNM/wmeVF+gEX/Z8+a0/vKB2833omQicyfkAA1PIayfKD2Lb
- yqznXYsyMlCGmbi7/ApqngeiXmBvvXCvpYMXtUzIO0nTw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9d4b8561adbe0eab;
-	Fri, 06 Nov 2026 08:02:03 +0000
-X-Mizu-Trace-ID: 9d4b8561adbe0eab
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 6 Nov 2026 16:01:59 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] Update maintainer-pgp-guide.rst Chinese
- translation
-Message-ID: <au2Jd6oyloqfeXCo@wyuan.org>
-References: <20260823-maintainer-pgp-guide-v2-0-bea33b2ece54@wyuan.org>
- <85899751-7554-4014-896a-24bb916c572e@hust.edu.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Vo/k75ZW
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261106080303epoutp0423a76b46608012ea4b0bdf016c942dfa~lZgGCIGN11028110281epoutp04m
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:03:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261106080303epoutp0423a76b46608012ea4b0bdf016c942dfa~lZgGCIGN11028110281epoutp04m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793952183;
+	bh=iLBysE6phjT4HHU22Lu68jiD8gY2MEIXZr3J4Uqoc5I=;
+	h=From:To:In-Reply-To:Subject:Date:References:From;
+	b=Vo/k75ZWd2V0aXbOQJ/ZjNokCt7zzim6xeRKOa0qoWWe50cDN+hV7h+l9C+d69ez4
+	 WgbjnzxxYG33Iwj82s97hNwrfLk3/AsT/vbb1iWYV361XTvClEeKa7NlQbPN5JhjfX
+	 BCTiFmhV+NreS012f92rgReDvDV/hxhXbI4JDW9w=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261106080302epcas2p3c94ad8ec3e3d1e9769d7321ac06112fe~lZgFibAey0143201432epcas2p3L;
+	Fri,  6 Nov 2026 08:03:02 +0000 (GMT)
+Received: from epcpadp2new (unknown [182.195.40.142]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jLWrQ4nqzz3hhT9; Fri,  6 Nov
+	2026 08:03:02 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261106075800epcas2p2438a353378a90f574dc09c3bcbf8a75e~lZbsHhTqX2914329143epcas2p2N;
+	Fri,  6 Nov 2026 07:58:00 +0000 (GMT)
+Received: from KORCO118546 (unknown [12.80.207.184]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261106075800epsmtip16779b70d510470a37afbf1447f973435~lZbsCOwow2929529295epsmtip1c;
+	Fri,  6 Nov 2026 07:58:00 +0000 (GMT)
+From: "hoyoung seo" <hy50.seo@samsung.com>
+To: "'Peter Wang'" <peter.wang@mediatek.com>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bvanassche@acm.org>, <mkp@kernel.org>,
+	<martin.petersen@oracle.com>, <stanleyjhu@google.com>,
+	<alim.akhtar@samsung.com>, <kwangwon.min@samsung.com>,
+	<kwmad.kim@samsung.com>, <cpgs@samsung.com>, <h10.kim@samsung.com>
+In-Reply-To: <9cf963e66f0e08efa9996b53d6b2f38eacd9c98a.camel@mediatek.com>
+Subject: RE: [PATCH v6 2/3] scsi: ufs: core: Limit early link recovery in
+ the error handler to runtime PM
+Date: Fri, 6 Nov 2026 16:58:00 +0900
+Message-ID: <973576304.21793952182671.JavaMail.epsvc@epcpadp2new>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,60 +81,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <85899751-7554-4014-896a-24bb916c572e@hust.edu.cn>
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQLLI625VyEVqOdBlj4qNrrnpnoJ9gEwv8sVAdhl8tICWOG+3LUaMV2w
+Content-Language: ko
+X-CMS-MailID: 20261106075800epcas2p2438a353378a90f574dc09c3bcbf8a75e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20261106022020epcas2p2af29bc4d81ede559c5a74076721aba7f
+References: <cover.1793931113.git.hy50.seo@samsung.com>
+	<CGME20261106022020epcas2p2af29bc4d81ede559c5a74076721aba7f@epcas2p2.samsung.com>
+	<e25861e1983785d6d96e4db40f6c175bc3d091d1.1793931113.git.hy50.seo@samsung.com>
+	<9cf963e66f0e08efa9996b53d6b2f38eacd9c98a.camel@mediatek.com>
 
-Dongliang Mu <dzm91@hust.edu.cn> writes:
+Hi Peter,
 
-> 
-> On 8/23/26 3:14 PM, Weijie Yuan wrote:
-> > The script says:
-> > 
-> > $ tools/docs/checktransupdate.py Documentation/translations/zh_CN/process/maintainer-pgp-guide.rst
-> > [1787244823.341547] Documentation/translations/zh_CN/process/maintainer-pgp-guide.rst
-> > [1787244823.630509] commit 54857c52452a ("docs: maintainer-pgp-guide.rst: add a reference for kernel.org sign")
-> > [1787244823.680849] commit 6c5c07bc8589 ("docs: process: maintainer-pgp-guide: update kernel.org docs link")
-> > [1787244823.730027] commit 273aa250f138 ("Documentation: Improve wording on requirements for a free Nitrokey")
-> > [1787244823.779408] commit f44a29784f68 ("Documentation: update maintainer-pgp-guide for latest best practices")
-> > [1787244823.779522] 4 commits needs resolving in total
-> > 
-> > So I updated this document in chronological order, created four patches
-> > based on these four outdated commits to make it easier for you to
-> > review. Hence, you can freely squash them when applying them.
-> 
-> I am not sure if we should use "So I updated XXX" in the cover letter
-> message.
-> 
-> From my understanding, it is fine to describe about what you have done and
-> why you do this here.
+Thank you for the review, and for the Reviewed-by on patch 1. I will add
+it. Note that I have already posted v7, which reorders the series
+following Bart's comments:
+https://lore.kernel.org/linux-scsi/cover.1793943246.git.hy50.seo@samsung.co=
+m/
 
-Fine, will notice this.
+On your question about making __ufshcd_wl_resume() trigger the error
+handler and wait for it instead of calling ufshcd_link_recovery()
+directly: I think that is a different design from the one in this
+series, and I see a few problems with it. I may be missing something.
 
-> > Tested with make cleandocs && make htmldocs, no warning or error made by
-> > these patches. (Hope my eyes work fine this time :))
-> 
-> Haha, LLM can help here.
+ - While the system PM callbacks run, host_sem is held from
+   ufshcd_wl_suspend() until ufshcd_wl_resume() returns. If
+   __ufshcd_wl_resume() waited for the error handler, the error handler
+   could not wait for host_sem (that would be a deadlock), so it would
+   have to keep taking the early link recovery path during system
+   resume. This series does the opposite, as Bart suggested: for system
+   PM the error handler waits for host_sem, and the early path is only
+   used for runtime PM.
 
-Ah yes.
+ - The link recovery was put into the resume path on purpose. Commit
+   35dabf4503b9 ("scsi: ufs: core: Use link recovery when h8 exit fails
+   during runtime resume") says that the error handler got stuck when the
+   h8 exit failed during runtime resume, and commit 62c015373e1c moved it
+   to __ufshcd_wl_resume(). As far as I can see this is because
+   ufshcd_err_handling_prepare() waits for the runtime PM operation that
+   is in progress. Waiting for the error handler from the resume path
+   would bring that dependency back.
 
-> > [+To: Konstantin, as he is the original author, thanks.]
-> 
-> Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
+ - __ufshcd_wl_resume() needs to know whether the recovery succeeded to
+   decide how to continue, while the error handler returns no result, so
+   it would have to look at the HBA state afterwards. It would also need
+   to avoid queueing the error handler again if it is already running,
+   similar to what __ufshcd_wl_suspend() does with
+   ufshcd_eh_in_progress(), to prevent a second recovery.
 
-Thanks.
+ - Other callers of ufshcd_link_recovery() (ufshcd_eh_timed_out(),
+   ufshcd_eh_host_reset_handler(), ufs_mtk_resume()) would still call it
+   directly.
 
-[...]
+For these reasons I would prefer to keep the direct call in the resume
+path and fix the race on the error handler side, as in this series. If
+you see a way to wait for the error handler without the runtime resume
+dependency, I am happy to look at it as a follow-up.
 
-> > Range-diff versus v1:
-> 
-> I think this versus is too long to read and it has no much information. In
-> the future please do not add such thing in your patches.
+Thanks,
+Hoyoung
 
-Yes, indeed. In our literary work, range-diff may be not that useful
-compared with actual codes reviews. So it would be better to just look
-at the patch content directly, not range-diff.
+> -----Original Message-----
+> From: Peter Wang <peter.wang@mediatek.com>
+> Sent: Friday, November 6, 2026 4:11 PM
+> To: HOYOUNG SEO <hy50.seo@samsung.com>; linux-scsi@vger.kernel.org; linux=
+-
+> kernel@vger.kernel.org; bvanassche@acm.org; mkp@kernel.org;
+> martin.petersen@oracle.com; stanleyjhu@google.com; alim.akhtar@samsung.co=
+m;
+> kwangwon.min@samsung.com; kwmad.kim@samsung.com; cpgs@samsung.com;
+> h10.kim@samsung.com
+> Subject: Re: [PATCH v6 2/3] scsi: ufs: core: Limit early link recovery in
+> the error handler to runtime PM
+>=20
+> On Fri, 2026-11-06 at 11:15 +0900, HOYOUNG SEO wrote:
+> > ufshcd_err_handler() recovers the link without taking hba->host_sem
+> > whenever hba->pm_op_in_progress is set. That early path was added by
+> > commit f966e02ae521 ("scsi: ufs: core: Fix runtime suspend error
+> > deadlock") because the regular error handling would wait for a runtime
+> > PM operation that cannot complete while the error handler is waiting.
+> >
+> > pm_op_in_progress is also set during system suspend, system resume and
+> > shutdown, where the early path is not needed and runs concurrently
+> > with the PM path itself. For example, if a LINERESET is reported and
+> > the
+> > hibern8 exit fails in __ufshcd_wl_resume() during system resume, both
+> > ufshcd_err_handler() and __ufshcd_wl_resume() call
+> > ufshcd_link_recovery(), and the host and the device may be reset at
+> > the same time.
+> >
+>=20
+> Hi HOYOUNG,
+>=20
+> Since ufshcd_err_handler already calls ufshcd_link_recovery, wouldn=E2=80=
+=99t it
+> be better if __ufshcd_wl_resume just triggers the err handler and waits
+> for the kworker to finish, rather than calling ufshcd_link_recovery
+> directly?
+>=20
+> Thanks
+> Peter
 
-Will pay attention this and save our time.
 
-Thanks.
+
