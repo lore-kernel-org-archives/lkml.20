@@ -1,61 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979549;
-	b=n9HWBJGWpsaqB15007Gw/mzZVR+9G0ilbjHeE7XHgs6cjVtJ4tKlBu47/ZH+OMIjgIgw
-	 aX+8PXsuqDme1vIMZCvC2Lr4WSYfw4duPb28hXgB8w+e6brDOlxnrnky8IFoo7k9crwz1
-	 19yY16sJzsmBLXXKsV5IjFbhTeJYfoWQJk2MioCy60TO1j/fFtFceBClCfGA55NrlOayR
-	 +8IZvfC7EYLlqDClXXvoNC4uHxpKtBVrlprqDS0dTjfX9Wf/LM3hnyefYPcrrWqq2whu+
-	 iJB2arOIa2UHq+qSufuOtfpm2j9DENwBH8bOCh6qA30wGTt8d5upocfZxnjd/PFECew==
+	t=1793979564;
+	b=IwtYKtwAJz9FAGLGhAOpEmuEbu3c9RB1AIkorwH4MrMzymrAW8sluejBdRiHC+CCrv7W
+	 Gv/CqKrIfc15Jkx6NdYVcR30VzE664w1Ww8+kBOnyn4cMgh/UMN+pPQjKkKFDryO89Qib
+	 pb1+4Qpceq9iGGHcULY4lPu9GHY6eMyCoc2yitR7UdnrbK9JhAVog+rOHd2L0vrw+z9Rw
+	 KaKspxUdfTj86xYycQ/yBP/U6sxnWHaU2PB5nk1e79xb/pHTxVh4IGUKwcz3SPSL6E+uK
+	 UO6x2xQrygy6bvHdqoF2Rsiptc2oozVYKKnWbfBpgZb4AncmkZ831WqsDlyuGcZzLDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979549;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=343eayTvifkkMlrwy/xdVN6F48t4446WEUYad6Mst4M=;
-	b=R2oxt4VDloB2NA5b3sjc+luv4YVyJ+ximeq3+G6AzftmoFKw+cDDdTfzr5TATC8Mg+jO
-	 K5bcfoyEdkIi30G6y0ROFLIU9RQ3HEuV+/57hZk4IMivSKxIQNFlGtGDMkQPlArekfeRN
-	 jeBS5acegi0cBCSswkVHHmhHoppztv9ImzCql0T6XjWQuzroUDyVXfXK/grjjD2+XbLD7
-	 WTcJKFZBu4XHxPN+HDW3ftBdd3H2Nm0eUuW39OxnrDaJdYCI2IMwupZdy+TznJ/NSgfLV
-	 kfWi68HOMQNO+sguLadGhTy9XWS4bygIkzXKDR9wUQngZcjewG+q0Ov1qOlRgwEBlDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979564;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4tmGxuQStKCk7w+onoi1RLdqwI1kArXig6jzABebmog=;
+	b=O18XEj338bnFHfkiR1pFC4dbvRxJiJebJHCJWmUpf4n5YiWmdV7HU6lWk/wfbRpdfpXB
+	 EllvMUR+tn9M1BiSzmkwNljOeULOb7gAbj5kFIKhQkqZqQyd3orNFvA3t8pM++cStnFz+
+	 bSseRlncyPRGZNRUAuQ/oiFPi4OrlC+L+x3iP1XrkD6wgrVK64glD5vO2q7Rvh6nFg/04
+	 WB6Hn1n71SPNAKPg1BqCfuJMPwKbRt3FQOmu0EtIkS8S7HKoGjWhm5SBfxh4BR7hcGlXf
+	 nPiYNvfnsG9iF4Wpzlo+GlppKz4bTzU3PWi2vrgrHl8N40pvUgMwjffbSNKbbq+HASw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RhNUG8v3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CmzgYoZC;
+	arc=none smtp.remote-ip=91.218.175.116
+Received: from mta0.migadu.com (out-116.mta0.migadu.com [91.218.175.116])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE969606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:39:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC150606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:39:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC150606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RhNUG8v3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A10E1F008A5;
-	Fri,  6 Nov 2026 15:39:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793979548;
-	bh=343eayTvifkkMlrwy/xdVN6F48t4446WEUYad6Mst4M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RhNUG8v3jLxEuKfkjzjh2O3hzkT/GXHoHwjFXad+jlqrHMmoroWCSEGOJ0whXTbw2
-	 xSujptrJUOFXO6gYslpAoW99b5HL12/fyBJuJOuhsieu3ICH/oxVleEoAIkh7RcG6U
-	 SIwdwG+dP6IuacVdo+ipywY41G0+dKBsxkxgOtACZ7bUEtTcEo4MTSd+nd3GadPzyU
-	 bAeFw2ZOH3g8/lu99jX2UxMQ9VF/cEMNnaOpzFIGQfKnsGek3+2LNwGgETaY9PfRiY
-	 DwG+UpF2w89nS7IKxvChsEE0SCP5nqnZ8YrJWZEf4Pf3/iugNsee2VmRdh2bUVHvqT
-	 DatnXZ2gE5+og==
-Date: Fri, 6 Nov 2026 15:39:02 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Vernon Yang <vernon2gm@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] mm/khugepaged: release contended mmap read lock
- after scanning enough VMAs
-Message-ID: <au30N0kjlIRfxMTx@gremlin>
-References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
- <20261105-khugepaged-latency-fix-v2-3-4384bbfe4606@kernel.org>
- <au3CUJO9zBMHLx-B@gremlin>
- <798cd192-9ec2-4f37-9cba-44db275a269c@gmail.com>
- <au3xEVu-SGXZYfyi@gremlin>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CmzgYoZC
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cxp+oaexrpUE0cyElicHmhKBrNrP/fzOSAf3exqA3F4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793979561; v=1; x=1794584361;
+ b=CmzgYoZCoSCoPOD8d4J2CNcL+azM+zYCz75PcmISXevWmg5vTMxyEjplZCkCK5TM1Om8yZ6V
+ Zbx3Wd/Y4LxkocPiaUzZIXerQYHYqPH79yMQI8F7Y4Qt8r5e7Ub4KBDOVvOGzoyHoXX09hBsmQG
+ 4dbcIPuXWKdimO8uWiqmyp2U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id be0c1e5625ffc958;
+	Fri, 06 Nov 2026 15:39:21 +0000
+X-Mizu-Trace-ID: be0c1e5625ffc958
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	peterx@redhat.com,
+	hannes@cmpxchg.org,
+	songliubraving@fb.com,
+	riel@surriel.com,
+	hughd@google.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	peterz@infradead.org,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	joro@8bytes.org,
+	robin.murphy@arm.com,
+	steven.sistare@oracle.com,
+	jhubbard@nvidia.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	iommu@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 4/5] iommufd: fix cleanup when adding memfd folio pins fails
+Date: Fri,  6 Nov 2026 23:39:14 +0800
+Message-ID: <20261106153914.91168-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261105-refcount_overflow_stable-v1-4-70b9c655da3e@kernel.org>
+References: <20261105-refcount_overflow_stable-v1-4-70b9c655da3e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,45 +109,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au3xEVu-SGXZYfyi@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 03:24:20PM +0000, Lorenzo Stoakes (ARM) wrote:
-> On Fri, Nov 06, 2026 at 09:26:01PM +0800, Vernon Yang wrote:
-> > On Fri, Nov 06, 2026 at 12:07:53PM +0000, Lorenzo Stoakes (ARM) wrote:
-> > > On reflection, I think this would be better implemented as something like:
-> > >
-> > > static void collapse_scan_mm_slot(unsigned int progress_max, ...)
-> > > {
-> > > 	unsigned int long lock_start = jiffies;
-> > > 	...
-> > >   	for_each_vma(vmi, vma) {
-> > > 		...
-> > >                 if (time_after(jiffies, lock_start) && mmap_lock_is_contended(mm)) {
-> > >                         mmap_read_unlock(mm);
-> > >                         cond_resched();
-> > >                         mmap_read_lock(mm);
-> > >                         lock_start = jiffies;
-> > >                         vma_iter_set(&vmi, mm_slot->address);
-> > >                         continue;
-> > >                 }
-> > > 	}
-> > > }
-> > >
-> > > Which avoids magic numbers, and means if we hold the lock for 1-10ms (depending
-> > > on HZ), which is a long time in the kernel to hold a lock, AND the lock is
-> > > contended, we drop/reacquire.
-> >
-> > Looks good to me. Is the test result of this solution the same as the
-> > current one?
+
+On Thu, Nov 05, 2026 at 02:10:13PM +0100, David Hildenbrand (Arm) wrote:
+>folio_add_pins() can fail after memfd_pin_folios() succeeded pinning a
+>folio. Upcoming folio refcount limit checks will make this easier to
+>trigger.
 >
-> Thanks! I will update the commit to reflect the changes.
+>Let's fix three problems in the error handling:
+>
+>1. pfn_reader_release_pins() uses the allocated array size instead of the
+>   number of folios returned by memfd_pin_folios(). With large folios,
+>   cleanup can unpin uninitialized entries. Remember the number of returned
+>   folios and use that during cleanup.
+>
+>2. pin_memfd_pages() returns on failure without releasing the pins acquired
+>   by the current call. Release the per-page pins for folios already
+>   expanded into the page array, and the single pins for the remaining
+>   folios.
+>
+>3. pfn_reader_next() returns on failure before updating batch_end_index,
+>   even if the batch already contains successfully expanded folios. Update
+>   it before propagating the error so cleanup releases those pins as well.
+>
+>Fixes: 92687c793644 ("iommufd: pfn_reader for file mappings")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
 
-Hmm, actually the poor granularity of jiffies makes things measurably worse.
+Nothing jumped out at me, so:
 
-I think I have to just use a fixed constant still, and explain how it was
-derived.
-
---
-Cheers, Lorenzo
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
