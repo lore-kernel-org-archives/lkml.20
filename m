@@ -1,111 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793954893;
-	b=RZyKUmXfOk2YycyPXfRnE/Sd8GdyPu7QUTBnPuV0zNikfqVJZS6KKufWfncA/Hrz0NZU
-	 pELsu/u0Q53+DM5kadLYwURsXdpPBZTv6Qxhj9LOd8N2NPXcsNGL46JWMsShshxQBi6he
-	 WjDzdWB1BWh3DmPcX4V64RjwYAXKaamGAydBYhVEeVpNAdkBZxLsJ6YRM4nA8bpTO2/T1
-	 mandCAqiMZjvw1zoEc4AuubfYBndyS/buYo3zvtKqCm6M98CHURUbytBEwfzQ4b3SbD0J
-	 CEzFTysW5GtPO7bm6wgrBma1VJuxVf8UIKG0NkEU/pBHVzw2r0WvgbxR9RdyzRc3E0g==
+	t=1793954917;
+	b=piipVJossyNFLwQCyVjEbnGmXLaUP5/jvxqPfSUmGzG4hwUC8VRYyH1JinOzt33M9buQ
+	 l2JguNTypkx8HD3WY4v58x4bO+pdCUy4STK/FXVfn4Wl0DPW/4nrRrV+0G6tI8e8OtZVy
+	 TqwGCldTwvGYLVRsA8CA5ddtT+r7MG0+0O9rPsy0jAb0odMDYW5OmpGgwoaztoqh1Sxf4
+	 LsbLZoW2qMZClX82uJcIMU3T7fxZesOTD/ZxTGpeLq+PdDfGmNICT4huysNZ5Twv3NaSP
+	 ED3OlHwAMxQwzAdWkYkW/2JWQ3rZH6HlB4A9/AE0jaHkT+bIqgd7BUYu0heTv54d3Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793954893;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=k2FbAyux9MGdLB8gSy+e7iMBMpdgqsliTMaQr2Ms7z4=;
-	b=QOfNJsr2ErMh2n3UWCMbxPhTFIGf/WkZOqFJhOXqkPfC+HdxOhpum1FzF/Pnn3jZ7YAt
-	 Eff2V4PmkfoMPGwHu7TJg68FK7a2DC+nmcGtQ8pZyk2I2AFjCnY+L4sHowdBQJDIgUjCQ
-	 3R/iMqTpr8gR+o3EvP3Abkhr555eAHA+SKqmljh2PKkpK5CX+IcHFB5YCH7tXTfwReRic
-	 7GvllNSOE74GFcMhGBKZhvtEmW9jLvkV47AtmjXTKcn3lrHhByOOFAXyso3HeUtixPzON
-	 j4P8R2v9LgKTILe8YR6DabNHpWjKMlpQJBmRVD3kjTL0VzPOZY9QTIXD/EIZcYPzk8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793954917;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=aLGbaNHkUtTFgo7SYRpl/SmqYN5mxNTgYqz9elwLiSs=;
+	b=5toBmh+Pa/CAasSzkYkht1l1ylYXZZJpwb8WOxbw7skvIJj4ZZ9/5K4xOjoYQQUUSB8y
+	 KfWiFxDRx4PTJQ6QaOAeTOauQIuz7lJZ4WrTJAhkSyQ+iJbpifvOwA15UthqShCXzSKhu
+	 k7EAsvOjXu5SPIIINLQ8eSWIFLXvBMbIgjQOLf9hP7mjOSx1WWrRw3Jnwd9lmQjj2D2Gl
+	 gZXsskO+iHMGJO7yvBGEOUfI4bClaBPUkVikMtFZvELu0H1jNZLlhbFbY5W2OAo34MUPS
+	 K6Ac2h3tWHx1aw+qz/MbW+hix9wsuNvCsyu+NXEtuLBWQMROxkygn2HVrxHELMYve9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eZZK8WYj;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KKUR54J3;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6911A606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:48:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6911A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vI5dTAj8;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 55A61606A326;
+	Fri,  6 Nov 2026 08:48:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55A61606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eZZK8WYj;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KKUR54J3
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67RORj2933654
-	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 08:48:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k2FbAyux9MGdLB8gSy+e7iMBMpdgqsliTMaQr2Ms7z4=; b=eZZK8WYjuuP2/fLZ
-	rGYutrJAe8m1ZiwNMwRjzAiU0mbshZjNaUGXok+JEBFwbFkWjBOUNco7RSycCygI
-	TLq2Lmjfu12mj7W/vCOqvmHrsZp0O62aRhNt50aXT2YNyn4L3Afj83pgWsbwH9u4
-	epd+KcZtbyD2ge9AF8EiagjR4CUIms8yKR1X5oZvVTuS1A6/SgDZacM7B7B1I2DT
-	iWHjvatYEOg8fgKmJb1tBeb1xJ1QU+jlTFdAyGFLxYLjogmj8OCTcD/DA4VzEaEp
-	XiVZHd7LqZ2agUaT4kk/FTmYMOCTE7+I+ra7Xb+Uwd2G2bD2fy3n3gZMCVsJUImG
-	MIRmRA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa1y2p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:48:11 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb1091fffso7192685a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:48:11 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vI5dTAj8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793954891; x=1794559691; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k2FbAyux9MGdLB8gSy+e7iMBMpdgqsliTMaQr2Ms7z4=;
-        b=KKUR54J3FKaZCxRNQp+3Gogi+fMo+EXtq4jWF7XAnSXRIqt/GESvjwCU3Ld/ewGv4z
-         ipOOlV+LuGPFzbIkQJ3FMwiUdtssSemTZ4StMYhhZ59Nsa1ta74GB2KvA3jePh/W3qUc
-         UhoTd+w226LIcSQQe463ntnwIAtE3CqNlAim2ZFwXibHRJT2y7uFUZ/AH7RG9F6OSPHo
-         DUSQIRSNZfNHYCdiek9IynkiBpodX9c1dsqa9WHP/1hDuedkjYTzqukGMbKMhl5/wNjg
-         U/dcClyIYHLOr4dVqoa6JUxLnSqIVQoCqtUJArx5lhHdFQDfXR9nE+PuwX5aWiCIM55G
-         gLkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793954891; x=1794559691;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k2FbAyux9MGdLB8gSy+e7iMBMpdgqsliTMaQr2Ms7z4=;
-        b=DyZ0BkzW5c9UFmkZEwjKIPBxS1NyoRhub3twgDrtJ4nTfj87ecpQqUixVIU8wkKbPb
-         tJRxO+IURebPBpNdJboAI77yMKJS6xV05G3omshXO/Igeb9uKLXAtRZnFlhPZkoj8Lcw
-         Qe9DDCiOLZAKAQPpV2HP87r6fwyWDiJTaek4c5NdXG/ZvcmLG4v5RyFgubub09tzbZs/
-         gThG8mjgS+2Jww1ME+ALqrm2nOfa3nCnbD8xV9FXh0qUWwquICN2rTs1sJPKOBJEAIIN
-         T/EcZoD1e/47fYwVNGyFd4j+Fx4LMcx+HZe5oIoop5WZgv3Q322x/TwMZrLgDKwSyI4K
-         v52A==
-X-Forwarded-Encrypted: i=1; AKwUvBwCrvvpGePKpjKgw7zEckjrfhXA+7a+raICC7bpryk4TaR6aSzz+ULsKfcEQgvthdRa9KhPhbE1VSGKzS8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FRdl5vW50nhb/Tuh13e9rDz3O8aULypqayg53spEk4YjCj2YG
-	y+fSwdU/1Fv45o+T8CXlQCxE0l1bi0GFpTPEZbvJDmCtP0N1IQYI3FaLz6YiljqIu8nN2yHIQxX
-	VGnM8YsTvbOMUXviUSD/wWFYOB9lmdJIoInR2xjuVRF1u4Hol/qkdaDYw7tzCH5eEAiw=
-X-Gm-Gg: AYBFou1bFTdZIKXUwpt6MN5eoSjYMoNIeyFjrlESz3PXav+Gavt175gsoP6JYdmy1/8
-	uWH6bx7+G+xjKiwa0+ckXgiIT3bLmqMBDAVEuHFxGgxwIqwbBylLzsxq98LXq5WAtEv0Ni+3XNZ
-	kl1y704TajZgwmFmj2/30vpssONkql8e1tTtlhg28xJRG3kS6itE4mzg6OxNwWXGQUVlE04k3VL
-	UlI4UcqETle+N/DMQ1u9Kz6iTSmQ4nm9ukPtNZSA6sz1HL37LJgQO32DV2D+gidulzCENo6Xj2k
-	0CGuTzAX8OGYNQ7qdDVgXokrTElurm03smOSzyjoSarVB/cxaE6w/sT5xdLjdbOZD2RAcHrnDvO
-	MxPNdT0hFZli2IfnKPcjDRd2GbzMy6nMgAoPYm/aGkXX5A3aNmRh1KmIbyIPajpnUeDAu
-X-Received: by 2002:a05:620a:3c17:b0:945:e612:cf59 with SMTP id af79cd13be357-945f35e5863mr220661885a.5.1793954890626;
-        Fri, 06 Nov 2026 00:48:10 -0800 (PST)
-X-Received: by 2002:a05:620a:3c17:b0:945:e612:cf59 with SMTP id af79cd13be357-945f35e5863mr220659785a.5.1793954890185;
-        Fri, 06 Nov 2026 00:48:10 -0800 (PST)
-Received: from [192.168.226.1] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3566e050sm61977266b.32.2026.11.06.00.48.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 00:48:09 -0800 (PST)
-Message-ID: <e53010ae-6347-45df-9574-a121aa4711d6@oss.qualcomm.com>
-Date: Fri, 6 Nov 2026 09:48:07 +0100
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=vI5dTAj8R82FBpRFNkHeQJa6G84cpzhxW9VxxFmyJ0vsOuKf4DSCt48w0aNvX58aT85HiZum09Ldp
+	 wltVWY165X64oVCJ/q1TbmNVkQPCkWucuEJQIF++kZwn2tmChLUk02ZjrTyw2gEE4wVAPRF5+Bv93v
+	 sfHPBzr0Nv6a5Amw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16aed946166a-8b881;
+	Fri, 06 Nov 2026 16:48:33 +0800 (CST)
+X-RM-TRANSID:2ee16aed946166a-8b881
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [192.168.229.154] (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86aed945f73f-19923;
+	Fri, 06 Nov 2026 16:48:33 +0800 (CST)
+X-RM-TRANSID:2ee86aed945f73f-19923
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: Kurt Kanzenbach <kurt@linutronix.de>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, David S. Miller <davem@davemloft.net>,
+ Pavel Zhigulin <Pavel.Zhigulin@kaspersky.com>, linux-kernel@vger.kernel.org,
+ yana06070@163.com
+Subject: [PATCH net-next] net: dsa: hellcreek: fix device_node leak in
+ hellcreek_led_setup()
+Date: Fri, 06 Nov 2026 16:48:32 +0800
+Message-ID: <1793954912000.3200.3087525628285919529@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,83 +72,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] pinctrl: qcom: check the return value of
- qcom_scm_io_readl()
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Bartosz Golaszewski
- <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Christian Marangi <ansuelsmth@gmail.com>,
-        Ajay Kishore <akisho@codeaurora.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261105-pinctrl-qcom-scm-fail-v1-1-a23f96c6b313@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261105-pinctrl-qcom-scm-fail-v1-1-a23f96c6b313@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: tgZEc4cRyJSilM0YUYAIUzqsVSki6F8_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzNCBTYWx0ZWRfXwEDBga8dURKI
- SBJfEjIKWQJrGqbD2A1lkH6+tA80yH5ZAoB6RbYPmIjdVLvR4E05lCO/iJkT/vMsC1MFnlqwtYP
- cMXOVYQiPqkOCjrRoEgWvvEkfkbrGRB+GR3QcGX6TyF0T2C+PZqEzdS5PXHYavySPRZFAu2oVRX
- n+yNrzU08Igk/WEgGVjVMXwQetXG8ySQ/WxuHuNGFH4ZMgu36xHPlv9BNHfFsW2FSjgfCPX0fUv
- iZOovXYeJxK1f/5pIBKvTg54YK0NOpSwD8J5OkY2yrAHmjbI069Vlfqjhg0JIwYGPFGKk9/amWO
- KvLzw8lhD0KSxEhyTjdcVvTOkptypv+VyqhGKQXLvVbKn0rzKVq09ZCdkzkFWY8WpJ4eKux7alN
- rhlPK2eZfuSKYTcakcsNPxz+LGtL49LS1sto3PZjHRi9koyMlP5J+mDAJi/yKrIntbjgB39Un9M
- mA5wMkF8JoFLygIlSyg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzNCBTYWx0ZWRfX9gaQyVovCjXD
- DGxDs7/4S9MSRHIQAaaiKEfZHXL1OgtFctnT8cii2BYE4+QiJM336xtPMOtNysIRI02tineeQ/o
- DlODcA31vFraM8BTOZSVgM789HvM1Vc=
-X-Proofpoint-ORIG-GUID: tgZEc4cRyJSilM0YUYAIUzqsVSki6F8_
-X-Authority-Analysis: v=2.4 cv=CaKdd7rl c=1 sm=1 tr=0 ts=6aed944b cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=PcXE8KnCS75fSRLkHuYA:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 spamscore=0
- bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060034
 
-On 11/5/26 5:18 PM, Bartosz Golaszewski wrote:
-> qcom_scm_io_readl() performs an SCM call and may fail in which case, the
-> stack variable val remains uninitialized and its contents are written to
-> HW registers. Check the return value and bail-out on failure.
-> 
-> Cc: stable@vger.kernel.org
-> Closes: https://sashiko.dev/#/bug/linux-a5545ffd-48cc-4856-94cc-4b2dd7968f50
-> Fixes: 13bec8d49bdf ("pinctrl: qcom: use scm_call to route GPIO irq to Apps")
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/pinctrl/qcom/pinctrl-msm.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
-> index 32aa7b919e24a0e614078ddc70a248c746e4813b..0053d1d927dc134ee81377fe480befa2da87c7f5 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-msm.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-msm.c
-> @@ -1117,7 +1117,12 @@ static int msm_gpio_irq_set_type(struct irq_data *d, unsigned int type)
->  		u32 addr = pctrl->phys_base[0] + reg;
->  		int ret;
->  
-> -		qcom_scm_io_readl(addr, &val);
-> +		ret = qcom_scm_io_readl(addr, &val);
-> +		if (ret) {
-> +			raw_spin_unlock_irqrestore(&pctrl->lock, flags);
-> +			return ret;
-> +		}
+hellcreek_led_setup() walks the two LED child nodes of the "leds" node
+with of_get_next_available_child(). The helper drops the reference on
+the child passed to it and takes one on the child it returns. After
+the second call the caller holds a reference on the second LED node.
 
-Linus already pulled Lee's fix 
+That reference is never dropped. The out: label only releases the
+"leds" node itself. Boards with both LED child nodes leak one
+device_node reference per probe, on the registration failures as well
+as on the success path.
 
-https://lore.kernel.org/linux-arm-msm/20261103213002.1673560-11-lee@kernel.org/
+Drop it at the out: label, before the parent node. The early exits,
+where the walk stopped before the second child, pass NULL, which
+of_node_put() ignores.
 
-Konrad
+Found during a code review of the OF node handling in DSA drivers.
+
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+---
+  drivers/net/dsa/hirschmann/hellcreek_ptp.c | 1 +
+  1 file changed, 1 insertion(+)
+diff --git a/drivers/net/dsa/hirschmann/hellcreek_ptp.c b/drivers/net/dsa/hirschmann/hellcreek_ptp.c
+index cb23bea9c21b..ed27731d4f4e 100644
+--- a/drivers/net/dsa/hirschmann/hellcreek_ptp.c
++++ b/drivers/net/dsa/hirschmann/hellcreek_ptp.c
+@@ -392,6 +392,7 @@ static int hellcreek_led_setup(struct hellcreek *hellcreek)
+ 	ret = 0;
+ 
+ out:
++	of_node_put(led);
+ 	of_node_put(leds);
+ 
+ 	return ret;
+
+
