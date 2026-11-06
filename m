@@ -1,110 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.58
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793963928;
-	b=r6ti0CM33FyBkSmAeblLW3rIRfDqbvx69jzdp8t6OuLEHna2w6nkA7hyFw6BA/l59n1B
-	 cFEkSjGxDmb7BCitq/AruGPk0/lL8kgHjLa//CQUshywQIQ/X49kakYYMph0HXYtHmeNd
-	 /ZmDypejSnrCbwYLFyoXoR9NBAUp5P2JKMIj8hLXGkbq2sN8+TxfoTNbMrzLsFLOR5l5R
-	 tSZ90HBXzdqLUKMOemKoakM4io6i5Z7sTgq7AdcTSnI2sj04kE7H4MqUtbq43wuH5PNNc
-	 lnAVuu5nKiXZ5krC9pOs9V+zDDpdfzM90zcfNjJ8vBUinv2gZFVc5rGa0uzANbNb7Sw==
+	t=1793963934;
+	b=kOFmvrQw+VvVp5GahSjSIFUFmSWQ0QkSo0uqZJsMRpg4nM+muV7nUNEQcEHRg9HMoMX/
+	 4sfd+ZbXUW3T0E2+GQ26npr1XBB5ML0UTj9BycqN3+EEbEtoC28rPOrGfwRBp3v4ml1C0
+	 nX1jWlRKNPhxlavGzqjr8zjRgX6E+WSQDs8tpTEGSBcoSzzbrSAPSvIOsvdujuSw2HAPL
+	 pnzW0wM6VmkV7Zj54jBvGQaTVzFwEitCtEsijJS6BleF/WJ/bVaTroFPOM+hyZhppOShu
+	 g94qgtIfLtgyfdMImFzeafq1HH8or4jL+m4oyb/yBsMYuwa/eo0fu5OsGD4TBvteGsg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963928;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wDdDujTy/yWRpau/gRJDSw8DMCIlzAr/0t/Zqbmxga8=;
-	b=k3YE4I9hsKRGO1jAg57LWPpU/4pPWBcNrYTVYpn0ZVh0ce0bhZR8ahiu1JjbR5etK4Zn
-	 T9nmavpR0ib3d3AtIj+e7xyTSMW3LBzp1Lu2WuV8/Bndd2cT16sgmGCZlC/5FDJRxaLry
-	 BFsuqpO+VytTVw/brq9apkYunEMGbg7Ga8IgOGd12wxTkSF/UXBT2uAZKnFR9FSdw1Dt8
-	 tzcG4H+02q65kZDaYGlrL5zdO6uumwUS70hBzLm+xZzscoRR1Mp4SRIiCU88AonwkrhCL
-	 43HdpJMVEyuDkboLM+8RjHGvXtofpiP5cGtcaRfcmiKascepsgeL8C5T/u131f8cnxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963934;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=JCiiK4kYulPJyLW4OAcXTNQWLZn928rt9Ez3MCOozdI=;
+	b=ddkxYn+0WoZjakBOuyOkg1mGB5MLuXp55BnFUKJqk7FQ+9p/DrA8ITATgodkei18C/ca
+	 +xxjOzghGuKG8U/tguK9A3Cxe6cyH3ImlffhcYlkzMAj58AQnviSOrPHpB89p92wOVvjS
+	 xrxCMf+jVtS3JdzoWDeSNS5BtPw52d1SHdUs0GLljIjZEYrk6por6zO8IeOVH3gIJwyg5
+	 PgKtA5D7GmqnKTJFEmzPu25tVP9ROUZxytItKNj6N79oOqDbIirRQprSswBRPR9uIf7Bf
+	 IdMJTTA68uLUeNaOJH1ip27nahIK3SWhyDgLdcKabZptB9cVKNlD4Qgd4vlTy41U3Xw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GIt8TCok;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.58
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012058.outbound.protection.outlook.com [40.93.195.58])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=miget.com;
+	spf=pass smtp.mailfrom=miget.com;
+	dkim=pass header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=O5GvNw7p;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A39606D803;
-	Fri,  6 Nov 2026 11:18:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4A39606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0F5606A332
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:18:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE0F5606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miget.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GIt8TCok
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nultHiRj4BhisP9LGmwwYqN6TAXwBcd2mOkt3nOq+5irm9zJMieUaJizAy3748W+phybGG8ezocokdw838cRnBacngSSx7oOs/GMaiOXA0coYQD6Lg30KbpguQmmtehCVZKmlxspUhFC3eLsduQmaBDe1CygS2QRL2ElkOhjLPqR03TIqEHprGGJFeN77rtmbtvXuub02Z1ubZSEBDJMgsyIsfzgwt/LJOX4Q29HnafRJOe8yNsFiarMh2A41XOzWs3wqwtQTigZgjcE3alq37dktViAzXgb6bKLaRp1GMV6yANqo13MOkXajMO9OdtWUPQGHJpxqsiW+9l/geKLKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wDdDujTy/yWRpau/gRJDSw8DMCIlzAr/0t/Zqbmxga8=;
- b=ssuXvMfp8Z5+UYzZaJTbx1CzKS/JUzDAu8qjuFuu1+PbL+yYDuFnYTF7FM52cuN4P3cNLPonYWJ5NmWB+8SL7LH0Y+oZlfTW3xfv812mGmQ57uMntEE2cDxtFBYEFkw44Mm4Mkdp/TwNiU0agzp8yoxVbZBMnErKCOJ5o7yO8VIFFVuWEBlWxPEJS8ACi64hFoiqLN+alAaiWoJzZ1wRzXONQYOpLQ32FcjaprLhd5Rg1OrTTap5vvPLwlXuzlqwFcwPB+z20OV0oMPAn8/uX2R3fOK4Dw4AHSOheLf2E40UC6ORHzMsXG1uolIdoa4a7u4du7maMJ8LzvZ6aXMKqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wDdDujTy/yWRpau/gRJDSw8DMCIlzAr/0t/Zqbmxga8=;
- b=GIt8TCoklyjrAI+AhapMrT+FUmvrNa7Gwz1PPIKDcRskop0r9qGFUFwf4zdFxoyA0jKV6AISYITSpGZ5bxtN5YLuC2llW7PuDywgjnOsKAOZ3NXbw5gxMu5o4AI9ZoWc17lwvmluUKNHIT0J6kwzOY+EWttX+caEE6KkMartg3BxXFcyJN11+mJAtbU1Qq92EAtEpuhjbSgkQ5kFp6KR6GVgufDTRpwduIHxkXWplkWE9rnnmY0Ui8PJ7TSPTPqcauSqhJOJn1zozASFtKhJ0zUxaM2AlDBUMnzUlZ8eR9cIeFiDzmKvmoNq04MG92FK3x2ilMKVyJqMFMGtpsv1IA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
- by IA1PR12MB6652.namprd12.prod.outlook.com (2603:10b6:208:38a::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
- 11:18:44 +0000
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 11:18:44 +0000
-From: Richard Cheng <icheng@nvidia.com>
-To: bhelgaas@google.com,
-	dave@stgolabs.net,
-	jic23@kernel.org,
-	dave.jiang@intel.com,
-	alison.schofield@intel.com,
-	vishal.l.verma@intel.com,
-	benjamin.cheatham@amd.com
-Cc: iweiny@kernel.org,
-	ming.li@zohomail.com,
-	icheng@nvidia.com,
-	linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	tglx@kernel.org,
-	wangruikang@iscas.ac.cn,
-	vidyas@nvidia.com,
-	lihaoxiang@isrc.iscas.ac.cn,
-	xiangzao@linux.alibaba.com,
-	shawn.lin@rock-chips.com,
-	alifm@linux.ibm.com,
-	18255117159@163.com
-Subject: [PATCH v2 1/2] PCI/MSI: Skip MSI-X restoration when configuration is inaccessible
-Date: Fri,  6 Nov 2026 19:18:28 +0800
-Message-ID: <20261106111829.55823-2-icheng@nvidia.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261106111829.55823-1-icheng@nvidia.com>
-References: <20261106111829.55823-1-icheng@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR02CA0013.apcprd02.prod.outlook.com
- (2603:1096:4:194::21) To BL0PR12MB2370.namprd12.prod.outlook.com
- (2603:10b6:207:47::27)
+	dkim=pass (1024-bit key, unprotected) header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=O5GvNw7p
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6fbf1ba31fbso211432eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:18:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793963932; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a5bpNTHeRNBcxJ+srYjtZO/bFmGniP4ney90fufkEUvKydioKWMLbBgOE0r7QFBvZ3
+         0dh4gkGOO5zJVdgO0kfvjF/6NwOHzME7XMgTAxW2oSzmGeiutCGPxDTwlE/Pwvnjq9Js
+         hXmRdqTY94Cqxxxu29aiKntwbM9jCvvdgClkyEfLAxHNTU/E/dedUZ3hki+UgQxvZOQ4
+         jNExoIIgkbrQ2TUO344IUHuVZp3DUH5NbsWtKhKQfB6aTRi+WJzev2Ze7O78/oAYvS3P
+         8JRzvchb3bkW+/qxHOaj8zK1bthqr+HU2Uhu1BH899f4gzsD88FSRzmZbxZq8Z4RFIbZ
+         9VBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JCiiK4kYulPJyLW4OAcXTNQWLZn928rt9Ez3MCOozdI=;
+        fh=xHBKKrDU6zcFa31Extr35XEPFZkHsceTVwcLfJWUO4Y=;
+        b=dJyiQYcthzVSu5+1XrpdXIf1lGdl+k6/MXQnYitm4bK2Amn0L5rsFFIqyxWHJl3kEY
+         SxTrGD7WkPhucCYqK5vlsFQa2+MWa6xJbAuMPcm43J5J7wARxyPwINENX8tm7YgoYBYO
+         CXmeqciWA/8vJVeL8SC8W2sFEODF/fycRXoxmoNHD6CvkIZMDdXmMtCELDnkgiIy0HaF
+         zOv7HThUaVJRCHFkqo+iNcp0zP42dHiDweFXYtBDi3c58fHjGU5y+o8wty6mD7bIqtoC
+         nBGwC1gKkfMzQjZ5dmO0BB0XDNoaGi73ZyMRO5sfVyzgkzKsi1gUJSZbEAOrYMr+1gp4
+         jLXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=miget.com; s=google; t=1793963932; x=1794568732; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JCiiK4kYulPJyLW4OAcXTNQWLZn928rt9Ez3MCOozdI=;
+        b=O5GvNw7pGEtidqI4/3jGNA2bgcr2xLuj9SKry0LIXD/lxuKa7X4kQzIZ7iobRHnYsv
+         Mr7v0g1QO8JUbm3RQTiSNpbvPqm1cM59zuUrP8NsJJDtHkuG4OZw7HgArVY5I0DkHY1S
+         dTV6mKCfFNhuSYjmKhV9jlnzOE7igr83SG0rw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793963932; x=1794568732;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JCiiK4kYulPJyLW4OAcXTNQWLZn928rt9Ez3MCOozdI=;
+        b=rsvP4BOawnRXELTMT8HBKBlHVQgdHk2n0GZ4jlX8k6R4Rh3ii+QLc+1XwIVicT6AmS
+         msyYAYahYsG3EGCfDJa7l+WkvjTgmBsX9iYqIyn7wihvP9Hxs6gLR8JTGbnsEBo+x6Rn
+         15o5T0jt6iwEYtAAhsGEwLEttx3TDnlg6MrAI5qMslBfvGjLnWHDDc62bLn1bz+IWobF
+         To+cD7Y5v5guuJu21UtItMyORFgOWefaSL8Kal34O2xOaxop6a3vHXCMrGwu9oYb8YMx
+         2t1uR8r7smwaCX1am2OnBy4/NNxWcsiFdyaA9B8MfDTEGSarvkX3uczWMLsLW05XXpFK
+         cxIA==
+X-Forwarded-Encrypted: i=1; AKwUvBy0egtWwANgfU6k4xs/k6tDKw9NNdCfXymkXO1s9Vz5umlchalse2dBAZtGxbV/MO5akJTsbZwmtQRS5DA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eovqszLt3P9hw8+khjud4xqLLgGbVeEgA9ZSDmZnWyukcx41S
+	rRdZ+0UPDADAgUkR2V/8Nk4eb98CI0Rfl+kxnQcic93n3rfROVx2mBofDYiS2MemJAKUldDYTXs
+	jeVqIQbEVIEr6/hNl3o6xLPszspV3+VO4vgqa4O/CrA==
+X-Gm-Gg: AYBFou11PlyhwSOWwbSj6F4grOLvDkW+xqZ5Fa3uI3vZ4GSVznc5cXbK5yi4+OMn1It
+	fvBJ0dOSeCFhG56lNzghTwJy6Bfi1rfLKRQgxCdvVbD0jxIW+hV4+Ks8DT4SklxkNNJRGlmNsPZ
+	564ooRtpbBcdCgbC4z9sM2miZSj1gzNDze0twRduSeX+bWX2d+HBhIGdUXmuG0w86t40FLbiTPD
+	JyKHpCCsQSFrfu0uRgeFmlBx81vWmxWxpuqqZVNCQyFJ0ujbLgCSnTuWqb+LAXBLhn5oWRER4FC
+	+2IIMtg0InOnu4agnvGeEgIlJygRdJYljtrsibpTbJ7+wfB7lx7c4oMl61uIDQ1zrznzmIC8s7k
+	jh95Qmmk6Cb34Dv2SfJVscplJw9YcAl0VxubUtYeopZyI5dsuCldee3cPmJN8ECx19kS/3w==
+X-Received: by 2002:a05:6820:162a:b0:6e5:5dc5:14e8 with SMTP id
+ 006d021491bc7-716e7a0cbb0mr1273240eaf.86.1793963932480; Fri, 06 Nov 2026
+ 03:18:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,96 +101,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|IA1PR12MB6652:EE_
-X-MS-Office365-Filtering-Correlation-Id: d451b917-a8ab-4d6d-79b8-08df3bf7b7d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|11063799006|56012099006|261009223027099003|261102123227099003|261021121427099003|261028144727099003|261022075727099003|261022105027099003|261026140227099003|261021123027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	BjDIIdLD69bSWeud1V44Yq3Y1I6LAN3l7nDl0AP6B9Mjw/rDRK3VdA3SynUQ/o8QfRNwZ/OOrgob1bhpDY3TxZJ4mXPq8xJtjvPZ1GmNi/6QkySn+KVgl0nPzCgb6gxG3r0U3L+GEJL3rFUO2lsCdWt5APmP9dA0DxUMosFkn1FU9TOB47AH50WfgJhTiRr1rGLzOHincW0qTKeRRb4ombKLPEprqRWTNSifskAbgILxke/9TPdjXP3aqhUZnrIbfCvMrYntlATXAaOZb8KXiggpMaAh9VJkhYReiB8tU27NMht/EHfDVXBz2AAqjyDeDdE4RrUhLHm1Ti/0p0EiUvR9UuBvBAo83BXErcJxQeePimc/56LrmE30KzcDOCHmg/eOY26nMdyRiZQ/lODCtiv+g26O8Yh+tdJmAGOXWXK2twTcQ/xrOOHUYdQV5oEEP7DmgnnGDYof+p0cCogezMFPqspY9d9sx8TG6Z0VGQmdqc9n5pr8ZiWxZGmx+NZlcInqGNZHazRV4LIZMLIL1VufGjD169LjKpAdMpz+wXDtLTkYKivgZbqJljD7nnX2aymjlusJeBVen+0Wjly9sN6o+x5U2t+ozZDh5CTcNWF9ls+W5zUWsMJsa2fZdYN4ZtoRLWfqHIoPYXewC8koKIHZmnBG+ksStZ0cZJDMA4Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(11063799006)(56012099006)(261009223027099003)(261102123227099003)(261021121427099003)(261028144727099003)(261022075727099003)(261022105027099003)(261026140227099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CIx/TX4sGcAgNKLeWjjuoJrRiz1dQsP40WaxZXmRBkum69C+BzidRsEs1VEC?=
- =?us-ascii?Q?ksJYdtCsFcdt4+JyAw8XTFa7RKD0K4+G033nIL+KXBDEY6DFtmZ2UjtbhYU7?=
- =?us-ascii?Q?uObJvOKrwHGZ57xxp8ix43oAtqFcHXhjIWyZAfLgZ0la+2mGYOErW6hEZNic?=
- =?us-ascii?Q?MVZik6qeX/JefVlQgZ4CLR5qG9nN+LbnJ6hxLy7K8Mnszh88ULY52JSrNYUD?=
- =?us-ascii?Q?oTjOzg18oTejNRIEpjjwFytWjAy74Cno+I881gApZKkri+MeqElaB+PiDD+s?=
- =?us-ascii?Q?AokE1THe/hDRDVtWa0ZnDGtHpN0HtvUVPd0Mz2JiY9zQdWgTognICpuyHRLq?=
- =?us-ascii?Q?xl+Z4yM2q0ZBDVi8y/dndeHFIl9ZMnZiEoiy2FEo4+f3VGJZLmE5AXi+AsEA?=
- =?us-ascii?Q?48SSWXZGZl7V1S0a7KR1F9h60QFoVP4FMYc7aSnTuSvelb2/0BSGCdH8rbGf?=
- =?us-ascii?Q?WmL8M9yLM5ctIouPh6RBZQ9cZdLZ4UDcAcxtgg8SUJ8c0+L/8Ay65pTaAvv7?=
- =?us-ascii?Q?ixlCPrFQQOcD6EDv+YNg2GWcd0lpuy13mDwi2Xyg5BTHrA3k8ZbzVxzJ1nq/?=
- =?us-ascii?Q?LfrK2rWXABpcdTBm4mHnKfiHLug/TqkhQP8n8bZJfVx9t2otXR3ArSEBn2l0?=
- =?us-ascii?Q?rytbrENdFZtZ4uLUwWt5bfRtqt41IXoGm9542PvHA+STTlDrp5IsE/TXS8jm?=
- =?us-ascii?Q?wo59kPUQpiRGYOZHyPydfmby56Rrm5+n7juaKUe5Yk3MiatN2rqRz6hNSUdF?=
- =?us-ascii?Q?QW0oE4akw/BaX8XF2P7xib+PYperfbIAjrXiyj/0lfTnPXjAyvq7+Jm1t1Tg?=
- =?us-ascii?Q?5FUjl6e7O2i9jTQj4+aOekbxnQLOa+AeL4oo6pSnKPEBn44xNy5fGkMmEOud?=
- =?us-ascii?Q?2AwtF7GQ1om5FXd24xPjHsVlsioGUX72IoEZacf3l2P7ubkdVI2fXqwra/n8?=
- =?us-ascii?Q?H39AyfqGqeqo/cPOT6AkAvAnedac/pmdo6lrmIgO//YmHshFVXPlljjehv8x?=
- =?us-ascii?Q?+AormO0qG/g/nbUI3GEU5STt1+XMTEItNgF1cH3iA4hv/ww/B1C6BIlehnjZ?=
- =?us-ascii?Q?oQ7pyo2hN9rn/F379mGa8EMe3dpuBOj0kOCkuTRbVz8sxPSAGEaNMcSyfUeF?=
- =?us-ascii?Q?IfxUbYNIIcUY/RlUPUEDG5Crn/AOGAEcr+/0j+ANWZhC3f0bhTOejEzVuPLy?=
- =?us-ascii?Q?FnKXwkBB94jq+bnlnVy5wzpal79K9JFeOBwFppr6uN8MEg+b39SKoNmDZMSo?=
- =?us-ascii?Q?IEExP3x3uXY25by3rocD+ROt8gtH11CaYFUoOLiLD53Is8pqOwUtKDueDj4Y?=
- =?us-ascii?Q?jaGcrFUzbpchEVeh4pmEgXPINvdTjSTxwwQLrXgffdPjnW4nVRSl/zx9ldNM?=
- =?us-ascii?Q?KOR4k/p5LPpU5Azb8rysgQTg4NxxbURP4EuxVqJTdTMIQbDKiSUUF2B7KVXh?=
- =?us-ascii?Q?dlNK1l3/T0nkUAHxFW/GlWm1+U30pYw8RfYQVVgEEH0F6+fvSyn3bOwLqvsZ?=
- =?us-ascii?Q?t1ACQ2OtzLbSqCaIOIIuqeMG8ut8ZTVGndCCJ562xiLPAtGP3qfjavbKujlB?=
- =?us-ascii?Q?pv/y6sp/W1xedOu65DRJPdrSuxiAWTwaqeWwy+DdrLXb7h6TmBozuXICPyLV?=
- =?us-ascii?Q?4/TG2uNJ65zqhrfKW5pXm6cAK+8kycJH0ztnJuyQYtO7nbhu5hV1yVhwOtgA?=
- =?us-ascii?Q?p99PZBJa/ifqkE2bfXPgsKuWCUzB5E74P40VMQDO8ieHpSFThT+Kl6dO2z2g?=
- =?us-ascii?Q?D+NrGR9rUA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d451b917-a8ab-4d6d-79b8-08df3bf7b7d8
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 11:18:44.0350
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MlX635vTUzj4u1e8a8Ib7BLhN6yvIW2d16frGoO5O7RtDFCkf59Xwp9z7xGZ1ovmkBLd1dXAr1UwsLr0l6FIcg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6652
+References: <20261101161814.1325847-1-chris@miget.com> <20261101161814.1325847-5-chris@miget.com>
+ <59fe5a60-049f-4e53-bd75-e7b2de3717bd@gmail.com>
+In-Reply-To: <59fe5a60-049f-4e53-bd75-e7b2de3717bd@gmail.com>
+From: Chris Taraszka <chris@miget.com>
+Date: Fri, 6 Nov 2026 12:18:37 +0100
+X-Gm-Features: AclHuK8qOOWqzLCcOSAiZKiOMHPnlf6cEbowk6SmPxaLD2mqq7aAre5KeUZr4ao
+Message-ID: <CAAcRvKO-Qv=rUQbK6Kv6cEu3WasP20EfrHm1k6aPQARK=wVfNA@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] platform/x86: bitland-mifs-wmi: Cycle the platform
+ profile on Fn+K
+To: Mingyou Chen <qby140326@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>, Armin Wolf <W_Armin@gmx.de>, KentoNion <kento@kekto.ru>, 
+	Matias Civadda <matias.civadda2342001@gmail.com>, 7z0423arsenova <7z0423arsenova@proton.me>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-PCI state restoration runs even when a reset fails. If the device's
-configuration space remains inaccessible, MSI-X restoration can issue
-table MMIO accesses that trigger additional errors, including DPC
-containment.
+On Mon, 2 Nov 2026, Mingyou Chen wrote:
+> How about 0x16 (WMI_EVENT_PERFORMANCE_PLAN_ALT)? Some devices report
+> this instead of 0x28 (WMI_EVENT_PERFORMANCE_CYCLE).
 
-Check the existing PCI Command register read and skip MSI-X restoration
-if it fails or returns all ones. Preserve the existing handling of a
-valid Command register with Memory Space Enable clear, which temporarily
-enables memory decoding while restoring the MSI-X table.
+0x16 reports a mode change rather than asking for one. On TM2135 the
+firmware cycles the mode itself on Fn+K and then sends 0x16 with the
+new value [1]. TM2424 sends it after every SET as well, within 10 ms:
 
-Limit the change to MSI-X restoration. Leave other PCI state
-restoration, driver reset callbacks, and reset return values unchanged.
+  SET 0x09 -> 0x16 value 0x09
+  SET 0x03 -> 0x16 value 0x03
+  SET 0x02 -> 0x16 value 0x02
 
-Signed-off-by: Richard Cheng <icheng@nvidia.com>
----
- drivers/pci/msi/msi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Cycling on 0x16 would step twice per Fn+K press on TM2135, and on any
+of these machines it would loop, since each step does a SET that sends
+another 0x16. v15 already handles it with platform_profile_notify().
+0x28 is different: TM2424 sends it on Fn+K and leaves the mode alone.
 
-diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-index 8a0133a6a286..37de31f4cfb6 100644
---- a/drivers/pci/msi/msi.c
-+++ b/drivers/pci/msi/msi.c
-@@ -887,7 +887,11 @@ void __pci_restore_msix_state(struct pci_dev *dev)
- 	 * Since the MSI-X Table and PBA are in Memory Space, enable it
- 	 * while restoring them.
- 	 */
--	pci_read_config_word(dev, PCI_COMMAND, &cmd);
-+	if (pci_read_config_word(dev, PCI_COMMAND, &cmd) ||
-+	    PCI_POSSIBLE_ERROR(cmd)) {
-+		pci_warn(dev, "Device config space inaccessible; unable to restore MSI-X state\n");
-+		return;
-+	}
- 	pci_write_config_word(dev, PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
- 
- 	write_msg = arch_restore_msi_irqs(dev);
--- 
-2.43.0
+[1] https://lore.kernel.org/all/BelDdF5woNEBX6dZ3_zJDEbVkifs1pdxEjtQ1yC-aKy=
+ZahijFJCllxm0l_SqZ5Hsj61D8wfJNa7uDSuNKmyyxo2S0tZp9QS5yaafeZUxvxE=3D@proton.=
+me/
 
+Thanks,
+Chris
+
+
+On Mon, Nov 2, 2026 at 12:10=E2=80=AFPM Mingyou Chen <qby140326@gmail.com> =
+wrote:
+>
+> On 11/2/26 00:18, Chris Taraszka wrote:
+> > On the Xiaomi Book Pro 14 (TM2424), Fn+K sends hotkey event 0x28 and
+> > the firmware does not change SystemPerMode itself. The event is a
+> > request that the vendor software acts on; without that software Fn+K
+> > does nothing on Windows either, and on Linux it is currently logged as
+> > an unknown event.
+> >
+> > Add a quirk for this and call platform_profile_cycle() from the control
+> > device when the event arrives, so Fn+K cycles through the profiles that
+> > all platform profile handlers support. Models without the quirk keep
+> > ignoring the event.
+> >
+> > Suggested-by: Hans de Goede <hansg@kernel.org>
+> > Signed-off-by: Chris Taraszka <chris@miget.com>
+> > ---
+> >
+> > Notes:
+> >      Sent on its own earlier today [1]. It is now part of the series si=
+nce
+> >      it changes the TM2424 quirks entry from patch 1. Retested with v3:=
+ three
+> >      Fn+K presses from balanced step performance (0x04) -> low-power (0=
+x02)
+> >      -> balanced (0x09).
+> >
+> >      [1] https://lore.kernel.org/all/20261101144100.1043263-1-chris@mig=
+et.com/
+> >
+> >   drivers/platform/x86/bitland-mifs-wmi.c | 20 ++++++++++++++++++++
+> >   1 file changed, 20 insertions(+)
+> >
+> > diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform=
+/x86/bitland-mifs-wmi.c
+> > index 4d02cd9e8a6b..84d1223d0ec6 100644
+> > --- a/drivers/platform/x86/bitland-mifs-wmi.c
+> > +++ b/drivers/platform/x86/bitland-mifs-wmi.c
+> > @@ -100,6 +100,9 @@ struct bitland_mifs_quirks {
+> >
+> >       bool return_code_at_end;
+> >       bool skip_ac_type_check;
+> > +
+> > +     /* Fn+K sends WMI_EVENT_PERFORMANCE_CYCLE and leaves the mode to =
+the OS */
+> > +     bool cycle_profile_on_key;
+> >   };
+> >
+> >   static const struct bitland_profile_entry default_profile_entries[] =
+=3D {
+> > @@ -126,6 +129,7 @@ static const struct bitland_mifs_quirks tm2424_quir=
+ks =3D {
+> >       .profile_entries =3D tm2424_profile_entries,
+> >       .num_profile_entries =3D ARRAY_SIZE(tm2424_profile_entries),
+> >       .skip_ac_type_check =3D true,
+> > +     .cycle_profile_on_key =3D true,
+> >   };
+> >
+> >   static const struct dmi_system_id bitland_mifs_dmi_table[] =3D {
+> > @@ -169,6 +173,7 @@ enum bitland_mifs_event_id {
+> >       WMI_EVENT_MIC_MUTE              =3D 33,
+> >       WMI_EVENT_RESERVED_23           =3D 34,
+> >       WMI_EVENT_OPEN_APP              =3D 35,
+> > +     WMI_EVENT_PERFORMANCE_CYCLE     =3D 40,
+> >   };
+> >
+> >   enum bitland_mifs_event_type {
+> > @@ -217,6 +222,7 @@ static BLOCKING_NOTIFIER_HEAD(bitland_notifier_list=
+);
+> >   enum bitland_notifier_actions {
+> >       BITLAND_NOTIFY_KBD_BRIGHTNESS,
+> >       BITLAND_NOTIFY_PLATFORM_PROFILE,
+> > +     BITLAND_NOTIFY_PLATFORM_PROFILE_CYCLE,
+> >       BITLAND_NOTIFY_HWMON,
+> >   };
+> >
+> > @@ -869,6 +875,10 @@ static int bitland_notifier_callback(struct notifi=
+er_block *nb,
+> >       case BITLAND_NOTIFY_PLATFORM_PROFILE:
+> >               platform_profile_notify(data_ctx->pp_dev);
+> >               break;
+> > +     case BITLAND_NOTIFY_PLATFORM_PROFILE_CYCLE:
+> > +             if (data_ctx->pp_dev)
+> > +                     platform_profile_cycle();
+> > +             break;
+> >       case BITLAND_NOTIFY_HWMON:
+> >               fan_info =3D data;
+> >
+> > @@ -1015,6 +1025,7 @@ static void bitland_mifs_wmi_report_key(struct wm=
+i_device *wdev, u32 payload)
+> >   static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
+> >                                   const struct wmi_buffer *buffer)
+> >   {
+> > +     struct bitland_mifs_wmi_data *data =3D dev_get_drvdata(&wdev->dev=
+);
+> >       const struct bitland_mifs_event *event =3D buffer->data;
+> >       struct bitland_fan_notify_data fan_data;
+> >       u8 brightness;
+> > @@ -1043,6 +1054,15 @@ static void bitland_mifs_wmi_notify(struct wmi_d=
+evice *wdev,
+> >                                            NULL);
+> >               return;
+> >
+> > +     case WMI_EVENT_PERFORMANCE_CYCLE:
+> > +             if (!data->quirks->cycle_profile_on_key)
+> > +                     break;
+> > +
+> > +             blocking_notifier_call_chain(&bitland_notifier_list,
+> > +                                          BITLAND_NOTIFY_PLATFORM_PROF=
+ILE_CYCLE,
+> > +                                          NULL);
+> > +             return;
+> > +
+>
+> How about 0x16 (WMI_EVENT_PERFORMANCE_PLAN_ALT)? Some devices report
+> this instead of 0x28 (WMI_EVENT_PERFORMANCE_CYCLE).
+>
+> https://lore.kernel.org/all/BelDdF5woNEBX6dZ3_zJDEbVkifs1pdxEjtQ1yC-aKyZa=
+hijFJCllxm0l_SqZ5Hsj61D8wfJNa7uDSuNKmyyxo2S0tZp9QS5yaafeZUxvxE=3D@proton.me=
+/
+>
+> >       /*
+> >        * The device has 3 fans (CPU, GPU, SYS),
+> >        * but there are only the CPU and GPU fan has events
