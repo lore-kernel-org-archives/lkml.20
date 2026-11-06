@@ -1,88 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793946633;
-	b=st2IboxmL9sTYaW8kSaocmKLUFKoP9LzT6NJWnQN703joIPsapnCEOWbCnZFRko4t2qQ
-	 V4/ZY+MWSDU5RgxIdUJhS0J9cnLR0sxBN+nAS9Hn0/ix+/pOz9ksT+a8AZmDlw6ekPF8d
-	 auUCBEk6hs0wMWy9Ih62KvvJBqFr31NjzoO3NNPSh79j0AydmvzAW6NjgIWILCpHxgsDL
-	 XLJFVGzh+R/+JWHCF59+AsqDAd3Ito1OarLQFywsCrVUkK/srPD2uMbD7jUefomDMRuAu
-	 MT86yoBbUTswken4Ib94rec0nopTO+Ovf9E1hAEwA41kncvW1cWSe5ulJU582cFtTGg==
+	t=1793946648;
+	b=X2egmVb22U5HgbCr0xchUVu/39ugYYgofBjLJfXmG8madAkKu2VmocYWeeKe+LB0wPpe
+	 2JJPM1C5q3LPuLhxpvuj4MmocYu87nDD3qU4pINEIhNCiO8oUyk/etHxyTBtysfFNxg2O
+	 CDFEnGsNWtgrO44BhGd7SSnp02MgZ7hfI+LD6JmWRB6Miw7kEnPr3z9keRb8QQ8/SVf09
+	 BgPA0XLo+lbPKtcFFgtWQppxkRk2/pdI/CEuNVAVW2UeOkJJFTXyEscK1qPYMQGK+nHHK
+	 3xQvBg4VO73QGs0I7H+dyAvk/UNIwMO9H3DQpNgmHWBrp5cTGIVadxZH4vLWf0l2dIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793946633;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=+E0SD+NERgwxnxrEH9c8gyitQjSomZKW3g33Q+0LlyM=;
-	b=nOBX4xHjWwbdSXRFHZMWguKK0a0nupIQOqWRQr9xUqwZ8NZ+X9WlGIbVY063YAUJjbk1
-	 b3KGFfj/BImJNDWOXHR1pm6t2DyP7sjc/kBdSxpWWCN8SvT2OUQXlFRkSTESC6x2Y9oF5
-	 GacsVfRic3qtHSdt7XCWl3wKcm+op8tGX6hLcvr4tqEdKbP+NC+AoGkkyh+JFLC4OuMnS
-	 VDpNojPalwYBECJS+p7r7soazKAQGoYdlwYnEfyEcQ7x3fltYkkOKLP+g1Cpdvvnx+4Sk
-	 xebyOq0vG2kHSo7lE4BfEFfWKIUdR4h1sm9Hi+HNiI9Oxn/Dk3EzuJK/XGFGpTx0eEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793946648;
+	h=DMARC-Filter:DKIM-Signature:References:Mime-Version:User-Agent:
+	 Subject:Date:Message-Id:Content-Type:In-Reply-To:
+	 Content-Transfer-Encoding:To:Cc:X-Original-From:From:
+	 X-Lms-Return-Path;
+	bh=mX+GdBvA4yT9OKqPBs6xrJW5OhdpJfdnYKs9cQ6hIug=;
+	b=pjRtoXBhvG8+n1ddZ2GFLKjsvzIoGYIdjtKQjWNoe181cYsYZyNQpkKsRT0uoffPLw7s
+	 lOW3W3qsL7WEDl+uOXTnm5+07BJYFp932VFO5qx4mNYwernU60x+lgV6EdWO2kO0LKrnn
+	 tHxRpvFNKFj785tZkORlXjRbGaXCm284SElIdgfHX3Q4pO5RKDStKHMRbAWsJ5in6MYaN
+	 K2d55W5bbrA2lrYSp89dFWFwscNP8c6luYmjuuFANpQH3kIm0+9R3Of0Mah0RXHglJuqA
+	 EQy/0vvR1X6L1IJtvTAhYsLxKDPtBc5MslXVHKJEE7Hf9HPTd9whkoVL+a7Uea6dRFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I79lnSAU;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=AXAfi8MA;
+	arc=none smtp.remote-ip=209.127.231.115
+Received: from va-2-115.ptr.blmpb.com (va-2-115.ptr.blmpb.com [209.127.231.115])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00CB1606D809
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:30:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00CB1606D809
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E55606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:30:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34E55606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I79lnSAU
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a2af4c8d00so808496c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 22:30:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793946632; x=1794551432; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+E0SD+NERgwxnxrEH9c8gyitQjSomZKW3g33Q+0LlyM=;
-        b=I79lnSAUGmESzvy6Hjdou1AjzRwAlIZpMO+YpYYWIINVt3isTcJasCZ98h14mm5n87
-         Wsz4coBpJGAUreNCvZdcll2HRdiqQjRnv2nT/GWZhqmtFOGoeihPNviBxKcYE1BpFvsr
-         qRqIxEjo/Fha+6W2/6qG1eObmlEa5z636P0JrFvn8tn0OixRg6NFsTTB1J2CwfKqeN4y
-         yzQ0HWt3c7K0eUAc/eGQ0EdoZw0MDEH84nZ+mBr+Fx/E6eafATh5dSfEq2o61OBRWXpN
-         7jVSkjfLxLiHjHqd1hlit3GYD8zfi2hjMWr4aML5fqlzm/OSMoTM1gdaE4cc0jQJH+zd
-         Yb0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793946632; x=1794551432;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+E0SD+NERgwxnxrEH9c8gyitQjSomZKW3g33Q+0LlyM=;
-        b=M4XQlZTQ6AIy3xiokywrAuU6Q4ps1HgLkbi4L++CSRQr4K2siV94xlszt8355WtsVJ
-         0RVNAStnsizBNiVLwEa1LxFdRuEkBPtSg0okgqRxK/e8ZCov+kPfEJAj/ui4sQTaO9yK
-         4dbYQfXwfSHD5SVa+MrNMJKadWovIGdGz6Xxazr6WuLjj/YPovIJs84NkpSjfgUeUwAe
-         QJV2Fj7nchzyL8HiHyASqAag6aK3gB86Z0cNbcz//x8kfryJmjsRcE5XOgeQ28A5HRjE
-         c4eNQSZFUdcVmZIbaoaD3hCDHWnwpZDIRUbDM+c8Rbk4AwqCNH6BK0oMhDtR++EhQQik
-         b9zw==
-X-Forwarded-Encrypted: i=1; AKwUvBxw7W3h9CprERlOoroJn6sK7pv0ehdK0lu5Kzw/IppvjrWWCtKlTE2Pz7S81NhyXaN4UgG4gzCfmLKoP6o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91PvzwbYdYvAmGdx1ZCCEGW3V+tG2lXBjtJAXVLCUQ6VwR+c8K
-	fI9H81kMcEXUy8RZUEGVpvrh/SbWwzCs1kJtO13zWrI7s+z2RQl3XTHQ
-X-Gm-Gg: AYBFou19FYvzicgFCgZuCRD95waAlxR/JLE1h3FuUoLU2WrZbw24sGToHF4XHQks/8U
-	xxu9L46xgGNBAqcLxKk4+/Y+yf6JDvDer8V4keUp9TaT8skRRvw/EQo5mn3YA/R7v9+KY9hV94G
-	HfbAEXDbg+HywGV8r71mQuLnYCIwwgyBz8wde5wYmw/A6FLWOliu/zEpHiX0qV43aoh9+qjNUZI
-	AjpuuTIYnGTeSu8sFkf0yXg1cq6/aX8dTcE3aMY7uDQFCCqqy5XFAmcrvpDUq0O7/beblaUDZFr
-	M5FpWjv4OgaKbwmJDIRGdvd8Ho8OOqd/UqsSGdEgtnuO3k+7+KgFA8zM1TBlXmM5tCwnMiEnIK1
-	wEBKb1nYXXEVoOIUU4kbNlJ5b1YsvZQAqe5xGdtXfl5HESYdw/+AAPpVatLoJM9NU7kv5qRN3CE
-	F+zuRsr91F6j+cuGkChH2BwDWAKxfR9ksg88RAeDc08u7pHUaiiZvB0w5RK8hDou60qU8vBuaT2
-	w1H9LENA29hA+oG/MJYNrr2MnZW8NlA3dI5RCrwQLO8M9D0efmdqusDv5NBCGDHTYn96lVzl0jz
-	jpCTH9RaEXstTqgfniJtgrDsIBjQFGp4U05urCgv+zpTt6grAa8K1FcZSYgFXuVnP7pQ8M2f4mo
-	ji3PPt7MoZcSmZLBN
-X-Received: by 2002:a05:701b:2505:b0:181:ccdd:ed2a with SMTP id a92af1059eb24-1b25d38077bmr1737878c88.43.1793946631824;
-        Thu, 05 Nov 2026 22:30:31 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:64e:8358:c9cb:c17b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4a63f6sm3734266c88.9.2026.11.05.22.30.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 22:30:31 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Thu, 05 Nov 2026 22:30:21 -0800
-Subject: [PATCH v3 7/8] gpiolib: use bitmap_zalloc() for fastpath bitmaps
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=AXAfi8MA
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793946642; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=mX+GdBvA4yT9OKqPBs6xrJW5OhdpJfdnYKs9cQ6hIug=;
+ b=AXAfi8MAeYMfRwp75m4q7uKGottwQNMcwq51XUps/ybwkQjrm0EsryCXwTySAOMXlWJqXz
+ ttH2Ue6oEewi6z/F34ayHQ06ZZKWVQj0Ou165thrcsKC+6MswJt7txK1Z8rWytXRTQfAHd
+ S8yinosH+3i0QlrxbMXxIIqGqXXeHYfyW6M/XcqNif7emc8buI0VS0vP5Cuyw+udWwpj/N
+ g9JSUdM1CXIFEeKyR3rtugWDT+YELigoItLWGxxeARHrouXGcfYKQ3oQB6YTFY3AyuGR+/
+ DUeAORED5feXdGmRTxCdmvawtkIMn3gPbK3O746lGN+8gXtoPY+zcQwByjt6bg==
+References: <20261103122816.48037-1-lizhe.67@bytedance.com> <0efbf4db1decd8e6bb6a5fcdcf897314@kernel.org> <03bceb67-d362-47a6-b555-ed5aa1f9bd3e@bytedance.com> <aurTz8SiB-nQ22lJ@gourry-fedora-PF4VCD3F>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,159 +53,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] mm/mempolicy: add per-cgroup weighted interleave controls
+Date: Fri, 6 Nov 2026 14:30:17 +0800
+Message-Id: <67fcd8db-269d-43f1-aea2-8c41165747d0@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <aurTz8SiB-nQ22lJ@gourry-fedora-PF4VCD3F>
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-gpiolib-free-v3-7-bb47ad58642d@gmail.com>
-References: <20261105-b4-gpiolib-free-v3-0-bb47ad58642d@gmail.com>
-In-Reply-To: <20261105-b4-gpiolib-free-v3-0-bb47ad58642d@gmail.com>
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andy@kernel.org>, 
- Janusz Krzysztofik <jmkrzyszt@gmail.com>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
-X-Mailer: b4 0.17-dev-e56a4
+To: "Gregory Price" <gourry@gourry.net>
+Cc: "Tejun Heo" <tj@kernel.org>, <hannes@cmpxchg.org>, <mkoutny@suse.com>, 
+	<akpm@linux-foundation.org>, <david@kernel.org>, <ziy@nvidia.com>, 
+	<joshua.hahnjy@gmail.com>, <ying.huang@linux.alibaba.com>, 
+	<ljs@kernel.org>, <liam@infradead.org>, <rppt@kernel.org>, 
+	<surenb@google.com>, <mhocko@suse.com>, <cgroups@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	<bpf@vger.kernel.org>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26aed740f+481b53+vger.kernel.org+lizhe.67@bytedance.com>
 
-Currently, struct gpio_array embeds invert_mask[] as a flexible array
-member, and gpio_descs_alloc() allocates the descriptor array,
-struct gpio_array, and all three fastpath bitmaps in a single kzalloc()
-call using manual BITS_TO_LONGS() calculations and pointer arithmetic.
-This exposes gpiolib to the underlying unsigned long representation
-used by bitmaps rather than respecting the bitmap abstraction.
+On 11/4/26 2:42 PM, Gregory Price wrote:
+> On Wed, Nov 04, 2026 at 10:44:46AM +0800, Li Zhe wrote:
+>> Does that distinction make the cgroup-scoped override acceptable? If not,
+>> could you suggest a better way to support this kind of administrative
+>> weight override without adding new mempolicy syscalls?
+>>
+> I'm a little confused why cgroup-anything is needed here when you could
+> just override the weight table / interleave functions.
+>
+> I don't particularly like the idea of bpf hooks for a single mempolicy
+> mode as opposed to something more generally useful - and I question
+> how useful task-mempolicies are in general for tiered memory systems
+> (they also affect kernel allocation placement, which is not great).
+>
+> You have many patch proposals recently trying to adjust the mempolicy
+> components and I think it might be helpful if we could chat a bit
+> about what big problems you're actually trying to solve.
+>
+> I get that you want better control over task/task-groups, i think that
+> can be useful - but I also know that demotion immediately mucks all
+> this placement logic up (and we can't check vma / task policies at
+> demotion time) so I question how realisitic the value of these
+> extensions will be.
 
-Convert invert_mask in struct gpio_array to a pointer and allocate each
-of the three fastpath bitmaps individually via bitmap_zalloc(), freeing
-them via bitmap_free() on fastpath cancellation and array disposal.
 
-Although this adds three slab allocations when the fastpath is active,
-packing all three masks into a single bitmap_zalloc() call would still
-require rounding the bit count up to BITS_PER_LONG and slicing the
-buffer with unsigned long pointer arithmetic, adding a second
-allocation and extra free paths without achieving bitmap API
-abstraction.
+Thanks for the feedback.
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/gpio/gpiolib.c | 52 +++++++++++++++++++++++++++++++++++++-------------
- drivers/gpio/gpiolib.h |  2 +-
- 2 files changed, 40 insertions(+), 14 deletions(-)
+Our target environment is a class of machines with both DRAM and CXL
+memory. On these machines, different services run together in different
+cgroups. For us, CXL memory has two main values: it increases the total
+memory capacity of the machine, and it lowers the memory cost for
+workloads that need a large resident memory footprint. DRAM is the
+faster but also more expensive tier, so the practical question becomes:
+how much DRAM does each workload really need, and how much of the rest
+can be placed on CXL memory?
 
-diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index 9b5024d30060..83edb89a364a 100644
---- a/drivers/gpio/gpiolib.c
-+++ b/drivers/gpio/gpiolib.c
-@@ -5208,41 +5208,66 @@ static void gpiochip_free_hogs(struct gpio_chip *gc)
- 		gpiochip_free_own_desc(desc);
- }
- 
--static struct gpio_descs *gpio_descs_alloc(unsigned int count, struct gpio_desc *first_desc)
-+static void gpio_descs_free_fastpath(struct gpio_descs *descs)
-+{
-+	struct gpio_array *array_info;
-+
-+	array_info = descs->info;
-+	if (!array_info)
-+		return;
-+
-+	bitmap_free(array_info->get_mask);
-+	bitmap_free(array_info->set_mask);
-+	bitmap_free(array_info->invert_mask);
-+	descs->info = NULL;
-+}
-+
-+static struct gpio_descs *gpio_descs_alloc(unsigned int count,
-+					   struct gpio_desc *first_desc)
- {
- 	struct gpio_device *gdev = gpiod_to_gpio_device(first_desc);
- 	struct gpio_array *array_info;
--	struct gpio_descs *descs;
- 	size_t descs_size, alloc_size;
--	unsigned int bitmap_size;
-+	unsigned int nbits;
- 
- 	/*
- 	 * If pin hardware number of array member 0 is also 0, select
- 	 * its chip as a candidate for fast bitmap processing path.
- 	 */
- 	if (gpiod_hwgpio(first_desc) != 0)
--		return kzalloc_flex(*descs, desc, count);
-+		return kzalloc_flex(struct gpio_descs, desc, count);
- 
--	descs_size = struct_size(descs, desc, count);
--	bitmap_size = BITS_TO_LONGS(max(gdev->ngpio, count));
--	alloc_size = descs_size + struct_size(array_info, invert_mask, 3 * bitmap_size);
-+	descs_size = struct_size_t(struct gpio_descs, desc, count);
-+	alloc_size = descs_size + sizeof(*array_info);
- 
--	descs = kzalloc(alloc_size, GFP_KERNEL);
-+	struct gpio_descs *descs __free(gpiod_put_array) = kzalloc(alloc_size, GFP_KERNEL);
- 	if (!descs)
- 		return NULL;
- 
- 	array_info = (void *)descs + descs_size;
--	array_info->get_mask = array_info->invert_mask + bitmap_size;
--	array_info->set_mask = array_info->get_mask + bitmap_size;
-+	descs->info = array_info;
-+
-+	nbits = max(gdev->ngpio, count);
-+
-+	array_info->get_mask = bitmap_zalloc(nbits, GFP_KERNEL);
-+	if (!array_info->get_mask)
-+		return NULL;
-+
-+	array_info->set_mask = bitmap_zalloc(nbits, GFP_KERNEL);
-+	if (!array_info->set_mask)
-+		return NULL;
-+
-+	array_info->invert_mask = bitmap_zalloc(nbits, GFP_KERNEL);
-+	if (!array_info->invert_mask)
-+		return NULL;
- 
- 	array_info->desc = descs->desc;
- 	array_info->size = count;
- 	array_info->gdev = gdev;
- 	bitmap_set(array_info->get_mask, 0, count);
- 	bitmap_set(array_info->set_mask, 0, count);
--	descs->info = array_info;
- 
--	return descs;
-+	return_ptr(descs);
- }
- 
- static void gpio_descs_check_fastpath(struct gpio_descs *descs,
-@@ -5274,7 +5299,7 @@ static void gpio_descs_check_fastpath(struct gpio_descs *descs,
- 		 * hardware number is different from its array index.
- 		 */
- 		if (bitmap_full(array_info->get_mask, idx)) {
--			descs->info = NULL;
-+			gpio_descs_free_fastpath(descs);
- 		} else {
- 			__clear_bit(idx, array_info->get_mask);
- 			__clear_bit(idx, array_info->set_mask);
-@@ -5398,6 +5423,7 @@ void gpiod_put_array(struct gpio_descs *descs)
- 	for (i = 0; i < descs->ndescs; i++)
- 		gpiod_put(descs->desc[i]);
- 
-+	gpio_descs_free_fastpath(descs);
- 	kfree(descs);
- }
- EXPORT_SYMBOL_GPL(gpiod_put_array);
-diff --git a/drivers/gpio/gpiolib.h b/drivers/gpio/gpiolib.h
-index 650a702741df..de1795c9be3d 100644
---- a/drivers/gpio/gpiolib.h
-+++ b/drivers/gpio/gpiolib.h
-@@ -135,7 +135,7 @@ struct gpio_array {
- 	struct gpio_device	*gdev;
- 	unsigned long		*get_mask;
- 	unsigned long		*set_mask;
--	unsigned long		invert_mask[];
-+	unsigned long		*invert_mask;
- };
- 
- #define for_each_gpio_desc(gc, desc)					\
+ From our earlier testing, different workloads have different suitable
+DRAM/CXL ratios. By "suitable", I do not mean maintaining a fixed ratio
+for its own sake. I mean that, after using some CXL memory, the
+workload's important metrics, such as throughput, average latency, tail
+latency, or other SLOs, are still within an acceptable range.
 
--- 
-2.56.0.506.g506a7eabc5-goog
+So the core problem I am trying to solve is: on a mixed DRAM/CXL memory
+machine, each workload in each cgroup should be able to run with its own
+suitable DRAM/CXL ratio, so that it can stay near its own
+performance/cost balance point.
 
+This is why a single system-wide weighted interleave table is not enough
+for our use case. Two co-located services may have completely different
+suitable DRAM/CXL ratios. The cgroup is also the more natural management
+unit for us, because resource isolation, charging, SLO monitoring, and
+userspace control logic are all organized by cgroup, not by individual
+task.
+
+I understand that Joshua's approach can solve part of this problem.
+However, based on the current discussion, that direction still seems to
+need more discussion before it can move forward upstream.
+
+Of course, initial allocation is not the whole story. Demotion and
+promotion will change the actual page placement over time, so I do not
+expect weighted interleave alone to provide long-term placement control.
+For long-term adjustment, using a userspace controller with
+memory.reclaim is a more natural and convenient way to adjust placement
+over time.
+
+The value of weighted interleave here is in the initial allocation
+phase. First, for bandwidth-sensitive workloads, it allows DRAM and CXL
+bandwidth to be used together from startup, instead of concentrating
+allocations on one tier first and relying on later reclaim or demotion to
+reshape the distribution. Second, it gives the container scheduler a
+more deterministic view of memory capacity, so the scheduler can place
+workloads based on the total memory capacity provided by both DRAM and
+CXL, rather than treating only DRAM as the schedulable capacity.
+
+In the long term, we want to maintain the target ratio through a dynamic
+control loop. Memory tiering promotes hot pages back to DRAM. A
+userspace controller observes each cgroup's per-tier memory footprint
+and workload metrics, decides whether the current ratio has deviated
+from the target, and then uses memory.reclaim to apply reclaim pressure
+to the source tier that should be relieved [1].
+
+The target ratio is not meant to be a strict hard limit. The userspace
+controller can adjust the policy based on workload metrics: when cost is
+the priority, it can keep more cold memory on CXL; when performance or
+SLO pressure becomes high, it can temporarily relax the ratio and allow
+the workload to use more DRAM. In other words, I am not trying to make
+demotion reinterpret task policy or VMA policy. I am trying to adjust
+the actual resident distribution at cgroup granularity through a
+userspace feedback loop.
+
+This is also the background for my other patchsets. The memory.reclaim
+source selector is intended to give the userspace controller a more
+precise actuator [1]. In our testing, this is an important capability for
+building the feedback loop.
+
+The sched/numa memory tiering patchset came from issues we found while
+testing this model [2]. Its goal is to make tiering promotion behavior
+adapt better to different scenarios, and to avoid tiering-only feedback
+being misused by the normal AutoNUMA task placement heuristic.
+
+I am not attached to the exact API shape in this RFC. If the
+per-cgroup weighted interleave BPF kfuncs are too narrow, or if you
+think there is a more general control plane, or a better control
+granularity, I am happy to adjust the direction.
+
+[1] 
+https://lore.kernel.org/all/20261102070440.16262-1-lizhe.67@bytedance.com/
+[2] 
+https://lore.kernel.org/all/20261028041253.74839-1-lizhe.67@bytedance.com/
+
+Thanks,
+Zhe
+
+>
+> ~Gregory
