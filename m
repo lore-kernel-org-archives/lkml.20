@@ -1,60 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794002261;
-	b=yoByLnhe3sDi/q4O70om8MnC6oBJlicmP7jDTTJTnfYMZ1HnyyqQDsLh0/o3HgdophWn
-	 vZvv/ekQiHuY8OzpxPy4D+GB/dJXfRr8eHDglRtjvh7+j/FGyY6MhF8T+MLjOD2V15aJM
-	 +U0LIfEYRKZoWxV7vnwAOUWfayDNN6mPqn+VuxKwIPhgejvgHyoRT9L8NYn6C0Ijabw6u
-	 k9iJN20p88ADUH6m00c/KbJlEaCSUB+HLHH07IslFIKfaKl00/HKWCpIQS+9/kw/0Brsk
-	 FXkCwhUOn82aItP60qPc1r+WCbvPeyxDCjYiK3xFw9G4RSNfD+BMfvmxARtzlqBKFAw==
+	t=1794002248;
+	b=Zr5uD+zW9IMxgopPvgSLqpL4RDd6hh4cYlNg1rerhiFYXGUn9ZbrE5xybwNsW+eru7wC
+	 h83CMR53NLGce89m83gnbcTVHXyS5DCmYl1MVogVO/TL3gGow0WCrWjmNrvw9CxwNnTE3
+	 2QuU4f9xYWAfXSEN6CHnRnA4Y9WtJjaFXQqJXTnV6FpjaaO+P5gcRlTy+YUigrNA4/85K
+	 MQrOXq5maHxWz3bMA8/p6o1LzU+Cc7TovXYb1VsPv39KNUxtBi4FCLcRpkBNQc8/ZShgm
+	 uFQhe4IgRkNmGWHB1614T/Dn9n5e0/zohLC261aatHWNgFslGcfUrGkVV00FpEbuZIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002261;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UjgBmaYbtk3hDeZHleWHp4qTH9qs/UcQC70Eqqw69Hg=;
-	b=S5i8QdnpwsXDq6Tc6GV61ufKSxIKfwbL3/v9YK0zPIVa7Zb89kq0QnI+lJs53m1UjUQ8
-	 qwhRvNSBdNIOQn2zdPUkmHqjqHHhQNb7U7mZxw7dFNovci64d8futLh2FZqjOo0DfE6gn
-	 KwBcVzvWKIkhZnlJJKPwQnFPCEYv06VDRScLddbeU88FCdbSV9cLOfbw2HgMG1Dsiue1f
-	 XUVS8ESFdeaEYGmoNhzavnlDu50xVVbSXszb0Z1xC6AxNH7UbXyDYRDTxXBT2IFdXp5/z
-	 glN/UuW052SA5MbAIFzUIKpGfREVzCKgnMXQmUdmCwPVLHBnuiKBKVZwkGdeVBAld0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002248;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=AjJGDSnrqmYUipHDjzg+wif1A7ljv8jU279SjBH7dJ4=;
+	b=OmmJjTPvUpmWNPG+qcTzzKcU795cEZrXWzOZBfP6BZvGWMsRbfyGBJxI8p3wLB9eSYqg
+	 DJQPWotwoclOg5YrsxZqMSR08pl558fi7x+UcoYQqLMqLQxCzJUAfbvb9XGkyNtxOYMEy
+	 pVIwp7TSSNa8S84ua2Mb/1UEKjR4bHsnjo9+6ESH8DnuI/6trfPhysYOOzjB2MkxLEoAR
+	 JSyqdW+BFF7BKD2zU/tAqUztEvqGCSOAqOpGJyq4vot32PnaxiGfZQyD50Mf32GWewiRW
+	 X/UejiWoTBFJQMK0i6gFSSfCj4Mkn2juKpS16CTa8cDxGNkkRhD5P+he99KTS+4dfVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=j6BKfUG3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="JC5/HUVV";
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0134C606D81B;
-	Fri,  6 Nov 2026 21:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57477606A335;
+	Fri,  6 Nov 2026 21:57:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57477606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=j6BKfUG3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2B41F008BD;
-	Fri,  6 Nov 2026 21:57:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794002260;
-	bh=UjgBmaYbtk3hDeZHleWHp4qTH9qs/UcQC70Eqqw69Hg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=j6BKfUG3GaS0Vs9N8H6+JvGjgpMhMCu0xfZTiqVksMX1t+mOYMs03CAKwArlJQ5td
-	 PMItW+thtQGDZMLzoBYFZYTcbjuf+WF/jMDk77D4Xa6G2G3Za/lx9B8DEj63WQhy1k
-	 Jdd6h2l84mJg0uSz3s0MdkU+dYAnLgwfL4sLuYw8=
-Date: Fri, 6 Nov 2026 13:57:39 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Carlos =?ISO-8859-1?Q?L=F3pez?= <clopez@suse.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- dave.hansen@linux.intel.com, David Hildenbrand <david@kernel.org>, Lorenzo
- Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil
- Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah
- Khan <shuah@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- linux-kselftest@vger.kernel.org, Muhammad Usama Anjum
- <usama.anjum@arm.com>, Joey Gouly <joey.gouly@arm.com>, Kevin Brodsky
- <kevin.brodsky@arm.com>, Hongfu Li <lihongfu@kylinos.cn>
-Subject: Re: [PATCH] selftests/mm: pkeys: wait for the child in
- become_child()
-Message-Id: <20261106135739.113e4b432ecb6e92f62e37d4@linux-foundation.org>
-In-Reply-To: <20261106164639.2959195-1-clopez@suse.de>
-References: <20261106164639.2959195-1-clopez@suse.de>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JC5/HUVV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794002240;
+	bh=GwsxCh0AXOERUXo7gF0gQrMDOeUWpvtvAN+2/W8c+Eg=;
+	h=From:Subject:Date:To:Cc:From;
+	b=JC5/HUVVUUKB+7jlmcuSkL1H69b/fsB0X7cx49xzmFlutM+WfmZV+B/Ja1+M7Xgug
+	 D4z1kLG/8yWv7rIcCThR1ZACjPEx9euPq3Legd3BDQn3S+xQbiYqSTNh+hW9fWGOV3
+	 5htShih36DZ85BzCvGSylSUQBdhAK0gd5nohKDus/J4ZxCFXqkACxALN6NdDBC/aDr
+	 L19QKR3YPTxf9+oz8gR3DMDSgKcdDWSLO2Lfq0IK2am0pd9R7wdKgWryvgjiWh2wBt
+	 W8MQfle4dHGWscBvhzexq95/ipvCAEOG9uuzkYt7o45M3B/2AIB9PMAVzeFd/V7eKH
+	 79A9tyrpEs1zA==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5ACCB17E0411;
+	Fri, 06 Nov 2026 22:57:20 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 1183348002B; Fri, 06 Nov 2026 22:57:20 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: [PATCH 0/5] arm64: dts: rockchip: Enable more features on RK3588
+ EVB1
+Date: Fri, 06 Nov 2026 22:57:05 +0100
+Message-Id: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,77 +66,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPduEssjQVzEcxlq1miBZBzEhv
+ LsTjt/h/1cwSSoG12qFJIuafsYCOlUQn2F8CCoXQ1M3LVHdYnq7c9ehLAMhZ5wnDlkM2Xl3Ie+
+ jDwwlnpLc9buPb/1hm4eXxPy/wbb9AH7ewtZ6AAAA
+X-Change-ID: 20261106-rk3588-evb1-dt-updates-d3739177c7ad
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=780;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=GwsxCh0AXOERUXo7gF0gQrMDOeUWpvtvAN+2/W8c+Eg=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGruTT8yHuUp5JsA0YUEcSipA8BPrEgv9tOTn
+ BpyKhKn7iHae4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7k0/AAoJENju1/PI
+ O/qant8QAIDMrLDxob+tGOo/PrHD97F9SUAJP2RGPodQFfQpg+NG/3ouQBzRCayD5KaJCQHBAjt
+ 1BOMrZfXRUj/ZpFIldVJCvV69ybFHSLnqQv0emDwRFP4PGNJPPDv8sSAmvKaKdUGeDECvfpvfl2
+ hrddw7mjU6LBzOT7nB98U5AKEY/cBBIYQfc4pSVYRdcvMendL9BHoaCSBkdky0AClNDpVqWAM4M
+ ZtrcwchjkrzZS1l0WwKqPjDz+SqmNIKhVJfnxheJGWkXqpfw4+KGHU+VkWSZxQIL+7vMI614uOS
+ Sn896Fp0XI5MTDXvk7M9I6Zs89sV4WC8wbCqv1qL6C/4Q6dZdWyIbuKjwea58Gl7AscjtRUNhY6
+ rJpXQfpnE16e9YEEujM/E6fAKmz5KV8p2+bv4dggRPAsGFqRm4gMQi2v/xtBYL/FN0T75exnLAS
+ n23770Hiviq39bY2B2VEcwXmAkgWRue37jIZ0AB5X2uJKbtvFysQ+dx3GknsKPWZdYl6vxgAm/z
+ rRB5XUggr1L+uN7jbp1DVFnCMgHrHg5CO7EVDN+q1LwbsGnZYLeexO2FjDEsYUcjkEBnJ2npASr
+ NEBn4MIPR/nP1SyifNTOYk9GUM7uLVAS6LWXVv65nErQrW1en6Aq29UltqXFbxsUBaheBUqcNvO
+ v0Wklf9t7kLVpG/+iMewngg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Fri,  6 Nov 2026 17:46:39 +0100 Carlos L=F3pez <clopez@suse.de> wrote:
+Enable a bunch of features on the RK3588 EVB1.
 
-> become_child() forks during test_pkey_alloc_exhaust() and has the parent
-> exit, so that the remaining tests run in the child. However, the test
-> runner only waits for the original process, so it sees the test finish
-> early with a success status while the remaining tests keep running in
-> the background. Failures after the first fork are thus not reported in
-> the exit status, and the remaining tests overlap with the next selftest.
->=20
-> Fix this by waiting for the child in the parent and exiting with its
-> status. A previous fix avoided waiting, arguing that the parents would
-> keep holding their resources [1]. Particularly, the parent keeps the
-> hugetlb reservation of its test memory, so the child runs out of hugetlb
-> pages after a few iterations. Avoid this by freeing the test memory
-> before waiting.
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+Sebastian Reichel (5):
+      arm64: dts: rockchip: Add missing PCIe wake pinmux on RK3588 EVB1
+      arm64: dts: rockchip: Enable NPU on RK3588 EVB1
+      arm64: dts: rockchip: Enable HDMI sound on RK3588 EVB1
+      arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
+      arm64: dts: rockchip: Add Bluetooth to RK3588 EVB1
 
-Thanks.
+ arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 180 ++++++++++++++++++++++-
+ 1 file changed, 179 insertions(+), 1 deletion(-)
+---
+base-commit: cabb6811c38a46337d5f4252b4dc390f9296856c
+change-id: 20261106-rk3588-evb1-dt-updates-d3739177c7ad
 
->  tools/testing/selftests/mm/protection_keys.c | 16 +++++++++++++---
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
-get_maintainer coverage of selftests is poor, alas.  So it's a good
-idea to poke around in the git-blame output to figure out who best to
-cc.  I added four new lucky duckies to this thread.
-
-> --- a/tools/testing/selftests/mm/protection_keys.c
-> +++ b/tools/testing/selftests/mm/protection_keys.c
-> @@ -1009,9 +1009,10 @@ static void test_pkey_syscalls_bad_args(int *ptr, =
-u16 pkey)
->  	pkey_assert(err);
->  }
-> =20
-> -static void become_child(void)
-> +static void become_child(int *ptr)
->  {
->  	pid_t forkret;
-> +	int status;
-> =20
->  	forkret =3D fork();
->  	pkey_assert(forkret >=3D 0);
-> @@ -1021,7 +1022,16 @@ static void become_child(void)
->  		/* in the child */
->  		return;
->  	}
-> -	_exit(0);
-> +
-> +	/*
-> +	 * Wait for the child to finish the tests and pass on its result.
-> +	 * Free the test memory first, as it may reserve pages from the
-> +	 * small hugetlb pool that the child needs.
-> +	 */
-> +	free_pkey_malloc(ptr);
-> +	if (waitpid(forkret, &status, 0) !=3D forkret || !WIFEXITED(status))
-> +		_exit(KSFT_FAIL);
-> +	_exit(WEXITSTATUS(status));
->  }
-> =20
->  /* Assumes that all pkeys other than 'pkey' are unallocated */
-> @@ -1060,7 +1070,7 @@ static void test_pkey_alloc_exhaust(int *ptr, u16 p=
-key)
->  		 * preserved across fork().
->  		 */
->  		if (i =3D=3D NR_PKEYS*2)
-> -			become_child();
-> +			become_child(ptr);
->  	}
-> =20
->  	dprintf3("%s()::%d\n", __func__, __LINE__);
->=20
-
-Looks good, checks out, I'll queue it up.
