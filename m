@@ -1,51 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957464;
-	b=OTA7yGr8T/ZL+0MuGzpFEC8ppMda85DF/Cn4Yl0896AqmwCZ1ORbl83DoL4/IXbE3vGc
-	 GndS0yJaRATDFIulxX4Da4keUIG9E9i+X1t+2m4ttcNPBKuEYAYq69GS1ZmjRz5JaMzt8
-	 747gyq0oY3/DTWV/aNbfPg6P9mRZJyNFQoHXndsxrjCb+NnP0O0lLlCuxan+RwtoBuiUO
-	 3PMuR9lwYU59rtk5LpqytIbfFrAC0ru7HWZZRmay551zcOWwahzEr2V+D76c/ViLE3Hru
-	 +uDuJNe7kqUrmOtlSYPmnGJ0ZVuS6vnpQn2EBmFHrfTX8/eeD8EQu1de7Q5vlP5l52A==
+	t=1793957456;
+	b=qgH9O0tVeYGnRZbT6wRQvaQVx8UYUpj+csIdaFwjgbKt/7Vaf23HMQs+KbgLdEJoq1Zd
+	 06vv6klS5nJ53yAX9WnlX1WE5KsORQrLvYxqk0kRyxqD9VTaF94sqH+6RyUBHPxyLkvNx
+	 +unlvRSIa6GUBdoVtngooX4GR7jv/Xsu6xtOm5tE2YZdKvrctVeftaaRRF+MR35IMAfLC
+	 6dZXpsfq1qt723rMvSPWfmBIbtw8FcGZ8HcIaMv9fWjpy56+Fzyw269YbfLmN54pMK4L/
+	 NGJ11XJkk5eyFWPCKGaotYRWSpfLWfiQ5RzMp6Vw+rm/zW3ZuSmzPjAd8kMk7EwkJIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957464;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=pkMm2Zmil5ok/PO3ra8ZG4X/dksxyZ+uKs/AtX6aAaY=;
-	b=Gpe/eqB74EA9U3E6gP0L0yOdXLHrx3KXbQVCtKOTqdf3ENLhKKzganD8s18yKJDXQsP5
-	 zDUSpKwJx4LE72/hcKksStnnrtbzG6WDZ3xAMvgI2QbTSLorn+HNSu6c+6IjFAP04DwSB
-	 dX8FvDzqchvH6B21FdJ+svs2u/per5ZVBQAGVfH3uYRfdmsyAdGHOraXVknv52kVnrse2
-	 VuqyJ42PObHo7UCGTmco1z1rIMiHdvLDwNzPhnfyRWJNXUakNCW1bVyRbdNVL03z9F7lr
-	 UcxWyg6vWvbygpa+isacNrrBbRbgjuuoj/yameSrZ9yIflpAeqq7OCm9Zxf7fqnSxNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957456;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=b2DYExTYymKs+rj5qLFkdxVQ1f+JYX1uyypx3DzhTVs=;
+	b=UgFHFZU+kQe+wrPRgXv5ZULhvS+Ll3e306WSYst51gRJQPi4z6cY2tzIkxNX/xmXXeR6
+	 E1wpwloJFpJgpHiEi0Z3CDtZv0w4ueqv6twHuAthiDCXXFIUI7AO7fHAuhOUTM76Gb9xX
+	 7CpNBL/WxfUKbNI2Bzgwq8mHELdLPmnhC+QEH6n5VwUfv8JZKThj06YviWBJqzTsgw1lS
+	 0bKwVAWl93haS7XO/pYG9SqwJZ8CvvC5/xbUHTFHoj71hATOHHVh2uCSIfJgtjpmGv7Pk
+	 qOiO1TdWn9HF6fEgmNaJs5Sp7383309M3sj+wbJypX3zlOaaMkiibXEel1bUjV2vSaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=n1j5ALbN;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83686606A33D;
-	Fri,  6 Nov 2026 09:31:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83686606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABXZJVQnu1qt21rAA--.5978S2;
-	Fri, 06 Nov 2026 17:30:56 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
- linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mika Westerberg <westeri@kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] i2c: acpi: Fix adapter reference leak in
- i2c_acpi_new_device_by_fwnode()
-In-Reply-To: <20260917065743.GZ106095@black.igk.intel.com>
-References: <20260916155507.2074970-1-vulab@iscas.ac.cn>
- <20260917065743.GZ106095@black.igk.intel.com>
-Date: Fri, 06 Nov 2026 09:31:06 -0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9188606A330;
+	Fri,  6 Nov 2026 09:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9188606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=n1j5ALbN
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 19B83C69166;
+	Fri,  6 Nov 2026 09:30:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 91E855FFBC;
+	Fri,  6 Nov 2026 09:30:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 23E3910329258;
+	Fri,  6 Nov 2026 10:30:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793957451; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=b2DYExTYymKs+rj5qLFkdxVQ1f+JYX1uyypx3DzhTVs=;
+	b=n1j5ALbNPpw1RFX1M9nj4YVJj634p46gxBZU1MJ5wj45z4wlJWSXL/5Bc1zCOnc0L5bw2z
+	D0n3M0ZGB6qDz/+iCxGTxG6NGIs/dpCvxBqqcVUmbWuFc8bM3LyGuqzlI76pSD5tbqUCk4
+	8VjMQ7iKwRN08hZzZSuJmrRjf4OC3T6T2lagge2RnBHe73UXtG/DjSkkhvUV640NakyRcG
+	9ARLCroyVYbK+CUNT/rb0Wk/+p97mgtlTNeInPxU/MFjFQmPbn2UTGwlhybXThUSrqNA4x
+	noKS40HU8IUuLu6u409P/3/WcS5R8PLj5fzvHq0iO54cg1IFv4ZBUVPNJfRxDQ==
+From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Date: Fri, 06 Nov 2026 10:29:59 +0100
+Subject: [PATCH 02/25] dt-bindings: riscv: add Metanoia SoC-based boards
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,62 +63,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Message-ID: <179395746647.2284678.8559513137457956554@iscas.ac.cn>
-X-CM-TRANSID:rQCowABXZJVQnu1qt21rAA--.5978S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WrWUuFy5tryxCF1rCF47CFg_yoW8Wr45p3
-	95KrnFk3srur1Iv3409a1UXryru3y5Cw45ArZxX3429ws0g340yrySqa1qgryay393tFWU
-	tay8X3Z5Cas0vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvYb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF
-	04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
-	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07
-	UMq2NUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIDA2rtky8q+gAAsw
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261106-mt2824-v1-2-86087eaf5af4@bootlin.com>
+References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+In-Reply-To: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Ben Zong-You Xie <ben717@andestech.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>, 
+ Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Minas Harutyunyan <hminas@synopsys.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ =?utf-8?q?Randolph_Sheng-Kai_Lin=28=E6=9E=97=E8=81=96=E5=87=B1=29?= <randolph@andestech.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ linux-mmc@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Mika,
+Document the compatible strings of the Metanoia MT2824 SoC and the
+MT5824 evaluation board.
 
-I am very sorry for replying so late, seven weeks after your review.
-You took the time to look at the patch and to ack it the same day, and I
-left the thread hanging without a word. There is no good excuse for
-that, and I apologize for the delay and for the extra work it caused.
+Originally-by: Jun Chang <jun.chang@metanoia-comm.com>
+Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
+---
+ .../devicetree/bindings/riscv/metanoia.yaml        | 25 ++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-> I don't think this is right. The issue existed already before the move.
+diff --git a/Documentation/devicetree/bindings/riscv/metanoia.yaml b/Documentation/devicetree/bindings/riscv/metanoia.yaml
+new file mode 100644
+index 000000000000..a651917630fc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/riscv/metanoia.yaml
+@@ -0,0 +1,25 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/riscv/metanoia.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Metanoia SoC-based boards
++
++maintainers:
++  - Jun Chang <jun.chang@metanoia-comm.com>
++
++description:
++  Metanoia SoC-based boards
++
++properties:
++  $nodename:
++    const: '/'
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - metanoia,mt5824-evb
++          - const: metanoia,mt2824
++
++additionalProperties: true
 
-You are right. 53f8f7c5cf14 only moved the existing ACPI support code
-into a separate file, and I should have traced the history back instead
-of stopping at the move. The leak was introduced by 605f8fc22442
-("i2c: core: Add new i2c_acpi_new_device helper function"), which added
-i2c_acpi_new_device() with the same pattern: the adapter is returned by
-i2c_acpi_find_adapter_by_handle() with a reference taken by
-bus_find_device(), and the function then returns
-i2c_new_device(adapter, info) without dropping that reference. So the
-correct tags are:
-
-	Fixes: 605f8fc22442 ("i2c: core: Add new i2c_acpi_new_device helper function")
-	Cc: <stable@vger.kernel.org> # v4.12+
-
-While reading up on the thread I also saw that the same fix has since
-been submitted by Ma Ke and is now in mainline as a65917d0a22f with the
-corrected tag, so there is nothing left for me to resend and I will not
-add a duplicate v2 to the list.
-
-This has been an important lesson for me. From now on I will go through
-all remaining review comments one by one myself and reply in time, and I
-will not send patches in batches that exceed what I can properly follow
-up on.
-
-Thank you for your review, for the ack and for your patience.
-
-Best regards,
-Wentao Liang
+-- 
+2.56.0
 
