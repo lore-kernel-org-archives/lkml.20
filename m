@@ -1,59 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.22
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959921;
-	b=lBzdetql0UNDWxLt9br4LT3KT+0Ss2PN63G/gjQlRLGl9KCKU406X4fIjpnRg42aoV8G
-	 OeFV1P63H+mSSidix+0o/FXYlxY3WEeP4kWuM63iHDresbnwk0n7E5gwdgSzL5+4qaLwk
-	 KsKcPl6sUxw1cAe01UITlLSzBbVZIJ9Bc0Gz3jbGFdsM2o0dIFi7R4wP1iqmSNLVJS1z/
-	 HvmoEgZK7/TOxXc19zaQQIU58aoviOFUwVXIOxscuHcOhoae7aBA2A/NZywEUcbr+6Ue1
-	 w7e1CIHrDuBWlELCkiMhuRybNHdh1xyWBK6c3QrOYQYi2fmxRlGC1+CtdDjLS9aKfNA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959921;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=BoJHi99guAl+SLvHXlExOFrj9K5CUgdGPI4NEL98/hA=;
-	b=ay9qyWgs9avY/cPeck+Xjc6RBb7W3P511s2D2SI8hHlm49bOhwUkyOdX7D6xWHp00Onl
-	 kVmASX4UDvnzxXqekkRo8HiaR5/BkiujT/q0yLIyOUto3JthED1MW9rBb9HJp3/qntGgE
-	 AtMIt3UgVT0StyVNVDIGhVG4qUYvIM7i6HjxSSMzIUi602zvOuq01HcsUNfOY5HsUDZHh
-	 x7d8/pnLzbcr5iUaKAcr/rXwvJx72cJvaxTPS7FcSWSrbgP3k93aoQRpKNagT/2D/8KUb
-	 nt4AJraUymkjMzSpDqMhbf0QgBgYA8qlH40uZ5XYzTP1+M8Bn+Dycl7av7vEWsCWckA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=XNgIDZ2p;
-	arc=none smtp.remote-ip=212.227.17.22
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.103
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793959939;
+	b=AbrL6iT6qv+ozwfXCtzQ7MVrE7soEFlhcwQsc87s129F4q6dcf2o4mhLJcu1ENiwK11E
+	 lK1ZxPaGcTzMHz3cf8YK0X0GUaUJdrzhmTVyU9upHO9vft39C3T1TcpEqu6xlKafjlu7j
+	 Gny0brbNJJhb1OiMJEx35wICE9e+/QkPXAWT1oXaZOErCI5ECFKjSfW4uoynHJL2TU4NB
+	 iFoEf2TEN+8E8PuNKaGiGk4vN2LiSqeAwT3DIrzL23KnDWT5XqeTQjkMbTFwda0M/EAql
+	 5zK42odpjACPZNNJ0oreUHhV9/bxI5ImGVWydHAOGrIw+rmvA3Jkt4el2mlv+hfFrJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959939;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=7Rxw4suj1Eq8PN1XDPBOCoGaQBhBDMPM3fATHrC7zJQ=;
+	b=MH40lwszA5b8MNhAcprTHfr2YNN5Riiagixxnvmyv/zWelKmBTX1q7HvRd5F0aTzSdZd
+	 UhwDLLn9ACoCF9oqbuyiUZbAgNprmAQqPd/hdJp+aKzUVlUCcFcGpx20DW/b/EDQ9UBbH
+	 BWy2xstO5jvRhifxenL0rp4D7wb5wqwrH8WmJUOwoViHZYVIcwddQa4HAPlnA4dsh9UVo
+	 DGUsZvvZ/bc/GPJxEeUGXNZUXEerskP3LVHBiL++xKB5WAo0oNxRULExB02fLOyTTxpl+
+	 DvdSR1Yen4VDLeCHfzY74acMS9xrvyJd7EQmF5yL12rG10+rcgPSC+iNMR2bYJ5P+bg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.103
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023103.outbound.protection.outlook.com [52.101.127.103])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9D2606A326;
-	Fri,  6 Nov 2026 10:11:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A9D2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=XNgIDZ2p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1793959898; x=1794564698; i=rwarsow@gmx.de;
-	bh=BoJHi99guAl+SLvHXlExOFrj9K5CUgdGPI4NEL98/hA=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=XNgIDZ2pBq5avJ2t3en81ahXIU+qeLlR9nRU+WAwmuyjwfeZ+J/Tct1bWfie+8X6
-	 1Lb0ESFye7WGYvZX4S9bg8xbjDx+5Jn2Jc4vxsRJsl8GMbQmBMlaSbFMPIryJpXXd
-	 qZ15Lky7tUVeNHYDFA01JYLhQWckiRK5sEHSWbPleqtsbMrSpicKd6jCIwhPG6Sfd
-	 UxcULApnUgOj+j62Gs0HAkJK++v+aGCLd+cNZG8Mst24OxVxo24D3sVbb4i+ztx8j
-	 9mOlWIOqPh7aOPanvqKGk7vlCtqmFVIiKtv22MRAKRrouarEcZ0e8oI35JMi0YzNn
-	 E+isSJm/dCSwg7tU/g==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MxUnp-1waM5I3egb-014V08; Fri, 06
- Nov 2026 11:11:38 +0100
-Message-ID: <ebebc4d2-c2e5-4f48-ae05-d048bb350755@gmx.de>
-Date: Fri, 6 Nov 2026 11:11:35 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A39C606A326;
+	Fri,  6 Nov 2026 10:12:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A39C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oX5UXZe2WDHlTqqbktrfTrEQhVOrhS/RJpkPro1QTH9y2FdtqJxogmRGq5ik6wTSUuaxu/b/WO5Q5g58tZgAZTw8Ysz4S65rOpZePVA50oF1ghahW2nD8BrENhSq5PqtWR8mD985krIpUE+elz+65lGYlXvi+sZsurLSELyLRU4lOzoD6FFFFvQC9UC4I1WmKVQE5oNXzdrjf79NYlh9X04OksAYTSnvftCzFNSxYHas2BGCN9I95bmEA+/eBN7hK5rDL2RtzfVXEG94/imldbnotryxxS1mqP/bnclsTAzPNSIyMy5CwmJMzHk26FUnlm7i+sI+KlViI8oGYjUJqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7Rxw4suj1Eq8PN1XDPBOCoGaQBhBDMPM3fATHrC7zJQ=;
+ b=CmRrWO9HMvfG2+Nl+jPopIiaTSrzhHjBjp3pxs8I8a6YG19UhoAK12u4nE6kimJni3SV44yd5yCTSyeHrRAF2NrHctQj8zRwiaSA4NsXHM7we6wYda6+Yj7TmiY1z7vp5YTFs+CHGtQLT05XQ/mtkD0h7/vHv3wp4eEl1tSR7XgtvfARlF0759oAbmHaIJGcDs4h5+FPd648BeTr7zlnsDXhHaHA9M2Y5Pk/P3rgqqHUVeX3yZx3kXyz5GRX8I4Tc5u8cnLScEvu37Eq+NX0cWNmsOLrY3LAonfTsEoPU9VX3V5MOSOzprrYReXNe2Rv2PmcfKOJASxsf3H7Uk8fbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SG2P153CA0053.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::22) by
+ SEYPR06MB6062.apcprd06.prod.outlook.com (2603:1096:101:d4::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.10; Fri, 6 Nov 2026 10:12:14 +0000
+Received: from SG2PEPF000B66C9.apcprd03.prod.outlook.com
+ (2603:1096:4:c6:cafe::8f) by SG2P153CA0053.outlook.office365.com
+ (2603:1096:4:c6::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.5 via Frontend Transport; Fri, 6
+ Nov 2026 10:12:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66C9.mail.protection.outlook.com (10.167.240.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 10:12:12 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 600B54102E61;
+	Fri,  6 Nov 2026 18:12:11 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Peter Chen <peter.chen@kernel.org>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Gary Yang <Gary.Yang@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Cc: linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	hongliang.yang@cixtech.com
+Subject: [PATCH v7 0/2] Add CIX Sky1 USBSSP controller support
+Date: Fri,  6 Nov 2026 18:12:08 +0800
+Message-ID: <20261106101210.1059256-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,162 +107,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-To: Jiri Slaby <jirislaby@kernel.org>, Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261104211038.406938024@linuxfoundation.org>
- <3dfb9b8d-3bf7-4fa2-89ec-6561c1b7b70e@gmx.de>
- <2026-11-05-1-daily-reply-0007-7.3.2-rc1-wx@kernel.org>
- <3d2ae531-b076-4dd2-8afe-2f30c7c1d928@gmx.de>
- <fb15f855-e306-4b08-87df-f31a6bbb2a51@kernel.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <fb15f855-e306-4b08-87df-f31a6bbb2a51@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:BE8NssGNblISFBQFSz/ZiMKrpJP5y1PUa2pVe2J8T0tuqLySTPw
- uFP2GbhAzTg4J2rn/BqhUF0bQeNxRSovyY1ymwN34Vm/tvHfoW4MSUGGAe9bSqIKvrf3Lt9
- WoK6bic64UFmmCsq12LxV0f+q+XdbWBm+mLAZxdYSqZQT5jFFeMyJLiBOjlJOOwKbcaxSO+
- Mml8+rwIYNFTpl6rhgcKQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:humt0+TwIE8=;Xh131h9zoVKfgj5knetk89phQfs
- gVidKZT5NXiHbb8uwVry9j1O2pCLvKHlkSNjxjWGvLzcN5YnHPvJ6FAMyZTQBIbEJ6TOlyeE+
- mp6Yznl1DkVYlG6vRyTj2Ldi4MmxmImJMXauCHf848n6x9g5pZwHhpTnwKt+08y/+ZbEyGn5R
- +G50HAda2lXcdV4AWOYB1hCd1jef9Y3U0BWdUrIYI1fYtG4Clw5sVlku3CKCKQgMr68RC30es
- GmeGvt2+N+ji9S6+Bm/jKC1nCxoXnkgqKD9QMN477moLxLvlRQZ5xVVxcegKl1811yY1Zp2Mu
- zjcROekV3d1Xol2wFkuKsd16PqR/SHVoZ5+ZJGwZjbDw+AeRq4fmfiJPloX36Y7z832Os8v4h
- i0jVOoYfXnDPeBiUT902BB9jPGTXiD0dyD2+BXBK6Ky/BRDLA/tP/Uev6BpfvZB/CkMAmHNe/
- 9GmswMZW15Fk9mmEaXije5CRJbkBIffMd2DswsvQVrMfDQY9Czwgl07VIJQBIAN/j0eqk2M9f
- 5HRWJgOeV1AnbIBOpD+faAHw6JB6lEymDHR7YrWIJhhR2mtlfD7wuFTCDa30rdYVcxkFae39M
- 91JXHoPNOOt3W+4CYPi0AJFs8hfgXFv0h+yTy46YXd+pCIZyn2UiV0auagiw2VLtmAGVCDmX3
- SMBgpoxAI660SIWrhyAC7XbARFuq4RYE6yN/KNCHLLoq1iqpsWW0CnlR2UfPfcrBGQ/v6yNcF
- +fjtDJTislOnJ8xJiwvQ4fr0fFx+14qTLbyL4MCu9YDbPzloKXT8rELudyyJ7HPWDyKcLfR+L
- ZhyGS7uHC/154DbtK59LWIeoP+sPiUI9FxGlDNkh8Bs+xgsBC/fwwMG0EdDHCrxL6+chbNwYH
- O68AcbQU0vHsBUoMnQKsFvdrTcgTLXr8VAFxz5Khuz7H3If8rkV3wBu8YFF+P79JvSfAs+Zi/
- KGR/qNNVSFkUttMKIapVgkuQR9c/LZPNNoDzXaqMnXc3TEYgWUGfOwA9x8kIno1pBg9yIe2Fg
- vuOsmeiY1JpRF3hRYKk2dY/1ZPpyB/SMcKg1G/+coJBB9ERzEyGQm0dqXPF126ytfDqe7OxHa
- Lh7YEbnI6wh3bgek+NequFI3cBgrnGKyQanz7TQi4R+jbDvBYJP8C14ijM9mHJheFL5kK/MIJ
- ApzJJscEYSLY+xKCj2h3cahMPW5ECrRgDZzuXv5vw6xoL3gj6OzftOMqS832qoQpEmKErvs7a
- uOkkb48HI8V7Eo77YWjEgR+Xwz8nKfx89XzpABv9vnCj2mTZrNSXrALfbB6odgsuJJYrDoZk9
- GM9fNHs1YqJ/H5bvSPQeSZAzljRabmh7a0VVaY21C69kp3fjKX+cPIyi6l4af3/wci2Hc3C5K
- V+vmaE6TYLPs7B79erdPZRjmNZeamln6bMKsoS2zy3570YD1FkluV4On6QTvT3bNjjDK2V5mZ
- FjxUpxA++g6KMISylw7gzeWHhM9K6r1tsc4aNv9LKDb7w/OvJw9HZ4U8S0LJB8jYKH4m6FoR+
- 2vSA5NGHbmdey4HdFHqtOPwTvEwnIY1zbAZjgV04Zu7hdYKeIk/t6abO4WGvQ6OaXLIAf1/Yc
- BuP5Vvd+eUGfyuDLhb0fjNaVCBN/UzyRIdul/DITnSRwJiuL3LNB6yahIja25Chq0F/sXxvld
- r+SGtkVBMeuo9G4a4Tle4upgCtUWa/L+HM90xLtQhFypHI8A0DzE9d6SNXWPWoMlvDSMUcAW6
- 2fJ7eyZ3eLk1k0ynBmumr4wZobp7emIW3saUk3BHBBH8b7MP0pUl9TdcGRwAAOLMjzSD5mteu
- qzHkHAavx+Ky+hdO4ZFFA7/T8xVDDdrZlKay9Xd2EuHtcPLizeVP0Ui0tIjSMXDoJxEFpbRA1
- psuBagQIpXN7MVuQIc+IQx5eriep02zE2GmnIKTqmlRjfOfi3hDg7Xnv8eG2Hrf5CgR0CuAAu
- 5FQBBGuJ5+dWaoiwQEl5Fvi8Mir/pxTs7R8JumixO+yThXkYjL6qo4HlTFbOBU69inR/h1Yfj
- slK00+bTgZO9IxPtCxuDzdVN/HpgzQgOoXnLuF2V8PaZOpLLzucZHv4kkbLydo1v7KK1taPT0
- V/lhwEt9nY4rXkkkV/E3vGWVQjYDow9uuizMUVE0bwFH+pGFdDjdP7QrykRS2pzI+znVvGOqT
- rGqPmHexTegirUibLyRDUuXw+VECUhNTWsK/3BuYNdIc+CLY98tC+6AFr8/IBB7LGMYcG2CnU
- R250OfQ2bLpxi8DorlnyWHJ9mhCbTqoWo4Q9kaD/BXsx4sm3EZztf9wz9VAMf/4jyN5yUxl1s
- QveTy51eeAw0zPGbHBkmSNPv9QW3I9jS/vyFzz7Vn9nh0W//TvfeOdqNPFHYhj9UEafDSjkyZ
- PWqfH3Gpanf8vh5YPb5iiThSApkvwGI7HhwWXkClwxwcuTP736pgzxvQjnSR9wblK+h6GpIGb
- tZ3ZdUi0Z7nGDgybiaEz7CEl72vc9XD5mC8CZgtMcVyKPae1PQfE4vEAo6IrVuWVTaimNpMtp
- Egcfkyw3j2Donp63gUJLN1erqM5HhUBy3JCLN+aPft37DktI6EE4+cxYaccYMb84HLDxuthiQ
- WWmYBVWBV97m+CHh4F6tB4TT5FATs52/4O1b7F1SrGkWS5Bh68pRctLmRTSXYmldGgv95uuSU
- cbj6uHsQi5nV8M+/81ifasLMiIyBP2PXjVsNPiCMA7KrQY59kOWw+W5H2BOyR2ug/yvcfPlMM
- B2rKxnvyz7Gra0xksRMnwa/RE+6jp+l1jPKm/uNzWp7yRKoByFyFBfenW0+jHFk7nZArBiwn6
- gfH37kTPM+qiyFluMw1Tm4e/CX2JyKZzuSY+bDl8uuEFUWILHGgXjP6hj0wRHchD323jCuw6P
- WQR/Gd1/atRIy/W6FdQ8tfVw81P6pBW4awqTLwU2oRgqWWlmzUzAPbOoCzRD9McJHBlW5sIJl
- j4/vnmtYjP7siEgLy67wzGBPWBk0BMDP5ut0AzbFNzckg+CNplrOAdAGosqy4pn4qDTc7Yh+n
- AMBqAdA6yA4k/m/YH0pnVSAuPiL3/qqkaZIUBh3MrCQDE+2PJqifsYCdpv8b4nRVWYGTF3HZi
- M4MlNgjG0zTKWqAZopT46uQbR9sDH363/YhEF2FJhUszI1ihxhXYE8eIWbW9Uh+gy1NfNUYem
- vald7AEffBd3k8s6K23OU5Awkj41HuXVAvWMwS1TePU4prk9tpZZ7SjpU72+KrjrPbBhzt5aL
- UGTPT7ytZHmXJns8KvHmTl2vCfa4yPrxHqt6c6RgBff/WZFC8BtxOIBRtGqOP0SavPY+T+y+x
- 6IDt0gtDKcA8SHHkJ5gmrMxb8V1wO67F1F52LYtiP9jRXomzdxP5TQANHDOIhzvcclkwXromR
- F+Tb3CpyTuX2ukOVeXejv6Cu6avp9+zl6KbOpITvT4bSHbFgQ/wvaE1+cm4wCLKFQCIWDTeGK
- pHADzT/ok6fI4AijU9V3CDsLjhAkOarP7GQ8AT/Ox//laWQBIp3roFutqa3gbunhjQQdTm6/T
- aEJAmE90rGbveHnIgSCUyUkV4v846d3AEfNV91XuK2X5uwNCxrgqaoZAjmH6cJxi/acer92Hs
- 3DI09cNkq6Bj0xI+QoVQjmnF/NNYmTyfoLPVwWymwt0x4vA9YwnXB+4wUsliEGvIGeZ9fWJ6O
- 7sm9AG9IO8qxYIHOuFHto6FcbczQgW1CgYb8FUNHCYtOZdZKhXR8HpAtL1W6ewNnY8sVaDf03
- CjdsSQhInbSSZ8gdN28KMWHf8H5ePLgeuf6nQb3L6cDGDOBCLHYmpbroBt+oZM19zGsYRGpFp
- 2eVOEsNKVJJL1WnGvLq2atxlmb138sKgIIVVHlevTyzTH0J7SlfSTWNb/lyRj+Y+d0RhCxG4B
- HqKYcgPPtWSDUKjgJKtKGsbLWBXvRZa6AqACnFCVIYLyKUpD6IgZRpM1KHJuCbvf+tT5iV7sq
- 1981txL9Dc2BJzwTi3us5VU9TcJRqh34FEDwZKt6eJEg9BWC+n+B6lniWQEAMLaGwqL2BHFxb
- ngELsSFug6bLrKUShTjMCwNSuSl4yXIpKoUOrFbFAQNfMrs+zAIoVw0SbBKR5/JODkufUi1Of
- PXd1V+6xbOaQDaZc1kZLXyLq4KKFL3PC9AQ/N9RvR75nbIF6m0lHI4Gxt8UdIxlvT8NiNuyoY
- krModafxqzl20K7hqgbkOc/lLp1Qevb8AQlVqvQzpdfOhINOGQBGNWR3shkjvN6q6Xb1F2Ine
- CSJ00FpBSp/6Ac3bo8tfxGAZLtH8hdAm5Ba7cWeYIi3YoCvIeL3wcpc50x8MAeE2KFWD5oV6e
- qoEj7xb3ZwczCgkdiYI/wKf+3O5jj8GdKgZrPtqMFtrtByxVWJfOs3wjoBQ1XviXdOz+a47bw
- 4xoCqp/lIOXQXS/fXRU7v2NUFs/AYQOXIlv0H9CCXrZAV9RvJ8qQ/N2u0M8aWy8cAXOSwuiMp
- sam2Rjwx96X5mt3opWlQljJj8Qo0/0YskKf43/xf6jKgJd6o2EzLtNmWAq+orzYOX1opGn8Ld
- cfzcej/c9UmyeJdOp34EzhWEKJiaQh3teGnIa5tiM4u6lS2+0mpJAycfsYxyIHwQPH2QAMQjq
- F/CRQdjFMNEw5hLHawh8u08jislrlkN30NOKvS4ODoVdcSbvdIph1ZyGV6iR69H3vjg1tbPB3
- SpFHd5lDlbnb7glSqhPOYdEPNgHdi9oMKYSb8gUlS9NqG3SXMGA+Ym2EsyXvAx5XDAhVUpgxQ
- ViWL/f+jQbLJeBtLqjQnsKLuTYetMNkVhmR7rUFcXrl4+eHpzJNWBQR8Bk0mtMmY9aOyHOHMG
- oG/6qsvYg4eJhpTe9Ze0835KAkS9sUVtF3tluleRtwpl/DwiSCItVbFk+cVoApdltVTUJ4IVE
- QFy+qkIr7U2lZKTIAX0yOcjK407oftFoFhGwzsbdeXz9UywvHn+dm1mEIKsqgy37m/UO+dGnS
- C7q8Pt/eMxS+i4uFwYFKvInsLHae5iZdprUANR1q5aa6rdf/ENs1MHgzrd2SFOCADNOL4OJFT
- hNUkkV1Q+lE+NO+d0XgRslSAvsfMQfZBm02KoENwVtnPfpVzAr/3CVytMasPp3LFNMy5EPRFt
- smJtLr/rOhXxlJBxjwSb1ga8HjgZTwLk+M7HKxyjE9DFEz34wpX2cB492xCRPOLSUmeWI2LhD
- DY6z+u26ngLWE5VF2HsTCTtM8t01kF7bmOF9IL3x93SvaRPS1EU3VviapOLCnjTZsVtdryQt8
- FrzidPoapXKmcAe3r8lCIMxtqMM96OFWzKCVSNHCrV/My+KogYC1ZxImdjB07GBAVtnt21csY
- DOH7C9wUJ0/sOsiVVZf9tw4t6o4oo0bx7hmfw1b9k8NwwgdwXVeWSum1mj1LkCaQcJ8ztatF8
- TlQ5hAk9lRTalSIY4M1cuCsBnjTpeX2G/0ouD6EN2QXJF/lhxSUpV83R3NXCtFgVOaFp+36Us
- WO93EVNA6yx9AFKfKeDCT13t5g2/H7Ry1O00Xjqs5G3zmS5WIOW5MWcZIdULhJeU5VwZ8t3p8
- 9OtuHeN3VeTd5qG1sZYHeYwlfdC3DLQsj5ymYeB6GwUeekW12BdgCGwnJY0k39NQ1WeV62mn0
- zRXzamVbZ8ID6HdquLX1yCefD29D+iKA+QP2yTvwF49FF7UcHfnkexEnk1BwrgqKW/vdkGBEK
- VzD9sD8JjzFCUCJhcS07ietOyWSb2XxV9LI+Fe/fBSDofgko6KlevA9gx3ZOxXSdoYjVuNscO
- LyebY1kWCs9AjLHoMUv161CeRD3JxcejckYH6tC3R/EmHbHbUFJCczgDiRpFKsntQ+33rDc6v
- 7oAqphTpoGor5O3ubXGDdAazJlHXayGHUuaMPTuKZ7kEmcCD89MFXvvJ6vV+gH+SIpJ0ST3g7
- evXmUxcPFdomp9hgpH1VEg42/NKgAI530hn422yu43nso7Lbs7VvcRzCHCeZBFWqLTEogXTva
- M15OcEndb+dUsnggw7JHn2YE5ggNdBiiKNfkSvfGTZs4aVziEyGPbHhAqvTKfZ2LC0Yu9F1b0
- t+DMLVdWPSxTxo/Z3YKbBn4PnbQVs/dnusOvpe2NJXs25M9VOYfCX2N2RAQqhSQY7+AOV75Yz
- 4ryXLs9aOk9u0wh7J7dEbPjG4yAnyBNS8xNhd1EJrQOHRabi66eqJTB6FEA7S4pKDRl2drIlk
- mXuKXAAWhXfFnK4gW9cG3VJrILuJI3rhKlWI3gsl102TpWVJg6YG19K2z8P2syA56mQ2mr0M/
- zFP2eWh/YVDUD/m6Sp5yySbSBaNmOSJ3mIHek/6pNts2s8yjxw1FeEMXo0QwH2zRU/8zDZTKa
- 8OSjlJOrWmgO5GqL4BZBzz72wYUYBVffkEWI2HPxkxutFRAAqU8PyEfD/5V8s1IAChb0NtqL8
- rz+B4iQ7YWGdtztsZYwsTKJpijRbAJensxK4DSnl6Sm0mzdP1xCOy9ANB1aUcyNZsbQ5EFAN1
- 2jvqJ/lmwgWkhIyuyE0uRqI3z//PbqHwWPjfVQwSrNR3vL4JINh5MbyuewWGbRcvnnLltyAxr
- ff6bHTSNX7Y2oiwRAD8e11srQI6YlrITpK35mEezSkSAZ3h2PEPty4Fjp/zlPmkUQsYgetu6Y
- OQiYzpS2CTM0ABvIHX/XzfAJenbMxdjiNPfRYF+dPHkonKI1vOdMR3UYSMPfgRTzcEIcUhOJM
- jdBsxcplDGmKH41DK8T1Fi6O9YbEWt917Y8odFRZM2cH2v/QLAdbL0Rq49J0qgu/nVWlLwfDM
- IMmFGuc/n5M3UCWF0RDzpHkd3Zis9YrKfjJ0jOobztThGSBbWgrEFyRicHnp6viT/Qyjb6Iuo
- ubpgRX14qlAPSTafrAYAZlEHP9SzAzcK9r8y9Ea5abyXACmW0KtSW8n46yr6ENwA2lq6U+/np
- XFfldcpDFOpiAnBjTekJ2UfQh1PdqwMd7iYWnoQzlGMRY8X87XWSIgPrOhJRi3ZlMtF0kUfux
- S8GMbr7uwbg1zkaNhE3T6AhkFWXITA8ufcj+sIyCXE88/NNnhXUbTDBCdE7YJ7dIeRCiF4wc/
- ps2ZaCTTJ304D9pLBXDPM6rCHZVUc4pJpISAduLXrShLukFFwseEb8V7HugtdVN0xIJ0ez2fT
- 45P4Vtb29tBuB352MhG5RqdilkoWi/Dm7AzvPj/pIZgXLLeunIYG6e6hEtQ2eCqex4tHZOvBL
- nnHatCN5DSk0VxlfKkUZvRZlnZ7os6O6btNZd0Fo61Mmsa7eB1L5sfOPS573bpCH0Mk+Rh4Iz
- GosuQE+kqFyHE8aEEfUi6PL27X5MtkHxFKV8yL7X1M4S2h7c5NCQzrsNt7ih5IeZ9iVBN1ub1
- RiueVDLc9VGmtB9aFiCq/dvvGYwzKM+HwAZ0zJBj1sIQqaPLU0k1BJzPS+D/Rx/o3PR4mGjJm
- XyGLfDVpexKis8TAVxVICyEaWB5ojclkiaa0/39fEG0zWDTirA1epW+IyGmB6Kfodq6pdLkab
- ImBAU1dtO6qvxCDjfiVNWYeudjyAZmsbXXS735ia7BZ5cBOS4V7EuoukH2L7v
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66C9:EE_|SEYPR06MB6062:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: b6017d97-59bd-4b68-3541-08df3bee6d02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|18002099003|10067099003|921020|261026140227099003|261028144727099003|261026121527099003|261102123227099003|261022105027099003|261009223027099003|56012099006|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	b6NP9wKy4hlqhj+UDzqYfCTpr1hY3I9XGUHzNZrrzMUfWx7+iXi3nsHo4MJkGfLqBYW3QpaGGM1YdbVxcgLyQ0j1y7bDEqiwowHnoxL6MDn9qWNPpVECCeBMYl37vNVsDoANSdLZrDr4vP1NGG7mw/KTA9cAPHX7uzICEIZ8Pf+Pb6hMkaFGUSbKkYxZHkhfF0JUO+RSqs1oPkTEhDa9gK06jRO1Dnyw52LTa3rWSnMNDN9kJlrViMHvLjEUYpeMQAx4c3Bd3aiKbEhT78NH2tHUF3FUOObV1ADLj+zmTaAkr09kmtjTKDjhmGvbEPXy9xQ44xGQ6vmRTgkVZh9aixwtjjCU9riNYCOhJPKS4Gq7UxkIQySC1mjkBqbQjiwQUqPkqeldzbAAEXkzgop89Qxdo2R0R43Z4DZWW8phH6CV41Rztro6bEWvshZ/EPyYg/B1jmZk5/QOumJoIHI71lQ/vVysiJ+o+Tw2NVQDdPmEshz/e00k0yaepEN15dMqwjehYT/ddHDMsR3Ez766aUIMhX4vTMoSQt13TfBTfneB+t0hlCSORHAJD0a0twfN94GNlX3eybHQ5umYgZVKObIjM9DzkHp+Ky5BDwJhCW4wy7MsG1ixm5coRXywoZ0BiDS9mohNIYErhfl0h2mgpRuuQbWGbdGRO310KVhoLESH5FTU0XrDoMAlcTbrRHNbVtUFjfNUDtTJP0a281b/kcgOfpSE2KdGN+WDAVXn80NU5zasDHOhBLDJRXAHmvj/
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(18002099003)(10067099003)(921020)(261026140227099003)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(261009223027099003)(56012099006)(261021121427099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	onwKKmKEEhFzeaxpZVi4ys5tX1T6dIyTSijSjyYScCak/YHuz7qFTU3ociNAVz2Nvabrn4a8zaT+hvzZ6TXNXIg0Nz7Mv5lnSPT1I1d6rq5CtXEkCt8cHFwFcxX9ljAkvZQAIWj5A1BUzuJ0Q+EBVPzns5538mEZhBvCBAuQUdZhnRNwSZQwhjEvF/uyF1IfNXGgPNHQMYOX5vp7Kps5L+yQ6vCXf7KMlIEF4P0o5e7nh5r6+y+uurDPgOW6DX/UCqiPScnIVBVKHdTonwjOVm8ey73AxPC4xECcgYx81F+tU+X//4f/6psIYhCXJXrwPvaPu/QQa2XmQCHX0pw0349SQPiX5Rx6tkWH4n0xJBmTFmBBhhZhUuFK5ppmDKRGRBcS8ikGKNG4q86gauCDVGo9wcF/sgUfy6pMGN+3Lh0T5M1dIOv8ooCzHVKOQcbE
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:12:12.5264
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6017d97-59bd-4b68-3541-08df3bee6d02
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66C9.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB6062
 
-On 06.11.26 07:26, Jiri Slaby wrote:
-> On 05. 11. 26, 20:58, Ronald Warsow wrote:
->> On 05.11.26 19:39, Sasha Levin wrote:
->>>> I need to revert:
->>>>
->>>> "x86/mm/pat: Fix effective RW computation in=20
->>>> lookup_address_in_pgd_attr()"
->>>>
->>>> otherwise I get:
->>>>
->>>> [=C2=A0=C2=A0=C2=A0 0.108037] ------------[ cut here ]------------
->>>> [=C2=A0=C2=A0=C2=A0 0.108037] CPA detected W^X
->>>
->=20
-> There is ea6fd393cb9e6811a748c7551de0dd3090f9dcde to avoid this false=20
-> pos. Care to try that?
->=20
-> thanks,
+This series adds support for the Cadence USBSSP DRD controller
+integrated in the CIX Sky1 SoC: the device tree binding and the glue
+driver. It is a USB series only. The arm64 device tree nodes belong to
+the SoC subsystem, so they are not part of this series and will be sent
+separately once the binding is accepted.
 
-I'm a little overwhelmed and don't really know what to do.
+Tested on Radxa Orion O6 (Sky1) in host mode, together with the CIX
+USB3 PHY series posted separately. The series applies on top of
+v7.4-rc1.
 
-I don't have much experience with Git.
+Each controller is described as one address range in the USB30 Type-A
+DRD RCSU block at 0x091c0000, starting at its AXI cache attribute strap
+register and ending after its AXI clock status register. The two Type-A
+controllers interleave their strap and status registers in that block,
+so the two ranges overlap, and the range is mapped with devm_ioremap()
+instead of devm_platform_ioremap_resource(): requesting the region would
+make the second controller fail with -EBUSY. The register map of the
+block is in the binding commit message.
 
+Changes in v7:
+- Describe the RCSU registers of each controller as one address range
+  starting at its AXI cache attribute register, instead of two 16-byte
+  register slots, and drop the reg-names property.
+- Map that range with devm_ioremap(); request_mem_region() cannot be
+  used because the two Type-A controllers share the block and their
+  ranges overlap.
+- Take the offset of the AXI clock status register from per-compatible
+  driver data (0xec on Type-A, 0xf0 on Type-C), instead of two
+  reg-names.
+- Dropped #syscon-cells from the S5 system controller binding: the
+  property does not exist in the kernel, and the series no longer
+  touches bindings/soc/cix.
+- Removed the arm64 dts from the series: it is a separate SoC patchset.
 
-regards
-ronald
+Changes in v6:
+- Dropped the simple-bus RCSU container; each node is placed at the
+  address of its glue registers and the core is a child at its own
+  address.
+- Replaced the usbN aliases and the undocumented id property with the
+  register offset and bit position arguments of cix,usb-syscon.
+- Converted probe error paths to dev_err_probe().
+- Removed the unused over-current GPIO handling and the unused dr_base
+  and cdnsp_pdev fields.
+- Fixed the 125us prescaler value: time * frequency - 1.
+- Made the AXI halt writes read-modify-write so the preserved and RW1C
+  bits of XEC_AXI_CAP keep their state.
+
+Changes in v5:
+- Dropped the cix,sky1-usbss-rcsu syscon binding and the cix,usb-rcsu
+  phandle; the glue registers are described in the controller node.
+- Added the MAINTAINERS entry for the glue driver.
+
+Changes in v4:
+- Split the combined PHY/USBSSP series into two independent series.
+- Restructured the RCSU registers as a shared syscon region with offsets
+  (reverted in v5).
+- Fixed the indentation reported by checkpatch.
+
+Changes in v3:
+- Fixed the interrupt specifiers of the core nodes: the Sky1 GICv3 uses
+  four cells, so every entry needs the fourth (empty) cell.
+- PHY driver: assert the resets before registering the PHY provider,
+  disable clocks in LIFO order, and fix the error unroll path so clocks
+  that were never enabled are not disabled.
+
+Changes in v2:
+- Split the single binding into a PHY binding and a USBSSP binding.
+- clock-names: apb/ref for the PHY, sof/axi/lpm/apb for the controller.
+- reset-names: core/apb instead of reset/preset.
+- Dropped axi_bmax_value from DT; it is a driver constant.
+- Added the MAINTAINERS entries.
+
+Changes in v1: initial version.
+
+Hongliang Yang (2):
+  dt-bindings: usb: Add CIX Sky1 USBSSP controller
+  usb: cdns3: Add CIX Sky1 glue driver
+
+ .../bindings/usb/cix,sky1-usbssp.yaml         | 154 ++++
+ MAINTAINERS                                   |   2 +
+ drivers/usb/cdns3/Kconfig                     |  13 +
+ drivers/usb/cdns3/Makefile                    |   1 +
+ drivers/usb/cdns3/cdnsp-sky1.c                | 710 ++++++++++++++++++
+ drivers/usb/cdns3/cdnsp-sky1.h                | 100 +++
+ 6 files changed, 980 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+ create mode 100644 drivers/usb/cdns3/cdnsp-sky1.c
+ create mode 100644 drivers/usb/cdns3/cdnsp-sky1.h
+
+--
+2.54.0
+
