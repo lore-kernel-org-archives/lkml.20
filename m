@@ -1,98 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793923820;
-	b=0uRqQpLZZePgN15cG7D3oFhiRlzkfkqtnixKZ3BKi9SqQv7MIHT1D/8TpXF8tPiXJ2cQ
-	 /YfihPL6PeeOtVKNQ+TaJFD/FkyQ8EQrF7KPrH4cqkdAjDBIMuEbMUnAat4PV7DgNBobz
-	 7UIKbK1kNkjS90JTJCJIt02mU7yGabDVwiAW9SWMU4YjC47vMXy5qv66B2kSttn8kpn5v
-	 Ni0+Gb8t2Qv1KIqM0BAvW/95fcAIN3W3xhcWKPjsyKesgTPRSLK44zUeomole/62+DNuY
-	 KCME6QlEEfDSzvTmOS3LImK1Fj+9hgXYoeY2WUKiWRBueYNGfPrhE7xMXI6tHGRKSEA==
+	t=1793923972;
+	b=f7RxOvtKoVIyOKE+km0a4P1zurBU5U+a59gGgxhNOXq9FFvxYL3Rp1rgAWtkW/+Sjcy6
+	 5E8FvZ+JuKRfqh7iMBYMg6yky1LMTYKFjOOuSHbSf6oFFM60zzmJkySOLWBrrVTIm+PAb
+	 7TYKCpB8vqXEiv562g7az/mpN3jFWC44gxUJsTPBVWqfbUJjwx5W0/xm2QmEdbKC2093n
+	 Z4LDVUGAPovfz6fsV1VK9F0meZzeupJYsj5Up/Jb1/mHO1i2U1/jQnLqXROpuXmTK/U40
+	 QwW6brPwJTccoeAL7eYPuuFQ7wghz+NcoiOpKme/JLgu0F6FD2HjAZvjJI5tqoKlQiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793923820;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=SDEIjTL/pMuP5OvwnL/SS4lozZwfHuBubfkoJhtRSRk=;
-	b=i19NFNBykPaL5ff3PKYKoNR3VCv+h0wcNuS4ezSJkajf04YT6pWDJnNXmo5LUg5N7ppV
-	 EIsO/bKZcoHZNtx+QjNiWQF4CeMaGVysEN+xlQRjUVvkN1vcjmG9GMI7ukrkgW4QLp8YZ
-	 LMfslAJGC5p/uFU0sT1tS6VXvQ/hUOvouR7aIY0I9ifjjwTx5/De58nox2U6znbEnMC80
-	 uJOcWvfsUizWxWt52LE1REl9GoxzvFVm2xM6PVEWUcWmXcY1Uf4ie6uji9HtRz/t4pc9P
-	 vLzaqCupD21yG4/rs0tJB1X/it/l59PcfuyLz5i4h4UAp865d7PDEOxnsw3+6GJ+gTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793923972;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=SGxBcvwVnn68G0KUIWhXj4n7e3+LPqUj3vgSEpFFHd4=;
+	b=e+sv64zaNHjllRLbMSRBrKcXwre2QePWudZuhbSBNtA50yO3PRwa1bsAc72CmDjyfqwM
+	 xXuWhHK9rPtNkDlcwL13jp//AZxl4dZ6nt5b7hvyAusCQ7EgT6Lc6HcytJp690tF8rm8o
+	 0bbv4a9bb6NrTg9DVui8CzhU2Y2dF7Ul+sUqwrwuLGXjb0YTm7ASku3X1NBv3YWD7FxYX
+	 8QV9yR3nJbYoEw6ePADOaZGhJ33Op/VCHLhluX+60vU2oy7sMHA91tUBFvRW1/5fDbhzw
+	 2ScmKruCz86GxgQy62Y5hl2S0i6KfvJkasAxYfGdzwgPolrGzDDh3jvvETojW2gmSBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gzj285x0;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181E0606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:10:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 181E0606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C223606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C223606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gzj285x0
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-3678f64d078so97237eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:10:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793923819; x=1794528619; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SDEIjTL/pMuP5OvwnL/SS4lozZwfHuBubfkoJhtRSRk=;
-        b=Gzj285x0Dq3SfXCUBvJM9YvixG8v7TKNssxgoLlOcEEf/hXz9q9HWnf4Li4EB2Qf2g
-         Do2vOeXKc3/+lWknu7wCvz8X+K7Sodbha5oeDiZVIRghxfZWo7ePdAqDprNYezN4zx1A
-         L2ceWDGOaLWpdvtV2RAD0C0AYrkKEvo1xYnuzCcHjdfeUS3abPJ95e10z7Mwk+m4lOSV
-         wBRiTlD8+Bg23QBf/0nCXa3jwB6JqyjDqfed7Swp5q+LeURrOapUMJAPeFYWjle2rQ+q
-         jwJQhXzAI63hfb7vKzHMc5B3OfzWmbPFVZmSUKW5zJ3zAm/09rngB4WYdF1EIAZmHbk3
-         n+UQ==
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cd3310348d2so554462a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:12:51 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793923819; x=1794528619;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SDEIjTL/pMuP5OvwnL/SS4lozZwfHuBubfkoJhtRSRk=;
-        b=CnP/z1CfZJ9RM2LiN+kYIwpy5cW+lNllpSPqLHwOC851J8rE6VgPTQpUl8o6S7DErp
-         Jh5R9ziUr5O2iZTiQKGrh463DwTYj5G4ztmBc1bc8QWn3ClwAXghHrD6XBDPrxxOnCx7
-         fICukb95LWrcw1Lfyp9xEfqKIaEN388th15HdyziFbiGYO0kXjAcoSXjBX0Qze/CSdZJ
-         try93G6Vh3SmxedzxcXr1xKHUTp7MBHwAL2H/FQXQC4D+O6N/tRbUgJKtMqeuJMNkThg
-         5DeUW1lBVLeP/YZ/U/ZngaiB5pB8rQ8JR7Vh/WkzkHM430EJtcsxU3d0Jb2gMnJLPCL6
-         8IqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQvMwhLb6MiYfjagumtczYNXqD2wVQ4t3yJa5fEXo5YOlx03YjpFdw74Yh+4tqtyiU/TjX0htG6OvwxdU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/y25DscPurE7LfJSmQjoxCBNPo6i8pGOT+NyIMTBoyJjrH8HIr
-	VoHH5ElQsD2UuCKd0FTlEBRbJoDyZJnqyIGhrYpL9JUnJAanhUR3cM9WpCUaHXUrFRg=
-X-Gm-Gg: AYBFou0SnfUfRtn2mo93GncPjnhqwJnfnKT3Q1S084Gl94oUj/t02YKvDH/k/bmMICK
-	j0OLdQ7A4IW+mpO3RyDlIM+lYqnirGhtX6RtefvjvD6rTD7seyQAc1STdz4/JpVdtnfP4hylbi6
-	v++qXkfhU6J50WVLiv3BF3PiFLSiEOHEuh76sEcDK3IJJGauZzZ4+I9Hih/E1OsKN40VdZq3RuK
-	UsE/Y3M9CsesPDmXGFs5l/RwbR7/oW4FGwqOmmnvE9Y+6j5rTKGjc/ShIkqSzHpagNJeerdX8r+
-	az9hz15RmTSohLFO/+EorBUKWEITBFRXy78Glv28W+Th1e3NQo0KXXxj6z1eAntY/mhh/ewZIS9
-	iwI/DQ9ehwoTRYhnhdmG/pInter4+hjLecGqbalX/KekNbxRQutWCizPecTopoZoEjqZpoyqw5u
-	C7ufpim3TR+mPo5Ajz+KYuIJfsnJodM7BQFP+G3mRPfwippINeFokRpvI5uQ2nVmo0/36xP12E6
-	v7ffQ9Z6xfn3ljYMhlP14pjkD4Bw8x72HeIA001b46H10h60xN8CvlfbgLwJdvXoYjRFgBxA3ZP
-	MjrYNYZaN5bZCPqFSiWmNQ==
-X-Received: by 2002:a05:693c:8843:b0:351:207d:bff4 with SMTP id 5a478bee46e88-36f72cc18dcmr1071728eec.4.1793923818875;
-        Thu, 05 Nov 2026 16:10:18 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:74::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa4b8aacsm681858eec.23.2026.11.05.16.10.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 16:10:18 -0800 (PST)
-Date: Thu, 5 Nov 2026 16:10:13 -0800
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, David Wei <dw@davidwei.uk>
-Subject: Re: [PATCH net-next v1 3/4] net: devmem: support leased queues on
- netdev unregister
-Message-ID: <au0aYjNLRjagTLEA@devvm16445.scu0.facebook.com>
-References: <20261103232659.1340283-1-almasrymina@google.com>
- <20261103232659.1340283-4-almasrymina@google.com>
+        d=1e100.net; s=20260707; t=1793923971; x=1794528771;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SGxBcvwVnn68G0KUIWhXj4n7e3+LPqUj3vgSEpFFHd4=;
+        b=VE0xGHhCFwiH0tXsF/PRum1lb5+orOepEC8ZmsaMSs+S6Z+wcYiEVolZZ1O4QZ+FiG
+         eTsmVC6tTCaSoyGPXSLg28/guFklj71veCsZgn2XFpO9JG7BhngMUrGjZUZlk5NQKbZ5
+         zglu9eilFoQ9p/HZtuBIDnoHfcpHnKru/52hB4APumi/FU3ExPFk4gU3W+Z2c07zthjm
+         MyBTD6Po4CBvX/NACFcW3j4hJ+3CqYMRgi3j6VC4uIbXftPiNJ0MaOJJbIaYgXp23uml
+         B+ZUfccMpAnvAHrLikiw06xbnc+JBiTHYciEHx3ATbDb/LozD+EVHOmo0Uvl3G8oW5ky
+         pD2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxf2WDl1bX647ov2qRlIscEsVbiHAs+38GQS9G9QFaP1vzmsOdOp2N5cCUDYMmxdG4j7AVxAii0f8yL6Pk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rxSnNlSyirKvkIVtoGWLHrYtKyYCZ2tjvMdFgV0RaeFTnimP1
+	E3SLwXmf7pkbkurrRvjHETghLtPxB5b9e8PieueI9QuYXDmH01gTruMreeCRjw==
+X-Gm-Gg: AYBFou0Czpaeidj+gOvdup+9mMczpoiAaB4gdNVVd2y7ZKrAh1LacpONGG3y2zi6Xz0
+	rcst041TiwoO5jMmxdVi8DxV10C0Jim+prgeIVeLzrSJkVwwa2J8ewTGa0aHU3QEL0iv34PHAXy
+	DKfH7gPBx6F6p2MCCV06sYQplWZkfbzcuLsRcTyRVrt/WaIVZuRN5ypjnoV9DUR26XnbrxPVkuM
+	PWHozKNIAwR73eydgXvVsnTEDW1fAOqtQ430GBKk3oqvHxAsGae4E7cVimlRyUN89a+Bk1k9KSV
+	ZDuLx7AVuNB5sfkcbCShjZEvjsqEQVX/BJQ24OxxPLN9yPZV9BLKDTLWJrfxx3V/66Brnw08YO3
+	pOvJBUyDedwhLyMLGMRFNfrfTLao14b+opJa73XOoPYKkgb1OL3mrKKtISdlIfVJG46JnjT7PjC
+	Gn/NZ68sScDS4aeR3UvQq3492gVnBn+X3pe0zN53cCk4BG/9+bGlMaLEr1WMaYZKeTCnAqzPFeC
+	435DyvAVRvlTMQ+PqPXanaV+Aw7CTCh7CbEeZWOGiEpnpQEbcNywzJDukA7WcbApgqAHbgkuRXT
+	mgKow/N8HZfHMm+s7AiU1m3PqAkDLG6e0w0hcPmg8RXbGixzqNiFKEBTHnZYQv6OmHvhXPYt/Gh
+	nDyMvZVxNQFs=
+X-Received: by 2002:a17:90a:da86:b0:3a0:d7f2:5a58 with SMTP id 98e67ed59e1d1-3b0db60977cmr445685a91.3.1793923970962;
+        Thu, 05 Nov 2026 16:12:50 -0800 (PST)
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com. [74.125.82.177])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c8ef38sm915116a91.12.2026.11.05.16.12.50
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 16:12:50 -0800 (PST)
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35829219da8so1223348eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:12:50 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxSkXbU4/FtSzAWA6CPLQGVS3VxJOxqJz31nWGhI7Hatti5VZa8lO1TGDN+7LxoqLyO+CXaBYFymPXz3is=@vger.kernel.org
+X-Received: by 2002:a05:7301:90d:b0:36d:6a77:960a with SMTP id
+ 5a478bee46e88-36f73893ca9mr1104956eec.1.1793923970093; Thu, 05 Nov 2026
+ 16:12:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,198 +81,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103232659.1340283-4-almasrymina@google.com>
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev> <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
+ <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
+ <ba32cd69-23a3-464f-a74b-68a29e7b8202@lunn.ch> <CAPY4CJ6mCc5HgQUZd2Mq3C=Tsmwp=-acAV8dsWcpO_J87Pr6rg@mail.gmail.com>
+ <7b4ab738-85c9-4747-bf89-1a5532af6901@lunn.ch>
+In-Reply-To: <7b4ab738-85c9-4747-bf89-1a5532af6901@lunn.ch>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Thu, 5 Nov 2026 19:12:37 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6Pa1T4v6=3K+qN-sJeRivJqGbUeR2svJNcrLHtA=Th+g@mail.gmail.com>
+X-Gm-Features: AclHuK9z-s31k9cdXUmtbrS436ZgZs9Mvql6VWlVAJgIq_YcqPSSmicfRgm0TQE
+Message-ID: <CAPY4CJ6Pa1T4v6=3K+qN-sJeRivJqGbUeR2svJNcrLHtA=Th+g@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890 GMAC
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Chuanhong Guo <gch981213@gmail.com>, Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/03, Mina Almasry wrote:
-> Previously, bind_dev was only populated when bind-tx was called on a
-> virtual netdev (where map_dev != netdev), and leased RX bindings stored
-> the virtual netdev in map_dev without tracking the physical backing
-> netdev at all. Unregistering either the virtual device or the physical
-> backing device while a leased RX or TX devmem binding was active failed
-> to detach the dma-buf cleanly.
-> 
-> Always populate both device pointers on struct
-> net_devmem_dmabuf_binding:
-> - map_dev: the physical net_device whose dma_dev holds the DMA mapping
->   (resolved from leased RX queues in netdev_nl_get_dma_dev(), with its
->   netdev_lock held across net_devmem_bind_dmabuf()).
-> - bind_dev: the net_device the user called bind-rx or bind-tx on (equal
->   to map_dev for direct bindings, or the virtual device for leased
->   bindings).
-> 
-> With both pointers tracked on all bindings, handle socket teardown,
-> queue uninstall, and netdev unregistration in either order (bind_dev
-> first or map_dev first):
-> - Lock &binding->bind_dev during socket teardown in
->   netdev_nl_sock_priv_destroy(), close and erase bound_rxqs via
->   binding->bind_dev in net_devmem_unbind_dmabuf(), and require
->   binding->map_dev to remain non-NULL in net_devmem_get_binding().
-> - Clear binding->bind_dev in mp_dmabuf_devmem_uninstall() once
->   bound_rxqs is empty, leaving unleased bindings mapped until the
->   binding is freed or map_dev is unregistered.
-> - In net_devmem_dev_unregister(dev), if binding->bind_dev == dev, clear
->   NET_DEVMEM_BINDING_LIVE and clear binding->bind_dev if bound_rxqs is
->   empty or dev is not a queue leasee; if binding->map_dev == dev, clear
->   NET_DEVMEM_BINDING_LIVE, unmap the dmabuf, and clear binding->map_dev.
-> - Reject new bindings and RX queue opens in net_devmem_bind_dmabuf() and
->   __netif_mp_open_rxq() if bind_dev or map_dev is no longer
->   NETREG_REGISTERED.
-> 
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
-> ---
->  net/core/devmem.c          | 85 +++++++++++++++++++++-----------------
->  net/core/devmem.h          |  8 ++--
->  net/core/netdev-genl.c     | 33 ++++++++++-----
->  net/core/netdev_rx_queue.c |  5 +++
->  4 files changed, 79 insertions(+), 52 deletions(-)
-> 
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 6446355e787d4..1d6b89f196e02 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
-> @@ -86,7 +86,7 @@ net_devmem_dmabuf_binding_unmap(struct net_devmem_dmabuf_binding *binding)
->  
->  /**
->   * net_devmem_lock_dev() - lock a binding's net_device pointer if still alive
-> - * @dev_ptr:		pointer to the net_device field on a devmem binding
-> + * @dev_ptr:		pointer to &binding->map_dev or &binding->bind_dev
->   * @dev_tracker:	reftracker for the held net_device reference
->   *
->   * Safely dereference @dev_ptr, acquire netdev_lock() on the device, and
-> @@ -95,17 +95,18 @@ net_devmem_dmabuf_binding_unmap(struct net_devmem_dmabuf_binding *binding)
->   * Invariant: *@dev_ptr is set once at bind time and is only ever cleared to
->   * NULL while holding netdev_lock() on that device (in
->   * mp_dmabuf_devmem_uninstall(), net_devmem_unbind_dmabuf(), or
-> - * net_devmem_dev_unregister() during NETDEV_UNREGISTER before
-> - * synchronize_net() and netdev_run_todo() free the net_device).
-> + * net_devmem_dev_unregister(), all before synchronize_net() and
-> + * netdev_run_todo() free the net_device).
->   *
->   * Taking rcu_read_lock() guarantees that a non-NULL device read from
->   * *@dev_ptr has not yet completed unregister_netdevice_many_notify()
->   * (which waits for an RCU grace period via synchronize_net() after
-> - * NETDEV_UNREGISTER before freeing the net_device), so netdev_hold() can
-> - * safely acquire a reference before sleeping on netdev_lock(). Once
-> - * netdev_lock() is held, re-checking that READ_ONCE(*dev_ptr) == dev
-> - * guarantees that the device has not yet been detached from the binding and
-> - * cannot finish unregistering until net_devmem_unlock_dev().
-> + * NETDEV_UNREGISTER and ndo_uninit before freeing the net_device), so
-> + * netdev_hold() can safely acquire a reference before sleeping on
-> + * netdev_lock(). Once netdev_lock() is held, re-checking that
-> + * READ_ONCE(*dev_ptr) == dev guarantees that the device has not yet been
-> + * detached from the binding and cannot finish unregistering until
-> + * net_devmem_unlock_dev().
->   *
->   * Return: The locked and held net_device if *@dev_ptr is still non-NULL,
->   * or NULL if already cleared.
-> @@ -219,22 +220,24 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
->  	if (binding->list.next)
->  		list_del(&binding->list);
->  
-> -	xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
-> -		const struct pp_memory_provider_params mp_params = {
-> -			.mp_priv	= binding,
-> -			.mp_ops		= &dmabuf_devmem_ops,
-> -		};
-> +	if (binding->bind_dev) {
-> +		xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
-> +			const struct pp_memory_provider_params mp_params = {
-> +				.mp_priv	= binding,
-> +				.mp_ops		= &dmabuf_devmem_ops,
-> +			};
->  
-> -		rxq_idx = get_netdev_rx_queue_index(rxq);
-> +			xa_erase(&binding->bound_rxqs, xa_idx);
+> So i think we need a get out from backwards compatibility. We need to
+> be able to break running boards with old DT blobs, in the future when
+> we fix whatever is broken. Maybe the best way to do that it make the
+> MAC glue driver and the DSA driver depend on BROKEN.
 
-What's the reason we start xa_erase'ing here?
+Before that, I measured from the switch's side. The switch driver sets
+its RGMII delays on the CPU port in nominal 500 ps steps, so with the
+MAC's delays at 0:
 
-> +			rxq_idx = get_netdev_rx_queue_index(rxq);
->  
-> -		if (netif_mp_close_rxq(binding->map_dev, rxq_idx, &mp_params))
-> -			busy = true;
-> -	}
-> +			if (netif_mp_close_rxq(binding->bind_dev, rxq_idx,
-> +					       &mp_params))
-> +				busy = true;
-> +		}
->  
-> -	if (binding->direction == DMA_FROM_DEVICE && binding->map_dev &&
-> -	    !busy) {
-> -		net_devmem_dmabuf_binding_unmap(binding);
-> -		WRITE_ONCE(binding->map_dev, NULL);
-> +		if (binding->direction == DMA_FROM_DEVICE && !busy)
-> +			net_devmem_dmabuf_binding_unmap(binding);
-> +		WRITE_ONCE(binding->bind_dev, NULL);
->  	}
->  
->  	percpu_ref_kill(&binding->ref);
-> @@ -252,24 +255,20 @@ void net_devmem_dev_unregister(struct net_device *dev)
->  
->  	xa_lock(&net_devmem_dmabuf_bindings);
->  	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
-> -		if (binding->direction == DMA_FROM_DEVICE) {
-> -			if (READ_ONCE(binding->map_dev) != dev ||
-> -			    xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
-> -					NET_DEVMEM_BINDING_LIVE))
-> -				continue;
-> -		} else {
-> -			if (READ_ONCE(binding->bind_dev) == dev)
-> -				WRITE_ONCE(binding->bind_dev, NULL);
-> -			if (READ_ONCE(binding->map_dev) != dev)
-> -				continue;
-> -			WRITE_ONCE(binding->bind_dev, NULL);
-> +		if (READ_ONCE(binding->bind_dev) == dev) {
->  			__xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
->  					NET_DEVMEM_BINDING_LIVE);
-> +			if (xa_empty(&binding->bound_rxqs) ||
-> +			    !netif_is_queue_leasee(dev))
-> +				WRITE_ONCE(binding->bind_dev, NULL);
->  		}
-> +		if (READ_ONCE(binding->map_dev) != dev)
-> +			continue;
->  
-> +		__xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
-> +				NET_DEVMEM_BINDING_LIVE);
->  		xa_unlock(&net_devmem_dmabuf_bindings);
-> -		if (!netif_is_queue_leasee(dev))
-> -			net_devmem_dmabuf_binding_unmap(binding);
-> +		net_devmem_dmabuf_binding_unmap(binding);
->  		xa_lock(&net_devmem_dmabuf_bindings);
->  		WRITE_ONCE(binding->map_dev, NULL);
->  	}
-> @@ -324,6 +323,15 @@ net_devmem_bind_dmabuf(struct net_device *map_dev,
->  	size_t i;
->  	long err;
->  
-> +	netdev_assert_locked(bind_dev);
-> +	netdev_assert_locked(map_dev);
-> +
+- Switch to MAC, with the MAC's RX delay line bypassed: the link works
+  with the switch adding 0 to 1.5 ns, and fails from 2 ns.
+- The same with the RX delay line on at step 0: at 1.5 ns from the
+  switch, 4 more steps of the line still work, so step 0 adds at most
+  about 0.25 ns over the bypass.
+- MAC to switch, with the MAC's TX delay at 0: the link works with the
+  switch adding 0 to 2 ns, and fails from 2.5 ns. The TX delay line has
+  no bypass, so I can't check its step 0 the same way.
 
-[..]
+Measured against the MAC's delay lines, the switch's nominal 2 ns comes
+out at about 2.4 ns in one direction and its 1.5 ns at about 1.3 ns in
+the other, so its steps are only roughly 500 ps.
 
-> +	if (bind_dev->reg_state != NETREG_REGISTERED ||
-> +	    map_dev->reg_state != NETREG_REGISTERED) {
-> +		NL_SET_ERR_MSG(extack, "Device is being unregistered");
-> +		return ERR_PTR(-ENODEV);
-> +	}
+So on RX, 0 does mean about 0, and the receive direction still fails at
+the standard 2 ns. That extra skew is outside the MAC's delay line: in
+the switch's output, the board, or the MAC's input, which I can't tell
+apart.
 
-I saw Dragos asking about these, I'm confused as well on why we need them.
-
-> +
->  	if (!dma_dev) {
->  		NL_SET_ERR_MSG(extack, "Device doesn't support DMA");
->  		return ERR_PTR(-EOPNOTSUPP);
-> @@ -560,9 +568,9 @@ struct net_devmem_dmabuf_binding *net_devmem_get_binding(struct sock *sk,
->  	 * net_device.
->  	 */
->  	dst_dev = dst_dev_rcu(dst);
-> -	if (unlikely(!dst_dev) ||
-> -	    unlikely(dst_dev != READ_ONCE(binding->map_dev) &&
-> -		     dst_dev != READ_ONCE(binding->bind_dev))) {
-> +	if (unlikely(!dst_dev || !READ_ONCE(binding->map_dev) ||
-> +		     (dst_dev != READ_ONCE(binding->map_dev) &&
-> +		      dst_dev != READ_ONCE(binding->bind_dev)))) {
-
-Now we READ_ONCE(map_dev) twice? Time to add a map_dev var and do it once?
+The DSA driver, mxl-gsw1xx, is already in mainline for the whole GSW1xx
+family, so BROKEN there would also cover boards with other MACs. Would
+BROKEN on the new glue alone do?
