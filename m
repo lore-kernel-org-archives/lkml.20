@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982752;
-	b=hLy0GJrHaRwjhWF5nzTNHhDsD1k6I4TWrVhRsb1/upTGMMqYqMe5WAsbPvZ6XviWZABA
-	 /8t3/z1a7jR2aRx94XmsLspikiadOga++fhe2gbKA6jKj5HUcY8V01J7KhAhraWIEhg+K
-	 tREMtAfMTUJt5hIE4wwKbXVqwlpxbQQczu+aXNr/sGK7n/QtAarOlVjAEdAEPO77ODXGK
-	 1KeIAODzmIEWmVjZ/PFoR9OuiA+mPSOZ8HLCe1xlMCzJtmWKRcLUnOh5zn6bN/w3j3fqU
-	 zmcmdbqGip+BOU+em/gaac349cdlScexdCxGDInfOGL7ZU6Ik6qGlov01GRgSFn0VJA==
+	t=1793982754;
+	b=NI4xUFe373SwQM8SLWq3V+O6C2x/DtYK6qoWhoKFj+/HotCGXa0GBTDLcOspNedoQCRn
+	 nbKilNlTHtEoM9fm+Iealf4mrJB6c+70J6FCwrfeYB+gMmbltW+U2kjM4bWk48AIGefXQ
+	 M2K40a80spN0d7qK79ixG4ypo1+74MtfGlB3qiOcHUfzfF7o9JC2Tkxnui8USzSZO3WdG
+	 j4zwe9JJd3VXw5cU+QtEp41LaILfUi1tXp4ZjoL7P6Y/qOpBz8KxG0V4CnV/MnTCu8e78
+	 YTuUpUUl67PFdpQ2MF0NbyzUJmhrmLPNQVJMAoH/I+DdUzfO0/UAkp8lsobnNbgMw1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982754;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DnSiCHS57/5NeVGNSfvi5weTMPVYKrlFxAEl/9lABc0=;
-	b=ZSk3BsW5lDAkwm6Fo7DgUuXQqRGDdEBSh6ky5974JfRRkchjC5lalM0u062mqdaTBQbg
-	 ZLffNllvffK+7Oe2E+iMQcmCyoTHeGPvq11eoAOwA5GdDn/zNdD8LCOPb0fkSCyqJ9+lg
-	 7qUuhxkbPIwfXc76h5rlyUG9K1Pl5NuraAIlGD0EtWgPPR0jZ//QRltfOpS4CbLPIxu1l
-	 weWBJ+CgBUgAGP/ozfIzrUMlLjaTdmHLtZmpmC/sPFW4uSPGjtRTFYRk/UPNYTnV8uiFg
-	 x1QXZhyvSh03OInsv9llYi78A8hzTtwrdNEQ7wK8XSZ6pGQ/CDuaQFIHdF4337jKyfw==
+	bh=e6ShSOONdIeZ2z9nbJ4Fo059dFw0ZGNOijpRorR5LZo=;
+	b=XhJA2TaZPBE852/edf6I3PxIBVGpPSaiLFWedAIkgb4V+jOHrxCBrVDcU9clDgSn/zKz
+	 eOq/V9+LgKrGRjX265h8nSR1JqE7wn2eLq96CqmuodJ6lJ8xC8AcyX7SIEg8PcebShY9+
+	 2L0gkoILWGS6QB9E6L3PCIWXjf4fuS5LvWlDAdcZoRbwtdWoByuVDQmjPlblloebybeMA
+	 izT/3eapB2DWBREW5ZDb3JPEJyD/98xesRxwPLWxsYDnyKb6uHNP3ZITPy2QlLUehIAS6
+	 pYE1bXjMfSKdw5Vs2HsYYYT4EKVGNEdXIw+o/OVx8viUn5+qlmQNWnNTamgokoFa+fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fKmURR3Y;
-	arc=none smtp.remote-ip=209.85.210.42
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="U/V2FuDd";
+	arc=none smtp.remote-ip=209.85.210.53
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8147A606D808
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:32:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8147A606D808
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56013606D810
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:32:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56013606D810
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fKmURR3Y
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-825b40f8a26so355961a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:32:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U/V2FuDd
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-833e671ee9fso875878a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:32:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793982751; x=1794587551; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793982753; x=1794587553; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DnSiCHS57/5NeVGNSfvi5weTMPVYKrlFxAEl/9lABc0=;
-        b=fKmURR3Y8bzdTsTHRtYKNCAdRwxxuX2OL1P79AJLyIpUpGnztdb1gPfHVcd/+nAxwk
-         X0bk4fBiCmF7lZNpJ2qk2x0FT8JQno8Z6roFRuIbqWtPkTsLAdGRyJdR3TXPf1Ab0MFx
-         8Pqbu/h23EtfQkyC7prb8IYEpYSN5WS8UmYx/7DE5BOHRfwcAoIFecHrsAB6FqHAm5FC
-         Vnmo2bCn0QrJuk04+DoFmOtBLZ8u3A2ARaLNuSLuSOhEadjTXIZ00FnCPj20OimWREZL
-         9RD3/NQ9PE3cGRXekRfrhbXWDkO53VhvzKXSH2HsXY6zjamarjBRSr8wic4TA1nyhSVP
-         ED+A==
+        bh=e6ShSOONdIeZ2z9nbJ4Fo059dFw0ZGNOijpRorR5LZo=;
+        b=U/V2FuDdEDEtf0+B1wT4SST0pLKV+HGGd6oDsQymSbHAm3iU1GikEmTVKVy1rc5XDb
+         a2aWLDCh4UFk0goQV1fDJsXukBtJvmfs95xXAt51ZVsa2+LanjLb9v4PzxU8kLekXOEc
+         kOM+2Nc6px6OVHJrU2sRzDL77BCHOC3CdBeweg2ReUOeV7d1rQUd9USV7A40tC6iHkxr
+         46RY1OQLhm+2V0XnjjX2fJequ96FJrcTuHNH3Q7tyzabCZGPPfBWnePS7AorYExqSggm
+         wRvlvccDiRq0kbdnXs6HyXwoofd52dvWDr2W1SYO2HheGd32pVYuhWGz63Ai5loHMOzK
+         lAUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793982751; x=1794587551;
+        d=1e100.net; s=20260707; t=1793982753; x=1794587553;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DnSiCHS57/5NeVGNSfvi5weTMPVYKrlFxAEl/9lABc0=;
-        b=LTXcn2nh+QrJnxE9hjmaw03MlnsAh5gUhqe2P9U4ONvH+oSCeQ0XKdosSTFY1gmMkd
-         Kw4/v8VIjB5kcyg4C0dOqjSa1G+LJ3jIgMjUF7RgGCqXzgesfQe/BHavQCeEgGauySoH
-         rO09U8EGXrNgO4yAe8tiMILcjjW+fOVBucrl5jklaZbpPdE+9SgQ63f/+irRr9oUVRwV
-         3mAWowXosnTK/J/8/OsUKubhoow0S2LOzM/0d1HSKRXFArQbSLbfSaL67kng3iRgQen6
-         BU/+3bki7181rooESVFypZ2l29eUBHeKO8KE3skiA7dL/M6+M4pAdLawGVTFUQJdTDs3
-         9Qmw==
-X-Forwarded-Encrypted: i=1; AKwUvByCWQ8vA6sdCPOcyUj2xZ1q0LOFooHEbRkPZVYTiGPaT0dOeDFT1adQPVFDuFmcgfwLQwmZZgM9Xh/DG5U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tHN87gGqxF0z6VIrQQJV8dfr1g7wmWwMYjLSxUU8mAQkIJFeY
-	ojajYF8nLNV/PVFaFEdtkgbFuqFheDCDug0w/+Xb1YhhuDrtjMqr+3tK
-X-Gm-Gg: AYBFou3GA2csTH5koX+EFO1GHkc3yx1/S9OLr0SgDas6erlHCuS7CN6Y3SNjAhgL3oS
-	8aetVxvAyMVmNq3Qy23IY7rmKjFg5LXU5Gs7IprvmWyJ4PUaH4Ku+llsHYTnlCaVel2odJCkM4V
-	KWa+GHa9hk+IvpfHi0Msb0IM2XfwppjE9jfg4cYI3gHwsaV5/abZdP0qyD4ofpiyaJHPAFVh1pt
-	8C4FktfmCREJiFEk8djIDKaNWoBeXw3XyvbUAGhL3UcTG+Dlm1sJvPKR/8xopbdT8HAaC5F4Pxz
-	lTdXk1026iJuKH0H3uRKJbBB9weg0kAyrLW0obniDbNKW2IK6qYQyiFrq6f1Dxe0mnjLSBkZ4FM
-	gm5jQxnGA0TRIcM5wZNbMgJGmvQgNLOiWheHXmpw2dM6d7Pzf0yxDlPNOa3ZxutaIcLeVzq4KHC
-	i37q02Bx4N2PDCnQk1vt+4s9zxqIP3hQsAEQiLkd3QJvuvKNXIoZuLadhXVk93zyul5hmMS11/a
-	r7FtkVB4W2kAk9qTNPNIUkxXIFU0AXSmc0xpsMKVu6N7Ddrnftpke/wSDUBIqI2PuaggzX8qLSY
-	Ef5+SQcqXrehbhzLXgQxwkfLc6pkuLA8XOMxpizAwZEnt/I=
-X-Received: by 2002:a05:6830:82f4:b0:81e:abb6:749f with SMTP id 46e09a7af769-85f1cee7892mr2866810a34.8.1793982751368;
-        Fri, 06 Nov 2026 08:32:31 -0800 (PST)
+        bh=e6ShSOONdIeZ2z9nbJ4Fo059dFw0ZGNOijpRorR5LZo=;
+        b=WJB6BIlTIrmzn2xS3KRPklnB9RORNb22VVybh1S3RftOOYTzNeJzXnOxel90arUl94
+         lC09ApVmyF+59xIMbzjkszUFuUQflhx+1WwAB2BZvL3BuyPzP84EfjaUTDQM6+sqVBUy
+         mOt2NR6mOWTGKMnIwkpFz+vQqEhlINZmIRpsocP8601mfbzplsB02Z/xW6eOBMY69qnW
+         W6X46avxhgT8533jdKWJ0Ghof67slZsjYbJAP9SnbCdIinRbZaj5US9xeU0dlIYIPRSa
+         JPhYsTddf4K9oLj/HbH2FMUp5FnGKPCxuW9cL3NOQhfAFPR2tZNig0eJkwqBkVhAyXTI
+         KptA==
+X-Forwarded-Encrypted: i=1; AKwUvByt5Tc0UQYwcW4pYAg4tYtanL51tRm2loL6JErs5jnSWCvpmpY9qoYiGnqLq+UATt+fMFaIIhFAuiixTVI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9P3zhPZkeB8+I1FR/9FDP+WvqKaVAgXTj/BRxZRTg+BPwWg77A
+	mrJxa1mplXL+9+Vj8nwV5o5h6wxXeexzjKlkmNLt1/76Y7hlZ7cDs9nJ
+X-Gm-Gg: AYBFou08queo+aNFaaJyJc7K99AUgdhzcuTbB8obo7YiFUtDSqWZ2QGclcuCFofRm6T
+	Xg7EDKtOunBiwj/tEzgfuk+GiHOXEZu1BtbvhEgyNql0W79uBWPQxzYjwOZRckldVolTcfrfu0s
+	sssAAm0yrmW1Ly80aZpoGiSeGgJvP+Wf+H6d00hp54pTxgiVxBL7QMMviJlTSdApN+uaLLX0iMQ
+	DmJBQwKFd35y6eDOe+LbmG0EUe6lT73MnhO6ls9X/ZsXVeo8AsBvV554A6uNSK+ShfO+mfMWKhw
+	opkUkIdISyKk5bZFEXIVMnt2Rq7HRzJWXnVMehnu7/fMuAFK0wlrN1ZyUMkC57O6qffTngDiPC9
+	7BiTGDYyndEkTTPVug7hQ0MC7MeCQyixT3fB0HuKmzGlXfxJzGv9bTTwe/hgjZUkwpT1wub9d4V
+	12LQn3V5sUc4/GYpB30VFNG50y6KbndjjjAwy5mdh4WYcIXt0RoRGxBLVAAJpFMpCkH6u+a4uL1
+	fNsQGxm3d0+MF2ZJG/9C+UM/QGYQIB8LCqiUqNuLS/ZNrD7M2vxKPuKTeIhfAab8S1u483yMNmv
+	pRP7tyJamyD1OB4qMY5d8At3nBm9E9ZJWTmFQwlZjCRmrQ==
+X-Received: by 2002:a05:6830:314e:b0:823:e626:2764 with SMTP id 46e09a7af769-85f1cf83852mr3451308a34.5.1793982753115;
+        Fri, 06 Nov 2026 08:32:33 -0800 (PST)
 Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1de8f066sm2244780a34.23.2026.11.06.08.32.30
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1de8f066sm2244780a34.23.2026.11.06.08.32.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:32:30 -0800 (PST)
+        Fri, 06 Nov 2026 08:32:32 -0800 (PST)
 From: Will Porter <mrwillporter@gmail.com>
 To: Christian Ruppert <arc@gmx.li>
 Cc: Takashi Iwai <tiwai@suse.com>,
@@ -85,9 +85,9 @@ Cc: Takashi Iwai <tiwai@suse.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Neil Andrews <neil@androos.io>
-Subject: [RFC PATCH 07/16] ALSA: mixer_audient: Add integer range checks
-Date: Fri,  6 Nov 2026 10:31:20 -0600
-Message-ID: <20261106163129.1006907-8-mrwillporter@gmail.com>
+Subject: [RFC PATCH 09/16] ALSA: mixer_audient: Add readback-free parameter set
+Date: Fri,  6 Nov 2026 10:31:22 -0600
+Message-ID: <20261106163129.1006907-10-mrwillporter@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261106163129.1006907-1-mrwillporter@gmail.com>
 References: <aupn1wwW7w08M3gu@khmer.arcnet>
@@ -105,60 +105,44 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Ruppert <arc@gmx.li>
 
-Add range checks to integer parameters to improve error management:
-- Reject out-of-range write attempts with -EINVAL
-- Prune out-of-range values returned by the device to the range limits
+Add a flag to systematically force parameter writing without prior readback
+to certain control types. In preparation of the id14 driver.
 
 Signed-off-by: Christian Ruppert <arc@gmx.li>
 Signed-off-by: Will Porter <mrwillporter@gmail.com>
 ---
- sound/usb/mixer_audient.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+ sound/usb/mixer_audient.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/sound/usb/mixer_audient.c b/sound/usb/mixer_audient.c
-index 4b20db9a82e2..433bb5479d8e 100644
+index 70ec3274a5e4..f61f9fe61345 100644
 --- a/sound/usb/mixer_audient.c
 +++ b/sound/usb/mixer_audient.c
-@@ -44,10 +44,10 @@ static const struct snd_audient_ctrl_type {
- 	unsigned long flags;
- 	size_t len;		/* datatype size, can be 1, 2 or 4 bytes */
- 	union {
--		int integer;
-+		long integer;
- 	} min;		/* for booleans holds physical int value for false */
- 	union {
--		int integer;
-+		long integer;
- 	} max;		/* for booleans holds physical int value for true */
- 	const unsigned int *tlv;
- 	u8 unit;
-@@ -425,6 +425,12 @@ static int snd_ctl_audient_integer_get(struct snd_kcontrol *kctl,
- 		if (ret < 0)
- 			return ret;
+@@ -39,6 +39,7 @@ static const DECLARE_TLV_DB_MINMAX_MUTE(snd_audient_tlv_mixer, -12800, 600);
  
-+		if (val < ctype->min.integer)
-+			val = ctype->min.integer;
-+
-+		if (val > ctype->max.integer)
-+			val = ctype->max.integer;
-+
- 		ctl_val->value.integer.value[i] = val;
- 	}
+ #define SND_AUDIENT_CTYPE_FLAGS_SIGNED		BIT(0)
+ #define SND_AUDIENT_CTYPE_FLAGS_INIT_HW		BIT(1)
++#define SND_AUDIENT_CTYPE_FLAGS_FORCE_SET	BIT(2)
  
-@@ -448,6 +454,13 @@ static int snd_ctl_audient_integer_set(struct snd_kcontrol *kctl,
- 	int changed = 0;
- 	int i;
+ static const struct snd_audient_ctrl_type {
+ 	snd_ctl_elem_type_t type;
+@@ -313,9 +314,13 @@ static int snd_audient_raw_set_one(struct usb_mixer_interface *const mixer,
+ 	int ret;
+ 	u32 val;
  
-+	for (i = 0; i < hwchan; i++) {
-+		long val = ctl_val->value.integer.value[i];
-+
-+		if ((val < ctype->min.integer) || (val > ctype->max.integer))
-+			return -EINVAL;
+-	ret = snd_audient_raw_get_one(mixer, ctype, cidx, &val);
+-	if (ret < 0)
+-		return ret;
++	if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET) {
++		val = !value;		/* just make it different */
++	} else {
++		ret = snd_audient_raw_get_one(mixer, ctype, cidx, &val);
++		if (ret < 0)
++			return ret;
 +	}
-+
- 	CLASS(snd_usb_lock, pm)(mixer->chip);
- 	if (pm.err < 0)
- 		return pm.err;
+ 
+ 	if (val != value) {
+ 		__le32 buf = cpu_to_le32(value);
 -- 
 2.47.3
 
