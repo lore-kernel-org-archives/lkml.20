@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964765;
-	b=TwJHAhi7UwRuVuhJfu5zCKlBuz3NNAnvDtMRgK25kQ9Ka5ZxNuwy5ZFwjXsqOq77+yUu
-	 GqbplrF1r203eriWdnv0+fTySRg6a94zoXMaz3y7be3G5XcSjsEB2WVnTwOL1QgH4vX6b
-	 EAZ1Aj+BDPGSRQ04rE/kDCOWWgx9Q5OnfMjaH0DN+V9Jrd7XEDvqmf9PL5JSoSn2uMupw
-	 3E+aMpO3RqrQ07GfunBUpk/tzBEpjF0xp5vU5PoyKt4rkVAoNXHpw/Wm648HbGo+JaZuc
-	 zcPfRv6GX5LMsc5zyhJLr9YGbQM1aUjxnsyUoce1v4SP7DY+RYRQCAWl4AbKNEZqnkg==
+	t=1793964762;
+	b=AAcMfgQuG9ofxJL2aMFrg3IJZ7RWAqPOzo5Y3Ye0id4XTi6VyCn0woN3tItTA8k9Ue6l
+	 2Vh00uZcGTitnnWEQ7EH9tTQ44McNnjRy/XN13ws8QOUCwdenqbhoHyIPWd7JcDbyafa9
+	 lf1rgzPtKFzkiOuXIKk8kMXLkARnLsDfRps7JvC/cKMbTOGqENGqPLIdJlvYlRDQwhsIg
+	 TjPaDaJXFYopyCqoezLxhj1H69pFysgP4lHfhaXYa09E4BLpwJVJEEWX27U4dWC0vGtxo
+	 MAlfJjpSSXXlFWqCycEbbnxRZy/pmy/fT8HTDTn/UYS7iNwv0XngYVundAoQ9ecxsnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964765;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964762;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4+W/y1+xKwI/Q11z+x4eNw/QII2gfHgjNOLpuKt+j0k=;
-	b=pNree3uNI/kw0j3TTHRbS6mgydH6PE+fpqWOQs20NvAuPr7zUWzKTxn6/wQubpOaX5s0
-	 TQU9I+pJz/sxlsrDmYG8qTfaVHcrk4ECOdxHPR50ERcpU9lnDqCJcUTTNwwcsjduhrarg
-	 NTU2fxjoLv1PfDzOTkEwyuN7YQWoZmuHuURqUABnYShZC01TpAHixLrCQbKRNZx3w++8V
-	 DBR8bV3MryH3LxpKkkW547ixuKRrbGOcWUr+1cpP0N4EeCvWty+iVGDDcgkzZb02KuWST
-	 tC/GAvGTajxtej1CzjfDjIuPcU2Ao3aQ4cDU2sgEaPslXoz9ub3S+I+GmGOT0S/Sc0w==
+	bh=keJZcbIMxA2QWXZOsM5lsnoCR+Zxvop8jGtr5GaK0eY=;
+	b=tTfYBZFIRbE5I5rqQb+IjRHMXAZjiYBMLwSFd37X/e/UfVgDiaP4IufxrjwctOpD+8lD
+	 /rL81gfVXDKDb17J5Cl3uD7Z/9MZ2i+GYzfXx9fwNJ12kcIm2D45D69hR0Cwz3OiOWxnK
+	 Q65HWepEESDTWHSqXSJBH6AmHfYXCbq73BGPYGGWW2yNs03L86LWBKeOBFlXSusaHANb7
+	 PTh0PsPqDQAiS3taJPfyWMBhBHRaUzKr67A+VF8q/JOsm57O2XO51bKcNh74yvImzpMAs
+	 eELrvnkWHdlq0Q6+aVirm/WTW8V678sLZ4zD8J9C9Ee8PpPR5L24xUkIgGzZ9ID3l/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPedi2Tt;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rj5UbmBc;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E82606BD6C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0E82606BD6C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC0D60A261A
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BC0D60A261A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPedi2Tt
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b0b6cae44aso106858a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:32:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rj5UbmBc
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3afc7b51abfso32361a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:32:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964764; x=1794569564; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793964761; x=1794569561; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4+W/y1+xKwI/Q11z+x4eNw/QII2gfHgjNOLpuKt+j0k=;
-        b=TPedi2Tt7s5bQPLdOGcyv0jVHL8ACZwpy0gQJ9PI4IV6SYNS3yR+fPNQV3lSdVkMGx
-         5s8cSJkPsENl8Y1DRGTnFhGYYSVqZuUv2SWYbDCUbxPUj13LkB9Wm9QW+RGFPebTp85W
-         yOfPtq+ElnZtMKd13kLc1+JvEx9Kvls3NYf5A1EZshHqwQPBTnd4g7NMXOc8uIwh7PER
-         /rV6tKrVx7zVIBxu2T9T/RapKleWr3UaWhDNcwmabxop/vErLP1bVMLpV/JoDQN2vUK2
-         STEEL8cm/rTVAPU8172aJsjKMaKK1DvsHkMq7Ek9TiDbeBqzFUH+uEIo/i8gSU2QcQVO
-         GvsQ==
+        bh=keJZcbIMxA2QWXZOsM5lsnoCR+Zxvop8jGtr5GaK0eY=;
+        b=Rj5UbmBctyaY8uqotNdYuBhUUiP+8R+uGqCuDfOBcleRNL3ZqS54iB7rSF/H2Zu5VU
+         +P26uWUzIC3NKQA0vuC9C7RkwBhuFA6zP4Ious8jKOCtASBOzZvlMcFBskIz6REmDrC2
+         O5Vu6G1XpCTOZAX5CBTtI1PVhwVVlMFaRYEs/q92YZcaYzB5Mwp9KKTgi6dqVmVcLKsy
+         5A8AA+qejLfV7KsLRILNMB8j4SwFGnaJ7ZnM7+yY+5XL5tK/Y2ZxCH4nkeAE8uBdYAeu
+         XJxb2Fyg6wLOWh32vyDJxFcfyUGVTXiJn4RrkTS0Lj1V7e/glnwUj/7o/0U2OCYzq48f
+         H+DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964764; x=1794569564;
+        d=1e100.net; s=20260707; t=1793964761; x=1794569561;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4+W/y1+xKwI/Q11z+x4eNw/QII2gfHgjNOLpuKt+j0k=;
-        b=KXjHN3nCGPpYrQILICnFBkHkjIxI08CdE/9oPSS3w55qUQb/ALxGdZoLgrxPG2e+xe
-         //3lXYVS2leWU5YyUSekP+DXU8uvDCz+GuwZ3WGsL0OfuBKUl8BauiUvKxaI6UXBtENE
-         tgrebdkyPwXHkKzwT6Jwy6JUgkhy3VxBgYtbUg/s+1upqdwFO64TKtH/fmM4pYaZiyHD
-         o1/uEPKfUTr8/mCHkIXXu0RhVV+0+ndmMtjLbMF5L5Z38SG96RmsunrBIqYFxBs0wnC4
-         2tW/CT4oGIjsgXYkrntmwrh3EKMt0qyBAFsUQTYRTShFnZ7Jar/icC031LE2cEgS1YGF
-         oD0Q==
-X-Forwarded-Encrypted: i=1; AL+hErHqcFraS4rEpvV/BfC2Ab3D6jb9mLARXqJDmpHrWrgjr/t4k0gws1OG/tb8Tmds3rluA4SFw1yGMQ9SJOs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+45od7q6Ii8smBKaC2lNkU24I6/GYLwGS8Cdpl+GgXC6CDSu1B
-	5JPgDZi7RANghQs+OIqWFmquoXPHom9bhdbhKeYL/yQik55GIzE8tL+X
-X-Gm-Gg: AYBFou1PJ8Qa2FceNLreeoURGiG/nYEGP7det+gFeWhFbP10kfVOxW5jQgIYNbKmuRM
-	jG+1r1Nc8FsearFgk93bABsEO+5R926vy0iNvPxXtxfa1sRlqshMY0PTil+Fdf3WjDeOR2SuZFJ
-	NeSEHaJx/QtspgGhVdA6KHk8PXc/wdTCSbnOSDObOHvhvw10JRvhtHgs1zab56sMU8uUpSyYxE1
-	kp2B2U+DgfZA96NIRNpmZEoJdmHgb5DaBx25HIp5XLsPiY4eHsRI639S3bTpUnIXFZTKi471CBC
-	wMFRBGDnCAdmJdt/XtASFDTj8wA9Y+mrcKCo6FmoHpPmMdN31wc95rLb365hsbT7jZxQ3kHQ/tC
-	HhfYGvHKf23hrfbUPTZydid51+adjnbumiiS6NnJFXAkzZEQnVhgUMKbSHJcBPUQAKb/+pEslMl
-	oX13CD1X/XhxWekp0ZLo6esKNMTr1U3/nP+h0czebShHhEkx8w/bRu/46yyZvzAqVyY+51PnZhX
-	042qdDZQsk0DT5UYh5BceC7zttMw5UYRoocIBpKMloS7aj2eMYBL9kStPcXuyYjeybmFvDuSOWH
-	Akgkl+5AtDA9xhas74r/Q62VYzSgraoO3+yk6p2inisG9nJRXyBzTLVRzZ+y7Jl6bvB+uBA3tJQ
-	6Bx+FdJO2UV1T7vX4pX3pR/3L
-X-Received: by 2002:a17:90b:4a89:b0:3b0:975b:2256 with SMTP id 98e67ed59e1d1-3b0db6f8e05mr3196782a91.4.1793964763898;
-        Fri, 06 Nov 2026 03:32:43 -0800 (PST)
+        bh=keJZcbIMxA2QWXZOsM5lsnoCR+Zxvop8jGtr5GaK0eY=;
+        b=XF/rjoQi7Jkeabmwdjv1FI4+Wfzi1Sw/GeKbaeeV1GS7w8ZvM3bcrLj7upSzO1rGUg
+         Grv+FLzS6QCHOdd9dwOCRRZSm4l3rCMVWGUwCajkqPOxZsQruOwpZ61NGaWh6sdUPlga
+         8GUcEBDtnawE54GFhMmDf7jaRIwSOs7PjjBsf/T5TYEfk+S014m0lThf6ETc79VRUunq
+         5kZ7uDUgBVQgqEB+P65aC/LsjRlt54utRelfElTzohC1cnIgBDQq09t1fdxzQ2LXD3qJ
+         Kwm8tvyubtEhRo8YzN1sPV2NxxD5+kRSxClnhhUBjYzxZixIShLTSpalizGGPtxc2KNK
+         7RBA==
+X-Forwarded-Encrypted: i=1; AL+hErEk8UCrQRo8jO9ar9zgCttp+yyajP9MxKUzF0CViWLL6qoCQHxk5v8GbtMwYp237RjdfPkG/DEmyRbIII4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MtdtmxaroJrTBgOYI2f/nB6VppI9CfSgD0/WiTcELHfUJeIOu
+	KnUw5+Os6sr6rKxy4VLotJ3wxKYOxIn/PSBwqfo+BbUMvujusrTzsFcK
+X-Gm-Gg: AYBFou23mvs+Bu77wsC6v6cIwVyr75x7cGwwj4MaOuvIYIIeesvF+1qGf/dKugPxofy
+	2TAydPNakOyGuRgDTpgMzSqCY7uE7z507Yy8yxZcGZtC9Sl9u4gdVbym7a/yj2iuSAH0ravlMqq
+	zYcMYwLr1C/g4k8cgu9BPno5LIjnoGasOSdjznnjyuMTf/fwSncNdLeu/CzIpoLDc3kpsjTIanp
+	2l6DOeaVgjlC6o/gkdKJsCMYUx4xxtZq4OEK8CvjC4LrAOefu8Mxs2YKgNr5g+G+a/PaFQ5P873
+	ET3NOaU2r3MAyaGqK2hi/g2GCQj3SkScpOjbdfszO4LAfu1xm5VuF8m4q9BBwYR5CVJgCcM2L7S
+	if0RI3idqbqZTYpaejoWID4rpTXNng3NOUGSLqm98RjFKuDhBtZy5hyNpzG/aecBpcLPJV1XKEa
+	BYnCUKvTICB6PgUfgVG58tpRjtDLx1fn8vEZGknykrdFFauhPX2s7KupMPqjvkkxqOAWDbSJJMN
+	bO25gjI//XF1tUnviyMFIHciVwGK3FhvtohEhcLy725zIT+i6wdusyt4+YRwDW2JfUNZ1ILAVZp
+	4hMxPfVcSlqYxSdTUov5tEeaTPrLuvUpm+fMGt2lVhthHt00U6qbnEAI4y78yOTgPYTWyAOhAA5
+	9gbYxyM8S4cX2JXePn/bp/SyX
+X-Received: by 2002:a17:90b:1c87:b0:3a4:c895:570 with SMTP id 98e67ed59e1d1-3b0db6cdd38mr3244649a91.4.1793964760997;
+        Fri, 06 Nov 2026 03:32:40 -0800 (PST)
 Received: from chenyou.ncku.edu.tw ([140.116.19.13])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7ca4b03sm3116477a91.14.2026.11.06.03.32.41
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7ca4b03sm3116477a91.14.2026.11.06.03.32.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:32:43 -0800 (PST)
+        Fri, 06 Nov 2026 03:32:39 -0800 (PST)
 From: Chen-Yu Yeh <chenyou910331@gmail.com>
 To: Alex Shi <alexs@kernel.org>,
 	Jonathan Corbet <corbet@lwn.net>
@@ -89,9 +89,9 @@ Cc: Weijie Yuan <wy@wyuan.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: [PATCH 16/25] docs/zh_TW: process: sync security-bugs.rst with the English original
-Date: Fri,  6 Nov 2026 19:31:31 +0800
-Message-ID: <20261106113142.706783-17-chenyou910331@gmail.com>
+Subject: [PATCH 15/25] docs/zh_TW: process: sync management-style.rst with the English original
+Date: Fri,  6 Nov 2026 19:31:30 +0800
+Message-ID: <20261106113142.706783-16-chenyou910331@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261106113142.706783-1-chenyou910331@gmail.com>
 References: <20261106113142.706783-1-chenyou910331@gmail.com>
@@ -107,392 +107,398 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The translation still mirrors the 2021 text: a short "Contact" section
-pointing at security@kernel.org and a coordination section about the old
-vs.openwall.org list and its "[vs]" subject prefix.  Since then the
-English document has been rewritten section by section, so retranslate
-it in full against the current text:
+The translation carries no "update to commit" marker.  A comparison
+against the current English text shows every section and footnote is
+present, including the :ref: to the decisions label from
+commit f77af637f29d ("doc:process: add links where missing"), but the
+prose was converted from zh_CN and many sentences drifted from the
+original:
 
-- add "Preparing your report" with the mandatory and desirable items
-  (commit 496fa1befba1 ("Documentation: clarify the mandatory and
-  desirable info for security reports"), commit e447f7f33fa0 ("docs:
-  security-bugs: clarify what counts as a valid version"))
-- add "What qualifies as a security bug", including the threat-model
-  link and the rule that AI-found bugs are to be treated as public
-  (commit a03ef333fbd6 ("Documentation: security-bugs: explain what is
-  and is not a security bug"), commit 561458db0d6b ("docs:
-  security-bugs: add a link to the threat-model documentation"),
-  commit 4bf85afb9f3e ("Documentation: security-bugs: clarify
-  requirements for AI-assisted reports"))
-- add "Identifying contacts" with the get_maintainer.pl examples
-  (commit a72b832a4823 ("Documentation: explain how to find maintainers
-  addresses for security reports"))
-- add "Responsible use of AI to find bugs" and the steps an AI assistant
-  must follow (commit 4bf85afb9f3e ("Documentation: security-bugs:
-  clarify requirements for AI-assisted reports"),
-  commit 6ffecfe0805e ("docs: security-bugs: clarify some mandatory
-  steps for AI reports"))
-- add "Sending the report": collaboration with the reporter, when to
-  "Cc:" the security team, the plain-text requirement
-  (commit d49172bbd7eb ("Documentation: clarify the expected
-  collaboration with security bugs reporters"),
-  commit ceddb2c001d9 ("Documentation: insist on the plain-text
-  requirement for security reports"),
-  commit aed3c3346765 ("Documentation: security-bugs: do not
-  systematically Cc the security team"))
-- replace the coordination and CVE sections with the current
-  "Coordination with other groups" and "CVE assignment" text
-  (commit 4fee0915e649 ("Documentation: security-bugs.rst: update
-  preferences when dealing with the linux-distros group"),
-  commit 0217f3944aeb ("Documentation: security-bugs.rst: linux-distros
-  relaxed their rules"), commit 3c1897ae4b6b ("Documentation:
-  security-bugs.rst: clarify CVE handling"),
-  commit 5928d411557e ("Documentation: Document the Linux Kernel CVE
-  process"))
-- localize terminology (內核→核心, 信息→資訊, 代碼→程式碼, 爲→為,
-  發佈→發布)
+- restore the emphasis the original puts on words such as **they**
+  (commit 26f67b4c6e4c ("Documentation: management-style: Fix formatting
+  of emphsized word")), **avoid**, **two**, **in private** and **will**
+- retranslate sentences whose meaning had been lost: "doubly
+  managerial for making two inconsequential decisions", "coming up
+  smelling like roses", "Oops, not again", "Suck up to them", "in a
+  sanctimonious voice", "doesn't scan nearly as well", "Tag, you're
+  it", the flame-war hint in footnote 3 and the first footnote
+- call people 笨蛋 consistently for "d*ckhead" (one place said 壞人)
+- keep the book and song titles in English, as in the original
+- localize terminology (內核→核心, 文檔→文件, 項目→專案, 網絡→網路,
+  爲→為, 着→著, 裏→裡)
+- number the section headings "1)" ... "6)" as in the original and drop
+  the blank line at the end of the file
 
-zh_TW has no translation of process/cve.rst, so the CVE section names
-Documentation/process/cve.rst as plain text rather than a :doc: link.
-
-Now that the file is in sync, drop the not-kept-in-sync notice.
-
-update to commit 6ffecfe0805e ("docs: security-bugs: clarify some
-mandatory steps for AI reports")
+update to commit 26f67b4c6e4c ("Documentation: management-style: Fix
+formatting of emphsized word")
 
 Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 ---
- .../zh_TW/process/security-bugs.rst           | 296 +++++++++++++++---
- 1 file changed, 249 insertions(+), 47 deletions(-)
+ .../zh_TW/process/management-style.rst        | 294 +++++++++---------
+ 1 file changed, 153 insertions(+), 141 deletions(-)
 
-diff --git a/Documentation/translations/zh_TW/process/security-bugs.rst b/Documentation/translations/zh_TW/process/security-bugs.rst
-index 783d7c77b5fa..bdb8f8f35a9c 100644
---- a/Documentation/translations/zh_TW/process/security-bugs.rst
-+++ b/Documentation/translations/zh_TW/process/security-bugs.rst
-@@ -1,74 +1,276 @@
- .. SPDX-License-Identifier: GPL-2.0
+diff --git a/Documentation/translations/zh_TW/process/management-style.rst b/Documentation/translations/zh_TW/process/management-style.rst
+index 2cef0ef25ede..0d583a089f31 100644
+--- a/Documentation/translations/zh_TW/process/management-style.rst
++++ b/Documentation/translations/zh_TW/process/management-style.rst
+@@ -6,204 +6,216 @@
  
- .. include:: ../disclaimer-zh_TW.rst
--.. include:: ../unmaintained-zh_TW.rst
+ .. _tw_managementstyle:
  
- :Original: :doc:`../../../process/security-bugs`
+-Linux內核管理風格
++Linux核心管理風格
+ =================
  
- 安全缺陷
- =========
+-這是一個簡短的文檔，描述了Linux內核首選的（或胡編的，取決於您問誰）管理風格。
+-它的目的是在某種程度上參照 :ref:`process/coding-style.rst <codingstyle>`
+-主要是爲了避免反覆回答 [#cnf1]_ 相同（或類似）的問題。
++這是一份簡短的文件，描述Linux核心偏好的（或者說是胡謅的，看你問誰）管理風格。
++它某種程度上是要與 :ref:`process/coding-style.rst <codingstyle>` 文件相互
++呼應，而寫它主要是為了避免一再回答 [#cnf1]_ 相同（或類似）的問題。
  
--Linux內核開發人員非常重視安全性。因此我們想知道何時發現了安全漏洞，以便儘快
--修復和披露。請向Linux內核安全團隊報告安全漏洞。
-+Linux 核心開發人員非常重視安全性。因此，我們希望在發現安全缺陷時能夠得知，
-+以便盡快修復並披露。
+-管理風格是非常個人化的，比簡單的編碼風格規則更難以量化，因此本文檔可能與實
+-際情況有關，也可能與實際情況無關。起初它是一個玩笑，但這並不意味着它可能不
+-是真的。你得自己決定。
++管理風格是非常個人化的事，比單純的程式碼風格規則難以量化得多，因此本文件
++可能與現實有關，也可能無關。它起初只是個玩笑，但這並不代表它實際上就不是
++真的。你得自己判斷。
  
--聯絡
+-順便說一句，在談到“核心管理者”時，主要是技術負責人，而不是在公司內部進行傳
+-統管理的人。如果你簽署了採購訂單或者對你的團隊的預算有任何瞭解，你幾乎肯定
+-不是一個核心管理者。這些建議可能適用於您，也可能不適用於您。
++順帶一提，這裡所說的“核心管理者”，指的完全是技術上的領導者，而不是在公司
++內部從事傳統管理工作的人。如果你會簽採購單，或是對你所屬團隊的預算有任何
++概念，那你幾乎可以肯定不是核心管理者。這些建議對你可能適用，也可能不適用。
+ 
+-首先，我建議你購買“高效人的七個習慣”，而不是閱讀它。燒了它，這是一個偉大的
+-象徵性姿態。
++首先，我建議你買一本“Seven Habits of Highly Effective People”，然後 **不要**
++讀它。燒了它，這是個很棒的象徵性舉動。
+ 
+-.. [#cnf1] 本文件並不是通過回答問題，而是通過讓提問者痛苦地明白，我們不知道
+-   答案是什麼。
++.. [#cnf1] 本文件達成這個目的的方式，與其說是回答問題，不如說是讓提問者
++   痛苦地明白：我們根本不知道答案是什麼。
+ 
+-不管怎樣，這裏是：
++不管怎樣，開始吧：
+ 
+ .. _tw_decisions:
+ 
+-1）決策
+--------
++1) 決策
++--------
+ 
+-每個人都認爲管理者做決定，而且決策很重要。決定越大越痛苦，管理者就必須越高級。
+-這很明顯，但事實並非如此。
++每個人都以為管理者負責做決策，而且決策很重要。決策越重大、越痛苦，做決策的
++管理者就得越高階。這個道理非常深刻又顯而易見，但實際上並不正確。
+ 
+-最重要的是 **避免** 做出決定。尤其是，如果有人告訴你“選擇（a）或（b），
+-我們真的需要你來做決定”，你就是陷入麻煩的管理者。你管理的人比你更瞭解細節，
+-所以如果他們來找你做技術決策，你完蛋了。你顯然沒有能力爲他們做這個決定。
++遊戲規則是 **避免** 做決策。尤其是，如果有人跟你說“選（a）還是（b），我們
++真的需要你來決定”，那麼身為管理者的你就麻煩了。你管理的人最好比你更了解
++細節，所以如果他們來找你做技術決策，你就完蛋了。你顯然沒有能力替他們做這個
++決策。
+ 
+-（推論：如果你管理的人不比你更瞭解細節，你也會被搞砸，儘管原因完全不同。
+-也就是說，你的工作是錯的，他們應該管理你的才智）
++（推論：如果你管理的人並不比你更了解細節，那你也完蛋了，只是原因完全不同：
++你入錯行了，應該反過來由 **他們** 來管理才華洋溢的你才對。）
+ 
+-所以最重要的是 **避免** 做出決定，至少是那些大而痛苦的決定。做一些小的
+-和非結果性的決定是很好的，並且使您看起來好像知道自己在做什麼，所以內核管理者
+-需要做的是將那些大的和痛苦的決定變成那些沒有人真正關心的小事情。
++所以遊戲規則是 **避免** 做決策，至少要避免那些重大又痛苦的決策。做些小而
++無關緊要的決策沒有問題，還能讓你看起來像是知道自己在做什麼，所以核心管理者
++要做的，就是把那些重大又痛苦的決策變成沒有人真正在乎的小事。
+ 
+-這有助於認識到一個大的決定和一個小的決定之間的關鍵區別是你是否可以在事後修正
+-你的決定。任何決定都可以通過始終確保如果你錯了（而且你一定會錯），你以後總是
+-可以通過回溯來彌補損失。突然間，你就要做兩個無關緊要的決定，一個是錯誤的，另
+-一個是正確的。
++認清一點會有幫助：大決策和小決策之間的關鍵差別，在於你事後能否修正這個
++決策。只要始終確保在你犯錯時（而且你 **一定** 會犯錯），之後總是能透過走
++回頭路來彌補損害，任何決策都可以變成小決策。突然間，你因為做了 **兩個**
++無關緊要的決策（錯的那個 **和** 對的那個），而顯得加倍有管理者的架勢。
+ 
+-人們甚至會認爲這是真正的領導能力（咳，胡說，咳）。
++而且大家甚至會把這視為真正的領導力（*咳* 胡扯 *咳*）。
+ 
+-因此，避免重大決策的關鍵在於避免做那些無法挽回的事情。不要被引導到一個你無法
+-逃離的角落。走投無路的老鼠可能很危險——走投無路的管理者真可憐。
++因此，避免重大決策的關鍵就變成：避免去做無法挽回的事。不要被逼進一個無法
++逃脫的角落。走投無路的老鼠也許很危險——走投無路的管理者則只是可悲。
+ 
+-事實證明，由於沒有人會愚蠢到讓內核管理者承擔巨大的財政責任，所以通常很容易
+-回溯。既然你不可能浪費掉你無法償還的鉅額資金，你唯一可以回溯的就是技術決策，
+-而回溯很容易：只要告訴大家你是個不稱職的傻瓜，說對不起，然後撤銷你去年讓別
+-人所做的毫無價值的工作。突然間，你一年前做的決定不在是一個重大的決定，因爲
+-它很容易被推翻。
++事實證明，由於 **反正** 不會有人蠢到真的讓核心管理者承擔龐大的財務責任，
++所以要走回頭路通常相當容易。既然你不可能浪費掉一大筆你可能還不起的錢，你
++唯一能走回頭路的就是技術決策，而在這方面走回頭路非常容易：只要告訴大家你是
++個無能的蠢蛋，說聲抱歉，然後把過去一年你讓大家做的那些毫無價值的工作全部
++撤銷。突然間，你一年前做的決策終究不算重大決策，因為它很容易就能撤銷。
+ 
+-事實證明，有些人對接受這種方法有困難，原因有兩個：
++事實證明，有些人對這種做法有困難，原因有二：
+ 
+- - 承認你是個白癡比看起來更難。我們都喜歡保持形象，在公共場合說你錯了有時
+-   確實很難。
+- - 如果有人告訴你，你去年所做的工作終究是不值得的，那麼對那些可憐的低級工
+-   程師來說也是很困難的，雖然實際的 **工作** 很容易刪除，但你可能已經不可
+-   挽回地失去了工程師的信任。記住：“不可撤銷”是我們一開始就試圖避免的，
+-   而你的決定終究是一個重大的決定。
++ - 承認自己是個白癡比看起來要難。我們都喜歡維持形象，公開站出來說自己錯了，
++   有時候確實非常困難。
++ - 有人告訴你，你過去一年做的工作終究沒有價值，這對那些可憐的基層工程師來說
++   也可能很難受。雖然實際的 **工作** 只要刪掉就能輕鬆撤銷，但你可能已經無可
++   挽回地失去了那位工程師的信任。記住：“無可挽回”正是我們一開始就想避免的，
++   而你的決策終究還是變成了重大決策。
+ 
+-令人欣慰的是，這兩個原因都可以通過預先承認你沒有任何線索，提前告訴人們你的
+-決定完全是初步的，而且可能是錯誤的事情來有效地緩解。你應該始終保留改變主意
+-的權利，並讓人們 **意識** 到這一點。當你 **還沒有** 做過真正愚蠢的事情的時
+-候，承認自己是愚蠢的要容易得多。
++令人高興的是，這兩個原因都可以有效緩解：只要事先坦承你根本完全摸不著頭緒，
++並且預先告訴大家你的決策純屬初步，而且可能是錯的。你應該永遠保留改變主意的
++權利，並讓大家非常 **清楚** 這一點。而且在你 **還沒** 做出真正愚蠢的事之前，
++承認自己很蠢要容易得多。
+ 
+-然後，當它真的被證明是愚蠢的時候，人們就轉動他們的眼珠說“哎呀，下次不要了”。
++接著，當它真的被證明很蠢時，大家只會翻個白眼說“唉呀，又來了”。
+ 
+-這種對不稱職的先發制人的承認，也可能使真正做這項工作的人也會三思是否值得做。
+-畢竟，如果他們不確定這是否是一個好主意，你肯定不應該通過向他們保證他們所做
+-的工作將會進入（內核）鼓勵他們。在他們開始一項巨大的努力之前，至少讓他們三
+-思而後行。
++這種先發制人地承認自己無能的做法，也可能讓真正做事的人三思這件事是否值得
++做。畢竟，如果連 **他們** 都不確定這是不是個好主意，你就絕對不該向他們保證
++他們做的東西會被收錄，藉此鼓勵他們。至少要讓他們在展開大工程之前三思。
+ 
+-記住：他們最好比你更瞭解細節，而且他們通常認爲他們對每件事都有答案。作爲一
+-個管理者，你能做的最好的事情不是灌輸自信，而是對他們所做的事情進行健康的批
+-判性思考。
++記住：他們最好比你更了解細節，而且他們通常已經自認對每件事都有答案。身為
++管理者，你能做的最好的事不是灌輸信心，而是讓他們對自己所做的事抱持適度的
++批判性思考。
+ 
+-順便說一句，另一種避免做出決定的方法是看起來很可憐的抱怨 “我們不能兩者兼
+-得嗎？” 相信我，它是有效的。如果不清楚哪種方法更好，他們最終會弄清楚的。
+-最終的答案可能是兩個團隊都會因爲這種情況而感到沮喪，以至於他們放棄了。
++順帶一提，另一種避免做決策的方法，是哀怨地嘟囔一句“我們不能兩個都做嗎？”，
++然後裝出一副可憐相。相信我，這招有效。如果不清楚哪種做法比較好，他們最後
++會自己搞清楚。最後的答案可能是兩個團隊都對這種狀況感到非常挫折，乾脆直接
++放棄。
+ 
+-這聽起來像是一個失敗，但這通常是一個跡象，表明兩個項目都有問題，而參與其中
+-的人不能做決定的原因是他們都是錯誤的。你最終會聞到玫瑰的味道，你避免了另一
+-個你本可以搞砸的決定。
++這聽起來也許像是失敗，但通常這表示兩個專案都有問題，而相關人員之所以無法
++做出決定，是因為他們都錯了。結果你反而一身光鮮地脫身，又避開了一個你原本
++可能搞砸的決策。
+ 
+-2）人
 ------
-+準備你的報告
-+------------
  
--可以通過電子郵件<security@kernel.org>聯繫Linux內核安全團隊。這是一個安全人員
--的私有列表，他們將幫助驗證錯誤報告並開發和發佈修復程序。如果您已經有了一個
--修復，請將其包含在您的報告中，這樣可以大大加快進程。安全團隊可能會從區域維護
--人員那裏獲得額外的幫助，以理解和修復安全漏洞。
-+和任何缺陷報告一樣，安全缺陷報告需要開發人員進行大量的分析工作，因此你能提供
-+的問題資訊越多越好。如果你不清楚哪些資訊有幫助，請參閱
-+Documentation/admin-guide/reporting-issues.rst 中概述的步驟。以下資訊在
-+**任何** 安全缺陷報告中都是絕對必要的：
+-大多數人都是白癡，做一名管理者意味着你必須處理好這件事，也許更重要的是,
+-**他們** 必須處理好你。
++2) 人
++------
  
--與任何缺陷一樣，提供的信息越多，診斷和修復就越容易。如果您不清楚哪些信息有用，
--請查看“Documentation/translations/zh_CN/admin-guide/reporting-issues.rst”中
--概述的步驟。任何利用漏洞的攻擊代碼都非常有用，未經報告者同意不會對外發布，除
--非已經公開。
-+  * **受影響的核心版本範圍**：沒有標明版本的報告將不會被處理。注意，像「最新
-+    的 mainline」這類會隨時間改變的版本是不可接受的，必須提供穩定的識別方式，
-+    例如 commit ID 或確切的版本號碼。非來自 kernel.org 的核心（例如發行版
-+    核心）的版本號碼對維護者沒有意義，也不會被處理。相當一部分報告針對的是
-+    已經修復的缺陷，因此務必在較新的版本（開發樹或最新的穩定版）上驗證漏洞，
-+    至少要確認自發現問題的版本以來，相關程式碼沒有改變。
+-事實證明，雖然很容易糾正技術錯誤，但不容易糾正人格障礙。你只能和他們的和
+-你的（人格障礙）共處。
++大多數人都是白癡，而身為管理者，意味著你必須面對這件事，也許更重要的是，
++**他們** 必須面對 **你**。
  
--請儘可能發送無附件的純文本電子郵件。如果所有的細節都藏在附件裏，那麼就很難對
--一個複雜的問題進行上下文引用的討論。把它想象成一個
--:doc:`常規的補丁提交 <../process/submitting-patches>` （即使你還沒有補丁）：
--描述問題和影響，列出復現步驟，然後給出一個建議的解決方案，所有這些都是純文本的。
-+  * **問題描述**：必須詳細描述問題，附上顯示問題如何出現的追蹤記錄，並說明你
-+    為什麼認為觀察到的行為是核心的問題。
+-但是，爲了做好作爲內核管理者的準備，最好記住不要燒掉任何橋樑，不要轟炸任何
+-無辜的村民，也不要疏遠太多的內核開發人員。事實證明，疏遠人是相當容易的，而
+-親近一個疏遠的人是很難的。因此，“疏遠”立即屬於“不可逆”的範疇，並根據
+-:ref:`tw_decisions` 成爲絕不可以做的事情。
++事實證明，技術上的錯誤很容易撤銷，人格上的缺陷可就沒那麼容易撤銷了。你只能
++跟他們的——還有你自己的——人格缺陷共處。
  
--披露和限制信息
-----------------
-+  * **重現程式**：開發人員需要能夠重現問題，才能確認修復有效。這包括觸發問題
-+    的方法，以及確認問題確實發生的方法。需要提供依賴項簡單的重現程式（原始碼、
-+    shell 腳本、一系列操作步驟、檔案系統映像檔等）。只有二進位執行檔的重現程式
-+    不被接受。可用的漏洞利用程式（exploit）非常有幫助，未經報告者同意不會對外
-+    發布，除非它們已經公開。按照定義，無法重現的問題就無法被利用，因此也不是
-+    安全缺陷。
+-這裏只有幾個簡單的規則：
++不過，為了做好當核心管理者的準備，最好記住不要自斷後路、不要轟炸無辜的
++村民，也不要疏遠太多核心開發者。事實證明，疏遠別人相當容易，要挽回他們卻
++很難。因此，“疏遠”立刻就屬於“不可逆”的範疇，根據 :ref:`tw_decisions` 而
++成為絕對不能做的事。
  
--安全列表不是公開渠道。爲此，請參見下面的協作。
-+  * **條件**：如果缺陷取決於特定的設定選項、sysctl、權限、時序、程式碼修改等，
-+    應該一併註明。
+- (1) 不要叫人笨蛋（至少不要在公共場合）
+- (2) 學習如何在忘記規則(1)時道歉
++這裡只有幾條簡單的規則：
  
--一旦開發出了健壯的補丁，發佈過程就開始了。對公開的缺陷的修復會立即發佈。
-+此外，以下資訊也非常需要：
+-問題在於 #1 很容易去做，因爲你可以用數百萬種不同的方式說“你是一個笨蛋” [#cnf2]_
+-有時甚至沒有意識到，而且幾乎總是帶着一種白熱化的信念，認爲你是對的。
++ (1) 不要罵人笨蛋（至少不要在公開場合）
++ (2) 學會在忘記規則(1)時道歉
  
--儘管我們傾向於在未公開缺陷的修復可用時即發佈補丁，但應報告者或受影響方的請求，
--這可能會被推遲到發佈過程開始後的7日內，如果根據缺陷的嚴重性需要更多的時間，
--則可額外延長到14天。推遲發佈修復的唯一有效原因是爲了適應QA的邏輯和需要發佈
--協調的大規模部署。
-+  * **疑似的缺陷位置**：疑似存在缺陷的檔案名稱與函式非常重要，至少有助於把報告
-+    轉給適當的維護者。如果無法提供（例如「每次執行這個指令系統都會凍結」），
-+    安全團隊會協助找出缺陷的來源。
+-你越確信自己是對的（讓我們面對現實吧，你可以把幾乎所有人都稱爲壞人，而且你
+-經常是對的），事後道歉就越難。
++規則 #1 的問題在於它非常容易犯，因為你可以用數百萬種不同的方式說“你是個
++笨蛋” [#cnf2]_，有時甚至自己都沒意識到，而且幾乎總是帶著自認為正確的熾熱
++信念。
  
--雖然可能與受信任的個人共享受限信息以開發修復，但未經報告者許可，此類信息不會
--與修復程序一起發佈或發佈在任何其他披露渠道上。這包括但不限於原始錯誤報告和
--後續討論（如有）、漏洞、CVE信息或報告者的身份。
-+  * **建議的修復**：在原始碼中分析過缺陷成因的報告者，幾乎總是很清楚該如何修復
-+    它，因為他們花了很長時間研究缺陷及其影響。提出經過測試的修復能為維護者節省
-+    大量時間，即使該修復最終並不正確也一樣，因為它有助於理解缺陷。提出經過測試
-+    的修復時，請務必將其整理成可以直接合併的格式（請參閱
-+    Documentation/process/submitting-patches.rst）。如果修復被接受，這能省去
-+    一些來回溝通，而你也會因為發現並修復這個問題而獲得認可。注意，在這種情況
-+    下，當報告者與作者是同一人時，只需要 ``Signed-off-by:`` 標籤，不需要
-+    ``Reported-by:``。
+-要解決此問題，您實際上只有兩個選項：
++而你越確信自己是對的（說實話，你幾乎可以罵 **任何人** 是笨蛋，而且你往往
++**會** 是對的），事後就越難道歉。
  
--換句話說，我們唯一感興趣的是修復缺陷。提交給安全列表的所有其他資料以及對報告
--的任何後續討論，即使在解除限制之後，也將永久保密。
-+  * **緩解措施**：在分析缺陷的過程中，經常會找到一些緩解問題的方法。分享這些
-+    方法很有用，因為在終端使用者套用修復之前的這段時間，它們有助於保護使用者。
+- - 非常擅長道歉
+- - 把“愛”均勻地散開，沒有人會真正感覺到自己被不公平地瞄準了。讓它有足夠的
+-   創造性，他們甚至可能會覺得好笑。
++要解決這個問題，你其實只有兩個選擇：
  
--協調
--------
-+什麼才算安全缺陷
-+----------------
+-選擇永遠保持禮貌是不存在的。沒有人會相信一個如此明顯地隱藏了他們真實性格的人。
++ - 變得非常擅長道歉
++ - 把“愛”平均地撒出去，讓沒有人真的覺得自己被不公平地針對。做得夠有創意的話，
++   他們甚至可能會覺得好笑。
  
--對敏感缺陷（例如那些可能導致權限提升的缺陷）的修復可能需要與私有郵件列表
--<linux-distros@vs.openwall.org>進行協調，以便分發供應商做好準備，在公開披露
--上游補丁時發佈一個已修復的內核。發行版將需要一些時間來測試建議的補丁，通常
--會要求至少幾天的限制，而供應商更新發布更傾向於週二至週四。若合適，安全團隊
--可以協助這種協調，或者報告者可以從一開始就包括linux發行版。在這種情況下，請
--記住在電子郵件主題行前面加上“[vs]”，如linux發行版wiki中所述：
--<http://oss-security.openwall.org/wiki/mailing-lists/distros#how-to-use-the-lists>。
-+大多數缺陷都應該公開處理，才能讓最多的人參與並找到最好的解決方案，這一點很
-+重要。就本質而言，在少數參與者之間以非公開討論處理的缺陷，比較不容易得到最好
-+的修復（例如可能遺漏合理的使用情境、測試能力有限）。
+-.. [#cnf2] 保羅·西蒙演唱了“離開愛人的50種方法”，因爲坦率地說，“告訴開發者
+-   他們是D*CKHEAD" 的100萬種方法都無法確認。但我確信他已經這麼想了。
++始終保持禮貌這個選項其實並不存在。沒有人會信任一個如此明顯地隱藏自己真實
++性格的人。
  
--CVE分配
-+事實上，透過安全團隊回報的缺陷，大多只是一般缺陷，只因為不了解 Linux 核心的
-+威脅模型（如 Documentation/process/threat-model.rst 所述）而被錯誤地認定為
-+安全缺陷；它們原本應該透過 Documentation/admin-guide/reporting-issues.rst
-+所述的一般管道回報。
-+
-+安全列表是為緊急缺陷而設的：這類缺陷讓攻擊者在設定正確的生產系統上獲得原本不
-+應擁有的能力，而且容易被利用，對許多使用者構成迫切的威脅。回報之前，請想一想
-+這個問題在這樣的系統上是否確實跨越了信任邊界。
-+
-+**如果你藉助 AI 找到缺陷，就必須將其視為已公開**。雖然你可能有合理的理由認為
-+並非如此，但安全團隊的經驗顯示，以這種方式發現的缺陷總是會同時被多位研究人員
-+發現，而且往往就在同一天。在這種情況下，不要公開分享重現程式，因為這可能造成
-+意料之外的傷害；只要說明有重現程式即可，維護者如果需要，可能會私下向你索取。
-+
-+如果你不確定某個問題是否符合條件，寧可選擇私下回報：安全團隊寧願分流處理一份
-+模稜兩可的報告，也不願錯過真正的漏洞。然而，把一般缺陷回報到安全列表並不會讓
-+它們處理得更快，反而會消耗其他報告所需的分流人力。
-+
-+找出聯絡對象
-+------------
-+
-+回報安全缺陷最有效的方式，是直接寄給受影響子系統的維護者，並 Cc: Linux 核心
-+安全團隊。在這個階段不要寄到公開的郵件列表，除非你有充分的理由認為這個問題已經
-+公開或很容易被發現（例如任何人都能重複執行、廣泛可得的自動化漏洞掃描工具所找到
-+的結果，或是使用 AI 工具找到的問題）。
-+
-+如果你要回報的問題影響核心中的多個部分，即使這些問題相當類似，也請分別寄送訊息
-+（想想看，維護者們不會同時處理這些問題）。唯一的例外是，問題涉及的是由完全相同
-+的一組維護者所維護、彼此密切相關的部分，而且這些部分預期會由同一個 commit 一次
-+修復，這時一起回報或許是可以接受的。
-+
-+對大多數第一次回報的人來說，困難之一是找出報告該寄給哪些收件人。在 Linux 核心
-+中，所有正式的維護者都是受信任的，因此不小心把錯誤的維護者加進收件人，後果基本
-+上只是給那個人多一點雜訊，並不嚴重。因此，找出維護者名單的一個合適方法（核心
-+安全人員也是這麼做的）是使用 get_maintainer.pl 腳本，並調整參數讓它只列出
-+維護者。把檔案名稱傳給這個腳本時，它會在 MAINTAINERS 檔案中尋找該路徑，找出
-+相關維護者的階層式名單。第一次以最精細的過濾層級呼叫它，多數時候會回傳這個特定
-+檔案的少數幾位維護者::
-+
-+  $ ./scripts/get_maintainer.pl --no-l --no-r --pattern-depth 1 \
-+    drivers/example.c
-+  Developer One <dev1@example.com> (maintainer:example driver)
-+  Developer Two <dev2@example.org> (maintainer:example driver)
-+
-+接著就應該把訊息寄給這兩位維護者。如果指令沒有回傳任何結果，表示受影響的檔案
-+屬於一個更大的子系統，因此我們應該放寬範圍::
-+
-+  $ ./scripts/get_maintainer.pl --no-l --no-r drivers/example.c
-+  Developer One <dev1@example.com> (maintainer:example subsystem)
-+  Developer Two <dev2@example.org> (maintainer:example subsystem)
-+  Developer Three <dev3@example.com> (maintainer:example subsystem [GENERAL])
-+  Developer Four <dev4@example.org> (maintainer:example subsystem [GENERAL])
-+
-+在這裡，挑選最前面、範圍最明確的那幾位就足夠了。名單很長時，可以像下面這樣
-+產生一行以逗號分隔、適合用在郵件客戶端 To: 欄位的電子郵件地址列表::
-+
-+  $ ./scripts/get_maintainer.pl --no-tree --no-l --no-r --no-n --m \
-+    --no-git-fallback --no-substatus --no-rolestats --no-multiline \
-+    --pattern-depth 1 drivers/example.c
-+  dev1@example.com, dev2@example.org
-+
-+或者像下面這樣產生範圍較廣的名單::
-+
-+  $ ./scripts/get_maintainer.pl --no-tree --no-l --no-r --no-n --m \
-+    --no-git-fallback --no-substatus --no-rolestats --no-multiline \
-+    drivers/example.c
-+  dev1@example.com, dev2@example.org, dev3@example.com, dev4@example.org
-+
-+如果到了這一步，你仍然難以找出正確的維護者，**而且只有在這種情況下**，才可以
-+只把報告寄給 Linux 核心安全團隊。你的訊息會經過分流處理，如有需要，你會收到
-+應該聯絡誰的指示。你的訊息也可能被原封不動地轉寄給相關維護者。
-+
-+負責任地使用 AI 尋找缺陷
+-3）人2 - 好人
+--------------
++.. [#cnf2] Paul Simon唱的是“Fifty Ways to Leave Your Lover”（離開愛人的五十種
++   方法），因為坦白說，“A Million Ways to Tell a Developer They're a
++   D*ckhead”（告訴開發者他們是笨蛋的一百萬種方法）唱起來可遠沒那麼順口。但我
++   相信他一定考慮過。
+ 
+-雖然大多數人都是白癡，但不幸的是，據此推論你也是白癡，儘管我們都自我感覺良
+-好，我們比普通人更好（讓我們面對現實吧，沒有人相信他們是普通人或低於普通人），
+-我們也應該承認我們不是最鋒利的刀，而且會有其他人比你更不像白癡。
+ 
+-有些人對聰明人反應不好。其他人利用它們。
++3) 人（之二）——好的那種
 +------------------------
-+
-+提交給安全團隊的缺陷報告中，有相當大一部分其實是借助 AI 工具進行程式碼審查的
-+結果。雖然這可以是在鮮少有人探索的領域中找到缺陷的有效手段，卻也造成維護者的
-+負擔過重，有時他們不得不因為這類報告的品質或準確度太差而忽略它們。因此，報告者
-+必須特別注意以下幾點，它們往往讓這些報告變得不必要地難以處理：
-+
-+  * **長度**：AI 產生的報告往往過於冗長，包含多個章節與過多細節。這使得受影響
-+    的檔案、版本與影響等重要資訊難以找到。請確保先列出清楚的問題摘要與所有關鍵
-+    細節。不要讓負責分流的工程師閱讀好幾頁的文字。請設定你的工具，讓它產生簡潔、
-+    像人寫的報告。
-+
-+  * **格式**：大多數 AI 產生的報告充斥著 Markdown 標記。這些裝飾讓尋找重要資訊
-+    變得更困難，而且在轉寄或回覆所涉及的引用過程中也無法保留。寄出之前，請
-+    **務必把報告轉換成純文字**，不要帶任何格式裝飾。
-+
-+  * **影響評估**：許多 AI 產生的報告缺乏對核心威脅模型的理解（請參閱
-+    Documentation/process/threat-model.rst），並費盡心思杜撰理論上的後果。
-+    這只會增加雜訊，讓分流更複雜。請只陳述可驗證的事實（例如「這個缺陷讓任何
-+    使用者都能取得 CAP_NET_ADMIN」），不要列舉推測性的影響。請在評估過程中讓
-+    你的工具閱讀這份文件。
-+
-+  * **重現程式**：AI 工具通常有能力產生重現程式。請務必確保你的工具提供重現
-+    程式，並 **徹底測試它**。如果重現程式無法運作，或工具無法產生重現程式，就
-+    應該嚴肅質疑這份報告的有效性。注意，由於報告會被張貼到公開的郵件列表，重現
-+    程式只應在維護者要求時才分享。
-+
-+  * **提出修復**：許多 AI 工具其實比較擅長寫程式碼，而不是評估程式碼。請在回報
-+    問題之前，要求你的工具提出修復並 **測試它**。如果因為修復依賴罕見的硬體或
-+    幾乎絕跡的網路協定而無法測試，這個問題很可能就不是安全缺陷。無論如何，如果
-+    提出了修復，它都必須遵守 Documentation/process/submitting-patches.rst，並
-+    包含一個 'Fixes:' 標籤，指出引入該缺陷的 commit。
-+
-+沒有考慮這些要點的報告，可能會面臨被忽略的風險。
-+
-+評估報告時請運用常識。如果受影響的檔案已經超過一年沒有被修改，而且只由單一個人
-+維護，那麼它的使用量很可能已經下降，受影響的使用者幾乎不存在（例如非常老舊硬體
-+的驅動程式、過時的檔案系統）。在這種情況下，沒有必要用不重要的報告佔用維護者的
-+時間。如果問題顯然微不足道且可被公開發現，你應該直接回報到公開的郵件列表。
-+
-+至少，在使用 AI 助理尋找並回報缺陷時，要讓助理在開始之前先閱讀這份文件與
-+threat-model.rst，並讓它遵循 coding-assistants.rst 中描述的程序：在最新的
-+mainline 樹上工作並記下 commit ID、確認缺陷確實存在、撰寫修復、建置時沒有警告
-+且通過 checkpatch 檢查、以 Fixes 標籤提交 commit，並用 get_maintainer.pl 找出
-+維護者。
-+
-+除了該程序之外，AI 助理 **必須**：
-+
-+1. 準備一份說明問題的純文字報告。報告必須包含本文開頭列為絕對必要的四個項目：
-+   遵循上述程序時記下的受影響版本或 commit ID、問題描述、重現程式或其狀態，以及
-+   觸發條件。
-+2. 在報告開頭加上一個暫時的段落，列出收件人地址（補丁寄給維護者加郵件列表，報告
-+   與重現程式只寄給維護者），並附上提醒報告者確認其郵件客戶端設定正確的說明（請
-+   參閱 email-clients.rst），再由報告者自行刪除這個暫時的段落。
-+
-+更詳細的流程請參閱 https://github.com/masoncl/kres.git 。
-+
-+寄送報告
- --------
  
--安全團隊通常不分配CVE，我們也不需要它們來進行報告或修復，因爲這會使過程不必
--要的複雜化，並可能耽誤缺陷處理。如果報告者希望在公開披露之前分配一個CVE編號，
--他們需要聯繫上述的私有linux-distros列表。當在提供補丁之前已有這樣的CVE編號時，
--如報告者願意，最好在提交消息中提及它。
-+報告只能透過電子郵件寄送。請使用可正常收發的電子郵件地址，最好就是你希望出現在
-+``Reported-by`` 標籤（如果有的話）中的地址。如果不確定，請先把報告寄給自己。
+-作爲內核維護人員，確保您在第二組中。接受他們，因爲他們會讓你的工作更容易。
+-特別是，他們能夠爲你做決定，這就是遊戲的全部內容。
++雖然事實證明大多數人都是白癡，但遺憾的是，由此得出的推論就是你也是白癡。
++而且雖然我們都可以安心地相信自己比一般人強（說實話，從來沒有人相信自己只是
++普通或低於普通水準），我們也應該承認自己並不是最聰明的那一個，總會有其他人
++沒有你那麼白癡。
  
--保密協議
-----------
-+安全團隊與維護者幾乎總是需要報告最初所提供內容以外的額外資訊，並仰賴與報告者
-+積極而有效率的協作來進行進一步的測試（例如驗證版本、設定選項、緩解措施或補丁）。
-+在聯絡安全團隊之前，報告者必須確保自己有空說明發現、參與討論並執行額外的測試。
-+如果報告者沒有即時回應，或無法有效地討論其發現，而溝通又沒有很快改善，報告就
-+可能被擱置。
+-所以當你發現一個比你聰明的人時，就順其自然吧。你的管理職責在很大程度上變成
+-了“聽起來像是個好主意——去嘗試吧”，或者“聽起來不錯，但是XXX呢？”“。第二個版
+-本尤其是一個很好的方法，要麼學習一些關於“XXX”的新東西，要麼通過指出一些聰明
+-人沒有想到的東西來顯得更具管理性。無論哪種情況，你都會贏。
++有些人對聰明人反應很差。其他人則會善用他們。
+ 
+-要注意的一件事是認識到一個領域的偉大不一定會轉化爲其他領域。所以你可能會向
+-特定的方向刺激人們，但讓我們面對現實吧，他們可能擅長他們所做的事情，而且對
+-其他事情都很差勁。好消息是，人們往往會自然而然地重拾他們擅長的東西，所以當
+-你向某個方向刺激他們時，你並不是在做不可逆轉的事情，只是不要用力推。
++身為核心維護者，你要確保自己屬於第二種人。巴結他們，因為他們就是會讓你的
++工作更輕鬆的人。尤其是，他們能替你做決策，而這正是這場遊戲的重點所在。
+ 
+-4）責備
+--------
++所以當你找到比你聰明的人時，就順勢而行吧。你的管理職責大致上會變成說“聽起來
++是個好主意——放手去做吧”，或是“聽起來不錯，但是xxx呢？”。尤其第二種說法是個
++很棒的方式，不是能讓你學到一些關於“xxx”的新東西，就是能藉由指出那位聰明人
++沒想到的事，讓你顯得 **格外** 有管理者的架勢。無論哪種情況，你都是贏家。
+ 
+-事情會出問題的，人們希望去責備人。貼標籤，你就是受責備的人。
++要注意的一點是，要認清在某個領域的傑出不一定能轉移到其他領域。所以你也許會
++推著大家往特定方向走，但說實話，他們可能擅長自己做的事，其他事卻都很爛。
++好消息是，人們往往會自然而然地回到自己擅長的事情上，所以當你 **真的** 推他們
++往某個方向走時，你並不是在做什麼不可逆的事，只是別推得太用力。
+ 
+-事實上，接受責備並不難，尤其是當人們意識到這不 **全是** 你的過錯時。這讓我
+-們找到了承擔責任的最佳方式：爲別人承擔這件事。你會感覺很好，他們會感覺很好，
+-沒有受到指責. 那誰，失去了他們的全部36GB色情收藏的人，因爲你的無能將勉強承
+-認，你至少沒有試圖逃避責任。
+ 
+-然後讓真正搞砸了的開發人員（如果你能找到他們）私下知道他們搞砸了。不僅是爲
+-了將來可以避免，而且爲了讓他們知道他們欠你一個人情。而且，也許更重要的是，
+-他們也可能是能夠解決問題的人。因爲，讓我們面對現實吧，肯定不是你。
++4) 歸咎
++--------
+ 
+-承擔責任也是你首先成爲管理者的原因。這是讓人們信任你，讓你獲得潛在的榮耀的
+-一部分，因爲你就是那個會說“我搞砸了”的人。如果你已經遵循了以前的規則，你現
+-在已經很擅長說了。
++事情總會出錯，而大家會想找個人來怪罪。抓到了，換你當鬼。
+ 
+-5）應避免的事情
+----------------
++其實承擔責任並沒有那麼難，尤其是在大家多少意識到這不 **全是** 你的錯的時候。
++這就帶出了承擔責任的最佳方式：替別人扛下來。你會因為扛下責任而感覺良好，
++他們會因為沒被怪罪而感覺良好，而那個因為你的無能而失去整整36GB色情收藏的人，
++也會不情願地承認你至少沒有試圖推卸責任。
+ 
+-有一件事人們甚至比被稱爲“笨蛋”更討厭，那就是在一個神聖的聲音中被稱爲“笨蛋”。
+-第一個你可以道歉，第二個你不會真正得到機會。即使你做得很好，他們也可能不再
+-傾聽。
++然後 **私下** 讓真正搞砸的開發者（如果你找得到他們）知道他們搞砸了。這不只
++是為了讓他們將來能避免再犯，也是為了讓他們知道自己欠你一次人情。而且，也許
++更重要的是，他們很可能也是能修好它的人。因為，說實話，那絕對不會是你。
+ 
+-我們都認爲自己比別人強，這意味着當別人裝腔作勢時，這會讓我們很惱火。你也許
+-在道德和智力上比你周圍的每個人都優越，但不要試圖太明顯，除非你真的打算激怒
+-某人 [#cnf3]_
++承擔責任也正是你當初能成為管理者的原因。這是讓大家信任你、讓你有機會獲得
++榮耀的一部分，因為你就是那個會說“我搞砸了”的人。而如果你遵循了前面的規則，
++現在你應該已經很擅長說這句話了。
+ 
+-同樣，不要對事情太客氣或太微妙。禮貌很容易落得落花流水，把問題隱藏起來，
+-正如他們所說，“在互聯網上，沒人能聽到你的含蓄。”用一個鈍器把這一點錘進去，
+-因爲你不能真的依靠別人來獲得你的觀點。
+ 
+-一些幽默可以幫助緩和直率和道德化。過度到荒謬的地步，可以灌輸一個觀點，而不
+-會讓接受者感到痛苦，他們只是認爲你是愚蠢的。因此，它可以幫助我們擺脫對批評
+-的個人心理障礙。
++5) 應避免的事
++--------------
+ 
+-.. [#cnf3] 提示：與你的工作沒有直接關係的網絡新聞組是消除你對他人不滿的好
+-   方法。偶爾寫些侮辱性的帖子，打個噴嚏，讓你的情緒得到淨化。別把牢騷帶回家
++有一件事比被叫“笨蛋”更讓人討厭，那就是被人用一副道貌岸然的語氣叫“笨蛋”。
++前者你還可以道歉，後者你就不太會有道歉的機會了。即使你在其他方面做得很好，
++他們可能也不會再聽你說話了。
+ 
+-6）爲什麼是我？
+----------------
++我們都認為自己比其他任何人都強，這表示當別人擺架子時，會 **真的** 讓我們很
++不爽。你也許在道德和智識上都勝過身邊的每一個人，但除非你真的 **有意** 激怒
++某人 [#cnf3]_，否則不要表現得太明顯。
+ 
+-既然你的主要責任似乎是爲別人的錯誤承擔責任，並且讓別人痛苦地明白你是不稱職
+-的，那麼顯而易見的問題之一就變成了爲什麼首先要這樣做。
++同樣地，也不要對事情太客氣或太含蓄。禮貌很容易做過頭而把問題掩蓋起來，而且
++正如俗話說的：“在網路上，沒有人聽得出你的含蓄。”用一個又大又鈍的東西把重點
++敲進去，因為除此之外你真的無法指望別人理解你的重點。
+ 
+-首先，雖然你可能會或可能不會聽到十幾歲女孩（或男孩，讓我們不要在這裏評判或
+-性別歧視）敲你的更衣室門，你會得到一個巨大的個人成就感爲“負責”。別介意你真
+-的在領導別人，你要跟上別人，儘可能快地追趕他們。每個人都會認爲你是負責人。
++一點幽默有助於緩和直率與說教。誇張到荒謬的地步，可以讓重點深入人心，又不會
++讓接收者感到痛苦，他們只會覺得你在耍寶。因此，它有助於突破我們每個人面對
++批評時都有的心理障礙。
+ 
+-如果你可以做到這個， 這是個偉大的工作！
++.. [#cnf3] 提示：與你的工作沒有直接關係的網路新聞群組，是發洩你對其他人的
++   不滿的好地方。偶爾帶著輕蔑寫幾篇侮辱人的文章，好好來場論戰，你就會覺得
++   身心都被淨化了。只是別在自家門口拉屎。
+ 
 +
-+報告必須寄給維護者。如果你的訊息收件人只有兩位或更少，你也必須一律 Cc: Linux
-+核心安全團隊，他們會確保訊息送達正確的人，並能協助小型維護團隊處理他們可能不
-+熟悉的流程。對於較大的團隊，在你最初的幾份報告，或需要特定協助時（例如重新寄送
-+一封一週內都沒有得到回應的訊息），請 Cc: Linux 核心安全團隊。當你在幾份報告之後
-+已經熟悉這個流程，寄給大型團隊時就不再需要 Cc: 安全列表。可以透過電子郵件
-+<security@kernel.org> 聯絡 Linux 核心安全團隊。這是一個由安全人員組成的私有
-+列表，他們會協助驗證缺陷報告，並協助開發修復的開發人員。安全團隊可能會請相關
-+領域的維護者提供額外協助，以理解並修復安全漏洞。
-+
-+請盡可能寄送不帶附件的 **純文字** 電子郵件。如果所有細節都藏在附件裡，就很難
-+針對一個複雜的問題進行引用上下文的討論。把它想成一次
-+:doc:`一般的補丁提交 <../process/submitting-patches>`
-+（即使你還沒有補丁）：描述問題和影響，列出重現步驟，然後附上建議的修復，全部
-+都以純文字呈現。Markdown、HTML 與 RST 格式的報告特別不受歡迎，因為它們對人類
-+來說相當難讀，還會促使人使用專門的檢視器，有時甚至是線上檢視器，而這對機密的
-+安全報告來說，按照定義就是不可接受的。注意，有些郵件客戶端預設會弄亂純文字的
-+格式，更多資訊請參閱 Documentation/process/email-clients.rst。
-+
-+披露與保密期資訊
++6) 為什麼是我？
 +----------------
 +
-+安全列表不是披露管道。關於披露，請參閱下面的「協調」一節。
++既然你的主要責任似乎就是替別人的錯誤背黑鍋，並且讓其他所有人都痛苦地清楚
++看到你有多無能，那麼顯而易見的問題就變成：當初為什麼要做這份工作？
 +
-+一旦開發出可靠的修復，發布流程就會開始。已公開缺陷的修復會立即發布。
++首先，雖然你不一定會有尖叫的少女（或少年，在這裡我們就別帶著評判眼光或性別
++歧視了）來敲你更衣室的門，但你 **一定** 會因為“負責掌管”而獲得巨大的個人
++成就感。別在意事實上你的領導方式，是努力跟上其他所有人，並盡可能快地追在
++他們後面跑。大家還是會認為你是負責人。
 +
-+雖然我們傾向在修復可用時就立即發布尚未公開缺陷的修復，但應報告者或受影響方的
-+要求，發布可以從發布流程開始起延後最多 7 個日曆天；如果大家同意缺陷的嚴重程度
-+需要更多時間，可以例外延長到 14 個日曆天。延後發布修復唯一正當的理由，是為了
-+配合 QA 以及需要協調發布的大規模部署的作業安排。
- 
--Linux內核安全團隊不是一個正式的機構實體，因此無法簽訂任何保密協議。
-+雖然為了開發修復，保密期內的資訊可能會與受信任的個人分享，但未經報告者許可，
-+這些資訊不會隨修復一起發布，也不會在任何其他披露管道上公開。這包括但不限於原始
-+的缺陷報告與後續討論（如果有的話）、漏洞利用程式、CVE 資訊或報告者的身分。
-+
-+換句話說，我們唯一關心的是修好缺陷。提交到安全列表的所有其他資訊，以及關於該
-+報告的任何後續討論，即使在保密期解除之後，也會永久保密。
-+
-+與其他團隊協調
-+--------------
-+
-+核心安全團隊只專注於修復缺陷，而其他團隊則專注於修復發行版中的問題，以及協調
-+作業系統廠商之間的披露。協調通常由 "linux-distros" 郵件列表負責，披露則由公開
-+的 "oss-security" 郵件列表負責，兩者關係密切，並在 linux-distros wiki 中有所
-+介紹：
-+<https://oss-security.openwall.org/wiki/mailing-lists/distros>
-+
-+請注意，由於這三個列表追求的目標不同，它們各自的政策與規則也不同。核心安全團隊
-+與其他團隊之間的協調並不容易，因為對核心安全團隊而言，偶爾設定的保密期（受最多
-+允許天數的限制）是從修復可用時開始計算，而 "linux-distros" 則是從首次張貼到該
-+列表時開始計算，不論修復是否可用。
-+
-+因此，核心安全團隊強烈建議，身為潛在安全問題的報告者，在受影響程式碼的維護者
-+接受修復之前，以及在你讀過上述的發行版 wiki 頁面、並完全理解聯絡
-+"linux-distros" 會對你和核心社群帶來哪些要求之前，千萬不要聯絡 "linux-distros"
-+郵件列表。這也表示，一般來說同時 Cc: 兩個列表並沒有意義，除非是在修復已被接受
-+但尚未合併的期間，或許為了協調而這麼做。換句話說，在修復被接受之前不要 Cc:
-+"linux-distros"，而在修復被合併之後，不要 Cc: 核心安全團隊。
-+
-+CVE 分配
-+--------
-+
-+安全團隊不分配 CVE，也不要求報告或修復必須有 CVE，因為這可能讓流程變得不必要地
-+複雜，並可能延誤缺陷的處理。如果報告者希望為已確認的問題分配 CVE 識別碼，可以
-+聯絡核心 CVE 分配團隊取得（請參閱 Documentation/process/cve.rst）。
-+
-+保密協議
-+--------
- 
-+Linux 核心安全團隊不是正式的組織，因此無法簽訂任何保密協議。
++如果你應付得來，這是一份很棒的工作。
 -- 
 2.43.0
 
