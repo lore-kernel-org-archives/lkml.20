@@ -1,86 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793993446;
-	b=AlN2pXMXuowmMs/5BmneMqywZRMzhMLICZFkgh8QOWOI9rIa2avNZwUyvhaDgQBJNE3m
-	 ULSdfSM57lDALIY5WLIGP/T/MVX5Lm8fx3mHkWqZDCoiGHtpLkCmDJ8lG0gwaUUY0Cwdg
-	 U5XF7mQbuKQEmU0RouQUXEbk+xPv3w2gojEXnM1e2MM3gmxUiqETKX+PCm1zQtIvlg3s0
-	 ddFgBiJLJ6CO4TW2779Ibd+U8523eII/XC2DBwD3gpJV3w6wjl6Uty5lBP55dIiyQLbUf
-	 XoQJm2J890Baw1uRH7dYYFuwgObRsA9FOTF9uLw3oOpsslLRqXJ3+K2dUwHaNJkOTlQ==
+	t=1793993527;
+	b=35LdBj5ENPk83mCyTYaOMpQIk1k7kFgfzfH1cjClEXKW1NdW+siqh08oSavLUbQDe1aq
+	 iM4nkAUICkbYETn1n0AtM3bINvsodEtUt+r7Q3gvSde6qS3nmea/p31LfA/9vNd6wwmQL
+	 byxWxZ+0MY3s/U/agbU0DQWD2h3Grkz/NAmWhf8Ieh+SLb1pJo/oe0sTaa3uBN+2Y2v7P
+	 LDd2ajPojEdiJsDgx+eKX1Ou+RxCU2fAT+8xrMOI+wz9Gfe3NwTmW9FK4YRQRtRuLdYfQ
+	 xsoEHFSF68Q7fXLd4mnCtnjUUBIBdebBv8ev7gkaKC1s1U/q0w4JoDkG48eMGASpRhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993446;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XmljEirP7g8E1aEpXYghzNW+MUBxa4234sIME/mYPkk=;
-	b=KoEjuKAKnZzTMmGq4rVPec8Jp3QL0S/h2OMYwKc3EvLbXL93Klbxaw1MStGksYEILmoi
-	 /j2rpmNywz7N03df3MmsLEBcuHyiwkVFbcStUs6ijZxUqG2mJs0TGuBPkuL7Rigz5jU13
-	 tqDL2uYO9FnaqcVwzSQGsIFh8Osk4sU0YiNiIxrXq/mJ9ZAZymh/VIo6MaxCxZ0FSKpH2
-	 xmvL/QDRb5SJgRe/yezV7yYDJiFgKOstCAGriG4d7GPpcxmTY+8/Iccfcd34khFoy8Q3j
-	 d2e7fVhs4Vnd7AQb4XlLLvOWZlEj4M717VHpqJs8SNESD5nw4Qlbd/6vyN+cZ/m1tZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793993527;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Iw0r9KyM9yE8+UHLOBvRU3eF9rfoOEr06pAaRlmDbAI=;
+	b=UGl0oWFou4zuNN0VbVMx/ADPw+zFmgzMZqvdSGQq8D+mure7AVC/CCHPzVm7eB2U3w0s
+	 x6Gqlobtj99VEc/a5cbYTLdC4hAPozViYnFY8T6Y5ZBUflZLW9kJHdROo5xFvd0D5OPps
+	 vEr/mJbEnmOCdlvJ6/+4ZgOHvk164KYy9mV8BRIyFm4ESVGrsQ3sJdwG7ocrKLAuxAOGX
+	 f/b0AdJzYj48n9yySFiwa7TAro7fB+cUUZNFLRtG1EQ09I8x5ydwceBhukF/Mw470Zgxg
+	 8HQyK/VOz9H4nBLOguAolF+nKNJmyHRAbPW7KC3r+07AFEMrkuPYwYk8fzE+5lK0p7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fRgb09PY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dbalint.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JOLCqPsW;
+	arc=none smtp.remote-ip=209.85.208.197
+Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com [209.85.208.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9BBEC606A326;
-	Fri,  6 Nov 2026 19:30:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6AF606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:32:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE6AF606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dbalint.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fRgb09PY
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 89B181F0089F;
-	Fri,  6 Nov 2026 19:30:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793993445;
-	bh=XmljEirP7g8E1aEpXYghzNW+MUBxa4234sIME/mYPkk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fRgb09PYkaD6Phe8rymtD/OPdc3FEe5j7zptW9rqLEPiPGLt0uWIFNbksQ4JPPiQZ
-	 5WfFSlfOba/9Z/vwhRBxda9lXAmsvDNfxor5Em6lhAabuhK76HA5hjm51SebDcki+8
-	 a1p9eTkai4Ru7VKPtmdHMqDGBxt1SWHPZi7tB5xxS9JLePshmf9r47FNN1Akj639C4
-	 7uFyGvtNEP0qWBaT0RLU6kOfd8a79he64DQLSkYrv7ht0PnqOVA8H/004KNo1Fijlc
-	 J1VxpLGH1T7xTP4zpflSiCn/6oeBV5o6mb0faebPG9zFzPZwsNFEmpMKwVea6ITRse
-	 Vu6lbY0ezf8BQ==
-Date: Fri, 6 Nov 2026 21:30:41 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Hannes Reinecke <hare@suse.de>, David Howells <dhowells@redhat.com>,
-	bpf@vger.kernel.org, dm-devel@lists.linux.dev,
-	fsverity@lists.linux.dev, keyrings@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH v5 2/3] KEYS: Replace assoc_array with rhashtable
-Message-ID: <au4q4Wh7PK1-Ge9P@kernel.org>
-References: <20261105031401.956609-1-jarkko@kernel.org>
- <20261105031401.956609-3-jarkko@kernel.org>
- <27015846-0161-4700-b810-4643e1f7b63a@suse.de>
- <20261106090516.GA1973@sol>
- <93e6b4e6-43c3-462d-b57c-26676aec85ec@suse.de>
- <au4k69xNBUjsNErr@kernel.org>
- <20261106191920.GA3383096@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JOLCqPsW
+Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-3ab3089df39so4054381fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:32:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793993525; x=1794598325; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Iw0r9KyM9yE8+UHLOBvRU3eF9rfoOEr06pAaRlmDbAI=;
+        b=JOLCqPsWEhNqvFOx3/qaiUcFebdO112TNKsSqX2AFW5xG81g+8535F24cncdWzB9d0
+         NijKGrQduJPe8aMZlBWGmexK/h2h9cay7gxZ+wMrq9yQFHgl5dyvrlANHcgvLKcvvap1
+         VTOUupmkJEuDGKnveoP7c4sVve4o9I3+FO/NpJq3+9+VtTbYRMjXilKh7JvuN1L5yK1+
+         RD9+bTKAEOaS239HwvTaWfCn6WDPcXnKNPEHYIJmJ2w+QA4UaVoP4BROpNoAi2/uWIMF
+         FjpLb4UydY+jEPABvttUBtOrdZ4+9Fp0ssgtVfwhUiVLHBKUiF6jsdrf2fc/6Ue1cfMP
+         pa+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793993525; x=1794598325;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Iw0r9KyM9yE8+UHLOBvRU3eF9rfoOEr06pAaRlmDbAI=;
+        b=JVZG3/4sb7H0X5tcbZyI/qnpDctWAnU20y87s+BpEZltJDsEfDZUx9eCtUozke94Hr
+         1uywB5DNObQbi7K4l6/Pvps4Pd8eV0wRTini9CSPu38L8IrHq9Yf32ogV/dq62zJDbSK
+         PQ85pOVS77iwroiXWJi2h8/cvPRQOwSTWTsAk1DVIVhuWYkzN2Q9ogm+u6hRlM36XogM
+         61zkSTON8qX16UXnejyw/25YxWN5c1OoVn6r9T7Wq/RlCdEFRxU6ZkBOs6vdh+WKT0A1
+         03c4P4Eq7UeyvXd92zujin7Jt+mx/dHZISQpvqifEwqvfXYSPwXbWIJ6sMUfpDMIm634
+         AuNw==
+X-Forwarded-Encrypted: i=1; AL+hErFc1MQ4+azFPGyhaVkiUznFjvNSU+NilZ4+ptkgA0NTC7HbqkIL9iob+KQprRpqaHjMpp+EmI2K9++YgzY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FljWEQXpU4vLt75kYf4ZGEMek+zAH73BUAlDuR1rmNmoUe6mr
+	Ya9lEs3Kfzy/eUdDKA7Gb4+uUPLdRi2fImcIdaEW99Y28wTiE9Di5aavwlMPuZSnm2zryQH5nG0
+	s7uxquYcFUw==
+X-Received: from ljgi21.prod.google.com ([2002:a2e:8095:0:b0:3ac:f040:c4e9])
+ (user=dbalint job=prod-delivery.src-stubby-dispatcher) by 2002:a05:651c:31d1:b0:3a9:7e4d:7fc5
+ with SMTP id 38308e7fff4ca-3acf3b2f8cemr7731911fa.18.1793993524757; Fri, 06
+ Nov 2026 11:32:04 -0800 (PST)
+Date: Fri,  6 Nov 2026 19:31:14 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,67 +75,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106191920.GA3383096@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261106193129.43493-1-dbalint@google.com>
+Subject: [PATCH v1 0/3] Introduce cros_ec power monitoring
+From: Daniel Balint <dbalint@google.com>
+To: Jonathan Cameron <jic23@kernel.org>, Benson Leung <bleung@chromium.org>, Lee Jones <lee@kernel.org>, 
+	Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: linux-iio@vger.kernel.org, chrome-platform@lists.linux.dev, 
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Daniel Balint <dbalint@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Nov 06, 2026 at 07:19:20PM +0000, Eric Biggers wrote:
-> On Fri, Nov 06, 2026 at 09:05:15PM +0200, Jarkko Sakkinen wrote:
-> > On Fri, Nov 06, 2026 at 02:02:11PM +0100, Hannes Reinecke wrote:
-> > > On 11/6/26 10:05 AM, Eric Biggers wrote:
-> > > > On Fri, Nov 06, 2026 at 09:21:32AM +0100, Hannes Reinecke wrote:
-> > > > > While I am pretty much in favour with this approach, is there a specific
-> > > > > reason why siphash has been chosen?
-> > > > 
-> > > > SipHash is the preferred choice for secure hash tables.  It is secure,
-> > > > performs well on short inputs, and doesn't require special instructions.
-> > > > See Documentation/security/siphash.rst
-> > > > 
-> > > > > Would there be a chance to make this configurable?
-> > > > > I do see slight complications when running in secure environments
-> > > > > (ie FIPS-certified environments) where most of the hash functions
-> > > > > might not be available ...
-> > > > 
-> > > > SipHash support is available even when the kernel is booted with fips=1,
-> > > > so there's no issue there.  It's already widely used in the kernel for
-> > > > hash tables, and that hasn't blocked FIPS certifications either.
-> > > > 
-> > > Ah, right. Thanks for the information. Just wanted to cross-check here.
-> > > 
-> > > > Side note: fips=1 actually has little do with security, and in some
-> > > > cases it actually decreases security.  See for example
-> > > > https://lore.kernel.org/linux-crypto/20261026183332.11402-1-ebiggers@kernel.org/
-> > > > where I'm fixing a vulnerability caused by fips=1.
-> > > > 
-> > > Oh, I am fully aware. FIPS is more a rubber-stamp than anything else.
-> > > Unfortunately, a pretty powerful one.
-> > 
-> > Just representing this as an option but in the current mainline indices
-> > are used instead of addresses, and thus it would be also an option to
-> > just jhash across the board, if that part is retained (now it is being
-> > removed).
-> > 
-> > On plus side, any security bugs in cryptography would not be a concern
-> > of keyrings.
-> 
-> SipHash is also useful for resistance against denial-of-service attacks,
-> where a user puts all their keys in one hash bucket.
-> 
-> As I mentioned, it's already used for secure hash tables elsewhere in
-> the kernel.  That is what it's for; see
-> Documentation/security/siphash.rst.  It's very fast as well, so if you
-> are thinking of cryptography as being something very slow and hard to
-> use, that is not what this is (or ever needed to be).
-> 
-> Let's just use it and not over-complicate things.
+This series adds the ChromeOS EC On-Device Power Monitoring 
+(cros_ec_pwrmon) driver to read onboard power-monitoring ADCs,
+such as PAC194x, wired through the embedded controller (EC).
 
-I'm pretty much non-opionated when it comes to this detail. I just
-merely represent all the possible if anything comes up to mind. DoS
-protection that you explained was not something I did even consider so
-that seals it for me.
+Several ChromeOS platforms are equipped with onboard ADCs that are
+connected to the EC via I2C bus. The driver interfaces with the EC
+via the existing EC_CMD_PWRMON host command API (and EC_MKBP_EVENT_PWRMON
+events) to manage ADC accumulation and expose accumulated per-rail energy
+through an IIO sysfs attribute.
 
-> 
-> - Eric
+The driver is only loaded when the underlying hardware feature is present.
+The series also fixes alignment padding in EC_CMD_PWRMON definitions.
 
-Br, Jarkko
+Daniel Balint (3):
+  platform/chrome: cros_ec: fix alignment of ec_params_pwrmon
+  iio: adc: add cros_ec_pwrmon driver
+  mfd: cros_ec: load cros_ec_pwrmon on supported ECs
+
+ .../ABI/testing/sysfs-bus-iio-cros-ec         |  13 +
+ MAINTAINERS                                   |   7 +
+ drivers/iio/adc/Kconfig                       |  11 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/cros_ec_pwrmon.c              | 333 ++++++++++++++++++
+ drivers/mfd/cros_ec_dev.c                     |   9 +
+ .../linux/platform_data/cros_ec_commands.h    |   2 +
+ 7 files changed, 376 insertions(+)
+ create mode 100644 drivers/iio/adc/cros_ec_pwrmon.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0.455.g6c5a503b38-goog
+
