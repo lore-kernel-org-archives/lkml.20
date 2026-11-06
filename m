@@ -1,100 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968731;
-	b=nGk8+30E2xTF7HnW2aYu1pjx43Iyyj4Usi00+SqiEMnbGIqqrehtJ2JnzB2p3L5+pcDF
-	 go+tR9/8/AwKFtyuIOeqtL2ktZDXw3cYUo1Ut2B4dzuf+s/VeYTXxxuZvA9eR79Fi93Qj
-	 fPZc99PZGGsbhbjw4MQ0yWn+W7NhUR+S+99qfiFfI2b6DJ6aR6TbnkV/qvaBLJ4cJUpBR
-	 UkQ/N/zQE71AHDX0SSBHMTfbEwrfB7blTbK+/9ULDOQ31/akwwribVf5Snp42bC+qOW3E
-	 nKmOeLbTu4SXYOlUSUwTJp6G7sp7xVolaI7zVYpbad7/CPSLZs/kR04ukpeGArsopcg==
+	t=1793968733;
+	b=R3W4jZ4JTSigIqDkneBtoiXdZc+QE8WE1KaDcrR5SKuqGVknKAEUJpeNMZwYGyaOvU0z
+	 xqM6MnPM5wuf2lW+oAfeOy4kBbKld9tR5D90T8ZHHYrZGC4i5Ef/ZB5op9TNX8B66+555
+	 bucMLl+qXCan9Mlff8KT9clnQAONmisNGIB4GbnQjILtbWEw5lCujX10ZyGWs0C1KC0qt
+	 MEHPCmBgXYNN8xtAamd2lB830DhOMYi3PtQfjniHehadSSIA0SsDbPeA450NOkkAoecXf
+	 BbQYxZQLciAW/iU9ejBlG2W3nJ6i7wMSBLfmgMe0jZ3zq0jT6eVYIVaX0T3oDKJbtgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968731;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=2pfmacECcqVcYywkgZMGS6LkZuCwqHkVAmJzamD2whI=;
-	b=C9QM1QH/jzp/+qvXldvLp4AIgixC5Dp0tfyE37vKN8ZlUrIj1AxcI6sb8WEx8shIOjFc
-	 uXuirF/NF+DfzNQhAuK8Bj6W1GioDBnUygl7qYLDQbL0+ceJtZsCfWXt3zHC43zGde7Bt
-	 3vFSnE/Cln9mJVTF04uLwtah3xmqBxq7NJyqM1r4HGcxezn97gGRFPFl0xxuzA0hoMkCt
-	 C8PGpztVUXdYL2nS9YQgFoIL0FrPuYQjUmLV0yYoB7pVHAR6RywdNQnjA6K7F3CQI+XNn
-	 5I+Lt0IOOoMkFTnkydfCuToxiOK4NCawJ0LJZZN3Hoi/9fr/InkJWaGbPiNOZs+30HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968733;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=sLdUC4Dy0rzYN6SNOPoi87adYyDpl146R+DLmZmqN5k=;
+	b=IVQcnEtv+6eBpi6jY1OobgTM1+PE8Tc0Kx6bE4OENelxKUm9VlqpT/WcKRBG+z7upWBO
+	 ycKQ4Kk1Dmv0bnUxz8rPqauH0v2IzA8RTxFk9KPIu8LCcGsZb0aqXDi8nqwn/5XqDk29r
+	 sfaMFsCLR7Wp9lD0z584nHr9py0PLdMlMijNlwXz4SX8GDzWOTndUkYhofhR1/odegdF8
+	 IPoReDeEoSALkkqBjwJ24439e2CZ0QOH+OTpan1qFW2sufa7GhiC17psbziZtXKhrjww3
+	 DGM3SczYwvmLK1eaJLWZ8iuFCPecaRlEQFVAeALE6bSZUiJOtXjk+5e0IoxkmBaZ6Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FStjyAY0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUZRTMii;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789E1606A32C;
-	Fri,  6 Nov 2026 12:38:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B071606D802
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:38:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FStjyAY0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12EFB1F008A2;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kUZRTMii
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95ABF1F0089F;
 	Fri,  6 Nov 2026 12:38:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793968731;
-	bh=2pfmacECcqVcYywkgZMGS6LkZuCwqHkVAmJzamD2whI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FStjyAY0FW6kbw3uXf62FFRYlWxG2nSgA93yBnFn9ugwM4dGwj+PVQ5pap3K6oUCi
-	 6dxcxRVZr9JyPyaOU6SYFRRi58za2FXqmecILZDvxCPf7QF6Mlhi6kF01dciRML/Z4
-	 eRn5sl5YOxCMJYaQvK+u+uPEdGNKFbQPlgkNW0i/k60D1vI70pS5ye7rqRu75Zndy3
-	 ZQ8pUPUv1CNkmt7bvel927xSaAxSegYQoftq/nm4tU+F5STRijVbDSs55DLUR47sJZ
-	 QiK2yN/hspvh0Iklt1e9SeTadZzrE5GuO3l2AnEfFwMYTy26psvQbGlQ/5oBg3tJnq
-	 Ml0ZmtOtJlCtA==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7526D198004A;
-	Fri,  6 Nov 2026 07:38:40 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Fri, 06 Nov 2026 07:38:47 -0500
-X-ME-Sender: <xms:T8rtasefdrDg50RCfXVYapWRPd7hJhOH7MR_vMfF_RkFPcpgn0iabg>
-    <xme:T8rtaq11Zf6R1Zc0aftUnIsFDaY0LWo5YyxJjLiJyorI0EjMIMb_FQ2H1PSDt_qJk
-    eenHVeoya81NzJfPZ9LLMg62Zf4K4Yl6CtsrypytKDJ7q2XXT-7fkAQ>
-X-ME-Received: <xmr:T8rtauiyuNtFX1s9r67EC8H9v-rJ9qUshbNAZWxxA-i546XDDMOnOCzcYEY>
-X-ME-Proxy-Cause: dmFkZTGzAjGnz4qczRWBwFDzqEedcIN2RDs77+IhaKJdOHI/wRF4GJ+/XYgTh6qUDCaXtK
-    q3BGgpdQwiz8g3jZv+XNiZ3PHhWZePA+KkMXnh5DVEYxm4xAwVX0MEjom76ZmfzWC+JTPH
-    KiS19Dcunkmjpxr4Uil2sC19R8pXj7ovLT0PA2yAVZWcLty5pA48PAv7fst0p77EiM3n+1
-    SmGSQ5XOtXFCV1+dbb7vBvMxrwGRHPa+XdLj9z9pUYo6DwpdcyJmkiF0P6rFAo/V/JZdTc
-    JB24ZdeHtaiEyrrTwoEjAufvE1haKfVDIo+IxU19WrQxgP8cc4psM9iHQFHP4vpOpa7VoH
-    wzQ1pi5Xm1k+/vd5fWuuLnXYA4NDa3sM6PbhRSGJ29vaEqlrEoBKvduJJT2QLau5zON77X
-    LVS4No3GqNmQ7P5K5ZGNyDCsQUAFFMjELc5QUn1AxYZC+wWsbenSBZU/lmEyveJGaJ2+jX
-    5fuGn8bxlHcwcJNuyglZcxdfbk0Sa0PEcwNUH2TBBBLTHU0CoNDi/SD5/1309grZ9OgwS7
-    L3pcQ1dDN1WJl/+zOkyXMbph0dlAPT58n+aswI4a5WzW2PE7JzKbmxjsgGo+8fBfzklnrj
-    EBr+0lhdOkv1TdfFi5YziSH1mehaQtbycU8WlCmDbaBUbLQfGwo3GJ9qXvIg
-X-ME-Proxy: <xmx:T8rtat7js2s-eKQZcHK3_aXiUqi4PQT3ApNyxSy7PplOfAyVt45tMw>
-    <xmx:T8rtagW_pOIDqaJwR8OxdqY5JxVHrJv54OXWTAdpWfg2Vex1AvmGtg>
-    <xmx:T8rtatlscF93bVi-jaQNcHjAI-NjY-w5CIlVvBjJDaO8_4AtvZP4lQ>
-    <xmx:T8rtahSHJTPBlU6GOzNLC9za7s75hOd8IlP5D3JPnl2Uwi1M9NeaSA>
-    <xmx:UMrtaiNVGrkcAtiFcecPVVpaYRDrYD4OeE5iPf8Os-chIedx19aW39g_>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 07:38:39 -0500 (EST)
-Date: Fri, 6 Nov 2026 12:38:38 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>, 
-	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
-	Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Steve Sistare <steven.sistare@oracle.com>, John Hubbard <jhubbard@nvidia.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
-	iommu@lists.linux.dev, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/5] mm: limit pagecache folio refcount when mapping pages
-Message-ID: <au3JT5QXbcOFXCp0@thinkstation>
-References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
- <20261105-refcount_overflow_stable-v1-1-70b9c655da3e@kernel.org>
+	s=k20260515; t=1793968733;
+	bh=sLdUC4Dy0rzYN6SNOPoi87adYyDpl146R+DLmZmqN5k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kUZRTMiiYfuTSKX1UiKtrxAx8J7ITGdv0i/nEpv1JHzH6XuLBzRZ2oI6n9fgytLqi
+	 wejIghDottL4e2EFMBAcTNwRosFRy2YnOFiaCgUOMJ2Bq6PPHFuElG5HMsjh3rxfpl
+	 7lL4v4AuLXxbb5lujDWInFq2T1SWeQLsnrIUGTfN8r6OVki941A+WzyWflcppAY2LW
+	 uJvJ8HgoFKbYE4BWF1ud6nS6XFo0lnA3f+qrguCXbCSBbr+pTB3ohqDTa5CadmVJJ9
+	 ygVrBsz+nJtjtXo6xG7ZOgrcnvzVBcby11/plPVs9RZjs439vedhKgalK3fJMAcMF5
+	 tiSRAKXr1wnPQ==
+Message-ID: <1904cd51-66d5-4305-864c-57219b69bca2@kernel.org>
+Date: Fri, 6 Nov 2026 13:38:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,142 +51,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-refcount_overflow_stable-v1-1-70b9c655da3e@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] kdump: Give crashkernel CMA areas unique names
+To: Mikhail Zaslonko <zaslonko@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Baoquan He <baoquan.he@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
+ Jiri Bohac <jbohac@suse.cz>, Usama Arif <usama.arif@linux.dev>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, kexec@lists.infradead.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 02:10:10PM +0100, David Hildenbrand (Arm) wrote:
-> With large file folios, overflowing the folio mapcount and refcount
-> became possible. For anon folios it is currently not really an issue:
-> each large anon folio can only be mapped once into a process.
+On 11/6/26 11:43, Mikhail Zaslonko wrote:
+> reserve_crashkernel_cma() names every CMA area it reserves
+> "crashkernel". If the requested size can't be reserved in one piece,
+> it falls back to several smaller areas, all with the same name.
+> With CONFIG_CMA_SYSFS, cma_sysfs_init() then fails to create the second
+> directory:
 > 
-> That's not really big news, but it's about time that we do something
-> about it because some modern technology might find ways to abuse it :)
+>   sysfs: cannot create duplicate filename '/kernel/mm/cma/crashkernel'
 > 
-> One of the enablers for that was commit ddc58f27f9ee ("mm: drop tail page
-> refcounting"), however, file thp support was added later.
+> and the error path removes the sysfs entries of all CMA areas.
 > 
-> File folios can be mapped multiple times into the same process, allowing
-> for processes to hold many references to the same folio.
+> With CONFIG_CMA_DEBUGFS, debugfs refuses the duplicate directories as
+> well:
 > 
-> As a short-term solution, let's introduce two folio refcount limits:
-> one for ordinary consumers and one for admins. Leave some headroom
-> before the refcount goes negative, which we really don't want (having
-> the mapcount go negative is also not expected).
+>   debugfs: 'crashkernel' already exists in 'cma'
 > 
-> Start reporting SIGBUS if we run into limits. When restoring mappings
-> from migration entries, instead zap the pte/pmd entry. We allow for
-> slightly exceeding the limit to keep things simpler.
+> so only the first area shows up in debugfs.
 > 
-> This is far from ideal, but better than all easy alternatives we can
-> backport comfortably. For now it fixes the big problem: letting
-> the refcount (+mapcount) go negative and cause trouble.
+> Keep the name of the first area and add the index to the others:
+> crashkernel, crashkernel1, crashkernel2, ...
 > 
-> This is only a temporary fix, we'll follow up with something better.
-> 
-> While the refcount checks are not required for order 0 folios, let's
-> just add them for consistency: each folio_add_file_rmap*() and
-> folio_dup_file_rmap*() needs a prior check.
-> 
-> Also, just document -EHWPOISON for copy_present_ptes() while at it.
-> 
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
+> Signed-off-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
 > ---
->  include/linux/mm.h | 33 +++++++++++++++++++++++++++++++++
->  mm/filemap.c       |  6 ++++++
->  mm/huge_memory.c   | 24 ++++++++++++++++++++++--
->  mm/memory.c        | 23 ++++++++++++++++++++---
->  mm/migrate.c       | 11 +++++++++++
->  mm/userfaultfd.c   |  4 ++++
->  6 files changed, 96 insertions(+), 5 deletions(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index a2dd76cc5bbfe..79ae8fc0d6bb4 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -8,6 +8,7 @@
->  #include <linux/gfp.h>
->  #include <linux/pgalloc_tag.h>
->  #include <linux/bug.h>
-> +#include <linux/capability.h>
->  #include <linux/list.h>
->  #include <linux/mmzone.h>
->  #include <linux/rbtree.h>
-> @@ -2228,6 +2229,38 @@ vm_fault_t finish_fault(struct vm_fault *vmf);
->  #define folio_ref_zero_or_close_to_overflow(folio) \
->  	((unsigned int) folio_ref_count(folio) + 127u <= 127u)
->  
-> +/* Leave separate reserves for administrators and concurrent reference gains. */
-> +#define FOLIO_REF_COUNT_LIMIT		(INT_MAX - (1U << 26))
-> +#define FOLIO_REF_COUNT_ADMIN_LIMIT	(INT_MAX - (1U << 25))
-> +
-> +/**
-> + * folio_ref_count_over_limit - Check whether to refuse more folio references.
-> + * @folio: The folio.
-> + *
-> + * Relevant for large pagecache folios (!hugetlb). For these, we have to check
-> + * before adding page table mappings or other significant refcount users whether
-> + * we are close to our folio ref count limit, to avoid overflows.
-> + *
-> + * Checking this for other folios does no harm but is mostly unnecessary.
-> + *
-> + * This check is an approximation; we leave some headroom such that concurrent
-> + * increments, batches and temporary references are not a problem.
-> + *
-> + * Return: True if the caller should refuse additional references, false
-> + * otherwise.
-> + */
-> +static inline bool folio_ref_count_over_limit(const struct folio *folio)
-> +{
-> +	const unsigned int ref_count = folio_ref_count(folio);
-> +
-> +	if (likely(ref_count < FOLIO_REF_COUNT_LIMIT))
-> +		return false;
-> +	if (ref_count >= FOLIO_REF_COUNT_ADMIN_LIMIT)
-> +		return true;
-> +	/* Background threads must not consume admin reserves. */
-> +	return (current->flags & PF_KTHREAD) || !capable(CAP_SYS_RESOURCE);
-> +}
-> +
->  /**
->   * folio_get - Increment the reference count on a folio.
->   * @folio: The folio.
 
-Does the slow path need to be inline at all 15 call sites, GUP-fast
-among them?
-
-Maybe only leave the likely() check in inline and move the rest into a
-function call?
-
-Something like:
-
-static inline bool folio_ref_count_over_limit(const struct folio *folio)
-{
-        const unsigned int ref_count = folio_ref_count(folio);
-
-        if (likely(ref_count < FOLIO_REF_COUNT_LIMIT))
-                return false;
-        return __folio_ref_count_over_limit(ref_count);
-}
-
-bool __folio_ref_count_over_limit(unsigned int ref_count)
-{
-        if (ref_count >= FOLIO_REF_COUNT_ADMIN_LIMIT)
-                return true;
-        /* Background threads must not consume admin reserves */
-        if (current->flags & PF_KTHREAD)
-                return true;
-        return !capable(CAP_SYS_RESOURCE);
-}
-
-Also, should this be capable_noaudit()? I am not sure a refused
-reference should leave an audit record. cap_vm_enough_memory() checks
-the admin reserve with CAP_OPT_NOAUDIT.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Cheers,
+
+David
