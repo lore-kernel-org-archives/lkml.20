@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793929841;
-	b=KDHxRga8N+M5vkgbNh3dtgMvwvZw7VV+SYx+tcY2+6JLlgGAnWwcGmf4P0F7Swj6XbJA
-	 yc1SnEWD4KL9Seg+/AoBmddSKC/+bOJnaopSTB6HO39a5/XakF/YThZmngdiOl20Nx3vy
-	 +uhDTjp/eFByAu7snpw/OKsRM1iPowuTzSoajgDNNvz4biRxHs5pVMB3OgU0M0AbnbyZq
-	 Dg/vKoMvCWkO6HCOLF315rISQiY03M7x6o2kt3I6KGblbKS4hsZoxAeyihSlLQGY0BAGK
-	 E+fZXu/4em1dCTSFwths/YYnpNp5V8MzNDxUE+oy/Vs6eFDb3mebyajfCPQyxy0UVSQ==
+	b=lwDV2xKbjbewpOb0OHR6RqLLwWADPzosOLcQCY0sW1b0lB83n87fVvVHGxndSlPqjpJT
+	 zvacGww+UjU/RAEXAxOwZLnobbcxNTMb4S4tnKK7rV96MQY14orgQDW4oVm8pd6XfAOgV
+	 GWil4jA1Oi4/RKWij754ki8YoBNlLy2ZbmkLighaEEzLDyGGAZiNhp3ZRQEMB8YwjrS/G
+	 mVlTmL1di6GXICA0QJVW4W7xNWztX4FbxCQhM3Xu5Yga/sghfypRdNfAOYRxRPbU3o5wQ
+	 T+oiEIEbxcgTGxHjTygEgyaVGW1qyg9CisEuw430vgXT+FG/X2z69UxG6lCa9jFidHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793929841;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,52 +13,52 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=k6GpxUSOBkepNG/7AUTAINEEEyPxCb8lZe4Y7y9q6EU=;
-	b=t/KBb9AeuZEZ7Ynm0tOl2w8A8+hkDVCNjYsU9mynMeIiiUgzO6NMoJIwxE08ZhVyXd6/
-	 GnvYPtMBpRFXMAbW1lasD+ux4uc5+IXnA1i1zo1qbAhzwgpVXzPWp912qOBlYUyrwoWC3
-	 4CY7CP92tDDeWwxhshzMr44ogXbMEOtfTJG/RAozQ+OxpF3Z5DWmH5AXq5sS9Z+EI/6HM
-	 EiinIkqunziYcfgiNunCcZq9R4XWmWTfECu2zQ9GSTJLgA2RdCK67mLsy9tKPWzmzDz+d
-	 JZG4x0o+mPB1RbzxfHhkcFg4KP2ddhNVHNgiGo4Z6sPnPQgVyTgMEV9+GXiRfVYlq2w==
+	bh=OMpJBSulBkFqyrFQejcsGHZ1Oc2zY5q+OnIXOsS/O0s=;
+	b=C+v9d3XzeRlNOElbi97KyxcHUnhwhYzGgI1LNBkd8zIKMgWy2EwKUWreZii4ho/F+R/2
+	 ACJmZTWQWrwl3/E7z3vjjXVbZa0N63K0N0d23a23nWK857TrfumGPAPXwRLPwBmifbRfX
+	 9EFX8DqBWP3niPeOBASVrqiHwFxtHHHAUmYzRJKRBtMbkiXGWY5RAgjsXYElqJDp3VgeM
+	 ndAAysKfBkLCsexJ41BltP7rvll1pyH4mGabAD7AtAJ/H31c9eBrq3kHXCQIo/8cibZkN
+	 o5lNSRMqfIqD0QVxwYd+HQWt7IxvQgijxzvE7sjhegx3WUuAYM1+CGX+/Ks2L1LjpnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GTZlI7mm;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XKWbtQOe;
 	arc=none smtp.remote-ip=198.175.65.15
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A59606D82D;
-	Fri,  6 Nov 2026 01:50:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52A59606D82D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03732606D834;
+	Fri,  6 Nov 2026 01:50:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03732606D834
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GTZlI7mm
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XKWbtQOe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793929840; x=1825465840;
+  t=1793929841; x=1825465841;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=FKf79K3Z0P/wrLSbHeO46/+gfErlRjAZZxxoEJusUp4=;
-  b=GTZlI7mmP5m2+5SNc2JqJn2cRvSrDvr09AjZjQkEET4UkcWlbyZDkYOj
-   GjaG+OWG/rMRAx14ghhCVJmsuzA0UKiMia3EkUjj6XbB3kqHyKo37ETJE
-   kluebL1QexQtqn3BRi7tig7gYTrCVrKaPZv70lnrU8qPxWHQg67BXqK41
-   S9gUHc4Wwo9DEil5fRm3VbpCLLl5xq47Ztr/Le7jNk1zA0Ce0YekfrK1o
-   juMLcqsp8oQUa2jrK/nimI3WO9VJc6gfel1HbCogIoh8+y9s5nerYRsgf
-   KDYVN2Uw84fnstrR8pH5Xidvi1sPCXdTBH7SlFIG8Vv9g7q/y4fjG3jhK
-   Q==;
-X-CSE-ConnectionGUID: 8c0ufQsRSEqMMhMddmls7g==
-X-CSE-MsgGUID: 9CjnALGDRGCEX84lekLS+Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740205"
+  bh=VdAwz3NAdOY30FiVN69AeGpaVaZr+Nwa6A64T0MPzQk=;
+  b=XKWbtQOeLRC1UZPo7G/Zr2TwTjRUAFU0ty1eqHAWEfmn0u+YQd5QfRI3
+   EQUsO2zPmJ3wPWVRvZqBvgdNDuxDQgu4GogcNaNAvmHIjfGNFqUga//DF
+   Gs8Qf4xn7klRyf3kW7OnzD28YzpRZbu1f36oyouJIKWQzGaiSld9z+7Bg
+   ClswITX5VVXYNS45BmEF3iTfbqd3ZHE5vnzq8jdJdNgpg2tvGg3scXu+M
+   GeOPGVqT+DK9A3hnMpZaW13qNrB+0DAzGaFMk4S3BMHjNn2v1FtPsjxgV
+   ZJvtpi5agZ5AJ5gJ+ldV1tU5413/X5dzXiVp0ktG9oqOsSYz3GiNDGjmM
+   A==;
+X-CSE-ConnectionGUID: VVE6mGtmQfWGkHkd514PqQ==
+X-CSE-MsgGUID: KUde3riVRfyZFN+s10P56A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740207"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2740205"
+   d="scan'208";a="2740207"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
   by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:32 -0800
-X-CSE-ConnectionGUID: qpMbqxXLR7eZbw5p2M6eBw==
-X-CSE-MsgGUID: DLIF0L22QDa161UoGmulow==
+X-CSE-ConnectionGUID: h0SBA05eSNu6O/z4ee1JaA==
+X-CSE-MsgGUID: t25u7cvqRMK/QBOjCZBtkA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7067211"
+   d="scan'208";a="7067214"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
 From: Zide Chen <zide.chen@intel.com>
@@ -77,9 +77,9 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v3 16/18] KVM: x86/pmu: Ignore AnyThread bit if CPUID.0AH:EDX[15] is set
-Date: Thu,  5 Nov 2026 18:39:25 -0700
-Message-ID: <20261106013927.166209-17-zide.chen@intel.com>
+Subject: [PATCH v3 17/18] KVM: x86/pmu: Advertise PerfMon version 5 on Intel hosts
+Date: Thu,  5 Nov 2026 18:39:26 -0700
+Message-ID: <20261106013927.166209-18-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106013927.166209-1-zide.chen@intel.com>
 References: <20261106013927.166209-1-zide.chen@intel.com>
@@ -94,118 +94,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Intel PerfMon v5 introduces the ANYTHREAD_DEPRECATION capability
-(CPUID.0AH:EDX[15]) to indicate that AnyThread counting is deprecated
-and that writes to the AnyThread bit in IA32_PERFEVTSELx and
-IA32_FIXED_CTR_CTRL are ignored.
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-Preserve the guest-written value in guest-visible state so that guest
-RDMSRs observe the AnyThread bit, but strip it before programming
-hardware to ensure cross-VM SMT isolation.
+KVM currently caps the guest PerfMon version at 2 for all Intel
+platforms. Now that KVM emulates the basic architectural PMU features
+introduced in PerfMon versions 3 through 5, raise the guest PerfMon
+version to 5. Features that require additional emulation support, e.g.
+architectural LBR will be enabled separately.
 
-Continue to inject #GP when ANYTHREAD_DEPRECATION is not present in the
-guest CPUID, e.g. for PerfMon v3/v4 guests or when the capability is
-not configured for a PerfMon v5+ guest.
+PerfMon versions 3 and 4 continue to be exposed as version 2 because
+KVM cannot safely virtualize AnyThread due to cross-VM information
+leakage. PerfMon v5 is supported because it provides the
+AnyThread-deprecated capability, allowing KVM to indicate that
+AnyThread is deprecated.
 
-Advertise CPUID.0AH:EDX[15] only for PMU version 5+ guests, since the
-bit doesn't exist below version 5.
+When enable_mediated_pmu is disabled or in the non-Intel paths, KVM
+retains the existing cap of version 2.
 
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 Signed-off-by: Zide Chen <zide.chen@intel.com>
 ---
 v3:
-- Exclude Fixed Counter 3 bit 14 (METRICS_CLEAR_EN) from the AnyThread mask
-  so it remains reserved in fixed_ctr_ctrl_rsvd. (Jim)
-- Preserve AnyThread in guest-visible state (eventsel/fixed_ctr_ctrl) to
-  match bare-metal RDMSR behavior. (Jim)
-- Removed it from the hardware-visible counterparts (_hw) so that it
-  doesn't need to explicitly remove this bit in intel_pmu_set_msr().
-  (Jim)
-- Re-use intel_pmu_fixed_ctrl_bits() for AnyThread bits computation.
-  (Sashiko)
-
+- Simplify version cap logic since mediated PMU already requires
+  version >= 4. (Jim)
 v2:
-- Advertise anythread_deprecated only if kvm_pmu_cap.version >= 5.
-- Add the missing AnyThr bit handling for IA32_FIXED_CTR_CTRL.
-- Update the comments to be clearer.
+- Cap vPMU v3/v4 to v2, as AnyThread cannot be safely virtualized.
+  (Sashiko)
 ---
- arch/x86/kvm/cpuid.c         |  2 +-
- arch/x86/kvm/vmx/pmu_intel.c | 28 +++++++++++++++++++++++++---
- 2 files changed, 26 insertions(+), 4 deletions(-)
+ arch/x86/kvm/pmu.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
-index 00a2ca6d3049..66e68a867946 100644
---- a/arch/x86/kvm/cpuid.c
-+++ b/arch/x86/kvm/cpuid.c
-@@ -1549,7 +1549,7 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
- 					    KVM_MAX_NR_FIXED_COUNTERS);
- 		edx.split.bit_width_fixed = kvm_pmu_cap.bit_width_fixed;
+diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+index afb3e18a9879..f949fdbf359c 100644
+--- a/arch/x86/kvm/pmu.c
++++ b/arch/x86/kvm/pmu.c
+@@ -175,7 +175,17 @@ void kvm_init_pmu_capability(struct kvm_pmu_ops *pmu_ops)
+ 	}
  
--		if (kvm_pmu_cap.version)
-+		if (kvm_pmu_cap.version >= 5)
- 			edx.split.anythread_deprecated = 1;
- 
- 		entry->eax = eax.full;
-diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 6bd7c8e03c14..961d16e7f31f 100644
---- a/arch/x86/kvm/vmx/pmu_intel.c
-+++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -67,6 +67,13 @@ static u64 intel_pmu_fixed_ctrl_bits(struct kvm_pmu *pmu, u64 bits)
- 	return fixed_ctrl_bits;
- }
- 
-+static u64 intel_pmu_fixed_anythread_mask(struct kvm_pmu *pmu)
-+{
-+	/* Fixed counter 3 repurposes that bit for METRICS_CLEAR_EN. */
-+	return intel_pmu_fixed_ctrl_bits(pmu, INTEL_FIXED_0_ANYTHREAD) &
-+	       ~intel_fixed_bits_by_idx(3, INTEL_FIXED_3_METRICS_CLEAR);
-+}
-+
- static void reprogram_fixed_counters(struct kvm_pmu *pmu, u64 data)
- {
- 	/*
-@@ -83,9 +90,9 @@ static void reprogram_fixed_counters(struct kvm_pmu *pmu, u64 data)
- 	int i;
- 
- 	pmu->fixed_ctr_ctrl = data;
--	pmu->fixed_ctr_ctrl_hw = data;
-+	pmu->fixed_ctr_ctrl_hw = data & ~intel_pmu_fixed_anythread_mask(pmu);
- 	kvm_for_each_fixed_counter(i, fixed_mask) {
--		u8 new_ctrl = fixed_ctrl_field(data, i);
-+		u8 new_ctrl = fixed_ctrl_field(pmu->fixed_ctr_ctrl_hw, i);
- 		u8 old_ctrl = fixed_ctrl_field(old_fixed_ctr_ctrl, i);
- 
- 		if (old_ctrl == new_ctrl)
-@@ -500,7 +507,7 @@ static int intel_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
- 
- 			if (data != pmc->eventsel) {
- 				pmc->eventsel = data;
--				pmc->eventsel_hw = data;
-+				pmc->eventsel_hw = data & ~ARCH_PERFMON_EVENTSEL_ANY;
- 				kvm_pmu_request_counter_reprogram(pmc);
- 			}
- 			break;
-@@ -672,6 +679,21 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
- 
- 	pmu->fixed_ctr_ctrl_rsvd &=
- 		~intel_pmu_fixed_ctrl_bits(pmu, fixed_enable_bits);
+ 	memcpy(&kvm_pmu_cap, &kvm_host_pmu, sizeof(kvm_host_pmu));
+-	kvm_pmu_cap.version = min(kvm_pmu_cap.version, 2);
 +
 +	/*
-+	 * AnyThread counting is not supported by KVM due to cross-VM
-+	 * information leakage concerns on SMT cores. Therefore, AnyThread
-+	 * remains unavailable for PerfMon v3/v4 guests, where AnyThread
-+	 * deprecation is not enumerated.
-+	 *
-+	 * On PerfMon v5+ with ANYTHREAD_DEPRECATION, writes to AnyThread bits
-+	 * are accepted and preserved on RDMSR, while counting behavior is
-+	 * ignored.
++	 * PMU v3/v4 has AnyThread support, which KVM cannot safely virtualize.
++	 * Only expose PMU v5+ for Intel mediated PMU, where AnyThread is
++	 * deprecated; otherwise, cap at PMU v2.
 +	 */
-+	if (pmu->version >= 5 && edx.split.anythread_deprecated) {
-+		pmu->eventsel_rsvd &= ~ARCH_PERFMON_EVENTSEL_ANY;
-+		pmu->fixed_ctr_ctrl_rsvd &= ~intel_pmu_fixed_anythread_mask(pmu);
-+	}
- }
- 
- static void intel_pmu_init(struct kvm_vcpu *vcpu)
++	if (is_intel && enable_mediated_pmu && kvm_pmu_cap.version >= 5)
++		kvm_pmu_cap.version = 5;
++	else
++		kvm_pmu_cap.version = min(kvm_pmu_cap.version, 2);
++
+ 	kvm_pmu_cap.cntr_mask64 &=
+ 		GENMASK_ULL(pmu_ops->MAX_NR_GP_COUNTERS - 1, 0);
+ 	kvm_pmu_cap.fixed_cntr_mask64 &=
 -- 
 2.56.0
 
