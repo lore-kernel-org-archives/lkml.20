@@ -1,97 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982759;
-	b=0U4wjzoHSAkoiAkKxMwo6e7v2MNIQdZNoOegQskojosgi8GENQpJ2F+DNQXmqB8pe2Lh
-	 7IGC+gRibI3/ADbRBB7D2ml0vKLL9kdYvlary1Ov/gnVxTfT9ADL9y6kJdTEOM1qttQJO
-	 mshBE7KvH1os4i+tW9moH4gPmJfb256+pZWD3Hh0f6XY/HuHuGM1f30QttQbeWvgPcS8W
-	 hFgPw+PqXWL+7PD464qV2upViVs7YYYJEzBLcs4C5y0ZFLr7Kz2Rl8zauEjsDi9wM5fiu
-	 ff7QtOvCYJt2X4R2mM7pP5CAH9G1mUiY2r34m1fCAr4ONr4/R+rTkMudnvuj40hc2RA==
+	t=1793982777;
+	b=1QrquPczkAVKsF0fHyh5aD5kmJlEoNuXSukRU/tXY68RbWqMfthcdytCS4mV/kSoDHis
+	 sZXyVNy2Fs8G2NezulUz5Pceg8M32lVkQMGpynivYHuFmPXHpdVB7r0Uv9tc6hpda4c+u
+	 +RpKUH7jyMd4pYviNJvQehrK+x3PKR80xNOmXlY8hKbLT/wWdGUfd69JP6HzGJEENp6eq
+	 4SRRWOfSXxiL0fEgigOzPYQY0PJanRZ1XWYsnElU9uW7BvILmmpuRYJto49+7z3q09nNJ
+	 eNFtHvQiEZ2mBhvuG2zK28TXFriB+n+zwxgUyXijIOI/pY4xOCAFHUlEQ0ciBRipn5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982759;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=W6wDRrKYlvSdFdo/6Pq43f2CydF0lOpQke8PFneBF7k=;
-	b=jDcr0ZuEnWaDalpxoe1kqV3jQHGaIqHCOIM/EmtE5Fz9c/8oRb2qrjupWCiQjDESZlPm
-	 XGfsyOHnemux8Vo3kTU67AaNZdwtRvokMrlFE9IyGltfk1ivAMlh2TGriK0HphHFC/5p0
-	 VQWE52weCHjjlbBCxzZDzTlKyeCbt6WGnbdNh94/UuO+goVrGS9MZgZCMp088gV8foBrj
-	 ZZZ1S47gngolt31oz9Fu4w+tD4IOj1By27t+dX7wANdYuUO8G94gxU0KHz8z8fOP9UxuR
-	 Y7jggf+aP/7SvS9jnAgoSRzpRlBHmDusfn8zfWGUBWcrvHutdwKbsonlRU89oF/+GeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982777;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
+	 X-Mailer:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
+	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=lLUBX5NMh3rR49KCC8Gxk3yDlocbPIa0NzFM5Ifv0t8=;
+	b=uwDvgkholvZW+5VuL1XVT0PxpqeqB88uCDjX01nW+WcLmqWD3dtoANDYlyGv59WCewpN
+	 qyrLH1lqOSVyw7uzbTn/xkofm1m6g2ky6oCCMeddm7cyY+QZdKFlATsgIpzA4in7mRb6/
+	 tDvUQQJ/sZbTFtDaK15c1/nEDpvLEAoNiQUYY3uhmP7sUA+1K6BqSeqtQlVdnpNUI7vsP
+	 kDmDDN3Zh4hBjWup2EVL7t30/hdcYuCCAXT/FjsLJeCEXYgYKAKMB9Br7zRA1qxOGMfBC
+	 RV9VsSNyqJOWOFZRaPhjBJvMJoQr+Ulht3GoTtjAEn0Th5Dlz7Sf2d66NV0muZxVlhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zdk7R/cd";
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	dmarc=pass header.from=fqwqf.xyz;
+	spf=pass smtp.mailfrom=send.fqwqf.xyz;
+	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=apOKf2r1;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=kRT9NGdM;
+	arc=none smtp.remote-ip=23.251.234.53
+Received: from e234-53.smtp-out.ap-northeast-1.amazonses.com (e234-53.smtp-out.ap-northeast-1.amazonses.com [23.251.234.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19CF6082BD1
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:32:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B19CF6082BD1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080E7606D810;
+	Fri,  6 Nov 2026 16:32:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 080E7606D810
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zdk7R/cd
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-84a248254f4so512286a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:32:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793982758; x=1794587558; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W6wDRrKYlvSdFdo/6Pq43f2CydF0lOpQke8PFneBF7k=;
-        b=zdk7R/cdAi3Tcf5TOPoUk1ckl7XL60ET29u7HpBrVCosyQdnjKUFOxrn/k1FAdIuX2
-         XPf0KkoZeL4IpSOb7v6d5eiwCDHWuH969J597BoUnIsES5KYQgAds0bvO7wJMgNQi3BS
-         QYSypnhldRMTo0fjFwuImFH8XpxWhx3VYxaonUqGzXEKZtpVWwIiScjwmr8bMemOSDXA
-         BpM5MZP+EZZWTVQ4WdOpeWNH82Am/9yjubWqluM08hbZfkUMMXK0uF459NV2aYvHdFhv
-         mJWySTHFe/gDXSr4pAlti/Dyb3XrugjgUJk5Ru+U5Hxypc/qbicg0kBsoJMrhJaQGDL7
-         E4jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793982758; x=1794587558;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W6wDRrKYlvSdFdo/6Pq43f2CydF0lOpQke8PFneBF7k=;
-        b=Y5S6oXiCpXgggtdLpF48Of9/i5vBo9IpASraOooWCV14jHI/+QOaUWpY7EyaPQASe/
-         gOUSYwfpmN0fJq/DzVuqRhKoI/kyXKqSZm8jrb8BzcS1AK6qD9PqNtOKHTjmT57VhJ7X
-         h7/rmOfCl3ILMiyWL8lcIMlyI9t0GeiSeKAlUyVo44AMT9P7Lav7spHlhoZDBotwoQ/h
-         /deKFNQWTc7/rtx/8vck6JZN4WE1GZymHAxBtfsu+iRJYE5tgvXtUB3XmhEvC8SJCP0a
-         ozGKI0urSbz0VPmtnjlopf2p7f8dfBwY0yqbAso9moot7ICGCgQBmj0c8sQuLxLGkNE/
-         ohkg==
-X-Forwarded-Encrypted: i=1; AKwUvBzoXc0/2jUdBV8M0Q2TOKAxkVp8gk1+cghp0MwjioQ3Q34GDwxb2s480wUr3DBrjKBD6ji1Q32n7mdtbUg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8mKm32nBSPSmNIL7G7TglfagfNJXGG9bIrjOI5/xQtG4q9hLHh
-	Hgd9vf1UNbgXHh5XsRjpdMdhL6hcHtVcUNlkfZlouP9IXRweOqyPtQxrFnM/wQ==
-X-Gm-Gg: AYBFou22b6XNwt7tZHs9Wf9O/+6wI1TsDaEjNFfJrTZ8W+Ykz+7xNv7TTt95jYZtb81
-	eG54ijw1kxuno0JswqDRaVP3OUCrgO03NPRNsXISKn7cVxATD0ChcfVvczZhDEvwMZ/PXMd2bx7
-	lNWdFZQ+snbxYcJI3g9JKvoYsKI7iL/1+7lzByt05DLW8iCg8aAg2c512LIQZ74S5P2/8ylhNXt
-	SLsmspwU0LzFFlW3pM8fWOq8iA239Hso6Qa7ZOt8NR5Bm/kMqUSrxgTFAoEjL1DGz33pwSAgnAc
-	gkeBlmSqulCTV4f8w/bzVJBkVS0Nbj1VZZdwBFOlphqgCoXibxErVGC19vTYn2frQDIrKyXw+ML
-	FBQHHA7qWuB+AJREYifBf0aA5aB0z3heTQX5VutrtAo7wlKi3hjBR5Pvo+Vyq+UiSpahWfKXGUU
-	mZla37K9GwSv4pYdMK057UbmEUqq+qSOmwlNVs7sk9HVVLqnEe0QUlfF0VZcTe/YZwLJhIPP45n
-	+O0KB+K3fDjEt9QWguY3PcKtVdOMtJzGyPETllq6CK+Y2F9446gob7mXcgD3Of/PDeShRRMGW8f
-	tFuwl5cGmekWxENIZrtcd1WRD2rCyqVgA4CV7OIeFCQVWg==
-X-Received: by 2002:a05:6830:2315:b0:843:cc20:9d07 with SMTP id 46e09a7af769-85f1d03b0d5mr3147810a34.16.1793982757769;
-        Fri, 06 Nov 2026 08:32:37 -0800 (PST)
-Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1de8f066sm2244780a34.23.2026.11.06.08.32.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:32:37 -0800 (PST)
-From: Will Porter <mrwillporter@gmail.com>
-To: Christian Ruppert <arc@gmx.li>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Neil Andrews <neil@androos.io>
-Subject: [RFC PATCH 14/16] ALSA: usb-audio: Give the Audient iD14 MkI its own mixer map
-Date: Fri,  6 Nov 2026 10:31:27 -0600
-Message-ID: <20261106163129.1006907-15-mrwillporter@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261106163129.1006907-1-mrwillporter@gmail.com>
-References: <aupn1wwW7w08M3gu@khmer.arcnet>
- <20261106163129.1006907-1-mrwillporter@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=apOKf2r1;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=kRT9NGdM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1793982775;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=c0tUZAaaLfmv6reKw3GkgRVoEuHn/RALQcxVbTokSu8=;
+	b=apOKf2r1V8C0VlJ0HaaWLxU9CPqcBvN2SIm7E8zxh8Xt9/CAhUXFRj7D6l9dgWQp
+	5u41Dl5DU6P6+CbI6h88cXQE6Beyor1ZCjA+sDmFdpx/sBvdpUCdoyKtllGgb92bpw/
+	78nITWN5i8y6Gcyh4HtEo1gbfgSwLSJSu07C9Ark=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793982775;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=c0tUZAaaLfmv6reKw3GkgRVoEuHn/RALQcxVbTokSu8=;
+	b=kRT9NGdMjGOB7hiPXURNUb8dsHNY0UWA1cV8nTaOYnztzPlmXjU8xvalVngBCXT1
+	+cMT/M9cXnL+0oeyM841D7L2PicQAxsxnCVf2mU2KdUHsGw8pYbM2OKivUmPiASiZ8B
+	7hyYoYjucsixsbde+fJWklDS897fNebck29eq5us=
+In-Reply-To:
+ <CAFEp6-2vZT+c9fz2Ob1LvPQBjChOpCdAYa0qAWCyiDg3s4d0LQ@mail.gmail.com>
+References:
+ <CAFEp6-2vZT+c9fz2Ob1LvPQBjChOpCdAYa0qAWCyiDg3s4d0LQ@mail.gmail.com>
+X-Mailer: git-send-email 2.53.0
+From: Jizhou Tong <fqwqf@fqwqf.xyz>
+To: loic.poulain@oss.qualcomm.com, xiaqinghuan@mail.ustc.edu.cn
+Cc: bod@kernel.org, hverkuil@kernel.org, todor.too@gmail.com, 
+	gjorgji.rosikopulos@oss.qualcomm.com, vladimir.zapolskiy@linaro.org, 
+	mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: qcom: camss: stop started subdevices when
+ stream-on fails
+Message-ID: <010601a1b1b4c10a-5e87fd76-771d-44aa-9a2e-0755e5e1ff0f-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 6 Nov 2026 16:32:55 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,47 +74,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.11.06-23.251.234.53
 
-The iD14 MkI (2708:0002) and MkII (2708:0008) share audient_id14_map.
-Later commits add MkI vendor controls that replace some of the generic
-MkI controls. The MkII keeps the generic controls. Give the MkI its own
-copy of the map.
+Hi Loic, Qianhui,
 
-No functional change.
+Thanks for the pointer. I have read v2 2/2 [1]; it =
+covers the ordinary
+start-failure cleanup addressed by my patch, and =
+sharing the traversal
+with stream-off makes sense.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Will Porter <mrwillporter@gmail.com>
+There is one remaining difference: camss_video_subdevs_set_stream()
+returns immediately on a disable error. If A and B start successfully,
+C fails to start, and stopping A then fails, B is never stopped. Normal
+stream-off also stops walking at that first error.
+
+I reproduced this with the actual helper and injected subdevice errors.
+The increment below keeps the first stop error and continues cleanup;
+start still returns immediately, and video_start_streaming() retains the
+original start error if cleanup also fails. It applies on top of your
+v2 2/2. With this covered, my earlier standalone patch can be superseded.
+
+The helper and the actual video start/stop functions pass 416 ASan/UBSan
+cases covering partial starts, multiple stop failures, ignored states
+and pipeline/format errors. With the unmodified helper, the stop-error
+case leaves B enabled. The ARM64 W=3D1 camss-video.o build passes. These =
+are
+software tests; I have not replaced the running camera driver to test
+the combined change on hardware.
+
+Would you fold this into your next =
+revision? I have left the multiple
+source-link question to the existing =
+discussion with Bryan.
+
+[1]
+https://lore.kernel.org/all/20261031041154.=
+308030-3-xiaqinghuan@mail.ustc.edu.cn/
+
+Signed-off-by: Jizhou Tong =
+<fqwqf@fqwqf.xyz>
 ---
- sound/usb/mixer_maps.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 98b4146216ae..7795a5fbe382 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -526,6 +526,12 @@ static const struct usbmix_name_map audient_id14_map[] = {
- 	{}
- };
- 
-+/* Audient iD14 MkI: model-specific control map. */
-+static const struct usbmix_name_map audient_id14_mk1_map[] = {
-+	{ 12, "Monitor Mix Playback" },	/* FU, partial coverage */
-+	{}
-+};
-+
- /*
-  * Audient iD24: feature unit 12 ("Speaker Playback Volume") sits in the
-  * monitor-mixer branch and does not apply volume to all of its channels;
-@@ -638,7 +644,7 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
- 	{
- 		/* Audient iD14 MkI */
- 		.id = USB_ID(0x2708, 0x0002),
--		.map = audient_id14_map,
-+		.map = audient_id14_mk1_map,
- 	},
- 	{
- 		/* Audient EVO4 MkI */
--- 
-2.47.3
-
+diff --git a/drivers/media/platform/qcom/camss/camss-=
+video.c b/drivers/media/platform/qcom/camss/camss-video.c
+index 9a633ca066..31d608d9a0 100644
+--- a/drivers/media/platform/qcom/camss=
+/camss-video.c
++++ b/drivers/media/platform/qcom/camss/camss-video.c
+@@ -268,12 +268,16 @@ static int video_prepare_streaming(struct vb2_queue =
+*q)
+  * subdevice without a streaming operation reports -ENOIOCTLCMD, which=
+ is
+  * ignored here to match the previous .s_stream() call sites.
+  *
++ * Start stops at the first error. Stop continues through the pipeline =
+even if
++ * a subdevice fails, so one failure does not prevent cleanup of =
+the others.
++ *
+  * Return: 0 on success, or the error code of the first =
+subdevice that failed.
+  */
+ static int camss_video_subdevs_set_stream(stru=
+ct camss_video *video,
+ 					  bool enable)
+ {
+ 	struct media_entity =
+*entity =3D &video->vdev.entity;
++	int first_error =3D 0;
+=20
+ 	while (1) {
+ 		struct media_pad *pad;
+@@ -296,13 +300,17 @@ static int =
+camss_video_subdevs_set_stream(struct camss_video *video,
+ 			ret =3D v4l2_subdev_disable_streams(subdev, pad->index,
+ 							  BIT_ULL(0));
+=20
+-		if (ret && ret !=3D -EALREADY && ret !=3D =
+-ENOIOCTLCMD)
+-			return ret;
++		if (ret && ret !=3D -EALREADY && ret !=3D =
+-ENOIOCTLCMD) {
++			if (enable)
++				return ret;
++			if (!first_error)
++				first_error =3D ret;
++		}
+=20
+ 		entity =3D pad->entity;
+ 	}
+=20
+-	return 0;
++	return first_error;
+ }
+=20
+ static int =
+video_start_streaming(struct vb2_queue *q, unsigned int count)
