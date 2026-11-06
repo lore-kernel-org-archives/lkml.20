@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793988218;
-	b=jSJqRFeiMVa/qhqfEX8zNqlNUh99OnhU4nciTO9aXrp/qX2gvmuCbTi7/qqtW59uWALt
-	 W/DRG37ZYoMG+x6zauoLvNKN/1PxrYr8dWB9DqqFYaGS5RHxFHSotifyNFVn+2PpQ8GGG
-	 GnDKLsBcXC9jJZDdHmf6HEMWv+4g5cwT7//V/voEguI90GTSriA4Rv0Z4+ENOgCEWkDER
-	 dz7PBlHDPtxhN+YNL6hAqRsNhhygUxUAGeHW8Xj8E5jNukTP3CWHDzQy8Bvlh9PhuYofl
-	 9139Dnx7EjMQsNvyMWEl1RL2PKtImZRP+nZVBtiB4lAAoKh8qCivsIVTfEixcyWsD/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988218;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
-	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
-	 X-SimpleLogin-Want-Signing;
-	bh=SiS3p1Pdfw5SumEsCCsXq+4z7US+NPjbCfUp1+4kB04=;
-	b=eSiDD0HPbaVHTn+MEnpuY44ZaGrm1s4CvPeHtKmc6cJhv4EcS3VO24U5BXGJgewXe2Us
-	 DezvvOtIUtj5JTB7OLOBceObxggF/596Ig0cJKOkzUK/o4PqkyR9pS1i5ct0smJzpbYaL
-	 O7xj0S39L8hEmjaTl17Pu7bjObl1Ytyxdc0bJ5QhtCSuJ7uqwPncb4H1JDmBEdaEtM+Ag
-	 FbIQHS5f3sahFGDrKvZUfobQv8izM89cBsjnZdz5AqEQnC/PrX9TnjRosY41/PjploISO
-	 qjyMBW02E0p/IoOJYpBxhAuzVOQEESyttF7Yp4KQU9T664ra97yksdHcp7p5VTWVc5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eldare.de;
-	spf=pass smtp.mailfrom=eldare.de;
-	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=KP2eeTp2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
-Received: from mail-200170.simplelogin.co (mail-200170.simplelogin.co [176.119.200.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793988247;
+	b=uHAeIv6BtspBO0A08ayqDc5gfHn9U35XkfiIr7bc4/ZrPD7NDF1bdRYLk4UhY7845aLN
+	 8HBQc+jxxemQMDkmrEaNWuRkfd3qyN/XWMmpsFZO6U6bWVjS+7tm12L4OQrIN0XvNqwlf
+	 yH5c1hprhEdFtjA7sUajzBL9NEC3Nr1M8vWohSaXOIOddbFsvWh8ttTDQnpz5VFDqYtaN
+	 Xo4sAWRAGa4+ZFRjECNSbxr7F53N8UhUQW1TC1fNaFDxlKTi+G4Xw0Y5CSRJA0VLCh9vX
+	 L9yE+M5P394nc5yIAzT25nblVsw2PJu3NskJJ2S9NsvnXlV8l6928MAqPtMvDC+dqeg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988247;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ff87flfpWxQA4dJrc987lusQnFIhkWINyfHTfPBOik0=;
+	b=rFhjTHsGMtQS4Linl1Ao+2+B1J15Fwn/FwRtd+ZxUKJqg++mPHXzmbOy0qpUpe6DztXF
+	 4bx0M2PMYSHiQQIi3caFzkmw5D30qzedBPGo01vv1XpZz91fN+22ZQwQ2kMarsEDa4b32
+	 VHcH8MReZl8KyJvtq6K5br3piEyZt7zpZ7pva7nDdZZp5GyBVkt74K4OOJzSlfdyI2l0J
+	 naI8wUDKwgI0Joh13EK6e2ZIxKT1k75bVjLsW7kgKWzB0ueVL7GUzIFnu79DvbGHUrGP7
+	 baouztbnB+2Hfc6yMs6tPlhcz2e173glo3bWjrGzHuNLIbGIwAEbrWy+/WWHqqnP/oA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YWjno4e7;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC1F606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:03:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDC1F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0742B606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:04:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0742B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=KP2eeTp2
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793988216;
-	cv=none; b=quUhJV9d3yy9K+FEApHYR7ciMbPiTamAADIdX2+IWOAFoG7ScE1Ey7OA0g88+7ZWx+kZhfyRwzgZixHUSvtK1ff24djauHJBmL5iAFfa9UqkxAaXfbOogXzzGnYZCFvspqgWcaQgMnEa95bOZociku871hifAss5psuD/ljg061ChH43L7gpcKL0onhfUCy3JPFfujuh30dHfbhV34O8KRJEtPXsX2nO5BJIEcsW3Cx2Ld+yIwYG8lZUXUW2+RCV4KpEXckwyzG2NwKuGm7bvOotgte/dz8rJ6anDZf5ok2lSAHCD9x/HQaelDLFwGFVwiQSTSPMdZXiOZpSacnsBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1793988216; c=relaxed/simple;
-	bh=TkX1EUPzM5jpig3x/0OdpL9Rw6sv05DAS7uiaOgULNc=;
-	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=oMEf2ZWAh8QklSavBJfY5XiNmvlpK26N8zBIarMKovoaAc0V1arnWFAGyWmIXkIc5Slne6Qux/QSDdDhdJvyGLFFgcFX6s2Ub1ro1+rSOIrT4GPFryHY7dlIoWDP1KXvfROUY3wHpMJR8LuihmC1xXGqtZzEuOT/QcrAHpzIOoQvFZXClOTMmskyl2IHyKgNBzln1jalomo5C6N4ZZ8IDWZ3eUKhvwPyxMx+Js9BTxYUzl6xp9jSM1lP3QS1mQOjDciehfQc7IDcFupOHSEQwqQjL/plzDnTFhUq4OqIOLdY294KtAeO2nq+SeXUZq9XKftoOs68hnzbfmYBT+uTQQ==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
-	t=1793988216;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SiS3p1Pdfw5SumEsCCsXq+4z7US+NPjbCfUp1+4kB04=;
-	b=KP2eeTp2OQJg+ZiY0Vu0S9rtbW25ahL3NatqAUvsEO9eN4t+z7WfnhRzAp2qbxATbvFjoX
-	QuhXMtabjqBQ8Qa+WtFRo12RPXos+ta71hy5fCRdG4qtOA81XQ1LUGgPa7O2NMer4JomQB
-	SqjwAUSsTvyB0rW9q/+6vp9+iCzbr7w=
-Date: Fri, 06 Nov 2026 18:03:21 +0000
-Subject: Re: [PATCH net v3] vsock/virtio: clear vqs[] to avoid a UAF on a
- failed PM restore
-In-Reply-To: <auxVKMavkOw3Ia-6@sgarzare-redhat>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YWjno4e7
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so4036895ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:04:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793988246; x=1794593046; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ff87flfpWxQA4dJrc987lusQnFIhkWINyfHTfPBOik0=;
+        b=YWjno4e7L9L3NjRYdqODuPBgXA4YLXt0z/Zp0jjJWNG/wwMi+2M7aEl0GWBS+gm/fJ
+         qssPwwDTwh9WFW+bzyCVHhT9i2g8HUSKWa/6s3L5Ukw8ES1qfiBrYU+GSzPhPty4IRLh
+         SK9gsTGLvMhoj92IV20iEErU1/E6HKFBbDIZuIe1nGsh2qsqMCmkmtukdQ0HaIYUAS6t
+         BkxCjHMAKugFN6rqg4F7Tf9rWyTrqoRQ9iVUp/IbC2LuxFYADi45ENT0mpuBbe8AAPfJ
+         HeMRsXNivXuB8+iVacAnZOXeV8Uwmq0D2r3V6OH8g35CPpKiuTZRY7bP3ajUI2QkbwSP
+         c3eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793988246; x=1794593046;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ff87flfpWxQA4dJrc987lusQnFIhkWINyfHTfPBOik0=;
+        b=jnY5mGFSCeq98XJQDB2DaKSzjS37yBgW3MhZsXw5CbJTGfGgraB4oxzERgS9wYj3Gp
+         Vywv9IWq2/IforTZ1qvQrtDhSw5eoDX2mJClGIbwHJHb/pz0JI6nzUYP36tZzQAAAv6W
+         rMMr8boLRh/EfWniHBx8Y60Be8OP/fD2+CIPhtualBK6ijdrdBdqtReWPJ6QeJ37KChg
+         FQMVPrestvnD9+5m/Rz989gem2DLwX3PDhZ9R540WmWckTOBcIYdRRT4w1GS4exYA/tm
+         921fk/95GVVnTSx8pxQcbQyNsNS0iVkTpGRAiMGYQhlY8UnaB5+nMxAWIStGxsrBB3zZ
+         LUUQ==
+X-Forwarded-Encrypted: i=1; AL+hErExMg9S4TKUG4u5kdVreakBCIRtBB/RBPrSV9pnRMV2q6P/HzN9Dhs9inlVAVA4a9HE+WoD2d1NyMa67Vk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+o5ZsPJP6ZlEWI2y1sO3iHx+Wx2bKM/0edEmCZb2Wr4g+L59gJ
+	5u1Wi/nWmVMkIgZOn787KT6VGcCqOhzKjIVa50EZl2lxlLAnSkbR7I+y
+X-Gm-Gg: AYBFou2kbjukvDa0IjQ8LPnhuR/roGWkzA5CifL2Id8AYrHQ3+5nC+EyS1N7nV1eD/Z
+	qpCxdp/1UmlFC0asPeXpNmYMgypq9VhpUwnFLvqEmtP7TchzORNmEa0EQQwFd+cWw4h9VFrA486
+	N205zoSbFmMu+9GWZHp0IS8lc0ju2pEggeZRFuU0Mu9LaP6dbfCJshPgrmk0XO4jrZ+0P1iz6Qb
+	54PrIZEpt7qdU+E54Y855pEMUoA87/kA0KCvQSaXvATFZPu5+8YtdpgSOz3xB4N4yBZOuxOEFAe
+	uZ2qEnUV6vZgumJu88zdJn2rflYKXn0shjb0D2jcFmmONehZ6yZefqE6W4D0X1Oqg2zQ1AAt6ba
+	qkkst6wPTxsqN6oX3/rcB1OO39s/eNaNHGVT4SbZtwa7pxpsj9WIHjaFqDnMdKkvLK0q4nhUcKf
+	fAdRpzPbeXBgudnn3RJO9ENZcqph/kbyxSMWYvgLGjc8mY8AQGYPj/VUQk9vcW+qZOppzVRonw4
+	xE2BkMHwazRcNJL6kNWpPL0kFLHPpFavhTzWcMbQ98gkdAFW3cMQqSa6qNAWSnVKakEGsp/1NC8
+	uc4IuElhPzlr9jCVmP83WzHq3aq5jYLXBKAWGVyG6RUQgMdReFklGELTBNEs4uOGOj+3QGg65g=
+	=
+X-Received: by 2002:a17:902:ce03:b0:2e9:6790:212c with SMTP id d9443c01a7336-2ed40c494f5mr41103385ad.30.1793988246266;
+        Fri, 06 Nov 2026 10:04:06 -0800 (PST)
+Received: from DESKTOP-31QBR7C ([103.120.166.85])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47da165dsm8057515ad.73.2026.11.06.10.04.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:04:05 -0800 (PST)
+From: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+To: tj@kernel.org
+Cc: void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+Subject: [PATCH v2] sched_ext: Reset task fields on exit of an SCX_TASK_READY task
+Date: Sat,  7 Nov 2026 00:03:53 +0600
+Message-ID: <20261106180353.457-1-rahadbhuiya2021@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.3
+In-Reply-To: <20261106142818.1475-1-rahadbhuiya2021@gmail.com>
+References: <20261106142818.1475-1-rahadbhuiya2021@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,55 +103,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: jrmmhm.kernel@eldare.de
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,Bobby Eshleman
- <bobbyeshleman@meta.com>,"Michael S. Tsirkin" <mst@redhat.com>,Jason Wang
- <jasowangio@gmail.com>,=?utf-8?q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>,Xuan Zhuo <xuanzhuo@linux.alibaba.com>,"David S.
- Miller" <davem@davemloft.net>,Eric Dumazet <edumazet@kernel.org>,Jakub
- Kicinski <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Simon Horman
- <horms@kernel.org>,virtualization@lists.linux.dev,kvm@vger.kernel.org,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,stable@vger.kernel.org
-Message-ID: <179398820999.8.18191536850628408290.1752255756@eldare.de>
-References: <20261104-vsock-restore-uaf-send-v3-1-d60d06488b57@eldare.de>
- <auxVKMavkOw3Ia-6@sgarzare-redhat>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1752256235
-X-SimpleLogin-Want-Signing: yes
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 11:19:23AM +0100, Stefano Garzarella wrote:
->On Wed, Nov 04, 2026 at 05:26:43PM +0100, Jerome Mohm via B4 Relay wrote:
->>Clear vqs[] after del_vqs() and when virtio_find_vqs() fails. Return
->>early from virtio_vsock_vqs_del() when vqs[] is empty: a second
->>del_vqs() would free virtio-mmio's IRQ again ("Trying to free
->>already-free IRQ").
->
->Is this an issue or just a warning?
+Tasks in SCX_TASK_READY are attached to a scheduler but outside the ext
+class, such as RT/DL tasks, or non-SCHED_EXT tasks under a partial switch.
+The scheduler's BPF code can still update their dsq_vtime and slice (for
+instance, via ops.cgroup_move() as done by scx_flatcg).
 
-Just a warning: free_irq() finds no action for the IRQ, WARNs and
-returns without freeing anything. That taints the kernel, and panics
-only with panic_on_warn or at kernel.warn_limit. v4 says WARN in the
-message.
+Because __scx_disable_and_exit_task() currently breaks out of the state
+switch for SCX_TASK_READY without calling scx_reset_task_fields(), these
+fields are not cleared when the task leaves the scheduler. If the task is
+subsequently moved to another cgroup/sub-scheduler and later switches to
+SCHED_NORMAL, the new scheduler's ops.enable() sees stale dsq_vtime from
+the previous scheduler's clock.
 
->>+    virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
->
->I'd prefer to move this before the virtio_reset_device(), because the
->comment on top of that is related also to the next steps (detach unused
->buffers), so having this in the middle is not really readable.
+Call scx_reset_task_fields() in the SCX_TASK_READY case of
+__scx_disable_and_exit_task() to ensure SCX-managed fields are properly
+reset when leaving the scheduler.
 
-Sure, v4 moves it right before virtio_reset_device().
+Fixes: 5771e79e461e ("sched_ext: Reset dsq_vtime and slice when a task leaves SCX")
+Signed-off-by: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+---
+v2:
+- Rewrote the commit description to describe the cgroup sub-sched / RT task
+  migration case (per Tejun Heo).
+- Updated Fixes: tag to 5771e79e461e ("sched_ext: Reset dsq_vtime and slice
+  when a task leaves SCX").
+- Targeted sched_ext tree instead of bpf-next.
 
->>+    /* After a failed restore no virtqueues are live, and a second
->>+     * del_vqs() would free virtio-mmio's IRQ again.
->
->What will be the issue of freeing virtio-mmio's IRQ again?
+ kernel/sched/ext/ext.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Only that WARN. The early return is needed anyway: with vqs[] cleared,
-the detach loops below would pass NULL to
-virtqueue_detach_unused_buf(). I'll say that in the v4 message too.
-
-Thanks,
-Jerome
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index f74ffb3b1aca..b57a7989f304 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4728,6 +4728,7 @@ void __scx_disable_and_exit_task(struct scx_sched *sch, struct task_struct *p)
+ 		args.cancelled = true;
+ 		break;
+ 	case SCX_TASK_READY:
++		scx_reset_task_fields(task_rq(p), p);
+ 		break;
+ 	case SCX_TASK_ENABLED:
+ 		scx_disable_task(sch, p);
+-- 
+2.55.0.windows.3
 
