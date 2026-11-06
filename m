@@ -1,60 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794000875;
-	b=shKaQxWvTtuR7bxq6uHp9KllL/328ogVCSK+PfQ6Funj1yvm5KWlBiQjgipF+f7xN1kL
-	 QWosb6m80P3FYAwXMfFIgWsplamMAfxDfGCvCsAUvG7SMVMDJoMWkuGY9uDDAzYSIAIq+
-	 DQd3HWiQBtKELUm6WCWDm9zVx99Z7hKAQBQNtBexgcJkx1mM5zkhNmVOzIszDWimMMwsv
-	 GL0TvXIFUtc8RclqG42FTif3wY3uww4roSLO1FAiqqf7lswZ8FQ8Mg8uByXv+hNfVkHsR
-	 GylT+spq1CyuC1IJ94r8vNvYZ3JIsoTkxNFENyHiXjRqhAgwfofipLeRjKuivwHm/aA==
+	t=1794000931;
+	b=0SVAYHIuSeeoitFcHf9SjxxYdtdgM9Q+rbRuzJ0IZTVUlHWV7vhlECmUqbjR0Gy2nCKr
+	 k27r2YIxxVmcBpge/TtkQKRkHmPSlxLyh14Gj2uXFOMUWOSWZm1C+apM6H+xlUgKTf28W
+	 OndSLAn7evg4cV5rKs0ADJ7X2cMQK3urriSCxz83PCl0cS3Gr0MWQMxnDBZ4v+E1N7O/C
+	 khc1dswoaDVnVi+BpppvD1F3d0VFEpcYgXrzsqvg4c5sZ0LZPAqdqSkTny3I+21nlOt4F
+	 Ke9vGHbi4fGmg73jXXNubNg9MDUHWQ817+KQ+DrbuFg4HfrYI/i2Scc8Pp67gQINfxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794000875;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ooC4OTXs+2O7ScOKESZ7MxuN5UuAn8QGbuugclC7nqo=;
-	b=2iV2ogwkIEnXFvT5DIlFpqyDm7YGml7YG/IhmJlxSIsgT/BrFYjSQnYY2tAv7HFNB9VQ
-	 4e3PcYffqCfyKm+lQ8F9MHmh3qd8Cjlhu/Z9d3tfbOEBhDLCNXHypkaxmWkGk1DicITIN
-	 kGKjcZZPnFaei8hd/CwvxnHYEi52HVN+t59sgX9Dn28ov5fz81cijuT8cO2vi4Gsl5B8r
-	 l2m22ztbjGjwTJTJjabTwwQwU5B8KOvG1fCgkFN8hwdU9GVNqmKTnv8wGsvcrAXuynRf5
-	 NP3IqnwHpZp4TTzrMjOPHd4nx/XK1/p3RZMa5zEcUgRRClf0Dot4n297HLivzvlRUUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794000931;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=qDLkoWqq+lnN8FRxhDSjiq97CllCMlGCEUvlKkMFITU=;
+	b=RZmY7PCJ/0NGcjdoxB45/+/rUFpZuxUXD7uJqzY98Z3Xf4bDr13hqMZDtclpL+jvvj89
+	 bYcxmzvCMnHsGKnw25YaCWCd4AHfiP/JYeaU+sODSouPzzUBy83G6FoWyoX+IFOsSMFk8
+	 klHCptUsgxulccyREXNV4CMBhGf13WqRIJapa/8W0KGAoFArr9OkeHVXidUjYD14C+jvd
+	 8ezJRyJ/Q4e0iwFew1Y9j+ZC4T/0gGsWn8gowDSYjWsAmKz8EMNl8D/+d/vyRCSIpxsxN
+	 XDfXvwGRXIVOhJVlEa+em2DLKAYcuh0Dgcq3eXYWVx5N8LsQ9XfFgxOThNPHIVgSl1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=H9nRBTKQ;
-	arc=none smtp.remote-ip=185.70.43.102
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWM7+BZW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC42E606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:34:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC42E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F071E606A326;
+	Fri,  6 Nov 2026 21:35:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=H9nRBTKQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794000871; x=1794260071;
-	bh=ooC4OTXs+2O7ScOKESZ7MxuN5UuAn8QGbuugclC7nqo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=H9nRBTKQiWKnqs6XMWJHL4gFEKgYtwliywzKS2n8W/GKuz/28mg6ICl6+Fxjg8qzv
-	 hIUwKHHdWtDwCTlY59eZf7RvZZyqxVZIa5AD8vUabLIIPAVW+vBu2kcZ8qRIXD+2R4
-	 d8gDNQvdc2al7J5m6c5n+FBPWOG8GGH9QJrhykbuzPFYRvAhPLCPcgHiL+OZ+PG1T8
-	 z+PSHxA6sPcno9SCY+Dp1r9JZrv0Bb3XB9dDngLfAuuw9HGOD5jszhzexL7em7TRrG
-	 4qmgXLEf5p4DXbhze7cfWFn1/WvKEOecl86mJ33VzLMYc1hxj/W37mTQlYOQXN4zTb
-	 rpwKiCG1mWIYw==
-Date: Fri, 06 Nov 2026 21:34:26 +0000
-To: linux-bluetooth@vger.kernel.org
-From: cochcoder <cochcoder@proton.me>
-Cc: linux-kernel@vger.kernel.org, luiz.dentz@gmail.com, marcel@holtmann.org
-Subject: Re: [PATCH v5 1/1] Bluetooth: btusb: support larger LE packets on TP-Link UB500
-Message-ID: <WioHtJe5UoBDypyj0zDKYKksSKYCyTLi_RJLX-8uaxbN9WWssCjald6Lc6_MDAaw0Owixufqc4h_JnPMwFBVGzgtMmXMfJD3jIDh_0UHxZ4=@proton.me>
-In-Reply-To: <5a7311d6f4cc94931fd753e5fe0d54a2a65f631a.1793315289.git.cochcoder@proton.me>
-References: <20261013032742.497402-1-cochcoder@proton.me> <20261029023235.1280321-1-cochcoder@proton.me> <20261029023235.1280321-2-cochcoder@proton.me> <7136cfd8f427b90d6d931a836e93dad5ea6164a0.1793296023.git.cochcoder@proton.me> <5a7311d6f4cc94931fd753e5fe0d54a2a65f631a.1793315289.git.cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 9a5b7e09ef60babff6ad5da84afb976484f06888
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWM7+BZW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE901F008A1;
+	Fri,  6 Nov 2026 21:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794000930;
+	bh=qDLkoWqq+lnN8FRxhDSjiq97CllCMlGCEUvlKkMFITU=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=LWM7+BZWo6iB6FYAPzh0c/+NneA4GRu00bxhDJbxx+KsyGVaZCU3IVa8cp4XiE+pm
+	 LGAiwqoxt8y8T9N2ttrNTgzhRWhihRAFHIE0Yg5CMHMzwS6p+jMaR9lNGv1d1hzB26
+	 7PDkiEPOMz7U76jloU3dflVbupZLSSU5Hs75fKrEF602NzW90+T+xY7rEkv64CwW//
+	 XkpwN75Td98j9LFc9zZ0RUf6rqpbFrbyALdw2GBmYppgYjktuqX8r8+79U/U97uDu5
+	 0kv7/i7SJhZVEJaFpHGegILnDJaITpjqBHfbFGHu0tIsuAhh7COAqu2zhKtWTl6mEZ
+	 XorYv27XlxjRQ==
+Content-Type: multipart/mixed; boundary="===============1772708986620951677=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,116 +49,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <23cbf06b46fa6d1cdfa3a9bbcd247deec22de8efbe5d1b2fff4cb89177171d56@mail.kernel.org>
+In-Reply-To: <20261106210314.1767267-17-a.s.protopopov@gmail.com>
+References: <20261106210314.1767267-17-a.s.protopopov@gmail.com>
+Subject: Re: [PATCH v1 bpf-next 17/18] selftests/bpf: Enable bpf_scan_ir in the config
+From: bot+bpf-ci@kernel.org
+To: a.s.protopopov@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,almagui@kernel.org,john.fastabend@gmail.com,qmo@kernel.org,brauner@kernel.org,kpsingh@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,sashal@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org
+Cc: a.s.protopopov@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri,  6 Nov 2026 21:35:30 +0000 (UTC)
 
-Hi,=20
+--===============1772708986620951677==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-I've been using this patch for the past couple of days and haven't noticed =
-any issues with it in that time. I'm unsure if I've managed to use all 8 cr=
-edits however.=20
+> selftests/bpf: Enable bpf_scan_ir in the config
 
-Kyle Pepper
+TL;DR: Commit message only: the list of cases where Kconfig ignores the plugin
+options looks incomplete (other arches, missing matching llvm-config), so "CI
+builds and tests it" may not hold and fmodret_retval may silently skip.
+
+>     selftests/bpf: Enable bpf_scan_ir in the config
+>
+>     The bpf_scan_ir plugin is off by default. Without it bpf_testmod has no
+>     fixtures for the plugin and fmodret_retval skips. Enable the plugin in
+>     the selftests config, so CI builds and tests it. Kconfig ignores the
+>     options with GCC and with clang older than 19.
+>     Signed-off-by: Anton Protopopov <a.s.protopopov@gmail.com>
+
+Is the list of conditions in the last sentence complete?  The commit message
+says Kconfig ignores the options "with GCC and with clang older than 19", and
+that CI "builds and tests it".
+
+scripts/llvm-plugins/Kconfig has more conditions.  LLVM_PLUGINS needs
+CC_IS_CLANG, a working $(LLVM_CONFIG), an llvm-config with the same major
+version as $(CC), and a $(HOSTCXX) that accepts the LLVM headers.
+CLANG_PLUGIN_BPF_SCAN_IR needs X86_64 || ARM64, DEBUG_INFO_BTF, !LTO_CLANG and
+CLANG_VERSION >= 190000.
+
+So config.s390x, config.ppc64el and config.riscv64 never get the plugin, and a
+clang >= 19 host without a matching llvm-dev drops both options silently.  In
+those cases the build succeeds, bpf_testmod is built without the
+bpf_testmod_retval*.o objects, and fmodret_retval reports SKIP.
+
+Could the message list the full set of conditions, or say that "CI builds and
+tests it" only holds when a matching llvm-config is available?
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-On Thursday, October 29th, 2026 at 7:08 PM, Kyle Pepper <cochcoder@proton.m=
-e> wrote:
-
-> The TP-Link UB500 (2357:0604) reports a 27-byte LE ACL packet length and
-> eight LE packets, although its reported maximum LE TX data length is
-> 251 bytes. The small HCI packet length fragments ASHA audio packets.
-> Direct controller testing received 251-byte LE HCI packets intact.
->=20
-> Set the host LE ACL MTU to the reported maximum after initialization for
-> the observed 27/eight/eight-available/251 reports. Skip other reports
-> without failing controller initialization.
->=20
-> Keep the controller-reported packet count and available credits unchanged
-> so transfers can use all eight credits. Leave BR/EDR accounting unchanged=
-.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Kyle Pepper <cochcoder@proton.me>
-> ---
-> v5:
-> - Keep the reported eight LE packet credits instead of reducing them to
->   one, addressing Luiz's throughput concern.
-> - Keep automatic MTU selection and nonfatal handling of mismatched report=
-s.
->=20
-> Matched 60-second single-N8 playback tests on the UB500 passed at host MT=
-U
-> 167/eight and 251/eight, with CLEAR listening and verified stock restorat=
-ion
-> between tests. The control had 3,236 complete audio SDUs and 3,262/3,262 =
-HCI
-> completions; the 251-byte setting had 3,234 SDUs and 3,260/3,260 completi=
-ons.
-> Both used whole 167-byte HCI audio packets, reached three outstanding pac=
-kets,
-> returned all credits and had no socket EAGAIN or disconnection. PipeWire'=
-s
-> actual SO_SNDBUF stayed 4608. Tests used the exact callback ported to the
-> Arch-based ASHA 7.2.9 kernel; fresh upstream object builds run before sen=
-ding.
->=20
-> An earlier 251/eight trial sounded clear but stalled after about 40 secon=
-ds
-> of audio transmission and ended with HCI Connection Timeout (0x08), with =
-seven
-> completions pending. Restoration succeeded. Its cause remains unexplained=
-;
-> the successful comparison does not erase that failure.
->=20
-> These are normal single-CI playback results. They do not establish eight
-> physical 251-byte slots, mixed BR/EDR+LE capacity, bilateral recovery,
-> exceptional congestion behavior, other firmware or long-duration reliabil=
-ity.
->=20
->  drivers/bluetooth/btusb_main.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->=20
-> diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_mai=
-n.c
-> index 92a78a7e6..9cc3dd240 100644
-> --- a/drivers/bluetooth/btusb_main.c
-> +++ b/drivers/bluetooth/btusb_main.c
-> @@ -2972,6 +2972,19 @@ static int btusb_setup_realtek(struct hci_dev *hde=
-v)
->  =09return ret;
->  }
-> =20
-> +static int btusb_ub500_post_init(struct hci_dev *hdev)
-> +{
-> +=09if (hdev->le_mtu !=3D 27 ||
-> +=09    hdev->le_pkts !=3D 8 || hdev->le_cnt !=3D 8 ||
-> +=09    hdev->le_max_tx_len !=3D 251)
-> +=09=09return 0;
-> +
-> +=09bt_dev_info(hdev, "LE ACL MTU 27 -> %u; LE packets 8 unchanged",
-> +=09=09    hdev->le_max_tx_len);
-> +=09hdev->le_mtu =3D hdev->le_max_tx_len;
-> +=09return 0;
-> +}
-> +
->  static int btusb_recv_event_realtek(struct hci_dev *hdev, struct sk_buff=
- *skb)
->  {
->  =09if (skb->len >=3D HCI_EVENT_HDR_SIZE + 1 &&
-> @@ -4715,6 +4728,9 @@ static int btusb_probe(struct usb_interface *intf,
->  =09    (id->driver_info & BTUSB_REALTEK)) {
->  =09=09btrtl_set_driver_name(hdev, btusb_driver.name);
->  =09=09hdev->setup =3D btusb_setup_realtek;
-> +=09=09if (le16_to_cpu(data->udev->descriptor.idVendor) =3D=3D 0x2357 &&
-> +=09=09    le16_to_cpu(data->udev->descriptor.idProduct) =3D=3D 0x0604)
-> +=09=09=09hdev->post_init =3D btusb_ub500_post_init;
->  =09=09hdev->shutdown =3D btrtl_shutdown_realtek;
->  =09=09hdev->reset =3D btusb_rtl_reset;
->  =09=09hdev->hw_error =3D btusb_rtl_hw_error;
->=20
-> base-commit: 1081a6ef8f1e0661fd52eb3f878691b0b96cdff9
-> --=20
-> 2.56.0
->=20
-> 
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42294987431
+--===============1772708986620951677==--
