@@ -1,55 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971551;
-	b=vMQACFXdPrjh0N6orCih3oVkpnkwXA1eZkO9YgQZL88LkTGcNU3JbUqAfKWeEQ3LqljM
-	 ocFrgQnsIc9JFySNFYmh/DkuqMCPKi7n22SQAfkYv1j9zBc+H78ew91hTQVjvpScLnfxO
-	 1U7W9LUuQq44T3l8uyiJAU7LJmAwZOmY6dctltWadZDoYFzedMT+hCLdr1MvDuHHlZnLV
-	 JARIQW7YcCcm2D5IOnpt2A+xjyJjFn58R1Xy/Pti0+ykbBK6stN53ME8ToI59c+bC422d
-	 5McMHzFrZmKJH185d563Ci4T6ZHbW2FTm9CQh4SBoxi09BtxWf6wN87+y635bO/cKaw==
+	t=1793971570;
+	b=GPUkGo5l6OuAnrglr9pKR1CKqioomEnJebPIngKzuXZy7Ut+epqfk/AKURydIgUMfys4
+	 bMzH/Dh0BJMBGVmz0osyspy7cNmYu2v0utGZj+gSpbJr2I4OkdbjmrBVXP3x5/XW+oT7y
+	 glmcry1rim7tdUR44l3hasoAyZfGEKG/WJc6EykEN1oqiSMtY5Z5XZ+ZTQKOc74KA0QAa
+	 WFPyqgf3igTYZw/++XH98N900ZtMLGRKMfna7KupQwmPqckv7OlwdOct9ZV3U/CvFoZPt
+	 WkuNTpp20/6jpayKzDttzKru9s7/LWT6UmveMuTnCjnFCl40+Jb+0jiJiqp73Kh+JaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971551;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1qij314zoZxRirYc0U3jWu9+iby5U2jYKMg8ZnSCq6Y=;
-	b=GxraL2jO7WeJNmfQ+eYWMlbua0K265gvS9VyjC80E6mSEJgoZuEXhyOZrxFrm5OcLsNw
-	 g/chzPHHhR9xROgh4sYX5j+xtmmKvqxbFavWhcwGwpQWr7acgxBP7SxJJnvL2qoet5yfx
-	 VVTaDXpEB3RDVrTZU2Mu8wwpayWMM3T0nCzhsIeuMXKb+5D7v7KxDmmqLii4JgCGAXqdZ
-	 /FWjqDQzNS2uHFj+3yXYDGjTzlKAADG2GpjQ3TdZHibLod1/nbwDZV8Uh0hjntJDYPxxB
-	 tWke9blb/61cR5us2NztLbj7fyWKttmQs/5Ervkgt/dhV8perp7q8E3T+AlmCOi0tqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971570;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Bo79EhOtJtgULvq7bZxVFopW/hSbKrx4G7ruhOSax3w=;
+	b=2vUYKFsj+XPgM4G4r8N41dZisBac8KV4RT3OwVYNivUfM0yKAN6tXyBBnuWeyCONLxBF
+	 k/TV/Qo7GmedzLyuwI6ErnqwVWQOB3tzRm9+PoNXNLDZBdVKefSZI6ymgR9jO7Q6d0jDX
+	 r4yN+eEZ00SO60iSN+TtZd1Qy3KCoEkHn07xQLy8ArNAqZo0ifL+qToIyZawO8hUWQ+iW
+	 2IUlwPUwbzTBrmBBuSHcw+dpnSlz5lDFbzbVBRj4rwFxhWgJNYyX5pyPWW1+VvUC8sZI/
+	 s5FP172JX0QsFchwYL22XYju5FE1EW3JWj3zQ++5UrVcHTvj9ox0MR3fbi3pMLBLs6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbYsXDg2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kZkitMJb;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E22606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:25:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C58B606A335
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:26:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C58B606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbYsXDg2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E665A1F008BC
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:25:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793971550;
-	bh=1qij314zoZxRirYc0U3jWu9+iby5U2jYKMg8ZnSCq6Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bbYsXDg2sCi/PgjU32XsYMu6y/C1IXR8pPnZJD0AOvY3JnlXhqAa3CGaUuPksEZnG
-	 ambzwSgaiI4bJMmoG+bqfq839Ose/D2cUE+cQIiDNLJ2GmI3LNK4QFPcrnFnZk5y10
-	 P06RsR4d7j/ueIbgcKCsRRKG1PW3aQMdIk4LB93B9aEis9l//dVUwozE5xDn2jDq+E
-	 RVcdF/L8j3oGxd/W7EA9+V+rSyEFy4TSyso06k8TT0hi8DnL496qwyM8cqJ1nuJGcr
-	 cLFqKO9MLHtGzhHAXafqQBZPEU3MpukJ8WnPv0bjB/kDt2lty30KEcZxHIfl8OAIYb
-	 wODFNqnG9148Q==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bccecba199so614125e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:25:50 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwCpERraeLlpilzHbI2P1UDpkbNIhnXdyWeO0om4soZVAf70LbgTx6eq6BhREjfxMgWREun6gl3Hy8NfTQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pCwSEsyvmwoT2R2nebrwxJh4VY5H0val8BD6eDdxRAKdGuZKd
-	GyV4k5lGZf7+xyZKXAV5VyflWX6crcdFSl4JhGUPEsfC/nHu0iWm4sQ64G8j1olQMBPoMImzwTw
-	OZm1ovQDrlO4CwZLYSi/VAKFs2f8YJMs=
-X-Received: by 2002:a05:6512:3c8e:b0:5be:3c86:f24a with SMTP id
- 2adb3069b0e04-5c003b066c4mr930672e87.53.1793971549628; Fri, 06 Nov 2026
- 05:25:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kZkitMJb
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso284196a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:26:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793971569; x=1794576369; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Bo79EhOtJtgULvq7bZxVFopW/hSbKrx4G7ruhOSax3w=;
+        b=kZkitMJbzY4//vC0xized0QLHCwL2qNFvw61t7bdNhlN6b++UoSMQuDmWJoF2e+gSt
+         HyjfNbWMx/v9/inkRrU09lHioO90rxxBKntYlPsye/KCrOl92WP4TM87yF5Kh3XBk+Fn
+         g9jgViHqagjRZMhIetbX0wfJdyQWem6dIRlxMuq8SvBW9nvFTZEDUa01/6h4bjUOjjse
+         l6Hjh5oARvP+d1qksORvEowbYXsiICixFlrSIWEDdt8AFhi1zamVJVtQtCUbHo+VmBYR
+         06fYghkPpdA5FrwEssOxKN8ln7EKW1sxo/pES1uCSVzYZ5oQRzoq6jpa+yUDsxm1uQye
+         yQjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793971569; x=1794576369;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bo79EhOtJtgULvq7bZxVFopW/hSbKrx4G7ruhOSax3w=;
+        b=euKcLMVSqZtetRa6YxWs510fL1SUfOvO8ueWcwUHpjjG1FKqJfJUy8R1k1860kIXqT
+         HjlZR3Z9SrbgOmRgBcb2J2BG8LBR7xRZMOLFQ/Vn2s2e/6oQhngJhLO9c8nkgZ+0o4wv
+         BLvgYs6/gWnwKdc7r37zXKUYKUKNAaj+fWknBW9rOs+LDU//ynoNl8H6f/8mx2zfTUgp
+         f15t1mQi0gIws20dH1srw61OjLX38jgNeGZq/eVkzzCiCo22pE2ecFZzhGkS3FxVUTm9
+         Fd+hdxsOCdCNbQLTdyzkoCSQX91aH41vzA8fDmY/aMdhSv8Pb1iyWwPGslMRav55d5iS
+         sBkQ==
+X-Forwarded-Encrypted: i=1; AL+hErHdJAEkbblfeB1SQIhGQfVByEn7kj4xnS3mDY+NNqmicE11dWDS81lFnHlzo/18BpkMv1izYq4JvyaVg50=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jIWlx0StvpUGwvYeRmHGhv4tAUYqGKPF+zXhDXfdkVY7euvPu
+	d63lzCLccmAipBEhgY6nqUCjVEdXRVgAH6zIzh8pBu7q/ZMBsaPdj1xW
+X-Gm-Gg: AYBFou11VYZgc0o09mGnUZgXUluucbZj1wFyeCRwxaoRZx3Q3/FDzmrVjD15k7dJV1h
+	a6CyHp03f6ZfGOllCNW7Ujobf67QO0FpcCzHUdBDTtZraIGqU+LdLXOr66kA3sqma6VvjFMuG0X
+	949hy1BPZ5Kn5GRASnTzAn4BsYK4rIzwccltFTu3sa1pjlnkq334BsfvjWSb5Dj7jVEAet8o0ec
+	gk/P8RFL0kNeJLA3Ujd0ONFQ2o5aFn1QNQ8foCmwYFImO1WB4HXONgLVlN+z9/k+KpDAgtrW9vm
+	HZfmqryet46gWsV8V41FTa6Jb5l1lb5+A4pSqoY35Y/VQfhp5QQ1M5/EYMdPny41w3v4k99a5NW
+	DVeXxo72cYXb18lBrLbSmKB60uf+yVt0jaOpXzxuxjQsaftStJmM6Yf5oub37aUTY3DFu1tlVvr
+	fhOToFpaRcE87X1NduXtUpJ08Hsaci45vk+31SmrjAhdFi8Iy65e6bF3j+K5yaOkXpDSwNPhrmb
+	X0htWeMHbLpxuAkI5BFZWMn1Vg7W+UorEoVl5mctTqum1srNqfDRKZXccKK/VUTc32x6z4pCceQ
+	vcbgFc+33PGrjlsZNMCsS1wsavx8nY4mGb066YvgKC0=
+X-Received: by 2002:a17:90b:3811:b0:3b0:9976:c1c6 with SMTP id 98e67ed59e1d1-3b0db7019d5mr2378131a91.66.1793971569437;
+        Fri, 06 Nov 2026 05:26:09 -0800 (PST)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b323a1fdsm7888529a91.5.2026.11.06.05.26.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 05:26:09 -0800 (PST)
+Date: Fri, 6 Nov 2026 21:26:01 +0800
+From: Vernon Yang <vernon2gm@gmail.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] mm/khugepaged: release contended mmap read lock
+ after scanning enough VMAs
+Message-ID: <798cd192-9ec2-4f37-9cba-44db275a269c@gmail.com>
+References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
+ <20261105-khugepaged-latency-fix-v2-3-4384bbfe4606@kernel.org>
+ <au3CUJO9zBMHLx-B@gremlin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,40 +103,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-i2c-fault-reporting-v3-0-515ad74ac4c9@mobileye.com> <20261105-i2c-fault-reporting-v3-11-515ad74ac4c9@mobileye.com>
-In-Reply-To: <20261105-i2c-fault-reporting-v3-11-515ad74ac4c9@mobileye.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 6 Nov 2026 14:25:36 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=R9qr-PP7HnP5SvZrqwcNruH95h=jGp1oZQygU_AyUbA@mail.gmail.com>
-X-Gm-Features: AclHuK_jwcl2jYgOKr2HFBdWlzfrDzM0qykcv5w6x1x1j7s493OVvppJLUOpzHk
-Message-ID: <CAD++jL=R9qr-PP7HnP5SvZrqwcNruH95h=jGp1oZQygU_AyUbA@mail.gmail.com>
-Subject: Re: [PATCH RFC v3 11/14] i2c: nomadik: save I2C_CR register before
- resetting HW in IRQ handler
-To: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Mika Westerberg <mika.westerberg@linux.intel.com>, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au3CUJO9zBMHLx-B@gremlin>
 
-On Thu, Nov 5, 2026 at 6:16=E2=80=AFPM Dmitry Guzman <Dmitry.Guzman@mobiley=
-e.com> wrote:
-
-> On some interrupts, such as Bus Error interrupt or Arbitration Lost
-> interrupt, the interrupt handler calls init_hw() to reset the I2C
-> controller. This clears I2C_SR register value that might be used for
-> fault reporting.
+On Fri, Nov 06, 2026 at 12:07:53PM +0000, Lorenzo Stoakes (ARM) wrote:
+> On reflection, I think this would be better implemented as something like:
 >
-> Add i2c_sr field to nmk_i2c_dev structure, store there I2C_SR register
-> value before resetting the hardware, and use this value instead of
-> reading it directly in nmk_i2c_xfer_one() if it was read in IRQ handler.
+> static void collapse_scan_mm_slot(unsigned int progress_max, ...)
+> {
+> 	unsigned int long lock_start = jiffies;
+> 	...
+>   	for_each_vma(vmi, vma) {
+> 		...
+>                 if (time_after(jiffies, lock_start) && mmap_lock_is_contended(mm)) {
+>                         mmap_read_unlock(mm);
+>                         cond_resched();
+>                         mmap_read_lock(mm);
+>                         lock_start = jiffies;
+>                         vma_iter_set(&vmi, mm_slot->address);
+>                         continue;
+>                 }
+> 	}
+> }
 >
-> Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+> Which avoids magic numbers, and means if we hold the lock for 1-10ms (depending
+> on HZ), which is a long time in the kernel to hold a lock, AND the lock is
+> contended, we drop/reacquire.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Looks good to me. Is the test result of this solution the same as the
+current one?
 
-Yours,
-Linus Walleij
+--
+Cheers,
+Vernon
