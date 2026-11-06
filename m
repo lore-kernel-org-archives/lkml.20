@@ -1,114 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973994;
-	b=euzd0KKXIZvndW6xATzfyeFsJ3UoONcB0wSy/cScoKN4SHE6pChlSXcOE4jJrI0PnoBW
-	 4rjvprWfYfcJRoXddhdx0y1f89zNxe9kg3Hyn8d3JkJN7WeA795+Cppa60dDbkLxqh1Nf
-	 OUKYGsiMnqJcDi1LzhTYkKpx03A9PNpHuex2VaqFbAbI89WmDF8gMVQgSbBdyLwzxd511
-	 ymr1SajAEItoZIpm4e653hRojxXhFoOestTsDw7t33Wk9UdEhHhryVHqq7CUVKGoKXNUg
-	 J4pEcO33ZlnUm2sUgqDwHW/EC7E1Nu7NwfglzoyImYiiqBJt3/RiSwAgZ/9RFGApPvQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973994;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=HwfnnseYPg8DJELdZRUWjDpkfkL3UPmRqO72EBXHhfrdECmA0C0LYFwHERgMH1gO2qxy
-	 PCbjJ/e26cUjM3tk3pjiSnKFUK6wUEEuhnQXAHFRJjfcNPURGTlnZ563TsPu7iTeT8gZ0
-	 95uoIkBQWEPFN4KPeF9bPCEw/pVZo/sxAJXd5N88kY4x2fb2LXI7BOIv/KhL0MdsiEwE1
-	 0aCHf1o7AUh06cWPY3QvRwFFYsqQTpveSNl/gAUkGFZe97gcjoavckE/mFVYDl/ESlv54
-	 9HDUww89aldxpQ+jtiBqCrH5myX30Y2q1jQLNukpE7NLb9YrNkJLyxlgNSenBiKkLkg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="k6n/Kfux";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="k6n/Kfux";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793974028;
+	b=ujp0ftyV7ipSPz4eD9P721tTrpBXWmC3DPpUSMqVRpDeGRqikEVEZfAZNGe2NoMPYX4m
+	 dLHWSYN9qnF9Pmo5gRa/BxeOamcvqoY6Se9c3NrEREhFbSZs0spyc30edn6Zq4skWpTGx
+	 aftHiFZlOYx+8FSSmLbtyMva1VbLBCGbQDZLLRMjCryGXP6b1RtqaN1te631d8ecMyUSE
+	 qdjD5aI8RYvwn56VbcYkxG/PCojjK9XoS4aW+GNwoBPpz2rWf8zfAKEyuIV0G3uimIRzZ
+	 dWcMSwzvwZ4Mp3ilHjlnu9msZ/QNgPstXWpngISo7b8HXG10Q+9mtFL85umu1dxVjhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974028;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CF2uVzHFb62iNIhC5h8KQfZpRW0Yj9jP3Jhqf3ga0/4=;
+	b=kLmfPDm7kO2pKWR4I1hlxIfEWBvoQebaUbdySL5Y/xHLb74LCDB+dQjghYXnf+0GUM5c
+	 e01Nci0HMvC/qDNRn9EdwNWp1ASh/vH+WpSKNCrLVo0SzYqTOOCA34aCdXvXIkHQ/RziR
+	 cz0pNTEeSFOFAnLVqW4Me49NR/t7ADuwxU/zo0U82tc8y8x57f96tnr6Djf3o5ush4Po/
+	 SFxQs5IRcKfQ26AtinQWJcrm7/M4W2l1uyk2B0SeKUajX+c0k7Uizi4ZoKypM82TSSUpC
+	 O3HrMx1PGFmbXUFvVXD9XlCfr7C61ugMmXiiayxZ1MPn4P7OJMKcNY508T5v/78+ipg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=diwYusPb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543D3606A326;
-	Fri,  6 Nov 2026 14:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 543D3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F38E606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:07:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F38E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=k6n/Kfux;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=k6n/Kfux
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5170C1F7F5;
-	Fri,  6 Nov 2026 14:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793973991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=HYCXuoierL737OpwGTSBiFtCNZsGHglPQTMPO4xMGvCJEhpXHAfWCPkjEWr2Zt6zeucAuZ
-	Aw4xlaalSlJRo6qbRgIiC3dhzTu20ZWsEdGWxzfIh2RaQfU3w05UqFuL8h3JeZirIKOt23
-	I9wm5k70zac1ek2/yfQvV33IYc++MrU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793973991;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=k6n/KfuxZ+6UVLlCllYhPpTvopJG2L2NtK31AQ3FXc0D8tanjreTzupE1aEZBil9oXPmfu
-	i75D+RtwwwZauaCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="k6n/Kfux"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793973991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=HYCXuoierL737OpwGTSBiFtCNZsGHglPQTMPO4xMGvCJEhpXHAfWCPkjEWr2Zt6zeucAuZ
-	Aw4xlaalSlJRo6qbRgIiC3dhzTu20ZWsEdGWxzfIh2RaQfU3w05UqFuL8h3JeZirIKOt23
-	I9wm5k70zac1ek2/yfQvV33IYc++MrU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793973991;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=k6n/KfuxZ+6UVLlCllYhPpTvopJG2L2NtK31AQ3FXc0D8tanjreTzupE1aEZBil9oXPmfu
-	i75D+RtwwwZauaCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 14F53134E9;
-	Fri,  6 Nov 2026 14:06:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id JH6tL+Xe7WooXAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 06 Nov 2026 14:06:29 +0000
-Date: Fri, 6 Nov 2026 14:06:28 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins <hughd@google.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
- MADV_COLLAPSE
-Message-ID: <au3bJel0YnSeowCq@pedro-suse.lan>
-References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
- <au3C8lNElGg4LnR1@thinkstation>
- <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=diwYusPb
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso82393166b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:07:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793974026; cv=none;
+        d=google.com; s=arc-20260327;
+        b=phbijpBRe4i1wp5LzZhkw2uEoAMFqw0tQmo2nrSunNIj0Sm0TFJ5QRLHJMNpfJGCEg
+         +BCgxTK96hmp6tEqXVcIgSfsxwwXEwaKc7jtWXOyZTzJGTb5/ZwDFAzFPLuinublloBd
+         J35HFrpmuGf/a52HVV8kkUEzuMgjA8bFb0PKeX5Nb6q8xk0sdDbKZdmrRZCEV49XQk4F
+         QiQJlEa5691p9RZBYZ/QzLn8qKN9vrtg4/Tn46s+P4l8U7/AgoCVnWpBzeLYidEEfeS/
+         /3a4OhdYGwyFHIxHRVbkODkgccgRio0fhW6RxpRWHlO0iB6VzUCOqOLwgBNB0rmahvJ9
+         JulQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CF2uVzHFb62iNIhC5h8KQfZpRW0Yj9jP3Jhqf3ga0/4=;
+        fh=60UEHFtyGVtEQV0BhtsBSLyKM6UoyK7YPH4n1B4goK0=;
+        b=P4uB0kP5n5cfh6o8PhGN5KArQ1T7oZxoVMDPyEG4Mwe8JUVVLApS/Fqw3Y1vVAdtWB
+         8yeVrAN0VRKNATPVNX9aPUeNt0fUZsjEOfectfqaCJkJ4d4wU+McD2OkBTQJMG5e/uwG
+         t8w2JqzVgftcUgziQ32SFNdqkVocVmdjYDs//zNDcJR1l1nUHdo9xrdSuWn/9Dbud5UM
+         y03s5/zYEGJuMKS6ohlsWjpEvjjwETaqpnhCgZ+X5uj913lCySyWHFloBVfl1jAsX9RV
+         X1HikSy7nyKOYF8eszi98HGLp7A5Zq6ZREZFcw6bcg9EFX6JGGOh74SXULUVC+A1IKL4
+         e5nA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793974026; x=1794578826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CF2uVzHFb62iNIhC5h8KQfZpRW0Yj9jP3Jhqf3ga0/4=;
+        b=diwYusPbK3mZRd+qud70e0rpFKU9vePSkEqawtb7pazo0DhAieJnGMjc2Bj52uvI1m
+         CFKdlC1/L29Cb6BAD3xiDhPt1V/LnZc19JQX8LgSsdRvBQNmkGy0/CIYtcuNuKvyJ7L1
+         bhwb1daNfmN6dzXInXeVuF8q3f0qkVIeFjFFlfCAvcn+kyRJIfZJY6IMqVWBHOlSoNra
+         B6vjihQZg2qlT8RozkWOKuVBd42dDEUFi5HUDXR+zpX4o7dNEBXCIyD/jccWZjAlCxuk
+         CyqwGFccSEp314pE3QWbgwZ/qgGpCmDjeIj86SS4vgbpbbnXNJWe0Ac/xc9g3vhKd1ph
+         LewA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793974026; x=1794578826;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CF2uVzHFb62iNIhC5h8KQfZpRW0Yj9jP3Jhqf3ga0/4=;
+        b=X1Qs4d0XdcBm3QMayer6yD6AgX+Gi6HLF00TV0uz8yy+Tp/fq0+heukuNUcItG2d57
+         pt1+m4Ep84Ap+Ecik16f0IXIPtzOnMMJixeyNONC//mMFvwDuMvWHS0CDw1dUwDIakjt
+         tl5LtTu7y8/d9S2Kiaa7MY/ogVLwa/fZsnqG1KOccqGnmGlS/EuJelR5i9kh2X8W+Spu
+         5aG9j0CXVE0vJeibD+hmldBs8Kt6NjeDVu1dRi9LSfNgLK2S8N/3M3pzic7UM8E5IUIb
+         FFUFIldV/b3Hi94ZgL+DLetl3gz+ulLUCG/ZEPF2LyXGWqee6r2WnIMzPrIiMsMkvQmm
+         1xgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxe0szx3JyvgfoRaTABdUY3b0tTUjtmzLuV0staz5PkyqUTGcGQxZHL8ja/ax56+zMKH30o+FFhZRK6AOU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DB5TfUVcNB2jMG6cjNqikH0IqmucqfWvQ7V6UmtPrMDO4zFMn
+	zH/TIWAdxge2hD2hY7tTsX/I8hH+ck4zOHpE4xtK3GxOkYb45J2rREHygi8aFtCuttB/PtWEc2e
+	P24pq0q4P6XubVsvZqv1UcXgH8kqUcbk=
+X-Gm-Gg: AYBFou2jO6y0FIGBURUaOuF7iv8kzwQuU7vYWN2GRxDytv+1VpTqrX50aasSR2d58sh
+	BhAxIJXD/cQk/g6eo1TzeeWifoCba3DDruUR7mf4iifS0zIzoyaB9eL/AP4A4JTpjcLJeF7bN1I
+	ElC1o2fZZhYmulR0aAbFZCZ3IuOQgwNtHhg4K8mBZzHf/gIY6WMW5Q5qxAo1Fcn7X1bmTBN7IWy
+	kVC+qNpxGpP/JwsYr0V4VxbP4FHtTm8B5vCvy4TkYQsSgXzSChQniRkRw5WCDf0SElmCwaF+pqW
+	ipX6IcWPZZVBMTLVScne2MBMup7Y72N4EJIY7kdW9yokGAfWFfzOIYZ4a4RsuBPAqG70knbvB6y
+	tvvTl7xIzabf855fWgcv7/RceMTnYLhd9T9OQ8RMAd/5AzzsHh6/xZEpaB7i2vVGhlsE44nqp5a
+	nmZxyD12M1QMPP5ibAQcwbEZ/I83xsQaD3n8v6WnJBKTx76HDOOck=
+X-Received: by 2002:a17:906:794a:b0:c36:179b:6d68 with SMTP id
+ a640c23a62f3a-c4d34babc94mr212442366b.24.1793974026265; Fri, 06 Nov 2026
+ 06:07:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,94 +105,238 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
-X-Rspamd-Queue-Id: 5170C1F7F5
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -13.51
+References: <20261105140510.165165-1-clamor95@gmail.com> <20261105140510.165165-5-clamor95@gmail.com>
+ <au3X8tpU9KWas9ZM@orome>
+In-Reply-To: <au3X8tpU9KWas9ZM@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 6 Nov 2026 16:06:52 +0200
+X-Gm-Features: AclHuK9W8h_VdmRrbmlRdGVn94XocWlAhADiJndzE0sl5T8qxllPsgvIMFjUVog
+Message-ID: <CAPVz0n1h8SS09Nt9fw4q806ktEM59fQRXTqdP053E7+2onzmYA@mail.gmail.com>
+Subject: Re: [PATCH v6 04/10] drm/tegra: dc: Refactor and expand header
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 01:29:31PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/6/26 13:09, Kiryl Shutsemau wrote:
-> > On Thu, Nov 05, 2026 at 07:16:44PM +0100, David Hildenbrand (Arm) wrote:
-> >> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
-> >> uptodate. For example, shmem fallocate() can put such folios into the
-> >> page cache.
-> >>
-> >> collapse_file() already refuses to proceed with folios that are not
-> >> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
-> >> such folios, leaving handling to the page faults.
-> >>
-> >> Note that collapse_file() effectively clears shmem folios through
-> >> shmem_get_folio(); let's keep this fix simple and simply let the page
-> >> fault path deal with that.
-> >>
-> >> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
-> >> Reported-by: Chris Mason <mason@kernel.org>
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> > 
-> > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> > 
-> > Separately from this fix: nothing on the mapping side catches this.
-> > Every caller checks uptodate on its own (next_uptodate_folio(),
-> > filemap_fault(), shmem_get_folio()), and khugepaged was the one that
-> > went straight from filemap_lock_folio() to do_set_pmd().
-> > 
-> > Should do_set_pmd() and set_pte_range() assert it? Something like
-> > 
-> >         VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
-> >                               !folio_test_uptodate(folio), folio);
-> 
-> I think so. But looking at these hard-to-trigger but in the end very nasty
-> problems, should we actually reject the operation and do a pr_warn_once() or
-> something?
-> 
+=D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:56=
+ Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Nov 05, 2026 at 04:05:04PM +0200, Svyatoslav Ryhel wrote:
+> > Refactor and expand existing DC register definitions with additional
+> > fields in preparation for adding the 8-bit CPU interface.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/gpu/drm/tegra/dc.c  |  11 +-
+> >  drivers/gpu/drm/tegra/dc.h  | 856 +++++++++++++++++++++---------------
+> >  drivers/gpu/drm/tegra/rgb.c |   8 +-
+> >  3 files changed, 514 insertions(+), 361 deletions(-)
+>
+> This is impossible to review. Please split this up into refactor and
+> expand patches. Each should be a separate change.
+>
+> Also, a lot of the "refactor" is just pointless whitespace changes that
+> are just not necessary. Please keep the changes to a minimum.
+>
 
-Yes. FWIW, this is something that's been going through my mind. Our page table
-manipulation APIs (and usage) are way too fragile and allow you to do the
-most insane things without ever realizing it (e.g you can clear a pte, set
-over a PTE, get-and-clear and discard the result, and do all of the above with
-no locks held, set a pte for a folio that's not uptodate, set a pte for a folio
-for which you don't have the lock, etc).
+Well, I did what Mikko asked. It is not my problem that this header is
+a hot mess. Initially I just wanted to add fragments needed by dbi.
 
-Some basic assertions (even if there's no easy way to back down from those)
-would be nice, or ideally yes a rejection.
+> > diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+> [...]
+> > @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_c=
+rtc *crtc,
+> >
+> >       if (dc->rgb) {
+> >               /* XXX: parameterize? */
+> > -             value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
+> > +             value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> > +                     SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+>
+> This type of change seems entirely useless to me. It's neither more
+> readable nor shorter.
+>
+> [...]
+> > diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> > index 0cb0515968b35..2b87bb675d4cf 100644
+> > --- a/drivers/gpu/drm/tegra/dc.h
+> > +++ b/drivers/gpu/drm/tegra/dc.h
+> > @@ -178,9 +178,11 @@ int tegra_dc_rgb_init(struct drm_device *drm, stru=
+ct tegra_dc *dc);
+> >  int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> >
+> >  #define DC_CMD_GENERAL_INCR_SYNCPT           0x000
+> > +
+> >  #define DC_CMD_GENERAL_INCR_SYNCPT_CNTRL     0x001
+> > -#define  SYNCPT_CNTRL_NO_STALL   (1 << 8)
+> > -#define  SYNCPT_CNTRL_SOFT_RESET (1 << 0)
+> > +#define  SYNCPT_CNTRL_NO_STALL                       BIT(8)
+> > +#define  SYNCPT_CNTRL_SOFT_RESET             BIT(0)
+>
+> The whitespace changes here are completely arbitrary, it's changing one
+> preference for another. You're actually changing the contents in this
+> case, so it's not that bad. Still unnecessary, though.
+>
+> > -#define DISP_CTRL_MODE_STOP (0 << 5)
+> > -#define DISP_CTRL_MODE_C_DISPLAY (1 << 5)
+> > -#define DISP_CTRL_MODE_NC_DISPLAY (2 << 5)
+> > -#define DISP_CTRL_MODE_MASK (3 << 5)
+> > +#define  DISP_CTRL_MODE_STOP                 (0 << 5)
+> > +#define  DISP_CTRL_MODE_C_DISPLAY            (1 << 5)
+> > +#define  DISP_CTRL_MODE_NC_DISPLAY           (2 << 5)
+> > +#define  DISP_CTRL_MODE_MASK                 (3 << 5)
+>
+> These are purely whitespace changes. Please don't do that.
+>
 
-I would just add that these very much should be VM_WARN_ON_ONCE instead of
-pr_warn_once(). pr_warn_once() will (AIUI) not be caught by fuzzers, at least
-not as easily.
+This separates register content for register definitions
 
-Also, if they're inexpensive enough, we might want to upgrade them to full
-WARN_ON_ONCE().
+> >  #define DC_COM_CRC_CONTROL                   0x300
+> > -#define  DC_COM_CRC_CONTROL_ALWAYS (1 << 3)
+> > -#define  DC_COM_CRC_CONTROL_FULL_FRAME  (0 << 2)
+> > -#define  DC_COM_CRC_CONTROL_ACTIVE_DATA (1 << 2)
+> > -#define  DC_COM_CRC_CONTROL_WAIT (1 << 1)
+> > -#define  DC_COM_CRC_CONTROL_ENABLE (1 << 0)
+> > +#define  DC_COM_CRC_CONTROL_ALWAYS           BIT(3)
+> > +#define  DC_COM_CRC_CONTROL_FULL_FRAME               (0 << 2)
+> > +#define  DC_COM_CRC_CONTROL_ACTIVE_DATA              BIT(2)
+> > +#define  DC_COM_CRC_CONTROL_WAIT             BIT(1)
+> > +#define  DC_COM_CRC_CONTROL_ENABLE           BIT(0)
+>
+> FULL_FRAME and ACTIVE_DATA were previously consistent, now it just looks
+> weird. Either use proper GENMASK() definitions where applicable, along
+> with modifications in the driver to use FIELD_PREP() and FIELD_GET(), or
+> just don't change it at all.
+>
 
--- 
-Pedro
+This one seems legit, I must have missed that.
+
+> > +
+> >  #define DC_COM_CRC_CHECKSUM                  0x301
+> > -#define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+> > -#define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> > -#define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+> > -#define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> > -#define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+> > -#define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+> > -#define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> > -#define DC_COM_PIN_OUTPUT_SELECT(x) (0x314 + (x))
+> > +
+> > +/* Defines in PIN_OUTPUT/INPUT_* describe pin position, not state */
+>
+> This comment is completely confusing to me. The registers themselves
+> define the state and bit positions within them seem to indicate the pin
+> positions.
+>
+> > +#define DC_COM_PIN_OUTPUT_ENABLE(x)          (0x302 + (x))
+> > +#define DC_COM_PIN_OUTPUT_POLARITY(x)                (0x306 + (x))
+> > +#define DC_COM_PIN_OUTPUT_DATA(x)            (0x30a + (x))
+> > +#define  PIN_UNMASK(x)                               BIT((x) + 1)
+>
+> Given that pin positions are in steps of two for all registers, does
+> that PIN_UNMASK apply to all of them or just PIN_OUTPUT_DATA?
+>
+
+Check TRM
+
+> > +#define DC_COM_PIN_INPUT_ENABLE(x)           (0x30e + (x))
+> > +
+> [...]
+> > +/* DC_COM_PIN_OUTPUT/INPUT_*_3 */
+> > +#define PIN_LSCK                             0
+> > +#define PIN_LSDA                             2
+> > +#define PIN_LCSN                             4
+> > +#define PIN_LDC                                      6
+> > +#define PIN_LSPI                             8
+> > +#define PIN_LSDI                             10
+> > +
+> > +#define DC_COM_PIN_INPUT_DATA(x)             (0x312 + (x))
+>
+> It's not clear that PIN_INPUT_DATA_* can take any of those PIN_*
+> defines. Given that there are only two PIN_INPUT_DATA registers that's
+> probably not true, so I think it'd be good to somehow specify how that
+> works here.
+>
+
+I do not need input data, hence this field is not populated
+
+> > +#define DC_COM_PIN_OUTPUT_SELECT(x)          (0x314 + (x))
+> > +#define  PIN_OUTPUT_SELECT_MASK(x)           (0x7 << (x))
+> > +#define  PIN_OUTPUT_SELECT_PRIM(x)           (0 << (x))
+> > +#define  PIN_OUTPUT_SELECT_OUT(x)            (1 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F2(x)             (2 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F3(x)             (3 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F4(x)             (4 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F5(x)             (5 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F6(x)             (6 << (x))
+> > +#define  PIN_OUTPUT_SELECT_F7(x)             (7 << (x))
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT0 */
+> > +#define PIN_OUTPUT_SELECT_LD0                        0
+> > +#define PIN_OUTPUT_SELECT_LD1                        4
+> > +#define PIN_OUTPUT_SELECT_LD2                        8
+> > +#define PIN_OUTPUT_SELECT_LD3                        12
+> > +#define PIN_OUTPUT_SELECT_LD4                        16
+> > +#define PIN_OUTPUT_SELECT_LD5                        20
+> > +#define PIN_OUTPUT_SELECT_LD6                        24
+> > +#define PIN_OUTPUT_SELECT_LD7                        28
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT1 */
+> > +#define PIN_OUTPUT_SELECT_LD8                        0
+> > +#define PIN_OUTPUT_SELECT_LD9                        4
+> > +#define PIN_OUTPUT_SELECT_LD10                       8
+> > +#define PIN_OUTPUT_SELECT_LD11                       12
+> > +#define PIN_OUTPUT_SELECT_LD12                       16
+> > +#define PIN_OUTPUT_SELECT_LD13                       20
+> > +#define PIN_OUTPUT_SELECT_LD14                       24
+> > +#define PIN_OUTPUT_SELECT_LD15                       28
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT2 */
+> > +#define PIN_OUTPUT_SELECT_LD16                       0
+> > +#define PIN_OUTPUT_SELECT_LD17                       4
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT3 */
+> > +#define PIN_OUTPUT_SELECT_LPW0                       0
+> > +#define PIN_OUTPUT_SELECT_LPW1                       4
+> > +#define PIN_OUTPUT_SELECT_LPW2                       8
+> > +#define PIN_OUTPUT_SELECT_LSC0                       16
+> > +#define PIN_OUTPUT_SELECT_LSC1                       20
+> > +#define PIN_OUTPUT_SELECT_LVS                        24
+> > +#define PIN_OUTPUT_SELECT_LHS                        28
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT4 */
+> > +#define PIN_OUTPUT_SELECT_LHP0                       0
+> > +#define PIN_OUTPUT_SELECT_LHP1                       4
+> > +#define PIN_OUTPUT_SELECT_LHP2                       8
+> > +#define PIN_OUTPUT_SELECT_LVP0                       16
+> > +#define PIN_OUTPUT_SELECT_LVP1                       20
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT5 */
+> > +#define PIN_OUTPUT_SELECT_LM0                        0
+> > +#define PIN_OUTPUT_SELECT_LM1                        4
+> > +#define PIN_OUTPUT_SELECT_LDI                        8
+> > +#define PIN_OUTPUT_SELECT_LPP                        12
+> > +
+> > +/* DC_COM_PIN_OUTPUT_SELECT6 */
+> > +#define PIN_OUTPUT_SELECT_LSCK                       0
+> > +#define PIN_OUTPUT_SELECT_LSDA                       4
+> > +#define PIN_OUTPUT_SELECT_LCSN                       8
+> > +#define PIN_OUTPUT_SELECT_LDC                        12
+> > +#define PIN_OUTPUT_SELECT_LSPI                       16
+> > +#define PIN_OUTPUT_SELECT_LSDI                       20
+> >
+> >  #define DC_COM_PIN_MISC_CONTROL                      0x31b
+>
+> If there's only one PIN_MISC_CONTROL register, does that take these same
+> PIN_* values as bit indices?
+>
+
+Check TRM
+
+> Thierry
