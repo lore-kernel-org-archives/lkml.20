@@ -1,55 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978803;
-	b=3x6x39o9ZrxyWlW29uoU75hARy5cqr/It9TKWaTLW5X+XxL9b65DzlDrlvGF7aQ8/9J/
-	 6BxlRQWBm/g/uFMNI8l6an/CLLTWSYZgaFlIr3V3HFy8sjLCy2RhzXSTY5/XAmOGIBbHr
-	 5VRvDOLqUYizlCS0F7PSFR7v2TMvESYf2P9GMuUgDlRxQITiYYFH+fBOH2yzY8OpakauT
-	 JglGem1LdT0sWuWTbNsB79AwEKVJqcGPpmN2BHk1jLsNBcuFOqQIWF4kLBHzBdV0PIOIU
-	 pfwh1V7oIaXG7HX7upnH80DaYn9TOwjLr3CTjKeV2DdrXHTPH2ur4dMMne/s6isjgxg==
+	t=1793978806;
+	b=0IUihQB2Nn7vDqlY2c+sVbO83H29EiFROp2w4RFKKCWDVXxQwI09Vofk0wmX0RjWd8at
+	 hKweIGQo+J2/QdA7f7z3wDlCD0lELFGNk7hGEOmf51gs1N4u+j+TDDsMGU0n6rqs5UTFq
+	 kHtxDWuY+y6tTWQks49q5p/IwfG9RjTJ+e0GV/ThnvsiAzDZu3Z+h+SJDyN1DxEucd4Mq
+	 31BGW4PDxZFur4Kw16iViiLcnCgHnZtzbWLsQ1Kj3P+aKXlWeSJ2cRBqtqNskGMksqRUG
+	 Vgd6utDnCloZKfCsN37iLuK9JibjlaToo89kZVjPvRizI4g4NVeVRFnGqJ0ZZHX1l6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978803;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NFRk93kVwDnKUZB/pcB0eF0UozOQGGbpKAYRpLOWGWw=;
-	b=es+0Ennyjx2h1r5bxFe+DnX8VyGrdNwM+TN9jqdZBOgxB1X8HKDhZ6hxCkblbH5PK2JZ
-	 lPIaU18qdGVEeAK6yIx/H2ld1ew8sa+7QYoTUBEBqdHgIO60ZqvwcF7Cqk6zjYoaWZ4VZ
-	 iI4d3n/DF5fxFeJbaNnO3YpVtIPY7Qx+AN70xy6Z5PK6vfE/LLRSzYj8hrGWJaXGug8i0
-	 PXoGA+AhOuuC0qf173Y7UlIrZ6NqxBWJpFbKTialhzOWrsrB26PZtJIwV1B1vWy4M6MqO
-	 fMexWItXMYWDddqFyfSm5B+YZLi4Qhsl5AH/DvIC0yzA5w3yCjNqRixAQ+uII62FixA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978806;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=PmLNQiM+b/i4yqiaouUxqW99UCTEdSgvgxVnHneaHPg=;
+	b=GXn816XmTpPJiGZtFLRgSdcuDCeplgH77SVjrhMm4W/4UuoQX7iTwoQLTJ7kbE5CDAzK
+	 oEmMYiZmOdUPZ8lzNbMavaISBMdjfP19BSoV6f4FePX6FJUBgM3Wlw33Ehhi4DUCgSax0
+	 6sdz12mUA3aAsQJ0Erm7u3SzHQMQOuC2tkvaOu7blYkqFrmb980oKCdk2CxjzFGSlbhoa
+	 fkaFXy92NzCCwsoQxX0ryPWt00n6pO2EzoP+HL2JOKpuDUmYPc4g8u3b1uMQK2X6Eob7+
+	 VrZi6K6pmEvpHBAYwxH+HtWTRBu6dCATigfq3jfKzuCLnwl8Wya17a57g7NkxzplNCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=exabit.io;
+	spf=none smtp.mailfrom=exabit.io;
+	dkim=pass header.d=exabit-io.20260707.gappssmtp.com header.i=@exabit-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hCkNAcN6;
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC25E606D808;
-	Fri,  6 Nov 2026 15:26:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3EA1F008A4;
-	Fri,  6 Nov 2026 15:26:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88031606D82F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88031606D82F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=exabit.io
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=exabit.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=exabit-io.20260707.gappssmtp.com header.i=@exabit-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hCkNAcN6
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso298537a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:26:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793978797;
-	bh=NFRk93kVwDnKUZB/pcB0eF0UozOQGGbpKAYRpLOWGWw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hNmDLPIPCIvMSZn0FOQJtTkkZXYaqyFnlZNSYPuCKTcNHe51SqoKWL3VMdVHTVsM7
-	 K9HIuP0ELk+KrsbSxnuHYQ2Ka8ZGcjchQ6Uxijf+zNY+KstKz0upt/iNNUPs6A4lbN
-	 cpGjgUjU6ke1JlbVlOQ8kyyZm4LV2/eGZZyLR2rs=
-Date: Fri, 6 Nov 2026 07:26:36 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Abhishek Bapat <abhishekbapat@google.com>, Suren Baghdasaryan
- <surenb@google.com>, oe-kbuild-all@lists.linux.dev, Linux Memory Management
- List <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v5 2/5] alloc_tag: Introduce IOCTLs to toggle allocation
- tracepoints
-Message-Id: <20261106072636.524e8f0a6a618e7b28988273@linux-foundation.org>
-In-Reply-To: <9a4323e1-a966-41fe-8268-9d6621346fea@linux.dev>
-References: <37ae7dca766994d3872fcc65b623a80d5d506369.1793818636.git.abhishekbapat@google.com>
-	<202611052344.mDV2DB89-lkp@intel.com>
-	<20261105172104.339c6f598a65056ed46e56fc@linux-foundation.org>
-	<9a4323e1-a966-41fe-8268-9d6621346fea@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=exabit-io.20260707.gappssmtp.com; s=20260707; t=1793978805; x=1794583605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PmLNQiM+b/i4yqiaouUxqW99UCTEdSgvgxVnHneaHPg=;
+        b=hCkNAcN60l2Vf8447IZf1hvw6DltriamM4yE7Dvse2dLymANc9tml7+AoF28aZovRF
+         oYxUPZ0IZy8oNqX1yM8/Uu/qfVn8U48ADg0sPwQhLD4NL6iqjPQnCQpO77Dd0uHD30SJ
+         YnvCHIBodcy47vLzcl+4bMySjQsxIxJC2YZ0ApUrBdYb6+tSBi6L8TIkr4Fvav6cUAQs
+         YEwx3EdorBEs7iddltZUscP715ujCx/exiKC3pX8sQFSLRQqxcksa0iuNYuzQPpH6joc
+         pM2DVS7KI4AXhylI49qlcVcbg4Y3UE/AaFglnvfGjBMQpnLtm2FCGcfcmdjNzMh4kCQl
+         rB8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793978805; x=1794583605;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PmLNQiM+b/i4yqiaouUxqW99UCTEdSgvgxVnHneaHPg=;
+        b=YjIZjfvk8cp3Th5yF/D1On5gnyBPQ+7D3czLKf4pcHorpH2YfRpHtRbfdXeR8WY+Dj
+         dm7k8of6/9UY44bnfItk4Ur6GYLNKS397WrYxrz2/CPFKS64hhVDEBv9UNLCWayOMo2q
+         M5fJjLd/Lu4ixuMHJEfNMhprTZLq8gfk8WpEqbFdHHqoGTF/LVbn4kvcZ3pzaxgezZSo
+         KGcQTxCDordW9IvMRT40dapm9MD7Acjv5D7dFQNX/0mEDSkvdZTS9lZ6ClIMuvcq6aI+
+         bz98UfF2fAn9D+e4ya4OeRW2fG+DbTGJ7Yyj5oIWmFlrWGqXJdC1Ij6SJvwd23DVD/r9
+         p6pw==
+X-Forwarded-Encrypted: i=1; AL+hErHwiZllofTmqsdikCITP8KK4XccinDpq48QwOrczW0PUwDsTl7t3CKdQoLjUsjkYcYgarh/Mb11fS95ilE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eDkw/vYgWlTAMjk1cDMViVSzKm4cszPCfcplLDGJ14j2XMDqQ
+	HU0IoBEeX4ajOOKb7M1SzGANlkqyAYSFYeHIm3YDdFqHOru4wH62offvdPbjFZqVQVQ=
+X-Gm-Gg: AYBFou00XHuGMeV/LkSsioDKKKExSOEwePL1dTOkKe5UbTjCrt4pZMmbflMTJqokaT3
+	aPE8w5IjOseEo2OSnRksr1O8a4ONRupj6ccieHm0qZAfLW3466mcgJ67Y2AD46nADkM3/s+wwhJ
+	SItWzJ2pEgAcq5COrBgZKN3ZrhvJfAfqLSzK2xFzr37J/aTWpps+nQpOXZ+OLojFjYgYTH7a2iO
+	QJr5BZ+EE6rFzjL9vVWQ9RsycahMNVi/YfpaHoKwqXKIkwqyb+PkmfqLc8zy6x/Yeb+6khmEGK6
+	4tbY0aoxnRyGV2KOKM4BjnsR0UHwPEC7wEO1NVAkj+iTmXMm8OEulRagmXAXyHLKCo2q3DWC0rM
+	Q5Yp9fMzLRGLm0+M1J/5hiMhc+VvVMPrVxTX94nUu1vIYdfTkY1vbWoXb9iSzwyIP6auHxTQs5B
+	qxetKq4jL4C6XjcYt0l874AWAj0XeQRUZFENDM58wzKDGbGrnJM9HkgZ9eEkyNAxDCQ/UFW+GEC
+	e26PWtt7lEVh0gb4CLdSGQcy42x0A+PPbtGZ3+GINzJ1yl1kqB6AVV/vblkm+DewXwwhLsYtIGt
+	Km7w6nnFbx04tzfROR4GZD3OJfco8jUNxFEpjsgbdNcsNGYE8WUGMM5PpEOvXfiXjk2i1Kn/2nq
+	+0HXNCZxUt0B4TMofRQH46gI6EqjiAD5RLPZF0PYsTmXzTgdZrfyqVQ==
+X-Received: by 2002:a17:90b:1802:b0:3ac:80dc:f407 with SMTP id 98e67ed59e1d1-3b0db71871fmr2694763a91.60.1793978804517;
+        Fri, 06 Nov 2026 07:26:44 -0800 (PST)
+Received: from macpro2019-01.. (c-24-20-225-94.hsd1.or.comcast.net. [24.20.225.94])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b323c18fsm8112112a91.4.2026.11.06.07.26.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 07:26:44 -0800 (PST)
+From: Nikolas Joshua Britton <nbritton@exabit.io>
+To: Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof =?utf-8?q?Wilczy=C5=84ski?= <kw@linux.com>,
+	Mesih Kilinc <Mesih.Kilinc@sony.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 00/14] PCI: Resource placement algorithm fixes
+Date: Fri,  6 Nov 2026 15:26:42 +0000
+Message-ID: <20261106152642.23118-1-nbritton@exabit.io>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
+References: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,46 +107,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 6 Nov 2026 15:54:33 +0800 Hao Ge <hao.ge@linux.dev> wrote:
+On Fri, 6 Nov 2026, Ilpo Järvinen wrote:
+> There have been major changes so any retesting is appreciated (the
+> 4 candidates patch is largely the same so I kept the Tested-by tags but
+> everything around has been changing so even that is on the borderline
+> when it comes to the validity of the existing tags).
 
-> >  
-> > -static inline bool alloc_tag_trace_enabled(const struct alloc_tag *tag)
-> > +static __always_inline bool alloc_tag_trace_enabled(const struct alloc_tag *tag)
-> >  {
-> >  	if (static_branch_unlikely(&alloc_tag_trace_key))
-> >  		return tag && alloc_tag_is_traced(tag);
-> > _
-> > 
-> 
-> 
-> Thanks a lot for looking at this - and for putting together a fix at all.
-> 
-> Perhaps alloc_tag_is_traced needs the same treatment as well?
-> 
-> Even with your patch applied, I still hit the warning, just attributed to a different symbol:
-> 
-> WARNING: modpost: vmlinux: section mismatch in reference:
-> alloc_tag_is_traced+0x10 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
-> 
-> Marking both helpers __always_inline clears the warning in my build, and it would fit what the series
-> intends for the fast path anyway.
+I retested v5 on the Mac Pro 7,1 from my report (two Vega II Duo cards,
+four Vega 20 dies behind two root ports, BAR0 resized to 32G on every
+die).
 
-Great, thanks, I added another -fix on top:
+v7.3 and later don't boot on this machine for reasons unrelated to this
+series, so I tested on v7.2.15 plus 5012a6953208 ("PCI: Do not add
+hotplug reservation multiple times"), which 11/14 and 12/14 depend on.
+All 14 patches then apply as posted, and drivers/pci/setup-bus.c and
+drivers/pci/setup-res.c come out byte-identical to v7.4-rc1 + v5.
 
---- a/include/linux/alloc_tag.h~alloc_tag-introduce-ioctls-to-toggle-allocation-tracepoints-fix-fix
-+++ a/include/linux/alloc_tag.h
-@@ -156,7 +156,7 @@ static inline void alloc_tag_clear_trace
- 	atomic_andnot(CODETAG_FLAG_TRACE_ON, &tag->ct.flags);
- }
- 
--static inline bool alloc_tag_is_traced(const struct alloc_tag *tag)
-+static __always_inline inline bool alloc_tag_is_traced(const struct alloc_tag *tag)
- {
- 	return !!(atomic_read(&tag->ct.flags) & CODETAG_FLAG_TRACE_ON);
- }
-_
+Every BAR is assigned, both root port windows are 96G, and all four dies
+get their 32G BAR0. The first root port:
 
+  pci 0000:06:00.0: bridge window [mem 0x9e800000000-0x9ffffffffff 64bit pref]: assigned
+  pci 0000:07:00.0: bridge window [mem 0x9e800000000-0x9ffffffffff 64bit pref]: assigned
+  pci 0000:08:08.0: bridge window [mem 0x9f7ffe00000-0x9ffffffffff 64bit pref]: assigned
+  pci 0000:08:10.0: bridge window [mem 0x9e800000000-0x9f0001fffff 64bit pref]: assigned
+  pci 0000:0b:00.0: BAR 0 [mem 0x9f800000000-0x9ffffffffff 64bit pref]: assigned
+  pci 0000:0b:00.0: BAR 2 [mem 0x9f7ffe00000-0x9f7ffffffff 64bit pref]: assigned
+  pci 0000:0e:00.0: BAR 0 [mem 0x9e800000000-0x9efffffffff 64bit pref]: assigned
+  pci 0000:0e:00.0: BAR 2 [mem 0x9f000000000-0x9f0001fffff 64bit pref]: assigned
+
+The second root port (14:00.0) has the same layout at 0xbe800000000.
+
+Compared with v4, the two die chains swapped ends of the window: 08:08.0
+and the windows nested below it (09:00.0, 0a:00.0) now sit at the top,
+with the 2M BAR2 at their left edge. That is the case the dropped
+nested-window fix covered, and it still assigns without that patch.
+amdgpu binds all four dies and compute across them works.
+
+Tested-by: Nikolas Joshua Britton <nbritton@exabit.io>
