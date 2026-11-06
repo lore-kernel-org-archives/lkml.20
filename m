@@ -1,41 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.181.193.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997465;
-	b=EXRYYigy7nFCVVJK4a5ZnOT7m8TDVUci8yUlSEEgObQVusqloaZNKIysmzZcye7Y/Wir
-	 4yDKFjApIPhzZypn39zgPYKTO1JRWBwR9P0IxXkwytBVHV85XxRyh96wYiRSIgeAVAmxU
-	 sp78r2rhJt5qogrvw24OwRE2lUsxdOrgt6Fjg2Xe1XnW4n0ggtVMc1GcmhnksCXVowAvk
-	 C+kU48SzKgnnO6WfW1F21IbKH58KtOIuo0sA9pS+tRSBxYa68HvtVv8Yuufk7uyUdz6kE
-	 pZ5Vaxnb9iRQmE/CrLL6SLzBciH6LNo8RU1ICihuUbxhGVQspVJnObMph6jF2vdMjNw==
+	t=1793997480;
+	b=itqc/KEXStLZBNU205/EFWlJt822M9vgjEc9Epz0eoLQiygcfmErwZn2Swx7rTVSraGQ
+	 D1bH+KatVbN15Y/gvZb3idqaW3TJwn9YVYRA1Hp8vi5qVbfjJeOhjFWVccKPT1HHp4PXn
+	 pUzrIcYjpjqMRiWAOHk7uSleCNQq8OJc9/1AftjnK1I68Ygu4LchPRflKFvfQs7Yki/DL
+	 alsFFKSKNY3sd9aG4238Hqr9dr+WYCTDUFcVeVcYztTqElJ8Iq2K8CICScmJ4GVtrAPKo
+	 gfY+8gSv7EwkM87w7qzgZHItHpyqFbyyNtl8i1GSZtNFJPl/uShTBBGMfigE2qK06Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997465;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=73dt1ns3WoQ1A4eVfdflZRp8nnX8v2Q1WwP7myyWitU=;
-	b=TYjEQe+p4EfACe9Cvag/U9aD+k8S9OgXPEye514oQ2TYC7F6ab/OkR+oHQ1g9IFM0hIO
-	 ckbKesz4MVXrb3ExB76kvtI95dDB2ls6XDV6T4g+hpkj17nU4PmG3/5OuAvDrPqxVMw5J
-	 JOCFcqrdudtZS5IB90mxHTce0wQ43h78E9Hzga1TcJq8k2c5e3gP+8bDl7un1MBo1wNVv
-	 ZnwrbnouBi/vqDTHVMyXHekScdqxTaeXfYqVLCYRX6ubENead6y4l12Dtd2FUbNgNLniN
-	 HMjd6CcYQm24QRGjIuPj2BMipvXgY9XgskCNn+Te7LHVFYkRyWsXbAEkT2ZWtTCopjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997480;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CWFtzEGOjYXWWrRXdjVOFSZ25rh8/v8jlZjeE8XoHSI=;
+	b=GcdXtZBtYmnG/UcJPm85gaSUSPvUIljFMxFakuDSUjv8Gv8FdZgc5dIgyH4TFEFtzRly
+	 grg/AVwArkbgknXjXmOmfLgMVwCRiSK5NNWM24+t8TJzekfeUAU3X7nLrn49H0UngUnW8
+	 SD03CeIu0f5iJMO/1GoRxFvDM/6ZXz6hHVtqmRw30hVVznATKZ9ulP4KYd9/6x6Vq1y/Q
+	 UY9uvCEF2+m4l+Ksi9QORCAP9zVAs0uI1595nF8qnJkf2V12uiEF2EUEMkca+Usosxcga
+	 /b6dgpOBIUAnBqTlLdZPZdoZRg3xdiXu0+6wlYZ+1VZWXduHzxqFPFyKbp8zh5UbRxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=auroraos.dev;
-	spf=pass smtp.mailfrom=auroraos.dev;
-	arc=none smtp.remote-ip=95.181.193.9
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CWIvhJ2H;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AF7606A326;
-	Fri,  6 Nov 2026 20:37:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8AF7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from [192.168.2.104] (91.78.25.222) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Fri, 6 Nov 2026
- 23:37:34 +0300
-Message-ID: <1b4d1203-4af9-469f-9c20-52dfda499916@auroraos.dev>
-Date: Fri, 6 Nov 2026 23:37:34 +0300
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB1A606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CWIvhJ2H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670341F0089F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:38:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793997480;
+	bh=CWFtzEGOjYXWWrRXdjVOFSZ25rh8/v8jlZjeE8XoHSI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=CWIvhJ2HHH8jG9uSfhCSDdMluji48syxsypheLFVGyyvHBde2UEqpQ7PBfhRVkViR
+	 tMaGtPq4x8VjhvDEoAKJvxMAQBD7Bb9wj3Y1CiUgtZPWixG5xbxne+eYvyMrafEso2
+	 g1oZkPfPhld8HDgxl9vybcKhTDGBcegQH6sj4brzD+XyVS6gy5PEj4TD5EPTzqBXGv
+	 62DS2k9UdIpdnGjfiQcc4DrXZ7OA36W8GXQvk0GrM8RjRA+GLXdAKMZS+MrWIMAfjw
+	 cpAyf88PllwA/p4krB+dhgBx+zfll9+QK80qTYpysVv4RTEp7gP8XiG6CoZBOOdSzU
+	 8Ceq3dJukGw7Q==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5be47aa555cso885798e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:38:00 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHbXMsRWJ7/aux+Um2nq5FBPBYdzJrO3o1bxkmQ4ONu4StqZlk7ih8FnNptv3ci/oUfm5azEcCgytBPoNQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BXyz+0z9Z/femkf9opkL/TbZPvw8WuxtvpT1gMtwdETStux/l
+	pF8qM2t7a6vsBl86jSlyf9BUVAKfznlWirgnkHiTfwDRl7YEVSfo1jSHBTffmjmxwEltc9vDYBi
+	HJobRauJP9jHV+5F0Y6BKN27eksVsra0=
+X-Received: by 2002:ac2:5692:0:b0:5b6:1a7c:27 with SMTP id 2adb3069b0e04-5c003c0903dmr1289753e87.42.1793997478844;
+ Fri, 06 Nov 2026 12:37:58 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,69 +58,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] pmdomain: rockchip: Don't log when of_clk_get() fails
- with -EPROBE_DEFER
-To: Yao Zi <me@ziyao.cc>, Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner
-	<heiko@sntech.de>, Shawn Lin <shawn.lin@rock-chips.com>, Sebastian Reichel
-	<sebastian.reichel@collabora.com>, Midgy BALON <midgy971@gmail.com>, Finley
- Xiao <finley.xiao@rock-chips.com>, Frank Zhang <rmxpzlb@gmail.com>, Chris
- Morgan <macromorgan@hotmail.com>, Kevin Hilman <khilman@linaro.org>, Caesar
- Wang <wxt@rock-chips.com>, Elaine Zhang <zhangqing@rock-chips.com>
-CC: <linux-pm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20261105001257.1368266-1-me@ziyao.cc>
- <20261105001257.1368266-3-me@ziyao.cc>
- <71b77625-8475-43da-a62b-983cf572229d@auroraos.dev> <au2UvnY0CdGTRnum@pie>
-Content-Language: en-US
-From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-In-Reply-To: <au2UvnY0CdGTRnum@pie>
+References: <20261005153723.2644331-1-fuad.tabba@linux.dev>
+In-Reply-To: <20261005153723.2644331-1-fuad.tabba@linux.dev>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 6 Nov 2026 21:37:45 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0i4wc1oeRZ+eswsLErgchfQa0Mmi8K7nBM7Mb9T7NToHQ@mail.gmail.com>
+X-Gm-Features: AclHuK89uJyG-LZ30b3MHdFmqSZ2vlWQfjg36o0s-bFfSBL5BozxQuU83pcSs24
+Message-ID: <CAJZ5v0i4wc1oeRZ+eswsLErgchfQa0Mmi8K7nBM7Mb9T7NToHQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] ACPI: tools: Fix stale headers in incremental builds
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
+	Pawel Chmielewski <pawel.chmielewski@intel.com>, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Fuad Tabba <tabba@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+Content-Transfer-Encoding: quoted-printable
 
-On 11/6/26 11:50 AM, Yao Zi wrote:
+On Mon, Oct 5, 2026 at 5:37=E2=80=AFPM Fuad Tabba <fuad.tabba@linux.dev> wr=
+ote:
+>
+> Hi folks,
+>
+> Two fixes for incremental builds of the ACPI tools, which compile
+> against old headers after a header changes. The first replaces the
+> copy of include/acpi with a link, so the tools see the current headers.
+> The second adds dependency files, so objects that include a changed
+> header are rebuilt.
+>
+> I found these while fixing the same kind of bug in the KVM selftests'
+> sysreg header [1].
+>
+> Based on Linux 7.3-rc5 (72d3fcf802c45).
+>
+> Cheers,
+> /fuad
+>
+> [1] https://lore.kernel.org/all/20260922071945.693714-1-fuad.tabba@linux.=
+dev/
+>
+> Fuad Tabba (2):
+>   ACPI: tools: Link include/acpi instead of copying it
+>   ACPI: tools: Rebuild objects when a header they include changes
+>
+>  tools/power/acpi/Makefile.rules | 15 ++++++++-------
+>  1 file changed, 8 insertions(+), 7 deletions(-)
+>
+> --
 
-[...]
-
->>> Current error handling code considers -EPROBE_DEFER as hard errors,
->>> logs misleading dmesg like,
->>>
->>> rockchip-pm-domain ff600000.power-management:power-controller: power-domain: failed to get clk at index 0: -517
->>> rockchip-pm-domain ff600000.power-management:power-controller: failed to handle node power-domain: -517
->>>
->>> Use dev_err_probe() at the callsite of of_clk_get(), and check for -EPROBE_DEFER in places
->>> where its return value could propagate to.
->>
->>    To where?
-> 
-> rockchip_pm_add_one_domain, rockchip_pm_add_subdomain, and
-> rockchip_pm_domain_probe. I think it's obvious in the diff and too
-> detailed to the commit message, so didn't add them here.
-
-   Ah, I was too hasty and misread the patch, sorry about that!
-
->>    And I didn't understand why you couldn't just call dev_err_probe() everywhere --
->> the error code seems to always be propagated...
-> 
-> This was what I originally wanted to do, but dev_err_probe() sets the
-> deferred probe reason, and if we call it several times, the earlier and
-> more specific messagess ("failed to get clk at index %d") get overridden
-> by the later and less descriptive ones ("failed to handle subdomain node
-> %pOFn"), which I think would make it harder to debug.
-
-   Seeing it now, sorry again! :-)
-
->>> Fixes: 7c696693a4f5 ("soc: rockchip: power-domain: Add power domain driver")
->>> Fixes: 6be05b5ec161 ("soc: rockchip: power-domain: add support for sub-power domains")
->>> Signed-off-by: Yao Zi <me@ziyao.cc>
->>> Cc: stable@vger.kernel.org
-
-   Not sure the patch qualifies for stable though...
-
-[...]
-
-MBR, Sergey
-
+Both patches applied as 7.5 material, thanks!
