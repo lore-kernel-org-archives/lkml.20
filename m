@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793970209;
-	b=vokcaXylONkV7BCqGwkr8w6QLyhJ9DslWGLFlyxkvNXMetNlD2GBLZ/ixN0UmDUSuupB
-	 JVzsZFlV6Fep0T2MN//Ung2dAjObN4HCOCVtXY6dHE61TaiGAtJHMgqGYSnsRmrDvkRBM
-	 mf1GerDkvHeAbVxYz81YmAzbCt2mckWfXi0bMUejCKGng5deci5ZkKoGbhcxWjD6CWyrO
-	 r+f5kMjVo6e8sEZRgp2iq5Qo7B62oHTT6XzuhuspQ4VcAVrcDcSEQbZ/KkvnFMgQ/0Y7m
-	 HTagVcMc7o+ZnUnVDthh4ydfy2LgKKPiz2OO530UdcGEOh/VoeHjLhf3B8AXYdwST/A==
+	t=1793970246;
+	b=5DFJt0rFaZ7761f1DOPyTHgdjOOrDfNd+UWNOUqZgfp/AzR24DiRUBJxF73cGw85WsJh
+	 Py8T5qGnGdcEfg9tI2/YjPkURcKAowhs7MWPtO0r7u0DtOPChI6UJnCNW61Vgd5kLAAZ3
+	 KQtHBMKTFmPfjTkisZEqHSXOIqsWew88R7cCGWunuuzNXsL5zgWVS42qSZZV6giTPYd5V
+	 eBbQaGekFmIigCtdXv8Z/wBW38OcBBt59AlBJZ5mGVAldZMDqy2A9LKWl/7DE69cJxu3q
+	 62Fxs2GYkCjWyPcgmCcDcV6Eh0vRD0b9mkSsB2EDIsAvu3srQXpYFWAyukYrVoSjXVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793970209;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793970246;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=G6d9Hyix50ohgjp+hGlcATwp07VnHaSAUW6T9XPYkFA=;
-	b=2p7wY/RmTPuccmL/fbfpK+ljYnFKjUn9NksF5KoP5i0lRrL00X5fEkD90ieCotUlnZxu
-	 nOzeIBjNvS2JGe12FJQqZ4ck/lXJ7ERJtUeRSZymNoAD+ZZN0EQv6ljgAyp3/5cSrtcND
-	 psJjU6EMcwrsjQwqtUwSjE62LWU6EwNfLgJ3tpMr4Kws1KBQQo6qxFjiFH9lyix4+Q7aO
-	 McRh986anDklL2bnUhqeqSxOS0+To6Sq2Ue0Is9S3ei9ZF2ifTIprxVuOjMb1aP8AWN3y
-	 9ciK+cOPCHEZEnP955cJMg+YspoVrjnblFqOsGj1dsoRWZGmq0hJEA2UI2e1AAjg0QQ==
+	bh=UCKBeOZ2ggoGewJRZ/nGZX9hVpqu5lT56pUi5B+/g3U=;
+	b=XknBW2rw974C49shKurE8VQKyBrleV1Xhf5MPoyCQfIdSjnkXgLnG5qAknYJLD8mOaq1
+	 UQme5E8gcu9f1pvKWqW7jAoQC7urKRttwgtqex4yqAhsz/PQcA55vpg3PxLEL6+U4P5eG
+	 dUAavskKNNpHDO/Ij5jzqd66/8pzUIzRNfCy5HctxhD9/ybSaH+L2z0KBsOJC0bB94NDN
+	 kivz0CgUh/PJgaO7MHyRT3qtgja8hk0gobKmslhSesZHebEwZq4mHyDb4shyQ1WhT8dVW
+	 v2i/SzWlIbsvZmlM28V4MUws3SZg3i7FDr/tA6I0dqKemEP//7UiMFxRdl/1ac2dm3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DwDYMQfq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b10CHmSn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25358606A326;
-	Fri,  6 Nov 2026 13:03:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34918606A326;
+	Fri,  6 Nov 2026 13:04:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DwDYMQfq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2CE51F0089F;
-	Fri,  6 Nov 2026 13:03:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b10CHmSn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4F51F0089F;
+	Fri,  6 Nov 2026 13:04:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793970208;
-	bh=G6d9Hyix50ohgjp+hGlcATwp07VnHaSAUW6T9XPYkFA=;
+	s=k20260515; t=1793970246;
+	bh=UCKBeOZ2ggoGewJRZ/nGZX9hVpqu5lT56pUi5B+/g3U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DwDYMQfqvkMmg3WmeBWqF6ofkcJhvQ66ki9hUrk+LQtOVGt4Et+nsDBL2bwkNgsBn
-	 vPEQ1nOzcj+Voc3wcqBhf8XwmXVQCXKyitNyvvPxStzKafKvNK6701rBxQad/lhnQo
-	 3LXbwOQmCSsA9mwIyFvvdKxsQ/4qcxQAhz5zHTnRyH816j+G1sq/5PtpciopeFkhyX
-	 wqf5ePvvynHVdApJLEmBkMI/32boX6HMnuTuOlDNNcH0TG8rD8V2Plw5/xxc2x2nfu
-	 qyFXnoKgPEgg8nyRjIGK1wPc34lidKhmZ5xgNncnds84fxMRDOof8NL3sxotx8WkCV
-	 E3AMjTWw8pphQ==
-Date: Fri, 6 Nov 2026 14:03:24 +0100
+	b=b10CHmSni3p1IQx+zj+Oxy9biEFFjGn4dFG1hcgJD4XJStyJvTSYsoAqotVFpjzEW
+	 wfR11z4t8IuTXMH7g5iH7ZHlAAquWOstgwVODu3ayQVRUqpkqnQbvVCbjEj8shp3AW
+	 FzRnKBCy8981CTK6EW6K7zQ3i8qKjcMfe+CFNjnYT96i1TiUxK69/5JOayqmTv7G1X
+	 bK1QJcUVY+oqu48+J4/EN+fmzcwMZiRyOHZr2euEGiCvMTIotUmw/Tah5Wjlp5hENR
+	 yXH17jV5Bp1Z6MUmbntpGD0ldNQjzwIeL5a1ImZM9l5mYDU5Km8RvZKB7gNHkn2SLP
+	 7QwUhEFQxW80A==
+Date: Fri, 6 Nov 2026 14:04:02 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"open list:THERMAL" <linux-pm@vger.kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] dt-bindings: thermal: Use signed integers for
- coefficients
-Message-ID: <20261106-portable-alluring-hedgehog-9e2aed@quoll>
-References: <20261103214357.2700244-1-daniel.lezcano@oss.qualcomm.com>
+To: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	Sander Vanheule <sander@svanheule.net>, Bert Vermeulen <bert@biot.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] gpio: realtek-otto: Add RTL9311B support
+Message-ID: <20261106-glossy-tarantula-of-finesse-f9d724@quoll>
+References: <20261103215316.1544492-1-joshua.scott@alliedtelesis.co.nz>
+ <20261103215316.1544492-3-joshua.scott@alliedtelesis.co.nz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,38 +61,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103214357.2700244-1-daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20261103215316.1544492-3-joshua.scott@alliedtelesis.co.nz>
 
-On Tue, Nov 03, 2026 at 10:43:57PM +0100, Daniel Lezcano wrote:
-> The coefficients property describes the coefficients of a linear
-> equation used to derive a thermal zone temperature. Both the slope
-> and the constant offset can be negative, and the thermal core stores
-> them as signed integers.
+On Wed, Nov 04, 2026 at 10:53:16AM +1300, Joshua Scott wrote:
+> The Arm-based RTL9311B switch SoC has the same GPIO controller as the
+> RTL9310, with port A in the most significant byte of each register and
+> the same IMR layout. Add its compatible and allow the driver to be
+> built for ARCH_REALTEK.
 > 
-> Existing Device Trees already rely on signed values. OMAP4460 uses
-> an offset of -9301, while OMAP5 uses offsets of -1791 and -2992.
-> Broadcom platforms also use negative slopes. Declaring the property
-> as uint32-array does not represent these values correctly.
-> 
-> Change the property type to int32-array so schema validation decodes
-> the cells as signed 32-bit integers, matching their intended meaning
-> and the thermal implementation. The cell width and binary encoding
-> remain unchanged, preserving compatibility with existing Device
-> Trees.
-> 
-> Fixes: 1202a442a31f ("dt-bindings: thermal: Add yaml bindings for thermal zones")
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> Signed-off-by: Joshua Scott <joshua.scott@alliedtelesis.co.nz>
 > ---
->  Documentation/devicetree/bindings/thermal/thermal-zones.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpio/Kconfig             | 5 +++--
+>  drivers/gpio/gpio-realtek-otto.c | 3 +++
+>  2 files changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+> index 55e4280029d8..bc584da1abbb 100644
+> --- a/drivers/gpio/Kconfig
+> +++ b/drivers/gpio/Kconfig
+> @@ -645,14 +645,15 @@ config GPIO_RDA
+>  
+>  config GPIO_REALTEK_OTTO
+>  	tristate "Realtek Otto GPIO support"
+> -	depends on MACH_REALTEK_RTL || COMPILE_TEST
+> +	depends on MACH_REALTEK_RTL || ARCH_REALTEK || COMPILE_TEST
+>  	default MACH_REALTEK_RTL
+>  	select GPIO_GENERIC
+>  	select GPIOLIB_IRQCHIP
+>  	help
+>  	  The GPIO controller on the Otto MIPS platform supports up to two
+>  	  banks of 32 GPIOs, with edge triggered interrupts. The 32 GPIOs
+> -	  are grouped in four 8-bit wide ports.
+> +	  are grouped in four 8-bit wide ports. The Arm-based RTL9311B has
+> +	  the same controller.
+>  
+>  	  When built as a module, the module will be called realtek_otto_gpio.
+>  
+> diff --git a/drivers/gpio/gpio-realtek-otto.c b/drivers/gpio/gpio-realtek-otto.c
+> index 5d98ad597d9e..a4f010a0d2cf 100644
+> --- a/drivers/gpio/gpio-realtek-otto.c
+> +++ b/drivers/gpio/gpio-realtek-otto.c
+> @@ -352,6 +352,9 @@ static const struct of_device_id realtek_gpio_of_match[] = {
+>  	{
+>  		.compatible = "realtek,rtl9310-gpio",
+>  	},
+> +	{
+> +		.compatible = "realtek,rtl9311b-gpio",
 
-drivers/thermal/thermal_of.c still uses u32. Maybe we should have
-of_property_read_s32_array() wrapper so the binding can match the ABI
-code exactly?
-
-Rob?
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Why do you need to add it if it is fully compatible?
 
 Best regards,
 Krzysztof
