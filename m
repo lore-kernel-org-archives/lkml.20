@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969521;
-	b=mR8ftTcATpbLwfThIfPh7+YgLDIa5seLkFnbGVizkas4F4rfdLORjNFGW/ZvZNTvAGys
-	 RhPi44AAK3lXoEZX1aB1UHIIBJ/JkHY/l1IFuchABf+oBRAa1kYYEJXWclp50ni7MUZyv
-	 E93g2wZB5OMTPpVzEj1eE6fN98M98yoM0sQOzh9f4GKi8+m6A8LcweFkNGSxZXrkaGuuh
-	 KZlWGWOi5js8MiYC5UrLut8k5FVYdavhdPe/yEWvCtusQgo0CQe6HYajXMxloRIqETYl3
-	 OOkNGPTXZEB7rdcF0hfj0ohfhKLxZ7A++2nRQt9bgSheiU48VrmgCzcy2sA2oU7Jppg==
+	t=1793969543;
+	b=JlxxAXtZtqYpVfzRjROxdMDUoxubmVoiCtoNUr7ab0nBe6fYZG5zmv4LIsNFjyU/I1Nj
+	 qbI+4hlj+zRLWOSCgRc2Ecyn4pMt/ZmiOLkPrkJIFoigOX48ZqnAeYUqURYsH2p11soad
+	 PiwkkzTiovr2F47//jzdWSmcQOTfBlxYCcQqB/VnU8ohen09HAAmqdYUj/JfWHeu/FLHd
+	 39f/UYwca7034x6mTT/7a8SEtFtxr3oC0MpZ+9HVRxRarxz7mkfJsSoyclZmFlzltXTN4
+	 UW5Ycn0ALx4IfzssIrqvzPtV2cbc//k2jkPyBPlhM/0iJP1t0IDGmgzBcGwpI157LCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969521;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=UojQJjLQNvXk+5B0a+UP65mEhQAd42ztdOq8LyS7tRjUGNqsEOz4JyjMRsdXgO19pV9Z
-	 vwFNwdcG2yKYjkbwTzJYcyAWmFi1UwCyNy0zlEtQKSfrN30Xe3aDqTZWF88cZS3x/ca5/
-	 z4paz0ceCBRWzOEkH5XAqvW7odtHYbA+1FpVTo+GPRrElsF/l6JZN9unqKDFLm8JoVLGX
-	 rSTRrqCzos7KZp9uuJksBtXXQ0cxZM0AbdL4vweOtaisMyPFMbIwEn6IUvwCEr9jIhEP9
-	 fplvwF0QOU6NtRy3uX8/lpGRqJVi/JsdFMdZlNaVSoQ9fQ3lWM5XBUgUsPCKzuejmNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969543;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JjNTyIpsD0vhIknxm9oFvMY1a10mRNqNJaX39V1v6Vk=;
+	b=fEGSm7IiyWdWbdkFngVme3GTxrZ/Lh1yJAAp0gzzqJNSetzP4SxRbd61l+DtREv/YfT8
+	 cuaEjMabDTsLdV5qbvyhWgil6lo0zxhPOr4mo3+1tcI/643ooQ5w3/MF9S0WaEXGzWbNS
+	 h8Spmq6PScoIFyYoZwA+DKo++GoGoVnBh7XvwaV9i9JXxYmo8fMnbDx9R0SRL9PVsUi94
+	 Tj1Ctgf3csRK7RB9C33FpnYgO6jnlWr0eZj+BZrGwdIzWi6uSHvZjRTW2gwWttkEtC1EU
+	 6LCW7mMc2lKcbWegOXI/Bc3gwy9P0qgZQQmu0smUjv2cWFP7DJzWWHiGjjngo91wNhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNkB8maR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuVLNIC1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF5F606A329;
-	Fri,  6 Nov 2026 12:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AEF0606A326;
+	Fri,  6 Nov 2026 12:52:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNkB8maR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941B11F008A7;
-	Fri,  6 Nov 2026 12:51:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TuVLNIC1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 920ED1F0089F;
+	Fri,  6 Nov 2026 12:52:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969520;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dNkB8maRDD5sk7+SeIaDMFRc9m/oHDU4QWywBPH22fiCxajQXRBdsQdsQTcZ9Mz5U
-	 ZTrjREREOoNX3Y7Fmb1rZRcMmbK+H9iOCxwwr2CKoc9lo4kCHsbo6mYM1RdAfEv+k1
-	 8VNmZgxu3/D+QO6kcJCogKJh4C7/nlWpeQt3wICkWSFUs5O58qidKReCxBTw1oUVLJ
-	 11ER189MKk4N8tFUzOPEelSWHvCqP4XXi0RmRQXZlDEgJTu7PrXcNnasjR+l9hQUo1
-	 +K8Ah1wbHVdU2s00NPG6Ejww4AkxidWnOskryDuNTDhwBN02lNqLD+d1fn2oGNZp4C
-	 6D/M8jDYo1FdA==
-From: netdev-bot+sinfo@kernel.org
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, n05ec@lzu.edu.cn, ylong030@ucr.edu,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, sashiko-bot@kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH net] vlan: prevent cross-netns MII register writes
-Date: Fri, 06 Nov 2026 12:51:59 +0000
-Message-ID: <179396951913.488859.6939446723200882827@kernel.org>
-In-Reply-To: <20261106124639.12584-1-dennylin0707@gmail.com>
-References: <20261106124639.12584-1-dennylin0707@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1793969543;
+	bh=JjNTyIpsD0vhIknxm9oFvMY1a10mRNqNJaX39V1v6Vk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TuVLNIC1x2sGzEiOW04ml49LmDYKCUXm/jkGVvvwEwL+eXgnMtZ92Hb9JFrne/uA1
+	 DpXhM7nm7swma0juSd2QrxPTER665+mTSoIbL9g+UbDLyyNOdZ4efXmYTMDAHbOA4p
+	 7W7TzD/tbeFNwZQWfPIC0zWgVbENvtdxX+FLZQ036BSrNnzp/RcZ0yV38jgIOCG7Pf
+	 c34KFovB9A5CWsy2JX00dAD1LZIyjHjd+QHAeLMTvrwnOO1uFvaW9yRXxRNdzTa3lP
+	 NPEpMNqGEabe1o6AQbP2S/+eiOgUivPB2tKxFlHSxIs6N/zUKqXAosZMTPwXhxz98w
+	 3xVKyyYGt9Eag==
+Date: Fri, 6 Nov 2026 13:52:20 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: shengjiu.wang@oss.nxp.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	shengjiu.wang@nxp.com, daniel.baluta@nxp.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, andersson@kernel.org, mathieu.poirier@linaro.org, 
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+	festevam@gmail.com, p.zabel@pengutronix.de, linux-remoteproc@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: dsp: fsl,dsp: document debug reset
+ control
+Message-ID: <20261106-savvy-invaluable-gaur-7af1b6@quoll>
+References: <20261105024106.338791-1-shengjiu.wang@oss.nxp.com>
+ <20261105024106.338791-2-shengjiu.wang@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,25 +62,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105024106.338791-2-shengjiu.wang@oss.nxp.com>
 
-Hi!
+On Thu, Nov 05, 2026 at 10:41:03AM +0800, shengjiu.wang@oss.nxp.com wrote:
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> 
+> The HiFi4 DSP provides a separate reset control for its debug logic.
+> Keep this reset deasserted so that an external debug agent can access
+> the DSP and perform debug operations.
+> 
+> Also require the reset properties for the i.MX8ULP HiFi4 DSP.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+That's ABI break without explanation.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Best regards,
+Krzysztof
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
