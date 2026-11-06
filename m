@@ -1,58 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930768;
-	b=TzH6TLu8bASUBTWYmoan92D1Bq7SFRgMZILdEUi7cHKgmts9UklNmkSrEyi7URjnOROa
-	 nHk+MOinRpazAdNnn6Llco0SeRRdJ5WHBWib2pAqEWRNWn2jlc3PCewpyyIzLq4vRFbZ9
-	 pDf65Y/HgRz/pLzpmi5/go2GtCHRj4o2Qa0OIxKGwlBHw1Tb7Kgka7uZ9HjkDMpDM3FXs
-	 Beca78djXc6SKYdz7ziN5mJzTXrK59SqaHc52piYx0ls6p1Q3OF+tWO0IBcODppLprgnt
-	 yUBSTfkjCpxyxgO/clETDM7C9BixRggC+ZgHgNBQ/4XCaWkooNxg9oX4BqyBvVDCamA==
+	t=1793930775;
+	b=KKFf2xT2+P+zYI5afutskWCT3fGMmNIzio7xKflvtuMmPGtUhTVyfpkQMDEFXTHuu3mJ
+	 6o8m9HiSG0WOC+svGuY2L2eJYl6py7PDJA9y6ZhEYJGhZrP9Lch1+bA+qtvZzO/vCNpdD
+	 5nTq8fBRgSSdVEuSlGbcqIG7INhmEjLd6yvd/6t5O/604+0UlLpmoWF5/wRFy6z6988Q1
+	 em7khgJMryHCqHudGRiM9SWAM+bz5kD/WyHgL1U4Zlu1TutmnpNaPaBM6pCMOJ6jfyQu+
+	 eoQMaCMl3E2+RoUIAcO1xrQ74mElIdjqkLBDPU1mDao0jnKq9oESwyKETars7e3Tzyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930768;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930775;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+jfAcZvSxO4g28unhuivWT88AZU4hI/BOX/Z4s4PPy0=;
-	b=AqAHv/q3nPUJCSZFLNfInNYszeuiIKkdGF/xv0A9rlwBTWbVRlOyebMc1yjghNP3L9AC
-	 O8TXkvI7huazeGGymnjTC+EW/4OR2q+oiUjsqNclG60yQr/6tFJScJgcMi+O5NUOyKmpG
-	 7iuIFc0GquUoorJDCHHoZUp3sth+mv96WNopY+NolRHkhXgUx94ntPr4/Mv7twXt4JDZu
-	 dL1rTZmWDsrRefkD8ohGQUd9Shh5raTzma/WNXtKf6mQoQPZNyAP1YYtiHtKrje4i0uVx
-	 iM+h/n5ING4VvgpifuESO62Mfh0eevwyM+Om2hIy6QJoq0sAwXfMAg3hll1KDSWfT6Q==
+	bh=4TaPSXfXvaklMpD3qt0rBIRAk38gDmhfsHAWYscetjI=;
+	b=yp85Z+e5qOKBy8Kktum+eVsY9X4jDG443SC8WNOoff1Yowkmq5ixaJapCbuVqMZq2ezu
+	 IsSApr5NmvrdFeS/Zxc0T2uu76kDuCrBPu5mZwEJlKvIfME7HZxuQIKAjMAO0fhTNsFHs
+	 hCyttOReeelScjLCLTRhyTbWkXFSlJafdhnRgpf8LDgg55M5UBiSO3mqwxhxTn9zJu2Mg
+	 V6dao2xPHcKROhJmCxGBg+yZgQLFbjzDv/1U+6VC9+ZfVx6ZpcKsPMxzhNFEEv8+LLoDW
+	 +hBfQEEz5KUtiPlvf0Gh/LHvr2OL3TRZMyMY/5WRXxS3SXziLUjVPQok9zV4VbdEjfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YViRP3+J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B73C606A31B;
-	Fri,  6 Nov 2026 02:06:06 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tLnse5+0;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 89CB2606A32F;
+	Fri,  6 Nov 2026 02:06:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89CB2606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YViRP3+J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C0191F0089F;
-	Fri,  6 Nov 2026 02:06:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793930766;
-	bh=+jfAcZvSxO4g28unhuivWT88AZU4hI/BOX/Z4s4PPy0=;
-	h=From:To:Cc:Subject:Date;
-	b=YViRP3+JBx0U/NyWH9/JaYvOBxsvdJHuPWnx/znRaVcUJG5Br2bSxRVILsrtyploB
-	 I2N9qQ0q4+5BpquvAzUvhS+dNU075TUW9mQUdJIHNP5Z5nZ/5KSXANCVGml5axjAc5
-	 yYPDc1H+vczREA3nKWnImiQ+7dm2OWIPy9AXfWF+thanS9C7wmYd5cRC36us/N6M5W
-	 nBCyyE+sBwC7AmGQargd7SZ1zZwjKSw+vH+9jJRlpz0mCOpM2UfGshveKWq4oU/L9g
-	 1RSG6L1f21Cc8+ENpo04tG0Fl6ccLVTtKAin6eTfAMMWSuaK8h4de/vFIouv/BZfZr
-	 xNGAxY3mpYULg==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tLnse5+0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=tLnse5+0HSDKAZJXWbEy3seuGrFfEemljUCm6ZUwCItcDtvQ6srn7z5Nq2ceTTaf3qEiU1mDRDLIy
+	 gFUL2eJ6UlLEaRC1dJMVl6MPI2bKoenNiAy3r5hipCahG81WkY/zEY1hlvTweVzUIJLW/qyaWKb07D
+	 7rG2yQXDX1EIt38Q=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aed3613e5e-776e3;
+	Fri, 06 Nov 2026 10:06:11 +0800 (CST)
+X-RM-TRANSID:2ee66aed3613e5e-776e3
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76aed361140e-0d52b;
+	Fri, 06 Nov 2026 10:06:11 +0800 (CST)
+X-RM-TRANSID:2ee76aed361140e-0d52b
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: crofts@kernel.org,
+	jic23@kernel.org
+Cc: linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 0/4] mm/damon: introduce age_ms damos core filter type
-Date: Thu,  5 Nov 2026 18:05:54 -0800
-Message-ID: <20261106020559.98352-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	andriy.shevchenko@intel.com,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: Re: [PATCH v4 1/2] iio: gyro: mpu3050: Split data ready trigger enable/disable into helpers
+Date: Fri,  6 Nov 2026 10:06:08 +0800
+Message-ID: <20261106020608.993-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261105163118.00001538@kernel.org>
+References: <20261105163118.00001538@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,119 +76,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DAMOS access pattern supports selecting regions to apply a given
-operation to, based on their age (access frequency stability).  The age
-is specified in the aggregation intervals unit.  The aggregation
-interval can be changed by users or intervals auto-tuning features.  If
-the intention is to specify the age in a deterministic way (e.g., 2
-minutes), it should be updated for each aggregation interval update.
-Doing so is cumbersome and challenging, particularly in the interval
-auto-tuning case.
+Hi Joshua,
 
-One straightforward solution is extending the DAMOS access pattern for
-specific deterministic time based age specification.  However, DAMOS
-core filter is a better option.  It is playing a similar role in a more
-flexible way.  It can be used for both accepting and rejecting regions
-based on if they matched or unmatched to a given criteria.  Multiple
-filters can also be combined for more flexible and detailed rules.
+Thanks for the review!
 
-Extend DAMOS core filter to support milliseconds unit based age
-criteria.
+I have switched my default diff algorithm to histogram now.
 
-Implement a new DAMOS core filter type, DAMOS_FILTER_TYPE_AGE_MS, in
-core layer and expose to DAMON API, via patch 1.  Add the support of the
-feature on DAMON sysfs ABI with patch 2.  Update the design and usage
-documents to explain the new features with patches 3 and 4,
-respectively.
-
-Reviewer notes (no need to be in git history).
-
-Test
-====
-
-Confirmed the age_ms filter is working using masim [1] and DAMON
-user-space tool [2]'s DAMOS filter-based snapshot feature, like below.
-
-Start masim.
-
-    $ ./masim.py run --config_file ./configs/stairs-500mb.cfg \
-            --quiet --repeat 10 &
-
-Start DAMON for access monitoring.
-
-    $ sudo ./damo start --probe \
-            --probe_prep set_pgidle --probe_filter allow pgidle_unset
-
-Monitoring results without an age_ms filter shows regions of any age.
-
-    $ sudo ./damo report attrs --style idle-time-percentiles
-    # total recency percentiles
-    <percentile> <idle time>
-      0     0 ns  |                    |
-      1     0 ns  |                    |
-     25   100 ms  |                    |
-     50  3.300 s  |****************    |
-     75      4 s  |******************* |
-     99  4.100 s  |********************|
-    100  4.100 s  |********************|
-    memory bw estimate: 66.628 GiB per second
-    total size: 7.797 GiB
-    record DAMON intervals: sample 5 ms, aggr 100 ms
-
-With an age_ms DAMOS filter applied for snapshotting, shows regions of
-given age range.
-
-For [0, 2s range]
-
-    $ sudo ./damo report attrs --style idle-time-percentiles \
-            --snapshot_damos_filter allow age_ms 0 2s
-    # total recency percentiles
-    <percentile> <idle time>
-      0     0 ns  |                    |
-      1     0 ns  |                    |
-     25     0 ns  |                    |
-     50     0 ns  |                    |
-     75   100 ms  |*                   |
-     99   200 ms  |**                  |
-    100  1.600 s  |********************|
-    memory bw estimate: 100.311 GiB per second  df-passed: 0 B per second
-    total size: 7.797 GiB  df-passed 0 B
-    scheme stats
-    tried 0 times (0 B)
-    applied 0 times (0 B)
-    0 B passed filters
-    quota exceeded 0 times
-    0 B
-    tried 0 snapshots (max 0)
-    record DAMON intervals: sample 5 ms, aggr 100 ms
-
-[1] https://github.com/sjp38/masim
-[2] https://github.com/damonitor/damo
-
-Changes from RFC v2
-- RFC v2: https://lore.kernel.org/20261105044425.87142-1-sj@kernel.org
-- Rebase to the latet mm-new.
-- Collect R-b: from Aveline.
-- Add test results to the cover letter.
-Changes from RFC
-- RFC: https://lore.kernel.org/20261104153645.82945-1-sj@kernel.org
-- Use div_u64() to avoid 32 bit overflow of age_ms in core.
-- Rebase to the latest mm-new.
-
-SJ Park (4):
-  mm/damon/core: add DAMOS_FILTER_TYPE_AGE_MS
-  mm/damon/sysfs-schemes: support DAMOS_FILTER_TYPE_AGE_MS
-  Docs/mm/damon/design: update for age_ms damos core filter type
-  Docs/admin-guide/mm/damon/usage: update for age_ms damos core filter
-
- Documentation/admin-guide/mm/damon/usage.rst |  3 +++
- Documentation/mm/damon/design.rst            |  3 +++
- include/linux/damon.h                        | 16 ++++++++++------
- mm/damon/core.c                              | 10 +++++++++-
- mm/damon/sysfs-schemes.c                     |  5 +++++
- 5 files changed, 30 insertions(+), 7 deletions(-)
+Best regards,
+Xiangwu Lai
 
 
-base-commit: f10c161fdac5b0b3fac99877805e64e682c56281
--- 
-2.47.3
