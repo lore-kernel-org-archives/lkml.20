@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964757;
-	b=hmb2r93mz+WGFEH/twCnV7rhwMQgWDcXMM+9D2jA6pPZ/FPhnB6gcewo+HRxVHcBK1df
-	 P87HWGrnJ9oNZTTNYMxkQ36vilHNzNOkJDvUM91tOjJtkyZ9J1F7OrWh5hFHyfbiHvuNn
-	 yOpKjvIq2fspX3NJosJ7QvjHO4Q3wTuGVj6+M8DmwgL50Kmiy9wlcuJrSbue1YT1kcJAj
-	 TFAIqNNlQItx/y+ZB8/FB04XFiRqKOwjGaRSXeX7SJrKhubob98bAiMpPamjtNRdzzWDM
-	 bhxmt6/bxjsCG371uhJHOPTCgiGBQTcj77F3AD2loKDl1MfaSBRV6Qu5EdXAuy7Njqw==
+	t=1793964758;
+	b=H9Gl5iHaU4eV8YV8ncalsMZKgo5w6POeUo+Gvz20HXL0YQHxynpdPCLA9/HMxgioVNOv
+	 9VZEe63sdmR/Em4hL4maqCh0eBMIzzNUqVTKLol/izlDSYMRs8ndKaaOSrx7f1SHq9YlM
+	 7gzXeXX0S6V6pLF3RhGRtWJZwLr33pfbD1t+v9h9nDdR2qfqPIoBXb1SnCVHMMXvCvaZR
+	 Xe9N130c8gf1HbWp9niASstW/p9OoJEItXcWNKnvUrqi80d1nmhc3AII9FfrARJ024MvB
+	 3nyCnCJe7n67PE3kGBqF5o65MYSGwGOn20bjxwE/1avaWNEiU4JgqyHZJTWvgmNXV9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964757;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964758;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=WhfC9zLe5HZoGXWudWFtnEm8q0utD3cNm8ZYGhH+ONg=;
-	b=gdFse1jIdsR2BAJpWn9ubv4I/Dy5G/b5624OPu1CdPjR89O6KPw6HbIbt2kY8EVEuaEf
-	 ONP0WE62OVZY74cgcgAOt0KyujtXQr0fu/Jrj1ghdnGy48+ByjncEketzwP2uPdYrh4EJ
-	 67RaoImXttvqw3UoUfr9aUSk57LlGh5URWY1XVtcHa9GrLRRT1iLe6jNC05bNuba+N8T+
-	 rsBtyTQrNpkyqCxGOF3cQqWJEntxL6jTq5wQDkyCU7/ONQx133Ui4WuHGmOXddjl3XVsX
-	 5zSZJiIIUI6m2YfOMD4av5k4lyM5QNwSpY6j3SMB3GiF3vg/qvuOdvLaECokUJh5N1Q==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=xWFVohln4eeSo5RlKr33gLvCy/2Hvt/Ikr1NBWJFOgw=;
+	b=2+R1EnInrJES8wCqw0x1V85W1rq+cSSSJbmqhmrKXOhz1HrgY2sjzJ2DYECtMMLLwmCy
+	 nlWQi9lcApIAIfPiRSuHmKnVF3zxL1PIYPtfpuGG1bjjZigdDTsYcHe4xChjEFmAnqjfT
+	 KKrflzTdspK1S7QJdBQpL4SQu71qO5cZ4h2ICe9PZPeAocvbxhTeH+0QyZN62uQjmKAox
+	 fioz3G5ZjzZ3r1yzcpPdRfpEzAbNs0C8wV+Oh/Dmd8h/xWpu1PcAnjpbBcnycPGQk2BaA
+	 WXDlGZzyodT2qFddKJfSyExpLZXpQHKS8ebNDn16fFxHkltqQxIut+tQ3tWL55eeBCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcxkvHdU;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xi00ilF5;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE16E60A6F78
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE16E60A6F78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6A3606A906
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B6A3606A906
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcxkvHdU
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48dee593f18so409493f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:32:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xi00ilF5
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b0b8b5d28cso90400a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:32:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964755; x=1794569555; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WhfC9zLe5HZoGXWudWFtnEm8q0utD3cNm8ZYGhH+ONg=;
-        b=GcxkvHdUoMJNPaGmfdiQuon9pe+1ohct49QQwJ8+UUeqf6iT5IHTNhD//VVnsX3hEc
-         TOp2EmQ5CyF/MX8SDoYjC1nK4OF2I2rehnfmrUHEyK0YnNnWP0bF3j4JZnTw3FA2GO8I
-         Ah/jONPlGDOw+4602BhXQTBPdeCmb5pxa59Nhw6vOUAMlBuNxs2yHGw81atrpRQFbxhZ
-         0TkXSLaVrTqVudX5+DaKxwv0B8xOxkbcTcwRX7uBO4Uj3zq8ZLR0yYQAthQF+Jupayd3
-         WUY9R7D6XBoOeiHMaXdCZBPJN5hH57Vjep8vVn9KYjv1Duu2/UGm5lKYN0Z/8sdfE5Kp
-         PPRw==
+        d=gmail.com; s=20260707; t=1793964757; x=1794569557; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xWFVohln4eeSo5RlKr33gLvCy/2Hvt/Ikr1NBWJFOgw=;
+        b=Xi00ilF527rpVQ8LKj8jKK+yfyEoflym2vuXH/ZqmRZDkSr1zt00pt3sC1zVp3yJV7
+         q2f0nkmbTjvZozxTbsZbbW0xD57zUjDSk/k+aoA61xXA06K2MIlnI/cIvjMxvnrz4utm
+         CXJTW7e35ZjSKSaggdUuejXxsfVNIAisqSzoARJBmPHAaiKByrOMMyWDJwfH0LWSVbAh
+         69xYKNekkD/6oEsWRUnopjz1DssH+7k4VbilkAgpkcz2L2O69wtlgGmeezEv/ba18vea
+         e23KjKoWj6yhAE+rG5d5WRZ7JjbGz7hQk6St1aQre/9rSgARuTowDoQ5Ch39BqtOnavv
+         R9Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964755; x=1794569555;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WhfC9zLe5HZoGXWudWFtnEm8q0utD3cNm8ZYGhH+ONg=;
-        b=Pz4G6CmIfnTNvdHb9IIsk/UFhCLoUUwXuLJAqBA0N/DoB9O+bQCjFAoy6aB7IF8l5S
-         +KEwvMKRs6yg3THRTKuR3QQ6QPcNNp4Zhpwo7DPGcH5iEfURfSEB5rrPZQhlBxDctobI
-         QeBN7XzxL3scsWyi51yQnm8879FOdfLh2JRpBMkh7oNgSm2ZnSq0ksXi1DCI6jT06bkD
-         4xgyQT0XPlvgZwyPWLwz5vgos7sROblY17OxyfvgY0iLrM8raRxm0zOYQ0AljfLuZaGU
-         JkybuI0273TlITQtXZA6Uo9nQPnMloknXNAucCSoyf141ZxDMWkQwMp3q+HeX9ywDFJx
-         imrw==
-X-Forwarded-Encrypted: i=1; AL+hErGYWQ251Mwvvt9qFW6i5e2elj3suq9x4zBc4MsTy4UwKTdc+ANu2NDUo9BQhgEakqIEB5BlS/kv6/d+O2A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iKWWhcgfUDfEPz35CZarFXxrF0f2Vpfbn33dqO9noUTc5BhhY
-	fiC2azpSHsBSzq+oXRwtIUILLA2HUqJKkTQeWLJL0TZeR7WtHyS7wPwQ
-X-Gm-Gg: AYBFou29BERpKqJVTxQiQKhrfEfZTyedHz+oZ7OhiiSODg6mfhuSl+utf7fSgW3ySgA
-	y38Je+HbDcIUvw259fGH671z88/4DSt9LhcENg51QhXxVSQYQRDLeazEFydbo2YKKNMcjViNAKd
-	M9VXS9KiO143GaYwxRgj/MOslyRTHe4sVsuYzFV+SVGllyfanUgzV5Ej0cOavp6P2zAMffM8V47
-	LO4Q+Lg96qLN05qVOI8tB6/cPcpvEyg244S8QmTtUV1VUrCkfkJVuLjOM3EnWaWAxyoK6YgadtH
-	JxjSpfNiLOtlmCNXVVfnPOtGyvi2sRcT/wCA5nueISHkZqs/6oDCNZLqwVUnyjF1/J5CxoLiBqO
-	mVr+GmQ6PiykACoJgyRQ8gjeztL9pwt9WJsSUKnLEFvs/1Hv4g7JSujc6ROTAN1Cr72jqLa75rR
-	swq/eoyWGTNFFN+FwtdRBtH4P2ysfLlb3QZ6bDbK1sfB2amt8derPbhXfxcIoDosCtFyO5ZzYoQ
-	5CaRoBINS8JeXP/krTGzEo87+RJHJltB4r7Pl51D5gAslBuaWJ7GBuQPTZXaoGQaioT+fsxqsa3
-	u0reiiCmOxni2mdM2L5TiFPFE5kurtgIRLKLjM4Y+IB/aiihxqM46F17I4xJQFIvkx9DP7lpacb
-	CPEvesj7lXtRBT7mqbCrU3ZcBoek5f+H3UXEmhHBfr34ygY390psDg6E=
-X-Received: by 2002:a05:6000:27d0:b0:48c:67d6:a87a with SMTP id ffacd0b85a97d-49276d4d926mr3447258f8f.32.1793964755054;
-        Fri, 06 Nov 2026 03:32:35 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-492d72333f9sm3254280f8f.29.2026.11.06.03.32.34
+        d=1e100.net; s=20260707; t=1793964757; x=1794569557;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xWFVohln4eeSo5RlKr33gLvCy/2Hvt/Ikr1NBWJFOgw=;
+        b=1KSephlqbUbmOlstIEWb9q3bFEJ12LN4f8jfmsIfi16XBsLMg/8yB6ovYyDt64WlW2
+         pTjt2ePChEeLk6KqzVZgaepkbDr/L4bL3n60vEoMnO3KeUXESv7Ka2N8UlqaB5+CuujG
+         AjA6zrMzxaPcUeA6JMuURWTDUoa3TS3IU8pCFtovgn6Y+20cC1e82qM7DHWJ5oKugrK1
+         I2ONe+FNgWcYDX1PRicpgE0XDvBPFW/+zaxYOt1POe1QijwbH2DWKwSBF7qp4GFGS2rs
+         C6xSVujtu6ZwLIk7jjOEEJMNzm+uVj4pGYYlF2hP5y/oHisqItn150GmlzdU0UA3xQj5
+         CGmA==
+X-Forwarded-Encrypted: i=1; AL+hErGFgeCR08YYU8tilXIFSEKiAz2IOtdZan1kaOZ0jga58fbN9nNtzWHiu/YrhINxH6w0MRHyGUcZOP9mPmE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Y4pVVBL9QiFHqRy8jJf9l9/xUVp7Nr0jlRRow/VkUchvHVFXZ
+	tlu81KvKA8Kz4NKG6XD8x9Dmw9d4tu9d0YXcqTNHriINS1ncFwudbQWC
+X-Gm-Gg: AYBFou3ERuoqqGFaTz3AzuoK0AsqkhvWQT7E27/Mdt+9sFFBYr5jKuHvJJz4iYjytkj
+	yhYR6Sn/KVtr/Ftprp6gSsB2ynxGIP5NX48a3f8ZW9mgJmkNmmyUZ9tWbEFG0Wsq44obA+SwdfC
+	9ecNRIHR2UP6E+XMAoFYPXl0Rkgtbtfn0KzV3hoTWV6y1Ikh2v3FKBXaIetO8BL5kuyqSG6vgZD
+	iET8qNRPCAvPJJuKPjVMkwoc1uI9UHACOnIhu7tFrSZpjwI6vy768VQB8Y4rXeNMW+p5J/F0zB0
+	2NEfJM/VgCMYkO3zW3/wFkwKvKU7wiLuD2nndxXMMsPv4ODsLhaJoe6K3CxM7Pm82MIsy4BvXaq
+	x2hbANRa0B1gzK/3zuFMd/4TCtI63Ugh2B2scGT/BV+bafKGrXcwsjii+Ker32svMvWbmdYUpok
+	f+zM1QOu7P3b/zth25gqIDWN/YN8tSPocJXHEZUCuo4Q2fQbAXhwaClbdxBCgzLrZub21ItNggK
+	TW4+wzraiVOoSDteNCYnVGi3e4UDwUJALLhtbpN/UmBHc4JnlxGKa1/jO6xN26tccsKhwbhgeoC
+	Kh2kbiRDTyWlKZZe0acZRJBdOA1n4e15HoI3ctNzsFJnhC2KhgBgyAMhlCgkEdJfeBQgNxmCRug
+	iGK0Asr+rKHa5H4Ax6QBNLL+/sg==
+X-Received: by 2002:a17:90b:4c8f:b0:3b0:9e2f:cfc5 with SMTP id 98e67ed59e1d1-3b0db60cd3dmr3615027a91.1.1793964756800;
+        Fri, 06 Nov 2026 03:32:36 -0800 (PST)
+Received: from chenyou.ncku.edu.tw ([140.116.19.13])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7ca4b03sm3116477a91.14.2026.11.06.03.32.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:32:34 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v4 1/2] clk: en7523: convert to full clk_hw implementation for en7581
-Date: Fri,  6 Nov 2026 12:32:24 +0100
-Message-ID: <20261106113227.182324-2-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261106113227.182324-1-ansuelsmth@gmail.com>
-References: <20261106113227.182324-1-ansuelsmth@gmail.com>
+        Fri, 06 Nov 2026 03:32:36 -0800 (PST)
+From: Chen-Yu Yeh <chenyou910331@gmail.com>
+To: Alex Shi <alexs@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Weijie Yuan <wy@wyuan.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chen-Yu Yeh <chenyou910331@gmail.com>
+Subject: [PATCH 14/25] docs/zh_TW: process: sync kernel-enforcement-statement.rst with the English original
+Date: Fri,  6 Nov 2026 19:31:29 +0800
+Message-ID: <20261106113142.706783-15-chenyou910331@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106113142.706783-1-chenyou910331@gmail.com>
+References: <20261106113142.706783-1-chenyou910331@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,128 +104,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In preparation for support of .set_rate, convert the clock register
-logic from fixed clock implementation to full clk_hw implementation with
-dedicated OPs for Airoha EN7581 SoC.
+The translation carries no "update to commit" marker.  A comparison
+against the current English text shows the content is complete: the
+signer list matches all 109 names, including the later additions such as
+Arnaldo Carvalho de Melo, Kees Cook and Luis R. Rodriguez.  But the file
+still begins its label line with the byte order mark that
+commit 9e255e2b9afe ("Documentation: drop optional BOMs") removed from
+the original, and the prose was converted from zh_CN:
 
-This is just a rework and no behaviour change is expected.
+- drop the byte order mark, as in the original
+- retranslate sentences whose meaning had drifted: the additional
+  permissions apply "with respect to any non-defensive assertion of
+  rights under the license" (rendered as "as any non-defensive
+  assertion"), and the uncertainty to eliminate is "about our
+  expectations regarding compliance or enforcement" (rendered as our
+  own uncertainty about regulatory compliance)
+- rewrite the two quoted GPL-3.0 provisions so that the conditions
+  read in order, without the duplicated "reinstated permanently" in
+  (b), and use 版權持有人 for "copyright holder" throughout
+- localize terminology (內核→核心, 社區→社群, 用戶→使用者, 項目→專案,
+  分發→散布, 爲→為), and translate "Except where noted below" as
+  such instead of "except as mentioned below"
+- wrap the :Original: line to stay within 80 columns and drop the
+  blank line at the end of the file
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+update to commit 9e255e2b9afe ("Documentation: drop optional BOMs")
+
+Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 ---
- drivers/clk/clk-en7523.c | 75 +++++++++++++++++++++++++++++-----------
- 1 file changed, 55 insertions(+), 20 deletions(-)
+ .../process/kernel-enforcement-statement.rst  | 59 ++++++++++---------
+ 1 file changed, 31 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-index 24fdec2e6198..6640e814d36a 100644
---- a/drivers/clk/clk-en7523.c
-+++ b/drivers/clk/clk-en7523.c
-@@ -126,6 +126,12 @@ struct en_clk_gate {
- 	struct clk_hw hw;
- };
+diff --git a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+index d54d20529294..9a518ce322c2 100644
+--- a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
++++ b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+@@ -1,45 +1,49 @@
+ .. SPDX-License-Identifier: GPL-2.0
  
-+struct en_clk {
-+	struct regmap *map;
-+	const struct en_clk_desc *desc;
-+	struct clk_hw hw;
-+};
-+
- struct en_rst_data {
- 	const u16 *bank_ofs;
- 	const u16 *idx_map;
-@@ -742,42 +748,71 @@ static int en7523_clk_hw_init(struct platform_device *pdev,
- 				     en7581_rst_ofs);
- }
+-﻿.. _tw_process_statement_kernel:
++.. _tw_process_statement_kernel:
  
-+static unsigned long en7581_recalc_rate(struct clk_hw *hw,
-+					unsigned long parent_rate)
-+{
-+	struct en_clk *c = container_of(hw, struct en_clk, hw);
-+	const struct en_clk_desc *desc = c->desc;
-+	struct device *dev = clk_hw_get_dev(hw);
-+	struct regmap *map = c->map;
-+	u32 val, reg;
-+	u32 rate;
-+	int err;
-+
-+	err = regmap_read(map, desc->base_reg, &val);
-+	if (err) {
-+		dev_err(dev, "Failed reading fixed clk rate %s: %d\n",
-+			desc->name, err);
-+		return 0;
-+	}
-+	rate = en7523_get_base_rate(desc, val);
-+
-+	reg = desc->div_reg ? desc->div_reg : desc->base_reg;
-+	err = regmap_read(map, reg, &val);
-+	if (err) {
-+		dev_err(dev, "Failed reading fixed clk div %s: %d\n",
-+			desc->name, err);
-+		return 0;
-+	}
-+
-+	return rate / en7523_get_div(desc, val);
-+}
-+
-+static const struct clk_ops en7581_clk_ops = {
-+	.recalc_rate = en7581_recalc_rate,
-+};
-+
- static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_data *clk_data,
- 				   struct regmap *map, void __iomem *base)
- {
- 	struct clk_hw *hw;
--	u32 rate;
- 	int i;
+ .. include:: ../disclaimer-zh_TW.rst
  
- 	for (i = 0; i < ARRAY_SIZE(en7581_base_clks); i++) {
- 		const struct en_clk_desc *desc = &en7581_base_clks[i];
--		u32 val, reg = desc->div_reg ? desc->div_reg : desc->base_reg;
-+		struct clk_init_data init = {
-+			.ops = &en7581_clk_ops,
-+		};
-+		struct en_clk *en_clk;
- 		int err;
+-:Original: :ref:`Documentation/process/kernel-enforcement-statement.rst <process_statement_kernel>`
++:Original: :ref:`Documentation/process/kernel-enforcement-statement.rst
++           <process_statement_kernel>`
  
--		err = regmap_read(map, desc->base_reg, &val);
--		if (err) {
--			pr_err("Failed reading fixed clk rate %s: %d\n",
--			       desc->name, err);
-+		en_clk = devm_kzalloc_obj(dev, *en_clk);
-+		if (!en_clk)
- 			continue;
--		}
--		rate = en7523_get_base_rate(desc, val);
+-Linux 內核執行聲明
++Linux 核心執行聲明
+ ------------------
  
--		err = regmap_read(map, reg, &val);
--		if (err) {
--			pr_err("Failed reading fixed clk div %s: %d\n",
--			       desc->name, err);
--			continue;
--		}
--		rate /= en7523_get_div(desc, val);
-+		init.name = desc->name;
-+		en_clk->map = map;
-+		en_clk->desc = desc;
-+		en_clk->hw.init = &init;
+-作爲Linux內核的開發人員，我們對如何使用我們的軟體以及如何實施軟體許可證有著
+-濃厚的興趣。遵守GPL-2.0的互惠共享義務對我們軟體和社區的長期可持續性至關重要。
++作為Linux核心的開發人員，我們對我們的軟體如何被使用，以及我們軟體的許可證
++如何被執行，有著濃厚的興趣。遵守GPL-2.0的互惠共享義務，對我們軟體和社群的
++長期永續發展至關重要。
  
--		hw = clk_hw_register_fixed_rate(dev, desc->name, NULL, 0, rate);
--		if (IS_ERR(hw)) {
--			pr_err("Failed to register clk %s: %ld\n",
--			       desc->name, PTR_ERR(hw));
-+		err = devm_clk_hw_register(dev, &en_clk->hw);
-+		if (err) {
-+			dev_err_probe(dev, err, "Failed to register clk %s\n",
-+				      desc->name);
- 			continue;
- 		}
+-雖然有權強制執行對我們社區的貢獻中的單獨版權權益，但我們有共同的利益，即確保
+-個人強制執行行動的方式有利於我們的社區，不會對我們軟體生態系統的健康和增長
+-產生意外的負面影響。爲了阻止無益的執法行動，我們同意代表我們自己和我們版權
+-利益的任何繼承人對Linux內核用戶作出以下符合我們開發社區最大利益的承諾:
++雖然對貢獻給我們社群的內容中各自獨立的版權權益，確實有權強制執行，但我們
++共同關心的是，確保個別的執行行動以有利於我們社群的方式進行，而不會對我們
++軟體生態系統的健康與成長造成意料之外的負面影響。為了遏止無益的執行行動，
++我們同意代表我們自己以及我們版權權益的任何繼受者，向Linux核心的使用者作出
++以下承諾，這符合我們開發社群的最大利益：
  
--		clk_data->hws[desc->id] = hw;
-+		clk_data->hws[desc->id] = &en_clk->hw;
- 	}
+-    儘管有GPL-2.0的終止條款，我們同意，採用以下GPL-3.0條款作爲我們許可證下的
+-    附加許可，作爲任何對許可證下權利的非防禦性主張，這符合我們開發社區的最佳
+-    利益。
++    儘管有GPL-2.0的終止條款，我們同意，對於依本許可證所提出的任何非防禦性
++    權利主張，採用以下GPL-3.0條款作為我們許可證下的額外許可，這符合我們開發
++    社群的最大利益。
  
- 	hw = en7523_register_pcie_clk(dev, base);
+-        但是，如果您停止所有違反本許可證的行爲，則您從特定版權持有人處獲得的
+-        許可證將被恢復：（a）暫時恢復，除非版權持有人明確並最終終止您的許可證；
+-        以及（b）永久恢復, 如果版權持有人未能在你終止違反後60天內以合理方式
+-        通知您違反本許可證的行爲，則永久恢復您的許可證。
++        但是，如果您停止所有違反本許可證的行為，則您從特定版權持有人處
++        獲得的授權將會恢復：（a）暫時恢復，除非且直到該版權持有人明確並
++        最終終止您的授權；以及（b）永久恢復，如果該版權持有人未能在您
++        停止違反後60天內，以某種合理方式通知您違反的情事。
+ 
+-        此外，如果版權所有者以某種合理的方式通知您違反了本許可，這是您第一次
+-        從該版權所有者處收到違反本許可的通知（對於任何作品），並且您在收到通知
+-        後的30天內糾正違規行爲。則您從特定版權所有者處獲得的許可將永久恢復.
++        此外，如果版權持有人以某種合理方式通知您違反的情事，而這是您
++        第一次從該版權持有人處收到違反本許可證的通知（就任何作品而言），
++        並且您在收到通知後30天內糾正違反行為，則您從該特定版權持有人處
++        獲得的授權將永久恢復。
+ 
+-我們提供這些保證的目的是鼓勵更多地使用該軟體。我們希望公司和個人使用、修改和
+-分發此軟體。我們希望以公開和透明的方式與用戶合作，以消除我們對法規遵從性或強制
+-執行的任何不確定性，這些不確定性可能會限制我們軟體的採用。我們將法律行動視爲
+-最後手段，只有在其他社區努力未能解決這一問題時才採取行動。
++我們提供這些保證的目的是鼓勵更多人使用該軟體。我們希望公司和個人使用、修改和
++散布此軟體。我們希望以公開和透明的方式與使用者合作，消除外界對我們在遵循或
++執行許可證方面之期望的任何不確定性，以免這些不確定性限制我們軟體的採用。
++我們將法律行動視為最後手段，只有在社群的其他努力未能解決問題時才會採取。
+ 
+-最後，一旦一個不合規問題得到解決，我們希望用戶會感到歡迎，加入我們爲之努力的
+-這個項目。共同努力，我們會更強大。
++最後，一旦不合規的問題得到解決，我們希望該使用者會感到受歡迎，加入我們在這個
++專案上的努力。攜手合作，我們會更強大。
+ 
+-除了下面提到的以外，我們只爲自己說話，而不是爲今天、過去或將來可能爲之工作的
+-任何公司說話。
++除下文另有註明者外，我們僅代表自己發言，而非代表我們目前、過去或將來可能任職
++的任何公司。
+ 
+   - Laura Abbott
+   - Bjorn Andersson (Linaro)
+@@ -150,4 +154,3 @@ Linux 內核執行聲明
+   - Wei Yongjun
+   - Lv Zheng
+   - Marc Zyngier (Arm Ltd)
+-
 -- 
-2.55.0
+2.43.0
 
