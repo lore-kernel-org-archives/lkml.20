@@ -1,74 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975818;
-	b=d7MTN3iAjAs2aCKfM3slpxgE01AlqUEvxQqQo0ijFCJkbCbS3RCE+p0j+QPBSVBP/gQf
-	 V8X6hzzo1nLyfTJVbibD01hPXSoCQj7RNn6KyUhCu7jpvk/FrH873hQtJ8VfIgBW3yCsZ
-	 LzPCpCwn3jCQZMoExQ5alOdySuOdqUse2R30o4CWAIm2u7/fs29UMhuPtIWOLLJbKel2U
-	 MBZ9caqSOi/0PbQ6FSQgiBUlDXA7T7VEi4uSQE2Zbla3TOtWZH5xZ4I0GWT7uqfqUwZ3t
-	 Lix5loc0NOiTKJ15tOuNuCLFrXN+QpvbFHXCLLPjszGpY/3igrrTBmxi6PQeT7NxJqg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975818;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zltKa4rFPINSvBuo0o9RrInHmslmc2FdfHmKz2Ukns4=;
-	b=Wf0KTtoYHjgtno6f5B3ULMtGFQJs7o0SLAE2tzvgR4JGi4Gz1OcSEFNzqV5c6SGB0W17
-	 PLaoTpOuqL77VzbNtagVZ8akyanWx/R8ZbyffOOEHKXjeK8kPoS+FPbwbpAIl7DZfmBA9
-	 Vorxxzx3C20f7tl2ToWsp47OkCyCsE/Dxm5O04Y2IkeVzXDYgjWsvfcxsE+Mzul8Om8SS
-	 0kSb5h+RrPTsTVD2pNsmi/ra5SM/1uxC3Ezm56WaOS/E3eZ+8hJohJ+sQoeB6ojGUvdIv
-	 LcNn7H8E0hoIRwjLozbT+Xg9lan9ZnusOyA9AjPwhpBggmcGP909uXKbKNMT1u+XBjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Xtcdmj3+;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D589E606A32C;
-	Fri,  6 Nov 2026 14:36:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D589E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793975838;
+	b=CmCGgOKYkQepq+Pj37la9kcjDco/rlT/kmw/MFDjt/ynTR7ZWbHycE0lZi2+/Tfr3Ywt
+	 l2KmBAE0vZAb/ZHRCWsaGVKZDsU5xxJjL1Earacaptgig3n2IQiEEibWZRCNlEa/8Fpl1
+	 LfegVAXvnY4AS1vCnC+nmqcPzkhLBBLXUYBfY057KQpoI+dyrq+hC7MW6B9KMpylx5R1U
+	 Utxj1Kb03dp2rk9r6XiH5jhRU/Lco3TEsqXB50KwCgGbWdrVadmEsa7uyBoWmTriqjlm3
+	 JhZ0CjFTw+pUPmk1pHHuEX9hYJYrtU3CWBCc/Il4skC1lH/V/3vrI7ajA9htOLnSTkg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975838;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=4HsyqapsxgGb3uQ6wsN6jzCK5d5H1eQhRuyR+l3gVi8=;
+	b=EvpWuI6X17EpSr2RM6v/bT5wcw+pA/n4azkUgow9eys9kq8d+SlT8DIRyx6D4vOlc10B
+	 JXfcfRjkeYceLq6+JAccwlEc/NPKJtcAwTzGDf2Fjk8vnxJzA5O6TFF5+qfAtxn66UDas
+	 4xRYio2Wfhru1O/qgEHyxw9G8I+hXoojIaoYUHv051j6Vma9Ci5Ka1qFb08xBH6gNgI3M
+	 QCedLMVUG8Wnct2sKY4T8CXLbIQ9IAgjIuGregUkDs1MUf6rmiZBm9QvPeurjpdIXLvwR
+	 QL8FerTZ3itVncuBiPtc8LX41AKaC+bXMZI9SO+SiLHtkNIhPyBuVnQfk1CULHUgjtA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oDzUxncx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UVifpZnG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B9A606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:37:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1B9A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Xtcdmj3+
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF6191650;
-	Fri,  6 Nov 2026 06:36:53 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D5583F673;
-	Fri,  6 Nov 2026 06:36:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793975817; bh=BapmaYPgwOoFb44jZl8ECsOxNGNzot+5zaXQXYkt210=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xtcdmj3+II9M6ylPTT/qgViDYNhdLr0ZWZLd4B2qo214r7WMDfKOM2tJrWPbr63Ow
-	 FfAJGzsrQTPwu1s/6AkTUSBnOWZt+yDkgcHlYhi14YeMgOsUywScpp3UfWY07jK5po
-	 E3oDfOZuvSQAss0muWuSJ+TU5l6WxEwhviHdtv7U=
-Date: Fri, 6 Nov 2026 14:36:50 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
-	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
-	sameo@meta.com, drdeeglaze@gmail.com,
-	James.Bottomley@hansenpartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
-	aneesh.kumar@kernel.org
-Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
-Message-ID: <au3mAsQrh0GniXJo@e129823.arm.com>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-18-jiri@resnulli.us>
- <auuDcABX27EeTApl@e129823.arm.com>
- <20261104194622.GC3889730@ziepe.ca>
- <aux01NUd85PabtZu@FV6GYCPJ69>
- <auyKE2sGqtfjk4v5@e129823.arm.com>
- <auy7IM0_S2tv7EZX@FV6GYCPJ69>
- <au2WdWFOYbPEv0Uj@e129823.arm.com>
- <au3i-0eDzJZaWukx@FV6GYCPJ69>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oDzUxncx;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UVifpZnG
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6EQ2f3963837
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 14:37:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=4HsyqapsxgGb3uQ6wsN6jzCK5d5H1eQhRuyR+l3gVi8=; b=oD
+	zUxncxZqM9j4vcCOndXBF3iIc4/WR1NvKSLy+dBwaYOm4erSCtt7mQL+KFrwYI3z
+	70bIWvfQbCccOyYxOcCoKpXLXqaVtbZ8+XgQBGNdyrGdw1450R4r7383q+QOGIR0
+	kzNMuT7bcO7muQGmD59w4tTETIoglXoIE98yc4zvFoWh7vohmFc9NGopOXqNOAyA
+	XHpkS/ORTc4ycLhJDjiatf4u19cSTI41hyx+6UzGHCreR0moT69Gfqp2yFA2JJuO
+	kjGt/kQGHbViURKEabcJ8k8BA6JOzdNjtQ6ZkaD82H6uwGWijD/hVFqq5m6FSZMr
+	0whNfEAoKReAM0Fjhgmg==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p9u7p0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 14:37:17 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1b25dc2aa8bso1493779c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:37:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793975836; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gDy9So901fAS8Sfy6PLX/yNVUWndTauX3GCWUpQOCNSQKPoVVxWpN/9fCFRc2S2Cj3
+         P9ApOGqByuKslMHHgs/YCb0JR7tBCbZ3GzIR8c8dnnWao/FccGaRCT2DB86qtwIVlJ+t
+         liQ4IH11g0lujNlyitGX5+BqtP39Ij3g4ilWEqjsAK7T2NsNSJ4cS24hq0N1k+qYLWMe
+         WYtsVRgL2u8VXQCIpXwraol8uJ59rvtsDZ4p1Pqf9ktxRvAK+vExrR0IiWv/S9+BWIfd
+         HWPMFUcP4SlFiDJ6JNUImTpNgm/f7CFezugUuWPUVcD1ArIkWsYyZn/ss1TmP+o0tM67
+         sdcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=4HsyqapsxgGb3uQ6wsN6jzCK5d5H1eQhRuyR+l3gVi8=;
+        fh=9Mbji5nd8RsBEG0URDwF1PScxoX9NbxsezcYFp6A6OY=;
+        b=bPMBqtM9S0tvX4iAcfZP3/iTK/hFddedFzkZrgtHkiQ47RaA1tmIafDkJ9rB6PZdpx
+         Ke0ImmTwlaHQjWIm5iLXlk/N6O/4wXU4cPXPAS0HiqFRi17+6Fss8S360RsuVHSliPbc
+         Jjt112sxtotmW6c1qWEmkjubQlZDLf8NM8w2WBpVioh8x7xAxZ/3tQs4cO5kkxtsdF97
+         bESxbfVVCRQw7+/DxBOyyWj1DyBQPqd/jE1HlO1j7/qd5SD629jgb6O3bX8Swi3AMda+
+         6t+U7vAosps2zjGOE1c1iwgfRDhJbU79OVr0E9BoPLSB7pa+gOpn0olUJYd49Xlacga7
+         GHUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793975836; x=1794580636; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4HsyqapsxgGb3uQ6wsN6jzCK5d5H1eQhRuyR+l3gVi8=;
+        b=UVifpZnGmtn+CUp3hm9K6takq0A13pq7TaZGNjGIJgThvdw0/HdTqjYTGPtnrJi6wk
+         tsSCHn5IiHqqsTSoMy+GQA/5nn7eYjdwKoVDBOfwIJRgE238v+cZwfvSlzILthvBJIK1
+         v++sNmehgSf4nEsCqnwn3zv/+F/E0lYA3+NLV5z0tFv0hRyrVgskA/K+w9jyLY4o2Zkg
+         1h4YGMxBOMhdWHDW9Zvc0w1xwzY/e/OPpiWGx6X+YQGtB45vtinfrRjvIWN79gQ2ARaw
+         P4BFWgbgUFLsGC2l1Ys++QSI30aLcYBZ7VBnBp4VG64/Y2z0+HqocJJpuJM+/sVFDYNH
+         A0+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793975836; x=1794580636;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4HsyqapsxgGb3uQ6wsN6jzCK5d5H1eQhRuyR+l3gVi8=;
+        b=uIvKILn4QYd+6vfYU7c4j1fUlhlEu9bv6KnOqWLz42uF0azCQdC8iboRAteEXviCmS
+         JbZs7cT2NIMs/PGcdnSrKRfkJgaC9u67Jaw9aq4B637lUBNjVCJpuSJRdsMM6sDvEWRs
+         mXPTsO3vmRkVlUwIWiSNA71f0cmln+pxtnvyOZBehTSjm03+/kW6T46j18A66tHSE/yH
+         YM7TsRHVflcne7oyrwqn3y9DmtbsmtreeVCJgvBR6kE7/rI6KaLzJGEDRhC8m/zzDesd
+         wVU8yzc1Ikh6vu8Ce5tgbSLHF6LraoHocjkd2IYQSg4xKlTGmk+zdipxm7MUrWKnS045
+         4V0g==
+X-Forwarded-Encrypted: i=1; AKwUvBxTVdBS6SRaqoQw/ELqJC1dlH16cRcfVX09wDKL6ZzL6p3S6ANDhcnuiU2ybdCjlR1aOstTmBNsx3JiFjI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wmqYKzLwpcHZCmGZzDf5G+tN31D93z0dXefL2Cm90z5Uqw2g4
+	TK4LceLLfSo9lPBuSSJb6Xc+phD0TdstWjK7WRBu1K7ijMVOhWsodInczGPPhCqMNwp1whR00NQ
+	DpT/6FUvK98SR1HLBVTzkTQWxHmW8DJXcsouJz2KI1lF1JWsB0kff3FOwr8h3oArhgWlu5VBj/C
+	ir0ZmP4BjpLRW7RRB2ezj6SXfw8UyDcoGbtwg+xC/b/A==
+X-Gm-Gg: AYBFou2BlxfRsYxPg7LjRMaSyvSY5tdXA4rOVJ7Ff8KR75bb6sgaKucP4isyDJMWtZn
+	vOIzxYJyZ0AEd1zAX91sioAgbgQ0zzE1ieu/XCtVY2bJg7yl7APaaQ7TJeg0yKFb6JcU8iTEait
+	SLXpxkLWLunvLcQlUy1oUQUb1+EE0dITaVqrJEJfW681Lmsz+UcgP3D0P2vbLPqqdMRnJqXYhYh
+	A6xzM3ldSLxxqlytVaBbg==
+X-Received: by 2002:a05:7022:1201:b0:144:fb42:52 with SMTP id a92af1059eb24-1b25d31e166mr2771672c88.28.1793975836162;
+        Fri, 06 Nov 2026 06:37:16 -0800 (PST)
+X-Received: by 2002:a05:7022:1201:b0:144:fb42:52 with SMTP id
+ a92af1059eb24-1b25d31e166mr2771610c88.28.1793975835251; Fri, 06 Nov 2026
+ 06:37:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,157 +129,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au3i-0eDzJZaWukx@FV6GYCPJ69>
+References: <20261106-ubwc-format-docs-v2-0-82949f88f030@oss.qualcomm.com> <20261106-ubwc-format-docs-v2-2-82949f88f030@oss.qualcomm.com>
+In-Reply-To: <20261106-ubwc-format-docs-v2-2-82949f88f030@oss.qualcomm.com>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Fri, 6 Nov 2026 06:37:03 -0800
+X-Gm-Features: AclHuK-nYIdYytSxiDZGvmJ75_P0qcwPygnczJxVB0uKsMZiJo7oTk6OLzODjmg
+Message-ID: <CACSVV01xGvudO4yjFeWzp8zk6wtOaHsEj=sJ=0E_7=wvKfhcdA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/8] drm/msm: separate compressed P010 and P030 (TP10)
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        "Bryan O'Donoghue" <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>,
+        linux-media@vger.kernel.org,
+        Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Robert Mader <robert.mader@collabora.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1OCBTYWx0ZWRfX+tO7cIdUEBSG
+ u+Cz6+zkcr9bF2Q/JMkDnbNvfnrgl7CtfqjKMkyXGnWYRK0hre9cI0FvoJnGVeSpDBLNFl0ZBoJ
+ GwlLQDJwtBoZGDNeq2nfEW3iC3gxP4k=
+X-Proofpoint-GUID: BqkQO3rL1BfUTUs9RUauIfb7ig4WYVGi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1OCBTYWx0ZWRfXx/Hzok77w4ND
+ NJ65TGTykMOJH13Xa9xzDijpORzw24xAfiR7VGSMksajTkDhO4Df9sA7/wEwSYC/oEzmBxLlMsS
+ 4EhPh8f7hqZo/Sv5VwbFckzxguY7yoKiWqRIjJP/D3N4xz19cAf/ZCqxMPyrjvLf3vQSGMx3CYZ
+ 9aun8J9nE5Qv0Tgxpb3cVtUBGB++VynJXKrpXwqVZ/nOTvySfnq8JuhBnLreOkYOqf762zErib4
+ ItZkP0qmc7lARsK4dFkygkytjMz8/U2OB4YD20/LMzf6RHyXzRjjHcAp3FWlaC+LAf+vKPXK2Uz
+ gya+y3OsY/hMeoR0GhFcYBE5N4hPfnFCIzR8r+7lgt02GV3/IpV34vUbObBdQlS2yepjqmjabhq
+ KxIvgenQ3iKyjsKmgDqE6oDyHUZese0ysps7hU6OgyjVoNfVLVuBkd6LlmYny5y/A8TaVs+Bfw/
+ Mede8WXyTFuEirBR2Cw==
+X-Proofpoint-ORIG-GUID: BqkQO3rL1BfUTUs9RUauIfb7ig4WYVGi
+X-Authority-Analysis: v=2.4 cv=ZIZCCn7b c=1 sm=1 tr=0 ts=6aede61d cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=PWnpOtEoW80h80myw98A:9
+ a=QEXdDO2ut3YA:10 a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060058
 
-> Fri, Nov 06, 2026 at 09:57:25AM +0100, yeoreum.yun@arm.com wrote:
-> >On Fri, Nov 06, 2026 at 09:27:42AM +0100, Jiri Pirko wrote:
-> >> Thu, Nov 05, 2026 at 02:52:19PM +0100, yeoreum.yun@arm.com wrote:
-> >> >On Thu, Nov 05, 2026 at 01:32:49PM +0100, Jiri Pirko wrote:
-> >> >> Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
-> >> >> >On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
-> >> >> >> [..snip..]
-> >> >> >> 
-> >> >> >> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
-> >> >> >> > +					       const struct ctlv_cursor *request,
-> >> >> >> > +					       struct attestation_evidence_request *decoded,
-> >> >> >> > +					       struct attestation_evidence_object_request **objects)
-> >> >> >> > +{
-> >> >> >> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
-> >> >> >> > +	u32 challenge_length;
-> >> >> >> > +
-> >> >> >> > +	decoded->challenge =
-> >> >> >> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
-> >> >> >> > +	decoded->challenge_length = challenge_length;
-> >> >> >> > +	if (challenge_length < caps->min_challenge_length ||
-> >> >> >> > +	    challenge_length > caps->max_challenge_length)
-> >> >> >> 
-> >> >> >> Hmm, I'm not sure whether this check is required for
-> >> >> >> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
-> >> >> >> 
-> >> >> >> for example, if the provider provides two evidence:
-> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
-> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
-> >> >> >> 
-> >> >> >> might challenge is reuiqred for generating the token
-> >> >> >> and this would be marked at min/max_challenge_size in evidence_cap.
-> >> >> >> 
-> >> >> >> However, in case of eventlog, it wouldn't require challenge.
-> >> >> >> for example, TPM event log or CCEL event log.
-> >> >> >
-> >> >> >Right
-> >> >> >
-> >> >> >> Do we need some field on attestation_evidence_supported_object whether
-> >> >> >> it requires challenge or not and applies this sanity check per the object?
-> >> >> >> 
-> >> >> >> Otherwise, to get eventlog, it would need to send *dummy* challenge
-> >> >> >> always.
-> >> >> >
-> >> >> >I wonder if we should have two interfaces here for signed and unsigned
-> >> >> >evidence? It would be clearer for userspace then when it needs to
-> >> >> >provide a challenge or not.
-> >> >> 
-> >> >> Isn't the challenge field provided/not-provided enough?
-> >> >> 
-> >> >> Currently on the introspection side, device-get op would provide
-> >> >> challenge-lengths array:
-> >> >> 
-> >> >>         evidence?:
-> >> >>           challenge-lengths[8]:
-> >> >>             length?: uint(..4096)
-> >> >>             min-length?: uint(..4096)
-> >> >>             max-length?: uint(..4096)
-> >> >>  	  objects[16]:
-> >> >>             blob-class: evidence-blob-class
-> >> >>             max-length: uint
-> >> >>             blob-instance?: uint(..u32-max)
-> >> >> 
-> >> >> I think it would make sense to have challenge-lengths array per object:
-> >> >> 
-> >> >>  	  objects[16]:
-> >> >>             blob-class: evidence-blob-class
-> >> >>             max-length: uint
-> >> >>             blob-instance?: uint(..u32-max)
-> >> >>             challenge-lengths[8]:
-> >> >>               length?: uint(..4096)
-> >> >>               min-length?: uint(..4096)
-> >> >>               max-length?: uint(..4096)
-> >> >> 
-> >> >> Then the unsigned object would just simply have challenge-lengths empty?
-> >> >
-> >> >This looks good to me. :)
-> >> 
-> >> The challenge is one of several open points that all depend on what an
-> >> evidence object is: Rick's TDREPORT, legacy versus DICE Quotes,
-> >> "primary", "raw" and the format strings. Here is my proposal to settle
-> >> these together:
-> >> 
-> >> The model:
-> >> 
-> >> 1. device-get lists each object with an id, a class (signed, event-log,
-> >>    cert-chain or auxiliary), the formats it may come in, its max-length
-> >>    and, for signed objects only, challenge-lengths.
-> >> 2. evidence-get names objects by id, as MR ops name MRs, each with its
-> >>    output blob. It carries a challenge exactly when it names a signed
-> >>    object, and the challenge has to fit each of them.
-> >> 3. The reply gives each object's format, length and, where the TCB
-> >>    vouches for it, the TCB's digest. The output is always {label, data}.
-> >> 4. A signed object is made by the call, over the challenge, and never
-> >>    reused. The rest are read as they stand.
-> >> 
-> >> This settles following issues discussed during this patchset review:
-> >> 
-> >> 1. One op, not two. Per-object challenge-lengths tell userspace when to
-> >>    pass a challenge, and one call returns the signed object with the log
-> >>    and certificates needed to check it.
-> >> 2. TDX's TDREPORT goes: it is MAC'd for the platform, not signed.
-> >>    /dev/tdx_guest keeps TDX_CMD_GET_REPORT0.
-> >> 3. TDX's Quote object lists the legacy and the DICE format. The provider
-> >>    labels what the host returned and fails on a Quote it cannot label.
-> >> 4. "primary" becomes "signed", manifest joins auxiliary, spdm-vca,
-> >>    spdm-measurements and tdisp-report become formats, and signature
-> >>    goes, as a signed object carries its own.
-> >> 5. "raw" goes with the representation attr. The TCB digest is a reply
-> >>    field, so a blob always holds the object's own bytes.
-> >> 
-> >> Formats become an enum each provider family defines, instead of free
-> >> strings. I'm still unsure if format should be entirely provider-specific
-> >> and defined as "extension", or it should be somehow mixture of common
-> >> and provider-specific. Looks there is not really much common
-> >> anyway, so I lean towards provider-specific only. So far I have:
-> >
-> >Overall, This is plausible for me with some small question.
-> >
-> >> 
-> >> ======  ============  ==========  =========  ===========================
-> >> Family  Format        Class       Challenge  Bytes
-> >> ======  ============  ==========  =========  ===========================
-> >[...]
-> >> tpm     ek-cert       cert-chain  none       EK certificate from NV
-> >
-> >Just a thought, but how are we planning to retrieve
-> >the NV index for EK certificate?
-> >
-> >As far as I know, TPM NV storage doesn't support labeling.
-> >
-> >Should I assume that the NV index would be specified as part of the
-> >challenge to retrieve the certificate from TPM NV storage?
-> 
-> evidence-get allows to accept mr-selection as part of the request
-> alongside the challenge.
+On Fri, Nov 6, 2026 at 5:44=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> The UBWC entry for DRM_FORMAT_P010 is set up for P030 (TP10), three
+> 10-bit samples in each 32-bit word, the layout the video decoders
+> produce for QC10C. It doesn't match P010: compressed P010, as the GPU
+> writes it, keeps 16-bit samples and is scanned out as garbage.
+>
+> Use DRM_FORMAT_P030 for that entry, compressed only, as the SSPP can't
+> fetch linear P030, and give P010 its own UBWC entry with 16-bit samples.
+>
+> This changes what compressed P010 means. Nothing is known to depend on
+> the old meaning: Mesa and minigbm never allocate it, the vendor stack
+> uses its own modifier bits, and the only user found is a draft
+> GStreamer merge request.
+>
+> Fixes: f07c9946cc1a ("drm/msm/dpu: Add support for P010 format")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Sorry. Could you explain a little bit detail for this?.
-AFAIU, this is to get the EK certificate from TPM non-volatile storage.
-But, I don't know why *EK* certificate get would be relevant for
-*mr selection*.  AFAIK, the TPM_Quote will be used AK not a EK.
+Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
 
-Also, AFAIK, mr_selection is meaningful when the evidence_accept is
-supported.
+This one, in particular, we should pick for -fixes
 
-What is the relation-ship between mr-selecation and getting the TPM's
-EK certificate getting from NV storage?
+BR,
+-R
 
--- 
-Sincerely,
-Yeoreum Yun
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      |  4 +++-
+>  drivers/gpu/drm/msm/disp/mdp_format.c          | 13 +++++++++----
+>  3 files changed, 13 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu=
+/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 107150a8553f..f755c0d57abe 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -173,6 +173,7 @@ static const uint32_t plane_formats_yuv[] =3D {
+>         DRM_FORMAT_BGRX4444,
+>
+>         DRM_FORMAT_P010,
+> +       DRM_FORMAT_P030,
+>         DRM_FORMAT_NV12,
+>         DRM_FORMAT_NV21,
+>         DRM_FORMAT_NV16,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/=
+msm/disp/dpu1/dpu_plane.c
+> index 1a471cdf767b..09146023d13e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -68,6 +68,7 @@ static const uint32_t qcom_compressed_supported_formats=
+[] =3D {
+>
+>         DRM_FORMAT_NV12,
+>         DRM_FORMAT_P010,
+> +       DRM_FORMAT_P030,
+>  };
+>
+>  /*
+> @@ -1779,8 +1780,9 @@ static bool dpu_plane_format_mod_supported(struct d=
+rm_plane *plane,
+>         struct dpu_kms *dpu_kms =3D _dpu_plane_get_kms(plane);
+>         bool has_no_ubwc =3D (dpu_kms->mdss->ubwc_enc_version =3D=3D 0);
+>
+> +       /* the SSPP can only fetch P030 compressed */
+>         if (modifier =3D=3D DRM_FORMAT_MOD_LINEAR)
+> -               return true;
+> +               return format !=3D DRM_FORMAT_P030;
+>
+>         if (modifier =3D=3D DRM_FORMAT_MOD_QCOM_COMPRESSED && !has_no_ubw=
+c)
+>                 return dpu_find_format(format, qcom_compressed_supported_=
+formats,
+> diff --git a/drivers/gpu/drm/msm/disp/mdp_format.c b/drivers/gpu/drm/msm/=
+disp/mdp_format.c
+> index 33da569eae5e..2712a73e5783 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp_format.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp_format.c
+> @@ -298,8 +298,7 @@ static struct csc_cfg csc_convert[CSC_MAX] =3D {
+>         .unpack_count =3D 2,                                             =
+   \
+>         .bpp =3D 2,                                                      =
+   \
+>         .fetch_mode =3D MDP_FETCH_UBWC,                                  =
+   \
+> -       .flags =3D MSM_FORMAT_FLAG_UNPACK_TIGHT |                        =
+   \
+> -                MSM_FORMAT_FLAG_YUV |                                   =
+ \
+> +       .flags =3D MSM_FORMAT_FLAG_YUV |                                 =
+   \
+>                  MSM_FORMAT_FLAG_COMPRESSED | flg,                       =
+ \
+>         .num_planes =3D 4,                                               =
+   \
+>         .tile_height =3D th                                              =
+   \
+> @@ -606,13 +605,19 @@ static const struct msm_format mdp_formats_ubwc[] =
+=3D {
+>         PSEUDO_YUV_FMT_TILED(NV12,
+>                 BPC8, BPC8, BPC8,
+>                 C1_B_Cb, C2_R_Cr,
+> -               CHROMA_420, 0,
+> +               CHROMA_420, MSM_FORMAT_FLAG_UNPACK_TIGHT,
+>                 MDP_TILE_HEIGHT_NV12),
+>
+> +       PSEUDO_YUV_FMT_TILED(P030,
+> +               BPC8, BPC8, BPC8,
+> +               C1_B_Cb, C2_R_Cr,
+> +               CHROMA_420, MSM_FORMAT_FLAG_UNPACK_TIGHT | MSM_FORMAT_FLA=
+G_DX,
+> +               MDP_TILE_HEIGHT_UBWC),
+> +
+>         PSEUDO_YUV_FMT_TILED(P010,
+>                 BPC8, BPC8, BPC8,
+>                 C1_B_Cb, C2_R_Cr,
+> -               CHROMA_420, MSM_FORMAT_FLAG_DX,
+> +               CHROMA_420, MSM_FORMAT_FLAG_UNPACK_ALIGN_MSB | MSM_FORMAT=
+_FLAG_DX,
+>                 MDP_TILE_HEIGHT_UBWC),
+>  };
+>
+>
+> --
+> 2.47.3
+>
