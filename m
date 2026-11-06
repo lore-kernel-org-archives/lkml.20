@@ -1,64 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957852;
-	b=F4R2P6UJ7Om3KRAWnGIUX2HHKLIguMVR9e2VZGsb/WEQxXL5/XqI6JPH4Y7gIMpscGzH
-	 0bFT7KswAw806qcknJ2EyjBjMfQDwVgykhhGVQ8w1S+ffxnbdjDYnQR7/wtbIZZImL92M
-	 iKyjpKMUvZDe4cqIKKPUQt4WsNwqa9UAYaPMNmmYxcRE7uLkRc1Q5QZ6aQym36GKi2ji7
-	 HKBI+h1YBx1NWv/34rZjacrTdi4BZ7hI4kflY2DedywpF9WYlEIRS4qlPS/Af0pPdJW/1
-	 bKlQSWdbHjhRBV/UO8I6ikcXCkhUQDE6uHtitaEpCEQ2owihhQGLR+kCMfJHQzRiy2w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957852;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type;
-	bh=PLYAAogcGzOh2NI4d9WLpdaFRZuIFqV2eJZI8IGdoW8=;
-	b=ldKCDmhWD7rPn6Bg/XxQdzPtg3TGSgsBE5UWI/IxRL0OEydvVKgoRMF2DEiomgSKqmGG
-	 IhVU5oB/pF5Ellau10cV1nwB5M8jhU3caGSgYn/+F6vkSt2elpunpQkXkfGRKMAqhIEoE
-	 kYV3VJcDJLHp2pNwCVmZdezLQHT6qEJ1EcLuuhO4bTUxFFoB8rfaLhM/1HdwqwUnuW7V7
-	 Is9hqnjkaMo00avWrqk9Y7PmUQ7No+6gQmfWOfIAa5YpAVWT3Fqm4ix9x+ywL3+d10hM0
-	 ZSbqj6GF5DgslUeuRtxYnRuoPs73IPCN94Zti0RnT2BBaqH1/TIGZ62424GGEPQ2fRw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=HtL2ecgc;
-	arc=none smtp.remote-ip=115.124.30.118
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793957856;
+	b=BbMUeH1kqV2OXKpogWTu1UMToQNUiA24X5q/oKoOtEWnu4oRipr5FMKflBbAv10/9ErM
+	 6bjC+CgejtFJ4xyBHhPUupCN0akAQUUtEdUPBF/bxovEEiwNQ6OexGk2YmSRHAA0YI1g0
+	 GAWxpScVTo3QjHW5oPAg+a+B7lPvs15bC9T7stbO+y3J+J4RM+/Trp0Ugg/qog/Rpi9pv
+	 rsARg6T7PVdSDXFMmZyQPUPHWsd5MHMIGUQre2YQXD6lhiePKlf1xUFeiRKWeyvUoTYjz
+	 kt737Veqzp08GPXrH6CpmPP6Pgwcg6Nu+lJ+hBGnDARPi3OnujPuJhgfCTo/6xwmc+A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957856;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=eq9e5/JVOIYpfaf2X6q2/pV4dCFq8e5rt1cZux4duCo=;
+	b=XUb12yGC6K2iNP33B5n7vJ6jn9IPgZB3gCW/5zV0UWFZ2xg7kna5csbQpXMlkMXz+r6L
+	 F1yW6PJ6mE8r7EdUWnXc+0WQfa8lqDvcv8dqh2nSlFhadc46PQHJVlmmkjRNMQ0f/UKc4
+	 O2dUKVGsavdvE01d4QHjLHdf34iDgUFExwzkl44yYuN7W6we0DlCkRuyFZIiS0qjRwJbF
+	 T5nk64ou7SDm18+ET8PvjSBQeSgW/LkfhUXyov+4g1nV8wy7wXarekqroVwZenLUFrIxE
+	 Pbrhm2A6au0GM8ZWMzsPNCAH5J6vamjTDJr763dWvyStFRbOc61PAMoMUA1vJtPni2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cr6ejxUv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0706077CDC;
+	Fri,  6 Nov 2026 09:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cr6ejxUv
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793957856;
+	b=VPjVMP6hDoEa9F+Qm6en2ASZnE3B+fD9nF/d180BFyoGrss1jWaF7d0lyJK0M7l+IAZU
+	 Y9AExoTKtPUQkepYxF6zxR+gJE4lTCSqvJoDj+LDGDlnvUu2yQoJQHPhCUOmjSW1VI6eL
+	 Fxf5BoDBVbrmpFCRMnTdH7wgWTLZzyZBlkzgy6cD6GJVBPWa0S66ge7Y3Zqk8ABwhwz60
+	 KZF54Ah3wj3ESGGwHeok1gu/TyHbms0hkCVcorQbuC6M+kYviRzJCEap6VKVJrzYr6wzo
+	 eiALr3qrb2z5YX5x0exO5VaxPCpTGABIIllCPOa/umPolUs6xEW9SrpJXYrm0wrhTJg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793957856;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=eq9e5/JVOIYpfaf2X6q2/pV4dCFq8e5rt1cZux4duCo=;
+	b=lYj3h8TqukePkczZBaxr0o3i/j7ofECs37NFnTf0LpgX1xm4XsB7OTnSWTH9P08f85jK
+	 B8l7JuW7OO/27ZhD10IaFGnmPL+qqfg3BvW032i3842STC75uig084Es605eYsRblLsWM
+	 za/Sepm2FnLaksDHoc1WNtPpNef/Ywjh2Po46DvhQR4b1GAMMbwwdkkfsVgyggkrGzo+7
+	 FuVKnVidxGsrJ5aKQ0XKZups+lVN0BzRri3BPipL50CTuO6yOX41qbEFEAqifc7wtI2xq
+	 ON+2gtCpMEGOZKv4fDZLtoHEe1PBveftsR5AFYf9S0u3d+Zx5PlqYyHyQp4a5icMMTw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB6A606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:37:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB6A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=HtL2ecgc
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793957848; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=PLYAAogcGzOh2NI4d9WLpdaFRZuIFqV2eJZI8IGdoW8=;
-	b=HtL2ecgcTnvEijk8zU7wMRRlyi62sjWhQm6E3lfd7iX3QTorNWuTA6axquQ72D7ZixVnYBVAnkiFXavk55JWpLo9Ek6ziao3vStSVg82j5CkVrLZhVowk4G9N0VJIToP3gbtG8iV+mfFia9UFyMr6+eHOnf+WUuELgSB6VxXE6g=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XEBH0Tu_1793957845;
-Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XEBH0Tu_1793957845 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 17:37:27 +0800
-From: "Huang, Ying" <ying.huang@linux.alibaba.com>
-To: Zhiteng Qiu <qiuzhiteng@hygon.cn>
-Cc: Andrew Morton <akpm@linux-foundation.org>,  David Hildenbrand
- <david@kernel.org>,  Zi Yan <ziy@nvidia.com>,  Matthew Brost
- <matthew.brost@intel.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>,
-  Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
-  Alistair Popple <apopple@nvidia.com>,  Xin Hao <xhao@linux.alibaba.com>,
-  Dave Hansen <dave.hansen@linux.intel.com>,  <linux-mm@kvack.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] mm/migrate: don't batch the TLB flush when there is
- nothing to batch
-In-Reply-To: <20261106041628.1177963-1-qiuzhiteng@hygon.cn> (Zhiteng Qiu's
-	message of "Fri, 6 Nov 2026 12:16:28 +0800")
-References: <20261106041628.1177963-1-qiuzhiteng@hygon.cn>
-User-Agent: Gnus/5.13 (Gnus v5.13)
-Date: Fri, 06 Nov 2026 17:37:24 +0800
-Message-ID: <87zevmwbaj.fsf@DESKTOP-5N7EMDA>
+	by smtp.kernel.org (Postfix) with ESMTPS id 34F701F0092F;
+	Fri,  6 Nov 2026 09:37:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793957856;
+	bh=eq9e5/JVOIYpfaf2X6q2/pV4dCFq8e5rt1cZux4duCo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=cr6ejxUvFAj+PEJpiaBAQRaCzZgbRWmYiZpg11CgLT/aK+ja2grnP/L/3r2e3JLdd
+	 b+WV3vTwITstZ2qZaXSS8XwNvaE2x8DQuK6xh9hrO5puR+qvVGmDp/9cXOAGHxvaxj
+	 Z83TFzmH0iNbYh4lKr0qvQs5aMnUGGjq1G1UteFZETwBjRD6z5JfCU2YtzaQjMsP9R
+	 krwUSlkLJfdzZdkW/2VnQnhcf/BP2/3KSJwvUOYAnCCUDVh1mhJtK+jijMX3C2vaOC
+	 rnxYEKENhX/6Q/PXghzsLPBkEvqcDToZ5Dg+cQ4L+SkCsaEXwCqN/ugeO0bqvertG1
+	 sWuTijU9IFp9g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id AACD645CBC;
+	Fri,  6 Nov 2026 09:37:33 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Fri, 06 Nov 2026 17:37:25 +0800
+Subject: [PATCH net v7 6/7] can: rockchip_canfd: prevent timestamp work
+ from rearming after bus-off
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,55 +83,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-rockchip-canfd-restart-close-v7-6-accdb11bc845@qq.com>
+References: <20261106-rockchip-canfd-restart-close-v7-0-accdb11bc845@qq.com>
+In-Reply-To: <20261106-rockchip-canfd-restart-close-v7-0-accdb11bc845@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Wolfgang Grandegger <wg@grandegger.com>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Cunhao Lu <1579567540@qq.com>, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, netdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793957851; l=4333;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=SOO163gzYNYZNP6n4OTUiW0fL5Doo8hMgGkDjKR3yOc=;
+ b=v3Eb7AUU44S2vzABSrZSahv4Srx7OImuvmgWdoBAG80QO1eryPiddCh3E8WUHp6CW8STytDri
+ DG2BDSs0K0+DlfqXpyKl3XgALPg6Z1ljFV8hLT2xEoeeiPjGKAfLZ1h
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
+Content-Transfer-Encoding: 7bit
 
-Zhiteng Qiu <qiuzhiteng@hygon.cn> writes:
+From: Cunhao Lu <1579567540@qq.com>
 
-> Since commit 7e12beb8ca2a ("migrate_pages: batch flushing TLB"), every
-> MIGRATE_ASYNC migration unmaps with TTU_BATCH_FLUSH.  That includes NUMA
-> balancing and memory-tiering promotion, which migrate one folio per call
-> through migrate_misplaced_folio().  For an order-0 folio with a single
-> mapping the batch holds one PTE and there is nothing to merge, but the
-> flush still changes: on x86, arch_tlbbatch_flush() sends a full TLB
-> flush to every CPU in mm_cpumask() instead of invalidating that one page.
->
-> On a 2-socket, 384-CPU x86 server without INVLPGB, a 4 KiB-page,
-> memory-heavy multithreaded workload takes about 200 TLB shootdown
-> interrupts per page migrated by NUMA balancing (v5.15 on the same machine
-> takes about 11), and balancing costs it 13-16% of its throughput.
->
-> Skip the batched flush only when the batch cannot merge anything: the
-> folio is the only one in this migrate_pages_batch() call, it is not a
-> large folio, and it is mapped only once.  The rmap walk then meets at
-> most one PTE, and ptep_clear_flush() invalidates just that page.
-> Everything else keeps the batched flush, including PTE-mapped large
-> folios, folios mapped more than once, and the batch of sub-folios
-> produced when a partially mapped large folio is split during migration.
->
-> PMD-mapped THPs already invalidate their mappings through
-> set_pmd_migration_entry(), independently of TTU_BATCH_FLUSH, so their
-> flush behaviour is unchanged.  On arm64 the batched path only defers the
-> final DSB, so a one-PTE batch should cost about the same either way.
->
-> migrate_folio_unmap() cannot see how many folios its caller is
-> migrating, so migrate_pages_batch() passes that down.
->
-> Measured on v7.3: 120 GiB anonymous working set, 384 threads, 180 s per
-> run, three A/B pairs (numa_balancing on vs. off, same boot) per kernel.
->
->                                     v7.3            patched
->   throughput loss from balancing   13.0-16.5%      0.5-6.3%
->   kernel cycles per hinting PTE    1.18-1.22M      0.28-0.31M
->   TLB interrupts / migrated page   202-210         12.7-13.6
+The bus-off IRQ cancels timestamp work asynchronously. If the worker
+is already running, it can requeue itself after cancellation and keep
+polling while the controller remains bus-off.
 
-IIRC, after commit b99a342d4f11 ("NUMA balancing: reduce TLB flush via
-delaying mapping on hint page fault"), we can avoid most TLB flushing
-caused by do_numa_page().  Could you check why it does not work?
+Add a dedicated lock and an active flag, initialized once at probe.
+Serialize the worker's active check, counter read and self-requeue with
+start and stop. Clear the flag under the lock before cancelling work
+so no worker can read the counter or rearm after deactivation. Enable
+the flag and schedule the initial work under the same lock at start.
 
-> Signed-off-by: Zhiteng Qiu <qiuzhiteng@hygon.cn>
+Keep both cancellation calls outside the lock so synchronous stop can
+wait for the worker to finish.
 
-[snip]
-
+Fixes: 4e1a18bab124 ("can: rockchip_canfd: add hardware timestamping support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
 ---
-Best Regards,
-Huang, Ying
+ .../net/can/rockchip/rockchip_canfd-timestamp.c    | 34 +++++++++++++++++++---
+ drivers/net/can/rockchip/rockchip_canfd.h          |  3 ++
+ 2 files changed, 33 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+index ad582afbbd68..1d2a122770dc 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
++++ b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+@@ -30,18 +30,27 @@ static void rkcanfd_timestamp_work(struct work_struct *work)
+ {
+ 	const struct delayed_work *delayed_work = to_delayed_work(work);
+ 	struct rkcanfd_priv *priv;
++	unsigned long flags;
+ 
+ 	priv = container_of(delayed_work, struct rkcanfd_priv, timestamp);
+-	timecounter_read(&priv->tc);
+-
+-	schedule_delayed_work(&priv->timestamp, priv->work_delay_jiffies);
++	spin_lock_irqsave(&priv->timestamp_lock, flags);
++	if (priv->timestamp_active) {
++		timecounter_read(&priv->tc);
++
++		/* Serialize requeueing with timestamp deactivation. */
++		schedule_delayed_work(&priv->timestamp, priv->work_delay_jiffies);
++	}
++	spin_unlock_irqrestore(&priv->timestamp_lock, flags);
+ }
+ 
+ void rkcanfd_timestamp_work_init(struct rkcanfd_priv *priv)
+ {
++	spin_lock_init(&priv->timestamp_lock);
++	priv->timestamp_active = false;
+ 	INIT_DELAYED_WORK(&priv->timestamp, rkcanfd_timestamp_work);
+ }
+ 
++/* The caller must quiesce IRQs and timestamp work before reconfiguration. */
+ void rkcanfd_timestamp_init(struct rkcanfd_priv *priv)
+ {
+ 	const struct can_bittiming *dbt = &priv->can.fd.data_bittiming;
+@@ -93,17 +102,34 @@ void rkcanfd_timestamp_init(struct rkcanfd_priv *priv)
+ 
+ void rkcanfd_timestamp_start(struct rkcanfd_priv *priv)
+ {
+-	timecounter_init(&priv->tc, &priv->cc, ktime_get_real_ns());
++	unsigned long flags;
+ 
++	spin_lock_irqsave(&priv->timestamp_lock, flags);
++	timecounter_init(&priv->tc, &priv->cc, ktime_get_real_ns());
++	priv->timestamp_active = true;
+ 	schedule_delayed_work(&priv->timestamp, priv->work_delay_jiffies);
++	spin_unlock_irqrestore(&priv->timestamp_lock, flags);
+ }
+ 
+ void rkcanfd_timestamp_stop(struct rkcanfd_priv *priv)
+ {
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->timestamp_lock, flags);
++	priv->timestamp_active = false;
++	spin_unlock_irqrestore(&priv->timestamp_lock, flags);
++
+ 	cancel_delayed_work(&priv->timestamp);
+ }
+ 
+ void rkcanfd_timestamp_stop_sync(struct rkcanfd_priv *priv)
+ {
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->timestamp_lock, flags);
++	priv->timestamp_active = false;
++	spin_unlock_irqrestore(&priv->timestamp_lock, flags);
++
++	/* The worker needs timestamp_lock to finish. */
+ 	cancel_delayed_work_sync(&priv->timestamp);
+ }
+diff --git a/drivers/net/can/rockchip/rockchip_canfd.h b/drivers/net/can/rockchip/rockchip_canfd.h
+index 3664124a8da2..078876769a05 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd.h
++++ b/drivers/net/can/rockchip/rockchip_canfd.h
+@@ -477,6 +477,8 @@ struct rkcanfd_priv {
+ 
+ 	/* Serialize TX submission/completion with bus-off and restart. */
+ 	spinlock_t tx_lock;
++	/* Protects timestamp_active and worker reads/requeueing. */
++	spinlock_t timestamp_lock;
+ 	void __iomem *regs;
+ 	unsigned int tx_head;
+ 	unsigned int tx_tail;
+@@ -485,6 +487,7 @@ struct rkcanfd_priv {
+ 	u32 reg_int_mask_default;
+ 	bool tx_enabled;
+ 	bool irq_suspended;
++	bool timestamp_active;
+ 	struct rkcanfd_devtype_data devtype_data;
+ 
+ 	struct cyclecounter cc;
+
+-- 
+2.34.1
+
+
