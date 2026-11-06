@@ -1,54 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793933046;
-	b=P4CJAPHz//3im5q02BoL5SqGKdPzLlLlxOtkme1FwIozK60vkDWyO9e5zaLLZqICTKvt
-	 i4kWgmQxDyShW6MuoZuFGdyPKH8NcVL7Q5pOPJue3F8FWdaUMkx9P2K2CpZzN4cND3/o2
-	 9eGWJXnttxArlvBSoqVe8M3nXdOcpQFyRqcCj8AFCDaglyHtkKYtXZtA807p3H3f384Uq
-	 sXtmiOUAgVBUT/tXdtYpL0/eda0DVzBVHo0RM2pdEOYyNjBaVBbrwXNFv4NhWdr02CCif
-	 hVyF9VbSrCuq3u1SrOdKuvkG9RrnjSfPKeZh6fNjCAkJ3fSWoE7Sq1FB+nh+EDYTqfw==
+	t=1793933052;
+	b=yq5izT2iV+Ojg/cZ/sj7FwDFPjRCzj7gJOddd082WtC//UfMlWoz1tIW8wTavS4I/IZW
+	 5wZA7jnSckyhIfRPgMy67Y8hTTlrOeB09pPYc1VBpeknuCRgFaUjGjW9Kn0H0rVzVA+mE
+	 8GxM0YawP6jvj2u9Zwu7nqUbdo9uyuxBrjCjP8bzvwUy8RZr+LoNiY3fMk5vTELsYsIg9
+	 E4ymQAjXjzzdWraNz+xWwZVrzrjHIhURUf7syogOYe4RnWtOyTPEVGOAcLIsnnTHaBbct
+	 7XlJHTQn1XAg8IkGESncsOAuOVXwvS566T17areY4FbulZhU/1dw1/9liQS43Q3cLcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793933046;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zSAnlbuhwhmUG9bBEmOB7UE9ygtoZLL5whU9bUfyqnc=;
-	b=jdgExX+Vhmko9aM+HPMdPpu517NAH93b+Y+bN0eufEy1TqYoGkv7bmkSw04oTkr32eMS
-	 Oi7N1yO6cw85jkruTCuk62LnS73x2xX0/HvDlNNq90seUDPwrpaiJyaQQBWm7cnAVfJuF
-	 ThSvjoL9C/0AoCf09K6ewRz79PMD3Pcg0zRKFMvaKAsJTYPajkK/WN1SyGmaBQigQja6f
-	 rzcC2PvI6WF4eipr6uWj1FpJ3+KCQJm88UmB69k/tx4WazXNtmaWyQpYJOAeBmvU+vLlU
-	 wx2KjF4zTH7f85e9uFaxuirXh2gr+x7H3z2LdMWeYVz6Tsy2R6M9TFbuTs0F6wuqeQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933052;
+	h=DMARC-Filter:DKIM-Signature:Content-Type:Subject:Mime-Version:
+	 X-Original-From:To:User-Agent:X-Lms-Return-Path:Cc:From:In-Reply-To:
+	 References:Date:Message-Id:Content-Transfer-Encoding;
+	bh=tgrWvNnafi0hz01idjBDDnVhQC6ycv925GHIdoMUXIU=;
+	b=K8oC1DAIP5aDOChWxdSShLrR8S6uiw6pUq+PUCHMXiDzw1AUXb7IrRPHHolXkrW9vqJ1
+	 GovDJWjoHjJ2oljC4lXp/PzgSBSOHhmZnm1OUue/MbGX96ff+b+E+KhW+FII4i8loT4fH
+	 lMUqmu+YyHdz4LCgZZx1OyN5j6SSHt4zY04Ud3moLVGSYdtXWhVRiZP4wfyY8ajbqcvd3
+	 JzFbB2MfrqaNT+hysa5rOdy8170BmsO6dVmR2A4Apyo4We3/IPz+yLXule8UhT5YwNbOK
+	 Mybz8oEfYHFZzaMCLlK/dTM3fI1JcAFrxjTEJ3sBuCwcMGENZ/wDAr0FuLF69hkmHmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p4hIGK3F;
-	arc=none smtp.remote-ip=95.215.58.152
-Received: from mta1.migadu.com (out-152.mta1.migadu.com [95.215.58.152])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dKoGpakC;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE70606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:44:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FE70606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D9F606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:44:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15D9F606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p4hIGK3F
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BV4jydBngbK5OT+ZHvts5CVNgLwnfznFuT39h8Pecis=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793933041; v=1; x=1794537841;
- b=p4hIGK3FvTBncEACzoquuYTKUahICVVjb+yGf0kJM0hCa8vbXeIeqBgaM5JLMbHZmxt6o5/W
- 64Xh/rztiH19Yyid8rqfxTMTeIrFpa6d20K3WGt17QdWQhU8O3lmgNECf403fraDz70m9uVegTe
- x5p01mJXm2W82ZxyKfNpk+Cs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f76348987678bbc6;
-	Fri, 06 Nov 2026 02:44:01 +0000
-X-Mizu-Trace-ID: f76348987678bbc6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1535887c-6be2-4415-b54e-2008e6e7a35c@linux.dev>
-Date: Fri, 6 Nov 2026 10:43:53 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dKoGpakC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793933045; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=tgrWvNnafi0hz01idjBDDnVhQC6ycv925GHIdoMUXIU=;
+ b=dKoGpakCq+RU2UuXTJysOZT7YmHbb040g0fXp8Wmfj6zU/Z/qjxPR/SWw401MV7u0e3Gqa
+ Ni1Pllf43TdKWrUQ4s7RlJO/+Edi3Hc5QWuW2WTVzoX2XFIn5qtIAJ8/b5fZtu2s1dIu7J
+ KRm5KaKPjvItNiC6gwLlZjhYlEdQvoHJgC2YO0X7iiZ6LAOHOfaT89gSWOErsL1eGK55E8
+ udPQqfbSeZfSTOTO5wW3we2PTS5tyArqlnunk8Knq6Hanhq0q4k9ydL0NYfhUtOKNAqMVL
+ drApI/PdEL+L7lEK2lGdUJDB5/WucJwwOxhqROGNDAsRx0g9v+IpT1zlMLUuTw==
+Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] mm/ksm: avoid unsafe anon rmap dereference in KSM merge
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,78 +53,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+To: "David Hildenbrand" <david@kernel.org>, "Xu Xin" <xu.xin@linux.dev>, 
+	"Chengming Zhou" <chengming.zhou@linux.dev>, 
+	"Andrew Morton" <akpm@linux-foundation.org>, 
+	"Rik van Riel" <riel@redhat.com>, 
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
-To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
- akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
- <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
- <auxTwrKCeg7a3hfY@localhost.localdomain>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <auxTwrKCeg7a3hfY@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Lms-Return-Path: <lba+26aed3ef3+cb0712+vger.kernel.org+zhaogongyi@bytedance.com>
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+In-Reply-To: <179387163181.11797.15205182972949028650.b4-ty@b4>
+References: <20261102-ksm-anon-rmap-fix-v1-1-68962acfb59b@kernel.org> <179387163181.11797.15205182972949028650.b4-ty@b4>
+Date: Fri, 6 Nov 2026 10:43:45 +0800
+Message-Id: <75926835-508f-48d3-a5d9-176cea61546d@bytedance.com>
 Content-Transfer-Encoding: 7bit
 
-Hi Oscar,
+Hi David and Lorenzo,
 
-On 11/5/26 6:00 PM, Oscar Salvador (SUSE) wrote:
-> On Thu, Nov 05, 2026 at 12:07:45PM +0800, Qi Zheng wrote:
->> From: Qi Zheng <zhengqi.arch@bytedance.com>
+On 11/5/26 5:40 PM, David Hildenbrand wrote:
+> On Mon, 02 Nov 2026 12:32:25 +0000, Lorenzo Stoakes (ARM) wrote:
+>> When KSM examines candidate VMAs in scan_get_next_rmap_item(), it
+>> accumulates (mm, address) pairs in ksm_rmap_item objects, assigning them
+>> via get_next_rmap_item(), pinning folios via a page walk in
+>> ksm_next_page_pmd_entry().
 >>
->> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
->> during the first MPOL_PREFERRED_MANY allocation attempt even though
->> the caller clears __GFP_DIRECT_RECLAIM.
+>> Throughout this operation, scan_get_next_rmap_item() holds mmap read lock,
+>> which it drops afterwards.
 >>
->> Pass the caller's GFP mask through the helper so CMA respects its
->> reclaim constraints when trying the preferred nodes.
->>
->> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> ...
->> --- a/mm/cma.c
->> +++ b/mm/cma.c
->> @@ -933,9 +933,9 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
->>   	return __cma_alloc_frozen(cma, count, align, gfp);
->>   }
->>   
->> -struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
->> +struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
->>   {
->> -	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
->> +	gfp |= __GFP_COMP | __GFP_NOWARN;
+>> [...]
 > 
-> Do we really need __GFP_COMP | __GFP_NOWARN here?
-> It is my understanding that all allocations coming from hugetlb are
-> handled with htlb_alloc_mask(), and that should already provide
-> __GFP_COMP | __GFP_NOWARN.
-
-Right. All current callers already supply both flags through
-htlb_alloc_mask().
-
-> We might have needed it when cma_alloc_frozen_compound() constructed its
-> own mask, but not it gets it from the caller, and that should have been
-> done via htlb_alloc_mask() up the chain.
-
-Right. Now that we restore GFP propagation, setting __GFP_NOWARN here is
-redundant. I'll remove it.
-
-I'd still prefer to keep __GFP_COMP so that
-cma_alloc_frozen_compound() itself guarantees compound allocation,
-without requiring callers to supply the flag.
-
-What do you think?
-
-Thanks,
-Qi
-
+> Applied, thanks!
 > 
-> So, any reason to have it here now?
+> tree: mm/core.git
+> branch: ksm-7.5.misc
 > 
->   
+> Applied patches will appear soon in mm-next, followed by linux-next.
+> 
+> Please report any outstanding bugs that were missed during review, so we
+> can either drop the patch series or decide how to fix it up.
+> 
+> It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+> though the patches have already been applied. If possible, patch trailers
+> will be updated.
+> 
+> Note that commit hashes shown below are subject to change due to rebase,
+> trailer updates or similar. Further, this is not a guarantee that the
+> patches will go upstream. If in doubt, please check the listed branch.
+> 
+> [1/1] mm/ksm: avoid unsafe anon rmap dereference in KSM merge
+>        https://git.kernel.org/mm/core/c/d8d12d97
 > 
 
+I tested Lorenzo's posted patch on Linux 7.3.0-syz-13001714+
+with CONFIG_KSM=y, CONFIG_KASAN=y and CONFIG_SLUB_RCU_DEBUG=y.
+
+An earlier unpatched run of the fixed-pool KSM/mremap reproducer hit a
+KASAN slab-use-after-free in page_address_in_vma() after about 342 seconds.
+With the patch applied, the workload ran for 12 minutes (1027 KSM full
+scans) without KASAN, BUG or panic. The fork/COW smoke test passed.
+
+ksm_functional_tests reported 8 passes, 1 failure and 1 skip. The
+"ptrace write failed" failure is a known test-environment issue; dmesg
+showed no kernel error.
+
+Tested-by: Zhao Gongyi <zhaogongyi@bytedance.com>
