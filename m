@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972399;
-	b=TMAhsXxffjrs1btGqX6kIFL/2gkhZ3kaL1Sb+VHmKO7VGnLdpiKSrnWBt8sh7NeLiRVW
-	 sjwnry/odflEVxy+aNmAzaDDuJnHiJTk4DdZB0gUYnluFS3ZFJaCd1thtW/57j6N6syoG
-	 r8fBa1sTibx5GAYCPjF0Cmp+b+2hJNkBcE8mA479dlOOdgXCgv/Z6jMisjzGO/uA0Hpcv
-	 w6lfsSS0bUoY0hfXx8rpaqtdTkZsXA7EF48i3/E9hmmV/rap7Tw7FnWNxXF7zsK0j8qQh
-	 isI/KIRyGlKcAdTsr0cpRScmgj2CK8pWRhqplCaXNYbEDW8qqs0y9JwP2nyTGKdXD8Q==
+	t=1793972396;
+	b=aP0XCaYn0PRwGd2luR336VL/L7B6UtrRxTR9ZsBP8RJyto4DnP0PhpQUQNVQnB5DV3KL
+	 z71YeAXlDhZMCf8jUJvhtURiRjYoMT4UA7Ys77bxrRFKG7ow2hD1zP+86kKCVwTQ7spZo
+	 aBZE2BCvWEEllKHd0hU1E/a5zn0O4onBJ7D4BbM97RLIiU7YdwOoot/vIOLVLaXOuIw7d
+	 AI6PQq3Ojc32jSJNXQpMynk0ST2smBwnlG+xMegjYYrbbkxfbfHsc3NqqHdyayYB1dTAE
+	 zKTJhd57dkxJ8ABhU4aNasivH9aqx9G9sr+ssAV30Bo/F0Ww7M7M7KzE8HThTcCaV0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972399;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972396;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4fAqEgZbj2e5oLEOZkZvURhkWP3v80P26gp72BkUr3w=;
-	b=EYU+ViqgnNKOrBMxzro7QghcYPub1glTZstOd8ggnPYXptxFaN5UwBrf3SHN8GRJP4qh
-	 xzHeFq7oMbtmq3PRiMjYhzbmaWrTx/pALHxSsKqwvLyzkTFBQex3B1+/sl1K8wBGHIoRm
-	 +Do5NYtToecr3ufYEt4FBCeDCopz81cETOIFtCUVOA6S6YrQ8FCL8ZBf7hfeKbbbZMYVo
-	 hbpr9Eg1xh06bjVHHKe0UJpOUlZxan5YpdfpK0Eru02C+x5JRfqY9lBuGDu1jAmZtioaM
-	 drcOjmdq9oVK/JFP0p0M8oQK24UVQDb2ooPQyeh2s9I3wKWoFvalHzBds2tEd/2vPVQ==
+	bh=aCR0cbCVBQ1xXYHP/Hq27JFN6h4MjFD9MsVpfTiy/qk=;
+	b=JuhEbHbIUZ4II/RgHEJMcLdS4D2bdBxU1mWx1zLxhpYU/4rAgDI+h6cECVO7+vXAvulD
+	 Jff0WjWSqVx6sABC/zwJ8WYuoqEqyRGVWHEg2HAgNbN1pWjqH+txXxdaF+ir5jXldKYbu
+	 bfdVN2m2cdlwoIUy8JyBGErW7G6TyJTW95/vYhObUWGk8q+oJrYUz2/pPrg5vX+MDSWs4
+	 zhylKpjPl2CKcdjldzfL5Ut4K16utzZNBgip0i2gVU0PMJRkgvLB6Rq4N0B89BXWUXeZ1
+	 PWCQPcq6Ynkd6c1gipERhX7J80IMTu71X7MEfUb9apJRha+uiDqQrc/GepQZZ4rcH5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YimdJFjx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S25BAqOt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D32606A337;
-	Fri,  6 Nov 2026 13:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B430E606A32F;
+	Fri,  6 Nov 2026 13:39:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YimdJFjx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6F51F008A3;
-	Fri,  6 Nov 2026 13:39:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S25BAqOt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41FB01F008A2;
+	Fri,  6 Nov 2026 13:39:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793972398;
-	bh=4fAqEgZbj2e5oLEOZkZvURhkWP3v80P26gp72BkUr3w=;
+	s=k20260515; t=1793972395;
+	bh=aCR0cbCVBQ1xXYHP/Hq27JFN6h4MjFD9MsVpfTiy/qk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YimdJFjx5dlTOd3ynA2eVbkw4VaqeC0xHFU6rYBfb+dzh2/1Ca66HFp0vXxudLZXP
-	 ATFvwCXysV3GfA795ACIQKZvlAkGxr8tQrKiE2W/di6yVfo+bIAtsezre1Ak+h92aA
-	 G5oXm6uaQQmhzIIhnI6pqqzGrXQg2XEmC+J8MFM5OOhqwQcgUXFLTJ6xLox9SBfong
-	 Zzk+6PaYdmfBzxCAMO1BGtYu+WP31okjTjI5OIn3hWxSTB8ffJxEj6iCGOA/K15jm0
-	 iWc197ETuhUXzveKcLbflfTjVVp/4e0ntZdI04tsgC+5cISIcQCEt9CWFWbcsEkKJv
-	 QXroTjCzcX70Q==
+	b=S25BAqOt9IrpU4qhBINT/g2tjcw4F0YSEL3NlSGG/QiqrQ52COoNH7sBX0B4TnSwx
+	 A05ZFJK/r90HmTkmL47koKDzImpiSQNZirz//AsiX9adRwC0Lnr0shLgUMknNFYASz
+	 m6qeBc6M+tR9QAu+a1KT6gVibjvTPsdVT6Mjg6NNIzoDSCBI5QIsPC5ig/HRCaLkRM
+	 BPeYbaMo3gOiDOWvnpj+MW7qD2Lxx0MX2SzttJKL7c5ZXrh2IEZr0aG43XQ2IKzyb0
+	 R+A2c3kO5G8sKZcAOFM7sjIxlJkisp2036h6uIv5gGBh5KxTMO4AFLvlz966Hau2Vi
+	 RZaHx0uWDJfHQ==
 From: Joshua Crofts <crofts@kernel.org>
 To: Peter Chen <peter.chen@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -46,9 +46,9 @@ To: Peter Chen <peter.chen@kernel.org>,
 	Bin Liu <b-liu@ti.com>
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] usb: dwc3: remove redundant pm_runtime_dont_use_autosuspend() calls
-Date: Fri,  6 Nov 2026 13:39:33 +0000
-Message-ID: <20261106133933.1577-4-crofts@kernel.org>
+Subject: [PATCH 1/3] usb: chipidea: remove redundant pm_runtime_dont_use_autosuspend() call
+Date: Fri,  6 Nov 2026 13:39:31 +0000
+Message-ID: <20261106133933.1577-2-crofts@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261106133933.1577-1-crofts@kernel.org>
 References: <20261106133933.1577-1-crofts@kernel.org>
@@ -67,46 +67,25 @@ Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() 
 driver core is now responsible for undoing any
 pm_runtime_use_autosuspend() calls on driver exit.
 
-Remove the redundant function calls.
+Remove the redundant function call.
 
 Signed-off-by: Joshua Crofts <crofts@kernel.org>
 ---
- drivers/usb/dwc3/core.c      | 2 --
- drivers/usb/dwc3/dwc3-am62.c | 1 -
- 2 files changed, 3 deletions(-)
+ drivers/usb/chipidea/core.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index fd5c2cd36c59..c4f0aa962747 100644
---- a/drivers/usb/dwc3/core.c
-+++ b/drivers/usb/dwc3/core.c
-@@ -2431,7 +2431,6 @@ int dwc3_core_probe(const struct dwc3_probe_data *data)
- err_allow_rpm:
- 	pm_runtime_allow(dev);
- 	pm_runtime_disable(dev);
--	pm_runtime_dont_use_autosuspend(dev);
- 	pm_runtime_set_suspended(dev);
- 	pm_runtime_put_noidle(dev);
- err_disable_clks:
-@@ -2486,7 +2485,6 @@ void dwc3_core_remove(struct dwc3 *dwc)
+diff --git a/drivers/usb/chipidea/core.c b/drivers/usb/chipidea/core.c
+index 3461dd763a6e..7edc512cc37d 100644
+--- a/drivers/usb/chipidea/core.c
++++ b/drivers/usb/chipidea/core.c
+@@ -1250,7 +1250,6 @@ static void ci_hdrc_remove(struct platform_device *pdev)
+ 		usb_role_switch_unregister(ci->role_switch);
  
- 	pm_runtime_allow(dwc->dev);
- 	pm_runtime_disable(dwc->dev);
--	pm_runtime_dont_use_autosuspend(dwc->dev);
- 	pm_runtime_put_noidle(dwc->dev);
- 	/*
- 	 * HACK: Clear the driver data, which is currently accessed by parent
-diff --git a/drivers/usb/dwc3/dwc3-am62.c b/drivers/usb/dwc3/dwc3-am62.c
-index d03b3950ce04..0df7e436aeb0 100644
---- a/drivers/usb/dwc3/dwc3-am62.c
-+++ b/drivers/usb/dwc3/dwc3-am62.c
-@@ -322,7 +322,6 @@ static void dwc3_ti_remove(struct platform_device *pdev)
- 
- 	pm_runtime_put_sync(dev);
- 	pm_runtime_disable(dev);
--	pm_runtime_dont_use_autosuspend(dev);
- 	pm_runtime_set_suspended(dev);
- }
- 
+ 	if (ci->supports_runtime_pm) {
+-		pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 		pm_runtime_get_sync(&pdev->dev);
+ 		pm_runtime_disable(&pdev->dev);
+ 		pm_runtime_put_noidle(&pdev->dev);
 -- 
 2.47.3
 
