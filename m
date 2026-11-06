@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945750;
-	b=g58AMf/+a/LTU3MCr7wEV2PjjZ0wu/aYjd3IYPlsVikLNR2t5/pPKFVwrrfxYuQnzHqL
-	 P0mLmqs1WYdJCawRi4oMQaGMhKa9ffcAJwNXnncvv4YoycdAJL8gwJ9CwxMmR+MbPcIPZ
-	 e3Z4ak8cScyMJGf/27CL63BlXAogTPZiAIdC9hu1q0dPtg7m8sJg8VtaHmI6VKZ81qwkU
-	 kMiNjVVZk0kJZ5BdrZB1fLoFz0BEOJibvEE2IyOIOhMGp/szRazfxtP0CXDZB9208tbpe
-	 TQnlsvImhbdXyLD4UzTOyjToVlwox2wOQxkL6WrmWngZrzghDyu34LZhizXrMRF3rZQ==
+	t=1793945752;
+	b=frb56f4mCF1KXQfORXONCs3jLHniK0G2+B82nPPsz5qH/DahdJcYGWtopolTdtBqi6Ge
+	 cJAepaQcsKaxnqYq0h8QLQlA7XZdzC2u1kgOE4fi4rKmZ8ZDsGMq5xkZ0ZIPCZz+F0B61
+	 dWDRuSoOyt602uETZh3PFexCEfQS8hMxG9UeOV/DsgOTbLZkSnJt6XISzQ4ndn06qmFWk
+	 i2ByNfaVM4McKmaU2+SF0SKFAplFq1RTxnKMsiw6XttUYohdJtxKrdqZAZmiLUCf8diaz
+	 XbUiLk7Z+UPifcHjWRouc8cTafGcG2ykAjXo/IffuLYebjqmHpXlxiCRVbDYU0yR8wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945750;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945752;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
 	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
 	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
 	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=Ku5sw3Ub/1O1Vdt25dmkNsNWzvVEElE3jfi32lpOUeQ=;
-	b=pPbESjUGBy13zQOVg5uGOvAzid1NlOaoAiSKyyZqHHdk/aEAu/dvJEWkwTM1d6J7V0Wv
-	 tBZzZKMkD/SQYi0PfHPLquug5KKxwbtBG3N5Y7L5D/5SZW9SaxWoJ1PC95jVu/pGb+geZ
-	 2FByhpicYOh3TAg+04LIU/3NImmF+nwKcYB5okv5CzIh4ClH+dCMj5LUqZv7GaTp/yIWr
-	 4jUig8+KnjNQl8VZ5S9skstqsbBetmngs2RNkMwRkE6QSJqDkx3iRx2K98LM8gkVm9nYS
-	 6bAmvKzzFIYYuOIGcuzPvYmb+qnxCoynnUUevvaYF9xkSt3X5KgxOzAEm3tE38FxlJQ==
+	bh=v7fwbcB+j3qArALJwbFSNMgaYPsy1n7sC1I4igR5Fcs=;
+	b=n2Qs3JK/XdNZo+atwNTND1n7fH7yvbuYqRFoUXDy9hySBu2iFEAg/9NYBf4gyYq6jJvf
+	 ffhRT1RmaOSj686vXxhqEU7OwppoeYgzWm8nWqThyppJ7HpsYhz+TAqHzLQcBZKMOineR
+	 m8P+STShCkm5flbu3q8t1qTr+E0hhFtPep/YfedHOmtAYqPKySi5y1YxUUmGbJ/ujHDlx
+	 Lc+7oCPRIqK8n97dBmCG+4lZzRr37rsNrwwDHSWyEYMQDgwndyp6EEGABvv2WorMkRLPE
+	 ezJBvJvegfNbJCF3jM78siXjEtjRuih0Ns38l+yVWAhC8SLt6CWfLiOOY8SozJ8TtvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=samsung.com;
 	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=qPPKd259;
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=V462ND7X;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60D4606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:15:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D60D4606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 060BF606D801
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:15:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 060BF606D801
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=qPPKd259
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261106061548epoutp02f1a3d06361bef67dd0d09cc84d40d2a5~lYCc6ARZB2780127801epoutp02I
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:15:48 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261106061548epoutp02f1a3d06361bef67dd0d09cc84d40d2a5~lYCc6ARZB2780127801epoutp02I
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=V462ND7X
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261106061549epoutp03860d3900ecce1d403835836d460f85c5~lYCdrq-Op1887018870epoutp03O
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:15:49 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261106061549epoutp03860d3900ecce1d403835836d460f85c5~lYCdrq-Op1887018870epoutp03O
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793945748;
-	bh=Ku5sw3Ub/1O1Vdt25dmkNsNWzvVEElE3jfi32lpOUeQ=;
+	s=mail20170921; t=1793945749;
+	bh=v7fwbcB+j3qArALJwbFSNMgaYPsy1n7sC1I4igR5Fcs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qPPKd259frYesTlyexFYfMz6IQST15PNi87zGct0xI7dy1BIFIq5+Z7/ls6Uj0TM8
-	 hCBWj1ECtkXpY+0tQCJrEckF5KEGD82rxNuXzxq/hs44fX5MZ18pO2oJDrnR9+HH5n
-	 RZpBmyni/AEBIMCMmSVbXvztbRwEcSq9AtT8OTP4=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261106061547epcas2p495a1c780bc1d7fc7714a3ad40d42a284~lYCceHX-_0225202252epcas2p44;
-	Fri,  6 Nov 2026 06:15:47 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.211]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4jLTSg2Y8rz6B9m7; Fri,  6 Nov
-	2026 06:15:47 +0000 (GMT)
+	b=V462ND7XRW5OpUG09uwc+/Y7dE/MsuVUodx8Ko5EabA4gxH1SAbSDDpIrTvABQwnh
+	 XfEBgF0DheTideJu+RqgM4YVT2O24rki6TOd+pjCU69OJXKdn7mlDSh80CNBcUVGBl
+	 cfu2IVbaQMIjs2YD0dQn+vtbkrK08kMHe/JIprlU=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261106061548epcas2p10bded25d72b3cdd6f23f70a9ded73e7d~lYCdUXIsB1875718757epcas2p1P;
+	Fri,  6 Nov 2026 06:15:48 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.209]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jLTSh1cwVz6B9mB; Fri,  6 Nov
+	2026 06:15:48 +0000 (GMT)
 Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261106061546epcas2p3b0d54ffe9fcea407f7d0e27ed579de0d~lYCbrIH4H2965429654epcas2p3n;
-	Fri,  6 Nov 2026 06:15:46 +0000 (GMT)
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261106061547epcas2p40541421c139d758cdc3633302634d29b~lYCcbrb6o0226002260epcas2p4I;
+	Fri,  6 Nov 2026 06:15:47 +0000 (GMT)
 Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
 	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261106061546epsmtip1f556f4c3a86b8d2590423bfcd2b6414e~lYCbmthQf0380503805epsmtip1a;
-	Fri,  6 Nov 2026 06:15:46 +0000 (GMT)
+	20261106061547epsmtip1fb31b06665099cc6938723bc2059b776~lYCcXeRz20434704347epsmtip1I;
+	Fri,  6 Nov 2026 06:15:47 +0000 (GMT)
 From: HOYOUNG SEO <hy50.seo@samsung.com>
 To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
 	bvanassche@acm.org, mkp@kernel.org, martin.petersen@oracle.com,
 	stanleyjhu@google.com, alim.akhtar@samsung.com, kwangwon.min@samsung.com,
 	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
 Cc: HOYOUNG SEO <hy50.seo@samsung.com>
-Subject: [PATCH v7 2/3] scsi: ufs: core: Hold host_sem in
- ufshcd_wl_poweroff()
-Date: Fri,  6 Nov 2026 15:11:17 +0900
-Message-Id: <c408e7a7167984a07dc714f43273d029b8904939.1793943246.git.hy50.seo@samsung.com>
+Subject: [PATCH v7 3/3] scsi: ufs: core: Limit early link recovery in the
+ error handler to runtime PM
+Date: Fri,  6 Nov 2026 15:11:18 +0900
+Message-Id: <66ffa35908823d693cde364ef6fbdeef50aa5a69.1793943246.git.hy50.seo@samsung.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1793943246.git.hy50.seo@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,7 +82,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261106061546epcas2p3b0d54ffe9fcea407f7d0e27ed579de0d
+X-CMS-MailID: 20261106061547epcas2p40541421c139d758cdc3633302634d29b
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 X-Sendblock-Type: AUTO_CONFIDENTIAL
@@ -90,48 +90,119 @@ CMS-TYPE: 102P
 X-CPGSPASS: Y
 cpgsPolicy: CPGSC10-234,Y
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261106061546epcas2p3b0d54ffe9fcea407f7d0e27ed579de0d
+X-CMS-RootMailID: 20261106061547epcas2p40541421c139d758cdc3633302634d29b
 References: <cover.1793943246.git.hy50.seo@samsung.com>
-	<CGME20261106061546epcas2p3b0d54ffe9fcea407f7d0e27ed579de0d@epcas2p3.samsung.com>
+	<CGME20261106061547epcas2p40541421c139d758cdc3633302634d29b@epcas2p4.samsung.com>
 
-ufshcd_wl_suspend() takes hba->host_sem and ufshcd_wl_resume() releases
-it, which serializes the error handler against system suspend and
-resume. ufshcd_wl_poweroff(), the hibernation poweroff callback, also
-suspends the device with UFS_SHUTDOWN_PM but does not take host_sem. An
-error handler that runs in the meantime can reset the link concurrently
-with __ufshcd_wl_suspend().
+ufshcd_err_handler() recovers the link without taking hba->host_sem
+whenever hba->pm_op_in_progress is set. That early path was added by
+commit f966e02ae521 ("scsi: ufs: core: Fix runtime suspend error
+deadlock") because the regular error handling would wait for a runtime
+PM operation that cannot complete while the error handler is waiting.
 
-It also leaves host_sem unbalanced: if hibernation is aborted after
-ufshcd_wl_poweroff() has been called, ufshcd_wl_resume() is called as
-the .restore callback and releases host_sem, which was not acquired.
+pm_op_in_progress is also set during system suspend, system resume,
+shutdown and poweroff, where the early path is not needed and runs
+concurrently with the PM path itself. For example, if a LINERESET is
+reported and the hibern8 exit fails in __ufshcd_wl_resume() during
+system resume, both ufshcd_err_handler() and __ufshcd_wl_resume() call
+ufshcd_link_recovery(), and the host and the device may be reset at the
+same time.
 
-Make ufshcd_wl_poweroff() behave like ufshcd_wl_suspend() and keep
-holding host_sem. It is released by ufshcd_wl_resume() if hibernation is
-aborted. Do not use hba->shutting_down here: it makes
-ufs_mtk_system_suspend(), which is also the .poweroff callback of the
-MediaTek host controller, fail with -EBUSY, and nothing clears it when
-hibernation is aborted.
+Only take the early path while a runtime PM operation is in progress.
+For the other PM operations the regular error handling is safe:
 
-Fixes: b294ff3e3449 ("scsi: ufs: core: Enable power management for wlun")
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
+  - the system PM callbacks hold host_sem from ufshcd_wl_suspend() until
+    ufshcd_wl_resume() returns, and ufshcd_wl_poweroff() holds it as
+    well, so the error handler waits for them;
+  - during shutdown, hba->shutting_down makes the error handler stop.
+
+This changes the behavior during shutdown: errors that occur while the
+final START STOP UNIT command is being processed are no longer handled
+by the error handler. Recovery then only happens through
+ufshcd_eh_timed_out().
+
+Since pm_op_in_progress does not tell which PM operation is running, add
+hba->runtime_pm_in_progress. It is set in ufshcd_wl_runtime_suspend() and
+ufshcd_wl_runtime_resume() around the PM operation, so it covers
+pm_op_in_progress for runtime PM and is never set for the other PM
+operations. The error handler tests only this flag. It is accessed
+without locking, so use READ_ONCE() and WRITE_ONCE().
+
+Fixes: e23ef4f22db3 ("scsi: ufs: core: Fix error handler host_sem issue")
 Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
 ---
- drivers/ufs/core/ufshcd.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/ufs/core/ufshcd.c | 11 ++++++++++-
+ include/ufs/ufshcd.h      |  2 ++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 3b5580ac390c..1c935a8d016d 100644
+index 1c935a8d016d..3d748974e753 100644
 --- a/drivers/ufs/core/ufshcd.c
 +++ b/drivers/ufs/core/ufshcd.c
-@@ -11574,6 +11574,8 @@ static int ufshcd_wl_poweroff(struct device *dev)
- 	struct scsi_device *sdev = to_scsi_device(dev);
- 	struct ufs_hba *hba = shost_priv(sdev->host);
+@@ -7091,9 +7091,14 @@ static void ufshcd_err_handler(struct work_struct *work)
+ 		 * runtime resume. This avoids potential deadlocks that could
+ 		 * happen if we tried to resume the device while a PM operation
+ 		 * is already in progress.
++		 *
++		 * Do not do this for system PM, shutdown and poweroff. The
++		 * system PM and poweroff callbacks hold host_sem, and
++		 * shutting_down makes the regular path below stop, so it
++		 * does not reset the link concurrently with them.
+ 		 */
+ 		ufshcd_rpm_get_noresume(hba);
+-		if (hba->pm_op_in_progress) {
++		if (READ_ONCE(hba->runtime_pm_in_progress)) {
+ 			ufshcd_link_recovery(hba);
+ 			ufshcd_rpm_put(hba);
+ 			return;
+@@ -10678,11 +10683,13 @@ static int ufshcd_wl_runtime_suspend(struct device *dev)
+ 	ktime_t start = ktime_get();
  
-+	/* Released by ufshcd_wl_resume() if hibernation is aborted. */
-+	down(&hba->host_sem);
- 	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
- 	return 0;
- }
+ 	hba = shost_priv(sdev->host);
++	WRITE_ONCE(hba->runtime_pm_in_progress, true);
+ 
+ 	ret = __ufshcd_wl_suspend(hba, UFS_RUNTIME_PM);
+ 	if (ret)
+ 		dev_err(&sdev->sdev_gendev, "%s failed: %d\n", __func__, ret);
+ 
++	WRITE_ONCE(hba->runtime_pm_in_progress, false);
+ 	trace_ufshcd_wl_runtime_suspend(hba, ret,
+ 		ktime_to_us(ktime_sub(ktime_get(), start)),
+ 		hba->curr_dev_pwr_mode, hba->uic_link_state);
+@@ -10698,11 +10705,13 @@ static int ufshcd_wl_runtime_resume(struct device *dev)
+ 	ktime_t start = ktime_get();
+ 
+ 	hba = shost_priv(sdev->host);
++	WRITE_ONCE(hba->runtime_pm_in_progress, true);
+ 
+ 	ret = __ufshcd_wl_resume(hba, UFS_RUNTIME_PM);
+ 	if (ret)
+ 		dev_err(&sdev->sdev_gendev, "%s failed: %d\n", __func__, ret);
+ 
++	WRITE_ONCE(hba->runtime_pm_in_progress, false);
+ 	trace_ufshcd_wl_runtime_resume(hba, ret,
+ 		ktime_to_us(ktime_sub(ktime_get(), start)),
+ 		hba->curr_dev_pwr_mode, hba->uic_link_state);
+diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
+index be62165b785e..8b5bfc83fea2 100644
+--- a/include/ufs/ufshcd.h
++++ b/include/ufs/ufshcd.h
+@@ -974,6 +974,7 @@ enum ufshcd_mcq_opr {
+  * @spm_lvl: desired UFS power management level during system PM.
+  * @pm_lvl_min: minimum supported power management level.
+  * @pm_op_in_progress: whether or not a PM operation is in progress.
++ * @runtime_pm_in_progress: whether or not a runtime PM operation is in progress.
+  * @ahit: value of Auto-Hibernate Idle Timer register.
+  * @outstanding_tasks: Bits representing outstanding task requests
+  * @outstanding_lock: Protects @outstanding_reqs.
+@@ -1129,6 +1130,7 @@ struct ufs_hba {
+ 	enum ufs_pm_level spm_lvl;
+ 	enum ufs_pm_level pm_lvl_min;
+ 	int pm_op_in_progress;
++	bool runtime_pm_in_progress;
+ 
+ 	/* Auto-Hibernate Idle Timer register value */
+ 	u32 ahit;
 -- 
 2.34.1
 
