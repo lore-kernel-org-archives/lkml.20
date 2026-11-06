@@ -1,96 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949431;
-	b=fS+H7JW+CuZlFBtfzpjs7l3CUoZz2b3DHyh1qLOcC4s/S/2pXQod0vEBvkA98vuwVOgf
-	 J1J2WgCB5gEs3KT+ULlbfJ8INB77IsPs1OC3H4QkfUdq+7k+l3nPR8bELEFddvAkszRPl
-	 5/kf1ckuh19j6kXVdWK0HCqLYMtnn9ZVWtDqoKB8+G8kmTMHMCAFkbk7Jl5I5Cimqbn+l
-	 Dx7l3Z5WW51By+IW+tkb1vophULz+4ZJS/TE5rzo+qN0Ry/YYB0qJ2zqby48QdoAFa2c1
-	 Oqkp9XVHQ7PWWdQZzaKiRjdDbGmdeJ+4yzKGIEGcqnGUoN4JsTotNUdfUXIDX7oC6nw==
+	t=1793949453;
+	b=3BBzVIcRJ69PhpGEsUXe3mp3Kska5KtFEdSnZOYJesv5ancSTMozQKGbzMMlrXqKvaWF
+	 61rv8aGj0tmB8m1aBQi1BJzHexrgcuv71wRztmcLEbKEx9Si7hfLMFXHzLRD4y+QNGhsP
+	 n845rx80operb5hVFJwaOZaLb5txRrb+RV3XF8LFAid76gSTcQ08hoG/oqm7Ngl2hyI/a
+	 Plf6NWV5yQpMwfiazJYhaKJIlc4XMyenPuL29+si1mQYMIz9bf3yOFX5r/nYZZNfduVbN
+	 K03f1jUM4Ginwtcq30lb+Apv3pre5/3V8J+o9Zl+qiycI1nXy1yNqaJtlVHJb80YYWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949431;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949453;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=phaG8fIAEdt42w1dFHlmJNP6UPxHP0iPRF5M4YLpvzA=;
-	b=YTLWkAushiLq6btWJuvwVmXeTmBRVkIIXVqeUydhjo5CdtLicTa+OiwOvPlCgV93N8tG
-	 jsz6TCOV8z7WDEWhcowqtONUW7kFjKhUsfEWC0KeVZHBWyRvQtK8snAf2R4/gWaccPa0C
-	 idf1eeHDmc7G9f3+Z98rSB1zUFgzgF54e+ClLTCU+ZLN/bvtIYIxUuseN3DPv4nNtCvW6
-	 PDkk7gS+5/MedYKmn5jGuz4JDpfg3xwqv3yeQxT8Ew0pAVC/F+Z/CtEJueDKLL/oZKvKp
-	 LDievjSaLB6pwWZhNzAC1xD7W7zNZ3kPh+jie3ezNnfSP0NcJ+LGMDwPZv5O194hpww==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=23tdgrbhdEj0Ew1yGHRUaEBBGufmw96pkWF7xHJ9Y+w=;
+	b=YGrJpgleWX6xpQkrI8uoT4lZN750JjwMfeg8fj7Og+zVXp2UlZAmorUihDTrK2kdLprS
+	 0I5CbinyDa1d2ezWts+//6EDftk8AcVxokBNruG6t6uzdaR0rJVeZGzRXh5aDFEK27MIS
+	 jbajVQ37oQwMvA+SkjHF1+r5lkmV6TJQKRTCSPZae6Vue/iK5FMvZj3WtYoKhsPFYwWdJ
+	 /YxKkw+EF0aDYgBAr+XmHamyfp9k9tgl8/lCXz42zl7gnp0TrN6aTGpOgly9mJfsaSCVe
+	 TVPpjW02RQQHWeUPe9EqSw2k0HXVoiGZ8elGlm1bvNy7YzXbYRnv9l/VzokXTzQAMbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=miRj7K7Y;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WBA4nl0S;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56433606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:17:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56433606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13C3606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:17:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C13C3606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=miRj7K7Y
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso2583935e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:17:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WBA4nl0S
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso576953eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:17:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793949429; x=1794554229; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=phaG8fIAEdt42w1dFHlmJNP6UPxHP0iPRF5M4YLpvzA=;
-        b=miRj7K7YHuY/8RFNhJ0nHR2yBAi2kd714Di5I0TQTBckobNwsqlzV/exwwTJcoimIN
-         S3ZUr0O53UJuTaIe2J05KOusgkeScEKsdnliLj/GpXUjg/+W0mB26W3o6wPW7sco7SSi
-         2Hpx3e6zgxqls9cXc0usSd8hd0bZ9Lyy2QHRmI9pb1guzNeUWiZ4YxfKP6hKxawGIIV/
-         8RrZOY8CYfn5DBLkOk0pDLwaLCl8XAC3HzGK37hiu+TQb23t34VMVPB/jhjMP//1Pyoz
-         GVfBoe+YkomZBFPsVwBBvoA3bnnDeuWJUMCAnz/lGdejclUfqgE22Hx/IF7spLGEhTFX
-         tCpQ==
+        d=gmail.com; s=20260707; t=1793949452; x=1794554252; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=23tdgrbhdEj0Ew1yGHRUaEBBGufmw96pkWF7xHJ9Y+w=;
+        b=WBA4nl0SpBZrO9LVnI+8VA/K0Nk/0m9fe0FUq8gVajlPkqWG9GGk8K9up5qzr+ed3/
+         tOvrYQ7ZsJ5bAivT2h/sgP0dqwDTaoo1NFDbQUkrj+ypw4aRl4NZeDAvWPOKxCmowO36
+         Dqhj7gHVi0sGPJ7x/Lk6Y4qBy+Bm8xwEnQQhI6+CFqRvVhtAa+mtxyXJbEb2V/7L5eqX
+         4dOw4T+TtYrsBNQvq87HkhqpCnay21Pp9WOZpXx+q/t+42AK5vy/EjDXNXNsEHnhBe6E
+         tIInd9RrIf5DIRgs28whQ9r+InWfczaZC6hGDuDiyaDKQj2lFcN7Klk99esikLfdKojF
+         1bgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793949429; x=1794554229;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=phaG8fIAEdt42w1dFHlmJNP6UPxHP0iPRF5M4YLpvzA=;
-        b=LSJuNHo+TjBVZqtdUWOmNQ/0OqGhQVWslcNkz4ZS6WNHKhKjY9pHGi5rj19gzRrtOJ
-         LTtFqeWKdHcjRiuoEgYFm1q8VVYKy4AyxkbMTCGkikjN2avG2JlNctuUFunpbyv6AaPH
-         IpDC29sv18N4KMVF8FVWL1/zK7ZMtP2Pmsm5M1NCxMkYiOltr4caPVJpgwDfkPbFb4L/
-         jwOPm7QDnWs5WMXUfCQNB1rvPEiAnDa3ZsDSgap8fwbM0U+23vXiE0GKnpZMZ4i3oJCI
-         NXbN4VeD+Jf1heQudkrfGsvUuri8miFGs3ubp5KOEdC+sCr9bW2T0pXiyF6y/yS2OYPw
-         GAPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxOTKiaNXmOMwyr66/OFF3xo3K+RpmMW8tRRWs3AtaAn3dqWCILAIGqhLOjpCWuB0SR8MZ3QDd77PW8SWg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9TAi/oqg4xQy4Urg7P8ex6QLFSn9hMUTgOSO46zze0UIzXvjAD
-	jp1nxe4GH1LOm/3PiMGGNZqvKSJgZmHs65iXve0KVGYeE0XU6M60KNW8
-X-Gm-Gg: AYBFou255wqg3gXj8LL4qocDpC+HOfLwVRWAWZTnxvroXQKEeMMvcFSaCa4Y1YlYAkZ
-	cQNdpdMbljBVcoy+OoD/5ZU1KYjHrsNeHqLsBpZusILCH6dn4wlcwGId2xd0/HncB/Ao+Sn3Mp/
-	kbMW3i/NpdVjlZ3E/UVf5SkqaDLYPScyc37sHkIqDeJEyqmc8Dwpwe8ftGvMQsqJWLqUbIKFKd+
-	2D7X6LYOKErLtCI3F4C3p6mogFZSIV+IBUsii+lfwWPFH1or5DMa8pPR1OZQfDKJ6NS0sIiFz4R
-	TJNPUTM3/BSx8Wrug1fcLbjDSuMNE3BU3tB1QJkLAqcmfeNaozXUOWOEUttvkI9UQyM6Fn7sYMA
-	c4J9Ftapa4mRfmprP06ud7FiTvzb+mM6qLxOqDlqbYQa5xHVaqiWYwe+OTLPw6YTJGQlYBfaNU8
-	JeOITn9Oap0Jy8bGosjv/+hj/oqpNGZQH2m+xxLwEoJk6ktsYIdQGj4MZFgJ3w/3ae5hU88qAUf
-	ZUG4LYSgJak6dtx0sOmN231e/y4raZ7Xz/MLA4OcIm6KZbOD18LIwOszdUgX1rb/5uLWep3pj0A
-	a9+Ocl1wQM200hqK+sEPA0mRFJG1/b0iDL4lQwE=
-X-Received: by 2002:a05:600c:314f:b0:4b0:bc65:b9b5 with SMTP id 5b1f17b1804b1-4b6e063f9a9mr22671795e9.35.1793949428444;
-        Thu, 05 Nov 2026 23:17:08 -0800 (PST)
-Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49354fc5ab4sm178934f8f.30.2026.11.05.23.17.07
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 05 Nov 2026 23:17:08 -0800 (PST)
-Date: Fri, 6 Nov 2026 08:17:03 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Pengfei Lv <lvpengfei20@huawei.com>
-Cc: <gregkh@linuxfoundation.org>, <stern@rowland.harvard.edu>,
- <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>, <xuhaiyang5@hisilicon.com>,
- <xuetao09@huawei.com>, <caiyadong@huawei.com>, <suzhuangluan@hisilicon.com>
-Subject: Re: [PATCH v2] usb: core: hub: Re-guess ep0 maxpacket size on reset
-Message-ID: <20261106081703.295cc0a2.michal.pecio@gmail.com>
-In-Reply-To: <20261106031625.1824732-1-lvpengfei20@huawei.com>
-References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
-	<20261106031625.1824732-1-lvpengfei20@huawei.com>
+        d=1e100.net; s=20260707; t=1793949452; x=1794554252;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=23tdgrbhdEj0Ew1yGHRUaEBBGufmw96pkWF7xHJ9Y+w=;
+        b=YmH112hg8mGn9DjTH0LAgpoN4d5dsWBx6Q2fD5Gdgb4AuDDY68kMT15p7JEDzcLGeP
+         BIvXzPqJfFeNe4EpMkuQJNTF7/ZpEp0R9llGNQomxaaaThRpUQYQrawjGsIS/jdr7X7E
+         5KHwm+YyGmGZ+Gk8uLohRwv8w66wVnMCRZoPcYSDrzTekeNPEEIgR2R9jEXxw13ig7OL
+         /c4ne+cvEWMnXQ2Oo0ShDJkM3YC7Fw5GxIarA9EWbST5eayljttxCt71wMz5XY5egHz0
+         /LheRgbOOtd5HdBUiPnRaiIc2OA25tXVMA4RhYFWiEd/b4Bc3SlV6QvqLf4MFo70bskY
+         3OTQ==
+X-Forwarded-Encrypted: i=1; AL+hErF73QZITyuw/DpEoMao6vlsKDhFLroz8SRf7IvWLHSLG4NKw52Ljo9gieJWhWkadHVRLa/O4MpXt3SSiqY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/D2eIQTFwbY5GrLv92I1k5N6CCyQf9HpwtxKKvu7RVWcxIxltl
+	Pcvk64QqRzxD5XlOcQmY28napMpDftqaAnBIX+G85lz7x4CEkYqTb9Cz
+X-Gm-Gg: AYBFou0o1wJdwMxw0rpGc7WBmbBdIsPGUZxby1pRfVfocWwp3Mts6Wyt0A3J9bTddbJ
+	WVDxI68p3D8EwlH0GMQ5vbJnqYHiQHTQ8n4CAttZQlREHEB+Ki8Y1jd0B3PTbNrcUXMDqnV6H4L
+	bSETpeONctJUYPEkVwXdL6sWaC8miw2MWA3k51G8zVOK6pXdavtT5REil/Q9boD3uyGLy7tcJnr
+	sC7gnsViAmzD+5o6x+gw+ZV383rDpVJsaIJE3ON39zerMLx2D7x8kO9PXL9yguI91M2wmrnHHxi
+	Fc58i5OnGzmZ2rLh3m7J2C9dgaDogyHbzF88sD8YmyR4MO9fGJgw2LloB/SF/PRPQvBSmxcGV3A
+	FDAJD4RmPCl7+zvAZyEKufUF6GWG0zfn9sLCMYgvjNNrlfm1cWTyjN3vItmtCJgziyCduRqzpvJ
+	rdm4JNJD2gTb88SA5Tfb94CmOfVH/nBZ2wdyr3WZaWUn1fcYMFfvdeR2uVtElQOT4gkJzXEdfHG
+	i2djOEOmW1P1Y3N0Us9FwHYUh6PLZcK437kuRQbl3nWLRjt3+c0x9U4vWhs5ltE92r17I7dNrSG
+	m1tgLR4L5aBi0XqwvqcfyCXEMba/kDmrmEzmwddCkNh6LNF0pCtr2m8=
+X-Received: by 2002:a05:7301:18ac:b0:36c:a084:30a4 with SMTP id 5a478bee46e88-36f75b1f65dmr2455761eec.21.1793949451683;
+        Thu, 05 Nov 2026 23:17:31 -0800 (PST)
+Received: from pop-os.lan ([2409:4090:1015:ce03:1984:1655:89e8:63d2])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa4b7404sm3569864eec.24.2026.11.05.23.17.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 23:17:30 -0800 (PST)
+From: saad <primecoder8@gmail.com>
+Date: Fri, 06 Nov 2026 12:47:25 +0530
+Subject: [PATCH v2] drm/amdgpu: use drm_gem_ttm_dumb_map_offset() for
+ dumb_map_offset
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,235 +92,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-amdgpu-dumb-map-offset-v2-1-0abfb77a84b8@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAR/7WoC/4WNQQ6CMBBFr0Jm7RimAoor72FYFDqFSSwlLRAN4
+ e5WLuDyveS/v0HkIBzhnm0QeJUofkygThl0gx57RjGJQeWqIspL1M7004JmcS06PaG3NvKMldU
+ F8c1cbFtCGk+BrbyP8LNJPEicffgcPyv97N/kSkh4VXVt6oINEz16p+V17ryDZt/3L5G7E9K8A
+ AAA
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, saad <primecoder8@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793949447; l=5657;
+ i=primecoder8@gmail.com; s=20261105; h=from:subject:message-id;
+ bh=dr8+/Sh4e/4pnQunAQ4Dj++/sRRoqxW/WWM80cur6MU=;
+ b=TedmxAlnlxjfdYO/u+QTmaiR83q5DTtntTAUn114+cmoB2aARCreQ6QbwbreQHpu+/BHKg47M
+ gVbE/KB/AEOBDy2m2D6u0TJARJv09JvdJ7Jl2quDy2hWdUk3t/HfuuQ
+X-Developer-Key: i=primecoder8@gmail.com; a=ed25519;
+ pk=vJlTVYISGHXXppWzVCeFm0dcME82FTjmVlWBQkyLiKg=
 
-On Fri, 6 Nov 2026 11:16:25 +0800, Pengfei Lv wrote:
-> Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
-> all device speeds except full-speed devices, where it can be 8, 16,
-> 32, or 64 bytes and can only be determined by reading the device
-> descriptor.  During the initial enumeration of a full-speed device,
-> the USB core guesses 64 bytes (hub_port_init() with initial=true);
-> after reading the descriptor, the real value (e.g. 8) is stored in
-> udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
-> via an Evaluate Context command.
+As part of the DRM TODO item "Remove custom dumb_map_offset
+implementations", switch amdgpu's &drm_driver.dumb_map_offset callback
+from the driver-specific amdgpu_mode_dumb_mmap() to the generic TTM
+helper drm_gem_ttm_dumb_map_offset(), for both amdgpu_kms_driver and
+amdgpu_partition_driver.
 
-  ... and applied to hardware by the usb_ep0_reinit() call.
+amdgpu_mode_dumb_mmap() additionally rejected userptr BOs and BOs
+created with AMDGPU_GEM_CREATE_NO_CPU_ACCESS with -EPERM. Dropping
+those checks from the dumb path does not allow such BOs to be mapped:
+returning an offset does not create a mapping, and the actual mmap()
+goes through drm_gem_mmap() -> amdgpu_gem_object_mmap(), which performs
+the same two checks and still returns -EPERM. The only user-visible
+difference is that DRM_IOCTL_MODE_MAP_DUMB on such a handle now succeeds
+and the subsequent mmap() fails, instead of the ioctl failing. Dumb
+buffers created by amdgpu_mode_dumb_create() are never userptr BOs and
+always have AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED set, so they are not
+affected.
 
-Is there anything xHCI-specific about this issue?
-Any properly working HCD should behave equivalently.
+With that, amdgpu_gem_mmap_ioctl() is the only remaining user of
+amdgpu_mode_dumb_mmap(), so fold it into the ioctl and drop its
+prototype from amdgpu_gem.h. DRM_IOCTL_AMDGPU_GEM_MMAP, used by
+libdrm_amdgpu and Mesa, keeps the userptr and NO_CPU_ACCESS checks
+and behaves as before.
 
-> 
-> After a port reset (usb_reset_and_verify_device() -> hub_port_init()
-> with initial=false), the "if (initial)" guard added by commit
-> ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
->
-> skips the ep0 maxpacket guess block, so
-> udev->ep0.desc.wMaxPacketSize retains the real value (e.g. 8).  The
-> xHCI Reset Device command preserves the ep0 context as well, so the
-> xHC ep0 max_packet also stays at 8.
+Build-tested with CONFIG_DRM_AMDGPU=m (W=1 for amdgpu_drv.o and
+amdgpu_gem.o), no new warnings. Not runtime tested.
 
-So it's another unimportant xHCI implementation detail.
+The code change was written by hand and reviewed with the help of
+Claude (AI coding assistant); the commit message was written by Claude.
 
-Doesn't need to be mentioned at all; it's obvious that if we don't
-change ep0.desc then there is no reason to update the HW either.
+Signed-off-by: saad <primecoder8@gmail.com>
+---
+Changes in v2:
+- Fold amdgpu_mode_dumb_mmap() into amdgpu_gem_mmap_ioctl() and drop its
+  prototype, as it has no other users (Sashiko)
+- Link to v1: https://lore.kernel.org/r/20261105-amdgpu-dumb-map-offset-v1-1-7299d94ede11@gmail.com
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  5 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 23 +++++++++--------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |  3 ---
+ 3 files changed, 12 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 731fe8f9e..134d2fe4b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -27,6 +27,7 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_fbdev_ttm.h>
+ #include <drm/drm_gem.h>
++#include <drm/drm_gem_ttm_helper.h>
+ #include <drm/drm_managed.h>
+ #include <drm/drm_pciids.h>
+ #include <drm/drm_probe_helper.h>
+@@ -3151,7 +3152,7 @@ static const struct drm_driver amdgpu_kms_driver = {
+ 	.ioctls = amdgpu_ioctls_kms,
+ 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
+ 	.dumb_create = amdgpu_mode_dumb_create,
+-	.dumb_map_offset = amdgpu_mode_dumb_mmap,
++	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
+ 	DRM_FBDEV_TTM_DRIVER_OPS,
+ 	.fops = &amdgpu_driver_kms_fops,
+ 	.release = &amdgpu_driver_release_kms,
+@@ -3177,7 +3178,7 @@ const struct drm_driver amdgpu_partition_driver = {
+ 	.ioctls = amdgpu_ioctls_kms,
+ 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
+ 	.dumb_create = amdgpu_mode_dumb_create,
+-	.dumb_map_offset = amdgpu_mode_dumb_mmap,
++	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
+ 	DRM_FBDEV_TTM_DRIVER_OPS,
+ 	.fops = &amdgpu_driver_kms_fops,
+ 	.release = &amdgpu_driver_release_kms,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 4ed1706d8..2a72bdf2d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -644,13 +644,16 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+ 	return r;
+ }
  
-> When the subsequent re-enumeration then uses the "new scheme" and
-> issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
-> the xHC queues a Data TRB
+-int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+-			  struct drm_device *dev,
+-			  uint32_t handle, uint64_t *offset_p)
++int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
++			  struct drm_file *filp)
+ {
++	union drm_amdgpu_gem_mmap *args = data;
++	uint32_t handle = args->in.handle;
+ 	struct drm_gem_object *gobj;
+ 	struct amdgpu_bo *robj;
+ 
++	memset(args, 0, sizeof(*args));
++
+ 	gobj = drm_gem_object_lookup(filp, handle);
+ 	if (!gobj)
+ 		return -ENOENT;
+@@ -661,19 +664,11 @@ int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+ 		drm_gem_object_put(gobj);
+ 		return -EPERM;
+ 	}
+-	*offset_p = amdgpu_bo_mmap_offset(robj);
+-	drm_gem_object_put(gobj);
+-	return 0;
+-}
+ 
+-int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
+-			  struct drm_file *filp)
+-{
+-	union drm_amdgpu_gem_mmap *args = data;
+-	uint32_t handle = args->in.handle;
++	args->out.addr_ptr = amdgpu_bo_mmap_offset(robj);
++	drm_gem_object_put(gobj);
+ 
+-	memset(args, 0, sizeof(*args));
+-	return amdgpu_mode_dumb_mmap(filp, dev, handle, &args->out.addr_ptr);
++	return 0;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+index b558336bc..718ffe229 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+@@ -49,9 +49,6 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ int amdgpu_mode_dumb_create(struct drm_file *file_priv,
+ 			    struct drm_device *dev,
+ 			    struct drm_mode_create_dumb *args);
+-int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+-			  struct drm_device *dev,
+-			  uint32_t handle, uint64_t *offset_p);
+ 
+ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 			    struct drm_file *filp);
 
-xHC is the HW, it doesn't queue any TRBs.
+---
+base-commit: 279235273fc6c0a33df863b4a1cc52ec1e73aba5
+change-id: 20261105-amdgpu-dumb-map-offset-6fa41e8d3fb5
 
-Why not just omit all those irrelevant details of how xHCI implements
-policies decided by this code?
+Best regards,
+-- 
+saad <primecoder8@gmail.com>
 
-> of length 64 but applies ep0 max_packet=8
-> for short-packet detection.  If the device's first data packet is
-> exactly 8 bytes and it sends no ZLP,
-
-It certainly shouldn't be sending any ZLP if descriptor size is not
-a multiple of packet size. This whole paragraph boils down to:
-
-  If a buggy device responds with one 8 byte packet and NAKs all
-  further polling, the HC doesn't recognize a short transfer but
-  keeps polling for the rest of the descriptor till unlink.
-
-> the xHC does not recognise a
-> short packet, keeps issuing IN tokens for the remaining 56 bytes, and
-> the control transfer hangs in the Data stage until URB timeout.
-> 
-> This is not merely theoretical.  It was observed in production on a
-
-s/is not merely theoretical. It// would still be fine.
-
-> 6.6 LTS kernel with a Full-Speed USB banking token (bMaxPacketSize0
-> = 8) in a virtual-machine USB passthrough scenario; the reset
-> re-enumeration hangs 100% of the time after the VM issues
-> USBDEVFS_RESET.  Bus captures with an Ellisys analyzer confirm that
-> the device sends exactly one 8-byte packet for the 64-byte request
-> and then stops responding to IN tokens, relying on the host's
-> short-packet detection with max_packet=64 to terminate the transfer.
-> For the subsequent 18-byte GET_DESCRIPTOR (usb_get_device_descriptor,
-> wLength=18) the same device sends the full 18 bytes as 8 + 8 + 2;
-> the final 2-byte packet is always a short packet regardless of
-> max_packet, so that transfer succeeds on both kernels.  This is why
-> the device completes initial enumeration yet hangs on reset
-> re-enumeration.
-> 
-> The device is not strictly compliant (it should continue answering
-> IN tokens for the 64-byte request), but this class of USB banking
-> token is widely deployed in enterprise environments, and the
-> regression introduced by commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") breaks a configuration that
-> previously worked.
-> 
-> Fix this by removing the "if (initial)" guard so that the ep0 maxpacket
-> size is re-guessed from udev->speed on every reset, and by calling
-> usb_ep0_reinit() afterwards when !initial so that the new software
-> value is propagated to the xHCI ep0 context via an Evaluate Context
-> command before the GET_DESCRIPTOR data stage.
-
-More unnecessary xHCI details.
-
-> The usb_ep0_reinit() call is necessary because commit e34900f46cd6
-> ("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
-> moved the ep0 maxpacket sync point from xhci_urb_enqueue()
-> (xhci_check_maxpacket, lazy per-URB) to xhci_endpoint_reset()
-> (xhci_check_ep0_maxpacket, eager), reachable only via
-> usb_ep0_reinit() -> usb_enable_endpoint(reset_ep=true) ->
-> usb_hcd_reset_endpoint() -> xhci_endpoint_reset().  Without the
-> explicit usb_ep0_reinit() after the re-guess, no Evaluate Context
-> command is issued on the reset path: the pre-existing
-> usb_ep0_reinit() in usb_reset_and_verify_device() runs before
-> hub_port_init() and thus syncs the stale value, and the subsequent
-> hub_enable_device() -> xhci_setup_device(SETUP_CONTEXT_ONLY) returns
-> early when the slot is already in SLOT_STATE_DEFAULT.
-
-Does this need to be explained?
-
-usb_ep0_reinit() is quite self-explanatory, or its effects could be
-explained with one HCD-agnostic sentence if you must.
-
-> The !initial guard on the new usb_ep0_reinit() call ensures that
-> initial enumeration is unaffected: on first enumeration the ep0
-> context is initialised by the Address Device command, so no extra
-> Evaluate Context is needed.
-
-This, of course, makes assumption that xhci-hcd has guessed the same
-initial values as USB core. (Which it currently does).
-
-Not sure if this optimization is worth bothering with. For xhci-hcd
-at least, usb_ep0_reniti() exits quickly if no change occurred. And
-you say it's a no-op for others? Great, who cares if we call it.
-
->  For high-speed, low-speed, and
-> SuperSpeed-or-faster devices, xhci_endpoint_reset() returns early
-> (speed != USB_SPEED_FULL), so the call is a no-op on xHCI, and on
-> non-xHCI host controllers endpoint_reset for control endpoints is
-> likewise a no-op (e.g. ehci_endpoint_reset only handles bulk and
-> interrupt endpoints).  The descriptor-immutability checks (!initial
-> && maxp0 != udev->descriptor.bMaxPacketSize0) remain unchanged;
-> udev->ep0.desc is not part of udev->descriptor and is not the field
-> involved in the read_descriptors() race that commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") fixed, so
-> restoring the wMaxPacketSize re-guess does not reopen that race.
-> 
-> Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
-> ---
-> 
-> Changes in v2:
-> - Add usb_ep0_reinit(udev) after the ep0 maxpacket re-guess block,
->   guarded by !initial, to propagate the new wMaxPacketSize to the
->   xHCI ep0 context.  v1 only removed the if(initial) guard, which
->   is insufficient after commit e34900f46cd6 ("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
->   moved the xHCI ep0
->   maxpacket sync point from xhci_urb_enqueue() (xhci_check_maxpacket,
->   lazy per-URB) to xhci_endpoint_reset() (xhci_check_ep0_maxpacket,
->   eager), reachable only via usb_ep0_reinit().  The !initial guard
->   avoids a redundant Evaluate Context on first enumeration, where the
->   Address Device command already initialises the ep0 context to 64.
->   (Sashiko AI review)
-> - Expand commit message with observed-in-production evidence and the
->   wLength=64 vs wLength=18 device behavior distinction, per Alan
->   Stern's review.
-> - Note: on kernels before e34900f46cd6 (e.g. 6.6 LTS), the xHCI ep0
->   maxpacket sync happens lazily in xhci_urb_enqueue() via
->   xhci_check_maxpacket(), so removing the if(initial) guard alone is
->   sufficient and the extra usb_ep0_reinit() call is a no-op for ep0
->   maxpacket sync (xhci_endpoint_reset returns early for control
->   endpoints on those kernels).  This patch targets current mainline
->   where e34900f46cd6 is already present.  Would the maintainers
->   prefer a separate, simpler patch (without the usb_ep0_reinit()
->   addition) for stable branches predating e34900f46cd6, or is this
->   single patch acceptable for backport given that the
->   usb_ep0_reinit() call is harmless on those kernels?
-> ---
->  drivers/usb/core/hub.c | 49 +++++++++++++++++++++---------------------
->  1 file changed, 25 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> index 199d3f535a89..a6c260d39094 100644
-> --- a/drivers/usb/core/hub.c
-> +++ b/drivers/usb/core/hub.c
-> @@ -4969,33 +4969,34 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
->  	}
->  	oldspeed = udev->speed;
->  
-> -	if (initial) {
-> -		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
-> -		 * it's fixed size except for full speed devices.
-> +	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
-> +	 * it's fixed size except for full speed devices.
-> +	 */
-> +	switch (udev->speed) {
-> +	case USB_SPEED_SUPER_PLUS:
-> +	case USB_SPEED_SUPER:
-> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
-> +		break;
-> +	case USB_SPEED_HIGH:		/* fixed at 64 */
-> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> +		break;
-> +	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
-> +		/* to determine the ep0 maxpacket size, try to read
-> +		 * the device descriptor to get bMaxPacketSize0 and
-> +		 * then correct our initial guess.
->  		 */
-> -		switch (udev->speed) {
-> -		case USB_SPEED_SUPER_PLUS:
-> -		case USB_SPEED_SUPER:
-> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
-> -			break;
-> -		case USB_SPEED_HIGH:		/* fixed at 64 */
-> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> -			break;
-> -		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
-> -			/* to determine the ep0 maxpacket size, try to read
-> -			 * the device descriptor to get bMaxPacketSize0 and
-> -			 * then correct our initial guess.
-> -			 */
-> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> -			break;
-> -		case USB_SPEED_LOW:		/* fixed at 8 */
-> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
-> -			break;
-> -		default:
-> -			goto fail;
-> -		}
-> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> +		break;
-> +	case USB_SPEED_LOW:		/* fixed at 8 */
-> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
-> +		break;
-> +	default:
-> +		goto fail;
->  	}
->  
-> +	if (!initial)
-> +		usb_ep0_reinit(udev);
-> +
->  	speed = usb_speed_string(udev->speed);
->  
->  	/*
-> -- 
-> 2.34.1
-> 
