@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988467;
-	b=4oEKAtmvkrtI/gkKwCz4TRCPxBjVba2wPtP0uRfwU9zvWcJDSsr5FLnson0DWw4mlDZW
-	 CkOtBeZSIWMkYPJcdH+zauc094vHgrF44qyqgsEQnShWwOcYwBtkTGyIh6LTRq1iUVhDN
-	 twiHaWuj+j2BJwH5jwZUcSEqEdO3mG0r2jzTu2Lcj7MQlmOBV689p0mulstD+ffZAS9gU
-	 vWWt3rGuKiSTZmeGWZ4a2a8crkkfdgr7OIAV2XXgFFrsK5qhGNPLqV1k7QRNnXU2AV9Lm
-	 gO2lX798J5WDe1K2nt+zZcJ2YLbfyEpU3BI2Zmu7w1eLUcMGYdRaV82jt9lWbsxJ9eA==
+	t=1793988472;
+	b=GGTp3LC+i7dwcVL838BXxFKSsJN3srXtdUYB8yn6mPxsnIYrxw9pZ8essMXJIvhTnJzZ
+	 h4bnz2Y2khAIhAFOAe+LMHCNLnmKdJO5cNTn1qHKB2phEVa0yHf2w674Yseuv5huJtBkj
+	 MW6R0Hm02vQpl7SaG3KSM9MmUySUN+/DFhxvfmb2uzvsUrx5g7DTRCxEoxWWJ7uQ7svOY
+	 Ne47NfWi5Tlv/jwOYuVLwEBDzWLgVIGvrWHTahOjetRxv6bXAJgI2SFxhQ2cIyz85q4t/
+	 TOpkO7a2ygNAEFvXvtXLKhGV40toT6CIh8TIyFNPtVEv1S4hOIeS6mnwv9tPwX00aVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988467;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988472;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=3YLiYCoYt3MBqofEy/3+iGxK3/1Shjyq4GIjhoK/1n0=;
-	b=zXf11y16fSXOXYJYH1mUAvpYfOnIy/ctzrXKWeRXjxfbG1nnClySBvTxiafJXY1A3Tva
-	 +sP1r3pxxxwpVd18U2HIqu/OrAnRVTone5SseBaKOwksYPfEP4lqp5+7RMSVgDI91kwm8
-	 HVoDiQa3b/u+NX/06g/m+9bZTmO797/QOjgFUS1i76piRD8EoiaP8uQPn1/TRmFpgP5fX
-	 A59Acu+puFtb6X2ycFJ3w68YtQ91ZRyPR3Bzz4QRlJrjxc3LqXkFqpUad7qg5gB1oEqzI
-	 DEj1i1gGXK3MssyK7hfeIdIv9vWhz9zmPS4l92PJ/ZG7OEXZJuVD5QJbkd1BxgR34fA==
+	bh=EuW+q0IZAiSlccInoGG1ZV09yqmS19RZQDDu5PkfcPQ=;
+	b=Ru++P3C4m8ZfqigyAgr0Kn5ZucIZUgZq6IUZ6iqv41/vLAvG6Vv6D5dk+DPK7f9bY3gZ
+	 wzwtuGZMRixB69DRDt6sosuDjwk7VeBhK0timYIq0RkOi3MeEbkilXKBruZMiN6PSy70V
+	 qYXZfNFWPIrNViOVvVZaH/ibgPImG3MCql2k1RapH64lsqueSHhqCAprt8JY+P2ikSvbO
+	 dvd6TaQwzf2yyVJSewf7h/GqpuGDhSLmCf8GHNBd8JAUDogOF3E0yhvvGh5C7ogjTwNuA
+	 XeFH3x45jO6SXqP0VV1nABhCklOJe5fwvqA1M0Bnc8xrIYa/lMHONLknUzY4i0ZpCIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="B3p/YyeG";
-	arc=none smtp.remote-ip=209.85.221.69
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UDP1eJ+K;
+	arc=none smtp.remote-ip=209.85.128.72
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2CF606D80F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B2CF606D80F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AA0606D833
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:07:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87AA0606D833
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B3p/YyeG
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-492d47f142cso712372f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:07:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UDP1eJ+K
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1fdde384cso6578665e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:07:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793988466; x=1794593266; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793988471; x=1794593271; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3YLiYCoYt3MBqofEy/3+iGxK3/1Shjyq4GIjhoK/1n0=;
-        b=B3p/YyeGMbALzaHph1+mML6CdYJYKLGM5FBhXRwzBJ0aWf6MuW+sngswVre9kUaoIw
-         h8Gv6owzBerbnRGaYzDYK+mQCZ1laniasThEMfZy5n2j9lYZdFMT+6ETemdXP1LSjlUu
-         1dKeJaPqUlwQPovpIysgkSIUUSi9Hi8+ceTx57rsIB7sZ+v+Y4adaf8iYRCmqLUGaNS3
-         bPdTj3Wpd3v7RUO0B0KWR9BUuIcRtFe4pG134wWxkb89UOST/5/7zP1vMJ/VX9ox/b9P
-         /vlHBOpqQkXtytrtgk9pW5aorYBeDCdskI5fbccw7/jbZ5taUGvYzl0S66v+4ag6bjBX
-         PcTg==
+        bh=EuW+q0IZAiSlccInoGG1ZV09yqmS19RZQDDu5PkfcPQ=;
+        b=UDP1eJ+KhmpIr7wybsu1glvXvBSx2mNVvyKwqSxdJ1pyt9ekZkC8gMJBNmSylo2G2S
+         DOzPfIB/+eF5LtkZEtGDFLyM17Zmuc6kTFk4RfCvPy4hGH8kd4SMOYdhVvgjRhEiqMs8
+         knXo3ctfMDZEoe3BdQGK9P83EUaPVMqLdE/q84DYa9s/g6UT104ywYLkOBAOuiAiDj+o
+         b3KrNM24i7d6F6eFyl3UjfNoL7s8zCPYxSOimlO3xjiPti3o2DpxD+O0MHuvHZUlU7TF
+         wYD/HAH/NlgZvxhSaMmgwLVDkulTBwbq1VXxL3P1yUzCfvSBfwUm01c8qTywf05jAVZW
+         3zRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988466; x=1794593266;
+        d=1e100.net; s=20260707; t=1793988471; x=1794593271;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3YLiYCoYt3MBqofEy/3+iGxK3/1Shjyq4GIjhoK/1n0=;
-        b=kKxQYiZn39EU5hTZqS5I4IIA1VSOf2ng1RBmA9/ZBMsSbitDzL6c7OnX2vej+PfQme
-         wUa0rIwMD4/HIhWsQ1lvWV7NC2gIEdDs1mglWZhHAPamVNazVBbPn0LO3pYty42bk9sW
-         eBdasBvywXHAtvanog/xmIjUKLgQ0YKXC9M8hDgbXa4VBuZdngU6YETcpS+OE5ES0Y87
-         APenIm40uJQwzpp1//eR778+UZsAQwRaxmbpC6Aaek3MF9t+tJfcOKcXAGUxvMTTe0iS
-         gcIEVQz1U9ww/5dqx/ugnbsYjNoJ+T5CJnmQE6evARwXxogmAnXhT9UkA1gEg1wbAeBV
-         DvVQ==
-X-Forwarded-Encrypted: i=1; AL+hErHgO2yoPTWS3f44wPESrgQZbsNLgi76AB2y3IRsG7sDi+tFiMk7hPD8Tq2Vr8s1srFySPqbPiR2tf4dYEE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9u9TfTObO4LUT+wqB22XNqTLjVjnuKmSp2tvkBARQgKSydfkwx
-	XqMoKzgKBxjKUF213KNE2C1Nhf5VZs5TN0EIIv49hgn+pA095jp+xPdV2Wn53120D26VzOCcbTl
-	HUNl127O0ykAkPGPpPuX2Sg==
-X-Received: from wrsq11.prod.google.com ([2002:adf:fecb:0:b0:48d:f8b9:6520])
+        bh=EuW+q0IZAiSlccInoGG1ZV09yqmS19RZQDDu5PkfcPQ=;
+        b=cK6xKBaheiV1B2eI6jFX4XEn0tByDInL6z3HktRPrJjLMHqaD/Ahf2CkUZ9oWMs5VI
+         xDd6xZehBth9j3ESd40tQenFdMmcjZam7zXr4vaynyDkb3IGAeOVOwtzuqavva9sbn1+
+         YDtX/nIu6KqIa2VyNiha8JRNh337TlYRVLrqDN22UD3F0I193lhGAwOAa9PNa6i8cWts
+         oKpL5Wb+HNhBQF/0rCkz67DZpXfLdQfpTJTe92bFMjn0UNnMeGKmyT0BBRmkKk80UVPR
+         Z3o40tNmVv4A+Et0Bj26ALqlxVUgi1EnWzxOLA9Kv3bg9FTNm/l+gUMDatbKy5u+VFBk
+         LsLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvT7dwFYm6wQDFunEONtqIq42wEKk4ENia5sZUcs1OOXfjExLkpHuu/X5L6nrcQXSz+SqQmWLJMfEnknk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FVsXUanRy8i9xEWiSC7tdvJrnYsW79IPbvoMSCAj68fkbd/q7
+	3Y39en+segnP2QhdZxYenSPFeSqI0hvC5RiZdmOEDZOkp4nloRevh8M51Vg2iZCMeuqemuqvhsh
+	uiXMzXnKVh6gOHWYp6ZXQBQ==
+X-Received: from wmna17.prod.google.com ([2002:a05:600c:691:b0:4b2:3c81:ca])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:1acb:b0:48e:6651:5956 with SMTP id ffacd0b85a97d-49112301e21mr12834790f8f.0.1793988465463;
- Fri, 06 Nov 2026 10:07:45 -0800 (PST)
-Date: Fri,  6 Nov 2026 18:06:39 +0000
+ 2002:a05:600c:8b24:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4b6de4a766cmr59495905e9.9.1793988470935;
+ Fri, 06 Nov 2026 10:07:50 -0800 (PST)
+Date: Fri,  6 Nov 2026 18:06:43 +0000
 In-Reply-To: <20261106180657.2460376-1-vdonnefort@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261106180657.2460376-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106180657.2460376-4-vdonnefort@google.com>
-Subject: [PATCH v8 03/21] tracing/remotes: Use kstrtobool for boolean tracefs files
+Message-ID: <20261106180657.2460376-8-vdonnefort@google.com>
+Subject: [PATCH v8 07/21] tracing/simple_ring_buffer: Add support for
+ compressed length
 From: Vincent Donnefort <vdonnefort@google.com>
 To: rostedt@goodmis.org, mhiramat@kernel.org, 
 	linux-trace-kernel@vger.kernel.org
@@ -90,56 +91,78 @@ Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Use kstrtobool in trace_remote.c where possible. This is more user-friendly
-as it allows a better variety of input strings.
+The array length is the total size in bytes of the data for the current
+event. It is possible to compress this value into the event header type,
+which has 28 unused types, saving 32 bits for sufficiently small events.
+
+The compressed length is expressed as a multiple of the ring-buffer
+alignment, 4-bytes by default. Enforce this alignment.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- kernel/trace/trace_remote.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ kernel/trace/simple_ring_buffer.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
-index 10091ff9d42a..026f6ec9b07b 100644
---- a/kernel/trace/trace_remote.c
-+++ b/kernel/trace/trace_remote.c
-@@ -235,10 +235,10 @@ tracing_on_write(struct file *filp, const char __user *ubuf, size_t cnt, loff_t
+diff --git a/kernel/trace/simple_ring_buffer.c b/kernel/trace/simple_ring_buffer.c
+index abfaf9bee12e..a305331d29ba 100644
+--- a/kernel/trace/simple_ring_buffer.c
++++ b/kernel/trace/simple_ring_buffer.c
+@@ -207,7 +207,13 @@ static unsigned long rb_event_size(unsigned long length)
  {
- 	struct seq_file *seq = filp->private_data;
- 	struct trace_remote *remote = seq->private;
--	unsigned long val;
-+	bool val;
- 	int ret;
+ 	struct ring_buffer_event *event;
  
--	ret = kstrtoul_from_user(ubuf, cnt, 10, &val);
-+	ret = kstrtobool_from_user(ubuf, cnt, &val);
- 	if (ret)
- 		return ret;
+-	return length + RB_EVNT_HDR_SIZE + sizeof(event->array[0]);
++	if (!length)
++		length++;
++
++	if (length > RB_MAX_SMALL_DATA || RB_FORCE_8BYTE_ALIGNMENT)
++		length += sizeof(event->array[0]);
++
++	return ALIGN(length + RB_EVNT_HDR_SIZE, RB_ARCH_ALIGNMENT);
+ }
  
-@@ -1151,10 +1151,10 @@ static ssize_t remote_event_enable_write(struct file *filp, const char __user *u
- 	struct seq_file *seq = filp->private_data;
- 	struct remote_event *evt = seq->private;
- 	struct trace_remote *remote = evt->remote;
--	u8 enable;
-+	bool enable;
- 	int ret;
- 
--	ret = kstrtou8_from_user(ubuf, count, 10, &enable);
-+	ret = kstrtobool_from_user(ubuf, count, &enable);
- 	if (ret)
- 		return ret;
- 
-@@ -1235,10 +1235,10 @@ static ssize_t remote_events_dir_enable_write(struct file *filp, const char __us
- 					      size_t count, loff_t *ppos)
+ static struct ring_buffer_event *
+@@ -223,12 +229,15 @@ rb_event_add_ts_extend(struct ring_buffer_event *event, u64 delta)
+ static struct ring_buffer_event *
+ simple_rb_reserve_next(struct simple_rb_per_cpu *cpu_buffer, unsigned long length, u64 timestamp)
  {
- 	struct trace_remote *remote = file_inode(filp)->i_private;
-+	bool enable;
- 	int i, ret;
--	u8 enable;
+-	unsigned long ts_ext_size = 0, event_size = rb_event_size(length);
+ 	struct simple_buffer_page *tail = cpu_buffer->tail_page;
++	unsigned long event_size, array_size, ts_ext_size = 0;
+ 	struct ring_buffer_event *event;
+ 	u32 write, prev_write;
+ 	u64 time_delta;
  
--	ret = kstrtou8_from_user(ubuf, count, 10, &enable);
-+	ret = kstrtobool_from_user(ubuf, count, &enable);
- 	if (ret)
- 		return ret;
++	event_size = rb_event_size(length);
++	array_size = event_size - RB_EVNT_HDR_SIZE;
++
+ 	time_delta = timestamp - cpu_buffer->write_stamp;
+ 
+ 	if (test_time_stamp(time_delta))
+@@ -259,9 +268,13 @@ simple_rb_reserve_next(struct simple_rb_per_cpu *cpu_buffer, unsigned long lengt
+ 		time_delta = 0;
+ 	}
+ 
+-	event->type_len = 0;
++	if (length > RB_MAX_SMALL_DATA || RB_FORCE_8BYTE_ALIGNMENT) {
++		event->type_len = 0;
++		event->array[0] = array_size;
++	} else {
++		event->type_len = DIV_ROUND_UP(array_size, RB_ALIGNMENT);
++	}
+ 	event->time_delta = time_delta;
+-	event->array[0] = event_size - RB_EVNT_HDR_SIZE;
+ 
+ 	return event;
+ }
+@@ -284,7 +297,7 @@ void *simple_ring_buffer_reserve(struct simple_rb_per_cpu *cpu_buffer, unsigned
+ 
+ 	rb_event = simple_rb_reserve_next(cpu_buffer, length, timestamp);
+ 
+-	return &rb_event->array[1];
++	return rb_event->type_len ? &rb_event->array[0] : &rb_event->array[1];
+ }
+ EXPORT_SYMBOL_GPL(simple_ring_buffer_reserve);
  
 -- 
 2.56.0.455.g6c5a503b38-goog
