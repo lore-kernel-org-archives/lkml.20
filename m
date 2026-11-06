@@ -1,85 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793942954;
-	b=LkPW9SFXHlHdnCulVCM47yYzKD/sgQyA34Gmm5CSDSDeXDAzSzzLquK+3A5+3mGdRPOR
-	 g0bGecT1/v6ZCEZRfkTyhAlqIozTqt9YWXRYyMyFyokOrsTWCZL4YVvAfnlDw9kXPgPf+
-	 hFEeNgswvwx0ZMzd1yBzcW3DzXnFFQqFk7BoS/AIOrtlqKPNYrkzzfRmDHnHeAV64mj36
-	 BIfbKqy0Ilqk6wfwS+zxufO2vUNKXu36tyEvHzvfNdwtbY1R70G7qW/SXi15of8H47W6d
-	 eNxbg1mypQ0nfzpNNuDyLReUTsQ6O29Z0gfRLIkoTO1ZTxbzfHEhMm016a9gpawuf1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793942954;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=5rBCPsnT9vys9MfWZPdXnyc93qztMMp63LCVlLl8nnk=;
-	b=yNnjsRDHWF8nZXY2Y41XzDGDSmoxsGQqJcQN4yemYCAQ7cz+SPu/bcnSTEo5E+W2N/uH
-	 gOharwmjxTLSwmLtSnFhna59rr9wMB/PFrWVyAD/jT2q2g2u0L9qzW+j97NzCqzMtQiTR
-	 w9NbzOGSaKWAGJxZeS88zxCev2vmSHM6ez3hGmI4vO85ddAnT+PAMrF+d4dOTu1yQ0mFH
-	 RCBQwUn5mHDcnkqePY6QKPwzdDQMFMC/QMhYhPD2xjYkBLNNtf3wNSIYHWfS0LGwZaEyb
-	 P0cRrnUldYaTMzqi7H4U9ObUrNugr5gJRleZg0eH6Nncn3XCMe3nwsB5/okmOl0cJLw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Oh1WUifr;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793943078;
+	b=kPQFio4dz9kiVANDhpQBMHERxWxEGuu/SkQjBmcKYfHL8xpAxWo+R4kN9glxu8gfI5va
+	 xHhzHrK1izKRHH+oCJ1txHXTN6imaqjHt5VWIz8ryoK9myR2p5O20WYPXVJD2HGxH7jAj
+	 vf82Owzl9kk7ZaZAMkD+BF3PCwkkJHwI5+NCi2jmpRjCVjULwTLFK9gSZmajx/aAiLlBA
+	 DenhD3UZSNyjv1cOuCLjA5kS8iXvaRywGj8kM1NunbzMPwpNTKimszU/Aeclhsr+kbToL
+	 apQv7UC6U32BkZlzzGFKOfRRW3GWgmVfj5dlvjKcGeRAACjboE90fH6wMXMpQ7Xe9FA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793943078;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=fzfTGzPrNRGAcFjD94LRWoBBCVsFTkInc3NXv4RHT6Q=;
+	b=dQ7meReJJdjLXxDoU/QKgQdMzB7Duzecib1PPVbXkNG1ZM6687gDyKgqPqdXMpmmLW8g
+	 6EGXufzFX7xhTY7UR7TbmB8tElV1O7S1u9wI22fsfdFufFE9jamtb2GKBO4gz8MkvzNyC
+	 Lck52J/wKveHycj/CQqSbz1sagiIq2jaTLNb6+5ekVRKZzuphcdQqxfhdism/49S/CAIW
+	 79hAKIBuftQm3vy6I2lyFoDunI+9SVNQNMG4FT9S2NgLLuxypLBprHMKPgBqPPJBH3pTj
+	 1NAbK/lkDqP1Murs5cMCxpI2nqZkG+dQUvQyjlAqTZlH82mpzwX+rOi+UxUi3GOIz2A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nOHyOW4e;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42676606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:29:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42676606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FF9606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:31:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11FF9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Oh1WUifr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793942952; x=1825478952;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=w+0WC+LRb1srNFS4rQ5m5791sS62cyuQd92x1Y3ZVEo=;
-  b=Oh1WUifrCjeKSD3V+oV+LG3SkDOn0PpGDEqEAxVPs9ttiueJWpIuzX7d
-   CcwNUPrbg3prL3Lr7ivOU7s01/dWV2NpD7wK13e9E8H0vamv7jPG20v/7
-   +VWYlKpu6diii1rev/tVudndZkhkJKq7nk5uIKmsFPFNze+H1sRMR26CS
-   9R203CmrdjdEsbwHm5KnMr883h8O8WfmCBC45HzmkK/QIaVnT35ZmWgx1
-   7J5SZKYxqwS/jgxoy3eECeMODODt0MfnoWH5341tVcpoa/hRHid3WeE3O
-   kXAZCGN+z0xqTFyYFARWL2Hqr/SOz/tT2NFff7ar6cC+rf4n56cnklfQE
-   Q==;
-X-CSE-ConnectionGUID: yZDFPcVxQgm0xAb5dH6Vzg==
-X-CSE-MsgGUID: 382Il4UQRJ2O53VeN0yN2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2789103"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2789103"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 21:29:11 -0800
-X-CSE-ConnectionGUID: utXC/fR6RMGr6iOPsY9+9A==
-X-CSE-MsgGUID: dWZS+NHRQRe0Ue3TXhMhGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7534559"
-Received: from yufei-super-server.sh.intel.com ([10.239.92.104])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 21:29:08 -0800
-From: "Yu, Fei" <fei.yu@intel.com>
-To: christian.koenig@amd.com
-Cc: airlied@gmail.com,
-	dri-devel@lists.freedesktop.org,
-	fei.yu@intel.com,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	madhurkumar004@gmail.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
-	tursulin@ursulin.net,
-	tzimmermann@suse.de
-Subject: Re: [PATCH v2] drm/syncobj: Limit the number of handles and use kvmalloc for user-sized arrays
-Date: Fri,  6 Nov 2026 13:35:03 +0800
-Message-ID: <20261106053503.1437526-1-fei.yu@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <a6a2ca76-94dc-4616-8160-d756713e22b9@amd.com>
-References: <a6a2ca76-94dc-4616-8160-d756713e22b9@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nOHyOW4e
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b56c90b38eso2077a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:31:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793943076; cv=none;
+        d=google.com; s=arc-20260327;
+        b=o/8DYBb30eyBbmSICKd3mBJ8g5nBLQ+kdQ2ncr2/6ZaBMbfb8wlsBf4tGzOXVAglUa
+         HwKTm5b8UvcYxUxzNb6YWlvkAlch7Z4aRw10PnKcoSc7RNj8/ERppHxPKjL+xuAu34sl
+         /AYif0k6CqS/qDW+Bfj8RwXQUT6C7cUUD/DEwmXsiOdTqI/iEvzLdWLm3D09RmnJApaH
+         d7xnrYmnuRvFIkPnnJrgin9Mixr1EQOGwDGMj7OjiBAsK3+R1yRx61MRDTrFQorQ0wav
+         JJsVf+4+O+3uFRDllP8Giy7gKZ66yqbzb5czCn2YAWuvu/FspZsTdRphC6vNLke4GGmg
+         21rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fzfTGzPrNRGAcFjD94LRWoBBCVsFTkInc3NXv4RHT6Q=;
+        fh=qC3equFvg3AGAvPwi7OQJU/kQTh7r4B6MA1SisUbf6M=;
+        b=aj9QRGHpCWZCg1ZKnVoNAaeEr6bBqVbYyX4EjgaN1S6RBo/QQvxmoW+R18TUfz9Y8L
+         aVVbsOIRSozEEHDvhXoXmAsWyafsc34wIG/CZVSfM6g6DQ7s/hnWW6AeOcV1qV0cMJe5
+         +MmpCA6CvGmWl4Q2z6Dj7pOhvJmJj+Vgzg0vDIiV1jfidesJXRorcZglZva77iEKXOSy
+         o04wLeK96KD0oY4oCgmQvJfOG7MKSu1uQ62KxQN8zxWFcfaN8+8XqB/bPxbGW8Vs6Ay1
+         OZfo1kGXvTnaiBjhEQX1Qpo29Qk2fyW0bmgIgrcB+LzKeQ/OstwYzsZB+MJJ5tE3RXB6
+         nM5g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793943076; x=1794547876; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fzfTGzPrNRGAcFjD94LRWoBBCVsFTkInc3NXv4RHT6Q=;
+        b=nOHyOW4eilzQUjweHtdZoqa3L4evOLihPWeJ/jbooTuK+9eiqIKicgfHFFIrUF/SwJ
+         puPhEAgDcUnUjyVN6CddjQ/H++Obuu321SDUJ/Qg6IF0FwrSdLypyfbgjRmCC+QiUw6F
+         LT0p98eRjdBwN1r0nfIuv2DlFv0yJ1Kxd5UoQLiy4hshmRNuq+C+xEZyn2ZB/aquQRFl
+         rZaJikW+I8igR7sx5rpY3et1FapVm9bEiaI6dMFtZHOL1qp6Z2xM1oDrLFgiRR7qbR9v
+         VB4dPScpf8HEqamt0sBhEAKobNzqKE29RFIZ/D289J4UsA5HZAAeLuuR4BOSKofm7TjN
+         pbAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793943076; x=1794547876;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fzfTGzPrNRGAcFjD94LRWoBBCVsFTkInc3NXv4RHT6Q=;
+        b=WVSjynYjsLaXwc0IMIQldhyjTdGuPcN8ACSErCchaYIRpief1Yox3EsI92gjJM0Gcy
+         Tm9DJl8OC5Gx5BqeH97HwEaggrJlGZ9sPSSekYiuLXZgzLLV1OsF1mtSXV01x7D46w8c
+         4pf+PBXkeE1JueyF7nXk+lPkqvXDiCV4u79a+7yBFpPH72A0WO4MtZXoQUWHy0iOTZ8a
+         /MfG9DeEsAsYIuWKZUyrOYmFeDauRlYdq6iRACmpn+EV95rKTfIvFMvQOV7uGIFnEwHK
+         8s9VBrJBXAWCWM7qClbdJgZVO8qmfn5P8JQ+tYqzpKn4ECqCauSvE6IBac8Zxwp58Seh
+         xEeA==
+X-Forwarded-Encrypted: i=1; AKwUvBxsbR9U6XbypNwSdphxayOtwP/iaxgsKiuuyafOUFIZtYWDDMSP2FHsux457ot0cRsYDU6HAMJPgxVrbHs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8L7DaW41/xtVfZ90TQ0NpyuVRgKO2VOhX9aExkRjoC0F3rUCwV
+	vHWF9foZFLrYkH1eOtDsUVuvwUdGWYHxkxPdnEOcrhcjKFdNSuN78nmVN9f19g/UsOj97RGqt99
+	8nU2IrybXj4Rs2ULISAoMsePaXVCi3VJuYUAIEPGk
+X-Gm-Gg: AYBFou1P+Go4xL461rhJSNuo1Rq4utZMM8t7MrMhdEPfgsYBfRL2r8QWAiVHjebS67h
+	s52xWiTuslhRf+1EJ201OrytoTVhOJ+nfVr4HQgXgwKm9zR2efiXGNVvQOZZjlDxs0GtAZ2k6VA
+	ndoTrrtAtEf5Gq89EViuE838Ei4Dbh7EIL+lUhBpd7pdZI05iVdJECOJacW3N5AXvwDc1ab+hYY
+	EZYxnWhyobWsM7adlOXrzfKT547w8wBb/Qb2Chyv6P76ngK8k0bhT3Jef9knr3DMfTcaqvX0xSF
+	iUGQNV/DLt4TWQic8LsgBW+GG8/0LuXldovmvo3eb2AsVW0tOG2o4ce2mV0FY9cYCz8ycvALiFy
+	xVJz/dAJOd/Hf7yG0SESsh48G0oQvujpsNoF3HOQJrYOL7FheZFmnC1aFCkj1lI4f7mj601L6/j
+	aBphmz1Zc5/p8tQREEWSVs3Yh0
+X-Received: by 2002:aa7:d14e:0:b0:6b1:d80d:396b with SMTP id
+ 4fb4d7f45d1cf-6b6e7992f9cmr5378a12.14.1793943075854; Thu, 05 Nov 2026
+ 21:31:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,64 +105,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260930210750.1487547-1-chang.seok.bae@intel.com> <20260930210750.1487547-20-chang.seok.bae@intel.com>
+In-Reply-To: <20260930210750.1487547-20-chang.seok.bae@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 5 Nov 2026 21:31:03 -0800
+X-Gm-Features: AclHuK_4ZgaZlELwLWkVgY6tOe7DDAFE30KwSfP5ql7kytff2mRaro17GdlkHwg
+Message-ID: <CALMp9eQvzZpcL6fnJcpqV_95S=3ka_xVpBMyhjV6KBsokFrkuQ@mail.gmail.com>
+Subject: Re: [PATCH v8 19/20] KVM: x86: selftests: Add APX state and ABI test
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: pbonzini@redhat.com, seanjc@google.com, kvm@vger.kernel.org, 
+	x86@kernel.org, linux-kernel@vger.kernel.org, zhao1.liu@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Fei Yu <fei.yu@intel.com>
-
-On 11/5/26, Christian König wrote:
-> On 11/5/26 10:12, Tvrtko Ursulin wrote:
->> On 05/11/2026 08:18, Yu, Fei wrote:
->>>  - The value is derived from the size of a kernel internal struct and
->>>    from the kvmalloc() size limit, so it is not the same on 32-bit and
->>>    64-bit.
+On Wed, Sep 30, 2026 at 5:07=E2=80=AFPM Chang S. Bae <chang.seok.bae@intel.=
+com> wrote:
 >
-> Oh that is a really good point, but most certainly a bad idea.
+> Test APX-specific behavior and ABI interactions as these are unique
+> comparing to other state components:
 >
-> This means that code working on 32bit then suddenly fails on 64bit, not
-> something we should do.
+>   * EGPR state is saved on VM entry assembly (unlike other components).
+>   * The saved state is retained even if the guest disables APX.
+>   * EGPR state is exposed via the XSAVE ABI while not stored in the
+>     kernel XSAVE buffer.
+>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> ---
+>  tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+>  .../selftests/kvm/include/x86/processor.h     | 120 +++++++++++
+>  tools/testing/selftests/kvm/x86/apx_test.c    | 191 ++++++++++++++++++
+>  3 files changed, 312 insertions(+)
+>  create mode 100644 tools/testing/selftests/kvm/x86/apx_test.c
+>
+> diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/sel=
+ftests/kvm/Makefile.kvm
+> index 96bab7002d39..2bd5c77047a8 100644
+> --- a/tools/testing/selftests/kvm/Makefile.kvm
+> +++ b/tools/testing/selftests/kvm/Makefile.kvm
+> @@ -166,6 +166,7 @@ TEST_GEN_PROGS_x86 +=3D rseq_test
+>  TEST_GEN_PROGS_x86 +=3D steal_time
+>  TEST_GEN_PROGS_x86 +=3D system_counter_offset_test
+>  TEST_GEN_PROGS_x86 +=3D pre_fault_memory_test
+> +TEST_GEN_PROGS_x86 +=3D x86/apx_test
 
-Agreed, a fixed number is better.
+Nit: please group x86/apx_test with the other x86/ tests above (e.g. next
+to x86/amx_test), rather than after the common tests.
 
-> I think I prefer a fixed number here. Something reasonable large enough,
-> like 64k or similar, should do for backporting.
+[ ... ]
 
-One concern with 64K: today only wait and timeline_wait break above
-~64K handles, because of the 64-byte wait entries. The other ioctls
-only allocate 4-8 bytes per handle, so on x86_64 reset, signal, query
-and timeline_signal currently work up to ~512K handles. In my v2
-testing, reset, signal and timeline_signal on 200000 handles succeed on
-the base kernel. With a 64K limit they would start returning -EINVAL
-after this fix, which I would rather avoid in a stable backport.
+> +static inline void xstatebv_set(void *xsave, uint64_t mask)
+> +{
+> +       *(uint64_t *)(xsave + XSAVE_HDR_OFFSET) |=3D mask;
 
-So I would suggest SZ_1M instead:
+Nit: u64.
 
- - it is above what any of these ioctls can handle today, so nothing
-   that works now starts failing;
- - 1M wait entries are 64 MiB, far below the kvmalloc() INT_MAX limit;
- - it is the same on 32-bit and 64-bit.
+[ ... ]
 
-If you still prefer 64K, I'll go with that.
+> +               case UCALL_SYNC: {
+> +                       stage =3D uc.args[1];
+> +                       vcpu_xsave2_get(vcpu, xsave);
+> +                       if (stage =3D=3D USERSPACE_UPDATE) {
+> +                               write_xsave_egprs(xsave, stage);
+> +                       } else {
+> +                               TEST_ASSERT(validate_xsave_egprs(xsave, s=
+tage),
+> +                                           "EGPR state mismatch in users=
+pace XSAVE buffer");
+> +                       }
+> +                       vcpu_xsave_set(vcpu, xsave);
 
-> But I would still use a fixed number and maybe a static assert that we
-> don't hit the kvmalloc limit when we allocate that fixed number of
-> structures.
+vcpu_xsave_set() should only be called when stage =3D=3D USERSPACE_UPDATE.
+Calling it unconditionally on every UCALL_SYNC overwrites the vCPU's XSAVE
+state from userspace during GUEST_UPDATE and GUEST_APXOFF, which defeats
+the purpose of verifying that KVM preserves the guest's EGPRs across
+VM-exit/VM-entry and across XCR0.APX transitions on its own.
 
-Will do. Something like:
-
-  #define DRM_SYNCOBJ_MAX_HANDLES	SZ_1M
-  static_assert(DRM_SYNCOBJ_MAX_HANDLES <=
-                INT_MAX / sizeof(struct syncobj_wait_entry));
-
-Plan for v3, for -fixes:
-
- - fixed DRM_SYNCOBJ_MAX_HANDLES plus the static_assert, define kept in
-   drm_syncobj.c;
- - keep the kvmalloc() conversion;
- - update the commit message accordingly.
-
-The uAPI documentation of the limit will be a separate patch for -next
-once this has landed.
-
-Regards,
-Fei
+Also, please add a stage where userspace clears XFEATURE_MASK_APX in
+XSTATE_BV (while leaving non-zero values in the XSAVE APX payload) and
+calls vcpu_xsave_set(), then verifies that R16-R31 have been reset to 0 in
+the guest (per patch 3).
