@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960961;
-	b=whzsfQPimkPKu4ErvA0T59EJmh+k8qWfeMFsUGbjp/aePYcCinzDx8wZGicVmbGck+aI
-	 d4cdx7A5fdCcf0s7j1yWLWG485eFt/VF2sj5EvyhKTloJMlAnyZOV7RS9e6lRNmzcxt8j
-	 4QHqTS/N5SCPclNqxgx6fckrqTPpzFUCxQUacXANZZ3gB6kUHWeLjMLlBWEIGGCHiyCRX
-	 lzd5FXMXGYQwS1htQlKJIj952dmQQspt+tR7M3p69JWQUAPJ162VfWHHOIif6d2V2bfNq
-	 Eajg4s3BrcL4O7CZzMq8H9Wsvw6r7u0vcj3s84BB82ItJsasIToDbH/eQZyePQueiKw==
+	t=1793961011;
+	b=jqNcKqXzWBM/x0earc1WKRH+bOHGNpJeBbakWX1r6HFCphVswcCHSEbtkK9Mi8zLaiYN
+	 MQ69tpT48SOKosSGLarVYtYNQyI4UsMgFPAPB/qR8tgSUlrM/bmwdY5X2qpa6yKn3kVwk
+	 i0Kqb9u1mB8d6J43OfwxWp2cD10B+Hc3hJgwfMwIFTvWVu6qyAHcOP8z0vbEvD3uXm0ED
+	 AxtgTVHCo2NpidJCv2uSJlwTFwzxqZvIQaQQc6V3SPLpKO4GliRweXuNaTIYCicqMqQVT
+	 GfMUFMup7luMUvMr5uzX+qGCtEEJU315t3YChxGL9b9UZnO4z33Gu83lJM1G55nGkgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793961011;
 	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
 	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=JRtwqFrJiTlcH7IlUnfhdcgVF0fHLiXHFqm+d54kneM=;
-	b=OOxJ7YgWbwgR5OKepd+vKRsj4Wzlc5FwpxNhGVoCrvvjCQ6B44yN90QyhwuWGX9dxAOh
-	 +jNlFyyyfvrNxCUoy6Dcba12Mu4i8xHWzq68QQOClgYLhSh3kvBaqfD3E1gffQGnzZn43
-	 ZAISOLjgT1/oyA8qjsROg1Ox6kUzP1ycKFP7mokkQpzgJm+LPP8Gob6RjQEGhcttDS33I
-	 97UUbQmN2RMW5aS9Lvi5o2KULyNdiu3sLTv9DWTekvBhrRz4QhbaA8/GFwXrFiXfVw+NB
-	 EjaOwSCvwgevtFsg3f96yNeKYUYPzRHCQGVmhiAewe6sd43RmG68/X5uv+3UVo2JcAg==
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	b=a3Lk0LuAkMuBEIL8LmSlIJoa0+UXT9jiOq2VpAd4jCH8PNVR5vBh9lXL3WzQ4R1mCS8h
+	 khxMzPWQq4hVXAixSZZ/tKqfJyamx3eSVfpCTC1GeE77yiR+VZ33dOYZX+N1frdoU7yPY
+	 9jKEx01lH1cVasfgogdYS/xUG9e2DJiOUrFh6/HjyqH9qB8n1Xv+qZJjv7KDy+TXfPl2m
+	 zLqCMbP1NoeDGZvKhOjGvGYSAaddXVbHiUlqDNTQ8qFUazyoZGr6KdbZN7aSAQosDwJBI
+	 GliPW1vpEM/27KdaEDqrEYjqYBEvuYUOtObXblDW6HP0HU+A9sv7lZtB071vcsVPl7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=lst.de;
 	spf=pass smtp.mailfrom=lst.de;
@@ -23,23 +23,24 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E148606A32C;
-	Fri,  6 Nov 2026 10:29:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E148606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E21E606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:30:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E21E606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 42F9D68BEB; Fri,  6 Nov 2026 11:29:16 +0100 (CET)
-Date: Fri, 6 Nov 2026 11:29:15 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Yaohan Li <shunsheng1218@gmail.com>
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-	mkp@kernel.org, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] nvme: stop asynchronous event work before ANA
- teardown
-Message-ID: <20261106102915.GA5391@lst.de>
-References: <20261105114149.970315-1-shunsheng1218@gmail.com>
+	id 8A76E68BEB; Fri,  6 Nov 2026 11:30:06 +0100 (CET)
+Date: Fri, 6 Nov 2026 11:30:05 +0100
+From: "hch@lst.de" <hch@lst.de>
+To: "Smith, Kyle" <kyles@hpe.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	Keith Busch <kbusch@kernel.org>,
+	"axboe@kernel.dk" <axboe@kernel.dk>, "hch@lst.de" <hch@lst.de>,
+	"sagi@grimberg.me" <sagi@grimberg.me>
+Subject: Re: [PATCH] nvme: Fix potential gendisk leak in nvme_alloc_ns
+Message-ID: <20261106103005.GB5391@lst.de>
+References: <DM4PR84MB1590C08CB556D28CBA707E74A0772@DM4PR84MB1590.NAMPRD84.PROD.OUTLOOK.COM>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,21 +52,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105114149.970315-1-shunsheng1218@gmail.com>
+In-Reply-To: <DM4PR84MB1590C08CB556D28CBA707E74A0772@DM4PR84MB1590.NAMPRD84.PROD.OUTLOOK.COM>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Thu, Nov 05, 2026 at 07:41:49PM +0800, Yaohan Li wrote:
-> NVMe ANA work has several producers, including ANA AER completion,
-> namespace scanning and failover processing.
-> 
-> An AER completion can queue ana_work for an ANA notice and can
-> separately queue async_event_work, which sends the AEN uevent and
-> submits the next asynchronous event request.  These work items access
-> controller-owned state during asynchronous processing.
-
-I think we can cut the commit log after this..
-
-Otherwise looks good:
+Looks good:
 
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 
