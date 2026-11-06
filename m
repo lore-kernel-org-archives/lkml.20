@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793998330;
-	b=sOOFDO84u7umfgNuaVFSqBnNKpkFMFbBlRvdn4V4JMzpcnJfvJCt1Ss7TL42BN3oS3OL
-	 +PNOQKsxf2+fHz/xgr4GXDSIMVOeKlLUIaVinfQw7oIwdRC9TWDirDT4BXinxY+DpWwjq
-	 oSMEupbXodYfOlOhy6epVkrIwsnamYasQOMsGIaL+wstqsqL/6CbgPrzbfCBLFw/J+45M
-	 PaYUseikLeHoK0k7xdrX350CSBYON7TUhSiLEplY/MVFyy2y8Nyg1fSzIRdGG0711GDWy
-	 7bOii/1/1Odc5nzLj5T4ETMhLYzo63yCPKMkZSK0DDlfuu1DxYeQSu+Q5+A0WA7k0gA==
+	t=1793998337;
+	b=OQv149DIAsRABxlNll4hUdoK2QT6id7KJFGFtR3ZCw6x1ladi+94gOPDD/Udg9lkIDlU
+	 NUrnsaRWe2yl7KTXFyC35agbzNrN7xSw3/ThcH9x/Ng+8NBi7tQO6+VrSsefHiYEn7y6m
+	 DzRCN1u7MtQKDF9KQGwu54w4+GgMvg8Xkiekap3vZ/qKJ8o+9LUIf20dO9SNurMfDBxrl
+	 weBFn1lZQz98J4evitG0HyKTbmSx9Y7S4ajJ9h8AqiZQYPM75Ds5QaoC1+hZNVOZzzN1R
+	 eb2+7Cwltskqy+lJVyWZUcciuhA/yfwkOsgw+tnOfNH5QGk95A2sg24nyJdvWTaiSxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793998330;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793998337;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=qyl271xS4NaUQkQEDfJP7TOW84m77rHK/njFeThb4gM=;
-	b=e5/+11Y0k96rhPCe/4IY1MpYhzP4GSf8Wf/Zek+OuMYhe2lH4K8C2IoqI0in0zApELmr
-	 T3dVdzfhjvVglB2xV9eAocsArQihORxk8vspuMXi+4y0JPaIw2zlyzZIrJcObrnk3eHXU
-	 HrJhj+B8tUUTiht7t+M4JnNDFLkxe+7R+JxA4G4cY9wPoOrg7y10gzR9sRM4MtQmdveNn
-	 YqMu8r9/ywD6ZQoZjY5lxPfJDVOYfmOSRVruj5dsbI2VDpo8MDwSA3TdyJYCuGdEbe4ay
-	 GcGGXipGTytLknS9mfZ2leMf8KuHk+HDcQIWoc2MCticX8/0RJSFLzoHAYrU5JOWpzQ==
+	bh=BSQmYSj7ASxOoDycCnlWcf5b/d2VgwavVPobGw9DT/I=;
+	b=PFPqGMulKHQRgksmPebWf104HPlBJKuwUBFdCcYtwEE7saP6DXVurBVa9qD9uw9z3JSl
+	 aLB3sbkkR8jkACW52p9FEkc07FhLq35Rzr6mijA35HtrLNqWoqEOVBxmAFmFhBRtUVvlF
+	 OC2V4ePGUcjb0UFj0NeZrq1GN94Fb+l/9nl7XasUcqCHKqqPFOWJElDS5WBD7/Sr6kvWo
+	 WPgupRy3XNdsxzGatnJLvsYOhcbHESytcMxzw1Zaw21NhLI09yjc0zM9wYHs35p1QHndQ
+	 9LfBsgqIh0oF/v66c5/0aRAIS1hyyuR/oMezqNuP/PMnx85k4yd0HWpyEV/Ec0tSHLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B6JYYw9K;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r0o5Fivu;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4D1606A33F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:52:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB4D1606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E65606EEB1
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:52:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1E65606EEB1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B6JYYw9K
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so10077315e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:52:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r0o5Fivu
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a208d93758so11231225e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:52:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793998328; x=1794603128; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793998335; x=1794603135; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qyl271xS4NaUQkQEDfJP7TOW84m77rHK/njFeThb4gM=;
-        b=B6JYYw9KHytgcsKRViIv702sJvZ13LITWymvU2GUgmjrKUaq/34AS+ZLL3ysWVLSLI
-         RJXl9Q9YqcwzD2rlx6xKf6dx41WgKvGiW0uMLEcdV+iI0e/8Gykut8ZaYfLCJyn8McBU
-         Kf2E46f8OrV2dtE0E+bp5xnDsudqH9wlOvjwL+ctwbcd9xgdgJ/mhbqI6N36LWAHumFf
-         J7h3qs6oBplssT9Iw3Q2hQdl9yAGulkfQRG41NX6q4/AB7CjTkX4BR/v+oVPNwslm5uW
-         ZRL4V7Biv0wgO6T4HV6FI6te4JC76snnf4I5eGfuexdLqirM7sjzMDOYj+2Nz+m38+FF
-         /Lyg==
+        bh=BSQmYSj7ASxOoDycCnlWcf5b/d2VgwavVPobGw9DT/I=;
+        b=r0o5FivuOBbRNSBaLuN+M5IlG8cmSnTkuKxppCmc5tyXsxaRalK2kJmwnDSAVr0NRp
+         KKRTPcJZ30LMsbkFyKq9Q5vuYCyalMIoSUI02XsbZpSPYbjlSWxCvdJuCfQSsnARYKP1
+         j5+h3XmgT5OU9IthA+qWsy3JfXm0SUdFcEvASUsb2wwgsSW170MVRlisA0X8qyEfIR4J
+         DkdWK7kjptQi3cSySnyl437h8M2JrhC6W9bVJzD+HbwxmHPaUANpFlLxnRqrLGL7rwVF
+         XFqxaa0/l3p1CXYllaMBYIwl5N6ARDkcSH/4Oxs0wuAskM3f4b+kaZRnNYgpruLO+fOz
+         iugw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793998328; x=1794603128;
+        d=1e100.net; s=20260707; t=1793998335; x=1794603135;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qyl271xS4NaUQkQEDfJP7TOW84m77rHK/njFeThb4gM=;
-        b=y1FnB0A2nI2eHdoPmvI5k7bqdHj60PlFFxiaG264+0xRmIo20csPFF8wq0IrGEFVVq
-         1mcn6GCaGnZN0JWTZXU39JFjVycv1wMEIAxAR9qVRy5IOPu7yZ6fgDUcftOZdT60izlB
-         KbLSEsHdvreINO8p4WY7CfWtex7qP7p2AJlncSfzDghOl20sk6n9EXDNVCChRXNZMjuQ
-         Ik45JXufZ1eGfkABAv8XaRaA0JHgSqptYsgCB+Xenzsa+v25ose7P5+GDAavtdphFWZ6
-         UP4lRaNJuBmacMcaw6xGkyTbIma0TgkhgkqayEHqGMVZwDk7GLu+CZ8DVuf9kGoMMtXO
-         aBiA==
-X-Forwarded-Encrypted: i=1; AKwUvBy2tbfKBMsVoY+zqX11Xn4IwPPdfFQAZ/ZCqTvuzhH5qq/lj1HBHU0SgMlMrTD98PyBBgX5Bgm81iwYxHA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Wp5gtLmLn6V7beCH9WACIXAYZcn5EKHEt3j5kmJQ2F59kXg98
-	1PHkuOvD9IH/RIufh+ji+NiOy4TODCCbYyi2xH8UTgrHYKVnh7pLXh4J
-X-Gm-Gg: AYBFou0UDTOyjNaDdXgXiApBHPUBnBFfLK2IwCUsArxsTw9CK9X5m/rWbyzkZIqLIOj
-	UpMG63/IdSbM5gezVLRg7lr5KI13NLCbak2Wzx0odFLP8LMuNRdW2CaYgXcteJ9pQqFnVqDQWri
-	f8iYiXOI3zsA3wQx67qoml86xhth32oMgGcVSX8SMiiSFz97iJ94X8gEyFwYOlitVXRQPuhOnmP
-	/AeHO3wvx4RsfXkfa45r0v3kKNwEZ+b3sIWhVdJ0Ntz57+HDo3Ze87TxSE6d6AjIJSWOv2EiwZz
-	pELbySoCljMSf/KZzLZp3VHza18qIiTII+Frvfov06NZEtNhHMyip10tiYpzPGSIGb6nVLB6YQN
-	8O+64Rpotq5tWd9O/ZTSXg16k7rrY+j7EIAHhKS2FN5NOyJYOqhQGh/dOQWAH1luGyW/Rr5Eia+
-	OYRgobSzDhXZ6YTogZcKyPwG1xu9J4go+84ZyMW/NV9CgK1Ia/TlmiRetTLQ0BwmgxgRYaOXhE4
-	eyzzDfcHXrgUU+TbqoaUpYJojgfkX/I6CAWREuqSRG67gI4EzI1fj4ByW9ar+TJH0GifOarX2DH
-	j/Qv6F8/l2TJ/+/ZDDQ+SUjA0hdraTwwxtNyv9mPOXjxIXQ=
-X-Received: by 2002:a05:600c:5289:b0:4a2:a6e:80f5 with SMTP id 5b1f17b1804b1-4b6dea695f8mr70229315e9.11.1793998328189;
-        Fri, 06 Nov 2026 12:52:08 -0800 (PST)
+        bh=BSQmYSj7ASxOoDycCnlWcf5b/d2VgwavVPobGw9DT/I=;
+        b=PIOkYpl2rJabwKJ8E0/h7ECrWaEbWx0Gld/JcTV+sOVE9LoM8nkEFkohiXQiw8JMVH
+         mevX4lw3mRjWwcedwCRGnKIrID6ROzlNEcR3nwGjtZvfii9fw2EJLoxZrcWcOMgAsANt
+         cnqpcSsu85p/WG7Yby/DvNGwLYMhFbSSkL+BEonTISbdCogqrwEASSpwXOYskZlo7QH7
+         sU5PN5AHV66WyEtCDciumki65WlkHRKu2YkPXI+xyeJRK0n8UE28ZXC5SzqRu1sZ2QL2
+         9Lf7oBofwsIynO8ZCFu7uOj8hwIGtNPKgYaWmj5WFiIKosMeQH+yJT7+j/x9wjU/LPjI
+         luNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwylaan2zJg97LV0+ZhqlUl73yJD27w9wJy/xDosFV1BREVCrST0c6MnMEzLWy0Q45JS2B0ZRwChkY3oVs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uwUcABQCupbbb9k26edPo/JCNuDCzn7Cv0AJU5XN4FpgZCFbE
+	hYpqFhYKpAYOlUJAVkHUFX5wYYRqb2tV47V2Ow2IkSFIyKod+KJl/NaG
+X-Gm-Gg: AYBFou1PLUYetFIGjPrAdejyI5EVa8YEs/qynbQcFes4IQYCovx7I3PPktS5E4Es4Yv
+	lfxU/dCxky+6pU/rJZeJddYlfG/JvSRF9DJk1lMSNgRkWYSXtylXW1xFG95ATfsszEiN24GfLgP
+	XB969fus60P6sXxhfBXMcn58bKybCkfsi69DNDOea39G+TPw5zRhoN17qwyu71pFOgNMO5ZkSrD
+	vBHCajpV/MbESjNrkQQiIKMHT1/h3JmmTkJTe/gYifOG/6Sjnav0XSQWVIRS9vDl9LL9H9F2kG9
+	rOjhH1DFHuhm6003ZLZ3CVp8IGXkIbn6ZpSxTkoPGhXGIF3wp6uzRVIEfMatbL14OjBPe/myK14
+	KkpPHcQcb89nPCXe+NUOc8kZE3oiOnNSEG2bTJKLXVKpKAuYJDNmKKeVUyaaCFCnOecZlwR6a5T
+	WOJHZtni17VYq9mhwf8ZIcnLCgWTLOQRDIhcBosm1UA/33nqSpV8R1b/3S+pubyiJtyK7Pz8gXE
+	qQgHH3GtZPW4Oy7LNFfDEzUyhARXRPHxEOaaeMhPKAeR+RFgQQ55mAspO0ijBK+02+ZKqkG90iw
+	NCZr096XFNe7e0JfylTl64lRFsXWbuthVxdpD44PHaEBHIg=
+X-Received: by 2002:a05:600c:3e8d:b0:4a8:cb23:f71b with SMTP id 5b1f17b1804b1-4b6df5eaac6mr63442635e9.18.1793998335216;
+        Fri, 06 Nov 2026 12:52:15 -0800 (PST)
 Received: from localhost.localdomain ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7da62edb4sm9075425e9.1.2026.11.06.12.52.06
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7da62edb4sm9075425e9.1.2026.11.06.12.52.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 12:52:07 -0800 (PST)
+        Fri, 06 Nov 2026 12:52:14 -0800 (PST)
 From: Anton Protopopov <a.s.protopopov@gmail.com>
 To: Alexei Starovoitov <ast@kernel.org>,
 	Daniel Borkmann <daniel@iogearbox.net>,
@@ -97,9 +97,9 @@ To: Alexei Starovoitov <ast@kernel.org>,
 	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Anton Protopopov <a.s.protopopov@gmail.com>
-Subject: [PATCH v1 bpf-next 07/18] scripts: Add LLVM plugin infrastructure
-Date: Fri,  6 Nov 2026 21:02:56 +0000
-Message-ID: <20261106210314.1767267-7-a.s.protopopov@gmail.com>
+Subject: [PATCH v1 bpf-next 13/18] bpf: Check the return values of fmod_ret programs on found targets
+Date: Fri,  6 Nov 2026 21:03:02 +0000
+Message-ID: <20261106210314.1767267-13-a.s.protopopov@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: 20261106205523.1765622-1-a.s.protopopov@gmail.com
 References: <20261106210314.1767267-1-a.s.protopopov@gmail.com>
@@ -114,262 +114,254 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add scripts/llvm-plugins and the corresponding Makefiles and Kconfig for
-LLVM IR passes loaded with -fpass-plugin, similar to the GCC plugins.
-Individual plugins register their configuration and shared objects
-separately. No plugin is added yet.
+A later patch lets resolve_btfids make the functions found by bpf_scan_ir
+fmod_ret targets. Each of them gets a "bpf_fmodret_retval:" decl tag with
+the values it returns on paths without side effects, for example
+"bpf_fmodret_retval:-22,-12". Returning such a value instead of calling
+the function looks to the callers like a real failure.
 
-Use LLVM_CONFIG to obtain the host compiler and linker flags. Require
-llvm-config of the same major version as clang, which loads the plugins:
-unlike GCC, clang does not provide the headers for its plugins. Require
-also a host C++ compiler which accepts the headers and flags of
-llvm-config.
+Read the tag when an fmod_ret program is loaded and check at every exit
+that the program returns 0 or one of these values.
 
-Build plugins without linking LLVM component libraries; their LLVM
-symbols are resolved by the compiler loading the shared library. Include
-a generated header so objects are rebuilt when enabled plugins change.
-Track the headers of a plugin, LLVM ones included, with a dependency
-file, as the GCC plugins do.
+A function which the static rules allow keeps today's behaviour. So do
+the functions declared in BTF_FMODRET sets, which have no such tag.
 
-Export LLVM_PLUGINS_CFLAGS so vDSO, EFI stub and early boot builds can
-exclude the plugins, as they exclude the GCC plugins.
-
-Add the plugin infrastructure to the CLANG/LLVM BUILD SUPPORT entry in
-MAINTAINERS.
+Only a kernel function has such a tag, so do not look for it when the
+target is a BPF program. Remember the values in the program, and do not
+let an extension replace an fmod_ret program with restricted return
+values: it could return any value. Check this at load and when an
+extension is attached to another program later. Do not allow tail calls
+in such a program either: the program it jumps to returns for it, and a
+program array does not check the values it may return.
 
 Signed-off-by: Anton Protopopov <a.s.protopopov@gmail.com>
 ---
- MAINTAINERS                           |  2 ++
- Makefile                              |  6 +++++-
- arch/Kconfig                          |  1 +
- arch/arm64/kernel/pi/Makefile         |  1 +
- arch/x86/boot/startup/Makefile        |  2 ++
- arch/x86/um/vdso/Makefile             |  2 +-
- drivers/firmware/efi/libstub/Makefile |  2 +-
- include/linux/compiler-version.h      |  5 +++++
- lib/vdso/Makefile.include             |  3 +++
- scripts/Makefile                      |  1 +
- scripts/Makefile.llvm-plugins         |  8 ++++++++
- scripts/llvm-plugins/Kconfig          | 17 +++++++++++++++++
- scripts/llvm-plugins/Makefile         | 21 +++++++++++++++++++++
- 13 files changed, 68 insertions(+), 3 deletions(-)
- create mode 100644 scripts/Makefile.llvm-plugins
- create mode 100644 scripts/llvm-plugins/Kconfig
- create mode 100644 scripts/llvm-plugins/Makefile
+ include/linux/bpf.h   |   6 ++
+ kernel/bpf/syscall.c  |   1 +
+ kernel/bpf/verifier.c | 146 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 153 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..02b6c8963c63 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6562,7 +6562,9 @@ C:	irc://irc.libera.chat/clangbuiltlinux
- F:	Documentation/kbuild/llvm.rst
- F:	include/linux/compiler-clang.h
- F:	scripts/Makefile.clang
-+F:	scripts/Makefile.llvm-plugins
- F:	scripts/clang-tools/
-+F:	scripts/llvm-plugins/
- K:	\b(?i:clang|llvm)\b
+diff --git a/include/linux/bpf.h b/include/linux/bpf.h
+index b011acc22c50..69387de119a6 100644
+--- a/include/linux/bpf.h
++++ b/include/linux/bpf.h
+@@ -1967,6 +1967,12 @@ struct bpf_prog_aux {
+ 	const struct btf_type *attach_func_proto;
+ 	/* function name for valid attach_btf_id */
+ 	const char *attach_func_name;
++	/*
++	 * The values which an fmod_ret program may return besides 0, from the
++	 * "bpf_fmodret_retval:" tag of its target, or NULL
++	 */
++	s64 *fmodret_retvals;
++	u32 fmodret_retval_cnt;
+ 	struct bpf_prog **func;
+ 	struct bpf_prog_aux *main_prog_aux;
+ 	/* main prog: there when the prog has timed may_goto */
+diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+index 9004f2673ccf..0a78f66a1622 100644
+--- a/kernel/bpf/syscall.c
++++ b/kernel/bpf/syscall.c
+@@ -2490,6 +2490,7 @@ static void __bpf_prog_put_noref(struct bpf_prog *prog, bool deferred)
+ 	module_put(prog->aux->mod);
+ 	kfree(prog->aux->kfunc_tab);
+ 	kfree(prog->aux->ctx_arg_info);
++	kfree(prog->aux->fmodret_retvals);
+ 	if (prog->aux->attach_btf)
+ 		btf_put(prog->aux->attach_btf);
  
- CLK API
-diff --git a/Makefile b/Makefile
-index f895752d4b05..2fcad8109572 100644
---- a/Makefile
-+++ b/Makefile
-@@ -457,10 +457,13 @@ endif
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index b7329d164771..a9da29a11963 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -13329,6 +13329,14 @@ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn
+ 	}
  
- HOSTCC	= $(LLVM_PREFIX)clang$(LLVM_SUFFIX)
- HOSTCXX	= $(LLVM_PREFIX)clang++$(LLVM_SUFFIX)
-+LLVM_CONFIG ?= $(LLVM_PREFIX)llvm-config$(LLVM_SUFFIX)
- else
- HOSTCC	= gcc
- HOSTCXX	= g++
-+LLVM_CONFIG ?= llvm-config
- endif
-+export LLVM_CONFIG
- HOSTRUSTC = rustc
- HOSTPKG_CONFIG	= pkg-config
+ 	if (func_id == BPF_FUNC_tail_call) {
++		/*
++		 * The program which a tail call jumps to returns for this one,
++		 * and a program array does not check the values it may return.
++		 */
++		if (env->prog->aux->fmodret_retvals) {
++			verbose(env, "tail calls are not allowed in fmod_ret programs with restricted return values\n");
++			return -EINVAL;
++		}
+ 		if (env->cur_state->curframe) {
+ 			struct bpf_verifier_state *branch;
  
-@@ -1211,10 +1214,11 @@ include-$(CONFIG_AUTOFDO_CLANG)	+= scripts/Makefile.autofdo
- include-$(CONFIG_PROPELLER_CLANG)	+= scripts/Makefile.propeller
- include-$(CONFIG_WARN_CONTEXT_ANALYSIS) += scripts/Makefile.context-analysis
- include-$(CONFIG_GCC_PLUGINS)	+= scripts/Makefile.gcc-plugins
-+include-$(CONFIG_LLVM_PLUGINS)	+= scripts/Makefile.llvm-plugins
+@@ -19887,6 +19895,73 @@ static bool program_returns_void(struct bpf_verifier_env *env)
+ 	return false;
+ }
  
- include $(addprefix $(srctree)/, $(include-y))
- 
--# scripts/Makefile.gcc-plugins is intentionally included last.
-+# The compiler plugin Makefiles are intentionally included last.
- # Do not add $(call cc-option,...) below this line. When you build the kernel
- # from the clean source tree, the GCC plugins do not exist at this point.
- 
-diff --git a/arch/Kconfig b/arch/Kconfig
-index 1163736de1f9..4f1f36d3e82d 100644
---- a/arch/Kconfig
-+++ b/arch/Kconfig
-@@ -1772,6 +1772,7 @@ config HAVE_GENERIC_TIF_BITS
- source "kernel/gcov/Kconfig"
- 
- source "scripts/gcc-plugins/Kconfig"
-+source "scripts/llvm-plugins/Kconfig"
- 
- config FUNCTION_ALIGNMENT_4B
- 	bool
-diff --git a/arch/arm64/kernel/pi/Makefile b/arch/arm64/kernel/pi/Makefile
-index a273ab5af805..5813bb75c992 100644
---- a/arch/arm64/kernel/pi/Makefile
-+++ b/arch/arm64/kernel/pi/Makefile
-@@ -10,6 +10,7 @@ KBUILD_CFLAGS	:= $(subst $(CC_FLAGS_FTRACE),,$(KBUILD_CFLAGS)) -fpie \
- 		   -D__DISABLE_EXPORTS -ffreestanding -D__NO_FORTIFY \
- 		   -fno-asynchronous-unwind-tables -fno-unwind-tables \
- 		   $(CONFIG_CC_OPT_NO_ADDRSIG)
-+KBUILD_CFLAGS	:= $(filter-out $(LLVM_PLUGINS_CFLAGS),$(KBUILD_CFLAGS))
- 
- # this code may run with the MMU off so disable unaligned accesses
- CFLAGS_map_range.o += -mstrict-align
-diff --git a/arch/x86/boot/startup/Makefile b/arch/x86/boot/startup/Makefile
-index 5e499cfb29b5..7036e939097e 100644
---- a/arch/x86/boot/startup/Makefile
-+++ b/arch/x86/boot/startup/Makefile
-@@ -12,6 +12,8 @@ KBUILD_CFLAGS		+= -D__DISABLE_EXPORTS -mcmodel=small -fPIC \
- # disable ftrace hooks and LTO
- KBUILD_CFLAGS	:= $(subst $(CC_FLAGS_FTRACE),,$(KBUILD_CFLAGS))
- KBUILD_CFLAGS	:= $(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS))
-+# LLVM plugins may add data with absolute addresses
-+KBUILD_CFLAGS	:= $(filter-out $(LLVM_PLUGINS_CFLAGS),$(KBUILD_CFLAGS))
- KASAN_SANITIZE	:= n
- KCSAN_SANITIZE	:= n
- KMSAN_SANITIZE	:= n
-diff --git a/arch/x86/um/vdso/Makefile b/arch/x86/um/vdso/Makefile
-index 7664cbedbe30..0e32c9ae2b5a 100644
---- a/arch/x86/um/vdso/Makefile
-+++ b/arch/x86/um/vdso/Makefile
-@@ -37,7 +37,7 @@ CFL := $(PROFILING) -mcmodel=small -fPIC -O2 -fasynchronous-unwind-tables -m64 \
-        $(filter -g%,$(KBUILD_CFLAGS)) -fno-stack-protector \
-        -fno-omit-frame-pointer -foptimize-sibling-calls
- 
--$(vobjs): KBUILD_CFLAGS += $(CFL)
-+$(vobjs): KBUILD_CFLAGS := $(filter-out $(LLVM_PLUGINS_CFLAGS),$(KBUILD_CFLAGS)) $(CFL)
- 
- #
- # vDSO code runs in userspace and -pg doesn't help with profiling anyway.
-diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
-index bbab12b8eb4b..6f69d5d67731 100644
---- a/drivers/firmware/efi/libstub/Makefile
-+++ b/drivers/firmware/efi/libstub/Makefile
-@@ -6,7 +6,7 @@
- # enabled, even if doing so doesn't break the build.
- #
- 
--cflags-y			:= $(KBUILD_CFLAGS)
-+cflags-y			:= $(filter-out $(LLVM_PLUGINS_CFLAGS),$(KBUILD_CFLAGS))
- 
- # x86 links the stub into the decompressor rather than the kernel proper, so
- # drop the kernel's code model, calling convention, and stack alignment, and
-diff --git a/include/linux/compiler-version.h b/include/linux/compiler-version.h
-index ac1665a98a15..e6a5a9f3fbcd 100644
---- a/include/linux/compiler-version.h
-+++ b/include/linux/compiler-version.h
-@@ -24,6 +24,11 @@
- #include <generated/gcc-plugins.h>
- #endif
- 
-+/* Rebuild objects when an LLVM plugin changes. */
-+#ifdef LLVM_PLUGINS
-+#include <generated/llvm-plugins.h>
-+#endif
++/*
++ * A function which the build found by analysing its code has a
++ * "bpf_fmodret_retval:" decl tag with the values it returns on paths without
++ * side effects, for example "bpf_fmodret_retval:-22,-12". See the comment at
++ * the top of tools/bpf/resolve_btfids/main.c. An fmod_ret program attached to
++ * it may return only these values, or 0 to call the function.
++ */
++#define BTF_FMODRET_RETVAL_TAG "bpf_fmodret_retval:"
 +
- /*
-  * If the randstruct seed itself changes (whether for GCC plugins or
-  * Clang), the entire tree needs to be rebuilt since the randomization of
-diff --git a/lib/vdso/Makefile.include b/lib/vdso/Makefile.include
-index cedbf15f8087..848d58296ba2 100644
---- a/lib/vdso/Makefile.include
-+++ b/lib/vdso/Makefile.include
-@@ -1,5 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0
++/* Parse the next value of the list at *LIST and move *LIST past it */
++static int fmodret_retval_next(const char **list, s64 *value)
++{
++	const char *end = strchrnul(*list, ',');
++	size_t len = end - *list;
++	char buf[24];
++
++	if (!len || len >= sizeof(buf) || (*end && !end[1]))
++		return -EINVAL;
++	memcpy(buf, *list, len);
++	buf[len] = 0;
++	*list = *end ? end + 1 : end;
++	return kstrtos64(buf, 10, value);
++}
++
++static bool fmodret_retval_allowed(const struct bpf_prog_aux *aux, u64 value)
++{
++	const struct btf_type *t;
++	u32 i;
++
++	/* "w0 = -22" zero-extends, the caller of an int function sees -22 */
++	t = btf_type_skip_modifiers(aux->attach_btf, aux->attach_func_proto->type, NULL);
++	if (t->size == 4 && !upper_32_bits(value))
++		value = (s32)value;
++	if (!value)
++		return true;
++	for (i = 0; i < aux->fmodret_retval_cnt; i++) {
++		if (aux->fmodret_retvals[i] == (s64)value)
++			return true;
++	}
++	return false;
++}
++
++/* The program must return a constant: 0 or one of the values of the tag */
++static int check_fmodret_retval(struct bpf_verifier_env *env, int regno,
++				const char *exit_ctx, const char *reg_name)
++{
++	const struct bpf_prog_aux *aux = env->prog->aux;
++	struct bpf_reg_state *reg = reg_state(env, regno);
++	int err;
++	u32 i;
++
++	if (reg->type == SCALAR_VALUE) {
++		err = mark_chain_precision(env, regno);
++		if (err)
++			return err;
++		if (tnum_is_const(reg->var_off) &&
++		    fmodret_retval_allowed(aux, reg->var_off.value))
++			return 0;
++	}
++
++	verbose(env, "%s the register %s must be a constant, it should be 0 or one of", exit_ctx, reg_name);
++	for (i = 0; i < aux->fmodret_retval_cnt; i++)
++		verbose(env, "%s%lld", i ? "," : " ", aux->fmodret_retvals[i]);
++	verbose(env, "\n");
++	return -EINVAL;
++}
++
+ static int check_return_code(struct bpf_verifier_env *env, int regno, const char *reg_name)
+ {
+ 	const char *exit_ctx = "At program exit";
+@@ -19943,6 +20018,9 @@ static int check_return_code(struct bpf_verifier_env *env, int regno, const char
+ 	if (prog_type == BPF_PROG_TYPE_CGROUP_SKB && (env->prog->expected_attach_type == BPF_CGROUP_INET_EGRESS))
+ 		enforce_attach_type_range = tnum_range(2, 3);
  
-+# vDSO code executes outside the kernel.
-+KBUILD_CFLAGS := $(filter-out $(LLVM_PLUGINS_CFLAGS),$(KBUILD_CFLAGS))
++	if (env->prog->aux->fmodret_retvals)
++		return check_fmodret_retval(env, regno, exit_ctx, reg_name);
 +
- GENERIC_VDSO_MK_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
- GENERIC_VDSO_DIR := $(dir $(GENERIC_VDSO_MK_PATH))
+ 	if (!return_retval_range(env, &range))
+ 		return 0;
  
-diff --git a/scripts/Makefile b/scripts/Makefile
-index d7fbb7ca098b..bc5dacc29207 100644
---- a/scripts/Makefile
-+++ b/scripts/Makefile
-@@ -66,6 +66,7 @@ hostprogs += unifdef gen_packed_field_checks
- targets += module.lds
+@@ -22874,6 +22952,58 @@ static int check_attach_modify_return(unsigned long addr, const char *func_name)
  
- subdir-$(CONFIG_GCC_PLUGINS) += gcc-plugins
-+subdir-$(CONFIG_LLVM_PLUGINS) += llvm-plugins
- subdir-$(CONFIG_GENKSYMS) += genksyms
- subdir-$(CONFIG_GENDWARFKSYMS) += gendwarfksyms
- subdir-$(CONFIG_SECURITY_SELINUX) += selinux
-diff --git a/scripts/Makefile.llvm-plugins b/scripts/Makefile.llvm-plugins
-new file mode 100644
-index 000000000000..e18f4907b015
---- /dev/null
-+++ b/scripts/Makefile.llvm-plugins
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-only
+ #endif /* CONFIG_FUNCTION_ERROR_INJECTION */
+ 
++/*
++ * Programs attached to a function found by the analysis may return only the
++ * values of its "bpf_fmodret_retval:" tag. A function which the static rules
++ * allow stays unrestricted.
++ */
++static int fmodret_retval_init(struct bpf_verifier_env *env, u32 btf_id,
++			       unsigned long addr, const char *tname)
++{
++	struct bpf_prog_aux *aux = env->prog->aux;
++	const struct btf *btf = aux->attach_btf;
++	const struct btf_type *t = btf_type_by_id(btf, btf_id);
++	s64 *retvals = NULL;
++	const char *values, *list;
++	u32 cnt, size = 0;
++	s64 v;
 +
-+LLVM_PLUGIN := $(llvm-plugin-y)
-+LLVM_PLUGINS_CFLAGS := $(strip $(addprefix -fpass-plugin=$(objtree)/scripts/llvm-plugins/, \
-+	$(LLVM_PLUGIN)) -DLLVM_PLUGINS)
-+export LLVM_PLUGIN LLVM_PLUGINS_CFLAGS
++	if (!check_attach_modify_return(addr, tname))
++		return 0;
++	values = btf_find_decl_tag_value(btf, t, -1, BTF_FMODRET_RETVAL_TAG);
++	if (IS_ERR(values))
++		return PTR_ERR(values) == -ENOENT ? 0 : PTR_ERR(values);
 +
-+KBUILD_CFLAGS += $(LLVM_PLUGINS_CFLAGS)
-diff --git a/scripts/llvm-plugins/Kconfig b/scripts/llvm-plugins/Kconfig
-new file mode 100644
-index 000000000000..37db99159b9c
---- /dev/null
-+++ b/scripts/llvm-plugins/Kconfig
-@@ -0,0 +1,17 @@
-+# SPDX-License-Identifier: GPL-2.0-only
++	t = btf_type_by_id(btf, t->type);
++	t = t ? btf_type_skip_modifiers(btf, t->type, NULL) : NULL;
++	if (t && (btf_type_is_int(t) || btf_is_any_enum(t)))
++		size = t->size;
++	if (size != 4 && size != 8)
++		goto invalid;
 +
-+menuconfig LLVM_PLUGINS
-+	bool "LLVM plugins"
-+	depends on CC_IS_CLANG
-+	depends on $(success,$(LLVM_CONFIG) --version)
-+	# The plugins are built against the headers of llvm-config and loaded
-+	# by clang, so both must come from the same LLVM release
-+	depends on $(success,test "$(shell,$(LLVM_CONFIG) --version 2>/dev/null | cut -d. -f1)" = "$(shell,$(CC) -dumpversion | cut -d. -f1)")
-+	# The host C++ compiler must accept the LLVM headers and flags
-+	depends on $(success,echo '#include <llvm/Config/llvm-config.h>' | $(HOSTCXX) $(shell,$(LLVM_CONFIG) --cxxflags 2>/dev/null) -x c++ -fsyntax-only -)
-+	default y
-+	help
-+	  LLVM plugins add compiler passes to kernel and module builds.
-+	  Building them requires LLVM development headers and llvm-config
-+	  of the same major version as clang. Each plugin has its own option
-+	  below and is built only if that option is enabled.
-diff --git a/scripts/llvm-plugins/Makefile b/scripts/llvm-plugins/Makefile
-new file mode 100644
-index 000000000000..a1f8503c8bcd
---- /dev/null
-+++ b/scripts/llvm-plugins/Makefile
-@@ -0,0 +1,21 @@
-+# SPDX-License-Identifier: GPL-2.0-only
++	for (list = values, cnt = 1; *list; list++)
++		cnt += *list == ',';
++	retvals = kmalloc_array(cnt, sizeof(*retvals), GFP_KERNEL_ACCOUNT);
++	if (!retvals)
++		return -ENOMEM;
++	for (list = values, cnt = 0; *list;) {
++		if (fmodret_retval_next(&list, &v) || v >= 0 || (size == 4 && v < S32_MIN))
++			goto invalid;
++		retvals[cnt++] = v;
++	}
++	if (!cnt)
++		goto invalid;
 +
-+always-y += $(LLVM_PLUGIN)
-+targets += $(LLVM_PLUGIN)
-+clean-files += *.so
++	aux->fmodret_retvals = retvals;
++	aux->fmodret_retval_cnt = cnt;
++	return 0;
 +
-+# Run llvm-config only to build a plugin, not when this Makefile is parsed
-+llvm_cxxflags = $(shell $(LLVM_CONFIG) --cxxflags)
-+llvm_ldflags = $(shell $(LLVM_CONFIG) --ldflags)
++invalid:
++	kfree(retvals);
++	verbose(env, "invalid %s%s tag of %s()\n", BTF_FMODRET_RETVAL_TAG, values, tname);
++	return -EINVAL;
++}
 +
-+quiet_cmd_llvm_plugin = HOSTCXX $@
-+      cmd_llvm_plugin = $(HOSTCXX) -Wp,-MD,$(depfile) $(KBUILD_HOSTCXXFLAGS) \
-+		$(llvm_cxxflags) -fPIC -shared $(KBUILD_HOSTLDFLAGS) -o $@ $< \
-+		$(llvm_ldflags)
+ static bool is_tracing_multi_id(const struct bpf_prog *prog, u32 btf_id)
+ {
+ 	return is_tracing_multi(prog->expected_attach_type) && bpf_multi_func_btf_id[0] == btf_id;
+@@ -23283,6 +23413,15 @@ int bpf_check_attach_target(struct bpf_verifier_log *log,
+ 			bpf_log(log, "Cannot extend fentry/fexit/fsession\n");
+ 			return -EINVAL;
+ 		}
++		/*
++		 * An extension could return any value for an fmod_ret program
++		 * whose return values are restricted. This is also checked when
++		 * an extension is attached to another program than at load.
++		 */
++		if (prog_extension && tgt_prog->aux->fmodret_retvals) {
++			bpf_log(log, "Cannot extend an fmod_ret program with restricted return values\n");
++			return -EINVAL;
++		}
+ 	} else {
+ 		if (prog_extension) {
+ 			bpf_log(log, "Cannot replace kernel functions\n");
+@@ -23662,6 +23801,13 @@ static int check_attach_btf_id(struct bpf_verifier_env *env)
+ 		return -EINVAL;
+ 	}
+ 
++	/* Only a kernel function has a "bpf_fmodret_retval:" tag */
++	if (prog->expected_attach_type == BPF_MODIFY_RETURN && !tgt_prog) {
++		ret = fmodret_retval_init(env, btf_id, tgt_info.tgt_addr, tgt_info.tgt_name);
++		if (ret)
++			return ret;
++	}
 +
-+$(obj)/%.so: $(src)/%.cpp FORCE
-+	$(call if_changed_dep,llvm_plugin)
-+
-+$(obj)/../../include/generated/llvm-plugins.h: $(addprefix $(obj)/, $(LLVM_PLUGIN)) FORCE
-+	$(call if_changed,touch)
-+always-y += ../../include/generated/llvm-plugins.h
+ 	/*
+ 	 * We don't get trampoline for tracing_multi programs at this point,
+ 	 * it's done when tracing_multi link is created.
 -- 
 2.43.0
 
