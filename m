@@ -1,73 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989867;
-	b=XaerAoNyKJblZAzJ4cdeYPlJZAqSEGIPBEjj2V00Z3Lhas2f1hD5WHCeY3tRvQ2ykX8A
-	 iQjpytnvVxh8ChPzY5Li+OK9JJ1YzMAHS5a1fpDm0EKqbPQT0fJNN50/7YnAWFSH94P0z
-	 E5viDMwkwUBhYBx//PW7KjR4/0tqGEEiY0wcntphaMr6+8/UNnokn5TSa0OZ6JNr5GjjD
-	 K1/CkvWunnseLrnLtPDQ4HLNsvjHFCumooETF+KpQSgZJBQMuTxfz+T0Kk0QJVh0bNrU7
-	 8/dAKEHw5DxTU7wr+DK+RClRaKD1UTqmjMOCjpriWrHs9h3jUeByEkB1ELAI418oGjw==
+	t=1793989872;
+	b=zsUfOLWw9Y1Ab5wGH4XaQm55UDKFjzGdbbCLBnyOnlEE4XLLqEcPp5ALKru8WcICehMX
+	 c8UvMaGfU97ABQFUKC/R++i3Yp17dz/+OzeUws+5/3TZdGEvwsFhZv8LIt0UhTNWfOgSE
+	 RE6FjwkHSTpuG2xXNAW8idqpKyp1eFuh9Xg/BltdIUcil0u6AH5Kuad3KXVjklVUfSk99
+	 jYyv5clwa+xPyuWHMTjpHB77CcgYsgdEYlmq4pyuZCdtetvDBy75hQ8d2Wwyx8q8Bme4b
+	 yt+PvkZSWs9vGILoNrRiLnoOawn+zZH7L0N8SuA4FvMrCbyYR2QlIJ+NQeuA/azOTIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989867;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=lINQSLp1Gq3CX+BO3I8pHckQ/LjZgO4rP/j0aJx7QU4=;
-	b=b2rxl1hT3neKv13P17ZOLCz99DGyDCDTckvcLwyCUMRbZQioa4mEsJbcE81dCIGB6cW2
-	 gurik7WCjmBpzfmZmfK925d3L3hDEujfIAi0/mndYjEItbYV/NIN3ejR4yBj78EOzkjJq
-	 Ix2u0GYoAdCtY0i6kywoXoIrqGx3m5i7+03IXrAYjUyZh5cEkfWYhzGBa3m+5Oq30pgGB
-	 wZi9Q6IXGg36UFHtMwQAYhae4Bnz0bLKa5tIgShEtPZu004riR52VTTan27u9VG4i2Jnv
-	 7fVYMXtVW7vSvEuO8LehjQSZ7Y47ghPvWJpPTosaWZuI7SDU6o2DGokF5HukJIH/usA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989872;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=3xH03NUHcmWpaKwCeok9TVi3U0p01vOJ09Gd/XJiWe0=;
+	b=l6W7HLbbtt30cee0N+7iaazsUkWsO+5GWe8iI5BQkCOw8xxzGT2vAtmBw4X27+jw3QvS
+	 +gZKuF381DWjhBG/TmiKq1TIWs2lh/YEA981nup/iaNhoJVZC+aROMGQHL+M8d6kH4GJ/
+	 BtZT+ZJLGJK+XrjGjBMqx9Odhw+EtxJBmDe55FsdxBvjuFwPf96XWSyoGg7pifZZX2BEQ
+	 NTLbbnUy7cfjN70XmLRtAYOvMlDyz1DKo/7mByZFIX8SQ9xednid66pNF/4zwtjxVyQkt
+	 +s6viknLr/uUH5QHxkjZGvOhykk/ukObDCqdeusi0cZlPLUSXay+WOw02OV5CJOjLwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="ZrW/N5+W";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=nb55O+XA;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8A7606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:31:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C8A7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5028606A326;
+	Fri,  6 Nov 2026 18:31:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5028606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZrW/N5+W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793989865;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=lINQSLp1Gq3CX+BO3I8pHckQ/LjZgO4rP/j0aJx7QU4=;
-	b=ZrW/N5+WiVLEc6geZf7/eEo/ThnBI0A6ulJBLeK3OJt1Wb+YyKpJSGBTbg8ic8NZv1NSQp
-	UUIDLFODj6gzROlJHyTDAGVN9m76fWbpeDvk4QifpIm3NqvGQes2Fkg+PCulk8MRkJNBBr
-	rVqSUfjnK94S6OjAG58b8f7/gKY+t7s=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-271-mjTvFoKZPCy_EKI3ipHfLA-1; Fri,
- 06 Nov 2026 13:31:04 -0500
-X-MC-Unique: mjTvFoKZPCy_EKI3ipHfLA-1
-X-Mimecast-MFC-AGG-ID: mjTvFoKZPCy_EKI3ipHfLA_1793989862
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5C97D1944D29;
-	Fri,  6 Nov 2026 18:31:02 +0000 (UTC)
-Received: from dechen-thinkpadp1gen8.rht.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3EBD3195608B;
-	Fri,  6 Nov 2026 18:31:01 +0000 (UTC)
-From: Dennis Chen <dechen@redhat.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dennis Chen <dechen@redhat.com>
-Subject: [PATCH] powercap: intel_rapl: Expose package CPUs in associated_cpus
-Date: Fri,  6 Nov 2026 13:30:46 -0500
-Message-ID: <20261106183046.208283-1-dechen@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=nb55O+XA
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6IEJIu1994429;
+	Fri, 6 Nov 2026 18:30:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=3xH03N
+	UHcmWpaKwCeok9TVi3U0p01vOJ09Gd/XJiWe0=; b=nb55O+XAdWXyEP0OZno9us
+	APw9l5dI2UZvlDXH7ehkieTeuOSUMnSHT2C2j6lr7L1wBS8ujGrlaC0SUOp4Kuy3
+	KbAIz2wjChEcMG+M8KC8fuPn73WrJRWrBXIXayZjmSxOGSbfur/VXEqvMcy7rXyE
+	yUSd1mSLe7+IHzfC9Pv54IRv+YIp49CjjoY+bnfhNjcY0Hi9gFORFcYBawaWdzOa
+	DkhHMQIjibI48tYPncuYyt877McUc/uh/4OaER6l/qm+5g8jpo9FrDPLHRc3vGfF
+	hgUhb2UU9mAsYJC1uDqRrFRustujfsKCXMYMkYlHy1hM9KUBuvbXMMyY1F/HWOtQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3rbxv5v-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 18:30:54 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6I4rWl3846102;
+	Fri, 6 Nov 2026 18:30:54 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrka73fat-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 18:30:54 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6IUr3g21758552
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 6 Nov 2026 18:30:53 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6056F58061;
+	Fri,  6 Nov 2026 18:30:53 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7B61D58059;
+	Fri,  6 Nov 2026 18:30:51 +0000 (GMT)
+Received: from [9.61.255.215] (unknown [9.61.255.215])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  6 Nov 2026 18:30:51 +0000 (GMT)
+Message-ID: <0a003a9e-573b-4c4d-b0a7-f88bc11818f4@linux.ibm.com>
+Date: Fri, 6 Nov 2026 10:30:50 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,132 +86,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] PCI/MSI: Skip MSI-X restoration when configuration
+ is inaccessible
+To: Richard Cheng <icheng@nvidia.com>, bhelgaas@google.com, dave@stgolabs.net,
+        jic23@kernel.org, dave.jiang@intel.com, alison.schofield@intel.com,
+        vishal.l.verma@intel.com, benjamin.cheatham@amd.com
+Cc: iweiny@kernel.org, ming.li@zohomail.com, linux-cxl@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+        tglx@kernel.org, wangruikang@iscas.ac.cn, vidyas@nvidia.com,
+        lihaoxiang@isrc.iscas.ac.cn, xiangzao@linux.alibaba.com,
+        shawn.lin@rock-chips.com, 18255117159@163.com
+References: <20261106111829.55823-1-icheng@nvidia.com>
+ <20261106111829.55823-2-icheng@nvidia.com>
+Content-Language: en-US
+From: Farhan Ali <alifm@linux.ibm.com>
+In-Reply-To: <20261106111829.55823-2-icheng@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: _6eCb96jv-51KZVfLGMn8J0PlJOwuhUY
+X-Proofpoint-GUID: oxIXGDitamPJ_v_ajjSIbD-jiLmezUeo
+X-Authority-Analysis: v=2.4 cv=MqLHeGae c=1 sm=1 tr=0 ts=6aee1cdf cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=Ikd4Dj_1AAAA:8
+ a=letvWEv4QDVn0nEJEU4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA3MiBTYWx0ZWRfXxdlrruOzhuwy
+ xkZED9U/q2ps5OazJbtcIod30XwrSkREJGwxYVFM98akOiX4S4jyfrElkdydXLWUgOXa4hFoeJ+
+ mQCv9pLGs6EK8jIUNLtKz0z6YjJjKQE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA3MiBTYWx0ZWRfX6zE1yD7Fz1a4
+ zNHR6E9DQrXJyRGfMO64JXq/psSJBfsfpIabFklOCQdWTZv/+mR0v37FPMh4Qduskqb5Xi0suBP
+ EgycJZ5seGSGlrS9BAXINq2OxbGTmXRsW5ag8LnttvyhW96H7/utNP0a5dUW715ZJ/2Fvm/rwxP
+ 6VJeoN4DeryzkKnC9tU2dWtI8g3qtfTHkthsIIe5VQgvVldf+xW4EuDhzuosbYNCmpRrp3rX20t
+ 6UhxepyHIJ3vvv1v46l7iPjDLWF1fjpninKjioXfLZWWNW4cmL6j+TC5oVJpUcOZOI+UUBAmGN4
+ OfwWmWrm+W3ugU1vWTRjgXYpmRvAV1+m8jqVlwOXEriX8Bp18HCV3d9K4STDbKCB9xizKzBp+aP
+ l3UJHOz7nCJP2VsL4+geWy0LocceBr6fkjasLu3w/XRGGpiKql5VjmoIBJl4lwGq50vnZZ0wAJA
+ qKX+2aCmM/S58IuNZTg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_06,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 adultscore=0 clxscore=1011
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060072
 
-Commit 525e0064f3d8 ("powercap: intel_rapl: Expose all package CPUs in
-PMU cpumask") expanded cpumask to include all CPUs in the package.
-Since perf opens an event for every CPU in cpumask, the value returned
-for power/energy-pkg/ is roughly scaled by the number of CPUs.
 
-On a single-socket 72-core DMR machine the reported value is roughly
-72x higher than when perf is restricted to reading from a single CPU:
+On 11/6/2026 3:18 AM, Richard Cheng wrote:
+> PCI state restoration runs even when a reset fails. If the device's
+> configuration space remains inaccessible, MSI-X restoration can issue
+> table MMIO accesses that trigger additional errors, including DPC
+> containment.
+>
+> Check the existing PCI Command register read and skip MSI-X restoration
+> if it fails or returns all ones. Preserve the existing handling of a
+> valid Command register with Memory Space Enable clear, which temporarily
+> enables memory decoding while restoring the MSI-X table.
+>
+> Limit the change to MSI-X restoration. Leave other PCI state
+> restoration, driver reset callbacks, and reset return values unchanged.
+>
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
 
-$ perf stat -e power/energy-pkg/ -- sleep 1
- Performance counter stats for 'system wide':
+Just curious, why are we limiting this to only MSI-X and not MSI? I 
+think MSI restoration will fail as well since the config space is not 
+accessible.
 
-          8,052.48 Joules power/energy-pkg/
+> ---
+>   drivers/pci/msi/msi.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
+> index 8a0133a6a286..37de31f4cfb6 100644
+> --- a/drivers/pci/msi/msi.c
+> +++ b/drivers/pci/msi/msi.c
+> @@ -887,7 +887,11 @@ void __pci_restore_msix_state(struct pci_dev *dev)
+>   	 * Since the MSI-X Table and PBA are in Memory Space, enable it
+>   	 * while restoring them.
+>   	 */
+> -	pci_read_config_word(dev, PCI_COMMAND, &cmd);
+> +	if (pci_read_config_word(dev, PCI_COMMAND, &cmd) ||
+> +	    PCI_POSSIBLE_ERROR(cmd)) {
+> +		pci_warn(dev, "Device config space inaccessible; unable to restore MSI-X state\n");
+> +		return;
+> +	}
 
-       1.010483558 seconds time elapsed
+We have a helper function pci_dev_config_accessible() that does the same 
+check, so might be appropriate to use (of course we would have to make 
+the function global rather than static).
 
-$ perf stat -C 5 -e power/energy-pkg/ -- sleep 1
+And maybe the check should be moved up before any config space access in 
+this function?
 
- Performance counter stats for 'CPU(s) 5':
+Thanks
 
-            112.15 Joules power/energy-pkg/
+Farhan
 
-       1.009685587 seconds time elapsed
 
-Revert cpumask to only include the CPU with the lowest ID in the
-package and instead expose CPUs which can read from the PMU in
-associated_cpus, akin to uncore PMU drivers with per-package counters.
-
-This retains flexibility for userspace tools while maintaining semantic
-consistency for perf's use of cpumask.
-
-Assisted-by: LLM
-Fixes: 525e0064f3d8 ("powercap: intel_rapl: Expose all package CPUs in PMU cpumask")
-Signed-off-by: Dennis Chen <dechen@redhat.com>
----
- drivers/powercap/intel_rapl_common.c | 43 ++++++++++++++++++++--------
- 1 file changed, 31 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/powercap/intel_rapl_common.c b/drivers/powercap/intel_rapl_common.c
-index 70cab5f08bc6..4197f7146afc 100644
---- a/drivers/powercap/intel_rapl_common.c
-+++ b/drivers/powercap/intel_rapl_common.c
-@@ -1139,7 +1139,8 @@ static struct rapl_pmu rapl_pmu;
- 
- /* PMU helpers */
- 
--static void set_pmu_cpumask(struct rapl_package *rp, cpumask_var_t mask)
-+static void rapl_pmu_collect_cpus(struct rapl_package *rp, cpumask_var_t mask,
-+				  bool all_online)
- {
- 	int cpu;
- 
-@@ -1151,9 +1152,15 @@ static void set_pmu_cpumask(struct rapl_package *rp, cpumask_var_t mask)
- 		return;
- 
- 	/* TPMI/MSR RAPL uses any CPU in the package for PMU */
--	for_each_online_cpu(cpu)
--		if (topology_physical_package_id(cpu) == rp->id)
--			cpumask_set_cpu(cpu, mask);
-+	for_each_online_cpu(cpu) {
-+		if (topology_physical_package_id(cpu) != rp->id)
-+			continue;
-+
-+		cpumask_set_cpu(cpu, mask);
-+		/* Stop at first CPU in package if not all CPUs are requested */
-+		if (!all_online)
-+			return;
-+	}
- }
- 
- static bool is_rp_pmu_cpu(struct rapl_package *rp, int cpu)
-@@ -1430,8 +1437,7 @@ static struct attribute_group pmu_events_group = {
- 	.attrs = attrs_empty,
- };
- 
--static ssize_t cpumask_show(struct device *dev,
--			    struct device_attribute *attr, char *buf)
-+static ssize_t rapl_pmu_cpus_show(char *buf, bool all_online)
- {
- 	struct rapl_package *rp;
- 	cpumask_var_t cpu_mask;
-@@ -1444,23 +1450,36 @@ static ssize_t cpumask_show(struct device *dev,
- 
- 	cpumask_clear(cpu_mask);
- 
--	/* Choose a cpu for each RAPL Package */
--	list_for_each_entry(rp, &rapl_packages, plist) {
--		set_pmu_cpumask(rp, cpu_mask);
--	}
-+	/* Choose a set of CPUs for each RAPL Package */
-+	list_for_each_entry(rp, &rapl_packages, plist)
-+		rapl_pmu_collect_cpus(rp, cpu_mask, all_online);
- 	cpus_read_unlock();
- 
- 	ret = sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpu_mask));
--
- 	free_cpumask_var(cpu_mask);
--
- 	return ret;
- }
- 
-+static ssize_t cpumask_show(struct device *dev __always_unused,
-+			    struct device_attribute *attr __always_unused,
-+			    char *buf)
-+{
-+	return rapl_pmu_cpus_show(buf, false);
-+}
-+
-+static ssize_t associated_cpus_show(struct device *dev __always_unused,
-+				    struct device_attribute *attr __always_unused,
-+				    char *buf)
-+{
-+	return rapl_pmu_cpus_show(buf, true);
-+}
-+
- static DEVICE_ATTR_RO(cpumask);
-+static DEVICE_ATTR_RO(associated_cpus);
- 
- static struct attribute *pmu_cpumask_attrs[] = {
- 	&dev_attr_cpumask.attr,
-+	&dev_attr_associated_cpus.attr,
- 	NULL
- };
- 
--- 
-2.56.0
-
+>   	pci_write_config_word(dev, PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
+>   
+>   	write_msg = arch_restore_msi_irqs(dev);
