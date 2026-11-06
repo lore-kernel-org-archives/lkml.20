@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.61
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793948814;
-	b=ggYzewUNC8hlRtvlVmnNvrOz2T69vn+ZMEWm4puJC9v6OMn9PUsgfVWjDZ9bs6BjVm8E
-	 CqG+LDXJg+U8g/cn58/u9IFX8MJ90fStTAAVvpZZwC8OZehFIZZLhzKMOY9yQEIQFtuGh
-	 mk/1/sOeSoctAaQ/ozdGgMZ5Sb6e5wHLLPxlYes+FM8AR6hGB++izwONGmhqetxO12GQI
-	 9sbqHnXdVCvwW0Lf55axRYxBhxoiVCJXMcLKS/xvYjh1AgVzjVZ1JaztkewPNo54NsZhG
-	 BwjFNvpevDh9ujKHsU4c90EBvA+Xd0LEMRuPw7UO1NjmbmFwp+HB31HmWCJ726RUkVQ==
+	t=1793948853;
+	b=Y3f0o9ZDWE0vzCDG1rBeg/u1IU6TIIIaIZLOWbhDfUxCunw/d7cVMmPltWZz2ag/kVwm
+	 HiV4KZD1qGtDV7Ov18M5m4by80SsqGsHhU9dhn55IU0J8dpEIFZwUdjjSUPX6/NotOB9E
+	 XKvhYaNg7Arqq21wV2/ihV2Dz0XL8tWnQBIduLE5TvcBsE/s+GgBzvAJ0KyvC6sm8xyAv
+	 n8vWr/M5RcsdTsVwsI/wsVRTTvieM/W4RDTVEfodUxJ+77gO5gSkJd6CSTHM4h97qGsdG
+	 i3Hd/fBaxqte5HmEuZSIxx0Pf5HtxMPgreKeyxf4Zmd9hFjFgX1sYeK002rnpQrOM2A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793948814;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=alAwQeLWydmd33JwvWAL+zeRu/MUC/dSmYPTpr3ak2g=;
-	b=i6i7dEqQchuh9IkREhOLK096zDv7uU5eHn1qpzqvygn19UHa95yh0L+ERBiRE2iZ0it9
-	 jxadiEeerkgIjPbqr6mpGVQWZSpcgmDuBSj7JHniC+c0cczbQN0j34MygCfY3gx638fcE
-	 uKOKJwTJvwcr2+ktDZxYascABSA7w+A/ELqa6MpQXcf9odFBX5/vMJBQ5+Li+lWv9sbuf
-	 Ym0EJU/EtETR+9uA0dL1/7Dg9QqooyaiUylHF7gR6dMEBStHnvU1kGC/P7688sKSoPJnZ
-	 2Msv+F5jO1EBd3gAZMwgVro1kkoieHUrj/BZdaMf58M5T5venHWhmSonGBVXIjPaxtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793948853;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=SyAT3kgnB5A36GtJplToXCiU6rWfBoePnhWMVO882hw=;
+	b=xgkyXWsaUgkKV5somOTpklO2rOSSlceeZKDSxbQe/jmyqyALW1TLsrWFym4K3n68R4hS
+	 eGVDhR8yxmPQ81Tn1nsOE7RrVGU2UTsyBdvR980s0QkQGAF6QhlY8j2UQiTB0EhovyCzO
+	 dJSDOR4XlB9et3AYAORrldgUvrWeNZjC9jw05/6irCXePxMl+o0qEcMuNEmXQx4bku2w9
+	 lD6sGTRf+es7I4EOxbt60El+ww6/ugVB71qMXS+808IJJXVg2AcRWTERkioAA76NSeeJs
+	 hXRxGPTi7+Zj+lDq/W8V++hWvtq3UDCrnavMcVTw+YztyDtoVFyq+HuCByvBiLNIgIw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ovXh6QCr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.61
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010061.outbound.protection.outlook.com [52.101.193.61])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ac+lalS2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE556606EE86;
-	Fri,  6 Nov 2026 07:06:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE556606EE86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70152606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:07:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70152606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ovXh6QCr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dv9Dc2Raun2Z60J66WK7y+ZJZloqMDu3z3OiH64P2WQ/npbBkNczL/bkhJ7a0yI7FtTeJ5IaxnfGDungKrl1KJ/oIjSKyJk5uWiaM7jPjNn/n7DkINtiysXpRJIacDMVKq0K56zZyBmxx4N0q9AgAv3xxdttatbPIb9Oou3E2zXKoSpaNk3FhCteqDehsUzzstAuLz5DTbBM4crYkRpPH25ns6PwJ2dsVbsdvJv0pzHebkxySYEg7tV2Sq4lVacHaLBMiEx7JbnG3nN6XJmja9AsoP/oAeMqRUNTyEqAzNHP6LEcjSkdL95JcIcvfU9lS+f6nJTdelI2hiZA3wyuCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=alAwQeLWydmd33JwvWAL+zeRu/MUC/dSmYPTpr3ak2g=;
- b=SzbFSnD/NS/l3uSew+YUk7aawVqVA6FUaXortFrA0WxhjlJfxbFDjZeQI0eGWsBBhheNqf50xeiJSz43ATN3UTnCWkALjEzYQ2H85wMHVsWIOymZVDkKo6axsVfxihZobv01E+lzsB0cYxYKtAnHG/W4DxBs1+JTD0gplpYixsqPWpsGM9PF1taMq0jVBTIgxMrEOwydJSgvaEFkiMq2YC64K0xQyHjsBPHY9jl6OSevgzng+5zkhHNAYhJ2c0Endn3MwZkD2WpLAJTj6W4Ikd82T073ZDvLZqo53pC6Cc/cvsIaJhuAWRH4tFBt80DUGY17llT70nI8VJ2iyi8zQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=alAwQeLWydmd33JwvWAL+zeRu/MUC/dSmYPTpr3ak2g=;
- b=ovXh6QCrZPxR9ub7+QWj0BVpTwYMtMEEmwCnm2MBk30yzFwULsiUCSC6/RfhDU3djmBAt+93oUhcOb2e+Kp7k3HWsFMBaAapSanQqWPkmV5YRleStD78poJWaJvlx6H9A1PQnEricCAuzAW6wuel0vVpUzvLWef2bsWcQwPpIzchjG3YRtqozvDb5bNnWyzQi3TG+7eTNpPYM7iehmfYcQCsUZpn0SIrNO0/aQDF0JdHNOxPcbBs59oMcyMlHD9nv91v6Z9qWo7t+H9sgzBX/jncmc51dwMKa8QcSyJblMujcRmPg481RI1aBppdTBQ0aoB8PmpefnhvyjAzrldmFg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SA1PR12MB8699.namprd12.prod.outlook.com (2603:10b6:806:389::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
- 07:06:32 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Fri, 6 Nov 2026
- 07:06:32 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Fri, 06 Nov 2026 16:06:14 +0900
-Subject: [PATCH v2 6/6] gpu: nova-core: gsp: cmdq: add the GMC receive path
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-r000_rebase_on_cmdq-rpc-v2-6-e481ea2168ef@nvidia.com>
-References: <20261106-r000_rebase_on_cmdq-rpc-v2-0-e481ea2168ef@nvidia.com>
-In-Reply-To: <20261106-r000_rebase_on_cmdq-rpc-v2-0-e481ea2168ef@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWPR01CA0032.jpnprd01.prod.outlook.com
- (2603:1096:400:aa::19) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ac+lalS2
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4d473cfff6so11015266b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:07:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793948852; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Y5L+cdqk7vOvYLNvhoznQkUXlD2XBrnCQ3C4XCMpyHr3uoJQMr6IFQWgDbbeCL3p0A
+         vr0TXLqefF/h7dgOUtfUIWfFBkvw4r5oiN6kafWhDYSi2dAq1W9BsyBsJX0t1T6fbBtQ
+         7f7ettFC470QOK0Qq3P+vwbH3sMidM7RFlXImM+6G75yuJNYi6tLcONjBvkVFFCNyDvA
+         vbILCXuszeppJexaavjtxn5xPpznls+w0Z1BwKhr5cz8RumVYzeZ/GhvXlIJnx8TJqh0
+         ZJjHvItWBlW7gJYq8v5ztknuzokiRPbhnXp0EwRQJGLHzZJrPLhODXPYXltVJxi08/Os
+         9KAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SyAT3kgnB5A36GtJplToXCiU6rWfBoePnhWMVO882hw=;
+        fh=suyk1q4d/pS5yGdxwbMQaUg0ySZAqyvQ1OI91OD1xV8=;
+        b=mpEs7Q+78RbX3JAi5PlC6adrJBWQfjh3WqQNPUbubOxChfST0hAEmqu5MrejxcQLJI
+         qPvXPYhn3NQ9D4/O6PcMdGtCaPgS8ha6e91zLbhJxKFDRUgr61MTtFJnAqqZF9fRi/OU
+         2QCn3blfeOoMppLhGHHtQj9Dug7zdLM31NU6wO5V1+qTdtztrANq5zm3Wi7PIl3kMbF0
+         mxx5Sa3lMv5OXHGhsk1bDalK+F3HdgfnbueAyeCY4dcE4JgKO2NoAt56fyBWcTjlHz7+
+         vF3a4lHOOcnZCiLGo7gMfjImnGIHGmUO+5pyHeu/APur0mqxLa41GuoHo3fEEXkytzCZ
+         HMOg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793948852; x=1794553652; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SyAT3kgnB5A36GtJplToXCiU6rWfBoePnhWMVO882hw=;
+        b=ac+lalS2C45udPKowbAlc49mJdNxCM4QoMDQi0U2N5zjEiTFDlQbyz6G2S4F7bC6Se
+         13NAhus3mUlNHIoDyvTtrLSITGrBky/Kt0o/sJKX/4WTRUskOs0th9V66uE+yuuiOaQJ
+         lrhRmX8U0HDPtuwP4zp/BDy45rqm+sPSIS7Ai5VTo0XnmPAT5WkHWhc2rjnYQp0Em9iU
+         TYu+iPIInQ2HhKPSA5fExVTxNgvvwD3QSj3RM54Vx9ZuDFEwkIQom4Ikj8STj3MPAMtk
+         MDYzmfOX5T53TBGL8Q7X/jnQ7xy9CFzH3+Cdo6NQJ/opbcDP6JfCV5fWPjUEtzaZSCtg
+         lj8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793948852; x=1794553652;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SyAT3kgnB5A36GtJplToXCiU6rWfBoePnhWMVO882hw=;
+        b=qrJsLhU1xTce7CWjo1j4JL7ydICF+7RM4xchwV9dGGqDAYUhGmUIwYcj7cyK7WPPPt
+         XaEZdKq5GgkLdGaL876ANNFB6+kHGlo8Yqny9iFrJTnFFnEXVDJo+fOj+rVcRrCHJHcf
+         Xn9QTvpbQY7w1akndLKJF/ShYHquWJcv0BdggwZm6U7bwGc+bfT/NIHHEfeNsStS6o1E
+         a4+o4DtwOQcYpjiI5rRJLQ7dUGEBrjbm/XhZKTAKNJFUCius2As0UBlrfTEYx/aiu3+N
+         B3hpOwy/uVb8+iRLEYAxpdzmmpUGjIvb4qXu8OJ6N3u64eoymrUARVUI1kco4meVzdfi
+         9KcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzuwmxkf9SaLBCv0eGRsyzBCrGoD9XOei2p6CqxbMwQi4qBshqOFu7l3GryjH8/BIcbU6SRyNWnUdzHB6c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9UuP+WeBiXRKLekg4Su3mPaG/txKL4+xwXiAjYVmh3GQ0vbuF0
+	W5mMCtCr7fAEiWxAg4jOiJWL0NpgRkE8YAIAMCrn72a423nCbc/t6+kV6KW/48cMSyaIpD5J6/F
+	QFrf4YqREUUYUgNEmrf9xDFojQOY2ecE=
+X-Gm-Gg: AYBFou18kwW6u0hKy7zKc38ArJtqCx3klZiAIdmdgg45S7EPKo38XDbsBrWMoetgBX8
+	qKYO2VfK6Zvs/Lo8zHA98zhF45QVJN8AVF9lC4Yj19dRjXWGV3PE2GcEsZTeFgpkb0sNRGVZlyZ
+	43m2fHBrHvC6mwq1UpJRueXX0DZ7JYq8wlujxuFszW8QdCTLfIsDkgK4PRkNor/5Gx5QXqgROmc
+	Bv46cj+2nZclOKbrm0EFN39FfUyw8XSbCS+yr7tZY5M/ljLsKw4iiWajQ4VjNhg4srXbyFKvq1S
+	1TLjUETOqoc8ZJbKuKsd39+5xijLp8qLxNrB9knnTgiQErUDYxchLh4jAS+N7UOBtgUPaMNQbzk
+	cBE/F9VSqR3Oi1QJPkUbpUUhRKbe90nab4HY/3tdBiShieVMOFuxhl7UUrNG++hKVwgCZdS5oQB
+	9g3d5IcTG40R4+iw==
+X-Received: by 2002:a17:906:c150:b0:c46:9ca9:f524 with SMTP id
+ a640c23a62f3a-c4d354b9d04mr130447766b.32.1793948851462; Thu, 05 Nov 2026
+ 23:07:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,415 +105,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA1PR12MB8699:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6daa260-1fc1-4481-ab2c-08df3bd47ce3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|10070799003|23010399003|1800799024|261026121527099003|261022075727099003|5023799004|11063799006|56012099006|261021123027099003|261021121427099003|261009223027099003|261102123227099003|261022105027099003|261026140227099003|261028144727099003|6133799003|22082099003|18002099003|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	DnqIpyg3bmYh7YQLBsovpGHccGTkog3jkbJ8LCuMj7W5rxrteytBkVTuZhuQY9eR2Qs6EyOetIs6S1dDX+Q48I2r435DalZ/73pOyCNodPeY+a0GBWXX80pEyg5PXSWDi4Bb05H9cUEQsr4yTk02Z4dm4kJoidgTkyySSJE7XHUOdW8WQP0LgJafLm5fcWR43JXHs9CewhQdrlZdvZbfpWcFqmzm0UMfJqrGiGd4CFaU4dTYjhC/ZVsXPuNGGtHXb9KEhD6j4IB1nAHcotMUPMgOdH/cX3n/T4PyZ8GnET1uJJ6Qu9Ss+K4cQdnIqyga++TuiP5Mxg5CK3qtmaUIUZcV7e7W5+TeS7JZn2Y9xyrWcjCKvfzZrxb6W+6SnSruCS5HklCS9xwv5uPbu0i4YDtrP7zEn61WMO0WpagmXtQhCJR66PV9ya2ejAEdl8Jfkr54DaNeSVmdDykwA5cp9dqNeUCX5ZsyhIfvI7mNm7IRLrBTUFZPAoCdSlqCKoK2UVkn73XpZ8owFXAO0LDD7xMIs5nMjUM4GdzQgpfjoPoPCOp1HGeyKbKfcD1zBBM5pxUEeQDsPe0/vHAQso27TjBbuTtPPe054qhJBy/UrxEZt1OadAcOeGyO1CADKq5szWqJ8tvpAnzYwy2c4FzyNhAAcTLv7QxHSWgxlH260V8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(10070799003)(23010399003)(1800799024)(261026121527099003)(261022075727099003)(5023799004)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(261102123227099003)(261022105027099003)(261026140227099003)(261028144727099003)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VnNjdjZObE05eEdUeG5zdDEwcUd4Uk9ncGx2dWlmK0QyaitYemJFdHR2RjRB?=
- =?utf-8?B?TURncmUzaW0zMUoveUl1emFtNURieVZ5bFN4YWdCbXg2ZkVWc3pTMlpXMVZu?=
- =?utf-8?B?dFJla3VaTWlCd1dMK05mait3T09zNUhzcXdMK2pRVUx3bTlxNGlRMEp6VnFq?=
- =?utf-8?B?dVpLNmNBb2tzT3hkanFpQVMyd2ZGSHRQOVFVUG03UTF0NDU1SWlwMDlybkIz?=
- =?utf-8?B?VzZyMmkrR1U1S3ZISmcvWnFLbGphcTI1YzdVRWdQSWtOQWl4Mzg5eGlvWXBk?=
- =?utf-8?B?TXYrL3kvN0VpKzFyT0V1amt4Mmd6SURveUNuVmZpTGFRcmk4TDZmVkhqQTV6?=
- =?utf-8?B?SnV4SnpsTDMxVE1POGVUWEhUVnZIczlZejNQVko3b1IyOTdsdXU4WTBJSjlG?=
- =?utf-8?B?cGxoQTRVWE43Tzg4bkkyaDFiNkN3dnpsczI1S0JCb0hnaW1sUG1pUG1LSWdk?=
- =?utf-8?B?NHdMcHJka0owK3VpLzhpcWtFZUlsVjVtSlN0RFplQU1PbjU4MythSXBHdGFI?=
- =?utf-8?B?WDhKNGhCaHJtSUhxWWZVSTdnYjJJYWRGdG5KSzBFWGNIdVJDeG1pNUkxYk5C?=
- =?utf-8?B?aVBSUmsvb252bUxhdm5Lc0J0b1dSODREL3M5L01KYlUzZlBuRC9NbkRNdU1t?=
- =?utf-8?B?aFFCSm9QYWRDRHB4c1JWc0x2TWwzdFRTemRZQ3g2b0dJZE5ZTzZwbEhEMHhw?=
- =?utf-8?B?cWtUTmR1YTl5bVpReWExNFBXTTlYZDRtVXBXbWVEb0VNRDByWlBNaGl5SG1l?=
- =?utf-8?B?NEszWi8ybzMydUYydDZsWXBhMkc4eWZ4RDNEKzdTNFJad0F2ekd1Umt3Ujl6?=
- =?utf-8?B?ZWZqaW9Td0J5cUJRK0JjQWpVK2hLUXljSEZmOWVrRTIyS3QrUWVwT0xqT2dC?=
- =?utf-8?B?cEJaQzVESHlpN1dkdGhwTTd3N2hqbkVXa2VSRTY3LzFnbWw1N29MUVE2cHI1?=
- =?utf-8?B?RnlPcTJPSDNYNU0zNCtjcE81QzZRRjRhcnVtU3dWN25CUkJwM2dDSTMyZzhk?=
- =?utf-8?B?OWp3dlc2REluS1E3eTVSRXZyTWFpZVJsaGRGWVEyL29Rck1tWFBDZjFyNmMx?=
- =?utf-8?B?MDhCS3E4RWRjQVVjZGNaNlgydHZHbWdwbHlBbnNWM0lTL0pLZFBJZ0VTcWd4?=
- =?utf-8?B?all4NHlTKzM1UjZsME1TakthdUxlQVFlOEI1U0FFT1AwRDI0UlhReXdsRzM5?=
- =?utf-8?B?NnI4SGlRZ2NFQWJsTFhUUFlmVWtLbk55Q2QyMUtSZ0Jpb0dEYmpBMEc0dHl2?=
- =?utf-8?B?emlYWGI1ekwxSDRMS0d6MGluaXVNdjNmeTJTMmo0VGdIMnN1R2dVbUxvRkk5?=
- =?utf-8?B?OVR2Qm16di9mTTdWeE5id1Q4SllOK0ZLMitKQ1hsK0pKbEtQSnRIZWdQNHVG?=
- =?utf-8?B?THpTTTVncWJBek5XR2JDeHhmc3k5RWhYOENwMG9GMnorajBmTlZzTWFPQ3N2?=
- =?utf-8?B?NS9EeURSS0ZrNUpya2lsaVhhYm9WRjhGaHRteHk1Wk5XZlMwVkhmazY4RFBn?=
- =?utf-8?B?eHRlc1d6ZHFRNUF3WmlGVXhvSWd4MzVyVjlHWDc2YTFtVitTT21RbkYzRVZE?=
- =?utf-8?B?NTRTa25pUW54cDJ0a3JNSEgzNzRQTEpMdUxzeS9oMkhmVmRkQm5sSi9FeC9a?=
- =?utf-8?B?VUR4TGtEQ2FsQkZWTCt3TTN4K3J2VDZtdWNiYjJ6bGU4ZVNQTjJLVEg2K01y?=
- =?utf-8?B?QnFPVVVkK2VDdjJBZDZHNGw1YXhsYTVGcGlQYWFIZmxKRURWbDBUZjVGeCtk?=
- =?utf-8?B?dkZGZ0hLYmk5SlFPYWN3eEMzYjdKZnlJUENoRG9ZZ0FkeW1DeGxHZ3U1Sk1m?=
- =?utf-8?B?S0RRRXhOSjZ2L0JVd1pqdW14QkNNL09HU0tqYzBZYXprNmthMGdWQ2w4Vk9M?=
- =?utf-8?B?QWxqMDVlVFI3WTltU3c0N1ZHdXJYcHorajlqVjdXQ3IzUHVac0NQeDE3TlJi?=
- =?utf-8?B?NG5TaitPV2lUdDR0QzdEV24vdU9vdXZSczNTV0NpOUE5cEFjYzU2akU1NUVK?=
- =?utf-8?B?eTU2a1dBWXphUWhIZUw5SWp2WCtobXBlb1dVR1ZSY052ZjhzVTNyQjBHVGM2?=
- =?utf-8?B?YTNnYVJ0VVBCT1FVOVZMc2NFZnBxK0U5TGJCRFhRTEl1STg4NWNLdFVMMk9w?=
- =?utf-8?B?RTB0NmpnbDhseFU0K3lnWVMrREJSZGZaZzgyYUlTeTJFK2tsNUFvdkdWb0k3?=
- =?utf-8?B?andkYUkzOVZmSFNRSk93RUtwcTNRT2s0OU9IOXVleDV6cldmUlBxU1VYQUpu?=
- =?utf-8?B?SEkvK0cxS0lIZGR6VDFqVGJ0WGJUUUNyTTVSV04waUZMOFhCOWxJOTJ6Qllz?=
- =?utf-8?B?aDU1UFdDZjdEY1I1cFB5aUpzN2ZxbThXQXd1ZjRqZEpJb1ZaM1ZLZHFWSi8x?=
- =?utf-8?Q?QueST82+owDzDP/+g++GvXmnUMz83kzUM6aW5ReQ5lIT5?=
-X-MS-Exchange-AntiSpam-MessageData-1: p/4N7F+TnFfktg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6daa260-1fc1-4481-ab2c-08df3bd47ce3
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 07:06:32.5257
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i8gmqLc3C+k8a3oO7o/vyuU1NttZIxyEUMJX2z+BJGQuSKDerABQilhQFcsIHIvqtEIppwc3eb3v6Eygvjs/uw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8699
+References: <20261105-swapin-large-unmapped-v3-1-d5906e4cf18d@columbia.edu>
+In-Reply-To: <20261105-swapin-large-unmapped-v3-1-d5906e4cf18d@columbia.edu>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 6 Nov 2026 15:06:54 +0800
+X-Gm-Features: AclHuK_6llSzkyRcVYdlNTM5aGEuCM6qDLFo0-sBLaWSUDxDfNf218-kWrSN0Bs
+Message-ID: <CAMgjq7AMjQpW+yTKKwuttNvVGeHfc1Nc=QDP836q+arsB13Lag@mail.gmail.com>
+Subject: Re: [PATCH v3] mm/swapfile: drop a large unmapped swap-in folio in unuse_pte()
+To: mt4022@columbia.edu
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: John Hubbard <jhubbard@nvidia.com>
+On Fri, Nov 6, 2026 at 1:28=E2=80=AFAM Mani Tofigh via B4 Relay
+<devnull+mt4022.columbia.edu@kernel.org> wrote:
+>
+> From: Mani Tofigh <mt4022@columbia.edu>
+>
+> Since commit f1879e8a0c60 ("mm, swap: never bypass the swap cache even
+> for SWP_SYNCHRONOUS_IO"), a fault can read a swapped-out mTHP range into
+> one large folio in the swap cache.  The folio only becomes anon once
+> do_swap_page() maps all of it, so if the faulting PTE changes in the
+> meantime the folio stays in the swap cache while not being mapped or
+> anon:
+>
+>   Task A (fault)                       Task B
+>   do_swap_page()
+>     /* swaps in large folio F */
+>                                        madvise(MADV_DONTNEED)
+>                                          /* zaps the faulting PTE */
+>     /* PTE changed (F not mapped) */
+>
+> swapoff then maps it, which marks all of its pages as mapped and
+> exclusive, and the next fault on one of the other PTEs crashes in
+> do_swap_page():
+>
+>   [    6.424485] kernel BUG at mm/memory.c:5195!
+>   [    6.424503] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>   [    6.427654] CPU: 0 UID: 0 PID: 67 Comm: swapmthp Tainted: G        W=
+            7.3.0-17087-gd865f2677c44 #1 PREEMPT
+>   [    6.432665] RIP: 0010:do_swap_page+0x24eb/0x2fa0
+>   [    6.451035] Call Trace:
+>   [    6.451567]  <TASK>
+>   [    6.453841]  __handle_mm_fault+0x13b5/0x3b40
+>   [    6.458525]  handle_mm_fault+0x16f/0x480
+>   [    6.461143]  do_user_addr_fault+0x312/0xa30
+>   [    6.462044]  exc_page_fault+0x66/0xc0
+>   [    6.462846]  asm_exc_page_fault+0x26/0x30
+>   [    6.476708]  </TASK>
+>
+> do_swap_page() already drops such a folio from the swap cache when it
+> can't map all of it.  We move that check into a helper and use it in
+> unuse_pte() too, so swapoff drops the folio and swaps the entries in
+> again as small folios.  With the fix, the next fault doesn't crash
+> anymore.
+>
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within about 1s.
+>
+> Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_=
+SYNCHRONOUS_IO")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> Changes in v3:
+> - Don't handle a dirty folio, the helper already warns on debug kernels
+>   (David)
+> - Keep the comment above the check in do_swap_page() and say "some folio
+>   pages" instead of "sub pages" (David)
+> - Drop the note that the check goes away once folio allocation is unified
+>   in the swap cache layer, mention it here instead (David)
+> - Add Nhat's Reviewed-by
+> - Link to v2: https://lore.kernel.org/all/20261103-swapin-large-unmapped-=
+v2-1-87c70e597250@columbia.edu/
+>
+> Changes in v2:
+> - Move the check in do_swap_page() into a helper and use it in
+>   unuse_pte() too (David)
+> - Use VM_WARN_ON_ONCE() for a dirty folio (David, Kairui)
+> - Keep a dirty folio and return -EBUSY from unuse_pte() instead of
+>   dropping it, since dropping it would lose data (Kairui)
+> - Rebase on mm/core.git for-next-fixes
+> - Link to v1: https://lore.kernel.org/r/20261030-swapin-large-unmapped-v1=
+-1-41e4ae378e6c@columbia.edu
+>
+> This is based on mm/core.git for-next-fixes, on top of David's 7f2c000ffb=
+10
+> ("mm/ksm: check large swap-cache folios before mapping them").  On mm-new
+> it only differs in context and applies with a 3-way merge.
+>
+> The check can go away once folio allocation is unified in the swap cache
+> layer, where allocating a folio stabilizes the swap entries.
+>
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/sw=
+apmthp.c
+> ---
+>  mm/memory.c   | 13 ++++---------
+>  mm/swap.h     | 10 ++++++++++
+>  mm/swapfile.c |  9 +++++++++
+>  3 files changed, 23 insertions(+), 9 deletions(-)
+>
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 91836d217d25..10016f7984fd 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -5170,18 +5170,13 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+>          * If a large folio already belongs to anon mapping, then we
+>          * can just go on and map it partially.
+>          * If not, with the large swapin check above failing, the page ta=
+ble
+> -        * have changed, so sub pages might got charged to the wrong cgro=
+up,
+> -        * or even should be shmem. So we have to free it and fallback.
+> +        * have changed, so some folio pages might be charged to the wron=
+g
+> +        * cgroup, or even should be shmem. So we have to free it and fal=
+lback.
+>          * Nothing should have touched it, both anon and shmem checks if =
+a
+>          * large folio is fully applicable before use.
+> -        *
+> -        * This will be removed once we unify folio allocation in the swa=
+p cache
+> -        * layer, where allocation of a folio stabilizes the swap entries=
+.
+>          */
+> -       if (!folio_test_anon(folio) && folio_test_large(folio) &&
+> -           nr_pages !=3D folio_nr_pages(folio)) {
+> -               if (!WARN_ON_ONCE(folio_test_dirty(folio)))
+> -                       swap_cache_del_folio(folio);
+> +       if (!swap_cache_folio_mappable(folio, nr_pages)) {
+> +               swap_cache_del_folio(folio);
+>                 goto out_nomap;
+>         }
+>
+> diff --git a/mm/swap.h b/mm/swap.h
+> index d5bf21f517dc..7779ccff5a0d 100644
+> --- a/mm/swap.h
+> +++ b/mm/swap.h
+> @@ -464,6 +464,16 @@ static inline void __swap_cache_replace_folio(struct=
+ swap_cluster_info *ci,
+>  }
+>  #endif /* CONFIG_SWAP */
+>
+> +static inline bool swap_cache_folio_mappable(struct folio *folio,
+> +               unsigned int nr_pages)
+> +{
+> +       if (folio_test_anon(folio) || !folio_test_large(folio) ||
+> +           nr_pages =3D=3D folio_nr_pages(folio))
+> +               return true;
+> +       VM_WARN_ON_ONCE_FOLIO(folio_test_dirty(folio), folio);
+> +       return false;
+> +}
+> +
+>  extern const struct swap_ops swap_bdev_ops;
+>
+>  int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index 71ef9e2efb3a..5d915951639e 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -2513,6 +2513,15 @@ static int unuse_pte(struct vm_area_struct *vma, p=
+md_t *pmd,
+>         if (!folio_matches_swap_entry(folio, entry))
+>                 return 0;
+>
+> +       /*
+> +        * A large folio that a fault didn't map can't be mapped one PTE =
+at a
+> +        * time here, so drop it and swap in small folios instead.
+> +        */
+> +       if (unlikely(!swap_cache_folio_mappable(folio, 1))) {
+> +               swap_cache_del_folio(folio);
+> +               return 0;
+> +       }
+> +
+>         swapcache =3D folio;
+>         folio =3D ksm_might_need_to_copy(folio,
+>                                        folio_file_page(folio, swp_offset(=
+entry)), vma, addr);
+>
+> ---
 
-GSP-RM answers a GMC request with a GMC message whose command word
-carries the response flag and the id of the request, and whose sequence
-number is that of the request. It also raises GMC events, named by a
-command id. During boot, the load-and-execute events arrive while the
-driver is waiting for the GSP_INIT reply, and GSP-RM only answers once
-they have been handled.
+Thanks for the fix!
 
-Add the receive side of the gmc sub-module, mirroring the
-already-existing rpc sub-module.
-
-The transport cannot produce GMC messages yet: the r570 queue element
-header does not carry the type of the message it transports, so the Gmc
-variant of GspParsedMessage is only constructed once the switch to r000
-makes the transport dispatch on the NVDM type. The RPC receive path and
-drain() account for it by logging unclaimed GMC messages.
-
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
----
- drivers/gpu/nova-core/gsp/cmdq.rs     |   7 +
- drivers/gpu/nova-core/gsp/cmdq/gmc.rs | 232 ++++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/gsp/cmdq/rpc.rs |   8 +-
- drivers/gpu/nova-core/gsp/fw.rs       |   3 +-
- 4 files changed, 248 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index e6a46c5b5160..81f1d779e264 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -428,6 +428,12 @@ struct GspMessage<'a> {
- enum GspParsedMessage<'a> {
-     /// A [RPC message](rpc::RpcMessage).
-     Rpc(rpc::RpcMessage<'a>),
-+    /// A [GMC message](gmc::GmcMessage).
-+    //
-+    // The transport header of the r570 firmware carries no message type, so this variant cannot
-+    // be constructed before the switch to r000.
-+    #[expect(dead_code)]
-+    Gmc(gmc::GmcMessage<'a>),
- }
- 
- impl GspParsedMessage<'_> {
-@@ -435,6 +441,7 @@ impl GspParsedMessage<'_> {
-     fn log(&self, dev: &device::Device) {
-         match self {
-             GspParsedMessage::Rpc(rpc) => rpc.log(dev),
-+            GspParsedMessage::Gmc(gmc) => gmc.log(dev),
-         }
-     }
- }
-diff --git a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
-index f741de8288c5..e7babd4aaf3b 100644
---- a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
-@@ -19,6 +19,8 @@
-             CmdqInner,
-             CommandElement,
-             GspCommand,
-+            GspMessage,
-+            GspParsedMessage,
-             NoReply, //
-         },
-         fw::{
-@@ -158,7 +160,154 @@ fn write(&self, dev: &device::Device, seq: u32, dst: &mut GspCommand<'_>) -> Res
-     }
- }
- 
-+/// Trait representing GMC messages received from the GSP.
-+///
-+/// These can be either replies to sent commands that expect a reply, or an event not bound to any
-+/// command.
-+pub(crate) trait MessageFromGsp: Sized {
-+    /// Error type returned by [`MessageFromGsp::read`].
-+    type InitError;
-+
-+    /// Method reading the reply from the payload of the message and returning it.
-+    fn read(
-+        payload: &mut SBufferIter<core::array::IntoIter<&[u8], 2>>,
-+    ) -> Result<Self, Self::InitError>;
-+}
-+
-+/// A GMC message ready to be processed from the message queue.
-+pub(crate) struct GmcMessage<'a> {
-+    // Reference to the GMC API header of the message.
-+    header: &'a GmcApiHeader,
-+    // Slices to the payload of the message. The second slice is empty unless the message loops
-+    // over the message queue.
-+    contents: (&'a [u8], &'a [u8]),
-+}
-+
-+impl<'a> GmcMessage<'a> {
-+    /// Validates the GMC layer of `element` and returns its GMC API header and its contents trimmed
-+    /// down to the GMC payload.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EIO` if the element is shorter than the GMC API header, or than the payload length
-+    ///   advertised by the GMC API header.
-+    pub(super) fn parse(dev: &device::Device, element: GspMessage<'a>) -> Result<GmcMessage<'a>> {
-+        static_assert!(size_of::<GspMsgElement>() + size_of::<GmcApiHeader>() <= GSP_PAGE_SIZE);
-+
-+        let GspMessage {
-+            contents: (slice_1, slice_2),
-+            ..
-+        } = element;
-+
-+        // Per the `static_assert!` above, the GSP message header and the GMC API header together
-+        // are guaranteed to fit entirely into a single page, so it's ok to only look at `slice_1`
-+        // here.
-+        let (gmc_header, slice_1) = GmcApiHeader::from_bytes_prefix(slice_1).ok_or(EIO)?;
-+        let payload_size = gmc_header.payload_size();
-+
-+        dev_dbg!(
-+            dev,
-+            "GSP GMC: receive: seq# {}, command={:?}, length=0x{:x}\n",
-+            gmc_header.sequence(),
-+            gmc_header.command(),
-+            payload_size,
-+        );
-+
-+        Ok(GmcMessage {
-+            header: gmc_header,
-+            contents: super::trim_message_slice((slice_1, slice_2), payload_size)?,
-+        })
-+    }
-+
-+    /// Returns the GMC API header of the message.
-+    pub(crate) fn header(&self) -> &'a GmcApiHeader {
-+        self.header
-+    }
-+
-+    /// Returns the payload of the message.
-+    ///
-+    /// The second slice is empty unless the message loops over the message queue.
-+    pub(crate) fn payload(&self) -> (&'a [u8], &'a [u8]) {
-+        self.contents
-+    }
-+
-+    /// Returns the status code of this message if it is the reply to `command` sent with sequence
-+    /// number `seq`, `None` otherwise.
-+    fn reply_status(&self, command: GmcCommandId, seq: u32) -> Option<u32> {
-+        if matches!(self.header.command().id(), Ok(id) if id == command)
-+            && self.header.sequence() == u64::from(seq)
-+        {
-+            self.header.status()
-+        } else {
-+            None
-+        }
-+    }
-+
-+    /// Logs an event, meaning a message that no caller was waiting for.
-+    ///
-+    /// A reply that nobody claimed (e.g. one that arrived after its request timed out) and an
-+    /// unknown command id are logged at warning level. Other events are not logged.
-+    pub(super) fn log(&self, dev: &device::Device) {
-+        let command = self.header.command();
-+        let seq = self.header.sequence();
-+
-+        match command.id() {
-+            Ok(id) if command.is_response() => {
-+                dev_warn!(dev, "unclaimed GSP GMC reply to {:?} (seq {})\n", id, seq);
-+            }
-+            // Nothing to do for the remaining known command ids.
-+            Ok(_) => {}
-+            Err(_) => {
-+                dev_warn!(dev, "unknown GSP GMC command {:?} (seq {})\n", command, seq);
-+            }
-+        }
-+    }
-+}
-+
- impl Cmdq<'_> {
-+    /// Sends `command` to the GSP and waits for the reply.
-+    ///
-+    /// GMC events that arrive before the reply are passed to `on_event`, and RPC messages are
-+    /// logged and consumed. The boot sequence relies on this to handle the load-and-execute
-+    /// events that GSP-RM raises before it answers `GSP_INIT`.
-+    ///
-+    /// The queue is locked for the entire send+receive cycle, including the calls to `on_event`,
-+    /// to ensure that no other command can be interleaved. `on_event` must thus not use the queue.
-+    /// An error returned by `on_event` stops the wait and is returned to the caller.
-+    ///
-+    /// Returns `Ok(Ok(reply))` if GSP-RM completed the command successfully, and `Ok(Err(status))`
-+    /// with the `NV_STATUS` code of the reply if GSP-RM completed it with an error. The outer
-+    /// [`Result`] is reserved for failures to send the command or to receive its reply.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EMSGSIZE` if the command does not fit in a single command queue element.
-+    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply does
-+    ///   not arrive within [`Self::RECEIVE_TIMEOUT`] of the send, however many events arrive
-+    ///   while waiting.
-+    /// - `EIO` if the variable payload requested by the command has not been entirely
-+    ///   written to by its [`CommandToGsp::init_variable_payload`] method, or if a message fails
-+    ///   framing or checksum validation.
-+    ///
-+    /// Error codes returned by the command and reply initializers, and by `on_event`, are
-+    /// propagated as-is.
-+    pub(crate) fn send_gmc_command<C>(
-+        &self,
-+        command: C,
-+        on_event: impl Fn(&GmcMessage<'_>) -> Result,
-+    ) -> Result<Result<C::Reply, u32>>
-+    where
-+        C: CommandToGsp,
-+        C::Reply: MessageFromGsp,
-+        Error: From<C::InitError>,
-+        Error: From<<C::Reply as MessageFromGsp>::InitError>,
-+    {
-+        let mut inner = self.inner.lock();
-+        let seq = inner.send_gmc_command(command)?;
-+
-+        inner.await_gmc_reply::<C>(seq, on_event)
-+    }
-+
-     /// Sends `command` to the GSP without waiting for a reply.
-     ///
-     /// # Errors
-@@ -199,4 +348,87 @@ fn send_gmc_command<C>(&mut self, command: C) -> Result<u32>
-     {
-         self.send_command_element(GmcCommandElement(command))
-     }
-+
-+    /// Receives the reply of type `C::Reply` to the command sent with sequence number `seq`,
-+    /// waiting up to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
-+    ///
-+    /// Any GMC event that arrives first is passed to `on_event`, and any RPC message is logged.
-+    /// Neither extends the deadline.
-+    ///
-+    /// Returns `Ok(Err(status))` if the reply carries a status other than `NV_OK`.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if the reply does not arrive before the deadline, however many other messages
-+    ///   arrive while waiting.
-+    /// - `EIO` if a message fails framing or checksum validation.
-+    ///
-+    /// Error codes returned by [`MessageFromGsp::read`] and by `on_event` are propagated as-is.
-+    fn await_gmc_reply<C: CommandToGsp>(
-+        &mut self,
-+        seq: u32,
-+        on_event: impl Fn(&GmcMessage<'_>) -> Result,
-+    ) -> Result<Result<C::Reply, u32>>
-+    where
-+        C::Reply: MessageFromGsp,
-+        // This allows all error types, including `Infallible`, to be used for `InitError`.
-+        Error: From<<C::Reply as MessageFromGsp>::InitError>,
-+    {
-+        let dev = self.dev;
-+
-+        self.await_msg_with(|message| -> Result<Option<Result<C::Reply, u32>>> {
-+            let gmc_message = match message {
-+                GspParsedMessage::Gmc(gmc_message) => gmc_message,
-+                _ => {
-+                    message.log(dev);
-+                    return Ok(None);
-+                }
-+            };
-+
-+            let status = match gmc_message.reply_status(C::COMMAND, seq) {
-+                Some(status) => status,
-+                // Reply to another command, e.g. one that timed out earlier.
-+                None if gmc_message.header.command().is_response() => {
-+                    dev_warn!(
-+                        dev,
-+                        "GSP GMC: unexpected reply ({:?}, {}) while waiting for ({:?}, {})\n",
-+                        gmc_message.header.command(),
-+                        gmc_message.header.sequence(),
-+                        C::COMMAND,
-+                        seq,
-+                    );
-+                    return Ok(None);
-+                }
-+                // Regular event, pass to handler.
-+                None => {
-+                    on_event(&gmc_message)?;
-+                    return Ok(None);
-+                }
-+            };
-+
-+            // `NV_OK` is zero, any other value means the command has failed.
-+            if status != 0 {
-+                dev_dbg!(
-+                    dev,
-+                    "GSP GMC: command {:?} failed with status {:#x}\n",
-+                    C::COMMAND,
-+                    status
-+                );
-+
-+                return Ok(Some(Err(status)));
-+            }
-+
-+            let mut sbuffer =
-+                SBufferIter::new_reader([gmc_message.contents.0, gmc_message.contents.1]);
-+
-+            C::Reply::read(&mut sbuffer)
-+                .map_err(Error::from)
-+                .inspect(|_| {
-+                    if !sbuffer.is_empty() {
-+                        dev_warn!(dev, "GSP GMC reply {:?} has unprocessed data\n", C::COMMAND);
-+                    }
-+                })
-+                .map(|reply| Some(Ok(reply)))
-+        })
-+    }
- }
-diff --git a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-index d01a9f4f953d..10d3f68b2f61 100644
---- a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-@@ -369,7 +369,13 @@ fn await_rpc_msg<M: MessageFromGsp>(&mut self) -> Result<M>
-         Error: From<M::InitError>,
-     {
-         let f = |message: GspParsedMessage<'_>| {
--            let GspParsedMessage::Rpc(rpc_message) = message;
-+            let rpc_message = match message {
-+                GspParsedMessage::Rpc(rpc_message) => rpc_message,
-+                _ => {
-+                    message.log(self.dev);
-+                    return Ok(None);
-+                }
-+            };
-             let function = rpc_message.header.function();
-             if matches!(function, Ok(f) if f == M::FUNCTION) {
-                 let (cmd, contents_1) =
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 08f97c4e73a0..75b98f24dea1 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -939,7 +939,8 @@ pub(crate) struct GmcApiHeader {
-     inner: r000_00::GMCAPI_HEADER,
- }
- 
--#[expect(dead_code)]
-+// Using `allow` instead of `expect` here due to rust-lang/rust#154377.
-+#[allow(dead_code)]
- impl GmcApiHeader {
-     /// Creates the header of a request for `command`, sent with sequence number `sequence` and
-     /// followed by `payload_size` bytes of payload.
-
--- 
-2.56.0
-
+Acked-by: Kairui Song <kasong@tencent.com>
