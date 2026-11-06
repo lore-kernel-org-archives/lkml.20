@@ -1,75 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974210;
-	b=4qIMtzcC9pKldxJ1K13sqD/wEWdWJun5Hcr7nDb+WO3hYTBHQpfVGTWL8X9DiYBHp4Dy
-	 J+BKEVMbQi4e+HDkPr6uyd9MEjlebTvMcsArN3wjcfUSY6td1x5YuJqNLqzsil0gGaJ9k
-	 oZwoR8b4kohVLR47Nfcdhkl0oecP0WrQ0xfCEBnTCGm8aVEdMD4raO6FUAE4Lfc8dKxEI
-	 wqFqwJHi2bNwWy11Quach15qop49qoFw9U2CJabcKQnjcx5plOiwFRavs64JC2zoe+Qzz
-	 qdwmwSkA1KMTY2t4s6dslHWPLGiWw+KQFY+Q4/rmhWu3/Gfaaxh2itcg1L5S6EfM0WA==
+	t=1793974232;
+	b=LZLVl1P2FqA0YY2orXY2GvCHgQi0rGimZ/lw2RYSQSsLCzDvR8Hk1xp5bgjsyBfydJ3o
+	 ABSPhjxs3hjqHW9VFetodTIVsrm4NVQz+Ve1lNijI2hYwUBkHVPDk+e7HdtdqvI3IQWoq
+	 8Lda5tQXGxFuaVd5jhOPVKhTVjSXh7p9xFIWJMFuz7z4YBc2UxxLkgY+0FrI9AzTc/9bX
+	 g8ialMnIbvtpPKlKqzKtAoW0sybDXzJhF5NfhQ02hIDnmXICAjnq9PjhMt9C2fQRGdYor
+	 xG5RAGJROT3g6yf2mTpIw7mksbrubXXSMcZuSwHzT4ZZL9Dwt6YyJerWOeQBYA+99Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974210;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7qoeOCwcbAlvTBPcx9yQQNBwlzgqLb6BVjDnL4j1bZo=;
-	b=VVcNbbmpzaoeT1wQHAk9NVhridqQSQeGrZHhH5HAi+1vUBKwJ8MddYaxkdPgVhXsB8Xf
-	 o27Z/H6YnEHdZTIawfArJpBHagM2YguWfEWEohCQ8kacDln5oUUtfCgQsjYJoSPq48ukp
-	 6uUj5SMtTtJBq7XNdeIqnGJv+urt6EX4VORP5Zq+be9x9MtXPWFQivHER9neVsEHQiu11
-	 aCRVUypjtBZXJ526Ps7DCTvD8MJcFdOUVPFRTDKxkHfrGlqwbKD6EgDBMaap3Cyz2kSBC
-	 YNAkjdsr/sxbASoNNYmQpS7dV8QvYPGfvHwXbsI0UgyUYgnSRwImtWw/2k9Ngal1s1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974232;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=b/cEUCLQXzPxV9G+iZB5C+37LxfrcLwhmYVvdlt5C/Q=;
+	b=y+FOuVTlJqZUeamog4uo0SvJAoashpvQu0Xosc0ap+0683bFgubH+B44DK1erIR+ZtCO
+	 WbVDsF+1/SGV4MkbePe7Rc39XG63C2LjnW/g+AX8eB8GoFPdcSGMIF95p0c4WnUJU2zbM
+	 sPPNzRyh4yN0qGUXAam3DQBP39v/NhtIov/ODhAs0OT9rlOm7U/5bqubrYbFyAPwhREgm
+	 cpxiIMDq7cd7xUE0ivUTA5SDz3ERSOCTgYJLI1lYfBc3ZTsraR50AOB0EHY5rb/NJOgaE
+	 h9LV/xWptdBPmLlFEy1O2Suc+t6NzXUb3BL11/9AhwitD4RP+6VK01UN4Ppijzl0Vzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIJ9MBZz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=nDfjqpBp;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B81F606A332;
-	Fri,  6 Nov 2026 14:10:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12771606A333;
+	Fri,  6 Nov 2026 14:10:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12771606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FIJ9MBZz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B29A1F008A6;
-	Fri,  6 Nov 2026 14:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974209;
-	bh=7qoeOCwcbAlvTBPcx9yQQNBwlzgqLb6BVjDnL4j1bZo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FIJ9MBZz8tgAkGuuOjwDJzH8xt1FNx7U6yxuD14Az4zgMnWlMATxtWeAzKBbnxPry
-	 5/WKCqgzHzzj6tXdzujJa+gRuE/HehR5EPD7EQdkxH7nUCtGCaNfclJUX6bnfsG/Na
-	 uXo7vE7yd1pl8gCjlEnt0Ghe8mNVqwUd/tEruZ2G9e0YOVKtvk24xKQOx6pWQ4jtk2
-	 Hv527qXg3xPAQZEmHU0QHObEF+2/7VRmukLeBpZDocfUw21A4jSjWUlvIgwrk7bsI2
-	 xrE/Rs9NTVU7VQ3egxi4c+8lfBx/VQYyOFjLnpxNgm/WDKewFEumlKdizEg2Fpas4L
-	 oDKmQxqUG89mA==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Matthew Brost <matthew.brost@intel.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH 8/8] MAINTAINERS: Add drm::JobQueue to drm_sched's entry
-Date: Fri,  6 Nov 2026 15:07:53 +0100
-Message-ID: <20261106140752.520386-10-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106140752.520386-2-phasta@kernel.org>
-References: <20261106140752.520386-2-phasta@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=nDfjqpBp
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B5F1DA05A5;
+	Fri, 06 Nov 2026 15:10:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1793974228; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=b/cEUCLQXzPxV9G+iZB5C+37LxfrcLwhmYVvdlt5C/Q=;
+	b=nDfjqpBpERelMXmqVMyHtKYwd6qPIOENe43ukwRPzEOLFUbOdfr7ar1aCfcQeaQlzCJyxP
+	2+nhegvKvrNkYkoCPaQZIO2LdHOmHQCPv+kI7Zwf52CHIOrHpKMDif2vAEvQs8bTcDQrLp
+	rakaeGVSz4MzALlMeU10gOSHZIf1uq8FTW0SzgVlF5P7Hn1XgGHapvDfrRd2ocU2ndjnCh
+	hPlg/zQM4Ro3DIZ3ufrEc/OK9jgK3nfo7EnX5dpy+maO4Dma6jRzDHskPGX52geTjmSb+9
+	QVXLb+paI0KA0pqsJy/UpLj8IeXw/H7bZGVqAWYq+k6uTKYpGBrCBcECRxocjw==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Fri, 06 Nov 2026 15:10:18 +0100
+Subject: [PATCH net] net: bcmgenet: cap the Tx queue threshold at the ring
+ size
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,30 +56,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-nb-genet-txq-thld-net-v1-1-53bbac647b71@tipi-net.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q6CMBAEf4Xss5e0pzbEXzE+AD3giKnaFkJC+
+ HeLPs5mZzYkiSoJt2pDlEWTvkIBe6rQjU0YhNQXBht21hpHoaVBgmTK64fy+PR0gJjaXXo+Xz0
+ zivuO0uv6695RDnj8xzS3k3T5KGLfvxre38F+AAAA
+X-Change-ID: 20261106-nb-genet-txq-thld-net-e0864f235d22
+To: Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Justin Chen <justin.chen@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Nikolay Aleksandrov <razor@blackwall.org>, 
+ Jason Xing <kerneljasonxing@gmail.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-The DRM subsystem now provides drm::JobQueue, a Rust dependency manager
-and load balancer for GPUs with firmware scheduling. Since it resides in
-the same problem space as drm_sched, it is reasonable to maintain it
-through a common entry.
+A Tx queue stops when MAX_SKB_FRAGS + 1 or fewer descriptors are free and
+wakes once there are more. Queues 1 to 4 hold 32 descriptors, so with
+CONFIG_MAX_SKB_FRAGS at 31 they would need 33 to wake. As a result the
+first packet stops the queue and it stays stopped:
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+  eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 3 timed out 2004 ms
+  eth0: NETDEV WATCHDOG: CPU: 1: transmit queue 4 timed out 2004 ms
+
+On a Raspberry Pi CM4 only queue 0 carried traffic afterwards. The other
+four counted an error on nearly every packet.
+
+Fix this and cap the threshold at what the ring can free.
+
+Fixes: 3948b05950fd ("net: introduce a config option to tweak MAX_SKB_FRAGS")
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+Found this while fixing the clashiko findings on v6 of my MTU series. After
+those fixes this bug would be easier to hit. At the moment it needs a
+larger CONFIG_MAX_SKB_FRAGS than the default.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 19818be10616..5cb896c4e0eb 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9267,6 +9267,7 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	drivers/gpu/drm/scheduler/
- F:	include/drm/gpu_scheduler.h
- F:	include/drm/spsc_queue.h
-+F:	rust/kernel/drm/job_queue.rs
+Everything was tested on a Raspberry Pi CM4 (BCM2711, genet v5).
+---
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 6 ++++--
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h | 1 +
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index 4d2be2a21ed1b..186d17781b890 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2030,7 +2030,7 @@ static int bcmgenet_tx_poll(struct napi_struct *napi, int budget)
  
- DRM GPUVM
- M:	Danilo Krummrich <dakr@kernel.org>
--- 
-2.56.0
+ 	spin_lock(&ring->lock);
+ 	__bcmgenet_tx_reclaim(ring->priv->dev, ring);
+-	if (ring->free_bds > (MAX_SKB_FRAGS + 1)) {
++	if (ring->free_bds > ring->stop_thld) {
+ 		txq = netdev_get_tx_queue(ring->priv->dev, ring->index);
+ 		netif_tx_wake_queue(txq);
+ 	}
+@@ -2235,7 +2235,7 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	netdev_tx_sent_queue(txq, GENET_CB(skb)->bytes_sent);
+ 
+-	if (ring->free_bds <= (MAX_SKB_FRAGS + 1))
++	if (ring->free_bds <= ring->stop_thld)
+ 		netif_tx_stop_queue(txq);
+ 
+ 	if (!netdev_xmit_more() || netif_xmit_stopped(txq))
+@@ -2742,6 +2742,8 @@ static void bcmgenet_init_tx_ring(struct bcmgenet_priv *priv,
+ 	ring->index = index;
+ 	ring->cbs = priv->tx_cbs + start_ptr;
+ 	ring->size = size;
++	/* A ring smaller than that would never wake */
++	ring->stop_thld = min_t(unsigned int, MAX_SKB_FRAGS + 1, size - 1);
+ 	ring->clean_ptr = start_ptr;
+ 	ring->c_index = 0;
+ 	ring->free_bds = size;
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+index e48ce39d3e7c8..6ab3f73475550 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+@@ -546,6 +546,7 @@ struct bcmgenet_tx_ring {
+ 	unsigned int	index;		/* ring index */
+ 	struct enet_cb	*cbs;		/* tx ring buffer control block*/
+ 	unsigned int	size;		/* size of each tx ring */
++	unsigned int	stop_thld;	/* queue stops at this many free bds or fewer */
+ 	unsigned int    clean_ptr;      /* Tx ring clean pointer */
+ 	unsigned int	c_index;	/* last consumer index of each ring*/
+ 	unsigned int	free_bds;	/* # of free bds for each ring */
+
+---
+base-commit: 19a227903e65c7a9c179156485660a4e017575fe
+change-id: 20261106-nb-genet-txq-thld-net-e0864f235d22
+
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
 
