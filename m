@@ -1,191 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.14
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793949376;
-	b=DYSRtcOyYcs4TzqCmWZ4JZP9JkTYS3ooJetw1lR/jaXzi88GmaWMwhjn4eDdlJHCvRjO
-	 mYU8VCAvfrBLMlWd/xOp3PERFMbz/Fx8moPf3u4rYBz8r29m2ZrRP1RRVA3TNL/6Bguqp
-	 x5BFkTO8TnojX0EXc2eQFegO8ssoe8zsKKNRBJHFYL+nkuiUyt1YmC9OieYqUWse13UTR
-	 MzDWCOnIKNfLKwNQTT1WOSS4b06KkdFhibd8Vu8HHpjHLt5+CMAS0yweFeorctoL4o8QM
-	 d4BjuiQA8XeqBi5cANlwwdSBqCVWzdcxpmAawN+bRt/rIa3aQZOCdclyR3I7mwyis+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949376;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=NZ5w5GHbCYylP32rqPTQYa49pHnY57UQY5QDmKMmWvI=;
-	b=xMM6ng+HsGmxBNIs6djUUdjFDh4fleuVNfZNVQcKTVqmq+2zwlIQh3QNxdUhWukGvGfn
-	 N75SzdTQdtB8Wvez13Wkq2/jsVnf9h/JbqQ0PcAhpG1bPKAJrdcd/J9kE3nRzNZACFNa3
-	 5YCAnVt4VcOe6NMrMtXzH/ycWegtF5D2QvtsKqO2LG1r7RrfSC+r0FVsZH1sKrL5F9ilF
-	 t9BWL7ZKPDVCgE2B6doaXoFp+cYlQHoSLnSNBzFlHCKvU6TZ0sHBMmHLx5jUKVzwhSMwg
-	 2MypPAXT2MvJ2O+hjbd7ya23BTCcxbUuZzCO/peZnc5MiFj7kyfHBNeqQ3+cu1PDgxg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NjVXMNHL;
-	arc=fail smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793949431;
+	b=fS+H7JW+CuZlFBtfzpjs7l3CUoZz2b3DHyh1qLOcC4s/S/2pXQod0vEBvkA98vuwVOgf
+	 J1J2WgCB5gEs3KT+ULlbfJ8INB77IsPs1OC3H4QkfUdq+7k+l3nPR8bELEFddvAkszRPl
+	 5/kf1ckuh19j6kXVdWK0HCqLYMtnn9ZVWtDqoKB8+G8kmTMHMCAFkbk7Jl5I5Cimqbn+l
+	 Dx7l3Z5WW51By+IW+tkb1vophULz+4ZJS/TE5rzo+qN0Ry/YYB0qJ2zqby48QdoAFa2c1
+	 Oqkp9XVHQ7PWWdQZzaKiRjdDbGmdeJ+4yzKGIEGcqnGUoN4JsTotNUdfUXIDX7oC6nw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949431;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=phaG8fIAEdt42w1dFHlmJNP6UPxHP0iPRF5M4YLpvzA=;
+	b=YTLWkAushiLq6btWJuvwVmXeTmBRVkIIXVqeUydhjo5CdtLicTa+OiwOvPlCgV93N8tG
+	 jsz6TCOV8z7WDEWhcowqtONUW7kFjKhUsfEWC0KeVZHBWyRvQtK8snAf2R4/gWaccPa0C
+	 idf1eeHDmc7G9f3+Z98rSB1zUFgzgF54e+ClLTCU+ZLN/bvtIYIxUuseN3DPv4nNtCvW6
+	 PDkk7gS+5/MedYKmn5jGuz4JDpfg3xwqv3yeQxT8Ew0pAVC/F+Z/CtEJueDKLL/oZKvKp
+	 LDievjSaLB6pwWZhNzAC1xD7W7zNZ3kPh+jie3ezNnfSP0NcJ+LGMDwPZv5O194hpww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=miRj7K7Y;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE92606A329;
-	Fri,  6 Nov 2026 07:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDE92606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56433606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:17:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56433606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NjVXMNHL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793949375; x=1825485375;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=ObAjJLuFZJunSI5T0JTjOtnbu2T2CO6arhBLtgyrbMU=;
-  b=NjVXMNHLYPQHMhel7mR2+t+kkOXVqV91NwLZW9oNipz1BbdBtQdjeQVh
-   G+FTl8rQWKlA0/8CdiDd89Puo7OfOMetnYont+SFR4KPve9lKFMzwROe+
-   Wik2XveGMchQiLLTPBPGAAVGJmFFeRSkzQkOBKJp0eLNNVARedltf5kea
-   D7N+YNcxUVcKoIough0ECfHwRQwM3F0JR82RumYu4tj10rX5Fj51bPBZo
-   HsQlti/BLzHwTTh4XgbNnrJHxtA2zGXRAPKGjQS08a6k1DHx8bNAdzfA5
-   N/f4C471EEGlqbH8DP44wd4I4xYYp28s0uUmboMNI4UKQb6trvelY17lJ
-   Q==;
-X-CSE-ConnectionGUID: h1gwRn4ESzGyGJfAanZk/Q==
-X-CSE-MsgGUID: xgK0HZfsRwu7iWKQi59x4w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2788464"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2788464"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 23:16:14 -0800
-X-CSE-ConnectionGUID: vviSLBp0QA291jEyIAWc4w==
-X-CSE-MsgGUID: +a7T3bQrSOOBvlJSdh7w9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7376504"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 23:16:13 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 23:16:13 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 23:16:13 -0800
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.53) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 23:16:12 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p2BFFkeV2Z61/pr2T9vyqSyn8wSM/ayYqGps2HoZpsO9C2+HQZbyHJzEtxrBe14s6YuK6JnYsPKVziDkApkkN4nuTYWP1ffL12QCdTHtwKdKCkqYFjOLcJwhAxn+uM39PfUUYc5NvPZ/oCZ7Eaun/nBaUc36zSog/3Z4prlrQ9cV3GQS5RfaUXop6ah7GaF6uk/S+YblQMXfwYVfbJsi8PENFQU4bfpYtMmKip2vuvFc9sUG3V84l877p8Eq5zBoA6Y0zlSE/lc9X6xy2qbt8DkO+XV9MEoeiCHsXv3n+RqWek6SEmViufNTI+uFXmLiuv9Z2TTnbA+it3eR6ygVRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NZ5w5GHbCYylP32rqPTQYa49pHnY57UQY5QDmKMmWvI=;
- b=D20bFZ0Q7bhMArh2J2n7yAqssakbNudLH5RrlDSmpQu/aVLAfEhkvC+HB5TjGpOW53cUCksLbbyQXZEM05xCGytPMa/3IReRwdcLbOS0o6EyM2iaEjn6PO4iHoxr29VBvP+rhhfvtNFRdSH0dseKlzkQCdDzYg5ae4a91snS9yusjANwu55YFtOaQBuFNocINWfxZIaIpNoqaK4hf6JefJTBvsj8wGcVeFgjgGg+qyPQvaUDqpiLGEj9fV6XdG75aCsqyJ54Fo4/h9qJjTOiJ9hZ6l7m8KC8oKsCOBF0CUnMxJ474soNU4/hJdsDKc+6men8JWIL/yNR5kRm6kAOgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
- by SA0PR11MB4669.namprd11.prod.outlook.com (2603:10b6:806:99::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 07:16:10 +0000
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225%6]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 07:16:09 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>
-CC: Alex Williamson <alex@shazbot.org>, Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Jacob Pan <jacob.pan@linux.microsoft.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>, Jonathan Cameron
-	<jic23@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Krishna Reddy
-	<vdumpa@nvidia.com>, Lukas Wunner <lukas@wunner.de>, Nicolin Chen
-	<nicolinc@nvidia.com>, Robin Murphy <robin.murphy@arm.com>, Samuel Ortiz
-	<sameo@rivosinc.com>, Shameer Kolothum
-	<shameerali.kolothum.thodi@huawei.com>, Steven Price <steven.price@arm.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, Suzuki K Poulose
-	<suzuki.poulose@arm.com>, Thierry Reding <thierry.reding@kernel.org>, "Vasant
- Hegde" <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>, Xu Yilun
-	<yilun.xu@linux.intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-tegra@vger.kernel.org"
-	<linux-tegra@vger.kernel.org>
-Subject: RE: [PATCH v8 06/15] iommufd/device: Hold a KVM file reference for
- the device lifetime
-Thread-Topic: [PATCH v8 06/15] iommufd/device: Hold a KVM file reference for
- the device lifetime
-Thread-Index: AQHdbHgT3OmO4yusNEikpUmv6S0QJLcgoz1A
-Date: Fri, 6 Nov 2026 07:16:09 +0000
-Message-ID: <CO1PR11MB4835982DE81AFE060EEE01B88C762@CO1PR11MB4835.namprd11.prod.outlook.com>
-References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
- <20261104161632.3547423-7-aneesh.kumar@kernel.org>
-In-Reply-To: <20261104161632.3547423-7-aneesh.kumar@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|SA0PR11MB4669:EE_
-x-ms-office365-filtering-correlation-id: 43620393-4d0a-41d5-d922-08df3bd5d4c7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|38070700021|11063799006|4143699003|56012099006|261022105027099003|261022075727099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: 5bEwltfrDD/IQv99IoJZJvW/wyQUSBKSKcg2Tg7reSZeOoVkk2A7qt+O5xmUz0APfe2qpWN8Sve99rerJciEppAje64ncfxOo4avyS6hnFZ56Hx5k+2zSr1xFdrgNOFfU94jPcuZOKFFLAMALo7Lg8R34Xno8SuHmwz8uATq/1F56W++AqT+K6+KTkwsJ9yDFSwejSeRjuW+65ceo5ErcpY7iUlYVw+52JF6E7iPf+7hlgtM6SV9FBjyzL3mvtOdWV99Uav6HPJ0PA+0iFOvKsadsh54TZPkyU+iGUsRWNFonWi7kJda0zAI+Y/o2Fzku+KIG3iODIj5bqDd3AoJ0+3KTAUq4D+NBbxuovPY3gEtWZnLBLgBhzl7ugSfooji+kRJ/GsWIPEvEFFarl+eF33PkrbvHpwULVrFSW6YMMwj+i9DIDdn2OTB2JDjJftTNwYFU4hfraXHp0YoBeut/YYGJOoElUeKnwCt/pWFtYttJIlkUDWvN7cQh7hBSLZiEwwgZGxxocToawUe1vzjzGEG2cJpJsu5XIA4RUujsv9GxfdORlcM1ZCdMwnhUptFbp2LvSeeiWXDYvCIF3CSlnkaStuEw5UKJl01yW4HN6Htdkb4DOcvDuBu2QE8wFWr/E8Cn6uANaTQuPgwtcQ7xOdzABL4haVyxRP2kO/7qLAoL9cW1ASfM6hoDoyPDcjlSALiLGIerjL/thWFEnurhVC5LzYzEBlrVBKit6VHGUE=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(38070700021)(11063799006)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?j2fI8ZDSH5eJ16rvBSPAHje8w9Ua4tIj7NdP5aGfWlzhmkKSi+hFcveoSSei?=
- =?us-ascii?Q?FZLTNsjPkP43hTe1ETHl10i/eJ9xaBVuM6G/xFTJB4dJ9U4/ByRWC1jKkAMD?=
- =?us-ascii?Q?yjObDVKJEeWBAU0eKZsXOjJsCgdj9C7n5/rHDmdFvGBgzDJyyyg3XFIJBMHI?=
- =?us-ascii?Q?H0cFM5E/5Du0Ssl379WTcJWL9duFQmEYQQwj3xAc//7ijWSQwNPSEUNj3qIX?=
- =?us-ascii?Q?LeH39pLWFhiTmzDvcFGCk5tTxoJ2DHgtL683xnQeqav0nQzolhFzdcg9Pg36?=
- =?us-ascii?Q?FIi/pq2XKwcbOReo7BFUUWETqzHvAIApflrkZjPN9WFSKHJMDqsVUr3m60RI?=
- =?us-ascii?Q?OWWbsQ5BsLCBU24M7s45/Fk4Yd7O/8VkmDUpusnphaWHLg5Aw13CGfaLFPag?=
- =?us-ascii?Q?8IWAllRkVhCLzRecsoURHsXXbgcgXcOcJFOEW7cx/C5mDoqdDo96Z7Oj9S7l?=
- =?us-ascii?Q?HHOBL4TFIe+rYRWLnqbUrSTgll60SA3cMt9kXv9ukMGdRYi81L2ToV1OZuDc?=
- =?us-ascii?Q?ZetczoeniWwHSab8wBFA1rvL3bWd3o5V5xTTahVAtc+1TdTXdvJ4+K9GdCxu?=
- =?us-ascii?Q?LYBW9+zwzYerxejCbo4z3JORgNq7Sv0RywaksVROPk5hdNopwiOmGnKu5yj7?=
- =?us-ascii?Q?TB1GqlFCJNc/nNz74qZFXuJFi6MKNm/baNux6RI2SkM++5C4sHTMWo1lw1fn?=
- =?us-ascii?Q?9AK8Q31ewtIR8jzpABwOBtg5olrzX5r7/fmTMSxqrCa4N4JoJksv3fAtvjGv?=
- =?us-ascii?Q?3eI4OfqCcYWcTxIZ0r34Wwj3iMDmnSBqtA8stVFooNYrZKbNmE7KxYjmRtB/?=
- =?us-ascii?Q?R2/88ZU5oWxHhP/p6XG/dTMRkmpF0pFX/OG1dsXQZYUFY4TbhRcE4RVa7rSy?=
- =?us-ascii?Q?a7QyB5zc7NrUV+oJKANqqFTHWiaS5U0Y7gqlFhcrMVcX7dFz7GFz2z3M5E3d?=
- =?us-ascii?Q?nRYC+30kt0kkZituNIV/xXJZ3w0C9hrNh6zVAS2BnPU0tk8TcyyeteeiS8/P?=
- =?us-ascii?Q?gyckLX8kNs4zbRbjPQYGY3dqDjvaQ6Tg8g7M1oKxYfcVPcZ6J2yETHMFjoJz?=
- =?us-ascii?Q?Q9bgTX1mQigMEpvadqRbA4nf3sQBGOY2twyLB3vC8zRuhRHL7kcZZhLULXGB?=
- =?us-ascii?Q?w4bKWjFSFGGDx5F5yrANZ9h4FC9Z4M4CJMA3QPbQw6h+sXHxakvM8rHOD4Qp?=
- =?us-ascii?Q?sm4W9kIGZQQz+bxr9yoMUqmVroK12zkwRRyb+fZHnN7YmosktTnU3sajCI2A?=
- =?us-ascii?Q?DjAoeVOS5/EwipycN3NJ+wgz5Zy2B0/qzqVMBQc1vP8vQdBqfFTuIF/jkx/I?=
- =?us-ascii?Q?U+HLDYQy1Deu8bwrkKs1/yRLpRILq7SvIjG+G0ZpVmDn4MqVHQfEmqw4LZD/?=
- =?us-ascii?Q?piJOYzBKFjQ/rEC8Yts8+B/4L3MJWRfJ0YmPu6u0qoY0d80lN5tzxNYHXRg7?=
- =?us-ascii?Q?nTNVausEWAOjAmCWyJb1KSCGQitbOkoyy1zqRf+jjpT3b0ijNWpDmSlSXTvR?=
- =?us-ascii?Q?2WVeCqGxqzuN2LqEGNEBiK+ikxFoC+SgF9WBnxQ4kCSyMhln1vSB6hrpoFQc?=
- =?us-ascii?Q?4agOGw4/Or87oFtb5bhVzclo3WnvHzI28aCqJR29NsLkSaSly62tlwoqq9Vw?=
- =?us-ascii?Q?AqtSC4vNgPAPY7jJRWCnPxKTdxxdNaJqBAyvevXM5uwwv/DuG7HvURY9G84f?=
- =?us-ascii?Q?3GbmDP7O5IY3Fm4kMfAT77UzOBP5bt6hqpMT7I+pHAPpU3fz?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=miRj7K7Y
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso2583935e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:17:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793949429; x=1794554229; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=phaG8fIAEdt42w1dFHlmJNP6UPxHP0iPRF5M4YLpvzA=;
+        b=miRj7K7YHuY/8RFNhJ0nHR2yBAi2kd714Di5I0TQTBckobNwsqlzV/exwwTJcoimIN
+         S3ZUr0O53UJuTaIe2J05KOusgkeScEKsdnliLj/GpXUjg/+W0mB26W3o6wPW7sco7SSi
+         2Hpx3e6zgxqls9cXc0usSd8hd0bZ9Lyy2QHRmI9pb1guzNeUWiZ4YxfKP6hKxawGIIV/
+         8RrZOY8CYfn5DBLkOk0pDLwaLCl8XAC3HzGK37hiu+TQb23t34VMVPB/jhjMP//1Pyoz
+         GVfBoe+YkomZBFPsVwBBvoA3bnnDeuWJUMCAnz/lGdejclUfqgE22Hx/IF7spLGEhTFX
+         tCpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793949429; x=1794554229;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=phaG8fIAEdt42w1dFHlmJNP6UPxHP0iPRF5M4YLpvzA=;
+        b=LSJuNHo+TjBVZqtdUWOmNQ/0OqGhQVWslcNkz4ZS6WNHKhKjY9pHGi5rj19gzRrtOJ
+         LTtFqeWKdHcjRiuoEgYFm1q8VVYKy4AyxkbMTCGkikjN2avG2JlNctuUFunpbyv6AaPH
+         IpDC29sv18N4KMVF8FVWL1/zK7ZMtP2Pmsm5M1NCxMkYiOltr4caPVJpgwDfkPbFb4L/
+         jwOPm7QDnWs5WMXUfCQNB1rvPEiAnDa3ZsDSgap8fwbM0U+23vXiE0GKnpZMZ4i3oJCI
+         NXbN4VeD+Jf1heQudkrfGsvUuri8miFGs3ubp5KOEdC+sCr9bW2T0pXiyF6y/yS2OYPw
+         GAPg==
+X-Forwarded-Encrypted: i=1; AKwUvBxOTKiaNXmOMwyr66/OFF3xo3K+RpmMW8tRRWs3AtaAn3dqWCILAIGqhLOjpCWuB0SR8MZ3QDd77PW8SWg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TAi/oqg4xQy4Urg7P8ex6QLFSn9hMUTgOSO46zze0UIzXvjAD
+	jp1nxe4GH1LOm/3PiMGGNZqvKSJgZmHs65iXve0KVGYeE0XU6M60KNW8
+X-Gm-Gg: AYBFou255wqg3gXj8LL4qocDpC+HOfLwVRWAWZTnxvroXQKEeMMvcFSaCa4Y1YlYAkZ
+	cQNdpdMbljBVcoy+OoD/5ZU1KYjHrsNeHqLsBpZusILCH6dn4wlcwGId2xd0/HncB/Ao+Sn3Mp/
+	kbMW3i/NpdVjlZ3E/UVf5SkqaDLYPScyc37sHkIqDeJEyqmc8Dwpwe8ftGvMQsqJWLqUbIKFKd+
+	2D7X6LYOKErLtCI3F4C3p6mogFZSIV+IBUsii+lfwWPFH1or5DMa8pPR1OZQfDKJ6NS0sIiFz4R
+	TJNPUTM3/BSx8Wrug1fcLbjDSuMNE3BU3tB1QJkLAqcmfeNaozXUOWOEUttvkI9UQyM6Fn7sYMA
+	c4J9Ftapa4mRfmprP06ud7FiTvzb+mM6qLxOqDlqbYQa5xHVaqiWYwe+OTLPw6YTJGQlYBfaNU8
+	JeOITn9Oap0Jy8bGosjv/+hj/oqpNGZQH2m+xxLwEoJk6ktsYIdQGj4MZFgJ3w/3ae5hU88qAUf
+	ZUG4LYSgJak6dtx0sOmN231e/y4raZ7Xz/MLA4OcIm6KZbOD18LIwOszdUgX1rb/5uLWep3pj0A
+	a9+Ocl1wQM200hqK+sEPA0mRFJG1/b0iDL4lQwE=
+X-Received: by 2002:a05:600c:314f:b0:4b0:bc65:b9b5 with SMTP id 5b1f17b1804b1-4b6e063f9a9mr22671795e9.35.1793949428444;
+        Thu, 05 Nov 2026 23:17:08 -0800 (PST)
+Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49354fc5ab4sm178934f8f.30.2026.11.05.23.17.07
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Thu, 05 Nov 2026 23:17:08 -0800 (PST)
+Date: Fri, 6 Nov 2026 08:17:03 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Pengfei Lv <lvpengfei20@huawei.com>
+Cc: <gregkh@linuxfoundation.org>, <stern@rowland.harvard.edu>,
+ <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>, <xuhaiyang5@hisilicon.com>,
+ <xuetao09@huawei.com>, <caiyadong@huawei.com>, <suzhuangluan@hisilicon.com>
+Subject: Re: [PATCH v2] usb: core: hub: Re-guess ep0 maxpacket size on reset
+Message-ID: <20261106081703.295cc0a2.michal.pecio@gmail.com>
+In-Reply-To: <20261106031625.1824732-1-lvpengfei20@huawei.com>
+References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+	<20261106031625.1824732-1-lvpengfei20@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -195,83 +100,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: bVeJ3srWmR119MLP7rbX3A2coQox++7DxyaE4MJ5pJFA6btxfMQ4baH6sebUrEsowPde5s/w3Q/LQ4abtmbGL9RK6lhWHPRQgyKF6D6hm0FKzvrhInrf4L6d97gudXL+7F+tsqCCZGy5KsmTpjxCU0pjL9ZAFEy/lbWTIVKSJ7o126axL8I+XMd4ahXgIE4lNgD6STL6vvFcj4wPsQzX13WNxVoDk4M1qjwSef2xawiSYWMnQTDImReurgQepR7aYdqdVY3IGDqSM3GLRb76ls+UVTvyOpT0aJEF0+lHXukhIc5+fL3PSymhtStcymtC0D2vYjmxSzrjHIctRygw+A==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43620393-4d0a-41d5-d922-08df3bd5d4c7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 07:16:09.3586
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wuYzEA6Sn89Ev6sqUvLYqqqNJAyBcDXO4o/8ZxhHalYrrSBxuPAk/fEiiN8/bynxG1COC2plqTGW24iq+KRx/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4669
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-> From: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-> Sent: Thursday, November 5, 2026 12:16 AM
->=20
-> The KVM file stored in an iommufd_device currently relies on the
-> reference held by VFIO while the device is open. Normally, unbind waits
-> for outstanding device references before VFIO drops its KVM reference.
-> However, REMOVE_WAIT only waits for 60 seconds. If that timeout expires,
-> the device object remains in the iommufd xarray.
->=20
-> For example, an IOMMU_GET_HW_INFO ioctl can hold a device reference
-> while
-> blocked on a userspace buffer fault:
->=20
->   iommufd_fops_ioctl()
->     iommufd_get_hw_info()
->       iommufd_get_device()
->         iommufd_get_object()
->           iommufd_lock_obj()       /* takes users and wait_cnt refs */
->       copy_to_user() / clear_user() /* may block before putting refs */
->=20
-> A concurrent final release of the VFIO device file takes this path:
->=20
->   vfio_device_fops_release()
->     vfio_df_unbind_iommufd()
->       vfio_df_close()
->         vfio_df_device_last_close()
->           vfio_df_iommufd_unbind()
->             vfio_iommufd_physical_unbind()
->               iommufd_device_unbind()
->                 iommufd_object_destroy_user()
->                   iommufd_object_remove(..., REMOVE_WAIT)
->                     iommufd_object_dec_wait() /* timeout: -EBUSY */
->                   WARN_ON(ret)
->       vfio_device_put_kvm()
->         fput(device->kvm)
->=20
-> iommufd_object_destroy_user() warns on -EBUSY but does not propagate it:
-> iommufd_device_unbind() returns void. Thus VFIO close effectively ignores
-> the unbind failure and proceeds to drop its KVM file reference even
-> though the iommufd_device is still alive and its ID remains usable.
->=20
-> Once the remaining KVM file references are released, a later ioctl on
-> the still-open iommufd can access the stale pointer:
->=20
->   iommufd_fops_ioctl()
->     iommufd_viommu_alloc_ioctl()
->       iommufd_get_device()         /* finds the surviving device ID */
->       get_file(idev->kvm_file)     /* accesses the freed KVM file */
->=20
-> Take a KVM file reference when binding the device and release it when
-> the iommufd_device is actually destroyed. Release it before the igroup
-> check in the destructor so that bind failure cleanup is covered too.
-> Document the ownership in the bind API and device structure.
+On Fri, 6 Nov 2026 11:16:25 +0800, Pengfei Lv wrote:
+> Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
+> all device speeds except full-speed devices, where it can be 8, 16,
+> 32, or 64 bytes and can only be determined by reading the device
+> descriptor.  During the initial enumeration of a full-speed device,
+> the USB core guesses 64 bytes (hub_port_init() with initial=true);
+> after reading the descriptor, the real value (e.g. 8) is stored in
+> udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
+> via an Evaluate Context command.
 
-I don't think this needs to be fixed. There is already a WARN_ON()
-in iommufd_object_destroy_user() and many bad things could
-happen afterwards...
+  ... and applied to hardware by the usb_ep0_reinit() call.
 
-If we really think an ioctl could take more than 60s in sane scenarios,
-it's a more complex issue to be handled in iommufd core.
+Is there anything xHCI-specific about this issue?
+Any properly working HCD should behave equivalently.
 
->=20
-> Fixes: d8bb80c8f0e5 ("iommufd/device: Associate KVM file pointer with
-> iommufd_device")
+> 
+> After a port reset (usb_reset_and_verify_device() -> hub_port_init()
+> with initial=false), the "if (initial)" guard added by commit
+> ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+>
+> skips the ep0 maxpacket guess block, so
+> udev->ep0.desc.wMaxPacketSize retains the real value (e.g. 8).  The
+> xHCI Reset Device command preserves the ep0 context as well, so the
+> xHC ep0 max_packet also stays at 8.
 
-btw no fix tag for an issue introduced by an earlier patch in the
-same series.
+So it's another unimportant xHCI implementation detail.
+
+Doesn't need to be mentioned at all; it's obvious that if we don't
+change ep0.desc then there is no reason to update the HW either.
+ 
+> When the subsequent re-enumeration then uses the "new scheme" and
+> issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
+> the xHC queues a Data TRB
+
+xHC is the HW, it doesn't queue any TRBs.
+
+Why not just omit all those irrelevant details of how xHCI implements
+policies decided by this code?
+
+> of length 64 but applies ep0 max_packet=8
+> for short-packet detection.  If the device's first data packet is
+> exactly 8 bytes and it sends no ZLP,
+
+It certainly shouldn't be sending any ZLP if descriptor size is not
+a multiple of packet size. This whole paragraph boils down to:
+
+  If a buggy device responds with one 8 byte packet and NAKs all
+  further polling, the HC doesn't recognize a short transfer but
+  keeps polling for the rest of the descriptor till unlink.
+
+> the xHC does not recognise a
+> short packet, keeps issuing IN tokens for the remaining 56 bytes, and
+> the control transfer hangs in the Data stage until URB timeout.
+> 
+> This is not merely theoretical.  It was observed in production on a
+
+s/is not merely theoretical. It// would still be fine.
+
+> 6.6 LTS kernel with a Full-Speed USB banking token (bMaxPacketSize0
+> = 8) in a virtual-machine USB passthrough scenario; the reset
+> re-enumeration hangs 100% of the time after the VM issues
+> USBDEVFS_RESET.  Bus captures with an Ellisys analyzer confirm that
+> the device sends exactly one 8-byte packet for the 64-byte request
+> and then stops responding to IN tokens, relying on the host's
+> short-packet detection with max_packet=64 to terminate the transfer.
+> For the subsequent 18-byte GET_DESCRIPTOR (usb_get_device_descriptor,
+> wLength=18) the same device sends the full 18 bytes as 8 + 8 + 2;
+> the final 2-byte packet is always a short packet regardless of
+> max_packet, so that transfer succeeds on both kernels.  This is why
+> the device completes initial enumeration yet hangs on reset
+> re-enumeration.
+> 
+> The device is not strictly compliant (it should continue answering
+> IN tokens for the 64-byte request), but this class of USB banking
+> token is widely deployed in enterprise environments, and the
+> regression introduced by commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") breaks a configuration that
+> previously worked.
+> 
+> Fix this by removing the "if (initial)" guard so that the ep0 maxpacket
+> size is re-guessed from udev->speed on every reset, and by calling
+> usb_ep0_reinit() afterwards when !initial so that the new software
+> value is propagated to the xHCI ep0 context via an Evaluate Context
+> command before the GET_DESCRIPTOR data stage.
+
+More unnecessary xHCI details.
+
+> The usb_ep0_reinit() call is necessary because commit e34900f46cd6
+> ("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
+> moved the ep0 maxpacket sync point from xhci_urb_enqueue()
+> (xhci_check_maxpacket, lazy per-URB) to xhci_endpoint_reset()
+> (xhci_check_ep0_maxpacket, eager), reachable only via
+> usb_ep0_reinit() -> usb_enable_endpoint(reset_ep=true) ->
+> usb_hcd_reset_endpoint() -> xhci_endpoint_reset().  Without the
+> explicit usb_ep0_reinit() after the re-guess, no Evaluate Context
+> command is issued on the reset path: the pre-existing
+> usb_ep0_reinit() in usb_reset_and_verify_device() runs before
+> hub_port_init() and thus syncs the stale value, and the subsequent
+> hub_enable_device() -> xhci_setup_device(SETUP_CONTEXT_ONLY) returns
+> early when the slot is already in SLOT_STATE_DEFAULT.
+
+Does this need to be explained?
+
+usb_ep0_reinit() is quite self-explanatory, or its effects could be
+explained with one HCD-agnostic sentence if you must.
+
+> The !initial guard on the new usb_ep0_reinit() call ensures that
+> initial enumeration is unaffected: on first enumeration the ep0
+> context is initialised by the Address Device command, so no extra
+> Evaluate Context is needed.
+
+This, of course, makes assumption that xhci-hcd has guessed the same
+initial values as USB core. (Which it currently does).
+
+Not sure if this optimization is worth bothering with. For xhci-hcd
+at least, usb_ep0_reniti() exits quickly if no change occurred. And
+you say it's a no-op for others? Great, who cares if we call it.
+
+>  For high-speed, low-speed, and
+> SuperSpeed-or-faster devices, xhci_endpoint_reset() returns early
+> (speed != USB_SPEED_FULL), so the call is a no-op on xHCI, and on
+> non-xHCI host controllers endpoint_reset for control endpoints is
+> likewise a no-op (e.g. ehci_endpoint_reset only handles bulk and
+> interrupt endpoints).  The descriptor-immutability checks (!initial
+> && maxp0 != udev->descriptor.bMaxPacketSize0) remain unchanged;
+> udev->ep0.desc is not part of udev->descriptor and is not the field
+> involved in the read_descriptors() race that commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") fixed, so
+> restoring the wMaxPacketSize re-guess does not reopen that race.
+> 
+> Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
+> ---
+> 
+> Changes in v2:
+> - Add usb_ep0_reinit(udev) after the ep0 maxpacket re-guess block,
+>   guarded by !initial, to propagate the new wMaxPacketSize to the
+>   xHCI ep0 context.  v1 only removed the if(initial) guard, which
+>   is insufficient after commit e34900f46cd6 ("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
+>   moved the xHCI ep0
+>   maxpacket sync point from xhci_urb_enqueue() (xhci_check_maxpacket,
+>   lazy per-URB) to xhci_endpoint_reset() (xhci_check_ep0_maxpacket,
+>   eager), reachable only via usb_ep0_reinit().  The !initial guard
+>   avoids a redundant Evaluate Context on first enumeration, where the
+>   Address Device command already initialises the ep0 context to 64.
+>   (Sashiko AI review)
+> - Expand commit message with observed-in-production evidence and the
+>   wLength=64 vs wLength=18 device behavior distinction, per Alan
+>   Stern's review.
+> - Note: on kernels before e34900f46cd6 (e.g. 6.6 LTS), the xHCI ep0
+>   maxpacket sync happens lazily in xhci_urb_enqueue() via
+>   xhci_check_maxpacket(), so removing the if(initial) guard alone is
+>   sufficient and the extra usb_ep0_reinit() call is a no-op for ep0
+>   maxpacket sync (xhci_endpoint_reset returns early for control
+>   endpoints on those kernels).  This patch targets current mainline
+>   where e34900f46cd6 is already present.  Would the maintainers
+>   prefer a separate, simpler patch (without the usb_ep0_reinit()
+>   addition) for stable branches predating e34900f46cd6, or is this
+>   single patch acceptable for backport given that the
+>   usb_ep0_reinit() call is harmless on those kernels?
+> ---
+>  drivers/usb/core/hub.c | 49 +++++++++++++++++++++---------------------
+>  1 file changed, 25 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 199d3f535a89..a6c260d39094 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+> @@ -4969,33 +4969,34 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+>  	}
+>  	oldspeed = udev->speed;
+>  
+> -	if (initial) {
+> -		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+> -		 * it's fixed size except for full speed devices.
+> +	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+> +	 * it's fixed size except for full speed devices.
+> +	 */
+> +	switch (udev->speed) {
+> +	case USB_SPEED_SUPER_PLUS:
+> +	case USB_SPEED_SUPER:
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+> +		break;
+> +	case USB_SPEED_HIGH:		/* fixed at 64 */
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> +		break;
+> +	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+> +		/* to determine the ep0 maxpacket size, try to read
+> +		 * the device descriptor to get bMaxPacketSize0 and
+> +		 * then correct our initial guess.
+>  		 */
+> -		switch (udev->speed) {
+> -		case USB_SPEED_SUPER_PLUS:
+> -		case USB_SPEED_SUPER:
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+> -			break;
+> -		case USB_SPEED_HIGH:		/* fixed at 64 */
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> -			break;
+> -		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+> -			/* to determine the ep0 maxpacket size, try to read
+> -			 * the device descriptor to get bMaxPacketSize0 and
+> -			 * then correct our initial guess.
+> -			 */
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> -			break;
+> -		case USB_SPEED_LOW:		/* fixed at 8 */
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+> -			break;
+> -		default:
+> -			goto fail;
+> -		}
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> +		break;
+> +	case USB_SPEED_LOW:		/* fixed at 8 */
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+> +		break;
+> +	default:
+> +		goto fail;
+>  	}
+>  
+> +	if (!initial)
+> +		usb_ep0_reinit(udev);
+> +
+>  	speed = usb_speed_string(udev->speed);
+>  
+>  	/*
+> -- 
+> 2.34.1
+> 
