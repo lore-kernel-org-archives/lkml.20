@@ -1,47 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950785;
-	b=mnY3Un5HlQ+wwX2kt19iIrNPoNTTZ8BywiApWivgk+xqYN3SAiUnx73hGvJpjMGX8aRb
-	 naiN8SxOiY8/qHmyOZl0Twfqw37jiItb1UD9bVAXxjyX77A4/KKaPHDvTTry09b4aQs/J
-	 VsFqH4bnYR7IHPCEJn/Zq9QT7n8yMqY5L+lEQp82coC5WYOvKLhfvOVzWC/5DaokOmYjk
-	 WKCoBGEKW+HiZqpg2PVUhMcsVwsmG1xifFnIM1gLr0cARJMugrtzOy6+7hQC+b6Lni/vF
-	 uWJ5E4vsOF0W392mX2SG2NLYLnCQRuSKwnI6XtE/Pli8VvhvchU4saWIlIeZ9MHVKsg==
+	t=1793950810;
+	b=qkzg4mUHfuWmV2G1jrXFEp5QN/HZ9CjQagXo+OmXLvnRnK+7YWembGcrQC8a9Fivdu88
+	 ntakx9fdlq5OgzzluOGizIIbPeLC555QDo83sQkmxD0J3q8g/V154MDe0HvWN2uFTqFUz
+	 ulptpSknokJ9zi2iX1lJ7xMCwWf4YdYiY1BHfdZiwmbBBKX/wH2MunBv8AglK89sp6A0C
+	 /Kj8v8AZrG2HscBXVj8+HoOqfI6/xBNLyI38wOTYi6L1KsNrY1gcaKPjKSRihsOUEbxPf
+	 ti+HSZZksnMtCTNS7uLDo/upuJGcORTsvvSAde1Kqld46Sy2NzC9hx+bBmqTF5nATiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950785;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1LnB0MeeLKel7mrx1PK22qmVuyKJMFV6DF88sqg6kSs=;
-	b=EZ3u6NyId2nupO14s1o0QfyABX/5LGRKjiXmikfGpD87jh9muKjF/1/q0iJAlrBpcp0t
-	 YoZFmfFuKXAvp/liKgJI+5QdewaNpEnsEwayI07Ezgt1LUIIKbicSDIIEGAxjrOwDt9EJ
-	 nJJAEs9iOky03+sXn7EdkPHmVAI2+U+mjMErILIT2g6YxXtTVEBt/vSlX5qMHPHUxrGBg
-	 QHfiO49VLACcE7qpSGXlsnLfP7QBNP76030jha1G3iy9m44N/TSUSqO6NPceWPn4K+xoB
-	 RfeY+v2zqmezjOhV5gZC18GasKYEYORdV9wBademe6uSeH3YjMwf7src2jHjj+N7eqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950810;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-ADIRuleOP-NewSCL:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=9zKZss/Z2aszpq/pWEN2DKKlaIlBC4vciUdzc98+3to=;
+	b=04sKX9/b0Rh/cgI+Ln9CFt7JvITiBHsSK0k/8NEavMNoVLaObY1hQeFqvnNZWx7Rjj/J
+	 CrBEfd0LnZLfZ6uO/06X48vUb+VqVVX/hFfUei5OcD24LPHB8wDhRt7B+T+qbWzftg8y/
+	 EknH2QDYihtg68sjFOaBtHUV427k7OLki7hRMrdqaAHp63gnGWsgfm1jh3cF9HQtQ/vm7
+	 iOLsc81yM5URjTetnvU2w1QzW0f0VUKPsYxF+1/snvoUYk8l/+szBE+SEg5/lCltWzss6
+	 JRt5Eha1c3JY0jJgH9DkdBXBsix93EU1qUrz9KclnB97ASB+9fEgB49R09zbmKeXiqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ljr/27uT";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=UuJd2jCn;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=k6aVm6hk;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728FA606A326;
-	Fri,  6 Nov 2026 07:39:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C767B606A328;
+	Fri,  6 Nov 2026 07:40:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C767B606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ljr/27uT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742E41F0089F;
-	Fri,  6 Nov 2026 07:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793950785;
-	bh=1LnB0MeeLKel7mrx1PK22qmVuyKJMFV6DF88sqg6kSs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ljr/27uT4ZFJvPIv+E8IExj1bSp+ur0cnfqs/5R0WArZFouETDMwR33ibaNLiztpH
-	 ima13UfkUkdkx8J5Z+M7Jhklet9u5Ln2a9GIJ9C5cO+gu8A8MxWKIZvikfsggp1B5K
-	 7mftB+oWc0AyqzOgZ2BdWnC+LwFDPdfOF/6XfBN6SbMUUn53D1yw0Yq0hndtcpywXw
-	 7F58lEDqMJu6RWYQmG2V1xZzNvU08Jg63YrSlRedv+jOj/59Hw2mE7mRu83wm1QtPr
-	 WZSD7EKnRkisbvZ2AL7uVgD6Moh2shQwZA6c1QGmQ7DTAerUwCqWtJR3w2cbQtMYHN
-	 8OHY9IyrfchUA==
-Message-ID: <91d67c5d-d125-4834-b0c4-742951c59af8@kernel.org>
-Date: Fri, 6 Nov 2026 08:39:37 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=UuJd2jCn;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=k6aVm6hk
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67R1N03163839;
+	Fri, 6 Nov 2026 02:39:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=9zKZss/Z2aszpq/p
+	WEN2DKKlaIlBC4vciUdzc98+3to=; b=UuJd2jCnvJ/XxyAsrXY72D2ASyRwEpbX
+	Hfw4+Ntyk8W+ZJBxu2PMia/bqWkC+LVHuwHzi9JGlpc3lIZtxB43l8t+BLhxmFFs
+	R15ZKVQQnOMmcbMCFdlwSw8KCjYZcNfbqf06V8C+jpyU9Ii61TVnNnGPtZMKP/qQ
+	S1yLarADdd4Khm099o5lugAKLTyvJNaMC/8uyVXbbXbeovPDIkdySf7dZAQ5hIs9
+	ziUkbNkR01ES6IyuXLWgwOzu+Fg4NTG9j9LFkbWMx4oLjWVlTh5GKZTJMrbBwc6e
+	8NmHB4etyy3ow8e9Z/LvsSjMYjzQYWhjfTuinYvHeYDE0oMS7KtTsQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=9zKZss/Z2aszpq/pWEN2DKKlaIl
+	BC4vciUdzc98+3to=; b=k6aVm6hk4My5HV69/qI3TZ64+ZYt1hg1OH4KaiGmgFM
+	hrGOKF4Qsvq6wQ9FWJuPOdC4vwdH2JhryvjK6fYTdO+o1f+2AXkTDONTz7gQGXyy
+	9ijn3osdqfI3mwvOlCaFg67+amYg5l+UBE4Ub1kD4Xvks/hZ7ckXXe4WzWRze/mC
+	KMYZn0F2OcWg6wXt9lUGEbGViUH/hg2DhPhIRIcWA5PbvDUBplPPcXyqNlnPVT4X
+	y1KjjtVr/WDL2XU2837UhT9Hz9jTpvwuutmbhEfNr3XbbJI4LD4iIAvGIEEIT0Ft
+	C7LPq6kptsgAOOPBtE5gcMYol8QlW1F3gTjj5Lt0Eww==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hs3pytfpy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 02:39:59 -0500 (EST)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6A67dw1Q010319
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 6 Nov 2026 02:39:58 -0500
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 6 Nov 2026 02:39:58 -0500
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 6 Nov 2026 02:39:57 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 6 Nov 2026 02:39:57 -0500
+Received: from HYB-0FPP35J6CsI ([10.66.6.193])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A67dkI4028684;
+	Fri, 6 Nov 2026 02:39:48 -0500
+From: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
+To: <jic23@kernel.org>
+CC: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        David Lechner <dlechner@baylibre.com>,
+        "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Dragos
+ Bogdan" <dragos.bogdan@analog.com>,
+        Ioan Daniel <pop.ioan-daniel@analog.com>, <linux@analog.com>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 0/2] iio: adc: ad7405: Add ADuM7801/7802/7811/7812 support
+Date: Fri, 6 Nov 2026 09:39:35 +0200
+Message-ID: <20261106073937.13927-1-pop.ioan-daniel@analog.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,119 +111,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-To: Hongliang Yang <hongliang.yang@cixtech.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
- Roger Quadros <rogerq@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- cix-kernel-upstream@cixtech.com, Gary Yang <gary.yang@cixtech.com>,
- Fugang Duan <fugang.duan@cixtech.com>
-References: <20261105011803.4058557-1-hongliang.yang@cixtech.com>
- <4d075b70-f2af-4aad-a1d7-cd8ea26387ca@kernel.org>
- <20261106055050.948470-1-hongliang.yang@cixtech.com>
- <8ffdf2f9-dd67-419f-83af-8dd4206d54de@kernel.org>
- <20261106072849.985274-1-hongliang.yang@cixtech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261106072849.985274-1-hongliang.yang@cixtech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzMCBTYWx0ZWRfX80L/p0XS9U/Y
+ 5+ICUU6hlkwUnLicR4yQ3y3v2MHLudqdbDDl429zDRonyFnxA4OLSnEuFhsgfEUvrMnLU2GXzG7
+ FDmJSjIBVe9DMx3tY/Kd9pEF26A+pmpu0ybxlDFDAdkvSyImoYZw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzMCBTYWx0ZWRfX1ZWXIJKp2fM0
+ upBocGzs3ZhvFTeo9Y/OodcBu2cW34k0xVsPOkYpMVLt1F0UG/z+LPa/KRYNaNMcvhVULUwRRIG
+ iBoycyrVxRzxuzTSc6mjVdr3v3ST2uNGtaCusgacXo3l6qYHYAH1gsUoMKYeA2OkMEAbZ3MxEaX
+ 0pXWpHi6NEeH4Dk1wxHBw2xNjUXs+w8Bp0wVNkuTtUxuMSlPuaaOCjNp1jAolFmSzKbCvIUhVVK
+ A/tYaO/9itfsTwHSlcGwa7fdt0igw4me3kM3Upeu8Y4rrutXj5pFpQJ/sOnI/MH24NNH656CWho
+ +8B0g3uokoBBgk6f9XNymXLDVDOwsjoVv56WUZi7P5n9JqKC9Gc6Hhzp4hbxalapK6lEAxsnVXG
+ lZs8pPQd5ucduFa9tBuI0vRFezrZtFYLAEqguNYjhMa5apfodQ90yeeHJr7Csx3kX4LT8qy6v0X
+ V/CsZ94WNT/b3TnRGnw==
+X-Proofpoint-ORIG-GUID: dJlV-IJ91d6o055izD0Zb2pdP1J6L5iL
+X-Authority-Analysis: v=2.4 cv=TYcDJhQh c=1 sm=1 tr=0 ts=6aed844f cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=KHIhECFyK12KdMBMZhQA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: dJlV-IJ91d6o055izD0Zb2pdP1J6L5iL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 phishscore=0 spamscore=0 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060030
 
-On 06/11/2026 08:28, Hongliang Yang wrote:
-> On 06/11/2026 08:01, Krzysztof Kozlowski wrote:
->> So instead of replying under each comment, you selected a few of them
->> and expect me to map/figure out which ones you ignored?
-> 
-> No. Compressing eight separate comments into one mail was the wrong way
-> to answer a review, and it is what made you match numbered paragraphs to
-> quotes yourself. I will answer under the individual messages instead.
-> 
->> OK, then find me where did you reply to this:
->>
->> "And do not combine USB patches with other subsystems."
->>
->> "I do not see how you addressed my feedback from v1. I asked, not to
->> combine USB patches with other subsystems, within one patchset. These
->> are separate patchsets."
-> 
-> The first one, in the v1 thread:
-> 
->   https://lore.kernel.org/all/20260902032306.1182941-1-hongliang.yang@cixtech.com/
-> 
-> where I wrote "Done in v2: the combined bindings patch is split into
-> separate patches with dt-bindings: phy: and dt-bindings: usb: subject
-> prefixes, one schema per patch". That answer was only half true: v2
-> split the bindings into separate patches, but the PHY and the USB series
-> were still submitted together. The series were actually split in v4, and
-> have been separate since:
-> 
->   [PATCH v4 0/3] Add CIX Sky1 USB3 PHY support
->     <20260906032431.470744-1-hongliang.yang@cixtech.com>
->   [PATCH v4 0/4] Add CIX Sky1 USBSSP controller support
->     <20260906032440.470788-1-hongliang.yang@cixtech.com>
-> 
-> The second one, on the v3 cover (6ca4ba08): I did not reply to it. The
-> split went into v4 with no mail saying so. There is no reply I can point
-> you to for that message, and I am not going to claim there is.
-> 
-> What remains are the per-patch comments on the binding that my previous
-> mail answered in summary form. I will reply to those under your original
-> messages, one at a time, rather than restate them here.
+This series adds support for the ADuM7801, ADuM7802, ADuM7811 and
+ADuM7812 isolated second-order sigma-delta modulators to the ad7405
+driver.
 
-You still combine USB with other subsystem. Identify subsystems here,
-please.
-1. USB
-2. SoC, no?
+The parts are compatible with the existing ADuM7701/7702 handling and
+differ in input full scale and maximum master clock frequency:
+  - ADuM7801/7811: +/-320 mV full scale
+  - ADuM7802/7812: +/-64 mV full scale
+  - ADuM7801/7802: master clock up to 25 MHz
+  - ADuM7811/7812: master clock up to 50 MHz
 
-DTS cannot be placed here.
+Pop Ioan Daniel (2):
+  dt-bindings: iio: adc: ad7405: Add ADuM7801/7802/7811/7812 support
+  iio: adc: ad7405: Add support for ADuM7801/7802/7811/7812
+
+ .../bindings/iio/adc/adi,ad7405.yaml          | 25 +++++++++++++----
+ drivers/iio/adc/Kconfig                       | 14 ++++++++--
+ drivers/iio/adc/ad7405.c                      | 28 +++++++++++++++++--
+ 3 files changed, 57 insertions(+), 10 deletions(-)
 
 
-Best regards,
-Krzysztof
+base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
+-- 
+2.34.1
+
