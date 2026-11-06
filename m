@@ -1,72 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794009553;
-	b=36/eFBvI9dS+Q3g6PK0X31+8XXHTpaeHRTZ6CeOTrZ56vsaB8/mDkRfFp2xWBEZQVloL
-	 h30ISeglmHsb6SqLsSZyVG2ewUMFa24xmbJ+UiD3GJrzxnQKmVvQe4nf+cpNd79ia/Yb+
-	 mG77GLHxS7PT9CYUKlDfITGe+foTKeqez4XmleW4K6P/5shHBynwmECGp05n64BJzvrr0
-	 52ql/s+qtyuLA3miwF5o3QQ7b9BtGAdhVtFY2rU+d+s4gFQ+uPjuid60FhSaIaP4I6yAH
-	 /D1/p6tmKg8zYrHlk1CnKqfiHnE9fOVvjnBV09Xi4oB98zW4Dm4SwbcZnn8W2kuAWUw==
+	t=1794009593;
+	b=Ye6tKtjXlv9I6wSh4n/pXGYl7c7KruPEApisqZEqDx3Chjl1+phlMRHsHVUL1Kh+0c+j
+	 AhAIVE6eYjLa08R8GgDN3Op++ePoeWQsRYK4sPlpIJv6PbtB3+eAqb5iOPMspuGWuJoef
+	 8KxczwOQ4PwQVgpuhoj5/qouM1n9a8F196fM1toj4YjO2z1xjFVt/LiFKvFM0zlGhyXg1
+	 KovL+cSAX0+3ncOPH7MZ5pfkSB/Qh8AD0ceAv5lVWf1VngcAP/iMIaHEjCfF+dyDlTbcc
+	 C6btgDqZKpvvqzeP02idj/xzKk/N99r9arR4hpeBpJ3EMnIBQ91YfqKPx9l0PydKHpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794009553;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=QLxBnr2dWVF7awuaywn040Wg1Wa6I8q0xUXMqEWtl88=;
-	b=Hfct7WjfP5HCVhtB9ZSCwKCrvb2lwlLQjN5h7lQG2cme2XJpXzAwSPwo0x9XFunu63VV
-	 E2NvNkPUwHNb/XAKM+FkNXMe9+jfpMi1QOnHRvrNcDg+8xtj1vvn7VXgNuO+dspgHDurm
-	 YwgHlLU2MfrNVtKRFIzMcJgLZvwpo7dSVNlJAQ+A7AY7z73ihIQndZPua/MkkE/+2mUt8
-	 PtJ/oBc3jZP2LG1GkBg8VsA/JMqQWMVTERBr28YfBbawSAQmHh0l+D6wmg46EdibCWbwl
-	 aHwrYjFuurpMYu6+Yiz1GwM8iL76YbPYFX0MxZ7HLJuFByT9dQ3Eoes3Yxp7E9Ws+hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794009593;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=2suRc3jOCRKXQ3+1BglcMLXCn8fOrvnfKlvM85GZS6o=;
+	b=li2+HQBb/NM6e5XCvV+s7Vjk9zqBrgMZsMeAZG4eMCX7owoBul2TtV9ypGkJX94DSwCD
+	 3Hhcws4vt57j/C1mgnKrRpQ8zL5W5ftnW5i4/h6or8pwbW60ZZIRX84bHLNyRKI1miej9
+	 b0FkXGafXL7xlknJ5GV+zbV+0HbS3QP31GcRH2MJ+jXm3khAy0nDBGl/IMQpNds5iCOSI
+	 X175w8g2PdX4FygdkW5nLSWB858i5Y9fTivx4l0FHOIiYu2sOOH81rv3pn2nmKfRpapfy
+	 J/QT3rCPQ+M4JLzFUD5u/6R7BZKfdSWNdaSGcbpsjfvkKIsY9SqKbbH4bdjP4z+vjPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OMpqWCP3;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=rxHHJQbb;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9EC0606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9EC0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B72606A333;
+	Fri,  6 Nov 2026 23:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00B72606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OMpqWCP3
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-567e742f481so725103b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 15:59:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794009552; x=1794614352; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QLxBnr2dWVF7awuaywn040Wg1Wa6I8q0xUXMqEWtl88=;
-        b=OMpqWCP3w2TNWkCpaGDqlfhPWO7GAkSXve+GiumCIEy+wpd8n9eBF0ZdfrQjNkuexF
-         gRixkS6t0FqUbM2FyUoEePBUWNxCS7oL6wnv48is0SPAG3aDwgoou0I36MZSMari3V7x
-         rtRpPyXLBYy2mXYNv3VZuhjEiywNom6v5ZaIhrUPAl4FgYnZT4SZItLe+vkIxhvxkKYM
-         CZn/Pghml7RHbdGLmq6P93YVS57kGfAIZiZ7JCuP7rXpdstHK7IxhJ15p6FTSbLHwkjv
-         uMFnW9vCglhhTTWakcpZM0gfC7pPCUhMScxetQKFDT7LIkkruatKFs3c4y24gQjktgwL
-         nYAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794009552; x=1794614352;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QLxBnr2dWVF7awuaywn040Wg1Wa6I8q0xUXMqEWtl88=;
-        b=Xr/nfz0WGADz26l+OgcJAH2zD0Jak+Gd6T1hZ1A3snjEr3c1JqyurJOfoZOrJryw8g
-         7sslcshvGuzKEvHZVP5OfDQ0OkJRnBCf7zf/e6kiwyyTUpDEbswyaEn2tt30LhMQyBi/
-         OnNorHlduL6hvvV0BiKho4SkGk+kQq8o8M4ofcUdkKK0QAGRpBXgSIL+IKSlg82nJxot
-         5FU5R8Mz+IGrBrFo56IbWhYpc5+dBEqks3BVRUYDkAFmOKq9HaUdbV+AaAmIay+ghaJl
-         4woH3F60IW54jWpkIotUmCnlMtG9bxVj/ZPszw1j/g2ZQFb231kQCMVezmndI+mFW5fm
-         VAXA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSwroH0nVAPK+wToCu0hEz4L12iEpeLFf4Es2Hln6ITgijWoC0YYZzvGlHK2PJO5p1BJyN3ijVH08Bxa0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dyGhulYnXAJa9dHF/G+U5Lfkzo7LBQSfNoKx9FqeNbMY02J7j
-	pz5/c6psvNbpCt0dmr2Sg6FOutYlqOilvfnxk+7IqAXrLVmo1DztPTaIHbvOymxOupvT0tUEF5T
-	qLAnI1ZQjSaTErCkvYA==
-X-Received: from iokk25-n1.prod.google.com ([2002:a05:6602:8319:10b0:9c4:de2b:c40f])
- (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:1985:b0:55c:8ee:a9c4 with SMTP id 5614622812f47-567e115e036mr3038381b6e.43.1794009551333;
- Fri, 06 Nov 2026 15:59:11 -0800 (PST)
-Date: Fri,  6 Nov 2026 15:59:04 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=rxHHJQbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794009586;
+	bh=2suRc3jOCRKXQ3+1BglcMLXCn8fOrvnfKlvM85GZS6o=;
+	h=From:To:Cc:Subject:Date:From;
+	b=rxHHJQbbfwldowI3Ffh0GxzistPedMdJnahahB8QIsoGFefHz8QKONqnY4bX/vKt2
+	 n7mCPTkHSOE2CwpbHSp7/MYuOocw2zb2AoBI/YlfqTQG5GrZnDVilNHUpwVt+L0653
+	 nn755zbfv9ALi7aNJFZR6XWai8a7Kw2gynadyp18uyaVeQ8CnDZlOAFVabIYYFv/IZ
+	 dT9v0diRGbr+miY8Y7Nomi/iCIb1ZAazz6pF53PTCBV4qFbuHHGa6j/lJP3q1GOWe6
+	 0tlyfjs+jAKzGrOGl6pWo8nM9DTAyCma+pYWrwgkjva8hDufEG49x6Dc5lq+3MVrNq
+	 ofBXk9tIn/aJA==
+Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLx4L29wDzL0P;
+	Fri, 06 Nov 2026 18:59:46 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: peterz@infradead.org,
+	tglx@kernel.org,
+	mingo@redhat.com
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	will@kernel.org,
+	boqun@kernel.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	dvhart@infradead.org,
+	dave@stgolabs.net,
+	andrealmeid@igalia.com,
+	shuah@kernel.org,
+	juri.lelli@redhat.com,
+	linux-rt-devel@lists.linux.dev,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 0/5] locking/rtmutex: priority inheritance fixes and tests
+Date: Fri,  6 Nov 2026 18:59:26 -0500
+Message-Id: <20261106235931.1478800-1-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,86 +76,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106235904.1092712-1-tjmercier@google.com>
-Subject: [PATCH] mm: workingset: compare shadow nodes node-wide without kmem accounting
-From: "T.J. Mercier" <tjmercier@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Qi Zheng <qi.zheng@linux.dev>, Dave Chinner <david@fromorbit.com>, 
-	"=?UTF-8?q?Michal=20Koutn=C3=BD?=" <mkoutny@suse.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, "T.J. Mercier" <tjmercier@google.com>, 
-	Jaewon Kim <jaewon31.kim@samsung.com>, Jaeseon Sim <jason.sim@samsung.com>, 
-	Youngchan Kim <ycshark.kim@samsung.com>, Dmitry Skiba <dskiba@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-count_shadow_nodes() limits the number of xarray nodes holding shadow
-entries to 1/8th of the pages that could be using them. For a memcg, it
-counts the LRU and slab pages local to that memcg.
+Hi Peter, Thomas,
 
-With kmem accounting disabled (cgroup.memory=nokmem), shadow nodes are
-not charged to any memcg and __list_lru_init() makes the shadow_nodes
-list_lru non-memcg-aware, so all shadow nodes of a NUMA node are on a
-single list. shrinker_alloc() falls back to a non-memcg-aware shadow
-node shrinker, which shrink_slab() only invokes for the root memcg.
-count_shadow_nodes() therefore compares every shadow node on the NUMA
-node against the pages local to the root memcg.
+Three fixes to rt_mutex priority inheritance on v7.4-rc1, and two tests
+that catch them. They came out of v4 of "sched/deadline: bandwidth
+accounting fixes and selftests", posted alongside, which applies on top
+of this series: its patch 8 takes a deadline boost from the waiter's
+rt_mutex node, which patch 3 here keeps current.
 
-When most tasks run in child memcgs, the root memcg only holds a small
-fraction of all pages, so the shadow node limit derived from the root
-memcg page count is far below the number of shadow nodes on the NUMA
-node. Since the shrinker has seeks == 0, every root shrink_slab() call
-trims about half of the "excess" shadow nodes. Most refault information
-is thrown away, so refaults of recently evicted file folios are not
-detected. Refaulted folios lose PG_workingset and the workingset_refault
-and workingset_restore stats drop.
+The three fixes, by patch number:
 
-In testing on devices with kmem accounting disabled, moving tasks from
-the root memcg into per-application memcgs dropped workingset_nodes from
-~37,000 to ~900 and raised workingset_nodereclaim 4.6x while
-pgsteal_file rose by ~12%.
+ 1  the top waiter spins on a running owner past its own wakeups:
+    behind the owner of a PI futex spinning in userspace, a 1ms timed
+    lock returns up to 1.4s late and a signal waits as long, and with
+    PREEMPT_RT two ww_mutex contexts in an ABBA spin on each other. The
+    spin stops when the waiter is woken.
+ 2  with PREEMPT_RT, the chain walk reads the ww_mutex context that
+    rt_mutex_init_waiter() leaves uninitialized, the debug poison on the
+    waiters of PI futexes, and reports neither a deadlock on PI futexes
+    nor a chain deeper than max_lock_depth. The context is initialized
+    with the rest of the waiter.
+ 3  a waiter whose priority changes while another is ahead of it enters
+    its owner's pi_waiters with stale sort keys once promoted, and the
+    owner inherits from the wrong waiter. The keys are copied as it
+    enters.
 
-When kmem accounting is disabled, compare the shadow nodes against the
-whole NUMA node, as is done without memcg. Behavior with kmem
-accounting enabled is unchanged.
+Patch 4 adds futex_lock_pi_inherit to the futex selftests. It checks the
+priority an owner runs at as its waiters block, time out, get a signal,
+change their priority or are promoted to the top of their lock, along
+chains of owners; that FUTEX_LOCK_PI refuses a lock cycle, and a chain
+deeper than max_lock_depth, with EDEADLK; and how late a timeout or a
+signal ends a wait behind an owner that runs. Patch 5 adds to
+test-ww_mutex an ABBA with both owners running. v7.4-rc1 fails the cases
+of each fix, and the series passes them, with and without PREEMPT_RT,
+along with the locking API selftests, the ww_mutex selftest,
+locktorture's rtmutex_lock and the futex selftests. Each message has its
+numbers.
 
-Cc: Jaewon Kim <jaewon31.kim@samsung.com>
-Tested-by: Jaeseon Sim <jason.sim@samsung.com> # Galaxy A18 LTE
-Tested-by: Youngchan Kim <ycshark.kim@samsung.com> # Galaxy S27
-Tested-by: Dmitry Skiba <dskiba@google.com> # Pixel 10
-Signed-off-by: T.J. Mercier <tjmercier@google.com>
----
- mm/workingset.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+These patches, their messages and the tests were written by an LLM
+coding assistant under my direction and review. Patch 1 came out of a
+stress test of the deadline boost, patch 3 out of a review of the
+deadline fix by a second model, and patch 2 out of futex_lock_pi_inherit
+on its first run with PREEMPT_RT. Each patch went through a local run of
+Sashiko AI before posting, which changed the two tests only.
 
-diff --git a/mm/workingset.c b/mm/workingset.c
-index 1504f91cdca5..87d5e55dd684 100644
---- a/mm/workingset.c
-+++ b/mm/workingset.c
-@@ -682,7 +682,16 @@ static unsigned long count_shadow_nodes(struct shrinker *shrinker,
- 	 * PAGE_SIZE / xa_nodes / node_entries * 8 / PAGE_SIZE
- 	 */
- #ifdef CONFIG_MEMCG
--	if (sc->memcg) {
-+	/*
-+	 * Without kmem accounting the shadow_nodes list_lru is not
-+	 * memcg-aware. So the count above covers the whole NUMA node, and the
-+	 * shrinker only runs for the root memcg, whose local pages can be a
-+	 * small fraction of the node's when most tasks run in child memcgs.
-+	 * Compare the shadow node count against the memcg page count only when
-+	 * the shadow_nodes list_lru is memcg-aware. Otherwise use the NUMA node
-+	 * page count as is done without memcg.
-+	 */
-+	if (sc->memcg && shadow_nodes.memcg_aware) {
- 		struct lruvec *lruvec;
- 		int i;
- 
+Based on v7.4-rc1, 6628e7d4c6b2.
+
+Mathieu Desnoyers (5):
+  locking/rtmutex: Stop spinning on the owner when the waiter is woken
+  locking/rtmutex: Initialize the ww_mutex context of a waiter
+  locking/rtmutex: Clone a waiter's sort keys as it enters pi_waiters
+  selftests/futex: Test priority inheritance on PI futexes
+  locking/ww_mutex/test: Time an ABBA with both owners running
+
+ kernel/locking/rtmutex.c                      |  15 +-
+ kernel/locking/rtmutex_common.h               |   1 +
+ kernel/locking/test-ww_mutex.c                | 213 +++++
+ .../selftests/futex/functional/.gitignore     |   1 +
+ .../selftests/futex/functional/Makefile       |   3 +-
+ .../futex/functional/futex_lock_pi_inherit.c  | 744 ++++++++++++++++++
+ .../testing/selftests/futex/functional/run.sh |   3 +
+ 7 files changed, 976 insertions(+), 4 deletions(-)
+ create mode 100644 tools/testing/selftests/futex/functional/futex_lock_pi_inherit.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.56.0.455.g6c5a503b38-goog
+2.47.3
 
