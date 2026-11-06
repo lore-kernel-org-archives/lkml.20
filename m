@@ -1,60 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793933974;
-	b=l0vbuDLtZwOuyqnhptxnIxF6A0VtcHLf0IfMhBG53stIccN1G0v0cpBq++yB5zTVDq5X
-	 PKh6veMy6S/X493W1BbvxnV4Sq8wBNArMdwRzx8q/dvOWb+UxEH371Jf7jTKuwF+AGJRt
-	 aRH68iTpcKbn7AR7b98EPfVZm1CsRQVLm1qlnU+TXYQmn7e4A9NcqvVz+KBg11ObLp2ip
-	 Vc+T5HIFMTvsaZQbptHmDSTEaxbMkRCRPSEhAPagrG8mqNYaNQ0rh/RgFFy721AU8IR4O
-	 cBr4Vo9T/WPeAga8W+1UyC9zT2UVByzToW+ChUbC3NzaLwpFu49gGihN45p579/DryQ==
+	t=1793934091;
+	b=5dwMeAolaF36mo/QJ5ed6u2pxIvKkTVFEqbqz76rNefLLWJTqAKEwFqGMQ4heXvAb7Vf
+	 LvIfGttjveL9p/cPY270fvCN/W1/9c/N+iPxFzAl/dtNzjx95VL7HaLHrRx5S1GyfTzJe
+	 uf5PDWaxQBKxEyYtFqMWgdds8gwzfDOcSzVsJyZxUen0Twz+HysIhztWjxWGMrD/A6/Ff
+	 MRKTsJLyQ8HZgImH+R3BOMmtZ6ZZbSeGE43LyXCPhzoVnsgZ83jqxMDptUd4UQs1LMcOK
+	 ZrpYJmomJKjVdjtLeqnCr4pNdSCC8BA9iiUkTTMx0RvjpUujZ5UvCKSne0f8GY1QI2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793933974;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=7Oh2e3u6KS6ULuWUXpjmzaKdyn+WALhzDQQ6dIp7NJA=;
-	b=4PlVeHM+/XsarvAUaB5EMqgFTWxYFvzCsC4OI5Ul840593Ct3WojLBdcjuMENn+03Ah+
-	 tWpw4VldzGR+s7mW6IDCZlO6WxcsBo2koHBYywk/ltdbi1z43Dv/W1Kfqm3OwlwkLIBc/
-	 /N+bMDBZKQ7URrYFEkN8Bzu8R9FmUjFDU5alNl99juZxEMOVJoPjok3hSwnQIoe0B0Efo
-	 1s9VHraaI5B318n487GS19HZR6q6pVfbTFtSoNGlDUYN5ZrlgV3pKLGVNlN4qi4m+eM1l
-	 H9MOP5cLGQ4tiz2RcKbYs7wVD4Hq62XM/eTEgvubdT5HL8X2ESaG4wUOIbcI6fXYMJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793934091;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=t6aRulHNXUeC2tlehsSj6ODcF0+cJ04EmVwTbLYgrmk=;
+	b=mzouS2ABE3sEYkxHEUDxzzqh3py1gz8FSRDYkeiBqeOQOpG8WaB461j++h5Xnmiscl+F
+	 4cSrzdTe6OOiXFhwQJXHvcHSddpKXYwrGmTeOV7Hdj+XbkxytFMy1cQpcm05G3Ygz5dcf
+	 hVhh9TG8Fb5nD1gfs0MqDKxqG6e4trhyIpVoBRqTcLNFGXJ/QFMxn2UL77RrV2kW4dYNj
+	 eo4wKNM4P2YhIlMR/RFC2/EVJnbmuPv8feYgBaOla+3qKqxfqD5q2r3piR5yr9dklgNci
+	 VDmEhPZ9DfswkUZxAfipZudzhOdrkPW8OfBqsZO85j+qa7XJL54Jn78qdCxpY9FlMsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZzQTCYcy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JCl4Gfy0;
+	arc=none smtp.remote-ip=209.85.222.42
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF40606A31B;
-	Fri,  6 Nov 2026 02:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0BB606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:01:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F0BB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZzQTCYcy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5151F008A1;
-	Fri,  6 Nov 2026 02:59:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793933974;
-	bh=7Oh2e3u6KS6ULuWUXpjmzaKdyn+WALhzDQQ6dIp7NJA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZzQTCYcy/PQbb/t3uEL68eJO0sRkJqL8iSDwwUk3XwGRqM9hNvhsbrcbcoz7sDA0L
-	 Ehivnji6LT2gl5IIsGx4dtV06rMxzLNBzapL4AR4lDzAopL2eHX0aE6X+BjIXdr/WH
-	 BcW8hzb4zh6WpDjuanZTKrdzSb2kB9lV3EO3ppX3PLjKq+egHqqiXtX4bnJBj4bzzS
-	 vemfoAs4ZHSIhUY0NBTjSMmkwTzLfKFHsuxXv1Uk3pid/RQfqGTdJOwwTGK+NhdYFT
-	 ZbrSqEP4CMhB/kFvop5UN0cO9bc397oAQ+amrX7AI2VjV+94Woc+j7eEgT64c+ZcwU
-	 VrdoH+HnVCasA==
-Date: Thu, 5 Nov 2026 18:59:32 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: James Clark <james.clark@linaro.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org, Jakub Brnak <jbrnak@redhat.com>,
-	Michael Petlan <mpetlan@redhat.com>
-Subject: Re: [PATCH] perf test: Fix perf probe testsuite
-Message-ID: <au1ClCsTbbOdc69U@z2>
-References: <20261105071711.31086-1-namhyung@kernel.org>
- <ea9091fc-c129-4840-80f7-ab5edc8d56a7@linaro.org>
- <7fb3e764-e71d-4cd1-b481-963ea518dfd3@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JCl4Gfy0
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9999f21f617so30003241.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 19:01:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793934090; x=1794538890; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=t6aRulHNXUeC2tlehsSj6ODcF0+cJ04EmVwTbLYgrmk=;
+        b=JCl4Gfy0EBXXqrT5LV6qnfQdzP0zEsd279x8qeNp9xw1/cvvvBRYQcDjrC6GVeX8h/
+         jfNkCTg3MZ5RUsyP2iQuXxG4os7zuN8QwX7y81S6xL7pSjyoZk6R8TkaCu9hAu5Ei2Mh
+         ZYkL52QTJfBup6LDoFjp90Hjg/RUnODdQXlU4YnyTkPTvCix/uDocjDzixnymYooFjcG
+         mITLgCR0CeXhXzH+uQTVkTtGwBXuEg/5MeuLoAFtpR+R2QCNGMLBO2V/+KSn6tW80Y+t
+         z+0aKEtK5SqkEXHYzQKScdpOb75WveqS3Wg+sjB4Bw2zM0KWOR9c4WxkJOWS2cosEbUx
+         d+dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793934090; x=1794538890;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t6aRulHNXUeC2tlehsSj6ODcF0+cJ04EmVwTbLYgrmk=;
+        b=MSgiTrgLOnltHgfdJJkDlv7rD9e16OayveCd218CaObZm2g9Rk8/TtNKcJbku8Uw7P
+         78x5TtrqEXkdPxntlzuEfd5PFPhfxsM4n2tYNoj1GpCEraUK1MHIxrhzZCpeHI3G4EKo
+         byAO98bVbZHtb5OGQzLPPuh1s61ZoxDR4lLEHDLKnjS36HZDmZe05C1+izDut4H0PLv6
+         mNQg2mnvvXshpzATGgs0+HC9r4VplTMDqBe57HlMpt7qyt/Mjp2wkps7/F2Vys13kHBs
+         RoF/V/D+/L4TwABJfctaDDePSZKWa0FqlKAIDA+SaYsfOpFeze5bnIBzbj6sSFKuzY3F
+         S49g==
+X-Forwarded-Encrypted: i=1; AKwUvBxCwZIW+ALS/iiz7X2hyH9x/tw8Y46madFHLhOxTa787DxVcrOJQhxgDR2tOEZEn9F+tjgek1BO6tkyRbg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OlnerycItk/ZLjqo7Tq4y6JPZylSmUJ3dS0fFv3M3fwF325Nb
+	gA2xKmVRfNJ647TuA41HnNjRazwfciHz+26u1ZoA2s1woCSR5XxA7u9y
+X-Gm-Gg: AYBFou2FK+O0gv2TTlD7ct2cC+K1kNFdHY211ldQGSUHgoUMTj9T1HnJPzVfGk0PFuU
+	EHE3aI1ULVd0q6jnauTfkqCuVOZy+c9Bp1Cy7qLT1IgDaalVy3cT1EZlUWIgrrpXfjW6+w3TU4g
+	obBCgv/w7ZW3SIjwqEo+B/OduFxz4m2akqcX0zWkfGGC4gKWtH2k8NrLg0zUWIUhAltsLh8DYO1
+	IDCXNDpPvrbGethYTXtlf9PTkPkQ0rUR7tDhx84KKzfSg93ChcXZZrvnSL6S7tFiRS0CoECaT/k
+	Q1v7wDQMKJ+ed57rBjScCFrjn+RYJ5f8ATona1WNRGKHrWXz3Sxq3TXAQR9jgiqh4CLqm8AqLYB
+	hSf/b7ObNWssfkiLltFitxVnWb95rEK4Sk318uWp1UdAT6xDrYDlF3OjslzlbFDMbgfSsTz943M
+	jxp/geShjRdTxmpJ2ASo2V0l0OQ6FeKnByKzAaczppucI5L16gsSEwpfcIawgv6fO5MTh7C+4Sy
+	GZ2xaWWaKiSAmdaXOl66APbBXN2n2lwyCSS7uNgKme100jrHFudPGO0v+VKmIH9BKPKK0T6pUeS
+	Q//YqazW9m61UUhVx/T+Y+Jf0aKg8rxvHMfG5wDk4vu+OYxffseyRqMdJHOJQh5yrxMiGGIAZCg
+	8rHJRiEj8u+iKrofBfJkT7WEmHdl2gF8cDcydrZgmhJ57PKAjEkh9yheqcTmokr+eAHle7cM=
+X-Received: by 2002:a05:6102:160c:b0:7cb:288a:b66d with SMTP id ada2fe7eead31-7d2a15989e3mr838027137.20.1793934090385;
+        Thu, 05 Nov 2026 19:01:30 -0800 (PST)
+Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99baea8e48csm854885241.10.2026.11.05.19.01.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 19:01:29 -0800 (PST)
+Date: Thu, 05 Nov 2026 22:01:29 -0500
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Xia Yan <yanxia@cmss.chinamobile.com>, 
+ willemdebruijn.kernel@gmail.com, 
+ netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, 
+ dsahern@kernel.org, 
+ idosch@nvidia.com, 
+ davem@davemloft.net, 
+ edumazet@kernel.org, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ yana06070@163.com, 
+ shuah@kernel.org, 
+ linux-kselftest@vger.kernel.org, 
+ willemb@google.com, 
+ tpluszz77@gmail.com
+Message-ID: <willemdebruijn.kernel.1e8c4e152eca9@gmail.com>
+In-Reply-To: <20261106021245.246267-1-yanxia@cmss.chinamobile.com>
+References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
+ <179387153949.488856.16266299848614841295@kernel.org>
+ <20261106021245.246267-1-yanxia@cmss.chinamobile.com>
+Subject: Re: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK
+ control messages
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,212 +116,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7fb3e764-e71d-4cd1-b481-963ea518dfd3@linaro.org>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Hello James,
+Xia Yan wrote:
+> Hi,
+> 
+> Thanks for the review. v2 fixes SO_MARK sends, including the concurrent
+> sk_mark case that came up during the v1 review. Sends without an SO_MARK
+> cmsg keep the current behavior.
+> 
+> Willem, you also raised the flowlabel and dscp cases in the v1 review:
+> https://lore.kernel.org/netdev/willemdebruijn.kernel.6ba984cf38a@gmail.com/
+> 
+> I'd like to keep the SO_MARK fix targeted at net and handle the
+> remaining cache issues separately in net-next. Does that split make
+> sense to you?
 
-On Thu, Nov 05, 2026 at 03:56:03PM +0000, James Clark wrote:
+Agreed that those additional concerns should not block this patch.
+
+Are they net-next material, or similar bugs and thus also net?
+ 
+> I'll wait for your feedback on the scope before posting v3.
+> 
+> v3 will also add a fwmark 0/0xffffffff prohibit rule to the
+> connected-socket selftest, so reusing the cached route instead of doing
+> a fresh lookup fails the explicit-zero cases.
+> 
+> Thanks,
+> Xia Yan
+> 
+> pw-bot: cr
 > 
 > 
-> On 05/11/2026 15:08, James Clark wrote:
-> > 
-> > 
-> > On 05/11/2026 07:17, Namhyung Kim wrote:
-> > > The perf probe test suite fails on my machine.  It seems it's because
-> > > the kernel debug info is not available.  Actually NO_DEBUGINFO is to
-> > > check the condition and skip affected tests.
-> > > 
-> > > But it didn't work well as the skip_if_no_debuginfo function misses a
-> > > new error string for v7.0+ kernels.  Internally it uses the
-> > > add_probe_vfs_getname() to check if perf probe handles debuginfo and
-> > > check the error string.  But it didn't add the new error string.
-> > > 
-> > >    "Could not find probeable line"
-> > > 
-> > > With that added, it now passes like below:
-> > > 
-> > >    $ sudo perf test -vv 189
-> > >    Not taking turns using the perf mlock budget: nothing can exhaust it
-> > >    189: perftool-testsuite_probe:
-> > >    ---- start ----
-> > >    test child forked, pid 26135
-> > >    Probing warn_thunk_thunk
-> > >    -- [ PASS ] -- perf_probe :: test_adding_blacklisted :: adding
-> > > blacklisted function warn_thunk_thunk
-> > >    -- [ PASS ] -- perf_probe :: test_adding_blacklisted :: listing
-> > > blacklisted probe (should NOT be listed)
-> > >    ## [ PASS ] ## perf_probe :: test_adding_blacklisted SUMMARY
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: adding probe
-> > > inode_permission ::
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: adding probe
-> > > inode_permission :: -a
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: adding probe
-> > > inode_permission :: --add
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: listing added
-> > > probe :: perf list
-> > >    -- [ SKIP ] -- perf_probe :: test_adding_kernel :: 1 1 Skipped
-> > > due to missing debuginfo :: testcase skipped
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: using added probe
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: deleting added
-> > > probe
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: listing
-> > > removed probe (should NOT be listed)
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: dry run ::
-> > > adding probe
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: force-adding
-> > > probes :: first probe adding
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: force-adding
-> > > probes :: second probe adding (without force)
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: force-adding
-> > > probes :: second probe adding (with force)
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: using doubled probe
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: removing
-> > > multiple probes
-> > >    Regexp not found: "probe:vfs_mknod"
-> > >    Regexp not found: "probe:vfs_create"
-> > >    Regexp not found: "probe:vfs_rmdir"
-> > >    Regexp not found: "probe:vfs_link"
-> > >    Regexp not found: "probe:vfs_write"
-> > >    -- [ SKIP ] -- perf_probe :: test_adding_kernel :: 1 1 Skipped
-> > > due to missing debuginfo :: testcase skipped
-> > >    Regexp not found:
-> > > "somenonexistingrandomstuffwhichisalsoprettylongorevenlongertoexceed64"
-> > >    Regexp not found: "in this function|at this address"
-> > >    -- [ SKIP ] -- perf_probe :: test_adding_kernel :: 1 1 Skipped
-> > > due to missing debuginfo :: testcase skipped
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: function with
-> > > retval :: add
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: function with
-> > > retval :: record
-> > >    -- [ PASS ] -- perf_probe :: test_adding_kernel :: function
-> > > argument probing :: script
-> > >    ## [ PASS ] ## perf_probe :: test_adding_kernel SUMMARY
-> > >    -- [ SKIP ] -- perf_probe :: test_basic :: help message ::
-> > > testcase skipped
-> > >    -- [ PASS ] -- perf_probe :: test_basic :: usage message
-> > >    -- [ PASS ] -- perf_probe :: test_basic :: quiet switch
-> > >    ## [ PASS ] ## perf_probe :: test_basic SUMMARY
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: missing
-> > > argument for -a
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: missing
-> > > argument for -d
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: missing
-> > > argument for -L
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: missing
-> > > argument for -V
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: unnecessary
-> > > argument for -F
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: unnecessary
-> > > argument for -l
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -a xxx -d xxx
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -a xxx -L foo
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -a xxx -V foo
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -a xxx -l
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -a xxx -F
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -d xxx -L foo
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -d xxx -V foo
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -d xxx -l
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -d xxx -F
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -L foo -V bar
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -L foo -l
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -L foo -F
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -V foo -l
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -V foo -F
-> > >    -- [ PASS ] -- perf_probe :: test_invalid_options :: mutually
-> > > exclusive options :: -l -F
-> > >    ## [ PASS ] ## perf_probe :: test_invalid_options SUMMARY
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable
-> > > descriptions :: func
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable
-> > > descriptions :: func:10
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable
-> > > descriptions :: func:0-10
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable
-> > > descriptions :: func:2+10
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable
-> > > descriptions :: func@source.c
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable
-> > > descriptions :: func@source.c:1
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable
-> > > descriptions :: source.c:1
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable
-> > > descriptions :: source.c:1+1
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: acceptable
-> > > descriptions :: source.c:1-10
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable
-> > > descriptions :: func:foo
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable
-> > > descriptions :: func:1-foo
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable
-> > > descriptions :: func:1+foo
-> > >    -- [ PASS ] -- perf_probe :: test_line_semantics :: unacceptable
-> > > descriptions :: func;lazy\*pattern
-> > >    ## [ PASS ] ## perf_probe :: test_line_semantics SUMMARY
-> > >    ---- end(0) ----
-> > >    189: perftool-
-> > > testsuite_probe                                                         
-> > > : Ok
-> > > 
-> > > Fixes: 92b664dcefab ("perf test probe_vfs_getname: Skip if no
-> > > suitable line detected")
-> > > Cc: Jakub Brnak <jbrnak@redhat.com>
-> > > Cc: Michael Petlan <mpetlan@redhat.com>
-> > > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> > > ---
-> > >   tools/perf/tests/shell/lib/probe_vfs_getname.sh | 2 +-
-> > >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-> > > b/tools/ perf/tests/shell/lib/probe_vfs_getname.sh
-> > > index 57a59ae7d4ae3d71..c091cd208beec056 100644
-> > > --- a/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-> > > +++ b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-> > > @@ -64,7 +64,7 @@ add_probe_vfs_getname() {
-> > >   }
-> > >   skip_if_no_debuginfo() {
-> > > -    add_probe_vfs_getname -v 2>&1 | grep -E -q "^(Failed to find
-> > > the path for the kernel|Debuginfo-analysis is not supported)|(file
-> > > has no debug information)" && return 2
-> > > +    add_probe_vfs_getname -v 2>&1 | grep -E -q "^(Failed to find
-> > > the path for the kernel|Debuginfo-analysis is not supported)|(file
-> > > has no debug information|Could not find probeable line)" && return 2
-> > >       return 1
-> > >   }
-> > 
-> > I was just about to send a fix for the same thing, but I had something
-> > slightly different. I think adding "Could not find probeable line"
-> > allows for false skips in the future even when debug symbols are
-> > present, like when that function was re-worked other times. And that
-> > seems to be what Sashiko mentions as well.
-> > 
-> > If you just try to do a dry run probe of getname_flags() which has
-> > always existed, then its a pretty stable equivalent for whether debug
-> > info exists or not:
-> > 
-> >    perf probe -n -v 'getname_flags $params' 2>&1 | grep -E -q "^(Failed
-> > to find the path for the kernel|Debuginfo-analysis is not supported)|
-> > (file has no debug information)" && return 2
-> > 
-> 
-> I included it here: https://lore.kernel.org/linux-perf-users/20261105-james-perf-test-fixes-v1-0-0b279bee5830@linaro.org/T/#t
 
-Thanks, looks good.
-Namhyung
 
