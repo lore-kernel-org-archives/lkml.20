@@ -1,103 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793923650;
-	b=FsbJGXMQ9ERB9d6yoWbQ1MLdC4IiwUuUbYDUesQV2zmdsYkUMkBrNPLAIlC2uOle91nu
-	 /ASOz2HmrqPiRg+HAKjgT8qv6E4kv11J3HXEncmo0qsFYJ2Ra8KilcqL6ODFoBtB5hnpa
-	 UDKz6ofeKrO40whAFQoEaoNtvjS1CKM9I1Ts+rkt698PHGdDpiudxn5As0rODRf74BXZK
-	 Rx0ZENo9lddlsTzolDh0R0EmcKh4uKR4URxbK0ZaBTJGhd4ZcgGKxTJMI4lx7ORRhpZ+1
-	 JTB01opXpKZZ1dwGm/Mcv9idFwjjX+xKIE7VcL0maMGxPNQmxKL9iPr5RL0MceKmfqg==
+	t=1793923820;
+	b=0uRqQpLZZePgN15cG7D3oFhiRlzkfkqtnixKZ3BKi9SqQv7MIHT1D/8TpXF8tPiXJ2cQ
+	 /YfihPL6PeeOtVKNQ+TaJFD/FkyQ8EQrF7KPrH4cqkdAjDBIMuEbMUnAat4PV7DgNBobz
+	 7UIKbK1kNkjS90JTJCJIt02mU7yGabDVwiAW9SWMU4YjC47vMXy5qv66B2kSttn8kpn5v
+	 Ni0+Gb8t2Qv1KIqM0BAvW/95fcAIN3W3xhcWKPjsyKesgTPRSLK44zUeomole/62+DNuY
+	 KCME6QlEEfDSzvTmOS3LImK1Fj+9hgXYoeY2WUKiWRBueYNGfPrhE7xMXI6tHGRKSEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793923650;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793923820;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yx9qdA7I7keZZm8UafgJgTm1z4N4QlAmh4J6h6T4bZg=;
-	b=Dpact0oF69sB8pa7IoqKKLIM0NzTktNn6epCWKwtADMNakpIueTdakUPU7PpoaLWxPbs
-	 Ge4Kv0jFAlot1/uYf7wELF4w35ZebXRcJ5AusGmR/BDBgbhBWgvtXu2B4VpreMaL9qEBj
-	 PKO+JT4ylDybqAZyJ+Xdv443fEOvN6SGz14dwUF4Go0X6wQpw1Tpvri3dwznQcXjGQVPA
-	 Grr+fXhZmKfWjGxswnY7mrl4ZqAcfCn8OaMf9vyqStBa9bQUZc/uBMOJq7TUpxolp+PBi
-	 hYUA0Xhe1k3+Hn4c57HtAbzU5hgRT00/nroHPy/ceyPhpbksmnJaZb4r5kdgnlbOagg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=SDEIjTL/pMuP5OvwnL/SS4lozZwfHuBubfkoJhtRSRk=;
+	b=i19NFNBykPaL5ff3PKYKoNR3VCv+h0wcNuS4ezSJkajf04YT6pWDJnNXmo5LUg5N7ppV
+	 EIsO/bKZcoHZNtx+QjNiWQF4CeMaGVysEN+xlQRjUVvkN1vcjmG9GMI7ukrkgW4QLp8YZ
+	 LMfslAJGC5p/uFU0sT1tS6VXvQ/hUOvouR7aIY0I9ifjjwTx5/De58nox2U6znbEnMC80
+	 uJOcWvfsUizWxWt52LE1REl9GoxzvFVm2xM6PVEWUcWmXcY1Uf4ie6uji9HtRz/t4pc9P
+	 vLzaqCupD21yG4/rs0tJB1X/it/l59PcfuyLz5i4h4UAp865d7PDEOxnsw3+6GJ+gTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EJ3orVT0;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gzj285x0;
+	arc=none smtp.remote-ip=74.125.229.9
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6F8606D817
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:07:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B6F8606D817
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181E0606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:10:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 181E0606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EJ3orVT0
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso137831eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:07:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gzj285x0
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-3678f64d078so97237eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:10:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793923649; x=1794528449; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yx9qdA7I7keZZm8UafgJgTm1z4N4QlAmh4J6h6T4bZg=;
-        b=EJ3orVT0lSr5+QEqDFmgmshDZGEl5+IkiNLUmMz6fPT/aQ+d4KSwj1qZwKWMftKpAm
-         +Q3R7BfT+9TbXqv47RlK+WEcrwEYwqMrNghm/xNUgWZUQDnlNfnSmPrMV0GAFQCHNbRi
-         SHQpIa3V3cxRvxR0C2cYa4sSWl4dJAsoBvBrgWV6gtDbIIrGbzGO1x0Ejl75dBlQuJej
-         ahaT1mdKuDVSS7JSoLX0cNSvN1s7ECCJIcv7ZQNUYFvEmCEPrhr6xQOy51Op+5KYkSEE
-         glgi6ji9QUjuS4qsC5lAwWTlUwGTCMzryHTDjPw63OxSEURKC+xoy/c6xpCSJ6ztfx6s
-         qKHw==
+        d=gmail.com; s=20260707; t=1793923819; x=1794528619; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SDEIjTL/pMuP5OvwnL/SS4lozZwfHuBubfkoJhtRSRk=;
+        b=Gzj285x0Dq3SfXCUBvJM9YvixG8v7TKNssxgoLlOcEEf/hXz9q9HWnf4Li4EB2Qf2g
+         Do2vOeXKc3/+lWknu7wCvz8X+K7Sodbha5oeDiZVIRghxfZWo7ePdAqDprNYezN4zx1A
+         L2ceWDGOaLWpdvtV2RAD0C0AYrkKEvo1xYnuzCcHjdfeUS3abPJ95e10z7Mwk+m4lOSV
+         wBRiTlD8+Bg23QBf/0nCXa3jwB6JqyjDqfed7Swp5q+LeURrOapUMJAPeFYWjle2rQ+q
+         jwJQhXzAI63hfb7vKzHMc5B3OfzWmbPFVZmSUKW5zJ3zAm/09rngB4WYdF1EIAZmHbk3
+         n+UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793923649; x=1794528449;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yx9qdA7I7keZZm8UafgJgTm1z4N4QlAmh4J6h6T4bZg=;
-        b=ITK3A81iVpCBHuccaCaHFBDURdUIZhP25QenDWDcSyseR9dFSW5NK5zGSY1A6d5Ova
-         T8p9E+H/HbP5neMMZ2aAjN8O6Lr+4lwEXT+11Wwhq7eehAWjPnCxAEB9iPxnuh6o2ynm
-         4k6pcJaYd49PIBcgHcP+yRh4BXnp1v3FBrLKW0BBxroaG/RnyclR01Yz9cYSfFXta3rf
-         dvyWJIOO03tFcFqbmsbsoDfNNmfMvFwxUahcEuR5M7xou6qMM5xV9c244V7NEKokdejm
-         R4AnrPbRjVgLNS3U2BnwVvHhLHNRSYBaBv6Ii+I3L9o/xJUFM0ct2Vqgd6Fbw1TcSMZ1
-         A2XA==
-X-Forwarded-Encrypted: i=1; AKwUvByhjKjrBKa+x8t73E9LCkOQAGhtg4iMQ80LZ+1ygEfckQU4LiksGE18Ed6iAc1ZTsgFpIgmBICGTFdX8QQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/X2ryYJmZ6MdZH35NGAgsnpHVsdrVkVq9Vkd8eEUGsamHcISgo
-	Tcx8nKW9aPMBDH6JdCJ8CcSdZayxblC4C7yIPb3MwSHSODY8Px6NL49R
-X-Gm-Gg: AYBFou2Es56DLX5AD5XQ/lhRecgND+xE+iajWc9GfhBCLdEywn5nDpQ1HYIdUDhZVjA
-	og0uLI9EhPzc0WrnfUxO/xQbyaWuJhtTNyPRpGbkhS5dkLOSSg1vdpYFlH3mddAdAkWdOYYN5mx
-	APDSSw2w14ONzxR7ixP7lm5hWzbxvQh6Gh8raAlYz6r9YjlgGjL33Uw5p6NUUl/x+pROUPxbLgl
-	EUJe1EanozzpqXP3DtzwYVBUDBzvWjKKD5LT1a5SoSytgQKSqe7rR1rTbHXR/2o4+P9HpX0WtAR
-	YCIt5LbdPH5wXXkdIZ1L8MZezuHtxMmI/dtexMDEFO/wsGh7pTMnc6Oyr7+jI6cbokVx5xtg4Ca
-	iiRRlx+3p2shKBR0fqKdM+iRmXkOgAHo7WvV5aV7dR/tFHubcGuDZubsLQu4BtsaEF+fccDKsui
-	3IL5BG9VvxN5SwrUyoAx/XpU0jgskEh8w06NjbcWq6sVSnKcn3gGtS86cIDMiUDz6FezaCCYpWQ
-	Q2XzrPj6AvFWmr93pmVKQZK0F1n5B6YjP5HEFA1XbgqyHvUmgLdElXvrdhF2I1SkO8Iwi38trwZ
-	sNyYY85tzgbm9nyyLl07tmDSwaMGeO43MeZdgtQ1weZsPidf0GiwDeWbg8ixzXdBOzLZb5CiS07
-	Q3v8WKXY6PGVVgMjdyi0a8F/T8+LF3p9/QwevhKpcL5AX/nQ=
-X-Received: by 2002:a05:7022:1306:b0:1b2:44b3:8ed2 with SMTP id a92af1059eb24-1b25d373302mr766303c88.42.1793923649075;
-        Thu, 05 Nov 2026 16:07:29 -0800 (PST)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4e079esm371165c88.19.2026.11.05.16.07.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 05 Nov 2026 16:07:28 -0800 (PST)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v18 12/12] docs: describe virtio-sound capture options
-Date: Fri,  6 Nov 2026 09:06:44 +0900
-Message-ID: <20261106000644.20460-13-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261106000644.20460-1-mynameisjune111@gmail.com>
-References: <20261106000644.20460-1-mynameisjune111@gmail.com>
+        d=1e100.net; s=20260707; t=1793923819; x=1794528619;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SDEIjTL/pMuP5OvwnL/SS4lozZwfHuBubfkoJhtRSRk=;
+        b=CnP/z1CfZJ9RM2LiN+kYIwpy5cW+lNllpSPqLHwOC851J8rE6VgPTQpUl8o6S7DErp
+         Jh5R9ziUr5O2iZTiQKGrh463DwTYj5G4ztmBc1bc8QWn3ClwAXghHrD6XBDPrxxOnCx7
+         fICukb95LWrcw1Lfyp9xEfqKIaEN388th15HdyziFbiGYO0kXjAcoSXjBX0Qze/CSdZJ
+         try93G6Vh3SmxedzxcXr1xKHUTp7MBHwAL2H/FQXQC4D+O6N/tRbUgJKtMqeuJMNkThg
+         5DeUW1lBVLeP/YZ/U/ZngaiB5pB8rQ8JR7Vh/WkzkHM430EJtcsxU3d0Jb2gMnJLPCL6
+         8IqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQvMwhLb6MiYfjagumtczYNXqD2wVQ4t3yJa5fEXo5YOlx03YjpFdw74Yh+4tqtyiU/TjX0htG6OvwxdU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/y25DscPurE7LfJSmQjoxCBNPo6i8pGOT+NyIMTBoyJjrH8HIr
+	VoHH5ElQsD2UuCKd0FTlEBRbJoDyZJnqyIGhrYpL9JUnJAanhUR3cM9WpCUaHXUrFRg=
+X-Gm-Gg: AYBFou0SnfUfRtn2mo93GncPjnhqwJnfnKT3Q1S084Gl94oUj/t02YKvDH/k/bmMICK
+	j0OLdQ7A4IW+mpO3RyDlIM+lYqnirGhtX6RtefvjvD6rTD7seyQAc1STdz4/JpVdtnfP4hylbi6
+	v++qXkfhU6J50WVLiv3BF3PiFLSiEOHEuh76sEcDK3IJJGauZzZ4+I9Hih/E1OsKN40VdZq3RuK
+	UsE/Y3M9CsesPDmXGFs5l/RwbR7/oW4FGwqOmmnvE9Y+6j5rTKGjc/ShIkqSzHpagNJeerdX8r+
+	az9hz15RmTSohLFO/+EorBUKWEITBFRXy78Glv28W+Th1e3NQo0KXXxj6z1eAntY/mhh/ewZIS9
+	iwI/DQ9ehwoTRYhnhdmG/pInter4+hjLecGqbalX/KekNbxRQutWCizPecTopoZoEjqZpoyqw5u
+	C7ufpim3TR+mPo5Ajz+KYuIJfsnJodM7BQFP+G3mRPfwippINeFokRpvI5uQ2nVmo0/36xP12E6
+	v7ffQ9Z6xfn3ljYMhlP14pjkD4Bw8x72HeIA001b46H10h60xN8CvlfbgLwJdvXoYjRFgBxA3ZP
+	MjrYNYZaN5bZCPqFSiWmNQ==
+X-Received: by 2002:a05:693c:8843:b0:351:207d:bff4 with SMTP id 5a478bee46e88-36f72cc18dcmr1071728eec.4.1793923818875;
+        Thu, 05 Nov 2026 16:10:18 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:74::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa4b8aacsm681858eec.23.2026.11.05.16.10.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 16:10:18 -0800 (PST)
+Date: Thu, 5 Nov 2026 16:10:13 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, David Wei <dw@davidwei.uk>
+Subject: Re: [PATCH net-next v1 3/4] net: devmem: support leased queues on
+ netdev unregister
+Message-ID: <au0aYjNLRjagTLEA@devvm16445.scu0.facebook.com>
+References: <20261103232659.1340283-1-almasrymina@google.com>
+ <20261103232659.1340283-4-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,54 +102,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103232659.1340283-4-almasrymina@google.com>
 
-Document the five opt-in virtio_snd capture module parameters. State
-that capture_allow_empty, capture_allow_short, capture_packed_status and
-capture_pause_restart require capture_staging, and use the ALSA kernel
-parameter restriction tag for each entry.
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+On 11/03, Mina Almasry wrote:
+> Previously, bind_dev was only populated when bind-tx was called on a
+> virtual netdev (where map_dev != netdev), and leased RX bindings stored
+> the virtual netdev in map_dev without tracking the physical backing
+> netdev at all. Unregistering either the virtual device or the physical
+> backing device while a leased RX or TX devmem binding was active failed
+> to detach the dma-buf cleanly.
+> 
+> Always populate both device pointers on struct
+> net_devmem_dmabuf_binding:
+> - map_dev: the physical net_device whose dma_dev holds the DMA mapping
+>   (resolved from leased RX queues in netdev_nl_get_dma_dev(), with its
+>   netdev_lock held across net_devmem_bind_dmabuf()).
+> - bind_dev: the net_device the user called bind-rx or bind-tx on (equal
+>   to map_dev for direct bindings, or the virtual device for leased
+>   bindings).
+> 
+> With both pointers tracked on all bindings, handle socket teardown,
+> queue uninstall, and netdev unregistration in either order (bind_dev
+> first or map_dev first):
+> - Lock &binding->bind_dev during socket teardown in
+>   netdev_nl_sock_priv_destroy(), close and erase bound_rxqs via
+>   binding->bind_dev in net_devmem_unbind_dmabuf(), and require
+>   binding->map_dev to remain non-NULL in net_devmem_get_binding().
+> - Clear binding->bind_dev in mp_dmabuf_devmem_uninstall() once
+>   bound_rxqs is empty, leaving unleased bindings mapped until the
+>   binding is freed or map_dev is unregistered.
+> - In net_devmem_dev_unregister(dev), if binding->bind_dev == dev, clear
+>   NET_DEVMEM_BINDING_LIVE and clear binding->bind_dev if bound_rxqs is
+>   empty or dev is not a queue leasee; if binding->map_dev == dev, clear
+>   NET_DEVMEM_BINDING_LIVE, unmap the dmabuf, and clear binding->map_dev.
+> - Reject new bindings and RX queue opens in net_devmem_bind_dmabuf() and
+>   __netif_mp_open_rxq() if bind_dev or map_dev is no longer
+>   NETREG_REGISTERED.
+> 
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> ---
+>  net/core/devmem.c          | 85 +++++++++++++++++++++-----------------
+>  net/core/devmem.h          |  8 ++--
+>  net/core/netdev-genl.c     | 33 ++++++++++-----
+>  net/core/netdev_rx_queue.c |  5 +++
+>  4 files changed, 79 insertions(+), 52 deletions(-)
+> 
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index 6446355e787d4..1d6b89f196e02 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+> @@ -86,7 +86,7 @@ net_devmem_dmabuf_binding_unmap(struct net_devmem_dmabuf_binding *binding)
+>  
+>  /**
+>   * net_devmem_lock_dev() - lock a binding's net_device pointer if still alive
+> - * @dev_ptr:		pointer to the net_device field on a devmem binding
+> + * @dev_ptr:		pointer to &binding->map_dev or &binding->bind_dev
+>   * @dev_tracker:	reftracker for the held net_device reference
+>   *
+>   * Safely dereference @dev_ptr, acquire netdev_lock() on the device, and
+> @@ -95,17 +95,18 @@ net_devmem_dmabuf_binding_unmap(struct net_devmem_dmabuf_binding *binding)
+>   * Invariant: *@dev_ptr is set once at bind time and is only ever cleared to
+>   * NULL while holding netdev_lock() on that device (in
+>   * mp_dmabuf_devmem_uninstall(), net_devmem_unbind_dmabuf(), or
+> - * net_devmem_dev_unregister() during NETDEV_UNREGISTER before
+> - * synchronize_net() and netdev_run_todo() free the net_device).
+> + * net_devmem_dev_unregister(), all before synchronize_net() and
+> + * netdev_run_todo() free the net_device).
+>   *
+>   * Taking rcu_read_lock() guarantees that a non-NULL device read from
+>   * *@dev_ptr has not yet completed unregister_netdevice_many_notify()
+>   * (which waits for an RCU grace period via synchronize_net() after
+> - * NETDEV_UNREGISTER before freeing the net_device), so netdev_hold() can
+> - * safely acquire a reference before sleeping on netdev_lock(). Once
+> - * netdev_lock() is held, re-checking that READ_ONCE(*dev_ptr) == dev
+> - * guarantees that the device has not yet been detached from the binding and
+> - * cannot finish unregistering until net_devmem_unlock_dev().
+> + * NETDEV_UNREGISTER and ndo_uninit before freeing the net_device), so
+> + * netdev_hold() can safely acquire a reference before sleeping on
+> + * netdev_lock(). Once netdev_lock() is held, re-checking that
+> + * READ_ONCE(*dev_ptr) == dev guarantees that the device has not yet been
+> + * detached from the binding and cannot finish unregistering until
+> + * net_devmem_unlock_dev().
+>   *
+>   * Return: The locked and held net_device if *@dev_ptr is still non-NULL,
+>   * or NULL if already cleared.
+> @@ -219,22 +220,24 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  	if (binding->list.next)
+>  		list_del(&binding->list);
+>  
+> -	xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
+> -		const struct pp_memory_provider_params mp_params = {
+> -			.mp_priv	= binding,
+> -			.mp_ops		= &dmabuf_devmem_ops,
+> -		};
+> +	if (binding->bind_dev) {
+> +		xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
+> +			const struct pp_memory_provider_params mp_params = {
+> +				.mp_priv	= binding,
+> +				.mp_ops		= &dmabuf_devmem_ops,
+> +			};
+>  
+> -		rxq_idx = get_netdev_rx_queue_index(rxq);
+> +			xa_erase(&binding->bound_rxqs, xa_idx);
 
----
-Documentation/admin-guide/kernel-parameters.txt |   29 +++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+What's the reason we start xa_erase'ing here?
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -8344,6 +8344,35 @@
- 
- 			Can be used multiple times for multiple devices.
- 
-+	virtio_snd.capture_allow_empty= [HW,ALSA]
-+			Retry a bounded number of empty startup capture replies
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_allow_short= [HW,ALSA]
-+			Accept non-empty, frame-aligned short capture replies
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_packed_status= [HW,ALSA]
-+			Read status immediately after the returned capture data
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_pause_restart= [HW,ALSA]
-+			Release and reprepare capture streams across pause when
-+			virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_staging= [HW,ALSA]
-+			Enable staged capture using request-owned buffers.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
- 	vga=		[BOOT,X86-32] Select a particular video mode
- 			See Documentation/arch/x86/boot.rst and
- 			Documentation/admin-guide/svga.rst.
+> +			rxq_idx = get_netdev_rx_queue_index(rxq);
+>  
+> -		if (netif_mp_close_rxq(binding->map_dev, rxq_idx, &mp_params))
+> -			busy = true;
+> -	}
+> +			if (netif_mp_close_rxq(binding->bind_dev, rxq_idx,
+> +					       &mp_params))
+> +				busy = true;
+> +		}
+>  
+> -	if (binding->direction == DMA_FROM_DEVICE && binding->map_dev &&
+> -	    !busy) {
+> -		net_devmem_dmabuf_binding_unmap(binding);
+> -		WRITE_ONCE(binding->map_dev, NULL);
+> +		if (binding->direction == DMA_FROM_DEVICE && !busy)
+> +			net_devmem_dmabuf_binding_unmap(binding);
+> +		WRITE_ONCE(binding->bind_dev, NULL);
+>  	}
+>  
+>  	percpu_ref_kill(&binding->ref);
+> @@ -252,24 +255,20 @@ void net_devmem_dev_unregister(struct net_device *dev)
+>  
+>  	xa_lock(&net_devmem_dmabuf_bindings);
+>  	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> -		if (binding->direction == DMA_FROM_DEVICE) {
+> -			if (READ_ONCE(binding->map_dev) != dev ||
+> -			    xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> -					NET_DEVMEM_BINDING_LIVE))
+> -				continue;
+> -		} else {
+> -			if (READ_ONCE(binding->bind_dev) == dev)
+> -				WRITE_ONCE(binding->bind_dev, NULL);
+> -			if (READ_ONCE(binding->map_dev) != dev)
+> -				continue;
+> -			WRITE_ONCE(binding->bind_dev, NULL);
+> +		if (READ_ONCE(binding->bind_dev) == dev) {
+>  			__xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
+>  					NET_DEVMEM_BINDING_LIVE);
+> +			if (xa_empty(&binding->bound_rxqs) ||
+> +			    !netif_is_queue_leasee(dev))
+> +				WRITE_ONCE(binding->bind_dev, NULL);
+>  		}
+> +		if (READ_ONCE(binding->map_dev) != dev)
+> +			continue;
+>  
+> +		__xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +				NET_DEVMEM_BINDING_LIVE);
+>  		xa_unlock(&net_devmem_dmabuf_bindings);
+> -		if (!netif_is_queue_leasee(dev))
+> -			net_devmem_dmabuf_binding_unmap(binding);
+> +		net_devmem_dmabuf_binding_unmap(binding);
+>  		xa_lock(&net_devmem_dmabuf_bindings);
+>  		WRITE_ONCE(binding->map_dev, NULL);
+>  	}
+> @@ -324,6 +323,15 @@ net_devmem_bind_dmabuf(struct net_device *map_dev,
+>  	size_t i;
+>  	long err;
+>  
+> +	netdev_assert_locked(bind_dev);
+> +	netdev_assert_locked(map_dev);
+> +
+
+[..]
+
+> +	if (bind_dev->reg_state != NETREG_REGISTERED ||
+> +	    map_dev->reg_state != NETREG_REGISTERED) {
+> +		NL_SET_ERR_MSG(extack, "Device is being unregistered");
+> +		return ERR_PTR(-ENODEV);
+> +	}
+
+I saw Dragos asking about these, I'm confused as well on why we need them.
+
+> +
+>  	if (!dma_dev) {
+>  		NL_SET_ERR_MSG(extack, "Device doesn't support DMA");
+>  		return ERR_PTR(-EOPNOTSUPP);
+> @@ -560,9 +568,9 @@ struct net_devmem_dmabuf_binding *net_devmem_get_binding(struct sock *sk,
+>  	 * net_device.
+>  	 */
+>  	dst_dev = dst_dev_rcu(dst);
+> -	if (unlikely(!dst_dev) ||
+> -	    unlikely(dst_dev != READ_ONCE(binding->map_dev) &&
+> -		     dst_dev != READ_ONCE(binding->bind_dev))) {
+> +	if (unlikely(!dst_dev || !READ_ONCE(binding->map_dev) ||
+> +		     (dst_dev != READ_ONCE(binding->map_dev) &&
+> +		      dst_dev != READ_ONCE(binding->bind_dev)))) {
+
+Now we READ_ONCE(map_dev) twice? Time to add a map_dev var and do it once?
