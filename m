@@ -1,55 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.91
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950976;
-	b=QQHyK8cj6XU2eMSrxRlvYX32wo4ldomhiCxvb0uf5zqgmHAO5Tld8fSmPMcmr4R9Kv3F
-	 lc5ho0awLNJU8ml2U9iwpixFtuqQRXhkBaKW3XTNkX+HxMQGvvBvQi77JNY/nGJMH5FE8
-	 Vtqax8mO9J7i9qT968urB6H8MWG6JtaomH3scWdn9lnW9U7X44plsn2Bg/x47yYhA7i9i
-	 2sbWxtAfZROLgRjGdk39Gq/FX72UzOVGBh3cv/z4uuQkJn06m1wj/s9WtBgiMxuMBOQyn
-	 wYKzFt0FUax5cVttn97a8EY4lW+6ZoLp8d4/68iRVa3WSl0AArQrIRlwxCSLXtZ5ATg==
+	t=1793950983;
+	b=r375ThZXGF0QCA1oscewKLLcd2Lgjq/ZLX9ICG7eA3ymDskmHyeG31kh4JgoSC8Fch0N
+	 HxGFPwNZq+8nRPNIDVtoeVzvPY0deX/rkgEAarliyQup2I0AH9E26KoGThq+sN86Fn4Hi
+	 LSeGFGrJVyJF4h5k+ZjvIK+jmfLKLfATA+bMJ9k5gGZhank6gUfe5L3IEN4NAc/v7eoJd
+	 sx2mL6VKTz2aYLz8PJHCyL8CYkN15PIXGsbeTIPE+xMdIPPlc17aR0VEINBdxjRG30x8h
+	 ZDGo/YgtIGBLVpAiR4OsUh0MutOe61trqgoiAY696XTuV6xmsLa7Ad2r9/qSGVF0eXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950976;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=vYHgODIRXT82/HAf7og9CYq0G6pHmdVrUA1/tXPjYjQ=;
-	b=emnpgV/nTv00GNLHqD3ueBypsYP9wewIRTNNlH247ho2FYLoCZxLQaQ/aU8oeoAWPwty
-	 YQ+KQgBV4ovAybxAVzWa0vgMCdLfa1AAnRUze2/8N4XhpRaNmi20VSZovxf66snyWRI4a
-	 zNQGM2D/F68ikVh5kLwJ7bo3zr+RJGZ3f4tqQ7hHnD7I6t7VRMrX9VhxVdL6kb76HXyRS
-	 6YDEhsBroIdpoHt5q5Pmu8+ycsvbkVWMOJ4fVUkBiOMdQ59L99TKC1m7MehBjNoUQYvlP
-	 5DsvHXakxSIepQ/fLh5uGr3Jv8h8gVGW2cQEarEcorq1bxGDY7j2ABvAjR3YbbuH6Eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950983;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=J6SE0s1+Cmv2tEQyGLs4E7WejNQSVW6EagB3ds9ygbQ=;
+	b=g6te4CgjX1lHIrTNF5VdXPfVEqrfFDq9KUngOpj9qo0hXm+f6gSLbRzU/mluPXJG3/4t
+	 HcoNHU6ElIG1Z6GkRmOqMu7GmMyWnxzfHWI2Z3KsL0Mp+umxMEwWj3aeFxnQeY/RkKXdM
+	 GF8AYJnU/lIknUztrbWeIL2FM3+bjGyrpl0+mGQ+OsNGusGSNyQMatwOlcvM42ggM2gkl
+	 H2WzyE7hsCVqOqQD8+7uXWK2JRmAUXsZIeCDKkUP7AAyI770Qqv8TtiuiouK69g7VijCm
+	 bEIp4w9Wm8dOqUo77sN5hn7xIkw9IGF5ku1wsh5X1oIJQ/sNbJrDYEkXNGTw/qfJMtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fxlM84s3;
+	arc=none smtp.remote-ip=95.215.58.91
+Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7572606A328;
-	Fri,  6 Nov 2026 07:42:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7572606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jLWP76sc4z8Xrrf;
-	Fri, 06 Nov 2026 15:42:51 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6A67glBN013372;
-	Fri, 6 Nov 2026 15:42:47 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 6 Nov 2026 15:42:49 +0800 (CST)
-X-Zmail-TransId: 2afa6aed84f9028-1b238
-X-Mailer: Zmail v1.0
-Message-ID: <20261106154249022eo5VZDXUxlkDh8AvV93iA@zte.com.cn>
-In-Reply-To: <36444b01-a31f-4ca0-bbd9-49c83d045965@acm.org>
-References: 20261105193338195knvPnRIVc5cwFpUvGK9yw@zte.com.cn,36444b01-a31f-4ca0-bbd9-49c83d045965@acm.org
-Date: Fri, 6 Nov 2026 15:42:49 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68A3606A336
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:42:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D68A3606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fxlM84s3
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PtWTq6nqlzK8T9nMNNfK0YJy8biQ9MHHy5p7qGOpMUs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793950976; v=1; x=1794555776;
+ b=fxlM84s3hCVbROs1wu/ZRrH3w7L69J3djc8r82NKL7XgHLF5bsQqxKfWQvDSAP9wYLmdAde1
+ mu24woVL/EN8rZQZureXL4U5hLrUQUpSNqcu/ZfylUSqhhED8b7JJPf3XOGbxNYP4nyzo0wgtdF
+ e3L8oaGdTF4l+D2Ofihjjuv4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 9c50986a3e384fa4;
+	Fri, 06 Nov 2026 07:42:54 +0000
+X-Mizu-Trace-ID: 9c50986a3e384fa4
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 6 Nov 2026 15:42:19 +0800
+From: "Xu Xin (vivo)" <xu.xin@linux.dev>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+	Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Pedro Falcato <pfalcato@suse.de>, Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>,
+	SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>,
+	David Rientjes <rientjes@google.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	John Johansen <john.johansen@canonical.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org, damon@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
+	linux-integrity@vger.kernel.org, selinux@vger.kernel.org
+Subject: Re: [PATCH 06/13] mm/ksm: convert VMA flag tests to use vma_flags_t
+Message-ID: <au2E2/Q3yQacg5pk@dgvxl46587.localhost.localdomain>
+References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
+ <20261105-late-2026-vma-flags-v1-6-0d3cd15ab75f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,32 +128,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <bvanassche@acm.org>, <mkp@kernel.org>, <linux-scsi@vger.kernel.org>
-Cc: <James.Bottomley@HansenPartnership.com>, <alim.akhtar@samsung.com>,
-        <beanhuo@micron.com>, <stanleyjhu@google.com>, <loberman@redhat.com>,
-        <jmeneghi@redhat.com>, <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCA0LzVdIHNjc2k6IHNkOiBkcm9wIHRoZSBkZWFkIC1FT1ZFUkZMT1cgYnJhbmNoZXM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A67glBN013372
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 06 Nov 2026 15:42:51 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AED84FB.006/4jLWP76sc4z8Xrrf
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-late-2026-vma-flags-v1-6-0d3cd15ab75f@kernel.org>
 
-On 11/5/26 09:20, Bart Van Assche wrote:
-> Please mention in the patch description which commit removed the
-> -EOVERFLOW return statements, e.g. as follows: "Commit 72deb455b5ec
-> ("block: remove CONFIG_LBDAF") removed the last -EOVERFLOW return
-> statements from read_capacity_10() and read_capacity_16()."
+On Thu, Nov 05, 2026 at 09:30:57PM +0000, Lorenzo Stoakes (ARM) wrote:
+> Replace use of the legacy vm_flags_t flags with vma_flags_t values where
+> KSM tests VMA flags directly.
+> 
+> The ksm_madvise() interface continues to take legacy flags for the time
+> being.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  mm/ksm.c | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
 
-Agreed, I will use that wording.  I checked 72deb455b5ec in the tree: it
-removes the two -EOVERFLOW returns and neither function returns that value
-any more.
+LGTM! Thanks!
 
-Thanks,
-Shao
+Reviewed-by: Xu Xin (vivo) <xu.xin@linux.dev>
+
+> 
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index d6f736a1aa2f..61b772bba229 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -779,7 +779,7 @@ static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
+>  	if (ksm_test_exit(mm))
+>  		return NULL;
+>  	vma = vma_lookup(mm, addr);
+> -	if (!vma || !(vma->vm_flags & VM_MERGEABLE) || !vma_has_anon_rmap(vma))
+> +	if (!vma || !vma_test(vma, VMA_MERGEABLE_BIT) || !vma_has_anon_rmap(vma))
+>  		return NULL;
+>  	return vma;
+>  }
+> @@ -1243,7 +1243,8 @@ static int unmerge_and_remove_all_rmap_items(void)
+>  			goto mm_exiting;
+>  
+>  		for_each_vma(vmi, vma) {
+> -			if (!(vma->vm_flags & VM_MERGEABLE) || !vma_has_anon_rmap(vma))
+> +			if (!vma_test(vma, VMA_MERGEABLE_BIT) ||
+> +			    !vma_has_anon_rmap(vma))
+>  				continue;
+>  			err = break_ksm(vma, vma->vm_start, vma->vm_end, false);
+>  			if (err)
+> @@ -2698,7 +2699,7 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+>  		goto no_vmas;
+>  
+>  	for_each_vma(vmi, vma) {
+> -		if (!(vma->vm_flags & VM_MERGEABLE))
+> +		if (!vma_test(vma, VMA_MERGEABLE_BIT))
+>  			continue;
+>  		if (ksm_scan.address < vma->vm_start)
+>  			ksm_scan.address = vma->vm_start;
+> @@ -2890,7 +2891,7 @@ static int __ksm_del_vma(struct vm_area_struct *vma)
+>  {
+>  	int err;
+>  
+> -	if (!(vma->vm_flags & VM_MERGEABLE))
+> +	if (!vma_test(vma, VMA_MERGEABLE_BIT))
+>  		return 0;
+>  
+>  	if (vma_has_anon_rmap(vma)) {
+> @@ -3027,7 +3028,7 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+>  
+>  	switch (advice) {
+>  	case MADV_MERGEABLE:
+> -		if (vma->vm_flags & VM_MERGEABLE)
+> +		if (vma_test(vma, VMA_MERGEABLE_BIT))
+>  			return 0;
+>  		if (!vma_ksm_compatible(vma))
+>  			return 0;
+> @@ -3484,7 +3485,7 @@ bool ksm_process_mergeable(struct mm_struct *mm)
+>  	mmap_assert_locked(mm);
+>  	VMA_ITERATOR(vmi, mm, 0);
+>  	for_each_vma(vmi, vma)
+> -		if (vma->vm_flags & VM_MERGEABLE)
+> +		if (vma_test(vma, VMA_MERGEABLE_BIT))
+>  			return true;
+>  
+>  	return false;
+> 
+> -- 
+> 2.56.0
+> 
