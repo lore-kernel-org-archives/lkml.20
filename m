@@ -1,120 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.227
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957785;
-	b=o5zNYbTObkPHIEslgU+keRk7uu51RES4nsR97ZfmP3wxSqUGfJP0N7ZtiPsxIlqFDSzw
-	 ARaky986vPpv3//WR/mrTGi2wfr6HzsvHvyaCXYAmk5S8AcU+93kDU440C8lzuvARzMU5
-	 jYstXbk99LDoHN5YLxEvr+QLsy+WfG/UsjZoGV4ZQZcNcA+r+O7WJiLDjnDrt4HtIUNkF
-	 /8pH08AaGgWpge6y5HKBKhpVLS4q4I3qp2Le5KlEA+veSx2ZR66VzuWJv8H0pAPocJ+N2
-	 rXAQjpT6toxRefuP/hElqSRnhf7JGb6r1Ys1NLL0jtcbZqzDReUQrGY43Ov0A8dBAFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957785;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=j9kh7vUZQyvUjZW3HYIBQs/m58THhOgym6wQsE4/qN4=;
-	b=u1mdYjM6DvNYizsLtf82TKZH652hsOP2NmRePYfpWZRE0OmOwLv90WmO01g6UPefN38T
-	 +80rDRIgXKZThUBEfZcoPcp+/o8J3YWlOJUi7i3H8m49D1xsEbZLBwSCw76gIFKx80PlG
-	 kJXK2YVrqa64kTU/5HOUcLOrkA+aDUhseO3+MyZ+rg+IBxMSbVC0hwpHkvuoG98WsiApS
-	 FjSA6YBryG/4P697qahCD8xybNcksGLY+pBqb69O88U8C3zsl+NXgtKua9u95plVrvLBa
-	 v2Iz0MGfi0qabfgh9FXTZ7iQeFbd8SLEl6HLnAaXIr6LN70Zy4sJFul57aj/NsRms6A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EtQs3AYC;
-	arc=none smtp.remote-ip=209.85.214.227
-Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com [209.85.214.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793957827;
+	b=UIhmfIuiUq7Ce9jNTVl/1AP9/OqTBWjEdxAaVLSqFWUY3nEkoBU/yowd3H5FuhrCQWpx
+	 hF9hnvo0Gh8zQdww6r83/yA7C4sQPWriM/Hh4YN+w9DFDVEl2ZlrWKbEjD4B4nCP52WCP
+	 jQ+R75YNKSDeZAzYJcWiPfEMJlgijTsJXZ1JeQflM7os2itsZZbRo4MD3MaFnz98t019B
+	 Me+fqezsarqZTXxO/tfU7qlAd/3kWx7vZh/v+UIY6vEsIOocOgFbik2rcN6Br34Bjiu5j
+	 D2l2NwqNWF5tDwPV/82BaF7rHZC2rLGhZVif408zd2pZNhb9z4OWCe2Xwtdeo7cjewA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957827;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Reason;
+	bh=NPf/baIQF/TRBGCG2auYE17eN8KZ9++FDuWYe6HcsfE=;
+	b=Bbgav24Pt/xlFdlsgz3zUS/7UQbmnA9tTspS1pNE/4Hcp4lwwcuPwEW5dK0832aql/UA
+	 61YpBahkOvVTOuRaXd/LHs3HerIxAQV5dhmiDxWOd4xKl8QJwAnbOgjEaarPZEosHv/h1
+	 /SuLVLUmiJE2kdyNcP8tbIkGE9Fjp8w8L1abmBNdUxbUNdwe2/iwYz7PO+9lgmBn3kcvE
+	 Q1Eaa7+adFAkO2C1KmJP0JfmafytJLLTuj0pdSTgkTX/uN5+PX2PrGOdY4T2sOlJmanUr
+	 2/57QxxSLnyaExyrNXtIKIfjIDd68NzuZ+iiGi/1CwtYeKd8ESOvwEzAYkxl0F1itqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opensource.cirrus.com;
+	spf=pass smtp.mailfrom=opensource.cirrus.com;
+	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=MlNBOapU;
+	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=LSlLHJ1f;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E31606A92D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:36:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86E31606A92D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0104F606A330;
+	Fri,  6 Nov 2026 09:37:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0104F606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=EtQs3AYC
-Received: by mail-pl1-f227.google.com with SMTP id d9443c01a7336-2e95bd1c14cso3761495ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:36:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793957784; x=1794562584;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j9kh7vUZQyvUjZW3HYIBQs/m58THhOgym6wQsE4/qN4=;
-        b=KC7gMXa1rqYhRAvCKOEbvffen4WfmG8hkBUmtOfikyUpXof81C/dofXHiXKtsrnmLw
-         NcO6EW9IlyJA3tfkTsjjij4v1QHCNSuwFzjqrU0rEiG2AeykoslsLUcUoKsiyQZAEx1J
-         pVtKg+ouHPJyb5dF1HnfGU7NPI6mjoS1chkKA5ic2cNV4fR5ZKQWmhkzUgPsgMOwQGun
-         ChuQ4EU4dIw2RpFoqEHoq/CyJDLpLsTH6+th1WombAQC95Mnf3jBFpTkJv0qLzOgeHrp
-         vI645IjaVJX2IV3VU/PLbyyX1UWsYUQtRJUAWzvTTIXkhmj4Vk8f0PRhe6KI0QliBF+w
-         h8zQ==
-X-Forwarded-Encrypted: i=1; AL+hErH8iIT4q02rzobV5g6FA4rjcJZBlWFNGnBGG5/2YJUaZpgFV0Le93XpEk5nHhktNs9FZatRhrOKaQkcMn8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0YIr5ZBRZqhJ3iR/eCeKqRwZsjbqPHXO7y4nuckt1ECa/NXvd
-	uLn2w2nQM6X444V8em837zKpm9el8NhTtpB9oo9JItVg3VqbqLo5WCVnnhzO3LEuHENMp40douW
-	KVLXz+TlYwV9BNQLzSQN1EYkG2wUYyqv0zQlt2GGJmDqXXL/ldvUHJJURjSdCgwOKgW0LnKEviK
-	PYvzDHttg9MFX66qZtaWdGOHr31+lq6oCJBboagTL6FxthDfPArPQy1x7XLoyG2hviataTKAz6S
-	6PNYoEF0n2LLWtO5g==
-X-Gm-Gg: AYBFou1obS2YRv3zTrthhNhphpf/FUFR8kUFnRzlvOfUujW9PbSL3Lt+2C6mUhfPFaX
-	LFxgY4V68HGiNyMUn6bk1yGyoI8v6QrPFuGRBNAD8pPetNfuK9zM5fklGxDhJyH8jVMbBGInIlv
-	SgVoECZjyH6xKz82D94zghfJvntkVeJD3np4N44T+nFm+JQNFyzziSWE8xIcoISUfUJ5XJ1cjvF
-	XFjof3pkD2yoKjks9NHoP89f/lvxW5QWZ1GxYqv3uKr7OXIZvh4OmEnlUsVBYXDcph8FYzA0rLp
-	dh0S3imwXPgmpW3v2F42p5v0JxRVAyytnWn9wNnBOuvTrIkkqzwdn9mfhY/3I00tXtv6D3UKcIC
-	hhY32Xxe5RXBi1aU9yp82zWGKjRecc+cWMIrytMSsHmQYvU5chZDH4YFirHTW6WQg7tzL7Qz98X
-	4KiSgshoScPThwH3U5D3vputJgfiDG1SI+cw==
-X-Received: by 2002:a17:903:3850:b0:2ed:369a:42d2 with SMTP id d9443c01a7336-2ed40da16bfmr25239415ad.40.1793957783870;
-        Fri, 06 Nov 2026 01:36:23 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2ed47637021sm329385ad.6.2026.11.06.01.36.23
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 06 Nov 2026 01:36:23 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-370230d93efso588546eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:36:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=MlNBOapU;
+	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=LSlLHJ1f
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Nhuwn2819677;
+	Fri, 6 Nov 2026 03:36:54 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=NPf/baIQF/TRBGCG2a
+	uYE17eN8KZ9++FDuWYe6HcsfE=; b=MlNBOapU2swBRF7Rn+Ju6ht7KTugPwNkKx
+	znmh8fpwounQDEJGhCLEAclU3ADdRiFsJuIPbnUQV3+3cOfDRfJGExXA183eRDvS
+	b825yDXOEjZtftG9ECNeWHIrudursIdwosFwxdVd+iqLRr1GnObDYscAz/pBX+RX
+	mRbdOujLqxw8uv+BUol2V837dkReSdHAAwRD2KJGJWpCvuenMx2Ps5JHf5tJJ/Xi
+	zlTZ1IfsOmEmTHRDIvINEBEyjnmSIJeg2OFfA8uSuWVA1F4E5HE/mH9Zde6nbM38
+	ixLwLwnaVuMp9NVbQWgOWivQ1TInm2+aVk1KDesru4yPGoKkLuEQ==
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11020089.outbound.protection.outlook.com [52.101.46.89])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hs3qwgj08-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 03:36:54 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gFQpgPrjqg4In+UBa82U+icJ6g+x9uFsgRAnkhE+kjtU08oETgos2Y69RrsKU9ebAeqnlcy5yn+BPxN90fC4FYwdTs8bepv+b/QbzrtkIywWYNVmfsdQxxpDwiyn69nHQr3fMEyI3f4j0lA21UeC33JlEkYL7WBiHGaudS97bMG6bjDdIJUbli+d68IT394qk8wCHWMdZngM07TzdYZXgXtgrLZ/YmhwAyCT2RAw4kwzHBk312KPYk6DZnxIbATCTiIAgHiIAN5pY66VajfSS8DYzlp2Tht/OK/y2+IvhckcTkbFpYUJtZyZuEnJ1rL7UDEvwJVY8d/1jsIAPo7hzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NPf/baIQF/TRBGCG2auYE17eN8KZ9++FDuWYe6HcsfE=;
+ b=aatNx3a2DwHJzWCArz7bmJ/6VfeVLXVlgTgm0GirbuXNwXaSla6ozs1QjjbbgUj6pMNZU1QQ1+n0onEbNSZOFW8l4QMOlHSqgO17dhFbfS3ZzBo4VPDsdo0Irs4YBiqo+sNzQsu2R/Yk716Deg8d/BGx9Mzk7gZdIoN1NWEkazOs8aMEd6/2Cb4Why/xikJQiRztMZHiDAxuPo8afslNSV2K3iB0CP7ZvZ0gbUI5ghCSRtnuRyiZbYLEenbGtUXZ4i8PVPpRZxi6hC15mBh52rfD4R+W6aL9OfDzQD18bn+VCl9+6h1Gwqt2WzhhEfI5L2vgJrxi0tg4oVcnV3g86A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793957782; x=1794562582; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j9kh7vUZQyvUjZW3HYIBQs/m58THhOgym6wQsE4/qN4=;
-        b=EtQs3AYCfX6br4LYsxLNk42yzH/Xvp6zKzzxiSEI7j/OtVJRDpX0ri3ydpiW6ZrjHI
-         wOARPgDxjWqlz2zj/QvjpThyuhA1tSHDDVCC4KTcIpF3//SfPafMR0G6aMP8IIn9eWnW
-         WZmNs5GSeZ5nT8c0iRgQu23++hdA9mu5O2OC8=
-X-Forwarded-Encrypted: i=1; AKwUvBy4/Pd55EydN0UT3cpXwxZbmubQkCxhr5iKy/6impxjTmsHpVPv4oC7GD1hsDo3/M6GQ/j6YhEkoRw8GE8=@vger.kernel.org
-X-Received: by 2002:a05:7301:f8e:b0:36d:394d:e696 with SMTP id 5a478bee46e88-36f7671c5b6mr2855082eec.29.1793957781892;
-        Fri, 06 Nov 2026 01:36:21 -0800 (PST)
-X-Received: by 2002:a05:7301:f8e:b0:36d:394d:e696 with SMTP id 5a478bee46e88-36f7671c5b6mr2855046eec.29.1793957781207;
-        Fri, 06 Nov 2026 01:36:21 -0800 (PST)
-Received: from H5-S1 ([192.19.203.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fc92fasm6447726eec.19.2026.11.06.01.36.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:36:20 -0800 (PST)
-From: Vikas Gupta <vikas.gupta@broadcom.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bhargava.marreddy@broadcom.com,
-	rahul-rg.gupta@broadcom.com,
-	vsrama-krishna.nemani@broadcom.com,
-	rajashekar.hudumula@broadcom.com,
-	dharmender.garg@broadcom.com,
-	ajit.khaparde@broadcom.com,
-	Vikas Gupta <vikas.gupta@broadcom.com>
-Subject: [PATCH net-next v6 09/10] bnge: add aRFS flow steering ndo support
-Date: Fri,  6 Nov 2026 15:05:23 +0530
-Message-ID: <20261106093524.838341-10-vikas.gupta@broadcom.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261106093524.838341-1-vikas.gupta@broadcom.com>
-References: <20261106093524.838341-1-vikas.gupta@broadcom.com>
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NPf/baIQF/TRBGCG2auYE17eN8KZ9++FDuWYe6HcsfE=;
+ b=LSlLHJ1f7gARLpwDjNmT93KMk8DZAiscws52welgcir1vBV/wroFHqxy/FeAwZk6Kvo7h9mFjZQfQoOC9Hi0neEx9IzFCt+YaqWQQWtowceuWaQBmfAYAuUBsmR2oy3GBOrTSbJu9UPxvG0Y2qTS/js/9711rCM6fiBX7uf2F8E=
+Received: from CH0PR03CA0372.namprd03.prod.outlook.com (2603:10b6:610:119::10)
+ by CY2PR19MB502255.namprd19.prod.outlook.com (2603:10b6:930:110::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 09:36:50 +0000
+Received: from CH2PEPF000166C2.namprd04.prod.outlook.com
+ (2603:10b6:610:119:cafe::9c) by CH0PR03CA0372.outlook.office365.com
+ (2603:10b6:610:119::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 09:36:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ CH2PEPF000166C2.mail.protection.outlook.com (10.167.244.228) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Fri, 6 Nov 2026 09:36:50 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id CBC6840654B;
+	Fri,  6 Nov 2026 09:36:48 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id A8AF7820273;
+	Fri,  6 Nov 2026 09:36:48 +0000 (UTC)
+Date: Fri, 6 Nov 2026 09:36:47 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        David Rhodes <david.rhodes@cirrus.com>, Lee Jones <lee@kernel.org>,
+        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH 3/4] ASoC: arizona: drop unused HPDET accessory ID support
+Message-ID: <au2fr69ZCkgrEd+t@opensource.cirrus.com>
+References: <20261105-arizona-asoc-v1-0-25ec7338446e@gmail.com>
+ <20261105-arizona-asoc-v1-3-25ec7338446e@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,413 +134,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-arizona-asoc-v1-3-25ec7338446e@gmail.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166C2:EE_|CY2PR19MB502255:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26ead258-42c6-44cf-18e0-08df3be97c02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|61400799027|22082099003|16102099003|18002099003|10067099003|56012099006|5023799004|4143699003|11063799006|261026140227099003|261102123227099003|261028144727099003|261021121427099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	wS6zbmbJ9OA8H6tpVmXdhz8hO2nswRfhpXZjXQNsIPFRtpxKpbpnf8fgaiXWbiPIEavfUT0yr+TCrRrjJ2MVnBFdA5TPXkjUcuf953UPkgiWiGp13bzdMFu6ujTHqUNGxjbZ6zdhw0JDBmaq10TOSiWegVqhdcvqrwdDnXTdWR5/UvKgqGOMsSGZiY9fKD2KJB4H8fX5l3T3yt+8UGOIIalFW7GCp2okWO9toV3RaguFYx3NSUqCzRHyiLymS5mC4CdAiYjpM3N6rjzA4VOHrrA9lETS9g1IhwWr0VeXfe4zVVZu6xq4hF28AlPFiVIv55v5tLu5tAEm9loHRF4PCSuNXGsPe4AfZvVKacHmLBol7ZyWKcq/e0u0wPEdUNhiNKzcvHGHqOxCQYPF35EJz4YUpWCRr9OJo84+B1vKBsmxoouRkq4NhsqpodjtWMZV4U8MMBMjHFwxUELtROXFzRVRIUQcfpJ6lM7cmpETIkXSRIGehhyuXV37nwjj4uPuRQGQt/fkbjfpx3GSFcLHP5BMkpqDXP1deF7fVXTWeIQDC3GQYqeEtMokIm4qbGIzm7EJQJcfMCTP+HEV1wgUWUr6yov7gNljbY4TVZ+qV819uhOqytSNyRzJYc2GEZpkQwguo8kjSpQ8lGAFh4Q1DHliNpc3o4zOQQNVZDsRAdDUlX1QTSzzjt85Bmr16idmqr7taC7TvbpdfYRgOSC5EQ==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(61400799027)(22082099003)(16102099003)(18002099003)(10067099003)(56012099006)(5023799004)(4143699003)(11063799006)(261026140227099003)(261102123227099003)(261028144727099003)(261021121427099003)(261022105027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zOl00WceSuq7CCTIw589/qRRp9ETKCslvW0XRI65VYkA1YX/yGM/bHecmIMZdUj850I7LP8NAp+q7XKZ/5xXqsREfO5UI7Xj2cL0ENJ4QfqmNPPs7l1Dg9cNBuaif1Gr9SyhClxOh7rl+nYIxV3+LWY2OMRLUVmpt6P4pnnr4mvPM/nMkyRmE0n6UX5cgV7XVg2iRsbCdVCMMoqUnKRPa+BIpOnFhvsxyFn1cz2opRS44VkKBELHmXajHD9mWT5Jx8EukNauWGwJvL8F131Xqfy9apvLYXz6H2Tovp+YNM2ps7ZJFaiOxFFHmUet95IKab0+oDOKnN5RWM1IOUAT3X7oY0qdAu4Oe6SkWndtDoFWYv8ZI+/51QHzm4DKE2zQA7TNvfhYi2HTabL82CLpNdRyKLsToygCSDXYVP6HjCOTLXnzKG/2dagBfLk6Sc5R
+X-Exchange-RoutingPolicyChecked:
+	ev+SGXGBtuXUEslngEYLSACxFjIe6ZckmjzwE1pweTtXY0WBv6S/XkvrlbZsjq5PaZT3YBj+tNn5aCuPv9PHmF18U2aa88phA2DkZOY6mXofumh1vpvfHcay5wRT8u/xj7PzRSdzJShbTsimWIoXOWmSE/sLgeEMant0gar3yHrdaFe5j9AGTdcGHBB5jpuBaXowFy974KqWdgPoo79/L99HVgHvw0l8ioLAz5z8/URqQf49ABYbsvtFXDfuevWF6uj8stTQ/dFTmdh2IP7Tk+bNsflhIZLv8pAFHko0UYSW81jMg4x7/XnnfGVK+IUHUBWzYaA/acQGogjT5ij+oA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 09:36:50.1473
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26ead258-42c6-44cf-18e0-08df3be97c02
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CH2PEPF000166C2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY2PR19MB502255
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzNyBTYWx0ZWRfX/CXrM1lDV26K
+ mOQWlRy5sYWXoPJjsupCPoHhAByCNQhqrv+hA5wUBIDdBEIEFSkWcjwSZyWGonIa5SbKrtIXSBX
+ ZZgaZOamzNZk5g++PIH0aiyyUVbBRc4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzNyBTYWx0ZWRfXx7PvJnPA8/wK
+ hoiyyKuv+lKhHb+nFODeZTeVK6dUSKnolCtJ3BrsN0AeVWcBe/rW6tvOilUVOwfaQD1Ls4M/JvY
+ D3p4dmj/NFCw4/KLY+CriVMcXQptQUMAfWjP2gEoLvm2Yvjkaega4HwOcqNwC4lFo3EEiEuIXNs
+ vIeMy1dXPSkK5ZrpaKkH+4Eep6+lE0uvvXGhpqc/jDAKAHiXYVwv1xm2gP+rOE6akdi8+phg5Fw
+ bhzcvPdfirAVw8PWPijo6/6UL2C+3ROLffhuYfQb6hMyAPVcaYZQaGn/ey6ESF5PjSv9D6l2X4k
+ MbnU1nN4aNPE9jLKXjkaOvl461sbGUJsyq7zPM2nM2PaCHwyWt1WpO+sSObvhpN5eAdL2VvgCYW
+ NcJe65w1XKvbgXhh4Wu3zQOOZ6jhXyfwKEcM0KNgDDpYV5KupOQbHGnDgTUdaslYny7lJQ7g9vJ
+ H5Bs1VxEa2lCYxQdwCw==
+X-Authority-Analysis: v=2.4 cv=K5K3jCWI c=1 sm=1 tr=0 ts=6aed9fb6 cx=c_pps
+ a=IMEwmUWWSCLuwm+xmU4zLA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=pGLkceISAAAA:8 a=hDXC-7HyPgnzyJNeKeIA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: 0JlwdvGpPFHAKrlpxSOagX0g-9_elMbR
+X-Proofpoint-GUID: 0JlwdvGpPFHAKrlpxSOagX0g-9_elMbR
+X-Proofpoint-Spam-Reason: safe
 
-Introduce the ndo_rx_flow_steer callback (bnge_rx_flow_steer) to
-support aRFS.
+On Thu, Nov 05, 2026 at 09:39:34PM -0800, Dmitry Torokhov wrote:
+> Nothing in the kernel sets hpdet_acc_id or hpdet_acc_id_line in
+> struct arizona_pdata, and neither has any Device Tree or ACPI bindings.
+> 
+> Remove both platform data fields and all exclusively connected HPDET
+> accessory identification logic, work items, GPIO lookup, and state from
+> the Arizona jack detection driver.
+> 
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> ---
 
-This callback creates an NTUPLE filter that steers matching packets
-to the appropriate RX queue. The implementation dissects flow keys
-from the SKB, creates an NTUPLE filter with the associated L2 filter,
-inserts it into the NTUPLE hash table, and schedules the sp_task
-workqueue via BNGE_RX_NTP_FLTR_SP_EVENT to program the filter
-in the firmware.
+A little unsure how to proceed here. I certainly wouldn't object
+to dropping the added complexity here, but I think this was used
+on a couple out of tree systems. I am leaning towards we could
+probably let it go?
 
-Add bnge_cfg_ntp_filters() called from the periodic timer via sp_task
-to handle deferred filter programming and expiration via
-rps_may_expire_flow().
-
-bnge_timer() queues aRFS aging only while NTUPLE is enabled. NTUPLE
-can only be turned off with the interface closed, and
-bnge_close_core() then deletes the timer and purges dynamic
-aRFS filters.
-
-Note that, if the L2 filter is freed before sp_task programs the rule,
-the captured firmware id is stale. The NTUPLE alloc either fails (id
-gone) or binds to a recycled id for a different filter. The rule is
-then dropped, or it stays until it ages out.
-
-Signed-off-by: Vikas Gupta <vikas.gupta@broadcom.com>
-Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
-Signed-off-by: Vikas Gupta <vikas.gupta@broadcom.com>
----
- .../net/ethernet/broadcom/bnge/bnge_ethtool.c |   5 +-
- .../net/ethernet/broadcom/bnge/bnge_filter.c  |  85 ++++++++++-
- .../net/ethernet/broadcom/bnge/bnge_filter.h  |   5 +-
- .../ethernet/broadcom/bnge/bnge_hwrm_lib.c    |   2 +-
- .../net/ethernet/broadcom/bnge/bnge_netdev.c  | 138 ++++++++++++++++++
- .../net/ethernet/broadcom/bnge/bnge_netdev.h  |   1 +
- 6 files changed, 228 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c b/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
-index 440e0c206aec..81f6f82b49ef 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
-@@ -1273,7 +1273,7 @@ static int bnge_get_all_fltr_ids_rcu(struct bnge_net *bn,
- 
- 		head = &tbl[i];
- 		hlist_for_each_entry_rcu(fltr, head, hlist) {
--			if (!fltr->flags ||
-+			if (!bnge_is_usr_fltr(fltr) ||
- 			    test_bit(BNGE_FLTR_FW_DELETED, &fltr->state))
- 				continue;
- 			if (j == id_cnt)
-@@ -1297,7 +1297,8 @@ static struct bnge_filter_base *bnge_get_one_fltr_rcu(struct bnge_net *bn,
- 
- 		head = &tbl[i];
- 		hlist_for_each_entry_rcu(fltr, head, hlist) {
--			if (fltr->flags && fltr->sw_id + offset == id)
-+			if (bnge_is_usr_fltr(fltr) &&
-+			    fltr->sw_id + offset == id)
- 				return fltr;
- 		}
- 	}
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
-index 6cf6531a2723..579eca2b7aee 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
-@@ -56,7 +56,7 @@ const struct bnge_flow_masks BNGE_FLOW_IPV4_MASK_ALL = {
- 	},
- };
- 
--static bool bnge_is_usr_fltr(struct bnge_filter_base *fltr)
-+bool bnge_is_usr_fltr(struct bnge_filter_base *fltr)
- {
- 	return (fltr->type == BNGE_FLTR_TYPE_L2 &&
- 		fltr->flags & BNGE_ACT_RING_DST) ||
-@@ -116,7 +116,7 @@ void bnge_del_ntp_filter(struct bnge_net *bn, struct bnge_ntuple_filter *nfltr)
- 	hlist_del(&fltr->hlist);
- 	bnge_del_usr_fltr_node(bn, fltr);
- 	clear_bit(fltr->sw_id, bn->ntp_fltr_bmap);
--	bn->ntp_fltr_count--;
-+	WRITE_ONCE(bn->ntp_fltr_count, bn->ntp_fltr_count - 1);
- 	kfree(fltr);
- }
- 
-@@ -127,7 +127,7 @@ void bnge_del_ntp_filter_rcu(struct bnge_net *bn,
- 	hlist_del_rcu(&fltr->base.hlist);
- 	bnge_del_usr_fltr_node(bn, &fltr->base);
- 	clear_bit(fltr->base.sw_id, bn->ntp_fltr_bmap);
--	bn->ntp_fltr_count--;
-+	WRITE_ONCE(bn->ntp_fltr_count, bn->ntp_fltr_count - 1);
- 	spin_unlock_bh(&bn->ntp_fltr_lock);
- 
- 	kfree_rcu(fltr, base.rcu);
-@@ -538,7 +538,7 @@ int bnge_insert_ntp_filter(struct bnge_net *bn, struct bnge_ntuple_filter *fltr,
- 	hlist_add_head_rcu(&fltr->base.hlist, head);
- 
- 	bnge_insert_usr_fltr(bn, &fltr->base);
--	bn->ntp_fltr_count++;
-+	WRITE_ONCE(bn->ntp_fltr_count, bn->ntp_fltr_count + 1);
- 
- 	spin_unlock_bh(&bn->ntp_fltr_lock);
- 
-@@ -711,3 +711,80 @@ void bnge_clear_usr_fltrs(struct bnge_net *bn)
- 		}
- 	}
- }
-+
-+void bnge_cfg_ntp_filters(struct bnge_net *bn)
-+{
-+#ifdef CONFIG_RFS_ACCEL
-+	struct bnge_ntuple_filter *fltr, *tmp;
-+	LIST_HEAD(install_list);
-+	LIST_HEAD(update_list);
-+	LIST_HEAD(expire_list);
-+	u32 flow_id;
-+	int i, rc;
-+	u16 rxq;
-+
-+	rcu_read_lock();
-+	for (i = 0; i < BNGE_NTP_FLTR_HASH_SIZE; i++) {
-+		hlist_for_each_entry_rcu(fltr, &bn->ntp_fltr_hash_tbl[i],
-+					 base.hlist) {
-+			if (test_bit(BNGE_FLTR_VALID, &fltr->base.state)) {
-+				if (fltr->base.flags & BNGE_ACT_NO_AGING)
-+					continue;
-+				if (test_and_clear_bit(BNGE_FLTR_RXQ_UPDATE,
-+						       &fltr->base.state)) {
-+					list_add(&fltr->base.list_node,
-+						 &update_list);
-+					continue;
-+				}
-+				rxq = READ_ONCE(fltr->base.rxq);
-+				flow_id = READ_ONCE(fltr->flow_id);
-+				if (rps_may_expire_flow(bn->netdev, rxq,
-+							flow_id,
-+							fltr->base.sw_id))
-+					list_add(&fltr->base.list_node,
-+						 &expire_list);
-+			} else {
-+				clear_bit(BNGE_FLTR_RXQ_UPDATE,
-+					  &fltr->base.state);
-+				/* Order the clear before the rxq read in
-+				 * the install below.
-+				 */
-+				smp_mb__after_atomic();
-+				list_add(&fltr->base.list_node, &install_list);
-+			}
-+		}
-+	}
-+	rcu_read_unlock();
-+
-+	/* Free the old HW rule; reinstall it below on the new queue. */
-+	list_for_each_entry_safe(fltr, tmp, &update_list, base.list_node) {
-+		list_del_init(&fltr->base.list_node);
-+		/* If the free fails the rule stays on the old queue. It is not
-+		 * retried, so a firmware that keeps failing is not hit on every
-+		 * tick.
-+		 */
-+		if (bnge_hwrm_cfa_ntuple_filter_free(bn->bd, fltr))
-+			continue;
-+		clear_bit(BNGE_FLTR_FW_DELETED, &fltr->base.state);
-+		list_add(&fltr->base.list_node, &install_list);
-+	}
-+
-+	list_for_each_entry_safe(fltr, tmp, &install_list, base.list_node) {
-+		list_del_init(&fltr->base.list_node);
-+		rc = bnge_hwrm_cfa_ntuple_filter_alloc(bn->bd, fltr);
-+		if (rc)
-+			bnge_del_ntp_filter_rcu(bn, fltr);
-+		else
-+			set_bit(BNGE_FLTR_VALID, &fltr->base.state);
-+	}
-+
-+	list_for_each_entry_safe(fltr, tmp, &expire_list, base.list_node) {
-+		list_del_init(&fltr->base.list_node);
-+		/* Retargeted by bnge_rx_flow_steer() after the scan */
-+		if (test_bit(BNGE_FLTR_RXQ_UPDATE, &fltr->base.state))
-+			continue;
-+		bnge_hwrm_cfa_ntuple_filter_free(bn->bd, fltr);
-+		bnge_del_ntp_filter_rcu(bn, fltr);
-+	}
-+#endif
-+}
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.h b/drivers/net/ethernet/broadcom/bnge/bnge_filter.h
-index 27fab050565e..ce446fa67158 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_filter.h
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.h
-@@ -19,7 +19,8 @@ enum {
- 
- enum {
- 	BNGE_FLTR_VALID,
--	BNGE_FLTR_FW_DELETED
-+	BNGE_FLTR_FW_DELETED,
-+	BNGE_FLTR_RXQ_UPDATE
- };
- 
- enum {
-@@ -97,6 +98,7 @@ struct bnge_ntuple_filter {
- #define BNGE_FLTR_ID_INVALID	cpu_to_le64(0xffffffffffffffffULL)
- 
- void bnge_free_ntp_fltrs(struct bnge_net *bn, bool skip_user_filters);
-+bool bnge_is_usr_fltr(struct bnge_filter_base *fltr);
- u32 bnge_get_ntp_filter_idx(struct bnge_net *bn, struct flow_keys *fkeys,
- 			    const struct sk_buff *skb);
- int bnge_insert_ntp_filter(struct bnge_net *bn, struct bnge_ntuple_filter *fltr,
-@@ -124,4 +126,5 @@ void bnge_del_ntp_filter_rcu(struct bnge_net *bn,
- void bnge_cfg_usr_fltrs(struct bnge_net *bn);
- void bnge_clear_usr_fltrs(struct bnge_net *bn);
- bool bnge_has_usr_ntp_fltr(struct bnge_net *bn);
-+void bnge_cfg_ntp_filters(struct bnge_net *bn);
- #endif /* _BNGE_FILTER_H_ */
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
-index bb6233351484..ce41d94838e6 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
-@@ -1007,8 +1007,8 @@ bnge_cfg_rfs_ring_tbl_idx(struct bnge_dev *bd,
- 			  struct bnge_ntuple_filter *fltr)
- {
- 	struct bnge_net *bn = netdev_priv(bd->netdev);
-+	u32 rxq = READ_ONCE(fltr->base.rxq);
- 	struct bnge_vnic_info *def_vnic;
--	u32 rxq = fltr->base.rxq;
- 	u32 enables;
- 
- 	if (fltr->base.flags & BNGE_ACT_RSS_CTX) {
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-index 94406d5ecb71..dcc3f85b2405 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-@@ -303,6 +303,12 @@ static void bnge_timer(struct timer_list *t)
- 	if (BNGE_LINK_IS_UP(bd) && bn->stats_coal_ticks)
- 		bnge_queue_sp_work(bn, BNGE_PERIODIC_STATS_SP_EVENT);
- 
-+#ifdef CONFIG_RFS_ACCEL
-+	if ((bn->priv_flags & BNGE_NET_EN_NTUPLE) &&
-+	    READ_ONCE(bn->ntp_fltr_count))
-+		bnge_queue_sp_work(bn, BNGE_RX_NTP_FLTR_SP_EVENT);
-+#endif
-+
- 	mod_timer(&bn->timer, jiffies + bn->current_interval);
- }
- 
-@@ -444,6 +450,9 @@ static void bnge_sp_task(struct work_struct *work)
- 			bnge_init_ethtool_link_settings(bn);
- 	}
- 
-+	if (test_and_clear_bit(BNGE_RX_NTP_FLTR_SP_EVENT, &bn->sp_event))
-+		bnge_cfg_ntp_filters(bn);
-+
- 	netdev_unlock(bn->netdev);
- }
- 
-@@ -3222,6 +3231,132 @@ static int bnge_set_features(struct net_device *dev, netdev_features_t features)
- 	return 0;
- }
- 
-+#ifdef CONFIG_RFS_ACCEL
-+static __le64 bnge_lookup_l2_filter_from_key(struct bnge_net *bn,
-+					     struct bnge_l2_key *key)
-+{
-+	u32 idx;
-+
-+	idx = jhash2(&key->filter_key, BNGE_L2_KEY_SIZE, bn->hash_seed) &
-+	      BNGE_L2_FLTR_HASH_MASK;
-+	return bnge_lookup_l2_filter_rcu(bn, key, idx);
-+}
-+
-+static int bnge_rx_flow_steer(struct net_device *dev, const struct sk_buff *skb,
-+			      u16 rxq_index, u32 flow_id)
-+{
-+	struct ethhdr *eth = (struct ethhdr *)skb_mac_header(skb);
-+	struct bnge_ntuple_filter *fltr, *new_fltr;
-+	struct bnge_net *bn = netdev_priv(dev);
-+	struct flow_keys *fkeys;
-+	__le64 filter_id;
-+	u32 flags, idx;
-+	int rc = 0;
-+
-+	/* Hold rcu_read_lock() across the L2 filter lookup and check
-+	 * BNGE_STATE_OPEN inside it. bnge_close_core() clears the
-+	 * flag before bnge_shutdown_nic() frees the L2 filters via
-+	 * kfree_rcu(), so if we observe the device open here the
-+	 * filter cannot be freed under us for the duration of
-+	 * this critical section.
-+	 */
-+	rcu_read_lock();
-+	if (!test_bit(BNGE_STATE_OPEN, &bn->bd->state)) {
-+		rcu_read_unlock();
-+		return -EINVAL;
-+	}
-+
-+	if (ether_addr_equal(dev->dev_addr, eth->h_dest)) {
-+		struct bnge_vnic_info *vnic = &bn->vnic_info[BNGE_VNIC_DEFAULT];
-+		struct bnge_l2_filter *l2_filter;
-+
-+		if (!vnic->uc_filter_count) {
-+			rcu_read_unlock();
-+			return -EINVAL;
-+		}
-+		l2_filter = vnic->l2_filters[0];
-+		filter_id = l2_filter->base.filter_id;
-+	} else {
-+		struct bnge_l2_key key;
-+
-+		ether_addr_copy(key.dst_mac_addr, eth->h_dest);
-+		key.vlan = 0;
-+
-+		filter_id = bnge_lookup_l2_filter_from_key(bn, &key);
-+		if (filter_id == BNGE_FLTR_ID_INVALID) {
-+			rcu_read_unlock();
-+			return -EINVAL;
-+		}
-+	}
-+	rcu_read_unlock();
-+
-+	new_fltr = kzalloc_obj(*new_fltr, GFP_ATOMIC);
-+	if (!new_fltr)
-+		return -ENOMEM;
-+
-+	fkeys = &new_fltr->fkeys;
-+	if (!skb_flow_dissect_flow_keys(skb, fkeys, 0)) {
-+		rc = -EPROTONOSUPPORT;
-+		goto err_free;
-+	}
-+
-+	if ((fkeys->basic.n_proto != htons(ETH_P_IP) &&
-+	     fkeys->basic.n_proto != htons(ETH_P_IPV6)) ||
-+	    (fkeys->basic.ip_proto != IPPROTO_TCP &&
-+	     fkeys->basic.ip_proto != IPPROTO_UDP)) {
-+		rc = -EPROTONOSUPPORT;
-+		goto err_free;
-+	}
-+	new_fltr->fmasks = BNGE_FLOW_IPV4_MASK_ALL;
-+	if (fkeys->basic.n_proto == htons(ETH_P_IPV6))
-+		new_fltr->fmasks = BNGE_FLOW_IPV6_MASK_ALL;
-+
-+	flags = fkeys->control.flags;
-+	if (flags & FLOW_DIS_IS_FRAGMENT) {
-+		rc = -EPROTONOSUPPORT;
-+		goto err_free;
-+	}
-+
-+	new_fltr->l2_filter_id = filter_id;
-+
-+	idx = bnge_get_ntp_filter_idx(bn, fkeys, skb);
-+	rcu_read_lock();
-+	fltr = bnge_lookup_ntp_filter_from_idx(bn, new_fltr, idx);
-+	/* Filter already exists. If the flow moved to another queue,
-+	 * retarget it, sp_task reprograms it in hardware.
-+	 */
-+	if (fltr) {
-+		if (!(fltr->base.flags & BNGE_ACT_NO_AGING) &&
-+		    READ_ONCE(fltr->base.rxq) != rxq_index) {
-+			spin_lock_bh(&bn->ntp_fltr_lock);
-+			WRITE_ONCE(fltr->base.rxq, rxq_index);
-+			WRITE_ONCE(fltr->flow_id, flow_id);
-+			/* Pairs with test_and_clear_bit() in sp_task */
-+			smp_mb__before_atomic();
-+			set_bit(BNGE_FLTR_RXQ_UPDATE, &fltr->base.state);
-+			spin_unlock_bh(&bn->ntp_fltr_lock);
-+			bnge_queue_sp_work(bn, BNGE_RX_NTP_FLTR_SP_EVENT);
-+		}
-+		rc = fltr->base.sw_id;
-+		rcu_read_unlock();
-+		goto err_free;
-+	}
-+	rcu_read_unlock();
-+
-+	new_fltr->flow_id = flow_id;
-+	new_fltr->base.rxq = rxq_index;
-+	rc = bnge_insert_ntp_filter(bn, new_fltr, idx);
-+	if (!rc) {
-+		bnge_queue_sp_work(bn, BNGE_RX_NTP_FLTR_SP_EVENT);
-+		return new_fltr->base.sw_id;
-+	}
-+
-+err_free:
-+	kfree(new_fltr);
-+	return rc;
-+}
-+#endif
-+
- static const struct net_device_ops bnge_netdev_ops = {
- 	.ndo_open		= bnge_open,
- 	.ndo_stop		= bnge_close,
-@@ -3231,6 +3366,9 @@ static const struct net_device_ops bnge_netdev_ops = {
- 	.ndo_features_check	= bnge_features_check,
- 	.ndo_fix_features	= bnge_fix_features,
- 	.ndo_set_features	= bnge_set_features,
-+#ifdef CONFIG_RFS_ACCEL
-+	.ndo_rx_flow_steer	= bnge_rx_flow_steer,
-+#endif
- };
- 
- static void bnge_init_mac_addr(struct bnge_dev *bd)
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h
-index 2a1ec811de01..74dbca600cbe 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.h
-@@ -282,6 +282,7 @@ enum bnge_sp_event {
- 	BNGE_LINK_CFG_CHANGE_SP_EVENT,
- 	BNGE_UPDATE_PHY_SP_EVENT,
- 	BNGE_PERIODIC_STATS_SP_EVENT,
-+	BNGE_RX_NTP_FLTR_SP_EVENT,
- };
- 
- #define BNGE_NTP_FLTR_HASH_SIZE	512
--- 
-2.52.0
-
+Thanks,
+Charles
