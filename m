@@ -1,53 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793936685;
-	b=fYGVTW6y+EvsP1aZ6rDwhv7vkd2d3P5Bgx4AloDmEymJHr8NWBZFm2ynhAXHKEf/rm4i
-	 08ZBJzQoMBPciJ7xUbe72Ttx1/71JtZx0445X07zIzWqzgiLgNXE43d4ACBiaUS78fdWX
-	 H0Wa1VmuYoAxC42BSh5F2Qizpg8wa+sbN/X85Ace0w4V1tjFBg2tZwrFrIKe6YyTbbIn4
-	 Ry5V9FBeID3N4rFANOdaX6kQkoh4AnE8anyRNKoAk92Okt1YQjK7JvEJdLVGSZoRn7K5P
-	 OqB5hK47lNSjEiV4nHH8lRZep359BqUletHw/oOmVfZjqN8Vbd+sebnPkHyQxsgQztw==
+	t=1793936712;
+	b=GTf3kSGB4rsOSPPU+DvUCLIcOR6x7us+6gXRuirWVMStVSwRbze1zh80dcFVdyErcUvi
+	 9g5c/E8M+eWNnHea3JhoT/TlvJf8kJkULJvikN+7GlADFT2qYUSB9wFim4knD+sl5mUFK
+	 Pw8SdxQqp4hdX3F3srVgnPdwyKDvy643twE8pvr6Y+hTMoZpf7VAbQUe5xkSVmPrDu5m7
+	 p8ijHpSow1K32wCSPXobcY4GKOo9/4/U/jbkqhl7zZGe2MYGb57+jkfJ/lxH+Ov3i2GXF
+	 YfgPbJU28kZLmyUjihnhLLlr8ZVG4x599igSnzWcZ2zxAFa2v5rc5Jzsydh2DwQN/WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793936685;
-	h=DMARC-Filter:Received:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=rxbs7nzBrtfmIOGiCSnCdjgFX+TagOLny6/gYQ3BikQ=;
-	b=GHJAuAPZOhyWPwB8oSQOpzy4BSqTWfd94zhyfI776rOGVVyF3ABYbQov6ImK1KOdefU4
-	 dPiyyo6QOp47XOCLalLDhk0LmSmzj35Sh58X+EkdmG/bSHZ5IYKLQh30tz8sqQzEYCS/8
-	 rO+z2fmHWN0BUKi8I7bxW0tWqmgkWZ9C++4oJiHPesZ+aGUk9IejV2DDQwayz/4XTzfUJ
-	 XX+w2pXPrl5UWUDcowSFPll6ePRJFwtx4itLAMM08NxKvP4LNDswrVbIACy6UCkWx9Zmd
-	 HWC9Z/KQN36eigBWoBHuomonwpjvqTBo0gwcMB10f3BMp+RMT2S2iv44Ogg1gu3RAjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793936712;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Qa3Jdd3z9Vvc81S3y4DHQHJ7zKHZJOZDq4QmheJddA0=;
+	b=5UXStMjlOeyNYZvfh5cCmHaYrcBrGKNw+megm39p2VEwcOea6BmOkSpbirq2nfOcGQuS
+	 6kVj/z/qzpkKhz1FKpKRLDmXMw90u3gtgRIwOJNTmwX0a/uofk6AiB32AuKXWxUkgfOyZ
+	 RFx8Bo+CNoOnWG6EmdwbjW2h6M3yb3TomrAcH18uzN7MkK/sdQjZ+e3ZxoSeMcpBgEEwQ
+	 3MDM0q2mK+j9g05x9UYhRYqd5Creb+HR5KGrnkUFvGmF2P5xx78uc1dcy3mrE9ItGX1TG
+	 Qg1iOZH9VhGp0gd5Ye4IDnNBX6+wehtJzFMzmZTwE+5RzW49InJSmxqDFCtg/w0Gq6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=R1AEfjq5;
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5858606A31B;
-	Fri,  6 Nov 2026 03:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5858606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowAC33_kjTe1qAOReAA--.15432S2;
-	Fri, 06 Nov 2026 11:44:35 +0800 (CST)
-Subject: Re: [PATCH] soc: microchip: mpfs: Fix flash leak in
- mpfs_sys_controller_probe()
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Conor Dooley <conor@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: conor.dooley@microchip.com, daire.mcnamara@microchip.com,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- stable@vger.kernel.org, vulab@iscas.ac.cn
-In-Reply-To: <20261008-47741881fb032091ea3d7f0c@squawk>
-References: <20260917153550.2160672-1-vulab@iscas.ac.cn>
- <20261002-garnish-president-6e8abfdacf4c@spud>
- <20261008-47741881fb032091ea3d7f0c@squawk>
-Date: Fri, 06 Nov 2026 03:44:44 -0000
-Message-ID: <179393668487.2060453.14381920142402581273@iscas.ac.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E726606A32D;
+	Fri,  6 Nov 2026 03:45:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E726606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=R1AEfjq5
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793936701; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=Qa3Jdd3z9Vvc81S3y4DHQHJ7zKHZJOZDq4QmheJddA0=;
+	b=R1AEfjq5XbLNaK7A6moV+lNZD1EtvI1UEXlLf6hGIXu4q0bde1dZXma2LddMefjngiK3EP1br0VHrNs7fxN0gBXGZ652QkmYV/+X9mmV4HbQITvxrxMNrXvzwoG/UwBYdDvQKjEvQwduNF772bEIC3RxPXY3AeIMYT/KBGSR1pE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R531e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=tongweilin@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XEAF1-._1793936691;
+Received: from x31l07246.sqa.na131.tbsite.net(mailfrom:tongweilin@linux.alibaba.com fp:SMTPD_---0XEAF1-._1793936691 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 06 Nov 2026 11:45:01 +0800
+From: Weilin Tong <tongweilin@linux.alibaba.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
+	Tony Luck <tony.luck@intel.com>,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Qinyun Tan <qinyuntan@linux.alibaba.com>
+Subject: [PATCH v2] EDAC/amd64: Fix double free of private data on registration failure
+Date: Fri,  6 Nov 2026 11:44:37 +0800
+Message-ID: <20261106034449.1659689-1-tongweilin@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261106000205.GBau0Y_faMvFp2_fM6@fat_crate.local>
+References: <20261106000205.GBau0Y_faMvFp2_fM6@fat_crate.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,51 +64,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowAC33_kjTe1qAOReAA--.15432S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GF47KryxZF4ktF48AFyrZwb_yoWkJrX_Wa
-	yktFW3u348AFyxJF4FqFy7ZrsrK3y09ryrA3y8Wr45Jry5Ar4IkFZakwnxZr1SvFW0vF1D
-	ur9xJ3y2krnFvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbs8Fc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
-	aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
-	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
-	wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
-	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
-	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
-	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
-	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
-	ZEXa7VUbkhL5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtCZf4iQAAsk
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof, Conor,
+If edac_mc_add_mc_with_groups() fails, init_one_instance() calls
+edac_mc_free(), which frees mci->pvt_info. probe_one_instance() then
+accesses and frees the same private data, causing a use-after-free
+and a double free.
 
-Thank you both for the detailed review.
+Clear mci->pvt_info before calling edac_mc_free() to leave the cleanup
+to probe_one_instance(). The normal remove path already clears it.
 
-Sorry for the late reply, and for the mess it caused.
+Fixes: 0bbb265f7089 ("EDAC/mc: Get rid of silly one-shot struct allocation in edac_mc_alloc()")
+Reported-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+Signed-off-by: Weilin Tong <tongweilin@linux.alibaba.com>
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+---
+v2:
+- Explain why probe_one_instance() retains ownership of pvt on failure.
+- Drop the stable Cc.
+- Add Yazen's Reviewed-by.
+- Rebase onto ras/edac-for-next (28f141ff14c48).
 
-This is a v2 of the earlier patch, but I sent it without the v2 prefix,
-without a changelog, and without referring back to Conor's review from
-8 October:
+v1: https://lore.kernel.org/linux-edac/20261021062925.1838750-1-tongweilin@linux.alibaba.com/
 
-  https://lore.kernel.org/all/20261008-47741881fb032091ea3d7f0c@squawk/
+ drivers/edac/amd64_edac.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-You are also right that the patches were sent in bulk across unrelated
-subsystems, without being grouped into patchsets, without running checkpatch
-on them, and without documenting what was and was not tested. I am sorry for
-the extra work this has caused you.
+diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+index a8e76a79833b..d4abc5200ea1 100644
+--- a/drivers/edac/amd64_edac.c
++++ b/drivers/edac/amd64_edac.c
+@@ -3973,6 +3973,11 @@ static int init_one_instance(struct amd64_pvt *pvt)
+ 	ret = -ENODEV;
+ 	if (edac_mc_add_mc_with_groups(mci, amd64_edac_attr_groups)) {
+ 		edac_dbg(1, "failed edac_mc_add_mc()\n");
++		/*
++		 * probe_one_instance() allocates pvt and frees it on failure.
++		 * Keep edac_mc_free() from freeing it here.
++		 */
++		mci->pvt_info = NULL;
+ 		edac_mc_free(mci);
+ 		return ret;
+ 	}
 
-In particular, thank you for pointing me to the kernel documentation on
-subsystem identification, patchset organization and testing, and for the
-guidance on how this work should be submitted. This is an important lesson
-for me, and from now on I will go through all the remaining feedback
-manually, one by one, and reply in a timely manner.
-
-Going forward, I will also not send patches in large batches, so that I do
-not exceed my own capacity to respond.
-
-Best regards,
-Wentao Liang
+base-commit: 28f141ff14c48abd38518a87d1026851dd12717e
+-- 
+2.43.7
 
