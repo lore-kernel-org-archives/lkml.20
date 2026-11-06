@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793934582;
-	b=cvXZro6rRuOzlFkT89NJt/HR22jfjA8W49c4BFBHKLZJ4bHA0Ab2DC/CD1afRwifDhSu
-	 M9MsINvSVYhHd2A9rDs9X14yq5ak8UrnHDIFiGn2sPrHTH+x44zZjWREwcggdYCAg1RiN
-	 Sz3Q4oj9fECMnXn78KOqapp/a9SLc0A7DPVrYcyvJJVCnf0iPkrkLpYI0Ilc7MYrnBR5y
-	 QFQ7cGaIUbL3tK/h+/LH0MAk28EslrQ/EGdiX1Zteyp42trxXyng9xmE+OoDV/Wnl8Bly
-	 5VVLUy381EGj1cU0EcQdBiD1J9w7Emjv/kwL/uxUGI0ae0akV1FW8fnKGC+gHd0+m0g==
+	t=1793934619;
+	b=v2T3wNxBqdOiRvYJN2dYxmwmk22KanFm/uOHb//pJVubio26OT5ppXZGt7i+4W0pGOMl
+	 iO6mOb1PCz0seiPUB0RqX39hG+83w6df9VO4sU1wkx68uDBObuLYqqpYebBY3SSI+vzhp
+	 4lz0RkANB0qO1Az3VXLpQaU6pFU0FHYqsoB4hLppf7Sqfcm1f75n0GpZH4V8igdR2ngjR
+	 Exy437I+bjbgydqzBArhy80C3Ur3lhxB7tPA0hG2N2SRVoqSUzzTzq+vurSxCQ42xQNfw
+	 BPEBppdS8KFfA2WpSsT9f1weNVZgILJHQ1gyLP4829oGUaQENLZoHfCfPd3pPh4YabA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934582;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KYBPtrlIi9gXAazDdsBPDTstOux0YKUL3iELrqvYDFI=;
-	b=EvAGlfrENuHTWvRGGmruh7VFcyJnXeo5JZIfDpbppP6OMZgGqsg8m6yXAfB2+79ryKST
-	 F8VNYf6plgeXjZphcG5zYvE3fg9Qhd7NOolKZZIKGPYTcT4BELBscBEotx511tkNT9qre
-	 ywOhs2g3VOHxCNlJj4meH5KB9V5SRfKmLjGa7XNrHg0xrKOkAqQm6hh9RjcnOf1jMRYBE
-	 07CTL/mHEHwMwLIKGZFnBhmNMn4vbH7r/3uNhSGiwHjIYD7R5UJginNZ9cMjgqs+2YxqH
-	 Pwi/qqgKJvnC/ZrCe22y87UiMXlGBPZrElYXsZTh0SBMXC3TOiQPvp4f35oRAeYQcGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793934619;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jbsYC7NKNiG6reBJgo4fP8WND8f8XrpJahS4ciAER50=;
+	b=hSON/K0AVbSc+4G+e6z7LHoBsBNjyFjKNmFsuC6wYr1MVKaUT/88bwnrqGN5tpzqRFXD
+	 AvusIQ8eHSeO9HcF270j/prlv/3Uk9yKXVUR084dJQDslr5VuO/RlgZA0b+yxGKkjdoty
+	 TsZ9f0Y2NfQ1hJ1OSSP8Flyvdq9qV+SDtF6Ltsc1Wl+zqEiJoqlPGiAJrPyMtGylbgkQW
+	 cT5mF8JkwtC+pSfK/t1ky9U/FwGAUF7RUuZ3S2pW7lENEkRndzOQZbZIp+T70SOCTDh+e
+	 TC6PqAV2Y26imtfsQr2cWWXn4ouMoY6YfOszLf4cY3dfJo55iXMQ0lvAbM1NYnXcaoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="wX/K9WBl";
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7766606A31B;
-	Fri,  6 Nov 2026 03:09:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7766606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eWWlIE39;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAC8606A32E;
+	Fri,  6 Nov 2026 03:10:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=wX/K9WBl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=wX/K9WBl6nrLO6n6xfx2eC02EaWs9eN2Jysxzqrm1Gg2qLrJUeHZG01hyRwwWeR+AAx2l2xGUXE35
-	 PwDVX7YrLBjoUt6UwuI9gsEn6nPYkNlJwpV8l3qsjK/n2UZVjlfaVvhlz7DXf4/wSVv1h1UlqDdJXa
-	 HHC5Z6707AR0Y00I=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46aed44f2bc2-4b693;
-	Fri, 06 Nov 2026 11:09:38 +0800 (CST)
-X-RM-TRANSID:2ee46aed44f2bc2-4b693
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [25.255.2.225] (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76aed44f163e-0f789;
-	Fri, 06 Nov 2026 11:09:38 +0800 (CST)
-X-RM-TRANSID:2ee76aed44f163e-0f789
-From: xujiahao <xujiahao@cmss.chinamobile.com>
-To: Laurence Oberman <loberman@redhat.com>,
-	John Meneghini <jmeneghi@redhat.com>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	xujiahao <xujiahao@cmss.chinamobile.com>
-Subject: [PATCH] scsi: st: Avoid truncating the tape name for large tape numbers
-Date: Fri,  6 Nov 2026 10:17:30 +0800
-Message-ID: <20261106021730.3409119-1-xujiahao@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eWWlIE39
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ECB91F0089F;
+	Fri,  6 Nov 2026 03:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793934619;
+	bh=jbsYC7NKNiG6reBJgo4fP8WND8f8XrpJahS4ciAER50=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eWWlIE39UR6C9FAtAgx/ECpIaLD2sDYt+0W1pQkqPf5fpNUTd23ET3E6cLPkRFpmX
+	 ZZdeVjhTvi8SeT7yS25atqxT/3v+VbNbb0cEvdkmZtDzk0gn5EajwQbDuHtJyD1lsM
+	 k9t5R5eOc+m2V80WtuoIQnnYldewH0QvKxOoqZ3oDGGh9h41JUfH5Hq9uBBai/f0s/
+	 maiId33NU+LJoNaxlcWLUw97eoDHzI/dY7yFFmLg99uzO/ejRjRqlVlxptnqpOfUyJ
+	 6plR7wLv0W/dfn/WPdZLlS4IGqyKFr5LIzDUgDYboPA6CY4akZeqBWET5kc73eEKCy
+	 iNgHl8stG8T/w==
+Date: Fri, 6 Nov 2026 03:10:15 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Satyam Gupta <sgsatyam@google.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Enric Balletbo i Serra <eballetbo@kernel.org>,
+	linux-iio@vger.kernel.org, chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: cros_ec: Use platform sensor_num to unregister
+ FIFO callback
+Message-ID: <au1FF5K9EALuqnNR@google.com>
+References: <20261105132057.2429385-1-sgsatyam@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,53 +65,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105132057.2429385-1-sgsatyam@google.com>
 
-create_one_cdev() builds the class device name in a 10-byte buffer as
-"n" (no-rewind devices) + tape->name + a one-character mode suffix.
-tape->name is a DISK_NAME_LEN (32) byte array holding "st%d", and the
-tape index comes from an idr with an upper bound of ST_MAX_TAPES - 1
-(131071, six digits), so "n" + "st131071" + suffix + terminator needs
-11 bytes.  Names of tapes with large index numbers are truncated today
-and lose the mode suffix, which leaves the rewind modes of such a tape
-with the same name.
+On Thu, Nov 05, 2026 at 01:20:57PM +0000, Satyam Gupta wrote:
+> No in-tree driver changes the field after probe, so mainline is not
+> known to hit this. The ChromeOS RGB light sensor support does: it
+> changes the field while a command is in flight, and unbinding the
+> device then leaves a stale callback. Found by an AI code review agent.
 
-Size the buffer after the actual requirement, DISK_NAME_LEN + 2, and
-pass sizeof(name) to snprintf() so the two cannot drift apart again.
+I think this paragraph can be moved after "---" so that it isn't part of
+the commit message.
 
-GCC reports with -Wformat-truncation=2:
+>  static void cros_ec_sensors_core_clean(void *arg)
+>  {
+>  	struct platform_device *pdev = (struct platform_device *)arg;
+> -	struct cros_ec_sensorhub *sensor_hub =
+> -		dev_get_drvdata(pdev->dev.parent);
+> -	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
+> -	struct cros_ec_sensors_core_state *st = iio_priv(indio_dev);
+> -	u8 sensor_num = st->param.info.sensor_num;
+> +	struct device *dev = &pdev->dev;
+> +	struct cros_ec_sensorhub *sensor_hub = dev_get_drvdata(dev->parent);
+> +	struct cros_ec_sensor_platform *pdata = dev_get_platdata(dev);
+>  
+> -	cros_ec_sensorhub_unregister_push_data(sensor_hub, sensor_num);
+> +	cros_ec_sensorhub_unregister_push_data(sensor_hub, pdata->sensor_num);
 
-  drivers/scsi/st.c:4393:31: warning: '%s' directive output may be truncated writing up to 31 bytes into a region of size between 9 and 10 [-Wformat-truncation=]
+So now `pdev` is only used to carry `dev`.  How about just passing `dev`
+to this function in [1] so that it can be simplified?
 
-Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
----
- drivers/scsi/st.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
-index e9d41e3cc..311781987 100644
---- a/drivers/scsi/st.c
-+++ b/drivers/scsi/st.c
-@@ -4366,7 +4366,7 @@ static int create_one_cdev(struct scsi_tape *tape, int mode, int rew)
- 	struct cdev *cdev;
- 	struct device *dev;
- 	struct st_modedef *STm = &(tape->modes[mode]);
--	char name[10];
-+	char name[DISK_NAME_LEN + 2];
- 	int dev_num = tape->index;
- 
- 	cdev_devno = MKDEV(SCSI_TAPE_MAJOR, TAPE_MINOR(dev_num, mode, rew));
-@@ -4390,7 +4390,7 @@ static int create_one_cdev(struct scsi_tape *tape, int mode, int rew)
- 	}
- 
- 	i = mode << (4 - ST_NBR_MODE_BITS);
--	snprintf(name, 10, "%s%s%s", rew ? "n" : "",
-+	snprintf(name, sizeof(name), "%s%s%s", rew ? "n" : "",
- 		 tape->name, st_formats[i]);
- 
- 	dev = device_create(&st_sysfs_class, &tape->device->sdev_gendev,
--- 
-2.43.0
-
-
-
+[1] https://elixir.bootlin.com/linux/v7.3/source/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c#L394
