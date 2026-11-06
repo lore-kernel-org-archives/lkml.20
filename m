@@ -1,66 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793940582;
-	b=T9RwsHFzka7l4coqtzVQR8UC9cuLo14duFFnIz+1UE/1djchhpL1ZPyGNwIQIOrD6PiX
-	 KWJTTQjat1qlqdM61pSvTH7qy99Y2NKjFkwxvuu+jvfPuJ21q6JYtuSKJP4gOnKEtVBsP
-	 2zhToAnxB1ZfhIMphKLeu3uzGL7zDg/O6LWsPa0XojuveumNXCuYKGHbRSoamaS3/BziW
-	 iGYBuXLUkRaS03XQwMq1yI3PvwjstktL9MuGStkYVPXRYur5I9cwVOO3tiE+u4W4VunHy
-	 T3WIytSIKb/SakqxsshkO+CopxDUsp3Ox5q2S0Me7xyNF6DXZbP+N66NZda9rtFE1ww==
+	t=1793940648;
+	b=zM2YPIJV6eyNrcSF5gf4mBtW+h3MzHDZ6l760v/p5CrP84p4i19BRnqD+g6N5Q6SeXFJ
+	 pltPcmUbqi6P/Jc2/gub8FOmyKPpbmi+bpu544b/QlPxrsG9aeXpCZu7Tspf4aBl9Aqnx
+	 K/2sjHFLLrs0GZbWnG8pv9ob5QkX9jHcaAgmN6Zr9JhTo/kWquVwdgYuQd7n+tx35IpsP
+	 bD6qX2G5PiAy0OS+oBoS1+zagimn9irfVZz1f9v7v7SyaBzKtkJqdwBaEAtxsyatdQnxw
+	 HeBmR4vmiztfRZsadQbvdrpLhjwBEV5HKDQiynn0cS/+zVOTzeh8efjWByNCbiqn1hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793940582;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+ukegvGFt+/agQQ6T23xcT+zVq/363+Hx5n8Fonxyiw=;
-	b=u80vIkzxlODkBOqgcUQO5gzX46paQugKfZaPeQjV6kqFaTSYkc7JffeHv6yIzf4oH/EA
-	 OQOUE2+gBBod+9wtpBYo8MtpNCJOpbd4/c+iDEprBH1GPzGx4IVyaElO8V+XYq9Bv1cIf
-	 TytSai2jnwa5E+c73vkmFZQm4ejMfACUv0HFnN3eL0ayUjcETmd58ZPta8VTUn9bS9c9X
-	 p/o57gOdaTx09EOO5ETJwxhj8lov1oYY1+YV/FAH36I0ktns+Qpg5FTVbrHcsDoMUjYQ9
-	 URmEC2Q8ElmuepKRs0BIwoRHUO/R2sZg/hokRlXZtibX+rqkhw7xarmNRDyo8l52CYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793940648;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=kxFpMtQbzKIRxEyj/jc+g0b9VDx9hp1+9az4E+nbn3U=;
+	b=KBLCCYrnuYa4Tl507KU92G0kbGtwg3UxwFGRrwGgU2ix5x5e69SzdKdd/ZKxCGpkk9YR
+	 YU32pMkeSaeY1LApRL+ZYamBnx/ndyta938bdMsbWvVTPsK+V7GlNNpNRs4xp+aF2HBgz
+	 WOBGJZQu5C/1950ioLGcT+69kH4R1J1ppiJC+Frzw0CGzzHEiP5C2XvL0jEUt9RxRuWOu
+	 s99YxhhaArt3kww81TMaRLfbaJVswaH8bnVQZjxEJek8bdXBy4HgUS2GoMCInr3AhNOlr
+	 mC6L5pymxhJAV0UCv+6aOAfnVZo+wWtQdujjScPE7NWYOnvL9977/gcgmtx6bAnQVSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=xN5y2aCy;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=VdVV4V5Y;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCE2606A31B;
-	Fri,  6 Nov 2026 04:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FCE2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B91606A326;
+	Fri,  6 Nov 2026 04:50:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3B91606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=xN5y2aCy
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jLRYK4hWbz1XLVhJ;
-	Fri,  6 Nov 2026 04:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793940579; x=1796532580; bh=+ukegvGFt+/agQQ6T23xcT+z
-	Vq/363+Hx5n8Fonxyiw=; b=xN5y2aCybdUFDaVfYjUY1PcBYdF22IIM1+6H4vk4
-	5ER53eayxVVc4atNmAZvoQSA1WWn+FMMz1jkkBHxJ2mUatG3Om3fMbgzMmJae/UQ
-	p+sOkgUKp35cCPAVSWwP4Z3i1U2L+Ajp0NteCADzIDTFgPSok9cA99piHYKXzrFU
-	cCnQPatHAH5Y07D5N/MHLLo7uqMxPewbKxTfOvFWr+s4Vk73sirFwpOzKf/OgBKb
-	kGIrPYQXw1p/2uVUZ3YJ93uZ5p1wsXPo5596bek2dwFXDgFStz9VtFEzFQ1lDsx2
-	UnbWnt9zSO4NSrbtLsVgkh9cVwgq5xZhBws+REtdenf6Sw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id egfjn-s77g18; Fri,  6 Nov 2026 04:49:39 +0000 (UTC)
-Received: from [192.168.0.215] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jLRYG5FR6z1XMYJZ;
-	Fri,  6 Nov 2026 04:49:38 +0000 (UTC)
-Message-ID: <5f1692ad-d718-4446-bd62-57e7049be92a@acm.org>
-Date: Thu, 5 Nov 2026 20:49:37 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=VdVV4V5Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1793940645;
+	bh=kxFpMtQbzKIRxEyj/jc+g0b9VDx9hp1+9az4E+nbn3U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VdVV4V5YyBeklNYMLlTDcpWHCtmgoy7lcLNQr36qF84kCLsoNnb/nc/Hd9v1lTf/W
+	 o7qbp9x44oun7kbQvUe1AOhr/28CoD/9ZLPqBuhRng+BHIx/JHeb6ciGFQoJxTeeJ5
+	 6uIXhQua2Lqsdmq12APk08T5vkuCOZib9/0JV6nZ0DSnQMto9gc1Wu0T8aXW2IVjyD
+	 4vXyYoPEoBWLrCr9l6ecnygTl2IFeqaZfamMw5da2cGnJiDGnq7Jc5yqLvuq7W4oRs
+	 RsM0t4sks6ZqXJ8i6dPi0oTJP+hNR7qCT98HzKgUy21OVHfLmENgNSWZsQUDj3efHO
+	 AmDX4/IYAwGBw==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 1C32964952;
+	Fri,  6 Nov 2026 12:50:45 +0800 (AWST)
+Message-ID: <7eda59ffde46142602c6d8e425fd4097872ee8c4.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v4 3/3] ARM: dts: aspeed: add Intel JNCRP BMC
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Dawid Glazik <dawid.glazik@linux.intel.com>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	maciej.lawniczak@intel.com, Andrew Lunn <andrew@lunn.ch>
+Date: Fri, 06 Nov 2026 15:20:44 +1030
+In-Reply-To: <ffb7b028f317a3a2cd1a98b8f454b46a706cee42.1792749922.git.dawid.glazik@linux.intel.com>
+References: <cover.1792749922.git.dawid.glazik@linux.intel.com>
+	 <ffb7b028f317a3a2cd1a98b8f454b46a706cee42.1792749922.git.dawid.glazik@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,64 +71,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] scsi: ufs: core: Set shutting_down in
- ufshcd_wl_poweroff()
-To: HOYOUNG SEO <hy50.seo@samsung.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, mkp@kernel.org, martin.petersen@oracle.com,
- stanleyjhu@google.com, alim.akhtar@samsung.com, kwangwon.min@samsung.com,
- kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-References: <cover.1793931113.git.hy50.seo@samsung.com>
- <CGME20261106022021epcas2p20d78ac51e55f03348d496f45e96031e1@epcas2p2.samsung.com>
- <66845a28b3014bb53b7f1332c258009b80707297.1793931113.git.hy50.seo@samsung.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <66845a28b3014bb53b7f1332c258009b80707297.1793931113.git.hy50.seo@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/5/26 6:15 PM, HOYOUNG SEO wrote:
- > +	down(&hba->host_sem);
- > +	hba->shutting_down = true;
- > +	up(&hba->host_sem);
- > +
- >  	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
+On Mon, 2026-10-26 at 17:40 +0100, Dawid Glazik wrote:
+> Add the initial AST2600 device tree for the Intel JNCRP BMC platform.
 
-I agree with both issues reported by Sashiko:
-- ufs_mtk_system_suspend() is also the .poweroff callback of the
-   MediaTek host controller device and returns -EBUSY if
-   hba->shutting_down has been set. Since the .poweroff callback of the
-   WLUN is called before that of its parent, this patch makes
-   hibernation fail on MediaTek hosts.
-- If hibernation is aborted after the WLUN .poweroff callback has been
-   called, ufshcd_wl_resume() is called as .restore callback.
-   Nothing clears hba->shutting_down, so the error handler and user
-   access (ufshcd_is_user_access_allowed()) remain disabled.
+Can you please provide more information about the platform design and
+its purpose?
+>=20
+> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> ---
+> v4:
+> =C2=A0 - Rebased onto aspeed/arm/dt of bmc/linux.git, no other changes
+> v3:
+> =C2=A0 - Sorted nodes alphabetically
+> =C2=A0 - Sorted properties per dts-coding-style
+> =C2=A0 - Removed lpc-snoop label
+> =C2=A0 - Removed &i3c_global since it's enabled by default
+> =C2=A0 - Added &kcs3 and replaced flash layout with 128MB one
+> =C2=A0 - Restored Reviewed-by from Andrew Lunn, dropped by mistake in v2
+> v2:
+> =C2=A0 - Reviewed-by: Andrew Lunn for nodes: &mdio1, &mac1
+> =C2=A0 - Replace bootargs console=3DttyS4,115200n8 with stdout-path =3D &=
+uart5
+> ---
+> =C2=A0arch/arm/boot/dts/aspeed/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0.../dts/aspeed/aspeed-bmc-intel-jncrp.dts=C2=A0=C2=A0=C2=A0=C2=A0 |=
+ 276 ++++++++++++++++++
+> =C2=A02 files changed, 277 insertions(+)
+> =C2=A0create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.=
+dts
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed=
+/Makefile
+> index 1e4154f12228..5e685a625883 100644
+> --- a/arch/arm/boot/dts/aspeed/Makefile
+> +++ b/arch/arm/boot/dts/aspeed/Makefile
+> @@ -58,6 +58,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
+> =C2=A0	aspeed-bmc-ibm-sbp1.dtb \
+> =C2=A0	aspeed-bmc-ibm-system1.dtb \
+> =C2=A0	aspeed-bmc-intel-avcrp.dtb \
+> +	aspeed-bmc-intel-jncrp.dtb \
+> =C2=A0	aspeed-bmc-intel-s2600wf.dtb \
+> =C2=A0	aspeed-bmc-inspur-fp5280g2.dtb \
+> =C2=A0	aspeed-bmc-inspur-nf5280m6.dtb \
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts b/arch/a=
+rm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
+> new file mode 100644
+> index 000000000000..e66ea7f00fed
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
+> @@ -0,0 +1,276 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +// Copyright 2025 Intel Corporation
+> +
+> +/dts-v1/;
+> +
+> +#include "aspeed-g6.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +	compatible =3D "intel,jncrp-bmc", "aspeed,ast2600";
+> +	model =3D "Intel JNCRP BMC";
+> +
+> +	aliases {
+> +		serial4 =3D &uart5;
+> +	};
+> +
+> +	chosen {
+> +		bootargs =3D "earlycon";
 
-Additionally, the existing code already has an unbalanced
-up(&hba->host_sem) on that path: ufshcd_wl_poweroff() does not acquire
-host_sem but ufshcd_wl_resume() releases it.
+Please remove bootargs here, earlycon is for debugging.
 
-How about making ufshcd_wl_poweroff() behave like ufshcd_wl_suspend()
-instead, i.e. acquire host_sem and keep holding it until .restore
-releases it? Something like this (untested):
-
-static int ufshcd_wl_poweroff(struct device *dev)
-{
-	struct scsi_device *sdev = to_scsi_device(dev);
-	struct ufs_hba *hba = shost_priv(sdev->host);
-
-	/* Released by ufshcd_wl_resume() if hibernation is aborted. */
-	down(&hba->host_sem);
-	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
-	return 0;
-}
-
-That serializes the error handler against poweroff the same way as for
-system suspend, fixes the unbalanced up() call and leaves
-hba->shutting_down alone. Please also add a Fixes: tag and move this
-patch in front of patch 2/3.
-
-Thanks,
-
-Bart.
+Andrew
