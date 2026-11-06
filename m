@@ -1,92 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958337;
-	b=xziIGL5MvlJ8KN8N9lcdnYH+QRYFbZBnOMJ7XR9F+7DJaSwaVcp3ZFysF+MQ6e6gYdmz
-	 VBZgZhdmVpxrVy+Fqgj+WXM4owP01tl3Q842gXc0eNgTrUXwN2190vQ+qLbuRZ5Z0PUJl
-	 5W7Re0l61OSgg/381R03q+cZEq/Jf+a98BjbdopVAuQqDn+r/J5Pqi0zKH2eyF157jFYc
-	 oDtuFN9ABm8O6H3uIpM2LhESskBDPFWWuhwfzD4NwuVzJh+G5vjkEumYgFPe4hgReyv+C
-	 TNAf/yJxr3PM4pK1dEiDbt5eOvF5G8v+0R7VCZEgFT9X10vL2zOO9O2BMF8OjNxZbBA==
+	t=1793958345;
+	b=VZiI+wIAVR/pYTxFRyilIsDDOnivoO4Z2F9R9w0nanR6lq0udYnsEc9AITLDfONullMN
+	 oJmb0wU4phj3aXzI2bw3Ue1Q+BQKhTdH9ZU0dbRAGUVy//liQadVCq2yo7eNTiEUBDRh4
+	 RbzzvhPwRVP54D7ACgmTJnJ8niVp8NmRtD8zzaUvsMbqnNdH3QetwRIJhv5RL9r+e94tC
+	 Gb1dKsJPScanMLI+1/krMRmcCiFfQ5oA9gOKrqK9BGxFUUcHf5X16Q0INouogZUpxwFP5
+	 mwzlGmMnB+nzEKop9Ovi6qefb0288bWYBSWkhT0Mvym4rDW2vx/NzMP3iVnM87WKSyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958337;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dKZSeqgbkMQyFVAGTenY+vWDa9hVzBnn0+B7i3zsr7U=;
-	b=sKNpR4IthmaTW86D2Qk8dYQoAVP1eM2JraEcNdgmoc30aOVx2BAwHGnGHSp46xfX18ZW
-	 WtdviHYwH0JAQLJIj5hhgsrY1Ldcii4XzUnxgtYI8H2h0YgqZ2IMe2FmuK82VSzG4bH8+
-	 8nw4b0jpYQNVYF+cXUj1Bj8YY1w6hLKNG9fsOz2mxrims0y/UyN5LwvTYfEBYpkG0PyM0
-	 DhupPGopgRyZ2pvOLYdsRQ94xqQEiROBZupy4RC1qpx3hXTU05l2/9CPhg3rbbNzybCt+
-	 gvk7IAjO1V8kKiPX9EN+GiCSzUsqkcI1eAXB15Bj3UGpgVs7/SCy1tL5QsPfhVtBw2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958345;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=AfPzSFcW+pZH2QIPZRbefoHN3/d9BoE116jyqEDVh6Y=;
+	b=YfAto+FkdyQm5z4G2qc00GsSD+mDqWmpFnjlM1B76vcqeSCVpHgH21+bLtu0Z/bijVlD
+	 A6cmherX8V1UCRUXCdk/xZtPs4DZm5f++7zig5E3f3o71iv+OoBSDmzYKMCWPatDCDGFm
+	 uBAn9gT0pv2NTl5fNILW1GDCg5f7FrSMclvPABUB0JwXPbB5qk2cdTTZ59M8MLOcD/f8+
+	 XFqNvlQQQywiYNVN7jBBitgatGSEzSBwFA7AjPh1jCnymJBfL3W1oq49kjy3B+3TFbDb9
+	 aVGf2K/zTg1Gxoyc6SwOVAG2EeaEPnLJ/+xXfq/zr6WPk9FEy+FdSwbuQOgBkjx/UVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q5LrCFsK;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=prb5BBLD;
+	arc=none smtp.remote-ip=95.215.58.163
+Received: from mta1.migadu.com (out-163.mta1.migadu.com [95.215.58.163])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF05C606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:45:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF05C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA7B606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:45:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFA7B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q5LrCFsK
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso210228a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:45:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793958336; x=1794563136; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dKZSeqgbkMQyFVAGTenY+vWDa9hVzBnn0+B7i3zsr7U=;
-        b=q5LrCFsK+e3dv8EdOMLzuHrfvQS2xsdL80z6yfvFGXSZmbEtDX3VHH/5htqLz9HKau
-         7fJfLLIVTe/lDA8VNI0dgITRCZzoDXiH87aRS8losW1jIRrCltrHQ1o1k8zw4AUcLDll
-         wzbbwhpjnXrabkiGte7wpzjDkVskdoGJKzZI6Jr3tC3ZMRLX3W8JurNygKhYRm9XbcxU
-         yC/PwT69rWmEva3zs59gJgZlA0nFfVbG4Nko7+yUTJllT7K5q3qVsTBAPQTdtgjmIdWt
-         XtJxE9K74A/CpLlj0k/nPJ0Ssu5JLp+N0pgDAeGqRolP/6+F9WNjQT92kDHRFNLFuoqY
-         lYlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793958336; x=1794563136;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dKZSeqgbkMQyFVAGTenY+vWDa9hVzBnn0+B7i3zsr7U=;
-        b=emWJCKAMurI9xGVgCp1Jr0Twikh4LWEhQk5o7SuO4xiiPQS0HtDAyLcneDlV42mGiv
-         v4wbdSUgRoTBXR1WSId0Kwrr4RgNorrd7YCZ1EKK1av9TfSRVbB5ZNY3olEqyIjTLOTE
-         ZnI1uNJrGYNvauuRQCx1nwyHotdKJDPGPWkX0pPmpY0Ru0kY3Z9sZJMX9+g5MC8yrZju
-         q5zX8cI3GKLR99WS6flWokemIZw6ZN1cT0wY5D3wX8CAip7vTtMvGQjGKBEPrMvsjXQl
-         QicY9ZuYzyGLbLU1FDJCR0zLcbFQ9Kv8HlJwP95JkYlZbmGbw4i0li/ejYBwifQQIt8D
-         j6Gg==
-X-Forwarded-Encrypted: i=1; AL+hErEpJMF1P2rqdYHsZ2IknpTV23bb45HAyvfIP1jyLgKug4W495xfzK2bOlTStBMxSfmw63Fqf5Qz0TxZUX8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88RILZLtteATkM7qSLRMVxhesNWKLimOhjj2FM60t9llcfa+jt
-	hlyl3KRYU4TQjJ8RcnYpyd6O5ggeUkPshRZIa+Y76PNze+Vg1wDvx0FrF6xMNmj+
-X-Gm-Gg: AYBFou18DTp52EbRg734J/+C1JsnmsvLytakX5KHrW/ED8jE7lwcBo5qLj3KuUJ3rhe
-	3yoCLCsLhrzHgN47h76fIEx/W2U48Z1V3PeLRdo7ctO1AIJrM0Ytq0ktYHlgK3tiVxt5BjyDSUl
-	h8JhGO8gKBx+vkudJAs4aEk7FVEWXYiDIfcW67Qr7SpL3rGspHyxPH7Kkevqll1tfULSnO3Borf
-	95pkLobBAja5CDOUIYH5mgLSh2UkkJs5tN3PT4uoM8VLcU3rzLLsZ3CGt7uLbwnIjvOIrRr3nXA
-	CkF5dftoN3WoRa82gbVXwQGYkrbYpSsy2ouMTzQeVLnPAKr870HE6suz5HYcRuUYVerOBZZeTQM
-	RaXHuUuImyY+bv5HAzKgYcztU02Sc9P488AJZ/IvlIWl0lFi4t59tS5SMVSKA04e2tQOixkWRtq
-	4SLDj0ciZSVMQkmDAacVqjdrrLl4xRVkZkAWquSre82gY8YIFS0jNRwEo3Ld0onVX5hHx7Y56nF
-	lMNCgTDVWxEDGnDRqfxFS4sMFb2ZYLKPLeuqkfKf65SaTRFc0lHlpWKWXi8vhpZnOZaG9viTZ3n
-	9CcCyX657T4KcTSwDsu2cs/M8z75u5Oc1cvA04HodcIg1j2+
-X-Received: by 2002:a17:90b:3892:b0:3ac:77c8:ac29 with SMTP id 98e67ed59e1d1-3b0db6d78bdmr1674541a91.15.1793958336106;
-        Fri, 06 Nov 2026 01:45:36 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32baf86sm7049969a91.17.2026.11.06.01.45.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:45:35 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Russell King <linux@armlinux.org.uk>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] adfs: bound big-directory entry name length to ADFS_FPLUS_NAME_LEN
-Date: Fri,  6 Nov 2026 18:45:16 +0900
-Message-ID: <20261106094516.2401170-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=prb5BBLD
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yMrWApyqMY/NnNDcpTl9xLlqLBpfLw5OYLGgqZXQ1tU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793958342; v=1; x=1794563142;
+ b=prb5BBLDzBRhDL1dFgS1P9R5uf5nZMEpJiPJBpQZdVdr7tYQdfZaQl7dXQdIPuujdVBUI9SH
+ 0IPy8H/s6R/2hutUvkJ1qSlk75e+LGkBRWULDzv5CSZ0l8O+yUvxkayJhn5SsAWoa2ugbJnBdDq
+ F20apksvpJr/Z+iR8g3FCjPU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 2f2b68f79f65d7c9;
+	Fri, 06 Nov 2026 09:45:25 +0000
+X-Mizu-Trace-ID: 2f2b68f79f65d7c9
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 6 Nov 2026 17:45:15 +0800
+From: "Xu Xin (vivo)" <xu.xin@linux.dev>
+To: Qiliang Yuan <odys.yuan@gmail.com>, david@kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Stefan Roesch <shr@devkernel.io>, Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm/ksm: align smart scan skips with the scan
+ number
+Message-ID: <au2hqxeIz0l/DusZ@dgvxl46587.localhost.localdomain>
+References: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com>
+ <20261105-bug-mm-ksm-smart-scan-align-skips-v2-1-8a9780b6844e@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,70 +75,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-1-8a9780b6844e@gmail.com>
 
-From: Hyunjung Ko <hj351016@gmail.com>
+On Thu, Nov 05, 2026 at 04:36:14AM -0500, Qiliang Yuan wrote:
+> Smart scan skips pages that KSM has failed to de-duplicate for a while.
+> Once a page is three scans old, its rmap_item counts down its own number
+> of scans to skip, 1, 2, 4 and then 8 as it ages, so an old page is looked
+> at every ninth scan.
+> 
+> The unstable tree is rebuilt on every scan, so two identical pages that
+> are not in the stable tree yet can only be merged in a scan that looks
+> at both. Each countdown runs from when its own page became mergeable, so
+> two pages that became mergeable at different times end up on different
+> phases and, once both are old, may never be looked at in the same scan
+> again. They then stay unmerged for as long as they live. Making a page
+> mergeable, waiting for 0 to 20 full scans before doing the same with an
+> identical page, 20 times for each wait, and checking the pair after
+> another 64 full scans shows this, on two boots per kernel:
+> 
+>                                 before            after
+>   pairs merged (of 420)         329 / 317         420 / 420
+>   64M of unique pages skipped   89.0% / 89.1%     87.5% / 87.5%
+>   ksmd CPU time per scan        6.25 / 6.25 ms    6.88 / 7.03 ms
+> 
+> Pick the skipped scans by the global scan number instead, with periods
+> of 2, 4 and 8 scans. The periods being powers of two, every old page is
+> looked at on each scan that is a multiple of 8, whatever its age, so any
+> two pages meet at least every eighth scan. The longest period goes from
+> nine scans to eight, which costs 10-12% more ksmd time on memory that
+> never merges.
+> 
+> Fixes: 5e924ff54d08 ("mm/ksm: add "smart" page scanning mode")
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
+>  mm/ksm.c | 24 ++++++++++--------------
+>  1 file changed, 10 insertions(+), 14 deletions(-)
 
-adfs_fplus_getnext() reads a directory entry's name length straight from
-the on-disk big-directory entry and uses it, unchecked, as the length of
-a copy into the fixed-size name buffer of the on-stack struct object_info:
+Brilliant design.
+By using the global ksm_scan.seqnr as a unified time base, this patch eliminates
+the out-of-sync problem of the original per-page skip counters.
 
-	obj->name_len = le32_to_cpu(bde.bigdirobnamelen);
+It guarantees that any two pages will be processed in the same scan at least once
+every 8 scans — the least common multiple of all scan periods — which completely
+resolves the permanent de-duplication failure.
 
-	offset = adfs_fplus_offset(h, le32_to_cpu(h->bigdirentries));
-	offset += le32_to_cpu(bde.bigdirobnameptr);
+Admittedly, this comes at the cost of shrinking the longest scan interval from 9
+to 8 scans, raising the scan frequency for aged pages by roughly 12.5%. But I
+believe this is a very reasonable trade-off for correctness. So
 
-	ret = adfs_dir_copyfrom(obj->name, dir, offset, obj->name_len);
+Reviewed-by: Xu Xin (vivo) <xu.xin@linux.dev>
 
-obj->name is char[ADFS_MAX_NAME_LEN] (260 bytes), but bigdirobnamelen is
-an attacker-controlled __le32 with no upper bound.  adfs_dir_copyfrom()
-only validates that the source offset+length stay within the directory
-buffers; it does not bound the length against the destination.  A crafted
-image whose directory holds enough data at the name offset therefore lets
-a single entry drive a copy of up to ~4 GiB into the 260-byte stack
-buffer, a stack out-of-bounds write (detected by CONFIG_STACKPROTECTOR as
-a corrupted canary, or by KASAN with CONFIG_KASAN_STACK).  The copy is
-reached from both readdir and ->lookup via adfs_dir_lookup_byname().
 
-The old-format directory parser (dir_f.c) already caps names at
-ADFS_F_NAME_LEN while reading them; the big-directory parser has no
-equivalent guard even though ADFS_FPLUS_NAME_LEN (255) is defined for
-exactly this limit and is used elsewhere (super.c, s_namelen).
+Besides, can we add a extra description about new smart_scan algorithm that we
+missed in Documentation/mm/ksm.rst?
 
-Reject entries whose name length exceeds ADFS_FPLUS_NAME_LEN before the
-copy.  255 bytes fit in the 260-byte buffer and still leave room for the
-4-byte ",xyz" filetype suffix that adfs_object_fixup() may append.
-
-To trigger: build an ADFS image with a valid F+ ("big") directory whose
-header, tail (BIGDIRENDNAME magic, matching masseq) and computed
-check byte all validate, containing one adfs_bigdirentry with
-bigdirobnamelen set to e.g. 300 and bigdirobnameptr pointing at 300 bytes
-of in-bounds directory data.  mount -o loop followed by ls (or opening a
-path under the mount) overflows obj->name.  The check byte is a computed
-checksum, which is why random fuzzing rarely reaches this code; a
-hand-crafted image does.
-
-Reproduced under KASAN on 7.3-rc3 and 7.4-rc1 by mounting a crafted
-ADFS image and running ls: KASAN reports a stack-out-of-bounds in the
-adfs_fplus_getnext() name copy path.
-
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- fs/adfs/dir_fplus.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/adfs/dir_fplus.c b/fs/adfs/dir_fplus.c
---- a/fs/adfs/dir_fplus.c
-+++ b/fs/adfs/dir_fplus.c
-@@ -191,6 +191,9 @@ adfs_fplus_getnext(struct adfs_dir *dir, struct object_info *obj)
- 	obj->attr     = le32_to_cpu(bde.bigdirattr);
- 	obj->name_len = le32_to_cpu(bde.bigdirobnamelen);
-
-+	if (obj->name_len > ADFS_FPLUS_NAME_LEN)
-+		return -EIO;
-+
- 	offset = adfs_fplus_offset(h, le32_to_cpu(h->bigdirentries));
- 	offset += le32_to_cpu(bde.bigdirobnameptr);
-
---
-2.43.0
+> 
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index dbfb8f98b1892..a97d7563c2124 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -196,7 +196,6 @@ struct ksm_stable_node {
+>   * @head: pointer to stable_node heading this list in the stable tree
+>   * @hlist: link into hlist of rmap_items hanging off that stable_node
+>   * @age: number of scan iterations since creation (unstable node)
+> - * @remaining_skips: how many scans to skip (unstable node)
+>   * @linear_page_index: the original page's index before merged by KSM (stable node)
+>   */
+>  struct ksm_rmap_item {
+> @@ -213,7 +212,6 @@ struct ksm_rmap_item {
+>  		struct {
+>  			unsigned int oldchecksum;
+>  			rmap_age_t age;
+> -			rmap_age_t remaining_skips;
+>  		};			/* when unstable */
+>  		unsigned long linear_page_index;    /* for reverse mapping, when stable */
+>  	};
+> @@ -2446,16 +2444,14 @@ static struct ksm_rmap_item *get_next_rmap_item(struct ksm_mm_slot *mm_slot,
+>  }
+>  
+>  /*
+> - * Calculate skip age for the ksm page age. The age determines how often
+> - * de-duplicating has already been tried unsuccessfully. If the age is
+> - * smaller, the scanning of this page is skipped for less scans.
+> + * Calculate how often a page of the given ksm page age is scanned. The age
+> + * determines how often de-duplicating has already been tried
+> + * unsuccessfully. The older the page, the fewer scans look at it.
+>   *
+>   * @age: rmap_item age of page
+>   */
+> -static unsigned int skip_age(rmap_age_t age)
+> +static unsigned int scan_period(rmap_age_t age)
+>  {
+> -	if (age <= 3)
+> -		return 1;
+>  	if (age <= 5)
+>  		return 2;
+>  	if (age <= 8)
+> @@ -2505,17 +2501,17 @@ static bool should_skip_rmap_item(struct folio *folio,
+>  		return false;
+>  
+>  	/*
+> -	 * Are we still allowed to skip? If not, then don't skip it
+> -	 * and determine how much more often we are allowed to skip next.
+> +	 * The unstable tree is rebuilt on every scan, so two identical pages
+> +	 * can only be merged if both are looked at in the same scan. Pick the
+> +	 * scans by the global scan number rather than per page: the periods
+> +	 * are powers of two, so pages of any age meet on every scan that is a
+> +	 * multiple of the longest one.
+>  	 */
+> -	if (!rmap_item->remaining_skips) {
+> -		rmap_item->remaining_skips = skip_age(age);
+> +	if (!(ksm_scan.seqnr & (scan_period(age) - 1)))
+>  		return false;
+> -	}
+>  
+>  	/* Skip this page */
+>  	ksm_pages_skipped++;
+> -	rmap_item->remaining_skips--;
+>  	remove_rmap_item_from_tree(rmap_item);
+>  	return true;
+>  }
+> 
+> -- 
+> 2.43.0
+> 
