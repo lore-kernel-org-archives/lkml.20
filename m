@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982308;
-	b=g5Wa+6Em4ePhBfbn9D7H8Xq+iwVoBpGJWkm2/co6VioW1Oy03RrV2lLZWfrz3vgHe7Z6
-	 ji3owp2s248q9kcE1tXPRMIRLsYKITshPKk23kbMMyiLAAkval2NUHLUSmbm/aI4tu7hH
-	 BGpbPDM3mluzFZPj2nJ2MV6rZoIXbXq07nB0PasDJWATFzXfWTjrJFCeu6fl6++JAzH9+
-	 ZTHCNcbGDr1Lw+/fbjxgXIC1upFuW5UXioFxTY7TR+63FZ/QCq/ItFaZISf+nMVbWl/IQ
-	 BR8u514vwOHO9CzrXK0P27CX4tXM+242/CbBkLxNwEADe0jkYPf22Jqgms1WiyCVfoQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982308;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 X-Debian-User;
-	bh=aDikpMOn5+HJJPzpuKasVpb1aKPshcvdq9pRmiwR3Mk=;
-	b=zpFuFh8KNBABZdiq70P2ou3MFInmM3f99a/g0vuX/jFoUMEEvJR+7449jBuSN5W9cJbK
-	 jLQHbjTbGx6pTx3BuAwxlJ33mqAM1DoWExw8PBKckPMK1QmSg6ovYid1JyBW7C5wh4Sqr
-	 56ZAOU0SfmAG8Wc1gUgc2H3C1wP6yZyupOJqUTtFgMk9BLcijCF5SRITzNA3hSyqo7CXw
-	 95DeRpDEIDmHzG/bBWeDGYbtrVgMsYIOqZpVn5ssCA6UXpkeXWWRHmzIuF5/4DtR4jPgE
-	 NqqHIMT5l1v+vh7UhIU2VJ5Z2T0bakx3NGf43MiY4z07KS4WNQBJmc7735sBojDPWqQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="oSrL97/u";
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793982311;
+	b=s1qW/vXhJNZc1osAySHZt1aMdzlkSkvrcHaT1bwjsgXtIVECnRBle91kdizYGNPhT3AT
+	 gvF6qvpnExAdk4p307vaOu7g82oLoDyQ+rc3fc3ExkHbqGadWdbu/J3KgTl1RGLTIkwEs
+	 tIS/i860SQfJDdT0z5iJIKU3TES34In8PPk+WERFKlAyvoGE23rWXJbbCiiHwFYi/6XaV
+	 unRqA3jY7rC99vYLoCKtxtIa6rqcMiyJAbXot6KfyeBVvIkz1DBQePb5XlXvxb65rXU3B
+	 lWg0qDpy1W3xqu045RQawuHbmzDTlIr1xZ4UAsw2GefZMDToJa+piisIgAaurz+Prgw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982311;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=40wgv2rptPHI88aVcTzl0YyC5G4O6LvCNv2uAv6QEs4=;
+	b=4ic9pdKO9BXBYbPngcCsphVTgUTbvIDR5A/v4l6F8fZxWVuc8lLkoLMrn7vNUgx+Kp5/
+	 Lpach8HsaNtJpb8qhPbmTXOGe9kEtiwvQhQdt/bMYzeD0UVbQzDklZgE6tYH2ASC1k4/g
+	 lOHSOxQMxVEl/7nO6025xr4PrpMov8tY5YSuEgGbLHb3rlCFXqWmL6/w5LdvuVMJN/7+Q
+	 4op6mpu/BE208Oy/5BOXAjIrOphpE31ZUIaLngAx/rx8QmyNFT7lzVaqZK/ULIXa6/dqb
+	 jl8MQaLHpi21plYgzxJ4CG/ef8FXdieDWdW1OCO0H/qglwqXekbhSUbFr601SXlbqMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RgPamdL6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C77E606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C77E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1CF606A33A
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:25:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E1CF606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=oSrL97/u
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Type:MIME-Version:Message-ID:
-	Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=aDikpMOn5+HJJPzpuKasVpb1aKPshcvdq9pRmiwR3Mk=; b=oSrL97/uUH0n4Y+TC/LgB2dj4D
-	BkgkcsxFpBnuGYgw1SdrbfjcXmS+AhWdHrsJBYKh8WSLMoZGi5Ygutijd/HHbKdN/t9irez0hOkhU
-	iRPOoamtX/goPfMPdj3ly4/3IcmBH/6TTLwtzKPHSbwW6netVCPTXqlmc/mkX9wTYreKD1qbD8/uS
-	AutXQPGoaR15mG27AYqo4WsAwTgblyMCL0HhiobcOUQEGxqheO4qzwUNhKpNtN6cGbSwj+SekUptc
-	tnoSfW9StReod9M2TFpFSXnrm7AWx4Kd38pcKF+O4noE3NiiuUqmPQ5wOgplqpD2I5ns/dakxoU5V
-	8QJ8R/BQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xPMkS-009PY7-1m;
-	Fri, 06 Nov 2026 16:25:04 +0000
-Date: Fri, 6 Nov 2026 08:25:00 -0800
-From: Breno Leitao <leitao@debian.org>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, a.hindborg@kernel.org, 
-	kernel-team@meta.com
-Subject: [GIT PULL] configfs: Fixes for 7.4
-Message-ID: <au3_CGlshhRsbX5T@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RgPamdL6
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so1417080a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:25:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793982309; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ikX5x5G0wccKjThSnQoHMXLBgOYTHPKaXmTwybEcgeBErB2xXMEPhYmFh8JE8Vec0n
+         zurStcRZFTlEchNhSzf3YjEuW0+v7Kl+viNuDnPzBA3PgDl/wQqKJnoy2pfE48gKW619
+         EZTS7qj9G69TsHaoWi0E+Sul+YF1AQiU4SjIDRjCSNM1yGS69kAdVr1GM1nFHuWws/s4
+         qle/5wPMoZNcm6ZNDYTg0PqcQ9ZyC3ZFxxPHClHnGCX0NmQ67gWnx+1A+0cpjnCxDEjq
+         /zozRYU84yRYB6Rx+BoV9GuxdwNhYjFtkp9PlSNJrHKpsiv3tnM0utNFFRQeeiX4j8ZY
+         rOIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=40wgv2rptPHI88aVcTzl0YyC5G4O6LvCNv2uAv6QEs4=;
+        fh=LsGfOtR2pu0RB4Jpa5oxmIF2S1I/uFTTm79hVZs2acc=;
+        b=EogcTHCZJP6VZqsdtFbi/WGM5znl4jM2Zy+rMYlk0X0+N0tGOflHKCHsYrZPjAgIeq
+         yviS4aQ6a9J06vKgPd8Wgai3uaewOx+rbfwEAkrekzzrzOQE6Vm86CONk4Ql3/m8gqmL
+         83o7kJsMOf868waqlES/S6RgF2kOA38mYZznU2a+ombeSj0QuYmEWluV7CaV+D+zBaMd
+         8o5LKsa00nVuTIlKyIc/r01RB4pQw9L+o6pO1ZTI6RnwS5ZgcExmDuuMjXfzOB8vKR4r
+         Xu6RlI3AcYEeNlTulIlh4NSERQE9m4XNRyWDWJtkAZGmZ2c46105rtQ9pFUco6SWs1Hi
+         Dlcw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793982309; x=1794587109; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=40wgv2rptPHI88aVcTzl0YyC5G4O6LvCNv2uAv6QEs4=;
+        b=RgPamdL6PkhJDvHQq10C5ChdBFTarMeHLyG9scSalWVpgnctTtuJCUiMfOvaHYyPMl
+         mQCBx87oP96yGkuQ4DM4K7IWVtrPKx9diKX2BebYifM1pER0IjUajcu8Au2M2JVNMOqf
+         tKI0V3byWgzxhbBofsWk3AXTqVB1JVs1mBtmx57dD0xdL0UNERM2R0p30QH9MrHfuiCH
+         uwFAUl/GXvXf00z05HujHAc7RmTV6/xpUpmxb+9ghPtZSLq3v1rHZg3Wdzd83W+p1QBD
+         GdbH2QoqjPaf6JMktik6BovbQGvqH4tuODcKy13Fji4gOPOm5rHgZIVjZSojS2DGMqtc
+         5jdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793982309; x=1794587109;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=40wgv2rptPHI88aVcTzl0YyC5G4O6LvCNv2uAv6QEs4=;
+        b=mS2CokSieKfesc4FvD9kQ8xkDSA5Ebgj1+PBV36nLrSpew1c7nmo7/b6qGGvjcp/97
+         W7dfkJwFOP50YQLRebGRuKon4c5iINu0x803IuSnGEtfc8ObzYxqOHX0HvXzld1DxaLx
+         edMY7Hayjo0Mqn3aynnSLGGe9EaeNENEE4agtorNZPQcOzCs2WIy0YbxEWzplThBGdns
+         M933xuBHv4g3dTymrKw94Z4iZ9RSG/6181BJmUQY6EE9zGnY5STOnXsym+W1JZqAzoRd
+         X/Cq4ggXHMS5vOJnV6KJhhs6ewheyVcSIbk5I99PoCpF4YjC8z6oodKPw7syhKX9Sn7d
+         n+Rw==
+X-Forwarded-Encrypted: i=1; AL+hErF22d7gW0wQLtl7WCrtN6qZWrxNfa6CZRMDzYFFMNxtXn8QDwFJL6n5pZyahsJfZBdB6GxgVbnv+pPlTgs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DpehPrAxhpEWJP4SD0zC+v/15BFlmhvsoSztrXfemYg85LW/i
+	cNwFpGDbpeA8pKaO+P2nlqAPLdXtpWhffNh56Qai/1OEwu/jTbI4v4NM5OhLCm3fXP5utyszmaW
+	sbYIk39QEnit/AjFmc4jPdB91Y1h3J26VkCFCFeXarQ==
+X-Gm-Gg: AYBFou0Ls/xLxjpu7/ycHD8k4xWHPIIT+FWFz7FTr37DxReTLacdLmYc2vyffZNFvRx
+	6s9UmXa5DX6K2Yvoli4DZmc9LP2V2SH7Jp3patN78j19hyGHtm82SiT6OtlMFxHIA0zuikPU7ys
+	nCDdQDBPMnfIltkQprwGvJ9e24/hZI+NUAq2SiBmETIvJ8pCakMA9j6kQJmC+SUSE8Q8OHnB4Wh
+	u2JeoaL00Ip2w0jZE7vSTBi9oQrNnRbcNKXedjf9JLobF9N/EAbMkeHNXfpsFJbs9XFrdSdDFmK
+	FOVJTELPxjoMugpXWQwuZKxL5BaOykdnZZQdVuEorCX/dLta+pnstsosIioUcMAy79csbor4zvo
+	7vMKQ8fH+Te/rzwKd00zKURo8xpE87wtC/sPoSmOAMXYNkXc8sh+4593EqZXLmqix+gZuuu1la0
+	nR+vpH3KutA4V01u/G
+X-Received: by 2002:a05:6402:5003:b0:6b5:94d9:10f8 with SMTP id
+ 4fb4d7f45d1cf-6b5977c8e32mr2171392a12.21.1793982309351; Fri, 06 Nov 2026
+ 08:25:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,50 +104,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-Debian-User: leitao
+References: <20261105165525.011876858@infradead.org> <20261105170157.616859418@infradead.org>
+ <auzB7x4lVcFmTVMs@scheduler.schedules> <20261106083106.GC1779021@noisy.programming.kicks-ass.net>
+ <au2VkE9005PlW8VN@scheduler.schedules> <20261106090153.GD1779021@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261106090153.GD1779021@noisy.programming.kicks-ass.net>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 6 Nov 2026 17:24:58 +0100
+X-Gm-Features: AclHuK_fzl8uU0eiF2yxH8eudtRlwcfHvTBM72atpHn8wIO1H9L3zZHPYuhw5Jw
+Message-ID: <CAKfTPtC5k_m5eAznJ5Zb5EzsD2=3TKrW9X2VaXW-z=nbq1S--A@mail.gmail.com>
+Subject: Re: [PATCH 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor tg::idle
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, mingo@kernel.org, linux-kernel@vger.kernel.org, 
+	juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, joshdon@google.com, tj@kernel.org, jakub@okonski.org
+Content-Type: text/plain; charset="UTF-8"
 
-Linus,
+On Fri, 6 Nov 2026 at 10:01, Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> On Fri, Nov 06, 2026 at 11:57:03AM +0300, Kayra Cizmeci wrote:
+> > On Fri, Nov 06, 2026 at 09:31:06AM +0100, Peter Zijlstra wrote:
+> > > On Thu, Nov 05, 2026 at 10:20:00PM +0300, Kayra Cizmeci wrote:
+> > > > On Thu, Nov 05, 2026 at 05:55:27PM +0100, Peter Zijlstra wrote:
+> > > > > Rather than keeping cfs_rq::idle as a copy of tg::idle, make it the sum of
+> > > > > all ancestor tg::idle. This makes it trivial to tell if the current cgroup
+> > > > > is marked idle somewhere along its ancestral path.
+> > > > >
+> > > > > This makes se_id_idle() behave differently. Notably is will now be true
+> > > > > when there is a idle cgroup anywhere in the ancestor path. This
+> > > > > addresses an issue where preemption of cgroup::idle was overlooked when
+> > > > > flattening the runqueue.
+> > > >
+> > > > How? The diff doesn't touches se_is_idle(). se_is_idle() just looks to
+> > > > the policy for tasks:
+> > > >
+> > > > static int se_is_idle(struct sched_entity *se)
+> > > > {
+> > > >   if (entity_is_task(se))
+> > > >           return task_has_idle_policy(task_of(se));
+> > > >   return cfs_rq_is_idle(group_cfs_rq(se));
+> > > > }
+> > >
+> > > > Or am I getting something wrong?
+> > >
+> > > cfs_rq_is_idle() := cfs_rq->idle > 0
+> > >
+> > > and cfs_rq->idle is now getting incremented for the whole subtree. So if
+> > > any ancestor is idle, this is now true.
+> >
+> >
+> > Yeah, it is for group path. But we call se_is_idle for tasks in
+> > wakeup_preempt_fair(). Not groups, no?
+>
+> Ah, that's what you meant. So we should do something like:
+>
+>         if (entity_is_task(se))
+>                 return task_has_idle_policy(task_of(se)) || cfs_rq_is_idle(cfs_rq_of(se));
+>         return cfs_rq_is_idle(group_cfs_rq(se));
 
-Please consider pulling this configfs fix for 7.4-rc2.
+This is necessary for the 1st check in wakeup_preempt_sched_idle() to
+prevent useless call to find_matching_se()
 
-It contains a single fix that fixes the build of the new configfs
-selftest on 32-bit architectures, which broke when the test was added in
-this 7.4 merge window
-
-Thanks,
---breno
-
-----------------------------------------------------------------
-The following changes since commit 05441d697f7f9a927264f4058cbbc6a03dfcac9d:
-
-  Merge tag 'cocci-7.4-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jlawall/linux (2026-11-03 08:36:32 -0800)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/leitao/linux.git tags/configfs-7.4-rc2
-
-for you to fetch changes up to 57d94d26ed42773d6378da45eed9de03b116e7f7:
-
-  selftests/configfs: fix the build on 32-bit architectures (2026-11-04 03:09:57 -0800)
-
-Tag SHA: 841e4384ce222f6fe5a4a157e4b934e2e20c3736
-HEAD SHA: 57d94d26ed42773d6378da45eed9de03b116e7f7
-
-----------------------------------------------------------------
-configfs: Fixes for v7.4-rc2
-
-- Fix the build of the configfs selftest on 32-bit architectures,
-  broken since the test was added in the v7.4 merge window. The
-  harness casts the ASSERT_NE() operands to intmax_t, so handing it
-  the pointer returned by mkdtemp() triggers gcc's pointer-to-int-cast
-  warning on 32-bit, and the test builds with -Werror. KernelCI's
-  32-bit arm kselftest builds hit this.
-
-----------------------------------------------------------------
-Sasha Levin (1):
-      selftests/configfs: fix the build on 32-bit architectures
-
- tools/testing/selftests/filesystems/configfs/configfs_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>
+> no?
+>
