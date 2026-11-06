@@ -1,76 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986694;
-	b=as4Bf+XJWY2e2yLMFZ1p/mTOPLei3h0gfil9JrbQ07Q1W3aOn2eOmNJHgVHEL0JLJ0w5
-	 2y1BwrOJVkbTqkov3grIe8B8PGd/1sNglc4p2MDcVLw9qpDWmqnqTXSbLlz/2OPNOPnDX
-	 FX+Evvmmp6ND0Kb8BWAbEgZ5ELQA8v3cIKCKg6Qkh/vIEFpGxt4rnJdOHzYvAupdoP1xa
-	 jVNmGVAi04+zOzR+LdRJWoxHs+SrmUXIFRu5CXi3ENZbMaHhyNVRgDyC3zMrbNuwjcKgI
-	 MharQ8qapOcWxSPlPkocp/PL7k7dQjmQNP+JBoizLm7T4N5fWpUDecHZUpVKx+f+E3Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986694;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-FB-Internal:Content-Type:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version;
-	bh=8QAiaS4n20R6Be5/OEFRscYsIl59MRsTRHc5xWVH89k=;
-	b=guo/CpUWvUvkVxTTN+hfuNBKegTI124JKInI+iPz+ZXQdqo0bVQfFKQXtdn5X4B3Mtzr
-	 jogZb5dyznOaclILjvLXmwVB0UoBP+Epi+kohUCln8DVefA591x51/nbHRl9pv7F5OzSd
-	 VIOgdW5f11Aap4WB06oHHsuY1rdP5Jsga8KaF772v+gYjs2gQ6GQj2BvM53OFNu6hWGk8
-	 Ee0dmPgF0lL8f3J0/+BShxUBPWoJOUCWAmQhcl2rsAS6sRxCN0lxHPKxnPqMGu0zMV0mg
-	 HKPPj4b/tOC1Ts+pEgoHJflYb9NzO/9+Q9Fx2OKpSGuw/lGBZqLhdFNwi4oeFSA8rQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=QKrB1xVm;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793986723;
+	b=oCYuYoV5500E/3O0bxUatmhfOdEcxL0l5BXg3mPJILDyrUPMJdC6r1P15JU72sLxPtKg
+	 pQMr2NBwUwhuuj2kI94a9mPHWZWWNm5qJOO3Cz2sJXwwqUjBuzYjHjFhto+Dw9BH1iikG
+	 oBVxD+82qXcBe+cekUixATxpv38xjre3ePoW0gbihd2iCOJVD/yaNGfl2ldTRjkX0DDyt
+	 IrK1FdD5ROqazMhPc00uS6/eHegQHA3+TqIQqW/WV7eydspPyQoX1sGCITaidlpU0RcwM
+	 FUHn4yqpI4hBS+M9fkXcrKGjSzdHXKIYkVTGVcVlEaUefFhRYPXIjLa9thO4pRIrFyA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986723;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sauk2jgncTFUlQw9lWyHPoUUw7UB2Y95wGIvyKCeTOw=;
+	b=siFYlX6uCYD/2R5Kyb6aSgtXqOgNYR+/VGqIz0ggVa3rf7baWr6kk2Ae6sMrvgt21DwI
+	 Rf/LuSr4TIDhyUd0RmJRB7igIL2YUHaxW6o8wEuTIkBoEe358rq7VEt/FKA0NNG9TEq5+
+	 DIsG/xXux/N6wxns16FL1293HPGhbQ/Bfhxp0daMExDSDeL5tfQyFChaL5c3lhv9WKk0m
+	 L+Tm3EF6yBPfupCHDCRd+h9g7n/3WXZ4bc1GGflZdKUt80cHsQA189Rp/URF8y2N9AxvR
+	 gzluWq7cqNbvtfC2ozUQ6xbgezSIIF01MRgq4w34NOAFM7F3Qknx4kcDlxdtV9oJidA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=iTJXd1k1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.12
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013012.outbound.protection.outlook.com [40.107.162.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7D7606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:38:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7D7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB62606A326;
+	Fri,  6 Nov 2026 17:38:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AB62606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=QKrB1xVm
-Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6HWTbN1219991
-	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 09:38:12 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=8QAiaS4n20R6Be5/OEFRscYsIl59MRsTRHc5x
-	WVH89k=; b=QKrB1xVmgcQ9yaWQ00XVASIQvGqbjtqtCuwO4s+Y0cDOGAVwdfJxH
-	kRXbRHgfpEy6bxfTd2pVV1QLxFAs+8ckfugy2W2rskwBhRuCz/zRG9IJwCIlI3kL
-	b7VVcqlMF/HeEdZNv0eSFO0Mj6VBI5zQ0Uy8nNrr4ZAJrjzDme3IFsB4Zpl16iox
-	+KYzvN5U2volmy7tgFReA5voOwHfaBV/a9DWGMbIr/++x0K/a/w9X3+osNyw5I9G
-	Qb2HNoI6dMflxaHg3XXqAOuROSljPJp9yfkv+30uawrF+VhL06gs5I+5C01SEVQ6
-	HIRJJE2pIiHVvmM1GbTlysBIZEjHDqVGw==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hs3r6nnrv-17
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:38:12 -0800 (PST)
-Received: from twshared98006.17.frc2.facebook.com (2620:10d:c0a8:1b::8e35) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Fri, 6 Nov 2026 17:38:09 +0000
-Received: by devbig197.nha3.facebook.com (Postfix, from userid 544533)
-	id A46CF2E8DCBEA; Fri,  6 Nov 2026 09:34:50 -0800 (PST)
-From: Keith Busch <kbusch@meta.com>
-To: <tglx@kernel.org>, <bhelgaas@google.com>
-CC: <maz@kernel.org>, <lrizzo@google.com>, <hch@lst.de>,
-        <changfengnan@bytedance.com>, <namjain@linux.microsoft.com>,
-        <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-        <linux-nvme@lists.infradead.org>, Keith Busch <kbusch@kernel.org>
-Subject: [PATCH v3 1/2] genirq: Add disable_irq_noflush()
-Date: Fri, 6 Nov 2026 09:34:47 -0800
-Message-ID: <20261106173448.34794-2-kbusch@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261106173448.34794-1-kbusch@meta.com>
-References: <20261106173448.34794-1-kbusch@meta.com>
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=iTJXd1k1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FP0MoWiSC7hoofLZr22k3LyD7t9AI6U6ACKOkpREILAB78zOwdcOckXOegJ9WcHHGIs45ZqTfRcSHbdQZuOwhAs8XlLhkDaWc3T+kel2GE/zyykY1b4fvDdANtH5KdEG83pZLxH0x+IJn/q/FCso/mCOxiO7b7K6ErNNKF2hc78qcHBjNFcvCOL26LcVOMbpWZokCNeknkAjDxumKGURguaX9q3P8UpOYaS3mD93eWcKYRBLYyE3oa3CHs5DVqlmVscjMl868Py+yrhqEdsBnsUZoy4F6g20MWCRfk0cZd8B7IUy734S/nS+Tgs0g2mmOJnwvlQya1AyErK4wF8DTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sauk2jgncTFUlQw9lWyHPoUUw7UB2Y95wGIvyKCeTOw=;
+ b=EqMXepWFiYAqV+MQVR0qrXNj0yCTvLPNGHkZ48nKGs8SllMfw7++vQmTrznmv45LjfEb7gOZhu8OPLwsJv0fuNDH6ds7U4Bm0R4OcHfWiJB3B+DloAvlGguz5D7z1yfSt/USAQiDxpRsO9CuYsOhrEX5GF6chMNr5kaV/xtF8pbbLdpb3RrDXC3hEwfUtdzEky+wP1salduM/Dk4giQJrPgFehqMyhqK96Fl3s0j1fXVpCendpxTXH+3ZTOLxXsCLOO6ntoEawd6gy1XqxQ1Ty+H3kDvekPaYRiZP7ezyPSrwUyK/HiCaKqFZpDnKh9RYyvDw+PG8lkHc9kF7hgJuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=synopsys.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sauk2jgncTFUlQw9lWyHPoUUw7UB2Y95wGIvyKCeTOw=;
+ b=iTJXd1k1ptPtGOvma82H+u01+H24/euAspECThQ/3RDQTc2nu7+eIhxQox2HmUJOhCsN0S3xQm2zRpfPCcvo3daze1lpe+RkKVYG4XBX2CLQ4RfEvKM2Y/LFVwX3dh0fm6h6UTL/CdwE64c/P06WynsAOIAdv0WsFgsMqOQPZNfXYp9fYF6un3rpRYxTNiKe/THVAvb17kzB2ufwV7P1dabpVoo1CIYphS870yUu5XcZO5NIxuNLWE06Pr9bmx2lhBPl+dTk9YCub6gRHcuWrBrWdZRLTarmDnIDUXYxOi+hdYdUB93u1uGIjwAu4fE898VyhFfjYaY132EaeB4E+A==
+Received: from DU6P191CA0011.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:540::25)
+ by AM0PR10MB3699.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:15f::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.5; Fri, 6 Nov 2026
+ 17:38:38 +0000
+Received: from DB1PEPF000509E8.eurprd03.prod.outlook.com
+ (2603:10a6:10:540:cafe::90) by DU6P191CA0011.outlook.office365.com
+ (2603:10a6:10:540::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 17:38:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB1PEPF000509E8.mail.protection.outlook.com (10.167.242.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 17:38:37 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
+ 2026 18:39:04 +0100
+Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
+ 2026 18:38:34 +0100
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Subject: [PATCH v3 0/6] usb: dwc2: fix low power issues found on stm32mp1
+Date: Fri, 6 Nov 2026 18:38:20 +0100
+Message-ID: <20261106-dwc2-low-power-fixes-stm32-v3-0-68d2a0e9bab6@foss.st.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,178 +105,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA3MCBTYWx0ZWRfX1ttrLdFo7wWn
- nHxc0nIAJumqmQ+h4wMN519pW4zr528/IieBpTiiJtO7zcg9fnpCmLCra+BY5ILeaezJI4tjQoP
- tiN0NwbkzxA9LvhEHTThggZCq26ilOCs+QsgeS1XNLyvezhcNBLmS5ver789gtEPlgUg9I4Q2ps
- Jy64qJhkZj1bINieqkBuZZ1nJKd4VRfDkzL0NsjtUx84VFfJiUe5b0Xjl7ifmSsI/YWB91Ms2sp
- Q8M0SXrcnt/kB5xzm/BruMZGOxy1U5I6OXhd1E0c85PTNtHkQ3Se0xllUgritVkbr3f1Nffe2kU
- 108OcWZrLgFqFKcTUUL9PhszBrQdvejU+iBvlcRdHjx5ozHTBNm45r3pBpNo/xfX2yrnPpNJVu9
- LzLYRAgNrKCSTcIiYWE2oa5oFXSYSudHs64WVK0x+/sUdZ1jkUIPlDugrYPrWT0orQd+W1ywnub
- Znn2JCp7XcOJVMHR7eg==
-X-Authority-Analysis: v=2.4 cv=IsGL47/g c=1 sm=1 tr=0 ts=6aee1084 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=PAz_-FQ8hEVmOPYdF0yf:22 a=VwQbUJbxAAAA:8 a=aOCmZ3BWbme0XkIVnlwA:9
-X-Proofpoint-GUID: 52IbyTj4kavTBmGzO_6pzPByJWU0lOg7
-X-Proofpoint-ORIG-GUID: 52IbyTj4kavTBmGzO_6pzPByJWU0lOg7
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA3MCBTYWx0ZWRfX0RZExAkpAPUs
- 6eX38lJsurLAMBgS/wNR9jp4XPHhgpDJYZr1L0sXYl3M1Z5M39p960cjvOCHPM9DwgTpzVtO/yG
- iAL3oWTel1gxj/TX4YzwjFQ3kn2wJ2c=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIwQ7moC/32Oyw6CMBBFf4V07ZA+pKAr/8O4gDJIjVDSQdAQ/
+ t2CMdENy5u595yZGKG3SOwYTczjYMm6NgS1i5ip8/aKYMuQmeRSC85TKEcj4e5G6NyIHir7RAL
+ qGyWBG4EJ6qyQiWQB0Hlcz2F/vnwyPYobmn4hLo3aUu/8a7UPYul9RdmWaBDAISkUV2WVaon6V
+ DmimPrYuIYtqkH+wITahIXHIT1kOsn3lSi0+ofN8/wGiH0tkyUBAAA=
+X-Change-ID: 20261007-dwc2-low-power-fixes-stm32-0c1e5e68b252
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Douglas Anderson <dianders@chromium.org>,
+	Stefan Wahren <wahrenst@gmx.net>, Artur Petrosyan
+	<Arthur.Petrosyan@synopsys.com>, Amelie Delaunay
+	<amelie.delaunay@foss.st.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	Jisheng Zhang <jszhang@kernel.org>, Felipe Balbi <balbi@kernel.org>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <stable@vger.kernel.org>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509E8:EE_|AM0PR10MB3699:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd1a8c04-a11a-4051-bb3a-08df3c2cc9ce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|7416014|376014|1800799024|82310400026|56012099006|11063799006|261026140227099003|261021123027099003|261021121427099003|261009223027099003|261022075727099003|261102124527099003|261102123227099003|261022105027099003|261026121527099003|261028144727099003|10067099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	agVI7aRnPxjqZ08havFyQ3vCyBrTcfouNJ9kRtml3nQg7WEINbp7wbND+DInIaYQRxt6aqBt0nSQ7KezVtXzyKZNiDmHUXAqmhfxYPeGj1Dvkt6X+IViEQWPAyIz5TymP2MSMXRQA1SdzhRe5MZTE8w/cWirUbMxS3KO8w9hjuYN3bGQH1/emfc6IDvW4S1fymI+ptywUzcjGkWzsryG4JYLq9gPeL5vPYj2BdjoWfHTapcfUEtqnD8SeRvDEtUEllb6nCGimnoHj9v0gss4JcS50o4fpUBI6vuUMclpmAu0h3wmJJVYlrrXwXBgpL4CHfXeNzkasstSnhdds38RcwZSYAsEq9Y6uRkgOQ8WWJ1W+oNISHxtv/SQHKBxMucWcDWpDjyLC+bvPdKsbCAQHbjvpr1+Xj2z7ij37U2m8lfCZJ5vN4mn+YdWuoVP7oG+J1CSYnsFsS352Ico4dMYQDhNeqQvqnBMHraTfRDTVxyEDK8qZeWo2K5swShAWxBcThmFTdqmBzTsHEwKhGytm2B8lQ31utMEH4nCUP6QPMG+jvX0syNmxmLW7mmc8dvLauJhLvX36T1qKlj1x7HrCiOf0awHDSgMm3fsDdSp/vlZoBE41C7BZezQpnDz4a6/NMGYFxPhGzwai+yF3j6ORg==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(376014)(1800799024)(82310400026)(56012099006)(11063799006)(261026140227099003)(261021123027099003)(261021121427099003)(261009223027099003)(261022075727099003)(261102124527099003)(261102123227099003)(261022105027099003)(261026121527099003)(261028144727099003)(10067099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	sFmKoIFXmjuEokZjgkEFF0Vq1BA2ciCcIpdilh7Kq8VZ8bWL5hCkiwKIOlb3Z3zzKG88jF11xsy9ayytrCJBpDoMSesfLS8SZ+SOQyghcxVE/C+9hAzjRiU7UCrrlqO1X2LEm54JM9dtOqt0e81/6LH7+tRmrDAT52jGbRCGxgDO8PRQibkU2Et5SJrzczq58JO2QHP9nDx7+WHwgyq0bKrgd7iUeEvyJQ2Nq+qeE6DuxVXq9uBcZjJYxv+Hj70jqlGnHuCsmwmooUizfowFbzKN0k1srmZXJo93RVtBHF9KHTIyXUWpuv3ansVS9wypLcrrY2SYVf5YLQ0pZK234IPKDqQaBduBolBl2WzmyTh8czyLteC62HSNyY8VNtG6tKYM5bvs+9DMZexoNxK8f9CPTQDufSay6wvk37MNX6HA4vOXSIuYkBlvBie7SCFt
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 17:38:37.0708
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd1a8c04-a11a-4051-bb3a-08df3c2cc9ce
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509E8.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB3699
 
-From: Keith Busch <kbusch@kernel.org>
+This series addresses several hang, bad_irq or re-initialisation issues
+found on stm32mp1 when going to system low power (stop mode):
+- First three fixes can be reproduced on stm32mp13 DK board, stm32mp15 DK
+  and EVAL boards.
+- Subsequent fixes can be reproduced on stm32mp15 EVAL board that uses
+  an external Vbus regulator and stm32 dedicated detection logic.
 
-Drivers that switch between interrupt and polled completions don't need
-the mask write flushed to the device; the disabled state already
-keeps their handler from running and a late interrupt is replayed on
-enable. Add an optional irq_chip::irq_mask_noflush() callback, falling
-back to irq_mask(), and disable_irq_noflush() to mask through it right
-away rather than lazily.
-
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
- include/linux/interrupt.h |  1 +
- include/linux/irq.h       |  3 +++
- kernel/irq/chip.c         | 31 +++++++++++++++++++++++++++++++
- kernel/irq/internals.h    |  1 +
- kernel/irq/manage.c       | 21 +++++++++++++++++++++
- 5 files changed, 57 insertions(+)
+Changes in v3:
+- Update since Sashiko comments
+- Add a paramter (need_restore) to gadget resume function based on
+  canary detection to avoir possible race on lx_state as raised by
+  Sashiko
+- Add a dwc2_vbus_supply_restore() to check regulator enable state
+  during hcd resume, to enforce it gets restored along with PWR bit
+  if it has been turned off earlier.
+- Introduced a new patch for a possible race in hcd resume, with
+  HCD_FLAG_HW_ACCESSIBLE not being set, but host interrupts are active.
+- Refactor stm32 vb/id detection, to rool back in case of regulator
+  disable fails.
+- Link to v2: https://patch.msgid.link/20261013-dwc2-low-power-fixes-stm32-v2-0-79865a4f1b63@foss.st.com
 
-diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
-index ee2dd5349697d..6cfa1f8f3d400 100644
---- a/include/linux/interrupt.h
-+++ b/include/linux/interrupt.h
-@@ -233,6 +233,7 @@ extern void devm_free_irq(struct device *dev, unsigne=
-d int irq, void *dev_id);
-=20
- bool irq_has_action(unsigned int irq);
- extern void disable_irq_nosync(unsigned int irq);
-+extern void disable_irq_noflush(unsigned int irq);
- extern bool disable_hardirq(unsigned int irq);
- extern void disable_irq(unsigned int irq);
- extern void disable_percpu_irq(unsigned int irq);
-diff --git a/include/linux/irq.h b/include/linux/irq.h
-index f485369b1b4f7..3a428dad6666e 100644
---- a/include/linux/irq.h
-+++ b/include/linux/irq.h
-@@ -455,6 +455,8 @@ static inline irq_hw_number_t irqd_to_hwirq(struct ir=
-q_data *d)
-  * @irq_disable:	disable the interrupt
-  * @irq_ack:		start of a new interrupt
-  * @irq_mask:		mask an interrupt source
-+ * @irq_mask_noflush:	mask an interrupt source without flushing the writ=
-e
-+ *			to the hardware (optional, falls back to @irq_mask)
-  * @irq_mask_ack:	ack and mask an interrupt source
-  * @irq_unmask:		unmask an interrupt source
-  * @irq_eoi:		end of interrupt
-@@ -505,6 +507,7 @@ struct irq_chip {
-=20
- 	void		(*irq_ack)(struct irq_data *data);
- 	void		(*irq_mask)(struct irq_data *data);
-+	void		(*irq_mask_noflush)(struct irq_data *data);
- 	void		(*irq_mask_ack)(struct irq_data *data);
- 	void		(*irq_unmask)(struct irq_data *data);
- 	void		(*irq_eoi)(struct irq_data *data);
-diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
-index de754db414d1d..28285d7274e69 100644
---- a/kernel/irq/chip.c
-+++ b/kernel/irq/chip.c
-@@ -399,6 +399,37 @@ void irq_disable(struct irq_desc *desc)
- 	__irq_disable(desc, irq_settings_disable_unlazy(desc));
- }
-=20
-+static void mask_irq_noflush(struct irq_desc *desc)
-+{
-+	if (irqd_irq_masked(&desc->irq_data))
-+		return;
-+
-+	if (desc->irq_data.chip->irq_mask_noflush) {
-+		desc->irq_data.chip->irq_mask_noflush(&desc->irq_data);
-+		irq_state_set_masked(desc);
-+	} else {
-+		mask_irq(desc);
-+	}
-+}
-+
-+/**
-+ * irq_disable_noflush - Mark interrupt disabled and mask it without flu=
-shing
-+ * @desc:	irq descriptor which should be disabled
-+ *
-+ * Like irq_disable() with lazy disable turned off, but the hardware may
-+ * still deliver an interrupt after this returns. The flow handler deals
-+ * with that the same way it does for a lazily disabled interrupt.
-+ */
-+void irq_disable_noflush(struct irq_desc *desc)
-+{
-+	if (desc->irq_data.chip->irq_disable) {
-+		__irq_disable(desc, true);
-+		return;
-+	}
-+	irq_state_set_disabled(desc);
-+	mask_irq_noflush(desc);
-+}
-+
- void irq_percpu_enable(struct irq_desc *desc, unsigned int cpu)
- {
- 	if (desc->irq_data.chip->irq_enable)
-diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
-index 703a062be8783..7995970babb77 100644
---- a/kernel/irq/internals.h
-+++ b/kernel/irq/internals.h
-@@ -101,6 +101,7 @@ extern void irq_startup_managed(struct irq_desc *desc=
-);
- extern void irq_shutdown(struct irq_desc *desc);
- extern void irq_shutdown_and_deactivate(struct irq_desc *desc);
- extern void irq_disable(struct irq_desc *desc);
-+extern void irq_disable_noflush(struct irq_desc *desc);
- extern void irq_percpu_enable(struct irq_desc *desc, unsigned int cpu);
- extern void irq_percpu_disable(struct irq_desc *desc, unsigned int cpu);
- extern void mask_irq(struct irq_desc *desc);
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index ec3ecb0e48cec..152dabea3102b 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -706,6 +706,27 @@ void disable_irq_nosync(unsigned int irq)
- }
- EXPORT_SYMBOL(disable_irq_nosync);
-=20
-+/**
-+ * disable_irq_noflush - mask an irq without flushing the mask to the ha=
-rdware
-+ * @irq: Interrupt to disable
-+ *
-+ * Like disable_irq_nosync(), but masks the interrupt at the chip right =
-away
-+ * instead of lazily, and does not flush the mask write to the hardware.=
- An
-+ * interrupt that still arrives is held pending and replayed by enable_i=
-rq().
-+ * Use this when an extra interrupt is cheaper than flushing the mask, e=
-.g.
-+ * switching from interrupts to polling.
-+ *
-+ * This function may be called from IRQ context.
-+ */
-+void disable_irq_noflush(unsigned int irq)
-+{
-+	scoped_irqdesc_get_and_buslock(irq, IRQ_GET_DESC_CHECK_GLOBAL) {
-+		if (!scoped_irqdesc->depth++)
-+			irq_disable_noflush(scoped_irqdesc);
-+	}
-+}
-+EXPORT_SYMBOL_GPL(disable_irq_noflush);
-+
- /**
-  * disable_irq - disable an irq and wait for completion
-  * @irq: Interrupt to disable
---=20
-2.52.0
+Changes in v2:
+- Several fixes or commit messages updates since Sashiko review (see
+  changelog in each patch).
+- Add Thinh instead of Minas to the recipients
+- Link to v1: https://patch.msgid.link/20261008-dwc2-low-power-fixes-stm32-v1-0-5b303df762e6@foss.st.com
+
+---
+Fabrice Gasnier (6):
+      usb: dwc2: fix recovery after PM domain off
+      usb: dwc2: fix a possible interrupt storm in hcd resume
+      usb: dwc2: fix a possible interrupt storm on stm32mp1
+      usb: dwc2: hcd: fix possible successive vbus supply enables
+      usb: dwc2: hcd: don't disable/enable external vbus by system suspend/resume
+      usb: dwc2: platform: fix stm32mp15 detection logic power management
+
+ drivers/usb/dwc2/core.c      |   1 -
+ drivers/usb/dwc2/core.h      |   6 +-
+ drivers/usb/dwc2/core_intr.c |   9 +-
+ drivers/usb/dwc2/gadget.c    |   4 +-
+ drivers/usb/dwc2/hcd.c       |  36 +++++--
+ drivers/usb/dwc2/platform.c  | 240 +++++++++++++++++++++++--------------------
+ 6 files changed, 165 insertions(+), 131 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261007-dwc2-low-power-fixes-stm32-0c1e5e68b252
+
+Best regards,
+--  
+Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
