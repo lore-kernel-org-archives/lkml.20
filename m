@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985798;
-	b=AuKNkrwlbPlSs4/c9aU8qwy1maIYt4Om3eRw84C0fT1keDfFKcdU5+OU1X5QU1XnsXTC
-	 MYGx5qOvefQu4GkfL1A/GtsZ9f1a1c34gncCZ3XeGyHH4m4/Rk9HnMJpZBZgmBgGeNUmm
-	 KGDyT5yysSF/bbL6V1+ji5GnpqAKBjdbFC577XA/0jfUsq3SXf09yltITUB3OHGXmX5kD
-	 grh/5/5Oz0wJhBs+xOCZtJCIj0wEGakdO7YeBRJc0w6Lc6SGCasf3WwWHbI5dEH8okUnf
-	 zxMYnwjT7KfOCqFLBmgknO5R7uYjuMqK+pVTyxUyTrAGNSV6Xun9xCBNCykl2RyFt1w==
+	t=1793985809;
+	b=BHEE9C5TaVJRUVTnKtQBxGKvQrR4hURtLv0GZHg6SzBC6yFbubabztSCZ8LBRtKDDxJo
+	 7V0O1f/D9fV4aHYh2ofRPlSBwNSS8uBUBSfivz6m7HT/7frm+4xLfJAqphdIDS9IROnXQ
+	 t1IdtBKHOXFaIBH3R85YwHEUiHJrqHOsPup00RarImMykKnlU/dghJayu0AxVUfMUdrNC
+	 mcdjayIFl5H/fwnsVQVCfULDOhxTO83zSuS5OUwXsp5bk/keXJ2UVJJSke+CPaBw44LzS
+	 KSBJtoDL4CinCb+uTgiErM/Y7XHBZeGuvKfdN9G4Hk2+Ak5UKWB2Bf9p/rlxSE0M3tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985798;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985809;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=c5qXSU2oB7uYG0IjKESIyBPZauPIOpMrL+/5vCyIXq8=;
-	b=xIBiGm8NvXT2Ve38f2cxwM9My/dG1tswQDzbQVhSo5AeStmo/3eC6YaFKUk1NRS4iYxa
-	 Y6J/VUyM4qmJOJH3lyMvyT0F0jupQohNuB92e/9tutB6bRyMGDrvvv/j/LOLJYmeKnUsB
-	 820JPnlmtNwkgJbTLFBihSt73Lwx2AKx1gH4ncT/qL/tdgHTDU8D7u2Lo639MiY5YvydE
-	 9bTMr/flpKyVWtcv1dQXn9/YlYDeZSoMWw+8ejk4iyVEwR/jUHCHNr2aGg0xTnJPkUAeG
-	 YxCO7qqeHlh/8lZIVwQhvaVDWnXpE6HqXOCN+KNrmj/GpQ7vorDL475Co/5dprroWew==
+	bh=6JDFravyo9tiimlPgL8fBtnbINpZklV8LFTh0nIuThY=;
+	b=5mtRrvr3migziLJPx7wyF+tEuUTx2mnRjicAsDRlDdBTDJppeY3WONehHysAJgeqALCB
+	 DkV+UkNVnPC29uRNY1cOWPLqYEc9HBgpo4nOFKuTZ7JnUbRJ6OJxUjG9PwnGQVwc3Fj0e
+	 8XhhOJaL9ADZQREmDO/3wIl4ISkxpGD45dEcb4l0s1tCV2y3G/Ok3JcK8iyQfrWaM91pt
+	 IVTHr7Vanc4WFUAH9+ua+GKxb+WiYwL8+sOhz3ZnLEp/6G2yxr4F73N1jzTZta0IQ+1wE
+	 TkJSQX36zAz5CApeprfdNTHq2zkiuDYSMjbA9JN8iw28mB6Wo7BzCFsfS4w5FBhQ44g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="GsJ/S9XI";
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="E/14DxFo";
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99159606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:23:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99159606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA2A606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:23:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AA2A606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GsJ/S9XI
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so7887585e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:23:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=E/14DxFo
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so8379465e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:23:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793985796; x=1794590596; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1793985807; x=1794590607; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=c5qXSU2oB7uYG0IjKESIyBPZauPIOpMrL+/5vCyIXq8=;
-        b=GsJ/S9XIFRwxp1uO+VDr06d9rSG4qmkThclRMYewXOpAvjxTWhxZuQHDZC5BU77PP/
-         7FSh5OwBs3nLNxJIXftDhzTfxsTiBfgJ6/RoeVojPqWwi0FQfvcxndlLR2/v88ThDVSd
-         QBN8uICmPE8WFklazTSszJRkB1a3vaomKnyWe0KU0Y/X+Gl7ftO1/I5LkBFaFSwaaPSO
-         Sl6RmDatRytKUNwXzHBh0CvK6upBKDh0nR2VxsNBpqv9ghfLCoBZvHxg6MMJ0pL348ns
-         LfU9N9jxA0nlXqtPU/cCnXAnBEfQMnwm9R+9jZyDjIq5waFhDugMTwO0SxkYR2i5dgcR
-         A/ow==
+        bh=6JDFravyo9tiimlPgL8fBtnbINpZklV8LFTh0nIuThY=;
+        b=E/14DxFoV5fh/OeeBoAbPZ8SZzdGM0l0TN1ZEKfrEhOIS74vcEs1IQWJTA/hFS7JwM
+         JcSdwwk+aQWD6fa4AvPo+0UOe4DzE5czLBGIw86JQILInaccwF+6i1ps7yu28xfssy6s
+         TLkpHxf1r5wDQOx26kRoqPCJTlCV4TARYWgbTv2QfiXChJgJ0fM/gUll+t38uM5PrHQO
+         Hq3osBdOvU7P0B2T01O3EK6wGXbno6rbEXCFXooBEzDeVx2E6uxePV/ZZce8vSS+IzUQ
+         quD5tEFv0kbMu/H84B/h5hbN4AlWkLFlI5pbJR0Pbk7bJxK7OC02L11yC0ccaf29rXaY
+         ycLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793985796; x=1794590596;
+        d=1e100.net; s=20260707; t=1793985807; x=1794590607;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c5qXSU2oB7uYG0IjKESIyBPZauPIOpMrL+/5vCyIXq8=;
-        b=oQOQqgkObqK6Gd54WkcTce12+CaRjsLKsJ4cnUwYPBukh9Ao7iNssreArWBD/SVURv
-         LYjkP59IPAh8KlvE9gKHFZa6NjW3SqiVWFz4HCfD4mgZEB0+6oZ6mXFNJvo9V/du4v5Y
-         ZCkx2UENJC3cFA0v61rNIiS4P5joRKRvAXNlBx+EYboPEtIKrPZswCBmpJ8qrt7T4cfr
-         ZCywFvYZLBSKpdrwZh0Yu05DzjZ3lKZbjUpvAfk4PcQmLAL7FFxk9VFfBq4BU2ESjDwB
-         j96uz0Y1RrlRnGJ2LXkfPwnzVGYTeVNelVfWqR3o1piyFK2qeLWA+YVHFSWFFaHte2Wh
-         goNA==
-X-Forwarded-Encrypted: i=1; AKwUvBz7Zqw2W+x5qHPXnepueX+zdjzT9zeuWKYAEeaUpP3e/2zJ1wlu/evQPupy1i9NSx4ZCs2i4DT6ceMxdwA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GpR6OJVvYS//TSIkYfvf6VcHYihaegsSYYS6BksfcNMZ1NLfh
-	3tZkDfb1rYdi9mvM7RLfFNNYuh91F/jAokc6g+mDdG2cqE3uDAVkGTpBZq8gOwkGHmU=
-X-Gm-Gg: AYBFou0my6GhibEoYtbFAeqqT35bMSv48HcbBFWvKJP8WhAyc2MBADcRoF2boxy5cCa
-	dTX6xwS/58MAHdjK2G04hUII+NPsqlwGMt8GNBukoaSfTgZWLqn89V17hXAhTJW/3Al7eA9du9k
-	lC5zk/QU53ielbkRHnvEKBVsgOiHAtWCVxCIMrvaiMy0o35IU8RyNJMAmH75wzo1vVU3gcsMKvt
-	Ko/Afsoixw4CayoU9Sq3/5UBOSZvCq4rKx9QGy/6gochumZ4VbSotJQ7ieWolkwYLGraXX/KrrE
-	g2S9z+msRN8GhnkW8D1sAKHT439MOjcpOtC0eFT7Rm7VnTCrR+a/l+FyAGKABD6+MjvanGGG5Gf
-	THw5G/N1yEywTor8gHiWrf+4eocZYUpETKJjPHNNavxx0N/rc7AOawKeGbg/WgxLogFBKDFvIWi
-	9pIq2DLQ8qt+TTnlAc0vwnuWAn5sGSsFpYMdcaW8f4odXIYKeVQLgccsqESa6NsWoAMCU8fsgHc
-	1zca1IihhQtT0YeGpJg3/2g/l08yaZQsxse+exgF3aryAHb4fqM6rKuf2kb4ZfyoCFRBPRTA9/5
-	9H9BI2g8gbwsJ3QmM8xT7n0CB+hqGnh/
-X-Received: by 2002:a05:600c:4583:b0:4a4:3a2d:15da with SMTP id 5b1f17b1804b1-4b6df4f2484mr55519915e9.15.1793985796065;
-        Fri, 06 Nov 2026 09:23:16 -0800 (PST)
+        bh=6JDFravyo9tiimlPgL8fBtnbINpZklV8LFTh0nIuThY=;
+        b=CHIwCCHS/3ZDb5vHBx4/FvjU3bXXmqwcSRa9Zf2lgfp4LEVWpw/iBC4RXoq1WM47Rg
+         YEj/0GavRoFJl1cIqg0aAWEbBqVn7nvSB4ZeMKHM/rrEAqSyXuzYQtRskqKeZNZtjptr
+         3n1kGFcfUYV51X/hOjce88o8vCj1uyCeu+txsuOEr0OWvoRTfcdqIyijzfvaC0ZC3O3a
+         S0LQUZaHFCVQHZztZJJ7OX6dTU7Ca+yhcU6Io5MmykArvZbs/ywC25qzQVAiRDRcXkqC
+         cqrex9zZ/Bl/Ez8tVU+oX5eXBn2WtCBOAkJjuDTRxPeGx4i14RvWx/1TqAspKRSo+X6E
+         AyCw==
+X-Forwarded-Encrypted: i=1; AKwUvBwtNb8mnNNhNJkBf9sRg/4Jy6DlhpGBiveLkgu3+9iMliupRgAKB4i3VjBqiqg9Twd/0OXKch1jxQKk/yI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/EmnTuERfIiJBsxKW4ajzIkPLqNwzc+90XNnNyyuIE5FHWHCeg
+	VnzoZQwtx4kZKSecebm+mbg/1l9fPMEEWJggQjALDaRltuOkv8nwiceVWQX2vN8ucDc=
+X-Gm-Gg: AYBFou1dGKXESDIGGiea45PJvNS1f04AJUdp03jyEJOhscz/zkvv0xhjh3pdWqeACpz
+	YWo0+XlHiQamL0b2iEXICTn2oJfnrQlYTt8UO2SLaTT9XpKaupSod7x2OotBgxh5f5T8XLbMFAf
+	hjC1/oZm4c03Lx4VKuzu7vN6Em0K07i7SUOLpT/R2GvyeWJ3zROCak71OY5wzkBT1mFQ1bFJ8C1
+	+oY5XLxE8i944CuCL+/2Xb5N/7W/FptOUt0d1mVOcXSZkX3hDnvCkldndL+W9uwW2dDagofmJYh
+	S1EKO1Yc5FLxMlNZ4eEpPV/i2Cm7xvsjCRxlh4zGeicB6aLZaWQHL24Mhaj8L4t0xPDJT4DGqFx
+	qSXAiWDDkVh1ynZkt4kFxoyl0QHWZmNY9PVizICmaacbMiBE/C62KkSEE2DGoWF3U0PmVBaBFd3
+	MFe86hq6LGj6pzlUGSo9091hTScVBWg+FZk4XUWU68tFo7BDb8oVhYzU4J8wALYufM7ZH8x23hh
+	2Q9mExSjr19mvzYyZ1Mwoc0CzA35XzQ2/hVtQ4AWgHd8nDuqpqXClYgHfReiGvJtPxLiNlr13gP
+	JdiS28uwYF52mL17QWkTJ+GT9w0fMXk=
+X-Received: by 2002:a05:600c:a012:b0:4a2:526b:d3fd with SMTP id 5b1f17b1804b1-4b6df5e9c8amr60438775e9.15.1793985807576;
+        Fri, 06 Nov 2026 09:23:27 -0800 (PST)
 Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6e28cce1fsm87009245e9.15.2026.11.06.09.23.15
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572caf48bsm168315435e9.11.2026.11.06.09.23.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:23:15 -0800 (PST)
+        Fri, 06 Nov 2026 09:23:27 -0800 (PST)
 From: Petr Mladek <pmladek@suse.com>
 To: John Ogness <john.ogness@linutronix.de>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
@@ -88,9 +88,9 @@ Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
 	printk@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Petr Mladek <pmladek@suse.com>
-Subject: [PATCH v6 15/16] printk: Modify try_enable_default_console() to return error/success
-Date: Fri,  6 Nov 2026 18:19:51 +0100
-Message-ID: <20261106171952.207909-16-pmladek@suse.com>
+Subject: [PATCH v6 16/16] printk: Try enable preferred consoles only when there are any
+Date: Fri,  6 Nov 2026 18:19:52 +0100
+Message-ID: <20261106171952.207909-17-pmladek@suse.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106171952.207909-1-pmladek@suse.com>
 References: <20261106171952.207909-1-pmladek@suse.com>
@@ -105,68 +105,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently, try_enable_default_console() has a void return type, and
-its potential failures (specifically when console_call_setup() fails)
-are ignored by its caller, try_enable_console().
+try_enable_preferred_console() used to be always called because it
+had several hidden effects, namely:
 
-Modify try_enable_default_console() to return error/success, and update
-try_enable_console() to capture and propagate this error.
+- returned success when a console was pre-enabled using CON_ENABLED
+  flag.
 
-With this change, try_enable_console() will no longer return success
-for a pre-enabled console if try_enable_default_console() failed (such
-as when newcon->setup() fails). While this might change existing behavior,
-it is the correct approach to ensure setup errors are not silently ignored
-or treated as successful registrations simply because the console was
-marked pre-enabled.
+- enabled Braille consoles which were ignored by "preferred_dev_console"
+  because they were not associated with /dev/console.
+
+- returned success when a console was enabled by default because
+  try_enable_default_console() did not return success.
+
+The first two hidden effects were removed in previous patches. The already
+fixed handling of pre-enabled consoles actually helps even the 3rd case.
+try_enable_default_console() sets CON_ENABLED flag on success and
+is later handled as pre-enabled.
+
+Prevent any future hidden effects and call try_enable_preferred_console()
+only when some console is preferred.
+
+No behavior change.
 
 Signed-off-by: Petr Mladek <pmladek@suse.com>
 Acked-by: Chris Down <chris@chrisdown.name>
 ---
- kernel/printk/printk.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ kernel/printk/printk.c | 26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
 diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 5ec34dc2d168..cbbb9aed3e61 100644
+index cbbb9aed3e61..ea8516f93837 100644
 --- a/kernel/printk/printk.c
 +++ b/kernel/printk/printk.c
-@@ -4072,18 +4072,23 @@ static int try_enable_braille_console(struct console *newcon)
- }
+@@ -4096,7 +4096,7 @@ static int try_enable_default_console(struct console *newcon)
  
- /* Try to enable the console unconditionally */
--static void try_enable_default_console(struct console *newcon)
-+static int try_enable_default_console(struct console *newcon)
+ static int try_enable_console(struct console *newcon)
  {
-+	int err;
-+
- 	if (newcon->index < 0)
- 		newcon->index = 0;
+-	int err;
++	int err = -ENOENT;
  
--	if (console_call_setup(newcon, NULL) != 0)
--		return;
-+	err = console_call_setup(newcon, NULL);
-+	if (err)
-+		return err;
- 
- 	newcon->flags |= CON_ENABLED;
- 
- 	if (newcon->device)
- 		newcon->flags |= CON_CONSDEV;
-+
-+	return 0;
- }
- 
- #define console_first()				\
-@@ -4126,7 +4131,9 @@ static int try_enable_console(struct console *newcon)
- 	if (list_empty(&preferred_dev_console)) {
- 		if (hlist_empty(&console_list) || !console_first()->device ||
- 		    console_first()->flags & CON_BOOT) {
--			try_enable_default_console(newcon);
-+			err = try_enable_default_console(newcon);
-+			if (err != -ENOENT)
-+				return err;
+ 	/*
+ 	 * First, try to enable the console driver as a Braille console.
+@@ -4135,16 +4135,24 @@ static int try_enable_console(struct console *newcon)
+ 			if (err != -ENOENT)
+ 				return err;
  		}
++	} else {
++		/* See if this console matches one we selected on the command line */
++		err = try_enable_preferred_console(newcon, true);
++		if (err != -ENOENT)
++			return err;
++
++		/* If not, try to match against the platform default(s) */
++		err = try_enable_preferred_console(newcon, false);
++		if (err != -ENOENT)
++			return err;
  	}
  
+-	/* See if this console matches one we selected on the command line */
+-	err = try_enable_preferred_console(newcon, true);
+-	if (err != -ENOENT)
+-		return err;
+-
+-	/* If not, try to match against the platform default(s) */
+-	err = try_enable_preferred_console(newcon, false);
+-	if (err != -ENOENT)
++	/*
++	 * Make sure that pre-enabled consoles won't get registered when
++	 * something went wrong. This is just a paranoid check that all
++	 * branches above returned on error.
++	 */
++	if (WARN_ON(err != -ENOENT))
+ 		return err;
+ 
+ 	/*
 -- 
 2.56.0
 
