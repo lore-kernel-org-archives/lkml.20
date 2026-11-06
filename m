@@ -1,64 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981779;
-	b=Sxx6jy/DPuUMx6xkKVFxArlp2EzltKjXXps+WDobiqfSXUYWUeEem6WR+hdSI6koSf93
-	 liM3b+slHokuA+TF7apA1rQxSEHAWumaU1vEgMA/8+ckwpFi28fnFipHyr0RcZeUiAp9+
-	 /U0NTCP1a700XqJ8bv7Gwe/h8Q9Og7NkRDydSii9MuxklxYOIpu8pFR6jnsKnVxbSuVmj
-	 sZNF9QRKQsd2myytyyWxSKOoRLIXNIxZOk+K/tE1kOsCFp0YSgTsshDeVo+Tz706694ie
-	 r7hNRG1cKBr/qJmkAch8B6GXSyGBMxAKHDlVBv2naVX44z5Rurvi9D58PZcPRLlrPaA==
+	t=1793981770;
+	b=jJG5xNVlR9NoayS97JU9TIEWbexlgpMlemeOj+QZfyt23I4s3DZRWRYCHehoNfZyqnh6
+	 mLrpaRsTYg+BCmkNyUmoDiKGmwgO2sEibgSFPa6cQypzpMLG9TMpb2C9BcUSeuhNBWVKg
+	 KMsj7C6nPcvkv19EuI56OdQ1Zlm6OGlcyDEFK2qqaVJ5BIrJi7rOmh7vEKKB/0aVtJOuK
+	 821RUj+YERT+cuuqVe8RkJe7ZHQtBWxMrFBcp0L7b2s66vwIL2Nc9SjABRKj2cJomVAyM
+	 x6SIcAXGqfJQ0Kwq68yEvukjoKgXEZhyNLGkfpIYgmYDSWUOlwG3eJul3TudQdSGQGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981779;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=fjiYEUT6lXuZx6H+F7ly7EelTdqZsb5rfOdFz2QSe+s=;
-	b=5AMNeVZ/VveXtH/z2A5WZh6mRu4GCN7RnvOY8Xwk06JM+J/KXQ3U4zkgp0cWqsV/lt9R
-	 FNAfD00OiJ2R8eGcprNgnf2bjjqC6siOpr9zq6aw7Iv3EM2wlJj5gbW4jRQjM0JTAypDQ
-	 hKzc2P3Nq6V05eMHoeOABmzFnTETj48QYdm2+udX4Ef37Njgn0Sij1sUR5nlMlc11r7qQ
-	 ZqjlskClbu/H7gzFCJX7+VA/KOgGgPGXn0lYf7/yzDa3aEEikA7jtOsX+JuKQOYO/RvR1
-	 3TcbK9cWYgfdTvr4TUrvFvkeGHwOINlzHCbLHYD8TBYsydluuDB7SXdSFuV4wOolUOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981770;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6SJDFW9IeQX+vqdIKCDn3KJdcy7UtxXhRhedD/6Wmug=;
+	b=S9pCbWRh7XIt9JOADKUtaqpJwVH7mlydML0+BMTVN1KTgpHvK9n00MUDalEnpMPA6Tzc
+	 vv2HqnTCZqIZK+Vtwrnquhh9Ii97HUXrTb9b4kERvscxy8N1lrfV2kUsJAYSpRGySMM0+
+	 KmFiuP79M/qcpjB1d/rL3JGJp1R3U7iZx/hn1QQCVjZkek49xvp7DE+kpEnpvZhP1Ebxr
+	 RCOMcFXMnlwxyPb0Z4FmEay/4VChCeXvMThixRRCqVIuaTqIorWPZX3S6m4iyzWHtV9ND
+	 QOvwuJXPd9W38b0PRx6ytP1dC0XNpo+5995iCUp1/5sbEbzGoBTXiiQ/IPh476vXQfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=fC0vZy4c;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IhG0CosQ;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E129F606D810;
-	Fri,  6 Nov 2026 16:16:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E129F606D810
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899D4606A329;
+	Fri,  6 Nov 2026 16:16:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 899D4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=fC0vZy4c
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=fjiYEUT6lXuZx6H+F7ly7EelTdqZsb5rfOdFz2QSe+s=; b=fC0vZy4cKUrBB5V5L218c24PL8
-	k/oxRlySNr8UJVlYQtovyrZgCFMuj/6sPM68tdd2IWBaWro7RMCanMVUtzl7HwkgQZtupuJM9D3V3
-	ThC7nOWNJYCavdjc4m5ejOtYhddZUGWKreMGfwpe/aqF+qGkNhFIUWXFt8TcHyblaDwIxw+PcGYkI
-	At5xHvQZ+qfMmPH9RmPpLyqz/XwGMF5wft/XGoXS6t2VDkIrHLIugKTVGtNbtOyrkhoKWl87ODHXX
-	dQsYhl68ASQGYGP+akYAL+5E2fjxS6tCODRqdc8UAUQefSdgYgUqiixDff/8IakzhG+k0Kg4ApW27
-	BfKn+KYg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xPMbq-009PF0-2g;
-	Fri, 06 Nov 2026 16:16:11 +0000
-Date: Fri, 6 Nov 2026 08:16:06 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Yingjie Wang <x-professor@outlook.com>
-Cc: "a.hindborg@kernel.org" <a.hindborg@kernel.org>, 
-	"viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>, "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>, 
-	Yingjie Wang <1075151112@qq.com>
-Subject: Re: [PATCH] configfs: protect symlink source callbacks from removal
-Message-ID: <au39EinX6Xhj4yoj@gmail.com>
-References: <20261105134514.2890692-1-x-professor@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IhG0CosQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793981769; x=1825517769;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=b0mnuRhzQjyjsma7eeDskpSrtFsJ748S1jTydbrnsn4=;
+  b=IhG0CosQsovT6X+cMgHE6SyxM2d9sgWPTEge+augtQcgOgOQGrXEysBH
+   x/dLpgJlG4+90gOubAR1I29ZQBV53Qc/NDL13vP2tHG3wO3eDEI22dvRs
+   4ACBUCoP4Phwn/Qq5DZVFOnWRh4OA0ZDzXEdxIhxOWCz+pnGHpvb4GN9U
+   Fj+S3tGlw9S3RmwuUrn3A5t55SGjqBZrsDXIVDzzvwLL5CsofcDNcIp6U
+   gVTsRKcK6z3DhYTxiR1Qz0ue9ocMl61p5gwcThguOrLSEYsudIp2/ZGDo
+   WoUb8IyJ/igjQaFkqy5BnDRZiNIPO6rO4uviu1eLBNvX4wmGFkTmxSGsB
+   A==;
+X-CSE-ConnectionGUID: juvCmibCRUuQ94/C0/Lv9w==
+X-CSE-MsgGUID: Tv0pHlmfSRW9usGa1q8sMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2889292"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2889292"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:16:02 -0800
+X-CSE-ConnectionGUID: wqceXbVhR0W6VHIXM3E/bw==
+X-CSE-MsgGUID: vquto4LSSnaIBBKZkSujoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7341882"
+Received: from ubuntu.igk.intel.com ([10.102.114.174])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:15:59 -0800
+From: Szymon Durawa <szymon.durawa@linux.intel.com>
+To: nirmal.patel@linux.intel.com,
+	bhelgaas@google.com,
+	robh@kernel.org,
+	mani@kernel.org,
+	kwilczynski@kernel.org,
+	lpieralisi@kernel.org,
+	asutosh.pathak@linux.intel.com,
+	szymon.durawa@linux.intel.com
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v10 1/7] PCI: vmd: Add vmd_bus_enumeration() helper function
+Date: Fri,  6 Nov 2026 18:42:49 +0000
+Message-ID: <20261106184256.4130-2-szymon.durawa@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106184256.4130-1-szymon.durawa@linux.intel.com>
+References: <20261106184256.4130-1-szymon.durawa@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,76 +87,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105134514.2890692-1-x-professor@outlook.com>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 01:45:17PM +0000, Yingjie Wang wrote:
-> From: Yingjie Wang <1075151112@qq.com>
-> 
-> configfs_symlink() drops the source directory inode lock while resolving
-> its target.  A concurrent rmdir() of the source item can take that lock,
-> detach the item and clear its ci_group in unlink_obj().  configfs_symlink()
-> then reacquires the lock and calls the source ->allow_link() callback on
-> the detached item.  Its config_item reference keeps the object allocated,
-> but not attached to the hierarchy.
-> 
-> The UVC gadget format callback reads src->ci_group->cg_subsys to take the
-> subsystem mutex and faults on the cleared pointer.  Racing symlink() into
-> a UVC format directory with rmdir() of that directory produces:
-> 
->   BUG: KASAN: null-ptr-deref in uvcg_format_allow_link+0x2a/0x140
->   Read of size 8 at addr 0000000000000060 by task configfs_race/291
->   Call Trace:
->    uvcg_format_allow_link+0x2a/0x140
->    configfs_symlink+0x3f2/0x870
->    vfs_symlink+0xc0/0x2a0
->    filename_symlinkat+0x118/0x2b0
->    __x64_sys_symlink+0x50/0x70
-> 
-> Creating the items needs the privileges required to manage configfs.
-> 
-> Rechecking ci_group after relocking would cover rmdir(), which holds the
-> source inode lock until unlink_obj() returns.  It would not cover
-> configfs_unregister_group() and configfs_unregister_subsystem(): both
-> clear ci_group in unlink_group() while the source inode lock is not held,
-> so the check could become stale before the callback runs.
-> 
-> Take the source fragment read lock after reacquiring the inode lock and
-> hold it through allow_link(), create_link() and drop_link().  rmdir() and
-> both unregister paths mark the fragment dead under the write lock before
-> they unlink the item, so a concurrent removal either waits for the
-> callback to finish or makes the symlink fail with -ENOENT.
-> 
-> Built from the same configuration, the kernel without this change faulted
-> within 1,000 iterations, while the kernel with it completed 10,000
-> iterations with no report.  The reproducer covers the rmdir() path; the
-> unregister paths were checked by code inspection.
-> 
-> Fixes: 351e5d869e5a ("configfs: fix a deadlock in configfs_symlink()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Move the vmd bus enumeration code to a new helper vmd_bus_enumeration().
+No functional changes.
 
-How this patch was tested?
+Suggested-by: Nirmal Patel <nirmal.patel@linux.intel.com>
+Reviewed-by: Asutosh Pathak <asutosh.pathak@linux.intel.com>
+Signed-off-by: Szymon Durawa <szymon.durawa@linux.intel.com>
+---
+ drivers/pci/controller/vmd.c | 89 ++++++++++++++++++++----------------
+ 1 file changed, 49 insertions(+), 40 deletions(-)
 
-I applied this patch to next-20261104 and raced symlink() inside
-ports/1/subsystems against a mkdir/rmdir loop on ports/1. KASAN fired
-within a second:
+diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
+index 9d97a832785e..e4ac04936320 100644
+--- a/drivers/pci/controller/vmd.c
++++ b/drivers/pci/controller/vmd.c
+@@ -954,6 +954,54 @@ static int vmd_pm_enable_quirk(struct pci_dev *pdev, void *userdata)
+ 	return 0;
+ }
+ 
++static void vmd_bus_enumeration(struct pci_bus *bus, unsigned long features)
++{
++	struct pci_bus *child;
++	struct pci_dev *dev;
++	int ret;
++
++	vmd_acpi_begin();
++
++	pci_scan_child_bus(bus);
++	vmd_domain_reset(vmd_from_bus(bus));
++
++	/*
++	 * When Intel VMD is enabled, the OS does not discover the Root Ports
++	 * owned by Intel VMD within the MMCFG space. pci_reset_bus() applies
++	 * a reset to the parent of the PCI device supplied as argument. This
++	 * is why we pass a child device, so the reset can be triggered at
++	 * the Intel bridge level and propagated to all the children in the
++	 * hierarchy.
++	 */
++	list_for_each_entry(child, &bus->children, node) {
++		if (!list_empty(&child->devices)) {
++			dev = list_first_entry(&child->devices, struct pci_dev,
++					       bus_list);
++			ret = pci_reset_bus(dev);
++			if (ret)
++				pci_warn(dev, "can't reset device: %d\n", ret);
++
++			break;
++		}
++	}
++
++	pci_assign_unassigned_bus_resources(bus);
++
++	pci_walk_bus(bus, vmd_pm_enable_quirk, &features);
++
++	/*
++	 * VMD root buses are virtual and don't return true on pci_is_pcie()
++	 * and will fail pcie_bus_configure_settings() early. It can instead be
++	 * run on each of the real root ports.
++	 */
++	list_for_each_entry(child, &bus->children, node)
++		pcie_bus_configure_settings(child);
++
++	pci_bus_add_devices(bus);
++
++	vmd_acpi_end();
++}
++
+ static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
+ {
+ 	struct pci_sysdata *sd = &vmd->sysdata;
+@@ -964,8 +1012,6 @@ static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
+ 	resource_size_t offset[2] = {0};
+ 	resource_size_t membar2_offset = 0x2000;
+ 	resource_size_t busn_end;
+-	struct pci_bus *child;
+-	struct pci_dev *dev;
+ 	bool vmd_in_guest;
+ 	int ret;
+ 
+@@ -1096,45 +1142,8 @@ static int vmd_enable_domain(struct vmd_dev *vmd, unsigned long features)
+ 	WARN(sysfs_create_link(&vmd->dev->dev.kobj, &vmd->bus->dev.kobj,
+ 			       "domain"), "Can't create symlink to domain\n");
+ 
+-	vmd_acpi_begin();
+-
+-	pci_scan_child_bus(vmd->bus);
+-	vmd_domain_reset(vmd);
++	vmd_bus_enumeration(vmd->bus, features);
+ 
+-	/* When Intel VMD is enabled, the OS does not discover the Root Ports
+-	 * owned by Intel VMD within the MMCFG space. pci_reset_bus() applies
+-	 * a reset to the parent of the PCI device supplied as argument. This
+-	 * is why we pass a child device, so the reset can be triggered at
+-	 * the Intel bridge level and propagated to all the children in the
+-	 * hierarchy.
+-	 */
+-	list_for_each_entry(child, &vmd->bus->children, node) {
+-		if (!list_empty(&child->devices)) {
+-			dev = list_first_entry(&child->devices,
+-					       struct pci_dev, bus_list);
+-			ret = pci_reset_bus(dev);
+-			if (ret)
+-				pci_warn(dev, "can't reset device: %d\n", ret);
+-
+-			break;
+-		}
+-	}
+-
+-	pci_assign_unassigned_bus_resources(vmd->bus);
+-
+-	pci_walk_bus(vmd->bus, vmd_pm_enable_quirk, &features);
+-
+-	/*
+-	 * VMD root buses are virtual and don't return true on pci_is_pcie()
+-	 * and will fail pcie_bus_configure_settings() early. It can instead be
+-	 * run on each of the real root ports.
+-	 */
+-	list_for_each_entry(child, &vmd->bus->children, node)
+-		pcie_bus_configure_settings(child);
+-
+-	pci_bus_add_devices(vmd->bus);
+-
+-	vmd_acpi_end();
+ 	return 0;
+ }
+ 
+-- 
+2.43.0
 
-    BUG: KASAN: slab-use-after-free in config_item_put+0x48/0x180
-    Write of size 4 at addr ff110001068d64b4 by task brute/170
-    Call Trace:
-     config_item_put+0x48/0x180
-     configfs_symlink+0x4eb/0x770
-     vfs_symlink+0x25b/0x4b0
-     filename_symlinkat+0x10d/0x2f0
-    ...
-    Allocated by task 168:
-     __kmalloc_cache_noprof+0x26c/0x4c0
-     nvmet_ports_make+0xcc/0xd10
-     configfs_mkdir+0x44d/0x810
-    ...
-    Freed by task 168:
-     kfree+0x150/0x4f0
-     config_item_put+0x139/0x180
