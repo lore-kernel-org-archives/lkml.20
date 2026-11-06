@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971907;
-	b=Vxl5d4BTIRd+EgBmuAiQMZLtB1YeLXbH7uuvmKSrEUn5pyZkGf2C4v9zTw/jAHafJybx
-	 Q/IlMFM62RwXKjKAmL6gCQ9l29lCxgbReTLrLHNZ7KTbiUQ6llKGPC0zai7xvuL97oJwK
-	 sMz/q1tPS12E61o/7rNQVVBXTYVbIF7RcNooDg0LMvPqMTJye56Ie4cXvFDnxDnpofocD
-	 5zKC8gkbpxjX3K/0ijmb6A3ERxdDqTtLk2lGrB7JQeoy6O2EqbO0RtvgMZTZJcBEQ3f6O
-	 kZB8C78kh/RQPtrWbrL9bhsTTIQFZlaX5FTZk8jQbjIFgvvgmOFQCJwbu3qMeZhEOIA==
+	t=1793971972;
+	b=Qbgo1lNv3sKpqlHVEdeRUtLSv63DvzFu/xGyMlfMe0Z6fc+nzkBtxGrJ9GUHQasG5YGQ
+	 HdXjINlwnYj7msZWv2+fIVoP7Nq0BG4viDyxSt7+ezmi6I2rd/J62GyJKQy27xIDStmK4
+	 yos0Q7NK3DrlSFbZksi88XKprTDNPlRLD5rM2445e8OkjpCHFnjOgkc/WxumRqeq8+5dI
+	 9eR5Zrz772Sr/UHmVek17ywOUQ9XHrFfwIcMy9+mArYqkzdHzjQPCwKiycodTc/3Rf4Kw
+	 51QtNXOgc7f44hLTKmpQ5nHcDVf43hn2eKYXXXMziEtt2ikhOwXFY7euD1zw7Tibr8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971907;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R8rMwsrJHNL/+3u/N0G/CyMp16Ktaf0LF98kTeJKMTs=;
-	b=NWpdRr/BWVJlaeXS89d7FmLpwpl0nqZxwNSqsns71WF4Goby302t+au4QgIDkt3Ws+h/
-	 eb+4NUs7e9R38yaeWf+MCSINDTNsCz1Q7vaEzpjsFc4Eiay0/P+30qlgXnxzcEpBayzGx
-	 fpkGzp38j0tBRW3rJIOnIWqTEWHWycYTrLX8/jX2sj9mJ0gRZtdyVB/3pIqhykS4nzL0q
-	 FfWftvEu2uQMB6RzGz12DNEQFyiDXAr9K/mCQw8P6koO+7eQNDFSbShumZ2WSIIOokpgl
-	 XOA4bJv6YWFuWGwyzQfQE6bg7cgfcReRhCAdxKaZcqo2NbhP9zzpwOThb3tvPZ3O2gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971972;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rku6VQ65uTS6RI9RCpBqPT6w5cxyM8TaHvzEHY5mMwI=;
+	b=ak0tv2Ahc1DbcnNn9uPJEddj/7iFdGYC1aXIT2LapZPzj8bBiF34nfxZPT0JtKfnx83G
+	 DcOuuSitDz3ULXhXCI4BHpWR1usEiOAj+syseeZjuiWZHJjUlzaC+eE26nvmCab7HRnyI
+	 1fUdD9hY4sB+mlUL/TBAZ47JBM70o8abHKIpE9zT/3/KgHPgBw6TzhpksAZHyYf60uVcu
+	 3gVOcV/hrZqo7ei+D/wmpEfFlvm+D93fEBdUmzCnxc1LaXUSO3Ms23Kjw7i2dfZ4a+0fb
+	 vFnUEvBzOPeWyPRxlYTFqVsZXb3LIaOCLG/VEbaBatkX9dn43KY1kYfYmb7X6KHL3tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LKfWDmcH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n9eBh9oQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C225606A326;
-	Fri,  6 Nov 2026 13:31:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11AE606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:32:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LKfWDmcH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AE31F008A5;
-	Fri,  6 Nov 2026 13:31:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n9eBh9oQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717411F0089F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:32:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793971907;
-	bh=R8rMwsrJHNL/+3u/N0G/CyMp16Ktaf0LF98kTeJKMTs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LKfWDmcH/FkmPnZBAs7buzyQvLzjg0/OES9gHQJ4rOg4E/LdoSNY5QEl//FEJpwoh
-	 nZqqkwofPgcPz5E4kDPhothwP8DuYSuKIlYoPshRngScTSF/t+3QnqRgTVq62tHsRf
-	 1YdUup0QjQ6oJTmD0hHlR73faHcLUfxPqUFVTdcAIMi+FSJvmxoDv4G0L8JPnQ8GjT
-	 bpaq5RQGC9+BpuOWmbjABePfn7V1/TRUKT3XYls/xB4Fd2DYucM2SKcT/GgSwo3XXC
-	 OwlxhTDw66NbkJvhRBJpL4UCmTsVBza0vkuEKHzv2fMoHFF5fGfCFe+JWLmqvoj1Rf
-	 FK2KcFXVk/Smw==
-Date: Fri, 6 Nov 2026 07:31:43 -0600
-From: Rob Herring <robh@kernel.org>
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
-	konradybcio@kernel.org, loic.poulain@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/8] dt-bindings: media: qcom: Add JPEG encoder binding
-Message-ID: <20261106133143.GA2705755-robh@kernel.org>
-References: <20261106082522.1448390-1-atanas.filipov@oss.qualcomm.com>
- <20261106082522.1448390-2-atanas.filipov@oss.qualcomm.com>
+	s=k20260515; t=1793971971;
+	bh=rku6VQ65uTS6RI9RCpBqPT6w5cxyM8TaHvzEHY5mMwI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=n9eBh9oQfW9QCKPsygCwWyF/4qounZ/O6A5URte3/mGT4wDo5hBPi/dIdCTZd53JY
+	 5qIyXnE7j9tFjiOUEBofK0DNfUNUIFPsUh7j6uQduWjMZBpnMXtrKBwFK+Q1qNHAXk
+	 B9Z3GRa51Ef4Vi7aeTRjbuNaIoidw50ZG30mQdXIz6sveTRcQ1BPagOtDaxeOnShtG
+	 ny9HnDN51yvQe8NDClYkX3AdFmjWzVp5cq0sboZIVU6Tmr1j5Af99pyrweLr2aWYw+
+	 4SmIsRuXVQkrqioZvYwXV81owk1tCesy5hT5VdGmwmVOEbdjb8FH6LowXN0n4PNSLb
+	 cwDTVoHx32aPw==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bfbc67991cso479669e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:32:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzIwfPcvxTh713tNBkEzgp47V41JnxWsBbxk4IM+k30cuzzQX4krByfR6ps0KyC+1PMVhsRzDG0qz5hqBw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bm/NF7tRBwSn3baYnCrjqBGg1XtmPyyqFcAeRsl3RmACpwWlN
+	8djXknDJACEWYmSXOsbnPolxSRzXeFD3gZlS4J0bCVWMnHTtF0RQ0Tl3MVciP5p96/tZZB0W+jI
+	olDhLUnXuCgmqwwfmc1zx94KWUB6XUU8=
+X-Received: by 2002:a05:6512:2287:b0:5c0:4c9:a4ed with SMTP id
+ 2adb3069b0e04-5c004c9a616mr663332e87.4.1793971970285; Fri, 06 Nov 2026
+ 05:32:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,77 +59,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106082522.1448390-2-atanas.filipov@oss.qualcomm.com>
+References: <20261105-superm1-pinctrl-acpi-v1-1-2367e584912f@kernel.org>
+In-Reply-To: <20261105-superm1-pinctrl-acpi-v1-1-2367e584912f@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 6 Nov 2026 14:32:35 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmA7cpMfYiFrpJJ89=QW+XS85wg_VzqyU5C=pDWuxnHmw@mail.gmail.com>
+X-Gm-Features: AclHuK9U3egiiUujijb5vInGeTIpSRkU7PBiBdg1W14kj--CHWhvbS-XNc59sTg
+Message-ID: <CAD++jLmA7cpMfYiFrpJJ89=QW+XS85wg_VzqyU5C=pDWuxnHmw@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: amd: Drop CONFIG_ACPI ifdef
+To: Mario Limonciello <superm1@kernel.org>
+Cc: Basavaraj Natikar <Basavaraj.Natikar@amd.com>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-acpi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 10:25:15AM +0200, Atanas Filipov wrote:
-> Add device-tree binding for the Qualcomm JPEG encoder hardware block
-> present in SM8250 (Kona) and SC7280 (Kodiak) SoCs.
-> 
-> The JPEG encoder is a standalone hardware IP within the camera subsystem
-> that performs JPEG compression in memory-to-memory fashion.  It is
-> separate from the CAMSS ISP pipeline and has its own register space,
-> interrupt, clocks, power domains, IOMMU stream, and interconnect path.
-> 
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> ---
->  .../bindings/media/qcom,sm8250-jpeg-enc.yaml  | 193 ++++++++++++++++++
->  1 file changed, 193 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml b/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
-> new file mode 100644
-> index 0000000000000..86b17575600c5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
-> @@ -0,0 +1,193 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,sm8250-jpeg-enc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm JPEG Encoder
-> +
-> +maintainers:
-> +  - Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> +
-> +description:
-> +  Qualcomm JPEG Encoder is the JPEG encode hardware present in Qualcomm SoCs.
-> +  The encoder is a standalone hardware IP within the camera subsystem that
-> +  performs JPEG compression in memory-to-memory fashion.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,sc7280-jpeg-enc
-> +      - qcom,sm8250-jpeg-enc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 6
-> +
-> +  clock-names:
-> +    items:
-> +      - const: bus
-> +      - const: config
-> +      - const: cpas
-> +      - const: camnoc_axi
-> +      - const: camnoc_axi_src
+On Thu, Nov 5, 2026 at 7:03=E2=80=AFPM Mario Limonciello <superm1@kernel.or=
+g> wrote:
 
-These 2 don't sound like clocks that are part of this block. And 'src' 
-sounds like the parent clock? Use assigned-clocks for parent clocks (or 
-just retrieve the parent from the clk api).
+> commit e7280ab196ba4 ("ACPI: bus: Use acpi/acpi_bus.h without
+> CONFIG_ACPI") added a stub that means that we don't need a #ifdef
+> anymore for the _AEI check
+>
+> Signed-off-by: Mario Limonciello <superm1@kernel.org>
 
-> +      - const: core
+Patch applied!
 
-I would expect the main clock for the block to come first in the list, 
-not last.
-
-Rob
+Yours,
+Linus Walleij
