@@ -1,66 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981686;
-	b=3HfiXV2b4Dj7qnIZgS+GMPBKxN0oYeRA/M9wAsgauTo0SAS4vGWOcmP1qQBt1BbwmS9r
-	 LkxDsUkV0HHwVyRMNlM3bz9LyL72NZYbXxCWVChzZeVkGWVdPPDZtPlqN2AcKVjTZ9qGU
-	 zT+w5mFPwh8ZRkzFbFj9e62QLLfu+oWkbakZPRYa9ZHlM4LWfEgo6GkMWY7BeahC+LCqN
-	 HqoPjHbwlpOPNsWqyT4Niz158dI/otJx2kkfGv3OW810SZjuY/XCxQ1WcFMuwMpIMVz9w
-	 9LxaYJ8fqApH4vZFkvGPeA3cXleIEByku17UFVZSbBFjL7DUSQT8oZXWLOL5jKZHJ9g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981686;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Vfs6Gp27n5CuVhG0QqTC+w+/CbPNYwiZFwgux4fLn7c=;
-	b=ag5zMgxKry6MqwwvGou+AZY+1HX8ZAFBumFbenEFjDfzwD8qgix5/eGtQSTdYuHNq9+e
-	 RHYyWQ5gBnrJAYSHb4wJEG0FlkJkPCUSdRehiKBtNQLC5n3jj7SgjCgyRDamH9OdanRRh
-	 EKb07wxxuaie+/G1m6jtApq0FliTx9lBqJrGCJO3PJWJRXaXWpUNw6k+I7/HFOya2isBw
-	 gOzvaAucqJzL2kTh5PTROhN2CIbm7cbawjAJzXVDCIC8/g1GYHwhHF/FeT8LTC/F59pFo
-	 8lts8Svxsin55tLQ953RG4K3uJD82ksYFw1n+Yp8G8INModjl/+tkyCehg9rqP5G3wg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=it48pUKy;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793981705;
+	b=zEPfVzD7hIwO2Rjn/hTP1zb5vr8j/bB2gc+X2t1sudhIdWpqACNPfV8JJ+HqsJEfUgCp
+	 WtWoN/XC5pMbiYDTUx5kfYml0RMzGVqjJxUl0taX/d9DzOQSiK/CTu55YiD4kPuG+kEvm
+	 WIGIztaentvbjACAnJiXAqkzgIlZAHy6FmCKm/l10VjOXnGkMkbtEoGRSea5CsFdg97FN
+	 2bWryPBCVGYy5Hloh9GzKUCN+OLhktvXRfEr3v1JCGDvb/BIPbQeDLkphxGxGmccUWTS5
+	 9X0Y6wf9ek5Mbcdi++vtlB/qGOqnhR88ppadOIxtdRlPg1RKCsz9bpV0H0zzekZ3spA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981705;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=92ncpz2zqTSssGvafEik4HYNh5tsdm8+gtf3XtknF9E=;
+	b=oNOsr8+P7Ca03nbLqXbNThjBb/l80a2IEWzHZoGivu/MMEuDH6pH8PnW8u6dHC14d/06
+	 RVY0IL9QWuCpiffPH0p3Ez4fH208/v0ffa4/cG/bCMDHdbouvVCcPZXDn0oXsyWyFD7gS
+	 pupumjFycH1gv8XS2Tp3QlY6MUYNZkAoZYaIXAMdxwWiU1OqGU0/K1S9ozwHziEjtBOf+
+	 NiKPRGrG1HwUSVhIxV517tHXBtRMQt9f3Xy0s9MTQfjzUsk5xWikOFeD7J/rxv3ed7VG4
+	 XQiNn2AF2lZKvP4JET6+gxu+ALKURGetXO6nQSnvN22evjjd4TeyUm6WVV2WqzT7bXA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNuhYWUr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AD4606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:14:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4AD4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E29606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:15:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65E29606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=it48pUKy
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Vfs6Gp27n5CuVhG0QqTC+w+/CbPNYwiZFwgux4fLn7c=; b=it48pUKyg7t4dyGncuzbTzNx2R
-	YqTNAfMfFoNwk22GKiBnBpWu/XrzVc08u59jXbBhrz0gfwE0lyh7H80xxddQk1FKvvZuBe0c3hmcx
-	Bs2rUSJkOM+x+QuoZ9i5hQRwqMevf6B9wIUjVcZXbQeHekdhETepzT/HQLCrqH1XL6DYkQ7ML8OWd
-	DMmERtxrzc3W3ZABC4+iySg4EMBuR26AkXpO3ookzcpEpcR46BzcvOTpMp0t6jHnsJxY8oA5k0Gk8
-	eoqCi5nT+iW7cFN3FRbjab779+jOM1Y/xeEtS0uw9mMCf+c7vs3xgJ18G3uAPWWbYWVt9rujHLU/G
-	sWad6HRw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPMaD-00000004v3C-2S1e;
-	Fri, 06 Nov 2026 16:14:30 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 7E781303154; Fri, 06 Nov 2026 17:14:28 +0100 (CET)
-Date: Fri, 6 Nov 2026 17:14:28 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Ruidong Tian <tianruidong@linux.alibaba.com>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, oliver.yang@linux.alibaba.com
-Subject: Re: [PATCH v2] sched: move stack_canary to the start of the
- randomizable region
-Message-ID: <20261106161428.GC1922751@noisy.programming.kicks-ass.net>
-References: <20260509035014.2220372-1-tianruidong@linux.alibaba.com>
- <20261106160730.GJ1779021@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNuhYWUr
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-491971ac844so727995f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:15:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793981704; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TPqefQIySeyCPsSJZNMIoCl0O+KmR4P8rtiEEEyHH0GsCbax2AzR8IAmHDC8QtTkNn
+         UaEe/kJu6+pbtZt4mTNAbWCWZckGaIKXl7eZBuEzd+23HGBR+BTtm3/QOAwJtABvU9l9
+         GbyvIXGy9mZhfWR3m8WcsakG8lInSQvvGW77QGo1pN7APOgLM81atPHrcuZggxBcDrpi
+         GOf1zNNvWQHEwRIQclqrvSVz+irObq2lRc/iTBuwOtf9TzMFOb/0sVqYhnTDAaYRqgb+
+         EsOqRrKwYNDHqxtIZFGAOPeB095lVlFsAFbygVCfUSM/AR1GRGZprBzX/IALczUDCxvo
+         2WSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=92ncpz2zqTSssGvafEik4HYNh5tsdm8+gtf3XtknF9E=;
+        fh=XwghpUxWPbDQ/zSR0RNUQIJOT4Bc2K7ZOtsQStDM8Zo=;
+        b=fi4dSyBFbVR4idTkCpApgwMUKcTe5EisSZiGgneZe+zaLD/OcfBepa3XZYJjQ7Em7/
+         EZl+neYtcjwzl9YsLZLRIVf5pV1eW0eraFQ/6xNZDBKlQlYLRnLaFVuPeiBBI3rojoGr
+         D6t5/awlWYkxgTsd6Rcrk9mrxPUZu7qPUs7vyuUXX9onPj1tebUT7tAGGh6lFmXUZp4J
+         UMDWPBf1v2tVbURUOBFnvbdMrsnOBPYsbGOME8Z8iD1/1AoFEv4BHZWZQsPXRJfv4In8
+         wDV3rfRLpzVjCxAejfAVc9fwX/890OD8c+7rodgIjrE6fdCH+Mf6Q7NZ9rUNjz7lgR+e
+         zIYA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793981704; x=1794586504; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=92ncpz2zqTSssGvafEik4HYNh5tsdm8+gtf3XtknF9E=;
+        b=nNuhYWUrJNcLx7NnnyArrLMisRCNWdf5YbjqLKRYoocrt/0AEty46ozh55OS+wNexn
+         g4LZDPh95y6Bl0Xfo3f5C6iNC2X2sJE291Igat6mgCobnMqct2um71l7F4Dh86TgPYDk
+         k6sfJ1v5XRZ1j5D57ZYfVwGLpTZ5a9q6+cGWL50Sk6rxJHJjDaKksZ/yqzRUKdz5jppl
+         4Vqfd7KJ5Rs8xAVdOIeemw9h1BM/FM/TT88X2IxYJ2SlyY69onX/zhAbOgWuO/zOBtIj
+         5ICJZ7Aj4fX9x+WSKMBtObQ4v4d9QsbXN8+DJLJrp1EA3qUQ2Kkeh/B02C+VTntSOGvC
+         osXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793981704; x=1794586504;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=92ncpz2zqTSssGvafEik4HYNh5tsdm8+gtf3XtknF9E=;
+        b=nfyi2hvz/onxM0quuUxw9E0Ov5oEfPYJozjsbLBztxj48tZOj0IwKBddVqgOboBjIn
+         M73jAMBeyQpOeIYDIhx8Q9lyD0/Sj6l5q3wSUzNpdgvMiTFeU7MP6xBeVqOlK6vVd3V1
+         o3TSgHkG0kTvM52ViB2hv9AuNQaUYzQ2/buFUksoz0sHMUcAmH7cWj727InF4tYhUS+p
+         bqxzBLlegx3UPqd/IdozXYQA3S+OtBneLs63KtkSVfCfFHXzV7JL6ZXYsc4xWy4cGVD4
+         CVypplU+OhP+F9ysk2+7bLDSx4ZW68V0B0q5itUqrHV7DDZDEyu2MmPQ7hXWZM82nx0y
+         XKyA==
+X-Forwarded-Encrypted: i=1; AL+hErFyxoYz5RmqbEeIWAsFOIkL6yGdM4nUq3pqxM6sCtw1LO/TyICPV7QqaM4PR8j9mYpayQ/KDXmfySH6vNM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+J5coklv9UjuWzFfD8zZsmG5wT/UgRIrB39KDdIzcuPuAJB3d6
+	DjWwr9rYaVFFxOkIu4UuNSb2wB6fp8V7C8dtAjGviTq+irnOg9ssY0TJLKiXNYcJIs8AMS4Uk4t
+	QUVO8oZytF16xnc+qJIlKAecNHdXGVAM=
+X-Gm-Gg: AYBFou00n9U8T3cd883H3/FCUDLMhLbDyoi5KVq8znZrJcGorUa+l56Ja0QT35F8Sfl
+	B/5yHgFrno/4jhQQqdM9JFLLnlY11+MHhzsy/YQI6WPgU7s3Yp5vgJUqhTcQLij+LoR83BKwpSx
+	cdQ508gHa1dg5jwxQLRJfnfXFa1dlat08DvobCGePkxlj2AKNmq2btBz5TZduuHC61sfBd50MY8
+	B9TQIMfwJrjXUh+W1u3XKF05SqWQkK44mm97HeW944sUYNz2C/PiTIwgboSO1LE75VBYkAec3yh
+	t5/52/e6LsGNGcnQZOo9AyFx4ZVy9ZNyjKvbwmqZKA5VWBIvJKM3yRjfZSQXnFTkpKMGcNHFVnX
+	KjkE8EIpIkx/5lEFDbMs/sODfpdJfiBjWpMJ2DmDLHn9c4ASPFaivWN3fzUPwts3HNT1AvQ0p6/
+	eq/SBqpbl3N92oiTOat5e+r0CuLFTBIdaORlecXN70R1RarINhU4+DD+A=
+X-Received: by 2002:a5d:64c6:0:b0:48e:4e00:b737 with SMTP id
+ ffacd0b85a97d-492775f151amr6727659f8f.54.1793981703348; Fri, 06 Nov 2026
+ 08:15:03 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,143 +105,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106160730.GJ1779021@noisy.programming.kicks-ass.net>
+References: <20261020143031.1829-1-qingfang.deng@linux.dev>
+ <CAL4Wiiptz1zyxRDKrCrnK2Q-qn0_1d1aSxuUPkJKWnODpjMp1g@mail.gmail.com>
+ <c8be6713-2378-4dc5-9959-fc7eddd800e1@linux.dev> <CAKgT0Uf_yYxp+tUJt4xYAnwqtK6LZY0KQYt0h4kt78=oQZxd3g@mail.gmail.com>
+ <f15c49f5-724f-4101-806d-24303c5408a4@linux.dev>
+In-Reply-To: <f15c49f5-724f-4101-806d-24303c5408a4@linux.dev>
+From: Alexander Duyck <alexander.duyck@gmail.com>
+Date: Fri, 6 Nov 2026 08:14:26 -0800
+X-Gm-Features: AclHuK_90837NB1huADdRT5_NjnCjWpqOnKsGALBKgpKP0fDla8aUVrEXAgzWHs
+Message-ID: <CAKgT0Ucx2USkWr2eVu0ASybWkpj2CtBrb1N5Vm3qdJQmCxnKJA@mail.gmail.com>
+Subject: Re: [RFC net] net: force software segmentation of PPPoE packets
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Eric Dumazet <edumazet@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Stanislav Fomichev <sdf.kernel@gmail.com>, Hangbin Liu <liuhangbin@gmail.com>, 
+	Martin Karsten <mkarsten@uwaterloo.ca>, Felix Fietkau <nbd@nbd.name>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 05:07:30PM +0100, Peter Zijlstra wrote:
+On Thu, Nov 5, 2026 at 6:08=E2=80=AFPM Qingfang Deng <qingfang.deng@linux.d=
+ev> wrote:
+>
+> On 2026/11/6 2:53, Alexander Duyck wrote:
+> > On Thu, Nov 5, 2026 at 5:33=E2=80=AFAM Qingfang Deng <qingfang.deng@lin=
+ux.dev> wrote:
+> >> Hi,
+> >>
+> >> On 10/20/2026 11:08 PM, Eric Dumazet wrote:
+> >>> Le mar. 20 oct. 2026 =C3=A0 16:30, Qingfang Deng <qingfang.deng@linux=
+.dev> a =C3=A9crit :
+> >>>> Ordinary TSO does not update the PPPoE payload length. A PPPoE GRO p=
+acket
+> >>>> forwarded by a bridge can retain hardware GSO features and reach the
+> >>>> driver without software segmentation, if the egress Ethernet interfa=
+ce
+> >>>> advertises TSO.
+> >>>>
+> >>>> To force software segmentation, clear the GSO feature mask for
+> >>>> ETH_P_PPP_SES in harmonize_features().
+> >>>>
+> >>>> Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
+> >>>> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+> >>>> ---
+> >>>>    net/core/dev.c | 4 ++++
+> >>>>    1 file changed, 4 insertions(+)
+> >>>>
+> >>>> diff --git a/net/core/dev.c b/net/core/dev.c
+> >>>> index a6951ea08961..27483a2ad747 100644
+> >>>> --- a/net/core/dev.c
+> >>>> +++ b/net/core/dev.c
+> >>>> @@ -3831,6 +3831,10 @@ static netdev_features_t harmonize_features(s=
+truct sk_buff *skb,
+> >>>>           type =3D skb_network_protocol(skb, NULL);
+> >>>>           features =3D net_mpls_features(skb, features, type);
+> >>>>
+> >>>> +       /* Ordinary TSO does not update the PPPoE payload length. */
+> >>>> +       if (IS_ENABLED(CONFIG_PPPOE) && type =3D=3D htons(ETH_P_PPP_=
+SES))
+> >>>> +               features &=3D ~NETIF_F_GSO_MASK;
+> >>>> +
+> >>>>           if (skb->ip_summed !=3D CHECKSUM_NONE &&
+> >>>>               !can_checksum_protocol(features, type)) {
+> >>>>                   features &=3D ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MA=
+SK);
+> >>>> --
+> >>>> 2.34.1
+> >>>>
+> >>> Ouch.
+> >>>
+> >>> harmonize_features() is called for every packet, GSO or not.
+> >>>
+> >>> This is a GSO-only problem, please do not add more protocol-specific
+> >>> tests in this path. gso_features_check() is only called for GSO
+> >>> packets, and the cost there is amortized over all segments.
+> >>>
+> >>> Devices without NETIF_F_HW_CSUM already lose GSO for ETH_P_PPP_SES
+> >>> because of the can_checksum_protocol() check in harmonize_features(),
+> >>> and fraglist GRO packets (the main use case for PPPoE GRO) are
+> >>> segmented in software anyway.
+> >>>
+> >>> This leaves bridged, non fraglist GRO PPPoE packets sent to a
+> >>> NETIF_F_HW_CSUM + TSO device. Have you hit this on real hardware?
+> >> +Cc: Alexander Duyck
+> >>
+> >> I ran the real hardware test on Intel igc.
+> >>
+> >> igc_tso() requires skb_network_header() to point to the IP header, whi=
+ch
+> >> is not the case for PPPoE packets, so it won't work on an unmodified
+> >> driver. I therefore used a kernel module to inject PPPoE GSO skbs
+> >> directly to the driver's TX path, deliberately pointing
+> >> skb_network_header() to IP.
+> >>
+> >> Test results show that the hardware can still perform TCP segmentation=
+,
+> >> but it cannot update the length field in the PPPoE header. So
+> >> theoretically, we might be able to make GSO_PARTIAL work in PPPoE.
+> >>
+> >> Kind regards,
+> >> Qingfang
+> > Is PPPoE being stacked similar to a VLAN or being ran as an L3? To be
+> > able to make it work for the GSO_PARTIAL on most these parts it would
+> > need to be inserted as part of the MAC/VLAN headers instead of as an
+> > L3/network header. The main problem is that the drivers normally need
+> > access to the L3 header in order to set the payload length and things
+> > like the IPv4 ID field.
+>
+> Currently, PPPoE occupies the skb's network-header (L3) position.
+> pppoe_xmit() points skb->network_header at the PPPoE header and sets
+> skb->protocol to ETH_P_PPP_SES. pppoe_gso_segment() temporarily pulls
+> the 8 bytes of PPPoE/PPP headers before calling the upper layer handler,
+> then restores network_header to PPPoE on the returned segments. For an
+> untagged frame, network_header therefore points at offset 14, while the
+> actual IP header starts at offset 22.
+>
+> > Really if you are going to support doing GSO with a PPPoE protocol in
+> > there you probably need to look at adding a new gso feature flag bit
+> > as any driver that will support it will need to know how to move the
+> > header out of the way.
+>
+> LLM suggested the same and wrote the code, which I have not tested. It
+> could make both hardware segmentation and software fallback work.
 
-> Why not do something a little more structured; like so?
-> 
-> ---
->  arch/riscv/include/asm/stackprotector.h | 4 ++--
->  arch/riscv/include/asm/thread_info.h    | 7 +++++++
->  arch/riscv/kernel/asm-offsets.c         | 7 +++----
->  drivers/misc/lkdtm/bugs.c               | 4 ++--
->  include/linux/sched.h                   | 6 +++++-
->  kernel/fork.c                           | 2 +-
->  6 files changed, 20 insertions(+), 10 deletions(-)
-> 
-> diff --git a/arch/riscv/include/asm/stackprotector.h b/arch/riscv/include/asm/stackprotector.h
-> index 43895b90fe3f..b56e49ce0580 100644
-> --- a/arch/riscv/include/asm/stackprotector.h
-> +++ b/arch/riscv/include/asm/stackprotector.h
-> @@ -15,8 +15,8 @@ static __always_inline void boot_init_stack_canary(void)
->  {
->  	unsigned long canary = get_random_canary();
->  
-> -	current->stack_canary = canary;
-> +	tsk_stack_canary(current) = canary;
->  	if (!IS_ENABLED(CONFIG_STACKPROTECTOR_PER_TASK))
-> -		__stack_chk_guard = current->stack_canary;
-> +		__stack_chk_guard = tsk_stack_canary(current);
->  }
->  #endif /* _ASM_RISCV_STACKPROTECTOR_H */
-> diff --git a/arch/riscv/include/asm/thread_info.h b/arch/riscv/include/asm/thread_info.h
-> index 55019fdfa9ec..eed764f06682 100644
-> --- a/arch/riscv/include/asm/thread_info.h
-> +++ b/arch/riscv/include/asm/thread_info.h
-> @@ -73,6 +73,9 @@ struct thread_info {
->  	 */
->  	unsigned long		a0, a1, a2;
->  #endif
-> +#ifdef CONFIG_STACKPROTECTOR
-> +	unsigned long		stack_canary;
-> +#endif
->  #ifdef CONFIG_RISCV_USER_CFI
->  	struct cfi_state	user_cfi_state;
->  #endif
-> @@ -86,6 +89,10 @@ struct thread_info {
->  #define INIT_SCS
->  #endif
->  
+Yeah, it makes the most sense. Basically it will then treat the same
+way we handle vXvX tunnels since you are essentially doubling up the
+outer L3 headers on the interface.
 
-This should probably have a comment about 12 bit immediates somewhere.
-
-> +#ifdef CONFIG_STACKPROTECTOR
-> +#define tsk_stack_canary(p) ((p)->thread_info.stack_canary)
-> +#endif
-> +
->  /*
->   * macros/functions for gaining access to the thread information structure
->   *
-> diff --git a/arch/riscv/kernel/asm-offsets.c b/arch/riscv/kernel/asm-offsets.c
-> index a75f0cfea1e9..eb694e1215bb 100644
-> --- a/arch/riscv/kernel/asm-offsets.c
-> +++ b/arch/riscv/kernel/asm-offsets.c
-> @@ -49,7 +49,9 @@ void asm_offsets(void)
->  	OFFSET(TASK_TI_A1, task_struct, thread_info.a1);
->  	OFFSET(TASK_TI_A2, task_struct, thread_info.a2);
->  #endif
-> -
-> +#ifdef CONFIG_STACKPROTECTOR
-> +	OFFSET(TSK_STACK_CANARY, task_struct, thread_info.stack_canary);
-> +#endif
->  	OFFSET(TASK_TI_CPU_NUM, task_struct, thread_info.cpu);
->  #ifdef CONFIG_RISCV_USER_CFI
->  	OFFSET(TASK_TI_CFI_STATE, task_struct, thread_info.user_cfi_state);
-> @@ -88,9 +90,6 @@ void asm_offsets(void)
->  	OFFSET(TASK_THREAD_F30, task_struct, thread.fstate.f[30]);
->  	OFFSET(TASK_THREAD_F31, task_struct, thread.fstate.f[31]);
->  	OFFSET(TASK_THREAD_FCSR, task_struct, thread.fstate.fcsr);
-> -#ifdef CONFIG_STACKPROTECTOR
-> -	OFFSET(TSK_STACK_CANARY, task_struct, stack_canary);
-> -#endif
->  
->  	DEFINE(PT_SIZE, sizeof(struct pt_regs));
->  	OFFSET(PT_EPC, pt_regs, epc);
-> diff --git a/drivers/misc/lkdtm/bugs.c b/drivers/misc/lkdtm/bugs.c
-> index 2761685cf4f8..977ee7584249 100644
-> --- a/drivers/misc/lkdtm/bugs.c
-> +++ b/drivers/misc/lkdtm/bugs.c
-> @@ -247,9 +247,9 @@ static noinline void __lkdtm_REPORT_STACK_CANARY(void *stack)
->  	for (i = 1; i < 16; i++) {
->  		canary = (unsigned long *)stack + i;
->  #ifdef CONFIG_STACKPROTECTOR
-> -		if (*canary == current->stack_canary)
-> +		if (*canary == tsk_stack_canary(current))
->  			current_offset = i;
-> -		if (*canary == init_task.stack_canary)
-> +		if (*canary == tsk_stack_canary(&init_task))
->  			init_offset = i;
->  #endif
->  	}
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index e4f6323d7855..b7702fefed63 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -1083,7 +1083,7 @@ struct task_struct {
->  	pid_t				pid;
->  	pid_t				tgid;
->  
-> -#ifdef CONFIG_STACKPROTECTOR
-> +#if defined(CONFIG_STACKPROTECTOR) && !defined(tsk_stack_canary)
->  	/* Canary value for the -fstack-protector GCC feature: */
->  	unsigned long			stack_canary;
->  #endif
-> @@ -1697,6 +1697,10 @@ struct task_struct {
->  	randomized_struct_fields_end
->  } __attribute__ ((aligned (64)));
->  
-> +#if defined(CONFIG_STACKPROTECTOR) && !defined(tsk_stack_canary)
-> +#define tsk_stack_canary(p) ((p)->stack_canary)
-> +#endif
-> +
->  #ifdef CONFIG_SCHED_PROXY_EXEC
->  DECLARE_STATIC_KEY_TRUE(__sched_proxy_exec);
->  static inline bool sched_proxy_exec(void)
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 5efceb8d58a7..878d586bda25 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -964,7 +964,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
->  	clear_syscall_work_syscall_user_dispatch(tsk);
->  
->  #ifdef CONFIG_STACKPROTECTOR
-> -	tsk->stack_canary = get_random_canary();
-> +	tsk_stack_canary(tsk) = get_random_canary();
->  #endif
->  	if (orig->cpus_ptr == &orig->cpus_mask)
->  		tsk->cpus_ptr = &tsk->cpus_mask;
-> 
-> 
+Basically just means you have to add it to the gso_type on the GRO
+side, and add logic to process it in the GSO side. The GSO_PARTIAL
+setups gets a bit more complicated as you will have to add logic to
+pop the header out of the way before your process the IPv4/6 header on
+the inside.
