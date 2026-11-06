@@ -1,121 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972658;
-	b=T/YDbXqgw2vnxEEdZNH4UR7pBiJKEZd3bOTQ5TGyCQZK2CqrgexKY9UqkCJqy5rtRwNK
-	 FQkjxvg7T1jl5cNuTYAZJK0DP7EJ2zMKKMcTAbdyazRZvp9gcWdTcSw2+d/x8nCTg0VWA
-	 8+p7X/FC7upgoLf4cTOb1B3v1QIclTKQEZ++cEHdzhMxP/AwvT4GBfhmQ3AjKM4QbB24A
-	 uRzBWjEZJLraup0JdKzRSMmWyzermJVJ91SvOwwNe6rD//kf6iHJP7dHbF0T4+mjBPNHi
-	 Oih8Gujx36NbYFLRRgnkSpEIPL6DDCSHFmlt6uHK+2aYXXO48AZDyaiDnoOMJwOwTLA==
+	t=1793972666;
+	b=XSQYYbM919JSWSnF6dGRz8VFz2ypVpY1msU70Q0bgGi4F7uQ3iBc8ljSyncp1JMD2v3K
+	 WzcU13KpCiLTAm4L9nBWbUeRjUJQ8FUdLeHxU92yPXhXbUBcLToJD1E+2vp8pPsefILSZ
+	 +8FbvxBuH72nDWJvxkSFrxjyryXQaimq4jUCJ0sfFLCO5fZhui9wdiU8/g4lFmjx3i/I4
+	 5AmKbEZSRDOwD9Z3UH7A8nBcR3TLLaM6Mai5yV9VGhG1Deh2yMyGb/tHtw4+UrvtAdzDZ
+	 yRvLqjOsRt5F/RXGV5ngFxm3qvK7Iok4OF8p1QytIwd9CGqKGbx9fosY+souDRX4PYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972658;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=gfOdoxVzmcRZMFFbD4C2XKWaD4ECzjOlzqXWcBdDuyg=;
-	b=JQY5qEe3E+TUzX0uCD900o6ogI1tp1NkTmsbnh4c4D55pSdmSkDqyyp9sRw1B0r7nYeq
-	 bdM5xME0rjrDlzicVZbqEh8WHu9Qvp0Yn23G4y2GenL0XINP+P+81iG/cs9mKi1qmrrZa
-	 SivdtiVxfJYZFGLgUbQndhNPpJCjU9RtUm4SHdYYegyIOfODJTJY+V+DWe9S0IvUVliMc
-	 fcvAxRJ8bZx3pysWIoW99/oBcuDnXIVFn6kbsuzrteI7uuCASQtxkjcWK7Uc6RZnOa3wf
-	 7YQAN7AkVOpoO0eLzc6FY5R1QCT3T0xRXqkYQ5QcxmRiRz0Xr2RCydYjEOQcaWow2Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972666;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Rdk+KoCZKVcNWi2GCnoRdsLg54qpB/3KzXiaqLtVfJE=;
+	b=Epg01PftLbe0GaB1Ho62pyFaDQRDV2wJXxtw2B985DWqy1SH6lduV5hbX/2rNnlSfp64
+	 OIjmI+zGJINQFzenUbKyvXrdcCPAaYutw0U7SzuIGVxGux/3rpPaT2WoODpZZ8Et5GhOJ
+	 OsOBgWCOBPmPLTrEq3DK1D3sFSunsq4H3KphgcZ5DZvX0mL8HQJeiN15S6053hC557V1P
+	 oI5UfvvmMh1edWouEJl122sYY5x/SxCR4tXv7EvcFhjIT0/DpYuAo+YlEI3ohozQP/IG3
+	 qqMlxT/m0fq8yWcipz3O4fw20TodeGf3/Laoerozl1M3Fnmd/Mfz9/GRC2Xpzy4aAcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Nh58QYRn;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RK07y3OM;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BkxNhnwe;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885CD606D80F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:44:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 885CD606D80F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67833606A32D;
+	Fri,  6 Nov 2026 13:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67833606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Nh58QYRn;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RK07y3OM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793972656;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gfOdoxVzmcRZMFFbD4C2XKWaD4ECzjOlzqXWcBdDuyg=;
-	b=Nh58QYRnT9SQSAN43yBv5k9L3UZq+dMAVtPcFi+fDujuSJ5pCQfwt8gSV7voonmLtYLIo0
-	hA5+lErE6NEmnU8NGfC66YrGV4yo5QvvHCVX+0NV6+nRiVSs2+sW5LGj0HvYKGB8o6SM3i
-	JPO9M2V8II4xOxycgJt9FIzI1/tRYgs=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-645-S-kDKbeiMwK3decVE4oWvA-1; Fri, 06 Nov 2026 08:44:15 -0500
-X-MC-Unique: S-kDKbeiMwK3decVE4oWvA-1
-X-Mimecast-MFC-AGG-ID: S-kDKbeiMwK3decVE4oWvA_1793972654
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8b2fb1f981fso9904987b3.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:44:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793972654; x=1794577454; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=gfOdoxVzmcRZMFFbD4C2XKWaD4ECzjOlzqXWcBdDuyg=;
-        b=RK07y3OMOkKkjbts3EQuQ30Phro3KCi0lLLMApt04jGO2vqcY0a/U5+7ut0nI+4fpj
-         mPuPABkXudcnPR3eDOlu1R2WQXqg5PGjPfbpiIR18qLtOJFXRTjmS2mIMuHS7QVcAAIE
-         QZ4pmci01YGtDMQT2nRI4GqC3RRAIsYQjPLboR8SOYOkYMToKR3ZwPJLUaMmgyjD6iJb
-         RzKGWxRRaIxbXfjC88QPT3yvByzDxPiEU7zWh3UsFhIEfERRlPn7UeAilbUDU+VkFK0i
-         MzdOjACoC6JxX/nChnHRBuCXbmwLrOLufX2lamAIwOEuXWNm4DmqQmYT6LahDSdE2rpj
-         0XaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793972654; x=1794577454;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gfOdoxVzmcRZMFFbD4C2XKWaD4ECzjOlzqXWcBdDuyg=;
-        b=F7t9VpAhPQjaCIKPS11+cPPvXdcDj3IB8Fdf1AZFtIO9ajHqH3Uk/U/354aMpiePyU
-         7aL5CwrU6VSEDfg4X3NUZp8eRBj8jKTdvEr1BVznrtx+YkTriOJReUX8M3O6myPSEuH5
-         7xfxePct7hCT7AgONYfEu31MNe5mXgnORTUN3EwwLO+XSYc2XamC+MCqVUR3tLrgU/1P
-         NhkKNHgYnrXiGDhNZI33S6YIdCeTV1m0UeDqLGNiJnI3x1uaDgN5FstKY+iD1Ey7rD96
-         egyjlQP6SXN1rYt+0rikAokDMS8sv/nmecR+PEZfoS1Don+WKsHrQyWnuYreI83mc3ef
-         B9rw==
-X-Forwarded-Encrypted: i=1; AL+hErF4GNNZ7U5QhcGcN70Wq3E68DuSoTojWVWwfTwPn6PcAc7vz0KdBk9ZOTDGJBMhfCWrgd+nahAtiEGLYqo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83wIhtP96UjwBK3yd87CpvECOMKRwPXKQ3RyCsNJJB80xRPNSf
-	Xw9ZivqdUWuUX+uL8mEWwlLg8oUVr192tbwCg4H1doS2jJ7J67tS4roQqLidUXi/2QLGZELeU6S
-	8OMm3BGQfMBy5qAsHSu46FILPiyjKP85uGoTYaQ7ai50qHnS27v38koyffm0TEqnhqAGhC7ZKew
-	==
-X-Gm-Gg: AYBFou1N5x8zlG1p1mxvgv9A4I+xj69Em+BJCX8hAgw0c94gYGxmqPW5POzFEFm4ukE
-	IwLIqV4otPd1LrH2dZB00LfAsaMBH9FMJkycBCVE8KQeDjvIsYkiniQpEn9e2tEmSYooKI6+x1y
-	zhL7eimVUbVQYaS9DttuhmeZusEWUwOCQniArENG7Nar2Ryqi7JjCpke/bibABjy3v2ghZxtC0t
-	XApjeoHqSSWfuwf2qCGqv0g7oWX7oxVLbEFiVdirURhD+GU0VmXKRJh3JfqBqa6S71LOYi9UIxS
-	TUJF60MVbAQK5kUmf8Mw1XHUx/5CCQD6HZrSL2PFy2eiwJU1n6ts1+aHMLhQa7gV9s3ppUO3YMJ
-	J+4ptY8DGUFVyIlY0a3OTyVu0CRXBCEeMMTM0AIHzq05cNaCeZKVFZb5KmGMXxBcrAkqzrm4APJ
-	hECZgrxiVTz5AacntaRZTc1lcDu4M0UB3jAeRUfUeaXhxAE9RMSNhr1KoFJUunxYnloxKRgMA=
-X-Received: by 2002:a05:690c:c50e:b0:8b3:4deb:7ce1 with SMTP id 00721157ae682-8b34deb8019mr3630697b3.14.1793972654445;
-        Fri, 06 Nov 2026 05:44:14 -0800 (PST)
-X-Received: by 2002:a05:690c:c50e:b0:8b3:4deb:7ce1 with SMTP id 00721157ae682-8b34deb8019mr3630577b3.14.1793972653998;
-        Fri, 06 Nov 2026 05:44:13 -0800 (PST)
-Received: from loberman-thinkpadp16gen3.rmtusma.csb ([2600:6c65:2440:d8c:aa2b:ddff:fe88:da74])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f7f061bsm19101907b3.21.2026.11.06.05.44.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 05:44:13 -0800 (PST)
-Message-ID: <51dba0cd5655a635be2980267d51c4cb3dfa0314.camel@redhat.com>
-Subject: Re: [PATCH] scsi: st: Avoid truncating the tape name for large tape
- numbers
-From: Laurence Oberman <loberman@redhat.com>
-To: xujiahao <xujiahao@cmss.chinamobile.com>, John Meneghini
-	 <jmeneghi@redhat.com>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen"
-	 <mkp@kernel.org>, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 06 Nov 2026 08:44:11 -0500
-In-Reply-To: <20261106021730.3409119-1-xujiahao@cmss.chinamobile.com>
-References: <20261106021730.3409119-1-xujiahao@cmss.chinamobile.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BkxNhnwe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793972665; x=1825508665;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=z1sOBUUrLI/mZYK2by/G56QXYL/56/c0SiPpzTRruPY=;
+  b=BkxNhnwegwoy5JWbd7xHw2k2hv0bywt7F6zOMQbZK094qMYtd/3uH0lW
+   9LjtKI/mOENQrfo+EX0ZmDMTkGRT9If0u+XV6Bnr/jw19j9T1wpUIRLVI
+   FB3bmvEDrQVKa4lXprH/ThIQDxPuWD/j7qVP+NVMTky2mUKScU1kOo3Xl
+   xrjfjt7FNQOT/5aVFvwR3mkLXs/eSeKFo1+tAhCVT/SW8Z6xyvtths8Zy
+   L6evJjkiJJt6/V84tDDWRw31u7Bmctzx+AZlvhh/Chno4KQ4ERyiU0SAi
+   W0+1hiPUdubBjtVHeIrJwCG4i/BwHe6TjTwnGqlvb37TleZC6EzYJDv3+
+   A==;
+X-CSE-ConnectionGUID: HkCzam31TpyKPJ/BCDxJjQ==
+X-CSE-MsgGUID: +depP/+XTUi7/DaYpbiwtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2812230"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2812230"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:44:25 -0800
+X-CSE-ConnectionGUID: 9JFujfcHQW+jYL2M9LvuVw==
+X-CSE-MsgGUID: imhm2SRrQq22LFZ576TqNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7609902"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.104])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:44:21 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	Mesih Kilinc <Mesih.Kilinc@sony.com>,
+	linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5 03/14] PCI: Don't size or assign disabled BARs
+Date: Fri,  6 Nov 2026 15:43:24 +0200
+Message-ID: <20261106134341.39493-4-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
+References: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,72 +90,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-11-06 at 10:17 +0800, xujiahao wrote:
-> create_one_cdev() builds the class device name in a 10-byte buffer as
-> "n" (no-rewind devices) + tape->name + a one-character mode suffix.
-> tape->name is a DISK_NAME_LEN (32) byte array holding "st%d", and the
-> tape index comes from an idr with an upper bound of ST_MAX_TAPES - 1
-> (131071, six digits), so "n" + "st131071" + suffix + terminator needs
-> 11 bytes.=C2=A0 Names of tapes with large index numbers are truncated
-> today
-> and lose the mode suffix, which leaves the rewind modes of such a
-> tape
-> with the same name.
->=20
-> Size the buffer after the actual requirement, DISK_NAME_LEN + 2, and
-> pass sizeof(name) to snprintf() so the two cannot drift apart again.
->=20
-> GCC reports with -Wformat-truncation=3D2:
->=20
-> =C2=A0 drivers/scsi/st.c:4393:31: warning: '%s' directive output may be
-> truncated writing up to 31 bytes into a region of size between 9 and
-> 10 [-Wformat-truncation=3D]
->=20
-> Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
-> ---
-> =C2=A0drivers/scsi/st.c | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
-> index e9d41e3cc..311781987 100644
-> --- a/drivers/scsi/st.c
-> +++ b/drivers/scsi/st.c
-> @@ -4366,7 +4366,7 @@ static int create_one_cdev(struct scsi_tape
-> *tape, int mode, int rew)
-> =C2=A0	struct cdev *cdev;
-> =C2=A0	struct device *dev;
-> =C2=A0	struct st_modedef *STm =3D &(tape->modes[mode]);
-> -	char name[10];
-> +	char name[DISK_NAME_LEN + 2];
-> =C2=A0	int dev_num =3D tape->index;
-> =C2=A0
-> =C2=A0	cdev_devno =3D MKDEV(SCSI_TAPE_MAJOR, TAPE_MINOR(dev_num,
-> mode, rew));
-> @@ -4390,7 +4390,7 @@ static int create_one_cdev(struct scsi_tape
-> *tape, int mode, int rew)
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	i =3D mode << (4 - ST_NBR_MODE_BITS);
-> -	snprintf(name, 10, "%s%s%s", rew ? "n" : "",
-> +	snprintf(name, sizeof(name), "%s%s%s", rew ? "n" : "",
-> =C2=A0		 tape->name, st_formats[i]);
-> =C2=A0
-> =C2=A0	dev =3D device_create(&st_sysfs_class, &tape->device-
-> >sdev_gendev,
+When a 64-bit BAR is larger than 4GB but pci_bus_addr_t or
+resource_size_t is 32-bit, __pci_read_base() marks the BAR with
+IORESOURCE_UNSET | IORESOURCE_DISABLED and sets its size to zero while
+retaining the type flags. pdev_resource_assignable() only excludes
+disabled bridge windows so such a BAR is still included in resource
+sizing.
 
-Hi,
+pbus_size_mem() then calls __ffs() on its zero alignment, which is
+undefined behavior. pdev_sort_resources() catches the zero alignment but
+logs a bogus "alignment must not be zero" warning.
 
-Thanks for the patch.
+Exclude all IORESOURCE_DISABLED resources in pdev_resource_assignable().
 
-The arithmetic is correct, but the truncation only occurs with tape
-indices >=3D 100000, which is not a configuration anyone will
-realistically
-have. So this addresses a W=3D2 format-truncation warning rather than a
-real-world problem, and I'd prefer not to churn st.c for that.
+A disabled expansion ROM is still assigned because ROM disabling is
+tracked with IORESOURCE_ROM_ENABLE, not with IORESOURCE_DISABLED.
 
-NAK for now.
+Fixes: 23b13bc76f35 ("PCI: Fail safely if we can't handle BARs larger than 4GB")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
+ drivers/pci/setup-bus.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-Regards,
-Laurence
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index ed16ef7c26fa..0c27cec83c0d 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -301,20 +301,18 @@ static bool pdev_resources_assignable(struct pci_dev *dev)
+ 	return true;
+ }
+ 
+-static bool pdev_resource_assignable(struct pci_dev *dev, struct resource *res)
++static bool pdev_resource_assignable(struct resource *res)
+ {
+-	int idx = pci_resource_num(dev, res);
+-
+ 	if (!res->flags)
+ 		return false;
+ 
+-	if (pci_resource_is_bridge_win(idx) && res->flags & IORESOURCE_DISABLED)
++	if (res->flags & IORESOURCE_DISABLED)
+ 		return false;
+ 
+ 	return true;
+ }
+ 
+-static bool pdev_resource_should_fit(struct pci_dev *dev, struct resource *res)
++static bool pdev_resource_should_fit(struct resource *res)
+ {
+ 	if (resource_assigned(res))
+ 		return false;
+@@ -322,7 +320,7 @@ static bool pdev_resource_should_fit(struct pci_dev *dev, struct resource *res)
+ 	if (res->flags & IORESOURCE_PCI_FIXED)
+ 		return false;
+ 
+-	return pdev_resource_assignable(dev, res);
++	return pdev_resource_assignable(res);
+ }
+ 
+ /* Sort resources by alignment */
+@@ -340,7 +338,7 @@ static void pdev_sort_resources(struct pci_dev *dev, struct list_head *head)
+ 		resource_size_t r_align;
+ 		struct list_head *n;
+ 
+-		if (!pdev_resource_should_fit(dev, r))
++		if (!pdev_resource_should_fit(r))
+ 			continue;
+ 
+ 		r_align = pci_resource_alignment(dev, r);
+@@ -1094,7 +1092,7 @@ static void pbus_size_io(struct pci_bus *bus, resource_size_t add_size,
+ 			if (resource_assigned(r) || !(r->flags & IORESOURCE_IO))
+ 				continue;
+ 
+-			if (!pdev_resource_assignable(dev, r))
++			if (!pdev_resource_assignable(r))
+ 				continue;
+ 
+ 			r_size = resource_size(r);
+@@ -1305,7 +1303,7 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
+ 			resource_size_t r_size;
+ 
+ 			if (!pdev_resources_assignable(dev) ||
+-			    !pdev_resource_should_fit(dev, r))
++			    !pdev_resource_should_fit(r))
+ 				continue;
+ 			if (b_res != pbus_select_window(bus, r))
+ 				continue;
+-- 
+2.47.3
 
