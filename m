@@ -1,63 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975276;
-	b=ldxSLMUg4G8SzD8mQF976PJCtHy5GzyABe6BBRisDeWToTX4vgza6GzcGWn4vFmZnrCu
-	 +9heURXNvQzJe0ieBBQgfQj+i1O6H1J5kTmCx916qZtmK0KziPWuwnr3aeN3l2Yd4VEEw
-	 j9xA6pKF7vVr+2vfigCRChfgnwV/Y+kAM+IIP1Tla8a1Bn1pgHRbmFn8M4WQMdKn0CWo+
-	 wms46vAT71aV3JPRcTI+mjPZQnaC8rF7AKOSan/fPjLJGyU2FAbnOaenfn6fqvPUU9RgW
-	 Mz0YhnuiQmuk/8gZQO0UAnF8SrydBmhQZtT3wSVWpbwB76bVG+ObkGT4C+MWVYX0RUg==
+	t=1793975311;
+	b=zFYrmc2LrnpH7We/DiHDE3sxgGiUK9vIDibcnVqHYDgrGMs3Z7toDem4zVPU3Gl4msor
+	 lwpfQBIj9cAqG707zgxgj+pjB2XfPsFOVxC7wt5BlhQ5jpDAvBECiqCZL8+6yJZjVxyYF
+	 p2OGokGzmTytUNKb0jZtVT7DbtNLS018TUkQvD9sD52rRjnvk+e7ncONgXsuJjNcP/HCp
+	 0kw62m/jtGSXGF+dJJ5pctPuBWZhiF1HD4fgAVfnUmu8lnUyjN/m8bIKfng0gxTVuE8E1
+	 YmzsEo4ohn+GKegQXdbakiFL2at8vIUwj6qGkAuKiWYOpESO2EvrqMit0hM4GsUKlYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975276;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZqpZuSTieI35n54JABBHGpmhrcnhM+09HvPoDw0y7t8=;
-	b=ynZMdHdk2VW9A/Jgb4oiw4l2P/sFPcVqb22/vIog3HADeehiswFk2xcF3xNfuHLGftdn
-	 +OpnuZiEu8JTAnJ+ubmIyXsVv96ACGToZwTAeu4RCRG1ESxdXzt9YEnl/Q/KHW+ZNMoNu
-	 BtP0suxFbvKAR2BW4uL0D6VFKsuJ784cFC5AMO1OsC/YKlJ8ojTiTDHiDQuq+t3LTVPaH
-	 4NuWiL4Qo94U/iDPeAoAM4xXOTzqci+QxZ83TLfnVqWKwoWyuEnR1kY7gu/Xo9OuZ0Mdz
-	 UfKHfzTlo+2Oedzx0T+XBcyfaCqX++Y7e8zOUyc9SIfShi6IzNnPSWhJTm8VEsljkkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975311;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Xi81y1XZW609wk/sWs6sIq2iQGR+N/bC4UAGbPKuq4A=;
+	b=4mStUjEa/aLi581CJUpmgGZQIZ845x3yD56QcqzENJcrcCIo31XPw203t3NtiePwxdE0
+	 KhL612HSVWng0N5yMazn4ho8pECRWxEYmSyDilWUa+LAPy0lVeaXJqaDfTi131OAj12LI
+	 NpZIa66QTidPi3J2rhQhFoIIGdUJuntjB+ksN9Ag4yNROheOwAdSkU+xihoTD0rnVJC8W
+	 0eCD2M5IzOlgG3debKKmPM27xzeo8PzVMVgd1eUfGUdzLxHXN96z/RKygIuj93z8JecZ5
+	 /Xh+/GgFbzjDkM3ftvxNQY7Xp07fDS8MNvhTKrVnNwFdvwuK5eZJslQ+uX/GtrS0n5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LyeBP+gC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNYKqIju;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98D9606A32E;
-	Fri,  6 Nov 2026 14:27:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9912606A32F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:28:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9912606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LyeBP+gC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BDFE1F0089F;
-	Fri,  6 Nov 2026 14:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793975275;
-	bh=ZqpZuSTieI35n54JABBHGpmhrcnhM+09HvPoDw0y7t8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LyeBP+gC9i8mU+0eXC4H9Rt439e63hUaNqg0tEAnqsPicgyROanmOXLMZrwDKavOq
-	 c7TFg3tZXalZSMbkDDsc9HWYn40Eok0aWhsJCCFEJe5f9l3N8QtrfUp6/YiaDR3k+p
-	 Cwl2+pAi4AhxWqg6pH9EYie4OIW2beNFFIhpim8ssKbQFxEo5U1tJ1kz8aAXNIFVYs
-	 s3ANGPtCJMQL3byYiqAQQkSRHkrBX9EGpRRxlE7e9Ma1kq5ntiY4LYv+rnACV3kiCV
-	 C6SqZqi3gZ7nGjhF5v8w5lYTypIw5nKAwizr7Leyhnshc0f501BKeVqFEtkxcD2bag
-	 4fc4dYB+m71OQ==
-Date: Fri, 6 Nov 2026 08:27:51 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Golla Nagendra <nagendra.golla@amd.com>
-Cc: Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Harini Katakam <harini.katakam@amd.com>,
-	Michael Tretter <m.tretter@pengutronix.de>,
-	Vinod Koul <vkoul@kernel.org>, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	dmaengine@vger.kernel.org, git@amd.com,
-	Abin Joseph <abin.joseph@amd.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v5 2/4] dt-bindings: dma: xlnx,zynqmp-dma: Add Versal Net
- compatible
-Message-ID: <179397527077.3110134.7259234155472672168.robh@kernel.org>
-References: <20261106-adma_per_channel_reset_v5-v5-0-f9990669362f@amd.com>
- <20261106-adma_per_channel_reset_v5-v5-2-f9990669362f@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNYKqIju
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a089dfee18so1037403b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:28:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793975310; x=1794580110; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xi81y1XZW609wk/sWs6sIq2iQGR+N/bC4UAGbPKuq4A=;
+        b=nNYKqIjuEjYDx86pC7gLB0wWbCMP9LeWFfMYAVHzNUuU/cQ05fgm3jn6d3knZMEAkl
+         6NeW6BaecfNO0mrlQFVYHb2m8dLyginJlZRTPDeWO/3W7JSr6GW6dJzXIAei90z5+J6e
+         wLcCS701vrX7XfCit1mIWsChOnsLt+tHikk+Q6H74y38mcnbwavdihXJC/hHGxsIzmIq
+         Ubr5W59mPIf3aszrbISHaFrfuTBna8uTy/N7xhWyKhCA1D0U4WDHqGuPOQY5dN19rFC6
+         wI1WoDriOvIRhlvKhVkjOAYVeuO2qENksJtYhO9JWB5ashZE6mUENfRa0VMER/Tj0pmp
+         gx5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793975310; x=1794580110;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xi81y1XZW609wk/sWs6sIq2iQGR+N/bC4UAGbPKuq4A=;
+        b=mKiyNMYrIGnLAepL/QTZY3Rv8Q/0L8rP65apHXqVYRxe2VCQKtIgMF6/fNGtx93tyI
+         /bT9ey+r7rvrzXoOuT9bsytTJ4ZoB4a03GaPDeEhze8QngOQRxCDpH3JvCKTfqInBOzE
+         vChFsNDt9XoTKxBzi82BUuCeBhD/3+VZv/ZYMrocJYbPh6ougOBDWFwrRxPsYXYUCvtv
+         F5CBWwlArFP25Nf7pThzS1CveUVKqQMJKv+EI6v8E9ls21BYJ8LaNRuyMkz0KC5Jxx7l
+         Vs9NbF9leB6t0pOw8Ug4qm9XdR/5PGmI1QrstyahnNKzeZuHl6i0VFUJ00KUhvMRpMPM
+         5HlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx4A1RrUXOp0FNvxJXqkhfzObx9FXc9CDF7iSfTO+OhSrN1WXiB0mZKxWRKwescyBX6n1ipqUeP5gXEwBg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7owD9rMjmuJ1ok6RyA22wUkveH87IE6UpsD1H5C4ZTuRXxl5c
+	DIJTdPRMZjVyFeNFiFg0/p/Fur2A8jz+2prSNf4y3/KZOttTeBq/ZCBV
+X-Gm-Gg: AYBFou0JOrUESWQg5jRKuh3oqXnmrTfgkYNSEyUXjIk9R1OaiXZhQscvIawmppt255D
+	uAwwASFnkWop8iQJtowOR4BGF3dIHK4sU5oJww+CtOn1ZGD0S0J4hqWIqbbpYZZnA0eqhBIgBgQ
+	ut2c1FuQJ6ngTat9H+kA47nc/40lOWxnQMqGNkRdr9NYib9W7fnHQd3WO6IS2mRsv1OZpD8BFPf
+	3YNiOM0yK3oI9zWs/nmXPe4nImYWaVfS6ItF/bwKi/y828xYsdcoKFDHMtdy/qdz9j2nGbhy+cC
+	e/rHyB3ejVeoEnILRzLxjMKuOI3LJS9pjtEj3/wIIF7hQWMJgaJJzdOnm3ZcOnaJmymWcKCHcmy
+	a64Z12ID01iqUaJZ8xrNSssXfLktMUI4gojQeDiwCGsCMhLZyUB+6Zy9pPcpLz4iu84QaobAxSx
+	LTwBp85TVnRv9sxtzAnxrqRhmp0A/tRU0GSQQTz123BcK3ZTG5coYUsG6DopJryhgYJuNwu3yY3
+	XK7y60Qgr8Q0pkX2qKEhjo5R09pR15vKEHUTVq+Aj0QhsO+Zo67ypLH2GeY7ZxSK3+EawYYJEjX
+	JXDoDW9isa+6wLGznfCrJnpYmHtB+otPhF8oCqrl7bpK5kkLVx6d
+X-Received: by 2002:a05:6a21:4ead:b0:3de:2fbc:c391 with SMTP id adf61e73a8af0-3eb9830cb5cmr4470055637.7.1793975309829;
+        Fri, 06 Nov 2026 06:28:29 -0800 (PST)
+Received: from DESKTOP-31QBR7C ([103.120.166.86])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb70aa6878sm634384a12.28.2026.11.06.06.28.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 06:28:29 -0800 (PST)
+From: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+To: tj@kernel.org,
+	void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com
+Cc: sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+Subject: [PATCH bpf-next] sched_ext: Reset task fields on exit of an SCX_TASK_READY task
+Date: Fri,  6 Nov 2026 20:28:18 +0600
+Message-ID: <20261106142818.1475-1-rahadbhuiya2021@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,24 +99,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-adma_per_channel_reset_v5-v5-2-f9990669362f@amd.com>
+Content-Transfer-Encoding: 8bit
 
+Commit a298fd5f4ee8 ("sched_ext: Fix use-after-free of a NONE rescuee
+leaving its sched while running") moved the reset of SCX-managed fields
+out of scx_disable_task() into scx_reset_task_fields() so that it can be
+invoked on every path where a task leaves its scheduler's control,
+including tasks in SCX_TASK_NONE.
 
-On Fri, 06 Nov 2026 15:40:24 +0530, Golla Nagendra wrote:
-> Add support for the amd,versal-net-dma-1.0 compatible with
-> xlnx,zynqmp-dma-1.0 as its fallback compatible.
-> 
-> Include the Versal Net compatible in the reset requirements,
-> making the per-channel resets property mandatory for Versal Net
-> devices.
-> 
-> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
-> ---
->  .../bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.yaml           | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
+However, in __scx_disable_and_exit_task(), an exiting task in state
+SCX_TASK_READY (e.g., a forked task that was initialized via
+ops.init_task() but never enabled under an ext_sched_class before exiting,
+or a disabled task) currently breaks out of the state switch without
+calling scx_reset_task_fields().
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Consequently, its managed fields (vtime, slice, reenqueue flags, and
+watchdog runnable_at reset) are not reset, violating the invariant that a
+task leaving its scheduler's control starts clean.
+
+Call scx_reset_task_fields() in the SCX_TASK_READY case of
+__scx_disable_and_exit_task() to ensure consistent cleanup across all exit
+paths.
+
+Fixes: a298fd5f4ee8 ("sched_ext: Fix use-after-free of a NONE rescuee leaving its sched while running")
+Signed-off-by: Rahad Bhuiya <rahadbhuiya2021@gmail.com>
+---
+ kernel/sched/ext/ext.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index f74ffb3b1aca..b57a7989f304 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4728,6 +4728,7 @@ void __scx_disable_and_exit_task(struct scx_sched *sch, struct task_struct *p)
+ 		args.cancelled = true;
+ 		break;
+ 	case SCX_TASK_READY:
++		scx_reset_task_fields(task_rq(p), p);
+ 		break;
+ 	case SCX_TASK_ENABLED:
+ 		scx_disable_task(sch, p);
+-- 
+2.55.0.windows.3
 
