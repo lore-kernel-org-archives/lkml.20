@@ -1,97 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930872;
-	b=zGsB/TvkI+iFIehIgPwMIT/vO2mpUFjITz5DcutSyIG7a6rgRZ8I1a7zSQBX4BdKWzQ0
-	 2uqkvENRoVZaHcuGPy7V5iA2sl4yxCGyMC3t/PrYrw7sZEM9dDzjPdzKC2n0/Ks++QT4E
-	 8FE1dD/UAPfJOLnhTUF0FbtZiKxFD0G6tmRJosksEOKbXHZhTruvXwL3yP4gLDSNSm4yA
-	 2Eu9WCuiOs46Uf0Ew2iTghnMJzCzbAzB+vetiz4kT5MYT2MIlbse7LVqsHzjf8z4ij5o8
-	 DHKvWcTY5tlDbRRMNs7kwTDODrejkx56krjuCNyXZXRP51GQpEO283v6VPBWx7I0KKA==
+	t=1793930907;
+	b=WL27CKHHUifZAaEo9K92pwZ+J4ndyor19eNdgHRlNEwdl3XaB8eWAh390GIXOm13crwK
+	 kjBjkO45SVgyWdgzXOeeu+HFrkjQDdO0cqliS2J0uBrsUK1ZjlSVq5jxEtff0gQFTC0Fr
+	 ZrN+8/fS+59PaXMrBQVO+Cq5GbYEt2z6yM9OPnAjfuB/vgIroQM7pqDb7AA9hhyQCVmXN
+	 juPEoBh8NbrkY10dPE5tCxVu6+NmstLDQLpIAFlQ8RqF809823psRdYroiVaFMluPRdP7
+	 5W5v4V3ffxd82EflGuJQrjSJcxxvy62ycoo/T1q51/yGMLt5+8W7fqeFjd1SdvrYqyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930872;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=g6yrpkYpn4/WD1dfKclOjoTpzE6zylcSYmjvcux4Mlo=;
-	b=bz5SOCvWBeJtdhYLl6r+18Wtdr1BTSG4tOEYEHq4mwisi/02GgEJghMQkUuWEjgX96bN
-	 2t1uUjc++58qbjiHhnEXKqCqca3tlj/nRphix7xgepqYjy51IeYOlRltJYMB2EK2GGC4y
-	 7r39721/oAxj8LMDL0rE2f+vPHP/uykExbtrith78b3q6w5RWMh/U5AFiGEv2tBXJUDvY
-	 mzpj2X7aEXs21HPk2OCSJf20jUZ/m412hN+NNhrG0NjwRaCu135oX6l4n3ja9QoCmx6E2
-	 2jDrw7lw0L+PaH15CnRqfluJc9CAenkwxkQk5LCFtgiYzxme0DEBKOOxhdBRktPymVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930907;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=nf/bH+V3LpW42TMR0N1eeqd5iHEPLwJw3sYgg0jZ6eQ=;
+	b=yt0yZZ5tBUgwksBCu9K29oOpCLMV7HTMngWSeHocyc4Z6sRRPVvopAjqiO8m9ojCPrm4
+	 3kXAZu9yfjlk5Wg8DaB9ULljtTN6oS5CCcGo9KyUA3g5gUdUEDoRh0Ot8Yr3TV9YKZcLk
+	 s7E5ponDGWbMqjjIuK8XtLYkp4a/yBAxnGGCkxNEfHm6Z98eK7wlbLX4+7gITX2Y4VZ1A
+	 fPkywBrSddteA4zpXzWmfDw+4q8nt1sDZ85C1sReRSKTk7lA+DchA5/S1quihBys9yi2m
+	 0/beUAXXu29WPKNY+j6vfQC38g4v5TZ4b3/mnlsuJOwBCGBa4lUtJBluHWkrb+3gvSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fTU5MR6f;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nUzEdP9w;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U8skVmq6;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3217F606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:07:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3217F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D792606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:08:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D792606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fTU5MR6f
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36a1947498bso540356eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:07:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nUzEdP9w;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U8skVmq6
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5NeTBe1308247
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 02:08:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=nf/bH+V3LpW42TMR0N1eeqd5iHEPLwJw3sY
+	gg0jZ6eQ=; b=nUzEdP9wl8T+wVbNvUHQNbNYOp805ZLOGUbPqvGISohFkbl6eko
+	ba311OLu8/745KDhbd5YBSGkizx5HwUOt1fnck4enNBHX1vtxC1vqYOg/ezT12iq
+	j8/eIDOJfpKBVmZ2EGygUK0gJPYQJiJ23KaYOKWi/7MyE8suU2UyDJ5vKd/3dsjS
+	uoVigoEbWhr/HC8wUvO0nZYW4n9LkFEEaDPhZi3jIQ24cKP4wT5xf79sbb8W5yIX
+	4UL7y1vaeuij+CtsKW5xBZzomIS8w0yz5wm4kyYeBNQGzwRv7Dndnffh2tiYdmYO
+	SQAn5rcu4M6PXAtsk+sBfvcdwcGSPbvv4cg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p98drq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:08:25 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36f26e6abe9so284394eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:08:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793930870; x=1794535670; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g6yrpkYpn4/WD1dfKclOjoTpzE6zylcSYmjvcux4Mlo=;
-        b=fTU5MR6fwGF57VUPe71NbT42aGNI79QyIL0j56kfPhSDlC6jiW5q3siWlquEnYqUwF
-         ickrzoMrIgWwAyyCRQkViSoah3fG8lDF/DBbC4oU7oy5VcXk7JEPz5c6JvYH4qTWz9+9
-         jFHrot/ZQaqnIsY9s5ZaSEFTKb08jifXt6FvCUF0H0qtJDLAsDXnlPxzbj+eJhAvx87+
-         onmdFkZBGm6SsH2Nbl3PRRvcFUMJGkmbEuLIdhjFEFv+jE9x7lrLyZ1FJbdF6YeyAALW
-         T7MqcBWkTtW8Pz3B2nHY8yDnCgqfzzL7htULsPdJRhFtroKpq9KucTPoAzOE/1ZUi3a6
-         o6XA==
+        d=oss.qualcomm.com; s=google; t=1793930905; x=1794535705; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nf/bH+V3LpW42TMR0N1eeqd5iHEPLwJw3sYgg0jZ6eQ=;
+        b=U8skVmq6m0CUGBrFFOcEUUmNx6kaj4xN0x7lQKYZq/SLBoalngQCgUAcuNoCnqzPJV
+         QN0wWSCC+GPnRM17c/5V7m9UHi5O1XC2PtlERNI+Ec2Ve6pkD3Rfz2m+Opc39rRpWnJo
+         j4mP7HsrlvE00x1erb/MSIgRLjSQvT7Hh5dQT0sXEjuor9Kal1PcAIOgQKQ6uQQYdeCc
+         U0IuxFzhjdNasXXvyBvf0Xg6F4Q+KWLtoRyfyHtUPpgfFbRtLXtOH2X/5f4KyG7BKYRh
+         CPvIWJWUzrVkDLQWaYPYPGZbqEzuOePScd3lgOXTIIk5ANKYRkKIgDVc88D2l68zwSSk
+         ABWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793930870; x=1794535670;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g6yrpkYpn4/WD1dfKclOjoTpzE6zylcSYmjvcux4Mlo=;
-        b=ElrdKUtj6tdN6ko3grTly6GMVynDVId3i8Zfp/2d2f4kvVSuOfKrDU6HdxDJbDTsk7
-         qfD7qpyElE6xYYV/VOI26CFNkN2W8QIj4v5wo8qtH1W9FDDI3lY/LEfLQ7vh6lzGU3L2
-         EMJ5n1RXVOUqQ69JR7tO9sJsXjsVMUEEg/1lgy34mPH/BdjNZExT6CAmbyLeF9YQrXos
-         n0YaJ654h2i/kRTK858+p3+RvtFQ1gQYesW+USOdAwbmP3VNO6NzCYNjsdmzQSUS1xqm
-         ciBfls1BhvouEvhTa5wgM7DFQVF7hZBE/hcWOfUpQZsBfiigtRWrJ2SGzXE5Euh2Ymwx
-         +Xbg==
-X-Forwarded-Encrypted: i=1; AKwUvBwNwatapT5EcMbMt6lRRUKAKOaSk+Aj3diFr/viQZTumtylyS39Zy+nurcKbzs2z8b41tCcdHQ0cIm8acU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mPWbLVHMjurQFYkFhWGLJqd1UGlixeBEURG8OAc/NA9ogkUzY
-	ETqWnyhO3AXFAVMvzvrD0JkbGr59j/kn5QS11ot2KVmdQsPaz93US28j
-X-Gm-Gg: AYBFou3yxNVSmYt+oIIK2fXH2O5V3WTy+6Pi8ILPAerXvaCP0qG6kbstXIiuBMQ7CAU
-	0wTeNAv4bv28Wg8mpMVII3NopQhHM9kdanWW1PEDNDV2lcSIjCxrut/pXYh72ccPHTkc/UD6Uyp
-	i4idBqlBy1ChqYktdizFjsejoOrRuGYEg1C1KUcFo34TB5hKgAhsEq40RGDshGpiEl5EJN0eF8n
-	aNpRX2Ue6NafnLutFcoxOxwI3IQGPmA8AnPxKnC4wp0ct30DfJHP3feus4kq1bqEr0tyQEu+lQY
-	RkpsVbDSg8NTBJVdUHbf5UrgtSi2hIFHEHpAXDoDsgGoJYkzoadF+YXCVjhRs5X8TTuA3PdBZLb
-	d7x8/LI1YoF2hC5f8vAohy8QeAFQmCP4r0UgPRoc7pI4XaQsoUKV5OGVC4DY3t2Wz5/TEOvU/gs
-	BQ4nwv/3QaPBMV+Zvrhi/lLzn0KvHCmnF6ZSzUJHtt0on20lW47hMapoNAbrhxwDWo26+FJI6gh
-	ZnHS1NTzsRgCdl/ipMSD/k8muUtbCZVdrhbEfdD0q49w5DPatndvya6mxfEZZAn9grAHPMTjkUt
-	YlM0xQngEWwmUM4YROTqtGJ7+AbOD6uizbh7+y+RrfWiuA3UuHHZfbBCKr2YnRPAidGS0iwaid2
-	f68508w==
-X-Received: by 2002:a05:7022:f107:b0:1a9:c9fe:12c7 with SMTP id a92af1059eb24-1b25d305915mr1103875c88.9.1793930869672;
-        Thu, 05 Nov 2026 18:07:49 -0800 (PST)
-Received: from localhost.localdomain (c-73-158-21-37.hsd1.ca.comcast.net. [73.158.21.37])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4b1449sm923308c88.12.2026.11.05.18.07.47
+        d=1e100.net; s=20260707; t=1793930905; x=1794535705;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nf/bH+V3LpW42TMR0N1eeqd5iHEPLwJw3sYgg0jZ6eQ=;
+        b=sVTrm1nxEgna4j6nLvW9j27A/s4Pkir7MWPAHPMgFLI1WtC4/cNslUvHae8kn7S6+0
+         k0oLiBzoNNniwDiQ+Hiy76K+G0FZPq3F/IVUlne2IriaTlWxR9FccIaFkvvdGHrweBHi
+         7ckvSA65DyMWznfDlv0I8paQntQS6ShfpFrFxXQ2teVCveEDmBuWwDtll5zv0FzoKIsH
+         9APbHapLrHluSNS4xqQnsWCtPDcSNRG7fjqTrPy3ZPhuK8E89S707oXyScm2qIDfQcKB
+         WAmR0BZihaEN9Z42KSeEkBOi+ooOFNHQ0utjouptlbMS42WIPkByMHuiPtKLK5kOWYJ8
+         05yQ==
+X-Forwarded-Encrypted: i=1; AKwUvBybYCqVEk2fEYfhRAxJhQ5vHaJx7aURk5g8zbh4v0LptIqjXJfJsxGYkLEeAKpCUGY1wsy1LsHVzr4Pxo4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wTc+Dl5Ge9E+PfZOTwKuDVtx6Ev8uqxU2MjCi/AD3K4RepAx4
+	duDzBpreMrNMm+/PVHy6pqaL8IC+p7i+VK02UogmLcyNR+GmrUW3w2OEKlMNIiEUB4ZWK7cj/3d
+	9YfqcNK68utQwEwDzVHJooIXhvpi2umbjp6RHWzO1gMwLwEps0Uj7jtUO+bJ6RlQYSCs=
+X-Gm-Gg: AYBFou3amO6jD9sr9yZvg4WbzXKhNBouvFUT055UJYcHJQTF+ELmtWdsCg9eKne/GMX
+	HVw2Oks+bwZ6BeRWQjChQTPMatKs0crlYm5QP5nMDf90aK7E/EkS8hrRDD8MkxSpqaPFkSpWoMP
+	DmfoBBzsp4A6VG9Mo9tCORoqTEBPFSFxf6K9oRYGVUgGTrpm5wGJRToY6UELcNHk70FuLS9ab3P
+	cic+R3r1DVQP649jVPkhI5Xes4JCLiv/G0V3AtNNZ/P/PQPQrHRBd6vpWC6z1WJL0N5YxsfhNfX
+	oJ7btczFz3WmAiyq/FF9v9kT1nFtjAtnkLH6NUaIx8OzADvctSY27rk3HFgVNvxIOhhO1s5OGOi
+	+yI1hFmB6g4rFCesWul0+TTob8ngy0Qcs2WqHz0mbzwe6nckzIFktW1sbogeIS09KzmqFZS42Lu
+	LKXhuBVC76
+X-Received: by 2002:a05:7022:4183:b0:1a8:4997:65f6 with SMTP id a92af1059eb24-1b25d30ec8cmr1490434c88.20.1793930904784;
+        Thu, 05 Nov 2026 18:08:24 -0800 (PST)
+X-Received: by 2002:a05:7022:4183:b0:1a8:4997:65f6 with SMTP id a92af1059eb24-1b25d30ec8cmr1490393c88.20.1793930904197;
+        Thu, 05 Nov 2026 18:08:24 -0800 (PST)
+Received: from hu-hongchen-sha.qualcomm.com ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4a63f6sm1324796c88.9.2026.11.05.18.08.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 18:07:48 -0800 (PST)
-From: Saad Varshani <varshanisaad@gmail.com>
-To: varshanisaad@gmail.com
-Cc: gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	nkapron@google.com,
-	syzbot+300213c2b5b55c0244f4@syzkaller.appspotmail.com
-Subject: [PATCH v2] usb: gadget: uvc: Fix deadlocks in uvcg_configfs attribute callbacks
-Date: Thu,  5 Nov 2026 18:07:27 -0800
-Message-ID: <20261106020727.6055-1-varshanisaad@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261105053900.20082-1-varshanisaad@gmail.com>
-References: <20261105053900.20082-1-varshanisaad@gmail.com>
+        Thu, 05 Nov 2026 18:08:23 -0800 (PST)
+From: Hongcheng Zhang <hongcheng.zhang@oss.qualcomm.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+        linux-wireless@vger.kernel.org (open list:QUALCOMM ATHEROS ATH11K WIRELESS DRIVER),
+        ath11k@lists.infradead.org (open list:QUALCOMM ATHEROS ATH11K WIRELESS DRIVER),
+        linux-kernel@vger.kernel.org (open list)
+Cc: Hongcheng Zhang <hongcheng.zhang@oss.qualcomm.com>
+Subject: [PATCH ath-next v1] wifi: ath11k: add usecase firmware entry for QCA2066 hw2.1
+Date: Fri,  6 Nov 2026 07:38:08 +0530
+Message-Id: <20261106020809.3580396-1-hongcheng.zhang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,1137 +120,60 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: WyLNxz_tRvhWeGPZ1Ymu9_bqeS1JlA7u
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAwOCBTYWx0ZWRfX02rcUWINZojT
+ Q51tfc/iGvet0lWDpa2FacZ3eNEHXL7hVqTu3jaNK9O1LfRg4QdA2Kl6nmXIT5DIuyxImK/DFN9
+ 9P+4VV5ObaTnvpR2WWVVmBZvqn2CbT63ESwuwQ/4vuD9NOnmTU3Uo6VXEtrtPTteptsMBzFtfpQ
+ 3HhVwHDRY29rt5Lg3sD5CZMf2YB6OM09n0dfPuhBMwrgDcMkB78tJl2t/XamjdB+l8lw5pWvErv
+ 4gHYIWoF/IZG5xM512UYY3s0bbqyJaQxSW/rNEjE3G3BaDXn15vZ+XEehIaNSnNh5kh7PXRzRyF
+ WSfF2A2H73q6+T2R5AafcwDxGs7yTui9Q9iRoGEKKe2LKxtGFKrHqLA2gH30PUZd49NOTc9NfQu
+ fdGFjj0OAItoxEKptGLofitPR5Y1exF8R1MdqPb82rpPyrjul2e1o/maPaTsfzZwkNL7hFmI3uA
+ 6MJtXyXZ8+Bf+w1h95w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAwOCBTYWx0ZWRfX6aG4dAvslj3w
+ Dim7ehWrsfWLtmy3xIgHIpptxfS9LYGam7a+copFBdlmcH8HS3qy0wZCfoAv7UwvRdb6ML1IqTW
+ 76nmP6SaYLNV3DESS8uazphVyCvzjMg=
+X-Authority-Analysis: v=2.4 cv=WMzqzXsR c=1 sm=1 tr=0 ts=6aed3699 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=SfIHIsIoJ2N3z6ihRgEA:9 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: WyLNxz_tRvhWeGPZ1Ymu9_bqeS1JlA7u
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_06,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060008
 
-Removed su_mutex locking in the function uvcg_extension_bm_controls_store.
-Done this due to the deadlock caused by the mutex conflict in
-fs/configfs_write_iter. Validated commit with the C repro provided by
-syzbot. No other conficts observed.
+The Monaco Monza platform (QCA2066 hw2.1) requires a usecase-specific
+firmware variant located under the nfa725 subdirectory.
 
-Also removed the su_mutex in the other attribute extension functions.
-Such as uvcg_extension_b_control_size_store. This applies to all
-uvcg_configfs attribute store/show functions.
+Add a new entry for "arduino,monza" compatible string to ensure that
+the correct usecase firmware (nfa725) is selected.
 
-The deadlock was happening due to a circular mutex dependency between
-configfs (frag_sem) and uvcg_extension su_mutex. The reason it is safe
-to traverse item->ci_parent without su_mutex is because
-configfs_write_iter() calls flush_write_buffer() which calls the
-attribute function, holding frag_sem. Which prevents configfs_rmdir()
-from unlinking the item or its ci_parent hierarchy
+Tested-on: QCA2066 hw2.1 PCI WLAN.HSP.1.1.c6-00302-QCAHSPSWPL_V1_V2_SILICONZ_LITE-1
 
-Reported-by: syzbot+300213c2b5b55c0244f4@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=300213c2b5b55c0244f4
-Signed-off-by: Saad Varshani <varshanisaad@gmail.com>
+Signed-off-by: Hongcheng Zhang <hongcheng.zhang@oss.qualcomm.com>
 ---
- drivers/usb/gadget/function/uvc_configfs.c | 235 ---------------------
- 1 file changed, 235 deletions(-)
+ drivers/net/wireless/ath/ath11k/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/usb/gadget/function/uvc_configfs.c b/drivers/usb/gadget/function/uvc_configfs.c
-index 70a1415ea401..6a4f17b925e7 100644
---- a/drivers/usb/gadget/function/uvc_configfs.c
-+++ b/drivers/usb/gadget/function/uvc_configfs.c
-@@ -191,11 +191,8 @@ static ssize_t uvcg_control_header_##cname##_show(			\
- 	struct uvcg_control_header *ch = to_uvcg_control_header(item);	\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &ch->item.ci_group->cg_subsys->su_mutex;\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = ch->item.ci_parent->ci_parent->ci_parent;		\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -203,7 +200,6 @@ static ssize_t uvcg_control_header_##cname##_show(			\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(ch->desc.aname));\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -214,12 +210,9 @@ uvcg_control_header_##cname##_store(struct config_item *item,		\
- 	struct uvcg_control_header *ch = to_uvcg_control_header(item);	\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &ch->item.ci_group->cg_subsys->su_mutex;\
- 	int ret;							\
- 	u##bits num;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = ch->item.ci_parent->ci_parent->ci_parent;		\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -241,7 +234,6 @@ uvcg_control_header_##cname##_store(struct config_item *item,		\
- 	ret = len;							\
- end:									\
- 	mutex_unlock(&opts->lock);					\
--	mutex_unlock(su_mutex);						\
- 	return ret;							\
- }									\
- 									\
-@@ -309,12 +301,9 @@ static ssize_t uvcg_default_processing_##cname##_show(			\
- 	struct config_group *group = to_config_group(item);		\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
- 	struct uvc_processing_unit_descriptor *pd;			\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent;	\
- 	opts = to_f_uvc_opts(opts_item);				\
- 	pd = &opts->uvc_processing;					\
-@@ -323,7 +312,6 @@ static ssize_t uvcg_default_processing_##cname##_show(			\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(pd->aname));	\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -340,7 +328,6 @@ static ssize_t uvcg_default_processing_bm_controls_store(
- 	struct config_item *item, const char *page, size_t len)
- {
- 	struct config_group *group = to_config_group(item);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvc_processing_unit_descriptor *pd;
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
-@@ -348,8 +335,6 @@ static ssize_t uvcg_default_processing_bm_controls_store(
- 	unsigned int i;
- 	int ret, n = 0;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 	pd = &opts->uvc_processing;
-@@ -390,7 +375,6 @@ static ssize_t uvcg_default_processing_bm_controls_store(
- 	kfree(bm_controls);
- unlock:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- 
-@@ -400,13 +384,10 @@ static ssize_t uvcg_default_processing_bm_controls_show(
- 	struct config_group *group = to_config_group(item);
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvc_processing_unit_descriptor *pd;
- 	int result, i;
- 	char *pg = page;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 	pd = &opts->uvc_processing;
-@@ -418,8 +399,6 @@ static ssize_t uvcg_default_processing_bm_controls_show(
- 	}
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return result;
- }
- 
-@@ -470,12 +449,9 @@ static ssize_t uvcg_default_camera_##cname##_show(			\
- 	struct config_group *group = to_config_group(item);		\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
- 	struct uvc_camera_terminal_descriptor *cd;			\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent->	\
- 			ci_parent;					\
- 	opts = to_f_uvc_opts(opts_item);				\
-@@ -485,8 +461,6 @@ static ssize_t uvcg_default_camera_##cname##_show(			\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(cd->aname));	\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
--									\
- 	return result;							\
- }									\
- 									\
-@@ -509,7 +483,6 @@ static ssize_t uvcg_default_camera_bm_controls_store(
- 	struct config_item *item, const char *page, size_t len)
- {
- 	struct config_group *group = to_config_group(item);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvc_camera_terminal_descriptor *cd;
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
-@@ -517,8 +490,6 @@ static ssize_t uvcg_default_camera_bm_controls_store(
- 	unsigned int i;
- 	int ret, n = 0;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent->
- 			ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
-@@ -560,7 +531,6 @@ static ssize_t uvcg_default_camera_bm_controls_store(
- 	kfree(bm_controls);
- unlock:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- 
-@@ -570,13 +540,10 @@ static ssize_t uvcg_default_camera_bm_controls_show(
- 	struct config_group *group = to_config_group(item);
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvc_camera_terminal_descriptor *cd;
- 	int result, i;
- 	char *pg = page;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent->
- 			ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
-@@ -588,8 +555,6 @@ static ssize_t uvcg_default_camera_bm_controls_show(
- 		pg = page + result;
- 	}
- 	mutex_unlock(&opts->lock);
--
--	mutex_unlock(su_mutex);
- 	return result;
- }
- 
-@@ -643,12 +608,9 @@ static ssize_t uvcg_default_output_##cname##_show(			\
- 	struct config_group *group = to_config_group(item);		\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
- 	struct uvc_output_terminal_descriptor *cd;			\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = group->cg_item.ci_parent->ci_parent->		\
- 			ci_parent->ci_parent;				\
- 	opts = to_f_uvc_opts(opts_item);				\
-@@ -658,8 +620,6 @@ static ssize_t uvcg_default_output_##cname##_show(			\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(cd->aname));	\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
--									\
- 	return result;							\
- }									\
- 									\
-@@ -678,12 +638,9 @@ static ssize_t uvcg_default_output_b_source_id_show(struct config_item *item,
- 	struct config_group *group = to_config_group(item);
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvc_output_terminal_descriptor *cd;
- 	int result;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = group->cg_item.ci_parent->ci_parent->
- 			ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
-@@ -693,8 +650,6 @@ static ssize_t uvcg_default_output_b_source_id_show(struct config_item *item,
- 	result = sprintf(page, "%u\n", le8_to_cpu(cd->bSourceID));
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return result;
- }
- 
-@@ -704,7 +659,6 @@ static ssize_t uvcg_default_output_b_source_id_store(struct config_item *item,
- 	struct config_group *group = to_config_group(item);
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvc_output_terminal_descriptor *cd;
- 	int result;
- 	u8 num;
-@@ -713,8 +667,6 @@ static ssize_t uvcg_default_output_b_source_id_store(struct config_item *item,
- 	if (result)
- 		return result;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = group->cg_item.ci_parent->ci_parent->
- 			ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
-@@ -724,8 +676,6 @@ static ssize_t uvcg_default_output_b_source_id_store(struct config_item *item,
- 	cd->bSourceID = num;
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return len;
- }
- UVC_ATTR(uvcg_default_output_, b_source_id, bSourceID);
-@@ -789,15 +739,11 @@ static const struct uvcg_config_group_type uvcg_terminal_grp_type = {
- static ssize_t uvcg_extension_##cname##_show(struct config_item *item,	\
- 					     char *page)		\
- {									\
--	struct config_group *group = to_config_group(item->ci_parent);	\
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
- 	struct uvcg_extension *xu = to_uvcg_extension(item);		\
- 	struct config_item *opts_item;					\
- 	struct f_uvc_opts *opts;					\
- 	int ret;							\
- 									\
--	mutex_lock(su_mutex);						\
--									\
- 	opts_item = item->ci_parent->ci_parent->ci_parent;		\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -805,8 +751,6 @@ static ssize_t uvcg_extension_##cname##_show(struct config_item *item,	\
- 	ret = sprintf(page, "%u\n", xu->desc.aname);			\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
--									\
- 	return ret;							\
- }									\
- UVC_ATTR##ro(uvcg_extension_, cname, aname)
-@@ -818,8 +762,6 @@ UVCG_EXTENSION_ATTR(i_extension, iExtension, _RO);
- static ssize_t uvcg_extension_b_num_controls_store(struct config_item *item,
- 						   const char *page, size_t len)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
-@@ -830,8 +772,6 @@ static ssize_t uvcg_extension_b_num_controls_store(struct config_item *item,
- 	if (ret)
- 		return ret;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -839,8 +779,6 @@ static ssize_t uvcg_extension_b_num_controls_store(struct config_item *item,
- 	xu->desc.bNumControls = num;
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return len;
- }
- UVCG_EXTENSION_ATTR(b_num_controls, bNumControls);
-@@ -852,8 +790,6 @@ UVCG_EXTENSION_ATTR(b_num_controls, bNumControls);
- static ssize_t uvcg_extension_b_nr_in_pins_store(struct config_item *item,
- 						 const char *page, size_t len)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
-@@ -865,8 +801,6 @@ static ssize_t uvcg_extension_b_nr_in_pins_store(struct config_item *item,
- 	if (ret)
- 		return ret;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -893,7 +827,6 @@ static ssize_t uvcg_extension_b_nr_in_pins_store(struct config_item *item,
- 
- unlock:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- UVCG_EXTENSION_ATTR(b_nr_in_pins, bNrInPins);
-@@ -905,8 +838,6 @@ UVCG_EXTENSION_ATTR(b_nr_in_pins, bNrInPins);
- static ssize_t uvcg_extension_b_control_size_store(struct config_item *item,
- 						   const char *page, size_t len)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
-@@ -918,8 +849,6 @@ static ssize_t uvcg_extension_b_control_size_store(struct config_item *item,
- 	if (ret)
- 		return ret;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -946,7 +875,6 @@ static ssize_t uvcg_extension_b_control_size_store(struct config_item *item,
- 
- unlock:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- 
-@@ -955,14 +883,10 @@ UVCG_EXTENSION_ATTR(b_control_size, bControlSize);
- static ssize_t uvcg_extension_guid_extension_code_show(struct config_item *item,
- 						       char *page)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -970,23 +894,17 @@ static ssize_t uvcg_extension_guid_extension_code_show(struct config_item *item,
- 	memcpy(page, xu->desc.guidExtensionCode, sizeof(xu->desc.guidExtensionCode));
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return sizeof(xu->desc.guidExtensionCode);
- }
- 
- static ssize_t uvcg_extension_guid_extension_code_store(struct config_item *item,
- 							const char *page, size_t len)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	int ret;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -995,8 +913,6 @@ static ssize_t uvcg_extension_guid_extension_code_store(struct config_item *item
- 	       min(sizeof(xu->desc.guidExtensionCode), len));
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	ret = sizeof(xu->desc.guidExtensionCode);
- 
- 	return ret;
-@@ -1007,16 +923,12 @@ UVC_ATTR(uvcg_extension_, guid_extension_code, guidExtensionCode);
- static ssize_t uvcg_extension_ba_source_id_show(struct config_item *item,
- 						char *page)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	char *pg = page;
- 	int ret, i;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1027,24 +939,18 @@ static ssize_t uvcg_extension_ba_source_id_show(struct config_item *item,
- 	}
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return ret;
- }
- 
- static ssize_t uvcg_extension_ba_source_id_store(struct config_item *item,
- 						 const char *page, size_t len)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	u8 *source_ids, *iter;
- 	int ret, n = 0;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1077,8 +983,6 @@ static ssize_t uvcg_extension_ba_source_id_store(struct config_item *item,
- 	ret = len;
- 
- unlock:
--	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- UVC_ATTR(uvcg_extension_, ba_source_id, baSourceID);
-@@ -1086,16 +990,12 @@ UVC_ATTR(uvcg_extension_, ba_source_id, baSourceID);
- static ssize_t uvcg_extension_bm_controls_show(struct config_item *item,
- 					       char *page)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	char *pg = page;
- 	int ret, i;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1106,24 +1006,18 @@ static ssize_t uvcg_extension_bm_controls_show(struct config_item *item,
- 	}
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return ret;
- }
- 
- static ssize_t uvcg_extension_bm_controls_store(struct config_item *item,
- 						const char *page, size_t len)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	u8 *bm_controls, *iter;
- 	int ret, n = 0;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1157,7 +1051,6 @@ static ssize_t uvcg_extension_bm_controls_store(struct config_item *item,
- 
- unlock:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- 
-@@ -1467,14 +1360,10 @@ static const struct uvcg_config_group_type uvcg_control_class_grp_type = {
- static ssize_t uvcg_default_control_b_interface_number_show(
- 	struct config_item *item, char *page)
- {
--	struct config_group *group = to_config_group(item);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	int result = 0;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = item->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1482,8 +1371,6 @@ static ssize_t uvcg_default_control_b_interface_number_show(
- 	result += sprintf(page, "%u\n", opts->control_interface);
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return result;
- }
- 
-@@ -1492,14 +1379,10 @@ UVC_ATTR_RO(uvcg_default_control_, b_interface_number, bInterfaceNumber);
- static ssize_t uvcg_default_control_enable_interrupt_ep_show(
- 	struct config_item *item, char *page)
- {
--	struct config_group *group = to_config_group(item);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	int result = 0;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = item->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1507,16 +1390,12 @@ static ssize_t uvcg_default_control_enable_interrupt_ep_show(
- 	result += sprintf(page, "%u\n", opts->enable_interrupt_ep);
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return result;
- }
- 
- static ssize_t uvcg_default_control_enable_interrupt_ep_store(
- 	struct config_item *item, const char *page, size_t len)
- {
--	struct config_group *group = to_config_group(item);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	ssize_t ret;
-@@ -1526,8 +1405,6 @@ static ssize_t uvcg_default_control_enable_interrupt_ep_store(
- 	if (ret)
- 		return ret;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = item->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1535,8 +1412,6 @@ static ssize_t uvcg_default_control_enable_interrupt_ep_store(
- 	opts->enable_interrupt_ep = num;
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return len;
- }
- UVC_ATTR(uvcg_default_control_, enable_interrupt_ep, enable_interrupt_ep);
-@@ -1674,12 +1549,9 @@ static ssize_t uvcg_format_bma_controls_show(struct uvcg_format *f, char *page)
- {
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &f->group.cg_subsys->su_mutex;
- 	int result, i;
- 	char *pg = page;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = f->group.cg_item.ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1691,8 +1563,6 @@ static ssize_t uvcg_format_bma_controls_show(struct uvcg_format *f, char *page)
- 		pg = page + result;
- 	}
- 	mutex_unlock(&opts->lock);
--
--	mutex_unlock(su_mutex);
- 	return result;
- }
- 
-@@ -1701,11 +1571,8 @@ static ssize_t uvcg_format_bma_controls_store(struct uvcg_format *ch,
- {
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &ch->group.cg_subsys->su_mutex;
- 	int ret = -EINVAL;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = ch->group.cg_item.ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1724,7 +1591,6 @@ static ssize_t uvcg_format_bma_controls_store(struct uvcg_format *ch,
- 	ret = len;
- end:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- 
-@@ -1853,19 +1719,14 @@ static ssize_t uvcg_streaming_header_##cname##_show(			\
- 	struct uvcg_streaming_header *sh = to_uvcg_streaming_header(item); \
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &sh->item.ci_group->cg_subsys->su_mutex;\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = sh->item.ci_parent->ci_parent->ci_parent;		\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
- 	mutex_lock(&opts->lock);					\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(sh->desc.aname));\
- 	mutex_unlock(&opts->lock);					\
--									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -1937,11 +1798,8 @@ static ssize_t uvcg_frame_##cname##_show(struct config_item *item, char *page)\
- 	struct uvcg_frame *f = to_uvcg_frame(item);			\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &f->item.ci_group->cg_subsys->su_mutex;\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = f->item.ci_parent->ci_parent->ci_parent->ci_parent;	\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -1949,7 +1807,6 @@ static ssize_t uvcg_frame_##cname##_show(struct config_item *item, char *page)\
- 	result = sprintf(page, "%u\n", f->frame.cname);			\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -1960,7 +1817,6 @@ static ssize_t  uvcg_frame_##cname##_store(struct config_item *item,	\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
- 	struct uvcg_format *fmt;					\
--	struct mutex *su_mutex = &f->item.ci_group->cg_subsys->su_mutex;\
- 	typeof(f->frame.cname) num;					\
- 	int ret;							\
- 									\
-@@ -1968,8 +1824,6 @@ static ssize_t  uvcg_frame_##cname##_store(struct config_item *item,	\
- 	if (ret)							\
- 		return ret;						\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = f->item.ci_parent->ci_parent->ci_parent->ci_parent;	\
- 	opts = to_f_uvc_opts(opts_item);				\
- 	fmt = to_uvcg_format(f->item.ci_parent);			\
-@@ -1984,7 +1838,6 @@ static ssize_t  uvcg_frame_##cname##_store(struct config_item *item,	\
- 	ret = len;							\
- end:									\
- 	mutex_unlock(&opts->lock);					\
--	mutex_unlock(su_mutex);						\
- 	return ret;							\
- }									\
- 									\
-@@ -1998,11 +1851,8 @@ static ssize_t uvcg_frame_b_frame_index_show(struct config_item *item,
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
- 	struct config_item *fmt_item;
--	struct mutex *su_mutex = &f->item.ci_group->cg_subsys->su_mutex;
- 	int result;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	fmt_item = f->item.ci_parent;
- 	fmt = to_uvcg_format(fmt_item);
- 
-@@ -2019,7 +1869,6 @@ static ssize_t uvcg_frame_b_frame_index_show(struct config_item *item,
- 	mutex_unlock(&opts->lock);
- 
- out:
--	mutex_unlock(su_mutex);
- 	return result;
- }
- 
-@@ -2042,12 +1891,9 @@ static ssize_t uvcg_frame_dw_frame_interval_show(struct config_item *item,
- 	struct uvcg_frame *frm = to_uvcg_frame(item);
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &frm->item.ci_group->cg_subsys->su_mutex;
- 	int result, i;
- 	char *pg = page;
- 
--	mutex_lock(su_mutex);	/* for navigating configfs hierarchy */
--
- 	opts_item = frm->item.ci_parent->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -2057,8 +1903,6 @@ static ssize_t uvcg_frame_dw_frame_interval_show(struct config_item *item,
- 		pg = page + result;
- 	}
- 	mutex_unlock(&opts->lock);
--
--	mutex_unlock(su_mutex);
- 	return result;
- }
- 
-@@ -2069,12 +1913,9 @@ static ssize_t uvcg_frame_dw_frame_interval_store(struct config_item *item,
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
- 	struct uvcg_format *fmt;
--	struct mutex *su_mutex = &ch->item.ci_group->cg_subsys->su_mutex;
- 	int ret = 0, n = 0;
- 	u32 *frm_intrv, *tmp;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = ch->item.ci_parent->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 	fmt = to_uvcg_format(ch->item.ci_parent);
-@@ -2110,7 +1951,6 @@ static ssize_t uvcg_frame_dw_frame_interval_store(struct config_item *item,
- 
- end:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- 
-@@ -2272,9 +2112,6 @@ static ssize_t uvcg_uncompressed_guid_format_show(struct config_item *item,
- 	struct uvcg_uncompressed *ch = to_uvcg_uncompressed(item);
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &ch->fmt.group.cg_subsys->su_mutex;
--
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
- 
- 	opts_item = ch->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
-@@ -2283,8 +2120,6 @@ static ssize_t uvcg_uncompressed_guid_format_show(struct config_item *item,
- 	memcpy(page, ch->desc.guidFormat, sizeof(ch->desc.guidFormat));
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return sizeof(ch->desc.guidFormat);
- }
- 
-@@ -2294,13 +2129,10 @@ static ssize_t uvcg_uncompressed_guid_format_store(struct config_item *item,
- 	struct uvcg_uncompressed *ch = to_uvcg_uncompressed(item);
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &ch->fmt.group.cg_subsys->su_mutex;
- 	const struct uvc_format_desc *format;
- 	u8 tmpguidFormat[sizeof(ch->desc.guidFormat)];
- 	int ret;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = ch->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -2325,7 +2157,6 @@ static ssize_t uvcg_uncompressed_guid_format_store(struct config_item *item,
- 
- end:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- 
-@@ -2338,11 +2169,8 @@ static ssize_t uvcg_uncompressed_##cname##_show(			\
- 	struct uvcg_uncompressed *u = to_uvcg_uncompressed(item);	\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -2350,7 +2178,6 @@ static ssize_t uvcg_uncompressed_##cname##_show(			\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -2363,19 +2190,14 @@ static ssize_t uvcg_uncompressed_##cname##_show(			\
- 	struct uvcg_uncompressed *u = to_uvcg_uncompressed(item);	\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
- 	mutex_lock(&opts->lock);					\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
- 	mutex_unlock(&opts->lock);					\
--									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -2386,12 +2208,9 @@ uvcg_uncompressed_##cname##_store(struct config_item *item,		\
- 	struct uvcg_uncompressed *u = to_uvcg_uncompressed(item);	\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
- 	int ret;							\
- 	u8 num;								\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -2415,7 +2234,6 @@ uvcg_uncompressed_##cname##_store(struct config_item *item,		\
- 	ret = len;							\
- end:									\
- 	mutex_unlock(&opts->lock);					\
--	mutex_unlock(su_mutex);						\
- 	return ret;							\
- }									\
- 									\
-@@ -2536,19 +2354,14 @@ static ssize_t uvcg_mjpeg_##cname##_show(struct config_item *item, char *page)\
- 	struct uvcg_mjpeg *u = to_uvcg_mjpeg(item);			\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
- 	mutex_lock(&opts->lock);					\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
- 	mutex_unlock(&opts->lock);					\
--									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -2560,11 +2373,8 @@ static ssize_t uvcg_mjpeg_##cname##_show(struct config_item *item, char *page)\
- 	struct uvcg_mjpeg *u = to_uvcg_mjpeg(item);			\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -2572,7 +2382,6 @@ static ssize_t uvcg_mjpeg_##cname##_show(struct config_item *item, char *page)\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -2583,12 +2392,9 @@ uvcg_mjpeg_##cname##_store(struct config_item *item,			\
- 	struct uvcg_mjpeg *u = to_uvcg_mjpeg(item);			\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
- 	int ret;							\
- 	u8 num;								\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -2612,7 +2418,6 @@ uvcg_mjpeg_##cname##_store(struct config_item *item,			\
- 	ret = len;							\
- end:									\
- 	mutex_unlock(&opts->lock);					\
--	mutex_unlock(su_mutex);						\
- 	return ret;							\
- }									\
- 									\
-@@ -2727,11 +2532,8 @@ static ssize_t uvcg_framebased_##cname##_show(struct config_item *item,	\
- 	struct uvcg_framebased *u = to_uvcg_framebased(item);		\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -2739,7 +2541,6 @@ static ssize_t uvcg_framebased_##cname##_show(struct config_item *item,	\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -2752,11 +2553,8 @@ static ssize_t uvcg_framebased_##cname##_show(struct config_item *item,	\
- 	struct uvcg_framebased *u = to_uvcg_framebased(item);		\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -2764,7 +2562,6 @@ static ssize_t uvcg_framebased_##cname##_show(struct config_item *item,	\
- 	result = sprintf(page, "%u\n", le##bits##_to_cpu(u->desc.aname));\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -2775,12 +2572,9 @@ uvcg_framebased_##cname##_store(struct config_item *item,		\
- 	struct uvcg_framebased *u = to_uvcg_framebased(item);		\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &u->fmt.group.cg_subsys->su_mutex;	\
- 	int ret;							\
- 	u8 num;								\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = u->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -2802,7 +2596,6 @@ uvcg_framebased_##cname##_store(struct config_item *item,		\
- 	ret = len;							\
- end:									\
- 	mutex_unlock(&opts->lock);					\
--	mutex_unlock(su_mutex);						\
- 	return ret;							\
- }									\
- 									\
-@@ -2824,9 +2617,6 @@ static ssize_t uvcg_framebased_guid_format_show(struct config_item *item,
- 	struct uvcg_framebased *ch = to_uvcg_framebased(item);
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &ch->fmt.group.cg_subsys->su_mutex;
--
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
- 
- 	opts_item = ch->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
-@@ -2835,8 +2625,6 @@ static ssize_t uvcg_framebased_guid_format_show(struct config_item *item,
- 	memcpy(page, ch->desc.guidFormat, sizeof(ch->desc.guidFormat));
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return sizeof(ch->desc.guidFormat);
- }
- 
-@@ -2846,11 +2634,8 @@ static ssize_t uvcg_framebased_guid_format_store(struct config_item *item,
- 	struct uvcg_framebased *ch = to_uvcg_framebased(item);
- 	struct f_uvc_opts *opts;
- 	struct config_item *opts_item;
--	struct mutex *su_mutex = &ch->fmt.group.cg_subsys->su_mutex;
- 	int ret;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = ch->fmt.group.cg_item.ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -2866,7 +2651,6 @@ static ssize_t uvcg_framebased_guid_format_store(struct config_item *item,
- 
- end:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- 
-@@ -2979,11 +2763,8 @@ static ssize_t uvcg_color_matching_##cname##_show(			\
- 		to_uvcg_color_matching(group);				\
- 	struct f_uvc_opts *opts;					\
- 	struct config_item *opts_item;					\
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
- 	int result;							\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	opts_item = group->cg_item.ci_parent->ci_parent->ci_parent;	\
- 	opts = to_f_uvc_opts(opts_item);				\
- 									\
-@@ -2992,7 +2773,6 @@ static ssize_t uvcg_color_matching_##cname##_show(			\
- 			 le##bits##_to_cpu(color_match->desc.aname));	\
- 	mutex_unlock(&opts->lock);					\
- 									\
--	mutex_unlock(su_mutex);						\
- 	return result;							\
- }									\
- 									\
-@@ -3000,7 +2780,6 @@ static ssize_t uvcg_color_matching_##cname##_store(			\
- 	struct config_item *item, const char *page, size_t len)		\
- {									\
- 	struct config_group *group = to_config_group(item);		\
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;		\
- 	struct uvcg_color_matching *color_match =			\
- 		to_uvcg_color_matching(group);				\
- 	struct f_uvc_opts *opts;					\
-@@ -3012,8 +2791,6 @@ static ssize_t uvcg_color_matching_##cname##_store(			\
- 	if (ret)							\
- 		return ret;						\
- 									\
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */	\
--									\
- 	if (color_match->refcnt) {					\
- 		ret = -EBUSY;						\
- 		goto unlock_su;						\
-@@ -3029,8 +2806,6 @@ static ssize_t uvcg_color_matching_##cname##_store(			\
- 									\
- 	mutex_unlock(&opts->lock);					\
- unlock_su:								\
--	mutex_unlock(su_mutex);						\
--									\
- 	return ret;							\
- }									\
- UVC_ATTR(uvcg_color_matching_, cname, aname)
-@@ -3583,14 +3358,10 @@ static const struct uvcg_config_group_type uvcg_streaming_class_grp_type = {
- static ssize_t uvcg_default_streaming_b_interface_number_show(
- 	struct config_item *item, char *page)
- {
--	struct config_group *group = to_config_group(item);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	int result = 0;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	opts_item = item->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -3598,8 +3369,6 @@ static ssize_t uvcg_default_streaming_b_interface_number_show(
- 	result += sprintf(page, "%u\n", opts->streaming_interface);
- 	mutex_unlock(&opts->lock);
- 
--	mutex_unlock(su_mutex);
--
- 	return result;
- }
- 
-@@ -3642,14 +3411,11 @@ static void uvc_func_item_release(struct config_item *item)
- 
- static int uvc_func_allow_link(struct config_item *src, struct config_item *tgt)
- {
--	struct mutex *su_mutex = &src->ci_group->cg_subsys->su_mutex;
- 	struct gadget_string *string;
- 	struct config_item *strings;
- 	struct f_uvc_opts *opts;
- 	int ret = 0;
- 
--	mutex_lock(su_mutex); /* for navigating configfs hierarchy */
--
- 	/* Validate that the target is an entry in strings/<langid> */
- 	strings = config_group_find_item(to_config_group(src->ci_parent->ci_parent),
- 					 "strings");
-@@ -3676,7 +3442,6 @@ static int uvc_func_allow_link(struct config_item *src, struct config_item *tgt)
- 
- put_strings:
- 	config_item_put(strings);
--	mutex_unlock(su_mutex);
- 
- 	return ret;
- }
+diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
+index 766ae27306f4..b58dce133244 100644
+--- a/drivers/net/wireless/ath/ath11k/core.c
++++ b/drivers/net/wireless/ath/ath11k/core.c
+@@ -1049,6 +1049,7 @@ static const struct __ath11k_core_usecase_firmware_table {
+ 	const char *compatible;
+ 	const char *firmware_name;
+ } ath11k_core_usecase_firmware_table[] = {
++	{ ATH11K_HW_QCA2066_HW21, "arduino,monza", "nfa725"},
+ 	{ ATH11K_HW_WCN6855_HW21, "qcom,hamoa-iot-evk", "nfa765"},
+ 	{ ATH11K_HW_WCN6855_HW21, "qcom,lemans-evk", "nfa765"},
+ 	{ ATH11K_HW_WCN6855_HW21, "qcom,monaco-evk", "nfa765"},
+
+base-commit: 5c8eab13e391aaabd5a1ad58f3ee4bb10ce7573e
 -- 
-2.55.0
+2.34.1
 
