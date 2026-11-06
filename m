@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988481;
-	b=2I6j9X1fccw8TNWMwNUegwE3U1QWbyvpQFR5T0/WePP1oOuGS5frZPXx5mW+HCuL2ijt
-	 /Iyvni+IfAiXaJLTJRtd8dH8h0RCcQy4kOG2L/ZCLILxEupfbs1uA5/bEJ70coyeDjYfL
-	 0cXX8Aprz4ZIVmUyydvxKp6cPfliqn/ybt0Kwplcr/wr7zv9kAxGncFUj7IouumgoM0do
-	 opLSPgrOBdN7fhhzj8FmJiDGj+pU8AYDouiwQCC3x7J/kvaYJ4A6jOZ2oZVugCyr7YrTn
-	 3QVLGQggqjUzbuYy292R+RiLgrHKq1NWTuob0E7+XnXTPkXH2DvgVkuiM6JuhLopR1A==
+	t=1793988487;
+	b=GKkhkM27gB3tAl+/+GeDX/bUL9GMI6GNQ41t3D5UpfXIHrNFeASyBQqFXzyYWEmxtER+
+	 7fAVWGCaizhfWuxh0uWZYO/YrIgy6IeY1QsROKe+rvdQT//RROHBCn104ToVcWULvNlYv
+	 BlELTe4gwPkZVilk1bKbqtRiEkZStniyHiTBsLzJKuoBan+SUkL76oRxIJMeKApApuJS6
+	 gm43Bbp1vsyGdeqSSQA1GImfWWc4rLJOSbzuh13MitSlIv0UAEEWj8m2cEnccT04Zww77
+	 fC0t1F5ahi11jChX5XqPgBumkKI4Dp+VhCV5rD7f8BRG6h5xa2wX+DjVFTl9nGE/xmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988481;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988487;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=EIEtPuBp8yGj/o3XjSC3UWWuxltU58Pi1nP2zq/NhpA=;
-	b=XTiZDY+eWKNhBntxnaxobZMxFMfu+CDoblCUMiRpmyofoBd7iCzVMdlHlVTBii6hvsoA
-	 gtM54RZOgNHFXUajOdFRCzLClNQ4Ny8hrfv6i0JWSvbjyAgKA+0pBmgzj71tkTchChxfx
-	 LAEVVj+OLmhmGRe/oxTBdMMhUW1KEgpOcNp6ZAvwwH75CLb8Bd7atYQ3Me+z4NUkLLTF2
-	 qwVVdWAlSO4WrA/2hf5YUi8qc8ZIAx/CgKgZuZcJw0BD23zvovt4SHs9HgMIRoZ3uleCP
-	 iYvSqn4CEO2JZSogW1njtiBBnQ6VTgtjANtcS4t3DR7kDCXt6UoJih0Qh1IV0bGI2AA==
+	bh=qecdV8eTNCl493bY7vGgQbKVbShINe6rlolLmOc6oQI=;
+	b=34780y6kh3GGJUWZzb7NlcaovGlUTfAHCyTvuIN3HS6JR2kPJbA/S3++g1bYmdlS8KSX
+	 f0Txl0frUG/Q3CFniavnyh1AGqXuduW9irRvltyxUMqyP3mLRNw9ncFXYDAMmOGXrc4gN
+	 eyuoMle08w0Doo11nKo10z4E87R44bS6w8pd5ZP+bdgHiyHSCRa7kb8/r9ndw9c5SZ+yV
+	 UOBg25UkzPmsL1FWSXludc0OXI5pNBgF5NceWe5Y7h8GmJY5OhPgkLgAJL0JrOy+o92Qp
+	 /OKatE4y1oMiRjXxRmrLap1/eRe0tKKoUFshXdy3XNGyyb7glMs0P5XOttzbQlgohzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ohQlzThz;
-	arc=none smtp.remote-ip=209.85.128.70
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e6Is+m+z;
+	arc=none smtp.remote-ip=209.85.221.71
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122A26082BD8
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:08:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 122A26082BD8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F7A6082BEB
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:08:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63F7A6082BEB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ohQlzThz
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1fa972b4fso5679275e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:08:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e6Is+m+z
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e011829easo653309f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:08:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793988479; x=1794593279; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793988481; x=1794593281; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EIEtPuBp8yGj/o3XjSC3UWWuxltU58Pi1nP2zq/NhpA=;
-        b=ohQlzThzZlPtFpaHeHTo25spt3JoTwtQ7HqzmfzQlsWnANBZgLC7rb/YLL37ow8auq
-         tzhtivt2NdEiJ56U0RGSogdRMHA3WRwdH7C3kHOngHlGIzjl2PgPUL7skKFUIrXX29Gt
-         DK0iiJNgobkWrR1NSjANEURL9YTqS8U/ijfN4C+gAgLwvmnLp6tZ02KdzC1sebZtgu2i
-         c+KGxhBJYDyDT7G+75sbP/zDciWl8rs+t/XNVRiLvYmhhGrcIKsN0xjaS3hGpvfMymlq
-         pni+qHPywwpVVP2mAZohwT5MTvncbJAWzXH5eNDSofGo8n5w8y63kvin0dA6qTxTw2pv
-         XcPw==
+        bh=qecdV8eTNCl493bY7vGgQbKVbShINe6rlolLmOc6oQI=;
+        b=e6Is+m+zM4gsRbuAZ0y0CF9pa3Srdf4jC9H0RbcgGSSLkfImjQuKUVX3qkNKrU9YIg
+         zKBz9ij5fTBUgy8jMmyDTdW7aycc2J/z05iIdwJmpyaUpZA9Uw3TpNjH5caoE85m0piA
+         KMnYs2HJDK+LWq/9XGZQPwd5cVu7XpbBo0ydli7yKvWcffWJtJKfjoIn5zZ6NPXcSRQn
+         XcCchuoE4vb8JNP+VinpVHZaVvHHeW8qVAFSZYliVFmlxoIquDbJYH/uXDJBzTWDll43
+         fsyQFvYnq6Zf4Le+gAx4fb1a2Usx/8odmjWn4kV201nePeq+/kkjLLn2XTvvkNBkBrmA
+         omDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988479; x=1794593279;
+        d=1e100.net; s=20260707; t=1793988481; x=1794593281;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EIEtPuBp8yGj/o3XjSC3UWWuxltU58Pi1nP2zq/NhpA=;
-        b=gwLQjEGZkeQviHTaldnha013wYMbYfKwFryKo9fSVoTRQMzJ6WKYJefaQgrnO1sEM2
-         WJNxNONuB8vFOkiIpPbyJDm2FZonmHKz8CDi1FGOo8zjLCtiBqpj4vOy2XVZ3Ttyt/uA
-         9EbGMT1GEQC2fwrjDsPR+Z11w27UQI5eqqLLu09utUDvF3Kr3il8c57IA4qnwspXfOoK
-         KSEfnpenWgCXkjoIbPIYJ8LT9Y0Y9oNaANIWExOxgHAGmBIWNk/mFZdFH5aq59l/85zH
-         uVOiNr2GP1cpL1TfYc+sEAYVKVPt6GejOCNjUVzK4j2xnis1Zbo4elBVfzZSjgLUixiQ
-         6yNg==
-X-Forwarded-Encrypted: i=1; AKwUvBzgQLH6uoZng1trpWJ8HM1sVL8dEec/ib4PANMuvSIDIG8Erq+onXcAXkXPPF63mcZxzzC5z9CnQ5qVALg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/10FGCmb43rViXUFiOSe5MR4lmBqy4ARQBhaBRfgHsVc8cT/fh
-	V1ZyOa9A6pPxE54P/fUL6RjEL1MCdi7dwXJaNQW3Wz/LnM6qBJ32uqVzqBkKMEkvCPG+S+Xr2ZC
-	hU44EidfjToHk48+03pXFfA==
-X-Received: from wrny9.prod.google.com ([2002:adf:ee09:0:b0:48b:9d:e37d])
+        bh=qecdV8eTNCl493bY7vGgQbKVbShINe6rlolLmOc6oQI=;
+        b=18WroX9wtXUvm+BIEbCkDhFA22CggjuKRNrm5Jy44iZ6DUcDakyWzV6ftTUCHJaE2o
+         akT4vYqsYxYtPWxtfKaJZCzQcZUqbfU4SVswPdmc4aVxoRyHT8eGLkBbfTF6++hxLKdp
+         j5GDw5YZ6iopSar26Gf6vkhWRo65bBTmKz7MFfJ8TEWQVIvVorT5RD3jVHbKneBkdiZx
+         Cy+5SEQzl4N3fUKk6wicSbu1KG+CxzOPjhiAqI2fI2XQ6PG5Yk5IrE+8XwBKNvrMJ68E
+         OHbUE77gYJHY0dgGdjgBThgZ4oEs3CA0ChJDuwdVy65EGcIN1k2eub2iInHEOOFPwiVn
+         5Qtw==
+X-Forwarded-Encrypted: i=1; AL+hErH/u4knON0OlbK6XHm1rTo//lpLjqyfMMea1PO47s/bKg1f/lN0gJHpOwP1WNWPfEOC4ViU4VPdleB4r30=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vHVYaHCRBsR3Go4v1aQuXMgABIMOObAQkcPv8QV9prglha6Ga
+	xqErBkDMB2cXQvrmFCPPSVD2Dvj0I78pqJJ9j34fZ9wzKhy1YJZiat+sXpcHZdFTeUW2d9TjgeS
+	aOoPHKcKb/lrCpADwD1YlIg==
+X-Received: from wroc13.prod.google.com ([2002:adf:ed8d:0:b0:48e:7f1d:d017])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4f4c:b0:4a3:12fb:1ef1 with SMTP id 5b1f17b1804b1-4b6df9bf612mr67318185e9.29.1793988479220;
- Fri, 06 Nov 2026 10:07:59 -0800 (PST)
-Date: Fri,  6 Nov 2026 18:06:50 +0000
+ 2002:a05:6000:310a:b0:48e:5444:a1d3 with SMTP id ffacd0b85a97d-4927e553b25mr5552552f8f.11.1793988480221;
+ Fri, 06 Nov 2026 10:08:00 -0800 (PST)
+Date: Fri,  6 Nov 2026 18:06:51 +0000
 In-Reply-To: <20261106180657.2460376-1-vdonnefort@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261106180657.2460376-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106180657.2460376-15-vdonnefort@google.com>
-Subject: [PATCH v8 14/21] ring-buffer: Add kerneldoc for ring_buffer_poll_remote
+Message-ID: <20261106180657.2460376-16-vdonnefort@google.com>
+Subject: [PATCH v8 15/21] tracing/remotes: Use ring_buffer_capacity() in trace_remote_has_cpu()
 From: Vincent Donnefort <vdonnefort@google.com>
 To: rostedt@goodmis.org, mhiramat@kernel.org, 
 	linux-trace-kernel@vger.kernel.org
@@ -90,35 +90,29 @@ Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Document ring_buffer_poll_remote().
+trace_remote_has_cpu() calls ring_buffer_poll_remote() only to check if
+a CPU is in the trace_buffer cpumask, needlessly polling the meta-page
+and waking up readers. Use ring_buffer_capacity() instead to check CPU
+membership without taking reader_lock or triggering wakeups.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- kernel/trace/ring_buffer.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ kernel/trace/trace_remote.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 9c707cb751ba..82f0a4654c95 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -6910,6 +6910,17 @@ bool ring_buffer_empty_cpu(struct trace_buffer *buffer, int cpu)
- }
- EXPORT_SYMBOL_GPL(ring_buffer_empty_cpu);
+diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
+index 3dbb4912dbd6..276bf94e837b 100644
+--- a/kernel/trace/trace_remote.c
++++ b/kernel/trace/trace_remote.c
+@@ -351,7 +351,7 @@ static bool trace_remote_has_cpu(struct trace_remote *remote, int cpu)
+ 	if (cpu == RING_BUFFER_ALL_CPUS)
+ 		return true;
  
-+/**
-+ * ring_buffer_poll_remote - poll a remote ring buffer for new data
-+ * @buffer: The ring buffer
-+ * @cpu: The CPU buffer to poll (or RING_BUFFER_ALL_CPUS)
-+ *
-+ * This function polls the specified remote CPU buffer (or all of them)
-+ * by reading its meta page to update the local reader's view. If new
-+ * entries are detected, it triggers wakeups for any waiting readers.
-+ * Returns:
-+ *  0 on success, or -EINVAL if the CPU is not in the buffer's cpumask.
-+ */
- int ring_buffer_poll_remote(struct trace_buffer *buffer, int cpu)
- {
- 	struct ring_buffer_per_cpu *cpu_buffer;
+-	return ring_buffer_poll_remote(remote->trace_buffer, cpu) == 0;
++	return ring_buffer_capacity(remote->trace_buffer, cpu) > 0;
+ }
+ 
+ static void __free_ring_buffer_iter(struct trace_remote_iterator *iter, int cpu)
 -- 
 2.56.0.455.g6c5a503b38-goog
 
