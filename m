@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978411;
-	b=rIYL4FdK1dNxiao/H2Xc7VoUq7MlGtL/pLUQUyOzrJcElnqmTngqLMbD+sSx2Kbz51Hd
-	 PBz2t4V9ZHxnTkssW4Al8TU5PIinaggsYNq14YEmhJPIF+zGAj64oDZigdU/bMEemwF+F
-	 yx0Vlxnxpi92dyDUH7jFQ+kEJVLGOgEi2SE5K8ZOpPQlOpL4G15OWkeklfb0R5g05UYvK
-	 ygUyJxLnvEl8jowzX2q565cSLUZezgUr+Pjf1K25KF9C7gZLbSn4MuacpLzSd+2pQ2lZJ
-	 +vCxfxonc34cKG+REvf+C4MuOslq85NiQbmg3i78sB36ZShe/WcYTGa8BASypADk4Gw==
+	t=1793978427;
+	b=QlUiFGhOYmcAydpr4BBFgnXOVet1devbsIxA3pYGuA0x/cNu6tAuhRpFy8JrLmL3fkP8
+	 UHE/O/hI1fUekTk0X71ENHbRmaFbgGTOXLwyfHqhWvHy0hPzBIVYX01+XVcNmJPBf3Qlm
+	 KKPQ994AYs4NfP0t26Ww3P/RdNtwMkOdEAYmrd8QPUYbk+J7zvFUqYzZfgQlRXIzxt9Sy
+	 +5aFCDhJT+ywrAlXsIteTMsJZ/2YX3Z6a9bFsGBIn+0A5sXXs8AIPD/aBDEqvuui76l2c
+	 qcrYmJCu6eMSVen2sCvFBXPvIRXuJPDGLHv7almX+t0dUK1cgLsCwckwruPE0LaGbcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978411;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978427;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4qbyeG9eFUqyN+f4sUofqJ7pdB2mxcChsrdeY7rrJZg=;
-	b=LtWGCg96stJS4E8TucEPW/qrVYODiZCA5VwODqJe0Hp2euXjR+cZzCfvYJgeSRqTfaSJ
-	 PBGaa1OTjtvEUnE5iI7hdafdoiYnA+GS4DwGnXxlobaI+3bSGOwxliHFAjKU5uZlGdrcD
-	 n/SZHw26JEblgfjCFNoXzxN8TpHyB5VQFZS2orqmabEw/TqmQpo1eM6HZ9uJ9kyhwaCGP
-	 9/4J1zcPu7ocbf/io2XsJD1pzZKx1Lal0HCr/RshmrmcX4e48lRmMWZxJ2glmIp9CGrpr
-	 wq1QZxZkCWMV1299bhJinPGaNv+rwq0pqiPGB517qOzQxm+r9/vWIw+vIfJtoo1CajA==
+	bh=fjXC0m7vB3Xiy5SvbhOFI4wpy3VxvAkCMaqlqhn8FJg=;
+	b=nnfT01uLGYsnjPSPVdGDKVzgGaHRZhoJKzeLle9MnhrUGYeGHOETqajj/L3QwJBFft4F
+	 je155rBe0A/ATXDrVDUyveeRXPb9jyj0RQjQjW3B7Q0AqUQwQrRG8+9AHpD/91m0qU3w3
+	 C746obPfkgma9ncSUdMIbJa5+zakOR7zqoG/od/NcJGU9+mNbkLSIloXP5OtUtXsCZ1aF
+	 S+nK+rlnfflxK/EMIVD1MKeVyOU8s/JpuvmCc2WQco2Gj2Z/ZQ1zdQJgAPWDk7SqlKWFu
+	 +Q78otKBqFH5DMN+Q71f54VCDGrhuVDPobAOTVYWOHnb/bU+L1ebqqZ6HhMWj8CGgcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VoXPf2oL;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VQ9mT3Z4;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D69606D822
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:20:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10D69606D822
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BE160A2601
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:20:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58BE160A2601
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VoXPf2oL
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214af2076so5320315e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:20:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VQ9mT3Z4
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a215e64962so8757855e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:20:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793978409; x=1794583209; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793978425; x=1794583225; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4qbyeG9eFUqyN+f4sUofqJ7pdB2mxcChsrdeY7rrJZg=;
-        b=VoXPf2oLIqYEZI6x2o/FPB+P+jCsne0NbS/8hF/6xoWC8KidTBYh0OXPYNf0lYyZXN
-         B+7FpZbOyn5nazMbWuc8IvN2jyX81GRgGq+EjyLVm6wXuSGikqdrr4FOeXwacZTbo13L
-         NueMFflSU190T17bE0s07fnoVmjyo8MOOI2xXyMy2bTUEdpz7UShDsUA+5LRFpQsPlIp
-         aDjxGB9dF4J3yl/j55ftFNH+ITGAF40eFt1NrIK6ZaQU6jao06ZkUu9ZtDShsKeWt5Mn
-         RPkcLFR5pBujDGtnfgFSdAw5LhfHNu3V8kMhvQAOuH386irx9HVRknGijfULx1iv+gbt
-         O+LA==
+        bh=fjXC0m7vB3Xiy5SvbhOFI4wpy3VxvAkCMaqlqhn8FJg=;
+        b=VQ9mT3Z40Y/6uILB8CrK66n8XzgP67TgOVMzoUK3dk9L6kIb8vRs/1sWkaVM8smMDO
+         kDdV99OSlvAMI0Sm6ARwKgqRoJZ8c4IoKFQVrVhY2EpOoWDogMRlIkQCCEfT1xgS1gel
+         xVG5JMWtSCyuI9AaWiQzBqxhbYauF11tpTzNzsKqci+dOZmO11unBZEnR/XAGjnCB87f
+         e0NRwXaLfjeI4NecAh5ZaNoM3x6TSA8DxlHIClxIJ+HvgoeiV0M1bPqEKvxSr8mK7zJA
+         PBLnFYxeOqD+hGBCHmfc4Clttp89ikntRaMt7E9zxIpTO75QFUI8ZE68xa+MxIdza9xX
+         k89Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793978409; x=1794583209;
+        d=1e100.net; s=20260707; t=1793978425; x=1794583225;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4qbyeG9eFUqyN+f4sUofqJ7pdB2mxcChsrdeY7rrJZg=;
-        b=gkLbKJA1uXoX+5zHpbqvLAZ7EWXZa/CotSLa4pgghTQVY4H2mh08m5iyEIYzo0arSI
-         MKcaaHttcUob9IsfxzNt32WkEnxHiibDpqCIJzlXo0Xf6RYx2I9k87v3Dl8eTvIQ2jSi
-         ng5l/WSDaCNk013E1KlSpgoy2//WqM+XQP/f2LbN79ioGZBeo+IvcJ6FxZdLanihGc/L
-         nsHDSNOxSyex2NnC7SxxA3PuT8un0Fv9G9cxWscres23WVkxzHbfe7IZEA0CdZ7HnlQ4
-         ov8bCRn6HdAU+uIJR+W7znhCw/h+PoK108Rg5PUrFh0wUvrbYBaNr9EzRM9TZrKZmCie
-         zrGw==
-X-Forwarded-Encrypted: i=1; AKwUvBxOzUMlYlJqazuN0Tgs8KUCgHiJdJtAJvwlVsGzlU7UJijI5emhvOh9H7IH2bPKi56oyiqjbloXUTUPEn8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85TJmmWFDszKeBiPZ89e2KuZ7yrHWAgWFFnoAA5TIUM7a9VaGk
-	5EWuTQIS8QeFLnWFGK5Hs8u0iS8jAZCi4xNHtpbbXwIN/QyGx1VA6ECsLXkFNt7Ouq8=
-X-Gm-Gg: AYBFou024pC0TyDtwY+II+rt0/Lyc8YaMFB48YqJa1AgQV2UXXqggXX7ymOy5NMikqb
-	RHAFAneA9cKjizFgvLLmWK2bHjJUk6K6hFtiIl3oiJ4QdLxG0R7J6laiU8k9AFNK5uBRqZHHYba
-	f6oFBCemPTECxFi2XrGB45Dktq4d7Ab0vRbT1oayjNnob9QoLvYt9C8mV4asFwxubgcpDMi7hOW
-	KfTMLNu6H5kVVkdp0Dv1k0gpAqGfdmW6To0SsSQuGkme+UKf62ucroXavm8Gln0CKc6dMuxMOVN
-	TuqmLsK4YiSDYs8QJmLzqk6Hn3R2ckoh9vTCcr3Xi0MqW3bWM+c06kYoI1ET+aUEMd1ev/bHLdC
-	U7Am2HsBWejBhzuD1AU5UmjiLFLkNC7Sv8X95k3RB0qE0+2O/WjMfiXcZIsLANBTT1lxraoxwmd
-	sHJGtst0RWTkqxHJ1Zdr/vkuYrsA/DVscb8mjbpF8YcBWK5cki+hRMQ0gN7TaYrkKejUA2kwtPe
-	OHleKmLeLhf8U/6aLjAYMH774zKjvGQpOd8zmL906ybNoYWPyPn7f7lVyvywYKkreDn4IYl4fBy
-	v+9zqFmQop+p9kREWRCGaX4xmFlhFn37eDFzueBKsXTgENA=
-X-Received: by 2002:a05:600c:8b28:b0:4a1:a2c0:7b73 with SMTP id 5b1f17b1804b1-4b6dfba8628mr43728685e9.30.1793978409162;
-        Fri, 06 Nov 2026 07:20:09 -0800 (PST)
+        bh=fjXC0m7vB3Xiy5SvbhOFI4wpy3VxvAkCMaqlqhn8FJg=;
+        b=wi+bUfNPf5L/VdSH7npuY0QMeYOJdaQ+YikU7R8Sy6eXKraogkwu93SiIPY+IhIjP8
+         QHUOMKfAzSJhfKgFBI2DvzMibyVgNUYZ5XKWMPQoQ7ClReWYqtOukQaeGN6Uw/ZIHBin
+         QuugLh/QQXulECawZa/MpuWoFp/3LnOIMZrLf5ak1G9/6L+r8xHMp8doJORmYil/rVq7
+         DzkzcpJMbZvazPQ++kxUNPRrUdgd/rwy8ArtUQwF1mYI07ey+4gqaM3Rd3v34nMY+qzd
+         wyuWrO/iyyUlXVvuUdPk8BoYexHFRsGLzxxVNA6j2illQJlCtU2jPhzBM49qCk24wT0h
+         OX6g==
+X-Forwarded-Encrypted: i=1; AL+hErHnOUAt0zcBm/skbsJCgE0bBjrVzE8eQGoP3RdT7P9oUDrFWPSTAmdMLaWM5YDfkjj7kO+RtTl7QzUqlFo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OzfAwY+nA5b+r95FnaDzC1gF1JhW2aE3CpgpTmY8+YLyqryLx
+	tde0wWOlo/3obOEJC/4OM7OcuRw/OcwBpykarxBUJ8UENNu49+0jq2mfD9gY/UC1Ag0=
+X-Gm-Gg: AYBFou3PZdAGSRvJdRR6C8U+qmSbPR8vMzHMuVU7gotSPfXzutWim4zOyQq6HJ8BwDU
+	pDo2kdiY5QjiOknCRD3ETq4lLFpE7eMrGj7WwMlwx/1KAKVwPBhkPwfoogsgAbBZav3PVHJhViw
+	yr+IHhGlfT2HYTXyEVrIO73iqhCMR/SZqq1Yjb1qEdeOp+8n2435Tt2IRHKk15yI4Ft2vcIMqjW
+	6lyvU3/jBQqwszFp2+KehhgqUNjKsgEpzcgDECZcnv6SxTT5uobMBoOHrP4Jp+19XdhbM/vCbmn
+	d3an9r/aGh1WkFOuTt9dR96tLC4cxDUZhob9BaOb+yYnN7u9bG7bXgGPI9PlFyxMd7aMn6Gn0Jy
+	8sCeOpVwFXPuQAyj/AslehJde/lYPgUnP23af0bcOazWGeCbuf6/rKjRUggzU2PgOpoLpoFnNZ4
+	qRlfF+WNCv9GadJz7K/Yf6kHkE5hCRTyvVqeXKBIGPXWPPnRpN0TXHGgvLpTr+TuY1XUXxsgePS
+	cstdi8RY1FplqQ2mbS9qqu/Ew2r2OUd9D1aFa7HcshYwosz3PXfrYTi27uq1I+XKV4lZ/TWkGEP
+	Bhd1Vqm4A2lvG4fYwdS5O7m4C7tJ65uWU6c+DTVzNX0rTLA=
+X-Received: by 2002:a05:6000:22c1:b0:48d:eec6:308b with SMTP id ffacd0b85a97d-492765a4011mr6585904f8f.21.1793978424778;
+        Fri, 06 Nov 2026 07:20:24 -0800 (PST)
 Received: from vingu-cube.home ([2a01:e0a:11f4:3020:ed97:32bc:977a:3b65])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc5e23sm4477405f8f.45.2026.11.06.07.20.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc5e23sm4477405f8f.45.2026.11.06.07.20.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 07:20:08 -0800 (PST)
+        Fri, 06 Nov 2026 07:20:24 -0800 (PST)
 From: Vincent Guittot <vincent.guittot@linaro.org>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -104,9 +104,9 @@ Cc: qyousef@layalina.io,
 	kayracizmeci@gmail.com,
 	tim.c.chen@linux.intel.com,
 	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 10/20 v3] sched/core: Add rq flag to tick parameters
-Date: Fri,  6 Nov 2026 16:19:37 +0100
-Message-ID: <20261106151947.3991524-11-vincent.guittot@linaro.org>
+Subject: [PATCH 19/20 v3] sched/fair: Take into account slice in EAS
+Date: Fri,  6 Nov 2026 16:19:46 +0100
+Message-ID: <20261106151947.3991524-20-vincent.guittot@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106151947.3991524-1-vincent.guittot@linaro.org>
 References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
@@ -121,142 +121,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In order to force migration in tick, we need to unlock the rq
+When the cost is the same, take into account the slice of a task to try to
+select a CPU where is will run first.
 
 Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
 ---
- kernel/sched/core.c      | 6 +++---
- kernel/sched/deadline.c  | 2 +-
- kernel/sched/ext/ext.c   | 2 +-
- kernel/sched/fair.c      | 2 +-
- kernel/sched/idle.c      | 2 +-
- kernel/sched/rt.c        | 2 +-
- kernel/sched/sched.h     | 2 +-
- kernel/sched/stop_task.c | 2 +-
- 8 files changed, 10 insertions(+), 10 deletions(-)
+ kernel/sched/fair.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index d71da9069218..a1a3aa45ecf6 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -923,7 +923,7 @@ static enum hrtimer_restart hrtick(struct hrtimer *timer)
- 
- 	rq_lock(rq, &rf);
- 	update_rq_clock(rq);
--	rq->donor->sched_class->task_tick(rq, rq->donor, 1);
-+	rq->donor->sched_class->task_tick(rq, rq->donor, &rf, 1);
- 	rq_unlock(rq, &rf);
- 
- 	return HRTIMER_NORESTART;
-@@ -5857,7 +5857,7 @@ void sched_tick(void)
- 	if (dynamic_preempt_lazy() && tif_test_bit(TIF_NEED_RESCHED_LAZY))
- 		resched_curr(rq);
- 
--	donor->sched_class->task_tick(rq, donor, 0);
-+	donor->sched_class->task_tick(rq, donor, &rf, 0);
- 	if (sched_feat(LATENCY_WARN))
- 		resched_latency = cpu_resched_latency(rq);
- 	calc_global_load_tick(rq);
-@@ -5953,7 +5953,7 @@ static void sched_tick_remote(struct work_struct *work)
- 				u64 delta = rq_clock_task(rq) - curr->se.exec_start;
- 				WARN_ON_ONCE(delta > (u64)NSEC_PER_SEC * 30);
- 			}
--			curr->sched_class->task_tick(rq, curr, 0);
-+			curr->sched_class->task_tick(rq, curr, NULL, 0);
- 
- 			calc_load_nohz_remote(rq);
- 		}
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index c0ebdcde5fe5..1f6bc63b3110 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -2879,7 +2879,7 @@ static void put_prev_task_dl(struct rq *rq, struct task_struct *p, struct task_s
-  * and everything must be accessed through the @rq and @curr passed in
-  * parameters.
-  */
--static void task_tick_dl(struct rq *rq, struct task_struct *p, int queued)
-+static void task_tick_dl(struct rq *rq, struct task_struct *p, struct rq_flags *rf, int queued)
- {
- 	update_curr_dl(rq);
- 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 0403c4634281..8728e394d4fb 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -3822,7 +3822,7 @@ void scx_tick(struct rq *rq)
- 	update_other_load_avgs(rq);
- }
- 
--static void task_tick_scx(struct rq *rq, struct task_struct *curr, int queued)
-+static void task_tick_scx(struct rq *rq, struct task_struct *curr, struct rq_flags *rf, int queued)
- {
- 	struct scx_sched *sch = scx_task_sched(curr);
- 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index e2999d3f88e4..3bcb663ebcde 100644
+index ea117c3d0dd7..da9c4416f1b5 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -15686,7 +15686,7 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr) {}
-  * and everything must be accessed through the @rq and @curr passed in
-  * parameters.
-  */
--static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
-+static void task_tick_fair(struct rq *rq, struct task_struct *curr, struct rq_flags *rf, int queued)
+@@ -9885,13 +9885,22 @@ static bool update_best_cpu(struct energy_cpu_stat *target,
+ 			    int prev, struct sched_domain *sd,
+ 			    struct task_struct *p)
  {
- 	struct sched_entity *se = &curr->se;
++	unsigned long task_slice = p->se.slice;
+ 	bool target_idle = choose_idle_cpu(target->cpu, p);
+ 	bool min_idle = choose_idle_cpu(min->cpu, p);
++	bool target_first, min_first;
  
-diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-index 76f3c84ca684..1ba0303aacb4 100644
---- a/kernel/sched/idle.c
-+++ b/kernel/sched/idle.c
-@@ -538,7 +538,7 @@ dequeue_task_idle(struct rq *rq, struct task_struct *p, int flags)
-  * and everything must be accessed through the @rq and @curr passed in
-  * parameters.
-  */
--static void task_tick_idle(struct rq *rq, struct task_struct *curr, int queued)
-+static void task_tick_idle(struct rq *rq, struct task_struct *curr, struct rq_flags *rf, int queued)
- {
- 	update_curr_idle(rq);
- }
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 1535046a23ff..35b3831a72cf 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -2541,7 +2541,7 @@ static inline void watchdog(struct rq *rq, struct task_struct *p) { }
-  * and everything must be accessed through the @rq and @curr passed in
-  * parameters.
-  */
--static void task_tick_rt(struct rq *rq, struct task_struct *p, int queued)
-+static void task_tick_rt(struct rq *rq, struct task_struct *p, struct rq_flags *rf, int queued)
- {
- 	struct sched_rt_entity *rt_se = &p->rt;
+ 	/*  Select the one which is idle */
+ 	if (target_idle != min_idle)
+ 		return target_idle;
  
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index b88857dd3941..95a18c0d21c6 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2751,7 +2751,7 @@ struct sched_class {
- 	 * sched_tick: rq->lock
- 	 * sched_tick_remote: rq->lock
- 	 */
--	void (*task_tick)(struct rq *rq, struct task_struct *p, int queued);
-+	void (*task_tick)(struct rq *rq, struct task_struct *p, struct rq_flags *rf, int queued);
- 	/*
- 	 * sched_cgroup_fork: p->pi_lock
- 	 */
-diff --git a/kernel/sched/stop_task.c b/kernel/sched/stop_task.c
-index 1e0109ec36b3..3d99b23afd89 100644
---- a/kernel/sched/stop_task.c
-+++ b/kernel/sched/stop_task.c
-@@ -74,7 +74,7 @@ static void put_prev_task_stop(struct rq *rq, struct task_struct *prev, struct t
-  * and everything must be accessed through the @rq and @curr passed in
-  * parameters.
-  */
--static void task_tick_stop(struct rq *rq, struct task_struct *curr, int queued)
-+static void task_tick_stop(struct rq *rq, struct task_struct *curr, struct rq_flags *rf, int queued)
- {
- }
++	target_first = task_slice < get_rq_min_slice(cpu_rq(target->cpu));
++	min_first = task_slice < get_rq_min_slice(cpu_rq(min->cpu));
++
++	/*  Select the one where you can run first */
++	if (target_first != min_first)
++		return target_first;
++
+ 	/* Favor previous CPU */
+ 	if (target->cpu == prev)
+ 		return true;
+@@ -10055,7 +10064,7 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
+ 			 */
+ 			if (target_perf < min_stat.min_perf)
+ 				find_pd_cost(pd->em_pd, target_perf, &target_stat);
+-			else if (!update_best_cpu(&target_stat, &min_stat, prev_cpu, sd))
++			else if (!update_best_cpu(&target_stat, &min_stat, prev_cpu, sd, p))
+ 				continue;
  
+ 			/* Save the new most efficient CPU of the PD */
 -- 
 2.53.0
 
