@@ -1,55 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989540;
-	b=x1zOaGvN1twj3ByxXKP/wcZ1gUQiaK5QemlTzSNbaQYtGkYvJZj3dwqNSRloWItCZM9M
-	 Sywx6NAhkYVUn3jQqGDgVlsG7gwXQfL7XwWsn4obv5mHjV65nhavZ/kBq17TjkQLVhSO2
-	 DBWdjnMcaAq+/kU0icE5Hmmts2VbOLa8olJpJO0W+4yeh17GQFJGCGcM3AT9NQjG14A3F
-	 qwQcyO68DWEuVx9zH/Jn+P09R7N0U69vH6HNAOZ5RjZCRlQ64k4PEjTcIEk7A0Yr45cny
-	 IuQ1juDKXFGk3FC2Jm0OoTrqwnP1iahwMKNsMLhzN4OBVBSCO3FmPzlwsvMnLQ4zeLQ==
+	t=1793989609;
+	b=MbZUvRc4uFig3koWd84ggvqw3cHXm035EdZKZLKrceuMoDJx4xNiM9tsDRzHWfQkAYDb
+	 4zblbVw6e42dpvTpPoT5PlU0qWoC5mEJfgmSZFhVujOTJI7vpchk4qdCTw0PFyLkoZWp/
+	 k32p2Cz3ZRUvMd6Z+yWdSahxIasTeLV/5IqjntmpSuOVZXDLMlnQmRbN45ZSam/BsoGT0
+	 RpDQaoQLpcmUAePo6geQVGVOdb51IJsHfzTmlOW9UZcGrv2hpqVOrN+4JtluUaELoawLr
+	 RHnoQx1OghpfjbI5YWdHaZU78zpCCNety8FAdfHkUOpJspNpHX4PALgV96Al6wV+6Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989540;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/vWl1nX3D6wi/vA2Ly07M9D4DffI2iKIWcCM1qIT0HY=;
-	b=W4iTEM7AGNjJWFvpmF4/co3jtqh125QHTjFZ+LpY4Tvh1Z3FSzQjRFzCfe2Qmzpyqx3r
-	 Q5SfeLajVNgINvHNHbRgHBLd8gcyW5dIFSM9v6yrdxbKavQaUbGpDy3knDGrjpM3p8vzN
-	 U9o5R2L7+xMIeBYeT2bG+yGsBaft7zZfftxUv2JANYTz4G6eepr/s41rVm1Wlvla+8J0q
-	 t06UERd3jJubZ7/38eJfPeL2LPi4YtRZZyvNgJkxAv4vWWLpPiZbJdyKOJEAwdSwjvoTh
-	 hD7dmNOZtLtmDcRuuNYL2xV6YsmfXw088FfLoC6GQA0Evhqc6WV3SNXGW7Zf0Dr/R9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989609;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wspKiW0hD3dBrqADNHKAUvUnRHsMW1qUo4TQycTg8jY=;
+	b=jc2BqYuClZnLVBRhe6VL/jjYr1OUjjvieAhwqG6PDthlR4+k+9YMjcZzYgFmTKGrEPVN
+	 76d9zOwczEHx7OkX77d0fIH0haq+xfx99A546pEwufYccAPhGd864XHeR/jskvID4s0uA
+	 qEDokCZhyys7uMRlMtLlFb9xVf2lsIDoNUBaD1iYThjeK4OHWtvw1gH5WjF+s1Kz3EmTg
+	 GI/MLDVn27BymRAtvP9iS1R/+lrQL3utf8kwqwmrA66HLAJZiFMVANFG94Y0fXgyRHaCU
+	 gGvpsdXs/i5OiU0omRpUTSjhNcSzdouBDg/zYTPSOytg+JWrdCTVfhmwHZEKFX0nkvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rJCzqkQy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.win;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3444606A332;
-	Fri,  6 Nov 2026 18:25:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rJCzqkQy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA691F008A5;
-	Fri,  6 Nov 2026 18:25:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793989539;
-	bh=/vWl1nX3D6wi/vA2Ly07M9D4DffI2iKIWcCM1qIT0HY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rJCzqkQyf1iKXMkhFaV3PavwX1dYMQBgn5dOcoQKj6kx5yApmgs5DBTkW5cKg887q
-	 sNymQlBv0UiF51Tt17JRwHslOg6WH4FElGdJj7knB1xzuNUQ/XLmvg3G7AS9N40nZf
-	 WfyV7b+E9IP2XXDL0qRjV8V2GKk1c3GnfiRGgR8A=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	torvalds@linux-foundation.org,
-	stable@vger.kernel.org
-Cc: lwn@lwn.net,
-	jslaby@suse.cz,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: Linux 7.3.3
-Date: Fri,  6 Nov 2026 13:25:29 -0500
-Message-ID: <2026110629-authentic-landline-8ae4@gregkh>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <2026110628-entertain-crier-14aa@gregkh>
-References: <2026110628-entertain-crier-14aa@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33234606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:26:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33234606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.win
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4ceaee6770so124228166b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:26:49 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793989607; x=1794594407;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wspKiW0hD3dBrqADNHKAUvUnRHsMW1qUo4TQycTg8jY=;
+        b=Wpi9fRY+GvXtNIZC7khQF9FYiAPQvLYDqQWOFjtkHcJAqmfyqjMVM3cyf4LbotRgQM
+         SKANAhMW0T0TxDEAvaV2kIFiyQEJxGAfDpveXR7VR9RTbGLh2mWP3CBwPNNZJWASzo+R
+         zu9huBrkRFsQ4yza/zq3fIP+Q14Z4SYXms/Va+irJqjWyQzuqNHEO5LUJ8YEE8CLC4i6
+         LYRc1HJiBxTGd/MgcJL0JeM1A/2xnUjfmF5oPBk0MykZeHfeUTQCc0jrh11udztMFtIK
+         2y+KdHT5mUL4aImv5h6wCHgbs8eaMHXnYT8pQTYnaK1NQ+eBBQ4tTnxb8JwHUlYjWOSn
+         //Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBxa9ONV0/678QkZzPHeBYnQcJzChEMhPqH+0Wm3ggnZwP51XSOGw/Lv/8LAjbQo2tGPzJCTaRUSlquf8YM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SXAFfieSc6McUsl7M3sAs3Ieue/bRbtKk85jdKgl9UkKQZf+2
+	L7YUQxvbCACklZTN4WRoiiB7jL5/L6/bWDZaNMglgbNvuDdepjrks4+zdj6zOiFnFIY=
+X-Gm-Gg: AYBFou2f+MvxXB/hfsbgVUrm9SAn3okHV3ruNGJix+moRkvb7ur31Fs4ksvPrOxwg5b
+	l4eaE8LNXwA9GDUqZx+QjvBz9EaYsqYemrbE5/LT43mPhlw4iOYAfOHFxM8keo1wPrg0Gb8q0Nf
+	VCyER9lY+xAXNmMhDRy5TdJv69LccNE7R0AvZBIBRgJQV7/k1m94szQjupdUaxtWi8B8BCSdVvg
+	Ie4NvW9JmiXMEltSn9LObiVHxripNJ2mjj07YkaxCPBR17CR9UJWbSK7fcuA8PnN8Bxy66B8WDR
+	LGiuCpQ2amv6leVJK300hsPgv1zfAG88VLimU8GjnMqgvaaf7hcB5gKVrRm7e5y+PcrGp+lGtmh
+	GuJQiXin4Vi5ZW2xzCXNKVg7l7K0/AaspkAosfgi6XgjLPNBj6/pS4K1yXEJNcpLQtALz/GMQxG
+	t3+D5nWfEpIhBd3Op2vOdCqIIaIl+dOAlQxhUYQcnz3h4WDDLHBmKCGKtRAKoozmCjSYBwFttcN
+	AmYhzHNABh+S9hrI7FYsGqTPlrrATwGdlVTDV0s3OrRM1bf9/5mY22j09wIU0FVsryzJXZuW9Y6
+	FSDDAkyCi6aJlsJ3BJs9WRE76SC89ODatnZQ0JHlHzhoIJqm28bRrsVSgpk=
+X-Received: by 2002:a17:907:1610:b0:c32:110d:682f with SMTP id a640c23a62f3a-c4d35429a08mr314998566b.18.1793989607449;
+        Fri, 06 Nov 2026 10:26:47 -0800 (PST)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com. [209.85.208.41])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d354ac21dsm97870766b.12.2026.11.06.10.26.46
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 10:26:46 -0800 (PST)
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b5973a4b4cso1168616a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:26:46 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxNSdXz2oKqBwZ4OVueB2gOi0KW73nOi/eqQwsiZM+XMJzRpoh6yZEGAc/55OIApvsmG03L510+jBeBJ2w=@vger.kernel.org
+X-Received: by 2002:a17:907:97c3:b0:c46:5973:2a1c with SMTP id
+ a640c23a62f3a-c4d354f2af0mr301446066b.37.1793989606141; Fri, 06 Nov 2026
+ 10:26:46 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,158 +81,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260928042641.307683-1-pawliczekerwin@gmail.com> <20261026034429.742489-1-pawliczekerwin@gmail.com>
+In-Reply-To: <20261026034429.742489-1-pawliczekerwin@gmail.com>
+From: Ignat Korchagin <ignat@linux.win>
+Date: Fri, 6 Nov 2026 18:26:34 +0000
+X-Gmail-Original-Message-ID: <CAOs+rJXfSBYrWTiuDDs=a=fHJjQfZmgiXtL+inOn_TEn+bDrqQ@mail.gmail.com>
+X-Gm-Features: AclHuK-wbvCyvvqqMYIWIT3bx5pHhKw58mEs2iXFDK51EX3tNnHQ9F5CYVQcD20
+Message-ID: <CAOs+rJXfSBYrWTiuDDs=a=fHJjQfZmgiXtL+inOn_TEn+bDrqQ@mail.gmail.com>
+Subject: Re: [PATCH] crypto: ecc - Randomize the initial Z in ecc_make_pub_key()
+To: Erwin Pawliczek <pawliczekerwin@gmail.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
+	Lukas Wunner <lukas@wunner.de>, Stefan Berger <stefanb@linux.ibm.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Paul Louvel <paul.louvel@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Makefile b/Makefile
-index 692cda0dfe09..a8f35bdca5d4 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- VERSION = 7
- PATCHLEVEL = 3
--SUBLEVEL = 2
-+SUBLEVEL = 3
- EXTRAVERSION =
- NAME = Baby Opossum Posse
- 
-diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-blkback/common.h
-index b427d54bc120..f5890b3f1df9 100644
---- a/drivers/block/xen-blkback/common.h
-+++ b/drivers/block/xen-blkback/common.h
-@@ -318,8 +318,10 @@ struct xen_blkif {
- 	unsigned int		nr_ring_pages;
- 	bool			multi_ref;
- 	/* All rings for this device. */
-+	rwlock_t		rings_lock;
- 	struct xen_blkif_ring	*rings;
- 	unsigned int		nr_rings;
-+
- 	unsigned long		buffer_squeeze_end;
- };
- 
-diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
-index 4b865ef800b1..8d0ff8fcac22 100644
---- a/drivers/block/xen-blkback/xenbus.c
-+++ b/drivers/block/xen-blkback/xenbus.c
-@@ -127,14 +127,23 @@ static void xen_update_blkif_status(struct xen_blkif *blkif)
- 	return;
- }
- 
--static int xen_blkif_alloc_rings(struct xen_blkif *blkif)
-+static int xen_blkif_alloc_rings(struct xen_blkif *blkif,
-+				 unsigned int nr_rings)
- {
- 	unsigned int r;
-+	struct xen_blkif_ring *rings;
- 
--	blkif->rings = kzalloc_objs(struct xen_blkif_ring, blkif->nr_rings);
--	if (!blkif->rings)
-+	rings = kzalloc_objs(struct xen_blkif_ring, nr_rings);
-+	if (!rings)
- 		return -ENOMEM;
- 
-+	write_lock(&blkif->rings_lock);
-+
-+	blkif->rings = rings;
-+	blkif->nr_rings = nr_rings;
-+
-+	write_unlock(&blkif->rings_lock);
-+
- 	for (r = 0; r < blkif->nr_rings; r++) {
- 		struct xen_blkif_ring *ring = &blkif->rings[r];
- 
-@@ -174,6 +183,7 @@ static struct xen_blkif *xen_blkif_alloc(domid_t domid)
- 	blkif->domid = domid;
- 	atomic_set(&blkif->refcnt, 1);
- 	init_completion(&blkif->drain_complete);
-+	rwlock_init(&blkif->rings_lock);
- 
- 	/*
- 	 * Because freeing back to the cache may be deferred, it is not
-@@ -268,6 +278,7 @@ static int xen_blkif_disconnect(struct xen_blkif *blkif)
- 	struct pending_req *req, *n;
- 	unsigned int j, r;
- 	bool busy = false;
-+	struct xen_blkif_ring *rings;
- 
- 	for (r = 0; r < blkif->nr_rings; r++) {
- 		struct xen_blkif_ring *ring = &blkif->rings[r];
-@@ -334,10 +345,16 @@ static int xen_blkif_disconnect(struct xen_blkif *blkif)
- 	 * blkif->rings was allocated in connect_ring, so we should free it in
- 	 * here.
- 	 */
--	kfree(blkif->rings);
-+	write_lock(&blkif->rings_lock);
-+
-+	rings = blkif->rings;
- 	blkif->rings = NULL;
- 	blkif->nr_rings = 0;
- 
-+	write_unlock(&blkif->rings_lock);
-+
-+	kfree(rings);
-+
- 	return 0;
- }
- 
-@@ -385,6 +402,7 @@ void xen_blkif_interface_fini(void)
- 		unsigned int i;						\
- 		unsigned long long result = 0;				\
- 									\
-+		read_lock(&blkif->rings_lock);				\
- 		if (!blkif->rings)				\
- 			goto out;					\
- 									\
-@@ -395,6 +413,7 @@ void xen_blkif_interface_fini(void)
- 		}							\
- 									\
- out:									\
-+		read_unlock(&blkif->rings_lock);			\
- 		return sprintf(buf, format, result);			\
- 	}								\
- 	static DEVICE_ATTR(name, 0444, show_##name, NULL)
-@@ -1102,8 +1121,7 @@ static int connect_ring(struct backend_info *be)
- 				requested_num_queues, xenblk_max_queues);
- 		return -ENOSYS;
- 	}
--	blkif->nr_rings = requested_num_queues;
--	if (xen_blkif_alloc_rings(blkif))
-+	if (xen_blkif_alloc_rings(blkif, requested_num_queues))
- 		return -ENOMEM;
- 
- 	pr_info("%s: using %d queues, protocol %d (%s) %s\n", dev->nodename,
-diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
-index a0a438881388..b233834ec6cc 100644
---- a/drivers/net/xen-netback/interface.c
-+++ b/drivers/net/xen-netback/interface.c
-@@ -812,8 +812,6 @@ void xenvif_disconnect_data(struct xenvif *vif)
- 
- 		xenvif_disconnect_queue(queue);
- 	}
--
--	xenvif_mcast_addr_list_free(vif);
- }
- 
- void xenvif_disconnect_ctrl(struct xenvif *vif)
-diff --git a/drivers/net/xen-netback/xenbus.c b/drivers/net/xen-netback/xenbus.c
-index e020f44ac2c7..a826fa24258b 100644
---- a/drivers/net/xen-netback/xenbus.c
-+++ b/drivers/net/xen-netback/xenbus.c
-@@ -267,6 +267,8 @@ static void backend_disconnect(struct backend_info *be)
- 		vif->num_queues = 0;
- 		synchronize_net();
- 
-+		xenvif_mcast_addr_list_free(vif);
-+
- 		for (queue_index = 0; queue_index < num_queues; ++queue_index)
- 			xenvif_deinit_queue(&vif->queues[queue_index]);
- 
-@@ -837,6 +839,7 @@ static void connect(struct backend_info *be)
- err:
- 	if (be->vif->num_queues > 0)
- 		xenvif_disconnect_data(be->vif); /* Clean up existing queues */
-+	synchronize_net();
- 	for (queue_index = 0; queue_index < be->vif->num_queues; ++queue_index)
- 		xenvif_deinit_queue(&be->vif->queues[queue_index]);
- 	vfree(be->vif->queues);
+On Mon, Oct 26, 2026 at 3:44=E2=80=AFAM Erwin Pawliczek
+<pawliczekerwin@gmail.com> wrote:
+>
+> ecc_make_pub_key() calls ecc_point_mult() without an initial Z, so the
+> final Z, and therefore the input to vli_mod_inv(), is a deterministic
+> function of the private key. vli_mod_inv() is not constant time, so
+> key generation leaks information about the private key through its
+> running time.
+>
+> crypto_ecdh_shared_secret() already passes a random initial Z, which
+> blinds the inversion input. Do the same in ecc_make_pub_key().
+>
+> Key generation is used in the kernel by Bluetooth SMP and TPM2 HMAC
+> sessions, which generate ephemeral P-256 keys.
+>
+> crypto_kpp_generate_public_key(), KVM guest on an i7-1165G7 (median
+> over 4 boots of the best of 9 runs of 300 calls):
+>
+>     P-256:   744.9 us ->  753.2 us (+1.1%; within noise)
+>     P-384:  1674.2 us -> 1651.6 us (-1.4%; within noise)
+>
+> Suggested-by: Ignat Korchagin <ignat@linux.win>
+> Signed-off-by: Erwin Pawliczek <pawliczekerwin@gmail.com>
+
+Reviewed-by: Ignat Korchagin <ignat@linux.win>
+
+> ---
+> Replaces "crypto: ecc - Use constant-time modular inversion in ecc_point_=
+mult()":
+> https://lore.kernel.org/all/20260928042641.307683-1-pawliczekerwin@gmail.=
+com/
+>
+>  crypto/ecc.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/crypto/ecc.c b/crypto/ecc.c
+> index c7366eb7ce1f..6696bf0d90a6 100644
+> --- a/crypto/ecc.c
+> +++ b/crypto/ecc.c
+> @@ -1614,20 +1614,26 @@ int ecc_make_pub_key(unsigned int curve_id, unsig=
+ned int ndigits,
+>  {
+>         int ret =3D 0;
+>         struct ecc_point *pk;
+> +       u64 rand_z[ECC_MAX_DIGITS];
+> +       unsigned int nbytes;
+>         const struct ecc_curve *curve =3D ecc_get_curve(curve_id);
+>
+> -       if (!private_key) {
+> +       if (!private_key || ndigits > ARRAY_SIZE(rand_z)) {
+>                 ret =3D -EINVAL;
+>                 goto out;
+>         }
+>
+> +       nbytes =3D ndigits << ECC_DIGITS_TO_BYTES_SHIFT;
+> +
+> +       get_random_bytes(rand_z, nbytes);
+> +
+>         pk =3D ecc_alloc_point(ndigits);
+>         if (!pk) {
+>                 ret =3D -ENOMEM;
+>                 goto out;
+>         }
+>
+> -       ecc_point_mult(pk, &curve->g, private_key, NULL, curve, ndigits);
+> +       ecc_point_mult(pk, &curve->g, private_key, rand_z, curve, ndigits=
+);
+>
+>         /* SP800-56A rev 3 5.6.2.1.3 key check */
+>         if (ecc_is_pubkey_valid_full(curve, pk)) {
+> @@ -1641,6 +1647,7 @@ int ecc_make_pub_key(unsigned int curve_id, unsigne=
+d int ndigits,
+>  err_free_point:
+>         ecc_free_point(pk);
+>  out:
+> +       memzero_explicit(rand_z, sizeof(rand_z));
+>         return ret;
+>  }
+>  EXPORT_SYMBOL(ecc_make_pub_key);
+> --
+> 2.53.0
+>
+>
