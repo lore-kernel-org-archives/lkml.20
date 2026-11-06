@@ -1,61 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968106;
-	b=z7n6DcJVyRfgA7NxEDrDl3JWICGYtu+oHAhPda3hamVRu69wMVYklwbnwW+6eqSzMiW/
-	 9IqsBAm+H1u48n0oh4dr5eonIOR96XkJUehGfV//7wfheMywZSqRUNFAfHwEuYuzUyf+1
-	 UMyvUMc8Nk9REb/VyKFyJ4XPZmp2KQHi4QNUMwRhKIJwCJxr43dmXYXBYU42yvqMGzkxk
-	 BK15KWz9z0wbJeoCy1DwFsG0J0+hpEtSc1RPvNdmhZvrFESoMWobr8sdTBsYS1Y78Ms4n
-	 WEqdyx3zdYgyBACC6aarmLyvfdLKpd1WHWJXwfAgSA6shDODnamv6lKnLHIDcdjcV4Q==
+	t=1793968143;
+	b=icso61B3nw/TNO9v1GGXXdzzXpr2uPvGniMBu0IWd4a8DTNsNdTEL1xq0VyPNqcZXBD+
+	 ibvCBFCqFQSt7ebX5eJuzQzas9teZU6d4eCWNkXfZ/wFIP1FiZ1OnmOyIsdBuV1bGyNZs
+	 jv/8UIOMIvWUjxVv+b5Z7ncEphY0kIun6x3GVOl12YFMRqW5f4dh9fwOPkCTtYN8fd6Ug
+	 ypl8DZatyUWHssrGexgt1+D1Q5sNIU5sI5GApwfvQd3hPdYrYoAkNV1/1VHPzoBPLLLY0
+	 ZwI6H2C4UdVKnFpwHR6xeiIyyPS4/xmIeLAIo/EBuDku/socIEO7qAvEjbegd3cb4zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968106;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=X8rCItQ0R9VrDB25XBgU9TXGSTp5Ii9q08TmcSboO+c=;
-	b=x1dIgPvOMYavkYFkxZSEbbQ1wZi8DJw7BZVzaDqApxlpbeBx+m6q7qhwG2obI/Cky1jY
-	 7av2ssaFYNlB7QNytXmYNgEmvP2AkKtK+mK0wniAV32I3gejPVSgf7c5MzbmhBsgkmu8I
-	 RzfSoTTnV6/fCdWmlVOBS0MxS0ejm9IKDcDOHx7PSkRe0o9+ORqP7L0O//J3yLRe9LWug
-	 gwa1sNV0cZeY3NYgTZCrGcGCdeWeFmVRp76B+ChHHvjjmUEn7rzyRmCjpGTGmud5p0b3j
-	 MceEUo/d9vi9bNafLqW/B8apyNifOYYSbYjvgbIVJMPyit9lA7emckVUTc/m0lwP6vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968143;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jVC/KGcJa8KGWOEH6o3QL+JqNyke1bKdIxAB7WhcXLM=;
+	b=BaKpOdvq2FG1fP30ygCRQadogSZRBfHQrc0hvOSaSXitYJhLwDGN2SUwgEFJ7R4VUYsy
+	 Mfkf+yWaBUe4amLUQyytatTUaNKj7rlE+gE1FhGtpZg1SFNO+tmue2p6gg1Fft8/JqReT
+	 A8CE3yS3Ib6O6Doyn6M5bIHmbNJH6VcylcVZSYSTDrSkMc7r/n4H6v8kShAkPHttu0FY8
+	 OIPVZFh+4TXPlF4pFjAx9lkTvcy7m110mmFTcbTT4c3rpL5/SHV4uW5+KgXqKJKfUqLkA
+	 jJwhf9ICZr7MJL4fhEgmDtK6LJHf5OxzX0NkwoGtet5CsjDD5aK+KtDYrlFGyToiPiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=QEj2cYNZ;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=MvZy8n9x;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981D4606A32E;
-	Fri,  6 Nov 2026 12:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 981D4606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFA2606A326;
+	Fri,  6 Nov 2026 12:29:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFFA2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=QEj2cYNZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
-	From:Reply-To; bh=X8rCItQ0R9VrDB25XBgU9TXGSTp5Ii9q08TmcSboO+c=; t=1793968104;
-	x=2109328104; b=QEj2cYNZlv6Q/RXFjhRE9GMCv/B/PJgLia2Js2jmw/YPExOSHZKMKJqHflFtk
-	acAO3j/1q/TJIognTr5O83G/DXLjglDEppq+459LkSbiKvo75lXu3ixq9zevfXUoUPn0U6d2pytwB
-	8k58DnKj2Ds3kkHg6Yz1Zdudg391QTZev5wc/zQbaEWivAcvv9fxatlNLMifB8Pvs51jbGPCfG8eW
-	yU+6OQDdQjAADkm35Hwlyg9/APdTx4ei217xC5agXsBS9yaHcCpyPDMF4vG+RmvJwCgUrLeFYiT0s
-	BvvIqP2aXPF0DkwKlQOwmPG3BiAt91ZiFAEh4xExRdvpnihD1A==;
-Received: from bl16-24-61.dsl.telepac.pt ([188.81.24.61] helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xPJ3L-004OjF-6D; Fri, 06 Nov 2026 13:28:19 +0100
-Date: Fri, 6 Nov 2026 12:29:55 +0000
-From: Luis Henriques <luis@igalia.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: mszeredi@redhat.com, fuse-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Matt Harvey <mharvey@jumptrading.com>,
-	kernel-dev@igalia.com, stable@vger.kernel.org
-Subject: Re: [PATCH] fuse: fix 'inval_wq' parameter setting during module
- initialisation
-Message-ID: <au3IQ_tZrpCZ__Pl@igalia.com>
-References: <20261019125329.17932-1-luis@igalia.com>
- <CAJfpegsXsZS7CaA-=kAB4_oiyPWeZ8ULpG+kxBNHczM-XHbqng@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=MvZy8n9x
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=jVC/KGcJa8KGWOEH6o3QL+JqNyke1bKdIxAB7WhcXLM=; b=MvZy8n9xEqEqYJPTSiNa33GzYA
+	PRizDDcL7Eb6Xmc8IweGoWlaUFYeh01I+SXYW2j5tB+7YpQ7tM2IPjrICskL0KVL4ciytYsTehMEP
+	CvJtfT74M7ANKLOzW9s/oCLVCF3yvHMdPR4CmsEO5BGVPd9nQYW+JBtBNWyxYGfdDlT0O5znFAzKw
+	7LCD1LXSTFL449brmOdjKcNyrKaBOnaGOyVLFM1FnskypGfi0ibESYfyNSE1CUw3qeDTkpRh04uNd
+	0J4dsJYbI+lDOHWj9VCXFjlY42ExlibPxz81yvpNcgx96N/PT9orMHl10BHYbHjErvhDEUho2qPSM
+	wu/IeWlQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>,
+	Andy Yan <andyshrk@163.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Daniel Stone <daniels@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Daniel Stone <daniel@fooishbar.org>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	kernel@collabora.com,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Igor Paunovic <royalnet026@gmail.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: (subset) [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color format on DW HDMI QP
+Date: Fri,  6 Nov 2026 13:28:37 +0100
+Message-ID: <179396811444.1260748.9451141898652783370.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
+References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,56 +92,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJfpegsXsZS7CaA-=kAB4_oiyPWeZ8ULpG+kxBNHczM-XHbqng@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 12:33:50PM +0100, Miklos Szeredi wrote:
-> On Mon, 19 Oct 2026 at 14:52, Luis Henriques <luis@igalia.com> wrote:
+
+On Thu, 05 Nov 2026 03:00:34 +0200, Cristian Ciocaltea wrote:
+> This series extends the output color format support of the Rockchip DW
+> HDMI QP controller to cover 10-bit YUV 4:2:2 and 8/10-bit YUV 4:2:0.
 > 
-> > @@ -62,11 +61,14 @@ static int inval_wq_set(const char *val, const struct kernel_param *kp)
-> >
-> >         *((unsigned int *)kp->arg) = num;
-> >
-> > -       if (num && !old)
-> > -               schedule_delayed_work(&dentry_tree_work,
-> > -                                     secs_to_jiffies(num));
-> > -       else if (!num && old)
-> > -               cancel_delayed_work_sync(&dentry_tree_work);
-> > +       /* Only start/stop workqueue if we're past module initialisation */
-> > +       if (!module_is_coming(kp->mod)) {
+> Patches 1, 7 & 15 improve VOP2 robustness on RK3588, helping recover
+> from exceptions and preventing random display output glitches observed
+> when switching modes that also change the color format, e.g. from RGB to
+> YUV 4:2:0 and vice versa.
 > 
-> See sashiko review:
+> [...]
 
-*sigh*
-I keep forgetting to check sashiko website.  Sorry about that :-/
+Applied, thanks!
 
-> - kp->mod might be NULL which will Oops module_is_coming()
+[15/15] arm64: dts: rockchip: Add RK3588 VOP2 resets
+        commit: f245313cd545f58dbb777fcfc6aaf33376e25c0a
 
-Hmm... I guess this should be fixable by adding a '!kp->mod' to the
-condition:
-
-	if (!kp->mod || !module_is_coming(kp->mod)) ...
-
-> - it's still racy against fuse_dentry_tree_init
-
-This one is a bit trickier indeed.  I could try to play a bit with the
-modules notifiers (register_module_notifier).  But I haven't used that
-before, so not sure it can be used, for example, kicking off the worker
-later when the module has been initialised.
-
-> 
-> My question is: does the inval_wq_set() even need to work before the
-> module is initialized?  Can't it just return an error and it wouldn't
-> need to deal with the race.
-
-That's probably the simplest option, but that would prevent us from, for
-example, setting inval_wq as a kernel parameter, right?  Or doing:
-
-  # modprobe fuse inval_wq=10
-
-Do you think that's acceptable?
-
-Cheers,
---
-Luis
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
