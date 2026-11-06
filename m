@@ -1,59 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793938626;
-	b=xLveX0I87NehKSTgeBSCskCxVIFTx/qTVaICrCg6tEhCXz8J9iTKhAmma95N9ZFK5wS0
-	 hFrL4MBURE13PWPsc7di7UURIZWUpsZxtXym/RcGXMl1QnP1myjZEAIBZCg8BlBCPCTWb
-	 fWyXUk+DsSckdVrRlCxG9rm8pOzbFJFj61S78I6qbaS5T5DUrCd2d3M8YiXf2FoYifuZ2
-	 8QqwJ0LgkVJpzF/azWEYns4Bnh5BAFCN4xLs8td9M4LyauuWSNmMFXSdwP0xUvG2yzssR
-	 YPiSqGWrGk1ei3fgIX3R7JXVdWEUJrDpNtKL6rvB0bsUdCKzplBiu90Edpn+N1VCOTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793938626;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=+7h44Ealm8F6r3GvegvUhK6yyPzSxh+/wV8eDBiBA7I=;
-	b=DyGPj3zYTMed79XtFWmLOpeGjd49dEAbrSBTShr2CDKfBWO0EbWBSq7CujHAyo8PZ6tH
-	 qlgAe2lat/u143IQavvd9zTp/+V5RRYVx0EfuwhwAirfnHW/+ThUWtNX8M7HHmsMLhMam
-	 gz/vCSj5JoQwP5LiFxWCHfrA8eM26Btqzz6npTMgp6s8AM4sioKTgxLsVKwxyE+TUhR9q
-	 3Kf0oK96wVBNfaDPh5SjXEILsZY5YRCw34N6NkoeHw4Z42cdFPdX94bXD43gduLFCqQNb
-	 TsVlaTnlnHrP+d7n8FSyOt3khJH4EFTFRbcafmvtXCm7ruy2xEo1w3wVhPJjQfcBuKw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hygon.cn;
-	spf=pass smtp.mailfrom=hygon.cn;
-	arc=none smtp.remote-ip=101.204.27.37
-Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62379606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:16:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62379606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jLQqD42rzz2tcQf;
-	Fri,  6 Nov 2026 12:16:40 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jLQqD2D0fz2tcQf;
-	Fri,  6 Nov 2026 12:16:40 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id DF15016E7;
-	Fri,  6 Nov 2026 12:16:31 +0800 (CST)
-Received: from qiuzhiteng-2U-Workstation.hygon.cn (172.25.64.90) by
- cncheex04.Hygon.cn (172.23.18.114) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Fri, 6 Nov 2026 12:16:40 +0800
-From: Zhiteng Qiu <qiuzhiteng@hygon.cn>
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>
-CC: Ying Huang <ying.huang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
-	<joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
-	<gourry@gourry.net>, Alistair Popple <apopple@nvidia.com>, Xin Hao
-	<xhao@linux.alibaba.com>, Dave Hansen <dave.hansen@linux.intel.com>,
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Zhiteng Qiu
-	<qiuzhiteng@hygon.cn>
-Subject: [PATCH] mm/migrate: don't batch the TLB flush when there is nothing to batch
-Date: Fri, 6 Nov 2026 12:16:28 +0800
-Message-ID: <20261106041628.1177963-1-qiuzhiteng@hygon.cn>
-X-Mailer: git-send-email 2.51.0
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.68
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793938648;
+	b=IaLv0f+XU2CLKh/TXfMuQgsHyH/bGcpqXyKU801HBEZyJRUsQGB9nVs8wYhjFSYjB9fd
+	 12hDlxZkNv6+2aH22NruLqmjVlAqZsxWiTMW9kgIdrmxZWdSMCcKIJxEmMynMjqJgZoFN
+	 oqqRoDPtoHd9dGT/FbcN53Q101ojrkIIVxo7uLYYMPW9rQScEXusO+/GU+s2Uk9QoMTGq
+	 r1vX6WamLYFEAYDdQ/ghFF7mFEggXahOOhoTz4TB873A8IxEXRKdU8uJh81xh4IP3aEPy
+	 xuxCQDINzJfFtT2Vj8u2sXoc+++seUl/i1crun7N4HiCFx9vwvwqNVufomA1HKyACeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793938648;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=aYrh3OIIO524+lGjzB+aSnERtdRt9XvWe6eA55nHuTc=;
+	b=s3grCSfi2b/PefdDrYMUSKah5AZj/hv59jUtfNBJ7Gyi+t7KzQI7hwkKQ9jOsCQJX33F
+	 V1zDaGTwSNLqS/3nVFu6vGCLSaeF0TZpiKQQS7zKidzf9cLD/sYJqNfxaGGlNfMaW00uM
+	 /CJNGcDlkqQ9yHhu07/xhZYHPN/AMsOYZGVOTX16DwL5fjmZtOS4tD9YH1l0G6sGcRS7y
+	 o5bqmTFTYVhyYV/qbl0IZ39bkOFGduepz5BYwxqOjrvS0H5isHolTm9cxtYwCrKQIwP9C
+	 z4otIlfKgHRYqsl5ocqFhSEl5xB0FyT9MGh8lPS1ws2jK3Qy8Ekv5WzlzF/O2+E3Yyg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=u5PsbHfm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.68
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012068.outbound.protection.outlook.com [52.101.43.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207BA606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:17:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 207BA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=u5PsbHfm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=guQ/ykeJvf7M7IGTZVr33MhMyHOkwh9Cn5SCvCWoCYE4/xR0Xst6oebXwsWGUfrJJHCZYmD+Qq7P85/DsYJLAGEquj48gr42r7Ysj+603t8fSnjVI1XdFmc85JrkTWWu0wYmmrL5Kn7XOH7W6tlTNjjk8TS5Li6NUNmPiEvJJoyqGCg6VS6ltWHYespS0omhO3Ww94wGzp/Tjy+7NMveAKf1M/kHHyBJAi+8J6jREI0+WFuTiP3Sof2zcu/0wwlxnCo7rKDfNrDMFk+5u/3W+cizMCAOIGjJ0n5qay1pSd2QgbjX4FCZiN/MWOcYQyKjrBBBmCp6AfcNi/EQzMj7oQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aYrh3OIIO524+lGjzB+aSnERtdRt9XvWe6eA55nHuTc=;
+ b=XSD6mOhb8CPIf7Mc4XqfnDhu+uMXvSHVgoKYy2Y83B725jvKGHKWNDkNA1YESZE8p3+0uk6ZkIX8i8tZj+9aPyMG9QGpixxQHLvrtv+CHgY9E3qugFautH6ARbUBmHX/50KC51AbkYxkMmXjjDwKOH06TEFdSBqEueM1Ccx4xOud1JNKZwGwbI/V59Jd9hy4zNC/s6Otg+CQV6onPyVuy72hRsWMBCa/+xBMjTdBT29eWy6uY2nbKBjdWn6otg8IOt2wOQYW0U0BBquwKjUaoYKC6ld4dq9YK6d780xrgYE1oOQV6D1AOpekZGqiGeCfgvalvY6TpcQuJDrfI8p5lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=8bytes.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aYrh3OIIO524+lGjzB+aSnERtdRt9XvWe6eA55nHuTc=;
+ b=u5PsbHfm9gUAQebBko6JGtKbwSdua2fDy7XyQ5a2uHXPVR4vghbvZIM7C25kOklfIZMMVp66YZi3iUjUf94RTpoo0m8k7YdgTu3r9pmf6/+96vc+TBvDBWOs8ux5A38ctkHXe0HiOSLkVmK3e+FgBP/QsfAiC8GD/YcEXpjpopc=
+Received: from CH2PR04CA0002.namprd04.prod.outlook.com (2603:10b6:610:52::12)
+ by MN0PR12MB5930.namprd12.prod.outlook.com (2603:10b6:208:37d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 04:17:22 +0000
+Received: from CH2PEPF00000149.namprd02.prod.outlook.com
+ (2603:10b6:610:52:cafe::9b) by CH2PR04CA0002.outlook.office365.com
+ (2603:10b6:610:52::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
+ Nov 2026 04:17:21 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000149.mail.protection.outlook.com (10.167.244.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 04:17:21 +0000
+Received: from BLR-L1-SARUNKOD.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
+ 2026 22:17:17 -0600
+From: Sairaj Kodilkar <sarunkod@amd.com>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Adrian Huang
+	<ahuang12@lenovo.com>, Joerg Roedel <jroedel@suse.de>, Robin Murphy
+	<robin.murphy@arm.com>, Suravee Suthikulpanit
+	<suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, "Will
+ Deacon" <will@kernel.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+CC: Sairaj Kodilkar <sarunkod@amd.com>
+Subject: [PATCH v3 0/3] iommu/amd: IVMD handling cleanup and ivmd= boot override
+Date: Fri, 6 Nov 2026 09:46:47 +0530
+Message-ID: <20261106041650.24076-1-sarunkod@amd.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,136 +110,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000149:EE_|MN0PR12MB5930:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee76bf45-6b0a-41e6-1222-08df3bbcdaa2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|261026140227099003|11063799006|56012099006|261009223027099003|261022075727099003|261022105027099003|261021121427099003|261009221227099003|261021123027099003|261102123227099003|261028144727099003|261026121527099003|18002099003|13003099007|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	tr/nVEbVbZyRXmTxmK7xz5a6Q5Ss6uEEvkfIrh199BiiUG7Gi5Y0NXO7nnNNZWHFTe0LVg7bmaXe5d6J4b3addVYSDLKf5/K2TVC3UbyNAWrqcDSliN1G5MH1kB52/ZvX/PhLoQfKtHvZs5RDROEyKg8EONoPJBQt0BSFWAfIY+pB1sXMh8jCtSyas6JHdbOj/tdegQtDkpaao8Dvkb0FvGGHiwAk0seKHVyIHSVdScZwn0hO7J9xUlEkl4pgrYzqqcAzWYXxJvnFeOq5EeOhb3P4CYQMRDEwAhkTOTb5ZeiI8SjapB/cOcMZ4rTc6mhfTP95/Ts3XNfONxhdeJJ0Er+LSNRMpPzIyicOZVmh4hRkkv289n+YuWmKYj9lNEasI96tQG3Q/QuppoEMAKZyZmn8cP5BeBnZL/SpFF5bvVNa+QKTB08xuXpjeHzCAnZi21UCcpy6Z0A3kL8tQfxYTwqDHxok3Lf7f+7qiU3wTLd3Myo7kzzoKeDSlkl0OHqjk8qkc1Q8/1shHK98ihIk4D5u7vOyPXiMZYTC+kZuAtM/R2aImA6b9JWAWR7tFvZ9bLvFkdj5cN7LoQ9tjRdwjSzT2S812WSKhnjkRO3yIiTIOV9R2E1T5Yo0F+No+Fb+CyY3HmY/W+3ciX4zWxbF7yy069Yjde0BWqzP7vXJzw=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(261026140227099003)(11063799006)(56012099006)(261009223027099003)(261022075727099003)(261022105027099003)(261021121427099003)(261009221227099003)(261021123027099003)(261102123227099003)(261028144727099003)(261026121527099003)(18002099003)(13003099007)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ydxft8boGExaVSsn1cAjqiV9M5hryOG6BCC3lFDTwW4ltYy1c61dN6Z+YGMLMBrBN2Ad5iq/VKmWeEU0inzFQlNpAnTnNx6h8558IP3UOdtZnL/VBuJ6PXurRr1xjA4cLP5wkbnJWGv/cxonVc5VBce9oFDNgKmeyt+UBQDat29MSlQvKKkgDCf95LxgB1XEnvn/W7G+DEsbUorPRytpnA723R5ebK8mkZ0+7fc8ej7TiKGr4NhcbrVoHIKEpss/lL8CDIptG9IMRgXHvfeAewqPbl5rL57cpOLHTsG9eDo5jic+rZEJ3hkJmQRJQGb+q9/ZeNs0T+dgY4NRVZDqiwehTrkd0TgdPy3wafalXyQJ62CWyP6IBljgO4TMZlUfGjb0w91vnPiu0B2Upo6WUZMYaq8iXKXdj+f49lvYBJbSPA3PuW1NigIIH9/xf3Hi
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 04:17:21.7300
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee76bf45-6b0a-41e6-1222-08df3bbcdaa2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000149.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5930
 
-Since commit 7e12beb8ca2a ("migrate_pages: batch flushing TLB"), every
-MIGRATE_ASYNC migration unmaps with TTU_BATCH_FLUSH.  That includes NUMA
-balancing and memory-tiering promotion, which migrate one folio per call
-through migrate_misplaced_folio().  For an order-0 folio with a single
-mapping the batch holds one PTE and there is nothing to merge, but the
-flush still changes: on x86, arch_tlbbatch_flush() sends a full TLB
-flush to every CPU in mm_cpumask() instead of invalidating that one page.
+This series refreshes how the AMD IOMMU driver models IVRS IVMD entries
+after the hardware exclusion range registers were repurposed.
 
-On a 2-socket, 384-CPU x86 server without INVLPGB, a 4 KiB-page,
-memory-heavy multithreaded workload takes about 200 TLB shootdown
-interrupts per page migrated by NUMA balancing (v5.15 on the same machine
-takes about 11), and balancing costs it 13-16% of its throughput.
+The first patch renames the associated MMIO offsets to reflect completion-wait
+store base/limit.
 
-Skip the batched flush only when the batch cannot merge anything: the
-folio is the only one in this migrate_pages_batch() call, it is not a
-large folio, and it is mapped only once.  The rmap walk then meets at
-most one PTE, and ptep_clear_flush() invalidates just that page.
-Everything else keeps the batched flush, including PTE-mapped large
-folios, folios mapped more than once, and the batch of sub-folios
-produced when a partially mapped large folio is split during migration.
+The second patch drops the workaround that forced IVMD exclusion ranges to
+r/w unity mappings; the driver no longer programs exclusion range
+registers, so that the workaround is obsolete.
 
-PMD-mapped THPs already invalidate their mappings through
-set_pmd_migration_entry(), independently of TTU_BATCH_FLUSH, so their
-flush behaviour is unchanged.  On arm64 the batched path only defers the
-final DSB, so a one-PTE batch should cost about the same either way.
+The third patch centralizes IVMD flag definitions, renames the unity-map
+structures to ivmd_entry, stores the raw IVMD flags byte from ACPI, and
+derives IOMMU reserved regions (including exclusion as IOMMU_RESV_RESERVED)
+from those flags.
 
-migrate_folio_unmap() cannot see how many folios its caller is
-migrating, so migrate_pages_batch() passes that down.
+The fourth patch adds an ivmd= kernel parameter so up to four per-device
+IVMD-style ranges can be supplied from the command line when the IVRS
+table is wrong or incomplete, documented in kernel-parameters.txt.
 
-Measured on v7.3: 120 GiB anonymous working set, 384 threads, 180 s per
-run, three A/B pairs (numa_balancing on vs. off, same boot) per kernel.
+Changes from v2:
+https://lore.kernel.org/all/20260424092213.16976-1-suravee.suthikulpanit@amd.com/#t
 
-                                    v7.3            patched
-  throughput loss from balancing   13.0-16.5%      0.5-6.3%
-  kernel cycles per hinting PTE    1.18-1.22M      0.28-0.31M
-  TLB interrupts / migrated page   202-210         12.7-13.6
+*Patch 2: Report an IVMD exclusion range as IOMMU_RESV_RESERVED in this
+	  patch, instead of leaving that for patch 3. This patch stops
+	  forcing the exclusion to read/write unity, the range has no read
+	  or write permission. iommu_map() rejects that, so a tree checked
+	  out at patch 2 does not boot. Reserving the range in the same
+	  patch keeps the series bisectable.
 
-Signed-off-by: Zhiteng Qiu <qiuzhiteng@hygon.cn>
----
-Notes:
+* Patch 4: Drop this patch, ivmd= command line does not have any real use and
+	   complicates driver
 
-An earlier version decided on reason == MR_NUMA_MISPLACED.  That also
-dropped batching for the split sub-folio batch mentioned above.  In a
-test that splits partially mapped 2 MiB THPs during NUMA migration, the
-earlier version raised TLB interrupts per migrated page from 0.13 to
-16.1; this version keeps them at 0.11.  For 64 KiB mTHP and for a
-MAP_SHARED mapping used by two processes, this version behaves like the
-base kernel (TLB interrupts per migrated page: mTHP 2.2-2.7 patched vs.
-2.6-3.3 base; shared 31.3-31.5 vs. 31.2-31.7).
 
-The earlier version behaves the same as this one for order-0, private,
-single-mapped memory.  These results were measured with it:
- - 192 CPUs (SMT off, 192 threads, 4 pairs): balancing loss
-   3.1-14.7% patched vs. 7.4-54.3% base.
- - Memory first-touched on the remote socket, threads on the local
-   socket (6 runs per kernel): no regression in time to convergence or
-   in throughput after convergence.
- - 2 MiB THP (2 pairs): no difference, as expected for PMD-mapped
-   folios.
- - A 30-minute run with compaction forced every 30 s: no warnings.
+Change from v1:
+(https://lore.kernel.org/linux-iommu/20260420170033.6780-1-suravee.suthikulpanit@amd.com/)
 
-With this version, tools/testing/selftests/mm/migration passes 6/6
-(including the THP and hugetlb cases), the LTP move_pages and
-migrate_pages cases pass 14/14, and the scenario tests above saw no data
-mismatches.
+* Rebase on top of patch "[PATCH] iommu/amd: Remove dead code for exclusion ranges in IVMD"
+  that was submitted by Yu Zhang <zhangyu1@linux.microsoft.com>.
+  (https://lore.kernel.org/all/20260331152550.479841-1-zhangyu1@linux.microsoft.com/)
 
-There is no Fixes: tag.  This changes a performance trade-off in code
-that has been there since v6.4, and nobody has reported it as a
-regression.  Please add one if you see it that way.
----
- mm/migrate.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+* Patch 1: Modified to only rename the marco.
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 953af633ec..0f3404c3d7 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -1222,7 +1222,7 @@ static void migrate_folio_done(struct folio *src,
- static int migrate_folio_unmap(new_folio_t get_new_folio,
- 		free_folio_t put_new_folio, unsigned long private,
- 		struct folio *src, struct folio **dstp, enum migrate_mode mode,
--		struct list_head *ret)
-+		bool single_folio, struct list_head *ret)
- {
- 	struct folio *dst;
- 	int rc = -EAGAIN;
-@@ -1344,7 +1344,18 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
- 		/* Establish migration ptes */
- 		VM_BUG_ON_FOLIO(folio_test_anon(src) &&
- 			       !folio_test_ksm(src) && !anon_vma, src);
--		try_to_migrate(src, mode == MIGRATE_ASYNC ? TTU_BATCH_FLUSH : 0);
-+		/*
-+		 * Batching only pays off when the rmap walk can meet more than
-+		 * one PTE.  A lone order-0 folio with a single mapping has
-+		 * exactly one, and on x86 the batched flush turns that one-page
-+		 * invalidation into a full flush of mm_cpumask().
-+		 */
-+		bool batch_flush = mode == MIGRATE_ASYNC;
-+
-+		if (single_folio && !folio_test_large(src) &&
-+		    !folio_maybe_mapped_shared(src))
-+			batch_flush = false;
-+		try_to_migrate(src, batch_flush ? TTU_BATCH_FLUSH : 0);
- 		old_folio_state |= FOLIO_WAS_MAPPED;
- 	}
- 
-@@ -1835,6 +1846,7 @@ static int migrate_pages_batch(struct list_head *from,
- 	LIST_HEAD(unmap_folios);
- 	LIST_HEAD(dst_folios);
- 	bool nosplit = (reason == MR_NUMA_MISPLACED);
-+	bool single_folio = list_is_singular(from);
- 
- 	VM_WARN_ON_ONCE(mode != MIGRATE_ASYNC &&
- 			!list_empty(from) && !list_is_singular(from));
-@@ -1925,7 +1937,8 @@ static int migrate_pages_batch(struct list_head *from,
- 			}
- 
- 			rc = migrate_folio_unmap(get_new_folio, put_new_folio,
--					private, folio, &dst, mode, ret_folios);
-+					private, folio, &dst, mode, single_folio,
-+					ret_folios);
- 			/*
- 			 * The rules are:
- 			 *	0: folio will be put on unmap_folios list,
+* Patch 3: Reintroduce logic to parse IVMD exclusion flag to allow
+  reserve region of type IOMMU_RESV_RESERVED.
 
-base-commit: dba8aba0a9a00ff781c03d82ae534fc6f8c2e263
+* Patch 4: 
+  - Update the sscan function to scan start, length, flags in hex format only.
+  - Fix apply_ivmd_cmdline_entries() to not free the cmd, which points to
+    the early_ivmd_cmdline_map[]  on failure path.
+
+
+Suravee Suthikulpanit (2):
+  iommu/amd: Drop unused global exclusion range fields and init
+  iommu/amd: Do not convert IVMD exclusion range to unity range
+  iommu/amd: Rename unity_map_entry and unit_map to ivmd_entry and
+    ivhd_entry_map
+
+ drivers/iommu/amd/amd_iommu_types.h | 22 ++++++------
+ drivers/iommu/amd/init.c            | 54 ++++++++++++-----------------
+ drivers/iommu/amd/iommu.c           | 28 ++++++++++++---
+ 3 files changed, 58 insertions(+), 46 deletions(-)
+
+Base: 945b3729fca6176fdbb83e38c8116b0132c68fbe
 -- 
-2.51.0
-
+2.34.1
 
