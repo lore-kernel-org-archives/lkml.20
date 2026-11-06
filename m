@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930599;
-	b=UNk47fny5ZTYAx30wZshpUY2++5K2K/QvvvYL3JEEv6E8VpyExNcgE6PkGAEOaizwFb+
-	 pt1l4xXVcK0JfXpa3ju8PtKhol0cJVup+vCJfDeTVHiHHp1KLbs5aP3hOOLq+kzptUL38
-	 QBUPeb5kVKICnpmqI49Rnchfoc03M/d4VED9u16vCRB/l3qVxMdRgHkGJ8GUZG7/r0yy/
-	 MIpYGfUO4DAbb2BAbaUuXlaicPf4W1wsh6fNdaY0VsZqb1Hit5CPjrhCk4zYxdMSkZJBz
-	 Y7Ay9I0ln2bQqxsep7+gFPuhgHrA+GJU6AcCgtja/MAyMF9F2EBIxSYUhtv8X88RT9g==
+	t=1793930607;
+	b=yUagJ6uuYmQlfy/pcgrVbZwoSvhYsShjCyYNOuxeQSjc6KnNhfVn2PuuLo8E85P/ZbA8
+	 jAqBP1IFzMXz9BAjhNP9+OCET8jjs7IaY+oi/BOYbzEdNsBZuGBOYFc93pXEPeDsVFeug
+	 pMfRpeNat4idQ6P+pYkhgZgUtGXp9UsNdYBpu+k1Eo930e2YcVFm5HQWQKYYIBlWS12BW
+	 Kp/HODzLTEgLgH8wwgRAc2yt0W/xvWiqHLgxwu8/pWsvHo/an2QVTf/OTlYLdzP6PKTqg
+	 eQHmBCXmRHpdTTSZ482uxEiO9GrnA47vXa3m3JTffM3IizabTCmNgs6+AJkj8MBoZJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930599;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=a5+XHx9VkmMYhdeQ2fq6mtWIZa8h3SwrC9yL/0CDbts=;
-	b=qc96gG1UglocMUownRzeKJ86glxdLVy3inp+9B9RhGmHwOeQkSO3orL7bOQbRC1DLBIl
-	 Oig/wzmFECOAGFICINxmw11lVjXG745kB4Ac5qvy+QVhm+DqwIxoB9MaoE75quIKQJwyx
-	 CBTRUloooGeH18vtf4MuZfN03opxAy12kvU72OKO1LbiAAu2UdIQnUvOXWjY0Goft4E9o
-	 EUkdgxX4IbvejGjAJsAg4MSpp3MoXDhjGh2jns5itvX9sCzPm1NZCEOb0/bAroh5/ki/K
-	 3JQupgwLpvQDj+2NVL51wFl1cG2jC2F6DCkhEV+EleVrpX1FQM0942aDuvuBtszxahg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930607;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qKLhRmxatxipRQSiqFe6JQ0fnOvNmrMMEa/aZaqq4Ac=;
+	b=3dNC1uSxhQhSJrwod6HDbQjXUoTmmrWHM2PXA9vsH0AUDQWJGu9P4dUCYEQ3p7xaR6kW
+	 POFmZA+hJ+X8xRL1fdxkmTmLmviwTTHd+DhNvX2dpUBJ+Ze7epF630hNn9SZtiCGeeswg
+	 1NeuNSx1bFE5nJ+ntYf1NdILCLBWA3Zyt/3GXBExfHOl/7Uq7azWihR9K4JSyilOY1ybz
+	 aCXw5dXJUnQAWDRvj7W8D9wBRfPHmtVjxmQzkjBYCl28FFYWXqQDAKO0H5Ra3BGX1ZbTu
+	 ufwNO89/TIe+exMv2Jl6du9DcOzJgdoBLxYmLq60PKgyJfBcj34S/fCJx3YKcuF7aZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ppqx8sxJ;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2A9C606A31B;
-	Fri,  6 Nov 2026 02:03:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2A9C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ppqx8sxJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ppqx8sxJ8Y1oVubf3Xg5bguV+QMQxKmL+cCdlXzbu0LgBP86xeJ3+F7UTxJ2uAknIGRcpIL9bXeWi
-	 pMyyWqk87dpvk62JNYUvKSGXZlggWNdgxSR8TqC4ijC0wLHPLg04zA3sbRXinwDTDpZZTrbE6SWs0F
-	 INzD1jQm3raEDvMM=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96aed35621f5-b01d6;
-	Fri, 06 Nov 2026 10:03:14 +0800 (CST)
-X-RM-TRANSID:2ee96aed35621f5-b01d6
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from cmss.chinamobile.com (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16aed3561424-0d505;
-	Fri, 06 Nov 2026 10:03:14 +0800 (CST)
-X-RM-TRANSID:2ee16aed3561424-0d505
-From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Kees Cook <kees@kernel.org>, nuno.sa@analog.com, Heiner Kallweit <hkallweit1@gmail.com>, Chen Ni <nichen@iscas.ac.cn>, "Alexandru Tachici" <alexandru.tachici@analog.com>, Lennart Franzen <lennart@lfdomain.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH net v3] net: ethernet: adi: adin1110: mask the RX IRQ of the port being stopped
-Date: Fri, 06 Nov 2026 10:02:51 +0800
-Message-ID: <20261106-adin1110-net-stop-v3-1-yuehongwu@cmss.chinamobile.com>
+	dmarc=pass header.from=1g4.org;
+	spf=pass smtp.mailfrom=1g4.org;
+	arc=none smtp.remote-ip=185.70.43.20
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D262E606A32C;
+	Fri,  6 Nov 2026 02:03:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D262E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
+	s=protonmail; t=1793930603; x=1794189803;
+	bh=qKLhRmxatxipRQSiqFe6JQ0fnOvNmrMMEa/aZaqq4Ac=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=qMNWAe99H+ttQ3Gtye9oyPgIlPn9Mq9Sj3cD4yQu7v/YChZ5519XtgEsqEwHG+C7H
+	 XqFQTyeZBF/KGEJVMEghygzc2jOcdbbdduApwfXUi7i+rskQvPg4Z1hnfKYYE/10jo
+	 +eoYiKmi3+fpHAr3qBtIMLDIRE+vTDbKdXxmunQWQsk9OILiuu0d3WWhg+ps729gMy
+	 JVrktXrxP5KpUBm0FIpEMZ8I4dZbD2cGudLQ/+kEZl8PaxdpvHIozxeWiYUMLTOZ90
+	 oonaAavfcQquVx8lqOlSDe83eMXPli7WGSsiCH7ukjYCsfeif5XRVg5fZQoRDeJPsv
+	 CvOFYGIY/p6Yg==
+Date: Fri, 06 Nov 2026 02:03:18 +0000
+To: Ding Meng <meng.ding@siemens.com>
+From: Paul Moses <p@1g4.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, intel-wired-lan@lists.osuosl.org, linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH] net: mark skb NAPI IDs independently of busy polling
+Message-ID: <b3kMbijg2Ui2lAO933CPjxagnUhCbBgN-9Qarvg_rC5TJaY9MfQM9qTwawp10wGmnZG1qYMkLMQwlkDfc_Ba6g9kCCImPWG3njfaKCq9yo8=@1g4.org>
+In-Reply-To: <Tif4BSB0H3l8O1bLzRnhCE9hUYhsz6G3MIhQAgYZImUx1_8YwnCyzy89IV6OSTsXdHDT6fFf7rEL1qfRFJC9OPDHRlhl3cgNJyyE_mVlHWM=@1g4.org>
+References: <20261105071706.7043-1-meng.ding@siemens.com> <Tif4BSB0H3l8O1bLzRnhCE9hUYhsz6G3MIhQAgYZImUx1_8YwnCyzy89IV6OSTsXdHDT6fFf7rEL1qfRFJC9OPDHRlhl3cgNJyyE_mVlHWM=@1g4.org>
+Feedback-ID: 8253658:user:proton
+X-Pm-Message-ID: 90692d34b4b1265dbd3773fb0e95547c0fea0eb2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,61 +61,369 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
-
-adin1110_net_stop() programs the RX-ready interrupt mask of the wrong
-port: it uses ADIN2111_RX_RDY_IRQ (the second port's bit) when stopping
-port 0 and ADIN1110_RX_RDY_IRQ (the first port's bit) when stopping
-port 1, while adin1110_port_rx_ready() uses the opposite mapping, port 0
--> ADIN1110_RX_RDY and port 1 -> ADIN2111_P2_RX_RDY.
-
-The port being stopped therefore keeps its own RX interrupt enabled
-while the peer's is masked.  On ADIN2111 that stalls RX on the peer port;
-on ADIN1110 the RX interrupt is never masked at all.  As the interrupt is
-level triggered and adin1110_read_frames() skips the FIFO while
-netif_oper_up() is false, the stopped port also keeps re-raising its
-interrupt with nobody draining the FIFO.
-
-Swap the two bits so the port being stopped masks its own interrupt.
-
-Found by code review while comparing the bit mapping against
-adin1110_port_rx_ready().  I do not have access to ADIN1110 or ADIN2111
-hardware, so this was only compile-tested (CONFIG_ADIN1110=m, x86_64),
-not exercised on a device.
-
-Fixes: bc93e19d088b ("net: ethernet: adi: Add ADIN1110 support")
-Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
----
-v2 -> v3: no code change.  Cc the ADI commit-signers that
-get_maintainer.pl reports once a git history is available (Nuno Sa,
-Heiner Kallweit, Chen Ni).  Thanks to Andrew Lunn for pointing out that
-Nuno was missing.
-
-v2:
-- Cc the netdev maintainers, as flagged by the cc_maintainers CI check on v1.
-- Explain how the issue was found and that the change was only compile-tested,
-  no hardware access (netdev guideline for patches found by code review).
-v1: https://lore.kernel.org/all/20261103-adin1110-net-stop-1-yuehongwu@cmss.chinamobile.com/
-
- drivers/net/ethernet/adi/adin1110.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
-index 53fac3d..abdc160 100644
---- a/drivers/net/ethernet/adi/adin1110.c
-+++ b/drivers/net/ethernet/adi/adin1110.c
-@@ -945,7 +945,7 @@ static int adin1110_net_stop(struct net_device *net_dev)
- 	u32 mask;
- 	int ret;
- 
--	mask = !port_priv->nr ? ADIN2111_RX_RDY_IRQ : ADIN1110_RX_RDY_IRQ;
-+	mask = !port_priv->nr ? ADIN1110_RX_RDY_IRQ : ADIN2111_RX_RDY_IRQ;
- 
- 	/* Disable RX RDY IRQs */
- 	mutex_lock(&priv->lock);
--- 
-2.43.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
 
+
+
+
+On Thursday, November 5th, 2026 at 4:29 PM, Paul Moses <p@1g4.org> wrote:
+
+>
+>
+>
+>
+> On Thursday, November 5th, 2026 at 1:19 AM, Ding Meng <meng.ding@siemens.=
+com> wrote:
+>
+> > Commit 97dc7cd92ac6 ("ptp: Support late timestamp determination")
+> > added support for deferring RX timestamp conversion to
+> > ndo_get_tstamp(). When the timestamp is consumed, get_timestamp()
+> > uses the skb's NAPI ID to find the device that owns the timestamp
+> > cookie and invoke its callback.
+> >
+> > Commit e68b6e50fa35 ("udp: enable busy polling for all sockets")
+> > gated NAPI ID bookkeeping with CONFIG_NET_RX_BUSY_POLL. As a result,
+> > when busy polling is disabled, the skb may not carry a usable NAPI ID.
+> > The device lookup then fails, so the driver callback is not invoked.
+> > get_timestamp() falls back to hwtstamp, which does not contain the
+> > converted timestamp, resulting in an incorrect RX hardware timestamp.
+> >
+> > Record skb NAPI IDs independently of busy-poll support to support
+> > drivers that use deferred timestamp conversion and future driver
+> > features that need to look up a device by its NAPI ID.
+> >
+> > Signed-off-by: Ding Meng <meng.ding@siemens.com>
+> > Reviewed-by: Florian Bezdeka <florian.bezdeka@siemens.com>
+> > ---
+> > In the discussion of the issue reported at
+> > https://lore.kernel.org/netdev/20260630112056.885071-1-meng.ding@siemen=
+s.com/
+> > this previous patch added an igc-specific fallback for configurations
+> > with CONFIG_NET_RX_BUSY_POLL disabled. It populated skb's hwtstamp
+> > field with a timestamp converted using the default hardware timer,
+> > allowing get_timestamp() to return it without invoking ndo_get_tstamp()=
+.
+> > But Jakub Kicinski noted that the proposed fix appeared to be a
+> > driver-specific workaround for a generic problem. The engleder driver
+> > would also be affected by the same issue.
+> >
+> > This patch introduces a new configuration option to enable NAPI ID
+> > bookkeeping independently of busy polling. The option is enabled
+> > whenever busy polling is enabled, preserving the existing behavior.
+> > It is also selected by the igc and engleder drivers, ensuring that
+> > skbs carry a NAPI ID even when busy polling is disabled.
+> >
+> > Another approach considered was to require drivers using deferred
+> > timestamp conversion, such as igc and engleder, to enable busy polling.
+> > However, this would introduce an unnecessary dependency between two
+> > independent features: hardware timestamp reporting should not require
+> > busy polling to be enabled.
+> >
+> > Timestamping has been tested only with igc; it has not been tested
+> > with engleder.
+> >
+> >  Documentation/networking/timestamping.rst | 11 ++++++++---
+> >  drivers/net/ethernet/engleder/Kconfig     |  1 +
+> >  drivers/net/ethernet/intel/Kconfig        |  1 +
+> >  include/linux/skbuff.h                    |  4 ++--
+> >  include/net/busy_poll.h                   |  2 +-
+> >  include/trace/events/net.h                |  2 +-
+> >  net/Kconfig                               |  4 ++++
+> >  net/core/filter.c                         |  2 +-
+> >  net/core/skbuff.c                         |  2 +-
+> >  9 files changed, 20 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/Documentation/networking/timestamping.rst b/Documentation/=
+networking/timestamping.rst
+> > index 2162c4f2b28a6..dbe40a1972639 100644
+> > --- a/Documentation/networking/timestamping.rst
+> > +++ b/Documentation/networking/timestamping.rst
+> > @@ -278,9 +278,14 @@ SOF_TIMESTAMPING_OPT_PKTINFO:
+> >    packets with hardware timestamps. The message contains struct
+> >    scm_ts_pktinfo, which supplies the index of the real interface which
+> >    received the packet and its length at layer 2. A valid (non-zero)
+> > -  interface index will be returned only if CONFIG_NET_RX_BUSY_POLL is
+> > -  enabled and the driver is using NAPI. The struct contains also two
+> > -  other fields, but they are reserved and undefined.
+> > +  interface index will be returned only if CONFIG_SKB_MARK_NAPI_ID is
+> > +  enabled and the driver is using NAPI. This hidden configuration is
+> > +  selected automatically by busy-poll support and by drivers that need
+> > +  skb NAPI IDs to resolve deferred hardware timestamps. Drivers that
+> > +  use deferred timestamp conversion must select it so the networking
+> > +  stack can find the device and call its timestamp callback even when
+> > +  busy polling is disabled. The struct contains also two other fields,
+> > +  but they are reserved and undefined.
+> >
+> >  SOF_TIMESTAMPING_OPT_TX_SWHW:
+> >    Request both hardware and software timestamps for outgoing packets
+> > diff --git a/drivers/net/ethernet/engleder/Kconfig b/drivers/net/ethern=
+et/engleder/Kconfig
+> > index 3df6bf476ae7e..9700a243bea11 100644
+> > --- a/drivers/net/ethernet/engleder/Kconfig
+> > +++ b/drivers/net/ethernet/engleder/Kconfig
+> > @@ -22,6 +22,7 @@ config TSNEP
+> >  =09depends on PTP_1588_CLOCK_OPTIONAL
+> >  =09select PHYLIB
+> >  =09select PAGE_POOL
+> > +=09select SKB_MARK_NAPI_ID
+> >  =09help
+> >  =09  Support for the Engleder TSN endpoint Ethernet MAC IP Core.
+> >
+> > diff --git a/drivers/net/ethernet/intel/Kconfig b/drivers/net/ethernet/=
+intel/Kconfig
+> > index 780f113986ea8..7fb63f351fc20 100644
+> > --- a/drivers/net/ethernet/intel/Kconfig
+> > +++ b/drivers/net/ethernet/intel/Kconfig
+> > @@ -376,6 +376,7 @@ config IGC
+> >  =09depends on PCI
+> >  =09depends on PTP_1588_CLOCK_OPTIONAL
+> >  =09depends on ETHTOOL_NETLINK
+> > +=09select SKB_MARK_NAPI_ID
+> >  =09help
+> >  =09  This driver supports Intel(R) Ethernet Controller I225-LM/I225-V
+> >  =09  family of adapters.
+> > diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> > index 6787fcf6ac3e4..164c862f7a403 100644
+> > --- a/include/linux/skbuff.h
+> > +++ b/include/linux/skbuff.h
+> > @@ -1059,7 +1059,7 @@ struct sk_buff {
+> >  =09=09=09__u16=09vlan_tci;
+> >  =09=09};
+> >  =09};
+> > -#if defined(CONFIG_NET_RX_BUSY_POLL) || defined(CONFIG_XPS)
+> > +#if defined(CONFIG_SKB_MARK_NAPI_ID) || defined(CONFIG_XPS)
+> >  =09union {
+> >  =09=09unsigned int=09napi_id;
+> >  =09=09unsigned int=09sender_cpu;
+> > @@ -1267,7 +1267,7 @@ static inline bool skb_pkt_type_ok(u32 ptype)
+> >   */
+> >  static inline unsigned int skb_napi_id(const struct sk_buff *skb)
+> >  {
+> > -#ifdef CONFIG_NET_RX_BUSY_POLL
+> > +#ifdef CONFIG_SKB_MARK_NAPI_ID
+> >  =09return skb->napi_id;
+> >  #else
+> >  =09return 0;
+> > diff --git a/include/net/busy_poll.h b/include/net/busy_poll.h
+> > index 6e172d0f6ef5f..f7c0e62c6a7d7 100644
+> > --- a/include/net/busy_poll.h
+> > +++ b/include/net/busy_poll.h
+> > @@ -130,7 +130,7 @@ static inline void sk_busy_loop(struct sock *sk, in=
+t nonblock)
+> >  static inline void __skb_mark_napi_id(struct sk_buff *skb,
+> >  =09=09=09=09      const struct gro_node *gro)
+> >  {
+> > -#ifdef CONFIG_NET_RX_BUSY_POLL
+> > +#ifdef CONFIG_SKB_MARK_NAPI_ID
+> >  =09/* If the skb was already marked with a valid NAPI ID, avoid overwr=
+iting
+> >  =09 * it.
+> >  =09 */
+> > diff --git a/include/trace/events/net.h b/include/trace/events/net.h
+> > index dbc2c5598e35a..99ed7645242eb 100644
+> > --- a/include/trace/events/net.h
+> > +++ b/include/trace/events/net.h
+> > @@ -208,7 +208,7 @@ DECLARE_EVENT_CLASS(net_dev_rx_verbose_template,
+> >
+> >  =09TP_fast_assign(
+> >  =09=09__assign_str(name);
+> > -#ifdef CONFIG_NET_RX_BUSY_POLL
+> > +#ifdef CONFIG_SKB_MARK_NAPI_ID
+> >  =09=09__entry->napi_id =3D napi_id_valid(skb->napi_id) ?
+> >  =09=09=09=09   skb->napi_id : 0;
+> >  #else
+> > diff --git a/net/Kconfig b/net/Kconfig
+> > index 76ab44aa439a6..8fa7586dc08ca 100644
+> > --- a/net/Kconfig
+> > +++ b/net/Kconfig
+> > @@ -346,9 +346,13 @@ config CGROUP_NET_CLASSID
+> >  =09  Cgroup subsystem for use as general purpose socket classid marker=
+ that is
+> >  =09  being used in cls_cgroup and for netfilter matching.
+> >
+> > +config SKB_MARK_NAPI_ID
+> > +=09bool
+> > +
+> >  config NET_RX_BUSY_POLL
+> >  =09bool
+> >  =09default y if !PREEMPT_RT || (PREEMPT_RT && !NETCONSOLE)
+> > +=09select SKB_MARK_NAPI_ID
+> >
+> >  config BQL
+> >  =09bool
+> > diff --git a/net/core/filter.c b/net/core/filter.c
+> > index b7ac145b68b1f..e2218c18622b8 100644
+> > --- a/net/core/filter.c
+> > +++ b/net/core/filter.c
+> > @@ -10274,7 +10274,7 @@ static u32 bpf_convert_ctx_access(enum bpf_acce=
+ss_type type,
+> >  =09=09break;
+> >
+> >  =09case offsetof(struct __sk_buff, napi_id):
+> > -#if defined(CONFIG_NET_RX_BUSY_POLL)
+> > +#if defined(CONFIG_SKB_MARK_NAPI_ID)
+> >  =09=09*insn++ =3D BPF_LDX_MEM(BPF_W, si->dst_reg, si->src_reg,
+> >  =09=09=09=09      bpf_target_off(struct sk_buff, napi_id, 4,
+> >  =09=09=09=09=09=09     target_size));
+> > diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> > index eb9fcc4b1fd1a..386a32cdc0cc8 100644
+> > --- a/net/core/skbuff.c
+> > +++ b/net/core/skbuff.c
+> > @@ -1581,7 +1581,7 @@ static void __copy_skb_header(struct sk_buff *new=
+, const struct sk_buff *old)
+> >  #ifdef CONFIG_NETWORK_SECMARK
+> >  =09CHECK_SKB_FIELD(secmark);
+> >  #endif
+> > -#ifdef CONFIG_NET_RX_BUSY_POLL
+> > +#ifdef CONFIG_SKB_MARK_NAPI_ID
+> >  =09CHECK_SKB_FIELD(napi_id);
+> >  #endif
+> >  #ifdef CONFIG_XPS
+> >
+> > base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> > --
+> > 2.47.3
+> >
+> >
+>
+> Are you sure this does not make the preexisting timestamp lifetime
+> issue more pathological? I think it needs to be fixed now as well.
+> It was the last item mentioned by Sashiko in your review if I
+> remember correctly.
+>
+> Paul
+
+#!/usr/bin/env python3
+# igc deferred RX timestamp: freed-page deref attempt on 4 KiB pages.
+# - queue small timestamped reply P0 (copied path, netdev_data ptr into pag=
+e PG)
+# - stream large replies (frag path) so PG's two halves are handed to two
+#   frag skbs; the second one makes igc_can_reuse_rx_page() fail and
+#   __page_frag_cache_drain() drop the driver's references
+# - consume the large skbs: last page ref drops -> page freed
+# - recv P0 -> igc_get_tstamp() reads PG
+import ctypes, socket, struct, sys, time
+from pathlib import Path
+
+IFACE =3D sys.argv[1] if len(sys.argv) > 1 else "enp2s0"
+N =3D int(sys.argv[2]) if len(sys.argv) > 2 else 560
+PEER_MAC =3D "c0:74:2b:fe:5d:aa"
+SRC_IP, DST_IP =3D "198.18.0.2", "198.18.0.1"
+SMALL =3D 0
+LARGE =3D 1400
+SO_ATTACH_FILTER =3D 26
+
+
+class SockFilter(ctypes.Structure):
+    _fields_ =3D [("code", ctypes.c_ushort), ("jt", ctypes.c_ubyte),
+                ("jf", ctypes.c_ubyte), ("k", ctypes.c_uint)]
+
+
+class SockFprog(ctypes.Structure):
+    _fields_ =3D [("len", ctypes.c_ushort),
+                ("filter", ctypes.POINTER(SockFilter))]
+
+
+def bpf_prog(insns):
+    arr =3D (SockFilter * len(insns))(*insns)
+    return SockFprog(len(insns), ctypes.cast(arr, ctypes.POINTER(SockFilter=
+))), arr
+
+
+def attach_len_filter(sock, keep_large):
+    BPF_LD_W_LEN, BPF_JMP_JGT_K, BPF_RET_K =3D 0x80, 0x25, 0x06
+    if keep_large:
+        insns =3D [SockFilter(BPF_LD_W_LEN, 0, 0, 0),
+                 SockFilter(BPF_JMP_JGT_K, 1, 0, 200),
+                 SockFilter(BPF_RET_K, 0, 0, 0),
+                 SockFilter(BPF_RET_K, 0, 0, 0x40000)]
+    else:
+        insns =3D [SockFilter(BPF_LD_W_LEN, 0, 0, 0),
+                 SockFilter(BPF_JMP_JGT_K, 0, 1, 200),
+                 SockFilter(BPF_RET_K, 0, 0, 0),
+                 SockFilter(BPF_RET_K, 0, 0, 0x40000)]
+    prog, arr =3D bpf_prog(insns)
+    sock.setsockopt(socket.SOL_SOCKET, SO_ATTACH_FILTER,
+                    ctypes.string_at(ctypes.byref(prog), ctypes.sizeof(prog=
+)))
+    return arr
+
+
+def csum(data):
+    if len(data) & 1:
+        data +=3D b"\0"
+    total =3D sum(struct.unpack("!" + "H" * (len(data) // 2), data))
+    while total >> 16:
+        total =3D (total & 65535) + (total >> 16)
+    return (~total) & 65535
+
+
+def frame(seq, size):
+    src =3D bytes.fromhex(Path("/sys/class/net/" + IFACE + "/address")
+                        .read_text().strip().replace(":", ""))
+    dst =3D bytes.fromhex(PEER_MAC.replace(":", ""))
+    payload =3D bytes(((i * 131 + seq * 17) & 255) for i in range(size))
+    icmp =3D struct.pack("!BBHHH", 8, 0, 0, 0x49C6, seq) + payload
+    icmp =3D icmp[:2] + struct.pack("!H", csum(icmp)) + icmp[4:]
+    ip =3D struct.pack("!BBHHHBBH4s4s", 0x45, 0, 20 + len(icmp), seq, 0x400=
+0,
+                     64, 1, 0, socket.inet_aton(SRC_IP), socket.inet_aton(D=
+ST_IP))
+    ip =3D ip[:10] + struct.pack("!H", csum(ip)) + ip[12:]
+    return dst + src + b"\x08\x00" + ip + icmp
+
+
+def mksock(keep_large):
+    s =3D socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(3))
+    s.bind((IFACE, 0))
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 64 << 20)
+    s.setsockopt(263, 23, 1)
+    s.setsockopt(socket.SOL_SOCKET, 37, 16 | 64)
+    attach_len_filter(s, keep_large)
+    s.setblocking(False)
+    return s
+
+
+seen =3D ctypes.create_string_buffer
+small =3D mksock(False)
+large =3D mksock(True)
+
+# reset stats
+small.getsockopt(263, 6, 8)
+large.getsockopt(263, 6, 8)
+
+small.send(frame(900, SMALL))
+time.sleep(0.3)
+print("P0 queued on small socket", flush=3DTrue)
+
+t0 =3D time.time()
+for i in range(N):
+    large.send(frame(2000 + i, LARGE))
+    time.sleep(0.001)
+time.sleep(1.0)
+
+pkt, drop =3D struct.unpack("=3D2I", large.getsockopt(263, 6, 8))
+print("large burst sent %d, received %d, drops %d, %.3fs"
+      % (N, pkt, drop, time.time() - t0), flush=3DTrue)
+
+# consume the large skbs; frees any page the driver had drained
+got =3D 0
+while True:
+    try:
+        large.recvmsg(4096, 256)
+        got +=3D 1
+        if got % 128 =3D=3D 0:
+            time.sleep(0)
+    except BlockingIOError:
+        break
+print("drained %d large skbs" % got, flush=3DTrue)
+
+# now read P0: igc_get_tstamp() dereferences its stale netdev_data
+try:
+    data, anc, flags, addr =3D small.recvmsg(2048, 512)
+    print("read P0: %d bytes" % len(data), flush=3DTrue)
+except BlockingIOError:
+    print("P0 not queued!", flush=3DTrue)
 
