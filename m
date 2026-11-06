@@ -1,20 +1,20 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.22
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794001305;
-	b=ecDHyspuGu+3Id9SBUOK6XopopN3kD1olUPPqLX0DrO+jpKqkGUlRUE9eqtNCrpkwMG4
-	 YVzYbjkqak9BSTPfkKjY7DFlGtzSxVtI/hLVIu9jBPYfsFntyJpA3Vsh936BPFizCVTXx
-	 MOqjANao1ZTLfsmqZraV+OUy+psvAAlPAd01PwuzcjGpCVHbkX2voQ2hzddYMuUKacOtu
-	 mcxyXbSTstvLFVZk1//GpCSTfE4I/BrQwuJpT2hr/9KcklsoyDUiJa8peXwbzScUiIeVl
-	 Sw1r39dS15v0JHEDljq8boXf5NcaCd4wL2wgHdFZh6yyhj9/cFT7Wi7SxF4MPFL2Z9g==
+	t=1794001416;
+	b=igb37+jKW+3cV1dy7S5DVpoQ06jOTZM0sPAevRSvlz1G2ZzxZbvwMndUv8PXyiW5ZDWM
+	 Q0yHx6RHXk8ugUpZFMCoa2y/TJq6DkzeMZSDTL1zgRV5AWB6Xh+/RMeRgNWRFaPawxBX/
+	 h5P8oao6CdysRffn/Ts27WVqp2xttLCgSJyumF2OXYLQMdqTAIQBlCxeXyJXafh0XxEHh
+	 fNnf4czeECldldRqc9tfJBDDrgpAVXL3sviUarYhdwBjNQVr5tfx+kLjeeSZb8L8GPVor
+	 8L1uxs2iT0C+cgQ6BJhfc2dY28N3TpN81WylDM+W2aZMQZQwepOKEENOI0emKjCGjSw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794001305;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794001416;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -24,71 +24,79 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8N9lrQmdH9TJEi89yEj0VetBUOAEnwvVBAMls1vdLM8=;
-	b=N3b7tOE+j0pBkX3bOzXTDxBIiQtbQiOdss2Qw+Ho0SVGv0qmKLbX4J81aege6FN8RE6A
-	 vbMNxURKBigxf1FXTCU3e72lxISGaUjGrrhdqfut1AoapDeRf46Tl1xlcp7eA2woVGl9a
-	 DutZUt3WDb/JfK8emffiBsLdiUyGXj6DA+EJ0h7rHdWiuBlK86uvLGojQ6daJA8Os+lrL
-	 9pFi16FCsechMdZlGyWBVKb9wOLJaepbqZrs0h23a1mKxaN57arZOGpE4x4IsWcQCBA2C
-	 LsoF484qEE7Cn+MF/uQkXBTXgyxIwNL+E6NujdEhMraMsEBV/an7V9jWk11GYGUfrpA==
+	bh=BgIXGY8SgvP6w3HtFUueuWDoGe84VhugkauvX26/Skg=;
+	b=Hk4mmkh4TTgTFvMtwYpYggEIBvdj2s6+ib304QFuNYZ/wKQk3PkgT1ig62kQJGSH88xO
+	 BvxKjJcjatz+b/6TLnBdfoMnNTwRwl8fnjzDHOs1w6SdtCj+aHAPT/HPlkMtTioWyCDtv
+	 bSajwOBUqRVino54L34rsXEbdr+6wLasx6Ee/6apgcBARcBG7VdXaz9OvU7t3Ge2ucoeL
+	 zMoOlClu4br4+EjmJ9LZbIAl4qOXOY1xuQfDicXWisDFI+0EdNYm66lh+rnaSqBDZfrjN
+	 ZgUMFxcAmc1PJiSNzD7072pcTqB9XFIvKr6FsnQ7YI/t8M80aHu2uK+nc4h0+KlltWw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Bn0Tc5yA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.22
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011022.outbound.protection.outlook.com [52.101.65.22])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nAYhjlti;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.43
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013043.outbound.protection.outlook.com [40.107.201.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736B7606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 736B7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C094606A326;
+	Fri,  6 Nov 2026 21:43:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C094606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Bn0Tc5yA
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nAYhjlti
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jtpXAvduZ6BDfWkK+CRYH5LCCaMbzJsu4IOw0XELIzc32twDfVKbupCcvf3W7SW1TPVYLs+Uy/hPP0WKxjehOAgDfT0AW4vQ69eAgXAwtJvW4cMNuHIK/P/YKdq/6UqvI7db5a4llR7GBmSqLgV9Lp4K4l5Zz9dQopnXwOYAk9TXQgaS23Ok+sdN0Kpd1NeA/TwCNCRsAybGNcqX1XictNh++CmRLS0gJ2IebzGn9BNHVCejx4t3zTRQMpEWJiv2FM+OUlk/8NveYfG3Xp/Hze5czHrzX96e7M9XO0dKX97gz+fJsRs9LmzmS/mtkee3c3PJAoetVqvIYIEspqsU4A==
+ b=xNAKsUCCYVtB58GNH9KpIuAxcfve7+vqN0Wy1mMTcxJskqYTxifAtQCYAiqWkwvu1RDpi88U16o9Y8iZlMYen3bknqHTY2SFoWv0LP7pfh5h433TDxH9+9o8aJxyTXoHhH3JqtdXCsI1LvbBxBbe9amKTl9n2UiD191H7KUs5nXQNg16kBA0hSmq7sQ/LMm+/leER3y76ubQn5CweVntso0nuR1ikK3G2ASHJsdmgIaHRhwQjYfj4f0GWuEK+1sb6Me7KVDo4GNwPu+h2XKInf93ZhHbYk2t98f5W54x1soBqhywOox44GbQRYzK91d378USg2siOWVIqh3sm+8qig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8N9lrQmdH9TJEi89yEj0VetBUOAEnwvVBAMls1vdLM8=;
- b=og4hE9/ynXFmHmlfiBVjIdYDO8g1IrWUAwO0Oa1j0986tY422caS7zn+Rte2PEwp/fAO/zB2yKh66IXGSakHkOT5CDBeFzzscuEH8s00/oeQ2T7P50Ng5dMkh7kY+72w5R51DYwSBi4U2vw8EjB8KKximMWq5+vudp/GIOs72Kf0wMPzYPml2liblHNslPz1KIznEMumhUqEVQZZzmiJh+pcPGhL+3yiUlxq6+8ROoX6T8qA4rtspl/7F+7OwIpwlClLjvx0dUMfauOWhA6Jte5um3pm+YtVAVaJX4/DQLzqwH7qJdfFE15UTBsFbFewj4oCM+ZUj/GaznN3cPdc8g==
+ bh=BgIXGY8SgvP6w3HtFUueuWDoGe84VhugkauvX26/Skg=;
+ b=pfzWMrlpqbbZKAoRN5OjkwlY+XPEF+dvmY0KOzRLMkWPZ2BC8ZBkPaftAalxnIckDWXLflWUJVB9LuDCfCJfIk6pVfOdxaFYwxIJxesOB67YyJpwn3pP8iPQYjs6xu7/R4C2orXXXPUPbSL61FKIelUP+PnQVR1XhCwR8Zmm133ESnPoq52d5mwfoh30P3HY8f0QdrTHfhmFHZoM0fYgqEbl0oePvbVWi1TVQ50+uVVGwzBwX/2AFpSLoph9rZqeuzgpMzq69owfqy1bXk3cYLlQu0d3JqkGq7B0MzKEWUiJWu7qGbwGP7RKUqTI+Hc0iEBHHvvCHOpVrUHH+z5SyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8N9lrQmdH9TJEi89yEj0VetBUOAEnwvVBAMls1vdLM8=;
- b=Bn0Tc5yAjH6/Hs6Vsga/MVv7aX8KtE5NG7E0tHjp79+JsJwuWsHaz+XpfRcqa40QGxxky8oj1lRXxx9K801vSd0n4dA9XnxABnj0Hx4l73UXecxQOmkW+E0h0AwjtyrJEgjyOp3MWt3eh/qkd/WpG521sYxSSa9fO0ITJKQ/2wH4jtAf1iqmIg5TYBvJoNESbnT1Xx8kxDHGlkBPiSKtsGvKAwbPMWCKXZdvMIgK1UMWMkJn3YQqQB4SPP2jsk7/U5A+GHWcQeCjFeSv/2o+uopL0mgXCO6HeMBvaSKDo9Jegh0NOQ2+zXvjfLFtI5tUnmcEfToS9y1AABsaYS3+Qg==
+ bh=BgIXGY8SgvP6w3HtFUueuWDoGe84VhugkauvX26/Skg=;
+ b=nAYhjltiMHlBNfEBH+GfGmaCf+aeGkTCk5Z9oagdpQ+PT0B/R6TeMqC86oJXkdwD7sWYjX9d9n1UBT3fDplCAW93XDVMB2YGwMSEH6JLEwfOwdRCRynCnGI9PXqnCnHjchIQNvwHenhKDiK2T3NBAX19P6zVeCgsU48onsf13Aff4h6s8xND+yu/bwKTdLPxPBdoNub2WOwETAPsf7U5CQLO2ebh08pKxS0OqZwgJNWa2wITe17QKdoOMXihSowvAPw/A8TifJ623ZwNEUa+9YcNdHoWlMHS7XKpQJTdKx8NhZxpwLGIZdXGBG+s/Gh9Urtfe1Rgug4C24QaTnEXiQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM9PR04MB7586.eurprd04.prod.outlook.com (2603:10a6:20b:2d5::17) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SJ2PR12MB8875.namprd12.prod.outlook.com (2603:10b6:a03:543::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 21:41:41 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 21:41:41 +0000
-From: Frank.Li@oss.nxp.com
-To: Matt Porter <mporter@kernel.crashing.org>,
-	Alexandre Bounine <alex.bou9@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Danilo Krummrich <dakr@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev
-Subject: [PATCH 1/1] rapidio/tsi721: move dma_device from rio_mport to tsi721_device
-Date: Fri,  6 Nov 2026 16:41:21 -0500
-Message-ID: <20261106214132.4172049-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: DS1P221CA0001.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:451::6)
- To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ 2026 21:43:32 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0592.007; Fri, 6 Nov 2026
+ 21:43:32 +0000
+From: Zi Yan <ziy@nvidia.com>
+Date: Fri, 06 Nov 2026 16:43:20 -0500
+Subject: [PATCH] mm/truncate: unmap DAX entries before invalidating them
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-fix-dax-invalidate-mapped-v1-1-292ce5958d67@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBCF4VeRWXcgiRdoX6V0Mc2MOtKmIbEii
+ O9uWpcfnPNvkCWpZLhVGyRZNOsnFNhLBX6kMAgqF4MzrrPW1NjrikwraljopUyz4JtiFEY23rl
+ r17dtU0P5xyRl/G/fH6fz9zmJn39B2PcDE2T3KX0AAAA=
+X-Change-ID: 20261103-fix-dax-invalidate-mapped-d0c2296f5543
+To: Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, John Groves <John@Groves.net>, 
+ Miklos Szeredi <miklos@szeredi.hu>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
+ Zi Yan <ziy@nvidia.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: BLAPR05CA0039.namprd05.prod.outlook.com
+ (2603:10b6:208:335::20) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,242 +107,264 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB7586:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04cae035-09c9-4a52-5f8d-08df3c4ebe88
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SJ2PR12MB8875:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd73c8b0-14d4-41c2-ad5c-08df3c4f008a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|19092799006|11063799006|56012099006|261021121427099003|261021123027099003|261022105027099003|261009223027099003|261009221227099003|261102123227099003|261028144727099003|261026140227099003|10067099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|366016|376014|261102123227099003|261102130727099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261026121527099003|261009223027099003|261026140227099003|261028144727099003|5023799004|11063799006|56012099006|10067099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	RVARVYZpYNicRpuBde3rTw4tUbvRgVnJpZ/oqvXQqgMUipnDN42dFpJR8RyYjHRVJc18IjYAy+VzVPrixlRvDkYerO8f6XLtszIT04x70IYAvQeoER+YYC7c63DPgHJGrxoHBrnVq8f6QgaJTgv+SNqfYvFgstGKzSDfNStDDUnSvsV0dWEuk2cBo2PU6jXi+MSC//6s/whrIVlyYi6iIWQH4NAVoGe0jHDPcCqjgbGV2IDkp+s8vGE5fhZixi7/qoYiwjihP1+ekn0KzFiqMnh162eACFLs810/Ey5Zq5NGXjO+L4ye1w7tOGdfYGdf2tSfgJB3ftdGKMpX3N1pvgv4Qm9+zyhQP6ucXQZBDRHQZdwaId/jn8su8AY3fReB6+DSLUctko1SxvJ1PFPWPFX5pOohjiPbvrp+0pNiOWDJNx3KbIdM3yo4p0KHVRxH6zZ7tUHB+WMOly53003X1SQHv8iDq6isnCHPLqDD2I0ntkdEir+Y5klHXwBAfaqyNoJDsIDUSfyJYAevJejvuBFbCCpL3u5b2ojcjnllKZvOQ2Aq5UVfyeoTfa2Uj4NDThgUlXyjCovEXtS8Z4UM+dGzFcPZKXa2KazrAfdoY7kSfaKjPyMs2gaCf1BnfYqVK/Xg1nBKwpuQ62i+GbyZMww090kQc5/sT8qlP6YE5xE=
+	2vhq7AR+dP1XPpbyE5eA26Xzm5LhYog4aE15PBLZ7OOglfBZu2GiYcOYMaZCGlvKhXbodAiNyGR/f4gbZ3ueSk8tPcPU+PAO2q95cn9zE+63vkY70I5muBgRjF1zgxEK2iQSxLlnzHyNo3FqEZPKylu3Toa4mqnHR2RPGz+3c46RQnGvZlxoq59Fgpy8zfa+66lAoEUiaGFaflStpBQFUSp2h7TtuO+xadLMr5vrm1dUqvab+dqda5exnMYNrrH3AMp7hT1m2XQpZFcAANxw7fb6PtdIZ4uEmO499AcNCLyT0/UP8plW3/XEEoT2oE9+FsDC/7bCVDg2XI2DzY8C8a1tk57YBjKxPXMRivmvvNsm9uHeg7SsyoJkleGvuIm1nWig5sO7jzUgy2IZzCYR4lXVBqsfGNZYjeQGQEnAiE/OtEqruvRJUGGVZ/tqo/qdFZxIwPVmDQTLNx7GMEvVgwKnzGES4Ki7uzKQrZtckQ+5INccrqZEI1Xv5wMTLuH6I1tAi/IFv+jpEVKNWLYx1lKdXCpN+zpUOvnmXqUuX42wZF8RaNiN5PqGmkfFsax0SdBawOwc6C/knHvvRYtWgsqajPKPfHTE7R+++YXmsXNSP1oiJeeDil9wAHRw1TAFralCjbzlZz7Lzkfinyvx8xAfgPLf3J7BWI35cqkXphw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(19092799006)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261022105027099003)(261009223027099003)(261009221227099003)(261102123227099003)(261028144727099003)(261026140227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(366016)(376014)(261102123227099003)(261102130727099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261026121527099003)(261009223027099003)(261026140227099003)(261028144727099003)(5023799004)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vetU5mDaAH5lWvuUvOZa9CoQjzdo3TmswB6+IMwktKLZyxWqjvdudVswm2g2?=
- =?us-ascii?Q?eXj1riK25U32o6Od5ZZ8POtjL5m0aDc7o5mXBfOFsUNBq7BVOpHfgu0XVuOo?=
- =?us-ascii?Q?MMby5a2e9g0Wkn5ym8QM5Oj7wE8fYKjmH+GAdizcQbr5hkGXoLmtNI6LWXsp?=
- =?us-ascii?Q?7jawPmafnXnvsa/ImZWbpo3fhpj/bCfOEUss3ar48YPGwz2+Ga0X94l8naP8?=
- =?us-ascii?Q?EzJJgI+Iph7Zf5PhnNGPLMucIH0U/9cf0gG8OuUwLWx/mzAkUTE3FjS0EF23?=
- =?us-ascii?Q?1xiOX8j3rkPPysYGI9E/faVjh1c5Vv/wAcYFnOoza6L/e/6LEWLvFFdi1tG1?=
- =?us-ascii?Q?UbS8jiMDXReiBQp7WQlLjOayyfIk9c61mRc6mcn+obeLdAtwcrDbtmsjWtYY?=
- =?us-ascii?Q?1lYC3pqKbUwsGIdVSdlWJSTyxBG38c5E8/zkPuoHq5octI5ScSow0B/aa/NZ?=
- =?us-ascii?Q?QERhxugqg86n9pbvytFUGoVIR/3q8/WYLwh5MOTdjdXwWCNf/qERN8jI9qDL?=
- =?us-ascii?Q?3AbIO6g3ZwJ6TEDEoiHUcOmj5sfweEHJW4usegH+cPtXPbn8TozqYlemLDN7?=
- =?us-ascii?Q?9SCNGQC001WI1wmzIwro55xpxw8zphlXR0aO8hQRi9pArSxiOpUUkBIo7b+8?=
- =?us-ascii?Q?falhC11kVYhKltpnJhi8hO5CHlhLIqRcs9j2yddZN90OGShkClnPPTS7ni9Z?=
- =?us-ascii?Q?aeL2vDnGnHhgNSEtGtFPcV1HJjAHoEjQIj89HoRGDkoG97ShUBUwvn7oMSNP?=
- =?us-ascii?Q?03bc/z83EP38m67U8LenzSw0RZCF1gY8Tt//kx92BwZSnI9deJioYXUir0T+?=
- =?us-ascii?Q?nJ20XJNag1IqBWXNEOfG7oEuq9NSJ0uQqF4ATpFMx4iS0q8fJr0QrlraPaqN?=
- =?us-ascii?Q?diIatBWK4bDtnhUhyWCybhQy9ss5yGO/+uuCx544mLFwoBFKuD+MOj588la8?=
- =?us-ascii?Q?UAx8rdwt7VdSqEzg/5w6R+VBtb2zAKeowdJT41D6CxMo3RE7y30yoOO280iq?=
- =?us-ascii?Q?Xv3QPfoAsTz5PhJEjplTcZeWrb2lXmQY2Sg4uT4RFdwYcIbXRLPX2LGCbVwZ?=
- =?us-ascii?Q?qTjDY7Er9WdGsIjRBvFfk7Luj2VxBNwyYnQEizcOpaacgP9jPYZ24XsDWJf/?=
- =?us-ascii?Q?PgUkVDJkmw7e+EpJq/eSsT7m7khS9XcxDSHqxkfZ7eWaXsLsR4ER4B76xOgb?=
- =?us-ascii?Q?4W3BvwttC+DYVP1PGVL+GWShZBiyrIWUhJpuYFxpRzvrAK5rBJg1zcXhi82k?=
- =?us-ascii?Q?6DZY6RLoEERnHcGXYS3vcDF1suMwH843bP77K6LO6HUEGOMZFYXHSbnlnXqi?=
- =?us-ascii?Q?mcvUZrRMZB+7FEG0ZxJ7arGFslsbITiEklaCXRjYd0tv0bZwT4tsDY61FkZc?=
- =?us-ascii?Q?Bq6WY8CO+KE0LoToZCcnlICz9ttREuUFPsF5mx1O+QTRz1g/4+dR3YwMpx08?=
- =?us-ascii?Q?zI/KNPD+EXuuJGUIk5swRlOBb/128MxdM6DblR1yONaEUtYa93/9WQ/WSgae?=
- =?us-ascii?Q?U6igK4OH0/RdR+IYO4NMW6UqA+JWbZTeNJAa4R9bGK3aR3+VUbcxHaxd/bKf?=
- =?us-ascii?Q?M6iqOCKL3shBPF7wEfvoCVNUK1UEY/sresHMRSE2jLeOanAGHZST6xg+eNZx?=
- =?us-ascii?Q?FJrY8bd2NiFhVNUJNp7eEKzF13DNyaN0f242tjHehSvus2mzgqPtCWks2cAF?=
- =?us-ascii?Q?o9Ff6LhfZKiIvK6YKsM6pLbj4KhuxyrrtEGK3MxkSUpNQZ0U6riCcRA1WVgm?=
- =?us-ascii?Q?RQCtYahXtuEmQn2xMV5ZZnxm7hnvcG0hfUpGj+14tvzbBQ5otGkL?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04cae035-09c9-4a52-5f8d-08df3c4ebe88
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+	=?utf-8?B?aXNOcllLM01zZjNrUmg3YWo4RGl1ZTJXamlHY3VETzNoSjIzOHJGZlF6dVUr?=
+ =?utf-8?B?Zk1xRkRaSEJBTE5xb3hmajVOQ3BCMnQ1d251QjlJSXhMWkZTem1vazhjV01B?=
+ =?utf-8?B?dS94NTdrd1ZkVkF6RHIvZ2RpZXB1eTFPaTY3bTBQMUs5N1dKdkQ4MG5Bc050?=
+ =?utf-8?B?WHZSZzVVZ1JZMGc0WjB3YlpndTQvZC9lcG1IeWgxRXNzSEpReHFscUZGL2lS?=
+ =?utf-8?B?RHpYRElKYzI5NGlIR0tHK3hLVC9ydTM4TWl5V2twazFmOEkwdWxacVVoLzJH?=
+ =?utf-8?B?Rzk2cngwK0dTaW1oSE5LVlF1SFpRWmIwVHkwRUY4dWpUVTFLVDN5UnZ2amg1?=
+ =?utf-8?B?cnN4cnN0MkpLb3ZIQ0dzVGFaaW5OSjh5YURLV1JEZUoySTlpeFVxdHZMNlBV?=
+ =?utf-8?B?ZVRFMDc5WnZBazgrK3poc1R6RjVsdUpxbDNYeFYveUN3SERWTXVaVTQxM0pq?=
+ =?utf-8?B?bFIwVXc3SDk5U1crRWMvRnovei9NWHhHd0xxWEhUSDNLYVZFOHZUMGJ3QTFX?=
+ =?utf-8?B?azJIYU5wVCtLVTkwNTM1NENoM0x6Wkd3NGJrOXlndFYrNmdteG9tME01Tjhi?=
+ =?utf-8?B?K2s1eXNicDk2YTBUcDFRRUZDdXN4R2tJTlBORkpxNWU0TG55ZER5U0ZraVA1?=
+ =?utf-8?B?d1Q1bWlaajZtWHc3TjFKcVJGWW9FelJHZDFyWnZhbStvNU45YzhhMG5HR01C?=
+ =?utf-8?B?UC9nS3U5RG5OVFRuU0lKa05KSVp5b0lnemZMNmdQZERTYlhUSjBRVzhBUlB5?=
+ =?utf-8?B?UlZ3TXhTaUxUNlA0eUJIK2g5WmNnbjUwejJkLzRHMi9rd2dqZ29jaDVTbE9P?=
+ =?utf-8?B?Y0c2d0Qvbld0clU0ZVNPOWpHbHZJRlZZN3R5ajZMdnNkOXB2amNwOEhFVHZX?=
+ =?utf-8?B?SnlCckwwSjN2eDM5WEtoZkJSajhtYUQ4NldZak5TRHBISVZhWnRjb2xLYkty?=
+ =?utf-8?B?R0tzQlJPc1NYVWNiTktDY3hITGp2Qk9wTzMwMElyTG5zbjl2K3VHQkM0UDVq?=
+ =?utf-8?B?di9DbmJpeS92NXU1SWFLa3JEUGxmeU1sTGU0TzFNRHQrV2VKclRBeTNzZ0dI?=
+ =?utf-8?B?NldmUUtZZVJQVndTdG14NlROM2lnNlMzTFVseXk5OC9WeGZzcXRXdnpUSHNO?=
+ =?utf-8?B?dVBNOHZkcGs4R2VjZWRzYmtLT0N0ZGNwM2V4U3NYWHZEMjFTcDZPVDFpb1Z6?=
+ =?utf-8?B?S2F4YVNuOVgwMHNlbm12SmhCdjQydFpQaGNJb2pxbm54SGRrdjNyU3o5TjBZ?=
+ =?utf-8?B?bE5EeWl0MkxrOXh4SmxubEMyVHkzaUE5UDBZUE5STjdqRVM2MUp4NWwxTjZj?=
+ =?utf-8?B?d1U0NE5YL1VXRE9yV2lqUmpvOUFYTUdIQTZuV3cvOWZoVHNJTWx2Qm1HY1pk?=
+ =?utf-8?B?N0xZd200SWo5ZTZ6dWtVNkY5cnBJQkJxTE9wbjBnM0FYa0JhaG8wdXNsTVpy?=
+ =?utf-8?B?WVkwN1E1dXJ4YTFWZlNqNXhzdlRqdzJrSmNpODA4OE0wblNFQnk0R29nakQ4?=
+ =?utf-8?B?Z1NObzI3U2ZUR3BDUFJrLzcrR1c1SGZjQUo4QzBoTGZ0a1hSemVmaE1NL1pH?=
+ =?utf-8?B?dVBSWmlhSldJUm8wWi9DdTBaUGtYVTR1WGc3Yk1ZZlhJQkdJR3VIZURIVUZ2?=
+ =?utf-8?B?VUt2U1ArS0lQaUNIUGpVVXVwS2x0b2JBZFFpK3BQU3ZKWGtQMVgySy9pZWYr?=
+ =?utf-8?B?Y0lOcWdBSDBIdUJzdEZhcm8xVGIzQWh4YncvMll0NGRSSFlQcC9wQXQ3OTE0?=
+ =?utf-8?B?Ym0xZjh0QlppUk53ZTlMMGg2dk01YWwveWExQ2k1Z0RnZEtYYVFJWjZPZUx2?=
+ =?utf-8?B?Zk4zcGFnbkUvTVpDcjcvMmN3SW41YnVhWmFYWkRNVjBMOVpLZExoV0RpdmpF?=
+ =?utf-8?B?KytMem9OeER3RVBBQzBDbVpHZUpCaU02SWVqdEw5RktMWnpoS1NucTI3YTVm?=
+ =?utf-8?B?bG5MYmdlYlJyVnhNU3pobzd2VFZhY2puZ1RqdFlhK25PRENOZStGU2NGTGtB?=
+ =?utf-8?B?eUhUdHp2dDJPejBITXhFdVRjSDRHQmg5MVB4MFlyNEY2SHM5cklFbzg4dFZ3?=
+ =?utf-8?B?TWJHcmM0UVRhdkRLcDZQZU15R3JPaTdwYXJiZlRjUlFaMTZFNGF0K2p5bWgz?=
+ =?utf-8?B?a1B2V3ZJSUFZQkM2a2ZjZlpHZFpOMmxNNllrbE1oSWNPZTJQSW1KNnZweFJl?=
+ =?utf-8?B?Z1BBNGpaTDBWa3VxZEI4aSs3OTBuYU9idFo2ek4wTFVJejZieTBvZFJ2VWsy?=
+ =?utf-8?B?c09XZkl2NHl3RnhLaE5qaktwMWkxVnJGQ05mblNabDVLRXhmZ0RaUlJzRGVN?=
+ =?utf-8?Q?lAIDe/mFCFvrKTtPeY?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd73c8b0-14d4-41c2-ad5c-08df3c4f008a
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 21:41:41.2763
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 21:43:32.0515
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R8UhkWMoTO1m30iqemJD8wpIlDqtpyzDo5gT1naFT1ItMGmyyElv0DbrG8rTtf740/mkHD2/bP9+nh5kK9UjQiDMpbciwhg2oVVTKMNunFafY2SqWS4A33FrsCraAfb0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7586
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5VWymNtuEi5JTuxLgHU3To/jemZjlXmq7RAJxUxf3VMpzzvS5MZl+dyr/45l7dKC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8875
 
-From: Frank Li <Frank.Li@nxp.com>
+invalidate_inode_pages2_range() invalidates the clean DAX entries in the
+range through dax_invalidate_mapping_entry_sync() and only unmaps the range
+afterwards. Dropping the last association of an entry releases its folio
+by dissolving the folio into order-0 ones. If the entry is still mapped,
+1. dax_folio_put() warns;
+2. if the folio order is PMD, folio_remove_rmap_pmd() during the unmap
+   afterwards operates on an order-0 folio (the original head page) and
+   corrupts the original first tail page metadata.
 
-The embedded struct dma_device in struct rio_mport is only used by the
-tsi721 driver. Move it into struct tsi721_device where it belongs, and
-replace it with a pointer in struct rio_mport so that the generic RapidIO
-code (rio_chan_filter) can still compare channel ownership without a
-driver-specific container_of.
+This is reachable from userspace with a copy-on-write write to a mapped
+reflinked file on XFS with DAX:
 
-Prepare move struct dma_device to private.
+  WARNING: fs/dax.c:452 at dax_disassociate_entry.isra.0+0x147/0x1c0
+  Call Trace:
+   __dax_invalidate_entry+0x106/0x320
+   invalidate_inode_pages2_range+0x3ce/0x830
+   dax_iomap_rw+0x421/0xcc0
+   xfs_file_dax_write+0x252/0x9e0
+   vfs_write+0x53a/0xe70
+   __x64_sys_pwrite64+0x195/0x250
+   ...
+  WARNING: ./include/linux/rmap.h:351 at folio_remove_rmap_pmd+0x8b2/0xaf0
+  Call Trace:
+   split_huge_pmd_locked+0x751/0x2350
+   __split_huge_pmd+0x1bb/0x310
+   ...
+   unmap_mapping_pages+0x133/0x150
+   invalidate_inode_pages2_range+0x700/0x830
+   dax_iomap_rw+0x421/0xcc0
+   ...
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+To fix it, unmap DAX ranges before invalidating them, as the page cache
+path does for mapped folios. In __dax_invalidate_entry(), when
+invalidating, skip an entry if the code is dropping its last association
+but its folio still has outstanding references. -EBUSY is returned for the
+skipped entries. The unmap before invalidation works because any remap of
+the folio between the unmap and invalidation will bump the folio refcount.
+
+Fixes: 38607c62b34b ("fs/dax: properly refcount fs dax pages")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zi Yan <ziy@nvidia.com>
 ---
-build test only
-combine with other on going reviewed rio patches. drivers/rapidio can
-build with allyesconfig after move struct dma_device to
-drivers/dmaengine.h
----
- drivers/rapidio/devices/tsi721.h     |  1 +
- drivers/rapidio/devices/tsi721_dma.c | 44 ++++++++++++++--------------
- drivers/rapidio/rio.c                |  2 +-
- include/linux/rio.h                  |  8 ++---
- 4 files changed, 26 insertions(+), 29 deletions(-)
+I found this while auditing the paths that map pages into user page
+tables. invalidate_inode_pages2_range() releases the folios of DAX
+entries that are still mapped. For a PMD-mapped folio this corrupts what
+used to be its first tail page, and a copy-on-write write to a mapped
+reflinked file on XFS with DAX is enough to hit it.
 
-diff --git a/drivers/rapidio/devices/tsi721.h b/drivers/rapidio/devices/tsi721.h
-index 4f996ce627254..2df3955581af3 100644
---- a/drivers/rapidio/devices/tsi721.h
-+++ b/drivers/rapidio/devices/tsi721.h
-@@ -886,6 +886,7 @@ struct tsi721_device {
- 	u32		pw_discard_count;
- 
- 	/* BDMA Engine */
-+	struct dma_device	dma;
- 	struct tsi721_bdma_maint mdma; /* Maintenance rd/wr request channel */
- 
- #ifdef CONFIG_RAPIDIO_DMA_ENGINE
-diff --git a/drivers/rapidio/devices/tsi721_dma.c b/drivers/rapidio/devices/tsi721_dma.c
-index 52749f1d2a11a..09faaf2f334cc 100644
---- a/drivers/rapidio/devices/tsi721_dma.c
-+++ b/drivers/rapidio/devices/tsi721_dma.c
-@@ -51,7 +51,7 @@ static inline struct tsi721_bdma_chan *to_tsi721_chan(struct dma_chan *chan)
- 
- static inline struct tsi721_device *to_tsi721(struct dma_device *ddev)
- {
--	return container_of(ddev, struct rio_mport, dma)->priv;
-+	return container_of(ddev, struct tsi721_device, dma);
+In QEMU with emulated NVDIMMs and XFS on an fsdax namespace:
+
+- Copy-on-write with the script below, PTE- and PMD-mapped, with only a
+  mapped and with a and b mapped. Before this patch, the WARNs in the
+  commit message and a corrupted first tail page in the PMD case. With this
+  patch: the mapping of a sees the new data, b keeps the old data, and
+  nothing warns, except for item 4 below.
+
+  mkfs.xfs -f -m reflink=1 -d su=2m,sw=1 /dev/pmem1
+  mount -o dax=always /dev/pmem1 /mnt && cd /mnt
+  xfs_io -f -c "extsize 2m" -c "pwrite -q -S 0x5a 0 4m" -c fsync a
+  xfs_io -f -c "reflink a 0 0 4m" b
+  (echo "mmap -r 0 4m"; echo "madvise -h 0 4m"; echo "mread 0 4m";
+   sleep 4; echo "mread -v 0 16") | xfs_io a &
+  sleep 2; xfs_io -c "pwrite -q -S 0xa5 0 8k" -c fsync a; wait
+
+Open issues that this patch does not address. They are races or
+already exist without it.
+
+1. A refault, or a short-term or speculative reference, between the
+   early unmap and the invalidation keeps a last association in place,
+   and invalidate_inode_pages2_range() returns -EBUSY.
+   dax_iomap_iter(), dax_unshare_iter() and dax_zero_iter() ignore that
+   and write the new extent anyway, which leaves a stale entry. Without
+   this patch the same race tears down the referenced folio. Should
+   these paths retry, or fail?
+
+2. XFS device pre-removal ignores the result as well, so an entry kept
+   because of a short-term reference is not revisited before the
+   memmap goes away.
+
+3. folio->share is updated under each file's i_pages lock, so the
+   shared-count check here, like dax_folio_put() itself, can race with
+   another file dropping its share.
+
+4. With reflink, after a copy-on-write write, a PTE fault can associate
+   an order-0 entry with a shared folio that another file still maps
+   with a PMD. That trips WARN_ON_ONCE(dax_entry_order(entry) !=
+   folio_order(folio)) in dax_associate_entry(), with and without this
+   patch.
+
+Based on an LLM's analysis, 1 and 2 can be fixed by holding the invalidate
+lock and breaking DAX layouts in the callers; 3 needs a per-folio lock
+for ->share; 4 needs a way to share a folio at different granularities,
+or no PMD mappings of shared extents as a simple fix.
+
+LLMs were used to analyze the issue, write the patch, and review the code.
+---
+ fs/dax.c      | 28 ++++++++++++++++++++++++++--
+ mm/truncate.c | 16 +++++++++++-----
+ 2 files changed, 37 insertions(+), 7 deletions(-)
+
+diff --git a/fs/dax.c b/fs/dax.c
+index 94ba41273347c..e448552d8080d 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -527,6 +527,24 @@ static struct page *dax_busy_page(void *entry)
+ 		return NULL;
  }
  
- static inline
-@@ -437,7 +437,7 @@ static int tsi721_submit_sg(struct tsi721_tx_desc *desc)
- 	rio_addr = desc->rio_addr;
- 	next_addr = -1;
- 	bcount = 0;
--	sys_size = dma_to_mport(dchan->device)->sys_size;
-+	sys_size = to_tsi721(dchan->device)->mport.sys_size;
++/*
++ * Determine if an entry can be disassociated. It cannot be if it is its folio's
++ * last association and the folio still has a reference.
++ */
++static bool dax_can_disassociate(void *entry)
++{
++	struct folio *folio;
++
++	if (dax_is_zero_entry(entry) || dax_is_empty_entry(entry))
++		return true;
++
++	folio = dax_to_folio(entry);
++	if (dax_folio_is_shared(folio) && folio->share > 1)
++		return true;
++
++	return !folio_ref_count(folio);
++}
++
+ /**
+  * dax_lock_folio - Lock the DAX entry corresponding to a folio
+  * @folio: The folio whose entry we want to lock
+@@ -853,9 +871,14 @@ static int __dax_invalidate_entry(struct address_space *mapping,
+ 	entry = get_next_unlocked_entry(&xas, 0);
+ 	if (!entry || WARN_ON_ONCE(!xa_is_value(entry)))
+ 		goto out;
++	/*
++	 * Removing the last association of a folio releases the folio, so make
++	 * sure the folio has no reference.
++	 */
+ 	if (!trunc &&
+ 	    (xas_get_mark(&xas, PAGECACHE_TAG_DIRTY) ||
+-	     xas_get_mark(&xas, PAGECACHE_TAG_TOWRITE)))
++	     xas_get_mark(&xas, PAGECACHE_TAG_TOWRITE) ||
++	     !dax_can_disassociate(entry)))
+ 		goto out;
+ 	dax_disassociate_entry(entry, mapping, trunc);
+ 	xas_store(&xas, NULL);
+@@ -1017,7 +1040,8 @@ void dax_break_layout_final(struct inode *inode)
+ EXPORT_SYMBOL_GPL(dax_break_layout_final);
  
- 	rd_idx = ioread32(bdma_chan->regs + TSI721_DMAC_DRDCNT);
- 	rd_idx %= (bdma_chan->bd_num + 1);
-@@ -965,9 +965,7 @@ int tsi721_register_dma(struct tsi721_device *priv)
- 	int i;
- 	int nr_channels = 0;
- 	int err;
--	struct rio_mport *mport = &priv->mport;
--
--	INIT_LIST_HEAD(&mport->dma.channels);
-+	INIT_LIST_HEAD(&priv->dma.channels);
+ /*
+- * Invalidate DAX entry if it is clean.
++ * Invalidate DAX entry if it is clean and dropping it would not release a folio
++ * that is still in use.
+  */
+ int dax_invalidate_mapping_entry_sync(struct address_space *mapping,
+ 				      pgoff_t index)
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 9e9bf029635cf..b03cd99c4bba8 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -732,6 +732,15 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+ 	if (mapping_empty(mapping))
+ 		return 0;
  
- 	for (i = 0; i < TSI721_DMA_MAXCH; i++) {
- 		struct tsi721_bdma_chan *bdma_chan = &priv->bdma[i];
-@@ -977,7 +975,7 @@ int tsi721_register_dma(struct tsi721_device *priv)
- 
- 		bdma_chan->regs = priv->regs + TSI721_DMAC_BASE(i);
- 
--		bdma_chan->dchan.device = &mport->dma;
-+		bdma_chan->dchan.device = &priv->dma;
- 		bdma_chan->dchan.cookie = 1;
- 		bdma_chan->dchan.chan_id = i;
- 		bdma_chan->id = i;
-@@ -992,40 +990,42 @@ int tsi721_register_dma(struct tsi721_device *priv)
- 		tasklet_init(&bdma_chan->tasklet, tsi721_dma_tasklet,
- 			     (unsigned long)bdma_chan);
- 		list_add_tail(&bdma_chan->dchan.device_node,
--			      &mport->dma.channels);
-+			      &priv->dma.channels);
- 		nr_channels++;
++	/*
++	 * Invalidating a DAX entry can release its folio, so unmap DAX entries
++	 * before invalidating them. dax_invalidate_mapping_entry_sync() skips
++	 * the last association of a folio that still has references, e.g.
++	 * because it was faulted in again in the meantime.
++	 */
++	if (dax_mapping(mapping))
++		unmap_mapping_pages(mapping, start, end - start + 1, false);
++
+ 	folio_batch_init(&fbatch);
+ 	index = start;
+ 	while (find_get_entries(mapping, &index, end, &fbatch, indices)) {
+@@ -787,11 +796,8 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+ 		cond_resched();
  	}
- 
--	mport->dma.chancnt = nr_channels;
--	dma_cap_zero(mport->dma.cap_mask);
--	dma_cap_set(DMA_PRIVATE, mport->dma.cap_mask);
--	dma_cap_set(DMA_SLAVE, mport->dma.cap_mask);
-+	priv->dma.chancnt = nr_channels;
-+	dma_cap_zero(priv->dma.cap_mask);
-+	dma_cap_set(DMA_PRIVATE, priv->dma.cap_mask);
-+	dma_cap_set(DMA_SLAVE, priv->dma.cap_mask);
- 
--	mport->dma.dev = &priv->pdev->dev;
--	mport->dma.device_alloc_chan_resources = tsi721_alloc_chan_resources;
--	mport->dma.device_free_chan_resources = tsi721_free_chan_resources;
--	mport->dma.device_tx_status = tsi721_tx_status;
--	mport->dma.device_issue_pending = tsi721_issue_pending;
--	mport->dma.device_prep_slave_sg = tsi721_prep_rio_sg;
--	mport->dma.device_terminate_all = tsi721_terminate_all;
-+	priv->dma.dev = &priv->pdev->dev;
-+	priv->dma.device_alloc_chan_resources = tsi721_alloc_chan_resources;
-+	priv->dma.device_free_chan_resources = tsi721_free_chan_resources;
-+	priv->dma.device_tx_status = tsi721_tx_status;
-+	priv->dma.device_issue_pending = tsi721_issue_pending;
-+	priv->dma.device_prep_slave_sg = tsi721_prep_rio_sg;
-+	priv->dma.device_terminate_all = tsi721_terminate_all;
- 
--	err = dma_async_device_register(&mport->dma);
-+	err = dma_async_device_register(&priv->dma);
- 	if (err)
- 		tsi_err(&priv->pdev->dev, "Failed to register DMA device");
-+	else
-+		priv->mport.dma = &priv->dma;
- 
- 	return err;
- }
- 
- void tsi721_unregister_dma(struct tsi721_device *priv)
- {
--	struct rio_mport *mport = &priv->mport;
- 	struct dma_chan *chan, *_c;
- 	struct tsi721_bdma_chan *bdma_chan;
- 
- 	tsi721_dma_stop_all(priv);
--	dma_async_device_unregister(&mport->dma);
-+	priv->mport.dma = NULL;
-+	dma_async_device_unregister(&priv->dma);
- 
--	list_for_each_entry_safe(chan, _c, &mport->dma.channels,
-+	list_for_each_entry_safe(chan, _c, &priv->dma.channels,
- 					device_node) {
- 		bdma_chan = to_tsi721_chan(chan);
- 		if (bdma_chan->active) {
-diff --git a/drivers/rapidio/rio.c b/drivers/rapidio/rio.c
-index 3ac83721c0e94..d2dbc9d94cc51 100644
---- a/drivers/rapidio/rio.c
-+++ b/drivers/rapidio/rio.c
-@@ -1754,7 +1754,7 @@ static bool rio_chan_filter(struct dma_chan *chan, void *arg)
- 	struct rio_mport *mport = arg;
- 
- 	/* Check that DMA device belongs to the right MPORT */
--	return mport == container_of(chan->device, struct rio_mport, dma);
-+	return mport->dma == chan->device;
- }
- 
- /**
-diff --git a/include/linux/rio.h b/include/linux/rio.h
-index f42379775ce8f..98ded5db5a2a1 100644
---- a/include/linux/rio.h
-+++ b/include/linux/rio.h
-@@ -257,7 +257,7 @@ struct rio_dbell {
-  * @name: Port name string
-  * @dev: device structure associated with an mport
-  * @priv: Master port private data
-- * @dma: DMA device associated with mport
-+ * @dma: DMA device pointer associated with mport
-  * @nscan: RapidIO network enumeration/discovery operations
-  * @state: mport device state
-  * @pwe_refcnt: port-write enable ref counter to track enable/disable requests
-@@ -288,7 +288,7 @@ struct rio_mport {
- 	struct device dev;
- 	void *priv;		/* Master port private data */
- #ifdef CONFIG_RAPIDIO_DMA_ENGINE
--	struct dma_device	dma;
-+	struct dma_device *dma;		/* associated DMA device, if any */
- #endif
- 	struct rio_scan *nscan;
- 	atomic_t state;
-@@ -513,10 +513,6 @@ struct rio_dma_data {
- 	enum rio_write_type wr_type; /* preferred RIO write operation type */
- };
- 
--static inline struct rio_mport *dma_to_mport(struct dma_device *ddev)
--{
--	return container_of(ddev, struct rio_mport, dma);
--}
- #endif /* CONFIG_RAPIDIO_DMA_ENGINE */
- 
- /**
--- 
-2.43.0
+ 	/*
+-	 * For DAX we invalidate page tables after invalidating page cache.  We
+-	 * could invalidate page tables while invalidating each entry however
+-	 * that would be expensive. And doing range unmapping before doesn't
+-	 * work as we have no cheap way to find whether page cache entry didn't
+-	 * get remapped later.
++	 * For DAX, also zap the mappings that were faulted in while we were
++	 * invalidating.
+ 	 */
+ 	if (dax_mapping(mapping)) {
+ 		unmap_mapping_pages(mapping, start, end - start + 1, false);
+
+---
+base-commit: 63919467fb5239ab824de6a7a128b882055b24af
+change-id: 20261103-fix-dax-invalidate-mapped-d0c2296f5543
+
+Best regards,
+--  
+Yan, Zi
 
