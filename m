@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794003208;
-	b=1kUWuNQcDvU1c3AFBrm/igORfA4lazbb4IkRnamH8/nXzFfEQPgCUtCB9XSLRiJ2I/UK
-	 1bug4n1+RsVnAQxzeY5QS8Vc6Xx2aasUOFP8aTOjhKaklB1gf/RyUS9U+SyFj24ysSFO9
-	 RWTVWcAOGEprumb2Gkj4bWRETaFd9z7s9Uiv/ebLPWc2q/z3k3DaJkKWqVzmePZy/qcSn
-	 aXZIWpxfFq6W2WlwGCbuJuoSsV1cgbeU1LK0rX6v9IjH5nWje1hIKVwPlhy0ezkgumc1d
-	 6MKCi3hBqgFTQwPFsxttiLQ5EwyQehgtGrjD7H5E2LtAkkQ0u3YffqEL+fgPIcDJJow==
+	t=1794003356;
+	b=JSvAe5ikRmSPnEzUfnQ39QP3AHrS53NAZETkzcr6XUqbL+Kxd21UgN+2HC5cE/QqFkXG
+	 xE0+X0ZBa2qItK4RicNSyRz5mTxn8KFqvBFZ0fL6ZSgq8g0oWczq5TnqSQQikT/GgHfAS
+	 vTar1t0QV9Tc6GU3T3RrmKx6ppcUOjJwb4G0vcVZJpp1WojGYNyq6IbtNHlx494cPEup8
+	 OIVopfbGxgdZ3prjwFISUfBsETdqaJlN5sGTxhDtaIT1v5z4U8z7Vem3PfWylGhOfOJck
+	 U3iLmP2Wf7lTC+oPdq9odeDmXfXhsVgxp2XOKdrzbFksv9RcUsnPs+evW2pq294maPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794003208;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:User-Agent;
-	bh=JYRO1i26D9FG5gpovbYIFwDb5aLIXhRJ9ZsiS5nT6io=;
-	b=X0M5DMh6XjK9+jFlSLq50RQPP4sSLkR3Lgr9O1EMVQR4v+VF3tNCmyV/mdf1LE5wpLsP
-	 cn1XVHYw93mo8nHVBw9sk4bV4pXVQdJ6ye+D0FbcI3UklXY3kavwnjG9fWGin1v5Olvc6
-	 Iq6nyXutpAG8ZYkqooSG2gcsZuYiAQuNXVFfvVxOm46v8l7XvlMe+Z6Ehtm1zWz83hZvT
-	 wb9IMZyj1EWfUA6E8kgN64917Go+JwhvqOdMeoIMW8yn/R0DOfu+kyKcwf+x6Jlg+uAT3
-	 gS947+CyoyIHQG+hx/I+bnFDSGKnzYwweCRMRZIp2QGvNSbZEi5hcWKsHlhPjoPNvOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794003356;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=eb/h6OpEiem7irOaFqKzJ0H8WLUMnDBlfsgGt6v9c0o=;
+	b=sV8cKrP7kiDyNZ+FXfFGpEfB8Pm3Dt5OstTsAZJn4W+c6+/7OCIyS0+Iaw7DEoVZYYGN
+	 z1AGRWMayVxJXHzCTXv6x2zttFFt77XREpR5v2SL5Tu3wFxuC4Av/GyBgYnYNfseTbvC4
+	 AbxIyzQhgUAsCYFJNbniHMNysqvcKb5vs/42E8bHQV4Ib83nDSzqSxsevrjgImj0iNbJS
+	 82gpRzKinX5laD+EGyZ6GWdleF+bIurzFmHppMvIIRabsopTDTa1QKK8c6a7Eui5FKaCj
+	 SXDfzAWl5rx22ADuYGqoV69zXcR5mk3t2OYKALBQm2XG8Zj/MWKwK4Bu1S8kLzaTItA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aurel32.net;
-	spf=pass smtp.mailfrom=aurel32.net;
-	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=rTlRXdcm;
-	arc=none smtp.remote-ip=195.154.119.183
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTEirSm5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA76606A326;
-	Fri,  6 Nov 2026 22:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BA76606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B3D606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:15:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=rTlRXdcm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=JYRO1i26D9FG5gpovbYIFwDb5aLIXhRJ9ZsiS5nT6io=; b=rTlRXdcmanV7C+Ntq1kn1DFl2o
-	2UJcvMtKcxlngJzYb8h0G3MdYh3Fk/JxVefw+/Qw5OUX8YN9mqwO6ZSNoD9kqEE+9ZXT7D2gQgP/H
-	GMyYi8Hn4q9c/SrPAFTu8HCS/8qRc9j87J953wFtn0WK21QKSPVvkOxx1VcJWyQ9jdgDlu1+2pf2h
-	Cr4kNrj/alh/Q4yD7hz/Bu1ihUTVB8XlkaD7CwrRlE1M4IsSHYftfZu7LtYKtL7XF+nfVs6kIlgmp
-	vRy2/dbtrRUFzDgSa0GvM0NFuiHHo/nSiKhaQz9d8i1o28CHfDmbr1XxqWQ03aerGBUQai0U4zRdn
-	kNaguWuQ==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xPSBL-00000000qEZ-05Ws;
-	Fri, 06 Nov 2026 23:13:11 +0100
-Date: Fri, 6 Nov 2026 23:13:10 +0100
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Jiayu Du <duge1256@gmail.com>
-Cc: srini@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlan@kernel.org,
-	troy.mitchell@linux.spacemit.com, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	p.zabel@pengutronix.de, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] riscv: dts: spacemit: Add K3 eFuse and temperature
- trim cells
-Message-ID: <au5Q9lYTUegeEglv@aurel32.net>
-Mail-Followup-To: Jiayu Du <duge1256@gmail.com>, srini@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dlan@kernel.org, troy.mitchell@linux.spacemit.com, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	p.zabel@pengutronix.de, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-References: <20261106060525.346873-1-duge1256@gmail.com>
- <20261106060525.346873-4-duge1256@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTEirSm5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35A51F0089F;
+	Fri,  6 Nov 2026 22:15:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794003355;
+	bh=eb/h6OpEiem7irOaFqKzJ0H8WLUMnDBlfsgGt6v9c0o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TTEirSm5U3hLF9KDZraW1iseFyI1YmmYJI8eAgIiPyFp+GecZjC+1zNKZ8kacYSAi
+	 XPblzqrx3/FnHnpcXC1ZDvkMqEsmM6EkeR/bRCLauj4P/dInnYqoz8/VLgqCX4PhPb
+	 WJ2z6ptMhJfzQ/pbnkRvwOR0lxOmjPqVC2fr02ctiLy4W724lKMEpovV1lscTJKMIL
+	 g9CuGMsBwLBL1pTQmNo9nRdPz7Vbdo7FV9K/5xrdH9VqBpMTuGFLNo+u6quAS4feVz
+	 E9C4VmgDX7plwa6DZUFi9EbQp54Y3CKOtoPXOb59vrgZJK6280UWl0UXjRdie25jMo
+	 8AAX611MQMdwA==
+Date: Fri, 6 Nov 2026 23:15:52 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>,
+	Ingo Molnar <mingo@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [PATCH 1/3] tick/nohz: Re-evaluate the tick on polling idle and
+ on user entry
+Message-ID: <au5RmN37RlOCp2m9@pavilion.home>
+References: <20261106160621.347228-1-marco.crivellari@suse.com>
+ <20261106160621.347228-2-marco.crivellari@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,67 +62,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261106060525.346873-4-duge1256@gmail.com>
-User-Agent: Mutt/2.4.1 (2026-07-04)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261106160621.347228-2-marco.crivellari@suse.com>
 
-Hi,
-
-On 2026-11-06 14:05, Jiayu Du wrote:
-> Add the K3 eFuse controller with its AES_WTM clock and reset. Describe
-> fixed-layout cells for the temperature calibration parameters stored in
-> bank 0 and bank 7, using controller-relative offsets.
+Le Fri, Nov 06, 2026 at 05:06:13PM +0100, Marco Crivellari a écrit :
+> On nohz_full CPUs the tick is re-evaluated on IRQ exit and on idle exit.
+> There are three places where this is not enough:
 > 
-> Leave the controller disabled for board-level enablement.
+> - A kick handled while the CPU is in polling idle: in idle,
+>   tick_nohz_irq_exit() only does accounting and relies on the idle loop
+>   iterating again. HLT and MWAIT return on any IRQ, but cpu_idle_poll()
+>   only returns on TIF_NEED_RESCHED. The tick always runs in polling idle
+>   for now, but once the next patch stops it there, a timer enqueued from
+>   an interrupt on the polling CPU would not be programmed until something
+>   else wakes the CPU up.
+> 
+>   Set TIF_NEED_RESCHED on the idle task when the kick is handled in idle,
+>   so that cpu_idle_poll() returns and tick_nohz_idle_exit() re-evaluates
+>   the tick.
+> 
+> - The return to userspace: if the tick is left running in the kernel,
+>   for example because a tick dependency was cleared (tick_nohz_dep_clear*()
+>   don't kick the CPU) or a timer that kept it running was cancelled, it
+>   fires at least once in userspace before tick_nohz_irq_exit() stops it.
+> 
+>   Stop it from context tracking right before resuming userspace. When the
+>   tick is already stopped, the common case, this costs a few flag tests
+>   on each return to userspace.
 
-What is the reason for enabling it at the board-level? AFAIU, this is 
-part of the SoC and does not require any board level hardware. Therefore 
-I believe it should just be enabled by default.
+This patch should only be about the return to userspace. Sorry if I
+confused you about that.
 
-> Signed-off-by: Jiayu Du <duge1256@gmail.com>
+> 
+> - The expiry of a stopped tick in polling idle: a stopped tick is
+>   programmed for the next timer only, and reprogramming it for the
+>   following one is left to the idle loop, which doesn't run again while
+>   cpu_idle_poll() spins. Timers that were already queued would then wait
+>   for an unrelated wakeup.
+> 
+>   Set TIF_NEED_RESCHED in tick_nohz_handler() when the stopped tick
+>   fires in idle on a nohz_full CPU.
+> 
+> Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 > ---
->  arch/riscv/boot/dts/spacemit/k3.dtsi | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
+>  include/linux/tick.h      |  8 ++++++++
+>  kernel/context_tracking.c |  9 +++++++++
+>  kernel/time/tick-sched.c  | 41 ++++++++++++++++++++++++++++++++++++++-
+>  3 files changed, 57 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> index e89d2cc5ca8c..51861fdc6a21 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> @@ -1439,6 +1439,31 @@ saplic: interrupt-controller@e0804000 {
+> diff --git a/include/linux/tick.h b/include/linux/tick.h
+> index b121c5d53e30..8bfbb053f4fd 100644
+> --- a/include/linux/tick.h
+> +++ b/include/linux/tick.h
+> @@ -269,6 +269,7 @@ static inline void tick_dep_clear_signal(struct signal_struct *signal,
+>  extern void tick_nohz_full_kick_cpu(int cpu);
+>  extern void __tick_nohz_task_switch(void);
+>  extern void __init tick_nohz_full_setup(cpumask_var_t cpumask);
+> +extern void __tick_nohz_user_enter(void);
+>  #else
+>  static inline bool tick_nohz_full_enabled(void) { return false; }
+>  static inline bool tick_nohz_full_cpu(int cpu) { return false; }
+> @@ -294,6 +295,7 @@ static inline void tick_dep_clear_signal(struct signal_struct *signal,
+>  static inline void tick_nohz_full_kick_cpu(int cpu) { }
+>  static inline void __tick_nohz_task_switch(void) { }
+>  static inline void tick_nohz_full_setup(cpumask_var_t cpumask) { }
+> +static inline void __tick_nohz_user_enter(void) { }
+>  #endif
 >  
->  		/* sec_i2c3: 0xf0614000, not available from Linux */
+>  static inline void tick_nohz_task_switch(void)
+> @@ -302,6 +304,12 @@ static inline void tick_nohz_task_switch(void)
+>  		__tick_nohz_task_switch();
+>  }
 >  
-> +		efuse: efuse@f0702800 {
-> +			compatible = "spacemit,k3-efuse";
-> +			reg = <0x0 0xf0702800 0x0 0x400>;
-> +			clocks = <&syscon_apmu CLK_APMU_AES_WTM>;
-> +			resets = <&syscon_apmu RESET_APMU_AES_WTM>;
+> +static inline void tick_nohz_user_enter(void)
+> +{
+> +	if (tick_nohz_full_enabled())
+> +		__tick_nohz_user_enter();
+> +}
 > +
-> +			status = "disabled";
+>  static inline void tick_nohz_user_enter_prepare(void)
+>  {
+>  	if (tick_nohz_full_cpu(smp_processor_id()))
+> diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
+> index a743e7ffa6c0..d4274698d6f3 100644
+> --- a/kernel/context_tracking.c
+> +++ b/kernel/context_tracking.c
+> @@ -24,6 +24,7 @@
+>  #include <linux/export.h>
+>  #include <linux/kprobes.h>
+>  #include <trace/events/rcu.h>
+> +#include <linux/tick.h>
+>  
+>  
+>  DEFINE_PER_CPU(struct context_tracking, context_tracking) = {
+> @@ -466,10 +467,18 @@ void noinstr __ct_user_enter(enum ctx_state state)
+>  			 */
+>  			if (state == CT_STATE_USER) {
+>  				instrumentation_begin();
+> +				/*
+> +				 * On nohz_full CPUs the tick may have been left running in the
+> +				 * kernel, e.g. kept by a tick dependency that is now gone.
+> +				 * Stop it now rather than let it interrupt userspace once
+> +				 * more before the next IRQ exit notices.
+> +				 */
+> +				tick_nohz_user_enter();
+>  				trace_user_enter(0);
+>  				vtime_user_enter(current);
+>  				instrumentation_end();
+>  			}
 > +
-> +			nvmem-layout {
-> +				compatible = "fixed-layout";
-> +				#address-cells = <1>;
-> +				#size-cells = <1>;
-> +
-> +				soc_rtemp_trim1: temperature-trim@120 {
-> +					reg = <0x120 0x1>;
-> +					bits = <0 8>;
-> +				};
-> +
-> +				soc_rtemp_trim: temperature-trim@19a {
-> +					reg = <0x19a 0x2>;
-> +					bits = <4 8>;
-> +				};
+>  			/*
+>  			 * Other than generic entry implementation, we may be past the last
+>  			 * rescheduling opportunity in the entry code. Trigger a self IPI
+> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+> index c6d86e4da8a9..a9f622fdeb12 100644
+> --- a/kernel/time/tick-sched.c
+> +++ b/kernel/time/tick-sched.c
+> @@ -323,8 +323,17 @@ static enum hrtimer_restart tick_nohz_handler(struct hrtimer *timer)
+>  	 * - to the idle task if in dynticks-idle
+>  	 * - to IRQ exit if in full-dynticks.
+>  	 */
+> -	if (unlikely(tick_sched_flag_test(ts, TS_FLAG_STOPPED)))
+> +	if (unlikely(tick_sched_flag_test(ts, TS_FLAG_STOPPED))) {
+> +		/*
+> +		 * In polling idle on nohz_full the idle loop doesn't iterate on
+> +		 * interrupts, so it would never reprogram the tick for the next
+> +		 * timer. Make cpu_idle_poll() return.
+> +		 */
+> +		if (tick_sched_flag_test(ts, TS_FLAG_INIDLE) &&
+> +		    tick_nohz_full_cpu(smp_processor_id()))
+> +			set_tsk_need_resched(current);
+>  		return HRTIMER_NORESTART;
+> +	}
 
-I have tried this patchset, and while I can see non-zero data in the 
-/sys/bus/nvmem/devices/f0702800.efuse, both temperature calibration data 
-appear as 0. Is that expected?
+I don't think we need this. The change in nohz_full_kick_func() should be
+enough.
 
-Regards
-Aurelien
+>  
+>  	hrtimer_forward(timer, now, TICK_NSEC);
+>  
+> @@ -414,6 +423,12 @@ static void nohz_full_kick_func(struct irq_work *work)
+>  		if (WARN_ON_ONCE(tick_sched_flag_test(ts, TS_FLAG_INIDLE)))
+>  			return;
+>  		tick_nohz_full_update_tick(ts);
+> +	} else if (tick_sched_flag_test(ts, TS_FLAG_INIDLE)) {
+> +		/*
+> +		 * In idle, tick_nohz_irq_exit() doesn't re-evaluate the tick, and
+> +		 * cpu_idle_poll() only returns on need_resched().
+> +		 */
+> +		set_tsk_need_resched(current);
+
+And this part should move to the next patch.
+
+Thanks.
+
+>  	}
+>  }
+>  
+> @@ -1071,6 +1086,30 @@ static void tick_nohz_full_update_tick(struct tick_sched *ts)
+>  	__tick_nohz_full_update_tick(ts, ktime_get());
+>  }
+>  
+> +#ifdef CONFIG_NO_HZ_FULL
+> +void __tick_nohz_user_enter(void)
+> +{
+> +	struct tick_sched *ts;
+> +	int cpu;
+> +
+> +	lockdep_assert_irqs_disabled();
+> +
+> +	cpu = smp_processor_id();
+> +	if (!tick_nohz_full_cpu(cpu))
+> +		return;
+> +
+> +	ts = this_cpu_ptr(&tick_cpu_sched);
+> +	if (!tick_sched_flag_test(ts, TS_FLAG_NOHZ))
+> +		return;
+> +
+> +	if (tick_sched_flag_test(ts, TS_FLAG_STOPPED))
+> +		return;
+> +
+> +	if (can_stop_full_tick(cpu, ts))
+> +		tick_nohz_full_stop_tick(ts, cpu);
+> +}
+> +#endif
+> +
+>  /*
+>   * A pending softirq outside an IRQ (or softirq disabled section) context
+>   * should be waiting for ksoftirqd to handle it. Therefore we shouldn't
+> -- 
+> 2.56.0
+> 
 
 -- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+Frederic Weisbecker
+SUSE Labs
