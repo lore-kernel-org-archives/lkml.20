@@ -1,100 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964754;
-	b=ZeK1CXRy/rNpp3frzxV+BKNxugDz07vtSrlYv6ruWVToyIizoYhubULX7gql+r+i2a1r
-	 eK9S5m4WVmQ65msAWYdp0aMrLC6xwFD7PbpVqE9m7zArZ2LbqTkVZtW59nbqVyKHlr6nZ
-	 vIQEtvdkn7P+x7WZeGebX2C0nbz7ePdSjJT+hRCVffwxB5OWjUViMcrUj+EX5ahtNkfIP
-	 7u3uU+eEndgb/hdlLhDAktuSos7f+AV0zVz9ltFlibgEDv84cUb2SqpbJ8ZP64CEitsis
-	 S8USY2TEsStI9wWrnnHDlR71M0pfxGRi5OTbU4m7a4Ed7+kvE7bQEJ/EjKdjb145fkQ==
+	t=1793964755;
+	b=qkuH7cA9umW0EPaBJj63zBZeVtLqoH1pQk1TqOSbUMnw0zCpGWoandbQnk2wItxcXCJW
+	 eb7oOPYkdQrhxburrodlinAQIWU0rzyID541qnQeaumjbVbOUZhY80QRL8M9SzqfM/+mJ
+	 FwcZfElFaPP8dOWzJLkYXoq1RzwVE3g5tEcCz9UiogKiNypIiShCr5YV/lOmexog0S8Ng
+	 eF4jN7ajdS8v3S4nMcKDwljwRYXV8e1JnjOQb1ZAqwUZDmewI+Nx4QaJozAfetuXPkglf
+	 wFmJA+GnS4IbB6UGHb6Wc+MxPO0KlsCY6EC+PJC/1uTSw+FNYftxxdSTbNlokOmMRHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964754;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oVA97Gg0MN3pZcfI+vtW4RWyLQjxD9ulAusUkaPOVrg=;
-	b=zRZ6z3tHOXiUVeltteXKulqhlxRPONkEhjZaTtxMX5Pc9SnMUf/LfD/FIA4/0OPrsh++
-	 4qwyktmV6CehaVo8QInZ6WvGH8/XFIJvJ2TDaSGpzHzTcYUqenH48TBUs6qctyns1ceVb
-	 cHNlnZcdLMc5/KO8tpTrafiQDrFbHxoSl+kabTWt5yIMUMGk5OPFE2DBtHX/ifo4Asppy
-	 jyI8eHONVwTHrEnpalUT5vKOpoSJHjmDBJJLVzvmUS7GuHppAaNEJM4Bxss2LODD806QN
-	 LqBlVBgpcH641DST0luyBF55bcNidzX9odIqJpTgKDFHNSczD5LRI91YrRWRRMsx7TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964755;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=RHThgPq8ETxy2w8YbH6+HBlKF4n78ToOruBNT76Nrpc=;
+	b=SXqfUU8k59ezDM3esRRPAkp9keXijOKDmxxKNPuzibzQr7Hqq2P2LL8qxr4zk6kY4e0o
+	 srAClt/CWbnK0TN5NztLCkVu9D3JzESamqZBi9uCo3fUBZb91cjp/pefRsfIofAnqoN8q
+	 qZFyyMRYyT2eWnKOwlmtP2no6VoU/eY53LesPbcAHOEYgspKrKent435dJufUYsuAAuZ9
+	 zOAqfNzvJ6zyntbwOfYLoFlTjcZWxzfp2S54/kdqmzXP7OTGZe1D77n6IG2xZGGSC/tgk
+	 PO3qZ8z93op2Mux34CbbMoZhDyUesYV+XNjKa+awaOax6FnGrSankNtQJO8aoDIdTag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XtJ9a41C;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=SgNe5ZeD;
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E13560A382E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E13560A382E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C6CA860A6F53;
+	Fri,  6 Nov 2026 11:32:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6CA860A6F53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XtJ9a41C
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3afc7b51abfso32353a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:32:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964754; x=1794569554; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oVA97Gg0MN3pZcfI+vtW4RWyLQjxD9ulAusUkaPOVrg=;
-        b=XtJ9a41CZGIxLZLGdBMex33BufyVPRCqOQcDaU4a4vAu5igU29IQIdhzTnkIUY+lQ+
-         2yUl9vCmWL7QcarNeGcK+oHzzlv7hN9bT5C/zcphLfhNpqAgeu+3CZO14yZ6q2Pxx1g3
-         b70KQOa4MSVBaCj+BJnD+YN74Mt3IeLdtUEc49pEBb7fY3qsFsduT2DqnWNpcEH3zyva
-         hJ3nXpelMbq8s7LKkHmNry+Oll9s0KLj0+lgYQxZ1WueMLPM6WvBlvSi7iPzpYWVjycz
-         dgXEDHKhHz0m2FdnarJRuK9j0nDbGHMveDs5oKDmnzMsogasydrwZN4UHt61S1nVTWJx
-         qRdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964754; x=1794569554;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oVA97Gg0MN3pZcfI+vtW4RWyLQjxD9ulAusUkaPOVrg=;
-        b=qqGCyLLOx4NtXW+CMcFcvtgifeXSxKRqqdnvrG+PTjchvRLblvpAdHMUWgdWfNH2/s
-         K7IBbvR8g5h6Eqm9W3k2aSeFLFLZPInyEV9uXgLMf2DgOY+hD2vkOiM3olk4JujPafD9
-         P6yXtsR3tI7YaKbDvtWPPS0NSH7ahXJGq5mrbcC0r2lFEALh38NomKKai6KdhdF4mRvQ
-         42g6CBGbTYLGpgyECDw1C8A8NrgD+FWr8yrJo/KJv3J2DF12dI57bxJl9QRRZQNeURrx
-         /RTItviB2yuWL2aG4pJW4NfO3q9md1Nk8KYN04i8IxN+XvaMTLNtai9G9OjA/7g0u9y7
-         mjUg==
-X-Forwarded-Encrypted: i=1; AL+hErEh45oYBV8CMfF5Cn5IUx39mm2hNPvHDkCvKoPPdMbDwl9btwF+zlz2ke+q4w8/7Y6RKdDy4f6g1w+rEqU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PTYHZGCwRSaf6VGD51Ymm7G/EsekX/csZrM/tN33FG6c9q3+g
-	tqGs9gPSfeTJGJwZuxkKChaI3YMaDMk0wcGmCoeSvB0o6g1/HoYvgJwU
-X-Gm-Gg: AYBFou0I5CeudUY5X7LJ+sV5pirUZJ0SOIUU9fWgmUzOPNTEOl+DGEQwXjEjJ+ACARv
-	28vfa9nktBZ70oBPWjruLjlYOOypJN7wZnt9rR3kBEendK0pT2yMqU9hi6RY3LZHg46R7wU/Sy5
-	ZvnoG4/SO0n6KodPe7yz8Et5cz9oCbQrdqSWEiLT922SS1SEcEr3CRONx2oDw5RyQaGnMWsc4Bc
-	6cAqoF2TadNcS3sOy7Pgq7h/aeKAs++g+St26E1fmxRvluLM/oVaXxvcjOv5iv0nhazPrYHTyD4
-	U5HK5ThpyWaI02246h6GxcKOWx7BKv3fT6h8cJBV/EvUu3ogZbDeeGIFi8baY+ZMkh9L21Ptw2d
-	hLq+sHa6EsjpnTcESF2gyAIXPOq8h27w4BrQUCltVqklgntasGn2qAyP+Ok6MMG/BlQDBb7Ghr2
-	QchFOgNe5t9e56dqdw3JuDo4UoqPfwhtQ/QS5zkdfXsCGA53UlWzTzH1qbolE8HHMoZmiZ1b9HD
-	OzSMcmngLQ1HbSLYKjXDCfrJjx7LNI04MXYntEdF5lCJ19M5Fq0NbQWzKoo/IFUUD0eTht+/jA0
-	wgoLjmSvnJh9IcMMvxr+adKvWsG3pHWV89EsrVBhG0xr/jqY/RZ9i55MGTZYU5KI3m3jhS8bwUo
-	+s6kVGEe3YzCWFdqUor2s4Zkf
-X-Received: by 2002:a17:90b:2d0d:b0:3ab:be66:ddc5 with SMTP id 98e67ed59e1d1-3b0db7056a8mr3470200a91.6.1793964753661;
-        Fri, 06 Nov 2026 03:32:33 -0800 (PST)
-Received: from chenyou.ncku.edu.tw ([140.116.19.13])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7ca4b03sm3116477a91.14.2026.11.06.03.32.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:32:32 -0800 (PST)
-From: Chen-Yu Yeh <chenyou910331@gmail.com>
-To: Alex Shi <alexs@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Weijie Yuan <wy@wyuan.org>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: [PATCH 13/25] docs/zh_TW: process: sync kernel-driver-statement.rst with the English original
-Date: Fri,  6 Nov 2026 19:31:28 +0800
-Message-ID: <20261106113142.706783-14-chenyou910331@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106113142.706783-1-chenyou910331@gmail.com>
-References: <20261106113142.706783-1-chenyou910331@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=SgNe5ZeD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1793964751;
+	bh=RHThgPq8ETxy2w8YbH6+HBlKF4n78ToOruBNT76Nrpc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SgNe5ZeDNzDk8DsG2ojzwQWNtdeJyTylVAQIR7T2f9Qitl3VG91+DSuKgVpglRcRg
+	 Ek4Ai6zZJ4XzbvWBz7xzZKkkHy+sekPEJ2wqbSVwlYMLM2psbvcene/1lxn7I+Ul6s
+	 DmH5IvcRU2SJmozRHKtSGTOaFkxxpixSq29N9knBcN3lSl1alVU3Q3iYzK3eP6Tz70
+	 8+HBUNp4KAmEj2dy/lGgPqNnGZs3xurYeD0u6ukct1fNcNCLupissjXe2hRwFmM0Hm
+	 gGvKQgBX9rx0JdxvBAYDHnOt3dGojrWccJZTAyKIp1UKzoYi/ddqNU9ZZI+oPEQIaN
+	 qWC9BMvYINCYA==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 528676005F;
+	Fri,  6 Nov 2026 12:32:31 +0100 (CET)
+Date: Fri, 6 Nov 2026 12:32:29 +0100
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: luoqing <l1138897701@163.com>
+Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Patrick McHardy <kaber@trash.net>,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 1/2] netfilter: conntrack: avoid secs-to-jiffies
+ overflow in SIP helper
+Message-ID: <au26zXXqfRh6t-kU@chamomile>
+References: <20261106060948.540233-1-l1138897701@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,74 +69,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261106060948.540233-1-l1138897701@163.com>
 
-The translation carries no "update to commit" marker.  A comparison
-against the current English text shows the content is complete: the
-signer list matches all 177 names, including Aaro Koskinen from
-commit b13267ba579d ("documentation: add my name to kernel driver
-statement"), and the process_statement_driver label from
-commit edba5eecfd6e ("doc:it_IT: add some process/* translations") is
-referenced. The prose, however, was converted from zh_CN and still reads
-in mainland terminology:
+Hi,
 
-- localize terminology (內核→核心, 模塊→模組, 驅動程序→驅動程式,
-  用戶→使用者, 社區→社群, 代碼→程式碼, 支持→支援, 靈活性→彈性,
-  封閉源→閉源, 爲→為)
-- render "adopt a policy of supporting their customers" as a policy
-  rather than "taking measures", and make "We speak only for
-  ourselves" read naturally
-- wrap the :Original: line to stay within 80 columns
+This is not net.git stuff, route this to nf-next.git
 
-update to commit edba5eecfd6e ("doc:it_IT: add some process/*
-translations")
+Thanks.
 
-Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
----
- .../zh_TW/process/kernel-driver-statement.rst | 24 ++++++++++---------
- 1 file changed, 13 insertions(+), 11 deletions(-)
-
-diff --git a/Documentation/translations/zh_TW/process/kernel-driver-statement.rst b/Documentation/translations/zh_TW/process/kernel-driver-statement.rst
-index 34bcb6f164cb..11de92a7bcf3 100644
---- a/Documentation/translations/zh_TW/process/kernel-driver-statement.rst
-+++ b/Documentation/translations/zh_TW/process/kernel-driver-statement.rst
-@@ -4,22 +4,24 @@
- 
- .. include:: ../disclaimer-zh_TW.rst
- 
--:Original: :ref:`Documentation/process/kernel-driver-statement.rst <process_statement_driver>`
-+:Original: :ref:`Documentation/process/kernel-driver-statement.rst
-+           <process_statement_driver>`
- 
--內核驅動聲明
--------------
-+核心驅動程式聲明
-+----------------
- 
--關於Linux內核模塊的立場聲明
-+關於Linux核心模組的立場聲明
- ===========================
- 
--我們，以下署名的Linux內核開發人員，認爲任何封閉源Linux內核模塊或驅動程序都是
--有害的和不可取的。我們已經一再發現它們對Linux用戶，企業和更大的Linux生態系統
--有害。這樣的模塊否定了Linux開發模型的開放性，穩定性，靈活性和可維護性，並使
--他們的用戶無法使用Linux社區的專業知識。提供閉源內核模塊的供應商迫使其客戶
--放棄Linux的主要優勢或選擇新的供應商。因此，爲了充分利用開源所提供的成本節省和
--共享支持優勢，我們敦促供應商採取措施，以開源內核代碼在Linux上爲其客戶提供支持。
-+我們，以下署名的Linux核心開發人員，認為任何閉源的Linux核心模組或驅動程式都是
-+有害且不可取的。我們一再發現它們對Linux使用者、企業以及更廣大的Linux生態系統
-+有害。這樣的模組否定了Linux開發模式的開放性、穩定性、彈性和可維護性，並使
-+其使用者無法獲得Linux社群的專業知識。提供閉源核心模組的供應商迫使其客戶
-+放棄Linux的關鍵優勢，或是另選新的供應商。因此，為了充分享有開源所帶來的成本
-+節省與共享支援的好處，我們敦促供應商採取以開源核心程式碼在Linux上支援其客戶的
-+政策。
- 
--我們只爲自己說話，而不是我們今天可能會爲之工作，過去或將來會爲之工作的任何公司。
-+我們僅代表自己發言，而非代表我們目前、過去或將來可能任職的任何公司。
- 
-  - Dave Airlie
-  - Nick Andrew
--- 
-2.43.0
-
+On Fri, Nov 06, 2026 at 02:09:47PM +0800, luoqing wrote:
+> From: Qing Luo <luoqing@kylinos.cn>
+> 
+> refresh_signalling_expectation() converts the expiry from a SIP
+> REGISTER 2xx response with "expires * HZ" in 32-bit arithmetic and
+> stores it in a u32.  sip_strtouint() only rejects values above
+> UINT_MAX, so the answering registrar controls the input.
+> 
+> Expectations are reaped with "(__s32)(exp->timeout - nfct_time_stamp)
+> <= 0".  A wrapped product can only cut the lifetime short, never
+> extend it: at HZ=1000 an expiry of 2147484 seconds (24.9 days)
+> crosses 2^31, so the expectation is born expired and registration
+> refreshes break, while 4294968 seconds wraps to 704 jiffies and the
+> expectation is reaped almost immediately.
+> 
+> Add nf_ct_secs_to_jiffies(), which multiplies in u64 and saturates at
+> INT_MAX so the signed expiry test stays positive, and use it for the
+> SIP expectation refresh.  Oversized expiries now saturate to the
+> INT_MAX jiffies ceiling - about 24.8 days at HZ=1000 and 248 days at
+> HZ=100 - which is the same maximum a registrar could already request
+> with the largest non-wrapping value; the longest lifetime does not
+> change.
+> 
+> Sweeping all 2^32-1 inputs at HZ=1000, the helper never wraps, never
+> yields a value that reads as expired, and matches the old expression
+> up to INT_MAX / HZ.
+> 
+> Fixes: 0f32a40fc91a ("[NETFILTER]: nf_conntrack_sip: create signalling expectations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+> ---
+> 
+> v2: 
+> - Clarified in the commit message that this patch introduces the
+>   nf_ct_secs_to_jiffies() helper, which the subsequent H.323 patch depends on.
+> - Added a note about the stable backporting dependency for the helper.
+> - Addressed the Sashiko AI review comments.
+> 
+> v1: https://lore.kernel.org/all/20261104085925.773471-1-l1138897701@163.com/
+> 
+> ---
+>  include/net/netfilter/nf_conntrack.h | 10 ++++++++++
+>  net/netfilter/nf_conntrack_sip.c     |  3 ++-
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/net/netfilter/nf_conntrack.h b/include/net/netfilter/nf_conntrack.h
+> index c39425e54d87..b32716084ea8 100644
+> --- a/include/net/netfilter/nf_conntrack.h
+> +++ b/include/net/netfilter/nf_conntrack.h
+> @@ -210,6 +210,16 @@ bool nf_ct_get_tuplepr(const struct sk_buff *skb, unsigned int nhoff,
+>  void __nf_ct_refresh_acct(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
+>  			  u32 extra_jiffies, unsigned int bytes);
+>  
+> +/* Convert a timeout in seconds to jiffies, saturating at INT_MAX instead of
+> + * wrapping the "secs * HZ" product in u32.
+> + */
+> +static inline u32 nf_ct_secs_to_jiffies(u32 secs)
+> +{
+> +	u64 delta = (u64)secs * HZ;
+> +
+> +	return delta > INT_MAX ? INT_MAX : (u32)delta;
+> +}
+> +
+>  /* Refresh conntrack for this many jiffies and do accounting */
+>  static inline void nf_ct_refresh_acct(struct nf_conn *ct,
+>  				      enum ip_conntrack_info ctinfo,
+> diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
+> index 64bc440b1181..e2fd97f53386 100644
+> --- a/net/netfilter/nf_conntrack_sip.c
+> +++ b/net/netfilter/nf_conntrack_sip.c
+> @@ -891,7 +891,8 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
+>  		    exp->tuple.dst.protonum != proto ||
+>  		    exp->tuple.dst.u.udp.port != port)
+>  			continue;
+> -		WRITE_ONCE(exp->timeout, nfct_time_stamp + (expires * HZ));
+> +		WRITE_ONCE(exp->timeout,
+> +			   nfct_time_stamp + nf_ct_secs_to_jiffies(expires));
+>  		WRITE_ONCE(exp->flags, exp->flags & ~NF_CT_EXPECT_INACTIVE);
+>  		found = 1;
+>  		break;
+> -- 
+> 2.25.1
+> 
