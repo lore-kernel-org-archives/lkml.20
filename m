@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969879;
-	b=r3AFnsZ3fz/phYPGnGfl6KqsUaQESr0+cCuQviQ6NlAPUNNjAiAvXOeiUpkqaYmB5lXY
-	 7Sgy7NfoxfQ1NdgE2tIvgYxIzB3bfcqp3chwW9sdM1kl7nPkCMtZ6qcqCGyGX92w73lXz
-	 zE1YgU3DDleuraBbnp3c9Ei5pn3LdYE+Y0xsPVbtdvhsvK3KRPrDrYubDRlkwhOUz7/4X
-	 K+jfy7Qt3jRyESL+dPIGEDdkImn4m4xpkXuqPt6lej/yhmnmLS0gSl2FqCHh7HJvFVNr+
-	 WwEesiXlr+7RBI80+FfZgHAP4bWLBNVAvdqsN630g+7w6UvxDKzq/lFNppEbBTqgVNA==
+	t=1793969886;
+	b=XRTHICnGc4AuwRh9Gwnbyo1InLE+JWocN7DaOXoa6Ot8BqQEl06MZ89vZd+uENnfdqGi
+	 M6FMxsAsEA2z48ba2ittyT9d2jAEqnbPQ57pBsPP/+wKFBUZI9AxULo2RUir1WMfVNI83
+	 HE7GAo7rJlTG6kD+sStOCIOOluzYjw7lhbJQH605aZziws33gYgBm1IVLVRI42EMtVXYv
+	 L1GxBzYTaK7uVg8RWQzj1uOAmE5lN4RX8tt03QxPM8BItG4cpdG7SyMSRVV5OM+yQlalt
+	 RHEUVouuGxyaV3AlAfsaNhhuW0qIOTpagfZmBifSCaJuZwaRELw+RiQfbqC81tFYNLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969879;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969886;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iZ4lN681ajQHPx1uvbvHoK+Cj6ldX5GuC96t5z/VUy0=;
-	b=LP5DFUPxNpwRpy9LDxdLQgPx8/20UyNrP0bWgz6ISeilivpqAwgstSmUJ4bXyPS3MTdi
-	 yOIE1LRt7B25YxpEjE4OKDTqzIpA458kwUph7n1QETBmoblXm58FGWv8yqKpyXnhm0jIg
-	 FqdJfYB07Ld6jiaAwVg9pNI5CupUP5pkiD4vZJ2DYxEwrmYjyej2xzy8G6TY5Q8OV3A6v
-	 UJ07n6iJ4fVQtwrT5dGmfR1G9WyMNK4f64BFcV62K8H87J3yCJ6Fgs2afeRwX75Ws6I3a
-	 yOgny5BQkRlLUqgIHG9QYM1C1pjvwT2ZdceqTHLQXBdCoJX3ISquKNXuPVOO7/ely/Q==
+	bh=sxXe+GvkQh1xmVF/fKR+0ndQLjKjrvqGNJZAq6NZqcU=;
+	b=AufrlG4Uob+e2nl4jIMGVL61uhTBIbhStxv+SuekRP18l3i4rAIWIdFQpO0c9j26LPm7
+	 1kJQsmwm6Xfl1yowxMt0mcYRYdwYq7xsT5xJBLgb5soPhuE+4PYS1DCzqa3qdoP6VEq8O
+	 G6bn1hzIHW4GmkYYGMUrJzHwgt/O239TkWf5Daa5ZvAlE4R/Rp3xVQwACD6HI/xpH4yzS
+	 YwdB1vVSSNT3YR011Cg15TzV/IYYIp9SaLQDFqJKXlUvZE0aobtEfD0oiMtTBhOBs80TP
+	 7XZS++mHe62xSQLDOtB8daT2w5ttI9nqvqYU7FeLpPFalO5TQFegyOkxSe40qzE6m2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kw6iZr0x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bUF+clmx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E919B606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D07D606A32C;
+	Fri,  6 Nov 2026 12:58:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kw6iZr0x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F201F0089F;
-	Fri,  6 Nov 2026 12:57:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bUF+clmx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B8B1F0089F;
+	Fri,  6 Nov 2026 12:58:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969878;
-	bh=iZ4lN681ajQHPx1uvbvHoK+Cj6ldX5GuC96t5z/VUy0=;
+	s=k20260515; t=1793969885;
+	bh=sxXe+GvkQh1xmVF/fKR+0ndQLjKjrvqGNJZAq6NZqcU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Kw6iZr0xdVbUVhaorQzM+c2I5I5tSdtyy0WJFxR+cWWcoPDeY5aQf5fDy9MbwAqHd
-	 3+K2hixVUatcMeQ9phS1sB7NXBPM4/HnxfYoaiTAjOF7trOLC7O5/WTcm3It+dJCkN
-	 TlSHZ9s7CbbBeZ2eZPTL02/gaDl7RQXeHC4X5BurkL1wy+8ZKaRLQjRuyWjopXrVL/
-	 H6T8HWTF0ztxMUS6f2w3spK6ZLdX+Jhj3NocxzM9mf8C0UrJUQt0wYvREdX0Nm/VWr
-	 IGtz7qAYdCcdV0SG0/rkjsvzpvRgW12X/4qbCRVIdvBNkl1mIWxxEGjTzc/UBgxgq8
-	 Kd6uooG/WzNAg==
-Date: Fri, 6 Nov 2026 14:57:51 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Ivy Lopez <skunkolee@gmail.com>
-Cc: david@kernel.org, akpm@linux-foundation.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, surenb@google.com,
-	mhocko@suse.com, fvdl@google.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] mm/cma: fix range selection in
- cma_declare_contiguous_multi()
-Message-ID: <au3Oz50x-y3GPYpA@kernel.org>
-References: <6099bcde-15be-4197-905e-13dfa4c83bfe@kernel.org>
- <20261106002347.255584-1-skunkolee@gmail.com>
+	b=bUF+clmxKVm/xlk6EhYYDQ9fPSzkeEfppKDprBr30uWIBS+fTHM1uqm8veGa+8VIL
+	 urF8A+YRSqqvi/HQp4nEr7ZzoGPlcBv3J90nLzVOG9SOmYQS/PiHyY4CjzpYayNTk4
+	 sDiZVM14ROVI7KP3u3aNLnW/hgHOpy8xk2Yh6xFjVQKcPZqdHq5dyOfJPfnY/y8h0t
+	 ns+2z/ndqmP6PFhZLqO1hfsVJMOiS8/y2vWYGvSRFpyALfu3f5AYc1EwHXsw7kKnT+
+	 yiDIv62EitLzTDzI9kbtLjdt2gkbX5w4L4cm7EidKtCnrNquO9R+Yy30vLr1w+fPlr
+	 uoloAf1vt5kqw==
+Date: Fri, 6 Nov 2026 13:58:02 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Romain TISSERAND <romain.tisserand@gmail.com>
+Cc: Igor Reznichenko <igor@reznichenko.net>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH 1/4] dt-bindings: vendor-prefixes: add PocketGo
+Message-ID: <20261106-gentle-shrimp-of-weather-dde4f4@quoll>
+References: <20261103110524.2812831-1-romain.tisserand@gmail.com>
+ <20261103110524.2812831-2-romain.tisserand@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,27 +63,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261106002347.255584-1-skunkolee@gmail.com>
+In-Reply-To: <20261103110524.2812831-2-romain.tisserand@gmail.com>
 
-On Thu, Nov 05, 2026 at 06:23:47PM -0600, Ivy Lopez wrote:
-> On 11/5/26 20:38, David Hildenbrand (Arm) wrote:
-> > Do these two fixes still apply?
-> 
-> Yes. I checked against akpm/mm-new at dba8aba0a9a0: both patches still
-> apply (two hunks with a small line offset from the accept_memory()
-> additions) and both problems are still present, since
-> list_insert_sorted() and the sizesum accounting are unchanged there.
-> If Mike's rewrite is going to replace this code soon, dropping them is
-> fine with me. Otherwise I can respin them.
+On Tue, Nov 03, 2026 at 12:05:21PM +0100, Romain TISSERAND wrote:
+> PocketGo is the brand of handheld game consoles such as the PocketGo S30
 
-Sorry, got distracted, here's my version:
+Vendor prefixes are for companies and I cannot find anything about
+PocketGo, except it is a brand. What's the website?
 
-https://lore.kernel.org/linux-mm/20261106-cma-multi-v1-1-054eae6e2c1c@kernel.org
- 
-> ivy
+> (Allwinner A33).
 
--- 
-Sincerely yours,
-Mike.
+Best regards,
+Krzysztof
+
