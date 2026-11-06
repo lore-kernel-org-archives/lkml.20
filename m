@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793968430;
-	b=WA+AGi5XpATCcoY+ApDA0KiYz7SUGcm6zpM3/zG6hTeSYn7Q08Ar8bThpKQGX++rF5nw
-	 AmdkCo0K6r2M160eoBHeOUnV00eGY89hfUDA7AeOe8N+UtrPDOoN5snQIAUKcnRVQNEoH
-	 eNgxaOHWkmPg6Wp5sQ7Qo0HHX5bN6XKxA0rogX3/seoTcZ5TrydSU3JEp7EXkL3w3Atgp
-	 ruJDp2jRPjA+pAoozcR7MxP1mSZa1ChjDq8Np/MjSzwrLfUaxSO/3h94S3rTuDOVtVNOQ
-	 gRnUGjcHVJaVUWaNO93GKPpuwqJDQEyVAWKcoa/QQ+wiJwdUAZX9orkNuTJal5sUZ5w==
+	b=lGh5FNgZoLSbMazvcPq1j0KLxu4orPL6Hm4GA8QMCmnLglsUySlxFpBoeBxNSH6LZXjL
+	 IYC4g/R99gcoOrPZ1dC9rOR/jAoMsSe6sgA3alrw7bwqpQp+xoKcwXpyRa+FLZQeOgyXe
+	 EE8LQBSDMYzeFAzvo7TJey0DVvICURjOXbLCRlvSXLgTc+5r6edcWhPTmdisI66SzkwZN
+	 EDghZtd8gmxvP6x9SyFxYRpqDQKfhGpL79Hk0wnEO+cdvaHvZJjVZ4nGzqQFynzfBAsvv
+	 B9cTOIvBYxvgYzO2k4AD5HbDsm3swK4gU9tby81W/dapY1t5GStk55iwUluKnswyvgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793968430;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=31zJHAipSlhPMGedMX5ynsYIkiuZ+8oMTFm3jTUaEqE=;
-	b=RvDcKNX3lel0ndbGyTw70Yho3VUmSSagXSaS+mi96cMYfKh6Z3KZPlLwYssW/tgWUXEq
-	 CUS5idA82hkEKwRiAReclR5U3dOByyyz045QcIdlpKy5NPmnjT8vG/It5b6wmKcWcrEoe
-	 TEWeUamMvb66by6UGSLCGwVhS50llWliif/PJuAf4X/1iHWWU7eZ4TQ1BHile+W2vDELm
-	 lOk0seX99TC6prLHlvlqO4f2j2w5PBaG1KHarT+augmex4m3QaczPu0lDVUNJcyOeeDXk
-	 IcyEEWnz+ILgsDXuqXObeAjo9OjiYlMEnQbRDhen+1OPTtTbPRfmOIadMFju7kofViA==
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=2uqcxYTgBXJbTfbI/DlmOarXlJOAhStn4Uga9XDZVLM=;
+	b=G/yFHGHljpNntsuZqJv51TcN1AIFTJLLY732bxNi309VcCPLAlE5XjoYrILnnVFKVdAd
+	 togB0jLj80+lebeANllbkhi7JcmXm9CvKkA3aFkx0wxeMzL6gpnSGZKKBz9OgWio0gMvr
+	 sgkcROBmn4Y/D0seGsTSIFqNqiuOo4llQacN3rM46WHHBKYpBJrAcHAMt3Td8rk1kphVl
+	 ODyDubGhpc8n/RhkHPYpFeJGHfCZT6lHePe7cvfMIfKi6pfOCmImko4yOvKRds7Thbqzr
+	 BdOqcdCAJu/Td/Cw17jZROQiNWwNU4XlBBxRvCEzYUmD9dXnpNBj1LwnCseP6loCwsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6023606D804
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08016606D809
 	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6023606D804
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08016606D809
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-5641cd2cc13so560296b6e.0
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a45b3f0bdfso795344b6e.1
         for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:33:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793968429; x=1794573229;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=31zJHAipSlhPMGedMX5ynsYIkiuZ+8oMTFm3jTUaEqE=;
-        b=ATKZqFXQ3/HChtV/2l7I3K7S4LM8hutIaOtAfCrmNYH7Dt7eBHJdIOQn7iNMA0ihCr
-         zAsrF17AUMDRMMEGn8K8jb+OannpDKcq4HJip213lc5NapD60tZ6QiPg14aI3onRwi/F
-         v9XSC2anGbrxrqr5pOjNOdwXoLeJC2EZB4/cT+MXLBmpbqmM2ON9uylffC8dpNQOTl/8
-         BzdSNTQQm1oIFSQOvn124MGL5+YdkwA/OKRHLFrHnpUgQ2Aq47QwwfJfr7TrAMy6J8Ea
-         0TB+3B5LRPWvVRgyEna6v/MDhOpRl2NUfoQLhjDIXiIQYwh5Mu+deQ9TXgVwRQ01Hdhn
-         zWKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpD8ZIRezVJh/81CtmjbLZR+ip4KpbiTrfQ2db7lWr6q9B6lM50sO4qU0KhF9WKt89mA57IouqST/MA/k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+R8vRGjiI0B3oiZpzb63sqA41VisUMmOerFiD4kmMFP5wvXXQJ
-	2qVHNbYPDXI/xzWLDcg4//Gl6xuTJTnnX+OQnTP9Bjx14fd9QJwqwOpXji4IYTuNYT/ew7aKCzu
-	pc4wdu9pkCbzUH4GFTymwZLLVuej6eJtKpX5qvSMaVWqQv1Hhg55SMQfqZMc=
+        bh=2uqcxYTgBXJbTfbI/DlmOarXlJOAhStn4Uga9XDZVLM=;
+        b=xgeFev3484qaH6s4VwClGjCplVV0gBWv3TK18JAXzBtxlY9O3y/uC/zOfA7VZx65r2
+         pcbxOd/7Z0TTLaEFdBtlr6nW8XBn5xxru3S7We80g4lArnHKHHeyb0OfW7jjzhoY96e5
+         XD68K5CPpmFp83ZdY9xHDEq3i2Z7obcph7303g0+zByp43RsXtoKwBpuqTc/yMUysqtv
+         e38tEteuTHAeGwhb43PnNhi3zJHFBY1UR0/5AmbXL40H+VtMbGXlHBgygKXp6SGgaC5w
+         CP/jf4YqR8GYJUhgd08UqR7Gbtf+5urF8nozkEA9lfg7WffvIfXG//CWp29JLps9hTDc
+         2jug==
+X-Gm-Message-State: APuU4Z97g82oEvlMfQvQiP9FIe+tZALzzNx0lkSIvclFX9HVf/9np9SO
+	MSz2DTexw34zwul9YiMfHLEl1jOdTN9wFLJMulIydRtgArMdztmwn7mCUnRZckqEf6+Twxv/GiK
+	61fqTqIIhhwBN5MX0mthrdd5Pn4fTgV+Dvqn/Yui8o34UYAhzAXYFJpK8o/Q=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,45 +57,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c3ea:b0:55c:836:597e with SMTP id
- 5614622812f47-567e14d6d1cmr1493728b6e.31.1793968428769; Fri, 06 Nov 2026
- 04:33:48 -0800 (PST)
-Date: Fri, 06 Nov 2026 04:33:48 -0800
+X-Received: by 2002:a05:6808:4b07:b0:525:184c:7952 with SMTP id
+ 5614622812f47-567e14c9215mr1547560b6e.16.1793968429095; Fri, 06 Nov 2026
+ 04:33:49 -0800 (PST)
+Date: Fri, 06 Nov 2026 04:33:49 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aedc92c.a716b02e.a4a62.0002.GAE@google.com>
-Subject: [syzbot] Monthly hfs report (Nov 2026)
-From: syzbot <syzbot+list1e64672c7831f2f46cc6@syzkaller.appspotmail.com>
-To: frank.li@vivo.com, glaubitz@physik.fu-berlin.de, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	slava@dubeyko.com, syzkaller-bugs@googlegroups.com
+Message-ID: <6aedc92d.a716b02e.a4a62.0003.GAE@google.com>
+Subject: [syzbot] Monthly media report (Nov 2026)
+From: syzbot <syzbot+lista85d4caaecea173177e8@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello hfs maintainers/developers,
+Hello media maintainers/developers,
 
-This is a 31-day syzbot report for the hfs subsystem.
+This is a 31-day syzbot report for the media subsystem.
 All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/hfs
+https://syzkaller.appspot.com/upstream/s/media
 
-During the period, 0 new issues were detected and 0 were fixed.
-In total, 17 issues are still open and 42 have already been fixed.
-There is also 1 low-priority issue.
+During the period, 4 new issues were detected and 0 were fixed.
+In total, 50 issues are still open and 128 have already been fixed.
+There are also 13 low-priority issues.
 
 Some of the still happening issues:
 
-Ref Crashes Repro Title
-<1> 11662   Yes   WARNING in hfs_bnode_create
-                  https://syzkaller.appspot.com/bug?extid=a19ca73b21fe8bc69101
-<2> 8181    Yes   possible deadlock in hfs_find_init (2)
-                  https://syzkaller.appspot.com/bug?extid=e390d66dda462b51fde1
-<3> 1125    Yes   possible deadlock in hfsplus_find_init
-                  https://syzkaller.appspot.com/bug?extid=f8ce6c197125ab9d72ce
-<4> 6122    Yes   possible deadlock in hfs_extend_file (3)
-                  https://syzkaller.appspot.com/bug?extid=2a62f58f1a4951a549bb
-<5> 1895    Yes   KMSAN: uninit-value in hfsplus_rename_cat
-                  https://syzkaller.appspot.com/bug?extid=93f4402297a457fc6895
-<6> 1121    Yes   possible deadlock in hfsplus_file_extend (2)
-                  https://syzkaller.appspot.com/bug?extid=4cba2fd444e9a16ae758
+Ref  Crashes Repro Title
+<1>  472     Yes   KASAN: slab-use-after-free Read in em28xx_release_resources
+                   https://syzkaller.appspot.com/bug?extid=16062f26c6480975e5ed
+<2>  349     Yes   KASAN: slab-use-after-free Read in dvb_frontend_release (3)
+                   https://syzkaller.appspot.com/bug?extid=ae466a728017ec940b41
+<3>  198     Yes   KASAN: slab-use-after-free Read in rc_dev_uevent
+                   https://syzkaller.appspot.com/bug?extid=237c754233330b2bf565
+<4>  157     Yes   INFO: trying to register non-static key in as102_stream_ctrl
+                   https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
+<5>  156     Yes   INFO: trying to register non-static key in as102_dvb_dmx_start_feed
+                   https://syzkaller.appspot.com/bug?extid=3f395d8da879a58fb019
+<6>  72      Yes   WARNING: held lock freed in device_release_driver_internal
+                   https://syzkaller.appspot.com/bug?extid=ed3ed4f52d1fb6a7367d
+<7>  33      Yes   WARNING in ttusb_start_feed/usb_submit_urb
+                   https://syzkaller.appspot.com/bug?extid=3caf6a60e5f9be12de08
+<8>  29      Yes   memory leak in v4l2_ctrl_handler_init_class (3)
+                   https://syzkaller.appspot.com/bug?extid=b1de0d5fd8a15fac11aa
+<9>  6       No    KASAN: slab-use-after-free Read in __video_do_ioctl (2)
+                   https://syzkaller.appspot.com/bug?extid=4a6e6173b1fc7916e950
+<10> 6       Yes   KASAN: slab-use-after-free Read in v4l2_release (3)
+                   https://syzkaller.appspot.com/bug?extid=34957180b0ed2581edaf
 
 ---
 This report is generated by a bot. It may contain errors.
