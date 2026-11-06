@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793948782;
-	b=1rMPlteDVzddDSjpmUu5felzzvcvuBFOFNiCR5c6awsmzQWDFF66JUFFs5tu5bSB+7Zw
-	 bPe9LLbhFHLowYuGo1pTnhmQAeCOR/kymRspnd9TQvAn5ePWH/T538oV2QxGClkK8d9/E
-	 JeYTBaF08cIow1F9MKK3ZkgmZLG1QCurzbWh/UYV5dqkPhQ7qLy05Ju+VreYRDTIcisDo
-	 gVaDhEloYKcNEE7yRNQeN69Mbp4+MXhtr8cjKNoR6IsIO+AV+tK9uwSvv5tJq3yv+ETzh
-	 Rh5T5DynQnvpsbtD7CVt4v6ARQxuExBLaGKO99Ss0r56971RYcwv8prWt55SUclHcsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793948782;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XIPrkf27orXoR8LuOOqmxQvI1umQxyAZnSyJ4q2cxa0=;
-	b=0IR6L3MpPhbJ0vK0Ro7nGz+8VsC+SPTWVNk1yjq0Jwpb3BEm+lYKiWy+3/O5IlKx2s2v
-	 Q6/SOFJIEJ44CepTcvfIVOZ+HXAN3PQTVSYFmrFL9D6KKd9EHhtUcWplPnpUXkaCwJtFO
-	 TkzJQLDksDi156ALflGM/MZDKPt2y1237PL1LqVyAdVZi1OsUOPP8xuswGOgovjSBaHhc
-	 HltxPbRbyM0C+HdpIzNJtNhmUtvNSRG8dkxoU5I1/YtRXJrclrGDuZpWMd4MYZ4DJg8Zj
-	 pkjd2lHjWWFY9ky5MADGXDb3xIj/Ekh2HH76r8Q6XCRNLmyCy1kqDyPQxCLKpAlnXOQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OY8vFdP6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.65
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012065.outbound.protection.outlook.com [52.101.43.65])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.112
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793948803;
+	b=j90gzmeRx/v1kMSyc3w4ivKcROaMw8UjOZVSNiTDUGXjthr/ULq2NAWsFTS7mJmrOJvZ
+	 iF0VdU6R3CwebZzHv97TsLtHQI/m76+w+yV52FaedSUedlGp4RS7tzj7W2FZWQ4BRvBT+
+	 G7NTtI8r3KSz4ddvt5ZUF9IRSb59wt+lWkQn0gxgizpn67kNmhWwg/0I313IoXC9yE7eI
+	 iQFsQOo3VXt3iyMwoSNW8vcX5SI9eZk6tN5ePGSL8fgIBCQ9C7h1jQj18mrZYK+epfuRN
+	 OYJAfF0d6C9VfVT+/5W4HAod73tIb3aQakB8kpWhGdhb+oCWC3F6vendW3q2WJG/CbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793948803;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=sK1wlGG6YmCD8beXerpELaLtfG4Jd+kTnPVd1L2se3g=;
+	b=wEgpf6bXk6fUe3LSXV1413/lW8l+QT7boAgNs5Vu07VPh8fGFifJFd9RQx7S2SP7Kbmu
+	 0pJeC9EYwZxw2/e+Uf1oqD2j330vpRXtnuuSGHOesAOa5xN6Ptomc5yaJO181RiiSYX0A
+	 6VFnnGie0s5DYKVqLFiX0lBis1znAGiQVptS2uVhP205M+QegT1/qP7KpaZvsIxsgisOh
+	 +Dx2z6IfQTWauMRqhhSsZ0m8uW5ZiK4p52xY0b23yx3YTfYcXRxgzSxN3hLhycnnq4OCi
+	 XfI6rtTz8/Rrw+7x8vS7iFDUn0FSIk07yfWCu7WIUbAEMxdbdktkQZeb43b7HyvQ6Rw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=kaihong.com;
+	spf=pass smtp.mailfrom=kaihong.com;
+	arc=none smtp.remote-ip=115.124.28.112
+Received: from out28-112.mail.aliyun.com (out28-112.mail.aliyun.com [115.124.28.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29721606A332;
-	Fri,  6 Nov 2026 07:06:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29721606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OY8vFdP6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F49ETZ2lSYTZvRA9cxUfs7UWvnF7UEtmVO1LZ85QaWbSsjoQ47viocnxrxAq0AwQ/1Pl1uMh1i9SPyTwiICCtD6wDUperQvaXZm+xa8bibZI7aOR0o/4Sa9KU+M9qcoYv9bTw3XFswWzOAueXWcXdxZyopsVwn4bePzLkB0YBqDTzBhqrOgz8KSRJoDGFwFefZiYaFdBM4iJHSrlGlUhPhC808R3dGR7VYq4MigF+kqRfGAAUDcppcqAOHeTn4zWmO9qAygQUABsm0OKCEJIv3+AUFMSqBVZrmTkfZIxRf8qYPH7QgxD0V+B/dJWLj9I0TtkuO+FAhkUbFHWVKt/gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XIPrkf27orXoR8LuOOqmxQvI1umQxyAZnSyJ4q2cxa0=;
- b=HXWKf2C6TqxpduCOuSRdmBzpBwts8lGz2VdB0CsWEw6C4NCYdzjA1IGiUruejxvc+33S4o8b2OPtwR96sZuI4CBQqenvPAqzGLa+iy7ByjwO+ZoknIA+zbIGcBbtdPzIKFU7tKF4MckwpszQ0DkdrweCj1e/1rgx0u6tsF+vJVS4wZHUMrGvIJnf4gdzvDoG5dzwfdh6YsXWV7zjefGZpiqjT7wdrXYPADypAM6ncxqsLNaaMzHvp0mWRHJHmP3TJaqHPYAiqHWFzMlN5cbCux2xnqNMYrvthMwT4sV/GqbQRzWlPGFGgPWhIF7ehb5tLvWrRWPz+EeRlWS6rsIJ4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XIPrkf27orXoR8LuOOqmxQvI1umQxyAZnSyJ4q2cxa0=;
- b=OY8vFdP6DH0U8M46mc538TsIyHQNjt3kxqu1Q02zVeaP6hxMtw6n+I59+iO9sdK7YPGBXsPeAtkMQbmoJ+NO1O2UELS7oMr0mxE+R7wfoCLokvpFVkisP0A6TF+q+2JcLBVkK97SxmK29LaBVGQaGsx0RcCbGFbbCSSUOOlGTKjRJpzh3Fp6GjrJI1S5k5Zr4DSOENXnnPtv61uYRp3FDw3dh53oraZXTZM5G9b0O9paM8ZQa9FYryngfpPPcfzrC5W8LHMifc5fV1Xf7cMntoQDWaNUkuZmNhYA1WH3pQPI/7ifUyBKc7LJJ1rhE2R/iEYHVdnB8x7Uzk0I8W2rog==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SA1PR12MB8699.namprd12.prod.outlook.com (2603:10b6:806:389::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
- 07:06:18 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Fri, 6 Nov 2026
- 07:06:18 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Fri, 06 Nov 2026 16:06:09 +0900
-Subject: [PATCH v2 1/6] gpu: nova-core: gsp: fw: add the r000 bindings for
- the GMC API header
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-r000_rebase_on_cmdq-rpc-v2-1-e481ea2168ef@nvidia.com>
-References: <20261106-r000_rebase_on_cmdq-rpc-v2-0-e481ea2168ef@nvidia.com>
-In-Reply-To: <20261106-r000_rebase_on_cmdq-rpc-v2-0-e481ea2168ef@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4PR01CA0049.jpnprd01.prod.outlook.com
- (2603:1096:405:372::14) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D416606A328;
+	Fri,  6 Nov 2026 07:06:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D416606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kaihong.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaihong.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1986584|-1;BR=01201311R191S09rulernew998_84748_2000303;CH=blue;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00258762-0.000171821-0.997241;FP=7888863433177527972|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033040092104;MF=wangxiaolei01@kaihong.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jy2.91t_1793948790;
+Received: from nj-vm-261.pxvirt.local(mailfrom:wangxiaolei01@kaihong.com fp:SMTPD_---.jy2.91t_1793948790 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 06 Nov 2026 15:06:30 +0800
+From: Wang Xiaolei <wangxiaolei01@kaihong.com>
+To: linusw@kernel.org,
+	florian.fainelli@broadcom.com,
+	rjui@broadcom.com,
+	sbranden@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com,
+	daniel@dragonzap.com,
+	wangxiaolei01@kaihong.com,
+	iivanov@suse.de,
+	andrea.porta@suse.com,
+	phil@raspberrypi.com
+Cc: linux-gpio@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] pinctrl: bcm: Fix fsel_get() and use generic dt_free_map
+Date: Fri,  6 Nov 2026 07:06:25 +0000
+Message-Id: <20261106070628.1428691-1-wangxiaolei01@kaihong.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,265 +61,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA1PR12MB8699:EE_
-X-MS-Office365-Filtering-Correlation-Id: d92cf042-9a39-4311-0051-08df3bd47432
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|10070799003|23010399003|1800799024|260925021911599003|260925021311599003|260925022911599003|261026121527099003|261022075727099003|261102130727099003|11063799006|56012099006|261021121427099003|261022115727099003|261009223027099003|261102123227099003|261022105027099003|261026140227099003|261022113327099003|261028144727099003|6133799003|22082099003|18002099003|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	3fnn9pPrs23BLe+etn4zmL4N8mtICLiSJ8jYiWYajoT7z+ozVrThN/No0A9YenKNKxHeYqtrHlkuKCRD7pS/Eqs2ZB7lL+420pcjl7tAP5VvLxnzqvYiLf9qi1ByBRtlti3UgLY1CKEJg6xlX/y0CBNW5T7W+qW9T8XoNrIFiPk31MIAF8TjDGFqnRgAZTmXFXCMoHpgEqa0SDcx3H4wh9km+e7o73SK8dsyczTn/YIePlI+tZRoW3t3JEXXx9UTgVDw2G+M0tee8/RkOyHEITHOfvA7Qt+lmTIVD3H1rd2EkDxPSJ3MY5ZdcV/LwBWYuu96o4PRFfUvr+5ix2JVFuC3Y4Rhfhi2Ns80RgKKtaVLDi1Hi6CopM70SD+CfoUJdjqGYlU7wFPLTbUYhgml4EFOwUNvuEBpJ1CohWKoMFPgfO4uEFS87XfxxcYaEkf40G0+uObaDx+61datPE2iDSPfojtfJhBSXbz5gYmMys1xPwGmyZ12Ie5iTUW1QSp0zik8Ase6GEB7kdN2m+qXvuKXut+lKOwTc1MwLZTsn9yidSx3yKZg4k3g0gkliXEV9YuKPYD/GFIxeuWNb1y7PmbH3hO6PyWftntugvK7FV6F73wGUJ6Gb/+18dn+Qmt1GHYhAklOuu9YUyIS3s8rLJ51LshuoRyQlga2zqNyXy8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(10070799003)(23010399003)(1800799024)(260925021911599003)(260925021311599003)(260925022911599003)(261026121527099003)(261022075727099003)(261102130727099003)(11063799006)(56012099006)(261021121427099003)(261022115727099003)(261009223027099003)(261102123227099003)(261022105027099003)(261026140227099003)(261022113327099003)(261028144727099003)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VUNVYXA5V2dSRmxwdW1KWUdWWGtlYnlTRmFoYkxvaFRFRUlGSFdmdmlhZSth?=
- =?utf-8?B?dU5HblQzeVlLUUp0OWQxWjJ4RjQyUFVjZE1zWVhZc1JNZmxSeFB1VnRIQ3d6?=
- =?utf-8?B?ejZwVWFuMGxIZDdISjd0dTdvWTErd0hxOGFVWldrU1FHRXdQTFBzZ251QWdi?=
- =?utf-8?B?cUJwclZjS0x0aDFSQ1dZZWJZb0Zyd2lJcHVtaG4rN2pobHVBVE00ZXJJQlJG?=
- =?utf-8?B?R1JrS2RnQVhrYWtsT04zbUIxekloSmw0SFNLUHJEbEcvY0t1R3BUaDl5blhE?=
- =?utf-8?B?bERkT0tFU0ZObGJ4VEFFK1ZXZkFZZER1SitkS0p4YWl1eVdia0hnaXFaVzh1?=
- =?utf-8?B?djlURXFGUEFoMkJmWXJPRmxRTEJLSlJLb0QzN2U0Y2FqUTNHSmoxekZ6VHVy?=
- =?utf-8?B?L2ZoWVljeTZHTkpxcVBHT1hXNjhXdlF0bzl1RjFyRVErcjJ1RTBPdWt2OTdp?=
- =?utf-8?B?eXpXK2hwakhnWDVLZ2Y2a2VPRExHenJOWVpWeGMvZDd3QkFTMm1wMDM3VWNi?=
- =?utf-8?B?aVZJdlFRUkg1UjFyQ2lqMWtuY2EwV3pVcG1KTmdUK1A3MDVQUXZvbjZLOENJ?=
- =?utf-8?B?L3FkQVlQdFowWno5bEJtM25DM1B0ZDNHNi9UQkdwT0Y5cGtybHJSQ2g5TEpU?=
- =?utf-8?B?R3lQaDNGNEFKQjhJNVE5ckNyQ1NHZDVpbitZRU4rRE1tZGJYWm5HbGJnMzhF?=
- =?utf-8?B?anhoOHViTktJOGgrclYzZWd1dVBsV3Q2QWFFWTNUSnBEOHQvUjVCTnAxVmxB?=
- =?utf-8?B?T09ZeGl3VUEwZkExalltekNSMFlGQ1Blc3J1V05TU0hZN1FPeVlKb0xKTVp0?=
- =?utf-8?B?MWJhQm9zcHBVcmlPUnZCUlFzei9lelN2ZnYzVmJHRUdrSFY2eGpFUFA5N2lj?=
- =?utf-8?B?Zm90ZXNGM3JUZ09oSEo4RmMwZWpIZEJ2K2dreThlczFEMzZxMklFNS8xVU5t?=
- =?utf-8?B?K0w0eWowSFZiM1piOFZyTHNzRU5UZlZqNFUrbFFaL3ZYRUxHR2JqWmdsQXBB?=
- =?utf-8?B?ZEIwY2ZVbFhJeGFOVUZ2ZW94QUQ5aEFQalVCcW9xTTlLaUFSQUswMktVYVRY?=
- =?utf-8?B?cTNZWWgrM0dNdHhUUlFkdlY3dzRmczZCNUlQRXA0cGdnQ09FUUJvb0pRWE82?=
- =?utf-8?B?UUFqY04zNUROZXZTTS9lcWNTODJjaWRHaWl6QzNSUm5PdGtRL2ZOVlFsUXlt?=
- =?utf-8?B?anp2c0VXR1o0S1hNRkkrcE5ESnlDc2JrMXFNZmxEU3dLY1pGZ3A2SlJKZDZr?=
- =?utf-8?B?VVpZMEZlYmhwbEFJVkxhRGtzb1VuUnVLelNZZGhoN052OHUvS1l2cXZwaTQ1?=
- =?utf-8?B?S2JqSUdFRlVGdTJsVDRya09FK3diaEJORnZUY2tsd2xqQmJvNVQ2VjlYRmhF?=
- =?utf-8?B?RzFVYVBHMkdBWStleU9qVk9jeEx3ZHBJN1ZiNEdZYzd0Yi84RHZQWWVTR0pk?=
- =?utf-8?B?L1p6cUZXN1FjUWxManh4WGdaNHpmclpKVkRCRThNbWtlRGZscS8rREdDbjVw?=
- =?utf-8?B?SEpxaGVaa09UNGpZQTFzN1JvNjZZWW5HKzNvVXZGRUhSSFRjb1U2QW16RFJN?=
- =?utf-8?B?bTdXNWdQbUI0b3BFUEwrbXpGSmVBMWYvYlZ6OFVlYWFHYTRVOEQyNHdBVWtW?=
- =?utf-8?B?aHBaaCsxcFk3b3VoSkZRblBmTm9HZHdQVHZHRTEzSUFKbFlnUEMweHpTVWl3?=
- =?utf-8?B?L095ck9VcUVYSVdPdGRvOGRmT0psY1NHaG4xb3RaYXV3SjR2cnJseGV0Rm1U?=
- =?utf-8?B?UzFLV29yN2pGV3piK2VrTjk1L2xWc2gyQ2R4eHdLdjRCcmMxaUUwNUV4OHdW?=
- =?utf-8?B?U1lEODhBRW1ZYU11Z1ZVTm96djVMdzhFN0hab2VXVHk2MTlZcUx5WHluQXd3?=
- =?utf-8?B?a0RmWkRCQVAzNHFYekpQdDVsWDNlSktINkRxdlM5QjlmOVJ0UmNGQmJsck5q?=
- =?utf-8?B?dGZYYWpkNlN1WENCZThONGJhR2pHa3dtRTZ1c215aDZ4YzF3VjM2SGdvQmM5?=
- =?utf-8?B?WE1oaFhJNjdlT2tKL3JHZ2kyUE04UTNHWkJDZEZEQms4cFRMT0l5M2V1N0lq?=
- =?utf-8?B?ZCtocVNURE15bk1PNUQ4ZWUxMnVoQWZIMlcwTTZwZkQrTzlsQXVpZENVZkxV?=
- =?utf-8?B?SFJTSDZRTk4wZjYwYlE2SXkvaXc0bG1TNllrMUpKbktVN0s4TExxY0pvcWZo?=
- =?utf-8?B?K3BYUkFrMy9VN09yVTE5TzJsWTR2VjNRTERmb1ZIRktBbk92TzRzTkxHVFpw?=
- =?utf-8?B?Z0tkQUJwc3ZpQmtsa0hUWmlXSklzMWRBa0ZSNWFLZ2l1SGR0RkE5SDVkcmRD?=
- =?utf-8?B?NkFwWXNDdTN2TUJhV3U2eVA3eFVIMEw3b0t2L0Z4WTB4d0o0OXNBRGhCSG1C?=
- =?utf-8?Q?d/xJy0xWxbwZlKnLQgidpTsKzi5KnQeTL7W3htzHXY5Xx?=
-X-MS-Exchange-AntiSpam-MessageData-1: DpVNjqY4D8y6pw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d92cf042-9a39-4311-0051-08df3bd47432
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 07:06:17.9580
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lqwDn7I2EXhajKJtbcPywmwxSP1N1vzfonSD7YwpD6qhitmrSP5E7oERZxInTuyIEKxiTMt0zqCOOX1Ai5viJA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8699
+Content-Transfer-Encoding: 8bit
 
-From: John Hubbard <jhubbard@nvidia.com>
+This series contains one fix and two cleanups for the Broadcom pin
+controllers.
 
-Nova-core boots the r570 GSP firmware, release 570.144. The GSP firmware
-releases from r615 onward share one ABI, and their firmware files carry
-no version number in their names, because each image records its version
-internally. The driver calls that ABI "r000", so that its name does not
-change with each release.
+Patch 1 fixes an off-by-one and out-of-bounds read in the STB pin
+controller driver that was added in v6.18. The FSEL register field is
+a 1-based function number -- 0 means GPIO, 1..n_funcs select
+funcs[0..n_funcs - 1] -- but brcmstb_pinctrl_fsel_get() uses the raw
+field value as a 0-based index into funcs[]. Every readback is
+therefore shifted by one entry, and the value 8, which
+brcmstb_pinctrl_fsel_set() accepts as the eighth alternate function,
+reads funcs[8] and trips KASAN when the pin state is printed through
+debugfs.
 
-Add the first part of the bindings that bindgen generates from the r000
-headers of OpenRM, the open-source NVIDIA kernel driver. The following
-patch builds the GMC API header type on them, and the driver keeps
-compiling against the r570 bindings until the patch that switches
-firmware.
+Patches 2 and 3 replace hand-written dt_free_map callbacks with
+pinconf_generic_dt_free_map(). Both drivers already call
+pinconf_generic_dt_node_to_map_*() for dt_node_to_map and already
+select GENERIC_PINCONF, so the generic helper is the matching
+counterpart, and the open-coded free loop just duplicates what
+pinctrl_utils_free_map() already does. No functional change is
+intended for the map types the existing device trees use.
 
-The headers are those of OpenRM release 615.71.09.
+Patch 1 was tested on a Raspberry Pi 5 with KASAN enabled. Before the
+change, writing "gpio45 alt8" to pinmux-select and then reading pins
+triggers a global-out-of-bounds splat in brcmstb_pctl_pin_dbg_show();
+after the change the same sequence reports "function spi_m" without
+a warning, and a register field value of 0 reports "gpio".
 
-[acourbot: split the bindings by the code that needs them, name the
- OpenRM release.]
+The series is based on v7.4-rc1 and has no inter-patch dependencies.
 
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-Reviewed-by: Timur Tabi <ttabi@nvidia.com>
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
----
- drivers/gpu/nova-core/gsp/fw.rs                  |   1 +
- drivers/gpu/nova-core/gsp/fw/r000_00.rs          |  29 ++++++
- drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs | 110 +++++++++++++++++++++++
- 3 files changed, 140 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index b2ddeb27984f..213ef5bfb258 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -2,6 +2,7 @@
- // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
- pub(crate) mod commands;
-+mod r000_00;
- mod r570_144;
- 
- // Alias to avoid repeating the version number with every use.
-diff --git a/drivers/gpu/nova-core/gsp/fw/r000_00.rs b/drivers/gpu/nova-core/gsp/fw/r000_00.rs
-new file mode 100644
-index 000000000000..0c32f4ec1e27
---- /dev/null
-+++ b/drivers/gpu/nova-core/gsp/fw/r000_00.rs
-@@ -0,0 +1,29 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Bindings generated by `bindgen` from the r000 GSP firmware headers.
-+//!
-+//! Use them only through the parent module, which abstracts or re-exports the symbols that the
-+//! driver needs.
-+
-+#![allow(
-+    dead_code,
-+    clippy::all,
-+    clippy::undocumented_unsafe_blocks,
-+    clippy::ptr_as_ptr,
-+    clippy::ref_as_ptr,
-+    missing_docs,
-+    non_camel_case_types,
-+    non_upper_case_globals,
-+    non_snake_case,
-+    improper_ctypes,
-+    unreachable_pub,
-+    unsafe_op_in_unsafe_fn
-+)]
-+use kernel::ffi;
-+use pin_init::MaybeZeroable;
-+
-+include!("r000_00/bindings.rs");
-+
-+// SAFETY: This type has a size of zero, so its inclusion into another type should not affect their
-+// ability to implement `Zeroable`.
-+unsafe impl<T> kernel::prelude::Zeroable for __IncompleteArrayField<T> {}
-diff --git a/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-new file mode 100644
-index 000000000000..552299c98169
---- /dev/null
-+++ b/drivers/gpu/nova-core/gsp/fw/r000_00/bindings.rs
-@@ -0,0 +1,110 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#[repr(C)]
-+#[derive(Default)]
-+pub struct __IncompleteArrayField<T>(::core::marker::PhantomData<T>, [T; 0]);
-+impl<T> __IncompleteArrayField<T> {
-+    #[inline]
-+    pub const fn new() -> Self {
-+        __IncompleteArrayField(::core::marker::PhantomData, [])
-+    }
-+    #[inline]
-+    pub fn as_ptr(&self) -> *const T {
-+        self as *const _ as *const T
-+    }
-+    #[inline]
-+    pub fn as_mut_ptr(&mut self) -> *mut T {
-+        self as *mut _ as *mut T
-+    }
-+    #[inline]
-+    pub unsafe fn as_slice(&self, len: usize) -> &[T] {
-+        ::core::slice::from_raw_parts(self.as_ptr(), len)
-+    }
-+    #[inline]
-+    pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
-+        ::core::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
-+    }
-+}
-+impl<T> ::core::fmt::Debug for __IncompleteArrayField<T> {
-+    fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-+        fmt.write_str("__IncompleteArrayField")
-+    }
-+}
-+pub type __u8 = ffi::c_uchar;
-+pub type __u16 = ffi::c_ushort;
-+pub type __u32 = ffi::c_uint;
-+pub type __u64 = ffi::c_ulonglong;
-+pub type u8_ = __u8;
-+pub type u16_ = __u16;
-+pub type u32_ = __u32;
-+pub type u64_ = __u64;
-+#[repr(C)]
-+#[derive(MaybeZeroable)]
-+pub struct GMCAPI_HEADER {
-+    pub command: u32_,
-+    pub size: u32_,
-+    pub sequence: u64_,
-+    pub __bindgen_anon_1: GMCAPI_HEADER__bindgen_ty_1,
-+    pub reserved: [u32_; 5usize],
-+    pub data: __IncompleteArrayField<u8_>,
-+}
-+#[repr(C)]
-+#[derive(Copy, Clone, MaybeZeroable)]
-+pub union GMCAPI_HEADER__bindgen_ty_1 {
-+    pub request: GMCAPI_HEADER__bindgen_ty_1__bindgen_ty_1,
-+    pub response: GMCAPI_HEADER__bindgen_ty_1__bindgen_ty_2,
-+}
-+#[repr(C)]
-+#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
-+pub struct GMCAPI_HEADER__bindgen_ty_1__bindgen_ty_1 {
-+    pub max_response_size: u32_,
-+}
-+#[repr(C)]
-+#[derive(Debug, Default, Copy, Clone, MaybeZeroable)]
-+pub struct GMCAPI_HEADER__bindgen_ty_1__bindgen_ty_2 {
-+    pub status: u32_,
-+}
-+impl Default for GMCAPI_HEADER__bindgen_ty_1 {
-+    fn default() -> Self {
-+        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
-+        unsafe {
-+            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-+            s.assume_init()
-+        }
-+    }
-+}
-+impl Default for GMCAPI_HEADER {
-+    fn default() -> Self {
-+        let mut s = ::core::mem::MaybeUninit::<Self>::uninit();
-+        unsafe {
-+            ::core::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-+            s.assume_init()
-+        }
-+    }
-+}
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_RESERVED_LAST: GMCAPI_COMMANDS = 65535;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_GSP_INIT: GMCAPI_COMMANDS = 65537;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER: GMCAPI_COMMANDS = 65538;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_EXEC_HS_BINARY: GMCAPI_COMMANDS = 65539;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_GSP_SUSPEND: GMCAPI_COMMANDS = 65540;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_GSP_RESUME_DONE: GMCAPI_COMMANDS = 65541;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_ADD_VGPU_TYPE: GMCAPI_COMMANDS = 131073;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_SUPPORTED_VGPU_TYPES: GMCAPI_COMMANDS = 131074;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_CREATABLE_VGPU_TYPES: GMCAPI_COMMANDS = 131075;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_ASSIGN_VGPU_TYPE: GMCAPI_COMMANDS = 131076;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_DEASSIGN_VGPU_TYPE: GMCAPI_COMMANDS = 131077;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_VGPU_PROPERTIES: GMCAPI_COMMANDS = 131078;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_QUERY_ASSIGNED_VF_VGPU_TYPE: GMCAPI_COMMANDS = 131079;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_BOOTLOAD_GSP_VGPU_PLUGIN_TASK: GMCAPI_COMMANDS = 131104;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK: GMCAPI_COMMANDS = 131105;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_SHUTDOWN_GSP_VGPU_PLUGIN_TASK_COMPLETE: GMCAPI_COMMANDS =
-+    131106;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_CLEANUP_GSP_VGPU_PLUGIN_RESOURCES: GMCAPI_COMMANDS = 131107;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_PLUGIN_TRIGGERED_EVENT: GMCAPI_COMMANDS = 131108;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_MGR_SCRUB_GUEST_FB: GMCAPI_COMMANDS = 131109;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_MGR_ALLOC_GSP_CEUTILS: GMCAPI_COMMANDS = 131110;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_VGPU_MGR_FREE_GSP_CEUTILS: GMCAPI_COMMANDS = 131111;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_SCHED_CONTROL: GMCAPI_COMMANDS = 196609;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_MMU_FAULT_QUEUED: GMCAPI_COMMANDS = 262145;
-+pub const GMCAPI_COMMANDS_GMCAPI_CMD_INVALID: GMCAPI_COMMANDS = 4294967295;
-+pub type GMCAPI_COMMANDS = ffi::c_uint;
+Wang Xiaolei (3):
+  pinctrl: bcm: Fix off-by-one and out-of-bounds access in fsel_get()
+  pinctrl: bcm: Use pinconf_generic_dt_free_map in bcm2835
+  pinctrl: bcm: Use pinconf_generic_dt_free_map in brcmstb
+
+ drivers/pinctrl/bcm/pinctrl-bcm2835.c | 16 ++--------------
+ drivers/pinctrl/bcm/pinctrl-brcmstb.c | 26 +++++++++++---------------
+ 2 files changed, 13 insertions(+), 29 deletions(-)
 
 -- 
-2.56.0
+2.34.1
 
