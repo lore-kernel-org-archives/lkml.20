@@ -1,75 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793925795;
-	b=ka+0B8TIMlA0SK7kOtvBOgP6lidp22ZovYG+bkYx9N3MBgeP8Y3tTzHCD+mM5n+6r7hE
-	 A8/sAjNl+ehXvt5DMlrBEyDsfTqkd2XYXltyyLxDaSERvXP/1ZKs/BHUfASg55fk2R3aj
-	 D/yizihGiGhtGz9VhYwqO9bf5g8Bie6/hx1m+4gTk4pmGgAXfa9n8meJSlfjAclc39lwI
-	 dqau7M2dvrBMyy/tQWV2D3wLJXbLTJ2fVYN67ahK+6FtcSunBdcpYJMtMLIZCR2241Cud
-	 WbpsDBxTzaxXhmpiafTIw9tJ8qSMlBFYlnaGp5pmVtA2D4S6QzO/T9+a8htXGJov5ew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793925795;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793925810;
+	b=E/SQMZEDWXxkCj2LYNt1JNYRk9eTFqyCYqAzSBuONJ8GNiyaUi3ONMp3sldvb74HQVQ0
+	 YRpZHvKi1EkL+akB8zY/IXVXkcoQIZyX0OfSEQq5keoQA8aKiE1qwmYunQZKffBQann+z
+	 LHtf7nUm035NOTYm5Y+7+i+V1J7vXwGndWQnlxRIC6iUjB0Qk1wkwaTUsgAnzSqmy4O+g
+	 1F780PD9y3/HSgFeJ76iXKQde/IAfpns5twWbE1NFNhoN88kyjfYElHAge6J6LGN45LQ4
+	 2cwcmJ/FILSsv6IVQPJgDUYwSa9pPzsziR5Q+xDjorMWDzkX5F+sI8nC3vLu7MbtLLA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793925810;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=igzvOWA3gKLhxlMSFerj2bmXkcIdCtlOKBffMLwU+FU=;
-	b=wDf9vnyEu1wCQavJ5URqyU285DslqumGOl29XHoHJ2lTsc7VTtxBjnNBMsQ+QKPDEv7Q
-	 +g+9Sfa+LlJV1a/W/9gUuEcW8tBIg5qFX6+oitFRZmKxTNsAVpdmRKcIHZ0N7LKJj60Hi
-	 OaJUH2USrj7fNqAN+afcAPho6T4HenrcN9FTpq8TU4vE4O2FPD4IivYwgoa2LYVJGWM3E
-	 9zHjcpfy4HfLoERFwLoGbXJRpvJfFAYZFtPHsRhl9GoBWlTjGDyUT3pUKWc7/5KC6GZUs
-	 6TJzKFfezRpgMaLOwL6Tg9NC8DoTWJoIB1Ug4lV4D1tAEcbdJlEmtdmU2uVXSsVEpcw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZPRBg62H;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qjiIc9YUnEoIVWcKqPZO23DxNrAI/hQv4scM2zT69bw=;
+	b=sWj3y8z2lv6nbwyAq8DNTnZ9KQ1FnbAg/3Vny12GpyVxQHHIbggEv88aaJgY7KYO99YM
+	 AqxAbNrPPTf6tPytG7OQeZEN0h8YTv+FkrKpWuE33zauERQwVQvxpYO1a5gNBFtgd06NY
+	 PgRY/Ct7v2L2cyW8i3aDGoSjoBw4R+WMC9rihWx7tt1OnMp4FXzi/X8zhSYkC/EHnHDtz
+	 BFpnmBaRdN3V9LuLth0tGF33zYUTcNKyWOqfSbnfb26EGYPXGsTYJI9wbe4UFYhq2ps2a
+	 pFDZIo9frRuc8HPsXWKCWuuDSTZMzr19CGDP3wJiaPNvBo9KeoOPf0ROpuYBgaUoYWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hi3VR8f1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363CD606EEB6
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:43:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 363CD606EEB6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A44606EEB2
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:43:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29A44606EEB2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZPRBg62H
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c55ba309c2so90009b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:43:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hi3VR8f1
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcb440d1cbso81066e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:43:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793925808; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ev7AOBizghRsigHA/WZjxjeAkcJCAhtjJnlkirnposD8C3h2FlYMqFodCD+M5XM96y
+         dd8tp5r34Il6IOWDFa1loqmbgoAa8nlyVAYfTQ5AnclwvcGHXcWB2ISrYuS8PddRLC1X
+         ZG3vqecEHdVVSbdMU3Po5GO7p/qWV9AVRePd/OVzKzeE8wjFE1alVMKsfBWcAhGN94Go
+         8C2+REkWtIrYs4wlEt/wCw4PUReH0+/a2HJafdOVrovIq8XdHAH5JceAxF1slbtxyyat
+         Iw9wSb6+DNWT9vPSkJmbNqDl9wRHo6g7OJxqD9TU1f59Zev+/az9h/xutk539kZxZ8d8
+         dcGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qjiIc9YUnEoIVWcKqPZO23DxNrAI/hQv4scM2zT69bw=;
+        fh=xYCAIMe0QJ4TKOz3R9FAJ4RRZuZxJqn3ReVtpZ1wa+s=;
+        b=nfEfdqy4fxPIcPaJmt1y+dm+7Mglr+OYY7zDqzh0DVu+nJ+lzn5JyUZbAqJ94DPUDd
+         UMJialaZecQdB5uAfW9IPOhnt/ZWN4o0JVaTFJjEg6q/F24DefIPlyhbcsOIzzagGqGK
+         DifrXbG2/5uLU2grKsq6PCUmlSq7scC9Rur5UC2eME13uRv2gkndUrVrx61j390FZgXR
+         C0c4MeJIYGG348lzAU1xBKnQ+O2SXVQ9SpTDu0HpM39et0X8+reH3GWZVa8wquAG/udv
+         5s072BDgvBUK1J3EoOiDnO43l9k6uVrsLv1Pn+MITi9VtPIqMjK7AklUHtXRxHF2BzP6
+         Z2CA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793925794; x=1794530594; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=igzvOWA3gKLhxlMSFerj2bmXkcIdCtlOKBffMLwU+FU=;
-        b=ZPRBg62HZ/+FwpbL8Xi4LXaFTKBGoBSsGvO4c5uNN/DeloH2l+FwfRjlISLYgW3jlO
-         GCRiJrwQVtzg5Il3I8xn/nme/c+3pLbNpOSFDMCN+g5/97CgEwjYB5k6ByNwzgq7cIVE
-         oTYMSpSF5vV7QYehCij7iZ7X88Q41vWcRYNMqUnnxapz5JIjYH8s28ciWQ4j2NBNkzif
-         BZwaonGaF9IVxFrv8ZNoaNl7i6d6kVsWStx+jff0ooTrMzL53C7c5D/GLjo7L9kGlxsF
-         3DkuXEOd0+7XQ10VrI7Ay+JG6JNkyhdMvAPwaYqEpfTgWnIxapAKdPfqK7zK8l6e8l54
-         uAFg==
+        d=gmail.com; s=20260707; t=1793925808; x=1794530608; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qjiIc9YUnEoIVWcKqPZO23DxNrAI/hQv4scM2zT69bw=;
+        b=hi3VR8f19ljxLMo/woOrQIC0BeUowZpIXobmdibAOPuK8DY9d+cDEZHbWIqWZhE8ax
+         krsw/pPZV6/lwTgmi0R4CS95+P9GyG021vf1BBxaJ/mEJxesPELhgXG6KgRFSpjzY2J8
+         lW/hOrK862rc3REFXgxUnuzxlB0rgs8kGUb5Sv455YgwSm6CRd899yk/UMyh82bFf2O1
+         w6X+9XpQYDienE44sme+aKMuw2GODQpPTDdN/dFZnqDG+Cact+CcYlcbYu+cmABH8XFL
+         Kqg8Dr3SXndSAXznmUaibxofEixLdLeGSlUvePZGQ26JOh3X9Q1Ak/ImzcGiYtqlQztO
+         EbkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793925794; x=1794530594;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=igzvOWA3gKLhxlMSFerj2bmXkcIdCtlOKBffMLwU+FU=;
-        b=Uz6SxpvBuNSThwQ3y3ECiMgEQqW6gci9oXzqFNGt3Rtfjxe2QXCg2XllfD7S0AXaq3
-         B9od3pIprqwMxhZhjObxO6EJiIHt3J3nN3zuqjOwD6nA3Y6L80YRe+f14c0bxilC5E2z
-         YMEc/aJN9laNN8tO9xKXBnMtJPnJYF0DmObhhgvrVvR0OilcFnh+gGTWTpN3RmAqM14c
-         rYBA68U8bFHpvX8M9nyY/mv6acMDFz+EdjOQ5bS/RWyBYGXLXYjzwDegsh7doBb3jW6C
-         mDQZlwkQzx69b8zJ3Wi0jxytPHUjmPWrZk0xxuyYQpvs0nqmuGByNGDtkPJGIlk0ZmVv
-         MBpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzzI59BYXqfKYkqUDFQRP3yh9KW4yzwwHkaWK8cF4lbL8kKfP8zCGHFUNZ2k3vS6M6k1PWIIOYBPz+2abs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/jGp/1F14kPhjmLS07WXFQ2l+HXsY8GpNArEJhSgCp443LBz8f
-	hn9bEGi+ME7p0pOgICfDiQA/K4WG2NcZw12vlBPVrXi9lvNBFKDGx/Tm67KKNXum6xePmx/K5dF
-	IdVxZHxA9g873Yw==
-X-Received: from jahl14-n2.prod.google.com ([2002:a05:6638:8c0e:20b0:620:17bd:8c69])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:3509:b0:4e5:c2b4:33a4 with SMTP id 5614622812f47-567e1606dbamr662516b6e.50.1793925793840;
- Thu, 05 Nov 2026 16:43:13 -0800 (PST)
-Date: Fri,  6 Nov 2026 00:42:15 +0000
-In-Reply-To: <20261106004218.604799-1-dmatlack@google.com>
+        d=1e100.net; s=20260707; t=1793925808; x=1794530608;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qjiIc9YUnEoIVWcKqPZO23DxNrAI/hQv4scM2zT69bw=;
+        b=yWZw0H1qPCoNjLNSYKP4PfC0LDJ0+canlrf2OsQ3yaebjZJ0NhFK8GOFt9qu1N3lh3
+         Lf4XFpkhZjL7Wf/ZU686nTm9htPIf1dMopsjQqrT5CmrX+bxta5PQgQPm8B7RgEF5th2
+         hl35H2enyBijrqktwMa9DkjBODqt9LFScUXS+flDPP4TtALi8AMBnnUk5yk5ENQkYssF
+         3wJIFvNdmVN9LgakNVfaDH/MFB0GjIVpn8vYbzq5Ykb4Hdq8LEu/KdGIFM7hD9xHgLB5
+         3JRjdXnR848YamiGBHT/hsJFAXLu8YLLi/hiylTl4qLL5lOKhMns6nXzDzbCOrrfs8Hi
+         NsWw==
+X-Forwarded-Encrypted: i=1; AKwUvByQygwWdlgg5eYONj/VcagvKsQEfacVmWnh7kkwcdtio7Qu+9FD7BsNXyLFxFOVy0CcZwypMYjDWZybgkU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3iP3L4L8fPEYHTw2+ez6Ib4n9bBghDsCEKlzvpBnsNbug6JNh
+	Ple1KBbogaj4fOOxUrsdUua89soo1DahfVM9jjRmqfqPl4BFczggKxqg8hTJF98W2V6XNIC8XOx
+	4XIpPQ57tj9lXfsvJOxtnl5Naet611wc=
+X-Gm-Gg: AYBFou3Mc/81PaoWrAOuBBc1IxxpsR9kHFmO/CZG2GT6+Q0GDx76PDxBNP5nUYGFVXP
+	jsHZHDNMZFK0HJIvP0KyinE3ldjl3JlzdAcsHB0U2nqcXdQ5qjoNB5jr/O5NRBMtOsbT0x11rMP
+	GT/6OAnDDzyBijn8IOk3T1IykjWP1IF7G3Xuc9FgEFntQSYlKbZ42Qg3AfTAhZe5nDOMCyLGkRN
+	auasfMNdfKPROyRW1w3NKWi1duW+DJ/4P+2LNYccfGWY8ThPBWwmbXycW0dUPoGsQfyO8vC/j5P
+	mhh2tQOSwn9aLiYyFdCWknRhKGBDR5vSWpWiLoR5SuKmjmEy1wrj0r0v39k/qBdYl7QnmeRKJQB
+	wTfsXzs9ctHUDE492amoqDB/e2Oy5hguwkgPObE+De4ZtU9/HREEobhR6nwvPrvfVl/8h9YTxn5
+	IirlhYVgGmCl1ZAnjm
+X-Received: by 2002:a05:6512:b88:b0:5b8:eb86:7ab with SMTP id
+ 2adb3069b0e04-5bffa14052emr1230702e87.16.1793925808122; Thu, 05 Nov 2026
+ 16:43:28 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,495 +104,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106004218.604799-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106004218.604799-15-dmatlack@google.com>
-Subject: [PATCH v2 14/17] PCI/VC: Save VC state in the saved capability store
-From: David Matlack <dmatlack@google.com>
-To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org
-Cc: Alexander Graf <graf@amazon.com>, Alex Williamson <alex@shazbot.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, David Matlack <dmatlack@google.com>, 
-	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Josh Hilke <jrhilke@google.com>, 
-	Lukas Wunner <lukas@wunner.de>, Mahesh J Salgaonkar <mahesh@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>, 
-	"Oliver O'Halloran" <oohall@gmail.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Vipin Sharma <vipinsh@google.com>
+MIME-Version: 1.0
+References: <20261027032332.1945140-1-liuc63@xiaopeng.com>
+In-Reply-To: <20261027032332.1945140-1-liuc63@xiaopeng.com>
+From: Andrey Konovalov <andreyknvl@gmail.com>
+Date: Fri, 6 Nov 2026 01:43:15 +0100
+X-Gm-Features: AclHuK9dRbLnxECgRD1l46eIc4GQ22vJU4NjcoMmUKgwsiEbNqgmSBWhyJwPnKI
+Message-ID: <CA+fCnZfgi_UUsMg4p2iRePACOAR8StQRYhgC9fHETE8Q5n0z5w@mail.gmail.com>
+Subject: Re: [PATCH] usb: gadget: raw_gadget: fix dangling ep->desc on enable failure
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: gregkh@linuxfoundation.org, krishnagopi487@gmail.com, kees@kernel.org, 
+	balbi@kernel.org, zhugl3@xiaopeng.com, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Save and restore the Virtual Channel registers, including the VC and Port
-Arbitration Tables, through the per-device saved capability store instead
-of a private pci_cap_saved_state buffer.
+On Tue, Oct 27, 2026 at 4:23=E2=80=AFAM Liu Chao <liuc63@xiaopeng.com> wrot=
+e:
+>
+> raw_ioctl_ep_enable() assigns the user-supplied endpoint descriptor
+> to ep->ep->desc before calling usb_ep_enable(). If usb_ep_enable()
+> fails, or if the subsequent usb_ep_alloc_request() fails, the error
+> path frees desc via out_free but leaves ep->ep->desc pointing at the
+> freed memory.
+>
+> The UDC driver may have captured the stale descriptor pointer during
+> the partial enable sequence and may dereference it in subsequent
+> operations, resulting in a use-after-free.
+>
+> Clear ep->ep->desc before jumping to out_free on both failure paths
+> so the pointer never outlives the descriptor it references.
+>
+> Fixes: 97df5e5758f7 ("usb: raw-gadget: fix gadget endpoint selection")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+> ---
+>  drivers/usb/gadget/legacy/raw_gadget.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/usb/gadget/legacy/raw_gadget.c b/drivers/usb/gadget/=
+legacy/raw_gadget.c
+> index 46f343ba4..b52ab3ce7 100644
+> --- a/drivers/usb/gadget/legacy/raw_gadget.c
+> +++ b/drivers/usb/gadget/legacy/raw_gadget.c
+> @@ -886,6 +886,7 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev, u=
+nsigned long value)
+>                 if (ret < 0) {
+>                         dev_err(&dev->gadget->dev,
+>                                 "fail, usb_ep_enable returned %d\n", ret)=
+;
+> +                       ep->ep->desc =3D NULL;
+>                         goto out_free;
+>                 }
+>                 ep->req =3D usb_ep_alloc_request(ep->ep, GFP_ATOMIC);
+> @@ -893,6 +894,7 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev, u=
+nsigned long value)
+>                         dev_err(&dev->gadget->dev,
+>                                 "fail, usb_ep_alloc_request failed\n");
+>                         usb_ep_disable(ep->ep);
+> +                       ep->ep->desc =3D NULL;
+>                         ret =3D -ENOMEM;
+>                         goto out_free;
+>                 }
+> --
+> 2.50.1
+>
 
-Walking VC configuration space is complicated, so sizing, saving and
-restoring it were all folded into pci_vc_do_save_buffer() to guarantee they
-agreed on the buffer layout. Keep the walk shared: because the store is
-addressed by configuration space offset, the three passes now only have
-to agree on which registers exist, not on where each one lands in a
-buffer. Drop pci_vc_do_save_buffer()'s dual size/save/restore return
-value, its running length, its buffer cursor, and the check that the
-length matched the buffer size, and rename it to pci_vc_do_saved_caps().
+Commit message should ideally mention that the use-after-free is not
+actually reachable.
 
-Rename pci_allocate_vc_save_buffers() to pci_reserve_vc_state(), and
-pci_allocate_cap_save_buffers() to pci_reserve_saved_caps(), and make
-pci_save_vc_state() void, since none of them allocates anything now.
+But the clean-up makes sense:
 
-pci_save_state() therefore no longer fails with -ENOMEM when the VC state
-cannot be saved, and the messages for a missing or mis-sized save buffer
-go away. A failure to allocate the store is reported once during device
-setup instead.
-
-The arbitration table offsets and sizes come from the device, so what it
-reports later need not match what was reserved during setup. Save or
-restore a table only if all of it was reserved, so that hardware is only
-asked to reload the VC Arbitration Table if it was actually restored, as
-before.
-
-No other functional change intended.
-
-Signed-off-by: David Matlack <dmatlack@google.com>
----
- drivers/pci/pci.c   |  10 +-
- drivers/pci/pci.h   |   6 +-
- drivers/pci/probe.c |   4 +-
- drivers/pci/vc.c    | 230 +++++++++++++++++++++++---------------------
- 4 files changed, 130 insertions(+), 120 deletions(-)
-
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 977b7dbd19ce..402819ab046d 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -1949,7 +1949,9 @@ int pci_save_state(struct pci_dev *dev)
- 	pci_save_ptm_state(dev);
- 	pci_save_tph_state(dev);
- 	pci_save_acs_state(dev);
--	return pci_save_vc_state(dev);
-+	pci_save_vc_state(dev);
-+
-+	return 0;
- }
- EXPORT_SYMBOL(pci_save_state);
- 
-@@ -3727,16 +3729,16 @@ int pci_add_ext_cap_save_buffer(struct pci_dev *dev, u16 cap, unsigned int size)
- }
- 
- /**
-- * pci_allocate_cap_save_buffers - allocate buffers for saving capabilities
-+ * pci_reserve_saved_caps - reserve room to save capability registers
-  * @dev: the PCI device
-  */
--void pci_allocate_cap_save_buffers(struct pci_dev *dev)
-+void pci_reserve_saved_caps(struct pci_dev *dev)
- {
- 	pci_reserve_pcie_state(dev);
- 	pci_reserve_pcix_state(dev);
- 	pci_reserve_ltr_state(dev);
- 	pci_reserve_acs_state(dev);
--	pci_allocate_vc_save_buffers(dev);
-+	pci_reserve_vc_state(dev);
- }
- 
- void pci_free_cap_save_buffers(struct pci_dev *dev)
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 0daa2439db5e..7deaa8caf65e 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -249,7 +249,7 @@ struct pci_cap_saved_state {
- 	struct pci_cap_saved_data	cap;
- };
- 
--void pci_allocate_cap_save_buffers(struct pci_dev *dev);
-+void pci_reserve_saved_caps(struct pci_dev *dev);
- void pci_free_cap_save_buffers(struct pci_dev *dev);
- int pci_add_cap_save_buffer(struct pci_dev *dev, char cap, unsigned int size);
- int pci_add_ext_cap_save_buffer(struct pci_dev *dev,
-@@ -359,9 +359,9 @@ void pci_vpd_init(struct pci_dev *dev);
- extern const struct attribute_group pci_dev_vpd_attr_group;
- 
- /* PCI Virtual Channel */
--int pci_save_vc_state(struct pci_dev *dev);
-+void pci_save_vc_state(struct pci_dev *dev);
- void pci_restore_vc_state(struct pci_dev *dev);
--void pci_allocate_vc_save_buffers(struct pci_dev *dev);
-+void pci_reserve_vc_state(struct pci_dev *dev);
- 
- /* PCI /proc functions */
- #ifdef CONFIG_PROC_FS
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 62ce1e461098..c04adf606ab9 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -2662,8 +2662,8 @@ static void pci_init_capabilities(struct pci_dev *dev)
- 	pci_msi_init(dev);		/* Disable MSI */
- 	pci_msix_init(dev);		/* Disable MSI-X */
- 
--	/* Buffers for saving PCIe and PCI-X capabilities */
--	pci_allocate_cap_save_buffers(dev);
-+	/* Room to save PCIe, PCI-X, LTR, ACS and VC state */
-+	pci_reserve_saved_caps(dev);
- 
- 	pci_imm_ready_init(dev);	/* Immediate Readiness */
- 	pci_pm_init(dev);		/* Power Management */
-diff --git a/drivers/pci/vc.c b/drivers/pci/vc.c
-index 5b507207d56d..7f8c1c29603a 100644
---- a/drivers/pci/vc.c
-+++ b/drivers/pci/vc.c
-@@ -16,25 +16,74 @@
- 
- #include "pci.h"
- 
-+/* What to do with the registers of a VC capability */
-+enum pci_vc_op {
-+	PCI_VC_RESERVE,		/* Reserve room to save them */
-+	PCI_VC_SAVE,		/* Copy them into the saved capabilities */
-+	PCI_VC_RESTORE,		/* Write the saved capabilities back */
-+};
-+
- /**
-- * pci_vc_save_restore_dwords - Save or restore a series of dwords
-+ * pci_vc_do_word - Reserve, save, or restore a word
-+ * @dev: device
-+ * @pos: config space position
-+ * @op: what to do with it
-+ *
-+ * Return: 0 on success, negative errno otherwise.
-+ */
-+static int pci_vc_do_word(struct pci_dev *dev, int pos, enum pci_vc_op op)
-+{
-+	switch (op) {
-+	case PCI_VC_RESERVE:
-+		return pci_reserve_saved_cap(dev, pos, sizeof(u16));
-+	case PCI_VC_SAVE:
-+		pci_save_cap_word(dev, pos);
-+		break;
-+	case PCI_VC_RESTORE:
-+		if (!pci_saved_cap_reserved(dev, pos))
-+			return -ENOENT;
-+
-+		pci_restore_cap_word(dev, pos);
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * pci_vc_do_dwords - Reserve, save, or restore a series of dwords
-  * @dev: device
-  * @pos: starting config space position
-- * @buf: buffer to save to or restore from
-- * @dwords: number of dwords to save/restore
-- * @save: whether to save or restore
-+ * @dwords: number of dwords
-+ * @op: what to do with them
-+ *
-+ * Return: 0 on success, negative errno otherwise.
-  */
--static void pci_vc_save_restore_dwords(struct pci_dev *dev, int pos,
--				       u32 *buf, int dwords, bool save)
-+static int pci_vc_do_dwords(struct pci_dev *dev, int pos, int dwords,
-+			    enum pci_vc_op op)
- {
- 	int i;
- 
--	for (i = 0; i < dwords; i++, buf++) {
--		if (save)
--			pci_read_config_dword(dev, pos + (i * 4), buf);
-+	if (op == PCI_VC_RESERVE)
-+		return pci_reserve_saved_cap(dev, pos, dwords * sizeof(u32));
-+
-+	/*
-+	 * The device supplies the table offsets and sizes, so what it reports
-+	 * now may not match what was reserved during setup, e.g. if it is no
-+	 * longer responding. Save or restore all of the table, or none of it.
-+	 */
-+	for (i = 0; i < dwords; i++)
-+		if (!pci_saved_cap_reserved(dev, pos + i * sizeof(u32)))
-+			return -ENOENT;
-+
-+	for (i = 0; i < dwords; i++, pos += sizeof(u32)) {
-+		if (op == PCI_VC_SAVE)
-+			pci_save_cap_dword(dev, pos);
- 		else
--			pci_write_config_dword(dev, pos + (i * 4), *buf);
-+			pci_restore_cap_dword(dev, pos);
- 	}
-+
-+	return 0;
- }
- 
- /**
-@@ -173,13 +222,14 @@ static void pci_vc_enable(struct pci_dev *dev, int pos, int res)
-  * @dev: device
-  * @pos: starting position of VC capability (VC/VC9/MFVC)
-  * @res: VC resource number, ie. VCn (0-7)
-- * @ctrl: saved VC Resource Control Register
-  */
--static void pci_vc_restore_res_ctrl(struct pci_dev *dev, int pos, int res,
--				    u32 ctrl)
-+static void pci_vc_restore_res_ctrl(struct pci_dev *dev, int pos, int res)
- {
- 	int ctrl_pos = pos + PCI_VC_RES_CTRL + (res * PCI_CAP_VC_PER_VC_SIZEOF);
--	u32 tmp;
-+	u32 ctrl, tmp;
-+
-+	if (!pci_read_saved_cap_dword(dev, ctrl_pos, &ctrl))
-+		return;
- 
- 	/*
- 	 * For an FLR case, the VC config may remain.  Preserve enable bit,
-@@ -200,34 +250,22 @@ static void pci_vc_restore_res_ctrl(struct pci_dev *dev, int pos, int res,
- }
- 
- /**
-- * pci_vc_do_save_buffer - Size, save, or restore VC state
-+ * pci_vc_do_saved_caps - Reserve, save, or restore VC state
-  * @dev: device
-  * @pos: starting position of VC capability (VC/VC9/MFVC)
-- * @save_state: buffer for save/restore
-- * @save: if provided a buffer, this indicates what to do with it
-+ * @op: what to do with the registers found along the way
-+ *
-+ * Walking Virtual Channel config space is complicated, so reserving, saving
-+ * and restoring it are all driven from one function to reduce code and
-+ * guarantee that they agree on which registers are involved.
-  *
-- * Walking Virtual Channel config space to size, save, or restore it
-- * is complicated, so we do it all from one function to reduce code and
-- * guarantee ordering matches in the buffer.  When called with NULL
-- * @save_state, return the size of the necessary save buffer.  When called
-- * with a non-NULL @save_state, @save determines whether we save to the
-- * buffer or restore from it.
-+ * Return: 0 on success, negative errno otherwise.
-  */
--static int pci_vc_do_save_buffer(struct pci_dev *dev, int pos,
--				 struct pci_cap_saved_state *save_state,
--				 bool save)
-+static int pci_vc_do_saved_caps(struct pci_dev *dev, int pos, enum pci_vc_op op)
- {
- 	u32 cap1;
- 	char evcc, lpevcc, parb_size;
--	int i, len = 0;
--	u8 *buf = save_state ? (u8 *)save_state->cap.data : NULL;
--
--	/* Sanity check buffer size for save/restore */
--	if (buf && save_state->cap.size !=
--	    pci_vc_do_save_buffer(dev, pos, NULL, save)) {
--		pci_err(dev, "VC save buffer size does not match @0x%x\n", pos);
--		return -ENOMEM;
--	}
-+	int i, ret;
- 
- 	pci_read_config_dword(dev, pos + PCI_VC_PORT_CAP1, &cap1);
- 	/* Extended VC Count (not counting VC0) */
-@@ -243,16 +281,9 @@ static int pci_vc_do_save_buffer(struct pci_dev *dev, int pos,
- 	 * therefore save/restore it first, as only VC0 should be enabled
- 	 * after device reset.
- 	 */
--	if (buf) {
--		if (save)
--			pci_read_config_word(dev, pos + PCI_VC_PORT_CTRL,
--					     (u16 *)buf);
--		else
--			pci_write_config_word(dev, pos + PCI_VC_PORT_CTRL,
--					      *(u16 *)buf);
--		buf += 4;
--	}
--	len += 4;
-+	ret = pci_vc_do_word(dev, pos + PCI_VC_PORT_CTRL, op);
-+	if (ret)
-+		return ret;
- 
- 	/*
- 	 * If we have any Low Priority VCs and a VC Arbitration Table Offset
-@@ -278,21 +309,20 @@ static int pci_vc_do_save_buffer(struct pci_dev *dev, int pos,
- 			/* Fixed 4 bits per phase per lpevcc (plus VC0) */
- 			size = ((lpevcc + 1) * vcarb_phases * 4) / 8;
- 
--			if (size && buf) {
--				pci_vc_save_restore_dwords(dev,
--							   pos + vcarb_offset,
--							   (u32 *)buf,
--							   size / 4, save);
-+			if (size) {
-+				int off = pos + vcarb_offset;
-+
-+				ret = pci_vc_do_dwords(dev, off, size / 4, op);
-+				if (ret)
-+					return ret;
-+
- 				/*
- 				 * On restore, we need to signal hardware to
- 				 * re-load the VC Arbitration Table.
- 				 */
--				if (!save)
-+				if (op == PCI_VC_RESTORE)
- 					pci_vc_load_arb_table(dev, pos);
--
--				buf += size;
- 			}
--			len += size;
- 		}
- 	}
- 
-@@ -325,32 +355,29 @@ static int pci_vc_do_save_buffer(struct pci_dev *dev, int pos,
- 
- 			size = (parb_size * parb_phases) / 8;
- 
--			if (size && buf) {
--				pci_vc_save_restore_dwords(dev,
--							   pos + parb_offset,
--							   (u32 *)buf,
--							   size / 4, save);
--				buf += size;
-+			if (size) {
-+				int off = pos + parb_offset;
-+
-+				ret = pci_vc_do_dwords(dev, off, size / 4, op);
-+				if (ret)
-+					return ret;
- 			}
--			len += size;
- 		}
- 
- 		/* VC Resource Control Register */
--		if (buf) {
-+		if (op == PCI_VC_RESTORE) {
-+			pci_vc_restore_res_ctrl(dev, pos, i);
-+		} else {
- 			int ctrl_pos = pos + PCI_VC_RES_CTRL +
--						(i * PCI_CAP_VC_PER_VC_SIZEOF);
--			if (save)
--				pci_read_config_dword(dev, ctrl_pos,
--						      (u32 *)buf);
--			else
--				pci_vc_restore_res_ctrl(dev, pos, i,
--							*(u32 *)buf);
--			buf += 4;
-+				       (i * PCI_CAP_VC_PER_VC_SIZEOF);
-+
-+			ret = pci_vc_do_dwords(dev, ctrl_pos, 1, op);
-+			if (ret)
-+				return ret;
- 		}
--		len += 4;
- 	}
- 
--	return buf ? 0 : len;
-+	return 0;
- }
- 
- static struct {
-@@ -361,86 +388,67 @@ static struct {
- 		{ PCI_EXT_CAP_ID_VC9, "VC9" } };
- 
- /**
-- * pci_save_vc_state - Save VC state to pre-allocate save buffer
-+ * pci_save_vc_state - Save VC state to the saved capability store
-  * @dev: device
-  *
-  * For each type of VC capability, VC/VC9/MFVC, find the capability and
-- * save it to the pre-allocated save buffer.
-+ * save it to the previously reserved capability store.
-  */
--int pci_save_vc_state(struct pci_dev *dev)
-+void pci_save_vc_state(struct pci_dev *dev)
- {
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(vc_caps); i++) {
--		int pos, ret;
--		struct pci_cap_saved_state *save_state;
-+		int pos = pci_find_ext_capability(dev, vc_caps[i].id);
- 
--		pos = pci_find_ext_capability(dev, vc_caps[i].id);
- 		if (!pos)
- 			continue;
- 
--		save_state = pci_find_saved_ext_cap(dev, vc_caps[i].id);
--		if (!save_state) {
--			pci_err(dev, "%s buffer not found in %s\n",
--				vc_caps[i].name, __func__);
--			return -ENOMEM;
--		}
--
--		ret = pci_vc_do_save_buffer(dev, pos, save_state, true);
--		if (ret) {
--			pci_err(dev, "%s save unsuccessful %s\n",
--				vc_caps[i].name, __func__);
--			return ret;
--		}
-+		pci_vc_do_saved_caps(dev, pos, PCI_VC_SAVE);
- 	}
--
--	return 0;
- }
- 
- /**
-- * pci_restore_vc_state - Restore VC state from save buffer
-+ * pci_restore_vc_state - Restore VC state from the saved capability store
-  * @dev: device
-  *
-  * For each type of VC capability, VC/VC9/MFVC, find the capability and
-- * restore it from the previously saved buffer.
-+ * restore it from the saved capability store.
-  */
- void pci_restore_vc_state(struct pci_dev *dev)
- {
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(vc_caps); i++) {
--		int pos;
--		struct pci_cap_saved_state *save_state;
-+		int pos = pci_find_ext_capability(dev, vc_caps[i].id);
- 
--		pos = pci_find_ext_capability(dev, vc_caps[i].id);
--		save_state = pci_find_saved_ext_cap(dev, vc_caps[i].id);
--		if (!save_state || !pos)
-+		if (!pos)
- 			continue;
- 
--		pci_vc_do_save_buffer(dev, pos, save_state, false);
-+		pci_vc_do_saved_caps(dev, pos, PCI_VC_RESTORE);
- 	}
- }
- 
- /**
-- * pci_allocate_vc_save_buffers - Allocate save buffers for VC caps
-+ * pci_reserve_vc_state - Reserve room for VC capability registers
-  * @dev: device
-  *
-- * For each type of VC capability, VC/VC9/MFVC, find the capability, size
-- * it, and allocate a buffer for save/restore.
-+ * For each type of VC capability, VC/VC9/MFVC, find the capability and
-+ * reserve room to save every register it needs.
-  */
--void pci_allocate_vc_save_buffers(struct pci_dev *dev)
-+void pci_reserve_vc_state(struct pci_dev *dev)
- {
--	int i;
-+	int i, rc;
- 
- 	for (i = 0; i < ARRAY_SIZE(vc_caps); i++) {
--		int len, pos = pci_find_ext_capability(dev, vc_caps[i].id);
-+		int pos = pci_find_ext_capability(dev, vc_caps[i].id);
- 
- 		if (!pos)
- 			continue;
- 
--		len = pci_vc_do_save_buffer(dev, pos, NULL, false);
--		if (pci_add_ext_cap_save_buffer(dev, vc_caps[i].id, len))
--			pci_err(dev, "unable to preallocate %s save buffer\n",
--				vc_caps[i].name);
-+		rc = pci_vc_do_saved_caps(dev, pos, PCI_VC_RESERVE);
-+		if (rc)
-+			pci_err(dev, "unable to reserve %s save state (%pe)\n",
-+				vc_caps[i].name, ERR_PTR(rc));
- 	}
- }
--- 
-2.56.0.455.g6c5a503b38-goog
-
+Reviewed-by: Andrey Konovalov <andreyknvl@gmail.com>
