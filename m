@@ -1,70 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.34.240.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973894;
-	b=E0ql6NKAwvZyYwpQCWc7f3U2M8hl0MW+ekTJZNyvt20aG5EACKqsg4OeCeLzLluZhoQK
-	 V6aGQu21fF7+GJoZ1fGD3P4EBP3z1h+kteQ9d7GuEKR7jKF8vJp+1ev4qRGRv872IaS6F
-	 h7JLFEuUyJ4zg+gbaISy3WfONgz+V586DSsQbXRN7AKTEW5jw4JP8fH6Mu9e7JGKHjuPz
-	 4qxTIrWxfjtTO/eT6+fdCq+qrLK/1H+WaFxcHRTpJsVCmWY/uWLBwc+bdsmW/H5BPe4Wj
-	 iisjNIi22/0iUsaRq0JvxqBc6t5g6ZMf57Kny810mRiMQT9eEU8QKuiTtAnVSScxzjw==
+	t=1793973901;
+	b=TELyulqFtMXiHN+C8vvJGmnb/YkQk+pvGLF7m6ndvO+pO+zYzgaxVatwb+fn/2gBRKmD
+	 5W2C513P/iqBj5jnWMkazA+fFS5tssy1LmMxI2bac7JN8eBkI9z+zA5LDg5FjmtzBPl0Y
+	 LMNERcVrBjtyjpYja/fgs39x/4mOOqjmEQQAqwtOZVJcG1+Cz9wR4XznP8btf+/+qcGIa
+	 05tmX/b23Kafwo1GjG3jhMZtTV6ctsguk1CdWgnJyBhiCh9MW5YvpnoEndqPgEJkae6iL
+	 xk6CPHoED008wTdR0Ql2wDhItylyOyaan/Mlnl6DYUgveD/mhONwdw2Am8Q/Cx07h5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973894;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:
-	 X-MS-Exchange-MessageSentRepresentingType:Date:Message-ID:References:
-	 In-Reply-To:Accept-Language:Content-Language:X-MS-Has-Attach:
-	 X-MS-Exchange-Organization-SCL:X-MS-TNEF-Correlator:
-	 X-MS-Exchange-Organization-RecordReviewCfmType:msip_labels:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Ua1mODhM/8D5RojvHEx0p5Wrn1skZyRKhmF6dD7wVNw=;
-	b=Kldu1WqK2UJvNOtwUXkeVd8N3G0OjMjJdpVYFvY6eutdzofBvxPnS9t+mWN3nF5F+iKk
-	 RZG1oSD7px/s9YCA3cDg4eUmrpz4/wp0WrKIBRXG/nCOVI8LSD2Fb5MpoF5DicuQrh1+K
-	 kMR/G5XLkzFrAgoXaej1A5rslRnkYqVHKjWA3up17g3ClE3tPSHE9n9Nj/Bw6tNZwZz3t
-	 zel/Rn5+2OPgZLJN+y0t9+v2g+4e1SrABciu53DE/P47+MQCeudg74aTfK3tmqPY1D63+
-	 3pfmJAKFRaJ6XGaU1VgO0kahFigfjLpXz1bojmqD+5qNkuw4/nw6GAmBWjF8GqmP2QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973901;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=BFyh7gp+o016bXpgBZp+EsYFLDasvIFAL9T5pdIp+Ps=;
+	b=xJc8hpmJa/g9S6njO76BS5j1WZTM3XPpOfLr8QI8SdCakmvAjDAKzL09dLp6YYU8336u
+	 cVT8blKT4msZgSuHkYUVK/i1AF97XGyQrp4qXqz93svDldj27KLcjeL/r4BzglfRV1aWe
+	 NcnlzKPpGDpQuNfJIk5aLMs2BuzwGcoZtmjk0oyZBfEaUC/Lu3qRO5+ZjLnZXQimmyEUc
+	 ZdxC6R1Y+Oz5oKY3TD1YJHQvDpt0c+FQADnghN5Co+BkGZiDz/Tr+ZMTGWTl0LdwJV2Mp
+	 hNtWvfSgRZdy4iiHOcSAeJpMo1vbdd0IkIbSbckOcTiVuJIEjBTBuXgKSRimNnuB6Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=stu.hqu.edu.cn;
-	spf=pass smtp.mailfrom=stu.hqu.edu.cn;
-	arc=none smtp.remote-ip=210.34.240.11
-Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8BEA606A32C;
-	Fri,  6 Nov 2026 14:04:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8BEA606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
-Received: from TYZPR04MB7491.apcprd04.prod.outlook.com (unknown [40.99.89.157])
-	by cmweb (Coremail) with SMTP id C_Ai0gBHmIVm3u1qfguSAA--.16551S2;
-	Fri, 06 Nov 2026 22:04:26 +0800 (CST)
-From: "raspberrykan@stu.hqu.edu.cn" <raspberrykan@stu.hqu.edu.cn>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
-	<martin.blumenstingl@googlemail.com>, Neil Armstrong
-	<neil.armstrong@linaro.org>
-CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-amlogic@lists.infradead.org"
-	<linux-amlogic@lists.infradead.org>
-Subject: RE: [PATCH v3 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
-Thread-Topic: [PATCH v3 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
-Thread-Index: AQHdO5BowOR8ZCfYp0qZMi0lItJW0ba9+JkAgGN+mlc=
-X-MS-Exchange-MessageSentRepresentingType: 1
-Date: Fri, 6 Nov 2026 14:04:16 +0000
-Message-ID:
-	<TYZPR04MB7491E5F7FDBD54FEA44C3735FF762@TYZPR04MB7491.apcprd04.prod.outlook.com>
-References: <20260903-mibox4-dt-v3-0-1a8e395d923c@stu.hqu.edu.cn>
- <20260903-mibox4-dt-v3-2-1a8e395d923c@stu.hqu.edu.cn>
- <94fc2be2-01a0-4d3b-8d27-a4c42d8449d4@linaro.org>
-In-Reply-To: <94fc2be2-01a0-4d3b-8d27-a4c42d8449d4@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-Exchange-Organization-SCL: -1
-X-MS-TNEF-Correlator:
-X-MS-Exchange-Organization-RecordReviewCfmType: 0
-msip_labels:
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DfqG7UhS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5892606A337;
+	Fri,  6 Nov 2026 14:05:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DfqG7UhS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CCCA1F0089F;
+	Fri,  6 Nov 2026 14:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793973900;
+	bh=BFyh7gp+o016bXpgBZp+EsYFLDasvIFAL9T5pdIp+Ps=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=DfqG7UhSV5TRi2BXS5aW56SkpSsQr/WUtWH78JtI3M1ibFWnCWj4xvbxmFph8kNfc
+	 U1zj24pZwT4D2rrzLfebx6Dun9lllxN55qA5I3pCUtuQeBWz3aafYle43TMR/kT1RD
+	 IF5PYUnGjrz+eevm8nptixY972LM10NBFDU751l3b0/sH/+//t60R0/6KadUyf91IB
+	 oiJQ2pECW+58czQZRLcX2Widu9ZK9xDnX18bt6oPvG0ffYXRVAQ4lfwJu9zG/GPE9d
+	 VJTnViHrsVooFeUrJovzLgPscT3uYudwdqtjFrDXQAayIa6PZdQ58c+GY2X/F20v1n
+	 VMz8CLLFk2owg==
+From: Christian Brauner <brauner@kernel.org>
+To: viro@zeniv.linux.org.uk, Avi Weiss <thnkslprpt@gmail.com>
+Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org, dhowells@redhat.com, 
+ kuba@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261031095922.3577591-2-thnkslprpt@gmail.com>
+References: <20261031095922.3577591-2-thnkslprpt@gmail.com>
+Subject: Re: [PATCH] splice, net: avoid MSG_MORE when the bvec array fills
+Message-Id: <20261106-adjektiv-sachkenntnis-ticken-2977341c9d92@brauner>
+Date: Fri, 06 Nov 2026 15:04:56 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,29 +58,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:C_Ai0gBHmIVm3u1qfguSAA--.16551S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYl7k0a2IF6FyUM7kC6x804xWl14x267AK
-	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
-	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j
-	6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr
-	0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAa
-	Y2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4
-	A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY
-	1x02628vn2kIc2xKxwCY02Avz4vEIxC_Xryl42xK82IYc2Ij64vIr41l4c8EcI0Ec7CjxV
-	Aaw2AFwI0_Jw0_GFyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
-	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI4
-	8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUxdbbDUUUU
-X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQATBGrO4rEAywAHst
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-Hi,=0A=
-Just a gentle ping on this patch.=0A=
-I was wondering if there are any comments or suggestions.=0A=
-Thanks for your time!=0A=
-=0A=
-Best regards,=0A=
-Raspberry Kan=0A=
-2026/11/6=
+On Sat, 31 Oct 2026 11:59:23 +0200, Avi Weiss wrote:
+> splice_to_socket() leaves tail at the last included pipe buffer when
+> its 16-entry bvec array fills. If the requested length exceeds the
+> available pipe data, pipe_occupancy() counts that buffer again and sets
+> MSG_MORE even though the pipe is empty. Small TCP transfers can then be
+> delayed until the cork timeout expires.
+> 
+> Advance tail before checking the array limit so the occupancy test
+> counts only pipe buffers that have not been included in the send.
+> 
+> [...]
+
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] splice, net: avoid MSG_MORE when the bvec array fills
+      https://git.kernel.org/vfs/vfs/c/8eaa35c6c29a
 
