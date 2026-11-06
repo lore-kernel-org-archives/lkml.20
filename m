@@ -1,87 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793970024;
-	b=p2NBmYB1/JMmPOgbhH7XESnAQMrf3RJJwKiXgc16N64w76aUHY9fH5rH4PysDEUOiau9
-	 ZODoZ5t43E9xReuZj01fox01dUdc20pZl1GwXoYrdtkMqMQ/vlR1Io7FRbxljAGOdZNCS
-	 7/WaKbUrWZKFMJfU/ohfFwTCZ8264gOU0cGdptIRqmrMg9pZpPt/2FRYlDPwaHZfuNxtk
-	 dCW8mjI8C8bzNxgbgGm9VSyvA6Z9L9mQL3bK3C8f0v3JM6dRhkIJH299p/zWGpn66KM9D
-	 0bNNyj6ZoP15IceeNl1mDsSF9oYqCXbv3inB8oXc/CpAPphXkYNxsZxpJaarChlbZ7Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793970024;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=NTm2q5CE9vxYpIg+R5qLU7TfFksBO/ab0fXIHYsQ1No=;
-	b=SGNRarycpXsPWTNBwBl9TYhWQ0328abEGgUV4ggwkKK8HKc6sJ8jMN/mbiT4s9ZstWNb
-	 dh89ClCOuuf6/fRRa3vWf7KEvmcjfZNw0S+gekakdA64w/YpkUgBNGLxX765ooG/Ybnp4
-	 yKho0y0VmXP82OuqUJlCDp1tZ6YU+1mW/yR9qAgmdsyGBIxRV2Ys9li3M/ZwKdzwN8aP3
-	 LjHVyO0hp7hOBLfaSeSzoRWJAi0YSFDucO/xhK5w+jGlLpZ/5Kbm+rYcGLHlkqKno5Cbt
-	 om73Q55aRWtJXi4WnRJ51W6g5PDpEOveY8Qo8fQwfhkBKzLGsevoKDrU4cdkeanj3PQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="GNAFOmh/";
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.89
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793970029;
+	b=Q/wk80ofFa+rS5Fl8J3FoxjvB7urmnaVXoCnelvrqmrbVTwCgKCfSGxrIdEcK0yg4NFt
+	 DOyXDpWer9pB1AMPGIVJZ95/Ox7aOsdSKFM1nKhqcOyn98grtdysiH3sWmDTBtS/mD8n3
+	 4JEhhNfUNjK3i+T6ZXE0FiPQXLFZk3iGlq8xrmRMlj6SGmnSCsQWRs509ejA51MZYimaD
+	 bqez/be4tbqLIX2FJuxGqc2p9RZg2WU1xWUCkPc0eO8DnQef53iCzpRtpMKSNKTwe21j8
+	 4tDMLDOfaP8Gxo9L/0FUGFS8Z6gGkSe1PxqGPI0T7/hzVfajy+tl1yLPQkhiUXLUOyA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793970029;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Authentication-Results-Original:Received:Received:From:To:CC:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-CodeTwo-MessageID:
+	 References:X-CodeTwoProcessed:X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=7soXnmowJD8OxxlpaDjMBkYjQyL+oIdSzSCaRw6WnIA=;
+	b=UK0rmHXWcwlWP1k4VX1twjlan2E7ZoOMJdW6lmxSQcs0ABUnEZ8N4EFxHl1BcNEf7OT/
+	 sLg0CCC898vF7woWGayyTyyZahYsCzrl9/MagYyjlBZ9CKJMaziLEj89UbQebEH/y5l3v
+	 YfSedyAS3/H+w5IZdrRYuQo5JtzxKqZ7IpD8awRjZXQ0H1klittDUNK59yhW6UDY0VhaO
+	 BPwyVdRtoSbSwtTC3rXcVqly9x0Es4MIViOvLRjfx5xAMvsst9xYse5xu9WmU/QXUng91
+	 OxRi8eG2phDjwqA/B72JEIe5TW84a5Gsg7DRxgSO6T9gdOokG5LPgY1aDM/So7rvbzw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=topic.nl;
+	spf=pass smtp.mailfrom=topic.nl;
+	dkim=pass header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b=x2xj9LNv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.89
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022089.outbound.protection.outlook.com [52.101.66.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4BF606A334
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:00:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D4BF606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110F5606A333
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:00:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 110F5606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=topic.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=topic.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GNAFOmh/
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-491846221ffso514291f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:00:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793970022; x=1794574822; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NTm2q5CE9vxYpIg+R5qLU7TfFksBO/ab0fXIHYsQ1No=;
-        b=GNAFOmh/7Pf05cwFoAcVDzfcF8nIQZHu9dkjjmPS4so9Tgmve8dPKXlH+z4T05Ohk4
-         29Fqxev172bvEhUp6Uf02vOi0r/gvDGCQKDkwbkfKkiqGkD5kpZhkAgC5Cnuhnk4BWrw
-         NoX0FC+F2X12R49dC14iz1JzeVqnAg1ThowP0i2ser2umg96tfmdSRzN+Tv1Fx+tUc1C
-         HY+SpTMsWWMXyzy3LD0abXnVpFEFLfFhJcEOQpCY3HBJNh9pf7Wx0vmUqdHeNzkJjuCM
-         2rCxWrIGPz+oN/yM9ve0zufr/fHPTYJhXF+6kNXn3DpR19EdGX11bYfcd7ZLKHJ1TGes
-         N7mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793970022; x=1794574822;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=NTm2q5CE9vxYpIg+R5qLU7TfFksBO/ab0fXIHYsQ1No=;
-        b=memM4AGcOdGtEAcmhFhGtNDrKUpGaWJboNhwDjqe2tNg5MUSDCFvskfYuJC+zgXw/C
-         AGCKzZvDlrGPp1fN738f7dsMx5rp32eYpuxuchr4Aq71FOcC4cI0z5qbrfWDkcHwkE2g
-         SsiUVHSMTwDqgWtH4aWvILhTWh4GqOwDM5+InlQf9zHALzrJHKMjgvf07aB9bbKPuiUb
-         YMNJSRagfI1Fl/kNCQKN8Nk59RzhMqlgqeU60IVs/0LApInUDPZiGOPXSVusublu2Qhf
-         27HNDy667fNHLo+L82EGEcq4AHxjF1QMEucUmH3WTS2/Xl92X+pHFZfirABOfUgEmdrn
-         09jQ==
-X-Forwarded-Encrypted: i=1; AL+hErGFT7u1apkapKN9+HtWYYBUDGbLCdB+emwp60FKxa4WH1RUao4W6yFr+cY1Xi5KqvEBMCHh4LDxJ1Aa+7M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dpSDBewdSq+WCOS5PL/FMwxNdE74kv6I+AqMZ+tr3OviNZ8pS
-	8Mnc7o1zlvixPHiKv7foqucNg/C7tHT78N3VLfb96x/Aq9+IiMs8bWgA6Enm/keoLRR40SiS3y0
-	V5BoEAgo=
-X-Gm-Gg: AYBFou0QYKLVhlH40IIs9xK0/q3jOArZH0FWpLqzzLXBFwAFKowA6wWYAuBKtT3k+J3
-	8mOiJKyNTDILtmRubqHtnUfXqna94fR5SONcf55ySJrmRo1Ci3b5yCHfT0JlKrgG/3Lj5i4mzxr
-	g1rPiHYiznyyY85EYarf1IbrfodpATcqFlb8j9BeKW6LcenJV6MLSYYDWKx6GCBQU5B5srJL0vp
-	p5XHT2l3BLiq5xseCjVvXniHWrIbu3IZtd7WUmq42v0DC63Ohv8QtKuq5Op0+iWYg+sRJ9jd5CZ
-	k6ugRSIpngtbz+wVN4Fs9zg1P+xrYJ7gH3zivZSn84DiRRgRnEATjf58UnM6+gjWar67VHTQDyG
-	b+ooVtt+DZc9foVD0ex8Ramj35+d9gSsY4PCFGzeAdF4St7Oi31tWgiO0mKGpOQDu7WfrPru3Mw
-	9k7bG3ycsWLo4/tq09VDve8o5HHKSoWdQHszFfyERgrsnKaDWkip6JzemjgwngxmqPh3IDAZdxE
-	JUPVEPxws1dhKhWO8LnHvvDDFPSdpdplE2apzWE6SOGUQKFA4+3x/winSFwPPynFZ1iN5oQ6YPi
-	gn/GZXSrzAy1FawgDy3ZwfA=
-X-Received: by 2002:a05:6000:288c:b0:48e:3cec:b852 with SMTP id ffacd0b85a97d-492777dbf93mr5033387f8f.40.1793970021373;
-        Fri, 06 Nov 2026 05:00:21 -0800 (PST)
-Received: from [192.168.1.123] ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d723283dsm3434259f8f.23.2026.11.06.05.00.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 05:00:20 -0800 (PST)
-From: Daniel Drake <ddrake@baylibre.com>
-Date: Fri, 06 Nov 2026 12:59:59 +0000
-Subject: [PATCH] arm64: dts: imx93-11x11-frdm: add HDMI support
+	dkim=pass (2048-bit key, unprotected) header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b=x2xj9LNv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=m8ya/rpiUougz/XjfbZkbXKj05/EtPunEggIfjKuK2WK0xpZaqna0accL9ZMmk74v4BrX+14d7GHW3CnuYq2CC8RSsXNO2ysv1G54m0l7m+cnGhhAdGkTxbdpCfYDRlzTnVsdMgjkGkQ1wPs11Slx2TQdktnPU7ao5bubmAMo17+7WBnvJbrHChb8sh+ARe/+IhGgyvFjDpG1Tthsk92AdpeL6ZzKTQxOEn2w6IrmPF3YeJt6tMklaOIaILlI44chrWXrd/vN2IkAq6vkILVLyz7sq3Lo2rVxkvsTHho3mIf9ppKhS+Dzlu/f1AF6U4HWP7MQNeOwEbunytd0tHijw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7soXnmowJD8OxxlpaDjMBkYjQyL+oIdSzSCaRw6WnIA=;
+ b=uBHciWxQS7yXmtQPQwvl6zrC0FphJe9mmm+3xZIadf+FjzotLYRYxkdRyS3KCn2iwh0Vas6GkbjKGAA3uQn8iWiPLZ/QZJC5S0kFsShPlbnlNR8wlYYYDLscs9jd1cEXNHUyKQoVbQbAnYHnNuMpVdKtS4IU0ed/ABluh3c8FCPyYeaBoFoy5szDaUN/mv/gxjjwEXKf5juyJRV6px1QGa0LrZypyhkNh19pGILee+swtDOcbjjAtLJMG2v9mQCeQml+HeU4WsJ22LV04a7eu1n3P+DgbVxMGqKqd9uMdd8RUL/7CrEsQXTDqENCz8w91AzTObLQ6jhmwUn06e4FiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 20.93.157.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=topic.nl;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=topic.nl; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=topic.nl; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7soXnmowJD8OxxlpaDjMBkYjQyL+oIdSzSCaRw6WnIA=;
+ b=x2xj9LNvHoY7/fIC1nNM0vVJIGowXN9loVVZAxwIeNV2CaLYFVccbyIvj8zQ+aEIn+tmzdlvPbWnv0OOmhiO1Fr84bc+o2Kf9OqVXInHaJuOkJ06otnK5lF41U9WUNt/yQ3w1KQibAqF0mj2aQ3VLb/nPYe5s9Xl2IeBgYqTIpSLb5R4fIHC+nCovi+m8ET8bwOqSxbrXK91rz0HqP/HwB/FYYaR59zQDxoReMiZYPKCUBrhe7ZDIMEz+sP73EYz6F/PZlrMbmc3cxTSr3Nr3h4MJqMyz1B0BnPyTZnGvY9i2Jnr8u1RCtU19Hx+cu9dtz5uREtUK+3JS+mzAKd2sg==
+Received: from CPBP307CA0007.DNKP307.PROD.OUTLOOK.COM (2603:10a6:380:1::10) by
+ AS1PR04MB9285.eurprd04.prod.outlook.com (2603:10a6:20b:4df::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 13:00:23 +0000
+Received: from CPH1EPF00000530.eurprd05.prod.outlook.com
+ (2603:10a6:380:1:cafe::ac) by CPBP307CA0007.outlook.office365.com
+ (2603:10a6:380:1::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 13:00:22 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 20.93.157.195) smtp.mailfrom=topic.nl; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=topic.nl;
+Received-SPF: Pass (protection.outlook.com: domain of topic.nl designates
+ 20.93.157.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=20.93.157.195; helo=westeu11-emailsignatures-cloud.codetwo.com;
+ pr=C
+Received: from westeu11-emailsignatures-cloud.codetwo.com (20.93.157.195) by
+ CPH1EPF00000530.mail.protection.outlook.com (10.167.241.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 13:00:22 +0000
+Received: from DUZPR08CU001.outbound.protection.outlook.com (40.93.64.71) by westeu11-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Fri, 06 Nov 2026 13:00:22 +0000
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=topic.nl;
+Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
+ (2603:10a6:800:316::24) by GVXPR04MB11595.eurprd04.prod.outlook.com
+ (2603:10a6:150:2c4::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 13:00:16 +0000
+Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
+ ([fe80::e428:3105:17ec:8224]) by VI0PR04MB12030.eurprd04.prod.outlook.com
+ ([fe80::e428:3105:17ec:8224%4]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
+ 13:00:16 +0000
+From: Mike Looijmans <mike.looijmans@topic.nl>
+To: linux-kernel@vger.kernel.org
+CC: Mike Looijmans <mike.looijmans@topic.nl>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH 1/2] regulator: pwm-regulator: Revert "Calculate the output voltage for disabled PWMs"
+Date: Fri, 6 Nov 2026 13:59:55 +0100
+Message-ID: <20261106130010.340950-1-mike.looijmans@topic.nl>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-ClientProxiedBy: AS4P192CA0033.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:658::27) To VI0PR04MB12030.eurprd04.prod.outlook.com
+ (2603:10a6:800:316::24)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,159 +125,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-imx93-frdm-hdmi-v1-1-5b05a83ed208@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQqDMBAF0KsMf+1AYjRirlK6CGZiZhFbEiiCe
- PeC7wDvQpem0hHoQpOfdv0cCGQHwlbisQtrQiCMZvTWGs9az9VxbqlySVV5cdlHt05RZouB8G2
- S9XzG1/u+/3DTfBdhAAAA
-X-Change-ID: 20261106-imx93-frdm-hdmi-73f6a394ae51
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Daniel Drake <ddrake@baylibre.com>
-X-Mailer: b4 0.14.3
+X-MS-TrafficTypeDiagnostic:
+	VI0PR04MB12030:EE_|GVXPR04MB11595:EE_|CPH1EPF00000530:EE_|AS1PR04MB9285:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3fffd6f-c761-4eb7-91c5-08df3c05eb33
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|52116014|261026121527099003|261022075727099003|261022113327099003|261022105027099003|261021123027099003|261102123227099003|261021121427099003|261026140227099003|261028144727099003|10067099003|261009223027099003|3023799007|6133799003|18002099003|38350700014|56012099006;
+X-Microsoft-Antispam-Message-Info-Original:
+ Tvho11qOxQXBpl9nccfGstHEulQe9r3fb5+ewtEQDgsDrS0Fce4j872l7yJvDDRltZJTsMWFEziHtmsutxI/nMXeHbSOPVEvsFy5q1rWkXAOB4HSurEcWhmXzP9TADtxoivLf29t/54/EMvGu7ry7i46IS/M9Q28eYO5Y52XeYJCCBGcKmLxB3c/ArdQ7NERjpWuK9LRQZ+6xZATHFkW9FpNMLIh+1NyMFAUzPlpHFHoP9E8q/a127XDydJJvOj+soKS+qcV+uA+/H2SqxYvslvOkL4jeGM4iNpws0a9ELd709R6hR5VV7gmmzVoL2+zt1ahOm5RkOD9SEBEgllx3iwEWXbRTFQnwBEh07JTBaqOcBO+XlSBN2KcG+tsO073WbgpcGiJxFSNtOIAtjvah3BGDJiO5zrjCkLaMqVcnY8qOkhia7VVzYngBvgpp3GSOqR5Pl0usNgShk3eWEGEMGOGxayM32q4michVu2MljIzcWqC5s5Jr2HYQyi0rAyCbot279lPhrEr04g9BFUXDgHGXRwI1RXhxtv3gmucyEcsh33yANBAS+cAtPgo1VBH/PcHRYIh79MKNX7HvCBq0qhTjezL1XOgIxSb+Sk/atdmUjyBJ5W7E+3h7vtZzSc6DPX5/z1TZG60pPBlcyu6KF9ZUCFytmvlhumGYMK+EMV2WZ+tDn57ZwvFlDcL0W/bN3vepm7cABqJVkU4KEzh4awtIM3/4DYsQtBKneEvk4g=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12030.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(52116014)(261026121527099003)(261022075727099003)(261022113327099003)(261022105027099003)(261021123027099003)(261102123227099003)(261021121427099003)(261026140227099003)(261028144727099003)(10067099003)(261009223027099003)(3023799007)(6133799003)(18002099003)(38350700014)(56012099006);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked: sh/47Ns+uGjy13eBGb3G9PkSiXUP17QZMoMyhbAuXhjiJPhKCiqA9NxRrvoxB8DZVN3G6qeQZssCZ6kbmgT9TrzMXe3Si3ZqvDOw3Y5czWn69D7OAw46F0V/xomaQ8tH5mq2g/YxVmKuWHoZBbvUlSkd1KYfmnB1cz8O6ckcEo8yMb5t7YVoO5v7HcoLEdPqtShOZIZfsWrLDATOvdRqblBiaoZX2EucMWuHUv6TF0nZUe3P9ydnOWiCUZlK5voGJN1zyzHpSOQzKBpsYo6U5wA+SecJrQbuOTZ86GWfat5ku7BaZZctP4zWe8bLEU6UQhiWbEkSBgA5jZ4hzJGBgg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11595
+X-CodeTwo-MessageID: 9944a959-f574-42a6-a7a6-a2c4626dfa43.20261106130022@westeu11-emailsignatures-cloud.codetwo.com
+References:
+ <1b153bce-a66a-45ee-a5c6-963ea6fb1c82.949ef384-8293-46b8-903f-40a477c056ae.44efb263-5265-4fae-9cff-e8eaefbc0afd@emailsignatures365.codetwo.com>
+X-CodeTwoProcessed: true
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ CPH1EPF00000530.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	c0e1e637-f913-43cd-4b43-08df3c05e758
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|14060799003|35042699022|376014|36860700016|82310400026|1800799024|56012099006|261022113327099003|261021123027099003|261022105027099003|261021121427099003|261022075727099003|261009223027099003|261102123227099003|261026140227099003|261026121527099003|261028144727099003|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	OVsXH9tfMqSScELRiOObI0JOrzOfFA/MWq571Yb6Fhr47nuwltTHSFfX7z2YLKD2ukEjsLunIgom8F4O49x+ElQGPdYUra0oJjdCVc7rikQirDQrxS4RZbscQ2ptvw6HTKqXqjDMiCf6KIZ/qhKPAicx5e4Co/sNFbFSwOIgl4s0yxvtZoGPslK74K8jPF+BydllbbyFqaPK2pgfOFfWvvvUOAsXgNeSN4Slr4YVK6Q2Wb0/uJd+JIXk96mX1+gGUPou8VuL033A3ULseNmBVpv/bfGb9DhkZN8nD0q7zsNiIvsBVy9Y9WlvpzaIXElUbrIUM3o3KkPzwjRcaf/aInjPcppKtqUXnAOmLsJUChOcAfBOyJD7RoLfRn4dr4Ap8Gyz6icuc5h/08QAlkKx5NC7Z5xeoVOXuo9BclStiF2P6OkGPiS7ClAK9lW5DS0Gf9Cv4Nys0eZT1n2/Be2NB9QxjUFkpRGxiS1aOkULkubAX8moaZXvrxDcsLJO2ZC+A3grr8pgCx04msluaGC2Pw2UCC4CuZAOnsHPa0hMiVQg9qz6I74Y0P6S0T/LRChJ3l7ORsTvDm9eSvk9ly4zYRlHDPWgW7FCXybd+FlATrZP3WCr4YsvqBu8aZauVJ7JjWzKWGbXnO+eTOlND9X4MA==
+X-Forefront-Antispam-Report:
+	CIP:20.93.157.195;CTRY:NL;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:westeu11-emailsignatures-cloud.codetwo.com;PTR:westeu11-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(23010399003)(14060799003)(35042699022)(376014)(36860700016)(82310400026)(1800799024)(56012099006)(261022113327099003)(261021123027099003)(261022105027099003)(261021121427099003)(261022075727099003)(261009223027099003)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	KHt7bUhBEzO4iQbqY7IZ3t7fPYENPvp/mCCyCbPgmtXjWBYTfLt/+eJMkF5Y2CPP8zQIMm9V+INMqeWnwF1p+ptPYsBZkrF8d8UBEQnGTM0yrWyjhtHS0qBkPvFnZ0EmYSeTkexshWnDt87alw2q503bQ4LgWjZTYvWp3SQRU68OjEmgzx1GUz+VMkY0lU23WoiEEhEDqKzPMqkE0wP+c/mceMJHHnmEA7PtiNXgI7wqhDsFYgSI3OyL1tXMAPZByGn/rFtg2c/h2aE5y8mKLby63gvpaOWFDRh+3w9iB8bYWK8sZW+1wjgyKW7cYAeDeaZPWbbGPP3TGXCMng3gAvtMEdZ9Disg7gwJL3XLz8Z9ViIwaqUjaYVBZGVIidjcLg7lRtcSiGzy+FX0WSIEuk/m9avrND4jTonhlD+M76lir7lT5+ZdbCx6wyPaq9kj
+X-OriginatorOrg: topic.nl
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 13:00:22.7810
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3fffd6f-c761-4eb7-91c5-08df3c05eb33
+X-MS-Exchange-CrossTenant-Id: 449607a5-3517-482d-8d16-41dd868cbda3
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=449607a5-3517-482d-8d16-41dd868cbda3;Ip=[20.93.157.195];Helo=[westeu11-emailsignatures-cloud.codetwo.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF00000530.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9285
 
-The FRDM i.MX93 board has HDMI output display path:
+This reverts commit 6a7d11efd691 ("regulator: pwm-regulator: Calculate the
+output voltage for disabled PWMs")
 
-  LCDIF -> LDB (LVDS channel 0) -> IT6263 -> type-A HDMI connector
+A disabled PWM is not the same as "set to 0%". If the PWM is disabled,
+this could also mean that its output pin is tristated for example.
 
-The product schematic shows that the reset line is on the PCAL6524 GPIO
-expander port 2 pin 5 (which gpio-pca953x regards as offset 21), all of
-the 3.3V supplies come from PMIC BUCK4, and all of the 1.8V supplies
-from BUCK5.
+If the PWM range is limited to something else than 0..100% this causes the
+probe function to fail with messages like:
+ dsp7-pwm: failed to get the current voltage: -ENOTRECOVERABLE
+ pwm-regulator dsp7-supply-pwm: error -ENOTRECOVERABLE: Failed to register =
+regulator pwm-regulator
+ pwm-regulator dsp7-supply-pwm: probe with driver pwm-regulator failed with=
+ error -131
 
-Describe the bridge and the connector, link it to the LDB and enable
-the LCDIF, LDB and media block control.
+The reason is that regulator_register() calls get_voltage(). The PWM is
+disabled at this point, and then the validity check triggers.
 
-PLL and LCDIF clocks are initially set to support a fixed 74.25 MHz
-pixel clock, which supports some common HDMI resolutions, similar to
-the imx8mp.dtsi setup with its HDMI overlays. In future, we could allow
-for dynamic PLL adjustment based on selected display mode, however this
-first needs clock framework improvements to support coordination of
-sibling clocks from different drivers.
+Anything that calls get_voltage() while the PWM is disabled would get an
+-ENOTRECOVERABLE return value for a pwm-regulator that doesn't allow 0%.
 
-Signed-off-by: Daniel Drake <ddrake@baylibre.com>
+Signed-off-by: Mike Looijmans <mike.looijmans@topic.nl>
 ---
- arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 81 ++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-index 6e8351d12016..6dd0977b8305 100644
---- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-@@ -9,6 +9,18 @@ / {
- 	compatible = "fsl,imx93-11x11-frdm", "fsl,imx93";
- 	model = "NXP i.MX93 11X11 FRDM board";
- 
-+	hdmi-connector {
-+		compatible = "hdmi-connector";
-+		label = "hdmi";
-+		type = "a";
-+
-+		port {
-+			hdmi_connector_in: endpoint {
-+				remote-endpoint = <&it6263_out>;
-+			};
-+		};
-+	};
-+
- 	reg_usdhc3_vmmc: regulator-usdhc3 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "VPCIe_3V3";
-@@ -38,6 +50,14 @@ &bluetooth {
- 	vcc-supply = <&reg_usdhc3_vmmc>;
- };
- 
-+&lcdif {
-+	status = "okay";
-+};
-+
-+&ldb_lvds_ch0 {
-+	remote-endpoint = <&it6263_lvds_in>;
-+};
-+
- &lpi2c1 {
- 	pcal6408: gpio@20 {
- 		compatible = "nxp,pcal6408";
-@@ -47,6 +67,67 @@ pcal6408: gpio@20 {
- 		reset-gpios = <&pcal6524 20 GPIO_ACTIVE_LOW>;
- 		vcc-supply = <&buck5>;
- 	};
-+
-+	hdmi@4c {
-+		compatible = "ite,it6263";
-+		reg = <0x4c>;
-+		data-mapping = "jeida-24";
-+		reset-gpios = <&pcal6524 21 GPIO_ACTIVE_LOW>;
-+		ivdd-supply = <&buck5>;
-+		ovdd-supply = <&buck4>;
-+		txavcc18-supply = <&buck5>;
-+		txavcc33-supply = <&buck4>;
-+		pvcc1-supply = <&buck5>;
-+		pvcc2-supply = <&buck5>;
-+		avcc-supply = <&buck4>;
-+		anvdd-supply = <&buck5>;
-+		apvdd-supply = <&buck5>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				it6263_lvds_in: endpoint {
-+					remote-endpoint = <&ldb_lvds_ch0>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				it6263_out: endpoint {
-+					remote-endpoint = <&hdmi_connector_in>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&lvds_bridge {
-+	status = "okay";
-+};
-+
-+&media_blk_ctrl {
-+	assigned-clocks = <&clk IMX93_CLK_MEDIA_AXI>,
-+			  <&clk IMX93_CLK_MEDIA_APB>,
-+			  <&clk IMX93_CLK_VIDEO_PLL>,
-+			  <&clk IMX93_CLK_MEDIA_DISP_PIX>;
-+	assigned-clock-parents = <&clk IMX93_CLK_SYS_PLL_PFD1>,
-+				 <&clk IMX93_CLK_SYS_PLL_PFD1_DIV2>,
-+				 <0>,
-+				 <&clk IMX93_CLK_VIDEO_PLL>;
-+	/*
-+	 * Set IMX93_CLK_MEDIA_DISP_PIX rate to 74250000Hz to accommodate
-+	 * IMX93_CLK_VIDEO_PLL rate at 519750000Hz in a rate table.
-+	 * The resultant 74.25MHz pixel clock supports some common HDMI
-+	 * resolutions including 1280x720@60 and 1920x1080@30.
-+	 */
-+	assigned-clock-rates = <400000000>, <133333333>,
-+			       <519750000>, <74250000>;
-+	status = "okay";
- };
- 
- &mqs1 {
+ drivers/regulator/pwm-regulator.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
+diff --git a/drivers/regulator/pwm-regulator.c b/drivers/regulator/pwm-regu=
+lator.c
+index 7434b6b22d325..f50530c77d92f 100644
+--- a/drivers/regulator/pwm-regulator.c
++++ b/drivers/regulator/pwm-regulator.c
+@@ -157,13 +157,6 @@ static int pwm_regulator_get_voltage(struct regulator_=
+dev *rdev)
+=20
+ 	pwm_get_state(drvdata->pwm, &pstate);
+=20
+-	if (!pstate.enabled) {
+-		if (pstate.polarity =3D=3D PWM_POLARITY_INVERSED)
+-			pstate.duty_cycle =3D pstate.period;
+-		else
+-			pstate.duty_cycle =3D 0;
+-	}
+-
+ 	voltage =3D pwm_get_relative_duty_cycle(&pstate, duty_unit);
+ 	if (voltage < min(max_uV_duty, min_uV_duty) ||
+ 	    voltage > max(max_uV_duty, min_uV_duty))
 ---
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261106-imx93-frdm-hdmi-73f6a394ae51
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
+branch: linux-master-pwm-regulator
 
-Best regards,
--- 
-Daniel Drake <ddrake@baylibre.com>
+--=20
+2.43.0
 
+
+Met vriendelijke groet / kind regards,=0A=
+=0A=
+Mike Looijmans=0A=
+System Expert=0A=
+=0A=
+=0A=
+TOPIC Embedded Products B.V.=0A=
+Materiaalweg 4, 5681 RJ Best=0A=
+The Netherlands=0A=
+=0A=
+T: +31 (0) 499 33 69 69=0A=
+E: mike.looijmans@topic.nl=0A=
+W: www.topic.nl=0A=
+=0A=
+Please consider the environment before printing this e-mail=0A=
