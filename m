@@ -1,94 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.188.205.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793961808;
-	b=4SFFoLndEFcVyw8CV4sOHJ45zzHN6NZ+54WDvEXCC3oQnEXU55ci2egZtVNWuyl+iwnr
-	 QpZNqsiaQ42dKFeMWv3/RoNV5n83KubvC6qtoejdCiBgM4nUT8tIGbKfhg+DGG51cTRO3
-	 6d4FOfCCA0jHB/nARKMFM8zzhg49dfc9xqyPvIeuvbkCAuoArquWFD5pz6GEUQuwMlINO
-	 pUNVMJKLFS8OzBMeO9I57TWJ4vUuG0QlEUmknKXYGuZ71ZbmAlOPLL9ucW9ZW7yjy15cR
-	 GUCX2ziUZzywDewq3p2V30QdhJ10Xrao6nSbCJuks8SUByzCcHMB5wtUnshhoRqODuQ==
+	t=1793961843;
+	b=F+2Vu8ckBHG279bZgkgsgzV8poUI1UVgyerseyYjejPsbi6qB3BbIUaqgs/GoT1mf3YR
+	 Gs+Ayh3SVktmZooFjp4uc9ojkMggeB6P4C1IayWbzB7tQ5BasjCilktRR9WRIEuyvp0Jc
+	 x0b9Xv6yHe+w7JS4ipwrciY6sYD2OR1ocmJ8bhvv07jt5CeKeR9EfkuJPHfey+kYDb1nO
+	 rkUGmeJ9ViN5u89kiLEAduQt4TRl3EUJJINmMmb4DvfZnChxyYrBi1o8T0YrIQhTiSyfu
+	 BWswa2YBfLvg9EKoT8GXHNmNvw/Mpzylo+LL/Y8a50zG9O08efyZB4A33VENzRgIBBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793961808;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-TM-AS-GCONF:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=hsjGKsAeD8QaxYplDPt0EpldWweYT+Xkhb2l+NcQA2k=;
-	b=5QR+SuP2ujRzVHCYswLvUf+1NBzOtlk++ytIb12B2rsNP8mfNrkP4Z+Ec21DROAs88XG
-	 4NSdceVJzpCyJb0at5qs2Hf96TnnNJgTFrct+6aRgks6yhDmBOIDrzmCfL3eeGMiTPuyv
-	 JUQhKDVl7lscTfKXp3GSnyNmC111yyHHmC2Ra/5o1JaNyi3t009q8S9bRXcQPJpphQOHM
-	 veg5WffEXRsOQawPgnJl92CircoyVpL6QMXmwFjy+TPk5fZ1uuzD0a/D08KhEI7N5VZjN
-	 4a+1cHjLrUsVTpK0P7Fs9mwNl7AC66pJGZj5VHSEJOL9LttL0Obcfr59FdOP5le6oPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793961843;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=tM8wONcHkFnn5a4qTUBvewnNA8x1p4v1tK8iPl3/1uo=;
+	b=qETHsNNwh5wacfdICu0xwO0FVQLL6A5QS4+8sW787J6RgWQ3jqGm7QgqAxplU2qPrVvw
+	 YChwWnkg7MTb0qVJGKa0QdnIxVrXQnZhZVdYdVUawnFqv+SmwBPYTedYAhjPxYsSVLFGN
+	 GL6+DAK4xVfoEwTfb/MvEhcrs68tq8C0uWjFqDxOyllwk+GKXg/Wc0UK7wIq6JDHrSFBg
+	 7ZsFc//SE8VlTfH2xvB0GHsJWeCg+O1gUQ1LIEL7qepqoApOzv2ZAy49Ri/Fd8l3YcZOH
+	 YPiUmKlENrpj+M+8o/Q6q+suk+G5woTPXbPBlVrEDKt8V185v7jmuaAHmsu2rwOG+3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=FH9l+0PC;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=yTfzaoLO;
+	arc=none smtp.remote-ip=93.188.205.243
+Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC58606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DC58606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDE8606A32E;
+	Fri,  6 Nov 2026 10:43:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EDE8606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=FH9l+0PC
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67i72r1759530;
-	Fri, 6 Nov 2026 10:43:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=hsjGKsAeD8QaxYplDPt0EpldWweYT+Xkhb2l+NcQA
-	2k=; b=FH9l+0PCV+uL1gCx7gxdqtoa3VUvUUqiYG7FljwN1nKMk+/z16tla3Ufw
-	OzUTVBDDCtVyvMnpDhh+5mW7ulDwZtS578x4dAIQGfazQoLunLhAYDs2I88v6CLN
-	TjiKjfVut6GFgyOXyjTOoEIcCwxs035eKYKOmWwI1uWCgCRST2WYZy3aFcsQEaPh
-	sQH+KcqPArxoxZhQzqrphQxBvVsMSoDh0gLuxHKZRVPzQbYLOV0yYm4w/jvNV2C6
-	kSO3t+6INSTJUVB92U11Yu7KrRUh0pkHQI+uULDHbyG0WHN2wvqamDKV/m0rCWCT
-	zKQR+AWAKYad6GPvXtaGI1H8wTIRw==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3r9br7y-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 10:43:14 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6AYx0i3268955;
-	Fri, 6 Nov 2026 10:43:13 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrka70m0n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 10:43:13 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6Ah9RQ17498386
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 6 Nov 2026 10:43:09 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B511820043;
-	Fri,  6 Nov 2026 10:43:09 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 72F1520040;
-	Fri,  6 Nov 2026 10:43:09 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  6 Nov 2026 10:43:09 +0000 (GMT)
-From: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-        Baoquan He <baoquan.he@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        Pratyush Yadav <pratyush@kernel.org>,
-        Dave Young <ruirui.yang@linux.dev>, Jiri Bohac <jbohac@suse.cz>,
-        David Hildenbrand <david@kernel.org>,
-        Usama Arif <usama.arif@linux.dev>, Heiko Carstens <hca@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>, kexec@lists.infradead.org,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] kdump: Give crashkernel CMA areas unique names
-Date: Fri,  6 Nov 2026 11:43:09 +0100
-Message-ID: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=yTfzaoLO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793961838;
+	bh=iq2XU0Ik0aG3bir6UyLGBLAMrcVZI4xwmpJ3OMIqzCE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=yTfzaoLOuGHlvpRfZZZQ84/O0BnebcOWy7l+6mVx83fsjXiFr3uCQKkBahBlOSXQu
+	 WpKceWuliIPJoe/rgHIIpZQyKeHOyNBBNcMtNrbnxbI7Z/llUiSXXAjv4FppymHbCg
+	 tjipKpygnyWivIkolhGvaC9c6YGx6MH93tQoiIksYF8c1Thbg7LvGGnR+SH/PwRXQW
+	 /H+13eoewiRoUU1taj7xodH4B4PSAPkvRIk0GUQ3s7uwYhcy0+QXvMtyS3EHBUipfs
+	 aiMFIlSKrJ70tM8IWSZ60b6OwUMopmCx/qxHv/DFkk4IB45cj1SrLkwyRTWCcHELm7
+	 Kpso3hJNAwvlA==
+Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw02.astralinux.ru (Postfix) with ESMTP id 1B1331FA4A;
+	Fri,  6 Nov 2026 13:43:58 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
+	Fri,  6 Nov 2026 13:43:57 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.54.9])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jLbQ46nlLz2QwK;
+	Fri, 06 Nov 2026 13:43:56 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	ZhengYuan Huang <gality369@gmail.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Changwei Ge <gechangwei@live.cn>,
+	Jun Piao <piaojun@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10/5.15 2/2] ocfs2: validate DIO orphan slot during inode read
+Date: Fri,  6 Nov 2026 13:42:46 +0300
+Message-ID: <20261106104249.1811-3-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
+In-Reply-To: <20261106104249.1811-1-mdmitrichenko@astralinux.ru>
+References: <20261106104249.1811-1-mdmitrichenko@astralinux.ru>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,85 +92,95 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=LKHz05W9 c=1 sm=1 tr=0 ts=6aedaf42 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=hR5eV2nCcz1Zz8vUuPwA:9
-X-Proofpoint-GUID: CVJwi85HMVi4di98wVuO7BMLHM0mh7Rm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA0MCBTYWx0ZWRfX46OaJdwxmACt
- eJ0su/177/KowBAIMk7OoWdwirMtqYrcLXeRoqSw7RAD5eyoCk8yh/wwbBr77pE5rpQXZSvawB7
- 892uXMCU08MJVU79OyYVCtYtwag7kBg=
-X-Proofpoint-ORIG-GUID: CVJwi85HMVi4di98wVuO7BMLHM0mh7Rm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA0MCBTYWx0ZWRfX80Zh2xVqO8L8
- D+Reh8yqrxwfG5pOc3L0Bwk2oYeYPnyyDec3iAiVYVSh6jG25dMlrtybpM8rLpHWeA/h1W2u6Ow
- BjdrIvJ7F/XJZcAt+Y+FNaDBZW2qjeMTdxChMZlDzx4Pd4NCsffzHeKP8Y73+u4GvO69bG8Lbv5
- GhwygeZQRGGRkUkGmCiLHw9hdXRJpR1qfXCukeE06hKF3z0zZtNSKfNF6ZE8WL7aI5ksJwJbxEr
- myQmewboZPFPGjPQrBWY+xAZPOaCqd2aS5mO7+8mGZILcE9DCiCvDtPWWoesvlvJE28pdk44MT6
- vj1QVwMC7RszoQyZ8MPc20F1fambmUPHdyv95efjGMO5BLV2Wcp7ZIdMtKCB1kaeTObHpAT5VeJ
- cbiYiApP49Z3WGbzDMVY8EwXTF7ouxQVRNBWDqBasMRaVtj//rISaUX5Ld/TaYECQbZz1D67RjK
- /nMwsxAnCLxXwOUk59g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 bulkscore=0 clxscore=1011 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060040
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/06 10:27:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, lore.kernel.org:7.1.1;astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207310 [Nov 06 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/06 07:02:00 #28807345
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/11/06 10:27:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-reserve_crashkernel_cma() names every CMA area it reserves
-"crashkernel". If the requested size can't be reserved in one piece,
-it falls back to several smaller areas, all with the same name.
-With CONFIG_CMA_SYSFS, cma_sysfs_init() then fails to create the second
-directory:
+From: ZhengYuan Huang <gality369@gmail.com>
 
-  sysfs: cannot create duplicate filename '/kernel/mm/cma/crashkernel'
+commit bb88131c9831075b8dc08cdd375743e5d44c7ca2 upstream.
 
-and the error path removes the sysfs entries of all CMA areas.
+[BUG]
+A corrupted append-DIO dinode (high byte at offset 0xa1
+corrupted from 0 to 1) can carry an i_dio_orphaned_slot
+outside the mounted filesystem slot range and trigger a
+use-after-free error:
 
-With CONFIG_CMA_DEBUGFS, debugfs refuses the duplicate directories as
-well:
+BUG: KASAN: slab-use-after-free in ocfs2_get_system_file_inode+0x780/0x820 fs/ocfs2/sysfile.c:102
+Read of size 8 at addr ffff88800b767c00 by task kworker/u8:3/85
+Call Trace:
+ ...
+ ocfs2_get_system_file_inode+0x780/0x820 fs/ocfs2/sysfile.c:102
+ ocfs2_wipe_inode+0x292/0xf70 fs/ocfs2/inode.c:840
+ ocfs2_delete_inode fs/ocfs2/inode.c:1155 [inline]
+ ocfs2_evict_inode+0x6c9/0x1170 fs/ocfs2/inode.c:1295
+ evict+0x38e/0x8f0 fs/inode.c:810
+ iput_final fs/inode.c:1914 [inline]
+ iput fs/inode.c:1966 [inline]
+ iput+0x55b/0x8b0 fs/inode.c:1926
+ ocfs2_recover_orphans+0x610/0xe40 fs/ocfs2/journal.c:2374
+ ocfs2_complete_recovery+0x5af/0xd00 fs/ocfs2/journal.c:1373
+ ...
 
-  debugfs: 'crashkernel' already exists in 'cma'
+[CAUSE]
+ocfs2_del_inode_from_orphan() uses i_dio_orphaned_slot to index the
+slot-local system inode cache. The dinode validator does not check
+this active slot, so an out-of-range value produces an invalid cache
+entry pointer that is dereferenced as an inode pointer.
 
-so only the first area shows up in debugfs.
+[FIX]
+Reject an active i_dio_orphaned_slot outside the slot range during
+dinode validation, before DIO orphan recovery can consume it.
 
-Keep the name of the first area and add the index to the others:
-crashkernel, crashkernel1, crashkernel2, ...
-
-Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
-Signed-off-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+Link: https://lore.kernel.org/20260803030007.3993199-3-gality369@gmail.com
+Fixes: 06ee5c75b575 ("ocfs2: add functions to add and remove inode in orphan dir")
+Signed-off-by: ZhengYuan Huang <gality369@gmail.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
-Found while adding crashkernel CMA support for s390.
+Backport fix for CVE-2026-90204.
 
- kernel/crash_reserve.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ fs/ocfs2/inode.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/kernel/crash_reserve.c b/kernel/crash_reserve.c
-index eee37a11380c..e58318b1e092 100644
---- a/kernel/crash_reserve.c
-+++ b/kernel/crash_reserve.c
-@@ -483,10 +483,16 @@ void __init reserve_crashkernel_cma(unsigned long long cma_size)
- 	while (cma_size > reserved_size &&
- 	       crashk_cma_cnt < CRASHKERNEL_CMA_RANGES_MAX) {
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index 68ca2c948290..8bd2b602b8c4 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -1459,6 +1459,14 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+ 		goto bail;
+ 	}
  
-+		char name[CMA_MAX_NAME];
- 		struct cma *res;
- 
-+		/* CMA area names show up in sysfs and debugfs, keep them unique */
-+		if (crashk_cma_cnt)
-+			snprintf(name, sizeof(name), "crashkernel%d", crashk_cma_cnt);
-+		else
-+			strscpy(name, "crashkernel");
- 		if (cma_declare_contiguous(0, request_size, 0, 0, 0, false,
--				       "crashkernel", &res)) {
-+				       name, &res)) {
- 			/* reservation failed, try half-sized blocks */
- 			if (request_size <= PAGE_SIZE)
- 				break;
-
-base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
++	if ((le32_to_cpu(di->i_flags) & OCFS2_DIO_ORPHANED_FL) &&
++	    le16_to_cpu(di->i_dio_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
++		rc = ocfs2_error(sb, "Invalid dinode %llu: DIO orphaned slot %u\n",
++				 (unsigned long long)bh->b_blocknr,
++				 le16_to_cpu(di->i_dio_orphaned_slot));
++		goto bail;
++	}
++
+ 	/*
+ 	 * Reject dinodes whose i_mode does not name one of the seven
+ 	 * canonical POSIX file types.  ocfs2_populate_inode() copies
 -- 
-2.55.0
+2.43.0
 
