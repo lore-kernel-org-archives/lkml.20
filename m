@@ -1,94 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793936666;
-	b=pv9OElP2MmhkdAC9g5xct+MN8veF2nSPJ46HwzX2dQw7zIkiRYJilgrbUh2SCJkoetGG
-	 KkC2GdxyCHIU1Zqncbm9Kjl2SBkI9+DKfGYehD9kq3qLhr6RTsTR5bwk5L/+NhmFM/+l4
-	 K6aFpx8M6MWcy5btkNVbFGvjevoVP3VaI66aPjjT30Diqbi0BE28NQxE5tpFLZnVsLF5m
-	 1vwp2bbqFDRRGrWDFlrdhKuoN3t8xd8lN0oSN2kFLpr0VEp1S8q0qKI9yPcio8jr51mPQ
-	 J/bn2i6BoRPvuGDAwUl6HW9eu9vejplbRSW6fts2Cil7qxJd1Xxq4pZQiGvsdgWn5Tg==
+	t=1793936685;
+	b=fYGVTW6y+EvsP1aZ6rDwhv7vkd2d3P5Bgx4AloDmEymJHr8NWBZFm2ynhAXHKEf/rm4i
+	 08ZBJzQoMBPciJ7xUbe72Ttx1/71JtZx0445X07zIzWqzgiLgNXE43d4ACBiaUS78fdWX
+	 H0Wa1VmuYoAxC42BSh5F2Qizpg8wa+sbN/X85Ace0w4V1tjFBg2tZwrFrIKe6YyTbbIn4
+	 Ry5V9FBeID3N4rFANOdaX6kQkoh4AnE8anyRNKoAk92Okt1YQjK7JvEJdLVGSZoRn7K5P
+	 OqB5hK47lNSjEiV4nHH8lRZep359BqUletHw/oOmVfZjqN8Vbd+sebnPkHyQxsgQztw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793936666;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bOXPrpPnnm0xKh7x64ojzAnkDsnPUwmw22WpdWcOAsE=;
-	b=amqdbOhe1ciipDPPdNJ2apSBMm7KCIkGHssjqlikNKzpaPfzLPZRtTkKCNw0gCXFYgLO
-	 FXFctq/hwLtOCMowfhsfvgg8lonKESXOx3IVuqH5AoP211zJF0rWONlB2kixAPnCFRPmW
-	 hj3GCYg/mBNKZe7eXNu6BeveDjfOVK7I4OhalxGf+eYTTQ4NiIj2mqqR9nxxy1ynKNzFS
-	 vxu5rb5EgWO862e864XhyaN6RkFlJivclSLV/rQY/A3+pqGyWZWJg/nlFtSt33wlbQnId
-	 wNyDf6eSS90eMgPTT8MbKRZ53qRAzBbvhqj697M6LObP6s6Tdz6etuSwtrBXmMtP6AA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793936685;
+	h=DMARC-Filter:Received:Subject:From:To:Cc:In-Reply-To:References:Date:
+	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=rxbs7nzBrtfmIOGiCSnCdjgFX+TagOLny6/gYQ3BikQ=;
+	b=GHJAuAPZOhyWPwB8oSQOpzy4BSqTWfd94zhyfI776rOGVVyF3ABYbQov6ImK1KOdefU4
+	 dPiyyo6QOp47XOCLalLDhk0LmSmzj35Sh58X+EkdmG/bSHZ5IYKLQh30tz8sqQzEYCS/8
+	 rO+z2fmHWN0BUKi8I7bxW0tWqmgkWZ9C++4oJiHPesZ+aGUk9IejV2DDQwayz/4XTzfUJ
+	 XX+w2pXPrl5UWUDcowSFPll6ePRJFwtx4itLAMM08NxKvP4LNDswrVbIACy6UCkWx9Zmd
+	 HWC9Z/KQN36eigBWoBHuomonwpjvqTBo0gwcMB10f3BMp+RMT2S2iv44Ogg1gu3RAjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dw5gWCSa;
-	arc=none smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2371C606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:44:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2371C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dw5gWCSa
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5364d86f7f0so1899601cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 19:44:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793936665; x=1794541465; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bOXPrpPnnm0xKh7x64ojzAnkDsnPUwmw22WpdWcOAsE=;
-        b=Dw5gWCSauIezQu56v+Ix4FbWgkPMn66gjvvdKEUzBnukAmqmUWSIfKOltUzg7e1KuA
-         nRYxWnUXxiqOoW+FH4EropslAIVzt6x9HvTqxeh6yzSfKNunecHhSgWETGebsioYKANG
-         8+1nswbgthIOFrgVpQNpdb+aeEjlZINlqWZ8c6NAAAaoCA0e0wvYBowMT6rR1+uhyK0G
-         mc+Dgu+PmFTzCYmeoBoLimAwACSMKB0v7E1tZ/PHei7GPz5tOv7/sNE92bn/wooBkwuv
-         TabaBCCdIjeaYMscqIAwCC9rykW+58jAcSpyNvQHl/tysj9qphomkJ7XvxManc482LWt
-         pshA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793936665; x=1794541465;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bOXPrpPnnm0xKh7x64ojzAnkDsnPUwmw22WpdWcOAsE=;
-        b=xz2CqKiJUbvLPXSlcjIp3yZsAOIHWlw183xSK0y9Lhu0UqIGF1Lrsceo0tkFgqvs0J
-         Z/ph7e2jIhmU3YUTqvDcTqU/S2GtpAspfNKwmwIyjKdAkBxynRe19A1BY9BZS48UrbbK
-         7qYp6DB0qPnTqEin1jAypEQbDdYK3nB9AXp0z2S8zA2uaWhueIwVrHkJgMtC49t3UoE9
-         cDQ8JResMG3W1FtxGHrbHb9/HRd9OFSK3VdwY2ZZk5+1TdhWv9v+LcorloRept7WahqD
-         U9Ih9ZDUlo+2XJp9+mYebpc5zANFBl9hQJ+4C1NC/ifnx6vnyITzFssLzZTzyQ92YVjq
-         FXUw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/53FYFs2WifJCl8na1V3uoMAsjZzaZf4OnoJxvUZIkcpMZq4jDyGv/3sePIVTab7gLFG6YnzLTnSHNms=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/doVRMgTQJN7SXaiQuiRQkyOyXSOCdVYwLCflfxSDJRLqU2aE1
-	HvZ8oKklkXK5Wz56YaW3Si06pB+pDvXHxjuKzJIC7RuFjxRa16fUkp2Na8NNWA==
-X-Gm-Gg: AYBFou2/VNhNGS8gupeod1u3yRugOvn38LPH55YIMZwtsSIVHJ3dP/o5NZGnPOHs4XN
-	2x1JAJujcj/8Ke+k8PYRa3KvifPRbmbvP00/fA3gLeQwX52FjUiMDM9hIrPg77r+UeRMDmV0L9y
-	FkpLT9H5+EKKiZyAoJVUu0uhSgvlkBoO2XRlTfkKqQfMQhiLUJAVq2iFDrqxIo5fPMIDK5LUJnM
-	AP9XYD3wE9L4jB/Fal3gSV17UNksNL78m6azV39QCW0+7KQGhbQARox5KSi+l/XUh4bg1CsbCA+
-	7XmjZxMLTkTGr/6erXTnij/4399xSGyx9wvkAsVx5pqKgzlCt04y/krpqyymrhNWrlo8vTXejCF
-	hzL559gux1Xh4Fy3rEihUek8XLLxuqZv9XvoV2Lhgx2eTbBKwMI9RYCcKX8Pn6nhNzgNOtoszUq
-	Uui9Ez9EKa2empypqNZt32w0tMkiiCrvyXEr+YXtg981mncdSNOvuteAkaCQGoDcq+/RV/1lsNp
-	aeeJMFZwCUnU+2lFbVeWLfIseqR1St2Dvj2plLmLBp3hAD0/zuKKdXhCHGA2/cS9c/ST4mqbGaL
-	cAHYn5c0P6KFFKh5GgXZZJzaoYIlLatAiD1yE6q/ycNO8x9BLu3T
-X-Received: by 2002:a05:622a:2617:b0:535:266e:f121 with SMTP id d75a77b69052e-54e0fdf2be8mr24256611cf.1.1793936664972;
-        Thu, 05 Nov 2026 19:44:24 -0800 (PST)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54e231d0710sm10217091cf.2.2026.11.05.19.44.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 19:44:24 -0800 (PST)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Bryan Tan <bryan-bt.tan@broadcom.com>,
-	Vishnu Dasa <vishnu.dasa@broadcom.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v1] misc: vmw_vmci: Leak queue pair endpoint if detach fails on exit
-Date: Thu,  5 Nov 2026 22:44:15 -0500
-Message-ID: <20261106034419.134545-2-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5858606A31B;
+	Fri,  6 Nov 2026 03:44:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5858606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowAC33_kjTe1qAOReAA--.15432S2;
+	Fri, 06 Nov 2026 11:44:35 +0800 (CST)
+Subject: Re: [PATCH] soc: microchip: mpfs: Fix flash leak in
+ mpfs_sys_controller_probe()
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Conor Dooley <conor@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: conor.dooley@microchip.com, daire.mcnamara@microchip.com,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ stable@vger.kernel.org, vulab@iscas.ac.cn
+In-Reply-To: <20261008-47741881fb032091ea3d7f0c@squawk>
+References: <20260917153550.2160672-1-vulab@iscas.ac.cn>
+ <20261002-garnish-president-6e8abfdacf4c@spud>
+ <20261008-47741881fb032091ea3d7f0c@squawk>
+Date: Fri, 06 Nov 2026 03:44:44 -0000
+Message-ID: <179393668487.2060453.14381920142402581273@iscas.ac.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,81 +57,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAC33_kjTe1qAOReAA--.15432S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GF47KryxZF4ktF48AFyrZwb_yoWkJrX_Wa
+	yktFW3u348AFyxJF4FqFy7ZrsrK3y09ryrA3y8Wr45Jry5Ar4IkFZakwnxZr1SvFW0vF1D
+	ur9xJ3y2krnFvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbs8Fc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
+	aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
+	WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
+	wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
+	ZEXa7VUbkhL5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtCZf4iQAAsk
 
-When the VMCI guest device is removed, vmci_qp_guest_endpoints_exit()
-asks the hypervisor to detach each remaining queue pair and then frees
-its queue pages with qp_guest_endpoint_destroy(), even if the detach
-hypercall failed.
+Hi Krzysztof, Conor,
 
-If the detach fails, the hypervisor may still have the queue pair, and
-the peer may keep writing to the queue pages after they have gone back
-to the page allocator. The device reset that follows in
-vmci_guest_remove_device() comes only after the pages have been freed.
+Thank you both for the detailed review.
 
-qp_detatch_guest_work() already handles the same failure by keeping the
-entry, because the peer "might still be accessing the shared memory",
-and leaves the cleanup to this exit path, which then frees it anyway.
+Sorry for the late reply, and for the mess it caused.
 
-Leak the endpoint instead if the detach fails. This also keeps its
-handle in the resource table, so the handle is not given to a new queue
-pair while the hypervisor may still have the old one.
+This is a v2 of the earlier patch, but I sent it without the v2 prefix,
+without a changelog, and without referring back to Conor's review from
+8 October:
 
-Fixes: 06164d2b72aa ("VMCI: queue pairs implementation.")
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Compile-tested only (x86_64 with VMWARE_VMCI, W=1); I do not have 
-a VMware setup to test it on.
+  https://lore.kernel.org/all/20261008-47741881fb032091ea3d7f0c@squawk/
 
- drivers/misc/vmw_vmci/vmci_queue_pair.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+You are also right that the patches were sent in bulk across unrelated
+subsystems, without being grouped into patchsets, without running checkpatch
+on them, and without documenting what was and was not tested. I am sorry for
+the extra work this has caused you.
 
-diff --git a/drivers/misc/vmw_vmci/vmci_queue_pair.c b/drivers/misc/vmw_vmci/vmci_queue_pair.c
-index e1a11820be01..57a4f0ae4f49 100644
---- a/drivers/misc/vmw_vmci/vmci_queue_pair.c
-+++ b/drivers/misc/vmw_vmci/vmci_queue_pair.c
-@@ -2391,28 +2391,35 @@ int vmci_qp_broker_unmap(struct vmci_handle handle,
- /*
-  * Destroys all guest queue pair endpoints. If active guest queue
-  * pairs still exist, hypercalls to attempt detach from these
-- * queue pairs will be made. Any failure to detach is silently
-- * ignored.
-+ * queue pairs will be made. If a detach fails, the endpoint is
-+ * leaked, as the peer may still access its queues.
-  */
- void vmci_qp_guest_endpoints_exit(void)
- {
- 	struct qp_entry *entry;
- 	struct qp_guest_endpoint *ep;
-+	int result;
- 
- 	mutex_lock(&qp_guest_endpoints.mutex);
- 
- 	while ((entry = qp_list_get_head(&qp_guest_endpoints))) {
- 		ep = (struct qp_guest_endpoint *)entry;
-+		result = VMCI_SUCCESS;
- 
- 		/* Don't make a hypercall for local queue_pairs. */
- 		if (!(entry->flags & VMCI_QPFLAG_LOCAL))
--			qp_detatch_hypercall(entry->handle);
-+			result = qp_detatch_hypercall(entry->handle);
- 
- 		/* We cannot fail the exit, so let's reset ref_count. */
- 		entry->ref_count = 0;
- 		qp_list_remove_entry(&qp_guest_endpoints, entry);
- 
--		qp_guest_endpoint_destroy(ep);
-+		/*
-+		 * If the detach failed, the peer may still access the
-+		 * queues, so leak the endpoint.
-+		 */
-+		if (result >= VMCI_SUCCESS)
-+			qp_guest_endpoint_destroy(ep);
- 	}
- 
- 	mutex_unlock(&qp_guest_endpoints.mutex);
+In particular, thank you for pointing me to the kernel documentation on
+subsystem identification, patchset organization and testing, and for the
+guidance on how this work should be submitted. This is an important lesson
+for me, and from now on I will go through all the remaining feedback
+manually, one by one, and reply in a timely manner.
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
+Going forward, I will also not send patches in large batches, so that I do
+not exceed my own capacity to respond.
+
+Best regards,
+Wentao Liang
 
