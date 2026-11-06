@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971727;
-	b=a2XjMZJiIIO7dDNLgyrtDplkw6srEHVHm2L64npQvqh9Rn9IaGOImQ+Y4iAn7ebkcEdb
-	 8sccOZU8eryMoYVgw6TngjZQmng7TVzPhXDZ+9E/HO1tHRi5YMtqABpilUHIbVjrxNqgz
-	 zQvdMrdgf4tM+3i2n90NOSCqtqb8FEBbR9KcaRw+pH112uiUVW9tg7rJ47mtYYlA/cRmJ
-	 kkPznyo7XmiNjg4nKJi111lKFD/BU0V+wD9z1gIF9ACiQA79s/q+powkpCpr2As9yw3wE
-	 A2jbi7ZVmVXI5Mtvyg4FeCMCF6QQaZzjhUUMOKXZ3yvgfeMBs1JHZTH9bczy40qF39Q==
+	t=1793971735;
+	b=AIGySxyuB2iIWiVOZauayeYsAc2GcybGlnX7/Ka0APqTnP/nccJdWzHcdIk7Ze+h7UBS
+	 KWWLvAseWxtxSc3WLj2vwdXLhrTWPzlk8ZjTBFCy66L6YarqchbvnqVHG3QwHxRnCFN9F
+	 3ZLQAQ5LbaoCNlDLPFVX2c8jRqGKM9FJ04XZv/FjWfh/W4fK/+23kxML4Bh7vG/pX9Ymo
+	 tXizJj4zC8F3Ec+f4wOZG3af1t5WGlk9HA3lNngkS4yBhvHO9fnrCHXrMgoeqeqdmPhmM
+	 6EBS1zkAMoSw2gf8EDR/hc6/iag6jR3fhxvKKKQ0nW7NpZnKJbOV/a9IxenV6D4cYFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971727;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/oknbUn4S13Tsp1GjEbyztprp/5ERIantWGXpvB95Ak=;
-	b=clBYUIu+DMDutN1wmZDmXouNyjAtQC16wVkyxYyvxSR46FPAwwJJfRaz4Q/ge8LT5LUS
-	 sfcl1UV00H5uT+PEqQz4LuV+njQjPExq186yNIqfGc4IB+sC+NInMVMLqL97ew65WcLLE
-	 1vQS1lR4JOtNWt0LilZIICwq1CxJvi6SwKtWbVk+bgN2IESAN+iZvvbpwNk09Xw/neftr
-	 s/WuQwUVK7Xgtdj3uOcZ97kRxOMgOpA1zR8Boip/UzrfFqDd/IcIO5i7bZxg1cIDZy8pd
-	 Cm8pmSzVrO55OkIQy1cBcyPg7NJNZf54h2Wv+IsNzwOO1y6Tu30q58S6fZ3kdo0ACsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971735;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=FGh/a8NZBJfp8mFK/MC4MYiJPVVpSd8mLxLJrAV0sTg=;
+	b=3feMCzkC3IebhRI58d5B3TlFz5HTaAaCjio43/b48HSFI0QGRCar3GN5VVoFYG29yL+E
+	 PR6pSrKXwz83HlnsrfMNmXa5HtJz5XABrceA3jU5ugWmXpNPYOtyaB/kRopMEviUkNap6
+	 Ah0saKu6wU9BFwV6UJuqQbCvYsbKWxCRIrtg+IQDvV5WrRDeZw6NTSfQOen96VJWjGJ+c
+	 7C0Lajq7sERxDRu6iNJnX4NwfaaDVQbAA7HfGC4c0Z3tkG2eNKzvxSvq2x+z4RQc8Kr1I
+	 j/B7W+/LupPCQifejAw1ssC6EEuxS36GrSM/50vn7MTuJbdiXL77uaM6rE1i+hyc7TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xsk6b2WL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KXGSaWym;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91724606A332
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:28:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E136606A338
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:28:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E136606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xsk6b2WL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56D131F008A4
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:28:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793971727;
-	bh=/oknbUn4S13Tsp1GjEbyztprp/5ERIantWGXpvB95Ak=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Xsk6b2WLdMAU4byOQXFsAVBOCMsOww4BdhGplRm2sYAjr/aOUAyDyNz0ENwDFmdpJ
-	 uQ35GT/ceuesF256fWfT72bhDVA2Xo7RVVLWBeCGB9XrI7E0dZBe42LJ21tWZTpryG
-	 +yx6o4Gf92UH5BXPyE/Q+uiJ5l0/vpchGTV1qJUY1V+Eh7xVfdbhFwGx0cJuk76Yqv
-	 +SVB1GQGmj7DTaEGlhBgrBsTLi8hze80HFgUX8yjUbPC9MrSV1irN20Ydlvam1meBF
-	 CyxDANeYjqi47U3dX1cqrJHuMHLjCq+2OoOnnt8mTsXSdeY/gN4F2+h5CxsscorroI
-	 j/ppankneYVhg==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so788809e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:28:47 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzf4WZ/3HMrKIRisMysEPE9G/kKhah7ZR+shiP57sokLEG0ssxtFKHtVKetP95uadihKe3loLLdoC7PUpI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DYq/gs42tb++3Ry/6Fv/nEXpthISz+8hDoI3xkv9zrwk5Z/rQ
-	ab3hjYaJJsNh5NiQptJBUcDkq+Sx0HoGTjWJ6ihjIpXmfzKJ/AtZG0GyBQEPkLc74YArPOCGIs/
-	mLnpsOMuON+6Kcu52x8BCc130EVoaU8o=
-X-Received: by 2002:a05:6512:3a90:b0:5bf:9fc1:3938 with SMTP id
- 2adb3069b0e04-5c003b0477dmr712282e87.38.1793971726003; Fri, 06 Nov 2026
- 05:28:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KXGSaWym
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793971733;
+	bh=Zbw4Pdi7/7yO5hBdNSUYXrfRS7EY1BsSPUefMzufvO0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KXGSaWymhy7vDq1ttAqgN//6MlUzMkvBRQ9TGNFIUu8N8bF+aJhjxYkcOykxTASZe
+	 dXjkFbsSyC3pB9bg00QGoDlehTyzk3MX/feiNb1UzSi6jB1kqnL2pTh4a/tj+vagM/
+	 aq+wt5I3zRIPZ19jauH2NmtFHgxwxCE9Emf1r6LB6VFX5bwBQ85fngNYVHBuWdHoY2
+	 QgOCY+AuyzqjASUSPVIU5ieCo+n0iZNrXJ+S0XPNnBs/J5YrlV04UshV1yIojc9sae
+	 +zUBMzi2QNTupSQXfzy8eYXJ8skF+ZKYIkK4O/F+Sxsqd9aAzuCN4uGzLfKzJtawXh
+	 u6eNZJHg/RJOw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id AA49317E031D;
+	Fri, 06 Nov 2026 14:28:52 +0100 (CET)
+Message-ID: <a22410c8-7ee3-473c-aa8e-9c71c8555bda@collabora.com>
+Date: Fri, 6 Nov 2026 14:28:52 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,38 +61,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-gpio-vf610-fixes-v3-0-504e19de5ad5@nxp.com> <20261105-gpio-vf610-fixes-v3-2-504e19de5ad5@nxp.com>
-In-Reply-To: <20261105-gpio-vf610-fixes-v3-2-504e19de5ad5@nxp.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 6 Nov 2026 14:28:34 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkyU54qmoaLSOBdXay1oecZDiPQJds94wCiZbyXyXrowg@mail.gmail.com>
-X-Gm-Features: AclHuK9EgoyL3Lf6bUzcYEkXfVXFNufjNdYyDc_zbikouVfosUjqSHJJBS9wocU
-Message-ID: <CAD++jLkyU54qmoaLSOBdXay1oecZDiPQJds94wCiZbyXyXrowg@mail.gmail.com>
-Subject: Re: [PATCH v3 02/11] gpio: vf610: simplify with irq_set_irq_wake()
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>, 
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>, 
-	Daniel Baluta <daniel.baluta@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/mediatek: Validate gamma_lut size
+To: Fei Shao <fshao@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Cc: David Airlie <airlied@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
+References: <20261106103932.1219696-1-fshao@chromium.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261106103932.1219696-1-fshao@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 5, 2026 at 4:56=E2=80=AFAM Peng Fan (OSS) <peng.fan@oss.nxp.com=
-> wrote:
+On 11/6/26 11:39, Fei Shao wrote:
+> The DRM core checks that a gamma_lut blob is aligned to
+> sizeof(struct drm_color_lut) and at most GAMMA_LUT_SIZE entries, so
+> shorter blobs still reach the driver. mtk_aal_gamma_set() and
+> mtk_gamma_set() read up to the fixed hardware LUT size, which is an OOB
+> read when the blob is shorter.
+> 
+> Add mtk_crtc_atomic_check() and reject gamma_lut if its entry count does
+> not match crtc->gamma_size.
+> 
+> Fixes: 2f3f4dda747c ("drm/mediatek: Add gamma correction.")
+> Signed-off-by: Fei Shao <fshao@chromium.org>
 
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Replace the manual enable/disable irq wake logic with a single call to
-> irq_set_irq_wake() to simplify code.
->
-> Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
