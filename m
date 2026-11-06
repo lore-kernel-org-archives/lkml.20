@@ -1,132 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793943229;
-	b=gvq9NFS3xPyXgh5/dXq/d78ggKV7zaVPtdqFFW5UtS5ZLzTnngrZAJ50Q6UMabudym0I
-	 YnhLW+vzBmng9RKP9jLmwM6QbiTi1NTWsF8IjsSTjXSu0REW/to93J2PAuMXa3QW6cT5K
-	 LS9cZFN+m3XYVM+W6Rrm6uMejtz6+AHZ9A/2ESnnsjIFcRCww4gE/svkYIwtP8bILoaST
-	 24tRhdAmOPGtaRuIPT72eL3qo1I/RGQhl9PsYOKGSE23hklCmc8EGSbjx/ay/gNg1+PyC
-	 z03Nd+d3sDja+TlU9+uzVrok8M0MBU36E8Al0uHku4YPMbWEZ3neMfFH6ThDo4+I/8Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793943229;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:From:Subject:To:
-	 CC:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=S76u3AL+e1+93DuTR+N8SitKUr7N+CAHuGzzoWgQ828=;
-	b=Sa4jkvyqR0ph/bkxGVWQzbfaQYL9Z0/k/Ww/FP1K6w1jzp20M2Niq9w4KVtRnJvZH0ZB
-	 ZJu5k+LZVtB1naenB6pDKpsvaKbfMlJG6S2dCIH1b/yY0mmVbHIpf2OcFMpn+xU8hx6gz
-	 YaLq63STfVKaH0hMEuLH772AOTRKOrqETiwYGb0X5cUgiRI8qbRYrtvdUKBye5ywVw/xi
-	 pxrLkt0xtb9hR+vBoM4cBcCueXhvRHDj6lBhL7gCRdNCFh+VED4c9Pc2yY08hNMWmXgUt
-	 PKVTFgUoviST4nE69+hUU2ZNUb2gwNoF/ofj5lONGNEZuqo7ubt64FJYhRlYLCM9rOw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EFUYgJTh;
-	arc=fail smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793943295;
+	b=dDNG4RrOlhi10G3+si3Q12/X0cfETYG/HQ7B8+y6WJ0Tx2SN6xUcxsEOm3H/aHbEWR4X
+	 Q5iO/EbB1o3brXCrPYmpKo8D3dvPltETa/vRiCrTCN2K1tF6e/EBI6Uou+9ihPyJqY5Cv
+	 k/5uvMc9Zere5boTBnTNn05wULarUEbCna/mq9Il0JMD6F0rzGBLMUeD6vsurRUBKybRY
+	 Bh6vWaspSgkfuWTcBnFWLvKbSJXUl1YZ2xavCbQ3PF30afb9BS0MTy16j/9yqHQfy0pnb
+	 hlz+U9I+o3xuXZ+TWjECHGYTAeL7ndKApbwtYq2GSEk8fgGxYxqoXCx9ZtLxvCfHwqA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793943295;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FPr++xAK0MuAQlXbkT1ssOj1KR4BUSwaP/TXm3dUT7s=;
+	b=5XFGbtkFu64asp8AFwpkIngukjqAWi2/pjUyQVYS1YR+v/kca2E9HR0fslD8L0s+kc1v
+	 MDqiilkuhf27deJP5U0ZA4Y970c8Xvvrs+Qtrq+jYbeFUVqRG9pJg6BSRJJ1LIGDvyRyH
+	 wTHBL7Szl3Ozn0MUOBT+qIa5fOe9lEjr4ql1GB/RSmJUb8yka5LCQVUJXMH9NX0WnurXu
+	 G6UP0NNND+GjVK+UkAes4uKCp2OJXiRgUicdM7APbbM2imha0MZvpO/o6bI1AN9+uRpk7
+	 HVt9He6TNjKDDvGtEgq2EKvJdggWZNoiSrNGuQDJvCEG1dIXiOmnYEmIXI8aVPBk0Vg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OrwA8X6Q;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2057606A326;
-	Fri,  6 Nov 2026 05:33:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2057606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FABE606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:34:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FABE606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EFUYgJTh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793943228; x=1825479228;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=pX+fXqNd60CRa5E/8ZA4HLTJa0IUWcdNZsIrYLnmb/o=;
-  b=EFUYgJThPl/5oHhSstPilWItcmFSFqaLJKmdVQlrmHWKf2Bt7yHxYMFq
-   Ae9j3T+q8pPmhSkwOue6VvMF+rpBVTDdwGkZ2TQQFuYX/VncWw7XYOjlk
-   P/MLawKpAbzhZBy43KwTMX5RlgrscqUzyxBQeu2VQotQuxd3wW4G88u9U
-   1JNPfuzDCHHg+dko6AgYk990GhNEmFFcZFV+vixRFGDOJykvGy1OB9RNY
-   Ep7hW00rGD6x3J6g1b6l90EP4fikxBSo4NLjcxR5ado90/m+ulAwBqQab
-   cgI8h6pYx7nB28edjFejtQW/yZ2NxbZIooNarjAJl7tXp28FPKNfYcIF+
-   Q==;
-X-CSE-ConnectionGUID: G7+OYPk4RyyRuiCXhO5glA==
-X-CSE-MsgGUID: u3+V6q/8RYeJzpjUog7Zww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2639337"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2639337"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 21:33:48 -0800
-X-CSE-ConnectionGUID: gSj72mepRdaRS4cCe1d8Cw==
-X-CSE-MsgGUID: E4sPLzpnT6qhrDXTpXtqnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7753206"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 21:33:48 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 21:33:47 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 21:33:47 -0800
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.66) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 21:33:47 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZuKJLu7hrh2mFh9OV7cO8YHUCjrzJDG5S5M82MledXs2rhtoS2kyshvUYDFrbrDXyzHL6UUNZO2vRmvXpeYD98yF68QiW/pGnKkuksamWl3n8kBFETfuwMkMoOLr6NM205IbVgA8hiXfm0weJhqaQuqWUtP6yZ2An/TNZhRTiSSD7u8LnwnEMml7qFCldDIVih68JXuEw559veS1UJ6COaUh5SENMvylihDbr7sRyIO1AggeVO4NllWM+K73CELKk4YU+bLdlXbYy4B9mTdYNddgebSZKT9pooM6x3ZB2Ih1pLUrbq7DqDsjA7fH0s6NyFouMGKq8i1PzjUZgap/lQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S76u3AL+e1+93DuTR+N8SitKUr7N+CAHuGzzoWgQ828=;
- b=KLMtiWsDLKyZMcblXUxj8ptIGxeeHQvPq88B5GhCr62jU84iGjvM4WKhG34b7UUofsg0zQVHydJcWCOqbCOyz0vm4JfHluOxuPAdLHjCfg9rGqJkqLJ/pFxJetMdK74xRiK8BHbLofqTUt77R51Kka2caZ8DF3H5WydzAOxsTq2mCFAsg96poNnJxzyXgTyCxYX18+eLVAs3lRHwTaxqBojCqK552mJb76R2RlAwWCX83stNoIrZJ8XPGcfJZWqZcI4fECn0NPBGTcCrPZ2kmvTAVyVkMTG8KK8jqRt6EAWbNmU/kl7we9ZP8SfFobvMP/v1Ff+Sgri4kk+cJJCrsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
- PH7PR11MB6521.namprd11.prod.outlook.com (2603:10b6:510:213::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 05:33:32 +0000
-Received: from DS0PR11MB7925.namprd11.prod.outlook.com
- ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
- ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 05:33:32 +0000
-Message-ID: <24be20bc-4089-4cf9-899b-8da1b2ee2825@intel.com>
-Date: Thu, 5 Nov 2026 21:33:29 -0800
-User-Agent: Mozilla Thunderbird
-From: "Chang S. Bae" <chang.seok.bae@intel.com>
-Subject: Re: [PATCH v8 03/20] KVM: x86: Support APX state for XSAVE ABI
-To: Jim Mattson <jmattson@google.com>, "Chang S. Bae"
-	<chang.seok.bae@intel.com>
-CC: <pbonzini@redhat.com>, <seanjc@google.com>, <kvm@vger.kernel.org>,
-	<x86@kernel.org>, <linux-kernel@vger.kernel.org>, <zhao1.liu@intel.com>
-References: <20260930210750.1487547-1-chang.seok.bae@intel.com>
- <20260930210750.1487547-4-chang.seok.bae@intel.com>
- <CALMp9eT1Wza=7s53Pu7ODcBRkYSbpv4A_y58xJNEhQeaJ6r1Rg@mail.gmail.com>
-Content-Language: en-US
-In-Reply-To: <CALMp9eT1Wza=7s53Pu7ODcBRkYSbpv4A_y58xJNEhQeaJ6r1Rg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR05CA0082.namprd05.prod.outlook.com
- (2603:10b6:a03:332::27) To DS0PR11MB7925.namprd11.prod.outlook.com
- (2603:10b6:8:f8::18)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OrwA8X6Q
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso903818eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:34:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793943293; x=1794548093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FPr++xAK0MuAQlXbkT1ssOj1KR4BUSwaP/TXm3dUT7s=;
+        b=OrwA8X6Q4EBhaVQEERDpI0g/CW63jtXh1a5fTyYE7yqj0OCVrQf0WTX10T1vD+yvSK
+         6G4N37V/P+OJZ/8YTvkfDyMeK/wy/3R7kULtzemY7L/d2K1HePKxeYQo7Ci0VtE+gt7L
+         3PXYqEmyt8hPgyEOjmssi0V8lhNrw83pgq5ZKKucLOwg6dFUbmrxYZvcA+O5gI6RFHhM
+         QndhXN2ZnhioX/9KqmBcAEqTXCyK8gEb03fyIY2w11gA9I9urFaT7EYVRRUOSecNmXdN
+         0YeZ9RE35p98m3i1Hz46yhGRktGfEnrlpjMxId7/FPb6CReVsLnpmr+XgVcOnO5ZimYi
+         BBhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793943293; x=1794548093;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FPr++xAK0MuAQlXbkT1ssOj1KR4BUSwaP/TXm3dUT7s=;
+        b=LSfNrS9OHqSQySYN/kEn2EJE4eMiat7wNJOxxQcqxqeumSGCVOyYRA+cMJ4p+Dd6P5
+         dxd8g9EDtq7LejE8RrhCfXf1HZP2uPd6l1YlgjeMvRJS40fXMOSSl5xwye1oMTcYqS2Z
+         pZdCOYX5Yd1quMri1lf7HRFf83XNCIe9f8FXa0vev1qffU4wZb4OR8BgmUYD2ybLw3Rp
+         HO2LRA+m7Iql4T8k46o1i5ueg2GGRKczuzTJhjBnO7IptQKMC/cViUSuM7qVD11ATvw1
+         B8u4m3y0IwVPJ/GJ+GLVhMmff7ibw0ciqTRSfJj40L7iRTh8BT4/8D2yeHW25S13DZaa
+         wzkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxEk8J6kvrXBWN+6cRpjdEAKOoSPAMlYQdqpTu0AxMglRV0IH3Iuc+X/uWE98DdNpq0hMxxZv8miV8oeHY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ZOTJzT3ZEZmYIm/0lo2kzjRf7HmC6Fu5j+LSKoS98Y01OA5st
+	vKelwAln2ptGRHKMie7PgaOCoB3EMf7ZtrAQxeTw0crPGctV7yiweInH
+X-Gm-Gg: AYBFou0AjnLUuLg0BF2R4y7sT2HWMqoWo4RhxebIy9dEKK2hTq0z5QZVU2uGacVtYSY
+	ZJcr9uo2chbciWiTyQuoWh8CyvfiJuy2AvTUzHzyJ4/CuqgMxAQ74HCMFqjx0EN1faKuujWXKLB
+	taKu4PakIVzWuL3Zh6IdoPmFWJNptlS7V3/MiSA7h8gIASKDzI57bY494ks7Wm23RxzAYkFhUl3
+	8wvNV+abr2LGxudo3Zeo4VQiC8XzOMaCrVtowu7K8kM18YTCGjzdRMc7gDZK8i9N+4MQd9Rkk2M
+	sbQDvLWxkK1nNJOpvmTPjdE0loEh+WkSogojwJrKu/JWOpYNyUB/op+XRl6OYNy/xmBHazLg1Gh
+	BUOHmReuLatSIoIwbdxjIqh1xDL/45OPqQeBNdXeXf03LcHUyJnhl2SRF2tcxGOioTrO2dKGFNP
+	atl1sBXeUCqrgjkwIFYDJFlsI8kmMKgydsegxtxJeiVKr4WD/mJ3Xhq2nkfVpF5XdAD6JaDKTVv
+	ZamLRjwUqbCaz/Zo7KuEdYdZ8Gj1I4eb1hdzRlJnX0ZXpzizrimxbBl7KoI+oADk8FVc8OYRdSW
+	ARXi1+76h4UQm2QyscXmi9Dvx+3f9yOuAeiFu3c+mnl9OcUIluXI4MonqO/qiA95WpvXn5LvBWm
+	U7fdigEagaBrQC6cyrY4LF6+AkyIBxiCXuK79PnFH0YYZaII=
+X-Received: by 2002:a05:701b:21db:b0:184:d593:2897 with SMTP id a92af1059eb24-1b25d32fbf3mr1601958c88.29.1793943293007;
+        Thu, 05 Nov 2026 21:34:53 -0800 (PST)
+Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:1602:ecff:fe49:38a8])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e407bb5sm2574511c88.1.2026.11.05.21.34.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 21:34:52 -0800 (PST)
+From: Yaohan Li <shunsheng1218@gmail.com>
+To: amit@kernel.org,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org
+Cc: rusty@rustcorp.com.au,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] virtio_console: fix buffer ownership and unplug races in the read path
+Date: Fri,  6 Nov 2026 13:34:38 +0800
+Message-Id: <20261106053438.1206065-1-shunsheng1218@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,142 +98,580 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|PH7PR11MB6521:EE_
-X-MS-Office365-Filtering-Correlation-Id: 004ff5f0-6c99-4f02-a118-08df3bc77eb9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|261022075727099003|261026140227099003|11063799006|4143699003|261009223027099003|56012099006|261021121427099003|261028144727099003|261022105027099003|261026121527099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: PSDWt1GxMssrwBvPB1/XE7paGNE2AnbRX0eG0vdiBHLwISkZ66hUjVbHFeofH7Ykp4ONtdorpbnx9lFIVjUevGqiVWMN16UNjkeyU8/Yon7dJzuhxJVcX5aHybqlLB4cwxxvQ6gnvxKS4AX7H1qE/V7Vo6PXXkiXw587e343yz8L09FNQEPVw17e4Olau9pjcyxrnpXOLi68q4ksxk7DYjFSNsGnRwtfytCLHwIzRJILxjzpFlMThn+TnbP9iR7AxmZa9cDnOuoi1SQ0gkaojJuKe0h86oJ2F+w+VyIiWwZg9UTAsf+Y/ppH62+maPbt0moSFgRjo68ynwp6K5D2HRCAYkTyaCAUSTv81WWpMMEfLVziTpxUhiMN/3jT4Ci8MJ6JnP8P0awMwSjrpxqek93/7mRe/7rdx5MXp0dTZIfLZMJ/qaTKjjD9eeE9SOf9/SeLEKFPXD7bbnYWPkmVMwg7cVpzK1OG8/7TwzId6lrA6vNRcDRYhA0uV4PLDYmAk6pSbjdhRY7Xcy77kLS+9J6zWpAxGGfEhIVM1+CvKNUBnQMR5DH4qB+MBvAz19Y7+uTPG5nSD0uP+iJksHik3ssUzYDignbhx+IDBDKcIHoYxdwrHjXcDEQ7L5P+xYfWh1v/0rgK3prD/XVMEsnm+ZrX3vB9iRj3zRjwoK3BhAQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(261022075727099003)(261026140227099003)(11063799006)(4143699003)(261009223027099003)(56012099006)(261021121427099003)(261028144727099003)(261022105027099003)(261026121527099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TjZZemRWeTVJY3lTcVMxbUFPVmJDeFFOanJwd25JUFFFeU03NHY1SmRwRTJ4?=
- =?utf-8?B?RUNSdFNnSG5TVlNNRXhZb0JQMWZqOWZuQk1Za2lhZzNuVkFVMEZseGVkTnFR?=
- =?utf-8?B?WGRZbEtodkQ1WXVJV2ZERis4Q09RM2RaVWdISkJXZzlKczhyQ3Z0NjhTVHRt?=
- =?utf-8?B?RjFIYUI3bmhKMm91aWxFc3p2RXB2a3dNU25DcUtLZEl2blZqc2xteXdwT1dh?=
- =?utf-8?B?RllxYXY5YUM3TnJKYmp0WmtOdUdDeC8wSEIwdTZNd2lHb2t1VEVvWklsenlR?=
- =?utf-8?B?N3ZueUwxNEU3YlpBZ3ZTT0tualdQUFFIa3VNVElpQmhIVXBVTlFqelU2R2ZJ?=
- =?utf-8?B?NktKbDlRanVjQXUrOTN3akJZZStwci9vMUdLS0JXZzlFTW0wTGlQUUwzVWZl?=
- =?utf-8?B?NXM1ZFdrUEtJYTE3VWZEeTJCWEYvMUJacGh1VE43SVZHWVBCTGRHUmJYNk5n?=
- =?utf-8?B?QW9RaEF2YkVPb0VHWW1hU2VTMDMzZ21tckpjY2I5YmRwRWV3V2hBYVVOcmVJ?=
- =?utf-8?B?dFlRTFR3ejhHWHFaYmhNdHk3VnVBckh5QXIzbzNhMi9DZmVPZjZ6RTd6akNi?=
- =?utf-8?B?SEcvTno5V1lUd0t6Nzk2eHZpZ0V1QmtOTEMzWStDVktUb2RUa2tnYUpzTnhy?=
- =?utf-8?B?WHJuWnBlTVdZeTNycVc1dTMrV0JPWXNOdStIZ1BiSzJVdS8zYkk0N1JYL1Yr?=
- =?utf-8?B?eXB2WEsxNXc4eUx2UmRUR2VVUHhGMm4wUzQrYWFTUDUzRGVsSkx5ZGRvYm1Y?=
- =?utf-8?B?VGc4T3ozMDkwM0Fhb1paWkNEeXZpcVZZQjJoTGhadDNnZWhoT1J4WUlPdzhV?=
- =?utf-8?B?dDlrUU44UkNheWFIejVJemVhdHUrY0N0bXZnQ3lLTGM2N3ZVMHBuMkZFSG9O?=
- =?utf-8?B?UVNCczlpU0dDNUpJNVkzVlM1YmVmTms2S3M5b1lyNGM4STNOYmw0ejRZMXFx?=
- =?utf-8?B?NnFmeENMaGJORFRtWVV4UldYTi9TckNaanZ3UWp0L2pXd2hURnFadGVKcktz?=
- =?utf-8?B?ZHVmTVFhK0lwMzN5NjB0ZDBVcTZNbkVTMUJia1FVa2JZUTRFL0VGQUcvN2Nt?=
- =?utf-8?B?T01nUG01dzlGQzd3TVZnb3I0MmVITEZSVmsvTnY0ektYZFRJcnJGb3d6ZkZS?=
- =?utf-8?B?SFVEV3Q1YTEwZXJxenBxNlZUdEZjMXZMVnZHcEYxOGxCVmVZMDlxb0hhb1Z0?=
- =?utf-8?B?Q21Nb0x2VG94Zkk3M1ZadE92V2U1SW9JRVBLV0RtSUNySDV5bDkwZzF5S1pt?=
- =?utf-8?B?Y0ZtenVOTEJlQ1ByVVRoeGJ1SUI4NGg5ZXhMalkvdEtkQThSaTdKaVhJMDBF?=
- =?utf-8?B?ZGtOWU1mR1NoMHExNlo3TGQ4SjVKQnpBWjZHbGJZQlp4WCsxR3RYQ1lobThE?=
- =?utf-8?B?aGNzbS8wVXlCa1FFOHYvZnVkSUJKaW1EN0xndEVrRmt4STNDaVpYY2tYeU1I?=
- =?utf-8?B?RnhEVjN1a1Nrb2dmNm43V3dOemtzcXp1SEZBallsNnFRdHFHd3RBbmZQVklN?=
- =?utf-8?B?V0RHVk0rTVJVRFhiOUlEa3RIMzBaOEZCWFJRdkR3OW1ZUzNrOG5QdlBQUkp6?=
- =?utf-8?B?QVZGRXkwZ3ZqK01TWThqd2t5WEdRaXBQN0VxclZMcE4zaHgwcitFWTJDMllB?=
- =?utf-8?B?VHRKamJvVDVrZ3hwbDBFL1c3Y3U1ajBnL1ZFUXhJaERZdkFpeHc0ZWMzd2NJ?=
- =?utf-8?B?Q1dyVTRSMTRHdnpWNlQrcGJNVVJyaWZxeEcyNEphS3FiQnZWRHZxYi9LckxI?=
- =?utf-8?B?aVNCZVduUlBnUXROVlA2WUc5SktmdTdYb3VUY2VuWHpEaC9nbmdoa2JUTTlH?=
- =?utf-8?B?Q0FnK1hrMUVRc3RlY1ZjRWNqVFR5OE8xYWxQeDBqQXVnb25iUlV0ZERRRmMz?=
- =?utf-8?B?Q2o2emRldnowWHJTQVdiZTk3clpOa00wM0plc2ZIZDJUVGdFVWhUVUpSaWgy?=
- =?utf-8?B?OXJOOTFEY3pNcTdqaHhJT3M2MktUbUg3cGxnRW9PdllXUGtURWhjUVlDUFhF?=
- =?utf-8?B?YUY5YzBSN0tsNlEwZWROWmQwSDVPVDJiMUV4N2x3RGJSZktmODRvQW9XeDB4?=
- =?utf-8?B?dE9YTENTa2FRaHd6SlBlVTNlN1E1OW53T3dTdkEyNVdXWTRnS1ByUHBZOE1j?=
- =?utf-8?B?cGV0Rkt4bkgwaDFLb2FLU0tjWEZZRUJ0RnpydlZBdVJRK2ZEbm5kNlNEOUR4?=
- =?utf-8?B?WTRiMEZ1M2N6UXptV1pvQzh0aXc0KzNITHI1Q1FSKzBVb3U0STJGdzNzTUI4?=
- =?utf-8?B?REdVOHh5QS9NVXNkL0c1OEoxNlNudW9URk1lQ0pTVkFJb2ZSOFRFSUErZlZH?=
- =?utf-8?B?ajhNa3VCby9BTHhoQUMwelQzNi9SVlNMaGFPUWtqdFlXYnVOTk80Zz09?=
-X-Exchange-RoutingPolicyChecked: uVVIrKLFpJ2zsmqP16u0C5ejbEGSTEDJKfK87T2BM4T9D+2m0iYPBkA58MCAkoLPStPeE8ZhJsrXyjMw6ufbM6SpMSu+yiCa2JCZQdbq4CEXuqFAQbe7GrSq4D4Ci8S/B3IMm7Skvny9aYwbp+YpDtAtjEowVBlWM0oBGlEsK8z3OiyCKFEy9maBafY/c7TQee8e7I8/M58q5TAJspoXeQDRU71sHQMIG8yNiGWT2G0fYftJLybNqDgD4N06MkP/GesOVK5Y2zbwg8g/F10PJ3qjwwcr3X1nn6oDpgT32OGRAN/XSeNH2Qw0eiL74w0d1T+RSI6ab4wgOM48v9HzmQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 004ff5f0-6c99-4f02-a118-08df3bc77eb9
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:33:32.5251
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nSq9QHpvN9IJNzugBKNYCsUfKJtBTlaOUB3ULk7YKWpsnr9jBlviVnKQH6l77xMAPZiIVA2Mf5O5BcxCm7SuN1/NmyXDDHhgMqcdiIfkfcQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6521
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 16:13, Jim Mattson wrote:
-> On Wed, Sep 30, 2026 at 4:02 PM Chang S. Bae <chang.seok.bae@intel.com> wrote:
->>
-> 
->> +static int kvm_copy_uabi_to_vcpu_regs(struct kvm_vcpu *vcpu, void *buf, u64 supported_xcr0)
->> +{
->> +       union fpregs_state *xstate = (union fpregs_state *)buf;
->> +
->> +       if (!(xstate->xsave.header.xfeatures & XFEATURE_MASK_APX))
->> +               return 0;
->> +
->> +       if (!(supported_xcr0 & XFEATURE_MASK_APX))
->> +               return -EINVAL;
-> 
-> Sashiko is right that this early return leaves stale values in R16-R31 when
-> XSTATE_BV[19] is 0.
-> 
-> In your reply to Sashiko, you wrote:
-> 
->    This matches the existing XSAVE uABI semantics. XSTATE_BV specifies
->    which state components are being updated. If userspace wants to zero
->    the APX state, it must include the APX bit in XSTATE_BV; omitting the
->    bit means "leave this component unchanged", just like the generic
->    XSAVE copy path.
-> 
-> That is not how XRSTOR or KVM_SET_XSAVE works. In the XSAVE architecture,
-> XSTATE_BV[i] = 0 indicates that state component i is in its initial
-> configuration (typically zeros), not that it should be left unchanged. In
-> copy_uabi_to_xstate(), clearing bit i in xsave->header.xfeatures 
+The read path hands port buffers to readers without any ownership
+protocol.  Two threads sharing one file descriptor can both pick up
+port->inbuf, copy from it concurrently and requeue it twice, and an
+input virtqueue callback prefetching the next buffer can drop the
+remainder a reader is about to put back.  During port unplug a
+reader can also call add_inbuf() on a virtqueue that is being torn
+down (KASAN: slab-use-after-free in virtqueue_get_buf_ctx), or
+requeue a buffer nobody will free anymore.  The input virtqueue
+callback itself can run past find_port_by_vq() into port->portdev
+and the virtqueue after unplug_port() has cleared them.
 
-But copy_uabi_to_xstate() does not overwrite XSTATE_BV. Instead,
+Track buffer ownership explicitly:
 
-	/*
-	 * Add back in the features that came in from userspace:
-	 */
-	xsave->header.xfeatures |= hdr.xfeatures;
+- fill_readbuf() claims port->inbuf under inbuf_lock and owns it
+  exclusively across the unlocked copy.  port_has_data() and the
+  input virtqueue callback no longer prefetch the next buffer while
+  a claim is held (nor once the port is being unplugged), so a
+  partially consumed buffer is always finished before the next one
+  and the byte order is preserved.
 
-This means that even if userspace clears a bit, the bit in the kernel 
-XSAVE buffer remains set if it was already set. Consequently, clearing 
-XSTATE_BV[i] in the userspace buffer does not necessarily reset the 
-state component.
+- The input state is snapshotted under inbuf_lock as empty,
+  readable (a buffer can be acquired), claimed, or unplugged.  Only
+  a readable buffer lets poll() report EPOLLIN or a read() proceed;
+  a claimed buffer is data pending for the EOF and host-disconnect
+  logic, so a peer reader sharing the file descriptor does not
+  observe EOF while another reader still owns unread bytes and
+  instead waits for the claim to be released.  A nonblocking reader
+  gets -EAGAIN (or 0 when the host has disconnected and no data is
+  left).  The atomic HVC poll simply retries.
 
-I'd follow up separately with update the wording, if needed, to match 
-with this behavior.
+- unplug_port() publishes an "unplugging" state under inbuf_lock
+  before any teardown.  After observing the unplugging state under
+  inbuf_lock, in_intr() drops its port reference and returns without
+  accessing portdev or the input virtqueue.  The separate HVC adapter
+  lifetime race after inbuf_lock is dropped is addressed by the
+  independently submitted hvc_kick change.  Readers stop touching the
+  input virtqueue from that point; a reader returning a claimed buffer
+  frees it instead of requeueing it.  A userspace read() that has not
+  copied any byte returns -ENODEV for an unplugged port, while the HVC
+  get_chars() path keeps returning 0.  free_buf() always runs
+  outside the lock: the teardown, copy-fault and failed-requeue
+  paths defer the free until inbuf_lock is dropped, so free_buf()
+  may sleep for DMA buffers when called from a userspace read.
+  Nothing reads the buffer after it is freed, and the claim is
+  always released with a wakeup, so readers waiting for the claim
+  are not stalled until the next packet.
 
->> @@ -3189,6 +3240,16 @@ static int kvm_vcpu_ioctl_x86_set_xsave(struct kvm_vcpu *vcpu,
->>           */
->>          xstate->xsave.header.xfeatures &= ~vcpu->arch.guest_fpu.fpstate->xfd;
->>
->> +       /*
->> +        * This and the following copy functions copy APX state into each
->> +        * storage. The VCPU cache is the single source of truth but avoiding
->> +        * this redundant copy tends to introduce special-case handling. Since
->> +        * this lies in a slow path, keep the implementation simple.
->> +        */
->> +       err = kvm_copy_uabi_to_vcpu_regs(vcpu, guest_xsave->region, kvm_caps.supported_xcr0);
->> +       if (err)
->> +               return err;
->> +
->>          return fpu_copy_uabi_to_guest_fpstate(&vcpu->arch.guest_fpu,
->>                                                guest_xsave->region,
->>                                                kvm_caps.supported_xcr0,
-> 
-> If fpu_copy_uabi_to_guest_fpstate() fails, vcpu->arch.regs[R16..R31] will
-> have already been clobbered.
-> 
-> Moreover, if you call kvm_copy_uabi_to_vcpu_regs() *after*
-> fpu_copy_uabi_to_guest_fpstate() succeeds, you don't need to check
-> supported_xcr0 in kvm_copy_uabi_to_vcpu_regs(), since
-> fpu_copy_uabi_to_guest_fpstate() rejects any xfeatures bits not in
-> kvm_caps.supported_xcr0.
+This issue was investigated and the fix was developed with AI
+assistance (ZCode/GLM-4).
 
-I think this is a good point. Since it was decided to let APX state go 
-through the fpstate anyway, it looks rather simplifying if switching the 
-order.
+Testing with QEMU and KASAN injection (lockdep and
+CONFIG_DEBUG_ATOMIC_SLEEP enabled in the test kernel):
 
-Thanks,
-Chang
+- A shared-fd, two-reader test without unplug delivered all 20000
+  records exactly once, with no corruption or reordering.  The
+  unmodified kernel delivered 19979 of them more than once and only
+  48 could be attributed to any consistent stream order.
+- Stalling the input callback right after find_port_by_vq() while a
+  QMP device_del unplugs the port made the previous version
+  dereference the cleared portdev (KASAN null-ptr-deref in
+  in_intr()); this version returns through the unplug check and
+  reports nothing.
+- Stalling a userspace read() just before fill_readbuf() and
+  unplugging the port while it is parked: the previous version
+  returns 0 (treated as a normal host disconnect), this version
+  returns -ENODEV.
+- With one reader parked while holding a claim, poll() no longer
+  reports EPOLLIN and a nonblocking read from the second reader
+  returns -EAGAIN instead of a readable/EAGAIN mismatch.  With the
+  host disconnecting at the same point, the second reader gets
+  -EAGAIN rather than a premature EOF, and the following blocking
+  read receives the remainder the first reader puts back.
+- During concurrent unplug, readers received a valid contiguous
+  prefix before disconnect, with no duplicates or KASAN reports;
+  the same stall sequences produce six slab use-after-free reports
+  per run on the unmodified kernel.
+- A separate fault-injection run exercised 20 failed buffer
+  requeues, all going through the deferred free path, without a
+  reported use-after-free, lockdep splat or invalid-context sleep.
+- Combined with the hvc_kick change for the HVC adapter lifetime,
+  the 20000-record integrity test, the callback/unplug injection
+  and a normal PORT_REMOVE run all complete without new KASAN,
+  lockdep, duplicate or reordered data.
+
+The test environment provides virtual virtio-console devices only.
+Real remoteproc DMA buffers were not available, so the rproc-serial
+DMA buffer path is covered by code inspection of the claim, deferred
+free and reclaim ordering, not by a runtime test.
+
+Fixes: 203baab8ba319 ("virtio: console: Introduce function to hand off data from host to readers")
+Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+
+---
+Changes since v2:
+- in_intr() now returns immediately when it observes unplugging or a
+  cleared portdev, dropping the reference taken by find_port_by_vq().
+  The previous version skipped get_inbuf() but still evaluated
+  is_rproc_serial(port->portdev->vdev) and could reach
+  discard_port_data() or the HVC adapter after unplug_port() tore the
+  port down.  Reproduced by stalling in_intr() after
+  find_port_by_vq() while a QMP device_del unplugs the port: the
+  previous version reports a KASAN null-ptr-deref in in_intr() (RIP
+  in_intr+0x2c5), this version reports nothing.
+- Introduced an explicit input-state snapshot and stopped treating
+  "a buffer is claimed" as "readable".  poll() no longer reports
+  EPOLLIN and a nonblocking read returns -EAGAIN while another
+  reader owns the buffer, instead of the previous poll/read
+  mismatch.  Reproduced by parking one reader on a claim and
+  polling/reading from the second reader: previous version fails
+  both checks, this version passes.
+- fill_readbuf() returns -ENODEV instead of 0 when a userspace
+  reader finds the port unplugged before copying anything;
+  port_fops_read() takes the same snapshot and applies it before
+  the EOF/EAGAIN early returns.  The HVC path keeps returning 0.
+  Reproduced by stalling a read() just before fill_readbuf() and
+  unbinding the port: previous version returns 0, this version
+  returns -ENODEV.
+- Do not run discard_port_data() from in_intr() while a claim is
+  held; the claimed buffer is returned to port->inbuf by its owner
+  and the deferred cleanup completes on release or port teardown.
+- Use READ_ONCE() for the unlocked connection-state reads in the
+  fill_readbuf() retry path, matching port_fops_read() and
+  will_read_block().
+- Revalidated the claimed+poll, claimed+O_NONBLOCK,
+  claim+host-disconnect, claim-period unplug, 20000-record
+  integrity and combined hvc_kick cases under KASAN, lockdep and
+  CONFIG_DEBUG_ATOMIC_SLEEP.
+v2: https://lore.kernel.org/r/20261105114535.972013-1-shunsheng1218@gmail.com/
+v1: https://lore.kernel.org/r/179378543196.71890.7555371342727156729@gmail.com/
+---
+ drivers/char/virtio_console.c | 296 ++++++++++++++++++++++++++++++----
+ 1 file changed, 265 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
+index 019bcae81af5c..d1757017d9bd0 100644
+--- a/drivers/char/virtio_console.c
++++ b/drivers/char/virtio_console.c
+@@ -180,6 +180,23 @@ struct port {
+ 	/* The current buffer from which data has to be fed to readers */
+ 	struct port_buffer *inbuf;
+ 
++	/*
++	 * True while a reader owns an exclusively claimed inbuf outside
++	 * inbuf_lock, possibly sleeping in copy_to_user().  Nobody may
++	 * prefetch the next buffer meanwhile: the claimer's unconsumed
++	 * remainder goes back to inbuf first, or the prefetched buffer
++	 * would be dropped or the stream reordered.
++	 */
++	bool inbuf_claimed;
++
++	/*
++	 * Set at the start of unplug_port(), before any teardown.  The
++	 * read path checks it under inbuf_lock and stops touching the
++	 * input virtqueue; a reader returning a claimed buffer frees it
++	 * instead of requeueing it.
++	 */
++	bool unplugging;
++
+ 	/*
+ 	 * To protect the operations on the in_vq associated with this
+ 	 * port.  Has to be a spinlock because it can be called from
+@@ -534,19 +551,48 @@ static void discard_port_data(struct port *port)
+ 			 err);
+ }
+ 
+-static bool port_has_data(struct port *port)
++/*
++ * Input state of a port, snapshotted under inbuf_lock.  The distinction
++ * between a buffer that can be acquired now (AVAILABLE) and one that is
++ * owned by another reader (CLAIMED) matters for poll() and for blocking
++ * reads: only AVAILABLE must be reported as readable, while both mean
++ * that unread data may still be pending for the EOF logic.
++ */
++enum port_input_state {
++	PORT_INPUT_EMPTY,
++	PORT_INPUT_AVAILABLE,
++	PORT_INPUT_CLAIMED,
++	PORT_INPUT_UNPLUGGED,
++};
++
++/* Callers must not hold inbuf_lock. */
++static enum port_input_state port_input_state(struct port *port)
+ {
+ 	unsigned long flags;
+-	bool ret;
++	enum port_input_state state;
+ 
+-	ret = false;
+ 	spin_lock_irqsave(&port->inbuf_lock, flags);
+-	port->inbuf = get_inbuf(port);
+-	if (port->inbuf)
+-		ret = true;
++
++	if (port->unplugging || !port->portdev) {
++		state = PORT_INPUT_UNPLUGGED;
++	} else if (port->inbuf_claimed) {
++		state = PORT_INPUT_CLAIMED;
++	} else {
++		port->inbuf = get_inbuf(port);
++		state = port->inbuf ? PORT_INPUT_AVAILABLE
++				    : PORT_INPUT_EMPTY;
++	}
+ 
+ 	spin_unlock_irqrestore(&port->inbuf_lock, flags);
+-	return ret;
++	return state;
++}
++
++static bool port_has_data(struct port *port)
++{
++	enum port_input_state state = port_input_state(port);
++
++	return state == PORT_INPUT_AVAILABLE ||
++	       state == PORT_INPUT_CLAIMED;
+ }
+ 
+ static ssize_t __send_control_msg(struct ports_device *portdev, u32 port_id,
+@@ -692,24 +738,112 @@ static ssize_t __send_to_port(struct port *port, struct scatterlist *sg,
+  * Give out the data that's requested from the buffer that we have
+  * queued up.
+  */
++static bool will_read_block(struct port *port);
++
+ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
+-			    size_t out_count, bool to_user)
++			    size_t out_count, bool to_user, bool nonblock)
+ {
+ 	struct port_buffer *buf;
+ 	unsigned long flags;
++	bool free_requeue_buf = false;
++	int err;
+ 
+-	if (!out_count || !port_has_data(port))
++	if (!out_count)
+ 		return 0;
+ 
++retry:
++	spin_lock_irqsave(&port->inbuf_lock, flags);
++
++	/* The port is going away; its vqs are being torn down. */
++	if (port->unplugging || !port->portdev) {
++		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++		/* Userspace sees a removed port; HVC just has no data. */
++		return to_user ? -ENODEV : 0;
++	}
++
++	/*
++	 * Another reader (a userspace read() or the HVC console poll)
++	 * owns the claimed buffer, possibly sleeping in copy_to_user().
++	 * Prefetching the next buffer here would drop or reorder the
++	 * claimed data once the owner returns its unconsumed remainder,
++	 * so report no data instead.  The HVC poll will simply retry;
++	 * a userspace reader waits for the claim to be released.
++	 */
++	if (port->inbuf_claimed) {
++		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++		if (!to_user)
++			return 0;
++		if (nonblock)
++			return -EAGAIN;
++
++		err = wait_event_freezable(port->waitqueue,
++					   !READ_ONCE(port->inbuf_claimed) ||
++					   READ_ONCE(port->unplugging));
++		if (err)
++			return err;
++		goto retry;
++	}
++
++	port->inbuf = get_inbuf(port);
+ 	buf = port->inbuf;
++	if (!buf) {
++		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++		if (!to_user)
++			return 0;
++		if (nonblock)
++			return READ_ONCE(port->host_connected) ? -EAGAIN : 0;
++		/*
++		 * The data we saw was consumed by another reader while we
++		 * waited for its claim.  Keep blocking like the fops-level
++		 * wait instead of reporting a spurious EOF: wait for new
++		 * data, a disconnect or the unplug fence.
++		 */
++		err = wait_event_freezable(port->waitqueue,
++					   !will_read_block(port));
++		if (err)
++			return err;
++		if (!READ_ONCE(port->guest_connected))
++			return -ENODEV;
++		if (!READ_ONCE(port->host_connected) && !port_has_data(port))
++			return 0;
++		goto retry;
++	}
++
++	/*
++	 * Claim the buffer: we own it exclusively while copying,
++	 * without holding inbuf_lock.
++	 */
++	port->inbuf = NULL;
++	port->inbuf_claimed = true;
++	spin_unlock_irqrestore(&port->inbuf_lock, flags);
++
+ 	out_count = min(out_count, buf->len - buf->offset);
+ 
+ 	if (to_user) {
+ 		ssize_t ret;
+ 
+ 		ret = copy_to_user(out_buf, buf->buf + buf->offset, out_count);
+-		if (ret)
++		if (ret) {
++			bool free_it;
++
++			/*
++			 * The copy failed: hand the buffer back with its
++			 * data intact, unless the port is being unplugged,
++			 * in which case nobody would free it anymore.
++			 */
++			spin_lock_irqsave(&port->inbuf_lock, flags);
++			free_it = port->unplugging || !port->portdev;
++			if (!free_it)
++				port->inbuf = buf;
++			port->inbuf_claimed = false;
++			spin_unlock_irqrestore(&port->inbuf_lock, flags);
++
++			if (free_it)
++				free_buf(buf, true);
++			else
++				wake_up_interruptible(&port->waitqueue);
+ 			return -EFAULT;
++		}
+ 	} else {
+ 		memcpy((__force u8 *)out_buf, buf->buf + buf->offset,
+ 		       out_count);
+@@ -717,19 +851,57 @@ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
+ 
+ 	buf->offset += out_count;
+ 
+-	if (buf->offset == buf->len) {
++	spin_lock_irqsave(&port->inbuf_lock, flags);
++
++	if (port->unplugging || !port->portdev) {
++		/*
++		 * The port was unplugged while we were copying: the vqs
++		 * are going away, so free the buffer instead of requeueing
++		 * it.  Runs outside the lock; sleepability matches the
++		 * caller's context (to_user == false is the atomic HVC
++		 * path, whose DMA frees are deferred by free_buf()).
++		 */
++		port->inbuf_claimed = false;
++		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++		free_buf(buf, to_user);
++		wake_up_interruptible(&port->waitqueue);
++		return out_count;
++	}
++
++	if (buf->offset < buf->len) {
++		/* Data left in this buffer; serve it before the next one. */
++		port->inbuf = buf;
++	} else {
+ 		/*
+ 		 * We're done using all the data in this buffer.
+ 		 * Re-queue so that the Host can send us more data.
+ 		 */
+-		spin_lock_irqsave(&port->inbuf_lock, flags);
+-		port->inbuf = NULL;
+-
+-		if (add_inbuf(port->in_vq, buf) < 0)
++		if (add_inbuf(port->in_vq, buf) < 0) {
+ 			dev_warn(port->dev, "failed add_buf\n");
+-
+-		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++			/*
++			 * Defer the free: free_buf() may call
++			 * dma_free_coherent() (rproc buffers) when the
++			 * caller can sleep, which is illegal with
++			 * inbuf_lock held and IRQs off.
++			 */
++			free_requeue_buf = true;
++		}
+ 	}
++
++	/*
++	 * Release the claim.  Do not touch buf afterwards: it may have
++	 * been freed above (failed requeue).  Wake unconditionally:
++	 * readers waiting for the claim need a wakeup even when the
++	 * buffer was fully consumed.
++	 */
++	port->inbuf_claimed = false;
++	spin_unlock_irqrestore(&port->inbuf_lock, flags);
++
++	if (free_requeue_buf)
++		free_buf(buf, to_user);
++
++	wake_up_interruptible(&port->waitqueue);
++
+ 	/* Return the number of bytes actually copied */
+ 	return out_count;
+ }
+@@ -737,11 +909,21 @@ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
+ /* The condition that must be true for polling to end */
+ static bool will_read_block(struct port *port)
+ {
+-	if (!port->guest_connected) {
++	enum port_input_state state;
++
++	if (!READ_ONCE(port->guest_connected)) {
+ 		/* Port got hot-unplugged. Let's exit. */
+ 		return false;
+ 	}
+-	return !port_has_data(port) && port->host_connected;
++
++	state = port_input_state(port);
++	if (state == PORT_INPUT_UNPLUGGED || state == PORT_INPUT_AVAILABLE)
++		return false;
++	/* Another reader owns the claimed buffer: wait for it. */
++	if (state == PORT_INPUT_CLAIMED)
++		return true;
++
++	return READ_ONCE(port->host_connected);
+ }
+ 
+ static bool will_write_block(struct port *port)
+@@ -771,21 +953,28 @@ static ssize_t port_fops_read(struct file *filp, char __user *ubuf,
+ 			      size_t count, loff_t *offp)
+ {
+ 	struct port *port;
++	enum port_input_state state;
+ 	ssize_t ret;
+ 
+ 	port = filp->private_data;
+ 
+ 	/* Port is hot-unplugged. */
+-	if (!port->guest_connected)
++	if (!READ_ONCE(port->guest_connected))
++		return -ENODEV;
++
++	state = port_input_state(port);
++	if (state == PORT_INPUT_UNPLUGGED)
+ 		return -ENODEV;
+ 
+-	if (!port_has_data(port)) {
++	if (state != PORT_INPUT_AVAILABLE) {
+ 		/*
+-		 * If nothing's connected on the host just return 0 in
+-		 * case of list_empty; this tells the userspace app
+-		 * that there's no connection
++		 * No buffer can be acquired right now: the input is empty
++		 * or another reader owns the claimed buffer.  A host
++		 * disconnect is only EOF when no reader still holds
++		 * unread bytes; with a claim outstanding, wait for it.
+ 		 */
+-		if (!port->host_connected)
++		if (state == PORT_INPUT_EMPTY &&
++		    !READ_ONCE(port->host_connected))
+ 			return 0;
+ 		if (filp->f_flags & O_NONBLOCK)
+ 			return -EAGAIN;
+@@ -796,7 +985,7 @@ static ssize_t port_fops_read(struct file *filp, char __user *ubuf,
+ 			return ret;
+ 	}
+ 	/* Port got hot-unplugged while we were waiting above. */
+-	if (!port->guest_connected)
++	if (!READ_ONCE(port->guest_connected))
+ 		return -ENODEV;
+ 	/*
+ 	 * We could've received a disconnection message while we were
+@@ -808,10 +997,14 @@ static ssize_t port_fops_read(struct file *filp, char __user *ubuf,
+ 	 * really want to give off whatever data we have and only then
+ 	 * check for host_connected.
+ 	 */
+-	if (!port_has_data(port) && !port->host_connected)
++	state = port_input_state(port);
++	if (state == PORT_INPUT_UNPLUGGED)
++		return -ENODEV;
++	if (state == PORT_INPUT_EMPTY && !READ_ONCE(port->host_connected))
+ 		return 0;
+ 
+-	return fill_readbuf(port, ubuf, count, true);
++	return fill_readbuf(port, ubuf, count, true,
++			     filp->f_flags & O_NONBLOCK);
+ }
+ 
+ static int wait_port_writable(struct port *port, bool nonblock)
+@@ -1206,7 +1399,7 @@ static ssize_t get_chars(u32 vtermno, u8 *buf, size_t count)
+ 	/* If we don't have an input queue yet, we can't get input. */
+ 	BUG_ON(!port->in_vq);
+ 
+-	return fill_readbuf(port, (__force u8 __user *)buf, count, false);
++	return fill_readbuf(port, (__force u8 __user *)buf, count, false, false);
+ }
+ 
+ static void resize_console(struct port *port)
+@@ -1400,6 +1593,8 @@ static int add_port(struct ports_device *portdev, u32 id)
+ 
+ 	port->name = NULL;
+ 	port->inbuf = NULL;
++	port->inbuf_claimed = false;
++	port->unplugging = false;
+ 	port->cons.hvc = NULL;
+ 	port->async_queue = NULL;
+ 
+@@ -1533,6 +1728,17 @@ static void remove_port_data(struct port *port)
+  */
+ static void unplug_port(struct port *port)
+ {
++	/*
++	 * Mark the port as being unplugged before any teardown, so the
++	 * read path stops touching the input virtqueue: readers check
++	 * this flag under inbuf_lock and bail out, and a reader that is
++	 * returning a claimed buffer frees it instead of requeueing it
++	 * to a virtqueue that may already be gone.
++	 */
++	spin_lock_irq(&port->inbuf_lock);
++	port->unplugging = true;
++	spin_unlock_irq(&port->inbuf_lock);
++
+ 	spin_lock_irq(&port->portdev->ports_lock);
+ 	list_del(&port->list);
+ 	spin_unlock_irq(&port->portdev->ports_lock);
+@@ -1579,6 +1785,12 @@ static void unplug_port(struct port *port)
+ 	debugfs_remove(port->debugfs_file);
+ 	kfree(port->name);
+ 
++	/*
++	 * Reclaim rproc DMA buffers deferred by the atomic cleanup
++	 * paths before the port is fully torn down.
++	 */
++	reclaim_dma_bufs();
++
+ 	/*
+ 	 * Locks around here are not necessary - a port can't be
+ 	 * opened after we removed the port struct from ports_list
+@@ -1791,7 +2003,28 @@ static void in_intr(struct virtqueue *vq)
+ 	}
+ 
+ 	spin_lock_irqsave(&port->inbuf_lock, flags);
+-	port->inbuf = get_inbuf(port);
++
++	/*
++	 * The port is being unplugged: unplug_port() tears down portdev,
++	 * the guest_connected state and the HVC adapter.  Do not touch
++	 * the input virtqueue or any of that state; just drop the port
++	 * reference taken by find_port_by_vq().
++	 */
++	if (port->unplugging || !port->portdev) {
++		spin_unlock_irqrestore(&port->inbuf_lock, flags);
++		wake_up_interruptible(&port->waitqueue);
++		kref_put(&port->kref, remove_port);
++		return;
++	}
++
++	/*
++	 * A reader may own an exclusively claimed buffer, possibly
++	 * sleeping in copy_to_user().  Do not prefetch the next buffer
++	 * now: the claimer's unconsumed remainder must go back to
++	 * port->inbuf first, or the prefetched buffer would be lost.
++	 */
++	if (!port->inbuf_claimed)
++		port->inbuf = get_inbuf(port);
+ 
+ 	/*
+ 	 * Normally the port should not accept data when the port is
+@@ -1810,7 +2043,8 @@ static void in_intr(struct virtqueue *vq)
+ 	 * guest_connected to true.
+ 	 */
+ 
+-	if (!port->guest_connected && !is_rproc_serial(port->portdev->vdev))
++	if (!port->inbuf_claimed && !port->guest_connected &&
++	    !is_rproc_serial(port->portdev->vdev))
+ 		discard_port_data(port);
+ 
+ 	/* Send a SIGIO indicating new data in case the process asked for it */
+-- 
+2.34.1
+
