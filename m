@@ -1,65 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959017;
-	b=zt+vcOs2SGieqSvaOB4CpfnDEMe7ME79/NZCDBLskKvTAno9OEV7X6/AeqVvnMGoop0m
-	 BLL39AosUKRJnrbSPYUCjnZr6yZ0dOhC5WFyu30YmpQfyHoHIj2iu6dgA416lr2W7nI1P
-	 Hywcvi8LSl3G4DJMQW1xLbt2m3ZEUlwoBteppPN3ctcQIGpO2MIpj1q3NNU8n2XnVmhko
-	 K+Ptejla2oh4LmIGMDkDd6jt57M3Ih9BSOmTdKun8WG8lBneuzSdZaw5qZOxMbGenebF+
-	 MhmVeOMM1/KCvXC9L5HOY5+v/YfqkUWbemmbhzn/PGvP8llTlfRmLHCI+UtkZPnjhtg==
+	t=1793959008;
+	b=DDenmip8Vu85dodblsje2unxHpsji97iBYSb3s2KbIEDGSx3DWAt8nKh4SBti9I1nv8J
+	 e9JeI0yLddSRvoXAPrUEUlTuq/igS/AHG7wBiHf9T780pXwiPOpFQHM1D+WPP0oL3eIn2
+	 f2kgO3ZSXA+aVnruPOnBJRbjui7YDiY2GR9WmU/7PAtHSB67/IY0AX45kRe+0XSI2RCAK
+	 1Pk4bD25qm+Rukr3pQAhOLvJr2oxHrwc78Vt/9jI1Wpqwp3tURbB9knJAlt7yTToR/5+b
+	 uolG6GU8fEux8MdFxSXxF4ZEQfm+ghJPswDd4lqK0UGEp5Iqc402/fJzbmfzrcf9Qug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959017;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EshULAsB+qGkuxyBRGHV+fcTIV3hUxTmA5rU2C9/N6o=;
-	b=YBaIuSYkT84PlWT3tz7pVa5rmLrnnKYXe9qlk+BEIhHQd4WklaUFYru0okGNMlIHGpSL
-	 aZ6JXeEBGeUr3gXSw2ry+woRbGE4VcvsgZR3UCkT6J9GLJ13MmD7mNYhJBBI8KQLb6d2y
-	 U0auv0G6kzSaoqcls8smTQTRkFTWJJKrDR4YvlybG9JX7GHHK3zIOPf7jHILqbOeEogUd
-	 Oc1B+uRC8VduELD31e0eGEiCFkupOT9FtmNGqMVqeMmX2pqSqlZ13QtfrcT8fiklq2SIp
-	 JE7uaxD+RjZbonbGt+I5JdlX6z0ds/UuwmSgDwXQD8OsxyQfT9qxnVA1EUuZJIqbZyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959008;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8rYKjadnk3L5Rz2sdZiwE2HJjQFgAIZLkKW3Se/Vlio=;
+	b=qCLxua7wOyLpZW41gCwQg+1uePsrHxATN/93KzCA4hYvUHDeiS3ZmrWQdpmoE8aWno55
+	 mRNT3dJatwLD8A28+wLgwpZYxaKAKDrYSw0MKsQsxTtGSqaJm0RUlzSgGh9bDEnrO00sH
+	 dNiXBj5sWsUZ1jBlXCTvUJANegCCPxHP//tEqNX5xFcyegR9zGx0s4l7z5XFyXF2SA9ir
+	 2sgnAWS8ze8HmktNH8b0IdaMI/dNNhGPbGU2OVpJr0Dk/4KEauFrZKz6A7oCawJWswTUI
+	 3w03aAFI4FzUbqZvx05WNVAGa9iinC0/qvGAQDxoi3pQB0j3SLaRMo9YF7MG9QAeWiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nKcC1rdn;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 47C33606EE96;
-	Fri,  6 Nov 2026 09:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47C33606EE96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i0BJXS8o;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96987606A337;
+	Fri,  6 Nov 2026 09:56:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nKcC1rdn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=nKcC1rdnYc6YvlXlDFcL9eKIGnxU4ZEbHdw40+WruBOn0PI3vs6tw2oB9JczW6C4y6wJ2NskfAubd
-	 Tj2UE1sApyaleDSFt/yl7SxA147LyxVZHsMMGfPfdb7LLnfaKYXwXaas2XM5Ch5k3goDyB9SWskmUz
-	 hmOOoNmhUdh++H38=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16aeda46595f-8cbeb;
-	Fri, 06 Nov 2026 17:56:53 +0800 (CST)
-X-RM-TRANSID:2ee16aeda46595f-8cbeb
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56aeda462b7f-1c0fe;
-	Fri, 06 Nov 2026 17:56:53 +0800 (CST)
-X-RM-TRANSID:2ee56aeda462b7f-1c0fe
-From: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
-To: Jiri Pirko <jiri@resnulli.us>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: tongzhiwei@cmss.chinamobile.com,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH] lib: objagg: Fix stats imbalance on hinted-parent error path
-Date: Fri,  6 Nov 2026 17:55:58 +0800
-Message-ID: <20261106095621.143-1-tongzhiwei@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.45.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i0BJXS8o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356801F008A6;
+	Fri,  6 Nov 2026 09:56:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793959007;
+	bh=8rYKjadnk3L5Rz2sdZiwE2HJjQFgAIZLkKW3Se/Vlio=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i0BJXS8ozGxBJTF/juHvXRYUv7atCQvntoanEOw+Wzpip+/pcwVT4MNZOCJ00Wtzv
+	 2GKwDbWa0tAmAgxFJaivrTwtUiRQSlhjQ+6RQBf02qCHEmGFpmkKklHvVje4zUM8gh
+	 P8OSPIY2bpi8Y+m5z2P2HHS4Zx3xjghAKMeAgSFmsg40JrZkIYRMhluxjK0mi+7xd+
+	 J9SOwRqOP5hhe+1GRED9+fk5ADE8hkxlaxQiQ6FMGGUmRnmay0gJqiJqk/77q9iD5P
+	 bML5yePY+Ey9pW7QEOOPehcx7lweOr8UkZv2mjl/SWHwoNmYKmPNZRANGFPsRu7aza
+	 Ow2nYRxI3N1QQ==
+Date: Fri, 6 Nov 2026 10:56:42 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Amir Goldstein <amir73il@gmail.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, linux-kernel <linux-kernel@vger.kernel.org>, 
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>, overlayfs <linux-unionfs@vger.kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>
+Subject: Re: Return failure from take_dentry_name_snapshot() (Was: [GIT PULL]
+ overlayfs fixes for 7.3)
+Message-ID: <20261106-geothermie-stier-animieren-67c9677d5906@brauner>
+References: <20261031095716.3030288-1-amir73il@gmail.com>
+ <CAHk-=wiPhTLn1p0ZHx-7SMdk4_zazqDK1k7MMEn9scRfqeDgtw@mail.gmail.com>
+ <CAOQ4uxjNrdxZdZZipsqnUNq+TswCKqp+30iKRKCqh2WOQ-zKGA@mail.gmail.com>
+ <CAHk-=wiimdwWu0EVQdxGVjbVWdzNKGg0f6vZ1aR-GXxDvQa-Eg@mail.gmail.com>
+ <CAHk-=wjz+Tg3iq_6uBqxm+egP_aRhodcz2Qu3pQaR8SQcvPt0A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,45 +63,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wjz+Tg3iq_6uBqxm+egP_aRhodcz2Qu3pQaR8SQcvPt0A@mail.gmail.com>
 
-NOTE: this commit is worked by llm completely
+On Tue, Nov 03, 2026 at 08:32:17AM -0800, Linus Torvalds wrote:
+> On Sun, 1 Nov 2026 at 09:16, Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+> >
+> > I'd like to see an ack from Al / Christian, but
+> > I think I'll also rewrite that function to use guards.
+> 
+> I didn't get any acks, but I obviously did do the guard rewrite (and
+> then some: I got a bit OCD about it).
 
-In objagg_obj_init_with_hints(), the parent is obtained via
-__objagg_obj_get() which increments only the refcount without
-touching stats.  The matching release for internal references is
-__objagg_obj_put() (no stats adjustment), as used in the success
-path in objagg_obj_parent_unassign().
+VFS is just another acronym for OCD.
 
-However, the error cleanup at err_parent_assign calls the public
-objagg_obj_put(), which additionally runs objagg_obj_stats_dec(),
-decrementing user_count and delta_user_count with no prior
-increment.  This corrupts the parent stats, leading to
-under-reporting and potential user_count underflow.
+> I've committed the end result.
 
-Use __objagg_obj_put() to match the internal __objagg_obj_get().
+Thanks. Sorry, I didn't get to this earlier because of reasons... Well,
+you know as you were on receiving end of it. In any case,
 
-Assisted-by: LLM
-Signed-off-by: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
----
- lib/objagg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/lib/objagg.c b/lib/objagg.c
-index 23c7105a3f9f..6c4144213eb8 100644
---- a/lib/objagg.c
-+++ b/lib/objagg.c
-@@ -327,7 +327,7 @@ static int objagg_obj_init_with_hints(struct objagg *objagg,
- 	return 0;
- 
- err_parent_assign:
--	objagg_obj_put(objagg, parent);
-+	__objagg_obj_put(objagg, parent);
- 	return err;
- }
- 
--- 
-2.43.0
-
-
-
+retroactively.
