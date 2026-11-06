@@ -1,100 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969256;
-	b=eGskjDdXycDT/OkUg8jGOvGqQ2QWJBEKU6Y+3QBjxoTmPEnXCKotwmf0PIlGQTc8qq9N
-	 BdOWV4Tu1WrcVfZBCpVbfSYbwHGKVwoFts5yzUICRG2R77x6fkxTiOa0AVCeyuazAlkA0
-	 juZ3h7xqJoRexNt3svQcNk+CQPBPM+NWMBVTue0OydvWkEXLqoQcEMtzpzfjKVAPSrZdg
-	 Qb7ydQ/9IpEeXO4ZuTTsHWO5/GM2BrlgQ3gmFSpdUBdEsJWB3ZPy1RkoGIM8Db7ruEkda
-	 OzKXgVK/Q+IWByYLm/lJWYRjOMlK74f9UMnUtgvDmQJ1H180QcgK64jOhZTX+Sj9GmA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969256;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
-	b=ORoGTkJLf3p0yaxy+FeeKiyj7xIchhz/AdsAMA9iwy+I18/1dtmOx4/HQvmJbfYQV1MM
-	 mCiZHqR8RRrhdsw0Nt4pP4acNockFQKkJXlMC2w44WjlQfhK5WWCsm772SLVe/U8tohE8
-	 +L9kV7VkTJ591m+SvtON1jARsMOPcQMKDxcMsSMzLknnxjNfHdpgspYcz4xlPhgTMHIlo
-	 N54+Dt15Gd1pcmseBcBXALoWyauAPriV9TDW4FD5ShaDBx7jgONKxotWU3RLKqAC2io+I
-	 HmV5hqHKxqWsE1Hst6p4pJ0/XP/dUvP89uwkMCZHFrSMVbHje+zfk0xiR3jELROVmUA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYE8JxpC;
-	arc=none smtp.remote-ip=74.125.229.4
-Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793969248;
+	b=j/1FKgXHa2GSOuAf3tnQWOnuPp4fxB1uOTxFs28gElZP5lPgckVJw+/wYNS886/lU2Lt
+	 LzUmUQ7i4PJVzxkVqb17SMi7wLR4SsOy5W3Hej39uyIa3aMOd8wtbKOxZ7CoA40LZab+W
+	 3439fAX5q4o5jdAmU3DjnDQR/Fv98cfEAmk53gM7D8XxqP1Fd94c6P6YUKNgVJdkG0QbD
+	 oghc7cfdjve/WOQnpoqtk8ZIZd9QnoavjtfMHHvguV3HLWLdbkt7Yv/DbvKDJ0SNcBXpJ
+	 c5VYya5EPPjCOTuIplircvF+EjZqD2iyAFXtYBQsmQwj/UKUKjU46OTK/wLKXR+KvDg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969248;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=JDQlWXIhj4bDbT0E408d2dPblh7qMmaIQbMP/LEkMJ0=;
+	b=EW0EY5SzSHTexcj6NelC2y7As7i/qeQTDFwD7IXycH+UfVpF0faGUSNV3l034hKkRXMp
+	 d5BvDVTIGdsA/nQWJV065pjoNNDPP4V7S4jVtsQCEMg20sc8HnZf2b3mOCfHahqZbjLeL
+	 FGyL5VsvSkd+u6G2X3TFv75FI52+Nol2V92dOK1Gfj58o/aX8g+4whwCU3V5VZuQX5EKz
+	 aW6JT6GeR5F8r3pk3cG2isqgo87swwqv0geC2CPToJYQKVkR1pC60oZScctHzlW0h4IBx
+	 HiD4T/QbruEDpK7fhQ2mJGsviU4/dL7VJx3R/rWIPvauAk+tEAFbz9JG1no6+itjiAw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=X4I4OjDd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35682606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:47:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35682606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355ED606A329;
+	Fri,  6 Nov 2026 12:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 355ED606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYE8JxpC
-Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36f2f262b19so353396eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:47:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793969254; x=1794574054; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
-        b=GYE8JxpC/XsGkeI4sBpOQ6DJvE77JIlVnRsWlvafhf3pFfJET9MlXd8nPF2d5DgUP+
-         30WS2GXdlDp5aokJ22hMIPfJsRLfyGU0uIcm0w+YRP3oBnt0PJjqL0VfCVv6cMUmRwdc
-         1cnijDYPjmej/v5Qh8w8xNAlXKNpPqzt0UALSXJ2Wij/wThr1iZrHgNX2RsIv6YvstCf
-         65nNWEzTdciPyY6MSNg6KVCUPq/yYaxwVJrQ3Twvabjqwr7fcYH0ABw6WLAInNcndsbv
-         lGmqZIkfUzo/vmfc90H6TitpSeBrfZGWZ0O+q+qM7jL8CdR5Sf6dX3kw+KbaUpskv2MQ
-         wnDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793969254; x=1794574054;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
-        b=NbdMcFQXIOPgyns64ZpFqagsZtPHOdPU1hcOe5ad7fIf80xTLW9yJigdFokj3Ss6IK
-         oUy8oYYsh4xhz2I9Absxwh2iarpovPrVeJGMf5sVrKcS71oq8+jtFuZu2WrnK8Rfkewt
-         R8xz8HZjDgM7bCTYQ+/XOptI9gK7kFGNXdgXZ9cSioeRvnLfw0wDBr8UuqWSYPwlFc8O
-         TAfdCxLNROtigVB5WJm4rVe/JNaUFJIQCogTya8KT2+LV8S9YVr9K9XvklCtUwzD/fql
-         V59GgzTLNnLyFuE5krrz+VOcnwj5EgE1NJs1bndXCLssx7H6WLaj5euEgaCxUpVsttsV
-         /6Tg==
-X-Forwarded-Encrypted: i=1; AL+hErGt7JVOIDsyMNIx7HUO2H1WrkskGTirT7KYAlP+kti0U/c7ndCVnAvnq5bHUmP+lXbbK0ytLJzlre8Bt+c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9N0PLTpVO2yn9c9EbvXU6LGE9H18YuHFzTNFlxJRb1lldQyQAY
-	tEZ89BUOMXXuAewksBDQ8rIfMKJ9ieucRRbP2A00UNbuOcT+AOkPtmS4
-X-Gm-Gg: AYBFou3UjR1Oi1+hAmdfcx3pJd0LterdHxbn1m8Abw/9LUcVVjuURopWFm4I8YaXqKM
-	XimLYm+zrfne5r8oXmuXMrkDl1kMeR0i7wlG+zsYneLkUmICjhm10ykfAq1Z9+slJY/tBa7LNmH
-	d7557TsazTrUkix/utU/BxGcebdJYtDsunc7eKQlxnx3CnpIUHt5lr2GbTtVYL4SmXwZ8PX01XM
-	M9Ya2s8nKWyG1zGU92FpzS5ZxsIuOEu/5U9K8au5IlvT61b8ul69l06HaocGYTg4bdxFB3BIf2o
-	BZX25FcbTJR/tGF/jqcJHlWaI/xGy5BvHiz8ZPBi3PMA+IvgBB3UI9ArmUH5erZ4jepxmrHr3hf
-	ns3I51F3riSXJbfb0N1DrENK4eXncJzTBsnbMKGakPuUSILnRgtbFnMwlfPHOzsdLB0099Nr84F
-	8mAthfBVhzMz8AjWGv2nocP/wyI89g1l+sSfTuVcUQPSmrU3FxCipHTuFnsGKaUzusGlyAazzK1
-	kgWIMneyoMFKWTUX9o93Ox8CzeBc+YMaaKFGandotYAODz6zX4A57AjowP/DDDNls6MZU3YPiqo
-	TGpxiLHSLivYCoZOibDjLeW7SZoIt1gXMGkUxylpIN/tGeLg1nlToVaXVOmQD/bJJYM2VzB0UVc
-	JE+U7/c+hUsTFlwkOfyT7R1xYGax90Ckk07PuKg==
-X-Received: by 2002:a05:7300:ea18:b0:36a:12c4:8bdd with SMTP id 5a478bee46e88-36f7554337amr3612023eec.21.1793969254337;
-        Fri, 06 Nov 2026 04:47:34 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa30138fesm6844272eec.0.2026.11.06.04.47.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 04:47:33 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: davem@davemloft.net
-Cc: edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	n05ec@lzu.edu.cn,
-	ylong030@ucr.edu,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	dennylin0707@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH net] vlan: prevent cross-netns MII register writes
-Date: Fri,  6 Nov 2026 12:46:39 +0000
-Message-ID: <20261106124639.12584-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=X4I4OjDd
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4CE5920039C;
+	Fri, 06 Nov 2026 13:47:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793969245;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JDQlWXIhj4bDbT0E408d2dPblh7qMmaIQbMP/LEkMJ0=;
+	b=X4I4OjDdsllYG4OtdlRimzISbyTtQveag7ggP7owUeT8diYjGXs/d8XN+ncguhS0u+6t3p
+	q1pVz1WMCKCdBaJSkjQqi/wEPQxXkiWr2Scr23eIWTABDWrvNNMLZ6q/FjqnHkOWtF0odF
+	GUVXGgEO337Lt0OgJmgeSjhhwic09+Ki2X2qiph78hEphmle9F4O9p9e+BrWNHszq6nbQ2
+	bf5Kiq7CiMS8C7uTO6uM+lBzprgdj1OpfzYr2VAUfcMxN5Ny7OZzNhYkUdxPtSo4vTe+Tt
+	pUolAMZiCWREdFsmes9E/Dzxo4nlMya+FcuefGSJAPHZw7spl1mqWLmOI4Ss0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793969245;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JDQlWXIhj4bDbT0E408d2dPblh7qMmaIQbMP/LEkMJ0=;
+	b=SjCpucFmlQHFe9ZHdGha9xUd4Ai3OVe62Uw6SO0Q3+IzjbsussaOQ/vz2+V8NNl6qRMnyY
+	TxWkBDJ3YbaSKPpxhaISqDQT9C1KMSEzF3Z5qHLpb+BTPa64kLtwRC6ndO7yk2OwUqIOtk
+	67UiTaYphx0WgYrjOFXj+dIi5QNihweLxE26S38U4vP1Z0+5kZ29CGLoGR7zOBAk4NHxKi
+	Dn64tfEizrpZoBFoo5CJDmwzICfYCIV3Np5FtwOAPrgR8kO36myVsK5zZk8l7j/9CoPTiy
+	bFDoUFQeCfhMS1jwlawHbfnCGwzScy+h4pke+WBMAeVUrzjhNOTA8PYa4qGsbw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793969245; a=rsa-sha256;
+	cv=none;
+	b=aaqcpINBFdqdzL1v08AylhDLwcXndOEQybljd7gSxyUHA+a9uJA2M4FnBUONhPCJicNaLB
+	xsCwSdTEBczeftAMG/rx2g7Q2UY9/OhalFaAyr7cGEjANPJC91M7LwEJFtKIeIyMlbKM5C
+	QKDsW80eJ0t8JbsEeJZb0QPbSLDmk+lOu7VpCuM0RpIl7ssIX/jE+IEdr2nP3ZgTWqK8C0
+	JK/HDjGA3ew4yypeXOO1hKM8CnZu3ZWbqh2hAal04HnfTCuaS46vjhJpbjiYPYwTVgLmOv
+	qY0QAmSs9hlDXTszS31R3ofIHWAC5jvFNS2Du0BqdP6JyvW3khMM238CVQVgeQ==
+Message-ID: <f259e2034a742d7c5d766e7737e901f22bca68ad.camel@pengutronix.de>
+Subject: Re: [PATCH] media: coda: clear m2m_dev after releasing it in
+ coda_fw_callback()
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Javier Martin	
+ <javier.martin@vista-silicon.com>, Hans Verkuil <hverkuil@kernel.org>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, "open list:CODA V4L2 MEM2MEM
+ DRIVER" <linux-media@vger.kernel.org>,  open list
+ <linux-kernel@vger.kernel.org>
+Date: Fri, 06 Nov 2026 13:47:25 +0100
+In-Reply-To: <20261029104812.26411-2-fourier.thomas@gmail.com>
+References: <20261029104812.26411-2-fourier.thomas@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,46 +96,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-vlan_dev_ioctl() forwards SIOCSMIIREG to the underlying real
-device without checking whether the VLAN device and real device
-belong to the same network namespace.
+On Do, 2026-10-29 at 11:48 +0100, Thomas Fourier wrote:
+> In coda_fw_callback(), if v4l2_m2m_init() or coda_register_device() fail,
+> v4l2_m2m_release() is called but dev->m2m_dev remains set.
+> v4l2_m2m_release() is also called in coda_remove(). This would lead to
+> a double free of dev->m2m_dev.
+>=20
+> Clear dev->m2m_dev on error paths.
+>=20
+> Fixes: 186b250a0725 ("[media] media: coda: Add driver for Coda video code=
+c")
+> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
 
-A VLAN device can be moved into another network namespace while
-its real device remains in the host namespace. This allows a
-process with the required privileges in the VLAN device's
-namespace to modify PHY registers on the host's real device.
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-Reject SIOCSMIIREG when the two devices belong to different
-network namespaces. Preserve MII reads across namespaces and
-allow MII writes when both devices belong to the same namespace.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- net/8021q/vlan_dev.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
-index bca0a3693636..0d0904103302 100644
---- a/net/8021q/vlan_dev.c
-+++ b/net/8021q/vlan_dev.c
-@@ -416,9 +416,12 @@ static int vlan_dev_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
- 	ifrr.ifr_ifru = ifr->ifr_ifru;
- 
- 	switch (cmd) {
-+	case SIOCSMIIREG:
-+		if (!net_eq(dev_net(dev), dev_net(real_dev)))
-+			break;
-+		fallthrough;
- 	case SIOCGMIIPHY:
- 	case SIOCGMIIREG:
--	case SIOCSMIIREG:
- 		err = dev_eth_ioctl(real_dev, &ifrr, cmd);
- 		break;
- 	}
--- 
-2.43.0
-
+regards
+Philipp
