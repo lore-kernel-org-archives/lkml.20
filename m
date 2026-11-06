@@ -1,88 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793933674;
-	b=OrDPsqll9DDeUthCVCW19ykO5pH3uSbA2uSt2BBSbIPzww8p02W3e6vcLlmFlK0gSgGY
-	 pvUM8ib7L+05qPM48hVdn1Y6sbnTasBXrTqXKvcVgeOdAa6RuqyrkJ9CjZe71v2Y852vQ
-	 1s+fhbkmnforXiuzQahOQOMRisSHn054oydxajhCCsMWeUvMghXVvLuCszkP+EsQ8cCtK
-	 qRyJ4UC9M9qmXL3tC9rhtyz+gSZCl00XrtlkYjppTBBl6UpIZcqver38hucLZdP9hIzXw
-	 ljABN3MaSraoZYsJhtLCDGsrAMfml/uVk9r+wyLuYWUmi0EwDN8qivEsij/XzlsA4iQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793933674;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=90tqLU86x8uPgNkZ3M8c35wZTssp+3W/NAEXjTs3QHI=;
-	b=vLggKZaf+aDg3d5Ktqhmmdy8LekOI3Guyg2SFVbzjylbKcWc70OI8EtTBmdIwSv1b/6O
-	 F3OeFow+PVpgmLD4jUcEnq+IjhkSBsmB5+MUsmf1r4/YhallBRzMpwAE3XNdpQgQt880c
-	 HL880vS+wt0XLm3US1oJcLsMeEK0MQkrI4BO7ir2droes+nlFQVZY+nbk3ouf15MVW7ab
-	 iDD4TrCgs5pTFAwchDbRarT9DX5MY7LBarO0xPHuvikqjXYRgSNKSSGxOOoZH/T/Tnxqs
-	 CtD8m7d0CwClsLJfeKVOlMd4uCdSVd/UqOX5ehbvaNx1ygrsVNR5DVJAetRnravRJhA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J9VzhQsn;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793933693;
+	b=KKMlxge6myTnw3DJ7FZSfjPnNNAemygQTgv5gGk56stphQpGjkt14G9V/3r01knNsHRD
+	 5T35Nmz3zgvUIxxV8zSeCZLLoeYuT9rGOwdmVAyjxxrIJZmC0BDHiSi5sqG57KkyYuYbv
+	 it6Y6XW4KcEC5x7J9oov5piLqWSpL5rXf5bmpHotz0jUylq7vphSFJfnfYj5kK7xndqlU
+	 VnIPFGMNKiQGSj8dJKAjc3QFjNRRDzKn/Q8UhFSBH3LEAuqgu9Zr60D7SwWOUDrycW99J
+	 q7pffzICVrndoN6VyeqoZTsQBvD/5t2bBmDS/Ny/ObPX2bDsxiPXzlbAoMkXsFc95qw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933693;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=5dSObNGd05wzJH+adV9vKM3DXMq++8sDSc0WHAzAgzE=;
+	b=XUKJsarqeGUwLTMc/pHp2XMnDxF3gFbWmVFhUCIzOGaBx/RhLNIk/3bIaKjE9lecHhPp
+	 IeMlINHjMsMuYBN7+2lsJz18IS0B6Z+nEsw/2bf3kc42TN7EJsnZnn+sl7D77YuHgJt74
+	 7MNg1k2f6GKm9c+6oGZF+QEWzBCyKSk25kHo7P9TWdafuArDkACYrUhQoc1IPYgbetR+e
+	 mcGPEGXRbTouuH8WAEWgAy/YDxJVBKj5rwrIia15Bp9MCcn1HbFDN/GaLfouGZXIkiSdI
+	 s+R9wdTatsLRQQbMn7XSEZr5cORFipQ3yNG/xx6RHz+j2MYw2OFBHPLOIy5pRLFMpiw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QnhfiKBp;
+	arc=fail smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CA1606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:54:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65CA1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06954606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:54:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06954606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J9VzhQsn
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso136322a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:54:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793933673; x=1794538473; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=90tqLU86x8uPgNkZ3M8c35wZTssp+3W/NAEXjTs3QHI=;
-        b=J9VzhQsnOv6RIbhU77HDWuMUwIFM6fngkdIBg0eHbc32Ey8nLNaaHLFVeLmGpBfJ+I
-         qHPyGW1GaMmXOhiB90h1UQ24qPEX+thrKf/2sYjBq/0783aXZKnFtNovs9Wkz0OkBxVf
-         IQ3H7dinIosNHpYr+NFa2ZtfIS0JWsFRPE5SY49SmXDaTQ1rF93zKnruiYDGo4J6jI6Y
-         4B7UFXlejivGFFqJfrGXRSatfkJCBsv/EL4+126VfKs758G6QKm/zhyph3+Dy9HvAsnK
-         dB4kTbbqOFyVwm4MlG6kZ9Ob1Tqt0td0bSSb6xYIxs+Ko9XpULbrPRw5m1zvaPaQuW0l
-         p31A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793933673; x=1794538473;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=90tqLU86x8uPgNkZ3M8c35wZTssp+3W/NAEXjTs3QHI=;
-        b=MZv3Geofa7p12ym8WVcPgaZEIVsD/1uwYgTaPK4PfH/i0owa2YZcHQLd80zQ85Bn7d
-         yR9vlDeam7KrlMkn4Af1r3/Qs3QtmTUmocKKTYxKID4pIyF5ugixmbGtPPfVknvxR+aU
-         dvM3ldxK3+aSGK2W7lxnRi0yVOmxMs1QQXce3lUdEgnRA55VKcWLmoNpanxZeNQwAgb9
-         FgzjapstWQIJTn1jGGS97mIyzzrFkcOrO46pv+C1I1xsqLfEc8jxSzCgckKoVKbY0NP9
-         tLQQ+bhxSsu5+fM8oFVgx6DXCcBh0E3ifadxmBByUsLpyhphIxXCgNeemk01GpT+vaR2
-         P4Pw==
-X-Forwarded-Encrypted: i=1; AL+hErECM3ZdbyGMjrzmQgZUThHZpw726BX6NegOrsHFGDrjrbKuWVkzSohEYbiuYp3ngUJdUHhsjJyMYXjfZVw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/F0Fcx93MZi0lTWe6jTZAH/Y3gke35ko/UhOvQqOKEairnSmmG
-	aN9XdaLf086gXgNCIbqC+uJNWCACf+cLyIUl/1yAa+QWe92kVp/zRnqhVyNUASjLRPM=
-X-Gm-Gg: AYBFou1XpT8O86Ud4fejbec9WQ0cwCUBCdrz4xSlau8tXPNrg4HEBrOlJaU15apFFDr
-	SbQ7nKOpqHPf8+dg6iiaMgvmixW5Yo+ZGhQau4usE1eV5Bkiq1G+SJ+FAGm7GBOXtUUV9MMtacM
-	EwbCJTR1puOiq6DIMw00i72vyoSB0aOjJHfWhexAq6j0+3l4ag73coNJkEnYl+97OAG2600v/WJ
-	2Xi+QgKlTTenKbHcpzQbDOwOE6zw9dPU1NrAqUUyEQ2zI6tzjHROCheX0HXCF6cPSxGNgwIjONi
-	4faPKVwt7m1ao/N+uReOO8MLzxR1ueRrGuvft4OSXig4m5FLDT9RMXb91t4n9tkJ6RLSw/uZ3E1
-	iDM1owUVfG1mI8mCuv963Cfapr5+rS+Ma/CUWIoKYEL1/LFqsW8C+XcfSTbrrnfA0FkM6qhVDUP
-	lE4H570Q0cYE7+w+lBE8HG6ads2GtbgXotlfPSWO/qlASGpeytXgDLstnXoAWcaXwGMpTItZ2tK
-	HG0wEljOCQP4zd3ZGZ2OvfjoWXrQd+k1ULZMQ6jdJvmNZluRh2WfMZfeH1vCbQTKHDkzdAJGF1c
-	1apB3Sw3U2mP
-X-Received: by 2002:a17:90b:33cc:b0:3b0:9deb:d991 with SMTP id 98e67ed59e1d1-3b0db6d37famr1028274a91.35.1793933672424;
-        Thu, 05 Nov 2026 18:54:32 -0800 (PST)
-Received: from [127.0.1.1] ([2001:da8:7003:1001::9afd])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d78b0a7fsm1416397a91.1.2026.11.05.18.54.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 18:54:31 -0800 (PST)
-From: Liu Yufei <lyf98405@gmail.com>
-Date: Fri, 06 Nov 2026 10:54:17 +0800
-Subject: [PATCH v2] iio: imu: bmi270: fix zero timestamp in triggered
- buffer
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QnhfiKBp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793933692; x=1825469692;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=DsA5/cLC8sPFBHXQX4WZLuQig5bOC4xU8hmTjda/QxE=;
+  b=QnhfiKBpStLDIJmOvVx8zWthmKh6h5zq9PgcupszKNmbMbP99QXVj82A
+   RExAoFc+dD833er5JDkerTrtmgMsRioM03OwAKUlnnOA2mQyj1wnFTY0T
+   Xd5fgM7OXl1+5huBte2XkeYR/JPM0E+yoO06zahWL0fL5nPDBymREYdsI
+   5lJF0da9tC6AXBg8rqhKloAQFCEb3ixnYOCNWVhabhxg0gPdbBO2zo7iR
+   I9Kyml2CKH98iyiWKFelY1QEfqUS08GCZySllDBkaBU9p5mvAdRRdAY8W
+   BKvDFnAX4NW9CGy0lnQYv+8O1NA5PTuQD7wLKoByy5FwWg7BJqc16qT7J
+   Q==;
+X-CSE-ConnectionGUID: u1H0KS4hSJ+r8H09UanEag==
+X-CSE-MsgGUID: 7CvSyqqJTmah6WG77ThQPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2621590"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2621590"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:54:51 -0800
+X-CSE-ConnectionGUID: Aat6oiz8Q5ClReel5E7oAw==
+X-CSE-MsgGUID: kXyVyEOwQsSrFkF0OLk/cA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7506292"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:54:50 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 18:54:50 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 18:54:50 -0800
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.52)
+ by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 18:54:49 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UUhYiQjqeIeAeEBEx3m1+qnVHD/Ql96w63LdoQ9+RpCOcNLql6TSa2sLO0GSPeFWKw+JJPy4WFfX4+elkgzkTapzfYWyDvYJag+FXrSGXArqJ7oIoGoksVJ3NdhywkBhCoq9NTEwTb+ofFtO5+UNRe/PnS37kocVeDZ9ZTs6CjKortGBe0HO6hYW36JpjOHagua3oSEnbLAqSWlBxFfatx6gYcuYyy0jjGu/YOMMKUi59ejnBeQJJjkoRA5/xqWC6Baz6kDxWVinya5x9KLK1sTJLa+KVQD/XFaWawbkSekBCAPnLy3ubnWcbIT3NiJOSzyRgSU+3RkL3dleOEZO7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cUiY6SVgzrtUGd/zpJX6p7xdbKW5CyWCDN0RSOyD0qM=;
+ b=HzJw2ImSBGkEaiHdrTV4H0fyz1V4xNy58eobQvs1Z96Mprfjs5ns4Qui7EMo9Mna3Agpg0gHFTcIkAKCuhWW1etExnzr3+HCw7VSojaMFPz3PvWQFpSWIJ3g2nBkgvGTYXiNx5+s0lyor733XXf4tHmas7oo5AKf7ZSJmsSYFfFDIeZFnK6yYQj5IidqcWD6ewpTBu18ECDxtRZvRdY1yBBtkSZ7oQKayXb51xjbBESZYQlWqV9ocGTKEwhcZWSqyDWDjTdMfJFggCVabLEKvjishmmkxIsIHaA8R0LJp+6KsNueHNLzFDb9eAusKFNYzQksNet4qRzayCvXDn8UXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by LV2PR11MB375110.namprd11.prod.outlook.com (2603:10b6:408:3a8::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 02:54:46 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0569.011; Fri, 6 Nov 2026
+ 02:54:46 +0000
+Date: Thu, 5 Nov 2026 18:54:44 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 06/33] drm/ttm: Add fault injection for
+ beneficial-order allocation failures
+Message-ID: <au1BdOeD319qwsYa@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-7-matthew.brost@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-7-matthew.brost@intel.com>
+X-ClientProxiedBy: BY5PR03CA0001.namprd03.prod.outlook.com
+ (2603:10b6:a03:1e0::11) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,158 +140,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261106-bmi270-fix-timestamp-v2-1-8a2547e1290b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAFhB7WoC/4WNQQ6CMBBFr0K6dkzbIFBX3sOwaMsAYywlbSUaw
- t0teACXL3n//ZVFDISRXYuVBVwokp8yyFPB7KinAYG6zExyWQkuGzCOZM2hpzckchiTdjOUjRa
- qNJXqjGB5OgfMwpG9tz+OL/NAm/bWbowUkw+f43cRu/fnYhEgQCnL8dJj3XF7G5ym59l6x9pt2
- 75Yl/4NygAAAA==
-X-Change-ID: 20261028-bmi270-fix-timestamp-48a194b69db1
-To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, Liu Yufei <lyf98405@gmail.com>, 
- Alex Lanzano <lanzano.alex@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Gustavo Silva <gustavograzs@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793933668; l=5058;
- i=lyf98405@gmail.com; s=20261028; h=from:subject:message-id;
- bh=jKRzDzpw4unjTIDJEUmBiUJee47b0ww/w747ltWj1ug=;
- b=vU8F4NoJGveNnTpsgvPgAY3okd+wJQfBbRsotuhKuNbAdT0aRziVqdC9oEW4PpJTwNB0Ys1LC
- eXofg+RFUydBTWGN5FeoBzTFbbKPVG6epDOJipo4YAs1dEpb/ld0MAH
-X-Developer-Key: i=lyf98405@gmail.com; a=ed25519;
- pk=lc+pS6pGKgsSIrWd9Plh5gs4dnZRQT6qkyv+hvAy7hs=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|LV2PR11MB375110:EE_
+X-MS-Office365-Filtering-Correlation-Id: b19999c5-f277-41b5-3fcc-08df3bb15115
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|22082099003|18002099003|6133799003|10067099003|4143699003|56012099006|11063799006|261026140227099003|261009220027099003|261028144727099003|261021123027099003|261022075727099003|261009221727099003|261102123227099003|261021121427099003|261009223327099003|261022105027099003|261009221227099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: 2zpJ8c/nRoyAPbNNhX9huJi9J/xCAnCPXzcIHMkOZtZ2LsJ2Lin1+xGq1R7q4jJBTlSmODPwOYc/XLvlR+TA3cj34kZgE7Cs6fswDQhuk5UUejgk/ZxO9pAcEnLyLKvhpoRvPdW+sleIdoDIsX2e88HEYcng0aoz+Q9ja9v544aaHc9bQaWuKII8bUw7K3Bls3uJX3gpJK2aLpJKMxHvHoS2dwiZPr1hRdEhLC+FPdrBDAHZGc1xQu6ahasP6jAP2NVRmOHSY3WXpgDXJxUJD/WhRT0J5qn/DiuHMCsIDd/V/DP0+jhlrKpDvpXqebp7BX7s3yOyDrAqoT1v9F0MRZ6rUIGmV+PE7KiBNMQ9vK50X9bv64/5zPe9NIL2K3SnCJtN75yXJJH8y5tcaAlcfSZi3wIcOcpBTT40+junec+ll0iyr8SO7yWVlNnNDxf53ZvTbbpUCuXsmefHJYwWQuIJQkV2foE5Rn9vN7btL8nPqIdyNs+lNEU9otMTu7qki3fi4xwndfwzSSWIqeszf0D6qCS65Ij93yMuZIpkSSHB69dpkzjW6Bk++U8PsWZem08EdhFeHG+Ppn5d9EQO7uJFma41+uRRNrHnhbxUHL7IZox5F7ckIgfNljD/OHwhOOk8u9rB+DIJdrypYcNAFjFdBbLTi0nrQii+iD2wYHs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(22082099003)(18002099003)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(261026140227099003)(261009220027099003)(261028144727099003)(261021123027099003)(261022075727099003)(261009221727099003)(261102123227099003)(261021121427099003)(261009223327099003)(261022105027099003)(261009221227099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?tFm9t3URLIt5wqVIC80nfqB9temQ8TzvMy4QJEkidC1bhyvRly4TteBvZ5?=
+ =?iso-8859-1?Q?7JbPYMffj4TFYs0L8fR0KaQxGXfqBLVOhuOflHQiCd8n17SHE5ykHHQKNl?=
+ =?iso-8859-1?Q?aGQCup9w7U16NxGotKLK2Pz0qXcfVindaozZ+TYAXYsKfCs6sE92LQ7KH+?=
+ =?iso-8859-1?Q?7uUm1U95R9yxBpojqwKck4Q0IIpmjiuCgrOdCaQ7BmEmB7X5GDbb8hf0OL?=
+ =?iso-8859-1?Q?DDcirRxY0xyNoNZcfXr1YSqZSO9BhNQ7qKDTCxVEJA8ztbwVKaHndl+VXC?=
+ =?iso-8859-1?Q?AsJcsn6gGySoBOxKqmIzEve/qtPNi5BMEEkd+zwWuQigMKU6TvINhQyaA8?=
+ =?iso-8859-1?Q?awtLp3rKzmBa5JlOB/6ShBvZiolgvMcs8krcTAhnJISKhgF6VsFuWrTm2I?=
+ =?iso-8859-1?Q?BWkDtECyPO6v2noL9GxCXQb/fv/UodVLOumefaSU4AojfF6ZK7ugSlzc7Q?=
+ =?iso-8859-1?Q?NEjHWH7oDSijIcj1XOU5+mNVOjAmMr/ExtQKgeZPckbIgQnapfHhuH6+F2?=
+ =?iso-8859-1?Q?jbsH4fafhlJxAFQgbyxiMXbFP/mTH/bqPeEi6yxqwTuk6zAdsUUjnOrgEQ?=
+ =?iso-8859-1?Q?uUEdfIlBWG8LoyaV0qKARbIHV9Dq/6a+kh8KWD5kUDiwubsgYtmp9ycpcf?=
+ =?iso-8859-1?Q?hTylOsppCfI5cAkQx7gT6wD/cH0yHsdWseGJyQpvKNM5pILgXTxOD4RbcF?=
+ =?iso-8859-1?Q?QwL3F5IhjbXZSu9zzCp7HVvrYY2YqY3NhngHH7qxStKy8PI31Twex2DcCT?=
+ =?iso-8859-1?Q?pP4/5nqNqUfme2XbUn/RA8iQyH3FHH9MAVCMxP22y1AC9M5dzHYKDHq6an?=
+ =?iso-8859-1?Q?qZRz64763i6jmotWv31PnZXr4gP3+ZOlZjkP0VzUFYKhYS4EKdtkE97+8H?=
+ =?iso-8859-1?Q?ZzgefW1RCnorfMYyP/RGf8Ax7y4nGh1d3l5/XRh8sNIWJFObT8EyGrmRF3?=
+ =?iso-8859-1?Q?AmJlme+9nLvlGiOFlbh9+NsvfPq7ea/6ZXSJ4bw3B68oI/B7H1I6Emo7Pi?=
+ =?iso-8859-1?Q?met+Orl7mkOcfiAYQ5XvNvOTBcSv+FjpNeHZMog6HR/IRyb8Ko/RiolvOb?=
+ =?iso-8859-1?Q?tVnytR3grQR/NwcVnz5sW/xggL4Wv9en/dvFAJSMjtGOGKr20j1rBuERA9?=
+ =?iso-8859-1?Q?nbwUgc54Mr/yU7gclyrhja9kcoNKWuxwDHaNAu819L3jgJiGlV4L0AxSuQ?=
+ =?iso-8859-1?Q?z9jfL8Oq811wRc4t/ToXGxTdCfXlKIwq3SDdIL9RMJHuhtzYG1QbKGHxfs?=
+ =?iso-8859-1?Q?JxJrEDjMZ97mWWRb7PwZ3xfRvWJxuIhAJf4ocRJsdqrIpWuZEz2x6ZSseA?=
+ =?iso-8859-1?Q?C2L22rwh6+bFXtIPKmAM/xzTndesgqNMn0f1cGqLoYJ0uQQT5ceR03DRXM?=
+ =?iso-8859-1?Q?mj91DWK4M+rEAyrMt0+Xny+GFri9yRYu/o5uzLdh5oP1d4WRSw53CbwIIt?=
+ =?iso-8859-1?Q?TY3BaSUq/qUEx3XmIgkgd1E1ihYZEsvnwqJBWq4Hv4caR1g8u446MRnSDN?=
+ =?iso-8859-1?Q?LJnmwbUgbdPUuIuNHNudlnXXWD9P2bmQ2JQ71r9HL2yVcGe9Ekm4oGwS1q?=
+ =?iso-8859-1?Q?vaa0ua2KdpgS9klNxmyG5PSubEpxIYc6dbwr1h0vC31ryIPZsyMMJbDCMN?=
+ =?iso-8859-1?Q?6BKjX7j10UWrNaGkztetzfoHp5VTpD8XMxLTOknngmfRH177imksrTd4dw?=
+ =?iso-8859-1?Q?kUT3Q9b4M0DxpSYALs3VCPp6PCQ+1D001Tud3bq6pwQMBMJxRM9GXXGrIG?=
+ =?iso-8859-1?Q?aZYtcKi/O7rM00hzG8UjqC52VL/A7gJDp5A15/2vMElB6iMTa7yw2iM4cQ?=
+ =?iso-8859-1?Q?n2goN+W44k7lcFW7p7Kl15NBcfiZInmjkiaUb8pCA2N6ySAnnTZz?=
+X-Exchange-RoutingPolicyChecked: Fm9vPEFeVBIVYkAfND7wZkR3g4p6V3SlVd5KYmkBH9twQoxSBAuL4pvQXIBw3mUZul4KB0PGr98DhWWYnE5KuMp1+cMihuGNY/RsRPVjRQSsPN55cM4K1WFplE6q2OijWHq22Rlo7J/RoaGMu8UNYC5KWSaXRQYODR5lWj2MB0y5tR6IWov0yFXUqz1wRWlvtG06copYgJ2aNi4ujobcpEzSMaCPf9raNwdUNB1Da/8lecb8wsMJQnEE+ssD0Acvxwn4m/mheCyrd/MZ9ohRdy50YfT138sHitiCvL/qorAW2pz+FurG1SII1jd+W5AoJ1wvl76KnNhnUh5wTanLbw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b19999c5-f277-41b5-3fcc-08df3bb15115
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 02:54:46.6933
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NP1jXidDc81dp0OFYXX+DyrdMIWgP71EDjd/t/pzjY18kksWMnJB7So0WyKHi0QvXInjZVww4c6mXIXaAJc7pmK02KNSXYlaoEbNtc91Nnq9mITWfmlwQhHcCzlS4x/W
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB375110
+X-OriginatorOrg: intel.com
 
-The BMI270's own trigger uses iio_trigger_poll_nested() from
-the threaded IRQ handler, bypassing the pollfunc top half.
-This leaves the buffer timestamp at zero or a stale value.
+On Fri, Jul 10, 2026 at 07:55:52PM -0700, Matthew Brost wrote:
+>Add a beneficial_order_fault_inject debugfs fault attribute, mirroring
+>backup_fault_inject, that forces allocation at (or above) the device's
+>beneficial order to fail in __ttm_pool_alloc(). When triggered, both the
+>pool take and the system page allocation are skipped for that order, so
+>the allocation falls into the existing lower-the-order path that sets
+>the TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED tt page flag (and bails out with
+>-ENOMEM for defrag moves).
+>
+>This lets the TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED tracking and the
+>driver-side defrag path be exercised deterministically, without having to
+>drive the system into real memory fragmentation to provoke a sub-optimal
+>backing.
+>
+>The knob is registered at
+>/sys/kernel/debug/ttm/beneficial_order_fault_inject and compiles out
+>when CONFIG_FAULT_INJECTION is disabled.
+>
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Assisted-by: GitHub_Copilot:claude-opus-4.8
+>Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>---
+> drivers/gpu/drm/ttm/ttm_pool.c | 35 ++++++++++++++++++++++++++++------
+> 1 file changed, 29 insertions(+), 6 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>index d045105afc24..2598d2f33767 100644
+>--- a/drivers/gpu/drm/ttm/ttm_pool.c
+>+++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>@@ -53,6 +53,7 @@
+> #ifdef CONFIG_FAULT_INJECTION
+> #include <linux/fault-inject.h>
+> static DECLARE_FAULT_ATTR(backup_fault_inject);
+>+static DECLARE_FAULT_ATTR(beneficial_order_fault_inject);
+> #else
+> #define should_fail(...) false
+> #endif
+>@@ -812,21 +813,34 @@ struct ttm_pool_alloc_iter {
+> 	unsigned int order;
+> 	enum ttm_caching page_caching;
+> 	bool allow_pools;
+>+	bool fail_beneficial;
+> 	struct page *p;
+> };
+>
+> /*
+>  * Acquire a single page for the current order, leaving it in @it->p (NULL on
+>- * failure). Tries a same-order pool page, then a fresh system allocation.
+>+ * failure). Tries a same-order pool page, then a fresh system allocation. Fault
+>+ * injection can force the beneficial-order paths to "fail".
+>  */
+> static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+> {
+> 	struct ttm_pool_type *pt;
+>
+>-	/* First, try to allocate a page from a pool if one exists. */
+> 	it->p = NULL;
+>+
+>+	/*
+>+	 * Fault injection: pretend allocation at (or above) the device's
+>+	 * beneficial order failed, forcing a sub-optimal backing. Exercises the
+>+	 * beneficial_order_failed tracking and the driver defrag path without
+>+	 * driving the system into real fragmentation.
+>+	 */
+>+	it->fail_beneficial = IS_ENABLED(CONFIG_FAULT_INJECTION) &&
+>+		it->beneficial_order && it->order >= it->beneficial_order &&
+>+		should_fail(&beneficial_order_fault_inject, 1);
 
-Capture the timestamp in the hard IRQ handler for the device's
-own trigger. Preserve the pollfunc timestamp for ordinary
-external triggers, and use the current IIO clock when a nested
-external trigger has no timestamp. Clear the pollfunc timestamp
-after processing.
+NIT..Looks like IS_ENABLED(CONFIG_FAULT_INJECTION) check here is redundant,
+but other fault inject case is also using it, so, should be fine I guess.
 
-Testing on Orange Pi Zero 2W reproduced 256 zero timestamps
-with the original own trigger and 256 repeated stale timestamps
-after switching from an ordinary to a nested external trigger.
-With v2, 1280 samples across the tested trigger and restart
-paths had no zero or non-increasing timestamps.
+This patch LGTM.
 
-Fixes: a1854d55f54b ("iio: imu: bmi270: add support for data ready interrupt trigger")
-Cc: stable@vger.kernel.org
-Signed-off-by: Liu Yufei <lyf98405@gmail.com>
----
-Fix invalid BMI270 IIO buffer timestamps when the device's own
-trigger uses iio_trigger_poll_nested(). This bypasses the
-pollfunc top half, so its timestamp can remain zero or retain
-an old value.
+Niranjana
 
-Capture the timestamp in the hard IRQ handler for the device's
-own trigger. Keep pollfunc timestamps for ordinary external
-triggers, and use the current IIO clock when a nested external
-trigger has no timestamp. Clear the pollfunc timestamp after use.
-
-Tested on Orange Pi Zero 2W (arm64, Linux 7.3.0), with a
-physical BMI270 connected over I2C, using INT1 at 100 Hz.
-The baseline produced 256/256 zero timestamps using its own
-trigger, and 256/256 stale timestamps after switching an
-external trigger from ordinary to nested polling.
-
-With v2, 1,280 samples across own hardware triggering,
-ordinary and nested external triggering, and stop/restart
-tests had no zero, repeated, or decreasing timestamps.
-External triggers were generated by a temporary test module;
-sensor data was read from the physical BMI270.
----
-Changes in v2:
-- Capture the timestamp in the hard IRQ handler.
-- Use the IRQ timestamp for the device's own trigger.
-- Fall back to the current time when no pollfunc timestamp exists.
-- Clear the pollfunc timestamp after processing.
-- Link to v1: https://patch.msgid.link/20261028-bmi270-fix-timestamp-v1-1-99c0e5fe7d0c@gmail.com
-
-To: Alex Lanzano <lanzano.alex@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno SÃ¡ <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-To: Gustavo Silva <gustavograzs@gmail.com>
-Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Cc: linux-iio@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/iio/imu/bmi270/bmi270_core.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/iio/imu/bmi270/bmi270_core.c b/drivers/iio/imu/bmi270/bmi270_core.c
-index fbcf6bb87acc..6b11e91eabff 100644
---- a/drivers/iio/imu/bmi270/bmi270_core.c
-+++ b/drivers/iio/imu/bmi270/bmi270_core.c
-@@ -157,6 +157,7 @@ struct bmi270_data {
- 	const struct bmi270_chip_info *chip_info;
- 	enum bmi270_irq_pin irq_pin;
- 	struct iio_trigger *trig;
-+	s64 irq_timestamp;
- 	 /* Protect device's private data from concurrent access */
- 	struct mutex mutex;
- 	bool steps_enabled;
-@@ -755,6 +756,16 @@ static int bmi270_get_odr(struct bmi270_data *data, int chan_type, int *odr,
- 	return -EINVAL;
- }
- 
-+static irqreturn_t bmi270_irq_handler(int irq, void *private)
-+{
-+	struct iio_dev *indio_dev = private;
-+	struct bmi270_data *data = iio_priv(indio_dev);
-+
-+	data->irq_timestamp = iio_get_time_ns(indio_dev);
-+
-+	return IRQ_WAKE_THREAD;
-+}
-+
- static irqreturn_t bmi270_irq_thread_handler(int irq, void *private)
- {
- 	struct iio_dev *indio_dev = private;
-@@ -842,6 +853,13 @@ static irqreturn_t bmi270_trigger_handler(int irq, void *p)
- 	struct bmi270_data *data = iio_priv(indio_dev);
- 	int ret;
- 
-+	if (iio_trigger_using_own(indio_dev)) {
-+		pf->timestamp = data->irq_timestamp;
-+		data->irq_timestamp = 0;
-+	} else if (!pf->timestamp) {
-+		pf->timestamp = iio_get_time_ns(indio_dev);
-+	}
-+
- 	guard(mutex)(&data->mutex);
- 
- 	ret = regmap_bulk_read(data->regmap, BMI270_ACCEL_X_REG,
-@@ -854,6 +872,7 @@ static irqreturn_t bmi270_trigger_handler(int irq, void *p)
- 	iio_push_to_buffers_with_timestamp(indio_dev, &data->buffer,
- 					   pf->timestamp);
- done:
-+	pf->timestamp = 0;
- 	iio_trigger_notify_done(indio_dev->trig);
- 	return IRQ_HANDLED;
- }
-@@ -1430,7 +1449,7 @@ static int bmi270_trigger_probe(struct bmi270_data *data,
- 	data->trig->ops = &bmi270_trigger_ops;
- 	iio_trigger_set_drvdata(data->trig, data);
- 
--	ret = devm_request_threaded_irq(data->dev, irq, NULL,
-+	ret = devm_request_threaded_irq(data->dev, irq, bmi270_irq_handler,
- 					bmi270_irq_thread_handler,
- 					IRQF_ONESHOT, "bmi270-int", indio_dev);
- 	if (ret)
-
----
-base-commit: 09f742b49cb2728086d78be2b0b35e4d1d71fc85
-change-id: 20261028-bmi270-fix-timestamp-48a194b69db1
-
-Best regards,
---  
-Liu Yufei <lyf98405@gmail.com>
-
+>+
+>+	/* First, try to allocate a page from a pool if one exists. */
+> 	pt = ttm_pool_select_type(it->pool, it->page_caching, it->order);
+>-	if (!it->p && pt && it->allow_pools)
+>+	if (!it->p && pt && it->allow_pools && !it->fail_beneficial)
+> 		it->p = ttm_pool_type_take(pt, ttm_pool_nid(it->pool));
+>
+> 	/*
+>@@ -834,7 +848,7 @@ static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+> 	 * this also disallows additional pool allocations using write-back
+> 	 * cached pools of the same order.
+> 	 */
+>-	if (!it->p) {
+>+	if (!it->p && !it->fail_beneficial) {
+> 		it->page_caching = ttm_cached;
+> 		it->allow_pools = false;
+> 		it->p = ttm_pool_alloc_page(it->pool, it->gfp_flags, it->order,
+>@@ -851,6 +865,9 @@ static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
+>  */
+> static int ttm_pool_iter_lower_order(struct ttm_pool_alloc_iter *it)
+> {
+>+	bool at_beneficial = it->beneficial_order &&
+>+			     it->order == it->beneficial_order;
+>+
+> 	if (!it->order)
+> 		return -ENOMEM;
+>
+>@@ -860,13 +877,16 @@ static int ttm_pool_iter_lower_order(struct ttm_pool_alloc_iter *it)
+> 	 * pages. Record it so the driver can later try to defragment the object
+> 	 * back to beneficial order.
+> 	 */
+>-	if (it->beneficial_order && it->order == it->beneficial_order) {
+>+	if (it->fail_beneficial || at_beneficial) {
+> 		it->tt->page_flags |= TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
+> 		if (it->ctx->defrag)
+> 			return -ENOMEM;
+> 	}
+>
+>-	it->order--;
+>+	if (it->fail_beneficial)
+>+		it->order = it->beneficial_order - 1;
+>+	else
+>+		it->order--;
+> 	it->page_caching = it->tt->caching;
+> 	it->allow_pools = true;
+>
+>@@ -1536,6 +1556,9 @@ int ttm_pool_mgr_init(unsigned long num_pages)
+> #ifdef CONFIG_FAULT_INJECTION
+> 	fault_create_debugfs_attr("backup_fault_inject", ttm_debugfs_root,
+> 				  &backup_fault_inject);
+>+	fault_create_debugfs_attr("beneficial_order_fault_inject",
+>+				  ttm_debugfs_root,
+>+				  &beneficial_order_fault_inject);
+> #endif
+> #endif
+>
+>-- 
+>2.34.1
+>
