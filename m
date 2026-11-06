@@ -1,50 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793931639;
-	b=fp87zNG1GOiXLwjmXLW64Ani4YSEUyAmojyYgfOEAgZb8PG8sT2nSNewCZZNq4FvgRhV
-	 wdBuhRzvhaRkfKECUG2NHFfblI4hlfmE7iQd4ublZtu7V4Ph0Ochtd7zKrzIydO0TPG3d
-	 2lm05IXEW5PSNkpWwvOQe3Z5uM832hoJphkBExV3CL+UP5t22WMnZ4VK9nuCvN1bcm35S
-	 CK0GfB29aSfXGq9TByIqqMXoOMbO+YHE22wW//auUWi+SaCDRCyl9K0/KoofrIFyspZR3
-	 cFTk6o8HbX22vQjX6ddepJCJICrgVvelvFpDqGS1hM1c5Lhni3pgHqFTb1VGyxoijDA==
+	t=1793931835;
+	b=haDOtwr/HboXGWFaNXIeCIDc1v5Yg0K2USlI6F1IlsXrIQwFVzhmOOFW5n7Wcr9+5JYt
+	 GL4dG9SyFJPUs2OjsxpruNkH+wG7JATQqqg96buUh0qB5L7mbmpBxILXYA+7W76KgAu+9
+	 q7vQ8RSXGYGK1CH4R5X6zV0YEsKuWdS/3RsN0TrMSFOwP0sSDd7EDiQTHbmSBKrjFwv/S
+	 1Yp3jCJ+nVx3GcB+TOiJ9Ffx9IYX8Q+UtH/UBgbNAJjqC/5rodu7jt+J8hVPq8+tYqUKx
+	 zbHBX7HtAzlVSSyoo91aGuutJrBgwdtgPYwzXO5Gh/OTrLOo7N6Vd55jqoI7VjAftEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793931639;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 DKIM-Signature;
-	bh=zm+SMFNSAHOaRmQ0QltCE96ATz80uT68/NyBBkY0tag=;
-	b=A1zGLEh67JJvgsr/07bjALi3tVcHfl7lu0JEKL09FRo6VHd4x6zuQ8aMA+ZOJIpvv+Ul
-	 ySJAv9x0jNXjKUKIJR7k2A0WeYsXqWkB2VqIS9Efcg2oFN5SqJ1gN6wjDeDisqqWG8Sg2
-	 jMyoF5nhSlO2KEscAb/X2nVXJCB2wSJCtC0a+YwMsyCpu7xbu3PTy9W27hWSjMVoHZ7PN
-	 39UH6Md+wfFP1yUp9NYIH9BiQDx8M+qpvbmTFRGz1lWktsKjZH4uIOtRcgfRUqIixD+Xe
-	 0ZhB67Kh7voXRm5XfZIZ0e94wForoUj4x+VVY9CuxX9c9gzoZPIq24Gt4RcvgzOL6oA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793931835;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=mu9ahmsvD2vM/2MuVCitn+kVEcmnrs1DHn2+gosEv5Y=;
+	b=k88cB84T4pFAcA5DoXj8ucvplSW57ZL9cQhUYz5Wdq96PL5nFmHSWZvknbcpvU8dHifM
+	 BDhLOHBk+f2+JK5HU3tIkVGd2vGZGTqx/gt0vrdGu+REljr5m4Yx2G0uTCHpSbTYSEuHI
+	 WoKBE+LM+GgOyQtYwk+pIXG9W9pasAtvchAXswWJ/eAv8PLHxUi42u4D6oMer4RLORfuW
+	 OIuliZDFwwg9uOUSMXxSn58i63hG/G3pIt6ifMJ2MybBbefRJcZIVEjFLH38QCdLqM3N6
+	 otracEKSaYcsIs/6FLQRsfL4CnY4NgCCoA2oD33JVvDJVTk+eqOhMTcN7CkGDnNnaVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=dakSFfV2;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id B05BB606A32E;
-	Fri,  6 Nov 2026 02:20:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B05BB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=dakSFfV2
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
-	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
- Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, Li RongQing <lirongqing@baidu.com>,
-	Alexander Antonov <alexander.antonov@linux.intel.com>,
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] perf iostat: Reject incomplete and out-of-range port strings
-Date: Fri, 6 Nov 2026 10:20:27 +0800
-Message-ID: <20261106022027.2413-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292CC606A32C;
+	Fri,  6 Nov 2026 02:23:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 292CC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:From:Reply-To;
+	bh=mu9ahmsvD2vM/2MuVCitn+kVEcmnrs1DHn2+gosEv5Y=; t=1793931832; x=2109291832; 
+	b=kaQie8SUcMkYvgpP+srwM0dw5ksSkaqn7GO01SYSJHWFCAGlMuNlNtdsZEpALuUp8ECTVNRTqMq
+	I4g7QWM2lcYBqFQRENWYWsIrroc9cxPWqquzyRISRes+fejooxvcD7CeiGo8GMxsV1TTzOOzteIqV
+	IhxtwlVTHf98j02wo1sVVVR7zqPiKyNimQiZ04sdLYfH+Qde8VOnCTdk5DIulDqOHX+EFkrYioQFP
+	A1KbK2SAPrYFRHcQI9SNQRChSLAfkJP/5h39CO9sT5NC7s35YgVMvzOR5r6Ld97FsIx0TM3nLOXX7
+	YP4QwPEXRSWSLNhWPH5r3M62Titt4pfw4sFg==;
+Received: from [177.172.122.137] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xP9cA-003xm9-Cw; Fri, 06 Nov 2026 03:23:38 +0100
+From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v10 0/3] arm64: vdso: Implement
+ __vdso_futex_robust_try_unlock()
+Date: Thu, 05 Nov 2026 23:23:41 -0300
+Message-Id: <20261105-tonyk-robust_arm-v10-0-366ed4a3435b@igalia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,59 +57,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc2.internal.baidu.com (172.31.50.46) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1793931636;
-	bh=zm+SMFNSAHOaRmQ0QltCE96ATz80uT68/NyBBkY0tag=;
-	h=From:To:Subject:Date:Message-ID:Content-Type;
-	b=dakSFfV2e9dvwZhUIYMSjcmfGM1PKhdRTApKGp5Dq4GwjDv84RZsguLhLMtZro7/O
-	 CYYbplvxpXujNoE7gukAkd6MFtefKHo8dkCl3bDbq6EAgECnRQPykAw/o6DSs1t+mf
-	 2ZzcNrBbmKWWf9gJrPo694Ds+A/dzSqGpFhvq6l/IEhEflRU9VYfpdUM//nc27XZr+
-	 fcvdN/wjFFAEOoD8TY7i1gMzAOkGPkag9WZk2LlE3JYOYNi4wg3Xg6bLEowdj7pqtT
-	 txrgiI1fU78ukQ93AoSy7a8ilzWrS3Yj4GcRs/nDBzaK0JhPFZ0+WqZrLYd9pWktz/
-	 VTSDUmCXzz0Dg==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23R207DMAwG4FeZck1R4iZxyhXvgRDKyVuArajtK
+ qZp7046hFqUXDpyvuS3r2yMQ4oje9pd2RDnNKb+lAvBH3bMH+xpH5sU8gEDDppLoZupP10+mqF
+ 353F6s8OxUZIIMYCXUbJ87WuIlL7v5svrbz2e3Xv00+IsHYc0Tv1wuT86i6Xvj8eSn0XDG95aq
+ 2UEImGf095+Jvvo+yNb/Bk2AsiKAFkILn9PEyrwVAjtKijoKkKbBaspNxgZJMVCkKuAXFUEmYX
+ IKXCyoLrQFoLaCNU5qCwQBWFDK0wQWAh6IwCvCDoLGLXxAoBLLFPgVjAVAbMgucHWt4helynMK
+ hgQFcEs20REjk6T8GWKbhW66hy6ZRcu80446aX7J9xutx8pDJtj1AIAAA==
+X-Change-ID: 20260416-tonyk-robust_arm-54ff77d2c4e4
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Peter Zijlstra <peterz@infradead.org>, Florian Weimer <fweimer@redhat.com>, 
+ Darren Hart <dvhart@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
+ Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>, 
+ Uros Bizjak <ubizjak@gmail.com>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, kernel-dev@igalia.com, 
+ LKML <linux-kernel@vger.kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+X-Mailer: b4 0.15.2
 
-From: Li RongQing <lirongqing@baidu.com>
+Hi folks,
 
-The root port regular expression accepts trailing characters and an
-unbounded domain field. A nine-digit domain matches it but makes the
-subsequent width-limited sscanf() stop before the bus. The parser still
-returns success, allowing the filter to use an uninitialized or stale
-bus value. A three-digit bus is silently truncated as well.
+This is my take on implementing the new vDSO for unlocking a robust futex in
+arm64. If you don't know what's that, Thomas wrote a good summary,
+including the motivation for this work and the x86 implementation:
 
-Match the complete notation within the documented domain and bus widths.
-Check regular expression compilation and propagate conversion failures
-instead of treating a warning as successful parsing.
+   https://lore.kernel.org/lkml/878qb89g7b.ffs@tglx/
 
-Fixes: f9ed693e8bc0 ("perf stat: Enable iostat mode for x86 platforms")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
+* Testing
+
+There's one selftest proposed [1] that tests precisely if the task is
+interrupted during the critical section, if the kernel will clear op_pending
+pointer. I've adapted to arm64 [2] and it works as expected. This test is not
+being upstreamed right now because it depends on a better way to expose
+vdso.so.dbg [3].
+
+I also used gdb to manually check if the address is cleared when the kernel
+interrupts the critical section.
+
+Thanks!
+	André
+
+[1] https://lore.kernel.org/lkml/20260404093939.7XgeW_54@linutronix.de/
+[2] https://lore.kernel.org/lkml/20260529-tonyk-robust_arm-v3-3-a6f02684d4fe@igalia.com/
+[3] https://lore.kernel.org/lkml/20260602090536.045586688@kernel.org/
+
+Changes in v10:
+- Rebased on top of 7.4-rc1
+- Link to v9: https://patch.msgid.link/20260917-tonyk-robust_arm-v9-0-ab082b1b4c4b@igalia.com
+
+Changes in v9:
+- Refactored asm code style
+- Fix registers constrains, making sure that [pop_reg] uses the allocated
+register and mark [lock] as read-write
+- Simplified arm64_futex_robust_unlock_get_pop() with regs->regs[]
+- Reduced the scope a bit, dropped the compat vdso32 bit entry for now. It needs
+to first be added to arch/arm/, and later to arch/arm64/kernel/vdso32/ to ensure
+that they are the same thing. I will add those bits in a next series, as
+arch/arm needs a different toolchain, vm image, test and so on.
+- v8: https://patch.msgid.link/20260821-tonyk-robust_arm-v8-0-077707b6f1c7@igalia.com
+
+Changes in v8:
+- Fix build when CONFIG_FUTEX is disabled
+- v7: https://patch.msgid.link/20260728-tonyk-robust_arm-v7-0-40873c377c63@igalia.com
+
+Changes in v7:
+- vdso32: Use stlex instead of strex to ensure release semanthics
+- vdso32: result reg should use "=&r" clobber
+- both: pop_reg will be read afterwards so it was moved to be an input operand,
+  with "+Q" clobber"
+v6: https://patch.msgid.link/20260720-tonyk-robust_arm-v6-0-7e68c122047e@igalia.com
+
+Changes in v6:
+- Reorganized the patchset, better split for helpers functions vs aarch64 vs
+arm32 code
+- Use "full name" for labels instead of macros
+- Completely reworded "Implement __vdso_futex_robust_try_unlock()" to make it
+more obvious what's the bug and how does this fix it
+v5: https://patch.msgid.link/20260717-tonyk-robust_arm-v5-0-ffd1ad318d17@igalia.com
+
+Changes in v5:
+ - Drop unneeded commit "arm64/entry: Unify user mode handling"
+ - Replace "_success" with "_start" labels in vdso_futex_robust_unlock_update_ips
+ - Added "cc" to the asm clobberlist
+v4: https://patch.msgid.link/20260705-tonyk-robust_arm-v4-0-e0fd0fa259d3@igalia.com
+
+Changes in v4:
+ - Added commit "arm64/entry: Unify user mode handling"
+ - Added missing ifdef FUTEX_ROBUST_UNLOCK guards
+ - Fixed the position of _start and _success labels in the critical section
+ - Instead of checking the zero flag, check the result register to decide if the
+ op_pending needs to be cleared
+v3: https://patch.msgid.link/20260529-tonyk-robust_arm-v3-0-a6f02684d4fe@igalia.com
+
+Changes in v3:
+ - Change asm to always use x2 to store *pop
+ - Fix clang asm errors
+ - Moved 32 bit entry point to vdso32/ and use littlearm asm
+ - Adapted Sebastians test for arm
+v2: https://patch.msgid.link/20260424-tonyk-robust_arm-v2-0-db4e46f752cf@igalia.com
+
+Changes in v2:
+ - s/CONFIG_COMPAT/CONFIG_COMPAT_VDSO (Thomas Weißschuh)
+ - Fixed linker not finding the symbols (Thomas Weißschuh)
+v1: https://patch.msgid.link/20260417-tonyk-robust_arm-v1-0-03aa64e2ff1a@igalia.com
+
 ---
- tools/perf/arch/x86/util/iostat.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+André Almeida (2):
+      arm64: vdso: Prepare for robust futex unlock support
+      arm64: vdso: Implement __vdso_futex_robust_try_unlock()
 
-diff --git a/tools/perf/arch/x86/util/iostat.c b/tools/perf/arch/x86/util/iostat.c
-index f8b4939..7dc31f5 100644
---- a/tools/perf/arch/x86/util/iostat.c
-+++ b/tools/perf/arch/x86/util/iostat.c
-@@ -251,9 +251,14 @@ static int iio_root_port_parse_str(u32 *domain, u8 *bus, char *str)
- 	 * Valid bus range [0:ff]
- 	 * Example: 0000:af, 0:3d, 01:7
- 	 */
--	regcomp(&regex, "^([a-f0-9A-F]{1,}):([a-f0-9A-F]{1,2})", REG_EXTENDED);
-+	ret = regcomp(&regex, "^([a-f0-9A-F]{1,4}):([a-f0-9A-F]{1,2})$",
-+		      REG_EXTENDED);
-+	if (ret)
-+		return ret;
- 	ret = regexec(&regex, str, 0, NULL, 0);
--	if (ret || sscanf(str, "%08x:%02hhx", domain, bus) != 2)
-+	if (!ret && sscanf(str, "%04x:%02hhx", domain, bus) != 2)
-+		ret = -EINVAL;
-+	if (ret)
- 		pr_warning("Unrecognized root port format: %s\n"
- 			   "Please use the following format:\n"
- 			   "\t [domain]:[bus]\n"
--- 
-2.9.4
+Mark Rutland (1):
+      arm64: vdso: Split native/compat mremap callbacks
+
+ arch/arm64/Kconfig                    |  1 +
+ arch/arm64/include/asm/futex_robust.h | 24 ++++++++++++++++++++
+ arch/arm64/kernel/vdso.c              | 42 +++++++++++++++++++++++++++++++++--
+ arch/arm64/kernel/vdso/Makefile       | 10 +++++++++
+ arch/arm64/kernel/vdso/vdso.lds.S     |  9 ++++++++
+ arch/arm64/kernel/vdso/vfutex.c       | 41 ++++++++++++++++++++++++++++++++++
+ 6 files changed, 125 insertions(+), 2 deletions(-)
+---
+base-commit: eedaa7d61f1ec8ae053a9ece0d553785350ac486
+change-id: 20260416-tonyk-robust_arm-54ff77d2c4e4
+
+Best regards,
+--  
+André Almeida <andrealmeid@igalia.com>
 
