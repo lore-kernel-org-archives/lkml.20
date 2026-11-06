@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975198;
-	b=ustygO8vHu1e7g/oWjhrGq/B/WyJu6jKzYnhZ5DR3h3+tG1I0NYmOg4AEQOjNAq7Zty6
-	 EXvhytaJZ1EVPe4JTFcOo4zBnBvE+LUbL2UxdchPQy2ZXS0UrkBl/GT6ffZ5lWvNaEM8L
-	 EdFNbVhpPbQL1UszT3z6l4F8gT0X3a9hipUUCKH8ZPv4WrFfhakZi0Y+akkBw70LFc5EC
-	 +m5Z6tK4Ot1pBikcez4olrYYWul2r/yNIpT3KElsQ3mcGFyr1n4da4/9Aud7WF1jQjeK1
-	 qvSZjyaqGmIrwyQF+jHkLn/SVlyCXzUOBZ0sEbJp33eIdLn+UXoL7s/wfyCyb7KtvJg==
+	t=1793975252;
+	b=4yYN68ImXchXV+43inExYI6E9+OQi/L2hbyGZ47M4xminESsrwQlGkjK6ffRcCVnPl43
+	 wZqWdO2pXf//7+3VfDBRQSuAw6YyogmvIMQHMCUCvAKnEgKaNskZ0FLabwYNsy3MDdub9
+	 62uxKnzs56u8/5fvDyOEqtwhNbQdABj0GhdIVpMsobH9otkuudP/ss0HjiJLvFO343xnD
+	 YLBNuZ6jLT5DWCOnGU68EP7+OVuaLFpcafFDD9LfasTKQke/b3l12MlcnLhssn+rlHiig
+	 gbCadEuatwH0Y6kxS2uPavv+Lza064VuoiHeZAef48L+lR+mwEO0Ku9aiYPdBJf5neA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975198;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+KYXN7aai6IX1x5SM7xizmV0HBq9zshAmdQbcwaB9mo=;
-	b=2hKNny2KMF/2YKUu5fczjCJa3mZI4IdcsxaJW437EvGcuMo9EuXx9b33VoezwW9cMRAk
-	 B1E4TVZycjR4pOLOj2xqthwb9Q/ZU1FtYHbet7WbMPq/eQkg1XSL+NJ6CGislS/NmBYW2
-	 MNla/W13mdidQ23ygeQ4XG25ZfP95NKqJ+yvRChjozXuuJTHRJj9yUtnl2a4j1geJLdzx
-	 o0mAxQZAJOlQQg5gs8ZakH2NWv3L0ZWke5LpJ+5qNZvwhPsWdtxOB23/CE6TA2v3R5TZv
-	 P5VKjtrVgSQGGCRqYdMclHxj9lhNHxprgtL9M/ZPCpQPJur9bZ2qxp/C0iKhnad/G3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975252;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=ies+2HW5mTG1O2fNxFjPMdL4QQNBslFCepJ6zX5a7fw=;
+	b=tAiypicsX1qJh22QjNig0uLZgjsbrEX/tOcw8vGTM5VcOh1IL+Gqx1MTIJM0phD1VCch
+	 VYlzqqnix5vjyg2Dd8hzgD4zXmg/CWRInihug7xgBIF/a97B0QS4tw8VghdIQn9BpVqmq
+	 E3Id/o5cSTcRSqwyj0eWdfsd6z1W8dL9Wfk001D0pOJ7KjYvDMIsXI1XFQ6zQVaKXpoiw
+	 kNVyBBoXO/1dC6FFAD66C0PUrCSoDk5vDzH24U0axY/KToN/IXDgBxhoNhyDsza0ny28W
+	 /6Ddfa0IglMqhs30c4Tsu0+K/Pc8gi1C23lQUaP5PCLgZkNh3J8GXu/plBf+lQKkByg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TmCJB6mn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=eU6Zz58d;
+	arc=none smtp.remote-ip=18.194.254.142
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98868606A32D;
-	Fri,  6 Nov 2026 14:26:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4CE606A32C;
+	Fri,  6 Nov 2026 14:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C4CE606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TmCJB6mn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E751F0089F;
-	Fri,  6 Nov 2026 14:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793975198;
-	bh=+KYXN7aai6IX1x5SM7xizmV0HBq9zshAmdQbcwaB9mo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TmCJB6mnQ8WzGjBpzNOrtANc6+bY+KMqzHJFg2qc1E9+OtkJ1fZYWR9ZIu4yeLFXK
-	 HwDvyReArqnyDG3QmALWbiL1UUAoHlZ1jK/ZNhu4rubc/zrBuAi4DMzhCTF1DLKLRp
-	 xuN7JZL3hBmNMfjatE2r8jO3zUcSs9I4Bi4FufHBHsilAQiyHFpmc+e+H/ORp4tRkt
-	 6cYigqJetm+vXP0Gj5Det55akl6h45cWKjSosDs+bG3zhkoPtiv3Rkxc5jXm4t06es
-	 DoqXJat7+eqbmQdziODXhuruIj2c1Ezn3BX5guYcrgaeZ100NWd0yt9Q0wqog/BJJw
-	 yKF6S3iPYGcHA==
-Date: Fri, 6 Nov 2026 15:26:36 +0100
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Florian Maurer <fmaurer@disroot.org>
-Cc: Felix Fietkau <nbd@nbd.name>, Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH wireless 2/2] wifi: mt76: npu: read the rx slot count
- after the first slot is complete
-Message-ID: <au3jnOD5ZOJR0mvb@lore-desk>
-References: <cover.1793927986.git.fmaurer@disroot.org>
- <653d93b3c35975cd13dd6b33d76ea6517b55be91.1793927986.git.fmaurer@disroot.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=eU6Zz58d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793975188;
+	bh=ies+2HW5mTG1O2fNxFjPMdL4QQNBslFCepJ6zX5a7fw=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=eU6Zz58dH00WEa6FL+zeebtmEJrNcxY/Krp8P3Wzqp4360LcsJf4xZiMXr3tceCcE
+	 svAAp2N4byiBKqkFw0QiZKn4HbKLZ74oS4ptwE3NEh3wBkw9nTiaqPw+8ZHFeLI9oo
+	 Uanj8YI3WS8/LwOB8uWsKhcxD1s/yj9EzjDvwjZg=
+X-QQ-mid: esmtpsz20t1793975182tbd35ad97
+X-QQ-Originating-IP: TXe3qKmdAqKHaOhVsQVWL6itOrYqiQ+KBF3bprKbVQA=
+Received: from = ( [58.254.68.27])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 06 Nov 2026 22:26:20 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 11997525554458896140
+EX-QQ-RecipientCnt: 19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,90 +58,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KtjQmKF3zC2utkqj"
-Content-Disposition: inline
-In-Reply-To: <653d93b3c35975cd13dd6b33d76ea6517b55be91.1793927986.git.fmaurer@disroot.org>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=dccf64d274bd60cba0fa2d9ae238bd5d3708f6eae0880e28d195f102ba69;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 06 Nov 2026 14:26:19 +0000
+Message-Id: <DMO74K2MG3D7.15UUOU1O66K6N@linux.spacemit.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Vadim Fedorenko"
+ <vadim.fedorenko@linux.dev>, <netdev@vger.kernel.org>, "Andrew Lunn"
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Yixun Lan" <dlan@kernel.org>, "Vivian Wang"
+ <wangruikang@iscas.ac.cn>, "Chukun Pan" <amadeus@jmu.edu.cn>, "Siddharth
+ Vadapalli" <s-vadapalli@ti.com>, "Tomas Hlavacek" <tmshlvck@gmail.com>,
+ "Muhammad Bilal" <meatuni001@gmail.com>, "Maxime Chevallier"
+ <maxime.chevallier@bootlin.com>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
+ emac_suspend()
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Ali Tariq" <alitariq45892@gmail.com>
+In-Reply-To: <c55c5878-d9c1-4863-bc55-99d334ba2ede@gmail.com>
+References: <20261105123441.2524171-1-alitariq45892@gmail.com>
+ <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
+ <c55c5878-d9c1-4863-bc55-99d334ba2ede@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MgHozbPPr2uXgP1SLKJNKX0MU8mJtRMwKsqd8FFPf/CApPbZk5H0RdWV
+	2IuTYIIQVfzRXjR59LdWeKfGLpM7lGSvOJiXxqsT0L5A12z0BINeq8nr+PgZH78hDygz9jS
+	F7dvONFH4P+gorhye0ML7cCFUlMhurd0NX1f/VD3OjE5IPViUZdbrFp5tIyBpym8XD+j0oX
+	40Z1FvYJu1EkdwoQDesdQ4E2g9NQGIFWec3Tw6wz7MRkaYgf8cCWQiRInZd4LfC8bGKVKmV
+	L7H8fGm3fHsjPR2oxDDa5LPKOfgXnP4c4IgR05Xu6VtbwpUi3ry5FyyT2oIcn0giRMlWZu1
+	Qx0eC0bwJ/idAm0zgLrBCrA+q/ZI+xklVpQJ09/QfebNOgd+JOL83zD0Ely7y2ZEDzje+s7
+	8w0iYmk19VKgKr1LBtqrlUnlklU/+fK517B+paFsR7OPmnD4rLKpt+ZlEZwRiL6e8zL8Zps
+	hqcGhvziGJpyHYSkXkpD0UVGuk1N5sfwc2O0XIC84L3eHHmPdx7FZHUT8nNDyTa8leujFzm
+	le1wnXT6WAm9jdsrRHv359l2wRzgK8cA972fDKpbEBka6H0n37XjDt2D5cFV4xbDo8HGGew
+	Oli85Otpd0aRaH/rNs7xPBZQ5/ebfeUA7VWsyapuKSfc4XW+DOanf2ELshdJNurI3o4ZObg
+	nNZeRzfgAzISi313CFbhRXDvpcpP8umB9b9mCl3ebN7qDX+BUf7cbaFAI3VZsYNynDvetDt
+	ZlX9+lJySR6PwQ7XPHBYP1nuK0WnMnhLvukB7blwUhyLX/B/v4tZ8Pq8oSewhNnRhyDHUg5
+	1h+8F3NxtZs8QPyWiVRcaJERYG2i7YYpD8ZDGSgJt4ecnkFM/XKazxgCeIfoX/lyWQCVYJY
+	NL1n3oxDWcsFu64cC0OIsHQonk9fFxU8qYno89C55tY46CToE3UHS317zaS72rb3Pvi90+0
+	BgyumNGf4/DzseVq0Y9c1ZWIJJczll6zAQl9yWqkruf5AlTNBaTjmNhxMVE/CSBKNf7wpwk
+	am+u023+iw6pCIuq4sDQJh9hPJ4Y9yc4vuX5M/ofFjBtv5qVfJzeGOw4kRiR2iax+YNFUsg
+	AGI3kH5fjr/IAfOH5s3uqgfczHy4AbA9SfPR1EDojgR3mOb5r8cPbs933KhRx4CsA==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
---KtjQmKF3zC2utkqj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--dccf64d274bd60cba0fa2d9ae238bd5d3708f6eae0880e28d195f102ba69
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-> mt76_npu_dequeue() reads the slot count of a frame from the info word
-> of its first descriptor before checking the done bit of that slot. If
-> the NPU completes the slot in between, the count is still the 0 left
-> by the refill, so a frame spanning two slots is taken as a single slot
-> frame and its second slot is parsed as the start of the next frame.
-> With mt7996 this shows up as bogus tx-free events, which hit the
-> WARN_ON_ONCE() checks in mt7996_mac_tx_free(). From the code, such an
-> event can also release tokens that are still in use.
->=20
-> Check the done bit of the first slot before reading the slot count,
-> and order the descriptor reads with dma_rmb().
+On Fri, 6 Nov 2026 15:44:50 +0500, Ali Tariq wrote:
+> For the deadlock, I think the correct function to call is
+> rtnl_trylock() inside the emac_tx_timeout_task(), which would return
+> if the lock is already held and will hold the lock if it is not.
+>
+> What are your thoughts on this? Does a v2 changing rtnl_lock() to
+> rtnl_trylock() inside emac_tx_timeout_task() make sense?
+rtnl_trylock() there is fine, it fixes the suspend case.
 
-Relying on the patch I shared for 1/2, I guess this is no more a problem si=
-nce
-we will just delay the skb allocation. Agree or am I missing something?
+Looking at it, I found an existing bug though: once the work holds RTNL
+it deadlocks on itself, on every TX timeout:
 
-Regards,
-Lorenzo
+  emac_tx_timeout_task()
+    dev_close()
+      emac_stop()
+        emac_down()
+          cancel_work_sync(&priv->tx_timeout_task)  <- waits for itself
 
->=20
-> Fixes: 7fb554b1b623 ("wifi: mt76: Introduce the NPU generic layer")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Florian Maurer <fmaurer@disroot.org>
-> ---
->  drivers/net/wireless/mediatek/mt76/npu.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/wireless/mediatek/mt76/npu.c b/drivers/net/wirel=
-ess/mediatek/mt76/npu.c
-> index 6e503a4a890c..f00ae683a7eb 100644
-> --- a/drivers/net/wireless/mediatek/mt76/npu.c
-> +++ b/drivers/net/wireless/mediatek/mt76/npu.c
-> @@ -72,18 +72,25 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_d=
-ev *dev,
->  	int i, nframes, index =3D q->tail;
->  	struct sk_buff *skb =3D NULL;
-> =20
-> +	if (!q->queued ||
-> +	    !FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[index].ctrl))
-> +		return NULL;
-> +
-> +	/* The slot count is only valid once the first slot is complete */
-> +	dma_rmb();
->  	nframes =3D FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK, desc[index].info);
->  	nframes =3D max_t(int, nframes, 1);
->  	if (nframes > q->queued)
->  		return NULL;
-> =20
->  	/* Only take the frame once all of its slots are complete */
-> -	for (i =3D 0; i < nframes; i++) {
-> +	for (i =3D 1; i < nframes; i++) {
->  		int idx =3D (index + i) % q->ndesc;
-> =20
->  		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[idx].ctrl))
->  			return NULL;
->  	}
-> +	dma_rmb();
-> =20
->  	for (i =3D 0; i < nframes; i++) {
->  		struct mt76_queue_entry *e =3D &q->entry[index];
-> --=20
-> 2.47.3
->=20
+rtnl_trylock() does not help with that. Please fix it in a separate
+patch ahead of this one, e.g. by resetting in place instead of going
+through dev_close()/dev_open(). Feel free to add:
+Reported-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 
---KtjQmKF3zC2utkqj
-Content-Type: application/pgp-signature; name=signature.asc
+--=20
+Troy Mitchell
+
+--dccf64d274bd60cba0fa2d9ae238bd5d3708f6eae0880e28d195f102ba69
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCau3jnAAKCRA6cBh0uS2t
-rKxxAQCZ+WzNiOTB1+5eiTtdzP8G/JQKB+ravFT4xNbo4OIRTwEA61IME59No34X
-i6GOyP7UthDtFp6rmgVGBPNWrHeuPgo=
-=oeNY
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCau3jiyEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC9EhwD/bCyatTRIBS+r
+zpKFQzPzJykRoAVi4Rh6mDltoPZYzRkBALYRVcX6Wn1PJuX0hMwEF/A7ErpRIC/z
+5Ba+Vr8flvEC
+=Qi5F
 -----END PGP SIGNATURE-----
 
---KtjQmKF3zC2utkqj--
+--dccf64d274bd60cba0fa2d9ae238bd5d3708f6eae0880e28d195f102ba69--
