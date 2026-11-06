@@ -1,90 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988002;
-	b=U6RADcysTkPfgE3Dceqm0rNU2Ozls7R2Gu35LzqIybQ/aKBIm3+ytfrhB+/5Gj/YJqWF
-	 hU9aIcxZR4oip29naHYDl4IsLarEfpY12oxBcYbMxnAReqN0grjnGvkKAE/oTUKXS4jOd
-	 a6nhH0Pa5fYhdoTQMMiLMWWGThlcPIXFE6ti9+04hNr6IAZ6PKQvPNGmfDuiEEjA2qAur
-	 n0ESpxnTXQfYGHbZ6AyL5wn3XnWOJaYOGeB1f232H0IuECtvHO3dedEHxRqfgOYGOKs2r
-	 Q4XBTEPv+ippP2BPtg5O0Q21EgCB1JO0GMDV+hXhy7LDc+5rc7pizqrrw2SBK13qUqg==
+	t=1793988021;
+	b=zazTN1mSQdbsCXEPnASK/T+ldWbZv6YlY4jQdSWTAiHI7wqEQUVP6YdXya/PWpUDgHF6
+	 DSWDMJlmyDprlCeysM4r87Cl06AAiS0L+NTTiVLpqrug+jQc2rpavJBBYc3dD0SpnaeKK
+	 z+/ZZ8SQAH8rkYf/c8YmDEcEkxdyjF0/j9y71ZXwK/xsEyXQXJYU6/xDgzIsRBPkCbkKx
+	 vXNZ09YJD85awl3RINK2c/fk1R9h8qyVBAXTtHAE2UZNhMre37jIvs78A4E0E+M5N42FQ
+	 M61qGR1hr9ogkqY2YhRpJo35ch33JCzK3r2a155iRg8UR18X5UsYQYbBR65J1o5KpgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988002;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=l+HBRH6Z2Sf6XQfzze6i5pft1TRrO4lvAq6O629kQwQ=;
-	b=sCdv9oe6/GOExxr3NI0bfpYC6YATRmlbtddcBHMN+jW7W4mFR4yjSWYoWPcDYHzMUVtw
-	 9fGr7fQ7QC4FzdUPyVDtjR3gt2SAS8oZce539yrSgLQZhurGFkclFtr6nQv3y1RXJv/aG
-	 Gm8VYgOviWO8nkFdCAdNtHHc/pN2ZaeABJhjxo/wfkVTZNHHIl4iUNBCsgvvWlBbYqjf4
-	 1/O/YqEmwqSc7kFHgaTHB1kf4s5rSp6mHOylMkQ9JV7O8/MLJoUnyPb8bGeAr4T+qUuDK
-	 RSyJZ72vyPexxx/U00vknF4SEt6vrVoZ/ax6rC6/lGY2T6KGBjy54YfEiGZYV6ERBGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988021;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NTao78Z0+nwqj/kr7PCUlsM5HEtatNcwotA0Fg/NlJo=;
+	b=fDE78xBQ2NeEm5xB0yaan6f4serBXWi9z66YInqBH6fZhNcMh2sIPmhyZDIlI54/6tto
+	 1by5MKVKYzaZ2TMnNTuZ0Do0oY7ldPoDkhpgrOsTENutR+U2XpuQYl/5v8hWin6dC/MLE
+	 QZwIPFfFRDRuScXmgU3mGsbSPCfP8X7ldU8yD1vDJO0oNIbjvvt4HdUFwsM9TDNqY8Swk
+	 Uwt3OkQK+2tSfO/und2nEeL1fEIRID1/DmXlIbQxQHETGkcyV4dhcR+GIOjRFtZH/lD04
+	 1LEEku0BOaTZ1qa3ywwEWeCDQCp0stRCGkn/4rBn5FUfTDuJUbey6YU2L89m2JtrlUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=V7S9TpIs;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lq8VGHnD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA63B606A32F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:00:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA63B606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350FA606A326;
+	Fri,  6 Nov 2026 18:00:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=V7S9TpIs
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4697404c2bso119486666b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:00:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793988000; x=1794592800; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l+HBRH6Z2Sf6XQfzze6i5pft1TRrO4lvAq6O629kQwQ=;
-        b=V7S9TpIsPqXzUq3A6UkoBW71N9DZiWaA8wWWRo/cn+Ii+OaUl8iK3Fo/acjd4NRnkw
-         xN76KbFxJpVXKLKrZX0eNxswogzOAtyhaV9Daq50KUI1qQ6bPVdWvyns8biF6v3u/LuV
-         Sm8CRXLFqPAO7lbcQBhioPIgQBHvWkYe6MoAU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988000; x=1794592800;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l+HBRH6Z2Sf6XQfzze6i5pft1TRrO4lvAq6O629kQwQ=;
-        b=mwzcA4IjXlSr+v5XOEMFbrVgIdy43UqI8B85Qt57Ps1cyXFu3NywxbcZKhPYjYoH/X
-         qxkwCfu93Cu4FVKtLATUFeu3YEw8+TUJrxDdZlgi2hi/ygcbiL4AEMdkZK4jcE3RM3yc
-         5YJoZo1Ri4aIXlhRpU9ZL+JHN6nwii+Sssb6uVbrVX+mfeISnYAdXL+/4tYLc1ocnHou
-         NEVj6bh0bGSUU0ZpRO3eL4MrwMCfBr2MZYiSXGZTYEID3epLzsMMfSRk8YyOFkcCc4j/
-         QWmJJfjlyDuKNj27XKrrub24svdE6iZSR7LJ2sC1JE5Id7QflaJ0Vz6P5SHS8Y1/kNez
-         oODQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSWd24Vl7ewDxOaD7mbXqr1t3knSDjMtVtm/ypfOQ/6omDnP5QxD2KwnGix5yCE8/bhgtm6ZezTPga+YY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RzJ+t6fJUJvsvI8FOEHqUYbF7c6cnU0PwLIiVaTZKrB0gk3sF
-	/lwUHIe/e5PDDBd+P++csxj84aXqK3pThjYCZbcYEBuhyuGmMYUyTxKxQP1DnEy0vIH7lG/4FAN
-	fb/6V8waO
-X-Gm-Gg: AYBFou3Q3sPF7XFi9C6r3U4m8uKH6anAPQ2lTqyKEIz9KAeW3vbICN5kX8tpB85rFFA
-	nWaLGaPD74FNR9cCKOi4Ztgf9ExneQ273iZvEN5O/Izpjk0gWo4Hy+FhZINVPgX/TlR7wNrzcB6
-	HrX+zmV2+6benUkMrBqwwsnbrQc3XzjZ6ImDxE1QyDSZpXeQtWN5DM4ThmPvnWHes5bLTuy7Tmw
-	49+Q/AocI6rjYsI2+VbfGUsLHiCnP5ftEpHZ8d06iVFxWXI9ELjk9KmKv18we0JbluzhiJFLoo0
-	FlAIjI6sSRYWjyeCcSN3gx5oRiyoRCClqcst6ZYkyoSHDbgzp9bT8D7A2ciWe5EBf1Xra/RCMvE
-	QVp7njHEyxkzGdXBH7yl8NkuWxW9Eg1+g7u3sNtuxqeD5iwucg2sPHc2xSUfK6lDI5RBHoEEpxT
-	APUN1cu85inkeWZ62rAKdy3tKEwVi0Ou2PmlkEKVhg6qxFbG5tP+TBmLjMVn1eyNovbrbUVxDKr
-	bxZ5JUiqE+lxYUaTIBRH9ErnqhorD9eUZ+jl+fLfHakAbubbIier0xWGw7NXgqdmH4b62QcNZAk
-	Fr+hwg+uEtkD99o7WLMX7c75wpXJ8q1hJidf39I+0uUnwuWZ541ww7mafZatymBcoqk=
-X-Received: by 2002:a17:907:6d06:b0:c2e:4e08:19ab with SMTP id a640c23a62f3a-c4d34a62a56mr258677066b.16.1793988000064;
-        Fri, 06 Nov 2026 10:00:00 -0800 (PST)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com. [209.85.128.52])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d356c5b76sm97041166b.68.2026.11.06.09.59.58
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 09:59:58 -0800 (PST)
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so6358885e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:59:58 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwtuyJGfIlvdKA9MbV3DfvySae0vur4lAiQvDSce2KKqATUsvoyvGa3I+chNjSrn2GKlbeZhJ6JpxbpEgU=@vger.kernel.org
-X-Received: by 2002:a05:600c:8b28:b0:4a1:9663:7633 with SMTP id
- 5b1f17b1804b1-4b6dd54b16dmr53499975e9.11.1793987997939; Fri, 06 Nov 2026
- 09:59:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lq8VGHnD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DF5C1F0089F;
+	Fri,  6 Nov 2026 18:00:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793988021;
+	bh=NTao78Z0+nwqj/kr7PCUlsM5HEtatNcwotA0Fg/NlJo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lq8VGHnDYxh0RRUt2wtXp3vpG7zskXderJXd5WAPx+PZjb9pq436aB5jl1whO6R4e
+	 KFwXxz5+yrxzUgQQTbl7+wP0w4mDIhdU/P7fXXPSWnx1cShilwI2/qHUYBZrv9b4Vj
+	 l4j2L185Tx8JYxT+IsyPCBRJxjffUjkqya3bXhUzm12VwMh52nHwvbzYYkoFmC4zXj
+	 SFi7AmpMG2kCDrWa7PRmud4TxEftH+to/F3hNLJU0lclgvivUbSvrQf/ZQzvGS36ge
+	 ftW23GLEJf01Du5La+RogmFJQj3I2OxT0nrjegv/3mJkBLg/XEa8w1nlrWcAt9ctby
+	 BEdU1Y8+LXDag==
+Date: Fri, 6 Nov 2026 18:00:13 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Kwanghoon Son <asdfkwang@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
+Message-ID: <20261106-dislike-despise-91106ac848dd@spud>
+References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
+ <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
+ <20261029-spyglass-evasion-772697094cb9@spud>
+ <20261029-amuser-savior-6a6ab062f471@spud>
+ <auSDJH9V31wmbrYv@debian>
+ <20261030-slider-finished-360b10521e0b@spud>
+ <auXQaY25XfYzxEb1@debian>
+ <20261102-throng-botanical-b244058ecc37@spud>
+ <auqC9jOIQTyieQUJ@debian>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,39 +86,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105151159.1.I0b27923381ef34cc99cdf8b65fea2e1bafce6370@changeid>
- <CAF1bQ=QkGntJu8G67ssH2dS3Sn200_JuYitjtAfNPBu_hn0fZA@mail.gmail.com> <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
-In-Reply-To: <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 6 Nov 2026 09:59:46 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WGKOnDoY1W7CuZw=s3e8f3jrXzkJ5_Qp_Y4WfT0XwXDg@mail.gmail.com>
-X-Gm-Features: AclHuK8dSVweZwLxaeldnIMbndWhz_-q2OKzaAPnRAmMzhlMe2QAncAFrE9VlH0
-Message-ID: <CAD=FV=WGKOnDoY1W7CuZw=s3e8f3jrXzkJ5_Qp_Y4WfT0XwXDg@mail.gmail.com>
-Subject: Re: [PATCH] kbuild: AutoFDO: Disable Profi (-fno-sample-profile-use-profi)
-To: Rong Xu <xur@google.com>
-Cc: llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
-	Han Shen <shenhan@google.com>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
-	Snehasish Kumar <snehasishk@google.com>, Nilanjana Basu <nilanjana.basu87@gmail.com>, 
-	Yabin Cui <yabinc@google.com>, stable@vger.kernel.org, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nAZw+Rabccy81wd0"
+Content-Disposition: inline
+In-Reply-To: <auqC9jOIQTyieQUJ@debian>
+
+--nAZw+Rabccy81wd0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Tue, Nov 03, 2026 at 07:57:42PM -0500, Kwanghoon Son wrote:
+> > I'd rather not really. I shouldn't be the maintainer for platforms I do
+> > not care about, but I will do it if you're unwilling to - in part
+> > because I expect that the volume for the platform will be pretty low.
+> >=20
+> > Please read through Documentation/process/maintainer-soc.rst to see what
+> > the expectations for a platform maintainer are.
+> >=20
+> > Cheers,
+> > Conor.
+>=20
+> I'd like to take on BL808 platform maintenance. I'm new to the
+> maintainer workflow, so I may need some guidance initially, but I'd like
+> to give it a try.
+>=20
+> I'll update on v2.
 
-On Fri, Nov 6, 2026 at 9:43=E2=80=AFAM Rong Xu <xur@google.com> wrote:
->
-> Just one thing: I think we should also have this flag for Rust so Rust
-> and c are consistent.
+Cool. One thing that I noticed, and felt it was a bit odd actually is
+that the uarts are fed directly from the crystal oscillator. Jisheng had
+that in his original series though so I assume that's actually how the
+hardware works?
 
-Please see the commit message, which says:
+--nAZw+Rabccy81wd0
+Content-Type: application/pgp-signature; name=signature.asc
 
-> RUSTFLAGS_AUTOFDO_CLANG and KBUILD_LDFLAGS do not need changes because
-> SampleProfileUseProfi remains false by default in the LLVM backend and
-> is only enabled by the Clang driver.
+-----BEGIN PGP SIGNATURE-----
 
-Is that incorrect?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4VrAAKCRB4tDGHoIJi
+0hBwAP0Y6pVSxYDxvE94R7FNDUSClc7MlbdimpLzv2QjqTnZPQD+N2+2p4DXHqcg
+uBvIe5LDtWCUnTdIerEB6cv9Ct+QRwU=
+=Yrrl
+-----END PGP SIGNATURE-----
 
--Doug
+--nAZw+Rabccy81wd0--
