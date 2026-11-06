@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793928168;
-	b=SrO4HqeYkXoLvl0AdoxnMpT4l0YATlpbBg3pDwsr4q/OG1twtIw7C4o2iyp+2FKNYQDg
-	 iVcG6uF5KHvBErzIkXLmDE+XIxY0R1p+8UpY7dkvlrY/yhzLVVnwERYaXdMdIAwEjeGGj
-	 QORj8fFGn6/ITjZOW/rPzG9LU6yABI6JYE+XKekrnO7De8nDHZnBsxPMiBZTzZUBFShJk
-	 t0VsxW5NYh2xFqf/leKhSIAlZ/8iyZT9+mhrkx1YhH8JKmhSMKABf1YmpF1Qkce80xC5V
-	 vgUk0gTr9pUeJ75mfhueHNpTHkj/cxaow6vM+xbIhx19ZzMReW53gD59NnsETE/4CIw==
+	t=1793928360;
+	b=WlNfFt7ajh9vNQx7Puq51pwk/00EJynWIro25tgt4CBoYuOmlXUkmS2OGmgMBPkJM8e5
+	 fzwm7xNjSG3RO2P/g32vViSGMiLS45YvpLJes0CEUvrbK14sKTuBI75SNCACXx1OjmfKp
+	 dJXx1E8Hbw2SG3jeejq87X8+hD9UR3Y2mM6hBQpzZ/JYfhr+UuupWgDwRlAe24jv9pYZw
+	 Wa4WjLPqLzBkscMy33HA2TvbPed3QbYwUNHJx5HZxKmtQwxU7QXWVog5kY+jfZopLyq5U
+	 8Slu1pVCUEM3QQJkKqcut4bSB8E1nlenvZGjG57VeaUskax8o8j/c48sJgGsQGH2jaA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793928168;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oLgPV68l9ICjIDifE65oCN1RGzBXPv/N3KtgmZVNysE=;
-	b=W9zKAmOfzP/8zUbP+g4HFbrt6zqz5vgN/LEpD1y6MTSkhwVbSurlNQuUxbqWK1kwlEzD
-	 5pFO5Be9ZYEE1HeUND7X5uCxgMnZ3wMv40EW73GadDAVzXVkfC3cDjsH8+eazxPRpQUhG
-	 eomluU4cFQT6qi/Mno01pvD9pp1y3PV4TyPO9YrZBWk7TUHNiinf+0aWIP0RDSW2IroXH
-	 /dDLi22eqykqTx2waOsECPI6+qVw3KY2QMsSPhodaanyItcg5M5k7obRtWBGA7XkoQcU+
-	 g9VfQRA+GuyKn8I3cqLaM+R6vptJjbNLbkUuaIlqquvoVdRMwAAx8D4x6QdtBrJQPSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793928360;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=YChkfVNOdL3VMaanB6SlWK9gpYg5GaeAwI8eBY3OpGA=;
+	b=OrNc5W1d+0k4C6EO2dsN31uQWncfd+S2jMlFI9ccQEFpz4sEYVFSthOAI8EUXL6do32x
+	 br99wKsHxhErskCCMsMr7jxJdYfqIu/mVRj4ux1YWjjey9lMvjWefku2+AZHTAujzed7w
+	 cU/v9VQzmkJBV9NRsw/IidQaxp3TaTVORO21nKqFJdT8wrEZFOWwMS0h7K0rlvJkWSF4t
+	 1EUyOeCMTLy4e76TVreRZbYVer7wInFUgTgGAH3i2vKOlzoZBWtw4Xln8IXWjWS6bh5lH
+	 75srnPXKsABj/UasC6cpP6EhZanyLTMd/uVxdngEuMi8jjkw5ABdx4/7wCuoQYX6nOg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2qcx2+to;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.43
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013043.outbound.protection.outlook.com [40.93.196.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35445606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:22:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35445606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a070755c8cso32045b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 17:22:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793928166; cv=none;
-        d=google.com; s=arc-20260327;
-        b=beYmWDagl7XRwpuSafagMX+7UTXYA38OL699XswjOoQbLm1Sof3pJrIreq9dmW3KEC
-         SKk1SJBBRqVfKTm+cYRZL3ZoAYhIAfaibrqD2hKSANv9SgRx4zQxlrPUFhKNqeggblBm
-         4Fl0/PhgPBKkCskid1vH+J8AAOv+gfnX3tyiqI9YVEAwSlVHc8tKGZbat9aCF8kxvlvP
-         FrlQh7+q6z4V9ECcV7I+cAOCWuJ7LpY6mNxYkTgdAcbT+OM5DK+3kA3L7myR+4TFjoON
-         3Gj+SIzYxIfFmyYCX2xiJU6Lz1/W5OnORbt9J5PQrkdTgEEVBUeknFNwVCwIaahaq++U
-         JlLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oLgPV68l9ICjIDifE65oCN1RGzBXPv/N3KtgmZVNysE=;
-        fh=ADQU2j49iuqIzE1dCjpyk5IvK0BLb9vzg5bbIuU4c5I=;
-        b=gFy/Iv1DOIf0ZnA6AFSrw0bpl/0Wr2PvvyhGEyCSG6mnw/Afpt4OBaWuG1VP8U1e+Y
-         bWIrBLUoydekZx8jAJ98EjARV36fYZRs5ZscLHAA/IgNTpgNDcxgCYHjXnEwBG+BBYkd
-         oni3QJOoTTGb/c/fKbs/sFcil41Ij/wJAFjQ/u1rSiWR6DMJB6tqtR/dH3+eSHn4Szuv
-         1qUg2DKAC7BCO7F7hfHD4B41M/uMbAH5DQFkYP0l11KZqC6c5iC88VkO2bSoceFjwm+v
-         iYDBWuoysgW8TQNW5hz8cld13H0Ms4SLa5tNvb9hEbRJrJr6B+4lkdsDG/1f64ZeznTd
-         o5kg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1793928166; x=1794532966; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oLgPV68l9ICjIDifE65oCN1RGzBXPv/N3KtgmZVNysE=;
-        b=BXgsLCA51X5/W48GvZrpBezpY+stGa03fvEbUi2MV56MnNmF4a2PjDTUVnBg0Dwtqe
-         Pc0pFbbkVSP0pF2lMOwQEWZuhIoVpWFLaZww3T/CDXUanEMozEFBbg5xukYGZHM3dK7Z
-         /fQ7M+BmNkKN//ilq5bRiwTE5y+M3XE5NT96+Mb4FuQk23KwrKKCtl+UAKDpUXGzEGJV
-         USSryhSewq0S2ePnFYtulTY16RPJSyBaU+5La6UtGtX/D/3Czi9oUOP9+hhoTJe/0ETl
-         gYSYGkR59nTYA3bP+5Nf3SMG0P++deg+hHNjH+z7C7raNaTFT7WIIduRah7XGk96iqIB
-         wcqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793928166; x=1794532966;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oLgPV68l9ICjIDifE65oCN1RGzBXPv/N3KtgmZVNysE=;
-        b=R/IcvWCc/GYz9ob264diNnhK4Z0HT6FxhiOplPOZCSJKN27la9tEDmA2qXDOy0s+R5
-         6tGPYCGMPHvlVoeNIMCb+6i91mpoTVtbE5LNxT+kQqSSuC/WFe2S6ENQ5V0NdB5kV71p
-         SWM+OBOWRow71iixXvV4lw+xSmBa1mPR3vHLNPWclLsBvUWQ5rmEecCwqcWhkHyqZQAn
-         jYbBPVzLksun7p9FR8DjEk4F0X0atEmNus3729/gbTkCb4ur1Fo123KHJPWHiEH4RxeV
-         TXt0nW3eRrUsxAWYPKngHnoC4Uf9Dk9PV9miqrczkAhD1o+ZiU5lL/gt44zVm2a9uW5F
-         Ztbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzwZqzQyMIw0ElQJ3QIkZbzfuH/L9tiBm46stVJIhxk2MKiEW5qGljHNrrZsyS/qePuJc/FJLFaBFv5wkM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wU1oaQYPxk41S44M6X2pnrSzgbDWLQR2rglEBZCd4PiXMxWN7
-	kFy1YXB7VHULf9XiJ2u/OGZb44DK5VQjNeTegVhIWtaDDhAwFgx/u7jrius3hMlW/21HVqD2EVa
-	GJsv21qLDYevOLn2vJJb7eId5Q64LELCF/jkTNmzg
-X-Gm-Gg: AYBFou37Ntxc21ZbWhYM1ggDMfmvOEffKzU1UAzfhH1dRge1LdNAfVSOXOyXL1LFYHd
-	FkGH1klIkh48upC09kn5EQA5cJUPFnD/yNOI7ryP70J6u5sN6ZPSRqOir0i21ySTGuquh1bpqXW
-	MjQsHYaaavliiA9hy5muEc6v2MK85giIaWupK0J25JYbUt34DlmMMHO82uLA48/xuHdePpgANsV
-	611uzOQSIHtqXk1rnfqLEK9DvO2JEk2jt8xsc0jhNnAvGYO1k1SKWGzk9qw4eyzg9i22jJOp13X
-	BaX36Ud90KpfXA9miEv3T0QqfCyaG42aqvLXTsQ8Q8fE6lmVnjpQO7ou8m133kQyNczX3MRgvh9
-	uWSynnJxclqCZi1nK3UhCVm/nZP42wd4S8nc7s+/JyQnWqSCnz5rmGFtuE2erRMfYmHt/
-X-Received: by 2002:a05:6a00:4f82:b0:87d:e8a0:2389 with SMTP id
- d2e1a72fcca58-8b37b37d233mr903874b3a.21.1793928166471; Thu, 05 Nov 2026
- 17:22:46 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8875E606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8875E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2qcx2+to
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EGY4JUK/QrdwrGrOxNB5A7cMuo7Ri4DZu80+gc4wYTh2EKDvE3wNJoPNT0xuVSbLzDnjvHGbWKDeuRO/lk/IcJcMvAcQJHswvBSOQUMAD08Nr2WAXMIoTIHVjw/VuGzS1r9R2xC7hjKbfwZ9klhUcfaZf2p7pz6ghLKWT8h2wZ1SZm/Awwuj+58Z5kdCduuKnFQus/Lfsk7Gc0W35knmI6iT4QGm94FoCqlKhM5A/jh/AYWrwnHlcVF6EE0s8k90qd5B41+3WxYF4nh0TaCdJTnbeBXVG4tYhm22U3h0QUrg9HqzciEeysDAQnAy4/gW3/II0aYdzr3tRd3YPD/r8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YChkfVNOdL3VMaanB6SlWK9gpYg5GaeAwI8eBY3OpGA=;
+ b=uOIudQtG7pFBkae2bsXnlcT4npisBiuD6BQh+FfeVe3d+iaKT+4yLfz0QqP4p9OmjTk5mrYs2yNLmo7j0Syl36KmMTKTpq5YqoCDeQcSKAjBJR6OiEIxlittVHGHOn/z0MsP9pTKIwYRq8CqzEAJSehVx0OdgZHTeIp+fYs3mTG/R9zB5hir32mRj7YuLH4qzxE5Td0WJsOhHIe4m1cwxehbPBRwEq/g/3o/YODlC/KJ8IybVc8vYEZwh29S4XtqSvCEHDWlkmh/pFNs5Nib1v5nk3zzyx5ta4+ehvQ8k9xjLoQjkR038INZ2TyTOAg9QhHXfVd9d+4ZFgI7Tx0dEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YChkfVNOdL3VMaanB6SlWK9gpYg5GaeAwI8eBY3OpGA=;
+ b=2qcx2+too2sEOQqxuTls1g/NXEohq1BljWPsE6XnDgMnO92Q8r2ekAF4rOjV1RPTbb+lFk8hGWOR6DaCG8BXUZw4GfCwo0aB4dKYVhh3p7iZUsG2XDQV7/MeUlTpJ0e1Hbh5DKkcMfT4WMeBCfvMiBno0XiCQU/pTO2LzxY3GLo=
+Received: from DS7PR05CA0052.namprd05.prod.outlook.com (2603:10b6:8:2f::30) by
+ MN0PR12MB6318.namprd12.prod.outlook.com (2603:10b6:208:3c1::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Fri, 6 Nov 2026
+ 01:25:51 +0000
+Received: from DS1PEPF00053452.namprd04.prod.outlook.com
+ (2603:10b6:8:2f:cafe::b) by DS7PR05CA0052.outlook.office365.com
+ (2603:10b6:8:2f::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4 via Frontend Transport; Fri, 6
+ Nov 2026 01:25:51 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF00053452.mail.protection.outlook.com (10.167.23.234) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 01:25:50 +0000
+Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
+ 2026 19:25:50 -0600
+From: Melody Wang <huibo.wang@amd.com>
+To: <x86@kernel.org>
+CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
+	<thomas.lendacky@amd.com>, <ardb@kernel.org>, Melody Wang
+	<huibo.wang@amd.com>
+Subject: [PATCH v6 0/7] Alternate Injection: Secure Interrupt Delivery for SEV-SNP Guests - Guest Support
+Date: Fri, 6 Nov 2026 01:25:26 +0000
+Message-ID: <cover.1793926736.git.huibo.wang@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,92 +105,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
- <20261105-late-2026-vma-flags-v1-13-0d3cd15ab75f@kernel.org> <CAHC9VhSR=9YNhBxeFBcTR8wgG2yDP1fW590QKjzuc4Kq9ohaiQ@mail.gmail.com>
-In-Reply-To: <CAHC9VhSR=9YNhBxeFBcTR8wgG2yDP1fW590QKjzuc4Kq9ohaiQ@mail.gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Thu, 5 Nov 2026 20:22:34 -0500
-X-Gm-Features: AclHuK_C6UmASiuiBuBvumlcrlzJEUCTa0-vZyEfxhlZIjAFaCskKj-ONE1360g
-Message-ID: <CAHC9VhRDVz4M-m_4UZZDKMgs4uc+j-+-jwYEdBDfSD0rtd-1Og@mail.gmail.com>
-Subject: Re: [PATCH 13/13] security: convert VMA flag tests to use vma_flags_t
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
-	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, Zi Yan <ziy@nvidia.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>, 
-	SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>, David Rientjes <rientjes@google.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>, John Johansen <john.johansen@canonical.com>, 
-	Georgia Garcia <georgia.garcia@canonical.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
-	Roberto Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
-	Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	kvm@vger.kernel.org, damon@lists.linux.dev, 
-	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
-	linux-integrity@vger.kernel.org, selinux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00053452:EE_|MN0PR12MB6318:EE_
+X-MS-Office365-Filtering-Correlation-Id: f70d00c8-75c0-42a5-4452-08df3ba4e4e1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|18002099003|6133799003|3023799007|10067099003|56012099006|11063799006|261026121527099003|261026130827099003|261028144727099003|261022115727099003|261102123227099003|261009223027099003|261026140227099003|261021121427099003|261022113327099003|261022105027099003|261022075727099003|261021130227099003|261102130727099003|261021135927099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	AYk3BZpNIRMw/EaDjvh5MnFmahGtxJdTwIdPGjkm14gkJs5Pt2SkAxrQ79RQjK0D4mV/mavH8f8dCQAx8+tmu0DDEli+fFBoOfe2XzZLJKrjxkQV77YJvyTjrr7rM4sJal/uGvssXirJF3NXgSF1YlKLnLS9j1Xw+gkXgYpfRogkSuBEyrFrED5NzaNmVsURb2MQHWQ8j6KkQUOQ9DRaC5Wljs0Bf57lkHSCgO11hhRRs4EUp0hzBb7N+/JIyBibvD8f47/ohtri5eyOQIZF4NDcqbufXjW6ZRVW1hyFLnwirAu1Rq86lZjMTOE+/XbWpcKiHJuO4ANpUwqvojNey3PoNXmuUrBltuYVjifnaLjiLdidp+Tt/QoF9YWgEESvBUX5WSKyWUlR2Adevacu0vJYyFLPiZv7uZn3+GWN7gyse27AOeFzeJEogkM6yfpk/L3YAVsk8pvBXWjjb3HdcxrTP3mUCAILQRdH951a2I8iOW8MfkHt14DQ06JbQhdjcb/rZioQU+mIufLbb3+s4ENcO8RQ8voXhPDgMHK/nRqnPPvMVJmixSp7dROll9cAei6j87/LjdG5yYk/HzC+zY58BGAPn9Bap1wZo5+P+XPD4VrUb9Smm3fXDKB44Ty8ny073OIrExWZWDaDqC52LFll3NNb8O4QzAha8VEs3rwFIXw8ruig+y91cw44WrEiO45ZOgXViu0eFqhn5uIk+g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(18002099003)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(261026121527099003)(261026130827099003)(261028144727099003)(261022115727099003)(261102123227099003)(261009223027099003)(261026140227099003)(261021121427099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021130227099003)(261102130727099003)(261021135927099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	trAj6KTdybHTXar9pLB0uQ8rNpg3Jzj+hZ67zlP8aSBMZfNLq9FvGVvr/tG26u8FEIBFeyEf1kSooi0Lo1N0i9Xh/lqcGDOWVvOZ8quyWEgAJv1ss2LskD6XhDIcJUOTpbptLmjVyv3uupn/IWy3mcWNPDZZAsNUM+QjqUZzmtMFD3/3F81k5rhBz8cI4BItTQyOZUaqrRf6g71qLa0hLJwALM+3wz3awzQs2S4lNxMrp5ssgVJ7AnDgYNPbuQ26ChfKD+7hFD357DGVl7ymHGc0+6lqCC16IgZhGtZOoNQuDI66/VVgpG2Fc1USAB3I/7X7tSUZTvfV05VH7xjEsiRiPe+gIQxSJah+ytO02oKhfQ3ZaqBrpicyisXO8gIk8ftnudfB62faxYYUoeguu4EwbyyLOgaNQXHfUQRS6mrMndORQ8T5eHD0moO7ThzF
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 01:25:50.9768
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f70d00c8-75c0-42a5-4452-08df3ba4e4e1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00053452.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6318
 
-On Thu, Nov 5, 2026 at 6:17=E2=80=AFPM Paul Moore <paul@paul-moore.com> wro=
-te:
-> On Thu, Nov 5, 2026 at 4:35=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.=
-org> wrote:
-> >
-> > Replace use of the legacy vm_flags_t flags with vma_flags_t values in t=
-he
-> > mmap and mprotect LSM hooks of SELinux, AppArmor, IMA and IPE.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  security/apparmor/lsm.c           |  2 +-
-> >  security/integrity/ima/ima_main.c |  2 +-
-> >  security/ipe/hooks.c              |  2 +-
-> >  security/selinux/hooks.c          | 14 +++++++-------
-> >  4 files changed, 10 insertions(+), 10 deletions(-)
->
-> Similar to the other patchset you just posted, is there any reason why
-> individual subsystem maintainers can't pick these patches up, or is
-> there some reason I'm missing and they need to go through a single
-> tree?
->
-> If they can go through multiple trees, can you split this patch up?
-> AppArmor, Integrity/IMA, IPE, and SELinux are all maintained by
-> different groups/people.
+Hi all,
 
-Since there seems to be a desire to bypass normal procedure in favor
-of speed (surely that will never backfire), the SELinux changes look
-fine to me, but please do wait to hear from the AppArmor, IMA, and IPE
-maintainers before merging this patch.
+This revision addresses all version 5 review comments from Sashiko.
 
-Acked-by: Paul Moore <paul@paul-moore.com>
+Key Changes
 
---=20
-paul-moore.com
+1. svsm_apic driver cleanups: Removed the read-only MSR from the SVSM APIC
+   filter in svsm_apic_msr_write(), and the write-only MSR from
+   svsm_apic_msr_read(). 
+
+2. Clarified and updated the commit message for patch 5 to improve readability
+   and context.
+
+Thanks,
+Melody
+
+Changelog:
+v5
+--
+
+This revision addresses all review comments from version 4.
+
+1. As Ard suggested, used a bool as return value for svsm_register_alt_inj()
+   instead of int. Adjusted code with it.
+
+2. Added more comments here for better understanding.
+
+Changelog:
+v4
+--
+
+This revision addresses all review comments from version 3.
+
+1. As Ard suggested, handed over the registeration of kernel guest for
+   Alternate Injection with the SVSM to the OVMF insteading of calling the
+   SVSM for registration from kernel guest before ExitBootsService().
+
+2. Added a common function for SVSM APIC ICR read and write.
+
+3. Added a common function for sev_apic_ghcb_msr_read/write.
+
+4. Changed some comments for better understanding.
+
+5. Patch "Make-SVSM-calls-preemption-safe.patch" was merged to the tip tree.
+
+v3
+--
+
+This revision addresses all review comments from version 2.
+
+The changes include:
+
+1. Moved sev_prepare() from decompressor to EFI stub.
+
+2. Changed "Register Alternate Injection" and "configure all interrupt
+   vectors" as two APIs located in compressed/sev.c since they are
+   self-contained, avoiding exporting functions. 
+
+3. Added more comments for better understanding.
+
+v2
+--
+
+This revision fixes all the review comments from version 1.
+
+The changes include:
+
+1. Changed a few comments for better understanding, deleted some unnecessary
+   code, corrected some typos, and some minor code fixes from the review
+   comments by Sashiko and Boris.
+
+2. Unified sev_apic_ghcb_msr_write() and sev_apic_ghcb_msr_read(). 
+
+3. Move x2apic_svsm.o after x2apic_savic.o so that the secure AVIC gets
+   preferred on machines supporting it.
+
+4. Reworked svsm_apic_probe() as Boris suggested.
+
+5. Updated tools with renamed MSR_AMD64_SNP_ALTERNATE_INJ_BIT and
+   MSR_AMD64_SNP_ALT_INJ for completeness' sake.
+
+6. Changed svsm_apic_send_IPI_self() with writing to the dedicated
+   APIC_SELF_IPI instead of writing to APIC_ICR.
+
+v1
+--
+
+The revision fixes all of the review comments from version 0.
+ 
+The changes include:
+ 
+1. Changed a few commit messages, new file names, variables name and order,
+   function names and more comments for better understanding.
+ 
+2. Added a pre-patch to fix the problem that in two functions in the the SVSM
+   vTPM guest implementation do not disable preemption when fetching CAA. It
+   is moving the CAA fetching operation inside svsm_perform_call_protocol().
+
+   This series relies on this fix too.
+
+
+3. Removed svsm_do_call() helper function and some intermediary layer
+   functions in SVSM APIC driver.
+
+4. Removed the Secure AVIC check in SVSM APIC driver since it will never be
+   touched. 
+
+5. Terminate boot when Alternate Injection is enabled in vmpl0.
+
+6. Added a common function for SVSM APIC read and write.
+
+7. Added a new SEV_TERM_SET_LINUX value for Alternate Injection and APIC ghcb
+   msr read/write.
+
+8. Reworked sev_prepare() to reflect the error conditions correctly. 
+
+9. Moved allowing all of interrupts right after registering the SVSM APIC
+   protocol.
+
+v0
+--
+
+Alternate Injection is a method to provide secure interrupt delivery for
+SEV-SNP guests against malicious injection attacks. By handing over the
+control of the interrupt injection to the guest itself, the security is
+applied. Alternate Injection use Secure VM Service Module (SVSM), and APIC
+emulation in the SVSM to secure interrupt delivery.
+
+This is the guest side patches. The patch set includes the following:
+1. Add support for enabling Alternate Injection.
+2. Add support for the SVSM APIC protocol which uses a subset of the
+   X2APIC MSRs.
+3. Add support to allow the guest OS to request Alternate
+   Injection.
+
+
+Melody Wang (7):
+  x86/sev: Add support for Alternate Injection
+  x86/apic: Add an SVSM APIC driver
+  x86/sev: Route unsupported APIC register accesses to the hypervisor
+    APIC emulation
+  x86/sev: Add a function to contain all SEV-specific setup operations
+  x86/sev: Register Alternate Injection protocol during OVMF boot
+  x86/sev: Allow the guest to configure interrupt vectors for the
+    hypervisor
+  x86/sev: Indicate that Alternate Injection is supported in the guest
+
+ arch/x86/Kconfig                        |  14 ++
+ arch/x86/boot/compressed/sev.c          |  11 +-
+ arch/x86/boot/startup/sev-startup.c     |  20 ++
+ arch/x86/boot/startup/sme.c             |   3 +
+ arch/x86/coco/core.c                    |   3 +
+ arch/x86/coco/sev/core.c                |  48 ++---
+ arch/x86/include/asm/msr-index.h        |   4 +-
+ arch/x86/include/asm/sev-common.h       |   2 +
+ arch/x86/include/asm/sev.h              |  26 ++-
+ arch/x86/kernel/apic/Makefile           |   1 +
+ arch/x86/kernel/apic/x2apic_savic.c     |   8 +-
+ arch/x86/kernel/apic/x2apic_svsm.c      | 253 ++++++++++++++++++++++++
+ drivers/firmware/efi/libstub/efistub.h  |  11 ++
+ drivers/firmware/efi/libstub/x86-stub.c |  42 +++-
+ include/linux/cc_platform.h             |   8 +
+ include/linux/efi.h                     |   2 +
+ tools/arch/x86/include/asm/msr-index.h  |   4 +-
+ 17 files changed, 412 insertions(+), 48 deletions(-)
+ create mode 100644 arch/x86/kernel/apic/x2apic_svsm.c
+
+-- 
+2.43.0
+
