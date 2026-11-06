@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793957620;
-	b=2AaWM5wyDAKDv7oI6m8C48AZcCf4VVbtCKeYQwpwsvDAZIxueMZ78Wu1i2sTcwxLqfbt
-	 4cnkBvziHkuQzUu57t8YVL5kjpY1z5XYwLpifLLDlisl30Ln1QUvn5nlKSUNTbaf1+smX
-	 mClGIxZyP/3lDtpN3CVIR3Z8dnVBtrbGL8npum0JXA1NAb3et3k7jsltg/rzUr7m3y33f
-	 lkLJEdiBEXPac6WcT+6nO9N6vVOLAKdDdaMaESxLw2o95ykEzmYN3Zn7cQojf6IsfdX6F
-	 wUSea4azqtMFz4/TZ/A3eZfCQ1b0bqqcy0ry6T6QIp+BkjXUL2j2anY87+/NX/ZiY/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=3Ed7OEiAEKjV3G8DepHSwwJw3V69UzyikF6AGMAOQe4RgubN9KwBhdjxdfL30zvxAhZ0
+	 itqoE0qI+HBO/BUZfqe2i+XCRwU3O/Sciz8XjllLEU6BayQjAX2KO4oKbS5Zpj+hON+TN
+	 +uO4N2VA3PYwhm8isuV7KDF67SowFust03TE4oPDtjWdXfp2e0R4vvFw94XkM9x21aRtu
+	 4b5zJlOl8gHRPDw096mOPz4hfBW2/FP5SdUkkKWBmytR8X3QUDVOsj33dWxlaNgXgXjrK
+	 BHk5N0qtfLV5811eMhD8H5MgtvOi9sbRy5Sa0DjG1zVk3UK4KXIA+jXQp7SfVIboS+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793957620;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=2gcBpW7vt5OU8YXQJfbV4bUtzoSw7Q3bqHQ5l79lfms=;
-	b=tXTFIeTqZ7SuOElqLywpKGimGUirN9vz+G13biZKjC2wjhWnrclSzDtdvveRgd33MIpg
-	 IPZ6jGMZ8MV6IJrhDFkNGA6ORqzpoESJyqpViLLJdwClD56W7oCW6e5tV3RNt7dP5wPtm
-	 264Ey+HrV+XDHkZttc7bvDm81iInKwbVeUB5xtao92HsD9tqV4SpziG/kPH81rUrWUrvX
-	 8nrZTGgo9Muj/U3l52DRSE7shJTfEjJaXRYGe0D+GDl6EuluZme08/B4t23GFimFcYRBg
-	 JPeroA+DggNAXZSSwBYXNk1pP8OBgxQso7Z0BSSLdkCqSwPfu7s4rrwfQO5A4cV3Kbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=sH96Assb;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ybV5PJ0tMQr6qthaURptS6hX+OOSLkoiXlq2+ClE4YI=;
+	b=TftGDoImKvXhyeWtOSI8+gJ4A7RuHm6DB4RvfXV2Lm+AtOEAAkfHgx4GcjV0aT99HMpt
+	 SUuNpigmKOTEq98DWaqgUn1lgVZAXcZu6WjzaJQ6Qj+X02jaVc8mNBy5L77KPN5ITP+Fx
+	 hyS5RD9YqkAzIllZvnJqsh4u8PQBLOAzrYEZIGXRleX41PqM4GkAsQZvY1ayqh7aRfQWZ
+	 /5FrMltglY3kC/K84d4R3gj99zrxpEV47Nh4x5mmnn1tELaKY9OlYFpTFEPLNcReWauyP
+	 jPoX4GOyrjoN7epH54rjMMoHddtuD46zrSFyVsJie8kTSLjZrtCii9QT4nWuyuUr9NA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EYvze69F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94E06083620
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:33:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B94E06083620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374CE60A2606
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:33:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 374CE60A2606
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=sH96Assb
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6B24C4E413F4;
-	Fri,  6 Nov 2026 09:33:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3BFDE5FFBC;
-	Fri,  6 Nov 2026 09:33:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F04BE1032927D;
-	Fri,  6 Nov 2026 10:33:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793957615; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=2gcBpW7vt5OU8YXQJfbV4bUtzoSw7Q3bqHQ5l79lfms=;
-	b=sH96AssbUxB5aG/0XowfvzW81VpMWUOUXskSM+Myci6Mv5duQJ2M/gJwgOdye6cvLnfXU1
-	bPloJLcbbdlsWtyQincx+DOIAluXS++kapk/UJvEWrnn3eUn3WQehGFNkTsuKnv/oLw9sg
-	XL5Mot8T6LgVz+zS8ZARf3QfuY4xaX4/uaJzgSg/373UQNqh92H2/6ryqQyRSMQbcllAag
-	c2t1CnEBl64wJ+lTMrJxYrkJ7Rak6tfLkI8wRPzeXO5b8EtDUqkbmt4173KWUNKKXJDLHy
-	P3QaSbD1onMmbw9VY1as9+9dbE3VE7B+xTib6f6LIUSdzcnZTFnGLM4RJxmumw==
-From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-Date: Fri, 06 Nov 2026 10:30:22 +0100
-Subject: [PATCH 25/25] MAINTAINERS: add RISC-V Metanoia SoC support
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EYvze69F
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd8ca57ef64so647460a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:33:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793957619; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DE4juCO5t3DibIL2QE7nJ7X4OAsuytnF91dUep/46WksohTiyCrd04/1TludTlx/sm
+         3g19oaZNsud2Qh1qb68htpD8hL7WOAdBTIi2H3x0dbxZStE52YHtEl7HsjZc1Sx2DfdL
+         tpHdqlGZN0NFCRuazyAJxMTTST6loSdt30QrBKJixynNsTXvsjlNoKP7TCii/x7M6vLs
+         hOSbnmp/bdHVYWRjy0w9cA9yQdR44vAqM+KRCZ0eImNirzUDa1tlXnX0wQ12OCtBJSDd
+         91q0ek7gRgrs0tD8q72gq0YQU7MWAldkeV+pZIeI4md/6zHoSdF/K9Kx3pA4Z01lDV+V
+         Og/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ybV5PJ0tMQr6qthaURptS6hX+OOSLkoiXlq2+ClE4YI=;
+        fh=Pni3FZPs/1v+gPq64uQdGx1mG5OLKho/cMDzG9xhj0I=;
+        b=jKG/RqZ4p4Dv7yiqhS4FRgolOm5HBWs/H1MmyvC5RGUzjsOQS0EKHqFH+iIiiwgAmB
+         G8AIhbd4tmIEaqC6yUjSz/Xvcd+tptN5f9Yp4brFYEIABie8+EmPI8ZvCP195rQamMGn
+         /qCe8McmW3IX+A1Y5WvjinSaGwlns2YGL8biRQ9WvRwJAgziAVLdRFtYpCF/AqsBlHuj
+         EJYZqpkUf1TK+KhnZtUQE+jSHClVEpkj9VSMHCJWTeMApaTcCjpVzOuYF9O/jFo1XG51
+         PDh8LUIuMbsDki6HqVZ+ORMh7RrwbzJxOideo1ChQ5OH6Y1xH+HewUXr16Z8i/2Yvwta
+         vuWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793957619; x=1794562419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ybV5PJ0tMQr6qthaURptS6hX+OOSLkoiXlq2+ClE4YI=;
+        b=EYvze69FESKKR8bFw8xlkkRQtGjOUj20PwXtrnKFs44Oz71aPiKPyCxVpcTPVAUSLQ
+         SYiwPS1quCOqEX+HHkjtMibW6qFe1/1yDwFEwdoN+OJYasqMKbrc8znXpJzA1u1VXD4E
+         cvuEvJbAN69avgmyRcYvVqub84KEKozH5+oPhMuO4+Ibzx3O2hl/7kdZRjIa+w/ifa3L
+         Q39/7nMi5Cy91JyrIWuyZNZbs32rpghyr29JmFDku786w56z0Z4U5Iq6AbOI/pPrSWfi
+         L5s20dEnOPMic+CacS7bgKuBoT5qSQcUA7HgKOoGF68CX0P3mp3pXuZP3PvQXDZYzcpQ
+         ReQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793957619; x=1794562419;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ybV5PJ0tMQr6qthaURptS6hX+OOSLkoiXlq2+ClE4YI=;
+        b=H5F0Ytx/R77uXOKlwnOsJzmrfntO2FBGb04n4+k7gMMcJ40mLXktv+vQB/H90sebHX
+         P1ibQ0YwF65S9rdNRoi6rEVn9s38qffsTHcbXYDiB0lPDevMICNRRn0tvmuUPO8mImKm
+         qtPsHmjyr9ekwzGpduwDEWB5yUa7Qjdz8hGjeeLxd635BScRE4J/xlsE1MJ15MHtD07z
+         yzefC/mMCQI7Apn8z+DGecQo616Z2MjXcyHTkEUuOsyt4VDUQHuJQ6wUFJ38mX1dR6t0
+         Zc7K8vU+IlFPL/HNvSxFctHh1sBsFGbgGkJHHkZNDlFs2gWST5Vu+LUACmrfiA/gMmE/
+         WoqQ==
+X-Forwarded-Encrypted: i=1; AL+hErGhdX0ja7oprDFhEm1hGZE50PE2sFabgXwoxe1kq0ycgE0CcmJzH9WoNaCCotTv4dd9p8x501pKYiz7ivY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8iQa57XmQy43z7g/ghpKDGPQeSjxkx5GlFf4qjZn+uYj68jB0F
+	T2y1Zej7syMtHYfzl1Dm/rq3OYLrf4rkZkJUr4h2rmiIjUblwNACKke+l81xAxqD7FEjuWkqDSP
+	2k/nGsUU4RZvYvlPcpHJgfd8Ycv/mOZkHDggwATE=
+X-Gm-Gg: AYBFou0c49IS6azpyIh1zN27ZveTyGxugMBr9LAkxrArp5G2+PucijUTNO3sKhdb2FO
+	Mms9k3Cd61fOgaKmqP8BuPVZFvyxPWki9+aRZC70Jxbc0jw07j0VL0orIOYbUAw+gjYCHF+kjRQ
+	wEmpZYgeLcLxDscxi7ztZw7BfCXyESIz29eOdsUCwMau2NeofGE9MtA2mrob/LULY4gEmUuuFf/
+	3bQQMk7mTuYp/NiR/GI522da3WTXBBLK2V/HY+NNFx+jV+JQkWSmzhX1PAFT+I+nEft96uXiIc9
+	eSkpGymyIuMXbDoXT3vyG0xNtreXPmDFeQdz/sEofocp5LWLjaSXwkQcFbViZrKAxnt1si1mKuP
+	omrYwUxHtOYlUJXoXNHEHtmK5w54HefH0Al6v
+X-Received: by 2002:a17:90b:3f4f:b0:3b0:a757:e370 with SMTP id
+ 98e67ed59e1d1-3b0db70fc26mr1220761a91.42.1793957619397; Fri, 06 Nov 2026
+ 01:33:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,74 +104,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261106-mt2824-v1-25-86087eaf5af4@bootlin.com>
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
-In-Reply-To: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Ben Zong-You Xie <ben717@andestech.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
- Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>, 
- Mark Brown <broonie@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>, 
- Minas Harutyunyan <hminas@synopsys.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- =?utf-8?q?Randolph_Sheng-Kai_Lin=28=E6=9E=97=E8=81=96=E5=87=B1=29?= <randolph@andestech.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, 
- linux-phy@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>, 
- linux-mmc@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-usb@vger.kernel.org, linux-watchdog@vger.kernel.org, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261105104237.38542-1-phucduc.bui@gmail.com>
+In-Reply-To: <20261105104237.38542-1-phucduc.bui@gmail.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 6 Nov 2026 17:33:09 +0800
+X-Gm-Features: AclHuK9vpWE_SlFYNUyNg7Vdx2dzB0HS2FNB_3vVBzGexP4Y_R3XoG7q6HqdtEU
+Message-ID: <CAA+D8APoQt1uSk9R+O6Xg0zUKc4TaGbB7DJX1QvyZ6wzjDwHYw@mail.gmail.com>
+Subject: Re: [PATCH v2 00/10] ASoC: fsl_sai: Address several issues in the driver
+To: phucduc.bui@gmail.com
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
+	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linuxppc-dev@lists.ozlabs.org, 
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a maintainer entry for the Metanoia MT2824 SoC, covering the
-SoC-specific DT bindings, the SoC and the evaluation board device trees,
-and the phy driver.
+On Thu, Nov 5, 2026 at 6:43=E2=80=AFPM <phucduc.bui@gmail.com> wrote:
+>
+> From: bui duc phuc <phucduc.bui@gmail.com>
+>
+> Hi all,
+>
+> I've continued reviewing the FSL SAI driver and referred to the
+> i.MX RT1180 Reference Manual when looking into its register
+> configurations and behavior:
+>
+> https://www.nxp.com/docs/en/reference-manual/IMXRT1180RM.pdf
+>
+> Link v1:
+> https://lore.kernel.org/all/20261030091404.18757-1-phucduc.bui@gmail.com/
+> Change in v2:
+>  - Add five patches covering disable handling, documentation,
+>    ISR error handling, BCLK ratio validation,
+>    and preventing incorrect CHMOD writes to the other direction's xCR4.
+>
+> Compile-tested only.
+>
 
-Originally-by: Jun Chang <jun.chang@metanoia-comm.com>
-Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
----
- MAINTAINERS | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+The series looks good to me.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..310544f96204 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24072,6 +24072,17 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git
- F:	Documentation/devicetree/bindings/iommu/riscv,iommu.yaml
- F:	drivers/iommu/riscv/
- 
-+RISC-V METANOIA SoC SUPPORT
-+M:	Jun Chang <jun.chang@metanoia-comm.com>
-+L:	linux-riscv@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/phy/metanoia,usb2-phy.yaml
-+F:	Documentation/devicetree/bindings/power/reset/metanoia,reboot.yaml
-+F:	Documentation/devicetree/bindings/reset/metanoia,reset.yaml
-+F:	Documentation/devicetree/bindings/riscv/metanoia.yaml
-+F:	arch/riscv/boot/dts/metanoia/
-+F:	drivers/phy/metanoia/
-+
- RISC-V MICROCHIP SUPPORT
- M:	Conor Dooley <conor.dooley@microchip.com>
- R:	Valentina Fernandez <valentina.fernandezalanis@microchip.com>
+Reviewed-by: Shengjiu Wang <shengjiu.wang@gmail.com>
 
--- 
-2.56.0
+Best regards
+Shengjiu Wang
 
+> Best regards,
+> Phuc
+>
+> bui duc phuc (10):
+>   ASoC: fsl_sai: Fix PM QoS cleanup on resume failure
+>   ASoC: fsl_sai: Use optional clock getter for MCLKs
+>   ASoC: fsl_sai: Remove redundant error messages
+>   ASoC: fsl_sai: Propagate device tree property read errors
+>   ASoC: fsl_sai: Drop redundant dataline mask AND
+>   ASoC: fsl_sai: Warn if TE/RE does not clear on disable
+>   ASoC: fsl_sai: Clarify fsl_sai_dir_is_synced() documentation
+>   ASoC: fsl_sai: Check regmap_read() return value in ISR
+>   ASoC: fsl_sai: Reject bclk ratio smaller than slot width
+>   ASoC: fsl_sai: Don't write CHMOD to the other direction's xCR4
+>
+>  sound/soc/fsl/fsl_sai.c | 89 +++++++++++++++++++++++------------------
+>  1 file changed, 49 insertions(+), 40 deletions(-)
+>
+> --
+> 2.43.0
+>
