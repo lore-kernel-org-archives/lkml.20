@@ -1,54 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997080;
-	b=qcZE/GXfiEZU+xia6fo2H9XkgQEPT+KAIA2tlnoBf2BHEEwoFjogsaNWixo2b/NgK7US
-	 kWrkWykxOIULYLE32a/CtZgKiKTWvnhmmG1+zNvm3mZAPDIvRaP+OtlpzSWXLsf0jiMSP
-	 gnte6lSLyLl1QP/28zQV6P47bASYX7yUdrUbQ3S9FRbTK5tXlL946mrSQJvZtIlrNn2lZ
-	 2e3jVlHzZmS0nm+eAtk/X9wzwuSalS+XPGXk5kGuDNl+kl2p3UA+Jg8GtvsZ0k/hAUJXY
-	 AuI5q6P+QpwHYYZTZyEcVG6+OLSRDW83QXyd5pGGRmZQ+98PHiG4Ni5s+UexUolz19A==
+	t=1793997093;
+	b=ovy1U5k0TmaAT2cw/XWu3jm3kMplBt7WqjnywZDp+ZBSwC9Yg+XBJ16072h0ZSaUfGFq
+	 AtRfTq9+Mvn+po4ffv2oJ51HCZ3Ve9036XCM0SldvR4v2efzO15sPj5A7bGQ9m+c9UUun
+	 niqtan1fVV6iPsUIMPSPi1qIead7cun+p/5bfWOsReCRiNFIMYRBwy3A5sFehgmYQpoPf
+	 cfGsWRCd9IAm52dhoCO7ocK3qstoJrtFauJIqaFfIqQ05ZowC+oW2PHZoccx6yFdC8dhL
+	 FPXJidSEj1LsKKGZvwN1DNQLc6gxM/LyuUUNaI7+5S5l1ZbHI6MqWtciBFCOmwl8XCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997080;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=47GIJtHDikSRTr3Iz0oAp99S7+cqqZ+QBH3BmiF/M7s=;
-	b=bl0MTnSPM6jyxWg3x85WKyJgcuZlWts0QhwNDTt8ubAk105anflvOT63NhZXQu1zWq67
-	 2KcKcnYxMR9Z0bLv5ta/TOx18xM6jTWibEKQu2q1YzeUG7FDesXgTjYd3/R0apahrhdTA
-	 vAk70SrfGjlmmCMTUTPJvYMyuoeBourIhS9BLmKyfmbEQo6rGCx5SwWGOuQgoh1Q4NsU2
-	 I2SiQ52Ytpdq3RyeuWOQ810yUa5O7EEKqLjw4YgzXG9JXb/GDHTSlAPbMpWycCz1KYgpC
-	 UztA8VIMHshu7PhDG9kqCyDeoJGwymdZxplM4jV4p8zjy7yMprnyD5LFUxCLdQlZcaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997093;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4HyrTuXbst7br9sKPrZkGgpeMygeiy7Zv+e9Aez/n68=;
+	b=NG0vP+UYGCMIrAiPLtRYBWyyKW7CUHIxNtVETMMkRr87eFvg3CRyKSRXufcBzPwwQe64
+	 pOMyeqfrTDtLsAzV9k+cq/VSrT0AeSWRSNXAsrIXTH8C58uUgmBV4xC9f5YJ1QSLe5VsL
+	 dvlBGQml2r2KLKfo5UWUO44AXsOLYO1vRMLKUekLdRmSKM8qiR4QHGPwZo83AC6PMygw4
+	 M+7YB8PNFUVQFJBglnN4IkeYd2tVucyV+1GAD/ll1rwiO9H9IqHVfDgaAO070dPAfqihJ
+	 x5YeLwO+Y+tApqz3pGWKI0LwQ+lYtAfhcWIsbStqZ9ihxX7+S8zgJzl87Fy2Olh9WOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freeshell.de;
-	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=fEICjyzH;
-	arc=none smtp.remote-ip=116.202.128.144
-Received: from freeshell.de (freeshell.de [116.202.128.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=N1vkDgrp;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BFC606A326;
-	Fri,  6 Nov 2026 20:31:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0BFC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F279606A32F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:31:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F279606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=fEICjyzH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1793997054;
-	bh=47GIJtHDikSRTr3Iz0oAp99S7+cqqZ+QBH3BmiF/M7s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fEICjyzHIUjZle/Wj4mBt/1Dnor0jMi3VucYkcqE9N6vfrY4I8e26Cmns3jMqK2Ad
-	 mM4qBr41GoVx6WtGR2k9su/QzfHkK8n5R9QfHklkbn+9WhTRJ0w25f7HOkSYM6ZI61
-	 vZLc2eltSvTOV9sY3Iey1juaDaaq7ZWF27eAupuQzSZrl+d7t2ze76rw1DDQMVeMnI
-	 RNYi997oS6maEfaAeVqH6UmztDnflre9AXdNuh3hAFqQc+za4Tkjo+PZ8d9mcraXh0
-	 fLJQ4FgqbXm2blN65qNBCBv5BJ83ccHJLeWVb0REGUbsXF4E6c5yhhN7BEeX+Yg1zy
-	 s4MJ9aHn8WiMw==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id CB1E1B22094E;
-	Fri,  6 Nov 2026 21:30:51 +0100 (CET)
-Message-ID: <d051c5f2-3df2-4eeb-b324-6e9ce39a6b27@freeshell.de>
-Date: Fri, 6 Nov 2026 12:30:44 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=N1vkDgrp
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so9940185e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:31:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793997091; x=1794601891; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4HyrTuXbst7br9sKPrZkGgpeMygeiy7Zv+e9Aez/n68=;
+        b=N1vkDgrpLaQ9xLrpsgl0rQ2gsKFKWXvc5hs/hI3K0WYl/rYitmtzT21QLf/eHO8SNY
+         FHEuJKtgPQsE0lDQWfUgPbh7vh4jF4DjcoVGh3Pg7tA8kj/xO7C/3SLtwUetdDB0CfcR
+         Wbo2O1AxPVN+RUgcGIXkMQUTyEgSxy4np9OV4BZ/7cJXl3pQjYCe9Y1LxTHSa//dvKid
+         WgCOsKMBVSK3WuI8XGBhZtVzROvAMScab04zrcsc9LEm+r5pxXxgkUJWq6aDzOSIpDSf
+         O+feNhDbru7WIWDtATogsL43clJaUhlJlfZbodVXhbcHTeRl80mwk+7zByWiS8RlFbo6
+         +aug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793997091; x=1794601891;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4HyrTuXbst7br9sKPrZkGgpeMygeiy7Zv+e9Aez/n68=;
+        b=RNPjn2I1notgU96jB/1efQwdCbkGYuGGGdtbyfs0gpJBSApiC1LdudzwGJO13sGe73
+         CV/MHFA3yCtlz3pxpe1twj83aXX0d5szDt5lOlmUAmRI+PFAdqdQKN2O4JkVFN42ozJ4
+         5RCYbnlDUF+eoreftFS6snt3yDO9WdkZIFQFdKwwJ6PPlFragfHFHiWqM4i8Hu4dms+D
+         IIttueVXhHl4j+tqQUfNsEaPkT6Gt+ckFcf155km6S/J4aOxuJl+NXbO5nwEj90KBfR2
+         SMwOE6sjKe/t+YAX/8jwEX8Q5v2CThzbYrGnQmS2QlsZ+Jr+wBOyb5llDlbSJhLvlgFY
+         i76A==
+X-Forwarded-Encrypted: i=1; AKwUvBwfDHHeK8uwI26jYEUQQr3M+o71ouHbcR/h+DQD6Edzvb3D2s2VCYR8cLCmqK97SoNnNvPaR4IbeW0X30Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+L5ecdDAtsVxUfAerhKtu30KIbx6fk4CVY1GTZ5U0S+g8kZnPI
+	DoT1njy3wqADGTha1Hab8cGsIDWKqE+kOQz34jybpEVdP6HB0NIk1DbkObmPTF898xQ=
+X-Gm-Gg: AYBFou1kl66H5P2OdqPGRuQjwkGXHCCTbl5juvXTrtL0z+ReE4hvm0rMIlA/p8gdDOt
+	a5JMwIrDJF09pVxTdhPOSSXSFWD9LQ9ijoTfRNfyGLBoQVH95xb2e/16G/oXUuHw+U2mV88wZFC
+	GbDnbM6TFVTMvOSkjjQvsgkhckTSZegqIVsyDB6qSjFDkwieOAG6pzuKZHaK85bjpmm8OOx+6RG
+	SkV5nvMOaJ3y6i/iVdHXp7mopRhjrl2eQEVj0JFyCbFpTKZ8bZo7kV4SgzXwghreVKCz4zvNjd6
+	BcC/gQgdYJbZZukVEPL6b0u+1vnLAAZi/Sf1Her5eJ9Tdr2yqNQqBF8AlvSnUxVzSqENEWonm5u
+	NT3++/RAIsAxfgKKdHZC14Pu1DDDRxHvzNiZUfnVGgIXJjt4LK5C11UiUjcQULEUlx4rbH2r8VH
+	CsCJcv/ixvVGbJOVQyvloW4M26TXKuq/B9T5roSBqMOehD1loxsf2Axsdtq19F/T9WaNkyKuJxb
+	hUhcU7TCJrk2febk5FMmglrxYPJHq7/vvVXwnMMhu5z0T3bC0p3OhyKtGNgiexTj2OicBmIeB9d
+	6wNur9ZrNjDiJmv8gu+B
+X-Received: by 2002:a05:600c:1d0c:b0:4b2:612d:908c with SMTP id 5b1f17b1804b1-4b6df9beb91mr65943695e9.34.1793997090920;
+        Fri, 06 Nov 2026 12:31:30 -0800 (PST)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b26294289dsm8635276c88.4.2026.11.06.12.31.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 12:31:29 -0800 (PST)
+Message-ID: <a09d7471-111e-42fd-8ae8-42afce6df000@suse.com>
+Date: Sat, 7 Nov 2026 07:01:23 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,54 +93,80 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
- power LED on
-To: Owen O'Hehir <oo.hehir@gmail.com>, Conor Dooley <conor@kernel.org>,
- Emil Renner Berthing <kernel@esmil.dk>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261106184055.3891621-1-oo.hehir@gmail.com>
- <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de>
- <20261106195945.4157095-1-oo.hehir@gmail.com>
+Subject: Re: [PATCH v2 1/2] btrfs: tag tree block repair writes with REQ_META
+To: socketpair@gmail.com, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261106-btrfs-sb-read-req-meta-v2-0-71c1afaf5c67@gmail.com>
+ <20261106-btrfs-sb-read-req-meta-v2-1-71c1afaf5c67@gmail.com>
 Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20261106195945.4157095-1-oo.hehir@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261106-btrfs-sb-read-req-meta-v2-1-71c1afaf5c67@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Owen,
 
-On 11/6/26 11:59, Owen O'Hehir wrote:
-> Hi E,
+
+在 2026/11/7 04:03, Mark Korenberg via B4 Relay 写道:
+> From: Mark Korenberg <socketpair@gmail.com>
 > 
-> Thanks for checking. You're right about the commit message: I saw the
-> LED lit before Linux probes and assumed the firmware set it, without
-> checking where it comes from.
+> When a tree block read finds a bad copy, btrfs_repair_eb_io_failure()
+> rewrites it from a good one through btrfs_repair_bbio_failure().  That
+> rewrite is a plain REQ_OP_WRITE | REQ_SYNC, while the read that found
+> the bad copy and all other tree block writes carry REQ_META.
 > 
-> On the Lite, the schematic (sheet 21) shows RGPIO3 driving the system
-> LED and also used for fastboot detection, through jumper J20 that pulls
-> it to 1.8 V via R257 (1k). Detection happens at reset, before Linux,
-
-No, the software is not any concern for a hardware description.
-
-> and R257 limits the current whichever level the pin is driven to
-> afterwards, so I don't think driving it high conflicts there.
+> Tag it with REQ_META when the bbio belongs to the btree inode.
 > 
-> Owen
+> Signed-off-by: Mark Korenberg <socketpair@gmail.com>
 
-It may or may not conflict in software operation but that has nothing to
-do with if it should be applied to device tree that describes hardware.
-Conor since applied, which is trusting you researched this correctly
-before sending to the list. I'm saying that all things being good in
-intention this is obviously not well researched, and not allowing for
-discussion to verify the fix before applying.
+This part looks fine to me.
 
-Anyways it is a user light not a power LED. Pine64 Star64 has a power
-LED and this user LED. If a board does not have power LED then co-opting
-the user LED is something that should be done in inittab not treating
-upstream device tree as a preferences config file for userland.
+Reviewed-by: Qu Wenruo <wqu@suse.com>
 
--E
+Thanks,
+Qu
+
+> ---
+>   fs/btrfs/bio.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
+> index 2e12a6d7e16f..efbce4d549ff 100644
+> --- a/fs/btrfs/bio.c
+> +++ b/fs/btrfs/bio.c
+> @@ -951,7 +951,8 @@ int btrfs_repair_bbio_failure(struct btrfs_bio *bbio, const struct bvec_iter *or
+>   	}
+>   
+>   	repair_bio = bio_alloc(smap.dev->bdev, max(1, length >> PAGE_SHIFT),
+> -			       REQ_OP_WRITE | REQ_SYNC, GFP_NOFS);
+> +			       REQ_OP_WRITE | REQ_SYNC |
+> +			       (is_data_inode(inode) ? 0 : REQ_META), GFP_NOFS);
+>   	repair_bio->bi_iter.bi_sector = smap.physical >> SECTOR_SHIFT;
+>   	while (cur < length) {
+>   		struct page *page = bio_iter_page(&bbio->bio, iter);
+> 
+
