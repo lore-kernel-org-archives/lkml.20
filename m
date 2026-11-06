@@ -1,56 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979455;
-	b=VblonSfxiyypDR59fEybpH3Ys5l7Zz37t5Zk250jcagD+j/y5gbs2pKhrz3c9FWcmM4I
-	 ZqzuhCf8b+gK/gnqw8oQkjs4NApj5trMcEuHJfI9D84a/tkwcXXeVEvnXGfJRy32wbUMn
-	 yl91CE6DAuE/EQTjMP7diw+0RcgUvLsUBOqZBUW+eMKEh11xKA/MYL76oJp7E7Wr2cHsd
-	 qlElljOyZ3FgZiuNJDGjotY6sSN35qFor/wXIammFZPxIljEp2QKN9O2chzMKGPsmSWM5
-	 xfyc0fN6r/xbNlPbNvrwyWursmABTIPIO/UpAPqVmBOk44g/s7CMvdUvfSwImdarrnw==
+	t=1793979463;
+	b=x2EGO3a4A/xHDV3ZPbAbFgavoPfho+972gShPSbufcNQCE93HAPxFEgs4YOmMuyZelo8
+	 m5fvtJWvTLzOjRQL8C2HK21VY3Fs1ChP4XyUfcSs8G9EiGvMBxxJIwe/s1oe/o6xCLWG2
+	 QcuwUkDCVJsUgEQ0vWFbc8BQ0gsW/DqnFUY+aNVz012F+B6z1lBEwhtZTZW8WQmeveoKI
+	 v+K/460Su1zm/rTCpfsgxGRJZ7s4WNdZ+jFfk3leiek40Y+Omz5nfdD6qczsi721qIuas
+	 SBIN7S8N48IenogWKWc0j6ImrG6GUwbJ101V5BVxrLVI4J/YlpZDiDGApo4C79q/9Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979455;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=GLhNh3T6LNS/9yZR92xGWcCiu/9qU5jjkLdjE8MiZSA=;
-	b=IUZqhYYp8ACrcDpwpHr7aAsB6lFUFBKuf6M/TwhRK2MVeQfSVG7W2Dtwtpc1dGHyq3Ly
-	 cH/U5hwj0t6G2KfltSppDGmo774QoeWbWqz2LR0dWOj/P3Uod4wZkLW5hbxYMSZg7Jz28
-	 s8kSXBza+YYrNvf4z1qZ4QjTkV8TGinIzLGAU0ZPffi8/ykwzlw8BXGP3qLUSuCuxE20O
-	 BCFsGJEbELvBgXAz7V9YXjkfhIzdP8ooBc+UWRmj3HXqSmYlOgm61xm5Aw1zpSy56Zx08
-	 xRyw4HGp5u9L/+1B8PGouemGrcVGpyyc4YhDipTaJuTNuslJJo8k8jTrR765CeD9xiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979463;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=HuObySZLDxE9+LLAkaqrBSP5vceAa33bCHj1KNG2i7A=;
+	b=bnHs3fIbeVGM1huReEHqivqiK8myZP4PHaowxF9m94F2PFWqiubYPumD6KKdN8HbHZcQ
+	 3cD0dj42gMCa5H7h9lcbXgXub64QZJ/H90YKSTBBjLpEM0sw8108e/7ijbwOXzI5WZEWU
+	 Keveo+FxMISrOp+Hai5Ruse73rMkzkKYzxO3lGfW4AUdYlZa98hGOzabFsLIDAf6BiiP1
+	 w288wo9gJsQ1m3lLwRTkjRtCd4zT8jj2/xDRcBU7JKtX1kQ39uQAiJPNingx7J2vv80HI
+	 liFUTVA2G1/JGJqQYI94eerFBTQ9X8ee9AARhoVSZuEZGJtmR8tC2cKkFBAMCeF7tEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AjMIsxZJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD92606A334;
-	Fri,  6 Nov 2026 15:37:34 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=llAlWz7x;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0958A606D827;
+	Fri,  6 Nov 2026 15:37:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0958A606D827
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AjMIsxZJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A781F008BC;
-	Fri,  6 Nov 2026 15:37:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793979454;
-	bh=GLhNh3T6LNS/9yZR92xGWcCiu/9qU5jjkLdjE8MiZSA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AjMIsxZJttitziPbILz3M+IRamsV/kh/Ny7cJZt4jJVbluDKmBY26rXCiBPx3Str1
-	 9aXxEDBrnteX6E4vE8ybq1EITPUfSVwigGDIV2pmzP943EEosUraGtFCoGDSnSovYh
-	 KRr5VaIXPnNNkLIFHY3DI46QQUBXc/TPj1rZN+4lIoKPOq5ldh/VM7MpJGrHdMxtew
-	 R4r+fGPHprj13RegY6U0dWbndIn0w20Fqj8KQ1LYDw1ygsgqeV7FI/fDvUbaptBWT0
-	 4c7YKFjYnyuEZ3OrCIB5w+7rVV2+Mf3vZfO35HjU82gxBjzQ51J+wfOrqUN25wSp0z
-	 BHRkOtY1y8GkA==
-Date: Fri, 6 Nov 2026 09:37:32 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] ASoC: dt-bindings: Document FM34NE DSP
-Message-ID: <179397945177.3643947.3460844764781016472.robh@kernel.org>
-References: <20261104123249.227920-1-clamor95@gmail.com>
- <20261104123249.227920-2-clamor95@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=llAlWz7x
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 475C81650;
+	Fri,  6 Nov 2026 07:37:38 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 113BC3F632;
+	Fri,  6 Nov 2026 07:37:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793979461; bh=qXWXkuBVBxZ9xT4eUDdfxaF2UuiBGoMjIIlVYYrkttg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=llAlWz7xlnBHxmmVTz87IEUBT+U3kyH9YObDETp6fosKhKB5oJhxN2dhuPXDLEEsX
+	 DVL7yW5Oevy7iKyPxCGohG1kCXByNMZVwjct//ZIvQOmSyP2HF+mq413aZkhu0GgXL
+	 wbI2QCexMI+/E09pwLD219X0IgawLZpU1REqS810=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	maz@kernel.org,
+	oupton@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	yuzenghui@huawei.com,
+	wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com,
+	caijian11@h-partners.com,
+	liuyonglong@huawei.com,
+	tangchengchang@huawei.com,
+	yezhenyu2@huawei.com,
+	yubihong@huawei.com,
+	linuxarm@huawei.com,
+	joey.gouly@arm.com,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	fuad.tabba@linux.dev,
+	mark.rutland@arm.com,
+	seanjc@google.com,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 13/15] KVM: arm64: Add HDBSS buffer size ioctl for dirty-bitmap mode
+Date: Fri,  6 Nov 2026 15:37:33 +0000
+Message-ID: <au30PSHX_UBIIx_Y@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <5a096cca-713a-4449-83dc-c763dc06c085@huawei.com>
+References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-14-zhengtian10@huawei.com> <auioRICO9Frhk-zT@LeoBrasDK> <5a096cca-713a-4449-83dc-c763dc06c085@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,19 +91,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104123249.227920-2-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-
-On Wed, 04 Nov 2026 14:32:46 +0200, Svyatoslav Ryhel wrote:
-> Document the FM34NE DSP based voice processor used in the ASUS Transformer
-> devices.
+On Fri, Nov 06, 2026 at 06:27:27PM +0800, Tian Zheng wrote:
 > 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../bindings/dsp/asus,tf201-dsp.yaml          | 74 +++++++++++++++++++
->  1 file changed, 74 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
+> 
+> On 11/2/2026 11:12 PM, Leonardo Bras wrote:
+> > On Tue, Sep 29, 2026 at 06:36:53PM +0800, Tian Zheng wrote:
+> > > In dirty-bitmap mode, a larger HDBSS buffer lets the guest dirty more
+> > > pages between VM exits, at the cost of memory. The default of one page
+> > > per vCPU is a reasonable starting point, so allow userspace to opt
+> > > into a larger buffer via KVM_CAP_ARM_HDBSS_BUFFER_SIZE.
+> > > 
+> > > The size is specified in bytes through KVM_ENABLE_CAP and must be a
+> > > power of two in [PAGE_SIZE, SZ_2M]: the upper bound is the largest
+> > > HDBSSBR_EL2.SZ encoding, and the power-of-two requirement matches the
+> > > buddy allocator. It must be set before any vCPU is created: -EINVAL
+> > > after vCPUs exist, -EBUSY if already set.
+> > > 
+> > > The capability is rejected in dirty-ring mode, where the size is
+> > > pinned by kvm_arch_dirty_ring_size_updated().
+> > > 
+> > > KVM_CHECK_EXTENSION returns the configured size for a VM, or SZ_2M
+> > > when queried globally with a NULL kvm.
+> > > 
+> > > Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+> > > ---
+> > >   arch/arm64/kvm/arm.c     | 34 ++++++++++++++++++++++++++++++++++
+> > >   include/uapi/linux/kvm.h |  1 +
+> > >   2 files changed, 35 insertions(+)
+> > > 
+> > > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> > > index 5a7046acb62e..eadbf3a88d31 100644
+> > > --- a/arch/arm64/kvm/arm.c
+> > > +++ b/arch/arm64/kvm/arm.c
+> > > @@ -19,6 +19,7 @@
+> > >   #include <linux/kvm.h>
+> > >   #include <linux/kvm_irqfd.h>
+> > >   #include <linux/irqbypass.h>
+> > > +#include <linux/log2.h>
+> > >   #include <linux/sched/stat.h>
+> > >   #include <linux/psci.h>
+> > >   #include <trace/events/kvm.h>
+> > > @@ -203,6 +204,31 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+> > >   		r = 0;
+> > >   		set_bit(KVM_ARCH_FLAG_EXIT_SEA, &kvm->arch.flags);
+> > >   		break;
+> > > +	case KVM_CAP_ARM_HDBSS_BUFFER_SIZE: {
+> > > +		u64 size = cap->args[0];
+> > > +
+> > > +		if (!system_supports_hdbss())
+> > > +			break;
+> > > +		if (kvm->dirty_ring_size)
+> > > +			break;
+> > > +		if (size < KVM_ARM_HDBSS_DEFAULT_SIZE ||
+> > > +		    size > KVM_ARM_HDBSS_MAX_SIZE)
+> > > +			break;
+> > > +		if (!is_power_of_2(size))
+> > > +			break;
+> > > +
+> > > +		mutex_lock(&kvm->lock);
+> > > +		if (kvm->created_vcpus) {
+> > > +			r = -EINVAL;
+> > > +		} else if (kvm->arch.hdbss_buffer_size) {
+> > > +			r = -EBUSY;
+> > > +		} else {
+> > > +			kvm->arch.hdbss_buffer_size = size;
+> > > +			r = 0;
+> > > +		}
+> > > +		mutex_unlock(&kvm->lock);
+> > > +		break;
+> > > +	}
+> > >   	default:
+> > >   		break;
+> > >   	}
+> > > @@ -500,6 +526,14 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+> > >   		else
+> > >   			r = KVM_ARM_EAGER_SPLIT_CHUNK_SIZE_DEFAULT;
+> > >   		break;
+> > > +	case KVM_CAP_ARM_HDBSS_BUFFER_SIZE:
+> > > +		if (!system_supports_hdbss())
+> > > +			r = 0;
+> > > +		else if (kvm)
+> > > +			r = kvm->arch.hdbss_buffer_size ?: KVM_ARM_HDBSS_DEFAULT_SIZE;
+> > 
+> > This whole thing of allowing hdbss_buf_size to be set only once makes
+> > everything more complex. Why do we have this limitation again?
+> > 
+> > I mean, if we want to restrict size changes after the first hdbss buffer
+> > gets allocated, it makes sense, other than that, I would like to understand
+> > the reason for that.
+> > 
+> > Thanks!
+> > Leo
+> 
+> Hi Leo,
+> 
+> You're right, I re-examined the whole flow and the "set once"
+> restriction isn't actually needed. I'll remove it.
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
+Awesome, thanks!
+Leo
