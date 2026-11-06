@@ -1,99 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794008749;
-	b=lznwtucV3KsODBHaN6+ZYX6NRzNMUIob04NRyiEvEkYesqXoEmpQY7RroKWZc0+kLA67
-	 EiuN9vMGw7wJloz/FuJomI3GkB8NCvXXhSC/huOJeopX8iXYmi/P/uOMOcTD6iLCeoq31
-	 aA6fIsOAfC2atBsmVd8QM4jG+8j2jrYx7iryDhnOwVMjlKmPKKJi4Zkh6KierL18snn4S
-	 7bRik4IzjmMf9VypAc0mB/g+7bzut5jQiFHic1goucaZGuADEsEhrTaLulxbg5AlpI853
-	 X6wgEiC54RMwLA1A1pd0HXKjYXGjGXJoeMMbIoRm2Al4hUZo6ZJA8QC+BZe0LEcU8Sg==
+	t=1794008929;
+	b=g8N4g0wcG1p/xsN8+mViFwQFAHrY/48PxBfUfy/JGNj6aC2/tdWrZoVkoBwyl+bFmUBy
+	 JdizF+0X80x1ztEOcSf/GJ2kht9lL+qIhaPCCxzXcwKVrk/esghomA8nxWq5w636yKp/w
+	 r3B+IllpwQlKlkaplCBfN1nF32n0QuZh0WdCShNPjsBVthkhIX0ea3RLd/xWROtjkZxdy
+	 En7MRmGNw65zAykPXFxiLuu2l8s4JBSVlf/vtsf0zM9sk8mOv7RQS4niI9MTv3XJ3qaq6
+	 MM8fhU1RWzNkE3FTOJN5yOZT1GhQwC9yLl8tzAWdViw2kkS4WYl79xxx1bihA6OO0tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794008749;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=c7lMECP0GDvQ3SIOc0RLblQjT+LWxuUNwC8Ag/lEWPw=;
-	b=zEJh5sAfmW6zIw3i5yOj+W6gz5FnyVMZ3aYRwp90Ti8xI5F/9nae365x1JWirQmdKIzW
-	 b7ZfiLC7pDZW04Epw4tT6tszMyhV3PIMVH2x8ly/tBz2r1KP4OMtAXhxtKkfwHdSXNQ2P
-	 Bw4X1XoBNciMCJlq2xaQUaUVz5r6btxNi7kfaqZ5UJiXxaE4ZThRn/UarBzQeP6Q5cOzT
-	 cCprg5mLF7cLS5zL5k5T+KUru/y+ThiIlYiD7PxOOxD7f+KfhrlpJ/hK1lL6OJATIxzS7
-	 KbUHbo7izrxpx23imARbWOkuJV1Tm2B8q9zXmwN0gkIYBY90ZmAjlWwmzspBOSviJJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794008929;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=57GdjE1sWmdS5XUKdqpRCXUBRlNc+x3hmSqLtCG4DW0=;
+	b=mu1WSC4wSrlUGtbo4qk8HauYMoYSakhi1pP4Lfl3m1ww+m/rL9pYOk6XS8yc/yeF/MCY
+	 9Ih+L3dYhjrcKOEND1t6P5DMlXMocgO/udX88wNy+s3r3UiaD07GVisQa/3tzwyL4V7XM
+	 E2xhZK3BjkG2Tz14tzFG0PKS6ZopJ8J6JTr5UCjReAMd8dNL6fn1Ix3fO29aSOsDB5Lns
+	 9Tr9zdXF/FzRi3G/HRC/LHuqBLR93FnHGD7sAsw6DamJNcLA1/1wlFmfmClWp00Q4nTxA
+	 PQ58+7LlOiViK4anMSjTNgA5R7g7XP38y35ZM+xhNk/QKCYQ+4qhzqEKcZF4NGR6LIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QGxGU9n5;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=joshtriplett.org;
+	spf=pass smtp.mailfrom=joshtriplett.org;
+	dkim=temperror header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=DRGWPPyK;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WtjJU9i+;
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A4D606A32F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:45:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A4D606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6887D606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:48:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6887D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joshtriplett.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QGxGU9n5
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b0bbdeae06so617715a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 15:45:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794008748; x=1794613548; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c7lMECP0GDvQ3SIOc0RLblQjT+LWxuUNwC8Ag/lEWPw=;
-        b=QGxGU9n5bMXNyGpxZMcIhFKYSHPSE6wXad1Ww9h4H3IBfST0d5SFet/ie8sZfkLKGI
-         0ZjYJF7TUtSV9WvK3JTZn7uVtEGPHJLulPG0J97ngpjF4IWMpt9FtCRFhRhKWhoMJPuP
-         q93UwrKVjCoTGcIcXQ/HykeRofzwRA+Ohz2OR5iGVXhd8xFt3suy7ybkjUIdgg5pvylP
-         qLtwvb2eTTC68UoVcdg4eKkVeHVOK/BZCxCJkUfa3SifhNsAC+I7XXOEJV6/FKfsHjNM
-         rcuyKhSfse5DNeJ5+QjYGmk5+C/g7DpOqeWbdA9HiApxbynnuG+R4XZIwvwgBiLhKsjW
-         Khww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794008748; x=1794613548;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c7lMECP0GDvQ3SIOc0RLblQjT+LWxuUNwC8Ag/lEWPw=;
-        b=1Ta3WUIeUEbuz5nz71XDl0/KWVsficGnIVnka5VUqcmSJgidFNvcrbCq4w9961SHQB
-         Evcm9SP9pUgmKhmspBzJ/cMAGmEO0xNXAbvN1z9slkeYaPyFn0oHN0ZmOJWrqTilCvkr
-         22z4oC4fSfp8tzrnBgewQlAneFfqN4JtVSNovJfXu11oXw0W/iEOmPVRSGcbEeKf3iog
-         rqslFgLd1HRj5rBt789CsnagsIS6Xh4pIjrAx6P8910N/yCo91ZxX5xLg39tPDUxzuyK
-         BQV3gGvGbgUbHsEHfRCybklIl59Es0Dm/PJ0DUWVBU8n3D5lMa+AhPwEIpKSp0EsKtPQ
-         Dh/A==
-X-Forwarded-Encrypted: i=1; AL+hErFYeoymOvcqV/af2oVwHYw8dOXE3LbrE0LPUnKOSuvKruWq/tWxIpRubYU+xIZvh7/eLV30/Ix2toLLHBc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8o5sGNy1yMLIcelxgvT0FYt13MXOXCljIz/hv7ldd5SkjjZmge
-	H6WL/gCAeVKl5nX+RRhxKVrpJx7O42iXvuvf5BROdULrU9MtDA2ITjMJ
-X-Gm-Gg: AYBFou2UOSBWat4JAociImpYA3TVu0LweKldbLwDEj87294Z8LrdrJIq0/2Jg6JPC6K
-	tIO7cVOG7OKr6zVaIAIfa3P17eThuNAfqpLQ3iAc0/8zvQvCKmvwSBDUpVEtlIK6zKfcofNZ0kC
-	iaABVs7vh5n2vPi+cfP8BFK3JvQVrisU2Cz9c9l/ZgrH2iiYt3n8HmZ42ZZK6bkVL2HrJfhJUdk
-	fCeWkrF161ohZtUOnh6Xj3A0oJekrZWdSgtycBwbp+RSfI+ppo1+HHob7ykoygCiuTdvP5TLKoV
-	byH0o4+9E15YgQ1O3vNy1hTOIwvsP5XtSvRmdFT06stgzgnEha9B3l0e42Zb7X2I1Hx7cWvbfSN
-	sDVhAqHWhPLXDBFh0loJPNVgS9Djnk9p+Ky686fi9BpDzDSD1NI76yRVuEVYiMcLC9B5GPb3IEC
-	vsmiNoTfemv3jezXknnUuLCsr5ZZ7lbW0Kkoobji5FUtivS8dlZUimXEPEpk46wiu/KFTkk2O24
-	cYLQ09n0JzwnkTddSy2LaYmScQVlxnN98RZ9C8M3ywYj+c9pyB+PucYlIZRfiQuEvnDySC8NwUi
-	URu9RqhPC3U4XAsQ4Pg2
-X-Received: by 2002:a17:90a:f945:b0:3a8:c0cd:57f3 with SMTP id 98e67ed59e1d1-3b0db6d7d8fmr3319728a91.18.1794008748133;
-        Fri, 06 Nov 2026 15:45:48 -0800 (PST)
-Received: from a1-free ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1058d3310sm715972a91.15.2026.11.06.15.45.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 15:45:47 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-arm-kernel@lists.infradead.org,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH 1/2] arm64: errata: Set GIC-700 #2941627 Kconfig entry to N/A
-Date: Fri,  6 Nov 2026 23:45:40 +0000
-Message-ID: <20261106234541.1474324-2-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106234541.1474324-1-takano32@gmail.com>
-References: <20261106234541.1474324-1-takano32@gmail.com>
+	dkim=temperror header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=DRGWPPyK;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WtjJU9i+
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 658E81400108
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:48:37 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Fri, 06 Nov 2026 18:48:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	joshtriplett.org; h=cc:cc:content-type:content-type:date:date
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1794008917;
+	 x=1794095317; bh=57GdjE1sWmdS5XUKdqpRCXUBRlNc+x3hmSqLtCG4DW0=; b=
+	DRGWPPyKkD96L99+q+dRGrWA3VsFkZAzkv6ajoQ82aec2l9/gcK6LIiP8xPrSOyz
+	5lLO+xi9/V79TjVtOjPV3Ynkg06gOOlaFNSSgYUq77eyGsuwocITvdOu65DWmYhx
+	dphGNNySem8G/SiQoTIb1BLBtyvNfu8gPOd9puB2SXXrU0LbFcZGuN9RPAsDdVHX
+	0QBbVRxuzI41FGKiz/MpkGTqmsZnJ9kjUOMCLv+6GIY1I5ed03TRA3iqhTZRZG9K
+	kjlpLd6GKzwRjOlbYgEQ5opnDXeFPE1ccM2pxtbw8tLEstBnGUMOTuPj37RX0Q+o
+	34feKh2OkOMGhATNzoDZgw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794008917; x=1794095317; bh=57GdjE1sWmdS5XUKdqpRCXUBRlNc+x3hmSq
+	LtCG4DW0=; b=WtjJU9i+pQNpmPVaYaRF9pgK1ImJEgaQDosULo874qULfDAzVhO
+	DiE4qWWe7ozs8m0KqQiBSQkr07A/qkXPFOYBbyDCHsOA3LSTFgPjjP7LSIfnGlZp
+	eHPO0IF79rGsnHqJ2m4em/enAbmVWad0Jb7YJFBafW0g4eob6d2gusHCX+zeixgg
+	SMXJ+vv6wSHmez74rEeUelRnxoMQKLkDbftLkTrpR1LCJjrzaEg/H70QP9hMxmix
+	wzpODc/Dkg8oKZ7MIuezyhjHKLaW2PToQvD+1ot6Y5D8ibD33HEaNB7zYIh9ZDEv
+	mCuRp5gMDLMclWAkzKyt92xPFnBeZLr/fMw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=joshtriplett.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794008917; d=joshtriplett.org;
+	mf=PGpvc2hAam9zaHRyaXBsZXR0Lm9yZz4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:3CtP6XM2b47GCOMokSL9qEslqFzvK+ByGGfMuYfJJnkN+Or
+	Tq/NK/yGLJGY9ignK429QucoMfaI0i+A1URDjha+VfqnT0wMbl3P6yx9bTdm+wPk
+	YbNPLZttgfdUUZ7Fvi4eAySoaCY9OuFJkskl9RAG2mGYjFnQf4jhBvH7548if0t/
+	/FNFDfFwBrU5jmbOjOaLTtAjwR2F/n9X81vV8o4Ds5qIi8vpQttMojTiwD9wxL5T
+	6EMGZVf5MAMexD554PWUr9Zd6LwQD8p/XEmdbp30pvv9cZQ5EdYyicGB/kcB7LdD
+	y9GUhhIimbs474BO0zAfPE1tKekcbMQvlFceTYg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:uJXNEZFDnbwAQ6uAEh4SMw9q/pKumnEtFL4vzKSs/CM=:cm6FVvmGjfcxZ2IIkMhxrEnR4xzeYJbQsFRWqLQXkt8=;
+X-ME-Sender: <xms:VGfuaiPsY2cmKrv5m5j14e4aLbgzxYQKVgTv1Zy_2OyPA99_a0IpZA>
+    <xme:VGfuauXUFDIhE9xomBuvLUK_zZrg82rdR2ftKjsdAKTUQ-Hcop-9K-dErhbTozAfG
+    W-taP9zxvqonwzXia7yTBuqmOm8kaLJqm80U7NpY8U4DlVD4amgoro2>
+X-ME-Received: <xmr:VGfuagnbQryho9FFpX5es3gALBZe6PnC6GKQk7Pwcls9Lquv8UyvYYrdCA>
+X-ME-Proxy-Cause: dmFkZTFHlVVsjABEzIlgs1ULK40XhHUuZaSD9S9CwY3WG++hsa40+Q3WlS7abEMa4VYnV3
+    gMGGE0d74P/V6pUxs6Q8Vs7K/Nd6zC5CWF8BYHED5ghUIKbCTDOGZNRj7dx91LeB4XBlnE
+    tbxrhk1zzYzbXCixe8rg6fZD7Hl2kc/4i7LLBEluWujB9P62weDuistNcrxKR5XH/EeUeh
+    hYmQ5uGkQZLg84LINn1ecnMB25cHHqlLuroHbAzn/XJJWbBL9TS92FAOnZ1/xu4VCS83qJ
+    o2iFMYDlAE9zHdwBNvEPP9ku4sU1Yyyx6j8xC7oHqmvMOQmdniIrf+a+8nZxfYpPk7Agal
+    oFIH7rgE2phplO8R12LUG815U3jebXZ7BZ7adgG1jX/sxccEQmYW2rNHmfwbLQRisAd+xD
+    KSFkCadsMsKjdJS9mcdQpoqYU5wnv8VpnAN2Lcs0o+zZwBVuCYE13lBKinCc3VaLMp4pVH
+    4jiYDHDUokj0a9eByU3qN6fj7ogEfb3jYfycUcRed13JDeCAcoLgYXiWIyGEJhrgmIPzcI
+    jDFkKPD/WrEQuQlmh8jRdOqhLBJuO5508oZz0p/RWhORr2tlvE4bM20Nm4VlZ6UX5HKKck
+    LJZ1C/iYY68LJNThILmP6+tf0XpBbvkpTmqd7uyNNxSrfI3atFuv5nCSjnkQ
+X-ME-Proxy: <xmx:VGfuatPBTYcrtFaSyWGvBwflGnWu71d_7idbj5_Pf7v0fCikm5zu2A>
+    <xmx:VGfuaoIpNePMDafQQPVvq9rC3vxzv4ZCUpR1AGEFfn3APtVLNLhp3g>
+    <xmx:VGfuan06QArK06f4C3lJloyxcgcd4Fp3ofNdbXnlH6qA9KxXhPAJlw>
+    <xmx:VGfuakW7mcVJhO-0hjrnW4tQlInj2Ab9NZVd1xACGwB4whZqU95iMg>
+    <xmx:VWfuatm3t31xsE6DMCzMyIN6c9anbY2acOEa59oV18eogdxW6_45pEog>
+Feedback-ID: i83e94755:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 18:48:35 -0500 (EST)
+Date: Fri, 6 Nov 2026 15:48:34 -0800
+From: Josh Triplett <josh@joshtriplett.org>
+To: Rong Zhang <i@rong.moe>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
+Message-ID: <au5nUp4extfupCpS@localhost>
+References: <a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
+ <19f5b65e494ed710a65927311cb68535c87953d3.camel@rong.moe>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,46 +128,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <19f5b65e494ed710a65927311cb68535c87953d3.camel@rong.moe>
 
-The GIC-700 #2941627 entry in the arm64 silicon-errata table names
-ARM64_ERRATUM_2941627 in its Kconfig column, but no Kconfig file defines
-that symbol and no code refers to it.
+On Sat, Nov 07, 2026 at 04:48:44AM +0800, Rong Zhang wrote:
+> The term "unsafe LED" exists because LEDs are write-only for software and
+> fire-and-forget for the EC. By taking the control of an unsafe LED, e.g.,
+> attaching an LED trigger, any warning signal from the EC can no longer be
+> displayed by the LED.
+> 
+> When it comes to battery LEDs, they are definitely unsafe to override.
+> After all, batteries are dangerous things when they malfuction. Thus, I
+> don't think it's suitable to enable it for all users.
 
-The workaround has no Kconfig option: drivers/irqchip/irq-gic-v3.c
-passes the GICD_IIDR value to gic_enable_quirks(), which compares it
-against gic_quirks[]; the matching quirk,
-gic_enable_quirk_arm64_2941627(), enables a static branch.  The table
-already records GIC-driver workarounds that have no Kconfig symbol as
-"N/A", for example the NVIDIA T241-FABRIC-4 row, whose workaround is
-likewise in the GIC driver.
+Choosing to not report "charging" vs "full" vs "not charging" via LEDs
+(as opposed to on-screen indicators) is not in itself dangerous. If the
+EC has something like "battery is damaged/overheating/exploding" to
+report, it had better do that by some more effective means than blinking
+an LED, or the message is going to be lost.
 
-Set the Kconfig column to "N/A" for this row.  Leave the row in place: it
-is the tree's only record of this erratum.
+I can't comment on what *every* ThinkPad EC would do, but at least on
+this X1 Carbon Gen 11, based on some (LLM-assisted, but all of this mail
+is 100% human-written) disassembly of both the ACPI tables and the EC
+firmware (EC version 1.22 specifically), the EC does not appear to
+report any battery states via the battery LEDs other than:
+- AC not present (LEDs off)
+- AC present and battery <90% (LEDs yellow)
+- AC present and battery >90% (LEDs white).
 
-No functional change.  The change and this changelog were written with
-the help of an LLM assistant (Hermes Agent); I reviewed both and am
-responsible for them.
+Critical battery diagnostics can get reported through ACPI, and if the
+firmware reports one of those, it appears to lead to tpacpi reporting
+"THERMAL EMERGENCY" and sending a userspace netlink message. (As an
+aside, AFAICT a system running upower and GNOME doesn't display that,
+unlike low-battery warnings. It really should, in a hard-to-ignore way.)
 
-Fixes: 6fe5c68ee6a1 ("irqchip/gic-v3: Workaround for GIC-700 erratum 2941627")
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
----
- Documentation/arch/arm64/silicon-errata.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Some other models (e.g. the X1 Carbon Gen 12) can emit other kinds of
+diagnostics via LED blink codes (
+https://download.lenovo.com/manual/x1_carbon_g12/user_guide/en/help_troubleshoot_or_diagnose_problems.html#t3
+). But those primarily appear to represent pre-boot failure states where you
+won't get to an OS, anyway.
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index afe109afe692..afea5e57ab95 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -279,7 +279,7 @@ stable kernels.
- | ARM            | MMU S3          | #3995052,       | N/A                         |
- |                |                 | #3673557        |                             |
- +----------------+-----------------+-----------------+-----------------------------+
--| ARM            | GIC-700         | #2941627        | ARM64_ERRATUM_2941627       |
-+| ARM            | GIC-700         | #2941627        | N/A                         |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | SI L1           | #4311569        | ARM64_ERRATUM_4311569       |
- +----------------+-----------------+-----------------+-----------------------------+
--- 
-2.53.0
+> Since not providing them via the LED core does not really prevents users
+> to control them, I am also thinking about adding a debugfs attribute that
+> unlocks unsafe LEDs and taints the kernel.
 
+I'd really love to not have a tainted kernel just because I'd like to
+not have a bright LED in my hotel room when I'm trying to sleep.
+
+- Josh
