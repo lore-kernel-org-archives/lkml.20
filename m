@@ -1,94 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793943295;
-	b=dDNG4RrOlhi10G3+si3Q12/X0cfETYG/HQ7B8+y6WJ0Tx2SN6xUcxsEOm3H/aHbEWR4X
-	 Q5iO/EbB1o3brXCrPYmpKo8D3dvPltETa/vRiCrTCN2K1tF6e/EBI6Uou+9ihPyJqY5Cv
-	 k/5uvMc9Zere5boTBnTNn05wULarUEbCna/mq9Il0JMD6F0rzGBLMUeD6vsurRUBKybRY
-	 Bh6vWaspSgkfuWTcBnFWLvKbSJXUl1YZ2xavCbQ3PF30afb9BS0MTy16j/9yqHQfy0pnb
-	 hlz+U9I+o3xuXZ+TWjECHGYTAeL7ndKApbwtYq2GSEk8fgGxYxqoXCx9ZtLxvCfHwqA==
+	t=1793943320;
+	b=lqmyfVw4ccdvHMaa7irTIaBJCtr+z836v8WzpsNar9RCUTnpiVOsx9BnS2wYFkpPqlsG
+	 Om/KU99+szw8802Fr2YOB9ASf5/iBYnZD/2jYhXs7kQu4ntG8adCG3HWLOsMYaQm6Vkzf
+	 FKOYn2T2ljlj4w1Eu/pxIy8fAmRGAbGA4I2QBclEYTFgqEwNYEymtAVBDmD2AZLjKKIML
+	 C7N6O7UqNXt8A/WIihhUxKrYx83QNLXdHZuR/ZmmShLPhEypwr8UmeIMKK8XUKjGy4bd0
+	 kfeyn7t84kqfQ1HurRmUwRMsxcHSDyN0BDRwmfSLEmy73MJ9QSSWSAG5LlwU/nMhcYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793943295;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FPr++xAK0MuAQlXbkT1ssOj1KR4BUSwaP/TXm3dUT7s=;
-	b=5XFGbtkFu64asp8AFwpkIngukjqAWi2/pjUyQVYS1YR+v/kca2E9HR0fslD8L0s+kc1v
-	 MDqiilkuhf27deJP5U0ZA4Y970c8Xvvrs+Qtrq+jYbeFUVqRG9pJg6BSRJJ1LIGDvyRyH
-	 wTHBL7Szl3Ozn0MUOBT+qIa5fOe9lEjr4ql1GB/RSmJUb8yka5LCQVUJXMH9NX0WnurXu
-	 G6UP0NNND+GjVK+UkAes4uKCp2OJXiRgUicdM7APbbM2imha0MZvpO/o6bI1AN9+uRpk7
-	 HVt9He6TNjKDDvGtEgq2EKvJdggWZNoiSrNGuQDJvCEG1dIXiOmnYEmIXI8aVPBk0Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793943320;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=YD0WMXfyYPEaM2VDLe4N8Gpd016qkpUV23TGdYPWKlQ=;
+	b=Uf/PPfoP1jKajZkzN6Ls6UbK/Cq2KVzjDzFIMKnEREIzdpM+ZCG+8VTYEs/TyXgPMHn8
+	 9YjvT1ADadjitUsvxg/AncF4ob91li1cWwv9waKc1Co7T86JQi5LvG7FT4uYDRYpZ4P1P
+	 /EAZHIv6zyxYnT6HqCE/iHA6WE4UpyPkhrPz7THJrJXlEeOIY7+rvFXAtYiiGffoXD5ZX
+	 QEeXVFg/seNq4dfQWFY9PBsqpf+Q7Y3zADYUjqMmGQt9tw8RDfQ2bEchfX2NHFabSAV0p
+	 rtzzjrlWCpvLbcgFpfzdxo7SNqXN2BX7ivfO6r2r/Q+RRrHprrvS3StxNKM5P7Uv4KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OrwA8X6Q;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhhOAgmx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FABE606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:34:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FABE606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F86606A326;
+	Fri,  6 Nov 2026 05:35:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OrwA8X6Q
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso903818eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:34:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793943293; x=1794548093; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FPr++xAK0MuAQlXbkT1ssOj1KR4BUSwaP/TXm3dUT7s=;
-        b=OrwA8X6Q4EBhaVQEERDpI0g/CW63jtXh1a5fTyYE7yqj0OCVrQf0WTX10T1vD+yvSK
-         6G4N37V/P+OJZ/8YTvkfDyMeK/wy/3R7kULtzemY7L/d2K1HePKxeYQo7Ci0VtE+gt7L
-         3PXYqEmyt8hPgyEOjmssi0V8lhNrw83pgq5ZKKucLOwg6dFUbmrxYZvcA+O5gI6RFHhM
-         QndhXN2ZnhioX/9KqmBcAEqTXCyK8gEb03fyIY2w11gA9I9urFaT7EYVRRUOSecNmXdN
-         0YeZ9RE35p98m3i1Hz46yhGRktGfEnrlpjMxId7/FPb6CReVsLnpmr+XgVcOnO5ZimYi
-         BBhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793943293; x=1794548093;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FPr++xAK0MuAQlXbkT1ssOj1KR4BUSwaP/TXm3dUT7s=;
-        b=LSfNrS9OHqSQySYN/kEn2EJE4eMiat7wNJOxxQcqxqeumSGCVOyYRA+cMJ4p+Dd6P5
-         dxd8g9EDtq7LejE8RrhCfXf1HZP2uPd6l1YlgjeMvRJS40fXMOSSl5xwye1oMTcYqS2Z
-         pZdCOYX5Yd1quMri1lf7HRFf83XNCIe9f8FXa0vev1qffU4wZb4OR8BgmUYD2ybLw3Rp
-         HO2LRA+m7Iql4T8k46o1i5ueg2GGRKczuzTJhjBnO7IptQKMC/cViUSuM7qVD11ATvw1
-         B8u4m3y0IwVPJ/GJ+GLVhMmff7ibw0ciqTRSfJj40L7iRTh8BT4/8D2yeHW25S13DZaa
-         wzkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxEk8J6kvrXBWN+6cRpjdEAKOoSPAMlYQdqpTu0AxMglRV0IH3Iuc+X/uWE98DdNpq0hMxxZv8miV8oeHY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ZOTJzT3ZEZmYIm/0lo2kzjRf7HmC6Fu5j+LSKoS98Y01OA5st
-	vKelwAln2ptGRHKMie7PgaOCoB3EMf7ZtrAQxeTw0crPGctV7yiweInH
-X-Gm-Gg: AYBFou0AjnLUuLg0BF2R4y7sT2HWMqoWo4RhxebIy9dEKK2hTq0z5QZVU2uGacVtYSY
-	ZJcr9uo2chbciWiTyQuoWh8CyvfiJuy2AvTUzHzyJ4/CuqgMxAQ74HCMFqjx0EN1faKuujWXKLB
-	taKu4PakIVzWuL3Zh6IdoPmFWJNptlS7V3/MiSA7h8gIASKDzI57bY494ks7Wm23RxzAYkFhUl3
-	8wvNV+abr2LGxudo3Zeo4VQiC8XzOMaCrVtowu7K8kM18YTCGjzdRMc7gDZK8i9N+4MQd9Rkk2M
-	sbQDvLWxkK1nNJOpvmTPjdE0loEh+WkSogojwJrKu/JWOpYNyUB/op+XRl6OYNy/xmBHazLg1Gh
-	BUOHmReuLatSIoIwbdxjIqh1xDL/45OPqQeBNdXeXf03LcHUyJnhl2SRF2tcxGOioTrO2dKGFNP
-	atl1sBXeUCqrgjkwIFYDJFlsI8kmMKgydsegxtxJeiVKr4WD/mJ3Xhq2nkfVpF5XdAD6JaDKTVv
-	ZamLRjwUqbCaz/Zo7KuEdYdZ8Gj1I4eb1hdzRlJnX0ZXpzizrimxbBl7KoI+oADk8FVc8OYRdSW
-	ARXi1+76h4UQm2QyscXmi9Dvx+3f9yOuAeiFu3c+mnl9OcUIluXI4MonqO/qiA95WpvXn5LvBWm
-	U7fdigEagaBrQC6cyrY4LF6+AkyIBxiCXuK79PnFH0YYZaII=
-X-Received: by 2002:a05:701b:21db:b0:184:d593:2897 with SMTP id a92af1059eb24-1b25d32fbf3mr1601958c88.29.1793943293007;
-        Thu, 05 Nov 2026 21:34:53 -0800 (PST)
-Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:1602:ecff:fe49:38a8])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e407bb5sm2574511c88.1.2026.11.05.21.34.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 21:34:52 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: amit@kernel.org,
-	arnd@arndb.de,
-	gregkh@linuxfoundation.org
-Cc: rusty@rustcorp.com.au,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] virtio_console: fix buffer ownership and unplug races in the read path
-Date: Fri,  6 Nov 2026 13:34:38 +0800
-Message-Id: <20261106053438.1206065-1-shunsheng1218@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhhOAgmx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8FF1F0089F;
+	Fri,  6 Nov 2026 05:35:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793943319;
+	bh=YD0WMXfyYPEaM2VDLe4N8Gpd016qkpUV23TGdYPWKlQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dhhOAgmxoizO5KAIPC7h9eg710WCobLPmX0G6lChRZEJehq3KqrleYfJLZJ2pmb1g
+	 l0GwMSb3JvUFZcPeRCtmhg8Z6cHl37+15vTqDcKrTtSqJARJ+k9fc0xt+u8MABDdXO
+	 z6/okmTDJRalzhKVjawdacCpxWW8ugqS7cN6nPLBuYCgLhQVXZIJotOVnS8yv/dmJa
+	 ATzd6DMiIrSwuY54w9JeWA46VD7ohZtsZuQnkHaTPWVIFH1RPGL44dANdNGZ5Cf53P
+	 GEoASI2qLd6tZN9t1PjhR2jagJF3v/Sc0B3LMkJOdsmtHNo6eL9uYRHmvq1nhlCWZG
+	 EXWxBj4E0uTTQ==
+Subject: Re: [PATCH can-next v2 2/9] selftests: can: add J1939 test helper
+ header and library
+From: netdev-bot+sashiko@kernel.org
+To: o.rempel@pengutronix.de
+Cc: robin@protonic.nl, socketcan@hartkopp.net, mkl@pengutronix.de,
+ shuah@kernel.org, kernel@pengutronix.de, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ fmaurer@redhat.com, mailhol@kernel.org, alexander.hoelzl@gmx.net,
+ quchaosheng000406@163.com, penguin-kernel@I-love.SAKURA.ne.jp,
+ kuba@kernel.org
+Date: Fri, 06 Nov 2026 05:35:17 +0000
+Message-ID: <179394331774.488853.9726002978646630085@kernel.org>
+In-Reply-To: <20261104-j1939-selftests-v2-2-cf797c83317b@pengutronix.de>
+References: <20261104-j1939-selftests-v2-2-cf797c83317b@pengutronix.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,580 +66,763 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The read path hands port buffers to readers without any ownership
-protocol.  Two threads sharing one file descriptor can both pick up
-port->inbuf, copy from it concurrently and requeue it twice, and an
-input virtqueue callback prefetching the next buffer can drop the
-remainder a reader is about to put back.  During port unplug a
-reader can also call add_inbuf() on a virtqueue that is being torn
-down (KASAN: slab-use-after-free in virtqueue_get_buf_ctx), or
-requeue a buffer nobody will free anymore.  The input virtqueue
-callback itself can run past find_port_by_vq() into port->portdev
-and the virtqueue after unplug_port() has cleared them.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Track buffer ownership explicitly:
+Low priority / nit picks for your consideration:
 
-- fill_readbuf() claims port->inbuf under inbuf_lock and owns it
-  exclusively across the unlocked copy.  port_has_data() and the
-  input virtqueue callback no longer prefetch the next buffer while
-  a claim is held (nor once the port is being unplugged), so a
-  partially consumed buffer is always finished before the next one
-  and the byte order is preserved.
+- [Low] selftests: can: silent skip in j1939_test_main() when protocol is
+  missing
 
-- The input state is snapshotted under inbuf_lock as empty,
-  readable (a buffer can be acquired), claimed, or unplugged.  Only
-  a readable buffer lets poll() report EPOLLIN or a read() proceed;
-  a claimed buffer is data pending for the EOF and host-disconnect
-  logic, so a peer reader sharing the file descriptor does not
-  observe EOF while another reader still owns unread bytes and
-  instead waits for the claim to be released.  A nonblocking reader
-  gets -EAGAIN (or 0 when the host has disconnected and no data is
-  left).  The atomic HVC poll simply retries.
+--
 
-- unplug_port() publishes an "unplugging" state under inbuf_lock
-  before any teardown.  After observing the unplugging state under
-  inbuf_lock, in_intr() drops its port reference and returns without
-  accessing portdev or the input virtqueue.  The separate HVC adapter
-  lifetime race after inbuf_lock is dropped is addressed by the
-  independently submitted hvc_kick change.  Readers stop touching the
-  input virtqueue from that point; a reader returning a claimed buffer
-  frees it instead of requeueing it.  A userspace read() that has not
-  copied any byte returns -ENODEV for an unplugged port, while the HVC
-  get_chars() path keeps returning 0.  free_buf() always runs
-  outside the lock: the teardown, copy-fault and failed-requeue
-  paths defer the free until inbuf_lock is dropped, so free_buf()
-  may sleep for DMA buffers when called from a userspace read.
-  Nothing reads the buffer after it is freed, and the claim is
-  always released with a wakeup, so readers waiting for the claim
-  are not stalled until the next packet.
+> diff --git a/tools/testing/selftests/net/can/j1939_tests.h b/tools/testing/selftests/net/can/j1939_tests.h
+> --- /dev/null
+> +++ b/tools/testing/selftests/net/can/j1939_tests.h
+> @@ -0,0 +1,724 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
+> +/*
+> + * Shared helpers for the J1939 selftests.
+> + *
+> + * The individual tests are standalone kselftest binaries, so the common
+> + * boilerplate (interface lookup, socket open/connect, timed receive, CAN-ID
+> + * encoding and the CANIF/main() plumbing) lives here as static inline helpers.
+> + *
+> + * The including .c file must include "kselftest_harness.h" before this header
+> + * (j1939_test_main() uses KSFT_SKIP and test_harness_run()).
+> + *
+> + * Each test binary is run by its .sh wrapper (see j1939_lib.sh), which sets up
+> + * the vcan interface and passes its name in the CANIF environment variable.
+> + *
+> + * Helpers named *_ok() return true on success and false on failure, with
+> + * errno set where a system call failed. Helpers that return a file
+> + * descriptor or a length return -1 on failure.
+> + *
+> + * Timing modes: timer checks use relaxed bounds by default, so that slow
+> + * machines such as QEMU in CI pass. Set J1939_STRICT_TIMING in the
+> + * environment (any value) for tight bounds on a real machine.
+> + */
+> +#ifndef __SELFTESTS_NET_CAN_J1939_TESTS_H__
+> +#define __SELFTESTS_NET_CAN_J1939_TESTS_H__
+> +
+> +#include <limits.h>
+> +#include <stdbool.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <unistd.h>
+> +#include <poll.h>
+> +#include <stdint.h>
+> +#include <errno.h>
+> +#include <time.h>
+> +
+> +#include <sys/socket.h>
+> +#include <sys/ioctl.h>
+> +#include <net/if.h>
+> +#include <linux/if.h>
+> +#include <linux/can.h>
+> +#include <linux/can/raw.h>
+> +#include <linux/can/j1939.h>
+> +
+> +#include "clock-helpers.h"
+> +
+> +#ifndef ARRAY_SIZE
+> +#define ARRAY_SIZE(a)		(sizeof(a) / sizeof((a)[0]))
+> +#endif
+> +#ifndef DIV_ROUND_UP
+> +#define DIV_ROUND_UP(n, d)	(((n) + (d) - 1) / (d))
+> +#endif
+> +
+> +/*
+> + * How long to wait for an expected frame. Not a protocol timer: a guess with
+> + * room for a slow VM.
+> + */
+> +#define J1939_RECV_TIMEOUT_MS	2000
+> +
+> +/*
+> + * Timeout for a check that expects no frame. Long enough that a real
+> + * local frame would have arrived, so a timeout means "nothing came".
+> + * Much shorter than J1939_RECV_TIMEOUT_MS, to keep the test fast. A guess.
+> + */
+> +#define J1939_NEG_RECV_TIMEOUT_MS	300
+> +_Static_assert(J1939_NEG_RECV_TIMEOUT_MS < J1939_RECV_TIMEOUT_MS,
+> +	       "J1939_NEG_RECV_TIMEOUT_MS must be the shorter timeout");
+> +
+> +/* Send priority of a new J1939 socket, see j1939_sk_init() in the kernel. */
+> +#define J1939_PRIO_DEFAULT	6
+> +
+> +/* Unused data bytes are sent as 0xff (SAE J1939-21:2001 Figures 14, 15). */
+> +#define J1939_FILL_BYTE		0xff
+> +
+> +/*
+> + * PGN fields: PF is the second byte, PS the low byte. A PF of at least
+> + * J1939_PDU2_PF_MIN selects PDU2: broadcast, and PS is not an address
+> + * (SAE J1939-21:2001 sections 5.1.2 and 5.2.5).
+> + */
+> +#define J1939_PGN_PF_SHIFT	CHAR_BIT	/* below PF: the PS byte */
+> +#define J1939_PDU2_PF_MIN	0xf0
+> +#define J1939_PF(pgn)		(((pgn) >> J1939_PGN_PF_SHIFT) & UINT8_MAX)
+> +#define J1939_IS_PDU1(pgn)	(J1939_PF(pgn) < J1939_PDU2_PF_MIN)
+> +/* Data Page bit of a PGN (SAE J1939-21:2001 section 5.2.3) */
+> +#define J1939_PGN_DP		0x10000
+> +
+> +/*
+> + * Fields of the 29-bit CAN id (SAE J1939-21:2001 section 5.2): the priority,
+> + * then the PGN, whose PS byte holds the destination of a PDU1 frame, then
+> + * the source address in the low byte. The j1939_id_*() decoders mask their
+> + * field, so they take a can_id with the CAN_*_FLAG bits still set.
+> + */
+> +#define J1939_ID_PRIO_BITS	3
+> +#define J1939_ID_PRIO_SHIFT	(CAN_EFF_ID_BITS - J1939_ID_PRIO_BITS)
+> +#define J1939_ID_PRIO_MASK	((1U << J1939_ID_PRIO_BITS) - 1)
+> +#define J1939_ID_PGN_SHIFT	CHAR_BIT	/* below the PGN: the SA byte */
+> +_Static_assert((J1939_PGN_MAX + 1) << J1939_ID_PGN_SHIFT ==
+> +	       1U << J1939_ID_PRIO_SHIFT,
+> +	       "the PGN field must end where the priority starts");
+> +
+> +static inline int j1939_id_prio(canid_t id)
+> +{
+> +	return (id >> J1939_ID_PRIO_SHIFT) & J1939_ID_PRIO_MASK;
+> +}
+> +
+> +static inline int j1939_id_pgn(canid_t id)
+> +{
+> +	return (id >> J1939_ID_PGN_SHIFT) & J1939_PGN_MAX;
+> +}
+> +
+> +static inline int j1939_id_pf(canid_t id)
+> +{
+> +	return J1939_PF(j1939_id_pgn(id));
+> +}
+> +
+> +static inline int j1939_id_ps(canid_t id)
+> +{
+> +	return j1939_id_pgn(id) & UINT8_MAX;
+> +}
+> +
+> +static inline int j1939_id_sa(canid_t id)
+> +{
+> +	return id & UINT8_MAX;
+> +}
+> +
+> +/* Bytes in a 24-bit field of a TP or ETP control frame. */
+> +#define J1939_LE24_LEN		3
+> +
+> +/*
+> + * Byte offsets in TP and ETP frames (SAE J1939-21:2001 Figures 14 and 15,
+> + * ISO 11783-6:2004 K.2.2.1 and K.2.3).
+> + */
+> +#define J1939_CM_CMD_OFF	0	/* control byte */
+> +#define J1939_CM_PGN_OFF	5	/* message PGN, J1939_LE24_LEN bytes */
+> +#define J1939_DT_SEQ_OFF	0	/* sequence number */
+> +#define J1939_DT_DATA_OFF	1	/* first payload byte */
+> +
+> +/* Sizes and limits. */
+> +#define J1939_SF_MAX_SIZE	CAN_MAX_DLEN	/* largest single frame */
+> +/* payload bytes in one TP/ETP data (DT) frame */
+> +#define J1939_DT_DATA_LEN	(CAN_MAX_DLEN - J1939_DT_DATA_OFF)
+> +/* highest TP sequence number: the field is one byte */
+> +#define J1939_DT_SEQ_MAX	UINT8_MAX
+> +/* largest TP message; anything larger needs ETP */
+> +#define J1939_TP_MAX_SIZE	(J1939_DT_SEQ_MAX * J1939_DT_DATA_LEN)
+> +_Static_assert(J1939_TP_MAX_SIZE == 1785,
+> +	       "SAE J1939-21:2001 section 5.10.1.1 gives 1785 bytes");
+> +/* number of TP/ETP DT packets needed for len bytes, rounded up */
+> +#define J1939_NUM_PKTS(len)	DIV_ROUND_UP(len, J1939_DT_DATA_LEN)
+> +
+> +/*
+> + * J1939 uses 29-bit data frames only (no RTR, no error frames), see
+> + * net/can/j1939/main.c.
+> + */
+> +static inline bool j1939_is_data_frame(canid_t can_id)
+> +{
+> +	return (can_id & (CAN_EFF_FLAG | CAN_RTR_FLAG | CAN_ERR_FLAG)) ==
+> +	       CAN_EFF_FLAG;
+> +}
+> +
+> +/*
+> + * Size of a CAN_RAW receive buffer large enough for a full ETP burst.
+> + * A round number with headroom, not a computed minimum. Set best-effort
+> + * via SO_RCVBUFFORCE.
+> + */
+> +#define J1939_RAW_BIG_RCVBUF	(8 * 1024 * 1024)
+> +
+> +/* Flags for j1939_open_flags(). */
+> +#define J1939_OPEN_NONE		0
+> +#define J1939_OPEN_BCAST	0x1
+> +
+> +/* rcvbuf value for open_raw_rcvbuf(): keep the default receive buffer. */
+> +#define J1939_RAW_RCVBUF_DEFAULT	0
+> +
+> +/* Set by j1939_test_main() from the CANIF environment variable. */
+> +static char CANIF[IFNAMSIZ];
+> +
+> +/*
+> + * Return relaxed_ms by default, or strict_ms if J1939_STRICT_TIMING is set in
+> + * the environment. See "Timing modes" at the top of this file.
+> + */
+> +static inline int j1939_timing_ms(int relaxed_ms, int strict_ms)
+> +{
+> +	return getenv("J1939_STRICT_TIMING") ? strict_ms : relaxed_ms;
+> +}
+> +
+> +/* Resolve the ifindex of the test interface named by CANIF. */
+> +static inline int j1939_if_index(void)
+> +{
+> +	struct ifreq ifr = {};
+> +	int s, idx = -1;
+> +
+> +	s = socket(PF_CAN, SOCK_DGRAM, CAN_J1939);
+> +	if (s < 0)
+> +		return -1;
+> +	snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", CANIF);
+> +	if (ioctl(s, SIOCGIFINDEX, &ifr) >= 0)
+> +		idx = ifr.ifr_ifindex;
+> +	close(s);
+> +	return idx;
+> +}
+> +
+> +/*
+> + * FIXTURE_SETUP helper: resolve CANIF's ifindex into self->ifindex and abort
+> + * the test if it cannot be found. Used as a statement:
+> + * J1939_SETUP_IFINDEX(self);
+> + */
+> +#define J1939_SETUP_IFINDEX(self)					       \
+> +	do {								       \
+> +		(self)->ifindex = j1939_if_index();			       \
+> +		ASSERT_GE((self)->ifindex, 0)				       \
+> +			TH_LOG("failed to resolve ifindex for '%s': %d",       \
+> +			       CANIF, errno);				       \
+> +	} while (0)
+> +
+> +/*
+> + * Open a J1939 socket bound to (name, sa, pgn); flags may set
+> + * J1939_OPEN_BCAST.
+> + */
+> +static inline int j1939_open_flags(int ifindex, name_t name, uint8_t sa,
+> +				   pgn_t pgn, int flags)
+> +{
+> +	struct sockaddr_can addr = {
+> +		.can_family = AF_CAN,
+> +		.can_ifindex = ifindex,
+> +	};
+> +	int s, one = 1;
+> +
+> +	s = socket(PF_CAN, SOCK_DGRAM, CAN_J1939);
+> +	if (s < 0)
+> +		return -1;
+> +
+> +	if ((flags & J1939_OPEN_BCAST) &&
+> +	    setsockopt(s, SOL_SOCKET, SO_BROADCAST, &one, sizeof(one))) {
+> +		close(s);
+> +		return -1;
+> +	}
+> +
+> +	addr.can_addr.j1939.name = name;
+> +	addr.can_addr.j1939.addr = sa;
+> +	addr.can_addr.j1939.pgn = pgn;
+> +	if (bind(s, (struct sockaddr *)&addr, sizeof(addr))) {
+> +		close(s);
+> +		return -1;
+> +	}
+> +	return s;
+> +}
+> +
+> +/* Open a J1939 socket bound to (sa, pgn) with no NAME and no broadcast. */
+> +static inline int j1939_open(int ifindex, uint8_t sa, pgn_t pgn)
+> +{
+> +	return j1939_open_flags(ifindex, J1939_NO_NAME, sa, pgn,
+> +				J1939_OPEN_NONE);
+> +}
+> +
+> +/* Connect a J1939 socket to the peer (name, da, pgn). */
+> +static inline bool j1939_connect_name_ok(int s, int ifindex, name_t name,
+> +					 uint8_t da, pgn_t pgn)
+> +{
+> +	struct sockaddr_can addr = {
+> +		.can_family = AF_CAN,
+> +		.can_ifindex = ifindex,
+> +	};
+> +
+> +	addr.can_addr.j1939.name = name;
+> +	addr.can_addr.j1939.addr = da;
+> +	addr.can_addr.j1939.pgn = pgn;
+> +	return !connect(s, (struct sockaddr *)&addr, sizeof(addr));
+> +}
+> +
+> +static inline bool j1939_connect_ok(int s, int ifindex, uint8_t da, pgn_t pgn)
+> +{
+> +	return j1939_connect_name_ok(s, ifindex, J1939_NO_NAME, da, pgn);
+> +}
+> +
+> +/* Fill a sockaddr_can describing a J1939 (name, da, pgn) destination. */
+> +static inline void j1939_fill_sockaddr(struct sockaddr_can *addr, int ifindex,
+> +				       name_t name, uint8_t da, pgn_t pgn)
+> +{
+> +	memset(addr, 0, sizeof(*addr));
+> +	addr->can_family = AF_CAN;
+> +	addr->can_ifindex = ifindex;
+> +	addr->can_addr.j1939.name = name;
+> +	addr->can_addr.j1939.addr = da;
+> +	addr->can_addr.j1939.pgn = pgn;
+> +}
+> +
+> +/* sendto() len bytes from buf to the J1939 destination dst. */
+> +static inline ssize_t j1939_sendto_addr(int s, const void *buf, size_t len,
+> +					const struct sockaddr_can *dst)
+> +{
+> +	return sendto(s, buf, len, 0, (const struct sockaddr *)dst,
+> +		      sizeof(*dst));
+> +}
+> +
+> +/* sendto() len bytes from buf to the J1939 (name, da, pgn) destination. */
+> +static inline ssize_t j1939_sendto(int s, const void *buf, size_t len,
+> +				   int ifindex, name_t name, uint8_t da,
+> +				   pgn_t pgn)
+> +{
+> +	struct sockaddr_can dst;
+> +
+> +	j1939_fill_sockaddr(&dst, ifindex, name, da, pgn);
+> +	return j1939_sendto_addr(s, buf, len, &dst);
+> +}
+> +
+> +/* One j1939_sendto() that sent all len bytes; no retry. */
+> +static inline bool j1939_sendto_ok(int s, const void *buf, size_t len,
+> +				   int ifindex, name_t name, uint8_t da,
+> +				   pgn_t pgn)
+> +{
+> +	ssize_t want_len = len;
+> +
+> +	return j1939_sendto(s, buf, len, ifindex, name, da, pgn) == want_len;
+> +}
+> +
+> +/* One send(), write() or read() that moved all len bytes; no retry. */
+> +static inline bool send_all_ok(int s, const void *buf, size_t len)
+> +{
+> +	ssize_t want_len = len;
+> +
+> +	return send(s, buf, len, 0) == want_len;
+> +}
+> +
+> +static inline bool write_all_ok(int fd, const void *buf, size_t len)
+> +{
+> +	ssize_t want_len = len;
+> +
+> +	return write(fd, buf, len) == want_len;
+> +}
+> +
+> +static inline bool read_all_ok(int fd, void *buf, size_t len)
+> +{
+> +	ssize_t want_len = len;
+> +
+> +	return read(fd, buf, len) == want_len;
+> +}
+> +
+> +/*
+> + * Open a CAN_RAW socket on ifindex. Unless rcvbuf is J1939_RAW_RCVBUF_DEFAULT,
+> + * request that SO_RCVBUFFORCE size (best-effort: a failure is logged, not
+> + * fatal).
+> + */
+> +static inline int open_raw_rcvbuf(int ifindex, int rcvbuf)
+> +{
+> +	struct sockaddr_can addr = {
+> +		.can_family = AF_CAN,
+> +		.can_ifindex = ifindex,
+> +	};
+> +	int s;
+> +
+> +	s = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+> +	if (s < 0)
+> +		return -1;
+> +
+> +	if (rcvbuf != J1939_RAW_RCVBUF_DEFAULT &&
+> +	    setsockopt(s, SOL_SOCKET, SO_RCVBUFFORCE, &rcvbuf, sizeof(rcvbuf)))
+> +		fprintf(stderr, "# %s: SO_RCVBUFFORCE(%d) failed: %d\n",
+> +			__func__, rcvbuf, errno);
+> +
+> +	if (bind(s, (struct sockaddr *)&addr, sizeof(addr))) {
+> +		close(s);
+> +		return -1;
+> +	}
+> +	return s;
+> +}
+> +
+> +static inline int open_raw(int ifindex)
+> +{
+> +	return open_raw_rcvbuf(ifindex, J1939_RAW_RCVBUF_DEFAULT);
+> +}
+> +
+> +/*
+> + * FIXTURE_SETUP helper: open a CAN_RAW socket on self->ifindex into self->raw
+> + * with the given SO_RCVBUFFORCE size (or J1939_RAW_RCVBUF_DEFAULT) and abort
+> + * the test if it cannot be opened. Used as a statement:
+> + * J1939_SETUP_RAW(self, rcvbuf);
+> + */
+> +#define J1939_SETUP_RAW(self, rcvbuf)					       \
+> +	do {								       \
+> +		(self)->raw = open_raw_rcvbuf((self)->ifindex, (rcvbuf));      \
+> +		ASSERT_GE((self)->raw, 0)				       \
+> +			TH_LOG("failed to open raw socket: %d", errno);	       \
+> +	} while (0)
+> +
+> +/* poll() + recv(): returns the recv() result, or -1 on timeout/error. */
+> +static inline ssize_t recv_timeout(int s, void *buf, size_t len,
+> +				   int timeout_ms)
+> +{
+> +	struct pollfd pfd = { .fd = s, .events = POLLIN };
+> +
+> +	if (poll(&pfd, 1, timeout_ms) <= 0)
+> +		return -1;
+> +	return recv(s, buf, len, 0);
+> +}
+> +
+> +/*
+> + * recvfrom() one message on s within timeout_ms, check that it is the len
+> + * bytes in want, and return the sender in *src unless src is NULL. The buffer
+> + * has one spare byte, so a longer message fails the check.
+> + */
+> +static inline bool recvfrom_verify_ok(int s, const void *want, size_t len,
+> +				      int timeout_ms, struct sockaddr_can *src)
+> +{
+> +	struct pollfd pfd = { .fd = s, .events = POLLIN };
+> +	socklen_t src_len = sizeof(*src);
+> +	uint8_t *rx_buf = malloc(len + 1);
+> +	ssize_t want_len = len, n = -1;
+> +	bool ok;
+> +
+> +	if (!rx_buf)
+> +		return false;
+> +
+> +	if (poll(&pfd, 1, timeout_ms) > 0)
+> +		n = recvfrom(s, rx_buf, len + 1, 0, (struct sockaddr *)src,
+> +			     &src_len);
+> +	ok = n == want_len && !memcmp(want, rx_buf, len);
+> +
+> +	free(rx_buf);
+> +	return ok;
+> +}
+> +
+> +/* recvfrom_verify_ok() without the sender. */
+> +static inline bool recv_verify_ok(int s, const void *want, size_t len,
+> +				  int timeout_ms)
+> +{
+> +	return recvfrom_verify_ok(s, want, len, timeout_ms, NULL);
+> +}
+> +
+> +/* Send len bytes on tx and verify they arrive byte-for-byte on rx. */
+> +static inline bool send_recv_verify_ok(int tx, int rx, const void *buf,
+> +				       size_t len, int timeout_ms)
+> +{
+> +	if (!send_all_ok(tx, buf, len))
+> +		return false;
+> +	return recv_verify_ok(rx, buf, len, timeout_ms);
+> +}
+> +
+> +/* Receive one whole CAN frame from a raw socket within timeout_ms. */
+> +static inline bool recv_frame_ok(int raw, struct can_frame *frame,
+> +				 int timeout_ms)
+> +{
+> +	ssize_t want_len = sizeof(*frame);
+> +
+> +	return recv_timeout(raw, frame, sizeof(*frame), timeout_ms) == want_len;
+> +}
+> +
+> +/* Encode a J1939 single frame the way the kernel does on transmit. */
+> +static inline canid_t j1939_canid(uint8_t prio, pgn_t pgn, uint8_t da,
+> +				  uint8_t sa)
+> +{
+> +	canid_t id = CAN_EFF_FLAG | (prio << J1939_ID_PRIO_SHIFT) |
+> +		     (pgn << J1939_ID_PGN_SHIFT) | sa;
+> +
+> +	/* the destination goes into the PS byte of the PGN field */
+> +	if (J1939_IS_PDU1(pgn))
+> +		id |= da << J1939_ID_PGN_SHIFT;
+> +	return id;
+> +}
+> +
+> +/*
+> + * Start a TP/ETP control frame: every byte J1939_FILL_BYTE, then the control
+> + * byte cmd.
+> + */
+> +static inline void cm_dat_init(uint8_t *dat, uint8_t cmd)
+> +{
+> +	memset(dat, J1939_FILL_BYTE, CAN_MAX_DLEN);
+> +	dat[J1939_CM_CMD_OFF] = cmd;
+> +}
+> +
+> +/*
+> + * Serialize a 64-bit NAME little-endian into a buffer of sizeof(name_t)
+> + * bytes (host-agnostic).
+> + */
+> +static inline void put_name(uint8_t *dat, name_t name)
+> +{
+> +	size_t i;
+> +
+> +	for (i = 0; i < sizeof(name); i++)
+> +		dat[i] = name >> (CHAR_BIT * i);
+> +}
+> +
+> +/* Little-endian codecs for the TP/ETP CM multi-byte fields (host-agnostic). */
+> +static inline void put_le(uint8_t *p, uint32_t v, size_t n)
+> +{
+> +	size_t i;
+> +
+> +	for (i = 0; i < n; i++)
+> +		p[i] = v >> (CHAR_BIT * i);
+> +}
+> +
+> +static inline uint32_t get_le(const uint8_t *p, size_t n)
+> +{
+> +	uint32_t v = 0;
+> +	size_t i;
+> +
+> +	for (i = 0; i < n; i++) {
+> +		uint32_t byte = p[i];
+> +
+> +		v |= byte << (CHAR_BIT * i);
+> +	}
+> +	return v;
+> +}
+> +
+> +static inline void put_le16(uint8_t *p, uint16_t v)
+> +{
+> +	put_le(p, v, sizeof(v));
+> +}
+> +
+> +static inline void put_le24(uint8_t *p, uint32_t v)
+> +{
+> +	put_le(p, v, J1939_LE24_LEN);
+> +}
+> +
+> +static inline void put_le32(uint8_t *p, uint32_t v)
+> +{
+> +	put_le(p, v, sizeof(v));
+> +}
+> +
+> +static inline uint16_t get_le16(const uint8_t *p)
+> +{
+> +	return get_le(p, sizeof(uint16_t));
+> +}
+> +
+> +static inline uint32_t get_le24(const uint8_t *p)
+> +{
+> +	return get_le(p, J1939_LE24_LEN);
+> +}
+> +
+> +static inline uint32_t get_le32(const uint8_t *p)
+> +{
+> +	return get_le(p, sizeof(uint32_t));
+> +}
+> +
+> +/* Embed the PGN of the transported message into a TP/ETP control frame. */
+> +static inline void put_pgn(uint8_t *dat, pgn_t pgn)
+> +{
+> +	put_le24(&dat[J1939_CM_PGN_OFF], pgn);
+> +}
+> +
+> +/* Send one J1939-encoded frame of CAN_MAX_DLEN bytes with priority prio. */
+> +static inline bool send_raw8_ok(int raw, uint8_t prio, pgn_t pgn, uint8_t da,
+> +				uint8_t sa, const uint8_t dat[CAN_MAX_DLEN])
+> +{
+> +	struct can_frame f = {};
+> +
+> +	f.can_id = j1939_canid(prio, pgn, da, sa);
+> +	f.can_dlc = CAN_MAX_DLEN;
+> +	memcpy(f.data, dat, CAN_MAX_DLEN);
+> +	return write_all_ok(raw, &f, sizeof(f));
+> +}
+> +
+> +/*
+> + * Payload bytes of the DT frame that starts at offset off of a message of
+> + * size bytes; off must be below size.
+> + */
+> +static inline size_t j1939_dt_chunk_len(size_t size, size_t off)
+> +{
+> +	size_t n = size - off;
+> +
+> +	return n < J1939_DT_DATA_LEN ? n : J1939_DT_DATA_LEN;
+> +}
+> +
+> +/*
+> + * Send a TP/ETP data (DT) frame: sequence number seq and up to
+> + * J1939_DT_DATA_LEN bytes from offset off of payload, a message of size
+> + * bytes.
+> + */
+> +static inline bool send_dt_ok(int raw, uint8_t prio, pgn_t dt_pgn, uint8_t da,
+> +			      uint8_t sa, uint8_t seq, const uint8_t *payload,
+> +			      size_t off, size_t size)
+> +{
+> +	uint8_t dat[CAN_MAX_DLEN];
+> +
+> +	/*
+> +	 * off >= size would make the size_t subtraction size - off
+> +	 * underflow.
+> +	 */
+> +	if (off >= size)
+> +		return false;
+> +
+> +	memset(dat, J1939_FILL_BYTE, sizeof(dat));
+> +	dat[J1939_DT_SEQ_OFF] = seq;
+> +	memcpy(&dat[J1939_DT_DATA_OFF], payload + off,
+> +	       j1939_dt_chunk_len(size, off));
+> +	return send_raw8_ok(raw, prio, dt_pgn, da, sa, dat);
+> +}
+> +
+> +/* Milliseconds from a to b (negative if b is earlier), CLOCK_MONOTONIC. */
+> +static inline long timespec_diff_ms(const struct timespec *a,
+> +				    const struct timespec *b)
+> +{
+> +	return ((b->tv_sec - a->tv_sec) * NSEC_PER_SEC +
+> +		(b->tv_nsec - a->tv_nsec)) / NSEC_PER_MSEC;
+> +}
+> +
+> +/* Set *deadline to timeout_ms from now on CLOCK_MONOTONIC. */
+> +static inline void deadline_after_ms(struct timespec *deadline, int timeout_ms)
+> +{
+> +	clock_gettime(CLOCK_MONOTONIC, deadline);
+> +	deadline->tv_sec += timeout_ms / MSEC_PER_SEC;
+> +	deadline->tv_nsec += (timeout_ms % MSEC_PER_SEC) * NSEC_PER_MSEC;
+> +	if (deadline->tv_nsec >= NSEC_PER_SEC) {
+> +		deadline->tv_sec++;
+> +		deadline->tv_nsec -= NSEC_PER_SEC;
+> +	}
+> +}
+> +
+> +/*
+> + * Poll and recv on raw until match() accepts a frame, or time out. match()
+> + * gets the raw can_id; the j1939_id_*() decoders mask the flag bits. Other
+> + * traffic must not extend the wait, so poll against a fixed deadline.
+> + */
+> +static inline bool recv_match_ok(int raw, int timeout_ms,
+> +				 struct can_frame *frame,
+> +				 bool (*match)(canid_t id, const void *ctx),
+> +				 const void *ctx)
+> +{
+> +	struct pollfd pfd = { .fd = raw, .events = POLLIN };
+> +	struct timespec now, deadline;
+> +	int remaining = timeout_ms;
+> +
+> +	deadline_after_ms(&deadline, timeout_ms);
+> +
+> +	while (remaining > 0 && poll(&pfd, 1, remaining) > 0) {
+> +		if (recv(raw, frame, sizeof(*frame), 0) < 0)
+> +			return false;
+> +		if (j1939_is_data_frame(frame->can_id) &&
+> +		    match(frame->can_id, ctx))
+> +			return true;
+> +		clock_gettime(CLOCK_MONOTONIC, &now);
+> +		remaining = timespec_diff_ms(&now, &deadline);
+> +	}
+> +	return false;
+> +}
+> +
+> +struct j1939_peer_match { uint8_t want_pf, want_da, want_sa; };
+> +
+> +static inline bool match_peer_dest(canid_t id, const void *ctx)
+> +{
+> +	const struct j1939_peer_match *m = ctx;
+> +
+> +	return j1939_id_pf(id) == m->want_pf &&
+> +	       j1939_id_ps(id) == m->want_da &&		/* destination */
+> +	       j1939_id_sa(id) == m->want_sa;		/* source */
+> +}
+> +
+> +/*
+> + * Receive the next frame whose CAN-id PF == want_pf, sent from want_sa to
+> + * want_da (PS).
+> + */
+> +static inline bool recv_for_peer_ok(int raw, uint8_t want_pf, uint8_t want_da,
+> +				    uint8_t want_sa, struct can_frame *frame,
+> +				    int timeout_ms)
+> +{
+> +	struct j1939_peer_match m = {
+> +		.want_pf = want_pf, .want_da = want_da, .want_sa = want_sa,
+> +	};
+> +
+> +	return recv_match_ok(raw, timeout_ms, frame, match_peer_dest, &m);
+> +}
+> +
+> +/* recv_for_peer_ok() and check that the control byte is want_cmd. */
+> +static inline bool recv_cm_cmd_ok(int raw, uint8_t want_pf, uint8_t want_da,
+> +				  uint8_t want_sa, struct can_frame *frame,
+> +				  int timeout_ms, uint8_t want_cmd)
+> +{
+> +	if (!recv_for_peer_ok(raw, want_pf, want_da, want_sa, frame,
+> +			      timeout_ms))
+> +		return false;
+> +	return frame->data[J1939_CM_CMD_OFF] == want_cmd;
+> +}
+> +
+> +/* Arbitrary; keeps fill_pattern() from being the plain byte offset. */
+> +#define J1939_PATTERN_SEED	0x3c
+> +
+> +/*
+> + * Fill buf with a deterministic, position-dependent byte pattern. The
+> + * i >> CHAR_BIT term makes each 256-byte block differ, so a misplaced packet
+> + * shows up.
+> + */
+> +static inline void fill_pattern(uint8_t *buf, size_t len)
+> +{
+> +	size_t i;
+> +
+> +	for (i = 0; i < len; i++)
+> +		buf[i] = i ^ (i >> CHAR_BIT) ^ J1939_PATTERN_SEED;
+> +}
+> +
+> +/* Is the CAN protocol proto missing from this kernel? */
+> +static inline bool can_proto_missing(int type, int proto)
+> +{
+> +	int probe = socket(PF_CAN, type, proto);
+> +
+> +	if (probe < 0)
+> +		return errno == EAFNOSUPPORT || errno == EPROTONOSUPPORT;
+> +
+> +	close(probe);
+> +	return false;
+> +}
+> +
+> +/*
+> + * Body of each test's main(): require CANIF in the environment and a kernel
+> + * that supports CAN_J1939 and CAN_RAW, then run the harness. Skip when any
+> + * of them is missing.
+> + */
+> +static inline int j1939_test_main(int argc, char **argv)
+> +{
+> +	char *ifname = getenv("CANIF");
+> +
+> +	if (!ifname) {
+> +		fprintf(stderr, "# CANIF must name the test interface\n");
+> +		return KSFT_SKIP;
+> +	}
+> +	strncpy(CANIF, ifname, sizeof(CANIF) - 1);
+> +
+> +	if (can_proto_missing(SOCK_DGRAM, CAN_J1939) ||
+> +	    can_proto_missing(SOCK_RAW, CAN_RAW))
+> +		return KSFT_SKIP;
+> +
+> +	return test_harness_run(argc, argv);
+> +}
+> +
+> +#endif /* __SELFTESTS_NET_CAN_J1939_TESTS_H__ */
+>
 
-This issue was investigated and the fix was developed with AI
-assistance (ZCode/GLM-4).
+[Severity: Low]
+If the running kernel lacks CAN_J1939 or CAN_RAW, j1939_test_main()
+returns KSFT_SKIP here without saying why. The CANIF check just above
+prints a reason before it skips, but this path prints nothing.
 
-Testing with QEMU and KASAN injection (lockdep and
-CONFIG_DEBUG_ATOMIC_SLEEP enabled in the test kernel):
+j1939_run() in j1939_lib.sh passes only $J1939_TEST_PROG to
+ret_set_ksft_status and relies on the binary to explain the skip. The
+result is a log that shows the test as skipped with no hint that
+CONFIG_CAN_J1939 or CONFIG_CAN_RAW is missing. That is awkward for
+anyone triaging CI results.
 
-- A shared-fd, two-reader test without unplug delivered all 20000
-  records exactly once, with no corruption or reordering.  The
-  unmodified kernel delivered 19979 of them more than once and only
-  48 could be attributed to any consistent stream order.
-- Stalling the input callback right after find_port_by_vq() while a
-  QMP device_del unplugs the port made the previous version
-  dereference the cleared portdev (KASAN null-ptr-deref in
-  in_intr()); this version returns through the unplug check and
-  reports nothing.
-- Stalling a userspace read() just before fill_readbuf() and
-  unplugging the port while it is parked: the previous version
-  returns 0 (treated as a normal host disconnect), this version
-  returns -ENODEV.
-- With one reader parked while holding a claim, poll() no longer
-  reports EPOLLIN and a nonblocking read from the second reader
-  returns -EAGAIN instead of a readable/EAGAIN mismatch.  With the
-  host disconnecting at the same point, the second reader gets
-  -EAGAIN rather than a premature EOF, and the following blocking
-  read receives the remainder the first reader puts back.
-- During concurrent unplug, readers received a valid contiguous
-  prefix before disconnect, with no duplicates or KASAN reports;
-  the same stall sequences produce six slab use-after-free reports
-  per run on the unmodified kernel.
-- A separate fault-injection run exercised 20 failed buffer
-  requeues, all going through the deferred free path, without a
-  reported use-after-free, lockdep splat or invalid-context sleep.
-- Combined with the hvc_kick change for the HVC adapter lifetime,
-  the 20000-record integrity test, the callback/unplug injection
-  and a normal PORT_REMOVE run all complete without new KASAN,
-  lockdep, duplicate or reordered data.
+Could you split the condition and print which protocol is unavailable?
+For example, write a "# CAN_J1939 not supported by this kernel" line
+to stderr, the same way the CANIF case does. The message could also go
+into can_proto_missing() itself if you prefer that.
 
-The test environment provides virtual virtio-console devices only.
-Real remoteproc DMA buffers were not available, so the rproc-serial
-DMA buffer path is covered by code inspection of the claim, deferred
-free and reclaim ordering, not by a runtime test.
-
-Fixes: 203baab8ba319 ("virtio: console: Introduce function to hand off data from host to readers")
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
-
----
-Changes since v2:
-- in_intr() now returns immediately when it observes unplugging or a
-  cleared portdev, dropping the reference taken by find_port_by_vq().
-  The previous version skipped get_inbuf() but still evaluated
-  is_rproc_serial(port->portdev->vdev) and could reach
-  discard_port_data() or the HVC adapter after unplug_port() tore the
-  port down.  Reproduced by stalling in_intr() after
-  find_port_by_vq() while a QMP device_del unplugs the port: the
-  previous version reports a KASAN null-ptr-deref in in_intr() (RIP
-  in_intr+0x2c5), this version reports nothing.
-- Introduced an explicit input-state snapshot and stopped treating
-  "a buffer is claimed" as "readable".  poll() no longer reports
-  EPOLLIN and a nonblocking read returns -EAGAIN while another
-  reader owns the buffer, instead of the previous poll/read
-  mismatch.  Reproduced by parking one reader on a claim and
-  polling/reading from the second reader: previous version fails
-  both checks, this version passes.
-- fill_readbuf() returns -ENODEV instead of 0 when a userspace
-  reader finds the port unplugged before copying anything;
-  port_fops_read() takes the same snapshot and applies it before
-  the EOF/EAGAIN early returns.  The HVC path keeps returning 0.
-  Reproduced by stalling a read() just before fill_readbuf() and
-  unbinding the port: previous version returns 0, this version
-  returns -ENODEV.
-- Do not run discard_port_data() from in_intr() while a claim is
-  held; the claimed buffer is returned to port->inbuf by its owner
-  and the deferred cleanup completes on release or port teardown.
-- Use READ_ONCE() for the unlocked connection-state reads in the
-  fill_readbuf() retry path, matching port_fops_read() and
-  will_read_block().
-- Revalidated the claimed+poll, claimed+O_NONBLOCK,
-  claim+host-disconnect, claim-period unplug, 20000-record
-  integrity and combined hvc_kick cases under KASAN, lockdep and
-  CONFIG_DEBUG_ATOMIC_SLEEP.
-v2: https://lore.kernel.org/r/20261105114535.972013-1-shunsheng1218@gmail.com/
-v1: https://lore.kernel.org/r/179378543196.71890.7555371342727156729@gmail.com/
----
- drivers/char/virtio_console.c | 296 ++++++++++++++++++++++++++++++----
- 1 file changed, 265 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
-index 019bcae81af5c..d1757017d9bd0 100644
---- a/drivers/char/virtio_console.c
-+++ b/drivers/char/virtio_console.c
-@@ -180,6 +180,23 @@ struct port {
- 	/* The current buffer from which data has to be fed to readers */
- 	struct port_buffer *inbuf;
- 
-+	/*
-+	 * True while a reader owns an exclusively claimed inbuf outside
-+	 * inbuf_lock, possibly sleeping in copy_to_user().  Nobody may
-+	 * prefetch the next buffer meanwhile: the claimer's unconsumed
-+	 * remainder goes back to inbuf first, or the prefetched buffer
-+	 * would be dropped or the stream reordered.
-+	 */
-+	bool inbuf_claimed;
-+
-+	/*
-+	 * Set at the start of unplug_port(), before any teardown.  The
-+	 * read path checks it under inbuf_lock and stops touching the
-+	 * input virtqueue; a reader returning a claimed buffer frees it
-+	 * instead of requeueing it.
-+	 */
-+	bool unplugging;
-+
- 	/*
- 	 * To protect the operations on the in_vq associated with this
- 	 * port.  Has to be a spinlock because it can be called from
-@@ -534,19 +551,48 @@ static void discard_port_data(struct port *port)
- 			 err);
- }
- 
--static bool port_has_data(struct port *port)
-+/*
-+ * Input state of a port, snapshotted under inbuf_lock.  The distinction
-+ * between a buffer that can be acquired now (AVAILABLE) and one that is
-+ * owned by another reader (CLAIMED) matters for poll() and for blocking
-+ * reads: only AVAILABLE must be reported as readable, while both mean
-+ * that unread data may still be pending for the EOF logic.
-+ */
-+enum port_input_state {
-+	PORT_INPUT_EMPTY,
-+	PORT_INPUT_AVAILABLE,
-+	PORT_INPUT_CLAIMED,
-+	PORT_INPUT_UNPLUGGED,
-+};
-+
-+/* Callers must not hold inbuf_lock. */
-+static enum port_input_state port_input_state(struct port *port)
- {
- 	unsigned long flags;
--	bool ret;
-+	enum port_input_state state;
- 
--	ret = false;
- 	spin_lock_irqsave(&port->inbuf_lock, flags);
--	port->inbuf = get_inbuf(port);
--	if (port->inbuf)
--		ret = true;
-+
-+	if (port->unplugging || !port->portdev) {
-+		state = PORT_INPUT_UNPLUGGED;
-+	} else if (port->inbuf_claimed) {
-+		state = PORT_INPUT_CLAIMED;
-+	} else {
-+		port->inbuf = get_inbuf(port);
-+		state = port->inbuf ? PORT_INPUT_AVAILABLE
-+				    : PORT_INPUT_EMPTY;
-+	}
- 
- 	spin_unlock_irqrestore(&port->inbuf_lock, flags);
--	return ret;
-+	return state;
-+}
-+
-+static bool port_has_data(struct port *port)
-+{
-+	enum port_input_state state = port_input_state(port);
-+
-+	return state == PORT_INPUT_AVAILABLE ||
-+	       state == PORT_INPUT_CLAIMED;
- }
- 
- static ssize_t __send_control_msg(struct ports_device *portdev, u32 port_id,
-@@ -692,24 +738,112 @@ static ssize_t __send_to_port(struct port *port, struct scatterlist *sg,
-  * Give out the data that's requested from the buffer that we have
-  * queued up.
-  */
-+static bool will_read_block(struct port *port);
-+
- static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
--			    size_t out_count, bool to_user)
-+			    size_t out_count, bool to_user, bool nonblock)
- {
- 	struct port_buffer *buf;
- 	unsigned long flags;
-+	bool free_requeue_buf = false;
-+	int err;
- 
--	if (!out_count || !port_has_data(port))
-+	if (!out_count)
- 		return 0;
- 
-+retry:
-+	spin_lock_irqsave(&port->inbuf_lock, flags);
-+
-+	/* The port is going away; its vqs are being torn down. */
-+	if (port->unplugging || !port->portdev) {
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		/* Userspace sees a removed port; HVC just has no data. */
-+		return to_user ? -ENODEV : 0;
-+	}
-+
-+	/*
-+	 * Another reader (a userspace read() or the HVC console poll)
-+	 * owns the claimed buffer, possibly sleeping in copy_to_user().
-+	 * Prefetching the next buffer here would drop or reorder the
-+	 * claimed data once the owner returns its unconsumed remainder,
-+	 * so report no data instead.  The HVC poll will simply retry;
-+	 * a userspace reader waits for the claim to be released.
-+	 */
-+	if (port->inbuf_claimed) {
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		if (!to_user)
-+			return 0;
-+		if (nonblock)
-+			return -EAGAIN;
-+
-+		err = wait_event_freezable(port->waitqueue,
-+					   !READ_ONCE(port->inbuf_claimed) ||
-+					   READ_ONCE(port->unplugging));
-+		if (err)
-+			return err;
-+		goto retry;
-+	}
-+
-+	port->inbuf = get_inbuf(port);
- 	buf = port->inbuf;
-+	if (!buf) {
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		if (!to_user)
-+			return 0;
-+		if (nonblock)
-+			return READ_ONCE(port->host_connected) ? -EAGAIN : 0;
-+		/*
-+		 * The data we saw was consumed by another reader while we
-+		 * waited for its claim.  Keep blocking like the fops-level
-+		 * wait instead of reporting a spurious EOF: wait for new
-+		 * data, a disconnect or the unplug fence.
-+		 */
-+		err = wait_event_freezable(port->waitqueue,
-+					   !will_read_block(port));
-+		if (err)
-+			return err;
-+		if (!READ_ONCE(port->guest_connected))
-+			return -ENODEV;
-+		if (!READ_ONCE(port->host_connected) && !port_has_data(port))
-+			return 0;
-+		goto retry;
-+	}
-+
-+	/*
-+	 * Claim the buffer: we own it exclusively while copying,
-+	 * without holding inbuf_lock.
-+	 */
-+	port->inbuf = NULL;
-+	port->inbuf_claimed = true;
-+	spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+
- 	out_count = min(out_count, buf->len - buf->offset);
- 
- 	if (to_user) {
- 		ssize_t ret;
- 
- 		ret = copy_to_user(out_buf, buf->buf + buf->offset, out_count);
--		if (ret)
-+		if (ret) {
-+			bool free_it;
-+
-+			/*
-+			 * The copy failed: hand the buffer back with its
-+			 * data intact, unless the port is being unplugged,
-+			 * in which case nobody would free it anymore.
-+			 */
-+			spin_lock_irqsave(&port->inbuf_lock, flags);
-+			free_it = port->unplugging || !port->portdev;
-+			if (!free_it)
-+				port->inbuf = buf;
-+			port->inbuf_claimed = false;
-+			spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+
-+			if (free_it)
-+				free_buf(buf, true);
-+			else
-+				wake_up_interruptible(&port->waitqueue);
- 			return -EFAULT;
-+		}
- 	} else {
- 		memcpy((__force u8 *)out_buf, buf->buf + buf->offset,
- 		       out_count);
-@@ -717,19 +851,57 @@ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
- 
- 	buf->offset += out_count;
- 
--	if (buf->offset == buf->len) {
-+	spin_lock_irqsave(&port->inbuf_lock, flags);
-+
-+	if (port->unplugging || !port->portdev) {
-+		/*
-+		 * The port was unplugged while we were copying: the vqs
-+		 * are going away, so free the buffer instead of requeueing
-+		 * it.  Runs outside the lock; sleepability matches the
-+		 * caller's context (to_user == false is the atomic HVC
-+		 * path, whose DMA frees are deferred by free_buf()).
-+		 */
-+		port->inbuf_claimed = false;
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		free_buf(buf, to_user);
-+		wake_up_interruptible(&port->waitqueue);
-+		return out_count;
-+	}
-+
-+	if (buf->offset < buf->len) {
-+		/* Data left in this buffer; serve it before the next one. */
-+		port->inbuf = buf;
-+	} else {
- 		/*
- 		 * We're done using all the data in this buffer.
- 		 * Re-queue so that the Host can send us more data.
- 		 */
--		spin_lock_irqsave(&port->inbuf_lock, flags);
--		port->inbuf = NULL;
--
--		if (add_inbuf(port->in_vq, buf) < 0)
-+		if (add_inbuf(port->in_vq, buf) < 0) {
- 			dev_warn(port->dev, "failed add_buf\n");
--
--		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+			/*
-+			 * Defer the free: free_buf() may call
-+			 * dma_free_coherent() (rproc buffers) when the
-+			 * caller can sleep, which is illegal with
-+			 * inbuf_lock held and IRQs off.
-+			 */
-+			free_requeue_buf = true;
-+		}
- 	}
-+
-+	/*
-+	 * Release the claim.  Do not touch buf afterwards: it may have
-+	 * been freed above (failed requeue).  Wake unconditionally:
-+	 * readers waiting for the claim need a wakeup even when the
-+	 * buffer was fully consumed.
-+	 */
-+	port->inbuf_claimed = false;
-+	spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+
-+	if (free_requeue_buf)
-+		free_buf(buf, to_user);
-+
-+	wake_up_interruptible(&port->waitqueue);
-+
- 	/* Return the number of bytes actually copied */
- 	return out_count;
- }
-@@ -737,11 +909,21 @@ static ssize_t fill_readbuf(struct port *port, u8 __user *out_buf,
- /* The condition that must be true for polling to end */
- static bool will_read_block(struct port *port)
- {
--	if (!port->guest_connected) {
-+	enum port_input_state state;
-+
-+	if (!READ_ONCE(port->guest_connected)) {
- 		/* Port got hot-unplugged. Let's exit. */
- 		return false;
- 	}
--	return !port_has_data(port) && port->host_connected;
-+
-+	state = port_input_state(port);
-+	if (state == PORT_INPUT_UNPLUGGED || state == PORT_INPUT_AVAILABLE)
-+		return false;
-+	/* Another reader owns the claimed buffer: wait for it. */
-+	if (state == PORT_INPUT_CLAIMED)
-+		return true;
-+
-+	return READ_ONCE(port->host_connected);
- }
- 
- static bool will_write_block(struct port *port)
-@@ -771,21 +953,28 @@ static ssize_t port_fops_read(struct file *filp, char __user *ubuf,
- 			      size_t count, loff_t *offp)
- {
- 	struct port *port;
-+	enum port_input_state state;
- 	ssize_t ret;
- 
- 	port = filp->private_data;
- 
- 	/* Port is hot-unplugged. */
--	if (!port->guest_connected)
-+	if (!READ_ONCE(port->guest_connected))
-+		return -ENODEV;
-+
-+	state = port_input_state(port);
-+	if (state == PORT_INPUT_UNPLUGGED)
- 		return -ENODEV;
- 
--	if (!port_has_data(port)) {
-+	if (state != PORT_INPUT_AVAILABLE) {
- 		/*
--		 * If nothing's connected on the host just return 0 in
--		 * case of list_empty; this tells the userspace app
--		 * that there's no connection
-+		 * No buffer can be acquired right now: the input is empty
-+		 * or another reader owns the claimed buffer.  A host
-+		 * disconnect is only EOF when no reader still holds
-+		 * unread bytes; with a claim outstanding, wait for it.
- 		 */
--		if (!port->host_connected)
-+		if (state == PORT_INPUT_EMPTY &&
-+		    !READ_ONCE(port->host_connected))
- 			return 0;
- 		if (filp->f_flags & O_NONBLOCK)
- 			return -EAGAIN;
-@@ -796,7 +985,7 @@ static ssize_t port_fops_read(struct file *filp, char __user *ubuf,
- 			return ret;
- 	}
- 	/* Port got hot-unplugged while we were waiting above. */
--	if (!port->guest_connected)
-+	if (!READ_ONCE(port->guest_connected))
- 		return -ENODEV;
- 	/*
- 	 * We could've received a disconnection message while we were
-@@ -808,10 +997,14 @@ static ssize_t port_fops_read(struct file *filp, char __user *ubuf,
- 	 * really want to give off whatever data we have and only then
- 	 * check for host_connected.
- 	 */
--	if (!port_has_data(port) && !port->host_connected)
-+	state = port_input_state(port);
-+	if (state == PORT_INPUT_UNPLUGGED)
-+		return -ENODEV;
-+	if (state == PORT_INPUT_EMPTY && !READ_ONCE(port->host_connected))
- 		return 0;
- 
--	return fill_readbuf(port, ubuf, count, true);
-+	return fill_readbuf(port, ubuf, count, true,
-+			     filp->f_flags & O_NONBLOCK);
- }
- 
- static int wait_port_writable(struct port *port, bool nonblock)
-@@ -1206,7 +1399,7 @@ static ssize_t get_chars(u32 vtermno, u8 *buf, size_t count)
- 	/* If we don't have an input queue yet, we can't get input. */
- 	BUG_ON(!port->in_vq);
- 
--	return fill_readbuf(port, (__force u8 __user *)buf, count, false);
-+	return fill_readbuf(port, (__force u8 __user *)buf, count, false, false);
- }
- 
- static void resize_console(struct port *port)
-@@ -1400,6 +1593,8 @@ static int add_port(struct ports_device *portdev, u32 id)
- 
- 	port->name = NULL;
- 	port->inbuf = NULL;
-+	port->inbuf_claimed = false;
-+	port->unplugging = false;
- 	port->cons.hvc = NULL;
- 	port->async_queue = NULL;
- 
-@@ -1533,6 +1728,17 @@ static void remove_port_data(struct port *port)
-  */
- static void unplug_port(struct port *port)
- {
-+	/*
-+	 * Mark the port as being unplugged before any teardown, so the
-+	 * read path stops touching the input virtqueue: readers check
-+	 * this flag under inbuf_lock and bail out, and a reader that is
-+	 * returning a claimed buffer frees it instead of requeueing it
-+	 * to a virtqueue that may already be gone.
-+	 */
-+	spin_lock_irq(&port->inbuf_lock);
-+	port->unplugging = true;
-+	spin_unlock_irq(&port->inbuf_lock);
-+
- 	spin_lock_irq(&port->portdev->ports_lock);
- 	list_del(&port->list);
- 	spin_unlock_irq(&port->portdev->ports_lock);
-@@ -1579,6 +1785,12 @@ static void unplug_port(struct port *port)
- 	debugfs_remove(port->debugfs_file);
- 	kfree(port->name);
- 
-+	/*
-+	 * Reclaim rproc DMA buffers deferred by the atomic cleanup
-+	 * paths before the port is fully torn down.
-+	 */
-+	reclaim_dma_bufs();
-+
- 	/*
- 	 * Locks around here are not necessary - a port can't be
- 	 * opened after we removed the port struct from ports_list
-@@ -1791,7 +2003,28 @@ static void in_intr(struct virtqueue *vq)
- 	}
- 
- 	spin_lock_irqsave(&port->inbuf_lock, flags);
--	port->inbuf = get_inbuf(port);
-+
-+	/*
-+	 * The port is being unplugged: unplug_port() tears down portdev,
-+	 * the guest_connected state and the HVC adapter.  Do not touch
-+	 * the input virtqueue or any of that state; just drop the port
-+	 * reference taken by find_port_by_vq().
-+	 */
-+	if (port->unplugging || !port->portdev) {
-+		spin_unlock_irqrestore(&port->inbuf_lock, flags);
-+		wake_up_interruptible(&port->waitqueue);
-+		kref_put(&port->kref, remove_port);
-+		return;
-+	}
-+
-+	/*
-+	 * A reader may own an exclusively claimed buffer, possibly
-+	 * sleeping in copy_to_user().  Do not prefetch the next buffer
-+	 * now: the claimer's unconsumed remainder must go back to
-+	 * port->inbuf first, or the prefetched buffer would be lost.
-+	 */
-+	if (!port->inbuf_claimed)
-+		port->inbuf = get_inbuf(port);
- 
- 	/*
- 	 * Normally the port should not accept data when the port is
-@@ -1810,7 +2043,8 @@ static void in_intr(struct virtqueue *vq)
- 	 * guest_connected to true.
- 	 */
- 
--	if (!port->guest_connected && !is_rproc_serial(port->portdev->vdev))
-+	if (!port->inbuf_claimed && !port->guest_connected &&
-+	    !is_rproc_serial(port->portdev->vdev))
- 		discard_port_data(port);
- 
- 	/* Send a SIGIO indicating new data in case the process asked for it */
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104-j1939-selftests-v2-0-cf797c83317b%40pengutronix.de
