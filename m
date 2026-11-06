@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793934543;
-	b=kvWBFtd7hdr0JPo2yS+ibc5bUlIgd/UHaBAZIbF/Zus3jjGVWdINvXhRIoeHsIZTbHNd
-	 TkN+GqokXz+DkUumFYMOJcYLA6mJRY+FXQsdqu4s6YR8tkqeuUNx/3BXMhUhkZynIVpgz
-	 z4s9rQSum9HLb/f/U2UD117C9HvSEwptdfxS9EjqQX4mYn4OAT5Lt2ZS5q7H9hlJvuf7o
-	 64ABsAuSjMb8T7ylzQ4c3D1+3yT0uZr7o08YSURH7bkZyDIJEk45roMMhLgxSjSjSGwpM
-	 JjvT5iSqcz41kW5HomGndGqsKfNBHMJBGlgZPp/mRYfRBTcBtuBZp9+Pl8J2/G6bcQw==
+	b=FNtXHRgzk+X8mV7U/LM8CXbXGx7AIIcfx7pan3P690/8dGlybEzMGbZPGPp0qTomQT2G
+	 VYLA7nMtl8Ij9MKEo8TQtxTrWWAoASpJ5dFyCStlnhSSr++fK/HPZuzRU5C7xHbP/Azca
+	 Ke0UkidqHE1BPXAuUOTvCjQA90gBWYw1nTmbp956T4UMBmXcxuzd8Gni6V0G2Uoj7iv/6
+	 ifLMy5/XPddHRFb1ZPwnFtbolV+bhljoA6vXNjbq2hWgJQoo7Pu767qnVqgRgSTLnxsIF
+	 ncs9nbpqr+He5Mqk6NOzYppWK0/JLQD8JaT/etZKxI3zNBLZGYeZE3aHaINDSFEfrlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793934543;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=aG3qKpkU+Taiq7BxVOSCZg1B0hhudyigcABiRonPdW0=;
-	b=RqFodXkRUJWYIYJGIlA3qwJEvLGbv/5lII+aJ+qHufEuNal2lqrZws4UTt6ZccqktZm2
-	 xQ5LE+k4BGPfIDqX7Izxp1LeXZtWmcB7lN0qwV5aFydBgd9MUP5mS5tMZH3Y12m/oANb3
-	 J9j6mfYfWxM1rfPz48NzHWL9hV3Ak9OXFM3RiQpWphIw0C1xL5elk/Wk5oORm4I5ElnH6
-	 O1p8Iz4musGkbLnMx6ozlEbVITaYcOHZGFMQVMhbZE89Wg8VNoCjO3cWRrKyrHs2iiyWQ
-	 ASRqTWrjpO6OQweUgwMRB/2HCi8Gc0g8gipv+CQuoP3bS1nosRJmZOJb3mqc7a16jHA==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=/UEghncL3VXAQ5UxiKCYc4rLg17YbRhuMlpZPO93UaQ=;
+	b=KFKXzTbNYwJ19MfmuxBW6qfvWn2/g5fiNdobyFrgKc7suxdsKykAsqQ/y42AjvisMZIS
+	 LhhVJoqiy34hclifLJTIiQpNdnm7HEr2Wboj1c5jqa3kAhYAmAMqFwTG6P99O6pB8tOcK
+	 mQzGvZlPd3dqVyqhv29YxRXnyD+rsBi+HzM9FqZVJntNe93wfwaGsOkYnKfm4+mwLUScD
+	 kZtT/uqFmz+sqLLZY5awRz257rMmZLVSrFtgTNL+kMRmVrXPr+ASzeojQItZNGxdCfh+O
+	 ti2pNxqCKZyOlI/WY637G1VXPFG9gSF+fNFLWjmSfDuutal2fL43ynOtLIMgtBNgbRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=DpgWGOyd;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Cyhotmb5;
 	arc=none smtp.remote-ip=90.155.50.34
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D05606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C43606A31B
 	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:09:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87D05606A326
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C43606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=DpgWGOyd
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Cyhotmb5
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=aG3qKpkU+Taiq7BxVOSCZg1B0hhudyigcABiRonPdW0=; b=DpgWGOydSfsQZugtXNwQYagFg0
-	as3xG4PDAt+p9wBZ2uBOmb8hpI9iIMl1cDc351vLwUCYWhUcSKB/T7+xGmoo7jR6Nb034pVEC7b9h
-	bY1VRJRH+Ye+wV4u2e7UL7+Hy1z4nioDZ3kqc5j1h5OOa4NePOW8Wr3QuBiqrR/LMYwt4G7PeBzbp
-	AAd5kVZ+zyPVZU96tva+Gy9gqPuH64t5iGnxTl0kCChkeApsb2CNeqc0/2Z2XivhxocbAxB7YIfF9
-	LOwiuJVIYTrV7GaqG4hZ8JlLgkBJJBxYympHFxDWWKXvrmtH9aZv5ja1FyZ2J88JbFouKXrIbsWHw
-	s5824jBQ==;
+	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=/UEghncL3VXAQ5UxiKCYc4rLg17YbRhuMlpZPO93UaQ=; b=Cyhotmb5w+q7SIMRvPHIzmwhIQ
+	0N8a06HSGhWe81kaqVWI8adeCOhVG16xmNpyCy1Mv78kRAdSzk1O3gseRstvXlysAzS1EkMHCe2uS
+	xrL/SHoZM6XPu6ecLIJw12DpAbhOSduRHa21g8eLMJffCalbvbIdPuiiHwJV/8LSLBLbU5fQQNHLo
+	0Omgttw0jSgeUDyVxJLSZGiB1NOdM8gPO8QBW9Bu9VHGpzSYvijoQqCZ89G0izVO9wvk2yL9NfAgB
+	LLUagfO+lzathuJoBbBRRzZ8FUmexpxUVi1qucs4a1P+aSdOXvLTSBZjS6Nx0KhiIjCp2c83RBgQt
+	gCRXmtPw==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPAK1-0000000FwPE-1FLh;
+	id 1xPAK1-0000000FwPj-1jZe;
 	Fri, 06 Nov 2026 03:08:57 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xPAK1-0000000AeGF-09Jj;
+	id 1xPAK1-0000000AeGU-0uBx;
 	Fri, 06 Nov 2026 03:08:57 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: Thomas Gleixner <tglx@kernel.org>,
@@ -64,10 +64,12 @@ Cc: Stephen Boyd <sboyd@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	nh-open-source@amazon.com,
 	David Woodhouse <dwmw2@infradead.org>
-Subject: [PATCH v2 0/6] timekeeping: Reduce magnitude of ntp_error
-Date: Thu,  5 Nov 2026 19:08:49 -0800
-Message-ID: <20261106030856.2538039-1-dwmw2@infradead.org>
+Subject: [PATCH v2 4/6] timekeeping: Reinstate proportional correction of ntp_error
+Date: Thu,  5 Nov 2026 19:08:53 -0800
+Message-ID: <20261106030856.2538039-5-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261106030856.2538039-1-dwmw2@infradead.org>
+References: <20261106030856.2538039-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,131 +86,211 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The timekeeper's ntp_error variable tracks the delta between the ideal
-time that the kernel *should* be reporting as CLOCK_REALTIME, and the
-time that is *actually* being reported.
+The +0/+1 mult dithering is sufficient to keep ntp_error at zero once
+it's already there, but it doesn't do much to reduce it once any
+significant ntp_error has accumulated (e.g. from frequency or phase
+adjustments) — it can typically only drain single-digit nanoseconds
+per second, only in one direction, and potentially not at all when the
+mult division is exact. Commit dc491596f639 ("timekeeping: Rework
+frequency adjustments to work better w/ nohz") removed a larger skew
+because in a tickless kernel, it would remain in effect for a full
+idle period and overshoot. Now that timekeeping_max_deferment()
+ensures that the system wakes at the top of the second when skew is
+active, the correction can be reinstated. If ntp_error exceeds an
+amount that a single +1 change to mult can drain within a minute, add
+an additional bias to mult to close the gap over ~10 seconds.
 
-A previous patch series in v7.3, up to commit 794ddd6e15cf ("ntp:
-Remove tick_length_base, use tick_length directly"), fixed *errors* in
-the accounting of ntp_error — cases where the reported time would
-diverge from the ideal time *without* the divergence being correctly
-tracked in ntp_error for subsequent compensation.
+The deliberate frequency excursion this causes is bounded. In correct
+operation the only remaining source of significant ntp_error is mult
+quantisation drift across tickless idle, which accrues at well under
+one mult-LSB-second per second and is bounded by the clocksource's
+maximum idle deferment, so the drain engages rarely and at single-digit
+ppm for ~10s; the worst error observed in the wild (83µs, from an
+accounting bug since fixed) would drain at 8.3ppm. A clamp caps the
+drain at 50ppm — an order of magnitude below the 500ppm adjtime()
+slew rate — purely so that any future accounting bug results in a
+slow, bounded drain rather than an unbounded frequency excursion
+visible to NTP daemons measuring the clock; errors above 500µs simply
+take proportionally longer than the 10 second horizon to repay.
 
-This series is the next step: it reduces the magnitude of the
-excursions which are (now) *correctly* tracked in ntp_error.
+The drain, like a slew, relies on the per-second wakeup from
+timekeeping_max_deferment(). It is sized during accumulation, which may
+be running from an idle CPU's interrupt with the do_timer duty vacant
+and its last holder asleep on a long timer — so claim the vacant duty
+there too, as __do_adjtimex() does when starting a slew.
 
-The ntp_error mechanism works fine when it remains close to zero. The
-actual clock is steered back towards the ideal by dithering between
-mult and mult+1 for each cycle, changing between the two each time
-ntp_error crosses zero.
+Acked-by: John Stultz <jstultz@google.com>
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+---
+v2: Describe the dithering as +0/+1 rather than ±1 (Miroslav). Clamp
+    the drain at 50ppm instead of maxadj/4, and document the bounded
+    frequency excursion in the commit message; the clamp also bounds
+    the extrapolation arithmetic in patch 6. Spell the negative-drain
+    wakeup test explicitly instead of via a u32 cast (Sashiko). Claim
+    the do_timer duty when the drain engages, as patch 3 now does for
+    slews.
 
-This doesn't work as well when the value of ntp_error gets higher. In
-some cases, 83µs of ntp_error was seen. Draining that through the mult
-dithering, at typically less than 1ns/s, could take days. And while it
-does, the precision of the frequency that can be effected by the
-kernel's timekeeping is limited by the integer quantisation, because
-it's permanently biased to either mult or mult+1 according to the
-direction of the persistent ntp_error, and frequencies between the two
-values cannot be achieved by the normal dithering. On top of which,
-chrony was attempting to discipline the *reported* clock, even as the
-kernel was attempting to steer it as hard as it could (albeit not very
-hard) back to the kernel's ideal.
+ include/linux/timekeeper_internal.h |  5 +-
+ kernel/time/timekeeping.c           | 73 +++++++++++++++++++++++++++--
+ 2 files changed, 72 insertions(+), 6 deletions(-)
 
-There are two cases where during frequency/phase adjustment, the
-change was effectively applied to the 'ideal' vs. 'actual' rate at
-different moments in time. The accounting for this in ntp_error was
-self-consistent, but the better answer is for them to be conceptually
-applied at the same moment, without contributing anything to ntp_error
-at all. That also removes the step which repaying that ntp_error would
-have caused; the rate simply pivots at the moment of the change.
-
-This turns out not to be theoretical: Jie Wang reports¹ that since the
-v7.3 accounting fixes, phc2sys takes minutes instead of seconds to
-settle CLOCK_REALTIME after a step of the PHC it follows, because its
-large frequency corrections are charged to ntp_error and repaid only
-through the dithering. Patch 1 of this series is the fix for that:
-Yuan Wang has measured it restoring their gPTP settling times (back to
-32s from 200-400s or more) and withdrawn the RFC posted in that thread
-in its favour.
-
-While the timekeeping code is applying a phase correction, that
-applies an additional bias to the per-cycle 'mult' values. If a
-tickless kernel goes idle while this skew is being applied, it can
-continue to apply that bias *long* after it was intended to finish,
-overshooting the intended phase correction (by 500µs/s in the case of
-adjtime). Fix this in timekeeping_max_deferment() by requesting a
-wakeup at the top of the next second while phase skew is being
-applied. (NB: only for the core timekeeper, not aux clocks which
-remain as they were.)
-
-Finally, if ntp_error ever does get excessive, we can deliberately
-apply a phase skew to return it to zero faster than the normal
-dithering would permit. An equivalent mechanism was removed in commit
-dc491596f639 ("timekeeping: Rework frequency adjustments to work
-better w/ nohz") but especially with the timekeeping_max_deferment()
-change mentioned above, this now works effectively even with (and in
-fact especially with) tickless idle. But again only for the core
-timekeeper... unless we want to wake for aux clocks too?
-
-Tests running at https://david.woodhou.se/ntptest-virt/ on baseline
-vs. patched kernels, both tickless and periodic. The effect is seen
-most clearly on the tickless kernel, where the baseline experiences
-much higher jitter around corrections that should be smooth.
-
-The final patch, correcting the output of ktime_get_snapshot_id() for
-ntp_error at the moment of the snapshot, was marked DO NOT MERGE in v1.
-It trades monotonicity (of the snapshot output, across read methods)
-for accuracy, and Rodolfo wanted an explicit OK from the consumers of
-the PPS_FETCH timestamps it changes; Miroslav has given chrony's². The
-in-kernel snapshot users do want *accurate* time rather than a time we
-*know* is microseconds wrong because the kernel happened to be idle
-accumulating ntp_error right before they asked. So the tag is dropped
-and the patch is now intended for merging with the rest.
-
-v2:
- • Rebase to v7.4-rc1.
- • Pull the dividend/mult restructure up from the final patch into patch 1 so
-   the old and new mult calculations match visually, and rewrite the
-   comment explaining the mid-tick compensation (John).
- • Fix the ADJ_OFFSET_READONLY test in patch 3: that flag aliases
-   ADJ_NANO and only has its read-only meaning in the ADJ_ADJTIME
-   form. Also trigger the immediate update for ADJ_TIMECONST and
-   ADJ_STATUS, mirroring process_adjtimex_modes(). (Found by Sashiko.)
- • Claim the do_timer duty when a slew starts (patch 3) or a drain
-   engages (patch 4), so the per-second wakeup is honoured even if
-   every other CPU is already sleeping on a timer programmed before
-   the slew began.
- • Clamp the proportional drain in patch 4 at 50ppm instead of
-   maxadj/4, and document the bounded frequency excursion (Miroslav).
-   The clamp also bounds the extrapolation arithmetic in patch 6
-   against overflow (found by Sashiko).
- • Smaller cleanups: an explicit negative-drain test, rounding on the
-   insane-delta path, and honesty in the comments about the drain
-   bias.
- • Pull the pps_get_ts() conversion to ktime_get_snapshot_id() into
-   this series, ahead of the snapshot correction, so that the change
-   to the PPS_FETCH timestamps is explicit and covers all PPS
-   consumers (Rodolfo).
- • Drop DO NOT MERGE from the final patch.
-
-¹ https://lore.kernel.org/all/20261105032150.1763572-1-yuan1.wang@intel.com/
-² https://lore.kernel.org/all/atoVLqWfyJtCfci2@localhost/
-
-David Woodhouse (6):
-      timekeeping: Allow tick_length changes to apply mid-tick
-      ntp: Recalculate skew_delta when the phase offset changes
-      timekeeping: Bound idle sleep while a phase slew is in flight
-      timekeeping: Reinstate proportional correction of ntp_error
-      pps: Always use ktime_get_snapshot_id() for pps_get_ts()
-      timekeeping: Apply extrapolated ntp_error to clock snapshots
-
- include/linux/pps_kernel.h          |   4 +-
- include/linux/timekeeper_internal.h |  11 +-
- kernel/time/ntp.c                   | 144 ++++++++++++++----------
- kernel/time/tick-internal.h         |  18 +++
- kernel/time/timekeeping.c           | 211 ++++++++++++++++++++++++++++++++++--
- 5 files changed, 318 insertions(+), 70 deletions(-)
-
-base-commit: 6628e7d4c6b2f582557a3437606eac34b1067b40
---
+diff --git a/include/linux/timekeeper_internal.h b/include/linux/timekeeper_internal.h
+index fe077d97b5f8..85d123bcb270 100644
+--- a/include/linux/timekeeper_internal.h
++++ b/include/linux/timekeeper_internal.h
+@@ -97,6 +97,8 @@ struct tk_read_base {
+  * @ntp_error_shift:		Shift conversion between clock shifted nano seconds and
+  *				ntp shifted nano seconds.
+  * @ntp_err_mult:		Multiplication factor for scaled math conversion
++ * @err_drain:			Extra mult bias repaying ntp_error beyond the
++ *				dither's reach; sized at second boundaries
+  * @cs_tick_adj:		Per-second adjustment handed to NTP via ntp_clear()
+  *				accounting for the difference between the nominal
+  *				NTP interval and the real time taken by the
+@@ -186,7 +188,8 @@ struct timekeeper {
+ 	u64			ntp_tick;
+ 	s64			ntp_error;
+ 	u32			ntp_error_shift;
+-	u32			ntp_err_mult;
++	s32			ntp_err_mult;
++	s32			err_drain;
+ 	s64			cs_tick_adj;
+ 	u32			skip_second_overflow;
+ 	s64			skew_delta;
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index 667b4c2817b5..1f3fde0c37b2 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -326,6 +326,22 @@ static inline void clocksource_disable_inline_read(void) { }
+ static inline void clocksource_enable_inline_read(void) { }
+ #endif
+ 
++/*
++ * The proportional ntp_error drain engages when the error exceeds
++ * TK_NTP_ERR_THRESH seconds' worth of the +0/+1 dither's delivery (so
++ * noise the dither handles alone never wakes the CPU), and then
++ * repays over ~TK_NTP_ERR_HORIZON seconds. The drain rate is capped
++ * at TK_NTP_ERR_MAX_PPM: in correct operation it is unreachable (the
++ * worst error ever observed, 83µs from a since-fixed accounting bug,
++ * drains at 8.3ppm), so it exists purely to bound the frequency
++ * excursion any future accounting bug could inflict on NTP daemons
++ * measuring the clock. Errors above 500µs just take proportionally
++ * longer than the usual horizon to repay.
++ */
++#define TK_NTP_ERR_THRESH	60
++#define TK_NTP_ERR_HORIZON	10
++#define TK_NTP_ERR_MAX_PPM	50
++
+ /**
+  * tk_setup_internals - Set up internals to use clocksource clock.
+  *
+@@ -423,6 +439,7 @@ static void tk_setup_internals(struct timekeeper *tk, struct clocksource *clock)
+ 	tk->tkr_mono.mult = clock->mult;
+ 	tk->tkr_raw.mult = clock->mult;
+ 	tk->ntp_err_mult = 0;
++	tk->err_drain = 0;
+ 	tk->skip_second_overflow = 0;
+ 	tk->skew_delta = 0;
+ 
+@@ -831,6 +848,7 @@ static void timekeeping_update_from_shadow(struct tk_data *tkd, unsigned int act
+ 
+ 	if (action & TK_CLEAR_NTP) {
+ 		tk->ntp_error = 0;
++		tk->err_drain = 0;
+ 		ntp_clear(tk->id, tk->cs_tick_adj);
+ 	}
+ 
+@@ -1980,11 +1998,12 @@ u64 timekeeping_max_deferment(void)
+ 
+ 		/*
+ 		 * Skew introduced for phase offset is intended to be
+-		 * recalculated each second. Ensure a tickless kernel
+-		 * wakes up for that and does not overshoot, while skew
+-		 * is being applied.
++		 * recalculated each second, as is the proportional
++		 * ntp_error drain. Ensure a tickless kernel wakes up
++		 * for that and does not overshoot.
+ 		 */
+-		if (abs(tk->skew_delta) > 1) {
++		if (abs(tk->skew_delta) > 1 ||
++		    tk->ntp_err_mult < 0 || tk->ntp_err_mult > 1) {
+ 			u64 nsec_in_sec = tk->tkr_mono.xtime_nsec >>
+ 					  tk->tkr_mono.shift;
+ 			u64 remaining = NSEC_PER_SEC - min_t(u64, nsec_in_sec,
+@@ -2254,6 +2273,7 @@ void timekeeping_resume(void)
+ 	tks->tkr_raw.cycle_last  = cycle_now;
+ 
+ 	tks->ntp_error = 0;
++	tks->err_drain = 0;
+ 	timekeeping_suspended = 0;
+ 	timekeeping_update_from_shadow(&tk_core, TK_CLOCK_WAS_SET);
+ 	raw_spin_unlock_irqrestore(&tk_core.lock, flags);
+@@ -2509,7 +2529,16 @@ static void timekeeping_adjust(struct timekeeper *tk, s64 offset)
+ 	 * tick division, the clock will slow down. Otherwise it will stay
+ 	 * ahead until the tick length changes to a non-divisible value.
+ 	 */
+-	tk->ntp_err_mult = tk->ntp_error > 0 ? 1 : 0;
++	/* Drop the ntp_error drain the moment it overshoots */
++	if (tk->err_drain &&
++	    (((s64)tk->err_drain ^ tk->ntp_error) < 0 || !tk->ntp_error))
++		tk->err_drain = 0;
++
++	if (tk->err_drain)
++		tk->ntp_err_mult = tk->err_drain;
++	else
++		tk->ntp_err_mult = tk->ntp_error > 0 ? 1 : 0;
++
+ 	mult += tk->ntp_err_mult;
+ 
+ 	timekeeping_apply_adjustment(tk, offset, mult - tk->tkr_mono.mult);
+@@ -2552,6 +2581,7 @@ static inline unsigned int accumulate_nsecs_to_secs(struct timekeeper *tk)
+ {
+ 	u64 nsecps = (u64)NSEC_PER_SEC << tk->tkr_mono.shift;
+ 	unsigned int clock_set = 0;
++	bool crossed = false;
+ 
+ 	while (tk->tkr_mono.xtime_nsec >= nsecps) {
+ 		int leap;
+@@ -2584,6 +2614,39 @@ static inline unsigned int accumulate_nsecs_to_secs(struct timekeeper *tk)
+ 
+ 			clock_set = TK_CLOCK_WAS_SET;
+ 		}
++
++		crossed = true;
++	}
++
++	/*
++	 * Core timekeeper only; aux timekeepers are not covered by the
++	 * timekeeping_max_deferment() wakeup which re-sizes the drain
++	 * each second before it can overshoot.
++	 */
++	if (crossed && tk->id == TIMEKEEPER_CORE) {
++		/* Re-size the proportional ntp_error drain for this second */
++		s64 lsb_sec = ((s64)tk->cycle_interval <<
++			       tk->ntp_error_shift) * NTP_INTERVAL_FREQ;
++
++		tk->err_drain = 0;
++		if (abs(tk->ntp_error) > lsb_sec * TK_NTP_ERR_THRESH) {
++			s32 max_drain = (u64)tk->tkr_mono.clock->mult *
++					TK_NTP_ERR_MAX_PPM / 1000000;
++
++			tk->err_drain = clamp_t(s64,
++						div64_s64(tk->ntp_error,
++							  lsb_sec * TK_NTP_ERR_HORIZON),
++						-max_drain, max_drain);
++
++			/*
++			 * This accumulation may be running from an idle
++			 * CPU's interrupt (jiffies catch-up). Make sure
++			 * some CPU will honour the per-second deferment
++			 * bound while the drain is active.
++			 */
++			if (tk->err_drain)
++				tick_nohz_claim_do_timer();
++		}
+ 	}
+ 	return clock_set;
+ }
+-- 
 2.43.0
+
