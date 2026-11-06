@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793973382;
-	b=SaFfGMvPUUteykic+w/E5ryzwnY6wVnhWnQ3K/Og6sUZkAruvGGLgNUZCYD7XHpzbier
-	 Oajm2T1fVgzy+/A96//JjUtcJEDx2/5iqDUE7TaftWFow+A18z4pTq7tAECRZUo/EWnWG
-	 JeS1aJzM+Bxylq9Pvn7IiTzgELurgXyEEP/HS2ZRvdShDDj9Oka9aG/3WJH2G/rTXZ/WN
-	 gZ3pR/5WShyKRRwKb/lI/6mPmKIQ9hCD0jJsAnsvO10HflnAKFvq1pDYUpDoBHHrAPxQO
-	 k6T1XGmildPD2HTiziQiv+KghDg+reMpJK4K36djzJLtExE9QXNruLYfXsvfvClBNiQ==
+	b=z0lN3seiw5n7ECIze/ISTYqXqIjNFxfFTmVbCk2OfS8Wkp0NPxYyVODDaqm8pr+KSVXU
+	 ucMw/hW83/FnTTZKwBky1qbGex1nK6sqrgAb7I3gFR3aUzyEnMVWUnh8omvAK0OuJ8Ou/
+	 VNd55lYf7dH1QOBCMM3xMA3azLnY8tkSSHvhSrWnxr1Xi91xcTb+qjier5i8fmV6brK2O
+	 unLA/eRRKHDItTNkqRTsRgXXzXKxjn3cCuBnGdpXOvD2Rq1rELcriayguuqQhhtSSUROV
+	 afZP8Wl25Zsfk59PtfKikLP5e9Dep4h3L8oaCURLBIhxF/vOad12Ucsg25F8hS+y3pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793973382;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=YVLYr4jwcTQ5zmfK8dkgZArlDLrc2T7HaDWu68MXVVs=;
-	b=yLaxJVE5x2FCFbzXVac0tU09mDcjildb+QTsGTjstkpSgcU/D61U0lL7ZawkLyFLgz0J
-	 Hy2uuO8iLNiUZL9hFQYAdDQR559VLs0tx0A982NfG6yunIExN8cyywG6878Me3jw8hlm8
-	 f1Cd1MW37XaeGfyz7K7Cd0+XxQPYw/DaMKuL6YmUUZsfKoUQvScPKKSTg51OtMxZWkXvu
-	 d+2HtzO7fWlfxpGBlvgcuqLsAZA/as+B9v+vrWYja3SWY0PkitXi2Wj3/wcXUxtZHEOm7
-	 qlPSOiCeEoR0xCz06m2XWoXEHl90/SgczBqcjRO8EUq4v355WsmHkgXavxXUlryE5aw==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0tuVHt6IugmTLSqrR8kmpMpjcLPQlDkTodDmg4T/FfU=;
+	b=dAFR17BuhTxoUpucVB7g969/NMBAgG5L4ICzwtSd1K/aC2aXV17GYJW6v/5lfE8wUT38
+	 CQYJbvewJg0YbDW4iq6v4ZrwLNna3gjoN1gOnnGGGMMwYzJ7HVy0EXLFFMbTJBUACRvvt
+	 joLaWWiPmLgai/V9o7lfrdEaHcB07viAjvqG16QYi540JazOP9mz/c/7SiScUUM3kdLnp
+	 kH2ySaEsMpI95zTuE7dSPoOlwY8Xe2EK8rNjpyR5WO9hUaBF2FNJZDtuDk4KFkkXe9fCS
+	 8ZjuZ595WIBtu0IgKVjRUmrhxgGTxrBVNkwL1mM8WjwPJHJ3mjoZP2MIALleiGIJ5ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KH0vu/r/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAl0WPlB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F6E606D811
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:56:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E06606D817;
+	Fri,  6 Nov 2026 13:56:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KH0vu/r/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9742D1F008AB
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:56:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAl0WPlB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B481F008A3;
+	Fri,  6 Nov 2026 13:56:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793973381;
-	bh=YVLYr4jwcTQ5zmfK8dkgZArlDLrc2T7HaDWu68MXVVs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KH0vu/r/ozEl8qS309WKvZ1sNa2n6d9BpKyLfR47fordxDJoyik9zCiPOvavtHp2s
-	 g1/ru1b/jcH6rv3P+powdpnccM/s/cmQePpXPU0PaF/OTWqK7kitBAqtVn8u97LFyL
-	 oRXnq7gqrejcZtFhTs3ce1AbgIt5DlTkSeLrctuAK2FiAo9PZtQsyLr3MuVUKRUdXD
-	 BuepEM3UQpgXUDecvhRCN+PAw2S5l+kz+trbgjVQ0GBAQyN086VEiBSg6qJYTrBXJd
-	 UxOV8xMRwEAIH69q7ndKCXQsQ5/jDWsJl8CmLFcpJeK9WUF0IgLdTZMUSMjGSjfhR0
-	 YgkzwB31LEYKg==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5ba328513b9so546506e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:56:21 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBz84AeT1UncR2uhQ4pumgxkP3ZL2dYbAqOvWDsbNz4Ed8PbWLMSMn39V63IMEKXb4b6UwmqwwGEY2CF6YU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zWGxK7sLc4GA0mdQIS5dNhFD+iyNVNICrOJnVLmMiVSz61utd
-	n9hwkdxn0N7swACvFOWj44HEbFDuoy8tBQJdOAmg/fMPHGUlcl+NfYmcK2IgYubPTomnkJ4zBVw
-	aL4cDJERiufsyYvyQxYshm+zaxMijGT0=
-X-Received: by 2002:a05:6512:3baa:b0:5bf:c17e:a635 with SMTP id
- 2adb3069b0e04-5c003ac9f0dmr835940e87.13.1793973380358; Fri, 06 Nov 2026
- 05:56:20 -0800 (PST)
+	s=k20260515; t=1793973382;
+	bh=0tuVHt6IugmTLSqrR8kmpMpjcLPQlDkTodDmg4T/FfU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KAl0WPlBy7cje0tmYGjsxbd12WOsqAnJXQOTdvqYgYKjh0KE85IvzLMK8INqKOOwQ
+	 0yywHJM421i0ZuS/kzPrI9ecYNnsnuH+jYeFsEZS8HDhCCybITn7MNStoNR+2COG1j
+	 ZdocQhxqSXK+jeVy4b0614NE18Zuu/ukFs5gBdATrrrFREGzfN7bJAgr4/d8VSXnN8
+	 cE8NxhXU2xY/C5Y4o0j8gTat9VfcvQ4WweXmrWbANNVXQ5mqawWiFThhj13qBmtkjQ
+	 w/0ipwuyGh5/LXNSJWPHq4FYMxY/hMrGK1q51sqqhm5RXgzGKYXzYJQia6Tg78yk6O
+	 Y+leCF1sfCpow==
+Date: Fri, 6 Nov 2026 14:56:19 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 04/10] drm/tegra: dc: Refactor and expand header
+Message-ID: <au3X8tpU9KWas9ZM@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-5-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,48 +63,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-b4-gpiolib-free-v3-0-bb47ad58642d@gmail.com> <20261105-b4-gpiolib-free-v3-6-bb47ad58642d@gmail.com>
-In-Reply-To: <20261105-b4-gpiolib-free-v3-6-bb47ad58642d@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 6 Nov 2026 14:56:05 +0100
-X-Gmail-Original-Message-ID: <CAD++jLk+EfkLsHCyY+O6Om_xTEe2dJX+cscDLqW+TVM2f_V8qw@mail.gmail.com>
-X-Gm-Features: AclHuK9g7sOVtII_gKjkpYN7oW2jL4cWwR57schgn8cvUWFZLXpd7Vw6rOj4_sY
-Message-ID: <CAD++jLk+EfkLsHCyY+O6Om_xTEe2dJX+cscDLqW+TVM2f_V8qw@mail.gmail.com>
-Subject: Re: [PATCH v3 6/8] gpiolib: avoid krealloc() in gpiod_get_array()
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rc2hc4wbfwun3tgx"
+Content-Disposition: inline
+In-Reply-To: <20261105140510.165165-5-clamor95@gmail.com>
+
+
+--rc2hc4wbfwun3tgx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 04/10] drm/tegra: dc: Refactor and expand header
+MIME-Version: 1.0
 
-On Fri, Nov 6, 2026 at 7:30=E2=80=AFAM Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
+On Thu, Nov 05, 2026 at 04:05:04PM +0200, Svyatoslav Ryhel wrote:
+> Refactor and expand existing DC register definitions with additional
+> fields in preparation for adding the 8-bit CPU interface.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/gpu/drm/tegra/dc.c  |  11 +-
+>  drivers/gpu/drm/tegra/dc.h  | 856 +++++++++++++++++++++---------------
+>  drivers/gpu/drm/tegra/rgb.c |   8 +-
+>  3 files changed, 514 insertions(+), 361 deletions(-)
 
-> Instead of allocating descs before the loop and reallocating it via
-> krealloc() when candidate hardware array matching is detected on the
-> first iteration, defer allocation of descs until the first descriptor
-> is retrieved.
->
-> Factor descriptor allocation and fast-path validation into helper
-> functions gpio_descs_alloc() and gpio_descs_check_fastpath(). Inside
-> the loop, acquire the descriptor using __free(gpiod_put), allocate
-> descs once on the first iteration, check fast-path candidate
-> suitability, and transfer descriptor ownership using no_free_ptr().
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+This is impossible to review. Please split this up into refactor and
+expand patches. Each should be a separate change.
 
-The kernel clearly looks better after this patch than before so:
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Also, a lot of the "refactor" is just pointless whitespace changes that
+are just not necessary. Please keep the changes to a minimum.
 
-> +       descs_size =3D struct_size(descs, desc, count);
-> +       bitmap_size =3D BITS_TO_LONGS(max(gdev->ngpio, count));
-> +       alloc_size =3D descs_size + struct_size(array_info, invert_mask, =
-3 * bitmap_size);
+> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+[...]
+> @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crt=
+c *crtc,
+> =20
+>  	if (dc->rgb) {
+>  		/* XXX: parameterize? */
+> -		value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
+> +		value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> +			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
 
-Nitpick:
-I know this is not your code, but if you respin try to add a comment
-here explaining this 3 * bitmap_size.
+This type of change seems entirely useless to me. It's neither more
+readable nor shorter.
 
-Yours,
-Linus Walleij
+[...]
+> diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> index 0cb0515968b35..2b87bb675d4cf 100644
+> --- a/drivers/gpu/drm/tegra/dc.h
+> +++ b/drivers/gpu/drm/tegra/dc.h
+> @@ -178,9 +178,11 @@ int tegra_dc_rgb_init(struct drm_device *drm, struct=
+ tegra_dc *dc);
+>  int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> =20
+>  #define DC_CMD_GENERAL_INCR_SYNCPT		0x000
+> +
+>  #define DC_CMD_GENERAL_INCR_SYNCPT_CNTRL	0x001
+> -#define  SYNCPT_CNTRL_NO_STALL   (1 << 8)
+> -#define  SYNCPT_CNTRL_SOFT_RESET (1 << 0)
+> +#define  SYNCPT_CNTRL_NO_STALL			BIT(8)
+> +#define  SYNCPT_CNTRL_SOFT_RESET		BIT(0)
+
+The whitespace changes here are completely arbitrary, it's changing one
+preference for another. You're actually changing the contents in this
+case, so it's not that bad. Still unnecessary, though.
+
+> -#define DISP_CTRL_MODE_STOP (0 << 5)
+> -#define DISP_CTRL_MODE_C_DISPLAY (1 << 5)
+> -#define DISP_CTRL_MODE_NC_DISPLAY (2 << 5)
+> -#define DISP_CTRL_MODE_MASK (3 << 5)
+> +#define  DISP_CTRL_MODE_STOP			(0 << 5)
+> +#define  DISP_CTRL_MODE_C_DISPLAY		(1 << 5)
+> +#define  DISP_CTRL_MODE_NC_DISPLAY		(2 << 5)
+> +#define  DISP_CTRL_MODE_MASK			(3 << 5)
+
+These are purely whitespace changes. Please don't do that.
+
+>  #define DC_COM_CRC_CONTROL			0x300
+> -#define  DC_COM_CRC_CONTROL_ALWAYS (1 << 3)
+> -#define  DC_COM_CRC_CONTROL_FULL_FRAME  (0 << 2)
+> -#define  DC_COM_CRC_CONTROL_ACTIVE_DATA (1 << 2)
+> -#define  DC_COM_CRC_CONTROL_WAIT (1 << 1)
+> -#define  DC_COM_CRC_CONTROL_ENABLE (1 << 0)
+> +#define  DC_COM_CRC_CONTROL_ALWAYS		BIT(3)
+> +#define  DC_COM_CRC_CONTROL_FULL_FRAME		(0 << 2)
+> +#define  DC_COM_CRC_CONTROL_ACTIVE_DATA		BIT(2)
+> +#define  DC_COM_CRC_CONTROL_WAIT		BIT(1)
+> +#define  DC_COM_CRC_CONTROL_ENABLE		BIT(0)
+
+FULL_FRAME and ACTIVE_DATA were previously consistent, now it just looks
+weird. Either use proper GENMASK() definitions where applicable, along
+with modifications in the driver to use FIELD_PREP() and FIELD_GET(), or
+just don't change it at all.
+
+> +
+>  #define DC_COM_CRC_CHECKSUM			0x301
+> -#define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+> -#define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> -#define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+> -#define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> -#define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+> -#define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+> -#define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> -#define DC_COM_PIN_OUTPUT_SELECT(x) (0x314 + (x))
+> +
+> +/* Defines in PIN_OUTPUT/INPUT_* describe pin position, not state */
+
+This comment is completely confusing to me. The registers themselves
+define the state and bit positions within them seem to indicate the pin
+positions.
+
+> +#define DC_COM_PIN_OUTPUT_ENABLE(x)		(0x302 + (x))
+> +#define DC_COM_PIN_OUTPUT_POLARITY(x)		(0x306 + (x))
+> +#define DC_COM_PIN_OUTPUT_DATA(x)		(0x30a + (x))
+> +#define  PIN_UNMASK(x)				BIT((x) + 1)
+
+Given that pin positions are in steps of two for all registers, does
+that PIN_UNMASK apply to all of them or just PIN_OUTPUT_DATA?
+
+> +#define DC_COM_PIN_INPUT_ENABLE(x)		(0x30e + (x))
+> +
+[...]
+> +/* DC_COM_PIN_OUTPUT/INPUT_*_3 */
+> +#define PIN_LSCK				0
+> +#define PIN_LSDA				2
+> +#define PIN_LCSN				4
+> +#define PIN_LDC					6
+> +#define PIN_LSPI				8
+> +#define PIN_LSDI				10
+> +
+> +#define DC_COM_PIN_INPUT_DATA(x)		(0x312 + (x))
+
+It's not clear that PIN_INPUT_DATA_* can take any of those PIN_*
+defines. Given that there are only two PIN_INPUT_DATA registers that's
+probably not true, so I think it'd be good to somehow specify how that
+works here.
+
+> +#define DC_COM_PIN_OUTPUT_SELECT(x)		(0x314 + (x))
+> +#define  PIN_OUTPUT_SELECT_MASK(x)		(0x7 << (x))
+> +#define  PIN_OUTPUT_SELECT_PRIM(x)		(0 << (x))
+> +#define  PIN_OUTPUT_SELECT_OUT(x)		(1 << (x))
+> +#define  PIN_OUTPUT_SELECT_F2(x)		(2 << (x))
+> +#define  PIN_OUTPUT_SELECT_F3(x)		(3 << (x))
+> +#define  PIN_OUTPUT_SELECT_F4(x)		(4 << (x))
+> +#define  PIN_OUTPUT_SELECT_F5(x)		(5 << (x))
+> +#define  PIN_OUTPUT_SELECT_F6(x)		(6 << (x))
+> +#define  PIN_OUTPUT_SELECT_F7(x)		(7 << (x))
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT0 */
+> +#define PIN_OUTPUT_SELECT_LD0			0
+> +#define PIN_OUTPUT_SELECT_LD1			4
+> +#define PIN_OUTPUT_SELECT_LD2			8
+> +#define PIN_OUTPUT_SELECT_LD3			12
+> +#define PIN_OUTPUT_SELECT_LD4			16
+> +#define PIN_OUTPUT_SELECT_LD5			20
+> +#define PIN_OUTPUT_SELECT_LD6			24
+> +#define PIN_OUTPUT_SELECT_LD7			28
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT1 */
+> +#define PIN_OUTPUT_SELECT_LD8			0
+> +#define PIN_OUTPUT_SELECT_LD9			4
+> +#define PIN_OUTPUT_SELECT_LD10			8
+> +#define PIN_OUTPUT_SELECT_LD11			12
+> +#define PIN_OUTPUT_SELECT_LD12			16
+> +#define PIN_OUTPUT_SELECT_LD13			20
+> +#define PIN_OUTPUT_SELECT_LD14			24
+> +#define PIN_OUTPUT_SELECT_LD15			28
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT2 */
+> +#define PIN_OUTPUT_SELECT_LD16			0
+> +#define PIN_OUTPUT_SELECT_LD17			4
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT3 */
+> +#define PIN_OUTPUT_SELECT_LPW0			0
+> +#define PIN_OUTPUT_SELECT_LPW1			4
+> +#define PIN_OUTPUT_SELECT_LPW2			8
+> +#define PIN_OUTPUT_SELECT_LSC0			16
+> +#define PIN_OUTPUT_SELECT_LSC1			20
+> +#define PIN_OUTPUT_SELECT_LVS			24
+> +#define PIN_OUTPUT_SELECT_LHS			28
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT4 */
+> +#define PIN_OUTPUT_SELECT_LHP0			0
+> +#define PIN_OUTPUT_SELECT_LHP1			4
+> +#define PIN_OUTPUT_SELECT_LHP2			8
+> +#define PIN_OUTPUT_SELECT_LVP0			16
+> +#define PIN_OUTPUT_SELECT_LVP1			20
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT5 */
+> +#define PIN_OUTPUT_SELECT_LM0			0
+> +#define PIN_OUTPUT_SELECT_LM1			4
+> +#define PIN_OUTPUT_SELECT_LDI			8
+> +#define PIN_OUTPUT_SELECT_LPP			12
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT6 */
+> +#define PIN_OUTPUT_SELECT_LSCK			0
+> +#define PIN_OUTPUT_SELECT_LSDA			4
+> +#define PIN_OUTPUT_SELECT_LCSN			8
+> +#define PIN_OUTPUT_SELECT_LDC			12
+> +#define PIN_OUTPUT_SELECT_LSPI			16
+> +#define PIN_OUTPUT_SELECT_LSDI			20
+> =20
+>  #define DC_COM_PIN_MISC_CONTROL			0x31b
+
+If there's only one PIN_MISC_CONTROL register, does that take these same
+PIN_* values as bit indices?
+
+Thierry
+
+--rc2hc4wbfwun3tgx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt3H8ACgkQ3SOs138+
+s6Eawg//fb7MsJNQ3AzGo0VwehFF5urNwd+gNHtrrFdGXhYJuGdWiYytyrZ5W6qX
+GMLLJmAdrv+iez6rDoG6vAbxYDB8gRqx7miJ4aUW/JNAwk8ym5z/EXx25LH09vcm
+9UKu3rmSuY0UIw02b+dsMUYYIPNspLRmUzBp9XIOqaUWH5gTKTLVbdiaU+UHGOux
+w+xkrNwan+GiEYAats9zFPrElJUBDp4hYPCPsdQd++XKb4n0wQtYnEQl8hkB5NgA
+8FrPLufBvP5k2xQ/wxk8DJ+3hcSPj5V6Sx3WVoTGpL6S5pHGTwiR1KZQAvD51jzp
+TX5C96MiPqqDVOE0NIgn3p8mtpL9zFxHfGZVGDT6fyxbPAo829DJKS8PgyOeeu7n
+sV1432QC3/Hz/GwzKQKdcVfvZ0PQ62C8tw6tHBhEnNVqAjhw5SniTer6ptAgNBqo
+jVxiTinPOY7rCMYmYgfInL7eccaUv5F1cMcfrbXyWhpkJia5kLvXjvQKnjaCdx2g
+bkwJlZdYV8zeP4GjhOtL2F0h00EpSPBOIi4oFLgJU57Mlz+cqHx9KIE3gduXc4oK
+oMnbVnI65ej9s4BwLmzsSf5IRqFC3g1sFUAC1ZZIQYGxUKMEFMt0e9WkIN81VA01
+gRv+vUpafvirRbhUJ+oFFaK9JwwU1CjiGXs5CT8JkwKJUj5uq0c=
+=ogZo
+-----END PGP SIGNATURE-----
+
+--rc2hc4wbfwun3tgx--
