@@ -1,61 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976179;
-	b=1I23agUwQSz6U2QOL5VxfnBT7KFuw6CAzeYJjP6MD77OuDiShYq7+VnSZpi1Gk9Cvxr1
-	 xtLxGijw7+rH3lDVfmjavqsZKAYO4kdncs1VUEeIz4XnT+NsmGD3LYtIxyQWYRaXqNEr9
-	 sbfRA3Ub2haWeyMIP675PN5ZwsN/lCh90UP4Z9iYRplRlRAoy1P5u0W7m2/xv0NT/TuGq
-	 tO6G6j+oAPfoqs6Yz2q+WL7h50c0ZehPjWj6orxMkNeJa7vgePYuSQesKigjIANsQfGGc
-	 BdWPF2wBtJPcCb6QNHDdJqEK000YgbTqCRJrP1+3HTLWGyWDsezU7ByW3Sn4IE5wLwA==
+	t=1793976183;
+	b=T5/NYrTra0TvPE4R3IYFcnAodTCXocA1dW5sheXCZd7zBCHNgbSqyd44AqHQx4MEXhxY
+	 ADtCIED48FZNqvPeJpZuhTbPeyO77Mx2lkuU+INb2TGTr9g/BZJpAxpBcMJkHQ6NHbHS7
+	 VOmhC2enC1c1glzfzhhVRi8rjSngL/ZbzGi4FauR5hkSuQrQ8Kol/o3kKsIiCoBwMN8M6
+	 NtfJG52N5Arc5DlXOzuDc4zieJXvf0k5K8zs0gUDgL7pelJvl0MAokO9SLm18waHsPpXT
+	 deSArhZpgaieh7yGJjXgQnL16Km6eAS7rGly0wcXV43wvqHtk9rf4DfOxna26sT726g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976179;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976183;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
 	 X-CMS-RootMailID:References;
-	bh=WSR+OYxGYuCEt4HZgWaGut42QNF8mF7rpyHwN5g0Fmw=;
-	b=pjR5S0Coijb8kdYAO/9SEZ8lg2Qr+d78uuivjAq2s41y5An1wzolTVvRUU+gYz4p74AV
-	 17yDkR9RvTtaJPx9iXc1qHy8BzWGWIjWJkVnNir4xM06z+vuzBsCe8nk9fb8ngZr8SIZz
-	 +tzh4ocllkKLRKh7Lcjxfo6zxT+6zO1tiPPhHvc8t1fG2iB8nX4F7OD9ta00lZpehSxCw
-	 yAScw4hc5iTXLP4Y08ZaXAnbeemSLg+kzXWDNCOZWDeriVDqvwOUu3Dd9/Wsj9t8GIiRi
-	 cYuG/Lfl0JSCXqVWNdkPxtCpfGqOzk0ilii7ziBzqwSaE2RTxmH8McFtuiM+rqo8j/w==
+	bh=6rJNUO6E54sMvUs2WMIZbbBsdevweP1GURHzVXhYi9c=;
+	b=bCpuMbbbeBs0+e679q/YM3SrNed1hxy+HoR0axocG9lHZWiDXC0h2kT14pslP1DqQFkp
+	 PTHiXkI6EVnqfAlxU0Fp/jYpYJNq+CX7LvTkQAl96x52F9GMpBJ+KCKRxGdDWPfj8dJJ2
+	 7rTI2ka1jlAbaSgGtQceyirkZ4mAN1MY6fTQadCsp1RJ7RTN7UrMw3lsrCtEFvATY17Tr
+	 zGo6WPx6wmEmUrWCDjg2rYsUZOrYEm7sEyEP1TWE05r9FE7p+3PMNxc/4KqjueQeLWncd
+	 ghwHvTox0UWdB+AFJfVpzS+1MsfWyXtXftpUbvwgSoKe2vYRQ96pN+qeLzt5q88+7ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=samsung.com;
 	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=iNy7LdYD;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=vQL1Kemy;
 	arc=none smtp.remote-ip=210.118.77.12
 Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD49606A337;
-	Fri,  6 Nov 2026 14:42:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FD49606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAE3606EE8C;
+	Fri,  6 Nov 2026 14:43:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BAE3606EE8C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=iNy7LdYD
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261106144257euoutp02f046c48219c70db95596d964730e31d9~le9QW44K01214112141euoutp025;
-	Fri,  6 Nov 2026 14:42:57 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261106144257euoutp02f046c48219c70db95596d964730e31d9~le9QW44K01214112141euoutp025
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=vQL1Kemy
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261106144300euoutp022fe9ba632879a263b59dd1be5c370c27~le9Tgddn21426614266euoutp02X;
+	Fri,  6 Nov 2026 14:43:00 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261106144300euoutp022fe9ba632879a263b59dd1be5c370c27~le9Tgddn21426614266euoutp02X
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793976177;
-	bh=WSR+OYxGYuCEt4HZgWaGut42QNF8mF7rpyHwN5g0Fmw=;
+	s=mail20170921; t=1793976180;
+	bh=6rJNUO6E54sMvUs2WMIZbbBsdevweP1GURHzVXhYi9c=;
 	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=iNy7LdYD9y3Ce85ur99gVOgP70PRAxMlKgJ50WH0DEUBnvXrShJMbvfe3bxA28980
-	 UAciP+g1AouqHElYOm5zofikYQj7Afh276F1w/Rk4NBMq/wRm6tm+0RcLd2EuCebCw
-	 IG4+EnibCn2k/wLwGCpIOYZjqtVBgcW3SMirHPT8=
+	b=vQL1KemyUL/i8iZISuvadb7LjWhfk9xrjaC2sDcM8Owe+O9RHy1wFufNoIOF94jcf
+	 p0JVcTX5g5tl+FMQDx9m1nv0Tf+LPOvYWUH9EP9PPWO7X7w1rERwDHFqKFiq4V0yTk
+	 PQ3uwEgwyYh+n8/Yo016rsYHh9MLBaxuU9NrIFjU=
 Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261106144256eucas1p1beb947272dc94f916c8c8131722a480d~le9Pd9eIp0320903209eucas1p1W;
-	Fri,  6 Nov 2026 14:42:56 +0000 (GMT)
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261106144259eucas1p27d26efbc44beac102c03ec07ebed4310~le9SqiDiy1206212062eucas1p2V;
+	Fri,  6 Nov 2026 14:42:59 +0000 (GMT)
 Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
 	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261106144254eusmtip1291e4ba24e2a230c09af0eb481e22639~le9N6-Ryb0161401614eusmtip16;
-	Fri,  6 Nov 2026 14:42:54 +0000 (GMT)
+	20261106144258eusmtip1a717ab7164c31bdd835911116d976388~le9RHsKmV0111901119eusmtip1_;
+	Fri,  6 Nov 2026 14:42:58 +0000 (GMT)
 From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Fri, 06 Nov 2026 15:42:45 +0100
-Subject: [PATCH v2 05/15] lib/lz4: backport upstream's -Wmissing-prototypes
+Date: Fri, 06 Nov 2026 15:42:47 +0100
+Subject: [PATCH v2 07/15] lib/lz4: backport upstream's match length limit
  fix
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,7 +67,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-lz4-vendor-upstream-v2-5-ee04c3f0d7dc@samsung.com>
+Message-Id: <20261106-lz4-vendor-upstream-v2-7-ee04c3f0d7dc@samsung.com>
 In-Reply-To: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
 To: Michal Wilczynski <m.wilczynski@samsung.com>,  Nathan Chancellor
 	<nathan@kernel.org>,  Nick Desaulniers <ndesaulniers@google.com>,  Bill
@@ -95,70 +95,67 @@ Cc: linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
 	<m.szyprowski@samsung.com>, linux-erofs@lists.ozlabs.org, 
 	linux-f2fs-devel@lists.sourceforge.net, linux-crypto@vger.kernel.org
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2114;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2240;
 	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=8N9wzkj/hKUNj1BW6DsxrUcKBRzHlHt4de1GPUas8dA=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9fZ4aKBHw4KzylIunL5nMWL5nDtPGvfc/njCasV+lt
-	GrWpcMX93eUsjCIcTDIiimynN0YbST5j+Fp+fHHv2DmsDKBDGHg4hSAiYSUMjKsiXqrvCj13sck
-	jXdXYxcp/xC/+X8L552H1zvu7FxWvP6wLsP/nMgZJ7gTtqpMCPyt4XBn0/uNTa3qbC/maddKfOC
-	7kveWFQA=
+	bh=FeGwjLLCi9r5jO0sT4c2oOMQI6pybsCaTl5iiV1XLg0=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9fZ56U0Pa67C9pl5js81Djt4t++e+Y9b7J3lW8Y3NG
+	r1sg6NpHaUsDGIcDLJiiixnN0YbSf5jeFp+/PEvmDmsTCBDGLg4BWAi79MZGWakV6Uz+5RNvHEk
+	zKojQjHywl3bTtHiJs+mSS+WF12fZsHwTzdo44JtE7fGf1/aYSV3LyD68iubAoVt21jaD0zI/xv
+	xkw8A
 X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
 	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261106144256eucas1p1beb947272dc94f916c8c8131722a480d
+X-CMS-MailID: 20261106144259eucas1p27d26efbc44beac102c03ec07ebed4310
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261106144256eucas1p1beb947272dc94f916c8c8131722a480d
+X-RootMTR: 20261106144259eucas1p27d26efbc44beac102c03ec07ebed4310
 X-EPHeader: CA
-X-CMS-RootMailID: 20261106144256eucas1p1beb947272dc94f916c8c8131722a480d
+X-CMS-RootMailID: 20261106144259eucas1p27d26efbc44beac102c03ec07ebed4310
 References: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
-	<CGME20261106144256eucas1p1beb947272dc94f916c8c8131722a480d@eucas1p1.samsung.com>
+	<CGME20261106144259eucas1p27d26efbc44beac102c03ec07ebed4310@eucas1p2.samsung.com>
 
-v1.10.0 defines LZ4_loadDict_internal() in lz4.c and LZ4HC_searchExtDict()
-in lz4hc.c with external linkage and no prototype, which the kernel's
--Wmissing-prototypes rejects. The first would also prevent linking once
-lz4_compress.c and lz4_decompress.c both include lz4.c, later in this
-series, since each would define it.
+v1.10.0 lets a match length's extension bytes run to four bytes before
+the end of the block, which leaves room for only a token and three
+literals where the format requires five. The fork rejected such blocks,
+v1.10.0 decodes them: 1f 41 01 00 ff 00 30 7a 7a 7a decodes to 278
+bytes instead of failing.
 
-Neither can be forward declared static in the lz4_deps.h a later patch
-adds, as the other bare helpers are, because their signatures use types
-declared inside the .c files.
+Upstream fixed this in 587ed9557708 ("add comments explaining
+read_variable_length() ilimit bounds, fix match length limit"), on top
+of a read_variable_length() rework v1.10.0 does not have. Both versions
+accept the same final ip for a given limit, so change the limit at the
+two match length call sites to iend - (1 + LASTLITERALS), as upstream
+does. This is one byte stricter than the fork; no compressor produces
+the blocks it newly rejects.
 
-Take the two hunks of upstream commit 5ef1f16929b5
-("fix -Wmissing-prototypes warnings") that apply to the files we vendor.
 This goes away at the next re-sync.
 
 Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 ---
- lib/lz4/upstream/lz4.c   | 2 +-
- lib/lz4/upstream/lz4hc.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ lib/lz4/upstream/lz4.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/lib/lz4/upstream/lz4.c b/lib/lz4/upstream/lz4.c
-index a2f7abee19fb9a5c768f2a6c266acf5b571f0855..0d474be0236a698d297ab9a430f5082485eb3709 100644
+index ee69d57aae112f4057c050bbdab4cc0f2d30f9d9..a45f3828141eec9baea59a5e97a3ff37d6474d6e 100644
 --- a/lib/lz4/upstream/lz4.c
 +++ b/lib/lz4/upstream/lz4.c
-@@ -1584,7 +1584,7 @@ int LZ4_freeStream (LZ4_stream_t* LZ4_stream)
+@@ -2120,7 +2120,7 @@ LZ4_decompress_generic(
+             DEBUGLOG(7, "  match length token = %u (len==%u)", (unsigned)length, (unsigned)length+MINMATCH);
  
- typedef enum { _ld_fast, _ld_slow } LoadDict_mode_e;
- #define HASH_UNIT sizeof(reg_t)
--int LZ4_loadDict_internal(LZ4_stream_t* LZ4_dict,
-+static int LZ4_loadDict_internal(LZ4_stream_t* LZ4_dict,
-                     const char* dictionary, int dictSize,
-                     LoadDict_mode_e _ld)
- {
-diff --git a/lib/lz4/upstream/lz4hc.c b/lib/lz4/upstream/lz4hc.c
-index 4d8c36a6978fcae09e4c4a936572b4b271513466..32b29f382268d961d65383b24c7225494d9044ad 100644
---- a/lib/lz4/upstream/lz4hc.c
-+++ b/lib/lz4/upstream/lz4hc.c
-@@ -360,7 +360,7 @@ typedef struct {
-     int back;  /* negative value */
- } LZ4HC_match_t;
+             if (length == ML_MASK) {
+-                size_t const addl = read_variable_length(&ip, iend - LASTLITERALS + 1, 0);
++                size_t const addl = read_variable_length(&ip, iend - (1 + LASTLITERALS), 0);
+                 if (addl == rvl_error) {
+                     DEBUGLOG(5, "error reading long match length");
+                     goto _output_error;
+@@ -2338,7 +2338,7 @@ LZ4_decompress_generic(
  
--LZ4HC_match_t LZ4HC_searchExtDict(const BYTE* ip, U32 ipIndex,
-+static LZ4HC_match_t LZ4HC_searchExtDict(const BYTE* ip, U32 ipIndex,
-         const BYTE* const iLowLimit, const BYTE* const iHighLimit,
-         const LZ4HC_CCtx_internal* dictCtx, U32 gDictEndIndex,
-         int currentBestML, int nbAttempts)
+     _copy_match:
+             if (length == ML_MASK) {
+-                size_t const addl = read_variable_length(&ip, iend - LASTLITERALS + 1, 0);
++                size_t const addl = read_variable_length(&ip, iend - (1 + LASTLITERALS), 0);
+                 if (addl == rvl_error) { goto _output_error; }
+                 length += addl;
+                 if (unlikely((uptrval)(op)+length<(uptrval)op)) goto _output_error;   /* overflow detection */
 
 -- 
 2.34.1
