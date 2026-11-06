@@ -1,78 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968755;
-	b=hoJtJjEh/ZpQwRT9UxX/V1KMaS2f68yJ0VIo+Ykot3gvTpR75vxysg29lGenBmzLHju/
-	 fyD6sInBkWTq94KGOTXKYI1NwRwe9JddTbtJkL1hAdGwukJNewzOZOuA44NEHntgIJUII
-	 RDBCQAGdz9bJ4u5BTduJOuWv8zQ1bzf2CxxNa88jr/+34MwkuXE8QOlI7iwORyjgZkW1H
-	 9t4SpicyehhsefIo0YXwVWinyWayal4q9kIlTKkRWzXczZOlfQObvo2kV29/lPfHhAdvH
-	 VhFmJ7SoVYs2EdzuhAR5gUAxCfvTraT9HkfQZUlfd4s+5eYOQQ2wBqD06LLK8mE5eHQ==
+	t=1793968770;
+	b=xZGtLTOWsNhkSAmCAheflyRhhtIDYHjREguDtUsYEl3XUVFWS21GhNiWUlj7TiE963O8
+	 R/lxZD1uMcENCSw7c3Cm9rPNw6wFjxzNMb4clb47DlBb8kQ2p6yTo3JggjZ3qBqbZOutI
+	 a8kkpph1izxYJYgJIkT1o5gIO5fOdhFi7onb3Q58xK+KqkVwW9IYQXLMVUGTNVUS3it5A
+	 UHfM4nKa5HiPYnN2xWNySH619aGWzFyr17udK8gnLOTdHhpP9Me6fV1Q7nlCKvgSC9d6c
+	 cFmoyIwNzCYBptk8SgPVsXonmXhtPiQsQEZf9nOnazvgzg4NcfFymSrNjtVmt3oAE8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968755;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Jv9BjT5rPlXMxhVAAGgckLW4HJ6LS8pG25jymZiZcwI=;
-	b=c8MJh4EMckhNXrPIYVfnpazE8fSn0kW+w2+c/HCy6W0jb5l6J10DmRMdF5W2PcuJ9E0B
-	 HlqfEmffu//hSPOLSUm8HcH23OIbP3VghDDOjozLG2RwDO35bV9FwKqLOZqcue7ic6spr
-	 ny112cXiHJ27LZBfj8yvqwWk/GdHhdvagPkIxt+JmVU8vIrV2SxhkoQRH7xiWMSq5hM8n
-	 oKnAQOjpBMsBRQVJON5r1HMWxcqjrc2Ph9MfA3M2Q6+xjMH64SHzImW1iXtE9c6CjT57c
-	 E4Fb7R+FEVRJoFOzDNehcgUVKaodVJbfdY2kxxX4/amlm/YvJkWZFegsV+wLvjBTruA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968770;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=V/kcDgdJ3DHGubMyO4u6UCH7vslZXXrvBf4tKHWtNGM=;
+	b=qxwuIO7mMJd38TYG28eQh8wVb68orXu+CrGmZVMxnLjTZYobi0k9/iZQSCrPh2Wthzw2
+	 XxvRSJXunFDdGEnDD4Rq3/owFfhE9UhgxG/TFA+QSnSP5ywEMN20wWzI12MGt3Y0dcLiH
+	 3WGzomDrwShcOxpRlOOqpWOGCYRoJv99gmyczuPWt/YirnUGSK6eypWn02cQewLVU72Am
+	 xBwmVi7BtdylaLJLaqstD2OGUrgmVpwko9Wyl9+eGs2vJTHC1Mt9nWXjsYFRjsp4Z1tSQ
+	 hJjbGL7inxu0E5IHK1JpZi0ORYh6i605j8Vi3U2lIxApHhOgvVbj+5RQJw1PI+XwbTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="DftmM/pW";
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JVGE5zOO;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398D2606A32F;
-	Fri,  6 Nov 2026 12:39:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 398D2606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08734606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:39:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08734606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DftmM/pW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793968755; x=1825504755;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Zw9yNBbukFlVCZOIwf6Jb11Yr7CgjJugTt9KNNA9rho=;
-  b=DftmM/pWRspGc5AFlaI86i05ifLtcG3oGL1sYP1uECYKlLaij6yQeacc
-   iVSQSEGgBsaOJ16vT038l4XwBijC2gNhZ3/eN5qHkuAysxX8THlwqy8MT
-   CMz6rL7h/1xNgXp6elwinszuEYlyqwlRB8g3llFKBki/tDXr8PSCBOG5E
-   xbwgIf+UjWeFFbb+n8GFNS8X3FWZ2dKn7G7U99BXn6fyD+dtRGsFNSIdc
-   1fNVATWVTQlWtzHvMrmPEM/JCIlmqvuoL1SIcsa0wyultvEij2YAzyh5C
-   szyS0smZwGnkV5cOuqYrvtjGG6wmuB5I6DZ7xYN8lEm9Msz7X/WGJE4DC
-   Q==;
-X-CSE-ConnectionGUID: u7P2C88OTMiTs0fA5ZNKWg==
-X-CSE-MsgGUID: aAKYylXTQlan/gAvlJXP0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2665628"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2665628"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 04:39:02 -0800
-X-CSE-ConnectionGUID: vrGw8kM4Q6C9VMbHsjSiOQ==
-X-CSE-MsgGUID: swvuZCQpQ4O2yeFbowREag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7599727"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa001.fm.intel.com with ESMTP; 06 Nov 2026 04:39:00 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id CF60C99; Fri, 06 Nov 2026 13:38:58 +0100 (CET)
-Date: Fri, 6 Nov 2026 13:38:58 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: fusb302: Drop unacknowledged
- Get_Source_Cap_Extended
-Message-ID: <au3KYk13lFTjhltb@black.igk.intel.com>
-References: <20261102-fusb302-getsourcecap-v1-1-26b5bfea4b2b@flipper.net>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JVGE5zOO
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dee593f18so469167f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:39:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793968767; x=1794573567; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V/kcDgdJ3DHGubMyO4u6UCH7vslZXXrvBf4tKHWtNGM=;
+        b=JVGE5zOOaEbByQQGxTsCgkBcDpIMcDkVsz3ghCKe7umPhL/lyJaKBzWW1nwTf6Eb6m
+         jjSJvEW40hyae6cFqUnsV4Vo5dk2Tl4gNQaK7GriRjkdT++TwgmvWYFHpTxmz7aj5f3R
+         Ep82Pk+GfGvCGJ0r7mz4fwcigklpdpSq0MINTv3vxhrDLbfrYOvKwTsIdMbHB4B4h3eY
+         RNN7ajH95YjGwhf1wlivpaTlYy3/pqe+QJC5hQDUAfN/uaUJLef/vrmRan5VyIWO5Ue9
+         ZA9RhzjNvOB0/wvp3NEKC7Fb3Tk/qjSqBWhmobAUeGybhl5RD/P3UOWvJiFch14OyJd5
+         cwjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793968767; x=1794573567;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V/kcDgdJ3DHGubMyO4u6UCH7vslZXXrvBf4tKHWtNGM=;
+        b=KRZvG+k2GOvTNozqJuxU+5ljVouwH+D1oBdMad3vXZS/jgW0PT/96Vxt6p7bxYJdtL
+         uNELGSFASvlYy17jRNyAJwisPV4YDTOuiJqPzYAuy38MQ7ew+I7NfbrjMl/hgis4UJEL
+         6Al5NkUiyijBioQ4NOOYyqzgtZ3WbxD5YlPk4YytMD3xMmYOz3Q6h/ij9IBoXM2nus1v
+         bvFTA4hwji8iX/Vb09uqFjCpDrhi393QyeAwmU4jtUBppfORTxC40tTcvz/IynOwPA6e
+         pz2hWT/vydqtM+ndThM33qmUH+00OFxCniUapLYUGfHyivkLywDXgRJ1SfqO9jIczMc5
+         F3DQ==
+X-Forwarded-Encrypted: i=1; AL+hErETA6Hlb64Zvsm2F8pBeAPG0uAygZAngqp/B5phl8Ka1dceyagrdHT8akeQMYvC6wJLecEahwDXlgMDSZA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+75XLJDkis+3m16PhF6XwaiDKIhcZ4Udc0vuICTh0kWqVabbkD
+	U7tjywsf+q2l2L9dQZ/wyen6XSOCMmz5SsWAFyIGVdQ6lTA1/aS4h2zd
+X-Gm-Gg: AYBFou2snB1EeV2lZSjd+FzYf6unAc/hn7glJJg/P5sVOnG0TMnqSOz9EvqrIFbIben
+	eKGBQVVhyZJWsFiP7lf84Di322OXg2zwqW/CiAXnbHQ3ZPkxfoMVtOeKlXsHy9oX6czWAnkPTXo
+	QeiZXvO3onY2QqFNu0GR30c0tzfz5SqSKdoArigoItkUeiqBmsXrjIT0X7jNzfIebX3lYcBd8d8
+	87TAH8MJZgJxvTpm6elcV/izFuJzahbCrxU+s1JwYdfF8E42+OoIdXh8h1RKm3C+GP/K761F24K
+	56oiZxnbREK0zoEYVm25vQUo2Yt9nE/2jVBc1IY0pGzplmf8ijqq80QzynQ8OjZUhRtMrUq9/qO
+	0nQNTWWpNwSFg1desiaUhSGDRtDD3ujNwAtzAsAz590LUe9PFaeHfNeY7osTf3K3xnK8dAUW7uo
+	AtxH6khpDSBFXWoOkeY0fokdfYIfu+58svEHmMY6n3CujiVxcaLY/0SxxRmXkXU2G+45zpPhqKR
+	0zAIS6FnJgra/zGAqgtihe8acoPALWAp5ZW8IfWhkKbinTBuF/pX+j0f1FqNPjCl0qgUepX8nBS
+	4DuJzj9Zla5ipxhj/oCDUQtYn2xGQk72XtDdiL2y9nK/OsteHWuIHIiFtj5oIRMBel0yZtNWwsK
+	5ULvpxlU/P7hrQEDs7gds4jHztvdb
+X-Received: by 2002:a5d:59c1:0:b0:48e:3df8:74cb with SMTP id ffacd0b85a97d-49273e5b29fmr5340663f8f.6.1793968767067;
+        Fri, 06 Nov 2026 04:39:27 -0800 (PST)
+Received: from andreayoga.localdomain ([151.37.255.194])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d63ae2sm3776938f8f.11.2026.11.06.04.39.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 04:39:26 -0800 (PST)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Stefano Garzarella <sgarzare@redhat.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Simon Horman <horms@kernel.org>,
+	Luigi Leonardi <leonardi@redhat.com>,
+	Xuewei Niu <niuxuewei.nxw@antgroup.com>,
+	linux-hyperv@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] hv_sock: Report no unread data before a channel is available
+Date: Fri,  6 Nov 2026 13:39:18 +0100
+Message-ID: <20261106123920.162131-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,72 +109,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-fusb302-getsourcecap-v1-1-26b5bfea4b2b@flipper.net>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 05:09:05PM +0400, Alexey Charkov wrote:
-> The chip mistakes Get_Source_Cap_Extended for a GoodCRC, as it apparently
-> decodes only the low four bits of the message type. As a result, it sends
-> no GoodCRC for it, but still queues it in the RX FIFO. The partner never
-> sees the message as delivered due to no GoodCRC, so it retries and then
-> sends a Soft_Reset. When FUSB302 receives the Soft_Reset, it finally
-> raises its interrupt, at which point TCPM sees Get_Source_Cap_Extended in
-> the RX FIFO instead of the Soft_Reset it just received, and answers it
-> Not_Supported, which is not a valid reply to Soft_Reset, so the partner
-> escalates to a hard reset instead of getting a chance to gracefully handle
-> a lost Get_Source_Cap_Extended.
-> 
-> Discard Get_Source_Cap_Extended, which FUSB302 can never properly receive
-> due to its inability to automatically GoodCRC it, and answering it from
-> the host within the protocol specified 250us window without so much as an
-> interrupt cannot be made to work.
-> 
-> This way the TCPM view of the PD exchange at least matches what the
-> partner saw on the wire. This lets the TCPM complete a PD negotiation over
-> the FUSB302 with e.g. an Apple Studio Display, which otherwise always ends
-> in hard resets.
-> 
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+The Hyper-V transport is assigned before the asynchronous VMBus channel
+offer completes.  Its zero-initialized hvsock therefore has a NULL chan
+until hvs_open_connection() associates the channel with the socket.
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+SIOCINQ can query the assigned transport while the socket is connecting,
+or after connect() fails once the transport has been assigned.  Unlike
+poll(), that path does not check stream_is_active() before calling the
+transport's stream_has_data callback.  hvs_stream_has_data() then passes
+the NULL channel to hvs_channel_readable_payload(), and any user in the
+guest can trigger an oops:
 
-> ---
->  drivers/usb/typec/tcpm/fusb302.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
-> index 3319f6a2b0c9..96dc48250d6a 100644
-> --- a/drivers/usb/typec/tcpm/fusb302.c
-> +++ b/drivers/usb/typec/tcpm/fusb302.c
-> @@ -1463,6 +1463,19 @@ static int fusb302_pd_read_message(struct fusb302_chip *chip,
->  	fusb302_log(chip, "PD message header: %x", msg->header);
->  	fusb302_log(chip, "PD message len: %d", len);
->  
-> +	/*
-> +	 * The chip only decodes the low four bits of the message type, so it
-> +	 * mistakes Get_Source_Cap_Extended (17) for a GoodCRC (1): it neither
-> +	 * acknowledges it nor raises GCRCSENT, yet still queues it in the RX
-> +	 * FIFO. Without a GoodCRC the partner never considers it delivered and
-> +	 * will retry and then soft reset, so it must not be answered.
-> +	 */
-> +	if ((!len) &&
-> +	    (pd_header_type_le(msg->header) == PD_CTRL_GET_SOURCE_CAP_EXT)) {
-> +		fusb302_log(chip, "dropping unacknowledged PD message");
-> +		return ret;
-> +	}
-> +
->  	/*
->  	 * Check if we've read off a GoodCRC message. If so then indicate to
->  	 * TCPM that the previous transmission has completed. Otherwise we pass
-> 
-> ---
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-> change-id: 20261102-fusb302-getsourcecap-01c38dccb230
-> 
-> Best regards,
-> --  
-> Alexey Charkov <alchark@flipper.net>
+  BUG: kernel NULL pointer dereference, address: 0000000000000178
+  RIP: 0010:hvs_stream_has_data+0x23/0x120
+  Call Trace:
+   <TASK>
+   ? vsock_ioctl+0x74/0xf0
+   sock_do_ioctl+0x42/0xf0
+   sock_ioctl+0x27d/0x310
+   do_vfs_ioctl+0x700/0x810
+   __x64_sys_ioctl+0x7d/0xf0
 
+Return zero unread bytes when no channel is available, before accessing
+the receive state or ring.  Leave the existing channel-backed receive
+handling unchanged.
+
+The oops was reproduced on an unmodified v7.4-rc1 kernel in a WSL2
+guest with a small user-space program, available on request.  With this
+patch, the program reports zero unread bytes and the kernel logs nothing.
+Other vsock_test cases were not run, as most of them need a host-side
+peer.
+
+AI assistance was used to identify the issue and develop the fix.
+
+Fixes: f7c722659275 ("vsock: Add support for SIOCINQ ioctl")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+---
+An alternative is to check stream_is_active() in vsock_do_ioctl(), as
+vsock_poll() does.  That would also change SIOCINQ on VMCI sockets that
+are not connected yet, from -ENOENT to 0.  I kept this fix in hv_sock to
+limit it to the crash, and can send the generic check separately for
+net-next.
+
+The reproducer is a new vsock_test case.  I have not posted it, as
+Documentation/process/security-bugs.rst asks for reproducers of bugs
+found with AI assistance.  I can send it privately, and will post it
+once this fix is merged.
+
+ net/vmw_vsock/hyperv_transport.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/vmw_vsock/hyperv_transport.c b/net/vmw_vsock/hyperv_transport.c
+index 855b15971c359..551eabe690144 100644
+--- a/net/vmw_vsock/hyperv_transport.c
++++ b/net/vmw_vsock/hyperv_transport.c
+@@ -697,6 +697,9 @@ static s64 hvs_stream_has_data(struct vsock_sock *vsk)
+ 	struct hvsock *hvs = vsk->trans;
+ 	s64 ret;
+ 
++	if (!hvs->chan)
++		return 0;
++
+ 	if (hvs->recv_data_len > 0)
+ 		return hvs->recv_data_len;
+ 
+
+base-commit: 475ff14ba558bb8857bca878f1d593784ccc4f0f
 -- 
-heikki
+2.53.0
+
