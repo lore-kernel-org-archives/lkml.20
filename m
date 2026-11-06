@@ -1,98 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.116
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793944267;
-	b=dOve05fyVmTX09GynNu7ew0mLr3nyjx/zPrNM7tPSx4zdZIHtrYYYqT+6n18u86Ggegf
-	 tlzvXLedXrnZ44kB7/sQXXSxHjQCtH2qoIi2snFv8zhGiuY9r/8C+Y5sck1BZgy94AXcj
-	 S5GW+d546CtRC8JWKP7wGwXiWvtc1rK2E0qb8OqaHnLi5MzbpkHAo4CKZKXlKWa7g27my
-	 BdsG22AXdFyVzEELJIcUXRuCbAkiRRptNJoUI2XLnne1tDBYWugGD76Z1zxHvCRLZTYuy
-	 Ghu0uBKxa/TZUv5xBU5HKYDd8MJ4huXQsOP6kW6ZJOuWa4S+JlNbPiifKuSuqltCAXQ==
+	t=1793944261;
+	b=kTwRrCKqy+QmwZEeClWkwzJO0b189uEHB/9qacyoDCxOTuwEns+sFbRV7zmlnPggqymY
+	 UqBnUzBtjgKVBXLOKcrw/JL7GYnaFY1UcW8Mikw4MjGKhqouN0IUHvc9JYXaulfUnpU8z
+	 A/X9kOHcWobXpgZo+z8PWnZrln+LJN5/0CYpBy40BC79sytpYCFxbNcckqELoQNIbz1nx
+	 AKP6EtsZThXQ8DRRf0uQdD4YvsrjYqpKXNfiGynLHghLwX/S6ZI1H5CLIEW/H5FAxDFN1
+	 gx7e4vFKiUjUdxSaFd+9/neGyFCSKfzvKdev98/7bRybp/bf2vBEB7QpIb/N6Kya6Mw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793944267;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793944261;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BiucHKtr1h+ZZ1tf6PtOaZblGmbEiF+AJeMRFfmixBo=;
-	b=uUgPfylmHBbwOtiKXo/oJcUTrYqClcev8aaoGavbGAZFljyZXDP4o9BKk7kiz1FUzY8v
-	 iyeitL2aO12Cii5qoeEuz3Gyo4BM/LN7cgMxNMGHBf0LHWlURCdMbzujtgFBcyRxJmsCU
-	 AzvwDbUqAQO2tV1B4GdTxgRE0Z6t0flfLlLdLfrDLf0IDQVY0ejfKtGzST3e3kWle0BZR
-	 5vsXbisSwON/lpBSn2lRgks5Nw8WLHMAd2Dn8/9X6SPwODi0vbB3scEOH97Tu1Jig8pDI
-	 oeFaRWmIbajoPUSIUrhfia+rkXCPPaEk4sDQiZdDBp/6OPCcz9rztvq0YF6CXybpPiA==
+	bh=dVP+qCkkMPLsu4gm0MWNyC2eHosbsk8xmc0m0idUjvU=;
+	b=O/3QeMuj8RTA2fslSmuvQu3pn3abD12Zazyj+35S0Pk+d635j3fkguxoG1O2f0DJE7HI
+	 MrlPyQ9/vQ9QZXVCc8ydr3sf3Sk52TmkGIJ2vdcSnpWpFNa+h7n8OKY8thiIgHMGWz7X6
+	 gsV114ibFKLbIBXD4M98ItW1XacOkEf7d1JmJd2aKaIL8hPp4H38CPBIEv2FRSTC0Y0wI
+	 RIdEjX30+wX5uw8k7CTSasLQwbReTnhBdwppxOalNXUKKmY9YQilH/axW4ay8pcc9ngeJ
+	 OHbArGz8C6VOpkbRibh8qm0/+/0wQyc9ejAvhKACMXkU/9LhhKrihqt289DWKT9l7MA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="Hm/ltEzH";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.13
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013013.outbound.protection.outlook.com [40.107.162.13])
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.116
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023116.outbound.protection.outlook.com [52.101.127.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75117606D802;
-	Fri,  6 Nov 2026 05:51:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75117606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Hm/ltEzH
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C31606A337;
+	Fri,  6 Nov 2026 05:51:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59C31606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fcwRRbd5rPe+m4XsZYZthmdD8uAtLSgY48L0ved9VreYBJ/90CHl1+Iq7oBNfos4P/VzK32nLXVMa6DfVH2+D11eGP6lLG/ae9rvoo4FjvDv9ftTRln2aRWuNrJxU9OMB/U05O/kqLoZEy6dmV8+YmtXRL9/F9+8OpUXM6KtYiC2JkMDBWBLwy1MWNfOfVvLRf9U5hzedBNu1uR+oZsQL6wOT5XCJ/kEwCVBta08qd1cXGdxtv4KbssFJ9o1afC/youVdCAWxMPxVvlIJmrKdPNUm4ieo8eC8BzBli1wjO/dooqjh7eXKRnVUHQgufn4u4CXvKsDlCPsrK3lkkiZwg==
+ b=NSeF36TJq1aRtPL5SnCl00Z8uim6RA8JQJBtwXZZJzBtyQmFg43aR961fIKU+84wi62oW1Nut8TkFCdy+YZZdrFmP/N4OyQNPMZE5tzInWeR+FjpeRP5kS+0teTj4V2pcpIgctk6OaMH6ADsmaYwDvtBqEWCews2ytBrzb626bUe0siw8VDiNTTEQZIpRzGRxbVORQO5zyz4BuG24L+vBiL0KjCaStAPcxvsDP7ZOAs5PtvgJjFshTYJjOC3aSLlel7uAiLdQW0/J6Vs5J1Jqf5bCR9/cmQuSegQ9EzMkXw9O4FYVXuUe5VMs2OL/coTD67w6KNw+/cfS2zhk43EDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BiucHKtr1h+ZZ1tf6PtOaZblGmbEiF+AJeMRFfmixBo=;
- b=A62cjHzr+Mf8Xjmx5M9DblQLmbTlA3a9cfpGoEBvRbZj4xidpenu+y/SrSCApd2gN+5uEV4XTvrqSLy4XGdu7Ow2OSGRjcI8zB7tmKBmSql25yvRrr4wjGwEhR9x2edJW/Mdsj8F4Sne509c/Lka5LK97Uxd0JsC80k3VlqYL06XxEN1sKqmL3RzrAtJL7XLMSWBAZu4Z2oard2nasnrDaSZsVtL8WijQs0QaI1OoZ/951dTCqOZl+/QXLMTn0oOB0AqGlmssd5XNV6B5ixMehUuFlXykckYrY3aSansX5/KODzHXWudI3O+4uQWzA0gSOFhwe5Wqem7ae5WXGjBpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BiucHKtr1h+ZZ1tf6PtOaZblGmbEiF+AJeMRFfmixBo=;
- b=Hm/ltEzHRIicTrF5E6m2Vmp/Pl2P524TeKKiB0l0WYR7WUZzyI82ZQ+LxYIDsmkl1dXy7wB8+Ayl0SsdxG1U0gTa+kc63rKyve3qHoiwpHc9ea52bI8lzf//q0R3E0MKhziCf5Yc/soixF+FNYwpLwr0TYUeZbfd3iTyr4Y1V5Zj37gXGTBrSi+9axiAJUOqv0A+I8oJG0sbFNTUMXk5zjk93hITtPxe90hzYcfTRL9wDlBI8BP1g/EfRDbLEH39hGFU9GKehtMIybCsHw0EaAYEWeplfzE7C3JXmF5sHU6S5VaH6MXbR8kSC1uI6Nxrv9DtW8gsI7incvcKX8LY6g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DB9PR04MB8364.eurprd04.prod.outlook.com (2603:10a6:10:24c::17)
- by DB8PR04MB7050.eurprd04.prod.outlook.com (2603:10a6:10:129::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 05:50:59 +0000
-Received: from DB9PR04MB8364.eurprd04.prod.outlook.com
- ([fe80::9f8f:d501:88da:538c]) by DB9PR04MB8364.eurprd04.prod.outlook.com
- ([fe80::9f8f:d501:88da:538c%7]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 05:50:58 +0000
-Message-ID: <11ef44f7-e268-438f-8a42-c3bb89e42cfc@oss.nxp.com>
-Date: Fri, 6 Nov 2026 13:50:46 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: fsl_asrc_dma: fix error handling for DMA channel
- retrieval
-To: shengjiu.wang@oss.nxp.com, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-References: <20261028025921.4155551-1-shengjiu.wang@oss.nxp.com>
-Content-Language: en-US
-From: Chancel Liu <chancel.liu@oss.nxp.com>
-In-Reply-To: <20261028025921.4155551-1-shengjiu.wang@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR01CA0016.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::20) To DB9PR04MB8364.eurprd04.prod.outlook.com
- (2603:10a6:10:24c::17)
+ bh=dVP+qCkkMPLsu4gm0MWNyC2eHosbsk8xmc0m0idUjvU=;
+ b=OMUxtXr8+dtGQNlcwzvkpz9qFvXKBz0GC1NSLhzOWeRmfvi/pT7UVnWbDLA5N3F5CQaKA8isExF9xKK3S9dW8AsxAY64Xv0EfstpQeAuRIehzwBD4VT2w1XZuFrheq28PpiulFvKpDW0fsdQ7mRYVPCNDXfMV4RdEJj8H75b4wYRnhyzedokEuTlv3QQyd8jvJ+wTZFr8YERA0j62DL3GFTb/GUNLQfdKiLpxcBP1o2LeKhsaGmH8lNjWS4t6s4MWdsve54zfDM0EElHzoDqNQyYa1XbUHsvnCmw0hCZdKpPxUR1+xYlzEVtze61GYJL/LMPsBisxq5SKFj0tr7lGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from JH0PR01CA0133.apcprd01.prod.exchangelabs.com
+ (2603:1096:990:54::14) by SEZPR06MB6485.apcprd06.prod.outlook.com
+ (2603:1096:101:17e::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
+ 05:50:56 +0000
+Received: from SG1PEPF000082E6.apcprd02.prod.outlook.com
+ (2603:1096:990:54:cafe::32) by JH0PR01CA0133.outlook.office365.com
+ (2603:1096:990:54::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 05:50:56 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E6.mail.protection.outlook.com (10.167.240.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 05:50:55 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 189254102E6B;
+	Fri,  6 Nov 2026 13:50:54 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Chen <peter.chen@kernel.org>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	Gary Yang <gary.yang@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Subject: Re: [PATCH v6 3/3] arm64: dts: cix: Add USB4/USB5 nodes for Sky1
+Date: Fri,  6 Nov 2026 13:50:53 +0800
+Message-ID: <20261106055053.948522-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <7a3f7171-ee2f-41b7-b578-da602d95cbc6@kernel.org>
+References: <20261105011803.4058557-1-hongliang.yang@cixtech.com> <7a3f7171-ee2f-41b7-b578-da602d95cbc6@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,102 +110,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB8364:EE_|DB8PR04MB7050:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27157d02-0bc1-45e3-5d88-08df3bc9ee42
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E6:EE_|SEZPR06MB6485:EE_
+X-MS-Office365-Filtering-Correlation-Id: 33828d95-6132-4ab2-afab-08df3bc9ecc9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|19092799006|921020|11063799006|56012099006|261021121427099003|261022105027099003|261021123027099003|261009223027099003|261102123227099003|261026140227099003|261028144727099003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|36860700016|82310400026|261021123027099003|261028144727099003|261102123227099003|56012099006|4143699003|5023799004|261009223027099003|261026140227099003|261021121427099003|261026121527099003|261022105027099003|261022075727099003|22082099003|18002099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	hq/jH4Z6DProXHurPsEaF//UB+8cGtxY2o29MNPLVMSBWv3F3gCJ57v6z8MzJv0F7uCmzyBgQrtlcQYX3zsx5HOw9PktlHwJFdbgbnqMOmOcfX9zyOqQ3kWRcUt3hQFgZ04O2MLr7fTEcFffIDZsqxgtBBiukxq49foP3W0ivr8zH/OsBARUfjfFgG2nnzGUKnqw7oelxH/Mp+tQbNBmefK/I+NG5Jv8rtX8nbJcDXKjJ4bRapqwj0jVrr5JdbC4DUpcgcNPg34ygDK7eLjTo9P5zUHzUvLbz5ulaVv/fIQ4Q0+/kZ0GOTBMl2ovSuqkFvrlp7yv4EoZaN2MXUI/LQQ+MTYo91hujz60y/QeDXQ1G5o2PVqCXeBPn92iHliyrM0UPHURNEe+s/4vImFQK4X9/zk5CJIlw8zzfN4g4EhevrXEzf1T8PRQiiBvGKJ4QuwFpTKVir61Swl2ju3OKrI8qZ5TE4QYpmxtGp6zmc9b9CkbFWfYAiebuWks0SJeIIQ5E6R22jEEFIAsT6qzMTlx/EUPcAkYYtbOzMWY6gUtr4MfQ8Z8uU2NctQwyfB0ysxbuy0R8plbx+27YLkw8SDRzI2hkc5b0i9hDb01+Lv5Es3L55QuwLeo6oBzhQf7+PCCDB5ZuQacDUfFWsY/riy/mmGzHpNcKa2vRJgKYu0WZ/Nz2buCR9GbXeO1nQg9m0YtYkK3Vrxs3779jYJmYw==
+	qGoMKhddL8nUPmY5uv0d10Nrs9SfSuD/YQzEkzUWMrs1IOSFBB+tAw668jnVHAN9TsuJ8fPjoJvcpTzPCvOBx2COWxu9WNZ2q4jR5rXrVVf3aYcdh+pLVpkO9aqenrC5vvo/K1s9qZFnyClbqGaUWwklrI5V5BwWju5E5ykX+DnrTBaajmfk8BA9KfI8TT9HFVe27ANiD/SHbLcQ2XdmOSpwLQr3sGRiydD5xpJNUcvC3k+QtbR5zhIYaba5R9KFEDVnhse2K6w6tW6PN8Nii1g90oPfS1v6HGFVEVX77jBpmjc+hWNdT0aeoYmKStzt0jIuZOHsKGLHhaG0Uv5AOZxmS/HOIO6Pskn/TykAJkXPDenzCYHKUU71cEK2J25PBZWcqJZWlBXSpWMT72mAqO841fzBST/5yhx+gKV/vFzZQVCMbymXpl0GwyzSV0Sr6hlJjXZGZXa1N+wE+Y+uuZ6PsBHWVAkTI/eRE38sYvngBunX3yjEO2+gEklQbpkcK1mUsku/s5B5ObkQDsuVl+0OsT3gtt8v0Gj3EZvP4Zze/x2kzcLmxQFdt/gwEHQcVUaMRi2TuZ5Ke8EeAv4WzBYyiTkD67Zn8jdWt0sz7dsGRM/XXmsnQrjPokNega6sWN7A3X0VybZk6y77j0yzoGMflB8Sb6sjBe5bzb2/GF/PWbVnmfzwL85IMGiEQDEDwYXd/cLyx+VsUzrqPHVakg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB8364.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(19092799006)(921020)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261021123027099003)(261009223027099003)(261102123227099003)(261026140227099003)(261028144727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(36860700016)(82310400026)(261021123027099003)(261028144727099003)(261102123227099003)(56012099006)(4143699003)(5023799004)(261009223027099003)(261026140227099003)(261021121427099003)(261026121527099003)(261022105027099003)(261022075727099003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QkhZcURSNDBjYjZEcWxSQUFYcy9YcU9lOE1VaytrY3lndHdQR3gxTjFTUlAv?=
- =?utf-8?B?ZEdpaC9qVUhDQnBSeEwxeTFWNThKbVZaeFJHWWE1MWJ0M2V5a3EwSDBTMkEy?=
- =?utf-8?B?bU5SUjdXRW9nTWpzanh5K0dPYzFzMHU5Z3ZOTUNXcStkcTI5MjJlM2l0QWJR?=
- =?utf-8?B?UE5TM3lGY09kOXJrcnRYK0lwS1hRU3lvaHRVR0Job0psa1VnbU9meVZLZGVX?=
- =?utf-8?B?OWZWNENuZm4vdXVzK2J4RGkvcEtMaTZKM1IvTlZ6RDJDZ0lVZ1V1bkVBNGRM?=
- =?utf-8?B?SWdJZUZiVWY2c0UyVlpnZ09RV21GK3B1N1JBdW84bTFlTE5WL3loSVh1a3dy?=
- =?utf-8?B?Ti94V3Z2eWJJMnhSRWE2ekkvQ0dFSVh4cmt2QTQyK3pEWENQdThERGw4cDFq?=
- =?utf-8?B?YlM0RkRKbU9SWlJ4b25neTlqMG1XRzNxNXJKQ3pzQmcrejR3YWM0VU5UV015?=
- =?utf-8?B?U3Z2djVCS3dNOXUvMFB4QmxzYk85UGZCczdPTHlQdXRvekxrbnU2b0JySEpV?=
- =?utf-8?B?UzdVSU9CeFpFTEMrTktwc3FQMDZHQUt3RXNmZTdMSDhFaHJNTmthaW42cUxu?=
- =?utf-8?B?dXBzbURSVnowdExFSTZuVUIwOTNaVHB0TS81STE2ZDNOcDltRTBQTDlNNW9X?=
- =?utf-8?B?Y29BbWk3bG01V3NLWVhWRmQyM2tvcmFsUSsrU0NpcHc1VWRTZ29BZDFYT3c5?=
- =?utf-8?B?WnpOR3RMWjRFTUNhbXZMY1dqNE1nUDNlT0FUNUNpMWh5ZHljR2tINmVSeGZW?=
- =?utf-8?B?OWJqazMyVG9WUGlOVi9FMHoya0QzRUpwV1BCamhQb0c4bmNvZDlHMmdEZm1T?=
- =?utf-8?B?WllrdktUYWdqcnB6OG95YXZVQU9mMEJoS0hEY0NDSFBkeGhvMStvMzhMdlQ3?=
- =?utf-8?B?SzJ6RXVLa01LcnFNYTdqTWFOZHVzYWN5VzJxRXBRd0VkSFl0U2hHVWl0VmN2?=
- =?utf-8?B?YTNxckswN3VkSnllRi9UTlVzVmE3aGc1ZHRPNDh0NXJsV0xzU053WjhRUzJB?=
- =?utf-8?B?VWcxc3NWanlwR3NjYkxYZ3Z3NUV4SnBDUVJKa09HREptRncrbmV4bW9uSnha?=
- =?utf-8?B?MUVhRXNGQ0FWY2kxZ3lMcFRIaHBiRnU2d2RuQ1RQM0JiQ3drTkVwTmIxM1F2?=
- =?utf-8?B?QnVBdlVoOGxTTjFVK0M4c2piUGxwN1BKcHdQOEE1UDlJb2dJaGRMcm9HTHFD?=
- =?utf-8?B?ZTFScXBEMS9SUHFwcExIUndFRTV1a1BQUlBPSzRVQzM2R0FFd2hmUUJhd09G?=
- =?utf-8?B?MTF6SlBKb2ZFLzJSQ1hZSjNVOStGaU1BSWNhOEFSVVVsMFVwamFZLzRldG40?=
- =?utf-8?B?ZFdJWHUyM0JpczdoVDBPWU9kVlc2WEErTEx5NlhIMTVHL3VXcnVraXhvWDQw?=
- =?utf-8?B?VFA0THBkWFNRSmxsLzVTRGJrVitRVlZzRGJoL2lPOTRKMWVHSytCZTZDVHYr?=
- =?utf-8?B?dCt6RmZhNjhpYzNoTVgxZ1lKMDZUUXBuY0EvZ0ZINFBYNFA2aHVUenQzU3NM?=
- =?utf-8?B?SGliMlJqSnNjSHNEVDZwVDNvVnV3R29VTmYwb3NQSHFIUGdGSk9GNG9sTVBR?=
- =?utf-8?B?dVdOOTd4b3lKelhxVzltMlJtbXJYeFMxVmhod3A3eCt0WENXdEUxcWlNWW1o?=
- =?utf-8?B?blNuM0pxdmY3NjNWekI5b3dPeGVKVW55b0xUQTkwclhuMC9UaDhOM0RFRm1q?=
- =?utf-8?B?TVAvQVhLeWY1c3piZm93NzBsSXlzODg5eEpxUGw5Si96a2ZoY1BCcUlNdDl6?=
- =?utf-8?B?cTczYi9ldVF3dURBK0dlbVZrQkZubHZRenlhMmhTVjZubjJIV05HOWVDa0Rw?=
- =?utf-8?B?aUlhbXN3MFFyR3loeWZ4VmdXUEJVQWVWdHBtUU11YXhaZzUwY2xZUXY4QW15?=
- =?utf-8?B?Rml0VzEralJOQ29ZMUtvK3pnS2o4MkM1Y0ViOFlhejVDcWxwV0pIRHdZcXda?=
- =?utf-8?B?aVRBMjVWZVdzZm5RSTFDOVU2WHJFNmJWNk92SUp0N1Z1VFllSFQrY3l0UkZr?=
- =?utf-8?B?Tkwyb1NHZzRtSUFvc3pwQUMrbW5BcjJiN29RbFpSWWdJMXdXd25qdVF3VFVv?=
- =?utf-8?B?S2xqVnBmdmpiZzR2bHU4Q0k3TXNQaEl6VDZzQVBKV1k5WDJXRThKVG5qbk55?=
- =?utf-8?B?Yk5XdDRxK1oxaGx3K3pOM3pUNzNkRGJXSEFGWjdyd3FCaVFyZ0lJdWVGaFll?=
- =?utf-8?B?YjJtcVJYUTN1YkNQbjhja3pjMDRsamp2aGlCQVFjTHFHbmwxMTdsY2hTeWdx?=
- =?utf-8?B?NDA1cmczTkl1QlpDY1dwa1RRSDF6WklPOVF2MEt2SkphVUw3dW1Eb3VHcTRn?=
- =?utf-8?B?ZVViRTBNdFhqV0dQVEZKY2lySElkNjc5MitQR3J2WUhhWUdhYmk4Zz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27157d02-0bc1-45e3-5d88-08df3bc9ee42
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB8364.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:50:58.7953
+	plJyB6YfjgThONQXlgDa4NHX2ZLHdCfycYMNaENMxM5irLJUfOr1qTnVHvTj3h3ayoWsa6ziFdcwIFBPziUjQTqUhanmiQWr+kHqNLqzygb6jpG7ELgk+tzLPxMEn53Ng7hadFFZhCezJiLb+qvGr6XDLhPgiQZV5LlvzfoCG/CGxYtJcgtMkEDV0Qcezk1pWdtPrlgUfEcurxkn3lmQKqDsMyvhVgb9wmNSrgOLFPYhXDZVe8Q+I0AkDy0RTStzfA7y8xwKruJtTmEC9i9TtKzAheoHkhHnS6ImRUh2rEW7ZDA1KpQ01ephGknwWU9L6klCu2RA0Y4Sg1chKNHqPzDZpKy+5PSQuQyzuRA+NyqpoX71ofz4AentbF2KW83c1+MGC7l/PH7QJTAReUK5Q1hIbS4vXP2eu56BOId8CMmmp/Zjmhd/z3PmAAS7N0NO
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:50:55.2217
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GCQOPrOD3thyvKcslNUqMsVhxon4b2WZnM6YvK6tCM0Ct2EkZB2wrcfQmbI/aMm/wdNn52H86LPS+qZuZC8DTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7050
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33828d95-6132-4ab2-afab-08df3bc9ecc9
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E6.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6485
 
-On 10/28/2026 10:59 AM, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
-> 
-> The original check used `if (!tmp_chan)`, which only catches NULL pointers.
-> However `asrc->get_dma_channel()` returns an error pointer. The NULL check
-> will always succeed, so replace it with `IS_ERR(tmp_chan)` to correctly
-> detect errors.
-> 
-> Fixes: b4136c0d69ea ("ASoC: fsl_asrc: check the second front-end DMA channel")
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+On Thu, Nov 05, 2026 at 08:48:27AM +0100, Krzysztof Kozlowski wrote:
+> So you keep ignoring review or parts of review and never responding to it.
+> NAK last time, I will be NAKing this.
 
-Reviewed-by: Chancel Liu <chancel.liu@gmail.com>
+Fair, and it is the same mistake as on the binding: I answered the v5
+cover letter and treated that as answering the review. The full
+point-by-point answer is in the reply to [PATCH v6 1/3]; this one covers
+only what is specific to the dts.
 
-Regards,
-Chancel Liu
+1) "Shared region is not a simple bus." / "Drop node. Not relevant."
+   (b28d5657)
 
-> ---
->  sound/soc/fsl/fsl_asrc_dma.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-> index b417de6abebe..b39d3d76d26a 100644
-> --- a/sound/soc/fsl/fsl_asrc_dma.c
-> +++ b/sound/soc/fsl/fsl_asrc_dma.c
-> @@ -251,7 +251,7 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
->  
->  		/* Get DMA request of Front-End */
->  		tmp_chan = asrc->get_dma_channel(pair, dir);
-> -		if (!tmp_chan) {
-> +		if (IS_ERR(tmp_chan)) {
->  			dma_release_channel(pair->dma_chan[!dir]);
->  			pair->dma_chan[!dir] = NULL;
->  			return -EINVAL;
+Gone in v6, together with the ranges translation. v5 had a
+usb-rcsu@91c0300 node that was a bus for a block of registers; v6 has
+neither the node nor the translation.
+
+2) "So this is @14 / But this is at @91d0000 / You have completely fake
+   representation of hardware." (b28d5657)
+
+That was the consequence of the container: a node at a translated
+offset 0x14 with a child at an absolute address. In v7 the unit address
+of every node is the first address of its own reg, so nothing is
+translated and nothing is invented.
+
+3) "NAK, undocumented ABI. Drop entire alias and do not sneak such stuff
+   in the future." (6029d402)
+
+The usbN aliases and the id property are gone since v6. The mode strap
+is now an argument of the syscon phandle, and it points at the S5 system
+controller, which is where that register is:
+
+	cix,usb-syscon = <&s5_syscon 0x424 8>;   /* USB4 */
+	cix,usb-syscon = <&s5_syscon 0x424 10>;  /* USB5 */
+
+Controller 0 of the Type-A block is used by USB4, controller 1 is used
+by USB5.
+
+4) "No improvements, since v2." (7c35c198)
+
+Correct for the register model; v6 changed the container and the aliases
+but left the two 16-byte register slots, which was not what you asked
+for. v7 changes that part:
+
+	usb4: usb@91c0314 {
+		compatible = "cix,sky1-usbssp";
+		reg = <0x00 0x091c0314 0x00 0x100>;
+		...
+
+		usbss_4: usb@91d0000 {
+			compatible = "cdns,usb3";
+			...
+		};
+	};
+
+	usb5: usb@91c0324 {
+		compatible = "cix,sky1-usbssp";
+		reg = <0x00 0x091c0324 0x00 0x100>;
+		...
+
+		usbss_5: usb@91e0000 {
+			compatible = "cdns,usb3";
+			...
+		};
+	};
+
+One range per controller, from its AXI cache attribute register to its
+AXI clock status register, instead of two register slots. The two ranges
+overlap, because the two controllers' registers are interleaved in the
+shared 0x091c0000 block and 0x0328 inside the second range belongs to
+controller 0. I would rather have the dts say that than pretend each
+controller has a private block; the reason the driver uses
+devm_ioremap() instead of devm_platform_ioremap_resource() is the same
+overlap.
+
+5) The PHY is a separate series since v4 ("do not combine USB patches
+   with other subsystems", 6ca4ba08), and v7 touches only bindings/usb/
+   and this dtsi. v6 also modified the S5 system control binding to add
+   #syscon-cells, which is not a property that exists in the kernel; that
+   hunk is dropped and the changelog no longer claims it.
+
+6) "Odd style, please read git commit help page" (0df645f6): the commit
+   messages are what git format-patch produced, nothing hand-edited.
+
+As in the binding reply, I am implementing v7 now instead of asking you
+another question and waiting.
+
+Thanks,
+Hongliang
