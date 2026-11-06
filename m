@@ -1,134 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794005504;
-	b=A98dVcBmSoekdqIYEJxS0OcOVVsLVIHcQRXeaawf3W/jqSe4zLOu4ucvtNf+O0OjaIYa
-	 7RP1nC47uBTdLmJoVljVKPS0WBBjaLN2qL6HeURPm5+QnILaKMIKzAFCraXJTwDOInqjs
-	 azCRiIO210Ka/XNL75xjUattGn7EK5arx3YfgGH2qRm1N75G7L9w+r4iQpj/3wtX/typ+
-	 c+rUmY+byfYrabw2RViKPeI3EK9sE7zbb9mxn5bCfIE5FLfrd+g1DjEHT4T3zZg+XtoMy
-	 t1750pSWW9K6pSpb96DY7PGQOKHuZRD2nU5DoovXwtXkX5d+7AUq3zS24TaJm0v9XYg==
+	t=1794005525;
+	b=kSB7gWIZ48sLPZi1hkcV0qOiNAcs6uRgdms+Nn3CAfURPT1rHQi2vOQPc3DEJdU3thEQ
+	 WzWU+0ki1WS7ZUlXQLp0HhrMReW+xCGuhDy+YGLuaJinLk/2D9ZvfJYkbVMprCQ7Hifo1
+	 +gKjKQlCe7o+iyIPBVb0labS31Z0EprR89qEs15r0knIGmElX1TeddXTyr7GaxeRmkLvs
+	 pwXxO6IjXEUaE3KHY+JgIcXtTU/nkdEXCQQThLr71x1hMsJnmYKzEfoo2qP/YNQBS3EAU
+	 +Px/3u2dnHt5Ub/cydZ4I4yfimEsq+tBMR0O2dqulk7rUg4iC1TUrhmzmJAO8cSlseg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794005504;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pCINyycb2Yi7eXcN76C9p3VO8yXHWknwGqsZ4naX5E4=;
-	b=HhZqL1OjU4j2f8bsjfOqcSOkqQF5cupKnK/Xb1IjHRecefvJBfJe1EY3n8IXP21HbIjE
-	 dPwrrvrnbpRILrtAt47AzroWYKj8XuTcgY+5Ks3Z00e9188rFjspTbGBDbSdaKnYfel4X
-	 ZmsXOE2Fy5SP9fXOXk2SfvRHA3pjCyRjNcn+u/xgHUn+uxvRwS0j3zeCq64j/R/r4FbeR
-	 HedzrH7DUl2gFgJ6GBDVO+B9AMYJkYxX209WUWVy0qZoJTUaEURhRthBlhRyn9rcGyUly
-	 ZSSy30BAMqoFrfq3ldZvCMRxtPlzX1s2vio/hZTjMRsICe5JYFMd8y31T7GquWWuzOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794005525;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=NRJtjZhe6COOthmpVzgm2wGUmf0pbmHHsfeoCtwibtE=;
+	b=voQ0Un9SqUK/Lv4m4m7NHYUTjxp/cuf/7w+Eek66leb01+2TzJGFLwHYQz96rtup6blK
+	 h3dOUGWIwc3Gn9BkOKVRsO81HKL3diJGAhdOhmrAiVK9KGP0rOqaodUzXB2I8Gba0tCw1
+	 AULNpJinozmBHRgjwz4jZUHewJ2yRjP+oYIJOaWclbBx9CBPHoXiFIdtdQjU+wuQlXEgb
+	 BqZeIwZUT+1/b72mUylptKmUeufdurqqG+TdziSbE1yG+hKRvdRpZrY93O8dAZIKn872L
+	 y1IWASIpWP7bxE8LgxHlQ4NpjiR/DZAV1peDfeSVGHEOINddvehU1uCxloIHQV5kOjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=eXwYvvvp;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="a/EV4SN3";
-	arc=none smtp.remote-ip=103.168.172.152
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OARTMpnc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F91606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:51:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75F91606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D296E606A326;
+	Fri,  6 Nov 2026 22:52:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=eXwYvvvp;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=a/EV4SN3
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id C116A1400113
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:51:42 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Fri, 06 Nov 2026 17:51:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794005502;
-	 x=1794091902; bh=pCINyycb2Yi7eXcN76C9p3VO8yXHWknwGqsZ4naX5E4=; b=
-	eXwYvvvpQVKBaBpNbRUe/+3hYKCeOcbuVWiYmYLKEvLXtRoAGvUf8RbrmXwsx48p
-	RMEOXPcOMIYiwlgJiG2tu6GhNLXDb72Rz1d/Z1gV4gjhVv9VROtq60SjULmH35ib
-	PZVrZi6T4LBfl535OcFR2LdFMLf4CbQXL6pHnWFKuPquS9UGc9oQZsVTiFUgLCFO
-	++dgLLlhCWRIaIzw48OyM5BEywklope1/SwKtMCifcb2M47t9hktfmi7eSt/M3UA
-	7rwZSjQBVEa4VMwNCbH7KonnGQdnp8Hay/5XF84slGoGYXimieBUP8P7D3ZU/b2o
-	1QG4Ab+IwWFzwNIrtne2Iw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794005502; x=
-	1794091902; bh=pCINyycb2Yi7eXcN76C9p3VO8yXHWknwGqsZ4naX5E4=; b=a
-	/EV4SN34LhFKeoYm6dLT3OPcpHdaXHaATWoVHjVvgCPGmJTb5pjnZxCvn7ukG+JG
-	sLQeOwxldI5cEywnOf3f4YLOJoqeg3ghymFxn15lA9qe69MLo4CH2NozGNukA+8i
-	j3L4X2Vu/aL2SxDhWHewSeAdY5047siA2UMT0W3qVXejXKCwHQRk28cPB/r0iB5e
-	gYwQTPe9hbzlX34JPw9yzWAbqMnB4dSbHNt+X4NsJ2wEcplyKIrGlQM+h7vwDFyH
-	Z/s5D5/h/AMuCYCTEbMCSHFl7X51iK8VERLJkDK6HasGlxqsOHSR3atmfynWe/Fo
-	TMhS7FmeFF8DXAtm257Tw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794005502; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:d2TbqjMhxIl9OemFvqOEFoywNRUOxiyFaltpqOtVknDkEg5
-	pEOZR6iVPBIYpdrR4VCdKKzT/cB5qmmIHC02zMRVK8do8RBUNYz4NeOCaqV6h+O/
-	6fR8yHYulS9eNyIk9bcW9YWaQ3M/p+Uszd7p1zZlfIzyh05BB/KWYGRzg061MfVZ
-	rcY3cKKlcY6W4IDsU+2Bljnvei7J0spEAlAkHvUmdTRBRxaSf9JalI91sz2NqsN0
-	qEwlwDA7DTl+GynS5OH65gBAf5lJUxZyrVjloHr+7o/z9UKvV9WfguUNTXuec3q+
-	+AmgExJPX2MVmPmDBehALsuQUiWlKlCWf8ohnwA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:RaomtIcuXvUIFwt+5sZpEeZA5wqZr6f0fW2ssedUVHc=:TOM4g+7xSqNy0WSFjfB2JfWoxxEEleNx6wst9aJJXmM=;
-X-ME-Sender: <xms:_lnuasrUXba2FrX_QVudFK--ZVFTg4U3il0mSRvOBIMemZgedb16gA>
-    <xme:_lnuagTR-JZN5SUaZs4jWkwPnnep0J1QxGJoPLO1ZKiHJzt3oisUygEk2CYWdEjQi
-    kn6AEVtgCwNvxqoNeA5hKsRwEvOEySqBQnA_8Y4wUZpHOyj_6Dn4IQ>
-X-ME-Received: <xmr:_lnuaokoo8q81RfRbxNYqIAseOSj28-drfG_yAOgxIVVx0ALfmNpvcnrHow0rg>
-X-ME-Proxy-Cause: dmFkZTE6cr9qQxQy/NTdx2j4Uy5Tstc9ECcua64GU/0jH4N0I8lrKEWqW0lQfJCEnrS+FW
-    gyx3ol9myKVUtTXCA9e+BjNluWF9Pe7xw62YCW5NHRrMlGafLSXEyWuu/BRNxfSmaaNYk3
-    ehoFW8RAO9Lo2QPPkRc7SLF4DF8EkO0phNnJDBOrFkTdcKiJ1wl5a7GZTtFoVK5dKSI/Se
-    QAzufhGQWi4yhKr6pr77YJ5raXlX+1ksTpMfWqQQAN9wbkNk72zgi+E5g2y54K+q2tyjLE
-    Mbj4vpmCNPkzKYz9fyM4HMsfdMMUfYjpxN4v9LT2xRoZ6OeTk1TG0ide3UTnOQh3yMMdZ+
-    3TJl5bkNUPm9aDoS0Y71plJGBC28Zx0F4P6vPaH82ObBxWqh1SwdHWnETNDfw1BXPNOL0M
-    XeD+jGnmuSG7Fv9QHEoBl3VDJNBjaFcPBYKUn5hpg+f95Ka9UmSJvvCB9wKbxJ0Yysqy9w
-    FeNhXvPq3VKx8yPfk+rkNwJgHtk9dl5/+VNboIkvc7Z8TZUJlAfcX/b0bRp8Gt0DM4ErT/
-    8NovABCzt5qxLsbChHORU0PWnhIjppVCbJ76ra3OJz3PKFXWkZBS5TrqXD/Ad6Gmpgvom+
-    JT3/5L0/Ke5nO6i2sYG95fXtvrgBuHmUDoINrVDtRLny7nYXAbRN2zE4+PGQ
-X-ME-Proxy: <xmx:_lnuasEkV9zy_rdKjRXk4w0T4o0Yq0f5dU4bKCOuzR-TyNvkqkv_sw>
-    <xmx:_lnuajnE82WfU-nm3AOPdykNkoAc96cZkOvAKNMdlXGNzqgB9jC--Q>
-    <xmx:_lnuajRDMaG3gWHBcqQVfE8kK4lQAqaYCFH0b3kXUjn8tumL42oY1Q>
-    <xmx:_lnuag6gKPuHTLIN96fk-wGeWaIaOqccowAhMFZ0bnSdh4_a-vjm8Q>
-    <xmx:_lnuasGNzPibMYWZ8e9ucvV1agWqbApqR8cu9IgskTYC2TRgUOBPftzE>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 17:51:40 -0500 (EST)
-Date: Fri, 6 Nov 2026 15:51:37 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: <mhonap@nvidia.com>
-Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
- <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
- <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <dave@stgolabs.net>, <alison.schofield@intel.com>,
- <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
- <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
- <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
- alex@shazbot.org
-Subject: Re: [PATCH v6 12/31] vfio/pci: Call the CXL open and close hooks
- around device use
-Message-ID: <20261106155137.5fcf7259@shazbot.org>
-In-Reply-To: <20261016161839.2765592-13-mhonap@nvidia.com>
-References: <20261016161839.2765592-1-mhonap@nvidia.com>
-	<20261016161839.2765592-13-mhonap@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OARTMpnc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F911F0089F;
+	Fri,  6 Nov 2026 22:52:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794005524;
+	bh=NRJtjZhe6COOthmpVzgm2wGUmf0pbmHHsfeoCtwibtE=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=OARTMpncVGspn07uAf6Gv2Y//iYfaIfYprs8MVU8i/iVhNtD8XxKYi7fw/4Lnzb8c
+	 HJQocSQRjO5nwuNe6TyglHGIVtRsJ21gaW8eFnibkO9YIdkkbjIdej00Lp8/SttgI/
+	 MzL6GmV4SvOyobYM6Z7f+nYRrJyPoLf8mw8mpMgayKyBIeTtL1XzL5+CNc93SjMcKp
+	 nc2Pjelr5ptyQkSb6Z6MW5BJLaZ331jqfhstaWIe3fc3l2SuMHzx7lqQXVsqHPkswB
+	 RyYWTZ/WuygD20z4+OsJDLuZCflVqDFCcT/ady9kYxuyzYpc2xyXQb5tpa9bYajqwp
+	 BDt4fRZlSNROA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,171 +48,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 06 Nov 2026 23:52:01 +0100
+Message-Id: <DMOHVQREU4JM.1A6IV5O5VMXKZ@kernel.org>
+Subject: Re: [PATCH v6 0/3] gpu: nova-core: retain the GSP-RM log buffers
+Cc: "vladazaharova2018@gmail.com" <vladazaharova2018@gmail.com>, "John
+ Hubbard" <jhubbard@nvidia.com>, "gary@garyguo.net" <gary@garyguo.net>,
+ "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "aliceryhl@google.com" <aliceryhl@google.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>
+To: "Timur Tabi" <ttabi@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261014154554.231015-1-vladazaharova2018@gmail.com>
+ <b2ff5c437c41ba4f8c1a8f354d24d7e68517fbf3.camel@nvidia.com>
+In-Reply-To: <b2ff5c437c41ba4f8c1a8f354d24d7e68517fbf3.camel@nvidia.com>
 
-On Fri, 16 Oct 2026 21:48:19 +0530
-<mhonap@nvidia.com> wrote:
+On Fri Nov 6, 2026 at 9:51 PM CET, Timur Tabi wrote:
+> This tree is the future of rust-drm-next, and there have been some signif=
+icant changes to
+> debugfs that result in a lot of merge conflicts.
 
-> From: Manish Honap <mhonap@nvidia.com>
-> 
-> vfio-pci-core frees device regions and excluded ranges on close and on a
-> failed open, so a CXL provider must set them up at each open.
-> 
-> Add open and close to the CXL ops and call them from the common enable
-> and close paths. A failed open unwinds the enable in reverse order:
-> release the device regions, unmap the BARs, drop the excluded ranges,
-> then free the virtual config.
-> 
-> Factor the device region release and the BAR unmap out of
-> vfio_pci_core_disable() into helpers so the enable failure path and the
-> disable path share them.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
-> ---
->  drivers/vfio/pci/vfio_pci_core.c | 57 +++++++++++++++++++++++---------
->  include/linux/vfio_pci_core.h    |  2 ++
->  2 files changed, 44 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index 211fff6045e2..3d4e01eea7b1 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -590,6 +590,31 @@ static const struct dev_pm_ops vfio_pci_core_pm_ops = {
->  
->  static void vfio_pci_free_excluded_ranges(struct vfio_pci_core_device *vdev);
->  
-> +static void vfio_pci_core_unmap_bars(struct vfio_pci_core_device *vdev)
-> +{
-> +	struct pci_dev *pdev = vdev->pdev;
-> +
-> +	for (int i = 0; i < PCI_STD_NUM_BARS; i++) {
-> +		int bar = i + PCI_STD_RESOURCES;
-> +
-> +		if (IS_ERR_OR_NULL(vdev->barmap[bar]))
-> +			continue;
-> +		pci_iounmap(pdev, vdev->barmap[bar]);
-> +		pci_release_selected_regions(pdev, 1 << bar);
-> +		vdev->barmap[bar] = NULL;
-> +	}
-> +}
-> +
-> +static void vfio_pci_core_free_dev_regions(struct vfio_pci_core_device *vdev)
-> +{
-> +	for (int i = 0; i < vdev->num_regions; i++)
-> +		vdev->region[i].ops->release(vdev, &vdev->region[i]);
-> +
-> +	vdev->num_regions = 0;
-> +	kfree(vdev->region);
-> +	vdev->region = NULL; /* don't krealloc a freed pointer */
-> +}
+I know what you mean, but just to avoid confusion for people new to the
+community: It's not exactly the future of drm-rust-next, but work that is
+targeting to land in drm-rust-next in the future.
 
-Mechanical changes like this should be done in a separate patch.
+As for this patch series, it sits on my list of patches to deal with (for
+probably too long). It also has been on the list for a couple of month now =
+and I
+don't think it should be delayed further, so I'll pick this up after some s=
+moke
+testing.
 
-> +
->  int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
->  {
->  	struct pci_dev *pdev = vdev->pdev;
-> @@ -691,8 +716,20 @@ int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
->  
->  	vfio_pci_core_map_bars(vdev);
->  
-> +	if (vdev->cxl_ops) {
-> +		ret = vdev->cxl_ops->open_device(vdev);
-> +		if (ret)
-> +			goto out_free_config;
-> +	}
-> +
->  	return 0;
->  
-> +out_free_config:
-> +	/* A failed first open never reaches vfio_pci_core_disable(). */
-> +	vfio_pci_core_free_dev_regions(vdev);
-> +	vfio_pci_core_unmap_bars(vdev);
-> +	vfio_pci_free_excluded_ranges(vdev);
-> +	vfio_config_free(vdev);
-
-Raising again that this doesn't account for the code previously added
-to this function that has its own unwind.
-
-There also remains the question of whether excluded range setup should
-be moved to init/release.
-
->  out_free_zdev:
->  	vfio_pci_zdev_close_device(vdev);
->  out_free_state:
-> @@ -713,7 +750,6 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
->  	struct pci_dev *pdev = vdev->pdev;
->  	struct vfio_pci_dummy_resource *dummy_res, *tmp;
->  	struct vfio_pci_ioeventfd *ioeventfd, *ioeventfd_tmp;
-> -	int i, bar;
->  
->  	/* For needs_reset */
->  	lockdep_assert_held(&vdev->vdev.dev_set->lock);
-> @@ -759,24 +795,12 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
->  
->  	vdev->virq_disabled = false;
->  
-> -	for (i = 0; i < vdev->num_regions; i++)
-> -		vdev->region[i].ops->release(vdev, &vdev->region[i]);
-> -
-> -	vdev->num_regions = 0;
-> -	kfree(vdev->region);
-> -	vdev->region = NULL; /* don't krealloc a freed pointer */
-> +	vfio_pci_core_free_dev_regions(vdev);
->  
->  	vfio_config_free(vdev);
->  	vfio_pci_free_excluded_ranges(vdev);
->  
-> -	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-> -		bar = i + PCI_STD_RESOURCES;
-> -		if (IS_ERR_OR_NULL(vdev->barmap[bar]))
-> -			continue;
-> -		pci_iounmap(pdev, vdev->barmap[bar]);
-> -		pci_release_selected_regions(pdev, 1 << bar);
-> -		vdev->barmap[bar] = NULL;
-> -	}
-> +	vfio_pci_core_unmap_bars(vdev);
->  
->  	list_for_each_entry_safe(dummy_res, tmp,
->  				 &vdev->dummy_resources_list, res_next) {
-> @@ -859,6 +883,9 @@ void vfio_pci_core_close_device(struct vfio_device *core_vdev)
->  #endif
->  	vfio_pci_dma_buf_cleanup(vdev);
->  
-> +	if (vdev->cxl_ops)
-> +		vdev->cxl_ops->close_device(vdev);
-> +
-
-Mismatched in both naming and conventions.
-
-vfio_pci_core_enable() -> cxl_ops->open_device()
-
-vfio_pci_core_close_device() -> cxl_ops->close_device()
-
-Some variant drivers unwind a failure after core_enable() with
-core_disable(), so the placement in the close_device() path is not only
-inconsistent, it's wrong.  The hooks should also be consistently named
-relative to where they're called from the core.  Thanks,
-
-Alex
-
->  	vfio_pci_core_disable(vdev);
->  
->  	mutex_lock(&vdev->igate);
-> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-> index fd1ad0baf470..6520a2dcfd4a 100644
-> --- a/include/linux/vfio_pci_core.h
-> +++ b/include/linux/vfio_pci_core.h
-> @@ -70,6 +70,8 @@ struct vfio_pci_device_ops {
->  struct vfio_cxl_ops {
->  	int	(*init)(struct vfio_pci_core_device *vdev);
->  	void	(*release)(struct vfio_pci_core_device *vdev);
-> +	int	(*open_device)(struct vfio_pci_core_device *vdev);
-> +	void	(*close_device)(struct vfio_pci_core_device *vdev);
->  	/* Pinned per bound CXL device so vfio-cxl cannot unload under usage */
->  	struct module *owner;
->  };
-
+Thanks,
+Danilo
