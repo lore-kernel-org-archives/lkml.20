@@ -1,71 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955450;
-	b=vkngR9j5sxxthygxD662fyLftSNwnXxU5y9ql31Ncb22qEmL8X9ybNgh8Pd0QUiEFMfQ
-	 ANjdy2capaGyH7wOmNR2esgneyMU/LX2oTFfDDl5XbZkNOFn28zTjUYPyevanqpSDyZTe
-	 1eW9d14C348aRtfLkQeSXYndX0mRNj8XlfLG+ugMkrCpppsPjFu8bfarHA74Nut8cUgMc
-	 2lcF3YuIv8KyVsfLsCEe1Szn2jdJhhl2ybmZrThPAIIEyd2qETfLb0Q8l6QEXPS/6JOZQ
-	 QfPX3hX6laK8LVRscm2gZzLefOr43nxp2J0RV9RcNpNRO75XE5tnP6dEkLnB+Gr7SeQ==
+	t=1793955453;
+	b=a4I7XeOWpEYjZtxshlGdeRbM1PTcu/LHz0RPodc7WpgJeUBH3RiqEy7XhsiiYShqrgLx
+	 M9UHNtrqa3v7Hy1Tpug/t9e2Ha/+pMtrlnlGOJ46QM2PPHCamvTLLg7LOfugkfkqDoivf
+	 S4QLEM/CNG1MmeuTZvigSd150fmlOuUuCIVArDOduReg9bd+bKR1EuI0lx5pe/eh/M9lv
+	 L5IiirVLhu9Ro9cwnM1Xj+ZcG2DdaoIGHKMtp31y2A8/vVOrAW4HTpxZW+Cd/mhMM8dlF
+	 9Mp9MYkymJ3BFwjAOwF4CtFOri64Rpmw8ASeF7ltgnv3nNhDNqXN37AEQc8IYeMpWYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955450;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7tnDwOUyL+9+3EBd25a2jQS8D7TqqGxOJ/LMYNK67W8=;
-	b=MhNRDprwqlkltTgMnqAO5RopUIcc3jh9zWXfZDiUjnqFbcDlRn0SEZCg/7R3sddDEEQN
-	 SH7VrS9lZOu868u0ful5RtwlhxAUcsr1MXVznjuzatT2AGb+mIJVz7LTm4C/RtP71gTyW
-	 aEIq5YCzgmk/D19n9svtmZemQfN+aBbQxT+TrqnqQquSkZImWTcZe65ayhUDiagwddTd1
-	 KlPk4xqxsL9yvvRvrPHLF9laIofSQaZ8+JMyRbtDJ8rZdt5Bbf0onaBa9XkLkmTNMcIp6
-	 g19+KDh+r7jnNEFL6wbpT5ftlfBK8nI4Ogrki7404cAx3whURJdvkfVYnt3ViwGpfhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955453;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=U8NbQLJQXWhE9kRQfhYMRG1gPTaScKvk/CWFssfmr0M=;
+	b=1RI5IcoW44sYCFv8H+D4wSo/fTEqRE0Mc07aofYa50WxwX3d5sYwOENQb19NEU0e8mvP
+	 z67M6srWl500oJLVR1v/A7UsxyRs0hudgcrUJdCRJzpNXfv8E/HuCYwKCRVbeP9GcCzj4
+	 1Eopvob0Ox/f1PSEhp8G+BtmjBUOJrSAVx4cghYclojlrShWKOKwCpK8KqL3lcIEbnRdi
+	 BOe81WKsSFoIoJD6RWORtqvX5KBvxG+yrZqY1sQkBA6zkaIi+miw0Nu/QiICvQ7KUaOa0
+	 dJsvAeW3hmSBzalr3PObN/tkMkZLUO1blbWnDWBc7FEwXzTkEuiHw/9RYtQo/IYiI0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HTJjrmFL;
-	arc=none smtp.remote-ip=91.218.175.240
-Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09156606A335
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:57:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09156606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XszJqe4J;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C27B1606A32C;
+	Fri,  6 Nov 2026 08:57:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C27B1606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HTJjrmFL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=d8226L5zRatr4QjzGAsxcF8uWP/1uGCbid94j82xW6U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793955447; v=1; x=1794560247;
- b=HTJjrmFLQVrV7kAs8EPK/OhwBG9oU0FEZ56DSo5LizGks/N4Tm2o7FRZ2BTqv7EL7HasxgUp
- YDXL98vSgciL+0idIGV35kKUY8rX+bz0od0hhd/UuueCkz504dajqUN5PwgUU9gHCa7OdKJtHTP
- lRy72Qc1D2NfHgSmvR276Q+c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c5586882dd48232f;
-	Fri, 06 Nov 2026 08:57:26 +0000
-X-Mizu-Trace-ID: c5586882dd48232f
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 6 Nov 2026 16:57:14 +0800
-From: Peng Fan <peng.fan@linux.dev>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v2 1/4] software node: do not resurrect swnode being
- released
-Message-ID: <au2WakZdbqc6asKF@fedora>
-References: <20261106-swnode-race-v1-v2-0-f8bc7b14d578@nxp.com>
- <20261106-swnode-race-v1-v2-1-f8bc7b14d578@nxp.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XszJqe4J
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD0C91650;
+	Fri,  6 Nov 2026 00:57:28 -0800 (PST)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 945A63F673;
+	Fri,  6 Nov 2026 00:57:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793955452; bh=O/L8Xi+/doDKEHUTFfH9GXIaTDWnQJy0rB+FzYj+0/c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XszJqe4JrvzxPntwZX3H1oWIoGpTG4x+s3Eno/88TbHCZ0FGPvkSOrDvEtcBCz0s9
+	 x8laoq14tL0TS1I17eP+Fd3F5Ox8CIiN9yaH+byC8xsMcqvhXaySnADXt+e7uGt5iJ
+	 ov6U+NtVpkprCc3zV6oCmqqNrj8n/80rxEetD8LM=
+Date: Fri, 6 Nov 2026 08:57:25 +0000
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
+	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
+	sameo@meta.com, drdeeglaze@gmail.com,
+	James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
+	aneesh.kumar@kernel.org
+Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
+Message-ID: <au2WdWFOYbPEv0Uj@e129823.arm.com>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-18-jiri@resnulli.us>
+ <auuDcABX27EeTApl@e129823.arm.com>
+ <20261104194622.GC3889730@ziepe.ca>
+ <aux01NUd85PabtZu@FV6GYCPJ69>
+ <auyKE2sGqtfjk4v5@e129823.arm.com>
+ <auy7IM0_S2tv7EZX@FV6GYCPJ69>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,244 +78,191 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106-swnode-race-v1-v2-1-f8bc7b14d578@nxp.com>
+In-Reply-To: <auy7IM0_S2tv7EZX@FV6GYCPJ69>
 
-Hi All,
-On Fri, Nov 06, 2026 at 12:38:35PM +0800, Peng Fan (OSS) wrote:
->From: Peng Fan <peng.fan@nxp.com>
->
->software_node_to_swnode() walks the kset list under list_lock, but the
->last kobject_put() drops the reference count to zero before
->kobject_cleanup() removes the object from the list. A lookup can
->therefore find a zero-ref swnode and call kobject_get() on it, which
->triggers refcount warnings and a use-after-free.
+On Fri, Nov 06, 2026 at 09:27:42AM +0100, Jiri Pirko wrote:
+> Thu, Nov 05, 2026 at 02:52:19PM +0100, yeoreum.yun@arm.com wrote:
+> >On Thu, Nov 05, 2026 at 01:32:49PM +0100, Jiri Pirko wrote:
+> >> Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
+> >> >On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
+> >> >> [..snip..]
+> >> >> 
+> >> >> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
+> >> >> > +					       const struct ctlv_cursor *request,
+> >> >> > +					       struct attestation_evidence_request *decoded,
+> >> >> > +					       struct attestation_evidence_object_request **objects)
+> >> >> > +{
+> >> >> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
+> >> >> > +	u32 challenge_length;
+> >> >> > +
+> >> >> > +	decoded->challenge =
+> >> >> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
+> >> >> > +	decoded->challenge_length = challenge_length;
+> >> >> > +	if (challenge_length < caps->min_challenge_length ||
+> >> >> > +	    challenge_length > caps->max_challenge_length)
+> >> >> 
+> >> >> Hmm, I'm not sure whether this check is required for
+> >> >> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
+> >> >> 
+> >> >> for example, if the provider provides two evidence:
+> >> >>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
+> >> >>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
+> >> >> 
+> >> >> might challenge is reuiqred for generating the token
+> >> >> and this would be marked at min/max_challenge_size in evidence_cap.
+> >> >> 
+> >> >> However, in case of eventlog, it wouldn't require challenge.
+> >> >> for example, TPM event log or CCEL event log.
+> >> >
+> >> >Right
+> >> >
+> >> >> Do we need some field on attestation_evidence_supported_object whether
+> >> >> it requires challenge or not and applies this sanity check per the object?
+> >> >> 
+> >> >> Otherwise, to get eventlog, it would need to send *dummy* challenge
+> >> >> always.
+> >> >
+> >> >I wonder if we should have two interfaces here for signed and unsigned
+> >> >evidence? It would be clearer for userspace then when it needs to
+> >> >provide a challenge or not.
+> >> 
+> >> Isn't the challenge field provided/not-provided enough?
+> >> 
+> >> Currently on the introspection side, device-get op would provide
+> >> challenge-lengths array:
+> >> 
+> >>         evidence?:
+> >>           challenge-lengths[8]:
+> >>             length?: uint(..4096)
+> >>             min-length?: uint(..4096)
+> >>             max-length?: uint(..4096)
+> >>  	  objects[16]:
+> >>             blob-class: evidence-blob-class
+> >>             max-length: uint
+> >>             blob-instance?: uint(..u32-max)
+> >> 
+> >> I think it would make sense to have challenge-lengths array per object:
+> >> 
+> >>  	  objects[16]:
+> >>             blob-class: evidence-blob-class
+> >>             max-length: uint
+> >>             blob-instance?: uint(..u32-max)
+> >>             challenge-lengths[8]:
+> >>               length?: uint(..4096)
+> >>               min-length?: uint(..4096)
+> >>               max-length?: uint(..4096)
+> >> 
+> >> Then the unsigned object would just simply have challenge-lengths empty?
+> >
+> >This looks good to me. :)
+> 
+> The challenge is one of several open points that all depend on what an
+> evidence object is: Rick's TDREPORT, legacy versus DICE Quotes,
+> "primary", "raw" and the format strings. Here is my proposal to settle
+> these together:
+> 
+> The model:
+> 
+> 1. device-get lists each object with an id, a class (signed, event-log,
+>    cert-chain or auxiliary), the formats it may come in, its max-length
+>    and, for signed objects only, challenge-lengths.
+> 2. evidence-get names objects by id, as MR ops name MRs, each with its
+>    output blob. It carries a challenge exactly when it names a signed
+>    object, and the challenge has to fit each of them.
+> 3. The reply gives each object's format, length and, where the TCB
+>    vouches for it, the TCB's digest. The output is always {label, data}.
+> 4. A signed object is made by the call, over the challenge, and never
+>    reused. The rest are read as they stand.
+> 
+> This settles following issues discussed during this patchset review:
+> 
+> 1. One op, not two. Per-object challenge-lengths tell userspace when to
+>    pass a challenge, and one call returns the signed object with the log
+>    and certificates needed to check it.
+> 2. TDX's TDREPORT goes: it is MAC'd for the platform, not signed.
+>    /dev/tdx_guest keeps TDX_CMD_GET_REPORT0.
+> 3. TDX's Quote object lists the legacy and the DICE format. The provider
+>    labels what the host returned and fails on a Quote it cannot label.
+> 4. "primary" becomes "signed", manifest joins auxiliary, spdm-vca,
+>    spdm-measurements and tdisp-report become formats, and signature
+>    goes, as a signed object carries its own.
+> 5. "raw" goes with the representation attr. The TCB digest is a reply
+>    field, so a blob always holds the object's own bytes.
+> 
+> Formats become an enum each provider family defines, instead of free
+> strings. I'm still unsure if format should be entirely provider-specific
+> and defined as "extension", or it should be somehow mixture of common
+> and provider-specific. Looks there is not really much common
+> anyway, so I lean towards provider-specific only. So far I have:
 
-sashiko reported issue here:
-https://lore.kernel.org/all/sashiko-outbox-200773@kernel.org/
+Overall, This is plausible for me with some small question.
 
-But this is not a new issue introduced by this series. The series only fixes
-the zero-reference lookup on swnode_kset->list for unnamed static nodes such
-as dwc3_imx_swnode. Named-node and parent/child-group re-registration after
-delayed release is a pre-existing limitation and is out of scope of this patchset.
-The parent->children list also lacks synchronization between list_add_tail()
-in swnode_register(), list_del() in software_node_release(), and child
-traversal; that is why the child-traversal patch was dropped from this series.
-We plan to address both in a separate patchset that adds proper locking/lifetime
-handling for parent->children and parent/child-group reuse.
+> 
+> ======  ============  ==========  =========  ===========================
+> Family  Format        Class       Challenge  Bytes
+> ======  ============  ==========  =========  ===========================
+[...]
+> tpm     ek-cert       cert-chain  none       EK certificate from NV
 
-I tend to not introduce uneccessary churn to this patchset, but if you perfer
-to have all the fixes ready, I could give a look to fix in v3.
+Just a thought, but how are we planning to retrieve
+the NV index for EK certificate?
 
-Thanks
-Peng
+As far as I know, TPM NV storage doesn't support labeling.
 
->
->One way to hit this is the dwc3-imx driver on i.MX95: when
->dwc3_core_probe() returns -EPROBE_DEFER, dwc3_imx_probe() removes the
->static software node from the device, and the deferred probe retry
->immediately adds the same node again. The previous swnode is still
->waiting for its release callback, and CONFIG_DEBUG_KOBJECT_RELEASE makes
->the window large and deterministic.
->
->Fix the lookup by acquiring references with kobject_get_unless_zero()
->and skipping objects that are already in their release path. Use a
->reference-returning variant for callers that keep the node (register and
->device_add_software_node()) and keep a borrowed-pointer variant for
->software_node_fwnode() and software_node_unregister().
->
->To avoid looking the node up again after registration,
->software_node_register() now uses an internal helper that returns the
->newly created swnode reference, and device_add_software_node() consumes
->that reference directly.
->
->Fixes: 80488a6b1d3c ("software node: Add support for static node descriptors")
->Signed-off-by: Peng Fan <peng.fan@nxp.com>
->---
-> drivers/base/swnode.c | 122 +++++++++++++++++++++++++++++++++++---------------
-> 1 file changed, 86 insertions(+), 36 deletions(-)
->
->diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
->index 84a77ffa3dc4b..965e960156876 100644
->--- a/drivers/base/swnode.c
->+++ b/drivers/base/swnode.c
->@@ -75,8 +75,36 @@ static inline struct swnode *dev_to_swnode(struct device *dev)
-> 	return to_swnode(fwnode);
-> }
+Should I assume that the NV index would be specified as part of the
+challenge to retrieve the certificate from TPM NV storage?
+
+[...]
+> armcca  event-log     event-log   none       Realm firmware log, if any
+
+JFYI, this would be a CCEL log like tdx:
+  - https://github.com/tianocore/edk2/issues/11384
+
+
+> snp     report        signed      64         SNP attestation report
+> snp     cert-table    cert-chain  none       VCEK or VLEK, ASK and ARK
+> ======  ============  ==========  =========  ===========================
 > 
->+static struct swnode *swnode_get(struct swnode *swnode)
->+{
->+	kobject_get(&swnode->kobj);
->+
->+	return swnode;
->+}
->+
->+static void swnode_put(struct swnode *swnode)
->+{
->+	kobject_put(&swnode->kobj);
->+}
->+
->+static struct swnode *swnode_get_unless_zero(struct swnode *swnode)
->+{
->+	if (!kobject_get_unless_zero(&swnode->kobj))
->+		return NULL;
->+
->+	return swnode;
->+}
->+
->+/*
->+ * Find the swnode registered for @node and return it with a new reference.
->+ *
->+ * A kobject remains on the kset list until its release callback runs, so an
->+ * entry whose last reference has already been dropped can still be found
->+ * here.  Use kobject_get_unless_zero() to skip such objects instead of
->+ * resurrecting them.
->+ */
-> static struct swnode *
->-software_node_to_swnode(const struct software_node *node)
->+software_node_to_swnode_get(const struct software_node *node)
-> {
-> 	struct swnode *swnode = NULL;
-> 	struct kobject *k;
->@@ -87,10 +115,16 @@ software_node_to_swnode(const struct software_node *node)
-> 	spin_lock(&swnode_kset->list_lock);
+> Did I miss something that would break us here?
 > 
-> 	list_for_each_entry(k, &swnode_kset->list, entry) {
->-		swnode = kobj_to_swnode(k);
->-		if (swnode->node == node)
->-			break;
->-		swnode = NULL;
->+		struct swnode *candidate = kobj_to_swnode(k);
->+
->+		if (candidate->node != node)
->+			continue;
->+
->+		if (!swnode_get_unless_zero(candidate))
->+			continue;
->+
->+		swnode = candidate;
->+		break;
-> 	}
+> CTLV layout draft:
 > 
-> 	spin_unlock(&swnode_kset->list_lock);
->@@ -98,6 +132,21 @@ software_node_to_swnode(const struct software_node *node)
-> 	return swnode;
-> }
+>     device-get reply, caps.evidence:
+>       objects[16]:
+>         id: uint(..15)
+>         class: evidence-class
+>         # The reply says which one was written.
+>         formats[4]: evidence-format
+>         max-length: uint
+>         # Signed objects only, entries as today.
+>         challenge-lengths[8]?: ...
+>         # Descriptive, such as an SPDM slot.
+>         instance?: uint(..u32-max)
+>         # When the TCB vouches for the object with a digest.
+>         tcb-digest-algo?: hash-algo
 > 
->+/*
->+ * Borrowed-pointer variant of software_node_to_swnode_get().  The caller must
->+ * guarantee the lifetime of @node by other means.
->+ */
->+static struct swnode *
->+software_node_to_swnode(const struct software_node *node)
->+{
->+	struct swnode *swnode = software_node_to_swnode_get(node);
->+
->+	if (swnode)
->+		swnode_put(swnode);
->+
->+	return swnode;
->+}
->+
-> const struct software_node *to_software_node(const struct fwnode_handle *fwnode)
-> {
-> 	const struct swnode *swnode = to_swnode(fwnode);
->@@ -374,18 +423,6 @@ EXPORT_SYMBOL_GPL(property_entries_free);
-> /* -------------------------------------------------------------------------- */
-> /* fwnode operations */
+>     evidence-get request:
+>       # Required exactly when a signed object is named.
+>       challenge?: binary(1..4K)
+>       objects[16]:
+>         id: uint(..15)
+>         data: blob(out, va memfd dma-buf)
+>       # selection, privlevel, service and options as now.
 > 
->-static struct swnode *swnode_get(struct swnode *swnode)
->-{
->-	kobject_get(&swnode->kobj);
->-
->-	return swnode;
->-}
->-
->-static void swnode_put(struct swnode *swnode)
->-{
->-	kobject_put(&swnode->kobj);
->-}
->-
-> static struct fwnode_handle *software_node_get(struct fwnode_handle *fwnode)
-> {
-> 	struct swnode *swnode = swnode_get(to_swnode(fwnode));
->@@ -977,21 +1014,39 @@ void software_node_unregister_node_group(const struct software_node * const *nod
-> }
-> EXPORT_SYMBOL_GPL(software_node_unregister_node_group);
+>     evidence-get reply:
+>       # In request order.
+>       objects[16]:
+>         format: evidence-format
+>         length: uint
+>         tcb-digest?:
+>           hash-algo: hash-algo
+>           data: binary(16..64)
+>       # The generations as now.
 > 
->+static struct swnode *
->+software_node_register_node(const struct software_node *node)
->+{
->+	struct swnode *parent, *swnode;
->+	struct fwnode_handle *fwnode;
->+
->+	swnode = software_node_to_swnode_get(node);
->+	if (swnode) {
->+		swnode_put(swnode);
->+		return ERR_PTR(-EEXIST);
->+	}
->+
->+	parent = software_node_to_swnode_get(node->parent);
->+	if (node->parent && !parent)
->+		return ERR_PTR(-EINVAL);
->+
->+	fwnode = swnode_register(node, parent, 0);
->+	if (parent)
->+		swnode_put(parent);
->+
->+	if (IS_ERR(fwnode))
->+		return ERR_CAST(fwnode);
->+
->+	return to_swnode(fwnode);
->+}
->+
-> /**
->  * software_node_register - Register static software node
->  * @node: The software node to be registered
->  */
-> int software_node_register(const struct software_node *node)
-> {
->-	struct swnode *parent = software_node_to_swnode(node->parent);
->-
->-	if (software_node_to_swnode(node))
->-		return -EEXIST;
->-
->-	if (node->parent && !parent)
->-		return -EINVAL;
->-
->-	return PTR_ERR_OR_ZERO(swnode_register(node, parent, 0));
->+	return PTR_ERR_OR_ZERO(software_node_register_node(node));
-> }
-> EXPORT_SYMBOL_GPL(software_node_register);
-> 
->@@ -1061,21 +1116,16 @@ EXPORT_SYMBOL_GPL(fwnode_remove_software_node);
-> int device_add_software_node(struct device *dev, const struct software_node *node)
-> {
-> 	struct swnode *swnode;
->-	int ret;
-> 
-> 	/* Only one software node per device. */
-> 	if (dev_to_swnode(dev))
-> 		return -EBUSY;
-> 
->-	swnode = software_node_to_swnode(node);
->-	if (swnode) {
->-		swnode_get(swnode);
->-	} else {
->-		ret = software_node_register(node);
->-		if (ret)
->-			return ret;
->-
->-		swnode = software_node_to_swnode(node);
->+	swnode = software_node_to_swnode_get(node);
->+	if (!swnode) {
->+		swnode = software_node_register_node(node);
->+		if (IS_ERR(swnode))
->+			return PTR_ERR(swnode);
-> 	}
-> 
-> 	set_secondary_fwnode(dev, &swnode->fwnode);
->
->-- 
->2.34.1
->
->
+> Makes sense?
+
+For me, It seems fine.
+
+-- 
+Sincerely,
+Yeoreum Yun
