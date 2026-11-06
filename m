@@ -1,100 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.13.20
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793979714;
-	b=kSZTNhekLPJ5SVqn0EzUv8dAM/DG9fAIlt+4Ij5/eL1QLUGN3wfu3OvkYMT1Eddu44Mu
-	 xYZ8TXGIQBTCfjrADKBcg5KPHL5GJAZCZiruFaTOhBDIeeWpI2z/V6g3NJyFfFPLnyfwY
-	 lG8DCBI2OrWBP2VBb8b8uXoR/o8P08SovggoAHSw7RFDul2xfKARvEeYtH7hbmLPZzaJY
-	 k6XzKPK7cDP1NXRPBV7etvyDcasdETapk3Ik6cbj1x5vheI71oGl8KFSCUD+JiW+4RliS
-	 9+biMqXuVmOo+M2KYwv1RrC6tOAgG+1423oIIixTu7a68awe35fgdyDlW4StPq1eUPQ==
+	t=1793979724;
+	b=CDEM0cPe4ArpcEvHF/M2gHZSoECaFvE1oRuGh3kLRKOQxoTvcHxDoMIe9y8M0HOP3PDL
+	 p0SPJin9xjyO4gzHt0mmXO1oHny3jbK53MXuxlhFUwB9G1b1+RfkTDy4mJNN7hpYhBhyT
+	 9Yj6rKxyZfeiLtUtBfimrF0LuhJiKlNeblk3Cec5d0n0pg6bSuKr6f+1P3CjL1YnVRcGG
+	 rwS06B3AGBTkZBsRkg7o5E8YC6a+6twVMawMd/1ig4K1W0nDrgOc61JMqj0okCVVKIeDE
+	 SByvMJYu4BsLzcFrj53G8EsVT/IAtUpofl28dtZPRAcMcLlnsKyI2JXKKxHVyZ1ZxSQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979714;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=f5zCwiaGTsbGPs9eRvMEIe8q2LEwYAAZXAgxvtWlbgM=;
-	b=1d2iuddJVU/PQfC+sfwByrbD1E2JQSqofIF6pBSey4nkJ+TTj8GXrppIRb2jPRz9SlOo
-	 7l62+IHVRmKe55gFhJh/N6EdsZzFeD4QP9R/1ZMEwEosiSSHWWOLRF5dVlTmZoqsjcW0D
-	 mCSkvoOgQLa1hHALkA5buxd4SQxnPvl4KTm6qRfPLCGvZ7ioG8dAeTZzX3mDflQ8WzYgu
-	 za0GP9QDRalrV6KAAxc7JAH9Lm5aHI9zF1Rbzgue3+x6k/o+uOaotg5CJp0Q8wNjYZqvh
-	 WLOo9zH5W4JOnlro5PykKx2hRbc+GHNxOg5A4qc9Ev6n2gqUZJyKCUIuP2t4cV2bE0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979724;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=EVq9NkeNbf2BVon0DkB+sRZzgUh1/U8nKamsVvKqRtU=;
+	b=sxKF2gnra7Pu45wL/tfhtIKEXxg7puJpuL1Pwyv8uGDCkZbhRyroQ+oEP8ahUTHfExip
+	 RxSN980dg3CgrIvlHBCBkW0a/2Llbi4nEwZlK9Z86EOHf2iLFltHvgbZs+Q2qNMRaAzCd
+	 GzCyxOZPqd3ln3ymcaRTUxCy99386apZ4/bsgIqDQkGVCgoTU967bC29TBiLHMP6Pu/zj
+	 nWXpQLlHyfNPKulajkcWCN+ELS5OGDT2VKIoK/IK+TTyzc157GLkhbI8fKvn51NWtarz5
+	 mFgahHIukZi5MJqNJm/hTnTlpjXJGntABTSxhtRZ6Npt9U/TCjw1KI05aJtTMzzTZdg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=YzzkId+7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=Xkpk7d7H;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.13.20
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazolkn19010020.outbound.protection.outlook.com [52.103.13.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5128606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:41:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5128606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB14606A329;
+	Fri,  6 Nov 2026 15:42:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AB14606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=YzzkId+7
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso505946a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:41:53 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793979713; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sK0c4RgmGuQOoth1Z+p57WrZAgy7GADe/z6bFlRwMUqCKfwHgVfgjJhTjY653kFAzm
-         Oa57R5I4gy9pWvs2iBHfP+VX9kw/QGhBXy99h44MrFDsGYrGdPpeMTqCqODYlar7t1Ux
-         yZhLEkJfKCLKqv3OG1eMJU+uO4rRF+xeMOBDydQtw0ChdlttHV6+Rlkngb8JjpRrJ47i
-         nqE/UHdYkOtUPhCt6FR2z4SbY6i95eLFn+sI5h1GpkQxFpq2be0PQyQ3ZQjn6vuMdW9i
-         VvC92r1l9NsP/36OKbFDJQwrXKCJsKgMpYxmTQJ9TP+cCSWWZrPgDfX9gCiO0mzDa0qI
-         Yk/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=f5zCwiaGTsbGPs9eRvMEIe8q2LEwYAAZXAgxvtWlbgM=;
-        fh=1+atljFb+EuVXlNA/Lp9VtlsM2NFT99tf9AWq8PjanU=;
-        b=qZWAF+rFRwdC8u97hoBk7DTmA8XiJTWzmsV8zboBx4r0Y2v/dpHuQEVlz3VAcQ0VNh
-         m19t4VKPD3eGu/XeKJIkrzPngX0uvWHjnwkEGp0t79QJ7i4hb+tzIu6LDOPyi3O7+Bmv
-         ZlqQpExNDsB2HV//y4fKgjy4uiA2tIeVRjRGqvfM1tOfhpECIHfumwW04Lbh3aaM9fLO
-         K1+ZjfRvXhNiuDhukTwUhPCCjIC4WI3IS50IQSN3bXHlmL4Y8z8SYPFYtdPMkkO2seZ9
-         S7HSfbID7l1nQkv+vfSqD6/35PCgGalu9De75XxvnnniFB/vEoau4Q/fKno6F0K/KKmL
-         L8Eg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1793979713; x=1794584513; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f5zCwiaGTsbGPs9eRvMEIe8q2LEwYAAZXAgxvtWlbgM=;
-        b=YzzkId+7qJWBrdgBc3KwfkNFPjAIr2flDfLUmoyshQtncc+Ndvd9sON1MwFGvz3rBp
-         VhUf+70b8rH9KxwVnJgIiQ/o3uPTubnnQg4/6C9PTyoSOFCHY23cuoI6OZcK+UoSUnVD
-         XtPEQzgxzHkAgFXXLZHstTRu7Q0W5sZ4WrnTsJlkN+k76PtkLxv2iUv4JboT/5HiggmU
-         cd0o63pDvyV1UoBwxLbT3ijZr2Dxspu/UqNmNP0P8Bx1TbBSh4+hMra38mZz1yWkEPNG
-         X05TDXL5cHFzv6snJstidZle4eSSYbEyRHSCA/H/ky8GhV+s8vXINgjx3rQ0Y0F3UC0T
-         BY9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793979713; x=1794584513;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f5zCwiaGTsbGPs9eRvMEIe8q2LEwYAAZXAgxvtWlbgM=;
-        b=w5o0mQBzwRwPofGK15DtDzQxvtPbVf6nnQp1JXfxF4bEbFHdmQoGUOyij740ivdy3P
-         CaLBAwLOkVY9yonNRh2lcGF3j1M8lUpMe0bdmFzlEPc0QMMXWq5WMKij1Et1I1Buk3o6
-         QpgRnTA+Y6sWESz4c8YrVgaU4n+xP7LNjxECfDDfOUjfzeRgbB2xqtsSMPdvl+cScQUj
-         uVDtFHt5gdUUrWoIyLitCHALNFBtVck5oPgauc7OaP49N3rGV3vaBNycCTapEBqr+ogl
-         QQiheGDnNCzSE7VPpKPATyiOqqmPjxJF45PRO6d7+5tP3s84nncUG65LMUPrQS8W+zIi
-         rkkQ==
-X-Forwarded-Encrypted: i=1; AL+hErEC+83ISVZz5SHVA0mcDi1/QVoJ88JkcAnhlIGcynaMd0XiefcS17JuDfETMilJAvYvCGTQ1lZne+jVKts=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iDcUvCGABPY2jm9g0D27bxkicmI2UgiktrrBMkfJh64sOha28
-	3ChkQiMYQid+ahpCkDcdWqSdkh99xQQYCtF8J3BHEKSNqdesoZFt+6Sfv6lPP1DpsYgrpmjSm1n
-	uKKfBVZqGNy1/SvLpVteLqF28+c5kIdwVZRKnd5Dcc43sI/XcHG6eVc9r
-X-Gm-Gg: AYBFou3SD8SXB7AZvocQDLIEdVXIOrHNNdNycvuiqXOx/LMemmYZ8CwZVptl60fiEOL
-	PpQbOD4BrTIBpssYaBoHkq7i9V9Lcn0tahb9wLP8iWtE1BUbLQHezZQTcGPEufJQsEUVCq5jjd0
-	eIMP9NxD+0YWxea3bBOsPZh8Yf4uucH0ViD0j4Lv7u2eRoTKhL3ef/+EDeWvqaDsPh/3ZHqQlYh
-	IDdTylqN28wUCM8zmSez5MuHX+emDVfNterOosTv9bbF9yjKGZn5frNYJwD7RqeoORQl6SdvO/E
-	y4NjrjKNBneUXsutm9gwNwlj7cC3pmN3MjT+1eLR8MGPhgrtTH24ciB50dFBzxTkbHob/xfsFxy
-	yJxIMljVqRBipQdGmGE6HRRwOrTkDyW1/meEE+iGZ3QE/pfuhwdvBVsvW1+YO8F3si9zL
-X-Received: by 2002:a17:90a:e7cb:b0:3a8:bd51:205b with SMTP id
- 98e67ed59e1d1-3b0db6dc4d1mr3040927a91.37.1793979713085; Fri, 06 Nov 2026
- 07:41:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=Xkpk7d7H
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xbt7qlcDxLK61BcJxtAvtXpiPdcufqgqUrecLaSumVAaldQ8YISo/fx6jlCOfTFB0AIGRpzVA7J3cP5oxrm6h+ptS9w5ZylZRlwVZaa5hy5rlti+UBDhlGKGpoRleEz420XPPGC8sFmWXQlxLJcCx2DJkngfotRGou4PlAN0xK4oRLaNimR2HqgzrZ6GJrEVCR2f6Nc53jRck9lvjGEHxJIqQetq2/WYEUUua1jwalZEQnIvt6zVG1K9CJMh6GSHv+XrFuU1DeXjHJCNIRi/NZTcDTDLXgs2ZWBy33dugZcxHr3RwA1xz20ER8r87ik7iiXqPAyveUqPlBxd37Pk4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EVq9NkeNbf2BVon0DkB+sRZzgUh1/U8nKamsVvKqRtU=;
+ b=UI7KcwZsleAA/URMNTXPiucXPeampY/3S64ysk2nvT5pJs2FGENEXbLQoKSIl5KVL3cVzCjnbgks3LKfNha3WIPG3iDvTNufUe0/uEXHujvIh5EVfGWFZhcsKBnS5i9Q4/DFv1WiqvaHr76hMPX6doBL1ljwIAO+Tl4ilRJb1JIXgCMxK7OhCO8+2BGY8Bk5Ck37gMzv/lfHz7jKq27oe1GokHGctx2DFrYhsD58M2KQwKF4Cw81ZCYjBETWljvBBG+2pA7ma7GxU+GHICMNv1E+3T8wLZ66wG+42xU3hVtETvb8tZuHq4oeG9eccm631ExdGKjtKB75tcnwRTkHnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EVq9NkeNbf2BVon0DkB+sRZzgUh1/U8nKamsVvKqRtU=;
+ b=Xkpk7d7HJEbNU2SEbO3eRORhIiENnfs7llQu7o5uPL3eLvrtMui0st+8nTZx613vytmxN+F2lRVEJtdxcCJghlpyM5/xELpHq6vtS3iTl1sNSHXMJbLESxJpNddkvpm1aBMugcrbF98CsvGBb+dDDiGWdDLuR62gOR+l05aJjKD4rXF069XPkjKjPYb/c+3UmJ1Mctj4RDSiDei/ir8Pio1qq1gt1w+hGr7zVAn6p6oAVIumgeF4b9J6DMfD95FzUAmQliswBqxcyCsr8Z+N0o4SIreMIWhT6xYqkl/R/JL/eNIFv6jejpo0QHp7mzzglAGNcgThmE+U9yMp5BKH7Q==
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
+ by DM6PR12MB4329.namprd12.prod.outlook.com (2603:10b6:5:211::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 15:41:47 +0000
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 15:41:46 +0000
+From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Subject: [PATCH v5 0/4] iio: cdc: add Texas Instruments FDC1004 driver
+Date: Fri,  6 Nov 2026 09:40:25 -0600
+Message-ID:
+ <SN1PR12MB2528805DB17DD015E191111FA5762@SN1PR12MB2528.namprd12.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CH0PR03CA0011.namprd03.prod.outlook.com
+ (2603:10b6:610:b0::16) To SN1PR12MB2528.namprd12.prod.outlook.com
+ (2603:10b6:802:28::33)
+X-Microsoft-Original-Message-ID:
+ <20261106154136.804370-1-chernyakin.victor.j@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,75 +97,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <d85ece6e-27f9-4d9f-83af-4101bc76fef6@app.fastmail.com> <356db94e-f5d6-4fb2-839a-b97aef72256b@app.fastmail.com>
-In-Reply-To: <356db94e-f5d6-4fb2-839a-b97aef72256b@app.fastmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Fri, 6 Nov 2026 10:41:40 -0500
-X-Gm-Features: AclHuK_vNxeGvLMu2q-_O9-3vD4QrJi4Z55I0p-SIXPf7gkTSj9ZotO9tBGrYyA
-Message-ID: <CAHC9VhR9sjunJRnM9gy-BkBZkapQTrr8a8FtmaK7JkAmUqTrLA@mail.gmail.com>
-Subject: Re: [BUG] bpf, lsm: new first argument in 7.4 inode hooks silently
- breaks BPF LSMs
-To: roblabla <linux@roblab.la>
-Cc: Daan De Meyer <daan@amutable.com>, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, paul.mabileau@harfanglab.fr, 
-	linux-kernel@vger.kernel.org, Andrii Nakryiko <andrii@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|DM6PR12MB4329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 072bb235-733a-4307-e4f3-08df3c1c7670
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|5072599009|24121999003|5062599005|22091999003|24021099003|15080799012|260925184616899003|8060799015|19110799012|4140399003|25010399006|440099028|3412199025|4302099013|1602099012|10035399007|53005399003|40105399003|26121999007|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?0LEWWxMj00MeP1svfcRCX+Nif0rSL/22981owSl3iyrHZa1HZS3L5Og4V6xf?=
+ =?us-ascii?Q?oI5anEhU+0xzZkYm1DlutowW2Rj4QN2SKG1nkrnzEg0fCevl5fCmU6RxDGcZ?=
+ =?us-ascii?Q?oOf5IotVQCoSZyIJMAN1OOrlDHMetK7jE31Wy0Hm2xCGAertuXxC7gtDjrAw?=
+ =?us-ascii?Q?/poeNPfhpFrUfgyOMiRLk3CkcBOC4ceDwGq/8Are3R+Ac5HPdLPoooJrBp4S?=
+ =?us-ascii?Q?KdGeq3pAk2LldrKJ0BZTqYNqMPA4vDpFDfoSVNgVEt9CVObujBU8xgeIAX4A?=
+ =?us-ascii?Q?ts8lTtuaCRj/If1XscDJqgQFCbuXYwCOHVWCCkwErBYazMIBAOBQ/9Qwvst4?=
+ =?us-ascii?Q?HHLvf6kmltgeG/TFR9QnILp3cwVfB6xz9v1bvVDwqK5fMAbUK0yBAld5W+s2?=
+ =?us-ascii?Q?+I73tSucYTQkDs6G5ZMDXUSd4jLddpxtJ85MgB5u4W61BoXDk1mDZgJY1w9U?=
+ =?us-ascii?Q?oEamjotIXcgBiY/KsQCGBDe5JxXmkX+wHvoS0+Tkze5K2L4JlqZUB4TXA11z?=
+ =?us-ascii?Q?VDTe0dKrcjtFZrO5Lt9iyX9syLwro74TymJhOQcAaJi5syMRwzov28B312gb?=
+ =?us-ascii?Q?rlg7jobXKKv3KazH9OkKPFGom3SocnNGbccnzvxSpFrj9VLTMyqfAlFb3EaC?=
+ =?us-ascii?Q?RzBvLMmjHNc/liAYy0Il/ulTg0vWC9KrMjadldi38rfbeSHYeYtAU0hKX3Jr?=
+ =?us-ascii?Q?k3QG66ERJylhKq64vZKcTyiCxEIdt0cDOjM2nxOPKAbMDEYpfKSrdLY/928h?=
+ =?us-ascii?Q?K0YgbiXe9nmmadrR4C2qvPl5xEGvJNApfbtFJtFahxvqLOXcpJZhy60UIoyZ?=
+ =?us-ascii?Q?OeCCKmX5PnZTDGvy5bVkghLLXAzqPJZbstwtzAefpm0uCB6hWa7UWsPLc2CB?=
+ =?us-ascii?Q?i9iFn+NyXeiclYeqYu3vSdNzKpA03ZeEYOAVQbePG0gSIO0SuBamPJPlOT4W?=
+ =?us-ascii?Q?jjcgRfEg6zvjBWeRc7mEM84VIF+qPMFN6NiiT/ZgZVZ2I5Ip11EootxKQ+oO?=
+ =?us-ascii?Q?RgaNq4ZgwRzufnJvhSUkslAaL0IHRVKTPqobgx1JuxBM/QeNS2RKOXVBCUnf?=
+ =?us-ascii?Q?XuxgvLYAczXtiQ0ITfQ0dGjKrJrVKhKVT4tqN+GSroRyp2TdUg95w8uSLFDo?=
+ =?us-ascii?Q?sVdo2mgdYxBb?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?FzHMQBvfNiREbIfmriNnSKoqEQEqR74fwnqxoAOEqpD9zuLu4Sr17pz60xb3?=
+ =?us-ascii?Q?gnVf9hQ7KlBAaA7qu4Ke+gMk1qk2baWyMfM0vPhGq732XZCookoxvmeGIvq0?=
+ =?us-ascii?Q?L7N23JiEhUMOFc/fCA3Qz8ZVl54S+yAaPVS6/ibwaWiDmHjVsG1ZCAmgE/GS?=
+ =?us-ascii?Q?+pHmzlrMB/XxBztSugucchS3R+mPiLaHH2OSvkrwc53NBo8UiQoeQ53x/mpZ?=
+ =?us-ascii?Q?19XwDQEgolV43h13NzcfiVH9qE3alToDPdr6dHj5hY4naQI2jSI2xnfdzieX?=
+ =?us-ascii?Q?P1W67/nnmLGp7KxM2HYBe16R2jRPXRDvFSeoCPbadZMLfP/XvvFMMdQRP/rY?=
+ =?us-ascii?Q?fLpnz/6UetJ4QpVrl4mI1oJEbel9baLUDSJ31zncVYpN6if0zz06pw+r50z8?=
+ =?us-ascii?Q?C6174hPYFFd+aRS2g1g1+RGTrz7JhraGvoCy95s3gpoWrveN09ZPgqJfEcyg?=
+ =?us-ascii?Q?kwxDyPOidtGuS14dq1ImGa/X1WEQcCw0RhD1E/sEVtNDBBcwM7KVRqNLFsan?=
+ =?us-ascii?Q?KN7spfIc7ex/geYIgWu/dL+c06abvIDV8KKSqUKfOEu3C8Q3SDXPOHVrmm4V?=
+ =?us-ascii?Q?TFeMgAg8dFUTt8tATu0v1MeatIuoOXYmRaGMzIAhlaphHBES5NIYBaiA5fwI?=
+ =?us-ascii?Q?rm8PH7xBNTdvNH9N28sUrx85WoKhAWkVeC+l6Fl0v6BkIJ/BynuXdDFQulHZ?=
+ =?us-ascii?Q?SjA2JFhGR0ZH7HSQoASFKmjNsUek1U6UDvknxr/+r+JzE2e5f2/uoO5rSuEk?=
+ =?us-ascii?Q?BYPFqrmMGysZqHJy3mUEuAYYU9YLP4FtdcqL81QJwmCN3y6pRraePzNDwzyB?=
+ =?us-ascii?Q?2Abimgf81cBKz99HUpcFTqYezMbM7sq5suDmfhJTkKu7GIAd6AONQSokCYLN?=
+ =?us-ascii?Q?LYNrEJP82xPHsBzjF3WMMeLWSW3vxn18L9WzkGZsXVztQKiN9tBWLztYTjt8?=
+ =?us-ascii?Q?sr+mv0U7p249PoGoAHXP5jWWx2nsRXxv9JLFghW33wVuzy1aA7Bj8IcHBOCO?=
+ =?us-ascii?Q?VmM05XxiCJIUC946fSvuXjdC/VvJZu8aH7xwDyFn632MTE657tpGF+TqakAm?=
+ =?us-ascii?Q?kTtSl9u5owuyAp7meO1fAKriW4/SMDk8wA1ip6r8GlDgSZ3KuCcuLoChsAUg?=
+ =?us-ascii?Q?Q1scJT1J2ndw6IdM6T5DOc4hKOBLNm0/FmKeWHvR2gY8L+Z7AEB7d6H70PpL?=
+ =?us-ascii?Q?/udnwxEzhLFNEvXiYNKgyJFpTyTO1Jp2KEgePZ4KS/rGZktz7H2MGbXxJR4Y?=
+ =?us-ascii?Q?PtrGa80DX+Z+8S8mtx2tzs33X+DjWZOgOvlqFwNXHZgEUYoqhINYl5xC4+QL?=
+ =?us-ascii?Q?7ynTKJcnk2xgUAzGHrFhv14WG2rBbE8R1TraAOMebtNLzdN0xnml/ZpSKH9W?=
+ =?us-ascii?Q?fU109YzoVEJdJiHUuaFJNiNPBwLmayPvrgI+Xq56VSI6wd+eIA=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 072bb235-733a-4307-e4f3-08df3c1c7670
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 15:41:46.1112
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4329
 
-On Fri, Nov 6, 2026 at 8:39=E2=80=AFAM roblabla <linux@roblab.la> wrote:
->
-> Hello,
-> First of all, I'm sorry if I'm sending this email to the wrong mailing li=
-sts, it's my first time reporting a linux issue ^^'.
+This series adds support for the FDC1004 4-channel I2C capacitive sensor.
+This sensor can report single-ended measurements of any one of its
+channels, as well as differential measurements between any pair
+of them. It has a measurement range of +-15 pF and a resolution of 0.5 fF.
 
-Hi,
+Patch 1 prepares iio_format_value to handle IIO_VAL_DECIMAL64_* formats
+introduced in Patch 2.
+Patch 2 adds higher-precision IIO_VAL_DECIMAL64_* formats, used
+in the driver.
+Patch 3 adds the devicetree bindings.
+Patch 4 adds the driver itself.
 
-It looks like you sent this email to the right people/lists, well done
-on the first hurdle :)
+Tested with the sensor connected over an i2c-tiny-usb adapter.
 
-> In commit 16959c469f232f5c76cfb628297cafbf6dbdba79 (lsm: expose mount idm=
-aps to inode hooks), merged in 7.4-rc1, a new argument was added in positio=
-n 0 of various inode-related `security_` functions. Specifically, it added =
-this argument to inode_create, inode_link, inode_symlink, inode_mkdir, inod=
-e_mknod and inode_permission.
->
-> This has the immediate effect of breaking eBPF LSM programs relying on th=
-ese hooks that were compiled with BPF CO-RE and using BPF_CORE_READ.
+---
+Changes in v5:
+- Patch 4
+  - Fixed 32-bit build failure by switching to math64.h division functions
 
-...
+- Link to v4: https://lore.kernel.org/SN1PR12MB252803756D5D1C8F35122B8DA56C2@SN1PR12MB2528.namprd12.prod.outlook.com
 
-> Now, I'm not sure how the Linux Kernel treats eBPF LSM hooks - if they're=
- considered part of the userspace that shouldn't be broken. My understandin=
-g is that kprobes are not part of the Linux Kernel stability guarantees, fo=
-r rather obvious reasons (they allow watching the internals of the kernel) =
-- but I'm not sure if this extends to the LSM Hooks. I assume not. Still, t=
-his kind of breakage is really painful for us, and I hope we can find a sol=
-ution.
+---
+Changes in v4:
+- Patch 1
+  - Moved the floor(log10(S64_MAX)) constant to iio.h, renamed it to IIO_INTLOG10_S64_MAX
+  - Added corresponding floor(log10(U64_MAX)) constant
 
-Like kprobes, the LSM hooks are intentionally not part of any stable
-API promise.  While we try not to needlessly churn the LSM hooks, we
-reserve the right to modify parameters, the LSM callbacks associated
-with a hook, and even the basic hook semantics from one kernel release
-to another.  The reasoning is very similar to that of kprobes: the LSM
-hooks are linked to kernel internals and thus need the ability to
-change as the kernel changes.
+- Patch 4
+  - Added "select REGMAP_I2C" to Kconfig
+  - Style/whitespace tweaks
 
-LSMs that need to provide a stable API must provide an abstraction
-layer between the LSM hook callbacks and their stable API.  The LSM
-framework is not responsible for the stability of individual LSM APIs.
+- Link to v3: https://lore.kernel.org/SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com
 
-> Could we fix this type of breakage by making sure new arguments are only =
-added at the _end_ of the LSM hooks signatures,
+---
+Changes in v3:
 
-I'm sorry, but I can't make that promise at the LSM framework layer.
-It is impossible to predict how the kernel internals will continue to
-evolve and thus I can't promise how the LSM hooks and callbacks will
-need to change as a result.
+Split Patch 1 into two patches.
 
-Regarding the specifics of how the BPF LSM has dealt with this in the
-past, and any plans for the future, I'll let others speak to that;
-hopefully they will have some tricks you can use to make these
-transitions easier.
+- Patch 1
+  - Expanded the comment above abs_s64_no_overflow()
 
---
-paul-moore.com
+- Patch 4 (previously Patch 3)
+  - Added comment on what a negative capacitance bias is used for
+  - Reduced some line lengths by introducing a variable with a short name
+  - Joined consecutive assignments into single ones
+  - Fixed indentation
+
+- Link to v2: https://lore.kernel.org/SN1PR12MB2528DD1E6067CC4C0B76746FA5622@SN1PR12MB2528.namprd12.prod.outlook.com/
+
+---
+Changes in v2:
+- Patch 1
+  - Added tests
+  - Fixed overflow in iio_format_value on 10^scale and UB on abs(LLONG_MIN)
+- Patch 2
+  - Made the power supply mandatory
+- Patch 3
+  - Switched from direct I2C calls to regmap
+  - Added of device table
+  - Removed scan indexes
+  - Build up complex values incrementally
+  - Adjusted list of includes
+  - More designed initializers
+  - Various style/whitespace tweaks
+
+- Link to v1: https://lore.kernel.org/SN1PR12MB25286BE4E1EA3B75F8E563A9A5652@SN1PR12MB2528.namprd12.prod.outlook.com
+
+---
+Victor Chernyakin (4):
+  iio: prepare iio_format_value to handle higher-precision
+    IIO_VAL_DECIMAL64_* formats
+  iio: add IIO_VAL_DECIMAL64_{ATTO,ZEPTO,YOCTO} formats
+  dt-bindings: iio: cdc: add Texas Instruments FDC1004
+  iio: cdc: add Texas Instruments FDC1004 driver
+
+ .../bindings/iio/cdc/ti,fdc1004.yaml          |  46 ++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/cdc/Kconfig                       |  11 +
+ drivers/iio/cdc/Makefile                      |   1 +
+ drivers/iio/cdc/fdc1004.c                     | 490 ++++++++++++++++++
+ drivers/iio/industrialio-core.c               |  30 +-
+ drivers/iio/test/iio-test-format.c            |  16 +
+ include/linux/iio/iio.h                       |   3 +
+ include/linux/iio/types.h                     |   3 +
+ 9 files changed, 602 insertions(+), 4 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml
+ create mode 100644 drivers/iio/cdc/fdc1004.c
+
+-- 
+2.53.0
+
