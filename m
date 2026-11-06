@@ -1,84 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793991920;
-	b=1havXuO5t2SichSSDA+OB9tZISIVumYfiw16UY/pXhmIpr5Dk5WOHmzIbUb9+475qzW4
-	 YCXyZrGcdU59yjrSXxGa9c1tiqlmZgP+uOs2K4VA47KddXiXOPKeoSZ6a0zzLlOmtL41r
-	 rRSbfgjtjWZy6WGGfvYLY0OUFAAG9iX3yyU2tO6cnoDSET0QypDCFSOtokFpP4t4p/uJC
-	 1STanJHy0aYh2lutQTiXc43xYY55IRwLGiRr/IoLpB8wOV4vP/6d21+4DpeZNUoHzU7E9
-	 UZzqmkcWnwIBp3N1VGvh0Xgn7l51pmj9YqvCK5y20xV5fV78EJIFXDQsFstabnq8UsA==
+	t=1793991959;
+	b=jLWmqzyTLTZ2Ncb8+qqTL3MMKGPEVKB3y4+rVrvRI5/1fj2U/NJyoAS/pGQUhREDQLQw
+	 z4S/8Sb/CZ0HOV+rZvPrXhx8rgRG2+WGvp+7tBJFSCvUJYoh/MrEjAQxfPClLnRl2iTfS
+	 6VvgsvnwU/AqG72dRoThjvLo9jV93SGLq6nIT+K3LpDeCoxkpljo+g8kWKipXSsfPJTbo
+	 1NrkBKu+DUDs49c3A0BBE3zMothAcJOEysYaApP3CxgvB1FcVcCdyr9rpXXqr4T2xO6bY
+	 kD4AlKYfgcZ+ezpLR1N1ZeOHQo9XqxW2xAzHFt5SIz1UojgjBcZA779dJ4vdxxzo7eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793991920;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KP0QCfy6n/aAd3jVf+wjI/kSKv7FWxjBTOq+hpFStLw=;
-	b=qpwa8QdaSNNFaCLZXvPg2vuIJO55jjPkcULKkpEdSV3WKzaeAZAXljBRG3v7ugN2fsT9
-	 pZggI2mOu3ikuJg1cDSCNdgo8yr/3wa3OoK28GBm2QQBG1Uw2bs9tSIL8fL5BA6zxJeJv
-	 YyBQEpwDzG6xPUDOgh3WITSLBHuwoQ0ZT85nJYl6+kNg+NeBaO1TXUN86Jx9G8A6BKwv7
-	 j9vR4+0RjVAOvgIyUAx+DQcSb8Tv0SUz+gGmQ7d5IAISdLX7yQ+spmpgztSwGiJ3Ihrul
-	 KmUKQ4XzPUFIuEAcBpe8eZIFtG75mEFGo3aiGFETfUtuKAyDxwOlKbdK6Dldll5d8EA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793991959;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=6LdXT14KOb6OCBtyF62RqXz9icJXVGvFn0shQuZytOU=;
+	b=NAvLHghpuX34Qk1OYb3gqxxV87GbhNiYh++MHRoUQVKUo/BTzCGsv0z8GrI0oL9jQJBR
+	 OFpJIqhc3lSsdbmfNfa9ITWQZAs4zWs163OejcZ1r4uAVx0HAe3ZQVUE2qYRC2AK89aQr
+	 ZLdWrc3/G5nr9bPYerVp+FeeQn4f5LPHm+CGJFuCf8kcJMEO66VOrZtukbCnJjpIa7rOG
+	 5CDHCZ0OO6UwS2x4AK6VN9kcQdx/V7yppU5TJg/cpPTmTZvM8k9vBuI1UArNI4d5thS49
+	 S4RxZJi2VsUUTJGgJ/byAotBHijqc0a926mqd9E9y7oRv2m3x7HQjoE+bIUT6dHdiig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8tque+l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="m/rwaVYR";
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3884C606A326;
-	Fri,  6 Nov 2026 19:05:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F111606A326;
+	Fri,  6 Nov 2026 19:05:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F111606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8tque+l
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0696D1F0089F;
-	Fri,  6 Nov 2026 19:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793991919;
-	bh=KP0QCfy6n/aAd3jVf+wjI/kSKv7FWxjBTOq+hpFStLw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C8tque+l5v7c9mujhczRgUd0lgAJiVKY+/ot2dvviS/j8YectO8mzr4CFc5YIXjtS
-	 qKMo8O4S4JyVQ9oy/mZpN12sZf7VWTrzqKTbDfqH5r52F6baposRiIgJTyz5jAOsQt
-	 /UPK+Lx4c5vMgntucIxzDzxxRIXuuesbqFLVNLFq7M4mI+CdeXcKAENC1JJ47hxQgr
-	 90sL9x/uEVwWfref3Eluzt6azkVCprndR7sJlx2+CTnomVRKEOvZnthETmngVUMsIR
-	 l8gmcaNA1nJ6j2HsY/EIrAIr3j45eLWMHokTJRwIJvCUn9bhTc/h/+g875ZObx87an
-	 PCwYAB4NsD+Tw==
-Date: Fri, 6 Nov 2026 21:05:15 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Hannes Reinecke <hare@suse.de>
-Cc: Eric Biggers <ebiggers@kernel.org>, David Howells <dhowells@redhat.com>,
-	bpf@vger.kernel.org, dm-devel@lists.linux.dev,
-	fsverity@lists.linux.dev, keyrings@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH v5 2/3] KEYS: Replace assoc_array with rhashtable
-Message-ID: <au4k69xNBUjsNErr@kernel.org>
-References: <20261105031401.956609-1-jarkko@kernel.org>
- <20261105031401.956609-3-jarkko@kernel.org>
- <27015846-0161-4700-b810-4643e1f7b63a@suse.de>
- <20261106090516.GA1973@sol>
- <93e6b4e6-43c3-462d-b57c-26676aec85ec@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=m/rwaVYR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793991956;
+	bh=6LdXT14KOb6OCBtyF62RqXz9icJXVGvFn0shQuZytOU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=m/rwaVYRyrhwiNzeDi/swPJtjeqJ6hzjz0zmjSpsv68KvWhW1dawlq7AtTJYMd2jO
+	 etDDXsOvYgoLbBFBtIuPEb+bHOXR8pFXqcyt5fHe4h9942XugEr6BUfACFw1ESD4Yv
+	 k87VluyvP3L0x9Fgpx0yzDJ/fVpqjzUT6ct7PU9CznK3Udf8lfhsWTeKoWtWfva9nz
+	 CaprmoSJvrXOPOk0SVzCGZTjbs27J5XpWj61DAYWuJzqtd+dtlvMFePjxuLiLC1o41
+	 ompPNeaZPvJLVwyfROMxEea2+WvzxpbUpEJmmpyJQpAm/cQNARuB4ZOdnDh0xBO49X
+	 9QqxIOIGV6KbQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A66E617E0411;
+	Fri, 06 Nov 2026 20:05:53 +0100 (CET)
+Message-ID: <2e69b386374ae46177a2fd975814a31e4016c3d9.camel@collabora.com>
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: rob.clark@oss.qualcomm.com
+Cc: Robert Mader <robert.mader@collabora.com>, Dmitry Baryshkov	
+ <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,  Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Bryan
+ O'Donoghue <bod@kernel.org>,  Stanimir Varbanov
+ <stanimir.varbanov@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Jordan Crouse	 <jordan@cosmicpenguin.net>,
+ linux-media@vger.kernel.org, Vikash Garodia	
+ <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
+ <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Date: Fri, 06 Nov 2026 14:05:51 -0500
+In-Reply-To: <CACSVV013piWuVo87SuAGK+j9i+rj4cHGiOTX9kznE4ROJup0Hw@mail.gmail.com>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+	 <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+	 <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+	 <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+	 <062fe7dca00f77dac05197552d22897b28dc2143.camel@collabora.com>
+	 <CACSVV013piWuVo87SuAGK+j9i+rj4cHGiOTX9kznE4ROJup0Hw@mail.gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-XurZlOBuCgoi/+wYTJZt"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,45 +104,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <93e6b4e6-43c3-462d-b57c-26676aec85ec@suse.de>
 
-On Fri, Nov 06, 2026 at 02:02:11PM +0100, Hannes Reinecke wrote:
-> On 11/6/26 10:05 AM, Eric Biggers wrote:
-> > On Fri, Nov 06, 2026 at 09:21:32AM +0100, Hannes Reinecke wrote:
-> > > While I am pretty much in favour with this approach, is there a specific
-> > > reason why siphash has been chosen?
-> > 
-> > SipHash is the preferred choice for secure hash tables.  It is secure,
-> > performs well on short inputs, and doesn't require special instructions.
-> > See Documentation/security/siphash.rst
-> > 
-> > > Would there be a chance to make this configurable?
-> > > I do see slight complications when running in secure environments
-> > > (ie FIPS-certified environments) where most of the hash functions
-> > > might not be available ...
-> > 
-> > SipHash support is available even when the kernel is booted with fips=1,
-> > so there's no issue there.  It's already widely used in the kernel for
-> > hash tables, and that hasn't blocked FIPS certifications either.
-> > 
-> Ah, right. Thanks for the information. Just wanted to cross-check here.
-> 
-> > Side note: fips=1 actually has little do with security, and in some
-> > cases it actually decreases security.  See for example
-> > https://lore.kernel.org/linux-crypto/20261026183332.11402-1-ebiggers@kernel.org/
-> > where I'm fixing a vulnerability caused by fips=1.
-> > 
-> Oh, I am fully aware. FIPS is more a rubber-stamp than anything else.
-> Unfortunately, a pretty powerful one.
+--=-XurZlOBuCgoi/+wYTJZt
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Just representing this as an option but in the current mainline indices
-are used instead of addresses, and thus it would be also an option to
-just jhash across the board, if that part is retained (now it is being
-removed).
+Hi Rob,
 
-On plus side, any security bugs in cryptography would not be a concern
-of keyrings.
+Le jeudi 05 novembre 2026 =C3=A0 13:07 -0800, Rob Clark a =C3=A9crit=C2=A0:
+> On the v4l2 side, I'm not sure.=C2=A0 But it is also not clear to me if t=
+he
+> viddec hw (iris) supports all four combinations of P010/TP10 vs
+> linear/UBWC.=C2=A0 I guess there is already some fourcc translation neede=
+d
+> between v4l2 and drm, so maybe it is ok to stick with QC10C on the
+> v4l2 side?
 
-Br, Jarkko
+Commenting on this aspect specially, and Dmitry is really going in the righ=
+t
+direction, V4L2_PIX_FMT_QC08C and 4L2_PIX_FMT_QC10C was under specified, an=
+d so
+the implementation didn't have anything to be verified against. Just descri=
+bing
+what the format is and what kind of alignment is needed is a great start. T=
+he
+stride is not being used in practice by the importers (gpu and display), an=
+d I
+think we can turn that to our advantage.
+
+What I lately ask, is to just directly document for V4L2 users which
+fourcc+modifier should this v4l2 format map to. How many planes are expecte=
+d to
+be exposed, etc. When I naively asked, I thought the answer would have been
+unique and well known, but we uncovered issues. This comes from a simple ta=
+sk,
+that we must do for every V4L2 format in GStreamer, which is to map the
+format/modifier pair to its DRM format, as GStreamer negotiate DMABuf with =
+DRM
+formats these days. Whatever we tried, either failed to import in the GPU, =
+or
+failed in the display controller, due to interoperability issue, miss-
+interpretation.
+
+On your proposal, I'd like to highlight that NV12/TP10 usage is quite broke=
+n
+(though its fine if we have to live with that for backward compat, we'll co=
+de
+the exception).
+
+We commonly deduce the number of planes (or I should say the number of stri=
+des
+and offsets needed) from the base format. These two have 2 planes, but the =
+new
+doc states QC compressed has one plane. Same discussion happened with Arm a=
+nd
+Amlogic Frame Buffer Compression. They both are single plane, and for that
+reason DRM_FORMAT_YUV420_8BIT and DRM_FORMAT_YUV420_10BIT got introduced. T=
+hese
+don't have a linear representation, they reflect the depth, the subsampling=
+ and
+are specified as single plane (single stride). The stride in AFBC is still
+allowed, to avoid forcing the width to be a padded width. The importers sho=
+uld
+walk backward the stride to find the padded width. QC compressed importer
+currently ignores the stride completely, so you have to have the padded wid=
+th.
+
+hope this helps,
+Nicolas
+
+--=-XurZlOBuCgoi/+wYTJZt
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCau4lDwAKCRDZQZRRKWBy
+9B09AQCiNR+l/1e2VeNu+RNjbJP0jSKScgnUcsZqLFd8m2lwlQEAgTgIn5070Dvr
+MBTt0SmP8C/5crzqIXMK409biSzy3gQ=
+=mcCx
+-----END PGP SIGNATURE-----
+
+--=-XurZlOBuCgoi/+wYTJZt--
