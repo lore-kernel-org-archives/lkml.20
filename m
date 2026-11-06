@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972546;
-	b=e6mqHK6ie80BmmfKYKtYVXY2VCwMgW5uHpDfnPeuuKJEHOi7aVg+3T7iJ7qn03WlsQ2a
-	 vW/cqUBHUzhGukLfT+Blc1kqh7uYsEjQ5ll4nG68zlUsq4ZqnU0tHvJukXFvULe5FwMMl
-	 5ZqdbIaC4WhIx9VTYx+d94kAeRgjVvA/K41cpTfXP/bPFtq5FlYj2X4+U702d7TWKGcE5
-	 OJ3NzRP7k17820V5TY4kVJ78RcBBs6F8q2j7AAkG8CGm/lPWCCVK3CQaaFe3Ng5XUUIXx
-	 qj2fBQMVO+lH6WN1kNTsktElW7rzn46PvZIYYTLDBB1wL8jNt9Ng+FG1LGG+XUFdWyQ==
+	t=1793972603;
+	b=4xyMNa4M5vZ4CZyYlOWpUyc1OQoxl42bbW8QVrlA/9GVeXxBz3GShc9Hm261CtmAr1JU
+	 QVaVAuRJvkkwziE+OBeW4j+3JpIv3ZDMd3B4NklrkkbgMRg3AnzZLiwnJRLpCspgsGh7p
+	 Vj28Dmg2MpPP1F42GKeFSZlG+d07316KHOexDaApgGpFJvrqkmncred40VWXb1s5mgvOr
+	 XOSw/odN8ATELrZfEqKOagW4QRlTQsbBtrCptxehiP3i5jJe6aDeWe1C/rSQafTvuE31i
+	 x+z8TY3htVtcGjpxHuyeyNp/d4VqQidgpRqlUp0Fh+aINR8oM7PedCw/TKU/MyxV3kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972546;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=80OQ1QRH/eXZDpRFnnohWK41eyPKM5qief5OGMWCxl0=;
-	b=aU70R/paQdVVi4NQ4+y5n7Zd5c70gsm3x8F8A3AF0sGen+jVO8JOQo4pBtZuBiD5z74e
-	 LawqCL/N9zgIjvarWmCWxkqnUrfYSRNbSuP9w4dHb06TwC7t5HzKl7G5wneXHAXjx41QC
-	 leAfUdl+4xrPbM6h6zU2Hm/V6n7n2mKVbw66oSkuX4ReoFbSOpj67V5kuiT3AYE+QPdS5
-	 wmIANVceu7P4NuByK9vnaAoPqsU1CoSfookBiypeATHA7XomAWfvEcIEUeMdtBaPuoYfA
-	 sFzDWVGrQttZskIj2TLZlr6HYvKLDjFAGy33TKa0Ma4JCldBtX7zBcQflkpZdsbbD2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972603;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qT2iGCtzANHH9hlwoXwHnZX/StQ9bdfI9+nrQG92gYA=;
+	b=yNpwOOZu1PA1ueyUhEqIoDjGli2HCihwfTXaZAWAkIVxSljGlJIRIJnixQr1PuQU0+7/
+	 QEYcb98QEEje+STf9sbyaqcdqNNgaQuhgqoDI0dZXvPeGi2MZ/I11KZlRxWS0OUC0gePM
+	 5eU0LeLHrDaZbUOSP41DN3zMwICalyoHQ9N3bH30QnlWSwEFJknxGUDe1Wtrq3qgRcjoy
+	 K539Qe7ZK8JW1DYMZ1KhHUmBlRxBfzff0EIa+2DNpDXpS+c+DqsNgkrc4/Q2FvB+JKby7
+	 GVBVpwk4G0aFdQU0bTiiB3e3VAsUVCyoM9w4ZQx6ucBXijvDejcVV3xIcY8BMafA4Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4Q2ednR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=stellman-greene.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BJeFDv7h;
+	arc=none smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59833606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:42:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B08606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:43:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20B08606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stellman-greene.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4Q2ednR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F223B1F008A1;
-	Fri,  6 Nov 2026 13:42:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793972546;
-	bh=80OQ1QRH/eXZDpRFnnohWK41eyPKM5qief5OGMWCxl0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n4Q2ednRlVhyS6o83zuVUPh1fFBZvEs3k9Ab5lVQwGwFnZrF+DG1jpgagzs/XWfiq
-	 XA7uGcSqJNl7/G5z85PFKMcjen230uoWlYGJttit4iU7O7+Gfq5PZwcFDgrejlqSk3
-	 inROeRhXo5Y6xygl7jysRevHqduboC7l3PLAQj4Mp7CRVxD4IJalo8digWAXgMNMoI
-	 cJU0/eipkYaDsTsPp18kLZvdYr1IMkuQEimSGPW2AJJUwAF8o251hEU+/J9wo7s/Jr
-	 erb/h5/T0RWkcxIu3TP7wr7f/7N44zGD8RW4uwr0HyuPeB4UWL3mo7r/MnyuVx80Ti
-	 +VtLPL/WX43Tg==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 29DFF2807F0A; Fri, 06 Nov 2026 13:36:20 +0000 (GMT)
-Date: Fri, 6 Nov 2026 13:36:20 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Mike Looijmans <mike.looijmans@topic.nl>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [PATCH 1/2] regulator: pwm-regulator: Revert "Calculate the
- output voltage for disabled PWMs"
-Message-ID: <1ec088e2-f588-4acf-87e6-0dbf719784bc@sirena.org.uk>
-References: <1b153bce-a66a-45ee-a5c6-963ea6fb1c82.949ef384-8293-46b8-903f-40a477c056ae.44efb263-5265-4fae-9cff-e8eaefbc0afd@emailsignatures365.codetwo.com>
- <20261106130010.340950-1-mike.looijmans@topic.nl>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BJeFDv7h
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53653e30353so7867131cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:43:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793972602; x=1794577402; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qT2iGCtzANHH9hlwoXwHnZX/StQ9bdfI9+nrQG92gYA=;
+        b=BJeFDv7hN/hzk97oCOSyAew+imDVC+QVCJRkjVfHpEEzNHhf6QSKpfoB8Mn64jhDjV
+         nYGYEcgFR0/jYMbW7xvGitg0xNs3gFA6U4lgNsxRTafla21JPF4C3Pfhq8F9GuqWo9Lf
+         kEfRiXk/nM1Z3ltcz2JTePzDeSs8BBcPLESWdwD8hx308vSHeZj7Gk346yasluWlGklG
+         4X16OUKwf7L8Yzg7DmF8WI6l/yZZsfy3YvLU5oX6eI7DTghNh7SDGn0HM/44Srk6kcrG
+         WLUv13OwgPrS9Wly0zRliSwaJwKR6Ngv+qrR+bR3cICziZ3meWVNvB03Eq3q8caxPkDP
+         1Vdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793972602; x=1794577402;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qT2iGCtzANHH9hlwoXwHnZX/StQ9bdfI9+nrQG92gYA=;
+        b=l9PJHaVRa7ZmaAHvrKcEgwqBIBuEYevg4ZeFln/Gx/0GOedArhuxWp0dEDmlsX5Uyc
+         mZ4eXCn33N3z/V8YYGwMw24lWNadW1jF8/+2iL2cDbN7kXsFmjaRPlXDlrbmPTS9PpPE
+         s2FrMcar+yEMcFUSlC63CN32wMaIZU1no+NFvsRPssiFmMO7UcISAoGOw1Dv51iJsX1c
+         9MWlwPDkd0XHBkQ90MliyL3MFb6wen+/DoWzDuCm3/tWdgts4yGAdyVj3KVSUqfcZE3e
+         loRZwlqFWayiPJkyXEZyIoJVSXJEJ6zBqhvm6OIjVi4E0tPMkkD/4BZ1UT9lhnLv63/m
+         EcnA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrOv9zleql4wwcOGsxTNoPF/2oNzb+fdGH8Uq4eRKgPPdrpgZl11GHJXjwY52ShDSf1Z1/0iSs7x4gcPU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8cuP2J49otvbSxYGSzQorQptWmuWkYIg1VKjmwdwwQEn9SInvO
+	tKv0UyIdwclmi5BkGS0zv/aF0a4RLs5vz2WWOP10iyem6IDxvbwkB1m5
+X-Gm-Gg: AYBFou3iEeonhnsh0Lq10Qq1/ycxFerPku7plz4X6GK/EQXqz4cnjreqqs9gysMsoX0
+	0pEayIa+2hglL4PIJI7tIEjsBhlBrcntirCPAYOJzI0XrOuUHOK+X0D+F5w68jmIjBZavMAkwo8
+	kCoOFFtptm9qaHdca1abo6HKPAQJoTbvJ2fvxTtIXXkQwRhOWNczwuJcEHX8pU81V/m38/czm2m
+	ISwkNLA1rpwqljgBZ963sdbeah9yZotN/gMXdwpVAYGti3NswmcM6/yAJ9ADNPbEd9olm8w1DKY
+	aJv8DrkYXVVmcR9N7ffXLu85x55AUwyiJIHWwmlLTia8ClQLq6eNt9YWBZONynNPUgXdWylbhpi
+	zatWmKKKkyhoaI9SRWJVSMhPAIydKROS9IvDwrE52cJAd5lVakkXE9Ld3dT27sDPKbHv5A8PFS9
+	omii5e4rNRRjcw+iZ6b2nweaAokLsFwi1F34P9uQ0pIKLYV2Hu4r7TGsjkSn25hAu+0Eqm8rMWO
+	bpGTdAKxAYg0rI9tP9kWXQvqNNidfyMjP5WefmC1M/aNVGM0sjNCdyt9AkddTWhOClfFj70Xqef
+	IcxlUU31dcIldklK93XSpxqUxmXXPIKgD/lE2LZGtw1fCMEMMNYXOttdAimav87kO0tgk7NI+qe
+	3Qx7c/laHvfWffKNpjkfHXzkMrih+48nY8mMn0sFbnCWFlx/PVpx+kKlgEIjkMzY2MYn1hQ5UYB
+	Hg3N3olsxVK20/1EiutOUw89xOYzE=
+X-Received: by 2002:a05:622a:408d:b0:536:93e0:4b46 with SMTP id d75a77b69052e-54e13881a4dmr40064431cf.25.1793972601788;
+        Fri, 06 Nov 2026 05:43:21 -0800 (PST)
+Received: from Mac.mynetworksettings.com ([2600:4041:5c28:200:3d5f:800f:1837:ce61])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a887c0sm20792636d6.29.2026.11.06.05.43.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 05:43:20 -0800 (PST)
+Sender: Andrew Stellman <stellman@gmail.com>
+From: Andrew Stellman <astellman@stellman-greene.com>
+To: Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	linux-nvme@lists.infradead.org
+Cc: Keith Busch <kbusch@kernel.org>,
+	Yuehong Wu <wuyuehong@cmss.chinamobile.com>,
+	Nitesh Shetty <nj.shetty@samsung.com>,
+	linux-kernel@vger.kernel.org,
+	Andrew Stellman <astellman@stellman-greene.com>
+Subject: [PATCH v2] nvmet: accept ANA group ID NVMET_MAX_ANAGRPS in configfs
+Date: Fri,  6 Nov 2026 08:43:13 -0500
+Message-ID: <20261106134313.34829-1-astellman@stellman-greene.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,102 +104,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MEobprugY+dfeo1I"
-Content-Disposition: inline
-In-Reply-To: <20261106130010.340950-1-mike.looijmans@topic.nl>
-X-Cookie: Whoever dies with the most toys wins.
+Content-Transfer-Encoding: 8bit
 
+nvmet_ns_ana_grpid_store() accepts an ANA group ID in the range
+1..NVMET_MAX_ANAGRPS, and nvmet_ana_groups_make_group() accepts
+2..NVMET_MAX_ANAGRPS (group 1 is the default group).  Both then pass the
+ID through array_index_nospec() with NVMET_MAX_ANAGRPS as the size.
+That helper treats the size as an exclusive upper bound, so the maximum
+valid ID, 128, is rewritten to 0.
 
---MEobprugY+dfeo1I
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+nvmet_ana_group_enabled[] is NVMET_MAX_ANAGRPS + 1 entries wide, so
+index 128 is a valid slot, and the controller advertises ANAGRPMAX =
+NVMET_MAX_ANAGRPS.  NVMe Base Specification 2.4, section 8.1.1
+(Asymmetric Namespace Access Reporting), "ANA Groups", defines a valid
+ANA Group Identifier as "a non-zero value that is less than or equal to
+ANAGRPMAX".
 
-On Fri, Nov 06, 2026 at 01:59:55PM +0100, Mike Looijmans wrote:
-> This reverts commit 6a7d11efd691 ("regulator: pwm-regulator: Calculate the
-> output voltage for disabled PWMs")
+There are two visible effects.  Writing 128 to a namespace's ana_grpid
+succeeds but the namespace lands in the reserved group 0, which Identify
+Namespace then reports.  Creating and removing ports/N/ana_groups/128
+increments slot 0 on create but decrements slot 128 on release, leaving
+nvmet_ana_group_enabled[128] at 0xffffffff, so every subsequent ANA log
+page reports a group 128 with no namespaces in the Inaccessible state.
 
-Adding Martin who wrote that patch - please CC people if you're directly
-updating their patches.
+Use NVMET_MAX_ANAGRPS + 1 as the array_index_nospec() bound at both
+sites, matching the array's actual size.  A namespace assigned to group
+128 now follows the same path as any other group: its ANA state is
+Inaccessible until ports/N/ana_groups/128 is created and configured,
+where before it was placed in group 0, whose ana_state entry is never
+set.  That entry stays 0, which isn't a valid ANA state, so
+nvmet_check_ana_state() let I/O through.
 
->=20
-> A disabled PWM is not the same as "set to 0%". If the PWM is disabled,
-> this could also mean that its output pin is tristated for example.
->=20
-> If the PWM range is limited to something else than 0..100% this causes the
-> probe function to fail with messages like:
->  dsp7-pwm: failed to get the current voltage: -ENOTRECOVERABLE
->  pwm-regulator dsp7-supply-pwm: error -ENOTRECOVERABLE: Failed to registe=
-r regulator pwm-regulator
->  pwm-regulator dsp7-supply-pwm: probe with driver pwm-regulator failed wi=
-th error -131
->=20
-> The reason is that regulator_register() calls get_voltage(). The PWM is
-> disabled at this point, and then the validity check triggers.
->=20
-> Anything that calls get_voltage() while the PWM is disabled would get an
-> -ENOTRECOVERABLE return value for a pwm-regulator that doesn't allow 0%.
->=20
-> Signed-off-by: Mike Looijmans <mike.looijmans@topic.nl>
-> ---
->=20
->  drivers/regulator/pwm-regulator.c | 7 -------
->  1 file changed, 7 deletions(-)
->=20
-> diff --git a/drivers/regulator/pwm-regulator.c b/drivers/regulator/pwm-re=
-gulator.c
-> index 7434b6b22d325..f50530c77d92f 100644
-> --- a/drivers/regulator/pwm-regulator.c
-> +++ b/drivers/regulator/pwm-regulator.c
-> @@ -157,13 +157,6 @@ static int pwm_regulator_get_voltage(struct regulato=
-r_dev *rdev)
-> =20
->  	pwm_get_state(drvdata->pwm, &pstate);
-> =20
-> -	if (!pstate.enabled) {
-> -		if (pstate.polarity =3D=3D PWM_POLARITY_INVERSED)
-> -			pstate.duty_cycle =3D pstate.period;
-> -		else
-> -			pstate.duty_cycle =3D 0;
-> -	}
-> -
->  	voltage =3D pwm_get_relative_duty_cycle(&pstate, duty_unit);
->  	if (voltage < min(max_uV_duty, min_uV_duty) ||
->  	    voltage > max(max_uV_duty, min_uV_duty))
-> ---
-> base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
-> branch: linux-master-pwm-regulator
->=20
-> --=20
-> 2.43.0
->=20
->=20
-> Met vriendelijke groet / kind regards,
->=20
-> Mike Looijmans
-> System Expert
->=20
->=20
-> TOPIC Embedded Products B.V.
-> Materiaalweg 4, 5681 RJ Best
-> The Netherlands
->=20
-> T: +31 (0) 499 33 69 69
-> E: mike.looijmans@topic.nl
-> W: www.topic.nl
->=20
-> Please consider the environment before printing this e-mail
+Tested on v7.3-rc1 with and without this patch, in an arm64 QEMU guest
+with nvmet over NVMe/TCP to 127.0.0.1.  Before: ana_grpid written as 128
+reads back 0, and the ANA log after mkdir+rmdir of ana_groups/128 lists
+group 128 with nnsids 0, state inaccessible.  After: ana_grpid reads
+back 128 and the ANA log lists only group 1.
 
---MEobprugY+dfeo1I
-Content-Type: application/pgp-signature; name="signature.asc"
+The issue was found by Claude Opus 5 running Quality Playbook, an
+LLM-driven code review tool:
+https://github.com/andrewstellman/quality-playbook
+The fix and this changelog were drafted with the same tool and reviewed
+by me.
 
------BEGIN PGP SIGNATURE-----
+Fixes: 20dc66f2d76b ("nvme: prevent potential spectre v1 gadget")
+Signed-off-by: Andrew Stellman <astellman@stellman-greene.com>
+---
+v2:
+- Rebased onto next-20261105.  No code change from v1.  On this tree
+  it's only build-tested (nvmet as a module, W=1, no new warnings); the
+  runtime testing in the changelog was done on v1.
+- Changelog: noted that ana_groups/ accepts 2..NVMET_MAX_ANAGRPS, named
+  what the tool drafted, and dropped the Assisted-by: trailer, which
+  checkpatch now warns is a non-standard signature.
+- Sagi asked on v1 whether this had been tested, and I didn't answer at
+  the time, sorry.  Yes: the test described in the changelog was run on
+  v7.3-rc1 in an arm64 QEMU guest over NVMe/TCP, with two kernels built
+  from the same tree that differ only in these two lines.
+- Yuehong Wu sent the same fix on next-20261027 and tested it over
+  nvme-loop with the same results:
+  https://lore.kernel.org/linux-nvme/?q=s%3A%22clamp+the+last+ANA+group+index+against+the+real+array+size%22
+  He said he has no objection to the original being taken instead.
+  Thanks, Yuehong.  If you're happy to reply with a Tested-by, it can be
+  picked up when this is applied.
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau3X0wAKCRAv73Ows9A4
-iXn2AQDCko6gNE9BSWSt4homaAjCbuEWGVhbONdl3k7WPWgbYAD/Zp3WfuDcPglb
-YGYF6Sp6OxpgHwpjF5nVJ6DYScqZ8gg=
-=Bc+i
------END PGP SIGNATURE-----
+v1: https://lore.kernel.org/linux-nvme/20260910154849.66095-1-astellman@stellman-greene.com/
 
---MEobprugY+dfeo1I--
+ drivers/nvme/target/configfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
+index b3a5242d0..85dda0ca7 100644
+--- a/drivers/nvme/target/configfs.c
++++ b/drivers/nvme/target/configfs.c
+@@ -709,7 +709,7 @@ static ssize_t nvmet_ns_ana_grpid_store(struct config_item *item,
+ 
+ 	down_write(&nvmet_ana_sem);
+ 	oldgrpid = ns->anagrpid;
+-	newgrpid = array_index_nospec(newgrpid, NVMET_MAX_ANAGRPS);
++	newgrpid = array_index_nospec(newgrpid, NVMET_MAX_ANAGRPS + 1);
+ 	nvmet_ana_group_enabled[newgrpid]++;
+ 	ns->anagrpid = newgrpid;
+ 	nvmet_ana_group_enabled[oldgrpid]--;
+@@ -2084,7 +2084,7 @@ static struct config_group *nvmet_ana_groups_make_group(
+ 	grp->grpid = grpid;
+ 
+ 	down_write(&nvmet_ana_sem);
+-	grpid = array_index_nospec(grpid, NVMET_MAX_ANAGRPS);
++	grpid = array_index_nospec(grpid, NVMET_MAX_ANAGRPS + 1);
+ 	nvmet_ana_group_enabled[grpid]++;
+ 	up_write(&nvmet_ana_sem);
+ 
+
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+-- 
+2.43.0
+
