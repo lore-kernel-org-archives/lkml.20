@@ -1,90 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793966913;
-	b=gDcSH1ZIRj68GzxvqcfF6sxjb0NyQNWhmYiyQvqv/ET32Yp7kWXSTe3WkVZCNd8kDX+k
-	 qU5vrWy9Kv+s6wXdBsrExHPH+D1WTG1vcqmO1Dug0V8PdFNtuZf68u1ikAef6sDxLNA9C
-	 Y+PJ4z11NS9EGeiv1HM0uVq+6SfmVeXUTmsaccaLFTrtIx782XJtqRmMWkrZEA3M1FOYe
-	 HrrTS8QRfNSSJqOrwtWkMpElbUAEEe33wJciCEGCpYNX+qUJ7WlgK+W9/6ovbhpvwK/M0
-	 iw81RCqnnjqqToIRc+H5xyeHIRWWcnVOQpxhYBmGK+HDRKPc61oL+ZozttKqkMo1Xzg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966913;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
-	b=X8QDHgZqRE/m/pIvAjYCsgNVlrg5BPnsCsXdbFNTteWt4qv69YpzsnTOxGzpVBOaNdEq
-	 +GKOHvslhzCO2y4hzdGuGMrkOoFrIhYek87i8Qm7D9B+ydVycDc6mZ0RTAVI3tRhIdXfK
-	 ccc5g5j42Bs/YTPQ6VkF7UREo6HUpI5XtkMXGZt5ShNBuBe3131JyJu9FHwDfpdmPXrag
-	 osYYZ1qfijrQqmQ7uJ0hmCWa1Lr574Vq5tdJ5wFdY54IDUxMcIp4SC2gGQbJ9q+KcGPWR
-	 qIL35Ey+ZuWRHq16fdtAfJEFF0ylfGrLqaU2IUa9IdOCLzeNBP/2lVDHehVOaDq7v/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o9rmqepd;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=qS28xxyN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793966939;
+	b=EkH/3+3FI19CLQWFK/c86OWkQzqgIVO2KLOpT9xKj4uCxYkVmkL4n23nvcsX4EC9KGC3
+	 h02lajF07lEISwGtXxruxpCjFIYCTpKb1krt8jFvPy74NfyYw2yyXDWAa7FsHyfmRnrQ/
+	 ELI34vwHbdnG3a9Ptlh52laIasDtw3fv5RnGx76l/fRzFYTqbKsW+udP80nuaArx2P4J+
+	 KSldxWEOjxme/AM11YFuBbvW2HhrHwq/zzcub9oupf7ga9N9isTadZdaJTRE2lBIsJ5CD
+	 kNW0GCYh7yOaD2j/BuvZvie36PR45LHzbuRyxcDziiCXbuwAcPJG7qZFF4zbakTEglw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966939;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vXVqNotvPQzBmm+iUfHH/DnovOoTHzB1CQmg9RwH5h4=;
+	b=OEYntCN2YPu0bZrg7kanmt80kLhvr17FQuZQ3roc6HdBd5qnkkKh+SXCSEUGSi0glEjG
+	 4hmIECwy7b7KPdiauvffaQBWxm7y/pfg0NutxPCCSHEZAUkvrc6wHp+tUdo+OoLBBJtuR
+	 3nyA6S+MEBu+ybBONkLCAstdutRqAcrN2BCYIM0YY+ekXQp0HoHt+UMdDKUWJmHVIXxE4
+	 abrmW1G+GsasHrYTQhUxuZ0bJZSO3CLfkH89YE7rsg6cBziO5axQvasz+16F0CCOKMNEc
+	 880mqTX9cCpMFFcU482x/CBXRnkHIXz5+5Gl2zzCzOQ6tjME6Fm9BMC08Sbcbgi/MTw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWamwKyp;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE6A606A32E;
-	Fri,  6 Nov 2026 12:08:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE6A606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3A5606D82E;
+	Fri,  6 Nov 2026 12:08:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C3A5606D82E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o9rmqepd;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=qS28xxyN
-ARC-Seal: i=1; a=rsa-sha256; t=1793966901; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=JDAPGUGRPdUSvJn4Wu8v0f1eTCPjRVx2NF6ILteEuirA9XncE3YverJYaLCxiZCysp
-    32mAUqyi7VPMeiEvulp38kOKprTPOGwXfsQxvf5K17qlZ923Uo0hehkalFYDrb8b6YTk
-    ecnI8J5jYhfuLLg1yKC4mrXTn3PJT7nG8VhPwMcDKP2vjGNt4wIRiQwmkGTkIzU3ynOy
-    X3itaWFFY4+IvKbUqYn8EK/Xghl23VW24Ud2ZOBU4vhikXLy92ppq7EtnF5L0B/YfBaj
-    9yeEQM1ylOY3cUG/v49cLodxlNIHzlsZW0MYbDfD/hcsbs2DzN2CaTxJhdUWCZJ0MLMa
-    R9zA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793966901;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
-    b=lNGqd9gz1manGZIRqWmVtVCwxatG0vUQWNVJqKdx5KuHf9Gg2UAN8xkP4kSjPLfS6C
-    VIXfFuiebt4U6UoytOV7e8+/X4JRAp1hojpCW5rtD7xUqsNEIueaiSUzDwERWSPp08Pp
-    i4JYqffktuPZ/Nn+D+GHRW6gi0pQldlW+bPeS4XsvEoJkVz2So1F2RVnsmuy02KCr4vr
-    XtP7JXQiKBZcvbY5wgoYDhAQvkW5ezHEbdPXgbZC0A0G3FWCFEx0TtL/GUe4uu5nR2KY
-    5XsglSPH2NTYWtI6Brpw0vhH0IKJtjZpEVdVC++v4TruF/pylSw+MdTrn8K8vsEjGnyO
-    gbrA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793966901;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
-    b=o9rmqepdfAPTt8aI0tMoKKkAJ6J2ZVGfy7Nhbyx0MZAgWIwN/Y69GeDXez64nSlhTJ
-    WIU+Nd2Gh5Ipjtganfk1jOQq1OwR3f0OkrnnHdbWSgQHcfHQo46eBAqyqod4ZeEKrzsI
-    mD1Nbr/AjwL3nAEaAUT8SVbYmFSqYE0fep2nJ3RFkZZ0jY3RIHGKIfxvbJfuS2O0Y92o
-    HDBcmMRcaFFc3e73OZ3HtnHn3ULMGopNM9Z4MvCMjHDYjwTvLE/tiBnXDDYfn9JbU+2b
-    PgitfGbDGVw6OxG2uW0N6Zs/i5Hn026p9DlLRTGfvRAcOnsX3CyiHLJTnbo7De+NRdub
-    /5BQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793966900;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=E9DyaOqiw31jn8Ne81wrLsB3uIQ8LtKMZtFF5QEWE+M=;
-    b=qS28xxyN+IL3tnsQy1w6FGAyEUpwJI9p/qJtcOtFTfgvZhggwms4zIPfuApSsFmYQT
-    oLQdge3SQG9uufzZbbDw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrVjZoMy8iN4frnsPsBQ4l+mfK4O7kvgww6TmAq"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22A6C8JnIv
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Fri, 6 Nov 2026 13:08:19 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kWamwKyp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793966939; x=1825502939;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=fzXUxtz9FKvo7L1UM2kPxuUN0yc0I2VYCpziW/m4LOc=;
+  b=kWamwKypipwZsNoX54s2418xDevtEiJCKG16NQnEP5CELxMpy3/TwbqY
+   Py0YMqpHv6eVRnD7KkYs/xyvAmACj+d9Y67GBg2rYx8wFNHSWOVFB1sO5
+   /Cjwp5/Q7WVoNKgZKBjGk/5tQEujfla6VebGJV87PVZxrjPyvo07nvrX5
+   e3dVaKQ4ITRx0s2kpRANSg9bRo+hjwQm2loLu8kq0+WPI2n2nqn0Nb1Wk
+   3nko9c7EO5HQeDge7rYKh47WK6J4PhELL4vp2BQfokIzKOL89okK4zODz
+   lyH4e6FXotfFywXza008DPAZ5dSvFSxIsmNP+Iawm06fyJFHlsh6KxoJu
+   w==;
+X-CSE-ConnectionGUID: e82cCJjJQw6DJVt74izv5g==
+X-CSE-MsgGUID: ClZyMf9gTkOGGuoF+PFlOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2655406"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2655406"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 04:08:59 -0800
+X-CSE-ConnectionGUID: HokVDLavQx+khRZFTjHrWQ==
+X-CSE-MsgGUID: IoOOQ222QdehcJNaFW5Yag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7146663"
+Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
+  by orviesa004.jf.intel.com with ESMTP; 06 Nov 2026 04:08:56 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: linux-sound@vger.kernel.org
+Cc: broonie@kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz,
+	amade@asmblr.net,
+	linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.dev,
+	yung-chuan.liao@linux.intel.com,
+	vkoul@kernel.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: [PATCH v3 7/7] ASoC: Intel: avs: SoundWire PCM BE operations
+Date: Fri,  6 Nov 2026 13:15:57 +0100
+Message-Id: <20261106121557.2338556-8-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106121557.2338556-1-cezary.rojewski@intel.com>
+References: <20261106121557.2338556-1-cezary.rojewski@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,104 +86,400 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
- controller
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261106112128.14213-1-olivier@mgcrea.io>
-Date: Fri, 6 Nov 2026 13:07:48 +0100
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <875B7793-58C3-4659-B115-1B759D4F8C50@goldelico.com>
-References: <20261025191640.13592-3-olivier@mgcrea.io>
- <09A3F895-9007-414E-8EE0-17BD18E63F53@goldelico.com>
- <20261106112128.14213-1-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Olivier,
+Implement the back-end PCM operations for the SoundWire Link to support
+data transfer over SoundWire interface. Most of the actual job is done
+by the SoundWire library, thus code added here just invokes them in
+correct order.
 
-> Am 06.11.2026 um 12:21 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->=20
-> Hi Nikolaus,
->=20
-> On Thu, Nov 05, 2026 at 11:27:12AM +0100, H. Nikolaus Schaller wrote:
->> The manual for the x1600 is a bit ambiguous, but the x2000 and x2600
->> documentation identifies this block as the "DPU (Display Processing =
-Unit)
->> Display Controller" (located at base address 0x13050000 on all three =
-SoC).
-> [...]
->> Please update the compatible string to "ingenic,x1600-dpu" (with =
-"ingenic,dpu"
->> as the fallback) and rename the file to ingenic-dpu.c to reflect that =
-this is
->> a scalable DPU driver not limited to "LCD".
->=20
-> Agreed on the name, v3 uses ingenic,x1600-dpu. The X1600 manual says
-> DPU too in its register and clock names, and when I checked the driver
-> against the X2000 manual it came out as the X2000's DPU without the
-> composer.
->=20
-> No ingenic,dpu fallback though: writing-bindings.rst asks for SoC
-> compatibles rather than family names, so an X2000 would be
-> ingenic,x2000-dpu, with the X1600's as its fallback if its registers
-> allow.
->=20
-> The driver keeps its file name for now. It only drives what the X1600
-> has and what I can test (parallel RGB from one plane), so the split
-> between the core and the interfaces, and the X2600's rotation, is =
-better
-> shaped by whoever adds the X2000 with a board to test it on.
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+ sound/soc/intel/avs/Makefile    |   2 +-
+ sound/soc/intel/avs/messages.h  |   2 +
+ sound/soc/intel/avs/path.c      |   2 +
+ sound/soc/intel/avs/pcm.h       |   3 +
+ sound/soc/intel/avs/pcm_sdw.c   | 291 ++++++++++++++++++++++++++++++++
+ sound/soc/intel/avs/soundwire.h |   7 +
+ 6 files changed, 306 insertions(+), 1 deletion(-)
+ create mode 100644 sound/soc/intel/avs/pcm_sdw.c
 
-So we will have:
-
-$ ls -1 drivers/gpu/drm/ingenic/*.c
-drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-drivers/gpu/drm/ingenic/ingenic-drm.mod.c
-drivers/gpu/drm/ingenic/ingenic-dw-hdmi.c
-drivers/gpu/drm/ingenic/ingenic-ipu.c
-drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
-
-What about ingenic-dpu-x1600.c then? I.e. make the DPU variant a suffix?
-
->> However, this approach triggered a kernel lockup during boot
->> right after successfully running lg35583_get_modes().
->=20
-> I can't reproduce it here, the R1 comes up with its panel at every =
-boot
-> (with v3 again today). With nothing on the pins I don't know yet where
-> it would hang. If you get a log of it (the last lines with
-> initcall_debug) I'll have a look.
-
-Indeed. What I have done is to hack some return 0; into the driver =
-because
-probe fails without missing SPI client - as it should and likely does if
-you disconnect the panel.
-
-So I should try to locate a non-SPI panel and pretend in the device tree
-it is connected...
-
->=20
-> v3: https://lore.kernel.org/r/20261106112000.1612-1-olivier@mgcrea.io
->=20
-> Thanks for the review,
-> Olivier
-
-You are welcome,
-Nikolaus
+diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
+index 042e8dd232f8..fab7e1ba622d 100644
+--- a/sound/soc/intel/avs/Makefile
++++ b/sound/soc/intel/avs/Makefile
+@@ -15,7 +15,7 @@ snd-soc-avs-y += probes.o debugfs.o
+ endif
+ 
+ ifneq ($(CONFIG_SND_SOC_INTEL_AVS_SOUNDWIRE),)
+-snd-soc-avs-y += soundwire.o
++snd-soc-avs-y += soundwire.o pcm_sdw.o
+ endif
+ 
+ obj-$(CONFIG_SND_SOC_INTEL_AVS) += snd-soc-avs.o
+diff --git a/sound/soc/intel/avs/messages.h b/sound/soc/intel/avs/messages.h
+index 55c04b0142ae..d1ffc640dda2 100644
+--- a/sound/soc/intel/avs/messages.h
++++ b/sound/soc/intel/avs/messages.h
+@@ -750,6 +750,8 @@ enum avs_dma_type {
+ 	AVS_DMA_DMIC_LINK_INPUT = 11,
+ 	AVS_DMA_I2S_LINK_OUTPUT = 12,
+ 	AVS_DMA_I2S_LINK_INPUT = 13,
++	AVS_DMA_SDW_LINK_OUTPUT = 16,
++	AVS_DMA_SDW_LINK_INPUT = 17,
+ };
+ 
+ union avs_virtual_index {
+diff --git a/sound/soc/intel/avs/path.c b/sound/soc/intel/avs/path.c
+index a8a2b3484338..60d9245894e7 100644
+--- a/sound/soc/intel/avs/path.c
++++ b/sound/soc/intel/avs/path.c
+@@ -260,6 +260,8 @@ static void avs_init_node_id(union avs_connector_node_id *node_id,
+ 
+ 	case AVS_DMA_HDA_LINK_OUTPUT:
+ 	case AVS_DMA_HDA_LINK_INPUT:
++	case AVS_DMA_SDW_LINK_OUTPUT:
++	case AVS_DMA_SDW_LINK_INPUT:
+ 		node_id->vindex = te->copier.vindex.val | dma_id;
+ 		break;
+ 
+diff --git a/sound/soc/intel/avs/pcm.h b/sound/soc/intel/avs/pcm.h
+index a5093e62da26..f2620d6f3479 100644
+--- a/sound/soc/intel/avs/pcm.h
++++ b/sound/soc/intel/avs/pcm.h
+@@ -35,6 +35,9 @@ struct avs_dma_data {
+ 
+ 	struct work_struct period_elapsed_work;
+ 	struct hdac_ext_link *link;
++	struct sdw_stream_runtime *sdw_stream;
++	struct sdw_cdns_pdi *pdi;
++	bool sdw_suspended;
+ 	struct snd_pcm_substream *substream;
+ };
+ 
+diff --git a/sound/soc/intel/avs/pcm_sdw.c b/sound/soc/intel/avs/pcm_sdw.c
+new file mode 100644
+index 000000000000..578162e9fc4d
+--- /dev/null
++++ b/sound/soc/intel/avs/pcm_sdw.c
+@@ -0,0 +1,291 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// Copyright(c) 2024-2026 Intel Corporation
++//
++// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
++//          Amadeusz Slawinski <amade@asmblr.net>
++//
++
++#include <linux/device.h>
++#include <linux/soundwire/sdw.h>
++#include <linux/soundwire/sdw_intel.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-acpi.h>
++#include <sound/soc-component.h>
++#include <sound/soc-dai.h>
++#include "avs.h"
++#include "path.h"
++#include "pcm.h"
++#include "soundwire.h"
++#include "topology.h"
++
++static int avs_sdw_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct sdw_stream_runtime *sdw_stream;
++	struct snd_soc_acpi_mach *mach;
++	struct snd_soc_dai *codec_dai;
++	struct avs_dma_data *data;
++	struct sdw_cdns_pdi *pdi;
++	struct sdw_slave *codec;
++	int dir, ret;
++
++	mach = dev_get_platdata(dai->component->card->dev);
++	codec = mach->pdata;
++	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
++		dir = SDW_DATA_DIR_RX;
++	else
++		dir = SDW_DATA_DIR_TX;
++
++	ret = avs_dai_startup(substream, dai);
++	if (ret)
++		return ret;
++
++	sdw_stream = sdw_alloc_stream(substream->name, SDW_STREAM_PCM);
++	if (!sdw_stream) {
++		ret = -ENOMEM;
++		goto err_alloc_stream;
++	}
++
++	pdi = sdw_cdns_assign_pdi(codec->bus, dir);
++	if (!pdi) {
++		ret = -EBUSY;
++		goto err_assign_pdi;
++	}
++
++	/* Fulfill the codec needs by setting the sdw_stream. */
++	codec_dai = snd_soc_rtd_to_codec(rtd, 0);
++	snd_soc_dai_set_stream(codec_dai, sdw_stream, substream->stream);
++
++	data = snd_soc_dai_get_dma_data(dai, substream);
++	data->sdw_stream = sdw_stream;
++	data->pdi = pdi;
++	return 0;
++
++err_assign_pdi:
++	sdw_release_stream(sdw_stream);
++err_alloc_stream:
++	avs_dai_shutdown(substream, dai);
++	return ret;
++}
++
++static void avs_sdw_dai_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct snd_soc_acpi_mach *mach;
++	struct snd_soc_dai *codec_dai;
++	struct avs_dma_data *data;
++	struct sdw_slave *codec;
++
++	codec_dai = snd_soc_rtd_to_codec(rtd, 0);
++	data = snd_soc_dai_get_dma_data(dai, substream);
++	mach = dev_get_platdata(dai->component->card->dev);
++	codec = mach->pdata;
++
++	snd_soc_dai_set_stream(codec_dai, NULL, substream->stream);
++	sdw_cdns_release_pdi(codec->bus, data->pdi);
++	sdw_release_stream(data->sdw_stream);
++	avs_dai_shutdown(substream, dai);
++}
++
++static int avs_sdw_dai_hw_params(struct snd_pcm_substream *substream,
++				 struct snd_pcm_hw_params *hw_params,
++				 struct snd_soc_dai *dai)
++{
++	struct sdw_stream_config sconfig = {0};
++	struct sdw_port_config pconfig = {0};
++	struct snd_soc_acpi_mach *mach;
++	struct avs_dma_data *data;
++	struct sdw_cdns_pdi *pdi;
++	struct sdw_slave *codec;
++	int ret;
++
++	data = snd_soc_dai_get_dma_data(dai, substream);
++	if (data->path)
++		return 0;
++
++	mach = dev_get_platdata(dai->component->card->dev);
++	codec = mach->pdata;
++	pdi = data->pdi;
++	pdi->ch_count = params_channels(hw_params);
++	pdi->h_ch_num = pdi->ch_count - 1;
++	pdi->l_ch_num = 0;
++	sdw_intel_pdi_config(codec->bus, pdi);
++
++	if (data->sdw_suspended)
++		return avs_dai_be_hw_params(substream, hw_params, dai, pdi->intel_alh_id);
++
++	sconfig.direction = pdi->dir;
++	sconfig.ch_count = pdi->ch_count;
++	sconfig.frame_rate = params_rate(hw_params);
++	sconfig.type = SDW_STREAM_PCM;
++	sconfig.bps = snd_pcm_format_width(params_format(hw_params));
++	pconfig.num = pdi->num;
++	pconfig.ch_mask = (1 << pdi->ch_count) - 1;
++
++	ret = sdw_stream_add_master(codec->bus, &sconfig, &pconfig, 1, data->sdw_stream);
++	if (ret) {
++		sdw_stream_remove_master(codec->bus, data->sdw_stream);
++		return ret;
++	}
++
++	ret = avs_dai_be_hw_params(substream, hw_params, dai, pdi->intel_alh_id);
++	if (ret)
++		sdw_stream_remove_master(codec->bus, data->sdw_stream);
++	return ret;
++}
++
++static int avs_sdw_dai_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++{
++	struct snd_soc_acpi_mach *mach;
++	struct avs_dma_data *data;
++	struct sdw_slave *codec;
++
++	data = snd_soc_dai_get_dma_data(dai, substream);
++	if (!data->path)
++		return 0;
++
++	mach = dev_get_platdata(dai->component->card->dev);
++	codec = mach->pdata;
++
++	avs_path_reset(data->path);
++	avs_path_free(data->path);
++	data->path = NULL;
++	sdw_deprepare_stream(data->sdw_stream);
++	if (!data->sdw_suspended)
++		sdw_stream_remove_master(codec->bus, data->sdw_stream);
++
++	return 0;
++}
++
++static int avs_sdw_dai_prepare(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++{
++	struct avs_dma_data *data;
++	int ret;
++
++	data = snd_soc_dai_get_dma_data(dai, substream);
++
++	/*
++	 * There is no guarantee trigger(RESUME) fires, so reset the flag here.
++	 * Ensures there is no sdw_master leak should hw_free() occur without resuming.
++	 */
++	data->sdw_suspended = false;
++
++	ret = sdw_prepare_stream(data->sdw_stream);
++	if (ret) {
++		dev_err(dai->dev, "sdw stream prepare failed: %d\n", ret);
++		return ret;
++	}
++
++	ret = avs_dai_prepare(substream, dai);
++	if (ret)
++		sdw_deprepare_stream(data->sdw_stream);
++	return ret;
++}
++
++static int avs_sdw_dai_trigger(struct snd_pcm_substream *substream, int cmd,
++			       struct snd_soc_dai *dai)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct avs_dma_data *data;
++	int ret = 0;
++
++	data = snd_soc_dai_get_dma_data(dai, substream);
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_RESUME:
++		if (rtd->dai_link->ignore_suspend)
++			break;
++		fallthrough;
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		ret = sdw_enable_stream(data->sdw_stream);
++		if (ret)
++			break;
++
++		ret = avs_path_run(data->path, AVS_TPLG_TRIGGER_AUTO);
++		if (ret)
++			sdw_disable_stream(data->sdw_stream);
++		break;
++
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++		if (rtd->dai_link->ignore_suspend)
++			break;
++		data->sdw_suspended = true;
++		fallthrough;
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++	case SNDRV_PCM_TRIGGER_STOP:
++		avs_path_pause(data->path);
++
++		ret = sdw_disable_stream(data->sdw_stream);
++		if (ret)
++			dev_err(dai->dev, "disable sdw stream failed: %d\n", ret);
++		break;
++
++	default:
++		ret = -EINVAL;
++		break;
++	}
++
++	return ret;
++}
++
++static const struct snd_soc_dai_ops avs_sdw_dai_ops = {
++	.startup = avs_sdw_dai_startup,
++	.shutdown = avs_sdw_dai_shutdown,
++	.hw_params = avs_sdw_dai_hw_params,
++	.hw_free = avs_sdw_dai_hw_free,
++	.prepare = avs_sdw_dai_prepare,
++	.trigger = avs_sdw_dai_trigger,
++};
++
++static const struct snd_soc_dai_driver avs_sdw_dai_template = {
++	.playback = {
++		.channels_min	= 1,
++		.channels_max	= 8,
++		.rates		= SNDRV_PCM_RATE_8000_192000 |
++				  SNDRV_PCM_RATE_KNOT,
++		.formats	= SNDRV_PCM_FMTBIT_S16_LE |
++				  SNDRV_PCM_FMTBIT_S32_LE,
++		.subformats	= SNDRV_PCM_SUBFMTBIT_MSBITS_20 |
++				  SNDRV_PCM_SUBFMTBIT_MSBITS_24 |
++				  SNDRV_PCM_SUBFMTBIT_MSBITS_MAX,
++	},
++	.capture = {
++		.channels_min	= 1,
++		.channels_max	= 8,
++		.rates		= SNDRV_PCM_RATE_8000_192000 |
++				  SNDRV_PCM_RATE_KNOT,
++		.formats	= SNDRV_PCM_FMTBIT_S16_LE |
++				  SNDRV_PCM_FMTBIT_S32_LE,
++		.subformats	= SNDRV_PCM_SUBFMTBIT_MSBITS_20 |
++				  SNDRV_PCM_SUBFMTBIT_MSBITS_24 |
++				  SNDRV_PCM_SUBFMTBIT_MSBITS_MAX,
++	},
++	.ops = &avs_sdw_dai_ops,
++};
++
++int avs_register_sdw_component(struct avs_dev *adev, const char *name, u32 link_id)
++{
++	struct snd_soc_dai_driver *dai;
++	struct device *dev = adev->dev;
++
++	dai = devm_kzalloc(dev, sizeof(*dai), GFP_KERNEL);
++	if (!dai)
++		return -ENOMEM;
++
++	memcpy(dai, &avs_sdw_dai_template, sizeof(*dai));
++
++	dai->name = devm_kasprintf(dev, GFP_KERNEL, "avs-sdw%d-pin", link_id);
++	if (!dai->name)
++		return -ENOMEM;
++
++	dai->playback.stream_name = devm_kasprintf(dev, GFP_KERNEL, "%s Tx", dai->name);
++	dai->capture.stream_name = devm_kasprintf(dev, GFP_KERNEL, "%s Rx", dai->name);
++
++	if (!dai->playback.stream_name || !dai->capture.stream_name)
++		return -ENOMEM;
++
++	return avs_register_component(dev, name, &avs_component_driver, dai, 1);
++}
+diff --git a/sound/soc/intel/avs/soundwire.h b/sound/soc/intel/avs/soundwire.h
+index e57e29ed16bf..b2279613a326 100644
+--- a/sound/soc/intel/avs/soundwire.h
++++ b/sound/soc/intel/avs/soundwire.h
+@@ -22,6 +22,8 @@ void avs_sdw_enable_irq(struct avs_dev *adev, bool enable);
+ void avs_sdw_process_wakeen_event(struct avs_dev *adev);
+ irqreturn_t avs_sdw_thread(int irq, struct avs_dev *adev);
+ 
++int avs_register_sdw_component(struct avs_dev *adev, const char *name, u32 link_id);
++
+ #else
+ 
+ static inline int avs_sdw_probe(struct avs_dev *adev)
+@@ -51,6 +53,11 @@ static inline irqreturn_t avs_sdw_thread(int irq, struct avs_dev *adev)
+ 	return IRQ_HANDLED;
+ }
+ 
++static inline int avs_register_sdw_component(struct avs_dev *adev, const char *name, u32 link_id)
++{
++	return 0;
++}
++
+ #endif
+ 
+ #endif /* __SOUND_SOC_INTEL_AVS_SOUNDWIRE_H */
+-- 
+2.34.1
 
