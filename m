@@ -1,85 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987244;
-	b=D3xdOTJNke+fbw5CUWCyvN7puby1pFZPBGYzHoSVMVVRXa96/ZmoJFIcvTHj2ZRyqNZr
-	 Vf9vxBTUcvRPNT1Ngiv96JXwTnY5GPbffhTuQ/Fmg2DPDtVy+XLp+3lRlHDbGxZBW4BXS
-	 xvYJeL6S+wgp27AwQRpcZZdogOWyiRz858SRSSLVrYSwRrB1Ucb8Lqe/VlbHqOEZeePJy
-	 V5wfSWrrItp7wBifGeAPdMZPqM9k4AteXgGpjxEK/eKWMdi9LK8GDk/ELWmRANLyIw7gf
-	 HGgsrnFSwu2ammaeY2XLP1yYZbe8hMmSg2XUw6WDmP9YFdatJCpr/uc+mG19mSOX8kQ==
+	t=1793987262;
+	b=sOuiaEW+sqzoEQ3DzVFhDkojubnlJx1B7YNwcbHyPGaneLlPD85PiVFqOtVpSZT6//EY
+	 EL/TLdZ9mlYGfe6ARFkU1zpntbKsEJ9ozNtgpyySjQ3Bpibucuw4EZmZrEFnA4cF2M94K
+	 aGNZdJSZgsRRzKwCR0pXZcgyNwlRPG6EPfvjUCY///C/LNkVNMEVBUQ79HFWGVxda1LmV
+	 gMmDUGGFaG3hZ82GvLElX2wtnzbIoiXP4ukpWrTVzaDG7Gdo9MxjQixroiUwKSWsxc0o1
+	 SSgEKj11FAi5W1k7ZBWDC1J92JpmP0QdW0RP5xu8uLp+NY3ECXy/FzOAykAHXaQI0Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987244;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Erym8mBAycZf4kLhSrQAcDQ8l3ywcG4qyDch6JEY96E=;
-	b=3GhFHOzZ4UFT54bzwHj0O32yc3MV65ssxvyZ8aejjC8McFSFFwM3XObSN3kyz1jnRswv
-	 Rz4V3LEGlbwR27tfeG7RPclwTb4uo2tFkCwhFNVddu592mWwm6dnvDuXvOUbO+F+krgvX
-	 nNLxkVRliC0B8pYc2eH1+I2Q3dS3uMwi5nbooWK7bsQmYsVQih493iJ7N594hjAP5X53a
-	 aX2fSmo4+lvCPWcC0aF6QS2rlF4eZWuCj6jX+l+3flmn8aY3fQwGTUkGkrtcFErJ0l1F/
-	 GB+sH4ZNs0JPmGZKN4YzDLpY8jVCRBra48HUZtDBIRtBCxYcRm0Pl0QZDqNwrwNttIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987262;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eRHNQnSyg+HxFwUHDEG9hXimdhxcL6M8ICyQ7BsYEvw=;
+	b=hLKZBGSkygbfbBoZ+gVtiFW4zNMLcJ6dc0RK1g/b/3mzG/BfiXaXYL3NophrZXK53zMD
+	 epOcl1ZFBZLDECn6Go4FYgJ2lrl4cqggUbuemHU4u6civGwXVu6FUIatILxD6+eCMIbU8
+	 hdv70IumeWuD0/2MZOtcdp/BfbbWpoS8wKLPnKRzXh/I70yYcEEXDZ2ll79lBoHzFjKa5
+	 fRf/RPW19GOK1Hp/FRxTI+jMrZsWrBsTA5hfLkidZaCUZJiSQ9ccTCgTTG2SSi7A+qdrF
+	 jU4D2Jg7yfLhG+XamgOe0l4jnmvkRw+D5cQKTtg+3hYHaHUZiUUbyDmD3pc5TwYNu4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=enr8Q909;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=irYQ0vGG;
+	arc=none smtp.remote-ip=209.85.219.42
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8741C606A329;
-	Fri,  6 Nov 2026 17:47:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8741C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B436606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:47:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B436606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=enr8Q909
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793987243; x=1825523243;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WI+CHfd4hadSzCFGcEnv6F/XDjux3RlSxL8wxZyC+Q0=;
-  b=enr8Q909t3t0hpAokk+pDxneL4ExO5k1zlTcnc91Hubef8fmuEJu3pbv
-   lPPpIr06MboIc5TNKnKBRt2AMJVjowcxNbmQ37n/oHM5u9cpaGGe0TXYf
-   rB1VsIqYVb1Fh6sxXWxGfk5DIcywGokU7WfI7oX54gidVjBAGkCWBrC39
-   4UUoRhhAaiHW0XXixHeCepXDjLavI2OTNPsBVxfZFuRbxkBGgbEuvroRp
-   rYpyAi17QEvH8umuZq0tKsCELB5u1kKxX15A2cc8rPXl78Ngo9sP1RJID
-   LreBTZ6SE0xvP+Wr20YgZCdYSI5HcYrFaQOaSZS80Wf5X5o3Ww5aJ9qrE
-   A==;
-X-CSE-ConnectionGUID: nzNIGla6SBuCnF5AysjodQ==
-X-CSE-MsgGUID: 4scfk27QQh+8nceQQSNx3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2695070"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2695070"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 09:47:23 -0800
-X-CSE-ConnectionGUID: nEsxF3xsQnSkXwzmUtNwPQ==
-X-CSE-MsgGUID: U+VfDvbdSb2X0gjwi8MKmg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7223513"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa005.jf.intel.com with ESMTP; 06 Nov 2026 09:47:20 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id B33B499; Fri, 06 Nov 2026 18:47:18 +0100 (CET)
-Date: Fri, 6 Nov 2026 18:47:18 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=irYQ0vGG
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91eb7d147b0so1628606d6.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:47:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793987261; x=1794592061; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eRHNQnSyg+HxFwUHDEG9hXimdhxcL6M8ICyQ7BsYEvw=;
+        b=irYQ0vGGtJEO65oqBeVPfGhntnDs1Tg04R8NYPfcJIO8nCY2yk/xAla5YLR6XWgf12
+         V7/Hd8xR2/GalEG2wlDsKuyTK73e8tCswlih26s6RmqYGUI1dmEQVq0kl9uwLbQeFpBq
+         qCyaQok0PVrR3AYWyNGHK8Z1N+sa16mo6zl0IVyKP2xAStt9ERmUhSJgTtxEGwOzQJAD
+         asUzwgQUUlDQhG+txlGzi3DjEc8k218OYS9v28X/nZEGDXgaWpnStVwKqHYqPCyq1Ad7
+         UyM+b02QWrfJo70vyA3lX0NJCsAYGumArxT7I/duur6hdYakBgNo4YFvQYPh5k71Hd/U
+         qjnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793987261; x=1794592061;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eRHNQnSyg+HxFwUHDEG9hXimdhxcL6M8ICyQ7BsYEvw=;
+        b=ZxMv9a/IVXvddjcgodOQy0QX81RXjx5tFpVWf1613YRnccBbHzv29SmGdDDTPjTnfy
+         zxGr2MJ+PSUcr9eKqln8cWrhF97R0cTNu0TLPtUZ01TXYDdlPt197PETLnU4/LJVeeb5
+         LcP4xjcRR0c7eDI9S/9Zzuzxu423Hs4pJtJvn3kyIdLwtbvx4ZCwVooYPsoP727F/0Xy
+         KPpoTryJoIy6w10RjUTlt9rvgv89ZH7x4R/MGFIPHdcsk9kjQ5yLGjAkoVU1YB4iqL1d
+         AIilpLfsz6cDG1maWG+wC73Kt521BDCfwULtgF02W/NyazgHDcWNQDT29dqd3mfBmIrJ
+         uz1g==
+X-Forwarded-Encrypted: i=1; AL+hErH3yQ0AyTP2GMNhWtdU2XOYKLmoQj/jEamKc2iudRcB0kcaJM2zp4sZsFSOuTKZVueWxuIUeqqV2Gbklhs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+CBh/5CeWuv/MuB2cOIawjE/JNUMSZqFC5cvlcF1JCG3JqgrQ
+	U4imQdJ5ZMF8EBj0aC1Gw5rRQEuA193yfhdk4akx1WNQ9npjhzO9le8Y
+X-Gm-Gg: AYBFou1dvnuD1KThHtUmi4HJcCYPEJT7GorKftyfDrBSvGAbH7dHu55k4knYqewGuM5
+	si96Z05Bn2TiHlAcLrWS2B7anX+AKVXkF/WILCW5C3sIS4Rmi+/3t1eFLk1Dz7KK9jbFqiSW+s4
+	mHjkBlZh9QPxsaGQ6Uj5aBx5JRcWJef+DwzfxQVbRCuZugld9vGrLfoRB7+XAl+r9Xj9rjXaD8o
+	f9IX4JA7IA1/QY5MOvpl1sIfrM/upgCk7iprOPLzf1HbLvwFSHnEZM4UdTjZEfM+7zxkg9Wjoc4
+	MXOWO0HiFSxUtTKtdc7YLfPh/YSfcNRIS2JeR8TKF56num93ZpKpLmZtqc9r85v18KcdvEoomKD
+	zTlcyWbRHP2vCYQfwwWl+Ye+KhOm1C1Dr/BoOQvnsG+osq0r2kRxHy1eI0zhsIpsM50noxeCAVg
+	75adFzlWp9VoOihJJGhjcn+qaB1Dt5HZ+jbLu1wtmqElMsZCq2qhMV6vwx20PaHuxidmi8+NTLy
+	Exbv+nh258xlSGVqGQy68p+fLL2zAGNvYRmg9uBkHnPSOgxykz9QmE2PW5sQepnD4RIL/Y7w3uS
+	hvowx36zZTAPVlw2AZSnciVYSHpTi6aIxuhTfW0=
+X-Received: by 2002:a05:6214:469e:b0:91c:6386:eca5 with SMTP id 6a1803df08f44-91ea977060fmr45840816d6.30.1793987260806;
+        Fri, 06 Nov 2026 09:47:40 -0800 (PST)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6ab543csm25408536d6.39.2026.11.06.09.47.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 09:47:40 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Subject: Re: [PATCH] software node: only let the owner release a managed node
-Message-ID: <au4Spi8lWIs4C0ca@black.igk.intel.com>
-References: <20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com>
+	Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] iio: trigger: free the trigger ID after device_del()
+Date: Fri,  6 Nov 2026 12:47:37 -0500
+Message-ID: <20261106174737.2580011-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,107 +98,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 04:25:16PM +0100, Bartosz Golaszewski wrote:
-> device_create_managed_software_node() creates a node whose lifetime is
-> tied to the device it was created for. software_node_notify_remove() is
-> called for every device that has the node as its fwnode (primary OR
-> secondary) and, if the node is managed, unconditionally detaches it from
-> that device and drops the creation reference.
-> 
-> This breaks when the node is shared with another device. Example: the
-> i2c-designware copies the parent's fwnode to the adapter's struct device.
-> When the adapter is deleted, it releases the reference that belongs to
-> the owner and the latter ends up with a dangling pointer.
-> 
-> Record the device's "manager" and only perform the actual release when
-> notify is called for that "owner" device.
-> 
-> Reported-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-> Closes: https://lore.kernel.org/all/20261009164241.923756-2-balasubramani.vivekanandan@intel.com/
-> Fixes: 151f6ff78cdf ("software node: Provide replacement for device_add_properties()")
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+iio_trigger_unregister() returns the trigger ID to iio_trigger_ida
+before device_del() removes the "trigger<N>" device. A trigger
+registered in between can get the same ID, and its device_add() fails:
 
-LGTM. FWIW:
+  sysfs: cannot create duplicate filename '/bus/iio/devices/trigger0'
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+For example, adding a sysfs trigger while an hrtimer trigger is being
+removed through configfs, or the other way around, hits this because the
+two paths do not share a lock.
 
-> ---
-> Hi!
-> 
-> This is my approach at addressing the bug reported by Vivekanandan
-> directly in driver core. Please test it if you can.
-> 
-> Thanks,
-> Bartosz
-> ---
->  drivers/base/swnode.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
-> index 84a77ffa3dc4bbcca62bbe67c3390693500b01ea..abb6d6d59d59cb4e605fc31cc7e89f92e9f900a6 100644
-> --- a/drivers/base/swnode.c
-> +++ b/drivers/base/swnode.c
-> @@ -29,6 +29,8 @@ struct swnode {
->  	struct fwnode_handle fwnode;
->  	const struct software_node *node;
->  	int id;
-> +	/* Device the managed node's lifetime is tied to. */
-> +	struct device *owner;
->  
->  	/* hierarchy */
->  	struct ida child_ids;
-> @@ -37,7 +39,6 @@ struct swnode {
->  	struct swnode *parent;
->  
->  	unsigned int allocated:1;
-> -	unsigned int managed:1;
->  };
->  
->  static DEFINE_IDA(swnode_root_ids);
-> @@ -1145,7 +1146,7 @@ int device_create_managed_software_node(struct device *dev,
->  	if (IS_ERR(fwnode))
->  		return PTR_ERR(fwnode);
->  
-> -	to_swnode(fwnode)->managed = true;
-> +	to_swnode(fwnode)->owner = dev;
->  	set_secondary_fwnode(dev, fwnode);
->  
->  	if (device_is_registered(dev))
-> @@ -1190,6 +1191,7 @@ void software_node_notify(struct device *dev)
->  void software_node_notify_remove(struct device *dev)
->  {
->  	struct swnode *swnode;
-> +	bool is_owner;
->  
->  	swnode = dev_to_swnode(dev);
->  	if (!swnode)
-> @@ -1206,9 +1208,13 @@ void software_node_notify_remove(struct device *dev)
->  	if (!device_match_fwnode(dev, &swnode->fwnode) && swnode->fwnode.dev == dev)
->  		swnode->fwnode.dev = NULL;
->  
-> +	is_owner = swnode->owner && swnode->owner == dev;
-> +	if (is_owner)
-> +		swnode->owner = NULL;
-> +
->  	swnode_put(swnode);
->  
-> -	if (swnode->managed) {
-> +	if (is_owner) {
->  		set_secondary_fwnode(dev, NULL);
->  		swnode_put(swnode);
->  	}
-> 
-> ---
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-> change-id: 20261102-swnode-only-owner-release-45efdc7123e1
-> 
-> Best regards,
-> -- 
-> Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Free the ID after device_del(), as the error path of
+iio_trigger_register() already does, and drop the "Possible issue in
+here" comment.
 
+Fixes: 1637db44413e ("Staging: IIO: Trigger support added to core.")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+---
+Found with a static analysis tool we are developing.
+
+Reproduced in QEMU (x86_64) with two threads running for 20 seconds.
+One writes to add_trigger and remove_trigger of iio_sysfs_trigger, the
+other creates and removes an hrtimer trigger in configfs. Without this
+patch, device_add() failed with the error above 160 to 1148 times per
+run in three runs. With it, it never failed.
+
+ drivers/iio/industrialio-trigger.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
+index 76926fee0f84..206ede2c9b3c 100644
+--- a/drivers/iio/industrialio-trigger.c
++++ b/drivers/iio/industrialio-trigger.c
+@@ -105,9 +105,8 @@ void iio_trigger_unregister(struct iio_trigger *trig_info)
+ 	scoped_guard(mutex, &iio_trigger_list_lock)
+ 		list_del(&trig_info->list);
+ 
+-	ida_free(&iio_trigger_ida, trig_info->id);
+-	/* Possible issue in here */
+ 	device_del(&trig_info->dev);
++	ida_free(&iio_trigger_ida, trig_info->id);
+ }
+ EXPORT_SYMBOL(iio_trigger_unregister);
+ 
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-heikki
+2.43.0
+
