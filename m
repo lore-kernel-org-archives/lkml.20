@@ -1,134 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997794;
-	b=35Oxd3AQ6kAdCjlYQ3Ny1pokLL9OO1Fq3sBlLa+mwiliX5hoJWsUjMSU6ZpUWx8f33jW
-	 +Uz2QgqLqwwkts17qzvwDHgYUPaUQr7cqNEA0ueET/nm+zUTSUNBWBCJZrMVakV3mmetL
-	 NQCeefKipgqHlNfmogkWeiHQfusyApsFGcy7FBl6X5AoQqJK/fBpd9A9l9/FlMJWThg3q
-	 Um+Bi/3Z8CU7MyxtC7gAmWH9J3oTK3uhp6uxnCCHGQR8oVZxOkMEJ3dyhKvWAO5KHcU9Q
-	 sS831C9QkqSXOPEhI303TG0ERDBAANfRIp6739vW93dI+sAFOcqwJ3GA1sn8MVPfmXg==
+	t=1793997819;
+	b=3o8bKC5c7VCX934A6QhkftaELgSfR5hrJKPqd+V2hQXeYH/HpaOxapk+3yVjORXWs6Pz
+	 gdPJF8ObAmkuzIt4713C93b85Ncqgwy5Wus9P+bl4Ncwqp9ecUik47lYEvLwlhvKqUFzT
+	 y76rAqTYfCGKDusTWWDS8hznUoIgx1T9cBNahWwIgql3KjqhoQ/mOMy+LApskkjVCutm5
+	 zNRodS1wgL7aLenkmVyHhxRBmAADrdulrsyaDeVFBIDs7Shz3BXUUec711q2NYF3Xy0CY
+	 lv4LTwmDVojiqghiPbGoIQJWDBu0cWbFlmYwANLRqJPK9gGEVuzvwSB60/z6U+g9YQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997794;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997819;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ws2V6VbViJ6cnrlfEDvDEs6KCs0YOuB35XjyLfjvYOA=;
-	b=gKK8Z8Z3v+UGsFu46jfVYzCNigjTp2PGZms3scFdNlDh6RsLS2VO45GvKjmUvmEsNPvI
-	 IXdtITTbhTEIwmJrUiqaKdw8Y7SwheovzqxP95xRdL2DytLfWbch18oEnX09WUb2ZKNSb
-	 cFteFHv69d+tdcwti545uTK4gVu+sjDiEtKZLKjaIj/zXE/BZREBhbx8JUdlvgekLrfhV
-	 x5VxVRrnVagLZVU1ZOxaAOBInTZbE9MYgbsGh13U7YZCGjanKKKNNeHae2mWYL1Evf/B7
-	 VdjGK1qPvzAwUSOPSmFPDwRpxB6aUNDjJ1mhCBfsa3ydIggUvHIpSzoplf8tYD7A50g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=la5JkBz59cnp3P5023ODaTDSESIkGfKkM4RUMthzLIM=;
+	b=EHbovAF0q7Zg7qDL4LCvJza5c9fsPUcUtm+WkW3fP0ucG2hka4Sbl6fBTID/KNo5Kfrx
+	 RcuNT0pQb0pn9I2OHiEu6McDzkBEJuWkulY+VqscM+oCczr9hufaUD5c2xeXTG7xsXAnm
+	 jbTrHODarRAfiPhPogioXMEzphdIty5uKFOYLNYPufOWRBoaYsulxDaq3FyYLlSfJZDb4
+	 A1Un8IlelJA51BSEoP+U2bk3I3U15ELtwqFQgaQOArjf4WUSlwwSIJZimx4HLG9X2zIAU
+	 tAGqTO2LPIRJuUkHsCj8TfsNeakHJhuyPrqQv9SCTaszpSI8v/FPYkV04uwAC/D2O/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=REFEyl2N;
-	arc=none smtp.remote-ip=209.85.219.47
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hDT0q6q8;
+	arc=none smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0C3606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:43:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A0C3606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3B4606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:43:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD3B4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=REFEyl2N
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91e98301805so11386576d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:43:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hDT0q6q8
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67be5d0e9cbso791129d50.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:43:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793997792; x=1794602592; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ws2V6VbViJ6cnrlfEDvDEs6KCs0YOuB35XjyLfjvYOA=;
-        b=REFEyl2N/lgmfldAVFpxIWxQa8mjfRZ+rZu+VbJlPELmGLoAMssVZsg4Bw+JPUe95Q
-         Y/+7TrhaVb742lX5HOvfYl5c8tdB9czfTvg+/vPAkrj9deCRb9o77jvOHMvRN4NFT+Us
-         ybtE7N/j08Yo8TizgspuDg/xp1VtRZGq6sUf6uJV1YrIhg2qFP9g5wF57DH9VkfVQStn
-         4ZNBdx9BbGLhMDmmTMxt1/LSgHH4HYRUio31WfKrQQRxXVL0B2mrBDJi7luolVdmYxxx
-         r+j1ArDIDr+vUF0me32H7jSKSjODetgV3j9jw0TC5pHi0hn9wyRUYJT4xRQMphXho2hD
-         k69A==
+        d=gmail.com; s=20260707; t=1793997818; x=1794602618; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=la5JkBz59cnp3P5023ODaTDSESIkGfKkM4RUMthzLIM=;
+        b=hDT0q6q8FNoa6Yv+ZWt9h39CmBFXjMOOor713234LFMXve0tWXtZJvsc/HxGvEeKEJ
+         OYPs0PBdSFXA/pVHmRPaYqcW6+UnYneDXKUzmX9eyvgYqMHaoo+vGwC8fPpjX7auqisi
+         plR8PQh/kyl/izooZfUbtoJ52XH+am7fR3mHWILpRFz4xfpNttUyonnpXqcYT9hFX0j8
+         BjOMKcW4er1d9fJwQ6uximYnwaXPqK0SqJ0NBE3KvBXaCbEAwP0J8u0yUY+F1PWu5a7M
+         d5/XVoMbRegW032a4nDuL8fKXNYTufqEXjOKxnJEMdQ3UNHCDuySZtYKFqfBvi42LoAx
+         dJSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793997792; x=1794602592;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ws2V6VbViJ6cnrlfEDvDEs6KCs0YOuB35XjyLfjvYOA=;
-        b=0aDPgSpqbQqW9fd9G6oYXGQJABGT6Wx5HaG6fE4VqBaEKcUeE7pjkz3TQO6K6drOIT
-         MiPjiDBZDIsq2y5xnw2/Mm35+iKl0TDgXXIO0YpGHdPMy2GM8mW98+w8d3CALrL1txfS
-         EaiNi8w4LsGIboPksw55Mu97+GFKbkNMf2vOJEzZ8llZ3EDMBcsjGN+aIoVIaaYlXNqH
-         5BxiFDGreH9XPWJ7ChHj2e5VNBTjgWXWP3dtVRrHguzVCwr0QHZ5wspW7VvwiYiCQLIC
-         VU+oKHQupJKz/Fqej7J/OxLSIOlS1RoIHMc/0oRG7lqVQJOjDfh+/YkXgs1ABWE7lKm8
-         qxiw==
-X-Forwarded-Encrypted: i=1; AL+hErEV94tv/ZsriUxUHLCYfcAp4dodo838lfE/rED3NeqyjrB1730gRm70aFdMRfGJfebjICyB5Sai0+RIQ+c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aba/xqGxnjjVzp+oosVyvsgF8M49X35qvBQNvFrjG6glr3MK1
-	3IARJm43uZVyKfDWmUFSgWW2PVHgz27B+8o6BtGmX5rq+OcjailBdDwa0leh7zI3f3I=
-X-Gm-Gg: AYBFou1qorU58b+WktHak62KeS/4x9jM06knWUbYviSBC4uVTvuDjI6QNKxO6g6jhYF
-	u1VYdpPN2IgH1JmNgX/uG2CthThVSfcs1xUTMpwwmJAper9iuRm+ibkvesfedslWbo9ZGiSgbfu
-	sIBxqU9dGnjVn1ojPxIceubD7kYVWqG90Rw9HgyUH2qoZ+Ap7lVlK9Xvkx3PEfdgW+EoSnBOXuE
-	af9VeVKaa2X7aKPIp3S9L20uHUqh+9d86iX01yDhP+WKvwQYGwbZ05fTpHFZ7TiX4ZpSo9FXXfJ
-	R0781tLTsjZioUJAAUsqSyTLno1QY+OO7zPJb5Tm5XycvADecXenxtQ+9NNpA9DHSbJ60sC8PFj
-	xXpv4ZbE9+F7ZRvaJIFGSLRNUxDFBQxiH8BauGzZubsNtryBJdNclQhbUh/82TY8sd9C6LQ3y9x
-	j/LBobFT+XP+G3tOuu5PN9fCdYCTJPUsa4dOYuUldpu77gS0rXLuoc4kvPqrjwG4opVjBuTx8/p
-	OKvDjmLbdxsl3toC9yGj4iB3h4eMTXVny7tmzmvK60gUgo6tkDHLi0oyVrNCKWe2t15mCb5cLUK
-	Zx2bVkVGn87GYHl+oBcc+CfK1P11AONTkt+G1bzH7HfOSvsCyZNQ3ZcR8btNEgE/OUzl/tYuzIJ
-	9dQlHQkibng==
-X-Received: by 2002:ad4:4ee5:0:b0:91e:a5c2:37f7 with SMTP id 6a1803df08f44-91ea97a22b7mr53003846d6.42.1793997792129;
-        Fri, 06 Nov 2026 12:43:12 -0800 (PST)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a2c742sm29232026d6.11.2026.11.06.12.43.11
+        d=1e100.net; s=20260707; t=1793997818; x=1794602618;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=la5JkBz59cnp3P5023ODaTDSESIkGfKkM4RUMthzLIM=;
+        b=etvR9YRbIR97RBDK8PhmYZ4OpeAE3fXP3KU6HLX2pyW6+BthiEZE8s7E/edfTeyoDN
+         nJDXhdrzrvfLdjbbLMGTb3cI+RUUzDG00Hb92tC31xnf4G40O/RIJRorAdHNFYq8zn7r
+         jGUS35fmZ3CHzepJ0OqVNBZ6qqwY2LD/+2UOtXd4RhDGc2D9vyIeiwZ/N2vlxADeP7w+
+         zwjYuj6vqXW3nwc4IM2pfqN1tTRp6ntJCbHHR25YNc+OmyGboGLoYoxQfKk0BsTsI6sM
+         g7GNgTWSMgDegKPQJABF6kBgEeUdkb/24N8qtKSQ9mi/Pd4EzGInEEGKJr14HLCnCx/4
+         iWiQ==
+X-Forwarded-Encrypted: i=1; AL+hErGS3fAmAZuhyhnXHDkFTbJanSqUQ7JOA+jxG4JNzwIxYCkeF/RIMOkWpejlZCDWra1CDNirGKBgryjNNLM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9oyAO+RJn3e0nL2o1Uk1p8lkI9NdLdy2iYVGBIdIBS9FN4zxE4
+	xxD54k56TcM9ENgW9xvyXAvRTgfbc+R/DsswRTXdKOE8E9DaQN5icJHx5VVlR/Hsg9Q=
+X-Gm-Gg: AYBFou2hGOEkGOhsBFVJFu6ocwlmfgsyodficgoZSRb3XE3yYpVzQcA/HI9nCm0ULdX
+	j583ZliAv3HWbbY61VtCI5OYy2wzIqptl3Y6VmcdkNtdqPiMuYTm2//B8IF2WRsNOH091MzBfBN
+	3I9D61NDc0ybQVkrqWXfDsexnVxcbnapaAAGUBPhmuf45/xvnaaYqYw+wm23o4eEBMwJLWkPjOS
+	YH7bVUYwjtabZmrARRpw36cWiyxNHmHzyRd4nAihyh3Z8nBjoecAX3xRPbkHKaYl65XZkbRM14m
+	PRo0PZDOy5lDHkw7lWlK8eiynrxLrIw2WFfD+YP3JFosMscR2lTIigFPxxnq+T5ksw6TRLHWDP8
+	tlx5o6nF+iFh4VrkUbNGA5B+Sosg/sNQJq38AvLbT4JRrzEIsU7tDBkVyjwHc/nzog0pMSFyGWg
+	sao+xiPtG9hMqRFOzV/xEN0veG5ydqK58lvStSvCfQO9xEtddSRO+TsHJM4KqNFyGnI+I60o9tN
+	kV62jwAyzl+tid5Bk0rvPZEfnPwZaQfYfzg7InbyhSgpOSS1z+i4aT8F9g0NDzLGFxoui9owrDA
+	pKEQrO9QRigIWjvlmJKUvp4C4hHBuAn6Ioz0VqRmRNMliVDwsuyA2v1GgdG4ea8UnQ==
+X-Received: by 2002:a53:c808:0:b0:679:af57:d199 with SMTP id 956f58d0204a3-67c143dfb9amr1130839d50.57.1793997817311;
+        Fri, 06 Nov 2026 12:43:37 -0800 (PST)
+Received: from carlos-MacBookPro11-2.home.arpa ([181.216.192.12])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c135ada39sm2731818d50.16.2026.11.06.12.43.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 12:43:11 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xPQmE-00000007ent-3ktJ;
-	Fri, 06 Nov 2026 16:43:10 -0400
-Date: Fri, 6 Nov 2026 16:43:10 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
-	Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Nick Piggin <npiggin@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steve Sistare <steven.sistare@oracle.com>,
-	John Hubbard <jhubbard@nvidia.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org, iommu@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/5] mm: limit pagecache folio refcount when splicing
- into pipes
-Message-ID: <20261106204310.GK663069@ziepe.ca>
-References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
- <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
- <n3l2cnx6d25jovloqyoxiz566mh62janclmiewjvumtmqfezo7@zmsmco5vvssn>
- <23f947e2-ff06-426d-adb7-396871304736@kernel.org>
+        Fri, 06 Nov 2026 12:43:36 -0800 (PST)
+From: Carlos Alberto <carlosalberto4ti@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: mchehab@kernel.org,
+	hverkuil@xs4all.nl,
+	patrik.r.jakobsson@gmail.com,
+	linux-media@vger.kernel.org,
+	devel@driverdev.osuosl.org,
+	linux-kernel@vger.kernel.org,
+	carlosalberto4ti@gmail.com
+Subject: [PATCH 0/2] staging: media: facetimehd: add driver for Apple FaceTime HD camera
+Date: Fri,  6 Nov 2026 17:43:27 -0300
+Message-ID: <20261106204329.2176266-1-carlosalberto4ti@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,65 +99,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <23f947e2-ff06-426d-adb7-396871304736@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 09:09:10PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/6/26 18:58, Josef Bacik wrote:
-> > On Thu, Nov 05, 2026 at 02:10:11PM +0100, David Hildenbrand (Arm) wrote:
-> >> Similar to mapping pagecache folios into page tables, let's reject splicing
-> >> folios into a pipe if the refcount is at it's limit, similar to how we
-> >> handle it during GUP.
-> >>
-> >> This will prevent more cases of possible folio refcount overflows with
-> >> large pagecache folios.
-> >>
-> >> Let's keep it simple and check in the two callers of
-> >> splice_folio_into_pipe().
-> >>
-> >> Also check in try_get_page() to cover pipe-buffer duplication by tee()
-> >> and partial pipe-to-pipe splicing.
-> >>
-> >> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> >> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> >> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> >> ---
-> >>  include/linux/mm.h | 9 ++++++---
-> >>  mm/filemap.c       | 4 ++++
-> >>  mm/shmem.c         | 4 ++++
-> >>  3 files changed, 14 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> >> index 79ae8fc0d6bb4..a82cfbce18215 100644
-> >> --- a/include/linux/mm.h
-> >> +++ b/include/linux/mm.h
-> >> @@ -2287,10 +2287,13 @@ static inline void get_page(struct page *page)
-> >>  
-> >>  static inline __must_check bool try_get_page(struct page *page)
-> >>  {
-> >> -	page = compound_head(page);
-> >> -	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
-> >> +	struct folio *folio = page_folio(page);
-> >> +
-> >> +	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
-> > 
-> > Since you're here anyway can you change this to something other than
-> > WARN_ON_ONCE, since that results in an OOPS with panic_on_warn set?
-> > Thanks,
-> 
-> If it actually turns negative (or 0) with out changes, we had an overflow and
-> for sure want to know about it :)
+This patch series introduces the facetimehd driver to drivers/staging/media/.
+The driver supports the Broadcom BCM1570 (PCI ID 14e4:1570) PCIe Image Signal
+Processor found in Apple MacBook Pro, MacBook Air, and iMac machines (spanning
+generations from 2013 to 2019).
 
-Yeah, didn't you get Docs merged to clarify WARN_ON is fine if
-userspace can't trigger it?
+Historically, this driver remained out-of-tree primarily because it lacked a
+redistributable firmware binary and relied on extracting proprietary blobs from
+macOS recovery packages. We have addressed this blocker by developing OpenFTHD,
+a 100% clean-room, open-source firmware (GPL-2.0-only) written in freestanding
+C and bare-metal embedded Rust. A separate patch for linux-firmware adds
+facetimehd/firmware.bin.
 
-If you use panic_on_warn you *WANT* your system to stop if it detects
-corruption, that's the whole point. Removing corruption detection so
-panic doesn't trigger is pure 100% nonsense.
+Key capabilities included in this submission:
+- Modern V4L2 and videobuf2-dma-sg implementation compatible with Linux 6.12+
+  through 7.0+ (removal of deprecated vb2 callbacks).
+- Seamless PipeWire and Flatpak streaming via in-page USERPTR offset support
+  (programming obj->byte_offset into ISP DMA descriptors) and chained scatterlist
+  iteration with for_each_sg().
+- Discrete framesize enumeration (1080p, 720p, VGA, QVGA) and matching
+  discrete frameintervals for WebRTC, PipeWire, OBS, and browser capture.
+- Native V4L2_PIX_FMT_YUYV pixel pipeline with power-of-two 8-pixel macroblock
+  stride alignment and immediate Auto White Balance (AWB) on channel start.
+- Hardware ePTZ digital zoom (VIDIOC_G_SELECTION / VIDIOC_S_SELECTION for
+  V4L2_SEL_TGT_CROP), executing lossless sensor crop without host CPU overhead.
+- Auto-Exposure Photometry Metering (V4L2_CID_EXPOSURE_METERING: Average,
+  Center-Weighted, Spot, Matrix).
+- Wide Dynamic Range / HDR (V4L2_CID_WIDE_DYNAMIC_RANGE) tone adaptation.
+- Camera status / privacy indicator LED control (V4L2_CID_ILLUMINATORS_1).
+- Runtime module parameters and power profiles (High Performance, Balanced,
+  Aggressive Low Power sensor sleep) exposed under /sys/module/facetimehd/parameters/.
 
-This keeps coming up and it's frustrating to go over again and again.
+The driver has been validated on physical hardware (MacBook Pro Retina 15-inch
+Mid 2014, MacBookPro11,2, PCI 03:00.0) running Linux 7.0.0-14-generic,
+streaming cleanly at a steady 30.0 fps in both native V4L2 and PipeWire
+(GNOME Cheese / Snapshot in Flatpak containers) with zero dropped frames.
 
-Jason
+Repository & Upstream Pull Request References:
+- Out-of-tree repository: https://github.com/patjak/facetimehd
+- Tracking Pull Request: https://github.com/patjak/facetimehd/pull/368
+- Active branch with test suite: https://github.com/programandosolucoes/facetimehd/tree/linux-6.12-compat
+- OpenFTHD clean-room firmware: https://github.com/programandosolucoes/open-fthd-firmware
+
+A TODO file is provided detailing the roadmap for graduating from staging
+into drivers/media/pci/facetimehd/.
+
+Carlos Alberto (2):
+  staging: media: facetimehd: add driver for Apple FaceTime HD (BCM1570)
+    PCIe camera
+  staging: media: wire up facetimehd in Kconfig and Makefile
+
+ drivers/staging/media/Kconfig                 |    1 +
+ drivers/staging/media/Makefile                |    1 +
+ drivers/staging/media/facetimehd/Kconfig      |   16 +
+ drivers/staging/media/facetimehd/Makefile     |    5 +
+ drivers/staging/media/facetimehd/TODO         |   18 +
+ .../staging/media/facetimehd/fthd_buffer.c    |  125 ++
+ .../staging/media/facetimehd/fthd_buffer.h    |   73 +
+ drivers/staging/media/facetimehd/fthd_ddr.c   |  670 ++++++++
+ drivers/staging/media/facetimehd/fthd_ddr.h   |   30 +
+ .../staging/media/facetimehd/fthd_debugfs.c   |  198 +++
+ .../staging/media/facetimehd/fthd_debugfs.h   |   17 +
+ drivers/staging/media/facetimehd/fthd_drv.c   |  600 +++++++
+ drivers/staging/media/facetimehd/fthd_drv.h   |  133 ++
+ drivers/staging/media/facetimehd/fthd_hw.c    |  712 ++++++++
+ drivers/staging/media/facetimehd/fthd_hw.h    |  128 ++
+ drivers/staging/media/facetimehd/fthd_isp.c   | 1483 +++++++++++++++++
+ drivers/staging/media/facetimehd/fthd_isp.h   |  768 +++++++++
+ drivers/staging/media/facetimehd/fthd_reg.h   |  184 ++
+ .../staging/media/facetimehd/fthd_ringbuf.c   |  135 ++
+ .../staging/media/facetimehd/fthd_ringbuf.h   |   44 +
+ drivers/staging/media/facetimehd/fthd_v4l2.c  |  881 ++++++++++
+ drivers/staging/media/facetimehd/fthd_v4l2.h  |   34 +
+ 22 files changed, 6256 insertions(+)
+ create mode 100644 drivers/staging/media/facetimehd/Kconfig
+ create mode 100644 drivers/staging/media/facetimehd/Makefile
+ create mode 100644 drivers/staging/media/facetimehd/TODO
+ create mode 100644 drivers/staging/media/facetimehd/fthd_buffer.c
+ create mode 100644 drivers/staging/media/facetimehd/fthd_buffer.h
+ create mode 100644 drivers/staging/media/facetimehd/fthd_ddr.c
+ create mode 100644 drivers/staging/media/facetimehd/fthd_ddr.h
+ create mode 100644 drivers/staging/media/facetimehd/fthd_debugfs.c
+ create mode 100644 drivers/staging/media/facetimehd/fthd_debugfs.h
+ create mode 100644 drivers/staging/media/facetimehd/fthd_drv.c
+ create mode 100644 drivers/staging/media/facetimehd/fthd_drv.h
+ create mode 100644 drivers/staging/media/facetimehd/fthd_hw.c
+ create mode 100644 drivers/staging/media/facetimehd/fthd_hw.h
+ create mode 100644 drivers/staging/media/facetimehd/fthd_isp.c
+ create mode 100644 drivers/staging/media/facetimehd/fthd_isp.h
+ create mode 100644 drivers/staging/media/facetimehd/fthd_reg.h
+ create mode 100644 drivers/staging/media/facetimehd/fthd_ringbuf.c
+ create mode 100644 drivers/staging/media/facetimehd/fthd_ringbuf.h
+ create mode 100644 drivers/staging/media/facetimehd/fthd_v4l2.c
+ create mode 100644 drivers/staging/media/facetimehd/fthd_v4l2.h
+
+-- 
+2.53.0
+
