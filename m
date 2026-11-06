@@ -1,66 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974617;
-	b=V84AR9uCrfyUqOlE3FHURf6u3UnFQJY/WwEWigJ4uSLmfGEEW7F5PbHxAEyPgu/CRKbJ
-	 IEfk60NJlIFclE8gCWeSROiEVeMDtliEYq3Un0Ctn/wPjbJjYqdmuyrUB8bd37P05Z+iZ
-	 dqtHGPGyw7WCPJskN3Wrhk+ge9jL55uRbkl/OIOly+osP2TD9SzB5qk0RJGsT3RJtBukY
-	 7bK2H1FsdjWYvaTCRb0hbI+XOmJeTaDkalJsGKSQdaEe8GHXV6w/5C4F4NDsijudJX9Wq
-	 J5A4mJal6fKT5zIalGwe+ft7Moby3elzC/N9qctmy5rd0bKcGX/6BGWyioDT1vHSOag==
+	t=1793974652;
+	b=wV+kPG4IjvtJMgrjWzJomSDu+A5bQhYfeqqR+sGnWK0hHPzOTGpfq6qS/2g4Cl276pno
+	 dLlOws7qp/zePPAQslLocjxJBjh9KYMJ2UG/lcyes/iM4W8T4xADRWOKTGi4Hn63mnxWL
+	 EV8yQqrUBzJvzyRN8HHOP+evQYYlWGeiUGCKPJRKQfvmLVk+SZ01jPvHEk7UFdGGH1ebB
+	 aoyRAQ5UyM47RH3FjTcA+DpaLj8r1GtCeQMsOxG3jakjNe3Vnd4l99j7EXc3E6JxmjWpu
+	 /Op5trZpVw2bkhHPv2PbGncPyEki4j/Cpwzf5vTBWVWhPvzl08bxDMH1F3ixODfiz4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974617;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dwXHHpm3CuU/WL5LiGP9uPvStnllZcs54IcKag8FfB8=;
-	b=vt8FyyX1KyQMGkWlqpX80iCPiu/HXXVcreC3ry7Xg5ckTLhg3Ns4XzUb87YFOY5AMUmZ
-	 Ssmyls7bejOcy2NUgOoTcXW6u9T+HKBc/DwukfXe9L+X31LKrlpbWz05yyWRypiGqQrAK
-	 xF+Pa9GiFI982bgWJQgpmHLrhEQ6H8hh3e35Uebj0N+UFS/+DgxHM6s9+fZkRFYTlkUqD
-	 NmI+W9sbiy2fu1haMokf+WQtvCnDJ7ZB4upI/VwRYKKAeeEo95mAv/ULfD+cmw5Qr9MyY
-	 dEosxCh3L9ZIRVcep6HQm/LIgUnZRxuuUciN0xGANjMxuHiiUJwJOUgWkew5Vlm9MSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974652;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=C6998j54hMzCksQFziWwL93rZ04Tbfc01l4jxthA7xg=;
+	b=tk1Xpq3i0yMEQR87aQSpYN4KaAiniA0g/6qQ3W4EHqYGKG39l6iLJHDrrX/KgDR4uGyR
+	 YAkAk0RvmGzUu8sNocSGYMcaN79OqwGuaoeAXPNJafeampSiiN8io80GgByR+7Sjoye8I
+	 eO3rWT7n3MIoFcV8j+FVN3uj5NxYp2KNCZ4/vn6p34pHy09CqpPaHO/kJhX7+7/O1gDWw
+	 ZFOk2UOUl1Uurje2r90tYltRuC0nhjCwdE30X3zqjGE+XIocl91tw1LUidlpmqHMFHxHl
+	 c/CYvp8C0P1++iVYdsSdDygH/iw/1aKsPhbN72BAHzW7Kcv32CMRWXWWmG3yo//bZbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g11xEAwD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkbDgXa9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD48606A326;
-	Fri,  6 Nov 2026 14:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5C0606A326;
+	Fri,  6 Nov 2026 14:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g11xEAwD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587F31F008AB;
-	Fri,  6 Nov 2026 14:16:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkbDgXa9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25F51F0089F;
+	Fri,  6 Nov 2026 14:17:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974616;
-	bh=dwXHHpm3CuU/WL5LiGP9uPvStnllZcs54IcKag8FfB8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g11xEAwDI+0oChFkS4bRa3cXnLHKP4QCFHvBnsTlh4KVSDwQzEctFtGXMpnaImf9Y
-	 AJzcwR+ywpe5HuPPTZ5wt4C9CgTmoUGnp4RzJKIVvu/JPxrai5QE/uB+jO0mCbTIiy
-	 icM4FgM9zAlSTWojIfDWFrhGu7x5Wqp4V58/CEf3RE/FEC8yJRRnsuMaVwy8jpiGI+
-	 2nHCnEUkJah2+3zxo6hyycPaDPd+b5NyKvreqGpAzyLHjmd4hpF1Fx+PzfLd0CZIpc
-	 7IY8t3s2WaKJ0RGQA1t++NFqdUbKwLvwgTWgq1jwKrvnZ+YTqmNPUQ6wQTrMZpamw4
-	 XoRN48wjpCcfg==
-Date: Fri, 6 Nov 2026 08:16:53 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Simona Vetter <simona@ffwll.ch>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v6 05/10] dt-bindings: display: tegra: Document Tegra20
- DSI port
-Message-ID: <179397461264.2992702.17337813112926510440.robh@kernel.org>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-6-clamor95@gmail.com>
+	s=k20260515; t=1793974651;
+	bh=C6998j54hMzCksQFziWwL93rZ04Tbfc01l4jxthA7xg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=dkbDgXa9u3oj+08Vl8kuBq+lpN1QTdOG+sLOcpaAGzlRd4w5evIO7OWT3Ow38XZN5
+	 j4yVAXCZOuJ2Todjle2ykecaDL9Q1QzvDw3wcQiB6TxYBDULHGEFsOFIj0vZSXdSth
+	 C5AblNYqXlnfe0VXm2AY7wUZ6NBr6wSym04VoSyB3KlzxSjBTeUfXZROojnEkBVlqx
+	 F8ykkf8PnlExPRA2G4uGTUHcgglQDXcoz6uPHBc/znhq+9WH9AM2P05bvWGPvvaWNH
+	 fZnDWd28yZQNBAg83dLkgy7C+iw5pu/mwLtgehBdmDU4aDZyy1owZ6mGJIwuVtdZ4Q
+	 1cqLG39PLKq3Q==
+From: David Hildenbrand <david@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Sasha Levin <sashal@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, David Hildenbrand <david@kernel.org>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261105171801.2189772-1-sashal@kernel.org>
+References: <20261105171801.2189772-1-sashal@kernel.org>
+Subject: Re: [PATCH] selftests/mm: add CONFIG_DEBUG_FS to the config
+ fragment
+Message-Id: <179397464426.9151.10517393467431591853.b4-ty@b4>
+Date: Fri, 06 Nov 2026 15:17:24 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,20 +69,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105140510.165165-6-clamor95@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
+On Thu, 05 Nov 2026 12:18:01 -0500, Sasha Levin wrote:
+> The split_huge_page and gup tests need debugfs, and CONFIG_GUP_TEST
+> depends on it. Add CONFIG_DEBUG_FS=y to the fragment.
 
-On Thu, 05 Nov 2026 16:05:05 +0200, Svyatoslav Ryhel wrote:
-> Document the optional port node, which is required for correctly modeling
-> a dual-mode panel.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../bindings/display/tegra/nvidia,tegra20-dsi.yaml          | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
+Applied, thanks!
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+tree: mm/core.git
+branch: thp-7.5.misc
+
+Applied patches will appear soon in mm-next, followed by linux-next.
+
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/1] selftests/mm: add CONFIG_DEBUG_FS to the config fragment
+      https://git.kernel.org/mm/core/c/31ea5515
+
+-- 
+Cheers,
+
+David
 
