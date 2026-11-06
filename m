@@ -1,107 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964081;
-	b=TcEgLn2Q4bn1YBpiwtb686cysOVsHEFbvtlqOue0qPum7E+3ULHEmOrj5RDvmIrlWnsz
-	 loI0jcRxsO7o9HpuXyBV6ZDuvjyAT3SKhEaYyvkhsaRPAev9z5usf7aq1UeJ3vGoskNyb
-	 ZXEc2IDFBQpcEsPppH+Bi3Ns4RYpKzaY269cEQZb3aBsdYnw06qnaZv05dGcOI3LQn174
-	 bJ+0wJKUWAry6Cstl8iv2q4oLGttNyIwhsr5CthzkHSa+iyFY9Ebzr7BFwlvdIh+1vWC1
-	 +MpftwaRgWdOMiGuY4SFDqDrtAWqnF47C7c+dw0k/DSruyhE+fjNnFbsWNGSFkx0hAw==
+	t=1793964116;
+	b=z+vZUWyQmY75VlmvDjOcXI51QtGXMr+1WudueZCQ9pjRe7odKhKLAixHz/eG1CpgZXnA
+	 +FlrwMPi+deYxgPZeWyaR4YrZw3isXJ0GNAsYvSkBTUgl3+PdKGX8Pl5bWakMy9Jaiiq/
+	 3HTNdXxVYMpwyTD/lg5F+hMcnb8JRBTMiVWx/TGuXC1cN8KwrfrvaXyDoyiPGezt40i8o
+	 GcgPLIHVVzL8hDH3XVYMo+8UMU5G9RrlM6UaBlay9NmhaqwOH+/wEo4zABQiDnvWCbU5x
+	 TCd04cLGKoxDSbd5kOnI6PdN22xPqY4ZSTo/sOyQMObT+srj992vNT63K5K1HWQ8Gug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964081;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uXU0cGie9RgBAnl9s8QiGJKFP3ILXbj0HPLmva/mBOw=;
-	b=frKdlHWoFZDhQbEGXvFS5C9Q7KP0+b2nwSF8cW4WgNVjX3gXMtCZrhfBKfU47Oyg8+uE
-	 iNGv4Md6nZh3sRUa5fgrXvVKIVjeWajfN1xgx52HZ6lE0iojthGe5qmagEnZYiId3ml65
-	 WcUupl2pS3yf8u5Fm1LlYiU+RCGeBb4t4pWZ4KxAUMfOE7lKza4pJepXmP02O7Mm9lJvO
-	 4+7UXgSeEk/FBM0j/V0wD3URyLtY4GdmMJ0Wn9oOXj//yROMIBSWFqwt1Cvs2huyAyOmd
-	 pJtdMrdxSh9ch3GSY7QDWUsOSJctOrf85b5wXTJ+8ZuuDEKGnEXFQN2QR5KD8BtczHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964116;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=z7aW3+opSiH7y0XqRuy6at87FK5gKoz43cEXHGVwj4I=;
+	b=VDhJ/nE2CX5gs1SwX7VQZ6dBfGCDt82wb4vaHJUjALLfa+WOAbaMN2jXnLtpqji59lZs
+	 Dmvu9MPKJ8TWmQOc+xewn4bSwr97RP08JEsuVCYvRYo2QQ1OJIsybko5K8CEYhZAXreBw
+	 QK5NjoA19hrzPWiF1YLx7C+6DZIzWXPXXXUe66f3jtDJZ+ZCg+U6M372iixZryZAhw2W9
+	 YQsOgCnx9+QDDErHezerSyGQAhLnZ7RIqk8mw+2ozL4ab2zV+hrTcvHvdBO7+wdhrUMrS
+	 jw1WKAe5AxOUTzzntHMPrf9YBHspGB6scYXad0tIQDsrSx7k5ZVY59S92k9jB+m7G9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=m+dGSZY8;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kWgRMBfI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBFB606D803
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:21:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FBFB606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E42606A326;
+	Fri,  6 Nov 2026 11:21:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=m+dGSZY8
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso3429875e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:21:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793964079; x=1794568879; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uXU0cGie9RgBAnl9s8QiGJKFP3ILXbj0HPLmva/mBOw=;
-        b=m+dGSZY8I7BFHE9ZqLrBdaji+3TUwf2E5oxwOjMXV3vQw6gBmFHgHkX5RMiUPTOQJp
-         aligg5TaGhgbBl/eEUJCSmnZs3Pa813OCUNLwvGhU4y7UwiDDxxObJ4Grte4uUnAuFfO
-         udvGdfgXID2U0oFAhDhS57IlLal/Rg/kQx1B7KtnBcNXQeMW1YGsN/u9oFYC5968jNFy
-         ZxQkiLwa8oZ5kVM3iUuLUNRqP2S+2Z3s84XG5JtHg6vz3AaqS20tu+rafvVH7UmEAirL
-         J7jNcX+/98pfrWcfATNKcvfj8vSPOnGH0D7AGOXQblVdeEvlA7CDazpm4jaoNolF4I5a
-         W6Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964079; x=1794568879;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uXU0cGie9RgBAnl9s8QiGJKFP3ILXbj0HPLmva/mBOw=;
-        b=VyRrpdJ/oeWhvDlZAEYrGpgjsUHHuBg1P5Cp71ipk+q+kdVV3G4TPoJrIQvHCLY60V
-         ELRTXA0nr+5/W3JyQCicsU0b8qgdZQinG4yT+aQGsdxOMTVZZ6gtadE4hHz9RFjv9+32
-         wen+RVzkQV5f6elSmltdTvR8TiPhMoeQGzs9hJwKRs0bSAWQglyIqIrz3Ad+UFUSEUC3
-         HKU/K/YSTe9Rc++UFBLnqmwJoYSB19qiVGX5vUenu+w4d07m4//O66ieC4xEgULQOIRA
-         rPVr7GgcjH+QWkN+hD5JoOaWKfxQoBpdnYrP6e9ut2/OjwNjguepxF6dhDNHP/49g/Xm
-         kpuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOpBEYIzelnjWncc2q4VK67JNHT7iz/9wbQzD/a/PBfLUGvy3b54I+KjjuNtvrTLvcQnlt8JTsCkImOb8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+yAgKfIP+BH2a2ZsCs1cXF3UJ+KaYN/MQhZcW6RL6ZNKa9ToMq
-	3Yjqv2IECn9YnZxRDqbX5DcQaHMrDi31obCE5KvqE0ev7Y+Rjk/E99VopTQLwSbc1q4=
-X-Gm-Gg: AYBFou3/NuGIXLnKFgmAosz3c6xH+KO2yDlJ6UAjnaOrXhGxruOWsFZVKfleab6tV3L
-	Wz2Etag1n7qpjFEYfIol8zpqL0+T79NbHHmV+eVP8hW1kPs8lqMSRRp+Z6kLyZws0TdGAKsFBta
-	c+n34VHgv/u/drAqppTiQ8TjOYSV0Dqjljmy18z1Gzo3GHFUssAgtze4O7Ob0W7M80W9wT6Z1Jl
-	dCYxBBemuGY6FyOdyuwg9Mx/skXBXLG6QDKIszYNpLdt+QiANrE87TppLuARIxsVy+7FpGlFhyu
-	q/ncs63Jipv/w66DTbiOvW/bnp3Dy0XAhBsy53Z1jrJyjqlyRR7R7tZdrhWP4LaejIfbLar7CiL
-	ztDmWsSgMCWpQ1ejF1syZm17GXoIMsjiiWr4+uTgQrTDHFR+Mrl/IL0ergGTO6Ldnz5+TypooQq
-	1rbeqxJIJScPi1d1TtvX6T8qOwzn2Co1F6znYpUdx8TiFvGn85HlanSaGZNNq4EGOdSDL30E35P
-	3QGxvFzmi59AoQvp3HAwBOToe4PRYDId4ruh/oP3aVP324OdG8SYhpGvfAf94ldRudPMM+c8Ak+
-	PvOjFqPRMrlFAqJv0tCuvDk65+w6ql9Sh6DWDkOHRZ/Owu81mVcbIqWScYduR7U=
-X-Received: by 2002:a05:600c:530d:b0:4a1:88de:9e8b with SMTP id 5b1f17b1804b1-4b6dd82ab4bmr29802925e9.5.1793964078897;
-        Fri, 06 Nov 2026 03:21:18 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5c25:f8d1:d9d7:54c1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6e2028d9bsm102404695e9.9.2026.11.06.03.21.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 03:21:18 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v3 2/5] dt-bindings: display: Add the Ingenic X1600 display controller
-Date: Fri,  6 Nov 2026 12:19:57 +0100
-Message-ID: <20261106112000.1612-3-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261106112000.1612-1-olivier@mgcrea.io>
-References: <20261106112000.1612-1-olivier@mgcrea.io>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kWgRMBfI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8471F008A1;
+	Fri,  6 Nov 2026 11:21:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793964115;
+	bh=z7aW3+opSiH7y0XqRuy6at87FK5gKoz43cEXHGVwj4I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kWgRMBfICz/KGL0LPa6FKWNca5OHfggwd5woJwFqwHuhXPWPHcF44TydWhSYhQEI3
+	 f0iXsXQO61f2Hu6MqnrwbLLzW3CAeA52xJ6yof4l7Qbt3cnqCTjSVqsOVGVgXtNvE5
+	 VqbcGK3wHcW91ZhlCc7T6tl7J+DNfexArWOD2szT/vMSq4XKjg0HbZmcdfqg9B+rxc
+	 8yoQs2z+7JO2d2FhX3SGvq5J+mePC3O7cKqwa/L8U6whDLFYHbsJmYI/+Ees4jzSX8
+	 jeayfgA4FFVfLyuUqHHzBTSc4qEhfUgTKNK5iyK2RicG/pjeubmPhIOiM9gfeiKlM9
+	 d2FDxwB8fOORw==
+Message-ID: <0b4e0483-2aee-4201-af48-96042944ee85@kernel.org>
+Date: Fri, 6 Nov 2026 12:21:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,111 +51,316 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 24/25] riscv: add Metanoia MT2824 SoC and MT5824 EVB
+ support
+To: =?UTF-8?Q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Samuel Holland <samuel.holland@sifive.com>,
+ Ben Zong-You Xie <ben717@andestech.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>,
+ Mark Brown <broonie@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>,
+ Minas Harutyunyan <hminas@synopsys.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ =?UTF-8?B?UmFuZG9scGggU2hlbmctS2FpIExpbijmnpfogZblh7Ep?=
+ <randolph@andestech.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-pm@vger.kernel.org, linux-phy@lists.infradead.org,
+ Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-watchdog@vger.kernel.org
+References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+ <20261106-mt2824-v1-24-86087eaf5af4@bootlin.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261106-mt2824-v1-24-86087eaf5af4@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The X1600's display controller fetches frames through descriptors and
-keeps its interface and timings in register blocks of their own (X1600
-programming manual, chapter 10), so it shares nothing with the
-controllers ingenic,lcd.yaml describes. Its registers are those of the
-X2000's display controller without the composer, which the X2000 and
-X2600 manuals call the DPU, as the X1600 manual does in its register and
-clock names: hence ingenic,x1600-dpu, which an X2000 binding can extend.
+On 06/11/2026 10:30, Benoît Monin wrote:
+> Add the device tree for the Metanoia MT2824, a dual-core Andes
+> AX45MP-based SoC, and for the MT5824 evaluation board.
+> 
+> The SoC device tree describes the CPUs and their L2 cache, the PLIC,
+> PLICSW and PLMT, the reset controller, the reboot controller, the
+> watchdog, two UARTs, the QSPI and eight SPI controllers, the DWC
+> MSHC MMC controller, and the USB2 controller.
+> 
+> The MT5824 EVB enables the watchdog, the two UARTs, the MMC
+> controller, the QSPI port with its SPI-NOR flash, the first three SPI
+> controllers, and the USB controller.
+> 
+> Originally-by: Jun Chang <jun.chang@metanoia-comm.com>
+> Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
+> ---
+>  arch/riscv/boot/dts/Makefile                |   1 +
+>  arch/riscv/boot/dts/metanoia/Makefile       |   2 +
+>  arch/riscv/boot/dts/metanoia/mt2824.dtsi    | 330 ++++++++++++++++++++++++++++
+>  arch/riscv/boot/dts/metanoia/mt5824-evb.dts |  81 +++++++
+>  4 files changed, 414 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
+> index 69d8751fb17c..8e1e987ea089 100644
+> --- a/arch/riscv/boot/dts/Makefile
+> +++ b/arch/riscv/boot/dts/Makefile
+> @@ -4,6 +4,7 @@ subdir-y += andes
+>  subdir-y += anlogic
+>  subdir-y += canaan
+>  subdir-y += eswin
+> +subdir-y += metanoia
+>  subdir-y += microchip
+>  subdir-y += renesas
+>  subdir-y += sifive
+> diff --git a/arch/riscv/boot/dts/metanoia/Makefile b/arch/riscv/boot/dts/metanoia/Makefile
+> new file mode 100644
+> index 000000000000..7a685798d5a4
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/metanoia/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +dtb-$(CONFIG_ARCH_METANOIA) += mt5824-evb.dtb
+> diff --git a/arch/riscv/boot/dts/metanoia/mt2824.dtsi b/arch/riscv/boot/dts/metanoia/mt2824.dtsi
+> new file mode 100644
+> index 000000000000..5f73c6d3760b
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/metanoia/mt2824.dtsi
+> @@ -0,0 +1,330 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (C) 2026 Metanoia Communications Inc.. All rights reserved.
+> + */
+> +
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +/ {
+> +	#address-cells = <0x02>;
+> +	#size-cells = <0x02>;
+> +	compatible = "metanoia,mt2824";
+> +
+> +	cpus: cpus {
+> +		#address-cells = <0x01>;
+> +		#size-cells = <0x00>;
+> +		timebase-frequency = <20000000>;
+> +
+> +		cpu0: cpu@0 {
+> +			device_type = "cpu";
+> +			reg = <0x00>;
+> +			compatible = "andestech,ax45mp", "riscv";
+> +			riscv,isa-base = "rv64i";
+> +			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
+> +					       "zicntr", "zicsr", "zifencei",
+> +					       "zihpm", "xandespmu";
+> +			mmu-type = "riscv,sv39";
+> +			clock-frequency = <900000000>;
+> +			i-cache-size = <0x8000>;
+> +			i-cache-sets = <0x100>;
+> +			i-cache-line-size = <0x40>;
+> +			i-cache-block-size = <0x40>;
+> +			d-cache-size = <0x8000>;
+> +			d-cache-sets = <0x80>;
+> +			d-cache-line-size = <0x40>;
+> +			d-cache-block-size = <0x40>;
+> +			next-level-cache = <&l2_cache>;
+> +
+> +			cpu0intc: interrupt-controller {
+> +				#interrupt-cells = <0x01>;
+> +				interrupt-controller;
+> +				compatible = "andestech,cpu-intc", "riscv,cpu-intc";
+> +			};
+> +		};
+> +
+> +		cpu1: cpu@1 {
+> +			device_type = "cpu";
+> +			reg = <0x01>;
+> +			compatible = "andestech,ax45mp", "riscv";
+> +			riscv,isa-base = "rv64i";
+> +			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
+> +					       "zicntr", "zicsr", "zifencei",
+> +					       "zihpm", "xandespmu";
+> +			mmu-type = "riscv,sv39";
+> +			clock-frequency = <900000000>;
+> +			i-cache-size = <0x8000>;
+> +			i-cache-sets = <0x100>;
+> +			i-cache-line-size = <0x40>;
+> +			i-cache-block-size = <0x40>;
+> +			d-cache-size = <0x8000>;
+> +			d-cache-sets = <0x80>;
+> +			d-cache-line-size = <0x40>;
+> +			d-cache-block-size = <0x40>;
+> +			next-level-cache = <&l2_cache>;
+> +
+> +			cpu1intc: interrupt-controller {
+> +				#interrupt-cells = <0x01>;
+> +				interrupt-controller;
+> +				compatible = "andestech,cpu-intc", "riscv,cpu-intc";
+> +			};
+> +		};
+> +	};
+> +
+> +	clocks {
+> +		ext_clk: ext-clk {
+> +			compatible = "fixed-clock";
+> +			#clock-cells = <0>;
+> +			clock-frequency = <20000000>;
+> +			clock-output-names = "ext-clk";
+> +		};
+> +
+> +		pclk_div4: platform-clock-div4 {
+> +			compatible = "fixed-clock";
+> +			#clock-cells = <0>;
+> +			clock-frequency = <225000000>;
+> +			clock-output-names = "platform-clock-div4";
+> +		};
+> +
+> +		pll_soc_out3: pll-soc-out3 {
+> +			compatible = "fixed-clock";
+> +			#clock-cells = <0>;
+> +			clock-frequency = <180000000>;
+> +			clock-output-names = "pll-soc-out3";
+> +		};
+> +
+> +		usb_otg_ahb_clk: clock-usb-otg-ahb {
+> +			compatible = "fixed-clock";
+> +			#clock-cells = <0>;
+> +			clock-frequency = <60000000>;
+> +			clock-output-names = "otg";
+> +		};
+> +	};
+> +
+> +	soc: soc {
+> +		#address-cells = <0x02>;
+> +		#size-cells = <0x02>;
+> +		compatible = "simple-bus";
+> +		interrupt-parent = <&plic>;
+> +		ranges;
+> +
+> +		usb0: usb@4000000 {
+> +			compatible = "metanoia,mt2824-usb", "snps,dwc2";
+> +			reg = <0x0 0x04000000 0x0 0x100000>;
+> +			interrupts = <7 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&usb_otg_ahb_clk>;
+> +			clock-names = "otg";
+> +			dr_mode = "host";
+> +			resets = <&rst 19>, <&rst 20>;
+> +			reset-names = "dwc2", "dwc2-ecc";
+> +			phys = <&usb2phy>;
+> +			phy-names = "usb2-phy";
+> +			hnp-disable;
+> +			srp-disable;
+> +			disable-over-current;
+> +			status = "disabled";
+> +		};
+> +
+> +		mmcsd: mmc@4100000 {
+> +			compatible = "metanoia,mt2824-dwcmshc";
+> +			clocks = <&pll_soc_out3>;
+> +			clock-names = "core";
+> +			reg = <0x0 0x04100000 0x0 0x00100000>;
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
----
-v3:
-- ingenic,x1600-dpu, titled "display controller (DPU)" (Nikolaus).
-- No $nodename, no clock-names (Krzysztof); example node
-  display-controller@.
+Please follow coding style and dt-checkstyle.
 
- .../bindings/display/ingenic,x1600-dpu.yaml   | 61 +++++++++++++++++++
- MAINTAINERS                                   |  5 ++
- 2 files changed, 66 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
+Also 0x00100000 is 0x100000
 
-diff --git a/Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml b/Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
-new file mode 100644
-index 000000000000..0e9f4442e4b9
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
-@@ -0,0 +1,61 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/ingenic,x1600-dpu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Ingenic X1600 display controller (DPU)
-+
-+maintainers:
-+  - Olivier Louvignes <olivier@mgcrea.io>
-+
-+description:
-+  The display controller of the Ingenic X1600 SoC, the DPU of the X2000
-+  without its composer. It fetches frames through descriptors in memory
-+  and drives a parallel RGB panel or a smart panel; its registers have
-+  nothing in common with the controllers described in ingenic,lcd.yaml.
-+
-+properties:
-+  compatible:
-+    const: ingenic,x1600-dpu
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: The pixel clock, whose gate also gates the controller
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/properties/port
-+    description: The output, to the panel or bridge.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    display-controller@13050000 {
-+        compatible = "ingenic,x1600-dpu";
-+        reg = <0x13050000 0x10000>;
-+
-+        interrupt-parent = <&intc>;
-+        interrupts = <31>;
-+
-+        clocks = <&cgu 16>;
-+
-+        port {
-+            dpu_out: endpoint {
-+                remote-endpoint = <&panel_in>;
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c10342aa32f3..a5160860ae26 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13176,6 +13176,11 @@ F:	include/linux/mfd/ingenic-tcu.h
- F:	sound/soc/codecs/jz47*
- F:	sound/soc/jz4740/
- 
-+INGENIC X1600 DRM DRIVER
-+M:	Olivier Louvignes <olivier@mgcrea.io>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
-+
- INJOINIC IP5xxx POWER BANK IC DRIVER
- M:	Samuel Holland <samuel@sholland.org>
- S:	Maintained
--- 
-2.39.5
+Anywya, look at size of address space. 0x100000, right?
 
+...
+
+> +		reboot: reboot@10000004 {
+> +			compatible = "metanoia,mt2824-reboot";
+> +			reg = <0x0 0x10000004 0x0 0x08>;
+
+Now look here - 0x8
+
+> +		};
+> +
+> +		rst: reset-controller@1000000c {
+> +			#reset-cells = <1>;
+
+Random coding style.
+
+> +			compatible = "metanoia,mt2824-reset";
+> +			reg = <0x0 0x1000000c 0x0 0x04>;
+
+and 0x4.
+
+Do you see the problem?
+
+Why do you pad some numbers?
+
+> +		};
+> +
+> +		watchdog: watchdog@10090000 {
+> +			compatible = "metanoia,mt2824-wdt", "andestech,ae350-wdt";
+> +			reg = <0x0 0x10090000 0x0 0x10000>;
+> +			clocks = <&ext_clk>;
+> +			andestech,clock-source = <0>;
+> +			timeout-sec = <10>;
+> +			status = "disabled";
+
+Why? It's always there, no?
+
+
+> +
+> +	usb2phy: usb2-phy {
+
+Follow DTS coding style.
+
+
+Best regards,
+Krzysztof
