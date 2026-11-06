@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950735;
-	b=FI2hhXDGS01OHCRFpAxTfHqlMyE/wuEgc2/Jjg909VMC9QJmWPjH2AG+HqDsRMnaBBRS
-	 ojlvzWSxie1q7B3fqmY4CbD+AOXWaLuxHEbuAH3a1h/0OVkKMgDe1dNxU0+DTYKmS0UZJ
-	 ldQ1K5cHD0IB9OHq7o8IJfnBIXEzXfw5IKAYsyVmgVvE63mqi5LubOkUvksvau+7KOJCN
-	 BWWNOQre9YvIS8q2/waexMC7W9F3gQsDK909+2KIzWfhZCZ22J150OsazsbwtzWSe4VIV
-	 8WiIKx63WbyEBPTPWwMzKWndv6FHycLMUyRnbo5EnjLXtUjh7bSLgeikh+JtoAWhZxg==
+	t=1793950728;
+	b=QMVTl1tCPqJVphSgH4iaEu+NT0tdLwwabuGg0mVHr7NtgoNT8hd2TcT67iizVE4byCRf
+	 M/M52D+jqWoaHkneGkiQXOQYvUrVpz0f1yyRgZp4lz1LMlVOVVBubLv7sstp05njqL2W+
+	 3Zs2Jm30lSWmRJufReLZhekgTblsI8Wcj4vAeGFQiDDVjjRET5QyPQcyXjKXQxVytNJhj
+	 6LIJ9WXFBFxw1to22ioLqogHx45m5HOxTESGtkhTwfDKy9wQkLPbExtBNH76UmnHjPoya
+	 qHuR/4v/OPS9wiF8Ap8PzVxWosZ7kc6kKSbRt4maEdJ8jKBBQJS1Tz3B6ZlzEMIuH/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950735;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950728;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=45d32jUR4SGIqYEteYzNq9z9Plnu2UNR//Dnq4WK+0g=;
-	b=XD+w5xoSntV93Vge9Ka/n2Wcer2s93tYx55ogv9gUjUYOSUHI3K9K5kDg4Y5XSE+p7hX
-	 kH05bfGgSm3XigXVPxom0AJe8YU+DMz2JnZDjtnw7h8fi4KhuIJcOWbJrm7pYSAzYnkhI
-	 Rw3kHxbjSy+aFp1nwAVsQnwDi+I9NV/jZoCbAUcmiNQd95rjIT7tQePrWZNgi9wqXxG4h
-	 jzon0+INIwtrXXs0PQbAfPl+YGZv9F7EjSd6dZafHU+/vJRpzQASw0Hv0M1AFsUjZDk2U
-	 +fYCiCCVpRaoWdIZ1BsGDOb/Tl+C/HFnCEzbif7TMeiFLkE3+YWOh1F5nA8/EatW/+A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=TcYkro3OCO9AzDAkILfFADp57R1OwJJFMCiJFJWlr6Y=;
+	b=h2Cc3EUIIUUeC+Nw17h1HAr3ZpUP3nZW4hCXGMnUHbFJ9SODjM540GHr2wi1W98ERJpV
+	 e5hyMrsJRNWxFVWXmhalJUwRZPU0uzPEPcyketdscY9nO9lVspFp4bBjvRzoRaJsfbgbX
+	 C1jZ41Fm97Cp7PV7uaAHViCqhXh1gHZnADnDMPXGhhQGO8YPmdX7SPCt9tqta4cVFzGic
+	 b8UWatD2YJnlkS/aWultHi8B2WtaptJQZ8UpvMnBjy4fdccC1381PIMVQ10mEYHMabPxY
+	 stVAV2pob315iwhD+UAkrSVdJs5el3qRL2JfoTmAiyPIZOn1lhw+j+9JaeckvBeLTXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dihod8cw;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=URrZJ691;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD84606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:38:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DD84606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D770606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:38:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D770606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dihod8cw
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a07078200fso126539b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:38:55 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=URrZJ691
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-89f28c3ac7bso115213b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:38:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793950735; x=1794555535; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=45d32jUR4SGIqYEteYzNq9z9Plnu2UNR//Dnq4WK+0g=;
-        b=dihod8cwFNzTnuhOXA0JUX/EAIiYARoXqSAiN3GIr2f3Bv6RXnX3y+VT+M9LpJFHLl
-         D5mKK8Is2X/h1dkcl/iy5TPtj38oindUDfGpEUWxwKZqolF4w/6NaosItrD7bHtdVld6
-         qacfWiUrMOxiHWWzRAY4oLR2azlKk0d4b8oYxE2ZqjnID0jth5iIP7OzWd5B4QQYVkNH
-         3kRz6AVkgkReRsgEcayD/NWG1Mnm5BxZipfgNtj3kvqltHSaavf7p8HYWkCclefxYIDL
-         kf9yRm8bN9QcPU5Ol+MwLU9rsfvLsfgeglB50wg4mLiojEOlk5J9jekC5T85LCZGycYv
-         D7rA==
+        d=gmail.com; s=20260707; t=1793950727; x=1794555527; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TcYkro3OCO9AzDAkILfFADp57R1OwJJFMCiJFJWlr6Y=;
+        b=URrZJ691JmVcD72j0SGaNZStzdayZrIFIHow+ExwIvgRqcMpD1eLXE61lIGxoePydc
+         HlNv1Hzt+mAEzDSroZ8vm6qYAvNkJxZjgp5tfqM9RTqZjRys5XlKAkMCJjGjcFl7K3FA
+         OohaON1wc4rbUXqiazpy+/FyX/nDwSL3i5rOe6KFASbecfQUPp5TNRK3peQVIrIJz21M
+         ppF+oCnScVfQSpY0ixdIV1aJE4LFqoF/ZpRKtvmqYOzgp/orbr3QHuBGkjEB4/LeHrRF
+         qtFsqqV4ZDvphOtRJs3IzJWIm+roa9Ph6KdeYIpx1cDMms2rXYpVep3Ph6nWxW9U/NJg
+         2IFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793950735; x=1794555535;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=45d32jUR4SGIqYEteYzNq9z9Plnu2UNR//Dnq4WK+0g=;
-        b=k9BBlzvWjpeFtTNZUmeNNxlq2GkfHx3sXtwQoM7HIQo5dhI6Am75/zg/XeWMhxjyE3
-         1m1WNl+5j4r+CWETBQl4baynjPb2v2S/pnRltmsnQnkEOGGZwBCfbTHabOY70a8/JpvF
-         sIED+LTzneTOd5LERidDxNv3bldIBzP+dqu8OFCHpL1+I7cb02TaqX0vkFIVXt/K02jc
-         x0l7ApQD6pt3Lssf7lKX2CnwQYTD86JgMIKr5C+uvHxv4XuLRPQj1071rjB6DkKp+T+E
-         Pt3eOxUDArbaEEj7DvdbskvRJBzaYelWY27vqTL7FD6JboKTYlmCDiOWY1mUT4btlfGA
-         RXXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+BySSBshCQ2WIFNckUVlAs4NRSXSxa8ZMxC84S7LyppHUF/1Y7XSVx+O6uYn99b/wQEQsdIuCg/VlN9g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zyfoRRZ7yM/Yz9aVT21aUmWasGUCnlTXlKBP1bCfR5oE1FBXs
-	/Lrmkd+6I4zquBuFYIe8Pje1aa62bHs6x1p0Evq/9LY6vJodwD5AfWYN
-X-Gm-Gg: AYBFou1By2kxppv1Ymz/IPkOaGVyImCiLotTnPsAl3zkTx8mxUh+VQRzacjPPqf56D3
-	qiPhITVPwp32XO4tjataKGG/FJh3vE8BWFhuXVfBLjd7kP3oajeH81N3ORakQuDkPjAXTpygvRJ
-	9AcwkvoR0kBAMyNcf3BuLztvqppNYrYfF3tcExTYLNA023nv7AhbxxagqGFuLSwdliYTKkRpkX1
-	UBipYchXxjNIVHy0AFPjig9m8DaFU+xFGOyX2eHaZFC/NL0wmipaUh62DINHq3u3/vUrWr7NDD9
-	59JN12IGtpdWPeREvqPk8Vs9hhakCtuT0eWR6I5bzZOHx0KflVjlloExiXvhYnHcH9tu+q6+c8c
-	gW+yAbqTLfS9ZgvY5qimT9sa7zS40L773a6szLxWyApjzNncbnOdGYZGuA5gWjyEgc9tMtEQSVI
-	lrHQouGmDtnULqN2MxEewrqwZocvWgqDTX774EWHDgC5Qkg6Ww0bUxR7JHFRC5GNuZOLrdoc0Ic
-	OWZ9B22WLZQwSXA9r/v7KxYu2Lqd8yTWSKgOwNO5gJl7BrV1PyBfV+2VvHYn8EfL5G5eh0NjRsH
-	JYw8GfZcH0pr9vOVMV6SiZebR/UO8ReP9CUS0nWTsQqhEZa1A7p6
-X-Received: by 2002:a05:6a00:4654:b0:89e:3ff1:920d with SMTP id d2e1a72fcca58-8b37c241144mr1967494b3a.45.1793950734555;
-        Thu, 05 Nov 2026 23:38:54 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793950727; x=1794555527;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TcYkro3OCO9AzDAkILfFADp57R1OwJJFMCiJFJWlr6Y=;
+        b=ahmzB61almatQgdW9OV6zTvR74hR7e7BxduULAPTKfb2yHdlK/B9jLPH/NAur8AP//
+         vcHG1xxv4joe8fBpcID099NdhxV4JTqI4zB4+rYxBQWOtpVqw2rLpOVM4IPHLgrDUUTm
+         RNh6h1KO9Mleeojq/ZBIlZkh4hNmbadQE+xNbxUspRW7+bzrAZFsaXQDWEh4tntVFzu2
+         /os/6lblC3j0VQpKe9OpnqrQh2PIuRzPKIYbqrKjBgfml+gppIIXRuu6xhGP2Td2ccaJ
+         fpoz4AlgXxKj0RRFiMtxzdVHMzx90nJxmLKzgZwYXkNThPFyedmLJohto/Zcy77ANeSu
+         vyOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVM80PaIoVmFSCAdRJV9e5OFLcFH+H1EaE8E0CBH3Mlkg/topbSeraeEjrYwQiFXmgK2ns6+GJC5mo3Qk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++7mY5qCfhorIWIN212oLjE3gSNVt1C8DwZsvsPuOowQ4E6pcx
+	0Yq+jIHfU0PwG2ed7phvfYcxAMBLnsteI+5z2noEa3DaKNJ4XQjdG81O
+X-Gm-Gg: AYBFou0oood/DLHiLD5xtP3/e2RkFwrV9g1Ygm6uK7MtwdhOZzyFgWmt/c77+HsCOHD
+	maxbeHk0WAFnHmsNPT96vnVMWZuUeAypML5ODhzwD3uBoLoG34pNVFdTp1nP+4fce6tOUdO+ZYe
+	3hE70FxfjcdAQRn480O+mQrnqgIgdHLbW7YOJhOtR8TVW3fC9Iw2mWHAtLlCE+q3xJNlw5nh1dV
+	hEZPCUIA1nS9dfzLwboLpHLwUavCG5Tv+Gdbs9RNhwFsPuuEhxMLqHXoW4Y3rJuTm9bwP49BLPd
+	/pD7NDHLoZcWbyKghFnH9wnl9RnQNCO8OokXCENaGyL7kQ0UfccqSYM88RqYfy8/tNxOF2K2mE6
+	91ZM+rZaZX/VIlrXVYZscuulzzZq58bAlseBxX+54FVXnAqfoiv/E6ErHjfmFhN3kcrW2qhqvp4
+	D472Ca3VbI3ZtgixU1VmlU3VksXFLi8oGnV6vLlcGytCgy+1mWTOpjIpjMQrlaUDa85kJfE6JCp
+	PErwUPkgY8sLKuisyVPK1+Q3IXnFfCRyHd1/9Y/kNE8jR+v9mx0J1Ri3YSX3wb5ymYwKb/4wSHC
+	+kKCagPyPtFPaOLm8M6DM3bGbPSRtA81n+jSLJOkgvD7krMPufrF
+X-Received: by 2002:a05:6a00:2345:b0:88b:76e3:cd8a with SMTP id d2e1a72fcca58-8b37bc5fad2mr1635751b3a.38.1793950727410;
+        Thu, 05 Nov 2026 23:38:47 -0800 (PST)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3597efd53sm373484b3a.23.2026.11.05.23.38.51
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3597efd53sm373484b3a.23.2026.11.05.23.38.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 23:38:53 -0800 (PST)
+        Thu, 05 Nov 2026 23:38:47 -0800 (PST)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -88,12 +87,10 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 2/3] net: dsa: motorcomm: Resolve the flower action list to one ACL verdict
-Date: Fri,  6 Nov 2026 15:38:01 +0800
-Message-ID: <20261106073806.112122-3-mmyangfl@gmail.com>
+Subject: [PATCH net v3 0/3] net: dsa: motorcomm: ACL fixup
+Date: Fri,  6 Nov 2026 15:37:59 +0800
+Message-ID: <20261106073806.112122-1-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106073806.112122-1-mmyangfl@gmail.com>
-References: <20261106073806.112122-1-mmyangfl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,140 +102,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The hardware resolves one forward decision per ACL rule, but the
-translation accumulated every action, so a later action silently changed
-the verdict of the ones before it: an `action drop action trap` filter
-with skip_sw trapped packets to the CPU instead of dropping them.
+Various ACL defects. Found by LLM and manually verified (on YT9215).
 
-Resolve the list against its first terminal action. Only a drop can
-follow a redirect: a drop is an empty destination set, so the software
-verdict is the same whichever control the redirect carries, while a
-second redirect would only extend it if software continued past the
-first one, and the flow action entry carries no mirred control verdict
-to tell that. An action asking for a second decision is rejected when
-skip_sw is set and left to the software path otherwise.
+v3:
+ - also unset `reason` initializer
+ - fix action resolver again
+v2: https://lore.kernel.org/r/20261103095514.338700-1-mmyangfl@gmail.com
+ - withdraw patch 2 as it needs another test run on the device
+ - fix patch 3 to align with software behavior
+v1: https://lore.kernel.org/r/20261102071119.3435180-1-mmyangfl@gmail.com
 
-Fixes: 8eb9e7520b17 ("net: dsa: yt921x: Add ACL support")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- drivers/net/dsa/motorcomm/tc.c | 74 ++++++++++++++++++----------------
- 1 file changed, 39 insertions(+), 35 deletions(-)
+David Yang (3):
+  net: dsa: motorcomm: Fix extack message on unsupported TC actions
+  net: dsa: motorcomm: Resolve the flower action list to one ACL verdict
+  net: dsa: motorcomm: Delete the ACL rule of the port being unbound
 
-diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-index 90b017a11a1b..5c82719e461f 100644
---- a/drivers/net/dsa/motorcomm/tc.c
-+++ b/drivers/net/dsa/motorcomm/tc.c
-@@ -1030,55 +1030,56 @@ yt921x_acl_rule_ext_parse_flow_action(struct yt921x_acl_rule_ext *ruleext,
- 	const struct flow_rule *rule = flow_cls_offload_flow_rule(cls);
- 	const struct flow_action *flow_action = &rule->action;
- 	struct netlink_ext_ack *extack = cls->common.extack;
--	enum flow_action_id redir_act = NUM_FLOW_ACTIONS;
- 	const struct flow_action_entry *act;
- 	u32 *action = ruleext->r.action;
- 	bool seen_priority = false;
- 	bool seen_police = false;
-+	bool terminal = false;
-+	bool redir = false;
- 	const char *reason;
- 	unsigned int i;
- 	int res;
- 
- 	memset(action, 0, 3 * sizeof(*action));
--	flow_action_for_each(i, act, flow_action)
-+	flow_action_for_each(i, act, flow_action) {
-+		/* Only a drop can follow a redirect: a drop is an empty
-+		 * destination set, so the software verdict is the same
-+		 * whichever control the redirect carries. A second redirect
-+		 * would only extend it if software continued past the first
-+		 * one, and the flow action entry carries no mirred control
-+		 * verdict to tell that.
-+		 */
-+		if (redir && act->id != FLOW_ACTION_DROP) {
-+			reason = "Action after redirect";
-+			goto fallback;
-+		}
-+
- 		switch (act->id) {
- 		case FLOW_ACTION_ACCEPT:
-+			action[2] |= YT921X_ACL_ACTc_FWD_EN |
-+				     YT921X_ACL_ACTc_FWD_FWD;
-+			terminal = true;
-+			break;
- 		case FLOW_ACTION_DROP:
--		case FLOW_ACTION_REDIRECT:
--			if (redir_act != NUM_FLOW_ACTIONS &&
--			    redir_act != act->id) {
--				reason = "Different redirect actions";
-+			action[2] |= YT921X_ACL_ACTc_FWD_EN |
-+				     YT921X_ACL_ACTc_FWD_REDIR;
-+			terminal = true;
-+			break;
-+		case FLOW_ACTION_REDIRECT: {
-+			struct dsa_port *to_dp;
-+
-+			to_dp = dsa_port_from_netdev(act->dev);
-+			if (IS_ERR(to_dp) || to_dp->ds != &priv->ds) {
-+				reason = "Redirect to non-local port";
- 				goto fallback;
- 			}
--			redir_act = act->id;
--
--			switch (act->id) {
--			case FLOW_ACTION_ACCEPT:
--				action[2] |= YT921X_ACL_ACTc_FWD_EN |
--					     YT921X_ACL_ACTc_FWD_FWD;
--				break;
--			case FLOW_ACTION_DROP:
--				action[2] |= YT921X_ACL_ACTc_FWD_EN |
--					     YT921X_ACL_ACTc_FWD_REDIR;
--				break;
--			case FLOW_ACTION_REDIRECT: {
--				struct dsa_port *to_dp;
- 
--				to_dp = dsa_port_from_netdev(act->dev);
--				if (IS_ERR(to_dp) || to_dp->ds != &priv->ds) {
--					reason = "Redirect to non-local port";
--					goto fallback;
--				}
--
--				action[2] |= YT921X_ACL_ACTc_FWD_EN |
--					     YT921X_ACL_ACTc_FWD_REDIR |
--					     YT921X_ACL_ACTc_FWD_REDIR_DPORTn(to_dp->index);
--				break;
--			}
--			default:
--				break;
--			}
-+			action[2] |= YT921X_ACL_ACTc_FWD_EN |
-+				     YT921X_ACL_ACTc_FWD_REDIR |
-+				     YT921X_ACL_ACTc_FWD_REDIR_DPORTn(to_dp->index);
-+			redir = true;
- 			break;
-+		}
- 		case FLOW_ACTION_PRIORITY:
- 			if (seen_priority) {
- 				action[0] &= ~YT921X_ACL_ACTa_PRIO_EN;
-@@ -1132,15 +1133,18 @@ yt921x_acl_rule_ext_parse_flow_action(struct yt921x_acl_rule_ext *ruleext,
- 			}
- 			fallthrough;
- 		case FLOW_ACTION_TRAP:
--			redir_act = FLOW_ACTION_TRAP;
--
- 			action[2] &= ~YT921X_ACL_ACTc_FWD_REDIR_DPORTS_M &
- 				     ~YT921X_ACL_ACTc_FWD_M;
- 			action[2] |= YT921X_ACL_ACTc_FWD_EN |
- 				     YT921X_ACL_ACTc_FWD_TRAP;
-+			terminal = true;
- 			break;
- 		}
- 
-+		if (terminal)
-+			break;
-+	}
-+
- 	ruleext->r.sw_assisted = !cls->common.skip_sw;
- 	return 0;
- }
+ drivers/net/dsa/motorcomm/tc.c | 90 ++++++++++++++++++----------------
+ 1 file changed, 49 insertions(+), 41 deletions(-)
+
 -- 
 2.53.0
 
