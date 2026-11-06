@@ -1,54 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793933673;
-	b=dmmhquIyX2JneNU4cvbNq/ZWCSfN5t0BZgDhTTYEkS8L3oIRTx0KPAsX3mWj9vzocA+9
-	 4nmzpmG4toy3KaNyllPY/tfqBpATReHqcLQZy+Ve1k3JcfdaFyjB6GhDaw0g5CDHE3bpn
-	 CmPxoikGyuQpoZcrApEh4PpquZZ/ghz1P6jWbc5nUYXuhcXdvgPo/gMJ5Sa1EUhDTfN2l
-	 6St70pBWbAp5NdJFfe+JHeYslk75ZSZ0WvJ/v9ma0C6ORew4FCg0ormMIGUD5zPpuWFfx
-	 WCFOO4wcwFHYs9X7ia7qt5B4hS5M+lq/peaP1JD/sVVQSgGdoQ+tSR0ju6oLdhfOuGw==
+	t=1793933674;
+	b=OrDPsqll9DDeUthCVCW19ykO5pH3uSbA2uSt2BBSbIPzww8p02W3e6vcLlmFlK0gSgGY
+	 pvUM8ib7L+05qPM48hVdn1Y6sbnTasBXrTqXKvcVgeOdAa6RuqyrkJ9CjZe71v2Y852vQ
+	 1s+fhbkmnforXiuzQahOQOMRisSHn054oydxajhCCsMWeUvMghXVvLuCszkP+EsQ8cCtK
+	 qRyJ4UC9M9qmXL3tC9rhtyz+gSZCl00XrtlkYjppTBBl6UpIZcqver38hucLZdP9hIzXw
+	 ljABN3MaSraoZYsJhtLCDGsrAMfml/uVk9r+wyLuYWUmi0EwDN8qivEsij/XzlsA4iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793933673;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=+zOtCFcE7RqUU0PBGSnDyGDe/moPxuMOnjuMw8Y5ppU=;
-	b=q59ZoTxlkStSrGVqTaguk909bJEggl1b2k1Zi6Y9rnsnyKDO6yOfDwuLGK+Z6Ob/UW2l
-	 c3hWjNxnk62XRtAXRwtA0LvUOEXb9zdYRS5aBQKklHTLDXmlc7TgBDB2uyF41baCX5wg1
-	 /no8uH6mFjXkabD5KEAp8yhOFA1YmS0qPwx1n4OFNhiyUjYo7OymHn1lUm0+kh31w3+2q
-	 YjmEDUGDL/u+QrhtEsM9oa+rVZnVYfAG6zfs+S/9K/0NYD4T8vRn0s5791cA/j6QcSjf9
-	 ZBcnUzQ78a0l1t2oELVHVrvKAxidLtMTD27kxKfq7UWOt7nwEbP8skcVFl7vQwMUNsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933674;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=90tqLU86x8uPgNkZ3M8c35wZTssp+3W/NAEXjTs3QHI=;
+	b=vLggKZaf+aDg3d5Ktqhmmdy8LekOI3Guyg2SFVbzjylbKcWc70OI8EtTBmdIwSv1b/6O
+	 F3OeFow+PVpgmLD4jUcEnq+IjhkSBsmB5+MUsmf1r4/YhallBRzMpwAE3XNdpQgQt880c
+	 HL880vS+wt0XLm3US1oJcLsMeEK0MQkrI4BO7ir2droes+nlFQVZY+nbk3ouf15MVW7ab
+	 iDD4TrCgs5pTFAwchDbRarT9DX5MY7LBarO0xPHuvikqjXYRgSNKSSGxOOoZH/T/Tnxqs
+	 CtD8m7d0CwClsLJfeKVOlMd4uCdSVd/UqOX5ehbvaNx1ygrsVNR5DVJAetRnravRJhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=giIFEOCE;
-	arc=none smtp.remote-ip=91.218.175.51
-Received: from mta0.migadu.com (out-51.mta0.migadu.com [91.218.175.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J9VzhQsn;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166D1606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:54:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 166D1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CA1606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:54:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65CA1606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=giIFEOCE
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cq7ZuuC5w2lt71axYm7fgLbho4rWP3X1twp9z5xV2ZU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793933670; v=1; x=1794538470;
- b=giIFEOCEQO1u+pkZHjbf8duu258+M6iZsrdqhnn9+VYR4/3OZzXw8ZI/g+VSbMVTTqZjG6G1
- x1oxJh5hwiSoUXVMel1yIo/JRiKQdNW9T2RMv/kgYfkuhWNPq1kO1LOkl5WZkyMWi5dt2CX8H3o
- exu6iY8JiNHZFZIGP3SbH09k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 58241d6b69efd81c;
-	Fri, 06 Nov 2026 02:54:30 +0000
-X-Mizu-Trace-ID: 58241d6b69efd81c
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J9VzhQsn
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso136322a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:54:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793933673; x=1794538473; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=90tqLU86x8uPgNkZ3M8c35wZTssp+3W/NAEXjTs3QHI=;
+        b=J9VzhQsnOv6RIbhU77HDWuMUwIFM6fngkdIBg0eHbc32Ey8nLNaaHLFVeLmGpBfJ+I
+         qHPyGW1GaMmXOhiB90h1UQ24qPEX+thrKf/2sYjBq/0783aXZKnFtNovs9Wkz0OkBxVf
+         IQ3H7dinIosNHpYr+NFa2ZtfIS0JWsFRPE5SY49SmXDaTQ1rF93zKnruiYDGo4J6jI6Y
+         4B7UFXlejivGFFqJfrGXRSatfkJCBsv/EL4+126VfKs758G6QKm/zhyph3+Dy9HvAsnK
+         dB4kTbbqOFyVwm4MlG6kZ9Ob1Tqt0td0bSSb6xYIxs+Ko9XpULbrPRw5m1zvaPaQuW0l
+         p31A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793933673; x=1794538473;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=90tqLU86x8uPgNkZ3M8c35wZTssp+3W/NAEXjTs3QHI=;
+        b=MZv3Geofa7p12ym8WVcPgaZEIVsD/1uwYgTaPK4PfH/i0owa2YZcHQLd80zQ85Bn7d
+         yR9vlDeam7KrlMkn4Af1r3/Qs3QtmTUmocKKTYxKID4pIyF5ugixmbGtPPfVknvxR+aU
+         dvM3ldxK3+aSGK2W7lxnRi0yVOmxMs1QQXce3lUdEgnRA55VKcWLmoNpanxZeNQwAgb9
+         FgzjapstWQIJTn1jGGS97mIyzzrFkcOrO46pv+C1I1xsqLfEc8jxSzCgckKoVKbY0NP9
+         tLQQ+bhxSsu5+fM8oFVgx6DXCcBh0E3ifadxmBByUsLpyhphIxXCgNeemk01GpT+vaR2
+         P4Pw==
+X-Forwarded-Encrypted: i=1; AL+hErECM3ZdbyGMjrzmQgZUThHZpw726BX6NegOrsHFGDrjrbKuWVkzSohEYbiuYp3ngUJdUHhsjJyMYXjfZVw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/F0Fcx93MZi0lTWe6jTZAH/Y3gke35ko/UhOvQqOKEairnSmmG
+	aN9XdaLf086gXgNCIbqC+uJNWCACf+cLyIUl/1yAa+QWe92kVp/zRnqhVyNUASjLRPM=
+X-Gm-Gg: AYBFou1XpT8O86Ud4fejbec9WQ0cwCUBCdrz4xSlau8tXPNrg4HEBrOlJaU15apFFDr
+	SbQ7nKOpqHPf8+dg6iiaMgvmixW5Yo+ZGhQau4usE1eV5Bkiq1G+SJ+FAGm7GBOXtUUV9MMtacM
+	EwbCJTR1puOiq6DIMw00i72vyoSB0aOjJHfWhexAq6j0+3l4ag73coNJkEnYl+97OAG2600v/WJ
+	2Xi+QgKlTTenKbHcpzQbDOwOE6zw9dPU1NrAqUUyEQ2zI6tzjHROCheX0HXCF6cPSxGNgwIjONi
+	4faPKVwt7m1ao/N+uReOO8MLzxR1ueRrGuvft4OSXig4m5FLDT9RMXb91t4n9tkJ6RLSw/uZ3E1
+	iDM1owUVfG1mI8mCuv963Cfapr5+rS+Ma/CUWIoKYEL1/LFqsW8C+XcfSTbrrnfA0FkM6qhVDUP
+	lE4H570Q0cYE7+w+lBE8HG6ads2GtbgXotlfPSWO/qlASGpeytXgDLstnXoAWcaXwGMpTItZ2tK
+	HG0wEljOCQP4zd3ZGZ2OvfjoWXrQd+k1ULZMQ6jdJvmNZluRh2WfMZfeH1vCbQTKHDkzdAJGF1c
+	1apB3Sw3U2mP
+X-Received: by 2002:a17:90b:33cc:b0:3b0:9deb:d991 with SMTP id 98e67ed59e1d1-3b0db6d37famr1028274a91.35.1793933672424;
+        Thu, 05 Nov 2026 18:54:32 -0800 (PST)
+Received: from [127.0.1.1] ([2001:da8:7003:1001::9afd])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d78b0a7fsm1416397a91.1.2026.11.05.18.54.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 18:54:31 -0800 (PST)
+From: Liu Yufei <lyf98405@gmail.com>
+Date: Fri, 06 Nov 2026 10:54:17 +0800
+Subject: [PATCH v2] iio: imu: bmi270: fix zero timestamp in triggered
+ buffer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,137 +91,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2 2/4] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <39b7ecd4-e5a1-48d9-8d34-4bf8f8ad4ca2@linux.dev>
-Date: Fri, 6 Nov 2026 10:54:10 +0800
-Cc: osalvador@suse.de,
- David Hildenbrand <david@kernel.org>,
- akpm@linux-foundation.org,
- azpijr@gmail.com,
- Lance Yang <lance.yang@linux.dev>,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <ED3C9A78-9823-4F37-BF2B-0A8873001BF5@linux.dev>
-References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
- <818fb0b4bbb234e4a2bd0552d61634f1a8431616.1793850539.git.zhengqi.arch@bytedance.com>
- <8F5F930D-A05E-4255-8E70-2567921A92A0@linux.dev>
- <39b7ecd4-e5a1-48d9-8d34-4bf8f8ad4ca2@linux.dev>
-To: Qi Zheng <qi.zheng@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261106-bmi270-fix-timestamp-v2-1-8a2547e1290b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAFhB7WoC/4WNQQ6CMBBFr0K6dkzbIFBX3sOwaMsAYywlbSUaw
+ t0teACXL3n//ZVFDISRXYuVBVwokp8yyFPB7KinAYG6zExyWQkuGzCOZM2hpzckchiTdjOUjRa
+ qNJXqjGB5OgfMwpG9tz+OL/NAm/bWbowUkw+f43cRu/fnYhEgQCnL8dJj3XF7G5ym59l6x9pt2
+ 75Yl/4NygAAAA==
+X-Change-ID: 20261028-bmi270-fix-timestamp-48a194b69db1
+To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org, Liu Yufei <lyf98405@gmail.com>, 
+ Alex Lanzano <lanzano.alex@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Gustavo Silva <gustavograzs@gmail.com>, 
+ Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793933668; l=5058;
+ i=lyf98405@gmail.com; s=20261028; h=from:subject:message-id;
+ bh=jKRzDzpw4unjTIDJEUmBiUJee47b0ww/w747ltWj1ug=;
+ b=vU8F4NoJGveNnTpsgvPgAY3okd+wJQfBbRsotuhKuNbAdT0aRziVqdC9oEW4PpJTwNB0Ys1LC
+ eXofg+RFUydBTWGN5FeoBzTFbbKPVG6epDOJipo4YAs1dEpb/ld0MAH
+X-Developer-Key: i=lyf98405@gmail.com; a=ed25519;
+ pk=lc+pS6pGKgsSIrWd9Plh5gs4dnZRQT6qkyv+hvAy7hs=
 
+The BMI270's own trigger uses iio_trigger_poll_nested() from
+the threaded IRQ handler, bypassing the pollfunc top half.
+This leaves the buffer timestamp at zero or a stale value.
 
+Capture the timestamp in the hard IRQ handler for the device's
+own trigger. Preserve the pollfunc timestamp for ordinary
+external triggers, and use the current IIO clock when a nested
+external trigger has no timestamp. Clear the pollfunc timestamp
+after processing.
 
-> On Nov 6, 2026, at 10:48, Qi Zheng <qi.zheng@linux.dev> wrote:
->=20
->=20
->=20
-> On 11/5/26 1:13 PM, Muchun Song wrote:
->>> On Nov 5, 2026, at 12:07, Qi Zheng <qi.zheng@linux.dev> wrote:
->>>=20
->>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>=20
->>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
->>> unpinnable, causing unnecessary migration or pinning failures.
->>>=20
->>> These folios already own their CMA bitmap ranges, and memory blocks
->>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
->>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
->>>=20
->>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic =
-hugepages using cma")
->>> Cc: stable@vger.kernel.org
->>> Suggested-by: Muchun Song <muchun.song@linux.dev>
->>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> Acked-by: Muchun Song <muchun.song@linux.dev>
->=20
-> Thanks.
->=20
->> But a nit bellow.
->>> ---
->>> include/linux/mm.h | 29 +----------------------------
->>> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
->>> 2 files changed, 32 insertions(+), 28 deletions(-)
->>>=20
->>> diff --git a/include/linux/mm.h b/include/linux/mm.h
->>> index 2d0b8a4c9974f..75dd40265d3f4 100644
->>> --- a/include/linux/mm.h
->>> +++ b/include/linux/mm.h
->>> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct =
-folio *folio)
->>> return is_zero_page(&folio->page);
->>> }
->>>=20
->>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
->>> #ifdef CONFIG_MIGRATION
->>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
->>> -{
->>> -#ifdef CONFIG_CMA
->>> - 	int mt =3D folio_migratetype(folio);
->>> -
->>> - 	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
->>> - 		return false;
->>> -#endif
->>> - 	/* The zero page can be "pinned" but gets special handling. */
->>> - 	if (is_zero_folio(folio))
->>> - 		return true;
->>> -
->>> - 	/* Coherent device memory must always allow eviction. */
->>> - 	if (folio_is_device_coherent(folio))
->>> - 		return false;
->>> -
->>> - 	/*
->>> - 	 * Filesystems can only tolerate transient delays to truncate =
-and
->>> - 	 * hole-punch operations
->>> - 	 */
->>> - 	if (folio_is_fsdax(folio))
->>> - 		return false;
->>> -
->>> - 	/* Otherwise, non-movable zone folios can be pinned. */
->>> - 	return !folio_is_zone_movable(folio);
->>> -
->>> -}
->>> +bool folio_is_longterm_pinnable(struct folio *folio);
->>> #else
->>> static inline bool folio_is_longterm_pinnable(struct folio *folio)
->>> {
->>> diff --git a/mm/gup.c b/mm/gup.c
->>> index 2b405cce2ca5c..e8503141bb275 100644
->>> --- a/mm/gup.c
->>> +++ b/mm/gup.c
->>> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long =
-addr, int *locked)
->>>=20
->>> #ifdef CONFIG_MIGRATION
->>>=20
->>> +bool folio_is_longterm_pinnable(struct folio *folio)
->>> +{
->>> +#ifdef CONFIG_CMA
->>> + 	int mt =3D folio_migratetype(folio);
->>> +
->>> + 	/* Explicit HugeTLB CMA allocations own their bitmap ranges. */
->> The description of "bitmap ranges" is weird, making me think what's =
-the meaning of
->> bitmap. Please use more generic description here.
->=20
-> How about this:
->=20
-> /* These HugeTLB folios own the CMA memory, so they can be long-term =
-pinned. */
->=20
+Testing on Orange Pi Zero 2W reproduced 256 zero timestamps
+with the original own trigger and 256 repeated stale timestamps
+after switching from an ordinary to a nested external trigger.
+With v2, 1280 samples across the tested trigger and restart
+paths had no zero or non-increasing timestamps.
 
-At least better than original.
+Fixes: a1854d55f54b ("iio: imu: bmi270: add support for data ready interrupt trigger")
+Cc: stable@vger.kernel.org
+Signed-off-by: Liu Yufei <lyf98405@gmail.com>
+---
+Fix invalid BMI270 IIO buffer timestamps when the device's own
+trigger uses iio_trigger_poll_nested(). This bypasses the
+pollfunc top half, so its timestamp can remain zero or retain
+an old value.
 
-Thanks,
-Muchun
+Capture the timestamp in the hard IRQ handler for the device's
+own trigger. Keep pollfunc timestamps for ordinary external
+triggers, and use the current IIO clock when a nested external
+trigger has no timestamp. Clear the pollfunc timestamp after use.
 
-> Thanks,
-> Qi
+Tested on Orange Pi Zero 2W (arm64, Linux 7.3.0), with a
+physical BMI270 connected over I2C, using INT1 at 100 Hz.
+The baseline produced 256/256 zero timestamps using its own
+trigger, and 256/256 stale timestamps after switching an
+external trigger from ordinary to nested polling.
 
+With v2, 1,280 samples across own hardware triggering,
+ordinary and nested external triggering, and stop/restart
+tests had no zero, repeated, or decreasing timestamps.
+External triggers were generated by a temporary test module;
+sensor data was read from the physical BMI270.
+---
+Changes in v2:
+- Capture the timestamp in the hard IRQ handler.
+- Use the IRQ timestamp for the device's own trigger.
+- Fall back to the current time when no pollfunc timestamp exists.
+- Clear the pollfunc timestamp after processing.
+- Link to v1: https://patch.msgid.link/20261028-bmi270-fix-timestamp-v1-1-99c0e5fe7d0c@gmail.com
+
+To: Alex Lanzano <lanzano.alex@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Gustavo Silva <gustavograzs@gmail.com>
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Cc: linux-iio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/iio/imu/bmi270/bmi270_core.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iio/imu/bmi270/bmi270_core.c b/drivers/iio/imu/bmi270/bmi270_core.c
+index fbcf6bb87acc..6b11e91eabff 100644
+--- a/drivers/iio/imu/bmi270/bmi270_core.c
++++ b/drivers/iio/imu/bmi270/bmi270_core.c
+@@ -157,6 +157,7 @@ struct bmi270_data {
+ 	const struct bmi270_chip_info *chip_info;
+ 	enum bmi270_irq_pin irq_pin;
+ 	struct iio_trigger *trig;
++	s64 irq_timestamp;
+ 	 /* Protect device's private data from concurrent access */
+ 	struct mutex mutex;
+ 	bool steps_enabled;
+@@ -755,6 +756,16 @@ static int bmi270_get_odr(struct bmi270_data *data, int chan_type, int *odr,
+ 	return -EINVAL;
+ }
+ 
++static irqreturn_t bmi270_irq_handler(int irq, void *private)
++{
++	struct iio_dev *indio_dev = private;
++	struct bmi270_data *data = iio_priv(indio_dev);
++
++	data->irq_timestamp = iio_get_time_ns(indio_dev);
++
++	return IRQ_WAKE_THREAD;
++}
++
+ static irqreturn_t bmi270_irq_thread_handler(int irq, void *private)
+ {
+ 	struct iio_dev *indio_dev = private;
+@@ -842,6 +853,13 @@ static irqreturn_t bmi270_trigger_handler(int irq, void *p)
+ 	struct bmi270_data *data = iio_priv(indio_dev);
+ 	int ret;
+ 
++	if (iio_trigger_using_own(indio_dev)) {
++		pf->timestamp = data->irq_timestamp;
++		data->irq_timestamp = 0;
++	} else if (!pf->timestamp) {
++		pf->timestamp = iio_get_time_ns(indio_dev);
++	}
++
+ 	guard(mutex)(&data->mutex);
+ 
+ 	ret = regmap_bulk_read(data->regmap, BMI270_ACCEL_X_REG,
+@@ -854,6 +872,7 @@ static irqreturn_t bmi270_trigger_handler(int irq, void *p)
+ 	iio_push_to_buffers_with_timestamp(indio_dev, &data->buffer,
+ 					   pf->timestamp);
+ done:
++	pf->timestamp = 0;
+ 	iio_trigger_notify_done(indio_dev->trig);
+ 	return IRQ_HANDLED;
+ }
+@@ -1430,7 +1449,7 @@ static int bmi270_trigger_probe(struct bmi270_data *data,
+ 	data->trig->ops = &bmi270_trigger_ops;
+ 	iio_trigger_set_drvdata(data->trig, data);
+ 
+-	ret = devm_request_threaded_irq(data->dev, irq, NULL,
++	ret = devm_request_threaded_irq(data->dev, irq, bmi270_irq_handler,
+ 					bmi270_irq_thread_handler,
+ 					IRQF_ONESHOT, "bmi270-int", indio_dev);
+ 	if (ret)
+
+---
+base-commit: 09f742b49cb2728086d78be2b0b35e4d1d71fc85
+change-id: 20261028-bmi270-fix-timestamp-48a194b69db1
+
+Best regards,
+--  
+Liu Yufei <lyf98405@gmail.com>
 
