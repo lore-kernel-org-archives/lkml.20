@@ -1,49 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794002063;
-	b=HeUzbDl7HnAhZCi7CuIpsldV2Q/j8hp3J8C1BV+v/TyaWhtohO+kzUBks6zZGH61yTbI
-	 Nahg/pgMVwH2DtiHdIxCCSIWCMd37tNI4oIj5HTyHoLxikaddZgxnHaoSdhudFgUC9nGh
-	 AWFG+J77SIhhLVaJg8EEE/qBeB5dvJdj43yktch3pIZf9hm3pe9oHDeq74yEhGDbAU848
-	 QckK9Dw31COgvxyn8pwPN/SIOn1zoP1bUUljR27hf7LBmbWVqVXd0Ujuz4qs6RXodNaCW
-	 J3SVY/k1nkdpBN0VPkIh97fPa9a+7dKiqcdSd0fSN5uWyvu+D/HPNOuARfusUi2VNTQ==
+	t=1794002138;
+	b=lxXS/Yr3jG5VqgmU3AZP5IPucocuGuDGl+DHaNQZk5LVGuc2U+vSm8Y0V1rWUO84N/2i
+	 UqwLX47dWazv0G72R/0Gfk2Bl3xPrFKfzKaZKsJzEG33liRS62xdNnCLoXRMxJ/MrM6UB
+	 yJ9RDEiYYi17ZItEU51EKlfSbgdklnwXNJ8D7911VuOBCO85Lq789zOuwc/aszIbyPElM
+	 ek1BqriPjmQ+m9aGaFkjYn9tMsfUh1k9+KJ8a5bUQQgBGte6wMZ+t8Urw6K9T022qC+2D
+	 CUGmezp8LYjomyfiu0K+SxOBr8eSdKyEjjtV6+eJ64pLObyPf3FyxcZAzIRzCqukO+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002063;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=yyG3/C4sSe8q2vVSmzW+YYQuFCTp/2rYI6RLncmBMUU=;
-	b=4VNPnn3/s6BfngR2be3KsFzm338G+0trmjNzUckO1n2wE0CLvIv5hjF+W+bRt6tt3V37
-	 K6mvQWQoDcEUoG8Q8OD6MFPH+vMtEneGS4nZ5XAhPZnKC5nFoj1+Qku7pdj8z/g1A/hUm
-	 0t941xb32c58qupnjtHOdVm+TxfZRojg5QApv5rkxjYQp5vbQhMVdkTmn7RQGOQxcg3MW
-	 Dp22eyiPStYzhc+9w7yNuxXI0V632jZJZvJiogNctyQo8zutnnFEsH5CLsF/XQoOxUli1
-	 toZXVvhe1vno4AIA70Wv+yUcFpp9gN0PeNLpyDtP2CVMbKB4LHbH7MuyvYcMlo/VVfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002138;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=nleZva/lewGL/J2qDKTlMtt/n8/hsBcLEHwXA0FRZLg=;
+	b=02xqqExImBYc2RNRsEvb21cXmCLq9riP5m002DPg/ORgzbpc+XaJ1OguyJQEDiuvfodi
+	 AgEamWjnP9hhgEEzFlArtmkqDW3du6FcVRDFR17oWNENGK4zan25OVweVdgKNvnW6vT1x
+	 ycuQlseot77QVj0PmAvuiMFYF1wUqIEyB8k3xHcHIEsPZOZ/cfVgfX2Z5V6y1vc7fayvo
+	 6emutOWkncmkH3IlvF91/9c6CFTvChhTTRJbbqM89tCNBzE4h1Wcco6jcTRvHt8Bd2Ifg
+	 F2/hGWWXFsLy6tC/lSjMdqlhMb4MrzAw4j3OGPBgPuRL66h+0gLuP0BLZOJfkNR1zbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="luEF/yXr";
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4EBB606A32C;
-	Fri,  6 Nov 2026 21:54:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4EBB606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgZsi+BF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35F2606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:55:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=luEF/yXr
-Received: from [100.64.128.135] (unknown [40.65.108.177])
-	by linux.microsoft.com (Postfix) with ESMTPSA id A0FDB20B7167;
-	Fri,  6 Nov 2026 13:54:20 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A0FDB20B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1794002061;
-	bh=yyG3/C4sSe8q2vVSmzW+YYQuFCTp/2rYI6RLncmBMUU=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=luEF/yXrwfgOgHbmvsqs5naNWzhoye+JTvtwt5YlcXWkjERc6MzQj+RrweFxVVYgp
-	 +XtNj9+1OQrk1TWotNYjRmvovsu59l3jwI7JVs+IMiYyriyINi+vUv83dQniS0yxNM
-	 1EG9Jn7YwUM4Pz/rp+utLgm3lGWzemkxPo83FDKg=
-Message-ID: <f2579646-7f77-4dd2-b7ce-ccf702828610@linux.microsoft.com>
-Date: Fri, 6 Nov 2026 13:54:19 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgZsi+BF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B841F0089F;
+	Fri,  6 Nov 2026 21:55:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794002137;
+	bh=nleZva/lewGL/J2qDKTlMtt/n8/hsBcLEHwXA0FRZLg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TgZsi+BF0qEUgVNvkWN5p7D++RlR6dZhHfMss1WVgfLtB+dQfmwlE0Id0IVAwf6SI
+	 gaum2S2IWv0yUYDDpOyGPgzJMhJnCz0U7VKaJ1jfgIf7bTHGqKRHr8ox+tlwLU6bCh
+	 osyJ/nYyK9ib/Mgxr0GX5B+PpjdvDO0fpZgSWRiCYPJfrTR7JYnOuTHAnAEx22brKD
+	 g71v2d1alUK/oYCn8utIcM6A7A/Ueo2724NyD1O6zAO/Rx6pHmVmm7qJ6zPCEXnOhj
+	 h7LOr6toaaTDhWH7J2oMVftkOwyuKP0mg35ZDxsiY+sshpdTO+w27ijph/tEc2TcXK
+	 7pzQBqaj4nQKg==
+Date: Fri, 6 Nov 2026 22:55:34 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>,
+	Ingo Molnar <mingo@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Subject: Re: [PATCH 2/3] sched/idle: Stop the tick on polling idle on
+ nohz_full CPUs
+Message-ID: <au5M1hKb2QuNd5bl@pavilion.home>
+References: <20261106160621.347228-1-marco.crivellari@suse.com>
+ <20261106160621.347228-3-marco.crivellari@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,287 +68,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-Subject: Re: [PATCH V4 5/5] x86/hyperv: Implement root partition IOMMU kernel
- only driver
-To: Mukesh R <mrathor@linux.microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, linux-arch@vger.kernel.org,
- easwar.hariharan@linux.microsoft.com, jgg@nvidia.com,
- jacob.pan@linux.microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, joro@8bytes.org,
- will@kernel.org, robin.murphy@arm.com, arnd@arndb.de
-References: <20261105020106.3496339-1-mrathor@linux.microsoft.com>
- <20261105020106.3496339-6-mrathor@linux.microsoft.com>
-Content-Language: en-US
-In-Reply-To: <20261105020106.3496339-6-mrathor@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261106160621.347228-3-marco.crivellari@suse.com>
 
-On 11/4/2026 18:01, Mukesh R wrote:
-> Add a new file to implement a kernel only virtual IOMMU that works
-> on Microsoft Hyper-V hypervisor (aka MSHV) in privileged VMs aka
-> root VMs. The hypervisor claims the IOMMU upon boot, and this driver
-> communicates with it for creating and deleting paging domains, attaching
-> of devices, mapping and unmapping of pages, etc. During boot, hypervisor
-> automatically creates identity and blocked domains, so there is no need
-> to do hypercalls to create them. This is a kernel only driver and only
-> supported on baremetal root (and not L1VH root) without any guest passthru
-> support. Support for guest device passthru will be added incrementally.
+Le Fri, Nov 06, 2026 at 05:06:14PM +0100, Marco Crivellari a écrit :
+> With idle=poll, the tick fires while in user space, interrupting the task
+> running there. This is a problem when the CPU is nohz_full, as it
+> introduces noise into the workload.
 > 
-> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+> To fix this, stop the tick when entering polling idle on nohz_full CPUs,
+> while on other CPUs keep restarting it.
+> 
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Juri Lelli <juri.lelli@redhat.com>
+> Cc: Vincent Guittot <vincent.guittot@linaro.org>
+> Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> Cc: Ben Segall <bsegall@google.com>
+> Cc: Mel Gorman <mgorman@suse.de>
+> Cc: Valentin Schneider <vschneid@redhat.com>
+> Cc: K Prateek Nayak <kprateek.nayak@amd.com>
+> Link: https://lore.kernel.org/all/aQiWfnnSzxsnwa2o@tpad/
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 > ---
->  arch/x86/kernel/pci-dma.c            |   2 +
->  drivers/iommu/hyperv/Kconfig         |  13 +
->  drivers/iommu/hyperv/Makefile        |   1 +
->  drivers/iommu/hyperv/hv-iommu-root.c | 613 +++++++++++++++++++++++++++
->  include/asm-generic/mshyperv.h       |   3 +
->  include/linux/hyperv.h               |   6 +
->  6 files changed, 638 insertions(+)
->  create mode 100644 drivers/iommu/hyperv/hv-iommu-root.c
+>  include/linux/tick.h     |  2 ++
+>  kernel/sched/idle.c      |  5 ++++-
+>  kernel/time/tick-sched.c | 18 ++++++++++++++++++
+>  3 files changed, 24 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/tick.h b/include/linux/tick.h
+> index 8bfbb053f4fd..be4940f76777 100644
+> --- a/include/linux/tick.h
+> +++ b/include/linux/tick.h
+> @@ -129,6 +129,7 @@ extern bool tick_nohz_is_active(void);
+>  extern bool tick_nohz_tick_stopped(void);
+>  extern bool tick_nohz_tick_stopped_cpu(int cpu);
+>  extern void tick_nohz_idle_stop_tick(void);
+> +extern void tick_nohz_full_idle_stop_tick(void);
+>  extern void tick_nohz_idle_retain_tick(void);
+>  extern void tick_nohz_idle_restart_tick(void);
+>  extern void tick_nohz_idle_enter(void);
+> @@ -144,6 +145,7 @@ static inline bool tick_nohz_is_active(void) { return false; }
+>  static inline int tick_nohz_tick_stopped(void) { return 0; }
+>  static inline int tick_nohz_tick_stopped_cpu(int cpu) { return 0; }
+>  static inline void tick_nohz_idle_stop_tick(void) { }
+> +static inline void tick_nohz_full_idle_stop_tick(void) { }
+>  static inline void tick_nohz_idle_retain_tick(void) { }
+>  static inline void tick_nohz_idle_restart_tick(void) { }
+>  static inline void tick_nohz_idle_enter(void) { }
+> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+> index e0c10a5dbda2..226d02d24c73 100644
+> --- a/kernel/sched/idle.c
+> +++ b/kernel/sched/idle.c
+> @@ -349,7 +349,10 @@ static void do_idle(void)
+>  		 * idle as we know that the IPI is going to arrive right away.
+>  		 */
+>  		if (cpu_idle_force_poll || tick_check_broadcast_expired()) {
+> -			tick_nohz_idle_restart_tick();
+> +			if (cpu_idle_force_poll)
+> +				tick_nohz_full_idle_stop_tick();
+> +			else
+> +				tick_nohz_idle_restart_tick();
+>  			cpu_idle_poll();
+>  		} else {
+>  			cpuidle_idle_call(got_tick);
+> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+> index a9f622fdeb12..3625ad9d2268 100644
+> --- a/kernel/time/tick-sched.c
+> +++ b/kernel/time/tick-sched.c
+> @@ -1179,6 +1179,24 @@ static bool can_stop_idle_tick(int cpu, struct tick_sched *ts)
+>  	return true;
+>  }
+>  
+> +/**
+> + * tick_nohz_full_idle_stop_tick - stop the tick on polling idle on NOHZ
+> + *
+> + * On nohz_full CPUs the tick restarted for polling idle would keep
+> + * running after idle exit and interrupt userspace once more; so stop it
+> + * instaed. On other CPUs, keep restarting it as before. Must be called
+
+*instead
+
+Also it should mention that we want to stop the tick before polling
+and not after because we don't want the tick stop induced latency after
+the task wake-up.
+
+> + * with interrupts disabled.
+> + */
+> +void tick_nohz_full_idle_stop_tick(void)
+
+I would rather call that tick_nohz_idle_poll_enter() because it is
+very specific and it's not just about stopping the nohz_full tick
+in idle, it's also restarting the tick if in dynticks-idle.
+
+Thanks.
+
+> +{
+> +	lockdep_assert_irqs_disabled();
+> +
+> +	if (tick_nohz_full_cpu(smp_processor_id()))
+> +		tick_nohz_idle_stop_tick();
+> +	else
+> +		tick_nohz_idle_restart_tick();
+> +}
+> +
+>  /**
+>   * tick_nohz_idle_stop_tick - stop the idle tick from the idle task
+>   *
+> -- 
+> 2.56.0
 > 
 
-<snip>
-
->  obj-$(CONFIG_HYPERV_PVIOMMU) += hv-iommu-guest.o
-> +obj-$(CONFIG_HYPERV_ROOT_IOMMU) += hv-iommu-root.o
-> diff --git a/drivers/iommu/hyperv/hv-iommu-root.c b/drivers/iommu/hyperv/hv-iommu-root.c
-> new file mode 100644
-> index 000000000000..e0e3e9d4385e
-> --- /dev/null
-> +++ b/drivers/iommu/hyperv/hv-iommu-root.c
-> @@ -0,0 +1,613 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Hyper-V root vIOMMU driver.
-> + * Copyright (C) 2026, Microsoft, Inc.
-> + */
-> +#include <linux/pci.h>
-> +#include <linux/dma-map-ops.h>
-> +#include <linux/interval_tree.h>
-> +#include <linux/hyperv.h>
-> +#include <asm/iommu.h>
-> +#include <asm/mshyperv.h>
-> +#include "../dma-iommu.h"
-> +
-> +static dma_addr_t hv_iommu_max_iova;
-> +static struct iommu_domain_ops hv_paging_domain_ops;
-> +
-> +/* IOMMU device that we export to the world. MSHV supports max of one */
-> +static struct iommu_device hv_virt_iommu;
-> +
-> +struct hv_iommu_domain {
-> +	struct iommu_domain iommu_dom;
-> +	u32 domid_num;			      /* as opposed to domain_id.type */
-> +	spinlock_t mappings_lock;	      /* protects mappings_tree */
-> +	struct rb_root_cached mappings_tree;  /* iova to pa lookup tree */
-> +};
-> +
-> +#define to_hv_domain(d) container_of(d, struct hv_iommu_domain, iommu_dom)
-> +
-> +struct hv_iommu_mapping {
-> +	phys_addr_t paddr;
-> +	struct interval_tree_node iova;
-> +	u32 flags;
-> +};
-> +
-> +/*
-> + * By default, during boot the hypervisor creates one Stage 2 (S2) default
-> + * domain. It has two types:
-> + *   S2 default: access to entire root partition memory. This for the host
-> + *		 maps to IOMMU_DOMAIN_IDENTITY in the iommu subsystem, and
-> + *		 is called HV_DEVICE_DOMAIN_ID_S2_DEFAULT in the hypervisor.
-> + *		 (Linux renamed to : HV_DEVICE_DOMAIN_ID_DEFAULT)
-> + *   S2 NULL: Blocks everything, ie, IOMMU_DOMAIN_BLOCKED in linux.
-> + */
-> +
-> +/*
-> + * Create dummy domains to correspond to hypervisor prebuilt default identity
-> + * and null domains (dummy because we do not make hypercalls to create them).
-> + */
-> +static struct hv_iommu_domain hv_def_identity_dom;
-> +static struct hv_iommu_domain hv_def_blocked_dom;
-> +
-> +/*
-> + * The hypervisor owns the IOMMU. As such it will choose the best page size
-> + * and whenever possible use larger page sizes automatically. The map gpa
-> + * hypercall to map the iova however currently uses only 4K pfns as input.
-> + * So we specify 4K as the IOMMU PAGE_SIZE.
-> + */
-> +#define HV_IOMMU_PGSIZES SZ_4K
-> +
-> +static DEFINE_IDA(hv_iommu_domids);   /* unique numeric ids for new domains */
-> +
-> +static bool hv_iommu_capable(struct device *dev, enum iommu_cap cap)
-> +{
-> +	switch (cap) {
-> +	case IOMMU_CAP_CACHE_COHERENCY:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-
-Seems like this could match the guest driver and just be: return cap == IOMMU_CAP_CACHE_COHERENCY.
-
-<snip>
-
-> +
-> +static struct iommu_domain_ops hv_paging_domain_ops = {
-> +	.attach_dev = hv_iommu_attach_dev,
-> +	.map_pages = hv_iommu_map_pages,
-> +	.unmap_pages = hv_iommu_unmap_pages,
-> +	.iova_to_phys = hv_iommu_iova_to_phys,
-> +	.free = hv_iommu_domain_free,
-> +};
-> +
-> +static struct iommu_ops hv_iommu_ops = {
-> +	.capable	    = hv_iommu_capable,
-> +	.domain_alloc_paging	= hv_iommu_domain_alloc_paging,
-> +	.probe_device	    = hv_iommu_probe_device,
-> +	.device_group	    = pci_device_group,
-> +	.get_resv_regions   = hv_iommu_get_resv_regions,
-> +	.owner		    = THIS_MODULE,
-> +	.identity_domain    = &hv_def_identity_dom.iommu_dom,
-> +	.blocked_domain     = &hv_def_blocked_dom.iommu_dom,
-> +	.release_domain     = &hv_def_blocked_dom.iommu_dom,
-> +};
-> +
-> +static const struct iommu_domain_ops hv_special_domain_ops = {
-> +	.attach_dev = hv_iommu_attach_dev,
-> +};
-> +
-> +static void __init hv_initialize_special_domains(void)
-> +{
-> +	hv_def_identity_dom.iommu_dom.type = IOMMU_DOMAIN_IDENTITY;
-> +	hv_def_identity_dom.iommu_dom.ops = &hv_special_domain_ops;
-> +	hv_def_identity_dom.iommu_dom.owner = &hv_iommu_ops;
-> +	hv_def_identity_dom.domid_num = HV_DEVICE_DOMAIN_ID_DEFAULT; /* 0 */
-> +
-> +	hv_def_blocked_dom.iommu_dom.type = IOMMU_DOMAIN_BLOCKED;
-> +	hv_def_blocked_dom.iommu_dom.ops = &hv_special_domain_ops;
-> +	hv_def_blocked_dom.iommu_dom.owner = &hv_iommu_ops;
-> +	hv_def_blocked_dom.domid_num = HV_DEVICE_DOMAIN_ID_NULL;    /* INTMAX */
-> +}
-> +
-
-A net negative 9 lines to initialize these with .field notation, as suggested in v0: https://lore.kernel.org/all/4f7cadc5-817c-4163-bac8-1c02a7c6a862@linux.microsoft.com/
-
-Wasn't super hard to do the 1 forward declaration needed...
-
-diff --git a/drivers/iommu/hyperv/hv-iommu-root.c b/drivers/iommu/hyperv/hv-iommu-root.c
-index e0e3e9d4385e2..4e6bf94413458 100644
---- a/drivers/iommu/hyperv/hv-iommu-root.c
-+++ b/drivers/iommu/hyperv/hv-iommu-root.c
-@@ -12,6 +12,7 @@
- #include "../dma-iommu.h"
- 
- static dma_addr_t hv_iommu_max_iova;
-+static struct iommu_ops hv_iommu_ops;
- static struct iommu_domain_ops hv_paging_domain_ops;
- 
- /* IOMMU device that we export to the world. MSHV supports max of one */
-@@ -32,23 +33,6 @@ struct hv_iommu_mapping {
- 	u32 flags;
- };
- 
--/*
-- * By default, during boot the hypervisor creates one Stage 2 (S2) default
-- * domain. It has two types:
-- *   S2 default: access to entire root partition memory. This for the host
-- *		 maps to IOMMU_DOMAIN_IDENTITY in the iommu subsystem, and
-- *		 is called HV_DEVICE_DOMAIN_ID_S2_DEFAULT in the hypervisor.
-- *		 (Linux renamed to : HV_DEVICE_DOMAIN_ID_DEFAULT)
-- *   S2 NULL: Blocks everything, ie, IOMMU_DOMAIN_BLOCKED in linux.
-- */
--
--/*
-- * Create dummy domains to correspond to hypervisor prebuilt default identity
-- * and null domains (dummy because we do not make hypercalls to create them).
-- */
--static struct hv_iommu_domain hv_def_identity_dom;
--static struct hv_iommu_domain hv_def_blocked_dom;
--
- /*
-  * The hypervisor owns the IOMMU. As such it will choose the best page size
-  * and whenever possible use larger page sizes automatically. The map gpa
-@@ -488,6 +472,35 @@ static void hv_iommu_get_resv_regions(struct device *dev,
- 	iommu_add_resv_x86_msi_region(head);
- }
- 
-+static const struct iommu_domain_ops hv_special_domain_ops = {
-+	.attach_dev = hv_iommu_attach_dev,
-+};
-+
-+/*
-+ * By default, during boot the hypervisor creates one Stage 2 (S2) default
-+ * domain. It has two types:
-+ *   S2 default: access to entire root partition memory. This for the host
-+ *		 maps to IOMMU_DOMAIN_IDENTITY in the iommu subsystem, and
-+ *		 is called HV_DEVICE_DOMAIN_ID_S2_DEFAULT in the hypervisor.
-+ *		 (Linux renamed to : HV_DEVICE_DOMAIN_ID_DEFAULT)
-+ *   S2 NULL: Blocks everything, ie, IOMMU_DOMAIN_BLOCKED in linux.
-+ * Create dummy domains to correspond to hypervisor prebuilt default identity
-+ * and null domains (dummy because we do not make hypercalls to create them).
-+ */
-+static struct hv_iommu_domain hv_def_identity_dom = {
-+	.iommu_dom.type = IOMMU_DOMAIN_IDENTITY,
-+	.iommu_dom.ops = &hv_special_domain_ops,
-+	.iommu_dom.owner = &hv_iommu_ops,
-+	.domid_num = HV_DEVICE_DOMAIN_ID_DEFAULT, /* 0 */
-+};
-+
-+static struct hv_iommu_domain hv_def_blocked_dom = {
-+	.iommu_dom.type = IOMMU_DOMAIN_BLOCKED,
-+	.iommu_dom.ops = &hv_special_domain_ops,
-+	.iommu_dom.owner = &hv_iommu_ops,
-+	.domid_num = HV_DEVICE_DOMAIN_ID_NULL,    /* INTMAX */
-+};
-+
- static struct iommu_domain_ops hv_paging_domain_ops = {
- 	.attach_dev = hv_iommu_attach_dev,
- 	.map_pages = hv_iommu_map_pages,
-@@ -508,23 +521,6 @@ static struct iommu_ops hv_iommu_ops = {
- 	.release_domain     = &hv_def_blocked_dom.iommu_dom,
- };
- 
--static const struct iommu_domain_ops hv_special_domain_ops = {
--	.attach_dev = hv_iommu_attach_dev,
--};
--
--static void __init hv_initialize_special_domains(void)
--{
--	hv_def_identity_dom.iommu_dom.type = IOMMU_DOMAIN_IDENTITY;
--	hv_def_identity_dom.iommu_dom.ops = &hv_special_domain_ops;
--	hv_def_identity_dom.iommu_dom.owner = &hv_iommu_ops;
--	hv_def_identity_dom.domid_num = HV_DEVICE_DOMAIN_ID_DEFAULT; /* 0 */
--
--	hv_def_blocked_dom.iommu_dom.type = IOMMU_DOMAIN_BLOCKED;
--	hv_def_blocked_dom.iommu_dom.ops = &hv_special_domain_ops;
--	hv_def_blocked_dom.iommu_dom.owner = &hv_iommu_ops;
--	hv_def_blocked_dom.domid_num = HV_DEVICE_DOMAIN_ID_NULL;    /* INTMAX */
--}
--
- /*
-  * In general, the hypervisor does not support the capabilities hypercall for
-  * root partitions, an exception was made for max_iova_width. For IOMMU cap,
-@@ -571,11 +567,6 @@ static int __init hv_root_iommu_init(void)
- 
- 	hv_iommu_max_iova = DMA_BIT_MASK(caps.max_iova_width);
- 
--	/* This must come before iommu_device_register() because the latter
--	 * calls into the hooks.
--	 */
--	hv_initialize_special_domains();
--
- 	rc = iommu_device_sysfs_add(iommup, NULL, NULL, "%s", "hyperv-iommu");
- 	if (rc) {
- 		pr_err("Hyper-V: iommu_device_sysfs_add failed: %d\n", rc);
-
-
-<snip>
-
-Thanks,
-Easwar (he/him)
+-- 
+Frederic Weisbecker
+SUSE Labs
