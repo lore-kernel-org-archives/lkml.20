@@ -1,75 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967889;
-	b=ZkwPOgkZ+jeou1hJ17TbkBSD7tR7qY44lIYzYzJz8maW2FRYUMx6Zityn5KkZCPV/uU2
-	 bQkqE6XKo/kl3gFnxVuWm55iYZRV/cGiB/7mp48FM8G+hXtcQ+uDGpp/KM8zjJbxB3EjH
-	 L3T8yZnLKJwmte11qbPpzXk+4bDf3QB5duIleCXFYuuv2/y/dM40x9d4mhwd2ro5EZV1v
-	 S6C4YMD1MQlcWU3SZsPfz5usyxP2JouIAlSBf7TUUsPbeZrfSWbxYCQJS1omfvgX8JIJ3
-	 qV9Ddxh7HqH45kFpLhDjWMBhK7ZnTcAY/U4KMuDf7aA4Cz8OJCf8D/H7fduY+hfV2Jw==
+	t=1793968061;
+	b=ORLjIqYvN9fHLQOOYKAR7EGrr0AJZo7+2aCZlzxwAOX8RhkSBasvabMeuVNd10KsSKyz
+	 SPwzK+cZPevNkdUENk7g1ec9kRuKqY6P8GFnhcplI+iAJLJ89z637+I7V/xVQnaUqgDrr
+	 UEZBYcoYLrXKsM4mUT0QZOn7zJyl3rNnFuFGiWtozzc+VmuLDZoVlxEkOlNIUH0dD5jQ5
+	 We2ABMta+FAGnUPtnUBOFGj9RFouoOs2ggXaX5KHsTi/dTEmkmJFitFRfioa5URw9cqqH
+	 Ffp/UOMwEoPXfGoA/Y/DWsMyqi2d0V6Xxbctr+fCMs660oc1TSEJSvrdojxI2nuKLUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967889;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968061;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=CZa/+auwJ53QeObgCQyye3ozLJHNV1LzGLNqsS8IqWU=;
-	b=w5abq9l4u2Ir8CpOhXJx/YOkGwg8I1MghK3F9hzH921jCirsqOt19FxksJ1r4v/lURkI
-	 q2mIdY3W6Fk498Kn45TEkWYqvoGwbGalTXiUJI+RZPKK8tNxRn9OmgodIxjaFuUswzMnG
-	 RtsyBzMlNSiaLdAc5681QlGJsP9Hkh+RzyPCljwxbo9ChdAhwWTQ+O9QmmGtI15cDhrg3
-	 34/SP+MzCKIu2Yzmulf2VuQHG1zSQeILDsIkrvJwPiLmBb/VOzkie8tjcRzCL8gclt05t
-	 +9Iu4yYLrtGpg4wQkuhlw/4MT+8iTcuzhhR4NqXdDotKbwZwskbtw4mtPfyTm+BlgBA==
+	bh=iC1G3JxUI9CHkJmI4Q8KQjR5+g3muYzWduWPCxUVDN8=;
+	b=yuFKmRB4bhs7mNCdFVwO69oPCAn2SXKtuOJBwdfc5xsAp1oiTzP/uyK7O42Y9ttD7U8N
+	 KIeBPGbm+jnDl+2ivsMVzXItqUfZ04H3+98XJeMmryQyz9T5iz3yDjgCO/w3x7JdOyUe2
+	 GnfADrgBZiALTfs9+1mhjrOP/N7kjaZccfz4+tsTJy1gohdY47dc4Mebxb53l3DVGe521
+	 7yx/bdhfnrteeWLwTCXtib9k5goMXQvI1SoAQ4z7tzz6nUnLPU/5Yn003bWpCwWj2HUKO
+	 pQvvFxEEhOmOcVjlPJgmXXPRJDSDsSLcaamTqHMugmBS6gmTvIwZPt0dh9nuWXHV/PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HTy9yykA;
-	arc=none smtp.remote-ip=95.215.58.126
-Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=EsMB1AEs;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3D8606A336
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:24:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC3D8606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E278606A32F;
+	Fri,  6 Nov 2026 12:27:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E278606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HTy9yykA
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jUmHwKNqJMANYN0pI4Lsx0VheHHuZ6sYGI5Hh257CJQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793967887; v=1; x=1794572687;
- b=HTy9yykAiSjmmXAZ+fCiGVONMQibu6bLOcCow0bfn2g6rOsoNk6emsZIpwwHI6PjArEQqZ3f
- R4ZGwDSZYBevuWk6Ez5ylc8vogiXUSq5u1Fms0h6GZJHtLoasVVg1CL2nV03RUFtXB/LKhdeQrJ
- hbdKdA19pl19HL8db7IH7Dcs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c5bfabdb6db8feb0;
-	Fri, 06 Nov 2026 12:24:47 +0000
-X-Mizu-Trace-ID: c5bfabdb6db8feb0
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org,
-	josef@toxicopanda.com,
-	axboe@kernel.dk,
-	alexei.starovoitov@gmail.com
-Cc: cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=EsMB1AEs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=iC1G3JxUI9CHkJmI4Q8KQjR5+g3muYzWduWPCxUVDN8=; b=EsMB1AEsVbddRhEkNqtxR4Dku/
+	fCd8WF3c9UeC7SvcAmlG/+G5YdOXXAUvdsppn12hLTNUVaxiyhPP2elO38AJpkk28kZhJfjQzzgSs
+	AfwrA/Q3BBUQ8AQ9RK5Drp+P6yV/9tE3PIHdGJU0xdxFqcNoFHjbbPWqTpGrTrR8Z/ELyMnl0DlLd
+	Jua0m1uTJGsz3uIUAsrBVa4/u5Firs3XRnoyUiiKZdSluT2LLlf7NW3tLTANbAD6R/sAzqp+GbWmK
+	9oiEiVsHQ/IJWB41oycCsZX1vojJV6wZRy6RSeZdgNHokRv2kuk40u4H3se5kmXJ9grK4DAVSE8RA
+	QrUz+FuQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>,
+	Andy Yan <andyshrk@163.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Daniel Stone <daniels@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Daniel Stone <daniel@fooishbar.org>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	kernel@collabora.com,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	linux-kselftest@vger.kernel.org,
-	cui.tao@linux.dev,
-	cuitao@kylinos.cn,
-	ameryhung@gmail.com
-Subject: [RFC PATCH v13 4/4] docs: cgroup-v2: document the iocost BPF cost model attachment
-Date: Fri,  6 Nov 2026 20:23:56 +0800
-Message-ID: <20261106122356.3224638-5-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106122356.3224638-1-cui.tao@linux.dev>
-References: <20261106122356.3224638-1-cui.tao@linux.dev>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Igor Paunovic <royalnet026@gmail.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: (subset) [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color format on DW HDMI QP
+Date: Fri,  6 Nov 2026 13:27:00 +0100
+Message-ID: <179396799756.1259812.6287557543031614029.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
+References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,98 +92,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-From: Tao Cui <cuitao@kylinos.cn>
 
-Document the BPF cost model attachment in the io.cost.model section
-of the cgroup v2 documentation: attaching an iocost_model_ops
-struct_ops to a device by its major:minor, the model=bpf readback
-while attached (ctrl keeps describing the coefficients), the builtin
-model coming back on detach, and ctrl writes never selecting a model.
+On Thu, 05 Nov 2026 03:00:34 +0200, Cristian Ciocaltea wrote:
+> This series extends the output color format support of the Rockchip DW
+> HDMI QP controller to cover 10-bit YUV 4:2:2 and 8/10-bit YUV 4:2:0.
+> 
+> Patches 1, 7 & 15 improve VOP2 robustness on RK3588, helping recover
+> from exceptions and preventing random display output glitches observed
+> when switching modes that also change the color format, e.g. from RGB to
+> YUV 4:2:0 and vice versa.
+> 
+> [...]
 
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- Documentation/admin-guide/cgroup-v2.rst | 49 +++++++++++++++++++++----
- 1 file changed, 41 insertions(+), 8 deletions(-)
+Applied, thanks!
 
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 9e3c67b02ae2..608ebd311b79 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2056,8 +2056,9 @@ IO Interface Files
- 	currently implements "io.weight" proportional control.  Lines
- 	are keyed by $MAJ:$MIN device numbers and not ordered.  The
- 	line for a given device is populated on the first write for
--	the device on "io.cost.qos" or "io.cost.model".  The following
--	nested keys are defined.
-+	the device on "io.cost.qos" or "io.cost.model", or when a BPF
-+	cost model is attached to it.  The following nested keys are
-+	defined.
- 
- 	  ======	=====================================
- 	  enable	Weight-based control enable
-@@ -2111,13 +2112,44 @@ IO Interface Files
- 	implements "io.weight" proportional control.  Lines are keyed
- 	by $MAJ:$MIN device numbers and not ordered.  The line for a
- 	given device is populated on the first write for the device on
--	"io.cost.qos" or "io.cost.model".  The following nested keys
--	are defined.
-+	"io.cost.qos" or "io.cost.model", or when a BPF cost model is
-+	attached to it.  The following nested keys are defined.
- 
--	  =====		================================
-+	  =====		==========================================
- 	  ctrl		"auto" or "user"
--	  model		The cost model in use - "linear"
--	  =====		================================
-+	  model		The cost model in use - "linear" or "bpf"
-+	  =====		==========================================
-+
-+	When BPF cost model support is available, a BPF cost model
-+	can be bound to a device by attaching an
-+	"iocost_model_ops" struct_ops carrying the whole disk's
-+	major:minor as encoded by makedev(3) in its "dev" member (a
-+	partition's major:minor is rejected).  Attaching creates the
-+	controller if needed, like
-+	an io.cost.model write does, switches the device's pricing to
-+	the model and populates the device's line in this file and in
-+	"io.cost.qos" if it did not exist yet.  Attaching fails with
-+	-EBUSY if the device already has a model attached.  It fails
-+	with -EOPNOTSUPP if dev names a partition or a device without
-+	a multiqueue queue, and with -ENODEV if the device has gone
-+	away.  The attached model prices IOs only while the controller
-+	is enabled through "io.cost.qos"; attaching does not enable it.
-+	IOs issued directly by the root cgroup bypass the model's
-+	per-IO pricing; the completion-time sizing of their requests
-+	still uses the attached model's transfer coefficients.
-+
-+	While a model is attached, "model" selects between it and the
-+	builtin model: "model=bpf" switches to the attached model and
-+	"model=linear" switches back to the builtin model, and neither
-+	detaches the struct_ops.
-+
-+	Detaching removes the model, after which "model=bpf"
-+	fails and the device prices with the builtin model again.
-+	Device removal ejects the attached model as well, while the
-+	struct_ops link remains until userspace destroys it.  "ctrl"
-+	accepts only "auto" and "user" and never selects a model.  It
-+	keeps describing the builtin coefficients, which take effect
-+	again when switched back.
- 
- 	When "ctrl" is "auto", the kernel may change all parameters
- 	dynamically.  When "ctrl" is set to "user" or any other
-@@ -2125,7 +2157,8 @@ IO Interface Files
- 	automatic changes are disabled.
- 
- 	When "model" is "linear", the following model parameters are
--	defined.
-+	defined.  They remain readable and writable while "model" is
-+	"bpf".
- 
- 	  =============	========================================
- 	  [r|w]bps	The maximum sequential IO throughput
+[01/15] dt-bindings: display: vop2: Add missing reset properties
+        commit: be1734125b3e1c598c6ce35b4731d80e7acb7329
+[02/15] drm/rockchip: vop2: Fix resource leak on vop2_enable() error path
+        commit: b571f72ef923c31427f7058dd40a876023e75f32
+[03/15] drm/rockchip: vop2: Disable core clocks before dropping runtime PM reference
+        commit: ceb90f6ef6d5039189d4be7872eae33a8c635a0a
+[04/15] drm/rockchip: vop2: Balance state on atomic_enable() error paths
+        commit: b0e41d0609ce58e69ac43a2406bd3d6945454a8a
+[05/15] drm/rockchip: vop2: Avoid division by zero when computing max_dclk
+        commit: d0b0039a9a579dc4504a9af68e197c47187770dc
+[06/15] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
+        commit: 2cc46e2ca621923bd14fce6617000c218ea8b16f
+[07/15] drm/rockchip: vop2: Reset AXI and DCLK to improve robustness
+        commit: 67a391e50271e4e6cee833d31a7846de6a5717ab
+[08/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL clock parent switch
+        commit: 99bd1f8ae90101f25c65f544a3dfed2ad01824d3
+[09/15] drm/rockchip: vop2: Use TMDS character rate to select DCLK source
+        commit: ae98bc626336af920ecaee18c3b1d962b4e40d3e
+[10/15] drm/rockchip: vop2: Switch to enum vop_csc_format
+        commit: 95642d0e806d2fb97a02daf6caa657009a76ca13
+[11/15] drm/bridge: dw-hdmi-qp: Log resolution and refresh rate in atomic_enable()
+        commit: c1681020b47bec265f8c5b06de7b321139f3f545
+[12/15] drm/rockchip: dw_hdmi_qp: Do not mask error code in atomic_check()
+        commit: a6cc582884f78f0fdd6345eba9bbad32ddb5734a
+[13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
+        commit: 6352f4538ef03eda8346e79e4eb63bdead6c9a38
+[14/15] drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
+        commit: 09b4318c0e8a3d27b1fe6a2765163c1c52e321fb
+
+Best regards,
 -- 
-2.53.0
-
+Heiko Stuebner <heiko@sntech.de>
