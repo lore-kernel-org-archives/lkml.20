@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793940833;
-	b=xWwmTUvwW1Zr81zl4fr/d6jgke9YBiROKXHfLcig2Zjr0En2vR6evJmvD+/pBKV9CtZ+
-	 ERrv9mOSentzpxczOZn9njDHJF/09sq7Nv3G3z4nTkS5UsBGJMdGfg604Cd6mjXMKt7LP
-	 0pghqH/dg665R0mReFwi7Tqw7zxoX006FjyMkkbKfCmxmgXqhorFZt3cCYXHGX6zlABkl
-	 +0xKfZKUc/wIhR72Oga6Q73w/6wr4zpAfbss8dS6VPB/KLw5TC0at95QbvnZSnGsJySQQ
-	 P4ouukajdF2woN938UBKDX3RRySUUU/6kUPpx9y2/Tc+W2sC1oyMHsaxkm5N6J5CiWQ==
+	t=1793940876;
+	b=dvTe1Hso6CbKxVqa5fhb5/Brk/mmY8h5MIuCEEo2xFamoJacspvDaKZ9toWl7U6pUNs5
+	 ioaBaceOdRaFNLAIx+cBBbq2N0LyT292IE3p5YDGCyLkOaGOhvIxJ/Jw+ke629jBFyVrg
+	 MAoZe3OOXX1Qjf+aLTZyVNOS0q9S0IRhoMNHeTdhJSApuISQObEqhafYGYtGDZmuGq8Vm
+	 VosIbs9kP8EDNwdVCViPRKkDwucZ5wVYjUsrbNTXdKm59pWsUDvLQMJwapA8X88vkqqD4
+	 dI8zy9V5iez2KIYWkcDbcf6PLV8oKkCSQkxEuAmGbWM8R/IEvEQ5I7OuMiqTSj/yvWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793940833;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793940876;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=xqR9zId0kSVz3c7RgBq5vlt6MdA2DlFvx6nKAnIWKQI=;
-	b=4NHUJC/R+FvrjGSshmPck+fU5qib7H7YBRM8aeQOeze3v+ZKbCF9PudrRCn7TYHyoO4Y
-	 jZp4kYWU9WajsN/a0Yh8h22mqyzHXMwHV+QfyfgzmLWLYTHnSOiSJ/yrLSJCuKmB/h5gG
-	 aCLoi3RxYNPp7Z2aTPbCGyYT2z/eHwTC5aOkj2Ig36b7iH09itaJtOZuvt6CNG+8BsJuz
-	 s1flmGvMbdrKvpDm4Wo4y4w2mCcBuhLEBP+0rYlwzZzxy4MFx1UncAz05DyeMv2bAvbbc
-	 BMo4RXN4NHHhwn+tzlScYit+79M760gvhQ2dJPOIgcOo4rzPrykdDcQKoBeER2FfNlw==
+	bh=0XXMzfFrMuhQ4F+XnXsFq3w4XgRZy5QKJgrtlHXBe4k=;
+	b=Z+mfnvAWBbJbINDSqYFxlEb1zgiSQ4HQUbg0sbmvE9X3Nt3wX5uYy/PjFRSeefj3VGyd
+	 SYHOyhVZKuBzLA4s9vnb2Cz0ahekA/+uAZX71sMz1UdszzbR/JqFMR2f8lfZsOHoerITY
+	 2vcsp4+dqHh6vQcp9ghre1pOmlAE952StxLHS3bvTSz8soMhkiOv5IWKp6qQED2uTcmPL
+	 5PbmQEVGz2UKOLkmNzPCXNY04X6FiSckUc01LKoLzwEA5GTMGkOUSqAO8VTfux+pKOp6Z
+	 /dyYxrijJbtQl5ZxaTx/waqWSiRVkcNB1Hf9Eovy/pn8OQ3VYyUtGjBGJvoP5FHXSSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=UyuJ7eVd;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EBCH59/y";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEB3606A31B;
-	Fri,  6 Nov 2026 04:53:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EEB3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E0E606A328;
+	Fri,  6 Nov 2026 04:54:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=UyuJ7eVd
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jLRf84q2dz1XLVhJ;
-	Fri,  6 Nov 2026 04:53:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793940830; x=1796532831; bh=xqR9zId0kSVz3c7RgBq5vlt6
-	MdA2DlFvx6nKAnIWKQI=; b=UyuJ7eVdsg0EBf6rrqT0v/UcpUILX7vx+VcNWNh9
-	EdqKcGT0Niol5byqbj/SCGB2ajZGmHXiD9LA470pFJi53j8E/6hJzOabc0DN83zx
-	KdL6QBM55KxvNQNxYw9um70hZokkz8YhtwjTyspF87NslB5Jx1RMn77Ok7Gji8wA
-	/gWI8oQNSsu7E9GS/5C4vc5gqunktMdjxbhhAP5FqfU1aT157fTSda9gdVlhSX32
-	ykwU6f0Uqvgsa0ZlFQdYf8BHhRYJV4P+tw6Mx691KI5ODqKYpzFfoh5hT7ar/2wx
-	xal21mhj5duFoavH1sogU6a/3kEXG1GDAGR9Oz35dL7K6Q==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id MwHoDpB4QGbL; Fri,  6 Nov 2026 04:53:50 +0000 (UTC)
-Received: from [192.168.0.215] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jLRf60jylz1XMYJZ;
-	Fri,  6 Nov 2026 04:53:50 +0000 (UTC)
-Message-ID: <de7b9459-1e07-4707-9682-2ec40d536035@acm.org>
-Date: Thu, 5 Nov 2026 20:53:49 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBCH59/y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098411F008A3;
+	Fri,  6 Nov 2026 04:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793940876;
+	bh=0XXMzfFrMuhQ4F+XnXsFq3w4XgRZy5QKJgrtlHXBe4k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EBCH59/y9hilVF46mpV5nEtKYrzidn9xHBUwOKDUfytSuRZwVtYspUNP9VSGDt28B
+	 Rgcbt+W7bpMf+HAtpvA2n/TPaCgvQOAYwqEnL8XlwkeGhIAasR9/HImNm5gNBD3PYe
+	 9Zb/bbDwPxZMq/lzrmrFtkTfr94erDv9W98CG3cNvMI+jFeJKo9s/Ob05hig3pBmk/
+	 ofL+dsN2MsZI0j58TAMOWaOY3LB7dQdMPMQZolrjbfDIuPIVKgMwUgdg/V6brAVudm
+	 6vIgf4K/jcp4FQgXlqhsZWJFs+nn//23p7AyaZHc2S5LvNeZ1/zRnsOvPHZJ5NGVWs
+	 z+bsfUwPjBxQg==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: kernel test robot <yi1.lai@intel.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org, Martin Kaiser <martin@kaiser.cx>, Vinod Koul <vkoul@kernel.org>, linux-trace-kernel@vger.kernel.org
+Subject: Re: [linus:master] [tracing]  b5cc230af5: WARNING:at_kernel/trace/trace_events.c:#test_double_dereference
+Date: Fri, 06 Nov 2026 04:54:33 +0000
+Message-ID: <undine-1793940873129741182-d37e5f54bdcb36ed@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <202611060303.c90f27a7-lkp@intel.com>
+References: <202611060303.c90f27a7-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,30 +58,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] scsi: ufs: core: skip ABORT TASK for device
- management commands
-To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, jejb@linux.ibm.com,
- martin.petersen@oracle.com, kwangwon.min@samsung.com, hy50.seo@samsung.com,
- cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com,
- Bean Huo <beanhuo@micron.com>
-References: <cover.1793938245.git.kwmad.kim@samsung.com>
- <CGME20261106041301epcas2p39724ab936d6c1cb3b5b899f674623975@epcas2p3.samsung.com>
- <ab14d2f1414fa1a0a396f160abf8c27c404b4ec4.1793938245.git.kwmad.kim@samsung.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <ab14d2f1414fa1a0a396f160abf8c27c404b4ec4.1793938245.git.kwmad.kim@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 8:12 PM, Kiwoong Kim wrote:
- > Reported-by: Bart Van Assche <bvanassche@acm.org>
- > Closes: 
-https://lore.kernel.org/r/8446dc27-9518-4b0c-b9e9-116458210616@acm.org
+On Fri, 6 Nov 2026 11:07:56 +0800, kernel test robot <yi1.lai@intel.com> wrote:
+> 
+> 
+> Hello,
+> 
+> kernel test robot noticed "WARNING:at_kernel/trace/trace_events.c:#test_double_dereference" on:
+> 
+> commit: b5cc230af5e536ff752f8bd5c30e23612936d5c3 ("tracing: Warn when an event dereferences a pointer in TP_printk()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+> 
+> [test failed on linux-next/master ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b]
+> 
+> in testcase: boot
+> 
+> config: x86_64-randconfig-r2309-20261012
+> compiler: gcc-14
+> test machine: qemu-system-x86_64 -enable-kvm -cpu Cascadelake-Server-noTSX,enforce -smp 4 -m 16G
+> 
+> (please refer to attached dmesg/kmsg for entire log/backtrace)
+> 
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <yi1.lai@intel.com>
+> | Closes: https://lore.kernel.org/oe-lkp/202611060303.c90f27a7-lkp@intel.com
+> 
+> 
+> [    0.808840][    T0] ------------[ cut here ]------------
+> [    0.810236][    T0] Event hfi1_txq_complete has double dereference in TP_printk: REC->sde ? REC->sde->this_idx : 0
 
-That Closes: link points at my review of v6 instead of the original
-report. Please fix this if you post a v8. Otherwise:
+This seems to be expected behavior. Because "REC->sde" can point already
+freed/reused object, this should not be allowed. The event must save the
+sde->this_idx at TP_fast_assign() instead of recording sde.
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+In drivers/infiniband/hw/hfi1/trace_tx.h:
+
+DECLARE_EVENT_CLASS(/* AIP  */
+        hfi1_ipoib_txq_template,
+	...
+        TP_printk(/* print  */
+                "[%s] txq %llx idx %u sde %llx:%u cpu %d head %lx tail %lx flow %x used %u stops %d no_desc %d stopped %u",
+                __get_str(dev),
+                (unsigned long long)__entry->txq,
+                __entry->idx,
+                (unsigned long long)__entry->sde,
+                __entry->sde ? __entry->sde->this_idx : 0, // this must be recorded as a value
+                __entry->sde ? __entry->sde->cpu : 0,	// ditto
+
+
+So this is a bug in an infiniband driver.
+
+Thank you,
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
