@@ -1,59 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956777;
-	b=s/70Z5tNNG0wIlTN5EBZo7jJCszAPlLVT5gVk0UjO6r03XLFq2/c3LJSb+1VqXuLzTEO
-	 BQMSWpFmbZqGUAMHn2X+JpQFoMVOGY6N1itTZKmjzuY7KpatdvmZXgrlRPfr+MyVwV2MC
-	 6ZCyzBF7C8mqZWLKNGB1uTXYmyE391B0ZiQuygDA7awwsrtsanrLawNDv6tZhvBYEr49D
-	 x68kcjznZvWpTKJ7iIhj8k1mFOPNx74fQ3uM68txUnwOgB8iuzUVRjI9alPSnMwfknN/3
-	 /upx3m1ynN5E0u14Fc04hmXwUBC4gwHXIA7ZDr+bJH01aFc/ZBm++alPTMT0G+LRecQ==
+	t=1793956792;
+	b=0ZhnTJqwX7gL7sPiqqlGM4RkitFrF1XVBtbZY5m2yorwT+Bg/WHMYAfdqQ5+hrrkOzxP
+	 4BT3fpjCJMQYcSavPs5Q1eoN1Lx7szyiycSTPw9km04wu3NdRa/yNB5YhSYdiERphniXN
+	 boMxnlzed++1biv8XPX2BMMr2RpUWukKXmbwZI6sp4tvYcEw59e4eQ9AkQ1smh+lJ+UzO
+	 na5V/5OXYXvAqRC+nm55eNarrH2PFcmM4ZDGPeaWczS4PjsMsubzOwYG9Dw9uI5TyDs7d
+	 zjr9XfMH0mMkPIX22oCZPREj0RhI4hSHswEANYnf4sVI9utoNFLVW0S/xvKd3cxy4zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956777;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956792;
 	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding;
-	bh=CLqGhRWL28nklaizU2djeHKmMcMTeFFmrv6Rmqf/vS4=;
-	b=zkISsCsicNC18vTNwd/JY/PWT5Pjjbrj+xDgu+MDkGG+X2F8s22MznfRsizEZusxdrFJ
-	 eVPoX4r64toqwF6Lv9Uy5ty2qOHn1rAet0SGXARFUAq3A5t1PLhtoeWCrxooyV+zE3mMW
-	 JWMCZWLykJjjX53JYnALCPTedyK49DyMTeMJfBmuotyfSrIqhU5M8XRsQG/fL3PD9RHgY
-	 RBWdihWqDPYVZDm7FWyDzjLzbjwB0AgxR79SgAJ8zX/xzJvOfHA/BNX4/yc16hTHHDuEy
-	 BMKy3xZqdZ2PXoU133oehjE2MkbMRmqzvRrccfGwlGYfV+AgOc4tPVDyrzlppRZtU7w==
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LgkTYIbNEu4h2CLjKP9sCMockS/sHgrH65SUWpK2ukA=;
+	b=EKnUZVuD4lBdK6nhfPkXPPWBhS9cVhxZcbwXwG6xft2AAte96eDgdLFQjL2ePbxHOTsb
+	 sD4uqk1FHDsZLEvCYuGam4ESdpVjir7QiqCXCdnRzmvonlzZErbo39McRGoPoUt+DoBgF
+	 z9/CH86WJ3LhLlXcNuXS1olvI8Us0V86uQ1xRqk3LDanF8a5+JA8G5Gx1SOqWXHWa4CVt
+	 suh8S4eorBGOBkCugC531+MhpFkXOsxXAcOBvYFfoJnXDdKQVZjdeoEvWwvZV28DNXF4S
+	 wPymKsXD3kQMDf03+85G+xakq6eZ/PBNovs1jRKEU4S8EQ6FSAqfsrOnFmDAuKy8C4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=F4cTQbfj;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=jQaYRbf8;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=EB3zBbz0;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="oibvC/+W";
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAD3606A328;
-	Fri,  6 Nov 2026 09:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EAD3606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FE7606A331;
+	Fri,  6 Nov 2026 09:19:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2FE7606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=F4cTQbfj;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=jQaYRbf8
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=EB3zBbz0;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=oibvC/+W
 From: "Ahmed S. Darwish" <darwi@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793956774;
+	s=2020; t=1793956790;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=CLqGhRWL28nklaizU2djeHKmMcMTeFFmrv6Rmqf/vS4=;
-	b=F4cTQbfjtJka3sRGuDUXf6gpEYUhVSYjrN6Tpk0Il9iWONC33smP4oY5nqTvkt70J374Q3
-	hYU+oDDUWy4/MQKdClEYEFiryYPQfU6Im+40B8PCvZGgml0ej3/iA0k1EPFNP1TCxpt6q0
-	GmZe9ff39mFeGvxT1YkegdUzdyg2svCEgclNjptZMhVMgKn3Oy0nKI7dtv7bEopnbdkvDQ
-	6+lMUgY+jzbolcZJFrFuM1bG0lZ5coEUoL3gEHflWjYPzPdYLo+kex3/XDTqWI7P9sizEV
-	L2ZJovHyOxtDEQ6qUEoy6agbxDsnYvzLLelp9Guhhko+t86Naev3waynk+aAPg==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LgkTYIbNEu4h2CLjKP9sCMockS/sHgrH65SUWpK2ukA=;
+	b=EB3zBbz05E9GYFZMnjnzaMIY4OoY/1oF0E0FmmChWd8UzCshW8YWgDlZCT0PO/YIj/jdvX
+	yBzr8DWCDVv8+TqUL5AT3vG9xQyQqRSMfE76ejM/zmjOKuG7rGDcb3LevxFFCdB7ztHD9c
+	V1Hj8+WsS/M4KA4YErki0XQ3jCFiEO7gulKY6nXiBvFw4AdyxHTGf5k4Ltn6W6oMgMSw9g
+	JL252QPPTZF0XnzcoWmCiauC2Q9544fNknLNInTgwXzm1AUdXuayDe2GfPyUSsqOWZMSQL
+	RgO4KB5MdkOVTIuNQYH1UZUodZkn+k6HzRARSzgNf25Ql8butxWhDNOUctyTeQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793956774;
+	s=2020e; t=1793956790;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=CLqGhRWL28nklaizU2djeHKmMcMTeFFmrv6Rmqf/vS4=;
-	b=jQaYRbf8s7LKY0qD3zjMOV47Zw34wEQCu4abMIbrqBCZEgVabqoFTgnP74cXDYWKT8ls2l
-	CbUQIdLtfCEeXrDQ==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LgkTYIbNEu4h2CLjKP9sCMockS/sHgrH65SUWpK2ukA=;
+	b=oibvC/+W8YAha42WctdZeLkQWkHPd298ut47NTADlZlrn/MOLrxR7NtnXhmdPlXJm6ySnL
+	mJPOB+5TMY4m/3BA==
 To: Clark Williams <clrkwllms@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -74,9 +77,11 @@ Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	"Ahmed S. Darwish" <darwi@linutronix.de>
-Subject: [PATCH v1 00/10] tools: Introduce a kernel configuration checker
-Date: Fri,  6 Nov 2026 10:19:12 +0100
-Message-ID: <20261106091922.7560-1-darwi@linutronix.de>
+Subject: [PATCH v1 05/10] Documentation: Describe kconfig-checker usage and design
+Date: Fri,  6 Nov 2026 10:19:17 +0100
+Message-ID: <20261106091922.7560-6-darwi@linutronix.de>
+In-Reply-To: <20261106091922.7560-1-darwi@linutronix.de>
+References: <20261106091922.7560-1-darwi@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,132 +93,159 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Describe the kconfig-checker design, invocation, and external dependencies.
 
-A month ago in Prague I proposed a kernel configuration checker:
+For PREEMPT_RT users, mention that the checker can now be used for
+validating a kernel's .config against PREEMPT_RT requirements.
 
-    PREEMPT_RT configuration: Best practices with kconfig-checker
-    https://youtu.be/hqnOmdpGBdQ
+For the kconfig-checker external dependencies error handling code,
+reference the newly added documentation as well.
 
-This series adds kconfig-checker: a Python tool that checks the kernel
-.config against a set of YAML rules and reports all issues by severity.
-
-The series also adds:
-
-     - a PREEMPT_RT configuration ruleset
-     - a make checkconfig target
-     - support for ruleset overlays
-
-Example:
-
-    $ make defconfig
-    $ ./tools/kconfig-checker/check.py check -c .config -r preempt_rt
-
-      Configuration Issues with severity = FATAL
-      ==========================================
-
-      * CONFIG_PREEMPT_RT is not in .config
-
-        Rationale:
-        https://docs.kernel.org/core-api/real-time/kernel-configuration.html#config-preempt-rt
-
-      Configuration Issues with severity = HIGH
-      =========================================
-
-      * CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE is unset
-
-        Rationale:
-        https://docs.kernel.org/core-api/real-time/kernel-configuration.html#config-cpu-freq-default-gov-performance
-
-      * Below options are set:
-
-        CONFIG_SLUB_DEBUG
-
-        Rationale:
-        https://docs.kernel.org/core-api/real-time/kernel-configuration.html#kernel-debug-options
-
-      Configuration Issues with severity = MEDIUM
-      ===========================================
-
-      * Below options are set:
-
-        CONFIG_CPU_FREQ_GOV_USERSPACE
-        CONFIG_CPU_FREQ_GOV_ONDEMAND
-
-        Rationale:
-        https://docs.kernel.org/core-api/real-time/kernel-configuration.html#non-performance-cpu-frequency-governors
-
-      ### ...
-      ### More output
-      ### ...
-
-The same check can be run through make:
-
-    $ make RULES=preempt_rt checkconfig
-
-If no ruleset is specified, the target prints the available rulesets:
-
-    $ make checkconfig
-      Usage: make RULES=<profile> [OVERLAY=<overlay>] checkconfig
-      Available RULES: preempt_rt
-
-The overlay mechanism allows distributions, CI systems, and Board Support
-Packages to apply additional policy or override existing mainline rules.
-
-For example:
-
-    $ ./tools/kconfig-checker/check.py check	\
-          -c path/to/.config			\
-          -r preempt_rt				\
-          -o path/to/overlay.yml
-
-or:
-
-    $ make RULES=preempt_rt OVERLAY=path/to/overlay.yml checkconfig
-
-Patch 09/10 documents the overlay format and gives an example use case.
-
-My goal is to get this into the kernel and have Debian's PREEMPT_RT kernel
-packaging to use it.  I'd also like systemd to use it: its README lists 60
-kernel CONFIG_* symbols with different requirements severity.
-
-Thank you!
-Ahmed
-
-8<-----
-
-Ahmed S. Darwish (10):
-  kconfig-checker: Add schema for rule files
-  kconfig-checker: Introduce PREEMPT_RT configuration rules
-  kconfig-checker: Add the configuration checker code
-  kconfig: Introduce checkconfig target
-  Documentation: Describe kconfig-checker usage and design
-  kconfig-checker: Split schema to support component reuse
-  kconfig-checker: Introduce overlays schema
-  kconfig-checker: Add support for rule overlays
-  Documentation: Describe kconfig-checker overlays
-  kconfig: Introduce OVERLAY= for make checkconfig
-
- Documentation/admin-guide/README.rst          |  29 +
- .../real-time/kernel-configuration.rst        |   3 +
- Documentation/tools/index.rst                 |   1 +
- Documentation/tools/kconfig_checker.rst       | 101 +++
- scripts/kconfig/Makefile                      |  25 +
- tools/kconfig-checker/check.py                | 686 ++++++++++++++++++
- tools/kconfig-checker/rules/preempt_rt.yml    | 169 +++++
- tools/kconfig-checker/schemas/base.yml        | 114 +++
- tools/kconfig-checker/schemas/overlay.yml     |  28 +
- tools/kconfig-checker/schemas/rules.yml       |  20 +
- 10 files changed, 1176 insertions(+)
- 
+Signed-off-by: Ahmed S. Darwish <darwi@linutronix.de>
+---
+ Documentation/admin-guide/README.rst          | 24 +++++++++
+ .../real-time/kernel-configuration.rst        |  3 ++
+ Documentation/tools/index.rst                 |  1 +
+ Documentation/tools/kconfig_checker.rst       | 50 +++++++++++++++++++
+ tools/kconfig-checker/check.py                |  7 ++-
+ 5 files changed, 84 insertions(+), 1 deletion(-)
  create mode 100644 Documentation/tools/kconfig_checker.rst
- create mode 100755 tools/kconfig-checker/check.py
- create mode 100644 tools/kconfig-checker/rules/preempt_rt.yml
- create mode 100644 tools/kconfig-checker/schemas/base.yml
- create mode 100644 tools/kconfig-checker/schemas/overlay.yml
- create mode 100644 tools/kconfig-checker/schemas/rules.yml
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/Documentation/admin-guide/README.rst b/Documentation/admin-guide/README.rst
+index 77fec1de6dc8..77ffe4dcb85b 100644
+--- a/Documentation/admin-guide/README.rst
++++ b/Documentation/admin-guide/README.rst
+@@ -256,6 +256,30 @@ Configuring the kernel
+       should probably answer 'n' to the questions for "development",
+       "experimental", or "debugging" features.
+ 
++Checking the kernel configuration
++---------------------------------
++
++The kconfig build system can validate the generated kernel ``.config``
++against a selected rules profile. Running ``make checkconfig`` prints
++usage information and the available profiles::
++
++  Usage: make RULES=<profile> checkconfig
++  Available RULES: preempt_rt
++
++For example, to validate the current configuration against the PREEMPT_RT
++profile, run::
++
++  make RULES=preempt_rt checkconfig
++
++``checkconfig`` reports kconfig options whose values do not match the
++selected rules profile. Each diagnostic includes a severity, such as
++``FATAL`` or ``INFO``, plus the suggested configuration change.
++
++Apply the reported changes as needed and run ``make checkconfig`` again,
++against the same rules, until no relevant diagnostics remain.
++
++For more information, see Documentation/tools/kconfig_checker.rst
++
+ Compiling the kernel
+ --------------------
+ 
+diff --git a/Documentation/core-api/real-time/kernel-configuration.rst b/Documentation/core-api/real-time/kernel-configuration.rst
+index d7f08e7b8760..15245c34a053 100644
+--- a/Documentation/core-api/real-time/kernel-configuration.rst
++++ b/Documentation/core-api/real-time/kernel-configuration.rst
+@@ -14,6 +14,9 @@ Introduction
+ This document lists the kernel configuration options that might affect a
+ real-time kernel's worst-case latency.  It is intended for system integrators.
+ 
++You can validate your kernel's ``.config`` against the guidelines below using
++the ``kconfig-checker`` tool.  See Documentation/tools/kconfig_checker.rst
++
+ Configuration options
+ =====================
+ 
+diff --git a/Documentation/tools/index.rst b/Documentation/tools/index.rst
+index 1adf4a6f909b..8912a627a7ac 100644
+--- a/Documentation/tools/index.rst
++++ b/Documentation/tools/index.rst
+@@ -10,6 +10,7 @@ more additions are needed here:
+ .. toctree::
+    :maxdepth: 1
+ 
++   kconfig_checker
+    rtla/index
+    rv/index
+    python
+diff --git a/Documentation/tools/kconfig_checker.rst b/Documentation/tools/kconfig_checker.rst
+new file mode 100644
+index 000000000000..73717ac56ea9
+--- /dev/null
++++ b/Documentation/tools/kconfig_checker.rst
+@@ -0,0 +1,50 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++============================
++Kernel configuration checker
++============================
++
++``kconfig-checker`` is a Python tool for checking a kernel ``.config`` file
++against a set of rules; e.g., PREEMPT_RT configuration requirements.  It
++gives users and system integrators a sanity report showing whether the
++passed kernel configuration satisfies a known profile.
++
++Invocation
++==========
++
++The checker can be invoked from anywhere in the file system::
++
++   check.py list-rules
++
++   check.py check -c path/to/.config -r preempt_rt
++
++As described in Documentation/admin-guide/README.rst, it is also used by
++``make checkconfig``.
++
++External dependencies
++=====================
++
++The checker requires the ``PyYAML`` and ``jsonschema`` python packages.
++Install them using your distribution's package manager, for example:
++
++.. table::
++   :align: left
++
++   ============ ================== ======================
++   Distribution       PyYAML             jsonschema
++   ============ ================== ======================
++   Debian       ``python3-yaml``   ``python3-jsonschema``
++   Red Hat      ``python3-pyyaml`` ``python3-jsonschema``
++   Arch Linux   ``python-yaml``    ``python-jsonschema``
++   ============ ================== ======================
++
++Rule files
++==========
++
++The checker's rule files are written in YAML, and are stored in::
++
++   tools/kconfig-checker/rules/
++
++The schema for these files is fully documented in::
++
++   tools/kconfig-checker/schema.yml
+diff --git a/tools/kconfig-checker/check.py b/tools/kconfig-checker/check.py
+index 476cd13e59eb..ef49c28b9dab 100755
+--- a/tools/kconfig-checker/check.py
++++ b/tools/kconfig-checker/check.py
+@@ -69,7 +69,12 @@ try:
+     import jsonschema               # type: ignore
+     import yaml as yaml_m           # type: ignore
+ except ModuleNotFoundError as e:
+-    error(f'Missing Python module: {e.name}', os.EX_UNAVAILABLE)
++    docs = 'Documentation/tools/kconfig_checker.rst'
++    error(
++        f'Missing Python module: {e.name}\n'
++        f'Check {docs} for how to install required dependencies',
++        os.EX_UNAVAILABLE
++    )
+ 
+ #
+ # Actual script:
 -- 
 2.56.0
 
