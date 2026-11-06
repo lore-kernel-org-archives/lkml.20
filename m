@@ -1,94 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793994058;
-	b=3R+oLxHTYcJlO/ZutI0Oebr0JS7nVY9h5wMwyj3vhidjmvvz8IOkd5eAd6fkDLe6EhIp
-	 DSSgbNXHPB8QMz0tMV7y++erboJZNFkd12Vw0rOwA1LCDXVqfakRO/ybSATQnKkOhNVQM
-	 P/+yQ6ttQzgh0+Cx+3WGUjhScwdefAEE66LlWd4wn8k3rKm1Ap8Q3h7iBJLvt1M/N+S/k
-	 r6iolYqClO+9NaAC3QQvx8N3FqwD4cnvOdYvjoDo1kB3xQs1hf0iPU3lAK8xFw3+veATy
-	 eMV6e4rkdM5K7CIlC6bwQfQaP8Atqy8fedpDe1858CAfEcam/h3/GssTU5zgOQYEdCQ==
+	t=1793994090;
+	b=nPYRiwyrwyAveo8re9PqQkicDJgVF1p8+y/scY8qWaMovZPlbAA9V3AdoDI3K7FH1OK4
+	 MgUioTdxjpFc7SmTFJ+U25lqwouPgVTAsAEizwte0VSsehtZ0RBanp616ym51/ZyW9krr
+	 TpMUAtwK370uT5yTTb6zRPytf4jnQLg4t2L82t1Gq2Mne9UvYJwml5w25F1XUBVBHf84n
+	 Aa+Q5t4lcVS/aSFIJRtcXth3dct+kCYfmt4y6U5nSdMeLxlCJC6po7HNDCwNJx6hCX2mS
+	 9BbxekQC3CPb78A5ucpgw7M5TnqFluAdOtzwlkYFd1p2wHPrdRKqnCy6AKtl5cg7/nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793994058;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:User-Agent:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=lItl7Ks3Ko4mpofEkC41Hng8AAxtpjFcDg8vOTtiDX0=;
-	b=2SF4ZHtOnNXn87nZkdPqE0jO1uiWQ94XzdxNArnADSml8qjjOGMclSipfWxZ27u7J9f/
-	 uEYfxvDDJqbNLdNcb7PlyKgGFSDJ6X9+BLchuQ9WpnMPC5qQUYsDRYIgXugzSOXbhimdF
-	 7xGacx7XHiWz6FqqGZGSMmM+qqwHpnRoqLEBtv1xbVe90lDoWr0uuwbCQvG7KhexUD5Yb
-	 NGq8SXHBidydSVVhgy9jmGthmCF2UT4avWYgEYn/eZ1Ib7ItuTVDZd2/SSMQlkOGknb35
-	 d4DmpLroe/iTA3EhvPGdJiQUNLzSx1yqqhYMlO78egd8OX8jVsIV3+uJHeeUvcX59mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793994090;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=0sJnTvTIwCUMqEIvWSmIp/R0LwPfW88aqxkk8F5wStU=;
+	b=R5BeXgSqL9TtpabmEAsv7enTKIHfUm541e6ZOs0Cv2nzHhgCMll0vDapPHVfNRnIsCCZ
+	 GREZ7tTKD6HzjBf4Jgjw6nReChwRv3jROlGhvhOV8f3TTzhrXU8PyJVy0FQP0O8l0NCFE
+	 Ei4gpDZd4f90pX0zFHD321zpV4R4I2IKIsYHMEL4SI/5oa+eH1R+d2mf45IM7bexJWtaD
+	 wlAX5dJ8Yphj0x8JyRRLqwcyofL3DFhG0JS1kggF4DcDj4Duzc3qbZfe53xJIBdzCMIk5
+	 v/SOkcEHoLGsxdWxyDNiuT5cHBf5Jj8G/05fQbi9Uvb7v41sKM97gAWMhEmS54GKgTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lYGwVGrP;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BfDa10aI;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC8B606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:40:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DC8B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E59606A333;
+	Fri,  6 Nov 2026 19:41:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3E59606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lYGwVGrP
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b1ce85287aso1081220c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:40:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793994057; x=1794598857; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:user-agent
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lItl7Ks3Ko4mpofEkC41Hng8AAxtpjFcDg8vOTtiDX0=;
-        b=lYGwVGrPHdswComoR/WYOn83ZRLgSC0gUdMbJ7VvvuwEopi+l/+AhzGKpBvOdnU5I3
-         ZFZ+vJrdP8s6i1IZDNYvc5FfKe5snxeA6ZJu+FvJ5EO79lfjcBxZO0Vnn8E4xk+xTNdV
-         4Ca5sXwz06lkq0t1kiHi5HzP3lHgKi0Fvi6ejn6ryyNB4NoynkOGSiTzH1N60VF1xqdm
-         LB/hYxIjaC57x3UMCOBsTOwxwC70fZiwv7x8jyBVt07yLLyNMMhTqFY4r2GHmGGwa4GZ
-         chSPW+hZyrzFtb60FUQDGO/rntRxB/IDcIhlJGk0/kGw9sJLO0SKUOFQIA25P2nhHCUC
-         mGwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793994057; x=1794598857;
-        h=mime-version:content-transfer-encoding:content-type:user-agent
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lItl7Ks3Ko4mpofEkC41Hng8AAxtpjFcDg8vOTtiDX0=;
-        b=tANv62KCv+rfeXw/r2o6JQTLAEkfU0Bi0DiC6cNiskbwaGhfXdccaICFKj16QEcTz3
-         +MGyW5oeiqby1yrOXsnIHrD57ywW5hTUIxchC3l0r41t9sK9VWmnXQT11q9PijJhdHPl
-         eWTG5BOyGiKBE7tWvS1ySOxb/7nsaPEUjP3W7zKGQ5ot7JMNm9nVbt7oTQBIiDq14sX4
-         gQKYxrp5/y4fJVlfe6ROxMLNf2X7iYyh1FfzNMT3zbSqsLJ0LCNKoxtuqoxCkL3wKGx8
-         H7nAUotySV9uQncTPfqtiV8QaNAdFd5npvWpzhlq5J/TtOKA5mvAQzhsFpinaGh37wy/
-         7Cpw==
-X-Forwarded-Encrypted: i=1; AKwUvByiYnVFqzjYEm3PmoT0EBCE6/JZga4WOQq3wUHAJSlMYlr6uNkgKJ/fUcPBCpQLubQrwrScDaV0KlLENpQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Xwuwz1WzBDVqTvj2FPpCuoRtCVAdUVvjSDKAIQvv1kOV/XBPK
-	NdTYwsRetO8j/XU0kT6GKHq00PqxVWI60mBPx0p8F5NmEsWSQSDcqHiW
-X-Gm-Gg: AYBFou0yWEhwwwu36znXQWgAj7ByWy2EKQkt/FJRb3Svf48WxDCh1zk+3OZ2DvzG2Pd
-	IVJ4B6KNRPtfOGtLkK3eN4p8PwioIiNV+Ngav0Iqkbsv69mducHdP6xbBH1m/FI5DESOf5LN0TY
-	zo7ft/ohHoSEvTN4J83bkDu6qCANi0RDP+t7NFn1ZcY68K0IAj3skhVidqrzB24ZYbMGxmN7i9a
-	y+1niqgNPxIulDbwkrKCRlbMVTJ5lp+GhD/Hmuzja7igbDRBm70KJLlGC5b8zZUu9+dqgTaQmVj
-	1ULQhWPpBu6wpserOh+udfNA2I6h7AJOOnp72RyhSgubY8mj0Vuu0UduE0AGcHluBZ/p6Inkpe9
-	7r7dmbZ4pVZc5Go08GnG8owN1bWJl5IdIQnkhfNhbM2LIbg2KL9d7pEueb1Nd2DhyL74xneFqlP
-	55NAtDgzBUjdYWgtMBDC9iaioDNIA92LAb+nLzV4GMWTvlzjJXzISNNuYj3SYw1stZQGgO8gL8A
-	J7GJu1RvH/0D8WmxYsy5RYFcUAG5QNP6enKMluxxAvMuxMRTUs1kBfNLJazSnRxQPPFzyASrTNs
-	m0F9oBc06STdyBqNkiHvuwM=
-X-Received: by 2002:a05:7022:286:10b0:143:6525:f9f6 with SMTP id a92af1059eb24-1b25d2f7929mr4156861c88.13.1793994057316;
-        Fri, 06 Nov 2026 11:40:57 -0800 (PST)
-Received: from [127.0.1.1] ([2406:b400:21:7ec1:90d0:3395:e0de:2d21])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4c1df6sm7788930c88.14.2026.11.06.11.40.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 11:40:56 -0800 (PST)
-From: Vishal Tyagi <vishalxtyagi.oss@gmail.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject:
- [PATCH] Revert "Input: synaptics - enable SMBus for HP Elitebook 850 G1"
-Date: Sat, 07 Nov 2026 01:10:52 +0530
-Message-ID: <179399405216.85438.8327280593401118083@gmail.com>
-User-Agent: git-dispatch/1.0 (Linux x86_64; git-send-email compat)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BfDa10aI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793994090; x=1825530090;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=lu9luSVPu9/ZJIYiQZYq+QgP7xm0bIdpZHlk42TGXFk=;
+  b=BfDa10aIMh2xL4Ey6sc4wibWFBXA+3pXWwja0q2G/xpyEXg7YffWSPOV
+   hMXuk5uNnTgogxvZFFYuZu4vL01kL9qYTIrj2Z1ICUegV8OUUeez9HDBT
+   617qSLyBd2Yr++ZXFZaRSq0mfjQhr8RZOSopK632FUcmEdLN6Ir0df4qj
+   omN802qsP4U0o6l6Q6CKMU8W28DlDhhYhXYpv46rA52j5PJVhfOwVOrP9
+   Kl359rAHdjjXds/Nx81jOrZYzX5gzQzF/neFoRoRn2o3SZ0AExihuHkC8
+   3MOdX8M110MoQdg6ihqiicfxr8N3/yylvlqGoWwrcv97H4rQlZGHd4yIS
+   Q==;
+X-CSE-ConnectionGUID: Js0WgKPRRl2Zt4qiIKVPUQ==
+X-CSE-MsgGUID: FCXwZxirRxSNa5YjylIYAg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2915240"
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="2915240"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 11:41:29 -0800
+X-CSE-ConnectionGUID: xAGiIvoQRdi1ZYRaINcayw==
+X-CSE-MsgGUID: 5Rl+VzXGR4aTcCiYEZ6Sew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,199,1787036400"; 
+   d="scan'208";a="7248293"
+Received: from unknown (HELO [10.241.240.140]) ([10.241.240.140])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 11:41:29 -0800
+Message-ID: <d10e4235-dd25-40e6-b682-bf7530ab931d@linux.intel.com>
+Date: Fri, 6 Nov 2026 11:41:28 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,49 +72,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powercap: intel_rapl: Expose package CPUs in
+ associated_cpus
+To: Dennis Chen <dechen@redhat.com>, "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261106183046.208283-1-dechen@redhat.com>
+Content-Language: en-US
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <20261106183046.208283-1-dechen@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This reverts commit f04f03d3e99bc8f89b6af5debf07ff67d961bc23.
 
-Commit f04f03d3e99b ("Input: synaptics - enable SMBus for HP Elitebook 850 G1=
-")
-added PNP ID "SYN3003" to smbus_pnp_ids[] to enable SMBus/InterTouch mode.
 
-However, on Haswell-generation HP EliteBooks sharing this touchpad controller
-(including HP EliteBook 840 G1 and HP EliteBook 850 G1), the touchpad fails
-to resume after ACPI S3 suspend:
+On 11/6/2026 10:30 AM, Dennis Chen wrote:
+> Commit 525e0064f3d8 ("powercap: intel_rapl: Expose all package CPUs in
+> PMU cpumask") expanded cpumask to include all CPUs in the package.
+> Since perf opens an event for every CPU in cpumask, the value returned
+> for power/energy-pkg/ is roughly scaled by the number of CPUs.
 
-  rmi4_smbus 0-002c: failed to get SMBus version number!
-  rmi4_f01 rmi4-00.fn01: Resume failed with code -6.
-  rmi4_physical: Failed to resume rmi4-00: -6
+Thanks for catching this. You are right. perf treats cpumask as the set
+of CPUs to open events on, so a package-scoped counter gets summed once
+per CPU. My change broke that expectation.
 
-Following resume from suspend, the touchpad remains completely unresponsive
-and dead until a full reboot or manual module reload (modprobe -r psmouse).
+> 
+> On a single-socket 72-core DMR machine the reported value is roughly
+> 72x higher than when perf is restricted to reading from a single CPU:
+> 
+> $ perf stat -e power/energy-pkg/ -- sleep 1
+>  Performance counter stats for 'system wide':
+> 
+>           8,052.48 Joules power/energy-pkg/
+> 
+>        1.010483558 seconds time elapsed
+> 
+> $ perf stat -C 5 -e power/energy-pkg/ -- sleep 1
+> 
+>  Performance counter stats for 'CPU(s) 5':
+> 
+>             112.15 Joules power/energy-pkg/
+> 
+>        1.009685587 seconds time elapsed
+> 
+> Revert cpumask to only include the CPU with the lowest ID in the
+> package and instead expose CPUs which can read from the PMU in
+> associated_cpus, akin to uncore PMU drivers with per-package counters.
+> 
+> This retains flexibility for userspace tools while maintaining semantic
+> consistency for perf's use of cpumask.
+> 
 
-Falling back to standard PS/2 mode (via synaptics_intertouch=3D0) allows
-multi-touch gestures (two-finger scrolling, tap-to-click) to function normally
-while preserving 100% reliable S3 suspend/resume behavior.
+Is there a user of associated_cpus? Neither perf nor turbostat reads it
+today. The "any CPU in the package" support that turbostat needed comes
+from commit 7537bae8b6eb ("powercap: intel_rapl: Remove incorrect CPU
+check in PMU context") and from is_rp_pmu_cpu(). Your patch keeps both.
 
-Revert this commit to prevent this regression on affected hardware.
+If there is no consumer, I would prefer a plain revert of 525e0064f3d8.
+It fixes the issue with a smaller diff and does not add new sysfs ABI.
+If you do want to keep associated_cpus, please add an entry under
+Documentation/ABI for it.
 
-Fixes: f04f03d3e99bc8f89b6af5debf07ff67d961bc23 ("Input: synaptics - enable S=
-MBus for HP Elitebook 850 G1")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishal Tyagi <vishalxtyagi.oss@gmail.com>
----
- drivers/input/mouse/synaptics.c | 1 -
- 1 file changed, 1 deletion(-)
+> Assisted-by: LLM
+> Fixes: 525e0064f3d8 ("powercap: intel_rapl: Expose all package CPUs in PMU cpumask")
+> Signed-off-by: Dennis Chen <dechen@redhat.com>
 
-diff --git a/drivers/input/mouse/synaptics.c b/drivers/input/mouse/synaptics.c
-index a8e2a14..0d1b54a 100644
---- a/drivers/input/mouse/synaptics.c
-+++ b/drivers/input/mouse/synaptics.c
-@@ -195,7 +195,6 @@ static const char * const smbus_pnp_ids[] =3D {
- 	"LEN2058", /* E490 */
- 	"LEN205b", /* T490 */
- 	"LEN2068", /* T14 Gen 1 */
- 	"SYN1221", /* TUXEDO InfinityBook Pro 14 v5 */
--	"SYN3003", /* HP EliteBook 850 G1 */
- 	"SYN3015", /* HP EliteBook 840 G2 */
- 	"SYN3052", /* HP EliteBook 840 G4 */
- 	"SYN3221", /* HP 15-ay000 */
---=20
+This has been in since v7.0, so please add Cc: stable@vger.kernel.org.
+
+
+> ---
+>  drivers/powercap/intel_rapl_common.c | 43 ++++++++++++++++++++--------
+>  1 file changed, 31 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/powercap/intel_rapl_common.c b/drivers/powercap/intel_rapl_common.c
+> index 70cab5f08bc6..4197f7146afc 100644
+> --- a/drivers/powercap/intel_rapl_common.c
+> +++ b/drivers/powercap/intel_rapl_common.c
+> @@ -1139,7 +1139,8 @@ static struct rapl_pmu rapl_pmu;
+>  
+>  /* PMU helpers */
+>  
+> -static void set_pmu_cpumask(struct rapl_package *rp, cpumask_var_t mask)
+> +static void rapl_pmu_collect_cpus(struct rapl_package *rp, cpumask_var_t mask,
+> +				  bool all_online)
+>  {
+>  	int cpu;
+>  
+> @@ -1151,9 +1152,15 @@ static void set_pmu_cpumask(struct rapl_package *rp, cpumask_var_t mask)
+>  		return;
+>  
+>  	/* TPMI/MSR RAPL uses any CPU in the package for PMU */
+> -	for_each_online_cpu(cpu)
+> -		if (topology_physical_package_id(cpu) == rp->id)
+> -			cpumask_set_cpu(cpu, mask);
+> +	for_each_online_cpu(cpu) {
+> +		if (topology_physical_package_id(cpu) != rp->id)
+> +			continue;
+> +
+> +		cpumask_set_cpu(cpu, mask);
+> +		/* Stop at first CPU in package if not all CPUs are requested */
+> +		if (!all_online)
+> +			return;
+> +	}
+>  }
+>  
+>  static bool is_rp_pmu_cpu(struct rapl_package *rp, int cpu)
+> @@ -1430,8 +1437,7 @@ static struct attribute_group pmu_events_group = {
+>  	.attrs = attrs_empty,
+>  };
+>  
+> -static ssize_t cpumask_show(struct device *dev,
+> -			    struct device_attribute *attr, char *buf)
+> +static ssize_t rapl_pmu_cpus_show(char *buf, bool all_online)
+>  {
+>  	struct rapl_package *rp;
+>  	cpumask_var_t cpu_mask;
+> @@ -1444,23 +1450,36 @@ static ssize_t cpumask_show(struct device *dev,
+>  
+>  	cpumask_clear(cpu_mask);
+>  
+> -	/* Choose a cpu for each RAPL Package */
+> -	list_for_each_entry(rp, &rapl_packages, plist) {
+> -		set_pmu_cpumask(rp, cpu_mask);
+> -	}
+> +	/* Choose a set of CPUs for each RAPL Package */
+> +	list_for_each_entry(rp, &rapl_packages, plist)
+> +		rapl_pmu_collect_cpus(rp, cpu_mask, all_online);
+>  	cpus_read_unlock();
+>  
+>  	ret = sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(cpu_mask));
+> -
+>  	free_cpumask_var(cpu_mask);
+> -
+>  	return ret;
+>  }
+>  
+> +static ssize_t cpumask_show(struct device *dev __always_unused,
+> +			    struct device_attribute *attr __always_unused,
+> +			    char *buf)
+> +{
+> +	return rapl_pmu_cpus_show(buf, false);
+> +}
+> +
+> +static ssize_t associated_cpus_show(struct device *dev __always_unused,
+> +				    struct device_attribute *attr __always_unused,
+> +				    char *buf)
+> +{
+> +	return rapl_pmu_cpus_show(buf, true);
+> +}
+> +
+>  static DEVICE_ATTR_RO(cpumask);
+> +static DEVICE_ATTR_RO(associated_cpus);
+>  
+>  static struct attribute *pmu_cpumask_attrs[] = {
+>  	&dev_attr_cpumask.attr,
+> +	&dev_attr_associated_cpus.attr,
+>  	NULL
+>  };
+>  
+
+-- 
+Sathyanarayanan Kuppuswamy
+Linux Kernel Developer
+
