@@ -1,49 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794000606;
-	b=XPo9hRPvHYpXkxcswbgrINyB6Q1g9+7UCufetlGTw05V8WuVF/ZBKoXwnXOKAt+aKoLp
-	 3tIp9jzAwKAk55OwcrD7ISkdZFryToQqfJbVlyzr/B7QRFuqFFyeO8T6OY6MO88zYhp0A
-	 GcTixzmkXBnVIYdJLtOz8yryspExb50w2LUrlqlTuQ47XaAoIhpKDZeE+pxM39IJarm21
-	 6gYnZGQjk8N9t9u6agel1+kl/gQhVbjYcJo4lf5OMry56aK8NGINU522GGsPQ4gCv0X4P
-	 OMyWxOxWvlrVmFTv/m9OKq5Tj2rys6ArfuN2cYuzyOrLUjy9bMy4Ku2phXWTFoPEAxQ==
+	t=1794000727;
+	b=IymdpXlDGs47J0fyLmJpg3sI9lCFtrmRKJdlZtrMtlwO6WMWWgbPoXDkV6jjN65K4ec6
+	 WUokL1QZfb8F+9+tFhInyPb8iDzOwcokAcV3HjAT53rNAZI3mLPeu07Jb/0OSlPV+vti5
+	 ltZ1304NyQGZQOYmNJFKPzWqz2fnVuvfrqirfSG2JUYmxT7/UAlHPjGbWf6DPdI5L8432
+	 nME8NAMFGXS3NEcovEcoaMY8wsaGNiVCddORLqqS3lKBqqaem0keNJkMjpvJ54+bs4RQV
+	 1f+U0j16lXpHUlHl0cVgt0Pg/5p30j98hWMGHodp4twtHSQr1d7hp0YbnEYMwC3Q14A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794000606;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=4CgnqH7ekGvYe+n0a5qLsnJYa7U8r8mohWy8/3bmXo0=;
-	b=Xt7qvs5ilLqj1/Aa3iXAQJ9GdwRKUPgqn1K3zgu58Bbtc0+ZluKjOGeXkgYz8SRwX7/s
-	 rN6ss6Jt/2h/mNB5jsEHLegDG8zlhOOUCcDCgX/t/w/sVFe//17CPHmfryPL0XD9VunHZ
-	 Teby5lI2cFkWvPmS+HEBtIw+mLrDJfDcE3Rt59vTXsp0s6yjXU8TZK9HLLdG4LX6rpOyr
-	 HpvnD+G0rQ6QAmLRPf7IYc/l2Y5ILTs5Tt+OrIdWjswfdIQJSVe0HvRF2270aaInHSD23
-	 STWbZezfu0EPTgAksr++lYRV6ccu9QeJkjK1t9InJWg0ydeAptABQ/SvrAzV360Js1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794000727;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=y/v6vHoZMsulYl+hiJykQ6oeqPe7EbafphMm7CRCkRg=;
+	b=2r1XTR8dMZ+L5Uud94tFTg6NCgYfFh2j6r98jMByQs8xmp0z79IGJVdsanv/JltsWIjj
+	 bDy9UGYYv5CMAUzt4N6DIwzBUhESgCnZPgPqcYZJfcMaw/G2IbHGlKJXa4uy7J/JsASbR
+	 sU7B6s5si6kSXyap0zdZn1xhMCItManLwY1lHt9TdgqTFXNIN/Sj118fJ+uRQoECzfJSh
+	 b0762WMFAX4pzurn6bCowgJveTsxkjmxQ5HgjmGz94DstP1CIhwPREQDQvHrYNWFHBZtH
+	 hYoiJ6wvfmwhTktJbjyDdkZvhc2RtvRBGBHs9diTCRMn1lo2a8GyO+IQ679MVzyaGaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ANHrQy9M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2d8VJQ7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B6B606A333;
-	Fri,  6 Nov 2026 21:30:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097CF606A329;
+	Fri,  6 Nov 2026 21:32:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ANHrQy9M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A48BF1F0089F;
-	Fri,  6 Nov 2026 21:30:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2d8VJQ7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605441F0089F;
+	Fri,  6 Nov 2026 21:32:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794000605;
-	bh=4CgnqH7ekGvYe+n0a5qLsnJYa7U8r8mohWy8/3bmXo0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ANHrQy9MNPemXQYEopKJNU5K6vnsnWbxyrbsAaFp5tS7/XZg8SJFrgpCvur1y9lax
-	 bxOtPe65gaKTVK+hlMT25ZEZCHzHFGK0VMWLuNMyRree8FxI8H5UWdt1dndB6gBozJ
-	 uhR0LsltZsIfB6CJvkEMbgYvZ2JJIaY3focq5GFhfcTgfLY1n3auyhRT20yWLrvXj5
-	 Ygf479lNsyRVsS8F0a+H0s/gL3URGKW3dmNch7eFt2g/CE7whoAffsdkuxgL0G60gv
-	 HccrYBzK+HmobvflCIhtPUd8LLidSEWj7kVV8t8VVMiocW+nY/A4GEBY8+qmTWkkC1
-	 WAoCGQVPP14aw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B2CA3A4161B;
-	Fri,  6 Nov 2026 21:30:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794000726;
+	bh=y/v6vHoZMsulYl+hiJykQ6oeqPe7EbafphMm7CRCkRg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S2d8VJQ7SPc6KCEbjbUV9fbIj5gvca7bGsu5tKRltEl3ZDp/msq5ccwE4/xm3MA21
+	 rUDoBPzMhdeNjKBTrv38pyRAl983aQxlFrwVaVeQ9BF+Ajp8gt3ZiV2MlDbUrGlTMZ
+	 Ii39aE50lndMFePAUF4IetOVAFP0SIdVWSPm1tTo74jak8QK/YbXShB0g0I2bzRmO8
+	 aYejoqimq7GhRjjKqAQpapB3LaeoovBQyCf4iuOriGhMIMB7KxxFp7t4Lllz99q/kM
+	 FFceHEAKPuHxO3ct9Sm2FEtXG1VH1D+LPMYZ8I8dkEkbDc7Cz3TA0PntHI+CYjAjoR
+	 z6fClOG3FF3Ow==
+Date: Fri, 6 Nov 2026 15:32:03 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Saravana Kannan <saravanak@kernel.org>, llvm@lists.linux.dev,
+	devicetree@vger.kernel.org, Mike Rapoport <rppt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH] of: reserved_mem: mark the early_memremap() array
+ helpers __init
+Message-ID: <179400072224.1844309.11382493077872563963.robh@kernel.org>
+References: <20261102224528.2495168-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,46 +60,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3] net: usb: lan78xx: fix error handling in
- lan78xx_open()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179400060443.882790.16081277711944956747.git-patchwork-notify@kernel.org>
-Date: Fri, 06 Nov 2026 21:30:04 +0000
-References: <20261102211119.8738-1-stefanomunari.sm@gmail.com>
-In-Reply-To: <20261102211119.8738-1-stefanomunari.sm@gmail.com>
-To: Stefano Munari <stefanomunari.sm@gmail.com>
-Cc: Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, nb@tipi-net.de, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102224528.2495168-1-sashal@kernel.org>
 
-Hello:
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon,  2 Nov 2026 22:11:19 +0100 you wrote:
-> A failed interrupt URB submission leaves NAPI enabled and EVENT_DEV_OPEN
-> set. A subsequent open enables NAPI again, triggering BUG_ON() in
-> napi_enable().
+On Mon, 02 Nov 2026 17:45:28 -0500, Sasha Levin wrote:
+> early_array_map() and early_array_unmap() wrap early_memremap() and
+> early_memunmap(), which are __init, but the helpers themselves are only
+> static inline. If the compiler decides not to inline them, the out of
+> line copy ends up in .text and modpost complains. clang 21 does this for
+> a riscv allnoconfig build:
 > 
-> Clear EVENT_DEV_OPEN and disable NAPI on the submission error path.
+>   WARNING: modpost: vmlinux: section mismatch in reference: early_array_map+0x30 (section: .text) -> early_memremap (section: .init.text)
+>   ERROR: modpost: Section mismatches detected.
 > 
-> Reproduced using failslab on a Raspberry Pi 3 Model B+ (LAN7515).
-> With the fix, the injected allocation failure returns -ENOMEM and a
-> subsequent open succeeds. Verified connectivity with ping and SSH.
+> Both helpers are only called from fdt_scan_reserved_mem(), which is
+> __init, so mark them __init too.
 > 
-> [...]
+> Fixes: aa05faf81583 ("of: reserved_mem: allocate and map the reserved_mem array early")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+> KernelCI's clang-21 riscv builds fail on this once dt/for-next is
+> merged, so it will probably show up in tomorrow's linux-next as well.
+> 
+> Tested with a riscv LLVM=1 allnoconfig build (fails at modpost before,
+> links after), plus W=1 builds of of_reserved_mem.o for riscv and arm64
+> defconfig with clang, and arm64 defconfig with gcc.
+> 
+>  drivers/of/of_reserved_mem.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
 
-Here is the summary with links:
-  - [net-next,v3] net: usb: lan78xx: fix error handling in lan78xx_open()
-    https://git.kernel.org/netdev/net-next/c/1134247a3ae5
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Applied, thanks!
 
