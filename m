@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967034;
-	b=KuvPs55OuqCS3yU/y5M70KhhGfSa5wGA18526brAGwIt7U9yXBtzYDzXgUxhOPjGppPW
-	 BjPKBJrtdGN3rR2vOPYnNtsehIGTLZnZKMqDNS5gD2IGBc3uE8Bo3T8k10EO8WImFIzJg
-	 imbptyfF/BVk56F4JIEnCXVRLIK1bPlG/eqv6GXaw5F/PFGsn42oymduSmAHnatKRrl6r
-	 nkmw4fyo99rxU8WiE488m2He5Ylpce/ljeBNtgo65aMbHODh5it27b8HqjJUSKH/7pMin
-	 tpdgNkf3ZcenPUbX/GA7whcA+ES/WO2ypa8fVvSZaYdVJTzgSdpXDACgRbtgHZ3EZgA==
+	t=1793967050;
+	b=qPu+dchje6FqAub0OEWjL6NIv97dV1y0b/liLR3IuHro+flffPWY5tjv/sUjRL8ghY1F
+	 USpMx3KSE3fuVfEdp+FiKkJ2KcWVcamkcuY1aLcCmffUQHaUy4wDLNmg/9gtuF97r6Nk0
+	 XdLuJpQ3n/AEhUYtLip6XmD+hnq6WYmkIz11xWglzSftQnNrZptM/MYrCjhYrlXSuae+8
+	 hgmDy8CPRvDR5UGw7XU/mFtRw1jwzj1WedvAP9adOX5KoPdN6LFkpc8HHxJdXHXcprlUO
+	 IGJ1Lr40cDZFMeFEEpQ7l8VRRrKJPcif2KQDP5SlOLdDbRFXG/xECdnuGlVXrB+4bGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967034;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967050;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=7VqcSi1dSXj2faifoXjrJP8/CE3Zo8Lvj74KnRYzfxs=;
-	b=lDwCOHO3zcRNzEjiJNJ2yaf2dfbgcO9ay3fCI5vlMPXGjp/Es4Smg9LoMOm1evtLwBlA
-	 pwE4LRqp5C7/Cn2tODj0+TlIjLX+GF9QBZtgQg+RAdKm6kwJpvG8BDW3jDeiUIHh05Opa
-	 so5DyoQJEHls4icY0ieImakx9q2Rv0a2EBJKbe/zDnGIQx9dXF45Z4GMC3LMLkTAAkMo6
-	 vnaK616OorKn6Ee/rFbQ0ggYUEi+54cLH+f6OPahRAF3ACZRQZNiHatxJ3Gk1IAQJcbkU
-	 w864TzOVdoRmmzl5Qmr2SqAevZgMsYjKhJCfklrr4C3woHzk3eTQWCJl1ir908ByDnQ==
+	bh=FPrz5nzve1zBtnElji4BauW4ex0IqNh9eMI6SKDae4Y=;
+	b=4rUSxCzzbCfe+wgvYFojr541Yafl3/2HR2Gs1JYsyCqb5v/fCwsD3L16YB+TKbBDipD5
+	 izGx3j14pS81DxbMEDPHMd5ypQXAiozjoUlemq1KrfO2kNK37hqAu9DTZFCnwhpZNeijP
+	 Aur+iiP+G2mpFvLdCSSYz4ph+PQ5BaI+iuU/ef1OFUnfrAP26aLb391EEvF4U2TfvIBeS
+	 +0W+MUAn/bkCqCaggaB6ShMM1XWdisLVhEVEv0DOzlHP7dlp6Ohnl2kb6xiRSOAyaVz8g
+	 0ZownN5WqM+/tYSrk4VUBwKVpdvZUfXmhnx+s9n8cGx+5gFcv722raeRXG7JmPAIIBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bOspViGV;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NyjZRB0P;
 	arc=none smtp.remote-ip=170.10.129.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBA1606A33E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:10:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BBA1606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72851606D83A
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:10:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72851606D83A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bOspViGV
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NyjZRB0P
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793967033;
+	s=mimecast20190719; t=1793967048;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7VqcSi1dSXj2faifoXjrJP8/CE3Zo8Lvj74KnRYzfxs=;
-	b=bOspViGVI5mehnW3e9Ea8k8Ai/htMruKlMxY3/U8BBhGPc0t+lU+GIBz/VyoO/G8YZ0JRN
-	uEcqxoKM7bfrNICGsGx7o13YOFip7TgER+TwuEOVhrur9dZRMITzsJWX2ld2y8i8sRXQ5i
-	Iceb0IvaoeC3VjqAloHfvEcJ1LoXkw8=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=FPrz5nzve1zBtnElji4BauW4ex0IqNh9eMI6SKDae4Y=;
+	b=NyjZRB0PFQgo4b3FB3KTfDGl2yTvv0aGacTzDhLF8GvS9yJtqevsg5CDRLlWkY14SAm0oP
+	7aieTxmECKf3vuoe3faDhNmvKHPlp+Y0Z2bw76Q8mIuXsI8zVCLygIidnHvvGFd4SPkc28
+	HSYVthWgASUu8lkHZGr8gp9jHOCs0ug=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-661-oIK7eakaNg2ep2EGY3sRbg-1; Fri,
- 06 Nov 2026 07:10:30 -0500
-X-MC-Unique: oIK7eakaNg2ep2EGY3sRbg-1
-X-Mimecast-MFC-AGG-ID: oIK7eakaNg2ep2EGY3sRbg_1793967027
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-317-HaYKK88hPRGjTUyj_YGInA-1; Fri,
+ 06 Nov 2026 07:10:43 -0500
+X-MC-Unique: HaYKK88hPRGjTUyj_YGInA-1
+X-Mimecast-MFC-AGG-ID: HaYKK88hPRGjTUyj_YGInA_1793967040
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 25F331955EAD;
-	Fri,  6 Nov 2026 12:10:27 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2B088180057E;
+	Fri,  6 Nov 2026 12:10:40 +0000 (UTC)
 Received: from ivecera-thinkpadp16vgen1.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D004F18004D2;
-	Fri,  6 Nov 2026 12:10:20 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0AF1718004D2;
+	Fri,  6 Nov 2026 12:10:33 +0000 (UTC)
 From: Ivan Vecera <ivecera@redhat.com>
 To: netdev@vger.kernel.org
 Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
@@ -85,9 +85,9 @@ Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
 	Saeed Mahameed <saeedm@nvidia.com>,
 	Tariq Toukan <tariqt@nvidia.com>,
 	Petr Oros <poros@redhat.com>
-Subject: [PATCH net-next 02/10] ice: dpll: serialize changes of the SyncE CGU registers
-Date: Fri,  6 Nov 2026 13:09:57 +0100
-Message-ID: <20261106121005.1327603-3-ivecera@redhat.com>
+Subject: [PATCH net-next 04/10] dpll: take domain locks around driver callbacks
+Date: Fri,  6 Nov 2026 13:09:59 +0100
+Message-ID: <20261106121005.1327603-5-ivecera@redhat.com>
 In-Reply-To: <20261106121005.1327603-1-ivecera@redhat.com>
 References: <20261106121005.1327603-1-ivecera@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -102,164 +102,367 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On dual complex E825 only complex 0 has a functional CGU and the second
-complex reaches it through cgu_peer, so PFs of both complexes share the
-CGU registers R10 and R11. They read, modify and write them when the
-state of an RCLK pin changes, and ice_ptp_link_change() rewrites R10 when
-a link changes, under the pf->dplls.lock of their own PF only.
+Hold the domain lock of the addressed object wherever driver callbacks can
+run:
 
-ice_ptp_link_change() does not hold dpll_lock, so it can already overwrite
-an update of another PF. RCLK callbacks are serialized by dpll_lock, but
-the DPLL core is going to serialize callbacks per (module, clock_id), and
-each complex has its own DSN and so its own clock_id. With that change, a
-test toggling RCLK pins of both complexes lost an update.
+- netlink requests addressing a device or a pin, from pre_doit to post_doit
+- dumps, for each object
+- notifications, while the message is being built and sent
 
-Add a mutex to struct ice_adapter, which all E825C PFs share, and hold it
-around these sequences.
+Callbacks of a device run under the domain of the device. Callbacks of a
+pin run under the domain of the pin, also when another driver registered
+the pin with its dpll or under its parent pin. All callbacks a message
+about a pin needs are thus covered by one lock, and only one domain lock
+is ever held. Domains have no lock order, so registrations can connect
+them in any way.
+
+A request is atomic against other requests addressing objects of that
+domain, and messages of one object are sent in the order they were built.
+
+Requests resolving an id run no callbacks, so they do not take the lock.
+
+__dpll_{device,pin}_change_ntf() now also require the domain lock of the
+object. A callback can therefore only notify objects of the domain it runs
+under.
+
+Callbacks stay serialized by dpll_lock for now.
 
 Signed-off-by: Ivan Vecera <ivecera@redhat.com>
 ---
- drivers/net/ethernet/intel/ice/ice_adapter.c |  2 ++
- drivers/net/ethernet/intel/ice/ice_adapter.h |  4 ++++
- drivers/net/ethernet/intel/ice/ice_dpll.c    | 11 ++++++-----
- drivers/net/ethernet/intel/ice/ice_dpll.h    |  4 ++++
- drivers/net/ethernet/intel/ice/ice_ptp.c     |  2 ++
- drivers/net/ethernet/intel/ice/ice_tspll.c   |  4 ++--
- 6 files changed, 20 insertions(+), 7 deletions(-)
+ drivers/dpll/dpll_core.c    | 18 +++++----
+ drivers/dpll/dpll_core.h    |  6 ++-
+ drivers/dpll/dpll_netlink.c | 78 ++++++++++++++++++++++++++++---------
+ 3 files changed, 76 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_adapter.c b/drivers/net/ethernet/intel/ice/ice_adapter.c
-index 536923b6ae979d..aa2d8addae5bef 100644
---- a/drivers/net/ethernet/intel/ice/ice_adapter.c
-+++ b/drivers/net/ethernet/intel/ice/ice_adapter.c
-@@ -72,6 +72,7 @@ static struct ice_adapter *ice_adapter_new(struct pci_dev *pdev)
- 	spin_lock_init(&adapter->txq_ctx_lock);
- 	for (int i = 0; i < ARRAY_SIZE(adapter->cpi_phy_lock); i++)
- 		mutex_init(&adapter->cpi_phy_lock[i]);
-+	mutex_init(&adapter->cgu_synce_lock);
- 	refcount_set(&adapter->refcount, 1);
- 
- 	spin_lock_init(&adapter->ports.lock);
-@@ -85,6 +86,7 @@ static void ice_adapter_free(struct ice_adapter *adapter)
- 	WARN_ON(!list_empty(&adapter->ports.list));
- 	for (int i = 0; i < ARRAY_SIZE(adapter->cpi_phy_lock); i++)
- 		mutex_destroy(&adapter->cpi_phy_lock[i]);
-+	mutex_destroy(&adapter->cgu_synce_lock);
- 
- 	cleanup_srcu_struct(&adapter->ports.srcu);
- 
-diff --git a/drivers/net/ethernet/intel/ice/ice_adapter.h b/drivers/net/ethernet/intel/ice/ice_adapter.h
-index c61bd645e460de..fd5585005d91ba 100644
---- a/drivers/net/ethernet/intel/ice/ice_adapter.h
-+++ b/drivers/net/ethernet/intel/ice/ice_adapter.h
-@@ -41,6 +41,8 @@ struct ice_port_list {
-  * @txq_ctx_lock: Spinlock protecting access to the GLCOMM_QTX_CNTX_CTL register
-  * @cpi_phy_lock: Per-PHY mutex serializing CPI REQ/ACK transactions.
-  *               Index 0 = PHY0, index 1 = PHY1. Used on E825C devices.
-+ * @cgu_synce_lock: Mutex serializing changes of the CGU registers R10 and R11,
-+ *                  which all PFs reach. Used on E825C devices.
-  * @ctrl_pf: Control PF of the adapter
-  * @ports: Ports list
-  * @index: 64-bit index cached for collision detection on 32bit systems
-@@ -53,6 +55,8 @@ struct ice_adapter {
- 	spinlock_t txq_ctx_lock;
- 	/* Serialize CPI REQ/ACK transactions per PHY (E825C only) */
- 	struct mutex cpi_phy_lock[ICE_E825_MAX_PHYS];
-+	/* Serialize changes of the SyncE CGU registers (E825C only) */
-+	struct mutex cgu_synce_lock;
- 
- 	struct ice_pf *ctrl_pf;
- 	struct ice_port_list ports;
-diff --git a/drivers/net/ethernet/intel/ice/ice_dpll.c b/drivers/net/ethernet/intel/ice/ice_dpll.c
-index bdbcf7af296eb4..d6302409a2dacf 100644
---- a/drivers/net/ethernet/intel/ice/ice_dpll.c
-+++ b/drivers/net/ethernet/intel/ice/ice_dpll.c
-@@ -2027,7 +2027,7 @@ ice_dpll_phase_offset_get(const struct dpll_pin *pin, void *pin_priv,
+diff --git a/drivers/dpll/dpll_core.c b/drivers/dpll/dpll_core.c
+index d39c4905172f2d..dd09f528170994 100644
+--- a/drivers/dpll/dpll_core.c
++++ b/drivers/dpll/dpll_core.c
+@@ -520,7 +520,7 @@ dpll_device_registration_find(struct dpll_device *dpll,
   *
-  * DPLL subsystem callback. Set proper signals to recover clock from port.
+  * Make dpll device available for user space.
   *
-- * Context: Called under pf->dplls.lock
-+ * Context: Called under pf->dplls.lock, acquires adapter->cgu_synce_lock
+- * Context: Acquires a lock (dpll_lock)
++ * Context: Acquires dpll_lock and the domain lock of @dpll
   * Return:
-  * * 0 - success
-  * * negative - error
-@@ -2035,14 +2035,15 @@ ice_dpll_phase_offset_get(const struct dpll_pin *pin, void *pin_priv,
- static int ice_dpll_synce_update_e825c(struct ice_hw *hw, bool ena,
- 				       u32 port_num, enum ice_synce_clk output)
- {
-+	struct ice_pf *pf = hw->back;
- 	int err;
- 
-+	mutex_lock(&pf->adapter->cgu_synce_lock);
- 	/* configure the mux to deliver proper signal to DPLL from the MUX */
- 	err = ice_tspll_cfg_bypass_mux_e825c(hw, ena, port_num, output);
--	if (err)
--		return err;
--
--	err = ice_tspll_cfg_synce_ethdiv_e825c(hw, output);
-+	if (!err)
-+		err = ice_tspll_cfg_synce_ethdiv_e825c(hw, output);
-+	mutex_unlock(&pf->adapter->cgu_synce_lock);
- 	if (err)
- 		return err;
- 
-diff --git a/drivers/net/ethernet/intel/ice/ice_dpll.h b/drivers/net/ethernet/intel/ice/ice_dpll.h
-index bce0bea9a664bc..4ba76e2e2e0b01 100644
---- a/drivers/net/ethernet/intel/ice/ice_dpll.h
-+++ b/drivers/net/ethernet/intel/ice/ice_dpll.h
-@@ -158,6 +158,7 @@ struct ice_dpll {
-  *     txclk_notify_rwsem (read)
-  *       -> pf->dplls.lock
-  *         -> ctrl_pf->dplls.lock
-+ *         -> adapter->cgu_synce_lock
+  * * 0 on success
+  * * negative - error value
+@@ -579,7 +579,7 @@ EXPORT_SYMBOL_GPL(dpll_device_register);
   *
-  *   - @lock serializes all DPLL state mutations on this PF. When the
-  *     controlling PF's lock must also be taken (e.g. updating the shared
-@@ -169,6 +170,9 @@ struct ice_dpll {
-  *     dpll_*_change_ntf() calls. ice_dpll_deinit() takes the write side
-  *     standalone (not nested under any other lock) to drain in-flight
-  *     readers before pins and the TXC DPLL device are freed.
-+ *   - adapter->cgu_synce_lock serializes changes of the CGU registers R10 and
-+ *     R11. All PFs of a dual complex E825 reach one CGU, so @lock does not
-+ *     cover them.
+  * Unregister device, make it unavailable for userspace.
+  * Note: It does not free the memory
+- * Context: Acquires a lock (dpll_lock)
++ * Context: Acquires dpll_lock and the domain lock of @dpll
   */
- struct ice_dplls {
- 	struct kthread_worker *kworker;
-diff --git a/drivers/net/ethernet/intel/ice/ice_ptp.c b/drivers/net/ethernet/intel/ice/ice_ptp.c
-index 3df08714510da5..4d4b6aaaf30c29 100644
---- a/drivers/net/ethernet/intel/ice/ice_ptp.c
-+++ b/drivers/net/ethernet/intel/ice/ice_ptp.c
-@@ -1395,7 +1395,9 @@ void ice_ptp_link_change(struct ice_pf *pf, bool linkup)
- 				break;
- 			}
+ void dpll_device_unregister(struct dpll_device *dpll,
+ 			    const struct dpll_device_ops *ops, void *priv)
+@@ -928,7 +928,7 @@ __dpll_pin_register(struct dpll_device *dpll, struct dpll_pin *pin,
+  * @ops: ops for a dpll pin ops
+  * @priv: pointer to private information of owner
+  *
+- * Context: Acquires a lock (dpll_lock)
++ * Context: Acquires dpll_lock and domain locks
+  * Return:
+  * * 0 on success
+  * * negative - error value
+@@ -989,7 +989,9 @@ static void dpll_pin_ref_sync_pair_del(u32 ref_sync_pin_id)
+ 		ref_sync_pin = xa_load(&pin->ref_sync_pins, ref_sync_pin_id);
+ 		if (ref_sync_pin) {
+ 			xa_erase(&pin->ref_sync_pins, ref_sync_pin_id);
++			mutex_lock(&pin->domain->lock);
+ 			__dpll_pin_change_ntf(pin);
++			mutex_unlock(&pin->domain->lock);
+ 		}
+ 	}
+ }
+@@ -1016,7 +1018,7 @@ __dpll_pin_unregister(struct dpll_device *dpll, struct dpll_pin *pin,
+  * @priv: pointer to private information of owner
+  *
+  * Note: It does not free the memory
+- * Context: Acquires a lock (dpll_lock)
++ * Context: Acquires dpll_lock and domain locks
+  */
+ void dpll_pin_unregister(struct dpll_device *dpll, struct dpll_pin *pin,
+ 			 const struct dpll_pin_ops *ops, void *priv)
+@@ -1042,7 +1044,7 @@ EXPORT_SYMBOL_GPL(dpll_pin_unregister);
+  * Register a pin with a parent pin, create references between them and
+  * between newly registered pin and dplls connected with a parent pin.
+  *
+- * Context: Acquires a lock (dpll_lock)
++ * Context: Acquires dpll_lock and domain locks
+  * Return:
+  * * 0 on success
+  * * negative - error value
+@@ -1099,7 +1101,7 @@ EXPORT_SYMBOL_GPL(dpll_pin_on_pin_register);
+  * @ops: ops for a dpll pin
+  * @priv: pointer to private information of owner
+  *
+- * Context: Acquires a lock (dpll_lock)
++ * Context: Acquires dpll_lock and domain locks
+  * Note: It does not free the memory
+  */
+ void dpll_pin_on_pin_unregister(struct dpll_pin *parent, struct dpll_pin *pin,
+@@ -1129,7 +1131,7 @@ EXPORT_SYMBOL_GPL(dpll_pin_on_pin_unregister);
+  *
+  * Once pins are paired, the user-space configuration of reference sync pair
+  * is possible.
+- * Context: Acquires a lock (dpll_lock)
++ * Context: Acquires dpll_lock and domain locks
+  * Return:
+  * * 0 on success
+  * * negative - error value
+@@ -1142,7 +1144,9 @@ int dpll_pin_ref_sync_pair_add(struct dpll_pin *pin,
+ 	mutex_lock(&dpll_lock);
+ 	ret = xa_insert(&pin->ref_sync_pins, ref_sync_pin->id,
+ 			ref_sync_pin, GFP_KERNEL);
++	mutex_lock(&pin->domain->lock);
+ 	__dpll_pin_change_ntf(pin);
++	mutex_unlock(&pin->domain->lock);
+ 	mutex_unlock(&dpll_lock);
  
-+			mutex_lock(&pf->adapter->cgu_synce_lock);
- 			err = ice_tspll_cfg_synce_ethdiv_e825c(hw, clk_pin);
-+			mutex_unlock(&pf->adapter->cgu_synce_lock);
- 			if (active && err) {
- 				dev_err_once(ice_pf_to_dev(pf),
- 					     "Failed to configure SyncE ETH divider for pin %d, err %d\n",
-diff --git a/drivers/net/ethernet/intel/ice/ice_tspll.c b/drivers/net/ethernet/intel/ice/ice_tspll.c
-index 85bacb7c3a7903..b99e02cfe559bd 100644
---- a/drivers/net/ethernet/intel/ice/ice_tspll.c
-+++ b/drivers/net/ethernet/intel/ice/ice_tspll.c
-@@ -792,7 +792,7 @@ int ice_tspll_bypass_mux_active_e825c(struct ice_hw *hw, u8 port, bool *active,
+ 	return ret;
+diff --git a/drivers/dpll/dpll_core.h b/drivers/dpll/dpll_core.h
+index 6705e81bc11de9..630c5a1ca572c2 100644
+--- a/drivers/dpll/dpll_core.h
++++ b/drivers/dpll/dpll_core.h
+@@ -22,10 +22,14 @@
+  * @clock_id:		clock_id of the objects in the domain
+  * @module:		module of the objects in the domain
+  * @refcount:		number of dpll devices and pins in the domain
+- * @lock:		lock of the domain
++ * @lock:		serializes driver callbacks of the domain
   *
-  * Set reference clock source and output clock selection.
+  * All dpll devices and pins created with the same (module, clock_id) pair
+  * belong to one domain, in practice to one chip or card.
++ *
++ * Callbacks of a device run under the domain of the device and callbacks of a
++ * pin under the domain of the pin, whichever driver registered them. Only one
++ * domain lock is held at a time, so domains have no lock order.
+  **/
+ struct dpll_domain {
+ 	u32 id;
+diff --git a/drivers/dpll/dpll_netlink.c b/drivers/dpll/dpll_netlink.c
+index e5380d95f238b3..1b4e3a0166a744 100644
+--- a/drivers/dpll/dpll_netlink.c
++++ b/drivers/dpll/dpll_netlink.c
+@@ -861,27 +861,39 @@ dpll_device_event_send(enum dpll_cmd event, struct dpll_device *dpll)
+ 
+ int dpll_device_create_ntf(struct dpll_device *dpll)
+ {
++	int ret;
++
++	mutex_lock(&dpll->domain->lock);
+ 	dpll_device_notify(dpll, DPLL_DEVICE_CREATED);
+-	return dpll_device_event_send(DPLL_CMD_DEVICE_CREATE_NTF, dpll);
++	ret = dpll_device_event_send(DPLL_CMD_DEVICE_CREATE_NTF, dpll);
++	mutex_unlock(&dpll->domain->lock);
++
++	return ret;
+ }
+ 
+ int dpll_device_delete_ntf(struct dpll_device *dpll)
+ {
++	int ret;
++
++	mutex_lock(&dpll->domain->lock);
+ 	dpll_device_notify(dpll, DPLL_DEVICE_DELETED);
+-	return dpll_device_event_send(DPLL_CMD_DEVICE_DELETE_NTF, dpll);
++	ret = dpll_device_event_send(DPLL_CMD_DEVICE_DELETE_NTF, dpll);
++	mutex_unlock(&dpll->domain->lock);
++
++	return ret;
+ }
+ 
+ /**
+  * __dpll_device_change_ntf - notify that the dpll device has been changed
+  * @dpll: registered dpll pointer
   *
-- * Context: Called under pf->dplls.lock
-+ * Context: Called under pf->dplls.lock and adapter->cgu_synce_lock
-  * Return:
-  * * 0 - success
-  * * negative - error
-@@ -898,7 +898,7 @@ static int ice_tspll_get_div_e825c(u16 link_speed, unsigned int *divider)
+- * Context: caller must hold dpll_lock. Suitable for use inside device
+- *          callbacks which are already invoked under dpll_lock.
++ * Context: caller must hold dpll_lock and the domain lock of @dpll.
++ *          Suitable for use inside callbacks running under these locks.
+  * Return: 0 if succeeds, error code otherwise.
+  */
+ int __dpll_device_change_ntf(struct dpll_device *dpll)
+ {
+-	lockdep_assert_held(&dpll_lock);
++	lockdep_assert_held(&dpll->domain->lock);
+ 	dpll_device_notify(dpll, DPLL_DEVICE_CHANGED);
+ 	return dpll_device_event_send(DPLL_CMD_DEVICE_CHANGE_NTF, dpll);
+ }
+@@ -891,7 +903,7 @@ EXPORT_SYMBOL_GPL(__dpll_device_change_ntf);
+  * dpll_device_change_ntf - notify that the dpll device has been changed
+  * @dpll: registered dpll pointer
   *
-  * Set the correct CGU divider for RCLKA or RCLKB.
+- * Context: acquires and holds a dpll_lock.
++ * Context: acquires and holds dpll_lock and the domain lock of @dpll.
+  * Return: 0 if succeeds, error code otherwise.
+  */
+ int dpll_device_change_ntf(struct dpll_device *dpll)
+@@ -899,7 +911,9 @@ int dpll_device_change_ntf(struct dpll_device *dpll)
+ 	int ret;
+ 
+ 	mutex_lock(&dpll_lock);
++	mutex_lock(&dpll->domain->lock);
+ 	ret = __dpll_device_change_ntf(dpll);
++	mutex_unlock(&dpll->domain->lock);
+ 	mutex_unlock(&dpll_lock);
+ 
+ 	return ret;
+@@ -941,27 +955,39 @@ dpll_pin_event_send(enum dpll_cmd event, struct dpll_pin *pin)
+ 
+ int dpll_pin_create_ntf(struct dpll_pin *pin, u64 src_clock_id)
+ {
++	int ret;
++
++	mutex_lock(&pin->domain->lock);
+ 	dpll_pin_notify(pin, src_clock_id, DPLL_PIN_CREATED);
+-	return dpll_pin_event_send(DPLL_CMD_PIN_CREATE_NTF, pin);
++	ret = dpll_pin_event_send(DPLL_CMD_PIN_CREATE_NTF, pin);
++	mutex_unlock(&pin->domain->lock);
++
++	return ret;
+ }
+ 
+ int dpll_pin_delete_ntf(struct dpll_pin *pin, u64 src_clock_id)
+ {
++	int ret;
++
++	mutex_lock(&pin->domain->lock);
+ 	dpll_pin_notify(pin, src_clock_id, DPLL_PIN_DELETED);
+-	return dpll_pin_event_send(DPLL_CMD_PIN_DELETE_NTF, pin);
++	ret = dpll_pin_event_send(DPLL_CMD_PIN_DELETE_NTF, pin);
++	mutex_unlock(&pin->domain->lock);
++
++	return ret;
+ }
+ 
+ /**
+  * __dpll_pin_change_ntf - notify that the pin has been changed
+  * @pin: registered pin pointer
   *
-- * Context: Called under pf->dplls.lock
-+ * Context: Called under pf->dplls.lock and adapter->cgu_synce_lock
-  * Return:
-  * * 0 - success
-  * * negative - error
+- * Context: caller must hold dpll_lock. Suitable for use inside pin
+- *          callbacks which are already invoked under dpll_lock.
++ * Context: caller must hold dpll_lock and the domain lock of @pin.
++ *          Suitable for use inside callbacks running under these locks.
+  * Return: 0 if succeeds, error code otherwise.
+  */
+ int __dpll_pin_change_ntf(struct dpll_pin *pin)
+ {
+-	lockdep_assert_held(&dpll_lock);
++	lockdep_assert_held(&pin->domain->lock);
+ 	dpll_pin_notify(pin, pin->clock_id, DPLL_PIN_CHANGED);
+ 	return dpll_pin_event_send(DPLL_CMD_PIN_CHANGE_NTF, pin);
+ }
+@@ -971,7 +997,7 @@ EXPORT_SYMBOL_GPL(__dpll_pin_change_ntf);
+  * dpll_pin_change_ntf - notify that the pin has been changed
+  * @pin: registered pin pointer
+  *
+- * Context: acquires and holds a dpll_lock.
++ * Context: acquires and holds dpll_lock and the domain lock of @pin.
+  * Return: 0 if succeeds, error code otherwise.
+  */
+ int dpll_pin_change_ntf(struct dpll_pin *pin)
+@@ -979,7 +1005,9 @@ int dpll_pin_change_ntf(struct dpll_pin *pin)
+ 	int ret;
+ 
+ 	mutex_lock(&dpll_lock);
++	mutex_lock(&pin->domain->lock);
+ 	ret = __dpll_pin_change_ntf(pin);
++	mutex_unlock(&pin->domain->lock);
+ 	mutex_unlock(&dpll_lock);
+ 
+ 	return ret;
+@@ -1780,7 +1808,9 @@ int dpll_nl_pin_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+ 			ret = -EMSGSIZE;
+ 			break;
+ 		}
++		mutex_lock(&pin->domain->lock);
+ 		ret = dpll_cmd_pin_get_one(skb, pin, cb->extack);
++		mutex_unlock(&pin->domain->lock);
+ 		if (ret) {
+ 			genlmsg_cancel(skb, hdr);
+ 			if (ret == -ENODEV) {
+@@ -1999,7 +2029,9 @@ int dpll_nl_device_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+ 			ret = -EMSGSIZE;
+ 			break;
+ 		}
++		mutex_lock(&dpll->domain->lock);
+ 		ret = dpll_device_get_one(dpll, skb, cb->extack);
++		mutex_unlock(&dpll->domain->lock);
+ 		if (ret) {
+ 			genlmsg_cancel(skb, hdr);
+ 			break;
+@@ -2018,6 +2050,7 @@ int dpll_nl_device_get_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+ int dpll_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+ 		  struct genl_info *info)
+ {
++	struct dpll_device *dpll;
+ 	u32 id;
+ 
+ 	if (GENL_REQ_ATTR_CHECK(info, DPLL_A_ID))
+@@ -2025,11 +2058,13 @@ int dpll_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+ 
+ 	mutex_lock(&dpll_lock);
+ 	id = nla_get_u32(info->attrs[DPLL_A_ID]);
+-	info->user_ptr[0] = dpll_device_get_by_id(id);
+-	if (!info->user_ptr[0]) {
++	dpll = dpll_device_get_by_id(id);
++	if (!dpll) {
+ 		NL_SET_ERR_MSG(info->extack, "device not found");
+ 		goto unlock;
+ 	}
++	info->user_ptr[0] = dpll;
++	mutex_lock(&dpll->domain->lock);
+ 	return 0;
+ unlock:
+ 	mutex_unlock(&dpll_lock);
+@@ -2039,6 +2074,9 @@ int dpll_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+ void dpll_post_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+ 		    struct genl_info *info)
+ {
++	struct dpll_device *dpll = info->user_ptr[0];
++
++	mutex_unlock(&dpll->domain->lock);
+ 	mutex_unlock(&dpll_lock);
+ }
+ 
+@@ -2061,6 +2099,7 @@ dpll_unlock_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+ int dpll_pin_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+ 		      struct genl_info *info)
+ {
++	struct dpll_pin *pin;
+ 	int ret;
+ 
+ 	mutex_lock(&dpll_lock);
+@@ -2068,14 +2107,14 @@ int dpll_pin_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+ 		ret = -EINVAL;
+ 		goto unlock_dev;
+ 	}
+-	info->user_ptr[0] = xa_load(&dpll_pin_xa,
+-				    nla_get_u32(info->attrs[DPLL_A_PIN_ID]));
+-	if (!info->user_ptr[0] ||
+-	    !dpll_pin_available(info->user_ptr[0])) {
++	pin = xa_load(&dpll_pin_xa, nla_get_u32(info->attrs[DPLL_A_PIN_ID]));
++	if (!pin || !dpll_pin_available(pin)) {
+ 		NL_SET_ERR_MSG(info->extack, "pin not found");
+ 		ret = -ENODEV;
+ 		goto unlock_dev;
+ 	}
++	info->user_ptr[0] = pin;
++	mutex_lock(&pin->domain->lock);
+ 
+ 	return 0;
+ 
+@@ -2087,5 +2126,8 @@ int dpll_pin_pre_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+ void dpll_pin_post_doit(const struct genl_split_ops *ops, struct sk_buff *skb,
+ 			struct genl_info *info)
+ {
++	struct dpll_pin *pin = info->user_ptr[0];
++
++	mutex_unlock(&pin->domain->lock);
+ 	mutex_unlock(&dpll_lock);
+ }
 -- 
 2.56.0
 
