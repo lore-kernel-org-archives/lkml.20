@@ -1,59 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960017;
-	b=w3KirB94QH4lBii0nZJcClTsosUCGf3MfQmdg2cbsa0FTvM9YIry7JwMg8hAPqhBXVq4
-	 YQ50FnZHwSxQL0w1kZWx+l51epDBbSsATdUl1BO9u8Vsp62wT0+ANhqVfsOew05hfE6Jv
-	 iXDKc7hhHr4rWBLKI8wJSD4uGnXP4Ia4s5yzshdyLGle+6DIme1RGU2mZ/eAz33nrUvmH
-	 EnarZCp7PTcnxc7djJxv6vQ5SDU41TCcWtK6psJ7RzLHn6BvZAYJocBl3jqv+wGTQePfn
-	 CjBT2myxErZVs+VmNjjfmooRntCsuqDa3tSyAJ1P8dqQTP4sXF7ccH6ET8+jaxrc1GA==
+	t=1793960025;
+	b=02WeLw0EBsUQMKiXj/B2NYaYW17n1oVoFmKSCvVnQDmFGRCOPIs5W8N+9VwcSMsux8xS
+	 nvBbOByDzCAWWwNT62jFp/noBEnd9pI87TtN+FVFGkQZqtUq1sXquox6fb1+Lb6mACp3o
+	 vug94oz/kc7xERgC/AUHMZj5+iQdWecIUIvB2Wlb6O7hNgvYhB5suU6S/kmt7yvwOBksK
+	 REeUyh5b2xt9Awkb6QUAgWsn8yRrcFdB8+VAEQhxxbl7Buin5CuGMPlfXoEs1tgBUUK2R
+	 hPYn014FohgEU1Fdz1QE9iTNkKQQBIkT4tOUSmzj4LNpCnuiyA5HxTSZhyC/ImDOWiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960017;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=jR4adbanq9pxBfm8SpO73RRgp4cW1UGRfUjC77+fqhg=;
-	b=hwOrp26FFiWdEKnKUwg3gO2iI6UCQ2vfASdPNB3ndYTyLYmTPsmBHjNfSqvgM4n1PDU4
-	 5PZD1ugajd4DSXu3fWJ/aCBQdqG17y/6fndwnZpjT9k0aRA898rmhl6/AtllNw/WatWDp
-	 yzxG0qTvMwzBxft6fRGGwIrIJGy2A8qhHWVsjx/LP5tIMUgmZj/lK5Ib+eYPNuObxtE/T
-	 iCRjwtxMrkcfKl/ikfywj6x9N1vhVhEM5/PagBgcVNEbZelXfCqapnxf6Y2H+uMklOxMx
-	 Ge2u/K3XZ2ibwxJWnfvYU3xIZyUbh9N993FoSNexyb49LQtnC1MbM/N1MHvbDY7Lwvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960025;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=J8DWbEnPAvibk1bD9gvCT78ILufZqiZXXD4dsM8vnzo=;
+	b=ROc956HJRShwursHZtBa0vRcOKT5fVW2xRahFvlVPQ3TqfZWXC9w5XvOzWfo081/kTVY
+	 ZG+m7A9fnFwjr5jKe7hLotky8KWjpIh8sYuWgGD1YRwLQNedopjAKITfPK17ETd6E+ViT
+	 Wrs5lIt7MMktqKlCKenJI+GdesVaT4FeH75Bp0r50lGkX/cqOQ1rd05jCAcGEnYnK2Zml
+	 Td0q7sYA3I+GscU1PSQARfeKxgeX+k/L63u0YscotR4LL+J5LSUSNuXMB4G5SUvuf5mxz
+	 UUAXpPRBRT00XGB7Q+sRzWU+LABfr8iMO2lDK4L82b4V/yHnzIQndH4opkHQHP4BzSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lMyIIOwk;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jy9Y8X+2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D351606A335
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:13:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D351606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D05F606EE87;
+	Fri,  6 Nov 2026 10:13:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lMyIIOwk
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 286F7C69166;
-	Fri,  6 Nov 2026 10:13:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9F0F75FFBC;
-	Fri,  6 Nov 2026 10:13:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AECD110329280;
-	Fri,  6 Nov 2026 11:13:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793960013; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=jR4adbanq9pxBfm8SpO73RRgp4cW1UGRfUjC77+fqhg=;
-	b=lMyIIOwkOdpK7pcLvbipb84AkQnMBSKrJ1KCxDphEt9i5oFWNWH4C/mMoWqnR7hHP4GVn/
-	P/ohyOkZGg3L+46aT8SOJztWWjnpp9wDPVcoBMSTbsOW17hw8PH9JQoRrQw7+QAQgAPRTO
-	yklJowfsDWt74Dz5C4btorAcxn40kRnfm8SXraRUSYUNPh/SEI4Ffl3hCN9NMh8IguQc9/
-	D5+qD4TWvQycpuKQ1AQy8T5Fw/o7gRhvZCxKcTpKPSBeW8McJqazehxr/5BNyMOFwP2aIn
-	hBsdUNlZocMXF6uM1GB9VJK7Otl1JOBhncs+S507sg8QF0b6RY/z8p2R6mOjQg==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Subject: [PATCH v5 0/3] Add TI LM51772 buck-boost voltage regulator
-Date: Fri, 06 Nov 2026 11:12:19 +0100
-Message-Id: <20261106-paul-lm51772-v5-0-0e83ac9711d9@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jy9Y8X+2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4341F0089F;
+	Fri,  6 Nov 2026 10:13:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793960024;
+	bh=J8DWbEnPAvibk1bD9gvCT78ILufZqiZXXD4dsM8vnzo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jy9Y8X+2igspgW/hjjz5MplnQY7bUSZeuDlGxIBm99iiHu3N59k9d9pyyqtNLVLUJ
+	 imE49bvKblRZH9yoI00b8vp5qqnpUGe+Hg0bDmPWJeRUzNVyf1kv8/+hFFKcwed7y5
+	 AwjQ/fI9i9ULfFZFuIRvqN9bgSksCG24YGZ36BN0qHZP/oUMkPlnet+TEkj07ANRbT
+	 MK3+m7wCRDp3MQETiYvwu5h/gAXvABjgmeT2yRCW0dTGXb5xsAYVY3B+rBkg99Blef
+	 stb6hFYLcvZzBNahaQYFYvUnFMsD2FNpYnGEP2zvNzDtZbfCEIPLUtNAybf/7z3VG5
+	 02OugBvqChxeg==
+Message-ID: <6b7efcd9-1a26-4e2d-bbae-e0a85618a5d7@kernel.org>
+Date: Fri, 6 Nov 2026 11:13:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,141 +51,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: split out memory-failure declarations from internal.h
+To: Breno Leitao <leitao@debian.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Oscar Salvador
+ <osalvador@suse.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-cxl@vger.kernel.org, kernel-team@meta.com
+References: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNwY7CIBDG8VcxnMXAQAE9+R5mD0AHxdRiSm12Y
- /ruS/WgVj1+yfz+cyUZu4iZbBZX0uEQc0xtGdVyQfzBtnuksS6bAAPFGXB6tpeGNqeKaw3Ur5V
- zHrUCa0gh5w5D/L3ldj/3nS/uiL6fGtPFIeY+dX+3fwOf7r6kB04ZhSqwEFwI1tRbl1LfxHbl0
- 4lM8QGeuZ5xKNyB1UqjkBrgnYsnLtiMi8JZjQo8QBDyA5cPzpmccVm4XEu0zjBTGf7Kx3H8Bws
- ydzB5AQAA
-X-Change-ID: 20261021-paul-lm51772-c96bbce762a8
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Paul Louvel <paul.louvel@bootlin.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793960009; l=5058;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=Rt7/G+ZERiW4j9o8uf8XpxXIr5kaH+GWwTlxYpLdbcE=;
- b=TsRiV3O3TYQd5zQE9AqGEPqEfLUgzpVnVWmtKbpXGmMVTNG0vyXrN0BUTiHVjk76jTrKiPBQn
- 0TBHYvL/YDzDZv6jzoWUE6bMZA4IFuPg4NInaU1VRHl+Jwj6AwhSDp+
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+On 11/4/26 17:45, Breno Leitao wrote:
+> mm/internal.h carries the memory failure declarations, but only seven
+> of the 81 .c files that include it use them.
+> 
+> Move memory failure declarations to a new mm/memory-failure.h and
+> include that from those seven files that need them.
+> 
+> Move the block as is, including take_page_off_buddy(),
+> put_page_back_buddy() and page_mapped_in_vma(): they live in
+> page_alloc.c and page_vma_mapped.c, but are built only for
+> CONFIG_MEMORY_FAILURE and called only from memory-failure.c.
+> 
+> Keep the declarations private to mm/.
+> 
+> No functional change.
+> 
+> Suggested-by: Mike Rapoport <rppt@kernel.org>
+> Link: https://lore.kernel.org/all/aumt-4kfGGtoXuh-@kernel.org/
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
 
-This series provides support for the LM51772, a buck-boost controller
-from TI with I2C control, designed for USB Power Delivery applications.
-The output voltage is software-configurable from 1 V to 48 V, and the
-peak current limit threshold is programmed through software. The
-LM51772 also provides an auxiliary fixed 5 V regulator output (VCC1).
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Core changes
-------------
+This can go through Andrew's tree.
 
-Patch #2:
+-- 
+Cheers,
 
-The voltage selector helpers can now handle regulators that keep their
-selector in two consecutive 8-bit registers. The implementation
-preserves bits outside the selector field.
-Rejects the unsupported case where an oversized selector shares a
-register with the range selector.
-
-Thanks,
-
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
----
-Changes in v5:
-- Perform the checks for vsel_reg_oversize when rdev->regmap is resolved
-  in regulator_register().
-- Also check if the second register of the voltage selector does not
-  overlap with the voltage range selector.
-  Do this check only if the voltage range selector register is used (i.e when
-  vsel_range_mask != 0).
-- Add to the documentation the vsel_reg_oversize should be used with
-  8-bits registers.
-- Link to v4: https://patch.msgid.link/20261104-paul-lm51772-v4-0-494eab808581@bootlin.com
-
-Changes in v4:
-- Add STATUS_CLEAR_FAULTS to precious register to avoid debugfs
-  interfering.
-- Instead of checking vsel_reg_oversize configuration coherency at each
-  read/write, do it once when registering the regulator.
-- Use DISCHARGE_CONFIG{0,1} instead of FORCE_DISCH, to avoid extra power
-  drain for no reason when Vout regulator is enabled/disabled.
-- Nit fixes.
-- Remove dev_dbg() calls as they where only useful during testing.
-- Set EN_ACTIVE_DVS bit.
-- Link to v3: https://patch.msgid.link/20261030-paul-lm51772-v3-0-0de62c22f342@bootlin.com
-
-Changes in v3:
-- Dropped the fixed OVP core patch. The driver now sets the OVP threshold
-  before ramping up and after ramping down, so the core change is no
-  longer needed.
-- Fall back to the lowest OVP selector when the requested limit is below
-  the supported range, instead of failing the voltage change.
-- Reworked the current limit to use the standard regmap helpers and a
-  table computed from the shunt resistor value, avoiding custom helpers.
-- Moved ti,iset-pin and shunt-resistor-micro-ohms to the chip level in
-  the binding, and replaced ti,ivp and ti,ivr with ti,input-voltage-mode.
-- If the iset pin is used, do not provide .{set/get}_current_limit()
-  callback.
-- Fixed the regulator subnode schemas and removed the current limit
-  range from the binding description.
-- Write the nINT configuration before requesting the IRQ.
-- Enabled the IMON limiter, dropped the register defaults.
-- Link to v2: https://patch.msgid.link/20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com
-
-Changes in v2:
-- Dropped the regulator-boot-force-off binding and core patches.
-  After discussion, this property should not be in the binding because
-  it is Linux specific. Also, the situation described in the v1 cover
-  letter can be resolved by the driver getting exclusive ownership of
-  the regulator it uses.
-- Added the fixed OVP core change. The custom .set_voltage_sel callback
-  for the LM51772 is no longer needed since this case can be handled by
-  the core now.
-- Updated the LM51772 binding to the standard unit suffixes and
-  property names, and fixed the schema and example issues found.
-- Reworked the two-register selector helper so it preserves unrelated
-  bits. Make it atomic by using a bulk read and write instead of two
-  separate regmap_update_bits().
-- Cleaned up the driver around units, current-limit validation,
-  volatile fault status, IRQ fault reporting, voltage timing, and nINT
-  handling.
-  The .renable callback is not really needed when the nFLT/nINT pin is
-  used as nINT, as the device drives the pin low only when a change to
-  the status byte occurs.
-- Link to v1: https://patch.msgid.link/20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com
-
----
-Paul Louvel (3):
-      regulator: dt-bindings: Add TI LM51772 support
-      regulator: core: Support regulators where the voltage selector spans two registers
-      regulator: Add TI LM51772 support
-
- .../devicetree/bindings/regulator/ti,lm51772.yaml  | 230 ++++++
- MAINTAINERS                                        |   6 +
- drivers/regulator/Kconfig                          |  11 +
- drivers/regulator/Makefile                         |   1 +
- drivers/regulator/core.c                           |  14 +
- drivers/regulator/helpers.c                        |  67 +-
- drivers/regulator/lm51772-regulator.c              | 913 +++++++++++++++++++++
- include/linux/regulator/driver.h                   |   2 +
- 8 files changed, 1234 insertions(+), 10 deletions(-)
----
-base-commit: 0785f7172040512cba759838b27286646773c735
-change-id: 20261021-paul-lm51772-c96bbce762a8
-
-Best regards,
---  
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+David
