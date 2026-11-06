@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793952063;
-	b=cK3bEHPn9hTkmOEIlE1Vym8TZrXSilHw+g1Tfs/2akuBJ1d1U+Zv4vLBmuvfy+lsyCZG
-	 jC5DCw4Ijk3Elj0xRRuyLNWJaiZjYbtvqHRJ793UFeScKLsVGiSn3viFfwH2lyxvqmKKT
-	 pCccHoe07yZ80ZEswuU/EvwcZG441B0N1kH7Kag+5Q7ajb7h4vx+bTF1Zisn4R1EVIttv
-	 cLUdcZscaIAcyD/BoBm21EYzYPVg2osomWkqv2WRrzK3OTkydmeityx1yYgR2U/i+l4EJ
-	 B4ugwtspWz9z8SLUimb4uOSTgoc5WkPa3LUN8lDsE+LEoW0swQy07Pv9k2t7dm6QiWg==
+	t=1793952121;
+	b=zrBNhUL45DeNUT/Wpq2DU/6a1mC6ww7H/pULFWYXYu0wRJ9Dis5Y70BT1QVuJrOpvKix
+	 LEA7rttWrKIJ8I/gj9u1evKdu0B5+g4OjayeeFLhhYG8TxXBrrqMPz5GJiIkRgfP2DzZb
+	 eGoehNP/kYCR2BYmMgpTWsXadKBwKGeWQ7pjO4jx1AsyrG9qilcz08bpTZRZ0hafvOAzN
+	 zHL4o1dopMc84NywBLtLGd+iTGXXEMUSugXhEf1699ykHV2sLM3Rb+I/cdIrq11kZ2TfS
+	 6bwKwvANyCX53QkmWOCVfKxTI8KctQnQ2bvC7FpGBWMCcoRSR6DBu7OQsRxsrxyezZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952063;
-	h=DMARC-Filter:Received:Subject:From:To:Cc:Date:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=mKSuIXJLtZJlgvRY/t+P/ubAjU+hVN+y583sjkS57DM=;
-	b=Pq5+yXBpqDImDva3C9gnDMaAs0Pjc9uAMmN81SH8UweuvH+aPsV+1omPnGnyDeftUbQw
-	 olM+wSb9vI6k0I0pKdxE1/Cr4deOKMcEWpSJ0Tv/lq7gBcfvAFDr+ikLuTbryn44QUzG9
-	 dJi4BaDBYm9vk+rXrM83xxkZ4TwZR0cRMCmfDIldxeev51wSOAXP6y8QhZEN0kkryAMu0
-	 Rqy9l+bT+nOcfVf/zW9jWzjJWtmbc6kIFxSXfEiI/LgeO3f9cVwJ6n+Cn4FNJrWRh9FL1
-	 cxQzCxWKFuNODC1M+MnD27d78CrzuBjexdrFLK1D7kxIXaOQU3qYo2gWbkt3Ns+H9iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793952121;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=czHTZkJ3TKYgESCxC79vT1Kt+Z4QQw2HxdI0thihZ/8=;
+	b=ukVmQXk+mC3CkmGWdwK3a+uFv7bk9323lCO9xpglTlBPcPzmRp1ui2e8lIeFC61EVDgL
+	 4jN4bVzVjnb2QnOAzQB9mcNQfAJpwb+pMkHZqKpljXAJjv97P/jQW82k5FZb5qiFJKtHr
+	 fiEHWuHLq3y1BQAufahC4HnB17FFSsWvAzuvLOwfPUmd/l0/LXHFVrNesyoA0ykOU1RLv
+	 3d3aimPBXjweAsVn7B9/8PNzz/X8njTyg1FtYuKbTaVRc0VFN3s/vasr4cwnsc9Bybq5+
+	 FMLQnkJnEfsEq7wFjafVV5FAFqF0iKldeLrlpT80+0QkvrViz8miRMVMG9ttoC3TKAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b="X3m/64cs";
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E782606D804;
-	Fri,  6 Nov 2026 08:01:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E782606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACntpc3ie1q8DdqAA--.5010S2;
-	Fri, 06 Nov 2026 16:00:55 +0800 (CST)
-Subject: [PATCH v2] dmaengine: fsl-edma: Fix channel leak in fsl_edma_xlate()
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>
-Cc: dmaengine@vger.kernel.org, imx@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, vulab@iscas.ac.cn
-Date: Fri, 06 Nov 2026 08:01:02 -0000
-Message-ID: <179395206206.2118334.5568431940571202082@iscas.ac.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415CA606A326;
+	Fri,  6 Nov 2026 08:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 415CA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=X3m/64cs
+X-UUID: 538cba94d9b811f18dc8c9802ae25ab1-20261106
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=czHTZkJ3TKYgESCxC79vT1Kt+Z4QQw2HxdI0thihZ/8=;
+	b=X3m/64csSEQoss9lEcl0w3aRMXYmloJYOzZ6MV/zpobmSrH0RhDkbhq8h4gaVQSiQbpwnwgsrWQmfeSiRgyB/WkcvgGLY1Kh/6kYCbudzNDw9dqYeD/UCkJOamx5gVTlPxe/D5Ww2a1XYAylzFnl57YCyTtYOLq11e4ap0veDEE=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:b8aa4436-e99a-4e2a-8b13-f887b940c3b0,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:b0318ac,CLOUDID:9e64dace-02bc-447e-ab88-2baec399874a,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 538cba94d9b811f18dc8c9802ae25ab1-20261106
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by mailgw02.mediatek.com
+	(envelope-from <fangwen.deng@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 904909559; Fri, 06 Nov 2026 16:01:52 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 6 Nov 2026 16:01:51 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 6 Nov 2026 16:01:50 +0800
+From: Fangwen Deng <fangwen.deng@mediatek.com>
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+CC: <linux-usb@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<jarried.lin@mediatek.com>, <vince-wl.liu@mediatek.com>,
+	<justin.yeh@mediatek.com>, Fangwen Deng <fangwen.deng@mediatek.com>
+Subject: [PATCH] usb: mtu3: cancel EP0 requests to prevent use-after-free
+Date: Fri, 6 Nov 2026 16:00:58 +0800
+Message-ID: <20261106080140.342107-1-fangwen.deng@mediatek.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,78 +84,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowACntpc3ie1q8DdqAA--.5010S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw1fCw43GrW7Kw45XF1xuFg_yoW8tr45pa
-	1ftFyF9asrta1FyF4DCw40vFy0kF4rt3y5KFWDt3sFk3srtrn3Z3s8Gw4F9ryUJrWfZF4S
-	ywnxtF95WFyUC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvI1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
-	x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
-	ACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
-	r41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
-	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
-	JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
-	vEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
-	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf
-	9x0JUMGQDUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMDA2rtTw3SfgAAst
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-fsl_edma_xlate() acquires a channel with dma_get_slave_channel() and only
-then validates the srcid taken from the device tree. When the srcid turns
-out to be invalid the function just returns NULL, leaving the channel
-with its client count elevated and marked private, so it can never be
-requested again.
+mtu3_ep0_dequeue() always returns -EINVAL and leaves the request on
+mep->req_list without unlinking or completing it, so an EP0 request
+can never be cancelled.
 
-Validate the srcid before any channel is acquired: reject a zero srcid
-and a srcid that is already in use up front. With that, no channel can be
-leaked on the error path and the release added in v1 is not needed.
+FunctionFS assigns its temporary read buffer to ep0req and waits in
+__ffs_ep0_queue_wait(). When that wait is interrupted by a signal it
+calls usb_ep_dequeue(), does not check the return value, and its
+caller ffs_ep0_read() frees the buffer on every exit path. With
+-EINVAL returned the request stays queued and MTU3 still owns it.
+When the host then sends the OUT data stage, ep0_rx_state() writes
+the received bytes through the stale req->buf, giving the host a
+content-controlled write into freed kernel memory. That corrupts
+whichever object reuses the slab and can panic the kernel.
 
-Fixes: 6aa60f79e679 ("dmaengine: fsl-edma: add safety check for 'srcid'")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Implement mtu3_ep0_dequeue() following mtu3_gadget_dequeue() but
+without QMU flush/start since EP0 uses PIO: validate the request
+under mtu->lock, unlink it once and give it back with -ECONNRESET,
+so ownership of the buffer returns to FunctionFS before it is freed.
+
+Cancelling the request that backed the data stage also leaves the
+transfer unable to finish, so retire the aborted transaction with a
+protocol stall. That returns ep0_state to SETUP and stops a later
+ep0_queue() from reading this transaction's leftover FIFO data into
+the next request's buffer. The stall is skipped when the controller
+is already powered down or no data stage is in flight.
+
+The same stub is why functionfs_unbind() cannot cancel a pending EP0
+request, which deadlocks against the FunctionFS thread holding
+ffs->mutex.
+
+Fixes: df2069acb005 ("usb: Add MediaTek USB3 DRD driver")
+Signed-off-by: Fangwen Deng <fangwen.deng@mediatek.com>
 ---
-Changes in v2:
-- Check dma_spec->args[1] before dma_get_slave_channel() instead of
-  releasing the channel on the error path, as Frank Li suggested. The
-  zero-srcid test is folded into the existing fsl_edma_srcid_in_use()
-  check, so the code stays where it is.
-- Link to v1: https://lore.kernel.org/all/20260916092733.2002700-1-vulab@iscas.ac.cn/
-- Sorry for the very late reply to this review.
+ drivers/usb/mtu3/mtu3_gadget_ep0.c | 55 ++++++++++++++++++++++++++++--
+ 1 file changed, 53 insertions(+), 2 deletions(-)
 
- drivers/dma/fsl-edma-main.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
-index 630285c85482..e2ef18ad1a3e 100644
---- a/drivers/dma/fsl-edma-main.c
-+++ b/drivers/dma/fsl-edma-main.c
-@@ -266,7 +266,8 @@ static struct dma_chan *fsl_edma_xlate(struct of_phandle_args *dma_spec,
- 		if (chan->client_count)
- 			continue;
+diff --git a/drivers/usb/mtu3/mtu3_gadget_ep0.c b/drivers/usb/mtu3/mtu3_gadget_ep0.c
+index e4fd1bb14a55..73a1af8b6c65 100644
+--- a/drivers/usb/mtu3/mtu3_gadget_ep0.c
++++ b/drivers/usb/mtu3/mtu3_gadget_ep0.c
+@@ -857,8 +857,59 @@ static int mtu3_ep0_queue(struct usb_ep *ep,
  
--		if (fsl_edma_srcid_in_use(fsl_edma, dma_spec->args[1]))
-+		if (!dma_spec->args[1] ||
-+		    fsl_edma_srcid_in_use(fsl_edma, dma_spec->args[1]))
- 			return NULL;
+ static int mtu3_ep0_dequeue(struct usb_ep *ep, struct usb_request *req)
+ {
+-	/* we just won't support this */
+-	return -EINVAL;
++	struct mtu3_ep *mep;
++	struct mtu3_request *mreq = NULL;
++	struct mtu3_request *r = NULL;
++	struct mtu3 *mtu;
++	unsigned long flags;
++	int ret = 0;
++
++	if (!ep || !req)
++		return -EINVAL;
++
++	mep = to_mtu3_ep(ep);
++	mtu = mep->mtu;
++
++	spin_lock_irqsave(&mtu->lock, flags);
++
++	mreq = to_mtu3_request(req);
++
++	dev_dbg(mtu->dev, "%s : req=%p\n", __func__, req);
++
++	list_for_each_entry(r, &mep->req_list, list) {
++		if (r == mreq)
++			break;
++	}
++	if (r != mreq) {
++		dev_info(mtu->dev, "req=%p not queued to %s\n", req, ep->name);
++		ret = -EINVAL;
++		goto done;
++	}
++
++	if (mreq->mep != mep) {
++		dev_info(mtu->dev, "mreq->mep != mep, not queued.\n");
++		ret = -EINVAL;
++		goto done;
++	}
++
++	trace_mtu3_gadget_dequeue(mreq);
++
++	/*
++	 * The cancelled request backed the current control transfer, so abort it
++	 * with an EP0 STALL and reset ep0_state to SETUP to avoid FIFO leftovers
++	 * leaking into the next request. Clear happens in the EP0 ISR (W1C
++	 * EP0_SENTSTALL), so EP0 won't stay halted. Do this before
++	 * mtu3_req_complete() drops mtu->lock to avoid stalling a new transfer.
++	 */
++	if (mtu->is_active && mtu->ep0_state != MU3D_EP0_STATE_SETUP)
++		ep0_stall_set(mtu->ep0, true, 0);
++
++	/* ep0 uses PIO, so no QMU to flush/restart as mtu3_gadget_dequeue() does */
++	mtu3_req_complete(mep, req, -ECONNRESET);
++
++done:
++	spin_unlock_irqrestore(&mtu->lock, flags);
++	return ret;
+ }
  
- 		if ((chan->chan_id / chans_per_mux) == dma_spec->args[0]) {
-@@ -275,13 +276,6 @@ static struct dma_chan *fsl_edma_xlate(struct of_phandle_args *dma_spec,
- 				chan->device->privatecnt++;
- 				fsl_chan = to_fsl_edma_chan(chan);
- 				fsl_chan->srcid = dma_spec->args[1];
--
--				if (!fsl_chan->srcid) {
--					dev_err(&fsl_chan->pdev->dev, "Invalidate srcid %d\n",
--						fsl_chan->srcid);
--					return NULL;
--				}
--
- 				fsl_edma_chan_mux(fsl_chan, fsl_chan->srcid,
- 						true);
- 				return chan;
+ static int mtu3_ep0_halt(struct usb_ep *ep, int value)
 -- 
-2.34.1
+2.45.2
 
