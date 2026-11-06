@@ -1,133 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793980789;
-	b=LwmpaHxx7vOEhteaypj8UoKQLhQUtDQBJ4qYFQY27VEmLuXscAhXvBwjI1y7NUhMoDkz
-	 jWYYYlk4zNylvFsM+CnzUFCwKE5uAvlv9YkNpFkGXUpPvOqXHnw1O119QA5aE+ZOVObGX
-	 D4dKLRvlFdZ7nhAGPpudspr7M6x94ukuAcoJLBCWxahAYoR3XZv0zht0wrvF0rMHZ78Bv
-	 HJnULva8qBNARUxkgAEnlFtYiofh/IARC6gMgsL4H8P6xDDVmz8z6BxUFbobswJBbZvIX
-	 4nkn7q+mC1jl0m7HrV87wyaI5sYmJz346Qk73rDNmtiUQLG3g9MXY9p1scyaDXH1icg==
+	t=1793980875;
+	b=GYE6DHLCfDfBhtskFL8A873H0dJnCawCI6ISGmAUT6cb3irBX4PNc6vswawnzzrfdJ+e
+	 dvUin3rf7kEb6Mpk5uOPopjrIVolApC4exVO98+VHAiSqzA3zuqmGcCPNjKEHYdymgj1D
+	 mRatZsuLo8xor9tk7Tche4wQ+/K60mcWy8Fz4PiTaum6FXgptRJX1Nf8X6YvxBUEwHrve
+	 /VTqii6kT8ZVZKLiDdRnn3ULofzppU5ZYaC4PF4VzYGJo+7xijVP1fAVFUebrxjnuBtWj
+	 99VWAQUaP14yg57Ih120PyXLoMQlVbEpRrJla5JoCWooPohvSaZH39q5ESDL5CN+pYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793980789;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5vCHEs/V9pwMAPmRu7ggjXlWX/ar9c5h5bZvjFU/NuY=;
-	b=wz+4Sj0eZtijzgujBfVHL9QpRnyv6hh6MeLnxl4p57Vd0x2Qi/ZkanIWu67c9OV/1NRV
-	 wxWEGnk+JVB7wDsKZMVivMeI+ykGx+SALN+wzHy+3EGIVAGSxIfsK1a3CdpFv6KUJRZC0
-	 cCPwhIYQHyVBso1P9fZr/f/5OH0oVN+j+jVM7uX+/TU64uBhvzl9rmsKcU5kO5qWbKbXD
-	 OgbNkOVb3o9pyuBwsHuI2oaJVVgvYpANHG3nmsJDTeO2/3eBBMzJMCybdGT02aU/Uhy+J
-	 gJnHi0Cm9qEfRpk8WRywfpoof3COLkC80nZz5vPrtrkX/tMjqBNdPbOZ4ZmG4ppDFSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793980875;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=4shQ3DR/ZJ0GAB6tttMcp+Ec4N2k1PGmXpuQWgxxLTc=;
+	b=scdwCfC/xuFII9Canow+c6fggHEJuzTtuYgKO8CrbNr+mP3t6L+yzOzAcRe3/dFk274h
+	 i8x4YZmo3IScOuziI8XYO0flbdbEhexT6WACIkTd9X++rH1KcxpuezbdAvANdJIikE5jZ
+	 ZPCbAAE00F/x2VpI+RYyXj7pCnHDmZf2aOz7ZrKyicezyMyzCN7PBPyfsq/Ti32WQ08U6
+	 rVqdkia3lOQFMLdKW29+fyuUah6GEMJ5HU8sCP29EvzUwAwPyG3nOCRUCrSOfYgdiMN4B
+	 7Hxg51bm2G+qNCbr2moug0NdRSofA9mPfuy12CIzqYd2wFw88Hh1w9avj3opNKTzpOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=nERuFrRL;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="Z2//7IVs";
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QEC5Cqof;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LaSCeof6;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15864606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:59:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15864606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31423606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:01:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31423606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=nERuFrRL;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Z2//7IVs
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 3F7F5EC01CA
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:59:46 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Fri, 06 Nov 2026 10:59:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793980786;
-	 x=1794067186; bh=5vCHEs/V9pwMAPmRu7ggjXlWX/ar9c5h5bZvjFU/NuY=; b=
-	nERuFrRLTWYTI5xz0mw41UCpX7FH3vTABdoNJscvHHh/gDqqdGH7TKRh8W+DLUgy
-	tj3KLLe+YCaw9Uv+3ChAJ0YnBFp2NcTSdGrbpQl79iyyzyRkbRA6reG59gM4YDOn
-	BFXyGLvBND4jzoGeO7TnP4jXf8LpDN6BF5IQJCfzvjEaZNfitmsqcdG3ZaTkPtsn
-	Cezkzl8OpvNR8KV3D+wN4huCbbKYHwlag1VV0gXUjOcu2MB3waGf2S9ObNE5QZJP
-	zC41iNzBrZ/baSdQUtHYFhxzkpRR0etjsoSfaoCUGF4OK+E5X51tMA3DQFOWJoxN
-	UGhewNR6EnHWEdQb1l2CvA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793980786; x=
-	1794067186; bh=5vCHEs/V9pwMAPmRu7ggjXlWX/ar9c5h5bZvjFU/NuY=; b=Z
-	2//7IVsGyLgFWDQTyJFlcawLVyKEXf8AS1D25nd4BfdsvanttokG1zBxYwtBVdCJ
-	aP2gsIX5sT0UrRPQ4w9TgE34prZE2iDrfMxvPV76JXB//HNbULxf5mbgIlDFqsr6
-	9ZC7KeZVR8E0orAnskj5WeFKO41sTwMM32/+uKmPB6+uyxOt5A8eBDL4QYtuuQSY
-	R6V+UrbOmA322mkRfpAI/U+0f/0u714Oney7HQPqKRmZnppXxtwc7X9YZnbOW3Xp
-	VyROnJ1hwK4ixvi9he9koZkzCsZtMrkZzfrEgByyx3fRvb7Uh5sE7J6+qEtHh0bJ
-	fQyRJeBaymwceD7aRRKvg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793980786; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:VlWbNBsjHSujvOZC3EQiI3ppNt+CTvbTTLvtSUjUQdOo1Az
-	zLtvJqVrYz+Y28Sh/vZ73JqX2/5qf/vvuns1c+Rv0cys9RsADg+NLUrb9RGvzh7F
-	9vAQ9uaHU4SFAUdps2NLhfKYD4tzuNmQF7VeEIKAcw/cH3KCi2PtWno35fpVa5eA
-	zgPmI0GeDySK4kunosXl+LZDxIkLLjoMT0am8lwkDnBavTfcMynOxVTcegLdmcNP
-	JL8Y2h/veAO4I3Jzf975Wv3cSdfA+IVmiKGTvzQrWps/Ywp+ApOFUU9gNgBBvR6D
-	BAhkm57gXx3brTJYNqvN+HOvXRrudB0o7qFyahA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:CBv6ZLQEXEPM/QvmFdsa7reN9JhcaJ97AJYWwHzfetI=:81TKJqx7C5qiiTvWEFzqK95usjHpuInXwJRUhFglNhg=;
-X-ME-Sender: <xms:cfntarfKi8uqdpErz2J5U4rpxtOZ41MaPkmenwzc4OqEuykcC7I13A>
-    <xme:cfntasBLkqQCvCQB1iyInoG8NNveaNX6CyW6vPGuLuTOs6FnPmrnK2BIssT0hMeyJ
-    Pt6bns_BY1PgMoNrBHeekhbIrTKXDjITQoETC0xjW5GwbEdxENEriw>
-X-ME-Received: <xmr:cfntaiyNgKn5xqpkEe7xf2F8ALcspO6H1jmZ0vEogO9iZF1kRGck3-iqM3soCQ>
-X-ME-Proxy-Cause: dmFkZTFpUT5vBtxbnF/rnvk3LllbaN8gFpLNZfC6psZaVuAjZ2AADsNePuieI+jKlLbikJ
-    GZoOIky3XhhbwcwbpxVc5KI/rWpFcmhFEfDDSSzHfGoZM2o23k5o7UpOTux9cqU5RTCDHK
-    xYABdJQY+Kshd4AQeEPEGNe7hBkbw145KSxcKC4cHR1jNJnHJFVOD5xW56Eh3kW+NAtRWX
-    cNa4A0YM84Z6+ydCIxRtrg1JF/CEsXK5jSdn8xdISlKQ/fDA68pbUWQp+SOJ3V0MyYe42Z
-    SzHvx/hBcbCcsboQuFIaNmAof4Wseh8RGDxC1c6fLUk8/mrXgRoseDOjPHY8GNOYMP+iKU
-    5ThjqqxsbGjuL7i+qK+081ep8fiUYETNa4jtiIeOexhAjw00zLFYCBdqiHUuAM5bcwzT0X
-    +Uh7wvcKAslTF/AxFDIUjJRxY+0iETPeysggIiioj+j2m+0WDOxq7Scp/El0H6qFLMDlm9
-    o1kcK+HtBQFcknQdHE7Zx5ayTcXwoMjeeoJqy6ony1yNhVjVg4hxIBAOR9FkfCVPDlWtdK
-    f1T8wXktm3RV55jfyoLZXLYi9wuwW4TQN5SGqPG6IHtk/o3wXtq9D1NfkNCv8ww97C8BUg
-    0edHAKRJU59npRS7BTS7ZvHy1yuiaKxJ1YQ0RJ7PBd+SxTaeRsIcNslmauxA
-X-ME-Proxy: <xmx:cfntashbCQFnfXUc6hv2vGQmzCCYK630pYkP5PN2bzoJGlhI2Mp9pw>
-    <xmx:cfntahdFYcnBgtFPSQvkdDincNG5ksX8L_pvMCvk7h2GAGCoaLp2yw>
-    <xmx:cfntarVfj9BaexnCq2I2Sg0MtQocqRKiZ2getqdmOd5ChDhj2UZiLA>
-    <xmx:cfntajx6OYsy9DSFO2T1GJYAAAxO-9Ygp7IQBEsD0JELrNa-plhpww>
-    <xmx:cvntagsEMDxUFCpjoqrAndcmzhTqWg2xKKkyTyhPeBoo4hVD8gMDhEc0>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 10:59:42 -0500 (EST)
-Date: Fri, 6 Nov 2026 08:59:39 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: <mhonap@nvidia.com>
-Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
- <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
- <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <dave@stgolabs.net>, <alison.schofield@intel.com>,
- <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
- <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
- <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
- alex@shazbot.org
-Subject: Re: [PATCH v6 08/31] vfio/pci: Add a generic excluded-range list
-Message-ID: <20261106085939.764b6dde@shazbot.org>
-In-Reply-To: <20261016161839.2765592-9-mhonap@nvidia.com>
-References: <20261016161839.2765592-1-mhonap@nvidia.com>
- <20261016161839.2765592-9-mhonap@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QEC5Cqof;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LaSCeof6
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6ExtTr044155
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 16:01:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4shQ3DR/ZJ0GAB6tttMcp+Ec4N2k1PGmXpuQWgxxLTc=; b=QEC5CqofczzFYdiT
+	Klabmuw7jmHLhhS1rjVfZkdrtbWxQJvK3fnfwSPg7n/giJ9UKzM7wGsDBHRKZ5gE
+	XBy2QquSBjF2VRj8XvV2un1l/wzJyAQmCDSWa+yAS0fAe5YuiMCX83gCdELjcpjk
+	a8yOQFU/octofu+Gm68hmhp90WpOMgooB3GksyrzoVGYb/943kKeyvX+Ine9uy6o
+	8UxVrXGfpS3SViaa3haFBu2FJW5kIyMCUZcrov1MZkMC1PoIQ4nWj0m7PHLZEukI
+	YFSmkPPN9s6OU4mOxLeOh15oYAaweWtpEgPP3vX566fVko9MtWapGqdUR3nSXw4J
+	/kwLqA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa3g2w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 16:01:14 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36f1e7d9d4dso1614231eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:01:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793980874; x=1794585674; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4shQ3DR/ZJ0GAB6tttMcp+Ec4N2k1PGmXpuQWgxxLTc=;
+        b=LaSCeof662CO8j77dcpAjNnnmYOROwSt4LFOaOazzJoS4zlE9HdSXXjdaqdmeYLxIE
+         JxSqrkIXXZdkhKDh+7Pm6k04hoibVCWiRpdEAUpFLjm2HIEX0crlTU8xTNxAifV+9tfy
+         Z0VNYl7WjwPZOVRmX1V4P9o1/uTAO0FiJRVGjYmxzXZMEsR2gg2/HuAA9bJsWZgBLt3K
+         GgzRLV2Z6hiTesPBB+1ESh1YxOX2O10MkcRdjA4Vmc6aGyzwRB0EyBGUeuKbUDJY8Gzn
+         8TaIt7EEaLccGnMGCuDqGSTL6WQsZZ3aK+KND7onltK5vj4LknXNMhV9sopGel21EHsR
+         /zWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793980874; x=1794585674;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4shQ3DR/ZJ0GAB6tttMcp+Ec4N2k1PGmXpuQWgxxLTc=;
+        b=cHKVIup9vRKN3bVwrfQMbQ71HN6x5qgIT4EIcI1lsjv/+w9vgw+Wk1ZTBUe0shcrDG
+         qwGL4aHe5dXPB8BZUehGP/hKgZs/QqLdFU5Lhxketthm1gQTqzPK/A0JojXfUN2yciJY
+         coidyI4qiVCjSAuMa6KWu2s2vT0d5ibA3Ez5RJqTGiNzRQceMS3x3MlZkKpJDtul2OXs
+         SLiMfmXKtSsmT0IxNGug5rPNMu0T4f5cpQG18pitRgVGr06RXGhL9JJBqq+fSkk9mUtl
+         XmaSwtiJqMWdRhuEr7zeZMCxaw4/dbsvvSFPCeT2DYoIrCA68YKQ73kI3i43IJ07319E
+         CwbA==
+X-Forwarded-Encrypted: i=1; AKwUvBznw8w8YJjDBptRIzpl0pESRM0k17EEktoxTc1qULlNHVcQscxInDS3kfa+BYA4WakNtD3EDFLkaShkoQc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8h0afTAirLwTodj34OQXaXLBvt4zs/ruOrr9GYktbUW1wJYGjE
+	QTLE7ftYtVBCFA1kXAmZJv9Ob1x7/qdcI1HeXkNZ6brdDTkoM6b0PjPke7D7b4sYnLPGiBILhA4
+	ZoYK5P0Z4ejrjgpg58A0qJ23N2uis9d9PGFKWO4yNU1brW1UhscqkbbLDECiuqdYn42fFrSKY5S
+	8=
+X-Gm-Gg: AYBFou3BDjouaNALF1KX92PR8G92q0xSFi7fbnzK1jfXrZi3EPK0uJBIAVZjGQVq8lG
+	ND62GLtrLnmVpG9ZNaymLqBo1gc+07hSy8ULHmEI6qNT2LFHTCTH0YIblqmwZY0il+nI/48jW1I
+	vypqApXsrA/UoHxJ3mT2pLoqaJL21L0WwOz4f+Y8Uhr959j2cg0M0zFECufs+zb7Z9iirSFvnJx
+	ITx1X7aCs+GC3yTO9pSYCobwGhnEO1zphPM3+PQocDX4v1TtsNTG17ryJhxLeHQ928We9h90Omg
+	U3isxbftymuvOel1/jRn5IzNufh2357u8SCwh8tvNUDH9Yid2couJPnVuR6pEcgYbOTO4dbnha7
+	kmtGtt5UQHAigghTSvAj5COKTj+kYCxTrf2h31DsvlfK0Kb3XeUBI5R7Tl/QIgOeq/tmo82IDj3
+	wjOe9kznhcW36Vtvjym4phdff9tx0=
+X-Received: by 2002:a05:7022:1002:b0:1b2:43cc:48 with SMTP id a92af1059eb24-1b25d31e8c9mr4253034c88.33.1793980873301;
+        Fri, 06 Nov 2026 08:01:13 -0800 (PST)
+X-Received: by 2002:a05:7022:1002:b0:1b2:43cc:48 with SMTP id a92af1059eb24-1b25d31e8c9mr4252947c88.33.1793980872194;
+        Fri, 06 Nov 2026 08:01:12 -0800 (PST)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e407bb5sm7010229c88.1.2026.11.06.08.01.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 08:01:11 -0800 (PST)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+        Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, Mehmet Fide <mehmet.fide@gmail.com>,
+        linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261020152412.95560-1-mike.michalo@gmail.com>
+References: <20261020152412.95560-1-mike.michalo@gmail.com>
+Subject: Re: [PATCH 0/2] wifi: ath9k: fix WMI command response handling
+Message-Id: <179398087095.1316624.10795269671758112947.b4-ty@b4>
+Date: Fri, 06 Nov 2026 08:01:10 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,421 +123,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Authority-Analysis: v=2.4 cv=PLeaavqC c=1 sm=1 tr=0 ts=6aedf9ca cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=3COdopjRG8TIgARh_PMA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2MyBTYWx0ZWRfX2pZskMstxrAm
+ qEuMecXSsHuVmY2A7Sfo+uoFgxbqjKH4RT+h4PsiqsNFMqw6Le1YnPmFzPijiRznv1gQoytaRmE
+ HSy+ptJzk+lgnj5G0osTdujy2/x7Wwo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2MyBTYWx0ZWRfX1Y2zUJHtCraE
+ WYCLWT0y9jYR7lJiEP0AinPpWhT+z4XDwMBapJs4Mc2XBXY7IkQMt0jtgP4TQepctqm5dMDIPi/
+ BfnrHExDrdhQulXylv+RtnpGfaJMbpNxHcQeCakCpBgHdLVPpaaDQdDZzTASrj0JdeJdfFHGadL
+ XThqzVt4p8Ng0PiV11e75qSD0dcWCpqtELB1wwhoPODlDw56AI+PJzKzrzKh4d7ogRsBq/U8LsW
+ ZVVvfyRzmPaxh0BTnv/JHyQJt8q1q+Uy8TyUP2j0hzhC0L2d8SqaWlXGp+SUX3bB4rIy462OXdi
+ NG9XrBZ0fNGLc6r4UTIio67jSWLBpnjYTaDIr8MHD/1EaE6vXjsGDIH6tYyAPhQaBq3++UJgCqS
+ iY7d0eIXR2pI/T+MEllpYz4Ymm0sBY+9HDImV6cKl9H3fWJV5dgjWfZUQ3WZK+F3M4Ke18SsaGe
+ JkqMo1NyTncQ1fB4txA==
+X-Proofpoint-GUID: MoVSHODS9jH8XJugQ1wh16cJUjQ-mCdU
+X-Proofpoint-ORIG-GUID: MoVSHODS9jH8XJugQ1wh16cJUjQ-mCdU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060063
 
-On Fri, 16 Oct 2026 21:48:15 +0530
-<mhonap@nvidia.com> wrote:
 
-> From: Manish Honap <mhonap@nvidia.com>
+On Tue, 20 Oct 2026 17:24:10 +0200, Michail Andreas Michalopoulos wrote:
+> Both patches fix the ath9k_htc WMI command response path.
 > 
-> A provider such as vfio-cxl needs to keep sub-ranges of a BAR off the
-> direct guest path and serve them through its own trap. vfio-pci-core
-> already has one such window, the MSI-X table, open-coded in
-> vfio_pci_bar_rw().
+> Patch 1 stops ath9k_wmi_rsp_callback() from copying bytes the device
+> did not send. It replaces the -EMSGSIZE approach that was reverted in
+> commit 90201351a862: short and empty responses still complete, and the
+> rest of the caller's buffer is zeroed.
 > 
-> Add vfio_pci_core_add_excluded_range(). Each BAR has its own list,
-> sorted by start, and an insert that overlaps a range on the same BAR or
-> ends past the BAR fails with -EINVAL. Ranges are added only while the
-> device is being opened and are freed in vfio_pci_core_disable(), so
-> readers on an open device take no lock.
-> 
-> The MSI-X table is virtualized in vfio_pci_bar_rw() by an open-coded
-> x_start/x_end window that fills reads with -1 and drops writes. Register
-> the MSI-X table as a read and write excluded range when the MSI-X
-> capability is parsed in vfio_pci_core_enable(), and walk the BAR's
-> ranges in order in vfio_pci_bar_rw(), so an access that spans several
-> ranges is handled in one pass. Only the part of the table inside its BAR
-> is registered, so a device whose MSI-X capability points outside the BAR
-> still opens, as before. The ROM BAR keeps its trailing -1 window,
-> outside the list.
-> 
-> No behavioral change for an MSI-X table in a standard BAR: an access to
-> it still reads -1 and drops writes.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
-> ---
->  drivers/vfio/pci/vfio_pci_core.c | 97 ++++++++++++++++++++++++++++++++
->  drivers/vfio/pci/vfio_pci_priv.h |  8 +++
->  drivers/vfio/pci/vfio_pci_rdwr.c | 67 +++++++++++++++++++---
->  include/linux/vfio_pci_core.h    | 20 +++++++
->  4 files changed, 185 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index e50b36751d9a..bee3d1b4d8d2 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -588,6 +588,8 @@ static const struct dev_pm_ops vfio_pci_core_pm_ops = {
->  			   NULL)
->  };
->  
-> +static void vfio_pci_free_excluded_ranges(struct vfio_pci_core_device *vdev);
-> +
->  int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
->  {
->  	struct pci_dev *pdev = vdev->pdev;
-> @@ -644,6 +646,7 @@ int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
->  
->  	msix_pos = pdev->msix_cap;
->  	if (msix_pos) {
-> +		u64 bar_len = 0;
->  		u16 flags;
->  		u32 table;
->  
-> @@ -654,6 +657,30 @@ int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
->  		vdev->msix_offset = table & PCI_MSIX_TABLE_OFFSET;
->  		vdev->msix_size = ((flags & PCI_MSIX_FLAGS_QSIZE) + 1) * 16;
->  		vdev->has_dyn_msix = pci_msix_can_alloc_dyn(pdev);
-> +
-> +		/*
-> +		 * Virtualize the MSI-X table through the excluded-range list:
-> +		 * reads fill -1 and writes are dropped so the guest never
-> +		 * reaches the hardware table directly. BAR access never goes
-> +		 * past the BAR, so only the part of the table inside the BAR
-> +		 * needs a range; a table placed outside its BAR needs none.
-> +		 */
+> [...]
 
-AI comments.
+Applied, thanks!
 
-> +		if (vdev->msix_bar < PCI_STD_NUM_BARS)
-> +			bar_len = pci_resource_len(pdev, vdev->msix_bar);
-> +		if (vdev->msix_offset < bar_len) {
-> +			u64 len = min_t(u64, vdev->msix_size,
-> +					bar_len - vdev->msix_offset);
-> +
-> +			ret = vfio_pci_core_add_excluded_range(vdev, vdev->msix_bar,
-> +							       vdev->msix_offset, len,
-> +							       VFIO_PCI_EXCLUDE_READ |
-> +							       VFIO_PCI_EXCLUDE_WRITE);
+[1/2] wifi: ath9k: don't read past short WMI command responses
+      commit: cb1c171e3210d99d0fd5dceff24360e2bd04029e
+[2/2] wifi: ath9k: drop WMI command responses when no command is pending
+      commit: ad6bdd5f9030dbcf29a67f40ccdb3fa57afecff5
 
-This is not a terribly elegant flow and I think the AI comment above
-misses the main point of what the apparently redundant BAR range and
-size cap test are trying to accomplish, compatibility.
-
-In the current code, it doesn't matter if BIR is bogus or the offset
-doesn't land in the BAR length or size overflows, those just generate
-non-matches when we read or write.
-
-I think this would be cleaner as a separate function that wraps the new
-function, returning success (perhaps even with a pci_warn_once) for an
-out of range BIR or offset, and performs silent cleanup on a range that
-exceeds the BAR, with a human generated comment explaining the
-compatibility argument.
-
-> +			if (ret) {
-> +				vfio_pci_free_excluded_ranges(vdev);
-> +				vfio_config_free(vdev);
-> +				goto out_free_zdev;
-
-This is mixing local cleanup with an unwind goto and it bites us later
-in the series when we end up leaving this in place and adding:
-
-out_free_config:
-        /* A failed first open never reaches vfio_pci_core_disable(). */
-        vfio_pci_core_free_dev_regions(vdev);
-        vfio_pci_core_unmap_bars(vdev);
-        vfio_pci_free_excluded_ranges(vdev);
-        vfio_config_free(vdev);
-
-after the cxl open.
-
-> +			}
-> +		}
->  	} else {
->  		vdev->msix_bar = 0xFF;
->  		vdev->has_dyn_msix = false;
-> @@ -740,6 +767,7 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
->  	vdev->region = NULL; /* don't krealloc a freed pointer */
->  
->  	vfio_config_free(vdev);
-> +	vfio_pci_free_excluded_ranges(vdev);
-
-Order is wrong, should be reverse of setup order.  Also doesn't match
-the correct ordering used in the error unwind above.
-
->  
->  	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
->  		bar = i + PCI_STD_RESOURCES;
-> @@ -1012,6 +1040,72 @@ static int msix_mmappable_cap(struct vfio_pci_core_device *vdev,
->  	return vfio_info_add_capability(caps, &header, sizeof(header));
->  }
->  
-> +/**
-> + * vfio_pci_core_add_excluded_range() - keep a BAR sub-range off direct access
-
-"Exclude a BAR sub-range from user access"
-
-> + * @vdev: vfio PCI device being opened
-> + * @bar: BAR index, below PCI_STD_NUM_BARS
-> + * @start: offset of the range in @bar
-> + * @size: length of the range in bytes
-> + * @flags: VFIO_PCI_EXCLUDE_* paths the range is excluded from
-> + *
-> + * Call only while the device is being opened, from vfio_pci_core_enable() or
-> + * a provider's open hook; vfio_pci_core_disable() frees the ranges. Ranges on
-> + * one BAR must not overlap and must lie inside the BAR.
-
-Are we pushing an overly complicated model just to align with MSI-X?
-
-I think MSI-X is configured on open_device because it's trivial.  Just
-a couple config reads and extract the info.  Now it's becoming more
-complicated with allocations and lists, and I'm not sure why it doesn't
-at the same time move to the .init and .release callbacks instead.
-
-The AI comment also skips the important note reminding us that the
-exclude list is lockless and must be immutable while the device is
-opened, wherever we decide that boundary should be.
-
-> + *
-> + * Return: 0 on success, -EINVAL for an invalid or overlapping range or one
-> + * that ends past the BAR, or -ENOMEM.
-> + */
-> +int vfio_pci_core_add_excluded_range(struct vfio_pci_core_device *vdev, int bar,
-> +				     u64 start, u64 size, u32 flags)
-> +{
-> +	const u32 valid = VFIO_PCI_EXCLUDE_MMAP | VFIO_PCI_EXCLUDE_READ |
-> +			  VFIO_PCI_EXCLUDE_WRITE;
-> +	struct vfio_pci_excluded_range *range, *pos;
-> +	struct list_head *head;
-> +
-> +	if (bar < 0 || bar >= PCI_STD_NUM_BARS || !size ||
-> +	    start + size < start || !flags || (flags & ~valid))
-> +		return -EINVAL;
-> +	if (start + size > pci_resource_len(vdev->pdev, bar))
-> +		return -EINVAL;
-> +
-> +	/* Keep the list sorted by start; find the first range after @start. */
-> +	head = &vdev->excluded_ranges[bar];
-> +	list_for_each_entry(pos, head, entry) {
-> +		if (start < pos->start + pos->size && start + size > pos->start)
-> +			return -EINVAL;
-> +		if (pos->start > start)
-> +			break;
-> +	}
-> +
-> +	range = kmalloc_obj(*range);
-> +	if (!range)
-> +		return -ENOMEM;
-> +
-> +	*range = (struct vfio_pci_excluded_range) {
-> +		.start = start,
-> +		.size = size,
-> +		.flags = flags,
-> +	};
-> +	list_add_tail(&range->entry, &pos->entry);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(vfio_pci_core_add_excluded_range);
-> +
-> +static void vfio_pci_free_excluded_ranges(struct vfio_pci_core_device *vdev)
-> +{
-> +	struct vfio_pci_excluded_range *range, *tmp;
-> +
-> +	for (int bar = 0; bar < PCI_STD_NUM_BARS; bar++) {
-> +		list_for_each_entry_safe(range, tmp, &vdev->excluded_ranges[bar],
-> +					 entry) {
-> +			list_del(&range->entry);
-> +			kfree(range);
-> +		}
-> +	}
-> +}
-> +
->  int vfio_pci_core_register_dev_region(struct vfio_pci_core_device *vdev,
->  				      unsigned int type, unsigned int subtype,
->  				      const struct vfio_pci_regops *ops,
-> @@ -2317,6 +2411,8 @@ int vfio_pci_core_init_dev(struct vfio_device *core_vdev)
->  	INIT_LIST_HEAD(&vdev->dmabufs);
->  	init_rwsem(&vdev->memory_lock);
->  	xa_init(&vdev->ctx);
-> +	for (int bar = 0; bar < PCI_STD_NUM_BARS; bar++)
-> +		INIT_LIST_HEAD(&vdev->excluded_ranges[bar]);
->  
->  	ret = vfio_pci_core_cxl_init(vdev);
->  	if (ret)
-> @@ -2332,6 +2428,7 @@ void vfio_pci_core_release_dev(struct vfio_device *core_vdev)
->  		container_of(core_vdev, struct vfio_pci_core_device, vdev);
->  
->  	vfio_pci_core_cxl_release(vdev);
-> +	vfio_pci_free_excluded_ranges(vdev);
->  
->  	mutex_destroy(&vdev->igate);
->  	mutex_destroy(&vdev->ioeventfds_lock);
-> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-> index 4e7162234a2e..53544e0cbedf 100644
-> --- a/drivers/vfio/pci/vfio_pci_priv.h
-> +++ b/drivers/vfio/pci/vfio_pci_priv.h
-> @@ -44,6 +44,14 @@ ssize_t vfio_pci_config_rw_single(struct vfio_pci_core_device *vdev,
->  ssize_t vfio_pci_bar_rw(struct vfio_pci_core_device *vdev, char __user *buf,
->  			size_t count, loff_t *ppos, bool iswrite);
->  
-> +/* A BAR sub-range kept off direct access; see vfio_pci_core_add_excluded_range() */
-> +struct vfio_pci_excluded_range {
-> +	struct list_head	entry;
-> +	u64			start;
-> +	u64			size;
-> +	u32			flags;
-> +};
-
-If we used struct range as a member here we could use range_contains()
-and range_overlaps(), for finding a matching range below and avoiding
-conflicts above (mind the inclusive end).
-
-> +
->  #ifdef CONFIG_VFIO_PCI_VGA
->  ssize_t vfio_pci_vga_rw(struct vfio_pci_core_device *vdev, char __user *buf,
->  			size_t count, loff_t *ppos, bool iswrite);
-> diff --git a/drivers/vfio/pci/vfio_pci_rdwr.c b/drivers/vfio/pci/vfio_pci_rdwr.c
-> index 7f14dd46de17..93823c6391f6 100644
-> --- a/drivers/vfio/pci/vfio_pci_rdwr.c
-> +++ b/drivers/vfio/pci/vfio_pci_rdwr.c
-> @@ -198,6 +198,57 @@ ssize_t vfio_pci_core_do_io_rw(struct vfio_pci_core_device *vdev, bool test_mem,
->  }
->  EXPORT_SYMBOL_GPL(vfio_pci_core_do_io_rw);
->  
-> +/*
-> + * Access @count bytes of @bar at @pos, walking the BAR's excluded ranges in
-> + * order: a range excluded for this direction reads as -1 and drops writes,
-> + * and the bytes around it reach the device. The MSI-X table is one such
-> + * range, and a BAR can hold several, for example the MSI-X table and a CXL
-> + * HDM decoder block.
-> + */
-> +static ssize_t vfio_pci_bar_do_io_rw(struct vfio_pci_core_device *vdev,
-> +				     int bar, bool test_mem, void __iomem *io,
-> +				     char __user *buf, loff_t pos,
-> +				     size_t count, bool iswrite,
-> +				     enum vfio_pci_io_width max_width)
-> +{
-> +	u32 want = iswrite ? VFIO_PCI_EXCLUDE_WRITE : VFIO_PCI_EXCLUDE_READ;
-> +	struct vfio_pci_excluded_range *range;
-> +	ssize_t done = 0;
-> +	ssize_t ret;
-> +
-> +	list_for_each_entry(range, &vdev->excluded_ranges[bar], entry) {
-> +		u64 end = range->start + range->size;
-> +		size_t chunk;
-> +
-> +		if (!(range->flags & want) || end <= pos)
-> +			continue;
-> +		if (range->start >= pos + count)
-> +			break;
-> +
-> +		/* Up to the end of this range; do_io_rw() fills it. */
-> +		chunk = min_t(u64, count, end - pos);
-> +		ret = vfio_pci_core_do_io_rw(vdev, test_mem, io, buf, pos, chunk,
-> +					     range->start, end, iswrite,
-> +					     max_width);
-> +		if (ret < 0)
-> +			return done ?: ret;
-> +
-> +		done += ret;
-> +		pos += ret;
-> +		buf += ret;
-> +		count -= ret;
-> +		if (!count)
-> +			return done;
-> +	}
-> +
-> +	ret = vfio_pci_core_do_io_rw(vdev, test_mem, io, buf, pos, count, 0, 0,
-> +				     iswrite, max_width);
-> +	if (ret < 0)
-> +		return done ?: ret;
-> +
-> +	return done + ret;
-> +}
-
-This is mixing fault semantics.  Currently on fault we return the
-errno, regardless of work that's been done.  With this, we potentially
-return a short read/write on fault if later errors occur.  That short
-return is not necessarily representative of the length of the actual
-operation, a partial operation in the last call to core_do_io_rw is
-discarded.
-
-Therefore, I think both of the above (ret < 0) return branches should
-just return ret, not the potentially incorrect done value.
-
-
-> +
->  ssize_t vfio_pci_bar_rw(struct vfio_pci_core_device *vdev, char __user *buf,
->  			size_t count, loff_t *ppos, bool iswrite)
->  {
-> @@ -256,13 +307,15 @@ ssize_t vfio_pci_bar_rw(struct vfio_pci_core_device *vdev, char __user *buf,
->  		}
->  	}
->  
-> -	if (bar == vdev->msix_bar) {
-> -		x_start = vdev->msix_offset;
-> -		x_end = vdev->msix_offset + vdev->msix_size;
-> -	}
-> -
-> -	done = vfio_pci_core_do_io_rw(vdev, res->flags & IORESOURCE_MEM, io, buf, pos,
-> -				      count, x_start, x_end, iswrite, max_width);
-> +	if (bar == PCI_ROM_RESOURCE)
-> +		done = vfio_pci_core_do_io_rw(vdev, res->flags & IORESOURCE_MEM,
-> +					      io, buf, pos, count, x_start,
-> +					      x_end, iswrite, max_width);
-> +	else
-> +		done = vfio_pci_bar_do_io_rw(vdev, bar,
-> +					     res->flags & IORESOURCE_MEM, io,
-> +					     buf, pos, count, iswrite,
-> +					     max_width);
-
-Seems like the wrong refactor to add a ROM specific branch, we should
-probably instead precede the excluded range loop by a test for a
-standard BAR and non-empty excluded range list.  That might mean the
-new function is reduced to only the excluded range handling and all
-non-excluded range handling falls through to a common call to the core
-function.
-
->  
->  	if (done >= 0)
->  		*ppos += done;
-> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-> index 7f3a2bcb5830..70acb03d466e 100644
-> --- a/include/linux/vfio_pci_core.h
-> +++ b/include/linux/vfio_pci_core.h
-> @@ -162,6 +162,13 @@ struct vfio_pci_core_device {
->  	struct notifier_block	nb;
->  	struct rw_semaphore	memory_lock;
->  	struct list_head	dmabufs;
-> +	/*
-> +	 * Excluded BAR sub-ranges, one list per BAR, sorted by start and not
-> +	 * overlapping. The lists are filled only while the device is being
-> +	 * opened and emptied in vfio_pci_core_disable(); every reader runs on
-> +	 * an open device in between, so readers take no lock.
-> +	 */
-
-I'll stop noting these, but I expect all gratuitous AI comments to be
-removed by default and evaluated as a human whether a comment is
-warranted.  AI assistance doesn't relieve authors of the responsibility
-to perform a thorough human self review.  /dismount-soapbox
-Thanks,
-
-Alex
-
-> +	struct list_head	excluded_ranges[PCI_STD_NUM_BARS];
->  };
->  
->  enum vfio_pci_io_width {
-> @@ -172,6 +179,19 @@ enum vfio_pci_io_width {
->  };
->  
->  /* Will be exported for vfio pci drivers usage */
-> +/*
-> + * A provider can keep a BAR sub-range off the direct guest path, reached only
-> + * through its own trap. The flags select which paths are excluded: mmap, and
-> + * region read and write (an excluded read fills -1, an excluded write is
-> + * dropped).
-> + */
-> +#define VFIO_PCI_EXCLUDE_MMAP	BIT(0)
-> +#define VFIO_PCI_EXCLUDE_READ	BIT(1)
-> +#define VFIO_PCI_EXCLUDE_WRITE	BIT(2)
-> +
-> +int vfio_pci_core_add_excluded_range(struct vfio_pci_core_device *vdev, int bar,
-> +				     u64 start, u64 size, u32 flags);
-> +
->  int vfio_pci_core_register_dev_region(struct vfio_pci_core_device *vdev,
->  				      unsigned int type, unsigned int subtype,
->  				      const struct vfio_pci_regops *ops,
+Best regards,
+-- 
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
