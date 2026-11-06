@@ -1,44 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.250.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979943;
-	b=UHP+dR19ft8Rq+95pKfv9DjYStlktEwOZPGsZBdzK13u3GK5vBMpRgWQOf8v0UV+lAC3
-	 zVEilrTZJUQyMZyN5pL2hgLMLZiioIc1S8DtzCS6tdoE39J18dwohWUKms4nhLJvd6M89
-	 E8bEH98kRZYscyzldM/Cy5uED0UYspaK7JtUsGcr8WCTYH/oIKY/fwJSOI6mMxOnC1zPu
-	 xLeiHUWgDulv7sWSNpH9kIg6aaS2Q5MQCg5n7LUQ3i0b+JsL5psSjjOLg54Z7aIpKO//p
-	 rJyjwslJpWDAeqLb+kcyN0CBzNLzTj6sqi2Twf9XVxog9/jeJODLv6himIJmlqy/UGA==
+	t=1793979987;
+	b=a28+7hSNsSArFanEsFE7kF/mubP/B2iBExF4aA6tNmO9Sce10FsNQWV1P3AGM/JBwPxs
+	 kOosWUBNk5mxBC85LqEpIz1OvOXkunprL4z7jSQjargXKoT5Eabvza5HL3GEr6SgsS6wZ
+	 n7iFDPH3oiv+NKbL6OkFWZXfHUioptXHRpCaD3MVEL9ELDwmfdbQ6MbdBNakqPvqUkgwh
+	 Q2IdgBeY1xTpUNwFdIuCX+hlrYwR7qDzwsRFEuUCloY7l/s9uCajSRbejlVMyY230xoDi
+	 3Yvl93TPm4/T1uSWjMcIuWf0uXTJWA7G03I/LsHPOill7QFkPmHpIqoY8253YmI3yMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979943;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=f1Vggd/CSfV+sAUe31A7z9uDKw+GeX3Dxz7Go8iocug=;
-	b=5qvytv0nDzzw6W84847DvwCHI+qeIBGM4dgeiipS7lntvt78yydlVbLX601dTGFzayt0
-	 ZqdpgNGC4fOgvmp04qU69fwa2D4wAfvBbi8oMNMzE50pDq7hBmfulYSWR1ad3xyhHBufV
-	 ON3p1NQE+OlnnOer9/7/TUehPxw4d3YDlUEsTuB8rCemK6YkFrb/tOKNnVaf02X4Nn3tc
-	 B//ViC+JczLQ6/DJAE9VzZABGvnkf2A2dXJWPaXgxBp3tsldgKdnPjX1j1DlP5ztYn+xJ
-	 aYfyHglrTXN4kGMPbtxsRpy+jZmXva6LuuQVJ7ekN47oZ/GnWMZcLZ22wohNlCcF7+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979987;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=bYwNJYvXIj3H8ABsRXLqczWz0aXSlXMRZfV0GZFVRl8=;
+	b=kaQ3lum1adfeheVWLPiA3rmJb6BxirzRPlYJt0CUVZ3bHSuGJM7woy747mgqmeoTtHya
+	 QLkCRjHmpRcZ/PaMSAzhm6jcqJ6e4/F/nZETk50QpO4p7kF/8I1pX9bjTi5A8QzqehpQs
+	 huKegN9Ihgy6eyH2+6QachxtmdnADMOAMYmiTCY24mB0XStAaIOKrmlZnpnMT1UqlMGPQ
+	 dMhnxfBMKELZNDk4MeAab08QJKKuc77P2pvy7+vfNsrDC3bf2mrpFpcL0JCERV6ti0m0O
+	 xrnpEm7e1iR3Z55+CuGYs3wuIS93bwCh4tTYtTv4qWMBo7PuPD1Tv8Qnd4N27J1Gc2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=8bytes.org;
-	spf=pass smtp.mailfrom=8bytes.org;
-	arc=none smtp.remote-ip=85.214.250.239
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3940E606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:45:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3940E606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a00c8b813848b737b26.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:c8b8:1384:8b73:7b26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AH4lMIqR;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id A59682436CE;
-	Fri,  6 Nov 2026 16:45:34 +0100 (CET)
-Date: Fri, 6 Nov 2026 16:45:33 +0100
-From: Joerg Roedel <joro@8bytes.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org, 
-	iommu@lists.linux.dev
-Subject: [git pull] IOMMU Fixes for Linux v7.4-rc1
-Message-ID: <au32DJVMbP6j5_gq@8bytes.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA01606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:46:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DA01606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AH4lMIqR
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2416330eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:46:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793979986; x=1794584786; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bYwNJYvXIj3H8ABsRXLqczWz0aXSlXMRZfV0GZFVRl8=;
+        b=AH4lMIqRxrK9Yn++ZiOYG1DE1mNzprHV45udIJT55Vcmm6lON0UnsdB+dzhrgv7yIN
+         eG4YlbXSMNvbmYqOmTM8gUXlQbU7YRIy6U0KMRJ9fdgJwp05cu61cG65mjrba8x+Ioab
+         9TiGsqLfKuTAhAwW8U0Qh36agKSxfrNRd33x6ezr0KKEnnRODRIK8uUeh5FIJZgLO0jo
+         5ovRpmwK3G9Fq9KmN0HhGfN0/tVyczwDwsEPO38cBnjBbNt0LCcnimVoVI6FAk6fEr0s
+         U8XSZ+oR1qjRLDf0UggeSISoRxe8ImIUEkvzE/fZVygaENJwXXJLwyNK8kIXsRdpus0D
+         WSOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793979986; x=1794584786;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bYwNJYvXIj3H8ABsRXLqczWz0aXSlXMRZfV0GZFVRl8=;
+        b=ojdrM/AzVHi7qyt4r8/YeQ7gTXM/riXeoacO8gCdn15HgROOn5yTBWOww4HXFczoT6
+         GQxZ2XUhvkJAhT/IlDZBXvWmTBzcvCsppStGHnxQwml7jwIig2fBLhp/U1fVduPfdLxU
+         amSfOV4JYZzNTkI1sixhetywO78Q6jMcsq1Z3O/7xEf0tH4EwLsG6oywkhQHpmEB38eN
+         /jaZ0g6FTFTomVus6Pkg0QkNBBnPz1z1Nv+JcIhQv4+qrEu3h0o+q8w/LrlDBBt9Fgfd
+         s+3H8lA0o9TrPvdHURAhsvbA2oC1eTpKJeLcDZXd+Dd6Z0VyznSOsu+J3yjeBMkmoCKM
+         Vu3A==
+X-Gm-Message-State: APuU4Z9aWwhJZM3N+DOyvUbm6cSvfYGJc1xWgv8lOsw5mxGNlNm3S8+1
+	7vteHBWoWbEMXNPJycEIYcKJ5yhZnEyxa7q8bouFFmNTXP93G9t8hVAy
+X-Gm-Gg: AYBFou05FXPke5RFWy11OE6/icEiZcFyz9y7DZYCTHoT7jJR+9KylPf/pBwIpPqFYYc
+	rgTd97q/cE89PpYSKaYAnBeWhG6eIZPbZqkOmovbG4fel9yg0qxtqSxgb/6jfCL7e3KysyzEC78
+	L6qf0QWvP7k4yQuFvcfLi2Yex1sa8YzEqXML5LQX1tsUuP9iZ1YQoWTkfAYPxdvthKCUi/RPzx3
+	R8SgLbOPy1AVIRee9viHwyDfl4ZlYIzqHtwy/0rTUXp3J27D2buPt6JtBuqqFrFCeYs471L3Urq
+	kQQuSPiUBSTxGEAW/reMg+od2yjyXTLTfGv5UqxWvQCtEytHvN3ttRpnd/seTw/V64CroKfSS1R
+	sarJRFPkI6GuRI87blFAK2/04cfM7AuvES0b0qg2eDVNCuhjisAQFFM6cbBqJqLQCPOGHphq788
+	FBrYdG48YZQjJ19/G/FjU1RK+L8G8N3JKd5FHN5/yJGcL4EJskY5Av739gFQKdy3cI6D/ZQ2msp
+	UDcu0+qx71kDqlOg6cYscJd+mn4tJFGVKGqAOryl9MZSMlQiGv2Z8zecpo7YS952Lq9FCMiNi9r
+	oo7B8dIBtUrRWFFmR7sFUWKGzxYppyEwX7O4DQXbasF1zgDLyWxZ
+X-Received: by 2002:a05:7301:db84:b0:36a:6ae5:23e2 with SMTP id 5a478bee46e88-36f76425c51mr3566033eec.17.1793979986027;
+        Fri, 06 Nov 2026 07:46:26 -0800 (PST)
+Received: from localhost.localdomain ([103.177.253.113])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faaa8f1e9sm7029182eec.28.2026.11.06.07.46.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 07:46:25 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: tiwai@suse.de,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH] ALSA: control: Fix parsing of numeric fields
+Date: Fri,  6 Nov 2026 15:45:45 +0000
+Message-ID: <20261106154545.2973-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,73 +95,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+parse_uint() passes the remaining input string to kstrtoull().
 
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+When the input contains comma-separated fields, the string
+contains both the numeric value and the following fields.
 
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+For example, with:
 
-are available in the Git repository at:
+device=1,subdevice=0,name=Master
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git tags/iommu-fixes-v7.4-rc1
+kstrtoull() receives "1,subdevice=0,name=Master" and fails
+to parse the numeric value.
 
-for you to fetch changes up to 2cf4be57b301ed2d7af82e70cff5dfd96894d8de:
+Stop parsing at the next comma and pass only the numeric
+field to kstrtouint().
 
-  iommu/amd: Fix NULL pointer dereference for GPUs without upstream bridge (2026-11-06 13:22:44 +0100)
+This allows numeric fields to be parsed correctly in
+comma-separated input.
 
-----------------------------------------------------------------
-IOMMU Fixes for Linux v7.4-rc1
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ sound/core/control_led.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-Including:
+diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+index 501387287ae6..3f54af2cb505 100644
+--- a/sound/core/control_led.c
++++ b/sound/core/control_led.c
+@@ -458,11 +458,19 @@ static char *find_eos(char *s)
+ 
+ static char *parse_uint(char *s, unsigned int *val)
+ {
+-	unsigned long long res;
+-	if (kstrtoull(s, 10, &res))
+-		res = 0;
+-	*val = res;
+-	return find_eos(s);
++	char *end = s;
++	char delimiter;
++
++	while (*end && *end != ',')
++		end++;
++
++	delimiter = *end;
++	*end = '\0';
++	if (kstrtouint(s, 10, val))
++		*val = 0;
++	*end = delimiter;
++
++	return delimiter ? end + 1 : end;
+ }
+ 
+ static char *parse_string(char *s, char *val, size_t val_size)
+-- 
+2.55.0
 
-  - AMD IOMMU:
-    - Move PerfOpt management into the IOMMU domain attachment paths, enabling
-      it automatically for supported integrated GPUs in identity mode and
-      clearing it before switching to translated or blocked domains.
-
-    - Fix a boot panic in the GPU identity-mapping quirk when a GPU has no
-      upstream PCI bridge.
-
-    - Clear the IOMMU SNP enable flag when RMP table initialization fails,
-      preventing subsequent initialization from assuming SNP setup succeeded.
-
-    - Check IVRS subtable types before parsing memory definitions, avoiding
-      bogus PCI segments caused by misinterpreting IVHD entries under QEMU.
-
-    - Remove an obsolete warning on device release that incorrectly fires for
-      devices required to remain attached to an identity domain.
-
-----------------------------------------------------------------
-Akshay Jindal (1):
-      iommu/amd: Skip non-IVMD entries when parsing IVRS memory definitions
-
-Dheeraj Kumar Srivastava (1):
-      iommu/amd: Clear amd_iommu_snp_en if snp_rmptable_init() fails
-
-Jean-Christophe Guillain (1):
-      iommu/amd: Fix NULL pointer dereference for GPUs without upstream bridge
-
-Kevin Mitchell (1):
-      iommu/amd: remove obsolete domain pointer warning on release
-
-Mario Limonciello (AMD) (1):
-      iommu/amd: Enable PerfOpt automatically for integrated GPUs
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  50 ------
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 --
- drivers/iommu/amd/amd_iommu.h              |   3 +-
- drivers/iommu/amd/amd_iommu_types.h        |   6 +-
- drivers/iommu/amd/init.c                   | 106 ++++++-----
- drivers/iommu/amd/iommu.c                  | 273 +++++------------------------
- include/linux/amd-iommu.h                  |  11 --
- 8 files changed, 115 insertions(+), 347 deletions(-)
-
-Please pull.
-
-Thanks,
-
-	Joerg
