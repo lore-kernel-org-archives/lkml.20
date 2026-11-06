@@ -1,79 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793978060;
-	b=Crku03s9nMxKRxZUKLmZVmo4OQMpqli/X3H6ol0dQ9rq16/j19dcX9sYwTdnz93U7DzA
-	 gMhb2v9bgQ+d+Q+GF6oN8mfiXt+z2gymn57iPV7PJi8zIa3xjviOb7LT0zNzxerio4Ds1
-	 C89wKPZGtWesW4kXVOBx6Q6WxjXcEtjwwmkEGoVILuVatPzGctJ0RmNKWWJwNy4Xiw/z4
-	 7cu7oa2sGvatrnoKoRZGvivJ3G9vmfuv/PPeNB9PhhJOjavp/hI9kGNTTl6PNiXpoqHT8
-	 fMZ8gJWuBeB5AHLlEmbxrQ6qq386LyyVWOXMDdkehShwr5ncsmxHyRxSUVMt1TjzKNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978060;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=5XIhwxad1f2Uz897lwoENzRd5fDGNsc5Bs1ceYoFTIo=;
-	b=gOitEHy/3gA61svEGH/+MBShktLm8LHeFBGHlQgmYX+lIYnkJ99wubKAqMVN5GmPP9Fa
-	 S/MHOCq8CKthD+w2GGzdLIX6s+kjk96B3tZmNvrqlWc4cU9vFusg6dsxX6umEmtSwoh9v
-	 Zecps8Y9/7YkoQuWv4kfdNGOPsu+CgM/CNZaDnCwI/0FrQAemEK1leSUKNGZjK38VvWJT
-	 n2v0M/U9j/Hw4lwLik92R5eYeE+PDjdLTJqINuZZ68+ogO78Gtoi8wV+I6peR6XN0B5ia
-	 8EM59oOqW0t8gID1Q7lGUGZALu2ZRpm7Bk9JJOryw1hNstQ5J/efd0AO/4pAs3h0hUg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCP2v6JA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8D7606A334;
-	Fri,  6 Nov 2026 15:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCP2v6JA
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793978060;
-	b=fQ+31fEQmjT85vx/FrbgPREhT3pUvobTLW8q4U40bbSPexRIQ2s/T8Q/Fakv6TpKjA0p
-	 iI5DN4ZN4xOUhSRENdlvSTEQ5xGe2fRj5ezzmYOW3sl9qOw2+60KzDm+zBKOsEnbqXXER
-	 FfY3oxgVLUFpSZSjS03s8mtXdsT303FoxMZW28KtpoSBUUMa1UtEBLwc81J68NNvRQ4Ax
-	 r8t/KbYfNlYr6liHXqdLoxQoC8oRUagXmHVCoBw4GfeMy73TVJfSuBwQaswssL6v5k2BD
-	 2ccfdbil7Qf4J/b+jEd0m/yiq2+jfHu5JL8nXptLOphanwDOz/ypAuWvaAZ+cEV9UZw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793978060;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=5XIhwxad1f2Uz897lwoENzRd5fDGNsc5Bs1ceYoFTIo=;
-	b=GD0Wm3x5+BsAeSpXeXm9VqshCYPZaDtXm7lbge99diZVzjC8P/jN/tmgydypuZ4CMtCw
-	 wflGr1Z/Ne8L/YL8HxBS+3zOVFkNa5diMFRkjofwroWiIhhf2yfVWBGLnNcgERzjpqdKg
-	 B6QInIXrbrm6r+kpJ3hxlQtAPqOvbiGibI7nEMucOlM0HV78nOxTDuZaLYi8dJS1GIRH6
-	 YbmyNfCqU2EWtWgR5xvjdzX4II67Dz5Xolf3HdaWBvkKFpy5Jj1mmCxxRCl+nX516AC9r
-	 rOD8150Etz6N/ykvFiGSzLxsCruKdFZUDLFW4pNc9cwF/S9qlrI1miVTgxUsV/6aMsA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.213
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793978143;
+	b=k35Zfx6O5C1xL8cS8eQz99GyCRlOH/kxY1+dD3ST7NEDoV1L+8jjfpQc4TDIPwjJYvUc
+	 lP8SdYYEJDqwD3YMtm476PiNEituW6wi9M42ct2HBq8X2RToGPk3LVjaZ4A6+175wdwSw
+	 jNRPiyyrXmSMO9x+p+GHlwW2ifrfPSf3D4XactSZxCrb00DW/r2utvtvr7Ds7Pkub/gQa
+	 jSwNcBHhZiBFasxpl8M090QU8Nfipfq23C/lzJwR+oT2PXITKDMj3ncbqgbojWoEJJwCX
+	 Ws0HicuWfurrCGL/ReD7hACP1ZETJvN5qTd4sblJuOlep3s5CjXUITD9b8UFjva8TOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978143;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=BQ98lptuezRaClL/2frvW7Abmv8umTPGLgyOyGvfOsk=;
+	b=h4RsehrapmwaAvjqOEhxcEAgfLjjJIhTCnXJs987zz40bkNZdnqeMWgVOUWmfaqM7XCH
+	 wpuhCiDva4BS0+dcFmPeT/ks+Bc064iWflihS/b8+ogOhblIlUjkZV+05Pjbb9K+C2tE7
+	 Ucz3YRoUR9y3abQTCGdLiwAX1vAodkagoh9wjAAw7jPG/2ZpSHztW7fahkNV9FnENsYkI
+	 QudVLsW2h8fRf+/m046TM2VAkA9NNxnac6/PFwWI3ShjxE+DkxQcJrimQEycO9Z/+kYKz
+	 XIUUfTI/6VqioeWHWNQCvob/U7UczSzLGL1TECE2XondHtA9Kd+e3Wd1zR5D9r629wg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BS+wWOBp;
+	arc=none smtp.remote-ip=91.218.175.213
+Received: from mta0.migadu.com (out-213.mta0.migadu.com [91.218.175.213])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A394D1F008A2;
-	Fri,  6 Nov 2026 15:14:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978060;
-	bh=5XIhwxad1f2Uz897lwoENzRd5fDGNsc5Bs1ceYoFTIo=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=jCP2v6JAsY6Nu2Om0T1e3EhebOT8V89uvfBb7JMzpTLDixnlE86Ofdi97XRm9mKcG
-	 +1sZUZ+lzJ1jtCVK32AYGT9H8hvt8j3cz1Gn1V2EQoj8D2s3ClaucbOQRb0MvxSBVK
-	 CNEjueEp3X6PKX48IX0vJ43MsqvM6uN7uW83l9BL0jKhU9RQBODYgTX6TYvT7TN8Oo
-	 PKsmm1k0XHT5ZLo5holnuXsiiX6v6vSJ3iKAVZ06inrjeiaUbiS7IGCtEzO3V7L7qs
-	 35euxRtAx42GCIu88bglfoAQy7ffrQ3Id52udIvP08zKAD3KavDJm11QinNd5yi27f
-	 gjjLQxKPGKv3Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F35E745DAD;
-	Fri,  6 Nov 2026 15:14:18 +0000 (UTC)
-From: Ben Grisdale via B4 Relay <devnull+bengris32.protonmail.ch@kernel.org>
-Subject: [PATCH 0/2] regulator: fan53555: Add support for Silergy SYM827
-Date: Fri, 06 Nov 2026 15:13:04 +0000
-Message-Id: <20261106-fan53555-silergy-sym827-support-v1-0-4e871c7f475c@protonmail.ch>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3902606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:15:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3902606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BS+wWOBp
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BQ98lptuezRaClL/2frvW7Abmv8umTPGLgyOyGvfOsk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793978139; v=1; x=1794582939;
+ b=BS+wWOBpkanXuDOzgufMBLVEhna7aL+1g1sop8joueXjNrvUxsu52rtxyL4e5+hOz9zL8jlw
+ Rh9ddG2x6Kkkn/xyndIPS43SbZU39nj7wSqa7RQPOvmrrvbiMp0l4BaQy2ZZCzgMAJU5DmfDGTC
+ wzRss1N8g3/8HPDXGEJwL1DY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8657a346237bb2f3;
+	Fri, 06 Nov 2026 15:15:39 +0000
+X-Mizu-Trace-ID: 8657a346237bb2f3
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	peterx@redhat.com,
+	hannes@cmpxchg.org,
+	songliubraving@fb.com,
+	riel@surriel.com,
+	hughd@google.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	peterz@infradead.org,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	joro@8bytes.org,
+	robin.murphy@arm.com,
+	steven.sistare@oracle.com,
+	jhubbard@nvidia.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	iommu@lists.linux.dev,
+	mason@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 3/5] mm/mmu_gather: flush pending references early before the folio limit
+Date: Fri,  6 Nov 2026 23:15:33 +0800
+Message-ID: <20261106151533.89428-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261105-refcount_overflow_stable-v1-3-70b9c655da3e@kernel.org>
+References: <20261105-refcount_overflow_stable-v1-3-70b9c655da3e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,50 +110,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ6CMBBA0auQWTsJLRlAr2JYUDrFMQpNB4yEc
- HerLt/m/x2Uk7DCpdgh8UtU5inDnAoYbv00MorPBlva2piSMPQTVUSEKg9O44a6PVvboK4xzml
- BH86tb6j2lXOQKzFxkPfvcO3+1tXdeVi+WTiODyw8U8iDAAAA
-X-Change-ID: 20261105-fan53555-silergy-sym827-support-df98d756d3bb
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Ben Grisdale <bengris32@protonmail.ch>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793978058; l=842;
- i=bengris32@protonmail.ch; s=20261018; h=from:subject:message-id;
- bh=luqQfSxLzy1m2Cu0B0ORh9PcmErSggIyVznVMub0yXk=;
- b=vVs3KvxNaznyT1s+5qudB8D7vZGpKURnN8holT3JVNTv2aSHtsDBYi0JJ1Vqa0PNi/wK5MKgG
- LrbCNq7rtJtAedUCZhWKYGwzmVq8iCOC2+rhEYCqMDg058btcbGiNHr
-X-Developer-Key: i=bengris32@protonmail.ch; a=ed25519;
- pk=4ewFRC2yNph/tXokHVzIDlgOA9Hxecf1AlBuD4eOnaU=
-X-Endpoint-Received: by B4 Relay for bengris32@protonmail.ch/20261018 with
- auth_id=1233
-X-Original-From: Ben Grisdale <bengris32@protonmail.ch>
-Reply-To: bengris32@protonmail.ch
-
-The Silergy SYM827 is a 6A synchronous step-down converter with a
-similar I2C register map to the FAN53555, found in MediaTek MT8163
-devices as the external VPROC regulator. It differs from the already
-supported SYR827 in its die ID and output voltage range.
-
-Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
----
-Ben Grisdale (2):
-      regulator: dt-bindings: fan53555: Add Silergy SYM827
-      regulator: fan53555: Add support for Silergy SYM827
-
- Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml |  1 +
- drivers/regulator/fan53555.c                                  | 11 +++++++++++
- 2 files changed, 12 insertions(+)
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261105-fan53555-silergy-sym827-support-df98d756d3bb
-
-Best regards,
---  
-Ben Grisdale <bengris32@protonmail.ch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
+On Thu, Nov 05, 2026 at 02:10:12PM +0100, David Hildenbrand (Arm) wrote:
+>When a task zaps mappings (e.g., MADV_DONTNEED), it can drop the PT lock
+>and defer dropping the folio references. In the meantime, page faults
+>can refault pagecache folios, creating more references for the same
+>folios.
+>
+>Let's just request a flush after enqueueing a pagecache folio whose
+>refcount reached a certain threshold. Start flushing well before new
+>references are refused, regardless of the caller's privileges.
+>
+>This is a temporary measure until we have something better.
+>
+>Reported-by: Chris Mason <mason@kernel.org>
+>Fixes: 10ebac4f95e7 ("mm/memory: optimize unmap/zap with PTE-mapped THP")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
