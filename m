@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969016;
-	b=dwZWKvBabIm2tuENtaTLG6xPTLihVooO9DIJT4QmywMjGDHo86LTtkxFrPYT33TjJ84X
-	 Q6/cA0WQTci9vEkp9UWMJe9CAQtMUddspti8TkwYRyU9H+phpaDpPJNfZErc6dv3c8J61
-	 LDwgqOOeziCRfj6fQdfniNYhmo3jThGMK3sHjzmN1LkcBzI+z6xKPKFjYKrfvRxf2bIIj
-	 3mFj1Apo6nshok0dSWuYn0gppaEWAHeXa7zyjHr9ofsBQdc0XuUuZiP8R/SBCLzSzmcCj
-	 ek97zj8lCDgoIf/Znj5uy6vnrzP5kD3mqOHW0Qo9UJ8ijISuucfHckNPJBkA0GluROg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969016;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=cMj0Zv7LEs11ijZhAA5YMZYd2IgePJ+fzjhqquIjptA=;
-	b=kvkFLtq8Nq4l7vQ5aoQi5jGc/0WFNebgNtJT3pUB7mSpYtNGqjHqLp9Sl14ZGWdQuGlv
-	 hQdz/mCZft2i6iyFvXAAIf0fe2SuX1/h93M8ssWQTHRty7AqyRkKa9/+jc+xPfjCu0M2q
-	 K3iVte0dngjfglBbbccNQtljV6A5vK77X20pVhUYtayC3K4qQqkplj48pg5Azh9seHRTd
-	 ldtTbsnTKHzsVFd/1EgtANTazZq7CBsvBlR7i0qOqLAor27VQzWsN/fdGneYSC2pNs+M0
-	 YYN6P0Cljxjzo6LhI4iOSubVjU2fLx69TVNnVITiEpZbx3gbLje/WHdwN0aJULya+MA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ds96ycrx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793969056;
+	b=BMxwXEXylLJ1/kmsKUDVGa+XYfgTuqdp/yZ1mvxoE9wFZboQsFOljzlTDH+MHec3Kp3h
+	 fETESzFkLwYpo8M0jXqzGLdY+ukaxNGImNYT2lxfmyN9WpfZWLBD1GW1PSA0OcoYZzMj1
+	 MfLQPWBt2/IIU+v3l+9cgpTcpWU6u5qKVAaldQDLL6mgnXCNSpQTGyQhQjz1xTNxVhrCG
+	 kwpzAHfwj96iM4Vc5QntNSgEzPpirSJw5I1Je5ypPU5Llc0OkZ02KPXG9RzHUdqb08sij
+	 S3FlaxlOCm+V7ChF+7Y335tUcNDliQ5PHFWJoQuUkZkheaS6PzN5vfzpxkKatBCP6Xg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969056;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=yvXw0LVWrSllWuIbq9Egto2n1olVQSpmMhaF2VSG/a4=;
+	b=wqyCv8RSa2vlNNI5CrdMloSNK1DS3+7LHJ0xlOQW4DxsGdA7G4uOQPD7M1duc5NzrDbq
+	 t21RPgOOc6VS6ZTTm9A/0D3T93Y6isFe0Bv91+IlWlXtHNqU4FKdfF8BJJ9o9xdQ3Tzl0
+	 309R58fKxaXykdlQNra8r0Fmner6cqOqldX0VIY2/d9NlmkJI/AwjhiRxGvVOeLBcnqH+
+	 Wpef6sfBvL05CT+s17Pj3Gj6Afkt+CFwgyAUzwiq6mOrzF0tyHkSCOaOJfd6IAk+CezWh
+	 nGzV8MJCQlazpscDNnEu+sCIr4Uidk7/vgPNXLfsZLak+nAKHjgx5EH+mOtGt81BwMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=OYS+gd+5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7180606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:43:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B76606A326;
+	Fri,  6 Nov 2026 12:44:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8B76606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ds96ycrx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AD7A1F0089F;
-	Fri,  6 Nov 2026 12:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969015;
-	bh=cMj0Zv7LEs11ijZhAA5YMZYd2IgePJ+fzjhqquIjptA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ds96ycrxArfYfwXjimRzXeJPrlCovaGGoewi6ab+shIYOSTIgs2537NA+HjnpaRYw
-	 Y9b6Q6kx29CcPuSTBig8SQv13MBZi98bfK+QWBmIM+tD4OuSosy2Brr1fyqIA2OH4V
-	 QZcaR+YpJ6FaIztHV7/lI+HuKifvxG/YndC72wILpWQxqzlxZXG9nw9iD6JYOib/zw
-	 Nlmix1WCMAMVUl7tlYZ/5hUel+PJS5EpO2WZjOtakzq8AK2p7Mj4jJ5bxXvi8BkbUU
-	 WjcSK6m1vVtseYI05yqj97ntMxa7QSfNiw0J5/RUaCXUBm9DGuKU3JjEWgFn4aQFO0
-	 wnOlXmfXD2Yxg==
-Message-ID: <5521e876-3edb-4862-8b45-96118a21ab6a@kernel.org>
-Date: Fri, 6 Nov 2026 13:43:11 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=OYS+gd+5
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0054C2008B8;
+	Fri, 06 Nov 2026 13:44:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793969054;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yvXw0LVWrSllWuIbq9Egto2n1olVQSpmMhaF2VSG/a4=;
+	b=OYS+gd+5B0jEqWucB9F2015EHlOJxOUK9aGGVlfoNyYzGnYIDbUpNW4Aa0zWIseFEe2Obl
+	EChFuOGx+9hyPx1+GgrRWru0/tFE1RcpGGJj685vjJ2CSeL9yQEn6ML/UGQMvBxm8t5YRr
+	nxZEvj5idqbGPr0cOGtWZLUScjRdH/VwH4wD458cXtKkTqwrGhdx69zhv4YCs0TwIvEGd+
+	WyMiAMMRYH3jKV1iBfGVhYiFaUK9YmYH5BKwZYbZ3rIhVFfbcF2HGEf196bjKmBmb1XlrB
+	h0f3vg1GtFlZCStJbf2+fXyrUt4Uk/RCiEZQ6hqLm1/txJkQvolr+D39qf6I3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793969054;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yvXw0LVWrSllWuIbq9Egto2n1olVQSpmMhaF2VSG/a4=;
+	b=FVrz+nUIAuaEh/HoGLt/8rC70hO8B/Z5FOYPqjJK+lRP73IQlXivmDFc71fCZXjqHJDhYL
+	qrG4DZsVxAN3s98ZALvm5/JSWMYgIxDat2UZyuobUSSESWPCmQr6033LB5F9NdVSviFOK6
+	zgqCngNX7GNiFieSv5PXHbPO6UynBtuV0a7T27N1pDOBpMPn/9yQDlDCTZzG8/4d0aKpdY
+	UR08jv0vf9QfSEQKzxn4e8QIMk9DIi7Yei/SqLqTezey8OQ5FMFxCqgJbnz7fDXUMn470c
+	2xGHghxkEfN2p5R91ZYuGSTOoYqDyn0fdeN81y9FMAdWGb5fLVDLLOCEeT+rAg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793969054; a=rsa-sha256;
+	cv=none;
+	b=NiZHDx8TBOW5bxYk+Wp2/AgLQlvJRN7ucp/dyjs9fMDGgRpq1AhlE5rL76NC3lsIroUrol
+	kBhlG82Ky6h5dFzXn21FCPp7vbsjzwQctmzZJxD3hrPAzasuondZgPaubPo/4u0FIWB4qj
+	jgW3gOm/MXRy6rJi5aOz4ZmoQ7gV23Bl0mDIVmJq19/SGvjdDtvVv5bhisMqbxr8sTElkC
+	RgN/j+ar22V56dvbTZx/AbIqlq4ZO4keKoUdOA1O3wtx5Ia5SznBJXWuOaS8CSnzvAJPtk
+	hApm/1m3F6J0C/CFLEUXlPtUaKzBXiRutLbK+BpzbWZCytcGj3HTfewGO7S2EQ==
+Message-ID: <9d02b6b6df7093cadc4db3e08698879d7115c33c.camel@pengutronix.de>
+Subject: Re: [PATCH] media: coda: fix out-of-bounds read when parsing H.264
+ SPS profile
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Hyunjung Ko <hj351016@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ 	linux-kernel@vger.kernel.org
+Date: Fri, 06 Nov 2026 13:44:13 +0100
+In-Reply-To: <20261105064155.1342011-1-hj351016@gmail.com>
+References: <20261105064155.1342011-1-hj351016@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,92 +93,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] mm: internal: fix inconsistent in
- folio_pte_batch_flags() for shadow stack
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Lorenzo Stoakes <ljs@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- Rik van Riel <riel@surriel.com>, Yuan-Hao Hsu <aa9736195201@gmail.com>
-References: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
- <20261102-refactor_gup_fast-v2-2-bc1ac018c834@arm.com>
- <85c4a87b-2c8b-4ef5-bb30-6518080f8be0@kernel.org>
- <auiI8jzumVHmmSV9@e129823.arm.com>
- <9a67e7f6-0ec6-414d-8689-c70eeed6100c@kernel.org>
- <auiZFJ7Bb6cQnqtX@e129823.arm.com>
- <d70b6ac2-a8b2-4c34-acc4-ee421eb70aac@kernel.org>
- <au2cKP0SWaaHQPrg@e129823.arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <au2cKP0SWaaHQPrg@e129823.arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/6/26 10:21, Yeoreum Yun wrote:
->> On 11/2/26 15:07, Yeoreum Yun wrote:
->>>
->>> That's my preference too and we've discussed :)
->>> I'll repost with below unless anyone has any strong comment.
->>
->> Yes, best to wait a couple of days for people to catch up.
-> 
-> If there is no comments for prohibiting to set VM_HUGEPAGE for
-> shadow stack as David's suggestion, I'll post with this on early next
-> week.
+On Do, 2026-11-05 at 15:41 +0900, Hyunjung Ko wrote:
+> coda_sps_parse_profile() scans the compressed OUTPUT-plane buffer
+> supplied by userspace via VIDIOC_QBUF for an SPS NAL unit and then reads
+> the profile_idc (buf[0]) and level_idc (buf[2]) that follow the NAL unit
+> header byte. Neither the NAL scanning helper nor the final dereferences
+> are bounded against the end of the payload:
+>=20
+>   - coda_find_nal_header() dereferences *buf++ before checking buf
+>     against end, so it reads one byte past the payload when it is
+>     entered with buf =3D=3D end (e.g. a zero-length or start-code-termina=
+ted
+>     buffer).
+>=20
+>   - after the SPS NAL unit header byte is consumed, buf may point at or
+>     near the end of the payload, yet buf[0] and buf[2] are read with no
+>     check that three bytes are actually available, reading up to three
+>     bytes past the end of the payload (and past the allocation when
+>     bytesused =3D=3D plane size).
+>=20
+> A local user with access to /dev/videoN can trigger this by queueing a
+> crafted H.264 bitstream buffer ending right after an SPS start code and
+> NAL header byte, resulting in an out-of-bounds read (KASAN splat /
+> possible crash).
+>=20
+> Rewrite coda_find_nal_header() to bound-check before each read, reject a
+> header found with no following byte, and verify that profile_idc and
+> level_idc are inside the payload before dereferencing them.
+>=20
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+> ---
+>  drivers/media/platform/chips-media/coda/coda-h264.c | 17 ++++++++++++---=
+--
+>  1 file changed, 12 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/chips-media/coda/coda-h264.c b/driver=
+s/media/platform/chips-media/coda/coda-h264.c
+> --- a/drivers/media/platform/chips-media/coda/coda-h264.c
+> +++ b/drivers/media/platform/chips-media/coda/coda-h264.c
+> @@ -19,13 +19,13 @@
+>  {
+>  	u32 val =3D 0xffffffff;
+>=20
+> -	do {
+> +	while (buf < end) {
+>  		val =3D val << 8 | *buf++;
+> -		if (buf >=3D end)
+> -			return NULL;
+> -	} while (val !=3D 0x00000001);
+> +		if (val =3D=3D 0x00000001)
+> +			return buf;
 
-Yes. Can you do me a favor and move the fix to #1
+This should return NULL if buf >=3D end ...
 
-Also, I think we'll CC stable.
+> +	}
+>=20
+> -	return buf;
+> +	return NULL;
+>  }
+>=20
+>  int coda_sps_parse_profile(struct coda_ctx *ctx, struct vb2_buffer *vb)
+> @@ -36,10 +36,17 @@
+>  	/* Find SPS header */
+>  	do {
+>  		buf =3D coda_find_nal_header(buf, end);
+> -		if (!buf)
+> +		if (!buf || buf >=3D end)
 
--- 
-Cheers,
+... and this should not be needed.
 
-David
+coda_find_nal_header() should never return buf >=3D end.
+
+>  			return -EINVAL;
+>  	} while ((*buf++ & 0x1f) !=3D 0x7);
+>=20
+> +	/*
+> +	 * profile_idc (buf[0]) and level_idc (buf[2]) must lie within the
+> +	 * payload before they can be dereferenced.
+> +	 */
+> +	if (end - buf < 3)
+> +		return -EINVAL;
+> +
+>  	ctx->params.h264_profile_idc =3D buf[0];
+>  	ctx->params.h264_level_idc =3D buf[2];
+>=20
+> --
+> 2.43.0
+
+With the above fixed,
+
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+
+regards
+Philipp
