@@ -1,76 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951482;
-	b=lRfxFlHhcLSWkSTNFiCJ3jKXajYGnm4CLjydRROirjRXBBHkEZISz1Xd7mOMY6TIUGPh
-	 +SuE+qME/rh/4qacfX/ibu+FVsfduPcTH9D7mfYIlSSei5XsUJH2BWN1coAYcesLX4EwQ
-	 Q9Um40vhRIndCe/0zQOLzgM4aClQoFQDUVP/VedRqKEc79HmGMqccOQLyKE1SNyQvHJOM
-	 XGTLpekQ7eM4SadggYTYQu23hSoas5GLVdc6y0se8zyiNI2lO8GCrnmmMZsFOnIpENF34
-	 0cMQCgLnyDNkrITepdlVxO0PGmOHRpo/JaLetT/SdF+gtj9QlF8CZdPujIorCNLMe6Q==
+	t=1793951500;
+	b=Dj5CQ5RxHGdB10q7q3EyTZlEV842dyIbc3uqebLBnGfHgNRx3GCfu9Ywf/S3boWmnMHQ
+	 POyGDA+3j8JaAs52darK/XXEutqnd35Lpq9lMMFsaZLg4XwbymXE2RKf97++QT7MDhP42
+	 uzQ0DoMSivf3VDvMM3PwY5w+RkW+JkzBkle4yIOCnkdeXesSTamN/qD14V2qAzREqY3eA
+	 n9IDrQ8rpCKsgL46dVVghzrgdCPCacECvlp1ruWEegV0ekiofm3r6dBcVxjL6GeF8jVVz
+	 RZgkB+k8rcP5jp0AmoScmH+vLuSegk0NzgrI9ekqErzk65Z5bnxHeIxX2zak1vKZ+fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951482;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
-	 DKIM-Signature:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy;
-	bh=ZHr7cnKxJ5lZjyr/KeuRcLqoFP/w9L5fnd5tVVZvABY=;
-	b=g8CSdEl3tGuJbM0HnDCY2rzmpnqUXsAqcH2RzxmRu+picashM/qNni5IIhGy2gpkU6z/
-	 JgCuarBfMH9Zx52tEapErycnRL9L6yVv4W1k9azMYJSzc/AA+Xr3Ia4obfh7b5chPgzjc
-	 rYkkGxNKo7I2Ktk2Xu1jbkcML2wgAiDdbuo0H631gJ/98wz0zUbgpfipRNwl4A6huriIl
-	 ESwU14DHLkW8Jrf1yg2sONdg5xSqEOchezLn8/a2kRdU15VKbtdjddL9JwwDwtN5BNXLr
-	 +fUswKRVJ9JMOaZ6pgsfBPPVwBXaQL4kdkgey7tlwrmScfxxzlB9tKWwkDlIHeZybQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951500;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BxfnrvZCaIXbpGJqIJIbJ0IIadnlSyqid91Q14S6WvY=;
+	b=c6wjHqGatcADTeKjVfRUnIwJ0Zule53KbMZ7swbAWjYsoV/RRBseikzQsz+XuhC7vLXk
+	 axplDoB2RglMyBSgLqOcHIAKzOkpamfKR8TLvvixUD/EuOiwMlIOads3LdXrf+B7CofP+
+	 tExcmF9RvWE/CSU8TqAKStJp1WOKmqS/cT7aOLUI5KTRqeNMvPPQ3MIc2ItuRnFkbotxv
+	 FX9/57b0YJtoIH4KfYJiIXi2mbX2dlKRG/nqaELNcvLCZM4qWr5Q4etFjQ98EwV7ldBgY
+	 K4KkEUo8eO8sLnxARBjprXN/RLDsqYsigGzmMAAsuXlHUw8vT3+iKKDpPONNpkhlXhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=secunet.com;
-	spf=pass smtp.mailfrom=secunet.com;
-	dkim=pass header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=zG3tmDTz;
-	arc=none smtp.remote-ip=62.96.220.36
-Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b="b1Xx/h/R";
+	arc=none smtp.remote-ip=115.124.28.217
+Received: from out28-217.mail.aliyun.com (out28-217.mail.aliyun.com [115.124.28.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F59606A326;
-	Fri,  6 Nov 2026 07:51:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0F59606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E817606A330;
+	Fri,  6 Nov 2026 07:51:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E817606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=zG3tmDTz
-Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id 46E2F20870;
-	Fri,  6 Nov 2026 08:51:20 +0100 (CET)
-X-Virus-Scanned: by secunet
-Received: from mx1.secunet.com ([127.0.0.1])
- by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id NBNz1GUpEhDM; Fri,  6 Nov 2026 08:51:19 +0100 (CET)
-Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id 7A79A2074F;
-	Fri,  6 Nov 2026 08:51:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 7A79A2074F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1793951479;
-	bh=ZHr7cnKxJ5lZjyr/KeuRcLqoFP/w9L5fnd5tVVZvABY=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
-	b=zG3tmDTz6wF4lMqixwlVM5xP6/ewlFBU2tcncbhm+Ok851o4sCZST/2tI31u0cpCM
-	 oUJOx7Fup94LhjtX2xLC2R1dOR3iZgYaPr/L8M2h8cRL9l+dCjQ4/7MWWY2j3sKk71
-	 gpPWUmkM8z5+iKZ2S/PgSAL3hiVlOORYALLZUh6mLTFieVPAhGWRVNbd1fkkCFurph
-	 LurDBdOIvLNeUdzTNKXIoLFKZSLQh1DKV/P1Jp97ZQo27QJ90lSpjwSQJwgY2pIrMM
-	 Wyarm4zPiRac0RvVC0KKCoe8v8BE1ldsl7lkJst6W272xY40iNnwKsB7I10MRgQkCt
-	 SrPS2P+N6Mslw==
-Received: from gauss4 (10.182.7.102) by EXCH-01.secunet.de (10.32.0.171) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 6 Nov
- 2026 08:51:18 +0100
-Received: (nullmailer pid 3072074 invoked by uid 1000);
-	Fri, 06 Nov 2026 07:51:18 -0000
-Date: Fri, 6 Nov 2026 08:51:18 +0100
-From: Steffen Klassert <steffen.klassert@secunet.com>
-To: Kyle Zeng <kylebot@openai.com>
-CC: <netdev@vger.kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>, "David
- S. Miller" <davem@davemloft.net>, <linux-kernel@vger.kernel.org>,
-	<outbounddisclosures@openai.com>
-Subject: Re: [PATCH] xfrm: serialize SA activation with state deletion
-Message-ID: <au2G9iC524N1gOjI@gauss4>
-References: <20261030042353.74606-1-kylebot@openai.com>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=b1Xx/h/R
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793951490; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=BxfnrvZCaIXbpGJqIJIbJ0IIadnlSyqid91Q14S6WvY=;
+	b=b1Xx/h/Rd1fbig3KKltcO1N4alNxKwQfp5usj7YbAC8BSjCdEgxyd92Glni69LKkT8Gu78CpFW8TAz85nVKK+USVXx59dd8vVVFluxL+jbsTcu4Btj/+B1hQ2pz+LVgFs9lAPgHJuMVmum3Gu/8s4qisUZZ6iCwv/VUQzB3rMe4=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08866221|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00219219-0.00171057-0.996097;FP=11930222591969111232|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jyElgNY_1793951489;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jyElgNY_1793951489 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 06 Nov 2026 15:51:30 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Bastien Nocera <hadess@hadess.net>,
+	fangxy@xiaopeng.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: goodix - reject a bak_ref length that cannot hold the checksum
+Date: Fri,  6 Nov 2026 15:51:29 +0800
+Message-ID: <20261106075129.3106093-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,29 +63,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261030042353.74606-1-kylebot@openai.com>
-X-ClientProxiedBy: EXCH-01.secunet.de (10.32.0.171) To EXCH-01.secunet.de
- (10.32.0.171)
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 09:23:53PM -0700, Kyle Zeng wrote:
-> xfrm_add_sa() publishes a newly constructed state and arms its lifetime
-> timer before marking it VALID. The final VOID-to-VALID test and store
-> are not serialized with state deletion. If hard expiry deletes the state
-> between the test and the store, the store resurrects the unlinked state.
-> 
-> An input lookup which found the state before it was removed can then add
-> it to the per-CPU cache after deletion has removed the cache entries.
-> Once the remaining references are dropped, the cache points to freed
-> memory.
-> 
-> Take x->lock around the conditional transition, with bottom halves
-> disabled as in xfrm_state_delete(). This preserves DEAD if expiry won
-> the race. The same protection covers UPDSA when it installs a replacement
-> for an ACQ state.
-> 
-> Fixes: cc01572e2fb0 ("xfrm: Add SA to hardware at the end of xfrm_state_construct()")
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+driver_num and sensor_num are taken from the touchscreen config.  A
+config with driver_num 1 and sensor_num 0 yields a bak_ref length of
+0, for which devm_kzalloc() returns ZERO_SIZE_PTR.  That pointer
+passes the !ts->bak_ref check and the subsequent
+ts->bak_ref[ts->bak_ref_len - 1] = 1 writes before the allocation.
 
-Applied, thanks a lot!
+Reject a length that leaves no room for the trailing checksum before
+allocating, and skip saving a bak_ref that was never allocated.
+Without the second check a rejected length leaves bak_ref NULL while
+bak_ref_len still holds the bogus value, and goodix_save_bak_ref()
+then writes through the same index on suspend.
+
+Fixes: 09182ed20c04 ("Input: goodix - add support for controllers without flash")
+Cc: stable@vger.kernel.org
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+---
+ drivers/input/touchscreen/goodix_fwupload.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/input/touchscreen/goodix_fwupload.c b/drivers/input/touchscreen/goodix_fwupload.c
+index 5ae9a109ba0d..888da7538c06 100644
+--- a/drivers/input/touchscreen/goodix_fwupload.c
++++ b/drivers/input/touchscreen/goodix_fwupload.c
+@@ -281,6 +281,8 @@ static int goodix_prepare_bak_ref(struct goodix_ts_data *ts)
+ 		driver_num, sensor_num, have_key);
+ 
+ 	ts->bak_ref_len = (driver_num * (sensor_num - 2) + 2) * 2;
++	if (ts->bak_ref_len < 2)
++		return -EINVAL;
+ 
+ 	ts->bak_ref = devm_kzalloc(&ts->client->dev,
+ 				   ts->bak_ref_len, GFP_KERNEL);
+@@ -409,7 +411,7 @@ void goodix_save_bak_ref(struct goodix_ts_data *ts)
+ 	int error;
+ 	u8 val;
+ 
+-	if (!ts->firmware_name)
++	if (!ts->firmware_name || !ts->bak_ref)
+ 		return;
+ 
+ 	error = goodix_i2c_read(ts->client, GOODIX_REG_STATUS, &val, 1);
+-- 
+2.50.1
+
