@@ -1,91 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793983732;
-	b=4s3L0WAFVyka/Ir7FopyRW38NRWFr9a7xQ7KIvx18/eDJxDJ+ZgDHHRS1bgdc0sJH4Pb
-	 XLHo2BVGAhZNRY7AZimW7oQxmz/FfOWJu7LsFnGpab028HGv4kxwe9d80YBhtkkTWT9Ay
-	 3q0duyRYe/sWYSWwPbckBA8EMqrKx5zQJx7wdPyd3BvnVUF9oPf8OIf7I51vLOFU7Ftpp
-	 ngW64ll4OktQ7JNL9HvwfkzOwQPLc35bJUrKNO40m21lMcuHN4TOJiohZf0rn4rvycDC9
-	 sM7jSKTY5wPk6MCPdxFjhFiramIgkcupexiD98SPFoEZyKy98mlJPIAj4arQqwHEmhQ==
+	t=1793983734;
+	b=FwcAS1fE+zFzT15SrKpheMJTsZsZk/ohHK/IiyzMgbWuyDmZhg+sJGUsGfx+Se4LWl/6
+	 HHHtHBKM7u6ZdtxvwmyeYlDTZuKYNNteNVwVYaOFmIJifYnLUts4AwMRT28qakIUormtb
+	 nfaNtg2hs1fFlZwLRT3Cc5vgsVF6OKgvzxpwwNSypbi2MRZLYzhfJiwtqyZ+pE2YiuqWD
+	 YXWv4gHGlXhl+eIZTTUJTcto1jf9bOuwW0h7Bn3Ln6+yWW6VylM2tnxafExO9yE/w5eIf
+	 eZeR+E5g16ZBPMMlAvSoxbRZvCGc6NgrMyJzIvZKj7PMONGWHpL8pnlgDK1+XiJKqnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983732;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=H4V6yx9D+6KQk63XzZHkpPjJ39CmO85EbWoBfoCbemY=;
-	b=QptF0wreDHsR/U6Dlz2coTuk3vtqfxcRqs83sygKUdijPXZaa1DGv6BzNSXWFOUInPKV
-	 oUoDPrp0kRpQnwVi6VuunF+IB07nDAJwpvn0gwNMYTN5tcGst5dy2Gjhxzt7rQS2rDE7Q
-	 /lMaKCuh4U89b5Fu0YpY8Ka0366QDoYOewVPcBc/7UQPEBl9bMfD6eWpR7lJ3XowGbMbL
-	 0FE3lBL8N45mr44436oqjyqKLGlZCtDq/mbg5bRR7U2GAe5uBpEB467vff1+iMNtIYXmO
-	 o6QDilZKo8W1GdvGbIMSSQc6OhDl0GgKsOOW7yUP4VhF2DdfEkBJ9aHS2PlIiQVPQvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983734;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wwedXasY6Bp8ZwF+4iZZRJ4XWL8SdA+Fk4YfEj7+kwE=;
+	b=b/QDkyep07WDPmflSwQwSWL5hEHrrWjNkGrJCA0XV5QZZXR/HfIyC62Xa2ulaPXhVnmY
+	 hQji62PhuDNY2X6emYwhIPmLIIudaqE2bQ9oYCCUruGoq3uAtdwEFPZMKVNXhEuuTdKll
+	 g0PqbIdY9ifsVFGUDs+HTAPL0M16qoetVAqSQnhY9tcPwHF6MNSxGXK44H6AjENL9mny+
+	 7xWYW9AUlLV9fb302qP5ANnj1kM3N4RXTwBkjM3O/1KmXfX9PGzLyEoo3Olh9KiVQZwqh
+	 TNIWpQ+3BlkwZfop1vQx4aM0B6CwF+g5mDhF3u4WjObzFqCEYwoiggBuBMzoZruTx2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cq71bCcK;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X23zSpUc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E196B606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:48:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E196B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67291606A330;
+	Fri,  6 Nov 2026 16:48:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cq71bCcK
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a3c08d6928so1516890c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:48:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793983731; x=1794588531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H4V6yx9D+6KQk63XzZHkpPjJ39CmO85EbWoBfoCbemY=;
-        b=Cq71bCcKhrXmI8XPfIuOPFx0+SViitkkZn/7AFYdYosNKSIpLcuNf/0TIIZvJdFuUJ
-         /XKmHpeKL0hklpMC9BdkpHyes7e3S4+GV9w2MEPoF5JJH8JyO/Ntd+1TqC6K7zkn4une
-         nf22NAapAwmuYW03AbeeYURQ0WHIHTRfZAbxs+70UvoDexw1KDufehYNdF3JdMxQbzae
-         XW1NzlLj+E91pk6uQecH+qL8l1Uw+0xZ3+gkIMUpaD6X9bpJ3l/SKY+zVRYLQ/Wsyhy9
-         nwUESwsGdVcMBtCH4vvJ6OKqaiB6toUe+wwvzmTRnqlYMGSNluIWGbNY+uZx4JUBWpjL
-         ZK7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793983731; x=1794588531;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H4V6yx9D+6KQk63XzZHkpPjJ39CmO85EbWoBfoCbemY=;
-        b=yCt1uoInjQOMc8RsLXCxV4LIO+8CqOzZbxnpR9fgHK1nCjbQr3xiCcbldGVezdzSrg
-         q/W2U5xHZ3OZ3zOGohhWx5CFmL0mnISILRTNCYdEfpa/dgjcLKBQ6q35hvJ2x8GztW6q
-         iCPik4SDRWfWR65FxE7fXV3+FCJTmnjBVN/w8Aaq6WbQZjEtnTzla6GUgCYL6lOcF6xG
-         0IW4IHjm6N2EAqhLTYktd93KwjGLYlQV5uaKZT24raFaxUyH21MIMxj+BTPLNGWTOF/X
-         m6bGK1afOZd+sfmW6PGcitFZDKX1fk1BKB5IB9trKVPD8dV4AqbmD8+qJcJnm4X7TpZQ
-         Jj3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy7ZWwZW9nBLTqQQxG3UzbBAgR53UtpG4bmg4YO3Gzj1t/oyMurznx5MSj8xx4Gfbc1xthYAH6zJqKZ8B4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/llqKT91Y3oitkMl9vIxhLpuv4KlLAXLeCBc8eVYg1PHjiBjKF
-	CjyxOzIPRBu69YoHTWA5nP9WjI4MpLTi7a3FRW5HMXucQKHUIApoaNGR
-X-Gm-Gg: AYBFou3XQstQZB7bWnnCzyULtcUeobnF6CSu6tw+9FrSrU9oPOIBj43syiUmXfzeueQ
-	AxeWVe+X49P5+FIP7CYGTdK8qgIp/V3ZlbaZJXSDfvz1Ecavtx64Aszw/ZnFmj1/7rfhlIdn/GS
-	Qh2sBkf2BNSBnbnHPKzQbLgPxBtw1V+Zp45tjU6LBGzhXu4AyXYbMEbFUmA9DJF2GUH4VniMczC
-	VxYx80tpueOWEZFqsZ0yYDJnqdhhy6xx/IwuwA1zzLXzWvFbKT6NDQ3dKL9w+qwtix8I6aAygu4
-	4jiDY8p+DdGEcx8N0jKK7KvDhe+IQ5jsG21qJ4HBIO12xIEkQ8Y0RxVpzM3TvcAVb/K0tJ2CzRT
-	lT5QE/6a4wyZPR5loawC2RxN1AzyxsL8CmoF2dhhizBH1MdpwwIFSrRHc9TPkvxMYV0ceVu8IHT
-	y372AX4ijfZCpPxt+a9X/0jofj7z8uaKF1WBFdAUri/L3MSD9TIONe/CD7BekzrOqZcyYy3nF1f
-	tZFKUlCb7yAxfdS9ofL4yAna/402fx1w5yci+rrXuS2NS9QGufsQiYLx0L3j10Bb30m1pd+8YY2
-	2vzFyjixZu03g4sBVXVGF32VhPtz4CKm4w7Yye0ZRNBfanS1/6uzxLTnlR5YN51A
-X-Received: by 2002:a05:7022:4585:b0:154:fa0b:6df1 with SMTP id a92af1059eb24-1b25d392837mr4962081c88.37.1793983730762;
-        Fri, 06 Nov 2026 08:48:50 -0800 (PST)
-Received: from carrot.devel.local (madb688455.ap.nuro.jp. [219.104.132.85])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b26294289dsm6996808c88.4.2026.11.06.08.48.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:48:49 -0800 (PST)
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: linux-nilfs <linux-nilfs@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Vyacheslav Kovalevsky <slava.kovalevskiy.2014@gmail.com>
-Subject: [PATCH] nilfs2: zero-fill post-EOF data on mmap write and size extension
-Date: Sat,  7 Nov 2026 01:45:28 +0900
-Message-ID: <20261106164847.71814-1-konishi.ryusuke@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X23zSpUc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618661F0089F;
+	Fri,  6 Nov 2026 16:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793983734;
+	bh=wwedXasY6Bp8ZwF+4iZZRJ4XWL8SdA+Fk4YfEj7+kwE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X23zSpUcdN+am/IsFeY2VmYV9jInPIWBejU6sNczHeODweAqOhe7W03gMbMU/lMK/
+	 H8EIPCvSaSvqFl0m4mV6/KYWV5kZhZhU0WObpKdkXn63SHiSYXO7FVKFwvaMFMuKIo
+	 F3NmwRk7k0+nYiHTVvZiJ9+PNQIaULYgPbnycBbTgmNNcRbxBB1Yf/qIDx0plxIz0H
+	 W1mmzh3G8rwkmhMPiShbhnoe/BKnyVYbj9i8quoEWRQj8+w0jHGRtYJH02cv1drFGc
+	 PCoLSCgheRNxpmoi6y5wLow+6a3imy1fCK62Y9AvB2+kEx9MKhHqs83M382H0JF4Wg
+	 ztsdFAAwbwt8A==
+Date: Fri, 6 Nov 2026 16:48:46 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Ye Liu <ye.liu@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/huge_memory: prevent losing PG_waiters in
+ __split_folio_to_order()
+Message-ID: <au4A9Jx9_1PjpRCb@gremlin>
+References: <20261029-fix-split_folio_to_order-race-v1-1-a483c7451b0d@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,202 +65,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-fix-split_folio_to_order-race-v1-1-a483c7451b0d@nvidia.com>
 
-When a file is mapped via mmap, writes beyond the EOF within the same
-page are permitted in memory.  However, POSIX requires that these
-modified portions beyond EOF must never be written to disk and must be
-zeroed if the file size is subsequently extended.
+On Thu, Oct 29, 2026 at 10:08:44PM -0400, Zi Yan wrote:
+> __split_folio_to_order() calls prep_compound_page() on each new head page
+> to create a compound page after clear_compound_head(). prep_compound_page()
+> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
+> and frozen and no one else is supposed to modify the folio's flags.
+>
+> However, code calling migration_entry_wait() can reach the folio by PFN,
+> then access its flags. It is because softleaf_entry_wait_on_locked() used
 
-In nilfs_setattr(), size changes trigger truncate_setsize(), which calls
-pagecache_isize_extended() upon size extension.  However, this VFS helper
-does nothing when the page size is equal to the block size, when the
-extension stays within the same block, or when no block exists beyond the
-old EOF within the page, skipping the zeroing of the post-EOF region.
-The filesystem is therefore responsible for zeroing the post-EOF range in
-such cases.  However, the current implementation of nilfs_truncate()
-operates based on the updated i_size, leaving the post-EOF region of the
-mapped page unzeroed.
+Oh fun.
 
-Fix this issue by handling size extension and contraction separately in
-nilfs_setattr().  When expanding a file, call block_truncate_page() with
-the old EOF position to zero the boundary block data beyond the original
-EOF, unless the old size is aligned to a block boundary, without
-truncating the bmap.  When shrinking a file, invoke nilfs_truncate() as
-before to release blocks beyond the new EOF and zero the boundary block.
-Propagate the error code from block_truncate_page() or nilfs_truncate()
-to nilfs_setattr() for proper error handling.
+> by migration_entry_wait() sets PG_waiters concurrently without taking a
+> reference and the frozen refcount during split cannot block it. Meanwhile,
+> __SetPageHead() does a plain read and write, so PG_waiters atomically set
+> by softleaf_entry_wait_on_locked() will be lost if the set happens after
+> __SetPageHead()'s read and before its write.
+>
+> One example code interleaving:
+>
+> CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
+>
+> 1. clear_compound_head(new_head)
+>    new_head->compound_info = 0
+>    (page_folio(new_head) == new_head now)
+>
+>                                            2. migration_entry_wait()
+>                                              softleaf_to_folio(entry)
+>                                              page_folio() -> new_head
+>                                              (not the old head any more)
+>
+> 3. prep_compound_page(new_head, new_order)
+>      __SetPageHead(new_head)
+>        tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
+>
+>                                            4. folio_set_waiters(new_head)
+>                                              set_bit(PG_waiters, &flags.f)
+>                                              enqueue on waitqueue, sleep
+>
+> 5.     new_head->flags.f = tmp | (1UL << PG_head)
+>        <-- store; overwrites step 4, PG_waiters == 0 again
+>
+> Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
+> and CPU1 can remain blocked indefinitely.
+>
+> Fix it by adding the atomic version SetPageHead() and
+> prep_compound_page_atomic() using it. __split_folio_to_order() uses
+> prep_compound_page_atomic() to avoid the issue without adding an atomic ops
+> to other prep_compound_page() users.
+>
+> Reported-by: David Hildenbrand <david@kernel.org>
+> Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
+> Fixes: c010d47f107f6 ("mm: thp: split huge page to any lower order pages")
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
 
-Additionally, move operations specific to explicit size modifications
-(permission and file type checks, timestamp updates, and sync flag
-handling) from nilfs_truncate() to nilfs_setattr().  This avoids
-executing them in the error recovery path of nilfs_write_failed() and
-ensures invalid size changes are rejected prior to calling
-truncate_setsize().
+Nasty one. Some nits below but change looks sensible to me so:
 
-Reported-by: Vyacheslav Kovalevsky <slava.kovalevskiy.2014@gmail.com>
-Closes: https://lore.kernel.org/all/47d7da4a-5029-4c56-a5ac-3e4c526cc569@gmail.com
-Fixes: 05fe58fdc10d ("nilfs2: inode operations")
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
----
-Hi Viacheslav,
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Please apply this fix for the next cycle.
+BTW AI flags an hw poison thing doing the same:
 
-This addresses a POSIX compliance issue with mmap where extending a
-file leaves dirty data written beyond the original EOF unzeroed in the
-boundary block.
+memory_failure() does TestSetPageHWPoison(p) on an arbitrary subpage before
+taking a reference (mm/memory-failure.c:2458), which races the same way with the
+plain flag clone and with folio_set_order()'s plain _flags_1 store.
 
-Thanks,
-Ryusuke Konishi
+> Cc: stable@vger.kernel.org
+> ---
+> The issue was raised by David when reviewing Ye Liu's "mm/huge_memory: use
+> READ_ONCE() when cloning folio flags during split" [1].
+>
+> [1] https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
+> ---
+>  include/linux/page-flags.h |  1 +
+>  mm/huge_memory.c           | 10 +++++++++-
+>  mm/internal.h              |  2 ++
+>  mm/page_alloc.c            | 20 ++++++++++++++++++--
+>  4 files changed, 30 insertions(+), 3 deletions(-)
+>
+> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+> index b0ddc652e76cc..08492ab3da895 100644
+> --- a/include/linux/page-flags.h
+> +++ b/include/linux/page-flags.h
+> @@ -854,6 +854,7 @@ static __always_inline int PageHead(const struct page *page)
+>  	return test_bit(PG_head, &page->flags.f);
+>  }
+>
+> +SETPAGEFLAG(Head, head, PF_ANY)
+>  __SETPAGEFLAG(Head, head, PF_ANY)
+>  __CLEARPAGEFLAG(Head, head, PF_ANY)
+>  CLEARPAGEFLAG(Head, head, PF_ANY)
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index bd44d58e86845..319b038eba89d 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -3779,7 +3779,15 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+>  		 */
+>  		clear_compound_head(new_head);
+>  		if (new_order) {
+> -			prep_compound_page(new_head, new_order);
+> +			/*
+> +			 * new_head is recognized as a folio after
+> +			 * clear_compound_head().
+> +			 * softleaf_entry_wait_on_locked() can set PG_waiters
+> +			 * on it without taking a reference, so its frozen state
+> +			 * cannot prevent it. Use the atomic version to avoid
+> +			 * losing a concurrently set PG_waiters.
+> +			 */
+> +			prep_compound_page_atomic(new_head, new_order);
+>  			folio_set_large_rmappable(new_folio);
+>  		}
+>
+> diff --git a/mm/internal.h b/mm/internal.h
+> index aeebb3e49ed11..9b8864a8540aa 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -807,6 +807,8 @@ static inline void prep_compound_tail(struct page *tail,
+>  	VM_WARN_ON_ONCE(tail->private);
+>  }
+>
+> +void prep_compound_page_atomic(struct page *page, unsigned int order);
+> +
+>  #if defined CONFIG_COMPACTION || defined CONFIG_CMA
+>
+>  /*
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 143776e671abb..ace1359468046 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -682,18 +682,34 @@ static inline bool pcp_allowed_order(unsigned int order)
+>   * This usage means that zero-order pages may not be compound.
+>   */
+>
+> -void prep_compound_page(struct page *page, unsigned int order)
+> +static void __prep_compound_head_and_tail(struct page *page, unsigned int order)
 
- fs/nilfs2/inode.c | 78 ++++++++++++++++++++++++++++++++++++++---------
- fs/nilfs2/nilfs.h |  1 -
- 2 files changed, 63 insertions(+), 16 deletions(-)
+NIT: can this just be __prepare_compound_page()? I find the head + tail bit
+quite confusing. The __ implies it's an internal function.
 
-diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-index a99a69e9f91b..6ddef3ab0c19 100644
---- a/fs/nilfs2/inode.c
-+++ b/fs/nilfs2/inode.c
-@@ -39,6 +39,7 @@ struct nilfs_iget_args {
- };
- 
- static int nilfs_iget_test(struct inode *inode, void *opaque);
-+static int nilfs_truncate(struct inode *inode);
- 
- void nilfs_inode_add_blocks(struct inode *inode, int n)
- {
-@@ -771,38 +772,35 @@ static void nilfs_truncate_bmap(struct nilfs_inode_info *ii,
- 		   ret, ii->vfs_inode.i_ino);
- }
- 
--void nilfs_truncate(struct inode *inode)
-+static int nilfs_truncate(struct inode *inode)
- {
- 	unsigned long blkoff;
- 	unsigned int blocksize;
- 	struct nilfs_transaction_info ti;
- 	struct super_block *sb = inode->i_sb;
- 	struct nilfs_inode_info *ii = NILFS_I(inode);
-+	int err;
- 
- 	if (!test_bit(NILFS_I_BMAP, &ii->i_state))
--		return;
--	if (IS_APPEND(inode) || IS_IMMUTABLE(inode))
--		return;
-+		return -EINVAL;
- 
- 	blocksize = sb->s_blocksize;
- 	blkoff = (inode->i_size + blocksize - 1) >> sb->s_blocksize_bits;
- 	nilfs_transaction_begin(sb, &ti, 0); /* never fails */
- 
--	block_truncate_page(inode->i_mapping, inode->i_size, nilfs_get_block);
-+	err = block_truncate_page(inode->i_mapping, inode->i_size,
-+				nilfs_get_block);
-+	if (unlikely(err)) {
-+		nilfs_transaction_abort(sb);
-+		return err;
-+	}
- 
- 	nilfs_truncate_bmap(ii, blkoff);
- 
--	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
--	if (IS_SYNC(inode))
--		nilfs_set_transaction_flag(NILFS_TI_SYNC);
--
- 	nilfs_mark_inode_dirty(inode);
- 	nilfs_set_file_dirty(inode, 0);
- 	nilfs_transaction_commit(sb);
--	/*
--	 * May construct a logical segment and may fail in sync mode.
--	 * But truncate has no return value.
--	 */
-+	return 0;
- }
- 
- static void nilfs_clear_inode(struct inode *inode)
-@@ -884,6 +882,7 @@ int nilfs_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 	struct nilfs_transaction_info ti;
- 	struct inode *inode = d_inode(dentry);
- 	struct super_block *sb = inode->i_sb;
-+	loff_t oldsize;
- 	int err;
- 
- 	err = setattr_prepare(&nop_mnt_idmap, dentry, iattr);
-@@ -895,10 +894,59 @@ int nilfs_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		return err;
- 
- 	if ((iattr->ia_valid & ATTR_SIZE) &&
--	    iattr->ia_size != i_size_read(inode)) {
-+		iattr->ia_size != (oldsize = i_size_read(inode))) {
-+
-+		if (IS_APPEND(inode) || IS_IMMUTABLE(inode)) {
-+			err = -EPERM;
-+			goto out_err;
-+		}
-+
-+		/*
-+		 * Reject non-regular files explicitly.  While standard VFS
-+		 * entry points (e.g. vfs_truncate) enforce S_ISREG, the caller
-+		 * notify_change() can be invoked directly by stackable
-+		 * filesystems, etc.
-+		 */
-+		if (!likely(S_ISREG(inode->i_mode))) {
-+			err = -EINVAL;
-+			goto out_err;
-+		}
-+
- 		inode_dio_wait(inode);
-+
-+		/*
-+		 * truncate_setsize() updates i_size and, upon size extension,
-+		 * zero-fills post-EOF page data if a block exists beyond the
-+		 * old EOF in the page.
-+		 */
- 		truncate_setsize(inode, iattr->ia_size);
--		nilfs_truncate(inode);
-+
-+		if (iattr->ia_size < oldsize) {
-+			/*
-+			 * Zero the post-EOF portion of the boundary block
-+			 * (if exists) and truncate blocks beyond the new EOF.
-+			 */
-+			err = nilfs_truncate(inode);
-+		} else if (oldsize & (sb->s_blocksize - 1)) {
-+			/*
-+			 * Zero the unaligned post-EOF portion of the boundary
-+			 * block, which VFS skips when the extension stays
-+			 * within the same block or no block exists beyond
-+			 * the old EOF in the page.
-+			 */
-+			err = block_truncate_page(inode->i_mapping, oldsize,
-+						nilfs_get_block);
-+			if (likely(!err))
-+				nilfs_set_file_dirty(inode, 1);
-+		}
-+		if (unlikely(err)) {
-+			i_size_write(inode, oldsize);
-+			goto out_err;
-+		}
-+
-+		inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
-+		if (IS_SYNC(inode))
-+			nilfs_set_transaction_flag(NILFS_TI_SYNC);
- 	}
- 
- 	setattr_copy(&nop_mnt_idmap, inode, iattr);
-diff --git a/fs/nilfs2/nilfs.h b/fs/nilfs2/nilfs.h
-index 28d35b2fa7f7..40dd42133dc6 100644
---- a/fs/nilfs2/nilfs.h
-+++ b/fs/nilfs2/nilfs.h
-@@ -297,7 +297,6 @@ int nilfs_attach_btree_node_cache(struct inode *inode);
- void nilfs_detach_btree_node_cache(struct inode *inode);
- struct inode *nilfs_iget_for_shadow(struct inode *inode);
- extern void nilfs_update_inode(struct inode *, struct buffer_head *, int);
--extern void nilfs_truncate(struct inode *);
- extern void nilfs_evict_inode(struct inode *);
- extern int nilfs_setattr(const struct mnt_idmap *, struct dentry *,
- 			 struct iattr *);
--- 
-2.53.0
+>  {
+>  	int i;
+>  	int nr_pages = 1 << order;
+>
+> -	__SetPageHead(page);
+>  	for (i = 1; i < nr_pages; i++)
+>  		prep_compound_tail(page + i, page, order);
+>
+>  	prep_compound_head(page, order);
+>  }
+>
 
+NIT: Maybe add a comment describing this like prep_compound_page_atomic()?
+
+> +void prep_compound_page(struct page *page, unsigned int order)
+> +{
+> +	__SetPageHead(page);
+> +	__prep_compound_head_and_tail(page, order);
+> +}
+> +
+> +/*
+> + * PG_head is set atomically whereas the other metadata is set with plain stores.
+> + * It should be used when @page's flags can be modified concurrently,
+> + * e.g., in __split_folio_to_order().
+> + */
+> +void prep_compound_page_atomic(struct page *page, unsigned int order)
+> +{
+> +	SetPageHead(page);
+> +	__prep_compound_head_and_tail(page, order);
+> +}
+> +
+>  static inline void set_buddy_order(struct page *page, unsigned int order)
+>  {
+>  	set_page_private(page, order);
+>
+> ---
+> base-commit: d865f2677c44cb2171b833d6775cf692756fa8be
+> change-id: 20261029-fix-split_folio_to_order-race-087a2a9fbf7c
+>
+> Best regards,
+> --
+> Yan, Zi
+>
+
+--
+Cheers, Lorenzo
