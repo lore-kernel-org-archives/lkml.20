@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964842;
-	b=C7fTtam/72IH6secdsT/0iOXNHfiEU8QkluRdI5IFcQD+TdN0zCSJl21WmyEytIfVzhS
-	 pmoSitbzMRlCZEBx3nQnoRa8vOEFv+GcwHkCrHLIOCWxlH8ctVoNMvT6EBls+2HkeV0Qo
-	 PkSkiQFuGrLDJGkfAYpg+QsfAy8J3x9VD8WBOdCWvHN4d/RrTNdEnITfGIjsXZl2zty8I
-	 sFZqztKG1sMQaQbl8W/KUTiZonThf0trrwA7R6MoOcFDTEJUYKkeAy88ZTUXp7lymBKoD
-	 ie4V4jTDXMWpDwYLAzZfHIwkOMA0mZowxOoyl54AzyuQq/gXpBXO/HPno1QC7kKQsXA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964842;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793964844;
+	b=AGyFJlI8mh8S4env2xqCcVGY7/nUwCPwRr0BOj/Kh1R+U/9K98nY3KkWFV3YBeUmcOJo
+	 AfbcKmNnhmBsLESRk9J/Yk5FeSOOLdAjrH2IjzClqf8cGepwfxmOVmN4G/WHsYxeG642r
+	 tqrL4a9piZr9cvWjRy3/irNVmQfAJCDKMuqHLTMFsC/9G1iDYhPofJZ+W/JuB8vw5mNgU
+	 xFEZShTyX7NaoluWEx0LGiY2lnZz85l3dD06js8pv6zDx96zZLe5XlJepiietRSgGeuzH
+	 aAycBKHTD6eoNOJkVzEXh776bZyBs/5q8MedbtQuI0iZu0UufcRGAKxtJruvxio5cTQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964844;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=OxMB+gkBGHFqPVWcpPwo6+5z8WE1LmmBlLMI04+mu9s=;
-	b=NDuz+4EpQgmuLHR9aiTCzTXaTKLrus5bT+7qyhHpJb2SlTN2b+3+Ni0a4vr945rYlo8O
-	 Oth2X1miynziHljWbDDMSbXu5UtD6O2/VowTk/IIrmtbLohNR+PRdiRqVqVLIMfy3Z0ac
-	 QVW1JvJ8Xezkz8187CIwIfGo6H9UJYQIl0CfK9+QEmoMLaeNPWk2bfv84l9otMmZFQSdc
-	 zZdV4cdUwqUEYRdx0H/KRVVnGNxLyH5rqWdUYrJMSlRMzLrriqqAUWkbAAvmdL4GEgd7V
-	 7SLL2Y4w27NXuBf2TVVyTks3gBgd4hzv3c/isP9ROA1VVqsQ9YdkWASiVdRgV6/hgWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PT5aRGXe;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=yEmGMlO442/bmobtd8MSxOkmFHXwe6d62JQ5dsryEAY=;
+	b=NvIEFzczUltDkXcckYTKcQ/EPvmJoXIJGLxXpdmLihaDf6jAgg4yKn7HvPFNRr3zwtgQ
+	 Dy/Q2LmqK3CoYQZhWxq1rzxY8Sn7QZbRxagP3Kns9DXo5cDlDEsmmjpvRhoLTOU+wqDAP
+	 jSiYS1o/5m8eYLPQy5sGIzWIHjrhJp1cBJnY70+XUJ6i239Rwm+ggvVgPY4K/andA2M9V
+	 hNa20xvMb53/fjA/OLcXXO8IEIebTV5YSD0fqDVf9ZKzS1rVtbNyfWh9ZTiQxjc4Lrqp+
+	 nj//iH2ElKu21qr3Q07eC3s78rLjgXX1fM1Yt7NAEFFtfoCrDQBEWaHSOFJAq7WpvRA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=szeredi.hu;
+	spf=pass smtp.mailfrom=szeredi.hu;
+	dkim=pass header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=rRj1XUD+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B7C606D806
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:34:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82B7C606D806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D336F606D82A
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D336F606D82A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PT5aRGXe
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so3715005e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:34:01 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=rRj1XUD+
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5430f70c827so5626421cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:34:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793964841; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q6nsaLimA3FWmQzfX7IhVRsxNk4g3EE2G8MFHWtLB1f57q0E8SOPhG/US7qSyeHAzo
+         7yCo2EXOmfzLDr1HGgnAeCP0hbfqls58t5Hjam0d4vO2uIk13yEKspE15SMX29cTovLB
+         n0Ne3YNCQICx3ZBwoGTtXxIZJYg/r4t3cUifZtkkVbmrqwVrjSg9WscNXlKFA3sjaMem
+         wHj+z/zbF3vaZ2bCFQdBCyCK0GIEt4Xf+IoTR/epKn0Ydg3q06Fn+N4w+XZPnhqNm98v
+         /2uP77UacFkyt7uA62d7/xGRJel58Uya0iU7B+yUlEvlujOoieuRbkSeDP+0v7zIcUnM
+         reew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=yEmGMlO442/bmobtd8MSxOkmFHXwe6d62JQ5dsryEAY=;
+        fh=ZIeHr24PHCJbJ4Si+4EUogMztw4GAdyNpWAUDjarP/8=;
+        b=Iqda6A2YXzs7B9L7nhSqXTZUBUWR87DTVOXQ4YHvNk+nyr5GFZoerFMhHDs+y7gmOl
+         Dr+4py7xw1wmNqIj67W0NOogpPl7L7Zv6PD1KnZhjT3ohcPeiAzA0Tp/WCzwYrEWuD+J
+         kw9XqBKt1cJCWLo4yeRJrBgNQMYwl/nqp6tbqjXseLMyyi5dW0dfKkjp2GxUnIWyKAUU
+         qODBCFBwHLqFIgKjIwIINzNfI6oCx8Rxs5xf6u+mcU/36ws4X5urq5DfojUb+bbuCNa9
+         Uzc+oQT3YvhnSmTWGhWU9U5ocGiIyCskOiUd3vLWPy22yp5iWFSNYEabfEdE+nWI2YiY
+         W3hQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793964840; x=1794569640; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OxMB+gkBGHFqPVWcpPwo6+5z8WE1LmmBlLMI04+mu9s=;
-        b=PT5aRGXeo0cVaEn4sKPthzZYZTeLLVmhQ2h6V0DdbsK4IOTOcTLB3I/UQQrL2I7YMA
-         hCf3HtNUx7L1/8C9GWCUgczHKjoCPdCEEH8/wjmL6EEE6y4wTMv2pzCDg3GVuh4J1z6O
-         e0G2c8S4jWU1uJGVgwYzR5PAbcxP6+Y1XsS8YLm0atxfINqzbgBWQ1PhwRfdQXhNXtdT
-         V7jkeYdYdFJV33MoDvdCkFn7b4MT60hG4WKP0NYhD4nYw6OoWWRK26CbJNh8H7OrX/f+
-         AdOWcoHB4DTgZF9GyEU05E760f5RgvgOqrnFtP3aJLsHmA571Ymf6mvZftYGvvCukIKx
-         YdBw==
+        d=szeredi.hu; s=google; t=1793964841; x=1794569641; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yEmGMlO442/bmobtd8MSxOkmFHXwe6d62JQ5dsryEAY=;
+        b=rRj1XUD+TjJFwXd0EOIFgrt1Smlyx1gkGXjjCZuYABKTgZWWpwFbzrSTOmGZg7AXMi
+         FxkXf4cgQ0n21uN2KgG0pTm+KQ9IVC9vRPCdq6Cbf/qFM3fcZ/h1zTIitWlYHwDL2e8b
+         MSmMkkoIGDciUxrlCmVt2MQYMAvjsEpceH59Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964840; x=1794569640;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OxMB+gkBGHFqPVWcpPwo6+5z8WE1LmmBlLMI04+mu9s=;
-        b=AGfO//c3A5B/Gyt2yBZfg4xxmxHn/MbSg8aqgipnbDT+be7uZyly+7jlsgruiUfBuu
-         UPWW4ww/9SAqO84GijQm7zdTPu3cFGzDz6duh7klR+JqQ/7vhqczP2qvDFGixl9nsBBn
-         BGbKLR1wvbg8BTtTG+ZJX6FZh7JlOQEqf+JAzdDq15FnDD0gSL6Ene2vj8E+KBGb3XT/
-         XWrnbBpqRimIxrf1xRPYjt3z53iPYBFF/0MLBdwdij6HjOUjTtfF9l1wJFP8UMnG4mVo
-         7mBsC0wneY5YPHHLv+2qM0oZJWJaNd3tP1vMKisZjDflR3x+3Qcelt+ujjmmYb9rY5dO
-         W15Q==
-X-Forwarded-Encrypted: i=1; AKwUvByTrMYW8pkZ32KYfvy0mls0eCBcVdjHAvSV5GF366PVhga+Dpnnq8k45NDhEpAkTJEKBF6IU+lu38Y0Ack=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+13vJiZwKb67k2WFbpcQSfZfVfblXvck6ClVE/WuLfoHLoytkv
-	FMgVmgwx2W/3qcwphqn6QI1dGBfGPKKsYOs20tQyFDdZRRJ6kZBCwckRdcrgPe6wI/HnbhLMYZM
-	OsleqTg0=
-X-Gm-Gg: AYBFou2DLW1krImF4qVo2Z4SKjU5NFja/gzNyoVALrVDXxqE85RnSr/G74CiEgt0RYM
-	snIyYt/Kh+Ljo6ZW0iN+uKtg/0MWW6dzM3xEQcBf+GtOL6z1MXogbe/2Kf/Fy4xbvJOfH1irEbn
-	ncSllCsEBRJSb7ORnYXSn2d23KJ59Y3YkmogqGkEkdEl9dl3BoKrEp/xsVW+zL+5tnDwec0Ew4H
-	KsB1Am/+ySCTGd9he5/MbxSS/K4TMg6exyT267i0/gvOPWs0VU+zGrnl3FWSyVNy8+AQxGbPAzc
-	vCxh3ZHnDHm/wkL87H7lvCAc3xptxn+ZTP0BD7ChRkL59mHI/6MaI9+SlxFpjDUgSc4yN1/qrf4
-	F+6CyC5LB9FKSoFQtd5rmxM3/m8LKfS5R93KhAF1F/C9NcF0BbUpmNYQhoPDVDi4I2ZAtXlBjhK
-	uAGczk8KjhcX+LBRWOvwec4qPPPGHlPHqGXpcKIWOMvjmL6bl0+m+FiGavL2Yei+i94R6b3EahL
-	QcjwwoVDzRXRcJC+JbUFfNsEvpyV4707+XnFUKBTcp03D/8Z7s2veJ1XG9VVmtYIMFEis8tsBOP
-	5GL5/5+T1B0CYqXa3Z6dh0qh4R5wFw==
-X-Received: by 2002:a05:600c:5285:b0:4b0:a307:46f8 with SMTP id 5b1f17b1804b1-4b6de4a6f90mr36210385e9.10.1793964839622;
-        Fri, 06 Nov 2026 03:33:59 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e58fcc6sm242094515e9.2.2026.11.06.03.33.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:33:59 -0800 (PST)
-Date: Fri, 6 Nov 2026 12:33:56 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Chris Down <chris@chrisdown.name>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 13/16] printk: Try to register each console as Braille
- first
-Message-ID: <au27JKkPAnhj26jI@pathway.suse.cz>
-References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-14-pmladek@suse.com>
+        d=1e100.net; s=20260707; t=1793964841; x=1794569641;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yEmGMlO442/bmobtd8MSxOkmFHXwe6d62JQ5dsryEAY=;
+        b=2CJQ/4j/sg62+5oT0yN7/YP6MWepnqSHGavypv5umI2KY3yVXuRSH337cGdfA7UHJc
+         04l0KtLmrVETJWvyIIaqoBYFbHIkt/w19d4tbMb7DXHj/IbQVlloxzkrF+XE0Y2aiysA
+         2S6Od7B5kzoM3w8YatUUqyrLChQC4MApunolfxqN4m+dHgD7mdnUrBvbpO8/yqOeyemC
+         AANIXYJtUaimQygXnmWk87g+TMQZDX+2lhnrAXyIIiRfojOrDd5AfBzE8/U8kwHUHdF3
+         M4sx4l1AaJ5W6TF0Lim9BtDyzUfaS9Oq2nEwQGVOo/cnm8umGoV8bpYqN7RqeNC3XW5b
+         VcIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpYUv7E9I5vimsDZFMbLbShlwM/yU+amNKyK4iZJmaiP9jQAxoS3YXiTIE+Paias1nqSpgk3/pr5g/UKg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YFvEmwvgqyMFkeq4LrYyUk+D2sFaHpLBEQgTymwfdLEqeA6l/
+	AFB0bLUkt7X/N6eXXCKopYGteC2blWRAXMvGZFW5EEqmYm+ERGT+Ck6MWI4s4T2wf3xrKV65kZu
+	qQyD17AgVv/43bYMlKJTCDQZDLsWwMzL8g+k0bGReYA==
+X-Gm-Gg: AYBFou3Oef4o1m+tjoxdLZqYA/+LSBTkl37/hqRxeo4MBmyfKT1mMVnLmcj6Svte4XV
+	DsLLbOrVTUwXAYOkxYT3/fLSQ+WqOFB0M+yoYvIUgCGTBqHf7uZKWH4e+NDcYWxijguuCx6dq7o
+	nU+zxsbqLKnDB5FUdEQdzX2AxROw4XUtQDdfGlB0ksAwaBAnF9HTl5QDi9QeXWnpVEm24BE2bNJ
+	Y6rbAlTPADS840BEhhM7bJSwwRHohD+yLNcvV6FhQSv6ytzODjaqGauNFDCLHMBnIlVJgeGhakh
+	aIYfCSJczV+UV8TQaG1c4FxcjtVlAVILU0DftdduPosvYzVEpqnngQCVWoFI7IKwhLI9Rizx4p3
+	xmwlMp8eJy8XbMQKQr+1zSwv0x7XEjguQRf4VlnXP8wwFSqZiDFsiilBpeawerpqTcTYAsv4=
+X-Received: by 2002:ac8:5dcc:0:b0:536:71f5:5361 with SMTP id
+ d75a77b69052e-54e0feea19amr34246971cf.11.1793964841597; Fri, 06 Nov 2026
+ 03:34:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,155 +100,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929120546.328616-14-pmladek@suse.com>
+References: <20261019125329.17932-1-luis@igalia.com>
+In-Reply-To: <20261019125329.17932-1-luis@igalia.com>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Fri, 6 Nov 2026 12:33:50 +0100
+X-Gm-Features: AclHuK-A7gQ6M-Qg-M-xE8M7BDOMgO2XZ1t3Ke_Qh_brPD2YLJrfyo7d4Y5WNzw
+Message-ID: <CAJfpegsXsZS7CaA-=kAB4_oiyPWeZ8ULpG+kxBNHczM-XHbqng@mail.gmail.com>
+Subject: Re: [PATCH] fuse: fix 'inval_wq' parameter setting during module initialisation
+To: Luis Henriques <luis@igalia.com>
+Cc: mszeredi@redhat.com, fuse-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Matt Harvey <mharvey@jumptrading.com>, 
+	kernel-dev@igalia.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue 2026-09-29 14:05:43, Petr Mladek wrote:
-> Braille consoles are unique: they can only be enabled via the command
-> line and use the preferred console framework for initialization, yet
-> they are never added to the console_list or associated with
-> /dev/console. Because of this, the preferred_console variable remains
-> unset when only a Braille console is requested.
-> 
-> Currently, try_enable_preferred_console() must be called even when
-> "preferred_dev_console" variable is not set, just to catch these "hidden"
-> Braille requests.
-> 
-> Refactor the logic by adding a parameter to try_enable_preferred_console()
-> to explicitly handle Braille vs. non-Braille cases. It will eventually
-> allow to skip try_enable_preferred_console() when there are no preferred
-> consoles. This improves code robustness by ensuring the console
-> setup is explicit and only performed once.
-> 
-> Note that _braille_register_console() is skipped when the given console
-> driver has a match() callback and it succeeded. It means that it took
-> over an early console and can't be used as a Braille console.
-> 
-> As a result try_enable_braille_console() might return success even
-> when it did not enabled the console in the Braille mode. It is
-> the reason why register_console() has to explicitly check whether
-> CON_BRL flag was really set and could skip the further steps.
-> 
-> The refactoring even fixes two subtle bugs:
-> 
-> 1. When only the Braille console is defined on the command line,
->    the original code might attempt to enable the same console twice—once
->    as a default and once as a Braille console. This results in calling
->    the setup() callback twice and incorrectly setting the CON_CONSDEV flag.
-> 
-> 2. When the same console is defined on the command line using devname
->    and then as Braille console, for example:
-> 
->       console=00:00:0.0,115200 console=brl,ttyS0,115200
-> 
->    It would have two separate entries in preferred_consoles[] array.
-> 
->    The 2nd (Braille) entry would be used when univ8250_console_init()
->    tries to register the generic "ttyS" console driver. Note that
->    the 1st entry still does not have defined the "name" entry at
->    this stage.
-> 
->    The 1st non-Braille entry would be used later when serial8250_init()
->    registers all found devices, assigns "tty0" for the given "00:00:0.0"
->    devname and tries to register the same struct console once again.
-> 
->    The original code would call newcon->setup() twice in this scenario.
->    It won't add the console into console_list only because the later
->    check in register_console() would detect CON_BRL flag set from
->    the 1st registration and return early.
-> 
-> --- a/kernel/printk/printk.c
-> +++ b/kernel/printk/printk.c
-> @@ -3995,7 +4012,7 @@ static int try_enable_preferred_console(struct console *newcon,
->  			if (newcon->index < 0)
->  				newcon->index = pc->index;
->  
-> -			if (is_braille_console_preferred(pc))
-> +			if (try_only_braille)
->  				return _braille_register_console(newcon, pc);
->  
->  			err = console_call_setup(newcon, pc->options);
+On Mon, 19 Oct 2026 at 14:52, Luis Henriques <luis@igalia.com> wrote:
 
-From Sashiko AI:
+> @@ -62,11 +61,14 @@ static int inval_wq_set(const char *val, const struct kernel_param *kp)
+>
+>         *((unsigned int *)kp->arg) = num;
+>
+> -       if (num && !old)
+> -               schedule_delayed_work(&dentry_tree_work,
+> -                                     secs_to_jiffies(num));
+> -       else if (!num && old)
+> -               cancel_delayed_work_sync(&dentry_tree_work);
+> +       /* Only start/stop workqueue if we're past module initialisation */
+> +       if (!module_is_coming(kp->mod)) {
 
-| Does returning 0 here for a Braille match cause the console to lose its
-| preferred status?
-| 
-| When newcon->match() succeeds, the loop falls through to:
-| 
-|         newcon->flags |= CON_ENABLED;
-|         if (i == preferred_dev_console)
-|             newcon->flags |= CON_CONSDEV;
-|         return 0;
-| 
-| When returning 0 here after a successful newcon->match() during the
-| try_only_braille phase, CON_CONSDEV is not set because preferred_dev_console
-| is never assigned to a Braille entry.
+See sashiko review:
 
-This works as expected. The CON_CONSDEV flag is set here only when
-the related preferred_consoles[i] entry was the latest added/updated
-entry for a non-Braille console.
+- kp->mod might be NULL which will Oops module_is_coming()
 
-Note that there are more situations when the `preferred_dev_console`
-is not registered, for example, when there is a typo, or when
-the related HW is not available.
+- it's still racy against fuse_dentry_tree_init
 
-For this situation, the CON_CONSDEV flag is always assigned to the
-1st registered console driver, see the commit 33225d7b0ac990
-("printk: Correctly set CON_CONSDEV even when preferred console
-was not registered").
+My question is: does the inval_wq_set() even need to work before the
+module is initialized?  Can't it just return an error and it wouldn't
+need to deal with the race.
 
-[ ... ]
-
-> @@ -4033,6 +4061,24 @@ static int try_enable_console(struct console *newcon)
->  {
->  	int err;
->  
-> +	/*
-> +	 * First, try to enable the console driver as a Braille console.
-> +	 * It would have metadata in the preferred_consoles[] array.
-> +	 * But it won't be counted as @preferred_console because
-> +	 * it does not get printk() messages and is not associated
-> +	 * with /dev/console.
-> +	 *
-> +	 * Note that it might succeed also when the driver has a match()
-> +	 * callback and it took over a boot console. In this case,
-> +	 * the driver will continue working as a classic non-Braille
-> +	 * console.
-> +	 */
-> +	if (want_braille_console) {
-> +		err = try_enable_braille_console(newcon);
-> +		if (err != -ENOENT)
-> +			return err;
-> +	}
-
-Sashiko AI wrote:
-
-| If the user specified both a regular console and a Braille console
-| (e.g. console=ttyS0 console=brl,uart,...), does this early return preempt
-| the regular console entry from being evaluated?
-| 
-| If a driver matches the Braille entry and returns 0 without setting
-| CON_CONSDEV, returning early here means the regular preferred console entries
-| are skipped. This seems to break /dev/console routing, as the expected
-| primary console never receives CON_CONSDEV.
-
-The problem with CON_CONSDEV is basically the same as above.
-
-But there is another interesting question whether the console driver
-can be used as a classic printk console even it could not get enabled
-as a Braille console. I mean whether, for example,
-try_enable_default_console(newcon) would fail when
-try_enable_braille_console(newcon) failed.
-
-I could imagine that the driver might be usable and only the
-VT integration failed. But the VT integration never fails,
-see braille_register_console().
-
-Also I think that we do not want to use this driver as a normal
-console when it was configured to be used by the Braille console.
-
-Best Regards,
-Petr
+Thanks,
+Miklos
