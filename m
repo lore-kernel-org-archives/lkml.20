@@ -1,82 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988499;
-	b=HOWErdjmtR69FENMAfEieVwyoUZnJsR3y4QF5B+qF1/dnw/pTasLTxoMYHZef9LQoKsD
-	 jr4uFLpqdfsJBAgcQwHsw45BvbPodGpy8SFRsuCcMqWHhQe8HGVmwGZyDap7EVfmqXarm
-	 ae9fd8lbzQvKlE9ofHofrmiagSMyO1YzeSCLd6MQO7am3B3kCQdLTUAG401ILB1qTK82E
-	 9+TmqMcuxWC7smVXLIN1BBXWeiXxDeMcI2DS1rRNaQNInUuAyHsstvCRzO7N/4UIjhIB3
-	 KuWjLVIwlYABUegtSEvmTyWe8E9LQnkOrlr6i3FlaHtr++uYg1wGbGcFBI6bZFhIMEg==
+	t=1793988510;
+	b=2rrf7f4QlnJxGNMRIvVtMPXBZF/kYCfFc1Vs75G4m3C/EBecQrbFCAVhlJVYKvrizxna
+	 82m+O88ZnbLwTP3JHOvXsLdzprw9pw3sZQDNQjEXKr6h/c8naHbZgsqpcOl0FKX8Ps7y3
+	 PFAIpoCa9GOuKYgJSDmjeNfhO0hwgHixNYUG1oNW/yQptXGGNPzP8X7+XkfQ2nu3Bm8oU
+	 6UrWhQAHQgh4lb2xezVkfxw554Iu8/nZqx5/tvu99aAhozv6aFK7HPiE60EruTz0IkqKi
+	 YsroXnYyKKoplmX9H1Bi3XK4fXVi4/kW8+r8KJ01jX4+RmZBen9iAcB4qAAh8yPzwnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988510;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+D9ErcY1cg1H93A7kgsl3DQ/jvK3dao4218hxA++MOQ=;
-	b=LeTenul3KcoJjgqJypCJReYx0IUY2WY2jSAevvRj8rOAoQ3rXgakTxj6G41cEr6Ant6Y
-	 ob0f0AFy6VCewUsbupgZkUduqxXadBCIagNCpf+fVtoLPIBjBEpV+FA449vmglh5IZUd5
-	 GA2omuSFM06zhMbRFbgfCdxtUUvkn9TYG7ldk+Td/9xhzVJ2Y4FyzXOEsPBvN8oLIBs9Z
-	 cVDKwwueAHbY2E8CSt9/4RUZOuqtaUUIl1mrtRVpygIobHg7EmrHMQZXizAHUOI7FDJRm
-	 KLPWunZcTHUe80HbMoRBo9ixhZ8vcuHSvtuVeMS3nArVMLUMhu9fgYCMrwufuWKEhSQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=TlsbZRohfYY9Acfo1HZrz4sd0DFYcL5H6Bh8ImzlihE=;
+	b=xLKNOb36m3F6qp/I5XZ7S08bX6u3/eXW4Aq6KEgr5p65IktJyO4lFjNvJxTnT02MzqVv
+	 gw7/rWO8xGoc8GTVO38z/jMz3KRroOGTcK4VOTUM8/sOfrGapVTNexvRoEIVvV5yxIOYG
+	 PimDFrftXZwhuWW+4G+Tqo61OaJiWR6YsMbZ9OD3pKfYB4P92PLelZFtQc91LLZkvqqIs
+	 z/7+0ZfFkH1yVzhflTxHxIK0wxEL9+0fKgPIYpv1lnLkxWPQW3ck/QP2sCFr1uR+D3ObD
+	 3OhUgUr8Qa6Fj50yh3l9qL/tnll4p0RJt0dvntpN0ZNwHkF10y/STZQyC31Zl5QzUSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	arc=none smtp.remote-ip=209.85.161.53
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rl9kRzom;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D9860A263D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:08:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95D9860A263D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6aa9606ddadso582285eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:08:13 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA31606D80B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:08:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CA31606D80B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rl9kRzom
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a3c08d6928so1679415c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:08:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793988492; x=1794593292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+D9ErcY1cg1H93A7kgsl3DQ/jvK3dao4218hxA++MOQ=;
-        b=UblIupfwewWm3kbODGTK7uih8CzS+q5+ojxUuK1I60tKEFRzBfCgfcUWTuilVxIV7z
-         S9VxA1D83HVQooY3QRaaNcpMD03JMWzjkDtFSoVBM3pYBYCZj0Ft5ENi3M1P3QpjesXO
-         q7Olvp5hYauvaoCT3QrTRrFmlpTx+pJeDKtS8=
+        d=gmail.com; s=20260707; t=1793988510; x=1794593310; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TlsbZRohfYY9Acfo1HZrz4sd0DFYcL5H6Bh8ImzlihE=;
+        b=Rl9kRzomM0oOp7wdeUPW3WC/r3jSD7fJijNyagohm+2yzcSET8sgMWU/dj2Ag3f6hP
+         KP6il2thuDeIjuhEs2wc7Y3FblUJTxFjFihbjbVB1WYfkbBs1acdnMgRBWvQZWlEp6mx
+         YR/3oZ0EpGaML4VkCYH7EAgy6OEgLX0sDq6S58wBs8uCEVbkEft36UaTLTxDlJ6J3Gab
+         TsBmrqoY1HDT0miyy4um640FxLyIDCitna7S9zjGJqkevEittypG5FOPmBwZIR2kWJvn
+         Lw0lRxpM49RPewr2m9yZycwXZfJX/OyfhIJg84yXOsFeNmo4WfUUzFoVsTd5FLvYPF16
+         aMoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988492; x=1794593292;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+D9ErcY1cg1H93A7kgsl3DQ/jvK3dao4218hxA++MOQ=;
-        b=TtgB3wVhD/YvSEWD1qOtnG3fvmErHwBTo2QbbcNYwYoazlMaJ/cLrDDQf9rcsqznRN
-         4vAuuAQlOuJIr6bOYqUICdiAI29MjEoOvDMykWXxdmbivr9eJElj0XOE8FFHs0pPvB/b
-         Cg8esK4izDtM4zq9O8fYSwFWLWBXlyS+fLzaQ4lHiWjVgZbNVufIN8makTMCg2sAtKio
-         V8gi0kLUygBZJnw++Un4OVWQXVmgYEaBt6ftj3VUQPfxh3YyaIuj0EpWXlQOb2Ky2wPn
-         HFs5EnYk/gf3Xo13Ff67dWbnfokyeUPHPJEjB5EDVnvQpxGx2i/DwuqUXpXV+VgzOJEr
-         NrvA==
-X-Forwarded-Encrypted: i=1; AKwUvByCL1LfHcXfpymTt/A/awthbs4F/dR0dKT0rSxeeNUAIyt+jZyJtGUC+It6gRquiuaP2RE/K8C7p0rL8dc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wEhkYH9SLZHDr07dAJ2YbiyH/imQznufY8FHEnpORRkj7Wsnk
-	83uHB/Tk3mrZlwSmjO1Y3dQrAfid34znVsJLmEJVzShGUj/qiW49R+Cg43/vNNYGTMY=
-X-Gm-Gg: AYBFou3ulGchTiFZjaGmG16ZNJhj56GQ5n41gOLd7KwHJfyUxixTehu5octqY7UGg4v
-	/9QvNXSap1e1Xg7GKHQ1MJb53Av4V2gtyM0FzzRMGhV0XIXWe47LKvXmfU5C9Fiaax4H9qiWILw
-	kiIGbo6PzqnU2TxLSulg/hH0PEx7gKzfQlhcjrotkkM5ttv5k2x92OJTy5BXKxE+p4kb1p8a1R6
-	me5NIpXDVJJX1+V1qgleFbyuv2NTcS5sDVDvnFzSfHGH2ess4GGuPY3SP2M9BlZGfznimYWsvgT
-	RiQSUKNrhW+TURi1dUYX38x14n39G5ReSpnylHaCho5iLzjgM1pREFioIzaqossB68Sg3zxRddF
-	jczYWCWPNddyw5d9oXmZNbGZa+nRiEwgItunWzjmiLoW0fWqix8JxHGrfX2fv3dmhKR3GQNzTwC
-	EDYR7KOIsUvQhLPyWpZsrjs1EkMb+clCiD+y1dQ1h6tHRWX4MXeUXjXj9HB8Hmr6DoP+tWPkDKh
-	saCPShBtC+0YzD/NM6c3plzm5XfBAeLerwF5Az418mSZYslUr024EcBMytD7cZPYaRBVDPL1Pyi
-	QbIO6I7H4PffECJLQkTMy3zZ6ohJekLY4nh7Yks=
-X-Received: by 2002:a05:6820:2088:b0:6e0:1599:a4b with SMTP id 006d021491bc7-716e7913562mr2314159eaf.18.1793988492496;
-        Fri, 06 Nov 2026 10:08:12 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1dbb29acsm2301463a34.4.2026.11.06.10.08.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 10:08:11 -0800 (PST)
-Message-ID: <b6468c17-46ba-476b-9182-0826df6bb9c4@linuxfoundation.org>
-Date: Fri, 6 Nov 2026 11:08:08 -0700
+        d=1e100.net; s=20260707; t=1793988510; x=1794593310;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TlsbZRohfYY9Acfo1HZrz4sd0DFYcL5H6Bh8ImzlihE=;
+        b=RMnDEPcynX/1ynCOnFEm8nXifr6CUPP0p6ZVnW+Ej1XUSyazRKaZVR+G0Byuhv9n5U
+         ewpaMAKrTNfk02/z4g8+WNt3XSI169BURT5jp4GZYy9T8cVNglAGtl0kdNzTSBiwB26R
+         PyE9VPsLAdAVGO5QFFXNvEdpiRfuaPaF+DCHd1hrjZAwC9VnzIj+6vqs6aAbpI4n3eRh
+         9m7IrtmWV+mcREpwblR/nQyLwo+pUinXFtbLlt4XN3iNsgasSYgPSCUDjI1tsFFDA256
+         DCjLIR2jbxVnHLm1o3ea0H3B2H5a9ZJ1JPJxg6gyP8D0FHJ5NYwnr/L/OO39ef0rqZsr
+         akFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTBl3OEQ0ILKNQ60wGDyKe9VwDkrNlfjvWnVH1XfdGIizJ4QYysagv0bK4mc6RlPIMVAJ0WYJrmTeTEDo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LNWeWItSE1gE057g8qG1dVp07kEnEyrWQswsBolk/Yi/V8GZ7
+	POFxMv/qkGuD//mYGFVMY1YiAgdIJLADNg0ijs9BQnElSJs0SjiltO85
+X-Gm-Gg: AYBFou31OtmBTQoNxZYJ/KqKXSZG4HdLL1Fh3hzhyMuS6kPaPxLO1Uia8SLb5AQovIk
+	a8dcVcY2Z/i9FM7kGX32v7k7Ps35y07lcizf+DssRHS6GzvZnxn3YqGu/UlG37DUHO9I4RK9575
+	iLxu5xxkW3FiKGlvf+iZsSt2JlRZV6228yje4HvN5a4wkhBVszuRqTrYok0iVrUDYj15xNxdFCf
+	22ARRisbh0nPc7THk+ob2guA4x6gTd0b0cz8/K8nks/hqGwq2vZmk1dpvt4eVlSBpg8z/qBRgRJ
+	MwqdGDBCdOwVgBdLe9XQF20pd7tXRnz6HCWMokmKMeX7JcktAoYK89aiDyn8mSZh127/dIWol4s
+	+wssJSIJg7pgiwN72Rwa8kYdv3w/SEA/EAife3lhzKqJw1xmbccTgSp51GoJV6LExdxjtK4t5sh
+	NGGspH1KPnOElQrkS+jkza5VRptICqkMtiDvrrP3FbkI3O5RLkVs7zreiyRKyF7MTVEiBTDiEFr
+	TLz2zY1DxDmj5OLqG2X9gc121IhBok9qMDNFUlr3h94McBIu+nX7HwNOXDkLc/biPEOVME3qSe6
+	K8FRuHzAgzPbaEsg7RI0G1XVyP1armQTePptSXJ799CQf0KvUPWB/WLKpkDesNY93yW9
+X-Received: by 2002:a05:7022:5f07:b0:1af:16c4:d06b with SMTP id a92af1059eb24-1b25d31e658mr3453567c88.10.1793988509569;
+        Fri, 06 Nov 2026 10:08:29 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:64e:8358:c9cb:c17b])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4fd2d6sm7443467c88.23.2026.11.06.10.08.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:08:29 -0800 (PST)
+Date: Fri, 6 Nov 2026 10:08:25 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: rva333@protonmail.com
+Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: input: mediatek,mt6779-keypad: add mt6595
+Message-ID: <au4Xis7Ei2th7xFZ@google.com>
+References: <20261105-6595-dt-keypad-v1-1-f0911f40d3ad@protonmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,45 +100,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] Start removing X86_X32_ABI
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>, "Maciej W. Rozycki"
- <macro@orcam.me.uk>, Bill Wendling <morbo@google.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Jonathan Corbet <corbet@lwn.net>, Justin Stitt <justinstitt@google.com>,
- Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Richard Purdie <richard.purdie@linuxfoundation.org>,
- Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?=
- <linux@weissschuh.net>, Tomas Glozar <tglozar@kernel.org>,
- Willy Tarreau <w@1wt.eu>, x86@kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261015-x32_removal-v5-0-2bfef9151fad@linutronix.de>
- <20261106113147.iCEmPCOW@linutronix.de>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261106113147.iCEmPCOW@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-6595-dt-keypad-v1-1-f0911f40d3ad@protonmail.com>
 
-On 11/6/26 04:31, Sebastian Andrzej Siewior wrote:
-> On 2026-10-15 20:47:13 [+0200], To linux-kernel@vger.kernel.org wrote:
->> Patch #2 prepares the removal of the X32 ABI and has the broader
->> reasoning. Patch #1 removes x32 from the selftests because it does not
->> have a depends on and assumes x32 to be always available on x64 and so
->> it breaks.
+On Thu, Nov 05, 2026 at 01:29:12PM +0200, Roman Vivchar via B4 Relay wrote:
+> From: Roman Vivchar <rva333@protonmail.com>
 > 
-> Can this be merged, please?
-> That (syscall) test fallout mentioned later in the thread is fixed in tip.
+> Add a compatible string for the mt6595 keypad, that is compatible with
+> mt6779.
 > 
-> Sebastian
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 
-I gave my Ack for selftests - I am assuming these will go through x86 tree.
+Applied, thank you.
 
-thanks,
--- Shuah
+-- 
+Dmitry
