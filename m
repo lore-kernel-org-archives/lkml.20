@@ -1,103 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.61
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793928487;
-	b=D21u3Brsl2LD/2B6DNbty/nGY5bSemhcMpb/Ckm+JAyV57Gjz5E2dgx1/h5xDKtI6mY4
-	 tMaJP4rMv90I381o9S02VCy8MBRAzFpWr89dYTvne6OW0B5+pRwykq5U2vH0y0QFsC9zv
-	 PBkzrR6uzYkiw52oN+bDHWRHLYbUlSY8mxnjWig6QUL+MBHHG3kdcG+RucN6PTlMUmb0d
-	 BGvsTnYCEaMnjAGFLkXDxXRzkJUpFo+64xkbNTI8p7sp29GhOdjo7p4+mr1/qQE0oHgaZ
-	 DA3DRmqpvFd/1yQ6PI170gCIFES8oIZQCYDSaUHmKJCNkLEHOnN+/jycFmvNKZdEm2w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793928487;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JCVaa95bngTO8K38vtb13gAuPCJOwUt44q1uCVCQbUA=;
-	b=yg/fvP99j52Ks+EWAIzAydiN4gWH8WohjUfrzhShPMrXN9DFplYxS/nDnrmO2OfKoFsI
-	 NdVKTmu3/bs+Ym2j76oxD0X31JFw1A40fw+q9fApYhXXYP30vFDLVTgDM8wubxRYT/69N
-	 IAFfFOGZ9isOS3inmZ9Aiaobd8pUD+NIDZwtO5Vtxvw6MJ9DEdlWpE8q0JWYDVBbQIsBd
-	 oAZmu8muSvnjfNFOeXPi24z28I66ccM6Xzk+e65azrrk5z7cWkUskl54xQKwxM5h8l54P
-	 iWPx4H+hiyt/vuM2JoBbQGdTJyWCZ6SIqy38naaxLd1sO87al4UEz762BbTTSNcsNiA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qqXjdgXL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.61
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010061.outbound.protection.outlook.com [52.101.193.61])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793928500;
+	b=C1yXNfol++Zhpa9hn2E8LKIAPyIDX8C2jkjl72FYpvF6Lg34h3W+53PWpIlgZDifYbmi
+	 CT0zvgJgw1WD+NaX4eV52kIi6XnysKRZQeWb67oC6bHVIDem9j4M45+mkvPWVbQq9XYzR
+	 3k+x6Uy0crfwCCwkq6CyLBOyX077iC9v5goZWeD7wv70rXvAxtS5SMeFuxTAIwnT0B5+U
+	 aV+LhyJY638Uv7IFybwdBOM+3Lbm+aZCB1nsUlly4lfp1ZnSLctLPt94K5uiLG5eNautS
+	 15nWlaPQWMfu3nSSMpy1Ml+0dJy4DloBtFET8OeGFKBykDsB/0IAhBo5ZrxBRBpyXyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793928500;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=OzmeLVnOJ/ClYIo+ngL8aNFa/8nEmpmvX7t0mnKpTNc=;
+	b=pzmKQr/1JahrTaGiDWKgwYjgBsXSbCwF+PXIYZU9dpagMvq4oUsNgjTG4PKKdiShdHPB
+	 XDQMhpJi7Y2Rw0p0zNJuLLwP/L5pmAj3dV2ElGsX3Rp1k9oAOfm5xegxZ7gHm0zRfzyvW
+	 Yf4iHcQesmNYvHecpjceOERpmIK07d2SgE+2em4KWeuKAJnqLjAsv4tmzS7QlkEei8fLF
+	 NzfcWj16CHFod5tR7QsC8qMhT136ayuQ22dZQERFttiCG1lc0ZyKfqGfSpT4dkFg9tIfl
+	 BO8TzDo9bOygYMKBABicfRcQyh5vohmu05Zz5O9PGzD50cCzVJoI4WwU2NwJimqdYPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d4OCNn7d;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MD9aG4fx;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55800606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:28:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55800606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE70606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:28:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EE70606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qqXjdgXL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mN7c9r+QnnDUJbZi85tqAO38dMXFMPt/LGaOftTukPAMzidP7VTAh6+kKYW7ZQ5Z2rBuoTSen6LfYreXnDU8dKZ3Pgf0sTpb+BlYZMR2k2/hAvukULNM/FsYkIho8tcDVe10oKp1ca5DLqNmBJRdZ4Btdnox8UatzOH7UaFFJiudMExxiqtITb9wsASGmyxmZL6EZxDSc2oFeLviSfvtu/IKCdJdj5vePS0AS8Tc5z5hkJrNrbfFDwYRbkIvFb5OgR/l85vWMU54ssulAJlCJCPdN7sivkNCvzolOv1Toyty2Qu5JxRCoE+LzM1sQPPgt1ms/hbRDlu5l5g2JaimDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JCVaa95bngTO8K38vtb13gAuPCJOwUt44q1uCVCQbUA=;
- b=s28KzL4LHYY0HH6Khep0tbgEKWBdkB6I8kWTtzYay55uMo86EHQtRgZkv7J1xtu/m2jq5HbKw9+mjXCGp2kD5Hq15Pq+RCL/WVJfZbkm/jQn7XsO4IWJGWIrTv3DZRs809TELHcLMzXdrEmQR9ZN2a3wp6Tr5qt7AlrEoersApHlTIA7jpDZtnV/mqKYAozUZfFnen+XEcNDbWGqOQrSlXVwPQ1MgHduqMSTFc1/bwABRHbacYHMWs5V+8BXGdxB2LgeUEwUDDLaN2BkmPMwedPZqrrLw/I0DXAQHV+ymfa5IoxXWqgFeGKD/Z5pLNdqIYL1T21gcTMVr4G47WdCTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JCVaa95bngTO8K38vtb13gAuPCJOwUt44q1uCVCQbUA=;
- b=qqXjdgXLo+KJyaFY03J7B5fsqlwAcnbi/Hhysw/lGCkSyEMnIvewoJi2SSLZRIeIoH5vqUlemykQ3xB/lTWMQVrVtcTKd2jIKBiqNBXbUy7O7gh39v7bc/mjVn7tROfyz/SAHmwOL7ZbfQ2mCtKsaC7Lkv2kL5lQquHUXPLEhYc=
-Received: from DM6PR05CA0043.namprd05.prod.outlook.com (2603:10b6:5:335::12)
- by DS5PPF266051432.namprd12.prod.outlook.com (2603:10b6:f:fc00::648) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 01:26:02 +0000
-Received: from DS1PEPF00053453.namprd04.prod.outlook.com
- (2603:10b6:5:335:cafe::8d) by DM6PR05CA0043.outlook.office365.com
- (2603:10b6:5:335::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4 via Frontend Transport; Fri, 6
- Nov 2026 01:26:02 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS1PEPF00053453.mail.protection.outlook.com (10.167.23.235) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 01:26:01 +0000
-Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
- 2026 19:26:01 -0600
-From: Melody Wang <huibo.wang@amd.com>
-To: <x86@kernel.org>
-CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
-	<thomas.lendacky@amd.com>, <ardb@kernel.org>, Melody Wang
-	<huibo.wang@amd.com>
-Subject: [PATCH v6 1/7] x86/sev: Add support for Alternate Injection
-Date: Fri, 6 Nov 2026 01:25:27 +0000
-Message-ID: <53a087641c5755da7490f687652af3d07a0fafb8.1793926736.git.huibo.wang@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793926736.git.huibo.wang@amd.com>
-References: <cover.1793926736.git.huibo.wang@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d4OCNn7d;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MD9aG4fx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793928499;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=OzmeLVnOJ/ClYIo+ngL8aNFa/8nEmpmvX7t0mnKpTNc=;
+	b=d4OCNn7dwrKuo3aevgp1a0LSJgKT/ImwujOlucixm39X5wc5krT88ti0zTCIyuocNkj0hL
+	0PBxQwCwMRb5i1/Lvy4v8zqFk5J0Sytq/u+tORKAQxANzIuD00heK3nhdBt2lB1U5QMado
+	Uwecp75xHYXZMlSEGl/g+P2CuF00+vs=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-299-nkY1FQZTNsGM8cQRNszUBw-1; Thu, 05 Nov 2026 20:28:17 -0500
+X-MC-Unique: nkY1FQZTNsGM8cQRNszUBw-1
+X-Mimecast-MFC-AGG-ID: nkY1FQZTNsGM8cQRNszUBw_1793928496
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5337b591609so1143261cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 17:28:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793928496; x=1794533296; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OzmeLVnOJ/ClYIo+ngL8aNFa/8nEmpmvX7t0mnKpTNc=;
+        b=MD9aG4fx4mCWQAH03sTcLmygk+gD03T71HtAdTGykHbhtNlM13XdY93yBRtatBMjBH
+         SBuMfuYXWLITwi55eZQC5wMX8vz7kGMGQWCdBqe7UCFaXQfpyAIMEo3Av12Pazmh5bpz
+         dfrctM/36k/GTpECGxzojsSITzKqSG/7fCTDL8fNH3NcpWkWEhBdsIYPW2cnHDrz+H/k
+         UJS+zKHMZkokav39o8H+f2GlzjxPRMocuduFjqMGQd09ohM+9jGZgspOhNwKRACPse4C
+         YQk6TphBxcOTZ+NNXIwtqFRbp9HMpfZEG00Fy0jNQO+DIbUQ/wYyc4WclOYDEbRz+h8u
+         BwbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793928496; x=1794533296;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=OzmeLVnOJ/ClYIo+ngL8aNFa/8nEmpmvX7t0mnKpTNc=;
+        b=tixDlZ5mHtmIB7Cu3L0uJkx8ZP1XR1dw4/GNhM9fJL92m/TKxvT4S+t7OjNLn/FfAS
+         HeguNDcalkoc2SxASLg2iTOVVVccoGnEKvGuS0z8OnmUBdC4aesky6Qmk+aHZPGP3ysE
+         5TmfNRT1Iu4fXEIZJwuZTgExYlMbGq1Sha1AKP2KZjlMsCCgad/FwWdslFu3C0YEHTQ+
+         oDANF7PkNnl2ajRj6CCthA6UeArcv3C3/4mpYx4s3oEmNNGNpFXNAFzcLrBMAim5/jc6
+         PAeg49COorRfCqlp+oDkQ59NiIuk6riO5VbXcyqOVg8VGdfAMvYhiJmHnpe3dalgCNBW
+         KSNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwWvwki1hqLauPAB4lrMV415iPwFSAgnN+mzl2BRzVGJUBU3zkQ5j4uT7AMs3nkFE9SS0xxPLYYeYmgg4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qtb4HVeerU2mXhiWmU40ewVyrQM3owEOf395Qqoq0kCRj6t5b
+	7vUxowCnrh4sPJP5qAoTZlNVP5sNgixVpPFkpaR6hJFXXbNQYBDv6LHXLUe3m/7arFuQjb52cN/
+	spEkSyrabtb52uReECfQELPt0ZIvPe+xZSFvaJ8sQtEkEkQFXPSvdzYOKzTYRChFbK1UDNp9nG3
+	2IxwcdJW9K9I87Vfkj0BZjsUxMkjKeFz98kVmn+hFHpo2wQup2
+X-Gm-Gg: AYBFou1b9pL9v5IPf7rg9AloaW/NtCP9hgF87ZXYwH34LE5paKsFG9hRoxTDlPXalK2
+	nmr+qwR3Tlf7bczuglFSQsud6R/lSLFK9rDQM4/hjzS/6xN68ZoneY5OS5Hmejb7bYQgski54ap
+	5JbvX+FLULWXKtRiwNBpiJ6S82GscGBo1ARJ3/IdKCJwMcbqQD/s5N7seB/3R5wkSlBrkBtbzP6
+	IbWVNZZuGmDqtcI+ZgXemoak4wDHVhPrHf4N/uplh7k5C9TdVwI71lNp7Fxy4wvsyHCwe+ZTQDm
+	wSYyRg0T4gy+68onWJZ6PSUo15J0LQuNtn4HNPuekiPWOHm/cC332fPz5B+Cis5bKhwzNYRJxYU
+	gtoYJHpY+N0xn8wsjfovlU7WvqEZDkyOt5ivdp58I/VbvFgFfUjNzvhAbupr3rgWYYAzGFzUgeT
+	u92uRw7Esz73EyMivL
+X-Received: by 2002:a05:622a:4c0a:b0:532:9b14:96c5 with SMTP id d75a77b69052e-54e15762f20mr17086301cf.60.1793928496198;
+        Thu, 05 Nov 2026 17:28:16 -0800 (PST)
+X-Received: by 2002:a05:622a:4c0a:b0:532:9b14:96c5 with SMTP id d75a77b69052e-54e15762f20mr17085971cf.60.1793928495520;
+        Thu, 05 Nov 2026 17:28:15 -0800 (PST)
+Received: from bmasney-x1.rmtuswv.csb ([69.43.42.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea68fc43asm8983646d6.3.2026.11.05.17.28.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 17:28:14 -0800 (PST)
+From: Brian Masney <bmasney@redhat.com>
+Date: Thu, 05 Nov 2026 20:28:02 -0500
+Subject: [PATCH] backlight: aat2870-backlight: convert to
+ subsys_platform_driver()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,173 +112,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00053453:EE_|DS5PPF266051432:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7c5ba18-c7d3-4de4-1314-08df3ba4eb63
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|261026140227099003|11063799006|56012099006|261022105027099003|261021121427099003|261009223027099003|261022075727099003|261021123027099003|261028144727099003|261026121527099003|261102123227099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	POzk2NObuXj6Go5HTPIFT4Wy5mc1QkGt2gVcHL8U4DGEMIfaRV7AbnHr75EfXM1pHTH5sh/oYKslY/5duAKWZOzk05Azh5ULXGTm7GBWuTFqm4c81rd9FNLC+hvBbqaxa98RIzGaxQTQeQ1zNnUMU1lfE5lhASliIL8NW/RDzBRQV9Adxo0Wxpy5y+JNKNruuWBdF8YZvyhEBZThJyNFKpr5hYik+BVXVSVyCoydLqqumUoewyplbE4TV3OwxWSkqyxyinB/n7BwCCM3P73NLgZhQhAZXXMdeQrvkK4MZTfqO8pgYy8BdsDuHaSLYvPZBnmjaP8BACbkyo9N5HKh3xFtxX9ik1s/oNeupR4H467KCcB1y3cJGiqVAnfT62bMihdXxMN3NWWWFN/yvJWcyyqsxMulrYAOuvbpONdBztAHGd1DmcdLRmv/FXDc5EJHGvwuexfLF4l8JSixfVIlfQWb9X0pd8agvbiaKy7tIkOFIjwfO18BVVEo7TdS+Pyl3LDRHLo1ISPO7meZjAq+kWIJLcDBSzSgf8oguAgNOYDgCpxhzwyQBzoJWhiItlimmJjpnQdqSOAjL2R3nuzUDzLISw4Q4NzwumEfN5Cqf8XRfYpC3K7R8M6YdDh5doEuRtdD+tW2AWSStJlsnGGHcHxd+M8/nNTqbborKh+5Ew4mfSJ56gFdU8r/uW3cVyQuR9/bKJ7IRb8F8uoEOYxnoQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(261026140227099003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(261009223027099003)(261022075727099003)(261021123027099003)(261028144727099003)(261026121527099003)(261102123227099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Pyz2c6feM+DF+2+Nb320J3F8xcXG0syzkpifGyV6Slm9W+ZwhVax1cmUGxxEJVEkPy3nFJK74irdavIt68axknQXhywwTD3xcBWVi+RRDyMhzJkkv6znfIrZtM3540J0z2DB9q8VAYyc4+qafN+9ncHByFhM/t0UvcRlOGSQ2uftz0bu59CFUUlLwh6b5ZTSrxAe6vCAI3a12IFtYZN5koAtIXuPqs29tyMtrdJbHs4YKnCaS14ESkDBtvV6Fq3PaNp0WSh/3NLWnvvRUDtXaqvubZb2sghnPSBfI/8hf8egya/8z5w+unrC1gaG4u8khttIDI87X8ttuvOcFG1SuYnEEL0kNInzQ6tujyyCJzsdGirCeyvtltQl0IZcbfdRRoxCIPn4kteLqTFieDdyYooUSdntstzRY0wzu9ADvSFb/k/9yKCPIGc9MmjISg+D
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 01:26:01.8901
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7c5ba18-c7d3-4de4-1314-08df3ba4eb63
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00053453.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF266051432
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-backlight-subsys-v1-1-ee9e4cbc8cdf@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWWvSSlxfRSzaGgyCdBAi3l2x/
+ JJz/gsYHSFDEVzgcCemefJQYQC201OLgmpviGSUKCVjYbQdRmq7VfBm+GShUp3rpDaZNAj+tjh
+ s6PiSZfXbL3u069uB+34AqBad+XQAAAA=
+X-Change-ID: 20261105-backlight-subsys-17a9a6db80be
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>
+X-Mailer: b4 0.17-dev-d96cb
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1268; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=H2Ld4en7JsjVIIhCDl57TIyk/SGKDX29aUAga9OP9iU=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLe6mrezL7W5KgvfvdaGM+czQYGWYu0H1t0fz7VHWW0V
+ sRNWPBPRykLgxgXg6yYIsuSXKOCiNRVtvfuaLLAzGFlAhnCwMUpABM5uoGRYbax8+fouQ21RXqP
+ jl3hvcV7cPWUkxfcj1dK2OQsbuvKzGf4X7BCjlXHm4cve/05l0Mie3cdcmLyn/WO+yPXMt0lmm+
+ LeAA=
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-The Alternate Injection feature is a method to protect a SNP guest from
-malicious injection attacks. It allows the guest to control the
-interrupt injection.
+Reduce boilerplate code in this driver and convert it over to use
+the macro subsys_platform_driver().
 
-When this feature is enabled, interrupts are injected with the help of
-an agent called a Secure VM Service Module (SVSM) which executes in the
-security realm of the guest and uses Restricted Injection as the sole
-method to receive interrupts from the hypervisor.
-
-Add support for Alternate Injection.
-
-Signed-off-by: Melody Wang <huibo.wang@amd.com>
+Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- arch/x86/Kconfig                       | 14 ++++++++++++++
- arch/x86/boot/compressed/sev.c         |  2 +-
- arch/x86/coco/core.c                   |  3 +++
- arch/x86/coco/sev/core.c               |  2 +-
- arch/x86/include/asm/msr-index.h       |  4 ++--
- include/linux/cc_platform.h            |  8 ++++++++
- tools/arch/x86/include/asm/msr-index.h |  4 ++--
- 7 files changed, 31 insertions(+), 6 deletions(-)
+ drivers/video/backlight/aat2870_bl.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 58dce0b66179..d1f02ff74adb 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -494,6 +494,20 @@ config AMD_SECURE_AVIC
- 
- 	  If you don't know what to do here, say N.
- 
-+config AMD_ALTERNATE_INJ
-+	bool "Support Alternate Injection"
-+	depends on X86_X2APIC && AMD_MEM_ENCRYPT
-+	help
-+	  Enable AMD Alternate Injection support for SNP guests.
-+
-+	  The Alternate Injection feature of SEV-SNP enhances the security of
-+	  a confidential VM by preventing the untrusted host from presenting
-+	  unexpected interrupts or exceptions, while still preserving the
-+	  standard interrupt dispatch semantics inherent to the x86
-+	  architecture.
-+
-+	  If you don't know what to do here, say N.
-+
- config X86_POSTED_MSI
- 	bool "Enable MSI and MSI-x delivery by posted interrupts"
- 	depends on X86_64 && IRQ_REMAP
-diff --git a/arch/x86/boot/compressed/sev.c b/arch/x86/boot/compressed/sev.c
-index c6512f2ea31e..fc2029746c50 100644
---- a/arch/x86/boot/compressed/sev.c
-+++ b/arch/x86/boot/compressed/sev.c
-@@ -179,7 +179,7 @@ bool sev_es_check_ghcb_fault(unsigned long address)
- #define SNP_FEATURES_IMPL_REQ	(MSR_AMD64_SNP_VTOM |			\
- 				 MSR_AMD64_SNP_REFLECT_VC |		\
- 				 MSR_AMD64_SNP_RESTRICTED_INJ |		\
--				 MSR_AMD64_SNP_ALT_INJ |		\
-+				 MSR_AMD64_SNP_ALTERNATE_INJ |		\
- 				 MSR_AMD64_SNP_DEBUG_SWAP |		\
- 				 MSR_AMD64_SNP_VMPL_SSS |		\
- 				 MSR_AMD64_SNP_SECURE_TSC |		\
-diff --git a/arch/x86/coco/core.c b/arch/x86/coco/core.c
-index 989ca9f72ba3..aabda3ddc0e2 100644
---- a/arch/x86/coco/core.c
-+++ b/arch/x86/coco/core.c
-@@ -107,6 +107,9 @@ static bool noinstr amd_cc_platform_has(enum cc_attr attr)
- 	case CC_ATTR_SNP_SECURE_AVIC:
- 		return sev_status & MSR_AMD64_SNP_SECURE_AVIC;
- 
-+	case CC_ATTR_SNP_ALTERNATE_INJECTION:
-+		return sev_status & MSR_AMD64_SNP_ALTERNATE_INJ;
-+
- 	default:
- 		return false;
- 	}
-diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-index eb2e853e950a..900a7ff8b639 100644
---- a/arch/x86/coco/sev/core.c
-+++ b/arch/x86/coco/sev/core.c
-@@ -78,7 +78,7 @@ static const char * const sev_status_feat_names[] = {
- 	[MSR_AMD64_SNP_VTOM_BIT]		= "vTom",
- 	[MSR_AMD64_SNP_REFLECT_VC_BIT]		= "ReflectVC",
- 	[MSR_AMD64_SNP_RESTRICTED_INJ_BIT]	= "RI",
--	[MSR_AMD64_SNP_ALT_INJ_BIT]		= "AI",
-+	[MSR_AMD64_SNP_ALTERNATE_INJ_BIT]	= "AI",
- 	[MSR_AMD64_SNP_DEBUG_SWAP_BIT]		= "DebugSwap",
- 	[MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT]	= "NoHostIBS",
- 	[MSR_AMD64_SNP_BTB_ISOLATION_BIT]	= "BTBIsol",
-diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
-index c0914829a925..d6aede40fcdd 100644
---- a/arch/x86/include/asm/msr-index.h
-+++ b/arch/x86/include/asm/msr-index.h
-@@ -730,8 +730,8 @@
- #define MSR_AMD64_SNP_REFLECT_VC	BIT_ULL(MSR_AMD64_SNP_REFLECT_VC_BIT)
- #define MSR_AMD64_SNP_RESTRICTED_INJ_BIT 5
- #define MSR_AMD64_SNP_RESTRICTED_INJ	BIT_ULL(MSR_AMD64_SNP_RESTRICTED_INJ_BIT)
--#define MSR_AMD64_SNP_ALT_INJ_BIT	6
--#define MSR_AMD64_SNP_ALT_INJ		BIT_ULL(MSR_AMD64_SNP_ALT_INJ_BIT)
-+#define MSR_AMD64_SNP_ALTERNATE_INJ_BIT	6
-+#define MSR_AMD64_SNP_ALTERNATE_INJ	BIT_ULL(MSR_AMD64_SNP_ALTERNATE_INJ_BIT)
- #define MSR_AMD64_SNP_DEBUG_SWAP_BIT	7
- #define MSR_AMD64_SNP_DEBUG_SWAP	BIT_ULL(MSR_AMD64_SNP_DEBUG_SWAP_BIT)
- #define MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT 8
-diff --git a/include/linux/cc_platform.h b/include/linux/cc_platform.h
-index 559353ad64ac..80d9f1de2ae8 100644
---- a/include/linux/cc_platform.h
-+++ b/include/linux/cc_platform.h
-@@ -104,6 +104,14 @@ enum cc_attr {
- 	 * to run SEV-SNP guests with full Secure AVIC capabilities.
- 	 */
- 	CC_ATTR_SNP_SECURE_AVIC,
-+
-+	/**
-+	 * @CC_ATTR_SNP_ALTERNATE_INJECTION: AMD Alternate Injection enabled.
-+	 *
-+	 * A Secure VM Service Module (SVSM) has started the guest with
-+	 * Alternate Injection enabled.
-+	 */
-+	CC_ATTR_SNP_ALTERNATE_INJECTION,
+diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backlight/aat2870_bl.c
+index 8b790df1e842..2428427e11aa 100644
+--- a/drivers/video/backlight/aat2870_bl.c
++++ b/drivers/video/backlight/aat2870_bl.c
+@@ -189,17 +189,7 @@ static struct platform_driver aat2870_bl_driver = {
+ 	.remove		= aat2870_bl_remove,
  };
  
- #ifdef CONFIG_ARCH_HAS_CC_PLATFORM
-diff --git a/tools/arch/x86/include/asm/msr-index.h b/tools/arch/x86/include/asm/msr-index.h
-index 9c26d4075c5f..0c26cdbfa8ff 100644
---- a/tools/arch/x86/include/asm/msr-index.h
-+++ b/tools/arch/x86/include/asm/msr-index.h
-@@ -728,8 +728,8 @@
- #define MSR_AMD64_SNP_REFLECT_VC	BIT_ULL(MSR_AMD64_SNP_REFLECT_VC_BIT)
- #define MSR_AMD64_SNP_RESTRICTED_INJ_BIT 5
- #define MSR_AMD64_SNP_RESTRICTED_INJ	BIT_ULL(MSR_AMD64_SNP_RESTRICTED_INJ_BIT)
--#define MSR_AMD64_SNP_ALT_INJ_BIT	6
--#define MSR_AMD64_SNP_ALT_INJ		BIT_ULL(MSR_AMD64_SNP_ALT_INJ_BIT)
-+#define MSR_AMD64_SNP_ALTERNATE_INJ_BIT	6
-+#define MSR_AMD64_SNP_ALTERNATE_INJ	BIT_ULL(MSR_AMD64_SNP_ALTERNATE_INJ_BIT)
- #define MSR_AMD64_SNP_DEBUG_SWAP_BIT	7
- #define MSR_AMD64_SNP_DEBUG_SWAP	BIT_ULL(MSR_AMD64_SNP_DEBUG_SWAP_BIT)
- #define MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT 8
--- 
-2.43.0
+-static int __init aat2870_bl_init(void)
+-{
+-	return platform_driver_register(&aat2870_bl_driver);
+-}
+-subsys_initcall(aat2870_bl_init);
+-
+-static void __exit aat2870_bl_exit(void)
+-{
+-	platform_driver_unregister(&aat2870_bl_driver);
+-}
+-module_exit(aat2870_bl_exit);
++subsys_platform_driver(aat2870_bl_driver);
+ 
+ MODULE_DESCRIPTION("AnalogicTech AAT2870 Backlight");
+ MODULE_LICENSE("GPL");
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261105-backlight-subsys-17a9a6db80be
+
+Best regards,
+--  
+Brian Masney <bmasney@redhat.com>
 
