@@ -1,121 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965605;
-	b=PhpmwokT7oryhmGPdyjpfVYgCNuL8Pzdvp9BCCKgxQi3f7f7faKwttVJISkTS1Xw8tnS
-	 loCsKtz8rB56krMD6AgLNdBoNzMlEKVeymAPLaZMdKe9llLV6dg+BQhGpfn+WaqVNecEN
-	 BW+5uuyMASGCtAQarXtybtS4NcExu5Pd43PwuC4Zjsm9OWxlIJsJZEo5j0L8mfvWfl9iq
-	 9SZRJerXdpyLMdM++hx8pz3CmLzZSbRyT/oLrv8L7oyqZIdhJEe38cZULS30zLmCyA2yf
-	 YiJihbC2i4hPCITtXzBBNAIzjVMTCLkKBlPmsAWnxxGBCbV5s76Nh2rpMnSSvsPzIGg==
+	t=1793965611;
+	b=hq7nW5u5zI1iONnwSU/wY9+RnJ3a5dZvg4NmtyvGHpJGUoK3McX5+vHQelOFR86h2N7b
+	 q0gM2I9DvLF6p5TengqltoggaOFvjirsFlCnFgNLBokNdcZpSlUwMd9jMnj1hEUS2fyb3
+	 wEIhlRkdMoBPRPsrWnMBPtF6D8QXjNAqda89gqs+qf4bLVQBl+9P1Lhvv4a00q8Irwdwo
+	 dveyKaV0+I4gmCDIOvmSkGTUUKRoxNJ8vcMsD7NcYXxSuszqKZjK5sYNiJgI/BnGghNID
+	 gi/zTHPtnGYZoW5RMVm1g8nwzwgrfgs7HBtWXkTWtO0tAR6kn1lAvjaJ3cz3COkwP4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965605;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965611;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RvWrLEYpM5Moy9Pqd11nVJaZOtslNfsd0zo0WJXntO4=;
-	b=FhXYVSHpqJiIvGYNuik9BIZLWBKPyPPFhP7Q3eSFBvwV0MfwBNc9wuSpW+pq8mE3C5fo
-	 IL4Pad0eWoEPXcmn8M/tBN23YGKrrC1Jf0ZFDC80AGTVlDec3eVc5w5n6bLSyjjWE4Ozb
-	 KN9Owxjk22efSd82cRUgM/bqp/LakUYU3HSqpwN+HYWrwt65H5UZSjtuP2tEXfIgRuKYL
-	 QxJUvutRZI1YIKSuGdHwuNfht2b/yTQIWa20ZC5jcQDjwU2JAHZk7Fa9FDKC0vAWNaKtu
-	 HG151I2z+ARoX4GviCiGB9scsSOFUamyXBjr3uvnZqPmWz9Zhr2gKP7+Gw6rQhAkj2g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ewbAZCHPYD2+chpQfW+XsvxDzLbZ1NT6epDC+c8eB2U=;
+	b=Gv9Gs9h7FDvcMWzJZdOVNCOHJZe8d0r1rn5QMsiD4fgWP3GmDH2+9my9+S51heQynbiC
+	 f6+RjTfwqRf1Zqk/3hEhkqhi0ty8cKUaHu/J1VpeyuT+w/ZOf8DC+2bHEMEc0b0b0KTlC
+	 oZSgdj6jiUgtQZtCU5J53uPEz28iiVrjhjvrtJQt6Ev6c9AElf/R1TnRUsZP99C5kjZnv
+	 CUmVQTcvqHiCCtE6KBYXwi4qCLQ0dsG0d1uQGyK5gJp+1B+nxXagYiaIHQL1/mvT3x89C
+	 /CRnDMrEmjTVYsNlMVKhqaoW+loqaTQjmpjrPLwjkWI0pP0Nds/Fg01mBNuwCOwtK2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t1K5J5hY;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p99OWJ7k;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A084C606A332
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:46:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A084C606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDDE606A333
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:46:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACDDE606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t1K5J5hY
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so746343eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:46:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p99OWJ7k
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so341987b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:46:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793965604; x=1794570404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RvWrLEYpM5Moy9Pqd11nVJaZOtslNfsd0zo0WJXntO4=;
-        b=t1K5J5hY6r2RnC/01ss6nbPT5V289m2YfKUuHGhxKSaztuC6WQBSrL/BWU8pRrAPU8
-         y371XJZNUcEDEBYrXa5iVQFwGupOIfhawwBXstKszp1ATBDPuMEwMXpXSTqbjdoM6qnt
-         Ey1V9iSzPpkSkQl1AA1LEiE6kTspQOKFdD1g36oyCgzkQy/1S6qDl/rw/CWJPnikTqbc
-         XDSKEXwSRSjZ0c9KhQZ2+C5c64GsnPyTfkCD/gKZAYNXX21TE0H44pVBO80+G7JLf3W+
-         8rI89oDR8HinF3pYheIczcShq++NPGZHZPdIv7aXzNbSkTaROvDPd5N8kAHvXpIBUtzt
-         bnAg==
+        d=gmail.com; s=20260707; t=1793965610; x=1794570410; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ewbAZCHPYD2+chpQfW+XsvxDzLbZ1NT6epDC+c8eB2U=;
+        b=p99OWJ7kmAedUPv6+7kfP4cA6i4cIzm0B6jrcYVuOlZbnnvtgMJfTYlzzAeOtbyx+J
+         NyXYVOkUjR/5hVj3g2ZKhH56r1+xXYJWJf9SvHnD3K6oE50aHHHTjVnPIT5vQFo6te1k
+         P1KfnYahJ1I7h7Gd1/NUkCyB/qjZeiuajXMX4WAxroYG2VAvwo+YRAvyzebXjKdRGTHR
+         g70rTX08dm21A3hL1cgnjUtlrvS/m8RSqXVqcrDcpoVvCjW2dy4IVCJa3XnJgFfKx/KQ
+         h4xmg7kA01ckFbrM8cBuxvKunKvhI8+NWzwVKGrc2qprR13tg+MZHxinItmZ+mhpp8Rx
+         OWxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793965604; x=1794570404;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RvWrLEYpM5Moy9Pqd11nVJaZOtslNfsd0zo0WJXntO4=;
-        b=ml+VpdwpQ/oZFYRSwYlWqVAKW4vv28d6TwH5LDxzwP3PINZanlTPqb85diBxBqU7LP
-         9yTpZhWXZgF4s8Pt1x3pbrz9qWAIQN5iGrrftXeycTYZ+8zGFup3gavpvQmtFYP9Ei/Q
-         GuxSkUJpwxnOghLEQPXkRQLXIqYDfg9Ij7ejfN4yuipx85ihqTPB6DaGlUXyaKwUnT4C
-         ePpiXRIim59gMm5ABZ4rM9sxR0XymtXtlORGrdHHr4+6NBubHvVdwKD2m5RGDyx3IZnP
-         HFuFZG3tI26X9hfPB+16pyG8y/htyG47gwGbnmj6vh1BrWKcXeUF4muCds8h92GsDSGr
-         CkQg==
-X-Forwarded-Encrypted: i=1; AL+hErE667NGZ4RoQS+49CMf0E7vr4ADtuEuHIlVmoupmUzdN50VbeaPyKlbsqsrBFbXg6LdKob9NNvCsSIcduE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zOoPs8pYJTz9LK+50MB6KQfORx0SgflNedysO8DE0EeZya8oB
-	L4EVgMS0o/m0DKoPg7hYkIpU1ojMFu0o2V6zKf7aJvXGgsJSGsj8wdyI
-X-Gm-Gg: AYBFou2zbNDm3s5iER+k6QE7irgYmzjMj4Nr1Ke7X42ezaBfyFJm39VIA+pk5U8bGmo
-	Fi9HnpDQ2o5IyYt9CJYBnvZ25MHCohGbYvkTW7PUYf7LhKJ/ybbQVaLO3+WZDIJ6URcRZx/PTbN
-	W5YpNns7sO/2aVxrlE6g/S3Wiz1nKnZ7VR4j4eerBB851m+AngXCHc+Upgilix0HLQbO93Sxm5A
-	dINYVREiK54ZXaK/073RAiCVp+mxteL4ACd6xxKcyM/BClwVtIwAf6kYvgJ31so9WbVJp7Javn0
-	unmSS7q+T9Ppz6UOeesLFGXjCTWxjO+2gNfExjCVaULPuVgBxcgYFoFxz020dbd43Ga+YvmbbNX
-	mRVbO7af92IoDQvdUsAY3LOWXsBQrNCK2MnbNpwp2JuOzeA47RaY7sngOiH8xXRKWmq2LSlpWIv
-	C8gvDleiD4QjCbyXLdxj/gPu4x4D82fGdMRMT/Euf12f6y/lgn9ze3J3nGQIykfTK/9w/onOOlZ
-	hcysv4UlpDi9SXPjU/3VqbeiLJcjJnJQTJpD/PjBXtYyKhPxwKdPf53vMMa4y+BOqP2FHjk18Nk
-	UnLmLAV01lC4bUR1r569o20ZR7KC3oC74ckwqRgWqCfc
-X-Received: by 2002:a05:7301:4301:b0:36c:d1fe:84ce with SMTP id 5a478bee46e88-36f76b15aaemr3260646eec.33.1793965603627;
-        Fri, 06 Nov 2026 03:46:43 -0800 (PST)
-Received: from localhost.localdomain ([2406:7400:51:1d31:c2b6:f9ff:fe77:10a0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9be7077sm6167055eec.17.2026.11.06.03.46.34
+        d=1e100.net; s=20260707; t=1793965610; x=1794570410;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ewbAZCHPYD2+chpQfW+XsvxDzLbZ1NT6epDC+c8eB2U=;
+        b=rPPKX4aUuXHjXZhNZRWibP/5nvrzzFFkFUNH7vuYioKZiAjoaR2GWHt9x3ILjnc1BH
+         E8/Rxh5Xp6p8VWCtwnrNCt8FWGNNPHxOqPK6iPPlBujq4NStMOfYd/zbH9PfgiZlVj6G
+         NmlyRVT7yWUXejQeHxDN5dyaWT7tzMp7o4kWi9H3HiDjgF2mNhbaVkjIje4+ymP0cGeM
+         NkO+P3Hfu6wW9cN3tqRlhh23kjQbEA9Ca615YRWmD+t/fpABGAR1LZtPsZ7Yi/SCvOyU
+         GyIMDJX3WvoNbjuzG5It4y6BFR8r8o9RhUoVF5p/6hbufQ9VUsJ7wzVwoLFYUqtKXVK5
+         Dxlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUONL4XSxTYYwKy5tOxxkRcltS5RwZi9gmYNPiOFGhcsVmxcl+J1dG8OOeT9UUrTUcP2coMqRLpKghQ0k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ml8033w9WbcTaXbTAT4CnRLPxNIS5tH3uZPEdi0VGspNfPvPY
+	44sx9PeFnaH8BBtDbsedETaGYjchjxdenYvEJF6ang+VsjNdSad2yhIk
+X-Gm-Gg: AYBFou0n/YC9BI5qh+A9A7UfMSxI5oWtMo9uDoKKSlW+Fvg0lmkABFitqrgB6cNl6j1
+	HUg4r/c9PoVyEMzUq6A8eDWIoT3b4x0QeD3pykB4UMjURYmIb1gP9rjcnSF5Vub0r9dlebHWEsV
+	IZ0wsQhcddxKnJwxvatQkHT7MXu0enXbhEjiWe2Z77xJpGBUxeL6i16md9RaBJkqSKGYj3HpFZS
+	Ah+v5Wu/HgynaKN+f2GNwtXLmAArAyo2CsIBfT/KeCx2C9Mv1erE8NsltkuoCXE0mUKQETOPV0B
+	BjMlqkdNNEqRsMuLlHvs6PUnB7tvz94BOQvsNowacoBaXJ4U0mQupwWjxwXTDaRd1Xh3wzcDlnk
+	FIJjuWr3EPvewO/DqlILD5UnTB0XpDvsav8Mw8mZ8EOokL4n5X8BkgkDdmWIss6afSsel22eOV0
+	t7ORhKDn8h9Wbd5RsN8kLxtMLMpFx1sMOBE0DsfSGR08wIueKkp8+59FFZF54IjqQeQFWlLedau
+	UR/ZlwGZATj5XLauNyYcN9fuvhGoyaI0alW1wJ5N8Ql+X++iRl74OKDA2FbGbadqRRVtVebS+g/
+	hk8FqmKNb/25pkJLYnJ4c6oxD/vF1hVz6PM+Y85fprTbEza7
+X-Received: by 2002:a05:6a00:2188:b0:8a0:3072:ee9 with SMTP id d2e1a72fcca58-8b37ab9ec04mr2326503b3a.13.1793965609946;
+        Fri, 06 Nov 2026 03:46:49 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b35921deb7sm509832b3a.12.2026.11.06.03.46.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:46:43 -0800 (PST)
-From: Amaan Cheval <amaan.cheval@gmail.com>
-To: netdev@vger.kernel.org
-Cc: joshwash@google.com,
-	hramamurthy@google.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	bcf@google.com,
-	jordanrhee@google.com,
-	przemyslaw.kitszel@intel.com,
-	maciej.fijalkowski@intel.com,
-	pkaligineedi@google.com,
-	maolson@google.com,
-	csully@google.com,
-	willemb@google.com,
-	yangchun@google.com,
-	npl@google.com,
-	awogbemila@google.com,
-	shailend@google.com,
-	nktgrg@google.com,
-	maxyuan@google.com,
-	bpf@vger.kernel.org,
-	john.fastabend@gmail.com,
-	hawk@kernel.org,
-	sdf@fomichev.me,
-	daniel@iogearbox.net,
-	ast@kernel.org,
+        Fri, 06 Nov 2026 03:46:49 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Amaan Cheval <amaan.cheval@gmail.com>
-Subject: [PATCH net v4 2/2] gve: fix RX page refcount overflow from the pagecnt bias
-Date: Fri,  6 Nov 2026 17:15:51 +0530
-Message-ID: <20261106114551.212675-3-amaan.cheval@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261106114551.212675-1-amaan.cheval@gmail.com>
-References: <20261106114551.212675-1-amaan.cheval@gmail.com>
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v3] ASoC: codecs: wcd-mbhc-v2: cancel button long-press work on deinit
+Date: Fri,  6 Nov 2026 20:46:28 +0900
+Message-ID: <20261106114628.2555176-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,193 +100,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gve's GQI and DQO-QPL RX paths set every RX page's refcount to INT_MAX and
-hand references to the stack by decrementing page_info->pagecnt_bias, to
-avoid an atomic op per packet. This leaves no room for anyone else: while
-a fresh page's buffer sits in an skb its refcount is already INT_MAX, so a
-single get_page() from the stack overflows it to negative.
+From: Hyunjung Ko <hj351016@gmail.com>
 
-splice() of received TCP data into a pipe takes such a reference, and the
-onward splice into a socket then fails: skb_splice_from_iter() sees
-page_count() < 1, sendpage_ok() fails and the send returns -EIO (since
-commit 2e910b95329c ("net: Add a function to splice pages into an
-skbuff for MSG_SPLICE_PAGES")). tee() of the pipe fails with -EFAULT via
-try_get_page(). On GQI the reuse check gve_rx_can_recycle_buffer() also
-sees page_count() < pagecnt_bias, WARNs and calls gve_schedule_reset(),
-so a task that merely pins a fresh RX page (e.g. holds spliced data in
-an undrained tee() pipe) can reset the NIC.
+wcd_mbhc_deinit() drains two of the three works embedded in struct
+wcd_mbhc before freeing it - correct_plug_swch (via
+wcd_cancel_hs_detect_plug()) and mbhc_plug_detect_work - but not the
+button long-press delayed work mbhc_btn_dwork:
 
-Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do: the bias
-only has to make the per-packet atomic rare, so a small value keeps
-page_count() far below INT_MAX however many references the stack takes.
-Refill by adding a fixed batch and setting the bias to it, which keeps
-the rule `references = page_count() - bias` intact.
+	mutex_lock(&mbhc->lock);
+	wcd_cancel_hs_detect_plug(mbhc, &mbhc->correct_plug_swch);
+	cancel_work_sync(&mbhc->mbhc_plug_detect_work);
+	mutex_unlock(&mbhc->lock);
 
-Refilling at 0 hands the driver's last reference to the consumer once
-every USHRT_MAX handoffs rather than once every INT_MAX, which is only
-safe because every consumer on these paths holds its reference until
-the driver has recycled the buffer. The previous patch keeps it that
-way by blocking XDP on DQO-QPL, so this one depends on it. Trees before
-6.17, without commit d8a8ca14c937 ("gve: add XDP_TX and XDP_REDIRECT
-support for DQ RDA"), still refuse XDP on every format but GQI-QPL in
-verify_xdp_configuration(), so there this patch stands alone.
+	kfree(mbhc);
 
-Reproduced on gVNIC in GQI-QPL mode (GCE n2-standard-8, 6.12) and in
-DQO-RDA mode (GCE c3-standard-8, 6.12, where DQO-RDA still uses the
-bias) with the help of relay.py -- a small splice(2) TCP proxy --
-relaying a download while the RX ring is refilled with fresh pages:
+mbhc_btn_dwork is armed from the button-press interrupt handler
+wcd_mbhc_btn_press_handler() with a 400 ms delay:
 
-  ethtool -G eth0 rx 512 && ethtool -G eth0 rx 1024   # fresh RX pages
-  ./relay.py $HOST 8080 &                             # splice()s both ways
-  for i in $(seq 200); do curl -so /dev/null \
-      --connect-to $HOST:80:127.0.0.1:8080 http://$HOST/file; done
+	schedule_delayed_work(&mbhc->mbhc_btn_dwork, msecs_to_jiffies(400));
 
-Most downloads failed with EIO before the fix (tee() with EFAULT) and
-all completed after it. relay.py is at the Link below.
+and its handler wcd_btn_long_press_fn() dereferences @mbhc
+(container_of(), mbhc->current_plug, mbhc->jack).
 
-This bug was found and fixed with the help of an AI coding assistant
-(Claude Code) over an interactive session; it read the driver and
-splice/pipe code and ran the tests above.
+wcd_mbhc_deinit() frees the MBHC interrupts first, which stops new work
+from being queued, but free_irq() does not cancel a delayed work that was
+already scheduled. If a button was pressed within ~400 ms of component
+removal, mbhc_btn_dwork is still pending when kfree(mbhc) runs, so
+wcd_btn_long_press_fn() later executes against freed memory
+(use-after-free).
 
-Link: https://github.com/amaanc/kernel-bias
-Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
-Fixes: 58401b2a46e7 ("gve: Add rx buffer pagecnt bias")
-Fixes: 82fd151d38d9 ("gve: Reduce alloc and copy costs in the GQ rx path")
+The freeing of mbhc was introduced by commit a5475829adcc ("ASoC: codecs:
+wcd-mbhc-v2: fix resource leaks on component remove"), which switched mbhc
+to kzalloc() and added the kfree(mbhc) above; the deinit path cancels
+correct_plug_swch (added with the multi-button support in 0e5c9e7ff899)
+and, later, mbhc_plug_detect_work (added in 0c105997eefd), but
+mbhc_btn_dwork has never been cancelled there.
+
+Use the existing wcd_mbhc_cancel_pending_work() helper, which cancels
+mbhc_btn_dwork (via wcd_cancel_btn_work()) and then correct_plug_swch,
+matching the other cancellation sites in this file and ensuring
+mbhc_btn_dwork is cancelled before wcd_cancel_hs_detect_plug() briefly
+drops mbhc->lock.
+
+Found by code review; not runtime-reproduced (requires WCD codec hardware
+and a button-press event racing component removal).
+
+Fixes: a5475829adcc ("ASoC: codecs: wcd-mbhc-v2: fix resource leaks on component remove")
 Cc: stable@vger.kernel.org
-Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
-Tested-by: Harshitha Ramamurthy <hramamurthy@google.com>
-Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-v4:
- - Add patch 1/2, blocking XDP on DQO-QPL, which this fix depends on
-   (Sashiko). Harshitha said Google would send such a patch; I'm happy
-   to drop 1/2 in favour of theirs.
- - Say "overflow" instead of "headroom" in the subject and the commit
-   message (Maciej).
- - Use USHRT_MAX directly instead of a GVE_PAGECNT_BIAS macro, as the
-   other drivers do, and move its rationale next to the refill in
-   gve_dec_pagecnt_bias() (Maciej). No functional change.
- - Added Reviewed-by from Maciej Fijalkowski.
- - Say which trees need patch 1/2, for stable.
-v3: https://lore.kernel.org/netdev/20261103090651.35399-1-amaan.cheval@gmail.com/
- - Refill when the bias reaches 0 again, as in v1. DQO-QPL is not
-   supposed to support XDP at all, and it will be blocked explicitly in
-   a separate patch, so the v2 refill-at-1 change is not needed.
- - Added Reviewed-by and Tested-by from Harshitha Ramamurthy.
-v2: https://lore.kernel.org/netdev/20261102112613.18334-1-amaan.cheval@gmail.com/
- - Refill when the bias reaches 1 instead of 0 so the driver keeps a
-   reference of its own across every handoff. At bias 0 a consumer that
-   returns its reference synchronously, such as an AF_XDP socket in copy
-   mode on an XDP_REDIRECT from DQO-QPL, freed a page still registered in
-   the QPL.
- - Commit message: explain the refill point, drop the build notes.
- - Re-tested on 6.12.113 (c3-standard-8, DQO-RDA, which still uses the
-   bias on 6.12): no EIO/EFAULT from splice/tee and no NIC reset after
-   applying the patch. DQO-QPL is untested; I have no access to that
-   hardware.
-v1: https://lore.kernel.org/netdev/20261031173449.2439047-1-amaan.cheval@gmail.com/
+v3:
+ - Resend as a standalone patch; the previous version was mistakenly
+   sent as a reply to the original posting (per Mark Brown's request).
+   No functional change from v2.
+v2:
+ - Use the existing wcd_mbhc_cancel_pending_work() helper instead of an
+   open-coded cancel_delayed_work_sync(), per review - it cancels
+   mbhc_btn_dwork before wcd_cancel_hs_detect_plug() drops the lock and
+   matches the other cancellation sites.
+ - Add Fixes: tag and correct the commit history in the changelog (the v1
+   reference to CVE-2023-53842 was inaccurate), per review.
 
-Built allmodconfig W=1, no new warnings.
+ sound/soc/codecs/wcd-mbhc-v2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/net/ethernet/google/gve/gve.h                |  2 +-
- .../net/ethernet/google/gve/gve_buffer_mgmt_dqo.c    |  4 ++--
- drivers/net/ethernet/google/gve/gve_rx.c             |  8 ++++----
- drivers/net/ethernet/google/gve/gve_utils.c          | 12 ++++--------
- drivers/net/ethernet/google/gve/gve_utils.h          |  2 +-
- 5 files changed, 12 insertions(+), 16 deletions(-)
+diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
+--- a/sound/soc/codecs/wcd-mbhc-v2.c
++++ b/sound/soc/codecs/wcd-mbhc-v2.c
+@@ -1623,7 +1623,7 @@ void wcd_mbhc_deinit(struct wcd_mbhc *mbhc)
+ 	free_irq(mbhc->intr_ids->mbhc_sw_intr, mbhc);
 
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index b7ce6e8632db..18d7edbf4b3b 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -119,7 +119,7 @@ struct gve_rx_slot_page_info {
- 	void *page_address;
- 	u32 page_offset; /* offset to write to in page */
- 	unsigned int buf_size;
--	int pagecnt_bias; /* expected pagecnt if only the driver has a ref */
-+	u16 pagecnt_bias; /* expected pagecnt if only the driver has a ref */
- 	u16 pad; /* adjustment for rx padding */
- 	u8 can_flip; /* tracks if the networking stack is using the page */
- };
-diff --git a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-index 6880d1531ba5..52223baf0303 100644
---- a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-+++ b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-@@ -149,8 +149,8 @@ int gve_alloc_qpl_page_dqo(struct gve_rx_ring *rx,
- 	buf_state->last_single_ref_offset = 0;
- 
- 	/* The page already has 1 ref. */
--	page_ref_add(buf_state->page_info.page, INT_MAX - 1);
--	buf_state->page_info.pagecnt_bias = INT_MAX;
-+	page_ref_add(buf_state->page_info.page, USHRT_MAX - 1);
-+	buf_state->page_info.pagecnt_bias = USHRT_MAX;
- 
- 	return 0;
- }
-diff --git a/drivers/net/ethernet/google/gve/gve_rx.c b/drivers/net/ethernet/google/gve/gve_rx.c
-index 81ea800e66e9..3bed19866376 100644
---- a/drivers/net/ethernet/google/gve/gve_rx.c
-+++ b/drivers/net/ethernet/google/gve/gve_rx.c
-@@ -152,8 +152,8 @@ static void gve_setup_rx_buffer(struct gve_rx_ring *rx,
- 	page_info->buf_size = rx->packet_buffer_size;
- 	*slot_addr = cpu_to_be64(addr);
- 	/* The page already has 1 ref */
--	page_ref_add(page, INT_MAX - 1);
--	page_info->pagecnt_bias = INT_MAX;
-+	page_ref_add(page, USHRT_MAX - 1);
-+	page_info->pagecnt_bias = USHRT_MAX;
- }
- 
- static int gve_rx_alloc_buffer(struct gve_priv *priv, struct device *dev,
-@@ -230,8 +230,8 @@ static int gve_rx_prefill_pages(struct gve_rx_ring *rx,
- 			rx->qpl_copy_pool[j].buf_size = rx->packet_buffer_size;
- 
- 			/* The page already has 1 ref. */
--			page_ref_add(page, INT_MAX - 1);
--			rx->qpl_copy_pool[j].pagecnt_bias = INT_MAX;
-+			page_ref_add(page, USHRT_MAX - 1);
-+			rx->qpl_copy_pool[j].pagecnt_bias = USHRT_MAX;
- 		}
- 	}
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
-index caed38cd5f2b..930555ac8fe9 100644
---- a/drivers/net/ethernet/google/gve/gve_utils.c
-+++ b/drivers/net/ethernet/google/gve/gve_utils.c
-@@ -93,15 +93,11 @@ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
- {
- 	page_info->pagecnt_bias--;
- 	if (page_info->pagecnt_bias == 0) {
--		int pagecount = page_count(page_info->page);
--
--		/* If we have run out of bias - set it back up to INT_MAX
--		 * minus the existing refs.
-+		/* Out of bias: take another batch. USHRT_MAX keeps this rare
-+		 * while leaving page_count() far below INT_MAX.
- 		 */
--		page_info->pagecnt_bias = INT_MAX - pagecount;
--
--		/* Set pagecount back up to max. */
--		page_ref_add(page_info->page, INT_MAX - pagecount);
-+		page_info->pagecnt_bias = USHRT_MAX;
-+		page_ref_add(page_info->page, USHRT_MAX);
- 	}
- }
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_utils.h b/drivers/net/ethernet/google/gve/gve_utils.h
-index bf2e9a0adb36..c686142d37ea 100644
---- a/drivers/net/ethernet/google/gve/gve_utils.h
-+++ b/drivers/net/ethernet/google/gve/gve_utils.h
-@@ -25,7 +25,7 @@ struct sk_buff *gve_rx_copy_data(struct net_device *dev, struct napi_struct *nap
- struct sk_buff *gve_rx_copy(struct net_device *dev, struct napi_struct *napi,
- 			    struct gve_rx_slot_page_info *page_info, u16 len);
- 
--/* Decrement pagecnt_bias. Set it back to INT_MAX if it reached zero. */
-+/* Decrement pagecnt_bias. Top it up by USHRT_MAX if it reached zero. */
- void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info);
- 
- void gve_add_napi(struct gve_priv *priv, int ntfy_idx,
--- 
-2.47.3
+ 	mutex_lock(&mbhc->lock);
+-	wcd_cancel_hs_detect_plug(mbhc,	&mbhc->correct_plug_swch);
++	wcd_mbhc_cancel_pending_work(mbhc);
+ 	cancel_work_sync(&mbhc->mbhc_plug_detect_work);
+ 	mutex_unlock(&mbhc->lock);
 
