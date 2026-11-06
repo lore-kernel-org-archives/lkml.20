@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.234
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794007875;
-	b=k/WTzYyXHOyO/7O+5nOkf+fV686PuPQtpGVruadBYKYITkE2iE8pkrd4Nah/8wGRiLvb
-	 91skITdysqLcWKfRowOk1fSwAD/GucNbIRgcU9BbQcsk90qoT+T7w9M8lPeViSgcIsR+w
-	 EuIgpk8k9gazc9HnyKK3PNsQp2ThGVqHtNzOZeS78vGrOWFO4P3eS1EfmLiYk/D3KdR5n
-	 htTWu2YWOkXykBdRxaXE2Om4E658534xya6ERenkXEUIugvn2cN5UxwPUwyR53uYMwrNC
-	 F8yDcThNhUBMjcOyjO2oJp+Q9SCaZL3hFtu9nm1ENlEb4ZRp2mMA+8dCKUCRxyn9vkA==
+	t=1794007944;
+	b=uhAtwq/EbiGlhKX5sc+uQNTSuIQUu6DRlGaCAFwa+0uSKT4meKSCxECQ2GgESHXbmego
+	 RvaH/D6JWNB0DFovvCYbM1gBY2GcT40jHjOvuWVTnvK0I3vb0UTgpod1whAs9UxjmjyPh
+	 culoX8GGviNexEn0Yrf2BTFO2jZ1rKGnCV8MHtT7E3xVsRUhlyLJXEjrzlE1vTbair8wH
+	 wl/McpfLqTm5c0xyIESMuE5hUG1zJ5gxcM1Uvv3KCPiIdUjIiD0+gu8d1Y49bCQvmzQ2e
+	 /fX2A03LR48aApkBTZj0nlryC/4GWiYdqZpxfBnzNle0njLLK0kcdG8+KNDp6c+d5hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794007875;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=KxDNcFzjGkbUdjmkdE/Lvs3kMztmWZwJDH5eU0pXD4Q=;
-	b=qKQlMZMaOFg7aYqZi8mFlDy2TiHXAcecYq6EAzaQZkm91S7b2ABkYHsiHJvlACkZG6Sb
-	 k6Okxbj8hmrGqtsCDBQCOTJFvUwrkjdD1SDEnpKOj7Qh0T4ukalb+khZxRY0t75n2JQ6u
-	 yzSwtaD0mLCkMYkYZkhCrZh6Ryd6buNUI+3UWPPkzdlrQ4GxPr+zwJnjeP+2ZuSNrebxO
-	 T3v4Xc0FDjo4/AUMPR57wE1p+GEHIzMIXykHjteAUu9IHFqja6plIRPJPLis54oSz7lVe
-	 bn0tBHlOchykA5dyc6FTh03MxxbUpfbPYT4f+Ntvkf3Fj3UDx6PPOtyiUiGUhW9F/hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794007944;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3PSRJAyzJjXTa91c20Ghv5zF6aqkJV/QWmUyUDslx4s=;
+	b=XslsmAadx1Hp/ie4Z/8bdRfFaFsMEwXxLd8moZvEdPgrJGHk9GtNwoK6/NlVUnGr+kZP
+	 1w4U2M1p1L1JRlH2Vi2BOCbDcZdZEQN31nUQ6Wn9VVyFvZqZkYQ/EWY+HWqyqnoJ0ku79
+	 ZQyXenJCPZTD76V1lRyZ3uEH5mzzgeBvp6C1djb3SZqxz4jGDgApIeRSGyyzBN4ZvUr9U
+	 DpcDHTUGmPecoDE6Gq+YGjG4UuAnJP6kncWuZudMCE7jALdl+wBF51lqf6ZrSakMWMswJ
+	 5yD50+QeMKOA1ppxlptVgAndPaoMyVjT0qmiSjieiOpLUm0hnCsWgI6gUs4B6DiSD0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAkbH2uQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=w20Nyvub;
+	arc=none smtp.remote-ip=95.215.58.234
+Received: from mta1.migadu.com (out-234.mta1.migadu.com [95.215.58.234])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D444606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:31:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44315606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:32:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44315606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAkbH2uQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD3B1F0089F;
-	Fri,  6 Nov 2026 23:31:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794007875;
-	bh=KxDNcFzjGkbUdjmkdE/Lvs3kMztmWZwJDH5eU0pXD4Q=;
-	h=From:To:Cc:Subject:Date;
-	b=NAkbH2uQurcfEeSotMoC6v/IS9V961K2gGDd2Dpg3hLxWLhcCK9zPtaE8WeXuSlXY
-	 JvYkw9V6WNWORghQgJduQh53a7bFIXh+wJRTbUfcOHIuiHvbnndbhNxkc+itxrHI9w
-	 pCbiPgo99Zvjot2JiDpWSkrsZdPT7xGSwHljK4f5RG792WafhIV3LGNEJHygznW0AE
-	 v0Nj4oQRhEfRQiZiCw3oLKdkE2N7IkNd7kkfQ4+4fqnwjsqQ8qnxBV8+SgN5W6vXcN
-	 HGkN5Hk4Y3N4UU9kXFK2r9S/zrenfTB7w6bpRpCbyHxPf6yOHhdyvnOjSZwn4pb3F/
-	 LYdRx+wFmwj7w==
-From: Thorsten Blum <blum@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
-	Michael Schmitz <schmitzmic@gmail.com>,
-	Miro Kropacek <miro.kropacek@gmail.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-m68k@lists.linux-m68k.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] m68k: atari: Use strscpy() in atari_switches_setup()
-Date: Sat,  7 Nov 2026 00:31:04 +0100
-Message-ID: <20261106233105.281683-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=w20Nyvub
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Z2txFjSrT7htQrPD/Z0Mmx5hKSX2xlJyM5Bx1Cc6DUA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794007941; v=1; x=1794612741;
+ b=w20Nyvub3XWEAW5gfIgLhNaMRbDGc0Rcvf3uiFC/gL+BrwaBNmaFFp4cJJjePeEHACrdp6sW
+ KpKnsDw8n/Y+4pmKskh2G1z2PQxzatb/ElNf8NFl+LILbTtVDnB91X/S7NR6PvfTiTfkdtB4g52
+ 6i8o8PlnPLenW3dqsFuQNE1Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 69da4acccb4a837c;
+	Fri, 06 Nov 2026 23:32:21 +0000
+X-Mizu-Trace-ID: 69da4acccb4a837c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2785198b-ca41-4cee-9dba-bc0c1e6e8f25@linux.dev>
+Date: Fri, 6 Nov 2026 16:32:15 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,36 +58,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1016; i=blum@kernel.org; h=from:subject; bh=gkYI4DWvjAn9+h0nH84MIS350bRDMYP7XG2ktMjhb7U=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnvki2NdFx+P3/xxPDxJvULp7V9tC/wOpybvX9j1zbXP tGFx/eqdpSyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEJs1m+B+0qqDxwCLJhBMc b5Y/ZpK4kHvz9pamyEvr3z1y50/cW8DIyPD9/I7HZ84KTbr6hNNJYsGdCYfMr2w65qTBVp7CxsV 34zgvAA==
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v1 0/4] bpf: Scope callback arguments to their frame
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+To: Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Eduard Zingerman
+ <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Amery Hung <ameryhung@gmail.com>, Emil Tsalapatis <emil@etsalapatis.com>,
+ Nicholas Carlini <npc@anthropic.com>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com
+References: <20261106231157.2840635-1-ihor.solodrai@linux.dev>
+Content-Language: en-US
+In-Reply-To: <20261106231157.2840635-1-ihor.solodrai@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-strcpy() has been deprecated [1] because it performs no bounds checking
-on the destination buffer, which can lead to buffer overflows.
+On 11/6/26 4:11 PM, Ihor Solodrai wrote:
+> [...]
+> 
+> Ihor Solodrai (4):
+>   bpf: Scope the bpf_user_ringbuf_drain() dynptr to its callback frame
+>   selftests/bpf: Cover the user ringbuf callback dynptr lifetime
+>   bpf: Scope the bpf_for_each_map_elem() array key to the callback frame
+>   selftests/bpf: Cover callback-frame map key lifetime
 
-While the current code works correctly, replace strcpy() with strscpy()
-to bound the copy to the size of the switches buffer.
+Alexei, if this lands first, your pending verifier rewrite will need a
+hunk like the one pasted below. Or the other way around.
 
-Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strcpy [1]
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- arch/m68k/atari/config.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Without it, a join can link a value to the wrong callback frame.
 
-diff --git a/arch/m68k/atari/config.c b/arch/m68k/atari/config.c
-index b82bbf93d8e7..09f4219faed6 100644
---- a/arch/m68k/atari/config.c
-+++ b/arch/m68k/atari/config.c
-@@ -35,4 +35,5 @@
- #include <linux/usb/isp116x.h>
- #include <linux/module.h>
-+#include <linux/string.h>
- #include <net/ethoc.h>
+diff --git a/kernel/bpf/join.c b/kernel/bpf/join.c
+index cc4494aef187..92b94e18c873 100644
+--- a/kernel/bpf/join.c
++++ b/kernel/bpf/join.c
+@@ -464,6 +464,9 @@ static bool join_func(struct bpf_join_state *js, struct bpf_func_state *fd,
+ 			return false;
+ 		if (!join_loop_stack(fa, fb))
+ 			return false;
++		jid_note(js, fa->frame_id, fb->frame_id, true);
++	} else if (!jid_strict_ok(js, fa->frame_id, fb->frame_id)) {
++		return false;
+ 	}
  
-@@ -154,5 +155,5 @@ static int __init atari_switches_setup(char *str)
- 
- 	/* copy string to local array, strsep works destructively... */
--	strcpy(switches, str);
-+	strscpy(switches, str);
- 	atari_switches = 0;
- 
+ 	for (i = 0; i < MAX_BPF_REG; i++) {
+
+> 
+>  include/linux/bpf.h                           |   2 +
+>  include/linux/bpf_verifier.h                  |   2 +
+>  kernel/bpf/arraymap.c                         |  19 ++-
+>  kernel/bpf/states.c                           |   3 +
+>  kernel/bpf/verifier.c                         |  16 +++
+>  .../selftests/bpf/progs/user_ringbuf_fail.c   | 135 ++++++++++++++++++
+>  .../bpf/progs/verifier_iterating_callbacks.c  |  91 ++++++++++++
+>  7 files changed, 266 insertions(+), 2 deletions(-)
+> 
+> 
+> base-commit: 475a0cfd02f14d764023e926ac01fc7597134229
+
