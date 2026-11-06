@@ -1,119 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793954260;
-	b=FxDMyl9C8g25TGnfCBjkefwjjTMGiUXcluE6oo/dX2quffstD+EeBmdHdkPfYCQrSslQ
-	 HWn+v4a278dlvqkbs+wGgRsi/aZ04SOJtmfDP0PVQPqqNAwfpulxe7PJw8sTYsJxoI4zr
-	 r2JsUQt4PpAyPfq0yimetMdhvw4owHmIKCRwVyEfndAIX+Nep16cO0UQ6ZwAYnTHs0eW6
-	 huCe3DhA+sK31N4fzoOR3SxVEYZL2cpNPcyQXARhTfl7tW0DqKQySTP0p6Er8wCse8xA0
-	 d+yff+Cg2tvPyk+t+ylfxq8AavIeWxgeO57IaA64b5OCm5m315ulAgrrsIF17DxbnyQ==
+	t=1793954284;
+	b=EC80gRoq2DVIuIJhqwo8/qhTziVzQitODsPujTE2KJ5NDJdKGfMpSznwkC7kJKzIcfH5
+	 5up6QQx1fJ7Xfs+a+2AXZZHOS8s1mM2FZccPjdoGlJFXrI3ARFbRCLRBhFAnJJkRvWVwK
+	 6kd6hO3SSv7r4psXRwk0ravcbLIi1IF3HyzZURrtX4NSr5VzT+LHwv/6Vkto6lljUdC68
+	 XDClFDGGVWtHOHtM0vuYzpOZN+hVlJwLSPDqqpEbhOFM/S2pFpxhE0I4xCO+TsYgUJISZ
+	 nX3Ve++rnHKMY0TGsq6rPk2BNUS2GX07EKsR0kqQEPlsd1HwjuHFmvgx/pChXbdwccA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793954260;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:Date:X-Mailer:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-MS-Reactions;
-	bh=KwLryq1ZCCKlJLNf/9dqR26odXYHbBAlEucmPgeuG6g=;
-	b=Wdzi64ed4V8vCF0UO8zu225QxId2mN5wR6FfYAMME6LimydpHpLrVf3gnovMQ9AZA3+E
-	 A0cMHjcReq8Jxl8R9vkz9SAy7N5rmycFVhJwwzz1XyVkm5P3CckYvHMQhnFh1OvlO/BDb
-	 DoQ+0AHDMq9d1MCg+89ItR0BFPHTS8wBSlm/Ehli3fzanKAoMndf/ZCyLuWjq3VgY9Uki
-	 HaoHQSGyGD2Wffq1smt/rn4z4ElMNMpVmiP3/EFdrz7e6qIbSxwloJ3JQQRyQXwufzCB1
-	 qo9NC5gaLJbgE/LZknRxMyHHYD3hF8PXOBd0TnJLU3FtY1zEamo6NDOuq1zTYTa8uqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793954284;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lCz99xV0pwCuHWp/MF8TtxJKQhzQ+E9UJnv/R9Hy57w=;
+	b=NAhMQ+MYls7KYLbhzkiCCvFC9p+kYxNyIn3F3+ku/8gYdOYFZrHuEd6F+gI1QiJyJhhI
+	 BjpYBXx3O/MpSeXvL9pk4Vx5Q5KT602cTc6bRMSL5RAOFO9NFmVVBlACeGQ+752znPoff
+	 +agriadYCz4nWRX2ROwism3SxLYlFMze3nU8RlKk2Id/IGgkUl3qLVrfvDNsyy1uI6Hu6
+	 8cKR58aw5EmAaNrV+GFkc0h3QxbuGzL58Tw3GgccWxwc6U5mRw4lB//h9m576YBK9Cyh1
+	 74oifd64Gy4KQk8THxsRI4IXjagR1+tTVpUJqnBEdWH2pLlsEHByE9e3bK33v8iqhxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VgbBdEiu;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sYkbW49q;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+iunVLZ;
+	arc=none smtp.remote-ip=74.125.227.138
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C36606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:37:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2C36606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE831606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:38:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE831606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VgbBdEiu;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sYkbW49q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793954257;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KwLryq1ZCCKlJLNf/9dqR26odXYHbBAlEucmPgeuG6g=;
-	b=VgbBdEiuYXguGgxanxzWinQF1pPUrBdluw/qeyqDKcUSzCR4mvpMrwl+yvokFjD0KBMdwY
-	KAkBWWgdNH1YGQFjzWMLzrvC2XNhLqWOukSASox0g1MVhDogmAwWkzxPALD0uvLF6q9GRf
-	+Bu/EB9aEOde4uS45Usb7dNZ69OmG8k=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-646-r1KaYvhvMViMdLTbVB0Akw-1; Fri, 06 Nov 2026 03:37:36 -0500
-X-MC-Unique: r1KaYvhvMViMdLTbVB0Akw-1
-X-Mimecast-MFC-AGG-ID: r1KaYvhvMViMdLTbVB0Akw_1793954255
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c4d3b97cd5fso29365166b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:37:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+iunVLZ
+Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e934c6c20aso4320445ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:38:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793954255; x=1794559055; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KwLryq1ZCCKlJLNf/9dqR26odXYHbBAlEucmPgeuG6g=;
-        b=sYkbW49qn8/BztC5KGMbridi7ZjaS7gThkpt9QMdcdxm7ErDO9IamcEzi9HjuuY32J
-         jfMbGCg8hvz9Kh0w7dnfiAZ+RFtQhzqwxnnrng58Lb/00BE53JAskPWH0Fa/c3IVqrjI
-         nqHqA1Op6lHFW5fM4DQZg23NxOFVuMurwPX89Hfc8MDaiKRsSuMQ4pPNwtavOrgsu8WA
-         tBMKIl/GLjUQHOJXj84q32V0AR2t7MXRrowOrVpfLIBDZydwRP/IiqyPBmXjEBxBOM2L
-         TwlC9Ukx3r8xTBd5RAU19nfF4SnXb6b1Y4ZfhzahOF9ewh6cHOS6cikga7NZMtjVuZDq
-         kTWg==
+        d=gmail.com; s=20260707; t=1793954283; x=1794559083; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lCz99xV0pwCuHWp/MF8TtxJKQhzQ+E9UJnv/R9Hy57w=;
+        b=o+iunVLZDINC4ehShCH14286mSr9iLWUncdmU/oFy1R6yw2eha5PgvV65arbMyAnae
+         J7DA+Z27xjCldFjukhRix37WsZVVJH6lG8Z2Ddit/qNgozGq67dT1H4pTDg1EM5VKg7z
+         u2l2a8ytkN4O09k6zbSPuZtoVPuHcBzjJ1+VimKYZpIim0fW1I2Moz54DctKEqsFPe+K
+         RMC5ANzJjI75l0lH8u7NpDeZprppkL8tIJO9aL6Je7LbCPRGcfMtt0cYifrHqnK+Mrrj
+         hxVUOHqnne+f/CJTYJvFI1HUyy1X7vOe7v//e1p1nb7U9jFdNqMAkhU64AeIyumsealm
+         Vw3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793954255; x=1794559055;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KwLryq1ZCCKlJLNf/9dqR26odXYHbBAlEucmPgeuG6g=;
-        b=cu48pRfP4Gy1izDI8PtaJcfmAs2U3TOJlI/JqqNg2swy7tcoyyxrhKYSxEPD4MCCAL
-         rUXe3jo4rg6r7WWr7Rd0P8RDOHdPmW0tbj/OxKIv05P13ebZLCAL2axM5nlNqzzPKRQE
-         75wJbNen3nn1cp0qQVhoEcvCEgZ0vnECh/95+nyPR+iBkMouzJtqP62ST6ybYFGZL2F5
-         pJdn5EWksaC0kjphq+GNHhvfZ3J7ZSFSLqn8WAXzMJXNl6l82RYjYHu2sdbnVLuXptxf
-         SJwaomIqwa8M8047+l+nW1hV1zRUHZzd5eyJaxa8tTHuZBjLm7tb5Nn6pgBFNmR7CwNJ
-         qkaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw+mO2rsQXzVNqfyKp9tsQFoMlMewDXYm7oVQJooEelRp/1218Xjz8iSM4WGc4ey2IA9dyyX4/QcISifR4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+67vQoujXQr9gAvnDApONT6LAMZZBLx9E2B4qn7jmq5iDCNxsS
-	/NHC0OIw+gvZ87OkhvEYDsAC+2gdUCxj9RRSacIN7fDcRvWHc7LZVQ93sFbhHMwjcMqaosZe+SY
-	iFfzOF1rfsOXS83yuXSwOrSrgt2fuG7eCRNUJeHuXlRAD3U7FKnS6bsOTsd6CR1Vc4g==
-X-Gm-Gg: AYBFou2Szwq/7vERU1wxTjuGFTolCP4dg17jYOmBxQQqSKITC9kBhR70q6Lx1VzH6TN
-	v+YFN5cVJZtHUqTfQaihYNUvke6e5xbgTOEbkLH9zjo3boqpv2MINb+t71b4UHEia7oEEJGSdjV
-	cbNrZfpYXc9aSiwnRKYDrqUGE55bFrag2ilQ0OmDnFhcEa/abzBc1/ST/6XFnab7QzA+v6Bxt52
-	/Lhlfy1O3jpDyJaG/1E8sry6ep+k2f9Ct3YxLqjU5UHdgpwB8UFA9+YJife7jsq/hDPglGXnuPk
-	i7xoqH2/h/AePoGhQwh+AdM7tAb/yqNjCsFHaInGXxy5WFaSOPVa1DOOYhOAn5TsLO6pbaleh0q
-	nXVMm8U4SelYD1DOEHTeHYeCd4UVLDzxipkLLgA9CS8wCud1bEH2wiTMDoJgvvTjv+2pqKg2rvd
-	JF8Gge2O0QZvrvc65EW6TH
-X-Received: by 2002:a17:907:160e:b0:c46:d837:b358 with SMTP id a640c23a62f3a-c4d344a26cemr162751266b.3.1793954255359;
-        Fri, 06 Nov 2026 00:37:35 -0800 (PST)
-X-Received: by 2002:a17:907:160e:b0:c46:d837:b358 with SMTP id a640c23a62f3a-c4d344a26cemr162749466b.3.1793954254936;
-        Fri, 06 Nov 2026 00:37:34 -0800 (PST)
-Received: from [172.16.2.47] (5920ab7b.static.cust.trined.nl. [89.32.171.123])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d354ac21dsm60206166b.12.2026.11.06.00.37.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 00:37:34 -0800 (PST)
-From: Eelco Chaudron <echaudro@redhat.com>
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Cc: Aaron Conole <aconole@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, dev@openvswitch.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] openvswitch: advance by the real header length in
- get_ipv6_ext_hdrs()
-Date: Fri, 06 Nov 2026 09:37:33 +0100
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <69789AC4-A3E6-4DC2-ACAB-EFC10F14EBA7@redhat.com>
-In-Reply-To: <20261102-ovs-exthdrs-v2-1-21ceef6a243d@gmail.com>
-References: <20261102-ovs-exthdrs-v2-1-21ceef6a243d@gmail.com>
+        d=1e100.net; s=20260707; t=1793954283; x=1794559083;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lCz99xV0pwCuHWp/MF8TtxJKQhzQ+E9UJnv/R9Hy57w=;
+        b=sSLpZAv8A5In6LU3kLW/av+trXsHaWXsGYFsOYcNCobRYTlSpyYpWW/syPOOWR6QqY
+         JiTszCrZQtjEOeEnqBh81VukUodFn2GOPkGgqytoGxSkd5Gn4vDctU40cNMXlJZMh5/w
+         Iey5zMgMr3G0rjkB+tHSgoAQ2osXgIb5/AYrdcLgbJlhDE+409YBGmW/gIlQOuDBg3Af
+         mGsO23YK20nt0YUaUoAR0zZfMACdNBH/ubpv8p0oKIBjU3Dxp2KPo8g/frWRR4kcEvCM
+         bXrwS+39FLBHA/UQVwWRSAXl8JdC0oMuc03Dw09V/AWz3PkOmU3vqW7hCD67CT010UW7
+         LR/A==
+X-Forwarded-Encrypted: i=1; AKwUvBztubEohIyqH7n3vyV8qflcJp4uipavdKogWklmdl99ta2uFMBKXjOvjiEz7Zn8xf9Sg3Xishs6H7ubdcw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8H7dAEJUg1hHJyWsPmdx5E0GwgbRE6/Wn3OjLbyF9osKyknozU
+	fxDxw2O5DC116nxA9CJu0VCS7qujPOqMX+lCYrVEcht5RwhhD2enysTv
+X-Gm-Gg: AYBFou2ZExPVAZhKfo9u/4lFYYmkII0hXGlbK5C5elAkqf5poS3DRr3kCU4gI/AzZWV
+	+oTQXVseryqs5dWW0vOrQlxUcPpd1mJHi8sOtigPZWZcTgtgbmlA1hY+RDJCpa7jFyHC6S0vNdP
+	zHVGlyRQpI+kJRLMUr+baZ8XkwomC3RuvNwF6mSKwDjPthpnOUY5wyPKc7n83Wg/7zep53xCq1D
+	Vv1LaTPoSqXyi6tkGA1e3uI1SOQTdQDPyLJZqZXa8q5S2jzi8ITd8gTgIqVzVgU5YegS816GArd
+	uAG6cBJ2uU3mQdt84zm5SaTji78DZwST2b4eRDHmIpRKpkWxbr5KnFTjAtfJy/g+0mdfS+T1fl2
+	OOTOALcaOQXy4xw2rOZNvOf44TCL4BDG+vTxaahTSjRnFCMMi3HIg6+zK4B8bWEYkq/Fgj27jEZ
+	pd6tJY975wSQsKkXPKXuy+yZ00+yvc8WyRbaeqIHpO+AzNdMLA4FusxNoKc0IkF2ikppQcmk7LA
+	R7CT4MW23g8/L1Lquz49BFZENOzD3DUdY1f7DdWYc8DYX6Yt4A+BHTaIAYIqEYg3F+hpPdwZYiz
+	VxP/mHnccUgsmRRd+HnIJuJTaiX0/vQPk/h2NSg4nSiTkcA=
+X-Received: by 2002:a05:6a20:1449:b0:3eb:39fd:bacc with SMTP id adf61e73a8af0-3ebb2a9e69dmr2297053637.50.1793954283154;
+        Fri, 06 Nov 2026 00:38:03 -0800 (PST)
+Received: from localhost ([164.52.124.84])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3596fae32sm414537b3a.21.2026.11.06.00.37.59
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 00:38:02 -0800 (PST)
+From: Jiabin Deng <dengjiabin2023@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Dragos Tatulea <dtatulea@nvidia.com>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Mark Bloch <mbloch@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net/mlx5e: SHAMPO, Disable end padding when relaxed ordering is supported
+Date: Fri,  6 Nov 2026 16:37:19 +0800
+Message-ID: <20261106083719.22798-1-dengjiabin2023@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,59 +98,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
+Content-Transfer-Encoding: 8bit
 
+When SHAMPO and relaxed ordering writes are enabled, aligned RQ end
+padding can corrupt TCP data received directly into GPU DMA-BUF memory.
+The receiver gets the expected number of bytes, but some payload
+prefixes are zero-filled, with the corrupted ranges ending at 64-byte
+boundaries.
 
+The current RQ end padding selection avoids alignment padding for LRO,
+but not for SHAMPO. Extend the condition to SHAMPO to prevent this
+corruption.
 
-On 2 Nov 2026, at 2:45, Joas Antonio dos Santos via B4 Relay wrote:
+The issue was observed in a two-host test using a BlueField-3 NIC and
+an NVIDIA H20 GPU. In the original test with MTU 1500, 354 of 400
+transfers contained corrupted data before the fix. After applying this
+change, all 400 transfers across eight message sizes from 32 KiB to
+4 MiB, with 50 transfers per size, completed successfully, with no
+incorrect bytes or corrupted intervals.
 
-> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
->
-> get_ipv6_ext_hdrs() walks the IPv6 extension header chain to fill
-> key->ipv6.exthdrs, but advances to the next header with ipv6_optlen()
-> whatever the current header is.  That is only right for Hop-by-Hop,
-> Destination Options and Routing headers:
->
->  - an Authentication Header is ((hdrlen + 2) << 2) bytes long
->    (ipv6_authlen()), so with hdrlen =3D 4 the walk skips 40 bytes inste=
-ad
->    of 24 and reads the next "header" from the ICV and payload;
->
->  - a Fragment header is always 8 bytes, and the byte read as hdrlen is
->    its Reserved field, which the sender controls and receivers ignore,
->    so a non-zero value makes the walk skip up to 2048 bytes and miss
->    the headers that follow;
->
->  - in a non-first fragment nothing after the Fragment header is a
->    header at all, it is the middle of the fragmentable part, yet the
->    walk keeps parsing it as an extension header chain.
->
-> In all cases the OFPIEH12_* bits stored in key->ipv6.exthdrs depend on
-> bytes chosen by the sender rather than on the headers that are actually=
+Fixes: e5ca8fb08ab2 ("net/mlx5e: Add control path for SHAMPO feature")
+Closes: https://lists.openwall.net/linux-kernel/2026/09/15/154
+Link: https://lists.openwall.net/linux-kernel/2026/10/20/1322
+Suggested-by: Dragos Tatulea <dtatulea@nvidia.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiabin Deng <dengjiabin2023@gmail.com>
+---
+ drivers/net/ethernet/mellanox/mlx5/core/en/params.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-> present: payload bytes that look like another AH or a Hop-by-Hop header=
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
+index 5caf7820a136..159f79302a08 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
+@@ -911,10 +911,11 @@ static void mlx5e_build_rx_cq_param(struct mlx5_core_dev *mdev,
+ 
+ static u8 rq_end_pad_mode(struct mlx5_core_dev *mdev, struct mlx5e_params *params)
+ {
+-	bool lro_en = params->packet_merge.type == MLX5E_PACKET_MERGE_LRO;
++	bool no_pad = params->packet_merge.type == MLX5E_PACKET_MERGE_LRO ||
++		      params->packet_merge.type == MLX5E_PACKET_MERGE_SHAMPO;
+ 	bool ro = MLX5_CAP_GEN(mdev, relaxed_ordering_write);
+ 
+-	return ro && lro_en ?
++	return ro && no_pad ?
+ 		MLX5_WQ_END_PAD_MODE_NONE : MLX5_WQ_END_PAD_MODE_ALIGN;
+ }
+ 
 
-> add OFPIEH12_UNREP/OFPIEH12_UNSEQ, and real headers after a Fragment
-> header can go unreported.  Flows that match on OVS_KEY_ATTR_IPV6_EXTHDR=
-S
-> then classify such packets wrongly.  There is no memory safety issue,
-> skb_header_pointer() bounds every read.
->
-> Advance by sizeof(struct frag_hdr) for Fragment headers and by
-> ipv6_authlen() for AH, and stop at the Fragment header if its offset is=
-
-> non-zero, as ipv6_find_hdr() does.
->
-> Fixes: 28a3f0601727 ("net: openvswitch: IPv6: Add IPv6 extension header=
- support")
-> Link: https://lore.kernel.org/all/178905555085.219967.66176117834372280=
-45@kernel.org/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-
-Thanks the patch looks good to me.
-
-Reviewed-by:  Eelco Chaudron <echaudron@ovn.org>
+base-commit: fafbc4051123d5459ea6950899cec08ed946e278
+-- 
+2.51.0
 
