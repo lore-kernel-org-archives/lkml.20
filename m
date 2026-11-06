@@ -1,58 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986998;
-	b=UvxhSCKbDISlLmpIUS5y3nfP8aW/+T2FX64zsArLDpW9cfqbIpxFjx7WgUJHqdMVV+ir
-	 497vk9SbF0bk28H8MGA6R/Mo9oKFZljNt7LVUUcTVMdzz6TEMvlUL5JWaCpjERUsfda8+
-	 qhFqV9Y597jjCvlbDk2okfqL4zEfx+rsOKyo1mXJgYdKUu7LPe9sYVBwtj/UZBibl0uG2
-	 oae8M+zunf9AlHAnp3+O2RTScSRxxvFzMkt0aMJkkMQWotAmxbJ2WAJet0cv52QwD4e91
-	 upf3GEGwYI/9eiq23D3PAENIlFLb2mRx70rP371IstB+EFhzEbGC+RkeonbihzTHcLw==
+	t=1793987005;
+	b=yZZUNJQcmeivOUZau1IXTewb8gRnK6w4yFM54aLYDhJtjdmLMjm/z3ggsLeYpdHrX23a
+	 lYn2P1KBTFhfFiZAnGc6i7qrF/qt6QmE7K4rGO5CvJS3pysW0C5WNb4KDaL5MEoXkOkPI
+	 RQCWwGPrFGRVb2/H3Y2R83VvA56qtljfjchbiQhWDpZodT7X1vYxdW80A8ogBAzKH9QQ1
+	 sZh7O87bXpM86Qj/f9YzXIb0JpDEYhTlTpj7MTMI7cic1YqMqGGLX1nLRD6zKUEjRdBC3
+	 9b2nGmT+twn5EexWxgKLMIs2s3K2AxbDKsj1OvI0NOJHNzmsisMlhuTe3P6BXlbnlyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986998;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987005;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2bsl3HcOpokhw2h9bHTtGtU5dNcR70Nby9xgUtQM0tU=;
-	b=i68+r7iAhPde61qBxpd47WBHn+aELHdh/vOFWHefMQ8F2z67pBRep7loAaeKC1Uq0Ivv
-	 syfrMyZ4e8odvUe/mpaUyZ1HqORJo57Gf1N99yzgF3nIp5tHmMQ5Ju9AafvWsOd41bmvU
-	 /jQ+1QgQcHJdRXUReE6fCAjGiH1cTkZa/+iW3Le0y4+N33HBbgmQ5p7N7Zvx57kGO4jwj
-	 syPL6MUhglMUlznf0eHMtxgeozQwS7SiOwI4wGSUOA+GSnkhbsvLqXF2I6qLBWihqPz1C
-	 Kmd0+yYlZKxvsap6FMn8QC1UiAas00hacM4qwmJUSt9uMATpu4e0hazwsOkYYZIxAhg==
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6wGlqMA/F4fTxwEsT9uA7hyyP8LHb9wChy2k5aVeW4E=;
+	b=f/P+PolgmovmuQvyCa/9MfC/aoPEjoPo1DyPtvOu+V7hcEz7Gzw30w0hxyiqRYhkusoL
+	 tTZfwvHcFRRkpE22WRZccyNDRdEd7KK1nhVbKI+uD+Wt4BDViSe//LDzNl4w9Y60rXEpP
+	 I/EnMPyZYKwbmloF8ASqh8nxCoo0BEmnYK/N8fyN4+hDW37XOKX5vSO410jZH8OVGe2aI
+	 er3ts2sVIVnWjzt/Pf134Iaq4zNXBeNrzqakgI3GmSS5Mo1otsqXL9zAE40bGFhYaQWOx
+	 fdLO8TlfAjK1MY3TbMS7eRRFMrc1IF46FMMNgghasveKEHmFWRd/jf7e/No9Fmd6AVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlrNzNss;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSW8m5eM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D73B606A32D;
-	Fri,  6 Nov 2026 17:43:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA65606A33E;
+	Fri,  6 Nov 2026 17:43:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlrNzNss
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43ADA1F0089F;
-	Fri,  6 Nov 2026 17:43:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSW8m5eM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C231F0089F;
+	Fri,  6 Nov 2026 17:43:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793986998;
-	bh=2bsl3HcOpokhw2h9bHTtGtU5dNcR70Nby9xgUtQM0tU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GlrNzNssHuihwsxdlP0L8AFour+ufncj/OZQhTh5SH4VFffQ9idD3Uohkk5jxPHqy
-	 tdQg6xSmWPwil3VxUW0/yYMllrJfhR4BiIBar2Y9UtnJcJH3ObsmEpRet+5LadeC4X
-	 i9yriBhlE3vD7Z4WZl/wM5IXeqdfsxdAjUbr1NvPjMiJmlgpWToMYMAqqBFZimZ3Nd
-	 d+3t4YL7iVAx2Wn3XHPi5jW8Og4mBZtUZ6NvxgTxMwxaVlqlk1wqjCWWPb64yAEuzH
-	 T+T30p2iMWHlPoUCR6z6HxjGFDrrRPy7q7/c+YEzFCtoB4G8yEGtW1G98ZmeNPUPm/
-	 0BzqrRTyDJhCg==
-Date: Fri, 6 Nov 2026 17:43:13 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Jizhou Tong <fqwqf@fqwqf.xyz>
-Cc: Jingyuan Liang <jingyliang@chromium.org>, jikos@kernel.org,
-	bentiss@kernel.org, dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	daleyo@gmail.com, broonie@kernel.org, u.kleine-koenig@baylibre.com,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Subject: Re: [RFC PATCH v3 4/5] dt-bindings: input: hid-over-spi: add the
- Surface Laptop 7 touchpad
-Message-ID: <20261106-provoke-capably-b7de457b9710@spud>
-References: <010601a1ad274a9c-ca2fc8f5-d3fb-435d-8572-c0d3eb701649-000000@ap-northeast-1.amazonses.com>
- <010601a1ad2a2dba-85a8b4dd-f21b-4dbf-afae-9a40b533338d-000000@ap-northeast-1.amazonses.com>
+	s=k20260515; t=1793987005;
+	bh=6wGlqMA/F4fTxwEsT9uA7hyyP8LHb9wChy2k5aVeW4E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=DSW8m5eMB/det3mgB6XM5gVX5mjkKsYV4lKG5MFV2YZPwh5vVWskH9wDlPYfM9yF4
+	 irejDE8pRLdDjhP9zHiBNnixER+vM7evtS+4cWtmACeEQBCgHebhzpZ/uiYrzaMea/
+	 1YdpExGk+fg8NUHkgdFUUg7G31Woi4EuRLEz004dbhdS+1MEAI23TdYRU3SdSHugZW
+	 ZY+Jsj+VzbFLkArxQiB8Eqac9rlBY46naW9zkn3DQ4s66EvNM+0gmZO2rndk3ZKHNY
+	 llGT0pw6l6737MNIv0AkH4qeVD746k6WJLrSqWE532yl0Ri+47qLKSNdgmHtl8rdFZ
+	 PqNzeHOgByIOg==
+Date: Fri, 6 Nov 2026 11:43:23 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	Adithya Jayachandran <ajayachandra@nvidia.com>,
+	Alexander Graf <graf@amazon.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Josh Hilke <jrhilke@google.com>,
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v10 06/13] PCI: liveupdate: Preserve bus numbers during
+ Live Update
+Message-ID: <20261106174323.GA1635842@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,107 +76,348 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wftLhdEoMcbIPuoZ"
-Content-Disposition: inline
-In-Reply-To: <010601a1ad2a2dba-85a8b4dd-f21b-4dbf-afae-9a40b533338d-000000@ap-northeast-1.amazonses.com>
-
---wftLhdEoMcbIPuoZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261013162529.1928093-7-dmatlack@google.com>
 
-On Thu, Nov 05, 2026 at 07:23:05PM +0000, Jizhou Tong wrote:
-> The Surface Laptop 7 13.8-inch (Romulus13) touchpad uses HID-over-SPI
-> with quad address/data transfers. Add its compatible to the common
-> binding, with both bus widths fixed to four and a 20 MHz clock limit.
-> The existing supply and active-low reset properties cover this device.
->=20
-> Keep the G6 digitizer constraints unchanged. Pinctrl properties are
-> already permitted by the common schemas and need no local definitions.
->=20
-> Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
+On Tue, Oct 13, 2026 at 04:25:22PM +0000, David Matlack wrote:
+> Keep the secondary and subordinate bus numbers that the previous kernel
+> programmed into bridges, rather than assigning new ones, if the previous
+> kernel preserved any device across a Live Update. Do this even on
+> architectures that would otherwise always assign bus numbers themselves,
+> e.g. when pci=assign-busses is passed.
+> 
+> Preserved devices must be allowed to continue performing memory
+> transactions across a Live Update, so the kernel cannot change the
+> fabric topology. Changing the bus numbers of a bridge changes the
+> RequesterIDs of the devices below it, which would require disabling and
+> flushing any in-flight memory transactions first.
+> 
+> Apply the policy globally rather than only to the paths that contain
+> preserved devices. Bus numbers have to be preserved above a preserved
+> device anyway, since an upstream bridge cannot expand its window. A
+> global policy matches the scope of pcibios_assign_all_busses(), and
+> gives an answer that cannot change part way through the two passes of a
+> bridge scan.
+> 
+> Bridges that do not have bus numbers are still assigned new ones, so
+> hot-adding a bridge keeps working, both during and after a Live Update.
+> The two-pass bridge scan guarantees such bridges are only assigned bus
+> numbers above those already claimed by preserved bridges.
+> 
+> The exception is a bridge that was preserved but comes up without a
+> valid bus number configuration, e.g. because it was reset during kexec.
+> Refuse to assign it new bus numbers, since that would silently change
+> the BDF of every preserved device in its hierarchy. Also refuse to
+> assign bus numbers to the other bridges on the same bus, since the bus
+> numbers of the failed bridge can no longer be read from hardware and
+> handing them out would let an unrelated device inherit the BDF of a
+> preserved device.
+> 
+> Require that CONFIG_CARDBUS is not enabled to enable
+> CONFIG_PCI_LIVEUPDATE since preserving bus numbers on PCI-to-CardBus
+> bridges requires additional work but is not a priority at the moment.
+> 
+> Signed-off-by: David Matlack <dmatlack@google.com>
+
+Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
+
+When I download the series with "b4 am -om/
+https://lore.kernel.org/all/20261013162529.1928093-1-dmatlack@google.com",
+b4 finds and adds my Reviewed-by.  I suppose it notices the patch is
+identical to v9, where I did add the Reviewed-by:
+https://lore.kernel.org/linux-pci/20260925200407.GA2082921@bhelgaas/
+
 > ---
->  .../bindings/input/hid-over-spi.yaml          | 40 +++++++++++++++++++
->  1 file changed, 40 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml b/=
-Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> index bed0746f00..ec8c72493d 100644
-> --- a/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> @@ -22,11 +22,30 @@ description: |+
->  allOf:
->    - $ref: /schemas/input/touchscreen/touchscreen.yaml#
->    - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: microsoft,romulus13-touchpad
-> +    then:
-> +      properties:
-> +        spi-max-frequency:
-> +          maximum: 20000000
-> +        spi-rx-bus-width:
-> +          items:
-> +            - const: 4
-
-Should this not just be "const: 4", since the property is not an array?
-
-Cheers,
-Conor.
-
-> +        spi-tx-bus-width:
-> +          items:
-> +            - const: 4
-> +      required:
-> +        - spi-rx-bus-width
-> +        - spi-tx-bus-width
-> =20
->  properties:
->    compatible:
->      enum:
->        - microsoft,g6-touch-digitizer
-> +      - microsoft,romulus13-touchpad
-> =20
->    reg:
->      maxItems: 1
-> @@ -73,3 +92,24 @@ examples:
->          pinctrl-0 =3D <&ts_d6_int_bias>;
->        };
->      };
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/gpio/gpio.h>
+>  .../admin-guide/kernel-parameters.txt         |   7 +-
+>  drivers/pci/Kconfig                           |   2 +-
+>  drivers/pci/liveupdate.c                      | 114 ++++++++++++++++++
+>  drivers/pci/liveupdate.h                      |  13 ++
+>  drivers/pci/probe.c                           |  11 +-
+>  include/linux/pci_liveupdate.h                |   5 +
+>  6 files changed, 146 insertions(+), 6 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd2..7eabf6320abf 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -5170,7 +5170,12 @@ Kernel parameters
+>  				explicitly which ones they are.
+>  		assign-busses	[X86] Always assign all PCI bus
+>  				numbers ourselves, overriding
+> -				whatever the firmware may have done.
+> +				whatever the firmware may have done. Ignored
+> +				if any device was preserved across a Live
+> +				Update, where the kernel must preserve the
+> +				PCI topology (including bus numbers) to
+> +				avoid interrupting ongoing memory transactions
+> +				of preserved devices.
+>  		usepirqmask	[X86] Honor the possible IRQ mask stored
+>  				in the BIOS $PIR table. This is needed on
+>  				some systems with broken BIOSes, notably
+> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+> index 8af20f558086..16fbd4212e0f 100644
+> --- a/drivers/pci/Kconfig
+> +++ b/drivers/pci/Kconfig
+> @@ -273,7 +273,7 @@ config VGA_ARB_MAX_GPUS
+>  
+>  config PCI_LIVEUPDATE
+>  	bool "PCI Live Update Support"
+> -	depends on PCI && LIVEUPDATE && 64BIT
+> +	depends on PCI && LIVEUPDATE && 64BIT && !CARDBUS
+>  	help
+>  	  Enable PCI core support for preserving PCI devices across Live
+>  	  Update. This, in combination with support in a device's driver,
+> diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
+> index bffb3e1d8b2d..8d5ad26e948c 100644
+> --- a/drivers/pci/liveupdate.c
+> +++ b/drivers/pci/liveupdate.c
+> @@ -148,6 +148,32 @@
+>   * This enables the PCI core and any drivers bound to the bridge to participate
+>   * in the Live Update so that preserved endpoints can continue issuing memory
+>   * transactions during the Live Update.
+> + *
+> + * BDF Stability
+> + * =============
+> + *
+> + * The PCI core guarantees that preserved devices can be identified by the same
+> + * bus, device, and function numbers for as long as they are preserved
+> + * (including across kexec). To accomplish this, the PCI core keeps the
+> + * secondary and subordinate bus numbers that the previous kernel programmed
+> + * into bridges, if the previous kernel preserved any device. This is true even
+> + * on architectures that always assign new bus numbers during scanning. The
+> + * kernel assumes the previous kernel established a sane bus topology across
+> + * kexec.
+> + *
+> + * Bridges that do not have bus numbers are assigned new ones as usual, so
+> + * hot-adding a bridge keeps working, both during and after a Live Update. The
+> + * two-pass bridge scan ensures such bridges are only assigned bus numbers above
+> + * those already claimed by preserved bridges.
+> + *
+> + * If a preserved bridge comes up without a valid bus number configuration, e.g.
+> + * because it was reset during kexec, the PCI core refuses to assign it new bus
+> + * numbers and does not enumerate anything below it. Assigning new bus numbers
+> + * would silently change the BDF of every preserved device in its hierarchy. The
+> + * PCI core also stops assigning bus numbers to the other bridges on the same
+> + * bus, since the bus numbers of the failed bridge can no longer be read from
+> + * hardware and handing them to another bridge would let an unrelated device
+> + * inherit the BDF of a preserved device.
+>   */
+>  
+>  #define pr_fmt(fmt) "PCI: liveupdate: " fmt
+> @@ -168,9 +194,13 @@
+>   * struct pci_liveupdate_global - Global state for PCI Live Update support
+>   * @rwsem: Reader/writer semaphore used to protect the incoming and outgoing
+>   *         FLBs, and the references to them in struct pci_dev.
+> + * @had_incoming: True if the previous kernel preserved at least one PCI device.
+> + *                Set when the incoming FLB is retrieved and never cleared, so
+> + *                it stays true after Live Update finishes.
+>   */
+>  struct pci_liveupdate_global {
+>  	struct rw_semaphore rwsem;
+> +	bool had_incoming;
+>  };
+>  
+>  static struct pci_liveupdate_global pci_liveupdate = {
+> @@ -316,6 +346,14 @@ static int pci_flb_retrieve(struct liveupdate_flb_op_args *args)
+>  			      ret);
+>  	}
+>  
+> +	/*
+> +	 * Remember that the previous kernel preserved devices for the lifetime
+> +	 * of this kernel, even after Live Update finishes and the incoming FLB
+> +	 * is freed. See pci_liveupdate_preserve_bus_numbers().
+> +	 */
+> +	if (!xa_empty(&incoming->xa))
+> +		pci_liveupdate.had_incoming = true;
 > +
-> +    spi {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
+>  	args->obj = incoming;
+>  	return 0;
+>  }
+> @@ -624,6 +662,80 @@ static void pci_liveupdate_flb_put_incoming(void)
+>  	liveupdate_flb_put_incoming(&pci_liveupdate_flb);
+>  }
+>  
+> +/**
+> + * pci_liveupdate_preserve_bus_numbers() - Determine if the PCI core should
+> + *                                         preserve bus numbers when scanning
+> + *                                         bridges.
+> + *
+> + * This function is called by the PCI core when it is scanning a bridge. It
+> + * determines whether the PCI core should preserve the secondary and subordinate
+> + * bus numbers that the previous kernel programmed into that bridge, rather than
+> + * assigning new ones. This is necessary to keep RequesterIDs constant for
+> + * preserved devices issuing memory transactions.
+> + *
+> + * Bus numbers are preserved everywhere, and for the lifetime of the kernel, if
+> + * the previous kernel preserved any device. Bus numbers have to be preserved
+> + * above a preserved device anyway, since an upstream bridge cannot expand its
+> + * window. Applying the same policy everywhere matches the scope of
+> + * pcibios_assign_all_busses(), and gives an answer that cannot change part way
+> + * through the two passes of a bridge scan.
+> + *
+> + * The incoming FLB is retrieved while setting up the first device, which always
+> + * happens before any bridge is scanned, so this returns the same answer for the
+> + * entire enumeration.
+> + *
+> + * Note that this does not prevent the PCI core from assigning bus numbers to
+> + * bridges that do not have any, e.g. bridges that are hot-added after the
+> + * Live Update. See pci_liveupdate_refuse_bus_numbers() for the one case where
+> + * the PCI core must refuse to do so.
+> + *
+> + * Return: True if bus numbers should be preserved, false otherwise.
+> + */
+> +bool pci_liveupdate_preserve_bus_numbers(void)
+> +{
+> +	return pci_liveupdate.had_incoming;
+> +}
 > +
-> +      touchpad@0 {
-> +        compatible =3D "microsoft,romulus13-touchpad";
-> +        reg =3D <0>;
-> +        spi-max-frequency =3D <20000000>;
-> +        spi-rx-bus-width =3D <4>;
-> +        spi-tx-bus-width =3D <4>;
-> +        interrupts-extended =3D <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
-> +        vdd-supply =3D <&vreg_ts_5p0>;
-> +        reset-gpios =3D <&tlmm 120 GPIO_ACTIVE_LOW>;
-> +        pinctrl-0 =3D <&touchpad_reset>;
-> +        pinctrl-names =3D "default";
-> +      };
-> +    };
-
---wftLhdEoMcbIPuoZ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4RsQAKCRB4tDGHoIJi
-0jZzAQDeKBGTodyokA8FFYhJM2LUflFK8kWeqNNxmlnbNRvLZAD6AoJYpapFagEN
-ggC7VYtemx7OuaGF3yM9r4KkPaGn4g8=
-=7zi0
------END PGP SIGNATURE-----
-
---wftLhdEoMcbIPuoZ--
+> +/**
+> + * pci_liveupdate_refuse_bus_numbers() - Determine if the PCI core must refuse
+> + *                                       to assign bus numbers to the provided
+> + *                                       bridge.
+> + * @bus: The PCI bus the bus numbers would be assigned from.
+> + * @dev: The PCI bridge device the bus numbers would be assigned to.
+> + *
+> + * This function is called by the PCI core before it assigns bus numbers to a
+> + * bridge that does not have any.
+> + *
+> + * A bridge that was preserved by the previous kernel but came up without a
+> + * valid bus number configuration, e.g. because it was reset during kexec, is
+> + * left alone by the PCI core and therefore has no child bus once the first pass
+> + * of the bridge scan is done.
+> + *
+> + * The PCI core must not assign bus numbers from @bus while such a bridge is on
+> + * it, including to the failed bridge itself. Assigning new bus numbers to the
+> + * failed bridge would silently change the BDF of every preserved device in its
+> + * hierarchy. Its bus numbers cannot be read from hardware anymore either, so
+> + * they cannot be excluded from assignment, and handing them to another bridge
+> + * would let an unrelated device inherit the BDF of a preserved device.
+> + *
+> + * Return: True if @dev must not be assigned bus numbers, false otherwise.
+> + */
+> +bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev)
+> +{
+> +	struct pci_dev *bridge;
+> +
+> +	for_each_pci_bridge(bridge, bus) {
+> +		if (!bridge->liveupdate.was_incoming || bridge->subordinate)
+> +			continue;
+> +
+> +		pci_err(dev, "Not assigning bus numbers, preserved bridge %s lost its bus number configuration\n",
+> +			pci_name(bridge));
+> +		return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  void pci_liveupdate_setup_device(struct pci_dev *dev)
+>  {
+>  	struct pci_flb_incoming *incoming;
+> @@ -652,6 +764,8 @@ void pci_liveupdate_setup_device(struct pci_dev *dev)
+>  
+>  	pci_info(dev, "Device was preserved by previous kernel across Live Update\n");
+>  	dev->liveupdate.incoming = dev_ser;
+> +	dev->liveupdate.was_incoming = true;
+> +
+>  	pci_liveupdate_flb_put_incoming();
+>  }
+>  
+> diff --git a/drivers/pci/liveupdate.h b/drivers/pci/liveupdate.h
+> index eaaa3559fd77..e5d2a19d2ca2 100644
+> --- a/drivers/pci/liveupdate.h
+> +++ b/drivers/pci/liveupdate.h
+> @@ -13,6 +13,8 @@
+>  #ifdef CONFIG_PCI_LIVEUPDATE
+>  void pci_liveupdate_setup_device(struct pci_dev *dev);
+>  void pci_liveupdate_cleanup_device(struct pci_dev *dev);
+> +bool pci_liveupdate_preserve_bus_numbers(void);
+> +bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev);
+>  #else
+>  static inline void pci_liveupdate_setup_device(struct pci_dev *dev)
+>  {
+> @@ -21,6 +23,17 @@ static inline void pci_liveupdate_setup_device(struct pci_dev *dev)
+>  static inline void pci_liveupdate_cleanup_device(struct pci_dev *dev)
+>  {
+>  }
+> +
+> +static inline bool pci_liveupdate_preserve_bus_numbers(void)
+> +{
+> +	return false;
+> +}
+> +
+> +static inline bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus,
+> +						     struct pci_dev *dev)
+> +{
+> +	return false;
+> +}
+>  #endif
+>  
+>  #endif /* DRIVERS_PCI_LIVEUPDATE_H */
+> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> index ad7fdf0d56b6..debe0ad1ef68 100644
+> --- a/drivers/pci/probe.c
+> +++ b/drivers/pci/probe.c
+> @@ -1397,6 +1397,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  				  int max, unsigned int available_buses,
+>  				  int pass)
+>  {
+> +	bool preserve_bus_numbers = !pcibios_assign_all_busses() ||
+> +				    pci_liveupdate_preserve_bus_numbers();
+>  	struct pci_bus *child;
+>  	u32 buses;
+>  	u16 bctl;
+> @@ -1449,8 +1451,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  		goto out;
+>  	}
+>  
+> -	if ((secondary || subordinate) &&
+> -	    !pcibios_assign_all_busses() && !broken) {
+> +	if ((secondary || subordinate) && preserve_bus_numbers && !broken) {
+>  		unsigned int cmax, buses;
+>  
+>  		/*
+> @@ -1492,8 +1493,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  		 * do in the second pass.
+>  		 */
+>  		if (!pass) {
+> -			if (pcibios_assign_all_busses() || broken)
+> -
+> +			if (!preserve_bus_numbers || broken)
+>  				/*
+>  				 * Temporarily disable forwarding of the
+>  				 * configuration cycles on all bridges in
+> @@ -1507,6 +1507,9 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  			goto out;
+>  		}
+>  
+> +		if (pci_liveupdate_refuse_bus_numbers(bus, dev))
+> +			goto out;
+> +
+>  		/* Clear errors */
+>  		pci_write_config_word(dev, PCI_STATUS, 0xffff);
+>  
+> diff --git a/include/linux/pci_liveupdate.h b/include/linux/pci_liveupdate.h
+> index 710026ada2d5..d45a5b524909 100644
+> --- a/include/linux/pci_liveupdate.h
+> +++ b/include/linux/pci_liveupdate.h
+> @@ -17,10 +17,15 @@
+>   * struct pci_liveupdate - PCI Live Update state for a struct pci_dev
+>   * @outgoing: State preserved for the next kernel.
+>   * @incoming: State preserved by the previous kernel.
+> + * @was_incoming: True if this struct pci_dev was incoming-preserved when it was
+> + *                set up, i.e. it was matched to state preserved by the previous
+> + *                kernel. Unlike @incoming, this is never cleared, so it stays
+> + *                true after the device finishes participating in Live Update.
+>   */
+>  struct pci_liveupdate {
+>  	struct pci_dev_ser *outgoing;
+>  	struct pci_dev_ser *incoming;
+> +	bool was_incoming;
+>  };
+>  
+>  struct pci_dev;
+> -- 
+> 2.56.0.385.gd3acb90ef8-goog
+> 
