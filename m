@@ -1,100 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985775;
-	b=4YAWyN8+CzuI6DxBfrEWhzAvBiVMBWoxTeLHJJmS+w2TxN8KSKJe0FmmvkZll03z+Lht
-	 PGcC59lijcFNEI4XYEmzskmJ68tMl4HL3cQeCkD80QkwBpUxUZE2Ryv3PjllUT41EYgGk
-	 IwnC1VOINS1p5RWT/FZHq30zat0SbP9rsZwo2773qxU8oqXY7ffKQRSD4PYQPfpjkx2CV
-	 GM9w/edVEfa33H0P3nRALxtnv5ysPNkCYiQzu+CSoTDmIxAnGEfsguqmdQkYC/RM8G1l3
-	 PjkBEjZVkwaBhBp2YQphsMvgb0QnxE/7LYS6i5AIDCb0BU/a5tR8EiZ/CziePGbjh5g==
+	t=1793985777;
+	b=DuzKm5XDIPxfkwHuVavM8tmOL7DjqL5Wm3iHy8snKDELEtQJzXpKwlI16KcvTzY/tGTG
+	 fPSXxU8W8YIamnu5I0Yvk628mU8dRGimq15CBy1m2KEtPgYcJDzZN7q8syOHM4+L4DS1S
+	 kLHc784S7TnXWzht9SnRTeBHR+3lxCzdi6JSzRCwrfsFeBkOQuZq8RzhCvXtC0kY5K32b
+	 PpzRz88VEI78TEwSmLsFAq+vmPVZtB85z06xxAu9yCp9xsa+4CawKV3LWlnWM4/voWNxp
+	 0V12/sINym+R+CjLTIry6twwXI/sTjipgYLepJFOxOm+mmJsGN+lfawWJUy1cvVgalA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985775;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xBeCxmaO7SBYAAN1RQYHrjs9vewuyjrvlSTeWyFY71M=;
-	b=l1opXfi4dAlrARXthF4LZ2eLupnJIUnjpAS1m7+obm3aVmoabVrD1cHpaLGKuKIR9ZZo
-	 xWzG249tRXL+IpEw6+w4QblCFgqNwD48Brris8zG+xvtK1xADHY+NBPiVqwwj1YaMRFnB
-	 tXiYkdjw2J8WebkKsesGPvThWNSIdMduIiS9h+X6P/ZCJzNwOS61CLat5+BCr5kONCkK8
-	 DSrFVPlI9SRUL7u8jfyo0ANxmYqHeIK7C6sCczNKEI57DJpt3qRhH64IIneu3O5QbRUgr
-	 HYS7dXtI+aGCg08EOHV4ThVi3ivfiiQKeL9sPVwC//Z1Ay2/q8h/xW8n4c6uF75By7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985777;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=nphGN6OafuQK+POULyX/FaBPk98YaajW2Mt6MczH2qo=;
+	b=Ihj9sXYyvv4PyBjhnhoC9MtN1jpbqrc8UanRgni7z+1BZ56Y8CxhCoST3bUmN/pnkg+8
+	 7Tj+kkKNbqqbQLIixTuWqah7Lmci4f++hixh5fhZIC5A2fd6WlxR+PYQVjtdo0lElBC9d
+	 knFPrxS+gjS1fG9OskyVTKa0uiAukbLs+MEH0O4WiUDwo+MoBS31qpU1RaJkP1ItgjrUz
+	 nHfe8WpiUlasOEHhQ8pA5iqbLE2PsVaQ2LcbnHjef/7iNn2CGPz6UL+xu5aEuhR0aF/CQ
+	 ce0r6M/gQ6pczETMtX30nBYKUb8dDfrWjb4n3XWt86F0FBIpK9Yy7cIuVNGAEPNJM6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Pgro9+XL;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="LY5nII/K";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F01606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:22:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95F01606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BF4606A338
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:22:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16BF4606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Pgro9+XL
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so564948f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:22:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793985773; x=1794590573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xBeCxmaO7SBYAAN1RQYHrjs9vewuyjrvlSTeWyFY71M=;
-        b=Pgro9+XLXBDf2+HxoEWVGg+ls57KE9z9MlsRjfVryD6KcGD9GimI8U+jHF8dVM4pW+
-         WdRPPoA743TwjvOgmT//PdYnIEcsaYPUpH/TvgmynpCnohStodl/OHkxMNESWQcqXDIh
-         wnQx014l3j0S2W3sHFloAh3M6/E0La1gByNzryNUPwsENCgg3NuMEc/MpM2ta4P+8s2T
-         vjF8LrKIKY0YgGBIC2re/avr0P/SVYGZRBKrvZOBbg8B/7QYGaD4z+CBywdt6EMu5C1b
-         stqyYZnLUPXlEJj0nsjtVHSkE9XAJtQMsSU4f1dAnROuCeqb832N6fwAghPkSMRP1Cic
-         p8XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793985773; x=1794590573;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xBeCxmaO7SBYAAN1RQYHrjs9vewuyjrvlSTeWyFY71M=;
-        b=Elh5BaagNBrh3CMITTkM5jxuQmQrARFJJhDFQOjfnuA1Wu6Fp90ssknwHT9UP8sFmo
-         rVIneFsB2C2GVgXv2AHBg3L+5sNNJhwcTQ0Y/l9NBVCpyBo3UhV4qycVCiSjxZSuC7cI
-         +wFhDUoxjgevjIsrMJxxExhR4+iNpPo60OH8gWXuYOgeiYBeYvvlV+Qj5T/PylbK0e5J
-         y6TMf4dHNelkpFrANE3FzuYuxV/qEzG6QPOJ12MpaPmvM7v5ZSTDsWgIKoI5Yjk2meu4
-         GOdkk5Fb6HI7ItZaygot55IeLu6qKxUyzARAaF1PPXyKtx94khcGu+iOhvwLhzAXotir
-         /VTw==
-X-Forwarded-Encrypted: i=1; AL+hErHXZx/XJYfWA6ZVprRIk5v+YLeHmgCN+rJ0sZErF0vVydipm7JXUAQwwUs6MxVdhOjAsrtlaL8BBN6Khxs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xEQCPO7szA+2OiZI23QX77EqYxoSPsEDMyhymLY+px7Ig/zjV
-	9Ktqlp7I8Yv3/ujlZ43tM3z56jbhHEH85RAXhzJRNhM+iUQHZO8a9bV3SYTGHayImQSPyarmNJh
-	pfUa+NMQ=
-X-Gm-Gg: AYBFou3KO4PZpTGoR9Kf8+/cgHVsXTpd5YWZUfFFNXbZS2aBK/4ilXHvor2iwKz8Wgl
-	82hIBqWaJD0/8M4XkFbbPId4yTt7R0pQwJF0BsVLKi0pFATMeC2LBVhC+u84dOJ0YAgvRWr+ecF
-	QIROruj46WsPnUhojZ9CBl0W5efjGCy5HdCzqT4VSVd6waNbCLfcXqVF7wpyb+iJ7nshi2b8DaR
-	RIkKYABMXEDFiNTu0qD/nirJ4lSVITcYJyMxSvJ8vWdLVxo9ZhKQ5Z1ejiuUjepg1PRq+nnuk4O
-	Liua3M1f6eEpdZ/kw60iWhQhEmSf8FFrjVCGUNVURPtMq8wnbXFQu80w6XD1w75S0MFeaRcnIkM
-	6x7ZcVO4WWrLpkMnBHFTw2xLdvf5e6pFesmV4sjbUA4EDxQkwEux59+niNvZ8/VfSsNGUyhldYi
-	eK2MDH31e0YHCVyicyGl41C5ZPtcieMSOESkkaNzRk83+0IK8YfFD5bRwXHmwnbmXBZiUT2jWp9
-	WG99j4QSCOauRT5bQvPaN6EHGR+J14kFvav7qFHP8b8fMiPp1zx9fddsM59hLWNbXuJKkQb4S+7
-	MHbKnoE6456EEoTv/uaG3lAY9MXiDPk=
-X-Received: by 2002:a05:6000:2405:b0:48e:20ed:d5e7 with SMTP id ffacd0b85a97d-49275a2671bmr6769865f8f.34.1793985772980;
-        Fri, 06 Nov 2026 09:22:52 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc6187sm4741106f8f.46.2026.11.06.09.22.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:22:52 -0800 (PST)
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Chris Down <chris@chrisdown.name>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	printk@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Petr Mladek <pmladek@suse.com>
-Subject: [PATCH v6 13/16] printk: Try to register each console as Braille first
-Date: Fri,  6 Nov 2026 18:19:49 +0100
-Message-ID: <20261106171952.207909-14-pmladek@suse.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106171952.207909-1-pmladek@suse.com>
-References: <20261106171952.207909-1-pmladek@suse.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LY5nII/K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793985776;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nphGN6OafuQK+POULyX/FaBPk98YaajW2Mt6MczH2qo=;
+	b=LY5nII/KgV2r5uMo2Snmz5Tfv1Iq6z9g4BeiEyfPkNE8xjjgmX/5+93KJwMtPen+vGjtKc
+	FSIPueB1nAcvPILpXzDeG81skP7GpRjNONDnO8sS3hi1xB9/iD1EIvGjgr5S69kUBvEJx2
+	ldZ+WuTZeb2LzrWLr6yVuVE61+pcbps=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-692-WZc44TjbPKWnGjewcGzfsw-1; Fri,
+ 06 Nov 2026 12:22:52 -0500
+X-MC-Unique: WZc44TjbPKWnGjewcGzfsw-1
+X-Mimecast-MFC-AGG-ID: WZc44TjbPKWnGjewcGzfsw_1793985771
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BA6831800559;
+	Fri,  6 Nov 2026 17:22:50 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 72A2B39209;
+	Fri,  6 Nov 2026 17:22:48 +0000 (UTC)
+Message-ID: <ccdab485-e1d1-4055-bb0b-f8f712fc0a9b@redhat.com>
+Date: Fri, 6 Nov 2026 12:22:47 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,191 +71,224 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] cgroup/cpuset: Reject updates that empty the top
+ sched domain
+To: Guopeng Zhang <guopeng.zhang@linux.dev>, tj@kernel.org,
+ ridong.chen@linux.dev
+Cc: hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261105130344.664336-1-guopeng.zhang@linux.dev>
+ <20261105130344.664336-2-guopeng.zhang@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261105130344.664336-2-guopeng.zhang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Braille consoles are unique: they can only be enabled via the command
-line and use the preferred console framework for initialization, yet
-they are never added to the console_list or associated with
-/dev/console. Because of this, the preferred_console variable remains
-unset when only a Braille console is requested.
+On 11/5/26 8:03 AM, Guopeng Zhang wrote:
+> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>
+> Boot-isolated CPUs remain in top_cpuset.effective_cpus, but are excluded
+> from its scheduling domain by generate_sched_domains(). Checking only
+> effective_cpus when distributing CPUs to partitions can therefore allow
+> all boot domain housekeeping CPUs to be taken from the top cpuset.
+>
+> The resulting empty domain triggers a warning in build_sched_domains()
+> and can cause an out-of-bounds CPU access in build_perf_domains(). Both
+> root and isolated partitions can trigger this, whether local or remote.
+> For example, on a 32-CPU system booted with isolcpus=domain,10-31:
+>
+>    echo 0-9 > A/cpuset.cpus
+>    echo root > A/cpuset.cpus.partition
+>    Oops: general protection fault
+>    RIP: 0010:build_perf_domains+...
+>
+> Require local and remote partition creation and CPU mask updates to
+> leave an active boot domain housekeeping CPU in the top cpuset,
+> accounting for CPUs returned by the same update.
+>
+> Add test cases to test_cpuset_prs.sh to verify that every partition
+> update leaves an active boot domain housekeeping CPU in the top cpuset.
+>
+> Fixes: 9b496a8bbed9 ("cgroup/cpuset: Prevent leakage of isolated CPUs into sched domains")
+> Co-developed-by: Ridong Chen <ridong.chen@linux.dev>
+> Signed-off-by: Ridong Chen <ridong.chen@linux.dev>
+> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> ---
+>   kernel/cgroup/cpuset.c                        | 48 ++++++++++++++++++-
+>   .../selftests/cgroup/test_cpuset_prs.sh       | 47 ++++++++++++++++++
+>   2 files changed, 93 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 3052413e41e7..c405719ccd12 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1180,12 +1180,56 @@ static void update_partition_sd_lb(struct cpuset *cs, int old_prs)
+>   		cpuset_force_rebuild();
+>   }
+>   
+> +/*
+> + * top_cpuset_sd_nocpu - Check if top_cpuset will have no sched domain CPU
+> + * @add_cpus: CPUs to be taken away from top_cpuset
+> + * @del_cpus: CPUs to be given back to top_cpuset, can be NULL
+> + * Return: true if no active CPU will be left in the top_cpuset sched domain
+> + *
+> + * Note that @del_cpus may include CPUs that are also in @add_cpus and
+> + * will stay in the partition. They are skipped by the @add_cpus check,
+> + * so callers can pass the current effective_xcpus of a partition
+> + * without masking it first.
+> + *
+> + * Boot time isolated CPUs stay in top_cpuset.effective_cpus, but they are
+> + * excluded from the sched domain of top_cpuset in generate_sched_domains().
+> + * So checking top_cpuset.effective_cpus alone is not enough to ensure that
+> + * the top_cpuset sched domain won't become empty after @add_cpus are taken
+> + * away from it. The sched domain of top_cpuset must keep at least one
+> + * active boot domain housekeeping CPU.
+> + */
+> +static bool top_cpuset_sd_nocpu(const struct cpumask *add_cpus,
+> +				const struct cpumask *del_cpus)
+> +{
+> +	const struct cpumask *hk_mask = housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT);
+> +	int cpu;
+> +
+> +	for_each_cpu_and(cpu, hk_mask, cpu_active_mask) {
+> +		if (cpumask_test_cpu(cpu, add_cpus))
+> +			continue;
+> +		if (cpumask_test_cpu(cpu, top_cpuset.effective_cpus) ||
+> +		    (del_cpus && cpumask_test_cpu(cpu, del_cpus)))
+> +			return false;
+> +	}
+> +	return true;
+> +}
+> +
+>   /*
+>    * tasks_nocpu_error - Return true if tasks will have no effective_cpus
+>    */
+>   static bool tasks_nocpu_error(struct cpuset *parent, struct cpuset *cs,
+>   			      struct cpumask *xcpus)
+>   {
+> +	/*
+> +	 * The top_cpuset always has tasks (kthreads at least), so its sched
+> +	 * domain can't be empty. The current effective_xcpus of a valid
+> +	 * partition will be given back to top_cpuset if not in @xcpus.
+> +	 */
+> +	if (parent == &top_cpuset &&
+> +	    top_cpuset_sd_nocpu(xcpus, is_partition_valid(cs)
+> +				     ? cs->effective_xcpus : NULL))
+> +		return true;
+> +
+>   	/*
+>   	 * A populated partition (cs or parent) can't have empty effective_cpus
+>   	 */
+> @@ -1724,7 +1768,7 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
+>   	 */
+>   	compute_excpus(cs, tmp->new_cpus);
+>   	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
+> -	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
+> +	    top_cpuset_sd_nocpu(tmp->new_cpus, NULL))
+>   		return PERR_INVCPUS;
+>   	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
+>   		return PERR_NOCPUS;
+> @@ -1828,7 +1872,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+>   		if (!capable(CAP_SYS_ADMIN))
+>   			WRITE_ONCE(cs->prs_err, PERR_ACCESS);
+>   		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
+> -			 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
+> +			 top_cpuset_sd_nocpu(tmp->addmask, tmp->delmask))
+>   			WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
+>   		else if (prstate_housekeeping_conflict(prs, PRS_ROOT,
+>   						       excpus, tmp->delmask))
+The code change above looks good to me.
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index bdca6c471f87..e813ea9959f4 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -133,6 +133,15 @@ LAST_PRESENT_CPU=$(cat /sys/devices/system/cpu/present | sed -e "s/.*[,-]//")
+>   [[ -n "$FIRST_NOHZ_FULL_CPU" && "$FIRST_NOHZ_FULL_CPU" = 8 &&
+>      "$LAST_NOHZ_FULL_CPU" = $LAST_PRESENT_CPU ]] && RUN_NOHZ_FULL_TESTS=1
+>   
+> +# These tests require boot domain housekeeping CPUs to be exactly 0-9.
+> +# Check the actual masks to cover isolcpus= with or without explicit flags.
+> +DOMAIN_ISOLCPUS="10-$LAST_PRESENT_CPU"
+> +[[ "$LAST_PRESENT_CPU" = 10 ]] && DOMAIN_ISOLCPUS=10
+I think you should use "==", not "=".
+> +RUN_ISOLCPUS_DOMAIN_TESTS=
+> +[[ -z "$NOHZ_FULL_CPUS" &&
+> +	"$(cat /sys/devices/system/cpu/isolated)" = "$DOMAIN_ISOLCPUS" ]] &&
+> +	RUN_ISOLCPUS_DOMAIN_TESTS=1
 
-Currently, try_enable_preferred_console() must be called even when
-"preferred_dev_console" variable is not set, just to catch these "hidden"
-Braille requests.
+Why there shouldn't be any nohz_full CPUs? Domain isolated CPUs and 
+nohz_full CPUs don't need to be exclusive.
 
-Refactor the logic by adding a parameter to try_enable_preferred_console()
-to explicitly handle Braille vs. non-Braille cases. It will eventually
-allow to skip try_enable_preferred_console() when there are no preferred
-consoles. This improves code robustness by ensuring the console
-setup is explicit and only performed once.
+Maybe you can move the new testing code below the ISOLCPUS section as 
+the value of /sys/devices/system/cpu/isolated would have been read into 
+the BOOT_ISOLCPUS variable which you can use instead of reading the 
+sysfs file again.
 
-Note that _braille_register_console() is skipped when the given console
-driver has a match() callback and it succeeded. It means that it took
-over an early console and can't be used as a Braille console.
+> +
+>   #
+>   # If isolated CPUs have been reserved at boot time (as shown in
+>   # /sys/devices/system/cpu/isolated), these isolated CPUs should be outside of
+> @@ -602,6 +611,43 @@ ISOLCPUS_TEST_MATRIX=(
+>   	" CX1-2,I:X1,I:P1 . .      .     X1,2,I  .      .      .     0 A1:1-2,I|XA1:1-2,I A1:P-1 ."
+>   )
+>   
+> +# Test matrix for isolcpus=domain,10-<last> or isolcpus=10-<last> boots.
+> +# The top cpuset must retain an active boot domain housekeeping CPU.
+> +ISOLCPUS_DOMAIN_TEST_MATRIX=(
+> +	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
+> +	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
+> +	# Neither a root nor an isolated partition may take all boot HK CPUs.
+> +	" C0-9      .      .      .     P1      .      .      .     0 A1:0-9 A1:P-1 ."
+> +	" C0-9      .      .      .     P2      .      .      .     0 A1:0-9 A1:P-2 ."
+> +
+> +	# Growing cpuset.cpus must not take the last top-level HK CPU.
+> +	" C0-8:P1   .      .      .    C0-9     .      .      .     0 A1:0-9 A1:P-1 ."
+> +
+> +	# CPUs returned by the same update can keep the top sched domain alive.
+> +	" C2-9:P2   .      .      .    C0-4     .      .      .     0 A1:0-4 A1:P2 0-4"
+> +
+> +	# Root and isolated partitions together must leave a top-level HK CPU.
+> +	" C0-4:P1   .      .     C5-9    .      .      .     P2    0 A1:0-4|B1:5-9 A1:P1|B1:P-2 ."
+> +
+> +	# Remote partition creation must enforce the same constraint.
+> +	" X0-9    CX0-9    .      .      .     P1      .      .     0 A2:0-9 A2:P-1 ."
+> +
+> +	# Growing a remote partition through cpuset.cpus.exclusive is rejected.
+> +	" X0-9 C0-9:X0-8:P1 .     .      .    X0-9     .      .     0 A2:0-9 A2:P-1 ."
+> +
+> +	# Remote CPU replacements must account for the CPUs being returned.
+> +	" X0-9 C0-9:X2-9:P2 .     .      .    X0-4     .      .     0 A2:0-4 A2:P2 0-4"
+> +
+> +	# Local exclusive CPU updates must not consume the last top-level HK CPU.
+> +	" C0-9:X0-8:P2 .   .      .    X0-9     .      .      .     0 A1:0-9 A1:P-2 ."
+> +
+> +	# Ancestor updates must not grow a remote partition over the last HK CPU.
+> +	" X0-8 CX0-9:P1    .      .    X0-9     .      .      .     0 A2:0-9 A2:P-1 ."
+> +
+> +	# An invalid partition can recover once it leaves a top-level HK CPU.
+> +	" C0-9:P1   .      .      .    C0-8     .      .      .     0 A1:0-8 A1:P1 ."
+> +)
+> +
 
-As a result try_enable_braille_console() might return success even
-when it did not enabled the console in the Braille mode. It is
-the reason why register_console() has to explicitly check whether
-CON_BRL flag was really set and could skip the further steps.
+Could you also put this new test matrix together with the other test 
+matrices?
 
-Behavior change:
+Thanks,
+Longman
 
-1. The Braille console driver is newly always preferred even when different
-   serial ports are preferred. For example, let's have the following
-   command lines:
-
-     a) console=ttyS1,115200     console=brl,ttyS0,115200
-     b) console=00:00:0.0,115200 console=brl,ttyS0,115200
-     c) console=brl,ttyS0,115200 console=ttyS1,115200
-
-   They all create two entries in preferred_consoles[] because:
-
-     a) and c) differ in @index (0 vs. 1).
-     b) defines either @name or @devname.
-
-   But the original code registers:
-
-     a) ttyS1 as normal console because it is the 1st entry in
-	preferred_consoles[].
-
-     b) ttyS0 are Braille console because the generic "ttyS" driver
-	is registered early in univ8250_console_init(). The @devname
-	entry is resolved too late when serial8250_init()
-	registers all found devices, it assigns "tty0" for
-	the given "00:00:0.0" but it is already in use.
-
-      c) ttyS0 as Braille console because it is the 1st entry in
-	 preferred_consoles[].
-
-    The new code would register ttyS0 as the Braille console in
-    all three variants because try_enable_braille_console() is
-    called 1st.
-
-2. When only the Braille console is defined on the command line,
-   the original code might attempt to enable the same console twice.
-   One as a default and once as a Braille console. This results in calling
-   the setup() callback twice and incorrectly setting the CON_CONSDEV flag.
-
-The 1st change makes the behavior more consistent and understandable.
-The 2nd change is an obvious bug fix.
-
-Signed-off-by: Petr Mladek <pmladek@suse.com>
-Acked-by: Chris Down <chris@chrisdown.name>
----
- kernel/printk/printk.c | 58 +++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 52 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 947574ee29a3..2bcf82b2c4e3 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -366,6 +366,7 @@ static int console_locked;
- static struct preferred_console preferred_consoles[MAX_PREFERRED_CONSOLES];
- 
- static int preferred_dev_console = -1;
-+static bool want_braille_console;
- /* Set when there is at least one console preferred via the command line. */
- int console_set_on_cmdline;
- EXPORT_SYMBOL(console_set_on_cmdline);
-@@ -2648,7 +2649,9 @@ static int add_or_update_preferred_console(unsigned int i,
- 		braille_set_options(pc, brl_options);
- 	}
- 
--	if (!brl_options)
-+	if (brl_options)
-+		want_braille_console = true;
-+	else
- 		preferred_dev_console = i;
- 
- 	if (user_specified) {
-@@ -3984,8 +3987,9 @@ int console_call_setup(struct console *newcon, char *options)
-  * by either the command line or add_preferred_console() and
-  * setup/enable it.
-  */
--static int try_enable_preferred_console(struct console *newcon,
--					bool user_specified)
-+static int __try_enable_preferred_console(struct console *newcon,
-+					  bool user_specified,
-+					  bool try_only_braille)
- {
- 	struct preferred_console *pc;
- 	int i, err;
-@@ -3996,8 +4000,21 @@ static int try_enable_preferred_console(struct console *newcon,
- 		/* Console not yet initialized? */
- 		if (!pc->name[0])
- 			continue;
--		if (pc->user_specified != user_specified)
--			continue;
-+
-+		/*
-+		 * @try_only_braille and @user_specified define which
-+		 * preferred console entries are handled in this round.
-+		 */
-+		if (try_only_braille) {
-+			if (!is_braille_console_preferred(pc))
-+				continue;
-+		} else {
-+			if (is_braille_console_preferred(pc))
-+				continue;
-+			if (pc->user_specified != user_specified)
-+				continue;
-+		}
-+
- 		if (!newcon->match ||
- 		    newcon->match(newcon, pc->name, pc->index, pc->options) != 0) {
- 			/* default matching */
-@@ -4010,7 +4027,7 @@ static int try_enable_preferred_console(struct console *newcon,
- 			if (newcon->index < 0)
- 				newcon->index = pc->index;
- 
--			if (is_braille_console_preferred(pc))
-+			if (try_only_braille)
- 				return _braille_register_console(newcon, pc);
- 
- 			err = console_call_setup(newcon, pc->options);
-@@ -4026,6 +4043,17 @@ static int try_enable_preferred_console(struct console *newcon,
- 	return -ENOENT;
- }
- 
-+static int try_enable_preferred_console(struct console *newcon,
-+					bool user_specified)
-+{
-+	return __try_enable_preferred_console(newcon, user_specified, false);
-+}
-+
-+static int try_enable_braille_console(struct console *newcon)
-+{
-+	return __try_enable_preferred_console(newcon, true, true);
-+}
-+
- /* Try to enable the console unconditionally */
- static void try_enable_default_console(struct console *newcon)
- {
-@@ -4048,6 +4076,24 @@ static int try_enable_console(struct console *newcon)
- {
- 	int err;
- 
-+	/*
-+	 * First, try to enable the console driver as a Braille console.
-+	 * It would have metadata in the preferred_consoles[] array.
-+	 * But it won't be counted as preferred_dev_console because
-+	 * it does not get printk() messages and is not associated
-+	 * with /dev/console.
-+	 *
-+	 * Note that it might succeed also when the driver has a match()
-+	 * callback and it took over a boot console. In this case,
-+	 * the driver will continue working as a classic non-Braille
-+	 * console.
-+	 */
-+	if (want_braille_console) {
-+		err = try_enable_braille_console(newcon);
-+		if (err != -ENOENT)
-+			return err;
-+	}
-+
- 	/*
- 	 * See if we want to enable this console driver by default.
- 	 *
--- 
-2.56.0
+>   # Test matrix to be run when boot time nohz_full CPUs cover all CPUs except CPUs 0-7
+>   # This also means that CPU 8 is available and is a nohz_full CPU.
+>   NOHZ_FULL_TEST_MATRIX=(
+> @@ -1472,6 +1518,7 @@ test_inotify()
+>   run_state_test TEST_MATRIX
+>   run_remote_state_test REMOTE_TEST_MATRIX
+>   TEST_ISOLCPUS=1 run_state_test ISOLCPUS_TEST_MATRIX
+> +[[ -n "$RUN_ISOLCPUS_DOMAIN_TESTS" ]] && run_state_test ISOLCPUS_DOMAIN_TEST_MATRIX
+>   [[ -n "$RUN_NOHZ_FULL_TESTS" ]] && run_state_test NOHZ_FULL_TEST_MATRIX
+>   test_isolated
+>   test_boot_isolated
 
