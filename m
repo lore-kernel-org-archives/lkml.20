@@ -1,47 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969081;
-	b=XJzZuiT3zr0WqQw8w5hg4q4w8f+AA7LrSh/ZX5dtCf/4qN3mWIgpjpNGtf1GXoZNL2E5
-	 +W/4Z5Wgu81nQWVnLxtoixwL85VRPwkrsHb1BIffr+gJpKBXiUASD8XuLKvbzg8AbozwZ
-	 4R9EDCURY3H/7xUwWI5NQwG9zfJvjkUU+8ZCwUiz16zUp3a+/us0eEUzbEI0XcpTfbyVD
-	 oIGpI8KdLlDIYS9lpAX9AX3JMhFia5SxVs6QryiKu2t6IN1iDEAVXbhrmg0TBZrnI3RPa
-	 /O5eDq3O9HUAUz3ahS3DkXyu7PPW4QQHetslR9xZM7ztzfj/zp9UzrceyVxEVHlsJUQ==
+	t=1793969135;
+	b=F+hySS6HL6CzAq1uC2te97jymzz2cFCWEalgGaBu2cnztFmBUXGlo8/X+RA5dWLc7bDF
+	 h0NpRVrsRP3tPozLFqcpxUZeoXKWJDvet/J+TLXK3d6KDJZA5fWZGP4DMs2fIRJ94cQg9
+	 xs8fBMI5i8VvB0eVwOd9p50DFlZVF/p92whItCNxDr+vW9zbghfeSPVdfQctRMgcOVPHr
+	 5ZuS3CVFpCdeJVPSO8Aq6RfAJZyf/i6yD7kFCa0z8h8xi4mFeTlW/4ZdTnrBAcCVDBoNK
+	 4oyjd7xBovKwiZZqAy/1Upqx2BpJyw4Vc839hMNmbCbTW15OoSRbjx441lGjEkeb7GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969081;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=m22QOupz/Gj7ONgc3YhQfUsN4LYhFgGjhiGRN+k82cU=;
-	b=x9LeiCWHdgDPj1mosDQHsw47DC1LNPkqp6xGomBy6TZBuC+PACq0sCF9djCqP2GYBxJL
-	 v6WC+++kNzH4/c42HrFQ0Krz39Pnm1N53OcMETBkNmVMLRIr/nMJYsx2PPD27hi0PvtpN
-	 CuWIIV/KBpGn/M0jnMIqJaoYTpHyl2VoTLyJLfLDlmvsJANjoRqf9+2VNfGeweAQX5h5X
-	 zAeKyZzQ8nvjoqOWduPbuZeamcfWP8cSf8mby06P8m2LAm2XlcEC7uFJGLXXvFEKE95mp
-	 KnbvSyy/QTHLJPU8RuAqUE9SY5tK6dbULXMRn4ES/ZJ/kBzGLYjkncKb78ArF1U2rEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969135;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5zLPmEptRl/1P2JchgpAI/5mmku3jv3mbAJMP+1s0jA=;
+	b=JaDJz34Dq+dmf4yl2vwTzb8bvnIpHqojIHYAqHKNgFRolq+UUgkiKz9L9ZuJ0mK1GmYc
+	 36TUHM1SW8GYZwSG3O8LBQkOLzsoEy6FyUjZhgyiuJD+gRo+WqSvToOPb5KpmlINeeWFc
+	 esD4h4ZcH4YMPdOs5aSa0nNkx4NEjr6uSGRgQCNTSfu87s3/jFQbZU6oe5uh+t/kwqxs+
+	 fLnOdMz/eVLoJA3krc60JURlBUN/o8N1IwBVk2/pkxQLoEob6S8Z3sDJ4NFluXCfAGn7a
+	 P0/G1F3nE5Xjz4KLTg2/wTn69C41i3yy8lFp0lRltFec4vjxGzFql9jas5m9rVe1SLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qjafa3YK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=BJd+3ffo;
+	arc=none smtp.remote-ip=109.224.244.123
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751E0606A329;
-	Fri,  6 Nov 2026 12:44:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852D2606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:45:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 852D2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qjafa3YK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955491F0089F;
-	Fri,  6 Nov 2026 12:44:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969081;
-	bh=m22QOupz/Gj7ONgc3YhQfUsN4LYhFgGjhiGRN+k82cU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Qjafa3YK0xGgJNwxjXBJ7J3iCGKQxc2IYZGgEozspFNho4P1EXhyZFN4k2QWmwYge
-	 OjcpjE59HMF5JRRv0Ac+GeQ6HLCrHuniwhH1XqL5ivv446zS9LjJIeAL8uuqRmHy5i
-	 ZphYsXU5efvyXSK7hgqogdscMcskcgHhn3v8ODQZTQgRPTbfvnijGmVN1p8/3BPFxS
-	 fcwreGWBHb2/Yc36hhSGbLEMFS5qErUE3pajBMBDCPYDiICwFn97gVjDHYCVn4cGeK
-	 qSk8+HwOD4/28nl2XCjhm1QPaBrAOnuT9k6KbAjfU8qfTTEEAC1iAj7qpdLRluF91/
-	 QybBGkhgjrMBQ==
-Message-ID: <fb9d1040-7d1e-4b72-b600-f80b6be3a0b3@kernel.org>
-Date: Fri, 6 Nov 2026 13:44:31 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=BJd+3ffo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793969132; x=1794228332;
+	bh=5zLPmEptRl/1P2JchgpAI/5mmku3jv3mbAJMP+1s0jA=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=BJd+3ffovZGOVPuv6iu7obngajAyASsfmMZuQ7/Buwyu+TB9cRl1Jp3J4Eg0aHDSD
+	 3UObwnyxIgOtS96U1RTddIMUJ+kpfkKfyyy5kbIa3eWIgp+PEEU8j84eKyVj97o+ec
+	 yWLcWIF7DlO0mbKCchxGO7AM12tSNGrgORmC89UuNjDrdPpdaTXWVM8vL5jP34A/+5
+	 /PWNoljHHpen19MqoY669wUVb/2YrW8xRgykTCteJbN0KWm5EKkYXDg+fc6ReTLiBq
+	 A1PGJI6FOktDwSZ546wac3A+pDDeBBqoOg5PXy69BX9yk0tdRbxupMA++iMTKK6ibT
+	 v0xl7xiH69Rfg==
+Date: Fri, 06 Nov 2026 12:45:21 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, George Neacsu <geocausa@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v10 0/3] Add support for the Sony IMX681 camera sensor
+Message-ID: <20261106124505.71429-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 477b33abc04c393b491e300af5e84740e5f8d049
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,126 +61,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm/ksm: align smart scan skips with the scan
- number
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>, Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com>
- <20261105-bug-mm-ksm-smart-scan-align-skips-v2-1-8a9780b6844e@gmail.com>
- <au2hqxeIz0l/DusZ@dgvxl46587.localhost.localdomain>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <au2hqxeIz0l/DusZ@dgvxl46587.localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/6/26 10:45, Xu Xin (vivo) wrote:
-> On Thu, Nov 05, 2026 at 04:36:14AM -0500, Qiliang Yuan wrote:
->> Smart scan skips pages that KSM has failed to de-duplicate for a while.
->> Once a page is three scans old, its rmap_item counts down its own number
->> of scans to skip, 1, 2, 4 and then 8 as it ages, so an old page is looked
->> at every ninth scan.
->>
->> The unstable tree is rebuilt on every scan, so two identical pages that
->> are not in the stable tree yet can only be merged in a scan that looks
->> at both. Each countdown runs from when its own page became mergeable, so
->> two pages that became mergeable at different times end up on different
->> phases and, once both are old, may never be looked at in the same scan
->> again. They then stay unmerged for as long as they live. Making a page
->> mergeable, waiting for 0 to 20 full scans before doing the same with an
->> identical page, 20 times for each wait, and checking the pair after
->> another 64 full scans shows this, on two boots per kernel:
->>
->>                                 before            after
->>   pairs merged (of 420)         329 / 317         420 / 420
->>   64M of unique pages skipped   89.0% / 89.1%     87.5% / 87.5%
->>   ksmd CPU time per scan        6.25 / 6.25 ms    6.88 / 7.03 ms
->>
->> Pick the skipped scans by the global scan number instead, with periods
->> of 2, 4 and 8 scans. The periods being powers of two, every old page is
->> looked at on each scan that is a multiple of 8, whatever its age, so any
->> two pages meet at least every eighth scan. The longest period goes from
->> nine scans to eight, which costs 10-12% more ksmd time on memory that
->> never merges.
->>
->> Fixes: 5e924ff54d08 ("mm/ksm: add "smart" page scanning mode")
->> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
->> ---
->>  mm/ksm.c | 24 ++++++++++--------------
->>  1 file changed, 10 insertions(+), 14 deletions(-)
-> 
-> Brilliant design.
-> By using the global ksm_scan.seqnr as a unified time base, this patch eliminates
-> the out-of-sync problem of the original per-page skip counters.
-> 
-> It guarantees that any two pages will be processed in the same scan at least once
-> every 8 scans — the least common multiple of all scan periods — which completely
-> resolves the permanent de-duplication failure.
-> 
-> Admittedly, this comes at the cost of shrinking the longest scan interval from 9
-> to 8 scans, raising the scan frequency for aged pages by roughly 12.5%. But I
-> believe this is a very reasonable trade-off for correctness. So
-> 
-> Reviewed-by: Xu Xin (vivo) <xu.xin@linux.dev>
-> 
-> 
-> Besides, can we add a extra description about new smart_scan algorithm that we
-> missed in Documentation/mm/ksm.rst?
+The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11
+for Business (Intel Lunar Lake, IPU7), ACPI device SONY0681. Without a
+driver the camera does not appear at all.
 
-Agreed, that would be nice. Thanks!
+  1/3  dt-bindings: media: Add Sony IMX681        (mine)
+  2/3  media: i2c: Add Sony IMX681 sensor driver  (Andre's, co-developed)
+  3/3  media: ipu-bridge: Add Sony IMX681         (mine)
 
--- 
-Cheers,
+The driver is Andre's, reverse-engineered from I2C traces taken under
+Windows.
 
-David
+Changes in v10
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+- 2/3: hold a runtime PM reference across probe. Setting the autosuspend
+  delay with the usage count at 0 suspended the sensor in the middle of
+  probe, and a later failure then powered it off a second time. Found by
+  Sashiko on v9 2/3 and 3/3.
+- All three: the Assisted-by tags are dropped; see the end of this letter.
+
+1/3 and 3/3 are otherwise unchanged. The review and test tags are kept,
+German's Tested-by on 2/3 too: the change is limited to probe's runtime
+PM and its error path, both tested below.
+
+While this sensor streams, IPU7's CSI-2 receiver logs "Received packet is
+too long" once per frame, and the frames are complete. Andre sees the same
+with his downstream driver, so it does not come from this series.
+
+Tested with v10 on the Surface Pro 11 for Business, on v7.4-rc1 with [1],
+[2] and [3] applied, KASAN and lockdep on:
+- after probe the sensor stays active and suspends about 1 s later;
+  v9 was already suspended when probe returned;
+- probe forced to fail after the runtime PM setup and at registration,
+  with a test-only parameter: no clock or regulator warning, where v9
+  gives three per failure (clock already disabled and unprepared,
+  unbalanced regulator disable);
+- v4l2-compliance 46 of 46, no warnings;
+- 3844x2640 at 30.01 fps;
+- the four flip states give the four Bayer orders, and EBUSY while
+  streaming;
+- runtime suspend after streaming, and capture after unbind and bind and
+  after five module reloads;
+- no KASAN or lockdep report;
+- W=3D1 and sparse clean on x86_64, on i386 and without CONFIG_PM;
+  dt_binding_check clean.
+
+Tool use, per Documentation/process/generated-content.rst (Assisted-by
+tags in commits were dropped in 7.4-rc1):
+
+* My contributions to this series were prepared with Claude Code
+  (claude-opus-5-5); work by others in it is their own.
+* This replaces any Assisted-by tags in earlier versions.
+
+[1] https://lore.kernel.org/all/20261103103235.94397-1-lsa.uz@pm.me/
+[2] https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
+[3] https://lore.kernel.org/all/20261026082549.662885-2-dmanresa@gmail.com/
+v9: https://lore.kernel.org/all/20261106041116.78937-1-lsa.uz@pm.me/
+
+Andre Gilerson (1):
+  media: i2c: Add Sony IMX681 sensor driver
+
+Sergey Lebedev (2):
+  dt-bindings: media: Add Sony IMX681
+  media: ipu-bridge: Add Sony IMX681
+
+ .../bindings/media/i2c/sony,imx681.yaml       |  108 ++
+ MAINTAINERS                                   |    8 +
+ drivers/media/i2c/Kconfig                     |   10 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/imx681.c                    | 1034 +++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |    2 +
+ 6 files changed, 1163 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
+ create mode 100644 drivers/media/i2c/imx681.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.54.0
+
+
