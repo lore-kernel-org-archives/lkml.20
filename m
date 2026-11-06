@@ -1,71 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949705;
-	b=lfqEjZkIPqHLcuN2wWZ1g6gMus46+hYwtI81IsYZLrxPwu/FlHu79hQJ3qb27Isq9DeI
-	 uPv8Ld8wbi7Qspad0Ek8EBhc0/cmUoCOttRWgulb9BR24YfBPa++/6vdzYiSMkKLullKb
-	 EptfmMqnjYb/XukmlySdP/rQqxj44aORta0B5vmEy8+2aXrkkFh7X9RUVoAJlQewNfhUk
-	 0zxc5g1v13pug4/X8qMq5SLmbowwzBDhw+sEucO8gKRXpV3fvLdIdByvGyKHa4shTngA8
-	 ut9soPrY9A/gYqO1abI/p8wXxzO36u7mlfNr8E5fwl41P4hwnzjIGasvkTznrZJ5Yzw==
+	t=1793949700;
+	b=RLc7LHq4WVtc25mc/zy9Wnsb2My1xWCMD/cNHpL01ahhAFXWU8FOAnJYLifla/Dpvsrf
+	 eu0+4ii5EOISHVDDlZEjQFdnEupqL9+NIl9ao1lIXmOrwoVF9U9vYu9I8isMpFD4tE2lk
+	 l+EcJ19VYF7M4isfFUcwyhS+XrL3/59K8u5l79Er1meDg3eRE1B5knKzWLpmnnzYwg3iz
+	 PqiUaCwk8dNxqYuq5mZPhWWR/Y49lOQtSfxhKR+IAWneTGgLMcf5ntm2dJGipV7hs4Wq9
+	 73k2aK03aCJZWa8LXH2kahkVVqibgIYFr7dkC0bxprjojsKilQ5XoU5LrU3VU8/ms7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949705;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Spam-Checker-Version:
-	 X-Spam-Level:X-Spam-Status:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=/Bn1UWSqe/x7wRcIRhV+YWmEErOE4N8bWv5vbZ8rj8A=;
-	b=L4Um40tSoUH8zIaNG2chU6f07IMU+8bT7GSKsJMSK0enUqyoWzgCC8yBxH3iMxJLbsuW
-	 rwOCxHirBOaIK/+kPKaI5/NfMhmhqF0xdsmfvFXrS+KhfEFLqHLXgjdx8DhsF7ctKH5ra
-	 /iY/B8YjZ0GlkD2YnH8XWvwT2IrYjr2eqH5j306bSpkky6w/qRdqdgm/cgU/RFkaWKCab
-	 vxF4D1wgSv3GliXTAA0GAK1O0HeWc4DDCRosM11oHcr/zAWNfIJoMSSrMt60OpNM7RWNf
-	 AEVIQnrI0lEK+Gk0FxyYKYvnF9DQ9M3LJhrmwzjl59USVZBN3fT0ezUVTvYNjAIj8Eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949700;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Q9YYTe4i+4Chs5+YJWhPl441drO/ZQz1qRAsGWnT09I=;
+	b=4wPSrFt+/7CX5aUqpuGT891WB3SoiWKkBUsvGB/UCGVxNoTZG/AEvTW5pmenbJ4iD5+y
+	 euaxAIkkFK3XhwqsLUoXz/iOX2y+jpWv4IjESOb4ohu0bHCuefrhLNLVVNDiLGxFfwPpW
+	 LPdgDRwSe6myYbRM8PtFdOsc+NOy66TNOZgAbWi5nxSuwFXrCmvkzYWaOFeG2Ku61+bYf
+	 2bbAkzgU5APoIW+BNU0K0qCTuL5Z2mOxBXKszAmugPM3kNEsx7w0Uhm00nBlsvs9/rxs+
+	 2G5NsroUiOqOddCSOdjM/nEFOLfQRJqoThxOmhl7HZBbdKLLVEOIDXDz7+u4L8sH9cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=birger-koblitz.de;
-	spf=pass smtp.mailfrom=birger-koblitz.de;
-	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=oKiWHIcL;
-	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=XeIKluzk;
-	arc=none smtp.remote-ip=23.88.97.239
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CLjn+X7o;
+	arc=none smtp.remote-ip=91.218.175.72
+Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED396606D836;
-	Fri,  6 Nov 2026 07:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED396606D836
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674D0606D801
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:21:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 674D0606D801
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=oKiWHIcL;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=XeIKluzk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1793949703;
-	bh=wbyh46mLbRX2HAkQs8o5MxoEDkveQAGJhXB98EFdgcY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=oKiWHIcL/aNokAtq0xsNHmsLZLNI5C97R/90M0ydO2G77urbAYGhlVI1g8zqe2h3D
-	 xFxMF7yb7tBohl7FT6MqRV7gqPkVnx3iK9o9wn08p5Q2nlM+f+WXNXuZKYsudJOTWN
-	 Zt1l/rhzQ1cIqF8NLRKdYQPHSfBrMwxwelkAgnJI0NJZcFKpHjzhWzhQcDYCW2rCzd
-	 dQGgcNxR+cDOR6zFnOCTYbHO97J+nfc8+6Q+tU2Y6HuAqllbyddg0KKfoDRITbjA4s
-	 lJ6PB/kYEUQbGe+k7592L10NayYVL9HRzDQ9usBOLRUNwAW5DHIslpFCHAzKI8B2jb
-	 Z9zewxs9Coptw==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id 9262048BB7; Fri,  6 Nov 2026 07:21:43 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1793949689;
-	bh=wbyh46mLbRX2HAkQs8o5MxoEDkveQAGJhXB98EFdgcY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=XeIKluzkztNDIagzrLM9WcfRLNY3odtXDfVxr7pkSCsBrKTSQ9vJ19seKg3Jv6irE
-	 sSMvSIq/77zQ/3BCOklWdLx1UCf/HQhOPdwrV/EdzQ5u+CocsIzxvqWlgexKPdvgmy
-	 FyUTw+0T56+o+2bOP+eL+p9vW2GA1KdwJ37aHvzJRTUtdo5IGMZYTyoa9Gn0LSBegw
-	 51oCG0kHf2rEzUOnEAVpU4AvBWnbpsnqRjSy0muuk59gvlgTgRaqJhqaY1py/haqCM
-	 xeUbEifI2DInWhLWmGVDUOQf5kC/j7BRKeFe4QT8apTIloxow5nBCFzFrMo11uszIa
-	 v7/CvHZVZBsJw==
-Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 0F98C48B89;
-	Fri,  6 Nov 2026 07:21:29 +0000 (UTC)
-From: Birger Koblitz <mail@birger-koblitz.de>
-Date: Fri, 06 Nov 2026 08:21:27 +0100
-Subject: [PATCH net-next v20 12/13] ax88179_178a: Add support for
- AX88179A/772D/279 EEPROM access
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CLjn+X7o
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RqSggLrOpNcBQyi3pO63AlsgM6jzSKYB2+97JEfd7P8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793949697; v=1; x=1794554497;
+ b=CLjn+X7oZ1Li6Tw+7+7sk9d54FQu32SslMOusYl8ds8/SJYrAf6MYeMu6y0FSSfv7viPmM8Z
+ awmqNbBtDH6+2/OUuHC19G1gpjGGWudQituxfP6kD/msJPT3YxO2o6m8Ca98VaHTBGj39jl7yZT
+ SyEWav4fM8I7rDVsIg7A7Xp8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 984ea10fba56dac9;
+	Fri, 06 Nov 2026 07:21:37 +0000
+X-Mizu-Trace-ID: 984ea10fba56dac9
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 6 Nov 2026 15:21:26 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: ramses@well-founded.dev
+Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jiri Bohac <jbohac@suse.cz>, Eric Dumazet <edumazet@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Nikolay Aleksandrov <razor@blackwall.org>
+Subject: Re: [PATCH net v5 2/2] bonding: give a slave that starts UP a full
+ arp_missed_max window
+Message-ID: <au1_9r8R3PkVqRkN@fedora>
+References: <20261030-bonding-last-rx-v5-0-0b9b653f2f94@well-founded.dev>
+ <20261030-bonding-last-rx-v5-2-0b9b653f2f94@well-founded.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,134 +69,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-ax88179a-v20-12-37b5a1189983@birger-koblitz.de>
-References: <20261106-ax88179a-v20-0-37b5a1189983@birger-koblitz.de>
-In-Reply-To: <20261106-ax88179a-v20-0-37b5a1189983@birger-koblitz.de>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- Jianhui Xu <neuromoments@gmail.com>, 
- Emir Beganovic <beganovic.emir@gmail.com>, 
- Birger Koblitz <mail@birger-koblitz.de>
-X-Mailer: b4 0.14.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-bonding-last-rx-v5-2-0b9b653f2f94@well-founded.dev>
 
-The AX88179A/772D devices have 32 efuses with 20 bytes each,
-which can be randomly programmed. The AX88279 has 16K FLASH.
+On Fri, Oct 30, 2026 at 03:51:16PM +0100, Ramses de Norre via B4 Relay wrote:
+> From: Ramses de Norre <ramses@well-founded.dev>
+> 
+> The ARP monitor marks an UP slave DOWN once jiffies passes
+> last_rx + arp_missed_max * arp_interval + arp_interval/2. bond_enslave()
+> seeds last_rx one arp_interval (plus a tick) in the past, which brings
+> the down deadline of a slave that starts UP forward by one interval
+> compared to what arp_missed_max promises.
+> 
+> Active-backup mode hides this with a grace period after enslavement in
+> bond_ab_arp_inspect(). Load-balance mode has no grace period after
+> enslavement. With arp_missed_max=1 the deadline is half an interval
+> after enslavement, and the first monitor run checks the slave before it
+> sends the first probe. If that run lands in the second half of the
+> interval, a healthy slave is reported "interface is now down" and comes
+> back UP on the next run.
+> 
+> Seed a slave that starts UP with last_link_up instead, so it gets a full
+> arp_missed_max window for its first reply. bond_arp_rcv() and
+> bond_na_rcv() only trust ARPs seen on backup slaves once the active
+> slave's last_rx is after its last_link_up. A seed equal to last_link_up
+> keeps that check false until a real reply arrives, as it is today.
+> 
+> This only covers a slave enslaved while the ARP monitor is running.
+> When the monitor starts later, from bond_open() or when arp_interval is
+> set at runtime, the seed is still as old as the time since enslavement,
+> as it was before this patch.
+> 
+> Fixes: 5944b5abd864 ("Bonding: add arp_missed_max option")
+> Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
+> ---
+>  drivers/net/bonding/bond_main.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> index 2f5638f4d3a78..84eafb607c370 100644
+> --- a/drivers/net/bonding/bond_main.c
+> +++ b/drivers/net/bonding/bond_main.c
+> @@ -2158,9 +2158,13 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+>  		new_slave->last_rx = jiffies -
+>  			(2 * msecs_to_jiffies(bond->params.arp_interval) + 1);
+>  	} else {
+> +		/* Give a slave that starts UP a full arp_missed_max window.
+> +		 * Not seeding it later than last_link_up keeps bond_arp_rcv()
+> +		 * from trusting ARPs on backup slaves before the active one
+> +		 * got a reply.
+> +		 */
+>  		new_slave->last_link_up = jiffies;
+> -		new_slave->last_rx = jiffies -
+> -			(msecs_to_jiffies(bond->params.arp_interval) + 1);
+> +		new_slave->last_rx = new_slave->last_link_up;
+>  	}
+>  	for (i = 0; i < BOND_MAX_ARP_TARGETS; i++)
+>  		new_slave->target_last_arp_rx[i] = new_slave->last_rx;
+> 
+> -- 
+> 2.56.0
+> 
+> 
 
-Provide ethtool read capability for these devices. However,
-no write access is provided.
+Sashiko reported some other issues during arp_target/arp_interval set. But
+none of these introduced by this patch. And we haven't received real user
+report about these issues.
 
-Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
----
- drivers/net/usb/ax88179_lib.c | 56 +++++++++++++++++++++++++++++++++----------
- 1 file changed, 43 insertions(+), 13 deletions(-)
+So for this patch
 
-diff --git a/drivers/net/usb/ax88179_lib.c b/drivers/net/usb/ax88179_lib.c
-index b54e98e781f334c5aeff0b3d2861a5565934454c..d5bbaa0c4e4c6f978722a6ec4461bb1d45679e15 100644
---- a/drivers/net/usb/ax88179_lib.c
-+++ b/drivers/net/usb/ax88179_lib.c
-@@ -210,36 +210,61 @@ int ax88179_set_wol(struct net_device *net, struct ethtool_wolinfo *wolinfo)
- 	return 0;
- }
- 
-+static void
-+ax88179_eeprom_access_params(struct ax88179_data *ax179_data, int i, u16 *value, u16 *idx)
-+{
-+	/* AX88179 has a word-addressable EEPROM
-+	 * AX88179A uses EFUSES with 20 bytes length
-+	 * AX88279 has an EEPROM addressable in 256 byte blocks
-+	 */
-+	if (ax179_data->chip_version < AX_VERSION_AX88179A) {
-+		*value = i;
-+		*idx = 1;
-+	} else if (ax179_data->chip_version == AX_VERSION_AX88279) {
-+		*value = (i * ax179_data->eeprom_block) >> 16;
-+		*idx = (i * ax179_data->eeprom_block) & 0xffff;
-+	} else {
-+		*value = i << 4;
-+		*idx = 0;
-+	}
-+}
-+
- int ax88179_get_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8 *data)
- {
- 	struct usbnet *dev = netdev_priv(net);
--	u16 *eeprom_buff;
--	int first_word, last_word;
--	int i, ret;
-+	struct ax88179_data *ax179_data;
-+	int first, last, i, ret;
-+	u8 *eeprom_buff;
-+
-+	ax179_data = dev->driver_priv;
- 
- 	if (eeprom->len == 0)
- 		return -EINVAL;
- 
- 	eeprom->magic = AX88179_EEPROM_MAGIC;
- 
--	first_word = eeprom->offset >> 1;
--	last_word = (eeprom->offset + eeprom->len - 1) >> 1;
--	eeprom_buff = kmalloc_array(last_word - first_word + 1, sizeof(u16),
--				    GFP_KERNEL);
-+	first = eeprom->offset / ax179_data->eeprom_block;
-+	last = (eeprom->offset + eeprom->len - 1) / ax179_data->eeprom_block;
-+
-+	eeprom_buff = kzalloc((last - first + 1) * ax179_data->eeprom_block, GFP_KERNEL);
- 	if (!eeprom_buff)
- 		return -ENOMEM;
- 
--	/* ax88179/178A returns 2 bytes from eeprom on read */
--	for (i = first_word; i <= last_word; i++) {
--		ret = __ax88179_read_cmd(dev, AX_ACCESS_EEPROM, i, 1, 2,
--					 &eeprom_buff[i - first_word]);
--		if (ret < 0) {
-+	for (i = first; i <= last; i++) {
-+		u16 value, idx;
-+
-+		ax88179_eeprom_access_params(ax179_data, i, &value, &idx);
-+		ret = __ax88179_read_cmd(dev, ax179_data->eeprom_read_cmd,
-+					 value, idx, ax179_data->eeprom_block,
-+					 eeprom_buff + (i - first) * ax179_data->eeprom_block);
-+
-+		if (ret != ax179_data->eeprom_block) {
- 			kfree(eeprom_buff);
- 			return -EIO;
- 		}
- 	}
- 
--	memcpy(data, (u8 *)eeprom_buff + (eeprom->offset & 1), eeprom->len);
-+	memcpy(data, eeprom_buff + eeprom->offset % ax179_data->eeprom_block, eeprom->len);
- 	kfree(eeprom_buff);
- 	return 0;
- }
-@@ -247,12 +272,17 @@ int ax88179_get_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8
- int ax88179_set_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8 *data)
- {
- 	struct usbnet *dev = netdev_priv(net);
-+	struct ax88179_data *ax179_data;
- 	u16 *eeprom_buff;
- 	int first_word;
- 	int last_word;
- 	int ret;
- 	int i;
- 
-+	ax179_data = dev->driver_priv;
-+	if (ax179_data->chip_version >= AX_VERSION_AX88179A)
-+		return -EOPNOTSUPP;
-+
- 	netdev_dbg(net, "write EEPROM len %d, offset %d, magic 0x%x\n",
- 		   eeprom->len, eeprom->offset, eeprom->magic);
- 
-
--- 
-2.47.3
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
