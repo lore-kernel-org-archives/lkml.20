@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957394;
-	b=P7DYYlnN6BAX3OuHrM+pkTsoA2XFJT73hKr1MKCpmmr4DpEsowtNqCwzy5iXQ83Oz9nA
-	 wPai8T/BayO+gKecbzzy6EzGZeEwG0xcQuzirJkGfzTI4JATV61jZOValFIVv/DU+imiW
-	 IWAaCRrw8sboCRSl926N8qfR2+EIS9zM317DSotb7UVzUD2g+FmrxCefKm9b4lu65YjBr
-	 dL6/W0BJ4VOAUglO2kdbitJFLOsgEi18ox1e1zyHUgZ0uVwi1GlJL7QuTBh1Yb/wWr0dN
-	 JyTCGlFtB9Aaq1PNfyAmWPvlK942VJFsEbkyx2DZo9rgDE6zu4QqLz/wgr8idP40VsQ==
+	t=1793957387;
+	b=b17rjCREnnsTtXrqAWERQH0oF/3B97+UAdH8VsfdISY66sHLMCZMcnKsXfGtvHWyq+Kk
+	 DjJWunQrCkjJBLgIXOFPwccAFekM99PwZJ9ms92RrGm0C7FBrb+rJ3oApi5Y0rsfDCH92
+	 sKDIGafzoLv5PqDujflgTGQPzW48YyJvTuUWS5vs3qNosVwsI9unk745HcmYrwaOFJBpe
+	 UWS2dwv4iW06/a33Kg8e9GHFlbLrUl51/nm1HwfNRf5gPGHHQ7AnuwRdbl/cH7IrIXQIG
+	 4ZDECzSgj3ahkAGr1mHX6+RXUgpL0KIGCE+oKJIz3k4/AQ1Bv0B1PnLdwxzdBJ59S9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957394;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=waJSczF0G97CDukNHhtkD5XBmdR6Pv681qHRenWC8Ck=;
-	b=pMqr12PlvL0IUn5PRE5egr4Q4+elWxaTIjLfD8Bni8nYxg6QQF0m4UdbUzO1LW3al8Tb
-	 +UBDP+9FT3qszdIPZ8u+fuqq4iPWLtwmpapjF/PlvJo7bx02TC6YVBX1FOpvQ3RXI5X5a
-	 ehW0h5uBv0GGlKOn+f16Ae+gg9HuxlG2KN0lFQPUWBcW3WxZHAd0DaRbd99I86aOZ/LTw
-	 vyeuec4LCZYczlwYphr61lZP5H+n4QnomHND4Vk9hIOayYZijVHck+5ma2TMu/iA3TUSC
-	 ATlMSktZ/mMJG3KJPZyAFpZX9cmPJD/j9f/C6CcqQIgM/rh/BX4CSl20OYqZmpWWxoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957387;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=x0R5VqHbnaDHZP+6wtvRh01uAHGsZpbnIKXHCYTx6JQ=;
+	b=Q58TAQ6P3bVCIggs5iOygIhRDcWIq/4jl19OrB3DM4Swmzhc6vm+K/aUmo74kR+TKSqY
+	 p0AQ4veqE3CLoUBzo99OqDsNWeT7h88nrt8xiVeIzDTawz1S4gg0aMtbla5oAMCh82iwu
+	 h9NV/Erozrwr5P7dXH5KWvWT4ecnJaDwOrAbtTAwzg5VO8FpJknBxyqCHxm8w6D3AgQFM
+	 Fb2BDjGVea1gzSIdXOcCnSdSsPlsRq15p1y4ZwbSVLdDd9iY9W4pqSG1dKG+m9h0GOixw
+	 8H4i3nTOcPFEnqmV0nTOqv9bzwOOn+9skxu5VG+eYtacEm7lMSJhXi40T776M3yXVqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jXo5hDR4;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnufsCwF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4227606D804
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4227606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D670606A32C;
+	Fri,  6 Nov 2026 09:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jXo5hDR4
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso191709a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:29:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793957393; x=1794562193; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=waJSczF0G97CDukNHhtkD5XBmdR6Pv681qHRenWC8Ck=;
-        b=jXo5hDR43HMdxei7dy6TjafOhVMrClrJlaQnEKMGohZdCsVMFrj6HbyqPaaRG+2Qay
-         AA3LcQ75Q27BrlMJoqFarISC6mD5CUJG+wPworJLOBpqM+2cAHnpq+8+2llXXX+O8zcH
-         JiYOdjiuN/mbnJV/a4QB8nCkTnvWc3njxlRYpyn4DXx2QkBLCSp2mAO/vJe7u9URwslH
-         saThYc5nGG191WRFghjQkRkm/XHTd62XSqIxpufB1Pzi264oGxizYoVTmJNptN3UPvMA
-         IuQ/ED3VnJvcUQRZcRIC91BsMFoE7O3hy55+30wYyitUcVAHPPopertPmZdeEyvilDej
-         D5gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793957393; x=1794562193;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=waJSczF0G97CDukNHhtkD5XBmdR6Pv681qHRenWC8Ck=;
-        b=DfQufXHio2E2pM0gEBU9DqguhzlT/Twrpv+Tcsqn+N2jwMRf4yeInL7+DiU6VcMrJv
-         OI45tOKchr3ADetXvoZGrEObFTzkUxxt/nLTtn3aXkiVxdmBvyQAv7OlHrGxEE3SyPHh
-         PJ9FdQz7Z5d/N64JFVA5GqiPoyKHFOl5VWdwC6TIUB0IQGr5WGJotglXInkCRbHjEiTa
-         JzYICBpI78tWV/epnDWULdCFgdOX93N2kN3xJ9obiILJGasQdS6E4WWh8Bs30POLo5rC
-         sGo0WR9GebC6LSJz653YAKTkZW9OzojJ/fMCmmE4W+LxXYSL1lDjmSAFdTUyK7gbOHp2
-         n1fA==
-X-Forwarded-Encrypted: i=1; AL+hErFwwXboP89K3GGVysyc48/I/KnRwBg94p3RJQguo4LWF+u0I4RVr3EmUzrJmDlaryojiVTt20TbA6JwoOw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Vn2W6guFIcFVl4UIenGKqVvI/xkZabJLxgzPY6b3oAaLJc/bJ
-	nxo2Agcn7I8vpKpbeu57XKvgnEAJ4uP+Aa/8GbHs89rH5D/S9D3RaZux
-X-Gm-Gg: AYBFou3ykSPF95P2w346+qP7QA+gWU0vpQSTaxtKtZeMddoW5VY1eJzB4MzqlMRbmgS
-	GsERGD8x3FR+jnmxA+w57AvzvURec7Syy1g6NpN0VwwwSUz5j27L0g04OT77E5yGQOCMbb6PUfk
-	BqaQgkUzW/JDCxvJPlfMeyrgAHm8NmNlue4WoH3KDnneb86GaknZxFHMO7pR79Xl13tzNTSrLsj
-	xSKPt8vsZxKHW8GvKZaMTYsf9TzhhSlOu/VKsnAomVwLdECYl+lXXloCNWArzw7moy479L0bDmW
-	FdxJy9RwxQftCPCF6T3icapSiufHyu108QA29MQ02qgo0ipz24N5/tdD5hFeq2ksLh3yauiGQVb
-	L3n8j4qG0K17fsWczDarAkorpOCDQP0fWTgoPMj/vvYbWdyP+7iVjhtDAhoKeYJTSw9Vj2Xb1NQ
-	LCH67AiVVyXaSY3DjoYhkQbIp0nJgMSjDnto+sOsJHqffcJB1kF/2bMR0qsnTqaqHWPPLpQ7mRs
-	srEHjObBNnWu9VXaYTLv9LjmeuUGZrKXMCViwv4pkypKXauJ3ClEb/dVovw+fzj5PVe0k+4zzMr
-	bvoUVqhFBZgb3H/X3Zb+nCA1fRU8xFjqCsDWXQ1j+RIVjoD5pnDXGduYbXweZTW7
-X-Received: by 2002:a17:90b:2c8f:b0:3ac:8897:7ba5 with SMTP id 98e67ed59e1d1-3b0db713f11mr1803189a91.59.1793957393089;
-        Fri, 06 Nov 2026 01:29:53 -0800 (PST)
-Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b326add7sm7043845a91.8.2026.11.06.01.29.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:29:52 -0800 (PST)
-Date: Fri, 6 Nov 2026 17:29:45 +0800
-From: Vernon Yang <vernon2gm@gmail.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] mm/khugepaged: release contended mmap read lock
- after scanning enough VMAs
-Message-ID: <b48e1b6d-0286-489c-a688-cf751fb74fe6@gmail.com>
-References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
- <20261105-khugepaged-latency-fix-v2-3-4384bbfe4606@kernel.org>
- <257ab860-b408-4897-838b-e7b68f981d6c@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnufsCwF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 733571F008A3;
+	Fri,  6 Nov 2026 09:29:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793957387;
+	bh=x0R5VqHbnaDHZP+6wtvRh01uAHGsZpbnIKXHCYTx6JQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=nnufsCwFDsMiYYYS0PQRKnStoa9uhhNxdCM71bFfZtxcyMg82WLYPpujY5yirD5op
+	 86jDhl7EIzAZm3s9beR5us77ltAc1qYBOA/TR5F85b09EBY6pEQk+IAPFxZAA2ym76
+	 +HOeZqsjPWHUnCtP1aFtVAJjCTki/zhHtJb4tGMJ4uuZfL2lLWz010w6RuFbX94H2s
+	 eV0GD7nWvOIGNi+tvHXuDcSo1+leITuu3z/wmZVVbWFcas5R5v8RXbTd6J8W6A7niI
+	 nmfog/1AmbPY6IX91n0O6pIg3xexgXjz25HKQaeTq41PCbjerV4QxoP8cVV26uTrMF
+	 v11OV+pJd0keA==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Fri, 06 Nov 2026 10:29:08 +0100
+Subject: [PATCH v3 7/8] arm64: dts: qcom: glymur-crd: Move DP0/DP1 to
+ common dtsi
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,37 +53,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <257ab860-b408-4897-838b-e7b68f981d6c@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-topic-sip_cob-v3-7-52cd3826ab49@oss.qualcomm.com>
+References: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
+In-Reply-To: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>, 
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
+ Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>, 
+ Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+ Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>, 
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793957348; l=1753;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=CQG/y4ib4Ac8iCmYhPKzckLYsBDBwLmuSPsnjO/m0no=;
+ b=OFCIgf7ewT19HjaqWcZTlhu0cC8JDTItzaRTRrOjfZNR0zF1p91Nmqoj67ELmOctBdVGsOU3R
+ 66Vl2NhtMzSAPrZzn3t63lxFLLH8b8UW2FGFV6kgGQnyVRhgsT8iM+F
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Fri, Nov 06, 2026 at 10:12:46AM +0800, Vernon Yang wrote:
-> On Thu, Nov 05, 2026 at 08:57:24PM +0000, Lorenzo Stoakes (ARM) wrote:
-> >  		if (!collapse_possible_orders(vma, vma->vm_flags, TVA_KHUGEPAGED)) {
-> > -			/* Unable to collapse, skip to the next candidate. */
-> > -			mm_slot->address = ALIGN(vma->vm_end, HPAGE_PMD_SIZE);
-> > +			const unsigned long next =
-> > +				ALIGN(vma->vm_end, HPAGE_PMD_SIZE);
-> > +
-> >  			cc->progress++;
-> > +			/* Check for overflow. */
-> > +			if (unlikely(next < vma->vm_end)) {
->
-> I think you want it to be like that.
->
-> 			if (unlikely(next >= vma->vm_end)) {
-> 					  ^^
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Don’t read this comment please. Your code is right.
+This seems like a rebase mistake, move it to the shared DTSI.
+Doing this also enables it on Mahua CRD (that includes glymur-crd.dtsi)
+which is very much a bonus and not a problem.
 
-The VMA at the top of mm, after aligning the end values according to the
-PMD, may overflow to 0.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/glymur-crd.dts  | 16 ----------------
+ arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 16 ++++++++++++++++
+ 2 files changed, 16 insertions(+), 16 deletions(-)
 
-It might be easier to understand if this coding is used.
+diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dts b/arch/arm64/boot/dts/qcom/glymur-crd.dts
+index 28d9b0e4e21f..439838e8a27e 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-crd.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-crd.dts
+@@ -12,19 +12,3 @@ / {
+ 	model = "Qualcomm Technologies, Inc. Glymur CRD";
+ 	compatible = "qcom,glymur-crd", "qcom,glymur";
+ };
+-
+-&mdss_dp0 {
+-	status = "okay";
+-};
+-
+-&mdss_dp0_out {
+-	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+-};
+-
+-&mdss_dp1 {
+-	status = "okay";
+-};
+-
+-&mdss_dp1_out {
+-	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+-};
+diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+index aa63ae968bae..2ec62423ad79 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
++++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+@@ -529,6 +529,22 @@ &mdss {
+ 	status = "okay";
+ };
+ 
++&mdss_dp0 {
++	status = "okay";
++};
++
++&mdss_dp0_out {
++	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
++};
++
++&mdss_dp1 {
++	status = "okay";
++};
++
++&mdss_dp1_out {
++	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
++};
++
+ &mdss_dp3 {
+ 	/delete-property/ #sound-dai-cells;
+ 
 
-			if (unlikely(next == 0)) {
+-- 
+2.56.0
 
---
-Cheers,
-Vernon
