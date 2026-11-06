@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794000303;
-	b=mEqXJNqKg6DsorF4KuIE2JYbrmwdJ1PCWRY0JTUxjrfBp5xZ3dqA6/6sT+XJNdN6qw9b
-	 xzCdjFBtT6oYSOTAeNt4MMyIyXi8hNlkyv66AqHF6865lsT3PxfJKU71J50jPOo8V3Y+T
-	 2BpNsa37dbncuKgZcG7/yQ6P78LUnp2yCmpBMFYc9pcz8kC7lI2d6FtF5jkDrAti9+PGY
-	 qYcYUr6yZBDnwzJoW/ZAXJVamniwmJGKO6WhS2lTxAvYGLp1+DLj4ivQ8CNbFnlPyKsXZ
-	 V1uz5ax8W+nJfkhncqhpqG2EzIJmDQZO/QnqLJ93MSgToAcWQWf7ri1x1ubNgg5ZwSw==
+	t=1794000306;
+	b=QJbr+9twMVVoC7QKSw25nllcwrsH4hutAeQ6tjj/UdnpO/+UX24Hghzfcc8G2ROilejo
+	 oJRtIOyKzgpXHD9B5s0TOU60u41d+ZIWPHbjeRc3Yz0t1PDa6BtYMmsrImXlr7xNtnHLh
+	 cK6bQrtdy4v5E4JWkGV8kWUqWyTptssO6V3vTb9eUnrYCoKmw+2l2WLjJ+pu5Y6eaiVWD
+	 AeG1YrRmop9d3ksfURuDs3gd/9B72K+A9t7ic0HynBDhFmNsL0ZE+WJIC3kRz9hmwqZgq
+	 eM/69KNTFZ9hO1TWvCbSPJsRz1qVvfBiKo9DujrTACA4NHhlUNNgTw1c/r5/BrA/67Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794000303;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794000306;
 	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc;
-	bh=26RtvXWyvPMKIsPpPxfp50GdoxTzvUevSoYk/CUFfTE=;
-	b=CGdU8NebKUOt6pSgXfr22DUgD9axAUbm/F2qiUjFedBLs5CY521eS14LJ1hhi+wFy3HL
-	 YWuJqpf2S6qPWi6jPv58PGuFrOOStoE2SepDJeQ11JbSNwdFwfGTTYeedagB5zDuNiVQZ
-	 iBCIjYGFJ/ZlTUTBv7f3LI3fzGlnrIYZwbGZawpfd80tnaiY4GjbNZpEZA+8xDHnIUzIr
-	 /zxTSRih0jpO5oQxYhHgXN5BdmgQeA5G1JDxGHVdGj12y+GJQd8Wji+Sz7TmdKAIpaJDB
-	 TRHgfjrhTiFEjav457UVmr7fkS3hjuGU6k3HIX8mjm56Opw7ElAtjie+aBKj+LqMx0A==
+	bh=vNw98TulTGI8RlWvt5yNDg9lFfwWrwXKijxuB0xHpIc=;
+	b=1OlQ+Xhx/0zym1JYIvcEyVTeqAhzTVaPq+WNd1w+A0QvExJSJkhu2Bu3MgQEZHgBk1oW
+	 tLkq7DkNp4VP2g8Qikw/Dc9jaykW2m9BkVWkQbQU1HfAPbYo0C5V1ACOmKlJOols5YMpF
+	 xNekkmNUDvNJa8g8IIa7r5dMY6bRaGRcIXGK2TjTT5aERNZM+ypRXFuV+l+oyi0QapiKe
+	 DCX10Zqsa6TniD7xvWVuhlYZs5C2nuk6SNnJGyuxgc2MtqOJfxXV52ZFDHO7ei6bq8yCj
+	 /LEeFYK0/1XY7PG65c2eW1aFzpCGGCVgjcF/XG9QZ5Yb1b6R0JVNm+taILCwjdmxzUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cyberchaos.dev;
 	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b="mYwZ/Oza";
+	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b="XD5/bFsc";
 	arc=none smtp.remote-ip=195.39.247.168
 Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B120606A33B;
-	Fri,  6 Nov 2026 21:25:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B120606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809A9606A33D;
+	Fri,  6 Nov 2026 21:25:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 809A9606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=mYwZ/Oza
+	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=XD5/bFsc
 From: Yureka Lilian <yureka@cyberchaos.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1794000301;
+	s=mail; t=1794000303;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=26RtvXWyvPMKIsPpPxfp50GdoxTzvUevSoYk/CUFfTE=;
-	b=mYwZ/OzayW+UVVF4NjyN2q3DDSAAX51TPZIgU+AT9L3J6O3hJ1z/rEgr9vtVbJk+h5zR9p
-	dKBlDzVdz5KT89br4ld9o5yBzS7iByHH6egVxG/lS2Ipdi/JzNeC1jQ875kFvJyUNgDzVj
-	BD8SXVlR9wPB5CNTavnNVQepgdbofv8=
-Date: Fri, 06 Nov 2026 22:24:51 +0100
-Subject: [PATCH v3 2/9] dt-bindings: arm: cpus: Add Apple M5 CPU core
- compatibles
+	bh=vNw98TulTGI8RlWvt5yNDg9lFfwWrwXKijxuB0xHpIc=;
+	b=XD5/bFscPAHJASvpPL3CHultPB/QfZPTx3vINDcf49knjZ7CHShkHQJ1UXCQwcjVA0RjCB
+	pUXTcLAZHsJP1euJ1jKoRxIJZLJhaEB+kkKhVu5D5pn0Jfdb2vKpFY44p9tOz8tXk199ZT
+	iCUmO0bWSLWpF3BhGEa6+HyAyifp8XU=
+Date: Fri, 06 Nov 2026 22:24:53 +0100
+Subject: [PATCH v3 4/9] dt-bindings: arm: apple: apple,pmgr: Add t8142
+ compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-apple-m5-initial-devicetrees-v3-2-cee55de54b2f@cyberchaos.dev>
+Message-Id: <20261106-apple-m5-initial-devicetrees-v3-4-cee55de54b2f@cyberchaos.dev>
 References: <20261106-apple-m5-initial-devicetrees-v3-0-cee55de54b2f@cyberchaos.dev>
 In-Reply-To: <20261106-apple-m5-initial-devicetrees-v3-0-cee55de54b2f@cyberchaos.dev>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -76,30 +76,28 @@ Cc: Yureka Lilian <yureka@cyberchaos.dev>, asahi@lists.linux.dev,
  linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Add "apple,hidra-e" and "apple,hidra-p" compatibles for the M5
-efficiency and performance CPU cores respectively.
-The compatible strings are chosen based on SoC codename ("Hidra") plus
-core type (E-Core / P-Core).
+The PMGR blocks on the Apple Silicon M5 SoC (t8142) are compatible
+with the M1-M4 SoCs. Add "apple,t8142-pmgr" as M5 specific
+compatible.
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 ---
- Documentation/devicetree/bindings/arm/cpus.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/arm/apple/apple,pmgr.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
-index b2fc99f74a15..c3cc0c48ca54 100644
---- a/Documentation/devicetree/bindings/arm/cpus.yaml
-+++ b/Documentation/devicetree/bindings/arm/cpus.yaml
-@@ -92,6 +92,8 @@ properties:
-           - apple,donan-p
-           - apple,everest
-           - apple,firestorm
-+          - apple,hidra-e
-+          - apple,hidra-p
-           - apple,hurricane-zephyr
-           - apple,icestorm
-           - apple,mistral
+diff --git a/Documentation/devicetree/bindings/arm/apple/apple,pmgr.yaml b/Documentation/devicetree/bindings/arm/apple/apple,pmgr.yaml
+index 3967fcfc1663..015a5b6834d0 100644
+--- a/Documentation/devicetree/bindings/arm/apple/apple,pmgr.yaml
++++ b/Documentation/devicetree/bindings/arm/apple/apple,pmgr.yaml
+@@ -44,6 +44,7 @@ properties:
+               - apple,t8122-pmgr
+               - apple,t8132-pmgr
+               - apple,t8140-pmgr
++              - apple,t8142-pmgr
+           - const: apple,t8103-pmgr
+           - const: syscon
+           - const: simple-mfd
 
 -- 
 2.56.0
