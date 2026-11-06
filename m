@@ -1,53 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793995284;
-	b=XtrSU8PmTRrZ5PKj+ZqAXfmVs4afd0IEKSq3wG4WUwwF252kHmUvsocGCc7W1x69fCQB
-	 HbdWCkuELgoc2nSW9cW3jKKSXL3SB5iUKzfPpt7vSjy/PbJ9EfdtJ45tDFBJ4+dlbeIDP
-	 q6FxD6uq5UqpIYEQlhEYTObqqW99lDpWPjWmXdAqrGHDrhMikE0c7s6n/E9eykuxYSmIW
-	 5lCrsWinXu7LMsmLF8ZM9Me4Eb+h0itRbR59oLR+RYml3pn1y169Tg3miqwy5hbOEGTUu
-	 zL1hul4JwGGBybEo+rSznMTNmfI9o5nQIy7FZDJz3LdZ9dAo6r/5boUsLqIcBQwsmaw==
+	t=1793995387;
+	b=ku8Q22hs2APVJNQnU9Mzi9LtLhI8gg7ROMhhkEd4Pmi6r+OeMQ26+fiNOlqEcQ0U23w+
+	 hg2KehdypY9Ro2EzQFbCtRPc9aMCTYYJtUPFaYIxtmrn+clqBAsAp1P7+rtBB1d2KqIfo
+	 El7oGJGaekDQdRTPi2QQbVtGWAhDg1Xroe65y6BvyScOy9d0DAkM+6T5j0efUgQgS6nQC
+	 ssaw5NYwuv1YzAWq8mzHaQWNDU5mqujLuBt6l+XGQA5xj0vVfW8tHMkq6KlnoIljf+W3F
+	 WoSkv29w7U/09dmcdt+j1H9AE21t/fE0BtxmQaDEmuHt6k2bOKt0BfIbwyE53OjuR+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995284;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=R5DTVliTIzgLtOjZqg2nUZXCBUkscXpY/488e6YJO8s=;
-	b=h7K7OlfNwpdEJtg44uxp06jkipCQ+5gWmyo1+N0WDFdgfa46/Jpn2FofnpOHePt4fZK5
-	 9EacbRrxlpK26WtYHb0uALp8y7zyJZAlWqjzwa+xsy/q4OPW/SMmquQkQcRI0Qm+gzr2h
-	 w5/Hmvm1Jucg5oLoTEtyS1epMiVFnlEFghAYX+iFCSgs7pkPRn8imRncaMl7XShq1uyqS
-	 P99ZUjRBi5DnmgedQOuGJ4RALz7QAJDpH9SAEYw2Vm41gQEvP9PRifqNsppmKF0MgOShX
-	 ihv0Vnf0J4Sr6F1IZgAeDruOwlWS66P+AEHFWn9FlkzqfeLRx7NEKf5k34m+Bxxp3qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995387;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=EZQDuZNuws1ikcoVHzG7GXK+3VfznaqQ2EHawvfd1nw=;
+	b=mFYcF7uin02pJna0kvTyeHY+ObaUMtV79RQrvyB/iW4B6lZ6quaf7HIK9zYmCYjA9bOi
+	 OBK8sDp6GrnmWtSUI4rCbKT3Oo3BeE7fRmdu4bjbYgLhhsoyfuitehcku6RBKWVLs8hEq
+	 +Z2FpcPlOJ3nP4aYZqunaocsg2GI4N1vULjz/wq/DNVnZRJDExXPs5oKkQS+Y3e4z36vr
+	 rLXtePQLXY/gGJBEulDrNTcdCDCkeUGw5JCRW8/cUGRE+l11H4r7vOPSXAt9MleH+/71y
+	 DzOWWrbd05zBKqrPAtSdBaE0fpl6jJKms97MR8u2EBGW5/IyF4iUSWj4WGk0NtEX12A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C1w1tsN3;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7485F606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:01:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7485F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=WZqhRt+V;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE8A606A326;
+	Fri,  6 Nov 2026 20:03:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DE8A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C1w1tsN3
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2C5572F;
-	Fri,  6 Nov 2026 12:01:18 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7DBB23F632;
-	Fri,  6 Nov 2026 12:01:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793995281; bh=AePJOyAuyt/5pF9iqDjaLRnTEjhNW595aixOdlo0gN4=;
-	h=Date:From:To:Cc:Subject:From;
-	b=C1w1tsN3qDSrKSAXdDNWdeKBbpBF0ud7on1u94eY5VXyol6V27FbNCfPZbHpihMy7
-	 fPnleO/Rn+rRH9tnX2X6so1vS1wYBAmGMbocGTLc45bm/kgWDu/zBCLe4Ph15NlVzl
-	 WbZKKToTan5QL+G3QB0Z3gjABpCz+ejXlLRmyFtQ=
-Date: Fri, 6 Nov 2026 20:01:17 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] arm64 fixes for 7.4-rc2
-Message-ID: <au4yDc-l14h7hwMI@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=WZqhRt+V
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=EZQDuZNuws1ikcoVHzG7GXK+3VfznaqQ2EHawvfd1nw=; b=WZqhRt+VJHP/2njNbf/QtsBVl8
+	qDU8VlUBdWpv0N1miQxdsIsnJmyJpcT00O/g9Az3/K+8Bvx9Jag/1gEeZjX4G8EwvcgklYtN0W8FC
+	L/ZOd2FNQmy60jG2LnviDVWi/FRxa5Nri4bkxwyZIMR5P9zB0uIjCByOHnyJt7tTTIU5iPG6ROJp5
+	N0d71A3pYjjVjowYCJgjJZkkcR+6zYjkwIFDOSewLyQswuUcckRhq64DF9VJJAVl9BfS4ZucKXMUl
+	W8BkuJROiEHPzgBnKSLX9G1PoSIjOJOb+EHYJ/UTR5oEvmojtN2SW+6dFSib3pgIjaI2YvkR6nN4t
+	uKgzEgeA==;
+Received: from [151.115.150.205] (port=49746 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xPQ9N-00000000eD1-147b;
+	Fri, 06 Nov 2026 21:02:57 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] net/sched: sch_qfq: revalidate aggregate after peek
+Date: Fri,  6 Nov 2026 20:02:37 +0000
+Message-ID: <20261106200236.716641-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,73 +72,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Hi Linus,
+qfq_dequeue() keeps in_serv_agg across qfq_peek_skb(), but a child peek
+can re-enter QFQ and free it. KASAN reports a UAF:
 
-Please pull the arm64 fixes below: SDEI (software delegated exception
-interface) handlers taking nested exceptions (looping on the KPTI
-trampoline vectors and clobbering the interrupted context's exception
-registers), TPIDR2_EL0 preservation across CPU suspend, a
-kexec_file_load() memory leak and an overflow in the /dev/mem
-valid_mmap_phys_addr_range() check.
+  BUG: KASAN: slab-use-after-free in qfq_dequeue+0x124/0xad0
+  Read of size 4 at addr ffff88800740423c by task swapper/0/0
 
-Thanks.
+After each child peek, restart qfq_dequeue() if either q->in_serv_agg
+or cl->agg changed. Also use cl->agg after the child peek in qfq_enqueue().
 
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+Fixes: 462dbc9101ac ("pkt_sched: QFQ Plus: fair-queueing service at DRR cost")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/sched/sch_qfq.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux tags/arm64-fixes
-
-for you to fetch changes up to 58c1eb84e97701c583605ba2fd553b69afba2245:
-
-  arm64: sdei: Preserve the interrupted context's exception registers (2026-11-06 17:43:20 +0000)
-
-----------------------------------------------------------------
-arm64 fixes:
-
- - Fix nested exceptions taken by SDEI event handlers. With KPTI, an
-   event interrupting user space left the trampoline vectors installed
-   and any exception in the handler looped forever. Also save and
-   restore ELR/SPSR/ESR/FAR around the handler since an event can
-   interrupt exception entry or return where these registers are live
-
- - Save and restore TPIDR2_EL0 across CPU suspend. Its value is UNKNOWN
-   after a warm reset and the task initiating suspend could return to
-   user space with a corrupted value
-
- - Fix an overflow in valid_mmap_phys_addr_range() allowing /dev/mem to
-   map out-of-range PFNs
-
- - Fix an elf_headers memory leak in the kexec_file segment placement
-   retry loop
-
-----------------------------------------------------------------
-Jinjie Ruan (1):
-      arm64: kexec_file: Fix elf_headers memory leak in retry loop
-
-Kiryl Shutsemau (Meta) (2):
-      arm64: sdei: Run the event handler on the kernel vectors
-      arm64: sdei: Preserve the interrupted context's exception registers
-
-Wei Wang (1):
-      arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend
-
-Zhao Gongyi (1):
-      arm64: mm: validate /dev/mem mmap ranges without overflow
-
- arch/arm64/include/asm/sdei.h          |  3 +-
- arch/arm64/include/asm/suspend.h       |  2 +-
- arch/arm64/kernel/entry-common.c       | 40 ++++++++++++++++++++++-
- arch/arm64/kernel/machine_kexec_file.c |  2 ++
- arch/arm64/kernel/sdei.c               | 59 +++++++++++++++++++++++++++-------
- arch/arm64/mm/mmap.c                   |  4 ++-
- arch/arm64/mm/proc.S                   |  8 +++++
- 7 files changed, 103 insertions(+), 15 deletions(-)
-
+diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
+index 6f3b7273cb160..dc813822d3825 100644
+--- a/net/sched/sch_qfq.c
++++ b/net/sched/sch_qfq.c
+@@ -1100,17 +1100,24 @@ static void qfq_schedule_agg(struct qfq_sched *q, struct qfq_aggregate *agg);
+ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+ {
+ 	struct qfq_sched *q = qdisc_priv(sch);
+-	struct qfq_aggregate *in_serv_agg = q->in_serv_agg;
++	struct qfq_aggregate *in_serv_agg;
+ 	struct qfq_class *cl;
+ 	struct sk_buff *skb = NULL;
+ 	/* next-packet len, 0 means no more active classes in in-service agg */
+ 	unsigned int len = 0;
+ 
++restart:
++	in_serv_agg = q->in_serv_agg;
++	skb = NULL;
++	len = 0;
+ 	if (in_serv_agg == NULL)
+ 		return NULL;
+ 
+-	if (!list_empty(&in_serv_agg->active))
++	if (!list_empty(&in_serv_agg->active)) {
+ 		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
++		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
++			goto restart;
++	}
+ 
+ 	/*
+ 	 * If there are no active classes in the in-service aggregate,
+@@ -1148,6 +1155,8 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+ 		 */
+ 		in_serv_agg = q->in_serv_agg = qfq_choose_next_agg(q);
+ 		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
++		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
++			goto restart;
+ 	}
+ 	if (!skb)
+ 		return NULL;
+@@ -1271,9 +1280,10 @@ static int qfq_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 	/* if the class is active, then done here */
+ 	if (cl_is_active(cl)) {
+ 		if (unlikely(skb == cl->qdisc->ops->peek(cl->qdisc)) &&
+-		    list_first_entry(&agg->active, struct qfq_class, alist)
++		    cl_is_active(cl) &&
++		    list_first_entry(&cl->agg->active, struct qfq_class, alist)
+ 		    == cl && cl->deficit < len)
+-			list_move_tail(&cl->alist, &agg->active);
++			list_move_tail(&cl->alist, &cl->agg->active);
+ 
+ 		return err;
+ 	}
 -- 
-Catalin
+2.47.3
+
