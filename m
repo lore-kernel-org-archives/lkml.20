@@ -1,72 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.149.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965293;
-	b=EAh6JlbGvqq+vFDevEr0kbsZ+H8ZG8u6uDa041AArnhQjRRg+ozk+4oWM+py9ez0q+tT
-	 ZXubcQEV4xykmp//UmM4I0cdsNVO99RwsHrbKCMKzzXqufd1bgllWzuNm6ZLJrfqvkpdk
-	 dtAj97gujyL6Ego9Nryt7WgcdADipR7iH0F0DxO8Rij7O4dHa+VryDttD2Fns1I23fqEy
-	 b5rKEPVb7EOdgQkfI9SQHACEwxhHfIgGNQKjrxWD5D+zV/5NiWoRX4X2CGGn8WsVqHkzu
-	 N4PZkSNlvIr75QhA+mwx0DX5Nx0ViG+NrNWwL+8Dxmq2PBSkaEN+hXa24nGQw4/WCSg==
+	t=1793965346;
+	b=XYF3iA2o1VaaaE4KmLy4MqUml6GNeiOwB2EswGs3SU87BREgGn3JmvSPjXVmN4/7BDL7
+	 IwKAMikjbXMeA7itNJNuUf6QDysS7XIzGgboNshBRc1ZnU69i342ezuQR36ZxKhxI8YdK
+	 YI5XALJKyQD8fgiyXtnWNmGc8JRzSjOyN957ZdZsrQ1ueF+mRq7YkKWrygGAeE0KyZVkB
+	 PjYd9OPGGP0RZgDod4m6HDKz1ONl5Q62/hQ+DlC2eqasnRU88T3KdVpdKBF1bUz/xcNlD
+	 9jIbThS/keR0dW6Mz7bkUeBBAFQtKdMd3nKtq+Su6LMxAYpt6r6rstySVhzDcf//AMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965293;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=6JqcFZw2DreE50hImFuQgRUSPI0sEWGLexA8Fi5Q35c=;
-	b=2OVnDvYBK1oCsi7FWCS/LPbSai348eYE53HekSmJzjOsByxkQm0DN4r59+a7rvTFXgwv
-	 9LgOqEqdnlqoWnK2L9oWI2zsn9VFMqbe2IXj0AnGz1FQe18CfomB3oOTlXhLqJnMXWl86
-	 NMSTy93Bk/A9Eygg9KMsIn7D6/PSwv5EssMGVTbasPaKgfAujjut+gsY/q59FmUU3Effc
-	 hogsqW8MCH7thhdlRMiGY5UMogg36g6ubNM8Pfx8XrEjE32HvSkOT4k+hbc35FFtMQPJT
-	 rtyw0PyyWDT5CJ/VliDAleKLsoorTqfYcRAqTro6Nz52cAvHA585EFZWBIr70cOjfHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965346;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=EzmTMwr8yqruvj/vgnGIEkJVe6M9uLFP63MnhAvtE/A=;
+	b=06DASOeTyvdNU7yXNJpCSO3fVqbnqIyoUKHBGveSCmtLb6og4v9KldFSBItkwuT4h4Ta
+	 K3Ml9m4TiRQ/T+p3avsqxpg8tH+zXJsGChgg81yp5hvkgCOzCAk9ReYAq315UqmHdHBmf
+	 gj5Q1cnYDd91e0zKcfOHRPmiVgPKEf9Etx7r6C3azXQOf9ko7essyl+wBa+zn64A6f9k0
+	 gTRDEGwoX/Ox3FWKx2srGd2dSkkdO5QCz0v3UkfAk/VMhgdS6wkCbM1HK1iwIk4vI95qc
+	 uXIfy7O0A+DpIyCJBCtBL6sAM0ytcdm93rfMF1IQ2UC4NXtFwrOI8ObcRI3kURVokNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=akamai.com;
-	spf=pass smtp.mailfrom=akamai.com;
-	dkim=pass header.d=akamai.com header.i=@akamai.com header.a=rsa-sha256 header.s=apr2026.eng header.b="Xqd2BA/8";
-	arc=none smtp.remote-ip=67.231.149.131
-Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com [67.231.149.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2E1606A329;
-	Fri,  6 Nov 2026 11:41:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B2E1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=akamai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=akamai.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=t5SdXL2J;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3714606C7CF;
+	Fri,  6 Nov 2026 11:42:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3714606C7CF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=akamai.com header.i=@akamai.com header.a=rsa-sha256 header.s=apr2026.eng header.b=Xqd2BA/8
-Received: from pps.filterd (m0050093.ppops.net [127.0.0.1])
-	by m0050093.ppops.net-00190b01. (8.18.1.11/8.18.1.11) with ESMTP id 6A63ZOSF982660;
-	Fri, 6 Nov 2026 11:41:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=apr2026.eng; bh=6JqcFZw2DreE50hImFuQ
-	gRUSPI0sEWGLexA8Fi5Q35c=; b=Xqd2BA/89bmWdvaTFptK1org502yaTinBIFH
-	+DlbrKdyTmKIzLMncP+O466NCzaiWt7dQLaPUWtE4DbFJBAOZ0nToGSVjCw5tAsA
-	1fhbbStLM+delM/W6KkcRHaa39r/Y7GbBPMICZpE69F9iBG82KeYoJ3Sp5ZJ7vJR
-	Sqy6xKJoN4oMnvMqb6a5klTsZKStrP1xB5H651cnYviH+RKzXmwYO0stsDSpp5MR
-	ZDe1cpR9GtoMHt8RIwV7eLAXuj4yY2BgtfbZlu3y4uUwcAZBYigfF73rs0QBtEFF
-	7fRNkDNpla/ygOIdME65GgVp43lMdodrW87hicn4AK5nrFqE7A==
-Received: from prod-mail-ppoint6 (prod-mail-ppoint6.akamai.com [184.51.33.61])
-	by m0050093.ppops.net-00190b01. (PPS) with ESMTPS id 4hrey5ty49-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 11:41:10 +0000 (GMT)
-Received: from pps.filterd (prod-mail-ppoint6.akamai.com [127.0.0.1])
-	by prod-mail-ppoint6.akamai.com (8.18.1.7/8.18.1.7) with ESMTP id 6A6BZeaD006231;
-	Fri, 6 Nov 2026 06:41:09 -0500
-Received: from prod-mail-relay02.akamai.com ([172.27.118.35])
-	by prod-mail-ppoint6.akamai.com (PPS) with ESMTP id 4hs3una43f-1;
-	Fri, 06 Nov 2026 06:41:09 -0500 (EST)
-Received: from [127.0.1.1] (muc-lhv4ep.munich.corp.akamai.com [172.29.0.215])
-	by prod-mail-relay02.akamai.com (Postfix) with ESMTP id 71C0A83;
-	Fri,  6 Nov 2026 11:41:07 +0000 (UTC)
-From: Max Boone <mboone@akamai.com>
-Date: Fri, 06 Nov 2026 12:40:55 +0100
-Subject: [PATCH net-next] net: lwtunnel: use GFP_KERNEL in build_state
- paths
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=t5SdXL2J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=EzmTMwr8yqruvj/vgnGIEkJVe6M9uLFP63
+	MnhAvtE/A=; b=t5SdXL2JGPAxooaugfA5EKWt56/UU1RYqlj8M0wZxy9Y2roAnu
+	gyLglA848pYTYJobK/D7z7FVRHxHo2iQ+ggbcmGlaUSn2yPkLgl7TEsP8SHnRVj2
+	0rNVN/G3lMGjLkPyKktOwNYzDG1JzsIwGR38ZTNkZySlTNdG1HeWJ68r0=
+Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.75])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn2S0Qve1q3DyPAA--.869S4;
+	Fri, 06 Nov 2026 19:42:15 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: gregkh@linuxfoundation.org,
+	Thinh.Nguyen@synopsys.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v8 2/3] usb: roles: look up role switches attached to a graph endpoint
+Date: Fri,  6 Nov 2026 19:42:07 +0800
+Message-ID: <20261106114208.987284-3-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106114208.987284-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261106114208.987284-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,189 +66,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-build-state-use-gfp-kernel-v1-1-18084382f878@akamai.com>
-X-B4-Tracking: v=1; b=H4sIAMa87WoC/x3MQQqDMBAF0KvIrDuQWCy1VyldGPNjh8pUMlEE8
- e4NXb7NO8iQBUaP5qCMTUy+WuEvDY3vQSewxGpqXXvz3nUcVpkjWxkKeDXwlBb+ICtmHq9df4+
- +dyEFqsGSkWT/509SFFbshV7n+QOOl99udgAAAA==
-X-Change-ID: 20261105-build-state-use-gfp-kernel-c3598d190bfb
-To: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-        Justin Iurman <justin.iurman@gmail.com>,
-        Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: Donald Sharp <sharpd@nvidia.com>, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-        Max Boone <mboone@akamai.com>,
-        Debabrata Banerjee <dbanerje@akamai.com>,
-        Nick Hudson <nhudson@akamai.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793965267; l=4428;
- i=mboone@akamai.com; s=20260317; h=from:subject:message-id;
- bh=LJP5KneWils/U/2yCjDE5joxzXA50czLgi/CoNddHkU=;
- b=CzpEqdWibOlncF0n9BKTV1FMFsXu0NAAzWIED5xUqpNW7e/ctavs6AzOQ6jVXqpX9Hku0CCW7
- eiphS3gHuMVBtFARadIfrNHQUZNdI7qbKpnISqBkwt3dBQ3T2pYDHMe
-X-Developer-Key: i=mboone@akamai.com; a=ed25519;
- pk=jWdC/h5H2KWQCiC2kpr/puMVX0mJmP9W5sM8YTGBXA4=
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
- signatures=596817
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2611040000
- definitions=main-2611060046
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA0NiBTYWx0ZWRfX+2gdTpzq+Q6S
- DTawaMSb50DCinsIn5mCc1pP648mrWw/Ujfi9/fBzndWZIGFUnV+3u4wiTlJP0kPiENuk8wHATE
- M4lUGSgPf3uNcWwG0B1KLIehFA8jL3I=
-X-Proofpoint-GUID: TCIrFhySC1P4xMTTBKrOhaESz6hGIorH
-X-Authority-Analysis: v=2.4 cv=e5KT2qp/ c=1 sm=1 tr=0 ts=6aedbcd6 cx=c_pps
- a=WPLAOKU3JHlOa4eSsQmUFQ==:117 a=WPLAOKU3JHlOa4eSsQmUFQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Ifg-1AOnLHOf1gn6spyb:22 a=d4nn1RXdvEacMIURMw2s:22 a=X7Ea-ya5AAAA:8
- a=Yl7yAlAd151cMgl_QPEA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA0NiBTYWx0ZWRfX1DitL39BG4vN
- yxCy9pOCDp2qfu+IeAGEjkwFbUGWA0nBvX81AbcAmIEOBC6OmomeumYMkvSsH4HFn11ZCe6YbVp
- CEEPZvpGY3Gxk0nAxtQgvgu7enV8GoLGIv72Z9OlSS5e7MHb1ywvoo+ZlAWmhB3VBDQxOhNsVcc
- DODRe4ITwlap4Hvf/IkwX8iOLNBgBZgBJunzsCiC6YDiEoG4OY0GS86AnrEdoJrS0FmIhL7LpAh
- AHCWDlvtRl/8VpDHVhZbR1UfgzOE92r1P2nbf3XU4Jy4HXEqWWKpk7ahW+faQvN0vnsI/Yob7o1
- +uaQ8SbCDdnhM8GtveoeFFX3uhAMIBX5tL+bKZD5LvL2wxyz+yQaw2rlBQJ0dU6XQO8k1dayldF
- GhoCsyImTGf9HMUCRZiZiRwq6WAkTYybhPb0+iHNxcBIt360qXbcvXs8On0ry7WySPMEY5MbNUM
- QDPlsuublZIYEcCUTVg==
-X-Proofpoint-ORIG-GUID: TCIrFhySC1P4xMTTBKrOhaESz6hGIorH
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
- signatures=596817
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- lowpriorityscore=0 clxscore=1011 bulkscore=0 adultscore=0 suspectscore=0
- phishscore=0 priorityscore=1501 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060046
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgBn2S0Qve1q3DyPAA--.869S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF4fZFy3ur1DCryDZr1kXwb_yoW5KF1xpr
+	yakF1Fvr4DJFya9w4fGa1DAFWrWr4fGFWUJF4xt3WfC3Zaq3yrJr48ta43Ar15CanIgw1Y
+	v348A3409a4DA3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBqb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_GFv_Wryl42xK82
+	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
+	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
+	IF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI
+	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
+	80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUnLYFJUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2rs2VhhrAA3sp
 
-Since 3d25eabbbf67 ("ip_tunnel: Add dst_cache support in lwtunnel_state
-of ip tunnel"), build_state runs outside RCU and all its callers can
-sleep, but paths still use GFP_ATOMIC.
+usb_role_switch_get() and fwnode_usb_role_switch_get() look for a switch
+on the caller's parent device node or through device_connection.  That does
+not work when one controller exposes a role switch per connector endpoint:
+the switch is registered against the remote graph endpoint and the
+consumer, the connector, has no phandle to it.
 
-For dst caches, that limits allocation to populated percpu pages. A
-large burst of SRv6 nexthops outruns the refill worker and will fail
-with -ENOMEM despite there being free memory:
+Add usb_role_switch_at_endpoint(), which walks the caller's OF graph
+endpoints and matches a switch registered on the remote endpoint, and try
+it after the existing parent lookup.  A switch that is described by the
+graph but not registered yet comes back as -EPROBE_DEFER, as the rest of
+the role-switch API does, so the caller retries instead of concluding that
+the connector has no role switch at all.  There is no behaviour change for
+existing users: if nothing is registered against an endpoint the lookup
+falls through to the previous paths.
 
-  percpu: allocation failed, size=40 align=8 atomic=1, atomic alloc
-failed, no space left
+This is needed by DWC3 designs where two Type-C receptacles share one High
+Speed data bus.
 
-Batching 20000 RTM_NEWNEXTHOP under QEMU gave 10-109 failures per run
-before, none after.
-
-This commit converts the allocations reached through ops->build_state()
-and are called after the rcu_read_unlock():
-
-  - ila_build_state(), ioam6_build_state(), rpl_build_state(),
-    seg6_build_state(): build_state ops
-  - bpf_parse_prog(): only called from bpf_build_state()
-  - lwtunnel_state_alloc(): only called from build_state ops (also
-    affects mpls, ip/ip6 tunnel, xfrmi and seg6_local)
-
-Signed-off-by: Max Boone <mboone@akamai.com>
-Reviewed-by: Debabrata Banerjee <dbanerje@akamai.com>
-Reviewed-by: Nick Hudson <nhudson@akamai.com>
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- net/core/lwt_bpf.c        | 2 +-
- net/core/lwtunnel.c       | 2 +-
- net/ipv6/ila/ila_lwt.c    | 2 +-
- net/ipv6/ioam6_iptunnel.c | 2 +-
- net/ipv6/rpl_iptunnel.c   | 2 +-
- net/ipv6/seg6_iptunnel.c  | 4 ++--
- 6 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/usb/roles/class.c | 45 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
-diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
-index da49364ec63d..6d1059ff0c49 100644
---- a/net/core/lwt_bpf.c
-+++ b/net/core/lwt_bpf.c
-@@ -359,7 +359,7 @@ static int bpf_parse_prog(struct nlattr *attr, struct bpf_lwt_prog *prog,
- 	if (!tb[LWT_BPF_PROG_FD] || !tb[LWT_BPF_PROG_NAME])
- 		return -EINVAL;
- 
--	prog->name = nla_memdup(tb[LWT_BPF_PROG_NAME], GFP_ATOMIC);
-+	prog->name = nla_memdup(tb[LWT_BPF_PROG_NAME], GFP_KERNEL);
- 	if (!prog->name)
- 		return -ENOMEM;
- 
-diff --git a/net/core/lwtunnel.c b/net/core/lwtunnel.c
-index 8223c44f10c8..f2f4d1ace0e9 100644
---- a/net/core/lwtunnel.c
-+++ b/net/core/lwtunnel.c
-@@ -70,7 +70,7 @@ struct lwtunnel_state *lwtunnel_state_alloc(int encap_len)
- {
- 	struct lwtunnel_state *lws;
- 
--	lws = kzalloc(sizeof(*lws) + encap_len, GFP_ATOMIC);
-+	lws = kzalloc(sizeof(*lws) + encap_len, GFP_KERNEL);
- 
- 	return lws;
+diff --git a/drivers/usb/roles/class.c b/drivers/usb/roles/class.c
+index edec139b68..ee186d542a 100644
+--- a/drivers/usb/roles/class.c
++++ b/drivers/usb/roles/class.c
+@@ -157,6 +157,47 @@ usb_role_switch_is_parent(struct fwnode_handle *fwnode)
+ 	return dev ? to_role_switch(dev) : ERR_PTR(-EPROBE_DEFER);
  }
-diff --git a/net/ipv6/ila/ila_lwt.c b/net/ipv6/ila/ila_lwt.c
-index 7bb9edc5c28c..01fd78a232e7 100644
---- a/net/ipv6/ila/ila_lwt.c
-+++ b/net/ipv6/ila/ila_lwt.c
-@@ -228,7 +228,7 @@ static int ila_build_state(struct net *net, struct nlattr *nla,
- 		return -ENOMEM;
  
- 	ilwt = ila_lwt_lwtunnel(newts);
--	ret = dst_cache_init(&ilwt->dst_cache, GFP_ATOMIC);
-+	ret = dst_cache_init(&ilwt->dst_cache, GFP_KERNEL);
- 	if (ret) {
- 		kfree(newts);
- 		return ret;
-diff --git a/net/ipv6/ioam6_iptunnel.c b/net/ipv6/ioam6_iptunnel.c
-index cfb2c41634a0..3093446ad89a 100644
---- a/net/ipv6/ioam6_iptunnel.c
-+++ b/net/ipv6/ioam6_iptunnel.c
-@@ -166,7 +166,7 @@ static int ioam6_build_state(struct net *net, struct nlattr *nla,
- 		return -ENOMEM;
++/*
++ * Look up a role switch registered against the remote endpoint of one of the
++ * caller's OF graph endpoints.  This is how a connector endpoint that shares a
++ * USB data bus with another connector (for example two Type-C receptacles on a
++ * single DWC3 controller, selected by a GPIO mux) finds its own role switch.
++ */
++static struct usb_role_switch *
++usb_role_switch_at_endpoint(struct fwnode_handle *fwnode)
++{
++	struct fwnode_handle *ep, *remote, *parent;
++	struct usb_role_switch *sw;
++	bool available;
++
++	fwnode_graph_for_each_endpoint(fwnode, ep) {
++		parent = fwnode_graph_get_remote_port_parent(ep);
++		if (!parent)
++			continue;
++		available = fwnode_device_is_available(parent);
++		fwnode_handle_put(parent);
++		if (!available)
++			continue;
++
++		remote = fwnode_graph_get_remote_endpoint(ep);
++		if (!remote)
++			continue;
++		sw = usb_role_switch_match(remote, "usb-role-switch", NULL);
++		fwnode_handle_put(remote);
++		/*
++		 * ERR_PTR(-EPROBE_DEFER) means the switch is described by the graph
++		 * but not registered yet: pass it up so the caller defers instead of
++		 * concluding that this connector has no role switch at all.
++		 */
++		if (sw) {
++			fwnode_handle_put(ep);
++			return sw;
++		}
++	}
++
++	return NULL;
++}
++
+ /**
+  * usb_role_switch_get - Find USB role switch linked with the caller
+  * @dev: The caller device
+@@ -169,6 +210,8 @@ struct usb_role_switch *usb_role_switch_get(struct device *dev)
+ 	struct usb_role_switch *sw;
  
- 	ilwt = ioam6_lwt_state(lwt);
--	err = dst_cache_init(&ilwt->cache, GFP_ATOMIC);
-+	err = dst_cache_init(&ilwt->cache, GFP_KERNEL);
- 	if (err)
- 		goto free_lwt;
+ 	sw = usb_role_switch_is_parent(dev_fwnode(dev));
++	if (!sw)
++		sw = usb_role_switch_at_endpoint(dev_fwnode(dev));
+ 	if (!sw)
+ 		sw = device_connection_find_match(dev, "usb-role-switch", NULL,
+ 						  usb_role_switch_match);
+@@ -192,6 +235,8 @@ struct usb_role_switch *fwnode_usb_role_switch_get(struct fwnode_handle *fwnode)
+ 	struct usb_role_switch *sw;
  
-diff --git a/net/ipv6/rpl_iptunnel.c b/net/ipv6/rpl_iptunnel.c
-index 4e10adcd70e8..838ede10a79d 100644
---- a/net/ipv6/rpl_iptunnel.c
-+++ b/net/ipv6/rpl_iptunnel.c
-@@ -102,7 +102,7 @@ static int rpl_build_state(struct net *net, struct nlattr *nla,
- 
- 	rlwt = rpl_lwt_lwtunnel(newts);
- 
--	err = dst_cache_init(&rlwt->cache, GFP_ATOMIC);
-+	err = dst_cache_init(&rlwt->cache, GFP_KERNEL);
- 	if (err) {
- 		kfree(newts);
- 		return err;
-diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
-index 0d39a38a5dd2..7c64680e4632 100644
---- a/net/ipv6/seg6_iptunnel.c
-+++ b/net/ipv6/seg6_iptunnel.c
-@@ -833,11 +833,11 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
- 
- 	slwt = seg6_lwt_lwtunnel(newts);
- 
--	err = dst_cache_init(&slwt->cache_input, GFP_ATOMIC);
-+	err = dst_cache_init(&slwt->cache_input, GFP_KERNEL);
- 	if (err)
- 		goto err_free_newts;
- 
--	err = dst_cache_init(&slwt->cache_output, GFP_ATOMIC);
-+	err = dst_cache_init(&slwt->cache_output, GFP_KERNEL);
- 	if (err)
- 		goto err_destroy_input;
- 
-
----
-base-commit: 0822d2fe38262e8b55c5ea55c970022bca8dd2a9
-change-id: 20261105-build-state-use-gfp-kernel-c3598d190bfb
-
-Best regards,
--- 
-Max Boone <mboone@akamai.com>
+ 	sw = usb_role_switch_is_parent(fwnode);
++	if (!sw)
++		sw = usb_role_switch_at_endpoint(fwnode);
+ 	if (!sw)
+ 		sw = fwnode_connection_find_match(fwnode, "usb-role-switch",
+ 						  NULL, usb_role_switch_match);
 
