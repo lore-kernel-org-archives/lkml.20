@@ -1,107 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793992468;
-	b=AguTY+tYCIYaQzSUf2JJssd9zM6agDUHOyVED2k3rTwyZQSOR2vY9dwVd2U2MdtGsVAt
-	 IJjYqyPUEOAFJk0SYbjPavhJOGsUg1MTG+73BFx678SGgxRuTipSLErYr2STK7OL8UFqP
-	 y2VMrf77PKlfuUj9eq2vcmh4JAbw4IYjLKSh29FbI1tygnCqEuop37HgCeB8BnTMR3YIh
-	 eckFNFmrHRHxeFOZLYYjpfkR6dooNCyTxrxkc42kdBOJug0cZ2gfhMJt2TdJZTwEHOlSh
-	 b+0+UoJguz8IVnaA1hinDKu363lTghFMNFdRtn+LqL3fYcKu8R1ALQwEEdgqMnYgnTA==
+	t=1793992480;
+	b=HBQswIxVh+GLc49X/dnD1EonHRFWTjK+zvi6t1jsQ5N3currqnvbTvQimLk52yrOJBpP
+	 ubWkbFtzTaY8uIWWiZgBI3cDDtHGsq3/WaNoKRQiMrr8X8isD2uk2u/8IbX7C4dE859Xw
+	 NiykzHTQy9BQEZLKIP3Ry/5vvoh28j3JnY/gWlnDhguqCcozS5dUBy86HL4IjwBWiatzR
+	 zekQux/V6pXUwCrz+xbf5He+hf1zn/uUt/8+D1h7KK9BQ4ZhoCjNFNInxOekZAEftzkDt
+	 +cEiqchbGdbQwE8ItRbuLvP70ysIZWfvOjKtCfkbOdFPr5B2ecga6UZUVRp/5rUMgAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793992468;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793992480;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ny7CBnpzaEmqmRZNMZQTuMsTlRnHeslB+C3vtjdk+QE=;
-	b=LX9rR0Jb5h9vqOW2U1tEp/Gz6xRehGesbabTrkl5VQaS0nk0GyHO3gk6YoBdBUYq5q4u
-	 11GEJpkHoh5CuXeXdbryr4p87OYndA7CytOtx6lAkWFGnqmI7dnSlFmwSovyfoMn8bCO3
-	 9veBq9BjEYR3UGE3uBVrELZnVnA2Vg9WaOv5c/SJqm5UHPd+xynxwrb7NV3UiRPJIwfzZ
-	 DSUIj2SxUhMu277xgz/ov4XsYMcu1k5KevjHo6P5fBNmn/Vug8O+fKDm26MJD+mxmxOag
-	 SyAMgHMF97Cm+omDPpz8wRKSU1HkKwpy23fh6TIu2zg4CTjxZejdVCPMTbAl85zKbaQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zHhr2ZuKOQTS3oVhgY7/wtWCuYen9Z8I9si9WIJ02xs=;
+	b=R4gIPEgtNLri6ovEQ3TJopDYuCjUm3Hw+jkytc5hC9pJIwRwTs6Io4koUySa5+Nu2ulk
+	 4wDp3ArdSKmSUXUFtoBwnnK24WZd0clET4Mo4KFQSPIkWaHMjb7RJlCWqJmqwsT4IZ48o
+	 ALxok99FFzaurJusG1nxhKOnsF7GcyaYd7pa4nkFHpJdcmGTtZ/CUfJxDv4breyU9/RDL
+	 yuyOX5Vs2P9Fu4R5jDfS77EHBcy21WqjX9PLncPEDCXvUGlkp38pIjQ01lPIrBvxrh8WJ
+	 a7P1MHkNk4tfGlWLxXyDS+d1Pzm3+jD0wNLT7GFBds99S2avVco5UKA0pB95gXSkj0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=B6GYI6dl;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dmarc=none header.from=dama.to;
+	spf=none smtp.mailfrom=dama.to;
+	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Jp4fXsAT;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A192606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:14:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A192606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E36606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:14:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60E36606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=B6GYI6dl
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so9914605e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:14:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Jp4fXsAT
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc147d86bebso780070a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:14:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793992466; x=1794597266; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ny7CBnpzaEmqmRZNMZQTuMsTlRnHeslB+C3vtjdk+QE=;
-        b=B6GYI6dlXSvHyTGhyRFO5S2jaPx3hf2P1YluVp2quvZLGc7kf34BHwcGQouH+BohH9
-         gRCBTUvtOBJZ2t63Q2ZNxjjPpYr3e9v8/mqD2LbXAiLJilee4HLye0Pc72q5RFYr0b5m
-         d05nZNrI1aJ0/ecnDi1RT6NrdfG/UN7Kcfv3kjOBbcSBxmbDIEJr8ZGI56JHHeA/BwoT
-         GBEs92I+HJzXrqU9B1prrc/JCyXu9iFuy70HqZxdHmLB3muxwPXSl/6ha3eoLmMXK31n
-         AGQRc6Tnxt2H2IQx5XRXVRl/hGDv4niG2E0OnSGIA0OknklYFzci2i39qPrVRJVLDkCn
-         3c3w==
+        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1793992478; x=1794597278; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zHhr2ZuKOQTS3oVhgY7/wtWCuYen9Z8I9si9WIJ02xs=;
+        b=Jp4fXsAT8wSFwYhafgrWnszG/hOU3DU7kjJC59pTLeSxIehqcJ+Ejo4Bc+T8ilzvLj
+         ohV1D+CO9EEcBqRj6IX9VEdsRF/Ozdxs3UMqs1zTdZm8cvyyJd7QImrX+/0tMn3sGB3g
+         swC5mqadAOVhCTWZ/OoKdGvunyl6wU7rWRrgV4Et1+Dd0TzTLsayE8r/1L7CMgfOqRzn
+         vGS3GcRjPYgGHyexFkHMTwr2G/x8MMht+FBAeC2jBQfdsTxAjrGfJoDu3BKnZVG2NizR
+         TYXCRrm2oa8YYl7C8tF1ec/E8w/4+0r1PKQMZ0HGvkiamFDAWMZZ6UufdFdIVXFtKBdm
+         W/YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793992466; x=1794597266;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ny7CBnpzaEmqmRZNMZQTuMsTlRnHeslB+C3vtjdk+QE=;
-        b=WtuzHALdCM603mLaWkW0KE+GuXvQlxReP8mOfdC+Z0Lomte+8cv1BV3uCgYjOg6zjN
-         t4hnAsEu3WoDJeXowuh7I0fIz6X12eSCJ2qnXRGHMAFfUk+CCcZDqqVPq1d9RpobAyO5
-         nrobx6C7azyrFird1yeAeZXIpstuIt+qmvlRA7jfnHomycfZknu1U4edCkckr+PM+ynT
-         5XkPb2iqPlhTkxfpktZB7h21SjiIWS839nJMGN5F1u6BCW0at63PlhOfvuKakqgJsXdn
-         Mqb0vuOa84+l5pCjwcNryvZJYk5AdmVTVV3x9fN9NRDPZNlZVV0zg27TVOEr4jb23QcH
-         CNxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwRN6thZo4MLcCG9SmytsTBkqsh8QmVvuYwBo3kdjXKe2dBXnL6DhL4O4atD9ouydHwfzBOyK1rEp7FjTY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/GrBhe4ycTfQsrwSBJQtvuBZmrHwXT5uEfbarKVA46bFvEjXTG
-	QBM5KfGmLABz0xadGOeHi/zOop/WytVAXOs5xnOKzw2/SJra2hT8j0HpBC3Tc73H7WI=
-X-Gm-Gg: AYBFou255yRV+uG1m2fgNnN97qxZYJpdwRmekzObq2o1tHbZwprOzEcgu8E+i3C3cIf
-	0hCWk8E30J28K4Pq8oZ2QNod5StKzUPo+TgL+Atm2QwuXdhR7YRtDozT/9LY2IbLtS0AOqW7WRl
-	iHYB4xl/NndfvJLI1EmJlJSumkza3lBcOhbq78I4P7ImbAY/ngrTVf9r/bpF/GCl/tyDgwNpZ0l
-	P3jIfwGjaduUfRWa/OhvvrkBeLKlr8qzVYEFDJw0HuHN0tyzrqghjWz3bTFTnf5MmNS5rkoTs7T
-	ImpXFJYTiPYCgQ2fQaYur/ZobWmetZfI2uz2LxXTL1gdkA9aRLQeINO9OazrnGslHHyy5C1JDT4
-	Pck767nAKgs/bkZASzNC91xKGZnFeBarIs+T/tF+f+NUJ8Yh8tYzWeiwIxkxTiOSQbl/5mOlgP8
-	n6/NeEUAvws8GObmp2+kfSeNNDi9Dm4r77rqW/JUJpl315/7xQ72deIi3l+1wAAK+2yUPoxBq44
-	yP+gEq0yGEKpr2WMrIgZH2Lbk0tYEAqsBbhMf2oVGYb5r/Kru59H7zh3KBOdyIfgayww5CDwIoA
-	xOagsicGcPNVdzC0im6Pyy22qvHbXwf1WEGgFwq5DDviAS1577EVAOef9wEApg==
-X-Received: by 2002:a05:600c:5295:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4b6de973c5fmr58007235e9.6.1793992465400;
-        Fri, 06 Nov 2026 11:14:25 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:30ce:e69c:9ae:c94a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb1b64esm670335e9.13.2026.11.06.11.14.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 11:14:24 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Paul Cercueil <paul@crapouillou.net>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/5] drm/ingenic: Add a driver for the X1600 display controller
-Date: Fri,  6 Nov 2026 20:13:08 +0100
-Message-ID: <20261106191308.31303-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <71aa432f71144f446dba2037ab5664eea3569fdc.camel@crapouillou.net>
-References: <20261106112000.1612-4-olivier@mgcrea.io> <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net> <20261106143827.15926-1-olivier@mgcrea.io> <71aa432f71144f446dba2037ab5664eea3569fdc.camel@crapouillou.net>
+        d=1e100.net; s=20260707; t=1793992478; x=1794597278;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zHhr2ZuKOQTS3oVhgY7/wtWCuYen9Z8I9si9WIJ02xs=;
+        b=Yuuu34y4VKcXJcnLWuRef/s1SXUDYZJFILygVg0K+kVvL0edg/xE3UpOVbBS9Rr4hL
+         WyIXkwi43Ij4o2ZE3u98ewXdm5/dNlkkdjo0uqkW2HgZHC3V74qF2+SDbjVMVPkg08wv
+         CP09kMVSK066pOHEINK9NZusFliTezleWzsgdkWzy8b0290uQbVm+Jt8JQMXRPMTNlN7
+         vz7IP58vF4IG7B1RImZ35boDMhwmRZZJ+/3g3qUEVPJcnBYmtdJErOjtOWbDzTrAGrAJ
+         jAjX3vhqJfemINT87Fb8RUgUR4fzuRBV+1k/wkBbJDJGN+/4uClPSQMNJL2NkOSBCnH3
+         5TXQ==
+X-Forwarded-Encrypted: i=1; AL+hErHV2ekdGfJ8MjD5I8AW5mbK9l9E6zRI1eJCCpOKVrUIY0gWOJTXwrD9x1jgGVy9PeGyhKq9Be/D+IO44LY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cYgChr3g48FcSj7RuGNb2XLKH/A6XQxUDdpznyzYVV90+i0cd
+	l5vablyhKLmIe0k5g5GgC5v2ig2HQMzTOTNulXECbScVKy80SFpjOSYswVQBqTRau9M=
+X-Gm-Gg: AYBFou2/CvRenPZNuf7a7ioEvDdpo8cio1CtxIs93FUfb3zY6EMHBif85rKcfOnYSXo
+	a9NKzOK+XztSXMKL1rpJQ85A2JsjVoprBzhI4e2W8CaLfxgZWfzU0a0URIARnjQhKM4/lxZ6Ya9
+	/EAvCP8vQ0Y4sD2eXR0xSIS9fV4a3fQPVRW2H2D9hee3o0KFbwZp5BmgYaLRplNejx0Wyi2eMkD
+	1YVYW2iUb3IFMVLyPnt8QYPIdIkWLDMxhblihcrFnprAXGcRQbS7jylIjpCbtVdQPnP+XHpvwST
+	wTEyPrxs2v1rJFDClZUzrJ5Z8rGdsunFRbjBjEy6w2/90x7j/Y0t3lEgiG8GlkZCXwG3AOVD86H
+	SwXLY1dUiBKtj9uNddiKbQRTZGtNDXX2x6cBGCAEZkxFK+uImoTStkSDdGHyKVWIHo13+hlIFMz
+	3GdiL3sBIOjNqrrErxt/pmUiQLYbGOd36YkxiNcOtcGu3YpzQGgaLG2beTt8XnZ/o+vvYM73Flj
+	wVoTmZZ01cJRM3t0+fsR7wjgS2gdMCvdcoUdVxMKeiNy57BwoiUsedFZ+TO/CKgvaCOlyWfPHnC
+	8lkWQyzbSMFyiCk49fIPGIeknSWK0brPz7hTiJLMg8c=
+X-Received: by 2002:a17:90b:3b52:b0:3ae:8983:4ef8 with SMTP id 98e67ed59e1d1-3b0db6b701amr2004602a91.9.1793992478518;
+        Fri, 06 Nov 2026 11:14:38 -0800 (PST)
+Received: from localhost ([2a03:2880:2ff:70::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c3db1sm97167a91.4.2026.11.06.11.14.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 11:14:37 -0800 (PST)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Joe Damato <joe@dama.to>
+Subject: [PATCH net v5 0/4] bnxt_en: Make RING FREE more robust
+Date: Fri,  6 Nov 2026 11:14:16 -0800
+Message-ID: <20261106191423.4194081-1-joe@dama.to>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,17 +104,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Paul,
+Greetings:
 
-On Fri, Nov 06, 2026 at 04:06:50PM +0100, Paul Cercueil wrote:
-> Is there really a point in enabling the clock on-demand? Why not keep it enabled
-> always? It makes the driver more complex and I don't see a real benefit.
+This is a follow up to the previous RFC (linked below).
 
-Fair enough. I have nothing on the R1 to measure what the gate saves,
-and the PLL it divides from keeps running for the MMC controllers
-anyway. v4 enables the clock in probe and keeps it on until unbind, as
-ingenic-drm-drv.c does, and moves the timing block to
-atomic_mode_set() as you suggested first.
+On two production systems, I saw the following dmesg pattern:
+
+  NETDEV WATCHDOG: transmit queue 0 timed out 6073 ms
+  Resp cmpl intr err msg: 0x51                  x20
+  hwrm_ring_free type 1 failed                  x12
+  hwrm_ring_free type 2 failed                  x8
+  AMD-Vi: IO_PAGE_FAULT  x3
+
+This suggests that, for some currently unknown reason, TX completions stall
+and the netdev watchdog fires. The driver asks FW to free the rings, this
+times out, but the driver ignores the possible failure and frees ring memory.
+Since the FW didn't respond to the ring free command, it is possible that the
+FW is still DMAing to the memory which was freed.
+
+Since the RFCv4, I found a third system that hit this repeatedly:
+
+  NETDEV WATCHDOG: CPU: 35: transmit queue 0 timed out 5459 ms
+  hwrm_ring_free type 1 failed. rc:fffffff0 err:0    x64
+  hwrm_ring_free type 2 failed. rc:fffffff0 err:0    x32
+  hwrm_ring_free type 0 failed. rc:fffffffb err:1    x64
+  hwrm_ring_alloc type 1 failed. rc:ffffffe4 err:4
+  hwrm_ring_free type 1 failed. rc:fffffff0 err:0    x44
+  Abandoning msg {0x51 0x3e35} len: 0 due to firmware status: 0x408100
+  nic open fail (rc: fffffffb)
+  DMAR: [DMA Write NO_PASID] Request device [47:00.0] fault addr
+  0xffffa07ef000 [fault reason 0x05] PTE Write access is not set
+
+This case differs from the first two in a few ways, but this series would have
+still helped:
+
+ - The ring frees fail on the close path and again on the error path of
+   the reopen (bnxt_init_chip()), and the device then writes to memory the
+   driver has already unmapped. The series stops DMA on both paths.
+
+ - The interface came back up later, the watchdog fired again, and the
+   cycle started over. The host logged 79 DMAR write faults in about 20
+   hours. Patch 4 breaks this loop by refusing to reopen after DMA has
+   been stopped.
+
+ - The firmware answers each RING_FREE about 5 seconds late, after the
+   driver has given up, and finally reports an error in its health
+   register. Patch 2 does not treat these late responses as success because
+   their sequence ids do not match.
+
+In this most recent case, I suspect the hardware is faulty, but the driver
+shouldn't hand memory back to the system while the device could still write to
+it.
+
+In all of the above cases, the IOMMU caught the error. If the system had no
+IOMMU or the IOMMU was in passthrough mode, data corruption or crash would
+have occurred.
+
+In the future, this could possibly be extended to make recovery automatic.
 
 Thanks,
-Olivier
+Joe
+
+v5:
+ - Switched from RFC to actual submission
+ - Patch 4 updated to use an un-used bit to make backporting easier.
+
+v4: https://lore.kernel.org/netdev/20260925174404.2789072-1-joe@dama.to/
+  - No changes to patch 1 or 2
+  - Patch 3: reworded the message logged when DMA is stopped, a rebind is
+    what recovers the device, not a firmware reset. No functional change.
+  - Patch 4 added which adds a new bit (BNXT_STATE_DMA_STOPPED) that is set
+    when DMA is disabled. When this bit is set, the device requires user
+    intervention to bring back up.
+
+v3: https://lore.kernel.org/netdev/20260923210744.3406861-1-joe@dama.to/
+  - No changes to patch 1
+  - Patch 2: Don't poll for the valid bit as Michael suggested.
+  - Patch 3: bnxt_hwrm_ring_free now returns -EIO instead of stopping the
+    device, so the remaining resources can be freed and the remaining commands
+    can be sent before stopping the device, as Michael suggested. Note the
+    switch to using pci_clear_master in this patch instead of
+    pci_disable_device. This was done so that the normal shutdown paths can
+    call pci_disable_device without generating a warning.
+
+v2: https://lore.kernel.org/netdev/20260922182405.1290749-1-joe@dama.to/
+  - No changes to patch 1
+  - Patch 2 from v1 dropped
+  - Patch 2 in the v2 now checks the response and logs state before giving up
+  - Patch 3 in the v2 disables the device to stop DMA before freeing ring
+    memory
+
+RFCv1: https://lore.kernel.org/netdev/20260917233218.1160001-1-joe@dama.to/
+
+
+Joe Damato (4):
+  bnxt_en: return the RING_FREE status to callers
+  bnxt_en: check HWRM response if completion never arrives
+  bnxt_en: stop DMA before releasing rings the firmware did not free
+  bnxt_en: refuse to open a device with stopped DMA
+
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c     | 122 ++++++++++++------
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h     |   1 +
+ .../net/ethernet/broadcom/bnxt/bnxt_hwrm.c    |  33 ++++-
+ 3 files changed, 115 insertions(+), 41 deletions(-)
+
+
+base-commit: 19a227903e65c7a9c179156485660a4e017575fe
+-- 
+2.53.0-Meta
+
