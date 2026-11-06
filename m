@@ -1,73 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997087;
-	b=JerAfn0ea5ECXmAtmGXqoezykcZzSPkbQwxE+ATR6dKQvZouf7LBK1/t+7uoyx3nXHiQ
-	 o6DXU0dpdmvXXmcFF4v4W/5e8s5JZCTvrTtb7Ia94tXu/R1EP1InyaMPz9hB35lKQ8HMH
-	 tK6gIT4iASEJbhxw88i40e3ZsparL97idz7iqL3IandN5IJaI4Sp/RhrQpsFqe9YUWiOm
-	 91B5cmRC6bn1+ShXNdDZ0GFTsK6cEFXEqesXmbccbGPdWI7wwAMkwcBH0n2Noo8WXZwdp
-	 pVxYHKzv2tUhD7qEptKuJcl9ffMWsKL7Eyo3WE2j5a7hxgvxYZMgIpCGcN2WztUrTCA==
+	t=1793997080;
+	b=qcZE/GXfiEZU+xia6fo2H9XkgQEPT+KAIA2tlnoBf2BHEEwoFjogsaNWixo2b/NgK7US
+	 kWrkWykxOIULYLE32a/CtZgKiKTWvnhmmG1+zNvm3mZAPDIvRaP+OtlpzSWXLsf0jiMSP
+	 gnte6lSLyLl1QP/28zQV6P47bASYX7yUdrUbQ3S9FRbTK5tXlL946mrSQJvZtIlrNn2lZ
+	 2e3jVlHzZmS0nm+eAtk/X9wzwuSalS+XPGXk5kGuDNl+kl2p3UA+Jg8GtvsZ0k/hAUJXY
+	 AuI5q6P+QpwHYYZTZyEcVG6+OLSRDW83QXyd5pGGRmZQ+98PHiG4Ni5s+UexUolz19A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997087;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=jmq8ZDo0DD/pacTstuAlrQ+VHSWanXJGgK0/pDlWtis=;
-	b=ZQF4prO0kVpkOdKoQ5gHi8e8hiurNxqkPlGmYSIbMHKOUNvwDpm/yk5Gu+qMaHuEeAl3
-	 3z5CVmzo2YIYEeNDYKdFqwfiPdZ9QRmuroIdTAzZa8hWkbucvRtE7kRQKghHCH9zUv/u9
-	 bsiNZ1vlZV/+BbihCtkjbmkzKbhbXvCS4NlnbEi1QeqytkFEfYrZOGCoqXH/dkpwtdTEt
-	 1y0i9icI0sbuxTNJR8Grvgm8XW57mBVIAxivcN1jWKJQut+onD1Nq8N/Yt4CaCoyK7scs
-	 a4kIelSibJMVs7wgL/SEVg+ZMCd0JzLUD6lBWuP2lL5IyWJT5MFfeIy6Odxv4RNna5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997080;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=47GIJtHDikSRTr3Iz0oAp99S7+cqqZ+QBH3BmiF/M7s=;
+	b=bl0MTnSPM6jyxWg3x85WKyJgcuZlWts0QhwNDTt8ubAk105anflvOT63NhZXQu1zWq67
+	 2KcKcnYxMR9Z0bLv5ta/TOx18xM6jTWibEKQu2q1YzeUG7FDesXgTjYd3/R0apahrhdTA
+	 vAk70SrfGjlmmCMTUTPJvYMyuoeBourIhS9BLmKyfmbEQo6rGCx5SwWGOuQgoh1Q4NsU2
+	 I2SiQ52Ytpdq3RyeuWOQ810yUa5O7EEKqLjw4YgzXG9JXb/GDHTSlAPbMpWycCz1KYgpC
+	 UztA8VIMHshu7PhDG9kqCyDeoJGwymdZxplM4jV4p8zjy7yMprnyD5LFUxCLdQlZcaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Q9wFK6mh;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=freeshell.de;
+	spf=pass smtp.mailfrom=freeshell.de;
+	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=fEICjyzH;
+	arc=none smtp.remote-ip=116.202.128.144
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EAC606A332
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:31:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66EAC606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BFC606A326;
+	Fri,  6 Nov 2026 20:31:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0BFC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Q9wFK6mh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793997086;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=jmq8ZDo0DD/pacTstuAlrQ+VHSWanXJGgK0/pDlWtis=;
-	b=Q9wFK6mhraLgFoCjqrdqvoBfLMqKA1OlRNsc0XusBIcFIu13Y9Nkf2HsmT4mel6JZT7WMB
-	zIEOVFaUsxOwF/ObA36pt57tn0Oo6ex0ClZlkYObkYgSgUxBGOIH0lwpkDmJPe/n6mBttK
-	rrrQyXtTylfQ+UBdOYAgiBCz4c7Dhjs=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-210-SjsK3oa5MUeNrr_mnnSGoA-1; Fri,
- 06 Nov 2026 15:31:23 -0500
-X-MC-Unique: SjsK3oa5MUeNrr_mnnSGoA-1
-X-Mimecast-MFC-AGG-ID: SjsK3oa5MUeNrr_mnnSGoA_1793997082
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9748A1955EB1;
-	Fri,  6 Nov 2026 20:31:22 +0000 (UTC)
-Received: from dechen-thinkpadp1gen8.rht.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 907D51848D42;
-	Fri,  6 Nov 2026 20:31:21 +0000 (UTC)
-From: Dennis Chen <dechen@redhat.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dennis Chen <dechen@redhat.com>
-Subject: [PATCH] Revert "powercap: intel_rapl: Expose all package CPUs in PMU cpumask"
-Date: Fri,  6 Nov 2026 15:31:15 -0500
-Message-ID: <20261106203115.237269-1-dechen@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=fEICjyzH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1793997054;
+	bh=47GIJtHDikSRTr3Iz0oAp99S7+cqqZ+QBH3BmiF/M7s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fEICjyzHIUjZle/Wj4mBt/1Dnor0jMi3VucYkcqE9N6vfrY4I8e26Cmns3jMqK2Ad
+	 mM4qBr41GoVx6WtGR2k9su/QzfHkK8n5R9QfHklkbn+9WhTRJ0w25f7HOkSYM6ZI61
+	 vZLc2eltSvTOV9sY3Iey1juaDaaq7ZWF27eAupuQzSZrl+d7t2ze76rw1DDQMVeMnI
+	 RNYi997oS6maEfaAeVqH6UmztDnflre9AXdNuh3hAFqQc+za4Tkjo+PZ8d9mcraXh0
+	 fLJQ4FgqbXm2blN65qNBCBv5BJ83ccHJLeWVb0REGUbsXF4E6c5yhhN7BEeX+Yg1zy
+	 s4MJ9aHn8WiMw==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id CB1E1B22094E;
+	Fri,  6 Nov 2026 21:30:51 +0100 (CET)
+Message-ID: <d051c5f2-3df2-4eeb-b324-6e9ce39a6b27@freeshell.de>
+Date: Fri, 6 Nov 2026 12:30:44 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,95 +58,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
+ power LED on
+To: Owen O'Hehir <oo.hehir@gmail.com>, Conor Dooley <conor@kernel.org>,
+ Emil Renner Berthing <kernel@esmil.dk>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261106184055.3891621-1-oo.hehir@gmail.com>
+ <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de>
+ <20261106195945.4157095-1-oo.hehir@gmail.com>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <20261106195945.4157095-1-oo.hehir@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Commit 525e0064f3d8 ("powercap: intel_rapl: Expose all package CPUs in
-PMU cpumask") expanded cpumask to include all CPUs in the package.
-Since perf opens an event for every CPU in cpumask, the value returned
-for power/energy-pkg/ is roughly scaled by the number of CPUs.
+Hi Owen,
 
-On a single-socket 72-core DMR machine the reported value is roughly
-72x higher than when perf is restricted to reading from a single CPU:
+On 11/6/26 11:59, Owen O'Hehir wrote:
+> Hi E,
+> 
+> Thanks for checking. You're right about the commit message: I saw the
+> LED lit before Linux probes and assumed the firmware set it, without
+> checking where it comes from.
+> 
+> On the Lite, the schematic (sheet 21) shows RGPIO3 driving the system
+> LED and also used for fastboot detection, through jumper J20 that pulls
+> it to 1.8 V via R257 (1k). Detection happens at reset, before Linux,
 
-$ perf stat -e power/energy-pkg/ -- sleep 1
- Performance counter stats for 'system wide':
+No, the software is not any concern for a hardware description.
 
-          8,052.48 Joules power/energy-pkg/
+> and R257 limits the current whichever level the pin is driven to
+> afterwards, so I don't think driving it high conflicts there.
+> 
+> Owen
 
-       1.010483558 seconds time elapsed
+It may or may not conflict in software operation but that has nothing to
+do with if it should be applied to device tree that describes hardware.
+Conor since applied, which is trusting you researched this correctly
+before sending to the list. I'm saying that all things being good in
+intention this is obviously not well researched, and not allowing for
+discussion to verify the fix before applying.
 
-$ perf stat -C 5 -e power/energy-pkg/ -- sleep 1
+Anyways it is a user light not a power LED. Pine64 Star64 has a power
+LED and this user LED. If a board does not have power LED then co-opting
+the user LED is something that should be done in inittab not treating
+upstream device tree as a preferences config file for userland.
 
- Performance counter stats for 'CPU(s) 5':
-
-            112.15 Joules power/energy-pkg/
-
-       1.009685587 seconds time elapsed
-
-Reverting this commit restores the expected behavior for perf.
-
-Fixes: 525e0064f3d8 ("powercap: intel_rapl: Expose all package CPUs in PMU cpumask")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dennis Chen <dechen@redhat.com>
----
-Changes in v2:
-- Simply revert 525e0064f3d8 and don't add associated_cpus sysfs attr
-
- drivers/powercap/intel_rapl_common.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/powercap/intel_rapl_common.c b/drivers/powercap/intel_rapl_common.c
-index 70cab5f08bc6..f58649ff4f53 100644
---- a/drivers/powercap/intel_rapl_common.c
-+++ b/drivers/powercap/intel_rapl_common.c
-@@ -1139,21 +1139,23 @@ static struct rapl_pmu rapl_pmu;
- 
- /* PMU helpers */
- 
--static void set_pmu_cpumask(struct rapl_package *rp, cpumask_var_t mask)
-+static int get_pmu_cpu(struct rapl_package *rp)
- {
- 	int cpu;
- 
- 	if (!rp->has_pmu)
--		return;
-+		return nr_cpu_ids;
- 
- 	/* Only TPMI & MSR RAPL are supported for now */
- 	if (rp->priv->type != RAPL_IF_TPMI && rp->priv->type != RAPL_IF_MSR)
--		return;
-+		return nr_cpu_ids;
- 
- 	/* TPMI/MSR RAPL uses any CPU in the package for PMU */
- 	for_each_online_cpu(cpu)
- 		if (topology_physical_package_id(cpu) == rp->id)
--			cpumask_set_cpu(cpu, mask);
-+			return cpu;
-+
-+	return nr_cpu_ids;
- }
- 
- static bool is_rp_pmu_cpu(struct rapl_package *rp, int cpu)
-@@ -1435,6 +1437,7 @@ static ssize_t cpumask_show(struct device *dev,
- {
- 	struct rapl_package *rp;
- 	cpumask_var_t cpu_mask;
-+	int cpu;
- 	int ret;
- 
- 	if (!alloc_cpumask_var(&cpu_mask, GFP_KERNEL))
-@@ -1446,7 +1449,9 @@ static ssize_t cpumask_show(struct device *dev,
- 
- 	/* Choose a cpu for each RAPL Package */
- 	list_for_each_entry(rp, &rapl_packages, plist) {
--		set_pmu_cpumask(rp, cpu_mask);
-+		cpu = get_pmu_cpu(rp);
-+		if (cpu < nr_cpu_ids)
-+			cpumask_set_cpu(cpu, cpu_mask);
- 	}
- 	cpus_read_unlock();
- 
--- 
-2.56.0
-
+-E
