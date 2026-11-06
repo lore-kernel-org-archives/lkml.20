@@ -1,103 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981210;
-	b=i8PL/O/GcAK4tQMTUefXeUMHXr/xC0oxRW+OaAY6tp+BUlu7bw21t0yId+liyL9VCaHa
-	 7qFlijihS+IS35OGNZt8CHG3s/gY5ANsGAy58wyxuMtA/hlMKlO69mfP+P1RI+p+NcBQs
-	 a78DlkdqhBKUxisgmg94SISJ0qjs3JQGso//Pp4hTpqQb9UFMhYio8JXdwnvXqMIuruEb
-	 PCUyb+M4IebfeP+BanYJPxgQ8H1UCjhYLkbFSsLQPUHHU5c4YEiCasgM9cZza1KDy6iIl
-	 tV2nEp5Qn7YmYW3olBcg4x5f+J2sL/cncB+DXgUEOheJ6yTHspVk6Fr182xz1zUSSDw==
+	t=1793981254;
+	b=3jW25oQvHgfubDUBEwXWKiXDT3HE0nAEab+lnWA0cTiR+YEdyAGyadYK6sBQp21jvRJ6
+	 L5vPI0VYjTD92i8yhymBDoihKoi2NgIgXLC+C/bxjKRAoh68Yzr/0ugjBLoCppZcK3A6t
+	 YT2dJapzOID+uQp3qlGxscDjXPjjfJFWZcNjLVAIRP9Nq0OVkYmuAL5tsnjfnD4EubsbM
+	 gp1ET2ssI7Dd2jdQ+7naSt5dm62rVEHqi5LRkkhw90o7/vulBHrEdqmxqzbj3gJrQeyD3
+	 uFmJg+f6/eznS0Hj9TvRNG1sol8DRN5QlRI9h+cSji4AifQ65NqgjepVe+D2ogm51sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981210;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WJzbf28TF6HkN7JNOqMOcLqHDlrTilq9qsNwsPdOZyY=;
-	b=QKMghlMf67Z4rS5v/wbskmuXvPqRkFmfqurtFhWpY91+i+2EaA2AyDQmdcg4xdRAhlxN
-	 Itqir3yGj0X9xFPpJ+8gmnDRZ0pSRoakpM3RF9JEfbmcVzF7//eoX1Ix7LmvTgYpp8A5v
-	 URf0EllNWjsGkS5BsUD04nZVPZqT6xa5K0vLIoWIoDUkQZm53OtYmu6c4aWu/CljZ7OlH
-	 D8ya4thqAHstjDTOqFPE3/iO+vGfKshsNLgDxWgj/+Az6YhXmCJjtLX5DuGSqLmK0uywC
-	 Yd5cRbEdjOp2maEHpKVgVKydGijyXgG+fQlLTGXsA64YTVVLTZpk2fBIHKo+Pllag2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981254;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=s81Qxk279B3OZvT8HyIcxZsvmqYvi7yEZFqL8sa0/fc=;
+	b=jRADENuSmugdd2uzEcDbQs+PjZWszPLXQDWIIohctjMPEawgi1wsk1Jajx6XQWnr9Q61
+	 tD61CQ6WKnKZE0XQVb/xTNsIasaUbDHGq3mCLuHss59KqmtrlRea7LsSK3kH/9gXiyksL
+	 HAr564Hf+3qqV7TwLyrCazKfb3H+JOa4uv+dSYDHcxFcT0zW/Q4Z0+jjh0S3iDCamFdo0
+	 pdQ1kDwifu9L7BgTA/oSgIin8X1usRX0nVWy5UQhzi6TktF4I+gLrnq2UIOLQrTkczGbI
+	 9A11T5m4IOwZvthH/gHMTocE9QstCOnammHZyeSkDl4MGdtjBXJJa3UHTHu4awroDmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FmSEEYOf;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42D2606D821
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:06:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C42D2606D821
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FmSEEYOf
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso6976525e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:06:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793981208; x=1794586008; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WJzbf28TF6HkN7JNOqMOcLqHDlrTilq9qsNwsPdOZyY=;
-        b=FmSEEYOfRbAxuX4ZtuYuPL49kmYsFuLYpE7paXhrlg25qD5TsUf5jmSJ0LgW10YySh
-         kqa+tK/h5HbaZm6W9ldQcm85LLc8I/E6rNLPS70ffxgbByVL/TLefIX1nS3qk0Q3tX8u
-         JuMra9Xy6bp0v54JsLwrlyCA4R9MZaY7oU3xRo/2fCK1Kqm6lFeufdd1t9TJzEA/S2fj
-         WaOJdBiwp7HtVc7O0P4lqACnR5Ce2RzkVffe1TFtcw74tlI7WwFD8Bp/L9/NXwVgqrWF
-         s79OLC/ecq4HY0eF88ZzVMg9m3bjylQF7qeGeSQVFf2GvpiCIBChJCS235tLvR5VPX2V
-         t5Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793981208; x=1794586008;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WJzbf28TF6HkN7JNOqMOcLqHDlrTilq9qsNwsPdOZyY=;
-        b=Ym3buIiVkqXgNPeEaZjHnk3cUYE0vs1dfkrDK0VEiJXKtzGYVIp8SP0NDr/4OuJu3q
-         Xiqy7+SnwaYLDxxbRzVCPdBYn5iyF9p8WNxN5pl3AAS1MAHHkUFhNodFuClY/zxxIPff
-         p5vO4GTGSvJc2/d7Ocf8aLRziqjwVIrLD5BzvdZXQQNdM91kLzp6BlZVSTVXVOchtBrT
-         PKblssEdpQn2+QI+qt0hLgjlGiHsG602hQkvxs5rI0WRRc5kfBojf6hBXpSL/Wxx+Two
-         iYs7JedhkBDEkOFYar8SZKvLCC6ESnXfGT0SCc+ReWv/96syxuOuJAjdzPLqv84iNCIt
-         251A==
-X-Gm-Message-State: APuU4Z8qO3xV73RhbxMX62/TNfpg/17YO/oS6zEpiX4nSgAu6fNlYsLZ
-	i43pRtsECnuzfG3ComO0EIkamw9cwkYTo2RFpdeMk/MzWRWEp0OsTuTq8HThc15ukwymvb3N6mC
-	Vhwq0J5w=
-X-Gm-Gg: AYBFou1U3kRC/ADv+t5IZKwPPyEBAnAla99b80r5BbmbVwKUV6L5eEHbi6GM5PkI4nr
-	933GzW6wdMXkSnZq1p2mW2xHCB1qzpgtPqW8Gu7CnUyTRui0dVlP7s+XBvsUSfMW358+l5Ib/4h
-	MvSdYppSuRm4nVDy7/2uweWNFBqgTinIieG6lUBpYaChve4y7Iw7TbjhY2wd470uvNGDl3ys0UB
-	gV/LfwE1g63kcszTzj5nyfJvNhefWJVrrPcvSKJ6A6CKK2X/KqDKJRNOEGYM8i6ufjfmQeOtbnx
-	ZCZoVU5vtzNy1JPw0LOklWZc5M4sgGIK2Iy7L/wGPcebNhSyk6yu+J6SJ1bh6ZxZ9D0o1xvz8rI
-	dM1F+rG6kmrmwcUqwBvgINVBykljShdwoMkJIEm39oyASFIrH8iEDolD0skFIfQE8tslWxMgBzc
-	FPpne1woBD2v4cANQpff9O92yUz5bYTlVXlbWlOA3YtM+8KZ6EGhXUGVF36FcUSGagZ86opOTvp
-	6pGrKMVo9lDoMfoofcen8bH+hEyIP8U12LS4H5n1v86ecqTY3mZXGNwLP/S73PnodduaR4UIhr8
-	Y5sLhQqagumj+ei32q22D9kQi/mPcREVlVQ7Q+wmCpsO538JoJT6
-X-Received: by 2002:a05:600c:6095:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4b6df9bf214mr51113125e9.18.1793981208208;
-        Fri, 06 Nov 2026 08:06:48 -0800 (PST)
-Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57373f7f1sm172665795e9.15.2026.11.06.08.06.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:06:47 -0800 (PST)
-From: Marco Crivellari <marco.crivellari@suse.com>
-To: linux-kernel@vger.kernel.org
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org
-Subject: [PATCH 3/3] Documentation: no_hz: Add tick stop in polling idle
-Date: Fri,  6 Nov 2026 17:06:15 +0100
-Message-ID: <20261106160621.347228-4-marco.crivellari@suse.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106160621.347228-1-marco.crivellari@suse.com>
-References: <20261106160621.347228-1-marco.crivellari@suse.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4066606A326;
+	Fri,  6 Nov 2026 16:07:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4066606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jLkbR68lnz8Xrrd;
+	Sat, 07 Nov 2026 00:07:31 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl2.zte.com.cn with SMTP id 6A6G7LSP074678;
+	Sat, 7 Nov 2026 00:07:21 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sat, 7 Nov 2026 00:07:24 +0800 (CST)
+X-Zmail-TransId: 2af96aedfb3c6af-a8634
+X-Mailer: Zmail v1.0
+Message-ID: <20261107000724697MsR-XmE4V-ADPPMr3wGom@zte.com.cn>
+Date: Sat, 7 Nov 2026 00:07:24 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,37 +56,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <ukleinek@kernel.org>, <linux-pwm@vger.kernel.org>
+Cc: <laurent.pinchart@ideasonboard.com>, <heiko@sntech.de>,
+        <ben.dooks@codethink.co.uk>, <benjamin.larsson@genexis.eu>,
+        <nuno.sa@analog.com>, <xiaoning.wang@nxp.com>,
+        <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>,
+        <linux-rockchip@lists.infradead.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvNV0gcHdtOiBmaXggb3ZlcmZsb3csIHRydW5jYXRpb24gYW5kIGVycm9yLXBhdGggcmVmZXJlbmNlIGxlYWtz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A6G7LSP074678
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Sat, 07 Nov 2026 00:07:31 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEDFB43.004/4jLkbR68lnz8Xrrd
 
-On nohz_full CPUs the scheduling-clock tick is stopped while polling.
-Update the documentation accordingly.
+Five independent defects in four PWM drivers, found while reviewing
+linux-next next-20261030.  Two are 32-bit overflows that make the
+hardware readback report a wrong period or duty cycle, one is a 16-bit
+truncation of the on/off counters, and two are missing clock or
+runtime-PM cleanups on error paths.  All are reachable from the PWM
+sysfs interface or from the hardware readback path.
 
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+The series is ordered by impact and is independent patch-by-patch; each
+patch applies on its own and taking a subset is fine.  Patches 1 and 4
+both touch pwm-dwc-core.c but different callbacks (dwc_pwm_get_state()
+and dwc_pwm_apply()), so they can be applied separately.
+
+  1/5 pwm: dwc: Fix 32 bit overflow when computing duty/period in get_state
+  2/5 pwm: airoha: Fix 32 bit overflow when converting duty ticks to ns
+  3/5 pwm: adp5585: Clamp on/off counters to the 16 bit register range
+  4/5 pwm: dwc: Balance the runtime PM reference when configuring fails
+  5/5 pwm: rockchip: Fix pclk leak in get_state error path
+
+Shao Mingyin (5):
+  pwm: dwc: Fix 32 bit overflow when computing duty/period in get_state
+  pwm: airoha: Fix 32 bit overflow when converting duty ticks to ns
+  pwm: adp5585: Clamp on/off counters to the 16 bit register range
+  pwm: dwc: Balance the runtime PM reference when configuring fails
+  pwm: rockchip: Fix pclk leak in get_state error path
+
+ drivers/pwm/pwm-adp5585.c  |  7 +++++++
+ drivers/pwm/pwm-airoha.c   |  8 ++++----
+ drivers/pwm/pwm-dwc-core.c | 12 ++++++++----
+ drivers/pwm/pwm-rockchip.c |  6 +++++-
+ 4 files changed, 24 insertions(+), 9 deletions(-)
+
 ---
- Documentation/timers/no_hz.rst | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/Documentation/timers/no_hz.rst b/Documentation/timers/no_hz.rst
-index 4006cab64079..d3ada4a0ebea 100644
---- a/Documentation/timers/no_hz.rst
-+++ b/Documentation/timers/no_hz.rst
-@@ -246,6 +246,9 @@ Known Issues
- 		be even worse than that of dyntick-idle.  Furthermore,
- 		this parameter effectively disables Turbo Mode on Intel
- 		CPUs, which can significantly reduce maximum performance.
-+		Note also that on nohz_full CPUs the scheduling-clock tick
-+		is stopped while polling, so that it does not keep running
-+		and interrupt the task once it resumes after idle.
- 
- *	Adaptive-ticks slows user/kernel transitions slightly.
- 	This is not expected to be a problem for computationally intensive
--- 
-2.56.0
-
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
