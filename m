@@ -1,97 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986624;
-	b=aYSWxRymHi5k8x7XsqSvSQktZ+vgUJIZsKpXeYHvuUCBybRi1j54IEQuxisx6NcX2m9Q
-	 brJlo7rEBKYUVvTJKX9iKfbX+VcIvU0hxO3WJAvZuF0MjOAs+wla2YjPp1G/P1Iod8Vgh
-	 gY7waxykLPkoAcuWh9fDXQI3cDM+mU0V5bEwZ2k3hCt2IA1VEK/b9i4m7RL/S5Hy96Ldg
-	 N9ZVI/i00E1erJwZQcpUX3XqoAxEKZ32BiqY2pxguhgV8UbRfgvanVqz6KbFWH6f7alcA
-	 CbL42+rrdYZB9upZzsODV1nCi03wQ0zrcCN6rqfbLXlQRHVs7OJc9jjXg2J4nw7X1Sg==
+	t=1793986620;
+	b=axeDcGedaYfKJ3vHjYlq/w93PNTU3cePw/llcLrUID8+4tc5Thbba88Gu4hJsy9X+c5P
+	 NW1P7NMxVIVyIW8WsX7Uj7JioOqcL8ZBgqGw9oJUA2RXZHEI/No3PCsFb0gygoi/0GcLk
+	 IprpqklzuwuoELiOWKHXQadUX/7193gA+xrmzC9MH1hEftIH0leol2mejRnTFLXTapf1M
+	 HF/dGDQ/RjxP4HiHG85DCfUQk/beJUsqTlPF8jGPngJcbKTMDIwPfrDqaF7EwQRi9y/MW
+	 tdzqJJqtb63PSGFCeEdo+0hv9JDLdyrZ7OLljbheibWVOR19Xk2/FA+4mnam+vEgneQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986624;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=5bCjFCftZY+2sQA45xJDozhTjhcUphJevAvIJETfdPY=;
-	b=CXh6VsmhF7Tw55TNlYHQ7NNuXgnm1maeC3ovOOH+ITpgK42sy3RaXB1JLijjodmuyMdZ
-	 JUGRHwU2HLlrA/HwbHrbfXI2a80fnFk93Z0cWb29ikvOP+x6RSIr+J2GzMMVNS7Yy9VpQ
-	 JOTOP0QrllQ57fnuer++vXssmXKrBG6WtVGOROa81ZY22uvSIUHxhlDTc97j0rAxcI090
-	 K2V8DBl+CYcHxcKymely78nnSpLAtQiR4zebuXUXI06ENRht3+2AzEU6EwzrEQk2XwLJ5
-	 +oEMgWd8W/AUuhJlUTev0ThYHuXnGuRC2e9itrwF+h2u2B6PdhkDdFpiBoPaXL//G/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986620;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:CC:Date:Message-ID:In-Reply-To:
+	 References:User-Agent:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=YYev/NC+kvw4uKd6ceqPEumrLblYo4RG50oIiemWCCg=;
+	b=wsR8wbHEoJBeFhaSfaJaoexDJnJYKrOuk2piISPFe1G5SGKKp8jfqUk0RQkSl8yKKcG7
+	 bks91Xl7RKvsiQIV0vpzzPGbfLT9eUzPT31UaCyfqnZjbXRRDFu6uSKWKQKuW9UrwigAr
+	 jDHe9KYaHuqOgpjiOQLx0E0g0DSvZb3asOH69HgJm/qteCStCagi1u3SZKdHue1AWBau6
+	 bKVACxenv3Xl/PyfjP0L/rAxVSqWgj3a7GVr8Wh+mriqjvSNm49Na6soFj5TUk8vC44hY
+	 KYmN/CxMthE3uoaH0dvgXHSP+aMuTiHOKh96iSrtfYMxkqUYnv03tByPbc9EsCmtGoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ncubXofL;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UjLMT01q;
+	arc=none smtp.remote-ip=209.85.214.228
+Received: from mail-pl1-f228.google.com (mail-pl1-f228.google.com [209.85.214.228])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9537606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:37:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9537606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804B8606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:37:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 804B8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ncubXofL
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so565090a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:37:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793986623; x=1794591423; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5bCjFCftZY+2sQA45xJDozhTjhcUphJevAvIJETfdPY=;
-        b=ncubXofLpiA0x6STkrCaCodfzBpBsbyhIUCMKNiTmOtnlNrL0bt5hLRYEeMt4CxwQN
-         LjZCs4CB7KiYhuZl4jWzyp6tpfuEqfIHL64au3kYvAsJglY2bYlaU3UA6Z7uQ8c7X5Ry
-         /BF54dVhGkKw3UOQGhVFKsBNzZ5x9toSqcXi+O/jy3qrzh9QRsr1fnUp/E9Th4h95RNZ
-         qil1lIy9FrHndIaOpY2ZX9AW0PndYKMmf94wm9kztxaQOwweHj+h1QNNNfxiEQM42eGk
-         dlSl+Q2zxSsxEnStg6q4sLkXnTS7k8rD1+lvFeuae0HG4tIHdxLhP+pmQq/OYD9KFrDb
-         vPAQ==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UjLMT01q
+Received: by mail-pl1-f228.google.com with SMTP id d9443c01a7336-2e96502e447so7709055ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:37:00 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793986623; x=1794591423;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5bCjFCftZY+2sQA45xJDozhTjhcUphJevAvIJETfdPY=;
-        b=JQcX7iysd1acGjKF1EgQV8EFM0St0LIRDam4bnLAm4AbzUgbTkTL8gFXkSLKXikVI0
-         pz8SqRFT4eoKcVQ9y7sS/OJRh7FpFv6h7o2lzCzrZfpTiStMkMSHI0h1WUNBbAfWSiaj
-         Iripu3O8fDDEAUXfwA3CKnkfmTSMpksJ5jjLJ4gNGoZlPOypKFYbtAHOyVzc2e0uHmDL
-         eJRP6zHYYJub1iwgViLve2AH2SXvsHbLEkvDKudkcalqcdVG8R4BIbi3K/5Y3lRnxAqe
-         57Cj/TUHWC1As5pMnzyHqbfDXNKRxQxHgL2Tl5RcdUy16dfxtCk+MHEyxyo/aGt8+ve5
-         7ltw==
-X-Forwarded-Encrypted: i=1; AL+hErHmCcBEf1rURNj/b9HopcresrOWdZgjpW1+4KuRZEKTphoek0Kt/NSFfuJk8VoMweI0T9nCew8lfjPWSJE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mKFnHcwXgd0bbeLQTz5BZ8pqGmy/udEHSLDtbdubGwx3PElfw
-	S6V6Q9haw+UVQdmrud+kvP3rGWV1mrmE14T/tlisEcu6697Aeb3C758doCr3xw==
-X-Gm-Gg: AYBFou1LO8FTj8QKRZ8bk578uZiBsndGLwZjDYpU9i77t9ZZ25E1ZRTs6sxhaeCunXI
-	ie/7KC2lwfBw7krNiq3KBnKFG6XdXUhUOkswvJuik48goLij5BXwSpANxElaMxwQItewTNlVSse
-	6zvy4OTLKQAZahJaaMM/z3D1y3UjYGvQ+IMrTEgsGte9j7DHITyHyK8Cl8zE1x30BhzGyY5VNBh
-	U9Qc0y8MOrDKhPuK7psbMNwQPbgEer0q0RNyiW/kNb5/u6KrhvBX0erCTl5EbXkcHhrjaSz562i
-	kCJZHDXEnOb+r63y8vVRuAAhSxc6qn+r/BsmDEeU+mR1WvhuZZkAoMIj7BG789BOt7aVRpakMdW
-	zE6bm1VLDegVFdILIEqbLHw8UfR3jI5EZQvei4u7ByiW8BeH5kybVNk0tROMs0sKYYpdwjEQgmm
-	I3319nJKbkZEjE7ONDe7UmR1mbOaG4IELhmQENx0imvTjpKGS29EEZ8KHPrckxCFelaw3Z4O6wr
-	bglpsVZYdmVDaKJMmiguY91O4IUx0hrlxYU8AGEuCmtMWS6ewbTWhZzyJ8kZTVlX3QebaQMJdCi
-	96r96ofrxZIoJZ+/EGcZmwyvJ7wIWEC7hZxEWK9eM2E63jaNbTPvVahjpKMmI/+GZqb6
-X-Received: by 2002:a17:90b:5410:b0:3ab:5832:727d with SMTP id 98e67ed59e1d1-3b0db6e7fa8mr3207259a91.35.1793986623300;
-        Fri, 06 Nov 2026 09:37:03 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:64e:8358:c9cb:c17b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0f76ff45fsm983355a91.17.2026.11.06.09.36.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:37:00 -0800 (PST)
-Date: Fri, 6 Nov 2026 09:36:57 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Liu Chao <liuc63@xiaopeng.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Juergen Borleis <jbe@pengutronix.de>, Denis Carikli <denis@eukrea.com>, Lee Jones <lee@kernel.org>, 
-	fangxy@xiaopeng.com, linux-input@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] Input: mx25-tcq - clamp the FIFO sample count to the
- buffer size
-Message-ID: <au4Pt9K9145wF2r_@google.com>
-References: <20261106075127.3105907-1-liuc63@xiaopeng.com>
+        d=1e100.net; s=20260707; t=1793986620; x=1794591420;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :user-agent:references:in-reply-to:message-id:date:cc:to:from
+         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YYev/NC+kvw4uKd6ceqPEumrLblYo4RG50oIiemWCCg=;
+        b=2SzcuwbDdROpqj0bEZyXaKr81E5lbLbASLTTDy1q8YeWM/BoMZjwNF2OWX0/I7Lda1
+         atfkTfesIOhHfrD2asHRQmILeAJ/UE086XJJDPKAvO72+zdOXTLih5cgUTa2S4oEFmtz
+         jdOu3XaFjpF2QEP653T8bhAa9n6AolhBQGuMWk1tT3NYD+TgJQ0jaK2X2vrLY2dzsyw/
+         YtVlq2n8F+puiU5i5d4kjlGZPY3IxkGrEOKXAlpVRlJnW+Ua2VBD3qGM74IMfWjrFgnf
+         YtmPzdA1KgkxCfItGF3jw8swDG1MDxUbVQ97v+1zEL+wDHCEyHgzUTnqwcPq8MYTn18A
+         Rs1A==
+X-Forwarded-Encrypted: i=1; AL+hErEWlxPe2/nXPKRXANXgags/xsKdEoAz53TaH1jtfwugWMu0Ks8qf4ix4i8hIb95AmrjGy73ue5OkTI+1D4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YIUTjU7lDv3ZlurIsskE76Vj4MDt98cypDNfdog3I3FPuUk0I
+	9QiPU3lAIyL6M5mofqqiJ5/d7O+4ZoApxJrlZ8bhaVo1ILORpwwaSD6+LsT+tOvN2MmrMT+DDSB
+	Cdsd4Qf3Al2o44kbm7SOxj9yMj25pNxE/RHJlRFU+XOd8OL4ZKdTK+mi8pjTqaeluWqWv93/J5w
+	H2sfMDzjPQlw+l2dRVrvZTd6xllOZPgs9c/LfhHolxwnENjOPjB0cQ4RPcPsei4UZLtICMpI0bo
+	/d5kRYjgHwBo3Gg5BSv6e7URQ==
+X-Gm-Gg: AYBFou3jjKrFUo1KQy1/ab1jHG+DFu2TOsn4dYIuwjDzaJUcf38HlmLxnSAxNsWQphD
+	mFc6nCoGONCSiFfSLgFEi42C9vb+GNnEJGVsKRig/0LtDgBhhad38T1OjOqIu1AEZDU1UQD08Ac
+	+3vQ9JB5eg5QOr8OtcehqLDm0DqgYuDtrXaDiw7fmvnpajZOuX7HeQ5lHjpScz8pXjt25H24r09
+	cHMutGqPXNFGuKX+RZP+qCXT9aQth4fMCFUCUm6S6PzXvPRRTj5pyrCyIMlOVq89YbktuFhkWBB
+	pD3p0gOR2L5aUA4lB5p9LVEDTTKSR/Hs+64G/CCJAXIRNiPCDtSit9haQlYKO5VNTHE7GGEjD89
+	u8KZn2g3ZBGLgM0D71CPKXqQ2hjrsuaJXQ2Nj2Nq977gbSti48vFkFAmK+2nFIaByoapObcZDIh
+	Lpvsot/jHytkza+8Yq49So6kKK5uNEs3p08Z2Rz00=
+X-Received: by 2002:a17:902:d483:b0:2df:9a4d:650a with SMTP id d9443c01a7336-2ed41853f52mr40378325ad.29.1793986619692;
+        Fri, 06 Nov 2026 09:36:59 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2ed477b9488sm673635ad.15.2026.11.06.09.36.59
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 06 Nov 2026 09:36:59 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6b3f840cb9cso1169677a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:36:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793986618; x=1794591418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :user-agent:references:in-reply-to:message-id:date:cc:to:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YYev/NC+kvw4uKd6ceqPEumrLblYo4RG50oIiemWCCg=;
+        b=UjLMT01qgb5jh+U/1zOPAzsFWt+OBveBifEUvMto4uDWtCuU7rDkfZCxzXXpGRjkN4
+         /UIO/JnVYQ86vF7NM6XFAwqonebR9Ki6QvvwVR23qxFPu5c5l4GhyZRoHjsxDcjSi0BK
+         ORJeC2oBZ4UJHbC2vmY8PsLw0+pCdRgP4nj50=
+X-Forwarded-Encrypted: i=1; AL+hErHz0MLvNr/fekst3cePm6Kz+8Ob/7gRN2j74GOzzZA4BRI9cO6qhmg5cnoA+GSmK593L+Mg+WCcQeu/o8o=@vger.kernel.org
+X-Received: by 2002:a05:6402:2b92:b0:6b5:90d9:70a with SMTP id 4fb4d7f45d1cf-6b5977c1176mr2516059a12.15.1793986617833;
+        Fri, 06 Nov 2026 09:36:57 -0800 (PST)
+X-Received: by 2002:a05:6402:2b92:b0:6b5:90d9:70a with SMTP id 4fb4d7f45d1cf-6b5977c1176mr2516038a12.15.1793986617494;
+        Fri, 06 Nov 2026 09:36:57 -0800 (PST)
+Received: from [192.168.178.59] (f215227.upc-f.chello.nl. [80.56.215.227])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664ad2d0bsm919103a12.10.2026.11.06.09.36.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 09:36:54 -0800 (PST)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: =?UTF-8?B?QW5kcsOpIEVpa21leWVy?= <dev@deq.rocks>
+CC: <asahi@lists.linux.dev>, <brcm80211-dev-list.pdl@broadcom.com>, <brcm80211@lists.linux.dev>, <dberlin@dberlin.org>, <frankyl@broadcom.com>, <gustavoars@kernel.org>, <j@jannau.net>, <kees@kernel.org>, <kvalo@kernel.org>, <linux-hardening@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <linux-wireless@vger.kernel.org>, <marcan@marcan.st>, <meuleman@broadcom.com>, <michael.reeves077@gmail.com>, <pieterpg@broadcom.com>, <vanhoefm@gmail.com>
+Date: Fri, 06 Nov 2026 18:36:52 +0100
+Message-ID: <1a1b1ef4b20.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
+In-Reply-To: <20261106153612.2aadef2a@kait2en-mbp15-1>
+References: <20261106153612.2aadef2a@kait2en-mbp15-1>
+User-Agent: AquaMail/2.8.1 (build: 200801029)
+Subject: Re: [PATCH 05/13] wifi: brcmfmac: Negotiate PCIe mailbox transport with firmware
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,50 +111,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106075127.3105907-1-liuc63@xiaopeng.com>
+Content-Type: text/plain; format=flowed; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Liu,
+Op 6 november 2026 15:36:19 schreef André Eikmeyer <dev@deq.rocks>:
 
-On Fri, Nov 06, 2026 at 03:51:27PM +0800, Liu Chao wrote:
-> MX25_ADCQ_SR_FDN() reports up to 31 pending samples.  The IRQ thread
-> aligns the count down to a multiple of the sample count but never
-> bounds it by the size of sample_buf, so a FIFO backlog larger than
-> TSC_MAX_SAMPLES overruns the stack buffer.
-> 
-> Clamp the count before the alignment so that the result stays a
-> multiple of sample_count.
-> 
-> Fixes: 4f7ed234f2a5 ("Input: touchscreen: Add imx25 TCQ driver")
-> Cc: stable@vger.kernel.org
+> Hi Michael,
+>
+> I tested 01, 04 and 05 on a T2 Macbook Air 9,1 (BCM4377/4). IIRC should be
+> the same chip as on T2 Macbook 15,4.
+>
+> Arend, with the patch we get D3 ACK on s2idle and s3. So this basically
+> renders the D3 ACK WoWL workaround patch obsolete, you recently acked.
+> So it will suspend now without refusing d3cold transition, but BT is still
+> dead on resume, which is a separate issue. Just mentioning...
 
-This is a platform device, not something that can be randomly connected.
-SO barring silicon issues the condition should never happen. I do not
-think this makes sense to backport this.
+Sorry, you lost me there. What is the relation between the patch in this 
+subject and D3 ack.
 
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-> ---
->  drivers/input/touchscreen/fsl-imx25-tcq.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/input/touchscreen/fsl-imx25-tcq.c b/drivers/input/touchscreen/fsl-imx25-tcq.c
-> index ff270b3b8572..fa8d8b736723 100644
-> --- a/drivers/input/touchscreen/fsl-imx25-tcq.c
-> +++ b/drivers/input/touchscreen/fsl-imx25-tcq.c
-> @@ -319,6 +319,7 @@ static irqreturn_t mx25_tcq_irq_thread(int irq, void *dev_id)
->  	 */
->  	regmap_read(priv->regs, MX25_ADCQ_SR, &stats);
->  	samples = MX25_ADCQ_SR_FDN(stats);
-> +	samples = min_t(unsigned int, samples, TSC_MAX_SAMPLES);
+Regards,
+Arend
 
-Why is it valid to clamp instead of refusing invalid data?
 
->  	samples -= samples % priv->sample_count;
->  
->  	if (!samples)
-
-Thanks.
-
--- 
-Dmitry
