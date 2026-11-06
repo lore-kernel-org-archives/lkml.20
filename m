@@ -1,61 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794002248;
-	b=BYeiG2UB/ILfpmJW0QMp1kgpL0HnEheizzd5kGjEoX5cyjSUGZ7+mY3+SKRxTIwsAeIH
-	 7u8huDjGly7UftQ7R1w7PDIEAlyF4D89LssS6Bb5RYP6hL9xZ3Jm++fq2JP3e1GN80Xuv
-	 oE8T7cwpScXLX+WOgr2mkqol87ywoG3iNAvuHIEXItMYyjDoFYsCUfi8Yy1rTmOHl2GHl
-	 Kffi3+mMTvHvFaMGRd37bGqWS1ObAECkb9YvikL7gfIqOjOlWDMywY/J9jTX4NeGLQ85K
-	 f/UEafdFJ/04KJC5Dh9NMPRbSINPg1+qxQIk2o1+8TELpzJtG3P4ynvYtxx7mH8UOZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002248;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=ReJVLYumEn9iWasnSyBGUIhaXWZBsODo5kqsWooUE/0=;
-	b=ToR5nMd9fbtOG+wSan5hXS3JaR2Xq9YHgLs2Bith4yRx9gdN3rwwq2owfaO03DhLFiXp
-	 srgyyDikbXXMXoFv2zUmcgrQs3LDQ7kdcNAof55W3+7mjflVNE6EwSaQK7FUKDogkflYw
-	 nP4qwU5XKFuBm4FKpJlmtVNO4ke6Snc5+1/OqTF3bGHCXg99znOHDJfNZ7DvMCUelPdOg
-	 wbOlX9rxSDCuWBEQm4aCBHzpYh6n8o9ivAPDPw+p7XNhspzyBDBEJoH7tuHp04Gh/Ckh4
-	 94cCqDR3alCz3/iIcArnaq0j9MJf5q37Jub9WMj/rSvqNVpHPXdeIeSOPlECsqwf/Ng==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="HijhD+7/";
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794002245;
+	b=BmaQRmd+ASxwyQ1jz7u6xpg5nC5CbwhcBedxOliYbxwtdPOhGX3nsmBqUVsWS0oimsyU
+	 pcQsXa0yxmsl8EM2ZItdoIk7uai5dwkN8ouDwJnveHW+yMkJekde+O76qSJVzbRBOh2wZ
+	 sI4ikxsP9w6uOSy7S5EKBMV582IIlPbLSvlGwXTfPDLvjS+J8x8eOpDj501GrRwomhuJt
+	 ALSIYT8MboBbUWJOLMjB01SNjfs/FdwJE1xwadvqXvL2kF+pTwU393zwNGecrEGI5wZ/f
+	 +eTJqRH+gyOtHEczHuaIHzIXbbIzWuL0whpifC0DDtHtMJU97qS1emlzwdUzvUkTHXA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002245;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uJnC3E5LSZQKM5Vic0qZdHZV/eCxeajn03COeeAIM5w=;
+	b=qAZQ7hQbqtJLKzjEMrSzcCQTDfwnc0TecTPhCw1IOy8K+4gTjGf5VhuIsZkmVHbzS2fE
+	 8tQ3xyEU70oVlhIT6nTdvFhnxeErUj9pFQ/356PCHxSUWa6fM6OUhOv9pqSCtRpbOI7tH
+	 9Lq3ehmzZMlDjbWJAglRb75JVSOOGvZ+AsLQTLk2nKVZmQlz5Dv/Dyb21E7WN1b/pJ7Ji
+	 Z8xOI9D+Uzba9LlotdeStrK+eaAAcqtm8PGjdS64BH+1q10pKxygSuD5oUv9ExbXihxkP
+	 ccamStqxeuFSpWe+w8h4rPkTXhw9qzoHSxfA8DhDhNEHK2e+rqotReJ2lDTcXrC8aaw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUgFrV7s;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C10606A32C;
+	Fri,  6 Nov 2026 21:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUgFrV7s
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794002245;
+	b=OjlMyTJzUD8nqrnvbrCMdB1iRHJMUuirtQUqTvdk9zGDsffC98Mvju3mPAeihhiuiLya
+	 PQqgVqE15HIODJgKV9IckZegLXU85g3LDuVdjcPPqfPGtw/IX7UEKEApq3D9ktrF50C4w
+	 Z8Cx+d3H7sWE9YA1HNG/Jce1ZJVtNoP1h7P6G/HZyZtD5sqJj2FBipVmmUTev6p2mxZeA
+	 5mrezzSlSsWuW/SdENrl9+HDSA8cHLzODlZX+u6/hNjFSzxPETq05tCO3Q4VHJIYmMBIY
+	 5nzqF7H4QL06MD80aQGamRPt+deUH9EzYgb7bu/jEbwGIn2zmTOdz6ZnTBZgmtNOrsg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794002245;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uJnC3E5LSZQKM5Vic0qZdHZV/eCxeajn03COeeAIM5w=;
+	b=jVbxYwMzgHAlAQ6fjEjfhZTZxGCoOXU1HFliZiRbQAg7j250PJAwgazLFEuzzFjTF99n
+	 ABxvzhXDQhHj3y/hLltnqPmKQgBmjc5ofP8VzFKXfBcvr83ZxIWoQhzumqH1018Reqaru
+	 pGM3DbDUhoiIL3KOt74TF1oL8TSngDzLbqOUtbAuUDy2uLapLbXD16VxLZosB2kDEljvN
+	 B6jXVy7ShwzXU9gZfRCGuAwS2fRigj5ry1DPFvqmxgZwIsAq2I/b09M+N+b6I+XqAX5ZA
+	 4pQWQQ8FtdOQfgfNVE/5TOjMElDa+qUAS7YDSsL4NSkFne+Vl3dC8Rd8+YQH3Sc3fMQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575B2606D808;
-	Fri,  6 Nov 2026 21:57:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 575B2606D808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HijhD+7/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794002240;
-	bh=yZcsj37g1wDaYHpaMHQC2ZVJ0rLcIWMu06mwv5p3B7g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=HijhD+7/jPNYT1fn5eC6PcPQ2DoEwvDfWCwpLJq8qLVfSWFj4hd7+5VXwjUo5zYV1
-	 fGaGa6QYGnztOuo2McK787uiq66F0Jhs633mQcpuhDvtT+XVFLPRUrWClOk9jtg+iG
-	 Ljv+raqiYZfw7Sc96JqlrgmxTEB5tr42Yy1fZj/4gVDuvfI60q34zHeBpjiq+NQ1HE
-	 XEA0QYFONQkAQKL0dP4yrXjlT5+XNGMsU0EKdpFsKdqKmVPdNrVn9VfNp9XVlZDOOu
-	 KGGtd9Pf9C4QafR2Q8oNzF/BfGWvZB7tHjSHwElY43sahJswr1dhRe2c4RTjKS+vvC
-	 O/tpZvkypgzGg==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5C05117E092C;
-	Fri, 06 Nov 2026 22:57:20 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 1413548002F; Fri, 06 Nov 2026 22:57:20 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 06 Nov 2026 22:57:07 +0100
-Subject: [PATCH 2/5] arm64: dts: rockchip: Enable NPU on RK3588 EVB1
+	by smtp.kernel.org (Postfix) with ESMTPS id 069141F008A3;
+	Fri,  6 Nov 2026 21:57:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794002245;
+	bh=uJnC3E5LSZQKM5Vic0qZdHZV/eCxeajn03COeeAIM5w=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=BUgFrV7sPcMJWKgGRACQVDniM09V1FgZXrXU7NddC6hiqGlmdVe/m9uuvli8iMQwN
+	 /GBJN3eV+a9BdzAc6zdH4FGRORxDmqkLKeZO6etMuyAcw1A4RM6Rd7Xy/Z4MeK/H3F
+	 GlOlU78uygyBx7HGUNAlEHVC7HpRlBMM4SK7Nu4acG0e4dqkGq3Ni/3fRztQorYqwe
+	 fB+S9ig+f5Y4JuRPALIa1EiLr0sue0hY7L/XLnAjlL3N9yeUc4Ff/yWiq0hrw2WGeI
+	 OY8yxls3iDjsKFiaaIdtWLUhKB0A8Ize1qOkns57LppliiUAnYNjH7KI9uN8Q5y+Ir
+	 aq6CH5vo9Am5g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6F3BD478A9;
+	Fri,  6 Nov 2026 21:57:23 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Fri, 06 Nov 2026 22:57:21 +0100
+Subject: [PATCH net v4 1/2] vsock/bpf: release sock lock while waiting for
+ data in recvmsg
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,95 +84,166 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-kbh3-1-022-fix-v2-v4-1-c7d36703814d@eldare.de>
+References: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
+In-Reply-To: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ Bobby Eshleman <bobbyeshleman@meta.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794002242; l=4767;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=tMncr/t2BZDCVu+DkSDka364ua2a05eGFszh7At9iJI=;
+ b=AYg1/w4e3WXm2lKA1GWiOSiVmfBY81KRkcGtQraSUK/I77t97ELFZHMRkMqAmkZdyUrfpA9pF
+ h8X5oc7IjtJDad5dcC3ygPR5QHkyl9yFm+Qqi4sswW66P7Mw3RnGoSq
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-rk3588-evb1-dt-updates-v1-2-bdbe16223589@collabora.com>
-References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
-In-Reply-To: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1334;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=yZcsj37g1wDaYHpaMHQC2ZVJ0rLcIWMu06mwv5p3B7g=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGruTT81gQ1jKj278e8o4UwdJsiBbOsUrL7mq
- h9I8htVfnYX8IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7k0/AAoJENju1/PI
- O/qaebgQAIwQyvBzXMtzSQdbLxacZUfOP6Vzw9WomWyYqHZOR/vCnASth1BcQEKepPeOtg5lxy0
- 4qYgzFTO4LrP9TzJIP+KTd19QjmnkTukIpT5ulSQaR/yxa3wQvqgZ3FWaKFaGZEr3A/2W5VWp3w
- C6f//NlsGy8oTwuDCIJqG6O9q9HREWXqxCKGqT9Hm+hLe8a840eRDaLB+InRnq1VQE6mIezIHH2
- 2Z7VoL/zVxZXGQZNHhcPsJAdGfelfCQIPna/qe4Z6NYyRpgFt3K5KbErCHoIsAIY3Tp9nyXm6QN
- PWtSuFtO6Gs3ZCq0qBQpsmHeSu9CvkTJ/Qs7RxKFGnJuwmRd0xSmpA8pkx3wIYItkDoLugOArdW
- rEVDJBtRU6BOFDpdqfhmXIbLQF7Z4gk9F4orUItBbMlApMeBcsQmFEzFsiSEKCKqFH2e86i6S+P
- 7r+ulWMorjnuEQPGYTMLt6xlJeT7MRWitCSmRGhRzHuckMGqu0bqf1ctbQ1DFKmnIMhQgjGF1HN
- K78kLevgK+TRZfYpRG16H40yZmI2WID7CuKUTwVDwynKdsVzT4DXXjHY9gMpTDtAwyWYCk8XgFi
- J/uU8mMV8oW7lYIXsOYjGndc6FgmygJe0a/ZIDvrx3VC/bbkmefo+p/mJ/uP7c/p1e0Xicuh13E
- Kqn/YxpwlnzHWYYcLYNsoVw==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Also enable the NPU on the RK3588 EVB1, which is very similar to
-the QuartzPro64.
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+vsock_bpf_recvmsg() holds lock_sock() while vsock_msg_wait_data() sleeps
+in wait_woken(). The transport delivers data in
+virtio_transport_recv_pkt(), which takes the same lock, so the reader
+and the delivery worker deadlock: recv() hangs until a signal or
+SO_RCVTIMEO, and all vsock rx handled by that worker stops.
+
+Release the lock around wait_woken(), as unix_bpf and tcp_bpf release
+theirs. That alone ends the deadlock but makes a blocking recv()
+return -EAGAIN early: the reader is also woken without data, for
+example by a credit update. So the wait also loops until data arrives
+or one of the native exits applies: a socket error, a local or peer
+shutdown, a socket that is no longer connected, the timeout or a
+pending signal. The loop alone, with the lock still held, keeps the
+deadlock, so the fix needs both halves and stays one patch.
+
+For a non-blocking read, a socket error, a peer shutdown and a socket
+that is not connected are now reported before -EAGAIN, as on the native
+path. A blocking read interrupted by a signal returns sock_intr_errno()
+instead of -EAGAIN. A recv() that starts after a virtio transport reset
+returns -ECONNRESET until SO_ERROR has read the error, where the native
+path returns -ENOTCONN.
+
+The deadlock was found with the help of Anthropic's Claude; Sashiko
+reviews of two earlier sockmap patches had already noted it as a
+pre-existing issue. The other cases were reported by the netdev Sashiko
+review. Each was reproduced in a VM with a vsock socket in a sockmap,
+without kernel changes or error injection; the reset case unbinds the
+guest's virtio-vsock device. With the series applied they behave as on
+a native socket, except for the reset case above, and the vsock
+vmtest.sh single-VM tests and the BPF sockmap test_progs pass.
+
+Fixes: 634f1a7110b4 ("vsock: support sockmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 34 ++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ net/vmw_vsock/vsock_bpf.c | 68 +++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 54 insertions(+), 14 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index 87e624d1e094..6476d9e3be6f 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-@@ -578,6 +578,10 @@ &pd_gpu {
- 	domain-supply = <&vdd_gpu_s0>;
- };
+diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+index 9049d2648646..6d96ff03f28c 100644
+--- a/net/vmw_vsock/vsock_bpf.c
++++ b/net/vmw_vsock/vsock_bpf.c
+@@ -34,24 +34,63 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
+ 	return vsock_sk_has_data(sk, psock);
+ }
  
-+&pd_npu {
-+	domain-supply = <&vdd_npu_s0>;
-+};
-+
- &pd_rkvdec0 {
- 	domain-supply = <&vdd_vdenc_s0>;
- };
-@@ -703,6 +707,36 @@ &pwm2 {
- 	status = "okay";
- };
+-static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
++/* Returns 1 if data is ready, 0 on EOF/shutdown, or a negative error. */
++static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
+ {
+-	bool ret;
++	struct vsock_sock *vsk = vsock_sk(sk);
++	int ret;
  
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
+ 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
+ 
+-	if (sk->sk_shutdown & RCV_SHUTDOWN)
+-		return true;
+-
+-	if (!timeo)
+-		return false;
+-
+ 	add_wait_queue(sk_sleep(sk), &wait);
+ 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+-	ret = vsock_has_data(sk, psock);
+-	if (!ret) {
+-		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+-		ret = vsock_has_data(sk, psock);
++	while (1) {
++		if (vsock_has_data(sk, psock)) {
++			ret = 1;
++			break;
++		}
 +
-+&rknn_core_1 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
++		/* Stop on a socket error, as vsock_connectible_wait_data()
++		 * does, so that recv() returns it; the checks below would
++		 * end the wait with 0 or -ENOTCONN instead.
++		 */
++		if (sk->sk_err) {
++			ret = -sk->sk_err;
++			break;
++		}
 +
-+&rknn_core_2 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
++		if ((sk->sk_shutdown & RCV_SHUTDOWN) ||
++		    (vsk->peer_shutdown & SEND_SHUTDOWN)) {
++			ret = 0;
++			break;
++		}
 +
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
++		/* virtio_vsock_reset_sock() sets no shutdown bits, and
++		 * SO_ERROR clears sk_err: check the state the way
++		 * __vsock_connectible_recvmsg() does.
++		 */
++		if (sk->sk_state != TCP_ESTABLISHED) {
++			ret = sock_flag(sk, SOCK_DONE) ? 0 : -ENOTCONN;
++			break;
++		}
 +
-+&rknn_mmu_1 {
-+	status = "okay";
-+};
++		if (!timeo) {
++			ret = -EAGAIN;
++			break;
++		}
 +
-+&rknn_mmu_2 {
-+	status = "okay";
-+};
++		release_sock(sk);
++		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
++		lock_sock(sk);
 +
- &saradc {
- 	vref-supply = <&vcc_1v8_s0>;
- 	status = "okay";
++		/* With a signal pending, wait_woken() returns at once, so
++		 * without this check the loop would spin until the timeout,
++		 * or forever without one.
++		 */
++		if (signal_pending(current)) {
++			ret = sock_intr_errno(timeo);
++			break;
++		}
+ 	}
+ 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+ 	remove_wait_queue(sk_sleep(sk), &wait);
+@@ -101,9 +140,10 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+ 	copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
+ 	while (copied == 0) {
+ 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
++		int data = vsock_msg_wait_data(sk, psock, timeo);
+ 
+-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
+-			copied = -EAGAIN;
++		if (data <= 0) {
++			copied = data;
+ 			break;
+ 		}
+ 
 
 -- 
-2.53.0
+2.56.0
+
 
