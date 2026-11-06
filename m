@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793935006;
-	b=KEKuCSZZI2Adp2JhUll6GiLxJmKUMK+k7cElM7kOJniyRHMn+NBVNxN963VByWUCWFhs
-	 Px/1t+1SfuMoBkeCHTUpYRMsmg/MYntSFpzI0fK+2vgqT4kySeKoTNe5KDftJdrWwJCve
-	 yU8CyJJIoCzvGFVnwv3z7OsS5zR4CA2iZBbKDUL181PAxMuwYxAMj/dkQvfxmuNjN6vCk
-	 oZH8b7X8qK9P/PPDcPfq8IXh/4ipvwhnnU9to9luGTzgTamSs0I7UORbKyD8pUNHPWwJ0
-	 YLMXPne3a1oesHBB7idKgI+GHOcX4YTHMK2PEX/yvH57WydLyuVCcJjrpYd48hBefTQ==
+	t=1793935073;
+	b=3W6lJxe/V724tVsNl/caYTBstu7KIozdVmpo3k7FtEKX51VKjvEgny/J6CmjnVQkIAFV
+	 xdL+lMkwNeOj/5vN6pBuxYyptQZY5rZUZV7siZjXDUdRxnaaXKGZ11E2HS/yhLrx5iKKy
+	 slY/fOHOHpitK7FnqL1mlzKM/Qexb1wAeSk5mP/cYYVdVkMeyuI4cOCjYd94xEULka8VZ
+	 Pz9gsB1botnGpW0ggJ1oGrHpPXs4TZg7s9nKmnIrudyoTJS3sZq2SGjmsZJSwEB537Y4U
+	 EBgP7Kna5NZg4+620MODYfztsUllC9+5Rd5cjaft3E0jTuNz0nvaUtXE2R18gmf4wuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793935006;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793935073;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=ErgEQ0Ns6+rcrsITsiCH+rdm0302iBOiS8IkFodZXU4=;
-	b=bJ5ZIWhBjgGFYh8mDR71R64dliPN2CO3TMzt9pJ9mR5zMh9ozveJ7jUMIndlDxV6lSON
-	 LBN10zkGVVad4AHtnZ70QzwHPqFM9gmGwZc6uVqTzoo/9XNjjWjQoquHpkFat97citbv1
-	 XxlgPLx8PsFNq0oLsz5BD9f/9QfiRAa5/yAwJoZAL81BL+jadE4+XMHm/U3giVNssvrEi
-	 qjfGN7hwvWafFVlRhOvuzpU1rpJmRPM3xNW9Id47/7QswOjwqY475wGVu3iI/w0d6QUge
-	 DxQypRr1D3ilvaukHhjDUhd/+dT8wKNot5BoF7U+HIwJzizBryQ8YElU5fCrFEdXLQg==
+	bh=03M13Azwyy0KMcFaGycRciB1g2jPBnLm5WvZcLiXzPk=;
+	b=b0844yyCCPr56vo7i22r3FRjQGIslMzj0XrSppfUDzqMzOQ2KE4/am/vJMqiJKlp++Qk
+	 Gg4KeRg4Tdl/l1liIQJ8gpIr78TMstnBiiorx5HJ/suKNLL5IS3oZ1zvR6evUL7TSz5Ue
+	 TseLyuFHlaaCpwwuMBPnF12CxOmswo+DfkC5VhrpEan5WQ3Uszy1qBTG5jvD7WQ3d5pAu
+	 YHxPNdfSBwzmA4xl86Z+mFDKs75zoGc3YttokCH2enYCta6BEfmeTFaiYKmKX1rEE0Tfx
+	 CNXE4GAqYSG4h1fUSxE6+LqS3o4wgo7xjSOWRnqTjuuHgDoF061ULSv+FjsoXR6cIPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=o7ID0tMj;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED25606A33B;
-	Fri,  6 Nov 2026 03:16:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED25606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92609606A31B;
+	Fri,  6 Nov 2026 03:17:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92609606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=o7ID0tMj
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=ErgEQ0Ns6+rcrsITsiCH+rdm0302iBOiS8IkFodZXU4=;
-	b=iDmH0EN4KaCXipjoVKe9dplNElfKEF7HgYj73b4dQV/KmWfbmC/dGbNyQKPX/jEGKUVDhLOcH
-	U6s5h8YRl4yXnB4HClWs82BZEpHLsF9gA//ivG77NkFDUNY0vGYjj4c9RYoTWmS08lK/KuhUlMN
-	bXs7XmU7cs3LK1LARmr6OE0=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jLPTw3G5xz12LG1;
-	Fri,  6 Nov 2026 11:16:36 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 99A114056E;
-	Fri,  6 Nov 2026 11:16:34 +0800 (CST)
-Received: from [10.67.120.103] (10.67.120.103) by
- kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 6 Nov 2026 11:16:33 +0800
-Message-ID: <6e6fb626-d3d4-46f7-93ac-94e3d243eb69@huawei.com>
-Date: Fri, 6 Nov 2026 11:16:33 +0800
+	bh=03M13Azwyy0KMcFaGycRciB1g2jPBnLm5WvZcLiXzPk=;
+	b=o7ID0tMj+vAhkN5NlLSPSi3OenycoPtYa2YIuF/rZcrZB80TE7RdcPkiFAzf8o2+CL9vXMsnq
+	n4Trg3YXhm25CX8LgoBuW32fpJp8dN082PEiz+h0j+VqSSUvplGgr8HEFDepKu2sLuJCsOGrnj+
+	JUBppBfPofEDRox2+fxOtgg=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jLPVz0W2SzLlWs;
+	Fri,  6 Nov 2026 11:17:31 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0114740563;
+	Fri,  6 Nov 2026 11:17:43 +0800 (CST)
+Received: from vm.huawei.com (7.238.34.231) by whupemk100010.china.huawei.com
+ (7.152.184.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 6 Nov
+ 2026 11:17:42 +0800
+From: Pengfei Lv <lvpengfei20@huawei.com>
+To: <gregkh@linuxfoundation.org>
+CC: <stern@rowland.harvard.edu>, <michal.pecio@gmail.com>,
+	<linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <xuhaiyang5@hisilicon.com>, <xuetao09@huawei.com>,
+	<caiyadong@huawei.com>, <suzhuangluan@hisilicon.com>, Pengfei Lv
+	<lvpengfei20@huawei.com>
+Subject: [PATCH v2] usb: core: hub: Re-guess ep0 maxpacket size on reset
+Date: Fri, 6 Nov 2026 11:16:25 +0800
+Message-ID: <20261106031625.1824732-1-lvpengfei20@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,151 +73,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 05/15] KVM: arm64: Harvest stage-2 dirty state into the
- host folio account
-To: Leonardo Bras <leo.bras@arm.com>
-CC: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
-	<yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>, <yangjinqian1@huawei.com>,
-	<caijian11@h-partners.com>, <liuyonglong@huawei.com>,
-	<tangchengchang@huawei.com>, <yezhenyu2@huawei.com>, <yubihong@huawei.com>,
-	<linuxarm@huawei.com>, <joey.gouly@arm.com>, <kvmarm@lists.linux.dev>,
-	<kvm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <seiden@linux.ibm.com>,
-	<suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>, <mark.rutland@arm.com>,
-	<seanjc@google.com>, <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <skhan@linuxfoundation.org>
-References: <20260929103655.85107-1-zhengtian10@huawei.com>
- <20260929103655.85107-6-zhengtian10@huawei.com> <at-WceRKAVM2kEnI@LeoBrasDK>
- <009b13c6-f618-43fe-8a56-8519d31b239b@huawei.com>
- <auSMkdEhLI7k8QbV@LeoBrasDK>
-From: Tian Zheng <zhengtian10@huawei.com>
-In-Reply-To: <auSMkdEhLI7k8QbV@LeoBrasDK>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemr100010.china.huawei.com (7.202.195.125)
+ whupemk100010.china.huawei.com (7.152.184.41)
 
+Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
+all device speeds except full-speed devices, where it can be 8, 16,
+32, or 64 bytes and can only be determined by reading the device
+descriptor.  During the initial enumeration of a full-speed device,
+the USB core guesses 64 bytes (hub_port_init() with initial=true);
+after reading the descriptor, the real value (e.g. 8) is stored in
+udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
+via an Evaluate Context command.
 
+After a port reset (usb_reset_and_verify_device() -> hub_port_init()
+with initial=false), the "if (initial)" guard added by commit
+ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+skips the ep0 maxpacket guess block, so
+udev->ep0.desc.wMaxPacketSize retains the real value (e.g. 8).  The
+xHCI Reset Device command preserves the ep0 context as well, so the
+xHC ep0 max_packet also stays at 8.
 
-On 10/30/2026 8:24 PM, Leonardo Bras wrote:
-> On Thu, Oct 29, 2026 at 10:02:10PM +0800, Tian Zheng wrote:
->>
->>
->> On 10/27/2026 2:05 AM, Leonardo Bras wrote:
->>> Hi Tian,
->>> Sorry for the delay in reviewing...
->>>
->>> On Tue, Sep 29, 2026 at 06:36:45PM +0800, Tian Zheng wrote:
->>>> With VTCR_EL2.HD set, hardware promotes writable-clean descriptors to
->>>> writable-dirty without any VM exit, and the only record of the write
->>>> is the S2AP[1] bit in the stage-2 PTE. The write never passed through
->>>> the host stage-1, and no unmap path reads the bit, so the record dies
->>>> with the PTE and reclaim may discard written guest data (silent
->>>> corruption).
->>>
->>> Sorry, I didn't get what you are trying to achieve here.
->>>
->>> On your patch, I see you marking backing pages dirty at wrprotect and unmap
->>> walkers, and it's very confusing to me on why you are doing this.
->>>
->>> IIUC, what you are trying to do is make sure a page does not lose it's
->>> contents in case it is reclaimed by the OS.
->>>
->>> IIUC, when a page is reclaimed, it will unmap the S2 PTE, and save it's
->>> contents to swap, so when the guest read or write to that page will cause
->>> it to fault.
->>>
->>> The page can never be just unmaped, as if there was a single write to it,
->>> the backing pages should be writable, and the contents need to be saved
->>> somewhere.
->>>
->>> So, if I was able to understand your suggestion, we don't need to worry
->>> about this, and this patch wouldn't be necessary.
->>>
->>> Did you hit this issue?
->>> Can you please expand on your issue, if I could not describe it above?
->>>
->>> Thanks!
->>> Leo
->>
->> Hi Leo,
->>
->> Thanks for the review. I haven't hit this in practice, and based on your
->> analysis the patch doesn't look necessary.
->>
->> Reclaim only writes back folios whose PG_dirty flag is set; a clean
->> folio is simply freed. A stage-2 write never touches the host
->> stage-1, so the folio depends entirely on kvm_release_faultin_page()
->> at fault-in to be marked as dirty; without it, the page stays clean from
->> the host's perspective and reclaim drops the data.
->>
-> 
-> Oh, okay. IIUC it will be enough if PG_dirty flag is set once, right?
-> 
-> While on HAFDBS/HDBSS we will skip the fault for marking them dirty again,
-> we always take the first fault for every PTE (or prefault them), so
-> PG_dirty should always be set once the page is first wroten to.
-> 
-> 
->> Your **RFC v1** patch 2 changed that marking from writable to dirty:
->>
->> ```
->> - kvm_release_faultin_page(kvm, s2vi->page, !!ret, writable);
->> + kvm_release_faultin_page(kvm, s2vi->page, !!ret, dirty);
->> ```
->>
->> During logging, a read fault maps the page as WC: the folio is not
->> marked PG_dirty in kvm_s2_fault_map() and hardware promotes the PTE to
->> WD on write without any fault, so reclaim frees the page without saving
->> it (the folio was treated as clean).
-> 
-> Ah, I see your point.
-> During dirty-tracking guest reads a page, then HAFDBS promotes it to
-> writable without marking it as dirty. Good catch!
-> 
-> But wouldn't a simpler solution be to change the conditions in the fault
-> handler, so that it indeed marks it as dirty if dirty-tracking is on, even
-> if it's just a read fault?
-> 
-> Thanks!
-> Leo
-> 
-Hi Leo,
+When the subsequent re-enumeration then uses the "new scheme" and
+issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
+the xHC queues a Data TRB of length 64 but applies ep0 max_packet=8
+for short-packet detection.  If the device's first data packet is
+exactly 8 bytes and it sends no ZLP, the xHC does not recognise a
+short packet, keeps issuing IN tokens for the remaining 56 bytes, and
+the control transfer hangs in the Data stage until URB timeout.
 
-Yes, that's exactly the simpler fix, and it's what I already did in
-HDBSS v5 patch 2 — the folio is marked dirty for any write-permitting
-mapping, so a read fault on a tracked memslot also marks it.
+This is not merely theoretical.  It was observed in production on a
+6.6 LTS kernel with a Full-Speed USB banking token (bMaxPacketSize0
+= 8) in a virtual-machine USB passthrough scenario; the reset
+re-enumeration hangs 100% of the time after the VM issues
+USBDEVFS_RESET.  Bus captures with an Ellisys analyzer confirm that
+the device sends exactly one 8-byte packet for the 64-byte request
+and then stops responding to IN tokens, relying on the host's
+short-packet detection with max_packet=64 to terminate the transfer.
+For the subsequent 18-byte GET_DESCRIPTOR (usb_get_device_descriptor,
+wLength=18) the same device sends the full 18 bytes as 8 + 8 + 2;
+the final 2-byte packet is always a short packet regardless of
+max_packet, so that transfer succeeds on both kernels.  This is why
+the device completes initial enumeration yet hangs on reset
+re-enumeration.
 
-Since patch 2 covers this, patch 5 isn't needed. I'll drop it in the 
-next version.
+The device is not strictly compliant (it should continue answering
+IN tokens for the 64-byte request), but this class of USB banking
+token is widely deployed in enterprise environments, and the
+regression introduced by commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") breaks a configuration that
+previously worked.
 
-Thanks,
-Tian
+Fix this by removing the "if (initial)" guard so that the ep0 maxpacket
+size is re-guessed from udev->speed on every reset, and by calling
+usb_ep0_reinit() afterwards when !initial so that the new software
+value is propagated to the xHCI ep0 context via an Evaluate Context
+command before the GET_DESCRIPTOR data stage.
 
->>
->> Therefore, **HDBSS v5** patch 2 reverted to marking the folio for any
->> write-permitting mapping:
->>
->> ```
->> kvm_release_faultin_page(kvm, s2vi->page, !!ret, writable);
->> ```
->>
->> Together with the v5 scheme, this makes patch 5 unnecessary:
->>
->> - kvm_s2_fault_compute_prot: always set PROT_W when map_writable
->> - stage2_set_prot_attr: PROT_W -> DBM unconditionally
->>
->>
->> ---------
->>
->> On a related note, I'd like to discuss the next version of the DBM
->> scheme, following Oliver's suggestion [1].
-> 
-> Just as a note for future readers: on another thread we agreed to wait for
-> the discussion to reach a point we are all happy before rebasing
-> everything.
+The usb_ep0_reinit() call is necessary because commit e34900f46cd6
+("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
+moved the ep0 maxpacket sync point from xhci_urb_enqueue()
+(xhci_check_maxpacket, lazy per-URB) to xhci_endpoint_reset()
+(xhci_check_ep0_maxpacket, eager), reachable only via
+usb_ep0_reinit() -> usb_enable_endpoint(reset_ep=true) ->
+usb_hcd_reset_endpoint() -> xhci_endpoint_reset().  Without the
+explicit usb_ep0_reinit() after the re-guess, no Evaluate Context
+command is issued on the reset path: the pre-existing
+usb_ep0_reinit() in usb_reset_and_verify_device() runs before
+hub_port_init() and thus syncs the stale value, and the subsequent
+hub_enable_device() -> xhci_setup_device(SETUP_CONTEXT_ONLY) returns
+early when the slot is already in SLOT_STATE_DEFAULT.
 
+The !initial guard on the new usb_ep0_reinit() call ensures that
+initial enumeration is unaffected: on first enumeration the ep0
+context is initialised by the Address Device command, so no extra
+Evaluate Context is needed.  For high-speed, low-speed, and
+SuperSpeed-or-faster devices, xhci_endpoint_reset() returns early
+(speed != USB_SPEED_FULL), so the call is a no-op on xHCI, and on
+non-xHCI host controllers endpoint_reset for control endpoints is
+likewise a no-op (e.g. ehci_endpoint_reset only handles bulk and
+interrupt endpoints).  The descriptor-immutability checks (!initial
+&& maxp0 != udev->descriptor.bMaxPacketSize0) remain unchanged;
+udev->ep0.desc is not part of udev->descriptor and is not the field
+involved in the read_descriptors() race that commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") fixed, so
+restoring the wMaxPacketSize re-guess does not reopen that race.
 
+Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
+---
+
+Changes in v2:
+- Add usb_ep0_reinit(udev) after the ep0 maxpacket re-guess block,
+  guarded by !initial, to propagate the new wMaxPacketSize to the
+  xHCI ep0 context.  v1 only removed the if(initial) guard, which
+  is insufficient after commit e34900f46cd6 ("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
+  moved the xHCI ep0
+  maxpacket sync point from xhci_urb_enqueue() (xhci_check_maxpacket,
+  lazy per-URB) to xhci_endpoint_reset() (xhci_check_ep0_maxpacket,
+  eager), reachable only via usb_ep0_reinit().  The !initial guard
+  avoids a redundant Evaluate Context on first enumeration, where the
+  Address Device command already initialises the ep0 context to 64.
+  (Sashiko AI review)
+- Expand commit message with observed-in-production evidence and the
+  wLength=64 vs wLength=18 device behavior distinction, per Alan
+  Stern's review.
+- Note: on kernels before e34900f46cd6 (e.g. 6.6 LTS), the xHCI ep0
+  maxpacket sync happens lazily in xhci_urb_enqueue() via
+  xhci_check_maxpacket(), so removing the if(initial) guard alone is
+  sufficient and the extra usb_ep0_reinit() call is a no-op for ep0
+  maxpacket sync (xhci_endpoint_reset returns early for control
+  endpoints on those kernels).  This patch targets current mainline
+  where e34900f46cd6 is already present.  Would the maintainers
+  prefer a separate, simpler patch (without the usb_ep0_reinit()
+  addition) for stable branches predating e34900f46cd6, or is this
+  single patch acceptable for backport given that the
+  usb_ep0_reinit() call is harmless on those kernels?
+---
+ drivers/usb/core/hub.c | 49 +++++++++++++++++++++---------------------
+ 1 file changed, 25 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 199d3f535a89..a6c260d39094 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -4969,33 +4969,34 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+ 	}
+ 	oldspeed = udev->speed;
+ 
+-	if (initial) {
+-		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+-		 * it's fixed size except for full speed devices.
++	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
++	 * it's fixed size except for full speed devices.
++	 */
++	switch (udev->speed) {
++	case USB_SPEED_SUPER_PLUS:
++	case USB_SPEED_SUPER:
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
++		break;
++	case USB_SPEED_HIGH:		/* fixed at 64 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
++		/* to determine the ep0 maxpacket size, try to read
++		 * the device descriptor to get bMaxPacketSize0 and
++		 * then correct our initial guess.
+ 		 */
+-		switch (udev->speed) {
+-		case USB_SPEED_SUPER_PLUS:
+-		case USB_SPEED_SUPER:
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+-			break;
+-		case USB_SPEED_HIGH:		/* fixed at 64 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+-			/* to determine the ep0 maxpacket size, try to read
+-			 * the device descriptor to get bMaxPacketSize0 and
+-			 * then correct our initial guess.
+-			 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_LOW:		/* fixed at 8 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+-			break;
+-		default:
+-			goto fail;
+-		}
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_LOW:		/* fixed at 8 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
++		break;
++	default:
++		goto fail;
+ 	}
+ 
++	if (!initial)
++		usb_ep0_reinit(udev);
++
+ 	speed = usb_speed_string(udev->speed);
+ 
+ 	/*
+-- 
+2.34.1
 
