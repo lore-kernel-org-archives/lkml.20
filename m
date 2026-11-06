@@ -1,61 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969426;
-	b=TZakNZpUge3JXkAuS8OLlDR4Di5m6/IzNj5NdtsBK6duSKtiyuLPMVaGg+ahIRHXIhzH
-	 xaL7Flj0GHKwJckdheIIxR8rKCV4IFpq09PUvFPSK08h/Fw2AUTniMvkGMHb/gllDEPg/
-	 biYEG/+r9nR8zryAEtZ7Wer6gP/MrwAFw3gCDpDTkgvs3fKtlTjJF/i6s+cl7ZtuHMz42
-	 Kh274m9DyXWQJA/DeAdWMcr2Otmw+2PxM5nFYLbnOKCpuLdWoKIeQd2pDmfYYqk+SD4Hd
-	 uXm4ZeLb0Vti9UE87/FpVJ2ojphWboaijVkQ9h/qCBsiSSmC/jasWPFETDBZ6+Lk1fw==
+	t=1793969442;
+	b=ka3R3c9OeI6EbTSVetNT2tUUma7MTqUS4OhKhwWzRIJPuwWLs0sphYq+2Lp71Y4TYGcy
+	 aTYoG3wcRWjcBWGfzp2vo8m7tBPxbPj8SpJFpiFMT+ZGj5ViDglybXt8IJ4e9ILJxDioJ
+	 UivAbLZm3b2LkfqPi//tVM7j25hjw49LePfc45sTR2Hgaei2yVNqasGcRgql2KjgRFHsS
+	 PUT9kJ0ZleBjCaYyu5Ap9h3biAaEBk2M7d0fqCqhkVbQt5AZk8FUni1blq+vlH7c3Ddt+
+	 SIi0mxJqjvWExUApXB4Y/BrhzcUEtiwrWrb9z5bN8raQ1o8MdgRv46TsfV7sNo2jWHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969426;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u7TzN7UjxwjzBe9DUJ1+ST6+Za71fgRUknBs8rBYbuI=;
-	b=wFNPNbgY6eck6IlOtMCzLtaCm6KW8PGhG3GKfhE5uGSuFExQynf+6ZJEB/q9h7nx/XKm
-	 hFp7ARXbLSTfespi+jV+GyeEpMAm6Xz7UZiR2QqfbuXC4keGGi0Xt8/qGq0XUlrDc+A0X
-	 EQUXcF5jq7nPYz5Xz5YxG1W3xFgTC4CtfmNNNmybDZdV1AsUwXhSFvRD2Zf/+srqcVOFK
-	 3HUmdCIMq7SaSyZ38aHRY8eC1H1WN5BJ3/VrdWTFFxb+paQjVk+n/iY+OgPIA70CYNq7V
-	 iKp28FHkJ/AR+X0F1EEOUoY1A7KYKVwR9EkwAMRxHIpSgJtCFoHC38jJOq2PIC/eSbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969442;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=FBjIBgDWbZCo9SaA6U+cSq8TU+erFs29CF/2hr/QbOQ=;
+	b=rs33cMiQ4p/3lauanmdpOydODjrRuRgHmZwDoeDe4hTrEJYR1GtilB8b70yZ9gtMzjkS
+	 h+fw02flY3XVQIjg4ifO6RpydDT8AjNnXp1Z6fXaTojDpcaSEAHrDBnP0Xmu6pMM/x79u
+	 oeP5nUXw13XL9f3PcKyzy/jv9h7UbQAa0Jb292aEHttURjm/MxX3Khd6QIe7Tlq6ynpLW
+	 coPWkuafxbomvE+eTA4ogrvCGsaDSk+6D9tF6N5I+vF+tOpEpcmVfdgj0yQJKjB27oP9s
+	 45YD63jPs3ncn6UybHHfgUm2LkGGAxp59AHJK8BvFqCsvqT7l6GHAgWUkKuKKnrMBjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUU+zab7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=WHEv8Bmz;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D57606A329;
-	Fri,  6 Nov 2026 12:50:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078A1606A330;
+	Fri,  6 Nov 2026 12:50:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 078A1606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUU+zab7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FE721F0089F;
-	Fri,  6 Nov 2026 12:50:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969426;
-	bh=u7TzN7UjxwjzBe9DUJ1+ST6+Za71fgRUknBs8rBYbuI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UUU+zab7ko1b/IuvOLLJMhGYnAobEwxjsYAPCJBRYo8BWBJVVDKSMQaYBpMfYYZ8Z
-	 ngUcCddpyyFNYBBjMUB3/5kOdmjEaloZ16DcS9Lqt4CoSAWrjpW5O+G9vE13u2bTw3
-	 s4/xSmYst1uhMTz9XLYAzLGgV7P3KXZkgXdJDawigpbgUCjjAAdoUanvrYVQcVDQ/V
-	 dN7RPerNuKOLwr9MaMqMX2jykXgsQd0BZ/LKE4M+2uvJgUnANc3ElVQZzUHr9vRgZu
-	 IvQKPCr671kPsG9JpAQTBcwEaRZnN9WO/4oh/ZKaycyTLrRw9rDR3TaCuAAfsQaNwE
-	 dnHkin62gu60Q==
-Date: Fri, 6 Nov 2026 13:50:22 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Andrew Gigena <mail@andrewgigena.dev>
-Cc: Abel Vesa <abelvesa@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Andy Gross <agross@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: crypto: ice: Document sm8150 inline
- crypto engine
-Message-ID: <20261106-offbeat-hawk-of-purring-50a8aa@quoll>
-References: <20261104-sm8150-ice-rfc-v2-0-d697bbce0278@andrewgigena.dev>
- <20261104-sm8150-ice-rfc-v2-1-d697bbce0278@andrewgigena.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=WHEv8Bmz
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=FBjIBgDWbZCo9SaA6U+cSq8TU+erFs29CF/2hr/QbOQ=; b=WHEv8BmzZlBskbtiRsC4Yz/6tF
+	lVJsH/z7pFdPbcrteUfO96lrIzu6yFa42ask2ACLtB8O6uGMAjJ5FkSqxMKs8yMyT7o7Hs0ZuH/2N
+	4GkPXRnZ7UYI7WmuDLcVG55y5hJJHUVGaRsnVFAvyX9zV/fjb9Uw1RfdJCS97gPuNrho07j/aW+1F
+	pOJern4i9oeuE7j8otJl9949EwHRfUv+7LRx9Kd4TbmcROCdlLLufc3Qteg0RmyjsU3rG6JeoPs2K
+	k++dAKZdxZIbbcOTn+0G93w14T0clcHEu2gUYgi3SOM1wcSDowGQdPNb/nXXKvmf4sWXrtqwqUcHH
+	TaIrvW+A==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+ Vincent Mailhol <mailhol@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Wolfgang Grandegger <wg@grandegger.com>,
+ Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, 1579567540@qq.com
+Cc: Cunhao Lu <1579567540@qq.com>, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, stable@vger.kernel.org
+Subject:
+ Re: [PATCH net v7 0/7] can: fix bus-off restart and device close races
+Date: Fri, 06 Nov 2026 13:50:20 +0100
+Message-ID: <16255046.uLZWGnKmhe@diego>
+In-Reply-To: <20261106-rockchip-canfd-restart-close-v7-0-accdb11bc845@qq.com>
+References: <20261106-rockchip-canfd-restart-close-v7-0-accdb11bc845@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,62 +71,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104-sm8150-ice-rfc-v2-1-d697bbce0278@andrewgigena.dev>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Wed, Nov 04, 2026 at 06:38:12PM +0000, Andrew Gigena wrote:
-> Document the compatible used for the inline crypto engine found on
-> SM8150.
-> 
-> SM8150 UFS uses a standalone ICE node referenced via qcom,ice, so move
-> qcom,sm8150-ufshc from the legacy embedded-ICE UFS binding to the
-> standalone-ICE UFS binding. Update the legacy binding example to use
-> qcom,sdm845-ufshc, which still uses the embedded ICE representation.
-> 
+Hi,
 
-This part should be a separate commit.
+Am Freitag, 6. November 2026, 10:37:19 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Cunhao Lu via B4 Relay:
+> This work started from a real failure on a production robot using a
+> LubanCat-5IO with an RK3588. RX continued, but the TX queue remained
+> stopped and subsequent sends returned ENOBUFS. The interface still
+> reported ERROR-ACTIVE, and the hardware indicated neither a bus-off
+> condition nor a pending TX request.
 
-> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
-> ---
->  .../devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml |  1 +
->  Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml  |  2 ++
->  Documentation/devicetree/bindings/ufs/qcom,ufs.yaml           | 11 ++++-------
->  3 files changed, 7 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-> index 23bf98c2b9fa..0d73e4581e6e 100644
-> --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-> +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-> @@ -24,6 +24,7 @@ properties:
->            - qcom,sc7180-inline-crypto-engine
->            - qcom,sc7280-inline-crypto-engine
->            - qcom,shikra-inline-crypto-engine
-> +          - qcom,sm8150-inline-crypto-engine
->            - qcom,sm8450-inline-crypto-engine
->            - qcom,sm8550-inline-crypto-engine
->            - qcom,sm8650-inline-crypto-engine
-> diff --git a/Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml b/Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml
-> index 3c407426d697..572eec814a60 100644
-> --- a/Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml
-> +++ b/Documentation/devicetree/bindings/ufs/qcom,sc7180-ufshc.yaml
-> @@ -23,6 +23,7 @@ select:
->            - qcom,sc7280-ufshc
->            - qcom,sc8180x-ufshc
->            - qcom,sc8280xp-ufshc
-> +          - qcom,sm8150-ufshc
->            - qcom,sm8250-ufshc
->            - qcom,sm8350-ufshc
->            - qcom,sm8450-ufshc
-> @@ -48,6 +49,7 @@ properties:
->                - qcom,sc7280-ufshc
->                - qcom,sc8180x-ufshc
->                - qcom,sc8280xp-ufshc
+[...]
 
-And what about eight clock? All existing DTS will report warning? I
-don't quite get the need of this move.
+> This series depends on the three patches in "can: skb: make CAN skb
+> freeing safe in any IRQ context" [1] and the three patches in "can:
+> rockchip_canfd: fix TX stalls and races" [2].
+>=20
+> [1] https://lore.kernel.org/linux-can/tencent_CD05F020BAFB2537F5D1F4CBB42=
+5588EA80A@qq.com/
+> [2] https://lore.kernel.org/linux-can/tencent_E25C9BE6689264E4138A464803B=
+810FDFD09@qq.com/
 
-Best regards,
-Krzysztof
+Both these series are from july and seemingly from before you started
+using the b4-relay. So they may or may not have survived the kernel
+releases and their threading is broken both on lore and in any maibox
+they arrived in.
+
+And if there haven't been any responses to them since then, I'd think
+they have been lost or so.
+
+So I'd suggest rolling both your dependencies forward on top of the can
+tree and sending them as a new version, so that reviewers can find them?
+
+
+Heiko
 
 
