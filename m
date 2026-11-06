@@ -1,67 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969442;
-	b=ka3R3c9OeI6EbTSVetNT2tUUma7MTqUS4OhKhwWzRIJPuwWLs0sphYq+2Lp71Y4TYGcy
-	 aTYoG3wcRWjcBWGfzp2vo8m7tBPxbPj8SpJFpiFMT+ZGj5ViDglybXt8IJ4e9ILJxDioJ
-	 UivAbLZm3b2LkfqPi//tVM7j25hjw49LePfc45sTR2Hgaei2yVNqasGcRgql2KjgRFHsS
-	 PUT9kJ0ZleBjCaYyu5Ap9h3biAaEBk2M7d0fqCqhkVbQt5AZk8FUni1blq+vlH7c3Ddt+
-	 SIi0mxJqjvWExUApXB4Y/BrhzcUEtiwrWrb9z5bN8raQ1o8MdgRv46TsfV7sNo2jWHg==
+	t=1793969477;
+	b=30//Ch3QcGH1Aukhh2TNTKfuqnJuUfvtJJm8WvjaN/qR2hnJdY3JpsOq9HeY/phksZq7
+	 idVln6kKXvunRJjwj2H/UD0WGEB400nZ5EEgjNbed24dVYpn5Ru0aB9vNarC7PYlU2I/b
+	 A8RENzcZJqio9vpZ6q3PwZWt7Sof8GNZ/7GECyb2Em4tOF9gKD1g+3elp6XuvYrfaDNAQ
+	 DGUQl1x+X0R1W1KljuGTYEyX3FuPROkpSu2KFfatqVVV5c1xvnTzi+H8hObnb58goZ4db
+	 3p+Hjjv4zOZUZ4va9dg4/CjeQSmH2KMqWtyTjSrXtgzlJ3U+bzE0YA5Dv0Y3Pl0wKpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969442;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=FBjIBgDWbZCo9SaA6U+cSq8TU+erFs29CF/2hr/QbOQ=;
-	b=rs33cMiQ4p/3lauanmdpOydODjrRuRgHmZwDoeDe4hTrEJYR1GtilB8b70yZ9gtMzjkS
-	 h+fw02flY3XVQIjg4ifO6RpydDT8AjNnXp1Z6fXaTojDpcaSEAHrDBnP0Xmu6pMM/x79u
-	 oeP5nUXw13XL9f3PcKyzy/jv9h7UbQAa0Jb292aEHttURjm/MxX3Khd6QIe7Tlq6ynpLW
-	 coPWkuafxbomvE+eTA4ogrvCGsaDSk+6D9tF6N5I+vF+tOpEpcmVfdgj0yQJKjB27oP9s
-	 45YD63jPs3ncn6UybHHfgUm2LkGGAxp59AHJK8BvFqCsvqT7l6GHAgWUkKuKKnrMBjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969477;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=A4eqQOE0DSkHSkNE/FUQXnB6sdsllvdnom03K8LESpU=;
+	b=op31fGPYNLE7/5VQekUmW4PJvU0VPPFRqNeimsoxSSAHvVO0Rgw1LLv8mWMuUrR4s6yX
+	 PebDtIxkRYd02uTtoQJMWmGP4vo3gQWElxfwiY9hLeRaKrW7imE/9YEzmD3CdwAuAZVSU
+	 o53g2CuBbTrLDzmhCvp/PuHULf9Ma6zT74p1oQx8xtyCpHt83zKt1zci+wxcPARzoeJzo
+	 O96aLOcz+QJEMoQmsbcl8SAIBc40TPJRdw6eD4TxaAQeR3G2Cf7f9Fo+i6ZJ/R3GXU0KT
+	 aGcpvMNLmhadgW13htAXlImVOa6IoBUCts2rtGcYjrgSit3qd8Rj/NpdFxFzjP4bY8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=WHEv8Bmz;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EjJhzyUn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078A1606A330;
-	Fri,  6 Nov 2026 12:50:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 078A1606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6953E606A326;
+	Fri,  6 Nov 2026 12:51:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=WHEv8Bmz
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=FBjIBgDWbZCo9SaA6U+cSq8TU+erFs29CF/2hr/QbOQ=; b=WHEv8BmzZlBskbtiRsC4Yz/6tF
-	lVJsH/z7pFdPbcrteUfO96lrIzu6yFa42ask2ACLtB8O6uGMAjJ5FkSqxMKs8yMyT7o7Hs0ZuH/2N
-	4GkPXRnZ7UYI7WmuDLcVG55y5hJJHUVGaRsnVFAvyX9zV/fjb9Uw1RfdJCS97gPuNrho07j/aW+1F
-	pOJern4i9oeuE7j8otJl9949EwHRfUv+7LRx9Kd4TbmcROCdlLLufc3Qteg0RmyjsU3rG6JeoPs2K
-	k++dAKZdxZIbbcOTn+0G93w14T0clcHEu2gUYgi3SOM1wcSDowGQdPNb/nXXKvmf4sWXrtqwqUcHH
-	TaIrvW+A==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
- Vincent Mailhol <mailhol@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, 1579567540@qq.com
-Cc: Cunhao Lu <1579567540@qq.com>, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, stable@vger.kernel.org
-Subject:
- Re: [PATCH net v7 0/7] can: fix bus-off restart and device close races
-Date: Fri, 06 Nov 2026 13:50:20 +0100
-Message-ID: <16255046.uLZWGnKmhe@diego>
-In-Reply-To: <20261106-rockchip-canfd-restart-close-v7-0-accdb11bc845@qq.com>
-References: <20261106-rockchip-canfd-restart-close-v7-0-accdb11bc845@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EjJhzyUn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095181F0089F;
+	Fri,  6 Nov 2026 12:51:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793969477;
+	bh=A4eqQOE0DSkHSkNE/FUQXnB6sdsllvdnom03K8LESpU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EjJhzyUnLWXusjWJ0YL7uyZLGYms89tIuLl27ijFJIyviYAjXPmHUcKYWwSRF7UEC
+	 evi7ioLaXUkTahgiJNYIa0dDbW6IpYQLrGxy7QG3IMqphoF4DxQ3ppxzuKFe9o2EnE
+	 LNDeTehsrHSGW31d+FGmpmTB9iDgNEYcC6hMOXBe4+M4/4xcOq/4kHBvteidQTON3j
+	 yBZLmfjJQkW4xVMgd5f3RGIiet6xH5i2uoYpQHlLopUor0qXKNMqs93fUp7oS9lL0J
+	 Nfm7ZquvtvAEIoslHzFqdodm2gcZx3pZ/FV5oFL3EFDyskLFIPi0P6EUzgzGZzytu7
+	 C2Lf8I8cNNHgg==
+Date: Fri, 6 Nov 2026 13:51:13 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 1/8] dt-bindings: arm: fsl: Add BSH SMM-M2B board
+Message-ID: <20261106-adamant-thoughtful-cheetah-a5969e@quoll>
+References: <20261105-add-bsh-smm-m2-v2-0-fb5ffc7da486@cn.bosch.com>
+ <20261105-add-bsh-smm-m2-v2-1-fb5ffc7da486@cn.bosch.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,42 +61,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105-add-bsh-smm-m2-v2-1-fb5ffc7da486@cn.bosch.com>
 
-Hi,
+On Thu, Nov 05, 2026 at 10:41:15AM +0800, Haoning Cheng wrote:
+> Add the BSH SMM-M2B SystemMaster to the list of supported
+> i.MX6ULZ-based boards.
+> 
+> The SMM-M2B is a variant of the BSH SMM-M2 SystemMaster
+> equipped with an AIC Wi-Fi and Bluetooth chip.
+> 
+> Signed-off-by: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+> ---
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Am Freitag, 6. November 2026, 10:37:19 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Cunhao Lu via B4 Relay:
-> This work started from a real failure on a production robot using a
-> LubanCat-5IO with an RK3588. RX continued, but the TX queue remained
-> stopped and subsequent sends returned ENOBUFS. The interface still
-> reported ERROR-ACTIVE, and the hardware indicated neither a bus-off
-> condition nor a pending TX request.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-[...]
-
-> This series depends on the three patches in "can: skb: make CAN skb
-> freeing safe in any IRQ context" [1] and the three patches in "can:
-> rockchip_canfd: fix TX stalls and races" [2].
->=20
-> [1] https://lore.kernel.org/linux-can/tencent_CD05F020BAFB2537F5D1F4CBB42=
-5588EA80A@qq.com/
-> [2] https://lore.kernel.org/linux-can/tencent_E25C9BE6689264E4138A464803B=
-810FDFD09@qq.com/
-
-Both these series are from july and seemingly from before you started
-using the b4-relay. So they may or may not have survived the kernel
-releases and their threading is broken both on lore and in any maibox
-they arrived in.
-
-And if there haven't been any responses to them since then, I'd think
-they have been lost or so.
-
-So I'd suggest rolling both your dependencies forward on top of the can
-tree and sending them as a new version, so that reviewers can find them?
-
-
-Heiko
-
+Best regards,
+Krzysztof
 
