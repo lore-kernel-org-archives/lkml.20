@@ -1,61 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793923961;
-	b=w1c/eJ2RLNpp7iCJt97IVnnslssRJNTV2O4TPcltzP240+mTn/HzT0ber9mdKPWXlZso
-	 QKFmTHsyN54peWppIPwvgwGt78TkTqUrbl1bMI7mhmxcxoCidfywV1Ekf0wsYlX+gYnUt
-	 DlhENhUzB1MaaJ12YGUrzS/xx/B7tHDEve/Jlgx0mvO2SsEBz90QW3dbcy3IpOm6Lktlb
-	 D6THyMCYHA/FCwjiEe+2n4D7MdsF206NusAzS2d7b9QdFClzK1KzAOFSV04MVhJrAp3/G
-	 DAskOR3VmARJ+/u4UlqqT3tm495zg44hOwX0C+uSiQrsN4eXbiZ08lPUuAwV8Fvnshg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793923961;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=K8FW1sHLLcTxrMcYSrv5jgqVe62bREH2o+W9bi+twIY=;
-	b=ijiOaG9irNL1NpJtBBZtpKq3du9Bui1x2GQSvLcp/azpzXl/Gwm79ORJrin+tMHYzpVj
-	 AhJ++5f8nz8p+gj74jGDdueRFf4ALbhuRLMfqOhetUv3/5XOR8moqPXxe4P79nQljjQbz
-	 ItoopwWkE4dPU4QyaUY88xS+y3I3JlDR7RmmT9WzDARv5HQQaKNS1kGeJwzWlVmMxt49T
-	 s6Ex75CfTLJzlUI0DcEO2+EOz3hS3DcvHvMO1Oq2PFsryKy7/uJHxl227PMoNj+f+F9w6
-	 VeQ/r0NFKgHwwYaUBgbUDNS03DhWhNmZ5MjOk8aRuFE19bpme+s2ofddd/g6rMt4aqQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FG0esetq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793924046;
+	b=UcGzXc7rKUU1Npg6YXxVeKUfwbHiPksp1Ami+gc3vwLHaeXure7D10gTNcT8i8IXPI/6
+	 +Fkwogce2g2wqr6E8I6XlFLCopA3ji249HIkXvwdKbRPp4q1R6NYkE7pfv2x+KgW8l/1y
+	 FqPmPOuNZMdrJxkBMLoTH33OX6jq4vF6jpxLYQjWbUtJBAvmnbf+mQtlgI5sGrKUGlhwX
+	 EzNRbgnM5sB86e/6U8/0FOSSBMWk/55mii0L3fmzXL+CH8dkn+xnndHzTO2mRpknvb4xR
+	 9K4yTEdOQdzKPlH881mG9ikgUmQsvWPY/FXiagGudVEv8GNGUPQsxxKzpGagXpmE4+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793924046;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5HSH5LgRGtDfWuKTkX6T6F82xf1/4IsWwMXwRPJbvHU=;
+	b=Q2BAx0qd25kZWsyx0FkiNDRAVA/RhLJV5WaQ79yqfT7qiJGTrYlqZxYvYPMaFfrvGYwm
+	 9xgRr1oHaYxs2ryK2W7ZzbdLJYv5ftO5nIzcZk0P6NpENJflKxxwl0agD6twUOq4q9d6r
+	 Yh6ac/tck7P1jv3v2fKOvEpG36Nhv7lzYg2qdjG480vHPZsgYMwrfXcqqMoyokqWNx6xg
+	 1W0KcvHMtKRsjE9/NPmaYdbS7G7/dK0z7t4kaa8xqut3HPgCgDCoEKizplaJvi9ACvqnU
+	 EMe1qcuxB13kUOlUA5kJyKa+AibPSlpIiaM5zTdvC7d9MrtORlDIijy/rZDsHwLhkiw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K8Jg6DwL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8886E606A31B;
-	Fri,  6 Nov 2026 00:12:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3409F606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:14:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3409F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FG0esetq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F1A71F0089F;
-	Fri,  6 Nov 2026 00:12:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793923961;
-	bh=K8FW1sHLLcTxrMcYSrv5jgqVe62bREH2o+W9bi+twIY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FG0esetqVsFoW/ZiGTtXwfUAKNaKaajlnvkDcRtHnqSG23mHkGGwgfyetqpS+pfSq
-	 0llkeSE/Tl/vp4kUvIBNydIyOcTmtKuVQHbGXMNyBWSLFydBwsF2KVo8pf6Qbo+z1k
-	 NFrJ9lWLyPAHjFpG+1fkp8RSQG2rDYw3w+kO9rFDx8BQjcnSGI5Tp/7Bm/2rxsppFt
-	 wiQ/vNxVWm2o9YoKy6ITEntyHzwtXa6e5Zm86UAXu4kQhSlw06Vq0Y/lGfNpqPPe0U
-	 jSFFsHfxr+qfoDLYe61kWIsJiR5uMMwqXMbn07mxV+1J48ttoCQIJeoQ2ylQLQ7gyp
-	 s82KiFs4P6/PQ==
-Date: Fri, 6 Nov 2026 00:12:36 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>,
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: clock: Add Siflower SF19A2890
- peripheral clock/reset managers
-Message-ID: <20261105-upload-golf-40927e20b7b9@spud>
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
- <20261104-sf19a2890-sysm-v1-3-a4fac07df823@telaak.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K8Jg6DwL
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-54492d8a988so3861cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:14:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793924045; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GXpCOXw+kx0WlHsy/ceUtJo+kSBKStPl0VC27Q2nFcN+SOUbLDHIV+oPSLAUFEus3y
+         PDRajuzXWiFIl76EW2Rg+ovbeCGMl5WSCA2s0eKXyVNtSuOVd4cGhgoFMSnbWsU9HlbT
+         cJrsji0voUYXqU1W1OUu2RyRSeav5MwsPBWZ2W8OHieRcQV6QcYhomiEqfx4ljuISfln
+         Uw6z6yCKyU1NxUNAqtmXNNpb13U/wAg39/0BWzQEG6ztMzlU2f4UqROtucn9TL8GHIFF
+         jDBM5s+1tRNtl1XKrwjEQ3aTH5RpUgGXqtG96Xm3FU5b4yGoziju4tabceVwqQQF0n3Q
+         0zVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5HSH5LgRGtDfWuKTkX6T6F82xf1/4IsWwMXwRPJbvHU=;
+        fh=zsMgMrb7o2h0+B/rTVa9B+KnKGZeYescnnqBXp1fV+E=;
+        b=m8332QjH7Vn0QZJqWSNEfHwr7E0tPgaiRmlucPMnyQoeucBmBYXWfh8GQyXlMIEOoQ
+         HOgSd04FawRu762cNRDlxKUehkEnrNs2YtIUuRvksmXOXkWSY9RbPoC83IPtQpGHsF2T
+         yrBySRGV2wW3/e2M38Tefj9a07JF2quoo6/53TystMGWCPLQvkFRlfs4RSVwNURB9mNq
+         204rqKKEwaCGRepS8VQpB5N4faZawlU0kKkHVYTPnFt/5GRnXcOMVbmAW06WZj1NY1rq
+         ODlhdQOBWvRBRISpR89UGB5+SRad9d5ZP8yFqd8e3t1Jm/M75CPNnl64X3T7PwJIAdRj
+         c4tw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793924045; x=1794528845; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5HSH5LgRGtDfWuKTkX6T6F82xf1/4IsWwMXwRPJbvHU=;
+        b=K8Jg6DwLwPK9iS0PnGbSkzL6dTJoprL+4OjSJVTfsvG274hBnmlTtAV8cEJhQR+5qJ
+         Kk/7GabI82rIp3iVodmL/F9XkmsHeKsGOdSn9TdO6t2kPd4EOKYQUKOfsvlN5684Doni
+         fdfSVgb5fAIlzRSI8Q6LCioosx28NSJMksmmQtLtFcdZr8rJWMBgCQnNrQKBPc8efgSK
+         uB80a8b6ZeVOVEFncldoHjol+sW0IMj24/mLhuiCNY1zlzoFw3m+VMvGWQteTU091C6i
+         ++Kvt0MXXblHZKMiO0QA/HSB5uMJaNcJb0Rle7KjN4/SQsYqiLSmzd5DNlVLEm+cjIVJ
+         m3nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793924045; x=1794528845;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5HSH5LgRGtDfWuKTkX6T6F82xf1/4IsWwMXwRPJbvHU=;
+        b=vLdRp7RPyOT5qxiaR9KNhRzN3IWVP973TH+TOqW+UaiCqd6j7rDti0L9SeMWsEZrzK
+         EOiyyH83Xf5BMDEl3etDknwV01Wm0liiqaLKyU1jWfBBDUeXgo3v+kf1I33vkQW8uolt
+         I1Qfo0Wj59Igr2KyyTa2sONcrRsvVh/+o35U6xDs2p2EROPyxskj1WsQDpTSu2Ne5PNv
+         kxrCO///FbNkfpIkJE8JkslKYPNMxay+t7TnXl0X+MDwilIX3U3ZZLtcLhTgCnQPbeBy
+         nXHF5o4a7s+HSa9DBPjclYQ42iqkkF33pSRmLycEIbI8i7PJ4IUMN72lP7EpVheD85Vp
+         XpxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwNhhkB2oL+ZNzKl50RtNln2Gza38+AIth45se1nObNvvIsviFxpp/LbhojrZeC3YcUx8yWDT1TkEoa8H4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xM7cSEGlokW3pLDF72bGPnxUfxvO6ucAvD20AXcstI2E8i6WT
+	igf0D581E6CRKVwgF3TTE+yTvapGpIY8sCVH3Knr+2nhhJLYVh8QuMQGp+7mGZ989GPXj6fiHe0
+	S5bg/Pkg3P5iq07X1LTUJEG5Ki1MKMClhio4L7wY1
+X-Gm-Gg: AYBFou1b+mWqZ719IeCvIp5th8rQ0SlQdN8M4HxZaB3+h7kRrnTcHlXnJF/NQ8VGDGh
+	b+7QZh6Kypne/gM7lbejP3ry+4KuShBbO4W7gDMdpcjV3G1elm3M1J6Pr9PqB8bKBgfIjeWTpl+
+	rSw/C/E0AkCOxItlGUpY4z4bgLR6+bs2/saUGHldOwto15+6yvuraNAQnazF9b3GsFqcoSRKqi9
+	aovL7+K8IT6k7+kij7TMZuKnzAkX7srvZaBeG+scxOj7rw8+GJeVrHvvremAEEjEfeKqEKgUN46
+	otS2NmhnbdyRyhmtP6zipZ2BklOH0JAn/9Fsfnh+0SAcRlB2SXbT2aQVu+ox1aSNYapp7dScI7w
+	VyAK2YI+wFO7HfPKB7gCa9lEJ5xqev7V8aFPyKJCX60+rCW2A9rRNM7Vuhu0+xo7cH1Z8izg1SK
+	g08FQGJXsMUNroRmHLmbidua8E
+X-Received: by 2002:a05:622a:c0c:b0:532:9220:a9ae with SMTP id
+ d75a77b69052e-54e1da391d2mr6789121cf.6.1793924044478; Thu, 05 Nov 2026
+ 16:14:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,253 +105,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ReZYJndpgnBOOthu"
-Content-Disposition: inline
-In-Reply-To: <20261104-sf19a2890-sysm-v1-3-a4fac07df823@telaak.dev>
-
---ReZYJndpgnBOOthu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260930210750.1487547-1-chang.seok.bae@intel.com> <20260930210750.1487547-4-chang.seok.bae@intel.com>
+In-Reply-To: <20260930210750.1487547-4-chang.seok.bae@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 5 Nov 2026 16:13:48 -0800
+X-Gm-Features: AclHuK-y7AfK1l37ewnQHyjADh5Ww02bIackLJ6-4n8osIXv467OcMoYr9G2rK4
+Message-ID: <CALMp9eT1Wza=7s53Pu7ODcBRkYSbpv4A_y58xJNEhQeaJ6r1Rg@mail.gmail.com>
+Subject: Re: [PATCH v8 03/20] KVM: x86: Support APX state for XSAVE ABI
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: pbonzini@redhat.com, seanjc@google.com, kvm@vger.kernel.org, 
+	x86@kernel.org, linux-kernel@vger.kernel.org, zhao1.liu@intel.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 02:21:00AM -0500, Joseph Telaak wrote:
-> Each peripheral block of the Siflower SF19A2890 has a clock and reset
-> manager of its own, with a reset register, a clock gate register and a
-> bus output enable. The blocks differ in which gate and reset bits they
-> use, so each has its own compatible, and clock N of a manager is its
-> input clock N, gated.
->=20
-> Based on Chuanhong Guo's binding, which described every block with one
-> compatible and its bit layout in properties.
->=20
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+On Wed, Sep 30, 2026 at 4:02=E2=80=AFPM Chang S. Bae <chang.seok.bae@intel.=
+com> wrote:
+>
+> Introduce a facility to copy APX state between the VCPU cache and the
+> userspace buffer as the VCPU cache is the single source of truth.
+>
+> The existing fpstate copy functions historically sync all XSTATEs in
+> between userspace and kernel buffers [1]. In this regard, any additional
+> state handling logic should be consistent with them -- i.e. validation of
+> XSTATE_BV against the supported XCR0 mask.
+>
+> Now with the two copy paths, their invocations require to take care of
+> these facts:
+>
+>   * When exporting to userspace, the fpstate function should run first
+>     since it zeros out the area of components either not present or
+>     inactive. Then the VCPU cache function ensures copying APX state.
+>
+>   * On the opposite way, both will copy the state to both storages. This
+>     duplication is avoidable by tweaking either the generic function or
+>     XSTATE_BV/XCR0. But the optimization while at a slow path looks to
+>     rather add complication. So keep the implementation simple.
+>
+> [1] Except for PKRU state, as stored in struct thread_struct.
+>
+> Tested-by: Zhao Liu <zhao1.liu@intel.com>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 > ---
->  .../clock/siflower,sf19a2890-periph-crm.yaml       | 169 +++++++++++++++=
-++++++
->  1 file changed, 169 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/clock/siflower,sf19a2890-p=
-eriph-crm.yaml b/Documentation/devicetree/bindings/clock/siflower,sf19a2890=
--periph-crm.yaml
-> new file mode 100644
-> index 000000000..7f0bce603
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-c=
-rm.yaml
-> @@ -0,0 +1,169 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/siflower,sf19a2890-periph-crm.y=
-aml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Siflower SF19A2890 peripheral clock and reset manager
-> +
-> +maintainers:
-> +  - Joseph Telaak <joseph@telaak.dev>
-> +
-> +description: |
-> +  Each peripheral, or group of peripherals, of the Siflower SF19A2890 has
-> +  a clock and reset manager of its own: a reset register, a clock gate
-> +  register, and a bus output enable that the peripherals need as well as
-> +  their clocks to answer bus requests.
-> +
-> +  Clock N of the manager is input clock N, gated. The reset lines are:
-> +
-> +    gmac-crm:  0 GMAC
-> +    usb-crm:   0 USB controller, 1 USB PHY power-on, 2 USB PHY
-> +    uart-crm:  0 UART0, 1 UART1, 2 UART2
-> +    the others: 0 the block
 
-I think you should put these in a binding header file, rather than just
-put them in a description like this.
-I think you really need one for the clocks too, since you've got things
-like
-		uart0: serial@18300000 {
+[ ... ]
 
-			clocks =3D <&uart_crm 3>, <&uart_crm 0>;
-			clock-names =3D "uartclk", "apb_pclk";
-
-		};
-
-		uart1: serial@18301000 {
-
-			clocks =3D <&uart_crm 4>, <&uart_crm 1>;
-			clock-names =3D "uartclk", "apb_pclk";
-
-		};
-and it's not some simple case of 0 is always apb and 1 is always some
-ancillary clock, the meanings depend entirely on what which crm node
-we're looking at.
-
-The rest of this seems fine though.
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
+> +static int kvm_copy_uabi_to_vcpu_regs(struct kvm_vcpu *vcpu, void *buf, =
+u64 supported_xcr0)
+> +{
+> +       union fpregs_state *xstate =3D (union fpregs_state *)buf;
 > +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - siflower,sf19a2890-gmac-crm
-> +      - siflower,sf19a2890-gpio-crm
-> +      - siflower,sf19a2890-i2c-crm
-> +      - siflower,sf19a2890-pwm-crm
-> +      - siflower,sf19a2890-rf-crm
-> +      - siflower,sf19a2890-spi-crm
-> +      - siflower,sf19a2890-timer-crm
-> +      - siflower,sf19a2890-uart-crm
-> +      - siflower,sf19a2890-usb-crm
-> +      - siflower,sf19a2890-wdt-crm
-> +      - siflower,sf19a2890-wlan24-crm
-> +      - siflower,sf19a2890-wlan5-crm
+> +       if (!(xstate->xsave.header.xfeatures & XFEATURE_MASK_APX))
+> +               return 0;
 > +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 6
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +  "#reset-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - "#clock-cells"
-> +  - "#reset-cells"
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-gmac-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: GMAC bus clock
-> +            - description: GMAC register clock
-> +            - description: RGMII transmit reference clock
-> +            - description: Timestamp unit clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - siflower,sf19a2890-wlan24-crm
-> +              - siflower,sf19a2890-wlan5-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: AXI slave clock
-> +            - description: AXI master clock
-> +            - description: Radio platform clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-rf-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Test clock
-> +            - description: AXI slave clock
-> +            - description: Boot clock
-> +            - description: Low-power clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-usb-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: USB controller clock
-> +            - description: AXI master clock
-> +            - description: USB PHY reference clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-spi-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: APB clock
-> +            - description: SSP clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: siflower,sf19a2890-uart-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: UART0 APB clock
-> +            - description: UART1 APB clock
-> +            - description: UART2 APB clock
-> +            - description: UART0 clock
-> +            - description: UART1 clock
-> +            - description: UART2 clock
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - siflower,sf19a2890-gpio-crm
-> +              - siflower,sf19a2890-i2c-crm
-> +              - siflower,sf19a2890-pwm-crm
-> +              - siflower,sf19a2890-timer-crm
-> +              - siflower,sf19a2890-wdt-crm
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/siflower,sf19a2890-clk.h>
-> +
-> +    clock-controller@19e24c00 {
-> +        compatible =3D "siflower,sf19a2890-uart-crm";
-> +        reg =3D <0x19e24c00 0x10>;
-> +        clocks =3D <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_PBUS>,
-> +                 <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_UART>,
-> +                 <&clk CLK_MUXDIV_UART>, <&clk CLK_MUXDIV_UART>;
-> +        #clock-cells =3D <1>;
-> +        #reset-cells =3D <1>;
-> +    };
->=20
-> --=20
-> Git-155)
->=20
+> +       if (!(supported_xcr0 & XFEATURE_MASK_APX))
+> +               return -EINVAL;
 
---ReZYJndpgnBOOthu
-Content-Type: application/pgp-signature; name=signature.asc
+Sashiko is right that this early return leaves stale values in R16-R31 when
+XSTATE_BV[19] is 0.
 
------BEGIN PGP SIGNATURE-----
+In your reply to Sashiko, you wrote:
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau0bdAAKCRB4tDGHoIJi
-0nyAAQD5lkfpyKIZ60YGWB2uq7U1N+Z8j6vIZJTkiQW8WE/zYAEArHRUgoy1k8Gg
-cj6z9kRgN5kVfs+ldvQf/hmrVBoSqAw=
-=/XAm
------END PGP SIGNATURE-----
+  This matches the existing XSAVE uABI semantics. XSTATE_BV specifies
+  which state components are being updated. If userspace wants to zero
+  the APX state, it must include the APX bit in XSTATE_BV; omitting the
+  bit means "leave this component unchanged", just like the generic
+  XSAVE copy path.
 
---ReZYJndpgnBOOthu--
+That is not how XRSTOR or KVM_SET_XSAVE works. In the XSAVE architecture,
+XSTATE_BV[i] =3D 0 indicates that state component i is in its initial
+configuration (typically zeros), not that it should be left unchanged. In
+copy_uabi_to_xstate(), clearing bit i in xsave->header.xfeatures causes the
+subsequent XRSTOR[S] in restore_fpregs_from_fpstate() to re-initialize
+component i to its hardware INIT state. As the comment in
+fpu_copy_uabi_to_guest_fpstate() notes, PKRU is the *only* exception to
+this rule, for historical reasons:
+
+    /*
+     * Nullify @vpkru to preserve its current value if PKRU's bit isn't set
+     * in the header.  KVM's odd ABI is to leave PKRU untouched in this
+     * case (all other components are eventually re-initialized).
+     */
+
+Because R16-R31 are loaded into hardware from vcpu->arch.regs rather than
+from guest_fpu via XRSTOR[S], kvm_copy_uabi_to_vcpu_regs() must explicitly
+zero vcpu->arch.regs[VCPU_REGS_R16..VCPU_REGS_R31] when XFEATURE_MASK_APX
+is clear in xstate->xsave.header.xfeatures.
+
+[ ... ]
+
+> @@ -3189,6 +3240,16 @@ static int kvm_vcpu_ioctl_x86_set_xsave(struct kvm=
+_vcpu *vcpu,
+>          */
+>         xstate->xsave.header.xfeatures &=3D ~vcpu->arch.guest_fpu.fpstate=
+->xfd;
+>
+> +       /*
+> +        * This and the following copy functions copy APX state into each
+> +        * storage. The VCPU cache is the single source of truth but avoi=
+ding
+> +        * this redundant copy tends to introduce special-case handling. =
+Since
+> +        * this lies in a slow path, keep the implementation simple.
+> +        */
+> +       err =3D kvm_copy_uabi_to_vcpu_regs(vcpu, guest_xsave->region, kvm=
+_caps.supported_xcr0);
+> +       if (err)
+> +               return err;
+> +
+>         return fpu_copy_uabi_to_guest_fpstate(&vcpu->arch.guest_fpu,
+>                                               guest_xsave->region,
+>                                               kvm_caps.supported_xcr0,
+
+If fpu_copy_uabi_to_guest_fpstate() fails, vcpu->arch.regs[R16..R31] will
+have already been clobbered.
+
+Moreover, if you call kvm_copy_uabi_to_vcpu_regs() *after*
+fpu_copy_uabi_to_guest_fpstate() succeeds, you don't need to check
+supported_xcr0 in kvm_copy_uabi_to_vcpu_regs(), since
+fpu_copy_uabi_to_guest_fpstate() rejects any xfeatures bits not in
+kvm_caps.supported_xcr0.
