@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793996421;
-	b=NzITbnjv+sRFkZRZZNK6kMnoWkTxJVIZf28fj//iz8BUskGhF52+xV83CjoUe+Ck+Z1F
-	 I+HnamH/FSJUjL+BS81pZkcSO8m0hUkn4hgvSQ25Xdn0kQfCsuxrA0yL4xuJCdXedXDeA
-	 ZkF4l8aQ6hUGgk2WuMqwo/WRGroSx4FIHh5OMuxqthEQXYMRqXCjblk6Py3ibigms8krr
-	 fxqftXW428IR1E2mfeUHYLCYPTCdSzQnTh563t6LoUwOgNRQL+HO9BsstvUH2AhudWO90
-	 dn9ATYQF1/dyMkpU4HqDRJiHZpiNJuXlOyFa3mqkeTLT0wDjCes0mWO7RZEFM6+qG8A==
+	t=1793996423;
+	b=T0NigBQlH0QkxmjObQIZftSi7RnbP1Pklt9gL/mJkhRGke5A0JgsyFJ/uc0rQih1ueXo
+	 kvUKMhJP0wUueXnnkWeWwRfZvVoMePFG/wH3BEq/VDW3ETh762MyFh9QfNWbhh8G57Jve
+	 Pcvb6vs63GjmyDYAJr6xwG9tPfrXs/QmBn1zUgFB8o2SO2ZJy3wcy6Fn3Avu6BvtyDLT8
+	 7yt1BXUT59N0w2wO/PpZFr5j2FGWe62HEIA2UnMSX2G5FujJ3WsL3YEyYWOriqmwH0KL+
+	 4ujWiM4hU7V0CoeWMHabJmvSRaAufIb3F4iYlVGW8XA+OIPqPrOKKjEVEp/B9/hlFSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996421;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996423;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=YfQOM+3yZTei+Ooz1YE9OkOVcf05BkF1CaiX8rMXFmc=;
-	b=PwE1r/ebNmJ1PB6f1+47oN0L86DEBtadYPbvIq2afMefa7fBhWjPUSUmvj/859G+n8PS
-	 VLsU+ohEZ8ipKpU+hcRfjdQddMpl6AJWJ2PGpOqmMxWjvTIra1O+psXCF7VDZmv/aasyY
-	 Yu6ncObNaGRUA1173yCTjjvJnzlcp8GWGvImEfh2Fy/OetDbldMNNVld47h42/pDmWPny
-	 EYj+Wve+qdjEqQeoVw36UGqX9op3gKvlT0Al5GBVII2IoNFKWU5btKWnC/MuOyCx9bMIj
-	 kPkw5nXsEvsBwXlmqBofbKNXvRTTrBdx7u7OnqFvmisQAEUxUfJshr0lTjAEwxNuMiQ==
+	bh=K1sGHNV060QXqvoYM3K0orPPht5P734++yZ6XL1HQug=;
+	b=2zonN/S1gYNMfH35melLBxUDcomPkw+W71wNrKAMJAtHupA9KtB281GWIFm8yZqTceCo
+	 bwSfmxApOim5Q6LegqtAxTJAtlt7qFWvXD/4EDdmE0FPHbR3OGTRcPhJSjmOX1zEpxatZ
+	 iEHh1Jvw2BIpZ9AiVtox+7oWHlDxAJyZpfiRNJdduqKh4hBfzSR6sGIqrfssXckp2fQQS
+	 +wcTxoPVPr236ErhUl4TOUJ5HI77UWYjswMoWxPT1+1DBeo/CpTrd0296br3Xlsjci4Gu
+	 dPD72c2d4jgYFE/W8hPscvZXl0/pasMtE4QfQKpzzrEtNHnv2+TxswrCpnfNnbezjHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=qN9y1mA1;
-	arc=none smtp.remote-ip=209.85.210.198
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ebw6RDKk;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE019606D803
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE019606D803
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C219606A336
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C219606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=qN9y1mA1
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a08903566dso24716b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ebw6RDKk
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3aed37745bcso15110a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793996417; x=1794601217; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793996422; x=1794601222; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YfQOM+3yZTei+Ooz1YE9OkOVcf05BkF1CaiX8rMXFmc=;
-        b=qN9y1mA15Y6AtsUV5niq8H1hH3LKM0ifZb9qB6TPirQ5m7uJyyLYYYHuFaU9TRNgnp
-         txjU4pw0H8iYnjCmd46LQi63lPvs5mykCWNloMB1ulQkuO3BAYLW5oh3nZAWDwAFxH/U
-         4OJIN+WFbns52pRqOsP4z1An3zRVj3QkQQwkmBVDOhl0kzrrP0o+wEVbEZMl9ehuLazp
-         kTPYhb691x1jUmTL6kKwBH6+ni+Uib7RVTpMgxiNeFgOUc9fhoLqLRNSUDNt2Rg4roqq
-         3cfVpvLEcQ9A8MoLpP9TTFQ6qkA87pnPCvQdaVC9c8EtH2kjrrMaSGP2OuFf0Ic5QXRs
-         ikQw==
+        bh=K1sGHNV060QXqvoYM3K0orPPht5P734++yZ6XL1HQug=;
+        b=ebw6RDKkcjg882fzi1Z+Zdl4oglJClpfPn38raYqe9n6lGczb1D7h63+mwKE/2tYHH
+         Dgi/YgrDABxsAsm7c6FOZP/5mgr/sKFXbq48Tk5RE2xstwH6XJQiIHfqxDHu3RLyEnIh
+         0/cePF29X13v9nsDotcnqGF5l4BEawAA7ZsLmsT1G+rJgBVbRIW1gptfSWziEFV5qQgG
+         NItSsQoV5wDu72X+FLGQ8H5g7GT9sZqIPRosRSIdJukHMbJH3rhYpyLNKPGKF3aP7m6V
+         IANKWhP1zwxhtYzxZkXCZDnBo/yImuzaBPp8nTV0nePOCDlAuy1eHIRwjcncwtqNeRMJ
+         YQBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793996417; x=1794601217;
+        d=1e100.net; s=20260707; t=1793996422; x=1794601222;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YfQOM+3yZTei+Ooz1YE9OkOVcf05BkF1CaiX8rMXFmc=;
-        b=qc3iaovG/AVnMpswJ6PWzj+Na3xyK5TB7HKSBeWHSdK5V3kPTBxGGZnnplPraAV3H3
-         0ZlM5Xs9Yx4KI6wn+4vO5FKBwC/QzFbgb7cRyE7qQ1nYBtbKQqA5Aq72fOe0A1McOIGP
-         cdMGZakJwZEWgRs1URan6LlkVv/3Uhks3Wtv/15lWcLEhemd9tSJbq2MHXMvJFoz6P6C
-         8idwOrbSzrU0I5Q/hOvknL3TxxQk6Fle4r6mJNX5TCBolWq/zoICAsl0uxLf2da/rqmy
-         1WTi0cR5El7dD9aZvD6s3TX7S8hExRu8iof1vT2uxImSUBQxnK5MEmdd8n/1al3Q1/qS
-         Kv1A==
-X-Forwarded-Encrypted: i=1; AKwUvBy3ASjliYev087MutT7pdhEOEOZ/xSGv7W6GXl7wdKbNJMADUCDV1+Hw6M1+rK23q7Uv79JKgFMwLVG8wU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YA6PEA4XHVcLU4sfA5tplEUnP1a2ULe7aB8bKkBLMqW5MiAqy
-	NQEpHZYxB+SQJEyT43Yeb3xRpnROhQNxA03LKrR5oXYBOMyR95V2FWCZoYATO3FKWezxULZ5dWm
-	f/zYiVBkBC3GO3R2aSQ==
-X-Received: from pgbcq10.prod.google.com ([2002:a05:6a02:408a:b0:cc9:f7f0:57fc])
+        bh=K1sGHNV060QXqvoYM3K0orPPht5P734++yZ6XL1HQug=;
+        b=Lb9DqgJIYMfVyiUFtXCR95z90/n7kABPruAgxCa2a+8OW7ZX2i8rlOlHNfzHFF/YOd
+         rQTCmXfj7gPEFH6p4vcuicSF6X3AG8IBV3TTxkUT/YR/MoD5CPs4B84maOgCEJ5xl1R3
+         1lkSsViFnKMhJaC0NGyd/BTrfkHxXQKxhgWBLRLtMLODBoYwsxk/2ZRsJtIMEfkADgrM
+         AuHG7QKOw4u2ndbturlquG7ji75r9aV03r2cu0Q1qpOveSq6KCksVD0A2Dyf8uuuOgrz
+         zPZ/SJSi1im+TDMwr0S/S+Pq5aIsqWdgqSJbx09cbinh105ktaatREAaRBXUrJZ/j9lT
+         x/Ew==
+X-Forwarded-Encrypted: i=1; AL+hErErMJZv2uKgRJOa6ATzFd5jH86kP8FguyGFAu7VNpuiZ1QzPDghAhNSh4Y8rm2E/Xd6bh9xNPHd2zFxUVU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HQk9MuSGZCruAt3TaZ65nNPPFQyMnq6uM64KmsU52mzw+JoPi
+	SaIYJrZq0he0lPee5aFjID3qKEOAsc9jezIOlmC/zv3sWEogMFsCd4SKMuJXE39KwbwctUwqZpm
+	jGS7xz6XoOWUr6JuQTw==
+X-Received: from pjbmq2.prod.google.com ([2002:a17:90b:3802:b0:3b0:c476:aabc])
  (user=sidnayyar job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:7d9f:b0:3e2:3584:c12c with SMTP id adf61e73a8af0-3edc1c447efmr74358637.2.1793996416538;
- Fri, 06 Nov 2026 12:20:16 -0800 (PST)
-Date: Fri, 06 Nov 2026 20:19:51 +0000
+ 2002:a17:90b:3cc6:b0:3a8:786a:cfed with SMTP id 98e67ed59e1d1-3b10659feaemr50585a91.37.1793996422174;
+ Fri, 06 Nov 2026 12:20:22 -0800 (PST)
+Date: Fri, 06 Nov 2026 20:19:54 +0000
 In-Reply-To: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
 X-Mailer: b4 0.14.3
-Message-ID: <20261106-lskel-struct-ops-v1-4-a4486ffc79cb@google.com>
-Subject: [PATCH RFC bpf-next 4/7] libbpf: Support BPF_PROG_TYPE_STRUCT_OPS in bpf_gen__prog_load()
+Message-ID: <20261106-lskel-struct-ops-v1-7-a4486ffc79cb@google.com>
+Subject: [PATCH RFC bpf-next 7/7] selftests/bpf: Add light skeleton struct_ops tests
 From: Siddharth Nayyar <sidnayyar@google.com>
 To: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
 	John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>, 
@@ -97,45 +97,275 @@ Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Maxime Ripard <mripard@kernel.org>, Siddharth Nayyar <sidnayyar@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-For BPF_PROG_TYPE_STRUCT_OPS programs in light skeletons, load_attr's
-expected_attach_type and attach_btf_id hold data blob offsets populated
-at runtime by bpf_gen__init_kern_struct_ops().
+Add selftests exercising BPF_MAP_TYPE_STRUCT_OPS support in light
+skeletons across both vmlinux and kernel module BTF targets:
 
-Emit instructions in bpf_gen__prog_load() to copy the resolved member
-index into prog_load_attr.expected_attach_type and unpack the 64-bit
-(btf_obj_fd << 32) | kern_type_id value from load_attr->attach_btf_id
-into prog_load_attr.attach_btf_id and prog_load_attr.attach_btf_obj_fd.
+- struct_ops_vmlinux.c defines a SEC(".struct_ops.link")
+  tcp_congestion_ops map in vmlinux BTF, testing open/load, link
+  attachment, callback invocation over a loopback TCP connection,
+  and unregistration upon detach.
+- struct_ops_mod.c defines two SEC(".struct_ops.link") maps targeting
+  bpf_testmod_ops in module BTF (including a reordered subset struct
+  bpf_testmod_ops___v2 sharing a callback), testing module BTF FD
+  resolution, runtime member offset/index lookup via
+  bpf_btf_get_struct_member_info(), scalar member copying, detach,
+  and per-map re-attachment.
 
 Signed-off-by: Siddharth Nayyar <sidnayyar@google.com>
 ---
- tools/lib/bpf/gen_loader.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ tools/testing/selftests/bpf/Makefile.skel          |   3 +-
+ .../selftests/bpf/prog_tests/struct_ops_lskel.c    | 122 +++++++++++++++++++++
+ tools/testing/selftests/bpf/progs/struct_ops_mod.c |  51 +++++++++
+ .../selftests/bpf/progs/struct_ops_vmlinux.c       |  42 +++++++
+ 4 files changed, 217 insertions(+), 1 deletion(-)
 
-diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
-index 6027a2762c35..aaa491463521 100644
---- a/tools/lib/bpf/gen_loader.c
-+++ b/tools/lib/bpf/gen_loader.c
-@@ -1151,6 +1151,20 @@ void bpf_gen__prog_load(struct bpf_gen *gen,
- 		emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_0, BPF_REG_7,
- 				      offsetof(union bpf_attr, attach_btf_obj_fd)));
- 	}
-+	if (prog_type == BPF_PROG_TYPE_STRUCT_OPS) {
-+		move_blob2blob(gen, attr_field(prog_load_attr, expected_attach_type), 4,
-+			       load_attr->expected_attach_type);
-+		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
-+						 0, 0, 0, load_attr->attach_btf_id));
-+		emit(gen, BPF_LDX_MEM(BPF_DW, BPF_REG_7, BPF_REG_1, 0));
-+		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_0, BPF_PSEUDO_MAP_IDX_VALUE,
-+						 0, 0, 0, prog_load_attr));
-+		emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_0, BPF_REG_7,
-+				      offsetof(union bpf_attr, attach_btf_id)));
-+		emit(gen, BPF_ALU64_IMM(BPF_RSH, BPF_REG_7, 32));
-+		emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_0, BPF_REG_7,
-+				      offsetof(union bpf_attr, attach_btf_obj_fd)));
+diff --git a/tools/testing/selftests/bpf/Makefile.skel b/tools/testing/selftests/bpf/Makefile.skel
+index b8eaecc7f429..2726f9081e35 100644
+--- a/tools/testing/selftests/bpf/Makefile.skel
++++ b/tools/testing/selftests/bpf/Makefile.skel
+@@ -34,7 +34,8 @@ LINKED_SKELS := test_static_linked.skel.h linked_funcs.skel.h		\
+ LSKELS := fexit_sleep.c trace_printk.c trace_vprintk.c map_ptr_kern.c 	\
+ 	core_kern.c core_kern_overflow.c test_ringbuf.c			\
+ 	test_ringbuf_n.c test_ringbuf_map_key.c test_ringbuf_write.c    \
+-	test_ringbuf_overwrite.c callx_rodata.c
++	test_ringbuf_overwrite.c callx_rodata.c struct_ops_vmlinux.c	\
++	struct_ops_mod.c
+ 
+ LSKELS_SIGNED := fentry_test.c fexit_test.c atomics.c
+ 
+diff --git a/tools/testing/selftests/bpf/prog_tests/struct_ops_lskel.c b/tools/testing/selftests/bpf/prog_tests/struct_ops_lskel.c
+new file mode 100644
+index 000000000000..4e9bac460953
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/struct_ops_lskel.c
+@@ -0,0 +1,122 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <test_progs.h>
++#include "network_helpers.h"
++#include "struct_ops_vmlinux.lskel.h"
++#include "struct_ops_mod.lskel.h"
++
++static int set_tcp_ca_cb(int fd, void *opts)
++{
++	const char *tcp_ca = opts;
++
++	if (!ASSERT_OK(setsockopt(fd, IPPROTO_TCP, TCP_CONGESTION,
++				  tcp_ca, strlen(tcp_ca)), "setsockopt"))
++		return -1;
++	return 0;
++}
++
++static void test_vmlinux(void)
++{
++	char tcp_ca[] = "bpf_lskel_ca";
++	struct network_helper_opts opts = {
++		.post_socket_cb	= set_tcp_ca_cb,
++		.cb_opts	= tcp_ca,
++	};
++	struct struct_ops_vmlinux_lskel *skel;
++	int srv_fd = -1, cli_fd = -1, sock_fd = -1;
++	int err;
++
++	skel = struct_ops_vmlinux_lskel__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "open_and_load"))
++		return;
++
++	err = struct_ops_vmlinux_lskel__attach(skel);
++	if (!ASSERT_OK(err, "attach"))
++		goto cleanup;
++
++	srv_fd = start_server_str(AF_INET6, SOCK_STREAM, NULL, 0, &opts);
++	if (!ASSERT_NEQ(srv_fd, -1, "start_server_str"))
++		goto cleanup;
++
++	cli_fd = connect_to_fd_opts(srv_fd, &opts);
++	if (!ASSERT_NEQ(cli_fd, -1, "connect_to_fd_opts"))
++		goto cleanup;
++
++	ASSERT_GT(skel->bss->ca_init_cnt, 0, "ca_init_cnt");
++
++	close(cli_fd);
++	cli_fd = -1;
++	close(srv_fd);
++	srv_fd = -1;
++
++	struct_ops_vmlinux_lskel__detach(skel);
++	skel->links.lskel_ca_fd = 0;
++
++	/* Verify congestion control was unregistered on detach */
++	sock_fd = socket(AF_INET6, SOCK_STREAM, 0);
++	if (!ASSERT_GE(sock_fd, 0, "socket"))
++		goto cleanup;
++
++	err = setsockopt(sock_fd, IPPROTO_TCP, TCP_CONGESTION,
++			 tcp_ca, strlen(tcp_ca));
++	ASSERT_EQ(err, -1, "setsockopt_after_detach");
++	ASSERT_EQ(errno, ENOENT, "errno_after_detach");
++
++cleanup:
++	if (sock_fd != -1)
++		close(sock_fd);
++	if (cli_fd != -1)
++		close(cli_fd);
++	if (srv_fd != -1)
++		close(srv_fd);
++	struct_ops_vmlinux_lskel__destroy(skel);
++}
++
++static void test_module(void)
++{
++	struct struct_ops_mod_lskel *skel;
++	int err, link_fd;
++
++	if (!env.has_testmod) {
++		test__skip();
++		return;
 +	}
- 	emit_relos(gen, insns_off);
- 	/* emit PROG_LOAD command */
- 	emit_sys_bpf(gen, BPF_PROG_LOAD, prog_load_attr, attr_size);
++
++	skel = struct_ops_mod_lskel__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "open_and_load"))
++		return;
++
++	err = struct_ops_mod_lskel__attach(skel);
++	if (!ASSERT_OK(err, "attach"))
++		goto cleanup;
++
++	ASSERT_GT(skel->links.testmod_1_fd, 0, "testmod_1_fd");
++	ASSERT_GT(skel->links.testmod_2_fd, 0, "testmod_2_fd");
++	ASSERT_EQ(skel->bss->test_1_cnt, 2, "test_1_cnt");
++	ASSERT_EQ(skel->bss->testmod_1_result, 17, "testmod_1_result");
++	ASSERT_EQ(skel->bss->testmod_2_result, 28, "testmod_2_result");
++
++	struct_ops_mod_lskel__detach(skel);
++	skel->links.testmod_1_fd = 0;
++	skel->links.testmod_2_fd = 0;
++	memset(skel->bss, 0, sizeof(*skel->bss));
++
++	link_fd = struct_ops_mod_lskel__testmod_1__attach(skel);
++	if (!ASSERT_GT(link_fd, 0, "testmod_1_attach"))
++		goto cleanup;
++
++	ASSERT_EQ(skel->bss->test_1_cnt, 1, "reattach_test_1_cnt");
++	ASSERT_EQ(skel->bss->testmod_1_result, 17, "reattach_testmod_1_result");
++	ASSERT_EQ(skel->bss->testmod_2_result, 0, "reattach_testmod_2_result");
++
++cleanup:
++	struct_ops_mod_lskel__destroy(skel);
++}
++
++void test_struct_ops_lskel(void)
++{
++	if (test__start_subtest("vmlinux"))
++		test_vmlinux();
++	if (test__start_subtest("module"))
++		test_module();
++}
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_mod.c b/tools/testing/selftests/bpf/progs/struct_ops_mod.c
+new file mode 100644
+index 000000000000..b1bd7429149d
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/struct_ops_mod.c
+@@ -0,0 +1,51 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <vmlinux.h>
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++#include "../test_kmods/bpf_testmod.h"
++
++char _license[] SEC("license") = "GPL";
++
++int test_1_cnt = 0;
++int testmod_1_result = 0;
++int testmod_2_result = 0;
++
++SEC("struct_ops/test_1")
++int BPF_PROG(test_1)
++{
++	test_1_cnt++;
++	return 0;
++}
++
++SEC("struct_ops/test_2")
++void BPF_PROG(test_2, int a, int b)
++{
++	testmod_1_result = a + b;
++}
++
++SEC("struct_ops/test_2_v2")
++void BPF_PROG(test_2_v2, int a, int b)
++{
++	testmod_2_result = a * b;
++}
++
++SEC(".struct_ops.link")
++struct bpf_testmod_ops testmod_1 = {
++	.test_1 = (void *)test_1,
++	.test_2 = (void *)test_2,
++	.data = 13,
++};
++
++struct bpf_testmod_ops___v2 {
++	int data;
++	void (*test_2)(int a, int b);
++	int (*test_1)(void);
++};
++
++SEC(".struct_ops.link")
++struct bpf_testmod_ops___v2 testmod_2 = {
++	.data = 7,
++	.test_2 = (void *)test_2_v2,
++	.test_1 = (void *)test_1,
++};
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_vmlinux.c b/tools/testing/selftests/bpf/progs/struct_ops_vmlinux.c
+new file mode 100644
+index 000000000000..1d8b573ad799
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/struct_ops_vmlinux.c
+@@ -0,0 +1,42 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include "bpf_tracing_net.h"
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++
++char _license[] SEC("license") = "GPL";
++
++int ca_init_cnt = 0;
++
++SEC("struct_ops/ca_lskel_init")
++void BPF_PROG(ca_lskel_init, struct sock *sk)
++{
++	ca_init_cnt++;
++}
++
++SEC("struct_ops/ca_lskel_cong_control")
++void BPF_PROG(ca_lskel_cong_control, struct sock *sk, __u32 ack, int flag,
++	      const struct rate_sample *rs)
++{
++}
++
++SEC("struct_ops/ca_lskel_ssthresh")
++__u32 BPF_PROG(ca_lskel_ssthresh, struct sock *sk)
++{
++	return tcp_sk(sk)->snd_ssthresh;
++}
++
++SEC("struct_ops/ca_lskel_undo_cwnd")
++__u32 BPF_PROG(ca_lskel_undo_cwnd, struct sock *sk)
++{
++	return tcp_sk(sk)->snd_cwnd;
++}
++
++SEC(".struct_ops.link")
++struct tcp_congestion_ops lskel_ca = {
++	.init = (void *)ca_lskel_init,
++	.cong_control = (void *)ca_lskel_cong_control,
++	.ssthresh = (void *)ca_lskel_ssthresh,
++	.undo_cwnd = (void *)ca_lskel_undo_cwnd,
++	.name = "bpf_lskel_ca",
++};
 
 -- 
 2.56.0.455.g6c5a503b38-goog
