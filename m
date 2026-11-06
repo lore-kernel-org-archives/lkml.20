@@ -1,90 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962967;
-	b=GrlohQM5umUcKeGFYWi86+P7jJMx4106fVRTCAacHOO5MlQL7bQmfC+Zhin0h8M2lPS4
-	 B8cFGxInSiYxkxH9ob3Apdq6SreWBu2rog8lngCLXXL8yYtW0sQAUkhwzHIzRkS3PXhNk
-	 6K7eMFsjXomQmRXzlOQTy9DQe0UkYSrz3iMLAEbhw6gG5wrbMUHgkMbtierOYQucTcf5Y
-	 pZwckoRzx7WumtuEGxybLhTmRW8O1X/O2yEsn5o690mTIJAbORCFKbw3NGJQQ14PizTEp
-	 bba4++a1pvK9Tha81gIILoB2jLq2sCQF5lsN6MvYY32U+m8EYjkXnY5WrR2JxPz/QoQ==
+	t=1793962993;
+	b=Myh+8K9rD4IMqNU05eTChEpOkSvF3YVCQ4igWwcU6MBYxbX43w5WNT4LrPieB7fkBLQe
+	 Q86dM7+3BL6ullCv3ou9RqwV0+q5toVeLdR5bgXzjU5050TTc05HSBP+xcaFE1fbZINOq
+	 wIdj5iSKB/b3kfWCLAOnau4zNxlb65aoadOp573W3E6Rh1jyqki8KGs3aCk250aMBcjvm
+	 ctHPUauUpOvBLvKVW2fFvqdinS0iVKDij6th54xyEbbM9iONtiRNGDuCsghrl6Wu3/Mh+
+	 P2KIiYhNQWBXBC6N/771iNUiNt7V3M/4TtJ2jLrs1uPNYpP1pLGqOpKSAnW8sBAkiGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962967;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:User-Agent:
-	 X-Last-TLS-Session-Version;
-	bh=iCM2cycWCwaMm6hiUmHFooj8p+WDE9YQ8jpkczfNGY0=;
-	b=Zgr6etSsZtX2UwCmH+YzWVTYRJsHPsAShZ1P/INdSmwwuNK9Nt+/QhuAaHj63+megDpa
-	 8U4kfwSGi9TR1ejVowvXCiylA21fugLLo92F1AnoMyhesnfq/3pXUhATks+2NvYFFWm02
-	 XE0/ihCWde9rTvRWN0pzwGgec0A/6AVxWbFKBJbYk2xV6jWkbYOeJDtlFQ2SOeL/pvUvP
-	 7xKERULBcHoiZbcggNcTifMy3GokdMmAYiJcyR52GbN9llcxNMSVDbXjJAx7sMQQZwoo+
-	 rCxDHEIn1eM4mu0Gyoq3UT9FH6PYevjp5bMnc7opHkjwH05h24NGp+fjO7MFJS6TPNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962993;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+AElvHQZoFGP9DlewYqnVP0xXdCddfuFHZpt/5Au+oI=;
+	b=cJ5CJl3Vc/2u7AxJaWfTsZr0l9V4GXiSaZwAvwQduo0jRMEqPC1D0SOaPm00kzdC74S9
+	 r6myGhGxr8AV7Qofuw0gXOpWZ6DA6BRjOAEf4hbzQh6itn8PpUVB3yyT4xLjAFHHZlRaG
+	 9kHRT/N7DRHY0XR/BJz+EW+8n2zIm4w6h+rCPmCLnbrobNRJ5Q4yOwk2u/Q8Mnbkegi+z
+	 eYfvhmWEZ5561/7HmDfR/PeL1uUV62sY9Ar306C3z5Q27OE0ZaXVjwMHmJZJXjLMx/0sW
+	 7l2cMqZo2TFCA7jJi0kxkTui4kIPOdikKVHwGdFhDd1BlxVNAnRZ7WaqtWhvA3wqhMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=thorsis.com;
-	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=A6GNpLVt;
-	arc=none smtp.remote-ip=217.92.40.78
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcTzmklI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB338606A326;
-	Fri,  6 Nov 2026 11:02:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB338606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E576E606A32C;
+	Fri,  6 Nov 2026 11:03:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=A6GNpLVt
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C5874148053E;
-	Fri, 06 Nov 2026 12:03:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1793962999; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=iCM2cycWCwaMm6hiUmHFooj8p+WDE9YQ8jpkczfNGY0=;
-	b=A6GNpLVtsHeso5gjnzHSm1aqE0/DodHSklqFKj3InXBy6KlEULAYwPHatJbuAddtQa93uF
-	AZFPqP/uvqt+qMBpd+2F4QqG8ovRyO63QJrGAsgTomrOITHHZLcO9F0KUrrVwjpEJAYkmZ
-	/BiwpQKbN2tZc0hbVc7ylpryvVD2DbHVodmizuFGsL6bQdGU2uGawgOLqJIwOJabdbIkm6
-	mToHBkcFTRlZH221UqgLDOllYDIUy90UHj/w63IrI5Nu2+xlrDJRiaRvobqyNsaQIeWdu8
-	cpGriQdE5PVr4vHPBZMC30nNREGJVVjpDRSw+BzGZB263VXKpxPrIdVRaIcqcw==
-Date: Fri, 6 Nov 2026 12:02:35 +0100
-From: Alexander Dahl <ada@thorsis.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Alexander Dahl <ada@thorsis.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcTzmklI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8140E1F0089F;
+	Fri,  6 Nov 2026 11:03:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793962992;
+	bh=+AElvHQZoFGP9DlewYqnVP0xXdCddfuFHZpt/5Au+oI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RcTzmklIohIPhAtS55i7sWu8AM7F+O/qnYiKepi2J0WX8e/jteStCrqykHDiFmrLW
+	 ETw48LnQ4rv44dWuMvepFvpMME3YRe2lCfSfNvJRJhL3P2JFAXK9Hqu0QdLKkxjEU7
+	 mzm+1GHgSzYR8TcbW/lb4gxWfHV8OrX3nLIQT4V+eHJAJLuheREebDSnZBRiBeOH8Q
+	 phOAdDk20dLqAAgwUbd6Ej4d3sdkivQinhuZ/HXulqfry/jJF8pyFaAfrpqHWeMwCc
+	 3zjOSmtM6TZZhT+tkfcUEgLJHFAjqrgBSqjUH2YRfsNj1jr61cptGqKRTVywh6a3Ur
+	 91cXI9Rls0hCw==
+Date: Fri, 6 Nov 2026 11:03:08 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH v4 02/16] dt-bindings: clock: at91: Split up per SoC
- partially
-Message-ID: <20261106-oil-swear-a9e81127bc25@thorsis.com>
-Mail-Followup-To: Krzysztof Kozlowski <krzk@kernel.org>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
-References: <20261105110715.2486432-1-ada@thorsis.com>
- <20261105110715.2486432-3-ada@thorsis.com>
- <20261106-beige-ostrich-of-merriment-ae6eb0@quoll>
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] ARM: dts: arm: Another batch of warning fixes
+Message-ID: <20261106-outstanding-turtle-of-opportunity-9fafcb@sudeepholla>
+References: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,65 +64,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106-beige-ostrich-of-merriment-ae6eb0@quoll>
-User-Agent: Mutt/2.2.13 (2024-03-09)
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
 
-Hello Krzysztof,
+On Thu, Nov 05, 2026 at 04:34:13PM -0600, Rob Herring (Arm) wrote:
+> This is a batch of schema warning fixes mainly for 32-bit Arm, Ltd 
+> boards. While all these are 32-bit Arm fixes, vexpress-v2m-rs1.dtsi is 
+> included by vexpress-v2f-1xv7-ca53x2.dts which is 64-bit platform. Patch 
 
-Am Fri, Nov 06, 2026 at 11:57:53AM +0100 schrieb Krzysztof Kozlowski:
-> On Thu, Nov 05, 2026 at 12:06:38PM +0100, Alexander Dahl wrote:
-> > Before adding even more new indexes creating more holes in the
-> > clk at91 drivers pmc_data->chws arrays, split this up.
-> > 
-> > This is a partial split up only for some of the old PMC definitions.
-> > 
-> > Binding splitup was proposed for several reasons:
-> > 
-> > 1) keep the driver code simple, readable, and efficient
-> > 2) avoid accidental array index duplication
-> > 3) avoid memory waste by creating more and more unused array members.
-> > 
-> > Old values are kept to not break dts, and to maintain dt ABI.
-> > 
-> > Link: https://lore.kernel.org/linux-devicetree/20250207-jailbird-circus-bcc04ee90e05@thorsis.com/T/#u
-> > Signed-off-by: Alexander Dahl <ada@thorsis.com>
-> > ---
-> > 
-> > Notes:
-> >     v4:
-> >     - "re-added" some definitions present in hardware but not used in dt
-> >     - reword header comment (at91 -> Microchip) for newer SoCs
-> >     - PMC_UTMI was renamed where appropriate according to datasheets
-> >     
-> >     v3:
-> >     - full splitup for all at91 family SoCs instead of just a few
-> >     
-> >     v2:
-> >     - new patch, not present in v1
-> > 
-> >  .../reset/atmel,at91sam9260-reset.yaml        |  3 ++-
-> >  .../bindings/usb/atmel,at91sam9rl-udc.yaml    |  3 ++-
-> >  .../dt-bindings/clock/atmel,at91rm9200-pmc.h  | 16 ++++++++++++
-> >  .../dt-bindings/clock/atmel,at91sam9260-pmc.h | 16 ++++++++++++
-> >  .../dt-bindings/clock/atmel,at91sam9g45-pmc.h | 16 ++++++++++++
-> >  .../dt-bindings/clock/atmel,at91sam9n12-pmc.h | 16 ++++++++++++
-> >  .../dt-bindings/clock/atmel,at91sam9rl-pmc.h  | 16 ++++++++++++
-> >  .../dt-bindings/clock/atmel,at91sam9x5-pmc.h  | 16 ++++++++++++
-> >  include/dt-bindings/clock/atmel,sama5d2-pmc.h | 20 ++++++++++++++
-> >  include/dt-bindings/clock/atmel,sama5d3-pmc.h | 16 ++++++++++++
-> >  include/dt-bindings/clock/atmel,sama5d4-pmc.h | 17 ++++++++++++
-> >  .../dt-bindings/clock/microchip,sam9x60-pmc.h | 15 +++++++++++
-> >  .../dt-bindings/clock/microchip,sam9x7-pmc.h  | 19 ++++++++++++++
-> >  .../clock/microchip,sama7d65-pmc.h            | 26 +++++++++++++++++++
-> >  .../dt-bindings/clock/microchip,sama7g5-pmc.h | 23 ++++++++++++++++
+We can remove vexpress-v2f-1xv7-ca53x2.dts because it is highly outdated and
+relies on an FPGA tile setup. Replicating this environment is likely
+impossible since the original bitmap files may no longer be available
+easily.
+
+> 2 fixes the last DT schema warning on 64-bit Arm Ltd boards. Yay! For 
+> 32-bit boards, this cuts the remaining warnings in ~half.
 > 
-> I miss the "split" part. You only added defines, shouldn't you remove
-> them from other binding?
+> I verified the config-bus devices still probe after moving 'mcc' node 
+> with arm/vexpress-v2p-ca15-tc1.dts on QEMU.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+> Rob Herring (Arm) (7):
+>       dt-bindings: arm: vexpress-sysreg: Add "mcc" child node
 
-This is done later in the series in
-[PATCH v4 16/16] dt-bindings: clock: at91: Remove old PMC definitions.
+I assume you will take the DT bindings via your tree.
 
-Greets
-Alex
+>       ARM: dts: arm/vexpress: Move "arm,vexpress,config-bus" node into sysreg node
+>       ARM: dts: arm/vexpress-v2m: Move regulator and led nodes out of bus
+>       ARM: dts: arm: Use standard node names
+>       ARM: dts: arm: Add missing "#dma-cells"
+>       ARM: dts: arm/vexpress: Fix Cortex-A15 GIC compatibles
+>       ARM: dts: arm-realview-eb-mp: Move "pmu" node to top-level
+> 
+>  .../devicetree/bindings/arm/vexpress-sysreg.yaml   |   8 +
+>  arch/arm/boot/dts/arm/arm-realview-eb-mp.dtsi      |  20 +-
+>  arch/arm/boot/dts/arm/arm-realview-eb.dtsi         |   8 +-
+>  arch/arm/boot/dts/arm/arm-realview-pb1176.dts      |   8 +-
+>  arch/arm/boot/dts/arm/arm-realview-pb11mp.dts      |   6 +-
+>  arch/arm/boot/dts/arm/arm-realview-pbx.dtsi        |  10 +-
 
+Linus,
+
+Do you want to take this series via your tree or prefer me to take it ?
+
+>  arch/arm/boot/dts/arm/integrator.dtsi              |   2 +-
+>  arch/arm/boot/dts/arm/integratorap-im-pd1.dts      |   2 +-
+>  arch/arm/boot/dts/arm/integratorap.dts             |   2 +-
+>  arch/arm/boot/dts/arm/integratorcp.dts             |   4 +-
+>  arch/arm/boot/dts/arm/mps2-an385.dts               |   2 +-
+>  arch/arm/boot/dts/arm/mps2-an399.dts               |   2 +-
+>  arch/arm/boot/dts/arm/mps2.dtsi                    |   4 +-
+
+These MPS2 files may get deleted soon, but shouldn't be a problem.
+
+>  arch/arm/boot/dts/arm/versatile-ab.dts             |  11 +-
+>  arch/arm/boot/dts/arm/versatile-pb.dts             |   4 +-
+>  arch/arm/boot/dts/arm/vexpress-v2m-rs1.dtsi        | 146 +++++-----
+>  arch/arm/boot/dts/arm/vexpress-v2m.dtsi            | 322 ++++++++++-----------
+>  arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dts    |   9 +-
+>  arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts     |   9 +-
+>  arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts        |   4 +-
+>  arch/arm/boot/dts/arm/vexpress-v2p-ca9.dts         |   2 +-
+>  21 files changed, 298 insertions(+), 287 deletions(-)
+
+In case, Linus W prefers to it, for the whole series:
+
+Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
+
+-- 
+Regards,
+Sudeep
