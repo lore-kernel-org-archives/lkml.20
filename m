@@ -1,68 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793948342;
-	b=0UpdW6EzPxUeuvnRyXS/3Ypga9Hdir+EtT236xbavVaDz3z7+yLaOsyb2UXw/myt3DID
-	 ZrVwvKNh9RxzNocmrgmjclgW/rev3OErxBKX/W3Hv4ymjADylUdAG77ypZV9HtU5+zwg5
-	 WGBfiPthQtRm3JJPh9Cbj3Y+N3L8i3/NYDAuPhBDbHoF6OYQMil/r5xGvZceN6fxoqB68
-	 QROd/kuUn7nYX65aqxd2CKwdawwHzIA2zBIgy3YPx9iPniMcgeqSEBpOdFefqfzMwNlFL
-	 hT3Dw8w0yO80KyasL65vNnlOi//i0j0kyewNV/JMvBdkXKNSj1VzRnoXhyqeTj9DuPA==
+	t=1793948385;
+	b=R8+laxuIMGIjD9YmQkzJ11A2rCTfqwGYhywjcCv4/zTGdSjqNH4oy87yVA07MdzoAjnM
+	 VlIeWEAtb6i0mjw/QbbZodVRMWZ8bvjv71ixJrmyZtwiB6vhWgvvGERtq4JB9TtWCsqbJ
+	 Vdqy0O8afsIxQNfD3ypfI/yA6cM8iRLeAI3fLpWnWkHmteyCJHU6oT2seVQdaZj50T0vi
+	 3d36+bseskrcCn/x4gE8+YPXghls029TCoeltXp/+AYbmBLMhU8AK851dudWuUjPMBQDq
+	 zhb3iOWCmI4ATwHmPNVE5H7Vm2jaGFhGfqV4FktTGna+RhHsgLpAN9rXI0TF6POIMEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793948342;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793948385;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=sdnHvyDHdypptoLAsZrun1QQagAsqBtQUVLcwRtop5M=;
-	b=JW1zSYRJspS6cYa8AyemfWbjSvSEpc2mOwifXEDDhExEdXkFbwUzXvoHwNhBOMaw2Aft
-	 Upj2oMyr6Rw3w0oSZD7z4pKygBbjLUCQ+jlTfUYmrre/LXmdS0BZ0D65aaGTv5EvxHwYx
-	 e6PvuD/KJl2f7O8ON8WCRkw0+YlvkaprfpE60xQqri1Da65zPVZtlm10rL3Y7xX6JfiGR
-	 3YCA9O/OeH98WE0JQ0WTUlXIOKvy8mPd8Ur8GVws3lp01I0kAjw+bZhQi4ZMFQR9MswIS
-	 f4OiKFx+F/5LJ8Jg0AszvYTeaAXjfwTWzXpLPxUNqzbpFKpLLYGD5KCunKUyzaS6r5w==
+	bh=OcOt4PX0tQHzNhn0VTU6sv5KTaqGga1IVFO+qQedORk=;
+	b=NHY4mNZhKNH14HuzRSfJj2Sd+D2dcPBBWY/TppOtM2ZTXZcA4FL1ufSbjKutcTebSNFR
+	 zOHrui4kWI1VgqnV6ZgQpesa7n2U+YcLMXE2YwY3xIuUOD9Ozb2R7kOYzi8K2EzYIH5ba
+	 HpenTn8OqReXuRP0gFEQctaliJjWG0MM9rdXZxzykv5m/b6TLthDUmPRNpmQLE5vLyZkQ
+	 ZFFNM4lcSbBMtpGbtpOnIkatMj2b0e2EQGA/z+VXGXVajRRR67VzEUR9dxFu+2vNk7weh
+	 vP694wmeofJ9SL7fRMBkR73rQfv0S5YUqTmCxrDpKAJ4I/8fYKpc0QOHjYDM66pW0Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="YRP/+WBH";
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E578C606A326;
-	Fri,  6 Nov 2026 06:58:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E578C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=svxIw6BS;
+	arc=none smtp.remote-ip=95.215.58.54
+Received: from mta1.migadu.com (out-54.mta1.migadu.com [95.215.58.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AA1606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:59:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8AA1606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=YRP/+WBH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=YRP/+WBH6Bq5gNGTmsCxnLvZ9h5l7Fknv2qBLKYRH/TbnOacx65CkqTpwKSlo5nNWgul1nev9aQMp
-	 IfFh3Pqq7aK7FkCbqck+YxUsKm+m25ANf9BhmeWJ3zZZcSuUmLgQY4F4fzpckc8dBq6QjM2p0i1pXD
-	 kh1qIGN5gP7MCnuU=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26aed7aaf1e5-e9ccb;
-	Fri, 06 Nov 2026 14:58:57 +0800 (CST)
-X-RM-TRANSID:2ee26aed7aaf1e5-e9ccb
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [25.255.2.225] (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86aed7ab0be9-15da4;
-	Fri, 06 Nov 2026 14:58:57 +0800 (CST)
-X-RM-TRANSID:2ee86aed7ab0be9-15da4
-From: xujiahao <xujiahao@cmss.chinamobile.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
-	netfilter-devel@vger.kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=svxIw6BS
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3ZBSNl6NQMmaNPPXZuPSoh3zWTH6z/X2ys0Il7SoJQY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793948376; v=1; x=1794553176;
+ b=svxIw6BSwB1b6IK2B8ZemZKLmd0tuuyhYum9YsLFqS8k3sdpspqgDaFtisTNyHh8Y0LP8lfu
+ sIF527+CxuNAUFqYriH3YRTSyrMWgjIQB7bzvVdOaIWpgHeeVoRVWifwmixj7PtYI+gcHCiIZ5F
+ DKsPB5a8WjPZBH67yl4f8sh4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fab8f084cc4903d4;
+	Fri, 06 Nov 2026 06:59:35 +0000
+X-Mizu-Trace-ID: fab8f084cc4903d4
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	jgg@ziepe.ca,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	willy@infradead.org,
+	jack@suse.cz,
+	riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	maddy@linux.ibm.com,
+	npiggin@gmail.com,
+	mpe@ellerman.id.au,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	pfalcato@suse.de,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	leon@kernel.org,
+	sj@kernel.org,
+	rakie.kim@sk.com,
+	rientjes@google.com,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	mhiramat@kernel.org,
+	oleg@redhat.com,
+	john.johansen@canonical.com,
+	georgia.garcia@canonical.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	zohar@linux.ibm.com,
+	roberto.sassu@huawei.com,
+	dmitry.kasatkin@gmail.com,
+	eric.snowberg@oracle.com,
+	wufan@kernel.org,
+	stephen.smalley.work@gmail.com,
+	omosnacek@gmail.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	xujiahao <xujiahao@cmss.chinamobile.com>,
-	syzbot+2e819f6641708bb6ab9d@syzkaller.appspotmail.com
-Subject: [PATCH nf] netfilter: xt_nat: allow IP_CT_RELATED_REPLY in DNAT targets
-Date: Fri,  6 Nov 2026 14:56:51 +0800
-Message-ID: <20261106065651.3504452-1-xujiahao@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	linux-fsdevel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org,
+	damon@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	selinux@vger.kernel.org
+Subject: Re: [PATCH 09/13] fs/proc/task_mmu: convert VMA flag tests to use vma_flags_t
+Date: Fri,  6 Nov 2026 14:59:25 +0800
+Message-ID: <20261106065925.50906-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261105-late-2026-vma-flags-v1-9-0d3cd15ab75f@kernel.org>
+References: <20261105-late-2026-vma-flags-v1-9-0d3cd15ab75f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,72 +152,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The DNAT targets warn when the conntrack info is neither IP_CT_NEW nor
-IP_CT_RELATED, while the corresponding SNAT targets additionally accept
-IP_CT_RELATED_REPLY:
 
-  WARN_ON(!(ct != NULL &&
-           (ctinfo == IP_CT_NEW || ctinfo == IP_CT_RELATED)));
+On Thu, Nov 05, 2026 at 09:31:00PM +0000, Lorenzo Stoakes (ARM) wrote:
+>Replace use of the legacy vm_flags_t flags with vma_flags_t values where
+>VMA flags are tested directly in /proc/$pid/[s]maps, pagemap, clear_refs
+>and PROCMAP_QUERY.
+>
+>In replacing vm_flags_clear() (which takes the VMA write lock) with
+>vma_clear_flags() (which does not) in clear_refs_write(), we explicitly
+>write lock the VMA. The mmap write lock is already held at this point.
+>
+>The show_vma_header_prefix() and show_smap_vma_flags() output functions and
+>the thp_vma_allowable_orders() call continue to use legacy flags for the
+>time being.
+>
+>No functional change intended.
+>
+>Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>---
+> fs/proc/task_mmu.c | 43 ++++++++++++++++++++++---------------------
+> 1 file changed, 22 insertions(+), 21 deletions(-)
+>
+>diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+>index 22361607020d..b6e8ef15e40e 100644
+>--- a/fs/proc/task_mmu.c
+>+++ b/fs/proc/task_mmu.c
+>@@ -569,18 +569,18 @@ static struct vm_area_struct *query_matching_vma(struct proc_maps_locking_ctx *l
+> 
+> 	/* VMA permissions should satisfy query flags */
+> 	if (flags & PROCMAP_QUERY_VMA_FLAGS) {
+>-		u32 perm = 0;
+>+		vma_flags_t perm = EMPTY_VMA_FLAGS;
+> 
+> 		if (flags & PROCMAP_QUERY_VMA_READABLE)
+>-			perm |= VM_READ;
+>+			vma_flags_set(&perm, VMA_READ_BIT);
+> 		if (flags & PROCMAP_QUERY_VMA_WRITABLE)
+>-			perm |= VM_WRITE;
+>+			vma_flags_set(&perm, VMA_WRITE_BIT);
+> 		if (flags & PROCMAP_QUERY_VMA_EXECUTABLE)
+>-			perm |= VM_EXEC;
+>+			vma_flags_set(&perm, VMA_EXEC_BIT);
+> 		if (flags & PROCMAP_QUERY_VMA_SHARED)
+>-			perm |= VM_MAYSHARE;
+>+			vma_flags_set(&perm, VMA_MAYSHARE_BIT);
+> 
+>-		if ((vma->vm_flags & perm) != perm)
+>+		if (!vma_test_all_mask(vma, perm))
+> 			goto skip_vma;
+> 	}
+> 
+>@@ -647,13 +647,13 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+> 	karg.vma_end = vma->vm_end;
+> 
+> 	karg.vma_flags = 0;
+>-	if (vma->vm_flags & VM_READ)
+>+	if (vma_test(vma, VMA_READ_BIT))
+> 		karg.vma_flags |= PROCMAP_QUERY_VMA_READABLE;
+>-	if (vma->vm_flags & VM_WRITE)
+>+	if (vma_test(vma, VMA_WRITE_BIT))
+> 		karg.vma_flags |= PROCMAP_QUERY_VMA_WRITABLE;
+>-	if (vma->vm_flags & VM_EXEC)
+>+	if (vma_test(vma, VMA_EXEC_BIT))
+> 		karg.vma_flags |= PROCMAP_QUERY_VMA_EXECUTABLE;
+>-	if (vma->vm_flags & VM_MAYSHARE)
+>+	if (vma_test(vma, VMA_MAYSHARE_BIT))
+> 		karg.vma_flags |= PROCMAP_QUERY_VMA_SHARED;
+> 
+> 	karg.vma_page_size = vma_kernel_pagesize(vma);
+>@@ -970,7 +970,7 @@ static void smaps_pte_entry(pte_t *pte, unsigned long addr,
+> {
+> 	struct mem_size_stats *mss = walk->private;
+> 	struct vm_area_struct *vma = walk->vma;
+>-	bool locked = !!(vma->vm_flags & VM_LOCKED);
+>+	bool locked = vma_test(vma, VMA_LOCKED_BIT);
+> 	struct page *page = NULL;
+> 	bool present = false, young = false, dirty = false;
+> 	pte_t ptent = ptep_get(pte);
+>@@ -1017,7 +1017,7 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+> {
+> 	struct mem_size_stats *mss = walk->private;
+> 	struct vm_area_struct *vma = walk->vma;
+>-	bool locked = !!(vma->vm_flags & VM_LOCKED);
+>+	bool locked = vma_test(vma, VMA_LOCKED_BIT);
+> 	struct page *page = NULL;
+> 	bool present = false;
+> 	struct folio *folio;
+>@@ -1728,7 +1728,7 @@ static int clear_refs_test_walk(unsigned long start, unsigned long end,
+> 	struct clear_refs_private *cp = walk->private;
+> 	struct vm_area_struct *vma = walk->vma;
+> 
+>-	if (vma->vm_flags & VM_PFNMAP)
+>+	if (vma_test(vma, VMA_PFNMAP_BIT))
+> 		return 1;
+> 
+> 	/*
+>@@ -1798,9 +1798,10 @@ static ssize_t clear_refs_write(struct file *file, const char __user *buf,
+> 
+> 		if (type == CLEAR_REFS_SOFT_DIRTY) {
+> 			for_each_vma(vmi, vma) {
+>-				if (!(vma->vm_flags & VM_SOFTDIRTY))
+>+				if (!vma_test(vma, VMA_SOFTDIRTY_BIT))
+> 					continue;
+>-				vm_flags_clear(vma, VM_SOFTDIRTY);
 
-A TCP reset generated by nf_send_reset() on the reject path is attached
-to the conntrack entry of the rejected packet and marked
-IP_CT_RELATED_REPLY.  It traverses the LOCAL_OUT NAT hook, where
-nf_nat_inet_fn() lets IP_CT_RELATED_REPLY packets whose destination NAT
-mapping is not initialized yet run the OUTPUT NAT chain.  When that
-chain holds an xtables DNAT target, the target is reached with
-IP_CT_RELATED_REPLY and warns:
+vm_flags_clear() still warns on VM_SOFTDIRTY when pgtable_supports_soft_dirty()
+is false. Did you mean to drop that?
 
-  WARNING: net/netfilter/xt_nat.c:154 at xt_dnat_target_v2+0x97/0xc0
+(Vaguely recall you weren't too keen on that warn, though I could be wrong.)
 
-The same packet is accepted by the SNAT side, so the assertion is
-incomplete rather than the packet being unexpected.  Align the DNAT
-targets with the SNAT targets.
+Otherwise, LGTM!
 
-Reported-by: syzbot+2e819f6641708bb6ab9d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=2e819f6641708bb6ab9d
-Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
----
- net/netfilter/xt_nat.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/net/netfilter/xt_nat.c b/net/netfilter/xt_nat.c
-index 51c7f7ce8..e565fb341 100644
---- a/net/netfilter/xt_nat.c
-+++ b/net/netfilter/xt_nat.c
-@@ -84,7 +84,8 @@ xt_dnat_target_v0(struct sk_buff *skb, const struct xt_action_param *par)
- 
- 	ct = nf_ct_get(skb, &ctinfo);
- 	WARN_ON(!(ct != NULL &&
--		 (ctinfo == IP_CT_NEW || ctinfo == IP_CT_RELATED)));
-+		 (ctinfo == IP_CT_NEW || ctinfo == IP_CT_RELATED ||
-+		  ctinfo == IP_CT_RELATED_REPLY)));
- 
- 	xt_nat_convert_range(&range, &mr->range[0]);
- 	return nf_nat_setup_info(ct, &range, NF_NAT_MANIP_DST);
-@@ -119,7 +120,8 @@ xt_dnat_target_v1(struct sk_buff *skb, const struct xt_action_param *par)
- 
- 	ct = nf_ct_get(skb, &ctinfo);
- 	WARN_ON(!(ct != NULL &&
--		 (ctinfo == IP_CT_NEW || ctinfo == IP_CT_RELATED)));
-+		 (ctinfo == IP_CT_NEW || ctinfo == IP_CT_RELATED ||
-+		  ctinfo == IP_CT_RELATED_REPLY)));
- 
- 	memcpy(&range, range_v1, sizeof(*range_v1));
- 	memset(&range.base_proto, 0, sizeof(range.base_proto));
-@@ -151,7 +153,8 @@ xt_dnat_target_v2(struct sk_buff *skb, const struct xt_action_param *par)
- 
- 	ct = nf_ct_get(skb, &ctinfo);
- 	WARN_ON(!(ct != NULL &&
--		 (ctinfo == IP_CT_NEW || ctinfo == IP_CT_RELATED)));
-+		 (ctinfo == IP_CT_NEW || ctinfo == IP_CT_RELATED ||
-+		  ctinfo == IP_CT_RELATED_REPLY)));
- 
- 	return nf_nat_setup_info(ct, range, NF_NAT_MANIP_DST);
- }
--- 
-2.43.0
-
-
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
