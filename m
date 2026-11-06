@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971095;
-	b=U3LGVxZS2yvbeOUnJxDbvALeSbWY+f+7aRKZDgGg8blvk3qVoGQq7fm6YtQ10v2nB4EG
-	 WgXqSp1W/sYvykyLu30vYn1at18eJnmi4f6BD3LvHMVwxn6B4FOoHPTgdELtQsfR/R46D
-	 4/LXPb5xOuIIrumtOdy9cuXIcE+JgVA09RKVXgFZ12gtFkBcOgy/TFIV7ejbVogzwCzn5
-	 eXjW3vg/H3rRSDIqV5X+5fzhM2ibILV3voddSE8V8Ruhfy+bWTEXyQNd6z3jnObpRyXgf
-	 WiVIh1JT7QSTxiL9M7ft0qt95FLqBfaoxaKpzBOSFZ/9AazYbGuP+7FUX5J5If20GNQ==
+	t=1793971143;
+	b=CmHe+/aa6aglnlTUHUTbqkyze+i8iMDnQQVD4lQ6nCOcoB9JXBppw25+3jXi+Wv7omar
+	 32c83UOfJgsA5phB/OJ59WtGnhaTvHnJtAaXxGd6DwpQxFfOZLIJVCQApzGaDf1j29Jpu
+	 oy0Rfq0czjXXGE62gzxVdBBqj+Bp34IvdeFCSD7+NWsjKTWFU5C4ss0jbCOeQerrryBF6
+	 IyMpUBDcHAllkj+PkDdb4DueWNzi2mmHSJ2foGfJ896cVpEjmvjSzsJfDIldFp77z5TiQ
+	 PISsZFxBkJmZn3NWeKHlpOigQn7Le22DgF6og52IM8nHxHdoXUOmciveLuJZAOXixzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971095;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lyVXxhqVdS/iGnj6NynJN3xUIHVLrLvXHKOHq+9pwkU=;
-	b=HSBL8YXAV4QPR2mb21rVdWXYTmAxNxhWf6ppoVBX/JBWaIJQcaB+dAh3zcJyfPJQT1BB
-	 DRuNrkUR4hsWzmL67d+zJo4O4cmUhD1VMe5maV5xNgSxIudSi4mD5lwE6tOJvQDyhH5GH
-	 LxDMLlru4xfvnW5yIjVuesH5jkGJMGWsXowsVLsmyS1NZ8GtbTec6PRyNxRf4bLuJKVOt
-	 ZRcUYS34DMyTjVsAFz0pn00s52+oVpkywvrDfeRlcuxjSiX2uPAzPVqBi+ZkW80ySWslJ
-	 Bv5YDVHLPl2YLu4VCyIEpRurfAsyY4gB5NU04ISc7DQiGS8FV5kE+hqnD0XX7rrdfsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971143;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=q5je5xTRpjfx4LjGIZHPjYuGaotAGI4cWt3i0iD11+Y=;
+	b=ogXdtWnETGEdFiOhCariVYjBGcmW7fasGoCZac5BsLhlf8vEnk6sVxUItZm4qnUcAOSB
+	 awukVW64X3dDcJOFQDYMycf48X+SReIDtdG1sTv8eu+vK3redepZ8ug0tGOQJ7912/tMt
+	 MVleYDl8d1/q5TXlwa6S9Cc7Vsi0vWE23xOvVs8xiQhnE3HYtsORWKqUSuVku5jSjQKpn
+	 +xqLqJT40Ob4jqEL3LvtN+jlQBc4h/oBF/tAxlK1IbBCrSk40ZCmWwn8VPNUAzlpw4CFa
+	 dmlawaNX7TslwwlMukK7DqoYnyk5K1kpFuhzJ6Bq/dJW0V29uIcKZLZ0zLcwmtYtXBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j7Dn4nS2;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b3PIHqeQ;
+	arc=none smtp.remote-ip=95.215.58.49
+Received: from mta1.migadu.com (out-49.mta1.migadu.com [95.215.58.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E43606A336
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:18:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72E43606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96473606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:19:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96473606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j7Dn4nS2
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso280698a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:18:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793971094; x=1794575894; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lyVXxhqVdS/iGnj6NynJN3xUIHVLrLvXHKOHq+9pwkU=;
-        b=j7Dn4nS2FlTDkjtWUWwow620dude761rH0HztMU08Ws7MnpuJgtahTKaGW+wxQa6Xi
-         t8Bw9fPSFTvs3qnx01Yrmo8pvJZloKokkDFR/hMUJkb5Hj8nUadMOspNIAhtVhccdjhT
-         3dlFxzhw2IabHdEp7i9bUqZ7AHYMgQAqy97E5WPoQqO6YA9Ol4x7kthmSxUOfDJMpHUy
-         H8LFV/D8/ViViNYVEHiZ//WcpfY+F6aF6gp/fCPXHD2dssuwGgLgV4uKehiHxeCzaVyF
-         EOMCZb0QlFJ3qFLPUIOjamEAOn7Npd26BFz1RbMHN7GnKFhYyCPGb8Og3ZUILArCcQpo
-         7YlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793971094; x=1794575894;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lyVXxhqVdS/iGnj6NynJN3xUIHVLrLvXHKOHq+9pwkU=;
-        b=EVlA9mSisOFbfhHLu33spDenXYAcl2N/HrIqVauG/FQYA9KNlKs4/WTDMAU1SSv8aK
-         aSYGYeVquoQ3nW9EEjOr54r3Hw/IE80dCkcMqbcu4/hYWAVEIWYm13CVOMO1MnOV8J7X
-         NluFrg1Bg7aJ0rMenfds4I/lxYRc+r3LCawvPbRYhT64JXZ5CDyJ1ynVk0NgW4vGjw1g
-         OZ9Vjkr+m9eJRTdCr07w4s4ZxvlYJvsBVYcLRq66kec/ekoNjTK8SNOQp4AQl5D0Vv9r
-         /QfZIZnYrpntaqoirljalHiku9Jrg3CkHa2dXz4oc+djAZp8J6dxEdenAgOpOG4YG7Iw
-         tmAg==
-X-Gm-Message-State: APuU4Z9Qe82dILOZNHackoxKA/ALQvVl/ppTTX0mK9uweHjlvX4BnUS1
-	x9Fvpg7jdJo52F0vQ/EePkt7uJnvM8ECZvTh6wHGa2Uew50v48DybqCB
-X-Gm-Gg: AYBFou0+FLD8G+G4KJOPgKbpv6TBQNP3+i1jvMYwqhm/1jpdA3IuULXz3BBIKutgW3h
-	FjDyEVuWRhAhTbTHgy2CqfjzlEgLcJxm+lynln7kDpPO6xP5vWliXl4e+nH0j1HmMI/HxUillIA
-	kUtroYGX2HYLfExiBH/hrluk0CUOkqAVe8gm+n16YtJVDf30MX2yyBNcPylrRN6xoUgjjidz/25
-	XJWXql+1ZkCaNlV7RiAwp/KTdcXGQpfiiD0Fv6e7HcW78WCfvW2OEYdtqbRv5q9TzzG5dhUpl60
-	G+rjbih1lMZuSR9Ops5KJZRIc6Z0hlcHUqlHSvQ8fdjKyntwuh3IkV5eVQnQU3pAv81dvNkOTjB
-	TlqbG3HlhjYpKcrXfsSyXMNBNnqYV4PQ4WCu3TdBmcLIfk6v5cD4Mo++m1l77xjXMsTOwIU0l2f
-	+pI/2ZoTVMttIvuldx1I3d5SorUd4M1iBn1QRlzTqUK510TAwwNsz/VL0o2g2/Dewf0FPTH2Eik
-	5iCtN/9M37p96kFMnZ53s3xeSXYCvgYDASbp08FkgjmRCCUUuuIpTUUz4kPVpN+9AY4RPpfUCIO
-	aNfzELT/ycHiIhw+q+10t2qdRGv8O9gpjQ==
-X-Received: by 2002:a17:90b:1fc7:b0:3ab:b39f:41cd with SMTP id 98e67ed59e1d1-3b0db6ed2f0mr2460315a91.60.1793971093785;
-        Fri, 06 Nov 2026 05:18:13 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0e2a8d6fbsm1025636a91.1.2026.11.06.05.18.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 05:18:13 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>
-Cc: linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-samsung-soc@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>,
-	Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 5/5] extcon: max77693: drain MUIC IRQ work before extcon device is freed
-Date: Fri,  6 Nov 2026 22:17:30 +0900
-Message-ID: <20261106131730.2633139-6-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106131730.2633139-1-hj351016@gmail.com>
-References: <20261106131730.2633139-1-hj351016@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=b3PIHqeQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4zwexF7Wz01Eu+onBHbqwklyRz49GNwu5fYWiMpNDo0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793971140; v=1; x=1794575940;
+ b=b3PIHqeQrojtLU4Y4VNCZ8rRt61bMFIDsLuTUcbsprTA2BhGn7Ms48fbXm2i4k5LuneFaPZL
+ efns+y5W7XbtNLWmXja8lX760spiEjNqVLTfDK+0ec9BwB0YmskmQOe7C4oP0x7xojKGDPefOnz
+ x3cM79fsW0CNI8761sGgxJNA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 26aa00f910ee51dc;
+	Fri, 06 Nov 2026 13:19:00 +0000
+X-Mizu-Trace-ID: 26aa00f910ee51dc
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: akpm@linux-foundation.org,
+	dgilbert@interlog.com,
+	mkp@kernel.org,
+	loberman@redhat.com,
+	jmeneghi@redhat.com,
+	kraxel@redhat.com,
+	vivek.kasireddy@intel.com,
+	mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	stefanha@redhat.com,
+	sgarzare@redhat.com,
+	rostedt@goodmis.org,
+	vdonnefort@google.com,
+	mhiramat@kernel.org,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	axboe@kernel.dk
+Cc: linux-mm@kvack.org,
+	James.Bottomley@HansenPartnership.com,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com,
+	phasta@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	linux-scsi@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org,
+	iommu@lists.linux.dev,
+	io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bobbyeshleman@meta.com,
+	mathieu.desnoyers@efficios.com,
+	robin.murphy@arm.com,
+	mason@kernel.org,
+	aesteve@redhat.com,
+	tjmercier@google.com,
+	harry@kernel.org,
+	vbabka@suse.cz,
+	cui.tao@linux.dev,
+	cuitao@kylinos.cn
+Subject: [PATCH 0/7] memcg: account the remaining uncharged kernel allocations
+Date: Fri,  6 Nov 2026 21:18:22 +0800
+Message-ID: <20261106131829.3228926-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,94 +107,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+From: Tao Cui <cuitao@kylinos.cn>
 
-max77693_muic_probe() registers the MUIC interrupt work for device-managed
-cancellation before it allocates and registers the extcon device that the
-work handler dereferences:
+Kernel memory that scales with user controlled input is supposed to be
+charged to the memcg of the task that induces it, so that memory.max
+contains the damage and the accounting is honest.  Sweeping the
+interfaces that let unprivileged or delegated users drive kernel
+allocations turned up seven more places where the charge is missing.
+Every fix is one flag; the interesting part is who can pull the lever
+and how much a pull buys.
 
-	devm_work_autocancel(&pdev->dev, &info->irq_work, ...);
-	...
-	devm_request_threaded_irq(&pdev->dev, virq, ...);	/* arms work */
-	...
-	info->edev = devm_extcon_dev_allocate(&pdev->dev, ...);
-	devm_extcon_dev_register(&pdev->dev, info->edev);
+An open sg fd reserves up to max_sectors worth of buffer, SG_MAX_QUEUE
+(16) commands can be in flight per fd, and the fd count is bounded only
+by RLIMIT_NOFILE.  udmabuf metadata costs about 4MB of SUnreclaim per
+GB of buffer with size_limit_mb defaulting to INT_MAX.  vhost holds
+roughly 150KB of resident kernel memory per SET_OWNER, and
+/dev/vhost-net is handed to containers by device plugins.  A ftrace
+instance allocates two full sets of per-cpu ring buffers the moment it
+is created, about 1.375MB per cpu per set, gated by tracefs permissions
+alone.  iommufd's hw_queue contiguity check allocates an array sized by
+a u64 from userspace, frees it when the check fails, and can be
+repeated in a tight loop.  io_uring still leaves the ring context, the
+SQPOLL thread data, io-wq, the alloc cache arrays, the kbuf iovecs and
+the registered eventfds uncharged.  The rsrc and tctx surfaces are
+already charged by commit 075d5837bafc ("io_uring/rsrc: charge buffer
+arrays and nodes to memcg") and commit 0b34e7b20a48 ("io_uring: charge
+tctx nodes and personalities"); patches 6-7 pick up what those did not.
 
-devres releases resources in reverse registration order, so on unbind the
-extcon device is torn down first and the work is cancelled last:
+Verified on next-20261104 under qemu, same config with and without the
+series, everything builtin: eight sg fds with 1MB reserved buffers
+charge 8MB with the series and nothing without; resizing the global
+trace buffer to 16MB per cpu charges 67MB against 0 before; four 512MB
+udmabuf buffers charge around 8MB of metadata; sixteen vhost SET_OWNER
+calls charge 4MB; 1000 io_uring rings charge 7.6MB on top of what the
+in-tree charging already accounts.  All slab allocations in the series
+are served by kmalloc caches, so they keep charging under the
+SLAB_MAY_ACCOUNT opt-in rule queued in slab/for-next; the tracing patch
+accounts page allocations, which are not affected by it.
 
-	/* free_irq() */
-	devm_extcon_dev_unregister() / extcon freed
-	...
-	cancel_work_sync(&info->irq_work);		/* too late */
+Two in-flight series overlap but do not collide.  The dma-heap explicit
+memcg charging series moves dma-buf data page charging to an explicit
+path and removes __GFP_ACCOUNT from the system heap, while patch 2 here
+accounts udmabuf metadata only, which that series does not see; if it
+lands first, the system heap reference in patch 2 wants dropping.  The
+io_uring patches sit on top of the charging Mason and Jens already
+merged, and cite those commits as the in-tree predecessors.
 
-max77693_muic_irq_handler() queues irq_work with schedule_work() on every
-MUIC interrupt, so a work instance can be pending or running at unbind.
-The handler max77693_muic_irq_work() dereferences info->edev via
-extcon_set_state_sync(). Its only early-return guard tests info->edev, but
-info is itself devm-allocated and freed last, so in the teardown window
-info->edev is a dangling (non-NULL) pointer rather than NULL and the guard
-does not fire. If the work runs after the extcon device has been freed but
-before the work is cancelled, it dereferences freed memory, i.e. a
-use-after-free.
+I am sending these in one thread so the class is visible in one place.
+If any of you would rather take your piece through your own tree, an
+ack is all I need and I will split the series.
 
-Allocate and register the extcon device before registering the work for
-cancellation, so devres (LIFO) frees the IRQs first, then cancels the
-work, and only then frees the extcon device. The dock input device the
-handler also uses is registered earlier and thus still outlives the work.
-devm_work_autocancel() still performs INIT_WORK() before the work is first
-queued (the IRQ handler, requested below, is the only queuing site).
+Tao Cui (7):
+  scsi: sg and st: account the command buffer memory to memcg
+  dma-buf/udmabuf: account the page array metadata to memcg
+  vhost: account the per-device kernel allocations to memcg
+  tracing: account ring buffer pages and trace_array metadata to memcg
+  iommufd: account the hw_queue page array to memcg
+  io_uring: account the ring context and SQPOLL thread data to memcg
+  io_uring: account the remaining per-object allocations to memcg
 
-Found by static analysis / code review; compile-tested only, not
-reproduced on hardware (requires a MAX77693 MUIC).
+ drivers/dma-buf/udmabuf.c      |  7 ++++---
+ drivers/iommu/iommufd/viommu.c |  3 ++-
+ drivers/scsi/sg.c              | 23 ++++++++++++++++++++---
+ drivers/scsi/st.c              |  7 ++++---
+ drivers/vhost/net.c            | 14 ++++++++------
+ drivers/vhost/vhost.c          | 16 ++++++++++------
+ drivers/vhost/vsock.c          |  5 +++--
+ io_uring/alloc_cache.c         |  3 ++-
+ io_uring/eventfd.c             |  2 +-
+ io_uring/io-wq.c               |  4 ++--
+ io_uring/io_uring.c            |  2 +-
+ io_uring/kbuf.c                |  2 +-
+ io_uring/rsrc.c                |  3 ++-
+ io_uring/sqpoll.c              |  2 +-
+ io_uring/tctx.c                |  4 ++--
+ kernel/trace/ring_buffer.c     |  8 +++++++-
+ kernel/trace/trace.c           |  6 +++---
+ 17 files changed, 73 insertions(+), 38 deletions(-)
 
-Fixes: 74047eaa2281 ("extcon: extcon-max77693.c: Fix potential work-queue cancellation race")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-diff --git a/drivers/extcon/extcon-max77693.c b/drivers/extcon/extcon-max77693.c
-index 2c567e0..f151787 100644
---- a/drivers/extcon/extcon-max77693.c
-+++ b/drivers/extcon/extcon-max77693.c
-@@ -1128,6 +1128,20 @@ static int max77693_muic_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, info);
- 	mutex_init(&info->mutex);
- 
-+	/* Initialize extcon device */
-+	info->edev = devm_extcon_dev_allocate(&pdev->dev,
-+					      max77693_extcon_cable);
-+	if (IS_ERR(info->edev)) {
-+		dev_err(&pdev->dev, "failed to allocate memory for extcon\n");
-+		return PTR_ERR(info->edev);
-+	}
-+
-+	ret = devm_extcon_dev_register(&pdev->dev, info->edev);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to register extcon device\n");
-+		return ret;
-+	}
-+
- 	ret = devm_work_autocancel(&pdev->dev, &info->irq_work,
- 				   max77693_muic_irq_work);
- 	if (ret)
-@@ -1156,20 +1170,6 @@ static int max77693_muic_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--	/* Initialize extcon device */
--	info->edev = devm_extcon_dev_allocate(&pdev->dev,
--					      max77693_extcon_cable);
--	if (IS_ERR(info->edev)) {
--		dev_err(&pdev->dev, "failed to allocate memory for extcon\n");
--		return PTR_ERR(info->edev);
--	}
--
--	ret = devm_extcon_dev_register(&pdev->dev, info->edev);
--	if (ret) {
--		dev_err(&pdev->dev, "failed to register extcon device\n");
--		return ret;
--	}
--
- 	/* Initialize MUIC register by using platform data or default data */
- 	if (pdata && pdata->muic_data) {
- 		init_data = pdata->muic_data->init_data;
+-- 
+2.43.0
+
