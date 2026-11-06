@@ -1,73 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794001911;
-	b=GinzXG6YxJ+mi6YHifECn+jIcF5JMHa+TahzxhTM9qt6jGh+Y+DMzvp8gY24ySwl/Auq
-	 ohCO8OHTgdzakWqLilYIzq7WJeFqQjRvkpzKDnnJs4kEA4s+sSraDm5g9lsoVDbzDNwJB
-	 DAcBrztY7sG/1RKFaYh20QG9v7udl2/1jV5bKaxPEdiTOk1zunhOfgOHqAKazGq5jHN+H
-	 nI/NFv9MyN7SUQOJqeGFSCs2ITlykYYQIoORbMZ2cLeW1AYB9vOKmssNT+W7gEKraz1oB
-	 V78SFvp2K7sYkhJsQu1IlAYofnKLQPAeakvaPZna6u9UwQjTYlboIvXS36AHEiaOR7A==
+	t=1794002004;
+	b=oAow/nvbDVxRDzitjtMvdLTCq294YxerH3NnscdiqyIpAlFEaG1jbvCGWGKL6ReUBSID
+	 fELsJn3PAz0NCRZrY8kiyWXFw0+/HzjQRTGkMCdarFROi+dD6OQ1Xv9WLpD9ECUYGgGz8
+	 WAufURlfXG0Lxoco4mHU5xWM6WF/b9vfR191K8X7p09DqrDWsajg6WTNuNTrsar2YQs8e
+	 f/xb/LQjzZytfskd5SZWZ6yZMaB1HPhaIozu1gLiuA50LGV5fyIf5nzWphXfVuxXkuy8O
+	 5rxSYCI0ISXtlYZn+/viSgtSJqoJFMCieYRewPgwDU7pY9wsraEq0B+afD9iR9wwWhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794001911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002004;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
 	 Feedback-ID:X-SECURESERVER-ACCT:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=Xo6/X2F0OqQcatrchSUm9ysP9suJgZBOLydNW4sGVt4=;
-	b=txUEO4xWqf+/wVr0c8NhQs27IZvRG6ZFwWJF90/p8X5s6rkrUOlhNW+r5vAS6DrZdqzX
-	 o3z89zD8N0x7MIPGV5KkElhLqeVjj3qbTpRrHHSPlxaypZqoxGRy7ZzXiPl5QgQ/EOlkE
-	 Kzft7Ug/lrEW4F7FI4QUw84NS5vP1FRi7bFSXbWBrAO+1FUbVObrhSafegT6NWRcWX5MV
-	 CPAYya+t3WPBP30m6pQDYVfnY/e2S3Qv2OZ/CFlWucN4P99R7/a2JgwVZRRNEJAo1b4Dl
-	 n9T3yN7tUZwoJaROBvil6lzQBW18b1CrkquP9BonEiUZ+u5gmHiGdiusOmnixsMt8FA==
+	bh=hZZxXdvW1/f+hfDzWZ5LPBRqprL4GaOSWhztMtIsmCQ=;
+	b=VupOOSPoRT1DQSq9Dy9d8nuRkqxoLV+buxQ2OpRpi+gWehIxhTQAhS6W7QpUnZLGoNql
+	 7tLVbXrdztHDxteaUJ8G8o89+iVC84BGBJFgcnJ1/4i1gx/lUGVbAECYbN/5L6V6B0jGK
+	 IMM/9JDqhrWYVrUMKT84/V0Op4quSoj/W0F33AImmqlRLGYT48e+SnfP/gGmEvTaSzoAj
+	 jmVZPOh9+G74Jkl3bAE1YIXonq5VukxTvY9Vkknu/LSDSnWUDMA0uNpOrSvCiOfwJ4qMn
+	 RGzgGU4y89b4rhSQpjOhZXu1tJ0r2ItLWpWZogueDE7fikoYf1WZbhOejYURuKxm0tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=squashfs.org.uk;
 	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=j4tDH9qz;
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=DbdKxFEj;
-	arc=none smtp.remote-ip=188.121.53.87
-Received: from sxplsmtpa04-08.prod.sxb1.secureserver.net (sxplsmtpa04-08.prod.sxb1.secureserver.net [188.121.53.87])
+	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b="DVopFl/I";
+	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=gNld+YvT;
+	arc=none smtp.remote-ip=188.121.53.17
+Received: from sxplsmtpa04-02.prod.sxb1.secureserver.net (sxplsmtpa04-02.prod.sxb1.secureserver.net [188.121.53.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54B5606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:51:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D54B5606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D95606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:53:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1D95606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=j4tDH9qz;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=DbdKxFEj
+	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=DVopFl/I;
+	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=gNld+YvT
 Received: from [192.168.178.101] ([82.69.79.175])
 	by :SMTPAUTH: with ESMTPSA
-	id PRqOxLkRTpJLKPRqRxa9AP; Fri, 06 Nov 2026 21:51:36 +0000
+	id PRrtxwZdCcIxnPRrwxBplr; Fri, 06 Nov 2026 21:53:09 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794001897;
-	bh=Xo6/X2F0OqQcatrchSUm9ysP9suJgZBOLydNW4sGVt4=;
+	s=secureserver2; t=1794001990;
+	bh=hZZxXdvW1/f+hfDzWZ5LPBRqprL4GaOSWhztMtIsmCQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j4tDH9qzvsUancNAw+UUcMYPnT8+LMfiUJoGv57HzuRh7Y66FTVrA/94+oXqxDXX0
-	 +VZllAGc2sB0gNmVH28xybr6wlwmK/IyjUSekRbVpdu+W2jMV8ngDdedEcsrLiMMf/
-	 6foBMloxcYvyB7e+UTjJzA5XsM1vTn3pHhlFr6ge1dTlUfrlHhLb1CXLOJ7uYPOj13
-	 irXg3s7zfHbL1TCwl81hHwfyAYDp5LHLei2J1XWMTKpTBvVMd5yMIFPdJIlVbxfvj8
-	 AY/USHi4ZBZ1YmwSkqjMyc3boHdzHurus5zPS1YB34y9mbXSYzdROx+FMZK2KL5sON
-	 +ZfzmrKhrBNFg==
+	b=DVopFl/ILmB7A1cn5339qdaKHCqy/O0ILCwoT1pKfC+Xyh+2fdnnpqZZ+VKEif2jS
+	 tdVdBbUsbPyvyeCC6gI+KMKlI3PhiWw7Z8QnNN0caGJpoX2dbbNXtZhXR0hP659Gz6
+	 9dCqEw4e7pHb0L9yO5O9nE3M4Gy2STn4rktsoR6E+634mnDqsUISe90TXMEgLQziWU
+	 gK7gzaTZ82OHgQ1TM6TpYzKxG5FC/qht7oEHSmESuz7tehD7c1s5k11YY8hLFeWWYR
+	 zrBJH/sp4SPjYCcuXMv5RbjCmrYoDdpjgHfV0p4aiFXphwfdFtRzEbQxkWwERqYfjv
+	 MVLhBDHM8KoNQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794001897;
-	bh=Xo6/X2F0OqQcatrchSUm9ysP9suJgZBOLydNW4sGVt4=;
+	s=secureserver1; t=1794001990;
+	bh=hZZxXdvW1/f+hfDzWZ5LPBRqprL4GaOSWhztMtIsmCQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DbdKxFEj+dMEMiRPS4JKNVOm2mDdwAqOA829Ox7biGEnDLAnEKnvktqA/wHPFYFP8
-	 2L1+/zwx4iIUoTaS3hWwLRUK8Al+JNeSx0AW8MtVSTqpDxU/WpkYYjeusCEjwTAefe
-	 enbpcdPv/mliOJneM5Y16lWeSSQg9usUILCujzO+QIcXkyv9OIwsMi5o7DzAJBgWwt
-	 9mqxcLgtIC0wOlU7wicel4ONVbt55Yc6pF+7uONXnOEo86qfqK/ljWYtpA++KMMy9z
-	 jhnKgyC7dtWsCWpYxnWaZF8CrrOcjP2U1Z0fyT8vF2L9q+Z4sKVOzuQBNuK/IyTHzv
-	 Mum9EWzi9gqqg==
-X-CMAE-Analysis: v=2.4 cv=U4kHnuru c=1 sm=1 tr=0 ts=6aee4be9
+	b=gNld+YvTxdpkwOGzxcV7YL3GR0gXd0yXwJRXIUsqBGBoRob2GevLByqboIzYXh8tq
+	 xFp2Pdn+ReAdbHnSEnIKqN6G57qPp9jhY5MpR2p3AWouf2rNsKH00b1ec32MKcWAoQ
+	 bGP1q4KVhX8pri5K99srGuOz+cGAWQss0fI/oQaM/ROChPQheM4Wcu1GGgqrv8js+M
+	 wluS7eTfMQRwQLLUdNxCYcU1ceLga7ZWeS9I0SV6uC28KE3niXxW5KHLzu4vffSme0
+	 U154vF4wuLYhO3IUZ4r63bEeOStY6eqdCMBhGuUhYDIKPJ3288+wtnFYV+TvbqOXMp
+	 HTd19MJAVcnfg==
+X-CMAE-Analysis: v=2.4 cv=RrJQvymK c=1 sm=1 tr=0 ts=6aee4c46
  a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17
- a=IkcTkHD0fZMA:10 a=edf1wS77AAAA:8 a=FXvPX3liAAAA:8 a=pGLkceISAAAA:8
- a=hSkVLCK3AAAA:8 a=VwQbUJbxAAAA:8 a=fRafXCwJDMqIuDAOK7wA:9 a=QEXdDO2ut3YA:10
- a=DcSpbTIhAlouE1Uv7lRv:22 a=UObqyxdv-6Yh2QiB9mM_:22 a=cQPPKAXgyycSBL8etih5:22
-Feedback-ID: 925414b8c9b40187a3749bea899587e1:squashfs.org.uk:ssnet
+ a=IkcTkHD0fZMA:10 a=FXvPX3liAAAA:8 a=7CQSdrXTAAAA:8 a=RaF3lfFyEwhm3Sx1ChkA:9
+ a=QEXdDO2ut3YA:10 a=UObqyxdv-6Yh2QiB9mM_:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+Feedback-ID: bc046444923e57c050ffa0655c621bc5:squashfs.org.uk:ssnet
 X-SECURESERVER-ACCT: phillip@squashfs.org.uk
-Message-ID: <e5e1796a-428a-4d1b-ae59-be1db690b216@squashfs.org.uk>
-Date: Fri, 6 Nov 2026 21:51:32 +0000
+Message-ID: <a408850b-dd83-4e7f-8eb5-891c9ce881f6@squashfs.org.uk>
+Date: Fri, 6 Nov 2026 21:53:05 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,99 +77,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] squashfs: fix leaked page locks when page actor
- allocation fails
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, syzbot+65b1e2d8f2d618a93e96@syzkaller.appspotmail.com
-References: <20260927060541.45780-1-ngocthang2710.1999@gmail.com>
+Subject: Re: [PATCH] squashfs: identify device in mount errors
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: linux-kernel@vger.kernel.org
+References: <20260912145314.788588-1-christian.loehle@arm.com>
 Content-Language: en-US
 From: Phillip Lougher <phillip@squashfs.org.uk>
-In-Reply-To: <20260927060541.45780-1-ngocthang2710.1999@gmail.com>
+In-Reply-To: <20260912145314.788588-1-christian.loehle@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfMN6jVjiAStnjbI5hkjsEC5AB2dRhoxeUj/Uzz+G4XVwk0EKvrO9E3samvL1/AYniOj1BhTDdHqr076xtPlkB/119Z7YNJ5xNffV++vH8kMmQS/VuIe7
- iuzm7coiXke82aDW/TLLse9ZuCglPGwEGF50deGbkkDkcxGSmdNo4C7iOhDsNJDbLEQM4rzLAxVOzFKKDBufimPr71pFxvO0IjOSR5l+htSz5FkUx4vsH5D9
- 59T9zNblewQjljr6ZsNLDOfTTH5GP3ZbTIPJJVbhtiQKXK/C64xLSd4GZ4ToPYfJ/NVO6GE2ExyT5TCWAAz59xFKKFlhsSLW+1DXFya4ci6zAegGnFPK/UqM
- nKQT90sUJOwEuuDd1DZWfk8Fb/NC1IJ8TGFMLLRBhufTaYffwgM=
+X-CMAE-Envelope: MS4xfNcGrA2gonhwU3Hx5v8AvIycoItLFs5tfSVqqdTeIxjmbJrPAhDg3xw3VJf34UUMQ/irPoTk4GY1T0upeEiZY5r8RANJSxS2xOPV/g7p45ribTh9uksv
+ kqJ44gxuM4AxKl6zN4+I9UrewHeVW/AaIFE9t54tdqfQVKDyvUW9NLvU+Y0WY+XWa0GDBgvPDHzrXmGk7/Qz6RyUq8AjO7kq8yuscB2CiL1OvI6vxU0WUCag
+ M61sFGW0oNvtNW4WGzClyw==
 
-On 27/09/2026 07:05, Nguyen Ngoc Thang wrote:
+On 12/09/2026 15:53, Christian Loehle wrote:
 
-> Hi Phillip,
+> Squashfs mount failures reported through fs_context do not identify the
+> backing device, fix this y printing the block device.
 >
-> syzbot reports a hang in evict() during umount of a squashfs mount
-> (INFO: task hung in evict (2)):
+> Repeated automount failures used to be ambiguous, for example:
+>    Filesystem uses "xz" compression. This is not supported
 >
->    https://syzkaller.appspot.com/bug?extid=65b1e2d8f2d618a93e96
+> All of the affected errors occur after get_tree_bdev() has opened the
+> block device and setup_bdev_super() has assigned sb->s_bdev.
+> Use it to identify the failing Squashfs image even when the mount is
+> retried. For example, the error above now reads:
+>    Filesystem on loop0 uses "xz" compression. This is not supported
 >
-> Root cause: squashfs_readpage_block() grabs and locks the sibling pages
-> of the block with grab_cache_page_nowait(), and only afterwards allocates
-> the page actor.  If squashfs_page_actor_init_special() fails, the code
-> does "goto out", which only kfree()s the page array. The locked, referenced
-> sibling pages are never unlocked or put. A later truncate_inode_pages_range()
-> from evict() blocks on the leaked folio lock forever.
+> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 >
-> The ordering was introduced by f268eedddf35 ("squashfs: extend "page actor"
-> to handle missing pages"); before it the actor was allocated first.
->
-> Fix: use "goto mark_errored", which already unlocks and puts every page
-> except the target page (owned by the caller, which unlocks it via
-> folio_end_read()). res is still -ENOMEM at that point.
->
-> Testing: QEMU (KVM, KASAN, lockdep, IMA tcb policy) running the syzbot C
-> reproducer, with fail-nth swept over 1..400 in openat().  The failslab
-> hit lands in squashfs_page_actor_init_special() from
-> squashfs_readpage_block() via ima_calc_file_hash().
->    - before: hung task in evict()/truncate_inode_pages_range() after ~12s,
->      same trace as the syzbot report
->    - after: 170s of runs, 174 injected failures at that site, no hang
->
-> The patch is below / attached.
->
-> ----- patch -----
->  From f686b39f997dc20222f455c5ac6421f6a5d6c8d8 Mon Sep 17 00:00:00 2001
-> From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> Date: Sun, 27 Sep 2026 12:40:12 +0700
-> Subject: [PATCH] squashfs: fix leaked page locks when page actor allocation
->   fails
->
-> squashfs_readpage_block() grabs and locks the sibling pages of the
-> target block before it allocates the page actor.  If that allocation
-> fails it jumps to "out", which only frees the page array, so the locked
-> pages are never unlocked or released.
->
-> A later truncate_inode_pages_range() on the inode, e.g. from evict() at
-> umount, then waits forever on the leaked folio lock and the task hangs.
->
-> Go through mark_errored instead, which unlocks and puts every page
-> except the target, which the caller handles.
->
-> Fixes: f268eedddf35 ("squashfs: extend "page actor" to handle missing pages")
-> Reported-by: syzbot+65b1e2d8f2d618a93e96@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=65b1e2d8f2d618a93e96
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
->   fs/squashfs/file_direct.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/fs/squashfs/file_direct.c b/fs/squashfs/file_direct.c
-> index 2c3e809d6891..177357443543 100644
-> --- a/fs/squashfs/file_direct.c
-> +++ b/fs/squashfs/file_direct.c
-> @@ -70,7 +70,7 @@ int squashfs_readpage_block(struct folio *folio, u64 block, int bsize,
->   	actor = squashfs_page_actor_init_special(msblk, page, pages, expected,
->   						start_index << PAGE_SHIFT);
->   	if (actor == NULL)
-> -		goto out;
-> +		goto mark_errored;
->   
->   	/* Decompress directly into the page cache buffers */
->   	res = squashfs_read_data(inode->i_sb, block, bsize, NULL, actor);
+Sorry for the delay, I'm currently snowed under with AI reported issues.
 
-Sorry for the delay, I'm currently snowed under with AI reports and bugs;
+Looks good.
 
-But, it looks good.
+Review-by: Phillip Lougher <phillip@squashfs.org.uk 
+<https://phillip@squashfs.org.uk>>
 
-Reviewed-by: Phillip Lougher <phillip@squashfs.org.uk 
-<https://squashfs.org.uk>>
+
