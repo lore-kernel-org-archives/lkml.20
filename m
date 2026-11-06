@@ -1,63 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793996454;
-	b=37iJXLL4ciljSDjqelUQabJCV8nTp2P66GT7MAHdnhe+1fKuGJnBHUEA3lFFZAhxk0nD
-	 JIwmBhhVqisMXHvQNeDLeY5MdPsXRFGQtuMiPd030+ukalOioiYZdMObEqlmo0hJ87wNG
-	 QGV9p/ZmUism/yP4StRhNNykceRv1b5xctU5rfjmCXeR+z5/kI+a52/fLeI65MupDrTOl
-	 wG6ViG2NtO7jcGm+C25HsUBnQCdRZq9K2jCI5CtrJ1YycUWDj3TgacU78FinAY+u9kzg1
-	 9lMhpd2RbxB6vYD7Vi3CA+qIwXynIhiHlEjgWXd33h0fK7cKd2xwhNx0c3LbUM90M1g==
+	t=1793996473;
+	b=PQzL191EYJjDb2jp7X/Aqfb+6EQEuBOBBKHf/A2jzAGbu3rMQ088d6dDcYypVXO5Toow
+	 7zuAcJf4pyhWW0gEKwSVEL/mOHZN+/mlGahyGT9JB/jDA1yt4c1P40/w/R9qntZHlnDN8
+	 /gdjWqYJwa5xgahemte4NkQlzx7nxGWEjFh/fedEQ92WBRnGSR0XVk/deNmOhuzgWdjq9
+	 tkHYKLgxFvp5PNbsAK7uCWOOA/3cENlbJE0xaAtClviXaqMguRUB3KRBA7kOcreDKFu77
+	 BZeAGiLTPjvvCYLEo6r5Lf4plTsAxW+Mx7E090k5G1NewFHN/GGR8ziSMQLMJJjANNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996454;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
-	 References:MIME-Version:Content-Type;
-	bh=FuLO2AbDaNLP40FbdFwoqBB9qAnL5dvmzRmSujGMrw0=;
-	b=x8X39B+i0po/xoZq5gjVScNhTYuu3EXnW+2UAxfQQjQxOthV2Rktm2U1Klmnzg/jrCkq
-	 3HzprYFAvy518L4cEVrCmrcwm0LXbn749fiyMH3aaNZHF0yWwgb9e/SrgHUhgxUdOUSYj
-	 IWx3/XvE7SMmHp52LXHCLLNKnBaS/f5gwoDNShDljDaU1TSUdBjAZuLz9I20D8R3QlXmD
-	 hnx+tCKCPS0gnmBTH8xt2VGeZ+G/KsBQMlE64At+bnkjhpYfSM1fP/CoO22Y+xRGFkN3S
-	 X9+UGVjm6fxm2XrLqfDWBrSJscrMdBbvsCCheII1yN4j78L35b0ON6kTH+DSzMb77vA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996473;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=959BkSk1iLBff7LPQ529CGwQXCG+nKTMirz/dSsXx4M=;
+	b=ZVg9LBQdWNE0eMNOn7GAKzDCdpm5YHTwNnb1Hr1aAMMxyeXkFyZgM8ebGK5woQdT7lZd
+	 hdjtV++zodVh3OvbLyJMIDWMciCPmk4PFzEwBC3xUF7DIIx7R8b6+ApR4UH8eqbGPLhX4
+	 VDqcB4cWyXBGbcxex2xkFzFFud4jPmc2pfzH0548SpjIX86xhH0uCOPayxYG3QRmlHm7p
+	 jeCD80jiPKAI1LwFnkYsOlc2x90zby7pCp1aaJInlvKqxegQQUIbSmc4kwsrdkCEh7sg7
+	 RVgDD4SKAcMS5Kd845hNDIwfRmBNXYcIJaLMCg1HyqYB2f9bswYkDWEnv9/I+9xJ3Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inria.fr;
-	spf=pass smtp.mailfrom=inria.fr;
-	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=snnM6kzX;
-	arc=none smtp.remote-ip=192.134.164.83
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t7A85JKW;
+	arc=none smtp.remote-ip=209.85.221.169
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2953606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2953606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3AE606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:21:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B3AE606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=snnM6kzX
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t7A85JKW
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eac6c5f927so464130e0c.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:21:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=FuLO2AbDaNLP40FbdFwoqBB9qAnL5dvmzRmSujGMrw0=;
-  b=snnM6kzXD5VBB735Ofmowa3Qzc62oaxYJC8wB+pagwMgkRxRckVh7MAI
-   sLm/GBc0ghydvo2+JdwRQP0qbt2pQ9C+CgumBZfTxEL45GVJS1PyXavyD
-   ylJRr60CgbczYGIijrnJt5AdlasGxUAv9lfU+j+UNO/wydHDKmwOgi90R
-   Q=;
-X-CSE-ConnectionGUID: EBw5dCsWQEG+G2Dz+OdjiQ==
-X-CSE-MsgGUID: Mav8AZiNSsqwK+E6jVE/Vw==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,199,1787004000"; 
-   d="scan'208";a="304272733"
-Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 21:20:44 +0100
-Date: Fri, 6 Nov 2026 21:20:44 +0100 (CET)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Chad Aldreda <ca@modelmiser.com>
-cc: Nicolas Palix <nicolas.palix@imag.fr>, cocci@inria.fr, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] coccinelle: api: add a checker for device nodes in devm_
- memory
-In-Reply-To: <20261106193517.3267013-2-ca@modelmiser.com>
-Message-ID: <5f30dd50-a764-8e8-8b27-5c26ad10a7dd@inria.fr>
-References: <20261106193517.3267013-2-ca@modelmiser.com>
+        d=gmail.com; s=20260707; t=1793996472; x=1794601272; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=959BkSk1iLBff7LPQ529CGwQXCG+nKTMirz/dSsXx4M=;
+        b=t7A85JKWAHrwaV2NDDfjT6j94ns+4EQEuPbv6LjFm7Pl1Lq4iltZ//g0XKX+q79+hx
+         9q4moiD2bLg2DnqtWQUuNXYnHVUOfOemr6W4aUjyfb8NwusIHAslcfZa8bHiom3Ew25S
+         hzUkpSMiwUeO2EPhCuazssJ9d4RghqllVytbdCYnn8l0YMOPONm+oLnrKHVRtzNSMdQC
+         9dPBo48IrA2GGXXArP3NC8uXSev5XR5WKY4P8NpmCUPikQkoheTEuJWtPyORYzhbOn0g
+         Ybxy9vdd3d64pI2qocDhbC3zSBnZaIYr5XM2S+Ee+11Eghs/Kvtrn2Vk/yWrT5LKYAb9
+         PQHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793996472; x=1794601272;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=959BkSk1iLBff7LPQ529CGwQXCG+nKTMirz/dSsXx4M=;
+        b=Zi31kO627ZooaAOfdyBFPdQY57nSTkobqRi7QYk+j6MzGpmni53INQlcBNtLJRvEok
+         yejcQAYExJXJYI4atdkxw6nTUakHtPQ3ZGnuQrMbvsWIHmQzGpznzbcUfHAOc2n7lpLR
+         mW0aG79IAD+r9U26++4WWpop9edtf3QpPSNVipBdHecXOxU1FzwLrYaB4G4kxU9IaWN9
+         Ie+FcmyvrbLop2fGRzEYpGm4M8bJH8e0YmcKu9E659HedIGooG9HbFLmI878iFGuJxes
+         vABawXXPhoyN8WFJThdQ7ACNdpy/o5i/r6ilpb24YKvSH+163cdYQ1ptQEheNEaHE9MH
+         kl7A==
+X-Forwarded-Encrypted: i=1; AL+hErGyrcWDFVLLVXoStey3BCDQbf6rNCucjRLwJH3PKUWnAzcWTcRMSo5GXKTwOIfBNmbPCph+5zvrLqMG9/g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9M5yIC9hDh3iUtlvN6BI8fsNRTXwgb1bmOKjoBM6CWP1QWodGL
+	Fyor1RQWZw3FETPYcmlKaU2z8oAxh64A4q42pZ7pMLmnjU4C6LMl1eyh
+X-Gm-Gg: AYBFou1g8SCCit0M3MvssmRXDklHA6qAlZCByVgBWJQPRVAIDT9Blcz4Y4J8iC3F5Tq
+	mBlhzTcM9KpT4qOH0J0w0YB8YgxdNDEBhBqI74FCbJs8OiQ1yjotRhXf2cWqmjFqbkiDCdbQIXE
+	R68T5j8ulcUNYWOl2idMzfGZmXddg95dNTlwknDkW+rRGtYZ0d5F5Y3R3itPsCptwlGD20j87dg
+	uaJeioMC4C7G+9XtCQObPEA2ycYq1nGNgByfw76EkNam28A3l7WO3T9M7KBnf/X+4aW2N67DaG9
+	wOAzJC0uuUXoO9Ie67vq8qmWm1oVCBk6rUSanUvhVgPzez01uQgGf+ESNCFUfCpU2ZhEZcPtV/D
+	IW82CiP2VN1kEe0L88AlWs4zLWOQfjVfaMtUNOTDmPoRBwuhWj51DeARGfp0qdiXLkaeLgrWOjg
+	Vmg98MP6mUo/oaQjv9IRTXx+dcqm/po774z1lr/1DSKcjyZR0svmUDbVqNXzlI3Fbu5NTCl8vh0
+	JNTRKgHwXWO0JHNtXwdy3Y41EVMg1szyUwWd2IOF9TyzE5wHKqXOEED7qj2dKoVTM/c56RfKcIo
+	IyEDfBl9NWvaFrKJN5jOq+cfO/4Jo0pcRyU3WfqTgTuyBhXwvk8hBMmSJpGOitKt9+4iSFZTepS
+	YKamMQWb6KPjtcYtZHG+m77+5G7sTOyHM8Zqh4RrlLTTyGKOGT8jv2W7OSKKwpjWyxaWYmrw=
+X-Received: by 2002:a05:6123:106:b0:5ea:b04a:cefd with SMTP id 71dfb90a1353d-5ecc43bb994mr1885195e0c.7.1793996472087;
+        Fri, 06 Nov 2026 12:21:12 -0800 (PST)
+Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ecc614d650sm2184819e0c.0.2026.11.06.12.21.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 12:21:11 -0800 (PST)
+Date: Fri, 06 Nov 2026 15:21:10 -0500
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Willem de Bruijn <willemb@google.com>, 
+ Kalpesh Solanki <skalpesh942@gmail.com>
+Cc: willemdebruijn.kernel@gmail.com, 
+ jasowangio@gmail.com, 
+ alex.aring@gmail.com, 
+ stefan@datenfreihafen.org, 
+ miquel.raynal@bootlin.com, 
+ andrew+netdev@lunn.ch, 
+ davem@davemloft.net, 
+ edumazet@kernel.org, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ linux-wpan@vger.kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+Message-ID: <willemdebruijn.kernel.2cb4407542f65@gmail.com>
+In-Reply-To: <CA+FuTSfzzoJN+wsVekOWcn18RKKYgp5AqCOpxh4taG=YAOQ9kg@mail.gmail.com>
+References: <20261101092219.1278751-1-skalpesh942@gmail.com>
+ <20261106142421.17793-1-skalpesh942@gmail.com>
+ <CA+FuTSfzzoJN+wsVekOWcn18RKKYgp5AqCOpxh4taG=YAOQ9kg@mail.gmail.com>
+Subject: Re: [PATCH net v2] tun: disallow setting IEEE 802.15.4 link types via
+ TUNSETLINK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,255 +114,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Willem de Bruijn wrote:
+> On Fri, Nov 6, 2026 at 9:32=E2=80=AFAM Kalpesh Solanki <skalpesh942@gma=
+il.com> wrote:
+> >
+> > A userspace application can set the link type of a TUN/TAP interface
+> > to ARPHRD_IEEE802154 or ARPHRD_IEEE802154_MONITOR via ioctl(fd,
+> > TUNSETLINK, arg) because tun_get_addr_len() explicitly recognized
+> > these types.
+> >
+> > However, TUN devices cannot function as IEEE 802.15.4 radios (they
+> > lack wpan_phy, channels, PAN IDs, and MLME operations), and tun
+> > never initializes dev->ieee802154_ptr or dev->ml_priv.
+> >
+> > The IEEE 802.15.4 subsystem operates on the invariant that any
+> > net_device with dev->type =3D=3D ARPHRD_IEEE802154 is a genuine WPAN =
+device
+> > with a valid dev->ieee802154_ptr context. When an unprivileged user
+> > creates a TUN interface in a user+net namespace, changes its link typ=
+e
+> > to ARPHRD_IEEE802154, and issues a netlink dump request (such as
+> > IEEE802154_LLSEC_LIST_KEY), ieee802154_llsec_dump_table()
+> > unconditionally dereferences dev->ieee802154_ptr /
+> > ieee802154_mlme_ops(dev), triggering a supervisor null-pointer
+
+Apparently a similar issue affects ARPHRD_6LOWPAN.
+
+> > dereference / general protection fault. Similar dereferences occur
+> > across net/ieee802154/nl-phy.c (ieee802154_del_iface) and
+> > net/ieee802154/socket.c.
+> >
+> > Rather than scattering NULL checks across every site in net/ieee80215=
+4/,
+> > fix the issue at the source: validate that arg fits within unsigned s=
+hort
+> > (rejecting arg > USHRT_MAX to prevent upper-bit truncation), disallow=
+
+> > setting ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR via TUNSETLIN=
+K
+> > by returning -EINVAL, and remove these unsupported types from
+> > tun_get_addr_len() along with the unused <linux/ieee802154.h> include=
+.
+> =
+
+> I don't think we can do this.
+
+One exception is if this has never worked. If this was a NULL ptr
+exception from the start, then clearly no userspace can depend on it.
+ =
+
+> TUNSETLINK is a weird quirk. It never intended to fully change the link=
+
+> layer. IFF_TAP still only supports Ethernet (calls eth_type_trans).
+> =
+
+> It was added in commit ff4cc3ac93e1 ("[TUNTAP]: Allow setting the linkt=
+ype
+> of the tap device from userspace"), seemingly exactly to be able to pro=
+cess
+> other protocols.
+> =
+
+> Kismet would write captured 802.11 frames into a tap. The device would =
+be
+> labelled ARPHRD_IEEE80211* so that tcpdump or wireshark interface would=
+
+> see the "right" link type for processing.
+> =
+
+> > Fixes: cca8ea3b05c9 ("net: tun: set tun->dev->addr_len during TUNSETL=
+INK processing")
+> > Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D9ea34da5ca6100593c9=
+0
+> > Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
+> > ---
+> > v1 -> v2:
+> > - Instead of adding NULL checks in net/ieee802154/nl-mac.c, disallow =
+setting
+> >   ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR link types via TUNS=
+ETLINK in
+> >   drivers/net/tun.c, as discussed with Andrew Lunn and identified in =
+Sashiko
+> >   bot review. Virtual IEEE 802.15.4 interfaces are properly provided =
+by
+> >   mac802154_hwsim and fakelb; TUN devices cannot function as genuine =
+802.15.4
+> >   radios and lack private 802.15.4 contexts.
+> > - Add an explicit bounds check (arg > USHRT_MAX) to prevent integer t=
+runcation
+> >   bypasses when casting 64-bit ioctl arg to 16-bit dev->type.
+> > - Remove ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR from tun_get=
+_addr_len()
+> >   and drop unused <linux/ieee802154.h> header.
+> >
+> >  drivers/net/tun.c | 45 ++++++++++++++++++++++++++-------------------=
+
+> >  1 file changed, 26 insertions(+), 19 deletions(-)
+> >
+> > diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+> > index dcec7311e60..f2915e929e3 100644
+> > --- a/drivers/net/tun.c
+> > +++ b/drivers/net/tun.c
+> > @@ -70,7 +70,6 @@
+> >  #include <linux/bpf.h>
+> >  #include <linux/bpf_trace.h>
+> >  #include <linux/mutex.h>
+> > -#include <linux/ieee802154.h>
+> >  #include <uapi/linux/if_ltalk.h>
+> >  #include <uapi/linux/if_fddi.h>
+> >  #include <uapi/linux/if_hippi.h>
+> > @@ -3183,9 +3182,6 @@ static unsigned char tun_get_addr_len(unsigned =
+short type)
+> >                 return 4;
+> >         case ARPHRD_ETHER:
+> >                 return ETH_ALEN;
+> > -       case ARPHRD_IEEE802154:
+> > -       case ARPHRD_IEEE802154_MONITOR:
+> > -               return IEEE802154_EXTENDED_ADDR_LEN;
+> >         case ARPHRD_PHONET_PIPE:
+> >         case ARPHRD_PPP:
+> >         case ARPHRD_NONE:
+> > @@ -3362,22 +3358,33 @@ static long __tun_chr_ioctl(struct file *file=
+, unsigned int cmd,
+> >                         netif_info(tun, drv, tun->dev,
+> >                                    "Linktype set failed because inter=
+face is up\n");
+> >                         ret =3D -EBUSY;
+> > -               } else {
+> > -                       ret =3D call_netdevice_notifiers(NETDEV_PRE_T=
+YPE_CHANGE,
+> > -                                                      tun->dev);
+> > -                       ret =3D notifier_to_errno(ret);
+> > -                       if (ret) {
+> > -                               netif_info(tun, drv, tun->dev,
+> > -                                          "Refused to change device =
+type\n");
+> > -                               break;
+> > -                       }
+> > -                       tun->dev->type =3D (int) arg;
+> > -                       tun->dev->addr_len =3D tun_get_addr_len(tun->=
+dev->type);
+> > -                       netif_info(tun, drv, tun->dev, "linktype set =
+to %d\n",
+> > -                                  tun->dev->type);
+> > -                       call_netdevice_notifiers(NETDEV_POST_TYPE_CHA=
+NGE,
+> > -                                                tun->dev);
+> > +                       break;
+> > +               }
+> > +
+> > +               if (arg > USHRT_MAX) {
+> > +                       ret =3D -EINVAL;
+> > +                       break;
+> > +               }
+> > +
+> > +               if (arg =3D=3D ARPHRD_IEEE802154 || arg =3D=3D ARPHRD=
+_IEEE802154_MONITOR) {
+> > +                       ret =3D -EINVAL;
+> > +                       break;
+> > +               }
+> > +
+> > +               ret =3D call_netdevice_notifiers(NETDEV_PRE_TYPE_CHAN=
+GE,
+> > +                                              tun->dev);
+> > +               ret =3D notifier_to_errno(ret);
+> > +               if (ret) {
+> > +                       netif_info(tun, drv, tun->dev,
+> > +                                  "Refused to change device type\n")=
+;
+> > +                       break;
+> >                 }
+> > +               tun->dev->type =3D (unsigned short)arg;
+> > +               tun->dev->addr_len =3D tun_get_addr_len(tun->dev->typ=
+e);
+> > +               netif_info(tun, drv, tun->dev, "linktype set to %d\n"=
+,
+> > +                          tun->dev->type);
+> > +               call_netdevice_notifiers(NETDEV_POST_TYPE_CHANGE,
+> > +                                        tun->dev);
+
+If blocking this proves safe, prefer as little unrelated code churn as
+possible.
+
+> >                 break;
+> >
+> >         case TUNSETDEBUG:
+> > --
+> > 2.53.0
+> >
+> >
 
 
-
-On Fri, 6 Nov 2026, Chad Aldreda wrote:
-
-> A struct cdev, struct miscdevice, struct video_device or struct
-> v4l2_device embedded in memory from devm_kzalloc() and friends is freed
-> when the driver unbinds, but a file that user space holds open on the
-> node outlives the unbind. Its later file operations are a use-after-free
-> when they use that memory, and for a cdev or video_device so is its
-> close(), where the core touches the object and the v4l2_device the
-> video_device points to.
->
-> Add a script that reports such allocations: by two rules when the
-> allocation, as an assignment or a declaration initializer, and a
-> registration of it or of an address taken inside it are written directly
-> in one function, and by a third, type-based rule when the struct is
-> defined in the same .c file and the node is a direct member of it. A
-> registration in a helper function on a struct defined in a header is not
-> seen, so cx231xx is reported only through its v4l2_device.
->
-> On 7.4-rc1 it reports 101 sites under drivers/, 50 of which are found
-> only through a v4l2_device. Not all are actionable: some drivers cannot
-> be unbound, and some miscdevice drivers never use the allocation after
-> open(); the header lists the false-positive classes and the misses.
->
-> Tested with spatch 1.1.1, with make coccicheck MODE=report and MODE=org,
-> and on small test files for each allocation form, a struct in a header,
-> a registration in a helper, a node in an array member, a registered
-> pointer to separate memory, a v4l2_device, an embedded node that is
-> never registered and a kzalloc() control.
-
-Thanks for this initiative.
-
-Have you sent any patches based on the results?  I'm not an expert on the
-problem being addressed, so it would be helpful to know that the semantic
-patch has led to patches that have been accepted.
-
->
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Chad Aldreda <ca@modelmiser.com>
-> ---
-> The type rule uses --include-headers-for-types, which reports the same
-> 101 sites on every run. With --include-headers it also sees structs
-> defined in headers: run on one file at a time, that adds 22 sites on
-> 7.4-rc1 (xilinx-vipp and ultrasoc-smb among them). Under --dir, as make
-> coccicheck runs it, some are lost. spatch --include-headers --dir
-> drivers/media/pci/intel/ipu6 reports nothing, even as a single process,
-> while the same command on drivers/media/pci/intel/ipu6/ipu6-isys.c alone
-> reports line 990. With six jobs the rest vary as well: five runs over
-> drivers/ found 15 to 17 of the 22, a different set each time.
->
-> So I kept the deterministic option. Is the --dir difference expected,
-> and is there a better way to give the type rule header-defined structs?
-
-The problem you have when you work on a subdirectory is that it doesn't
-know where to find the header files.  It should work better with a -I
-option.
-
->
->  .../coccinelle/api/devm_file_reachable.cocci  | 164 ++++++++++++++++++
->  1 file changed, 164 insertions(+)
->  create mode 100644 scripts/coccinelle/api/devm_file_reachable.cocci
->
-> diff --git a/scripts/coccinelle/api/devm_file_reachable.cocci b/scripts/coccinelle/api/devm_file_reachable.cocci
-> new file mode 100644
-> index 0000000000..3847710798
-> --- /dev/null
-> +++ b/scripts/coccinelle/api/devm_file_reachable.cocci
-> @@ -0,0 +1,164 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/// Find a struct cdev, struct miscdevice, struct video_device or struct
-> +/// v4l2_device embedded in memory from the devm_ allocators.  The memory
-> +/// is freed when the driver unbinds, but a file that is open on the node
-> +/// outlives the unbind: for a cdev or a video_device the core touches the
-> +/// object, and the v4l2_device the video_device points to, on every
-> +/// close, and for a miscdevice the driver's file operations usually reach
-> +/// it through file->private_data.  Allocate such state with kzalloc() and
-> +/// free it on the last reference; see
-> +/// Documentation/driver-api/driver-model/devres.rst.
-> +///
-> +/// The first rules need the allocation and a registration of it, or of an
-> +/// address taken inside it, written directly in one function; an
-> +/// allocation inside a condition or behind a cast or a wrapper function
-> +/// is not seen by them. The type rule catches the rest, but with the
-> +/// options below it sees only a struct defined in the .c file itself, not
-> +/// in a header, and only a node that is a direct, non-array member of it,
-> +/// not one nested in another member. So a registration in a helper
-> +/// function, or through any alias of x such as vfd = &x->vdev, is missed
-> +/// when the struct is in a header or the node is not such a member. Not
-> +/// checked: a struct media_device in devm_ memory, which v4l2_release()
-> +/// also reaches; a struct v4l2_subdev with a device node, whose close
-> +/// reaches it; a static node whose file operations reach devm_ state
-> +/// through a global or drvdata pointer; memory freed by devm_add_action()
-> +/// rather than allocated by devm_k*(); a typedef'd struct; and a file or
-> +/// function spatch cannot parse.
-> +/// False positives: a driver that cannot be unbound (suppress_bind_attrs,
-> +/// platform_driver_probe()) on a device that is never removed, a driver
-> +/// whose remove() waits for the last close, a miscdevice driver whose file
-> +/// operations do not use the allocation after open(), a registration of
-> +/// an address that only uses the allocation to reach separate memory
-> +/// (&x->ptr->misc, &table[x->idx]), a v4l2_device that no video_device
-> +/// points to, and, for the type rule, a struct whose embedded node is not
-> +/// registered from this allocation.  When an allocation has several
-> +/// registrations, the report names the first one found.
-
-Could you rewrite this in a much more concise format?  If you look at the
-other semantic patches, you will see that they only have a line or two.
-We don't need a description of what each rule does.
-
-
-> +///
-> +// Confidence: Moderate
-> +// Options: --include-headers-for-types
-> +
-> +virtual org
-> +virtual report
-> +
-> +@initialize:python@
-> +@@
-> +seen = set()
-> +
-> +@alloc depends on org || report exists@
-
-Since you only support org and report, you don't really need depends on
-org || report everywhere.
-
-julia
-
-> +expression x, e, e2;
-> +identifier fn =~ "^devm_k[mzcr]";
-> +position p, q;
-> +@@
-> +
-> +x = fn@p(...);
-> +... when != x = e
-> +(
-> +misc_register@q(\(x\|&<+... x ...+>\))
-> +|
-> +cdev_add@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +cdev_device_add@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +video_register_device@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +video_register_device_no_warn@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +__video_register_device@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +v4l2_device_register@q(e2, \(x\|&<+... x ...+>\))
-> +)
-> +
-> +@allocdecl depends on org || report exists@
-> +identifier x;
-> +type T;
-> +expression e, e2;
-> +identifier fn =~ "^devm_k[mzcr]";
-> +position p, q;
-> +@@
-> +
-> +T *x = fn@p(...);
-> +... when != x = e
-> +(
-> +misc_register@q(\(x\|&<+... x ...+>\))
-> +|
-> +cdev_add@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +cdev_device_add@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +video_register_device@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +video_register_device_no_warn@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +__video_register_device@q(\(x\|&<+... x ...+>\), ...)
-> +|
-> +v4l2_device_register@q(e2, \(x\|&<+... x ...+>\))
-> +)
-> +
-> +@embeds depends on org || report@
-> +identifier S, f;
-> +type T = {struct cdev, struct miscdevice, struct video_device,
-> +          struct v4l2_device};
-> +@@
-> +
-> +struct S {
-> +  ...
-> +  T f;
-> +  ...
-> +};
-> +
-> +@bytype depends on org || report@
-> +identifier embeds.S;
-> +struct S *x;
-> +identifier fn =~ "^devm_k[mzcr]";
-> +position p;
-> +@@
-> +
-> +x = fn@p(...)
-> +
-> +@script:python depends on org@
-> +p << alloc.p;
-> +q << alloc.q;
-> +@@
-> +if (p[0].file, p[0].line, p[0].column) not in seen:
-> +    seen.add((p[0].file, p[0].line, p[0].column))
-> +    coccilib.org.print_todo(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
-> +
-> +@script:python depends on report@
-> +p << alloc.p;
-> +q << alloc.q;
-> +@@
-> +if (p[0].file, p[0].line, p[0].column) not in seen:
-> +    seen.add((p[0].file, p[0].line, p[0].column))
-> +    coccilib.report.print_report(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
-> +
-> +@script:python depends on org@
-> +p << allocdecl.p;
-> +q << allocdecl.q;
-> +@@
-> +if (p[0].file, p[0].line, p[0].column) not in seen:
-> +    seen.add((p[0].file, p[0].line, p[0].column))
-> +    coccilib.org.print_todo(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
-> +
-> +@script:python depends on report@
-> +p << allocdecl.p;
-> +q << allocdecl.q;
-> +@@
-> +if (p[0].file, p[0].line, p[0].column) not in seen:
-> +    seen.add((p[0].file, p[0].line, p[0].column))
-> +    coccilib.report.print_report(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
-> +
-> +@script:python depends on org@
-> +p << bytype.p;
-> +S << embeds.S;
-> +@@
-> +if (p[0].file, p[0].line, p[0].column) not in seen:
-> +    seen.add((p[0].file, p[0].line, p[0].column))
-> +    coccilib.org.print_todo(p[0], "WARNING: devm_ allocation of struct %s, which embeds a cdev, miscdevice, video_device or v4l2_device" % S)
-> +
-> +@script:python depends on report@
-> +p << bytype.p;
-> +S << embeds.S;
-> +@@
-> +if (p[0].file, p[0].line, p[0].column) not in seen:
-> +    seen.add((p[0].file, p[0].line, p[0].column))
-> +    coccilib.report.print_report(p[0], "WARNING: devm_ allocation of struct %s, which embeds a cdev, miscdevice, video_device or v4l2_device" % S)
-> --
-> 2.43.0
->
->
->
