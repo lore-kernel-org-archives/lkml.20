@@ -1,62 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960359;
-	b=iHX0lzrNHwCOa+3Fbx648qa2NcG3iEwBFxemh11r8528ORe3/7O5ECKwKUCkRZ9ASg35
-	 vGgsxOaIvTQCNiXMzCjXH8mcADhHio6ZpyE42X4tbFwR5LGdxuh/r+uT8Ph/3UhPIffWj
-	 cvfS7o9lYQVoqiodSiL0VID6/pjCMXuWrh0tft5VZ42c8nUnEUC4PBHf6vSf2mXQZTKla
-	 PmFLKvatxUQbrxzWBajYj6ZUo6ljswiiZdMq3o/01AGJcOiDQTxHl0Yyuagi/87UvuxCn
-	 xNDIyodZdJjxB1ucp2I1Lboy0R5YLk+KPXzA2IAvMRiybhV4d6u+rR9QOYjrdoACzXQ==
+	t=1793960389;
+	b=lv7NGVxotIVa3N/BATI9s63hqh59/ixit6r1U9wz3lk8Pry9XrrUsp1NqEsBXO2Js5u7
+	 bGG/Te6Yegvdr4CPqdqk9wMVNXa5IugKiSdYPxOr3PawQLI5c7TLDg+zpLFO5uoQSoymG
+	 CIeBjcfD8MGysYXQfW5qy0V9ZnR4gLUSAWvS6IC0PAFphJpVb2x/olBnQjDGwb8Zf9Aro
+	 iHtUNJw9nwF6543icLjr+gKUhiLjoSSTBbnywe0gvAf1csgqHNUBbeqNCnMiQTg/Eh2l0
+	 j89iPcu4uHeYlvpdGgEmsujVZBPEF/7MdS6NtyeHgqRw29fddBbk8siOX/+6mFBEk7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960359;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=unrFjlsjJKQ+CAxsdDw8UmfmI2hhUuRrRoO90qx5ffY=;
-	b=BHZup5tyf7PqhzemgLopeqyhfFElFJHy4421vFZIlr+jylwr+9/DfDzQpMSuEjWutXNg
-	 yX3KbD+3fSj7iIg0i2lfCOvy3WwAtVYOQhaXBTSqhNMrjIPQzYtIf/Jd65o6lKvmR3I6h
-	 8X1K+i6mSNuTlduaIodfvE/dmorqsGz5uRNbxsZqfzJ3gipfB+rjNQaT2S+RsoiD/lrn0
-	 sHdx3/RYN7FKT5kS4swb3fZDShatBLwnOkWFSYcQSNVUQJp/VM5iduLoiWebuPKUalrmJ
-	 OLpGeDBeAAd/g0Va1rWkXx+G/+zAXW7aqLdni6U+8UiXDYDIHMt1aQgo/65/K6kG8qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960389;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
+	 Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=/szd/kjx5OIvlkgTTI5PTJT4UKiSLwpZw2q+Cv5yeKs=;
+	b=YsimOOv0LE+Hn/FgstZJQ6lkbGDTudUYVO1XqCrT4xM3hilt+gjfsTritPK/eJ+S0WuN
+	 nWGkcir6oZqnAacw8bt9ZjeClOyG/dWKz6vlJ9CsYXehKHKY8YpG/Evm8lxz7Tj3MN29w
+	 GsTKcT1kE8SjW2DbO8xOLQLEppQgckS/dBqcuMmTh/czyFS5qTRDzOhXSrmV7rG13P/PJ
+	 LTUaSpTEd9GDjUqPvXZRzZ39bXeQCq4umgmCecsEscCHFclgsEuBb1M3bS+ARxq+orp1B
+	 OEQE6TVJRok+y/QMFkViGs7z79ItaErB0YC/PB4PirDDgg0VMrUGviBzUxgMLsSrlVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=student.uibk.ac.at;
-	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=rhS2nRx4;
-	arc=none smtp.remote-ip=138.232.1.140
-Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zwKrOMIx;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="XOhIF/BZ";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76039606A32D;
-	Fri,  6 Nov 2026 10:19:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76039606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9820606A336;
+	Fri,  6 Nov 2026 10:19:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9820606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=rhS2nRx4
-Received: from surface-pro-5 (ydWLT-U1-95-184.uibk.ac.at [172.25.95.184])
-	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6AIUcj1863214
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 6 Nov 2026 11:18:33 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6AIUcj1863214
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1793960314;
-	bh=unrFjlsjJKQ+CAxsdDw8UmfmI2hhUuRrRoO90qx5ffY=;
-	h=From:To:Cc:Subject:Date;
-	b=rhS2nRx4GSMAraR5KqqIklHPeFISqe3zTmC67jloL28JDxNwMRydfN1TAoXFL0F18
-	 v7FsMjpcQ6O6ZeWR7SEQ71af9N5USjbceKxleo2/GgP0eM+gomiYknfhwUHuOrDrev
-	 ZkoT641kzB4RwFY/ndAxw5mPWYN39qnxUEiYWeBQ=
-From: christian.koever-draxl@student.uibk.ac.at
-To: neil.armstrong@linaro.org, jbrunet@baylibre.com, sboyd@kernel.org,
-        bmasney+clk@redhat.com, khilman@baylibre.com,
-        martin.blumenstingl@googlemail.com, yu.tu@amlogic.com
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH v2] clk: meson: s4: keep the PWM clocks off vid_pll
-Date: Fri,  6 Nov 2026 11:18:27 +0100
-Message-ID: <20261106101827.46467-1-christian.koever-draxl@student.uibk.ac.at>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=zwKrOMIx;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=XOhIF/BZ
+Date: Fri, 06 Nov 2026 10:19:45 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793960387;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=/szd/kjx5OIvlkgTTI5PTJT4UKiSLwpZw2q+Cv5yeKs=;
+	b=zwKrOMIxUF279hfi3jboWoJuy0R0ppuTeEgbLiuOhinG3/SoM4o0Wdl+Qvgt9gzp3BrRv9
+	gh9S6m7En0mUsmetBJzuPDbODO9ZCeIsvZaPPxp5iBLQyyrQPSovWy4JZxd2kExorHTf6H
+	3egyDE1s57rPQzmSfFfUPYlQArMfgXTaORCOIANnjZtJATVxl7GzlXgHUBAmwD0hki+G8A
+	TD31pBRzVAUyMTtdSUh9Ja6FuL3eFeiI+jqCHcIKHY+Hrqf3m3nkNzCrHMCWz7Esb0+ctl
+	eGYJSc6BaxzlievzeHkwY0Bmz6N/8YVav6FYRY6oZemxV2JaJUaYumMVXTWYYw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793960387;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=/szd/kjx5OIvlkgTTI5PTJT4UKiSLwpZw2q+Cv5yeKs=;
+	b=XOhIF/BZjLJ1xIPQT60BHVJl8wUvS3swZ0gb8dLOMZKsek+6jqmdg7oD5i43qzle7o2td7
+	XQGUxx9Him7+VjCw==
+From: "tip-bot2 for Peter Zijlstra" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: locking/urgent] locking/osq: Switch
+ osq_wait_next()/atomic_cmpxchg() ordering
+Cc: David Laight <david.laight.linux@gmail.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Waiman Long <longman@redhat.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,131 +76,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: () -13.0 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,U_H_APTO_LONG,U_RCPTS_11_PLUS
-X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
+Message-ID: <179396038563.1009794.8520787558050711261.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+The following commit has been merged into the locking/urgent branch of tip:
 
-vid_pll is dedicated to the video path and is reprogrammed on display
-mode changes, so it should not be offered to the PWM devices, even
-though the hardware allows it. On an S905W2 board PWM channels ended up
-on it, which broke the PWM CPU regulator and the 32.768 kHz clock of the
-SDIO wifi chip.
+Commit-ID:     1b9e01fcc47aff00d2fd64693c5dcd620eff5865
+Gitweb:        https://git.kernel.org/tip/1b9e01fcc47aff00d2fd64693c5dcd620ef=
+f5865
+Author:        Peter Zijlstra <peterz@infradead.org>
+AuthorDate:    Tue, 15 Sep 2026 13:09:33 +02:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Fri, 06 Nov 2026 11:16:14 +01:00
 
-Drop vid_pll from the PWM parents and keep the remaining inputs on their
-register values with a mux table.
+locking/osq: Switch osq_wait_next()/atomic_cmpxchg() ordering
 
-Fixes: 57b55c76aaf1 ("clk: meson: S4: add support for Amlogic S4 SoC peripheral clock controller")
-Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+The atomic_cmpxchg() in osq_wait_next() removes the current CPU's node
+from the tail of the queue and puts @old_cpu back.
+
+This is very much like an 'unlock', which is RELEASE, rather than
+ACQUIRE.
+
+Additionally, on success (the only case where the ordering is
+effective), this returns NULL which means both callsites will do nothing
+more, there are no subsequent operations to order against.
+
+Furthermore, the osq_lock() caller will then return false, indicating
+failure to acquire -- the mutex must go block. Again, not making a case
+for ACQUIRE.  Neither atomics nor locks provide ordering on failure.
+
+Since ACQUIRE makes no sense, while RELEASE makes it more symmetric with
+osq_unlock(), switch the ordering. This then makes osq_unlock()
+consistently RELEASE.
+
+Fixes: c55a6ffa6285 ("locking/osq: Relax atomic semantics")
+Suggested-by: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Waiman Long <longman@redhat.com>
+Cc: linux-kernel@vger.kernel.org
 ---
-Changes in v2:
-- Rewrote the commit message (Jerome): no claims about how the PWM
-  driver picks its parent, only that vid_pll belongs to the video path
-  and should not be offered to the PWM devices.
-- Dropped "clk: meson: s4: propagate rate requests through the CEC 32k
-  muxes": the 32768 Hz rate is now set with assigned-clock-rates in the
-  DT next to the parents (Jerome), so the series is down to this patch.
-- Link to v1: https://lore.kernel.org/r/20261025191852.208226-2-christian.koever-draxl@student.uibk.ac.at
+ kernel/locking/osq_lock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tool use (Documentation/process/generated-content.rst):
-This work was done with the help of an AI coding assistant, Claude
-(Anthropic), used through Claude Code over many sessions. It did a large
-part of the hands-on work: it read the vendor kernel and the firmware
-interfaces, probed registers on the board, drafted the code and the
-changelogs, and ran the builds, checkpatch, dt_binding_check and the
-tests on the hardware. I directed the work, reviewed every change and
-the final patches, and take responsibility for them. There is no single
-prompt to quote; the sessions were of the form "find out why X fails on
-this board, fix it, test it on the box".
-
-Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
-vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
-
- drivers/clk/meson/s4-peripherals.c | 34 +++++++++++++++++++-----------
- 1 file changed, 22 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/clk/meson/s4-peripherals.c b/drivers/clk/meson/s4-peripherals.c
-index ba41fcd90588..e5e5ff979efd 100644
---- a/drivers/clk/meson/s4-peripherals.c
-+++ b/drivers/clk/meson/s4-peripherals.c
-@@ -2588,51 +2588,61 @@ static struct clk_regmap s4_spicc0_en = {
- 	},
- };
- 
--/* PWM Clock */
-+/*
-+ * PWM Clock
-+ *
-+ * vid_pll (mux input 1) is left out: it belongs to the video path and is
-+ * reprogrammed on display mode changes.
-+ */
-+static u32 s4_pwm_parents_table[] = { 0, 2, 3 };
-+
- static const struct clk_parent_data s4_pwm_parents[] = {
- 	{ .fw_name = "xtal", },
--	{ .hw = &s4_vid_pll.hw },
- 	{ .fw_name = "fclk_div4", },
- 	{ .fw_name = "fclk_div3", },
- };
- 
--static S4_COMP_SEL(pwm_a, CLKCTRL_PWM_CLK_AB_CTRL, 9, 0x3, s4_pwm_parents);
-+#define S4_PWM_SEL(_name, _reg, _shift) \
-+	MESON_COMP_SEL(s4_, _name, _reg, _shift, 0x3, s4_pwm_parents, \
-+		       s4_pwm_parents_table, 0, 0)
-+
-+static S4_PWM_SEL(pwm_a, CLKCTRL_PWM_CLK_AB_CTRL, 9);
- static S4_COMP_DIV(pwm_a, CLKCTRL_PWM_CLK_AB_CTRL, 0, 8);
- static S4_COMP_GATE(pwm_a, CLKCTRL_PWM_CLK_AB_CTRL, 8);
- 
--static S4_COMP_SEL(pwm_b, CLKCTRL_PWM_CLK_AB_CTRL, 25, 0x3, s4_pwm_parents);
-+static S4_PWM_SEL(pwm_b, CLKCTRL_PWM_CLK_AB_CTRL, 25);
- static S4_COMP_DIV(pwm_b, CLKCTRL_PWM_CLK_AB_CTRL, 16, 8);
- static S4_COMP_GATE(pwm_b, CLKCTRL_PWM_CLK_AB_CTRL, 24);
- 
--static S4_COMP_SEL(pwm_c, CLKCTRL_PWM_CLK_CD_CTRL, 9, 0x3, s4_pwm_parents);
-+static S4_PWM_SEL(pwm_c, CLKCTRL_PWM_CLK_CD_CTRL, 9);
- static S4_COMP_DIV(pwm_c, CLKCTRL_PWM_CLK_CD_CTRL, 0, 8);
- static S4_COMP_GATE(pwm_c, CLKCTRL_PWM_CLK_CD_CTRL, 8);
- 
--static S4_COMP_SEL(pwm_d, CLKCTRL_PWM_CLK_CD_CTRL, 25, 0x3, s4_pwm_parents);
-+static S4_PWM_SEL(pwm_d, CLKCTRL_PWM_CLK_CD_CTRL, 25);
- static S4_COMP_DIV(pwm_d, CLKCTRL_PWM_CLK_CD_CTRL, 16, 8);
- static S4_COMP_GATE(pwm_d, CLKCTRL_PWM_CLK_CD_CTRL, 24);
- 
--static S4_COMP_SEL(pwm_e, CLKCTRL_PWM_CLK_EF_CTRL, 9, 0x3, s4_pwm_parents);
-+static S4_PWM_SEL(pwm_e, CLKCTRL_PWM_CLK_EF_CTRL, 9);
- static S4_COMP_DIV(pwm_e, CLKCTRL_PWM_CLK_EF_CTRL, 0, 8);
- static S4_COMP_GATE(pwm_e, CLKCTRL_PWM_CLK_EF_CTRL, 8);
- 
--static S4_COMP_SEL(pwm_f, CLKCTRL_PWM_CLK_EF_CTRL, 25, 0x3, s4_pwm_parents);
-+static S4_PWM_SEL(pwm_f, CLKCTRL_PWM_CLK_EF_CTRL, 25);
- static S4_COMP_DIV(pwm_f, CLKCTRL_PWM_CLK_EF_CTRL, 16, 8);
- static S4_COMP_GATE(pwm_f, CLKCTRL_PWM_CLK_EF_CTRL, 24);
- 
--static S4_COMP_SEL(pwm_g, CLKCTRL_PWM_CLK_GH_CTRL, 9, 0x3, s4_pwm_parents);
-+static S4_PWM_SEL(pwm_g, CLKCTRL_PWM_CLK_GH_CTRL, 9);
- static S4_COMP_DIV(pwm_g, CLKCTRL_PWM_CLK_GH_CTRL, 0, 8);
- static S4_COMP_GATE(pwm_g, CLKCTRL_PWM_CLK_GH_CTRL, 8);
- 
--static S4_COMP_SEL(pwm_h, CLKCTRL_PWM_CLK_GH_CTRL, 25, 0x3, s4_pwm_parents);
-+static S4_PWM_SEL(pwm_h, CLKCTRL_PWM_CLK_GH_CTRL, 25);
- static S4_COMP_DIV(pwm_h, CLKCTRL_PWM_CLK_GH_CTRL, 16, 8);
- static S4_COMP_GATE(pwm_h, CLKCTRL_PWM_CLK_GH_CTRL, 24);
- 
--static S4_COMP_SEL(pwm_i, CLKCTRL_PWM_CLK_IJ_CTRL, 9, 0x3, s4_pwm_parents);
-+static S4_PWM_SEL(pwm_i, CLKCTRL_PWM_CLK_IJ_CTRL, 9);
- static S4_COMP_DIV(pwm_i, CLKCTRL_PWM_CLK_IJ_CTRL, 0, 8);
- static S4_COMP_GATE(pwm_i, CLKCTRL_PWM_CLK_IJ_CTRL, 8);
- 
--static S4_COMP_SEL(pwm_j, CLKCTRL_PWM_CLK_IJ_CTRL, 25, 0x3, s4_pwm_parents);
-+static S4_PWM_SEL(pwm_j, CLKCTRL_PWM_CLK_IJ_CTRL, 25);
- static S4_COMP_DIV(pwm_j, CLKCTRL_PWM_CLK_IJ_CTRL, 16, 8);
- static S4_COMP_GATE(pwm_j, CLKCTRL_PWM_CLK_IJ_CTRL, 24);
- 
-
-base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
--- 
-2.56.0
-
+diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
+index b4233dc..98b12d7 100644
+--- a/kernel/locking/osq_lock.c
++++ b/kernel/locking/osq_lock.c
+@@ -59,7 +59,7 @@ osq_wait_next(struct optimistic_spin_queue *lock,
+=20
+ 	for (;;) {
+ 		if (atomic_read(&lock->tail) =3D=3D curr &&
+-		    atomic_cmpxchg_acquire(&lock->tail, curr, old_cpu) =3D=3D curr) {
++		    atomic_cmpxchg_release(&lock->tail, curr, old_cpu) =3D=3D curr) {
+ 			/*
+ 			 * We were the last queued, we moved @lock back. @prev
+ 			 * will now observe @lock and will complete its
