@@ -1,78 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793990201;
-	b=zMfd7bUAkMGLXWWl7VpnCr0TGS8EupvQmL1gaUGWq5IMnRTOEme7/e9aLqgRaXOH9OGP
-	 cDdsdWeldPUBGvohJX4lvGIMdPAqhA8Tb4g8oNbfjDmz7DF4l19kZ3tXh7XSoIQGluIwg
-	 qGvEBUfmAcgb1J+EImcGROEsQNGuXFBa4UQN6ILhjMkzjih2GGXMOWCqEpaSKinzldLwG
-	 Hlo2V+kyVjooxErs1iARJYDWpIDEOqEo6nVCyTBcBnXJOwn/h7wg91jQf98gRic43MlF3
-	 zgA7v0w5KhcYP8zfyr8e7KG22tQ/r0nqD8Cmh1g3HB6uHx4WvltMpAJWt15E3qW8LbA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990201;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Dt7q0TJzzQeL7Mvp56yys7MljcKH2JzQSHy8DMjhZuc=;
-	b=S/do/bUBzlhRbg7XgRFIpHr194M6vG2TxBla+JU1CYj5yS127CyVMXUPSc1ovHbvK8K2
-	 pKoZM+/yuXEw8jmd3/MKFfr5dbdq59d4yBL74ihaCbCQJV3BqcEscf0J8eyHAt+sUbZyr
-	 ju5jKbSFDYUkdULG1SayFc5r3TkHxyNpvaQtUv4IBkG+7jf6mi5emDuywQtFTckwIUW5j
-	 QYVjNPuBArpaw/pvRXB10oqu/X1gQK88540P+nAQsjIo6Rt4of6J7WF2p2x5fkUG9arTx
-	 zDmEbjZVUcaq9Cj7xAPZBz2QXTh6W5MiS4KdryCMicifb1P8k1/dp1N8qdft4i8vf0A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHbdTdQU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35177606D822;
-	Fri,  6 Nov 2026 18:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793990212;
+	b=mw/j1+9pV883NP7UjScyUwJdVo11Hj+nCtV0hGXau6R9bm/LirujhxQkGCIlZ6sjnk2c
+	 NrhqmLCzDswOkok4tUjYfMqs/NiJVEEwUZkMawJ+DZnOWVOXc7EZ2n/v6GZxIVyreXeae
+	 KytF49Npe13C1Y4YIuQzpjAD3A4AwPQOM66+sPUSP9tsogCQRy8PFqPyhtdlW1C5Gp1AG
+	 KV8mA3xCJHoUwMoIn+z1vHfKYYatUbORnWjHi4eoDsAS2Zh4xEE0cIoY02vzHhtAYcQxu
+	 Nl9iIXPq0B3xMRzSMDoppJTOUTHNuKz4z/6ZqpQoVH94luq9sBbQrVGP2yj1GA0qUQg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793990212;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ner4HLqt8P3aTA3rkqClyXoS9WPb6d7Nw2R94iR6ruY=;
+	b=eoBXLLvCYUC+Aev74rRIdBX1maRTwvcoyjGtan3bXVmyAcqbmS0bqcHpAr0SOPDdTqZ1
+	 lFA354O2Q6pZsn936is831tdFoVf2HwOMs41ZjjNApu2uO669LGRljMpV2cTWt4wA1vwo
+	 hDmHv5W/y3lTwzeVAGBBQX7sdZHlnh0FrY54MCV0ddQzhjQ6eAYsGwNdzxqrquL70HQ4X
+	 A08LFVVFfuTLmN5/P9VzEfNZSM0jgeviyn2Itu6i6FsAfuHRKQffa4ORfhHBl7SUC5kyO
+	 QiX5zupgRpSG8ur0qlFJs03B2Lv8BLDyHAuVE3pkkbOdvOJ8tEnHiLF/7SlVj5t88kw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QOFmY3f5;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B77C7606EEB1
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:36:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B77C7606EEB1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHbdTdQU
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793990200;
-	b=DXlhDYDVOn3TR8bUJzfMCxQ4VaqMPW8T+nacsbJc5frI3RZIhsiRsb5h/6h28wIpBNlQ
-	 1/TwtjZtdjDwL+/3RyI/E98q8QjetrOE/6cru3t2KkvUeecPnJtVLftStmhCYMoaMFI0T
-	 RT9bsgHl7SjMM7idU7pTUp3BvIjV4HXrRwuhrrqaBVwBioCM7stZrV5WD+xCmDxnP3p0d
-	 MzqVV0pdb5jCu3avVeswD1azj6SN7/Set1de4IvOqm5TVZVEwJkVLG4fYt//qPxP1iuWO
-	 1FzevkQ4nntMt7k4SC6Ps63l9OjeKsd/qQbgQrUZaHjaiQzExUkSXnDAVmX88K47QIQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793990200;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Dt7q0TJzzQeL7Mvp56yys7MljcKH2JzQSHy8DMjhZuc=;
-	b=Zl5khL0qEulXwJGdnfXV9IlSerJRnAx13ljWatmTVqnPLCau27Gjh1zPo+3Kq9kTNOEI
-	 n7JMR/8hUIBmuGKlNUtbrG+TsB+W69KsVeuDrvhXwlYQuQswRDNbRrebOs26/5E75FaHa
-	 Pn4wqs1eNbP7jDdL/u4EtH0OmvvOA9tzPqXJnH7CuwQrqJotOc+8rHq815QgwjEwWIQ1/
-	 xJk3dffHSXPARAj0art/xi2VnNdlF+oKrCEiNs6+f3rOwdDWfXNiAI5VD5GZk0h0KqQ+k
-	 sANNX0h+58LCGFr7fWTjRKijRINPtl/lQ/bMV/91v9QqxbNGa2P7/AnG+K3+yLkFVOg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E55351F008A5;
-	Fri,  6 Nov 2026 18:36:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793990200;
-	bh=Dt7q0TJzzQeL7Mvp56yys7MljcKH2JzQSHy8DMjhZuc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=DHbdTdQU7hww4IrVeXQ82uSWjZlz5x0v+xzLdS+muVVTAi4XJU3VJa6Sv6CG6hqJz
-	 2DNAAvIKrdSvpi0IB1//Rwvng24CjBU1+kuCS2k35hrDCJYd4Y6EOxkCKpSJg93LBx
-	 N82sNYesiGw+cSeTk29iYSSlVJKyqybbtnMt4H1L7lK4oxOagirLMWls6/BnHddadS
-	 aP3Dmzv8eiYI4Q76wsMNFb6mPOcvuEfUEBsTYetQJNY9CS5VhiwBDsJ2oYVD5QSZAQ
-	 BBoc8zXpk0rqEQ0Gqt8RdTpQ2IRL2y5D9EkOkGjxxDkLaG7tYROUdUcqboD+3Y5Rrs
-	 yE62DkQzAMZhQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6F1DE47825;
-	Fri,  6 Nov 2026 18:36:37 +0000 (UTC)
-From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
-Date: Fri, 06 Nov 2026 18:35:38 +0000
-Subject: [PATCH v3 6/7] phy: qcom-mipi-csi2: Add SM8150 CSI2 DPHY support
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QOFmY3f5
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 295011650;
+	Fri,  6 Nov 2026 10:36:48 -0800 (PST)
+Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B012E3F673;
+	Fri,  6 Nov 2026 10:36:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793990211; bh=7ULSo94m9nkPCuWX576aB6lAnEnwhX48KblE/3XT8yc=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=QOFmY3f5TtXhb8oHDOllkyppL0ZWSK8FQJ5UPVoOGmLZT6wg6KGDCti0XGnB7OGhr
+	 vaCZwTu7osM0MxpqMr9WYrSj8G6tLadtcfCdpDhKhuRKMn+Z+OpZ+EbIDnaAZWxURB
+	 y7QbR9/kugsJ7MWHeRLU1fJ6X5tdu+Q/VvNbbjTg=
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: will@kernel.org,
+	mark.rutland@arm.com,
+	rppt@kernel.org,
+	baoquan.he@linux.dev,
+	sourabhjain@linux.ibm.com,
+	coiby.xu@gmail.com,
+	bgwin@google.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jinjie Ruan <ruanjinjie@huawei.com>
+Subject: Re: [PATCH v8] arm64: kexec_file: Fix elf_headers memory leak in retry loop
+Date: Fri,  6 Nov 2026 18:36:43 +0000
+Message-ID: <179399019202.2520879.12342583488895085376.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261105125724.2283453-1-ruanjinjie@huawei.com>
+References: <20261105125724.2283453-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,243 +69,15 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-sm8150-v7.4-rc1-camss-v3-6-0103e8a0bbcd@andrewgigena.dev>
-References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
- Andrew Gigena <mail@andrewgigena.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793990195; l=10225;
- i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
- bh=fAFtbuNKrv0SCgpDRGKPsktmDHYGiaUp7Ava6AeGnlc=;
- b=VAG5fKZPSbi0SHPgrNKQFBE+LBfJrV3lrDvIKjb+aoy3awnqy8KYfv8K41EH57gBArh3uy9w0
- vkqIMpYTnVnDcQj6a8CVt+rp7d1s34v9Aw6VOGMTVpsm7FThq0I01WT
-X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
- pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
-X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
- auth_id=1402
-X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
-Reply-To: mail@andrewgigena.dev
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Andrew Gigena <mail@andrewgigena.dev>
+On Thu, 05 Nov 2026 20:57:24 +0800, Jinjie Ruan wrote:
+> A retry allocates new elf headers and overwrites image->elf_headers,
+> leaking the previous buffer.
+> 
+> Free it before assigning.
 
-Add SM8150 platform data to the CSI2 DPHY driver so that SM8150 can use
-the dedicated PHY driver instead of the CAMSS-integrated CSIPHY.
+Applied to arm64 (for-next/fixes), thanks!
 
-The SM8150 CSIPHY uses the SC8280XP lane register layout, as already
-used by the CAMSS driver, so reuse that table, dropping the DNP entries,
-which the new PHY driver does not program. The PHY is fed by the "core"
-and "timer" clocks, the vdda-phy and vdda-pll supplies, and the Titan top
-power domain, which is not scaled.
-
-The timer clock is pinned to 300 MHz via a new timer_rate_hz soc field
-(SM8150 timer only supports 19.2/300 MHz). SM8150 is ordered before
-X1E80100 as it predates it (7 nm vs 4 nm). A detach of the
-platform-attached single power domain is done before attaching by name,
-so single-domain SoCs do not fail with -EEXIST.
-
-Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
----
- drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 97 ++++++++++++++++++++++
- drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 16 +++-
- drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  4 +
- 3 files changed, 116 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-index 966d79c98f9b..b8b6589cee35 100644
---- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-+++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-@@ -45,6 +45,73 @@
- #define CSIPHY_SETTLE_CNT_LOWER_BYTE			2
- #define CSIPHY_SKEW_CAL					7
- 
-+/* 7nm 2PH v 1.1 2p5Gbps 4 lane DPHY mode */
-+static const struct
-+mipi_csi2phy_lane_regs lane_regs_sm8150[] = {
-+	{.reg_addr = 0x0004, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x002c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0034, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x001c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0014, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x003c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0000, .reg_data = 0x90, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0008, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{.reg_addr = 0x0010, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0038, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0060, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0064, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0704, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x072c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0734, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x071c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0714, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0728, .reg_data = 0x04, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x073c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0700, .reg_data = 0x80, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0708, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{.reg_addr = 0x070c, .reg_data = 0xa5, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0710, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0738, .reg_data = 0x1f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0760, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0764, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0204, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x022c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0234, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x021c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0214, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x023c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0200, .reg_data = 0x90, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0208, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{.reg_addr = 0x0210, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0238, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0260, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0264, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0404, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x042c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0434, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x041c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0414, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x043c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0400, .reg_data = 0x90, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0408, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{.reg_addr = 0x0410, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0438, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0460, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0464, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0604, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x062c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0634, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x061c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0614, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x063c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0600, .reg_data = 0x90, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0608, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{.reg_addr = 0x0610, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0638, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0660, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-+	{.reg_addr = 0x0664, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
-+};
-+
- /* 4nm 2PH v 2.1.2 2p5Gbps 4 lane DPHY mode */
- static const struct
- mipi_csi2phy_lane_regs lane_regs_x1e80100[] = {
-@@ -352,6 +419,36 @@ static const struct mipi_csi2phy_hw_ops phy_qcom_mipi_csi2_ops_3ph_1_0 = {
- 	.lanes_disable = phy_qcom_mipi_csi2_lanes_disable,
- };
- 
-+static const char * const sm8150_clks[] = {
-+	"core",
-+	"timer"
-+};
-+
-+static const char * const sm8150_supplies[] = {
-+	"vdda-phy",
-+	"vdda-pll"
-+};
-+
-+static struct mipi_csi2_genpd sm8150_genpds[] = {
-+	{ .name = "top", .scaled = false },
-+};
-+
-+const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_sm8150 = {
-+	.ops = &phy_qcom_mipi_csi2_ops_3ph_1_0,
-+	.reg_info = {
-+		.init_seq = lane_regs_sm8150,
-+		.lane_array_size = ARRAY_SIZE(lane_regs_sm8150),
-+		.common_regs_offset = 0x800,
-+	},
-+	.supply_names = (const char **)sm8150_supplies,
-+	.num_supplies = ARRAY_SIZE(sm8150_supplies),
-+	.clk_names = (const char **)sm8150_clks,
-+	.num_clk = ARRAY_SIZE(sm8150_clks),
-+	.timer_rate_hz = 300000000,
-+	.genpds = sm8150_genpds,
-+	.num_genpds = ARRAY_SIZE(sm8150_genpds),
-+};
-+
- static const char * const x1e_clks[] = {
- 	"core",
- 	"timer",
-diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-index c0a4fa20eaf0..3a45b8766311 100644
---- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-+++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-@@ -68,7 +68,11 @@ phy_qcom_mipi_csi2_set_clock_rates(struct mipi_csi2phy_device *csi2phy,
- 		goto unset_opp_rate;
- 	}
- 
--	timer_rate = clk_round_rate(csi2phy->timer_clk, link_freq / 4);
-+	if (csi2phy->soc_cfg->timer_rate_hz)
-+		timer_rate = clk_round_rate(csi2phy->timer_clk,
-+					    csi2phy->soc_cfg->timer_rate_hz);
-+	else
-+		timer_rate = clk_round_rate(csi2phy->timer_clk, link_freq / 4);
- 	if (timer_rate <= 0) {
- 		ret = -ENODEV;
- 		goto unset_opp_rate;
-@@ -233,6 +237,15 @@ static int phy_qcom_mipi_csi2_attach_pm_domains(struct mipi_csi2phy_device *csi2
- 	const char **pd_names;
- 	int i;
- 
-+	/*
-+	 * platform_probe() auto-attaches a single power domain during probe.
-+	 * Detach it first so devm_pm_domain_attach_list() can attach all
-+	 * domains by name (otherwise it returns -EEXIST for single-domain
-+	 * SoCs such as SM8150).
-+	 */
-+	if (csi2phy->dev->pm_domain)
-+		dev_pm_domain_detach(csi2phy->dev, false);
-+
- 	pd_names = devm_kzalloc(csi2phy->dev,
- 				sizeof(char *) * csi2phy->soc_cfg->num_genpds,
- 				GFP_KERNEL);
-@@ -443,6 +456,7 @@ static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
- }
- 
- static const struct of_device_id phy_qcom_mipi_csi2_of_match_table[] = {
-+	{ .compatible	= "qcom,sm8150-csi2-phy", .data = &mipi_csi2_dphy_sm8150 },
- 	{ .compatible	= "qcom,x1e80100-csi2-phy", .data = &mipi_csi2_dphy_4nm_x1e },
- 	{ }
- };
-diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-index 7e55ae007370..4da9f12d4f8d 100644
---- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-+++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-@@ -68,6 +68,9 @@ struct mipi_csi2phy_soc_cfg {
- 	const char ** const clk_names;
- 	const unsigned int num_clk;
- 
-+	/* 0 = derive timer rate from link_freq/4; non-zero = fixed rate */
-+	unsigned long timer_rate_hz;
-+
- 	const struct mipi_csi2_genpd *genpds;
- 	const unsigned int num_genpds;
- };
-@@ -92,6 +95,7 @@ struct mipi_csi2phy_device {
- 	u32 hw_version;
- };
- 
-+extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_sm8150;
- extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e;
- 
- #endif /* __PHY_QCOM_MIPI_CSI2_H__ */
-
--- 
-2.56.0
-
-
+[1/1] arm64: kexec_file: Fix elf_headers memory leak in retry loop
+      https://git.kernel.org/arm64/c/ac302aea3d82
