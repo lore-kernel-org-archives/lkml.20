@@ -1,44 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964410;
-	b=iLTFKwzxXNAVTD053qSOEIwZRYlvrSqO/K2vS98gdll0wxABjqLrpnFUZ8+DNAq/M10o
-	 ZcZn8PeybfIocRRZfXARimsFjqJQb04ppHhlOMwnudmjBcSdr1zVPLBX+qkIOBpD0zdXj
-	 48VaYLLhc9twOpA2R0PNGfLhcFwgCgRNkv2oHqyLTP5BfyiSBxjph7z3VyqvcsXAezgzM
-	 mm12G2mT1J9QDLz9MaWxde5j3mjOcE077tHdQpXdnPzjhE14LIc+MNAW8PKDoxcsfTtda
-	 DE3BJmnSv9oOxNj+QPB8QkmCPhlKNT/V1/CdyrCtXUkPhG28uNhc8FrgbqTc//me0hA==
+	t=1793964422;
+	b=G5BH+SF4tXaNflOXaz9NBet2ULAUpi39ffCDg4Uv1UlTBFJ8s69hL0g4z2i8AqcQ9XwO
+	 3ctj6xVQ2ufoimFittSZJCIiV80002QdmVkBMwElRKeSpLi9oNPWcTBKcoiyTvYvier4D
+	 hqs3gyFaBuS4wcEQB1YwwVdY3m3Xw2JTftNjK04nn6ROXRAZ3wIgX7dapKovi9elXk/pA
+	 KjwLllR7Dvf47zlm751k6SNTZ8AUhAlij141ucq6IM3X5C2sj2ROFdiqH7RFCcF95FVnT
+	 Kg/bVO8IJrGBF3KC47Rl4I0rLjHZd+Bp5X8X1c2fQLA9S2apvRuhswdwWmdo3bdzm0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964422;
 	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
 	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
 	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=9Y5UCOxLcLONgfwtiMJ07v4FP7zoH8CIbsF7+Rutog4=;
-	b=tX62739in+ku5asZnvQ8gq0ZQTkM3z/hlR/FnkAgIVHaIP0gv6YTQ1FCLLmLj7Hx2cob
-	 4bLi3Jg8x5mGmBkTwRNyDVlgt+BGb65p648gm9eXcFvIXhEATUdpVHQW8du+NbGc2rG8c
-	 rOEpcWCdE09NAiBuEBVOnEJMxQg3pEpq43dax4WNtrYN5MYmDBGhKMKOvDbF09Mt8r3Bu
-	 RtuTqHyjvaAWhMCcUZgoe5vfK2FAVmKd1Xp/175KP79344DKQ4HgibEa805ymSu+R+VPD
-	 Aj9o879CsSP3cNXwT9NjTfFQI3PmUDo27kYfzjGIL7bRT8qu7kvXKREHyfgqafC+YmQ==
+	bh=9pZkdeVJl7R8SXcoQCcXrYP4kUb4kP91dWdpJkr349g=;
+	b=TAe2HFCiD9XetYSd6/+Mc7yycJl+3iGi3An71VZnpgQuStmLApMTp5UXmYrk2gQdh2tM
+	 E745M+WIFhp3UwVGW6nJ3GC9mMZgTWolAqXplNRm5oEkUBW/PpFjuzpTlYrq8eVg7XwT2
+	 Fx3JNdfbXAX5Ve4nKdzxwa8PaIVfW4P+qfK0AcWI3/D1sq/NbKwdYxopVLbCqReFJv4zf
+	 WGsJFW+hEVD/AFgqe0fgaqeT1aADh3xaShpHHlLVqCehjZ2d5F+nWmwPYlVWyP8trRJPV
+	 zDa3pel030HWCaGmotw2Onr3XNbpVg9PIkf61Bt3sz9cS+c5EeoH8OfBGPIBz2oAVNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mucse.com;
 	spf=pass smtp.mailfrom=mucse.com;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	arc=none smtp.remote-ip=18.194.254.142
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF75606A32C;
-	Fri,  6 Nov 2026 11:26:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EF75606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DAB606A338;
+	Fri,  6 Nov 2026 11:26:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18DAB606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
-X-QQ-mid: zesmtpgz5t1793964315t52e0d7e1
-X-QQ-Originating-IP: HbpLPuSBpSt8G7ucbMe4zna7FtrYB05hN8lhjNLwNfc=
+X-QQ-mid: esmtpgz11t1793964349ta682decf
+X-QQ-Originating-IP: JONAMwfQXG1DB2Jgg0lA0PU+BNlRVHnDTsOBoSHteQY=
 Received: from nic-Precision-5820-Tower.tail7b ( [203.174.112.180])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 06 Nov 2026 19:25:12 +0800 (CST)
+	id ; Fri, 06 Nov 2026 19:25:46 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12139747150019972212
+X-BIZMAIL-ID: 14686409550492991758
 EX-QQ-RecipientCnt: 10
 From: Dong Yibo <dong100@mucse.com>
 To: andrew+netdev@lunn.ch,
@@ -51,9 +51,9 @@ Cc: linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org,
 	dong100@mucse.com,
 	yaojun@mucse.com
-Subject: [PATCH net-next 1/5] net: rnpgbe: Add basic ethtool support
-Date: Fri,  6 Nov 2026 19:25:10 +0800
-Message-ID: <3637FA23D47B2459+20261106112510.43809-1-dong100@mucse.com>
+Subject: [PATCH net-next 4/5] net: rnpgbe: Allow changing the primary MAC address
+Date: Fri,  6 Nov 2026 19:25:44 +0800
+Message-ID: <425F4F0858D134DD+20261106112544.44210-1-dong100@mucse.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <FB722C2F25FE9005+20261106112420.43050-1-dong100@mucse.com>
 References: <FB722C2F25FE9005+20261106112420.43050-1-dong100@mucse.com>
@@ -68,131 +68,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
-X-QQ-XMAILINFO: Nt9LS5Tya5fqZsGAt1P9ZR53SWirSB5JbQdrsCBzg2S0MdAbRPzcm76p
-	fpesBhYawXdFRRp/38Tc2CBwNU049KCCk5ykPo6HNTB/fZqL5u4xKK5BlUHv4S/Oinb3iPn
-	7ZWfCeMjP6AVDtFmLtPt5i8Sg3U/6+x1oNd+Ac2rGUMBJ/q4FlOChDQN1zj9QpvmQ4GdCmi
-	x67BZSj6y1vvN4n3mLQdTufwXZ4NroBvbrlZVZx476W7C0lkqebfkBOIfR3xfu5y77RENTB
-	EUX+dzcEZR7To8+wE/CDfCaZKPTxV7TpZ1469EUaMJR4/pKfR0DqL7eUh9y7AzQdw/1DXFO
-	tPrGG4oilty6l6YRW1cOeCoL5RkHL72K19J25B6kjDOKs8SHAarGqxRq8NFNsVDbi8wrHXb
-	HNYSEeIj693pFDwOt0sjK8Pig1jWw/yV2N7IbwJnUgSZTb2JHjn4bUhX8+8Tj/tA04UZ8IW
-	9xtcSsPX3fw375pJrBmQixxFZu/qtCkIiQqVgKQjeUVyGlUQUz5VwBx2/XNULNDzUTu2mqx
-	QgBKOfXr9Q0IOSSG9Q4giKoE99s7ebz8+jE4w4zLPbva4VXl7N3KpEw1zwR1I4UeKtii9AI
-	vhgXWQg3k4vMrjosFOEi6BTxeTDG9gBJpnYtz8evBKgoQa0TuIOKFCNRguMFOSMWmk/kbZS
-	ykcgeNtKCTciGbjW8vymZKsDRQyeDm14rZuFWrF21w8luWy6tR/8XHNtX7fjnoZm3WknT7P
-	SS7RUEhASA6DN6He23lvzwNb8czuKojYHecax2Sp2N80iqxwl8UZ64e9wB2q1LpybdB68ne
-	dFwJKvincsIOKJyJa7Y7z125HYBJQ4YEwqPodc502uoIiljZLgffrDg1hLfZztUrVEay4TV
-	kfsuo0/8NhxJrIY9pN38t+77Ek+K5343lesr+w5y4zO5obuU9N2+4glUvbtox6x2QORm5WA
-	9+JJUBkgt/37gnYollHhBb9rihtGn2fTNEfErNe4o67d5Krk63E6UcFvAq/lSAvXWtcM0kW
-	KpdsJTivxZmbMBMrQ/VPotzxJexRF2lPkGiIuzbQ/5G/U8Lypa/sM+NLzeT9iGIpwfiO2kJ
-	w==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+Feedback-ID: esmtpgz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: MQjKimNqHmey8MTT4ZNphzZA84gT8MZchVwAbeHs2ByLhtnwq8+rpgDv
+	BGQRXUG6RP9SE/PUJzWuZEvJN5xdBlM4dQV95KnSi5RVJItB0TAsQzLcn3ZNoi/R3vrouX8
+	hHELz7BOUjbWUarLqAVZt98HgOV+fIY+yaub6p8krqc3FoS6gBISUUSjW50Hi6duiEkf26m
+	AQmM0YOPJC/yHZEjNHxa4yM5cPJGuxhpcLSBkB1WbOuQbHaG8khaXYke+3pVw4N4REVBwgb
+	ZSjOCvNZaxEIkqLkhk6cTkIrjzBZsO7pX6icdCv1Cp3wd45w2Cae3o2AHYVqcSMhnlMAELW
+	aVylDYaEasUrBXV9r8hmCE1DjmEIgEBkUjL6yycd1XbV/SlIs/tuvYqC2O9LgPel54kQJTe
+	zElBB0WikOfVkZx7y7HV1NeO+6ivtm54TxLyIt91m3EI8/djsIXzNDkgkR08P6bhqMn3/MD
+	+pm28RfFzaHi1mDP9C/3oE1WWjVLLWlPgnFZpPS/RTLHTxNP8VcbnKUDBk1wi/vq4/18u6R
+	kT6NTsMQ/YZORI7V81YTOyF9EgplMVil1nMBvAfKvW5Xke2KQuaI0pqcTrc8/PLFstOpQGU
+	gitso4Z0v+vgjs+owJqkBLGnQ1sxmBjQkZEzQOm8p3NyldSV3Rv5Dcd2ANPXx6L4ah5XD7H
+	IjZbIHa9bb2/f9itX49ATLL4KRo8G+7o6Kkr5413FtAHFfdZ6wuLD5nH6hR7ENMIGDYYPWN
+	+xOSV8Yl381T5u3ounIkWHiFkYKnanyCfsV3cyJFZNQ2rWphTmNwcHjF7397ocl8OR9/F5m
+	bzg41fR5U2D3sjrRE8jNvgcLqR7rbRkZf05nYdh+tEDEr30g4EPdB7dRpS5Vq1hafg+AdnC
+	q0VFJhWBnVUeh9sf/4dt4pm4n98xXa2e1854NqivqXVUlHxQ9WZ7PiCn9MpmO3wnLrdn+zx
+	hp1KMrfVxVrWCehv1OGsZLgTGGq6jS4LzPAh0KuLTQraSP+F2IN7lmKLkTivejuudq2d2qV
+	vITVEo7Y9KU8g6bcmxzPIk/4xQT56dkevAdxFwhSVq0m9+8N1Rcscj15p7Xnq0NTFSCgqHu
+	IUkdEMyQlaEngKN2NiKanc=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 X-QQ-RECHKSPAM: 0
 
-Add get_drvinfo and get_link callbacks to report the driver name,
-PCI bus address, firmware version and carrier state through ethtool.
+Add ndo_set_mac_address support to change the primary MAC address
+while the interface is up or down. Validate the new address with the
+standard Ethernet helpers, then update the primary receive address
+filter and the netdev address.
 
 Signed-off-by: Dong Yibo <dong100@mucse.com>
 ---
- drivers/net/ethernet/mucse/rnpgbe/Makefile    |  1 +
- drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h    |  3 +++
- .../ethernet/mucse/rnpgbe/rnpgbe_ethtool.c    | 25 +++++++++++++++++++
- .../net/ethernet/mucse/rnpgbe/rnpgbe_main.c   |  1 +
- .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c |  4 ++-
- 5 files changed, 33 insertions(+), 1 deletion(-)
- create mode 100644 drivers/net/ethernet/mucse/rnpgbe/rnpgbe_ethtool.c
+ drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h    |  1 +
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_chip.c   | 23 +++++++++++++++++++
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_main.c   |  4 +++-
+ 3 files changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/mucse/rnpgbe/Makefile b/drivers/net/ethernet/mucse/rnpgbe/Makefile
-index 17574cad392a..4d768324a82c 100644
---- a/drivers/net/ethernet/mucse/rnpgbe/Makefile
-+++ b/drivers/net/ethernet/mucse/rnpgbe/Makefile
-@@ -9,4 +9,5 @@ rnpgbe-objs := rnpgbe_main.o\
- 	       rnpgbe_chip.o\
- 	       rnpgbe_mbx.o\
- 	       rnpgbe_mbx_fw.o\
-+	       rnpgbe_ethtool.o\
- 	       rnpgbe_lib.o
 diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
-index 4e9776b28bfb..2fe76c95da7c 100644
+index 83267d475257..8574377e3a22 100644
 --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
 +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
-@@ -46,6 +46,7 @@ struct mucse_hw {
- 	struct mucse_mbx_info mbx;
- 	int port;
- 	int speed;
-+	u32 fw_version;
- 	bool link;
- 	u16 cycles_per_us;
- 	u8 pfvfnum;
-@@ -257,6 +258,8 @@ int rnpgbe_set_rx_mode(struct net_device *netdev,
+@@ -269,6 +269,7 @@ int rnpgbe_init_hw(struct mucse_hw *hw, int board_type);
+ int rnpgbe_set_rx_mode(struct net_device *netdev,
+ 		       struct netdev_hw_addr_list *uc,
  		       struct netdev_hw_addr_list *mc);
++int rnpgbe_set_mac_address(struct net_device *netdev, void *addr);
  void rnpgbe_set_link(struct mucse_hw *hw, bool linkup);
  
-+extern const struct ethtool_ops rnpgbe_ethtool_ops;
-+
- /* Device IDs */
- #define PCI_VENDOR_ID_MUCSE               0x8848
- #define RNPGBE_DEVICE_ID_N500_QUAD_PORT   0x8308
-diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_ethtool.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_ethtool.c
-new file mode 100644
-index 000000000000..506233f62698
---- /dev/null
-+++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_ethtool.c
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright(c) 2022 - 2026 Mucse Corporation. */
-+
-+#include <linux/ethtool.h>
-+#include <linux/pci.h>
-+
-+#include "rnpgbe.h"
-+
-+static void rnpgbe_get_drvinfo(struct net_device *netdev,
-+			       struct ethtool_drvinfo *info)
+ extern const struct ethtool_ops rnpgbe_ethtool_ops;
+diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c
+index a6ab94bd1578..7505c9f6c79d 100644
+--- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c
++++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_chip.c
+@@ -232,6 +232,29 @@ static void rnpgbe_clear_rar(struct mucse_hw *hw, u32 index)
+ 	mucse_hw_wr32(hw, RNPGBE_RX_RAR_LOW(index), 0);
+ }
+ 
++/**
++ * rnpgbe_set_mac_address - Change the interface's primary MAC address
++ * @netdev: network interface
++ * @addr: socket address containing the new MAC address
++ *
++ * Return: 0 on success, negative errno for an invalid address
++ */
++int rnpgbe_set_mac_address(struct net_device *netdev, void *addr)
 +{
 +	struct mucse *mucse = netdev_priv(netdev);
-+	u32 version = mucse->hw.fw_version;
++	struct sockaddr *sa = addr;
++	int err;
 +
-+	strscpy(info->driver, KBUILD_MODNAME);
-+	strscpy(info->bus_info, pci_name(mucse->pdev));
-+	snprintf(info->fw_version, sizeof(info->fw_version), "%u.%u.%u.%u",
-+		 version >> 24, (version >> 16) & 0xff,
-+		 (version >> 8) & 0xff, version & 0xff);
++	err = eth_prepare_mac_addr_change(netdev, addr);
++	if (err)
++		return err;
++
++	rnpgbe_set_rar(&mucse->hw, 0, sa->sa_data);
++	eth_commit_mac_addr_change(netdev, addr);
++
++	return 0;
 +}
 +
-+const struct ethtool_ops rnpgbe_ethtool_ops = {
-+	.get_drvinfo = rnpgbe_get_drvinfo,
-+	.get_link = ethtool_op_get_link,
-+};
+ int rnpgbe_set_rx_mode(struct net_device *netdev,
+ 		       struct netdev_hw_addr_list *uc,
+ 		       struct netdev_hw_addr_list *mc)
 diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-index 708a7297233e..46981ef2542a 100644
+index 31871b244882..09d499dc10ee 100644
 --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
 +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-@@ -250,6 +250,7 @@ static int rnpgbe_add_adapter(struct pci_dev *pdev,
- 	}
+@@ -160,6 +160,8 @@ static const struct net_device_ops rnpgbe_netdev_ops = {
+ 	.ndo_stop		 = rnpgbe_close,
+ 	.ndo_start_xmit		 = rnpgbe_xmit_frame,
+ 	.ndo_set_rx_mode_async = rnpgbe_set_rx_mode,
++	.ndo_set_mac_address	 = rnpgbe_set_mac_address,
++	.ndo_validate_addr	 = eth_validate_addr,
+ 	.ndo_get_stats64	 = rnpgbe_get_stats64,
+ };
+ 
+@@ -253,7 +255,7 @@ static int rnpgbe_add_adapter(struct pci_dev *pdev,
  
  	netdev->netdev_ops = &rnpgbe_netdev_ops;
-+	netdev->ethtool_ops = &rnpgbe_ethtool_ops;
- 	netdev->priv_flags |= IFF_UNICAST_FLT;
+ 	netdev->ethtool_ops = &rnpgbe_ethtool_ops;
+-	netdev->priv_flags |= IFF_UNICAST_FLT;
++	netdev->priv_flags |= IFF_UNICAST_FLT | IFF_LIVE_ADDR_CHANGE;
  	rnpgbe_sw_init(mucse);
  	err = rnpgbe_reset_hw(hw);
-diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-index c6ce9dbee3d0..4a1893792751 100644
---- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-+++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
-@@ -72,9 +72,11 @@ static int mucse_mbx_get_info(struct mucse_hw *hw)
- 	int err;
- 
- 	err = mucse_fw_send_cmd_wait_resp(hw, &req, &reply);
--	if (!err)
-+	if (!err) {
- 		hw->pfvfnum = FIELD_GET(GENMASK_U16(7, 0),
- 					le16_to_cpu(reply.r.hw_info.pfnum));
-+		hw->fw_version = le32_to_cpu(reply.r.hw_info.fw_version);
-+	}
- 
- 	return err;
- }
+ 	if (err) {
 -- 
 2.50.1
 
