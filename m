@@ -1,148 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793952317;
-	b=eaNvDA9Ae7wd/qlWTNBBeZ51HOfyvX2V7iJAoV+aDm2JYbwl831YI+f1fj/krQXbry5X
-	 RrJCLNhNLGOanSBgcB7CLpBi78ZBorKFRjs98eD6qV+1xWQEBRHUG0zJgX2eSBtSEtjHa
-	 2do3HEhmvHsPd3Cwl/8NQYQkercW3csnLzXUlfqqeOqZ5MZ8HsxYTXoV60mKe5TsNmaup
-	 0DjiX4zi6m7X0IevrVgrGvNYSgkBL5SQvbMJJEsfFYJegFfgdJ+lSWGd+b2R3/F7kMXe1
-	 0ztVJ3p9kkWdAsDTQ1TVsniAkInnBwop6FVE8gdXQ1uuFPGZjE/cp4SLamgJlvDizEw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952317;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-SRS-Rewrite;
-	bh=x07awLmZl1uGnixljrDMUgu9d0OiWf2Z+sJydT2Lbr0=;
-	b=kK90EZVLQTSrwkKFrGbmMmqDgnougbb6rsjrsuwRR4bQDz3QHyODOlITuadiqtzKqvTT
-	 vutzURAuGDiqDetEp3mhvX+D8txijmGRETEeRi2yoUko0Qy7zvZAGd/h9WkOYMSGusLAt
-	 8sOAJap0TCZ1s/ul2gtdTiYo5Te3noxE8yTdKtTO2Iu9v+MaxIUJzg/GHB0WzQns9BJpY
-	 M7sU6jX1AShAfUqbVPcKhFW9Hn90wQ1ehWHT+VykRoAj+l3HwuHkgOFC2JpGg6QJct+vj
-	 0raXbCpGg6asjsA8GhAooILQr4aBH6hzgglUZmuNN1UwbCiPilj08uoFy/mk4uaLEKw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=oiRMln23;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793952373;
+	b=1CrxWsLM+IOpi1rZd4gXXTy0OmZ3OnyWsmVH+8owA8diRMsc6cGyjg5upIiaTYu0agzw
+	 1b3aiwk7OcmWWTGcRpbA19g2b2Qvqf1zpJYPO3z6K8aCN3UdrY/bORwVGg4BcZMRfg1rD
+	 rUPOYtH+WIjNeMlJTaAKGCSrYnni3+1vhJZoMXEFOEoa+KU/yeseeVxMWmK015bGaS7Nn
+	 InQ5I8uzmDb9WIs9sT063xsKfaW/H+Hm2pFWTbGq0uCjXYK9oOIy6Eik10V+GqUBIKwXh
+	 5/Dtg7OquFNp6IQfOV01fTdm+pD1nejwG35qo9hUQI0S/M8In86G0gpmHJ3o/7zSXoA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793952373;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=Q9BVJ84/wTutORsDRLBjhp7nynNi3hfQdIrA85jn/d8=;
+	b=Uf8T6fSeU+swZNFxdsesV5VKShhHR0CfEW7JuLXW0AHRLKV7QgC+QG2vwum0vRCb69Gu
+	 feq0dbOEBXbgYUS0Sw7h0ZzEKcPu8O4IZLnDxNvGsHbA90wohuczW4F0GwxmyBWn2/WmN
+	 NhcafGsXTpwiXbn1TbnXWa4Haq2uaNcY7CkT6MZKe0rrhAgNVP4MzphI59RcHjdIyU7oi
+	 CcEnEH1vcdfYjOjuCrIIMtWTT3F6VRi0oWQEqcvqCjlNC3ZfceyH3QPEiaNGsWbBJ0/Wf
+	 ABD4Jmfrq95ugrVjv2k72bq6JoINFg1alLJMiUBE5o9hYX44vMrdy5nzIqRTAMfZJbA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=sE2jP9xe;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=6cctkpTl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1702A606A328;
-	Fri,  6 Nov 2026 08:05:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1702A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C202606A328;
+	Fri,  6 Nov 2026 08:06:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C202606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=oiRMln23
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=x07awLmZl1uGnixljrDMUgu9d0OiWf2Z+sJydT2Lbr0=; b=oiRMln23yl/QBuC0DzwXONkLv5
-	qM+sNI41fnd6ZZdtIdfoPIuUSZHjJllyir3jn5dYul9Hhh11zXahz7DjQNGL6kqFmMxym0kEDtOmD
-	JgIADndDf71VAul280x2lDyIVPe6HFQRskf9qC5NU/8P7kjkPPDBDgNWgZKWzmAJG/fm1BZ3LikI4
-	AJReQOjF2xOHtD0/o6EMEslTbPj3TIA0VVZuOvKHyIPeRI6tauCfHZubFGOzh5ORdNmavj6txE4sb
-	V62/yFS1hM13pH3V2NMo05nu4U1qu41e/vy7J1YKCYoB+vzlPGJYOKDkhh/XndWwFf9Phw2nFy/jN
-	8N6Cktqw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPEvi-0000000BWDm-0Spo;
-	Fri, 06 Nov 2026 08:04:10 +0000
-Date: Fri, 6 Nov 2026 00:04:10 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Bence Csokas <bence.csokas@arm.com>
-Cc: Chengchang Tang <tangchengchang@huawei.com>,
-	Junxian Huang <huangjunxian6@hisilicon.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Jes Sorensen <Jes.Sorensen@gmail.com>,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Vineet Gupta <vgupta@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
-	Zack Rusin <zack.rusin@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Selvin Xavier <selvin.xavier@broadcom.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Nilesh Javali <njavali@marvell.com>,
-	GR-QLogic-Storage-Upstream@marvell.com,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Carlos Maiolino <cem@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	"Geoffrey D. Bennett" <g@b4.vu>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-wireless@vger.kernel.org,
-	bpf@vger.kernel.org, netdev@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-snps-arc@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
-	linux-hyperv@vger.kernel.org, chrome-platform@lists.linux.dev,
-	linux-scsi@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
-	linux-xfs@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 0/3] Add offsetofp() and offsetofendp() for pointer
- arithmetic
-Message-ID: <au2J-lMcEn4p4KGR@infradead.org>
-References: <20261105-offsetof-v1-0-4153f5c10edc@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=sE2jP9xe;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=6cctkpTl
+ARC-Seal: i=1; a=rsa-sha256; t=1793952361; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=sYPicSz9K+OA/ttfGobpS0AoBgQttoWnSmhUl/ruaP30eeI3N33dgehgVdyz85lZCB
+    iSkooThFjI0f+t2X/9jfUs9QFg6kXmDt99qnGp/yKOFxlgNBSKPTJUdUXqTls/Z9fVRh
+    oO79YIljDJUOlcUwKDUhLpMgHaFR6aVlHyehyVIam4c9xnbL1AIEnu57/Tt2ll+W+g81
+    wza9ckIZQ7wErERSZeYR6ZTO0XbJvjpnO8tjDmtRvmuJso6LFdzjbcepb0OTqAe/ApuL
+    DKhXZR8bsxT4FyxZqN/Fip7Eo1OqXzH5zyrFsGRyIyXiBW6bG2IabPbtim6baBE2rFu9
+    jzGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793952361;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Q9BVJ84/wTutORsDRLBjhp7nynNi3hfQdIrA85jn/d8=;
+    b=jL5N1kXaE+PfEwf6+uV+nDvYbvkBIUYAZtK8qMmmryIHSAnlXVr0sCJTGQDh/amV3k
+    GeKaNkMTel8RbUDaGoNeEOuRutPwQPTBDGZsu/nyzJAnGytC+K0Ibr78V5UlX7ltO9sG
+    gBsOXCS28egFtzp7OTCaRYBfoU1I3QbEbyq7ugFxfDPNy6kHKX2LuHWANOuFzjeAMSV/
+    zxTruoGYFxD8aiJLtpT0C/8lIjbx79T/uOMsY3aQoQUdIUPTOMASfHNm2bK+iRv8ScYL
+    Sn2uJJKKXtvHgqq8aXQjyFBtvj2LFN1JvPI6r+2O8GTaJa8lGbFHB3jxFJk49+kHLDq/
+    FyZw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793952361;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Q9BVJ84/wTutORsDRLBjhp7nynNi3hfQdIrA85jn/d8=;
+    b=sE2jP9xeJsULXj9aKh0HwJnVmTcRgTnsndfxQziunyBKz4r+QheVv+ap0s53mKh2pi
+    UPTvxdDSYar2xNwx1nAeYkJaixJkKeLaKoYsHruUZGAUJERhsuv+kFyc9bVO+DFInf1h
+    Emo/MM/TUzRMCGuX1hODbKk+LXqYEQ2EZDwIqk65yaBTvPBSDLwwS2bXchUcmwd/4d/5
+    izc+GtWwXPswjrHakKRet5Y/43HjGf9S20U2o0XMub1I7qtN+uw3/rD9uXsiBlZCzKd9
+    SL8UOrKa7bBeANWe7ig1N6C6hMwXSAiFwA6C+hvm9Ri9FVaMNMuxTYkBoAgM8tTUEiDR
+    bHpA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793952361;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Q9BVJ84/wTutORsDRLBjhp7nynNi3hfQdIrA85jn/d8=;
+    b=6cctkpTlM25k1sncn87ujd1S8oyDryVRM6l9cdF+xw4pQ3PU7sZfAnBK/lNdOCf2wu
+    Z/OtxKu9hcNY0r/jgQDA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrVjZoMy8iN4frnsPsBQ4l+mfK4O7kvgww6TmAq"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22A6861lr0
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 6 Nov 2026 09:06:01 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -151,19 +93,106 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-offsetof-v1-0-4153f5c10edc@arm.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <49e69d9c-6cb1-453f-bbf5-e2202f97e4ef@kernel.org>
+Date: Fri, 6 Nov 2026 09:05:30 +0100
+Cc: Olivier Louvignes <olivier@mgcrea.io>,
+ Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Joshua Crofts <crofts@kernel.org>,
+ linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <30B040B3-D371-443C-A66D-11EF89FC7C63@goldelico.com>
+References: <20261105213210.87457-1-olivier@mgcrea.io>
+ <20261105213210.87457-2-olivier@mgcrea.io>
+ <49e69d9c-6cb1-453f-bbf5-e2202f97e4ef@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-On Thu, Nov 05, 2026 at 06:16:15PM +0100, Bence Csokas wrote:
-> A common usage pattern for offsetof() is the following:
-> 
->   offsetof(typeof(*ptr), member)
-> 
-> Condense this operation to one macro for a more maintainable code base.
 
-What exactly makes non-standard macros with no obvious safety benefit
-more maintainable?
 
+> Am 06.11.2026 um 08:05 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
+>=20
+> On 05/11/2026 22:32, Olivier Louvignes wrote:
+>> The X1600's SAR ADC has four auxiliary channels and none of the
+>> touchscreen or battery engines of the JZ47xx ADCs in =
+ingenic,adc.yaml,
+>> so it gets a binding of its own.
+>>=20
+>> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+>> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # LX16 - driver =
+only, no real world test
+>=20
+> Drop, did not happen. Even comment says it did not happen!
+
+What did not happen? Are you expecting a software test or a full =
+hardware test?
+
+>=20
+> Otherwise please explain me how this code was executed on a device.
+
+1. add decive tree entries, 2. compile, 3. install, 4. boot and load =
+module, 5. check sysfs
+
+root@letux-lx16v0-3:~# ls -l /sys/devices/platform/apb/10070000.sadc
+total 0
+lrwxrwxrwx 1 root root    0 Nov  6 08:00 driver -> =
+../../../../bus/platform/drivers/ingenic-x1600-adc
+-rw-r--r-- 1 root root 4096 Nov  6 08:00 driver_override
+drwxr-xr-x 3 root root    0 Nov  6 07:58 iio:device0
+-r--r--r-- 1 root root 4096 Nov  6 08:00 modalias
+lrwxrwxrwx 1 root root    0 Nov  6 08:00 of_node -> =
+../../../../firmware/devicetree/base/apb/sadc@10070000
+drwxr-xr-x 2 root root    0 Nov  6 08:00 power
+lrwxrwxrwx 1 root root    0 Nov  6 08:00 subsystem -> =
+../../../../bus/platform
+-rw-r--r-- 1 root root 4096 Nov  6 08:00 uevent
+root@letux-lx16v0-3:~# cat =
+/sys/devices/platform/apb/10070000.sadc/iio\:device0/in_voltage*
+1512
+1793
+1796
+1798
+0.805664062
+root@letux-lx16v0-3:~# cat =
+/sys/devices/platform/apb/10070000.sadc/iio\:device0/in_voltage*
+1512
+1760
+1766
+1773
+0.805664062
+root@letux-lx16v0-3:~# cat =
+/sys/devices/platform/apb/10070000.sadc/iio\:device0/in_voltage*
+1518
+1767
+1767
+1776
+0.805664062
+root@letux-lx16v0-3:~#=20
+
+You can see that the values look reasonable and fluctuate a little by =
+noise as you would
+expect from an ADC with floating inputs.
+
+But are you expecting a hardware test that the values are similar to the =
+real voltages?
+This is beyond my hardware capabilities.
+
+Maybe you are more happy with:
+
+Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # LX16 - bindings =
+and driver function only, no real electrical performance test
+
+BR and have a good day,
+Nikolaus=
