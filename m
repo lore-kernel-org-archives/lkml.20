@@ -1,62 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999717;
-	b=Vt4h/7aoP4XDcEitR8P1hEcLfYLCfpLA2CG8uN3Yia8AhsfoXZJ2aO7D0/ave0N76thS
-	 szHQhW+i68ITRMmxVMuMxSAnj8mYp7FLS+1bctgzDLiTJ7M5lw3d3bdbKCfWKNIAQeg/4
-	 MyctGuTYagPPQZ4EnbjzPl7Mitzo1xfBu4dJnb5i5bji2MrMIy1UyaSIILaWhjQ6YEmTi
-	 4T2s1w9MbUEwKeRV0z42+H4mMkDYIPflxNy0uxHneW2A82QJmQvQJy4GfNzdg/fWU/MYv
-	 nCRBzPI2Q4hmynQwmpCiQLJYiowFcc3gSmHBy9tB91LLBwltVDH5gcz41bzo349UV4Q==
+	t=1793999728;
+	b=aO1EKfKsNEwLPh/4CCu3q2jCXlgHg5Veb4FoNL055m8BeXQiYvLmCNgd6S0S8Ez5gwU7
+	 /R6jCWewXb1iLnAZa1VEQWOxtbzDYtTGFIz4OqV0SCQGJJXAQJjRUKbX3A2ubBv1Nk342
+	 TZ9MrwcgzhD9aj5NstLfwW+50btZcpL/kYLuLFzD6WRnStUGw+blU7ar90Dyw6itMrCZZ
+	 1nTXj4NkgjYOW9QttepsbLx1LViNGKKgkyUSar34+WbM8aexzpmHptNf1RlvEZzxNr6qd
+	 33rmfCxdxh3cxCUZsaOxPRdB4emxrIEwlrdrA0sryvB9OKpyYSNkSvErkFR8/pfZ5Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999717;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999728;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cDsr5kKiBdFRv3e9B3EpFq9dfSXD/V/9SF4tGqKbj4M=;
-	b=zA+Vkkq6xy38V5s3I2ouAwnCQoJheAzjzpc6K7yA3NgYQlfyuUuCXg0gr3vXxqc4sy3Y
-	 0yYEi5ZaAiStQHo+KFw/P/OpQyLY2xo8UEXW5eQJt0uxywrLZLCdoe7KsTtSXOz1n24jP
-	 1/FL1q7NNYNdRZqpiJRXooiYpWZ18yv8TwRL/X/R95q4Z3p2AtutB9uvtyAz/S5j6I7NT
-	 ioC3XMAXW9NC9FUyyYVJmp+dLJ6yEsSkEHhSAXgChbmxvU6fjxKKd22thODrN1v3VoogQ
-	 wVYdI0tF3nOlQCV4BEQifllsP8nauyGfxX4XF1lYDw3R/vbFtzM/F/nm+A7Tu3xUT4A==
+	bh=lGevc54PDN7MmVEAeNdpITEvNybLOdJmT7pRAvwG7X8=;
+	b=ZpJ7Btw+9MuONPgxECiTI8WGCg870Cl0AULQwvA8kxJoHNXu/+OFiAfbI6oDOgKPBdWZ
+	 DKSiUNOW9o6yRYATQdhLUk7on+YOKTkPgSIkO8QYfyz54UI0Sm90F2xbat+lOHyjEoD3v
+	 BgAyyOUSNQrRwAfWdjjz+X5Qh17eaPGGA/+C4Q9+x1mtVCOmewADkBMWUlYiidM4Bduas
+	 sd3rQfxFY8ycfLJac/rjfb3iBPZ9l16h+9y3PyzgcjSnyr7btCrEKPDKQeO/Qqir8sjjI
+	 vJ17uBWovVDMnuLgX+fbUvM1a6jsAR24YAokz/mWDY7AaZvlkCPOqB9nG3yF+pKk2dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCv5OLM5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYXvVgzP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D16606A326;
-	Fri,  6 Nov 2026 21:15:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B957606A326;
+	Fri,  6 Nov 2026 21:15:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCv5OLM5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 374AE1F008A2;
-	Fri,  6 Nov 2026 21:15:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYXvVgzP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B49CF1F0089F;
+	Fri,  6 Nov 2026 21:15:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793999716;
-	bh=cDsr5kKiBdFRv3e9B3EpFq9dfSXD/V/9SF4tGqKbj4M=;
+	s=k20260515; t=1793999728;
+	bh=lGevc54PDN7MmVEAeNdpITEvNybLOdJmT7pRAvwG7X8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NCv5OLM5WaIcpbmKIbDVp6HIAX/E1r/JtzFAqfxFUN1TJlPaaSUDTFIbCQNu0hLwQ
-	 E6UhgGHqLb7ULhd0Mb42PUVDpzMeZu56rJb8Qp2kYqLlUYva6WtX/5GPnupLk09vFP
-	 Seac2uQW4fwwgblBpzGqFfMFKnBMf7XFgjyPmXrVwsZyx1CZiyJ/O9xUtwO4naNSa+
-	 YahfVbCUkMoOXvxo4VPAnNi2Ljy7eJcTriX6knzPCXaQ9TutCmjb7TEH9h0Bwtvx48
-	 jcFuMD3RGnXQnSL5zDkPCblDgxQwvwjyXGSvFRzHQ2C7KR6JPgg44+WUBW/4Fp6Av9
-	 BO6BXYy1HgqkQ==
-Date: Fri, 6 Nov 2026 21:15:12 +0000
-From: Conor Dooley <conor@kernel.org>
-To: E Shattow <e@freeshell.de>
-Cc: Emil Renner Berthing <kernel@esmil.dk>,
-	Owen O'Hehir <oo.hehir@gmail.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Rob Herring <robh@kernel.org>,
+	b=JYXvVgzPJqpkfuhSWYPSEhIAcWilXosveDN3IT4UdY3cf5vwaYMxXvCWBoPT2Wf9C
+	 xhixXjodw37nbMmiq9aeu13POo8CRgpjRTP06+Bp5J7YJ5/SW7lEknjISBzC8CSwUA
+	 booF+VjPcjKi/8fGCM7D7SweiACKVrV07V5gkMEEObAUS5kyf9+UFWlfp/XyDny8tL
+	 MlpkqK97IuMhkhJ5fWI6U0Z/lbe66X+Eg6dRtrMcjV4cvWy6T+3hvrD7ZAz2md49cB
+	 g2TnQaeslQyL9j8hMUEH8Me1856nqGYl2cruhByCb3GklWdRXu40iZeNG3M/TIQ5ch
+	 cBoNOIwgLMS+Q==
+Date: Fri, 6 Nov 2026 15:15:24 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
- power LED on
-Message-ID: <20261106-tumble-hurt-d1a0be3fddae@spud>
-References: <20261106184055.3891621-1-oo.hehir@gmail.com>
- <179399127414.1902073.729566010968054971.b4-ty@microchip.com>
- <181fdcd8-80ff-4486-ab16-9cbce16b0a29@freeshell.de>
+	linux-kernel@vger.kernel.org, Ilia Lin <ilia.lin@kernel.org>,
+	devicetree@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Subject: Re: [PATCH] dt-bindings: cpufreq: qcom-cpufreq-nvmem: Simplify
+ bindings
+Message-ID: <179399972393.1703387.748498468512223215.robh@kernel.org>
+References: <20261105194606.772346-2-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,79 +62,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uxj3Bu3KA+9of06z"
-Content-Disposition: inline
-In-Reply-To: <181fdcd8-80ff-4486-ab16-9cbce16b0a29@freeshell.de>
-
---uxj3Bu3KA+9of06z
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261105194606.772346-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-On Fri, Nov 06, 2026 at 11:06:22AM -0800, E Shattow wrote:
-> Hi Conor,
->=20
-> On 11/6/26 10:54, Conor Dooley wrote:
-> > From: Conor Dooley <conor.dooley@microchip.com>
-> >=20
-> > On Fri, 06 Nov 2026 18:40:55 +0000, Owen O'Hehir wrote:
-> >> The firmware turns the status power LED on, but the node has no
-> >> default-state, so the LED switches off when leds-gpio probes and the
-> >> board looks powered down.
-> >>
-> >> Default the LED to on.
-> >>
-> >> Tested on a VisionFive 2 v1.3B.
-> >>
-> >> [...]
-> >=20
-> > Applied to riscv-dt-fixes, thanks!
-> >=20
-> > [1/1] riscv: dts: starfive: jh7110-common: keep the status power LED on
-> >       https://git.kernel.org/conor/c/68dbe2550bd4
-> >=20
-> > Thanks,
-> > Conor.
->=20
-> I replied this a moment earlier:
-> https://lore.kernel.org/lkml/179fe9e8-322b-4745-8734-d5de5f1e8487@freeshe=
-ll.de/
->=20
-> This disagrees with VisionFive 2 Lite schematic; if when this node is
-> consumed by a bootloader it will be evident we are not describing the
-> hardware correctly, no?
 
-I am not sure if that's actually relevant though? If the visionfive2lite
-needs this gpio then it shouldn't be listed in a leds node. Changing the
-default status of it doesn't affect the fact that it is wrong to begin
-with, wrong before the patch and wrong afterwards. If there are some
-boards that include this common.dtsi but don't have these leds, they're
-not common and should be moved to the relevant dts files. If you know
-what those are, please send a patch doing the move.
+On Thu, 05 Nov 2026 20:46:07 +0100, Krzysztof Kozlowski wrote:
+> This binding selects a few top-level compatible machines, but since
+> commit 389de9c5a677 ("dt-bindings: cpufreq: qcom-cpufreq-nvmem: make cpr
+> bindings optional") only qcom,qcs404 is present in  "if:then:" clause
+> which enforces specific OPP properties.
+> 
+> For all other machines, this is a no-op, because there is no schema here
+> enforcing a specific compatible for OPP nodes or any of OPP table
+> properties: one can switch to standard OPP table (operating-points-v2)
+> and this binding will not complain.
+> 
+> OTOH, this binding has complicated "if:then:" blocks so is not easy to
+> maintain and causes false positives when regular OPP table is
+> encountered in matched machines.
+> 
+> Drop all machines except QCS404 and move the subschema to top-level.
+> 
+> Cc: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../bindings/cpufreq/qcom-cpufreq-nvmem.yaml  | 78 ++++++-------------
+>  1 file changed, 24 insertions(+), 54 deletions(-)
+> 
 
-> If you want the light on and it wasn't on at reset or due to boot ROM,
-> then that is userland stuff and not hardware description... but that is
-> your decision to make as maintainer.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-It's a power status led, I think it's pretty reasonable for it to
-actually represent power status without intervention in userspace, the
-alternative I guess could be something like setting the function
-property to "power" - but I'm not sure if that does anything for
-gpio-leds.
-
-Cheers,
-Conor.
-
---uxj3Bu3KA+9of06z
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau5DYAAKCRB4tDGHoIJi
-0nrFAQDR7pn5SeJlvMs2Unksnuskzogpm5QCuq1mwU5NbmpKOAD/YTa+FWIjGV6W
-9G8YF1A1U6fNmtjrNz9b9so+HUo+ZQs=
-=IGxj
------END PGP SIGNATURE-----
-
---uxj3Bu3KA+9of06z--
