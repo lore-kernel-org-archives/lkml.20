@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984190;
-	b=iAz6KYKTgO2JwqLSKADhTWTFIB4wOZ6+Z7Pa1R1T8NMZBZyzwYxi0Sorrf2GjZU3Zohl
-	 BeVu5cD0LQ3+2IM+AWTF07KYMfA91XIHEm80ipBO6O9jsoDPeZsg4Hdsi3gaGxntzlH44
-	 4HrtefBBPUbhR030QFXyQDEzdCjXlMOJiNHThd6zhpWMHRqGS8iPSE2jzleFW2trEncO3
-	 fdLjpWVNE4trzWRvNVKX7lHd2e+Dxspi/xiLO3XmhMpuj8jmlE6HSLyUQ+jUKgdPAC+o+
-	 aGaCOqF0QR5NnVOKBPTw7W+fd9O7F4z7nPhrGSVnb9bn23FT8cQe92irrTI+jY7OMNQ==
+	t=1793984193;
+	b=2+VXPU1iTHYh4Ji6w1R+6kxTmnODQx9htPSVqzWPhXs555s0b5Q9OVFfUDNas3EMSQW4
+	 fsIO4dMmJ2CqdB0uq/E1xKEFDazF9e5dJVKXJN8xLPXl0YW/6ymkTXBBkp77+ax+g3oky
+	 PDhU1/9rhvAl2pOYoaBsqr7lXrfKNvMRnnIdE7BEeep+HX+dsRXOxH+UvYMVheXtQLxY/
+	 acd87VaFzy27olVm2vdTV+v5JUrHpVIEGfRKFTWxCy5PC4HVkHGiJNuTno9cd2HTyfafO
+	 T1M50T5inQZpc5el9zTFamONp4iDOYMhI0fDt+b0P1CLuORtQl8urbRnCYue//uL/hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984193;
 	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc;
-	bh=6MyheDk9AmIiMUlnMcbJVkjS1qaDN78uIvkLvU/yuaI=;
-	b=Wgp3HfFKiAhlTr9kfPiEv6XKvJRYODog55KLWXWp5rPfgWccQtoI01M+De4T6irWc54G
-	 WkVtbI2GMuvlNYrEJdMDlv3sIzHCEwgCzqvfpzpmvH5QlHfU/m31JOQ+GSKjBB8jzaQbs
-	 pF9sXo+o6Bp+iTOLsC66K7EgCVaPGhQEruxWYutqyVFeKhPKG55GfvXrIUvsBC0ZMLZdd
-	 35mehuWmqGPm6ruTIk2v+vjdKt4vUq5EVuwesLDmev+oFJWEMEGFFQYs0aYptzjwFUZnh
-	 EN2Ed58GsaRRy+WtBVP4fvSni0Q3i8abj9rY5iBP8PkzY/IFKHEW02l0vGi52lI8gMA==
+	bh=WWqOS7cTYH7Hfu4TugC2jyBdj65ccrW05fQttvi8nt4=;
+	b=z4o/F+4uT77W5Nc9B4U5WfJrW0+ORL1n/+d2unIo4Z76jnwDUytGRhiovTS/jhFXjhwx
+	 zQPeeaNznOSs0PiaPraccAezD86C/b0T+MCssJNlojYqgCrTIxanLCckh9nN7g7dmBcKN
+	 T2U3ZWyI2/2CciKKmbgEfBLzkXGVEdVdyOuUJmc4QHmWjZu0BfjR9UADY3N9SWYPB0wWp
+	 3PmDKWUZbhsqpAQSTCqGnymBmzbPxYG3Ic+eJAfyA19tsuL6scBTqekIpVuaRUva9E3CW
+	 T822vck5lHgKnPlUH9EpokVLdnVKnShC45s2b9qcrkGxQLyMyCC8q5Ti29NbESxV5zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cyberchaos.dev;
 	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=r4AAqOq8;
+	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=GHG5A8Xj;
 	arc=none smtp.remote-ip=195.39.247.168
 Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649EE606A33E;
-	Fri,  6 Nov 2026 16:56:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 649EE606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591B2606D82D;
+	Fri,  6 Nov 2026 16:56:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 591B2606D82D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=r4AAqOq8
+	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=GHG5A8Xj
 From: Yureka Lilian <yureka@cyberchaos.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1793984181;
+	s=mail; t=1793984185;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6MyheDk9AmIiMUlnMcbJVkjS1qaDN78uIvkLvU/yuaI=;
-	b=r4AAqOq8CJd+WTHowBxNRL530plm6NayXIfPIEa5uB3JxaKIo3+XIPHPKYd3WdtC8RLm+J
-	lpDE8LhyJi+o6Mcx00buFdcGDFwJa+6CyCV6iaWwdGdHSOGAYqNIIglrf0fx52tluWVjqc
-	YFjAfVqkS5Ml/iQKlRFlxOpYPN1zfVA=
-Date: Fri, 06 Nov 2026 17:56:13 +0100
-Subject: [PATCH v2 1/4] arm64: dts: apple: t8132: Fix indentation-related
+	bh=WWqOS7cTYH7Hfu4TugC2jyBdj65ccrW05fQttvi8nt4=;
+	b=GHG5A8Xjj3WiwVI/va3LbQdnVheYXYGExWEypmIo+qqitqsDUqjFDTLHjRTUvCFVEz1Ei8
+	zV6Um8AmqvlZjhkqiHMdLMROF/YqdUge2CPFlgiQ47cq1r3tpO9iemIFrX72cpzP5B/Sh4
+	4IwksEowov78quaxhq6kwECoYnUXzws=
+Date: Fri, 06 Nov 2026 17:56:15 +0100
+Subject: [PATCH v2 3/4] arm64: dts: apple: t8132: Fix line-length-related
  dt-check-style issues
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-apple-dts-m4-dt-style-check-v2-1-1e715e80b066@cyberchaos.dev>
+Message-Id: <20261106-apple-dts-m4-dt-style-check-v2-3-1e715e80b066@cyberchaos.dev>
 References: <20261106-apple-dts-m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev>
 In-Reply-To: <20261106-apple-dts-m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -69,136 +69,107 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Yureka Lilian <yureka@cyberchaos.dev>
 
-This fixes `dt-check-style --mode=strict` issues related to
-indentation in the t8132 device trees, specifically replacing the use of
-8 or more spaces for alignment with n//8 tabs + n%8 spaces.
+This fixes `dt-check-style --mode=strict` issues related to line
+length.
 
 Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 ---
- arch/arm64/boot/dts/apple/t8132.dtsi | 64 ++++++++++++++++++------------------
- 1 file changed, 32 insertions(+), 32 deletions(-)
+ arch/arm64/boot/dts/apple/t8132-jxxx.dtsi |  3 ++-
+ arch/arm64/boot/dts/apple/t8132.dtsi      | 24 ++++++++++++++++--------
+ 2 files changed, 18 insertions(+), 9 deletions(-)
 
+diff --git a/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
+index b0c5d71943b6..9d9aeb4d074e 100644
+--- a/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
++++ b/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
+@@ -22,7 +22,8 @@ chosen {
+ 		stdout-path = "serial0";
+ 
+ 		framebuffer0: framebuffer@0 {
+-			compatible = "apple,simple-framebuffer", "simple-framebuffer";
++			compatible = "apple,simple-framebuffer",
++				     "simple-framebuffer";
+ 			reg = <0 0 0 0>; /* To be filled by loader */
+ 			power-domains = <&ps_disp_fe>, <&ps_dptx_phy>;
+ 			/* Format properties will be added by loader */
 diff --git a/arch/arm64/boot/dts/apple/t8132.dtsi b/arch/arm64/boot/dts/apple/t8132.dtsi
-index afec92a06015..58805c6ab002 100644
+index 6d070306e29a..b1e77a8ae406 100644
 --- a/arch/arm64/boot/dts/apple/t8132.dtsi
 +++ b/arch/arm64/boot/dts/apple/t8132.dtsi
-@@ -241,12 +241,12 @@ pinctrl_nub: pinctrl@3881f0000 {
- 			#interrupt-cells = <2>;
- 			interrupt-parent = <&aic>;
- 			interrupts = <AIC_IRQ 499 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 500 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 501 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 502 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 503 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 504 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 505 IRQ_TYPE_LEVEL_HIGH>;
-+				     <AIC_IRQ 500 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 501 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 502 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 503 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 504 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 505 IRQ_TYPE_LEVEL_HIGH>;
+@@ -206,7 +206,8 @@ soc: soc {
+ 		nonposted-mmio;
+ 
+ 		pmgr: power-management@380700000 {
+-			compatible = "apple,t8132-pmgr", "apple,t8103-pmgr", "syscon", "simple-mfd";
++			compatible = "apple,t8132-pmgr", "apple,t8103-pmgr",
++				     "syscon", "simple-mfd";
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			reg = <0x3 0x80700000 0 0x14000>;
+@@ -225,18 +226,21 @@ aic: interrupt-controller@381000000 {
+ 			affinities {
+ 				e-core-pmu-affinity {
+ 					apple,fiq-index = <AIC_CPU_PMU_E>;
+-					cpus = <&cpu_e0 &cpu_e1 &cpu_e2 &cpu_e3 &cpu_e4 &cpu_e5>;
++					cpus = <&cpu_e0 &cpu_e1 &cpu_e2
++						&cpu_e3 &cpu_e4 &cpu_e5>;
+ 				};
+ 
+ 				p-core-pmu-affinity {
+ 					apple,fiq-index = <AIC_CPU_PMU_P>;
+-					cpus = <&cpu_p0 &cpu_p1 &cpu_p2 &cpu_p3>;
++					cpus = <&cpu_p0 &cpu_p1
++						&cpu_p2 &cpu_p3>;
+ 				};
+ 			};
+ 		};
+ 
+ 		pinctrl_nub: pinctrl@3881f0000 {
+-			compatible = "apple,t8132-pinctrl", "apple,t8103-pinctrl";
++			compatible = "apple,t8132-pinctrl",
++				     "apple,t8103-pinctrl";
+ 			reg = <0x3 0x881f0000 0x0 0x4000>;
+ 			power-domains = <&ps_nub_gpio>;
+ 
+@@ -258,7 +262,8 @@ pinctrl_nub: pinctrl@3881f0000 {
  		};
  
  		pmgr_mini: power-management@388280000 {
-@@ -278,12 +278,12 @@ pinctrl_smc: pinctrl@38c820000 {
- 			#interrupt-cells = <2>;
- 			interrupt-parent = <&aic>;
- 			interrupts = <AIC_IRQ 552 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 553 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 554 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 555 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 556 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 557 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 558 IRQ_TYPE_LEVEL_HIGH>;
-+				     <AIC_IRQ 553 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 554 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 555 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 556 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 557 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 558 IRQ_TYPE_LEVEL_HIGH>;
+-			compatible = "apple,t8132-pmgr", "apple,t8103-pmgr", "syscon", "simple-mfd";
++			compatible = "apple,t8132-pmgr", "apple,t8103-pmgr",
++				     "syscon", "simple-mfd";
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			reg = <0x3 0x88280000 0 0x4000>;
+@@ -274,7 +279,8 @@ wdt: watchdog@3882b0000 {
+ 		};
+ 
+ 		pinctrl_smc: pinctrl@38c820000 {
+-			compatible = "apple,t8132-pinctrl", "apple,t8103-pinctrl";
++			compatible = "apple,t8132-pinctrl",
++				     "apple,t8103-pinctrl";
+ 			reg = <0x3 0x8c820000 0x0 0x4000>;
+ 
+ 			gpio-controller;
+@@ -295,7 +301,8 @@ pinctrl_smc: pinctrl@38c820000 {
  		};
  
  		pinctrl_aop: pinctrl@390824000 {
-@@ -299,12 +299,12 @@ pinctrl_aop: pinctrl@390824000 {
- 			#interrupt-cells = <2>;
- 			interrupt-parent = <&aic>;
- 			interrupts = <AIC_IRQ 423 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 424 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 425 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 426 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 427 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 428 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 429 IRQ_TYPE_LEVEL_HIGH>;
-+				     <AIC_IRQ 424 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 425 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 426 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 427 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 428 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 429 IRQ_TYPE_LEVEL_HIGH>;
+-			compatible = "apple,t8132-pinctrl", "apple,t8103-pinctrl";
++			compatible = "apple,t8132-pinctrl",
++				     "apple,t8103-pinctrl";
+ 			reg = <0x3 0x90824000 0x0 0x4000>;
+ 
+ 			gpio-controller;
+@@ -316,7 +323,8 @@ pinctrl_aop: pinctrl@390824000 {
  		};
  
  		pinctrl_ap: pinctrl@39a000000 {
-@@ -321,36 +321,36 @@ pinctrl_ap: pinctrl@39a000000 {
- 			#interrupt-cells = <2>;
- 			interrupt-parent = <&aic>;
- 			interrupts = <AIC_IRQ 303 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 304 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 305 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 306 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 307 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 308 IRQ_TYPE_LEVEL_HIGH>,
--			             <AIC_IRQ 309 IRQ_TYPE_LEVEL_HIGH>;
-+				     <AIC_IRQ 304 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 305 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 306 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 307 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 308 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 309 IRQ_TYPE_LEVEL_HIGH>;
- 
- 			i2c0_pins: i2c0-pins {
- 				pinmux = <APPLE_PINMUX(104, 1)>,
--				         <APPLE_PINMUX(103, 1)>;
-+					 <APPLE_PINMUX(103, 1)>;
- 			};
- 
- 			i2c1_pins: i2c1-pins {
- 				pinmux = <APPLE_PINMUX(106, 1)>,
--				         <APPLE_PINMUX(105, 1)>;
-+					 <APPLE_PINMUX(105, 1)>;
- 			};
- 
- 			i2c2_pins: i2c2-pins {
- 				pinmux = <APPLE_PINMUX(44, 1)>,
--				         <APPLE_PINMUX(43, 1)>;
-+					 <APPLE_PINMUX(43, 1)>;
- 			};
- 
- 			i2c3_pins: i2c3-pins {
- 				pinmux = <APPLE_PINMUX(42, 1)>,
--				         <APPLE_PINMUX(41, 1)>;
-+					 <APPLE_PINMUX(41, 1)>;
- 			};
- 
- 			i2c4_pins: i2c4-pins {
- 				pinmux = <APPLE_PINMUX(108, 1)>,
--				         <APPLE_PINMUX(107, 1)>;
-+					 <APPLE_PINMUX(107, 1)>;
- 			};
- 		};
- 
-@@ -458,9 +458,9 @@ timer {
- 		interrupt-parent = <&aic>;
- 		interrupt-names = "phys", "virt", "hyp-phys", "hyp-virt";
- 		interrupts = <AIC_FIQ AIC_TMR_GUEST_PHYS IRQ_TYPE_LEVEL_HIGH>,
--		             <AIC_FIQ AIC_TMR_GUEST_VIRT IRQ_TYPE_LEVEL_HIGH>,
--		             <AIC_FIQ AIC_TMR_HV_PHYS IRQ_TYPE_LEVEL_HIGH>,
--		             <AIC_FIQ AIC_TMR_HV_VIRT IRQ_TYPE_LEVEL_HIGH>;
-+			     <AIC_FIQ AIC_TMR_GUEST_VIRT IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_FIQ AIC_TMR_HV_PHYS IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_FIQ AIC_TMR_HV_VIRT IRQ_TYPE_LEVEL_HIGH>;
- 	};
- };
+-			compatible = "apple,t8132-pinctrl", "apple,t8103-pinctrl";
++			compatible = "apple,t8132-pinctrl",
++				     "apple,t8103-pinctrl";
+ 			reg = <0x3 0x9a000000 0x0 0x100000>;
+ 			power-domains = <&ps_gpio>;
  
 
 -- 
