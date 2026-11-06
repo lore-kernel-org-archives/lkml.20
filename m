@@ -1,58 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.72.192.78
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793993619;
-	b=tjOsBX/ob6NO1oB3vgVzMkDrOD+bpj+qJRxNfDs4BbIqQxWwh2UGNodsif8I8rbRuJEX
-	 +KLojIH5VxEupY98zMrbvUPt6cc5+YEEM2NFMW55Ko4PqOhVoWNZMkl4iV1xFCryb4hls
-	 5Q1DBHV1HfNN0r/CEpuQ0BoO/E7c2KJmqsqINqrm9VArpI8LYgT61h58sw5ictBzrcAP5
-	 xvvS/9HmP6ksKIWxari8sK98VbE4uAQOAHjD9idN7M8oYzAZ4vQYE6aZBjfnXpx2eeZpJ
-	 jPgxwhkFnWJhv3KozNf0u2sfG0lqGw0ynM73sQMZhdmdNzWTvSHSvIJOfZuAqC9wNrQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993619;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:To:Cc:References:Subject:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=GObtdwpy4zKEzBxH1BL3PsMjqBCcWz5qiEKunv440zo=;
-	b=umthJJQGZlb0RgW50i1MpJgMowrheUXQ68LZXEf2UJvvDrj5oi0xkcSwnY2QQhld+uDZ
-	 N3AVydDPaXNVjS/eW63xkBCL0JQTieKyBAwH2wUS4DKI38DD3o9wRyY6WQIiiC4T27/TQ
-	 flJah9dMuBVo7SAFFoxtiYpP2oHDb41uYMkEu/mBZN1ETAYeLnu9Ob5C6+0b5QpGZihRO
-	 r4G7av+uOCJ1/8i4pTaNwXlkZZ1JEgarcPSCyjY8cyxze2XgcuIOnNE7SdTBSOA90/xbf
-	 kq/A74kZgOdWpZiIWkTPDsKx3Y0Qs5FFRchLZT59xkFYYy3OwR+4BzDeaVP20PsqD1w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=web.de;
-	spf=pass smtp.mailfrom=web.de;
-	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=RaTH+co3;
-	arc=none smtp.remote-ip=217.72.192.78
-Received: from mout.web.de (mout.web.de [217.72.192.78])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793993642;
+	b=ypAdTa/scJbpkutgTp/HLduTKXr1nwBciXkdBg/LxBNO5Xs9safVeLUiKNlLp9ubbdRF
+	 w5aY+3HeZq0ZRUKSbaJ/tJ8I3acibOhr94LdvRc9wM9JZrnEK+ug0T4d3NtSSu+J7Y8zK
+	 L2Adth+s/L7mPvEnMZUg5yjLmqqL8Tv9MPYW3K7lcwMO88f3gxwwT4Vra1JiuG5yj3DLT
+	 ydq6aojovYSlhbEr52+v/y6kxxNPURiOmdPxnH9dPLcLPA4GtwvOjcVQ+sianM4R7e3a2
+	 qTbt6/Q/x+IXL9WXHDeNgYHbQVlG2CAxqK7YCuCcCgXqrnMvovfXWWDzGFTJQb2o94Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793993642;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:X-NVConfidentiality:
+	 Content-Transfer-Encoding:Content-Type:X-NV-OnPremToCloud:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=30n/fpOAaq+X7eakU2hebSbelEZO1PQ2AQRvO7KFwnM=;
+	b=Xps6sP/5RzwARfY0rNWVRZSIgvYJnp9BaRjkOQAzWYo+KjgB+OiMzKF8zbdKBoNFsCbJ
+	 4QUtO5SijnAPgdPawT3OXGg0t+E3v9qeLrjYDt4VFk/41v1DaXJAc5Ux+0P014vbwPFPi
+	 +BwrFr/myFeeonSU72GWAxisqOjTw9y/Jw68WOG6DVqvxBmRt+yMGgOQBGrdFDq+rR6eK
+	 lnwehOsBuZQcrcxpBkC3fp1mSg9h5r7sD/IfTkAQK+MQGlpHyV53YoI3l6uE+zQ0hHfdC
+	 Now+J+i57vgFg9l3vrrG2oUesMdM70vw/nKfLg3X+zMyP4Gj3xHSYGSmP9cIBP9+/5g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="L/XL8Dfm";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.52
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010052.outbound.protection.outlook.com [52.101.201.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C315606A329;
-	Fri,  6 Nov 2026 19:33:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C315606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDE5606A330;
+	Fri,  6 Nov 2026 19:34:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DDE5606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=RaTH+co3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1793993605; x=1794598405; i=markus.elfring@web.de;
-	bh=GObtdwpy4zKEzBxH1BL3PsMjqBCcWz5qiEKunv440zo=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=RaTH+co3uoe75fYstb/k794sBnB19U+4mYHcI0GF4rC/zbwVSfDmNKazsoAFkTMV
-	 Y2mo+FjlPYsVru0KGqig1Ojje60U6q9UToRUya88R5IrbHlYiKhTo6Z5c1l92aCXF
-	 4hN3M9BgNq1MFX5erbxezjpw5Xy5KjJ7+5y01qYYcNmNfE8jFJqXTy9sWu1oJ3nPc
-	 3UNlIEOBgfVIcfXz59OEZqWRkc2YWWyStTZT2B4I4ZwW1MnoIzZcW+T0KwSXA7+RC
-	 7Z/qnJyBYyF88IKkweL1UMqYETNjtsz+UnAGamSrKwkyrrd9m6fILntNN558xB/sP
-	 9PpdKmFwQuMqVdvp+A==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MoeY7-1wk08y2fTV-00oqTs; Fri, 06
- Nov 2026 20:33:25 +0100
-Message-ID: <01d3c9aa-ad7c-491f-b99b-aee731c1ad1e@web.de>
-Date: Fri, 6 Nov 2026 20:33:13 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=L/XL8Dfm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pbK11qFwZpg40XlNKU8Oygq94nsf4Qbnpk3Pc6y2e4w1uaweQHSUafTO8abBHT/Ymb4U9WhdB24eMKsmq92lekmaCz8LSAgRYtsXiA8V+rRIae2j1uszl843JNxF+SydaR+CR83cMPZ2tV1PiY5AJ28dKQl9/XWbMrontVKZEqQy/yCq+/s3qR25oGXShvoE66kYQI49ByIppkYURDr0R3GRP33YzOlwq44jH57hPFDzQXoc8SfYPK7iBtlFndubJyG4XbsNlq4KMN7mHsX7lpAB62/oKyFVpZOXi+oQOBVurZ1/Y2jVlTC4xeMVMudyJqSuXbFdDXmqdxnbf8Jt8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=30n/fpOAaq+X7eakU2hebSbelEZO1PQ2AQRvO7KFwnM=;
+ b=GAOKvBxRi241c6CF6EL1qiGgG6RXd92dJGQ473fo6J/P94SkaFJlFDOwKdRuwfwB7voX5RMzCFthvsrnPbU84l8Gk8uiXyuVn6QDqltZtx5yye5aCGMBBbFg7+X6fusZExPJgbAUnYgXlGSL+G50VAuB8Ut+ThXMQaua4T4w6DVC8rB98ZJ8QAnx02Nx8IYeg9ugTUpzGzzWgGKimlJyYki2gT8KtSCfcV7zWsYSPmTGyHTRoco/KRdqDe1PAWM1/aP0hmt4NaZ97RF50I8Qwm04asKyEahQrqiQPcoKbNju6UN1oNMc8sKruAC1KhB2rcKrG0H6cQZyp+ER65oMzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=30n/fpOAaq+X7eakU2hebSbelEZO1PQ2AQRvO7KFwnM=;
+ b=L/XL8DfmzwkI1bip2dtMYVc/Q4miMNkoUrBS093vdWwioDRDVi74MT1HZWa7ypILk++J6WjDoz0PGzkM5U+V3Xq8IuB07ZHeF1qvULC0YhQ1u2hasNYp2rX6m4dJkdye98WCGlzmqd9rfY1MldnbgJCs1aS/Ov8mUYU63TAVCzQnzrmNRWPE/q6gUFqcsAFb5AciqRcm3ahk1vG2QILA/g/92aE7/eNgoksvcYnNI4HEqcOqCLqHWUCvIMURU+n/xn6URb6DoH1bddsbKPevaM3cBGmx125r4vUUB8KsZ956tr9oViVw3VvMTqUUTyk1yviSgkXNgHCsEWyiepoKRw==
+Received: from DM6PR07CA0132.namprd07.prod.outlook.com (2603:10b6:5:330::25)
+ by BL1PR12MB5825.namprd12.prod.outlook.com (2603:10b6:208:394::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 19:33:53 +0000
+Received: from CH3PEPF0002457C.namprd04.prod.outlook.com
+ (2603:10b6:5:330:cafe::6e) by DM6PR07CA0132.outlook.office365.com
+ (2603:10b6:5:330::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 19:33:53 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ CH3PEPF0002457C.mail.protection.outlook.com (10.167.252.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 19:33:53 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 6 Nov
+ 2026 11:33:38 -0800
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 6 Nov 2026 11:33:38 -0800
+Received: from sumitg-l4t.nvidia.com (10.127.8.14) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Fri, 6 Nov 2026 11:33:32 -0800
+From: Sumit Gupta <sumitg@nvidia.com>
+To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <pierre.gondois@arm.com>,
+	<christian.loehle@arm.com>, <ionela.voinescu@arm.com>,
+	<zhenglifeng1@huawei.com>, <zhanjie9@hisilicon.com>, <lenb@kernel.org>,
+	<ray.huang@amd.com>, <mario.limonciello@amd.com>, <perry.yuan@amd.com>,
+	<kprateek.nayak@amd.com>, <maciej.wieczor-retman@intel.com>,
+	<pawel.chmielewski@intel.com>, <linux-pm@vger.kernel.org>,
+	<linux-acpi@vger.kernel.org>, <acpica-devel@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>
+CC: <treding@nvidia.com>, <jonathanh@nvidia.com>, <vsethi@nvidia.com>,
+	<ksitaraman@nvidia.com>, <sanjayc@nvidia.com>, <mochs@nvidia.com>,
+	<bbasu@nvidia.com>, <sumitg@nvidia.com>
+Subject: [PATCH v9 1/8] ACPI: CPPC: Order performance-control updates
+Date: Sat, 7 Nov 2026 01:02:57 +0530
+Message-ID: <20261106193304.3347374-2-sumitg@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106193304.3347374-1-sumitg@nvidia.com>
+References: <20261106193304.3347374-1-sumitg@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,153 +123,704 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Junyi Zhao <junyi.zhao@amlogic.com>,
- Xianwei Zhao <xianwei.zhao@amlogic.com>, linux-amlogic@lists.infradead.org,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- Andi Shyti <andi.shyti@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <20261104-a9-i2c-v7-2-b31f2b53faf4@amlogic.com>
-Subject: Re: [PATCH v7 2/2] i2c: amlogic: Add Amlogic A9 I2C controller driver
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20261104-a9-i2c-v7-2-b31f2b53faf4@amlogic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ZyrEaLO16r6Hg2c4NfQ4XXw03lVF7Bsy8ldZEwFf3O+mmlp9XPD
- c+bfqmb5NGWxtd5kkVTIi3oL0Bcz22AKwfOuxSZKqI/efy6ujs2C44O+n/8dYzNgYs2iS6q
- Tk1ChyBLB1rnvjUlaxrIWm5GL2f7pu1DuulHnYNKLVN4nMqh1R6fOrZnYmVsFh0WfccV2R/
- BpUXXhuS45TtSrMfx/Zew==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:HNYvuxUPp2U=;eGrO1oeVBy65YI5WwssyTuTPlyo
- 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
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0002457C:EE_|BL1PR12MB5825:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a791ba8-2988-4d0e-80c6-08df3c3ce44a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|7416014|23010399003|376014|22082099003|18002099003|6133799003|10067099003|921020|5023799004|56012099006|11063799006|261026121527099003|261026140227099003|261102130727099003|261102123227099003|261028144727099003|261022105027099003|261021121427099003|261021123027099003|261009223027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	EP2Ig0UbOwqhQ3BFwLmV2GlI8rLeqwMywM84Afn7tHK0WnarybNUs9V9vJ/bVE0POIwmN0u0bsxwpXZ3kEYZnskFeiZC//u9dfnA56VEQA8sLIYZtD9XVaAqSjgZKS2ZMuCxnWTjsmTT0yhuaKqlvxIo2IWj60k5hSdAzX8E1STz4Ii5O599hsS9bSxUWgkzPokVS3pkzLgYmktPrZS2NfNSAmDetJdFHQdncFJbfcVYqk4XQ88lgCi3ZfYzpOAAeP69STk3rgpe9qaFkEbnAyfW1aq4kNPT77xa8+WP8UyFWJV1+XOn7EYozAGOiQqGKS1UWVphmbHH5QWXt4WQRUZcIOTrXvKyPiO3/uYLxZelAPZwRokrNva7IVfHMigTn1WhxQu/5eSLmEjij67h8K4wmeNqqPpAbCrwMaNleQ5vpWsS28jqn64FBP/Ohe5gYGTlfSEBy0SFXLz8tAAIu2dqeSD8C6OWTnX80FrC1FFRYemnSg12/lW1nMjtAMom1vu6LWc7bLt4RJMuJj1WMKKj35LHksIcZEd0fVOqq8HTIyUTNZDHr78wN3IF8ZEGSu9HRkO37Gd5ys811QdAZb6TA5pMdrD9RmXVrHJBb9xJuDGQnPNbf6KVtw7B+jRr8nCk5IRHV1l5VbozQhK+HZKjJ7r0VRqkmjvuUy2MCcarEho72vIOGFkAnzZvFlYvBkeW4V9x3WhjR0yQtPh79+aWJqLIaTHP2KxQcQMN9rCVvQfTdCMbrLbqkgqDBgBK
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(7416014)(23010399003)(376014)(22082099003)(18002099003)(6133799003)(10067099003)(921020)(5023799004)(56012099006)(11063799006)(261026121527099003)(261026140227099003)(261102130727099003)(261102123227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261009223027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	WainNW5EIo6qZRtYcW3untFAZ1lAm0iWgi54uIXWp89Em+t0I8tay735jqz3Fw6YVmgKuu3S0NqVnLugCgSwvxo8xM8o0dxMT//aaAwddCamqgQ02NNcFyEh6WBXphFtZTfubCxIRzt8+tZZLAuvgo2rAjL3znr8nEh/eHtRQHYxtlPeti2DKV6TQloTMJ2mA8Is8VwoPFQ81B1ZdJoDsS/dMbRy4kFREgPef1sQ0IGlahWZgRQehbIZlBwPryF4oKV20PRz+ld58Q2y41MvGkjoI9s9sMXnB+KWEhtCe3lmTO+3yMBmal/qfhU/v+PAY2+H7dzxIgyeoRcCbGNoxDs5vnpQxFzBB4f5xLJfwuPjt2xzu78wN+RL5F03xZPJJ2MlfCJMxOd2i13TbJCsN66RJqJeKQ6kXE6Ya2s9tns0pCT32oRtAnDy4LfblVh1
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 19:33:53.4151
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a791ba8-2988-4d0e-80c6-08df3c3ce44a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0002457C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5825
 
-=E2=80=A6
-> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
-> @@ -0,0 +1,432 @@
-=E2=80=A6
-> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
-> +{
-=E2=80=A6
-> +	spin_lock(&i2c->lock);
-> +
-> +	irq_state =3D readl(i2c->regs + REG_CFG_IRQ_STATE);
-> +	if (i2c->state =3D=3D A9_STATE_IDLE) {
-> +		dev_warn(i2c->dev, "i2c irq triggered abnormally, irq_state:0x%x,irq_=
-en:0x%x\n",
-> +			 irq_state, readl(i2c->regs + REG_CFG_IRQ_ENABLE));
-> +		clear_irq_status(i2c, IRQ_ALL_MASK);
-> +		spin_unlock(&i2c->lock);
-> +		return IRQ_HANDLED;
-> +	}
-=E2=80=A6
+From: Christian Loehle <christian.loehle@arm.com>
 
-Please avoid duplicate source code a bit more for such a function implemen=
-tation.
+The ACPI specification requires Minimum Performance to remain below
+Maximum Performance. When autonomous selection is disabled, Desired
+Performance must also remain within those limits.
 
-Regards,
-Markus
+cppc_set_perf() writes the three controls in a fixed order. This can expose
+an invalid tuple after firmware resets the controls or while policy bounds
+move across the current desired value.
+
+Read the live limits. Apply non-atomic updates in three phases: widen the
+interval, update Desired Performance, then narrow it. Submit PCC controls
+in each phase together. Keep the existing single-command path when the
+complete tuple is in PCC, reject invalid requests, and stop after the first
+failed access.
+
+Make cppc_cpufreq fast switches include the limits only when they differ
+from the last successful request. Invalidate the cache across resume and
+after a failed request, since firmware may have reset the controls or an
+earlier phase of a failed update may have reached the platform. Publish
+slow-path limits only after the complete request succeeds.
+
+At policy teardown, lower Minimum Performance together with Desired
+Performance so the final request remains valid. On initialization, clamp
+Desired Performance to the live interval left by firmware or an earlier
+driver instance.
+
+[sumitg:
+ - In cppc_read_perf_limits(), skip an unimplemented MIN or MAX, and
+   do not fail on a live MIN above MAX.
+ - Clamp Desired into the new MIN and MAX instead of rejecting it, as
+   amd-pstate resume can round it above MAX.
+ - In init(), request the full range if the live MAX is zero or below MIN.
+ - Clamp Desired in set_target(), fast_switch() and store_auto_select(),
+   to keep the cached value in range.
+ - In store_auto_select(), publish the request only after success.]
+
+Fixes: 76531df5e13b ("ACPI: CPPC: Add min and max perf register writing support")
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Link: https://lore.kernel.org/all/01d7f07e-839c-428b-833d-713ed2128f4d@nvidia.com/
+Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+---
+ drivers/acpi/cppc_acpi.c       | 298 ++++++++++++++++++++++++++-------
+ drivers/cpufreq/cppc_cpufreq.c | 141 ++++++++++++----
+ include/acpi/cppc_acpi.h       |   1 +
+ 3 files changed, 348 insertions(+), 92 deletions(-)
+
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index 80e2e6b32ce3..f49c6152a013 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -3471,11 +3471,214 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ }
+ EXPORT_SYMBOL_GPL(cppc_get_perf);
+ 
++enum cppc_perf_update {
++	CPPC_UPDATE_DESIRED	= BIT(0),
++	CPPC_UPDATE_MIN		= BIT(1),
++	CPPC_UPDATE_MAX		= BIT(2),
++};
++
++/* The caller holds pcc_lock for write if either limit is in PCC. */
++static int cppc_read_perf_limits(int cpu, u32 *min_perf, u32 *max_perf)
++{
++	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
++	struct cpc_register_resource *min_reg = &cpc_desc->cpc_regs[MIN_PERF];
++	struct cpc_register_resource *max_reg = &cpc_desc->cpc_regs[MAX_PERF];
++	u64 min = 0, max = U32_MAX;
++	int ret;
++
++	if (!cpc_is_readable(min_reg) || !cpc_is_readable(max_reg))
++		return -EOPNOTSUPP;
++
++	/* Firmware may have reset the controls, so read the live limits. */
++	if (CPC_IN_PCC(min_reg) || CPC_IN_PCC(max_reg)) {
++		ret = send_pcc_cmd(per_cpu(cpu_pcc_subspace_idx, cpu), CMD_READ);
++		if (ret)
++			return ret;
++	}
++
++	/* An absent optional limit leaves that side of the interval open. */
++	if (CPC_SUPPORTED(min_reg)) {
++		ret = cpc_read(cpu, min_reg, &min);
++		if (ret)
++			return ret;
++	}
++	if (CPC_SUPPORTED(max_reg)) {
++		ret = cpc_read(cpu, max_reg, &max);
++		if (ret)
++			return ret;
++	}
++	if (min > U32_MAX || max > U32_MAX)
++		return -EFAULT;
++	if (min > max)
++		pr_debug("CPU:%d live MIN_PERF %llu above MAX_PERF %llu\n",
++			 cpu, min, max);
++
++	*min_perf = min;
++	*max_perf = max;
++	return 0;
++}
++
++static bool cppc_perf_updates_in_pcc(int cpu, unsigned int updates)
++{
++	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
++
++	return ((updates & CPPC_UPDATE_DESIRED) &&
++		CPC_IN_PCC(&cpc_desc->cpc_regs[DESIRED_PERF])) ||
++	       ((updates & CPPC_UPDATE_MIN) &&
++		CPC_IN_PCC(&cpc_desc->cpc_regs[MIN_PERF])) ||
++	       ((updates & CPPC_UPDATE_MAX) &&
++		CPC_IN_PCC(&cpc_desc->cpc_regs[MAX_PERF]));
++}
++
++/* The caller holds pcc_lock for write if an updated control is in PCC. */
++static int cppc_write_perf_controls(int cpu,
++				    struct cppc_perf_ctrls *perf_ctrls,
++				    unsigned int updates, bool sync_desired)
++{
++	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
++	struct cpc_register_resource *desired_reg =
++		&cpc_desc->cpc_regs[DESIRED_PERF];
++	struct cpc_register_resource *min_reg = &cpc_desc->cpc_regs[MIN_PERF];
++	struct cpc_register_resource *max_reg = &cpc_desc->cpc_regs[MAX_PERF];
++	struct cppc_pcc_data *pcc_ss_data;
++	int pcc_ss_id, ret;
++	bool pcc_update = false;
++
++	/* Direct writes precede the PCC command in each ordered phase. */
++	if ((updates & CPPC_UPDATE_DESIRED) && !CPC_IN_PCC(desired_reg)) {
++		ret = cpc_write(cpu, desired_reg, perf_ctrls->desired_perf);
++		if (ret)
++			return ret;
++	}
++	if ((updates & CPPC_UPDATE_MIN) && !CPC_IN_PCC(min_reg)) {
++		ret = cpc_write(cpu, min_reg, perf_ctrls->min_perf);
++		if (ret)
++			return ret;
++	}
++	if ((updates & CPPC_UPDATE_MAX) && !CPC_IN_PCC(max_reg)) {
++		ret = cpc_write(cpu, max_reg, perf_ctrls->max_perf);
++		if (ret)
++			return ret;
++	}
++
++	/* Keep Desired Performance valid in every intermediate PCC command. */
++	if (((updates & CPPC_UPDATE_DESIRED) || sync_desired) &&
++	    CPC_IN_PCC(desired_reg)) {
++		ret = cpc_write(cpu, desired_reg, perf_ctrls->desired_perf);
++		if (ret)
++			return ret;
++		pcc_update = true;
++	}
++	if ((updates & CPPC_UPDATE_MIN) && CPC_IN_PCC(min_reg)) {
++		ret = cpc_write(cpu, min_reg, perf_ctrls->min_perf);
++		if (ret)
++			return ret;
++		pcc_update = true;
++	}
++	if ((updates & CPPC_UPDATE_MAX) && CPC_IN_PCC(max_reg)) {
++		ret = cpc_write(cpu, max_reg, perf_ctrls->max_perf);
++		if (ret)
++			return ret;
++		pcc_update = true;
++	}
++	if (!pcc_update)
++		return 0;
++
++	pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
++	pcc_ss_data = pcc_data[pcc_ss_id];
++	WRITE_ONCE(pcc_ss_data->pending_pcc_write_cmd, true);
++	cpc_desc->write_cmd_id = pcc_ss_data->pcc_write_cnt;
++	cpc_desc->write_cmd_status = 0;
++	return send_pcc_cmd(pcc_ss_id, CMD_WRITE);
++}
++
++/*
++ * Move from the live interval to the requested interval without exposing an
++ * invalid control tuple: widen, update Desired Performance, then narrow.
++ */
++static int cppc_write_ordered_perf(int cpu,
++				   struct cppc_perf_ctrls *perf_ctrls,
++				   bool desired_update, bool min_update,
++				   bool max_update)
++{
++	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
++	struct cpc_register_resource *desired_reg =
++		&cpc_desc->cpc_regs[DESIRED_PERF];
++	struct cppc_perf_ctrls ctrls = *perf_ctrls;
++	unsigned int widen = 0, narrow = 0;
++	u32 current_min, current_max;
++	u32 target_min, target_max;
++	bool desired_done = false;
++	bool sync_desired;
++	int ret;
++
++	ret = cppc_read_perf_limits(cpu, &current_min, &current_max);
++	if (ret)
++		return ret;
++
++	target_min = min_update ? perf_ctrls->min_perf : current_min;
++	target_max = max_update ? perf_ctrls->max_perf : current_max;
++
++	/*
++	 * Check only the new interval. If the live one is inverted, this
++	 * update fixes it.
++	 */
++	if (target_min > target_max)
++		return -EINVAL;
++
++	/* Callers can round Desired just outside the new interval. */
++	if (desired_update && ctrls.desired_perf)
++		ctrls.desired_perf = clamp(ctrls.desired_perf, target_min,
++					   target_max);
++
++	if (min_update) {
++		if (perf_ctrls->min_perf < current_min)
++			widen |= CPPC_UPDATE_MIN;
++		else
++			narrow |= CPPC_UPDATE_MIN;
++	}
++	if (max_update) {
++		if (perf_ctrls->max_perf > current_max)
++			widen |= CPPC_UPDATE_MAX;
++		else
++			narrow |= CPPC_UPDATE_MAX;
++	}
++
++	if (widen) {
++		sync_desired = desired_update && CPC_IN_PCC(desired_reg) &&
++			cppc_perf_updates_in_pcc(cpu, widen);
++		ret = cppc_write_perf_controls(cpu, &ctrls, widen,
++					       sync_desired);
++		if (ret)
++			return ret;
++		desired_done = sync_desired;
++	}
++
++	if (desired_update && !desired_done) {
++		ret = cppc_write_perf_controls(cpu, &ctrls,
++					       CPPC_UPDATE_DESIRED, false);
++		if (ret)
++			return ret;
++	}
++
++	if (!narrow)
++		return 0;
++
++	sync_desired = desired_update && CPC_IN_PCC(desired_reg) &&
++		cppc_perf_updates_in_pcc(cpu, narrow);
++	return cppc_write_perf_controls(cpu, &ctrls, narrow, sync_desired);
++}
++
+ /**
+  * cppc_set_perf - Set a CPU's performance controls.
+  * @cpu: CPU for which to set performance controls.
+  * @perf_ctrls: ptr to cppc_perf_ctrls. See cppc_acpi.h
+  *
++ * Callers must serialize updates to the same CPU's performance controls.
++ * Limit updates preserve MIN <= MAX, including intermediate states on
++ * directly accessed registers. An error may leave an earlier write applied.
++ * A nonzero Desired is clamped to the new [MIN, MAX] when a limit is updated.
++ *
+  * Return: 0 for success, -ERRNO otherwise.
+  */
+ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+@@ -3487,6 +3690,7 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 	bool desired_update, min_update, max_update;
+ 	bool desired_pcc, min_pcc, max_pcc, pcc_update;
+ 	bool pcc_layout, direct_layout, mixed_layout;
++	u32 desired_perf;
+ 	int ret = 0;
+ 
+ 	if (!cpc_desc) {
+@@ -3502,10 +3706,21 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 		     (perf_ctrls->min_perf || perf_ctrls->min_perf_valid);
+ 	max_update = cpc_is_writable(max_perf_reg) &&
+ 		     perf_ctrls->max_perf;
++
++	if (min_update && max_update &&
++	    perf_ctrls->min_perf > perf_ctrls->max_perf)
++		return -EINVAL;
++
++	desired_perf = perf_ctrls->desired_perf;
++	if (desired_perf && min_update && max_update)
++		desired_perf = clamp(desired_perf, perf_ctrls->min_perf,
++				     perf_ctrls->max_perf);
++
+ 	desired_pcc = desired_update && CPC_IN_PCC(desired_reg);
+ 	min_pcc = min_update && CPC_IN_PCC(min_perf_reg);
+ 	max_pcc = max_update && CPC_IN_PCC(max_perf_reg);
+ 	pcc_update = desired_pcc || min_pcc || max_pcc;
++
+ 	pcc_layout = (cpc_is_writable(desired_reg) && CPC_IN_PCC(desired_reg)) ||
+ 		     (cpc_is_writable(min_perf_reg) && CPC_IN_PCC(min_perf_reg)) ||
+ 		     (cpc_is_writable(max_perf_reg) && CPC_IN_PCC(max_perf_reg));
+@@ -3531,9 +3746,10 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 	 * A mixed layout cannot batch fallible direct writes safely: another
+ 	 * CPU's staged PCC values may no longer match if a direct write fails.
+ 	 * Serialize the complete mixed transaction and drain an older batch
+-	 * before changing a direct control.
++	 * before changing a direct control. A single PCC limit update also
++	 * needs the exclusive lock to read and check the unchanged limit.
+ 	 */
+-	if (mixed_layout) {
++	if (mixed_layout || (pcc_update && min_update != max_update)) {
+ 		down_write(&pcc_ss_data->pcc_lock);
+ 		if (pcc_ss_data->pending_pcc_write_cmd) {
+ 			ret = send_pcc_cmd(pcc_ss_id, CMD_WRITE);
+@@ -3547,50 +3763,14 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 				goto out_mixed_unlock;
+ 		}
+ 
+-		if (desired_update && !desired_pcc) {
+-			ret = cpc_write(cpu, desired_reg,
+-					perf_ctrls->desired_perf);
+-			if (ret)
+-				goto out_mixed_unlock;
+-		}
+-		if (min_update && !min_pcc) {
+-			ret = cpc_write(cpu, min_perf_reg,
+-					perf_ctrls->min_perf);
+-			if (ret)
+-				goto out_mixed_unlock;
+-		}
+-		if (max_update && !max_pcc) {
+-			ret = cpc_write(cpu, max_perf_reg,
+-					perf_ctrls->max_perf);
+-			if (ret)
+-				goto out_mixed_unlock;
+-		}
+-
+-		if (desired_pcc) {
+-			ret = cpc_write(cpu, desired_reg,
+-					perf_ctrls->desired_perf);
+-			if (ret)
+-				goto out_mixed_unlock;
+-		}
+-		if (min_pcc) {
+-			ret = cpc_write(cpu, min_perf_reg,
+-					perf_ctrls->min_perf);
+-			if (ret)
+-				goto out_mixed_unlock;
+-		}
+-		if (max_pcc) {
+-			ret = cpc_write(cpu, max_perf_reg,
+-					perf_ctrls->max_perf);
+-			if (ret)
+-				goto out_mixed_unlock;
+-		}
+-
+-		if (pcc_update) {
+-			WRITE_ONCE(pcc_ss_data->pending_pcc_write_cmd, true);
+-			cpc_desc->write_cmd_id = pcc_ss_data->pcc_write_cnt;
+-			cpc_desc->write_cmd_status = 0;
+-			ret = send_pcc_cmd(pcc_ss_id, CMD_WRITE);
+-		}
++		if (min_update || max_update)
++			ret = cppc_write_ordered_perf(cpu, perf_ctrls,
++						      desired_update,
++						      min_update, max_update);
++		else if (desired_update)
++			ret = cppc_write_perf_controls(cpu, perf_ctrls,
++						       CPPC_UPDATE_DESIRED,
++						       false);
+ 
+ out_mixed_unlock:
+ 		up_write(&pcc_ss_data->pcc_lock);
+@@ -3599,22 +3779,14 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 
+ 	/* A request without PCC updates has no payload to coordinate. */
+ 	if (!pcc_update) {
+-		if (desired_update) {
+-			ret = cpc_write(cpu, desired_reg,
+-					perf_ctrls->desired_perf);
+-			if (ret)
+-				return ret;
+-		}
+-		if (min_update) {
+-			ret = cpc_write(cpu, min_perf_reg,
+-					perf_ctrls->min_perf);
+-			if (ret)
+-				return ret;
+-		}
+-		if (max_update)
+-			ret = cpc_write(cpu, max_perf_reg,
+-					perf_ctrls->max_perf);
+-		return ret;
++		if (min_update || max_update)
++			return cppc_write_ordered_perf(cpu, perf_ctrls,
++						       desired_update,
++						       min_update, max_update);
++		if (desired_update)
++			return cpc_write(cpu, desired_reg,
++					 perf_ctrls->desired_perf);
++		return 0;
+ 	}
+ 
+ 	down_read(&pcc_ss_data->pcc_lock); /* BEGIN Phase-I */
+@@ -3632,7 +3804,7 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 	 * achieve that goal here.
+ 	 */
+ 	if (desired_pcc) {
+-		ret = cpc_write(cpu, desired_reg, perf_ctrls->desired_perf);
++		ret = cpc_write(cpu, desired_reg, desired_perf);
+ 		if (ret)
+ 			goto out_pcc_read_unlock;
+ 	}
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 957fa7775260..ded4f935638e 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -321,60 +321,96 @@ static void cppc_cpufreq_get_perf_limits(struct cppc_cpudata *cpu_data,
+ 	*max_perf = clamp_t(u32, max, caps->lowest_perf, caps->highest_perf);
+ }
+ 
+-static void cppc_cpufreq_update_perf_limits(struct cppc_cpudata *cpu_data,
+-					    struct cpufreq_policy *policy)
+-{
+-	cppc_cpufreq_get_perf_limits(cpu_data, policy,
+-				     &cpu_data->perf_ctrls.min_perf,
+-				     &cpu_data->perf_ctrls.max_perf);
+-}
+-
+ static int cppc_cpufreq_set_target(struct cpufreq_policy *policy,
+ 				   unsigned int target_freq,
+ 				   unsigned int relation)
+ {
+ 	struct cppc_cpudata *cpu_data = policy->driver_data;
++	struct cppc_perf_ctrls perf_ctrls = {};
+ 	unsigned int cpu = policy->cpu;
+ 	struct cpufreq_freqs freqs;
++	u32 desired_perf;
+ 	int ret = 0;
+ 
+-	cpu_data->perf_ctrls.desired_perf =
+-			cppc_khz_to_perf(&cpu_data->perf_caps, target_freq);
+-	cppc_cpufreq_update_perf_limits(cpu_data, policy);
++	desired_perf = cppc_khz_to_perf(&cpu_data->perf_caps, target_freq);
++	cppc_cpufreq_get_perf_limits(cpu_data, policy, &perf_ctrls.min_perf,
++				     &perf_ctrls.max_perf);
++	perf_ctrls.min_perf_valid = true;
++
++	/*
++	 * Keep the cached Desired within [MIN, MAX]. Rounding can put it just
++	 * outside at the ends of the range. The policy limits may also change
++	 * after the governor picked target_freq.
++	 */
++	perf_ctrls.desired_perf = clamp(desired_perf, perf_ctrls.min_perf,
++					perf_ctrls.max_perf);
+ 
+ 	freqs.old = policy->cur;
+ 	freqs.new = target_freq;
+ 
+ 	cpufreq_freq_transition_begin(policy, &freqs);
+-	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
++	ret = cppc_set_perf(cpu, &perf_ctrls);
+ 	cpufreq_freq_transition_end(policy, &freqs, ret != 0);
+ 
+-	if (ret)
++	if (ret) {
++		WRITE_ONCE(cpu_data->perf_limits_valid, false);
+ 		pr_debug("Failed to set target on CPU:%d. ret:%d\n",
+ 			 cpu, ret);
++		return ret;
++	}
+ 
+-	return ret;
++	WRITE_ONCE(cpu_data->perf_ctrls.desired_perf,
++		   perf_ctrls.desired_perf);
++	WRITE_ONCE(cpu_data->perf_ctrls.min_perf, perf_ctrls.min_perf);
++	WRITE_ONCE(cpu_data->perf_ctrls.max_perf, perf_ctrls.max_perf);
++	WRITE_ONCE(cpu_data->perf_limits_valid, true);
++
++	return 0;
+ }
+ 
+ static unsigned int cppc_cpufreq_fast_switch(struct cpufreq_policy *policy,
+ 					      unsigned int target_freq)
+ {
+ 	struct cppc_cpudata *cpu_data = policy->driver_data;
++	struct cppc_perf_ctrls perf_ctrls = {};
+ 	unsigned int cpu = policy->cpu;
+-	u32 desired_perf;
++	u32 desired_perf, min_perf, max_perf;
++	bool update_limits;
+ 	int ret;
+ 
+ 	desired_perf = cppc_khz_to_perf(&cpu_data->perf_caps, target_freq);
+-	cpu_data->perf_ctrls.desired_perf = desired_perf;
+-	cppc_cpufreq_update_perf_limits(cpu_data, policy);
++	cppc_cpufreq_get_perf_limits(cpu_data, policy, &min_perf, &max_perf);
+ 
+-	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
++	/*
++	 * cppc_set_perf() does not check a Desired-only request, and rounding
++	 * or a policy limit change can put Desired outside [MIN, MAX].
++	 */
++	desired_perf = clamp(desired_perf, min_perf, max_perf);
++	perf_ctrls.desired_perf = desired_perf;
++	update_limits = !READ_ONCE(cpu_data->perf_limits_valid) ||
++			min_perf != READ_ONCE(cpu_data->perf_ctrls.min_perf) ||
++			max_perf != READ_ONCE(cpu_data->perf_ctrls.max_perf);
++	if (update_limits) {
++		perf_ctrls.min_perf = min_perf;
++		perf_ctrls.max_perf = max_perf;
++		perf_ctrls.min_perf_valid = true;
++	}
++
++	ret = cppc_set_perf(cpu, &perf_ctrls);
+ 	if (ret) {
++		WRITE_ONCE(cpu_data->perf_limits_valid, false);
+ 		pr_debug("Failed to set target on CPU:%d. ret:%d\n",
+ 			 cpu, ret);
+ 		return 0;
+ 	}
+ 
++	WRITE_ONCE(cpu_data->perf_ctrls.desired_perf, desired_perf);
++	if (update_limits) {
++		WRITE_ONCE(cpu_data->perf_ctrls.min_perf, min_perf);
++		WRITE_ONCE(cpu_data->perf_ctrls.max_perf, max_perf);
++		WRITE_ONCE(cpu_data->perf_limits_valid, true);
++	}
++
+ 	return target_freq;
+ }
+ 
+@@ -669,6 +705,7 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+ 	unsigned int cpu = policy->cpu;
+ 	struct cppc_cpudata *cpu_data;
+ 	struct cppc_perf_caps *caps;
++	u32 desired_perf;
+ 	int ret;
+ 
+ 	cpu_data = cppc_cpufreq_get_cpu_data(cpu);
+@@ -727,16 +764,39 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+ 	if (caps->highest_perf > caps->nominal_perf)
+ 		policy->boost_supported = true;
+ 
+-	/* Set policy->cur to max now. The governors will adjust later. */
+-	policy->cur = cppc_perf_to_khz(caps, caps->highest_perf);
+-	cpu_data->perf_ctrls.desired_perf =  caps->highest_perf;
++	/*
++	 * The request starts from the live limits, which may be unusable.
++	 * Firmware may leave them zeroed. An interrupted earlier update may
++	 * have left MIN above MAX. cppc_set_perf() would reject either, so
++	 * request the full range instead.
++	 */
++	if (!cpu_data->perf_ctrls.max_perf ||
++	    cpu_data->perf_ctrls.min_perf > cpu_data->perf_ctrls.max_perf) {
++		cpu_data->perf_ctrls.min_perf = caps->lowest_perf;
++		cpu_data->perf_ctrls.min_perf_valid = true;
++		cpu_data->perf_ctrls.max_perf = caps->highest_perf;
++	}
++
++	/*
++	 * Keep the initial request within controls left by an earlier driver
++	 * instance or firmware. The governor will update the full tuple later.
++	 */
++	desired_perf = caps->highest_perf;
++	if (cpu_data->perf_ctrls.max_perf)
++		desired_perf = min(desired_perf, cpu_data->perf_ctrls.max_perf);
++	if (cpu_data->perf_ctrls.min_perf_valid)
++		desired_perf = max(desired_perf, cpu_data->perf_ctrls.min_perf);
++
++	policy->cur = cppc_perf_to_khz(caps, desired_perf);
++	cpu_data->perf_ctrls.desired_perf = desired_perf;
+ 
+ 	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
+ 	if (ret) {
+ 		pr_debug("Err setting perf value:%d on CPU:%d. ret:%d\n",
+-			 caps->highest_perf, cpu, ret);
++			 desired_perf, cpu, ret);
+ 		goto out;
+ 	}
++	cpu_data->perf_limits_valid = true;
+ 
+ 	cppc_cpufreq_cpu_fie_init(policy);
+ 	return 0;
+@@ -756,6 +816,8 @@ static void cppc_cpufreq_cpu_exit(struct cpufreq_policy *policy)
+ 	cppc_cpufreq_cpu_fie_exit(policy);
+ 
+ 	cpu_data->perf_ctrls.desired_perf = caps->lowest_perf;
++	cpu_data->perf_ctrls.min_perf = caps->lowest_perf;
++	cpu_data->perf_ctrls.min_perf_valid = true;
+ 
+ 	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
+ 	if (ret)
+@@ -765,6 +827,16 @@ static void cppc_cpufreq_cpu_exit(struct cpufreq_policy *policy)
+ 	cppc_cpufreq_put_cpu_data(policy);
+ }
+ 
++static int cppc_cpufreq_cpu_resume(struct cpufreq_policy *policy)
++{
++	struct cppc_cpudata *cpu_data = policy->driver_data;
++
++	/* The platform may have reset the controls during suspend. */
++	WRITE_ONCE(cpu_data->perf_limits_valid, false);
++
++	return 0;
++}
++
+ static inline u64 get_delta(u64 t1, u64 t0)
+ {
+ 	if (t1 > t0 || t0 > ~(u32)0)
+@@ -909,24 +981,34 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
+ 	cpu_data->perf_ctrls.auto_sel = val;
+ 
+ 	if (val) {
+-		u32 old_min_perf = cpu_data->perf_ctrls.min_perf;
+-		u32 old_max_perf = cpu_data->perf_ctrls.max_perf;
++		struct cppc_perf_ctrls perf_ctrls = {};
+ 
+ 		/*
+ 		 * When enabling autonomous selection, program MIN_PERF and
+ 		 * MAX_PERF from current policy limits so that the platform
+ 		 * uses the correct performance bounds immediately.
+ 		 */
+-		cppc_cpufreq_update_perf_limits(cpu_data, policy);
+-
+-		ret = cppc_set_perf(policy->cpu, &cpu_data->perf_ctrls);
++		cppc_cpufreq_get_perf_limits(cpu_data, policy,
++					     &perf_ctrls.min_perf,
++					     &perf_ctrls.max_perf);
++		perf_ctrls.min_perf_valid = true;
++		/* The cached Desired may be outside the new MIN and MAX. */
++		perf_ctrls.desired_perf =
++			clamp(cpu_data->perf_ctrls.desired_perf,
++			      perf_ctrls.min_perf, perf_ctrls.max_perf);
++
++		ret = cppc_set_perf(policy->cpu, &perf_ctrls);
+ 		if (ret) {
+-			cpu_data->perf_ctrls.min_perf = old_min_perf;
+-			cpu_data->perf_ctrls.max_perf = old_max_perf;
++			WRITE_ONCE(cpu_data->perf_limits_valid, false);
+ 			cppc_set_auto_sel(policy->cpu, old_auto_sel);
+ 			cpu_data->perf_ctrls.auto_sel = old_auto_sel;
+ 			return ret;
+ 		}
++		WRITE_ONCE(cpu_data->perf_ctrls.desired_perf,
++			   perf_ctrls.desired_perf);
++		WRITE_ONCE(cpu_data->perf_ctrls.min_perf, perf_ctrls.min_perf);
++		WRITE_ONCE(cpu_data->perf_ctrls.max_perf, perf_ctrls.max_perf);
++		WRITE_ONCE(cpu_data->perf_limits_valid, true);
+ 	}
+ 
+ 	return count;
+@@ -1059,6 +1141,7 @@ static struct cpufreq_driver cppc_cpufreq_driver = {
+ 	.fast_switch = cppc_cpufreq_fast_switch,
+ 	.init = cppc_cpufreq_cpu_init,
+ 	.exit = cppc_cpufreq_cpu_exit,
++	.resume = cppc_cpufreq_cpu_resume,
+ 	.set_boost = cppc_cpufreq_set_boost,
+ 	.attr = cppc_cpufreq_attr,
+ 	.name = "cppc_cpufreq",
+diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
+index 5bcdb0e553b9..4495ee4ab71e 100644
+--- a/include/acpi/cppc_acpi.h
++++ b/include/acpi/cppc_acpi.h
+@@ -165,6 +165,7 @@ struct cppc_cpudata {
+ 	struct cppc_perf_fb_ctrs perf_fb_ctrs;
+ 	unsigned int shared_type;
+ 	cpumask_var_t shared_cpu_map;
++	bool perf_limits_valid;
+ };
+ 
+ #ifdef CONFIG_ACPI_CPPC_LIB
+-- 
+2.34.1
+
