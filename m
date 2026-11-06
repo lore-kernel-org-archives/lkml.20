@@ -1,62 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973549;
-	b=sdd9YZIk5Twfm08y4oEaQIocLyt8KDMWOtKzTobaygtoAr6ERJw+IczDcgIzl0bRqp7Q
-	 EB7atFhApgPpMbtrBn5X+a3o/J0MLVg0vfAm5A2sVsb4EtYnydCRq9b/EeeJ98iYXVQi1
-	 Tp4hgFxj27jQoavWk/9tgft03D2KjKgaSMQhMSYJe00tbmp+qwTqvh75MjXiq5nofFWal
-	 b9UwJpLmgI7lQnFGzqRLxmBdbVAOcrJpWZhvd4qYVlRKM3W5cfVeJo8PYd5h5z427h6MR
-	 dgeX2mU5jYCefF3JOp8khWEjZUu4DJergwmv8KMN1fDolXKOTWx2mCXRTFFsqQduzPA==
+	t=1793973554;
+	b=HFSodvkDb2dbUF+ly1RBF0JdFWUIs+ZY1UWlS1yVYiiwu0Q/YrEtvRTkPqyqlgAl1YGB
+	 uSEYwLz5/JCu0rwG57pC50LlI5pdt/D6oY9E5bBt5DJsXYYJNes2GCDHC5olXGk6346It
+	 DnK2dP74NeJbAoKG/Nlb3aONGwAO+gfCgORQieE8iJhv3tI/14Ez7Lx6diuh8HCyVmvHW
+	 PDGH/CUZQe5VUz5PcvWt2L3l9deh+oFhg33GHoIlENAm0nvQsdhTLJJt9K2o0BWzDxqjQ
+	 HjSnF7GnummDMYFUzAOq04KAXzpdzzzP77z0P6rdquv34ChDxNd8Py6ks9SWQdkTDTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973549;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=/3KceGI8tevjeMAc5p6gBD6k/sRI+27w7Vfy8EdpXIo=;
-	b=c97BpHaGIhaKtFjP5caElHZDe59x/wDzPe9nRHRnCayTy0KSFk2l7BUIjkWwvw6CsPZM
-	 UU2fUICQCU2l6ypa6h1Lu+qKMzos6CYzM5BRrhpJ72BZQBMnUQsTivLZdoSex6yvTkRvX
-	 S1zWIRrUz0zi4bq8zVCCLXCDkoyKVyD93J0jvV4mzpUWU9AoTrspqV/cXWiHIW0bViR51
-	 eF7L95TEjIvMnwBDRy5ooX8boashxXf0TJlgeh12d7mPUCkMNO0GYwXg7Gk1gVzD7wDoM
-	 J/lxRjTX1G+I5zbgkHKEEWFSB0EE9eDNlqzQ01q/1b0wBqxLCNLe7FswzmDMzw1nNbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973554;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fdyWAktPoh7yf4BNuSuBcGMtWgBKcjHGM1gjgcFt1EY=;
+	b=tT28OLuPTbnM5TvPjs9n+mhtLMDs9XjARn9UNQ4SQGngnJHgJQNxkGc41uHxQ3gKSCqH
+	 loTqSrksYw72SCdLtKAgaPiNIfjSaGR0fMQO+uup9aSMckLOwRA/ghgy6j2Kw5z+w1H/t
+	 C/HqCuxjtw1HbhH9vegwn2BCdzPdrydEAY6n26TOUp7smehMKVw99OH5r+9tviQK8BeJn
+	 NO4wPuAE9BeXwrcO/ul7Vw5vcFwz9uPSjSFHzwiyerLbskwUjEA4QNqW/qWjofIf77+/D
+	 /gRZS/BXG2utc/6sjgAAlUBM2VmlSmDToesEnV7b+phSpONxli+pZCfWsX7wufgSz4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ve05YNgq;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P72btyHj;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C02606A329;
-	Fri,  6 Nov 2026 13:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65C02606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE784606D80E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE784606D80E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ve05YNgq
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261106135906euoutp01242be43f0a893b0fcbd059f1e0fbc795~leW_iHHW50203402034euoutp01P;
-	Fri,  6 Nov 2026 13:59:06 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261106135906euoutp01242be43f0a893b0fcbd059f1e0fbc795~leW_iHHW50203402034euoutp01P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793973547;
-	bh=/3KceGI8tevjeMAc5p6gBD6k/sRI+27w7Vfy8EdpXIo=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=ve05YNgq5O2+klCMWPpjm9X2VrB5kUkUe7pKfHv1QQmb4t5T/qVsccLdEZOLC1S4x
-	 e4Bvr6qeSdxI35hd2tATsdr9lhv59t9P1MWvL6mveSl5It8vPTcGkjVpRX8L76nQWC
-	 Zuy0WnjHOPDMyqETu2+eHBBMV7nht/e//+eTURa8=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261106135906eucas1p2c3d4a479c32e76358b3421ad18669af1~leW_P1XIl1705017050eucas1p2B;
-	Fri,  6 Nov 2026 13:59:06 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261106135904eusmtip1c6eebbd7e01c9c4442292b1ce08a6963~leW8enwxY0678706787eusmtip1U;
-	Fri,  6 Nov 2026 13:59:04 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Fri, 06 Nov 2026 14:58:43 +0100
-Subject: [PATCH v7 09/19] drm/bridge: inno-hdmi: Use a regmap for register
- access
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P72btyHj
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ed39646f04so2073165ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:59:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793973553; x=1794578353; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fdyWAktPoh7yf4BNuSuBcGMtWgBKcjHGM1gjgcFt1EY=;
+        b=P72btyHjY0jWhATyUuntFPnCjQYvQyZl6CAC83+e1eJuLGmmk7Srn9vgLectTb7NwS
+         SkjrxMTYbyIkZH1OX9DoDc0jA57Mir0CQ7WrD90TidWTpgD6p/gwTrVFFlxtC0+6PYkF
+         swJ3gb2skQPh3jakrbqwFmrYeNOQ08vL2/HS9ib3W2KuLGakO5w5iDpt7u9ISs34WWC1
+         4sutvtlrtkR7hlYys/VMaFkUgpIikUYS3oLKM1fSOY2OCUp9MqYI3m/Fhtff1hXOSO/d
+         tIr+Bda7xassy/dF+LT7We+g6DFiq0/g/6MV4zsyEQAF1jpiEPZsIiku+lL8KaDmdFOS
+         OWSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793973553; x=1794578353;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fdyWAktPoh7yf4BNuSuBcGMtWgBKcjHGM1gjgcFt1EY=;
+        b=drdlzM44wzrOigyA5XMAtoLjr78+888PH3C4IbjBwRsKhDiBF71HbNaGdf863HLUH0
+         k8a+sk5KP0/Q0O4VjtviOGpEJ1wXCotBtCXG5LUR8Nqk3X6iZ5tf/bHRUbfNXP7KX01L
+         g7VjdmjC8g+V6VMylqFl57RSOkVKqLNxG4UfJ/kZz7uT8jvyFlGVzk2EoCTAjFUD0I72
+         pC6ECK3EN6G7S6fLQrI7gB6WkUdqZL7aIdbNVl9rq/B/kfkyCG461Y/5Wc9QwZWWxrSM
+         4NiJMCYTpf7ih/mHzu3KOz8wSLLbkLHTHSbYzihShJkcozk68kZg1Jo3NXrXqomPub48
+         ylvA==
+X-Forwarded-Encrypted: i=1; AL+hErF0qb7rBt9UR5AChm2QFShj+sYAMEk0sIFyKY5YTQexBVNrZHVMIXJk0sPHJMS0zutEGUZ4WTmkdn6K6AQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Zyh6bJ5HAsi5N+kZ06LWvv/TL5D251m7Y/wXQB6vb/ZIyuLOx
+	jIXPEKfIm1JuuLKH6OQSp77KmNoe5dFY1st7vkiIi9Sz+2ksG5IbPrY5
+X-Gm-Gg: AYBFou3g6KXdri0FsHktCa8oOW3IIaVIo8cs4E07X0K+/+dkeSpOlpNlg9kFrLu1Qwg
+	TdzJW3Pcc8fpU9u/8eiZlf8vclcutcMROsYD3dq/5inmx2B+/9hDpg6cbDQ4McAssdx0g60N7Oi
+	xglApCch5idwgsF8xJjgbD0jK4EN1MTPsMqX/XBraUs+I0XujAjOYJD5dQKBn+R3GdGtMMC7ZXt
+	xbTXI4Jyzy7B6MmYp4AQ5mwif6M2WwOMFwjcaGsfrY8ykmgYpRwZfkg+NDRA4yTXA4r8ScpFbiQ
+	MNFiGv89NteZjoH0H8igScFXCnb2E4um7LAlAIFxaSJTSmcnHBpsH2K1SDq9XQ9hcrYYZIqADq2
+	L2QvgXJ98dgAHd1H/LIKJQTKimKDNe2hm1WltEHydlIUph8t70qX3pzQyZU1KlzbwVC7Jq9a6t0
+	jIqkAfJuT31XqHCJ14p1FpI0blz9va5kj0o4PG82+dBj4N36xVQtvm2gNJgf4QP1qtzoCaPOLhA
+	yT5qQ4ZRROC8Dn/UuVZzG9W8kw9UmP/5qQTFKN6il6BtzNm+XelQKcmrYz4Z2xsYZfK11u+zd1w
+	T7WFETWFhlvI9/0ETjBBDxDwxGBpOs6rlNWklWvHU0bttqwDgXtnnca5kFxZzKJyRxGSLzKlxcZ
+	tYRrgsJVVp8h8iQ==
+X-Received: by 2002:a17:903:2ecd:b0:2e9:7e90:8a3 with SMTP id d9443c01a7336-2ed41bfc38fmr34706695ad.39.1793973552850;
+        Fri, 06 Nov 2026 05:59:12 -0800 (PST)
+Received: from JIAPENGLIN-MC0.tencent.com ([112.97.59.166])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d40998sm5634145ad.34.2026.11.06.05.59.06
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 05:59:12 -0800 (PST)
+From: Lin Jiapeng <ljp1205831794@gmail.com>
+To: Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Martin KaFai Lau <kafai@fb.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Lin Jiapeng <ljp1205831794@gmail.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org,
+	Lin Jiapeng <jiapenglin@tencent.com>
+Subject: [PATCH net] net: reuseport: avoid duplicate closed socket insertion
+Date: Fri,  6 Nov 2026 21:58:38 +0800
+Message-ID: <20261106135841.418-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,163 +107,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-jh7110-clean-send-v7-9-68f7ea9913db@samsung.com>
-In-Reply-To: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Andrzej Hajda
-	<andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,  Laurent Pinchart
-	<Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
-	<luca.ceresoli@bootlin.com>,  Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
-	<p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
-	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
-	Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
-	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
-	<kuankuan.y@gmail.com>,  Dmitry Baryshkov
-	<dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
-	<m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
-	<william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
-	Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
-	<maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>,  Cristian Ciocaltea
-	<cristian.ciocaltea@collabora.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3645;
-	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=cHmSf28NaXYp/pbjB3hJNBZgPy6fnc9jpetj7Bfi7HM=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9vStunJ15PXtzxhfvtgNX4lK6hRbET4nW/8QzfV9ic
-	fjUwm89HaUsDGIcDLJiiixnN0YbSf5jeFp+/PEvmDmsTCBDGLg4BWAiU38wMnyedkYgoviNv0/U
-	t05Bz5pD7nPOi4atEY2qLburtcA+ZhfD/+jeR/tW3ptj3uHx85nd44id0sKMs09rtUrPffrNcrv
-	sGQYA
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
-	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261106135906eucas1p2c3d4a479c32e76358b3421ad18669af1
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261106135906eucas1p2c3d4a479c32e76358b3421ad18669af1
-X-EPHeader: CA
-X-CMS-RootMailID: 20261106135906eucas1p2c3d4a479c32e76358b3421ad18669af1
-References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
-	<CGME20261106135906eucas1p2c3d4a479c32e76358b3421ad18669af1@eucas1p2.samsung.com>
+Content-Transfer-Encoding: 8bit
 
-On some SoCs the HDMI controller does not own its register window. The
-StarFive JH7110 documents one 64 KB block, u0_hdmitx, that holds both
-the controller and the PHY, so the parent device maps it and owns the
-regmap while the two children share it.
+Clearing SO_REUSEPORT on a TCP listener clears sk_reuseport but leaves
+sk_reuseport_cb attached to its reuseport group. A subsequent listen()
+does not put the socket back into the listening section because
+inet_hash() checks sk_reuseport. However, inet_unhash() checks
+sk_reuseport_cb and calls reuseport_stop_listen_sock().
 
-Access the registers through a regmap. Use the one supplied by the
-parent device when there is one, and otherwise create an MMIO regmap
-over our own resource. The MMIO regmap uses 32-bit accesses with a
-4-byte stride, matching the readl_relaxed() and writel_relaxed() calls
-it replaces, so the Rockchip platforms see the same register accesses.
+With request migration enabled, reuseport_stop_listen_sock() ignores
+whether __reuseport_detach_sock() actually removed the socket from the
+listening section and unconditionally appends it to the closed section.
+Repeated connect(AF_UNSPEC)/listen() cycles therefore insert the same
+socket until num_closed_socks exceeds max_socks. The next insertion
+writes before socks[], overlapping prog on x86-64 and leading to type
+confusion when a reuseport program is attached or detached.
 
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+Only insert the socket into the closed section when it was actually
+removed from the listening section. A socket that was not rehashed as a
+listener is already represented in the closed section, so leaving it
+there preserves request migration semantics and prevents duplicate
+entries and the resulting negative array indices.
+
+Fixes: 333bb73f620e1 ("tcp: Keep TCP_CLOSE sockets in the reuseport group.")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Lin Jiapeng <jiapenglin@tencent.com>
 ---
- drivers/gpu/drm/bridge/Kconfig     |  1 +
- drivers/gpu/drm/bridge/inno-hdmi.c | 39 ++++++++++++++++++++++++++++++++------
- 2 files changed, 34 insertions(+), 6 deletions(-)
+ net/core/sock_reuseport.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c7da6b02d7b6b281f328fb3016ea2f167f8da093..34bcee88170317a4796178452ab5d2e673daf1fd 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -105,6 +105,7 @@ config DRM_INNO_HDMI
- 	select DRM_DISPLAY_HDMI_HELPER
- 	select DRM_DISPLAY_HELPER
- 	select DRM_KMS_HELPER
-+	select REGMAP_MMIO
+diff --git a/net/core/sock_reuseport.c b/net/core/sock_reuseport.c
+index fccbdd0430b0..775f446516c3 100644
+--- a/net/core/sock_reuseport.c
++++ b/net/core/sock_reuseport.c
+@@ -480,8 +480,8 @@ void reuseport_stop_listen_sock(struct sock *sk)
+ 			 */
+ 			bpf_sk_reuseport_detach(sk);
  
- config DRM_ITE_IT6263
- 	tristate "ITE IT6263 LVDS/HDMI bridge"
-diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-index aa64ffdbd30721603aebbcd5d5747851be789911..05007ed1d7af0b0f72721a0fd4def08fa621b525 100644
---- a/drivers/gpu/drm/bridge/inno-hdmi.c
-+++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-@@ -396,7 +396,7 @@ struct inno_hdmi {
- 	struct drm_bridge bridge;
- 	struct clk *pclk;
- 	struct clk *refclk;
--	void __iomem *regs;
-+	struct regmap *regmap;
- 	struct regmap *grf;
+-			__reuseport_detach_sock(sk, reuse);
+-			__reuseport_add_closed_sock(sk, reuse);
++			if (__reuseport_detach_sock(sk, reuse))
++				__reuseport_add_closed_sock(sk, reuse);
  
- 	struct inno_hdmi_i2c *i2c;
-@@ -468,14 +468,25 @@ static int inno_hdmi_find_phy_config(struct inno_hdmi *hdmi,
- 	return -EINVAL;
- }
- 
-+static const struct regmap_config inno_hdmi_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+};
-+
- static inline u8 hdmi_readb(struct inno_hdmi *hdmi, u16 offset)
- {
--	return readl_relaxed(hdmi->regs + (offset) * 0x04);
-+	u32 val;
-+
-+	if (regmap_read(hdmi->regmap, offset * 4, &val))
-+		return 0;
-+
-+	return val;
- }
- 
- static inline void hdmi_writeb(struct inno_hdmi *hdmi, u16 offset, u32 val)
- {
--	writel_relaxed(val, hdmi->regs + (offset) * 0x04);
-+	regmap_write(hdmi->regmap, offset * 4, val);
- }
- 
- static inline void hdmi_modb(struct inno_hdmi *hdmi, u16 offset,
-@@ -1082,6 +1093,7 @@ struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
- {
- 	struct device *dev = &pdev->dev;
- 	struct inno_hdmi *hdmi;
-+	void __iomem *regs;
- 	int irq;
- 	int ret;
- 
-@@ -1097,9 +1109,24 @@ struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
- 	hdmi->dev = dev;
- 	hdmi->plat_data = plat_data;
- 
--	hdmi->regs = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(hdmi->regs))
--		return ERR_CAST(hdmi->regs);
-+	/*
-+	 * On platforms where the controller shares a register space with
-+	 * other blocks, the parent owns the regmap. Otherwise map our own
-+	 * resource.
-+	 */
-+	if (dev->parent)
-+		hdmi->regmap = dev_get_regmap(dev->parent, NULL);
-+
-+	if (!hdmi->regmap) {
-+		regs = devm_platform_ioremap_resource(pdev, 0);
-+		if (IS_ERR(regs))
-+			return ERR_CAST(regs);
-+
-+		hdmi->regmap = devm_regmap_init_mmio(dev, regs,
-+						     &inno_hdmi_regmap_config);
-+		if (IS_ERR(hdmi->regmap))
-+			return ERR_CAST(hdmi->regmap);
-+	}
- 
- 	hdmi->pclk = devm_clk_get_enabled(hdmi->dev, "pclk");
- 	if (IS_ERR(hdmi->pclk)) {
-
+ 			spin_unlock_bh(&reuseport_lock);
+ 			return;
 -- 
-2.34.1
+2.55.0
 
