@@ -1,93 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793942493;
-	b=Go5HhR0qVDKQ5KhdtvbSDA+nvmWBSEzZMokWGuiqiykMkVnt+rQZLWbuHuYwu48QvtSf
-	 56sceGkSWyB/ZM0OSJ2yqefkKU0ow30JSF+WGvRPsibbe6iU4Wh23R3JckgSMu3a/+sSL
-	 OoLRtwfyvMTzFqNS/QTQ3xRXEapmIMI0vVkornq/zaibUwYOP0i64vvBPtV2mHOXoIMUg
-	 MNnboWcZuAQNXCQzyV1wHJDYK6Wz2YVaTXaUR6fkHpzmTHaxtRSdIV8IMJW6F0VaavVMW
-	 9VWI8yu29qwfTUJ7oz293WMdGr5Lg6ZPd5gDAIaVN+B6oraNQBHvXXt01NxvrLmvmpw==
+	t=1793942497;
+	b=ekEF+IjMwc5/z0Ke0pXpjVExqmCy345/CNqbRr8XjdjUnTmk+krEzegVEQKwBZU7vZf+
+	 pInZL6vidObWP75ZcQM2nO/F5RprKcusRJQc8WQXetC1MExXUVRueqmcJk0+ilR5tBIjq
+	 8GQ8GLvGJk8smHKJBSWYAJfEnUEpiudvnxZ5q/3Oi0VfxECD4OX2eUxedvZZGhmQ/eWJL
+	 RxPGFrSBjsOD2PjsOOSC4yPbDT0K0uoQP/PzKmtNkBDNoJsjnJ0SsO04NbBMs4AArXcIq
+	 gEwTUXVhnevQwOV4RV04Y+/YVhTHU8OaR0CrnLrHH0QB8Z64II2EZAU1DK45++bOcPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793942493;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=N1u821A4KIwQB9OeDGNSa874HBrPBVuuOBBXo5yucbQ=;
-	b=2YUbt0clg18MhVYWfvpmZ0FOdumDhBjVxmupwMVCjexeFUPzASF3MAoahpyetArIfYIT
-	 vlsXjH29mz1wS2T/5Ew9Vx3BH65K96kh6b8gRF9hQKy3AYILYQGiuVmYyFYJ0ePZlyN4i
-	 t/Zz/fgfxPIY2G0OXlDZhwv+YC/e/FvBMEWnt557WFqg5WOZ2QDH4Y/AY6NFk4Y6RSOKT
-	 sWYx1/FNALed0yeRvkTO+Crzf7HaaeuTvXVB7cPZl9ZBi0ikGVznrRJZiepSqZxhbB/r4
-	 tZ/QHrKyt869Dm/oJ/9kqQdVASPjNXDRTFrXf7BwtUhNtm7rfW8z7Vwm57uZgk4yNCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793942497;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=SOjuskPi5ZrZu2taZwM+sodjQgtfCQ3CXvG3+RI9jko=;
+	b=jLtcd+ujNWzyNqM8Gqr/Xq/ioK7+lL7bOt5+Y16D9CCR9vPHcVG17kj9AtjPQIQOl0sr
+	 xbHJ6mcXHjylhnMMnrgaEULlGfxMUfIvdDfaY/XB1Y9lzPovjEWw1F4T1JvdalBeyx6NA
+	 ulHAHuWmG7G27g1BQMo4W8MUBg0lnq7DXOYDKWNzmwzkPY/m3V+fupsxBEnw3y6PP6wer
+	 D8VU2C+5JH7S8EPyr1JvudlazhqTJICDeIUkB/54MztmWVXAlURIjfFOkdqkwLsY6+YzS
+	 2IBt2rjWC/OFztrhkfqjOwdc6zrXcRO1cg4lyI90u35cHCCImk6ERMhYu/NrysWhzJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xbxPQuVI;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=citrFcyw;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qvcnh9Ek;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A832606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:21:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A832606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABB2606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EABB2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xbxPQuVI
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15ea896ddc8so624515c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:21:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=citrFcyw;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qvcnh9Ek
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A640tv23419440
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 05:21:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SOjuskPi5ZrZu2taZwM+sodjQgtfCQ3CXvG3+RI9jko=; b=citrFcywTfTIOSzi
+	nAR9btW9doITBUZbTfbjcjCapOZ0b/R+zxc56klgC/xM4Q5dV9opHwiFamleCX5D
+	ltXMAFvQbX+laKaTNt8jXqfCoLMyKBpcN2/TViOOTLTMv6Auh9GZYtfVJPNjhfxj
+	Atsklt9hMOT8iEsQ+Yf4jcnQfGdjyggqBu1Zk+m/p0qyBxlPttImXXxCS9fByZHI
+	YE63dWjmRZKEm1Bmcv0pgZ10jWsduBujhW0O2b3/86kDdVbbvU4dS+Z6fwjzqDoM
+	ap35eJm9rIuPHY4rO+ZrieAOL6I90DGKgdX+JkomE4kgZZNg9wqN2kopDDFo2X5f
+	23TO5A==
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pb1290-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:21:35 +0000 (GMT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b320a98b7eso5169707b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:21:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793942492; x=1794547292; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N1u821A4KIwQB9OeDGNSa874HBrPBVuuOBBXo5yucbQ=;
-        b=xbxPQuVITKyj+xCm+P8jesjnI8ewU78j9O+4nQWHT51csxaEf+db0YTOTFJVH1zLme
-         tm/+21qmLBTvhvso+bJYM7g3c2ljXeV38agRiWC+fVChqYXWveQD8a75z97oHDAbQZmq
-         bOr6OFX6rRF1bM+Skl5cMLxrTFd1H9D7eBd4m0wP1Fx9711QG1GItQOoPEd37iwpT7X/
-         AzdQUjiSGSRyEc5/iu+An+lhOG/vflQzBSf7CDeo/hTSdUDpr48bn5ueSzfviX3yXpRP
-         VJVM2CkSjBA5/Vtivh05p+R/YBlkGcW94mEwqB6B68G4tAiLo1t8lqK3oCYw5djK9zPN
-         jfHw==
+        d=oss.qualcomm.com; s=google; t=1793942495; x=1794547295; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SOjuskPi5ZrZu2taZwM+sodjQgtfCQ3CXvG3+RI9jko=;
+        b=Qvcnh9EkhCp+l3bkkgpj1RMkz5ZrnEIW+Y7vdRi/9oDz0HHg7/BYiEN5XpjNZCCbDe
+         O01D6yaglfPadD/KfMC6KcaM0niD/OAqqGxxpLGJtcSzw8gDRYt4lNqvhT2HO4oMDyh7
+         ILeELRO9EyrOROnYfzozwT969xIKw7LhxqERjLQ7N8lgJuUuz+UvG+mTmZ4/Uzzd6gRu
+         eCWUdtbwbFIJKq2f8VRi6wR5G8tWRApLCcVADux80Zs0SPFLCSmghC55nR1jhKpRqzWz
+         SsZrj4MTfZHmSnbTu8d8l/eBe+At8r/MsRo8ZUUTOTqBFqP95PbwsoOZRu+w+QiSQyIM
+         4NnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793942492; x=1794547292;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N1u821A4KIwQB9OeDGNSa874HBrPBVuuOBBXo5yucbQ=;
-        b=I6C3QVJT7KrhAxVct2F2ysDZXHFdjdo7mjLoyHXrKAKmIWo674IO+bTj4nI4GQJo/w
-         +SMny95e7yyHw4JtXBPgD1M9UtQeWfQ/WftKTbjROZM2nrktBmipabfXJ6XCnxevMNff
-         SvWCyQthh1dhHdh9go3NCJVm+7zgoG8kixtrvkSeeIEGSO4rcGecOcWx7bGWgxpyXeuL
-         jynb6Y+S8tEZ+vi9eJGmFXBubeoRFyW0zBigAzDGaeEcEijB280jBryM+qazLi1IJbCE
-         42UICAm6pSLrPY3TlOixZonnatKvRjDkgKVp67RrD62IAdGbpvFre6jxoQlDE44uuDrK
-         NMHA==
-X-Forwarded-Encrypted: i=1; AKwUvBy2wHzbkDkkQtVPrUbomjNq8HCbTYG59nsDg9ZbEm246krHF1QOa4FS0Mp4zFinGVnuXPhzr5wXZX1G2fo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/teu5j5vLU8DvsylXe1yNj85Ek/RGSv/BChZ/4G1shcGzfoMse
-	s3YBuD6u2zjTAQRdepf9exnWW25x+5+vzdl1sR9F5qkV551QGQK/rRJb
-X-Gm-Gg: AYBFou3q76jN5ttKCr1gN03eWCu9IDCKqJ98vakbkyF4k9/B6VdKKZT3c406fgzLFTs
-	wTrEb/YjdhqCL+Gixd30obeJiHlP94uF4ODWR5LAmnFplUu22wozq+0Rvl2lodTi3UlN1QNdOEG
-	s3AIO3IWYl13sv9JaJ8ELJoW3LuRZRcg/+VLy7uuPvSgXEMXDS8h2vrD29VXs7+2vvyx7v0rHLb
-	38McjvOKgHAqeEFMRQ2pPDttsbb9T9cTdDvOmUtlsHkgT9Umk6qlV42BIuovx9Pxa768vyvpXsK
-	xGW1cFRBBddtevX+ZuKqgL3SKXCauyueGMYMhi0lmsQTZUeubXvu/Ru1G8XDSK08FfiL7y/NBaM
-	AImXDBTXz2EOScXRo5zeF5KRuE9H7BEajjQEq6VxKxlFQlxZaAcpxIqi/p4tQcb3vqvkpVq8znd
-	PZ/JhRkYAvug2ymEkaAi+St8a408SwZHPsBjPsSptH1XBcKq8dMyC0QPEKYT2Ldr+46woXfNPWM
-	goCZ2fd7iZgHQ0dZvxQCG8fHFHkcyIfWZffErW8vDqp8rgAhy3hMuCse0O0Q77a9hLzYIp3UNtp
-	AJXhhd/d6SRt9ylvsCYR3t/IBsSdWkEYA4+hVVYiWnnVMFxQa1ZCFZhMWtLhkQ2Bf0iwvC5q+8H
-	j0WiDOolWWwMRtoravnPOkFkpRsEc21ye/ZW/AE4wheu49pddGecGLW5j32sRJvXOdVyQ
-X-Received: by 2002:a05:701b:2719:b0:136:b50c:c0e9 with SMTP id a92af1059eb24-1b25d309c43mr1672095c88.21.1793942492079;
-        Thu, 05 Nov 2026 21:21:32 -0800 (PST)
-Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:1602:ecff:fe49:38a8])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e261962sm3495639c88.0.2026.11.05.21.21.28
+        d=1e100.net; s=20260707; t=1793942495; x=1794547295;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SOjuskPi5ZrZu2taZwM+sodjQgtfCQ3CXvG3+RI9jko=;
+        b=IN6fMX33IN3YrOpnwUL1rbO95i6Byl3X2NQ2ofz2gLX103Jy1yt5CQGOwglldEZ7vV
+         qwb+l4J392HGSX6x3amp5/Z1unHuVso8Y8D5EkJ0CBFgJVnqUyygCNoQ0rRvnedxoHI3
+         +bkN84fb6HFQ7l34kJ2l1r+JKYym0YDoLXSuMaRLxwMuSFlFw1nVoZ4fQ+nZGJjXQgyP
+         ztdaxNtjYzKkexgjMnNokpTRBDvSFbTRl28e0sdl3iPtctO5o/pAu03wqKyuUAspZ/Ml
+         X5ysZcr2spqkcvQhZKo832h8CkX6ZQNTAxF8DrVwAykVGFtprATsH+S7w4EnDnfkUdzA
+         OaQg==
+X-Forwarded-Encrypted: i=1; AL+hErHPr+638qfbY8A0S9Bp0/iGYx7XC9VV1ERSC+zpxTLhz6zpV6YAcRXymSCw8YojXGg+f7XVrWIofXfQDb8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rbi9i2Dm1Gc6L7yu1PoquTguD0tUmFgDYtYSNrw8ISAtvC07g
+	AQcJgTZFZNQ/iSkv4Q5gf7UsbkiFdh4lv1/hqNfB09cbWblK5NJCFrz2lxZggCp1OVVSjiaAj8k
+	zsrC5xwM0ncSacxpj38lltZZjq0vso95V0N3ETYlHz8hFUBqANnRChjjThzGNYV6O7/IhkSiIwk
+	w=
+X-Gm-Gg: AYBFou3sqLApCMqTp+c68hC8Kdo1e/1UiV7EM3SK17gQ7pfSypXu4jjIABH65E8ghAX
+	RUfZOVRK4n/OXwZehunhXvCtYpHxn84jiUPv1Tvlh2gm728xRzj3TLrvbrsi5II6UO+QeCDN09D
+	XlcghCh76OHV9eneyZjrt7HGKZNccWMAJr34YWqgSaTMWuJrbNZvUuAEpg4OU1s1pFdFP9DB/1p
+	3UkO4Zm7Gf6sI9mQUVtMbQ2bA1nxvG0cp1mxQcY36ZDZSLjRjXyMSL6/9HMbTU134VITNDwg/IT
+	gUsvuQUMkmKMyeScFOfAD/YnjczKrOvdneU9HSQ7wNmiqrTAf2uqaldz/DQw+2qrzZ0xrrl8qJT
+	uMxIqJhA5ZTnjsB2F/7d6YbpQXHXUx0mA/EGa2HVPRroG2o936eqaVAz6AyllrwnnE/zZdOeU64
+	QP5ip6gYzpOPn47rSCrJW+vNY6T5WljhIj4w==
+X-Received: by 2002:a05:690c:e3ea:b0:891:c494:1a99 with SMTP id 00721157ae682-8b341960138mr9032987b3.24.1793942495123;
+        Thu, 05 Nov 2026 21:21:35 -0800 (PST)
+X-Received: by 2002:a05:690c:e3ea:b0:891:c494:1a99 with SMTP id 00721157ae682-8b341960138mr9032907b3.24.1793942494720;
+        Thu, 05 Nov 2026 21:21:34 -0800 (PST)
+Received: from x2e.lan (108-208-224-205.lightspeed.gnbonc.sbcglobal.net. [108.208.224.205])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f770cc6sm11584617b3.9.2026.11.05.21.21.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 21:21:31 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: sre@kernel.org
-Cc: hansg@kernel.org,
-	marex@denx.de,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] power: supply: bq25890: cancel the pump work before the supply is unregistered
-Date: Fri,  6 Nov 2026 13:21:00 +0800
-Message-Id: <20261106052100.1203225-1-shunsheng1218@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Thu, 05 Nov 2026 21:21:33 -0800 (PST)
+From: Tyler Baker <tyler.baker@oss.qualcomm.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] reset: gpio: Parent the reset-gpio device to the GPIO controller
+Date: Fri,  6 Nov 2026 00:21:31 -0500
+Message-ID: <20261106052132.2737352-1-tyler.baker@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261026-b4-reset-gpio-parent-to-gpio-controller-v1-1-11549e6ea930@oss.qualcomm.com>
+References: <20261026-b4-reset-gpio-parent-to-gpio-controller-v1-1-11549e6ea930@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,233 +125,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: QeehJZBet-Al9Ss2CHp8zdeooCl_szmo
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAyMCBTYWx0ZWRfX0aBq7jaoZF1h
+ mjyEPnCOJydAOQw2Kl7P6Pjq4FzSYDnXGT3CWdNJ5/Y4c0bYV/KvcOPjkam9IVOtVjFfs3DGSBe
+ sAmklKY/iNSJWdSMuQUqMMj1LCbrbTU=
+X-Authority-Analysis: v=2.4 cv=LIrz05W9 c=1 sm=1 tr=0 ts=6aed63df cx=c_pps
+ a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=PFxtTy0squD/fJwW5Be2sw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=AC0Wvfx5D2MqvrS3mtQA:9 a=QEXdDO2ut3YA:10
+ a=kLokIza1BN8a-hAJ3hfR:22
+X-Proofpoint-ORIG-GUID: QeehJZBet-Al9Ss2CHp8zdeooCl_szmo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAyMCBTYWx0ZWRfXxQnV0BsJMwX+
+ sxrcHiD0dMR0O+kMLiAAfdQWV7SWy9Nh+q/EfpED86ZdPwL2aj57LmW2aiPt/tB9TNKh0fL7LBx
+ dI+yc+IT3puY+v+F7LVHNubjA7H5Gx8ya+4D6eaJ57ZqkmFjBFVJIrRE0Va/G37YTUD4YcwI67j
+ cUhGGZ6WPQqn2zZ8uIslz20HuP77sUV/7Jg9klx6iXCfMOqow574WgOu+e4xrUYTIsPt6z3vDEr
+ LTN/Qw4wEudcVmLFWEKvhLq9AleuY23kCnR+G/WJbui2Pc449Z+3Z216nD+wCQoBMeySUO9vksN
+ WQ1lVXP09KVRIl3VHOMu2pSCbzr7fZPgLieni4eotQmynEgJxta3kaoX1lJx5OwgX0HQC6RbFuy
+ bGhsE4ryAkuJ3TQ8o7DzBYfTClMHpiEsuCcl+5v/IbvgzGx+RNiqcjCAe2K7ux5MCVX9N0SLcB7
+ gDvoELVGBzLrbcWGkGw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_01,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611060020
 
-bq25890_pump_express_work() ends with power_supply_changed(bq->charger).
-The work is initialized in probe and its only cancellation is a devres
-action registered before devm_power_supply_register().  Devres actions
-run in reverse order, so on driver detach the power supply is
-unregistered and freed first and the work is cancelled afterwards.  A
-work item that is still running at that point calls
-power_supply_changed() on the freed supply.
+On Mon, 26 Oct 2026 at 14:21, Abel Vesa wrote:
+> Make the controller the parent instead, which stays registered while it
+> is unbound and gets a new GPIO device when it is bound again. Keep using
+> the GPIO device if it has no parent.
 
-Switch to devm_delayed_work_autocancel(), which initializes the work and
-registers its cancellation, and keep both early in probe.  Because the
-action is registered before devm_power_supply_register(), it runs after
-the power supply has been unregistered.  At that point the power supply
-core has set ->removing under epc_sem and serialized with in-flight
-external_power_changed() callbacks, so no new work can be queued and the
-cancellation is final.
+Fixes: 46dae84a90f9 ("reset: make the provider of reset-gpios the parent of the reset device")
 
-Cancelling the work twice is not enough by itself: a supplier callback
-can queue it again between the first cancellation and the power supply
-unregistration, and if the teardown then takes longer than the five
-second work delay, the work starts before the supply is gone and
-finishes after it has been freed.  Add a teardown fence that serializes
-the queueing decision with stopping:
+> +	aux_parent = parent->parent ?: parent;
 
-- bq25890_stop_pump_work() sets pump_stopping under pump_lock and then
-  calls cancel_delayed_work_sync().  A supplier callback holds the same
-  lock around its check and queue_delayed_work(), so it either queues
-  before the flag is set (and is caught by the cancellation) or sees
-  the flag and does not queue at all.
-- bq25890_remove() calls the stop function before devres, draining a
-  work that is already running while the supply is still registered.
-- A devres action registered after the power supply covers probe
-  failures, which do not run bq25890_remove().
+On banked controllers (a gpio_chip and fwnode per bank)
+gpio_shared_dev_is_reset_gpio() stops matching, since it compares the
+parent's fwnode. I'll send a small fix for that on top of this.
 
-Initializing the work before the supply is registered also prevents a
-supplier-change callback from queueing an uninitialized work.
+Adding Bartosz and linux-gpio.
 
-The explicit cancellation in bq25890_non_devm_cleanup() is removed; the
-managed action and the fence replace it.
-
-This issue was investigated and the fix was developed with AI
-assistance (ZCode/GLM-4).
-
-Testing with QEMU and KASAN (lockdep and CONFIG_DEBUG_ATOMIC_SLEEP
-enabled in the test kernel), using a simulated I2C device, the real
-driver and a fake DCP supplier:
-
-- Unmodified driver, pump work running when the device is unregistered:
-  46 slab-use-after-free reports per run in power_supply_changed()
-  called from bq25890_pump_express_work().
-- Normal unload after the work has finished: no report.
-- Work running at unload: bq25890_remove() drains it before devres; the
-  work's power_supply_changed() completes while the supply is still
-  registered and the teardown reports nothing.
-- Probe failure after the supply was registered: the supplier storm
-  queues the work 160 times during a widened window before the failing
-  IRQ request; the devres stop action cancels it before the supply is
-  unregistered, and no report appears after the five second delay.
-- Requeue window with a six second (longer than the five second work
-  delay) teardown: the fence is set before power_supply_unregister()
-  and the supplier storm queues the work zero times.  Without the fence
-  the same run queues the work and produces 14 slab-use-after-free
-  reports in the running work after the supply is freed.  With the
-  fence, no report appears after waiting six seconds.
-
-Fixes: a7aaa80098d5b7608 ("power: supply: bq25890: Ensure pump_express_work is cancelled on remove")
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
-
----
-Changes since v1:
-- Use devm_delayed_work_autocancel() as suggested by Sebastian Reichel.
-- Remove the explicit INIT_DELAYED_WORK(); the helper initializes the
-  work.
-- Register a teardown stop action after power_supply registration so it
-  runs before power_supply teardown, and call the same stop function
-  from bq25890_remove().
-- Serialize the supplier callback's queueing decision with the stop flag
-  under a spinlock, so work requeued before unregistration is either
-  cancelled or never queued.  A delayed work that is already running is
-  drained before the supply is unregistered.
-- Drop the cancellation from bq25890_non_devm_cleanup().
-- Revalidate normal removal, running work, probe failure and a six
-  second requeue window with KASAN, lockdep and
-  CONFIG_DEBUG_ATOMIC_SLEEP.
-v1: https://lore.kernel.org/r/179378565123.72475.2497991563887142080@gmail.com/
----
- drivers/power/supply/bq25890_charger.c | 73 +++++++++++++++++++++++---
- 1 file changed, 67 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/power/supply/bq25890_charger.c b/drivers/power/supply/bq25890_charger.c
-index f7510ada6b734..f6ed7c137125b 100644
---- a/drivers/power/supply/bq25890_charger.c
-+++ b/drivers/power/supply/bq25890_charger.c
-@@ -15,6 +15,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/interrupt.h>
- #include <linux/delay.h>
-+#include <linux/devm-helpers.h>
- #include <linux/usb/phy.h>
- 
- #include <linux/acpi.h>
-@@ -117,6 +118,8 @@ struct bq25890_device {
- 	struct notifier_block usb_nb;
- 	struct work_struct usb_work;
- 	struct delayed_work pump_express_work;
-+	spinlock_t pump_lock; /* serializes pump_stopping with work queueing */
-+	bool pump_stopping;
- 	unsigned long usb_event;
- 
- 	struct regmap *rmap;
-@@ -760,9 +763,14 @@ static void bq25890_charger_external_power_changed(struct power_supply *psy)
- 	case POWER_SUPPLY_USB_TYPE_DCP:
- 		input_current_limit = bq25890_charger_get_scaled_iinlim_regval(bq, 2000000);
- 		if (bq->pump_express_vbus_max) {
--			queue_delayed_work(system_power_efficient_wq,
--					   &bq->pump_express_work,
--					   PUMP_EXPRESS_START_DELAY);
-+			unsigned long flags;
-+
-+			spin_lock_irqsave(&bq->pump_lock, flags);
-+			if (!bq->pump_stopping)
-+				queue_delayed_work(system_power_efficient_wq,
-+						   &bq->pump_express_work,
-+						   PUMP_EXPRESS_START_DELAY);
-+			spin_unlock_irqrestore(&bq->pump_lock, flags);
- 		}
- 		break;
- 	case POWER_SUPPLY_USB_TYPE_CDP:
-@@ -1446,11 +1454,27 @@ static int bq25890_fw_probe(struct bq25890_device *bq)
- 	return 0;
- }
- 
--static void bq25890_non_devm_cleanup(void *data)
-+static void bq25890_stop_pump_work(void *data)
- {
- 	struct bq25890_device *bq = data;
-+	unsigned long flags;
-+
-+	/*
-+	 * Publish the stop state under the same lock that protects the
-+	 * queueing decision, so a supplier callback either queues before
-+	 * the flag is set (and is caught by the cancellation below) or
-+	 * observes the flag and does not queue at all.
-+	 */
-+	spin_lock_irqsave(&bq->pump_lock, flags);
-+	bq->pump_stopping = true;
-+	spin_unlock_irqrestore(&bq->pump_lock, flags);
- 
- 	cancel_delayed_work_sync(&bq->pump_express_work);
-+}
-+
-+static void bq25890_non_devm_cleanup(void *data)
-+{
-+	struct bq25890_device *bq = data;
- 
- 	if (bq->id >= 0) {
- 		mutex_lock(&bq25890_id_mutex);
-@@ -1474,7 +1498,22 @@ static int bq25890_probe(struct i2c_client *client)
- 	bq->id = -1;
- 
- 	mutex_init(&bq->lock);
--	INIT_DELAYED_WORK(&bq->pump_express_work, bq25890_pump_express_work);
-+	spin_lock_init(&bq->pump_lock);
-+
-+	/*
-+	 * Initialize the work and register its cancellation before the
-+	 * power supply is registered: an external_power_changed()
-+	 * callback could otherwise queue an uninitialized work.  The
-+	 * devres action is registered before devm_power_supply_register(),
-+	 * so it runs after the supply has been unregistered.  By then
-+	 * power_supply_unregister() has set ->removing under epc_sem and
-+	 * serialized with in-flight external_power_changed() callbacks,
-+	 * so no new work can be queued and this cancellation is final.
-+	 */
-+	ret = devm_delayed_work_autocancel(dev, &bq->pump_express_work,
-+					   bq25890_pump_express_work);
-+	if (ret)
-+		return ret;
- 
- 	bq->rmap = devm_regmap_init_i2c(client, &bq25890_regmap_config);
- 	if (IS_ERR(bq->rmap))
-@@ -1517,7 +1556,10 @@ static int bq25890_probe(struct i2c_client *client)
- 
- 	/*
- 	 * This must be before bq25890_power_supply_init(), so that it runs
--	 * after devm unregisters the power_supply.
-+	 * after devm unregisters the power_supply.  The delayed work is
-+	 * stopped by the teardown fence registered below and by
-+	 * bq25890_remove(); the managed action registered above is the
-+	 * final cleanup.
- 	 */
- 	ret = devm_add_action_or_reset(dev, bq25890_non_devm_cleanup, bq);
- 	if (ret)
-@@ -1531,6 +1573,16 @@ static int bq25890_probe(struct i2c_client *client)
- 	if (ret < 0)
- 		return dev_err_probe(dev, ret, "registering power supply\n");
- 
-+	/*
-+	 * Register the teardown fence after the supply: this action runs
-+	 * before devm unregisters the power supply, on normal removal and
-+	 * on probe failure, so supplier callbacks cannot queue the work
-+	 * once the supply is being torn down.
-+	 */
-+	ret = devm_add_action_or_reset(dev, bq25890_stop_pump_work, bq);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_threaded_irq(dev, client->irq, NULL,
- 					bq25890_irq_handler_thread,
- 					IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
-@@ -1551,6 +1603,15 @@ static void bq25890_remove(struct i2c_client *client)
- {
- 	struct bq25890_device *bq = i2c_get_clientdata(client);
- 
-+	/*
-+	 * devres runs after this callback returns, so a pump work that is
-+	 * still running when power_supply_unregister() executes would call
-+	 * power_supply_changed() on the freed supply.  Stop and drain it
-+	 * while the supply is still registered; the fence also prevents
-+	 * supplier callbacks from queueing it again.
-+	 */
-+	bq25890_stop_pump_work(bq);
-+
- 	if (!IS_ERR_OR_NULL(bq->usb_phy)) {
- 		usb_unregister_notifier(bq->usb_phy, &bq->usb_nb);
- 		cancel_work_sync(&bq->usb_work);
--- 
-2.34.1
-
+Tested-by: Tyler Baker <tyler.baker@oss.qualcomm.com> # Hamoa IoT EVK
