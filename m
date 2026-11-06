@@ -1,104 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949865;
-	b=Kg3q0GbO3aAfhBMqnxC04Rv9oOpgmrFYRT2qLr2kkiNEP9FPJLjVpl4G5KRo9yyPh5hZ
-	 2RL1PA3WYCpSBrRPd5BGzRmT/L5E2NjAtqjEV6ZRes4Eq+57pK9IoY+g/K4fQCKwrxiYJ
-	 85kxKpmLTHlEFvmdbDGPw14/CAYDbsbXVWlSP7RtbvJHbmGev0FoHDDg2cuTET210T43c
-	 8vB/NLabdkUYwePtwcJSvqeV4wNLpaLCUtIrqPiuUQAAtlKIvKiOWwk0O2gl1PqnTJx8G
-	 xbVU2f8gxgJ9x+jVtIvE35ldikRoGIvixMhmxb9lpsrcX1l2pNEajc4FErmrjSoAFlA==
+	t=1793949972;
+	b=ZtQojeIBQNoh8FWL/gkuUaRkj6+Sm+TzjSeVjJkwhZfY0ntypkz8mVjvQMQNOH/MZGBs
+	 cnTkh1RRNgP+GutWGEGf6MWUKRxoTAUEgTcIJvCbNdUQxZr+17obCSqzwZY9ZxA4GLROR
+	 ZMyJtMavFROzifaA0bhQpVdRXrLlMb7Dg1ByJCij+jTpT37mdx9F12vCckUbRO2ZHafVJ
+	 7MyDqZAgH8e7C31BAgljolS4VhuILbSWBsORA1frAbc69DIR5Eeb49CRC1vcAyKfcSGf5
+	 Ngiba0BETpJvdqSQsDhEqHczScMBuc/4WIO5Qf2eH+QPgggylrTa+lEHi0czkcgZe8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949865;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949972;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=J0Xj9pg0Rg2jp4fCvJcvvgKONDkNxiGPLuEEZm9n/Ik=;
-	b=DNc39GiGr1SXS7btjyVtEMn7B21eTJtC8ztWOfEmmQPimEcUE1g2Chrab83SHOaYLZDk
-	 7ZmudVR5mMWMDDVTdr5hNDeIDJmU6ikmI5FIaq+y5zjRwL0krXSytzS6vTlpoEci6qZWU
-	 QTNLEkUEjS2Kc3OX2jtfd2qhWKSnZIttDkrzMcSTwrIIKoPANxpeWSkkXMJPzNqieixiI
-	 I5v9HF0Shfdz5XxeSCuX7udLb1ekuTrySmXIPEN1b2dCQDZWES/Gny43hueQs94BzFGKA
-	 Lde0vHqAPmbo6CjypzYxOtrhXCXdUBDIrfbuPkb5H46K9Sgqkkz1tmd/5LTPVsVu0dw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=h6iC1BFKziQSdkT7Y3Z7o7DDpetOO4YQdmgmOckELCw=;
+	b=ES1DNw4JG6QnPb93d63LoYggTAoI5FP0WoQuDr5+p8eOUmqq7Abf7OiJiZvhK2G31ohB
+	 AVqON2BHEayQnmKcGdbjin0LL97Xk31856L+pO5gsLPDxTivi9rYdUprvpFIM+wj41VuD
+	 UaadP0AJHHr1L57LSXdkb9t8iPcJAfqxLnOOL6AHn1fUdBpit/Nuk5LFEjoL9UP9G2J7D
+	 ibyZvvnozjDeSQjRsClXLKf5SsA1iftmbe4vLkni8EtBM7kZm/XjDhQsv4R3CeFKSIwzJ
+	 mW1tkC8AW9/noxTfMGiP6uZURgLL4d6LPTM633khk4CJ2o3ATQDmf1NNj4hfYEybG1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="GkWy8V/9";
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MemkxiN8;
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA68606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:24:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAA68606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8828606A335
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:26:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8828606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GkWy8V/9
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1ae58d17cd9so72107c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:24:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MemkxiN8
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ed1e9ae5a8so1151115ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:26:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793949864; x=1794554664; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J0Xj9pg0Rg2jp4fCvJcvvgKONDkNxiGPLuEEZm9n/Ik=;
-        b=GkWy8V/9IkIuUIJ0UOKh3sf9MiF3+iFShtYovIYkHHJ964fSMjnjk/turbU5CfVOgm
-         Q4zi40aDgpzGnNcNv1FEmbV8afaaVdEcE5rlEnC9u6HzUNlpY73k5RMrJIOsAchEQvzz
-         xHwHlTJ+YDq2HrSjd5MC0dGNuN/0O3Udj9kf826B8BjIQKoM22jn4huY/dgj1W2wPxJN
-         HVRUYnOvQnZDGlrqjZyecLciunxx3Ko7CUXLRXtR2mYF/TnG8FA51Wqh35OBkfEFAHx6
-         4w72E9IHXoRlyPvfQjP7aawka224/V5misZL46YjwOfWVNSeW6uhkIgd3bAX/G+FC/sX
-         23sQ==
+        d=gmail.com; s=20260707; t=1793949971; x=1794554771; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h6iC1BFKziQSdkT7Y3Z7o7DDpetOO4YQdmgmOckELCw=;
+        b=MemkxiN8/ymp8wHEishBUH1i7zVz0CW1FMzpMHzBbgM9Ip93h/prcUolyjq8y7f/pk
+         KcKzls839oqBARMiSLwn2NpM1qrjKTeIRP+kZ0GeGuK8NisutI7qItJ7PPt7RumuIbtS
+         pj9cgd6cn+/iK0kW8K/37J7JiKGMIXGzngWaoRz/piRe4/zmFdUl3+ECJCmFJ7wPzXIY
+         svOEJQ9mAHayTHEuF5opvpSLIEM4a/En3uaKJGzs3pJzRakN3JBebvqvccQ8gFAlphxc
+         05UcUwLXsV/Beu9UTXO2Ps/Ktt64HI3+FPKGxQJjwk2Vv8xSZF0V3rOZREopuaX+r+tp
+         1w7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793949864; x=1794554664;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J0Xj9pg0Rg2jp4fCvJcvvgKONDkNxiGPLuEEZm9n/Ik=;
-        b=KNrgf3F9XMkNj9JiVL8j3kakdJ4Iypk2bkCLT8uPrlIHQOMZja/lIOV+8GNkMvXNZ/
-         X+CgmmAUzYTLu6auaztxLQTmBc6a2w3/Nt5tfaVQTnXBhgWGDZ2nPxX5QAtoU0IVQ+Ad
-         DEoXSIvdCPjP3rUkHSpyBZtsSklMUZXtGfcu7n0k3K23aWXHZoMcnv00sFFpdMksLcbt
-         KeeOAJX3JjjPfk3RwKss3d0PMWxRs0MiKwUaXQx7bsWW1jX/sRgcTs3RC2+0vJf1Eery
-         qGUpmJ8HV4SUPAB6Jbcowrq+bD/rQsTRSedVA1B1g9LxYcOcKk6MY0fQDZxiKCn4nI8m
-         gq1A==
-X-Forwarded-Encrypted: i=1; AKwUvByODArLhCSYtu1gCONxohdbENxj8eEmKlJfsCKu1sRyPNSDOFvUxpZIqtlQtsiU9le6t5zBZ7OB73lJ2Eg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eO0Sn1rfQgr0lAYH+o+ovjB8Vg0L700t4X4Uls9bHbHAefS3Q
-	KQYtzoERKVmkUMMGrgV5L7C0fxh3eV2Nx3KjLbx6iwsvOvl3P7JSUNFg
-X-Gm-Gg: AYBFou1f+/l+kEVYouFiq8vNmEa0CmGNajHL55pmqeiWsAFypwdU90HvRdpZEkyv2m3
-	TLx9FUaASyzQ+dwRaBfZcrwbNOHau9D02QcBJ4sUKDsAVrJORt5xT0LJ7PGi+soqSXqJF+A1B63
-	Bibq2iY2jF0UwPi1FiLtCB15ILg8K8oQqKEv6miA0WSvqOHHFbpVwXPKiO3+VXTJLtwzbu98xam
-	4xDNwQG3hWTPyqqqhViD8TZzrQ206FKMCp5QHANNa1eCWXqbnpr8+pbFhWGcpZsC4buTX3tYf6o
-	uVP/OwsDHAQykVZSju7QY3oD51kTd09Rjv7AdJPqKXhDjT36S+CKzsT34kbWjSLIZB8tTOmoqFb
-	vuNLYH5TNLU8cmDYv7avZ5TNESQlb5+euVdV6y6GXell748baNo8DM/z0dDGApXfkezV5GS8GM9
-	XbZ5UeEGrLYOMzISnhLk3GoAGVNxIE8DYL+506M10Xn9e9nn27PLvspsvpfoN1Q+PuDOMLBaQYM
-	0Xah5Ytoy9WuPdw3m+zFnY3LjRp+HSGo9KhcW6NnXfE5zBYFQaJDghphQrfY0taThW/QD032dh9
-	Y0pxtSIP6Ry7bh18Dxu5LXnO+VrvFhTD7gHjZdhcwA==
-X-Received: by 2002:a05:701b:2905:b0:151:2e62:fe4b with SMTP id a92af1059eb24-1b25d338dddmr1769252c88.23.1793949862359;
-        Thu, 05 Nov 2026 23:24:22 -0800 (PST)
-Received: from penguin.lxd ([12.187.136.98])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4840f3sm6262220c88.5.2026.11.05.23.24.20
+        d=1e100.net; s=20260707; t=1793949971; x=1794554771;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h6iC1BFKziQSdkT7Y3Z7o7DDpetOO4YQdmgmOckELCw=;
+        b=2bYPQZUX7ef991nqGTc++tZubbyqQD38d5Wjfd/xUHDQjCZSR++2O/nYiADXaKAV3N
+         r58NG3goKiQNl0bFalCsHcjCN6KhQNga53gWbB831g4B8eZwJ2xPdhylCxOLPS/JM2zF
+         c7+0yf+PQamC5tYSzDg4kF+qF7Jvwxv6QhslgW+7crfq2SxWoPB3E5MpdtYW+R9Vo33C
+         tw+eu6b8R5bcTlSmGRLnjWmM2eqZ2LI2Dk4BZz0K97dMT3tc96wy3r5xVAv0AHpW/lZJ
+         ljD9P7nPMdbWZEanvWVoj0wUFrChyJOPXoS2SN4EDqCtepV6CYRC5gnkuXyWY4rb7wG8
+         1scQ==
+X-Forwarded-Encrypted: i=1; AL+hErEBTOeJn0KJFxazfhXR2/6GQfd8CuFjLw6Dzj1kBigfu33bZ1tzlMaCuq9VzRHow+aphhKLzZ6sE90n+0s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8m7ixdaHU43z/BSDgGVm0w/JALSh+VE/THdYELxlMgiqIuJvrE
+	ogbnTZqGljQZeAtE0ZUg05zl8G1XzqqbyQ2+5y1l9gKFtNYCWFAGWayZ
+X-Gm-Gg: AYBFou1lQZXN30oWGmx9z9oHUG5J3mTmriQOO/ANonzfYJ+QdOwz/Tcm+XvMK13xRs5
+	6lsmmiyFFWbKJSZLUE78oFqbwjmgPXM/+nlbbPCmQUpftZ09G4dXd9r+ptW5DcQOFZRyVmH00UF
+	boFojceLWD7+7w64i5PntlNJqD35Gx309iE85jQCUjLGqJQ+6REw8vhM2hA75bI/IXhtPCocHiH
+	zz7E8bmq9XRgoBVDmvu424kGRt+Ta+0Uf6Ik0TbRRai6nk/7re3lEBuljnZ6azbixWhxDVJx4F2
+	o8IQ30AWCSdSWj6xT2P6z3UybWoVGknmkYyj/LuMEhlBqsd4e4G0AA2twI26ZXLrfPvNwY1wgqp
+	KDAYSvct7P7oO/yfPVexrfasb4TNuOTQ5SjvGuN5DIe2KRcCdbSVkJxuyBu2eiEYi1Gs1VLjRSa
+	ZGovEDhISaZRpK9opxWd2whZ5v9tABLw6KhlACCKBNh1BARpv2PrBSdgEqpfYpwlAJRc8yG6xC3
+	In6xqWB78SDe9st5KOVswAIlG4SzNeasApdj+yc0sRW44RPjlLyFYg9D1OjxLgk/xbnk5Vh2pts
+	KsvWXkhgxcNYtN6DNgz+W0ZZIQcuAQcia3B2wn3O0HYr67ptomMq
+X-Received: by 2002:a17:902:e5c3:b0:2e9:5d1f:dffe with SMTP id d9443c01a7336-2ed40dec190mr22310705ad.57.1793949971038;
+        Thu, 05 Nov 2026 23:26:11 -0800 (PST)
+Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d89976sm2633715ad.66.2026.11.05.23.26.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 23:24:21 -0800 (PST)
-From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-To: hannes@cmpxchg.org,
-	yosry@kernel.org,
-	nphamcs@gmail.com,
-	chengming.zhou@linux.dev,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	kanchanapsridhar2026@gmail.com,
+        Thu, 05 Nov 2026 23:26:10 -0800 (PST)
+From: David Yang <mmyangfl@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
 	linux-kernel@vger.kernel.org
-Cc: rientjes@google.com,
-	willy@infradead.org,
-	senozhatsky@chromium.org
-Subject: [PATCH v3 3/8] crypto: acomp - Add trivial segmentation wrapper.
-Date: Thu,  5 Nov 2026 23:24:07 -0800
-Message-Id: <20261106072412.7909-4-kanchanapsridhar2026@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261106072412.7909-1-kanchanapsridhar2026@gmail.com>
-References: <20261106072412.7909-1-kanchanapsridhar2026@gmail.com>
+Subject: [PATCH v2 0/2] dmaengine: pl08x: Support the Hi3798MV100 PL080 variant
+Date: Fri,  6 Nov 2026 15:25:57 +0800
+Message-ID: <20261106072602.77560-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,190 +99,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch provides a wrapper for existing algorithms so that they can
-accept a single segment while returning the compressed length or error
-through the dst SG list length.
+Hi3798MV100 (HiSilicon HiSTB) carries a PL080-class DMAC. The block
+reports 0x0a141080 -- the ID reserved for Samsung's PL080S -- while its
+register map is plain PL080 and the instance has 4 channels instead of
+the 8 the plain PL080 entry claims.
 
-This trivial segmentation wrapper only supports compression with a
-segment count of exactly one.
+Set the DT node to arm,primecell-periphid = <0x00041080> and
+dma-channels = <4>, and apply the two patches to add that support.
 
-The reason is that the first user zswap will only allocate the
-extra memory if the underlying algorithm supports segmentation,
-and otherwise only one segment will be given at a time.
+Tested on Hi3798MV100 hardware.
 
-Having this wrapper means that the same calling convention can
-be used for all algorithms, regardless of segmentation support.
+v2:
+ - fix for shared reset
+ - use local copy of vendor_data
+v1: https://lore.kernel.org/r/20261104154542.3131916-1-mmyangfl@gmail.com/
 
-To gain latency in the zswap_store() hot path impacted by this patch:
+David Yang (2):
+  dmaengine: pl08x: Release the reset before reading registers
+  dmaengine: pl08x: Use the channel count from the device tree
 
-1) The most common code path is invoked first in
-   crypto_acomp_compress().
+ drivers/dma/amba-pl08x.c | 34 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
 
-2) The helper functions used in (1) are made __always_inline.
-
-Co-developed-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Kanchana P Sridhar <kanchana.p.sridhar@intel.com>
-Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
----
- crypto/acompress.c                  | 34 ++++++++++++++++++++++++++---
- include/crypto/acompress.h          |  5 +++--
- include/crypto/internal/acompress.h |  4 ++--
- include/linux/crypto.h              |  2 +-
- 4 files changed, 37 insertions(+), 8 deletions(-)
-
-diff --git a/crypto/acompress.c b/crypto/acompress.c
-index c8b4b8589769..ac4dc52668b8 100644
---- a/crypto/acompress.c
-+++ b/crypto/acompress.c
-@@ -166,14 +166,18 @@ static void acomp_save_req(struct acomp_req *req, crypto_completion_t cplt)
- 
- 	state->compl = req->base.complete;
- 	state->data = req->base.data;
-+	state->unit_size = req->unit_size;
-+
- 	req->base.complete = cplt;
- 	req->base.data = req;
-+	req->unit_size = 0;
- }
- 
- static void acomp_restore_req(struct acomp_req *req)
- {
- 	req->base.complete = req->chain.compl;
- 	req->base.data = req->chain.data;
-+	req->unit_size = req->chain.unit_size;
- }
- 
- static void acomp_reqchain_virt(struct acomp_req *req)
-@@ -242,6 +246,10 @@ static int acomp_reqchain_finish(struct acomp_req *req, int err)
- {
- 	acomp_reqchain_virt(req);
- 	acomp_restore_req(req);
-+
-+	if (req->unit_size)
-+		req->dst->length = unlikely(err) ? err : req->dlen;
-+
- 	return err;
- }
- 
-@@ -266,10 +274,13 @@ static int acomp_do_req_chain(struct acomp_req *req, bool comp)
- {
- 	int err;
- 
-+	if (unlikely(req->unit_size && req->slen > req->unit_size))
-+		return -ENOSYS;
-+
- 	acomp_save_req(req, acomp_reqchain_done);
- 
- 	err = acomp_do_one_req(req, comp);
--	if (err == -EBUSY || err == -EINPROGRESS)
-+	if (unlikely(err == -EBUSY || err == -EINPROGRESS))
- 		return err;
- 
- 	return acomp_reqchain_finish(req, err);
-@@ -279,10 +290,27 @@ int crypto_acomp_compress(struct acomp_req *req)
- {
- 	struct crypto_acomp *tfm = crypto_acomp_reqtfm(req);
- 
-+	if (likely((req->unit_size == req->slen) && acomp_request_issg(req) &&
-+		    !crypto_acomp_req_seg(tfm) && !acomp_is_async(tfm))) {
-+		int err = tfm->compress(req);
-+
-+		req->dst->length = unlikely(err) ? err : req->dlen;
-+		return err;
-+	}
-+
- 	if (acomp_req_on_stack(req) && acomp_is_async(tfm))
- 		return -EAGAIN;
-+
-+	if (req->unit_size && acomp_request_issg(req)) {
-+		if (!crypto_acomp_req_seg(tfm))
-+			return acomp_do_req_chain(req, true);
-+
-+		return tfm->compress(req);
-+	}
-+
- 	if (crypto_acomp_req_virt(tfm) || acomp_request_issg(req))
--		return crypto_acomp_reqtfm(req)->compress(req);
-+		return tfm->compress(req);
-+
- 	return acomp_do_req_chain(req, true);
- }
- EXPORT_SYMBOL_GPL(crypto_acomp_compress);
-@@ -294,7 +322,7 @@ int crypto_acomp_decompress(struct acomp_req *req)
- 	if (acomp_req_on_stack(req) && acomp_is_async(tfm))
- 		return -EAGAIN;
- 	if (crypto_acomp_req_virt(tfm) || acomp_request_issg(req))
--		return crypto_acomp_reqtfm(req)->decompress(req);
-+		return tfm->decompress(req);
- 	return acomp_do_req_chain(req, false);
- }
- EXPORT_SYMBOL_GPL(crypto_acomp_decompress);
-diff --git a/include/crypto/acompress.h b/include/crypto/acompress.h
-index 6462fc46f4ec..93fa02ce818b 100644
---- a/include/crypto/acompress.h
-+++ b/include/crypto/acompress.h
-@@ -67,6 +67,7 @@ struct acomp_req_chain {
- 		struct folio *dfolio;
- 	};
- 	u32 flags;
-+	u32 unit_size;
- };
- 
- /**
-@@ -199,7 +200,7 @@ static inline void acomp_request_set_tfm(struct acomp_req *req,
- 	crypto_request_set_tfm(&req->base, crypto_acomp_tfm(tfm));
- }
- 
--static inline bool acomp_is_async(struct crypto_acomp *tfm)
-+static __always_inline bool acomp_is_async(struct crypto_acomp *tfm)
- {
- 	return crypto_comp_alg_common(tfm)->base.cra_flags &
- 	       CRYPTO_ALG_ASYNC;
-@@ -294,7 +295,7 @@ static inline void *acomp_request_extra(struct acomp_req *req)
- 	return (void *)((char *)req + len);
- }
- 
--static inline bool acomp_req_on_stack(struct acomp_req *req)
-+static __always_inline bool acomp_req_on_stack(struct acomp_req *req)
- {
- 	return crypto_req_on_stack(&req->base);
- }
-diff --git a/include/crypto/internal/acompress.h b/include/crypto/internal/acompress.h
-index 93ae59623f13..0c0d3fc8a9fc 100644
---- a/include/crypto/internal/acompress.h
-+++ b/include/crypto/internal/acompress.h
-@@ -146,7 +146,7 @@ void crypto_unregister_acomp(struct acomp_alg *alg);
- int crypto_register_acomps(struct acomp_alg *algs, int count);
- void crypto_unregister_acomps(struct acomp_alg *algs, int count);
- 
--static inline bool acomp_request_issg(struct acomp_req *req)
-+static __always_inline bool acomp_request_issg(struct acomp_req *req)
- {
- 	return !(req->base.flags & (CRYPTO_ACOMP_REQ_SRC_VIRT |
- 				    CRYPTO_ACOMP_REQ_DST_VIRT));
-@@ -189,7 +189,7 @@ static inline bool crypto_acomp_req_virt(struct crypto_acomp *tfm)
- 	return crypto_tfm_req_virt(&tfm->base);
- }
- 
--static inline bool crypto_acomp_req_seg(struct crypto_acomp *tfm)
-+static __always_inline bool crypto_acomp_req_seg(struct crypto_acomp *tfm)
- {
- 	return crypto_tfm_req_seg(&tfm->base);
- }
-diff --git a/include/linux/crypto.h b/include/linux/crypto.h
-index 78c699ac3f82..0628b62e4946 100644
---- a/include/linux/crypto.h
-+++ b/include/linux/crypto.h
-@@ -492,7 +492,7 @@ static inline bool crypto_tfm_is_async(struct crypto_tfm *tfm)
- 	return tfm->__crt_alg->cra_flags & CRYPTO_ALG_ASYNC;
- }
- 
--static inline bool crypto_req_on_stack(struct crypto_async_request *req)
-+static __always_inline bool crypto_req_on_stack(struct crypto_async_request *req)
- {
- 	return req->flags & CRYPTO_TFM_REQ_ON_STACK;
- }
 -- 
-2.39.5
+2.53.0
 
