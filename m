@@ -1,55 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793961926;
-	b=NYeRGDvFD4gnbMdCwBsEmRE3onF9hUdBiLSmUKGDBtCD0K+Q6l3dbXcTz9yENLw6HsSE
-	 yziOG01zMKVpDcMGOr2fXRydtrQHpiRBIBtbDDa4YqEH0om7HIp5nNC6uW3EW3ukyrZUo
-	 /gNHkEcvsg0PH0i+MB3Qq1varZnSXNa6ACmUXOgl8TM1UBcIIACpr12t4cgWoM2ThUFKR
-	 6VvDEtmVk8rMS7Knm4Ep/Pn1+G8VjvRDF5fRS6a8kIk/osHEAIzInsdI64SOc7rEK4vIs
-	 Xv9v9k9iBzie5gyn+L4qbRgEHC9p5O/LKq4b9g3JgKxuKAnzO6kq5Ovm3Eiqfk2ta4A==
+	t=1793961963;
+	b=dldRNM74wfziISJ5hztb4CxEIkCCa7fl3sJAuikRLR6RybMtfdHUSKgHIL4fZrd2PwkY
+	 3gGsFbuKUVvXUUV/Dx4lTgdURRGqY28F4mw6jw0gf2gG/P0rQKpQeyCyCZp/Nkpyh8RTX
+	 /YFSKW5XOlrW29KTotMzCFBIzi/Yb1eMAZ6uiwcrvJAfXGk/8kNbas8Vp9vm8a9ywaNyW
+	 YhBHTAfE3GudKsPwsU1R2atzZcaqeFCReX5GD2P5IJLZO/PeaocPvXHHol69fzoQquHnA
+	 LFA62ZgVaaLMbZyJE2ywp0lpF+//9OXOilXYhepSVfF3DfDxEjwCU+QbftFIhNpSzOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793961926;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=W5cUQZWfaC3MxgiZhu2mJSrd0Wxis+9ZPmTNrRYPwYk=;
-	b=ak0YUs+G2o47MYOcKKd8KA5OiIwPqSH9ZbjKMJXmNg6Q/dknUii86CT1Fe6776yKrqNF
-	 GxPFWr3x84sFij7IxeXfAkq0YMjv8k20DbV79gXIioMPOznFapsmGDx0eBzWPI0IkRX+R
-	 P6QFo83NGRfn19vpoNaT1bGGwDx5lG+YmgkwAaQPSwBgIJ1+gB/4jEB5v6q26ANgUdDv/
-	 xxEKu4MU181dXiGl2JtV8x30AwRy94MyT7U3l78FznPE+q99cSoBoZuADJ2neuOBRe8CQ
-	 Ao+/QM++Pqf5X4zrkB2z46pOWMWCHFNg1J8Ys4E93VusGtMo2lfCFrxhAaAXzoDwh+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793961963;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=EBOzhR38zAbfIVOw2so9GKfjXciI6NC0gGb/q053Uvw=;
+	b=ZgYqKiQxIobpkuhxuoGDfrzbV7ivW2QfOHwKolAq7dnmoBvsTUMnS/WzqxEyXBkmoNWf
+	 M/DYIIfZleI39o05sawhgd8pdFH0Locmoq7rn9/nAW6o5o5fvAaSh/40+adfZB9LAZrO0
+	 zXFccXZBL33lxADVFVRKPDfmkEE9nTObQz5o7bDmRJukm6Tu/wgN/sfZQH1SK/lyBXy/z
+	 PCYrxwVlHzTkxiGoa37OM7yeLsdGykN0piN+2piurc97r8nYnss2MH/1+MrdCXyr+C8RT
+	 RfkL1xR1AuJR/jL+1E832SDmi8e85sRPpcw1nGtAME5WsiHm/936trmM89t8P4fKP+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CA/mpxxb";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019B3606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:45:25 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DSxvniHD;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C83EF606A329;
+	Fri,  6 Nov 2026 10:46:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C83EF606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CA/mpxxb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB951F008A6
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:45:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793961925;
-	bh=W5cUQZWfaC3MxgiZhu2mJSrd0Wxis+9ZPmTNrRYPwYk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=CA/mpxxbb4zkwHztG9icljyJgTPbLYK6Ipv4X7oxHpISSEScpKKIj2+gTsvI+/pvi
-	 njCW4N7pIO7tUpmnFwSsHzT+eQrPRR/XScD/m70ZruHrGSzdhfsmby3sLucE7EsObW
-	 EqeLa0+w8wdvSwcN6Adj+6+ScjKRBTBpuXoY3Bp28jPQ4EoYsvQ/iANjJHwYs8pWof
-	 /sOrMQEnqccCQ8y+GL0DbKN2+GgFVYedb4IW9fA1XWsx6tNTqFJza0A6FWOct/wbmz
-	 5vTQ2wh8EptmLCpJoGq8ed/mxJA1cwcIVw/RxAzEhCfLkx2uspc4ejOT9YImPhY24U
-	 oURdWOm9irl3Q==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4d28f75d62so57164766b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:45:25 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzBRfM3PLVcERSFTqQMgZxMnHvMQP5red8hY2P4s3eiKdTNtA5R3+1tEf0LYKj3rw7Dpp7dRK4E+1FVqEI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ZfWYyNwdt7j3FttyD4GoiwUbCTRMbqMqFAKLo50S1aAIgkFIN
-	fJFt+HnZHS3Ye2XZHKMW/NJ9+bU33mMJs+i9nHfTHO6P0HmbcWgUA6wk7s1HRlHLbSVEx1TOpS0
-	pr8lmUt/vavpxW9AbF7LFVgIYlCdYBB8=
-X-Received: by 2002:a17:907:8687:b0:c48:a838:c16d with SMTP id
- a640c23a62f3a-c4d34c333bdmr171008566b.30.1793961924247; Fri, 06 Nov 2026
- 02:45:24 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DSxvniHD
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1A57415A1;
+	Fri,  6 Nov 2026 02:45:58 -0800 (PST)
+Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74B503F673;
+	Fri,  6 Nov 2026 02:45:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793961961; bh=Kz0mSCmJER1t1vnDARZyfMev49ZrLe9m/+tlQWtAGgU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DSxvniHDbqcztfN5wXQ+N71HLuRwr1uD8C0kMxaoe5FTSBtVaGGF4RjPVSfcQL6p3
+	 jCXxICd99aAnXYQI66kJlgyBYM5pciaOPd9d5JvxC6SNe5VPJ6jxZ2U60EU2qW5eI5
+	 COBjnYgGy5DFy/yemQkddtpjAdQ1ebJFXF5tu96I=
+Date: Fri, 6 Nov 2026 10:45:56 +0000
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, pbonzini@redhat.com,
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, maz@kernel.org,
+	oupton@kernel.org, suzuki.poulose@arm.com, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, david@kernel.org,
+	mark.rutland@arm.com, ackerleytng@google.com
+Subject: Re: [PATCH v2] KVM: Ignore MMU notifiers for guest_memfd-only
+ memslots
+Message-ID: <au2v5EoitiAGhoA3@raptor>
+References: <20260714160411.302386-1-alexandru.elisei@arm.com>
+ <amPCdAswlk24Xilf@google.com>
+ <anxAGkdyPYXBlS00@raptor>
+ <autwsR83Ii-tRrqF@gremlin>
+ <auzSxEsGAcm3MYtN@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,55 +67,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106035345.728454-1-icb@fastmail.org>
-In-Reply-To: <20261106035345.728454-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 6 Nov 2026 19:45:11 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9fstqtRHh8+Y1zkr47oq4F4nf99uU2tTuMcP0peXwnCQ@mail.gmail.com>
-X-Gm-Features: AclHuK-F7Fk6JKUwAbLJL6bh1AEPNA8rMK8qFFA9dFT4E9PsNSTqxxOOf25b8yc
-Message-ID: <CAKYAXd9fstqtRHh8+Y1zkr47oq4F4nf99uU2tTuMcP0peXwnCQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] ksmbd: exclude metadata-only opens from sharing checks
-To: Ian Bridges <icb@fastmail.org>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auzSxEsGAcm3MYtN@google.com>
 
-On Fri, Nov 6, 2026 at 12:53=E2=80=AFPM Ian Bridges <icb@fastmail.org> wrot=
-e:
->
-> ksmbd includes opens that hold no data, execute or delete access in
-> sharing checks. Such a metadata-only open without sharing can block
-> later reads, writes and deletes. A metadata-only stream open can also
-> block deleting the file.
->
-> Patch 1 fixes the general sharing check. Patch 2 fixes the stream delete
-> check added in v7.2. They are separate so patch 1 can be backported
-> without the stream helper. Patch 2 uses the helper patch 1 adds.
->
-> This series was developed with LLM assistance.
->
+Hi Sean,
+
+On Thu, Nov 05, 2026 at 11:02:28AM -0800, Sean Christopherson wrote:
+> On Wed, Nov 04, 2026, Lorenzo Stoakes (ARM) wrote:
+> > [updated David's email address to @kernel.org]
+> > 
+> > On Wed, Aug 12, 2026 at 10:42:50AM +0100, Alexandru Elisei wrote:
+> > [ ... ]
+> > > On Fri, Jul 24, 2026 at 12:52:20PM -0700, Sean Christopherson wrote:
+> > > > It'll probably take me a few weeks to circle back to this, as I finally crawled
+> > > > out from underneath a pile of urgent and am just now getting back into review
+> > > > mode, but this is fairly high on my todo list, so with luck we might still squeeze
+> > > > this into 7.3.
+> > 
+> > Hey Sean,
+> > 
+> > I wondered whether you'd had a chance to look at this?
+> > 
+> > After discussing this with Marc and Alex it is clear that this is really a
+> > blocker for Alex's SPE series, as we need a sensible means of ensuring
+> > that stage-2 mappings stay in place.
+> > 
+> > So ideally would prefer to get something like this in in the next cycle,
+> > if you don't have any objections to it? :)
+> > 
+> > If it'd be easier, I think a smaller version of the same patch would also
+> > give us what we need? I.e. your snippet from June with the page ageing part
+> > dropped, as below.
+> 
+> The GPC invalidation fix landed, so we can go straight to the super simple v1.
+> Compile tested only at this point, I'll formally post this (hopefully today),
+> assuming nothing explodes in testing.
+> 
+> --
+> From: Alexandru Elisei <alexandru.elisei@arm.com>
+> Date: Mon, 15 Jun 2026 16:52:44 +0100
+> Subject: [PATCH] KVM: Skip gfn-based MMU notifier invalidations for
+>  guest_memfd-only memslots
+> 
+> Don't invalidate gmem-only memslots when responding to MMU notifier
+> invalidations, as the entire point of gmem-only memslots is so that KVM
+> doesn't need a VMA to install mappings into KVM's MMU.  Specificially,
+> page faults are resolved by going straight to guest_memfd, using the gfn
+> and the associated memslot's gmem.file.  I.e. whether or not userspace
+> happens to have valid mappings to the same gmem instance is irrelevant,
+> as are any invalidations for those mappings.
+> 
+> Note!  The exception is KVM's gfn_to_pfn_cache implementation which isn't
+> yet wired up to pull pfns directly from guest_memfd, i.e. still relies on
+> userspace mappings/VMAs and thus need to be invalidated, e.g. to ensure KVM
+> doesn't retain a kernel mapping+pointer to PRIVATE memory.  However, as of
+> commit da260bcb56fe ("KVM: pfncache: use a dedicated invalidation sequence
+> for cache refresh"), GPC invalidation no longer relies on memslot lookups,
+> because GPCs also support HVA-based mappings.  I.e. KVM *must* be able to
+> detect and handle relevant MMU notifier invalidations even if there is *no*
+> memslot whatsoever.
+> 
+> In addition to the obvious performance benefits, avoiding unnecessary and
+> spurious SPTE zaps and TLB flushes will allow KVM to support features like
+> ARM's Statistical Profiling Extension (SPE)[1] and x86's Secure AVIC[2],
+> both of which rely on the pages *never* being unmapped from the stage-2
+> page tables.
+
+Looks great, and thank you for updating the commit message!
+
+Alex
+
+> 
+> Link: https://lore.kernel.org/all/20260903160623.315525-1-alexandru.elisei@arm.com [1]
+> Link: https://lore.kernel.org/all/cover.1783490022.git.naveen@kernel.org [2]
+> Cc: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Cc: Naveen N Rao (AMD) <naveen@kernel.org>
+> Signed-off-by: Alexandru Elisei <alexandru.elisei@arm.com>
+> [sean: rewrite changelog to capture the new gpc behavior]
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 > ---
-> Changes in v2:
-> - Use disposition-implied access in both sharing checks. This covers
->   Namjae's READ_CONTROL plus FILE_OVERWRITE case and named streams.
-> - Keep the requested access on the returned handle.
-> - Leave the attribute-only pairing rule and Time Machine AFP_AfpInfo
->   synthesis unchanged.
-> - Treat FILE_SUPERSEDE as writing because ksmbd implements it by
->   truncating, although MS-FSA grants DELETE.
->
-> This differs from my reply to v1, which proposed changing only the
-> truncate path and leaving patch 2 unchanged.
->
-> v1: https://lore.kernel.org/linux-cifs/20261104183702.192452-1-icb@fastma=
-il.org/
->
-> Ian Bridges (2):
->   ksmbd: skip metadata-only opens in sharing checks
->   ksmbd: skip metadata-only stream opens in the delete check
-Can you check Sashiko's review comments ?
-
-https://sashiko.dev/#/patchset/20261106035345.728454-1-icb%40fastmail.org
-
-Thanks.
+>  virt/kvm/kvm_main.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index cf4cb586f140..599dea22afb8 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+> @@ -601,6 +601,10 @@ static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
+>  			unsigned long hva_start, hva_end;
+>  
+>  			slot = container_of(node, struct kvm_memory_slot, hva_node[slots->node_idx]);
+> +
+> +			if (kvm_slot_has_gmem(slot) && kvm_memslot_is_gmem_only(slot))
+> +				continue;
+> +
+>  			hva_start = max_t(unsigned long, range->start, slot->userspace_addr);
+>  			hva_end = min_t(unsigned long, range->end,
+>  					slot->userspace_addr + (slot->npages << PAGE_SHIFT));
+> 
+> base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
+> --
