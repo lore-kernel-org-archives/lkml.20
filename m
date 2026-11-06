@@ -1,88 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949453;
-	b=3BBzVIcRJ69PhpGEsUXe3mp3Kska5KtFEdSnZOYJesv5ancSTMozQKGbzMMlrXqKvaWF
-	 61rv8aGj0tmB8m1aBQi1BJzHexrgcuv71wRztmcLEbKEx9Si7hfLMFXHzLRD4y+QNGhsP
-	 n845rx80operb5hVFJwaOZaLb5txRrb+RV3XF8LFAid76gSTcQ08hoG/oqm7Ngl2hyI/a
-	 Plf6NWV5yQpMwfiazJYhaKJIlc4XMyenPuL29+si1mQYMIz9bf3yOFX5r/nYZZNfduVbN
-	 K03f1jUM4Ginwtcq30lb+Apv3pre5/3V8J+o9Zl+qiycI1nXy1yNqaJtlVHJb80YYWg==
+	t=1793949478;
+	b=NHIMjKRQdvCBzgJQiPDjACqwebU5waG7p9HOTyIdvW+MhTOLyfgmBKh2e0CMkuRxYHFt
+	 KpsHOKSWcLgYcWETL+uLSNogzC8CHDm/OricX22fmngzF1NC1PbJk1G8Ml7YmVux0ykL6
+	 giaIzHROARDbFoNLgX0m8binX290BHPdeGeCjjeSJYUXbcw3+Pask9PcmYtn8tMPU5Czq
+	 YhkmAJMg8pPcR5N8tMxIyf6UV0+mtUbzKXSkhrM6K48usv1a81RLRaV4irEIpMjzPEdJ8
+	 nNvw+me3pQKTOMp0IfQwLcprn4w6+dnvrkBWJZ6BHPZDgIhr1u24UCyFa/h+Ebj8L+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949453;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=23tdgrbhdEj0Ew1yGHRUaEBBGufmw96pkWF7xHJ9Y+w=;
-	b=YGrJpgleWX6xpQkrI8uoT4lZN750JjwMfeg8fj7Og+zVXp2UlZAmorUihDTrK2kdLprS
-	 0I5CbinyDa1d2ezWts+//6EDftk8AcVxokBNruG6t6uzdaR0rJVeZGzRXh5aDFEK27MIS
-	 jbajVQ37oQwMvA+SkjHF1+r5lkmV6TJQKRTCSPZae6Vue/iK5FMvZj3WtYoKhsPFYwWdJ
-	 /YxKkw+EF0aDYgBAr+XmHamyfp9k9tgl8/lCXz42zl7gnp0TrN6aTGpOgly9mJfsaSCVe
-	 TVPpjW02RQQHWeUPe9EqSw2k0HXVoiGZ8elGlm1bvNy7YzXbYRnv9l/VzokXTzQAMbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949478;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QoZ/ne06JK3eIUX8iXVkbXJS2m5jitLoavGyx1etNyw=;
+	b=lA1jBExZ2QASKx36r94CkFGu0DyOwvBWp1xqVpFygnIOUCGCzwd0RDgGlIleyATUcpfW
+	 z82ZnDZzgLbffYh51ilHJuKtN5xZsrqDAENst6DTLp0JawlD7aku6+3ZlmZzaDKR7/2vm
+	 yXQp82sQcW9yh7ZqilnFBi1SElzCCV28vTQ6V3I3hKtFl6nhBKcRlasXKXbUVW5gXWBH6
+	 f6WC21w6QNxvzaUW0fXXolz/Zb+aguUxS0wlhxDMhVkevKyAD88yhGn1llTsOE4RVvsEO
+	 hXgnLePZKtcvG13Q1mfup+To1BqMhhQH3fEeYqAZRwXL+OPQYTvqG9VjT2f8uzNdcCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WBA4nl0S;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Qo5+2f7s;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jpksZjVX;
+	arc=none smtp.remote-ip=202.12.124.140
+Received: from flow-b5-smtp.messagingengine.com (flow-b5-smtp.messagingengine.com [202.12.124.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13C3606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:17:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C13C3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24814606A333
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:17:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24814606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WBA4nl0S
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso576953eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:17:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793949452; x=1794554252; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=23tdgrbhdEj0Ew1yGHRUaEBBGufmw96pkWF7xHJ9Y+w=;
-        b=WBA4nl0SpBZrO9LVnI+8VA/K0Nk/0m9fe0FUq8gVajlPkqWG9GGk8K9up5qzr+ed3/
-         tOvrYQ7ZsJ5bAivT2h/sgP0dqwDTaoo1NFDbQUkrj+ypw4aRl4NZeDAvWPOKxCmowO36
-         Dqhj7gHVi0sGPJ7x/Lk6Y4qBy+Bm8xwEnQQhI6+CFqRvVhtAa+mtxyXJbEb2V/7L5eqX
-         4dOw4T+TtYrsBNQvq87HkhqpCnay21Pp9WOZpXx+q/t+42AK5vy/EjDXNXNsEHnhBe6E
-         tIInd9RrIf5DIRgs28whQ9r+InWfczaZC6hGDuDiyaDKQj2lFcN7Klk99esikLfdKojF
-         1bgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793949452; x=1794554252;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=23tdgrbhdEj0Ew1yGHRUaEBBGufmw96pkWF7xHJ9Y+w=;
-        b=YmH112hg8mGn9DjTH0LAgpoN4d5dsWBx6Q2fD5Gdgb4AuDDY68kMT15p7JEDzcLGeP
-         BIvXzPqJfFeNe4EpMkuQJNTF7/ZpEp0R9llGNQomxaaaThRpUQYQrawjGsIS/jdr7X7E
-         5KHwm+YyGmGZ+Gk8uLohRwv8w66wVnMCRZoPcYSDrzTekeNPEEIgR2R9jEXxw13ig7OL
-         /c4ne+cvEWMnXQ2Oo0ShDJkM3YC7Fw5GxIarA9EWbST5eayljttxCt71wMz5XY5egHz0
-         /LheRgbOOtd5HdBUiPnRaiIc2OA25tXVMA4RhYFWiEd/b4Bc3SlV6QvqLf4MFo70bskY
-         3OTQ==
-X-Forwarded-Encrypted: i=1; AL+hErF73QZITyuw/DpEoMao6vlsKDhFLroz8SRf7IvWLHSLG4NKw52Ljo9gieJWhWkadHVRLa/O4MpXt3SSiqY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/D2eIQTFwbY5GrLv92I1k5N6CCyQf9HpwtxKKvu7RVWcxIxltl
-	Pcvk64QqRzxD5XlOcQmY28napMpDftqaAnBIX+G85lz7x4CEkYqTb9Cz
-X-Gm-Gg: AYBFou0o1wJdwMxw0rpGc7WBmbBdIsPGUZxby1pRfVfocWwp3Mts6Wyt0A3J9bTddbJ
-	WVDxI68p3D8EwlH0GMQ5vbJnqYHiQHTQ8n4CAttZQlREHEB+Ki8Y1jd0B3PTbNrcUXMDqnV6H4L
-	bSETpeONctJUYPEkVwXdL6sWaC8miw2MWA3k51G8zVOK6pXdavtT5REil/Q9boD3uyGLy7tcJnr
-	sC7gnsViAmzD+5o6x+gw+ZV383rDpVJsaIJE3ON39zerMLx2D7x8kO9PXL9yguI91M2wmrnHHxi
-	Fc58i5OnGzmZ2rLh3m7J2C9dgaDogyHbzF88sD8YmyR4MO9fGJgw2LloB/SF/PRPQvBSmxcGV3A
-	FDAJD4RmPCl7+zvAZyEKufUF6GWG0zfn9sLCMYgvjNNrlfm1cWTyjN3vItmtCJgziyCduRqzpvJ
-	rdm4JNJD2gTb88SA5Tfb94CmOfVH/nBZ2wdyr3WZaWUn1fcYMFfvdeR2uVtElQOT4gkJzXEdfHG
-	i2djOEOmW1P1Y3N0Us9FwHYUh6PLZcK437kuRQbl3nWLRjt3+c0x9U4vWhs5ltE92r17I7dNrSG
-	m1tgLR4L5aBi0XqwvqcfyCXEMba/kDmrmEzmwddCkNh6LNF0pCtr2m8=
-X-Received: by 2002:a05:7301:18ac:b0:36c:a084:30a4 with SMTP id 5a478bee46e88-36f75b1f65dmr2455761eec.21.1793949451683;
-        Thu, 05 Nov 2026 23:17:31 -0800 (PST)
-Received: from pop-os.lan ([2409:4090:1015:ce03:1984:1655:89e8:63d2])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa4b7404sm3569864eec.24.2026.11.05.23.17.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 23:17:30 -0800 (PST)
-From: saad <primecoder8@gmail.com>
-Date: Fri, 06 Nov 2026 12:47:25 +0530
-Subject: [PATCH v2] drm/amdgpu: use drm_gem_ttm_dumb_map_offset() for
- dumb_map_offset
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Qo5+2f7s;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jpksZjVX
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailflow.stl.internal (Postfix) with ESMTP id 2697713026B7
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:17:56 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Fri, 06 Nov 2026 02:17:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1793949475; x=1793953075; bh=QoZ/ne06JK3eIUX8iXVkb
+	XJS2m5jitLoavGyx1etNyw=; b=Qo5+2f7sJv9ANSJluL6zh7y5PfyEU4vjYmVbH
+	jos/pm8nJu5AUG8v5zSzolmGyZTkmpNA2en3DdBNVeRXfBd/T1tL9v9AsltS6bt8
+	puRg9aTXv70uax5Z2+REvJ96Fc5FVqTnT13SdFsXhKdwqgMwztM+1yhhv+iyZDnd
+	ruvcgIJ/78yfgroba70llTMFOSc3v/B//f+vfQITu38KolBzjj7PurdGKU7ixrRZ
+	h5TE/c0GEhownSscaWF02hOu9V1YVqX5+nVCDk1xxXOoMuEcd51z8j6u4uxnDecI
+	RrHh101cCfkmHWtu/cIk/mMM5VVM8ueKjfsw3lSVM4K7ImkIw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793949475; x=1793953075; bh=QoZ/ne06JK3eIUX8iXVkbXJS2m5jitLoavG
+	yx1etNyw=; b=jpksZjVX0oxuNP8KjD6sgUX+nwQq4UDwG+Z7RBwAhyIvMlNGVnU
+	M/3hHbYgeupnj+xeDhyg+BQZPi+TTA5wwCBQQgJjMY1q0ccMiEunTZbz+PtLoZRN
+	SzgyFGG880EKkgOmBwwCu+tZEx7mfiVv+TkRjAQTcFXXMHZbbnXCN/2oJsBNBXz6
+	5RjTWemHZy7srAuiHeDEDTJTvyWqWM9KCb3WUxyALwsMd6xmkFv6tcgBLxReFFkU
+	mrm3Ke3uvMI2rkr5aDDso957UP2PUW8ocDgzYqOdHSn3mwjc+InnRe6OOsM0iT0Y
+	RxMWffDjQ7Le/NjJl8atkL+bNtZ0y81+R7g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793949475; d=pobox.com;
+	mf=PG1ucEBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Qxg5mZoqB691hJ8uGFd/Feol4nFdM07W848J0HaGXqxDHjS
+	NpH01NmikO+8Gv1q8OkwYyTG7Uymtwo+hHsrTD8BWpNq2uyzKkijr4+ZeO4khFe7
+	XQ+OGGKgld8jEPgoPAm5UoSypiYROxS1HtgoeKEE4KtghdI+Aa695NFNDkIFNmeT
+	0Sy+evdAo6RBPgP1yv+fjJ0TrIebZzgX8OhKlgv9RUbTaINsswO2kuMNnh2gV1nt
+	f1TkxGZi/3znlHGhIUvBuMerRI5TdU4Y2/uffBKXy78XCBjVQWlhZId4L3ozyE4g
+	g3eF3Ruk1TodCXOVsR0y4jxxyvkWkJHWiXn17mw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:15dDf4Y0g1fWChhKhRnf/IZQ1qXw/+/2Mvs86IIyt8M=:H4SNGWbTrsXvTior3l/nEZTKtXoe2h8waAOk2TY/6u8=;
+X-ME-Sender: <xms:In_tasgnR-NiidilCboZh8Z1zAk5SF1c3GIqZzApiFB99_43bVVb4Q>
+    <xme:In_tahCeIbAwXrbQ0gS9gQHaUk1U8_-9AgbFKbsXpJad22B7lTQyzbafV6xjZFgvY
+    nQaQj0aHtjOGzyGyqk3YUfHulqM1S7tSC7ErbacKKJL2SR7mXyZZbA>
+X-ME-Received: <xmr:In_tamT91UtePJQ_BtH79V_Or3nNl7EGGrSIRk5hSzzcQcexL-FwZC-sHQN-iv_qj4AWl8Pt8w>
+X-ME-Proxy-Cause: dmFkZTGlCztvlMjvAmpB78f2p1N35vckEhhpDHoEToHd3P+g9c5a5eSfxQf9+VB6QlyPkf
+    2/xNIQhyqVDRM6qMDwz7U0K/neFLSojnWmCP+EDdgN+R44ipysueea9RdzMILHA1IvPSL1
+    ya3xaErVGX1qQz4T0deRsHPJlIygESsz5nX7BY7A5DZha2iTKT0gs2W6NqYmrnEKeioTfT
+    AzgixfZK/PL8CtXS1E0ixeTdFNT7feBSWkzC++xdl8okijZenDgvJdKMBGO01KLyFE1GwD
+    z/F/Z+TJt9uZto2OTJmaMHHc+mRxOBjaSYibuE2+GeksmrW9OJlUeEXfCv5UUsrDY6FoGT
+    UnCOqW5WUEo0fqdTocLaeoCKcaUvf9xCTflIwjwT6qrJCeypLZ7fPYcF4ud6+rMsLS2Syj
+    HUdA0wVrnx0pNeGyvdS1NcTWwWAbL+1KQ1hrwbPlCwq8bOQTpvW7va0rUP+YuM2Uk+2nYq
+    8QZswnNHNgJUNJbQ2bSHb+zL23/hGjmSGS/XHcxcVjzeVcCXqSoo0xswbd9jBb97pUbSsU
+    GOuiKLwZVwSy746pPaxdqMYez/g7Hz+DYIw6WjCbKc4/k5Tg7OqvvAMMpP/C0uWRHFX9tX
+    HXiQWlwcLeU9HuPAKb4ZHU+jaZmgDbrAuN9AT2KaA4Ny77HYnejOELmZUy/A
+X-ME-Proxy: <xmx:In_tauWbqA6XSkKVjyl2HcZu8d2EPZ5xDvCvQh0GVlgCUBq7DL52ww>
+    <xmx:In_tanfzE46ZvDAl3LO-9o8_xR4AVTE1qROMPZON-26tcSP2jKodtA>
+    <xmx:In_taiJJfBycwtvRTI7QXuq59Yz8ihIcMFBaxnOo4gRy_qkkKiL1Zw>
+    <xmx:In_takzfdzNof6TBwY3Mmo2HXHWw7K2B94RWMpPATh_gw0tcECN3DQ>
+    <xmx:I3_tau0JZ1TxpEZZAH58UTuvH1IPtdlUVnQmGl4j4P0tTrlfkZbfSeOK>
+Feedback-ID: ie71e4a86:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 02:17:51 -0500 (EST)
+From: Mark Payne <mnp@pobox.com>
+To: Richard Weinberger <richard@nod.at>
+Cc: Zhihao Cheng <chengzhihao1@huawei.com>,
+	Artem Bityutskiy <Artem.Bityutskiy@nokia.com>,
+	Adrian Hunter <ext-adrian.hunter@nokia.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mark Payne <mnp@pobox.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ubifs: fix integer overflow in pad node length validation
+Date: Fri,  6 Nov 2026 17:15:03 +1000
+Message-ID: <20261106071503.4333-1-mnp@pobox.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,166 +126,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-amdgpu-dumb-map-offset-v2-1-0abfb77a84b8@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAR/7WoC/4WNQQ6CMBBFr0Jm7RimAoor72FYFDqFSSwlLRAN4
- e5WLuDyveS/v0HkIBzhnm0QeJUofkygThl0gx57RjGJQeWqIspL1M7004JmcS06PaG3NvKMldU
- F8c1cbFtCGk+BrbyP8LNJPEicffgcPyv97N/kSkh4VXVt6oINEz16p+V17ryDZt/3L5G7E9K8A
- AAA
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, saad <primecoder8@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793949447; l=5657;
- i=primecoder8@gmail.com; s=20261105; h=from:subject:message-id;
- bh=dr8+/Sh4e/4pnQunAQ4Dj++/sRRoqxW/WWM80cur6MU=;
- b=TedmxAlnlxjfdYO/u+QTmaiR83q5DTtntTAUn114+cmoB2aARCreQ6QbwbreQHpu+/BHKg47M
- gVbE/KB/AEOBDy2m2D6u0TJARJv09JvdJ7Jl2quDy2hWdUk3t/HfuuQ
-X-Developer-Key: i=primecoder8@gmail.com; a=ed25519;
- pk=vJlTVYISGHXXppWzVCeFm0dcME82FTjmVlWBQkyLiKg=
+Content-Transfer-Encoding: 8bit
 
-As part of the DRM TODO item "Remove custom dumb_map_offset
-implementations", switch amdgpu's &drm_driver.dumb_map_offset callback
-from the driver-specific amdgpu_mode_dumb_mmap() to the generic TTM
-helper drm_gem_ttm_dumb_map_offset(), for both amdgpu_kms_driver and
-amdgpu_partition_driver.
+ubifs_scan_a_node() validates the padding length of a UBIFS_PAD_NODE
+with:
 
-amdgpu_mode_dumb_mmap() additionally rejected userptr BOs and BOs
-created with AMDGPU_GEM_CREATE_NO_CPU_ACCESS with -EPERM. Dropping
-those checks from the dumb path does not allow such BOs to be mapped:
-returning an offset does not create a mapping, and the actual mmap()
-goes through drm_gem_mmap() -> amdgpu_gem_object_mmap(), which performs
-the same two checks and still returns -EPERM. The only user-visible
-difference is that DRM_IOCTL_MODE_MAP_DUMB on such a handle now succeeds
-and the subsequent mmap() fails, instead of the ioctl failing. Dumb
-buffers created by amdgpu_mode_dumb_create() are never userptr BOs and
-always have AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED set, so they are not
-affected.
+   if (pad_len < 0 || offs + node_len + pad_len > c->leb_size)
 
-With that, amdgpu_gem_mmap_ioctl() is the only remaining user of
-amdgpu_mode_dumb_mmap(), so fold it into the ioctl and drop its
-prototype from amdgpu_gem.h. DRM_IOCTL_AMDGPU_GEM_MMAP, used by
-libdrm_amdgpu and Mesa, keeps the userptr and NO_CPU_ACCESS checks
-and behaves as before.
+offs, node_len and pad_len are all signed 32-bit ints, so the sum can
+overflow. ubifs_check_node() has already bounded node_len (28 bytes for
+a pad node) and guarantees offs + node_len <= c->leb_size, but pad_len
+is taken straight from the image. With offs = 0x20 and
+pad_len = 0x7fffffc4:
 
-Build-tested with CONFIG_DRM_AMDGPU=m (W=1 for amdgpu_drv.o and
-amdgpu_gem.o), no new warnings. Not runtime tested.
+   offs + node_len + pad_len = 0x80000000 (INT_MIN) -> passes the check
+   node_len + pad_len        = 0x7fffffe0 (positive, 8-byte aligned)
 
-The code change was written by hand and reviewed with the help of
-Claude (AI coding assistant); the commit message was written by Claude.
+so the following alignment check also passes and ubifs_scan_a_node()
+returns 0x7fffffe0.
 
-Signed-off-by: saad <primecoder8@gmail.com>
+ubifs_scan() then does offs += ret, buf += ret and len -= ret, leaving
+buf 2 GiB past the scan buffer and len negative. The trailing
+empty-space loop (for (; len; offs++, buf++, len--)) dereferences buf
+and faults on unmapped memory:
+
+  BUG: unable to handle page fault for address: ff799130402f9000
+  #PF: supervisor read access in kernel mode
+  RIP: 0010:ubifs_scan+0x24f/0x2a0
+  Call Trace:
+   ubifs_replay_journal+0x13e/0x18a0
+   ubifs_get_tree+0x5f7/0x2410
+   vfs_get_tree+0x2a/0x100
+   path_mount+0x36d/0xcf0
+   __x64_sys_mount+0x12b/0x160
+
+On an unclean image the same wrapped length reaches ubifs_recover_leb(),
+where clean_buf() computes c->leb_size - empty_offs with empty_offs ==
+INT_MIN; this sign-extends to a huge size_t and the following
+memset(*buf, 0xff, ...) writes out of bounds. In practice the read
+fault above is hit first.
+
+Bound pad_len by the remaining space instead:
+
+   pad_len > c->leb_size - offs - node_len
+
+offs + node_len <= c->leb_size already holds after ubifs_check_node(),
+so the right-hand side cannot underflow, and the comparison no longer
+depends on a sum that can overflow.
+
+Built and boot-tested on Linux 7.4.0-rc1 under QEMU with nandsim
+(128 MiB Samsung, 128 KiB PEB, 2 KiB page). On the unpatched kernel,
+mounting the crafted image oopses in ubifs_scan(); with the fix the pad
+node is rejected ("bad pad node at LEB 3:32") and mount fails cleanly
+with -EUCLEAN, while a normally-built UBIFS image still mounts and scans
+without error.
+
+Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mark Payne <mnp@pobox.com>
 ---
-Changes in v2:
-- Fold amdgpu_mode_dumb_mmap() into amdgpu_gem_mmap_ioctl() and drop its
-  prototype, as it has no other users (Sashiko)
-- Link to v1: https://lore.kernel.org/r/20261105-amdgpu-dumb-map-offset-v1-1-7299d94ede11@gmail.com
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  5 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 23 +++++++++--------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |  3 ---
- 3 files changed, 12 insertions(+), 19 deletions(-)
+ fs/ubifs/scan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 731fe8f9e..134d2fe4b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -27,6 +27,7 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_ttm.h>
- #include <drm/drm_gem.h>
-+#include <drm/drm_gem_ttm_helper.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_pciids.h>
- #include <drm/drm_probe_helper.h>
-@@ -3151,7 +3152,7 @@ static const struct drm_driver amdgpu_kms_driver = {
- 	.ioctls = amdgpu_ioctls_kms,
- 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
- 	.dumb_create = amdgpu_mode_dumb_create,
--	.dumb_map_offset = amdgpu_mode_dumb_mmap,
-+	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
- 	DRM_FBDEV_TTM_DRIVER_OPS,
- 	.fops = &amdgpu_driver_kms_fops,
- 	.release = &amdgpu_driver_release_kms,
-@@ -3177,7 +3178,7 @@ const struct drm_driver amdgpu_partition_driver = {
- 	.ioctls = amdgpu_ioctls_kms,
- 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
- 	.dumb_create = amdgpu_mode_dumb_create,
--	.dumb_map_offset = amdgpu_mode_dumb_mmap,
-+	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
- 	DRM_FBDEV_TTM_DRIVER_OPS,
- 	.fops = &amdgpu_driver_kms_fops,
- 	.release = &amdgpu_driver_release_kms,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 4ed1706d8..2a72bdf2d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -644,13 +644,16 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
- 	return r;
- }
+diff --git a/fs/ubifs/scan.c b/fs/ubifs/scan.c
+index cbff2d800e27..441b2f04a0ae 100644
+--- a/fs/ubifs/scan.c
++++ b/fs/ubifs/scan.c
+@@ -86,7 +86,7 @@ int ubifs_scan_a_node(const struct ubifs_info *c, void *buf, int len, int lnum,
  
--int amdgpu_mode_dumb_mmap(struct drm_file *filp,
--			  struct drm_device *dev,
--			  uint32_t handle, uint64_t *offset_p)
-+int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
-+			  struct drm_file *filp)
- {
-+	union drm_amdgpu_gem_mmap *args = data;
-+	uint32_t handle = args->in.handle;
- 	struct drm_gem_object *gobj;
- 	struct amdgpu_bo *robj;
- 
-+	memset(args, 0, sizeof(*args));
-+
- 	gobj = drm_gem_object_lookup(filp, handle);
- 	if (!gobj)
- 		return -ENOENT;
-@@ -661,19 +664,11 @@ int amdgpu_mode_dumb_mmap(struct drm_file *filp,
- 		drm_gem_object_put(gobj);
- 		return -EPERM;
- 	}
--	*offset_p = amdgpu_bo_mmap_offset(robj);
--	drm_gem_object_put(gobj);
--	return 0;
--}
- 
--int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
--			  struct drm_file *filp)
--{
--	union drm_amdgpu_gem_mmap *args = data;
--	uint32_t handle = args->in.handle;
-+	args->out.addr_ptr = amdgpu_bo_mmap_offset(robj);
-+	drm_gem_object_put(gobj);
- 
--	memset(args, 0, sizeof(*args));
--	return amdgpu_mode_dumb_mmap(filp, dev, handle, &args->out.addr_ptr);
-+	return 0;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-index b558336bc..718ffe229 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-@@ -49,9 +49,6 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
- int amdgpu_mode_dumb_create(struct drm_file *file_priv,
- 			    struct drm_device *dev,
- 			    struct drm_mode_create_dumb *args);
--int amdgpu_mode_dumb_mmap(struct drm_file *filp,
--			  struct drm_device *dev,
--			  uint32_t handle, uint64_t *offset_p);
- 
- int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 			    struct drm_file *filp);
-
----
-base-commit: 279235273fc6c0a33df863b4a1cc52ec1e73aba5
-change-id: 20261105-amdgpu-dumb-map-offset-6fa41e8d3fb5
-
-Best regards,
+ 		/* Validate the padding node */
+ 		if (pad_len < 0 ||
+-		    offs + node_len + pad_len > c->leb_size) {
++		    pad_len > c->leb_size - offs - node_len) {
+ 			if (!quiet) {
+ 				ubifs_err(c, "bad pad node at LEB %d:%d",
+ 					  lnum, offs);
 -- 
-saad <primecoder8@gmail.com>
+2.43.0
 
