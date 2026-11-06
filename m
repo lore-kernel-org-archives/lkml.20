@@ -1,60 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793938317;
-	b=Ly3CXNw0zMlUT4HePjtp3SXe1pHPfv1/6GnEiAwOEuu9JcwGtgjDG1EVKRxGFyeEkXN1
-	 gCWkagvvry7jcsPEcyS8QPukJVj8YB5T1MN9/h95akg2jqYqfgxqxdu1BddMpuiq332/5
-	 onJu+bek7vxfj6OHV+r0p5XJrZh2cn08rVuvgK5Gr1zNFFSbfdVoAOBHCWOpapXKkKxyB
-	 B17Hx36nN99f9JfFqGTvdXpkCpCkPL6RLS2M6ghTDDLGYY4ySy1AbooFsGWOmmp/E5AFC
-	 26o1lTd5EpYGVf84M6pv8RvULQQrmZD2mOHQjMLPfPgpYofGARKnl/YOlRY9nXtQgNQ==
+	t=1793938387;
+	b=SaS7yGvb1M6gLZO2LEEreuG6bl9ZYhYjE3zw5ey4DFNsy/Wm91d7j9c9LcqT//xOscJl
+	 xnUPjS46qky4k65n3f/Xw+gCneyeeI6Y2BBEfIZAFJWNHs+YZbbehNiIPn3JQGFr5MNKG
+	 qjhvKDuKQH/p6JMZhsNATggGy093X7p+GPNPmAKpc3q7gVCBkE4WnmwBDwhIJzCrrK9hM
+	 yzSAo8qK84HrFZYDhZyH8+t89IGTdmISytv1giQLsvzyTO4jOgM+O9AK0EwpncBuE6uE+
+	 OqBz3zoxpfiTfwu478D2hxdB0jLrsWl2xfEaTc91nv4pV21XDaBNYdlKhSl7yU4XZKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793938317;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dy+6W3dhUjW+vdHYi6MZ5rHw2N/o7H/3Oheai7WIFWA=;
-	b=Y2jRZOINiqaWIBtuCNVIx58SqS8WX9sUbCjbUX2lE5STvchp69b6xuL+AEbvWAUbQ1OO
-	 UUmq1BmP7Zo7uCJL7OHBufnGN/AvzpePmeaH0c4amLyZ7vlb94eaYvv6+KDXACDjSSZnY
-	 +TUQ6C9HQWdtjcAaV86z/xBxPnGIi7X1S1YDcP2SNkiD5Klgqy464RLkVtV4EAmWpZD30
-	 0ftwP4/g3pZ/nDKGEdR7RVaPQrs2Y+OJGQvi/sI7GE4JRsxjeo8c4/jNpcJX3aTqbW7oR
-	 enRLjaTwRWuxXOd6qvK/2nSqIxFYA/ERcRR/ntxfn0HWSFJy360EcgfrL1TjchF07wA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793938387;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
+	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=vCRGOPgiM/gBtAq94+3k6mg+/fapC6nO6h4gscjyIGw=;
+	b=EXU7Y86vWMVai1Lwd04CmI2Tpbt2voliGO6m6A+YV+37dRRIwNE85B2QeR1qpxcW1+z7
+	 XnvBugrH9trKmnlUVmroSNuzrJuR3dq2uUz/TwHAHgdKaJuDlXJ0iVJbcO9dIbaRK9/Qq
+	 PZPWjP9DoN5kBdFN0AXibQTY6YH0jl2P+6pfFl3aq0oU/R454c9xd/s7o/uBCeJ22uGNT
+	 CUI2ZVa2sY5RnWl93ZE8x6SV4vAxh1ATAuxNBCBqqKI76flS5cxjRcTvRx1fXOSsZ9ce6
+	 tNcJKoT75jA4i6An7aIMit50yEkPotYVSCxxjp5kRwoPMGwC52cVDkU4UDiPpjgb1tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="QFeftPX/";
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=eRAJA7wE;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB741606A32F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB741606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDE4606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:13:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EDE4606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=QFeftPX/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793938314; x=1794197514;
-	bh=dy+6W3dhUjW+vdHYi6MZ5rHw2N/o7H/3Oheai7WIFWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=QFeftPX/l+4YFzEwk1n2K6tt9NqpXrFSauKBIYlomoBgRBklgKjYJttpHYFgfajmH
-	 Uh29tm6sNqQKbkiAEA4QwSQmcXVpBymw3Phao92cQBCgtLrwsMkSK9ugqEx6/RQZW6
-	 6W0cNMa7i57IGCZagYsETBEob3XMxTC4yqc4WFtUhCIfbAmv6Ms8+3xLb7IFPonioI
-	 FHLvyo3BjV2vZWgNXg1Er/cxF9nzEBguxJAJ1XxNdBL8r30IeHxRH3QH66hTGISCVu
-	 0ck0k68Ttmj+4SXk3heGDaBL2ELyPIMLk7LGPp8xPSYCyfW7tiU86AtOI9brP08BX9
-	 tYeM20YwfqIkg==
-Date: Fri, 06 Nov 2026 04:11:48 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, George Neacsu <geocausa@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v9 3/3] media: ipu-bridge: Add Sony IMX681
-Message-ID: <20261106041116.78937-4-lsa.uz@pm.me>
-In-Reply-To: <20261106041116.78937-1-lsa.uz@pm.me>
-References: <20261106041116.78937-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 8899de5a8329939039e6e2530309d37221b2eb38
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=eRAJA7wE
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261106041304epoutp04eeb75896f5bd471a1e93b69f65f938e2~lWXTCpSf_0727707277epoutp04Q
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:13:04 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261106041304epoutp04eeb75896f5bd471a1e93b69f65f938e2~lWXTCpSf_0727707277epoutp04Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793938384;
+	bh=vCRGOPgiM/gBtAq94+3k6mg+/fapC6nO6h4gscjyIGw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=eRAJA7wER5w75ji7zR82BDuGnqcx9Lhn+k5sRGsLYpdAiqIQY7IcgpTWIRyzE8tS6
+	 DsNDYbyREHHcStrz/wg8lRKxuhHy0SG2VE1JLvrKs+VUbLv3x6J8YAscxm/V5BZBOj
+	 EERF+kb+tzDCWa5YsTyl+PyMqpoxGFf2v1uX8RgI=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261106041304epcas2p1fe52624ac1f5f10981e7cf748f0fa8be~lWXSi9JHe2326223262epcas2p1y;
+	Fri,  6 Nov 2026 04:13:04 +0000 (GMT)
+Received: from epcas2p1.samsung.com (unknown [182.195.38.205]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jLQl34vs1z6B9m5; Fri,  6 Nov
+	2026 04:13:03 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261106041303epcas2p19b0c317d409503c833ae125ba91fe053~lWXRnLONx2770927709epcas2p16;
+	Fri,  6 Nov 2026 04:13:03 +0000 (GMT)
+Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261106041302epsmtip1781cb810fe73631e09043871d87522c1~lWXRfec8s2894828948epsmtip1e;
+	Fri,  6 Nov 2026 04:13:02 +0000 (GMT)
+From: Kiwoong Kim <kwmad.kim@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
+	bvanassche@acm.org, kwangwon.min@samsung.com, hy50.seo@samsung.com,
+	cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
+	<kwmad.kim@samsung.com>
+Subject: [PATCH v7 2/2] scsi: ufs: mcq: poll OCS after sq cleanup for device
+ management commands
+Date: Fri,  6 Nov 2026 13:12:47 +0900
+Message-ID: <a1af44cd90dca0dd8a9a06d09a254a4e7e0861b2.1793938245.git.kwmad.kim@samsung.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1793938245.git.kwmad.kim@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,39 +82,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261106041303epcas2p19b0c317d409503c833ae125ba91fe053
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261106041303epcas2p19b0c317d409503c833ae125ba91fe053
+References: <cover.1793938245.git.kwmad.kim@samsung.com>
+	<CGME20261106041303epcas2p19b0c317d409503c833ae125ba91fe053@epcas2p1.samsung.com>
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-a Sony IMX681 as its user-facing sensor, enumerated as ACPI device
-SONY0681. Add it so ipu_bridge_connect_sensors() builds its half of the
-graph; without the entry the sensor is never connected, whatever driver is
-present.
+Extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the UTRD of a
+device management command after a successful SQ_CUS poll. UFSHCI does not
+specify the order between the OCS update and the SQ_CUS update, so OCS may
+still be stale when cleanup returns. Without this poll, a late response to
+a timed-out query can arrive while a retry is already in flight, leaving
+the host controller with two query contexts and raising IS.UTPES.
 
-One link frequency, 969.6 MHz, on two CSI-2 lanes.
+Here is the timeline of an actual case I found with kernel 6.18:
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+1. The driver sent a query but the device didn't respond to it
+   for a long time.
+
+[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
+[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
+
+2. So after the query timed out, the driver did SQ cleanup. Then
+   the host controller updated the CQ tail and raised IS.CQES.
+   Unfortunately, complete() was called by the driver's ISR afterward.
+
+3. The driver started to retry the query. In the meantime,
+   it set OCS to 0xF. Then the driver didn't wait for completion due to
+   the previous complete() call, and just checked OCS.
+
+[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
+
+4. The driver retried the query again, but the device didn't
+   return anything, so the query also timed out.
+
+[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
+
+5. A few seconds later, the device returned the response of
+   the first query, but since the host controller was holding
+   two query contexts and couldn't handle it, it raised IS.UTPES.
+
+The same problem exists in the current code. If the query times out, the
+SCSI error handler calls ufshcd_abort() -> ufshcd_mcq_abort() ->
+ufshcd_mcq_sq_cleanup(), the request is finished, and the retry reuses the
+same reserved tag, struct scsi_cmnd and devman UCD. A late CQE for the
+first query then maps to the same tag and completes the retry by calling
+scsi_done() too early. The retry then returns the OCS of the first query
+and, if that OCS is OCS_SUCCESS, its response as well. Hence
+ufshcd_mcq_sq_cleanup() must not return until the CQE of the cleaned-up
+request has been processed.
+
+The poll is limited to device management commands because
+ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
+them. For SCSI commands, the OCS in the UTRD stays
+OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
+
+The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
+MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
+OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
+OCS_ABORTED reported by the host controller for the cleaned-up request,
+means the cleanup has completed.
+The UFSHCI specification says "The host controller shall free up
+any resources associated to the nexus, and shall post
+a Completion Queue entry with OCS = ABORTED if clean up successful."
+
+Each poll iteration reaps the CQ with ufshcd_mcq_poll_cqe_lock() before
+reading the OCS, as ufshcd_clear_lu_cmds() does after ufshcd_clear_cmd().
+This removes the dependency on interrupt delivery. Otherwise the OCS is
+only updated once the interrupt handler processes the CQE, and a delayed
+or lost interrupt would make the poll time out and escalate to a host
+reset although the request has already been cleaned up.
+
+The OCS is still read under hwq->cq_lock because the interrupt handler may
+reap the CQE between the reap and the read. ufshcd_compl_one_cqe() updates
+the OCS under that lock before it sets cmd->result and calls scsi_done().
+Without the lock, cleanup could observe the new OCS and return while the
+completion is still running. The abort could then finish the command and
+a retry could reuse the same reserved request before the pending
+scsi_done() call, which would then complete the retry prematurely.
+
+Fixes: 8d7290348992 ("scsi: ufs: mcq: Add supporting functions for MCQ abort")
+Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/ufs/core/ufs-mcq.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 3739c4a2a8c..2759c776cfc 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -124,6 +124,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
- =09IPU_SENSOR_CONFIG("TBE20A0", 1, 200000000),
-+=09/* Sony IMX681 */
-+=09IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
- =09/* STMicroelectronics VD55G1 (found on Lenovo X1 Carbon G14) */
- =09IPU_SENSOR_CONFIG("TBE20A1", 1, 402000000),
- =09/* Toshiba T4KA3 */
---=20
-2.54.0
-
+diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
+index 8106d55f4041..889f0b78034c 100644
+--- a/drivers/ufs/core/ufs-mcq.c
++++ b/drivers/ufs/core/ufs-mcq.c
+@@ -550,6 +550,23 @@ static int ufshcd_mcq_sq_start(struct ufs_hba *hba, struct ufs_hw_queue *hwq)
+ 	return err;
+ }
+ 
++/*
++ * Reap the CQ directly so that progress does not depend on interrupt
++ * delivery. ufshcd_compl_one_cqe() updates the OCS under cq_lock before
++ * calling scsi_done(). Holding cq_lock while reading the OCS makes sure that
++ * the completion has finished once the updated OCS is observed, even if the
++ * CQE was reaped by the interrupt handler.
++ */
++static enum utp_ocs ufshcd_mcq_poll_ocs(struct ufs_hba *hba,
++					struct ufs_hw_queue *hwq,
++					struct ufshcd_lrb *lrbp)
++{
++	ufshcd_mcq_poll_cqe_lock(hba, hwq);
++
++	guard(spinlock_irqsave)(&hwq->cq_lock);
++	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
++}
++
+ /**
+  * ufshcd_mcq_sq_cleanup - Clean up submission queue resources
+  * associated with the pending command.
+@@ -609,6 +626,23 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
+ 			 __func__, id,
+ 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
+ 
++	/*
++	 * For device management commands, there is no order guaranteed between
++	 * OCS update and CUS update, which is why we need to wait here. SCSI
++	 * commands are excluded because the OCS in their UTRD is not updated
++	 * from the CQE.
++	 */
++	if (!err && blk_mq_is_reserved_rq(rq)) {
++		enum utp_ocs ocs;
++
++		err = read_poll_timeout(ufshcd_mcq_poll_ocs, ocs,
++					ocs != OCS_INVALID_COMMAND_STATUS, 20,
++					MCQ_POLL_US, false, hba, hwq, lrbp);
++		if (err)
++			dev_err(hba->dev, "%s: OCS not updated. hwq=%d, tag=%d err=%d\n",
++				__func__, id, task_tag, err);
++	}
++
+ 	if (ufshcd_mcq_sq_start(hba, hwq))
+ 		err = -ETIMEDOUT;
+ 
+-- 
+2.43.0
 
