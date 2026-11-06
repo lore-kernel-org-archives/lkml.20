@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989500;
-	b=Xk9Goub5P15goHum88C9TCg7qEwzhhfY/3z59lGnenv1C6k0QAG/TvJZ5+uxw1s+J/JN
-	 ERfYuLm0B8l+SeFLjCXy5KZ+QIdTr71+mENTvRaaDPLTWNMGHDWR0QiREHAp8Rv9lQcgS
-	 vLpEhkwLUOqNjJTGBv/BnWlayvV+Sjo3QWqY3ZB1kzcO2cj3cyAX13i5B11huja4QmQod
-	 HWXnEsZFsH2JFCuc0k9SdShx61p5T71tdZfhvX+8hTon2oMgpA+dfEUNft69mV89+c7n5
-	 7z1n9TCcBJElQOqfvy4RKpLZrz02UCJqUCuy89UMVeoD+ZT9lHfei51FE/dMeRCcmMA==
+	t=1793989498;
+	b=ajeGOQQm05g298+HyrfP2QGI5aCnxkfLKh3SEqnFzjtNpS92P2zKNjyDK43bqzanCrdJ
+	 w8zAyvtMHZVkrnw2otrWFhVSriveWzdCObZla3xia3ClWJONhmcoh+lEs02AWVJVJRf69
+	 fELseP279qENwh3xFVn6KlYqTQ2RSWs1SHhCLl/l1ibWlewoJGCfT9lOJ+O9a/v7qHtNI
+	 I0hlCDmIEcOit/+Hnq3QHMtheeeb6g+7fUlIZKOqUcyWNNzQEHw4sa9LQGOpYHpwUTjyE
+	 lWqjZ/qkFYq95qChMh/CLoH8/hRM7VGSmwNV3f61nTrlf/AQDNhTRrU4sBGYDxIvdcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989500;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989498;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zDwXRUgmgjLzyK+vNatlIuTEGq/PIv3VbBlkOOgIGzM=;
-	b=D0K/uv3qIZA0HsHL80P4d2hc/nV1aYJrDmkHKLmr/LYoq7bUPzloELXz0msg7Dj9c2w8
-	 d8tzlRTZBA2mto8aWv0I75Zu0tDgxwV6WvBjhv7IKZvEBSdiQH5TuLtTgMjEQfU/hJm+E
-	 MyKfSgY6W3ACCgSpcyuvNGqtoOtkxA7pn6N9jEoPE9zMkvOpBXfpNtEzkd1I33buR9MaZ
-	 zxQziCmzpf3QB85FNrwvWAabBrGfJBUIlAsAkJBIjkTPfdEidJMpwIo5+A1ZnHNtkGuW5
-	 NFMuSAB+7LXk4XQMHw1KwVlls2cj2eX19K4Y6ElAy+bhlt5Kect/vYq6UGoCxDng/ZQ==
+	bh=VSQl2dQwPs11p7ItZohLUQDXTTSNLnJbRIO+PA7NW4U=;
+	b=NHY99aWfluXsA65Wu1oJn9SnhznbnC0FYqFgeFk5brgR3aACjVTUKYF+HLXVlHGWPD4Z
+	 djIdVvpVSQ0y1bk6v9xUcXM7H6WoZTaDGMOlWo4v+yNTB4Dlut/BNuCewZi5czR5K3q7v
+	 XOV0n1MLdzdjXjKa4dW2hn90yWwOBOTJOvDLl1WReA1z87MLp+La3NVveDwK9qldSR/ie
+	 kY1wg9M5tiRBu5/1VMogYts2kLgaAlOz18TMwp3fvc+cfwXRe91pXM0yOrWv86Jz2NU3q
+	 c94sHkgNoaMFC/gXR+owKF3JiJwPVqHgKykZDJmcKqMV0KZl1MkdeaQ1aXcDh9mUtlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rErTEwF9;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D4rU93fv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A2FE606A33F;
-	Fri,  6 Nov 2026 18:25:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9735606A32F;
+	Fri,  6 Nov 2026 18:24:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rErTEwF9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A9F1F008A4;
-	Fri,  6 Nov 2026 18:24:59 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D4rU93fv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2841F008A3;
+	Fri,  6 Nov 2026 18:24:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793989500;
-	bh=zDwXRUgmgjLzyK+vNatlIuTEGq/PIv3VbBlkOOgIGzM=;
+	s=korg; t=1793989497;
+	bh=VSQl2dQwPs11p7ItZohLUQDXTTSNLnJbRIO+PA7NW4U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rErTEwF9zpKkoVqCr3dWV7p3qu2Z0UCBu5YJ2m7mvFZZ6KkLZXLo2kbPR9hr8dVQI
-	 IvmGzwmMXT7U0qpLcIv3MddCFMrlkCZO+5iLQYwTwus7jNsmj3W3z5KFhludk0jLZz
-	 /sQc2B8EYDD9F0D2pg8BpcfrTQQuGk/TIrV+GYNE=
+	b=D4rU93fv1FVrgbltRVACCsUPiQsoGA0F768UbEmqZUSHewVGn0JuxyyM7YhjPZN5a
+	 OzvOle7cBOQCn7wbnJ60OzoGHSMSNoKvVm64gGfRYxdYa/zBrkMJEB/jnvumMnP/J+
+	 4HJ4hIn+k8N6T8cLEEgV/OQVxtJ3KdQJfgKVh38g=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	akpm@linux-foundation.org,
@@ -44,12 +44,12 @@ To: linux-kernel@vger.kernel.org,
 Cc: lwn@lwn.net,
 	jslaby@suse.cz,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: Linux 5.15.225
-Date: Fri,  6 Nov 2026 13:24:55 -0500
-Message-ID: <2026110655-glorious-vocalist-72a7@gregkh>
+Subject: Re: Linux 5.10.274
+Date: Fri,  6 Nov 2026 13:24:50 -0500
+Message-ID: <2026110650-daybreak-punisher-c964@gregkh>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <2026110655-upright-drained-3d9c@gregkh>
-References: <2026110655-upright-drained-3d9c@gregkh>
+In-Reply-To: <2026110650-various-fantastic-2eef@gregkh>
+References: <2026110650-various-fantastic-2eef@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,20 +62,20 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 diff --git a/Makefile b/Makefile
-index 39856e1c9c4a..215bf5d254d3 100644
+index 0e5cf0c2083f..73daa0bf2028 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
  # SPDX-License-Identifier: GPL-2.0
  VERSION = 5
- PATCHLEVEL = 15
--SUBLEVEL = 224
-+SUBLEVEL = 225
+ PATCHLEVEL = 10
+-SUBLEVEL = 273
++SUBLEVEL = 274
  EXTRAVERSION =
- NAME = Trick or Treat
+ NAME = Dare mighty things
  
 diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-blkback/common.h
-index a28473470e66..8d92082f2927 100644
+index 5eff34767b77..e923e8cd1f04 100644
 --- a/drivers/block/xen-blkback/common.h
 +++ b/drivers/block/xen-blkback/common.h
 @@ -318,8 +318,10 @@ struct xen_blkif {
@@ -90,10 +90,10 @@ index a28473470e66..8d92082f2927 100644
  };
  
 diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
-index 1525e28c5d70..6808b9cef6e4 100644
+index ddea36295931..bdfd8d4042b5 100644
 --- a/drivers/block/xen-blkback/xenbus.c
 +++ b/drivers/block/xen-blkback/xenbus.c
-@@ -126,15 +126,23 @@ static void xen_update_blkif_status(struct xen_blkif *blkif)
+@@ -127,15 +127,23 @@ static void xen_update_blkif_status(struct xen_blkif *blkif)
  	return;
  }
  
@@ -121,7 +121,7 @@ index 1525e28c5d70..6808b9cef6e4 100644
  	for (r = 0; r < blkif->nr_rings; r++) {
  		struct xen_blkif_ring *ring = &blkif->rings[r];
  
-@@ -174,6 +182,7 @@ static struct xen_blkif *xen_blkif_alloc(domid_t domid)
+@@ -175,6 +183,7 @@ static struct xen_blkif *xen_blkif_alloc(domid_t domid)
  	blkif->domid = domid;
  	atomic_set(&blkif->refcnt, 1);
  	init_completion(&blkif->drain_complete);
@@ -129,7 +129,7 @@ index 1525e28c5d70..6808b9cef6e4 100644
  
  	/*
  	 * Because freeing back to the cache may be deferred, it is not
-@@ -268,6 +277,7 @@ static int xen_blkif_disconnect(struct xen_blkif *blkif)
+@@ -269,6 +278,7 @@ static int xen_blkif_disconnect(struct xen_blkif *blkif)
  	struct pending_req *req, *n;
  	unsigned int j, r;
  	bool busy = false;
@@ -137,7 +137,7 @@ index 1525e28c5d70..6808b9cef6e4 100644
  
  	for (r = 0; r < blkif->nr_rings; r++) {
  		struct xen_blkif_ring *ring = &blkif->rings[r];
-@@ -334,10 +344,16 @@ static int xen_blkif_disconnect(struct xen_blkif *blkif)
+@@ -335,10 +345,16 @@ static int xen_blkif_disconnect(struct xen_blkif *blkif)
  	 * blkif->rings was allocated in connect_ring, so we should free it in
  	 * here.
  	 */
@@ -155,7 +155,7 @@ index 1525e28c5d70..6808b9cef6e4 100644
  	return 0;
  }
  
-@@ -385,6 +401,7 @@ void xen_blkif_interface_fini(void)
+@@ -386,6 +402,7 @@ void xen_blkif_interface_fini(void)
  		unsigned int i;						\
  		unsigned long long result = 0;				\
  									\
@@ -163,7 +163,7 @@ index 1525e28c5d70..6808b9cef6e4 100644
  		if (!blkif->rings)				\
  			goto out;					\
  									\
-@@ -395,6 +412,7 @@ void xen_blkif_interface_fini(void)
+@@ -396,6 +413,7 @@ void xen_blkif_interface_fini(void)
  		}							\
  									\
  out:									\
@@ -171,7 +171,7 @@ index 1525e28c5d70..6808b9cef6e4 100644
  		return sprintf(buf, format, result);			\
  	}								\
  	static DEVICE_ATTR(name, 0444, show_##name, NULL)
-@@ -1109,8 +1127,7 @@ static int connect_ring(struct backend_info *be)
+@@ -1110,8 +1128,7 @@ static int connect_ring(struct backend_info *be)
  				requested_num_queues, xenblk_max_queues);
  		return -ENOSYS;
  	}
@@ -182,10 +182,10 @@ index 1525e28c5d70..6808b9cef6e4 100644
  
  	pr_info("%s: using %d queues, protocol %d (%s) %s\n", dev->nodename,
 diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
-index f20ddaaa2451..90658aa58e8c 100644
+index 09fc4bc0622e..18c236047408 100644
 --- a/drivers/net/xen-netback/interface.c
 +++ b/drivers/net/xen-netback/interface.c
-@@ -809,8 +809,6 @@ void xenvif_disconnect_data(struct xenvif *vif)
+@@ -811,8 +811,6 @@ void xenvif_disconnect_data(struct xenvif *vif)
  
  		xenvif_disconnect_queue(queue);
  	}
@@ -195,7 +195,7 @@ index f20ddaaa2451..90658aa58e8c 100644
  
  void xenvif_disconnect_ctrl(struct xenvif *vif)
 diff --git a/drivers/net/xen-netback/xenbus.c b/drivers/net/xen-netback/xenbus.c
-index 5b78d9172aac..b9219b394de5 100644
+index c47e327039a0..1d03fe6cad9c 100644
 --- a/drivers/net/xen-netback/xenbus.c
 +++ b/drivers/net/xen-netback/xenbus.c
 @@ -267,6 +267,8 @@ static void backend_disconnect(struct backend_info *be)
