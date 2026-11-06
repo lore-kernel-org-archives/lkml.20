@@ -1,66 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794006644;
-	b=zWIfQQer0PVF9rno1c74yzYpt1JwVLuItMTfnF6TzzE+Zgbt90xZZHqYnrCGy++Bl23b
-	 KN+7p1zTMK6bSl3wZt/TBkjs+ZGRDQ++KRdxlr+xkXvUng1F/iPnQV7MuI1qWmQvDzhJW
-	 FAvYoq0QjkHWMDDXBoutv+EbTPF89Cay+46CWCyAe6IzwNOI7Q5t7/IxKlh6Cb/h2Mg4o
-	 plLioDty/b65v8du2KrHdUaUMwCIh+LagpYAtzWbuPj0lriYD4T+v2osNpZrBIt7o+LDF
-	 G06nDcJWjSVY6IDY68nu3Ssc+DAYkJxa4qrkXLx3BcACV37OK2Tsp5N62tRsa3iDwUA==
+	t=1794006730;
+	b=YFrcGW68lXPKnnvy7U1VktD8DhpukBqIB/vw16C6cb1qcGTWtRKYtlEB+C1IT6Vy3GTq
+	 G9AeSInqc7VlzUv+VpR8MrebU5m4syc2vHP4BhzzdrSi0CC/PMdX2MdXAxVDqH4QvROOW
+	 zFW4tlf5h2zwRxVYtixa3/39Er2ptXJGCrJTxN0j1ZQTKOpsZ/EkSGqzvg4n/hoPzO1uO
+	 +AyEYTM0YhqgUGh7dm4VJy3v0H7yG6/7RcKRfDw0GMrtd9mpDhTmk5vrzOy/dkFOeHkZJ
+	 WKHHx18RcgOK8/j3tYNyy5TcMHP/uPEq6CrNe0E6341dJ0g8pIx4NVREW0pivpcgJ6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794006644;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794006730;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:In-Reply-To:
-	 References:User-Agent:Date:Message-ID:MIME-Version:Content-Type;
-	bh=SSu8sahHYtJP4tYEpVQa1z5i0RcdS7+U4e1oKrlexBE=;
-	b=bwdvrahkle/yfm+hzKCkCnS6g5UhNCKroI1gtMU3MKaTnFuoq7ziJYz+2H1IiMhX1B6V
-	 2h9q4LtbIFP/jwWdHoSHGPYBWM0NgihYnz8YYUAehHxP0J11l1BgZbE95hYPcOXLbLnRs
-	 74wQbsRdMjU1/SSwu77QKuJwyqM3i7TGX/msdD2xLc0RTEybz74bWXQiIyYrO8k2vxB3g
-	 o1fysE5LrnPUm/j88g8WxHJZM5vH6OvfOd62aj8x3EUE5REymnquvVlppmN2KgUxqAjiZ
-	 4qtWzosxj/waQqSwkxvQd8WsCgIccJuPFWb2zJOrRKMmMUOtyZtW14sacMscTzdGMYQ==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=UbpFueGBEvU53Vb7/q/PLhrOg44UG6dCmPzDN0HPnNM=;
+	b=qi2FAi/TV3osFmZf2sBXL1XOipd/INnyOY+MZvjsPMPRMil0sr8Y26RoKCaVZ9lY2wze
+	 9yrgPy4off6Gpg8CCoFKv0yrhT+qKtlnWFw2SZXs6W1LuKxWl1gGrQG2MDS1dypBtvUV2
+	 hKSuPJZz47Okdu+8XvM+Vftq5UUUkZMzV8LnCuMgteQVho1s/AirvkQFAAb6TxE7bWqoK
+	 X6V21X9zFvxm/OJf0muGC2InWIXDym4ylXi19vQpg1mao4caWQA2PafSjDPr78iJ4BxOp
+	 pR1By+DHactiUxstYKWYQ80fcbDMrHBh7QVd3ROTQLQB0hSAVvvKlT1TFlS/ScqQGNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QVdBHXCf;
-	arc=none smtp.remote-ip=95.215.58.114
-Received: from mta1.migadu.com (out-114.mta1.migadu.com [95.215.58.114])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CDuhJUnK;
+	arc=none smtp.remote-ip=95.215.58.122
+Received: from mta1.migadu.com (out-122.mta1.migadu.com [95.215.58.122])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D1B606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:10:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97D1B606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA83606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:12:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA83606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QVdBHXCf
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CDuhJUnK
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bSp589ynlUSbkHZ/Pc8oj+44xLBN6TotbLXU3BpwP8Q=;
+DKIM-Signature: a=rsa-sha256; bh=LNw6d4GW0mbl2KSWZ2jOylagT+FVNJ4ieKN77f/dhjY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794006640; v=1; x=1794611440;
- b=QVdBHXCf+YgkLKYumhrLD6fpuUKcp+E/ZAqbFq9mwZooLmomr5cTdrc4rP9finr0QLFyh2ne
- CHFzaErK1kkzmQMX9iLCJOvg8dXjH5A+LgjuIlEZCaje1eD93ZQkyCrW/+1Fk1R7XSi5/A6sWYc
- mOtLmfjd1H+usMO9Ytx58ofw=
+ t=1794006727; v=1; x=1794611527;
+ b=CDuhJUnKzabU0b8UvRoJ2bk8PxK6ucEH6vA8nMw3Up+EgoywyZa+umT7uPAjrL2UK/4MCuye
+ YTuG3LKinbahycxAmhqj7wwxhT0RPrurdBIrLg9/hb/6wCGiN4tCaHTPdZ5qzpnD56BtFt7wDBj
+ TZLRYIp4ue4rufUIdiLs7Lgk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id f5adb69807cbc1e0;
-	Fri, 06 Nov 2026 23:10:40 +0000
-X-Mizu-Trace-ID: f5adb69807cbc1e0
+Received: by mta11.migadu.com with ESMTPS id b8ac95d11857e0d1;
+	Fri, 06 Nov 2026 23:12:07 +0000
+X-Mizu-Trace-ID: b8ac95d11857e0d1
 X-Migadu-Flow: FLOW_OUT
-From: Roman Gushchin <roman.gushchin@linux.dev>
-To: netdev-bot+sinfo@kernel.org
-Cc: alex.aring@gmail.com,  davem@davemloft.net,  edumazet@kernel.org,
-  kuba@kernel.org,  pabeni@redhat.com,  horms@kernel.org,
-  netdev@vger.kernel.org,  linux-wpan@vger.kernel.org,
-  linux-bluetooth@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] 6lowpan: fix netdev_priv() type confusion in
- lowpan_event()
-In-Reply-To: <179400615048.488859.9102835578031186781@kernel.org>
-	(netdev-bot's message of "Fri, 06 Nov 2026 23:02:30 +0000")
-References: <20261106225930.1379968-1-roman.gushchin@linux.dev>
-	<179400615048.488859.9102835578031186781@kernel.org>
-User-Agent: mu4e 1.12.15; emacs 30.2
-Date: Fri, 06 Nov 2026 23:10:33 +0000
-Message-ID: <7ia4fqxd8sk6.fsf@castle.c.googlers.com>
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Amery Hung <ameryhung@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Nicholas Carlini <npc@anthropic.com>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH bpf v1 0/4] bpf: Scope callback arguments to their frame
+Date: Fri,  6 Nov 2026 16:11:53 -0700
+Message-ID: <20261106231157.2840635-1-ihor.solodrai@linux.dev>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,27 +71,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-netdev-bot+sinfo@kernel.org writes:
+A callback-calling helper can pass its callback a pointer that is only
+valid for the callback invocation, and the verifier has no way to
+express that lifetime.
 
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+Two helpers need fixing:
 
-I've a reproducer which I don't want to post publicly but can share
-privately.
+  * bpf_user_ringbuf_drain() passes a CONST_PTR_TO_DYNPTR over a
+    sample it releases as soon as the callback returns. Saving this
+    pointer in callback_ctx leaves it pointing into reused kernel
+    stack and allows arbitrary kernel read and write since v7.3.
+
+  * bpf_for_each_map_elem() over an array or per-CPU array map passes
+    the address of a u32 held in bpf_for_each_array_elem()'s own frame,
+    leaking four bytes of kernel stack.
+
+Give the callback frame an id and make it both the id and the
+parent_id of such an argument, so that slices and clones descend from
+it. Invalidate the id and its descendants when the frame is popped.
+
+---
+
+v2->v3:
+  * Replace REF_TYPE_FRAME with a frame_id in bpf_func_state and drop
+    the preparation and refactoring patches (Alexei)
+  * Rebase on bpf, and add Fixes: tags
+v2: https://lore.kernel.org/r/20261009202759.50520-1-ihor.solodrai@linux.dev
+
+v1->v2:
+  * Add the refactoring patches: release frame references in one scan,
+    and fold diagnostics into the REF_TYPE_FRAME introduction
+  * Replace temporary argument mask and deferred register scan with
+    reference acquisition directly in the owning verifier state during
+    callback setup (Eduard)
+  * Reuse callback_park_dynptr() for the nested drain test
+v1: https://lore.kernel.org/r/20260922010333.1226537-1-ihor.solodrai@linux.dev
+
+---
+
+Ihor Solodrai (4):
+  bpf: Scope the bpf_user_ringbuf_drain() dynptr to its callback frame
+  selftests/bpf: Cover the user ringbuf callback dynptr lifetime
+  bpf: Scope the bpf_for_each_map_elem() array key to the callback frame
+  selftests/bpf: Cover callback-frame map key lifetime
+
+ include/linux/bpf.h                           |   2 +
+ include/linux/bpf_verifier.h                  |   2 +
+ kernel/bpf/arraymap.c                         |  19 ++-
+ kernel/bpf/states.c                           |   3 +
+ kernel/bpf/verifier.c                         |  16 +++
+ .../selftests/bpf/progs/user_ringbuf_fail.c   | 135 ++++++++++++++++++
+ .../bpf/progs/verifier_iterating_callbacks.c  |  91 ++++++++++++
+ 7 files changed, 266 insertions(+), 2 deletions(-)
+
+
+base-commit: 475a0cfd02f14d764023e926ac01fc7597134229
+-- 
+2.56.0
+
