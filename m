@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793954701;
-	b=nPNTtm921v1GvfILxKnhhrMdq6eHWOxkatHU9TZGOeDGLWcYyUUk+EJkaYke4mE+AG1Z
-	 ghfop8MgCZ6D5hbUTRfJblBnHAlW5DACMScu6T3ebXK+u/+gZKERpqOv5uooiUo5xI7cd
-	 /ofqFM3fL8SWvwikgR+UZK0i8Kj7NDDZBBVJPWZB1NxX8qg20JJbhPw1hv7KEDxQd/m70
-	 yKXM9g4UoD7EDgK2S888RZTJBvNoVhALjNgVvoXKewkcwg/vgihxFXlHNOgWAV+mb8SsE
-	 mYp0sHJREW5s9i7dCyBw21nAaEFzCp6h7vye+XusYj3f9XEUdKyJETLexWUCg4P9UQg==
+	t=1793954703;
+	b=1HS7NA0cpVVq1L84F3t+S5xz28zdCjwWLBxbJd49/4RRZQex8LOy0j9LZAepq9pPkmUz
+	 kNbQAFzW8HfWj3cL7dwKzANMoKpr8A9NcFs4hNdWT79Zdv5YOIoWaLMUwagzya7U0FYMX
+	 j3EMvF91ALy8hR4IZuhcu2MvOl4pZ4NaWqRezwTIBjBGmgtJfb8o31eJNgSSEFqM6tIXs
+	 fPjqdCb4FWgXYVb2aZrbscYfvD2qTfSmNC/VQ3vmEXzg2b5GWD23+sDGYvamlSdOzZGn+
+	 8htNyfZHuEtV4mt81Os/+V/ucAQtLGtU2gzliPSvYm24xBd2L00HLSqxI1xS9nQcIFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793954701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793954703;
 	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=D12luyMh0xjyZqt4l9+q8OVPX7YE7q5qQw5MibUUHvU=;
-	b=i2HK/QwBRJSh/VL8558XVR5Lf+T6fZZqWJFJU/TJ5WGl07jn0hj7/rXvf5dYWB72X5p4
-	 V/YoZUnhZMg8jmPxTGJYdTFEZ9G17RS+lcQxWLf3ndUqEAgLVoEcu4vcOZ7n6gakOuJjP
-	 mAjNKN45ZOHyjOgDFWKRkv8GkauuSmqAXS83ogv8RHL+Bz37ravMkGUY/KinbjUCy6HEK
-	 qc6ZT+xLIG2LtcLYVtB7zsCnrcAFloRGzwg0YEOViuEdbQgNKOdx/g9jsVV8AFVs9HNPh
-	 jY3ByE4QaRdmA1s59Wo1+zLmOIUqvjilv7PdZlfrx2maONLGtE0ir4fE7P2Tqkf0BWw==
+	bh=RYBpCrwqIMU7q6O7uLz/uScEPoKU2ymjvQ+Kq/wH0Yc=;
+	b=itMyYH2ytRWXaaO+KIAcUb4ci4Zw4+zXy3+3BmMhHIuVMmcFcmJIcecT+BNwkNwcgQhd
+	 tzymmsM8ol14Mf0qtf4+//WOPOq3LWIQ0oESjbifh5K/N2r8kCy6bVzktJXEQ6tUHDD3v
+	 CFBAdictZmK4PJv6oSAQDtCSFSUqAMjkithlXISU5S8y3+biIUTpK9WDbtLhk2IWzwzAS
+	 RZ+fw50bF8Oi4kM4HobSXozsR/WQm6v55DVfZ7f+rmcaTR+UEwIJLV9AUBixMdPJYdFgy
+	 7/4CAEkokticO0pMvBAGlwX8oLHCbWDpxluJcdX+/1TzfHH6ulH6t/4ISbjp1oNkJmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=enneenne.com;
 	spf=pass smtp.mailfrom=enneenne.com;
-	dkim=pass header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=dJR1NhrH;
+	dkim=pass header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=hCR6vCEo;
 	arc=none smtp.remote-ip=62.149.156.132
 Received: from smtpcmd12132.aruba.it (smtpcmd12132.aruba.it [62.149.156.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E02606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:44:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3E02606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4B9606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:45:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC4B9606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=dJR1NhrH
+	dkim=pass (2048-bit key, unprotected) header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=hCR6vCEo
 Received: from [192.168.0.186] ([101.57.122.26])
 	by Aruba SMTP with ESMTPSA
-	id PFZ4xiX0VV5J9PFZ4xlBn2; Fri, 06 Nov 2026 09:44:51 +0100
+	id PFZ4xiX0VV5J9PFZ7xlBoE; Fri, 06 Nov 2026 09:44:53 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1793954691; bh=5fOtySEKPV/vTWiWRb8Q77DYJaeBTDOyVSUx8cJJIY0=;
+	t=1793954693; bh=FaDkewaz141YmaONaLecraAwnXDneRnUvwqofrzM8dU=;
 	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=dJR1NhrHW4K2K33fBAL8Sv3uK11M22qtbTXgC4Sppit4Rp9ZKI+HY3uWBknjaPK0B
-	 g1HZFYnnu1BpoHrFJiFswQslYjSLRAqqcVu/T8RvJReKWbfQO7x8Bb+hKTK1hFdeiw
-	 /S8IndBI/4QMq1XbtBrYoXMq0x7sX6j/yoWrQqPSCcGQIHJFaUo/a0yXRLZufk0ie0
-	 x/FmB/bkdASgyjpfYb65JZlpUepijTW01lUNWhMq50lwpPDwYOWW1Wfbs6PsBWfa3o
-	 fbm6OYJCSsKAPdUKg890DgEgiiXWKlIipw7r9L4Ils0I9Zn9jiBlxumib3xJkugvQI
-	 t1H+g0vmKuRVQ==
-Message-ID: <fd554169-8870-40d9-83a7-fdcd838aaa8e@enneenne.com>
-Date: Fri, 6 Nov 2026 09:44:50 +0100
+	b=hCR6vCEooKlk3xKSm591BfadgFuCEzn3Bz+1hBBeG/I7b8RDjTKfq33oUfZl9gWt8
+	 fBa0OrlgqbAfgsWLo6HNcltnf0sdnPDfPw+HxwkOPVOcQBu4GMlhAoSR44hTGoyP4e
+	 940eejX2X4990NYHUgcAK6KTkcrvRZmysgHhOpEgZcYF3OT8X8lSZ3XmlCf0U9U+jH
+	 SpJri2iaDwmBFv6PnJFHklyz8kMcwSnkIOB7dZKSf5i+njsyJyt2G4U4xzhpdQyskw
+	 8ncabORBhpTaS7ib3dB8AwLWG9DD9fKxiNCfj6o36qXRMK+uImxhiOLVUUwhKN2nSp
+	 yhyFqC9kV7eoQ==
+Message-ID: <d76c4e6a-3411-4497-a07d-44d8e77e1904@enneenne.com>
+Date: Fri, 6 Nov 2026 09:44:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,7 +57,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/6] timekeeping: Reduce magnitude of ntp_error
+Subject: Re: [PATCH v2 5/6] pps: Always use ktime_get_snapshot_id() for
+ pps_get_ts()
 Content-Language: en-US
 To: David Woodhouse <dwmw2@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
  John Stultz <jstultz@google.com>
@@ -67,40 +68,64 @@ Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
  Julien Ridoux <ridouxj@amazon.com>, linux-kernel@vger.kernel.org,
  nh-open-source@amazon.com
 References: <20261106030856.2538039-1-dwmw2@infradead.org>
- <a5c57e49001c9777d8b6fdce71ffa743004908c9.camel@infradead.org>
+ <20261106030856.2538039-6-dwmw2@infradead.org>
 From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <a5c57e49001c9777d8b6fdce71ffa743004908c9.camel@infradead.org>
+In-Reply-To: <20261106030856.2538039-6-dwmw2@infradead.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfPXReln/1Cx8bR7aujhWNKH8YbCwOOwr60Fo2y6me5huGOtvbTwtDm0AZptPgOlJAzgOx2g8BOm0VAMMVA0frOB2ozLB2uSUktTkZllJD24rXusDTEvh
- UuhbYu0eHWmM4J6mIyehxWr9I28bsfYgey37FUQL4j7D4Ve5Oty0ijTOwnT3x2AB00sYMbvvhfc45/E8X2OhX8rjjzv0bbl9HkbrdoHW83lvt5eQi444PCOH
- pcekpJeo3otHQb9BpNAiUNHoCVtd7LHBalEeuegm142LfethXh/jRGilChOH0zttKS0Xe9jzk17rcZOzBE/Bq0NE7kYQJbeA/5uRO+0KplsRy7iBHWpCopQA
- abXSMYY1X//Hf/4AO9NbTCP4Vs5akw1K/3rXS+IbwgotsloBFAkJ6iT9cmVKMg0QS105CkOmQ1HrTz7tVE+d4Kn5E23zH8NpiEF1IGo7mkB5TKufto/V+KLG
- wcRnowO7welO1Q9I5MPKIZTuXEimGHG3XDLOqKjeKwpOi9se9jR5R525koVSiSqc0lEJel6xS6Zu1A47
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfPW/I8XBDrfHyZzBuONZT4i5kT4YEzmpd/OopLHxwVZnnXF5btE0Z/KbIO1/G8uJlmApGwE3cLqRi+Vi+mUcK6ML3ef4pL6QcKm8N6rR96miRRJ+MiV6
+ a+UbGF087WDs9jzJzKpWuEOMKAnax+3HxdAIDtMkyvrJj201mg9yKrLbTglVEjQ0x3OjiWX1vqJNWfqHzxqPT3mfhFAFdSe6aRZAvDJcz39htSxW/78wf20o
+ nXrT1E85bbSKv8I0VYccuMUkzb9cbZEXIDU/d+rk7deKanRo14MaiPILM6Yz46TKIj2eP2foFKkOXiXyfI6kdPi9Nbhfhjb5jA3GEmNdb9vaVpajDOjhDKjt
+ bQjwITCWc/s7eIJ+3ifrhU+i7cs6fglkpuSRwspHVw/zRzAUXIvTmAcT6zdAAdnJ4AOqcAQvr+FwDq7D3ifjw6qUukDY9y8FIel2xQy5ubP2FH1h9GTarA7i
+ co695+9JgQgjlAl2lbMf2TuQQVN8ReSuGsElCTrprND56CkZ00lST3CiE6NIKnSHbOhMGLYU3I+ceXlr
 
-On 06/11/2026 04:24, David Woodhouse wrote:
-> I think I reordered and reworded things as agreed with Rodolfo; please
-> shout if I screwed something up. What's sitting behind this in
-> https://git.infradead.org/users/dwmw2/linux.git/shortlog/refs/heads/ffclock
-> is the timekeeping reference stuff for importing/exporting vmclock, and
-> preserving timekeeping across KHO:
+On 06/11/2026 04:08, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+>
+> Without CONFIG_NTP_PPS, pps_get_ts() fills in ts_real with
+> ktime_get_real_ts64(). Use ktime_get_snapshot_id() unconditionally so
+> that PPS timestamps always come from the snapshot machinery; only the
+> raw timestamp remains conditional on CONFIG_NTP_PPS.
+>
+> This is preparation for the next commit, which corrects the snapshot's
+> ::systime for the accumulated ntp_error. That correction should reach
+> *all* PPS consumers, not only those on CONFIG_NTP_PPS kernels.
+>
+> The cost of the snapshot on a small ARM board (Cortex-A53, 12.5MHz
+> arch counter) is 38.8ns from the pulse handler to the counter read,
+> against 23.4ns for ktime_get_real_ts64() — both small against the
+> ~2.8µs measured from the pin edge to the handler.
+>
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+> v2: New in this series, ahead of the snapshot correction so that its
+>     effect explicitly covers all PPS consumers.
+>
+>  include/linux/pps_kernel.h | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/include/linux/pps_kernel.h b/include/linux/pps_kernel.h
+> index 00b840970d56..35d6ac06a0c0 100644
+> --- a/include/linux/pps_kernel.h
+> +++ b/include/linux/pps_kernel.h
+> @@ -100,14 +100,12 @@ static inline void timespec_to_pps_ktime(struct pps_ktime *kt,
+>
+>  static inline void pps_get_ts(struct pps_event_time *ts)
+>  {
+> -#ifdef CONFIG_NTP_PPS
+>  	struct system_time_snapshot snap;
+>
+>  	ktime_get_snapshot_id(CLOCK_REALTIME, &snap);
+>  	ts->ts_real = ktime_to_timespec64(snap.systime);
+> +#ifdef CONFIG_NTP_PPS
+>  	ts->ts_raw = ktime_to_timespec64(snap.monoraw);
+> -#else
+> -	ktime_get_real_ts64(&ts->ts_real);
+>  #endif
+>  }
+>
 
-No, the 5/6 and 6/6 split is what we agreed, thanks. On 6/6 I'm still
-missing the ntpd side, see my reply there.
-
-> 
-> The !NO_HZ_COMMON dependency can sit around for a little while longer
-> until the series above is actually applied, and it can note the
-> actually commit ID of its dependencies (which I think we agreed is just
-> patches 1 & 2 of the series above). I'll probably round it up with the
-> other PPS stuff I haven't quite got publishable yet, improving the
-> filtering and then working on counter-based capture and UAPI.
-
-AFAIK we agreed on patches 1-4: the tickless run you did for me
-(rodolfo-14-tickless-1hz) had all four applied. If 1 and 2 alone are
-enough, could you put numbers for that in the commit message too?
-
-And for the UAPI, an RFC first please. :-)
+Acked-by: Rodolfo Giometti <giometti@enneenne.com>
 
 Ciao,
 
