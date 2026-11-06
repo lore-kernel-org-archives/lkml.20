@@ -1,59 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929498;
-	b=btwkCpiXa7+dimP9hktBhHHQ259grftlZgGFNDDw5WIr4uuEQtHA54rLh5i7H1Sm0BpR
-	 a0Ank3Eb0FJla3f27Z/Z/RZeZ5cyCBheggH75rlQJpIqy3ybNF+nqFI9NA5CisX3IG3sx
-	 lqAet5TzAE1IkSV98WvLZ7pIjA6TAs6c89LXzTLsL3kLiOG/8CbD5T875jmtz2vlqedbl
-	 Oc38yHVXu91uVHpFnwcfykOaYbU9UVTFa0V1OWBWXYXiRALOaKW/YrKSeLYps5tp4Buej
-	 Mnso4BuOp1vSioWI/LJiBYI5zPa25qmwQgDefDIBowD071sUYGEVCzErHzgu8Njfdbw==
+	t=1793929666;
+	b=upvOHtWswoiWEpnnZDK0Cs1zOL7Eixk4332kuYgyD0FXBqRqBQkiZFiHKZm0P54+6NT/
+	 R2q3+f7P+BVgML6K+yKWLjv85NEzkesrTOk4Y/tS215bY2EqgBRNW3sp/91ydQEFT9iPC
+	 rBiKf1xVsOxDyR1TkWHUMOlLuINIdKZomvIPjnW775olBox3bmbG0YlTYig2xBvWCp40H
+	 yO5R/ZoMltYhtM5GRc94ychpbtb5wVMzT2WM2EEGmVENwx+QNUFiTKgVDDuk4LDMwDRsH
+	 tM07+/IqPLvvEf8p0rVxUIS896rE+li6laD8Y54qBhQqznANXCBKRRY7aRPbA9Q8WEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929498;
-	h=DMARC-Filter:DKIM-Signature:Date:Received:X-Original-From:Reply-To:
-	 From:User-Agent:References:Cc:Mime-Version:In-Reply-To:To:Subject:
-	 Message-Id:Content-Transfer-Encoding:X-Lms-Return-Path:Content-Type;
-	bh=o4pPrmBDJiBQchY+eYj3rF3LESB28usD21pFWJiMzzk=;
-	b=F+YiBwgQVtzOyXs0VZparEZfLc+pEBo8Szxz5/0MJKxolFWPMxjWIIuvG9M6TjI7JTUi
-	 KmVOgsIeB3SpPuYvQclLVTkqa0EKTZXuZJAuH4P3kK8wi5XhqfttoWmiX3S/CgP0mLD0M
-	 DmT4S05/qHFaGQKukqzwFlnIngIwy9r2h2vhgZwxT/WyZ+Cf5dQ1+9W4bQ5ECU/iYFtnQ
-	 C//Cl1pey4TzZRwX53fkIf5s8A9M+EqesJur0LQ0ch4qXurpEtryM94uyeqZuvbqdpzO+
-	 fi4U7kQi1VzDRnaMJ4jBBAVQruD3nMQa/bhepO8HYHImrj4T4ExSRBAVgIanS0c3TaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929666;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=APwff/4lOA6lQf98tIGJwKSeLdMqiBGJL1c6dl82img=;
+	b=5GrHU4VAYblSdbapEXFRSuZThsVbc6Xe3rKqqIFk3PLiRxiYPLMWygP+Wz2vsjAPY+VU
+	 jugDbnm7x+0t4dlew59c1SjT8qSS+zINOqjlIwGOUQLuSM517Pt0sSxLqwMYz1gkrLoux
+	 eRHGImqiFV8hyVOTnyK9y5bu91qX25nDjLBIVZaqfh4s6qm6ckDZoFRIBx0VM0dssS7Af
+	 +fLFsw/rjQ5XqnRaGzSMlvicnt5EL68kum11Nqsj0OlfOa4n5GgB5Zsmn+fsi2bnNyRJ5
+	 MsRONlQfNRcjiabuhWjmHbYD7kXTERZlttVnUHlq+ZLJlG8BWUt7La8NCMwp+Dv+7iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fygo.io;
-	spf=pass smtp.mailfrom=fygo.io;
-	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=XhWWQRow;
-	arc=none smtp.remote-ip=209.127.231.53
-Received: from va-2-53.ptr.blmpb.com (va-2-53.ptr.blmpb.com [209.127.231.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O3JN+smT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CtabV7yD;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA7C606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:44:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCA7C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBA3606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:47:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CBA3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=XhWWQRow
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793929491;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=o4pPrmBDJiBQchY+eYj3rF3LESB28usD21pFWJiMzzk=;
- b=XhWWQRowQR2WeJBxcR2Jm1NhRUEgtTDOColGJYyDA4ftvaOfhoby2vEE7rTJtwjtneS7Ox
- e56iMfIS4vIrRGg9/XXDWxya/zqdkHGf+jd5enFlAI671sGA6U/Yi2Zc0QJTAC8Oyv6dvp
- 1BCBuFZ2PZLPIJhrVhFSM5BtIx0vWku/vsvT6NbJ30Iz3bu1VA2EAGkAG5QnDtma3+y3dN
- lShUg5On2Pz0se88/4ia3ktRjbxGQvVTT4ptOtjeKG6zdp+oBAGqcz3KxEA/A+Fw0pVZkA
- IdbMOdJrywSMssl30jpves9/Azahqw9qQRS3yAMaSejw6zT0fYWFJDFMG1Wmug==
-Date: Fri, 6 Nov 2026 09:44:45 +0800
-Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Fri, 06 Nov 2026 01:44:49 +0000
-X-Original-From: yu kuai <yukuai@fygo.io>
-Reply-To: yukuai@fygo.io
-From: "yu kuai" <yukuai@fygo.io>
-User-Agent: Mozilla Thunderbird
-References: <20261028152755.383821-1-gowtham398gs@gmail.com> <20261030044008.34293-1-gowtham398gs@gmail.com>
-Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<syzbot+fc26c366038b54261e53@syzkaller.appspotmail.com>, 
-	<syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O3JN+smT;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CtabV7yD
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5NeThp2223214
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 01:47:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	APwff/4lOA6lQf98tIGJwKSeLdMqiBGJL1c6dl82img=; b=O3JN+smT1WJQqKw+
+	h0JvABzW7yFbgbjE4Oev94p0x0/YgPCN3CGpxBpX0re/J2mBHqgP5B9TjFEjjX+O
+	3AXjLTTY9U2AjMgdehKIwfA6yl6nT7ffjqTPKqkevgtofg8IdmK9Eqy3mMZdXaRP
+	qCVInGDNXNYvI+ps8UOxcrFiixvy+hlAkvLOaFxBUA6jntJOK/EFJTX+Jv1Uqj0O
+	vb+wEBY4X6Ikj8W/swoHnMWKPp48cayAKtSqVqbqOFp6nXPFNnCKdk1O3spvWQEM
+	nxddD7S8+VtUM80H/4XF/QstMC4SDI0tJ2eJ3DfnIeou6/cES3n2PWhzf//s+DiB
+	VYoncQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa0bgx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:47:44 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36cec75d8caso212127eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 17:47:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793929664; x=1794534464; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=APwff/4lOA6lQf98tIGJwKSeLdMqiBGJL1c6dl82img=;
+        b=CtabV7yD/MAxy8K57l+4lEejKEIbBH/zz0K2HVL2JZ1quHBtifSFyY6if9xAQ1c6Eu
+         ngsiBk2B4czZ8N4EPr/D360cBr70yxPglv5SLAuOIDfxnolSPY2WG1IpvF2PjXNgxWH2
+         edJ9q/ttnGGtspz8tm1vBmOJ/N3SKuAfC99nvucmCkY8LYSKWyBbXgEAQAt8vCOF1/Le
+         FXoRdGtWXH+6p8FJ8flOYAktgBH2U3XiJ61rb5GmEDAxGMwMiZVlnK2CZIiSd5tdciLw
+         CA4bqdeVM6ZRuqNfkiWloOqajXb22miNoqwNnZASnj6EGG8ZdCpwdefQ22ggUWocAlYM
+         lJtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793929664; x=1794534464;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=APwff/4lOA6lQf98tIGJwKSeLdMqiBGJL1c6dl82img=;
+        b=YCe4DUlS7FeWAkks8/7eAOLzmNH5cMkswf4dbLZL2k4QmiK15BIbKXzDEONaZ0wMgd
+         Vakmnj5FmsmT/tXYbFT2IqDUopSBLy2oo9S4HsKVu76ZXWD48oBnrkhAbjIVMgzaTI7o
+         upMS/LOyV6+g8krPe5SO1KfrX4dC7BtrkBMUSn4I/3LGfL3U01AnHN9dNwe4ksq4dsuv
+         3Q69FIu5OI39OF5BhgbNxweniiOlEzqz/TN4k/2fFe+et7ZrY3odifduxKpbmOSKpJCb
+         beFXK7IHkWmFwfEI+D234BM0UJ/vVw4Dlfd4m9au8B5I9z/0VyMljogYMIEv8C0NC+vV
+         FiYg==
+X-Forwarded-Encrypted: i=1; AKwUvByrmWYWCSBW3EQPD3loM2znzN3vQo18czXnLROocqY0JbGZHSjSR69PNUr07RLGnTqqM95Bud6C5A3H7dY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9W6zTwsqyZ9lXBEnDqYHxIgCmMxFbVFE8bYBH4Tw3u+ck1y/0Q
+	uM0t4T3dmHH39di3IwH290so0DNHJcb16povOemkwA1tMQg7jeUv8oXYbjQY5kofKGa1G3DMwfq
+	Wlg6FwRWhQv/7xq1JIAWcjIBrGqyaFvmJUs/0rqQFeY2x4uRP8XW0xOR+IYcOYlcEWvg=
+X-Gm-Gg: AYBFou2+eJZkJWmvkDbzmPYrRL+cBJxHyOx59eEliXtwX9mIiuSU/R4DRN4Tq5yAHch
+	VBeUd8pfDFzuc428wQA3Heryga/Ic0r5lZxFxPDrKQdEFJJQf4AbZb+ial+WqITIMR3ND4wTFUg
+	kfgxc5P0hdgygBdiAlWlanibduT17dciTHWalBgkp5BSqIIwX3vjCo22jIb3dQEnPWEbC9MBGku
+	lGNmyuYE8OZzUuVYV7y7Hs6eEJgzkYG3USBruYfFUigQ/1+ZOzBcr53Vj1qDfwGn//qg1LwP3em
+	uZuUCCp6RWNd/oirQlaQSngoBy3douojt0EKfIe/wecg8DTNfxQMV5QAxRR7W9lD+sH6TBoj4Uy
+	UURP7bOs03KHXI9Yg9RjXWZVNaACcF4yNDb5tDPpnuUwzAOkdKSCdTgz63MAG8XH/LyO+KQ/rVw
+	J6vjPT7vrLT0B3Jr4jp9oDOvwv2w68Ig==
+X-Received: by 2002:a05:693c:8945:10b0:358:c5c9:2661 with SMTP id 5a478bee46e88-36f77edb6b5mr1197456eec.10.1793929663148;
+        Thu, 05 Nov 2026 17:47:43 -0800 (PST)
+X-Received: by 2002:a05:693c:8945:10b0:358:c5c9:2661 with SMTP id 5a478bee46e88-36f77edb6b5mr1197415eec.10.1793929662450;
+        Thu, 05 Nov 2026 17:47:42 -0800 (PST)
+Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fc92fasm1488703eec.19.2026.11.05.17.47.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 17:47:41 -0800 (PST)
+Message-ID: <b879a6b0-4ca3-4937-8bb0-ee3586d60c1b@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 17:47:40 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,86 +114,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <20261030044008.34293-1-gowtham398gs@gmail.com>
-To: "Gowtham S Bhushan" <gowtham398gs@gmail.com>, <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Subject: Re: [PATCH v2] md/raid1: reject out-of-range raid_disks in setup_conf()
-Message-Id: <1a298f8e-84ce-4862-866a-b68766e590fb@fygo.io>
-Content-Transfer-Encoding: quoted-printable
-X-Lms-Return-Path: <lba+26aed3112+c0420e+vger.kernel.org+yukuai@fygo.io>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] wifi: ath10k: don't arm the scan timeout for a scan
+ that did not start
+To: Christopher Griffin <christophergriffin05@gmail.com>,
+        loic.poulain@oss.qualcomm.com
+Cc: jjohnson@kernel.org, kvalo@kernel.org, quic_haric@quicinc.com,
+        quic_vnaralas@quicinc.com, quic_pradeepc@quicinc.com,
+        quic_akolli@quicinc.com, linux-wireless@vger.kernel.org,
+        ath11k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        quic_mkenna@quicinc.com, john@phrozen.org, quic_gsamin@quicinc.com,
+        ath10k@lists.infradead.org, quic_wgong@quicinc.com
+References: <20261105-ath-recovery-scan-timeout-v1-0-99a70d89e114@gmail.com>
+ <20261105-ath-recovery-scan-timeout-v1-3-99a70d89e114@gmail.com>
+ <CAFEp6-0O=cPYKndr9hen1jvX==ot2WP4JpGfNFLokVvxUEbxiw@mail.gmail.com>
+ <CAKobHXCMwjAHJOkibPbpDByLZmAKkszZ3WaG6soSDaCEGRQjgA@mail.gmail.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <CAKobHXCMwjAHJOkibPbpDByLZmAKkszZ3WaG6soSDaCEGRQjgA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=PLeaavqC c=1 sm=1 tr=0 ts=6aed31c0 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=vn0ihEsipxsDDuCNlwwA:9
+ a=lqcHg5cX4UMA:10 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAwNiBTYWx0ZWRfX5vm4R4XK6fM3
+ g/JjmMww3dSYpTKeqTQ8C57qxCPn9CgI9BgcaWC9n37H0mMj7b4uMPFYB/ZXh4JS05McsdMKGwS
+ zsk53C/7hz+R5Le7jA6WSOOyUx8p6N4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAwNiBTYWx0ZWRfX4fel5dojkr5/
+ 6b6rPW6IpUofLL5qUxzfPOvwtGI9kloNJjM58rHVh+sh4QzcBdNGwBVfUlfkWktXMonujAtjdMk
+ XrKsr9rYQAT3Cco/VPmjQiznzQy0lQNYMNUUpupsiBAXjLX0zqtl8YoGC7w5ofQs9k4LnHgXKd/
+ EWgQL9Xb+NDF7N0EILjdsA4KFJRsJWQv2CC6Jy6rPjYsfKBl1CeSpT7J02n3U61yD8bG02MSIFv
+ 6UbhSW+o9xl2AbdpBbW8lGZhFYQpevCg4Y1LJsn30k7rY0GyGl8XbCoNF/o94F2AAlzzld4xSkX
+ b74Rb46Et3Pc2gu1TaxU0l4lMmNhJCchEr/ZzeM5530ETkB2ToRq2lASdoZVmoCOP2PyIO4xyOE
+ KeUekipRUNgCyJ5Z8UZ5TioP/IqvzCR1h1TLCk5THHC5GLurTs1mwUsrA6QqM4Bd7yfZe1JcpRY
+ S5hPuHCgdI+KRmYkUZw==
+X-Proofpoint-GUID: R2845pU0mVVA6P-57osjcp5ksaeW0Ru2
+X-Proofpoint-ORIG-GUID: R2845pU0mVVA6P-57osjcp5ksaeW0Ru2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_06,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060006
 
-Hi,
+On 11/5/2026 5:09 PM, Christopher Griffin wrote:
+> On Thu, Nov 5, 2026 at 9:53 PM Loic Poulain <loic.poulain@oss.qualcomm.com
+> <mailto:loic.poulain@oss.qualcomm.com>> wrote:
+>> It looks more like a theoretical issue than something that is likely
+>> to occur in practice, but the fix looks good to me.
+>>
+>> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com
+> <mailto:loic.poulain@oss.qualcomm.com>>
+> 
+> Thanks for the review, Loic.
+> 
+> We did hit it on ath11k, and it did damage: on a QCN9074, a firmware
+> crash failed a scan start with -110, the timeout was armed anyway, and
+> it fired after the dead radio had been unbound, ending in "cannot queue
+> ath11k_scan_timeout_work on wq" with a garbage workqueue, and a panic
+> (that is patch 2/3).
+> 
+> Whether ath10k ever hits it I don't know, but the code is the same, so
+> the fix can't hurt.
+> 
+> Christopher Griffin
 
-=E5=9C=A8 2026/10/30 12:40, Gowtham S Bhushan =E5=86=99=E9=81=93:
-> mddev->raid_disks can be set from user space with SET_ARRAY_INFO and
-> is not bounded before RUN_ARRAY reaches raid1_run(). With a very large
-> value, setup_conf() asks the allocator for more than KMALLOC_MAX_SIZE
-> when allocating conf->mirrors, and the allocator warns:
->
->    WARNING: mm/slub.c:5459 at ___kmalloc_large_node
->     setup_conf+0x15d/0x700
->     raid1_run+0x109/0x250
->     md_run+0x6c3/0xec0
->     do_md_run+0x27/0x3b0
->     md_ioctl+0x163f/0x1ca0
->
-> The array fails to start, but machines running with panic_on_warn
-> crash and syzbot keeps reporting it.
->
-> Fail early instead. Version 1.x metadata can describe at most 1920
-> devices, so use that as the upper bound, and test the sign before the
-> value is used. At that limit the allocations that scale with
-> raid_disks (conf->mirrors, the r1bio mempool element and the resync
-> buffers) stay well below KMALLOC_MAX_SIZE.
->
-> Reported-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D75f49ec552cc74d9d69b
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->
-> Signed-off-by: Gowtham S Bhushan <gowtham398gs@gmail.com>
-> ---
->   drivers/md/raid1.c | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
->
-> diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
-> index f0646fb24371..1cfe983167de 100644
-> --- a/drivers/md/raid1.c
-> +++ b/drivers/md/raid1.c
-> @@ -48,6 +48,13 @@ static void allow_barrier(struct r1conf *conf, sector_=
-t sector_nr);
->   static void lower_barrier(struct r1conf *conf, sector_t sector_nr);
->   static void raid1_free(struct mddev *mddev, void *priv);
->  =20
-> +/*
-> + * Version 1.x md metadata keeps a 256-byte header and then 2 bytes per
-> + * device in a 4096-byte block, so no array described by it can have mor=
-e
-> + * devices than this. Arrays created through the ioctl alone have no
-> + * on-disk limit, so apply the same cap to them.
-> + */
-> +#define RAID1_MAX_DISKS	((4096 - 256) / 2)
->   #define RAID_1_10_NAME "raid1"
->   #include "raid1-10.c"
->  =20
-> @@ -3051,6 +3058,11 @@ static struct r1conf *setup_conf(struct mddev *mdd=
-ev)
->   	size_t r1bio_size;
->   	int err =3D -ENOMEM;
->  =20
-> +	/* raid_disks comes from user space and sizes the allocations below */
-> +
-> +	if (mddev->raid_disks <=3D 0 || mddev->raid_disks > RAID1_MAX_DISKS)
-> +		return ERR_PTR(-EINVAL);
+Please don't send HTML e-mail.
 
-There is still the same kmalloc in raid1_reshape().
+Note your reply was not archived or sent to the mailing list because it was
+HTML. I only received it since I was directly addressed.
 
-> +
->   	conf =3D kzalloc_obj(struct r1conf);
->   	if (!conf)
->   		goto abort;
+You can see it is not captured in the thread:
+https://lore.kernel.org/all/20261105-ath-recovery-scan-timeout-v1-0-99a70d89e114@gmail.com/
 
---=20
-Thanks,
-Kuai
+/jeff
