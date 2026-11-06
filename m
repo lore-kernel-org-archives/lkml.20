@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984349;
-	b=WcN/g3P0p4lkhfIeNTXoBY4SA/64QOvLjnorUFwdfuknuRtZO9Og9YL4VfwLhmHEjcFl
-	 glMfoKYFyXX4YvaQvcDhxWTyDBbdvdnWDkCr88nHOmefcfmro3dE479+aZdG3v4r9rA0o
-	 BrPOEENQeHN7Krqzh6ke33Hi30uSZhzzLAR39RoT1WsM+TmrXc+JV1PKi9sorA/zcrU5F
-	 rqSd51Qb/wFXl21Dja2pOGR/Ry3Vje5Xsg84IjjNfKn+u0+DS6zlqu6DoQnl2Q+MNTplv
-	 KFPJZkqhKrAGIIpvFRqYX7S2d1sGy2fgDiSHgJA28H1NtKubyyh0WVLYb5h7enRT4Jg==
+	t=1793984380;
+	b=qlfeT0YvqSlxHqxJlvnLV3C1kMHy69LyEQZHg45Gv/QcN2gCwODOYOTdRh40DpFv86a5
+	 OTQrYUIqOmHY+LbV/o5nEP6N6Og2S95qs+QPuS7g8Kfzr5tn49mIXLiQZhunvxt/gTCHd
+	 WdwW4deFGCEt8q+1K839Qb8YvPe4M88BthBerAqXNIY7Au0hdtZx6c82gWRBgZP9STpho
+	 AFjsL3Rw7Y6LWRi7q1bLYNdGkRN3iq/EAlGpZ48Mdq8qGdZwlewj8/w70NQdklIYXik+m
+	 u088SHuSr1CBLvfr2334UgkyoDss8oTOi22gA7hVh8LaqFYbk7xwSCKIkn5/my+2idg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984349;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984380;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
 	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
 	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ne13n2DB/jDf1VtY7sHJ82JPmofZWUZ317tjpSfR3Dw=;
-	b=RiL7cEWpXWlxDn1QQsLmwAGWyqkIWHBr+46/BJZWwg48+hv+u//heWQGx+/4GEMlsuky
-	 KiPCfjukmrusY9UiOJKU2gIWBi9zNqi2TzBQ1UaM7QS5TZG5x/BH1x9vvm/6Epg4hDnkD
-	 N9RssB8Z8W7dXRmVYghc46Yzcp2WHpd/wcXf0ddmtTjAKlZ6LaydslZbgqfS09WH7ttha
-	 7aKq5b9YdfzI3268bh2L89CS2AODiU0O1TfyExO/FrpyzPrMal133o8gnmorw5TTLu7wa
-	 +2qtzMTz4oiupLI1qsYUiIGWHYqCMKpe91QBu4DMSXY6IjwIGmKUNanoxhkRr4KTxbg==
+	bh=TpTj9D+xEplpE+lH6Vyc84lnEW5VEG9Ul1qN0cpTuEU=;
+	b=tdBJDF9AKxzfuuEcg9CLYLzAycqsr507FsbhR3UvQvjSSaFcD1rBwvWUuefH9aT+cqS0
+	 hrESsech93C6uVOo5CDJPjYV5M4rMMu4cSb1GBBX89rbb2sTDMmSgAaAHjdItPxCZLWXQ
+	 Zy+qgLwLTLSHli57SsDgrqOUqaDbRtEt/py/jgGR5iNTmRsk32/noLPQyQ1DrWL0hRCAF
+	 QquX1euL8xfxK2XR3hxNmhZ3qH+SiFcg5MaSkvwgFvkI4mf6eBvbQa/xXDtZKW/cQ1sle
+	 XrYeEatH7ZQN22kbvNiRgDPaXDl5PL7hxaTvpiEAcobTquFXOLV/ZpAhsF4jHRH9lAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=q4f+N3FU;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WJagrXmP;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 519CB606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:59:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 519CB606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A6C39606A329;
+	Fri,  6 Nov 2026 16:59:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6C39606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=q4f+N3FU
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WJagrXmP
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3632C15A1;
-	Fri,  6 Nov 2026 08:59:05 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9021D3F673;
-	Fri,  6 Nov 2026 08:59:06 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F17ED15A1;
+	Fri,  6 Nov 2026 08:59:35 -0800 (PST)
+Received: from [10.57.68.162] (unknown [10.57.68.162])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5B8B53F673;
+	Fri,  6 Nov 2026 08:59:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793984348; bh=SwqfUHhYw1QVVQnkFBQI8TJ6m4IcNWWoizO5xgJB1Dg=;
+	t=1793984379; bh=XqRyXiRR2CbxV2R4ByG9xTFNWObHB3B9bQbd9GW01Z8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=q4f+N3FUhY2jtMruQLhFpwiEFK3SxbelCDNVN4G2YY/fb6ecXxSc6URM7pHHITiUD
-	 vzDfxnl3mHUL2B1GI+RlxlC1GGJ+hkP8AG2V86+fFw+S4UmIwq0RrayGh92NCNyHWW
-	 //hJqQ1UHYuWPd1hVksWZ4l/ZpM+PYIgyL5FGJ+o=
-Message-ID: <1639d961-1092-4a47-8825-55c1647a115b@arm.com>
-Date: Fri, 6 Nov 2026 16:59:05 +0000
+	b=WJagrXmPzK8oqVSzFewSKf4S/R0uqNaMlJXpNZfos8ganCnWU0v2vcNjxOZfACkO3
+	 AinCbJjhVeQizvpbN0JgJIch83gMuHrYHUZlM0Z3blXRzf22ZbKm2zTND2Q6N2eH0x
+	 zxji1e5KcxQCxCX0M9DrJzwyzIvAh+fJrg3MNvRM=
+Message-ID: <5089e131-c904-471e-a078-5df7cc664372@arm.com>
+Date: Fri, 6 Nov 2026 16:59:07 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,83 +54,95 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v4 1/3] KVM: arm64: Avoid re-testing walk_continue
-To: Leonardo Bras <leo.bras@arm.com>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
- Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Raghavendra Rao Ananta <rananta@google.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261106161240.1345126-1-leo.bras@arm.com>
- <20261106161240.1345126-2-leo.bras@arm.com>
+Subject: Re: [PATCH v8 0/3] ACPI / cpufreq: CPPC: Add ospm_nominal_perf
+ support
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+ Sumit Gupta <sumitg@nvidia.com>
+Cc: viresh.kumar@linaro.org, pierre.gondois@arm.com, ionela.voinescu@arm.com,
+ zhenglifeng1@huawei.com, zhanjie9@hisilicon.com, lenb@kernel.org,
+ mario.limonciello@amd.com, maciej.wieczor-retman@intel.com,
+ pawel.chmielewski@intel.com, linux-pm@vger.kernel.org,
+ linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+ treding@nvidia.com, jonathanh@nvidia.com, vsethi@nvidia.com,
+ ksitaraman@nvidia.com, sanjayc@nvidia.com, mochs@nvidia.com, bbasu@nvidia.com
+References: <20261030172745.2045743-1-sumitg@nvidia.com>
+ <CAJZ5v0hDm=FMftFfxnzthRQXWzUqcm8SkAaxzVWZcsyQtNLj6g@mail.gmail.com>
 Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261106161240.1345126-2-leo.bras@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <CAJZ5v0hDm=FMftFfxnzthRQXWzUqcm8SkAaxzVWZcsyQtNLj6g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 06/11/2026 16:12, Leonardo Bras wrote:
-> __kvm_pgtable_visit() performs a bunch of calls to
-> kvm_pgtable_walk_continue() to find out whether the walk can continue
-> further, and if not, 'goto out', which retests the possibility of
-> continuing the walk before exiting.
+On 11/6/26 16:08, Rafael J. Wysocki (Intel) wrote:
+> Hi Sumit,
 > 
-> Given that it's testing the same ret variable again, there is no reason
-> the result of kvm_pgtable_walk_continue() would have changed since the
-> previous check. So turn this goto into an early return, simplifying the
-> code and paving the way for further rework."
-
-Looks sensible to me.
-
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-
-
+> On Fri, Oct 30, 2026 at 6:28 PM Sumit Gupta <sumitg@nvidia.com> wrote:
+>>
+>> This series adds support for the OSPM Nominal Performance register
+>> (ACPI 6.6, Section 8.4.6.1.2.6) to the CPPC ACPI and cpufreq drivers.
+>>
+>> Unlike the read-only Nominal Performance register, OSPM Nominal
+>> Performance is writable and lets OSPM request a nominal level below
+>> the platform-reported nominal. The platform treats performance above
+>> this level as boost and below as throttle.
+>>
+>>  - Patch 1: adds ACPI helpers to write the register and to check that
+>>    the platform supports it.
+>>
+>>  - Patch 2: adds the per-policy ospm_nominal_freq attribute in kHz. The
+>>    value is kept across CPU hotplug and suspend/resume. The register
+>>    cannot be read back, so a read returns the last value written.
+>>
+>>  - Patch 3: uses the OSPM nominal as the maximum frequency while boost
+>>    is off. Lowering the nominal creates a boost range on a platform
+>>    that has none, and boost can then be enabled.
+>>
+>> This series applies on top of v7 of:
+>>   cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
+>>   https://lore.kernel.org/lkml/20261030092416.1993889-1-sumitg@nvidia.com/
+>>
+>> v7 -> v8:
+>>  - Rebase on Christian's CPPC fixes series.
+>>  - Patch 1:
+>>    - use cpc_is_writable() from that series and drop cpc_reg_writable().
+>>    - add the register to the list of controls the driver writes.
+>>    - take cpc_desc_lock in cppc_ospm_nominal_perf_supported(), so the
+>>      descriptor cannot be removed during the check.
+>>  - Patch 2:
+>>    - make ospm_nominal_freq read-write. A read returns the last value
+>>      written, or "<unset>" before the first write. (Christian, Mario)
+>>    - keep saving the values in the store handler, not at init(), so
+>>      the driver writes the register only after the OS sets it. (Pierre)
+>>  - Patch 3:
+>>    - document in the ABI file how the OSPM nominal sets cpuinfo_max_freq
+>>      and caps scaling_max_freq.
+>>
+>> Sumit Gupta (3):
+>>   ACPI: CPPC: Add ospm_nominal_perf support
+>>   cpufreq: CPPC: Add ospm_nominal_freq attribute
+>>   cpufreq: CPPC: Reflect the OSPM nominal in boost and limits
+>>
+>>  .../ABI/testing/sysfs-devices-system-cpu      |  31 ++++
+>>  drivers/acpi/cppc_acpi.c                      |  44 +++++
+>>  drivers/cpufreq/cppc_cpufreq.c                | 173 +++++++++++++++++-
+>>  include/acpi/cppc_acpi.h                      |  10 +
+>>  4 files changed, 248 insertions(+), 10 deletions(-)
+>>
+>> v7: https://lore.kernel.org/lkml/20260807214837.863209-1-sumitg@nvidia.com/
+>> v6: https://lore.kernel.org/lkml/20260717215330.2215058-1-sumitg@nvidia.com/
+>> v5: https://lore.kernel.org/lkml/20260615185934.2383514-1-sumitg@nvidia.com/
+>> v4: https://lore.kernel.org/lkml/20260527194626.185286-1-sumitg@nvidia.com/
+>> v3: https://lore.kernel.org/lkml/20260514194822.1841748-1-sumitg@nvidia.com/
+>> v2: https://lore.kernel.org/lkml/20260430142430.755437-1-sumitg@nvidia.com/
+>> v1: https://lore.kernel.org/lkml/20260427051823.280419-1-sumitg@nvidia.com/
+>>
+>> --
 > 
-> Signed-off-by: Leonardo Bras <leo.bras@arm.com>
-> ---
->   arch/arm64/kvm/hyp/pgtable.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+> This would be good to go except that it doesn't apply for me on top of 7.4-rc1.
 > 
-> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-> index b74dd5ce1efd..7a51f78b6446 100644
-> --- a/arch/arm64/kvm/hyp/pgtable.c
-> +++ b/arch/arm64/kvm/hyp/pgtable.c
-> @@ -183,32 +183,32 @@ static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
->   	 * Reload the page table after invoking the walker callback for leaf
->   	 * entries or after pre-order traversal, to allow the walker to descend
->   	 * into a newly installed or replaced table.
->   	 */
->   	if (reload) {
->   		ctx.old = READ_ONCE(*ptep);
->   		table = kvm_pte_table(ctx.old, level);
->   	}
->   
->   	if (!kvm_pgtable_walk_continue(data->walker, ret))
-> -		goto out;
-> +		return ret;
->   
->   	if (!table) {
->   		data->addr = ALIGN_DOWN(data->addr, kvm_granule_size(level));
->   		data->addr += kvm_granule_size(level);
->   		goto out;
->   	}
->   
->   	childp = (kvm_pteref_t)kvm_pte_follow(ctx.old, mm_ops);
->   	ret = __kvm_pgtable_walk(data, mm_ops, childp, level + 1);
->   	if (!kvm_pgtable_walk_continue(data->walker, ret))
-> -		goto out;
-> +		return ret;
->   
->   	if (ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
->   		ret = kvm_pgtable_visitor_cb(data, &ctx, KVM_PGTABLE_WALK_TABLE_POST);
->   
->   out:
->   	if (kvm_pgtable_walk_continue(data->walker, ret))
->   		return 0;
->   
->   	return ret;
->   }
+> Can you please rebase it and resend, with Christian's tags included?
+> 
+> Thanks!
 
+It's based on the hotplug/resume series, I guess Sumit could post them as a combined patchset
