@@ -1,100 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793930452;
-	b=UTJm3YQ9JtGx9lFci1a4rddSVTTEMnDlYgI+bpAnQZ0I2LUuBWGDXeMewjfx5Q944Jli
-	 bTqvNlqP/qLePJl7V2l5KBIjzI6+pVrE6HYZPiffrQb+l4vu6poG6T+mgVH79iRH5Yjoi
-	 HixRicZ4vZnlMVa+iq2PG6EDsIDcv2uyG4JJsiCvf0wCfbOFnJmvo3NymlTVuUZpLER1N
-	 zps8wAuoUb82JFt4v5O/t+p8ahfMUqtIBVeeUzVh8pis3+fZMT3meyOlzVCjJrms7BXOD
-	 TR/PbvGTXgUdc6IyU30VxcloDkjS5trpulkrcL1wfv0yoy65bj9aZVDkf5Yl42OypkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930452;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=s7c/qg88c8erx5Dvpd9/JaL1ilkeZNtkbNUxPsE3zPs=;
-	b=mYim2ziQ1nf5557oEwkHWA4WwK3DcqZNuaU1+4Ltt08QfZ0nNwhsOs1f4XTLu9DpgoCl
-	 Woz+USY5iaRTAAT0fMoGX2s5s6RSD32sAdWqdh/AYQFX+xrIB5AERm9GkPDK2aOuUtxjG
-	 4DvYEz/axu1GRzDYLitqLIUVXA7nbnYjeNWV7oAqStdBrcLcy6X+ebLG2mP2nuiYjNdX2
-	 rl2Yt/Rf1fpgY/i501X1dbqK2uhR3Z+qmDwES2AsGRhwhsaN2XEHU1gXevhoShPOiSogz
-	 O4aW9bOlbWCQC/5boP00eAh2D2fj5txbaESZDwMY5vYNFUsmTScncxo0eDF0l9u5Dzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n0sfVB8H;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793930460;
+	b=5XLEyiuM2d7hpYZv5aFRLX8/ow16brpKS6yjdGNLtp7Sg0yLEP2DDkg7ejwF/gKNgJUH
+	 G08n8bisDHSCnzDPtTFHJTtJEwy8CSzhOI9SLcHqSCy34sFUdFd4eqHZeuhTXpHxANdX9
+	 XrdAIeAL2P1zSrH5t0iktAsPySI0pDgCKsnfOvfNWVEjn8bsEDiDExKGtb0cJosZmlZkV
+	 7X9aTlcfjtDDR4Nj3HR8p8fc+vutxdH9Vo/nkfBHl28+VcNdf6SYzh5y3WJsvuoKJd3LZ
+	 UC5BqeDV4o+oBJG7EweJzUGuFdIGZ/g2Iv9W14vRdDaIf5Y3hizIr+81WnAr3OhvABg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930460;
+	h=DMARC-Filter:DKIM-Signature:User-Agent:X-Lms-Return-Path:
+	 Mime-Version:To:Message-Id:From:Subject:Content-Transfer-Encoding:
+	 Content-Type:References:Received:Reply-To:Cc:X-Original-From:Date:
+	 In-Reply-To;
+	bh=BzurbRUdgcB5LkEIB7Hn26hUmmq0gClbqcTlXGMVGzw=;
+	b=EqhQVm3WWfdegy5wGHCAcSTFyAhg55yY2Isbp8+mxOh87rYWObKJF8R+qP/Qh8AFw5Z9
+	 Hk16rCSuzvId9sjRoWdRuIbbHLPqk/PFy8ji0gHi5gqKLZ7qb3Pg42XKPAwUrrB05dqZo
+	 LVyVFaLsL788CF1nqEHBeezfv0J+QPGFREKDcPUp0rfLPR4vaJAi2H3iQbVz/aeNQ4Cfz
+	 VuzZTxhvh8dVyvK4QCsL0dyXHaaFA4TqPVHI2mtMCpnBxi6JiMO1C0952Hf6qc73okzBa
+	 JnpvtIuOe6SmGvjqi2ayzdl8Z0CWwogGXB7TbWcEP8vmjv7owKSVfy+owZihhiG9GYQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=ByicbgQn;
+	arc=none smtp.remote-ip=209.127.231.20
+Received: from va-2-20.ptr.blmpb.com (va-2-20.ptr.blmpb.com [209.127.231.20])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD88606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:00:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AD88606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50013606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:00:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50013606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n0sfVB8H
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4322d310e7so23158566b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:00:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793930451; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lbiqcgkF3AYbuwLs4rqoAwgA4yO5UCtuP/PBl0CnRXSMQi2eVe90yh2aqNwXVciHYJ
-         vH4T6cyZ0BqENBtCBomtqfzVZCvbg78SRrJSPoZxBOF5OzzqXI9q3KiZH403hVeP8QzW
-         IRsQEI0zCj114wPMT7FACqkCOz/DRwt9w0JN5Zjez9hkBF6BQkI6g6ciwnmaOK4eJgvB
-         OGFcWO1axMwt+8fRV6rbUvtWR+GnZzPBiRv3qFmQbpJXgL+Y2VSE8GSPnsFU+Cph7Sh9
-         D2tAInXaAFZKrRnpToFZBLJ2PDCqfGJ7j5gA27Pgb6qUsAj5OPAoakRssqKr0saaMLEE
-         1Kcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s7c/qg88c8erx5Dvpd9/JaL1ilkeZNtkbNUxPsE3zPs=;
-        fh=TjrYV8djXe1hO3f+8mGphoD2z/uxrL+ugM/pE2npFGg=;
-        b=OZlqMA5cbvueW79rfZnKuL2O/rapAMcFG0Vl9cN9wo7iq6ZkJPRnE9hYHBd/cbpds6
-         4PGohEmJGYEaP1HlaSvUX9nvM5K8PTsQitqHgwOcwNardFp8w3ZusBp/ZOKPdf+ntcxf
-         lRof3P0Fmg00EmFVKDLDE0LkeM5hUkTQaXaygc0ZEbMKeUStUkwmmAswjZ+X6itCjHXW
-         hYB5cWBByDuVe5PUvPFdMHGBbMV8azCbW0GbrQK+oF+wrKaNjinA4nPH2VCyLLyafFDh
-         QkT+jIdEKM7BceBvAtO4Na/5BOGjTVQLWJz1tEi+vdIeB3h/c0nAuQzsJA+csZAAVGVz
-         x/rQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793930451; x=1794535251; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s7c/qg88c8erx5Dvpd9/JaL1ilkeZNtkbNUxPsE3zPs=;
-        b=n0sfVB8HDMUIuXTocfcJVzoho8pZXk6bz0tzYjFzYmhSx1pFhTaSZo2yumVp+d748k
-         EF4jR91ea7ibNEGxROUSMHM011PgzTAI8L1qWD0ISoyr1JcQCXHPqNvsMWVFxbt9wB8L
-         pVWLUNSqw5HdxDBqekaiiz5oT5qSjOrJE5ODDKZ/VB3w6uZmeyx/0kQYDZapcUrltRdZ
-         8fR0loS/DvGXRU6jX9KX9o6p1Ldw8G7WKpqq2NCoD45ROybfLxtqHAL0Tx2xU7De+KLh
-         gi5zSg4xLzZZYLvuMhcffDFLNETBzEZCobr2lGt0WTB8BXHid6mc2feh+qdplGHJNBHS
-         He+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793930451; x=1794535251;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s7c/qg88c8erx5Dvpd9/JaL1ilkeZNtkbNUxPsE3zPs=;
-        b=wzSqgzy0ZahngU7UbgofKIYvUO/TI5wwV/vYD2JSINLj9EQQBNDIrtNeQXYyUpw+LU
-         AWKJuZws7/R2SxiX7nvJWYV+1vz3ENsTlPFG6+/9m7buNByJ3DrHiVUZI4ZUV/dTuCaM
-         KhR00SEz+uvA0soKRWgYJ+sq5iz7+kMymLjJl2wdfzsnrlehi/oVba7YTM6ofExb4ghL
-         6t9ageFsKJL374iL9IQfep7bDqTMK8ajnKu5ZitR/ohEcolIb3fKr2CuWlC4HKYp8oOW
-         K5VfL0Q7DJbo0tf7b1FiLHe+tFZoJMStzinEMoUd6SNvgxncXidpls/MdxvQ5/Pt/xLw
-         1RfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzIJc7iLU5SzgUsn4cffYbtLS6KWuYSmDXdbqA4ElbYNva2EQnWZ9WN/WZ4s/Iz4csLhrMacIofkTFU7mY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RfvX8ZH5CtpfBqr2kpAHZarLUTg9sZ/Vej1vYiqEqpzdl1WCn
-	dDOkUJlT76LHfOgrh4e6COqr1h+fSuOFnIvTa4keGiPTntczPcYaRXmUMdG3s4hgftyCRaFZEuY
-	pd4i3fWNsIsG9fW4f6jYj6Xif+C55YaX30Pg9Fko5
-X-Gm-Gg: AYBFou1uUyZ9+ArfYzxFGQO+8HWxRs5Gy9KOI//7lO/q4yEMQlE1fERNxf1NlOoDhZ4
-	DFIdo2ahRTwyDyywjEbBYzdHi5QAFIOhCAG1MjhC9yrpGxKiek2vAp8qZ05DW/jBa/w3JU37Xf/
-	sMjs6GQJXxnv9/E/qYq5+n+kd0iWbeJKgN8+P33pTXJA5w9GxJvKBrihsUv4BB7lUVGaNOyb/ST
-	8kZTRMEgPa2OM8iLMTo/uSiYXFEpAhWFcsvds8Qih9CQlvFi+NWDPz8XRunekZQUlz5g6CYS7rz
-	qIHBtQnQ0dZOT/Ct7cHUM3DsbmleCXfXU2SRqBMSrIaAnSbSzySTSrbWp/AwjxC0sy8N+kf4fu1
-	iMHq9mrxsmPZmVRVbZhT+nyFfgd6sPpuE8ZzVyZNQonApjST5ssq4YAUyEwCAsXtizDNRsXI=
-X-Received: by 2002:a17:906:ef04:b0:c24:6985:d7a1 with SMTP id
- a640c23a62f3a-c4d3468f9f2mr101330766b.7.1793930450357; Thu, 05 Nov 2026
- 18:00:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=ByicbgQn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793930450;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=BzurbRUdgcB5LkEIB7Hn26hUmmq0gClbqcTlXGMVGzw=;
+ b=ByicbgQncgOWB8QtXNxPUp/boZqIU+6wT7nej9vW9WnUwlRKJJxXhDyv3AScbpqzJPxpUi
+ EVR5W6q/WvqKawJVGIzWbPXKhL6kwEBZ08cmxCnqVhYot8Sz2ByUibbbiNfvwm5UdqkI2j
+ y/pnu+FWGgqPOKF7BSnSlHDLpv3mpEdbkY8mo2v0KgMoF3CJ0ZXNKlXUOzjK7uRGr8c73T
+ x6jtd0d2FPejJwkPytaoYVNp6dPepnUr8/yUQYrvO6a/LuRoAw1nbDLM0zjoyBwsuJ8G9C
+ Uczub1HHhGfKtK3dAgx1GlKM0re8BSWOxMXAB6WL+MHdcDrz2dLyLztsi2ccPg==
+User-Agent: Mozilla Thunderbird
+X-Lms-Return-Path: <lba+26aed34d1+510b79+vger.kernel.org+yukuai@fygo.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,100 +54,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
- <20261028134012.01d52e94@pumpkin> <CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
- <20261030100215.6f8e0d4f@pumpkin> <CAG2KctqdPq6NmK6rB13s2bgM7kP2w4OMMy2hdp_OFMVYYhTnZA@mail.gmail.com>
- <20261104142307.431fc12f@pumpkin> <CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
- <CAEf4BzbYqbPRPWQU9yM29E+Pr68y+KX0O8whK-36dyH=Zd_udg@mail.gmail.com>
-In-Reply-To: <CAEf4BzbYqbPRPWQU9yM29E+Pr68y+KX0O8whK-36dyH=Zd_udg@mail.gmail.com>
-From: Samuel Wu <wusamuel@google.com>
-Date: Thu, 5 Nov 2026 18:00:37 -0800
-X-Gm-Features: AclHuK_AXTODf6fbRoRayz3qqp4e-qEs_ls_rSieFkkllrojC2ZFyUBK4KHwxAM
-Message-ID: <CAG2KctpBEtBxwb6Tayg8z5na39TVe9GQ1+Bk5ts6eL7VaKjKnQ@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: David Laight <david.laight.linux@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+To: "Sanan Hasanov" <sanan.hasanou@gmail.com>, "Song Liu" <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Message-Id: <ab391b73-557c-4eef-ac05-bfa25f9e2d03@fygo.io>
+From: "yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH] md: don't allow changing the personality of a failed array
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+References: <20261019193659.31381-1-sanan.hasanou@gmail.com>
+Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Fri, 06 Nov 2026 02:00:48 +0000
+Reply-To: yukuai@fygo.io
+Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<syzbot+0b672810a475890d3636@syzkaller.appspotmail.com>, 
+	"Sanan Hasanov" <sanan.hasanov@ucf.edu>, <stable@vger.kernel.org>
+X-Original-From: yu kuai <yukuai@fygo.io>
+Date: Fri, 6 Nov 2026 10:00:44 +0800
+In-Reply-To: <20261019193659.31381-1-sanan.hasanou@gmail.com>
 
-On Thu, Nov 5, 2026 at 2:32=E2=80=AFPM Andrii Nakryiko
-<andrii.nakryiko@gmail.com> wrote:
->
-> On Wed, Nov 4, 2026 at 4:06=E2=80=AFPM Samuel Wu <wusamuel@google.com> wr=
-ote:
-> >
-> > On Wed, Nov 4, 2026 at 6:23=E2=80=AFAM David Laight
-> > <david.laight.linux@gmail.com> wrote:
-> > >
-> > > On Tue, 3 Nov 2026 17:14:26 -0800
-> > > Samuel Wu <wusamuel@google.com> wrote:
-> > >
-> > > > On Fri, Oct 30, 2026 at 3:02=E2=80=AFAM David Laight
-> > > > <david.laight.linux@gmail.com> wrote:
-> > > > >
-> > > > > On Thu, 29 Oct 2026 15:05:45 -0700
-> > > > > Samuel Wu <wusamuel@google.com> wrote:
-> > > > [...]
-> > > > > > BY_NAME matches names exactly, like kallsyms_lookup_name(), so =
-they
-> > > > > > would be different symbols at different addresses. Please corre=
-ct me
-> > > > > > if I'm missing something here!
-> > > > >
-> > > > > Only that the user might really want one of the copies.
-> > > > > Sometimes there is only the copy.
-> > > >
-> > > > Good point. I'll have v3 add KALLSYMS_F_PREFIX + pos/next_pos
-> > > > pagination to cover these. A prefix query for "foo." also finds the
-> > > > copies when plain foo does not exist (expanded on this in my reply =
-to
-> > > > Andrii's Oct 30 mail in this thread).
-> > >
-> > > I'm busy rebasing my patches - they got stamped all over :-(
-> > > I should get a v3 that applies by the end of the week.
-> > >
-> > > I will add a 'prefix' variant for you.
-> > > The 'next symbol matches' flag is exactly that (actually it is a
-> > > this symbol is a duplicate to avoid issues at the start of the array)=
-.
-> > > So in this case that application would always need to read
-> > > the next symbol (by name).
-> >
-> > Thanks, that would be helpful. For my v3, I'll keep the lower_bound()
-> > approach so the two series stay independent, but I can switch over
-> > once your series lands, so there is only one search over the name
-> > table.
-> >
-> > > I think it might be more sensible (less pitfalls later on) to return
-> > > the symbol number - not that of the next one.
-> >
-> > What pitfalls were you anticipating? If the current symbol's position
-> > is returned, userspace needs another ioctl() call and an -ENOENT
-> > check, to learn that there are no more matches. Alternatively,
-> > returning the next position means every call pays for a look-ahead,
-> > which for an unfiltered query walks the module symbols even when
-> > userspace only wants the first match.
-> >
-> > Andrii, do you have a preference between the two?
->
-> no perfect solution, but given you don't always care about duplicates,
-> I'd probably return the found symbol's position, which can be used for
-> further pagination (if necessary, user just does +1). so, let's return
-> current symbol index, and have way to say "find by name/prefix 'blah'
-> starting from position X", where X will be previous symbol index + 1?
+=E5=9C=A8 2026/10/20 3:36, Sanan Hasanov =E5=86=99=E9=81=93:
 
-Ack, seems reasonable to me. Thanks Andrii
+> From: Sanan Hasanov<sanan.hasanov@ucf.edu>
+>
+> level_store() lets userspace switch a running array to another
+> personality through the takeover path, and then ignores the return value
+> of pers->run(). Takeover is expected to always produce something the new
+> personality can run, but that no longer holds for an array that has
+> already failed: since commit 57668f0a4cc4 ("raid5: introduce MD_BROKEN"),
+> has_failed() treats MD_BROKEN as fatal, so raid5_run() refuses such an
+> array. It then frees the new conf and clears mddev->private, while
+> level_store() has already installed the raid5 personality and freed the
+> old one. The array is left with mddev->pers =3D=3D &raid5_personality and
+> mddev->private =3D=3D NULL, and the next operation that reaches the
+> personality dereferences NULL:
+>
+>    md/raid0md0: Disk failure on loop0 detected, failing array.
+>    md/raid:md0: not enough operational devices (1/3 failed)
+>    md/raid:md0: failed to run raid set.
+>    KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+>    RIP: 0010:kasan_byte_accessible+0x12/0x30 mm/kasan/generic.c:210
+>    Call Trace:
+>     spin_lock_irq include/linux/spinlock_rt.h:96 [inline]
+>     lock_all_device_hash_locks_irq drivers/md/raid5.c:107 [inline]
+>     raid5_quiesce+0xc2/0x8a0 drivers/md/raid5.c
+>     __md_stop_writes+0xeb/0x4b0 drivers/md/md.c:7038
+>     md_set_readonly+0x330/0x560 drivers/md/md.c:7138
+>     array_state_store+0x584/0xe90 drivers/md/md.c:4720
+>
+> syzbot gets there by failing a member of a raid0 array, which sets
+> MD_BROKEN, then writing "raid5" to md/level and "readonly" to
+> md/array_state. The same applies to a two-disk raid1 array whose last
+> working device has failed: raid1_error() sets MD_BROKEN but leaves
+> degraded at 1, so raid5_takeover_raid1() still accepts it.
+>
+> MD_BROKEN is never cleared while the array is running, and a failed
+> array can't be turned into a working one by changing its level. Refuse
+> the change up front with -EBUSY, which is also what state_store()
+> returns when failing a device leaves the array broken.
+>
+> Fixes: 57668f0a4cc4 ("raid5: introduce MD_BROKEN")
+> Reported-by:syzbot+0b672810a475890d3636@syzkaller.appspotmail.com
+> Closes:https://syzkaller.appspot.com/bug?extid=3D0b672810a475890d3636
+> Cc:stable@vger.kernel.org
+> Signed-off-by: Sanan Hasanov<sanan.hasanov@ucf.edu>
+> ---
+>   drivers/md/md.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+Applied
+
+--=20
+Thanks,
+Kuai
