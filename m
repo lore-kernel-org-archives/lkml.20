@@ -1,108 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981020;
-	b=IObU8lsdQW+aDJd36TZZ+bDJYpTtbRhyHF2oidUrDDkcJgDTIhCgZHDB8nwCuyiq5M0P
-	 C8o1DF2LuQlZn6cUMoQFPq38ViwIJM7lGMRfKjR9m6mzXSJvwRaFpA0KxT1oHc/on3SnP
-	 eR5aXdXHgldh8csVIrtcFASTaaQLAm/DWiC1syN8kmomqReICuELIcDIuZpJ+aoFfiI9W
-	 m7ZAGMDR7j4V/X2xO+EJylBfwvfB9Zp+2xMibj3B8FUBNvEFD26hyPeoI7H0LoONzIYdU
-	 6qM6RZQferBb6NdHaPrn7ogmFvVug43gCYG7Be+9qf96XX1KP/NbZnBrdYLmZNYG80A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981020;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793981078;
+	b=CI9JDIcVa2X0eSxWLXR5cfITKd1e6AS9Z5cCgdyzk0iosjbnRpsVaRrhawRfzhCZbWQX
+	 CpBwHBTOwuuUUqZoZv7jgCOZAaSxFu2c2cmtN0nr1rd/pT9gGEATy1jyi4E3y+rM4+Vwd
+	 vg0gn/yRkQZj7n1UC6plz/qCmThyak2MFo+lmk3QO7vpybwFwDZQ+DjK/CQ3UN3tn6/jd
+	 wsI2bR3JrtO+c70lm2sRNz2zdalmCH3q+tdbgnM9EiKwN75V0zzDqw6z/qjG11XEeWpLf
+	 xB5CltZVyUQLsZxzg40+WENDYVrYz6AyHEH/RlOicOrY/TScBrtDxzUTA0KnFQ3/Dcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981078;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=t7whNWzXgtf5Zep3rN0eJ8AdaQGIaezCYSMAtMtMDQ4=;
-	b=AQIgJ0XtTjII4vveY2eU1wPETRpVt8Zw11cv1Q/FbzLu4M7eCri6tVBrenrWSXqeAPmG
-	 zBpJtCB7Y9HgjNeCADXwVrALEGq7Pod/MIOHlXMLG4p/lFT/2h3j+V0bP0SQrjKOV0xCG
-	 AkB6qk1dM7RnuAkBb8M4ERMxKCLi7ml+5wA6zOX8h/Bldl9IzaO3zTxz9JCD33RRNhLsQ
-	 5dGuwSwSIPyi539O9M9RJv/Mko+FILiv99PqaJg5MtC94IJwMpXjd65YYSCEKUzA8NpFb
-	 qwD/8J30ySiSgJOBNaIpTt33f3ZwETLb2MIrdPiV/IsQBcznc9a6Yt4PYmTQTAwLFYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=PROVhtFB;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=IygM6K6pbLrcby+wD0xt0Kg6olbGMtkNBhuq4agOYJg=;
+	b=5d2k0fVz5sOLLsakTFv/Ef/UW1VChm0Ft1AEFRrE7VFemGUtuTvN4lS5Avb4T10tZQF8
+	 LWELXK2jzrEYcy09Km4zo9H8RtI3yYThyFI+oWAOBqzwbfzW8WNt8C7bbyD5dOicK+H4E
+	 XWNort9Aizf1rrjj3E8yAk837jH4hBZd1lPpqKGTmyL+zbmHRD8FyuwCm4BfjXm2G5/sg
+	 7kUylDsbSoETs8YAMExvLCo2FT78bgrYt7AX0KFF/qCj0+weTGZxMCUm0BGwYpAX3bhGU
+	 wVnItE2ZYfyxK//Xk0yqTn/ajDPwjd+VEDmhUISgzbEXa5VDeHCqroFqLk7YVqFyRQA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WQBGRmDT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A03606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:03:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0A03606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCB1606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:04:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCCB1606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=PROVhtFB
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so897177f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:03:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WQBGRmDT
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b566cf56c1so853229a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:04:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793981076; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NeHpQOLBjPIGwAcFAbNYl3w7w02fUq1Z5UNX5Gol7tOgv+6tAc5kGlfNSRLLRfknmG
+         ioQ9W+kN2Rd2GjOo7Jf07VZcgzJt8mAU9gs5OIKMl1fum7CeNI7nGoVOA0Pko0vneCfj
+         L9uZloXtRtuy7w+vKn2WNtzGRYs41VEnaKxhMIKVOdLLQ3eBs4pB/+NsgGs8AY5efyW3
+         Cd5bGtJsNm4rGqkla7L05kmSGZWZyKi6OiseYSwsBWTYUurycpJcmO4VA41+xkcfTEcG
+         YlLZP9qKoAKP/gVw/TjxstDLT0ssXlPPwXHHxkz2WVMJRUDLcKARuN1OkgD66kd8kweH
+         0OqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=IygM6K6pbLrcby+wD0xt0Kg6olbGMtkNBhuq4agOYJg=;
+        fh=350vh5Sm8KGqMifG2mZ9OL5QZZHImo8ECl4ollBVFS8=;
+        b=FWO03CiVY0v6jmHw6aSrADDy46xDhLZ9tYK+KMpt/l6rvmiBCQpGuEBhYY2sOi+p4D
+         uaOtq6x6in4dKyOWMzsUl9WDiBLqmK5tldYir7hTahjmBS+HnfNydarHfELAG46Tdjib
+         qMRpMaLxLluOvEpQSQD4Tqa2d7GlUzlJpoiSuGqtkovQfyVvyeGFBMPi1tE3ENDpQBMq
+         sFqUKSR51Spd6B2O7AvXobi82jJw/pBN8xiu3FEKlBhB7pNuQeb+/sI4mAO2loyQMNgT
+         63BEqbN2fG/FXGFaC1DOQCA8NQjggZOvu9fc4b8gf9UC0NNyJ9TJ7E1uW5nPpgVKvLrU
+         zw/w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793981017; x=1794585817; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t7whNWzXgtf5Zep3rN0eJ8AdaQGIaezCYSMAtMtMDQ4=;
-        b=PROVhtFBjiJL+M4D+pdcjRm34WNVU0Biwx7qiIHzLO+Dmg7trp46+GEqUgPKdhEbt0
-         3ap1c2ItjCrGDnAhNpOzx4pOWMg27MNi/WxI0zA0O/tfV9zarjUHSb2qO730sdRsXPhm
-         YQ5YDp/qnYpkHndm9k6ya2ujKHgrC56BMrPDfy+UR+DiWa0259MM5BWmuhi03/giL/Vw
-         LT2ScogfcWZF41AoGkFJmBjLE3tgyE10+V9+O88PZ7pDT3dWGLSb2rsr4Mn2D9hQQarn
-         8xnSNFo1XDw577NcafopStS/ls+4DqhJ/kdX/0SOLPI20rV9aiCm8PCAcsTAYx6NLW/9
-         dThw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793981017; x=1794585817;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1793981076; x=1794585876; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t7whNWzXgtf5Zep3rN0eJ8AdaQGIaezCYSMAtMtMDQ4=;
-        b=hIh4Ars7ROk+gcRqOAS7EqIrCfZwNRRiDj+c3zoyh2xv4jhuTBxJ2f8tAwllqDs3bZ
-         ADqsNHsRPiu7PKJPc9Rw9gHgBN20WgJM99685Tq4WQ+jZ5WHbAAaoMaD5mLuuyFP2f6S
-         rEctBuJVvfkeOtlmftKyaX3o2IVW+ScqGYHptJ/0JY+DHnQVKP8BRrLdK87OM8dICVM/
-         IKyAuin9poKLbbuXtyDyET3jIlEs0i1YGpqHNUHNtDkDoZKq/BYcT4IhZvsNPJb7qqMe
-         xWkrgDcsrI9UKcg2hSCz1hmp5UZ6j7HtvWJdBIX7VTJxs1D4Drfd+I9qQ8xa2lHvwPV5
-         8yyA==
-X-Forwarded-Encrypted: i=1; AL+hErElO+TZ9xvKJRdb98pBVCVCDeQoGASpHRtluZHa0SX4tOyyZTYYxTyiZbWcZEQJPJDeaOpXs2ZSNkKzUgs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8j8SFUjqbh7VqFzKZVJdngkQg3G4bZ9Au48EJVbCC54moULJbP
-	flGPbJZOWP4KPk38yJxEdh2YzHmOvhsXulh9kE3f2431HPb6Fjf5ZT7MbgwAFiF2o44=
-X-Gm-Gg: AYBFou3oRKVpwCKqlV6hD6arrL0E2EyBdNaqWmwNOvadaEZFL06yj4mUA5BSgFOCBAu
-	UJp3w+75xqUr6JenxzsWkLKpTviB4IF0xBS54d4HlsP5RQnetnbVjoVXLJWsql7GdPzWqBZPGhI
-	aAUmA4XOS4c5dB1mm+Y+FsyrC512QICZbtJyYksByu0gL1q+gvPyCOK8E0uHEyX1QorUTzrqULu
-	+0AUhCXrRSCOnACER4m/JZw4wShRId8hTrtj7AtgDS05paPZ3ZtzYUE0Xc+/arxiUMA5eBJbofL
-	5JYMvpXVmDZSBHGWvI+tjP5nx565QK0644utKCsOH4xRAo91Vvs8upAxs2nqynjdB2zxxCAxyGS
-	dCBkj+397MUW7LBBBImD/GJOhC3LvaygDKvM38oYF8U0GajfK7vtaTcixOenKhP7AJYAx36qLnE
-	4F0E8ZGWe0nMcq6Qbb9v9VB7bEmR6KNTZonTALfFCKrNpULRpkEImjvHjuEGgFqBniAF4XSo2DS
-	N/EjNQli3pWxU37UA24W9I/1lbrikJEYP8AVlrIeqDC8ixnRHlY+2od4M3kRxf71aGcN1b+au7/
-	IDyzYdWNiRoU1cEnN4Co982poD/pAFcBhIsx
-X-Received: by 2002:a05:6000:46d0:b0:490:b23b:802d with SMTP id ffacd0b85a97d-4927740356amr3723333f8f.37.1793981016857;
-        Fri, 06 Nov 2026 08:03:36 -0800 (PST)
-Received: from localhost ([208.127.45.21])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7701b51sm4353763f8f.37.2026.11.06.08.03.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:03:36 -0800 (PST)
-Date: Fri, 6 Nov 2026 17:03:32 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com, aneesh.kumar@kernel.org
-Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
-Message-ID: <au34wXtIqii-hfFI@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-18-jiri@resnulli.us>
- <auuDcABX27EeTApl@e129823.arm.com>
- <20261104194622.GC3889730@ziepe.ca>
- <aux01NUd85PabtZu@FV6GYCPJ69>
- <auyKE2sGqtfjk4v5@e129823.arm.com>
- <auy7IM0_S2tv7EZX@FV6GYCPJ69>
- <au2WdWFOYbPEv0Uj@e129823.arm.com>
- <au3i-0eDzJZaWukx@FV6GYCPJ69>
- <au3mAsQrh0GniXJo@e129823.arm.com>
+        bh=IygM6K6pbLrcby+wD0xt0Kg6olbGMtkNBhuq4agOYJg=;
+        b=WQBGRmDT6kw4B4IFw7/K21g7m8QT0DcBRqL16QsXJJaTgbw6C3D/+ZnqNQfhh+nqat
+         dsaxpSWazFRK8cGp6ArT9fLL+C0s041WjnQQHzcuRTaGpYTgPb8cr9+oBzX05TP7LkwF
+         nXudolnwpDjqNPFe7GFxB1/307Zih40uP/dS/q2WE5mjlNJ2hftJsNpcryYWh/QPqqwX
+         tZpPNq6kNglOfwfExmjj8mtJ0XzLXKVuDUhhJYvPr3cKyzVAU+9cuYQ5suu49dQW8M8F
+         Ej7y8bQlCiT0ZmdAzSYpCLmSBr1G9h2TBLOyL53/EcNe0qgBFeyKqbau6BrPTPVbheGE
+         MGeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793981076; x=1794585876;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IygM6K6pbLrcby+wD0xt0Kg6olbGMtkNBhuq4agOYJg=;
+        b=MubJHW1rxWLFcjJcl73f11Kn+OWk6FvEQJn4pPmKjN87HdGbtM3h8KErGgY11HZ6Uf
+         EseW9zWqocnBK69mE207ukgDSgti2xxhm9j4/4dJOo8NXvrfRkQI0rZWNeu3NTNp35xK
+         ZxRaAr6jiPywXDa0xklMIK2SVhhxTWuqmCRSy4G//RFTtcglkYBqYXVZDAVi3BjR4EJm
+         68LN39cZsgnpnra17bI45KO4Wq6Q+jDGT5zfW47zCHT31qVr0D0vNuqAdNaG4xsc6dIc
+         DHceuc/XS5VcgkV2KrezHamb4onNuWwk4MgiC5/K/7/syqlvlAXdLN1NPG7wMqVfK6aq
+         YTwg==
+X-Forwarded-Encrypted: i=1; AL+hErGegGGdX8ffyW/+Nn1gB9Y4bZ8I2vJBUiz6rtlGjAnRVAzf1nARXlESAFXauymusNhU0QS0VjCNRfSt/3U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AEE/9frFver+A7mWr7SR6//Hd5c11IdBhLcpm4OCafqqMN5mM
+	fuGiK5tlMChSYEgJr/AKpNw1YgHhXFPmrMsEb8mg2ndR9R1uHcR1JfJzd5a5L1Z8Nq+D2Ppw1SC
+	drdDX15x0/ci0rHVTlE4YIx51QStLEdG4d4BYcFJHTQ==
+X-Gm-Gg: AYBFou1OiKSE7DGC8JyowOWwn8IovEgoy8Re78CFgbrbjhLyhSzgRQBiIQMBQ2/t6ax
+	lajq/6DIbdOgDU6FrS672eoYUMhuFN5MBjLZTOfm9pIlPPGWsUdTuvoP9AVb3y2GmMW89KIld9A
+	E1H7TNIODTUzrX91XT1CVVR9BQFoRJlcwKKuua5y2SDLZX9ItP4BhmHCeRP22Z7NuiWeKxNzXLC
+	rGRJwmL62XqKayZ7W1KMgdxuYAVmKtyteob4SC3N/RcdnFMcYIt2Y+Z0kdhMUsbcU/us+Lf8AYP
+	cny+wmtm5N+jM9BLVdD5Kpm7C4+hj3WSTD+lTJvaEI/keTmoqphxluHvuLjGyt2B/fZbrxLFZPn
+	/ANw+TA90pKSb82NGviCFOOdSbFVUtMX+xj2nZKw5dV+Wbyj7pooXy0C2F56BSK4wbloLAQ==
+X-Received: by 2002:a05:6402:d0d:b0:6b1:e097:559f with SMTP id
+ 4fb4d7f45d1cf-6b5977f1543mr2086552a12.18.1793981075818; Fri, 06 Nov 2026
+ 08:04:35 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,176 +103,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au3mAsQrh0GniXJo@e129823.arm.com>
+References: <20261105165525.011876858@infradead.org> <20261105170157.453569788@infradead.org>
+In-Reply-To: <20261105170157.453569788@infradead.org>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 6 Nov 2026 17:04:22 +0100
+X-Gm-Features: AclHuK-rU7FQjIZBAgRP0w_2HxD51sMcPej3SDh3WCYbbFei19JOiG27JaU-Rk8
+Message-ID: <CAKfTPtCtEXmhi-b1kjmzJ08anyLUwqJKMGtGnVKBaEZ=hufThw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] sched/fair: Use guard in sched_group_set_idle()
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	joshdon@google.com, tj@kernel.org, jakub@okonski.org
+Content-Type: text/plain; charset="UTF-8"
 
-Fri, Nov 06, 2026 at 03:36:50PM +0100, yeoreum.yun@arm.com wrote:
->> Fri, Nov 06, 2026 at 09:57:25AM +0100, yeoreum.yun@arm.com wrote:
->> >On Fri, Nov 06, 2026 at 09:27:42AM +0100, Jiri Pirko wrote:
->> >> Thu, Nov 05, 2026 at 02:52:19PM +0100, yeoreum.yun@arm.com wrote:
->> >> >On Thu, Nov 05, 2026 at 01:32:49PM +0100, Jiri Pirko wrote:
->> >> >> Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
->> >> >> >On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
->> >> >> >> [..snip..]
->> >> >> >> 
->> >> >> >> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
->> >> >> >> > +					       const struct ctlv_cursor *request,
->> >> >> >> > +					       struct attestation_evidence_request *decoded,
->> >> >> >> > +					       struct attestation_evidence_object_request **objects)
->> >> >> >> > +{
->> >> >> >> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
->> >> >> >> > +	u32 challenge_length;
->> >> >> >> > +
->> >> >> >> > +	decoded->challenge =
->> >> >> >> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
->> >> >> >> > +	decoded->challenge_length = challenge_length;
->> >> >> >> > +	if (challenge_length < caps->min_challenge_length ||
->> >> >> >> > +	    challenge_length > caps->max_challenge_length)
->> >> >> >> 
->> >> >> >> Hmm, I'm not sure whether this check is required for
->> >> >> >> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
->> >> >> >> 
->> >> >> >> for example, if the provider provides two evidence:
->> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
->> >> >> >>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
->> >> >> >> 
->> >> >> >> might challenge is reuiqred for generating the token
->> >> >> >> and this would be marked at min/max_challenge_size in evidence_cap.
->> >> >> >> 
->> >> >> >> However, in case of eventlog, it wouldn't require challenge.
->> >> >> >> for example, TPM event log or CCEL event log.
->> >> >> >
->> >> >> >Right
->> >> >> >
->> >> >> >> Do we need some field on attestation_evidence_supported_object whether
->> >> >> >> it requires challenge or not and applies this sanity check per the object?
->> >> >> >> 
->> >> >> >> Otherwise, to get eventlog, it would need to send *dummy* challenge
->> >> >> >> always.
->> >> >> >
->> >> >> >I wonder if we should have two interfaces here for signed and unsigned
->> >> >> >evidence? It would be clearer for userspace then when it needs to
->> >> >> >provide a challenge or not.
->> >> >> 
->> >> >> Isn't the challenge field provided/not-provided enough?
->> >> >> 
->> >> >> Currently on the introspection side, device-get op would provide
->> >> >> challenge-lengths array:
->> >> >> 
->> >> >>         evidence?:
->> >> >>           challenge-lengths[8]:
->> >> >>             length?: uint(..4096)
->> >> >>             min-length?: uint(..4096)
->> >> >>             max-length?: uint(..4096)
->> >> >>  	  objects[16]:
->> >> >>             blob-class: evidence-blob-class
->> >> >>             max-length: uint
->> >> >>             blob-instance?: uint(..u32-max)
->> >> >> 
->> >> >> I think it would make sense to have challenge-lengths array per object:
->> >> >> 
->> >> >>  	  objects[16]:
->> >> >>             blob-class: evidence-blob-class
->> >> >>             max-length: uint
->> >> >>             blob-instance?: uint(..u32-max)
->> >> >>             challenge-lengths[8]:
->> >> >>               length?: uint(..4096)
->> >> >>               min-length?: uint(..4096)
->> >> >>               max-length?: uint(..4096)
->> >> >> 
->> >> >> Then the unsigned object would just simply have challenge-lengths empty?
->> >> >
->> >> >This looks good to me. :)
->> >> 
->> >> The challenge is one of several open points that all depend on what an
->> >> evidence object is: Rick's TDREPORT, legacy versus DICE Quotes,
->> >> "primary", "raw" and the format strings. Here is my proposal to settle
->> >> these together:
->> >> 
->> >> The model:
->> >> 
->> >> 1. device-get lists each object with an id, a class (signed, event-log,
->> >>    cert-chain or auxiliary), the formats it may come in, its max-length
->> >>    and, for signed objects only, challenge-lengths.
->> >> 2. evidence-get names objects by id, as MR ops name MRs, each with its
->> >>    output blob. It carries a challenge exactly when it names a signed
->> >>    object, and the challenge has to fit each of them.
->> >> 3. The reply gives each object's format, length and, where the TCB
->> >>    vouches for it, the TCB's digest. The output is always {label, data}.
->> >> 4. A signed object is made by the call, over the challenge, and never
->> >>    reused. The rest are read as they stand.
->> >> 
->> >> This settles following issues discussed during this patchset review:
->> >> 
->> >> 1. One op, not two. Per-object challenge-lengths tell userspace when to
->> >>    pass a challenge, and one call returns the signed object with the log
->> >>    and certificates needed to check it.
->> >> 2. TDX's TDREPORT goes: it is MAC'd for the platform, not signed.
->> >>    /dev/tdx_guest keeps TDX_CMD_GET_REPORT0.
->> >> 3. TDX's Quote object lists the legacy and the DICE format. The provider
->> >>    labels what the host returned and fails on a Quote it cannot label.
->> >> 4. "primary" becomes "signed", manifest joins auxiliary, spdm-vca,
->> >>    spdm-measurements and tdisp-report become formats, and signature
->> >>    goes, as a signed object carries its own.
->> >> 5. "raw" goes with the representation attr. The TCB digest is a reply
->> >>    field, so a blob always holds the object's own bytes.
->> >> 
->> >> Formats become an enum each provider family defines, instead of free
->> >> strings. I'm still unsure if format should be entirely provider-specific
->> >> and defined as "extension", or it should be somehow mixture of common
->> >> and provider-specific. Looks there is not really much common
->> >> anyway, so I lean towards provider-specific only. So far I have:
->> >
->> >Overall, This is plausible for me with some small question.
->> >
->> >> 
->> >> ======  ============  ==========  =========  ===========================
->> >> Family  Format        Class       Challenge  Bytes
->> >> ======  ============  ==========  =========  ===========================
->> >[...]
->> >> tpm     ek-cert       cert-chain  none       EK certificate from NV
->> >
->> >Just a thought, but how are we planning to retrieve
->> >the NV index for EK certificate?
->> >
->> >As far as I know, TPM NV storage doesn't support labeling.
->> >
->> >Should I assume that the NV index would be specified as part of the
->> >challenge to retrieve the certificate from TPM NV storage?
->> 
->> evidence-get allows to accept mr-selection as part of the request
->> alongside the challenge.
+On Thu, 5 Nov 2026 at 18:12, Peter Zijlstra <peterz@infradead.org> wrote:
 >
->Sorry. Could you explain a little bit detail for this?.
->AFAIU, this is to get the EK certificate from TPM non-volatile storage.
->But, I don't know why *EK* certificate get would be relevant for
->*mr selection*.  AFAIK, the TPM_Quote will be used AK not a EK.
-
-You are right, my mistake. I misunderstood the question.
-
-mr-selection selects PCRs for Quote, or an extend-NV measurement
-register for NV Certify.
-
-An NV-resident EK certificate is retrieved using NV_Read. I think
-blob-instance is a good fit. For TPM certificate objects, it could
-identify the certificate's NV index.
-
-
-
+> Cleanup the code by using guards; prepares for further changes in this function.
 >
->Also, AFAIK, mr_selection is meaningful when the evidence_accept is
->supported.
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-These are independent. mr-selection chooses the measurements included
-in evidence. EVIDENCE_ACCEPT authorizes a subsequent native transition.
-The TPM provider can quote selected PCRs without supporting acceptance.
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
 
-
+> ---
+>  kernel/sched/fair.c |   16 ++++------------
+>  1 file changed, 4 insertions(+), 12 deletions(-)
 >
->What is the relation-ship between mr-selecation and getting the TPM's
->EK certificate getting from NV storage?
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -15790,12 +15790,9 @@ int sched_group_set_idle(struct task_gro
+>         if (idle < 0 || idle > 1)
+>                 return -EINVAL;
 >
->-- 
->Sincerely,
->Yeoreum Yun
+> -       mutex_lock(&shares_mutex);
+> -
+> -       if (tg->idle == idle) {
+> -               mutex_unlock(&shares_mutex);
+> +       guard(mutex)(&shares_mutex);
+> +       if (tg->idle == idle)
+>                 return 0;
+> -       }
+>
+>         tg->idle = idle;
+>
+> @@ -15805,13 +15802,12 @@ int sched_group_set_idle(struct task_gro
+>                 struct cfs_rq *grp_cfs_rq = tg_cfs_rq(tg, i);
+>                 bool was_idle = cfs_rq_is_idle(grp_cfs_rq);
+>                 long idle_task_delta;
+> -               struct rq_flags rf;
+>
+> -               rq_lock_irqsave(rq, &rf);
+> +               guard(rq_lock_irqsave)(rq);
+>
+>                 grp_cfs_rq->idle = idle;
+>                 if (WARN_ON_ONCE(was_idle == cfs_rq_is_idle(grp_cfs_rq)))
+> -                       goto next_cpu;
+> +                       continue;
+>
+>                 idle_task_delta = grp_cfs_rq->h_nr_queued -
+>                                   grp_cfs_rq->h_nr_idle;
+> @@ -15830,9 +15826,6 @@ int sched_group_set_idle(struct task_gro
+>                         if (cfs_rq_is_idle(cfs_rq))
+>                                 break;
+>                 }
+> -
+> -next_cpu:
+> -               rq_unlock_irqrestore(rq, &rf);
+>         }
+>
+>         /* Idle groups have minimum weight. */
+> @@ -15841,7 +15834,6 @@ int sched_group_set_idle(struct task_gro
+>         else
+>                 __sched_group_set_shares(tg, NICE_0_LOAD);
+>
+> -       mutex_unlock(&shares_mutex);
+>         return 0;
+>  }
+>
+>
+>
