@@ -1,77 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793996325;
-	b=ljBAmKwKPSLT2+PytB77CIFrE4sJvqo8JiKQlBXLo0pcvE7IKlLYtap6/f6GRdLDMGi8
-	 vjXeSDFJJO94q0wzsZozW2ROVbyiiQ3UDO0ZQtwPLNwdGMqPhVLkqLv0Rs9xr2k/1MZXj
-	 lHal93HhP9pxfLQUlG4gQCiQb9ij58OdF5IdwAgXyW5+vGAOLZ4LGrFveTh1FHUn7nVt7
-	 4QVKJ2xDev9CBCEMI70sqHau6Mq4qSwa87RZ/HE/YCoBllHgDyPOO8smGTsblf+rE5kpo
-	 Mtu2b+SFbIqXG5m/+ysrT6woIF/7Y+jd/chzmycMcenG5qoLYsRK0it20ULWciTqbtQ==
+	t=1793996316;
+	b=5p0P99XHCIwqM8Jvu9IEevfdbgAQbwL4ZP1DBeXCy4xkknnP6O3m/eZcIkfbG4TYEjQz
+	 39u2VChszMDbqeeuY/MqgzMy9sVRcjx6MJGba+Agy54ANdQlCN9JdEZAowhNT3LWD/HCb
+	 pv7Jds7JlHrdmiqRd+jejzkQ2lCP9CzB8LIZymsrP6pNq9+MAoMP0oLHNJ15GU4SB2l5b
+	 JLPfhivjsQwZ2B1caOpd5B3jUn43fvtLpE6F614cCvbtVSbB+l7Hcljco20bO+Qq5H9gK
+	 x9YMH0RYzoahyCHVpwFgJXn7p/qU2MHyC5raka0Kg62zWhGKIQ9fV3ut5mHPMhS5g5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996325;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uSJ4vbMiyBJ3KV16f/IRC7Rj6KoRMpICsB0ySFtNe5k=;
-	b=n+fsbA6Cd7jd41ECLjJIz3/5EabXwN5Y20g/H0vGgdtxyF42BVi+fgXnhM3j0QabVvCX
-	 1qOmceTaE5K7mrg66ujsgrnA55MYhGw3NkAqZ24CsfkWWxIs8KGDftVheVQNkVjPyAbUI
-	 YudbQPULx3eGC50c2GIqgezD7ToBLi1ePnP8WVB4Rltwskrc4dqi8tQFizGU6Lz+oP3SA
-	 uFKc9bIFHo2/23qcmGGT2uns3EM5Cv2l6YFAZQaMy5CBtf7xhMo+9jtfF4xoqeVEo4B1h
-	 lxptKiSJgBR6iOCdYO/G3eWMJ4Xfmn647neZvg555eq8QbFO7I0jyHzvrlBklUiNQtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996316;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:DKIM-Signature;
+	bh=aqswEJUPN6JEnCBsn8xRQ+S2uAcacA8NEkUmGUTdheA=;
+	b=S/Cd8KQgBErcfvV2mdMTGRWeKsRZE6V2S5MOoEwWRXs8/F91t96aPPfWYroZD0b01fih
+	 9YgADpU35fo5Qbz7ZNu5V1pj3M3L0meLJf8pIfYzWsrW4Zqet9+nHz/vuTvcmH5sL9QDm
+	 y2VRGTyuN1Hq/trFCp4LstBUlM/39H4dZgbqK/1vxrY3svbdXlPsP00XSo3/dl8iJsbbj
+	 T1CCYk/ohqf97GsqcOnij7gwff2reGuy83eb9mqynDgNEcDwb59k7v0hfRaMsefeHo74k
+	 CVZTOZ77OFqKRGhVv2+MODSpfbnIYmvTmwLd0oAOc0vnM1vAqJPTSB1exZrm4API6tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=DNEFXheC;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7441A606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:18:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7441A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=Zs2s4WWH;
+	arc=none smtp.remote-ip=180.76.5.236
+Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 29554606A326;
+	Fri,  6 Nov 2026 20:18:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29554606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=DNEFXheC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793996322;
-	bh=kZs66Y8zCDowdLKEog8fI1dLv9mv2m+LG+S1l3NtB5M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DNEFXheCXonUAnTjZcsXS/pSGpUUO+xa+x9BYa+SrqzuGepK9FAHiLBp2a2y3CE1j
-	 I1xBdPMAtJifpI/LApp/LtuZ80F6AAF5R78mqI9ZOuo+AJ0etLKFiG6FE5U0vcmo0H
-	 VjmWE8AO9gvyyWhZ/PqyrZnem5M8cLm6zSkU5PlFZ7YaXvB0X7rME0kHURMVf1d32A
-	 csgUfBCxYQRhVTg73MGwPtzOznANQZ8rNG/qNUi3S55MJkuLVGW2RZ7RQGM1wncUMI
-	 jpHXS5kejrQqojWFQDfuULI/yNAoz5FADLxY6KOzID0YU/Ehm9/9F3YDTSvI2StWy4
-	 Db4FB8r7H+blw==
-Received: from archlinux (unknown [100.64.1.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: leandrohrb)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id EC02317E00AF;
-	Fri, 06 Nov 2026 21:18:37 +0100 (CET)
-From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-To: louis.chauvet@bootlin.com
-Cc: airlied@gmail.com,
-	alex.hung@amd.com,
-	daniel@fooishbar.org,
-	hamohammed.sa@gmail.com,
-	harry.wentland@amd.com,
-	maarten.lankhorst@linux.intel.com,
-	melissa.srw@gmail.com,
-	mripard@kernel.org,
-	pekka.paalanen@collabora.com,
-	robert.mader@collabora.com,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 01/12] drm/vkms: rename VKMS_LUT_SIZE to VKMS_GAMMA_LUT_SIZE
-Date: Fri,  6 Nov 2026 17:18:02 -0300
-Message-ID: <20261106201813.129911-2-leandro.ribeiro@collabora.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
-References: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=Zs2s4WWH
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH] af_unix: Fix wrong socket tested in the symmetric half of unix_state_lock_cmp_fn().
+Date: Sat, 7 Nov 2026 04:18:22 +0800
+Message-ID: <20261106201822.1734-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,66 +51,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc7.internal.baidu.com (172.31.50.51) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1793996311;
+	bh=aqswEJUPN6JEnCBsn8xRQ+S2uAcacA8NEkUmGUTdheA=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=Zs2s4WWHxB2L8nfgAvdkbBpDq3t5MnsEYV+PlUxKcMmhh0ZEsDvU/Kj+8+nypdhqS
+	 jGZR1QX4VliyXQxYQ/aTI0lKi0eKQ7lDKrwdktM9+skpZF9lT8iqXUv47ajSAmkbf7
+	 9c50tS0lvGjXhiUr54onXfwENojbo5dytVBuzmJOjh4zhAZwghRGiiIuW2CXN1k0bY
+	 VMEJfqPx9nTcitYOUCBpHGN+/zRXqKtlMJaeQT2xiHbydH3XPBemcTtn/cS+ULzK1a
+	 sTuzRxP0fasCxXyfvP3/ltSz3gbAhQeIQVrmyK4b3mtVYuIrP5p3sKKB0+v+ZUgGby
+	 zURXlmlq8/ObQ==
 
-This is the size of the CRTC gamma LUT size. So let's specify this
-in the name.
+From: Li RongQing <lirongqing@baidu.com>
 
-Reviewed-by: Robert Mader <robert.mader@collabora.com>
-Tested-by: Robert Mader <robert.mader@collabora.com>
-Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+The second half of unix_state_lock_cmp_fn() is meant to mirror the
+first one with the roles of a and b swapped, but it switches on b's
+state again:
+
+	if (b->sk.sk_state == TCP_LISTEN) {
+		switch (b->sk.sk_state) {
+		case TCP_CLOSE:
+		case TCP_ESTABLISHED:
+			return 1;
+
+The enclosing if already established that b is TCP_LISTEN, so the
+switch can only reach the default label and the branch always returns
+0, "no order known", instead of the intended 1.
+
+Test a's state, as the first half does.  The code is only compiled with
+CONFIG_PROVE_LOCKING, so there is no runtime memory-safety impact; the
+effect is that lockdep cannot validate this nesting order of
+unix_state_lock().
+
+Fixes: 98f706de445b ("af_unix: Define locking order for U_LOCK_SECOND in unix_stream_connect().")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
 ---
- drivers/gpu/drm/vkms/vkms_crtc.c | 4 ++--
- drivers/gpu/drm/vkms/vkms_drv.c  | 2 +-
- drivers/gpu/drm/vkms/vkms_drv.h  | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ net/unix/af_unix.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
-index fe17f49305a9..019d7bc90cdc 100644
---- a/drivers/gpu/drm/vkms/vkms_crtc.c
-+++ b/drivers/gpu/drm/vkms/vkms_crtc.c
-@@ -222,13 +222,13 @@ struct vkms_output *vkms_crtc_init(struct drm_device *dev, struct drm_plane *pri
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index e7a0582..501e693 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -163,7 +163,7 @@ static int unix_state_lock_cmp_fn(const struct lockdep_map *_a,
  
- 	drm_crtc_helper_add(crtc, &vkms_crtc_helper_funcs);
- 
--	ret = drm_mode_crtc_set_gamma_size(crtc, VKMS_LUT_SIZE);
-+	ret = drm_mode_crtc_set_gamma_size(crtc, VKMS_GAMMA_LUT_SIZE);
- 	if (ret) {
- 		DRM_ERROR("Failed to set gamma size\n");
- 		return ERR_PTR(ret);
- 	}
- 
--	drm_crtc_enable_color_mgmt(crtc, 0, false, VKMS_LUT_SIZE);
-+	drm_crtc_enable_color_mgmt(crtc, 0, false, VKMS_GAMMA_LUT_SIZE);
- 
- 	drm_crtc_attach_background_color_property(crtc);
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index 5a640b531d88..86a8a95694fd 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.c
-+++ b/drivers/gpu/drm/vkms/vkms_drv.c
-@@ -113,7 +113,7 @@ static int vkms_atomic_check(struct drm_device *dev, struct drm_atomic_commit *s
- 			continue;
- 
- 		if (new_crtc_state->gamma_lut->length / sizeof(struct drm_color_lut *)
--		    > VKMS_LUT_SIZE)
-+		    > VKMS_GAMMA_LUT_SIZE)
- 			return -EINVAL;
- 	}
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index dea6cad3f1b9..34b855431af3 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -25,7 +25,7 @@
- 
- #define NUM_OVERLAY_PLANES 8
- 
--#define VKMS_LUT_SIZE 256
-+#define VKMS_GAMMA_LUT_SIZE 256
- 
- /**
-  * struct vkms_frame_info - Structure to store the state of a frame
+ 	/* Should never happen.  Just to be symmetric. */
+ 	if (b->sk.sk_state == TCP_LISTEN) {
+-		switch (b->sk.sk_state) {
++		switch (a->sk.sk_state) {
+ 		case TCP_CLOSE:
+ 		case TCP_ESTABLISHED:
+ 			return 1;
 -- 
-2.56.0
+2.9.4
 
