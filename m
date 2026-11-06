@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969135;
-	b=F+hySS6HL6CzAq1uC2te97jymzz2cFCWEalgGaBu2cnztFmBUXGlo8/X+RA5dWLc7bDF
-	 h0NpRVrsRP3tPozLFqcpxUZeoXKWJDvet/J+TLXK3d6KDJZA5fWZGP4DMs2fIRJ94cQg9
-	 xs8fBMI5i8VvB0eVwOd9p50DFlZVF/p92whItCNxDr+vW9zbghfeSPVdfQctRMgcOVPHr
-	 5ZuS3CVFpCdeJVPSO8Aq6RfAJZyf/i6yD7kFCa0z8h8xi4mFeTlW/4ZdTnrBAcCVDBoNK
-	 4oyjd7xBovKwiZZqAy/1Upqx2BpJyw4Vc839hMNmbCbTW15OoSRbjx441lGjEkeb7GQ==
+	t=1793969137;
+	b=E8bjtFnTXGmy3dexYchl1DROLSD7mx6pevM3FOdPvmbERRnUuW5rvkpiFXxV/GvwMAm3
+	 Q+RekD/c0QopPNK/fNnIPNAeOYzKx45h/fSder6taGRlLqDrCjJu90XPeuZ/g49Zurqqt
+	 7NjeQWqFWuUMpzp63AzgyrHo5tVe7fOTW69dyvefJDSkqzcolxkP7C9b4iuQ7SfvW5vUT
+	 grZSoXyxFGVKuMFjH1xoQVHfJomQYZPuqa0crMkMSu1M1xMR4KwGJhypvZxcjB7/kUtlk
+	 8oBcVMYdnXOeagNYGgrJ9xkGemLdiZ02s/M/rB7EZI3Bcz3s1ZcLRaOh7vMar6o8RaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969135;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969137;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5zLPmEptRl/1P2JchgpAI/5mmku3jv3mbAJMP+1s0jA=;
-	b=JaDJz34Dq+dmf4yl2vwTzb8bvnIpHqojIHYAqHKNgFRolq+UUgkiKz9L9ZuJ0mK1GmYc
-	 36TUHM1SW8GYZwSG3O8LBQkOLzsoEy6FyUjZhgyiuJD+gRo+WqSvToOPb5KpmlINeeWFc
-	 esD4h4ZcH4YMPdOs5aSa0nNkx4NEjr6uSGRgQCNTSfu87s3/jFQbZU6oe5uh+t/kwqxs+
-	 fLnOdMz/eVLoJA3krc60JURlBUN/o8N1IwBVk2/pkxQLoEob6S8Z3sDJ4NFluXCfAGn7a
-	 P0/G1F3nE5Xjz4KLTg2/wTn69C41i3yy8lFp0lRltFec4vjxGzFql9jas5m9rVe1SLw==
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mus20XM8D+qKMgV/iA9VhjQY13W0kUKsfKS6jbgQWf4=;
+	b=kU13ToE7h12QUGTbq9941U26muh7M2G3ya7Mfrhb8LxmBfyOvwgHZ+4L0lpnorK4W5V/
+	 MknaSfYvRLmpaxLeNsH3/p2gcVmOPBqFjTHgS31ku9zGvSZ0/lX7RoystHOwT8mYGCgwW
+	 pwyv6yGAXpHGjE2TIr6Zu+8lHhawolg/af9vgz0gNAITxX8Mlme/MXKnMUKLO01hn+AMv
+	 6L+5/9DGL/3uMe4uz7EObg6erGCL/CZ1tsBtDJCXC6gQgFx8CMZmgvo1rlnKjkxrkXtu1
+	 Q32JynsUXpFq7UuZ5iLQcKRs/l8xIlE89DYOrXFzvq4+rvLtiLpHLTdaBZSCQ0NIraw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=BJd+3ffo;
-	arc=none smtp.remote-ip=109.224.244.123
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EtNfSauM;
+	arc=none smtp.remote-ip=109.224.244.116
+Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852D2606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:45:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 852D2606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A446606A339
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:45:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A446606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=BJd+3ffo
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EtNfSauM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793969132; x=1794228332;
-	bh=5zLPmEptRl/1P2JchgpAI/5mmku3jv3mbAJMP+1s0jA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=BJd+3ffovZGOVPuv6iu7obngajAyASsfmMZuQ7/Buwyu+TB9cRl1Jp3J4Eg0aHDSD
-	 3UObwnyxIgOtS96U1RTddIMUJ+kpfkKfyyy5kbIa3eWIgp+PEEU8j84eKyVj97o+ec
-	 yWLcWIF7DlO0mbKCchxGO7AM12tSNGrgORmC89UuNjDrdPpdaTXWVM8vL5jP34A/+5
-	 /PWNoljHHpen19MqoY669wUVb/2YrW8xRgykTCteJbN0KWm5EKkYXDg+fc6ReTLiBq
-	 A1PGJI6FOktDwSZ546wac3A+pDDeBBqoOg5PXy69BX9yk0tdRbxupMA++iMTKK6ibT
-	 v0xl7xiH69Rfg==
-Date: Fri, 06 Nov 2026 12:45:21 +0000
+	s=protonmail3; t=1793969134; x=1794228334;
+	bh=mus20XM8D+qKMgV/iA9VhjQY13W0kUKsfKS6jbgQWf4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=EtNfSauMKUgWngbyZAjNYkBm7QiR7cEXAm0m9e4dRpAYUXuB537+thCepnfIbkjAQ
+	 1Utlg728AGGPkVuvRNuV1bmK5Y0g+n+sfXvBMKKuHzuvBhoYAysO1nUT+PUeSTRgxJ
+	 qU6YiXNgbfFNLazinAAImD/hxltc6F5/wj5CNM9N+TOt4EYCfPeMnzRwAeJA+q/rfi
+	 9wbKLFnUkfjuG6Lxp3yQQ+WhoihODC1CambnGyOlwxbvfKPTPdmN4VBI3IBS/4qtoa
+	 +wJ0IhV5QzDRNCpGK3KPm2CBGF18DKN2QX5A6+yzUwbQRB+K6J77+ixPInEvOdSJaw
+	 8j3dCkxOf3VeQ==
+Date: Fri, 06 Nov 2026 12:45:29 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
 From: Sergey Lebedev <lsa.uz@pm.me>
 Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, George Neacsu <geocausa@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v10 0/3] Add support for the Sony IMX681 camera sensor
-Message-ID: <20261106124505.71429-1-lsa.uz@pm.me>
+Subject: [PATCH v10 1/3] dt-bindings: media: Add Sony IMX681
+Message-ID: <20261106124505.71429-2-lsa.uz@pm.me>
+In-Reply-To: <20261106124505.71429-1-lsa.uz@pm.me>
+References: <20261106124505.71429-1-lsa.uz@pm.me>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 477b33abc04c393b491e300af5e84740e5f8d049
+X-Pm-Message-ID: 871190daa2fc31ce0cacccd47fed5741b595f31c
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,84 +67,137 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11
-for Business (Intel Lunar Lake, IPU7), ACPI device SONY0681. Without a
-driver the camera does not appear at all.
+The Sony IMX681 is a CMOS image sensor used as the user-facing camera on
+several Microsoft Surface devices. It operates from analog 2.8 V, digital
+1.05 V and interface 1.8 V supplies, is programmable over I2C, and outputs
+10-bit Bayer data over a two-lane MIPI CSI-2 D-PHY interface.
 
-  1/3  dt-bindings: media: Add Sony IMX681        (mine)
-  2/3  media: i2c: Add Sony IMX681 sensor driver  (Andre's, co-developed)
-  3/3  media: ipu-bridge: Add Sony IMX681         (mine)
-
-The driver is Andre's, reverse-engineered from I2C traces taken under
-Windows.
-
-Changes in v10
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-- 2/3: hold a runtime PM reference across probe. Setting the autosuspend
-  delay with the usage count at 0 suspended the sensor in the middle of
-  probe, and a later failure then powered it off a second time. Found by
-  Sashiko on v9 2/3 and 3/3.
-- All three: the Assisted-by tags are dropped; see the end of this letter.
-
-1/3 and 3/3 are otherwise unchanged. The review and test tags are kept,
-German's Tested-by on 2/3 too: the change is limited to probe's runtime
-PM and its error path, both tested below.
-
-While this sensor streams, IPU7's CSI-2 receiver logs "Received packet is
-too long" once per frame, and the frames are complete. Andre sees the same
-with his downstream driver, so it does not come from this series.
-
-Tested with v10 on the Surface Pro 11 for Business, on v7.4-rc1 with [1],
-[2] and [3] applied, KASAN and lockdep on:
-- after probe the sensor stays active and suspends about 1 s later;
-  v9 was already suspended when probe returned;
-- probe forced to fail after the runtime PM setup and at registration,
-  with a test-only parameter: no clock or regulator warning, where v9
-  gives three per failure (clock already disabled and unprepared,
-  unbalanced regulator disable);
-- v4l2-compliance 46 of 46, no warnings;
-- 3844x2640 at 30.01 fps;
-- the four flip states give the four Bayer orders, and EBUSY while
-  streaming;
-- runtime suspend after streaming, and capture after unbind and bind and
-  after five module reloads;
-- no KASAN or lockdep report;
-- W=3D1 and sparse clean on x86_64, on i386 and without CONFIG_PM;
-  dt_binding_check clean.
-
-Tool use, per Documentation/process/generated-content.rst (Assisted-by
-tags in commits were dropped in 7.4-rc1):
-
-* My contributions to this series were prepared with Claude Code
-  (claude-opus-5-5); work by others in it is their own.
-* This replaces any Assisted-by tags in earlier versions.
-
-[1] https://lore.kernel.org/all/20261103103235.94397-1-lsa.uz@pm.me/
-[2] https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
-[3] https://lore.kernel.org/all/20261026082549.662885-2-dmanresa@gmail.com/
-v9: https://lore.kernel.org/all/20261106041116.78937-1-lsa.uz@pm.me/
-
-Andre Gilerson (1):
-  media: i2c: Add Sony IMX681 sensor driver
-
-Sergey Lebedev (2):
-  dt-bindings: media: Add Sony IMX681
-  media: ipu-bridge: Add Sony IMX681
-
- .../bindings/media/i2c/sony,imx681.yaml       |  108 ++
- MAINTAINERS                                   |    8 +
- drivers/media/i2c/Kconfig                     |   10 +
- drivers/media/i2c/Makefile                    |    1 +
- drivers/media/i2c/imx681.c                    | 1034 +++++++++++++++++
- drivers/media/pci/intel/ipu-bridge.c          |    2 +
- 6 files changed, 1163 insertions(+)
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Andre Gilerson <andre.gilerson@gmail.com>
+---
+ .../bindings/media/i2c/sony,imx681.yaml       | 108 ++++++++++++++++++
+ 1 file changed, 108 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
 .yaml
- create mode 100644 drivers/media/i2c/imx681.c
 
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml b=
+/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+new file mode 100644
+index 00000000000..24c55760547
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+@@ -0,0 +1,108 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx681.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sony IMX681 CMOS Image Sensor
++
++maintainers:
++  - Andre Gilerson <andre.gilerson@gmail.com>
++  - Sergey Lebedev <lsa.uz@pm.me>
++
++description:
++  The Sony IMX681 is a CMOS active pixel image sensor with a square pixel
++  array, used as the user-facing camera on several Microsoft Surface devic=
+es.
++  It operates from analog 2.8 V, digital 1.05 V and interface 1.8 V suppli=
+es,
++  is programmable over I2C, and outputs 10-bit Bayer data over a two-lane
++  MIPI CSI-2 D-PHY interface.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: sony,imx681
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Input clock (19.2 MHz)
++    maxItems: 1
++
++  avdd-supply:
++    description: Analog power supply (2.8 V)
++
++  dvdd-supply:
++    description: Digital power supply (1.05 V)
++
++  dovdd-supply:
++    description: Interface power supply (1.8 V)
++
++  reset-gpios:
++    description: Sensor reset (XCLR) GPIO, active low
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - avdd-supply
++  - dvdd-supply
++  - dovdd-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
++
++        camera-sensor@10 {
++            compatible =3D "sony,imx681";
++            reg =3D <0x10>;
++            clocks =3D <&clock_cam>;
++            avdd-supply =3D <&vcc2v8_cam>;
++            dvdd-supply =3D <&vcc1v05_cam>;
++            dovdd-supply =3D <&vcc1v8_cam>;
++            reset-gpios =3D <&gpio 4 GPIO_ACTIVE_LOW>;
++            orientation =3D <0>;
++            rotation =3D <0>;
++
++            port {
++                imx681_ep: endpoint {
++                    data-lanes =3D <1 2>;
++                    link-frequencies =3D /bits/ 64 <969600000>;
++                    remote-endpoint =3D <&csi_in>;
++                };
++            };
++        };
++    };
++...
 --=20
 2.54.0
 
