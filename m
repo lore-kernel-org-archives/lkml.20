@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979176;
-	b=iUWo9aWP/9N+N0VM/gNLr/k8VPU+VXyY6jBaF11OKs23CdFk/CVtWMkNxfWUfayr4Eec
-	 HzAlQEssVj9EpTZdLvV31W0Drdxo4K9Uc65ZFvHqjIbx61m7dFjkkURt8LeczfiGJtPo3
-	 usUS/e//Qerhdxi6ttsmLy5gYCBDMRlGMh27geD0KH+zwV+cE0DsNS8bs5NWNb+zeZhWw
-	 Ln/Wmk1XD7KxuiC0IuvKB6+IwbK+LgnjAHwiSTL+NQib39z1D2jKZAJfRbnW/1mszmJ4z
-	 JkPZ73BzWz0eqJhKOHYTpSi7RQ4tEvqoDwdd9GgtoGvbXPPNftjlIVpXrhdBNA3Yv1A==
+	t=1793979221;
+	b=Ur7qwAgbIpTL6EBXggPy/JU1x3Dj1juPEY26E740Y8yMD/+eAY00WnuqezXEChRVPfLo
+	 Ex3L3AUeusYjZRVxqnFx+EC9tekgYtn1iEVaOUFtT0ey8NbAu4yjsCvCJfJcA4kxdFqre
+	 5nT9PsBDxytuixSS3MfvCDKKF0pR25uT7wiFb4RB6DGCBw+BCCFHWclFO3Ou3GKeqwItm
+	 OYKWC25BOvx5+dG4hbrL8WMR+5XdJ8NYtg59FzxzI3efBWWOB6IpORJmhc4NqS/m5jUpX
+	 10cb3Le6LXMhCGmHYzW1yp6/Ium91VJlksqoHrXvlnaDtd0Ykll/ipAvr/zCufmFPag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979176;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=eLtekCGTZ1g1kqoapv9CXM8EnGYDkmS19HQmDBxtEYo=;
-	b=BJJJzYk7CL8nUSnLqqfJoa91RZB1k7XwqdXtbQoDoXOcfRkt/jwmCH/7LBqQzbcLHx6+
-	 VFvx/5158dxOuo382tc/DGW37FuTw0nZqFR3uyJnw/NHyT+6svQhftwxrHnX8u59SQix+
-	 4CprWZhTM3MuiyDsA42HR3BM6wWEZI0jOxDfMTZQt426TElX4eEn42Q4DuiIweGyQ24ao
-	 QktJ7ZNhoRctW0CS+PuQ335RYTjUBvyW8MPbAVZy0uQh9mwkOZy2yuTtaIupxwFg1c3vM
-	 1FYJw3pyd3114OtcDx/pe760nSMVmw7x/mCccVS34THNUplyrYtzconivgI/Wgpedjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979221;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=N+c3mCCtwwdJ0beV8V8fiSYaFX8fBr6RjIsQyUPAIZs=;
+	b=mW9XqMzMGtWBPBiugalT6LCeXQ4h2qAwKgCGmRakOd3S5ADjgvL5rjy+6NflqlFy+qRK
+	 UlS6dsN48pRvR4IIAtgy3v94cLRLsN+x4ViKWbx2JhEVbsynJQBMM7Ani8yHQezpbs8zW
+	 XQ2de5kjqpRy08uik23eBaZtYAXac+XO7LU3AtGMSzLGisR6v9JdHR3DDqq/kXhQ0N1TI
+	 I0LxUoX8P9sInv6gNfCvOpwOTq074QkuJaK174OyLpCeOujbRdVJ3ZIB/mFt/Av5c3bEp
+	 cdCAtKgFFl0CtzElpn1Bdby726RxaqJBvZEsn+8PR6PELGdm0hdN/4YKwSmEQsNuErA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNtKTuox;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEB8606A32C;
-	Fri,  6 Nov 2026 15:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNtKTuox
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B951F0089F;
-	Fri,  6 Nov 2026 15:32:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793979176;
-	bh=eLtekCGTZ1g1kqoapv9CXM8EnGYDkmS19HQmDBxtEYo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hNtKTuoxF5Xot6G9Kno0HmZ04rR42QoPUo6Se28hYZkya+p0GKuoA7XSeAAhJEBdr
-	 qBYjqJZK3NzyzP9G7L4Yt/L7ZQQE+ROMQCXC8Zt9qOWuqYZmg1GDENWxUjt1skNdWn
-	 K8JdF73p4Haih1iXXQTJsr+TCOqliVktPWIOOJ23UfLO/PC5ZSP3hDcXgbn5j7L4uF
-	 I2to/6bgKSKfsGMI1jdfTicTzJcsYJP59VF595JQYHchB7X5fzwsmWMyD7oyZHitxw
-	 ZUZgXCvYX8TPBQGsZ6Ug9dNZ1AWHehnFHsXTsFphp65ZwuTz2itIgkXoB7elr8n8HP
-	 misg8d7nX4oSQ==
-Date: Fri, 6 Nov 2026 16:32:50 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, 
-	Amir Goldstein <amir73il@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@infradead.org>, 
-	Chris Mason <mason@kernel.org>, Chengguang Xu <cgxu519@mykernel.net>, 
-	Chengguang Xu <charliecgxu@tencent.com>, linux-unionfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/8] ovl: only sync what was written through the
- overlay
-Message-ID: <20261106-nebel-fragment-normierung-84511a5676d9@brauner>
-References: <20261104-b4-ovl-containerized-sync-v3-0-8daa20144f53@toxicpanda.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B459606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:33:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B459606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5384e381fbbso558062b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:33:40 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793979219; x=1794584019;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N+c3mCCtwwdJ0beV8V8fiSYaFX8fBr6RjIsQyUPAIZs=;
+        b=a2M0jn/sN7JgAGYAGaYw91A33RP0H/BcsgnI56K0GowQd1PofRtM8d6AdJVMzpcxn2
+         J65tLVlhMHqlEeRyYRPnHOghY2geLjQ6DEchI6Jw7hz5A1P7D/110LzZJtEgx/DWVGNx
+         fcrQjTtCvOEaUSCW03s8UXippF9jRhL6H+RaE2swM0vrAWtwxs28h8ywriJpyNnKuPVR
+         2Oe6ybWQWdPDWvGs+f0AND8TpFShimq0apnzUGJjNCxPu5yAhedvzn0CkFYs0Qbyduhq
+         5LNqFVT7KM1qslRXX0Vf2igXJPxLqhrrdA1YYcnHhza4PxylMWXVFWHrFmtPxfy04Jmr
+         cw/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzfQRezlafKPzIrJz9uJ5vLm2AYYdttvLuT4eWZVqQq/FaW4kW9XeT4isk4NgRRoOR6pDdt7iZ1VAxZRqI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z90sUTYVfXNtvYRFqCzbK+BaEK93qE7MmhO+xOZ4DLfhvLSSVma
+	AI7meorFkn6kzeJXFPp8w2ZJ+qngIQVLst2u1b1bo84D7trb/lIjSAVo7DtOXjtJYeOKFve727Z
+	o0tJd3NSJ6TCKfZM6+j1OzqGtBSiKnC24iaXpPK1kvkKUYTmIjBpgK9WQA7Q=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,82 +58,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104-b4-ovl-containerized-sync-v3-0-8daa20144f53@toxicpanda.com>
+X-Received: by 2002:a05:6808:6ec8:b0:4fb:8469:fc4f with SMTP id
+ 5614622812f47-567e106cf13mr1974564b6e.29.1793979219502; Fri, 06 Nov 2026
+ 07:33:39 -0800 (PST)
+Date: Fri, 06 Nov 2026 07:33:39 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aedf353.8be4ead1.3b45e1.017d.GAE@google.com>
+Subject: [syzbot] [dm?] divide error in cache_ctr
+From: syzbot <syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com>
+To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 04, 2026 at 08:44:57PM +0000, Josef Bacik wrote:
-> sync_filesystem() writes every inode on a dirty list, calls ->sync_fs()
-> and writes the block device. Only the first step is expensive, because
-> of other people's data. With fsync=relaxed overlayfs writes the upper
-> inodes whose overlay inode was marked dirty and does the other two steps
-> as they are.
+Hello,
 
-I think that makes sense.
+syzbot found the following issue on:
 
-The thing that's a bit ugly is that overlayfs open-codes the tail of
-sync_filesystems(): ovl_sync_fs() calling upper_sb->s_op->sync_fs() and
-sync_blockdev() itself is one more place that needs to know what
-sync_filesystem() does.
+HEAD commit:    ddfe51b0a0f5 Add linux-next specific files for 20261105
+git tree:       linux-next
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=15c38e55580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3dffa811bfeed6b4
+dashboard link: https://syzkaller.appspot.com/bug?extid=3e16980543e238b95bd1
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=172a6bdd580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10aa6bdd580000
 
-So we should probably add a helper to fs/sync.c for the ->sync_fs() and
-block device part and use that.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/181043a4bd52/disk-ddfe51b0.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/a69d8b670c38/vmlinux-ddfe51b0.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/906d515c0893/bzImage-ddfe51b0.xz
 
-> fsync=auto, the default, picks relaxed if the upper file system supports
-> RENAME_WHITEOUT.
+AI-generated root cause summary:
+In drivers/md/dm-cache-target.c, calculate_discard_block_size() repeatedly
+doubles discard_block_size in a loop until the origin device has no more than
+MAX_DISCARD_BLOCKS (16384) discard blocks. When creating a cache target with a
+sufficiently large origin length (ti->len >= 2^45 sectors), discard_block_size
+doubles until it reaches 2^32 (1ULL << 32). Because too_many_discard_blocks()
+uses sector_div(), which expects a 32-bit divisor (uint32_t), passing 2^32
+causes the divisor to truncate to zero. This triggers an unhandled kernel divide
+error (#DE), crashing the system with an Oops: divide error.
 
-Eheeeem, isn't that kind of a bad proxy for this? What ->sync_fs() +
-block device do is a property of the upper filesystems and how is that
-related to RENAME_WHITEOUT? There's a few counter examples you even
-give:
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3e16980543e238b95bd1
 
->  - f2fs, ubifs, fuse and tmpfs get relaxed as well and I didn't test
->    them. ubifs_sync_fs() doesn't write dirty inodes, so a chmod of the
->    work directory at mount time waits for the flusher there.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
 
-So on ubifs a syncfs() in relaxed mode returns with metadata still in
-memory. Meh. I know the flag got droppped but that was an overlayfs
-speicfic thing. A generic property of ->sync_fs() is a different thing?
+Oops: divide error: 0000 [#1] SMP KASAN PTI
+CPU: 1 UID: 0 PID: 5654 Comm: syz-executor515 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+RIP: 0010:too_many_discard_blocks drivers/md/dm-cache-target.c:2386 [inline]
+RIP: 0010:calculate_discard_block_size drivers/md/dm-cache-target.c:2397 [inline]
+RIP: 0010:cache_create drivers/md/dm-cache-target.c:2525 [inline]
+RIP: 0010:cache_ctr+0x1a86/0x2bf0 drivers/md/dm-cache-target.c:2649
+Code: 4c 8b 30 31 ff 4c 89 f6 e8 87 30 f5 f8 4d 85 f6 0f 84 81 00 00 00 4c 89 f3 48 c1 eb 20 45 89 ec 48 85 db 74 0a 4c 89 f0 31 d2 <49> f7 f4 eb 08 44 89 f0 31 d2 41 f7 f4 48 3d 00 40 00 00 76 14 4d
+RSP: 0018:ffffc900038bf860 EFLAGS: 00010246
+RAX: 003fffffffffffff RBX: 00000000003fffff RCX: ffff88807f1c3e80
+RDX: 0000000000000000 RSI: 003fffffffffffff RDI: 0000000000000000
+RBP: ffffc900038bfa38 R08: ffffc90000bbe007 R09: 0000000000000000
+R10: ffffc90000bbe000 R11: fffff52000177c01 R12: 0000000000000000
+R13: 0000000100000000 R14: 003fffffffffffff R15: 1ffff1100fec2462
+FS:  000055557cd07400(0000) GS:ffff888123259000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000004697f0 CR3: 0000000078996000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x00007fdd52f9b8c9
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffdc56ed528 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 6d61722f7665642f RCX: 00007fdd52f9b8c9
+RDX: 0000200000000000 RSI: 00000000c138fd09 RDI: 0000000000000003
+RBP: 0000000000000001 R08: 0000000000000013 R09: 0000000000000006
+R10: 0000000000000001 R11: 0000000000000246 R12: 00007ffdc56ed698
+R13: 431bde82d7b634db R14: 00007fdd5302ec40 R15: 0000000000000002
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:too_many_discard_blocks drivers/md/dm-cache-target.c:2386 [inline]
+RIP: 0010:calculate_discard_block_size drivers/md/dm-cache-target.c:2397 [inline]
+RIP: 0010:cache_create drivers/md/dm-cache-target.c:2525 [inline]
+RIP: 0010:cache_ctr+0x1a86/0x2bf0 drivers/md/dm-cache-target.c:2649
+Code: 4c 8b 30 31 ff 4c 89 f6 e8 87 30 f5 f8 4d 85 f6 0f 84 81 00 00 00 4c 89 f3 48 c1 eb 20 45 89 ec 48 85 db 74 0a 4c 89 f0 31 d2 <49> f7 f4 eb 08 44 89 f0 31 d2 41 f7 f4 48 3d 00 40 00 00 76 14 4d
+RSP: 0018:ffffc900038bf860 EFLAGS: 00010246
+RAX: 003fffffffffffff RBX: 00000000003fffff RCX: ffff88807f1c3e80
+RDX: 0000000000000000 RSI: 003fffffffffffff RDI: 0000000000000000
+RBP: ffffc900038bfa38 R08: ffffc90000bbe007 R09: 0000000000000000
+R10: ffffc90000bbe000 R11: fffff52000177c01 R12: 0000000000000000
+R13: 0000000100000000 R14: 003fffffffffffff R15: 1ffff1100fec2462
+FS:  000055557cd07400(0000) GS:ffff888123259000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000004697f0 CR3: 0000000078996000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess):
+   0:	4c 8b 30             	mov    (%rax),%r14
+   3:	31 ff                	xor    %edi,%edi
+   5:	4c 89 f6             	mov    %r14,%rsi
+   8:	e8 87 30 f5 f8       	call   0xf8f53094
+   d:	4d 85 f6             	test   %r14,%r14
+  10:	0f 84 81 00 00 00    	je     0x97
+  16:	4c 89 f3             	mov    %r14,%rbx
+  19:	48 c1 eb 20          	shr    $0x20,%rbx
+  1d:	45 89 ec             	mov    %r13d,%r12d
+  20:	48 85 db             	test   %rbx,%rbx
+  23:	74 0a                	je     0x2f
+  25:	4c 89 f0             	mov    %r14,%rax
+  28:	31 d2                	xor    %edx,%edx
+* 2a:	49 f7 f4             	div    %r12 <-- trapping instruction
+  2d:	eb 08                	jmp    0x37
+  2f:	44 89 f0             	mov    %r14d,%eax
+  32:	31 d2                	xor    %edx,%edx
+  34:	41 f7 f4             	div    %r12d
+  37:	48 3d 00 40 00 00    	cmp    $0x4000,%rax
+  3d:	76 14                	jbe    0x53
+  3f:	4d                   	rex.WRB
 
-> Now an overlay inode is marked dirty when the upper inode is changed,
-> mostly from ovl_copyattr() as Amir and Miklos suggested.
 
-Afaict, creation isn't covered. ovl_instantiate() ends up in
-ovl_inode_init() which now uses __ovl_copyattr(). So a new file,
-directory, symlink or hardlink only dirties the parent but not the new
-overlay inode.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Fine for metadata, but a long symlink isn't metadata. We should mark the
-new inode dirty where it's instantiated.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-> lazytime on the upper file system needs its own handling. The flusher
-> leaves the timestamps in memory for up to 12 hours, so the overlay inode
-> can't be clean, but it can't stay dirty and pinned for that long either.
-> Patch 9 gives it I_DIRTY_TIME like the upper inode has, and forwards
-> ->sync_lazytime() to the upper inode.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Parking the overlay inode with I_DIRTY_TIME is fine?
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-So from what I could research:
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-* ovl_park_inode() calls mark_inode_dirty_sync(). Jan's deferred inode
-  reclaim (cf. [1]) removes exactly that from iput() because it does IO
-  from dentry reclaim.
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-  He replaces it with queue_dirtytime_writeback(). That moves the inode
-  to the head of b_dirty_time and wakes the flusher.
-
-So it would be nice if we could base your thing on top of Jan's series
-(I hope he'll send v2 soon!) and call queue_dirtytime_writeback() thing.
-
-> An overlay inode that loses its last reference while it is dirty is
-> kept until it has been written and then sits on the LRU, like with
-> any other file system.
-
-Hm, Jan's series fixes that as well afaict. :)
-
-There's some Sashiko thing btw you should look into?
-
-[1]: https://lore.kernel.org/r/20261009133253.20102-1-jack@suse.cz
-
--- 
+If you want to undo deduplication, reply with:
+#syz undup
