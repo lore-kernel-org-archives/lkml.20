@@ -1,107 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964167;
-	b=bFL2gi49rVcva9lQo7/U00GG9pxTJ/bP5/Y8JTalrem491UMXwRfWEyYiQitaTlfFbn5
-	 0A4W17PTQMbWBWVPXuQb7SBUlf0IgnSY111qcOBmqG9Dj94JRJgxepS1LxH9++rf5XhGP
-	 WjbuH9g4CMEToVQiGY3HnKN0B0mJGEujfUjvAIT5/1aHxVlTLUQrGqa1BC/mhDaaAHDt7
-	 MOiS9Np4dy0hEmHyFXNix70ZaB3NEb3HUJQEnvhL/FqDuKzJIlsoihcEJKwD59PvsLJh4
-	 fMuQY0xMJNclPBa0j8k5KwmiTWifr1zP5mHeLZVzfSUWSqgIWpWad/EX0MYoSfeSnyg==
+	t=1793964179;
+	b=4JKBaSS+DsS8j3+XbNi1sdHy9c1P8KVejxJYcQXpDBUK6O5Q51kZIKG9QqwrFql1embE
+	 UPojybP0Gf8cOCwk9VYiiQPxDbrTC6UKZ6aJ3/LfQgvtFxB6qwK8lx33iiyVQl/Df5jLj
+	 ZxxrUT8slnjE8pq3GhRRUdHdwxGR/fpwTBpBcENYQ2hgaoAZeqfmJWJCR5oi6ow1YfLrb
+	 Cc/9BBqzUiyfL2WrGr0kL/YqZwsODSP7KVQ4e3IMTUalYiS8QNqr69pNAE+9QazkTo1qc
+	 JOgRSsmc5sRNTj3RrnHXwTZEqPCI9ZKFc8eLQkBzadIY2/HUDE68tce+4ZCD9trzXIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964167;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ieGADuHKQdAMTXfJjcI0pPXfovk5qK/wiv1qHG7Gn7U=;
-	b=iVA3vWNtnpkdIXNNlXi4T9n5oqChL3nN5EomkdrewaLLRKT97q0+uqnt/C+NF146YBAA
-	 wAwQNBrgMlzBSfBQlE2v9TYobfqPGu3AvWfxx5ajQblUqh4lOQ3C0YdVsIJCGJbS4oiJQ
-	 w8ewZfkEz+NU1kluKp3DI2OWG+vIeddP8mgUhxB0R8g8K64RlwvCjG41ThNJpTbLnhw/y
-	 Dw98qaZ9rkR4nLfMFifG8oQIGgq89Q4COaka4sRUiTdVoUGWgi/gHaob0E9CP5Ps9aRuL
-	 LqMm4C21L1hccwA6g3qnHRN9Q2cJhRRGg8Zv2P65pll7/3FP2VYRIxpqCKsGx6ye6zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964179;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:References:Content-Language:From:Cc:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=XSkCRP/iCAmBq/Ps3sn+ycEaOS8RbaoK3GlU0yrOuoo=;
+	b=XWdDzECTnH5HBFcucBFztlABKFL7Nh7UrCFcbGjUXnFjE0i2TmyeyCF+KbqzWSsJon7r
+	 V57FDlSwrAkIRAJ+1EjTDlGEoQ5JcQCP/PztZRDtWPKw696jVsCDCMtOh5PqxDUfTwGDl
+	 XM5t0auG/40OTrWnSgBfBWeR1WNbAAvGfw4t8+lU9AQUxsrbzFGgwi8e/zQaDKguUYEnL
+	 FOlABOw+G2/hGnO+Urztt08gF0UtvJHQ7Ob2p2nk7yrEBDEBVK4mvArcACBDdA1Za0uue
+	 7gvnrfRS9bCSdEQFsAAGo4uqB4Uubl1n1XFUiQ8IPBuuZAt1pa8ym1CsfpgvH4fl/ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=A56bH+AK;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="Pu/0y5rW";
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E112A606D81B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:22:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E112A606D81B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821C2606A326;
+	Fri,  6 Nov 2026 11:22:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 821C2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=A56bH+AK
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-491971ac844so449929f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:22:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793964165; x=1794568965; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ieGADuHKQdAMTXfJjcI0pPXfovk5qK/wiv1qHG7Gn7U=;
-        b=A56bH+AKoKn3WxGkU/3FShzWyjMsOWNXmrDjIMbboHHrTJksHZGtdhCYMn9Lv90sC5
-         rkYXo1y7hX4deXW2sWOoz1Ac2mbU5okpF8OWrr7bm1GrRw8jBtYFo6a/zBui61xax3pb
-         MxM+Hgcmv4uwI9ilLgwv08sZ5aBb9rG6kDxrv/no5lF61erZujFajEcHhgPTadNbLwon
-         NXstFFc5hlWtNweNmvNby/AFeMq0ftId2PcCN7wb8fvPlTXFADo0HqfVVJ7GGN30q57W
-         /D2t9o9OspR62OBxhuhrHVRGv8sJfx7t8PVb/a5eZappR2Y4uMYS7v7j+PqntEt2VIq6
-         4Paw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964165; x=1794568965;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ieGADuHKQdAMTXfJjcI0pPXfovk5qK/wiv1qHG7Gn7U=;
-        b=1zYFs4uth5cWdLefd3Ju3KI7L7B+NOx18UAs3tkxjvSupbezC3ZZBK3jC28nxLuM0s
-         IP5MdA9xH8kuO5CMgOGY++vCPud2u4W15cpyjINp526CY4pT0GOPujzlPu2jDsUtO80p
-         KdyNNvGq1yaIpOmAQTlclzHDIFE7qgTGlPhKS7bzk1k49qaeCDNvNtOpt2Np+zVQaiLr
-         9yM8xSW1SoX80tVr2MVeq3fDcNZ9Su5rKUMUsRVwj9QgxxAvCYYu/UBY5yAeU7NsEtrr
-         O8L53ueBcYzqfmYSseNj4aO9kqJ/4M153PIX8TQqM4QpvGOwpE0Zq5CKqinc76svLAI2
-         7xpw==
-X-Forwarded-Encrypted: i=1; AL+hErGqE24/UwAN2RmRfYuyIx1AyHZIHLL7JJu4h2P2P40NYs/UI/MOY0RX2DvyGfrIZFP3zzFdl5Bj+EYOhUU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FbCQAcxgPZ2UAo9auyt7tT3D4/gzhdUJvn2dcuLad0wnGn3v/
-	dKKk2td0WCU5AFFAnvO43iQyuZjtEZev7cjgZzo4+u1GF/3w4nKijZ0xRTtQJpvUivI=
-X-Gm-Gg: AYBFou3cv4B5p8ZEqp4I29fqSHqSAb7Ey0zQbKallAXrq3BIFt9XrE3eS3J2Lk4QZrS
-	IIJRNaB2bE5Jhe/ioSDbaslKxrHOPErwzZE4U14jPCx2O6UCoqFIpGvklmOzN+K+KmtGSPbsWRt
-	/PydANjREdhua2RQwWNcKbi5UAsgMKyplno/AP9WNAVaD7HGrWmxKtY69FoK41D270xes0pRVRB
-	0LmbrboUWUvsEgwovtbJ5nG2D7JFV3cw4GeN8kBeqIyBZkyTL8j4gaoKYrOaehZLYaoI2NLmq6N
-	wuh0K1fx91PEzY2Gg+4ClzWhOMFC7GE44xpGUVbDBfvkBnPXQmw4msGO1c2MozqZxmydRc8K/LI
-	YX4cpb4OjEhe5GsQR13llZDjBLjlKlG+FTK80Go0G6Z/G7eyBoguXT9I4OE4MaUkkyGVzsDyTal
-	fcACh6RMCc27zZgJsAraMS/WQFNnWvDy43pw1os+94Jju2VkPET0bHGcRJIlfruq03ADiImrVSF
-	9+eq4kOKousze3nxQFASK52q8W6fHuJQBdtuJb7oc6WfxWaCnMDv3oDJUT+VIW37TOFl9rw+gsn
-	39MzXG/oJa49yvND6ifyfNxGBSLhyIclS46p1VVNyUgVg+rBjFtI+06wVNwL6o5tRlNILSFW690
-	uj1ddBT/p
-X-Received: by 2002:a05:6000:1861:b0:493:803e:800f with SMTP id ffacd0b85a97d-493803e802cmr669893f8f.29.1793964165187;
-        Fri, 06 Nov 2026 03:22:45 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5c25:f8d1:d9d7:54c1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-493070bde9bsm2890244f8f.36.2026.11.06.03.22.44
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 03:22:44 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD controller
-Date: Fri,  6 Nov 2026 12:21:28 +0100
-Message-ID: <20261106112128.14213-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <09A3F895-9007-414E-8EE0-17BD18E63F53@goldelico.com>
-References: <20261025191640.13592-3-olivier@mgcrea.io> <09A3F895-9007-414E-8EE0-17BD18E63F53@goldelico.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Pu/0y5rW
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6AjbgX980374;
+	Fri, 6 Nov 2026 11:21:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=XSkCRP
+	/iCAmBq/Ps3sn+ycEaOS8RbaoK3GlU0yrOuoo=; b=Pu/0y5rWc2ZrdPZqiI2pP/
+	Te1Gta1kngdRT+2amzGzZ3MydLtq4CkBKZ3uTRCtTMnXvT6bfDYrxyaANsvsyh/R
+	33MRcI1343pdxyf0lDnJTeppbWzknzuWe6v+lZE85A8jlrqurH0KuEH0AzoqF4Kz
+	O3bTMiT3XWDVeKsIjcefVIoUGfSMcyODzR86L8Eh0ByIm4KME+zQuOUwkBu0ViRV
+	u9n6gZZVa+vhgJ6V8lIqJYVOcAQiM2XE//xsnf5N684CZqNamr6X8XLVKLo9+dbe
+	t+GxoilQWHzPfmqJDHAHFO04CE9iRQkfkQbp29ay4xXoMwquAyO65vzF9cUiCnGQ
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3rbuufn-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 11:21:20 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6Ao7943260750;
+	Fri, 6 Nov 2026 11:21:19 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqv1v6tfh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 11:21:19 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6BLIss4981286
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 6 Nov 2026 11:21:18 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2EA5F5805D;
+	Fri,  6 Nov 2026 11:21:18 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6CA0D58058;
+	Fri,  6 Nov 2026 11:21:14 +0000 (GMT)
+Received: from [9.111.151.197] (unknown [9.111.151.197])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri,  6 Nov 2026 11:21:14 +0000 (GMT)
+Message-ID: <0a3c64d1-2b8f-4e0b-87ca-5397d1aaa3ee@linux.ibm.com>
+Date: Fri, 6 Nov 2026 12:21:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,43 +85,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] crash: keep crashkernel CMA pages reserved if activation
+ fails
+To: Usama Arif <usama.arif@linux.dev>,
+        Andrew Morton <akpm@linux-foundation.org>, baoquan.he@linux.dev,
+        rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
+        ruirui.yang@linux.dev, jbohac@suse.cz, david@kernel.org,
+        hbathini@linux.ibm.com, leitao@debian.org, kexec@lists.infradead.org,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org, kas@kernel.org,
+        hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+        kernel-team@meta.com
+References: <20261104145600.3708886-1-usama.arif@linux.dev>
+Content-Language: en-US
+From: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>, linux-s390@vger.kernel.org,
+        Bradley Morgan <brads@mainlining.org>
+In-Reply-To: <20261104145600.3708886-1-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: zxaghCs0BOzGJLIG7jFmKscVIT5NRM5b
+X-Proofpoint-GUID: zxaghCs0BOzGJLIG7jFmKscVIT5NRM5b
+X-Authority-Analysis: v=2.4 cv=MqLHeGae c=1 sm=1 tr=0 ts=6aedb830 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=v7f7EczwOuDDiPIii9gA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA0NCBTYWx0ZWRfX7zq9oNWaXh0U
+ FC1wxkRX4UHerDFfCDSe/7AR824SCkh7FVX0m2cCeucIHT4Qq+DAREGwDLQSjfLCCK+nKG0/Z1I
+ k4IO/PNS/iN+mDiWAQFfOU4tOWY5As4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA0NCBTYWx0ZWRfX3tB4QAo85Yle
+ twUqL/+8aN7LMEcEsB0CAs9RLVC9vrrZteEwPlo0j3uRnR1W7YoMALXTqFVp8Q8esXu727tdaNN
+ DzdYK3osL5l2FKNQAldUR0T/tbOAmH1Ye7UE3wTJuE0EOaRNi70qgaUXGol9TOXkv2GzsZtVF8Y
+ HzOla4OtHShSHyenU7fM371K9csCj8c/HHABc9VweEns5PXP7bX7EL4kWFCss4zMnR2/zKaKLCe
+ teVC0uDbMbjV2EJNV5CkaHjB/+l0F1RJo7ul4xS36lSlXia5Ma/cCGqXFB6bNEwM41dH2yFJZgu
+ CztOkLSkX+4K90IxdqV2zMzKwQLt6WM6P78Rn3Nh7gGTu/4e1UxH+zNtWduHbZJbrf1VG2i/nBd
+ tbST2q9naYNAlGRwdh3794QaOWbdN9MwRT+TrDPbHB+1Y0HEQNOYk3xyea7O1qObAt4ldoqYP+b
+ IYwsVB69XIeNuxIWUOw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 adultscore=0 clxscore=1011
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060044
 
-Hi Nikolaus,
 
-On Thu, Nov 05, 2026 at 11:27:12AM +0100, H. Nikolaus Schaller wrote:
-> The manual for the x1600 is a bit ambiguous, but the x2000 and x2600
-> documentation identifies this block as the "DPU (Display Processing Unit)
-> Display Controller" (located at base address 0x13050000 on all three SoC).
-[...]
-> Please update the compatible string to "ingenic,x1600-dpu" (with "ingenic,dpu"
-> as the fallback) and rename the file to ingenic-dpu.c to reflect that this is
-> a scalable DPU driver not limited to "LCD".
 
-Agreed on the name, v3 uses ingenic,x1600-dpu. The X1600 manual says
-DPU too in its register and clock names, and when I checked the driver
-against the X2000 manual it came out as the X2000's DPU without the
-composer.
+On 04-Nov-26 15:56, Usama Arif wrote:
+> reserve_crashkernel_cma() adds each crashkernel CMA area to
+> crashk_cma_ranges[] as soon as it is declared. If the area later fails
+> activation, e.g. because movablecore= put the ZONE_MOVABLE boundary
+> inside it, cma_activate_area() releases the pages to the buddy allocator
+> as ordinary memory. The range is still handed to the crash kernel and
+> excluded from the vmcore, so kernel data that lands there is overwritten
+> by the crash kernel and missing from the dump.
+> 
+> Mark the areas with cma_reserve_pages_on_error(), so that a failed
+> activation leaves the pages reserved: lost to the first kernel, but safe
+> for the crash kernel to use.
+> 
+> Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
+s390 hits this without movablecore= (adding the s390 maintainers and
+linux-s390) since ZONE_DMA ends at 2G here.
+CMA tries to reserve areas above 4G first, but falls back to lower
+memory when it doesn't fit, so a cma area can end up across the 2G boundary.
+I ran into this while adding crashkernel=,cma support for s390, which I
+will post soon, and came up with the same fix.
 
-No ingenic,dpu fallback though: writing-bindings.rst asks for SoC
-compatibles rather than family names, so an X2000 would be
-ingenic,x2000-dpu, with the X1600's as its fallback if its registers
-allow.
+About dropping the range instead, as you offered for v2: I'd keep this
+version. With the range dropped, the kdump kernel gets less memory than
+configured, and that only shows at crash time. With this patch, the
+the first kernel 'loses' the memory as with a regular crashkernel= reservation
+of the same size.
 
-The driver keeps its file name for now. It only drives what the X1600
-has and what I can test (parallel RGB from one plane), so the split
-between the core and the interfaces, and the X2600's rotation, is better
-shaped by whoever adds the X2000 with a board to test it on.
+There is a second problem in the same loop: all areas are named
+"crashkernel", which breaks the CMA sysfs and debugfs entries when
+there are several. I've sent a separate fix for that:
 
-> However, this approach triggered a kernel lockup during boot
-> right after successfully running lg35583_get_modes().
+https://lore.kernel.org/r/20261106104309.3669583-1-zaslonko@linux.ibm.com
 
-I can't reproduce it here, the R1 comes up with its panel at every boot
-(with v3 again today). With nothing on the pins I don't know yet where
-it would hang. If you get a log of it (the last lines with
-initcall_debug) I'll have a look.
-
-v3: https://lore.kernel.org/r/20261106112000.1612-1-olivier@mgcrea.io
-
-Thanks for the review,
-Olivier
+Reviewed-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+Tested-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
