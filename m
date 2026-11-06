@@ -1,71 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958345;
-	b=VZiI+wIAVR/pYTxFRyilIsDDOnivoO4Z2F9R9w0nanR6lq0udYnsEc9AITLDfONullMN
-	 oJmb0wU4phj3aXzI2bw3Ue1Q+BQKhTdH9ZU0dbRAGUVy//liQadVCq2yo7eNTiEUBDRh4
-	 RbzzvhPwRVP54D7ACgmTJnJ8niVp8NmRtD8zzaUvsMbqnNdH3QetwRIJhv5RL9r+e94tC
-	 Gb1dKsJPScanMLI+1/krMRmcCiFfQ5oA9gOKrqK9BGxFUUcHf5X16Q0INouogZUpxwFP5
-	 mwzlGmMnB+nzEKop9Ovi6qefb0288bWYBSWkhT0Mvym4rDW2vx/NzMP3iVnM87WKSyw==
+	t=1793958369;
+	b=hV/D65Y5PvVEIfnTwNvchUJbwnv0KXg1WUMXqRyrqj8p7P1lJhMYZymPY2Y2es2b4ZY5
+	 08KIpFuquUwZA+6sS65eBLcPXlJNUxejqMAfVgXF7/o+PBbrh77jhuKZtXw+Hbr2Z+kDq
+	 XKOdvdnNRGLRf5ORlMM0O6WwZbKm3JZ4J+CF6WQez+JGnenMREbiwU0euJVtG63zqZxGf
+	 lJyGJfBDS5den47ChXkQ5LelUqKLHNGJ1R0h4O8EhdNvIZvNq/JtvGudKFK+8EhIHBbfR
+	 OQHNmw33KLVDFf4NE4DNaBKwOUmIvNevT5ofrMx2K6ah1QtObY54Epyq8n72T8H8+OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958345;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=AfPzSFcW+pZH2QIPZRbefoHN3/d9BoE116jyqEDVh6Y=;
-	b=YfAto+FkdyQm5z4G2qc00GsSD+mDqWmpFnjlM1B76vcqeSCVpHgH21+bLtu0Z/bijVlD
-	 A6cmherX8V1UCRUXCdk/xZtPs4DZm5f++7zig5E3f3o71iv+OoBSDmzYKMCWPatDCDGFm
-	 uBAn9gT0pv2NTl5fNILW1GDCg5f7FrSMclvPABUB0JwXPbB5qk2cdTTZ59M8MLOcD/f8+
-	 XFqNvlQQQywiYNVN7jBBitgatGSEzSBwFA7AjPh1jCnymJBfL3W1oq49kjy3B+3TFbDb9
-	 aVGf2K/zTg1Gxoyc6SwOVAG2EeaEPnLJ/+xXfq/zr6WPk9FEy+FdSwbuQOgBkjx/UVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958369;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=lf1KcsPksgadxN6Aa5Rpl4uAsuLUiAZC7zj0gr6Y0TQ=;
+	b=fOhCja56vGfkCyN4NgTrensQY4mKc4MoNihKvoFPhq13hgF1vw2toR/JRPr6w/hBTHQM
+	 Ugk1bVlLKKmja8EWtSe+GzMiKHJ3c8cJnHMkUyfB2FbtnIA6YaQ/JXTZvzINqqzj6QZ8K
+	 yus9OAMrF+0MOQ9Xd/7LjhLQ+KSpK50zHis0mtRTD/AfJYeR0FwnBdlhr3m51HA0vuIDr
+	 0ZY/DpvTfaE4FJi6zngWEhOXkOKx4X3VObnvN7MivQdIzQqtLivLWdsZaAtRV6bWV5uxw
+	 dUAG4e22oNF5GXIyQq8ISNxVNM1pgeaej86wIi1Q6yWNHYwBUsi+90gjiG7PtVv2y8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=prb5BBLD;
-	arc=none smtp.remote-ip=95.215.58.163
-Received: from mta1.migadu.com (out-163.mta1.migadu.com [95.215.58.163])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Uu4jg3qF;
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA7B606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFA7B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A42A606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:46:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A42A606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=prb5BBLD
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yMrWApyqMY/NnNDcpTl9xLlqLBpfLw5OYLGgqZXQ1tU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793958342; v=1; x=1794563142;
- b=prb5BBLDzBRhDL1dFgS1P9R5uf5nZMEpJiPJBpQZdVdr7tYQdfZaQl7dXQdIPuujdVBUI9SH
- 0IPy8H/s6R/2hutUvkJ1qSlk75e+LGkBRWULDzv5CSZ0l8O+yUvxkayJhn5SsAWoa2ugbJnBdDq
- F20apksvpJr/Z+iR8g3FCjPU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 2f2b68f79f65d7c9;
-	Fri, 06 Nov 2026 09:45:25 +0000
-X-Mizu-Trace-ID: 2f2b68f79f65d7c9
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 6 Nov 2026 17:45:15 +0800
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: Qiliang Yuan <odys.yuan@gmail.com>, david@kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Stefan Roesch <shr@devkernel.io>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mm/ksm: align smart scan skips with the scan
- number
-Message-ID: <au2hqxeIz0l/DusZ@dgvxl46587.localhost.localdomain>
-References: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com>
- <20261105-bug-mm-ksm-smart-scan-align-skips-v2-1-8a9780b6844e@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Uu4jg3qF
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=lf1KcsPksgadxN6Aa5Rpl4uAsuLUiAZC7zj0gr6Y0TQ=;
+	b=Uu4jg3qF2gQ2F5DwtYMyo56uYNfeOwAMYKgmZC40hbrJLmZZEEhrZetEyIMYNguUIDfPlzMSK
+	q2ZfDo7WbXb701VDAR7+tiD0dRYF52LMkCzafz4hPn/FphhfXYtPbqXLFVL53agqhqQ2S7xl9KO
+	xn17QEkfe/c7XqheuivQG7E=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jLZ7K2Zb4z12LdP;
+	Fri,  6 Nov 2026 17:46:05 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5B6D340561;
+	Fri,  6 Nov 2026 17:46:03 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 6 Nov
+ 2026 17:46:02 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <ben.horgan@arm.com>, <tony.luck@intel.com>, <reinette.chatre@intel.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
+	<bp@alien8.de>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH] fs/resctrl: Give a monitor domain the counters the groups already use
+Date: Fri, 6 Nov 2026 17:45:37 +0800
+Message-ID: <20261106094537.2337188-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,130 +69,237 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-1-8a9780b6844e@gmail.com>
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Thu, Nov 05, 2026 at 04:36:14AM -0500, Qiliang Yuan wrote:
-> Smart scan skips pages that KSM has failed to de-duplicate for a while.
-> Once a page is three scans old, its rmap_item counts down its own number
-> of scans to skip, 1, 2, 4 and then 8 as it ages, so an old page is looked
-> at every ninth scan.
-> 
-> The unstable tree is rebuilt on every scan, so two identical pages that
-> are not in the stable tree yet can only be merged in a scan that looks
-> at both. Each countdown runs from when its own page became mergeable, so
-> two pages that became mergeable at different times end up on different
-> phases and, once both are old, may never be looked at in the same scan
-> again. They then stay unmerged for as long as they live. Making a page
-> mergeable, waiting for 0 to 20 full scans before doing the same with an
-> identical page, 20 times for each wait, and checking the pair after
-> another 64 full scans shows this, on two boots per kernel:
-> 
->                                 before            after
->   pairs merged (of 420)         329 / 317         420 / 420
->   64M of unique pages skipped   89.0% / 89.1%     87.5% / 87.5%
->   ksmd CPU time per scan        6.25 / 6.25 ms    6.88 / 7.03 ms
-> 
-> Pick the skipped scans by the global scan number instead, with periods
-> of 2, 4 and 8 scans. The periods being powers of two, every old page is
-> looked at on each scan that is a multiple of 8, whatever its age, so any
-> two pages meet at least every eighth scan. The longest period goes from
-> nine scans to eight, which costs 10-12% more ksmd time on memory that
-> never merges.
-> 
-> Fixes: 5e924ff54d08 ("mm/ksm: add "smart" page scanning mode")
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> ---
->  mm/ksm.c | 24 ++++++++++--------------
->  1 file changed, 10 insertions(+), 14 deletions(-)
+With assignable MBM counters, resctrl can be mounted while all CPUs of
+a monitor domain go offline and one of them comes back, either through
+CPU hotplug or because hibernation takes the non-boot CPUs offline. The
+domain is destroyed and re-created, and the new domain starts with no
+counters assigned. Counters are otherwise only assigned when a group is
+created, when rdtgroup_assign_cntrs() takes a free counter in each
+monitor domain for each MBM event, so no code revisits the groups that
+already exist.
 
-Brilliant design.
-By using the global ksm_scan.seqnr as a unified time base, this patch eliminates
-the out-of-sync problem of the original per-page skip counters.
+Those groups read "Unassigned" on the new domain, on any system with
+assignable MBM counters. A counter assigned to them later through
+mbm_L3_assignments is the lowest free one in that domain, so the same
+group can end up with a different counter ID on different domains. For
+example, with the counter ID each group uses for mbm_total_bytes and
+"_" for none:
 
-It guarantees that any two pages will be processed in the same scan at least once
-every 8 scans — the least common multiple of all scan periods — which completely
-resolves the permanent de-duplication failure.
+                               domain 0         domain 1
+  mount, mkdir g1              default=0 g1=1   default=0 g1=1
+  all CPUs of domain 1 offline default=0 g1=1   (destroyed)
+  one CPU of domain 1 online   default=0 g1=1   default=_ g1=_
+  assign g1 on domain 1        default=0 g1=1   default=_ g1=0
 
-Admittedly, this comes at the cost of shrinking the longest scan interval from 9
-to 8 scans, raising the scan frequency for aged pages by roughly 12.5%. But I
-believe this is a very reasonable trade-off for correctness. So
+g1 now uses counter 0 on domain 1, the counter the default group uses
+on domain 0. On x86 each domain has its own counters, so a different ID
+on another domain changes nothing else. MPAM maps a counter ID to one
+hardware monitor for the whole resource, so the assignment moves g1 to
+the default group's monitor on every domain, and on domain 0 g1 reads
+the default group's monitor instead of its own.
 
-Reviewed-by: Xu Xin (vivo) <xu.xin@linux.dev>
+Assign the counters when the domain comes online, after its state is
+set up. Give each enabled MBM event of every group, including the
+monitor groups under mon_groups/, the counter ID the group uses in
+another domain, and leave the event unassigned when that ID is already
+taken on the new domain. Skip groups in pseudo-lock mode, as their RMID
+has been freed and they are not monitored.
 
+A group that has no counter for an event in any domain stays unassigned
+on the new domain, as it was before. mbm_assign_on_mkdir only applies
+when a group is created, and counters that the user removed through
+mbm_L3_assignments stay removed.
 
-Besides, can we add a extra description about new smart_scan algorithm that we
-missed in Documentation/mm/ksm.rst?
+Fixes: ef712fe97ec5 ("fs/resctrl: Auto assign counters on mkdir and clean up on group removal")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <stable@vger.kernel.org> # 6.18+
+Cc: Tony Luck <tony.luck@intel.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Babu Moger <babu.moger@amd.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Ben Horgan <ben.horgan@arm.com>
+Cc: Dave Martin <Dave.Martin@arm.com>
+---
+ fs/resctrl/internal.h |   2 +
+ fs/resctrl/monitor.c  | 117 +++++++++++++++++++++++++++++++++++++++++-
+ fs/resctrl/rdtgroup.c |   4 ++
+ 3 files changed, 121 insertions(+), 2 deletions(-)
 
-> 
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index dbfb8f98b1892..a97d7563c2124 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -196,7 +196,6 @@ struct ksm_stable_node {
->   * @head: pointer to stable_node heading this list in the stable tree
->   * @hlist: link into hlist of rmap_items hanging off that stable_node
->   * @age: number of scan iterations since creation (unstable node)
-> - * @remaining_skips: how many scans to skip (unstable node)
->   * @linear_page_index: the original page's index before merged by KSM (stable node)
->   */
->  struct ksm_rmap_item {
-> @@ -213,7 +212,6 @@ struct ksm_rmap_item {
->  		struct {
->  			unsigned int oldchecksum;
->  			rmap_age_t age;
-> -			rmap_age_t remaining_skips;
->  		};			/* when unstable */
->  		unsigned long linear_page_index;    /* for reverse mapping, when stable */
->  	};
-> @@ -2446,16 +2444,14 @@ static struct ksm_rmap_item *get_next_rmap_item(struct ksm_mm_slot *mm_slot,
->  }
->  
->  /*
-> - * Calculate skip age for the ksm page age. The age determines how often
-> - * de-duplicating has already been tried unsuccessfully. If the age is
-> - * smaller, the scanning of this page is skipped for less scans.
-> + * Calculate how often a page of the given ksm page age is scanned. The age
-> + * determines how often de-duplicating has already been tried
-> + * unsuccessfully. The older the page, the fewer scans look at it.
->   *
->   * @age: rmap_item age of page
->   */
-> -static unsigned int skip_age(rmap_age_t age)
-> +static unsigned int scan_period(rmap_age_t age)
->  {
-> -	if (age <= 3)
-> -		return 1;
->  	if (age <= 5)
->  		return 2;
->  	if (age <= 8)
-> @@ -2505,17 +2501,17 @@ static bool should_skip_rmap_item(struct folio *folio,
->  		return false;
->  
->  	/*
-> -	 * Are we still allowed to skip? If not, then don't skip it
-> -	 * and determine how much more often we are allowed to skip next.
-> +	 * The unstable tree is rebuilt on every scan, so two identical pages
-> +	 * can only be merged if both are looked at in the same scan. Pick the
-> +	 * scans by the global scan number rather than per page: the periods
-> +	 * are powers of two, so pages of any age meet on every scan that is a
-> +	 * multiple of the longest one.
->  	 */
-> -	if (!rmap_item->remaining_skips) {
-> -		rmap_item->remaining_skips = skip_age(age);
-> +	if (!(ksm_scan.seqnr & (scan_period(age) - 1)))
->  		return false;
-> -	}
->  
->  	/* Skip this page */
->  	ksm_pages_skipped++;
-> -	rmap_item->remaining_skips--;
->  	remove_rmap_item_from_tree(rmap_item);
->  	return true;
->  }
-> 
-> -- 
-> 2.43.0
-> 
+diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+index c95fa6ce62e6..31c1c04a3c51 100644
+--- a/fs/resctrl/internal.h
++++ b/fs/resctrl/internal.h
+@@ -437,6 +437,8 @@ int resctrl_available_mbm_cntrs_show(struct kernfs_open_file *of, struct seq_fil
+ 
+ void rdtgroup_assign_cntrs(struct rdtgroup *rdtgrp);
+ 
++void resctrl_mbm_cntr_assign_domain(struct rdt_resource *r, struct rdt_l3_mon_domain *d);
++
+ void rdtgroup_unassign_cntrs(struct rdtgroup *rdtgrp);
+ 
+ int event_filter_show(struct kernfs_open_file *of, struct seq_file *seq, void *v);
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 717c3888c2b5..744961a78435 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -425,6 +425,44 @@ static int mbm_cntr_get(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+ 	return -ENOENT;
+ }
+ 
++/*
++ * Return the counter ID @rdtgrp uses for @evtid in a domain other than @d,
++ * taken from the first domain that has one. Counters are allocated on every
++ * domain together, so a group usually has the same ID everywhere. MPAM relies
++ * on this as it maps a counter ID to one monitor for the whole resource; x86
++ * does not. @d is skipped in case it is already on the list.
++ *
++ * Return:
++ * Valid counter ID on success, or -ENOENT on failure.
++ */
++static int mbm_cntr_get_other(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
++			      struct rdtgroup *rdtgrp, enum resctrl_event_id evtid)
++{
++	struct rdt_l3_mon_domain *dom;
++	int cntr_id;
++
++	list_for_each_entry_rcu(dom, &r->mon_domains, hdr.list, lockdep_is_cpus_held()) {
++		if (dom == d)
++			continue;
++
++		cntr_id = mbm_cntr_get(r, dom, rdtgrp, evtid);
++		if (cntr_id >= 0)
++			return cntr_id;
++	}
++
++	return -ENOENT;
++}
++
++/*
++ * mbm_cntr_claim() - Mark the counter @cntr_id in domain @d as used by @rdtgrp.
++ */
++static void mbm_cntr_claim(struct rdt_l3_mon_domain *d, int cntr_id,
++			   struct rdtgroup *rdtgrp, enum resctrl_event_id evtid)
++{
++	d->cntr_cfg[cntr_id].rdtgrp = rdtgrp;
++	d->cntr_cfg[cntr_id].evtid = evtid;
++}
++
+ /*
+  * mbm_cntr_alloc() - Initialize and return a new counter ID in the domain @d.
+  * Caller must ensure that the specified event is not assigned already.
+@@ -439,8 +477,7 @@ static int mbm_cntr_alloc(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+ 
+ 	for (cntr_id = 0; cntr_id < r->mon.num_mbm_cntrs; cntr_id++) {
+ 		if (!d->cntr_cfg[cntr_id].rdtgrp) {
+-			d->cntr_cfg[cntr_id].rdtgrp = rdtgrp;
+-			d->cntr_cfg[cntr_id].evtid = evtid;
++			mbm_cntr_claim(d, cntr_id, rdtgrp, evtid);
+ 			return cntr_id;
+ 		}
+ 	}
+@@ -1414,6 +1451,82 @@ void rdtgroup_assign_cntrs(struct rdtgroup *rdtgrp)
+ 					   &mon_event_all[QOS_L3_MBM_LOCAL_EVENT_ID]);
+ }
+ 
++/*
++ * Give @rdtgrp the counter IDs it uses on the other domains, on @d.
++ */
++static void resctrl_mbm_cntr_assign_group(struct rdt_resource *r,
++					  struct rdt_l3_mon_domain *d,
++					  struct rdtgroup *rdtgrp)
++{
++	struct mon_evt *mevt;
++
++	/* Pseudo-locked groups have no RMID and are not monitored. */
++	if (rdtgrp->mode == RDT_MODE_PSEUDO_LOCKSETUP ||
++	    rdtgrp->mode == RDT_MODE_PSEUDO_LOCKED)
++		return;
++
++	for_each_mon_event(mevt) {
++		int cntr_id;
++
++		if (mevt->rid != r->rid || !mevt->enabled ||
++		    !resctrl_is_mbm_event(mevt->evtid))
++			continue;
++
++		if (mbm_cntr_get(r, d, rdtgrp, mevt->evtid) >= 0)
++			continue;
++
++		/* A group without a counter on any domain stays unassigned. */
++		cntr_id = mbm_cntr_get_other(r, d, rdtgrp, mevt->evtid);
++		if (cntr_id < 0)
++			continue;
++
++		/*
++		 * Allocating a different ID would change the group's mapping for
++		 * the whole resource on MPAM, so leave the event unassigned.
++		 */
++		if (d->cntr_cfg[cntr_id].rdtgrp) {
++			pr_warn_ratelimited("Counter %d for %s is in use in domain %d\n",
++					    cntr_id, mevt->name, d->hdr.id);
++			continue;
++		}
++
++		mbm_cntr_claim(d, cntr_id, rdtgrp, mevt->evtid);
++		rdtgroup_assign_cntr(r, d, mevt->evtid, rdtgrp->mon.rmid,
++				     rdtgrp->closid, cntr_id, true);
++	}
++}
++
++/**
++ * resctrl_mbm_cntr_assign_domain() - Assign counters to the existing groups on
++ *				      a monitor domain that has just come online.
++ * @r:	The resource the domain belongs to.
++ * @d:	The domain that has just come online.
++ *
++ * A new domain has no counters assigned. Give each group, including the
++ * monitor groups below a control group, the counter IDs it uses in the other
++ * domains. A group that has no counter for an event in any domain stays
++ * unassigned: mbm_assign_on_mkdir only applies when a group is created, and
++ * counters that the user removed through mbm_L3_assignments stay removed.
++ *
++ * Called with rdtgroup_mutex held while resctrl is mounted.
++ */
++void resctrl_mbm_cntr_assign_domain(struct rdt_resource *r, struct rdt_l3_mon_domain *d)
++{
++	struct rdtgroup *prgrp, *crgrp;
++
++	if (!resctrl_arch_mbm_cntr_assign_enabled(r))
++		return;
++
++	lockdep_assert_held(&rdtgroup_mutex);
++
++	list_for_each_entry(prgrp, &rdt_all_groups, rdtgroup_list) {
++		resctrl_mbm_cntr_assign_group(r, d, prgrp);
++
++		list_for_each_entry(crgrp, &prgrp->mon.crdtgrp_list, mon.crdtgrp_list)
++			resctrl_mbm_cntr_assign_group(r, d, crgrp);
++	}
++}
++
+ /*
+  * rdtgroup_free_unassign_cntr() - Unassign and reset the counter ID configuration
+  * for the event pointed to by @mevt within the domain @d and resctrl group @rdtgrp.
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 3c002b711024..106e78fb1f1d 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -4707,6 +4707,10 @@ int resctrl_online_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *hdr
+ 	if (err)
+ 		goto out_unlock;
+ 
++	/* The new domain has no counters for the existing groups yet. */
++	if (resctrl_mounted)
++		resctrl_mbm_cntr_assign_domain(r, d);
++
+ 	if (resctrl_is_mbm_enabled()) {
+ 		INIT_DELAYED_WORK(&d->mbm_over, mbm_handle_overflow);
+ 		mbm_setup_overflow_handler(d, MBM_OVERFLOW_INTERVAL,
+-- 
+2.34.1
+
