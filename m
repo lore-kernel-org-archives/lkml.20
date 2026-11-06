@@ -1,45 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793932953;
-	b=adbzxjwmTe1XjncHI8G9kkN0NOeG0EJjPdl3RqbxFO8EhBPvNsHdDNkJiB1IB7/1/gyj
-	 KHt1+5PL8waY6oFBozhaJecIWoBZBofrP6XdlyKl75mezMFQq5DPKG+UkxcKRXWd2WBiC
-	 UWZ5PSyLLHWRwPMKCXmapz5wJPs418ptat7a5s7FhxDXllf9p8KOVZpTasIAghoYCr5vP
-	 enMSguEYNqtMSRZYmgMSsifAYtIRREK5xXOE5lSVMBiWGBQ4wCKsrsu1o2ouXaxKWaVsB
-	 4kH6W6WhJXGJ4WUvIgA/wOl8kIK+KMEe75xoaMNJpu4rRRWI+Z/YVObDqh85AE2pudQ==
+	t=1793933046;
+	b=P4CJAPHz//3im5q02BoL5SqGKdPzLlLlxOtkme1FwIozK60vkDWyO9e5zaLLZqICTKvt
+	 i4kWgmQxDyShW6MuoZuFGdyPKH8NcVL7Q5pOPJue3F8FWdaUMkx9P2K2CpZzN4cND3/o2
+	 9eGWJXnttxArlvBSoqVe8M3nXdOcpQFyRqcCj8AFCDaglyHtkKYtXZtA807p3H3f384Uq
+	 sXtmiOUAgVBUT/tXdtYpL0/eda0DVzBVHo0RM2pdEOYyNjBaVBbrwXNFv4NhWdr02CCif
+	 hVyF9VbSrCuq3u1SrOdKuvkG9RrnjSfPKeZh6fNjCAkJ3fSWoE7Sq1FB+nh+EDYTqfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932953;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=thdVigjkFcdB80wzco5t+F/NbNYFFWE5g57QCgD+R6E=;
-	b=DqmkvkEeoB5AuvermwbODjZicZCgIl/x49PT0nauQhyU4RZmjueOqPtFM2mYXNgF5yyV
-	 1+Jpmf9fKN1N8hSSHt0/6aFZ2WoBxKcy83JsKPYmo+mgdoECvA4tZ0emnmV3jN+oqMXzV
-	 cLihEBECUPD1Et3NRDA+dCX2np8jCFkaZLWvSQZXZDkEjcabhB7WGiXLhSXpqrBkJB1TD
-	 KGAPtBH9/sgPNTTwiBMnXskZCwnDcokSXWNvErPuHdPaBKqnCJ+aygaXxXMsCW1tPbBB8
-	 jJkDO32kYRQ2wcHBG6g39CZAdJF48LZR/c1L75EvARLVG28xSVZmGwN3e1uAcHR53Dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933046;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zSAnlbuhwhmUG9bBEmOB7UE9ygtoZLL5whU9bUfyqnc=;
+	b=jdgExX+Vhmko9aM+HPMdPpu517NAH93b+Y+bN0eufEy1TqYoGkv7bmkSw04oTkr32eMS
+	 Oi7N1yO6cw85jkruTCuk62LnS73x2xX0/HvDlNNq90seUDPwrpaiJyaQQBWm7cnAVfJuF
+	 ThSvjoL9C/0AoCf09K6ewRz79PMD3Pcg0zRKFMvaKAsJTYPajkK/WN1SyGmaBQigQja6f
+	 rzcC2PvI6WF4eipr6uWj1FpJ3+KCQJm88UmB69k/tx4WazXNtmaWyQpYJOAeBmvU+vLlU
+	 wx2KjF4zTH7f85e9uFaxuirXh2gr+x7H3z2LdMWeYVz6Tsy2R6M9TFbuTs0F6wuqeQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XozpImpV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p4hIGK3F;
+	arc=none smtp.remote-ip=95.215.58.152
+Received: from mta1.migadu.com (out-152.mta1.migadu.com [95.215.58.152])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C25606A328;
-	Fri,  6 Nov 2026 02:42:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE70606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:44:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FE70606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XozpImpV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A05BA1F0089F;
-	Fri,  6 Nov 2026 02:42:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793932953;
-	bh=thdVigjkFcdB80wzco5t+F/NbNYFFWE5g57QCgD+R6E=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=XozpImpVirxN2nQ0Gze/2lk0g6nWV1VMVKP3BUJ4aSG2MpvW9JUxcrT8dAoJEE05W
-	 eazUQFG8qnK1wF9niviEwq2k9qrGZO5bNbnxy7+CpPHAdbs+fFXfw9B0di2vpBW+nu
-	 4PpjqrWejoKEE2N47Jv3QYrwRPvrLyNFeUccbDEhWnrgICxwT1kuBK4yaj31WEBdoc
-	 6zJTtntr2zY62ZubKz9pGACft1eNz1CDDSh5j5zGolsZfLAOMupCTuLbwnCgeZ+QGa
-	 OYwpX2U9j4uyg10UzuhxWHewcMRTNeBtKfNJ2qlJMSloz+GTTy99eCu2nJeNfLU7Gh
-	 DaEYoUvUCXZbA==
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p4hIGK3F
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BV4jydBngbK5OT+ZHvts5CVNgLwnfznFuT39h8Pecis=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793933041; v=1; x=1794537841;
+ b=p4hIGK3FvTBncEACzoquuYTKUahICVVjb+yGf0kJM0hCa8vbXeIeqBgaM5JLMbHZmxt6o5/W
+ 64Xh/rztiH19Yyid8rqfxTMTeIrFpa6d20K3WGt17QdWQhU8O3lmgNECf403fraDz70m9uVegTe
+ x5p01mJXm2W82ZxyKfNpk+Cs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f76348987678bbc6;
+	Fri, 06 Nov 2026 02:44:01 +0000
+X-Mizu-Trace-ID: f76348987678bbc6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <1535887c-6be2-4415-b54e-2008e6e7a35c@linux.dev>
+Date: Fri, 6 Nov 2026 10:43:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,87 +58,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
+To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+ akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+ <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
+ <auxTwrKCeg7a3hfY@localhost.localdomain>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <auxTwrKCeg7a3hfY@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] kbuild: rust: pass AutoFDO flags to Clang with inline
- helpers
-From: Nathan Chancellor <nathan@kernel.org>
-To: Jenhao Chen <jenhaochen@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nicolas Schier <nsc@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Matthew Maurer <mmaurer@google.com>, Rong Xu <xur@google.com>, 
- Han Shen <shenhan@google.com>, Sami Tolvanen <samitolvanen@google.com>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Qais Yousef <qyousef@google.com>, Ben Wei <benwei@google.com>, 
- rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261031030807.4101384-1-jenhaochen@google.com>
-References: <20261031030807.4101384-1-jenhaochen@google.com>
-Date: Thu, 05 Nov 2026 19:42:18 -0700
-Message-Id: <179393293858.309869.13707261529438979905.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2638; i=nathan@kernel.org;
- h=from:subject:message-id; bh=VGJ2ubzK7WAUjZ5bjU8xEGxhCY1jRXw6CJzzqoz4ocw=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFlv7Sayqc5bHtlR5mb3cYWUaqNFl5RofsFN/uLCm9suH
- i26Zvy9o5SFQYyLQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAEzk5ipGhl+T+moanZuli/8s
- uZmcZKm37IX9aeN7d7rSf5mUhsZ5ZzD8lT0S4rzukVd2cLfS0nnrNhp+Pup+WI5LtbNU5nHd4hN
- s/AA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-> When CONFIG_RUST_INLINE_HELPERS=y, cmd_rustc_o_rs and cmd_rustc_library
-> compile Rust sources to LLVM bitcode (.bc), link rust/helpers/helpers.bc
-> via llvm-link, and then invoke $(CC) to compile the combined bitcode
-> into the final ELF object (.o).
-> 
-> When commit a960c2cdb19e ("kbuild: rust: add AutoFDO support") was
-> tested with CONFIG_RUST_INLINE_HELPERS=y and CONFIG_LTO_CLANG_THIN=y,
-> cmd_rustc_o_rs skipped the post-llvm-link $(CC) step under
-> CONFIG_LTO_CLANG and handed the linked bitcode directly to ld.lld, where
-> the ThinLTO backend applied --lto-sample-profile,
-> -plugin-opt=-split-machine-functions, and LLD's default function
-> sections. Non-LTO builds (!CONFIG_LTO_CLANG), however, ran the
-> post-llvm-link $(CC) step without $(CFLAGS_AUTOFDO_CLANG) ever since
-> commit 3a2486cc1da5 ("kbuild: rust: provide an option to inline C
-> helpers into Rust").
-> 
-> Subsequently, commit 5febf432df1c ("kbuild: rust: keep Rust objects out
-> of Clang LTO with inline helpers") updated cmd_rustc_o_rs and
-> rust/Makefile to always invoke $(CC) on the linked bitcode even when
-> CONFIG_LTO_CLANG=y. Because that $(CC) invocation only passes
-> $(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS)) and does not include
-> $(CFLAGS_AUTOFDO_CLANG) (which is normally appended to _c_flags in
-> scripts/Makefile.lib), the final code generation step for Rust objects
-> is compiled without -ffunction-sections, -fsplit-machine-functions,
-> -fprofile-sample-use, or flow-sensitive discriminator flags whenever
-> CONFIG_RUST_INLINE_HELPERS=y.
-> 
-> As a result, Rust crates built with both CONFIG_RUST_INLINE_HELPERS=y
-> and CONFIG_AUTOFDO_CLANG=y emit all functions into a single monolithic
-> .text section (0 .text.<func> sections instead of 417 in
-> rust_binder_main.o and 424 in rust/kernel.o on arm64 with
-> CLANG_AUTOFDO_PROFILE set), preventing the linker from performing
-> AutoFDO hot/cold function clustering and discarding SamplePGO weights on
-> the inlined C helpers during final code generation.
-> 
-> Factor out _autofdo_c_flags in scripts/Makefile.lib (preserving per-file
-> and per-directory AUTOFDO_PROFILE opt-outs) and pass it to the
-> post-llvm-link $(CC) invocation in scripts/Makefile.build and
-> rust/Makefile.
-> 
-> Fixes: 3a2486cc1da5 ("kbuild: rust: provide an option to inline C helpers into Rust")
-> Fixes: 5febf432df1c ("kbuild: rust: keep Rust objects out of Clang LTO with inline helpers")
-> Signed-off-by: Jenhao Chen <jenhaochen@google.com>
+Hi Oscar,
 
-I am assuming this will go via the Rust tree.
+On 11/5/26 6:00 PM, Oscar Salvador (SUSE) wrote:
+> On Thu, Nov 05, 2026 at 12:07:45PM +0800, Qi Zheng wrote:
+>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>
+>> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+>> during the first MPOL_PREFERRED_MANY allocation attempt even though
+>> the caller clears __GFP_DIRECT_RECLAIM.
+>>
+>> Pass the caller's GFP mask through the helper so CMA respects its
+>> reclaim constraints when trying the preferred nodes.
+>>
+>> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> ...
+>> --- a/mm/cma.c
+>> +++ b/mm/cma.c
+>> @@ -933,9 +933,9 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+>>   	return __cma_alloc_frozen(cma, count, align, gfp);
+>>   }
+>>   
+>> -struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
+>> +struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
+>>   {
+>> -	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
+>> +	gfp |= __GFP_COMP | __GFP_NOWARN;
+> 
+> Do we really need __GFP_COMP | __GFP_NOWARN here?
+> It is my understanding that all allocations coming from hugetlb are
+> handled with htlb_alloc_mask(), and that should already provide
+> __GFP_COMP | __GFP_NOWARN.
 
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Right. All current callers already supply both flags through
+htlb_alloc_mask().
 
--- 
-Cheers,
-Nathan
+> We might have needed it when cma_alloc_frozen_compound() constructed its
+> own mask, but not it gets it from the caller, and that should have been
+> done via htlb_alloc_mask() up the chain.
+
+Right. Now that we restore GFP propagation, setting __GFP_NOWARN here is
+redundant. I'll remove it.
+
+I'd still prefer to keep __GFP_COMP so that
+cma_alloc_frozen_compound() itself guarantees compound allocation,
+without requiring callers to supply the flag.
+
+What do you think?
+
+Thanks,
+Qi
+
+> 
+> So, any reason to have it here now?
+> 
+>   
+> 
 
