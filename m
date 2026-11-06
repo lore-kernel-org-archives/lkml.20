@@ -1,117 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977463;
-	b=zX5rzVZYOcWV8HzdTTqHDfLeBUVQipnd3YQSTdukslIxmSvY9KmZTmsFfEcebHwoeVP2
-	 vT3m3IECMhDr8h/pmLIyyLVR95JnYQkn4Jl2TWsRDKK3HB0JUycjCM/uZFW2qHHoS1MVV
-	 g06OojZV0UIOZnJpWdA9BNL+tooxXm5MmDfvx7bZDg3r7XGEuiGIinvfu6UwTC8eqCgvA
-	 y0KbZ8fnBkEcT3v+/lDvhm5gI+mrHCIrbtmR7HrTkNuJjtMFOkT3Jz7qnaEH8rnRH6uKT
-	 uWvWyuSA3tsAKbUeZu0LH1uxz7UlDd5917eRHtQfKAfMhdrUDt0kPYYfOn74KszvPJg==
+	t=1793977500;
+	b=tgEdYZE61axBlyCDCqcXNSI6ddfiJvr0kXvmx6HfeYK02EgOGNrWkIphbRBJOSBK8KuM
+	 gVgKoqV0PXTg1Jg3imN2Rc6+aG5/XEe5HpTb/FF3UpbUFilso3mymLoU8h1veU0IwJ7/s
+	 zLI2MkhUMXYCTEUsN1Rmwv4IeXEQy6UyO4++BAGkjxL4nuCRq4TkdXGXqTYH10GjbjzzW
+	 taPzzzpc9iRNwFJVD6PZB2n4J5QuTFPhpnMSoCZ/XiDSuBl7SvpMhqKWSYahPhaWQo5qn
+	 i8pqRwqbsv7ci6U3gSb7b/EQddHcm+DQima3AtEqAmbBCuPBYppGkPGEkGqksXeEmbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977463;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VFHEfM7uSHxmbeEDYFc714iPr6SLeYV/p8Cpk1n20G0=;
-	b=U5kJHQv1MTQ5owRxiNMscj5NUHU+IuI/lDFVHosHoErWqfNbBgawRBzzb1Z3tm3ThYQp
-	 D2iiV9lGjtuihkS7w06sVhjQSSMKyhecoInfZnIpdWNeAgn2rMUnVf/dLP5oq82Jvjbbz
-	 CovOOckwyWeEF4cBceB3L0joTTKw9mBFjy4Fkf9o+qoEm38qVqP/NzQN3ypMHhYUJmO/k
-	 m2TpT1h2vbEmR1skuBDtycYeEicvpS7++znZCjjHlouvzIijvsY+WnXLKFnNwy610904L
-	 MAewwKTnU/ZrjdsaxuPOmrlMN/XBXCR7t3/RtfMSI1GRvfZODXHlEpBJPviBaDovQ4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977500;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pLGPVVC1dvkEe1meLCbPvsKgkQ4CMYaqv2RlyAp9Axk=;
+	b=Rt7RQKIkjPfK0wu2EjwMUQeWkZV7NWufSTFb1L2e0QjaWDcqVC5ls6vaAOWvBGm6cLZX
+	 YUW08GiC3uQOQ2XiDqbUOEQaGfkBHbDBIAqL/Hz+xLNE8Q1lh3Xm1lJNfqPEnXXaDB+K6
+	 P1AG9TZt03VY/3lmRf8BGjd7C2ZuRS9dgtBaT1e9v+gK2ncwFqGP0czDvyqSRCztv+3hU
+	 asuOFuNwLNO2Bz8ijGmvELBUVezewnZaMw+Ld7K/hLiMhYChz17cn8EKpSVMLqEUBEge1
+	 JcrvpOCsj9SSEsf6+IYLeh0d9rHJ77/OQhz7Uwkq1rq5P8xR4Ftv6RvFXjHx/+shabQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YWJI0aR8;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lH6F5qDZ;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sqM3H9x4;
+	arc=none smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BE0606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:04:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19BE0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85829606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:04:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85829606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YWJI0aR8;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lH6F5qDZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793977462;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VFHEfM7uSHxmbeEDYFc714iPr6SLeYV/p8Cpk1n20G0=;
-	b=YWJI0aR83JkRMYKC0xUEf5vevtX22MosZC0Oecjg+f3OnI1AzAu5y0AbeQ+nnnrl0dbVTy
-	zZ4ilrR9UXX3PZMpj4qOjXR5a9A0numo2IMEuW0CPNvW8VecPl3lo+CsGzCfyrSNrE7V84
-	Y4IO5afjsaMgUNEZKHibuxJSXkSqjpM=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-646-4wqnm3mzN-a7BUfRlMPWmA-1; Fri, 06 Nov 2026 10:04:20 -0500
-X-MC-Unique: 4wqnm3mzN-a7BUfRlMPWmA-1
-X-Mimecast-MFC-AGG-ID: 4wqnm3mzN-a7BUfRlMPWmA_1793977460
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1f03f2e8aso8096505e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:04:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sqM3H9x4
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6fe4372c5f3so490614eaf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:04:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793977459; x=1794582259; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793977498; x=1794582298; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=VFHEfM7uSHxmbeEDYFc714iPr6SLeYV/p8Cpk1n20G0=;
-        b=lH6F5qDZFAW2R8WRj/bfdN6KSiZ8hocg3KZYkH+5e7o/rAOjOz8TDo+8xuKLci11wC
-         XOD0efolga1GHdS5wVPvsygwjf5mJkNywIGTmf3NtJ6D59I7qD2xgaZE/MUncSyOsvqp
-         Cu5GufZasYC0x4y8kTR0gxk71rhIoGT8rjA3otvK67uWuWJ+ounZ/8G3LEy2QaBxkw04
-         zg3besPy9b154j5dH4lSk8E92Y6IdxilLaT8KrTJHeiOaHLIhReUJF/JgpUtv25/9EZ+
-         GxwSthaMDdbqU+qQSipE/V3/Fr+JcXtFrtkHr3Pf9pyiDaeY3+PICsRjrFxaWzRLXnjv
-         fdoA==
+        bh=pLGPVVC1dvkEe1meLCbPvsKgkQ4CMYaqv2RlyAp9Axk=;
+        b=sqM3H9x4opQsS0wUdVh6/HUTWeKevAK0nr7RWm0o9vM3fyDUuXtQ3sTRbB2UjERVzf
+         1oFhKwSHyBj3dexkGO/eNBDX3CqW07tAQUv4BjZREyTle+EcyOkaLVXOcaW3PNtumZIV
+         9+v2z0djODoLlP+xVBfaX3SZvno3SRMzIg6bTqkG8XN5cXRUpd6T9sg9M/AYpvUS0jgd
+         WchohnvK/fPHkd6rjDESlkcZlnA0Kh2Rj+kKyxbsWeAkNAJoxzgWkgWW6P4s11vidbrA
+         O1gZ/UpJdxxKiSs7RTI000UoShFCmiz4HuTUm+YCY2vtV2dRfi8XFtRGfFLPi2w4nIAo
+         zEUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793977459; x=1794582259;
+        d=1e100.net; s=20260707; t=1793977498; x=1794582298;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VFHEfM7uSHxmbeEDYFc714iPr6SLeYV/p8Cpk1n20G0=;
-        b=TqChzCmYc1ODFYrOoHHwV+RE0q6Sd8B3JT8y1luD58YuraBc8sUuUcdYTPryh/Shel
-         yOOL6Ywst2vFEfQctpi/DmMwoJmB8mtPNJpIYJHomgh5X5TR9VN60TUsu3ACXewQ86ji
-         yZkAwYsnybbc76dFSWbajft1cy4hF4RgsUZKXPr1er1n8fhPvm3eFaitp1cuYcSyq3Zg
-         tIbE3AZMxCl6Q2FRMQUfTyFxZ/0UfWDNWQCSsSlb6OgZzvICuB0wHegLwcjtiqOnQuTQ
-         /WLriuFijv5tpogxQZ8lDhnWAm70nrqvsgMz7EbXV1kz4oj+B5Sa5alCtTGGbXBBdr/M
-         Zyug==
-X-Forwarded-Encrypted: i=1; AKwUvBz1pZAoNDGM11jJTT/oLzlSsnesQxbrDgwMsO6hwpiQPMN7lac9kUwHWuShhik0bKTPK2fYmu/3Hphx3XU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8n7RYDJFv5oyMtpiSJ0yQFEQ/NMcmoXuAyfnf3Bd927vp2ddH/
-	cA6uLJ0vE8O0py+IMbsqCunEJ2jmYLMRZj80PSsDQXNZVoS0hTOso0bhOaSp28mnfv+lRC+zhg/
-	UWkY9bxJDdEH+mjItQIw6oNSLcB/su4Jl5JRP+JSROQiZA4uA0EP/ojAcya7R/nuStA==
-X-Gm-Gg: AYBFou1i0whfYjvkVmqX1ubnOTDQmDhXd7MykZtCvAh3nrHg1EWd5Pm5w67NSoj/AOq
-	0pfP3Jw8WNL0mzizKIxgpmQ6OAjAzXIA6U90XHPL3/vbGKZKS+8g44WeF7HxpPw1F/rQFmVoAMB
-	wjI1+uEDMQi7sbB+pxVuMxQeXS6OQ0pDOrRr7GmJh/400buVboKOw79HZSIDBte2fK1CfC7zyL6
-	DKBLLzesgFBzq7t/PoSEehu7jLirh5/naQ/eTcpqWYoF+yJqtD1SvxVBgNOCzfe0AU3K0Dc5Gzo
-	AqcQRitgtFeGSxSZj3ceuSSOT6cskLWyMCbNDt+wxWQNgIbZxYgy8cmfKQmtTEYhND81myTm426
-	H262ld5B+79KhltsXc4mQfWlgjHdFKmz8po5XNa2+mHB7DkJqbHy2m78SG79ydMKYBkjQL3QZRI
-	RUD23zqimP
-X-Received: by 2002:a05:600c:37c9:b0:4a1:e0d5:293e with SMTP id 5b1f17b1804b1-4b6df8c9cbbmr42830035e9.21.1793977459539;
-        Fri, 06 Nov 2026 07:04:19 -0800 (PST)
-X-Received: by 2002:a05:600c:37c9:b0:4a1:e0d5:293e with SMTP id 5b1f17b1804b1-4b6df8c9cbbmr42829535e9.21.1793977459116;
-        Fri, 06 Nov 2026 07:04:19 -0800 (PST)
-Received: from leonardi-redhat ([176.206.36.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7626a2804sm29251095e9.4.2026.11.06.07.04.16
+        bh=pLGPVVC1dvkEe1meLCbPvsKgkQ4CMYaqv2RlyAp9Axk=;
+        b=njmYTv76dhVrscjkN8MzzRBZfErCAZGWOadSUccjQ86+Eok80cdQhnMvbtLIWvZz+n
+         MCIUUqgw9EYs1fBfuhHeyqUZpC8TJVBpXvJbl16WXB65j2GTPVcqFfve15ouQQbxmfZ6
+         sVZUfa104SbUPZrcTJFXwjViCkG5uRfaqisZLHYZj3BJ7UpPA/u3rEsZRfW3NjfgH3xJ
+         I+Wh3DgH9TVLIsRIBlmnKWO/JB6o415fg1Z6ruh1mVM+ffa3XmsKqfh/hSr8iDEANTMl
+         6FVjZXpewuav292CUNbeZZe/puQYTuxSdc0QloWJeclnfO14lv+9nPy7lN24VVtFqVnZ
+         /nvw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtMXh1n1FW9nlHSBWgksPZ+RS/0c/qrs1PbcLstjK+txovgygZ7BSPaPE47L1tJrOKav7DwxD9J3sD0lI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0T0uRAx4Xb2u7ep/CYbg0gmzEcxQhiwJmaYk4E52yY2s2HT28
+	6utp63MsxoPAjIQEH5tWXD0HYClbtJIura/09qz3T/8oDNzFpILONlou
+X-Gm-Gg: AYBFou1Cts156tBEOd+udZs8CMOf4mWmZIPGFuFVzxX4+tBnnPfW6oH6djxAjiBizUK
+	TA6kbUtG//UBlsLFolms13yk0wu1zMrnRONN+9u4FDO6+ZkAOjulwhWMqJMT4iqF8QLDXhVhUHt
+	dH20ry3NoOPOFvx3qVJVYr6508C87stfAvKW7Zev/3k5fec82vHYElTR8412SaKiilb45AgNbda
+	C0Wk/cPKMCO0I1JyNLmLhFQ1hF9qBlbpNpPomTm5QXJfWmLdRBBItpB6H4VP9lWRDv0L6z6OE35
+	FsfypJ7xuUyoUFZrAEZifmUF5QZ3igUjTRkb9yLn0kLcaWXXXFQY3m5Mz2rCTTc+fSkLzb5ZfFB
+	RnKJmVnM2UjByJGtmO8lZ6sZEWVLZ/MgvfzvX9ZVNV876C/x9HbwovwOl4voBqJkhMeCsfIDmaw
+	6sE5PoWiUreYuXsLUIQ7dVl29IANHXLE5vXjYwv0uoO/5YjVnERk6/Hq7vFBLc6r2oVC1Vfew+x
+	1OzsVfs+zN65Z4Y0zrLuonYqWrRrFnSeHDSyFBJ2G0Dh+RByuaVVXNKl0/MJ6MEcpvKPzXAdizK
+	wEy53XVXSHiSSyt+v8r8JkQEc1EaZqF6ASim9Vz4wnyL/uwvjtcTf3fwBZY6A9tvwLZjACi4ew7
+	9UlQ7Eq0lvN6B4vrR9vhbHOwYxSNq64vyN3d1KoIhhmR28touLJqv
+X-Received: by 2002:a05:6820:c30b:b0:716:caab:533f with SMTP id 006d021491bc7-716e790efc2mr1183046eaf.23.1793977498432;
+        Fri, 06 Nov 2026 07:04:58 -0800 (PST)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ad97887024sm2384074fac.5.2026.11.06.07.04.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 07:04:17 -0800 (PST)
-Date: Fri, 6 Nov 2026 16:04:15 +0100
-From: Luigi Leonardi <leonardi@redhat.com>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Stefano Garzarella <sgarzare@redhat.com>, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, Simon Horman <horms@kernel.org>, 
-	Xuewei Niu <niuxuewei.nxw@antgroup.com>, linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] hv_sock: Report no unread data before a channel is
- available
-Message-ID: <au3sW3i2qjKDLMzq@leonardi-redhat>
-References: <20261106123920.162131-1-parri.andrea@gmail.com>
+        Fri, 06 Nov 2026 07:04:57 -0800 (PST)
+Date: Fri, 6 Nov 2026 09:04:48 -0600
+From: Ming Lei <tom.leiming@gmail.com>
+To: Caleb Sander Mateos <csander@purestorage.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ublk: optimize ublk_queue_cmd_list() for length-1 lists
+Message-ID: <au3skE6GvVt6SNx3@fedora-laptop>
+References: <20261105021351.2295547-1-csander@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,52 +97,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106123920.162131-1-parri.andrea@gmail.com>
+In-Reply-To: <20261105021351.2295547-1-csander@purestorage.com>
 
-On Fri, Nov 06, 2026 at 01:39:18PM +0100, Andrea Parri wrote:
->The Hyper-V transport is assigned before the asynchronous VMBus channel
->offer completes.  Its zero-initialized hvsock therefore has a NULL chan
->until hvs_open_connection() associates the channel with the socket.
->
->SIOCINQ can query the assigned transport while the socket is connecting,
->or after connect() fails once the transport has been assigned.  Unlike
->poll(), that path does not check stream_is_active() before calling the
->transport's stream_has_data callback.  hvs_stream_has_data() then passes
->the NULL channel to hvs_channel_readable_payload(), and any user in the
->guest can trigger an oops:
->
->  BUG: kernel NULL pointer dereference, address: 0000000000000178
->  RIP: 0010:hvs_stream_has_data+0x23/0x120
->  Call Trace:
->   <TASK>
->   ? vsock_ioctl+0x74/0xf0
->   sock_do_ioctl+0x42/0xf0
->   sock_ioctl+0x27d/0x310
->   do_vfs_ioctl+0x700/0x810
->   __x64_sys_ioctl+0x7d/0xf0
->
->Return zero unread bytes when no channel is available, before accessing
->the receive state or ring.  Leave the existing channel-backed receive
->handling unchanged.
->
->The oops was reproduced on an unmodified v7.4-rc1 kernel in a WSL2
->guest with a small user-space program, available on request.  With this
->patch, the program reports zero unread bytes and the kernel logs nothing.
->Other vsock_test cases were not run, as most of them need a host-side
->peer.
->
->AI assistance was used to identify the issue and develop the fix.
->
->Fixes: f7c722659275 ("vsock: Add support for SIOCINQ ioctl")
->Cc: stable@vger.kernel.org
->Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
->---
+On Wed, Nov 04, 2026 at 07:13:49PM -0700, Caleb Sander Mateos wrote:
+> For a request list of length 1, ublk_cmd_list_tw_cb() is more expensive
+> than ublk_cmd_tw_cb(). It loads rq_next, which is in a separate cache
+> line from the other struct request fields accessed in the dispatch path.
+> And it dereferences mq_hctx->driver_data to get the struct ublk_queue *,
+> whereas ublk_cmd_tw_cb() gets it from struct ublk_uring_cmd_pdu
+> alongside the request pointer. On the submission, ublk_queue_cmd_list()
+> can cheaply check whether the request list just assembled has length 1.
+> So pass ublk_cmd_tw_cb as the io_uring task work callback if the list
+> has a single request and ublk_cmd_list_tw_cb if it contains multiple.
+> 
+> Collapse the req/req_list union in ublk_uring_cmd_pdu into a single
+> field so ublk_queue_cmd_list() can store the head request to it in
+> either case.
+> 
+> Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
+> ---
+>  drivers/block/ublk_drv.c | 17 ++++++++---------
+>  1 file changed, 8 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+> index 3d322fa1bc83..c397e354a7d6 100644
+> --- a/drivers/block/ublk_drv.c
+> +++ b/drivers/block/ublk_drv.c
+> @@ -117,21 +117,18 @@ struct ublk_batch_fetch_cmd {
+>  	unsigned short buf_group;
+>  };
+>  
+>  struct ublk_uring_cmd_pdu {
+>  	/*
+> -	 * Store requests in same batch temporarily for queuing them to
+> -	 * daemon context.
+> +	 * For ublk_cmd_list_tw_cb(), a list of batched requests queued to
+> +	 * daemon context. For ublk_cmd_tw_cb(), a single request.
+>  	 *
+>  	 * It should have been stored to request payload, but we do want
+>  	 * to avoid extra pre-allocation, and uring_cmd payload is always
+>  	 * free for us
+>  	 */
+> -	union {
+> -		struct request *req;
+> -		struct request *req_list;
+> -	};
+> +	struct request *req;
+>  
+>  	/*
+>  	 * The following two are valid in this cmd whole lifetime, and
+>  	 * setup in ublk uring_cmd handler
+>  	 */
+> @@ -2104,11 +2101,11 @@ static void ublk_queue_cmd(struct ublk_queue *ubq, struct request *rq)
+>  
+>  static void ublk_cmd_list_tw_cb(struct io_tw_req tw_req, io_tw_token_t tw)
+>  {
+>  	struct io_uring_cmd *cmd = io_uring_cmd_from_tw(tw_req);
+>  	struct ublk_uring_cmd_pdu *pdu = ublk_get_uring_cmd_pdu(cmd);
+> -	struct request *rq = pdu->req_list;
+> +	struct request *rq = pdu->req;
+>  	struct request *next;
+>  
+>  	do {
+>  		next = rq->rq_next;
+>  		rq->rq_next = NULL;
+> @@ -2119,14 +2116,16 @@ static void ublk_cmd_list_tw_cb(struct io_tw_req tw_req, io_tw_token_t tw)
+>  
+>  static void ublk_queue_cmd_list(struct ublk_io *io, struct rq_list *l)
+>  {
+>  	struct io_uring_cmd *cmd = io->cmd;
+>  	struct ublk_uring_cmd_pdu *pdu = ublk_get_uring_cmd_pdu(cmd);
+> +	io_req_tw_func_t tw_cb;
+>  
+> -	pdu->req_list = rq_list_peek(l);
+> +	tw_cb = l->head == l->tail ? ublk_cmd_tw_cb : ublk_cmd_list_tw_cb;
+> +	pdu->req = rq_list_peek(l);
 
-oops, thanks!
+Both callers guarantee the list is non-empty, so this is fine. It
+would be a bit nicer as a rq_list_is_singular() helper in blk-mq.h
+rather than open-coding rq_list internals in the driver, but not a
+blocker, anyway:
 
-Reviewed-by: Luigi Leonardi <leonardi@redhat.com>
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
-Luigi
 
+Thanks,
+Ming
