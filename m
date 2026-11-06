@@ -1,68 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945626;
-	b=1BZFmPncgUZ0p6llOkOfUm7rgPQrul2IbOtKCSuktU6VajoTU2EO+kKP8lHl0QqAQQxq
-	 WI8GtF7rwiMMtwRNS4tI6d1ydiSRU/0MAjC/xgTtGiC53iddMzvMMw1/KRS8P9BuhSevR
-	 01xOaslmGtO7J/T0Pf06QHxy/R9AjQaHUUxULUgDK1E4FbQCFVaS46qDprB+Zi3h9Hcye
-	 B2fx8R2kbuAYqd3s1i7DPxtbIUczW9jraFl36bxAeFVtT1et2Fs7P1E+vPyc3SeNKU8DZ
-	 Y+GRjw7dFjZcx0rCBmCPBCpYTZILUgG5gOi7kF0xyWkmfl5c6LMhOW887kdJsnRYJLA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945626;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=rzvF6MsRtSNRQYkAnE8s0gTVzXdnYrXPinbLwOnBUXA=;
-	b=bSEmuTrOkZsHmO7qCn16/ULKgYWYd+PvQt4VpjjvYEAcuBplaMVa/r9drUvMVaY03me4
-	 T/Tw2YV7UM2uK58hrzmR+an76hSyZwBe70w99TFAQJ9Mb/2iJ9i1tNMN5qr5a/KkvBedz
-	 wEUgP/6I8wmr1UxBzMI8jWOlb6LeWOJNNZYRB2p51FR0xTMyHDjZqHx/U/MS0CuO6g9Pq
-	 7p4NxUbYe8SNWJD8jHVE7gClkSt8qs0mOmQJlDkIrQMf8Y0cJiFaQFhGSJa1BVxUYJIwx
-	 r0N77At/ZTZwZlE4oM7JDxD5DudF9koDNR4LR7oKgbypffuTZo5u+tPTv0mnDC7gakg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=ndZFzLE5;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793945680;
+	b=wZAaBRuGnSuxrpd/IHXACUE54zXUhA/a3wJ3xIDj5B+zOHbYHEu7HNTHHb4a7EC2TXRC
+	 Mswgzn8X3V5u6H7mnuaU5MyjaPJSyEh8RfNYanZUCpMgN8ZL98nRwrpE0fH3st0tmZ807
+	 qugV8nvrGMGqiI1PIPwNUzdsCFKayJxhA9KDvYrbWLuOw5oK/UDIRAIi9cnpkvcvj0wKD
+	 CCRUiSwzJtBXeEIZqFO63AoUwxxqvCnDeghKiTsiSA5fONrIrenZ8uhlhi1702izDLU88
+	 hLyOBXXcnOv2Lo0L9VySpY3PE3kARCycHM1iTs+KZEiElEDbM29qOc3lIOQfRRptaEw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945680;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=3Q1duo3QjofSTerlEHZho2qC2y1WsA0WLpsLxRU0Fuk=;
+	b=tBCv+kk8g/WU0WvIxGxZX7ElOHZdQx3QuQqRTyjD2o/qAP2tyNxYZZfNbbp86z5at/GW
+	 3SOPkU53rQi7HhA7I+kVzwNOhDHl/entrkSF5XZjQgbfX30MP9bzdPsGpjfpFEt63QNaD
+	 aniaAR9eS0UHzznQWtM/XiBfLasdZA2/xOHxJDsyU5lE9aU+FyDRTlRin3FLsYT+Mtknn
+	 +7YNrxbywyC9qcBCtNuMl6/KmYLxBGvc0T7hMMV/2j7wboE00zRIpriKRC7i1/Zk4hCri
+	 J9Mgh/oCVbCBpIIdprArzjsMOBo8I5r0xoAiEA4pZ+fH6otp49YlaHEsqO7/qpyKnPA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="WN/ohylU";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.34
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013034.outbound.protection.outlook.com [40.93.196.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6105606A326;
-	Fri,  6 Nov 2026 06:13:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6105606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20B2606A329;
+	Fri,  6 Nov 2026 06:14:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C20B2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=ndZFzLE5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1793945623;
-	bh=rzvF6MsRtSNRQYkAnE8s0gTVzXdnYrXPinbLwOnBUXA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ndZFzLE5AsFZxPNSYiwe1F7iskrv784pVUWFqTXYG7o/4s6WIGZF/QcWN8C9inFSo
-	 d8MXP2mSJgLPYNoW2AWLn5VRNIrPj1LvIP1mHVKZgWOhOhRI1K25XLF/k41y826lKv
-	 7v6ZUAbAXf0oSctj+L3mLhLfjRcu6yV4dTGlwR+GFYPnnTZ0Mpl4+zXQrBBq5Jf9Ps
-	 6HKEmS/q5zVbYOPc/TJlicZ8TdETKFUGMYUXrevKj92uB3KYj9iN289JumYhwMUiVc
-	 xZc+5Q1POjXSzWFRBjBDRuAzzg7r5Zf16DH2Yx6Mk9Yn6HZE//t+JEvCfKXgJZTiuz
-	 1HdzsucRlCc9Q==
-Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 0140E649EE;
-	Fri,  6 Nov 2026 14:13:41 +0800 (AWST)
-Message-ID: <8afcccd35b8a78730c6a9cc46c30dbeb99694e6e.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v4 1/2] pinctrl: aspeed: Use managed pinctrl registration
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>, 
-	linusw@kernel.org
-Cc: joel@jms.id.au, ryan_chen@aspeedtech.com, billy_tsai@aspeedtech.com, 
-	brgl@kernel.org, tan.siewert@9elements.com, linux-aspeed@lists.ozlabs.org, 
-	linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 06 Nov 2026 16:43:41 +1030
-In-Reply-To: <20261106022907.10735-2-prasanth.padarthi10@gmail.com>
-References: <20261105152348.8567-1-prasanth.padarthi10@gmail.com>
-	 <20261106022907.10735-1-prasanth.padarthi10@gmail.com>
-	 <20261106022907.10735-2-prasanth.padarthi10@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=WN/ohylU
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r+pCYWpzmgl5CNVVSaUKbstl+/GzRB3bfDitLoDq4pq30Y266KDMs3qL1ZyUKRGMWMxZV6TPMpA65NRdLgn5nujuTlo7axNMA7TWL0uGK2Y5G51LwyFpyJoFJXZvEsLU7rW1w2u5xX1gMrMpDVcT/HlPte5bcf8CFuAHF0z0X2chZLFQf/0yeMNgDyZFo7gcshiGlt130Es9zinNtoKPzJeTZHoebfIdK6495uqqWdkSNev/RWRmff9sf30PkD9PyR3qaKvhUNVEMGKZpnuUyW8RIZHVwCq3kgM6LNLv6VehuRU75gkpUyRWy89M3FvO3nstEqy708ZLtRCOeAziZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3Q1duo3QjofSTerlEHZho2qC2y1WsA0WLpsLxRU0Fuk=;
+ b=HjP3G6ik7mr2dxAwSDiE2ROlQXCxu7INGXlD94p4RhQOhKGwxNVR++0biZ/sgEMM8AzIlzqMNdp12tv7uHz9udhselDh/LwXpLriRu4DgZBll31OgieCqJPiiAjrwfpZZoMaI0a/xKIy3SDWFUfwMxwYcziJoWtwfYDVuv1VBsE76EpNtYlT62kvzmnMlbNl8o/4Vf1VBQB7Ys/i2BAtg64d5iyJ6CWpQNKLIr7BiSTGVPHAWT8aDlaxLO5CJ/NeoI+FfEZwX9tb7F3xlRHaz+7vcqKv+pChEGBomFBvtTxwJ34F7QBqBxi1CoYSgKxLapxWYGXfSu1WEdIrOkzUxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3Q1duo3QjofSTerlEHZho2qC2y1WsA0WLpsLxRU0Fuk=;
+ b=WN/ohylUsMpBu0kikXloBnUZ13wKnwUwyc6wBVp3ryM/T2pkezVabn1lJDC8ootDE3T6FAuNxmQW6FrpHFVCfg50GYWbcjEQspBaS29de/fGAG/0boZr0R9hKQAz5G0L8wkbcGdByF3UnZJvJ51aY8lHGr3yQan/0XlhDknWY1Ke8AEPAkvE2IWK/lORBdEc99l0ic7mTlXGSqZWjAV89uVxkMLcGJkrzp9eVxzeF6LRReHU4wnCkeX67blWWfX9Kj+ro7WHz58LKDs5bIqYBYsXMOQCKePqYvYXoH1yBadxwPxkOZTxQbTYob0HeCUZA25u27/QstMEyFFMfIJPhw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ CH3PR12MB8404.namprd12.prod.outlook.com (2603:10b6:610:12d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 06:14:35 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
+ 06:14:34 +0000
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 06 Nov 2026 15:14:31 +0900
+Message-Id: <DMNWO08EFJD8.D2G9X082FUKN@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 6/7] gpu: nova-core: falcon: allow DMA transfers to read
+ from a framebuffer address
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com>
+ <20261103-r000-fw-v1-6-e3d38fc130e3@nvidia.com>
+In-Reply-To: <20261103-r000-fw-v1-6-e3d38fc130e3@nvidia.com>
+X-ClientProxiedBy: TYCP301CA0082.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:7b::20) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,65 +104,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH3PR12MB8404:EE_
+X-MS-Office365-Filtering-Correlation-Id: 670c55e5-de5c-4328-1af3-08df3bcd3a78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|10070799003|1800799024|366016|11063799006|4143699003|56012099006|261022115727099003|261022075727099003|261021121427099003|261009223027099003|261102123227099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	MGl+vdL1vbtpL/ERwyIqvZauDMzkWEHB47DmYMKpf7lGAodtGAFDiQiIGEg6Et7hMi1obZnJFK98YZP8OVDmQxUG2Wzahhrm59h5ZQHr1FGN+ILpxjBUt/SsDh8klD9fkPYsoR+PPiGX30YCSZSZ0pMBDbk67mU3cNhQmKSSs6IrNyoV2/h+9ZhbrsMR2gGtdyufUKJ66nXfePxV2AatRHhJ35CCPi6rnZcqt6Ze+kEUhBcaeO/zgKHdnAatgQN1jdR4fbaW1mXWfLYOo9Vzo8blZai7Q5GRDkS+ra8YoUJCz+GLN6lM2j+1WFyGTwib8zucERlU1mrkOcFX2ERrFnU/1y7pCPdUipNvjasdR/nS19sl1/u/Fp5TaOUe+w0wUD/tfMFI/JNWz6Q2JKsMfubiCkl40Nr3oz8MBWJRLwTuQ4YP5KT6P1yPYRWkyMs0wDTJGCYLHkWYIXMw4dgvl75wGHVRdHnvEyOT6LEtX3v9m2uMQ7nQhvQPDoZNN4nOBDLa1T4JlZrMsVCq2xhVR2E6462RJYYUI3KBzhIMwTx0wodRQNSLYuBsZGc9WdCX8KjT9u1VA8mgSb0RfSX9AsnUY2Q09Oy3wzPRnQofZSMjF6Na2ks4DsFXR4bi5m6mCYdG8cEVdEbR6vYhuYVhRsTh4JSDRhurf/UwS6XjCT0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(10070799003)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(261022115727099003)(261022075727099003)(261021121427099003)(261009223027099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZVhwSkE2ZzFlSkhUMHp0TG5mOXJSUXZIbkZtUEtqeFJEQjlpbzNMQUdrallk?=
+ =?utf-8?B?YVhyL3pIYXl0ZFVDaUk5VFpzalF4MS9QSXQ2REg1My9aMTlqTDlwaXhBY0RJ?=
+ =?utf-8?B?MnN2WFRsazVTa0RpajVqVlBWWWc1NHV0ODF0aW8zWGhjbjcxZkM0dGtVWnZ1?=
+ =?utf-8?B?cjZhWWlkUzJ1MENxM2lsa3ZrTG51N2JwRVhCV2ZJclkwalRXZDNlT00rL0hR?=
+ =?utf-8?B?WHpGRE9YWXBoaFp2N05XMkQ4clJheDlXY1pvY3ZIWFdWZjBXRWNDc1pXRWp6?=
+ =?utf-8?B?YkVPRkpyRE5tNHNTTXNEZmE1ZWl2K0FnMWpjbjRaQzY1TUNFOWovL1dheTBp?=
+ =?utf-8?B?T01qTmxoaXVkQW13OWVMSytCd01zQ3hrbVdpS1BKRnBCcjBEdVNwTlRlZmxm?=
+ =?utf-8?B?bmd4SCtrSHV4WXpHRzBKa0dNbDFxYmhUdmkrZXZyZEM5RFRyU3FqK3pMSHZy?=
+ =?utf-8?B?eTZha0RLSjJCQ25jS0Fhb1l1ZFErTGhVUFhHWWs3NGtvNGhueElwbDBWVDBC?=
+ =?utf-8?B?bXp2NHF5L2hKRXUvR3JmbXlvRGlJOGs1QmNMcUlPdEEwYW1jb3gwd2xRRWQz?=
+ =?utf-8?B?VWFOZ3UzU3MvUGZpSU9vTmRzKzh2UktWYTR6NXEzdmdEdW1taFVQd3BlL2Nu?=
+ =?utf-8?B?M0N5YU5pTXJJM0RkMHJUeTBzaUp3eVBBUTVyV201OUdJSytBcnBOODJqR3ZG?=
+ =?utf-8?B?a1pNYnA2T1lDMEpZMElmeTdlVjNKbWRzOEZZdisyeHUyYjNtVFN1SGZqTUlj?=
+ =?utf-8?B?KzFJOFlMZGdtNnVKekMvOG8veVNJM2I5N0xIL0NDaFNKOHBJcGZkeWZCYzlH?=
+ =?utf-8?B?cnRSRnJTMDRMNmlGZnVGU0g0TUo1d3FEcG5pTklHOStiNXpYd1JoWjVCVFk1?=
+ =?utf-8?B?Q1FmaW04ZEU1OHdkNlltQWNpdnVTMEJLZXk1cUNVZDA0VXFvUXRzamlETldG?=
+ =?utf-8?B?SW9Odi9xTS83eisvZG9NUlhSV3lnMG5VRXVmdGlibGxncSthb2VPRjZSUDJw?=
+ =?utf-8?B?UzNLZU9BUkRhbTdzbUNOMnB5THJTenY1N3dOeG92S1BUYVhnRWs5YTVNaXg3?=
+ =?utf-8?B?YTFYVG9yTU1SNjNzNnBxMkQ3RVp5RVJGR3JIUEUvbngzRUNzU1BydExReHdV?=
+ =?utf-8?B?ZW5GcndZeGZzTFhGM2lRQmpJcHE2cnRYVnBOTjU3ZDZrNWtBdXoyeGdlbVZH?=
+ =?utf-8?B?VWZQMUNUWDR5YnZ3ZmNzUGtuUEZlUmtVenVLV2I4M3pBeEdaYTJFZ21jL29z?=
+ =?utf-8?B?MjZBRVVFTGhEQkR5eVQvZ0tqL3JtV0FzYlVmdnB2K0ZXRGVaSWRka004ZlVz?=
+ =?utf-8?B?YVJyK2NDT3NxTjVxT0RBV3NDOXZhOUJqM050alQ0MktndlIyZmg1WFFyT3Q1?=
+ =?utf-8?B?aklEdVRjR1kzcEFzc0J1QVYva0s3b1E5V1dWUjV1NFZKbk9JUzQ4RVRpUitR?=
+ =?utf-8?B?MU1sSjhuT0syQVZMalpDT0JGQ1RGUFRuS1Ria1FsaUU5UG9SNE5pcnA3Si9y?=
+ =?utf-8?B?U1JvSFZTRUNtVlYxaFRBdGJUN0RaRzkyYkdzdVFtRm1VVlBaam9GQmp6bDV3?=
+ =?utf-8?B?YnNNbytBOU5NVEwwMm1wWTdMVll5VXZoeGh3YTdqd3EyeEQvaU5aWUZ2dXZI?=
+ =?utf-8?B?N0tTR29SZndkNEJDY25YSFI2cHB6cU15SHlvVTNSWVQvVjhCVWZhRzBpb2Zw?=
+ =?utf-8?B?S2pNbmhVMFZkRm5mMFd0amptVWthcGpSdXFQM3ljSDEyYlpiem5aZElGS1Q1?=
+ =?utf-8?B?cE5PNEpXSTBFcFpQa0Iwc0t5Yy9mY0VwVk9EYnlwbDZzaGR6MG5WSVZ0Yk9J?=
+ =?utf-8?B?Y2k4cndkNW9MaytXUlpTR1NncXcxb0luSzJoTDFCc2RheWJMODRZajVIRU9r?=
+ =?utf-8?B?dXBJUGFpQkczTFBBTW8vQ2NubUt3WGUxakVndlc2MjZvak5TRmhZa0lUZW9D?=
+ =?utf-8?B?OUhUMjhYbDk5Z3JwemVic2JWY1hYYWN6aE1KZWJ5WmV1M1d3cEZzQWtacWhm?=
+ =?utf-8?B?VENGRm9VcHo1N1gwSzgvRlY1RTlhRTNZSU1GNW9PdnVvYmo1RXNYY2UrK2Rj?=
+ =?utf-8?B?N0poTTZkNWdIUyttUEo2dEkrU2pWRGxVTXBOb1NMS3dEMC9TY0FGZkNUaTNv?=
+ =?utf-8?B?SjZWajZUaWV3Z3U1VmFKL21vMGZzOE9YbFZhVkNCaEdicDRkSHJIOHBPQ0pi?=
+ =?utf-8?B?c2NSOVJsM09KNlBBaTArR1lDcnFWRTVjS1dOWjc1cS9zQklzTUZmZmdHUzg0?=
+ =?utf-8?B?SWhvTVZNSFJySnJ4QkRtbWlXZ0VORHU4RE5KbUoyYlZrd21DUEJpTjRCSWFM?=
+ =?utf-8?B?b3BRNnRhMDYvZlVtM1ZtWXhXUDBNUlpoS25PMFlpQ0R3NU1uanhTSTJRbVVs?=
+ =?utf-8?Q?SmRqprjiZk2oidH1pp9R/YOMncrsen2UdDbi84J5wFT1x?=
+X-MS-Exchange-AntiSpam-MessageData-1: vsqRurWzS53OPQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 670c55e5-de5c-4328-1af3-08df3bcd3a78
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 06:14:34.7951
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: scQ75px1EOvGXveWE+Y52fecd4ZBPolJLvjMAMQO014drLnMm2SXwt/dydyqUJhAx6hLA5Mlu7T32LzKY9Ib3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8404
 
-On Fri, 2026-11-06 at 07:59 +0530, Prasanth Kumar Padarthi wrote:
-> The shared Aspeed probe helper registers its controller with
-> pinctrl_register(), but does not unregister it when the device is
-> unbound.=C2=A0
->=20
-
-This is a problem in its own right. IMO the rest of the discussion can
-be left out, as it depends on the subsequent change, which still needs
-consideration.
-
-> Registration can therefore outlive device-managed callback
-> data, leaving a registered controller with pointers to freed memory.
-> The G6 handover change in this series embeds that data in a
-> device-managed allocation.
->=20
-> Use devm_pinctrl_register() so controller teardown runs before earlier
-> devres allocations are released. This also cleans up the registration
-> if later probe processing fails.
->=20
-> With this change and the G6 handover patch, one unbind/rebind cycle
-> passed under generic KASAN in AST2600 QEMU and on B650D4U hardware.
-
-IMO this sentence is enough to describe the testing, the rest reads
-like unnecessary detail that tends to be generated by LLMs.
-
-> Controller debugfs entries disappeared on unbind and returned on
-> rebind; a subsequent pins read succeeded without observed KASAN
-> reports. The unfixed control case has not been runtime-tested.
-
-What is this last sentence referring to?=20
-
->=20
-> Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+On Tue Nov 3, 2026 at 7:22 PM JST, Alexandre Courbot wrote:
+> The r000 boot protocol has a load-and-execute event in which GSP-RM asks
+> the driver to load a Heavy-Secured binary from framebuffer memory into
+> the GSP falcon's memory by DMA in order to run it.
+>
+> Nova-core's falcon DMA loading method currently only supports loading
+> from a DMA object that the driver had allocated, so there is no way to
+> copy an image from framebuffer memory that an event supplied.
+>
+> Address this by making the source of a falcon DMA transfer an enum,
+> which can be either a DMA object, or a GPU framebuffer address.
+>
+> The framebuffer address source has no user yet, but will be used by the
+> r000 boot protocol.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 > ---
-> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed.c | 3 ++-
-> =C2=A01 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/as=
-peed/pinctrl-aspeed.c
-> index 7e0ebf11a..d19b4d23c 100644
-> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
-> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
-> @@ -461,7 +461,8 @@ int aspeed_pinctrl_probe(struct platform_device *pdev=
-,
-> =C2=A0
-> =C2=A0	pdata->pinmux.maps[ASPEED_IP_SCU] =3D pdata->scu;
-> =C2=A0
-> -	pctl =3D pinctrl_register(pdesc, &pdev->dev, pdata);
-> +	/* Unregister before earlier devres allocations such as pdata are freed=
-. */
 
-I'd rather the comment is removed.
+[...]
 
-Cheers,
+> @@ -626,9 +649,13 @@ fn dma_load<F: FalconFirmware<Target =3D E> + Falcon=
+DmaLoadable>(&self, fw: &F) ->
+>                      .with_mem_type(FalconFbifMemType::Physical)
+>              });
+> =20
 
-Andrew
+Suggest moving the NV_PFALCON_FBIF_TRANSCFG write into dma_wr because
+once we make the source configurable (i.e. allowing vram as a source)
+it's now possible to call dma_wr with a bogus NV_PFALCON_FBIF_TRANSCFG
+setup with the wrong FalconFbifTarget (but that's determinable from
+`FalconDmaSource`).
 
-> +	pctl =3D devm_pinctrl_register(&pdev->dev, pdesc, pdata);
-> =C2=A0
-> =C2=A0	if (IS_ERR(pctl)) {
-> =C2=A0		dev_err(&pdev->dev, "Failed to register pinctrl\n");
+> -        self.dma_wr(&dma_obj, FalconMem::ImemSecure, fw.imem_sec_load_pa=
+rams())?;
+>          self.dma_wr(
+> -            &dma_obj,
+> +            FalconDmaSource::Sysmem(&dma_obj),
+> +            FalconMem::ImemSecure,
+> +            fw.imem_sec_load_params(),
+> +        )?;
+> +        self.dma_wr(
+> +            FalconDmaSource::Sysmem(&dma_obj),
+>              FalconMem::Dmem { tag: false },
+>              fw.dmem_load_params(),
+>          )?;
+
+
