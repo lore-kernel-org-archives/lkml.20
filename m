@@ -1,77 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958643;
-	b=qMO7Lzep8PBpx2nStYzR2IaMo01FGg3d6iUdXVyBJ6QpkxkO0+SMS5f89YvIX+uM5dZo
-	 qZOUnOM7a7ccziQZsBQkoKGo4MQRmV2IvEbf7EKC94k6jDzzvLEbXS7rGIl1zNC4qkqYS
-	 ipamnRDJPv6oLQQxy/E881ztfJicDKY1CHwa/0g59l2pQEbA7dG0LEPab7jK8NRO4NLy0
-	 KhpAMmS5CoT+C4hE+RVwyzulDYjhjg+BYprW/kaiaBDnT6SDA7n4QF0ErkS7o/tm0Nm/X
-	 l56OHIrAbDGbJB8GwRKSr1xrlXRYPjeUIEecoe+7/smVSoxePq5r7c3xUcw/mmQYR5A==
+	t=1793958664;
+	b=AX/DGy5BVedkdtlz+QGkJwGXnJcUib/TQm0NoLsIgG2yo/zcZbrvSETTeOILqM8YiBvd
+	 ZAjINyhVanr8pbuhu6e3+Vzf8wzBJAgw8fGlViNrjyWDXOY2UuEwitey2vBI3GLkij8s1
+	 0W0tb/WE9tgdedXXoeFFyZoC8i7I92mhBVjRWXIVHDL5y5Faf0hXyOMchwd7Hh2mGx9TW
+	 V0kF3WQWPZni1HqYQEcwbhehAOJxTG8QbAyoERG/sz4yIQ23Ljor3ZWydjig0eYmlefGN
+	 rBedWC8CMo3Q6S0IRbRrDsoDON1XdgZ3iT6oyCoh5sLgvSNPTY3OD8EiAcSNQz6KZ+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958643;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=+SOP8fW8rHC6QvsENjYoGEzi4a+KgOSZlffYb8mBkKQ=;
-	b=wu40RhcJtyZj6RrsvB5aKQHEebp9BktBYy5wMq5Tbjw2MSHtX+HLcwIL9Uv72YbOgk7y
-	 ECiEZrjStUpzWKpBjwV1t4v3dKjFnUTDXud4MHt78iOrXoypWrsr1mtFZ1OIhStMM1gH0
-	 bLqqOGUiLn0xOjowvcydWLApXluNyo2xeSuFeFqJEFK2AYGOiHCaeJ4fsym8rOjn28mn6
-	 GYh+TfqEAe83YeDz2TfbRVd5VH5fkuC5BQwqTFLjiS3B7cXJoFaJlRiByMVw0Sx4+CflK
-	 prddqB4kuHggU4DQhd5kcD4LpgJCBVhA1vJIEKgjD562J/OHH8THDJ5Iqxw2OA4WUCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958664;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=vQBnTQDeqPWib9HYEy/76nQqVu/AgiIe/ITMno6I1Ns=;
+	b=d+WjV3uu1pFFo77YI4IN3LgM5HYbe3Hk2Rh4Z2NEObME7xBv75U+ngdvQ0fYqHT3+v6T
+	 j3oONtzmu0y8KT0wEy1um7cg8Hv80z7BIzvEu8W0nToVNkY5BhpV+ZAmupowwXlJ5oIe3
+	 cJpeEbzko4JavLvXQViJ/ooNXPI54g6k2l05sjPYnmexxb16AO1IbZ2b6VXatSaIJ2ad9
+	 7f+ZOfOXvyhA7N4vNvjhebT5fXtR0sMUGjYFLEkW4zRh6nsMhZRYWYBpkQom2UExsL2LR
+	 FfHFFCBVvf5XD+34sRmcnmjKsVkZhV9yusuDHqbrPFKa3plEw5gPcjALZXA+4KENcoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=qsxyjcDG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vzz3a2xq;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qYY0QYHf;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5DC6082BE9;
-	Fri,  6 Nov 2026 09:50:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5DC6082BE9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FB4606A335
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:51:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93FB4606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=qsxyjcDG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vzz3a2xq
-Date: Fri, 06 Nov 2026 09:50:39 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793958641;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+SOP8fW8rHC6QvsENjYoGEzi4a+KgOSZlffYb8mBkKQ=;
-	b=qsxyjcDG/9U0PvEZKq+IsPMcdZnCAQAsOGGNd3hBKg+OzcjSCeE2+uHNDGQs6SZ3I8JlUa
-	ZGn87X/SMr45/px5sEp7ANLXf8iFmCSTZuASe6tYNbtq0KAr2HNohjId6vGaLL2pd5k1AO
-	yS2aAs8KUFnh8Y/i7l1VkkS8huU0OELFlyV6p8ZqAdWKNdgLgBEA0SkOwkxCZUNfalItV9
-	zSuTNy7dzqLDps6/ZXj86yuEt5vl8A/kCQSqTZIQt9vozRh9U+EOAgUBMw0/EKTPKnktMR
-	rxst/08qbundnm8PpoIvU6dFwB0QBCKLtqvbPatAvImjVkYOB/d6wSZZg0xuJA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793958641;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+SOP8fW8rHC6QvsENjYoGEzi4a+KgOSZlffYb8mBkKQ=;
-	b=vzz3a2xqH8MS9DUGujqJWWu/0IJJjuOCvYdMW24T7qTLywcJTJQIZ1KQVgxqr7eRMkGqgf
-	pgutoEt9uj5X15BA==
-From: "tip-bot2 for Christian Loehle" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/urgent] sched/core: Account I/O waits independently of
- delayed dequeue
-Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
- Christian Loehle <christian.loehle@arm.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, Kayra Cizmeci <kayracizmeci@gmail.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <fd8578a1-e60b-4993-ab51-2b5d63abcf77@arm.com>
-References: <fd8578a1-e60b-4993-ab51-2b5d63abcf77@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qYY0QYHf
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so447948f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:51:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793958662; x=1794563462; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vQBnTQDeqPWib9HYEy/76nQqVu/AgiIe/ITMno6I1Ns=;
+        b=qYY0QYHfvwNgzBac0451gF21eaCM3pK7oCeOQyEt4slf1JpxRNomaS4qVWQMbcnkqp
+         j4jSn6fcIGVAucK0eb6HqE0aXCiGtWoZbEHIm1T2AFBTYeZhus4ahf83jMU/a+8rq/cg
+         empsweZSO3DbMUia2kJyQPcomGyMGC92/8jcLqFL0TXv+2kH8Ctz6FxuYuuqmuesiWvi
+         6HSYC+7UC6dOW2hzSHuBokB7Xu0I7wM8XZCTdhQEXdHYIMM7emtLRSGHdeiB/68SN/Ht
+         tfrd02vpVFZ2PcqEhO2o/oPIh10zOcV4xRiNfQzy3UZuQdn80aEXT07bAhpha1WG65Ss
+         /CPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793958662; x=1794563462;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vQBnTQDeqPWib9HYEy/76nQqVu/AgiIe/ITMno6I1Ns=;
+        b=vNThF3uuuYZusX8RkpaRypZpaTpVqayQc9IRQ7MvUYRvA2iWBqLd/EEOJsqsH6HhHw
+         Zab9mV8pJF7zA+tCbkoSzq4LooWQeUoQWL2nVOcHLQwwSIoVfHclE/oOHJbQmt/x+a1z
+         PwUc8o2r+2J7l3S/aRF9KXSMFZwfKmXl5ZQwgza4uQxhBz59FxNyIjJI6M1ZI0yTtECl
+         HtjPY0uvCKu+V3wh19he2bPbOB3updkSDRHxRA6gzodA+dEwe/dDxuD7iPEHD+nOOlEB
+         sJHuQtbZTEWW7sPORLvaES8fmKWIkOxys2Al8KBk9zPpjcwZDppoBU5NeolKWon4FHb0
+         tiqA==
+X-Forwarded-Encrypted: i=1; AL+hErGlTFxxM9HzL0v1JjNEFeWT2l4sftO9x9+LEHRKjvYtbXY9+X8Hw5aElTn4+ZiMJu1rmQ5/6ZrRp0Q7sq8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+wwsLc1I5VOYvhjj6cc5Fseiid4I0j7uZeIABC7oS/CU011sp
+	vAjfRcK9aT5TcLKsEsXxp/XOLCq6MCKJRtEyYjBdOvUA78dhofgGuzY8AP/1WY2K
+X-Gm-Gg: AYBFou0bKuGcqMpheo2JxUdU9iaEFV4emJBG4VFKikivSdVcuQfzaPgkT8u2V0pSMYw
+	SfABJfI6aT4AgeeSs9xqIGyoiTitrKjaZO6AnEwRGm3bryaC/ha2B6SgtGt8TUfZHN9K3JnCSw0
+	PCleD3mHqnzDc9p2ImjlCP9bpuhgOPjYX0Q4DVLjXtNKe2uTLC+c+ShNgww7bDMb3AATM85aQy9
+	v6l/uvX1g0Cu1tHKZzzk9dB6Yw1V+1gkUDStmPAHWzMSzTSxMZnRUo3HqBILeMdJ72w0snCIyJS
+	XqU4/EHyYevRK2/GT2yG4TtOdJQfYk9AJA5ZuzfAMPJgAnyy/1UNANyvAD4QJPmxbSBhtfkf9BR
+	Xm8VZGZ02D8qbu8smskJBLbQpruZo/QaNjv5oF1PxYDakf4KHGHTMzHqsRpFISU6L+7h4rX9bP8
+	4ZV4gdBpyfwrRDZdHtkCCxgSMBbIpVHZ981NdhbJByzgheiA2EjPghWLwqvrKmYbF1yjmqwR2kR
+	2cFbbOenkXE+tfFfQJJEbHZRUBlxgU48Lb/9cSf6IwpOMg5lNvxUen2CNqyqlftvFROMoZZAij2
+	/DKcKxis2QsElWCPLM97suIB516DvaUmyb5RX/o=
+X-Received: by 2002:a05:6000:40df:b0:492:3982:a80c with SMTP id ffacd0b85a97d-49276977cacmr4368036f8f.29.1793958661695;
+        Fri, 06 Nov 2026 01:51:01 -0800 (PST)
+Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d63accsm2813516f8f.17.2026.11.06.01.51.00
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Fri, 06 Nov 2026 01:51:01 -0800 (PST)
+Date: Fri, 6 Nov 2026 10:50:56 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Alan Stern <stern@rowland.harvard.edu>, Mathias Nyman
+ <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] usb: usbfs: Require claiming a hub interface for hub
+ class requests
+Message-ID: <20261106105056.4601f826.michal.pecio@gmail.com>
+In-Reply-To: <20261106091048.4056-1-25031212351@stu.xidian.edu.cn>
+References: <0aa5c25e-465f-4168-8833-387acced222f@rowland.harvard.edu>
+	<20261106091048.4056-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,189 +100,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179395863965.1009794.4319804414871563617.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the sched/urgent branch of tip:
+On Fri,  6 Nov 2026 17:10:48 +0800, YuanZhe Liu wrote:
+> check_ctrlrecip() requires the matching interface to be claimed for
+> requests addressed to an interface or an endpoint, but requests
+> addressed to the device or to a port are passed through without any
+> check.  For a hub that means userspace can send hub class requests
+> through usbfs without claiming the hub interface, while the hub driver
+> owns the ports.  Port requests use USB_RT_PORT, whose recipient is
+> USB_RECIP_OTHER, and SetPortFeature(PORT_SUSPEND) is one of them.
+> 
+> That is more than a policy question.  The request goes to the HCD, and
+> it can run concurrently with userspace releasing the hub interface
+> through USBDEVFS_DISCONNECT_CLAIM, which unbinds the hub driver and
+> disconnects the devices behind it.  xhci_hcd tracks the device behind
+> each port and issues stop endpoint commands for it in its port suspend
+> path, and it ended up reading a freed xhci_virt_device.
+> 
+> Require interface 0 to be claimed for every non-GET request to a hub.
+> The hub driver matches devices by device class or by interface class,
+> but a hub has a single interface either way, and that is the one the
+> driver holds.
+> 
+> Userspace can no longer change port settings while the hub driver is
+> bound.  USBDEVFS_CLAIM_PORT hands over the device behind a port, not the
+> port itself, so a request that pokes port state is not safe for a
+> claimed port either.  Programs that used to do this have to unbind the
+> hub driver first.
+> 
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> ---
+> Hi Alan,
+> 
+> v5 takes both points.  is_hub() is tested first, and the comment now says
+> that IN requests are safe because they do not affect the hub, while OUT
+> requests need the interface claimed, instead of talking about recipients.
+> 
+> I will hold the URB synchronization patch for usb_hub_release_port() until
+> this one is settled.
+> 
+> YuanZhe
+> 
+>  drivers/usb/core/devio.c | 29 +++++++++++++++++++++++++++++
+>  1 file changed, 29 insertions(+)
+> 
+> diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
+> index e191934623c7..6d69a993c0f1 100644
+> --- a/drivers/usb/core/devio.c
+> +++ b/drivers/usb/core/devio.c
+> @@ -878,6 +878,23 @@ static int findintfep(struct usb_device *dev, unsigned int ep)
+>  	return -ENOENT;
+>  }
+>  
+> +/*
+> + * Return true if @dev is a hub.  The hub driver matches devices by device
+> + * class or by interface class, and a hub has a single interface either way.
+> + */
+> +static bool is_hub(struct usb_device *dev)
+> +{
+> +	struct usb_host_config *config = dev->actconfig;
+> +
+> +	if (dev->descriptor.bDeviceClass == USB_CLASS_HUB)
+> +		return true;
+> +	if (!config || config->desc.bNumInterfaces < 1)
+> +		return false;
+> +	return config->interface[0] && config->interface[0]->cur_altsetting &&
+> +	       config->interface[0]->cur_altsetting->desc.bInterfaceClass ==
+> +			USB_CLASS_HUB;
+> +}
+> +
 
-Commit-ID:     0965587d00b84f0a3b0fc94930d4a5f8ff011eda
-Gitweb:        https://git.kernel.org/tip/0965587d00b84f0a3b0fc94930d4a5f8ff0=
-11eda
-Author:        Christian Loehle <christian.loehle@arm.com>
-AuthorDate:    Thu, 15 Oct 2026 12:37:54 +01:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Fri, 06 Nov 2026 10:01:52 +01:00
+Does this really belong in devio.c?
 
-sched/core: Account I/O waits independently of delayed dequeue
+If anyone thinks that the trivial "bDeviceClass == USB_CLASS_HUB" isn't
+enough (Alan seemed to believe that it is, but hub_id_table has matches
+for interface class too), then perhaps this should be placed in hub.c
+near the ID table, so that it's more likely to be kept in sync?
 
-Starting blkio delay accounting and incrementing rq->nr_iowait in
-__block_task() ties both to removal from the runqueue. With EEVDF delayed
-dequeue, this misses the initial part of an I/O sleep, or the entire
-sleep if the task wakes before it is dequeued. Such tasks are also
-missing from procs_blocked while their dequeue is delayed. Final dequeue
-can run in another task's context, causing delayacct_blkio_start() to
-timestamp the wrong task.
+>  static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
+>  			   unsigned int request, unsigned int index)
+>  {
+> @@ -891,6 +908,18 @@ static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
+>  	if (USB_TYPE_VENDOR == (USB_TYPE_MASK & requesttype))
+>  		return 0;
+>  
+> +	/*
+> +	 * A hub driver owns the ports and the devices behind them.  Letting
+> +	 * userspace change hub or port state behind its back, for example
+> +	 * with a SET_FEATURE(PORT_SUSPEND) request while the hub interface is
+> +	 * being released, is not safe: the request is passed down to the HCD,
+> +	 * which may walk per-device state that is being torn down.  IN
+> +	 * requests are safe, they do not affect the hub, but OUT requests are
+> +	 * only allowed when the caller has claimed the hub interface.
+> +	 */
 
-Start both forms of accounting in try_to_block_task(), when the current
-task commits to blocking, before delayed dequeue or proxy execution can
-retain it on the runqueue. End both when clearing is_blocked, including
-queued wakeups and the proxy execution paths that let the current task
-continue. Checking is_blocked excludes wakeups that precede blocking.
+Seems overly specific to this case. It isn't safe in general: it could
+confuse the hub driver itself, disrupt functioning of child devices and
+their drivers, or break HCDs relying on core serializing any actions.
 
-Save the CPU charged at the start of the wait. Delayed tasks can migrate
-while still queued, and proxy execution can also move blocked tasks.
-Decrement the saved CPU's counter on unblock, regardless of the task's
-current placement, and remove the old dequeue-based accounting.
-
-CPU iowait continues to classify idle time using the counter on the
-charged CPU; it does not accumulate the full per-task blocked duration.
-
-Closes: https://lore.kernel.org/r/20261014081731.1068794-1-zhanxusheng@xiaomi=
-.com
-Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-Reported-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Link: https://patch.msgid.link/fd8578a1-e60b-4993-ab51-2b5d63abcf77@arm.com
----
- include/linux/sched.h |  2 ++
- kernel/sched/core.c   | 33 ++++++++++++++++++++-------------
- kernel/sched/sched.h  |  5 -----
- 3 files changed, 22 insertions(+), 18 deletions(-)
-
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 1c93da7..e4f6323 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -881,6 +881,8 @@ struct task_struct {
- 	 */
- 	int				recent_used_cpu;
- 	int				wake_cpu;
-+	/* CPU charged while is_blocked && in_iowait. */
-+	int				iowait_cpu;
-=20
- 	int				prio;
- 	int				static_prio;
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 04b62c1..1a088d4 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -636,7 +636,7 @@ int task_llc(const struct task_struct *p)
-  *
-  * p->is_blocked <- { 0, 1 }:
-  *
-- *   is set by try_to_block_task() and cleared by ttwu_do_wakeup() and tracks
-+ *   is set by try_to_block_task() and cleared by unblock_task() and tracks
-  *   if the task is blocked. Traditionally this would mirror p->on_rq, howev=
-er
-  *   due things like DELAY_DEQUEUE and PROXY_EXEC, this can diverge.
-  *
-@@ -3773,12 +3773,22 @@ ttwu_stat(struct task_struct *p, int cpu, int wake_fl=
-ags)
- 		__schedstat_inc(p->stats.nr_wakeups_sync);
- }
-=20
-+static inline void unblock_task(struct task_struct *p)
-+{
-+	if (p->is_blocked && p->in_iowait) {
-+		delayacct_blkio_end(p);
-+		atomic_dec(&cpu_rq(p->iowait_cpu)->nr_iowait);
-+	}
-+
-+	p->is_blocked =3D 0;
-+}
-+
- /*
-  * Mark the task runnable.
-  */
- static inline void ttwu_do_wakeup(struct task_struct *p)
- {
--	p->is_blocked =3D 0;
-+	unblock_task(p);
- 	WRITE_ONCE(p->__state, TASK_RUNNING);
- 	trace_sched_wakeup(p);
- }
-@@ -3889,10 +3899,6 @@ ttwu_do_activate(struct rq *rq, struct task_struct *p,=
- int wake_flags,
- 		en_flags |=3D ENQUEUE_RQ_SELECTED;
- 	if (wake_flags & WF_MIGRATED)
- 		en_flags |=3D ENQUEUE_MIGRATED;
--	else if (p->in_iowait) {
--		delayacct_blkio_end(p);
--		atomic_dec(&task_rq(p)->nr_iowait);
--	}
-=20
- 	activate_task(rq, p, en_flags);
- 	wakeup_preempt(rq, p, wake_flags);
-@@ -4465,11 +4471,6 @@ int try_to_wake_up(struct task_struct *p, unsigned int=
- state, int wake_flags)
-=20
- 		cpu =3D select_task_rq(p, p->wake_cpu, &wake_flags);
- 		if (task_cpu(p) !=3D cpu) {
--			if (p->in_iowait) {
--				delayacct_blkio_end(p);
--				atomic_dec(&task_rq(p)->nr_iowait);
--			}
--
- 			wake_flags |=3D WF_MIGRATED;
- 			psi_ttwu_dequeue(p);
- 			set_task_cpu(p, cpu);
-@@ -6813,6 +6814,12 @@ static bool try_to_block_task(struct rq *rq, struct ta=
-sk_struct *p,
-=20
- 	p->is_blocked =3D 1;
-=20
-+	if (p->in_iowait) {
-+		p->iowait_cpu =3D cpu_of(rq);
-+		atomic_inc(&rq->nr_iowait);
-+		delayacct_blkio_start();
-+	}
-+
- 	/*
- 	 * We check should_block after signal_pending because we
- 	 * will want to wake the task in that case. But if
-@@ -7020,7 +7027,7 @@ find_proxy_task(struct rq *rq, struct task_struct *dono=
-r, struct rq_flags *rf)
- 		if (!mutex) {
- 			clear_task_blocked_on(p, mutex);
- 			if (task_current(rq, p)) {
--				p->is_blocked =3D 0;
-+				unblock_task(p);
- 				return p;
- 			}
- 			goto deactivate;
-@@ -7056,7 +7063,7 @@ find_proxy_task(struct rq *rq, struct task_struct *dono=
-r, struct rq_flags *rf)
- 			 */
- 			__clear_task_blocked_on(p, NULL);
- 			if (task_current(rq, p)) {
--				p->is_blocked =3D 0;
-+				unblock_task(p);
- 				return p;
- 			}
- 			goto deactivate;
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c7c563..1d76950 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -3124,11 +3124,6 @@ static inline void __block_task(struct rq *rq, struct =
-task_struct *p)
- 	if (p->sched_contributes_to_load)
- 		rq->nr_uninterruptible++;
-=20
--	if (p->in_iowait) {
--		atomic_inc(&rq->nr_iowait);
--		delayacct_blkio_start();
--	}
--
- 	ASSERT_EXCLUSIVE_WRITER(p->on_rq);
-=20
- 	/*
+> +	if (is_hub(ps->dev) && (requesttype & USB_DIR_IN) == 0)
+> +		return checkintf(ps, 0);
+> +
+>  	/*
+>  	 * check for the special corner case 'get_device_id' in the printer
+>  	 * class specification, which we always want to allow as it is used
+> -- 
+> 2.34.1
+> 
