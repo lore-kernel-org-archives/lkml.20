@@ -1,148 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951500;
-	b=lZ6WlkzVV99jE9pjOzQ+UFMt+Lzn5dgQS2cvcgLBJbEcZMJ/JXv0t20rr950oMjFVXmK
-	 bfUYBINuR4q1+UPQM7IJxDlIVqMKylM9EVwRqNHPDPGi2LTBcOP59q1A3AaBgFcuZiBBO
-	 lDNkTJotPEuavJJDo9KZptw3AssRcRgWNm+Ps+J7zDw/CCd7al/nRBAlqYo79Io2RQBNb
-	 woEA84kPSzNV4JVkB3grDYEk44onMrncoBZIWS4fxwQkIWcxAlzpD+SJl9NG9KW4bcMo4
-	 PnP2nwPDEltK0eLY9cDgUesDa3LyXsTDCLewjf6TZMkdiRIQ9AQCeKcbDJYfd7uQ0jg==
+	t=1793951590;
+	b=K1LSHXZjjP6v/BP7A3gDoCpvNjX9qIll6tewJSakjoMfytj4lSCb0IHpDQ6ZXnEq/95V
+	 ajpQFYA9tH8R8ayPx+dD8cMZS97juqrkpQ8Xja3KqbIDri9vbmuZoJahB9vzqVXGdfCjO
+	 +4tEvO/QJdCI9Fzm6gFZ+YwaxBzmmlLUCn1JGJa6cr++C1nOJ+7/+9W9qh8jqAMbWBXSQ
+	 EG6yO6+hJl9ZwWMSaiKZX6eYBA/F4dJbO7Qsp+hjbAButq1NpnWWKs6vlrFVP8j/jydN3
+	 qFBV2N3zfjpBDdhrsB4Ma8Nz8Z1eK68lHhX7ecuOBKutVBvDoDpA0JGVzrZl0ymC0lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951500;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=A8L/HnUYVSEblkQSsd0Qj26nxFzNN+cxfs3MphjQg/M=;
-	b=aaXF5C34uER16kRH6nTa2FVCuzlXfzP/7tY+KRj44vZSYvujLU2T2G4ldkh6/k8mB3C0
-	 NAXcoMSQFop6VTAsyaEAYhBxLWxFPbYgrIJUNQfUpXz5wTS1QC/T/CYEhs7bwmayTS3yt
-	 HW5kIDW2sOm72Gf3pcRTsXZikldmuE/d9FAHMK+xtC+bhJbjgoRYjljFDTc1cJ+dT2NMG
-	 7aSDDRxUEVshUnrt+ra3qQdycTeY68syzM5Qn2HwXB/wn58KeFxjyO/Ey/aUbONKig8aO
-	 KoHZeII4geKPvht3mOIjXuTe2ghTwbTW9rU/n2F5+bRyzmSiqQSYCdNc8MV7b9rHP+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951590;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kur3oCIADPik00ww6Op7p8ctt5qcVWiVMu2HCk2DBAA=;
+	b=uTwLIRxFyQ/8SdSRFAvaqLSnRoFN+wP14VldZQ8wzstUis2vfVytEPKvrTnJl+Pb1jlC
+	 Fx/EMVlImU0LX0K9KrISR4K6trAvtIgkvbgBG/Be6XcAsqMYTi2fayM+Jax84N4QgSpUf
+	 7DlZHzREq62sIuQDbs05v1/oNxNascPnvtA1FWb1HHr2qAT7FNpvtvpo7vK+DjTSFTCU4
+	 Zq3l+zDgW+YwHQa9EQMob05Lg8kEv2+QNwfnVD9R+kTV8MRYCAmVkQflo3ZeroMYTY5MI
+	 lvPz0+MDgK+pzHxGox8EqhLVMYC5Dbe5K6/cuV5EoTk7pNmoCTJoFU4bFOryWyHweHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UPIJP6Q0;
-	arc=none smtp.remote-ip=95.215.58.210
-Received: from mta1.migadu.com (out-210.mta1.migadu.com [95.215.58.210])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACBE606A335
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:51:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ACBE606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bsNIcf7U;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F888606A326;
+	Fri,  6 Nov 2026 07:53:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F888606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UPIJP6Q0
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=A8L/HnUYVSEblkQSsd0Qj26nxFzNN+cxfs3MphjQg/M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793951497; v=1; x=1794556297;
- b=UPIJP6Q0nfXlvvfpln4wX/UfZkaGFDuF9gkUkIPdmlKEkN/imHhQCz3ox4XK08+ctE4izmGf
- DHMetZz49duJzYzwzdygnE2PamAUcsl1T1fAJvv3Fb1FBZ7jr9ga5OWjU4lI/o1eRpS4xNVVWOu
- khNo4qEaARHzv1qqESBWv7Y8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2a97fd523a3d8c6c;
-	Fri, 06 Nov 2026 07:51:35 +0000
-X-Mizu-Trace-ID: 2a97fd523a3d8c6c
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	jgg@ziepe.ca,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	willy@infradead.org,
-	jack@suse.cz,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	lance.yang@linux.dev,
-	ziy@nvidia.com,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	byungchul@sk.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	apopple@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	maddy@linux.ibm.com,
-	npiggin@gmail.com,
-	mpe@ellerman.id.au,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	pfalcato@suse.de,
-	kasong@tencent.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	leon@kernel.org,
-	sj@kernel.org,
-	rakie.kim@sk.com,
-	rientjes@google.com,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	james.clark@linaro.org,
-	mhiramat@kernel.org,
-	oleg@redhat.com,
-	john.johansen@canonical.com,
-	georgia.garcia@canonical.com,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	zohar@linux.ibm.com,
-	roberto.sassu@huawei.com,
-	dmitry.kasatkin@gmail.com,
-	eric.snowberg@oracle.com,
-	wufan@kernel.org,
-	stephen.smalley.work@gmail.com,
-	omosnacek@gmail.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	kvm@vger.kernel.org,
-	damon@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	apparmor@lists.ubuntu.com,
-	linux-security-module@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	selinux@vger.kernel.org
-Subject: Re: [PATCH 13/13] security: convert VMA flag tests to use vma_flags_t
-Date: Fri,  6 Nov 2026 15:51:30 +0800
-Message-ID: <20261106075130.55333-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261105-late-2026-vma-flags-v1-13-0d3cd15ab75f@kernel.org>
-References: <20261105-late-2026-vma-flags-v1-13-0d3cd15ab75f@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bsNIcf7U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=bsNIcf7U6SmZMfz5/dJXiO/7iwMdPzJDDmuQL292m6KtvL2Mh6QYlslXzuYUNgP6MWap97tVkbsSf
+	 y9YmTXRc1QEpvNKOJe/vQjclFjsszjUNPIxqi6IK0EeDpw0ksgjU61Xd/1t5SSZSKdlT7fKISaWjS4
+	 8O/bCq+iwoN3WGUQ=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aed8761cfd-7b6a5;
+	Fri, 06 Nov 2026 15:53:05 +0800 (CST)
+X-RM-TRANSID:2ee66aed8761cfd-7b6a5
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [198.18.0.104] (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16aed875f96d-17b71;
+	Fri, 06 Nov 2026 15:53:05 +0800 (CST)
+X-RM-TRANSID:2ee16aed875f96d-17b71
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Eric Dumazet <edumazet@kernel.org>, David S. Miller <davem@davemloft.net>,
+ Alexandru Tachici <alexandru.tachici@analog.com>,
+ Ciprian Regus <ciprian.regus@analog.com>,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, Heiner Kallweit <hkallweit1@gmail.com>,
+ linux-kernel@vger.kernel.org, yana06070@163.com
+Subject: Re: [PATCH net-next] net: ethernet: adi: adin1110: Fix phy_device
+ leak in probe_netdevs()
+Date: Fri, 06 Nov 2026 15:53:04 +0800
+Message-ID: <1793951584000.347526.5074428569945602767@cmss.chinamobile.com>
+In-Reply-To: <179395006518.488859.7603845397469844366@kernel.org>
+References: <1793949783000.333861.5224091507677300156@cmss.chinamobile.com>
+ <179395006518.488859.7603845397469844366@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -152,17 +75,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-
-On Thu, Nov 05, 2026 at 09:31:04PM +0000, Lorenzo Stoakes (ARM) wrote:
->Replace use of the legacy vm_flags_t flags with vma_flags_t values in the
->mmap and mprotect LSM hooks of SELinux, AppArmor, IMA and IPE.
+On 11/6/26 15:27, netdev-bot+sinfo wrote:
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 >
->No functional change intended.
->
->Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->---
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Hi,
+
+The leak was not hit at runtime. I found it by code inspection while
+reviewing the MDIO attach paths, as the commit message notes. There is
+no stack trace: the effect would be one struct phy_device allocated
+per port on every probe and never released.
+
+I don't have ADIN1100 or ADIN2111 hardware, so the change is
+compile-tested only, with CONFIG_ADIN1110 enabled on x86_64.
+
+Thanks,
+Xia Yan
+
+
