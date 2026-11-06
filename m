@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.160
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973063;
-	b=mVv1OT+U8j7kXufV0dBcNKIhwGvB4XQxhSXy/q2u3GfjKfp4sX8VXWBhyH69vI1a5ER7
-	 mVtmgByMLCJ/uLXsWwg6PuSBb84+XuIQuF4ENNwDyFa+tYB4FEQucEg74Urb/m/bk+9RR
-	 m4wBQaN8UcqdB/lcD2ZYqoOANeteH1UCtolQx8SxlPIHSs6UPVLJ+8NGqGn9HXKYFe1an
-	 uNubkWpQZS/d9j29j1X9HWtIYs6UEHmv3koYRIYdszs1UQ2LBafHhV6dYKnEyC9ZLx+R1
-	 fxE7MPwOHXgxmHzMYGNy7Q94WZ7bd7Y206rJWvgi/rNgWC2PrsmamaBOzAK4rgT4xPA==
+	t=1793973062;
+	b=s5KKLhBnlTaZabKbUY/D3ADQhwyzGXMCTf/PIaSv4ob6Kto/Gqppwk6vB5doMNYjHSDy
+	 OjUy70NCLNrpCMpAW+fsGWYFR+Pn+Yzbm8B2RMsnQDWppqe32/8PeYZfilhL9iGd4NVv+
+	 codbvzOl6HaBEELpa/98AfS8wnxkGddJD170OYnjsh+0mCwDbgtvejgfwUmiybA4c9r+C
+	 8I7H0DCcRqAI8W6j6LiXHEz+HqGDjABwa7PMTOhYWCHLx2034UueL5g/pjmDJhLr7nq15
+	 xo5F2EY4MqJvHtGzFcZdWlBt7iqGIVUxkvWkSAQ7tmtaPAcw1w4A2dbcpna63MTqoXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973063;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fCYv0pUxgmAeB4rdFLxkyhkQaEAR/KeTjA5yN8eBLPw=;
-	b=LOpPEJdAioNKIp3XGdp0hgH7PTE5mEAsih9VjLWoPO57Ye3Ls9S2BzarzQ2jOkucD6pd
-	 7P/Elt0Pn5jceC7Eh8nJgPrC+8sOq8VfHWFKQeWaVwa/SwMmfLo1UHgNUOrwTiftuJmSN
-	 tnJENHE5dvxwhQ2Fzg38DP75/ppk98pXV0KbEFACzJFnFRe9f9GnODPU7k7pnq/ZFNwIT
-	 FS8m7bsi7cexuwPZGyaLEGG3qztCkWOeZZUu/R0XulXfcAFCywMFvd5/pTI6Et1kGyAz0
-	 bzPl/TKDPXRz/aKTVviV8FgD0ts9fcENH7PCERBHNyKG/qLqoir3dRFcCZZfTSWAYUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973062;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=SvbdRNqL/8qCTDSGCTb8M0taIrstvBniNfZYFufgM5Y=;
+	b=t/3kMgbIUXtvUXjpUxyV+DzKhmgg+cN3lpB298/6+lZtoGk2wCCmjmpgExTludiOvNJy
+	 rf35bbBfBMcshbo8ZtFBMqVvWAaaexR9mC/wBpaN1JevPLx+LlJLfs96S+ET2j4aIuv/c
+	 mmb/8Jbo7zh/dT/XrRVsMahPRmybxZprWzts2IIOcAvxiPr9EOqmjqIhlb8DW4uw1d/FG
+	 KqxMtMtJwvM/u6JsTm9WZybBdLj/5P7KjrhDKcL/d5ReQ4avFyTCoSa74+elxKCLUHYph
+	 P6gM+aiLudKlY5r8YjGFCmDRo5qt70ZDIdu43dXH1hw5KMa6yUqSoDFBcEBYPRISg4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Eoe6Zhzk;
-	arc=none smtp.remote-ip=91.218.175.160
-Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L33pwgZS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10F9606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:51:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F10F9606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EFC62606A329;
+	Fri,  6 Nov 2026 13:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Eoe6Zhzk
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aSjJokHbfeqfaOpdHS6iuJx1acJZQq2O8WuSPhMF0YI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793973060; v=1; x=1794577860;
- b=Eoe6Zhzk/okkLzMFyfli43iTSTSUyLEXYA6+3lSHl9sVaXoR9GT6gIwd4RWPF4XJwV8hE+4S
- g5wiRHL+hKQGqJpbm4TedNzOTJk3yxR/MHw6OAk1FG9J+/AX6ko85F+1bCYttGvzNf/hl0DkaQy
- fWbpQQEkKDa8njzL7uYnTxKc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 821439f0cfeaeec5;
-	Fri, 06 Nov 2026 13:50:59 +0000
-X-Mizu-Trace-ID: 821439f0cfeaeec5
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Dave Young <ruirui.yang@linux.dev>,
-	Jiri Bohac <jbohac@suse.cz>,
-	David Hildenbrand <david@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kdump: Give crashkernel CMA areas unique names
-Date: Fri,  6 Nov 2026 05:50:55 -0800
-Message-ID: <20261106135056.790448-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L33pwgZS
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 257841F0089F;
+	Fri,  6 Nov 2026 13:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793973061;
+	bh=SvbdRNqL/8qCTDSGCTb8M0taIrstvBniNfZYFufgM5Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L33pwgZSVggirArZ13tgig1B1UCQKbjbxP46ClHAA2P14xrsBYu6ITrSuDWxD75nm
+	 951iQE/lYInSkLK7zdv01x692IZ8EISZoenRxG8xR7Tk2E4p6mjAl59/Ld/fabYaci
+	 0O0y4X0ZqJB89xAkdhFcg47FJX/vGN9YxDmynA2wfSj58zxVe28UDKojH8xPKB9pkm
+	 JrmLw6sGmd3K1zoXLZ0badUqpxNhCbLlgu742muYZwUmimGIDQRTbhteYmZgvMqpeS
+	 Vw7E7CJ3LK4waVWLimdiYEbfq546n85vZyX7ijnIUWr58UPgYMuJVskiiDeWqRCa4Y
+	 8e/9k+FsTIHQw==
+Date: Fri, 6 Nov 2026 15:50:57 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Paul Moore <paul@paul-moore.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Jan Kara <jack@suse.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, Jens Wiklander <jenswi@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>,
+	Scott Branden <scott.branden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+	linux-sgx@vger.kernel.org, selinux@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH 00/14] mm: convert further simple mmap hooks to
+ mmap_prepare
+Message-ID: <au3bQYYHRxR9VRfh@kernel.org>
+References: <20261105-late-2026-mmap_prepare-v1-0-c56aadfbab8a@kernel.org>
+ <CAHC9VhQvpFeEJaEyPDaqj8_S752puSaNe0Rn-hxjh=ugCoFsxA@mail.gmail.com>
+ <au2odtvEhpLJY4eD@gremlin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,70 +103,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au2odtvEhpLJY4eD@gremlin>
 
-On Fri,  6 Nov 2026 11:43:09 +0100 Mikhail Zaslonko <zaslonko@linux.ibm.com> wrote:
+On Fri, Nov 06, 2026 at 10:18:06AM +0000, Lorenzo Stoakes (ARM) wrote:
+> > Granted I've only properly looked at the SELinux patch (7/14), the
+> > rest I've just skimmed through, but these are all independent patches,
+> > right?  Is there any reason why individual subsystem maintainers
+> > shouldn't just pick up their associated patch?  Yes, perhaps chasing
+> > down individual maintainers is a bit more work, but isn't that the way
+> > this should work?
+> 
+> I've no objection to people taking patches independently, the concern is people
+> lagging on that and holding up a key conversion which is entirely mechanical, +
+> generally tree-wide stuff like this has been via the mm tree.
 
-> reserve_crashkernel_cma() names every CMA area it reserves
-> "crashkernel". If the requested size can't be reserved in one piece,
-> it falls back to several smaller areas, all with the same name.
-> With CONFIG_CMA_SYSFS, cma_sysfs_init() then fails to create the second
-> directory:
-> 
->   sysfs: cannot create duplicate filename '/kernel/mm/cma/crashkernel'
-> 
-> and the error path removes the sysfs entries of all CMA areas.
-> 
-> With CONFIG_CMA_DEBUGFS, debugfs refuses the duplicate directories as
-> well:
-> 
->   debugfs: 'crashkernel' already exists in 'cma'
-> 
-> so only the first area shows up in debugfs.
-> 
-> Keep the name of the first area and add the index to the others:
-> crashkernel, crashkernel1, crashkernel2, ...
-> 
-> Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
-> Signed-off-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-> ---
-> Found while adding crashkernel CMA support for s390.
-> 
->  kernel/crash_reserve.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+This is probably the best way forward, as for a subsystem this is just a
+different API for doing the exact same thing (and that way "idempotent").
 
-Thanks for the fix and pointing me to it in [1]!
+And looking at the intersection points overall, the changes are neither
+likely to cause any major merge conflicts...
 
-Acked-by: Usama Arif <usama.arif@linux.dev>
-
-[1] https://lore.kernel.org/all/20261106104309.3669583-1-zaslonko@linux.ibm.com/
-
-> 
-> diff --git a/kernel/crash_reserve.c b/kernel/crash_reserve.c
-> index eee37a11380c..e58318b1e092 100644
-> --- a/kernel/crash_reserve.c
-> +++ b/kernel/crash_reserve.c
-> @@ -483,10 +483,16 @@ void __init reserve_crashkernel_cma(unsigned long long cma_size)
->  	while (cma_size > reserved_size &&
->  	       crashk_cma_cnt < CRASHKERNEL_CMA_RANGES_MAX) {
->  
-> +		char name[CMA_MAX_NAME];
->  		struct cma *res;
->  
-> +		/* CMA area names show up in sysfs and debugfs, keep them unique */
-> +		if (crashk_cma_cnt)
-> +			snprintf(name, sizeof(name), "crashkernel%d", crashk_cma_cnt);
-> +		else
-> +			strscpy(name, "crashkernel");
->  		if (cma_declare_contiguous(0, request_size, 0, 0, 0, false,
-> -				       "crashkernel", &res)) {
-> +				       name, &res)) {
->  			/* reservation failed, try half-sized blocks */
->  			if (request_size <= PAGE_SIZE)
->  				break;
-> 
-> base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
-> -- 
-> 2.55.0
-> 
-> 
+Br, Jarkko
