@@ -1,102 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977524;
-	b=4/WHKzPBmrUl8NObXtpPTOVPZzutAI3t99rmWkJr07+JmUs4hZT9GF956see3wX/qpAx
-	 p1A7FXHfKIHciIZtFEjxGp+4PKkDf5lG+OkGmZhJTLamHE2L2kw3UbCaR6ovwlRw5gqrT
-	 RLrrKrDpB5e6+xOa5PTO1FGpqS43BTsvlnY7SX+PWOEBr5kg+ov98R86sX2DUfURMbqm7
-	 u7s9ko+G/oCL3eOY6ozCqI5VgpinhWVQfLves82YpZTOLoE6hXQIdfJWpPLke5eEZ7HJg
-	 0v21UhrAh7SbU9FcolKMvRr4eiizXFXUW8G+jBl7/5d08ks6qMclzSNL2AsaPAKgNYg==
+	t=1793977531;
+	b=hHeoiNIWo0nB9Ls8N385jk9HFaFeIQXjF3am0t1udo3+erG9CARFgWT4Wm+3v7jLdti6
+	 idq75Ae9CTC9uQn1xVCd8+Sxb8tOqj26ckh5i5VSy3jnFx/EGfoz3miF1GaEFHXq0OdI4
+	 0jrBwGljTcU+bmAPbhhzorYhfbZEpIH/EmpdhbyvIKIbOwWjf91K5kl73x4BQ1gUs0p1y
+	 EtWbui1SiCRms0HjqRzPmMROcGbhXeJqNBcxQ1roGz47ygOJ7uUtSXgaiN7e+qYHw+dIY
+	 ln1g/2Wmj2+M8p9DE6TUlPbd6b02nW9Sxl80XESAyrW+HLJxofHuBySXugR/6DjuS9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977524;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977531;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=AmiW9emmj8T3laIwBfZf//xv7IetRbnMAUqXEU+CEsc=;
-	b=RLkwg11Kmpm3ShqvOH/ctFNcC/bUmD05Ml4m6gw6S1Iig8p9s6rLXfJfPd6O5k5LeKvD
-	 Gw55XfQY08k7z5TnAh1WcFc0UuW0d5/SmrO5tepTL4vRPhWUeeH0e0VTYSRNVdfsl/KbQ
-	 nEgvi/8b5x1YP/1wGS+QuuIWWBHkpwUPxTiNb9ZvW9wRJW0s+2n8O4Gz1Rta12enn7r8h
-	 lt4QfmE3vIiZeYf6qi7RLy63Cee3Ky2KKKoIzKrBVlwFmBC6O8spbdFIOsUt9wffkGIot
-	 hrA+yVWf29s5qxQnpjJfaU2c7bYTAjmVzFNQrOz1IFp4LUHO98/bM6PnIG2mYYUgqhQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=WH5PAzwhIipOT/tQlM1/37pKGDYk3490K38z0vD3v0I=;
+	b=i8BwZ8SXqKSLUCRmRnypNk8yOQpEZ0JRSyX2VvFAQv9ygPY2ZSEkPa4X/FuSWRTCMjxf
+	 V0he26WwL6URt9JsW7J/OkHYEEPNLKuzUSEtNUBZW0HEjRd9J6zc07Hu/IbvWt6IyZ2Ly
+	 hWVaJfyDLYizi+WAagS5kV06l7xU+kUfptMhoBzJ4ylkc0GVfRyyEEayxGIcQedBdHM6N
+	 u6BMAyInhPResNtcRDui1NUa8Mj1pFnjupPSoEdm+qabGdKW7nMmLVl0Oq5+yC93VGFTB
+	 X3lwj0kO7qnr9EZXIriN26EcQ2wKJf/PITqObqWsM2v4c6fNxt+Me47r6Nuff57u5qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yGusTcbF;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kx7TubHk;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4B4606D80B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:05:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E4B4606D80B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0AE1606A33C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0AE1606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yGusTcbF
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1f80b7bf6so653715e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:05:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kx7TubHk
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b0d09df973so580812a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:05:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793977522; x=1794582322; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AmiW9emmj8T3laIwBfZf//xv7IetRbnMAUqXEU+CEsc=;
-        b=yGusTcbFvJMxDWFkQqL7/7VJc1srXLp1ZyzkqHljAh9MJgxGv0TdBf2kCq4x40R+8N
-         +uwVNgGt4KQHUS6+kqz+zb92xHF/zFdVYC9D+KTiXRelHT/2ym1HxC3v2h9uoS3XyNTV
-         Ah2701llocXqBRcfMeIY11U0ipBWRCj4y1vl0MWadrdDFIEZH7PfO5EINmVW3B15CYKF
-         smvJXapilCrmhv4OIowo9s8cLk5cus2nG+e2z/akTx0pNMrSVKJbaGKZW9fFRChBjVQ6
-         Ye9UsBgrTBmQqcmaBWUkAZhtTnoTfxeRV2ohscUmyF+oHkluWLECHsbSUpXcB4ShUF8q
-         BQHQ==
+        d=gmail.com; s=20260707; t=1793977530; x=1794582330; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WH5PAzwhIipOT/tQlM1/37pKGDYk3490K38z0vD3v0I=;
+        b=kx7TubHklvtCZ7E5nh7vfQ5sAJwZMBZckhG8KuQy+TstrTyum8jGg3qoQCPK6+Q1nb
+         j8BxD3Q4RCS7Wwb2ybB9J3p7ZNIeRPrP2NpvHbvOJVrL0S3jlt6pIzzxXANUg4yeY7f9
+         FOz5LZaFjcFJUe2cNFfqXNXpFcgc/RgFyUJeGvtx2U2rDERlMhGKEFykEZEJvdPWitDD
+         teQ/4BBtY1tLFm3isB24yzjVH8Gc0beGyThen7HnRZ+3OBZ/8AGjUAi+x+1GZxfyfp7r
+         FsCmWP1dtmsh+bHFihL3EnYSTgph/iL1TTPmfsZFXJT5Ql51/tx+eSFbn6GqWY2NanPd
+         LkCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793977522; x=1794582322;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AmiW9emmj8T3laIwBfZf//xv7IetRbnMAUqXEU+CEsc=;
-        b=IyfJ8MheHPah06b5FKfd9udLGbs2CNmkCS55xPrURVZFnLX9uSvAOm8q4Su2MPi8oh
-         gvOxw6CxPuQXW+C7Cc2vPBfK4BWRa6e27dzr+fLF7rgCpr0BnvMvx6BsH2DtybFqaXX6
-         R+N3xi2uHn2qnFdUOoqCtVU4QKLpHWKEt8TK216kVajab43CRbgoq22yKgNzBBl5Zkf0
-         PjwGHuYBIxYk77MIbwUFg3ap5Xh19wLY5yOUxa08a0vo+1CN9hBxNJFodiicfkv2Up3f
-         OB202b8wrrCqtUTqEVOdheGcaUJxmaggnWyUwtZ4fYrhPT6zOq3HMCpyZtTexdCnEw2t
-         R/Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBwn4Vrvla00YbJ99UgjhaebJa6qVVFRzg0sOQjqg6Ruk4o1xZhck1FxUeuTwkStGlefDSqxB/P0IQ8ZvH0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qrF20/wY5Cj2M9BAVZm9AiM25mp0MSsutqUujk6VtP5odXX1E
-	iNa/VPfIOcfjPHfIgFHX88HH3ZF61MHVvMKmqJpvVn/Yo0q1YmS/bMCF
-X-Gm-Gg: AYBFou0sjL862ADyQeclXpuc++xPAqLZDzkgVpxh2jQvNYgucrSMBn+EV7WQoE1CU0g
-	Q2vJEFJbBNQ+XL3uF88BT3lhMx2hDZY6IGASEm/OlcUZwJ1xCtiG3HpHttN1UIAFraufu9A4Vzx
-	5lRM80+MrCk7iC4Lip+gnrIpt+sldA6Rp/rj59ieYG6VAr4ulrp+qpcdJKqDAOTtLILcBaKCxKJ
-	b6dFDXeUixK1RBLSalsZJ5/1XnEHujot7armving9lvH8Zjm5Yx9bWpKSDq5PKqWzgMoKdXfOoO
-	hW2zraTWPCQa3TIQ3Uiy0G0SNOTRooa0Iey03VN9aSSotZkpV3WeXpac3q2LAw9AqbAqlVop2Sr
-	C8kd5F3NsSjdmfQQ1yUJc8xaA2R3gP1/JmhxPGRC7nDI9QJD98oN4UdwF5LyYnBEgu7xfQlm2Zi
-	JWDTnJF422r9Njtg+MRhJF64S4Bkr2GtzS8cJ56ZcheSAVaWHJpgRlMFhq4/5NTjMu/9QPsuWHE
-	/eB/Afpusl9EzLPMFPhfutydRkfCYhaMyZo9l6Aq1vMAh8HkvGtW5Q+g6a6FE5gZoHO8rTu2v1S
-	yOwPwZGYW/rzn3rv8lUZGbb97lkhGv8/tW5IPmzwHOom2Z23KQqQpBMqq6ZyY68+jBgydciq
-X-Received: by 2002:a05:600c:c111:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4b6d8a63e17mr41374465e9.0.1793977522560;
-        Fri, 06 Nov 2026 07:05:22 -0800 (PST)
-Received: from localhost.localdomain ([193.255.169.14])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e58fcc6sm260950305e9.2.2026.11.06.07.05.20
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 07:05:22 -0800 (PST)
-From: =?UTF-8?q?Bilal=20Yaz=C4=B1c=C4=B1o=C4=9Flu?= <ahmetbilalyazicioglu@gmail.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org,
-	hmohsin@meta.com,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Bilal=20Yaz=C4=B1c=C4=B1o=C4=9Flu?= <ahmetbilalyazicioglu@gmail.com>
-Subject: [PATCH net 2/2] selftests: drv-net: ring_reconfig: skip tx stall test without channel config
-Date: Fri,  6 Nov 2026 18:05:09 +0300
-Message-ID: <20261106150509.30458-3-ahmetbilalyazicioglu@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106150509.30458-1-ahmetbilalyazicioglu@gmail.com>
-References: <20261106150509.30458-1-ahmetbilalyazicioglu@gmail.com>
+        d=1e100.net; s=20260707; t=1793977530; x=1794582330;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WH5PAzwhIipOT/tQlM1/37pKGDYk3490K38z0vD3v0I=;
+        b=kPRBYH0vFuqLJwdCCd+mH+bOkM2e2IzqasLdlipeJyvs4fgfeE1gHAiYLGLIVylEb7
+         a4iduk7lxQBUOoKctV+XFaKHB9zpa11oRFjxc9ZbLANG671DZTq3TFLmmG+CjrTVqaqH
+         ZXZRDHxHnrV7Lbs2cLxCkiPwctPaGOtLx4HGF0Wd84HUeqiKMIIziC3KpU56l9beMngU
+         nfFAiyQQE83cLQeCx2UAybLscvBXdOKzFZ20FV8flQolcqwQaeEDwDG656ZYt2fJ5izk
+         EpVv/yDxSmPflaMWFB/hzMRiDio/VIJnUNtTzeAKjtxjoy2NqjuNjpIuIkp6SuzAS0OR
+         uoSw==
+X-Forwarded-Encrypted: i=1; AL+hErFRT0HvBWF6R5a60XhwvI35JJpD9WUPTdF6bmrXTcdlv3fortRUaQqAWcqfvVAAyv2sBjK0M6Y0uLoHXsM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/12Y/3vYyHcRY0jOnAjvv6ihGXpLzGPpUks2aDpXEYVkIg+hPT
+	SswLpTeMue3XNYQIubRxiuTZBvJc2qEOZouIBBYjcTVS2WhhrqTsmp4i
+X-Gm-Gg: AYBFou3zNsn/++c8DBZwhrfaq2oZJciC+YYW4kksnGz10gj01BQTVpr4Rnh5QJR127E
+	tMRc7ATeWneCKY1IPQfr7x4p6ccNyCjrRyK/3GW/pDwCIFc/V0mAmS0+62BF2GKYduRP2wSngx5
+	+vJrBrrOMRnS+Bffqxmc84rzqSPni/kq1SLUhfFW4DnEWJyWc1b3div2Gl3ijU2ms1lqHf9pFfo
+	RoEp+14rCgHl/EKwBWxwA45Id5n3n8hVeJ/v2FcX6tiG1Hzieafkq5BGa21RIBB3beWn1gdPKzo
+	+kLeOZMpBzqW/JCnsmPTxANTBf7CMzq89p4SQ4RnZQkGN9ofKeO4K4n3/hfgvkBY6qtVFcgb52S
+	37O4gPHYZFA/naIfAoQYEGhFZ/pK0iwkulM3KAi95nFMUeXqDOi1TbIhNwvfm3A0Hf3mrlDUsqq
+	B4LlI6A4F1s2FSV/NhhGQOxydi40cS+3nuQ9glVFpNhJEHbyZMYYyw6MlBz2rMGcJyqukuI9yWZ
+	i93PkxkuWhLgzDMQ1LrdK/QU25wIRTNzDDCHH/q69rUmtz2cc/dtoRtuDw5c6oQJXlzMNlvJ+NL
+	1t84BOYhCMP+caR/7pfAUm6J45gAHNdE5qW9aUyRZyf0BOxjRFsqVMxdm+UrmZpawdnnhujobQI
+	aANBmHbeLPryXgQ==
+X-Received: by 2002:a17:90b:180d:b0:3b0:9deb:d990 with SMTP id 98e67ed59e1d1-3b0db6d93c5mr2662079a91.39.1793977529728;
+        Fri, 06 Nov 2026 07:05:29 -0800 (PST)
+Received: from ?IPV6:2408:8210:2436:950:bfa8:849c:2010:a1c1? ([20.89.137.63])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0fc2775adsm95281a91.2.2026.11.06.07.05.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 07:05:29 -0800 (PST)
+Message-ID: <78f9211c-3673-4c64-a1ce-8ea56ee13ae3@gmail.com>
+Date: Fri, 6 Nov 2026 23:05:23 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,43 +91,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Only expose kb_mode when
+ it is supported
+From: Mingyou Chen <qby140326@gmail.com>
+To: Bozhen Peng <bozhenpeng93@gmail.com>,
+ Anton Karasev <uselessfire@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+ Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ W_Armin@gmx.de, ilya.gladyshev@linux.dev, chris@miget.com, kento@kekto.ru,
+ wolf109909@outlook.com, vlku.milos.fun@gmail.com, btx342@gmail.com,
+ zsanya322@gmail.com, i@rsplwe.com, martiya.ar@gmail.com, nika@nikableh.moe
+References: <20261008-bitland-kb-mode-v1-uselessfire@gmail.com>
+ <b2b8aeee-08a5-479b-bac4-a38ac606a037@gmail.com>
+ <da3a0f47-7e77-4bbb-a431-06c7ea6a78e3@gmail.com>
+Content-Language: en-US
+In-Reply-To: <da3a0f47-7e77-4bbb-a431-06c7ea6a78e3@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-reconfig_tx_stall() needs at least two combined channels and already
-skips devices which don't report enough of them. On devices whose
-driver doesn't implement the ethtool get_channels op (e.g. e1000e)
-the initial channels_get call fails with -EOPNOTSUPP instead, which
-YNL raises as an NlError, so the test is reported as a failure.
+On 11/6/26 23:03, Mingyou Chen wrote:
+> On 10/18/26 11:03, Bozhen Peng wrote:
+>> Hi Anton,
+>>
+>> I tested your patch as posted on my MECHREVO WUJIE15 PRO
+>> (WUJIE15 Series-HPT), using your stated for-next base:
+>>
+>> 98f039265e580291d5e76a11b2072541fbb1c393
+>>
+>> I booted the baseline and then the same kernel with only your patch
+>> applied. On the baseline, kb_mode was present, but reading it returned
+>> "Input/output error". With your patch, kb_mode was absent and I got:
+>>
+>>    kb_mode not supported (-5), hiding it
+>>
+>> The GET produces an ACPI AE_NOT_FOUND for HEC.LEDM on this machine.
+>> With your patch, the probe still reports the ACPI error,
+>> but kb_mode is correctly hidden.
+>>
+>> I cycled the keyboard backlight with Fn+F7 from off through levels
+>> 1, 2 and 3, then back to off. All levels worked. During this check,
+>> atkbd logged unknown scancode 0xf6 messages.
+>>
+>> This confirms the unsupported-kb_mode case on HPT. My keyboard backlight
+>> is not RGB, so I didn't tested the supported RGB-mode case.
+>>
+>> Tested-by: Bozhen Peng <bozhenpeng93@gmail.com>
+>>
+>> Thanks,
+>> Bozhen
+>
+> Hi,
+>
+> Sorry for the late reply.
+>
+> Attrs are not covered in this patch series.
+>
+> I might start a new patch series for this after the currently one is 
+> merged.
 
-Use the _channels_get_or_skip() helper to skip the test in that case
-as well. Other netlink errors are still reported as failures.
+Sorry about that, I replied to the wrong thread.
 
-The issue was found through AI-assisted source code analysis
-(OpenAI Codex) and confirmed on a ThinkPad T480 with an Intel I219-V
-(e1000e, 8086:15d8). As for the previous patch, the test function
-was run against that device with a stub environment and ethtool set
-requests blocked, and is now skipped.
-
-Fixes: c98610c2eb70 ("selftests: drv-net: Test queue stall upon reconfig")
-Signed-off-by: Bilal Yazıcıoğlu <ahmetbilalyazicioglu@gmail.com>
----
- tools/testing/selftests/drivers/net/ring_reconfig.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/drivers/net/ring_reconfig.py b/tools/testing/selftests/drivers/net/ring_reconfig.py
-index baac20e8d3e..dd6ff6b2b64 100755
---- a/tools/testing/selftests/drivers/net/ring_reconfig.py
-+++ b/tools/testing/selftests/drivers/net/ring_reconfig.py
-@@ -319,7 +319,7 @@ def reconfig_tx_stall(cfg) -> None:
-     other_queue = 0
- 
-     ehdr = {'header': {'dev-index': cfg.ifindex}}
--    chans = cfg.eth.channels_get(ehdr)
-+    chans = _channels_get_or_skip(cfg, ehdr)
- 
-     if "combined-max" not in chans:
-         raise KsftSkipEx("device does not support combined channels")
--- 
-2.56.0
+Please ignore this Email.
 
