@@ -1,89 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793980962;
-	b=m/j+Hb7z1NUg2chBh3/64xVe9ZYE0WFrwSlQ6Vlzuiex6Mv76QQIiE3vM7EaJWaZ6jI4
-	 A+qf7+TV7ZAz1u+jjS0jBIZ7fU3kMR8d4IF0YEhuOIYbXhMLx8gUrqwK3UYG8LuCz10Uc
-	 4DmZQM1xrHsRQMC4L477SWlLooMGk2+QYuEIOSUS3vdtH9j1qcY300WTAniEJ5BCIaad7
-	 mjqwGmPjWdSwFwvCul8PuT9xuy2Yw98RSvQ/NX7GbRUS4foWMFML+PVZrdw4MnNHU4OpA
-	 z4XcMHP9GbI4+XvHUl1xtHiMzq9YVtFNERuT3TQzX3LShC/3+5zb1ydS05MQSeQLgDA==
+	b=ml9Qtg/nNyCCIYsxlSB3Tq84kI4EHvwyWQYPoN/g0Xk5PcOvm5Hib4SMZEqSnHnC6n5D
+	 sdbhz8XGH6UhxgM71rqN1ayBRxHPFwRpT/ZUKupX2p6Z539BU6g5XLQ0UB2DRa9N7DosB
+	 NyTTX770pX9/rru/lUUDi6aKefRMw0+55tZdV15WNCsoF1IiIivleUMtUmoNs3MK6XlQn
+	 KiArc41//Hpveak1NfLHhket59cnEUxlSR2vAZ9wM8fHZvbVQrFNxjBMBi2tyD+HdV64u
+	 PcO9jZmkSQ0esKnq8iG3FsVjddNb+McmKW+jpfxpZ0Sylj/pHWA1UlIVuuig85hnoHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793980962;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=hB4t7lomzunxZk0X0m05JMwXZ0SRZi/SUaDJWWyv2/A=;
-	b=lCZdLSjZqJ6ZUiMppOUPRoqmoOdRNYYitP9MaNfz2NO3kVms8WUpKPYo1HCMvaXd+7Iz
-	 rG5a5RNh0eesFWM3odvoyRjDosgtDTLTJMlwBXRBg2dpogu6wsoCFAI9loqKcoKYSdpBV
-	 bvVpeAF8TT0xXp3d0PJe2Sbrsk+cmeUlD8YrKbT/LAJPI4evEC3DcguWqkqctJJUEn6+Z
-	 3jVHNUJLCs/igMYjDkV24vC+Bf8pi5ZaYkMo05MH/7WymoKHAhepJMp9mfvIjr/lUYlls
-	 g+gDxx479GWBho8lOPxcNjmT2KAn1yZBFWAQPo5MBp+wzO1CuQZOVo/a0luE096N/ig==
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=wpRuGom+aQB1p40BqKVMA66QnEAxTCxkfSpTV/U+fQ8=;
+	b=DvFO0dHVVAK+/BSeHS+Ayex0nh6DrVV0n5yUPtrLfMko8353k4gBTVDRUm6DQaoK/sSM
+	 vppLolx9yT+pK0cMAIF5JTE3jti8k+OjrJuoF6mfr29OGltHQniaxpO5ltqiO5HacvsVH
+	 Ij+ch3lBuE/3hpfzoCQ0tGW8FcuhBm0frkB8FtPdlh5pnXigi2DWzsUerWGuYB7eUS9vV
+	 FRnW1VTBhiZbKkZAGsBz0IrcFJNtUzSU7mjw4+sfqGiEZXKl3yaap0gRz1Fki30P+4UkL
+	 bKndpAsyFavxYz9iIIU/JZvtaESzA5HmFNynuAWCTQnV4OZi6ew8Sg4rrhnYaAv3oMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=acznaWDr;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dmarc=pass header.from=msh.ge;
+	spf=pass smtp.mailfrom=msh.ge;
+	dkim=pass header.d=msh.ge header.i=@msh.ge header.a=rsa-sha256 header.s=protonmail2 header.b="bRuWAVO/";
+	arc=none smtp.remote-ip=109.224.244.118
+Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25B0606A326;
-	Fri,  6 Nov 2026 16:02:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C25B0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E476606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E476606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=msh.ge
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=msh.ge
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=acznaWDr
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FE9JQ2726688;
-	Fri, 6 Nov 2026 16:02:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=hB4t7lomzunxZk0X0m05JMwXZ0SRZi
-	/SUaDJWWyv2/A=; b=acznaWDrm3C8X8dMZOufO4t0sVPuS3zc1xYhVpkXtBZVCi
-	5eTVaqQN0EDaKN1xyByhEy/5mYf9oZGhELEk1WhsNHeFMuPaqaej+4rFSA0qYDsw
-	zR2yvb5gB1/NG19N/O+zAcLH/Bnp2/R+Q7b1IV2F3w0hKMe57HfOToDMRnqtZFnR
-	On2TILkkV7ty+ANJS0bL/1/Sk/63kGzVyF4TdAlB2lXW1CQkY+V5X5ymd19tsA3a
-	ISyHuoT7D+fZi7B2HIEpF4IYEqN3WBEe6tGxt6APOmhPVQw3W/ZOjEfoexH+6lzs
-	74utCs2LhdefIu6idsdG9qgFGvn7iZltOJvDgxww==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3r9ddue-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 16:02:27 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6F4xrk3538379;
-	Fri, 6 Nov 2026 16:02:27 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrk9mt2p1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 16:02:26 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6G2NHc36897042
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 6 Nov 2026 16:02:23 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6656920040;
-	Fri,  6 Nov 2026 16:02:23 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9E8582004B;
-	Fri,  6 Nov 2026 16:02:20 +0000 (GMT)
-Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.39.29.160])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri,  6 Nov 2026 16:02:20 +0000 (GMT)
-Date: Fri, 6 Nov 2026 21:32:18 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        atrajeev@linux.ibm.com, tshah@linux.ibm.com
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v3 0/3] powerpc/perf: Fix vpa-pmu driver to report
- correct numbers
-Message-ID: <au35t73S10aXgpYi@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
-References: <20261106153136.330165-1-gautam@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=msh.ge header.i=@msh.ge header.a=rsa-sha256 header.s=protonmail2 header.b=bRuWAVO/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=msh.ge;
+	s=protonmail2; t=1793980959; x=1794240159;
+	bh=wpRuGom+aQB1p40BqKVMA66QnEAxTCxkfSpTV/U+fQ8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=bRuWAVO/NIlDuQ42a1gbM/KpS5JpTIAI3fORBadjf1yq0rZWrruLs7dqCrmY1c56/
+	 2hie+AqjK2H1s3gMMgskgI9hiVbtamG39xV3kA65YgkYtI0FpiWPPeXaXSTr73jZew
+	 Wlt7lfHfWuitQE1cQcblqz4arXMSyjgtzj7zu1d3EaObTzjKO4js7NxrH75cvp4pQr
+	 zBwPIRZOhytr/sMxsZVbwg58hvppPNFt0dq2csEnbYmlwnn1cBIxBpw+Wm2hHOEsXc
+	 F8JHrQDUFAVAFFkiDaiJ09/eq4qMuahuEjaGQEz3SFr0igj4YqI0toC/Yd/Erf5dLI
+	 ixmUUqRJPFv0w==
+Date: Fri, 06 Nov 2026 16:02:34 +0000
+To: Denis Benato <denis.benato@linux.dev>, 'Jiri Kosina' <jikos@kernel.org>
+From: Mirian Shilakadze <mirian@msh.ge>
+Cc: 'Benjamin Tissoires' <bentiss@kernel.org>, 'Dmitry Torokhov' <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, "Derek J. Clark" <derekjohn.clark@gmail.com>
+Subject: Re: [PATCH v5 0/2] HID: flydigi: add support for vader 5 pro
+Message-ID: <9231fd80-a35e-45e6-a608-858e60a7faee@msh.ge>
+In-Reply-To: <546fd97f-bbd6-4867-b86c-9a4a44ca44c6@linux.dev>
+References: <befcd715-ecc8-463d-9617-a269dc7c62cf@msh.ge> <546fd97f-bbd6-4867-b86c-9a4a44ca44c6@linux.dev>
+Feedback-ID: 170041685:user:proton
+X-Pm-Message-ID: 532db2194371616abd96a0c567165a9b096544b9
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,77 +64,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106153136.330165-1-gautam@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=LKHz05W9 c=1 sm=1 tr=0 ts=6aedfa14 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=jjOfc4w_Om44QiH6-5AA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: gv41lfcRHMda00r8k1NQBgu2bPir9Rnt
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2MiBTYWx0ZWRfX2M57DSAyjsYO
- mudStF14o7h1KyA4jwUoHFFqiRMk8iMS7VeyFAQPDOojnFDR1qx5CyvshcXoIUHt5dZVknGNSez
- 3NMLGPq9I0Qd75ziDUdYnfSBz+Rb+Ko=
-X-Proofpoint-ORIG-GUID: DdOAsDceh1iOtpLystqEkO3lhpRnxU3w
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2MiBTYWx0ZWRfX5Px/oIZS0u0w
- 96bBqRNbdpek1wFfTuP+kX1yWT3gnUV+DklyM2qO8tPEd5COhCxCQ/kaSYq1/L1epybYbKy9UxH
- xoqo/34Oc4YlEydCHzeiD+VoTthG/v6mywLPW7Cqu5SEbTIDdetvDrQ6GU5okFpSa2g7piI4CA6
- 00WArMBob+lkmRy2uAohMprCsIk+4/ELSSJe1F/7Z6pFtFelbhEoAwX8W6BkAz1SnCIKvxCFP+z
- M780qg6OAntKC7Wkrqe1S7zFqzK+mpEpesUe6H33dpzXUEFIpvw4doid91Rno0iTpyUEopMC/i8
- KjT2DQfYISOJpy4XjEHWLKq+56rZ5i9ZFZBhtpGIs+HHyRJrt9YnHg0jJRWeb7zLkwk3+7qtyeu
- f9RP32/EHuAdtQzp9DZZt0OQrxrlertgEFaSohvdh9sOBh3ek/e+ECauR4arjwuvkEvzJVnyevU
- buVVBDQNAttfC37x5pQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060062
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Forgot to add linuxppc-dev
+On 11/6/26 4:03 AM, Denis Benato wrote:
+>> Should the driver check the flag and warn or turn it on itself with 0x11=
+?
+>=20
+> I think it should have a sysfs property allowing to change it and also se=
+t
+> the most reasonable value at probe.
 
-On Fri, Nov 06, 2026 at 09:01:31PM +0530, Gautam Menghani wrote:
-> The vpa-pmu driver can sometimes report incorrect context switch latency
-> numbers:
-> 
-> $ perf stat -e vpa_pmu/l1_to_l2_lat/  --tid=2061  -I 1000
->            time             counts unit events
->      1.001022517 18,446,744,073,708,177,408      vpa_pmu/l1_to_l2_lat/
->      2.002120674            345,092      vpa_pmu/l1_to_l2_lat/
->      3.003171582            406,342      vpa_pmu/l1_to_l2_lat/
->      4.004234838            340,836      vpa_pmu/l1_to_l2_lat/
-> 
-> These invalid numbers are observed because of 2 issues:
-> 
-> 1. The PACA never points to the correct vCPU running on a host vCPU when
-> vpa_pmu_add() is called.
-> 
-> 2. When get_counter_data() reads the PACA counter values, it does not
-> update the event->hw.prev_count.
-> 
-> 
-> Changes in V3:
-> 1. Drop the usage of the PACA's vCPU pointer.
-> 2. Introduce a new patch to fix an issue seen when a tracepoint and vpa-pmu
-> driver concurrently enable/disable access to latency counters in VPA.
-> 
-> 
-> Gautam Menghani (3):
->   Revert "powerpc/perf: Add per-task/process monitoring to vpa_pmu
->     driver"
->   powerpc/perf: Update prev_count of event to get accurate values
->   KVM: PPC: Book3s HV: Ensure reliable usage of latency counters
-> 
->  arch/powerpc/include/asm/kvm_book3s_64.h |  3 --
->  arch/powerpc/kvm/book3s_hv.c             | 54 +++---------------------
->  arch/powerpc/perf/vpa-pmu.c              | 16 ++-----
->  3 files changed, 11 insertions(+), 62 deletions(-)
-> 
-> -- 
-> 2.56.0
-> 
+
+Makes sense to me.
+
+> Since you two have the whole range of hardware and SDL has working
+> code why don't you take over? It would surely be better than me making
+> the bridge since you do own hardware and care about it.
+>=20
+> Let me know if you are interested and I will be more than happy to
+> make that happen!
+
+Yes, I'm interested. Thanks for the offer!
+
+Could you Cc your friend so we can coordinate? It would also help to
+know what the recent firmware update changed.
+
+If it works for both of you, I'm happy to send the next versions of the
+series and handle the review.
+
+How would you like the handover to work? If I take it over, I would keep
+your authorship on the existing code with Co-developed-by and
+Signed-off-by. It would be great if you could stay in Cc and review.
+
+Thanks,
+Mirian Shilakadze
+
+
