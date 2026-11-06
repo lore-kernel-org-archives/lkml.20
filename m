@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793994361;
-	b=3EVZS/oDnrMpo+YbhakYrvWDHWK5+EPl35cUX1LsSE9rsgfb3aV/3aVTFHjadzktyy0m
-	 GyvnPHlr5qCh8dOFKyjp6LctVNcozo/e7LkR+9MZi54yArNmG1r+9RgoEXRmdCQntqYd5
-	 VZt+x9pheY96frw2+HuAY7b/TkFVm5tfhNdVHASB2XGQ6isj45LflnlBeYPUlCXytDNJI
-	 2p27a2iFXsAS4HL7dEX2llFqqMyGZffUB7R0+Nh816yHhVF5Os+c4Kowvtvb4yM0ereBy
-	 y4/THodSQ5uq5/AoKUDZw14kSfyi3UDnBSyo9nLSZu2LZ9lybVM3IiH7BCTwz5g8H+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793994361;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MtW6cUlF0xWQVNMRbFIZNlbptYiDw1CO/QxWvZcoGes=;
-	b=dmJ1QfSl47y0Gg9kj5zmDJ9lJQHtXc8dZTkg1imWzNQG7jKr/sLDxGqMp7vMkKZsZ5Nl
-	 0V0ILWzJjlNg338So4BoDC1amS4y8BKVwTl92hOFiQNCWJH+aKvPgmWZRCnc6lLLjdMIo
-	 6OMTUeARLz/pdcPEatynXYIXBRHtN4viReWc0mL1OavShW9AkdIvHZ5vZe9t9vTSW6N//
-	 NqgLcvS8vxtGQnU37UVMbXcxwT4Pq3p7nL9UKSXxR9lITFAufQKAVOHbVYGYG7j5uAdV5
-	 1mabftAJCsH2Rr+VhMgX2lzDGifH3Ih3sTAp07PmmsQVffacrfK/yIZZab9b0SSdlNg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b0lSW8LL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793994409;
+	b=zvD7NEUG9kPLHErHhDPnCzd4NQ7cga1TFLB4ZKYu75bnYiwXaEf8JyQdOe7nzIWS87Ro
+	 BwgAVmeHXGlZCWoAGRkKDRAISYFTDCX5faLxF4tJlr3jhiJ04kNnBdnE1KbFzUN8hXvdW
+	 ZYX3UvTglnTCd7QLU/qgt3HDd4D9fPB3sbZtn9lAOSycDMpDChDVSBmyg5Pt03kud1Z4k
+	 kBsQCj7tbe0F4zhGwxc+r8o/6ZkcCt973ZKrK5IcWrv/OlyNM5hvofPg9m3HF/4UA3ZNL
+	 bi6ab8ykRxVXLRDSqzKM/erGremaPnmN6SkmmK8m6A4CAPr47SMyXOK1jbgLa5owANg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793994409;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=qhKoxva0JL+l8sDegVq+F6O0qeFNZ5Zg3O8huHi3mM0=;
+	b=uYPwM2V8oPXc0CkG3haG7Ne11/TIVY7TBiceQlYXlGahILhRER90rx5jpYWcc+WfOUJB
+	 EkXC/bADovrc6CJQMit/2Tktjo7Yn0oylktkLhAuaVa9E38c6CCSLjjn0wHgNxZDEU/5w
+	 fQjmPdGHB8N2PvfEgx2mDbiLVuDWAvlKbzt2lKX0FFiXw0XJWV8wSLkiRB7wOOIEC2/bP
+	 CQzULSlZ6i4zQ3v5+J837NGu3bMO8Jq6g0qQcnOVA9sAvIh/83mA6R/03sUL8Aw6BfOS1
+	 mY3vnCzIGw6ZjRhX/Z3jcokAstSWvKtWdjWvSRMbYuBc3IufGW0wGmPI6q6XE6QN9TQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=readahead.eu;
+	spf=pass smtp.mailfrom=readahead.eu;
+	dkim=pass header.d=readahead.eu header.i=@readahead.eu header.a=rsa-sha256 header.s=fm2 header.b=ag2Z2H5T;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="WbCGlWg/";
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9900B606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:46:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9900B606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33E2606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:46:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B33E2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readahead.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=readahead.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b0lSW8LL
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b579ed8da6so304a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:46:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793994359; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CwyuzhPpkuXlKHTeAuI5ezBn/37dwgLnpPFZ47e0hqtdJXoYgyeehn0AOwYN+IoNrc
-         JX9Ci/heAaRoHEY9yl3LFT7VTVUvzy/o0476/OudLDs9rirUO6cGdHU6I/fYtEmZ8xrd
-         PCZfsLqd7uZMHLx1Q5F8WBmSbjSHULAcHuSJpEWYBUEtQn30xNr+7bbOMBLquXJhx/cZ
-         4cxOGdSrHQQlKFrJr2/LBQIHcNWx7rUReLDrMH392P3xalisqq1PtX4vaEPKJDjfOzOP
-         uX6ibFoHeZRsijpzaDMmqThhMC25avoQcOWlQbcG8Uhtb+y01zZKm+BQEZPx/p9fumJW
-         WaNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MtW6cUlF0xWQVNMRbFIZNlbptYiDw1CO/QxWvZcoGes=;
-        fh=YgyUFkubsrz4bGLtVQaUr1ZMMNnjbcMtBM+FTHIn2S0=;
-        b=Vtg4uSGyxco2BYboTQB2brLEkHABLM4D47T/1xXNnRW3ZVZ8faXvvlsfkadYzm7f1b
-         6QFKBrRVL/fGRSD1Ra7nh4KY/A1BXTgkfP+HBD2iBW8t4+iCtTGYtM6Q6bZRJCbmIjop
-         2xmG0D9vitcLePoPz/ajUGFo0e2TiSy+YEev7oCle4CzWHchNZ2eEJvCn81JUQcNh4Ai
-         58DjEVeJvqMao44vXQ4hhtZK1MtO3nkhcQ1WztVjVNlDd2H0ZSNqtaGm24P74cRTWTIY
-         LCAC1iLVAvNHSsSNaO1SkUt/mi8lbvQNkUuxIohdg8E78KPa6FUseMRAtUegt7hitNkK
-         aE4g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793994359; x=1794599159; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MtW6cUlF0xWQVNMRbFIZNlbptYiDw1CO/QxWvZcoGes=;
-        b=b0lSW8LLban7Eer3WywvdFdQTbSrylW92pzpB1SznsBnaZEiz/E/mE1Ip9NJMfFT2l
-         XjywJ0NDQ5ygvJ7ZXsfY2bkMJK18bVrY4MR6mWtzjuUiGOQauJxr54tkPLPipTCreCgn
-         7+E7Wfev4B/SHsI6VGpf4Zfl0AjwC5Cg+74fNxZM1rk1oN8hIWWGUB/S7fy2mGS1l5uS
-         moqnrQ2FWyXKqMHLqVC6QSNNKbcbqN+GP4/Syip1H9nFT4/PzdLxC80+nzHB69HS9dSZ
-         eVxcLRFY+ZeyjSnuCy2tC2UHhrZ4xUKkftFfI+QiM118IjMWFAceDTjo5rzdOJAsyjCQ
-         iPfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793994359; x=1794599159;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MtW6cUlF0xWQVNMRbFIZNlbptYiDw1CO/QxWvZcoGes=;
-        b=y6ME7PqU1+wdb4kDdzVRQvmpcCGxCjb76BVnTcozg/8M0TNRFcN8+tUP8jpUCEVC0q
-         vl9mn+4p/m8+y1i6xL3vMZ6jCVEfdU6l4WfnH1rkPfMbmnU2+WxSu0eqqriLFN2+7kt8
-         g32ZvIfUkQjx32GiY7PRFWw+SjVFcGDnxsncL2sH1zLjs02PNbhFP5okrK97lb6E88SG
-         mLmERAxEhn8PQtSmiTf6ZPj7xERAIiGpzX+oBEEKutmAM8smZBN7UlziUiGYtaxF0p6m
-         sMg00Z2Bn5diawq3UEDFXHQ2yKXlckNKT7gZW5uw+HkqUgdyXX4MDuJ68pQ3n9kY4lRL
-         CNzg==
-X-Forwarded-Encrypted: i=1; AL+hErGaE59keCYtyZ/13VO3fa/vB5Fl5EYsYg0aWgiTPN5zNLK78hdD5akDWVUl0DJAHcVw5icCkqEJfUrFGK4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8g3eLXumrG1zqXE1r8b56panRedf0FycXmx3ODAv5ozNUDY7M/
-	T3q42jaLfCQPRcS6rPKcZyuGOo5qSfpSxazhjT8CfsZfZRQUdRtUdili8mY93xTjG7v8t9wB5Mg
-	g09Gpb7N0mnX2tIwwgZFVMt/4q5tinvKR1OFtRteX
-X-Gm-Gg: AYBFou0a3PqJbk4JZF/WBNHgU2gN7DF785wiXpBaJk3J4PWa1PenL4MDI1zB+4/wVOV
-	gy7Hj7adqapCSfXNp6ZhZ0yDQE7REa7RjkL0Dz8RE/IpWgaREOzUhJSmAd8AUUNQIMALlyc2D5W
-	LRtBoQK0Nd/oQ7J+YCFgDsTZ3Shd/KKOLPfbZ1JGVcEUCcP5a7/lP54XunLK50hJr7IrETgWIJw
-	UxoZ0l81bKNO3kf4Y2OARdBZKkaiKaKnxxq39GZGXhTTB7iAsSqnMzqOKMPmlyJmbr3OkWneglK
-	4IhZrdnl5RT6nTyp2jsxKPW+R+Qxmu/O1e9VdaaI1ycqQYWyh5qbwDeq6Yip6xy+kKN99ytnfty
-	6lgN/9O1E1oBfOJj0qJAIPz5ECTXgNr+Y7kEobpQ/B5ROQwOzvAzSMJYFjUL1PLGKWNU5
-X-Received: by 2002:a05:6402:424c:10b0:6b4:597f:50ed with SMTP id
- 4fb4d7f45d1cf-6b6fad61dcfmr562a12.5.1793994358649; Fri, 06 Nov 2026 11:45:58
- -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=readahead.eu header.i=@readahead.eu header.a=rsa-sha256 header.s=fm2 header.b=ag2Z2H5T;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WbCGlWg/
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id E3281EC0854
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:46:42 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 06 Nov 2026 14:46:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=readahead.eu; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793994394;
+	 x=1794080794; bh=qhKoxva0JL+l8sDegVq+F6O0qeFNZ5Zg3O8huHi3mM0=; b=
+	ag2Z2H5Ti0ErRYro1uqfcVsQLshlA3jWD0g8g9qfGfL1maXy5+q4FQU+jgyev3Xr
+	RmtIbH6AdOVvGyanXJgpIAqFbz+HctLRgRqb2cxdEMJBw+g7IGde9jH3cF5IZ4BS
+	Y3hJI/WSOc2BU8CyYXbN9Y926BZpWa5mdfueI1iHhOFJCAFIV///2ql7AOGUaEaj
+	cWinNQIUfZJ8dyaGWTfd7Dv+AA7+TEm8ejvwGKg/1tm6gnYLaT79TLq2YHnAMcfC
+	6JkAwoenbKTif6dCiwPllfWHuirkaa/EyQNr0ddZdYIfhMbG55cmUrENHR6SphaO
+	LGxLpAGEf063GBZ3w+1bGQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793994394; x=
+	1794080794; bh=qhKoxva0JL+l8sDegVq+F6O0qeFNZ5Zg3O8huHi3mM0=; b=W
+	bCGlWg/gc/GYzyDYF9V10w76mEB4pXNz/yllOVx1JvJoN042i9QLIyYX/psmtdl7
+	0mMcTbGqK8N4kR3F+OH7pLAXB8BRgaDH5S9HvFsvvfnIwql9m5unLub7LujogHLr
+	clPb+t3TaoO9NIG+433gs3xpu+eeY6i0Ol8PbQ+R9/3GqohjaX3nk4x+2JcCbzoq
+	ZQV16IUS4Hcz6J3qC7Nxkx9OwQvSym5Lw5gMrxGV5COnfGQwzMeKJsR4gLQjYPWp
+	O2MIbF8H0WyQ9ZYpsmnsFRtLlkdfFmsRbW7WLmJE5zR+qyZx3dabQr3OFYpJnHpB
+	sf1uW3Z+D/bH0eYzlFRCg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=readahead.eu a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793994394; d=readahead.eu;
+	mf=PGRhdmlkQHJlYWRhaGVhZC5ldT4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:CwXa0BI0LdAdR9StGzRkXZVbWb+UDE6B4S0zGO9jQ8tIoiq
+	TH3oofZ1rMGb7u230oEPdktRw9R+Ib8hyXlIUo6hZxx1ky3fxgtw6OTCK9GdUo1Y
+	F6GKe5Y0PE6rmxJlixWdlFa+blUWpYkMgBVCTSk1Bb5E2nIew3p0Ax1bEj0F8Eu4
+	ek7FEK9y3frcYGfajPGuk84qDoeE30ilSzYZZGk76lIYAy9Qww/xNztN5zVUPKfN
+	2LjWyhVw9s0ZJSgq5dWMT19dVoolKFBx7C/VypCxfzQLei8d7H53b3v7Qd7sU2Jx
+	e4lKC/Xi0FVDi6tp8yReVPLk1rFpGsyMwaNe72A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:ZXYMNTvVJSIN7d7nypu287vHLlCVFtx1p+56iwTdm2U=:YVR9YXua2pXGceoVU1tO4HWt1dT9IBqHvzi7bV/+K30=;
+X-ME-Sender: <xms:lC7uaiy08CXPYJX_-oMjkrCLTLCvz_9vEVHdF9JV-aQZcfo37H8XNA>
+    <xme:lC7uapESe4X2r4-9tbosgocOP3mUXBiaG6Bj9W74leR6UsXMdR3n6Eh5MK1FctiV_
+    4aXtO1rwrCdNhwcwoRbxa0hkth5g0M9jTk4fJm5CUfFqHk-VvXgWvAM>
+X-ME-Proxy-Cause: dmFkZTGUo7IC6fGRL1KVNl4H3kKPTqlVG3UIT2AdgMMD6pZ2tEb1YktnY/FHMj6Q5TyF8S
+    4cPLg+L1p6KVN+PKIKLa6P18N3Tuw2cahYHmZHUQ59vKq9SJUxlw8rmWe8DXJXQOEdLs99
+    U1c0jX4tkCS07Q0pBU2hQOzLWuCpnoF4Sd0SbE7swUwx5nbO1uIuYHYE0GB9cxqJZA7jBA
+    ULB75RlnzHYXaUIAVbS1kVKhGBdzr4ZFrGFbJNXjXJ1aGEpxmH0KT9naxZ1oH/T9jP7xSn
+    /fzjAAPjNRojDUct0j6UDS8pDqdDK/UomwyxVtV7L9toWyEJYSSbG3S5/2ypOIdY4MwKtZ
+    zybKxSTT2yfOBX70vjqtGwKVX64NrDMFqeC41H+O0uIQs+9wiD5N/uhoOJMaWHvR+EKiY6
+    YHkVId0B1PrQCuC7nx9cDRHeeoWvietuEokrqBrkTQqAJwxKKXFmh1z3z+H2vqV7F2GASI
+    5plmwvEfFKK4eo5WPkzpnT1vFb7nyV3ZrujVNdKexZadm3uVVGZ9UMJqm5tuUO6nHxj0Cr
+    GVlHaDDpANsqqxyHdZgXD2eQ1Dk6VBv3M9i+Qk1Gi5axtYWjPemSyXSegoekVDREJpCoT0
+    jYoIyDcoQAC+AmkdsvXb32LmtX/+ZqqjHYrqVtWUxGdLWvhAgu2ETjpuapPA
+X-ME-Proxy: <xmx:ly7uakESJVpTbvlQpkTh3h5TN24Pz9dEfjXw7iokr1dFh2XQxmj52g>
+    <xmx:ly7uauvCNUSmqjbus2WAkxD1WNAAR1RN3n0DsZT28DNv7BMUh31tYw>
+    <xmx:ly7uanbfXW4c8hS5uy24KQdRDX_10cYgNLfvTiFFU8tcwsozohhIVg>
+    <xmx:ly7uauXfeq3jiR0atVVOrlAPquBYDiD3JfUAjpDggUaVAxH8j1M1lg>
+    <xmx:mi7uaiK-3bDIvhGZDRgh3uzguemoevRUSBWP3S4NschLy2i6ZmjxcjxM>
+Feedback-ID: id2994666:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 4F08A32A0097; Fri,  6 Nov 2026 14:46:28 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,147 +115,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106113800.v2.1.I0b27923381ef34cc99cdf8b65fea2e1bafce6370@changeid>
- <CAKwvOdnnonRfRPPv8cJU5-n_N4JpJLsVixyTYOtmgMjWyz2LDQ@mail.gmail.com>
-In-Reply-To: <CAKwvOdnnonRfRPPv8cJU5-n_N4JpJLsVixyTYOtmgMjWyz2LDQ@mail.gmail.com>
-From: Rong Xu <xur@google.com>
-Date: Fri, 6 Nov 2026 11:45:45 -0800
-X-Gm-Features: AclHuK-y7Snn7fa_RHpKW_RqOSo_pYKXo3yMIDsQSg8EuPiGD_nqwOFftAAYja4
-Message-ID: <CAF1bQ=SFw4GR3_HagE6k08ipFebgmxqE8UDJGmOQq9u3-0ZOnw@mail.gmail.com>
-Subject: Re: [PATCH v2] kbuild: AutoFDO: Disable Profi (-fno-sample-profile-use-profi)
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Douglas Anderson <dianders@chromium.org>, llvm@lists.linux.dev, 
-	linux-kbuild@vger.kernel.org, Han Shen <shenhan@google.com>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Yabin Cui <yabinc@google.com>, 
-	Han Wang <nesthanwang@google.com>, Nilanjana Basu <nilanjana.basu87@gmail.com>, 
-	Snehasish Kumar <snehasishk@google.com>, stable@vger.kernel.org, 
-	Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
-	Bill Wendling <morbo@google.com>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Boqun Feng <boqun@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AWOKgKtlazLR
+Date: Fri, 06 Nov 2026 20:46:07 +0100
+From: "David Rheinsberg" <david@readahead.eu>
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Hugh Dickins" <hughd@google.com>,
+ "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Andrew Morton" <akpm@linux-foundation.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>,
+ "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>,
+ "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>,
+ "Randy Dunlap" <rdunlap@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, stable@vger.kernel.org,
+ "Chris Mason" <mason@kernel.org>
+Message-Id: <2c95ecf1-058e-4d81-9de5-622e32dc57df@app.fastmail.com>
+In-Reply-To: <20261103-fixes_core_2-v1-2-f332954f1df4@kernel.org>
+References: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
+ <20261103-fixes_core_2-v1-2-f332954f1df4@kernel.org>
+Subject: Re: [PATCH 2/2] mm/memfd: handle GUP references reliably when write-sealing
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Look good to me.
+Hi David
 
-Reviewed-by: Rong Xu <xur@google.com>
+On Tue, Nov 3, 2026, at 7:31 PM, David Hildenbrand (Arm) wrote:
+> We made a big mistake when introducing write-sealing: we should have
+> disallowed *any* file mappings while we are write-sealing. Write-sealing is
+> usually done by a producer that wants to hand-off some data to a consumer.
+> Having the producer have a read-only mapping (private or read-only shared)
+> of the memfd while sealing is rather odd: it couldn't have been used to
+> fill the memfd in the first place.
+>
+> Most identified public users don't do anything like that: they either never
+> map the memfd before write-sealing (using write() instead), or munmap()
+> before write-sealing:
+>
+>  - systemd's journal writes, fwupd, Flatpak, runc, crun and
+>    containers/storage write to the memfd without mmap'ing it, before
+>    sealing it [1,2,3,4,5,6]. The FD consumer will not access the memfd
+>    before sealing.
+>
+>  - dbus-broker, Mutter, Chromium's Android linker, KWin, Weston and glycin
+>    map the memfd file, but unmap it before sealing [7,8,9,10,11,12].
+>    glycin retries sealing while waiting for the loader to unmap.
+>
+>  - go-memfd exposes a shared writable mapping before F_SEAL_WRITE and a
+>    private read-only mapping afterwards. Its API explicitly requires
+>    unmapping the writable mapping before sealing [13].
 
--Rong
+When I wrote memfd-sealing, we had this use-case where an application writes a buffer and then shares it both with in-process and out-of-process tasks. Only if out-of-process tasks are actually involved, the buffer is sealed. Otherwise, it is kept unsealed and can be recycled. Hand-off to other processes was optional, rare and asynchronous, so sealing could happen at any time. Yet, we wanted to keep the buffers mapped to avoid costly TLB flushes. Mappings were readonly, but writes were done through syscalls.
 
-On Fri, Nov 6, 2026 at 11:44=E2=80=AFAM Nick Desaulniers
-<ndesaulniers@google.com> wrote:
->
-> On Fri, Nov 6, 2026 at 11:38=E2=80=AFAM Douglas Anderson <dianders@chromi=
-um.org> wrote:
-> >
-> > Starting in Clang 21 (LLVM commit 2fc4a4a9d3a8 ("[Driver][SamplePGO]
-> > Enable -fsample-profile-use-profi (#146795)") [1]), the Clang driver
-> > automatically passes -mllvm -sample-profile-use-profi whenever
-> > -fprofile-sample-use is specified, enabling LLVM's flow-based profile
-> > inference algorithm (Profi) by default.
-> >
-> > However, as Rong Xu noted [2], the kernel's AutoFDO implementation uses
-> > flow-sensitive discriminators (FS-AFDO), and Profi has known issues wit=
-h
-> > FS-AFDO that degrade runtime performance compared to LLVM's original
-> > profile propagation algorithm. In addition, Profi's min-cost max-flow
-> > solver (applyFlowInference) can hit pathological compile times (30+
-> > minutes or hangs) on certain kernel control-flow graphs when profiles
-> > drift slightly or when combined with GCOV [3].
-> >
-> > Pass -fno-sample-profile-use-profi to disable Profi and restore the
-> > original profile propagation behavior that kernel AutoFDO was tested
-> > with. Guard the flag with clang-min-version 210000 since it was
-> > introduced in Clang 21 alongside the default change, whereas
-> > CONFIG_AUTOFDO_CLANG supports Clang 17+. Note that cc-option cannot be
-> > used to probe for the flag because cc-option invokes Clang with -Werror
-> > but without -fprofile-sample-use, causing Clang to fail the probe with
-> > -Werror,-Wunused-command-line-argument.
-> >
-> > Although SampleProfileUseProfi currently defaults to false in the LLVM
-> > backend and is only enabled by the Clang driver, explicitly pass
-> > -Cllvm-args=3D-sample-profile-use-profi=3Dfalse in RUSTFLAGS_AUTOFDO_CL=
-ANG
-> > and --mllvm=3D-sample-profile-use-profi=3Dfalse in KBUILD_LDFLAGS as we=
-ll so
-> > that C, Rust, and ThinLTO flags remain consistent even if rustc or LLVM
-> > defaults change in the future. Unlike the Clang driver flag
-> > -fno-sample-profile-use-profi (added in Clang 21), the underlying LLVM
-> > -sample-profile-use-profi option was introduced in LLVM 14, which
-> > predates the LLVM 17+ requirement of CONFIG_AUTOFDO_CLANG, so no versio=
-n
-> > checks are needed for the Rust or linker flags.
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: 315ad8780a12 ("kbuild: Add AutoFDO support for Clang build")
-> > Suggested-by: Rong Xu <xur@google.com>
-> > Reviewed-by: Rong Xu <xur@google.com>
-> > Reviewed-by: Snehasish Kumar <snehasishk@google.com>
-> > Link: https://github.com/llvm/llvm-project/commit/2fc4a4a9d3a87a9e11c48=
-ef25522aa17c2a71003 [1]
-> > Link: https://lore.kernel.org/r/CAF1bQ=3DS52KWHopqxksctbBirFEr5Mz1dKKMA=
-oWh-dqLHii3Nig@mail.gmail.com [2]
-> > Link: https://github.com/ClangBuiltLinux/linux/issues/2188 [3]
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
->
-> Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
->
-> Maybe we can credit a few folks with reported by tags, to encourage to
-> report issues upstream more in the future?
->
-> Reported-by: Han Wang <nesthanwang@google.com>
-> Reported-by: Yabin Cui <yabinc@google.com>
->
-> > ---
-> > v1: https://lore.kernel.org/r/20261105151159.1.I0b27923381ef34cc99cdf8b=
-65fea2e1bafce6370@changeid
-> >
-> > Changes in v2:
-> > - Explicitly disable Profi in RUSTFLAGS_AUTOFDO_CLANG and KBUILD_LDFLAG=
-S
-> >   as well (Rong Xu, Nick Desaulniers)
-> >
-> >  scripts/Makefile.autofdo | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/scripts/Makefile.autofdo b/scripts/Makefile.autofdo
-> > index 57a3aba6ffc2..55fda66ad960 100644
-> > --- a/scripts/Makefile.autofdo
-> > +++ b/scripts/Makefile.autofdo
-> > @@ -13,13 +13,16 @@ endif
-> >  ifdef CLANG_AUTOFDO_PROFILE
-> >    CFLAGS_AUTOFDO_CLANG +=3D -fprofile-sample-use=3D$(CLANG_AUTOFDO_PRO=
-FILE) -ffunction-sections
-> >    CFLAGS_AUTOFDO_CLANG +=3D -fsplit-machine-functions
-> > +  CFLAGS_AUTOFDO_CLANG +=3D $(if $(call clang-min-version,210000),-fno=
--sample-profile-use-profi)
-> >    RUSTFLAGS_AUTOFDO_CLANG +=3D -Zprofile-sample-use=3D$(CLANG_AUTOFDO_=
-PROFILE) -Zfunction-sections=3Dy
-> >    RUSTFLAGS_AUTOFDO_CLANG +=3D -Cllvm-args=3D-split-machine-functions
-> > +  RUSTFLAGS_AUTOFDO_CLANG +=3D -Cllvm-args=3D-sample-profile-use-profi=
-=3Dfalse
-> >  endif
-> >
-> >  ifdef CONFIG_LTO_CLANG_THIN
-> >    ifdef CLANG_AUTOFDO_PROFILE
-> >      KBUILD_LDFLAGS +=3D --lto-sample-profile=3D$(CLANG_AUTOFDO_PROFILE=
-)
-> > +    KBUILD_LDFLAGS +=3D --mllvm=3D-sample-profile-use-profi=3Dfalse
-> >    endif
-> >    KBUILD_LDFLAGS +=3D --mllvm=3D-enable-fs-discriminator=3Dtrue --mllv=
-m=3D-improved-fs-discriminator=3Dtrue -plugin-opt=3Dthinlto
-> >    KBUILD_LDFLAGS +=3D $(call ld-option,-plugin-opt=3D-function-splitti=
-ng=3Dall,-plugin-opt=3D-split-machine-functions)
-> > --
-> > 2.56.0.455.g6c5a503b38-goog
-> >
->
->
-> --
-> Thanks,
-> ~Nick Desaulniers
+We still do this, but I don't think any of the open-source users picked this up. I did not follow the folio changes, so I am quite unsure whether the implementation was racy from the beginning, or whether new infrastructure introduced the races.
+
+Can you elaborate why folio ref-counts are unreliable / unstable?
+
+Thanks
+David
