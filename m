@@ -1,82 +1,82 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981339;
-	b=FMuPqFg62KQiBHgq/QFCeqegHaoHHAvvtzevFTSyXr59nQ951wvAvxyZg+jfzWp3IHGe
-	 V2EMgfi8iOATQL3iUr6znw+HiH2VTwJJBBSMUF4cPWmw7CZK03L+MhLGsofAbS5wn98us
-	 Jb4+sj/zqyYa571K62Sf7RK+YNYH9ybHzk5hu2RWPoqDEBIv4riuW99dRLWS0bpvq0sco
-	 Y1wf3h4joYTBTpYkNnM5O0ZbjwDM7iR1aazfYIlbpvspXai6MKlXMP0o5cZ7Hk2NLDXoc
-	 8+F60pRXwGRFUubwz2FRqUPp/MAhyVFPVSmhz4KyoKoFn0qRxi5Zzt0i62fyyhCS/Fw==
+	t=1793981341;
+	b=K8GLVwCPCF4O6vaESXQBWlxY65dAE8YF8gfFmru5LwW4xoQ5IycSyKFqKvTJq0r2tyBQ
+	 49P9mYDOQSJ7siqckT9bknP3n8oaoTm4McAY0PP/VFt1ilroqtbAgFm8SNpmtrw4PPd18
+	 +PchepDQtzxqllABneDwvOTV+zSWf5TyE1ee7yy4+PBsKQ1gD2AUiTJIDZ7KOydY25I8X
+	 IQ6knx8ZGa7E8Sb7DdIAmv57rCwx+n0ZF0mAqV8t4XU4kgr/VkjfJhjkdZZp0+2qo0paQ
+	 KaR7+kei6H2H08pq5Kh82CObxjrW5OgiBDd/uYIMg5B2LNqs3z4cWTsEXEg4DAbdjWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981339;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981341;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:Received:Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-TM-AS-GCONF:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=dGDN+ejzVWmWnw33Kx8a6S3Ziw/s9YTkRedQx7DCWZc=;
-	b=NsQjNdLMM5mG7TTVVXXH8DtLvY1TQBPk3/Wy8zL5YWfuEPrYu6vzYCEY41tVsdhU6FQH
-	 GyGCSJDkm3bUz5NWN9ScI8ahgIwQZAMXT1S+4OazKvzM8jiZYz9l3uOe6irxZQPwRJEZX
-	 Eb/Z0S5vsnGgwKi3YAyXVRcHXiLY3lpl9oPE0USsN0REluYnHfvUJhTxqOhSWg1Smy9IT
-	 a1J/q2yOwPwUixKswhVBAqtlo492CXOe2mwtwELJKXoY9hRp9NHPsUf0VXz76HS+uMB7A
-	 EsSaIUnzQAq0k+nOuD2tnQG2HqHkCgTIdU4/W29TiH+i3DuRz3aEMcRly8rsnYBRCiA==
+	 In-Reply-To:To:Cc:X-Mailer:X-TM-AS-GCONF:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=UoG+N7sFPyhJfOQ3AS4CdkcQ5IpgxCbwJzW/6wfd6d0=;
+	b=xnyN2qBkA3pmIm07S//IMMca5404l93OoFq+oy9hr8brmejd272lTQ4aHW1I5/qeG7uu
+	 uIRhFwy/lA8gMU/IsHsZt0xqdd8R2zkVDwQmf1v9KeKOeF6rXpLEdapvdRiDab6NukEh5
+	 JOLQU371HUAW6Jd1FLHUTcw9/AphUjVYyK9KfnnIXpDckI8UrJSNEG9husMvjMrJZE4NA
+	 sJ6WA+KHUhPZabuQzEzx/vQHYUTuj5FhgesmiN8DPCBwRHoFxpTofXbsklyW9hgl4qIwU
+	 A9+II5FJ8l6rPQ+xBcmQmWovEIDei7o2kEuN56mVkvt4tmiY+oxfdEKOfZ/Xj5BbzbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.ibm.com;
 	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=eX9WNVkQ;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=VNIqd4Mf;
 	arc=none smtp.remote-ip=148.163.158.5
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1F360A2615;
-	Fri,  6 Nov 2026 16:08:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D1F360A2615
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D268860A3810;
+	Fri,  6 Nov 2026 16:09:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D268860A3810
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=eX9WNVkQ
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FE9p02726715;
-	Fri, 6 Nov 2026 16:08:28 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=VNIqd4Mf
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FEC752656391;
+	Fri, 6 Nov 2026 16:08:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=dGDN+e
-	jzVWmWnw33Kx8a6S3Ziw/s9YTkRedQx7DCWZc=; b=eX9WNVkQ/3/ie6Y5uJS7Lx
-	1x1rLN1veqmAM1J/oosmdEcbWKAnPr2Yh7DCQCM1ugBXzvvc4oyQEBVNaIdqn+wJ
-	2OuxfsaZBcNi4vO6YbzAnprtr0RA2Vosic9eeYBy8RY8NjrbafC0pFqSwqQqyYq+
-	QGQVk6pgL5zyKhXqQ2+vx3xaMad4bULklg1sdgSMZJBU6Ue9nglawTn3WI+N15mP
-	mV6sCr6tiXaFmN5Gpq76ssSC8pxbHeMltEdRmxTkrFEmGbRGAL2V2sL3RjaPMvpa
-	fD+ooyPvdeuBpeFDMLDP+0FmhXb054YtePgrSqShoNI+aOcnpDtnqeNRdTaT1YpA
+	:message-id:mime-version:references:subject:to; s=pp1; bh=UoG+N7
+	sFPyhJfOQ3AS4CdkcQ5IpgxCbwJzW/6wfd6d0=; b=VNIqd4MfMVi6uGMJkMiD1D
+	YOJg48vL+/0pNStM07JJ8p3zNFPveK61JhuD/zXCm561/4rPwwAiLYv9/NpMvI9y
+	kcN13hsiEqS0kFZiBjtZe6dz1qylnXuGZ1htsglESqwfKFXuDItZ8NAgmlWYoQjw
+	eElIqTF/rK1DQPrP/EQvXZCpHhuxOQAE6+2q3L4Ai5uxq8Yt4ls/Tg+JrAt7CnWr
+	9qcWeAx95YHG1IYIN7fxaAnSUwpZVxqxuCjy3hxL6SQoynuHLtiX/6icXVkshnn3
+	Dhto4qcvFvOSqxMoZAr/7oTJFJQhhEkBUppBz1TVga1La0s5N9DQh3qr2h1V83BA
 	==
 Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3r9dfsg-1
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hs3rc5ets-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 16:08:28 +0000 (GMT)
+	Fri, 06 Nov 2026 16:08:23 +0000 (GMT)
 Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6F4rXF2390066;
-	Fri, 6 Nov 2026 16:08:27 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hs7h13wff-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 16:08:27 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6G8Non52298170
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6F4wgh2390145;
 	Fri, 6 Nov 2026 16:08:23 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hs7h13wer-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 16:08:23 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A6G8JFw16646640
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 6 Nov 2026 16:08:19 GMT
 Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9630D2004F;
-	Fri,  6 Nov 2026 16:08:23 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 450C920040;
+	Fri,  6 Nov 2026 16:08:19 +0000 (GMT)
 Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 30B3420063;
-	Fri,  6 Nov 2026 16:08:23 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id D19052004F;
+	Fri,  6 Nov 2026 16:08:18 +0000 (GMT)
 Received: from a46lp73.lnxne.boe (unknown [9.87.84.240])
 	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  6 Nov 2026 16:08:23 +0000 (GMT)
+	Fri,  6 Nov 2026 16:08:18 +0000 (GMT)
 From: Steffen Eiden <seiden@linux.ibm.com>
-Date: Fri, 06 Nov 2026 17:07:56 +0100
-Subject: [PATCH v3 23/23] s390: Report AEF features to sysfs
+Date: Fri, 06 Nov 2026 17:07:46 +0100
+Subject: [PATCH v3 13/23] KVM: s390: arm64: Query Available Arm features
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,7 +88,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-sysreg-v3-23-75e95980fb10@linux.ibm.com>
+Message-Id: <20261106-sysreg-v3-13-75e95980fb10@linux.ibm.com>
 References: <20261106-sysreg-v3-0-75e95980fb10@linux.ibm.com>
 In-Reply-To: <20261106-sysreg-v3-0-75e95980fb10@linux.ibm.com>
 To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
@@ -117,275 +117,520 @@ Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
         linux-s390@vger.kernel.org, Steffen Eiden <seiden@linux.ibm.com>
 X-Mailer: b4 0.14.3
 X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=LKHz05W9 c=1 sm=1 tr=0 ts=6aedfb7c cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2MiBTYWx0ZWRfX+3Y8vjxsShH0
+ S4kYSfH8y2YidXXo02LTwo3jX+B+4rfCc5+95guHCsCyGKZRzWG1qjfDLx6vUFbiV1BJ09bmuiT
+ FW/ttW15L3in3f42StvFSDNhQZ81+10=
+X-Proofpoint-GUID: QW562MhpmT1a_Ahx8PlWauJ0TJNjV3LU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2MiBTYWx0ZWRfX/7dnktGWn2vM
+ g/WbByH/hU4RCgyZvtwJu2nPo0aKcrbbT3Aqg1WHcWXttpO30HdmC60Skz9ndhl+s1LnNPSVLYT
+ LsXMFF/bkY5lCx8qlah6qZeLxyj5G6iw6j9beazqxuQhHQnW/t396kE/9CihnJQCZ+r62VPjI6v
+ bv5W+yHoJ3t3oEOXNR2hAWnYXv4+dntNAdgK5XWnKMWV19fLAK6UqakiMZXE2JnpxGrn67HhHnY
+ YAV148cMO3SgxIXqxY/5bC/x2Qd5VNQDYzP+ap8CdJ072sAOZGgKOcdHB+cmxAULQb5ffi/BQlq
+ rPJEDerNjI3C7aalBxsxuRPg2r2LViIgbPpzK/p+4lArlcuxrD5cLPV4Y7XBYUJLbFsTG7RUlMM
+ /s/tv8oO9fwyaYNtaOfbPV/W9NyuzPnlS/GjhyM0vfrJNTofCf9w2g1GPJ+Plv3jjnl8eweMXY1
+ qJc8y9ErjW4Z3BTXC7Q==
+X-Proofpoint-ORIG-GUID: QW562MhpmT1a_Ahx8PlWauJ0TJNjV3LU
+X-Authority-Analysis: v=2.4 cv=CY+dd7rl c=1 sm=1 tr=0 ts=6aedfb78 cx=c_pps
  a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=VwQbUJbxAAAA:8 a=_1njvoj5cknMIrGAsaoA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: iQVpJlq1zs5IykuTBq1czgHeqRbR3N3j
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2MiBTYWx0ZWRfX+nyt0wLabR8k
- fdlG0UDBqx/jLx1JepradORtV2kje2VUzLUA1JUETM3u/gIIfOpFvo91Lse4wp8rVaTptXyeRJw
- JMlwk+I2aFFAAZddkWVEzL/C1Zxu6lY=
-X-Proofpoint-ORIG-GUID: iQVpJlq1zs5IykuTBq1czgHeqRbR3N3j
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2MiBTYWx0ZWRfX7PYJIloOxfgn
- RhKY9VG1LfO474GkztipExgWMVsTEe9veRXy606mxY+YCDjG4JCl9E6yHFATcXG+DV7zbei7fdW
- iuP3OYdK/hotJ85zT0w7fOslFe11LmtYoECy1ajL44pziko8TOyXLi0ppiQY+7Bz1coa8JwhtaA
- 3smOtpUBtngJ9Grnl8YOwLaBH+NExRxdiiAYkc8TF59kFnT1XrdX1q8OTwBeEylD3MRVTpimoyx
- 9ZQxBVcn9rsyCVt5FDw/m5GeZnS5iSUWUDidYyKKkIQRHVT835xHTZmK4ZzZDKyb0eX9n19MdY8
- agu+JSNSSRuQm5cY8Co7zvZwbvWBibtJD/AiOgG2C+Okk1/74f05sJXQXB4HGcqdr4zKB3vOIts
- jxjFvTV10ahcNIlyzZ1vjE5CnxbWmC97if5k7SPlxuEcwNA7+pWW08VySRceMcdMXPN6BBS2kg1
- MA3Ovokd+tbUIg+wjTw==
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=o3ct1ghBEqN8h786NAEA:9 a=QEXdDO2ut3YA:10
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060062
 
-Display various information about the Arm execution Facility (AEF) to
-userspace. The files are located in /sys/firmware/aef/. Show if the
-feature is available and usable for the host, which formats are
-available, and how many arm vCPUS per guest are supported by the
-machine. Additionally, provide the raw binary output of QAAF fc1 (Query
-Model Capabilities) in the file qmc and fc2 (Initial
-System-Registers-Save Area) in the file save_area.
+QAAF enables s390 hosts to gain information about the support
+and handling of various arm features supported by the machine.
 
-Co-developed-by: Janosch Frank <frankja@linux.ibm.com>
-Signed-off-by: Janosch Frank <frankja@linux.ibm.com>
+Function code 1 provides general information about available formats,
+machine defined content of system/id register, and other various
+information for running arm guests.
+
+Function code 2 provides a initialised save area.
+
 Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
 Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
 Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 ---
- Documentation/ABI/testing/sysfs-firmware-aef |  70 +++++++++++++++++
- arch/s390/kernel/aef.c                       | 113 +++++++++++++++++++++++++++
- 2 files changed, 183 insertions(+)
+ arch/s390/include/asm/aef.h                  |  12 +++
+ arch/s390/include/asm/kvm_host_arm64_types.h | 115 +++++++++++++++++++++++++++
+ arch/s390/include/asm/sae.h                  |  26 ++++++
+ arch/s390/kernel/Makefile                    |   2 +-
+ arch/s390/kernel/aef.c                       |  94 ++++++++++++++++++++++
+ arch/s390/kvm/arm64/Makefile                 |   1 +
+ arch/s390/kvm/arm64/arm.c                    |   6 +-
+ arch/s390/kvm/arm64/qaaf.c                   |  83 +++++++++++++++++++
+ arch/s390/kvm/arm64/qaaf.h                   |  12 +++
+ arch/s390/tools/opcodes.txt                  |   1 +
+ 10 files changed, 350 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-firmware-aef b/Documentation/ABI/testing/sysfs-firmware-aef
+diff --git a/arch/s390/include/asm/aef.h b/arch/s390/include/asm/aef.h
 new file mode 100644
-index 000000000000..6ccd8491a017
+index 000000000000..06519cc575be
 --- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-firmware-aef
-@@ -0,0 +1,70 @@
-+What:		/sys/firmware/aef/
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Various interfaces to query information about the ARM
-+		Execution Facility (AEF).
++++ b/arch/s390/include/asm/aef.h
+@@ -0,0 +1,12 @@
++/* SPDX-License-Identifier: GPL-2.0 */
 +
-+		The directory is present only on machines that provide
-+		the AEF (SCLP facility bit).
++#ifndef _ASM_S390_AEF_H
++#define _ASM_S390_AEF_H
 +
-+What:		/sys/firmware/aef/arm_guest_supp
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Read-only, decimal boolean. Reports 1 if all requirements
-+		for running arm64 KVM guests (KVM module kvm_arm64) are
-+		satisfied by the machine, 0 otherwise. This is equivalent to the
-+		logical AND of sae_avail, ptff_avail and edat2_avail below.
++#include <asm/kvm_host_arm64_types.h>
 +
-+What:		/sys/firmware/aef/query/
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Raw machine characteristics as reported by the QAAF
-+		instruction.
++const struct kvm_sae_save_area *aef_gisrsa(void);
++const struct qaaf_qmc_block *aef_qmc(void);
++bool aef_usable(void);
 +
-+What:		/sys/firmware/aef/query/sae_avail
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Read-only, decimal boolean. Reports 1 if the machine
-+		provides the SAE instruction.
++#endif /* _ASM_S390_AEF_H */
+diff --git a/arch/s390/include/asm/kvm_host_arm64_types.h b/arch/s390/include/asm/kvm_host_arm64_types.h
+index 8783a66d3029..d9471f3b0d46 100644
+--- a/arch/s390/include/asm/kvm_host_arm64_types.h
++++ b/arch/s390/include/asm/kvm_host_arm64_types.h
+@@ -121,4 +121,119 @@ struct kvm_sae_save_area {
+ } __packed __aligned(PAGE_SIZE);
+ static_assert(sizeof(struct kvm_sae_save_area) == PAGE_SIZE);
+ 
++#define QAAF_FC_QMC	1
++#define QAAF_FC_GISRSA	2
 +
-+What:		/sys/firmware/aef/query/ptff_avail
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Read-only, decimal boolean. Reports 1 if the PTFF
-+		instruction supports the QAGTO and QAGPT subfunctions.
++union qaaf_gr0_gisrsa {
++	struct {
++		u8 _0000[6];
++		u8 saf;
++		u8 : 2;
++		u8 fc : 6;
++	};
++	u64 val;
++};
 +
-+What:		/sys/firmware/aef/query/edat2_avail
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Read-only, decimal boolean. Reports 1 if the EDAT-2
-+		facility is available.
++static_assert(sizeof(union qaaf_gr0_gisrsa) == sizeof(u64));
 +
-+What:		/sys/firmware/aef/query/supp_state_desc_formats
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Read-only, 0x-prefixed hexadecimal bitmask. Bitmask of
-+		the SAE state description formats supported by the machine.
++/* QAAF Query Model Capabilities */
++struct qaaf_qmc_block {
++	u64	_0000;			/* 0x0000 */
++	u8	ssdf;			/* 0x0008 */
++	u8	_0009;			/* 0x0009 */
++	u8	ssaf;			/* 0x000a */
++	u8	_000b[3];		/* 0x000b */
++	u16	maxncpu;		/* 0x000e */
++	u64	_0010[2];		/* 0x0010 */
++	u64	regs[0x1fc];		/* 0x0020 */
++} __aligned(PAGE_SIZE);
++static_assert(sizeof(struct qaaf_qmc_block) == PAGE_SIZE);
 +
-+What:		/sys/firmware/aef/query/supp_save_area_formats
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Read-only, 0x-prefixed hexadecimal bitmask. Bitmask of
-+		the SAE save area formats supported by the machine.
++union qaaf_block {
++	struct qaaf_qmc_block qmc;
++	struct kvm_sae_save_area save_area;
++} __aligned(PAGE_SIZE);
++static_assert(sizeof(union qaaf_block) == PAGE_SIZE);
 +
-+What:		/sys/firmware/aef/query/max_num_vcpu
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Read-only, decimal number. Maximum number of guest CPUs
-+		per VM.
++/*
++ * Keep in sync with mapping from SYS_* to QAAF_* in qaaf.c!
++ */
++enum {
++	QAAF_REG_MIDR_EL1		= 0x00,
++	/* 0x01-0x04 reserved */
++	QAAF_REG_MPIDR_EL1		= 0x05,
++	QAAF_REG_REVIDR_EL1		= 0x06,
++	/* 0x07 reserved */
++	QAAF_REG_ID_PFR0_EL1		= 0x08,
++	QAAF_REG_ID_PFR1_EL1		= 0x09,
++	QAAF_REG_ID_DFR0_EL1		= 0x0a,
++	QAAF_REG_ID_AFR0_EL1		= 0x0b,
++	QAAF_REG_ID_MMFR0_EL1		= 0x0c,
++	QAAF_REG_ID_MMFR1_EL1		= 0x0d,
++	QAAF_REG_ID_MMFR2_EL1		= 0x0e,
++	QAAF_REG_ID_MMFR3_EL1		= 0x0f,
++	QAAF_REG_ID_ISAR0_EL1		= 0x10,
++	QAAF_REG_ID_ISAR1_EL1		= 0x11,
++	QAAF_REG_ID_ISAR2_EL1		= 0x12,
++	QAAF_REG_ID_ISAR3_EL1		= 0x13,
++	QAAF_REG_ID_ISAR4_EL1		= 0x14,
++	QAAF_REG_ID_ISAR5_EL1		= 0x15,
++	QAAF_REG_ID_MMFR4_EL1		= 0x16,
++	QAAF_REG_ID_ISAR6_EL1		= 0x17,
++	QAAF_REG_MVFR0_EL1		= 0x18,
++	QAAF_REG_MVFR1_EL1		= 0x19,
++	QAAF_REG_MVFR2_EL1		= 0x1a,
++	/* 0x1b reserved */
++	QAAF_REG_ID_PFR2_EL1		= 0x1c,
++	QAAF_REG_ID_DFR1_EL1		= 0x1d,
++	QAAF_REG_ID_MMFR5_EL1		= 0x1e,
++	/* 0x1f reserved */
++	QAAF_REG_ID_AA64PFR0_EL1	= 0x20,
++	QAAF_REG_ID_AA64PFR1_EL1	= 0x21,
++	QAAF_REG_ID_AA64PFR2_EL1	= 0x22,
++	/* 0x23 reserved */
++	QAAF_REG_ID_AA64ZFR0_EL1	= 0x24,
++	QAAF_REG_ID_AA64SMFR0_EL1	= 0x25,
++	/* 0x26 reserved */
++	QAAF_REG_ID_AA64FPFR0_EL1	= 0x27,
++	QAAF_REG_ID_AA64DFR0_EL1	= 0x28,
++	QAAF_REG_ID_AA64DFR1_EL1	= 0x29,
++	QAAF_REG_ID_AA64DFR2_EL1	= 0x2a,
++	/* 0x2b reserved */
++	QAAF_REG_ID_AA64AFR0_EL1	= 0x2c,
++	QAAF_REG_ID_AA64AFR1_EL1	= 0x2d,
++	/* 0x2e,0x2f reserved */
++	QAAF_REG_ID_AA64ISAR0_EL1	= 0x30,
++	QAAF_REG_ID_AA64ISAR1_EL1	= 0x31,
++	QAAF_REG_ID_AA64ISAR2_EL1	= 0x32,
++	QAAF_REG_ID_AA64ISAR3_EL1	= 0x33,
++	/* 0x34-0x37 reserved */
++	QAAF_REG_ID_AA64MMFR0_EL1	= 0x38,
++	QAAF_REG_ID_AA64MMFR1_EL1	= 0x39,
++	QAAF_REG_ID_AA64MMFR2_EL1	= 0x3a,
++	QAAF_REG_ID_AA64MMFR3_EL1	= 0x3b,
++	QAAF_REG_ID_AA64MMFR4_EL1	= 0x3c,
++	/* 0x3d-0x3f reserved */
++	QAAF_REG_CNTFRQ_EL0		= 0x40,
++	QAAF_REG_CTR_EL0		= 0x41,
++	QAAF_REG_AIDR_EL1		= 0x42,
++	/* 0x43-0x47 reserved */
++	QAAF_IRPTC			= 0x48,
++	/* 0x49 reserved */
++	QAAF_REG_ICH_VTR_EL2		= 0x4a,
++	QAAF_GIC_ATTR			= 0x4b,
++	/* 0x4c-0x4f reserved */
++	QAAF_REG_PMMIR_EL1		= 0x50,
++	QAAF_REG_PMCR_EL0		= 0x51,
++	QAAF_REG_PMCEID0_EL0		= 0x52,
++	QAAF_REG_PMCEID1_EL0		= 0x53,
++	/* 0x54-0x1fb reserved */
++	_QAAF_MAX
++};
 +
-+What:		/sys/firmware/aef/query/qmc
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Read-only binary attribute, 4096 bytes. Contains the
-+		unmodified, machine specific QMC response block.
++static_assert((sizeof(struct qaaf_qmc_block) -
++	       offsetof(struct qaaf_qmc_block, regs)) /
++		      8 >=
++	      _QAAF_MAX);
 +
-+What:		/sys/firmware/aef/query/save_area
-+KernelVersion:	7.5
-+Contact:	linux-s390@vger.kernel.org
-+Description:	Read-only binary attribute, 4096 bytes. Contains the
-+		unmodified, machine specific GISRSA block.
+ #endif /* ASM_KVM_HOST_ARM64_TYPES_H */
+diff --git a/arch/s390/include/asm/sae.h b/arch/s390/include/asm/sae.h
+index cac4fbf58e88..d1b9af770108 100644
+--- a/arch/s390/include/asm/sae.h
++++ b/arch/s390/include/asm/sae.h
+@@ -12,6 +12,7 @@
+ asmlinkage void sae(phys_addr_t sae_block_phys);
+ 
+ #include <linux/io.h>
++#include <asm/extable.h>
+ #include <asm/kvm_host_arm64_types.h>
+ #include <asm/insn-common-asm-emit.h>
+ 
+@@ -112,5 +113,30 @@ static __always_inline void lasrm(struct kvm_sae_save_area *save_area)
+ 	);
+ }
+ 
++/**
++ * qaaf() - Query Available Arm Features
++ * @gr0: QAAF function code
++ * @qaaf_block: Pointer to the page for the output
++ *
++ * Perform QAAF. The result is written to qaaf_block.
++ */
++static __always_inline int qaaf(u64 gr0, union qaaf_block *qaaf_block)
++{
++	int exception = 1;
++
++	asm_inline volatile(
++		"	lgr	0,%[r0]\n"
++		"0:	.insn	rre,0xb9ad0000,%[r1],0\n"
++		"	lhi	%[exc],0\n"
++		"1:\n"
++		EX_TABLE_INSN(0b, 1b)
++		: "=m" (*qaaf_block), [exc] "+d" (exception)
++		: [r1] "a" (qaaf_block), [r0] "d" (gr0)
++		: "0"
++	);
++
++	return exception;
++}
++
+ #endif /* !__ASSEMBLER__ */
+ #endif /* __ASM_S390_SAE_H */
+diff --git a/arch/s390/kernel/Makefile b/arch/s390/kernel/Makefile
+index f84b8fb41331..0f3b9fcd1885 100644
+--- a/arch/s390/kernel/Makefile
++++ b/arch/s390/kernel/Makefile
+@@ -46,7 +46,7 @@ obj-y	+= runtime_instr.o cache.o fpu.o dumpstack.o guarded_storage.o sthyi.o
+ obj-y	+= entry.o reipl.o kdebugfs.o alternative.o skey.o
+ obj-y	+= nospec-branch.o ipl_vmparm.o machine_kexec_reloc.o unwind_bc.o
+ obj-y	+= smp.o text_amode31.o stacktrace.o abs_lowcore.o facility.o uv.o wti.o
+-obj-y	+= diag/
++obj-y	+= diag/ aef.o
+ 
+ always-$(KBUILD_BUILTIN)	+= vmlinux.lds
+ 
 diff --git a/arch/s390/kernel/aef.c b/arch/s390/kernel/aef.c
-index 31e18953d7b3..96a6d63b2695 100644
---- a/arch/s390/kernel/aef.c
+new file mode 100644
+index 000000000000..31e18953d7b3
+--- /dev/null
 +++ b/arch/s390/kernel/aef.c
-@@ -11,6 +11,15 @@
- 
- static struct qaaf_qmc_block qmc = {};
- static struct kvm_sae_save_area save_area = {};
-+static struct aef_info {
-+	unsigned long arm_guest_supp;
-+	unsigned long sae_avail;
-+	unsigned long ptff_avail;
-+	unsigned long edat2_avail;
-+	unsigned long supp_state_desc_formats;
-+	unsigned long supp_save_area_formats;
-+	unsigned long max_num_vcpu;
-+} info = {};
- 
- const struct kvm_sae_save_area *aef_gisrsa(void)
- {
-@@ -38,6 +47,68 @@ bool aef_usable(void)
- }
- EXPORT_SYMBOL_GPL(aef_usable);
- 
-+static struct kset *aef_query_kset;
-+static struct kobject *aef_kobj;
+@@ -0,0 +1,94 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+#define aef_sysfs_qval_def(_name, _fmt)				\
-+	static ssize_t _name##_show(struct kobject *kobj,		\
-+				    struct kobj_attribute *attr,	\
-+				    char *buf)				\
-+	{								\
-+		return sysfs_emit(buf, _fmt "\n", info._name);		\
-+	}								\
-+	static struct kobj_attribute _name##_attr = __ATTR_RO(_name)
++#include <linux/export.h>
++#include <linux/sysfs.h>
++#include <linux/kobject.h>
++#include <linux/slab.h>
 +
-+#define aef_sysfs_qval_attr(_name) &_name##_attr.attr
++#include <asm/aef.h>
++#include <asm/sae.h>
++#include <asm/sclp.h>
 +
-+aef_sysfs_qval_def(arm_guest_supp, "%lu");
-+aef_sysfs_qval_def(sae_avail, "%lu");
-+aef_sysfs_qval_def(ptff_avail, "%lu");
-+aef_sysfs_qval_def(edat2_avail, "%lu");
-+aef_sysfs_qval_def(supp_state_desc_formats, "0x%lx");
-+aef_sysfs_qval_def(supp_save_area_formats, "0x%lx");
-+aef_sysfs_qval_def(max_num_vcpu, "%lu");
++static struct qaaf_qmc_block qmc = {};
++static struct kvm_sae_save_area save_area = {};
 +
-+static ssize_t qmc_read(struct file *filp, struct kobject *kobj,
-+			const struct bin_attribute *attr, char *buf, loff_t off,
-+			size_t count)
++const struct kvm_sae_save_area *aef_gisrsa(void)
 +{
-+	return memory_read_from_buffer(buf, count, &off, &qmc, sizeof(qmc));
++	return &save_area;
++}
++EXPORT_SYMBOL_GPL(aef_gisrsa);
++
++const struct qaaf_qmc_block *aef_qmc(void)
++{
++	return &qmc;
++}
++EXPORT_SYMBOL_GPL(aef_qmc);
++
++/* set once the QMC block and GISRSA save area were fetched successfully */
++static bool aef_valid;
++
++/**
++ * aef_usable() - Report whether the QAAF query data is available
++ *
++ * false if sclp.has_aef is not set or the QAAF instruction failed.
++ */
++bool aef_usable(void)
++{
++	return aef_valid;
++}
++EXPORT_SYMBOL_GPL(aef_usable);
++
++static int __init aef_init_save_area(void)
++{
++	int ret;
++
++	union qaaf_gr0_gisrsa gr0 = {
++		.fc = QAAF_FC_GISRSA,
++		.saf = SAE_SAVE_AREA_FORMAT_0,
++	};
++
++	if (!sclp.has_aef)
++		return 0;
++
++	ret = qaaf(gr0.val, (union qaaf_block *)&save_area);
++	if (ret)
++		return -EIO;
++
++	return 0;
 +}
 +
-+BIN_ATTR_RO(qmc, sizeof(qmc));
-+
-+static ssize_t save_area_read(struct file *filp, struct kobject *kobj,
-+			      const struct bin_attribute *attr, char *buf,
-+			      loff_t off, size_t count)
++static int __init aef_query_info(void)
 +{
-+	return memory_read_from_buffer(buf, count, &off, &save_area,
-+				       sizeof(save_area));
++	int ret;
++
++	if (!sclp.has_aef)
++		return 0;
++
++	ret = qaaf(QAAF_FC_QMC, (union qaaf_block *)&qmc);
++	if (ret)
++		return -EIO;
++
++	return 0;
 +}
 +
-+BIN_ATTR_RO(save_area, sizeof(save_area));
-+
-+static struct attribute *aef_query_attrs[] = {
-+	aef_sysfs_qval_attr(sae_avail),
-+	aef_sysfs_qval_attr(ptff_avail),
-+	aef_sysfs_qval_attr(edat2_avail),
-+	aef_sysfs_qval_attr(supp_state_desc_formats),
-+	aef_sysfs_qval_attr(supp_save_area_formats),
-+	aef_sysfs_qval_attr(max_num_vcpu),
-+	NULL,
-+};
-+
-+static const struct bin_attribute *aef_query_bin_attrs[] = {
-+	&bin_attr_qmc,
-+	&bin_attr_save_area,
-+	NULL,
-+};
-+
-+static struct attribute_group aef_query_attr_group = {
-+	.attrs = aef_query_attrs,
-+	.bin_attrs = aef_query_bin_attrs,
-+};
-+
- static int __init aef_init_save_area(void)
- {
- 	int ret;
-@@ -71,6 +142,17 @@ static int __init aef_query_info(void)
- 	return 0;
- }
- 
-+static void __init aef_info_init(void)
++static int __init aef_sysfs_init(void)
 +{
-+	info.sae_avail = sclp.has_aef;
-+	info.ptff_avail = ptff_query(PTFF_QAGTO) && ptff_query(PTFF_QAGPT);
-+	info.edat2_avail = cpu_has_edat2();
-+	info.arm_guest_supp = info.sae_avail && info.ptff_avail && info.edat2_avail;
-+	info.supp_state_desc_formats = qmc.ssdf;
-+	info.supp_save_area_formats = qmc.ssaf;
-+	info.max_num_vcpu = qmc.maxncpu + 1;
-+}
++	int rc;
 +
- static int __init aef_sysfs_init(void)
- {
- 	int rc;
-@@ -86,9 +168,40 @@ static int __init aef_sysfs_init(void)
- 	if (rc)
- 		return rc;
- 
-+	/* sysfs failure below does not invalidate the AEF data */
- 	aef_valid = true;
- 
-+	aef_info_init();
++	if (!sclp.has_aef)
++		return 0;
 +
-+	aef_kobj = kobject_create_and_add("aef", firmware_kobj);
-+	if (!aef_kobj)
-+		return -ENOMEM;
-+
-+	rc = sysfs_create_file(aef_kobj, aef_sysfs_qval_attr(arm_guest_supp));
++	rc = aef_query_info();
 +	if (rc)
-+		goto out_kobj;
++		return rc;
 +
-+	aef_query_kset = kset_create_and_add("query", NULL, aef_kobj);
-+	if (!aef_query_kset) {
-+		rc = -ENOMEM;
-+		goto out_arm_guest_supp;
++	rc = aef_init_save_area();
++	if (rc)
++		return rc;
++
++	aef_valid = true;
++
++	return 0;
++}
++
++arch_initcall(aef_sysfs_init);
+diff --git a/arch/s390/kvm/arm64/Makefile b/arch/s390/kvm/arm64/Makefile
+index b48dc65b7aaa..e9587c6d6de9 100644
+--- a/arch/s390/kvm/arm64/Makefile
++++ b/arch/s390/kvm/arm64/Makefile
+@@ -16,6 +16,7 @@ kvm-arm64-local := \
+ 	inject_fault.o \
+ 	mmio.o \
+ 	mmu.o \
++	qaaf.o \
+ 	reset.o
+ 
+ kvm-arm64-obj := $(kvm-arm64-local)
+diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
+index 29d3add0bbda..62c2b45599b9 100644
+--- a/arch/s390/kvm/arm64/arm.c
++++ b/arch/s390/kvm/arm64/arm.c
+@@ -11,6 +11,7 @@
+ #include <linux/bitfield.h>
+ 
+ #include <asm/access-regs.h>
++#include <asm/aef.h>
+ 
+ #include <arm64/kvm_emulate.h>
+ #include <arm64/sysreg.h>
+@@ -20,6 +21,7 @@
+ 
+ #include "arm.h"
+ #include "handle_exit.h"
++#include "qaaf.h"
+ 
+ #define CREATE_TRACE_POINTS
+ #include "trace.h"
+@@ -741,9 +743,11 @@ long kvm_arch_vcpu_unlocked_ioctl(struct file *filp, unsigned int ioctl,
+ 
+ static int __init kvm_s390_arm64_init(void)
+ {
+-	if (!sclp.has_aef)
++	if (!sclp.has_aef || !aef_usable())
+ 		return -ENODEV;
+ 
++	kvm_init_qaaf();
++
+ 	return kvm_init(sizeof(struct kvm_vcpu), 0, THIS_MODULE);
+ }
+ 
+diff --git a/arch/s390/kvm/arm64/qaaf.c b/arch/s390/kvm/arm64/qaaf.c
+new file mode 100644
+index 000000000000..f6b1750aed68
+--- /dev/null
++++ b/arch/s390/kvm/arm64/qaaf.c
+@@ -0,0 +1,83 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/kvm_host.h>
++#include <asm/aef.h>
++#include "qaaf.h"
++
++static struct qaaf_qmc_block qmc_sanitized;
++
++/**
++ * kvm_qaaf_qmc() - Get the sanitised QAAF QMC block
++ */
++struct qaaf_qmc_block *kvm_qaaf_qmc(void)
++{
++	return &qmc_sanitized;
++}
++
++void __init kvm_init_qaaf(void)
++{
++	qmc_sanitized = *aef_qmc();
++}
++
++#define _qaaf_reg_case(id) case SYS_##id: return qmc_sanitized.regs[QAAF_REG_##id]
++u64 kvm_qaaf_read_ftr_reg(u32 id)
++{
++	switch (id) {
++	_qaaf_reg_case(MIDR_EL1);
++	_qaaf_reg_case(MPIDR_EL1);
++	_qaaf_reg_case(REVIDR_EL1);
++	_qaaf_reg_case(ID_PFR0_EL1);
++	_qaaf_reg_case(ID_PFR1_EL1);
++	_qaaf_reg_case(ID_DFR0_EL1);
++	_qaaf_reg_case(ID_AFR0_EL1);
++	_qaaf_reg_case(ID_MMFR0_EL1);
++	_qaaf_reg_case(ID_MMFR1_EL1);
++	_qaaf_reg_case(ID_MMFR2_EL1);
++	_qaaf_reg_case(ID_MMFR3_EL1);
++	_qaaf_reg_case(ID_ISAR0_EL1);
++	_qaaf_reg_case(ID_ISAR1_EL1);
++	_qaaf_reg_case(ID_ISAR2_EL1);
++	_qaaf_reg_case(ID_ISAR3_EL1);
++	_qaaf_reg_case(ID_ISAR4_EL1);
++	_qaaf_reg_case(ID_ISAR5_EL1);
++	_qaaf_reg_case(ID_MMFR4_EL1);
++	_qaaf_reg_case(ID_ISAR6_EL1);
++	_qaaf_reg_case(MVFR0_EL1);
++	_qaaf_reg_case(MVFR1_EL1);
++	_qaaf_reg_case(MVFR2_EL1);
++	_qaaf_reg_case(ID_PFR2_EL1);
++	_qaaf_reg_case(ID_DFR1_EL1);
++	_qaaf_reg_case(ID_MMFR5_EL1);
++	_qaaf_reg_case(ID_AA64PFR0_EL1);
++	_qaaf_reg_case(ID_AA64PFR1_EL1);
++	_qaaf_reg_case(ID_AA64PFR2_EL1);
++	_qaaf_reg_case(ID_AA64ZFR0_EL1);
++	_qaaf_reg_case(ID_AA64SMFR0_EL1);
++	_qaaf_reg_case(ID_AA64FPFR0_EL1);
++	_qaaf_reg_case(ID_AA64DFR0_EL1);
++	_qaaf_reg_case(ID_AA64DFR1_EL1);
++	_qaaf_reg_case(ID_AA64DFR2_EL1);
++	_qaaf_reg_case(ID_AA64AFR0_EL1);
++	_qaaf_reg_case(ID_AA64AFR1_EL1);
++	_qaaf_reg_case(ID_AA64ISAR0_EL1);
++	_qaaf_reg_case(ID_AA64ISAR1_EL1);
++	_qaaf_reg_case(ID_AA64ISAR2_EL1);
++	_qaaf_reg_case(ID_AA64ISAR3_EL1);
++	_qaaf_reg_case(ID_AA64MMFR0_EL1);
++	_qaaf_reg_case(ID_AA64MMFR1_EL1);
++	_qaaf_reg_case(ID_AA64MMFR2_EL1);
++	_qaaf_reg_case(ID_AA64MMFR3_EL1);
++	_qaaf_reg_case(ID_AA64MMFR4_EL1);
++	_qaaf_reg_case(CNTFRQ_EL0);
++	_qaaf_reg_case(CTR_EL0);
++	_qaaf_reg_case(AIDR_EL1);
++	_qaaf_reg_case(ICH_VTR_EL2);
++	_qaaf_reg_case(PMMIR_EL1);
++	_qaaf_reg_case(PMCR_EL0);
++	_qaaf_reg_case(PMCEID0_EL0);
++	_qaaf_reg_case(PMCEID1_EL0);
++	default:
++		WARN(true, "Unknown feature register 0x%x\n", id);
++		return 0xbad1234bad;
 +	}
++}
+diff --git a/arch/s390/kvm/arm64/qaaf.h b/arch/s390/kvm/arm64/qaaf.h
+new file mode 100644
+index 000000000000..f1d50a9654b1
+--- /dev/null
++++ b/arch/s390/kvm/arm64/qaaf.h
+@@ -0,0 +1,12 @@
++/* SPDX-License-Identifier: GPL-2.0 */
 +
-+	rc = sysfs_create_group(&aef_query_kset->kobj, &aef_query_attr_group);
-+	if (rc)
-+		goto out_kset;
++#ifndef ARCH_S390_KVM_ARM64_QAAF_H
++#define ARCH_S390_KVM_ARM64_QAAF_H
 +
- 	return 0;
++#include <asm/aef.h>
 +
-+out_kset:
-+	kset_unregister(aef_query_kset);
-+out_arm_guest_supp:
-+	sysfs_remove_file(aef_kobj, &arm_guest_supp_attr.attr);
-+out_kobj:
-+	kobject_del(aef_kobj);
-+	kobject_put(aef_kobj);
++__init void kvm_init_qaaf(void);
++struct qaaf_qmc_block *kvm_qaaf_qmc(void);
++u64 kvm_qaaf_read_ftr_reg(u32 id);
 +
-+	return rc;
- }
- 
- arch_initcall(aef_sysfs_init);
++#endif
+diff --git a/arch/s390/tools/opcodes.txt b/arch/s390/tools/opcodes.txt
+index 22fb9c500a56..bb4ba4038cb0 100644
+--- a/arch/s390/tools/opcodes.txt
++++ b/arch/s390/tools/opcodes.txt
+@@ -600,6 +600,7 @@ b9a7	stiasrm	RRE_R0
+ b9aa	lptea	RRF_RURR2
+ b9ab	essa	RRF_U0RR
+ b9ac	irbm	RRE_RR
++b9ad	qaaf	RRE_R0
+ b9ae	rrbm	RRE_RR
+ b9af	pfmf	RRE_RR
+ b9b0	cu14	RRF_U0RR
 
 -- 
 2.56.0
