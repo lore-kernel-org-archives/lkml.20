@@ -1,49 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955292;
-	b=UgfcWLOopH25n70osC4UCHaZksOj+tpnIHsUI+Hu7bDhiLf0Zhy/rV/9ZQs8T0XEkAry
-	 j86cqtALv8kALeHloI40Pg80Ot1ksxJASX/D5H8QG8L+OsVVaxS63UA/A4/Pw0iAw2BTD
-	 wvPtrUb+c72jvtamvqZ1F7ykimkU6nmER6nUmKkGWhSRZ75smtfmYGImbOsBbnPEhmCxf
-	 nXr8BKfBimx8hYgdgOaRMZmK6NFKu/0RCiYzZDdLXc/UJPi4UbxEu6Se3E1som7r83lrw
-	 6NsTYutWG7PltQ9aHmmPFzMeq4VkvL8lEjPT4gpFesmuooBt4kmLxq/aAWg25JIRs5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955292;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=UG+Vd2lCqlDemW3CNow5760DJLHqRau7ZSJd7q+P4Rc=;
-	b=J+2fQZ/2ZgJLD0/Lg5EcpG96vh1rsTr/BI71bmzdD2SsYpkkwm5TbbL8mK/3ZOmPg5nn
-	 5TRozRiiuOb4PSqHaOZKHkmX6GMZPZ3z9mMdA02MLZEzX37r64ZeH+Js6hFAra/x2zIr9
-	 dCAToSjf2uG9eQV+ksyP8YO/UUiOvK0bf/w6nwhXDiCE8KIkhmXQQvDuYp97lxZNq2vER
-	 st8cQcHkr1FwrhTL6T8rQ4/813cr30vvVJt9dLhszMcjss2TwhtQIQ6cvAAO34YJZRWwA
-	 qqdO9v6GX6u0CY8rkhc+pfHPkkLx0TQS9RQ5Qg4+esvu7d1LXF3QORpRIsFdeXUUzhA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tcMi8JvE;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.33.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793955413;
+	b=nvboPQVKUZi+bu7IodKuoghnPKZseZkwTJ3PW4aCS5hy/sGZiqJlqDa5pwjdVtlP/ovi
+	 FjsWbkl1onup1kK6sqS8/OkcaN6xGSp/jfGZYIzff5mhY9ooIX2E937csj7j/l2ypFo5s
+	 ZUeDMxzXsSb5cKoV58DylLYgSSA/X+7sE+qMdwMU+e2RnxNgc9VWeMurRQPl9RyBuuUlR
+	 96HvMDfiDgQGuUQz0/0d6p2E/vVoduXs8dKsz+UDZSImmUvMYuwhvn3R+xWNhxD9iA7lF
+	 e8ThymailGj3nFqrGmUqgi95COQb0fOD0oVOVSqpTl7SBnnllc0gEGDtpG88P8nVJpQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955413;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=s/UApTTNgIiqDUYC5MwK+TjqsDBLxf8hposB7deMIfo=;
+	b=4NDPA94AgLI2+ym3H/3UnXBj9IGYxmHEQtPCyYHeSBnpvS6ozvDK4gLKOTMkMfX6G2Ps
+	 K4vjFjbzy4BX7WCiRKAdrLz53shNAWgC1kOg5DFxns7qZEKjHcu1tbQr14mdOcrPtUBzT
+	 d6ZB/2pjeJ8hjegQPj4y7/+IBWlemmqmZjIQY4tTpPCRg6F8jlpJB0wI6/DHF1zOYJdfp
+	 6Hzc0aTSFgZBDvIZarLX5y3XxdsUn9If2DCHVEbjnuRgKMfqYLgM7prn8FO4MOc4r4Mmn
+	 1zicVYNfTcGCHvttwa7AHasDGtFNAgOk8PvYqpeeRvbjxgXej71OEJGACuxPN8o5c3w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=outlook.de;
+	spf=pass smtp.mailfrom=outlook.de;
+	dkim=pass header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.a=rsa-sha256 header.s=selector1 header.b=Lqochv+G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.33.15
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazolkn19013015.outbound.protection.outlook.com [52.103.33.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A227606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:54:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A227606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF477606A326;
+	Fri,  6 Nov 2026 08:56:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF477606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tcMi8JvE
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793955288; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=UG+Vd2lCqlDemW3CNow5760DJLHqRau7ZSJd7q+P4Rc=;
-	b=tcMi8JvEbiphokvl55U/rQrh5+9ltpLhcg3BFz0fvB57kYbRgHWz65GygWODE+g1g3k6BMbCiggPjNCe0C2d8Bir9EA9BkmnwsTL19P1BUQCyBY+yab7mHsAArACUArsvBEUboxSsxaYGL9g4gfkOaQZYwH588Qb3ix8MGq51d8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XEBGmJx_1793955285;
-Received: from 30.74.144.130(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEBGmJx_1793955285 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 16:54:46 +0800
-Message-ID: <453e2c18-4e79-4db2-b565-1af881925f08@linux.alibaba.com>
-Date: Fri, 6 Nov 2026 16:54:44 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.a=rsa-sha256 header.s=selector1 header.b=Lqochv+G
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IObO1zrNsDawdBx32BEunSWRw/5J4EZEwCBX/bRhkJbMAsFdxC/oXjwySpd/fJ0dYm4elbX+FoYcbwF1Ey3MkyTW4yrU/xTN9TkWG1BP9gFrL03QZ+s9/mKRF+cn1skmDoccD8JfxvGohRwVqLO4E8VmpZhKhMzDP/2O/i3I6cjMnp2UevGT88n4/StoKS02FMvwazWz1y8Q80pIwqMXFdFe+0es1VkHOiOZHkv/zZE/6r10kHRWBK2UzyGtCCpKyZsH16r/dMkIeNpx1Vs4y0pOtSNNOwEuBU7I4/UWxPZUKOk8xvSwwxVlRdYRP59Xpbl7I2lQALGZoLoV38sFFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s/UApTTNgIiqDUYC5MwK+TjqsDBLxf8hposB7deMIfo=;
+ b=v4/uhPcrUNx4UyqMx89xrqWuagBV7CGPZObJRYMY1ztLRzDL/SPmtj4obWriGV6hDHqhL+2VlAro3tSiKkuHSCRiOnzYxgaLC/5ewMzlH6ftOorMs24mWS5gkPlUMHnzdbsVxg1wl5CiX8BfZVg3JBkXYfMMK5Brmj3bpKqvWrr1uJcLzo5WM/Qt5QJNVaMz89GSeoQLeNLIRDBrbZsR35nRE1+MUlkDTKfOzaktk32juL7hDKBbPdsTzFjcdSQ55Hd/EDWlgGWnHgJPxOl5AFuFcKnhD6Ocgrt9dwA5X17rgZYEe/efeO0nxc6o4Bk9qmd+U0tPbQaskDKa3T8yEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.DE;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s/UApTTNgIiqDUYC5MwK+TjqsDBLxf8hposB7deMIfo=;
+ b=Lqochv+G5Ps9PNNgXczMxAwmmkuxfCfHddKQBNKb7mCHYZQDUoYOxvhc/iIZF77Z0zs42RAJfFTIL98kQRKlUpRLngxKcJykxRMG9AYGkXUsJPzrmJv/+t/fljbVmESckdSSPHhw/K4h7a4fdrKC8eT+wAh+rmKr3nl901uDjvfdr65I93lvB3H+r6lRoj3t03NFnmpBMpXU6zEcpGW1FFE1RqpB9bnHJtGhd300YNVFLt4DICpSh3gY8twAO1HDqkBc4v1OUkSPcFh0oDZTU3PkmfpcQoysTf/4vn/XmtCxI5wrPM4ARLMXbNzs6b4LA7TeJgsbKSPlSn3lNnow8Q==
+Received: from MMZPR08MB549315.eurprd08.prod.outlook.com
+ (2603:10a6:190:28::19) by PA4PR08MB7571.eurprd08.prod.outlook.com
+ (2603:10a6:102:270::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
+ 2026 08:56:50 +0000
+Received: from MMZPR08MB549315.eurprd08.prod.outlook.com
+ ([fe80::21ab:3314:172:c7e5]) by MMZPR08MB549315.eurprd08.prod.outlook.com
+ ([fe80::21ab:3314:172:c7e5%5]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 08:56:50 +0000
+Message-ID:
+ <MMZPR08MB549315BEDE7233BD6C86F70EC8DF762@MMZPR08MB549315.eurprd08.prod.outlook.com>
+Date: Fri, 6 Nov 2026 09:56:47 +0100
+User-Agent: Mozilla Thunderbird
+From: =?UTF-8?Q?Christain_Stefan_K=C3=B6ver-Draxl?= <ckoever@outlook.de>
+Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
+To: Chuan Liu <chuan.liu@amlogic.com>
+Cc: Christian Hewitt <christianshewitt@gmail.com>, chuan.liu@amlogic.com,
+ Viresh Kumar <viresh.kumar@linaro.org>, Jerome Brunet
+ <jbrunet@baylibre.com>, neil.armstrong@linaro.org, sboyd@kernel.org,
+ bmasney+clk@redhat.com, khilman@baylibre.com,
+ martin.blumenstingl@googlemail.com, rafael@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
+ <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
+ <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
+ <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
+ <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
+ <A45EC676-5B14-4932-A4CF-87ED3B71108D@gmail.com>
+ <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
+Content-Language: en-US
+In-Reply-To: <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR04CA0109.eurprd04.prod.outlook.com
+ (2603:10a6:803:64::44) To MMZPR08MB549315.eurprd08.prod.outlook.com
+ (2603:10a6:190:28::19)
+X-Microsoft-Original-Message-ID:
+ <e4f9527b-951a-4f6e-80d2-5c7be783b79b@outlook.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,194 +111,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio
- sizes
-To: Barry Song <baohua@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org, riel@surriel.com, liam@infradead.org,
- vbabka@kernel.org, harry@kernel.org, jannh@google.com, qi.zheng@linux.dev,
- pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
- <20261105045406.39871-1-lance.yang@linux.dev>
- <0ddaf336-7cb7-4e83-af2c-f60d23f7aafd@linux.dev>
- <f7bd740e-1328-473e-96f5-89658a08d514@linux.alibaba.com>
- <CAGsJ_4zHtv7hBCaW=wdfiM7yA4OJS7pcFomSo22bEzWHizYAXQ@mail.gmail.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <CAGsJ_4zHtv7hBCaW=wdfiM7yA4OJS7pcFomSo22bEzWHizYAXQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MMZPR08MB549315:EE_|PA4PR08MB7571:EE_
+X-MS-Office365-Filtering-Correlation-Id: 811c420b-c54a-413d-a5c7-08df3be3e526
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|8060799015|19101099003|25010399006|4140399003|19110799012|6090799003|15080799012|5072599009|23021999003|51005399006|40105399003|3412199025|440099028;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZVBKRXNNUXpwTlA2V1cxeExqS0l3aEo4UjJBOHJBSkZzbHNsdmdzUkpLS0R2?=
+ =?utf-8?B?d3JpeW9idDhreVZ3cStZYUtxSVErVXFUOXRPKzRSL1U1dzFnd2c1RWFHUmE3?=
+ =?utf-8?B?RTMrOTQ0bGJuMlZxK2hvVXdFY1JSaWowL3JxZTNLb1dSNXJoZVdsZ0g2eUtG?=
+ =?utf-8?B?Wi9KNDBadHVyL1RYWC93UGZhWms4V3lpWlBsdFdYTisxRHVmWmpTeWl2VlZN?=
+ =?utf-8?B?dVhvOTNQZ093K0FNbHNybFZ1dCtTSEFTNWxNNUN2MzJaQWk0YVRzZW9pNHJz?=
+ =?utf-8?B?TVFHRHBORFd2amVPZjNTUWxDSWFNaHkxOHlvMnVkdlFzMVVQZGMrQWFGbVV4?=
+ =?utf-8?B?UEFUbk0rYWpEaE5BWFB2ZFlsU29MNzZxRDdPRnRWeXhxSkF6MzdvcFNzSkxG?=
+ =?utf-8?B?aW9iMUxXMzNVM2JPcjhnVVpXcVpnbWYyU0RyS2FHVmp2c2R6aVVZV1R3MG5H?=
+ =?utf-8?B?ZHJhREpvN0lhMGdhK3hsV0JrNDFzWWhEYlVkMm5ERlN3U1ZBTTNvSG9vSlRV?=
+ =?utf-8?B?RjVaQ3R4K2llaXV1RmlwNnlrd3lVWjhyRG45TnlKNmlrdUJZcDgxdFdSZHJF?=
+ =?utf-8?B?RHRUdTJjYXBON1JXd21jOXZRckg3TDZLdTB3b3BkOHhWYU5QalZTeUdPUThI?=
+ =?utf-8?B?ZUxvTkhuRVJaVmhCQ0h4TzNiNUJtcjlmM3g2UW9kQ2FrSzRYQkY1MnVvck1L?=
+ =?utf-8?B?YlVFdDhtRmpRRk9lV0VZUHFoRis3bngxNTZoZDkxYXNzM0JoclZjUS9tWlFN?=
+ =?utf-8?B?cWRCcVp1VENnclFjRHZBOXg5V3VhRXp2N2JNWDMvSHArNFcwbnF3S1Bsb1hI?=
+ =?utf-8?B?MGdNYVlyeDhIZUNGVi9NQnplVjBPVGlTdDU3Ykhqa0Q5NWY2Nkx0K2dYSkp2?=
+ =?utf-8?B?MHUwK0o4bjNpMk1RT203djhiaFlCOUV6djcrdWJBV1JST0JjMEp6eHd4ekU4?=
+ =?utf-8?B?QjhyQWJoYzV6VmFQeEFzQ2dVdVRQdWhUNVd1ZlJ3MHFmNnc4WDk0cm1FenR5?=
+ =?utf-8?B?R0REM3E0cGVoOGNOM1l5VDRXbGg1dUswTzBZYXlCTW1OejA5aFZYeG9SYWIx?=
+ =?utf-8?B?KzNsRlhwTW0xTU5qOXcvUUZiV25XRWJrMVpCUHY4Zm1hZ25mdWw3a3JhcTVq?=
+ =?utf-8?B?WGtESGZCYlpQMkl2aU5kMC9RS1lMcUNkdjJLVlRFU2czM1YwdlhrL1oxdng2?=
+ =?utf-8?B?eGNNUVIza0hvU25iNXFZcTJQKytreElnVHV1c1hPekdGMjEya0JMUm1lQWJP?=
+ =?utf-8?B?VWdqcHJ5aGpkWlJ1ZmVJYWtOTGk4ZmpnQlVjYitpWDQrZ05yZz09?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TU1XR2Y3T21rUzVHOHJnOWhsVEZLTTRFQThvNkVXaktnbUtzL2V0RHpsRmhE?=
+ =?utf-8?B?Y3JwMXFGdlF3SGFBcXExRVpnVzk0bTQ4Z0V3L25jYUFRY1RWNzd6L2tzN1VU?=
+ =?utf-8?B?anhuZVpteUZXRjBTYWJWdzJIL2tWQlplMkFpWWZpRzdJK1hFTnRNSXRjSDIz?=
+ =?utf-8?B?Y1lWeVRlNjBtMEw3QlBIWnk2VGJzUVNvckx5emljcUdvRjNvKzllOTFvSmJF?=
+ =?utf-8?B?Y1NxcytoekxlK1NJaTdkekU3aXBTVTY4NnVGQmpFUkFBcktZbnUxNW9NM25P?=
+ =?utf-8?B?d2Vuby9RUy95ck56c0NJbWpFc3JDQURhcW9JNFNhOC8wVHF4andEVHIzZEZU?=
+ =?utf-8?B?QThEUUJFTDVOVDAxSENwUmd0c3dNYVBrSUFlWFNheHFqQURlcXhBd2lNcWNE?=
+ =?utf-8?B?WVdpWUMzemh5bjFrTS83Tk9CZWFJdDRmNHFEelIzNzQwQk55TzIyZzNjWENl?=
+ =?utf-8?B?d2llaHptVEtIU2xIdE01TWc1YjBwNk1JL0NBaVR4MWIwbjlQZDFUZytqVzJP?=
+ =?utf-8?B?RkNldmdlb3N4VFcyRytVRjlLOTlWeTBUbUtDa2NyYlJMV1h1bEJBdU5LeDVX?=
+ =?utf-8?B?Qi9Sa05pVWYwa0UvNmhuVzV3RVd3MllGZXAxNkZyS1ZRcmtUSGxJZVBUL25F?=
+ =?utf-8?B?d2pOZDVnMnhMdzAvTWhaL2R1VEtrUGxjRDJSeEhTbDFrYzZHT0VnM0FOdW5K?=
+ =?utf-8?B?ZEVYZzl5Y2lzWXNGM25PZnZlUEVpUTRJS2FacUJFMmhtajRxUEF1OHF5STlp?=
+ =?utf-8?B?WmU3eS9pd0JCVzVKc3Y3MUtSeGZVQ0VzaDErTUtzdFg4SUJGZ0s4L1lHSGlY?=
+ =?utf-8?B?U1hzZGdTSGtSNk80Q0JHMXQ0TnV5TGIzUk4yc013WFVwYTRNM1F4NS9wMGs5?=
+ =?utf-8?B?S0NRczV0VDE4Qi9qWDVkTkN0Nm9hc21wd05IaW5DVGd1OStCMXB6M21jUmRm?=
+ =?utf-8?B?K01TdDRvOFBWekdQRGtuV1J3dUp3clhHUHI2dGd1ZFp3c0UySTM1ODdnVzZM?=
+ =?utf-8?B?cmMrWVZCTmZtc0srdzhPelVGZ3RHYk5kMWhMUE02MlRaempQdzJEN3Z6SDNC?=
+ =?utf-8?B?Zi9wcUttUmx5aDJXRERxQzJjRDMxalpnUmZMVDFFRytON0hVb1lPcDJPWEJT?=
+ =?utf-8?B?MVlmbzhkRjZOcWNiZFY3aHpxOWQrK3BVNU5FVkpNOUJ0dll5dkQzY1MxdDE1?=
+ =?utf-8?B?V3lkZzVnbFZhdDFoNkR5dWJTU3V0RXhEWVBYZ0k1RmVleVFBcUZRMklCYXV0?=
+ =?utf-8?B?SUNFYldUVVV4UTVId1dxeS95NElUT0kyRHpEelN6YXlhL0RaRWZ6UEdwa21q?=
+ =?utf-8?B?RnljTHJLNklGUzBsUXpKeUtia2tmdmpLMDUrbGh3M0lwUTBhK053SnFxMXI5?=
+ =?utf-8?B?L3cxei9hUTNSSUhTbXhYS25PY2VYV3d6UmFLbWNFOS9rQ1c3a0pXRzRUKzll?=
+ =?utf-8?B?SFF5WEtkMmcrM2JzNXE0NVhBeERkY2ZIOEJnSlcvclRicVdaMU01aVlqOG9N?=
+ =?utf-8?B?dWwwOHF5ZU9xNkZORlp0dnVNamtFMUR0d1U1U1N6Rm5QbVJDRGZkSkJBYmQ3?=
+ =?utf-8?B?Sk8yN20raDMxNldEbzZzQkYwbitBYmFjNWdIYVVBdUp4ZEl1SUlJdkVEOXBQ?=
+ =?utf-8?B?b3JKUXQ1WnE0RFI4bWVEdDFnZVFsVnhGaGJ1S09DalA4WTBNMkd0elVRakx0?=
+ =?utf-8?B?RTh6QVNST0txUWRNVGhDWWlSNWphU1BqYnRwRjFlSUExNnQ5NDZWU01mYk5r?=
+ =?utf-8?B?MWMwSkUrU0phK0Q1RTZFeVZrdEhGZ2s0enY4UjM2S0wyYVpSeDhnYmpMakN4?=
+ =?utf-8?B?bytJUDREeUZqd0lyUmxCN0VFRnh6ZHFzN0gwKzh2Wko1aGZFWTIxbm1zdncy?=
+ =?utf-8?Q?RlsBGXKMVQVEJ?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-fbb9b.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 811c420b-c54a-413d-a5c7-08df3be3e526
+X-MS-Exchange-CrossTenant-AuthSource: MMZPR08MB549315.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 08:56:50.0821
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB7571
 
+On 10/29/26 13:29, Chuan Liu wrote:
+> We have done a lot of optimization on these issues from both the
+> hardware and software sides, and we would like the cpufreq driver we
+> submit upstream to cover these optimizations as much as possible.
 
+Hi Chuan,
 
-On 11/6/26 2:24 PM, Barry Song wrote:
-> On Thu, Nov 5, 2026 at 5:00 PM Baolin Wang
-> <baolin.wang@linux.alibaba.com> wrote:
->>
->> CC Barry, who added the TTU_SYNC in shrink_folio_list().
->>
->> On 11/5/26 1:48 PM, Lance Yang wrote:
->>>
->>>
->>> On 2026/11/5 12:54, Lance Yang wrote:
->>>>
->>>> On Thu, Nov 05, 2026 at 10:56:28AM +0800, Baolin Wang wrote:
->>>>> Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing
->>>>> mapped
->>>>> folios"), the '!pmd_present()' check in page_vma_mapped_walk() can
->>>>> also race
->>>>> with concurrent page table reclamation via zap_empty_pte_table().
->>>>
->>>> Good catch!
->>>>
->>>>> page_vma_mapped_walk() is used by many functions including
->>>>> try_to_unmap(),
->>>>> try_to_migrate(), folio_mkclean(), pfn_mkclean_range(),
->>>>> remove_migration_ptes(),
->>>>> page_mapped_in_vma(), and mapping_wrprotect_range(). Except for
->>>>> try_to_unmap()
->>>>> and try_to_migrate(), the other callers do not perform post-walk
->>>>> accounting
->>>>> checks, so the race has no observable impact on them.
->>>>>
->>>>> For migration, the race can cause unnecessary retries. For reclaim via
->>>>> try_to_unmap(), the race can cause failure to reclaim a folio that is in
->>>>> fact already unmapped (as shown below), which may lead to unexpected OOM
->>>>> or increased refaults.
->>>>>
->>>>> CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
->>>>> --------------------------------    --------------------------------
->>>>> folio_lock(F)
->>>>> try_to_unmap(F, TTU_SYNC)
->>>>>                                      zap_pte_range(full PMD range)
->>>>>                                        spin_lock(ptl)
->>>>>                                        clear PTEs
->>>>>                                        zap_empty_pte_table()
->>>>>                                          spin_trylock(pml)
->>>>>                                          pmd_clear()
->>>>>                                          spin_unlock(pml)
->>>>>
->>>>>    page_vma_mapped_walk()
->>>>>      observe !pmd_present(pmde)
->>>>>      nr_pages < HPAGE_PMD_NR
->>>>>      skip synchronization
->>>>>      return false
->>>>>
->>>>> try_to_unmap() returns
->>>>> folio_mapped(F) == true
->>>>> nr_unmap_fail += folio_nr_pages(F)
->>>>>                                      tlb_flush_mmu_tlbonly()
->>>>>                                      tlb_flush_rmaps()
->>>>>                                        remove F's rmaps
->>>>>                                      spin_unlock(ptl)
->>>>>
->>>>> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
->>>>> folios")
->>>>> has already moved the PMD clear operation (via zap_empty_pte_table()) to
->>>>> after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs to
->>>>> use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
->>>>> issues on weakly ordered CPUs.
->>>>>
->>>>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in
->>>>> madvise(MADV_DONTNEED)")
->>>>> Cc: stable@vger.kernel.org
->>>>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
->>>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->>>>> ---
->>>>> mm/page_vma_mapped.c | 5 +----
->>>>> 1 file changed, 1 insertion(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>>>> index e6b6170c2f4f..8797467b6f0c 100644
->>>>> --- a/mm/page_vma_mapped.c
->>>>> +++ b/mm/page_vma_mapped.c
->>>>> @@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct
->>>>> page_vma_mapped_walk *pvmw)
->>>>>              spin_unlock(pvmw->ptl);
->>>>>              pvmw->ptl = NULL;
->>>>>          } else if (!pmd_present(pmde)) {
->>>>> -            if ((pvmw->flags & PVMW_SYNC) &&
->>>>> -                thp_vma_suitable_order(vma, pvmw->address,
->>>>> -                           PMD_ORDER) &&
->>>>> -                (pvmw->nr_pages >= HPAGE_PMD_NR))
->>>>> +            if (pvmw->flags & PVMW_SYNC)
->>>>
->>>> Right. Whether the folio can be PMD-mapped doesn't tell us whether its
->>>> PTE table can be reclaimed, so those extra checks can skip
->>>> synchronization
->>>> that the caller explicitly asked for ;)
->>>
->>> Ouch ... one thing I missed ... what about order-0 reclaim?
->>>
->>> shrink_folio_list() only sets TTU_SYNC for large folio, so can't we still
->>> hit the same race there?
->>
->> Thanks Lance. But this matches the purpose of the TTU_SYNC flag, which
->> is used to avoid racy checks with PVMW_SYNC. If no TTU_SYNC flag is set,
->> it means the caller can tolerate some racy checks.
->>
->> For this case, I think we should set TTU_SYNC unconditionally in
->> shrink_folio_list(). Barry, what do you think?
-> 
-> Baolin, thanks for reaching out to me. I added that flag
-> mainly for large folios.
-> 
-> I observed cases where PTEs for large folios are partially
-> cleared during certain transition states, for example, when
-> PTEs are cleared before being modified:
-> 
-> pte = ptep_get_and_clear();
-> pte modification;
-> set_pte_at();
-> 
-> In such cases, page_vma_mapped_walk() skips the empty
-> entries and starts from the next valid one.
-> 
-> This may result in partially unmapping PTEs for large folios
-> and trigger unexpected folio splits. At the time, I was
-> particularly concerned about unnecessary folio splitting,
-> so my focus was mainly on large folios.
+thank you for the explanations. I will not resend the S4 cpufreq series 
+and wait for your patches instead. I can test it on my S905W2 board when 
+you post it.
 
-Thanks for the information.
+On the regulator settling time: on this board I have not seen hangs with
+the vendor OPP table since the PWM clocks stopped running from vid_pll,
+but I have no ramp delay set, so Christian's regulator-ramp-delay is 
+very likely what made his transitions stable, and I would rely on that too.
 
-> However, I also noticed that a similar race can occur with
-> small folios. In that case, the folio may simply remain
-> unreclaimed by the reclamation path.
-> 
-> However, my main concern at the time was avoiding
-> unnecessary folio splits.
-> 
-> Your new race also seems to amplify the same situation.
-> However, I don't think this problem necessarily depends on
-> the commit you mentioned. It has been around for a long time.
-
-Agree.
-
-> If the concern is reclaim failure, I agree that there is no
-> fundamental difference between large folios and small folios.
-
-OK. And I did a quick measurement to reclaim anon and file folios via 
-the memory.reclaim interface.
-
- From test results, reclaiming 1G small anonymous folios (using zram as 
-swap) shows no significant performance change. However, reclaiming 1G 
-mapped clean small file folios does show an observable regression if the 
-TTU_SYNC flag is set.
-
-Without TTU_SYNC for small folios:
-time echo 1G > /sys/fs/cgroup/test/memory.reclaim
-real	0m0.178s
-user	0m0.000s
-sys	0m0.178s
-
-With TTU_SYNC for small folios:
-real	0m0.315s
-user	0m0.000s
-sys	0m0.314s
-
-So for the current patch, I'd prefer to keep things as is: only sync 
-when TTU_SYNC is set. Without setting the TTU_SYNC flag, keep the 
-original logic, meaning the caller can tolerate some racy checks.
-
-Any other thoughts?
+Best regards,
+Christian K.-D.
