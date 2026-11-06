@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956818;
-	b=RONC0ht12fDv6Eepplq0e0ivx5JL/ahNU1bCe5kpjYZurb14Pmv3NzowI26AmCXcN8Tf
-	 O/jNTknd33Zr86J83Wt4XCBmcjBgS/Z3dgO93QxlAyW1E6oFyo3TAf9mq8FVS6mAEQfmR
-	 qt4EPJkKDfQmlwmxULXq6vRPsElAjr4ektoiU9Pz2G/kwb4Ji9E8Y2i+6oxjljmeot6GM
-	 KX3uEnmg66sYJ229hrZyZrGRsqNsIKZU/3ULOviMLWqzF1K7vb9siCIkE6I0CuSzQc1F3
-	 XN3GSaoyAB/Grjuohn+3c9w02z9VCkH6d8WVQZWAg5Hcf+BVXXLtIcTHSIsnk897DUg==
+	t=1793956819;
+	b=J9Jat7fSDVmrvc8l7WtIU/WTCYtaJ3A5AiCAI72zDRDkuOaYqZjOkI+PR9sxX+Jylj53
+	 dvt8UB8F+qZ1SEaBf9OzfQq3GHh7AGBPSfxyT45qR1dlQ8Dj6C/nGxmmZcGzilFnwmAah
+	 J0XeZ0cPanHBTP0wksk7boihLzfPeNfRw4NTxdPMbk8vVNKNfBz62lORfMLT7TU0Dl7r0
+	 CiRB8DiIYbKguTG0RkJE3iZq1FeLa/bS0yFSdXW4jx55cHdTa/nVOKZZW6PNM3fUueCV7
+	 I/OWztjSGGM5GLjaq15oyCYKy6SCa/0qGBNkrzLtjnVpLRa9fcbM2HxQV6O0+Hux5Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956819;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
-	b=5FpZSIA8G2wpY3Q0z1D0Njr6Zu6uqY4X0mX3IpnVkm4trPVCgtnAu0Wwe+K/XFTV9jJ1
-	 tohebqudoWHw5zyL0gkBMA1lEa5dJkTzYf1jjNXiqtVNEgEqG2qnDcplcuidTkAG055fc
-	 xTjx2v8uC7aYHtkmzJ5KWAgrTdaNMGfe/wLLs/HhCDGMSsiQYmig1ID6sxsD4MbtGRD0I
-	 u3A3lPjdPP2Wstb/uw/nQZad5E6nLjeKnb67StmWDIVmETbBF3pnj47g8PmwX+z/faiQ2
-	 c6pXo+IwCI0YbrXS+Gbeuh7b3G/D7x6qZ3AyT7yCpKYcwdJtfizJXJtnMztpVlpIcIA==
+	bh=Lt2el+1PRelTWOtuHBgUwaDovv++emfSs0a0UkoSKek=;
+	b=O9F122hYmRhMV2YJcH4VrIojwao0WIJR8lx4LVuOr+zgWqvzdxQ/3//HBofplFZoKZEL
+	 M25CYnhACcBHJItshmSA4DdNNPerWjiYRPzb3OyCI27eAdrL7BJpRJsPS1EO5ZY+YGrii
+	 ucjTRr+XgK2d2dI/JaOtzVYPiDo7KXcp7txfqF2e5RHCWyHxs2yNmCOyRu/T19ZT4jrtH
+	 d4Z3S2KukA1Js9NLzRgXseodYp04Xx35s4VbEFouRaFJNnP3R1Inqqzp1Q9ZcFRsSvjRM
+	 cD366MCswFa9ZC1uwo0lysmLy3V0B5MsiXEilW0/7aoY3V7hsSyeWmKmTGOP2BEe3fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oN93Xil6;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vedrZJHa;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4B5606D836
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:20:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE4B5606D836
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831DD6083600
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:20:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 831DD6083600
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oN93Xil6
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so3093385e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:20:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vedrZJHa
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-490d59c3f0aso173451f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:20:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793956816; x=1794561616; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793956818; x=1794561618; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
-        b=oN93Xil6UfBn7yVRhg6frgSrSIimFgqT44JhM7qqaPimBhIWP5FBUZFJkH+KfzHsgZ
-         2SLQnmaAStlJcdtt00AdNoLKpHgC6fl5p7Ml7m7Q+2AkatDQYyPZJ8iwaRsZL9twxKR3
-         81tb4SRPMpBNziBbDUcidG0uKjjXEiGk+zoGZCh/gX0+Vx1abnP74JwqEAaXqdc5g1gS
-         zdFkhDe7CPMRRpxsKmzwYUXTTST3k/RzVaQL/Tj8+PQrvXCCrhIcyO0wiW9/BX8QbwkP
-         QQ0LD54NiFGhmcOnDdJlDKQXXao/roCWrl5WZrg0KzT8ydxhHdvmu88vvR+EMCE15xed
-         4maw==
+        bh=Lt2el+1PRelTWOtuHBgUwaDovv++emfSs0a0UkoSKek=;
+        b=vedrZJHa0qrWP8SprQrms0Pn8x+9evx/RNxvdQ/AcgtklhE4TnEUWJjGT6xF3uyWIx
+         8GoM7RJrENS9XKcVdPyp+QdYSJoUJg3a2dWIIQQ6tqZPR5H+bpP9c1kHJ9xPPW0xVJxN
+         PoISUbdypypvUHECR/kkkynPyG21uxhrU5QouPtHymNd3BzYAxAr1yoHHhLrAmfQH79X
+         jldgRFzLBO/2WcF4bieWviVxw2gqnJr4faMCnu4DVf3lHCOPojpTP6zqeiHvazSrgVEt
+         tnW27f0Tte+tE56wancPWi3TAVbR+Uio19nMX2EPVLNPr4tLkqUPapj4IcnJhwnerhVq
+         ZRtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793956816; x=1794561616;
+        d=1e100.net; s=20260707; t=1793956818; x=1794561618;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
-        b=EfQAD3/4O7CKfcAhpc0t5h3nGe302tuwpRL4BICqxXmzUpN7AjMJJzjGkxIeH24zP6
-         UBapWkz2LfKyGKzxnEkMMsG+rgj3zIWRWkWxDpb13ub13VJ86v+hqkwTgrsv2rxdYJ++
-         j321pIlXDDl+aWairb1q5E+xtnFGCckR33JmtS2/qv8Ce8RCKUulruqBU9M9m4uxDBmY
-         2C+8upzQejNEI3nNCykOY+7aSzVCMkt5ztoLID9WXedg+CabeqPSSHpMl9NRgJEeFUvb
-         HZTJVOY8ishO/DMVE7g7VOJBLbiNAwfjjFleOkb9Hc6rvAlWUmll0/MRzwxf04QtML5V
-         0JqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBycBOBH2rvATMkR7NeJeG4J+uRO2OhHW2AfviUtHN8lb5ii4+HxKtJ76JlRFnTgh2NO2Q+hJTqGMVP7Fhk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Y314Mc/8k5DNUBodxk+hefgCMjPhA8ZH2y2VxJw1MkEXgCtK0
-	XND+NXvB6huNMlNcogxOfJRYd8RaJGMMcZf0B8j2IoPveZDQNK81jS9L
-X-Gm-Gg: AYBFou2NeVOppLdxwlsrFug/AHOs8CjHscOKqmEHesZ4fqiNTQPqw8do3ALcssLt4zW
-	07mPBB9L/X9vt2U/tjLB7i6N6MtIJGWuhLlHVLHFE0iUPUnB8c2oIFRR3k5I4BUildojWlfmiHu
-	26v4jjkuj9N0Hc6U16dSHgPf3n1IltRQeuBYenVhCPdlwh80lYsHaS3Kcj8SrA6DNGSjl+QqgEc
-	6MiZgdU18I8v3cTdvsmql1ccv7ddigQt35iJQngSewooXtQanWPEyC8z4xfG0wTM9WKjgc+pTDP
-	sGiI404PFFuy8yqTfXUNQEx/3CGVH643w2w4maX37G4v/OCjXNEndUH3cXB2i4LA53jU6cAI9t0
-	YaGTGNLxs/MJBOs8F9qmdcfNXdO6K+vlTmzW/ZWCeebTXEyM2C5fg3o5/paA4+OVH/DNd3cXlwL
-	SHZ50wWGSlog46KUsUuieLjjPjJU0gTWleLeZps+jPYi/H3ekcADUH0yVgNMbdEGeOiIZWGvjak
-	AzVCms7CzQr4gi5oLhOegMr/YaccdxfvOKOIkI3y1mpurONqnDMcbUuBfJyCGjESHzT0WNzDHXz
-	vgWBU5Z2On4lZmBpWI5c83mlgfxqvc7BoGUz6wbp0+lgbRhx7Dc4/h9FZt36WArgXNJ/nQMfy6K
-	NqplQQt/MmQ==
-X-Received: by 2002:a05:600c:1d0c:b0:4b2:612d:908c with SMTP id 5b1f17b1804b1-4b6df9beb91mr29536225e9.34.1793956816082;
-        Fri, 06 Nov 2026 01:20:16 -0800 (PST)
+        bh=Lt2el+1PRelTWOtuHBgUwaDovv++emfSs0a0UkoSKek=;
+        b=Jn7GGQhb7MFSDa+79l6fUYtLRGTocZiSXGmKrC2p3KmRAqdvGL3IqM1O7MvlqxpcAZ
+         y1mjAE/PhWA8tTr18L4dZrwWmXnHP2IHFdfSP5EE+waXSn0bbBrzf/ItWq1BQPyMkw2M
+         tKH4khb478XkVS28XdxPR7lB8pwTuKwz/npUAMoCgz7BskJIrC7FSCEqyMtr88EDZGcs
+         qUEThBKazRzPnoy8ggr1aGonUomBvBgRVUtbaOW5fdOvi6H6So8MvBTbsT6husaaDyv5
+         M7+IUzQhLY2HLUGVK091H5RK8FSLRF8/ZjJEwNjzaDQ6iSl6JH/bwFcUUpS3GeLYcHAu
+         0U1g==
+X-Forwarded-Encrypted: i=1; AKwUvByEsLjTbD0Cjhi58O0AKh+qon4D0ebp282w7fJejx9xsE6R79gJ54b3ZPbvt6A42XshKXafyd7OGTsdL/U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Nq6mrZOZlEti1JFDnwnEP+WjjjyijTM5RLx7WzT2/A7hSX8bV
+	V6122wUKWGX3Pk8uW049uqCRC8Zvu4tcTWoyjc0c8Dp7r/9qcexruRwG
+X-Gm-Gg: AYBFou065kmyCtrkX3pWk6oVbmBT1QANj5dsw6eckmQ95XY13XrRCiZ+x48NiB51M/Y
+	2fazkfxqUGOFUxq2qfegddqK94aiQ2BId1HrCGofGfBPm0u1eG6dxMK3yM1VEym6/rmWZm3Oc6k
+	m4rk+dpZIB7m+P93B9MAd9RMxqU3Y6e3bBG5I2SCjoor7XL2C9TTwUny/ij12oj5r02agzY58Ss
+	S+ZuAzUodp2L6w3O4Hfx823L8+DfhHhYfgt89vqWKvwixNbu8HSQs88xZ48WhdHQ15JFTZzHFXh
+	QXfoL1JpU5CYJLs7gs4rBY9UsjpyQx95XFbTchlS9DNZ8pqrgDPnPNzdhcc058Jlr5bHNwE46CE
+	+ky9h/o9ghDn30yKVmrKBdklI/ykQvu2vPw6S017gQx94z/lAiDnuBC9APd+XfaaHEpcpjUOOZz
+	2S2Im031PvV11tB64e1ZuJOVqatthM78YpWB2aE1++Vapx98SMiefDrkhLbKhQlGIzh4QlUT/5D
+	e95t+MNl0BkoAl0ElEx5kmzSElYOo8hYbWhwHRO6Qmk2tsxEkCYsFH+ipSlMGzRW6Wmjqk3Mu9T
+	Zxh5GF3+CDR029v3nsvJ0pF5majoacZ5VOPmprxECAihqJC8tRFd8PzVsJHe1xTOjG/cJzAycrg
+	sx2wjJ+SXSQ==
+X-Received: by 2002:a05:600c:3ba0:b0:4a7:a5db:a93e with SMTP id 5b1f17b1804b1-4b6db1c5f48mr32230065e9.4.1793956817871;
+        Fri, 06 Nov 2026 01:20:17 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57203a98fsm108358935e9.4.2026.11.06.01.20.14
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57203a98fsm108358935e9.4.2026.11.06.01.20.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:20:15 -0800 (PST)
+        Fri, 06 Nov 2026 01:20:17 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -98,9 +98,9 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/4] dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
-Date: Fri,  6 Nov 2026 11:19:42 +0200
-Message-ID: <20261106091943.35783-4-clamor95@gmail.com>
+Subject: [PATCH v2 4/4] iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
+Date: Fri,  6 Nov 2026 11:19:43 +0200
+Message-ID: <20261106091943.35783-5-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106091943.35783-1-clamor95@gmail.com>
 References: <20261106091943.35783-1-clamor95@gmail.com>
@@ -115,26 +115,167 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The LTR-659PS-01 is a proximity sensor similar to the LTR-559ALS-01, but
-without ambient light sensing support.
+Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
+nearly identical to the LTR-559ALS-01, but omits all elements related to
+ambient light sensing.
+
+Add a no_als_support flag, similar to how no_irq_support is used, to
+isolate ALS register access for the LTR-659PS-01, since ALS registers are
+marked as reserved and interactions with them are discouraged.
+
+The ltr501_trigger_handler relied on the scan index to identify channels.
+This approach is fragile regarding channel status flags and can break if
+the index is not strictly set. Switch to checking the channel type
+instead.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/iio/light/ltr501.c | 73 +++++++++++++++++++++++++++++++-------
+ 1 file changed, 61 insertions(+), 12 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
-index 20abd7da080d6..85ac3b540c206 100644
---- a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
-+++ b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
-@@ -17,6 +17,7 @@ properties:
-       - liteon,ltr329
-       - liteon,ltr501
-       - liteon,ltr559
-+      - liteon,ltr659
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index d5ce6468a229b..e7762115df913 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -151,6 +151,7 @@ struct ltr501_chip_info {
+ 	u8 als_gain_mask;
+ 	u8 als_gain_shift;
+ 	bool no_irq_support;
++	bool no_als_support;
+ 	struct iio_chan_spec const *channels;
+ 	const int no_channels;
+ };
+@@ -192,6 +193,11 @@ static bool ltr501_has_irq_support(const struct ltr501_chip_info *info)
+ 	return !info->no_irq_support;
+ }
  
-   reg:
-     maxItems: 1
++static bool ltr501_has_als_support(const struct ltr501_chip_info *info)
++{
++	return !info->no_als_support;
++}
++
+ static int ltr501_match_samp_freq(const struct ltr501_samp_table *tab,
+ 					   int len, int val, int val2)
+ {
+@@ -656,6 +662,29 @@ static const struct iio_chan_spec ltr301_channels[] = {
+ 	IIO_CHAN_SOFT_TIMESTAMP(2),
+ };
+ 
++static const struct iio_chan_spec ltr659_channels[] = {
++	{
++		.type = IIO_PROXIMITY,
++		.address = LTR501_PS_DATA,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++				      BIT(IIO_CHAN_INFO_SCALE) |
++				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE) |
++						BIT(IIO_CHAN_INFO_SAMP_FREQ),
++		.scan_index = 0,
++		.scan_type = {
++			.sign = 'u',
++			.realbits = 11,
++			.storagebits = 16,
++			.endianness = IIO_CPU,
++		},
++		.event_spec = ltr501_pxs_event_spec,
++		.num_event_specs = ARRAY_SIZE(ltr501_pxs_event_spec),
++		.ext_info = ltr501_ext_info,
++	},
++	IIO_CHAN_SOFT_TIMESTAMP(1),
++};
++
+ static int ltr501_read_info_raw(struct ltr501_data *data,
+ 				struct iio_chan_spec const *chan,
+ 				int *val)
+@@ -1230,13 +1259,24 @@ static const struct ltr501_chip_info ltr559_chip_info_tbl = {
+ 	.no_channels = ARRAY_SIZE(ltr501_channels),
+ };
+ 
++static const struct ltr501_chip_info ltr659_chip_info_tbl = {
++	.partid = 0x09,
++	.ps_gain = ltr559_ps_gain_tbl,
++	.ps_gain_tbl_size = ARRAY_SIZE(ltr559_ps_gain_tbl),
++	.no_als_support = true,
++	.channels = ltr659_channels,
++	.no_channels = ARRAY_SIZE(ltr659_channels),
++};
++
+ static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
+ {
+ 	int ret;
+ 
+-	ret = regmap_write(data->regmap, LTR501_ALS_CONTR, als_val);
+-	if (ret < 0)
+-		return ret;
++	if (ltr501_has_als_support(data->chip_info)) {
++		ret = regmap_write(data->regmap, LTR501_ALS_CONTR, als_val);
++		if (ret < 0)
++			return ret;
++	}
+ 
+ 	return regmap_write(data->regmap, LTR501_PS_CONTR, ps_val);
+ }
+@@ -1251,16 +1291,21 @@ static irqreturn_t ltr501_trigger_handler(int irq, void *p)
+ 		aligned_s64 ts;
+ 	} scan = { };
+ 	__le16 als_buf[2];
++	unsigned int i;
+ 	u8 mask = 0;
+ 	int j = 0;
+ 	int ret, psdata;
+ 
+ 	/* figure out which data needs to be ready */
+-	if (test_bit(0, indio_dev->active_scan_mask) ||
+-	    test_bit(1, indio_dev->active_scan_mask))
+-		mask |= LTR501_STATUS_ALS_RDY;
+-	if (test_bit(2, indio_dev->active_scan_mask))
+-		mask |= LTR501_STATUS_PS_RDY;
++	for_each_set_bit(i, indio_dev->active_scan_mask, indio_dev->num_channels) {
++		const struct iio_chan_spec *chan = &indio_dev->channels[i];
++
++		if (chan->type == IIO_INTENSITY)
++			mask |= LTR501_STATUS_ALS_RDY;
++
++		if (chan->type == IIO_PROXIMITY)
++			mask |= LTR501_STATUS_PS_RDY;
++	}
+ 
+ 	ret = ltr501_drdy(data, mask);
+ 	if (ret < 0)
+@@ -1328,11 +1373,13 @@ static int ltr501_init(struct ltr501_data *data)
+ {
+ 	int ret, status;
+ 
+-	ret = regmap_read(data->regmap, LTR501_ALS_CONTR, &status);
+-	if (ret < 0)
+-		return ret;
++	if (ltr501_has_als_support(data->chip_info)) {
++		ret = regmap_read(data->regmap, LTR501_ALS_CONTR, &status);
++		if (ret < 0)
++			return ret;
+ 
+-	data->als_contr = status | data->chip_info->als_mode_active;
++		data->als_contr = status | data->chip_info->als_mode_active;
++	}
+ 
+ 	ret = regmap_read(data->regmap, LTR501_PS_CONTR, &status);
+ 	if (ret < 0)
+@@ -1569,6 +1616,7 @@ static const struct i2c_device_id ltr501_id[] = {
+ 	{ .name = "ltr329", .driver_data = (kernel_ulong_t)&ltr329_chip_info_tbl },
+ 	{ .name = "ltr501", .driver_data = (kernel_ulong_t)&ltr501_chip_info_tbl },
+ 	{ .name = "ltr559", .driver_data = (kernel_ulong_t)&ltr559_chip_info_tbl },
++	{ .name = "ltr659", .driver_data = (kernel_ulong_t)&ltr659_chip_info_tbl },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ltr501_id);
+@@ -1579,6 +1627,7 @@ static const struct of_device_id ltr501_of_match[] = {
+ 	{ .compatible = "liteon,ltr329", .data = &ltr329_chip_info_tbl },
+ 	{ .compatible = "liteon,ltr501", .data = &ltr501_chip_info_tbl },
+ 	{ .compatible = "liteon,ltr559", .data = &ltr559_chip_info_tbl },
++	{ .compatible = "liteon,ltr659", .data = &ltr659_chip_info_tbl },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ltr501_of_match);
 -- 
 2.53.0
 
