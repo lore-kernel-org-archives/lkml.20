@@ -1,75 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.189
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956521;
-	b=tb2AGoMk4r5xBhb4E6hXRIG2Ugv4NjFjpOt3f/Yrjri2LsmPWuXhaXX5Le3q+6kO0iZH
-	 KbmInW5OP/wesbO/eheStmWTAiYozLIsm9rPQ2SJDywYTlQXw/C8t9CLMAk45hddJoIbc
-	 EYgq9G6oqze2husKiLOXiWU5bhjDjYD36Y4GmInP8Fu590DNxr8gqz9BE9Yyv9/QOnkbI
-	 qsNoFBNhFAba31L/mUAtAiP6ihWd0krmAN4nuq1I9igGlUqxPLURRD4oONNr+rIUtOYW5
-	 J4YJZj+snAl4JJblU2m/f5lZciVvWsiWVoDdAu2ftPdRVJiCj1ECOOQVq9W/AU9Bjow==
+	t=1793956543;
+	b=tIfFtgV9a/kP0B0TnvzxaBonUC7U55KrZzL/UiFb08wOMeWK7PCzrBoawFU8oXetMzqo
+	 GLNVQ5R92vNxrw8hkoQgBjOzu0n/xo/Tz1TPRhFhXjH0PDt3KoRIPUqkQj5F2QSFl5yA4
+	 kjLbVKsr1Omsmw5qKKkuc7Tw/MvrvhFGR7WSU71D3N06ltuXSDT79zrLPbX2vlkv+5YN+
+	 MbU8l0VUx6QdBsTRd7D+qHZUVv+UIvrxIHpLMYfkxytjJKDUbugclYOxIQX4oIHkYIeVX
+	 /Ckkc8m3fvLXE7J49SdzFeEfb4eIwSIEamjtAl0ppDu0GO7p/WGHwhWACN7/kduCcyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956521;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ctycaF2KOXwWuXEDXSNAYypG2JZO9cxBfbE3KtRR508=;
-	b=uzwBgPTMGBLkJy3ExhSvMmjwPv8S/nmDztUOwF69hFKONx/fWVb8eLJJByqijY1XhOyM
-	 ZJWpGKxrolcloHad+lD390Z+rpIpMtW0uEVKQy7hf8PJTOxgvrPXEFryO7JqkZUFKR0Id
-	 msK9ld2VV1dtS/wRl+1JP8m1fNdZT7fjAoSnA1HSpBdxSBSa/dbKhfPyO+7RfXrdNaLS9
-	 s7o/yUaWFAUCT/0K+KRW/Ui0LtAplWWg9W9nbJhYE0uRRBPwC4aKvTAZozkZiyPCXW20q
-	 xo/yTKgBthjCHG7t92uSIndVONUrGYxzmcw0MIsiU/Jf9HDi6bQOiLK2hNp8bs8ixww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956543;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=WOvgA3Dd9qL5xew3nXRI7HiQdsmXf/0pyYG4MlTBi3U=;
+	b=kWiB+eoKLGuEBsXHCd1vbi2vXDkEyZuP3tKc+Hz5uc/KizSeP41RECoCqNzdNNYQLr8C
+	 0riGjiw6Z/5RfdGTwLi2NlC6QjN3lI1E5s0gJO8ED7NM587bVYV6miX24IZkVqmWGrn1q
+	 ZO4QMXIfuGfvtoguwvXsNgd9DQY2N/vptM7tFW+UVoDpcFM6U4KNCSgUgcxES4QZVusa0
+	 YesttFH+5geezK6t1YE84U0iQCZEmcOkW0a4UoE2tEIzVW/9W/UuYT/iqX6uCK1CHRJD4
+	 Tqj19TzMMQA2DhrtCkcrjZEbpIbIhM0IhZoHV1tiE9hTFOxhUrFaTtqxl4JmOi8LX9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=t++7t+Nj;
-	arc=none smtp.remote-ip=95.215.58.189
-Received: from mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LWd7RSib;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jVzVDCgf;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95892606A333
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:15:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95892606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FECE606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:15:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FECE606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=t++7t+Nj
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Oe28MT9PKJAMfqKhdWMUFjyxqbMd1HIlftDdBYgWRmE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793956518; v=1; x=1794561318;
- b=t++7t+NjOpL8roCsTGtIavPsidMJcvLd4y9Lsr6MalyVXoYgggPgY7SL35WvUYAKdzgR28Pt
- gSS5YFPEivkVFhFnM7eBIUB5pU5zaCHS3k97wF6ZNOJ3n4bAEyFjI9+NflglhOcWXhsS0P5KCY+
- UDPQVgQRMMQA+Hr7l0J2lw5I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dcf04c63a15f31f4;
-	Fri, 06 Nov 2026 09:15:16 +0000
-X-Mizu-Trace-ID: dcf04c63a15f31f4
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: baolin.wang@linux.alibaba.com
-Cc: baohua@kernel.org,
-	lance.yang@linux.dev,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	qi.zheng@linux.dev,
-	pfalcato@suse.de,
-	ayushr@modal.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio sizes
-Date: Fri,  6 Nov 2026 17:15:10 +0800
-Message-ID: <20261106091510.67980-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <453e2c18-4e79-4db2-b565-1af881925f08@linux.alibaba.com>
-References: <453e2c18-4e79-4db2-b565-1af881925f08@linux.alibaba.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LWd7RSib;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jVzVDCgf
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67R9SD2333847
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 09:15:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WOvgA3Dd9qL5xew3nXRI7HiQdsmXf/0pyYG4MlTBi3U=; b=LWd7RSibu/BXc8C8
+	1ooN4oJSnFH4vqexewTRgqXn8C9MFGV6nE7By94Q9Mz5Oacun4yMVGsJXx4foTQK
+	8sHtWNJAjUYkIKGVtqGc9VNLBHgcJ+8GiX5mhfhLB+kEC9mtfLiMJToHXgsYFyoA
+	JVqSJCp3Q21+LuusrZFHvtQhW0+tLFGmFRHz/iGcUr1U5SJt74jlKs7DpBrb/TSn
+	2gLsdusz4M/J0NX5c2On3J+UggLPJdnw8XmIdQbOcE6U0FSG3obpCqUGfdw9vTSH
+	vbnGMhDCDxcvW/Bv4wv071Akcy20c7IaIQo3hmThg7ZOuDlmn0/ke71gtGvN3+c6
+	NhmTUg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p9a4sw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:15:42 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e629c7b16so11407585a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:15:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793956541; x=1794561341; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WOvgA3Dd9qL5xew3nXRI7HiQdsmXf/0pyYG4MlTBi3U=;
+        b=jVzVDCgfP80sN2Vq0aLTNJQny4DhqrsTRvawFf46zr7xRyL7Fd53OUubR5NU+wLZDY
+         SgTStJR46ZMOE0LBpWncw42Hrqx79I/Spkk1M2Cba54fJRCeeK0P0g8anzfxzr6dQwb+
+         nlTcHCQpodrqeQOMwIPX/7ofTpkbkR/GS568L8lDlXqktUfR7zJ2xY9nRpGj9VQNRvD0
+         /keBRAGS09J2xVvF/8x5gHzBVUbngLgqyLhJXDCGnPYI52A+gkoXgq7rsZEIHo1NqZHT
+         tfJ2pgPoIjd12/k1Mt6yCPSFWyj8uPqaR0l4sra7x/wl1LEKbihhIy9F48Uf2oFeOyAE
+         ZZZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793956541; x=1794561341;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WOvgA3Dd9qL5xew3nXRI7HiQdsmXf/0pyYG4MlTBi3U=;
+        b=264BjTqqL+9OmuL0qZI//LWboMlv6hjwfFEOFhcjsIU66zuU+4XMdgvEJvKYcmS6C+
+         ihIZND/ZbKUM+ChRGwzI32TzSF7aYH7DQXTxoCwtxd54mkRoReSVXfP6IyOzAnkbZdx4
+         rmyT6tTwfx45wCbAoIwYGsnwJMD4bdMgCspc+erBXuoO1HH+uKwM4FMlc3/XSHOqvNLG
+         hXCmHDdFHkx3O0k413qAmEjbJqIS1P5p1uaglk5jy7qIhM4dnYLQrW3vu0Zoy40q3E5q
+         6pJJzD52IDLLSfWQLO044MTBVE765X5EchG/1iHMalRzoEzI7OAaKeMr63LPcn8SchbN
+         Ep8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxwdsDLiZg/TwhzI+3WSfGJCIfz3SAsnx5rHkRn/2A5TVIU+2JGkj8LRWUyic4CeRVNkqzeCJxY8eFETAA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9QwgEhrRqIEdxrbbE5+NySgg9WzkJ6hNSs7MFgh5A6siA79Yvg
+	o0nsUaW21S8besqmpJEpZfBw3P2+jecwzSplEE/edOhoML9v57gqab2kPooKeupZ5or46xkzhzy
+	kcdPj2U6CDW4Wqix+GRGtEEsh9Vh8xQzy/Gnda8eL+cNlVHp/uEenqK/zhlkB7XXxvik=
+X-Gm-Gg: AYBFou2pXa69/0+Nc+MuufKyPlv/8bU2iBwjhq1szT4n68dTqbPkI44d7qpJNsAvxky
+	G1Y9zltIYfQGqkeOShysshWqGoNgT+9ceIubtpDAwjoX1lp3YebixAZrkX+r8PRXi841kuhpAUz
+	0FDpcKWjRycDYGeS+Bzpa9O//J1DUDSsS7rOVk74yw4Or+CiTufN4MGgJyq318ygK9weHdZ4SNp
+	1pTz5Q5z4SFQKn6dhDsF1QtkhV7xfagXP9UrbDxQQRaNosKkiq+hHF5qUqNAxP7FAh0T72iSfPX
+	EWENrcssQI7ThYzULB3KJhfoALpqpUc1LQH0HlPzF1U5MCq5UPDMQ7G83WHpM+Jgg+x+v6j9gZX
+	yxA+Fj4OhR4xBj+u/tNlLnq04YBz+EhaR7LY5A8ERzW8Ro6jo49NUuMO/gN9mWjk/mjC9
+X-Received: by 2002:a05:620a:a994:20b0:939:8148:1e3d with SMTP id af79cd13be357-945f33c0c23mr263241185a.2.1793956541171;
+        Fri, 06 Nov 2026 01:15:41 -0800 (PST)
+X-Received: by 2002:a05:620a:a994:20b0:939:8148:1e3d with SMTP id af79cd13be357-945f33c0c23mr263236885a.2.1793956540624;
+        Fri, 06 Nov 2026 01:15:40 -0800 (PST)
+Received: from [192.168.226.1] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3569e9f7sm61637466b.51.2026.11.06.01.15.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 01:15:39 -0800 (PST)
+Message-ID: <96cc1074-9e08-4d72-8ffb-598e120d2055@oss.qualcomm.com>
+Date: Fri, 6 Nov 2026 10:15:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,193 +115,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 07/15] drm/msm/a8xx: Stop getting GMEM_PROTECT from
+ nonctx list
+To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+        Alexander Koskovich <akoskovich@pm.me>,
+        Jie Zhang <jie.zhang@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
+        Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
+        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20261105203057.66520-1-robin.clark@oss.qualcomm.com>
+ <20261105203057.66520-8-robin.clark@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261105203057.66520-8-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: y6Ms9TMbqj0XttJIVjP1MasYhooyvHwM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzNiBTYWx0ZWRfX10cjOtsAYu6Z
+ ReCMPYVFxEM/hkGnBceqxTI/t03xJtQtMrG2hXslF7pfp4zm5kzW4Tbi9F4wc5fI+8tyob3bg3B
+ wyjwXZChcsutijJJcAruNmI3ltikyNdaddoi+FbLnb481brKy4V25lCdVf8EvRbetlQbc2znZgG
+ o0ardtD7a3lhDKY17Cf+HaMk4AW1SU6IMDR62keFno5mR6ZwYArkCdwonK9uBdT01t/eYbkZgZ8
+ nKJ85j/BXaymnbCfmbwKhPs076cfak2B56NhK7obzDl/VM9mcORa8yegR5Ykue0Dw/mfgZxMrwL
+ TLCFb3+Hjxp8P8uOuq7wQ/JoUhCtEv964sI8KDDTkGGsQhdnY4MugeLIz0Jhg3plGZay8pqhtt1
+ 4vMCA0cYvBhCBEd73wF9lR2XZ/pX0R5bZhhzt8uDsYIUlptJL+k9KII9hX4ceq7JVSzrn/TJlKk
+ 6idmhx8fJ2PjeJL9Vag==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzNiBTYWx0ZWRfX9y4iN8AndNj6
+ JKipVhJ2w2RXSeX+dQO+YE0HBeKv1mVXKb5doSUIwFih3ZkEbcdNWW2+BM2ym0ZwkcMAncTQLR/
+ pqRRqSctg3ZFn4wXs9h8lefqAS8lMvw=
+X-Authority-Analysis: v=2.4 cv=WMzqzXsR c=1 sm=1 tr=0 ts=6aed9abe cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=J6-XaVkY2UlAEipWW64A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: y6Ms9TMbqj0XttJIVjP1MasYhooyvHwM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060036
 
+On 11/5/26 9:29 PM, Rob Clark wrote:
+> We can just simplify things and calculate the value, instead of manually
+> adding it to the nonctx list.
+> 
+> Tested-by: Alexander Koskovich <akoskovich@pm.me> # Milos (Nothing Phone 3a)
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
 
-On Fri, Nov 06, 2026 at 04:54:44PM +0800, Baolin Wang wrote:
->
->
->On 11/6/26 2:24 PM, Barry Song wrote:
->> On Thu, Nov 5, 2026 at 5:00 PM Baolin Wang
->> <baolin.wang@linux.alibaba.com> wrote:
->>>
->>> CC Barry, who added the TTU_SYNC in shrink_folio_list().
->>>
->>> On 11/5/26 1:48 PM, Lance Yang wrote:
->>>>
->>>>
->>>> On 2026/11/5 12:54, Lance Yang wrote:
->>>>>
->>>>> On Thu, Nov 05, 2026 at 10:56:28AM +0800, Baolin Wang wrote:
->>>>>> Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing
->>>>>> mapped
->>>>>> folios"), the '!pmd_present()' check in page_vma_mapped_walk() can
->>>>>> also race
->>>>>> with concurrent page table reclamation via zap_empty_pte_table().
->>>>>
->>>>> Good catch!
->>>>>
->>>>>> page_vma_mapped_walk() is used by many functions including
->>>>>> try_to_unmap(),
->>>>>> try_to_migrate(), folio_mkclean(), pfn_mkclean_range(),
->>>>>> remove_migration_ptes(),
->>>>>> page_mapped_in_vma(), and mapping_wrprotect_range(). Except for
->>>>>> try_to_unmap()
->>>>>> and try_to_migrate(), the other callers do not perform post-walk
->>>>>> accounting
->>>>>> checks, so the race has no observable impact on them.
->>>>>>
->>>>>> For migration, the race can cause unnecessary retries. For reclaim via
->>>>>> try_to_unmap(), the race can cause failure to reclaim a folio that is in
->>>>>> fact already unmapped (as shown below), which may lead to unexpected OOM
->>>>>> or increased refaults.
->>>>>>
->>>>>> CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
->>>>>> --------------------------------    --------------------------------
->>>>>> folio_lock(F)
->>>>>> try_to_unmap(F, TTU_SYNC)
->>>>>>                                      zap_pte_range(full PMD range)
->>>>>>                                        spin_lock(ptl)
->>>>>>                                        clear PTEs
->>>>>>                                        zap_empty_pte_table()
->>>>>>                                          spin_trylock(pml)
->>>>>>                                          pmd_clear()
->>>>>>                                          spin_unlock(pml)
->>>>>>
->>>>>>    page_vma_mapped_walk()
->>>>>>      observe !pmd_present(pmde)
->>>>>>      nr_pages < HPAGE_PMD_NR
->>>>>>      skip synchronization
->>>>>>      return false
->>>>>>
->>>>>> try_to_unmap() returns
->>>>>> folio_mapped(F) == true
->>>>>> nr_unmap_fail += folio_nr_pages(F)
->>>>>>                                      tlb_flush_mmu_tlbonly()
->>>>>>                                      tlb_flush_rmaps()
->>>>>>                                        remove F's rmaps
->>>>>>                                      spin_unlock(ptl)
->>>>>>
->>>>>> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
->>>>>> folios")
->>>>>> has already moved the PMD clear operation (via zap_empty_pte_table()) to
->>>>>> after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs to
->>>>>> use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
->>>>>> issues on weakly ordered CPUs.
->>>>>>
->>>>>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in
->>>>>> madvise(MADV_DONTNEED)")
->>>>>> Cc: stable@vger.kernel.org
->>>>>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
->>>>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->>>>>> ---
->>>>>> mm/page_vma_mapped.c | 5 +----
->>>>>> 1 file changed, 1 insertion(+), 4 deletions(-)
->>>>>>
->>>>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>>>>> index e6b6170c2f4f..8797467b6f0c 100644
->>>>>> --- a/mm/page_vma_mapped.c
->>>>>> +++ b/mm/page_vma_mapped.c
->>>>>> @@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct
->>>>>> page_vma_mapped_walk *pvmw)
->>>>>>              spin_unlock(pvmw->ptl);
->>>>>>              pvmw->ptl = NULL;
->>>>>>          } else if (!pmd_present(pmde)) {
->>>>>> -            if ((pvmw->flags & PVMW_SYNC) &&
->>>>>> -                thp_vma_suitable_order(vma, pvmw->address,
->>>>>> -                           PMD_ORDER) &&
->>>>>> -                (pvmw->nr_pages >= HPAGE_PMD_NR))
->>>>>> +            if (pvmw->flags & PVMW_SYNC)
->>>>>
->>>>> Right. Whether the folio can be PMD-mapped doesn't tell us whether its
->>>>> PTE table can be reclaimed, so those extra checks can skip
->>>>> synchronization
->>>>> that the caller explicitly asked for ;)
->>>>
->>>> Ouch ... one thing I missed ... what about order-0 reclaim?
->>>>
->>>> shrink_folio_list() only sets TTU_SYNC for large folio, so can't we still
->>>> hit the same race there?
->>>
->>> Thanks Lance. But this matches the purpose of the TTU_SYNC flag, which
->>> is used to avoid racy checks with PVMW_SYNC. If no TTU_SYNC flag is set,
->>> it means the caller can tolerate some racy checks.
->>>
->>> For this case, I think we should set TTU_SYNC unconditionally in
->>> shrink_folio_list(). Barry, what do you think?
->> 
->> Baolin, thanks for reaching out to me. I added that flag
->> mainly for large folios.
->> 
->> I observed cases where PTEs for large folios are partially
->> cleared during certain transition states, for example, when
->> PTEs are cleared before being modified:
->> 
->> pte = ptep_get_and_clear();
->> pte modification;
->> set_pte_at();
->> 
->> In such cases, page_vma_mapped_walk() skips the empty
->> entries and starts from the next valid one.
->> 
->> This may result in partially unmapping PTEs for large folios
->> and trigger unexpected folio splits. At the time, I was
->> particularly concerned about unnecessary folio splitting,
->> so my focus was mainly on large folios.
->
->Thanks for the information.
->
->> However, I also noticed that a similar race can occur with
->> small folios. In that case, the folio may simply remain
->> unreclaimed by the reclamation path.
->> 
->> However, my main concern at the time was avoiding
->> unnecessary folio splits.
->> 
->> Your new race also seems to amplify the same situation.
->> However, I don't think this problem necessarily depends on
->> the commit you mentioned. It has been around for a long time.
->
->Agree.
->
->> If the concern is reclaim failure, I agree that there is no
->> fundamental difference between large folios and small folios.
->
->OK. And I did a quick measurement to reclaim anon and file folios via 
->the memory.reclaim interface.
->
-> From test results, reclaiming 1G small anonymous folios (using zram as 
->swap) shows no significant performance change. However, reclaiming 1G 
->mapped clean small file folios does show an observable regression if the 
->TTU_SYNC flag is set.
->
->Without TTU_SYNC for small folios:
->time echo 1G > /sys/fs/cgroup/test/memory.reclaim
->real	0m0.178s
->user	0m0.000s
->sys	0m0.178s
->
->With TTU_SYNC for small folios:
->real	0m0.315s
->user	0m0.000s
->sys	0m0.314s
+I believe I already revieed this..
 
-Nice numbers, cool!
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
->So for the current patch, I'd prefer to keep things as is: only sync 
->when TTU_SYNC is set. Without setting the TTU_SYNC flag, keep the 
->original logic, meaning the caller can tolerate some racy checks.
->
->Any other thoughts?
-
-One thing I want to pin down first, for the order-0 folios, was that run
-with TTU_SYNC going through the pmd lock, or did it already go the
-smp_rmb() way?
-
-My guess is the first one, right?
-
-If so, please keep the fix as is and only sync when the caller asks for
-it (at least, order-0 folios should not go the pmd lock way) :D
-
-Cheers, Lance
+Konrad
