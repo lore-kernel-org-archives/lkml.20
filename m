@@ -1,100 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794000031;
-	b=5Mkb8K0B2VA2DGyAwmL+n2BXnOl+eeMoT38AKhYJFL2oAfXGnmIY99U9F2ijICOI/I82
-	 LA0JWtDzhl2NbDQbPk1pFEKi2ZA03Xr76LTtxzdkF3knaKgY2eYIN5Hm6ke01vlvo91d2
-	 3AlvgsNC7cIX7nbuoiKCr/wFC4PvII9xJW+sruzaCpXMz1m6B6isnSCMZL4KqYrrv/2/c
-	 UBt0Zukcor01JC/XQ8GKVwPFD6vrQ8JCefMzCrHcWqokBuQRGhf9E0W6wkHufMnDwiAJH
-	 W6Ofilo2xb3BKoIPWcMt1oCcndSLyyjPWClxGrgYBboXaQVesNSVo2RbjsaCQHfnvUw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794000031;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.133
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794000106;
+	b=C/DMdkS7eJW4ceqAL0ZRX/F0xoBSt94oc7pV1OwI42/b1pKIa6PXQmECsooH2JZLImZq
+	 8atIqZRrSn+YL/bk7yh+xP3IpcL46ElODvE99caz85wMMGPCB9g2aCBeY8CLHL1Hdn+Cq
+	 wvmmeymNPj1GYV9XxIwNcrFpe3pPVh9zVkmX9hiBEE/L3dZZ6I112VB0Rl/vHIuMklCf0
+	 GDEG0D35k4OHu2cXgdDCHXjhu+24K4nyLsvqhVYpG6lG32aXD4h0NRzKl5W1PljMm/uf3
+	 oQQcXuIFK8CbiCTV/FjtY74EJZR+XKSBgxyn4SEz5ad4bTC5wf79NhUl7WhlWPpOGyw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794000106;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dEASJP8cPGURwGTSZkAlcNwWe8/bY8nmtMI6AXQzVBA=;
-	b=jAZ8LbywWowr9XZ9KztV8K/cVmphTVzZ6YQpLj2UejJAIeWfNpbpFjfrcAdatdSANcK5
-	 tQF46gdpB8K0N+wVuBqSjsgnlsmB1NxS1EwxeJeHbebCc/K8XSNlodPIxdJSmHfroRSWV
-	 ml7ex2OQG2UXtAkWIO5u73MfXxaW/+WONdGaDdXaA0PZnh1vSWM52fFxUQUL59W8nucmx
-	 VvdktvROXiD5W78rLiGpYbIyKIbTQx4wd0tFAVRlHLABh7m08ZKiFC59j+WBJd7XhXDTd
-	 D1ucG2kVUQvMwTVAkkUXsJxP9oE6KzSEWOyRrkCYThoDklsZTRFLfe6CGmP9h+GqM7w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZJqjhSH7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=75ws0aWOAn7zVEkFYFw2d43XUpDpA+pOyY+p9nhXJYk=;
+	b=yFbHlYxSxV4yTCl6mwUVtB7NW/BYMi2i7vZwfA3uB7OwZFD4o31/dGDQIKcBMSTqT3lw
+	 +6JZjbSoUaZcBzNPZOwdOMF9ZpWR9QVJeXcpBICkFb85ghOOcqu1wP37CD/pWR2APksDr
+	 DGGRrI3LQxX6uKDe63MSQmL02KENlL3cqJuoRsWxUrt2JgT30GmSK86TOIn5zu3wriAFJ
+	 Q3wi/zEBruqdRWoHggZia48Br1kba7rr9cQqgVBOOVnnpzFgfmfsc6OEhvYfACuQmhJpI
+	 fXraTfRriPIT57+LAGJnmeczdj8sEM6EjUkeE547veBzVef1OeUvKmFB/QGCYyZbzdQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=74.125.228.133
+Received: from mail-ej2-f5.google.com (mail-ej2-f5.google.com [74.125.228.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7CF606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:20:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF7CF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZJqjhSH7
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b571a45a2aso1835a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 13:20:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794000029; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V8NSk7k6lck2QGrJLvZq/IgAkEr4U0MJii473kjZmPSrAK1qvuLSPfdforThoGaWU+
-         moQ8X9/CbbVTJVcTAt/KNh6L7uyYW0kHvxIHQ1o2Eetwey+nLUCFtk74Oy+IOLviaitT
-         xSETKNYw4jcS+i8xRSn29TDj6yuGS6jhiW+nGBKgCybgwKmw9Fsu8UEz9u6WcKQaQzfC
-         zWgYLyM8NmSElV789Y80GGZvhUcHGnSgfIwC7dOC+ayF1IZWzRH/WfHskcdUlh3XM5ri
-         y+5YxiKQHu4CJZxCIMlYFWNZQxJe8SJ/5xzgcVT089xO5izmigD6+Z5gU590Fj+fV8V8
-         NvAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dEASJP8cPGURwGTSZkAlcNwWe8/bY8nmtMI6AXQzVBA=;
-        fh=iXZwuOnq80HlsdDHJdzyy92Bredkl6qOf71yZ63YlD0=;
-        b=dSICWOMlM3WQZwjNMT31Yn4ypc4Hv4RJtrczw58SA8LhOgmEJB4D3sIeTnMOy+ZOJ7
-         TgOEy4gSDkuWVbNqULsAMHj7Ql0pRNe6WwS3ZZfpcglo8LAjvHjxZAVMxLq94Z8txCSu
-         4y+1CAGiQNF+fjtzCqt4CgEkbHybAmp6xs6lbcjUf5LbSapW64xnOifBa+UmffSIqv26
-         XiL+GmKi6xB8BDbvfd53vn0GE5z3Ox8parH7ICfw0h2c0E4M4J//8sRSlLJpZvvGfnn+
-         7ZhBuKW7hzlNuyNBoBXA4T1HwBiEttRRUDzIHwOXSSYJiY2O43xfq6gDhGHPGmKXRFKE
-         1qTA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5B0606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:21:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD5B0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej2-f5.google.com with SMTP id a640c23a62f3a-c46872a230eso67166566b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 13:21:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794000029; x=1794604829; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794000098; x=1794604898; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=dEASJP8cPGURwGTSZkAlcNwWe8/bY8nmtMI6AXQzVBA=;
-        b=ZJqjhSH7PAHxPDDqpUN6vGJkc/0roGheqDnG5neNfKgE0s8l9/n5zOViHpddfjKA/1
-         NN7YnadMOedcZG8vo55+RpGBZMzq5Zvm/M41dmNJ8Elat7NJQKd0Vnsomh3uq8q/uaQk
-         eFibAh1LGHNxgvGe7PJpF7Tk24Z4zJkTRb6Ajy4CGVebcUeHg6vnkZ3ul0RpL7+Bc/G6
-         baZcu+nU2GpHmn93DtWBLuauJUCc5dnudu0LGB4S5QYVS7Oekll5y0SFL+c1mbhKMYMx
-         VGlRbqDEba9BpLMeixyeeleBiPc2VhJqdMdKYrm2VppvSrFTDx1Riu49rfHpiU3qhaKg
-         fJVA==
+        bh=75ws0aWOAn7zVEkFYFw2d43XUpDpA+pOyY+p9nhXJYk=;
+        b=avLUNoP/0mGQDa9n2tUDRUgALD8TkKdkdCBOeoRvyiDf52Q7vEJlZib1bBZdhuW1gv
+         NKc/9lXikFMgz5ISJxvSdzNoqCGivMBwW3jh1+D3gl0UxRa/zSU8az086+qw0OkFkqQq
+         oahgwUu5/8sBeX1ZJH1R2uuzCmCihHnyhOZOvQxI58zji5DPmvTv1nQpHpvxGD6XNecj
+         P/H7ZYYkBWEt0eCYOXRTY2S5VvoJZtYWmVsy9+gpdmmulG1XObgwOCAS7QOIxw33gxC0
+         Hk5e6o8Xuy9nwKX5rhHn0Kgb9HVAVIN+KAKjvWncgtlMEXRx7HRRL9HEfOwmNui8I/im
+         O2hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794000029; x=1794604829;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794000098; x=1794604898;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dEASJP8cPGURwGTSZkAlcNwWe8/bY8nmtMI6AXQzVBA=;
-        b=u+jd9jjbpumNOkhH/cSN6aBL6aRfyWqVZP2+iF/TZ0tOoVy+/+1CkRW0aROpbFVc5O
-         U2FRiZe5QcrLFRCqn7cZOefkfG0Njv15uhP7wEYwQv8hOkwPpIlEhjIY5NSxz42sR5PY
-         /KtT09E2OcUAK/eZ23e9Cxb6AiQ8iBBh7iXbCqrvp4kXfXrRIbEAFkVGkltzkny4me9t
-         A+uxA/ySGT/Dnt976sZ0krlF7oNB099AOVcZyEr0IACcWvMq8JOPpYeSHBYwKoKj0yqc
-         ypXVJwbK3HQBPviDRu/EiFhrav9virVhhDQjNXzXfKhoNxIx0zVAj2VeVeierl2koyTx
-         0iIQ==
-X-Forwarded-Encrypted: i=1; AL+hErFaHz1S1XpE4f67762qoE+1p7AxJaH1wTyyJ8L2AkX04JFjQXlp5hstqLFyZB4Das6mMWAEJcc+mUBSZZg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+bj5cqZbp1pxEyH6FedhiNSkIBlfGCZUQdOfZF3bqrr2XV69Pj
-	rKfx1rZ23rYbEANdXKPYHaUqjAZCrnZQM8AHrwJ6WmgmVcTl5jNhM040YX9NygFoSrhCbr7O5I6
-	P4IKojGXqpanDLAhzoRjN+dmx0jf9KVMB070lKR7i
-X-Gm-Gg: AYBFou0t1yw4Amg0AEbwG6uKs2py87OLiRecntnkwyT+aQYXE8Ik3a0ziuFl92/RL8O
-	zvOuOAaY2qb1yEcmX997FqP8W+Meo2TrWjKI+3XoTGxP7lh/MZeP9rgryVHHJY6P2e4ZU+LEzEf
-	8oUQ+NqVnlYjYU8usBb7ut2R0W3dAn3AO+fIV80/XacdGztJAMQfDAyZKPyck9AmpjRIgzxGm37
-	xyXwaUGWtbqgk5QeIzfUa49L2xvGDtPbpSi0rbjD4EuJ5q9m29i2EkO+SFcScFpxbW3vHjl/j8g
-	4VoCmXJ8UiOkKQnbsKiT7aOJoWGrKZxALndPzpAxBCwfw+Om0lzKXgihUCRLstuy9tMi91e404X
-	6W3IInfemn1VbahTMgB9E85nu8lP64ZlDUmouDkM+UhBPdki47RtClYII8+XaRlPndpnK/tnP
-X-Received: by 2002:a05:6402:8da:b0:6b5:77a4:e7c9 with SMTP id
- 4fb4d7f45d1cf-6b6fa3c759bmr8754a12.2.1794000028655; Fri, 06 Nov 2026 13:20:28
- -0800 (PST)
+        bh=75ws0aWOAn7zVEkFYFw2d43XUpDpA+pOyY+p9nhXJYk=;
+        b=ZwYcFT9L5oDmcizGMkWJUSL5CxmLdZt/3yvj3NQ+gAsAYCu+GipbT0jeN0o21KsCLq
+         LfggDxrc9n7nrKdMPHNr4arfnaDTp0xEgwggzelDzRHkzHy823KHG5Jn6oyDTvbsA/JH
+         8f1qlAq87Oy8ZYAk7ipfdxCKP104q6HF2zHt5UvQBAAHUFfnhlQTGdLDFUwxbip76MVz
+         P00Vqrak+ZTcE/KzjrImJbEkqTNC73mLzJXNW35RtXgZJ0IUydXfSpEhxKPrEBYQXfvU
+         ivk8jvMIypeAX3nJiH8OQiJYmy5sUE22fc5q1jdiAikoNyVa82SsO2xctPIl0l/1TpQI
+         ZV2A==
+X-Forwarded-Encrypted: i=1; AKwUvByeF0mtT/aFF4bOsWxtUpyRh6E5zd5s7RXzjEX2fn77+r++DGAoX+OGdFOY9O57xrMwrD/J1GPqnXkDs+U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+65EdSOySLeKOWGlC9bEVzc1K0/NQTHaHD5qcJaBqoJS4L5mFh
+	dAIyfvmYDPuk2ys5cq9c+3bv5UX8jYwH8ViqXx+9woMgdXhavWCz9B1O
+X-Gm-Gg: AYBFou1XTwCRfcPp8zhS8QeWuli0TWFwftsO9b/ifZw5ZYpmo0IXm4rLBr2gQdFTNpW
+	CNBRGS4SXH/p/lUKQKc0I2GI2JRhpuB5eT00ZrP2UJFpjHYHUSBnxnUEnY7tmyZKNzDSUVOcz0T
+	TRhMXi/F6ajdxZcsJQIgGPm866jxkdBKc6Gw9NUvK/uuudC48xjNJmA1ZEnMCPqaANRfwgVLktx
+	RjmtPJL694EhDw1QeHvvWuHsMnFR23BcrsPXQ7byWaN/IHiQlTb05v0+theSOtl20Ih1w5FuUix
+	HmXt19nP2mqnqhgwjgkS1cZGcd2HoMFVXxbc/I5HD7MXl5Ss1w5LklQFgRvrpO3PuJjMwX/t41z
+	SiZUHQi4gaw0xdLcpLmeRhZ1085IZKFAi7zOYe+ySjRMljDHZkwBT3Q/O+bkS0g6bLM5s9De7A5
+	8QSedPZZfBYyBRfPT5o5/5fodXFzhjfUWxIPXPJBGCcMlKKxXV1gQfpsFiTNDRf9fAa9wRn7ye7
+	otHGV9cIQreeNcb0aX9dE2QDyKAsc74EdCchX9hKQ/+c2LLOAt/XGXhCiNI6fuXgRayDk5i+Gul
+	RxC43r9f+1auOuOTBxKFi8m1i4vlUfEQaYbC03lbLYdZwGNESUfodYxWXL4r/2mloXKW+SHZtTV
+	oI/vSrpdeHbEt28N8dPevH+w8adhYRC2lCYA4o2mSW8uA269TlM88Bbg=
+X-Received: by 2002:a17:907:3d94:b0:c2a:b1cc:158d with SMTP id a640c23a62f3a-c4d35554748mr318528866b.32.1794000097799;
+        Fri, 06 Nov 2026 13:21:37 -0800 (PST)
+Received: from thi-server.fritz.box (dslb-092-076-089-226.092.076.pools.vodafone-ip.de. [92.76.89.226])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b6e82bc5d7sm849953a12.13.2026.11.06.13.21.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 13:21:35 -0800 (PST)
+Date: Fri, 6 Nov 2026 22:21:30 +0100
+From: Thilo Zirnstein <thi.zirnstein@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: linux@armlinux.org.uk, hkallweit1@gmail.com, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v1 1/1] net: phylink: keep initial advertising
+ settings
+Message-ID: <au5E2qilAsVuUOgx@thi-server.fritz.box>
+References: <20261104125509.3221743-1-thi.zirnstein@gmail.com>
+ <fb28453b-9df6-49a1-8c01-543e7bfceeab@lunn.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,44 +97,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106013927.166209-1-zide.chen@intel.com> <20261106013927.166209-18-zide.chen@intel.com>
-In-Reply-To: <20261106013927.166209-18-zide.chen@intel.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 6 Nov 2026 13:20:14 -0800
-X-Gm-Features: AclHuK8gDDUzygB7xOSLMvBuJupD6Lp3-Om_QG8PNIiEO_YVjCf-4zFUNn3jTVs
-Message-ID: <CALMp9eRAJfDSdxi72e0JS+jGvMGEPThwfo_VF-7Fbs3EmhcGjA@mail.gmail.com>
-Subject: Re: [PATCH v3 17/18] KVM: x86/pmu: Advertise PerfMon version 5 on
- Intel hosts
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, Yosry Ahmed <yosry@kernel.org>, 
-	Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fb28453b-9df6-49a1-8c01-543e7bfceeab@lunn.ch>
 
-On Thu, Nov 5, 2026 at 5:50=E2=80=AFPM Zide Chen <zide.chen@intel.com> wrot=
-e:
->
-> From: Dapeng Mi <dapeng1.mi@linux.intel.com>
->
-> KVM currently caps the guest PerfMon version at 2 for all Intel
-> platforms. Now that KVM emulates the basic architectural PMU features
-> introduced in PerfMon versions 3 through 5, raise the guest PerfMon
-> version to 5. Features that require additional emulation support, e.g.
-> architectural LBR will be enabled separately.
->
-> PerfMon versions 3 and 4 continue to be exposed as version 2 because
-> KVM cannot safely virtualize AnyThread due to cross-VM information
-> leakage. PerfMon v5 is supported because it provides the
-> AnyThread-deprecated capability, allowing KVM to indicate that
-> AnyThread is deprecated.
->
-> When enable_mediated_pmu is disabled or in the non-Intel paths, KVM
-> retains the existing cap of version 2.
->
-> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+Hi Andrew,
+
+Thanks for your feedback,
+
+On Fri, Nov 06, 2026 at 02:51:18PM +0100, Andrew Lunn wrote:
+...
+> > The mode of action is as follows:
+> > 
+> > * The link was not up yet - no phy connected
+> > * the user configures the advertisement of the interface
+> > * the mac driver delegates the call to phylink_ethtool_ksettings_set
+> >     * here we are not configuring the phy - it does not exist yet
+> 
+> If it does not exist, it is not possible to validate the user request
+> is actually supported by the PHY.
+
+I think my description was a bit misleading.
+The mode of action describes how the phy is attached by some
+net driver and what the program flow is and why there is a problem.
+
+Typically the device driver does not set/clear any advertisment bits
+during device bring up. As least what I have seen so far.
+It attaches the phy and brings up the link.
+
+> 
+> > * the user set up the interface
+> > * the mac drivers calls phylink_connect_phy
+> 
+> At this point, is the previously configured value sanitised by what
+> the PHY can actually do?
+> 
+> Take the example of a MAC which can do up to 2500BaseX, but it is
+> connected to a PHY which only supports SGMII. Before up, the user
+> could request 2.5GBaseT, but at admin up that needs to be reduced down
+> to 1G.
+
+Good example, with this patch applied this will advertise 1G,
+if the user does not configure exclusive 2.5G prior attaching the phy.
+If the user configures exclusive 2.5G (2.5G only) the advertisment is empty.
+I think this is fine because the user missconfigured the link, but maybe
+i am to restrictive.
+
+I wrote a little table for a better overview. I am not 100% sure
+how your example behaves because 2.5G uses another interface then SGMII.
+I have tested with a sgmii 1G half/full duplex link.
+
+Without patch
+
+without phy (user):     phy caps        link up advertisement
+1G FD+HD                1G FD+HD        1G FD+HD
+1G FD                   1G FD+HD        1G FD+HD <= bad
+1G FD+HD                1G FD           1G FD
+
+With patch
+
+without phy (user):     phy caps    link up advertisement
+1G FD+HD                1G FD+HD    1G FD+HD   
+1G FD                   1G FD+HD    1G FD <= good
+1G FD+HD                1G FD       1G FD
+
+> 	Andrew
+
+Thilo
