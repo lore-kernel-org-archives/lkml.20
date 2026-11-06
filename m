@@ -1,77 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953621;
-	b=uoDSwytgZQ/AO76kV/YvEBAHsHulxxN+oZesYtGgjJRDo3hesQaq6YlWcU20Qr/d2Uu/
-	 aeC9Hxq+krAp/t5ApITbiwUFsB69iptyZkC179EXs5PcZ6m9w7uTtocHeMpzCcbueCsyP
-	 UPVqaYvHDm1k8xQylrMadp3d+nguPfIUE3km9XAKMhADkpMbyjr97ZOTBdzX4GuEBkftV
-	 WHzXFtbEf/q3cHxiohjNPGp+/jyAzoUuGW5XSXVtCLHjRLDGG9RzS8Gpm92xwmDBemthI
-	 K6Cf2hyzPF9G4Yy3uyft3YzBZ+NDWsS7HmSM4C0dD5fYeQK20EVXx5tGDmkpDBuqr2w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953621;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=wz9hYkqc++0EzNl2y+NbUtn+iv7qQMZY9Esdr24qlaw=;
-	b=I2hrO/kgb4v8kxG6G2gWYkMxijg1PxvRwIzwiQ2Iex/cG0LYE19K5uMp+dCb56oa8T8x
-	 eFN5mD6EBsXALnmprVvHoYfRWbie8QYXkecWbg1+/cz3PN8iXtkK3Q1/cXzf97iAbCly5
-	 WcDQh2P8bndGAvt+rTJLMcU549OWxK02g0iabAulkLbNzuZOJGsS1KqwH2Aev5sQMetSy
-	 9maNEy+mRB54yJeuibRgXBVaIBThIcpv+FmEsd3Y+3RVPvy4ykkxjmyuAE56YI3rTCGP0
-	 0TDFe9dMMsOcTnuYJaT9GH0/YX6/uehHHfqP6UVzZxFPWhmrLpFpj5VGIdPSaSib0Zw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=ZbNky3wT;
-	arc=none smtp.remote-ip=162.62.57.210
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793953623;
+	b=mRpxQYKkLK+uSuFPG9x2xZId/ka9l1woJ2hYFKOEGWoQVjZpEKvF0T7ug9zADsugZwv7
+	 kIjGJOZ0KGLFRPbzHPJgLb90CmV1+fxrUAljCBznfxiHP9q6tVpJE0AoZ/6eJ5U16dFLA
+	 04gNpORUDxizQNPpwdOBmXbv984nF8UOE+9lZBpqIHd7hexVFgeA8HVK/++ZH6cCt0omH
+	 ApOu7tQ2zS80jP5TxxjdA6Fjs2P2a/AmdqDtZwSpkTuQI8yfmYPS9Rded2/D9Ibh6Z4h5
+	 RIW1NBpf/1yn+I6YMPFJkek1AaTz7zEc0fSYmda8rEZE4bHrW2QUAa/t6kAkr11UZvw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953623;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WTplfK3CeLU4amsy6yd4ZzKwUbptVYSg85LuEM2OtXE=;
+	b=Rr4qlHuW2FV1HWjn6cFqT0uGML13vAJSFBUVhaLLApurX+ej9fwFeth3+FFgVJ9HJwJA
+	 CMeJahTWEUQ5zw/9gy4E+Zg0OglvC67QVKAhbYobbWSqLlLvrFxgihZ7l3cXCrrNxfMlj
+	 ge6ezfMpEcV1RAZohYa07NW6lvX37V76bGq91iWurpCUf6CuIW0WB1zIYuxnKVvlzDXQF
+	 ReoFy2H7vfJlmltH5td4rsQlHjVPCBilpOOq/1+0Kt9HgDU2s5d1gxNZUd/NsIYjgxF0P
+	 NMhhz/+x7r2/Py6vuTGuvv2UsioK9PVtKIozaFItd5a5cdqZP4517QMN9ZRbbuKk/XA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="5B0ReqA/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.69
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011069.outbound.protection.outlook.com [40.93.194.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706BD606D817;
-	Fri,  6 Nov 2026 08:26:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 706BD606D817
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605E9606A33E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:27:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 605E9606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=ZbNky3wT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793953614;
-	bh=wz9hYkqc++0EzNl2y+NbUtn+iv7qQMZY9Esdr24qlaw=;
-	h=From:To:Cc:Subject:Date;
-	b=ZbNky3wTfd3zHIDOkml82cpmYBdq6BwxX6TBzBA++RqAWuiGxUlCuidkzLtOPEdxT
-	 XuznpDBaFSfdkuyg2mHacKngZ/Mg3UcSDaog3ahXw5FNjvsQPqVs1YOyTxp8jbc0P8
-	 fr8clEowijTj40ZZohuSEjgI5GGMstALLgzY2OsM=
-Received: from localhost.localdomain ([107.173.101.132])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 6B12D6D0; Fri, 06 Nov 2026 16:26:49 +0800
-X-QQ-mid: xmsmtpt1793953609tf1r742pr
-Message-ID: <tencent_0EA784F33CA15095806009C26E9DD624B809@qq.com>
-X-QQ-XMAILINFO: OIPiZ4jSkGWAjJc0fQxqa64HY1Agza7ljOPRmAaGtqhl+/5q2AtT8bR2xzYX5c
-	 Wm8RLv3pjQrkmridK+WYa8kIroEYukpgfYNBTIuzTAqFHTvVJaP+SUIgoJj0n6S8e1VRn6n6luJ7
-	 SkRc8MbL77lJT/wNweDYN787D+ADNo7mc5/hMRzRnIUOwW1x4PjsDOZVoWY9RPryPUMwQqDB77Oc
-	 kfXgw6F882Umi2tGKA1Q5VdwuGr7XgXbLcXyGjAoY0sb/iLfowtdKaMalc4DcIZrYA0sVp8UZcaS
-	 iV16UEgz6yUfH+d6vXKmX8Dl8RhQHcDD+Z01SrzEt+jo3YCrDEys38qEerXl/GkDpzY4p5eVMrFE
-	 DzUWrHnYCzGybzmpOpzbBJRhQe1Zca/WT9FROCgDuVz6eyZUyqKmC4KNEv2eFMgOHROlxmbtiPwE
-	 2l0qpYvstXtwcACJdySFzmqvftIdTqpj5AKfH7DxtJHn/DU3ujvC9hMkxz72h9VVmEzhWVw+nFSJ
-	 fK+FLB0lTGBHGNQi5rv62NmOSxIhXmbOyhBMbrFJMwxi0g/9vI6JXTUGtEZWrRXU4w4Swnyc70PI
-	 nG9KjibDk6yLcPiO6UFaIH95+0F9JOHO4LMBDSGpxvZQeNlSrbwgghuOCRm7BY83XvQCZ4cZyzWe
-	 Qwb51x7wa7uQR/oHnDWGtJF39yxwwF6liI+I+DO/QEPC9eEab5u+FlJw2kps5jNKGIk9FC9+Xelg
-	 qTf2Rz1P1syGI9NVrojVL/d1OJQVG1l/CbdIBSyLCiJwLH4xfeS2AN+KNgW9oCQaUVSmtnEOeacx
-	 zlQ4OE/z2dtlPBoDS3FcVmfv7TVHTtY0r8JbgrGU/0iK8ywxxOvKEJZIuK/jP73xT4m9PsxrYsAl
-	 LZoUfkTLNcSLsjFmQLUl0PscgfYQPn7R9UKlW7xu8+/VsTE6aEO/v1iK4+gKHR8d/DXCAK5nrZnp
-	 Z+PPd8NPkgQzZw0wL23cfNzJtSqE6IR1G05kr0ZROlEi1iWEA/QnIfe/yNCJMBNvRFqHQ5J8dm6J
-	 Ar7r3N57zUI+7ERhi8yRoc/otStm7XY7MgB3HHKQ==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: "Ziyou Wang (Lenovo)" <ziyou.dev@foxmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	"Ziyou Wang (Lenovo)" <ziyou.dev@foxmail.com>
-Subject: [PATCH] PCI/DPC: Increase recovery timeout to 60 seconds
-Date: Fri,  6 Nov 2026 16:26:12 +0800
-X-OQ-MSGID: <20261106082612.1840817-1-ziyou.dev@foxmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5B0ReqA/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UUi17mWIGufAv693Z2b1q/2ub1onkKB+OkCZgOve6XLLxFUytoZgYSED9nZ2SW1bwiN4ZOQ8lqt+e6/Qn2So7lJ6WNW1sh3lZk2cqvT1b+7Gw6iK+YDS6stopovDcywHUShVtecDsrQnQHhaijyrsUBiSqsu0LKC4GA6agkG2eayPE7dFbS3Jd4+lX3a0Oqn2gHZ1QjQMtzAxKOZxYOnFpVfNC7S2AeCNvOcOGWv4WuS1QPEWfJF6QCrM57/k5FJRepCVc7ukiJWXyvNjVwrufGXzn03mmv90FowRqzSCrmbRILJuOhFedIjDEupW843FEDnh9sZWt//UW77gB1Ckg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WTplfK3CeLU4amsy6yd4ZzKwUbptVYSg85LuEM2OtXE=;
+ b=dnbr1JgGz4ajLq8hDQEjXkEJB4gpEDaLy4/VCODaOyo4orALis3pJmRjA5vMFpuyY4I39b/VSNk2/m9hdy9gYsErNo6NiSJ2yFVkwARTkhRyn/X0zOcRo3tgr06SvM0YlfK/dCOCnN/uW2DW8QUfR0LuWR1PV49tYB/fxIlYDTxoUKkQqxtXHI+KebwpJpMAd+LMdXP7aeZaTOxNKXkLsLWncuiKAGvE6gryJQ1K8zSJBIFQmCW9GOq94qOoHnyu68aZQls6vrcqC3YVqdJwzLGiS+6XwZVSDW1yDPcxSbJDXhPqWGZXa1jdycJ/aosRbMKpn6XsdPuu0MtXzZGeSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WTplfK3CeLU4amsy6yd4ZzKwUbptVYSg85LuEM2OtXE=;
+ b=5B0ReqA/6QWXDzIaCGQjC0qMEcDoRUobhfK4EykL3TSZGbliUqpA4RjRdTnKKb4Jea8uWEBBcZvE3WhupWR/hyMRDIYSPHll8xmH5CokjjnXtIzOCXJ0weMFgDbyHjrEyvtf2nAJ4hHvAmPQF89VHL/ayTYKRetAsI+HFW18mfg=
+Received: from MW4PR04CA0321.namprd04.prod.outlook.com (2603:10b6:303:82::26)
+ by DM4PR12MB6422.namprd12.prod.outlook.com (2603:10b6:8:b9::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 08:26:57 +0000
+Received: from CO1PEPF0001885D.namprd02.prod.outlook.com
+ (2603:10b6:303:82:cafe::45) by MW4PR04CA0321.outlook.office365.com
+ (2603:10b6:303:82::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 08:26:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF0001885D.mail.protection.outlook.com (10.167.249.246) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 08:26:55 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
+ 2026 02:26:50 -0600
+From: Honglei Huang <honghuan@amd.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Akihiko Odaki
+	<odaki@rsg.ci.i.u-tokyo.ac.jp>, David Airlie <airlied@redhat.com>, "Gerd
+ Hoffmann" <kraxel@redhat.com>
+CC: Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+	<olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
+	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, Honglei Huang <honghuan@amd.com>
+Subject: [RFC PATCH v10 4/4] drm/virtio: wire blob ioctl creation to userptr objects
+Date: Fri, 6 Nov 2026 16:26:25 +0800
+Message-ID: <20261106082625.812860-5-honghuan@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106082625.812860-1-honghuan@amd.com>
+References: <20261106082625.812860-1-honghuan@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,65 +111,217 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF0001885D:EE_|DM4PR12MB6422:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb8da829-1094-4b26-dfbe-08df3bdfb7ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|22082099003|18002099003|10067099003|11063799006|261102123227099003|261026121527099003|261021123027099003|261021121427099003|56012099006|261009223027099003|261009221727099003|261009221227099003|261009223327099003|261009220027099003;
+X-Microsoft-Antispam-Message-Info:
+	VCzAoSYcl+3nFN/pvTJ079voS1+sIbMqaRMkJrjzeoFoVd/KGt/gUl3EIOnUbZs7uWICNzoag3p/lItjlvdeUd2/VTgo+vGE1AqgaPGIe0D19KTj5M7zJPWsMQsdoXJFoOfNiXnSn70hpqnHOknK1PCiXZeupqGA2oDZGCHg6BdmEdVxRmzDt3YptGQ2nOuDbW0rlreOEscqM24xIrXUBYunhFzzYMzUxNjVAWxBW0ScHn9YuUeZ8NgodeZduceLRfJ39fsgdezIgNaqc9uXSLWMCEDQ1qChYiyk4XMt311/dP+Z4oPFIq+1mymz4FvOSTBgc0jnzcUNEwSjQnAB7Wws+jk4VALjBD74/RyWaQzHCWeu+Xc6h9lGxmfa5C4k7b7zB1ieWJy5jc9vCxiPzrYk2EGUJi1wXAXOqa7oYxNaCGYFW6ZzXmT8mm89SvZ1qnqFdlw/cwiaFBn9kiD6ZnMjUpIZeTuoofwa//Qpyvnn0HffhlRHLAaEKtfbj/3epgCDmgpkG73ljSvO/kepvqBruOW4ygwi4TW0baB/SwSBYiw9Zo32R/M4Owt65j61Y18aB3TvtpBK3qu21CaAsvWrJ2gEOQeUzg9vGLv+QH7V9bTyDNrCdVjz9o3Uc+B5CSpqH2Yf9gKZ43v9NO7vdMKdM+o391cTAp4Sn3RlDFY1CiVpOIMPVRdpIYqmuPv5BAxStBabFioI223kzGdelg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(261102123227099003)(261026121527099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003)(261009221727099003)(261009221227099003)(261009223327099003)(261009220027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	kU94/cpjdrYQ1FRH5Ljdo8SiuljH2nvFZOUHUBiVfBMtyPUS6gWuhSprHROr13vOceg/vJhZFbdV/EyeF7eKgB1KrftPzz8vaKsREix9oNbzWk8HzS9gYgvBTQ/OGsPjY4dry/hhetZL1HzcWpOhZcy4wGnATfagWvn1H2UBDYdby6Ktk31Qv8Iak9Eq744zUe6ZvtzoHRusTmTKsh3wQnv8r5rcPB6qOAojurfeXSCk09lLrrfJJl9wfvIfmAPXHWkYIDmImcd7/jjLyx2/EzRqK/17gtY9OePoSTgfPRUn4OBZZseJSFj2SbfsCPvwh5OBvKQLv+IomRXTeTHM1EqmmThQ4d5VAXXI5bWx5iFeqCoTXGgOCQIOM/dFI+FtBZ4KdXR4pIo/ZCGyJNtBFH1nuJ2rdKMRBpABqleYvAOtRy2gtYnCZ0pWmxireV+B
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 08:26:55.3736
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb8da829-1094-4b26-dfbe-08df3bdfb7ab
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF0001885D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6422
 
-Some NVMe devices need more than 5 seconds to recover after DPC
-containment, but pci_dpc_recovered() waits only 4 seconds.  If the device
-hasn't recovered by then, pciehp reports "device recovery failed" and
-the device is re-enumerated.
+Integrate userptr into the blob resource creation ioctl.
 
-Use PCIE_RESET_READY_POLL_MS (60 seconds) as the timeout so pciehp
-waits as long as pci_dev_wait() does, which is sufficient for all known
-devices.
+- A non-zero userptr selects virtio_gpu_userptr_create()
+- Reject userptr unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
+- Reject VIRTGPU_BLOB_FLAG_USE_READONLY unless the device
+  advertised VIRTIO_GPU_F_BLOB_READONLY
+- Advertise VIRTGPU_PARAM_USERPTR and VIRTGPU_PARAM_BLOB_READONLY
+- Add VIRTIO_GPU_F_BLOB_READONLY to the driver's features[] array
 
-Tested with INNOGRIT NVMe SSD [1dbe:5668] with ACS Fatal error
-injection:
-
-Upstream kernel (7.3.0-master+, 4s timeout):
-  [123.018691] nvme: not ready 1023ms after DPC; waiting
-  [124.106690] nvme: not ready 2047ms after DPC; waiting
-  [125.642703] pciehp: Slot(64): Link Down
-  [126.218696] AER: subordinate device reset failed
-  [126.218700] AER: device recovery failed
-  Device re-enumerated as nvme1
-
-With this patch (60s timeout):
-  [74.894811] nvme: not ready 1023ms after DPC; waiting
-  [75.982813] nvme: not ready 2047ms after DPC; waiting
-  [78.094810] nvme: ready 4095ms after DPC
-  [78.094816] nvme: restart after slot reset
-  [78.111620] AER: device recovery successful
-  Device works normally
-
-Fixes: a97396c6eb13 ("PCI: pciehp: Ignore Link Down/Up caused by DPC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ziyou Wang (Lenovo) <ziyou.dev@foxmail.com>
+Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- drivers/pci/pcie/dpc.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_debugfs.c |  1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.c     |  1 +
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c   | 49 +++++++++++++++++++-----
+ drivers/gpu/drm/virtio/virtgpu_kms.c     |  8 +++-
+ 4 files changed, 47 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/pci/pcie/dpc.c b/drivers/pci/pcie/dpc.c
-index 2b779bd1d861..df1c469fa24c 100644
---- a/drivers/pci/pcie/dpc.c
-+++ b/drivers/pci/pcie/dpc.c
-@@ -116,12 +116,13 @@ bool pci_dpc_recovered(struct pci_dev *pdev)
- 		return false;
+diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+index 3a68a16b58..b8b9b40584 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
++++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
+@@ -55,6 +55,7 @@ static int virtio_gpu_features(struct seq_file *m, void *data)
+ 			    vgdev->has_resource_assign_uuid);
  
- 	/*
--	 * Need a timeout in case DPC never completes due to failure of
--	 * dpc_wait_rp_inactive().  The spec doesn't mandate a time limit,
--	 * but reports indicate that DPC completes within 4 seconds.
-+	 * Wait for DPC recovery completion.  Use PCIE_RESET_READY_POLL_MS
-+	 * (60s) to match pci_dev_wait() timeout.  Some devices need >5 seconds
-+	 * to recover after DPC containment.  The 4 second timeout is too short.
- 	 */
--	wait_event_timeout(dpc_completed_waitqueue, dpc_completed(pdev),
--			   msecs_to_jiffies(4000));
-+	wait_event_timeout(dpc_completed_waitqueue,
-+			   dpc_completed(pdev),
-+			   msecs_to_jiffies(PCIE_RESET_READY_POLL_MS));
+ 	virtio_gpu_add_bool(m, "blob resources", vgdev->has_resource_blob);
++	virtio_gpu_add_bool(m, "blob readonly", vgdev->has_blob_readonly);
+ 	virtio_gpu_add_bool(m, "context init", vgdev->has_context_init);
+ 	virtio_gpu_add_int(m, "cap sets", vgdev->num_capsets);
+ 	virtio_gpu_add_int(m, "scanouts", vgdev->num_scanouts);
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+index 2aaa7cb080..f1edd20c37 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.c
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+@@ -182,6 +182,7 @@ static unsigned int features[] = {
+ 	VIRTIO_GPU_F_RESOURCE_BLOB,
+ 	VIRTIO_GPU_F_CONTEXT_INIT,
+ 	VIRTIO_GPU_F_BLOB_ALIGNMENT,
++	VIRTIO_GPU_F_BLOB_READONLY,
+ };
  
- 	return test_and_clear_bit(PCI_DPC_RECOVERED, &pdev->priv_flags);
+ #ifdef CONFIG_PM_SLEEP
+diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+index 3d8e4ccdb7..e57750588d 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
++++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+@@ -36,7 +36,10 @@
+ 
+ #define VIRTGPU_BLOB_FLAG_USE_MASK (VIRTGPU_BLOB_FLAG_USE_MAPPABLE | \
+ 				    VIRTGPU_BLOB_FLAG_USE_SHAREABLE | \
+-				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE)
++				    VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE | \
++				    VIRTGPU_BLOB_FLAG_USE_READONLY)
++
++#define VIRTGPU_BLOB_HINT_MASK DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING
+ 
+ /* Must be called with &virtio_gpu_fpriv.struct_mutex held. */
+ static void virtio_gpu_create_context_locked(struct virtio_gpu_device *vgdev,
+@@ -122,6 +125,12 @@ static int virtio_gpu_getparam_ioctl(struct drm_device *dev, void *data,
+ 			return -ENOENT;
+ 		value = vgdev->blob_alignment;
+ 		break;
++	case VIRTGPU_PARAM_USERPTR:
++		value = 1;
++		break;
++	case VIRTGPU_PARAM_BLOB_READONLY:
++		value = vgdev->has_blob_readonly ? 1 : 0;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -453,11 +462,23 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+ 	if (rc_blob->blob_flags & ~VIRTGPU_BLOB_FLAG_USE_MASK)
+ 		return -EINVAL;
+ 
++	if (rc_blob->blob_hints & ~VIRTGPU_BLOB_HINT_MASK)
++		return -EINVAL;
++
+ 	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
+ 		if (!vgdev->has_resource_assign_uuid)
+ 			return -EINVAL;
+ 	}
+ 
++	if (rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_READONLY) {
++		if (!vgdev->has_blob_readonly)
++			return -EINVAL;
++	}
++
++	if (rc_blob->userptr &&
++	    rc_blob->blob_mem != VIRTGPU_BLOB_MEM_GUEST)
++		return -EINVAL;
++
+ 	switch (rc_blob->blob_mem) {
+ 	case VIRTGPU_BLOB_MEM_GUEST:
+ 		*guest_blob = true;
+@@ -495,10 +516,15 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+ 	params->blob = true;
+ 	params->blob_flags = rc_blob->blob_flags;
+ 	params->blob_hints = rc_blob->blob_hints;
++	params->userptr = rc_blob->userptr;
+ 
+-	if (vgdev->has_blob_alignment &&
+-	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
+-		return -EINVAL;
++	if (vgdev->has_blob_alignment) {
++		if (!IS_ALIGNED(params->size, vgdev->blob_alignment))
++			return -EINVAL;
++
++		if (!IS_ALIGNED(params->userptr, vgdev->blob_alignment))
++			return -EINVAL;
++	}
+ 
+ 	return 0;
  }
+@@ -518,9 +544,10 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+ 	struct virtio_gpu_fpriv *vfpriv = file->driver_priv;
+ 	struct drm_virtgpu_resource_create_blob *rc_blob = data;
+ 
+-	if (verify_blob(vgdev, vfpriv, &params, rc_blob,
+-			&guest_blob, &host3d_blob))
+-		return -EINVAL;
++	ret = verify_blob(vgdev, vfpriv, &params, rc_blob,
++			  &guest_blob, &host3d_blob);
++	if (ret)
++		return ret;
+ 
+ 	if (vgdev->has_virgl_3d)
+ 		virtio_gpu_create_context(dev, file);
+@@ -538,7 +565,9 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+ 				      vfpriv->ctx_id, NULL, NULL);
+ 	}
+ 
+-	if (guest_blob)
++	if (guest_blob && params.userptr)
++		ret = virtio_gpu_userptr_create(vgdev, file, &params, &bo);
++	else if (guest_blob)
+ 		ret = virtio_gpu_object_create(vgdev, &params, &bo, NULL);
+ 	else if (!guest_blob && host3d_blob)
+ 		ret = virtio_gpu_vram_create(vgdev, &params, &bo);
+@@ -557,14 +586,14 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+ 	if (params.blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
+ 		ret = virtio_gpu_resource_assign_uuid(vgdev, bo);
+ 		if (ret) {
+-			drm_gem_object_release(obj);
++			drm_gem_object_put(obj);
+ 			return ret;
+ 		}
+ 	}
+ 
+ 	ret = drm_gem_handle_create(file, obj, &handle);
+ 	if (ret) {
+-		drm_gem_object_release(obj);
++		drm_gem_object_put(obj);
+ 		return ret;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index 1d4d3bf46a..06c2bded49 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -249,15 +249,19 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+ 		vgdev->blob_alignment = blob_alignment;
+ 	}
+ 
++	if (virtio_has_feature(vgdev->vdev, VIRTIO_GPU_F_BLOB_READONLY))
++		vgdev->has_blob_readonly = true;
++
+ 	DRM_INFO("features: %cvirgl %cedid %cresource_blob %chost_visible",
+ 		 vgdev->has_virgl_3d    ? '+' : '-',
+ 		 vgdev->has_edid        ? '+' : '-',
+ 		 vgdev->has_resource_blob ? '+' : '-',
+ 		 vgdev->has_host_visible ? '+' : '-');
+ 
+-	DRM_INFO("features: %ccontext_init %cblob_alignment\n",
++	DRM_INFO("features: %ccontext_init %cblob_alignment %cblob_readonly\n",
+ 		 vgdev->has_context_init ? '+' : '-',
+-		 vgdev->has_blob_alignment ? '+' : '-');
++		 vgdev->has_blob_alignment ? '+' : '-',
++		 vgdev->has_blob_readonly ? '+' : '-');
+ 
+ 	ret = virtio_gpu_find_vqs(vgdev);
+ 	if (ret) {
 -- 
-2.53.0
+2.34.1
 
