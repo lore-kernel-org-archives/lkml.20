@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929838;
-	b=m3ySHn6FU89SMYM6mcLok1XUx4kISvNcIadz+IFn3LayaUH5bim3TuSUcsAYtTWj+hBy
-	 O2u/j2LnNc0gJV/XF5dDKRD3oNm51z0JHJRN/vbZ5vQviYkf/PU/L5BsPQJfwsquXctO4
-	 NSnDKbtd7YFsJxTsgbiY3GtV/YF4iMJg/MaC67LY2AMw3Z5rdRiHzbDgKhrCbnXAtQaEA
-	 YKLZhmMNp0AYfUr6CRw78bAKyKKO/11rM5KipAGFaOr4C5cJgmhdqQEKZrpNUyUX0T/Tq
-	 Mql+Tu+hnkVMgqve2IoMAx2j9PYhRTg+j2Ocwb4xLMk9J/yI2mn36vcetubEOrrnmPg==
+	t=1793929839;
+	b=5Vgm//HWyHqIqtLznIU6xv/uPH5Ht6EFKZ6Y0KK5h55GurchCV4rn6cT8f6SqjrPdza6
+	 dFx+OI0DXyF5o5ZS08RKy7yutmzI+T09J2clSfXICt2odfKvnzUSh6qH6rKUqIsy9ot7k
+	 1tBrrWo5wzE73IBWj8nyCylpAREwgaiKJYShUDscqvUoiwytDdK5bcYeJzgagmlczjTht
+	 YPsHQ0wbDIkAzlJPF4X6N75Dgd/OG2lhghgWEAZbpMlM3+1duo82fvRdyunRsrn6xZjFN
+	 TCXGN+RLa4F10msahVod8Ylroe8SzSlJd10MSJnN/bJZxQAv2bvlFxsjrKDJ95tRjjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929838;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929839;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4jZpPc3Twsd4wAMcCxc6ikAlk1z7T1HH+IesXoO7C1A=;
-	b=whCNmTrSDPOqlZVP7IS9Sca3jRqivBclLwlrX0cL42F9lQS3x9Bux0h9uTLp4vBT2DqK
-	 bUWTc1pL/b0YXPVtM6AkZeV/UgXIAEwaR+ojNnVUc7Dwqc89I/pJ+WsuwDIqfT+qtxLLI
-	 uAx0R9LKBkdVpmdaL8B724htJQjUs+E9brxwqOia2q+NHo6vc6ZKIeLPevCBQhiDpEGGa
-	 +heEaHgEbKO9MiBBlLob3jS/9KP1OjfqJAO95WSjimHSJyHArr1oskJBfsOEIHCxyJOb1
-	 huahOq+S/OeBW3qEthxTN0yBSWD2GnGqyFPMmzM65ipIbQQPLSYTCLalXca5U4kazGw==
+	bh=Uw3pvDeqeJctiVbObvsq89Lj1ENDX5oEffAYqV7g0bM=;
+	b=RzKke//GDMrE5SIWklEk0ieMVX4Uua8tTL7dJJ7PW9TZL9hkWbOhZXHAy7gPgl4Ec4j1
+	 cmRDYq7IDxFH0ePIxusfzT98HT8Doze0WDTly5o9/ugzfkKzwQwTneCNcBmdzm5SrKPmh
+	 xxoe6OJe295azf6dz+gHBgHr0IohW02XBg81kdw84JlO9dv5ZSSJGvCA1kXbaHIIJH1FY
+	 5uy2vw8SpZvPqopiNtW5fS7XdDyFhOpkv/AUW3586mHBg8OuOL20l3/XpdVN1QFRCfqF6
+	 VYHrRqQ1MPs0HojqcE6JASKGV2WP5sw3w9EDtifeeFWXnhEL2MF4rZzd9DZQM5+SNeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYY3w0yP;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="D4m/G4Nj";
 	arc=none smtp.remote-ip=198.175.65.15
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834AD606D823;
-	Fri,  6 Nov 2026 01:50:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 834AD606D823
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC27606D825;
+	Fri,  6 Nov 2026 01:50:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFC27606D825
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYY3w0yP
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D4m/G4Nj
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793929836; x=1825465836;
+  t=1793929838; x=1825465838;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=r5qKIA7uZgbkgy5XPfpCBooISiECLswmCwtki0TnTy8=;
-  b=mYY3w0yPlhmB1ma90e0TeEJntejVuye38HU5BpavLZZhmejSa8SwnTkq
-   4vv1T1N22N06kxp4bj+z03dms1uNo+MDwV0ZN/k9tr8arG7nFLbDqhWhq
-   6Kh38pmcoQJ5SAWcxQhLAdmVADzal86gNdBw2tkKZfZrIN70sUpY/ExXj
-   DZce3JKupZAWTxY2/JR2SMfpT+ZaKM6MCbKf86qeyXhJ4ryIcGICqnobu
-   g+dzorCmyOiR9DlYa8QV9qmuaOgyV7jSVRV/RYYw06zl+UboxiQiNPbu5
-   vGJ5mtwDhSgS/5DafZ8ZTpGq6tf8guV12e2jfdcSanBpKgvstL/D/XQgS
-   Q==;
-X-CSE-ConnectionGUID: WszNx2vGRbu4jFJ3USHmeg==
-X-CSE-MsgGUID: dizsrJlURRmwfMJ+dqONSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740168"
+  bh=J3LrKTxooHwJ3y5RVu9IcqeeTRodKazOyuyCxNpVL/s=;
+  b=D4m/G4Nja/XWSM8FWwsJBIhbhUSJLZZraZPPO9EL0C8VH8rlLGuGEGgQ
+   zsYtO+Ji8988tDe0vRIV7owZIESYcJhYbCV/0KiLZBW/bp+oo9UgnoYsP
+   80WCaTCLrq95mfB/Q+iEC1VC4nzq2KhjVTys+CueatElSNdJDlQBLO/nQ
+   QP96lk7J7cJDsRjFTmHYcSHs+vK0Ya+GZDJIOZfDAQyLccbRkP0WTw3ms
+   hXzN5P7Z4D8qn2GwCuWugotc8djqS0nKya2hKg4VoE5l+bcfH66bLH5pq
+   UnOk8XET4dpiCwCrqYMKIuk5pUFjg6Q2W/1J8d22ls8aULyZhVJdoU5lZ
+   w==;
+X-CSE-ConnectionGUID: kW/z0tDwRl23Mi1/CEah6g==
+X-CSE-MsgGUID: SBxb3d61SmCBy8rYiCV4Og==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740181"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2740168"
+   d="scan'208";a="2740181"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
   by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
-X-CSE-ConnectionGUID: ZUqNM1zuQ7uDQZqlzzSdGQ==
-X-CSE-MsgGUID: DoomfsTuSVONjpK5zgLxNQ==
+X-CSE-ConnectionGUID: OjSTLzjvQaiyNIwTwLSTFA==
+X-CSE-MsgGUID: ncFWTI8cQ5yn3D5Dn8REeA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7067191"
+   d="scan'208";a="7067199"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
 From: Zide Chen <zide.chen@intel.com>
@@ -77,9 +77,9 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v3 09/18] perf/x86: Remove num_counters_{gp,fixed} from x86_pmu_capability
-Date: Thu,  5 Nov 2026 18:39:18 -0700
-Message-ID: <20261106013927.166209-10-zide.chen@intel.com>
+Subject: [PATCH v3 12/18] KVM: x86/pmu: Emulate IA32_PERF_GLOBAL_INUSE MSR
+Date: Thu,  5 Nov 2026 18:39:21 -0700
+Message-ID: <20261106013927.166209-13-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106013927.166209-1-zide.chen@intel.com>
 References: <20261106013927.166209-1-zide.chen@intel.com>
@@ -94,46 +94,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Intel PerfMon v4 introduces IA32_PERF_GLOBAL_INUSE (0x392) to track
+which counters and the PMI are currently claimed by software agents,
+allowing independent software agents to check counter availability
+without a shared scheduler arbitrating between them.
 
-Now that KVM has switched to bitmap-based PMU capabilities,
-num_counters_{gp,fixed} can be removed from x86_pmu_capability.
+IA32_PERF_GLOBAL_INUSE is a read-only MSR, and any write attempt
+results in a #GP. The MSR is not part of the VM state, so it does
+not need to be advertised to userspace, nor saved and restored during
+live migration.
 
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Always intercept IA32_PERF_GLOBAL_INUSE to prevent the guest from
+erroneously observing filtered fixed counters as idle.
+
+Originally-by: Yang Weijiang <weijiang.yang@intel.com>
 Signed-off-by: Zide Chen <zide.chen@intel.com>
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Jim Mattson <jmattson@google.com>
 ---
- arch/x86/events/core.c            | 2 --
- arch/x86/include/asm/perf_event.h | 2 --
- 2 files changed, 4 deletions(-)
+v3:
+- Split from combined v2 patch into standalone GLOBAL_INUSE patch.
+- Always intercept MSR_CORE_PERF_GLOBAL_INUSE. (Jim)
+- Use '!!' for explicit boolean conversion. (Jim)
+- Relocate PERF_GLOBAL_INUSE_PMI_INUSE to perf_event.h.
 
-diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-index a9b86cecbc78..990d3be5a07f 100644
---- a/arch/x86/events/core.c
-+++ b/arch/x86/events/core.c
-@@ -3156,8 +3156,6 @@ void perf_get_x86_pmu_capability(struct x86_pmu_capability *cap)
- 	 * base PMU holds the correct number of counters for P-cores.
- 	 */
- 	cap->version		= x86_pmu.version;
--	cap->num_counters_gp	= x86_pmu_num_counters(NULL);
--	cap->num_counters_fixed	= x86_pmu_num_counters_fixed(NULL);
- 	cap->cntr_mask64	= x86_pmu.cntr_mask64;
- 	cap->fixed_cntr_mask64	= x86_pmu.fixed_cntr_mask64;
- 	cap->bit_width_gp	= cap->cntr_mask64 ? x86_pmu.cntval_bits : 0;
+v2:
+- Change intel_pmu_get_global_inuse() to return u64, to match the
+  surrounding code style.
+- Add the missing vmcs02 updates for these two MSRs.
+- Change "> 3" to ">= 4" to make the "v4-gated" more obvious and match
+  the existing code style.
+---
+ arch/x86/include/asm/msr-index.h  |  1 +
+ arch/x86/include/asm/perf_event.h |  3 +++
+ arch/x86/kvm/vmx/pmu_intel.c      | 36 +++++++++++++++++++++++++++++++
+ 3 files changed, 40 insertions(+)
+
+diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
+index 30cd04c0ace9..25dda50fbdc1 100644
+--- a/arch/x86/include/asm/msr-index.h
++++ b/arch/x86/include/asm/msr-index.h
+@@ -1242,6 +1242,7 @@
+ #define MSR_CORE_PERF_GLOBAL_CTRL	0x0000038f
+ #define MSR_CORE_PERF_GLOBAL_OVF_CTRL	0x00000390
+ #define MSR_CORE_PERF_GLOBAL_STATUS_SET	0x00000391
++#define MSR_CORE_PERF_GLOBAL_INUSE	0x00000392
+ 
+ #define MSR_PERF_METRICS		0x00000329
+ 
 diff --git a/arch/x86/include/asm/perf_event.h b/arch/x86/include/asm/perf_event.h
-index 190fda412a61..17b0bc7dfce7 100644
+index 17b0bc7dfce7..2937e8a27891 100644
 --- a/arch/x86/include/asm/perf_event.h
 +++ b/arch/x86/include/asm/perf_event.h
-@@ -300,8 +300,6 @@ union cpuid_0x80000022_ebx {
+@@ -454,6 +454,9 @@ static inline bool is_topdown_idx(int idx)
+ #define GLOBAL_STATUS_ARCH_PEBS_THRESHOLD	BIT_ULL(GLOBAL_STATUS_ARCH_PEBS_THRESHOLD_BIT)
+ #define GLOBAL_STATUS_PERF_METRICS_OVF_BIT	48
  
- struct x86_pmu_capability {
- 	int		version;
--	int		num_counters_gp;
--	int		num_counters_fixed;
- 	union {
- 		u64	cntr_mask64;
- 		DECLARE_BITMAP(cntr_mask, X86_PMC_IDX_MAX);
++/* Intel IA32_PERF_GLOBAL_INUSE MSR */
++#define PERF_GLOBAL_INUSE_PMI_INUSE	BIT_ULL(63)
++
+ #define GLOBAL_CTRL_EN_PERF_METRICS		BIT_ULL(48)
+ /*
+  * We model guest LBR event tracing as another fixed-mode PMC like BTS.
+diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
+index e81a3f8b9b02..1372091dc1f8 100644
+--- a/arch/x86/kvm/vmx/pmu_intel.c
++++ b/arch/x86/kvm/vmx/pmu_intel.c
+@@ -198,6 +198,7 @@ static bool intel_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
+ 	case MSR_CORE_PERF_FIXED_CTR_CTRL:
+ 		return kvm_pmu_has_perf_global_ctrl(pmu);
+ 	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
++	case MSR_CORE_PERF_GLOBAL_INUSE:
+ 		return pmu->version >= 4;
+ 	case MSR_IA32_PEBS_ENABLE:
+ 		ret = vcpu_get_perf_capabilities(vcpu) & PERF_CAP_PEBS_FORMAT;
+@@ -346,6 +347,38 @@ static bool intel_pmu_handle_lbr_msrs_access(struct kvm_vcpu *vcpu,
+ 	return true;
+ }
+ 
++static u64 intel_pmu_get_global_inuse(struct kvm_vcpu *vcpu)
++{
++	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
++	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
++	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
++	bool pmi_inuse = false;
++	u64 eventsel, data = 0;
++	u32 fixed_ctrl;
++	int i;
++
++	kvm_for_each_gp_counter(i, gp_mask) {
++		eventsel = pmu->gp_counters[i].eventsel;
++
++		if (eventsel & ARCH_PERFMON_EVENTSEL_EVENT)
++			data |= BIT_ULL(i);
++		pmi_inuse |= !!(eventsel & ARCH_PERFMON_EVENTSEL_INT);
++	}
++	kvm_for_each_fixed_counter(i, fixed_mask) {
++		fixed_ctrl = fixed_ctrl_field(pmu->fixed_ctr_ctrl, i);
++
++		if (fixed_ctrl & (INTEL_FIXED_0_KERNEL | INTEL_FIXED_0_USER))
++			data |= BIT_ULL(KVM_FIXED_PMC_BASE_IDX + i);
++		pmi_inuse |= !!(fixed_ctrl & INTEL_FIXED_0_ENABLE_PMI);
++	}
++	pmi_inuse |= pmu->pebs_enable;
++
++	if (pmi_inuse)
++		data |= PERF_GLOBAL_INUSE_PMI_INUSE;
++
++	return data;
++}
++
+ static int intel_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+ {
+ 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+@@ -356,6 +389,9 @@ static int intel_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+ 	case MSR_CORE_PERF_FIXED_CTR_CTRL:
+ 		msr_info->data = pmu->fixed_ctr_ctrl;
+ 		break;
++	case MSR_CORE_PERF_GLOBAL_INUSE:
++		msr_info->data = intel_pmu_get_global_inuse(vcpu);
++		break;
+ 	case MSR_IA32_PEBS_ENABLE:
+ 		msr_info->data = pmu->pebs_enable;
+ 		break;
 -- 
 2.56.0
 
