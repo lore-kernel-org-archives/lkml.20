@@ -1,71 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951590;
-	b=K1LSHXZjjP6v/BP7A3gDoCpvNjX9qIll6tewJSakjoMfytj4lSCb0IHpDQ6ZXnEq/95V
-	 ajpQFYA9tH8R8ayPx+dD8cMZS97juqrkpQ8Xja3KqbIDri9vbmuZoJahB9vzqVXGdfCjO
-	 +4tEvO/QJdCI9Fzm6gFZ+YwaxBzmmlLUCn1JGJa6cr++C1nOJ+7/+9W9qh8jqAMbWBXSQ
-	 EG6yO6+hJl9ZwWMSaiKZX6eYBA/F4dJbO7Qsp+hjbAButq1NpnWWKs6vlrFVP8j/jydN3
-	 qFBV2N3zfjpBDdhrsB4Ma8Nz8Z1eK68lHhX7ecuOBKutVBvDoDpA0JGVzrZl0ymC0lw==
+	t=1793951599;
+	b=UMBkjQMq/gy0pxspDhissf89BqqNQXOHcPvKZCodS2N7soNHKQ0GqWd/3Pj4h88QqMAn
+	 6umt/8X4qrL1ZBM4mtBayiGh8aZYKcw0Xr9ZQUtED9h6m2ejN8YBRL0vceTZT7E7UaBSR
+	 Afo+OGV+fkQTUbJpUOZ1JgnQn4G3+RLVFflkwRdWue3w2fCPjGZLUiQUcc9BkRJP83Vos
+	 4ApkbqaTndKpRdFQSs8BMI8o3muLx/TDE+wRvIdcAuAnDuvdutITLZgBuYWD85/O9/xs1
+	 /Yp7zvDRl5xTLjABsbjWdNKX1VUGOTW9qbsqJOGtP2ereaeondGNQjkL6wMLVftI3NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951590;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951599;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=kur3oCIADPik00ww6Op7p8ctt5qcVWiVMu2HCk2DBAA=;
-	b=uTwLIRxFyQ/8SdSRFAvaqLSnRoFN+wP14VldZQ8wzstUis2vfVytEPKvrTnJl+Pb1jlC
-	 Fx/EMVlImU0LX0K9KrISR4K6trAvtIgkvbgBG/Be6XcAsqMYTi2fayM+Jax84N4QgSpUf
-	 7DlZHzREq62sIuQDbs05v1/oNxNascPnvtA1FWb1HHr2qAT7FNpvtvpo7vK+DjTSFTCU4
-	 Zq3l+zDgW+YwHQa9EQMob05Lg8kEv2+QNwfnVD9R+kTV8MRYCAmVkQflo3ZeroMYTY5MI
-	 lvPz0+MDgK+pzHxGox8EqhLVMYC5Dbe5K6/cuV5EoTk7pNmoCTJoFU4bFOryWyHweHQ==
+	bh=nfNxFDQT6Xg6nXD5htivaWJyrQFYadRTu+IGG2oGCYk=;
+	b=rcaK0+GfLeZEAL3u+IrFvXsF5lFE0U4Rh9SI3JMfyh464rVTCZdXKWPUqU0vM8ZOzbv1
+	 7i5kVCazqH36cXY36RUjdZTrVDNKqCime+OQcvi5YbW/CLe4t0ipXncZWa4zJxmiLHPcL
+	 oXlb9Wu/l3LePtA1cfrWyLtgttjhcFFI+BNLUEhzowlC9j7wkeJyJz52RsN+SyaNlrI2x
+	 T7dEOLjeZfYfwO969fEWu6HywJdbmNNHAAmnaUmDTesfHl0SScVymE0hn6mLz7VqL9JRz
+	 50YojVP7z3g78d7mnMdKV9jrJX4NvuO9y1pV38PF6fFd/K0D5AsJcWeB6CaWuYTfPlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bsNIcf7U;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F888606A326;
-	Fri,  6 Nov 2026 07:53:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F888606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KDxPs4Z2;
+	arc=none smtp.remote-ip=95.215.58.30
+Received: from mta1.migadu.com (out-30.mta1.migadu.com [95.215.58.30])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AAC606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:53:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30AAC606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bsNIcf7U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=bsNIcf7U6SmZMfz5/dJXiO/7iwMdPzJDDmuQL292m6KtvL2Mh6QYlslXzuYUNgP6MWap97tVkbsSf
-	 y9YmTXRc1QEpvNKOJe/vQjclFjsszjUNPIxqi6IK0EeDpw0ksgjU61Xd/1t5SSZSKdlT7fKISaWjS4
-	 8O/bCq+iwoN3WGUQ=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aed8761cfd-7b6a5;
-	Fri, 06 Nov 2026 15:53:05 +0800 (CST)
-X-RM-TRANSID:2ee66aed8761cfd-7b6a5
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [198.18.0.104] (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16aed875f96d-17b71;
-	Fri, 06 Nov 2026 15:53:05 +0800 (CST)
-X-RM-TRANSID:2ee16aed875f96d-17b71
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Eric Dumazet <edumazet@kernel.org>, David S. Miller <davem@davemloft.net>,
- Alexandru Tachici <alexandru.tachici@analog.com>,
- Ciprian Regus <ciprian.regus@analog.com>,
- Linkui Xiao <xiaolinkui@kylinos.cn>, Heiner Kallweit <hkallweit1@gmail.com>,
- linux-kernel@vger.kernel.org, yana06070@163.com
-Subject: Re: [PATCH net-next] net: ethernet: adi: adin1110: Fix phy_device
- leak in probe_netdevs()
-Date: Fri, 06 Nov 2026 15:53:04 +0800
-Message-ID: <1793951584000.347526.5074428569945602767@cmss.chinamobile.com>
-In-Reply-To: <179395006518.488859.7603845397469844366@kernel.org>
-References: <1793949783000.333861.5224091507677300156@cmss.chinamobile.com>
- <179395006518.488859.7603845397469844366@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KDxPs4Z2
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n7/NfrBJOVijHE2gqo7g667Jx3EWyuJGPjofeyvSjCA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793951595; v=1; x=1794556395;
+ b=KDxPs4Z2vabVQBVf0tgQgIIz5MzW97C8uC4o6yysZtX+Zf4EqovrqFIG/zo1ykYQK5Leb7s/
+ j1qzmCay7xU7pAk4e0L+kUxptql6aRi2PJ2p66nnCCllg0i/NCGewAPukBICYNWd55sNUEQwo6d
+ RIKfh900nymuER2GKrypEP4Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e8ec85b10918d5e0;
+	Fri, 06 Nov 2026 07:53:14 +0000
+X-Mizu-Trace-ID: e8ec85b10918d5e0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9a4323e1-a966-41fe-8268-9d6621346fea@linux.dev>
+Date: Fri, 6 Nov 2026 15:54:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,29 +58,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/5] alloc_tag: Introduce IOCTLs to toggle allocation
+ tracepoints
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Abhishek Bapat <abhishekbapat@google.com>,
+ Suren Baghdasaryan <surenb@google.com>, oe-kbuild-all@lists.linux.dev,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ kernel test robot <lkp@intel.com>
+References: <37ae7dca766994d3872fcc65b623a80d5d506369.1793818636.git.abhishekbapat@google.com>
+ <202611052344.mDV2DB89-lkp@intel.com>
+ <20261105172104.339c6f598a65056ed46e56fc@linux-foundation.org>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <20261105172104.339c6f598a65056ed46e56fc@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/6/26 15:27, netdev-bot+sinfo wrote:
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
->
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
+Hi Andrew
 
-Hi,
+On 2026/11/6 09:21, Andrew Morton wrote:
+> On Thu, 5 Nov 2026 23:15:33 +0800 kernel test robot <lkp@intel.com> wrote:
+> 
+>> Hi Abhishek,
+>>
+>> kernel test robot noticed the following build warnings:
+>>
+>> [auto build test WARNING on bcc036cfa1670a64500f6d857eaa71908b79e3fb]
+>>
+>> url:    https://github.com/intel-lab-lkp/linux/commits/Abhishek-Bapat/alloc_tag-Add-trace-events-for-tracing-allocations/20261104-190336
+>> base:   bcc036cfa1670a64500f6d857eaa71908b79e3fb
+>> patch link:    https://lore.kernel.org/r/37ae7dca766994d3872fcc65b623a80d5d506369.1793818636.git.abhishekbapat%40google.com
+>> patch subject: [PATCH v5 2/5] alloc_tag: Introduce IOCTLs to toggle allocation tracepoints
+>> config: xtensa-randconfig-1001-20261105 (https://download.01.org/0day-ci/archive/20261105/202611052344.mDV2DB89-lkp@intel.com/config)
+>> compiler: xtensa-linux-gcc (GCC) 8.5.0
+>> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611052344.mDV2DB89-lkp@intel.com/reproduce)
+>>
+>> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+>> the same patch/commit), kindly add following tags
+>> | Reported-by: kernel test robot <lkp@intel.com>
+>> | Closes: https://lore.kernel.org/oe-kbuild-all/202611052344.mDV2DB89-lkp@intel.com/
+>>
+>> All warnings (new ones prefixed by >>, old ones prefixed by <<):
+>>
+>>>> WARNING: modpost: vmlinux: section mismatch in reference: alloc_tag_trace_enabled+0x2c (section: .text.unlikely) -> initcall_level_names (section: .init.data)
+> 
+> Thanks.
+> 
+> #syz test
+> 
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Subject: alloc_tag: force inline the allocation tracing check
+> Date: Thu, 05 Nov 2026 17:18:09 -0800
+> 
+> alloc_tag_trace_enabled() is declared inline, but the compiler can
+> still emit an out-of-line copy. Force it inline,
+> 
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202611052344.mDV2DB89-lkp@intel.com/
+> Cc: Abhishek Bapat <abhishekbapat@google.com>
+> Cc: Suren Baghdasaryan <surenb@google.com>
+> Cc: Hao Ge <hao.ge@linux.dev>
+> ---
+> 
+>  include/linux/alloc_tag.h |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> --- a/include/linux/alloc_tag.h~alloc_tag-introduce-ioctls-to-toggle-allocation-tracepoints-fix
+> +++ a/include/linux/alloc_tag.h
+> @@ -161,7 +161,7 @@ static inline bool alloc_tag_is_traced(c
+>  	return !!(atomic_read(&tag->ct.flags) & CODETAG_FLAG_TRACE_ON);
+>  }
+>  
+> -static inline bool alloc_tag_trace_enabled(const struct alloc_tag *tag)
+> +static __always_inline bool alloc_tag_trace_enabled(const struct alloc_tag *tag)
+>  {
+>  	if (static_branch_unlikely(&alloc_tag_trace_key))
+>  		return tag && alloc_tag_is_traced(tag);
+> _
+> 
 
-The leak was not hit at runtime. I found it by code inspection while
-reviewing the MDIO attach paths, as the commit message notes. There is
-no stack trace: the effect would be one struct phy_device allocated
-per port on every probe and never released.
 
-I don't have ADIN1100 or ADIN2111 hardware, so the change is
-compile-tested only, with CONFIG_ADIN1110 enabled on x86_64.
+Thanks a lot for looking at this - and for putting together a fix at all.
 
-Thanks,
-Xia Yan
+Perhaps alloc_tag_is_traced needs the same treatment as well?
 
+Even with your patch applied, I still hit the warning, just attributed to a different symbol:
 
+WARNING: modpost: vmlinux: section mismatch in reference:
+alloc_tag_is_traced+0x10 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
+
+Marking both helpers __always_inline clears the warning in my build, and it would fit what the series
+intends for the fast path anyway.
+
+Thanks
+Best Regards
+Hao
