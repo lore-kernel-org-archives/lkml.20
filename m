@@ -1,121 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979914;
-	b=12ftvkWkUJ5hoKZ0/E6EAQx/JhQSuOFZn+OWNMG6aPjZUTiqo2dJdyCH4BynC/iHA0lO
-	 dzt+U/zMjyJSU4d39HwUWv5VWenu5z2m4Cmvo9PW4fGfqoeO8jPaAbcTmdVM/OXC9YVxs
-	 +vg2fUdwbmEcGA9/G75FOY3T2QpJtoo9h+DwGadGcLraN8hZ/rE3FHhHeN3j1hAS+Am/h
-	 ekvsFcvAe5vu0+gLJ87qAYL1FKagDxvEeg0siNooWpd3OiJl/gmxvNxh18By4fqOHQQYt
-	 5h5G3Ry5Ah3CFUyyG/cVRF3+L8/1q0+20XHMojkbio7+JFJsF9nBdEGLkpDHW4uTXHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979914;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UfVaTeZgwrDZ0aQc6AST8BOEbqRkH0zX7Dg9zJwiP04=;
-	b=e/uSqeMGfOJRGMOBfn1Uyf+DUVDF8ok+ikCiUxtYDLVH6AOXMRrZS5MBJ2V2o8qh4lbs
-	 1vPeVON94j1rXktRQ6ihFAxRwuVgx+jnmHW/IxsjMsdkI6wfdnG1Glp1qffrU5iTkdjPD
-	 heH+fXl8Buij8LR6VMmztot7qe4wtVdYRTEaWCAOdWZsEOVGSp/RWxmQOzcM5Ep4gQgFz
-	 eB77/brWopvl8wWKtFgozVDSjImSKBx0ZxjVtQKw+V9sAhdp6fWD+tpeeKdsYOOH+V18H
-	 g6JAtQeE1B4tuTRzpnt778C5FyNWxS8cQHORARgiLjVkZQ6qi1MvxBjgNVi89ywIU3w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=omelia.org;
-	spf=pass smtp.mailfrom=omelia.org;
-	dkim=pass header.d=omelia.org header.i=@omelia.org header.a=rsa-sha256 header.s=fm2 header.b=IdwMvvHN;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=F0vg7xhW;
-	arc=none smtp.remote-ip=103.168.172.157
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793979917;
+	b=V7/d9/8F0mIAs/NlzAYa4Ce02K4d63dqVjvTPxqJ7f5AL6oiIVTrSjqn/8mF1Ms4EuQW
+	 N/uwSwymGyvepTDnrUK1lxSg61QIYF7Ry5BG00AgORmpKKaPM7ZHdRHvH2jsKRqlUQOGY
+	 UCjZFT1LBr292CwzrJfb38szvGQKEObJvJI3SbcKc6NqdxdyDOnGQRCfVwhLhg6YZmF5p
+	 OZZe2EoaLEspw0tF2hx2oeGt9umvLbHT7hxgW0szhD2MNWcHde7lrYHaGwQbAsaJSnSh9
+	 m/k1CMlge+a+BhcGVwlcGmua++GW7vzaIB+Vlb/CWRd2QBJePCr3TAICU5bv5k7CaOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979917;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=l5tSVn8Mj/CO6j1uR03XuID6rPx5lFsALyBs+/EQOlk=;
+	b=eiZqVBSVRWRDaQHszUYqbJEQog4x8KgbP/v0BsmkN0PVqbKw2dBEAuwxTRL1g+pE7kWT
+	 caRV7+VhQKmVFNCSdcFiMp+naZgj4BWoqLG3abd4/Y0x9RMGzUUvLWdzVOPN4xBw5Hu30
+	 XWG9pLe+MeV6H2dtBdy1ZeMjLU4pHiPhzb4kEMHHYJ31al1aoxT5VeNyCQ3qSfeogsEhh
+	 Odq08GCHWI7oAzV7KzL96uuuGa3NqrX8OterGtAdZNsOz22mPeVgKuWQZI2x+r2Dw3Jhz
+	 0n/TDd9qel2wNSjg2c7EhSdksJUS3FgzyXkwurhym/vY2Da41dFVJASnvCrt48Mikeg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PVCIfsqA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.179
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CD7606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:45:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13CD7606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omelia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omelia.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B29606D807
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:45:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B29606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=omelia.org header.i=@omelia.org header.a=rsa-sha256 header.s=fm2 header.b=IdwMvvHN;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=F0vg7xhW
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 3451314000B5
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:45:13 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Fri, 06 Nov 2026 10:45:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=omelia.org; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1793979913; x=1794066313; bh=UfVaTeZgwrDZ0aQc6AST8
-	BOEbqRkH0zX7Dg9zJwiP04=; b=IdwMvvHNZ5slloVBjsiE05YrhXqaIj6aMo8Nn
-	LZ9EgI9gnKJcHwmV0hJ4KVNCFVVOjxllInfFEd+VLBZdb+Ya+UTr5fZSRfK0MrM1
-	yGT4rxGQsRgJnPxpBUfgk1ZTeykI45KksDG8MWuXCf7X+QO5yfsTh+gFzYrbLiuL
-	EdYzw9TzKxeMeSf7yBvwm65da3slF4JWiIP98a68liZZkQv07L2YL/CF4sIQTpts
-	yFoa9wFtAwJ73KTgBR2AysodrxFtuIeFj2Kly/w6NbfN4U48Wec0HnUSnfThkyjQ
-	A2ruNdfhc5bKjXlV8UFTOuWRyV+PmIQC73b4LMj/v9zxZUTLg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793979913; x=1794066313; bh=UfVaTeZgwrDZ0aQc6AST8BOEbqRkH0zX7Dg
-	9zJwiP04=; b=F0vg7xhWULkwVFuwK1/Xoc86TF+mt7G+RuOa2cQE+RIyfNqOdVM
-	FNGlsvsR1XRuK08JStWEpVN9nT1ivUbnI4OdEgGttNtLQLKUOCDUnCg+bGv3fJFj
-	PWUrOv7YbcoLlqiajNJRDgbMCQ+2w6DK3s7ceWet1btfY229+1LLHcmHeBPcyRLQ
-	tqmDFBlv5BSJ7iW0d1wbpFhQ9fF+inJOSAhSHvL0Q6ToaistmLKRs2iRj8GYqwAc
-	ogPDkYJCBhanUjBl3b/MY9hDO1dQF3zNHWdU28N0+PYA9ey7AGalDq9Fmzs5NQOW
-	GRQ+Vw0PzI2k60aBCJOneF4lEgeAlh4RPAQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=omelia.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793979913; d=omelia.org;
-	mf=PGR1ZmZAb21lbGlhLm9yZz4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:O1erfShD9fRUG8QeKIbv2UAGGRLj9OFnf/KuesgAjcOt8OH
-	ofm5cpELzH0OkQV1/ozkVFU9D0p46WXfSnDwkoT0SvSidaq0ThwGClHwQC6bs7qO
-	TIZb8dhOJ0qZNnATWmUB+yra6d9EZt7HWzh1uaj2InGNva9TZm8t91ufUFTn/9ER
-	6HC4HFgz7XXukNUvyga6Ml3y0gquZNvs5y6n8Y6qSHvUz8j/gKOoOmoeZBxATLbx
-	oSLR72rro7n3++BLHvjfwjRvu+H8QJawLYCio6WYJO/+QxSKQVVmptDzpOEojyJN
-	b/lu5pK9hV2xU3k9qiefQWGNqhwX3mcX4VrapmQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:y194TR9nmW7eWiRcNZlulredUfvED7lV/yt0Pr89vVk=:cU6pyVB2UT6CkMtXrHzDRcNy3Z29vHIDqsoig9ImhGc=;
-X-ME-Sender: <xms:CPbtatz_8s01MKFrr37n1jQG5IWhyZXUHWcJ5jSEXMcNVjAM9_RCMQ>
-    <xme:CPbtat8G1jfIQswtbZbJsm0vdZq2zI15BjTz_ZHd8fZ_ssK4Lk24g02QhrwThTx8l
-    C14VtE2x5_ckrxEOwsu-dXLFuiMBTD_fu_lfBXDz60-ROAS8mwrUPE>
-X-ME-Received: <xmr:CPbtalgblg-62Ln9e23t3FIdFMq-9AoHUTZT64acyhfmV-GDcfFMWwNAfW7qyHczC59sjilo9opGc-uNDLtvhvuOjrCh>
-X-ME-Proxy-Cause: dmFkZTF1OV6dARfuGGKOPJMlxJMnyWlpDHPt00PfnwnC/nPg8o5NeFiAoIL7+maqTBZD++
-    zXaqOquTX4XUqvPDpDcxdVPAjlc1ahjfbKzKFvQ5wjqLA3kN6FVhuM7k9y8NVY4ut6yDFd
-    FsY00XVPFArVAqgmi+DjzrJGKOLFNdcCa6E2Fb0uuokbREzX9GkgkoDaZQqHgvi2dBLFsa
-    NMPpHZAxes6Cppda2TxnWT5e1beXhvzeKeaxe5SyGJwrlc4+fsNBTVgh8c3SKFS0hLlELC
-    V3GMztTYHRLvqGd8Z/kSpWf1INpjC+Cs42znh2rOCafyPnnP4PVaEevgeC91zXS6QNpDcb
-    M9CWEJMqWcy9bZHZBYXvGxMeZQp5IY2xUnXlwTP4scKqYKbRTbtxnUpvGrm0SXI7DMph0v
-    oQTZX+/ewooO071MLRA+gh3k12YHuDGprA5XDvMCDmLYrIYpO6lXqbfwHR2x1q4EeuhXc7
-    BryVGcjQ7HmPZdVqEdyREk3C+y0DS1sCMH4Jnr+xFkE1zDHqieSYBCV6FnZtgz8dyU7PV2
-    zHpFC9WKKh+mAP4W2b4Sataqd9h7puPTfH8ZsBXKHwPylSgiCEH7DEkjNrodL9YNmLrGPa
-    0iJqD4k9Ngi/BBQcDitjo35pUtMLsI4KOWQ2PqF2I2+wDY9brlZYqLxp+IJg
-X-ME-Proxy: <xmx:CPbtakEU6Fb6SjAidZnTAfV0iE5_qsp07gHeuqH_r2tkisABg9c-gw>
-    <xmx:CPbtak9hyQClrXfwKX84nL0D9GBZ7GVCpAfBA7iEAd9asPRYAO_CWw>
-    <xmx:CPbtarxjaAgA3mHketqpdLView39waKf_ciRzXtz9yt6jR2h2iF9Uw>
-    <xmx:CPbtagMd6uqMounVRCHcmPcCYnIBYXAx6mTLEp0PtL0TAoDqvGyXiA>
-    <xmx:CfbtapSvRZf8gxs_bg2AHAIbzq-WtVk8IWzO_WcG_Zp5ajDKiFXBCNLk>
-Feedback-ID: ib28c4082:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 10:45:12 -0500 (EST)
-From: Duff OMelia <duff@omelia.org>
-To: westeri@kernel.org,
-	andreas.noever@gmail.com,
-	YehezkelShB@gmail.com
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imre.deak@intel.com,
-	Duff OMelia <duff@omelia.org>
-Subject: [RFC PATCH] thunderbolt: Tunnel only the first DP OUT of Apple Studio Displays
-Date: Fri,  6 Nov 2026 10:44:45 -0500
-Message-ID: <20261106154445.517940-1-duff@omelia.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PVCIfsqA
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3acf82fdcdbso4009651fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:45:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793979915; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PGqqYn7HhiazK0a1kX1v9UM4aMyWG8umeGanFtecO+S4vSpJQw9qGsjAZmTBnSeHqo
+         k3DvqEKk6ByE1ho0IL6HooEp44thEF5oyPdM9c9aYTbZeIhzjNsMPB5PHgX6twxAAoXq
+         3VHkpjBW7D4vCameWdyL2p653wE3f8Ch8qINYr4v0a3q4qzuG7b4IkLJ07WqT9x9WO2G
+         4ot0W3E1qIs/UjNCMFhaIhiEYXy3n/ega4eiJqUY8hBk9V7Avy50MQ/ldKJ9WQXix2tf
+         4S6YTeUlZZ+pvuPNvFFcB6kwrDdk3e3keVk17qJ9xLWBgmXEqcBacyOOM9xQqsIoudBE
+         K18g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=l5tSVn8Mj/CO6j1uR03XuID6rPx5lFsALyBs+/EQOlk=;
+        fh=eymbRXXNFZ7rvN233pxlb4CIPnO82FXGzobYepGVolg=;
+        b=R67SHUk8AyKHCLwJITq9L7eJ9o1cgXjQwtJMU0LaodGIPqa1VPdjAXBMb9lLPCu0LZ
+         cHRCXvXwwAVJ/oW+sSs/WwAoytNeX28Ak0XYPpao1om7SbJuIrWUfrZibZOerMhA2CXk
+         E8ZqnK1Qc5emYvya90J9WIox9KF+rxsZHnALdeBUt3LQvSc5Fj3Lq3/Ck69LE0k6v7zE
+         HWQgpdkBLebIJAqA9Ke3aTLWAIHxy/4Rd1Hzc5UQsfAafl+89jdFdGglAeCrS5ABtV73
+         3sKkpKyVvMWEmgZfTFS8W0C+tgozEIfcYlFt3GeJMaARXsuuXm3fKrVYwsZukwE9bvAk
+         ZQiw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793979915; x=1794584715; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l5tSVn8Mj/CO6j1uR03XuID6rPx5lFsALyBs+/EQOlk=;
+        b=PVCIfsqAf5aued+4UX32Kej7j7opbHVpjVXl5FZhp8j7wmRx+DasE0lzqCRuCo3clz
+         qpbZownOonc5iRdpEU++sYYh99mbKPzkdcUIBKSCWol08MUuBedGLqibNKlos7VlUh8r
+         7A8x1Glzqk56FB6vNv9Ay8IAYUnQcclrwpbPUNZyW2agundbnQWocEB+qhdWhxiy0Ggk
+         OlnGvRba4fyzYD+DqcHCtBwKjxZ+t+hgEhg38kUVvHd2alHoa4rKFCAGAJ6as4EvXDZb
+         MrDVN32K6YE4CsqwBhQfmd3ez5azKL4hFjGjVZyDnPpHWxOysMEkGFCjyPG47s4ObB3R
+         evmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793979915; x=1794584715;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l5tSVn8Mj/CO6j1uR03XuID6rPx5lFsALyBs+/EQOlk=;
+        b=RhTbKvdwTs9qtLxB01IbCwDY6jezWqqcbZpJzT/Znasr3pOvroxypRw07og3Fa0gDQ
+         zty84VyvqbLbV0jm5FQIWqScKaPEpLjqwLvO5MZlL98/z7GbPywhgp5+zjXbIvoPQqWs
+         J92jwetDnQXHOg9W9AgJsxRxUOrKtiu0BLVL2rPIsITjTf4eZKyVC59h1it44eiPSUKi
+         RZvh/piz+CgE32UwnQhgzcza0khdQLGgayciGks3uN3XlclG65hsK69Ht+ZZ7ZK/HQjY
+         U5esPDJAYo3TBG4mqqlqLTdmF4r4BC3YC5+cgikCdaZWkzb+iSkM8C35xwvoLu0othXV
+         oGjg==
+X-Forwarded-Encrypted: i=1; AKwUvBywn3kV2jJw+4AhPGjgvnq8H1+EexkErZpmXSQb9rmcPfmk/STKJz5DIM0h+O5OBCe0Dar/3BCdkNuS2rg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eDX5YBAGBGwZbGHus0lvzkTlHajn/OWPDwOHdpgxY42Q1K7Q+
+	Fm8mBMsaQnzPstpKAtkWUMv3DxHaY/AHk0zLIxMHC9NNdJaO+qYemCgL9mVKfBV6CeL/VjmjTsb
+	3+z0iQt3IZanzOKYbF1nXDH0EqB+RJtI=
+X-Gm-Gg: AYBFou3tF7VwBvocrY0+jM0+uhJt+Yu1IQLaZDcLcNuVBRdplbwYWt7eQuN6q9Kf8tv
+	5oDJTo53R2hAz/knfbjP+TLYdXp2kt/pgWNUHX3+AWzuke9yiSPO9NUk9kN6K1KMHI0w4v69FeJ
+	e/V5gK1V9z200vn63JYQZg/ZHAiEeKW6TLxUKrxvRBsM/raVblzaK6WaVlcne2dU8pZGVpXd9Bf
+	r31UnGZRsEXTzeN49RsJd8nlqZ+/fRpv5Frij+AYNpdpLQTo+ZJV0O5a9qx43bdccvq2SPWjtgc
+	CUbra1/3aEvxzflgiUsQFtP5vC9Cg0UgxUUTh42X3rzxLNitCc4uNCMlrpSoD+mOQ3IwNbiuR4z
+	MXYwNr7z7g1ZMRappR6/gsqHu9kgCcSV1guHRJBI=
+X-Received: by 2002:a05:651c:1612:b0:3ab:2a19:8624 with SMTP id
+ 38308e7fff4ca-3acf3a11804mr5879131fa.5.1793979914945; Fri, 06 Nov 2026
+ 07:45:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,143 +103,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com> <tencent_173B7731E90B9624F9F82613DC3031B70907@qq.com>
+In-Reply-To: <tencent_173B7731E90B9624F9F82613DC3031B70907@qq.com>
+From: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+Date: Fri, 6 Nov 2026 22:45:02 +0700
+X-Gm-Features: AclHuK-XTflrXNbXUwnG9Gy_4IC-jvOmhlr3UlYx53CWnDfOKCsQP4T4U6VaP7U
+Message-ID: <CAO26r3TMHb=YxzwS7DYDUTS9U454zrq05yC-b8ojva-pAdCsRg@mail.gmail.com>
+Subject: Re: [RFC PATCH v6 0/4] iio: position: add Rust driver for ams AS5600
+To: Shuai Liu <847807867@qq.com>
+Cc: Igor Korotin <igor.korotin@linux.dev>, Danilo Krummrich <dakr@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Mark Brown <broonie@kernel.org>, Brandon StJohn <branstj@gmail.com>, 
+	linux-iio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-An Apple Studio Display presents its 5K panel as a 2x1 tile over two DP
-OUT adapters. The first tile's connector offers the full 5120x2880 mode,
-which the xe driver on my host drives over a single stream. The second
-tile's connector offers only 2560x2880, and nothing uses it there.
+On Tue, 3 Nov 2026 at 16:53, Shuai Liu <847807867@qq.com> wrote:
 
-tb_find_dp_out() treats both adapters alike, so it tunnels both when DP
-IN adapters are free. The second tunnel sits idle but holds a DP IN
-adapter, and with it one of the host's display outputs. A Dell XPS 16
-(DA16260, Panther Lake) has three external outputs, so two Studio
-Displays take all of them. A third is authorized and its USB devices
-work, but it stays dark:
+> 1. clippy warnings
+>
+> `make LLVM=1 CLIPPY=1` reports four warnings on this series, which the
+> Rust CI gates on. Three are `clippy::ptr_as_ptr` in the IIO abstraction
+> and one is `clippy::useless_conversion` in the driver:
+>
+>     --- a/rust/kernel/iio.rs
+>     +++ b/rust/kernel/iio.rs
+>     @@ -202,1 +202,1 @@
+>     -    let priv_ptr = unsafe { (*indio_dev).priv_ as *mut T };
+>     +    let priv_ptr = unsafe { (*indio_dev).priv_.cast::<T>() };
+>
+>     (the same pattern at lines 334 and 397; line 334 is already inside
+>     an unsafe block and just needs `.cast::<T>()`)
+>
+>     --- a/drivers/iio/position/as5600.rs
+>     +++ b/drivers/iio/position/as5600.rs
+>     @@ -133,1 +133,1 @@
+>     -                Ok(IioVal::Int(angle as i32))
+>     +                Ok(IioVal::Int(i32::from(angle)))
 
-  DP-1  enabled   5120x2880       first display, first tile
-  DP-2  disabled  2560x2880 only  first display, second tile
-  DP-3  enabled   5120x2880       second display
+Hi Shuai
 
-Plug order doesn't help, since whichever display connects first takes
-two outputs. The hardware isn't the limit: with Thunderbolt turned off
-in the BIOS, all three run at 5120x2880@60 in DisplayPort alt mode.
+Thanks for catching the Clippy warnings. I reproduced and fixed them,
+and the Clippy build now completes without warnings. I also replaced
+the ignored, AS5600-specific example with a generic `no_run` example,
+which is now compile-checked without being run.
 
-Skip every DP OUT adapter but the first on these displays: vendor 0x1,
-device 0x801f (2022 model) and 0x8025 (2026 model). All three displays
-then run at 5120x2880@60, each on its own output.
+> 2. ignored doctest in the SMBus word helper
+>
+> The example on `smbus_read_word_swapped()` (rust/kernel/i2c.rs:841) is
+> marked "ignore" and references driver-specific facts (the AS5600).
+> Ignored examples are not compiled or run by rusttest, so the helper
+> currently ships with no tested usage. A generic, compilable example
+> works here:
+>
+>     --- a/rust/kernel/i2c.rs
+>     +++ b/rust/kernel/i2c.rs
+>     @@ -841,8 +841,15 @@
+>      /// ```
+>     -/// // AS5600 stores the 12-bit raw angle at command byte 0x0C with its
+>     -/// // high byte first, so the SMBus (low byte first) word result must
+>     -/// // be swapped.
+>     -/// let raw = client.smbus_read_word_swapped(0x0C)?;
+>     -/// # Ok::<(), Error>(())
+>     +/// use kernel::{i2c::I2cClient, prelude::*};
+>     +///
+>     +/// fn read_hi_first_register(client: &I2cClient<kernel::device::Bound>) -> Result<u16> {
+>     +///     // A device whose 16-bit register selected by command byte 0x0C
+>     +///     // transmits the high byte first needs the SMBus (low byte first)
+>     +///     // word swapped.
+>     +///     client.smbus_read_word_swapped(0x0C)
+>     +/// }
+>      /// ```
+>
+> 3. repeated unsafe blocks in the SMBus access helpers
+>
+> Patch 2 implements the `FallibleIoCapable` impls for `u8`/`u16` with
+> five near-identical unsafe blocks wrapping `bindings::i2c_smbus_*`
+> calls plus error conversion. Extracting four small safe helpers would
+> put the safety argument in one place and turn each call site into a
+> one-liner:
+>
+>     fn smbus_read_byte(client: &I2cClient<device::Bound>, reg: u8)
+>         -> Result<u8>;
+>     fn smbus_write_byte(client: &I2cClient<device::Bound>, reg: u8, value: u8)
+>         -> Result;
+>     fn smbus_read_word_data(client: &I2cClient<device::Bound>, reg: u8)
+>         -> Result<u16>;
+>     fn smbus_write_word_data(client: &I2cClient<device::Bound>, reg: u8, value: u16)
+>         -> Result;
+>
+> For example, `io_try_write` for `u8` then reduces to
+> `smbus_write_byte(client, reg, value)`. Happy to send the full diff if
+> that is useful as a starting point.
+>
+> With 1 and 2 applied (and 3 sketched on top), `make LLVM=1 CLIPPY=1
+> drivers/iio/position/as5600.o` builds with no warnings and the rusttest
+> doctests pass.
 
-Commit 49521be4809d ("drm/amd/display: hide Apple Studio Display
-secondary tile") reached the same conclusion for amdgpu, and its panel
-IDs include both models here (0xae3a and 0xae46). It hides the tile from
-userspace, but this driver sets up the tunnel, so it can't free the
-output.
+I also followed your I2C refactoring suggestion and added the four safe
+helpers as methods on `I2cClient<device::Bound>`.
 
-Signed-off-by: Duff OMelia <duff@omelia.org>
----
-This is an RFC because I don't think a device list is the right final
-form, and I'd like your view on a better one:
+Thanks for taking the time to review this. I'll Cc you when I send v7.
 
-- Not every host drives these displays over one stream. Bernd Behler's
-  report [1] has a 2022 model on Arrow Lake with i915 driven as two real
-  tiles, with both tunnels carrying video, and hosts without DSC
-  presumably need both streams too. This patch skips the second tunnel
-  whatever the host, so it could break those setups. I have neither to
-  test. On my host, the tunnels show about 17 Gb/s consumed on the 2022
-  model and 22.5 Gb/s on the 2026 model. Uncompressed 5K at 60 Hz needs
-  at least 21 Gb/s, so I read the 2022 figure as DSC, but I haven't
-  confirmed that from the xe side.
-- The driver could leave the second tile untunneled until the GPU needs
-  it, or tear down an idle tile tunnel when another DP OUT needs a DP
-  IN. I don't know whether it can tell those cases apart.
-- If a device list is acceptable, quirks.c looks like a better home.
-- The Studio Display XDR (device 0x8024) isn't covered, and I don't have
-  one. Dennis Wang's report [2] shows the same two-sink pattern on Panther
-  Lake, and says masking the second sink with video=DP-2:d gives a clean
-  single-stream boot, so a general fix might help there too.
-  49521be4809d also lists panel ID 0xae42, which I can't identify.
+Thanks,
+Coirul
 
-There's no Fixes tag, because I can't point to a commit that broke this.
-
-Testing
-
-Hardware: XPS 16 DA16260 (Core Ultra X9 378H, xe driver) with two 2022
-displays and one 2026 display each directly on the laptop, and a CalDigit
-TS4 behind the 2026 display.
-
-Kernels: run on Omarchy's 7.2.8 and 7.2.15, which carry Thunderbolt
-backports. Not run on mainline. This diff is against thunderbolt.git next,
-where tb.c matches 7.4-rc1.
-
-Built against this tree with W=1 (x86_64 defconfig plus USB4=m, gcc
-16.2.1), with no new warnings. checkpatch --strict has no complaints
-about the code.
-
-Passed, with all three displays back at 5K each time: reboot, cold boot,
-lid-closed boot, s2idle, and unplugging everything and replugging into
-different ports. The displays have been stable in normal use since.
-
-Debug log with the patch:
-
-  thunderbolt 0000:00:0d.3: 701:10: DP OUT in use
-  thunderbolt 0000:00:0d.3: 701:11: skipping spare DP OUT tile
-
-AI assistance
-
-I asked Claude Code (Claude Opus 5.5) to get three displays and the
-TS4's Ethernet working at once. It traced the problem through the driver
-source and kernel logs, wrote this patch, and drafted this email. The
-testing above was on my own hardware.
-
-[1] https://lore.kernel.org/linux-usb/CAM=hwCxiJwODObeut=JcCA8jbu4C-XVEKJpR-y2MnDJibBQyOw@mail.gmail.com/
-[2] https://lore.kernel.org/linux-usb/CAOX-mXs0ZjpiLtviUDqHLrzWh2Dyz+Y9gZUcenW_yV4iQUa=7g@mail.gmail.com/
-
- drivers/thunderbolt/tb.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index 57c11ba..b015a71 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -1862,6 +1862,27 @@ out:
- 	return tb_find_unused_port(sw, TB_TYPE_PCIE_DOWN);
- }
- 
-+/*
-+ * A Studio Display has a DP OUT adapter for each half of its panel, but a
-+ * host can drive the whole 5K panel over the first one alone. Tunneling the
-+ * second only takes a DP IN adapter that another display could have used.
-+ */
-+static bool tb_dp_out_is_spare_tile(struct tb_port *port)
-+{
-+	struct tb_switch *sw = port->sw;
-+	struct tb_port *p;
-+
-+	if (sw->vendor != 0x1 || (sw->device != 0x801f && sw->device != 0x8025))
-+		return false;
-+
-+	tb_switch_for_each_port(sw, p) {
-+		if (tb_port_is_dpout(p))
-+			return p != port;
-+	}
-+
-+	return false;
-+}
-+
- static struct tb_port *tb_find_dp_out(struct tb *tb, struct tb_port *in)
- {
- 	struct tb_port *host_port, *port;
-@@ -1879,6 +1900,11 @@ static struct tb_port *tb_find_dp_out(struct tb *tb, struct tb_port *in)
- 			continue;
- 		}
- 
-+		if (tb_dp_out_is_spare_tile(port)) {
-+			tb_port_dbg(port, "skipping spare DP OUT tile\n");
-+			continue;
-+		}
-+
- 		/* Needs to be on different routers */
- 		if (in->sw == port->sw) {
- 			tb_port_dbg(port, "skipping DP OUT on same router\n");
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> Thanks,
+> Shuai Liu
+>
