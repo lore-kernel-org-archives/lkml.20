@@ -1,47 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985208;
-	b=noeLtBcsUAd/LHe4Sg+RVoaD7py1AruF5q3xOonZyBBVZ0L+hyt0HweeOfevFjv1wz9B
-	 ZLDhk6O3cxpZoPXNyTIysO0vlX1c/tNHY1bj+xXatqppZozp3xFIYGRXkx13ohGd0puaF
-	 6lJZo66Dt1+Ooy56pk+5R1SAiNlLbVQ8doZ27NXsqo3Qxfm9kWQmn5XAyp9lov1TWJWB6
-	 s8tg8W2TwbPbqIQ8Z9OxlXipWUAIo/9zUun6ECXMhQuUKdQK+CCjJj3wF6tfPzq//L7Bc
-	 nQle4YlidrivUCzM4/0X6BGHjGiulnaAkX9yCPladLMtdQWDPVzAwLk76vKf2rCDI/g==
+	t=1793985219;
+	b=J3euo4/xahkm3wEDBJy12hgoL5F6vMeQS1mgBQtoCMn3q2IGkrCAJ5Vxpx6YbNoeiSlX
+	 p/rcs0un/pikzWWwTkqOeiiGs5/axdKmzJkaM0shGoBI/pBBsQhD75XVXrhLvCAhtTV7v
+	 4iA+pZJtqq6YYj4WyEUnn1Shm+LP3eq3m660KZvAgXjPB5egH65ZMQkrLe0v1D1KGbYe8
+	 87e4I9WoXn74KLaCMhdfGuPws7CtZrdDezkk+0npelRJ61kA5PU2LzruPStXYSXEpZwYk
+	 wzAkVwK/kKZ4xMhpI83UyS7n5Mkb72u1QTQXqt8Q+VGuS6uCxswj6UsOHl47dRmYabw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985208;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bPnDFLjtsMX7BueMtx9r8dp1yZvMpehBGipGAVCydqs=;
-	b=XjpuAS7FD3iHWV10EgsIbswLe/cjWnL0P53uZ4nTf8LBN95M40ieIaI4vzZAFLaBThL5
-	 zAqJl/9iHWwXr73GsgZ6BQHJAQf8JERGoiaK16DVFeult3SkyRtk4xgaBcHCmgLKCnnss
-	 0vmlOBBnUHJUXE0oiWoKewZYi1zy7LzqLdth6ej/EKbRYYob0xCnduI67pCpqnPiKBZki
-	 U66rAd5LYLzJ6lcSeuvj1gKYd/yefmIoWlyzXkZpW5uwyLRjOeun+YmKsy49RktkA/qU5
-	 229UYIJ9IqOp35TOfjFke2RVCm3q9p3CMcQXu8+dCHTm9M1JRJCzvS0zkqN4yMlV6Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985219;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=LHA50PMi/3O/NM7XNrwERwdhv6v9CMf3cD5rVc48CVQ=;
+	b=IDBexStUisbeM2pZ4qs7nsjArf4t5sMGl4AL7ocR+LwAGbkiAGJhSXMLvVedywIRipPr
+	 KWFnTF04XRzqkkvMOqCCtPOEWPOkfiTEpgBHX2Y808wJiBKEF0V2TDpOeLMWOL/USzL9l
+	 XrDoP8pUAk/B6g7u/Gim002r958rCfN+X/4EIAxX78YP3f5FtUSibuGW8HmUi3cPuZPr1
+	 ejD81RyhO88wb5YDDVLIbg2M4YN+804Ng3XxXgcj6GuAQ+zxK7NgPQ2BONTH2uPMVJgCU
+	 Aw+7grSuZIQofEJ6iCiM1VCgrDHVRQdlioBNzm50cr+xCiQsXt6VKgTpd9j9lgDPuJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkPI8UND;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA39606A326;
-	Fri,  6 Nov 2026 17:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkPI8UND
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9038F1F0089F;
-	Fri,  6 Nov 2026 17:13:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793985207;
-	bh=bPnDFLjtsMX7BueMtx9r8dp1yZvMpehBGipGAVCydqs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TkPI8UNDklgLg24An0CwLzEX1nUXsMqpKIdUlZ239MrmVy4gbbxjw1PH5hwp9sw1E
-	 aH0VxuxlrEDr4hWf2TQbx17n1vTj2OJEMRY6PR1+BkDwoCEZz5S5UZof9HYnAu2MNv
-	 S0dDRX/8wnisoz3OjNlPaeZvVdq8GiepQUvEiBLk7bLZTw57XQT7cU8fvTiC8gs2/J
-	 3vLeQsabyMMIY7PapuwdmTJekLnHjMoAraVZfWD79iOgYmdQGckzf+Tbmszf4bngg8
-	 VwYakwG2MJpd7hgoJjPQdv7HzjdFJGtOY89OF7dZjE6riU1nsUGTe3Ud+CrZxHLyAn
-	 WeKRm4PWN3yHw==
-Message-ID: <82efa7f5-c5b4-4934-a72d-7399ce52496c@kernel.org>
-Date: Fri, 6 Nov 2026 11:13:23 -0600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9525606A330;
+	Fri,  6 Nov 2026 17:13:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9525606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jLm3g0Yw2z57HS2;
+	Sat, 07 Nov 2026 01:13:35 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl2.zte.com.cn with SMTP id 6A6HDPIr030789;
+	Sat, 7 Nov 2026 01:13:25 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sat, 7 Nov 2026 01:13:28 +0800 (CST)
+X-Zmail-TransId: 2afc6aee0ab8e83-e5dcb
+X-Mailer: Zmail v1.0
+Message-ID: <202611070113282050C-WNjA35gRovBtA5ju-a@zte.com.cn>
+In-Reply-To: <89d84d22-9c75-c49b-a4f7-4682a80187d7@linux.intel.com>
+References: 20261107002305850zuBaVsGBz3wbco2Ae4ScR@zte.com.cn,20261107002311316z2o2PFtFGoXh-VbqXtTGg@zte.com.cn,89d84d22-9c75-c49b-a4f7-4682a80187d7@linux.intel.com
+Date: Sat, 7 Nov 2026 01:13:28 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,134 +58,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Use hibernate callbacks when shutting down the system
-Content-Language: en-US
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Denis Benato <benato.denis96@gmail.com>,
- AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- =?UTF-8?Q?Merthan_Karaka=C5=9F?= <m3rthn.k@gmail.com>,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-pm@vger.kernel.org, Eric Naim <dnaim@cachyos.org>,
- Bartu Alev <bartualev@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Driver Core Devel <driver-core@vger.kernel.org>,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>
-References: <20261102-superm1-s4-at-s5-v1-0-313e0012dd39@kernel.org>
- <CAJZ5v0i07G06GDGX76f3-ppumfNUFD0nTB-Wz8k4PS=Ra13CsA@mail.gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <CAJZ5v0i07G06GDGX76f3-ppumfNUFD0nTB-Wz8k4PS=Ra13CsA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <ilpo.jarvinen@linux.intel.com>
+Cc: <bhelgaas@google.com>, <linux-pci@vger.kernel.org>, <mani@kernel.org>,
+        <kwilczynski@kernel.org>, <lpieralisi@kernel.org>, <kishon@kernel.org>,
+        <Frank.Li@kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCAxLzVdIFBDSTogUmVqZWN0IG5lZ2F0aXZlIHJlc291cmNlIGFsaWdubWVudCBvcmRlcg==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A6HDPIr030789
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Sat, 07 Nov 2026 01:13:35 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEE0ABF.000/4jLm3g0Yw2z57HS2
 
-On 11/6/26 10:57, Rafael J. Wysocki (Intel) wrote:
-> On Mon, Nov 2, 2026 at 2:54 PM Mario Limonciello <superm1@kernel.org> wrote:
->>
->> OEM systems that ship with Linux preloaded need to go through energy
->> certifications that match regulatory bodies in the regions that they
->> will ship.
->>
->> If any of those certifications don't pass then OEMs might not be able
->> to ship systems preloaded in applicable regions.
->>
->> Multiple models of systems are reported to fail in Linux but pass
->> for Windows on the exact same hardware.
->>
->> By looking at a breakdown of power consumption across devices the
->> issue is that some devices aren't turned off when user puts the
->> system into S5 (shutdown).
->>
->> A few years ago when I first root caused this I submitted patches
->> to PCI core to change the PCI policy at shutdown [1].
->>
->> But through various iterations I've come up with a better approach.
->> Instead of changing policy in each subsystem we can instead
->> change our shutdown command to run hibernate callbacks for all hardware.
->>
->> In order to accomplish that the last 17 kernel cycles I've been slowly
->> drippping changes into the hibernate code paths of all subsystems to make
->> sure they behave as intended.
->>
->> Those are all merged as of kernel 7.4-rc1, and thus I am now ready to
->> start using the hibernate codepath at shutdown. This series adds that
->> support.
->>
->> I'm not naïve; there is definitely risk involved with this change as it
->> will essentially affect anything running Linux that gets turned off.
->>
->> To that I will say that I have been running, rebasing and iterating this
->> series on my personal development tree ever since December 2023.
->> Various rolling distro community members have also been testing iterations
->> of these patches in their hardware and distros.
->>
->> I've also put a few guard rails in place:
->>
->> 1. Don't mandate hibernate support. If not compiled with it, just use
->>     previous shutdown paths.
->> 2. If hibernate callback fail, emit a `pr_emerg()` message but fallback
->>     to previous shutdown paths.
->> 3. Offer a kernel command line option `shutdown=legacy` that any affected
->>     user could use to roll back to previous behavior while we root cause
->>     any issues.
->>
->> I did split out the kernel command line option to a second commit.  If we
->> later decide that we want to keep this behavior but drop the rollback knob
->> we can revert that commit.
->>
->> Link: https://lore.kernel.org/linux-pci/20231213182656.6165-1-mario.limonciello@amd.com/#t
-> 
-> I have a couple of concerns regarding this, after looking at the patches.
-> 
-> First off, dpm_suspend_start() seems to be called during shutdown
-> while user space is running.  That is risky because at least some
-> things in the power-off code path assume that user space has been
-> frozen.  I think that freezing tasks, along the lines of what system
-> suspend does, before running dpm_suspend_start(), is requisite or you
-> will get into trouble with people who run fuzzers across shutdown or
-> similar.
+On Fri, 6 Nov 2026, Ilpo Järvinen wrote:
+> Wouldn't it be better to use %u ?
 
-Hmm.  I'll see about adding that to this path, thanks.
-
-> 
-> The other concern is that the "legacy" shutdown should be the default
-> or people will get confused.  Arguably, it is not even necessary to
-> try to change that in many cases.
-> 
-> Of course, this means that the new shutdown arrangement will not be
-> used to start with, so there needs to be a plan to migrate users to
-> this new order and I would start with the systems where it actually is
-> an improvement.
-
-It's improved every system I've tried and measured; but the level of 
-improvement comes down to what hardware is contained.
-
-The most demonstrable improvement comes from systems with dGPUs.
-
-> 
-> I would try to add the shutdown= option upfront in the first patch and
-> make it take one of two options, "classic" (the regular shutdown
-> callbacks) or "pm-aware" (hibernation callbacks etc) with the first
-> one being the default at least to start with.
-> 
-
-OK.
-
-> Then, you can add a DMI quirk table or similar with a list of systems
-> where "pm-aware" works better than "classic" and expand its use going
-> forward.  My expectation would be that, at one point in time, the
-> majority of x86 platforms using ACPI would be better off with
-> "pm-aware" than with "classic", but I'm not sure that this point in
-> time is today.  Beyond that, it is really hard to say how cards will
-> fall.
-
-How would you feel about a heuristic to turn it on for anything with > 1 
-GPU/accelerator for now?  I think that's the biggest bang for the buck 
-right now.
-
-But deciding when/how to turn it on for more systems than that I think 
-is going to require a wider call for testing.
-
+Yes, that's cleaner.  With %u the "-5" is converted to 4294967291 and
+the existing > 63 check rejects it, so the explicit < 0 test is not
+needed.  The error message will print 4294967291 instead of -5; I'll
+update it to %u as well.  I'll fold this into v2.
