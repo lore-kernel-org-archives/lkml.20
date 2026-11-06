@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.191
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957398;
-	b=V2rKjrqBdgTi4LZ/BQG08iRf3sSjYfzkLN4Z/dls/RZB6SiWQUtun1Ci0YrFr8j/jgHG
-	 xsqGhFd7Y92Fh7Eigv1LQUyS63dZEQZSSMj8WCk9jdcdrLbhzLc5GbnNxcAa1AsW8rnuh
-	 KDfAorCQI3tCRJJ7ahtj0jq0FRj8as52V7DZqA0sZdSwxUHUIvzHc+TC1VFpVXHfB2888
-	 eMoHinvlvrxaPCzzdn6I45W9MPIuL/Fosq2wSA296bb4i4S9924bR9H0ltG14Czlsnoxa
-	 ztGMVT3iKsuk2PQeO5j9Hxbpbyd0HBCFoDzIzmJ2e4Mi1IG9L/mwFSXK29McCGwnOoA==
+	t=1793957451;
+	b=CECUDVNIkSy38Ajqdz/AI1t1wrvG0cHhqPlfGSlZ9/S7dGYY09wZEbrUZe7rqy2Js+Xq
+	 t+Jz2ltQdxyhR0Ue0r8fGXO1as5WZfD1UuPIFdrBcmD9LCRLzjZmjDqA5dLStgBEVXqpS
+	 vV+zxz2VW9Oo8197AoclwFfP2o80PTEojD3/7/EWkcwQPVO0e2o+Pw/Wcr5CSV6bJzFzA
+	 id5Zz+XvE7U2LaiEgZfxJXea1mazmb44+H4l5jTxXneDY5o1v1r4mikTJOUTggDnYs9P0
+	 eHAY9dEHraeke6xUhfCObzH5uYxATBpSH5Q3YOjKsgr/W58yWZGPVbb4xbrqZokv6zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957398;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dgVnwcVyRL5r7FbTkKdlbPx0jKtwnlLXDYPwAlo0Rqs=;
-	b=b4/CHE0IlgySq15uYHzZVZ/PnCozlbesQx+hgJdH8ZfRqh0oAupwVdfVOZ9bmHTkBR4Q
-	 15yHO51If+Q36fQktgdoRm3Zqx8lXr6J9AfRL6gonHdFA1N/+ZMhkHVmPFU2r9GvLt38l
-	 TFAUIwwdM/7T6Y3gUhMT1GOxDJLz2dlxWZKhVPzarJQL8okIAN+ZuQS/sV4cLUu8Uj1s+
-	 UK+3xSfh9w02gPAqxFbR/NoCbz2DzdCoygD2T9fF0a0H1V+VFeZ0Ki9GCUeIaiNq4ENS/
-	 NfHFqeNwGF6OYGkZFnP4gqkenNoOSBY+6C1rGRdIAZu2oUNRGiZO5If5PpcNC2TQtvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957451;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=sS9SQlly2RwS/6KrN94iJowJBr0dXwkGaUXpEOiPodI=;
+	b=nPGXoh3A177x6RAgauI2wMlSAv09MYpd6cYeXDaVtGnz4HlXnzTzBviWsW8XqPyZ3T0i
+	 +2oA6s0IZffmXigQctzkSVbw6E4tNJExs4ayIr5O1iag3vfcCAOxI9QW4raTN9Xsu6CZ2
+	 7ut7ybZZLeHM4x6Ijp2olQUCL0tKBRtE+0TFnxs63fko+/CUf0Xf/aCdwydzX1sSYJTxK
+	 VfhU1SeFFHi08Fdl83Iw6KOfOaYSh8YKZLxQG8DUEM7bvmeLwrvyS4IWf0dHt0ZwFCl+R
+	 Q5lQoQlyom1czAbko7f91xlFKEkaHfgls3XEyUEiXTvpz8+rOq623/F9E4JTZDlrAXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JWSD75Qk;
-	arc=none smtp.remote-ip=95.215.58.191
-Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FYjIfABk;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A93B606A333
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:29:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A93B606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96075606A328;
+	Fri,  6 Nov 2026 09:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96075606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JWSD75Qk
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fX4k36rbLJvsBWNAGcXTUmpAPCnDY00gcSOCzvETUGI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793957395; v=1; x=1794562195;
- b=JWSD75QksglvCndpzVxSygCHV94Yc8bj2n5IczJXMqmQaylMbAr5fRxmB/+BISjD4beh7+j7
- wjGCJ9+qRi8JOLoiYDUgDTGFgqZJvi0dDf3CUugKgjW6s+suldIYDiIYVQ6XxpOquLYx7+8/FJe
- VROG9JlTsaBeJXampLQoUryA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0dede42dda7479ec;
-	Fri, 06 Nov 2026 09:29:55 +0000
-X-Mizu-Trace-ID: 0dede42dda7479ec
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <09095de1-3916-43a9-a217-ae8564ba4d4c@linux.dev>
-Date: Fri, 6 Nov 2026 17:29:36 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FYjIfABk
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 6136BC69166;
+	Fri,  6 Nov 2026 09:30:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BB4D25FFBC;
+	Fri,  6 Nov 2026 09:30:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 12D0910329258;
+	Fri,  6 Nov 2026 10:30:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793957438; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=sS9SQlly2RwS/6KrN94iJowJBr0dXwkGaUXpEOiPodI=;
+	b=FYjIfABkowisjeRn+CSvLUTjWLuxx+3kviyjc/anqGF9q9GxCZTgw0wpsJ8FJ8ti6FhDe0
+	L/4Js4Usj3Twoh8hMFsbgA2n+iE1ZjjULyXLoUYhOm6r4EYOFHaFPwRWhTMoUIMXkoASI6
+	WAtAjtqt4nozRJVg5mQLbG1Rfu4vRJj87hVCTTSHic8EROes+yJaPkLLHiQcJB5zjSIJF9
+	s8LPfcfr0EIoXu5LjAaihMo4jqU/8/3yM01epv48Yq8rIYgIH648tUnK7J77TfsUi+L4Y1
+	VxGozQieYhe0nmIyWgS+OpgjlDIKTSbs3oztQTFJsFrXy6HYjVT/GK4JwNdv8g==
+From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Subject: [PATCH 00/25] riscv: add support for the Metanoia MT2824 SoC and
+ MT5824 EVB
+Date: Fri, 06 Nov 2026 10:29:57 +0100
+Message-Id: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,219 +63,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio
- sizes
-Content-Language: en-US
-To: baolin.wang@linux.alibaba.com
-Cc: baohua@kernel.org, akpm@linux-foundation.org, david@kernel.org,
- ljs@kernel.org, riel@surriel.com, liam@infradead.org, vbabka@kernel.org,
- harry@kernel.org, jannh@google.com, qi.zheng@linux.dev, pfalcato@suse.de,
- ayushr@modal.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <453e2c18-4e79-4db2-b565-1af881925f08@linux.alibaba.com>
- <20261106091510.67980-1-lance.yang@linux.dev>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <20261106091510.67980-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIABae7WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0Mz3dwSIwsjE11jo0Rz80QjE0NzSwsloOKCotS0zAqwQdGxEH5xaVJ
+ WanIJSLdSbS0ArD81RGoAAAA=
+X-Change-ID: 20261016-mt2824-32a77a241798
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Ben Zong-You Xie <ben717@andestech.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>, 
+ Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Minas Harutyunyan <hminas@synopsys.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ =?utf-8?q?Randolph_Sheng-Kai_Lin=28=E6=9E=97=E8=81=96=E5=87=B1=29?= <randolph@andestech.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ linux-mmc@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi all,
 
+This series adds initial upstream support for the Metanoia MT2824 SoC
+and its MT5824 evaluation board.
 
-On 2026/11/6 17:15, Lance Yang wrote:
-> 
-> On Fri, Nov 06, 2026 at 04:54:44PM +0800, Baolin Wang wrote:
->>
->>
->> On 11/6/26 2:24 PM, Barry Song wrote:
->>> On Thu, Nov 5, 2026 at 5:00 PM Baolin Wang
->>> <baolin.wang@linux.alibaba.com> wrote:
->>>>
->>>> CC Barry, who added the TTU_SYNC in shrink_folio_list().
->>>>
->>>> On 11/5/26 1:48 PM, Lance Yang wrote:
->>>>>
->>>>>
->>>>> On 2026/11/5 12:54, Lance Yang wrote:
->>>>>>
->>>>>> On Thu, Nov 05, 2026 at 10:56:28AM +0800, Baolin Wang wrote:
->>>>>>> Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing
->>>>>>> mapped
->>>>>>> folios"), the '!pmd_present()' check in page_vma_mapped_walk() can
->>>>>>> also race
->>>>>>> with concurrent page table reclamation via zap_empty_pte_table().
->>>>>>
->>>>>> Good catch!
->>>>>>
->>>>>>> page_vma_mapped_walk() is used by many functions including
->>>>>>> try_to_unmap(),
->>>>>>> try_to_migrate(), folio_mkclean(), pfn_mkclean_range(),
->>>>>>> remove_migration_ptes(),
->>>>>>> page_mapped_in_vma(), and mapping_wrprotect_range(). Except for
->>>>>>> try_to_unmap()
->>>>>>> and try_to_migrate(), the other callers do not perform post-walk
->>>>>>> accounting
->>>>>>> checks, so the race has no observable impact on them.
->>>>>>>
->>>>>>> For migration, the race can cause unnecessary retries. For reclaim via
->>>>>>> try_to_unmap(), the race can cause failure to reclaim a folio that is in
->>>>>>> fact already unmapped (as shown below), which may lead to unexpected OOM
->>>>>>> or increased refaults.
->>>>>>>
->>>>>>> CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
->>>>>>> --------------------------------    --------------------------------
->>>>>>> folio_lock(F)
->>>>>>> try_to_unmap(F, TTU_SYNC)
->>>>>>>                                       zap_pte_range(full PMD range)
->>>>>>>                                         spin_lock(ptl)
->>>>>>>                                         clear PTEs
->>>>>>>                                         zap_empty_pte_table()
->>>>>>>                                           spin_trylock(pml)
->>>>>>>                                           pmd_clear()
->>>>>>>                                           spin_unlock(pml)
->>>>>>>
->>>>>>>     page_vma_mapped_walk()
->>>>>>>       observe !pmd_present(pmde)
->>>>>>>       nr_pages < HPAGE_PMD_NR
->>>>>>>       skip synchronization
->>>>>>>       return false
->>>>>>>
->>>>>>> try_to_unmap() returns
->>>>>>> folio_mapped(F) == true
->>>>>>> nr_unmap_fail += folio_nr_pages(F)
->>>>>>>                                       tlb_flush_mmu_tlbonly()
->>>>>>>                                       tlb_flush_rmaps()
->>>>>>>                                         remove F's rmaps
->>>>>>>                                       spin_unlock(ptl)
->>>>>>>
->>>>>>> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
->>>>>>> folios")
->>>>>>> has already moved the PMD clear operation (via zap_empty_pte_table()) to
->>>>>>> after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs to
->>>>>>> use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
->>>>>>> issues on weakly ordered CPUs.
->>>>>>>
->>>>>>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in
->>>>>>> madvise(MADV_DONTNEED)")
->>>>>>> Cc: stable@vger.kernel.org
->>>>>>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
->>>>>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->>>>>>> ---
->>>>>>> mm/page_vma_mapped.c | 5 +----
->>>>>>> 1 file changed, 1 insertion(+), 4 deletions(-)
->>>>>>>
->>>>>>> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->>>>>>> index e6b6170c2f4f..8797467b6f0c 100644
->>>>>>> --- a/mm/page_vma_mapped.c
->>>>>>> +++ b/mm/page_vma_mapped.c
->>>>>>> @@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct
->>>>>>> page_vma_mapped_walk *pvmw)
->>>>>>>               spin_unlock(pvmw->ptl);
->>>>>>>               pvmw->ptl = NULL;
->>>>>>>           } else if (!pmd_present(pmde)) {
->>>>>>> -            if ((pvmw->flags & PVMW_SYNC) &&
->>>>>>> -                thp_vma_suitable_order(vma, pvmw->address,
->>>>>>> -                           PMD_ORDER) &&
->>>>>>> -                (pvmw->nr_pages >= HPAGE_PMD_NR))
->>>>>>> +            if (pvmw->flags & PVMW_SYNC)
->>>>>>
->>>>>> Right. Whether the folio can be PMD-mapped doesn't tell us whether its
->>>>>> PTE table can be reclaimed, so those extra checks can skip
->>>>>> synchronization
->>>>>> that the caller explicitly asked for ;)
->>>>>
->>>>> Ouch ... one thing I missed ... what about order-0 reclaim?
->>>>>
->>>>> shrink_folio_list() only sets TTU_SYNC for large folio, so can't we still
->>>>> hit the same race there?
->>>>
->>>> Thanks Lance. But this matches the purpose of the TTU_SYNC flag, which
->>>> is used to avoid racy checks with PVMW_SYNC. If no TTU_SYNC flag is set,
->>>> it means the caller can tolerate some racy checks.
->>>>
->>>> For this case, I think we should set TTU_SYNC unconditionally in
->>>> shrink_folio_list(). Barry, what do you think?
->>>
->>> Baolin, thanks for reaching out to me. I added that flag
->>> mainly for large folios.
->>>
->>> I observed cases where PTEs for large folios are partially
->>> cleared during certain transition states, for example, when
->>> PTEs are cleared before being modified:
->>>
->>> pte = ptep_get_and_clear();
->>> pte modification;
->>> set_pte_at();
->>>
->>> In such cases, page_vma_mapped_walk() skips the empty
->>> entries and starts from the next valid one.
->>>
->>> This may result in partially unmapping PTEs for large folios
->>> and trigger unexpected folio splits. At the time, I was
->>> particularly concerned about unnecessary folio splitting,
->>> so my focus was mainly on large folios.
->>
->> Thanks for the information.
->>
->>> However, I also noticed that a similar race can occur with
->>> small folios. In that case, the folio may simply remain
->>> unreclaimed by the reclamation path.
->>>
->>> However, my main concern at the time was avoiding
->>> unnecessary folio splits.
->>>
->>> Your new race also seems to amplify the same situation.
->>> However, I don't think this problem necessarily depends on
->>> the commit you mentioned. It has been around for a long time.
->>
->> Agree.
->>
->>> If the concern is reclaim failure, I agree that there is no
->>> fundamental difference between large folios and small folios.
->>
->> OK. And I did a quick measurement to reclaim anon and file folios via
->> the memory.reclaim interface.
->>
->>  From test results, reclaiming 1G small anonymous folios (using zram as
->> swap) shows no significant performance change. However, reclaiming 1G
->> mapped clean small file folios does show an observable regression if the
->> TTU_SYNC flag is set.
->>
->> Without TTU_SYNC for small folios:
->> time echo 1G > /sys/fs/cgroup/test/memory.reclaim
->> real	0m0.178s
->> user	0m0.000s
->> sys	0m0.178s
->>
->> With TTU_SYNC for small folios:
->> real	0m0.315s
->> user	0m0.000s
->> sys	0m0.314s
-> 
-> Nice numbers, cool!
-> 
->> So for the current patch, I'd prefer to keep things as is: only sync
->> when TTU_SYNC is set. Without setting the TTU_SYNC flag, keep the
->> original logic, meaning the caller can tolerate some racy checks.
->>
->> Any other thoughts?
-> 
-> One thing I want to pin down first, for the order-0 folios, was that run
-> with TTU_SYNC going through the pmd lock, or did it already go the
-> smp_rmb() way?
-> 
-> My guess is the first one, right?
-> 
-> If so, please keep the fix as is and only sync when the caller asks for
-> it (at least, order-0 folios should not go the pmd lock way) :D
+The MT2824 is a dual-core RISC-V SoC built on Andes AX45MP cores. It
+integrates two 8250-compatible UARTs, the Andes PLIC/PLICSW/PLMT interrupt
+and timer blocks, the AX45MP L2 cache controller, a simple reset controller
+and a system reboot controller, the ATCWDT200 watchdog, one QSPI and eight
+ATCSPI200 SPI controllers, a Synopsys DWC MSHC 2.00a eMMC/SD controller,
+and a Synopsys DWC2 USB2 host controller with a reset-only USB2 PHY.
 
-In addition:
+The series is organised as:
 
-For order-0 folios, we'd miss reclaim and reactivate a cold folio.
+- patches 1-14 add the device tree bindings, the Metanoia vendor prefix,
+  the RISC-V board schema and the SoC block compatibles
+- patch 15 adds ARCH_METANOIA and selects the AX45MP errata
+- patches 16-23 add the reset, SPI, watchdog, MMC, PHY and USB changes
+  needed to build and probe on this SoC
+- patch 24 adds the MT2824 SoC and MT5824 EVB device trees
+- patch 25 adds the MAINTAINERS entry
 
-That doesn't sound too bad, especially for such a rare race.
+The ATCSPI200 driver gains optional interrupt support for PIO transfers:
+when the controller IRQ is wired, the FIFOs and the end of transfer
+are serviced from the handler, with a fallback to polling when no IRQ
+is available.
 
-so keeping the current behavior seems reasonable given the sync
-overhead ;)
+The DWC MSHC controller on the evaluation board is wired to either an
+SD slot or an eMMC through a board jumper that the SoC cannot read. In
+the absence of a fixed card type in the device tree, the driver probes
+the eMMC first at 1.8 V and falls back to the SD slot at 3.3 V. The
+controller also needs custom tuning and HS400 PHY DLL handling, which
+is why it has its own sdhci_ops.
 
-> Cheers, Lance
+The MT2824 SoC contains other controllers not yet exposed (I2C, GPIO,
+pinctrl, Ethernet, DSP, ...). This first series allows accessing the
+evaluation board via its serial console, and all its storage options
+(SPI-NOR, eMMC, SD card). The watchdog and the USB port are also
+available.
+
+The driver changes do not depend on the DTS at build time and are gated
+on the new compatible strings. For merge ordering, the DTS depends on the
+ARCH_METANOIA Kconfig entry (patch 15) and on the binding compatibles
+being accepted. The patches can therefore go through their respective
+subsystem trees, with the Kconfig, DTS and MAINTAINERS patches going
+through the RISC-V tree once the driver and binding patches have landed.
+
+The series is based on v7.4-rc1.
+
+Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
+---
+Benoît Monin (25):
+      dt-bindings: vendor-prefixes: add Metanoia Communications
+      dt-bindings: riscv: add Metanoia SoC-based boards
+      dt-bindings: reset: add Metanoia MT2824
+      dt-bindings: power: reset: add Metanoia MT2824 reboot
+      dt-bindings: phy: add Metanoia USB2 PHY
+      dt-bindings: cache: andestech,ax45mp-cache: add MT2824 compatible
+      dt-bindings: interrupt-controller: sifive,plic-1.0.0: add Metanoia MT2824
+      dt-bindings: interrupt-controller: andestech,plicsw: add Metanoia MT2824
+      dt-bindings: timer: andestech,plmt0: add Metanoia MT2824
+      dt-bindings: mmc: snps,dwcmshc-sdhci: add Metanoia MT2824
+      dt-bindings: spi: andestech,ae350-spi: make DMA and interrupts optional
+      dt-bindings: spi: andestech,ae350-spi: add Metanoia MT2824
+      dt-bindings: usb: dwc2: add Metanoia MT2824
+      dt-bindings: watchdog: andestech,ae350-wdt: add Metanoia MT2824
+      riscv: add ARCH_METANOIA Kconfig entry
+      reset: simple: add Metanoia MT2824 support
+      spi: atcspi200: add optional interrupt support
+      spi: atcspi200: allow building for Metanoia SoCs
+      watchdog: atcwdt200: allow building for Metanoia SoCs
+      mmc: sdhci-of-dwcmshc: add MT2824 support
+      mmc: sdhci-of-dwcmshc: add MT2824 tuning and HS400 support
+      phy: metanoia: add USB2 PHY driver
+      usb: dwc2: add support for Metanoia MT2824
+      riscv: add Metanoia MT2824 SoC and MT5824 EVB support
+      MAINTAINERS: add RISC-V Metanoia SoC support
+
+ .../bindings/cache/andestech,ax45mp-cache.yaml     |   1 +
+ .../interrupt-controller/andestech,plicsw.yaml     |   1 +
+ .../interrupt-controller/sifive,plic-1.0.0.yaml    |   1 +
+ .../bindings/mmc/snps,dwcmshc-sdhci.yaml           |   1 +
+ .../devicetree/bindings/phy/metanoia,usb2-phy.yaml |  43 ++
+ .../bindings/power/reset/metanoia,reboot.yaml      |  34 +
+ .../devicetree/bindings/reset/metanoia,reset.yaml  |  40 ++
+ .../devicetree/bindings/riscv/metanoia.yaml        |  25 +
+ .../bindings/spi/andestech,ae350-spi.yaml          |   9 +-
+ .../devicetree/bindings/timer/andestech,plmt0.yaml |   1 +
+ Documentation/devicetree/bindings/usb/dwc2.yaml    |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ .../bindings/watchdog/andestech,ae350-wdt.yaml     |   1 +
+ MAINTAINERS                                        |  11 +
+ arch/riscv/Kconfig.socs                            |   8 +
+ arch/riscv/boot/dts/Makefile                       |   1 +
+ arch/riscv/boot/dts/metanoia/Makefile              |   2 +
+ arch/riscv/boot/dts/metanoia/mt2824.dtsi           | 330 ++++++++++
+ arch/riscv/boot/dts/metanoia/mt5824-evb.dts        |  81 +++
+ drivers/mmc/host/Kconfig                           |   1 +
+ drivers/mmc/host/sdhci-of-dwcmshc.c                | 704 +++++++++++++++++++++
+ drivers/phy/Kconfig                                |   1 +
+ drivers/phy/Makefile                               |   1 +
+ drivers/phy/metanoia/Kconfig                       |  16 +
+ drivers/phy/metanoia/Makefile                      |   3 +
+ drivers/phy/metanoia/phy-usb2.c                    |  88 +++
+ drivers/reset/Kconfig                              |   2 +-
+ drivers/reset/reset-simple.c                       |   1 +
+ drivers/spi/Kconfig                                |   2 +-
+ drivers/spi/spi-atcspi200.c                        | 255 +++++++-
+ drivers/usb/dwc2/params.c                          |  13 +
+ drivers/watchdog/Kconfig                           |   2 +-
+ 32 files changed, 1667 insertions(+), 15 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261016-mt2824-32a77a241798
+
+Best regards,
+--  
+Benoît Monin, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
