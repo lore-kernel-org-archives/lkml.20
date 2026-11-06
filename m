@@ -1,63 +1,81 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793991547;
-	b=fFOoxpjOvIv1R8JBULdRGpksqn/C3JkYfDTUqKIVV0i4fJ9GCLqyYveE73PLNDtf6dKE
-	 px+6sNK0WwusFh2x1anb1A/kazuCtf9Up9WSA8qD4M0eGGGdBr4YNVsN4gVEo47WwVmYf
-	 1a8smadN6Wg63oe/B97NbBgRMcfS/sM5hPO8bhHz/40Zt/vp4VToeGHULOwjrk84y+ocV
-	 DgQFHZvioHF/spy3uDImd1Ej+CyLeqpb22UeThV46y8JlJGSmb391OyZI3gwvZHBvJjNg
-	 mFhRkuxrP+fH56Db9w7uGvLy8Xa02mtxHoN78gfPQQ5ZiGsfXmwhrfdMoZ7wFUJaJwA==
+	t=1793991607;
+	b=NEx7VmJpVCkuxzSPXffFC6gJkUdPMIr18fn9pLUrOrnbaZJsjJO16kYWajMMsTf8F/P6
+	 ll1mqx73A34J8ntGWADSF7DkCKWnsBqlW61GgkvtnYr+Y2cn6YutzdY+5sTJ5gNhv1KaO
+	 EYtBJLEcLOcNg4PEOLjoaRsSrqOz5FwaPXa+8ldTjpes15fvTUxCoCgRp1tiwgpZgTwZY
+	 oKrBHA3Bxs6BQnwpCqqWnAlvu+yxJjepxmhTYYncjeosey1FtsCzPJevVrW7C5zZheTyb
+	 vTLE3DR3dgGmunY6azuzyqQRqhMpBTZIA1dddXpo6pB6WI3kqLDkoqr6wmsoUqbjlhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793991547;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793991607;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hh1wVIGhMUtDEqA1RGRXhLPsq4X7xlZOf5Yg/x7bTfA=;
-	b=l6z4xcUeeIqwDBSNLsJeTNWGQL+C2Ls13UbRnPQbugAepOQDrC1S7lhsn253ozXQGuu3
-	 ffiAs613WNeYAipgNwMudEmmzJhUyeLu+KKO3mDaiT40qIqpd4Wa4TRbLzuVlh0We2rMH
-	 cVZ7lOn9jUueepSWzJpqI57UcYCdW0AgiEb8p28O8bK1+Y2MX9xo/K2jw7I3/Xu8Qkyv5
-	 GwLxILhZsB/2H6MyiBnEhVBJbFF9Lc0FhP3ZkNGL/b4kAPTGewEzUWumj1XvFfpBjxK9h
-	 1ZYkHQmqOL8WF4PeAsuN0vpdVL61C14X6P+c+KT8rWRdrLFukYQgEibbRRs2laL6BrA==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=uOUk0mG5r+SgoWX7aRafh4J2ITZ//eSF94S2lwXLaPw=;
+	b=HeQ71Bxeb8xQPpHx5xS8XlSYlMfaLqkckXzu2jUYXjX3YJnyHIJqxQyrS7K7pRu2S4TL
+	 x3qKOw8hBIg1ivuaCfkuojsFi44WXrGU2ze2fFveUrOYrsx+geNX9+zPsDBNnI7dzr5gU
+	 dpO3GrVDDRmADSNF9wcrcWxTfScJ5jJ7ulwsBb1tJVcV/mtJeo5b0CPF3xSu7+Fby01o+
+	 0c711J+iDlYbyu/vjT8KplamPcWS03iNcfqjttdo6SwHb//cynJ0a8DV5ZLBO9le6FYW4
+	 kzIz08xjPhmwsqsOv29ox6x/xsUpKQCdqd+rxN+/olHPJPUx9JXo6Ycp62tXrzdxsAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lRWqtfp+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQwh4m9h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53638606A326;
-	Fri,  6 Nov 2026 18:59:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 67A2A606A32D;
+	Fri,  6 Nov 2026 19:00:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lRWqtfp+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC261F0089F;
-	Fri,  6 Nov 2026 18:59:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQwh4m9h
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 76CDA1F0089F;
+	Fri,  6 Nov 2026 19:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793991547;
-	bh=hh1wVIGhMUtDEqA1RGRXhLPsq4X7xlZOf5Yg/x7bTfA=;
+	s=k20260515; t=1793991607;
+	bh=uOUk0mG5r+SgoWX7aRafh4J2ITZ//eSF94S2lwXLaPw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lRWqtfp+1D498aBxxNnJJyG9ECqg+f/OfZ3IbBN3x25p6pxG/EdBJjp5O3EH94agq
-	 G4S0/LF+z79xECrP3fyX7gwClgYK0RzJw9f9N3wi0e0o5s3jvO7ePlzSAmsak8VDRD
-	 cUAdhEjJNEeQNF9q55IQx6OW5BBMj3KUGC7Vi2Sms6yntczCqpkTI4QcgPvgc0I1bk
-	 zsTMLn/IvdjcnbQ3thc+emgG+L4sMVxWznkDRqMTFCVLh+O0aQo9ygdXuBfAX5QygY
-	 XjXntwjXrnaRLax/wGU7yepiBQjqQ+XjzW3GXqjj4bp31h0zvRrYlfnNosyp/tcgJt
-	 Y06IpJ3ja+I/A==
-Date: Fri, 6 Nov 2026 10:59:05 -0800
-From: Oliver Upton <oupton@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Fuad Tabba <tabba@google.com>, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] KVM: arm64: Allocate a protected vCPU's SVE state at
- EL2
-Message-ID: <au4jeecA_FIk_yPT@kernel.org>
-References: <20261105130456.1617185-1-fuad.tabba@linux.dev>
- <20261105130456.1617185-3-fuad.tabba@linux.dev>
- <au4TsO50x7BcFYpi@google.com>
+	b=IQwh4m9hNISCWCqJGObw3tNSNtIIdVaKp2O6yDGXbbyYonDrcJiSB1ixXCH6/oDVA
+	 L/YHuHxP2oVoZuxguwRYkwTIXJ5k19WSrarYmQVxvDtS5UrTMeCIImuTwstVT8QZHP
+	 z/14bBFWqijotc5s/LB2WfKtXwFi7IwO8DbisU7duHKytVzKdqZNUb4ShP3VPTIxR+
+	 5UrVkgjp21U58j83f/PGOzaCY+JYvMF/sIIdPIPJqt5HyA4dy6riPwfhLwfKPicpj5
+	 38yMdzR8eeS34I9ZtV9pIWflhy+5cRCvE4KZdSpLLNAbnrOcvwk5UO1mwCzWTizxLP
+	 NhHlnxOIL+wqA==
+Date: Fri, 6 Nov 2026 21:00:02 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Ignat Korchagin <ignat@linux.win>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>, Lukas Wunner <lukas@wunner.de>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	"open list:ASYMMETRIC KEYS" <linux-crypto@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:DEVICE-MAPPER (LVM)" <dm-devel@lists.linux.dev>,
+	"open list:FSVERITY: READ-ONLY FILE-BASED AUTHENTICITY PRO..." <fsverity@lists.linux.dev>,
+	"open list:BPF [GENERAL] (Safe Dynamic Programs and Tools)" <bpf@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH v4 1/3] KEYS: Introduce keyring_is_empty()
+Message-ID: <au4jsjwXP2JxEARl@kernel.org>
+References: <20261029232437.2581640-1-jarkko@kernel.org>
+ <20261029232437.2581640-2-jarkko@kernel.org>
+ <CAOs+rJVNyJwqp4CR-d_T4GVjNMjgbaDL78_mZCVGGvN1xpd33w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,61 +85,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <au4TsO50x7BcFYpi@google.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOs+rJVNyJwqp4CR-d_T4GVjNMjgbaDL78_mZCVGGvN1xpd33w@mail.gmail.com>
 
-On Fri, Nov 06, 2026 at 05:51:44PM +0000, Vincent Donnefort wrote:
-> > @@ -1243,6 +1253,9 @@ int pkvm_reset_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
-> >  			    PSCI_0_2_AFFINITY_LEVEL_ON) != PSCI_0_2_AFFINITY_LEVEL_ON_PENDING)
-> >  		return -ECANCELED;
-> >  
-> > +	if (vcpu_has_sve(&hyp_vcpu->vcpu))
-> > +		memset(hyp_vcpu->vcpu.arch.sve_state, 0, vcpu_sve_state_size(&hyp_vcpu->vcpu));
-> > +
+On Fri, Nov 06, 2026 at 06:29:56PM +0000, Ignat Korchagin wrote:
+> On Thu, Oct 29, 2026 at 11:25 PM Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> >
+> > Introduce keyring_is_empty() in order to decouple for BPF, dm-verity and
+> > fs-verity how keyring internally manages the keys.
+> >
+> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 > 
-> Why wasn't this line around before?
+> Reviewed-by: Ignat Korchagin <ignat@linux.win>
 
-Prior to this series SVE was only supported in non-protected guests, so
-the host was responsible for resetting SVE state.
+Thank you.
 
-Now that we have pVM support we need to reset state for protected
-vCPUs.
-
-Thanks,
-Oliver
-
-> >  	kvm_reset_vcpu_core(&hyp_vcpu->vcpu);
-> >  	kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
-> >  
-> > diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-> > index 32e82653ebf7e..06ea91415ad8b 100644
-> > --- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-> > +++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-> > @@ -570,6 +570,7 @@ static const struct sys_reg_desc_reset pvm_sys_reg_reset_vals[] = {
-> >  	RESET_UNKNOWN(MAIR_EL1),
-> >  	RESET_ZERO(AMAIR_EL1),
-> >  	RESET_ZERO(MDSCR_EL1),
-> > +	RESET_ZERO(ZCR_EL1),
-> >  	RESET_ZERO(CNTV_CTL_EL0),
-> >  	RESET_UNKNOWN(TTBR0_EL1),
-> >  	RESET_UNKNOWN(TTBR1_EL1),
-> > diff --git a/arch/arm64/kvm/reset.c b/arch/arm64/kvm/reset.c
-> > index 10eb7249aa9e8..aaaa1b8634ba4 100644
-> > --- a/arch/arm64/kvm/reset.c
-> > +++ b/arch/arm64/kvm/reset.c
-> > @@ -52,6 +52,8 @@ int __init kvm_arm_init_sve(void)
-> >  		if (WARN_ON(kvm_sve_max_vl > VL_ARCH_MAX))
-> >  			kvm_sve_max_vl = VL_ARCH_MAX;
-> >  
-> > +		kvm_nvhe_sym(kvm_sve_max_vl) = kvm_sve_max_vl;
-> > +
-> >  		/*
-> >  		 * Don't even try to make use of vector lengths that
-> >  		 * aren't available on all CPUs, for now:
-> > -- 
-> > 2.47.3
-> > 
-> 
-> -- 
-> Vincent
+Br, Jarkko
