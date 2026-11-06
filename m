@@ -1,47 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949036;
-	b=pXpqRGyFahtLCO7tbCTYQJLdwzDblRD6HG0Yc6Aw3WFsu+pIa6o4cbkr12BCJDI7DQt2
-	 E3UGUyuM5tXu5dxq8j6em0+4h7ZlKVGzsXAgD03aOxsgS+pmNWoRD9tMHNdQUeOv38Xsz
-	 HV+RUXxA0dCEe2kFet44pI7i/NSFLCpEJTEtiCyasAsPfM8cpr3l4YZtmUih8k9IZTdzt
-	 UaO7sNqEwcqfX1Z2YxmrhYKRom3BMKuSmkqfXk7HZyW1SB0d/wo9TBMIF2BzSrLexUsO5
-	 7dwrlbugv0kzz2z6HGpkAukAf6xpatjY2boXkqrJ8BbZzIkHFbac91QldxYa/yz8APQ==
+	t=1793949056;
+	b=3AkvssQ/SYZQqzRryU+nbNfRVpw9d28vUX3CuWGhaG2EpOSiCHsK7DYzZP83WlI7s94m
+	 YCQUHNQsIOsZp7kOI7nwAOikKNN4huMte7nO49Dk/odxV4o8DamDwH+D8Wsg8frL/Wlfc
+	 RGdvsUCfrG2mQl9C0mwgpxTRN8vGWDh0ma5U3hAyVrorkUvGGvNItC8X0JjLPKkv0johD
+	 vDQETJoBsTq/1pdGkHObwPti9ozoozMo3Ta/3DMo45gMUYQLUKwHL1ZSfD2Zbnr/SlTyZ
+	 0GbnYlzAZ0BhnELt5gtHRCQfONMmtlHUZZJWbp/zB9Y7pL2J2aFnT3gtXJun7qw65Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949036;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jB1eS3zovx2XZRj7BNck9E/I5e41fmBpX4HYw72ugqk=;
-	b=vmn/cm1fRwzTy2aFHO5JmOSmCRT83Dc8ugHBvfhehGDJqEalZ44bF3z/TfBAEMME0KpP
-	 NdEMF7ffxGBwdwP+9t3DCTA4vWwZjGr6J4/+v6LqTj6eFo+gBF7lEn8jKmaaJRSK8Ny00
-	 utnzwQuJhj8fXCS9HiHvY+PpGlWEXRAfAGdvzFn84jhIiN4VNSpJnRXQBwbESe/kFnP8g
-	 ZtdBk65cjLwWZPrvm32xJgiW6k2gXiAiDUZnWs4+elCJsh6iEhtZYmTbd/oid4VNb4a6W
-	 jAG+6FYThHVCIImPO/6ouSJJk773liP6rsp3RMXlhBXs+QutuBgKEdtbDnf7HwaV/nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949056;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:Message-ID:Subject:From:To:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-MTK;
+	bh=GDx8yrSUZQtOXGwB9S0pld6gi71CG5ajteuuC4N0NiI=;
+	b=jo5KfnjfViBOA/MBpWy1vC7clX+wvWUD/ds6lrz6aVMOSQ6i+RECryR0OMxca0N86+0G
+	 yqWPFVYrn5rXGU00ySxnehuBQLneeg0pbjao0U6a0bd3NqDorSXOvEP3uPL1MnBd36g0L
+	 rkgusLbh0svwKv5to8J4BZDnNawn4EWScC9naiup/jqCGOiLl2yRiyhYgBRT/UmX9wKPG
+	 NLlJFQ2WeGVV6ObNrEInx9Bnm39eDvnKG+4psdDZoAxBXrZiYGYlYbQBRjJlz5GxNeVfv
+	 MfXj0DuqH/etRTE2JSBTzfiL7LrO1jU+nHisuG+Kv69U3lRs7ZnkyHcOYXCfWbfwXXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ma4sKe9e;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=eFdIm9Np;
+	arc=none smtp.remote-ip=60.244.123.138
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D4A606A32E;
-	Fri,  6 Nov 2026 07:10:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B53606A32C;
+	Fri,  6 Nov 2026 07:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15B53606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ma4sKe9e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8749F1F0089F;
-	Fri,  6 Nov 2026 07:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793949035;
-	bh=jB1eS3zovx2XZRj7BNck9E/I5e41fmBpX4HYw72ugqk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ma4sKe9enyVoF4T4XfLXZJ4y3oiyACF+P+c0oYuavGpLaYuUcDxiuskZyXC5PYV8D
-	 H856VAKN/c9YBHEcS3F1xceAVon5zsusq0d+ORSAw/Sxud4jO+4numgWJUrsHfTRzP
-	 SGn/bSquwMQz4k0kjS5Xx1BWe5vRLOmQrkPQCNL9+sN/tSh6aJEIOtEnkWONJQW0LX
-	 QnyP8Hp1EkoHECqA7XzGIYWCK/FA+ekAZ0d/GJtht0RuqpC77hQxY0rPaQF83Sy3GW
-	 vXd3ww7+lJbh02M/4u2nPMa94vXcurVQr28MMh5hdbdTJs1tJW8HGmI5pqU+ZICDti
-	 /5jlcrey8IqDw==
-Message-ID: <042ae3b4-4f83-43cf-a1d8-a35d3abc9e1d@kernel.org>
-Date: Fri, 6 Nov 2026 08:10:31 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=eFdIm9Np
+X-UUID: 32933266d9b111f1b1788b6acf885367-20261106
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:To:From:Subject:Message-ID; bh=GDx8yrSUZQtOXGwB9S0pld6gi71CG5ajteuuC4N0NiI=;
+	b=eFdIm9NpDTbL+311HJUX5dbCrEHGyzc4zJCM1M1VQ3oh7zgRe31oNyPNS0VOA8Hl2zB5i9wlGirtS96xYf04v6Bu+AXYpvltxxVvzOWYP2xttZMRsGfCBCibG91a/BzJHxkunyjOpwLdROJql9JkNYbYMyROnl797+4/eZPGOlI=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:c5f9c54b-a76a-40bb-abde-a626a826bd67,IP:0,U
+	RL:0,TC:0,Content:2,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:2
+X-CID-META: VersionHash:b0318ac,CLOUDID:1c3174bb-4006-44bb-949c-6e25a7b8dad4,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
+	ent:4|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
+	nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 32933266d9b111f1b1788b6acf885367-20261106
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw01.mediatek.com
+	(envelope-from <peter.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 271690412; Fri, 06 Nov 2026 15:10:50 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 6 Nov 2026 15:10:49 +0800
+Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Fri, 6 Nov 2026 15:10:49 +0800
+Message-ID: <9cf963e66f0e08efa9996b53d6b2f38eacd9c98a.camel@mediatek.com>
+Subject: Re: [PATCH v6 2/3] scsi: ufs: core: Limit early link recovery in
+ the error handler to runtime PM
+From: Peter Wang <peter.wang@mediatek.com>
+To: HOYOUNG SEO <hy50.seo@samsung.com>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bvanassche@acm.org>, <mkp@kernel.org>,
+	<martin.petersen@oracle.com>, <stanleyjhu@google.com>,
+	<alim.akhtar@samsung.com>, <kwangwon.min@samsung.com>,
+	<kwmad.kim@samsung.com>, <cpgs@samsung.com>, <h10.kim@samsung.com>
+Date: Fri, 6 Nov 2026 15:10:49 +0800
+In-Reply-To: <e25861e1983785d6d96e4db40f6c175bc3d091d1.1793931113.git.hy50.seo@samsung.com>
+References: <cover.1793931113.git.hy50.seo@samsung.com>
+	 <CGME20261106022020epcas2p2af29bc4d81ede559c5a74076721aba7f@epcas2p2.samsung.com>
+	 <e25861e1983785d6d96e4db40f6c175bc3d091d1.1793931113.git.hy50.seo@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,81 +89,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] EDAC/i3200: drop the PCI device reference on module exit
-To: Wentao Liang <vulab@iscas.ac.cn>, Borislav Petkov <bp@alien8.de>
-Cc: tony.luck@intel.com, linux-edac@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261104033833.1566974-1-vulab@iscas.ac.cn>
- <20261105194529.GAauzc2axWPncLCpVo@fat_crate.local>
- <179393571491.2060286.9429869566285761831@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <179393571491.2060286.9429869566285761831@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MTK: N
 
-On 06/11/2026 04:28, Wentao Liang wrote:
-> Hi Boris,
-> 
-> Sorry for the late reply, and for the mess it caused.
-> 
-> Thank you for telling me that the EDAC i3200 driver is orphaned. I will stop
-> working on this driver and will not send patches for orphaned EDAC drivers
-> again.
-> 
-> In particular, thank you for pointing out the Assisted-by guidance and the
-> problem with my submission process. This is an important lesson for me. I
+On Fri, 2026-11-06 at 11:15 +0900, HOYOUNG SEO wrote:
+> ufshcd_err_handler() recovers the link without taking hba->host_sem
+> whenever hba->pm_op_in_progress is set. That early path was added by
+> commit f966e02ae521 ("scsi: ufs: core: Fix runtime suspend error
+> deadlock") because the regular error handling would wait for a
+> runtime
+> PM operation that cannot complete while the error handler is waiting.
+>=20
+> pm_op_in_progress is also set during system suspend, system resume
+> and
+> shutdown, where the early path is not needed and runs concurrently
+> with
+> the PM path itself. For example, if a LINERESET is reported and the
+> hibern8 exit fails in __ufshcd_wl_resume() during system resume, both
+> ufshcd_err_handler() and __ufshcd_wl_resume() call
+> ufshcd_link_recovery(), and the host and the device may be reset at
+> the
+> same time.
+>=20
 
-And 30 minutes later you send the same crap?
+Hi HOYOUNG,
 
-https://lore.kernel.org/all/179393727482.2060666.9057920361892304525@iscas.ac.cn/
+Since ufshcd_err_handler already calls ufshcd_link_recovery,
+wouldn=E2=80=99t it be better if __ufshcd_wl_resume just triggers=20
+the err handler and waits for the kworker to finish,
+rather than calling ufshcd_link_recovery directly?
 
-So how was it an important lesson? What did you learn? You just ignored
-everything, just like you did week and weeks ago.
+Thanks
+Peter
 
-Best regards,
-Krzysztof
