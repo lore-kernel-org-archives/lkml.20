@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958683;
-	b=mZ/rNAAn6JsQibwK5lb2i8+sXLhT7IBbqULmuUMhOB9Zy0l7byXbsGh6mHE/S4Kn9Ju2
-	 gH94lxOa14KuvxRVy7KCrGQiN0NbRDUvQl0UOWgHW/mJaFcdgaubqz1r5rKaLONlVCvtM
-	 5Yo2Sz0YJdJm8qjSlKIvv4+Wv4+grLcojhidn5a0s7kly5WBvPJuZA3efon0Z7uLYyoJZ
-	 f37SGshaZ4pwQqfs5hJrdDayhLoLoIqIltFHtNR8Y9WaWzR5pouU2RtViwH2QgOKDTQGr
-	 MC38epIrsk7eqInb5VERjXh5hgzgH/pScSuBeaSlO06QCpeLFDE6Uv5PbzQczwRQaew==
+	t=1793958789;
+	b=N/5Iqd1NSjiYu5gayjqK3YSQOJzk+MGsFoZZ9B2lclcIMxyaHS+NOQt6hnx7onuTNtQC
+	 n+KG8lAdGxRGkKkDFWIS8YpXVWk5Xv4qHmgAXwWXiS6MUj5Z9FzTt8zSgsYC6okPt5Ckx
+	 PLiHO0Iu0/Uv4md4I0u5+iMKp6UFR5/cREyWuQyd5wmagWK5Y+zmKcq7C4coFrWy9YkAi
+	 /AMoYuBFslBAdtqRzyCornXn8F3t764vg01apwFwOABmVrjvskewtd4aZKkZikAGvkDKs
+	 ho1eHis7OuDxUCTyn0i5VWM3dn61eWfHZWntBK1efCtx3L+RZs9U3qRZu8bzB9n8HUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958683;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958789;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZKuqEEIUloaDKks8AnObg5jLkIg+139qL0t5VZAu9ww=;
-	b=0c56CFWFtRhrQGbuJ3Fb+o54sbDo2/V61Mw2C96LndygHjCli5PvAa7lI6QU5Dm5MWl0
-	 8ctZfX1cgBYBtpLHvUV9ukPkNzE55uF89T9Towtic8GuUaDcXVAZoWSBkW5a/G/r0sCWN
-	 hAgVuNFUP44At1THeffRQKXjcgoufZw3PuC9WZFHbrf3x/Jo9XIABQtTdlmikSGf/RCaK
-	 neGs0iplT+aJISfvVlI9MJDMnrYgLuVL1+Ur9EJCcYdnu1CawTNOG8LbAuaB2Nc/cxBEY
-	 q5WXqC8w1POoqNn/32wjhNJm62HiN+VSYZhFfImabIcoCBV0LNOHbiNZFXor3VJtthQ==
+	bh=KWd33QHj1KyW14bW4rGiw3FQ3MhReLvouK1usu+yNIs=;
+	b=wSG+Z+TG4iDdPfDRkv8QP/I4xrgtLCbzPMEFDWNvAZg3dFl0ZXC4rweKl2Xn7BmrTWXq
+	 T47u3hbPG7a4l3HfLmwRHNt20YY3/Mw+vg2ms5haUQr7hB7Ja9tIwhLjYgomK9vgRfyaN
+	 WP9mR9rsi5jXoGoTu57Dr8oMSyqzwgxrAGZYH9Qb8bSjjB4wPYg9pgND3nat33TCCyo+J
+	 waEu1clO8THH22h7pLqNf7p3e945ISSSzRpSRD9R5c2VfFID2w2MQN9RXfP9Q7OHp9ASk
+	 wlj4S/MxOJg38yOQXV7b6wFhvZmArnGkAS/G/kbAtH3BRyPMBozTU5Ej4w/EoavThqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyNQbxxD;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SlVKcEWA;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235F5606A33D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:51:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 235F5606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13CD606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:53:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D13CD606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyNQbxxD
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ea7190aea1so1567005ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:51:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SlVKcEWA
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so176293b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:53:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793958682; x=1794563482; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793958788; x=1794563588; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZKuqEEIUloaDKks8AnObg5jLkIg+139qL0t5VZAu9ww=;
-        b=wyNQbxxDUhMGZu0OrP5JfdUttvmMPzDHm5uw8oxiIXO3EhaRIMqHlkcsxfh2QQ6N2R
-         Pu9FKSbMZGG2yR+Og3T0JjclKeUrgRE3g9LwHN4BLt0gQ67NmwdmaxnmxsV9PyAHFbNL
-         jhyT4do+w7ezAk/bwDT5vOo+4Us9AohdwPLm3qHWdqfGIwzSwYU7QngYiFkFsRdUpX5b
-         6F3CJWOE39aFkHa/LHbxT4vF8t/Qqipr21PutfvU82VyZXsYkSWnP4g3kMEY3B2/qU37
-         vjjB3GMYcFXjCQ/1s0K4kYEu4GJjEHN2o0AvEqEUyFMTA0Wndzv8QrwtIKaxUCZI0bj/
-         Pbmg==
+        bh=KWd33QHj1KyW14bW4rGiw3FQ3MhReLvouK1usu+yNIs=;
+        b=SlVKcEWAPJNtmi9HH8Qv08HmSSynRxHaWjuxDpbWNe5n0ZKzoAdfPNGD+O7i5pIq11
+         8fzKDv4qzaJWgAMurG0BVb6tIQEF9FLzpsEbQs9o5ZeXDfgKxgL8QLZ9Racp0hfZJTej
+         8jfGhFGP8K0GNr0PZmy382qbi5+XcHN0FgQI6mbn0dc+BqUqCt/a6m0w+HZVHOh6CPoh
+         pTjZ2BM+7fmkMwmWoibE8Mrs795ajXt1COuAytmJgfo3/wZM0sxWX9slv2+YR5FDGYzW
+         JcGz9cvGE1p3Besrah1o3asmlduuqqyGRjUdZZfRDP0nVUEzvvB0R3T2lyt6yYdPpWMg
+         aQHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793958682; x=1794563482;
+        d=1e100.net; s=20260707; t=1793958788; x=1794563588;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZKuqEEIUloaDKks8AnObg5jLkIg+139qL0t5VZAu9ww=;
-        b=r4tp+8VcNWQPMPthwN9/GQivGod4YA3177hPIr06UhedTLpA2ikuivJaBAyuzpm+IE
-         iI2wp03Q5/Tc4bL0pUh64DhsUSCAeoy8pP9qq6ZGinPYQ7/it7LiNIyev6nccLWrrPUj
-         2+ouenP1Zi8Ja7D6fGV7BuFq6QVrdcnAL+NrZ299LGNerXOU9PqO1Zl2klphFiLOLT3w
-         vCzF+Kg4h7JaQO6Mu6pTvXBfwJG44D3QWbvT71ar6ccKIA8ElR0q1rJl/WPgVkyvZ0rj
-         5aKq7GcGqpRWNMqdL2/w0PDdjlEp98cV3fF5V/lpj6IVnsrGABhwwILVCQeogD2sTWXZ
-         FjWw==
-X-Forwarded-Encrypted: i=1; AL+hErFieMwYVFrdCD/rFgo7Quw3d0ThJSWXE3eG5JtaeSauwsRZGL4uGlY5h0BUvbXtL3ItN24e4RSTRpLgy/U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qNnPcv9MRMc5Tmj8qUpqXnl/6Ty9YWr+RV69uD+KoMsv7YP8z
-	YpiOUr20ul1wabK1B/xL7aftC1+0WoQQjb1VE2zCCHGgRF+iQlrcw/TnifOeO+yG
-X-Gm-Gg: AYBFou1eq6bOvCYpYp/Uy57QrtuiQkC8dG2FY74TXoyFcQBMy/VVz6Lj7/vI/S86vpN
-	ylvHfnR1sw9YBFKv4pLypbMBA7nl5gUpLh95AONSeW8N/99yUlowBPYgR9NP7EOliBpBIqLt8V7
-	KGiBDM/WAOUo3eokUPP3z0UcAzUrZ9+oWsAuUjYyPEFgGeEx/tmVfUHMdxYcX8+ntlqN52E/m/r
-	vlhdJWFjsZgrpvwG9PfSaL7JHsNl/huZD7nNm4xg4xQKTNPKwtXSI+SdXvoL0sQ+7srXv/JDVDB
-	8k9obPrYAXv82vTTN+DNMybuxqYTCRgxyDLwOMANFqs+y0LolYVvuV5zDeK9mWBHUs2bs2le3q/
-	YOXOPUljsvET+0RJAY7ihkSpf9BMaB9cI+49fX2BMCLOL5R7Ez76y/gFvmgd4CuplheGABBhcff
-	0I/ooi/hX8SXm25rZx8fSzZcH7v4C4XxkTbx/9tXG0wPJNhpsQUkGNf1fla/JCyYotfBRDUwUe4
-	7XuCka8nTusLUKtmo3t+r5E1VqRkN97UF1wGfXMEdAHLlzUYmZmchWczmPhj55jswb81UlsI+zf
-	7GgUm1y6pMNh4Pgvfyonpzc/I0PZKeeYvZ3BP90kujYr9oP3
-X-Received: by 2002:a17:903:191:b0:2ed:188d:3016 with SMTP id d9443c01a7336-2ed40e228dbmr21444695ad.73.1793958682380;
-        Fri, 06 Nov 2026 01:51:22 -0800 (PST)
+        bh=KWd33QHj1KyW14bW4rGiw3FQ3MhReLvouK1usu+yNIs=;
+        b=qWej88w9PmXFzV6Eso+22+eWEvSKJTazQPPqRbhEshrztx+GEN7SqIMcXijBY9VhoK
+         HToLisi/gsALf3A5mTUca9nGViDzZaB6ed7bdgxr6aSgJ+VNqnIIrIUhZyesZwgEa6br
+         z3u0AkRzIHPLbrmrzl+Cfs3bFHF6Z/cLl8sKcz5F8tBflgzpuvIDHhHSvClI/in/+9yy
+         X6rG42ynUdI2FvkiYkjJB1IEaH1nGdLs9ErlmImEIHm19NQmtZaqBJsfgpg+092zb0ig
+         1RHvtQNEJuyuo/yT9kFAhmbcoieVL2pMInyCCcaSvpFSnPWRc/m0qPr9e+UpiD65bNzB
+         aV8Q==
+X-Forwarded-Encrypted: i=1; AKwUvByLHS4F0p2DUScHcxTe7+fJzcw35ztdxtOMxBq73VZYBYgidchtbDnbum3ooXgPDtBcynNxzOLKu9Mno34=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zLp9m1iJ4S7CKJANYRMcK7YdSPoL9idQrRpE1haMAUGpuTxoD
+	ImJTk/0EuZNWsl/VcjTMsl4s2ANdv0t+O2xHdCCJRRXgW2H1seIaPqo7AzCumIsG
+X-Gm-Gg: AYBFou1TJBCL9CGeQErUHjHVgXvb0MAOaakchpN20nYeM+DcM0Hc1lq8HmWPKL2eDz4
+	217Ay1uLuQKiFiPrrx1inyDGkZIqVgclhikQ2tZjAC7fuYjvg0XvBsjXa2J0FcUReBacEwPEbsW
+	Zlvl+a0H/ygFveuao9X4fbg0gy5vZsY6B1b4bN4p//qzJyX/R5taoR5PviGGmIGAdArS+g21viI
+	fQ/+HXhntcR24CLlylOWzx3I6j4C4mX2/urnobksfgBvxH8On84fqLHoV3PIB/3LsLIF1tzF1X7
+	1yTv+8nqMd6sNk9YwKbHuUsBWa1u1erGM8fDznYHrR7HyxYWwpF6axP7YWml1SJNskaSGJ9DpCI
+	tP/ydipOsR7DXy/TeEa1/0XZnrr1DZ7oV3bGIEhf7Z2Mj4zBfCGaFJLgMmBdXSM6tARUf+oyEBM
+	gVErPCqMFex+PS5KxIWLOdUBwQFDuDsqtXF4F1S9z88DFO26H7qudIrOex0s+g5mEfyNcN310RA
+	W+fpf+Y4J3uNem81pjqHu+8kBjDZ92AftfJ64YkRec9Eygtu+EWPtR+IIhX5jGFlTFkrw71mw2l
+	hrqZF75PIt57Bgs3u81+Mai36LyzqxJCIQ53SrQ2u99kOXxL
+X-Received: by 2002:a05:6a00:f95:b0:878:34d7:69b2 with SMTP id d2e1a72fcca58-8b37cc0a6bamr1752697b3a.57.1793958788061;
+        Fri, 06 Nov 2026 01:53:08 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47da40absm3636085ad.75.2026.11.06.01.51.20
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b35aa98162sm468581b3a.56.2026.11.06.01.53.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:51:21 -0800 (PST)
+        Fri, 06 Nov 2026 01:53:07 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
-To: David Woodhouse <dwmw2@infradead.org>,
-	Richard Weinberger <richard@nod.at>
-Cc: linux-mtd@lists.infradead.org,
+To: David Heidelberg <david@ixit.cz>
+Cc: oe-linux-nfc@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] jffs2: validate summary offset in the XIP scan path
-Date: Fri,  6 Nov 2026 18:51:07 +0900
-Message-ID: <20261106095108.2405364-1-hj351016@gmail.com>
+Subject: [PATCH] nfc: port100: drain cmd_complete_work before freeing the device on disconnect
+Date: Fri,  6 Nov 2026 18:52:57 +0900
+Message-ID: <20261106095257.2407520-1-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,59 +99,80 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-jffs2_scan_eraseblock() locates the summary node at the end of an
-eraseblock and derives both a pointer and a length from the on-flash
-summary marker:
+port100_disconnect() tears the device down in an order that lets
+cmd_complete_work run against freed memory:
 
-	sumptr = buf + je32_to_cpu(sm->offset);
-	sumlen = c->sector_size - je32_to_cpu(sm->offset);
+	nfc_digital_unregister_device(dev->nfc_digital_dev);
+	nfc_digital_free_device(dev->nfc_digital_dev);   /* ddev freed */
 
-In the non-XIP branch this is followed by
+	usb_kill_urb(dev->in_urb);                       /* -> schedule_work() */
+	usb_kill_urb(dev->out_urb);
 
-	if (sumlen > c->sector_size)
-		goto full_scan;
+	usb_free_urb(dev->in_urb);
+	usb_free_urb(dev->out_urb);
 
-so a bogus sm->offset (for which sector_size - offset underflows to a
-large value) is rejected.  The XIP branch (taken when the whole device
-was successfully mtd_point()ed, e.g. an mtdram-backed MTD) is missing
-that check.
+	kfree(dev->cmd);                                 /* cmd freed */
 
-On a crafted image an attacker controls the bytes of the summary marker
-at the end of the last eraseblock.  Setting sm->magic == JFFS2_SUM_MAGIC
-and sm->offset > sector_size makes sumlen wrap to ~4 GiB while sumptr
-still points inside the mapped flash.  jffs2_sum_scan_sumnode() then runs
+nfc_digital_unregister_device() does not abort a transport command that
+is already in flight, so an IN URB can still be pending here. The URB
+completion handlers port100_recv_response() / port100_recv_ack() schedule
+cmd_complete_work whenever the IN URB completes with an error status,
+including the -ECONNRESET that usb_kill_urb(dev->in_urb) produces
+synchronously for the in-flight command. The work handler
+port100_wq_cmd_complete() then runs port100_send_async_complete():
 
-	crc = crc32(0, summary->sum,
-		    sumsize - sizeof(struct jffs2_raw_summary));
+	static void port100_send_async_complete(struct port100 *dev)
+	{
+		struct port100_cmd *cmd = dev->cmd;
+		int status = cmd->status;		/* UAF read   */
+		...
+		cmd->complete_cb(dev->nfc_digital_dev, ...);	/* freed ddev */
+		...
+		kfree(cmd);				/* double free */
+	}
 
-with the attacker-controlled sumsize, reading far past the end of the
-mtd_point() mapping -- an out-of-bounds read (KASAN: vmalloc OOB /
-general protection fault) of controlled length.  The preceding header
-CRC checks are computed over data read from the attacker-controlled
-flash and can be satisfied, so they do not prevent the over-read.
+Nothing drains the work, so a command in flight at disconnect leaves
+cmd_complete_work queued (or running) and it dereferences dev->cmd (freed
+by kfree(dev->cmd)), dev->nfc_digital_dev (freed by
+nfc_digital_free_device()) and ultimately dev itself (devres-freed after
+disconnect returns) -> a use-after-free plus double-free.
 
-Mirror the non-XIP guard in the XIP branch.
+Kill the URBs and cancel_work_sync() the work *before*
+nfc_digital_free_device(), so the completion that usb_kill_urb() forces
+cannot re-queue the work and the handler cannot run (or is waited out)
+while dev->nfc_digital_dev and dev are still valid. Placing the drain
+after nfc_digital_free_device() would be insufficient: on SMP/PREEMPT a
+worker that already started executing would be waited on by
+cancel_work_sync() while dereferencing the already-freed ddev.
 
-Reproduced under KASAN on 7.4-rc1 by mounting a crafted mtdram-backed
-image (the XIP mtd_point() branch): KASAN reports a vmalloc-out-of-bounds
-read in the summary-node crc32 over the mapped flash.
+Found by code review and reproduced on 7.3-rc3 with KASAN and
+DEBUG_OBJECTS, using dummy_hcd + raw_gadget to emulate the device and
+race an in-flight command against USB disconnect: debugobjects reports a
+free-active work_struct for port100_wq_cmd_complete, freed from
+devres_release_all() via kfree() while still queued.
 
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- fs/jffs2/scan.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/nfc/port100.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/jffs2/scan.c b/fs/jffs2/scan.c
---- a/fs/jffs2/scan.c
-+++ b/fs/jffs2/scan.c
-@@ -495,6 +495,10 @@ static int jffs2_scan_eraseblock (struct jffs2_sb_info *c, struct jffs2_eraseblo
- 			if (je32_to_cpu(sm->magic) == JFFS2_SUM_MAGIC) {
- 				sumptr = buf + je32_to_cpu(sm->offset);
- 				sumlen = c->sector_size - je32_to_cpu(sm->offset);
+diff --git a/drivers/nfc/port100.c b/drivers/nfc/port100.c
+--- a/drivers/nfc/port100.c
++++ b/drivers/nfc/port100.c
+@@ -1619,13 +1619,15 @@ static void port100_disconnect(struct usb_interface *interface)
+ 	dev = usb_get_intfdata(interface);
+ 	usb_set_intfdata(interface, NULL);
+
+ 	nfc_digital_unregister_device(dev->nfc_digital_dev);
+-	nfc_digital_free_device(dev->nfc_digital_dev);
+
+ 	usb_kill_urb(dev->in_urb);
+ 	usb_kill_urb(dev->out_urb);
++	cancel_work_sync(&dev->cmd_complete_work);
 +
-+				/* sm->offset may be garbage even if MAGIC matched */
-+				if (sumlen > c->sector_size)
-+					goto full_scan;
- 			}
- 		} else {
- 			/* If NAND flash, read a whole page of it. Else just the end */
++	nfc_digital_free_device(dev->nfc_digital_dev);
+
+ 	usb_free_urb(dev->in_urb);
+ 	usb_free_urb(dev->out_urb);
+
+ 	kfree(dev->cmd);
