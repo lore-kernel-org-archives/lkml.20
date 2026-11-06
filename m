@@ -1,83 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.212
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793939896;
-	b=nX3E9XMKAcLE/aO3xEDHte5nlZwRcGyJWwwnnOCGrNT+SzFcXiAz0VXlo7NgYVqRwDvu
-	 q3h8xwNPNdA0hc+ae1KhthkD8bFUWdDjHb1b99+pBcWsHfsskhqfzlF3I8gODoeGpiqFl
-	 OdoWtVZX0lK5uBcilGpS6xNIbDOs4ewcRy+waj2wBGYBOE1UsPSUnV3Llj8fuURUy+UEB
-	 YyzENIWnMSOxRkhar63MczlIY+DQ8aAwN5q9tfM+e1V6XiR0saoBH5QCTDwGwtCh2ma4q
-	 M17JNPxpwF0lbMNH+u63mio0iyPDtYmBY925f/BZ7TNvx36GJFR8nI12BPQWrBdiLpA==
+	t=1793939984;
+	b=RxgQ4Wf7VnOfAU441ELvcQ/DRDR97dwP5DPQTxAVSbVQ2suQ9Pjz2IQFkr0w54EoPh3A
+	 9T7+lssJwo78XRMZwGseSnZhnrt1Za+xq+EOSLEiuCAjH7HF4+CQ7dif8mEp2VX6bj+pe
+	 NehewgM4X2jLqMusioAWYL9a0aWmDeJkbv9Hnx4AfcsjTJlOYtXqeRjU22mnR0suG3j2h
+	 ccm8rmtHrCp2r/CwU2O0yUeqAaP+kVks9wDQ5nL0t8tK2XHYFawuDHJgitt/9jfV3IFeG
+	 sJN8jQb/IlrQ3h/m+spokGDLUZwe9CIanjuFs6Hi2H17VQo6rZEFDMDCFLEN27wanvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793939896;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793939984;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=/Yx3i1zeQ5pe4eBI/JzCvDsEdxLLepzecCOmB7O2Y5Q=;
-	b=H/btQ0VmoWboF51FzF5lrTElnVyT2En9puhFU65XVjUo+9Sr7Ou9rpU0brdcowtwsgRk
-	 D3NSF8AUF4B53VceP7mhun9QnL4g3meJCYPqdtG9ccG3uerMHMOkn5+u2Kth6WT9+QAqi
-	 ITwoFCxJ+IlGO8i0F+RmoEXXkQMHn5X2XOdcufb0w3ZiJ7k+F4XQrFRwTNs7bh3ZQoe3L
-	 9ZjJ8MY5KxAlRIK2NUbQAOgwfcMmzjBm/tzuWrl/rrmoLcH3WrqLF54sQlH0eMzQMdLQw
-	 wnx16dSvEKfbhF5HR1Alc04xSVQU43gNWwicI5r/odyeNRS3/KNqp+Wdk3QUEnit+tQ==
+	bh=H/Qcqzb8crxJPavpMoI7DU0ArR8TE15ku/8r614wvLc=;
+	b=SMIMr61GfPMV8qfgTtH5+7g7hw9C1Mqx9ZvXThvAM4zcSdlsydYSmJjIzggLkI/uMixB
+	 icDN9CgMa/maTygCcPAFndmTvPfwrzsMAfc0MhE5TcxdFK9DrnzTy9wSCTq+aPyoX3IeW
+	 MrkWCDKaCQemvNzdD5HZr3BySDLF7ctCM79WMz6edkcDys3WTT+6/TzPWq/8iY7N+3kmz
+	 di6I0KJTeWF7N0MOF5XsNQETJOrGh/M/Skhoa7Gi3eDzDyX0axvziI9sXCP+0hGGwBr39
+	 gAcJopx3sq9Vt08UxvL4bWVJnOECgew7uLf9Ixv8qApK+q5ExmY21cJU4JII9Ttd6fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h2NarzBu;
-	arc=none smtp.remote-ip=91.218.175.212
-Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=3iWdOKl9;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599EB606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:38:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 599EB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D530606A31B;
+	Fri,  6 Nov 2026 04:39:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D530606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h2NarzBu
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/Yx3i1zeQ5pe4eBI/JzCvDsEdxLLepzecCOmB7O2Y5Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793939893; v=1; x=1794544693;
- b=h2NarzBu5wSfv3HGLjDaliK2QJozxMk1T8AWSAyQrfXgHTDTPCv+ZGuVrnREakda/ZEx8QA1
- 8oHdr4LZFwNJAxqLIVYaUXa8CPvRrYRT1iKnDBFCbx5htEVpTCoeBhb92BY4AQ1xCcuyadvcBnR
- 1nSZlm5DlYnhXsdFYvkrWORw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9188c1b74d12ac2b;
-	Fri, 06 Nov 2026 04:38:13 +0000
-X-Mizu-Trace-ID: 9188c1b74d12ac2b
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: david@kernel.org,
-	maddy@linux.ibm.com,
-	rppt@kernel.org,
-	akpm@linux-foundation.org,
-	lance.yang@linux.dev,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	osalvador@suse.de,
-	qi.zheng@linux.dev,
-	muchun.song@linux.dev,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	linux-mm@kvack.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	x86@kernel.org,
-	loongarch@lists.linux.dev,
-	linux-s390@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] powerpc/mm: make vmemmap_populate_compound_pages() static
-Date: Fri,  6 Nov 2026 12:38:07 +0800
-Message-ID: <20261106043807.32969-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261105061217.13302-2-songmuchun@bytedance.com>
-References: <20261105061217.13302-2-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=3iWdOKl9
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jLRKj2Kx2z1XLVhJ;
+	Fri,  6 Nov 2026 04:39:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793939975; x=1796531976; bh=H/Qcqzb8crxJPavpMoI7DU0A
+	rR8TE15ku/8r614wvLc=; b=3iWdOKl9eUFRlX6RvrlJ5Y3Zk6Qh/z6bbEDUGc99
+	KrKxlicMthO2HRDgi2OtkP0x1m0AMnycWysBDFH0gtyDlBzYjkk1P8HdH1CyN9Oh
+	buJLPNc6HsV4Fe1C4zYfaCsMBXXFLJk+fQDp029jO7IN3tKgj4hcAe+XZXOG6DKj
+	K9r3jctYUbj/cLmwSCUNU/P0unBZRyBuZygsW0BpqD5/L40awZ/v7//w4P2EdMbb
+	NYffn+rolbF+Eg2b1n+lWjnaNPNnoyc75bldmWQkMu2+HISP+reckJJzpMQDUA2M
+	AScDbhcGnnDggv/IyNJpKlRaGBep/3N59GQy9wHWqnORqw==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id yTZH9LhyR7y4; Fri,  6 Nov 2026 04:39:35 +0000 (UTC)
+Received: from [192.168.0.215] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jLRKf3mxbz1XMYJZ;
+	Fri,  6 Nov 2026 04:39:34 +0000 (UTC)
+Message-ID: <59f8170e-ca4b-4696-94bc-045f81dbaa10@acm.org>
+Date: Thu, 5 Nov 2026 20:39:33 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,21 +70,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] ufs: mcq: poll OCS after sq cleanup for device
+ management commands
+To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, jejb@linux.ibm.com,
+ martin.petersen@oracle.com, kwangwon.min@samsung.com, hy50.seo@samsung.com,
+ cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com
+References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
+ <CGME20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd@epcas2p1.samsung.com>
+ <20261105004333.1097899-3-kwmad.kim@samsung.com>
+ <8939a53e-1b21-4dd9-b65c-cbe03b8b72ce@acm.org>
+ <003701dd6cea$c396cd10$4ac46730$@samsung.com>
+ <ec1d1fd7-b832-4ea8-b3f3-87ff3d361d80@acm.org>
+ <000001dd6d92$0787dc60$16979520$@samsung.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <000001dd6d92$0787dc60$16979520$@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 11/5/26 5:56 PM, Kiwoong Kim wrote:
+ >> That's not what I meant. An interrupt is generated after the status has
+ >> been changed to OCS_ABORTED, isn't it? Has it been considered to 
+wait for
+ >> that interrupt instead of polling the OCS status?
+ >
+ > Okay, got it. From what I understand, it's a loop to call
+ > ufshcd_mcq_poll_cqe_lock and check OCS. If I get yours wrong, please
+ > let me know.
 
-On Thu, Nov 05, 2026 at 02:12:13PM +0800, Muchun Song wrote:
->vmemmap_populate_compound_pages() is no longer used outside
->radix_pgtable.c.
->
->Make it static and drop the unused dev_pagemap argument from
->its only remaining caller to simplify the code.
->
->Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->Acked-by: Qi Zheng <qi.zheng@linux.dev>
->---
+That's fine with me. Waiting for the interrupt is not possible without
+introducing a new completion mechanism: scsi_timeout() sets
+SCMD_STATE_COMPLETE before ufshcd_abort() is called, so the scsi_done()
+call from the interrupt handler has no effect on the command that is
+being aborted. Calling ufshcd_mcq_poll_cqe_lock() from the polling loop
+instead processes the CQE with OCS = ABORTED as soon as it has been
+posted. It does not depend on interrupt delivery, and it is serialized
+against the interrupt handler via hwq->cq_lock. Please introduce a
+helper function that calls ufshcd_mcq_poll_cqe_lock() and then returns
+the OCS value, and pass that helper to read_poll_timeout().
 
-Feel free to add:
+Thanks,
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Bart.
