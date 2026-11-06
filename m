@@ -1,70 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967700;
-	b=kTUInqV06eYE5X7hY/+4fKJPkPMZHU5u5VdAr/V5jCqHqyyRWh3EAfQGuBAWXzZjFl2o
-	 8u0Y4PW+dwvvRvt/TznCK6X9NDvHDd5xQyD4ZsfcivW9XDarDXrzrd5TiSZK3bOU23KB4
-	 SDSue+abYC+0nu6s0/79Pjw9a9JKDblzlr2VFpTjB0B4WRmLGztGNyhcqsDT+aU8mkXmk
-	 iN78AUgOGBRdrSMp/w6E4dZ4VJHn4Chn9IsyHgIkvvUYnYsP+SAhbL39LbIDGHo2/PLxW
-	 7VgBVuabpryiuDJFu1p/jj+J5we07JhTXTDpCxHY4ndyY2f+1LbMUrhjQlwW16jBMMQ==
+	t=1793967762;
+	b=21QhgF9ZJZSFrjF/b31AaaaYC2ZM9vr/DybrpRxhx9WPd1xa/yg+3146tTQAQY7SVr3U
+	 2SpJMyrfiUZnajYmxwriIBStjkIRiEeCi4dFSZJAFJfEbADwV69Jbc9oGuAhMSq31vb9j
+	 lGeDlGzhrkLshwvV4ansacjzehZrHVSB5x03BkJ76gTFcxrG2p33SnkkhWZOBWWCmTNpU
+	 +rCXXGnxrNUalCQZSpF+wQGPl0UWRtxyKJK7ceZo09yUwe163+HjQ6ZLezLV20Ejw3G6z
+	 usMK3PUTY02NgfCWPyodWLyM/lAUuIiau/8WNkf5EIWlySgY0yPqyJGa3Brrv+0NSxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967700;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
-	bh=Qn/RhPLFe7eM2gOJPShYS3JZVu2J5rMSgiNX2tNxYRk=;
-	b=lozNVT44xKHmSP5zy05nlJ6S6VN7VQ2X6d2Ys4jfl7sOvxozCAOujhSwYXpNheUZXqU3
-	 tLQvNuDzSm3eFCOJl1oRPhbbJooSdpqjRj3QU/Pvl6cTodtFuKZXG9msPhp6nbBcKb7Yh
-	 WE6eWUT87lf5Y9PwbMO5K8IE8vo0Xcq8fWmLSe0O267T6q7eOH+2HoLiwYgBKeksK5Uk4
-	 gsXDyT1b7PjrlZpaOa82hcSd6OXxrPzkLFckY7pikMUzmTkZkNiUETaoR0u8IvdtCj3l4
-	 /a/y/UbJBtzj0BcDlWeD+VW3Rez9tMETD5AbsWauJCDrWqirlBcOPX5PT71CcbQcJNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967762;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=T2RzjtYOrTs7ahd4ejwL6GAYPbfqsQ4AllQh7+4gIS4=;
+	b=uYkIQig9EzMokCqXBgO1qhLCePfe6I/MKCRIieC+RESTwnlA7iQaUm3zHVqdy8fRPgkH
+	 2T6Q4KMOJ22HFDL526bcC4Alku8smH33iV0J3nQY5rWnWmi0BGzfQgbRymOgn1IkQap7b
+	 MtIfpsaAWvT/BTX1M78NFo1zGZXpw13C1XyHy+1Jd5SHaPGCA35llXAFgg4qMXAfKyk6q
+	 CIllmU19XgCk6s152kPKm5lj+KMAvpZ7y8KrWInAhkprnB/D50XKiZoLMGZ9gLphrsnqT
+	 6a83gPXAXPgHQpLHjCe/yapBTJBoMb7pbS63uYJBOO17Scx+cOdzsQTFQLUQOdvcWhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=IMz99JC7;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U2U9Ovct;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0AC606A326;
-	Fri,  6 Nov 2026 12:21:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA0AC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD04606A326;
+	Fri,  6 Nov 2026 12:22:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=IMz99JC7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1793967699; x=1825503699;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=iZGWGigFbhC9MrM8azfnVKSspKL7hUqD96apEFTUXBc=;
-  b=IMz99JC7kKmoQ0czDUeeP8MhmexnWtjoB4y7Y9fcJTtSUeUWQcF5G1qa
-   LZflHJasMxIOWCi6oI4WsDshZqkWThcZMtFA9sSmWfWq6zKCgevnaRPGV
-   zNgI3H83TWuS0OdqCRR+O26dWvWVJ6ixWCdjpVLRx0a6MFbNvZPSINBm4
-   1cgI8wH3W9NF5Kt90zME+IDZ9OTg7nfJLdIstX9R/lNZgh6JxFTZe5UDx
-   L1unlZRdNXEE/67YK1nyK+jRE18KLeBAz9sdU0Q0Mj901GJoq/KL+xaWp
-   yYu3rbaHLb5BUCS1+UUrLO/KdBc17b4YaQDEEdii55Zsq3DgwqwB9nRGI
-   Q==;
-X-CSE-ConnectionGUID: LIMx5t7+Rba3YaoGHNWEdg==
-X-CSE-MsgGUID: HcP1GZoTTEG/h7kAFQZ/Kw==
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="297557753"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 06 Nov 2026 05:21:32 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 6 Nov 2026 05:21:32 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 6 Nov 2026 05:21:30 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Fri, 6 Nov 2026 13:21:22 +0100
-Subject: [PATCH net-next] MAINTAINERS: Add myself as maintainer of the
- lan966x driver
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U2U9Ovct
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2E11F0089F;
+	Fri,  6 Nov 2026 12:22:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793967762;
+	bh=T2RzjtYOrTs7ahd4ejwL6GAYPbfqsQ4AllQh7+4gIS4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U2U9Ovctov/iC/X0k/6UV6EwjQmmBAEb2b38z4PS8r7ILZ6dDytMjbu6Qcm35YGVW
+	 SGRo+gmFaYiSswoK50POXRne6x2LEYWLw9gTqOQFtTnb/EgnFucUe/H21se/M7fXUI
+	 rfiImLgyDP0NGCfpX9+LlliEKgQeTD6Yafg2xRqPFD6CMVIcWA+BuQyNl0lkL8s5ad
+	 H1R7sBfYjLf8NvgqFjbRhplkiSlLDE0DyAbT+1iTytM/aLJDLkU7pw/SWFPnTj7TsN
+	 KFnF0XYZHw8dOHtL+bCog2M1T6w+N3Zl5RV/5u+afEtqGg0qCCAZYHxcnLKw+K2u0M
+	 X3nEmXAQrAx4g==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 6F4262806741; Fri, 06 Nov 2026 12:22:30 +0000 (GMT)
+Date: Fri, 6 Nov 2026 12:22:30 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH v5 3/3] regulator: Add TI LM51772 support
+Message-ID: <ba06d540-e971-4e18-99d0-16f8f4530eb7@sirena.org.uk>
+References: <20261106-paul-lm51772-v5-0-0e83ac9711d9@bootlin.com>
+ <20261106-paul-lm51772-v5-3-0e83ac9711d9@bootlin.com>
+ <DMO344BLD9UQ.2X4YL7T3UZOWL@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,48 +66,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261106-lan966x-maintainers-v1-1-476bfb921aca@microchip.com>
-X-B4-Tracking: v=1; b=H4sIAEHG7WoC/x2MwQrCMBAFf6Xs2YUkxkj9FfEQzKtdqFtJQgmU/
- ruhhznMYWangiwo9Bh2ytikyKpd7GWg9xz1A5bUnZxxwVrjeIk6htD4G0VrB7mwx3Xy5p7CzSf
- q5S9jknZen6SorGiVXsfxB7zhFGNvAAAA
-X-Change-ID: 20261102-lan966x-maintainers-4e3f407d654d
-To: Horatiu Vultur <horatiu.vultur@microchip.com>,
-	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: b4 0.14.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="aNEbgorVox+nRrVi"
+Content-Disposition: inline
+In-Reply-To: <DMO344BLD9UQ.2X4YL7T3UZOWL@bootlin.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-Horatiu is busy with PHY work and will not maintain the lan966x
-driver for a while. Until then I will look after it, so add
-myself as a maintainer to have lan966x patches routed to me as well.
 
-Acked-by: Horatiu Vultur <horatiu.vultur@microchip.com>
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+--aNEbgorVox+nRrVi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fe23913b1e432..eec511996f845 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18312,6 +18312,7 @@ F:	drivers/net/phy/microchip_t1.c
- 
- MICROCHIP LAN966X ETHERNET DRIVER
- M:	Horatiu Vultur <horatiu.vultur@microchip.com>
-+M:	Daniel Machon <daniel.machon@microchip.com>
- M:	UNGLinuxDriver@microchip.com
- L:	netdev@vger.kernel.org
- S:	Maintained
+On Fri, Nov 06, 2026 at 12:17:40PM +0100, Paul Louvel wrote:
+> On Fri Nov 6, 2026 at 11:12 AM CET, Paul Louvel wrote:
+> > Add driver for the TI LM51772 buck-boost voltage regulator.
 
----
-base-commit: 6584acd42820478910a771efb28a355a707e9cb0
-change-id: 20261102-lan966x-maintainers-4e3f407d654d
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
 
-Best regards,
--- 
-Daniel Machon <daniel.machon@microchip.com>
+--aNEbgorVox+nRrVi
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau3GhgAKCRAv73Ows9A4
+iY4/AP9dAj7BFzlnWShQWD6xuImY6hJ2P8TiNQIrSzO0AuPivAD/QbTUaF418kuY
+EZBYi6adgI/nqxdzijX2nN9eWGztnwc=
+=oudT
+-----END PGP SIGNATURE-----
+
+--aNEbgorVox+nRrVi--
