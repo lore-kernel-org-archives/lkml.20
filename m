@@ -1,78 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955072;
-	b=ZsTQlSse8I5uTTYhHgr6pZeIVdoaS9fRBLIn8sSK9JU6A02WLFbTSZ/jpOwNME68yN5p
-	 H4i0V5xTAzdTtmeRZPj25uE0NEUxtzL/Wzvzju2Z4Z/AFVWnI8jJErMqsXO8MMQP2Rzfy
-	 evITJZNWX8T7hSmsTVRPSvTVJM53yrENs+YCLa3rRFLVsgIeB64JhS05Qnyf0inBicgdI
-	 XjobFo5fqS5aiDSpewujwMBA8S3LK/DMpGqr9z8jpI/SrZeBvjwBzvaWXdf7AbAsCYs5W
-	 TNFk3ChaHadLblQ/ulB3t4hnMecCcuWYGeJ0yvBSWQnD/sFqq1o32wIvdnaWy0Ml85A==
+	t=1793955105;
+	b=CCihqf8job2PKBozgwilYba3Ko7hl6417aCY1Mu1f9T5XKwzhfXVsgnAW/Fj6cftvkIA
+	 +Cw9yCNOnSSjwLkwRhBtP6e7OkwC48sXKP0YtNoMpcmIiRxbZNU9Jl8yqFj+GZbRFFUtV
+	 /CPnu+h4hCDPSKcfTd9hxVPU+/sxtcfIjOHLUHC71dG3iGM9M+t0E9Bcr23UGhvSTJBbA
+	 gzeYhhZHoh8yhHCHjkQmfN07NjpF18RY0PNksdXPU6xWypWILTPcPlrJXlj4nsTfrrYVo
+	 AFPecktK4fmLmBDeNPqaMcwyAllqU3UtvQCq+t/6MtOJGm35/Rvpfj8wT8qX0PHC6Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955072;
-	h=DMARC-Filter:DKIM-Signature:To:Content-Transfer-Encoding:Subject:
-	 Content-Type:X-Original-From:X-Lms-Return-Path:Cc:Date:Message-Id:
-	 In-Reply-To:X-Mailer:From:Mime-Version:References;
-	bh=uw2jcbo2K94Ipub2qP4Q99pSQbMkC01ncZoy8NZ7ZtE=;
-	b=Orw4+F3EzWEkO1jmEgp+dhSK0Pq+y9uS1dFjK0HgBuel2oj9DzUYmiLmhF4w5EiNT+9W
-	 5FOz3vkAOh/3esNbTkMYbzyJohHRBK0GMr6nmMBq/MJb44t4oJKUMb0mueQgFh3xqapbj
-	 fpITvG0RD4iSRQ+zpKO+xR3d7xnXVP2ppxsjfP7nUVANM/jOrH0SpTzYXbqHvQNGLQ8MX
-	 C6QICSVmOar3wGTKnUr+4pzgLAAoOnstxQ0M09Yk41u1cTZ1M9uoARZuHG4TqZuMh9oLY
-	 zvT9mSm94/SIx+i65xrDRq0aEDc0Kmu4KNTeQXXrdAj0yjQQG4W4LWDoiJifie148IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955105;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	b=1USpPJLgupCojsqdnyuirVo+K8hW8Qt52xr1uO9HQCVrTYHedIaj70zNAHrsJNUL3c16
+	 0wO2AYmkhMvy8Zfw4oVQE85ghuVUy/gAe/cKMKclpN+4g8pW97BNdCY86km1uHNNtHO6J
+	 rFHI9CMVWxAFM5FljcWur5gGNu/fCbc/k28UGmS3QOAIC+mUpI94BhckMJZeyc15m0xyi
+	 5WwwGPW7kl2s81ZHCBpb2x3lgOt/hAon9xkDgbTUHCmjuVm0Wl7PtCjh6NzQZGUboBNmP
+	 +G7vNBLcIPn2tcA2CScStBnATHet0/lBu9cedL5MIeiIx+HjQtbQi5kegTwjg0b30/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="PA/XBQAm";
-	arc=none smtp.remote-ip=209.127.231.111
-Received: from va-2-111.ptr.blmpb.com (va-2-111.ptr.blmpb.com [209.127.231.111])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W3d4leIA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FBA606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:51:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80FBA606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9749606A326;
+	Fri,  6 Nov 2026 08:51:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=PA/XBQAm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793955065; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=uw2jcbo2K94Ipub2qP4Q99pSQbMkC01ncZoy8NZ7ZtE=;
- b=PA/XBQAmEx8IsPS/7OJFQLeZ4Vjk/Xgf6CGt3AkrAKm6p3LefoZj01Twa7vDqugD69JTCX
- OoLavvqGtxiChoXZtxmsdKYlGIOffsC3eZp2ygVGEhoOVkIQv/V0wdij/ExxrW9gptS4sC
- huFbds+bdNGUJQ5pscQMUUnTSvwRyhYbmRpMSuoA+T2UFt+TfZJvf67gSlEl3Zn81x+XTK
- mQqcX7/6ZQthHCYwoS+rLfXUyD2l4P7ZcBA9bUtUSn1hRuYf/bd4ZCUgVcf/YA5GdKe8D1
- AI1y+Li+bj7iFxzsRI/E00L2eRhtPBCcqpeBV17nEuyFfspF748Rn6I2/QnlNA==
-To: <nhuhuan@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W3d4leIA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C495A1F0089F;
+	Fri,  6 Nov 2026 08:51:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793955104;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=W3d4leIAu6OtGVBhonwjduoCUCV5DWrR6Sm5GZ396UR+TB0JOmYmt0dcZnrpcYAZv
+	 E+hcHDzkbvLxs1cMNUXOjDGvXj0eVAD95mbfAwOr05A7oWUqnaCvlmRnXBDE9Ae+Jl
+	 3MwmwYsDwx4weeM/r3UGNu59UAPfvf4TswR6tlmJeYE/so9QJq+rSpZjlDD3/0Ar2G
+	 WphvXbrfuXqIYn7zBGV/3IVX3aXWzWzqLqx59zedsNi3IFYQ1kD8dAT0lGZan6umsD
+	 A7Hfr9idYHX0U+eK3fLHx7NnWRcfGkV0NsjVKSMUjxuDx/EPlaoH3mtr82f9qAvG82
+	 /7ZJCoCvn+TYA==
+From: netdev-bot+sinfo@kernel.org
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, Kurt Kanzenbach <kurt@linutronix.de>,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ Pavel Zhigulin <Pavel.Zhigulin@kaspersky.com>, linux-kernel@vger.kernel.org,
+ yana06070@163.com
+Subject: Re: [PATCH net-next] net: dsa: hellcreek: fix device_node leak in
+ hellcreek_led_setup()
+Date: Fri, 06 Nov 2026 08:51:43 +0000
+Message-ID: <179395510331.488859.15134331933976267509@kernel.org>
+In-Reply-To: <1793954912000.3200.3087525628285919529@cmss.chinamobile.com>
+References: <1793954912000.3200.3087525628285919529@cmss.chinamobile.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH v3 0/3] mm: use non-temporal stores for demotion
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-X-Lms-Return-Path: <lba+26aed94f7+7c0e03+vger.kernel.org+lizhe.67@bytedance.com>
-Cc: <Liam.Howlett@oracle.com>, <akpm@linux-foundation.org>, 
-	<alirad.malek@zptcorp.com>, <anna@kernel.org>, <apopple@nvidia.com>, 
-	<bharata@amd.com>, <bp@alien8.de>, <byungchul@sk.com>, 
-	<dave.hansen@linux.intel.com>, <dave@stgolabs.net>, <david@kernel.org>, 
-	<dimitrios.palyvos@zptcorp.com>, <fvdl@google.com>, <gourry@gourry.net>, 
-	<hannes@cmpxchg.org>, <hpa@zytor.com>, <jackmanb@google.com>, 
-	<jic23@kernel.org>, <joshua.hahnjy@gmail.com>, 
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
-	<linux-nfs@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>, 
-	<ljs@kernel.org>, <mathieu.desnoyers@efficios.com>, 
-	<matthew.brost@intel.com>, <mhiramat@kernel.org>, <mhocko@suse.com>, 
-	<mingo@redhat.com>, <nifan.cxl@gmail.com>, <rakie.kim@sk.com>, 
-	<rientjes@google.com>, <rkodsara@amd.com>, <rostedt@goodmis.org>, 
-	<rppt@kernel.org>, <ryan.roberts@arm.com>, <shivankg@amd.com>, 
-	<sj@kernel.org>, <surenb@google.com>, <tglx@kernel.org>, 
-	<trondmy@kernel.org>, <vbabka@kernel.org>, <weixugc@google.com>, 
-	<x86@kernel.org>, <xuezhengchu@huawei.com>, 
-	<yiannis.nikolakop@gmail.com>, <yiannis@zptcorp.com>, 
-	<ying.huang@linux.alibaba.com>, <ziy@nvidia.com>
-Date: Fri,  6 Nov 2026 16:50:19 +0800
-Message-Id: <20261106085019.90487-1-lizhe.67@bytedance.com>
-In-Reply-To: <20261103223025.2482227-1-nhuhuan@google.com>
-X-Mailer: git-send-email 2.45.2
-From: "Li Zhe" <lizhe.67@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,29 +66,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261103223025.2482227-1-nhuhuan@google.com>
+MIME-Version: 1.0
 
-On Tue, 3 Nov 2026 14:30:22 -0800, Huan Nguyen wrote:
+Hi!
 
-> Using non-temporal stores and prefetching on x86 bypasses CPU cache
-> allocation, protecting active workload working sets and improving
-> demotion throughput.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Could you show some real workload numbers for this? I am wondering
-whether the reduced cache allocation and improved demotion throughput
-also translate into visible application-level benefits.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-> - Memory ordering:
->   Add a wmb() barrier at the end of folio_mc_copy_nt() to ensure weakly
->   ordered non-temporal stores are drained before page tables are updated.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-I have not looked into all the details here, so I may be missing
-something. But before migration completes, there should eventually be a
-publication step that makes the new folio visible. In theory, that
-publication step should already provide the required ordering before
-userspace can observe the new folio. So I wonder whether the wmb() in
-folio_mc_copy_nt() is really needed here.
-
-Thanks,
-Zhe
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
