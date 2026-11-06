@@ -1,52 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984190;
-	b=EvRu3TLSdTa8++qfDmCpSEfYfjqYZJwyyGlLr4ZC/JcdY1R3u1/EPegP9eV1JIsORdeD
-	 1zwcACThDFHe55/0/ENNZXzlHd56qs+0IZUH3F5mLNsT0TeU8p1BIKS1zeamvE3FYcnFI
-	 6uwx8GlCxNqiy86Bt/VmJKwNsS0k4tApOIgA5+zMhnJdRIiB+5+zcd0S2WxeEVWOsgA6e
-	 zTi3SENqMKBoanEemns1CraMw47c3sGDf2pRSkpCv6q2DnJhBHZZTrQPwbAyKgCgoC4E/
-	 6LEyO6w6WGNRFEalLXeilM9bCSGF2YqaTridZTiS0LnE77A+V0DGojDEDKWf8BzJKEw==
+	t=1793984208;
+	b=h02OhAMww7E7JSDqOqqkK1UF2JjwsJxss+asae0FBEJvIwCF1evPLE7e16z0ECIMrxPR
+	 z6NhBZKW0Uv1aSMAsfO2QwdPQuBcV/M6BG6M0F0xrw4ilpyIieg7D8O72TOP62KDrIIYk
+	 zqTnVtyO/B6zV86hGlB3fksTQwC9tkCRFo8g+r2dM7Vy5PQ0zgm1ORiwVcj+4erHyWVLg
+	 7MlnTrL7SDX4PYsbzRP3KeJKStYOZ11n1xMMneNrPGnWZOTbHjWn5qx8qSrxErRRDNynG
+	 dZCTocH78LmgieToF+SFp4LHdM6/1oRvkt6s+7y3GINHmTJCDvNZcCGgbB+v3FLvyDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984190;
-	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc;
-	bh=A0ueZbdutXIDB8BlM9vO73ShuZrV78krDehdwtiPnNo=;
-	b=PngkZtoMJWdGKTS/6RYYcy00CA6KxyyziF7U0/tODhW+aAZxQXaAZp8vExLu+VG1zoIU
-	 R9UHwWG59rCbfF+W06oNGDnaOnNnvJCFrZeNZ/SHEG1zvpAnCSZaiPiPIbjVLHStbu/Ap
-	 vLsk7bZFgbH3er+g7LNG11uuUjtW+ACFR/1trwjL4mU7h1QUho2Fjw5ncI+DCBQx/DhwS
-	 iaoWVzMbJrMLqeZhuZglTpEihJwr10k3XJTQeFPjsENvztIruhtqRSB4PbE6ta15hu+J+
-	 nU/+E6/ID6s7J7z2vtcFqN3Xy4NWtwDj39Z0+xMGitj4GA5uXBnEdgodIsMSe3JVr5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984208;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UMoPahHv2EIHkQEJjh5Tshzm/BTxLvso7C8eR52i+G4=;
+	b=xA1kLNUQZGsPNwOXJDs24jAEhnMbg+KwJTEC6eP6FLMiP1qvwND0Ko3/Kz5dOI0fF4s3
+	 Ln78O38NQR1EiiUjqpDwWu1p1GSBKfpz9DdWq2wB7ZtuT7pbdAngfaxcMtpcP1PUAiy4H
+	 JDPtyjoFKst3LEWY5Z9WCCT1Z2Lzp95GUv9ETMfkFZ5KVtIPKOI9XCdq04nExn7HtwP1o
+	 Qb8Bzoi4o8cIYRhQsUrG/rsadTfH6WWhBcGnd7OeOjNMUW/Qg7RcD/hBkG05QdOBFwZvT
+	 Z8Qk3C/18CF2IZDhR/ZguMVAPff4dJeuPt6Nlc43Y/8H/6wJWAF9aQJLC1SyRm8tXZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cyberchaos.dev;
-	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=l2n3Ww+q;
-	arc=none smtp.remote-ip=195.39.247.168
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AI1VXYlb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2CB606D812;
-	Fri,  6 Nov 2026 16:56:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B2CB606D812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A295A606A32C;
+	Fri,  6 Nov 2026 16:56:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=l2n3Ww+q
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1793984183;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A0ueZbdutXIDB8BlM9vO73ShuZrV78krDehdwtiPnNo=;
-	b=l2n3Ww+qMYNYZnEOl5MJWYsGjh1k96ytz6u9g4ni081Vo8swU0V3TjT4zeR884wrnHLIbT
-	L6wQIghEjnV8IFPqT9hJL+zyUX2xS+2gclgG7XQA81Rt6QgQpvdJt4nRXnkJPrBi73Ugat
-	myq0U/+TBBL2ilWJv/L6bl9AL0+Ni3Y=
-Date: Fri, 06 Nov 2026 17:56:14 +0100
-Subject: [PATCH v2 2/4] arm64: dts: apple: t8132: Fix blank-lines-related
- dt-check-style issues
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AI1VXYlb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B72DD1F0089F;
+	Fri,  6 Nov 2026 16:56:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793984208;
+	bh=UMoPahHv2EIHkQEJjh5Tshzm/BTxLvso7C8eR52i+G4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AI1VXYlbGHKHBSDeYRPa9IfNna+l0TQHpTzeMjjLxqEtHsr1KUrWx3LjcHDD2EsHG
+	 Yt2z+K3hQchT6TrSnr2E5e971gHRhO08bC1flVFfNKFN2BwCSojbig5o6XgMZ1xjJN
+	 QKS2nlzPe8fqTHeW+MRJ0cg0f+k9RZhUkismQhDXEQMSr6B6tr32DI4nkdvppZVSik
+	 jJdi3wftovQmwF2tl8gyrJ4K8RBaoICTVulwRxUuBsk5apX2nuI0AuNJ/rx+wAJ7cq
+	 93KRStOvSJKCghD/E/i2SyXdr+rPUNNhbwLbwnA4qNgQp3M7Wu+h8FkLe4WVmmJ83a
+	 a/JcOXxrCyf3Q==
+Date: Fri, 6 Nov 2026 09:56:46 -0700
+From: Keith Busch <kbusch@kernel.org>
+To: Shameer Kolothum <skolothumtho@nvidia.com>
+Cc: kvm@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, alex@shazbot.org, jgg@ziepe.ca,
+	kevin.tian@intel.com, kbusch@meta.com, michal.winiarski@intel.com,
+	satyanarayana.k.v.p@intel.com, sonangp@nvidia.com,
+	ankita@nvidia.com, nathanc@nvidia.com, mochs@nvidia.com
+Subject: Re: [RFC PATCH v2 00/16] vfio/pci: Handle PCI error recovery and
+ report state to userspace
+Message-ID: <au4GznJ7p1k0kdcD@kbusch-mbp>
+References: <20260929173305.204856-1-skolothumtho@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,124 +60,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-apple-dts-m4-dt-style-check-v2-2-1e715e80b066@cyberchaos.dev>
-References: <20261106-apple-dts-m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev>
-In-Reply-To: <20261106-apple-dts-m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yureka Lilian <yureka@cyberchaos.dev>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929173305.204856-1-skolothumtho@nvidia.com>
 
-This fixes `dt-check-style --mode=strict` issues related to blank lines
-in the t8132 device tres.
+On Tue, Sep 29, 2026 at 06:32:49PM +0100, Shameer Kolothum wrote:
+> Hi,
+> 
+> Currently, vfio-pci signals the error eventfd from error_detected() and
+> returns PCI_ERS_RESULT_CAN_RECOVER, including for permanent failure. It
+> has no slot_reset() or resume() callback, so userspace is not notified
+> when host recovery completes or whether the device was reset.
+> 
+> This series adds opt-in host PCI error recovery for vfio-pci. It blocks
+> device access during recovery, restores device state after a host reset,
+> and reports recovery status to userspace. The kernel runs host recovery
+> and the VMM decides how to recover the guest.
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
----
- arch/arm64/boot/dts/apple/t8132-j604.dts  | 1 +
- arch/arm64/boot/dts/apple/t8132-j713.dts  | 1 +
- arch/arm64/boot/dts/apple/t8132-j715.dts  | 1 +
- arch/arm64/boot/dts/apple/t8132-jxxx.dtsi | 1 +
- arch/arm64/boot/dts/apple/t8132.dtsi      | 8 ++++++++
- 5 files changed, 12 insertions(+)
+We've been experiementating with this recently. It turns out that doing
+a meaningful recovery on the user space side is a bit more difficult
+than initially thought, but we can at least get more deterministic
+behavior with these notifications and gracefully stop affected
+processes. I don't think there is much else the kernel side can do to
+make this go any better, so this series looks good to us.
 
-diff --git a/arch/arm64/boot/dts/apple/t8132-j604.dts b/arch/arm64/boot/dts/apple/t8132-j604.dts
-index c4be915cb33a..93076cd923a9 100644
---- a/arch/arm64/boot/dts/apple/t8132-j604.dts
-+++ b/arch/arm64/boot/dts/apple/t8132-j604.dts
-@@ -19,6 +19,7 @@ / {
- 
- 	led-controller {
- 		compatible = "pwm-leds";
-+
- 		led-0 {
- 			pwms = <&fpwm1 0 40000>;
- 			label = "kbd_backlight";
-diff --git a/arch/arm64/boot/dts/apple/t8132-j713.dts b/arch/arm64/boot/dts/apple/t8132-j713.dts
-index e1fc5d47f487..892a3812bc65 100644
---- a/arch/arm64/boot/dts/apple/t8132-j713.dts
-+++ b/arch/arm64/boot/dts/apple/t8132-j713.dts
-@@ -19,6 +19,7 @@ / {
- 
- 	led-controller {
- 		compatible = "pwm-leds";
-+
- 		led-0 {
- 			pwms = <&fpwm1 0 40000>;
- 			label = "kbd_backlight";
-diff --git a/arch/arm64/boot/dts/apple/t8132-j715.dts b/arch/arm64/boot/dts/apple/t8132-j715.dts
-index 2672914ea76c..212d194bd1ae 100644
---- a/arch/arm64/boot/dts/apple/t8132-j715.dts
-+++ b/arch/arm64/boot/dts/apple/t8132-j715.dts
-@@ -19,6 +19,7 @@ / {
- 
- 	led-controller {
- 		compatible = "pwm-leds";
-+
- 		led-0 {
- 			pwms = <&fpwm1 0 40000>;
- 			label = "kbd_backlight";
-diff --git a/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
-index 9882ea3f85e6..b0c5d71943b6 100644
---- a/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
-@@ -26,6 +26,7 @@ framebuffer0: framebuffer@0 {
- 			reg = <0 0 0 0>; /* To be filled by loader */
- 			power-domains = <&ps_disp_fe>, <&ps_dptx_phy>;
- 			/* Format properties will be added by loader */
-+
- 			status = "disabled";
- 		};
- 	};
-diff --git a/arch/arm64/boot/dts/apple/t8132.dtsi b/arch/arm64/boot/dts/apple/t8132.dtsi
-index 58805c6ab002..6d070306e29a 100644
---- a/arch/arm64/boot/dts/apple/t8132.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8132.dtsi
-@@ -24,18 +24,23 @@ cluster0 {
- 				core0 {
- 					cpu = <&cpu_e0>;
- 				};
-+
- 				core1 {
- 					cpu = <&cpu_e1>;
- 				};
-+
- 				core2 {
- 					cpu = <&cpu_e2>;
- 				};
-+
- 				core3 {
- 					cpu = <&cpu_e3>;
- 				};
-+
- 				core4 {
- 					cpu = <&cpu_e4>;
- 				};
-+
- 				core5 {
- 					cpu = <&cpu_e5>;
- 				};
-@@ -45,12 +50,15 @@ cluster1 {
- 				core0 {
- 					cpu = <&cpu_p0>;
- 				};
-+
- 				core1 {
- 					cpu = <&cpu_p1>;
- 				};
-+
- 				core2 {
- 					cpu = <&cpu_p2>;
- 				};
-+
- 				core3 {
- 					cpu = <&cpu_p3>;
- 				};
-
--- 
-2.56.0
-
+Acked-by: Keith Busch <kbusch@kernel.org>
