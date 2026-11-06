@@ -1,72 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.121.53.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794002004;
-	b=oAow/nvbDVxRDzitjtMvdLTCq294YxerH3NnscdiqyIpAlFEaG1jbvCGWGKL6ReUBSID
-	 fELsJn3PAz0NCRZrY8kiyWXFw0+/HzjQRTGkMCdarFROi+dD6OQ1Xv9WLpD9ECUYGgGz8
-	 WAufURlfXG0Lxoco4mHU5xWM6WF/b9vfR191K8X7p09DqrDWsajg6WTNuNTrsar2YQs8e
-	 f/xb/LQjzZytfskd5SZWZ6yZMaB1HPhaIozu1gLiuA50LGV5fyIf5nzWphXfVuxXkuy8O
-	 5rxSYCI0ISXtlYZn+/viSgtSJqoJFMCieYRewPgwDU7pY9wsraEq0B+afD9iR9wwWhg==
+	t=1794002063;
+	b=HeUzbDl7HnAhZCi7CuIpsldV2Q/j8hp3J8C1BV+v/TyaWhtohO+kzUBks6zZGH61yTbI
+	 Nahg/pgMVwH2DtiHdIxCCSIWCMd37tNI4oIj5HTyHoLxikaddZgxnHaoSdhudFgUC9nGh
+	 AWFG+J77SIhhLVaJg8EEE/qBeB5dvJdj43yktch3pIZf9hm3pe9oHDeq74yEhGDbAU848
+	 QckK9Dw31COgvxyn8pwPN/SIOn1zoP1bUUljR27hf7LBmbWVqVXd0Ujuz4qs6RXodNaCW
+	 J3SVY/k1nkdpBN0VPkIh97fPa9a+7dKiqcdSd0fSN5uWyvu+D/HPNOuARfusUi2VNTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002004;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:X-CMAE-Analysis:
-	 Feedback-ID:X-SECURESERVER-ACCT:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=hZZxXdvW1/f+hfDzWZ5LPBRqprL4GaOSWhztMtIsmCQ=;
-	b=VupOOSPoRT1DQSq9Dy9d8nuRkqxoLV+buxQ2OpRpi+gWehIxhTQAhS6W7QpUnZLGoNql
-	 7tLVbXrdztHDxteaUJ8G8o89+iVC84BGBJFgcnJ1/4i1gx/lUGVbAECYbN/5L6V6B0jGK
-	 IMM/9JDqhrWYVrUMKT84/V0Op4quSoj/W0F33AImmqlRLGYT48e+SnfP/gGmEvTaSzoAj
-	 jmVZPOh9+G74Jkl3bAE1YIXonq5VukxTvY9Vkknu/LSDSnWUDMA0uNpOrSvCiOfwJ4qMn
-	 RGzgGU4y89b4rhSQpjOhZXu1tJ0r2ItLWpWZogueDE7fikoYf1WZbhOejYURuKxm0tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002063;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=yyG3/C4sSe8q2vVSmzW+YYQuFCTp/2rYI6RLncmBMUU=;
+	b=4VNPnn3/s6BfngR2be3KsFzm338G+0trmjNzUckO1n2wE0CLvIv5hjF+W+bRt6tt3V37
+	 K6mvQWQoDcEUoG8Q8OD6MFPH+vMtEneGS4nZ5XAhPZnKC5nFoj1+Qku7pdj8z/g1A/hUm
+	 0t941xb32c58qupnjtHOdVm+TxfZRojg5QApv5rkxjYQp5vbQhMVdkTmn7RQGOQxcg3MW
+	 Dp22eyiPStYzhc+9w7yNuxXI0V632jZJZvJiogNctyQo8zutnnFEsH5CLsF/XQoOxUli1
+	 toZXVvhe1vno4AIA70Wv+yUcFpp9gN0PeNLpyDtP2CVMbKB4LHbH7MuyvYcMlo/VVfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=squashfs.org.uk;
-	spf=pass smtp.mailfrom=squashfs.org.uk;
-	dkim=pass header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b="DVopFl/I";
-	dkim=pass header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=gNld+YvT;
-	arc=none smtp.remote-ip=188.121.53.17
-Received: from sxplsmtpa04-02.prod.sxb1.secureserver.net (sxplsmtpa04-02.prod.sxb1.secureserver.net [188.121.53.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D95606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:53:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1D95606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=squashfs.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squashfs.org.uk
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="luEF/yXr";
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4EBB606A32C;
+	Fri,  6 Nov 2026 21:54:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4EBB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secureserver.net header.i=@secureserver.net header.a=rsa-sha256 header.s=secureserver2 header.b=DVopFl/I;
-	dkim=pass (2048-bit key, unprotected) header.d=squashfs.org.uk header.i=@squashfs.org.uk header.a=rsa-sha256 header.s=secureserver1 header.b=gNld+YvT
-Received: from [192.168.178.101] ([82.69.79.175])
-	by :SMTPAUTH: with ESMTPSA
-	id PRrtxwZdCcIxnPRrwxBplr; Fri, 06 Nov 2026 21:53:09 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secureserver.net;
-	s=secureserver2; t=1794001990;
-	bh=hZZxXdvW1/f+hfDzWZ5LPBRqprL4GaOSWhztMtIsmCQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DVopFl/ILmB7A1cn5339qdaKHCqy/O0ILCwoT1pKfC+Xyh+2fdnnpqZZ+VKEif2jS
-	 tdVdBbUsbPyvyeCC6gI+KMKlI3PhiWw7Z8QnNN0caGJpoX2dbbNXtZhXR0hP659Gz6
-	 9dCqEw4e7pHb0L9yO5O9nE3M4Gy2STn4rktsoR6E+634mnDqsUISe90TXMEgLQziWU
-	 gK7gzaTZ82OHgQ1TM6TpYzKxG5FC/qht7oEHSmESuz7tehD7c1s5k11YY8hLFeWWYR
-	 zrBJH/sp4SPjYCcuXMv5RbjCmrYoDdpjgHfV0p4aiFXphwfdFtRzEbQxkWwERqYfjv
-	 MVLhBDHM8KoNQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squashfs.org.uk;
-	s=secureserver1; t=1794001990;
-	bh=hZZxXdvW1/f+hfDzWZ5LPBRqprL4GaOSWhztMtIsmCQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gNld+YvTxdpkwOGzxcV7YL3GR0gXd0yXwJRXIUsqBGBoRob2GevLByqboIzYXh8tq
-	 xFp2Pdn+ReAdbHnSEnIKqN6G57qPp9jhY5MpR2p3AWouf2rNsKH00b1ec32MKcWAoQ
-	 bGP1q4KVhX8pri5K99srGuOz+cGAWQss0fI/oQaM/ROChPQheM4Wcu1GGgqrv8js+M
-	 wluS7eTfMQRwQLLUdNxCYcU1ceLga7ZWeS9I0SV6uC28KE3niXxW5KHLzu4vffSme0
-	 U154vF4wuLYhO3IUZ4r63bEeOStY6eqdCMBhGuUhYDIKPJ3288+wtnFYV+TvbqOXMp
-	 HTd19MJAVcnfg==
-X-CMAE-Analysis: v=2.4 cv=RrJQvymK c=1 sm=1 tr=0 ts=6aee4c46
- a=84ok6UeoqCVsigPHarzEiQ==:117 a=84ok6UeoqCVsigPHarzEiQ==:17
- a=IkcTkHD0fZMA:10 a=FXvPX3liAAAA:8 a=7CQSdrXTAAAA:8 a=RaF3lfFyEwhm3Sx1ChkA:9
- a=QEXdDO2ut3YA:10 a=UObqyxdv-6Yh2QiB9mM_:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-Feedback-ID: bc046444923e57c050ffa0655c621bc5:squashfs.org.uk:ssnet
-X-SECURESERVER-ACCT: phillip@squashfs.org.uk
-Message-ID: <a408850b-dd83-4e7f-8eb5-891c9ce881f6@squashfs.org.uk>
-Date: Fri, 6 Nov 2026 21:53:05 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=luEF/yXr
+Received: from [100.64.128.135] (unknown [40.65.108.177])
+	by linux.microsoft.com (Postfix) with ESMTPSA id A0FDB20B7167;
+	Fri,  6 Nov 2026 13:54:20 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A0FDB20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794002061;
+	bh=yyG3/C4sSe8q2vVSmzW+YYQuFCTp/2rYI6RLncmBMUU=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=luEF/yXrwfgOgHbmvsqs5naNWzhoye+JTvtwt5YlcXWkjERc6MzQj+RrweFxVVYgp
+	 +XtNj9+1OQrk1TWotNYjRmvovsu59l3jwI7JVs+IMiYyriyINi+vUv83dQniS0yxNM
+	 1EG9Jn7YwUM4Pz/rp+utLgm3lGWzemkxPo83FDKg=
+Message-ID: <f2579646-7f77-4dd2-b7ce-ccf702828610@linux.microsoft.com>
+Date: Fri, 6 Nov 2026 13:54:19 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,40 +54,286 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] squashfs: identify device in mount errors
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: linux-kernel@vger.kernel.org
-References: <20260912145314.788588-1-christian.loehle@arm.com>
+From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+Subject: Re: [PATCH V4 5/5] x86/hyperv: Implement root partition IOMMU kernel
+ only driver
+To: Mukesh R <mrathor@linux.microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, linux-arch@vger.kernel.org,
+ easwar.hariharan@linux.microsoft.com, jgg@nvidia.com,
+ jacob.pan@linux.microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, arnd@arndb.de
+References: <20261105020106.3496339-1-mrathor@linux.microsoft.com>
+ <20261105020106.3496339-6-mrathor@linux.microsoft.com>
 Content-Language: en-US
-From: Phillip Lougher <phillip@squashfs.org.uk>
-In-Reply-To: <20260912145314.788588-1-christian.loehle@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20261105020106.3496339-6-mrathor@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfNcGrA2gonhwU3Hx5v8AvIycoItLFs5tfSVqqdTeIxjmbJrPAhDg3xw3VJf34UUMQ/irPoTk4GY1T0upeEiZY5r8RANJSxS2xOPV/g7p45ribTh9uksv
- kqJ44gxuM4AxKl6zN4+I9UrewHeVW/AaIFE9t54tdqfQVKDyvUW9NLvU+Y0WY+XWa0GDBgvPDHzrXmGk7/Qz6RyUq8AjO7kq8yuscB2CiL1OvI6vxU0WUCag
- M61sFGW0oNvtNW4WGzClyw==
 
-On 12/09/2026 15:53, Christian Loehle wrote:
+On 11/4/2026 18:01, Mukesh R wrote:
+> Add a new file to implement a kernel only virtual IOMMU that works
+> on Microsoft Hyper-V hypervisor (aka MSHV) in privileged VMs aka
+> root VMs. The hypervisor claims the IOMMU upon boot, and this driver
+> communicates with it for creating and deleting paging domains, attaching
+> of devices, mapping and unmapping of pages, etc. During boot, hypervisor
+> automatically creates identity and blocked domains, so there is no need
+> to do hypercalls to create them. This is a kernel only driver and only
+> supported on baremetal root (and not L1VH root) without any guest passthru
+> support. Support for guest device passthru will be added incrementally.
+> 
+> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+> ---
+>  arch/x86/kernel/pci-dma.c            |   2 +
+>  drivers/iommu/hyperv/Kconfig         |  13 +
+>  drivers/iommu/hyperv/Makefile        |   1 +
+>  drivers/iommu/hyperv/hv-iommu-root.c | 613 +++++++++++++++++++++++++++
+>  include/asm-generic/mshyperv.h       |   3 +
+>  include/linux/hyperv.h               |   6 +
+>  6 files changed, 638 insertions(+)
+>  create mode 100644 drivers/iommu/hyperv/hv-iommu-root.c
+> 
 
-> Squashfs mount failures reported through fs_context do not identify the
-> backing device, fix this y printing the block device.
->
-> Repeated automount failures used to be ambiguous, for example:
->    Filesystem uses "xz" compression. This is not supported
->
-> All of the affected errors occur after get_tree_bdev() has opened the
-> block device and setup_bdev_super() has assigned sb->s_bdev.
-> Use it to identify the failing Squashfs image even when the mount is
-> retried. For example, the error above now reads:
->    Filesystem on loop0 uses "xz" compression. This is not supported
->
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->
-Sorry for the delay, I'm currently snowed under with AI reported issues.
+<snip>
 
-Looks good.
+>  obj-$(CONFIG_HYPERV_PVIOMMU) += hv-iommu-guest.o
+> +obj-$(CONFIG_HYPERV_ROOT_IOMMU) += hv-iommu-root.o
+> diff --git a/drivers/iommu/hyperv/hv-iommu-root.c b/drivers/iommu/hyperv/hv-iommu-root.c
+> new file mode 100644
+> index 000000000000..e0e3e9d4385e
+> --- /dev/null
+> +++ b/drivers/iommu/hyperv/hv-iommu-root.c
+> @@ -0,0 +1,613 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Hyper-V root vIOMMU driver.
+> + * Copyright (C) 2026, Microsoft, Inc.
+> + */
+> +#include <linux/pci.h>
+> +#include <linux/dma-map-ops.h>
+> +#include <linux/interval_tree.h>
+> +#include <linux/hyperv.h>
+> +#include <asm/iommu.h>
+> +#include <asm/mshyperv.h>
+> +#include "../dma-iommu.h"
+> +
+> +static dma_addr_t hv_iommu_max_iova;
+> +static struct iommu_domain_ops hv_paging_domain_ops;
+> +
+> +/* IOMMU device that we export to the world. MSHV supports max of one */
+> +static struct iommu_device hv_virt_iommu;
+> +
+> +struct hv_iommu_domain {
+> +	struct iommu_domain iommu_dom;
+> +	u32 domid_num;			      /* as opposed to domain_id.type */
+> +	spinlock_t mappings_lock;	      /* protects mappings_tree */
+> +	struct rb_root_cached mappings_tree;  /* iova to pa lookup tree */
+> +};
+> +
+> +#define to_hv_domain(d) container_of(d, struct hv_iommu_domain, iommu_dom)
+> +
+> +struct hv_iommu_mapping {
+> +	phys_addr_t paddr;
+> +	struct interval_tree_node iova;
+> +	u32 flags;
+> +};
+> +
+> +/*
+> + * By default, during boot the hypervisor creates one Stage 2 (S2) default
+> + * domain. It has two types:
+> + *   S2 default: access to entire root partition memory. This for the host
+> + *		 maps to IOMMU_DOMAIN_IDENTITY in the iommu subsystem, and
+> + *		 is called HV_DEVICE_DOMAIN_ID_S2_DEFAULT in the hypervisor.
+> + *		 (Linux renamed to : HV_DEVICE_DOMAIN_ID_DEFAULT)
+> + *   S2 NULL: Blocks everything, ie, IOMMU_DOMAIN_BLOCKED in linux.
+> + */
+> +
+> +/*
+> + * Create dummy domains to correspond to hypervisor prebuilt default identity
+> + * and null domains (dummy because we do not make hypercalls to create them).
+> + */
+> +static struct hv_iommu_domain hv_def_identity_dom;
+> +static struct hv_iommu_domain hv_def_blocked_dom;
+> +
+> +/*
+> + * The hypervisor owns the IOMMU. As such it will choose the best page size
+> + * and whenever possible use larger page sizes automatically. The map gpa
+> + * hypercall to map the iova however currently uses only 4K pfns as input.
+> + * So we specify 4K as the IOMMU PAGE_SIZE.
+> + */
+> +#define HV_IOMMU_PGSIZES SZ_4K
+> +
+> +static DEFINE_IDA(hv_iommu_domids);   /* unique numeric ids for new domains */
+> +
+> +static bool hv_iommu_capable(struct device *dev, enum iommu_cap cap)
+> +{
+> +	switch (cap) {
+> +	case IOMMU_CAP_CACHE_COHERENCY:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
 
-Review-by: Phillip Lougher <phillip@squashfs.org.uk 
-<https://phillip@squashfs.org.uk>>
+Seems like this could match the guest driver and just be: return cap == IOMMU_CAP_CACHE_COHERENCY.
+
+<snip>
+
+> +
+> +static struct iommu_domain_ops hv_paging_domain_ops = {
+> +	.attach_dev = hv_iommu_attach_dev,
+> +	.map_pages = hv_iommu_map_pages,
+> +	.unmap_pages = hv_iommu_unmap_pages,
+> +	.iova_to_phys = hv_iommu_iova_to_phys,
+> +	.free = hv_iommu_domain_free,
+> +};
+> +
+> +static struct iommu_ops hv_iommu_ops = {
+> +	.capable	    = hv_iommu_capable,
+> +	.domain_alloc_paging	= hv_iommu_domain_alloc_paging,
+> +	.probe_device	    = hv_iommu_probe_device,
+> +	.device_group	    = pci_device_group,
+> +	.get_resv_regions   = hv_iommu_get_resv_regions,
+> +	.owner		    = THIS_MODULE,
+> +	.identity_domain    = &hv_def_identity_dom.iommu_dom,
+> +	.blocked_domain     = &hv_def_blocked_dom.iommu_dom,
+> +	.release_domain     = &hv_def_blocked_dom.iommu_dom,
+> +};
+> +
+> +static const struct iommu_domain_ops hv_special_domain_ops = {
+> +	.attach_dev = hv_iommu_attach_dev,
+> +};
+> +
+> +static void __init hv_initialize_special_domains(void)
+> +{
+> +	hv_def_identity_dom.iommu_dom.type = IOMMU_DOMAIN_IDENTITY;
+> +	hv_def_identity_dom.iommu_dom.ops = &hv_special_domain_ops;
+> +	hv_def_identity_dom.iommu_dom.owner = &hv_iommu_ops;
+> +	hv_def_identity_dom.domid_num = HV_DEVICE_DOMAIN_ID_DEFAULT; /* 0 */
+> +
+> +	hv_def_blocked_dom.iommu_dom.type = IOMMU_DOMAIN_BLOCKED;
+> +	hv_def_blocked_dom.iommu_dom.ops = &hv_special_domain_ops;
+> +	hv_def_blocked_dom.iommu_dom.owner = &hv_iommu_ops;
+> +	hv_def_blocked_dom.domid_num = HV_DEVICE_DOMAIN_ID_NULL;    /* INTMAX */
+> +}
+> +
+
+A net negative 9 lines to initialize these with .field notation, as suggested in v0: https://lore.kernel.org/all/4f7cadc5-817c-4163-bac8-1c02a7c6a862@linux.microsoft.com/
+
+Wasn't super hard to do the 1 forward declaration needed...
+
+diff --git a/drivers/iommu/hyperv/hv-iommu-root.c b/drivers/iommu/hyperv/hv-iommu-root.c
+index e0e3e9d4385e2..4e6bf94413458 100644
+--- a/drivers/iommu/hyperv/hv-iommu-root.c
++++ b/drivers/iommu/hyperv/hv-iommu-root.c
+@@ -12,6 +12,7 @@
+ #include "../dma-iommu.h"
+ 
+ static dma_addr_t hv_iommu_max_iova;
++static struct iommu_ops hv_iommu_ops;
+ static struct iommu_domain_ops hv_paging_domain_ops;
+ 
+ /* IOMMU device that we export to the world. MSHV supports max of one */
+@@ -32,23 +33,6 @@ struct hv_iommu_mapping {
+ 	u32 flags;
+ };
+ 
+-/*
+- * By default, during boot the hypervisor creates one Stage 2 (S2) default
+- * domain. It has two types:
+- *   S2 default: access to entire root partition memory. This for the host
+- *		 maps to IOMMU_DOMAIN_IDENTITY in the iommu subsystem, and
+- *		 is called HV_DEVICE_DOMAIN_ID_S2_DEFAULT in the hypervisor.
+- *		 (Linux renamed to : HV_DEVICE_DOMAIN_ID_DEFAULT)
+- *   S2 NULL: Blocks everything, ie, IOMMU_DOMAIN_BLOCKED in linux.
+- */
+-
+-/*
+- * Create dummy domains to correspond to hypervisor prebuilt default identity
+- * and null domains (dummy because we do not make hypercalls to create them).
+- */
+-static struct hv_iommu_domain hv_def_identity_dom;
+-static struct hv_iommu_domain hv_def_blocked_dom;
+-
+ /*
+  * The hypervisor owns the IOMMU. As such it will choose the best page size
+  * and whenever possible use larger page sizes automatically. The map gpa
+@@ -488,6 +472,35 @@ static void hv_iommu_get_resv_regions(struct device *dev,
+ 	iommu_add_resv_x86_msi_region(head);
+ }
+ 
++static const struct iommu_domain_ops hv_special_domain_ops = {
++	.attach_dev = hv_iommu_attach_dev,
++};
++
++/*
++ * By default, during boot the hypervisor creates one Stage 2 (S2) default
++ * domain. It has two types:
++ *   S2 default: access to entire root partition memory. This for the host
++ *		 maps to IOMMU_DOMAIN_IDENTITY in the iommu subsystem, and
++ *		 is called HV_DEVICE_DOMAIN_ID_S2_DEFAULT in the hypervisor.
++ *		 (Linux renamed to : HV_DEVICE_DOMAIN_ID_DEFAULT)
++ *   S2 NULL: Blocks everything, ie, IOMMU_DOMAIN_BLOCKED in linux.
++ * Create dummy domains to correspond to hypervisor prebuilt default identity
++ * and null domains (dummy because we do not make hypercalls to create them).
++ */
++static struct hv_iommu_domain hv_def_identity_dom = {
++	.iommu_dom.type = IOMMU_DOMAIN_IDENTITY,
++	.iommu_dom.ops = &hv_special_domain_ops,
++	.iommu_dom.owner = &hv_iommu_ops,
++	.domid_num = HV_DEVICE_DOMAIN_ID_DEFAULT, /* 0 */
++};
++
++static struct hv_iommu_domain hv_def_blocked_dom = {
++	.iommu_dom.type = IOMMU_DOMAIN_BLOCKED,
++	.iommu_dom.ops = &hv_special_domain_ops,
++	.iommu_dom.owner = &hv_iommu_ops,
++	.domid_num = HV_DEVICE_DOMAIN_ID_NULL,    /* INTMAX */
++};
++
+ static struct iommu_domain_ops hv_paging_domain_ops = {
+ 	.attach_dev = hv_iommu_attach_dev,
+ 	.map_pages = hv_iommu_map_pages,
+@@ -508,23 +521,6 @@ static struct iommu_ops hv_iommu_ops = {
+ 	.release_domain     = &hv_def_blocked_dom.iommu_dom,
+ };
+ 
+-static const struct iommu_domain_ops hv_special_domain_ops = {
+-	.attach_dev = hv_iommu_attach_dev,
+-};
+-
+-static void __init hv_initialize_special_domains(void)
+-{
+-	hv_def_identity_dom.iommu_dom.type = IOMMU_DOMAIN_IDENTITY;
+-	hv_def_identity_dom.iommu_dom.ops = &hv_special_domain_ops;
+-	hv_def_identity_dom.iommu_dom.owner = &hv_iommu_ops;
+-	hv_def_identity_dom.domid_num = HV_DEVICE_DOMAIN_ID_DEFAULT; /* 0 */
+-
+-	hv_def_blocked_dom.iommu_dom.type = IOMMU_DOMAIN_BLOCKED;
+-	hv_def_blocked_dom.iommu_dom.ops = &hv_special_domain_ops;
+-	hv_def_blocked_dom.iommu_dom.owner = &hv_iommu_ops;
+-	hv_def_blocked_dom.domid_num = HV_DEVICE_DOMAIN_ID_NULL;    /* INTMAX */
+-}
+-
+ /*
+  * In general, the hypervisor does not support the capabilities hypercall for
+  * root partitions, an exception was made for max_iova_width. For IOMMU cap,
+@@ -571,11 +567,6 @@ static int __init hv_root_iommu_init(void)
+ 
+ 	hv_iommu_max_iova = DMA_BIT_MASK(caps.max_iova_width);
+ 
+-	/* This must come before iommu_device_register() because the latter
+-	 * calls into the hooks.
+-	 */
+-	hv_initialize_special_domains();
+-
+ 	rc = iommu_device_sysfs_add(iommup, NULL, NULL, "%s", "hyperv-iommu");
+ 	if (rc) {
+ 		pr_err("Hyper-V: iommu_device_sysfs_add failed: %d\n", rc);
 
 
+<snip>
+
+Thanks,
+Easwar (he/him)
