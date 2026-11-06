@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966831;
-	b=e1826N/PFhYtDzbb+Rify9DQc3j0H/WVqf9ytZtH0DlFXmxu8VxuMpXaJwMfQnvZVkki
-	 1SwfNG9lCEBRBEPRSZ8AxTTIxYQp16jAks0KWBqDy6dauLizdDj11vZG0nlI95K2bMD/e
-	 /Y0zKH6eiqcVFTSEX7Jdi9qGwOnhFf78svFJfPrZmXuOHEw68YGWvBOz/IbnkmtuzTqkV
-	 6AROccptRgwV0eqZDs+rsVMKGIiiMX1iD6ValOde7mFVeBcVV4Q0WGUCCWZ4A972EpLnd
-	 6eq5hUvbSh7l2EMYDWfKgRu6XUejovW4UOWlapKGeMAFYU2rQeJ/qZRs5JMvcQ2kDIg==
+	t=1793966829;
+	b=uL5IyGwx1/LiH5MZCaIAAYok5vgLs7qSNble13vorEa/B2HtNT/cSgC4UJ++eFHLI3M0
+	 ZWa3/Izt3MfVdqJpUgLFXQmyWgkx0mfXftLCgg7seusFGq8JUu279E5AIAy6fsQ0A4/P8
+	 lTj6VpeykJq4PU0ZHN/ZAypirIiGFX9TGi3V3UwoJViLSc4KLxigWPj9bBpSKtYsiUa1U
+	 SWn9ifw3xTWcznVwVMSAn4Q69b43vx6AwoCA2xp2CxZGGjUmF2a5Rpk+qH6KK4arZYkCe
+	 4jKgqNjWYlb057Z3cRtMiBBgASe0uMcdh6O1jgwwLaPo4etdpybtW8NzEbYmBK/vB+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966831;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Content-Transfer-Encoding:
-	 From:Mime-Version:Subject:Date:Message-Id:References:Cc:In-Reply-To:
-	 To:X-Mailer;
-	bh=/UbyUKw9omZVMKFc8o2t5RKh2+gHKfyA/9nJyAlqI4Q=;
-	b=J021ZvwkZtASyW/VMQf6Vz5Mj+86Ua59d+PIZWC03osDSzIM6NuwE9AdJ3Au86okT4aA
-	 omPOZ/tclIz2F+rSL3TO57n8OtPhndDVXJSly0GVojVn1E9zOg9gsS+iisLxvkCNM5IvG
-	 QcUfAs2Tynze00J+kqdCk5HmjCautX4O3JNxNb33MOFdnaTHuLLBRcfcAzvWBYBZOOCJU
-	 up8DfsO9lUa5y/IxZiCTd60aW/eS8nzkcmHFUobSdAOdY+oPzVC8jAm1BuWosVoOHklUX
-	 8W997Yo1BtfDjc0nqJ4nph7R+uIZnXQdiRU8CLw17vUXkZQYTma16xU0fJtDZQeLvyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966829;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hQArWZ2nJ4tUg9UwI0026s5MUwQ8Koaiyp0KnkcV9us=;
+	b=GPtItLs+8U5+hfjRY6dQOcxtKnN2/7wmfEEygZ+W3ZfILxeReAifs2XvNXcQ8NYI9FPp
+	 oc07lPCDiGvY0hLOOw6aoymgRRGAXVsg4vpg7Vw0E5MuPwpMxiG3N7TqnBBpJKQDgNwSU
+	 I6g1aEYFyAdaWdtUDPsugMXUTR0di7DFRFwaXr5muYyW91femwY/yglHE/2hONOB+W4iS
+	 SzDDijvvq9JeVFG1uFDSJTEdp+tMuD7RbPA/wPyNGHzxkfELp72UUZW1q39akCR2yAERc
+	 f8oj4HFDS74lDuV2ZUeOvy/5W6pR/LoFnB5a9wK7xNOueGnn1J6dQdnFBJt4bYL3K3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qP0gWheo;
-	arc=none smtp.remote-ip=95.215.58.78
-Received: from mta1.migadu.com (out-78.mta1.migadu.com [95.215.58.78])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTYH+pXW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D260606D80A
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:07:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D260606D80A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F4B606A32E;
+	Fri,  6 Nov 2026 12:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qP0gWheo
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/KEvK7dVaRMP9BRN0ZLePkyoaFXMxcTu+6guCCq8Id0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793966828; v=1; x=1794571628;
- b=qP0gWheoGyWdYFfsKjXv/7Pk3nruqG3GTvwvickazzxd6yb5ebgRpNGCxAxubttan2CxxdTT
- 4MDQT6pS0vy2HVCfGSRjjMhpzspiGy99jVO+CtBTGSQ3Qnp/29SzNot/K83mnurfPQE0lg0ppaV
- Rz/Xu3xpxXdGahZ3Pilimsu0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 27daf28be36fd430;
-	Fri, 06 Nov 2026 12:07:08 +0000
-X-Mizu-Trace-ID: 27daf28be36fd430
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Aditya Garg <aditya.garg@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTYH+pXW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CEC01F008A1;
+	Fri,  6 Nov 2026 12:07:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793966828;
+	bh=hQArWZ2nJ4tUg9UwI0026s5MUwQ8Koaiyp0KnkcV9us=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iTYH+pXW1fl4l75IlJ9re65fWhO2CmdTJjgnolNlbsgkBxAoLyqOvzwbYnFJE1er6
+	 THq0En3x1ilSJNMYgQoiHktRFjrra2cUG7ZmZ+lV+H6vxlzTJFbATJkxQM6pUTLlqh
+	 L3Hg/7zSrUfSBtXNOCB2N1gFtmx2sCMpo7b/4wyZV6ZsFAHDe5H6oZwxZ9GyDjkotU
+	 CiufXBxvQFE7mQ4nRJDQI/C5j/aPUSH4UU0eoHQyxof2CS9BNACBE8fEQ1ItGGngVU
+	 AiphiqiVS2uLwiQcH6piOlvKDAiuWJPrBSJeQsgT9XjHlViHQHh8r+8a1rM2GYVx+F
+	 fHUKk2or9oFIw==
+Date: Fri, 6 Nov 2026 13:07:05 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Bryan O'Donoghue <bod@kernel.org>, gjorgji.rosikopulos@oss.qualcomm.com, 
+	hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com, jigarkumar.zala@oss.qualcomm.com, 
+	linux-phy@lists.infradead.org, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: phy: qcom: Add common qcom,csi2-phy
+Message-ID: <20261106-pompous-auburn-locust-e959bc@quoll>
+References: <20261105235137.2635442-1-anusha.nandi@oss.qualcomm.com>
+ <20261105235137.2635442-2-anusha.nandi@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,81 +61,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH] wifi: brcmfmac: keep ARP and ND offload off on the BCM4364
-Date: Fri, 6 Nov 2026 17:36:54 +0530
-Message-Id: <1B9F864C-77C2-47D7-8E8C-E9F066C5D267@linux.dev>
-References: <20261104151620.70671-1-dev@deq.rocks>
-Cc: arend.vanspriel@broadcom.com, linux-wireless@vger.kernel.org,
- brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
- linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>,
- Yossef Osman <Yossef.Osman@proton.me>, stable@vger.kernel.org
-In-Reply-To: <20261104151620.70671-1-dev@deq.rocks>
-To: Andre Eikmeyer <dev@deq.rocks>
-X-Mailer: iPad Mail (24B119)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105235137.2635442-2-anusha.nandi@oss.qualcomm.com>
 
+On Thu, Nov 05, 2026 at 03:51:34PM -0800, Anusha Arun Nandi wrote:
+> SA8775P, QCS8300 and SC7280 CSI2 PHYs are bit-for-bit identical in
+> devicetree shape (ports, bus-type, data-lanes, operating-points-v2,
+> clocks, single "top" power-domain, vdda-hs/vdda-lp supplies).
+> 
+> Describe all three with a single qcom,csi2-phy.yaml and a compatible
+> oneOf, rather than one standalone schema per SoC. QCS8300 is further
+> required to be paired with a qcom,sa8775p-csi2-phy fallback
+> compatible, the same way other Qualcomm bindings express full
+> hardware compatibility between two SoCs (see qcom,qusb2-phy.yaml);
+> this lets the driver bind QCS8300 nodes via its qcom,sa8775p-csi2-phy
+> match entry rather than carrying a duplicate one.
+> 
+> qcom,x1e80100-csi2-phy.yaml is a separate PHY with a different shape
+> (3 clocks, 3 power-domains, different supply names, DPHY split-mode
+> support) and is left untouched, but port@0's DPHY split-mode
+> definition (two endpoints, lane-count constraint) is cloned into this
+> schema rather than dropped, since this PHY supports the same split
+> mode.
+> 
+> The supply names are vdda-hs/vdda-lp rather than the hardware's own
+> power-rail names, since those names aren't guaranteed to stay
+> consistent across future platforms using this binding.
+> 
+> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
 
+I do not see how you answered my questions.
 
-> On 4 Nov 2026, at 8:46=E2=80=AFPM, Andre Eikmeyer <dev@deq.rocks> wrote:
->=20
-> =EF=BB=BFbrcmfmac enables the firmware's ARP and IPv6 ND offload (ndoe) wh=
-enever
-> the interface is up and not promiscuous. On the Apple firmware for the
-> BCM4364, ndoe makes IPv6 downloads collapse. IPv6 downloads topped out
-> at 55 Mbit/s on a MacBookPro15,1 with the BCM4364/3 and on the
-> MacBookPro16,1 with the later revision. The BCM4377 is not affected.
->=20
-> macOS enables ND offload for associated sleep only. A trace under
-> macOS 26.6.1 on a MacBookPro16,2 shows nd_hostip_clear, ndoe=3D1 and the
-> IPv6 addresses before sleep and ndoe cleared again on wake, see the
-> first report below. Keep them off on the BCM4364.
->=20
-> Closes: https://github.com/t2linux/kernel/issues/34
-> Closes: https://github.com/t2linux/T2-Debian-and-Ubuntu-Kernel/issues/227
-> Tested-by: Yossef Osman <Yossef.Osman@proton.me>
-> Tested-by: Aditya Garg <aditya.garg@linux.dev>
-> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Dropping from DT patchwork.
 
-The bug is present even in 6.18 LTS
+Best regards,
+Krzysztof
 
-Cc: stable@vger.kernel.org
-> ---
-> The KaiT2en community runs this patch with its kernels, no regression
-> was reported.
->=20
-> .../net/wireless/broadcom/brcm80211/brcmfmac/core.c    | 10 ++++++++++
-> 1 file changed, 10 insertions(+)
->=20
-> diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/dri=
-vers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-> index 92ec269f43b..6eae7135aeb 100644
-> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-> @@ -13,6 +13,7 @@
-> #include <net/addrconf.h>
-> #include <net/ieee80211_radiotap.h>
-> #include <net/ipv6.h>
-> +#include <brcm_hw_ids.h>
-> #include <brcmu_utils.h>
-> #include <brcmu_wifi.h>
->=20
-> @@ -103,6 +104,15 @@ void brcmf_configure_arp_nd_offload(struct brcmf_if *=
-ifp, bool enable)
->        return;
->    }
->=20
-> +    /* With ND offload on while awake, the Apple firmware for the BCM4364=
-
-> +     * makes IPv6 downloads drop to low rates. macOS runs ARP and ND
-> +     * offload only in sleep, keep both off on this chip.
-> +     */
-> +    if (enable && ifp->drvr->bus_if->chip =3D=3D BRCM_CC_4364_CHIP_ID) {
-> +        brcmf_dbg(TRACE, "Skip ARP/ND offload enable on BCM4364\n");
-> +        enable =3D false;
-> +    }
-> +
->    if (enable)
->        mode =3D BRCMF_ARP_OL_AGENT | BRCMF_ARP_OL_PEER_AUTO_REPLY;
->    else
->=20
-> base-commit: 991a73f4909f1348ffb4b38765cdb522a775e4c2
