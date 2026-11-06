@@ -1,74 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794005820;
-	b=SzvNPw+tVh+MOmYeAVu2OK8twWrfha4LRjJfQHtpBdkgxdCueGrIAWcFzF1tkyeJ7MJ1
-	 extN/izy/6PH9WJXLLP0p+kZmrsaa01EFNEqvLPWCkLdB4E4rkAGAS4ZHry8j7pcwp1tk
-	 2T2/8r92fkY5mgWDVvK0g2++yTapR+TmujpNoSgioSHuUv8ccp4QM5ltQSWi6caZ1f7ji
-	 G64r6VUPNHhDq7DcIVkKWQ8gFkRWXWVuogUHz1r99FM7lgfh2nCrqfKbuSJ7th5fnnR6O
-	 cjEzGl2bw1+eX1W4PqAnsyMWIkHAsitd5ukKQGPmixsjNKejy2LdaSJOWrFDw4hzQgw==
+	t=1794005983;
+	b=GMXhiuYlqzW9jni06b4IRBkJRf6KthKjxXVwsWX55x+mxLygy+QMRThCbWD89YnDuGfc
+	 iM3LksJl+aCsPo7P+vqXM+44R4L9eRxg5J8qxISTxE+e/EJW3unXVC1UBtJtvN/ECPArE
+	 0lX2oR4vPAD7ZSUF9MV/abkJb5D4MEb4zobkLwsQTzIF8GIZ9RZ0PV/Zp54aUOAlq1eoU
+	 zMCBBsm83bIyYRZ/ThwJElnKV6/wnBqxH7RtEzH4Wufa9Pv/yMQFnH+E2J+7hdYwQSIMf
+	 OkD9MuCqvrvPUnJVU9MLYcjgP6/ihRyfkzouJNW7UU9FZr3dwEw+1mrcTQU6YXkGGiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794005820;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:MIME-Version:
-	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
-	bh=Xydf7D1Ug+18o9KjDGYgg5Q3bZN62iLYwR2p/Rz26AI=;
-	b=YCgznixtkVeqvYQCVmKuAH1z4OC/aaJc8/w2+YYJHHtyDJuNpewAd62neZPJrVuxSviu
-	 fNKD+2Nx70+r/8yS/q3lq+NO9K1pNPOiZqnLw75Pa8vAYHyN0aKSHVbifXTGhOCNdD1tE
-	 IoWVEJP219Am+BZsSOXbpAJX1QcmjSjfgcxVrfO7c4A78PCi8UuYGTaON6ctZ4j3D/Ppb
-	 oI319Dx9vswbDgzZzC0dZL8dUgGCMdX24HfihmrrJcBWxcsQZ4qOfHO3mNXbGdboGJFxO
-	 to5MGLdBEpYHl5XpGTx7IaxDGSAeEmOP+4ywp8yIu7G3Oz5ak96Ml6S1Je9gs+2bqyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794005983;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=1ROF08EgwNasXuxo3btYG0d75HLIqEGhXE/Y5ILr3Aw=;
+	b=xUSQFFxMsBAYxfQwNMwIPh6aV4KsN4dHDjgfoT/CeFHwqR2dI9e3nuRJhb7Oz51gkTnp
+	 Rt8syCfxP6fUcjo6fbLp9FBZcq3w+MRDowHCX3X1I4EXtT8uL0WJxTgk32/QGbcX1V+xm
+	 h7tHlOs8uhzL+fKIu8GMEsADDaxHu5HTPr+PpQVuHnY5bPr1yQwuBBxMe0+u5YFoqyjs7
+	 85zDFGhF9KzUQfOE2v/5YOgZm/VW+tIA+B9qvmsdqq1r2bWnWYI05iBgpjvnklhIR2dKM
+	 JaY5UlZvW2yTsTxmM+9LhPUF5vXXTbD5Y8+1ul6o0tayOW/rKOa0jwtFKekFMHJypyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="H/SzY1mw";
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.81
+Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013EB606D812
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 013EB606D812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=H/SzY1mw
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261106225653euoutp017c12fab920bbebc53927471ba5149722~llsgtOP8i1319913199euoutp01M
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:56:53 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261106225653euoutp017c12fab920bbebc53927471ba5149722~llsgtOP8i1319913199euoutp01M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794005813;
-	bh=Xydf7D1Ug+18o9KjDGYgg5Q3bZN62iLYwR2p/Rz26AI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=H/SzY1mw3mA6Z56q3lZIMvfdcOBCrjc7dZDwRy01StWAF29fSNkLI3cm9/QjHG8/K
-	 +44jfsOED7g7OjoBjFSu/K7Bt06FRI0BtX7WTeHmXIe0R3pvD3TWhEkAo+1fygM5bN
-	 Ia4zVxYOK2nMvHb0NRTYr0NEst0n2+9TZA4BILts=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261106225652eucas1p2d4da27e923c75a7460861531bb01b60e~llsgXlFuR1955019550eucas1p2s;
-	Fri,  6 Nov 2026 22:56:52 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261106225651eusmtip2930bd7ce74f96343191502d22feeb09d~llsfogufy2228922289eusmtip2U;
-	Fri,  6 Nov 2026 22:56:51 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, Christoph Hellwig <hch@infradead.org>, Thomas
-	Bogendoerfer <tsbogend@alpha.franken.de>, Madhavan Srinivasan
-	<maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas
-	Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)"
-	<chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>
-Subject: [PATCH/RFC 5/7] dma-mapping: document that arch_dma_prep_coherent()
- must handle highmem
-Date: Fri,  6 Nov 2026 23:56:25 +0100
-Message-ID: <20261106225628.215319-6-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106225628.215319-1-m.szyprowski@samsung.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D892D606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:59:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D892D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=L4ufDEEa2cDQOD1tieRWm/aNnrY0KOk7T1D5nMVlhHA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794005978; v=1; x=1794610778;
+ b=SH3Wrkk4RHd7MrejZffSWADP4sedp2YtWXuVB4PRiAhqS8aJjvV6y/Q9gV5jjqZxno+ZVEH3
+ zvCOlK6eU82VQSoMFHDCj7MzVJyVYT0SNTLH5nkAVBW4VLmIgy8f6BW+oF4IcFd5owFF1ujzrBq
+ jXMkWyavrlkK5yqF0kA8/xGc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id da53d83c3dc044e5;
+	Fri, 06 Nov 2026 22:59:38 +0000
+X-Mizu-Trace-ID: da53d83c3dc044e5
+X-Migadu-Flow: FLOW_OUT
+From: Roman Gushchin <roman.gushchin@linux.dev>
+To: alex.aring@gmail.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-wpan@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Roman Gushchin <roman.gushchin@linux.dev>
+Subject: [PATCH net] 6lowpan: fix netdev_priv() type confusion in lowpan_event()
+Date: Fri,  6 Nov 2026 22:59:30 +0000
+Message-ID: <20261106225930.1379968-1-roman.gushchin@linux.dev>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,53 +69,78 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261106225652eucas1p2d4da27e923c75a7460861531bb01b60e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261106225652eucas1p2d4da27e923c75a7460861531bb01b60e
-X-EPHeader: CA
-X-CMS-RootMailID: 20261106225652eucas1p2d4da27e923c75a7460861531bb01b60e
-References: <20261106225628.215319-1-m.szyprowski@samsung.com>
-	<CGME20261106225652eucas1p2d4da27e923c75a7460861531bb01b60e@eucas1p2.samsung.com>
 
-arch_dma_prep_coherent() has no documentation, and several
-implementations assumed that the page passed to it always has a kernel
-linear mapping and used page_address() on it. That is not the case:
-dma_direct_alloc() and atomic_pool_expand() can get a highmem page from
-CMA and pass it to arch_dma_prep_coherent() before remapping it, and
-dma-iommu allocates the pages for non-contiguous buffers with
-__GFP_HIGHMEM.
+lowpan_event() assumes any netdevice with dev->type == ARPHRD_6LOWPAN
+has a struct lowpan_dev in netdev_priv(dev). However, non-6LoWPAN
+devices can also have ARPHRD_6LOWPAN, e.g. a TUN device via TUNSETLINK
+or a bonding device inheriting dev->type from its lower device.
 
-Add a kernel-doc comment describing what the hook has to do and stating
-explicitly that it must accept highmem pages without a permanent kernel
-mapping.
+Bringing such a device up or down causes lowpan_event() to read and
+overwrite unrelated netdev_priv() memory. Since unprivileged users can
+create TUN and bonding devices in a user and network namespace, they
+can corrupt struct bonding and trigger a slab use-after-free.
 
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Also check dev->ndisc_ops == &lowpan_ndisc_ops, which is set only by
+lowpan_register_netdevice() on genuine 6LoWPAN devices.
+
+Signed-off-by: Roman Gushchin <roman.gushchin@linux.dev>
+Fixes: 5609c185f24d ("6lowpan: iphc: add support for stateful compression")
+Fixes: 2ad3ed59198c ("6lowpan: add 802.15.4 short addr slaac")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-97b284e0-576e-4373-b62f-eb132f482b91
 ---
- include/linux/dma-map-ops.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ net/6lowpan/6lowpan_i.h | 13 ++++++++++---
+ net/6lowpan/core.c      |  2 +-
+ 2 files changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
-index afaf2c12189b..0c90e205df15 100644
---- a/include/linux/dma-map-ops.h
-+++ b/include/linux/dma-map-ops.h
-@@ -371,6 +371,16 @@ static inline void arch_sync_dma_for_cpu_all(void)
- }
- #endif /* CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU_ALL */
+diff --git a/net/6lowpan/6lowpan_i.h b/net/6lowpan/6lowpan_i.h
+index 01853cec0209..07f11d4dde6e 100644
+--- a/net/6lowpan/6lowpan_i.h
++++ b/net/6lowpan/6lowpan_i.h
+@@ -2,19 +2,26 @@
+ #ifndef __6LOWPAN_I_H
+ #define __6LOWPAN_I_H
  
-+/**
-+ * arch_dma_prep_coherent - prepare memory for use as a coherent DMA buffer
-+ * @page: first page of the physically contiguous buffer
-+ * @size: size of the buffer in bytes
-+ *
-+ * Called before the buffer is accessed through an uncached alias or handed
-+ * to a non-coherent device. The implementation must write back any dirty
-+ * data cache lines covering the buffer, so no dirty line can be evicted
-+ * later on top of data written through the uncached alias or by the device.
-+ */
- #ifdef CONFIG_ARCH_HAS_DMA_PREP_COHERENT
- void arch_dma_prep_coherent(struct page *page, size_t size);
- #else
++#include <linux/if_arp.h>
+ #include <linux/netdevice.h>
+ 
+ #include <net/6lowpan.h>
+ 
+-/* caller need to be sure it's dev->type is ARPHRD_6LOWPAN */
++extern const struct ndisc_ops lowpan_ndisc_ops;
++
++static inline bool lowpan_is_dev(const struct net_device *dev)
++{
++	return dev->type == ARPHRD_6LOWPAN &&
++	       dev->ndisc_ops == &lowpan_ndisc_ops;
++}
++
++/* caller must ensure lowpan_is_dev(dev) is true */
+ static inline bool lowpan_is_ll(const struct net_device *dev,
+ 				enum lowpan_lltypes lltype)
+ {
+ 	return lowpan_dev(dev)->lltype == lltype;
+ }
+ 
+-extern const struct ndisc_ops lowpan_ndisc_ops;
+-
+ int addrconf_ifid_802154_6lowpan(u8 *eui, struct net_device *dev);
+ 
+ #ifdef CONFIG_6LOWPAN_DEBUGFS
+diff --git a/net/6lowpan/core.c b/net/6lowpan/core.c
+index 850d4a185f55..748103d37e31 100644
+--- a/net/6lowpan/core.c
++++ b/net/6lowpan/core.c
+@@ -113,7 +113,7 @@ static int lowpan_event(struct notifier_block *unused,
+ 	struct in6_addr addr;
+ 	int i;
+ 
+-	if (dev->type != ARPHRD_6LOWPAN)
++	if (!lowpan_is_dev(dev))
+ 		return NOTIFY_DONE;
+ 
+ 	idev = __in6_dev_get(dev);
 -- 
-2.43.0
+2.56.0.455.g6c5a503b38-goog
 
