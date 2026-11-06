@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968061;
-	b=ORLjIqYvN9fHLQOOYKAR7EGrr0AJZo7+2aCZlzxwAOX8RhkSBasvabMeuVNd10KsSKyz
-	 SPwzK+cZPevNkdUENk7g1ec9kRuKqY6P8GFnhcplI+iAJLJ89z637+I7V/xVQnaUqgDrr
-	 UEZBYcoYLrXKsM4mUT0QZOn7zJyl3rNnFuFGiWtozzc+VmuLDZoVlxEkOlNIUH0dD5jQ5
-	 We2ABMta+FAGnUPtnUBOFGj9RFouoOs2ggXaX5KHsTi/dTEmkmJFitFRfioa5URw9cqqH
-	 Ffp/UOMwEoPXfGoA/Y/DWsMyqi2d0V6Xxbctr+fCMs660oc1TSEJSvrdojxI2nuKLUQ==
+	t=1793968063;
+	b=qyEYu0w92vthoQ+LY++4Rbqb7pztR83Zjk04RYIvaXlfLK05JZKPN5J2oM+cF2qRNfmP
+	 8IEV6Ulv0xx2wqdeYLspOFmVo3k+VXN5kWNocW1ntLooZ60b/lb0EwPHpj8EizgYPTDec
+	 vY3vsGsLPvoAAf95yFYytl64oKlGRErvfRSlmfXmkOQCNrrkvbikBITxKOqD1QFDRF+fN
+	 vPK5fx9jkNeIAIJkJ6PYLcAI5WCfEXRyW+uCefGY0k9vn3qm1fXhhWPSFeGF+DhF0bKLB
+	 iVDg+XJhN8G9bNDdqcZcTfG/BHurWi7zAObZAt+/xS+1bsj/5U3Ng7caVbDdmicPQlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968061;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=iC1G3JxUI9CHkJmI4Q8KQjR5+g3muYzWduWPCxUVDN8=;
-	b=yuFKmRB4bhs7mNCdFVwO69oPCAn2SXKtuOJBwdfc5xsAp1oiTzP/uyK7O42Y9ttD7U8N
-	 KIeBPGbm+jnDl+2ivsMVzXItqUfZ04H3+98XJeMmryQyz9T5iz3yDjgCO/w3x7JdOyUe2
-	 GnfADrgBZiALTfs9+1mhjrOP/N7kjaZccfz4+tsTJy1gohdY47dc4Mebxb53l3DVGe521
-	 7yx/bdhfnrteeWLwTCXtib9k5goMXQvI1SoAQ4z7tzz6nUnLPU/5Yn003bWpCwWj2HUKO
-	 pQvvFxEEhOmOcVjlPJgmXXPRJDSDsSLcaamTqHMugmBS6gmTvIwZPt0dh9nuWXHV/PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968063;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gXaYki6uWSOGEqG2nnwjkCld7NyYwmbFRUn/nj+UBJk=;
+	b=eEzIL9FHcx3JOvp0xtowRJyu3mzHCCBhJtW4zLDhZxsGx0BiKSBtc3bD2/T0iEJ2DUXH
+	 o/U3RYKQJm9N/eEhfY7/AT1WFxT2tDHFQn3Mo2eBmZJOjnPD9bRwZj2V2SwsjPsfKAg72
+	 uA0gZvjTqosHL9DLzmZ7+JypxNn3d+YOif3zJIxmiu7+OS1dFaNXGwTXTLJxYwk4QxeYp
+	 /gs2EJAxKtCO7XBLC8mMhPVL8m3r/jPriQwMO1IwUF8TohnGl9ffmY7GB2GCxzANxuoRc
+	 oMe4s2aFv0ENwV6AcLod7Jj3inXMSSmbX1Lk50gdDZFNqOcAoN36JrSqioH8JdvNzdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=EsMB1AEs;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRCNHhnj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E278606A32F;
-	Fri,  6 Nov 2026 12:27:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E278606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2174606A337
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:27:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=EsMB1AEs
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=iC1G3JxUI9CHkJmI4Q8KQjR5+g3muYzWduWPCxUVDN8=; b=EsMB1AEsVbddRhEkNqtxR4Dku/
-	fCd8WF3c9UeC7SvcAmlG/+G5YdOXXAUvdsppn12hLTNUVaxiyhPP2elO38AJpkk28kZhJfjQzzgSs
-	AfwrA/Q3BBUQ8AQ9RK5Drp+P6yV/9tE3PIHdGJU0xdxFqcNoFHjbbPWqTpGrTrR8Z/ELyMnl0DlLd
-	Jua0m1uTJGsz3uIUAsrBVa4/u5Firs3XRnoyUiiKZdSluT2LLlf7NW3tLTANbAD6R/sAzqp+GbWmK
-	9oiEiVsHQ/IJWB41oycCsZX1vojJV6wZRy6RSeZdgNHokRv2kuk40u4H3se5kmXJ9grK4DAVSE8RA
-	QrUz+FuQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>,
-	Andy Yan <andyshrk@163.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Daniel Stone <daniels@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Daniel Stone <daniel@fooishbar.org>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	kernel@collabora.com,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Igor Paunovic <royalnet026@gmail.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: (subset) [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color format on DW HDMI QP
-Date: Fri,  6 Nov 2026 13:27:00 +0100
-Message-ID: <179396799756.1259812.6287557543031614029.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
-References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRCNHhnj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228BD1F00900
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:27:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793968062;
+	bh=gXaYki6uWSOGEqG2nnwjkCld7NyYwmbFRUn/nj+UBJk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WRCNHhnjK2/U6cTw19O5vG9KnmkI3EATjgbS8Vp12vvdhMZw0bS6+u2k25MpIX5OL
+	 DijLA0057PexK4ZzikC7TgmkBtj2z12XbLzUGW1HtdyFQM7tci5jDlubuBkxlYXlVW
+	 e4FxoCwwLEn+FCeZwcv17e4QFwMJv7QlTSaT3WvBrn4YjYa00g/SxWMlat3hOZtwzy
+	 jtfgUoSW489vYcpneHL6LHI2uSsRtrRndthhPlDUwBXQhtZt8S5+7nyTNxlEccLcsY
+	 pbB7E9esK+k5zo8A9LhxD0KUVVz3dYp249aLeA2wpE2QfWs7O8vYd4C4rnePrtv72K
+	 AJEfXS5X32zrw==
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso658013a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:27:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxsKyTMSgJ0GwYaQhyxyDTnWSSKG/N/x5RxS/XdqV34RGfTrpsq9hM8aZrspnxfuqGZvfBoj2UVi/L9hAE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8EvKUByV18o68hcYUokxEgYNawUEx8FWI0VOP8WyxCK+YyvsQ2
+	5e0leaxab59w5wbYy76a2vfNJ0nJ70S+IOA4+Tj6uHrVr30eZD30wdH+eCWIS2komoQhVkN6KfZ
+	mSZfjzhwwxr+2Li2ByiZzqBQHT8WODXs=
+X-Received: by 2002:a17:907:1b2a:b0:c42:102f:15e8 with SMTP id
+ a640c23a62f3a-c4d35413244mr208015366b.14.1793968060730; Fri, 06 Nov 2026
+ 04:27:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,52 +59,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261106091420.2461683-1-wahidzk0091@gmail.com>
+In-Reply-To: <20261106091420.2461683-1-wahidzk0091@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 6 Nov 2026 21:27:28 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_te6K0uKmJNQDzi9E5=-wqrQ6Vc7MP_cZpGCQZK1JaGQ@mail.gmail.com>
+X-Gm-Features: AclHuK9pyTUmpj4YjLkVERCMkUy0IHDLyx8Ch1ej0-bKsscvef4Mm_oafumewPk
+Message-ID: <CAKYAXd_te6K0uKmJNQDzi9E5=-wqrQ6Vc7MP_cZpGCQZK1JaGQ@mail.gmail.com>
+Subject: Re: [PATCH 0/3] ntfs: three fixes for crafted images, found by fuzzing
+To: Wahid Khan <wahidzk0091@gmail.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Nov 6, 2026 at 6:14=E2=80=AFPM Wahid Khan <wahidzk0091@gmail.com> w=
+rote:
+>
+> I fuzz the new fs/ntfs driver with mutated images: an image from mkntfs
+> populated with ntfs-3g (directories, streams, sparse files, long names), =
+a
+> few bytes changed, then mount, walk the tree and write, under KASAN.
+> Three problems from that are still present in ntfs-next (e62b384ca).
+> Each patch has its own trace and the reproduction steps.
+>
+> 1. ntfs: do not read an index block outside $INDEX_ALLOCATION
+>    A directory without a usable $INDEX_ALLOCATION hangs on its first
+>    lookup. The task waits for an mft record lock that it already holds.
+>    It needs one changed byte in a crafted image.
+>
+> 2. ntfs: open the index allocation before reading or writing an index blo=
+ck
+>    NULL pointer dereference in ntfs_ib_write() on link() when the lookup
+>    ended in the index root. This is not the path fixed by 9365c4a1357e.
+>    It needs one changed byte in a crafted image.
+>
+> 3. ntfs: open a named $DATA stream by name when making room in a record
+>    WARN_ON() in ntfs_attr_make_non_resident(). This one does not need a
+>    damaged volume: a file with an alternate data stream and a full mft
+>    record is enough.
+>
+> All three need an image to be mounted, so a crafted image, not a remote
+> attacker. I can send the images (about 380 KB each, compressed) if they
+> are useful.
+>
+>
+> Wahid Khan (3):
+>   ntfs: do not read an index block outside $INDEX_ALLOCATION
+>   ntfs: open the index allocation before reading or writing an index
+>     block
+>   ntfs: open a named $DATA stream by name when making room in a record
+Please check Sashiko's review comments:
 
-On Thu, 05 Nov 2026 03:00:34 +0200, Cristian Ciocaltea wrote:
-> This series extends the output color format support of the Rockchip DW
-> HDMI QP controller to cover 10-bit YUV 4:2:2 and 8/10-bit YUV 4:2:0.
-> 
-> Patches 1, 7 & 15 improve VOP2 robustness on RK3588, helping recover
-> from exceptions and preventing random display output glitches observed
-> when switching modes that also change the color format, e.g. from RGB to
-> YUV 4:2:0 and vice versa.
-> 
-> [...]
+https://sashiko.dev/#/patchset/20261106091420.2461683-1-wahidzk0091%40gmail=
+.com
 
-Applied, thanks!
-
-[01/15] dt-bindings: display: vop2: Add missing reset properties
-        commit: be1734125b3e1c598c6ce35b4731d80e7acb7329
-[02/15] drm/rockchip: vop2: Fix resource leak on vop2_enable() error path
-        commit: b571f72ef923c31427f7058dd40a876023e75f32
-[03/15] drm/rockchip: vop2: Disable core clocks before dropping runtime PM reference
-        commit: ceb90f6ef6d5039189d4be7872eae33a8c635a0a
-[04/15] drm/rockchip: vop2: Balance state on atomic_enable() error paths
-        commit: b0e41d0609ce58e69ac43a2406bd3d6945454a8a
-[05/15] drm/rockchip: vop2: Avoid division by zero when computing max_dclk
-        commit: d0b0039a9a579dc4504a9af68e197c47187770dc
-[06/15] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
-        commit: 2cc46e2ca621923bd14fce6617000c218ea8b16f
-[07/15] drm/rockchip: vop2: Reset AXI and DCLK to improve robustness
-        commit: 67a391e50271e4e6cee833d31a7846de6a5717ab
-[08/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL clock parent switch
-        commit: 99bd1f8ae90101f25c65f544a3dfed2ad01824d3
-[09/15] drm/rockchip: vop2: Use TMDS character rate to select DCLK source
-        commit: ae98bc626336af920ecaee18c3b1d962b4e40d3e
-[10/15] drm/rockchip: vop2: Switch to enum vop_csc_format
-        commit: 95642d0e806d2fb97a02daf6caa657009a76ca13
-[11/15] drm/bridge: dw-hdmi-qp: Log resolution and refresh rate in atomic_enable()
-        commit: c1681020b47bec265f8c5b06de7b321139f3f545
-[12/15] drm/rockchip: dw_hdmi_qp: Do not mask error code in atomic_check()
-        commit: a6cc582884f78f0fdd6345eba9bbad32ddb5734a
-[13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
-        commit: 6352f4538ef03eda8346e79e4eb63bdead6c9a38
-[14/15] drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
-        commit: 09b4318c0e8a3d27b1fe6a2765163c1c52e321fb
-
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+Thanks.
