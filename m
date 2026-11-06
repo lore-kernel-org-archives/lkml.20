@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929833;
-	b=YN8MF2qQrp/7/7ZgkGuETsUTxn35fLq7WjHF3DbQ6lj8DX1kdhkx6RsgB5IKgzq9N+/0
-	 nY5NHNJIakpqzlOvNE3b5pV3g2DjsaBg+iyvhm+K+SQxm0Ntac+NXLvJlPDXiGKOV0IRB
-	 UXrqy6Ed2iXvMCTwp2NzskpnrUzjuoXensle98DssiAJdSqI/OAntipeVmMwzSz5Wt1Q2
-	 /VpECWTk4ImnuO9fgmYQJ3+SDscV+yP5aSPK0R4AhEl+fFdHzY3+0jxTVlT6Hv78KSHpO
-	 EoV9AByaciZxNLPkq1UFuMULqKWJix4HOj4aAmKHGKg88LSYZ1SumlyMMaZ9yo57xVA==
+	t=1793929841;
+	b=VOLAd60248z88yCEp/9dq8OZrjzOttSQFNxd7a1XOa4Ir+nn8D7LfYp1ZBUkEBDym2iP
+	 KM3zEdHB7PvPnKq9lDmzgLydvJXZ6sZp254XPlaR44byyI6FzvH0ZQqekAWwyXsdVtbCq
+	 K5/+37OvuUMc3xLFlEv6eBERTtr0wJmueTmwFro8lT9ue6PIw3nmQE/hUWym0WjF0yryu
+	 /nm2gkKdm+Wo1VVibIl0+T+eNzxgICEzpdrwCfrvnKQj+5WzSKDMaVLXggaZHbfk0IrnX
+	 YT5i419mLw++jcHHnQ/6TzL04FlJ7WqfwnMoCNLma6TqDELmPHGc1qdbn651A7r9udg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929833;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929841;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bUOln4U2FF/puLEf0pn993EVXbkgVqskZvfUNJSHFqU=;
-	b=ByKSBbKJsGfJnQOEZBepnh3Yybg4i8zclWIIF156lUXT1Yn16Ap/PpCfA5RFlA9Y2pId
-	 DDUtdWggbo5sjj62De6FrdLgnJ0ar9Ze/hbJMNduAgcPxeO4chyKeHHQsHuaAdDSl6CSW
-	 eefFKCXP8awTMsyT/RHEL35DK7ypW5wYw4+adPsZHEGAG/OfrZYr+dEWUke6iwlDNohpp
-	 u8f2AcGJkFc09F23dyS2oUSaUFD8NDSh1OYAnGVHg5j34cSQhXmSoVN6dgd793tR9L5UI
-	 IXK+wtvdyAFnQGCcUYOGlDhW9gIaHnfIwtogNPVPCsxwDrollPze0MxNfo8wUW7YErw==
+	bh=tfy2+1g14Q+31+Sa1OaE5p6p5HbbasaQ/4OMm54Basg=;
+	b=Iw0dqX3TIG/I+hFv+q6DLIfEws+0ZyYLeZ+kNQHQuC1+vGxjfpx4CvyXe3dGuXKt0j5F
+	 cuNL19hWoun7QKU9CGc9/nFl3QAfLhA0Cf9/q+9IBIL8ksFVfKF6+bVYBvBd3W0+YTsXZ
+	 oZIBS06aqtDyGWgBHz+RY6gkh5R/1Ao05NgP/RPUw2eypCfpvG8zI+HQYkB7WAnBhQNoo
+	 ZTJPBsiZGIJRerS0so0W3X0d/Etp9z4kZii7GadxyXvowxoZ3obmosW3hqu8CLoyhunYP
+	 xIG18467rpvZZNgDj+Kv4KhK98SADekhKVNIdSpDRyykKVMvjkQXTGU8gjknMNvPsog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lyIislUo;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dWwRlXM2;
 	arc=none smtp.remote-ip=198.175.65.15
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E431606A32C;
-	Fri,  6 Nov 2026 01:50:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E431606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AF3606D82F;
+	Fri,  6 Nov 2026 01:50:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90AF3606D82F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lyIislUo
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dWwRlXM2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793929832; x=1825465832;
+  t=1793929840; x=1825465840;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=VtNrPeVlgJDqgaLn1snqqrxLTe1ffW04yWpbYOCvUpY=;
-  b=lyIislUoyQjuGsJW6dwz3stoWzq5slOTFM4rrbAbe+QrxYWwyLFaju53
-   iBr+5z/VnlOVs6OUt26lzgsMxnZwnCPNxWtlQ6yGO14PcJjoVqWc0J8uC
-   kvuAA1TUmbbDq7grwEr4Hipwf0/3QnRCXBCG22hNFP0SX8GCpEwN9R5bW
-   0qgOXWhBTTG9+082ar+hlbt0oMQ45s4KhlsVqVGZh9p1KDqOPT30SwyJ2
-   cHoBqsvfkMzRUEJRwPNmzn/rBeWI7EsORVfS0alkQwtXWukcIwx41QoPI
-   OjVkdTyzfyKs7dm5O95xF1bodvY9oAPcRUmx/OrK/+QM1S8tWN76yzAsG
-   A==;
-X-CSE-ConnectionGUID: 3qgoHlnZQmSzOrvpWqKePA==
-X-CSE-MsgGUID: yaSZL18VTjamIDsPuW5lKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740119"
+  bh=r8McoPXfzwmISw/PMU57MznQ592Jz0jHc0fLEuGEaBA=;
+  b=dWwRlXM2J2tvOg2BYFphQ4Uk7uwu9N4r3101Pf8muyrv7jvxL6iMm8rb
+   y8bUDOII/tJsCKyCTAWXkLElWbjPlEgImo0NOv+f5Gqln+Imwn7MH8LpY
+   XFw83d6AxM01HloTTNHwr/R+gNDUqOKYAV9USxH1+GwujW9n3MuQdZuja
+   O+J8Q7ev+4WxG5jpdsKdxksz1Lry3QHwnaVECoG9+3mOriLiChZa3bhHm
+   8VITe4d5CJAehalSlygeE4TNqAsB/k76ZkJROkhYqmK/QQ56FZLVcaleY
+   tielhlb0F7QNkDnagGx5UGDVdTsHoh8Uly86//2uVaBr7Z6ycYvXV+uCQ
+   Q==;
+X-CSE-ConnectionGUID: 6MoHrM6BTTyfSjF0UvK+kg==
+X-CSE-MsgGUID: aYyY2J5JQiCtKe4asVOiJQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740210"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2740119"
+   d="scan'208";a="2740210"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:30 -0800
-X-CSE-ConnectionGUID: aVkHWtGAT+eY0wJsL+ZDOg==
-X-CSE-MsgGUID: ALOFZDTfRwam1EXJJZEeOQ==
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:32 -0800
+X-CSE-ConnectionGUID: jpaVY4l3TxG8InvQOtkAwQ==
+X-CSE-MsgGUID: KR2vJFTSQ5mkmj2tH1k7OQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7067170"
+   d="scan'208";a="7067217"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:30 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
 From: Zide Chen <zide.chen@intel.com>
 To: Sean Christopherson <seanjc@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
@@ -77,9 +77,9 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v3 02/18] KVM: x86/pmu: Rename all_valid_pmc_idx to pmc_exists
-Date: Thu,  5 Nov 2026 18:39:11 -0700
-Message-ID: <20261106013927.166209-3-zide.chen@intel.com>
+Subject: [PATCH v3 18/18] KVM: selftests: Support fixed counters bitmap in pmu_counters_test
+Date: Thu,  5 Nov 2026 18:39:27 -0700
+Message-ID: <20261106013927.166209-19-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106013927.166209-1-zide.chen@intel.com>
 References: <20261106013927.166209-1-zide.chen@intel.com>
@@ -94,92 +94,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-all_valid_pmc_idx is a bitmap of valid PMC indices, not an index
-itself; rename it to pmc_exists to better reflect what it holds and
-keep the name consistent with other fields in the same struct.
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-No functional change intended.
+On PerfMon v5, CPUID.0AH:ECX represents the fixed counter bitmask,
+while EDX[4:0] indicates the number of contiguous fixed counters
+starting from 0:
 
+FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i).
+
+Fix test_fixed_counters() to derive supported fixed counters using the
+above formula instead of relying solely on EDX[4:0]. This allows the
+test to cover non-contiguous fixed counter configurations.
+
+Update this_pmu_has() to take the PMU version into consideration.
+Without this fix, it could return incorrect results in test cases such
+as test_arch_events(), which configure a PMU version different from
+the one originally advertised by KVM without explicitly updating
+CPUID.0AH.{ECX,EDX} to match the new PMU version.
+
+For example, after downgrading a guest from PMU v5 to PMU v2,
+this_pmu_has() would still consult CPUID.0AH.ECX while KVM ignores it,
+resulting in a mismatch in the reported fixed counter capabilities.
+
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Co-developed-by: Zide Chen <zide.chen@intel.com>
 Signed-off-by: Zide Chen <zide.chen@intel.com>
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Reviewed-by: Jim Mattson <jmattson@google.com>
 ---
-v2:
-- Pick the name pmc_exists other than all_valid_pmc_mask. (Sean)
----
- arch/x86/include/asm/kvm_host.h |  2 +-
- arch/x86/kvm/pmu.c              | 10 +++++-----
- arch/x86/kvm/vmx/pmu_intel.c    |  2 +-
- 3 files changed, 7 insertions(+), 7 deletions(-)
+v3:
+- use the BIT() macro instead of an open-coded left shift. (Sashiko)
+- Simplified ternary condition in this_pmu_has(). (Sashiko)
+- Also test legacy EDX contiguous counts with ECX=0 in
+  test_fixed_counters(). (Sashiko)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index e2eef7057bd3..72b8fbf432a2 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -595,7 +595,7 @@ struct kvm_pmu {
- 		DECLARE_BITMAP(reprogram_pmi, X86_PMC_IDX_MAX);
- 		atomic64_t __reprogram_pmi;
- 	};
--	DECLARE_BITMAP(all_valid_pmc_idx, X86_PMC_IDX_MAX);
-+	DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
- 	DECLARE_BITMAP(pmc_in_use, X86_PMC_IDX_MAX);
+v2:
+- Fix this_pmu_has() to honor the guest's configured PMU version.
+- Update the pmu_vm_create_with_vcpus() calls after rebasing.
+---
+ .../selftests/kvm/include/x86/processor.h     |  6 +++-
+ .../selftests/kvm/x86/pmu_counters_test.c     | 28 +++++++++++++++----
+ 2 files changed, 28 insertions(+), 6 deletions(-)
+
+diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
+index ffec2291b1e1..21381db1c4ca 100644
+--- a/tools/testing/selftests/kvm/include/x86/processor.h
++++ b/tools/testing/selftests/kvm/include/x86/processor.h
+@@ -836,6 +836,7 @@ static __always_inline bool this_cpu_has_p(struct kvm_x86_cpu_property property)
  
- 	DECLARE_BITMAP(pmc_counting_instructions, X86_PMC_IDX_MAX);
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index eef2f792dc9e..83883191d124 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -944,7 +944,7 @@ static void kvm_pmu_reset(struct kvm_vcpu *vcpu)
- 	bitmap_zero(pmu->reprogram_pmi, X86_PMC_IDX_MAX);
- 	bitmap_zero(pmu->pmc_has_mode_specific_enables, X86_PMC_IDX_MAX);
+ static inline bool this_pmu_has(struct kvm_x86_pmu_feature feature)
+ {
++	u8 pmu_version;
+ 	u32 nr_bits;
  
--	kvm_for_each_pmc(pmu, pmc, i, pmu->all_valid_pmc_idx) {
-+	kvm_for_each_pmc(pmu, pmc, i, pmu->pmc_exists) {
- 		pmc_stop_counter(pmc);
- 		pmc->counter = 0;
- 		pmc->emulated_counter = 0;
-@@ -990,7 +990,7 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
- 	pmu->fixed_ctr_ctrl_rsvd = ~0ull;
- 	pmu->pebs_enable_rsvd = ~0ull;
- 	pmu->pebs_data_cfg_rsvd = ~0ull;
--	bitmap_zero(pmu->all_valid_pmc_idx, X86_PMC_IDX_MAX);
-+	bitmap_zero(pmu->pmc_exists, X86_PMC_IDX_MAX);
+ 	if (feature.f.reg == KVM_CPUID_EBX) {
+@@ -845,7 +846,10 @@ static inline bool this_pmu_has(struct kvm_x86_pmu_feature feature)
  
- 	if (!vcpu->kvm->arch.enable_pmu)
- 		return;
-@@ -1011,8 +1011,8 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
- 	if (kvm_vcpu_has_mediated_pmu(vcpu))
- 		kvm_pmu_call(write_global_ctrl)(pmu->global_ctrl);
- 
--	bitmap_set(pmu->all_valid_pmc_idx, 0, pmu->nr_arch_gp_counters);
--	bitmap_set(pmu->all_valid_pmc_idx, KVM_FIXED_PMC_BASE_IDX,
-+	bitmap_set(pmu->pmc_exists, 0, pmu->nr_arch_gp_counters);
-+	bitmap_set(pmu->pmc_exists, KVM_FIXED_PMC_BASE_IDX,
- 		   pmu->nr_arch_fixed_counters);
+ 	GUEST_ASSERT(feature.f.reg == KVM_CPUID_ECX);
+ 	nr_bits = this_cpu_property(X86_PROPERTY_PMU_NR_FIXED_COUNTERS);
+-	return nr_bits > feature.f.bit || this_cpu_has(feature.f);
++	pmu_version = this_cpu_property(X86_PROPERTY_PMU_VERSION);
++
++	return nr_bits > feature.f.bit ||
++	       (pmu_version >= 5 && this_cpu_has(feature.f));
  }
  
-@@ -1034,7 +1034,7 @@ void kvm_pmu_cleanup(struct kvm_vcpu *vcpu)
+ static __always_inline u64 this_cpu_supported_xcr0(void)
+diff --git a/tools/testing/selftests/kvm/x86/pmu_counters_test.c b/tools/testing/selftests/kvm/x86/pmu_counters_test.c
+index c3e784e16348..77d67fa6e3fc 100644
+--- a/tools/testing/selftests/kvm/x86/pmu_counters_test.c
++++ b/tools/testing/selftests/kvm/x86/pmu_counters_test.c
+@@ -3,6 +3,7 @@
+  * Copyright (C) 2023, Tencent, Inc.
+  */
+ #include <x86intrin.h>
++#include <linux/bitmap.h>
  
- 	pmu->need_cleanup = false;
+ #include "pmu.h"
+ #include "processor.h"
+@@ -631,25 +632,42 @@ static void __test_fixed_counters(struct kvm_vcpu *vcpu, u8 nr_fixed_counters,
+ static void test_fixed_counters(u8 pmu_version, u64 perf_capabilities)
+ {
+ 	u8 nr_fixed_counters = kvm_cpu_property(X86_PROPERTY_PMU_NR_FIXED_COUNTERS);
++	unsigned long fixed_subset;
+ 	struct kvm_vcpu **vcpus;
+ 	struct kvm_vm *vm;
++	u32 fixed_bitmap;
+ 	int i = 0;
+-	u32 k;
+ 	u8 j;
  
--	bitmap_andnot(bitmask, pmu->all_valid_pmc_idx,
-+	bitmap_andnot(bitmask, pmu->pmc_exists,
- 		      pmu->pmc_in_use, X86_PMC_IDX_MAX);
+ 	pr_info("Testing %u fixed counters, PMU version %u, perf_caps = %lx\n",
+ 		nr_fixed_counters, pmu_version, perf_capabilities);
  
- 	kvm_for_each_pmc(pmu, pmc, i, bitmask) {
-diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 36d91215f42a..ee18899614a1 100644
---- a/arch/x86/kvm/vmx/pmu_intel.c
-+++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -560,7 +560,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
- 		lbr_desc->records.nr = 0;
++	fixed_bitmap = BIT_ULL(nr_fixed_counters) - 1;
++	if (pmu_version >= 5)
++		fixed_bitmap |= kvm_cpu_property(X86_PROPERTY_PMU_FIXED_COUNTERS_BITMASK);
  
- 	if (lbr_desc->records.nr)
--		bitmap_set(pmu->all_valid_pmc_idx, INTEL_PMC_IDX_FIXED_VLBR, 1);
-+		bitmap_set(pmu->pmc_exists, INTEL_PMC_IDX_FIXED_VLBR, 1);
+-	vm = pmu_vm_create_with_vcpus((nr_fixed_counters + 1) * BIT(nr_fixed_counters),
++	vm = pmu_vm_create_with_vcpus(BIT(__builtin_popcount(fixed_bitmap)) + nr_fixed_counters,
+ 				      guest_test_fixed_counters,
+ 				      pmu_version, perf_capabilities, &vcpus);
  
- 	if (pmu->version == 1)
- 		return;
+-	for (j = 0; j <= nr_fixed_counters; j++) {
+-		for (k = 0; k <= (BIT(nr_fixed_counters) - 1); k++)
+-			__test_fixed_counters(vcpus[i++], j, k);
++	for (fixed_subset = 0; fixed_subset <= fixed_bitmap; fixed_subset++) {
++		u32 nr_contiguous;
++
++		/*
++		 * The loop walks all values from 0 to fixed_bitmap, so skip any
++		 * value that is not a subset of fixed_bitmap.
++		 */
++		if (fixed_subset & ~fixed_bitmap)
++			continue;
++
++		nr_contiguous = find_first_zero_bit(&fixed_subset,
++						    MAX_NR_FIXED_COUNTERS);
++		__test_fixed_counters(vcpus[i++], nr_contiguous, fixed_subset);
+ 	}
+ 
++	for (j = 1; j <= nr_fixed_counters; j++)
++		__test_fixed_counters(vcpus[i++], j, 0);
++
+ 	pmu_vm_free(vm, vcpus);
+ }
+ 
 -- 
 2.56.0
 
