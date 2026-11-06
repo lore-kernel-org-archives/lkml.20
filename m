@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982199;
-	b=DNeG80fRrdVSM+xm+4DmlI6fxu1HGf4cYXjeaHIgIoh5/TiNuk2HhocPoNnApg/VWAwH
-	 4AULqJ/wooTvcczLglQlJiv0rlhPwe0x2OEYxtTwz47y9sz1MC28eXDS1jRF1AsNhDlyK
-	 +fglRbhjopkVPAQIci0PDunekYLMMp5GjOcVhmF6em0iGO8ktZHIO6AbFkMg6mUhjeRDX
-	 gtJDvp+k6h8FeFncbqFszd623voWp6SI6pLi5XzoZHSjKsEb9qwXg1FJDOwmVh/EbDNY+
-	 XnKVxbk4yzwyuAZLs/V7astk3iFypljjodU1rYElbpUPhN12Ebo4XURKe8yJ3fmbBYw==
+	t=1793982204;
+	b=ogyMsxQgh8OU6G5T4/LY/fhW/p1jkgZq8qiQHupB1mzPxafGWBec4ZV3t0EBM1SwJ40e
+	 0XWRtM63hjzGRMdH8pq18JckFbd4av3AzsUQ7hulJDx41R5Bm+E8CXX+Qypf/wSfoxVVq
+	 9sMiU0C2lnD6r8+hME9XmYnaghheS45xFZ2MCjF8w0qTsyGE1os7uD+7slDtf6jXkafzm
+	 sHRXf9IpLja7kwzpNWaTKeTKFvFNJJoVXilY6vN+wiohDTtX6uUX3G0Bgye914tBjXM97
+	 nw26VJ/+dnUdslvgTE9zot4HNtxwEXYRDch/ZHR5UmAh87wTpDo6KCyVLYZkId1TtNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982199;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982204;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
 	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
 	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
 	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=wUqjA0sYy8npT9+d6Tj/dCL65ia0S9H97G7PC1jfIH0=;
-	b=HSm523Z8TuRhNw5Jyn8UhR4UtjHi6KzSp7dFbpRLvg3gIfLcX0mkmVXS2LhZvehYLQwy
-	 QzwQ9AQ8j6D5THFLc/TZgaSygjBZmvpW6lDnsqgh4PEgUNpsVXnV8W2tXGRGCQCNw3Y4T
-	 qgUcUqdsIW5S7fvLl81EX/bGcCkGVe1+JsJ4wIe/4BpJytg0rl9v4jBprGPdjnQy+unDs
-	 lIPRdJm8DSEXuK2Sc+jUa7lQ1AbNj5bjP5o+f1ba9vmRynCS/+7PP7U+MFtqxYX7/5s1f
-	 MoJjQRXKpe/WiMe+oxPe3y60njBpMdkMt1D0tw/86yGX63CGUlrkVQd1P7Yj4i0s6yQ==
+	bh=3i/cpLj7jioj0efCF93XiFFApS0T2T4Fdajnk5CIbRM=;
+	b=WlY6VY+QpGNNrD6cDca0jH9XrulsLsERnAYG4id1xad01c+nM4fEXiTtG7ym0irX5J4Z
+	 UA3ws7iRGQEqB3ZohXaCmH7xANPa5Kjsto/yrt0HbaXKXCJcQPNzvp1WCABPMcS8mvI++
+	 UhQBTMZhmvcGlHqLM7wqi7RVLNUjtcPCqNEzCQmPdBRY9+KmQLAnTA6npy6b3WkQSA1KZ
+	 ClDFfFhJUwRhXniS6fVgCPwEVg2Xy5PIpu/PuDMuLYLKEMl07DLVbe5taacZ1ktPRlaVC
+	 Rsr4SNCAnbvL4nu6T+BCn1nztXWYcDOAHxX0cAWaJOSIX0yocj9RGdzLZ4IyeRIZ+Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C371606A329;
-	Fri,  6 Nov 2026 16:23:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C371606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998BD606A32F;
+	Fri,  6 Nov 2026 16:23:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 998BD606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jLkxc5jVLz8XrrX;
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jLkxc2fsHz52SGl;
 	Sat, 07 Nov 2026 00:23:16 +0800 (CST)
 Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6A6GN7PS011564;
-	Sat, 7 Nov 2026 00:23:07 +0800 (+08)
+	by mse-fl2.zte.com.cn with SMTP id 6A6GNBKi089350;
+	Sat, 7 Nov 2026 00:23:11 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
 Received: from mapi (xaxapp02[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sat, 7 Nov 2026 00:23:11 +0800 (CST)
-X-Zmail-TransId: 2afa6aedfeefdbc-c8d21
+	Sat, 7 Nov 2026 00:23:15 +0800 (CST)
+X-Zmail-TransId: 2afa6aedfef3eb6-c8e1b
 X-Mailer: Zmail v1.0
-Message-ID: <20261107002311316z2o2PFtFGoXh-VbqXtTGg@zte.com.cn>
+Message-ID: <20261107002315181vFaB7Y_zoFugWEVkOSGJZ@zte.com.cn>
 In-Reply-To: <20261107002305850zuBaVsGBz3wbco2Ae4ScR@zte.com.cn>
 References: 20261107002305850zuBaVsGBz3wbco2Ae4ScR@zte.com.cn
-Date: Sat, 7 Nov 2026 00:23:11 +0800 (CST)
+Date: Sat, 7 Nov 2026 00:23:15 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,59 +64,63 @@ To: <bhelgaas@google.com>, <linux-pci@vger.kernel.org>
 Cc: <mani@kernel.org>, <kwilczynski@kernel.org>, <lpieralisi@kernel.org>,
         <kishon@kernel.org>, <Frank.Li@kernel.org>,
         <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDEvNV0gUENJOiBSZWplY3QgbmVnYXRpdmUgcmVzb3VyY2UgYWxpZ25tZW50IG9yZGVy?=
+Subject: =?UTF-8?B?W1BBVENIIDQvNV0gUENJOiByZWJhcjogR3VhcmQgcGNpX3JlYmFyX2J5dGVzX3RvX3NpemUoKSBhZ2FpbnN0IG92ZXJmbG93?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A6GN7PS011564
+X-MAIL:mse-fl2.zte.com.cn 6A6GNBKi089350
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sat, 07 Nov 2026 00:23:16 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Sat, 07 Nov 2026 00:23:16 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEDFEF4.001/4jLkxc5jVLz8XrrX
+X-Fangmail-MID-QID: 6AEDFEF4.001/4jLkxc2fsHz52SGl
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-pci_specified_resource_alignment() parses the pci=resource_alignment=
-boot parameter with sscanf("%d%n", &align_order, ...) and rejects only
-orders above 63.  A negative order, e.g. "pci=resource_alignment=-5@...",
-passes that check and later reaches "align = 1ULL << align_order" with a
-negative shift count, which is undefined behavior; on x86 the 64-bit
-shift count is masked to six bits, silently producing a 2^59-byte
-alignment that mis-aligns (or fails to align) the affected IOV resources.
+pci_rebar_bytes_to_size() passes its argument straight to
+roundup_pow_of_two(), whose implementation is (1UL << fls(bytes - 1)).
+For bytes == 0 and for values above 2^63, fls() returns 64 and the
+shift count is undefined behavior.  A value with bit 63 set cannot be
+encoded either: exactly 2^63 rounds to itself and is encoded as 43,
+outside the 5-bit BAR Size field.
 
-Reject any order outside the valid [0, 63] range and fall back to the
-default page-size alignment, matching the existing handling of
-out-of-range positive orders.
+Bail out for bytes == 0 and for any value with bit 63 set; a zero size
+is returned, which encodes the 1 MB minimum.  The largest valid BAR size
+is 128 TB, far below the 2^63 boundary, so no legitimate input is
+affected.
 
-Fixes: 6534aac198b5 ("PCI: Bounds-check command-line resource alignment requests")
-Cc: stable@vger.kernel.org
+Fixes: 192f1bf7559e ("PCI: Add pci_rebar_bytes_to_size()")
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the
-pci=resource_alignment= boot parameter and a QEMU e1000 NIC; no extra
-hardware is needed.
+Tested on 7.3.0-next-20261030 (QEMU/TCG x86_64) with a TEST-ONLY hook
+(applied to both kernels) that calls pci_rebar_bytes_to_size() at boot
+with pathological inputs (0, 2^63, U64_MAX) and two sane sizes (1 MB,
+1 GB), built with CONFIG_UBSAN_SHIFT.  No extra hardware is needed.
 
-Booting with pci=resource_alignment=-5@pci:8086:100e parses a negative
-order that the "> 63" check lets through, so "align = 1ULL << align_order"
-shifts by -5 (masked to 2^59 on x86-64); the e1000 BAR is resized to
-2^59 bytes, which cannot be assigned, and the e1000 fails to probe:
+Unpatched, the 2^63 input is encoded as BAR size 43 (outside the valid
+0..31 range) and the 0/U64_MAX inputs shift by 64 (UBSAN reports "shift
+exponent 64 is too large for 64-bit type").  With this patch all
+pathological inputs return 0, the two sane sizes are unchanged (1 MB -> 0,
+1 GB -> 10) and no UBSAN report appears.
 
-  unpatched                            patched
-  requesting alignment to              PCI: Invalid requested alignment
-  0x800000000000000                    (order -5)
-  e1000 probe failed, no eth0          e1000 eth0 probes
+  unpatched                               patched
+  UBSAN shift-out-of-bounds; size 43      size 0, no UBSAN report
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index bca3a5d84cd9..c2260ee1f956 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -6605,7 +6605,7 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
- 		if (sscanf(p, "%d%n", &align_order, &count) == 1 &&
- 		    p[count] == '@') {
- 			p += count + 1;
--			if (align_order > 63) {
-+			if (align_order < 0 || align_order > 63) {
- 				pr_err("PCI: Invalid requested alignment (order %d)\n",
- 				       align_order);
- 				align_order = PAGE_SHIFT;
+diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
+index 5bbdc9470a31..fd448dc7c322 100644
+--- a/drivers/pci/rebar.c
++++ b/drivers/pci/rebar.c
+@@ -31,6 +31,13 @@ int pci_rebar_bytes_to_size(u64 bytes)
+ {
+ 	int rebar_minsize = ilog2(PCI_REBAR_MIN_SIZE);
+ 
++	/*
++	 * roundup_pow_of_two() is undefined for 0 and above 2^63; any value
++	 * with bit 63 set is outside the 5-bit BAR Size field, so bail out.
++	 */
++	if (!bytes || bytes & (1ULL << 63))
++		return 0;
++
+ 	bytes = roundup_pow_of_two(bytes);
+ 
+ 	return max(ilog2(bytes), rebar_minsize) - rebar_minsize;
