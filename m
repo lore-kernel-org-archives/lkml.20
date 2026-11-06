@@ -1,136 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793932764;
-	b=npJGyelj1Xn6IAx67zyLlzIR7z3CS6NZ4aci7vXy9qklaEaX2KOskAwDoaZ+faQTKcHS
-	 R2mnOUVI6QAfwxJpFwrv99D79SbaBrkRiPwjSeRpeDU7pQF5gg9hc1toKROf97RJi7eh+
-	 AgO+NuAV7wqmsiQ/ciSkf+aBiULWVNWBV2PVn043nLrEsjaaQyOBUaRNnNFpGQROvrFEC
-	 9yEwvjIWFVO3PPA/mAIed7s7zuW37Bz3XekbAdE1leaGXW6zBpwntCdYLsXaNASWYehxz
-	 wq+569B82pCP5np1tvYuhn5d77KLLPh1C2EsHdPS5zoAripemGgIKiJEfb3GRHDeCUg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932764;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793932797;
+	b=qd6QBGzszcLh267N6KgFmBy84dGVfYalOHfC0nVuCA0UJrDJt4ZhSVBi4iZMCYXLc8tl
+	 V+KFyNS/LejtCY/T3g0S5K1MQeerpt1gLZjZFtotLPEj1vyC43CVQXb0tVwSXe1zQ4Hs2
+	 EDV+py5+9RufpBCNG0/snxAO03dRSz7WLn0OUMpLBxXANXY7LxJWZNiCQGNRTsb5GVJiF
+	 INUBP2vVLGMCTvI0aWYIL6IXl79Qq2bGfTmUh/H5Ab0wxRXAcfxI91BjxD6L1F+r+XdE+
+	 nTsPuZ7ahXfh3Ju2gWDP+aAi7LuluFysFG209nMp9S3e0bDhGugRwrpmhkCMbWcV7Zw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793932797;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=NUJzzmmvJWm+NQWwcARERn6jCKKTr1RCzUSjJg/dBnM=;
-	b=VfclNNg5as7mKiqw9VqWvthauMXTs6IvERClZkVcF46is1vlIb7y8mpuOt7vtftA9LID
-	 kcC1NB8TpGkf+lDYLpm42SY+V654K4UPhxLUznkfFRkxlYUhCfJF7mbMJWN+0mhQXkemR
-	 uXa3KEta3S6whcTodgMx8YB+IqLynwkuilPkQ+GMsJWn1IB3m3KF5IHLXGR4s3E5pqhHu
-	 8rNU2j3o2fcypJAp8nD/1ZfAUoMaLXpmY08392agHLVKUGYO57y6jnYl5lqBN7VJm2R3j
-	 ldcfIuk4JTL3VGjlB9SWv08CZICZRbjfXGeGu/jxmTJUGmhoglPxx909ZUN3vnGTcAg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=carvPggkXb52nq1kon8OUgYNoFEqAoo0OSAHcurKhgg=;
+	b=DuS364543ZUVXPcVZcCDdwFfc88fpFYpSCHGVAlTtWIQAH/AFGbkOZEtJDfur3h2iox/
+	 opkmhjOHUCIv8t77lEvPplhcfsom40g8tSi2PuNlqPHwLdBxZU/DDyWuyolOv2RTXx71R
+	 rx022YI4UGCFeEkvFuzPAJkIFMy09xW1F7mBkkE9f8MpBnHpwb3/ntdgaA0DdBlmOxueg
+	 N1w++E3xMV2kj5jGp/VTMqMJk6Z0Bzm6iU/KzXsLAm2Lh9J36OexycovcHdam+2XMBhh/
+	 GIu/KH0DAIEQWh956k2hJIDXU2OdHuMVg3NTQ3jO0pBsHKA30GT+wQYl/uecacPseaA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HQxKHIQP;
-	arc=fail smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oF1Jj9TU;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6357A606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:39:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6357A606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54D6606A326;
+	Fri,  6 Nov 2026 02:39:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E54D6606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HQxKHIQP
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oF1Jj9TU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793932764; x=1825468764;
+  t=1793932797; x=1825468797;
   h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=wD5X7mXeEl2AuByVXZZvyqvViDH9nvWbrYwzGySu5wI=;
-  b=HQxKHIQPmhhTIlg8KK47oqx6fqo0wbCosyrdTb0iVFGsIjzMBHOZ8eYa
-   NpFsmoykpUOG0IJrbKcZFIK7RvPStDSrB79vJYkAEMSbIX34/pjFZCvFx
-   VG+uSW4WrNJnOuZYi3RhoSbvlLVgLKEIb/0scvRTFy0FREtio8Ke7Ca2C
-   Hu5+1q+Vi+9ao5E6T+ApXaohSV8beBl97msXsotnngpzs2JwBGx4/pxQK
-   v7oczNTuWQ6T3OJrBshJ7vJnhGZfGfWUbp+XlBZ+Cc60ALFUdNAv92v4v
-   nF2wqeq61qsbBmQk8sljdcMsjDdgX85wW9hjlW/z7e7DXpsZy/q87lCCp
+   mime-version:in-reply-to;
+  bh=9G+m15M8pgygjZiVmHGkqDC8/DoP+cHy6Aw+E24uXWg=;
+  b=oF1Jj9TU2vLesj1whvWviBJ/Zz0oUpMWx2VqVSLie3OfXv/utHnmiscY
+   WQTL4xGTn8E/BNLUA5fkZYf+WwgalgbpmRTA6RxKmwvMZLHGdZMDLMF4P
+   PiEiohGdL0JXdSBY9BYx0G8z46Gm3StLtsPR0GObarX7xH8QUem9yBROF
+   eoUXlsEANrV8TCgfKw6XX00/HljMRc0RWwVj1bHLE+VNj/QwA2QaiZjNj
+   AgfXujsMIizzmEckW23ioluv+3SgdHi0h8Tgqbr4ePMhiPsnG1Daj9Wvu
+   K2sndhNVUBfBjaXwAv9kKWCAB6H4o1db77lMQ2AkroJfA7w5wrXst2Ta7
    w==;
-X-CSE-ConnectionGUID: S0HZvZTSTeSzl2h0Fy4qiw==
-X-CSE-MsgGUID: QMU8mZdKSpKrz0viEwjZcA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2841377"
+X-CSE-ConnectionGUID: NFbn1VmOQoiynYQveYe0mw==
+X-CSE-MsgGUID: Tgh3l2NTSsarpCBB9nGggQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2642947"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2841377"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:39:23 -0800
-X-CSE-ConnectionGUID: Bi7eKiSFR7qQ8fBHfSgRbA==
-X-CSE-MsgGUID: 3jo6+JsVRQ+P7JQ+KLceXg==
+   d="scan'208";a="2642947"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:39:56 -0800
+X-CSE-ConnectionGUID: KS9u3FBUTWWX+np6X1wz6Q==
+X-CSE-MsgGUID: UVNMrYxjTwqQ+PgcFopzdQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7073437"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:39:22 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 18:39:21 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 18:39:21 -0800
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.5) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 18:39:21 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G9H93ynM7TBGooafg58IIPKp2IrJ2ridU24sg2kctAhcVNxOUMUMANd8I/1/cjQR8J8vit4j4++vrBo0/nqBrM8d8mqBnSkUmlTQkj8XwIssAuzWNuJar/Fvqexjmoi4aGS1eYBeQyWJf+CrRtY9dZ3wInXRO59oXpXtMZ4inOd4cTEHRGqVYWjYDvo4p9vnVwMkhdUNjLWAIJzY259ftDnbBgYBxgTN654jEuMdHglg899/ipXrr4NS1/342zIMOWwGC3sen2/Uz5PhbGidSOE0T3P/uAelZc4qd/WT4tJ1fwVHZ18OZ8UHvUGO5Sr5Xhm9BHZ7S1F3sxNBE8ei+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tv7QbmTQomQcbatk185n44eeo0lx1Z2LsmlJjweTzXA=;
- b=lTUFmaPLDd40SgF6gE9T8XMFwoj/0ECl6yU5etV/H7X7tL+HCNCdCMLXOPHMbFQQO8ZEPPBiFtsmh19sAxMcvLD0YpW7A2LUt60ZNGs+VVSFiT9AkCymwzUYXli3PvCZItUurmdsCJa+cMMfeAPjgQx+zJBiSJc3Q1tGuQAkDPFupUUAlXprkuCJ8UpbksxJ65uZ6tkcbJu/W/ukf1rSesJAO4mekrLEgJGGzAX79XKJ3CtwOANoiOznk6RZtCEX9RAX2V5NrrOS4bM+jvFTAE22InzNxjYaFkLiDwngVRwt8yyNCjnTvtET4rjRKgjMg4jIoPRYO5EB+KlPCV5jHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by MN2PR11MB4568.namprd11.prod.outlook.com (2603:10b6:208:266::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 02:39:18 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0569.011; Fri, 6 Nov 2026
- 02:39:18 +0000
-Date: Thu, 5 Nov 2026 18:39:16 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
-	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 04/33] drm/ttm: Introduce ttm_pool_alloc_iter for
- __ttm_pool_alloc()
-Message-ID: <au091GIzweGostC0@nvishwa1-desk>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-5-matthew.brost@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711025619.2540575-5-matthew.brost@intel.com>
-X-ClientProxiedBy: BY1P220CA0016.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:5c3::13) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+   d="scan'208";a="7293755"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 05 Nov 2026 18:39:52 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xP9rn-00000000nCp-1GFE;
+	Fri, 06 Nov 2026 02:39:47 +0000
+Date: Fri, 6 Nov 2026 10:39:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alexander Dahl <ada@thorsis.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Ryan Wanner <ryan.wanner@microchip.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Mihai Sain <mihai.sain@microchip.com>,
+	Manikandan Muralidharan <manikandan.m@microchip.com>,
+	Durai Manickam KR <durai.manickamkr@microchip.com>
+Subject: Re: [PATCH v4 05/16] clk: at91: Allow enabling main_rc_osc through DT
+Message-ID: <202611061036.HmCbW9MI-lkp@intel.com>
+References: <20261105110715.2486432-6-ada@thorsis.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,304 +93,336 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|MN2PR11MB4568:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5569aee6-139e-4610-b00d-08df3baf27e9
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|22082099003|4143699003|11063799006|56012099006|261009223027099003|261009221727099003|261009221227099003|261009223327099003|261028144727099003|261009220027099003|261021123027099003|261022075727099003|261102123227099003|261022105027099003|261026140227099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info: Arw2ru0MZGsLG7EBuRef0ZrAUz3pTdvYDUQDGoF9FmwNLSJk66dhKM3ES9xXeGr3jMP4dLINsZyq8AUvjc0bNYH6gRv9pa3LtXE0XMujTBVQUFHsMKrkFxORhJ84ZDbBINLcQ/B1Dd0pX4zhSgppnITID9Cko7MnrQcgA+Fi0P4YFbdnnjV0ILqvX0iIkBzol7MQYFyrpGFODVL1ttZuU719s+ilh9UUNHgoBrfsewQ0Y96u9QYGHCxT5vig0GFddOEyumpkvz5Wy6kIKNAw0fl+BBWp1tzrcgsEjw7nrPaDd1xcVvHc+ONrtPX4v74nUXB7esfGBhiPVg0p0p8dHS337e/0ylnG9VXH+W/NnAlVdX5SF0mrZ4VK0nWwsMGwjbs0dNSZEwwL0O3UfKpTP//CU0fHQixjKMi3DiCirhMXKHkyE5UheyTQfmGigGZFskqtZORH86CE1LbYD2a4/shJEUfY0aW8QRBVDa6IMAUFYrYvRlcNvyVsarfdDhkPeIm5/f4Tv6yVOr3M4dBWn5avJWj+boEihNGbVGUMhbXTLnZWnpgJUI+o6E4uYhwwoXyu2D6AkzZ1ic3eP1lLG9JndSqobl0/Xtmvlr5rhrS/kxmCNU59RyMWSvnZgw3VHCr6T0T+5jTq7OrNNFEw+q6FFc6yjWCMzMoGMS3CyCk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261009221727099003)(261009221227099003)(261009223327099003)(261028144727099003)(261009220027099003)(261021123027099003)(261022075727099003)(261102123227099003)(261022105027099003)(261026140227099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?jdTiFbEFltYkfT4LLXAivZl1o6EoZg67rF5U/qq998p8RWmOjNwaxvdbiJ?=
- =?iso-8859-1?Q?S44PwtHVgqI9GKrF1VAXvweOuhvxB7nkzwPgWMGIDj3IhANviXQjJZ76zT?=
- =?iso-8859-1?Q?pXkEybLQ+XNPuSScANbEgbtK1X3wm/Tiw2KJc9cC7S+/eiEAMhlYK5m8Ks?=
- =?iso-8859-1?Q?Mu2ebzfUHNk+bX8icNWTCLum9GXhoHOnU4pJFJYAL1FkB23qUCd9XS1XrM?=
- =?iso-8859-1?Q?uJMCX705O/QOPH3HvRUqKyTeShXWDRXtE3LJfjrQh0cgwJwKBuWN9w2jxi?=
- =?iso-8859-1?Q?GHqpxnJx0mPxm/vbUXgvi+7pBBzPlQxZAk2RbX1FIZsZBbVhCS0U8t8b7c?=
- =?iso-8859-1?Q?uPrcEAsWnSRj1G2uQxcYX3VAkAuWICyzCdeWbFmBhr+4AVJvCSEVCgY6iz?=
- =?iso-8859-1?Q?2ojkxXov61VyOMy+01K56PXgNsYftfciaC2UbxVk+dNkuwJch6dksCzcvb?=
- =?iso-8859-1?Q?9fMafwsk1vWrXIQUt4foatT64zgeY/Kszy/NQE5Bt3rVUnqAKJ9VYyrY5l?=
- =?iso-8859-1?Q?SGEHu5DIcI/6XWrUjIgh3+2lRUWUPNlxYtLNP5RZ1DiTNRRu4rkMFP2gFa?=
- =?iso-8859-1?Q?bDSvqCSTveQZArwvusWrCY3WSmYpP33kXxMRNTn1zRF3n8LWBbvRobNpEt?=
- =?iso-8859-1?Q?7tjrTsVWaJSCeOPROdyyhvC9uiKUI5l6qgiqqcYQfCgGe6RHd/sAjVR+oU?=
- =?iso-8859-1?Q?53p4WQM0YLvzNlX9ZeTBAXy1QrRD1zHmriu/zW024q5npZggYonSZkrOi+?=
- =?iso-8859-1?Q?9cJvNwKqo1ZuKAtBuL3bKymX5PLJTImrlQuFL2pPU4B5IRWpqKYGnMRRCC?=
- =?iso-8859-1?Q?NXomoOpHs3yxfCAOHrOE0zLa/LfLthO5/yvmybgZW+l0/no+vq8i3NBGcG?=
- =?iso-8859-1?Q?saSSqLSqXqkowTiww4vuYAH1hVzlaxIVi76/MHkjJqKnSuM+1T6Dk3anYM?=
- =?iso-8859-1?Q?YWDQo1LqsLj89bqRR/B7yUDuF3xdyyQc4Di7oINb6qBzoKletcYGbt2TJ4?=
- =?iso-8859-1?Q?RU228Ji308WqS8NyMowwmRMfqsNcqhyn3xuhY34mWp5FRtxadJXLSZnme+?=
- =?iso-8859-1?Q?wIOGy4OX9zUtoegq7iTFKXxXPzWEHdrpFUgcIX/Xj2YivIR3IcMyIVmHEY?=
- =?iso-8859-1?Q?tbxAv8Dzvlad7Pp4XUBqThco9iX9az0eCClZlXhqPoHuz5WysgS3eUNPu4?=
- =?iso-8859-1?Q?tApftJ5wiN57JhG8OmaXU6pt0/9IpIOR7D17hkp3QnXqTRKwSslvdNbXqg?=
- =?iso-8859-1?Q?E7zxgK2JllQZ46GhnADabgxBawcq8+0k0MkY/JxcaytahglDvvzEt5vYUM?=
- =?iso-8859-1?Q?zgAMuioL5pAJgw2gwns81c46RslGx85NOS8hRH8Yr8OY8qXONjYpBFtdOG?=
- =?iso-8859-1?Q?y7ptYSHFTyysiV3yM8wz8Sr48t/UE3/ptw5Hx2XhYWZcWi/7YFX6fuZV4V?=
- =?iso-8859-1?Q?74x9MDW+pnJvxeyxJ+nN9f1Hhr/tVwvvxvymWdlXMuMY9qI/Wxifvnas8Z?=
- =?iso-8859-1?Q?qi78a6wzMrN4Lluh9P8LeNawLg2lvTNWuqPWS42qzdPuciIuRSgUZCerSB?=
- =?iso-8859-1?Q?7K5VhUeCEVtRavnvREy8fpm4WhW9iRYD660D2TXBA+6Oq72K7wWPLMO8gY?=
- =?iso-8859-1?Q?peNp0/3ie6S0n24tr45HTwi77UAqfzb5GhkEnDRWYG8RcOd53PIJYPdXDA?=
- =?iso-8859-1?Q?QeMsfRV6Vo+fAl643nYoLX27xVnZHhPvZVrn41ycXM2X68dVtBZuGyhDAk?=
- =?iso-8859-1?Q?UiXvJh+pTXMZYxbPcyngNpV4mX+fQq8CPf/0p5DoHr7efHIcTKibTcW+Kz?=
- =?iso-8859-1?Q?ZIEZESIj9gj5VRewlngtxgGjdFEwkH+xe9b/BrO50aRQ5BnQ3PJ/?=
-X-Exchange-RoutingPolicyChecked: DlxvWB1NRmlwCC2hR1DL87+Ny99AwbtjRuaNAA9MaFuBvcS/ST3A+OHLxCauOHQm1LqGEowp7Axg8mGde1og7QmxcX87xDZDsGX7bCwQBWYBwMWwOZVe62Ep5lQYuMSKxl5zyvTYj3qNsQjhYID6JbAacgvkBGvSV/brLeRxO+Nkkbxr/1+iSdB1wWkFFPOEUTVgRIrc/abhju7a535e0UxcCXp3A/xuE+lwTakaPlZlSg+E8x4sgdjR0jxddXIkFGMTmIwNVHsFDY7LfJ69zQXhltoiG1PnqOeIFqbVwzFPhb1HWi7e66gUDPRhjdyosyd8P9GCpaz6FwscG9b8Kw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5569aee6-139e-4610-b00d-08df3baf27e9
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 02:39:18.5927
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4JbFMpjVa1beX7fO4UsQL9cRdpm2yJp9jxZ3HNnUPYY6/3EGfMUeE5cjcsI0GNV6OElbjq/7ORBfLl/PZPUmfZCRMe7chrrXT0aw+Nhy6ZVCGzCN+rFt6APtZEP34UAP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4568
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105110715.2486432-6-ada@thorsis.com>
 
-On Fri, Jul 10, 2026 at 07:55:50PM -0700, Matthew Brost wrote:
->__ttm_pool_alloc() walks the page orders in a single loop whose body is
->about to grow several defragmentation phases (reusing old pages, a move
->budget, out-of-lock preallocation and fault injection). Left inline these
->interleave into one deeply nested block of gotos and combinatorial
->conditionals that is hard to follow and extend.
->
->Factor the loop's working state into a struct ttm_pool_alloc_iter and
->pull the per-order page acquisition and order-fallback into small phase
->helpers, so the main loop reads as a short sequence of named steps. This
->is a pure refactor with no functional change; subsequent patches extend
->the iterator with their defrag phases rather than nesting more logic into
->the loop.
->
->Cc: Carlos Santa <carlos.santa@intel.com>
->Cc: Ryan Neph <ryanneph@google.com>
->Cc: Christian Koenig <christian.koenig@amd.com>
->Cc: Huang Rui <ray.huang@amd.com>
->Cc: Matthew Auld <matthew.auld@intel.com>
->Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->Cc: Maxime Ripard <mripard@kernel.org>
->Cc: Thomas Zimmermann <tzimmermann@suse.de>
->Cc: David Airlie <airlied@gmail.com>
->Cc: Simona Vetter <simona@ffwll.ch>
->Cc: dri-devel@lists.freedesktop.org
->Cc: linux-kernel@vger.kernel.org
->Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->Assisted-by: GitHub_Copilot:claude-opus-4.8
->Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->---
-> drivers/gpu/drm/ttm/ttm_pool.c | 159 ++++++++++++++++++++++-----------
-> 1 file changed, 106 insertions(+), 53 deletions(-)
->
->diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
->index e9175c0290d7..0ca63f5ce73c 100644
->--- a/drivers/gpu/drm/ttm/ttm_pool.c
->+++ b/drivers/gpu/drm/ttm/ttm_pool.c
->@@ -791,18 +791,102 @@ static unsigned int ttm_pool_alloc_find_order(unsigned int highest,
-> 	return min_t(unsigned int, highest, __fls(alloc->remaining_pages));
-> }
->
->+/**
->+ * struct ttm_pool_alloc_iter - Working state for the __ttm_pool_alloc() loop
->+ *
->+ * Bundles the immutable inputs and the mutable per-order state that the
->+ * allocation phase helpers share, so the main loop reads as a short sequence
->+ * of named phases rather than one deeply nested block.
->+ */
->+struct ttm_pool_alloc_iter {
->+	/* Immutable for the duration of the allocation. */
->+	struct ttm_pool *pool;
->+	struct ttm_tt *tt;
->+	const struct ttm_operation_ctx *ctx;
->+	struct ttm_pool_alloc_state *alloc;
->+	struct ttm_pool_tt_restore *restore;
->+	unsigned int beneficial_order;
->+	gfp_t gfp_flags;
->+
->+	/* Mutated as the loop walks the orders. */
->+	unsigned int order;
->+	enum ttm_caching page_caching;
->+	bool allow_pools;
->+	struct page *p;
->+};
->+
->+/*
->+ * Acquire a single page for the current order, leaving it in @it->p (NULL on
->+ * failure). Tries a same-order pool page, then a fresh system allocation.
->+ */
->+static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
->+{
->+	struct ttm_pool_type *pt;
->+
->+	/* First, try to allocate a page from a pool if one exists. */
->+	it->p = NULL;
+Hi Alexander,
 
-NIT...Looks bit odd to set this to NULL here and check for '!ti->p' below.
-But I see subsequent patches add more code here, probably should be fine
-or add a temporary comment until then.
+kernel test robot noticed the following build warnings:
 
->+	pt = ttm_pool_select_type(it->pool, it->page_caching, it->order);
->+	if (!it->p && pt && it->allow_pools)
->+		it->p = ttm_pool_type_take(pt, ttm_pool_nid(it->pool));
->+
->+	/*
->+	 * If that fails or previously failed, allocate from system. Note that
->+	 * this also disallows additional pool allocations using write-back
->+	 * cached pools of the same order.
->+	 */
->+	if (!it->p) {
->+		it->page_caching = ttm_cached;
->+		it->allow_pools = false;
->+		it->p = ttm_pool_alloc_page(it->pool, it->gfp_flags, it->order,
->+					    it->ctx->beneficial_reclaim_backoff);
->+	}
->+}
->+
->+/*
->+ * The current order could not be satisfied. Lower it and retry, recording a
->+ * sub-optimal backing (so the driver can later re-defrag) when we drop below
->+ * the beneficial order.
->+ *
->+ * Returns 0 to retry the (lowered) order, or a negative errno.
->+ */
->+static int ttm_pool_iter_lower_order(struct ttm_pool_alloc_iter *it)
->+{
->+	if (!it->order)
->+		return -ENOMEM;
->+
->+	/*
->+	 * Failing to allocate at the device's beneficial order means we are
->+	 * about to back this object with a sub-optimal (smaller order) set of
->+	 * pages. Record it so the driver can later try to defragment the object
->+	 * back to beneficial order.
->+	 */
->+	if (it->beneficial_order && it->order == it->beneficial_order)
->+		it->tt->page_flags |= TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
->+
->+	it->order--;
->+	it->page_caching = it->tt->caching;
->+	it->allow_pools = true;
->+
->+	return 0;
->+}
->+
-> static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
-> 			    const struct ttm_operation_ctx *ctx,
-> 			    struct ttm_pool_alloc_state *alloc,
-> 			    struct ttm_pool_tt_restore *restore)
-> {
->-	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
->-	enum ttm_caching page_caching;
->+	struct ttm_pool_alloc_iter it = {
->+		.pool = pool,
->+		.tt = tt,
->+		.ctx = ctx,
->+		.alloc = alloc,
->+		.restore = restore,
->+		.beneficial_order = ttm_pool_beneficial_order(pool),
->+		.page_caching = tt->caching,
->+		.allow_pools = true,
->+	};
-> 	gfp_t gfp_flags = GFP_USER;
-> 	pgoff_t caching_divide;
->-	unsigned int order;
->-	bool allow_pools;
->-	struct page *p;
-> 	int r;
->
-> 	WARN_ON(!alloc->remaining_pages || ttm_tt_is_populated(tt));
->@@ -819,59 +903,28 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
-> 	else
-> 		gfp_flags |= GFP_HIGHUSER;
->
->-	page_caching = tt->caching;
->-	allow_pools = true;
->-	for (order = ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
->+	it.gfp_flags = gfp_flags;
->+
->+	for (it.order = ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
-> 	     alloc->remaining_pages;
->-	     order = ttm_pool_alloc_find_order(order, alloc)) {
->-		struct ttm_pool_type *pt;
->-
->-		/* First, try to allocate a page from a pool if one exists. */
->-		p = NULL;
->-		pt = ttm_pool_select_type(pool, page_caching, order);
->-		if (pt && allow_pools)
->-			p = ttm_pool_type_take(pt, ttm_pool_nid(pool));
->-
->-		/*
->-		 * If that fails or previously failed, allocate from system.
->-		 * Note that this also disallows additional pool allocations using
->-		 * write-back cached pools of the same order. Consider removing
->-		 * that behaviour.
->-		 */
->-		if (!p) {
->-			page_caching = ttm_cached;
->-			allow_pools = false;
->-			p = ttm_pool_alloc_page(pool, gfp_flags, order,
->-						ctx->beneficial_reclaim_backoff);
->-		}
->-		/* If that fails, lower the order if possible and retry. */
->-		if (!p) {
->-			if (order) {
->-				/*
->-				 * Failing to allocate at the device's beneficial
->-				 * order means we are about to back this object
->-				 * with a sub-optimal (smaller order) set of
->-				 * pages. Record it so the driver can later try to
->-				 * defragment the object back to beneficial order.
->-				 */
->-				if (beneficial_order && order == beneficial_order)
->-					tt->page_flags |=
->-						TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
->-				--order;
->-				page_caching = tt->caching;
->-				allow_pools = true;
->-				continue;
->-			}
->-			r = -ENOMEM;
->-			goto error_free_all;
->+	     it.order = ttm_pool_alloc_find_order(it.order, alloc)) {
->+		/* Acquire a page (pool / system) for this order. */
->+		ttm_pool_iter_acquire_page(&it);
->+		if (!it.p) {
->+			r = ttm_pool_iter_lower_order(&it);
->+			if (r)
->+				goto error_free_all;
->+			continue;
-> 		}
->-		r = ttm_pool_page_allocated(pool, order, p, page_caching, alloc,
->-					    restore);
->+
->+		r = ttm_pool_page_allocated(pool, it.order, it.p,
->+					    it.page_caching, alloc, restore);
+[auto build test WARNING on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
 
-Looks like iterator has a 'restore' field that gets set, but it is not used here
-or in other places. Is that intended?
+url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Dahl/MAINTAINERS-Add-sam9-sama-to-AT91-SoC-support/20261105-120637
+base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+patch link:    https://lore.kernel.org/r/20261105110715.2486432-6-ada%40thorsis.com
+patch subject: [PATCH v4 05/16] clk: at91: Allow enabling main_rc_osc through DT
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20261106/202611061036.HmCbW9MI-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 812626a41399a1d464a0d69627ab45c83b8ebfb9)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261106/202611061036.HmCbW9MI-lkp@intel.com/reproduce)
 
-Other than above comments, the patch LGTM, though need to look into other patches
-in this series which makes use of this iterator.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611061036.HmCbW9MI-lkp@intel.com/
 
-Niranjana
+All warnings (new ones prefixed by >>):
 
-> 		if (r)
-> 			goto error_free_page;
->
-> 		if (ttm_pool_restore_valid(restore)) {
->-			r = ttm_pool_restore_commit(restore, tt->backup, ctx, alloc);
->+			r = ttm_pool_restore_commit(restore, tt->backup, ctx,
->+						    alloc);
-> 			if (r)
-> 				goto error_free_all;
-> 		}
->@@ -887,7 +940,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
-> 	return 0;
->
-> error_free_page:
->-	ttm_pool_free_page(pool, page_caching, order, p, false);
->+	ttm_pool_free_page(pool, it.page_caching, it.order, it.p, false);
->
-> error_free_all:
-> 	if (tt->restore)
->-- 
->2.34.1
->
+>> drivers/clk/at91/sama7d65.c:1141:45: warning: variable 'hw' is uninitialized when used here [-Wuninitialized]
+    1141 |         sama7d65_pmc->chws[SAMA7D65_PMC_MAIN_RC] = hw;
+         |                                                    ^~
+   drivers/clk/at91/sama7d65.c:1106:19: note: initialize the variable 'hw' to silence this warning
+    1106 |         struct clk_hw *hw, *main_rc_hw, *main_osc_hw, *main_xtal_hw;
+         |                          ^
+         |                           = NULL
+   1 warning generated.
+--
+>> drivers/clk/at91/sama7g5.c:1017:43: warning: variable 'hw' is uninitialized when used here [-Wuninitialized]
+    1017 |         sama7g5_pmc->chws[SAMA7G5_PMC_MAIN_RC] = hw;
+         |                                                  ^~
+   drivers/clk/at91/sama7g5.c:982:19: note: initialize the variable 'hw' to silence this warning
+     982 |         struct clk_hw *hw, *main_rc_hw, *main_osc_hw, *main_xtal_hw;
+         |                          ^
+         |                           = NULL
+   1 warning generated.
+
+
+vim +/hw +1141 drivers/clk/at91/sama7d65.c
+
+  1097	
+  1098	static void __init sama7d65_pmc_setup(struct device_node *np)
+  1099	{
+  1100		const char *main_xtal_name = "main_xtal";
+  1101		struct pmc_data *sama7d65_pmc;
+  1102		const char *parent_names[11];
+  1103		void **alloc_mem = NULL;
+  1104		int alloc_mem_size = 0;
+  1105		struct regmap *regmap;
+  1106		struct clk_hw *hw, *main_rc_hw, *main_osc_hw, *main_xtal_hw;
+  1107		struct clk_hw *td_slck_hw, *md_slck_hw;
+  1108		static struct clk_parent_data parent_data;
+  1109		struct clk_hw *parent_hws[10];
+  1110		bool bypass;
+  1111		int i, j;
+  1112	
+  1113		td_slck_hw = __clk_get_hw(of_clk_get_by_name(np, "td_slck"));
+  1114		md_slck_hw = __clk_get_hw(of_clk_get_by_name(np, "md_slck"));
+  1115		main_xtal_hw = __clk_get_hw(of_clk_get_by_name(np, main_xtal_name));
+  1116	
+  1117		if (!td_slck_hw || !md_slck_hw || !main_xtal_hw)
+  1118			return;
+  1119	
+  1120		regmap = device_node_to_regmap(np);
+  1121		if (IS_ERR(regmap))
+  1122			return;
+  1123	
+  1124		sama7d65_pmc = pmc_data_allocate(PMC_INDEX_MAX,
+  1125						 nck(sama7d65_systemck),
+  1126						 nck(sama7d65_periphck),
+  1127						 nck(sama7d65_gck), 8);
+  1128		if (!sama7d65_pmc)
+  1129			return;
+  1130	
+  1131		alloc_mem = kmalloc(sizeof(void *) *
+  1132				    (ARRAY_SIZE(sama7d65_mckx) + ARRAY_SIZE(sama7d65_gck)),
+  1133				    GFP_KERNEL);
+  1134		if (!alloc_mem)
+  1135			goto err_free;
+  1136	
+  1137		main_rc_hw = at91_clk_register_main_rc_osc(regmap, "main_rc_osc", 12000000,
+  1138							   50000000);
+  1139		if (IS_ERR(main_rc_hw))
+  1140			goto err_free;
+> 1141		sama7d65_pmc->chws[SAMA7D65_PMC_MAIN_RC] = hw;
+  1142	
+  1143		bypass = of_property_read_bool(np, "atmel,osc-bypass");
+  1144	
+  1145		parent_data.name = main_xtal_name;
+  1146		parent_data.fw_name = main_xtal_name;
+  1147		main_osc_hw = at91_clk_register_main_osc(regmap, "main_osc", NULL,
+  1148							 &parent_data, bypass);
+  1149		if (IS_ERR(main_osc_hw))
+  1150			goto err_free;
+  1151	
+  1152		parent_hws[0] = main_rc_hw;
+  1153		parent_hws[1] = main_osc_hw;
+  1154		hw = at91_clk_register_sam9x5_main(regmap, "mainck", NULL, parent_hws, 2);
+  1155		if (IS_ERR(hw))
+  1156			goto err_free;
+  1157	
+  1158		sama7d65_pmc->chws[SAMA7D65_PMC_MAIN] = hw;
+  1159	
+  1160		for (i = 0; i < PLL_ID_MAX; i++) {
+  1161			for (j = 0; j < PLL_COMPID_MAX; j++) {
+  1162				struct clk_hw *parent_hw;
+  1163	
+  1164				if (!sama7d65_plls[i][j].n)
+  1165					continue;
+  1166	
+  1167				switch (sama7d65_plls[i][j].t) {
+  1168				case PLL_TYPE_FRAC:
+  1169					switch (sama7d65_plls[i][j].p) {
+  1170					case SAMA7D65_PLL_PARENT_MAINCK:
+  1171						parent_hw = sama7d65_pmc->chws[SAMA7D65_PMC_MAIN];
+  1172						break;
+  1173					case SAMA7D65_PLL_PARENT_MAIN_XTAL:
+  1174						parent_hw = main_xtal_hw;
+  1175						break;
+  1176					default:
+  1177						/* Should not happen. */
+  1178						parent_hw = NULL;
+  1179						break;
+  1180					}
+  1181	
+  1182					hw = sam9x60_clk_register_frac_pll(regmap,
+  1183						&pmc_pll_lock, sama7d65_plls[i][j].n,
+  1184						NULL, parent_hw, i,
+  1185						sama7d65_plls[i][j].c,
+  1186						sama7d65_plls[i][j].l,
+  1187						sama7d65_plls[i][j].f);
+  1188					break;
+  1189	
+  1190				case PLL_TYPE_DIV:
+  1191					hw = sam9x60_clk_register_div_pll(regmap,
+  1192						&pmc_pll_lock, sama7d65_plls[i][j].n,
+  1193						NULL, sama7d65_plls[i][0].hw, i,
+  1194						sama7d65_plls[i][j].c,
+  1195						sama7d65_plls[i][j].l,
+  1196						sama7d65_plls[i][j].f,
+  1197						sama7d65_plls[i][j].safe_div);
+  1198					break;
+  1199	
+  1200				default:
+  1201					continue;
+  1202				}
+  1203	
+  1204				if (IS_ERR(hw))
+  1205					goto err_free;
+  1206	
+  1207				sama7d65_plls[i][j].hw = hw;
+  1208				if (sama7d65_plls[i][j].eid)
+  1209					sama7d65_pmc->chws[sama7d65_plls[i][j].eid] = hw;
+  1210			}
+  1211		}
+  1212	
+  1213		hw = at91_clk_register_master_div(regmap, "mck0", NULL,
+  1214						  sama7d65_plls[PLL_ID_CPU][1].hw,
+  1215						  &mck0_layout, &mck0_characteristics,
+  1216						  &pmc_mck0_lock, CLK_GET_RATE_NOCACHE, 5);
+  1217		if (IS_ERR(hw))
+  1218			goto err_free;
+  1219	
+  1220		sama7d65_pmc->chws[SAMA7D65_PMC_MCK0] = hw;
+  1221		sama7d65_mckx[PCK_PARENT_HW_MCK0].hw = hw;
+  1222	
+  1223		parent_hws[0] = md_slck_hw;
+  1224		parent_hws[1] = td_slck_hw;
+  1225		parent_hws[2] = sama7d65_pmc->chws[SAMA7D65_PMC_MAIN];
+  1226		for (i = PCK_PARENT_HW_MCK1; i < ARRAY_SIZE(sama7d65_mckx); i++) {
+  1227			u8 num_parents = 3 + sama7d65_mckx[i].ep_count;
+  1228			struct clk_hw *tmp_parent_hws[8];
+  1229			u32 *mux_table;
+  1230	
+  1231			mux_table = kmalloc_array(num_parents, sizeof(*mux_table),
+  1232						  GFP_KERNEL);
+  1233			if (!mux_table)
+  1234				goto err_free;
+  1235	
+  1236			alloc_mem[alloc_mem_size++] = mux_table;
+  1237	
+  1238			PMC_INIT_TABLE(mux_table, 3);
+  1239			PMC_FILL_TABLE(&mux_table[3], sama7d65_mckx[i].ep_mux_table,
+  1240				       sama7d65_mckx[i].ep_count);
+  1241			for (j = 0; j < sama7d65_mckx[i].ep_count; j++) {
+  1242				u8 pll_id = sama7d65_mckx[i].ep[j].pll_id;
+  1243				u8 pll_compid = sama7d65_mckx[i].ep[j].pll_compid;
+  1244	
+  1245				tmp_parent_hws[j] = sama7d65_plls[pll_id][pll_compid].hw;
+  1246			}
+  1247			PMC_FILL_TABLE(&parent_hws[3], tmp_parent_hws,
+  1248				       sama7d65_mckx[i].ep_count);
+  1249	
+  1250			hw = at91_clk_sama7g5_register_master(regmap, sama7d65_mckx[i].n,
+  1251							      num_parents, NULL, parent_hws,
+  1252							      mux_table, &pmc_mckX_lock,
+  1253							      sama7d65_mckx[i].id,
+  1254							      sama7d65_mckx[i].c,
+  1255							      sama7d65_mckx[i].ep_chg_id);
+  1256	
+  1257			if (IS_ERR(hw))
+  1258				goto err_free;
+  1259	
+  1260			sama7d65_mckx[i].hw = hw;
+  1261			if (sama7d65_mckx[i].eid)
+  1262				sama7d65_pmc->chws[sama7d65_mckx[i].eid] = hw;
+  1263		}
+  1264	
+  1265		parent_names[0] = "syspll_divpmcck";
+  1266		parent_names[1] = "usbpll_divpmcck";
+  1267		parent_names[2] = "main_osc";
+  1268		hw = sam9x60_clk_register_usb(regmap, "usbck", parent_names, 3);
+  1269		if (IS_ERR(hw))
+  1270			goto err_free;
+  1271	
+  1272		parent_hws[0] = md_slck_hw;
+  1273		parent_hws[1] = td_slck_hw;
+  1274		parent_hws[2] = sama7d65_pmc->chws[SAMA7D65_PMC_MAIN];
+  1275		parent_hws[3] = sama7d65_plls[PLL_ID_SYS][PLL_COMPID_DIV0].hw;
+  1276		parent_hws[4] = sama7d65_plls[PLL_ID_DDR][PLL_COMPID_DIV0].hw;
+  1277		parent_hws[5] = sama7d65_plls[PLL_ID_GPU][PLL_COMPID_DIV0].hw;
+  1278		parent_hws[6] = sama7d65_plls[PLL_ID_BAUD][PLL_COMPID_DIV0].hw;
+  1279		parent_hws[7] = sama7d65_plls[PLL_ID_AUDIO][PLL_COMPID_DIV0].hw;
+  1280		parent_hws[8] = sama7d65_plls[PLL_ID_ETH][PLL_COMPID_DIV0].hw;
+  1281	
+  1282		for (i = 0; i < 8; i++) {
+  1283			char name[6];
+  1284	
+  1285			snprintf(name, sizeof(name), "prog%d", i);
+  1286	
+  1287			hw = at91_clk_register_programmable(regmap, name, NULL, parent_hws,
+  1288							    9, i,
+  1289							    &programmable_layout,
+  1290							    sama7d65_prog_mux_table);
+  1291			if (IS_ERR(hw))
+  1292				goto err_free;
+  1293	
+  1294			sama7d65_pmc->pchws[i] = hw;
+  1295		}
+  1296	
+  1297		for (i = 0; i < ARRAY_SIZE(sama7d65_systemck); i++) {
+  1298			hw = at91_clk_register_system(regmap, sama7d65_systemck[i].n,
+  1299						      sama7d65_systemck[i].p, NULL,
+  1300						      sama7d65_systemck[i].id, 0);
+  1301			if (IS_ERR(hw))
+  1302				goto err_free;
+  1303	
+  1304			sama7d65_pmc->shws[sama7d65_systemck[i].id] = hw;
+  1305		}
+  1306	
+  1307		for (i = 0; i < ARRAY_SIZE(sama7d65_periphck); i++) {
+  1308			hw = at91_clk_register_sam9x5_peripheral(regmap, &pmc_pcr_lock,
+  1309								 &sama7d65_pcr_layout,
+  1310								 sama7d65_periphck[i].n,
+  1311								 NULL,
+  1312								 sama7d65_mckx[sama7d65_periphck[i].p].hw,
+  1313								 sama7d65_periphck[i].id,
+  1314								 &sama7d65_periphck[i].r,
+  1315								 sama7d65_periphck[i].chgp ? 0 :
+  1316								 INT_MIN, 0);
+  1317			if (IS_ERR(hw))
+  1318				goto err_free;
+  1319	
+  1320			sama7d65_pmc->phws[sama7d65_periphck[i].id] = hw;
+  1321		}
+  1322	
+  1323		parent_hws[0] = md_slck_hw;
+  1324		parent_hws[1] = td_slck_hw;
+  1325		parent_hws[2] = sama7d65_pmc->chws[SAMA7D65_PMC_MAIN];
+  1326		parent_hws[3] = sama7d65_pmc->chws[SAMA7D65_PMC_MCK1];
+  1327		for (i = 0; i < ARRAY_SIZE(sama7d65_gck); i++) {
+  1328			u8 num_parents = 4 + sama7d65_gck[i].pp_count;
+  1329			struct clk_hw *tmp_parent_hws[8];
+  1330			u32 *mux_table;
+  1331	
+  1332			mux_table = kmalloc_array(num_parents, sizeof(*mux_table),
+  1333						  GFP_KERNEL);
+  1334			if (!mux_table)
+  1335				goto err_free;
+  1336	
+  1337			alloc_mem[alloc_mem_size++] = mux_table;
+  1338	
+  1339			PMC_INIT_TABLE(mux_table, 4);
+  1340			PMC_FILL_TABLE(&mux_table[4], sama7d65_gck[i].pp_mux_table,
+  1341				       sama7d65_gck[i].pp_count);
+  1342			for (j = 0; j < sama7d65_gck[i].pp_count; j++) {
+  1343				u8 pll_id = sama7d65_gck[i].pp[j].pll_id;
+  1344				u8 pll_compid = sama7d65_gck[i].pp[j].pll_compid;
+  1345	
+  1346				tmp_parent_hws[j] = sama7d65_plls[pll_id][pll_compid].hw;
+  1347			}
+  1348			PMC_FILL_TABLE(&parent_hws[4], tmp_parent_hws,
+  1349				       sama7d65_gck[i].pp_count);
+  1350	
+  1351			hw = at91_clk_register_generated(regmap, &pmc_pcr_lock,
+  1352							 &sama7d65_pcr_layout,
+  1353							 sama7d65_gck[i].n, NULL,
+  1354							 parent_hws, mux_table,
+  1355							 num_parents,
+  1356							 sama7d65_gck[i].id,
+  1357							 &sama7d65_gck[i].r,
+  1358							 sama7d65_gck[i].pp_chg_id);
+  1359			if (IS_ERR(hw))
+  1360				goto err_free;
+  1361	
+  1362			sama7d65_pmc->ghws[sama7d65_gck[i].id] = hw;
+  1363		}
+  1364	
+  1365		of_clk_add_hw_provider(np, of_clk_hw_pmc_get, sama7d65_pmc);
+  1366		kfree(alloc_mem);
+  1367	
+  1368		return;
+  1369	
+  1370	err_free:
+  1371		if (alloc_mem) {
+  1372			for (i = 0; i < alloc_mem_size; i++)
+  1373				kfree(alloc_mem[i]);
+  1374			kfree(alloc_mem);
+  1375		}
+  1376	
+  1377		kfree(sama7d65_pmc);
+  1378	}
+  1379	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
