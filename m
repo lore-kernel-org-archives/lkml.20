@@ -1,66 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794002217;
-	b=Xlu9+3elWl+RTLvMrBhgHODtoFNxxooDarKYryWAde+RuM2Z+g4eGSR2bgZbviUcBK2y
-	 0HSu+Cx39oN0ayO0OV8DoC7jveVenkDaqPKAmZQRwi5JgbiVOWMihQOhZP4htI5/Ruw20
-	 VE7LGAilYwzHn/b2x6TDsT5Og5221FizTGw6hI+nST/z5POKlAksJMje9PKutn9izRpho
-	 yzWAYXwUrn8cmRvENT6JoZyQ27S2XJgI1o3nphAuind+vSQlEkwl5yBYwcijWrlhai1bb
-	 iWg86v2IXReVBE+Rgftq/TZT69IOpmnzxHZsf+iUEb3emc/ifMX1JZnqPmm/6hWEX7A==
+	t=1794002248;
+	b=BYeiG2UB/ILfpmJW0QMp1kgpL0HnEheizzd5kGjEoX5cyjSUGZ7+mY3+SKRxTIwsAeIH
+	 7u8huDjGly7UftQ7R1w7PDIEAlyF4D89LssS6Bb5RYP6hL9xZ3Jm++fq2JP3e1GN80Xuv
+	 oE8T7cwpScXLX+WOgr2mkqol87ywoG3iNAvuHIEXItMYyjDoFYsCUfi8Yy1rTmOHl2GHl
+	 Kffi3+mMTvHvFaMGRd37bGqWS1ObAECkb9YvikL7gfIqOjOlWDMywY/J9jTX4NeGLQ85K
+	 f/UEafdFJ/04KJC5Dh9NMPRbSINPg1+qxQIk2o1+8TELpzJtG3P4ynvYtxx7mH8UOZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002217;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hDezaI7/a4QI4CxNeH8SaUijif/u3gTq/nxZpDWq/+o=;
-	b=09GOWFpwACnFn+uZ1iegfyMmH36qmtsiKiroOhYQbQ262X644/V63Zid1sKN8tf7SmPS
-	 asqgmBTrKSKG6MNB1DUmsxT1N4UocKClyqChxKBfjf7oaE56VXjsU4lshmOiArs4JocVn
-	 pAPeAy28mp6iaYIMPBoirRnNW0dhKIIowG6xawrzFkJhem+065BUY5x86mndsZ6LRzw9t
-	 qSQKEDVC8OESC6WiMRDD3hTA/tm35acwOGwQtV90CRj7RK2CVRyREzK3hx2WEy5akMm99
-	 lRKiETL0nCuMngxAJqXLuc9mZR2EkMTcQE0Gf9S0W8RczBr1i7HquGtXadeWPureKVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002248;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=ReJVLYumEn9iWasnSyBGUIhaXWZBsODo5kqsWooUE/0=;
+	b=ToR5nMd9fbtOG+wSan5hXS3JaR2Xq9YHgLs2Bith4yRx9gdN3rwwq2owfaO03DhLFiXp
+	 srgyyDikbXXMXoFv2zUmcgrQs3LDQ7kdcNAof55W3+7mjflVNE6EwSaQK7FUKDogkflYw
+	 nP4qwU5XKFuBm4FKpJlmtVNO4ke6Snc5+1/OqTF3bGHCXg99znOHDJfNZ7DvMCUelPdOg
+	 wbOlX9rxSDCuWBEQm4aCBHzpYh6n8o9ivAPDPw+p7XNhspzyBDBEJoH7tuHp04Gh/Ckh4
+	 94cCqDR3alCz3/iIcArnaq0j9MJf5q37Jub9WMj/rSvqNVpHPXdeIeSOPlECsqwf/Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Sw4Wtk4+;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="HijhD+7/";
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD943606A326;
-	Fri,  6 Nov 2026 21:56:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD943606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575B2606D808;
+	Fri,  6 Nov 2026 21:57:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 575B2606D808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=Sw4Wtk4+
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jLtLc1q3Hz1XLyNK;
-	Fri,  6 Nov 2026 21:56:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794002214; x=1796594215; bh=hDezaI7/a4QI4CxNeH8SaUij
-	if/u3gTq/nxZpDWq/+o=; b=Sw4Wtk4+8mSqX9zXY1taUg4GpV9V40UM+lSAYJ0V
-	EsfgSikVuWuAKXvqQkweqSKYlzL3xOy7hS5BpGSXcLzEFg7Zpx2WatEore/KdZRh
-	UkNqWP7b5EL8h4BRSGCo4vK9eZ20wtmjXrYraU9hkjPWLUDMtPbNvuMKi4sRx27C
-	7NyjrfgewGbjLsHm1UifgtcWjdgsnuPCem2CbnXsgXxdOt3cXQ/49m07mneW3gGi
-	eLTQWaBCg92YczMA8eAMR/+/mPbJtgmX5e5QejQSq81rQyowTzZXQ3XHo2E3HGbL
-	LxIiYAnlio4mDugk83AdNThGh8QxHzUJkEVG+fWjIRUbSQ==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id iQ7MbiLM21_s; Fri,  6 Nov 2026 21:56:54 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HijhD+7/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794002240;
+	bh=yZcsj37g1wDaYHpaMHQC2ZVJ0rLcIWMu06mwv5p3B7g=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=HijhD+7/jPNYT1fn5eC6PcPQ2DoEwvDfWCwpLJq8qLVfSWFj4hd7+5VXwjUo5zYV1
+	 fGaGa6QYGnztOuo2McK787uiq66F0Jhs633mQcpuhDvtT+XVFLPRUrWClOk9jtg+iG
+	 Ljv+raqiYZfw7Sc96JqlrgmxTEB5tr42Yy1fZj/4gVDuvfI60q34zHeBpjiq+NQ1HE
+	 XEA0QYFONQkAQKL0dP4yrXjlT5+XNGMsU0EKdpFsKdqKmVPdNrVn9VfNp9XVlZDOOu
+	 KGGtd9Pf9C4QafR2Q8oNzF/BfGWvZB7tHjSHwElY43sahJswr1dhRe2c4RTjKS+vvC
+	 O/tpZvkypgzGg==
+Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jLtLY6NNjz1XLyhh;
-	Fri,  6 Nov 2026 21:56:53 +0000 (UTC)
-Message-ID: <89d22295-e6b2-46d8-a2fd-b24ed1f724d9@acm.org>
-Date: Fri, 6 Nov 2026 13:56:53 -0800
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5C05117E092C;
+	Fri, 06 Nov 2026 22:57:20 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 1413548002F; Fri, 06 Nov 2026 22:57:20 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 06 Nov 2026 22:57:07 +0100
+Subject: [PATCH 2/5] arm64: dts: rockchip: Enable NPU on RK3588 EVB1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,46 +65,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/3] scsi: ufs: core: Hold host_sem in
- ufshcd_wl_poweroff()
-To: HOYOUNG SEO <hy50.seo@samsung.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, mkp@kernel.org, martin.petersen@oracle.com,
- stanleyjhu@google.com, alim.akhtar@samsung.com, kwangwon.min@samsung.com,
- kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-References: <cover.1793943246.git.hy50.seo@samsung.com>
- <CGME20261106061546epcas2p3b0d54ffe9fcea407f7d0e27ed579de0d@epcas2p3.samsung.com>
- <c408e7a7167984a07dc714f43273d029b8904939.1793943246.git.hy50.seo@samsung.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <c408e7a7167984a07dc714f43273d029b8904939.1793943246.git.hy50.seo@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-rk3588-evb1-dt-updates-v1-2-bdbe16223589@collabora.com>
+References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+In-Reply-To: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1334;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=yZcsj37g1wDaYHpaMHQC2ZVJ0rLcIWMu06mwv5p3B7g=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGruTT81gQ1jKj278e8o4UwdJsiBbOsUrL7mq
+ h9I8htVfnYX8IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7k0/AAoJENju1/PI
+ O/qaebgQAIwQyvBzXMtzSQdbLxacZUfOP6Vzw9WomWyYqHZOR/vCnASth1BcQEKepPeOtg5lxy0
+ 4qYgzFTO4LrP9TzJIP+KTd19QjmnkTukIpT5ulSQaR/yxa3wQvqgZ3FWaKFaGZEr3A/2W5VWp3w
+ C6f//NlsGy8oTwuDCIJqG6O9q9HREWXqxCKGqT9Hm+hLe8a840eRDaLB+InRnq1VQE6mIezIHH2
+ 2Z7VoL/zVxZXGQZNHhcPsJAdGfelfCQIPna/qe4Z6NYyRpgFt3K5KbErCHoIsAIY3Tp9nyXm6QN
+ PWtSuFtO6Gs3ZCq0qBQpsmHeSu9CvkTJ/Qs7RxKFGnJuwmRd0xSmpA8pkx3wIYItkDoLugOArdW
+ rEVDJBtRU6BOFDpdqfhmXIbLQF7Z4gk9F4orUItBbMlApMeBcsQmFEzFsiSEKCKqFH2e86i6S+P
+ 7r+ulWMorjnuEQPGYTMLt6xlJeT7MRWitCSmRGhRzHuckMGqu0bqf1ctbQ1DFKmnIMhQgjGF1HN
+ K78kLevgK+TRZfYpRG16H40yZmI2WID7CuKUTwVDwynKdsVzT4DXXjHY9gMpTDtAwyWYCk8XgFi
+ J/uU8mMV8oW7lYIXsOYjGndc6FgmygJe0a/ZIDvrx3VC/bbkmefo+p/mJ/uP7c/p1e0Xicuh13E
+ Kqn/YxpwlnzHWYYcLYNsoVw==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On 11/5/26 10:11 PM, HOYOUNG SEO wrote:
- > @@ -11574,6 +11574,8 @@ static int ufshcd_wl_poweroff(struct device *dev)
- >  	struct scsi_device *sdev = to_scsi_device(dev);
- >  	struct ufs_hba *hba = shost_priv(sdev->host);
- >
- > +	/* Released by ufshcd_wl_resume() if hibernation is aborted. */
- > +	down(&hba->host_sem);
- >  	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
- >  	return 0;
- >  }
+Also enable the NPU on the RK3588 EVB1, which is very similar to
+the QuartzPro64.
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 34 ++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-As Sashiko pointed out, ufshcd_wl_poweroff() is still different from
-ufshcd_wl_suspend() in other ways: it ignores the return value of
-__ufshcd_wl_suspend(), it doesn't check pm_runtime_suspended(dev) and
-it doesn't set hba->is_sys_suspended. This patch doesn't introduce any
-of these issues, so I think they should be fixed separately. Please
-consider a follow-up patch that makes ufshcd_wl_suspend() and
-ufshcd_wl_poweroff() share a common helper function. Since returning an
-error from the .poweroff callback aborts hibernation, that change should
-be a separate patch with a commit message that explains the behavior
-change.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+index 87e624d1e094..6476d9e3be6f 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+@@ -578,6 +578,10 @@ &pd_gpu {
+ 	domain-supply = <&vdd_gpu_s0>;
+ };
+ 
++&pd_npu {
++	domain-supply = <&vdd_npu_s0>;
++};
++
+ &pd_rkvdec0 {
+ 	domain-supply = <&vdd_vdenc_s0>;
+ };
+@@ -703,6 +707,36 @@ &pwm2 {
+ 	status = "okay";
+ };
+ 
++&rknn_core_0 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_mem_s0>;
++	status = "okay";
++};
++
++&rknn_core_1 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_mem_s0>;
++	status = "okay";
++};
++
++&rknn_core_2 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_mem_s0>;
++	status = "okay";
++};
++
++&rknn_mmu_0 {
++	status = "okay";
++};
++
++&rknn_mmu_1 {
++	status = "okay";
++};
++
++&rknn_mmu_2 {
++	status = "okay";
++};
++
+ &saradc {
+ 	vref-supply = <&vcc_1v8_s0>;
+ 	status = "okay";
 
-Thanks,
+-- 
+2.53.0
 
-Bart.
