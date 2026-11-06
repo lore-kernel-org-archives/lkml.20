@@ -1,87 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964639;
-	b=hWaVZcND19uWCMZE0KjEWTI1obBlFsGWfDKt8J7gw6uywWXkhRAEFQnVhlFA6HLnludA
-	 NSPzryZ8/9Tls2kICOvhO6BPr7FzpZ4/CMI0LlbsMpSaydE9hDsoiNSlawHSAFWegQWuK
-	 Jwqzphxmu5u/sOOVQ0duUwI7UmTc+XxKqRmFwPnUadBY8057J4VFzQA1xK80Ygfqp5HmQ
-	 j7WW9QupMyeZkc5qAVyzWAwRJAkK2pXZLSkF8HYOfLQMyMpjgWCuJJsYSniJ0H3rKP71U
-	 LPVTc06qWUsb5icjaDK62VIgHepMfAjyBiAOETu4eGrc5VZvSTYgvedgknX1YAd+mRQ==
+	t=1793964636;
+	b=0tt32lNl99sjKx3+fwrjE5fQRxF00kKr2EgCzCGgVd+ddytvFXv0vxNFzWBh86w7+UXm
+	 O8xsGyUrTpQBZ1wyEnOqu7rkFzU4e5n3+6wKvZ0Z0hAWGV9LbXpO54iuQaFkgZbHrOr4O
+	 HxAzyM06AoXdH6F9qiZ53bIG/tK7Hz8X+LIG6VszgxlJwj+M5vGBKd3c+qcvodT0naImi
+	 goAXFrf+BU7p5Z72Gi4/iZ8i055QHR+PnXWB2aRwmia8ffVpU4KvgvWlLyPsy6ueldJzg
+	 R58fSZdmZ1iPPuJxUqFt3Vbl1VxmQRpoJvtC5yQlBCsbFTxnSgyRr9NP6lxMUXQADoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964639;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964636;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=TKghWzau878d+P/3ACxwFCi2OTeMRAfi/WpTSl8a68c=;
-	b=hL4+qTuH0gQ+K3xZVR3wwX0vWusgb56nyI4OPvPkFDm067/9Tsd9jb3MYy607yr4fTBJ
-	 b5bY2A7K8wVUJv+uOWP4R3uq1qeCWTNnSEtR42xo+y6PYNsTb8In1VB0nfE65k4jc9q/l
-	 03UxgUrAqRkuI9WvAhpWFRtHBfvhy/ib4A5hz6ZW8XRdNR3LCFNIGemAs0qXr9Hqms9+j
-	 s0otSzik9wQvdqrOwb5PYpAsielpMl9M8VnDjIs1BDZNJffJnjU7p4quGHIvvNfr3h6Fu
-	 QFpcDEhKT0bV1ygIROZow3JIztTErEDULh3K53s3ume47q/1EWEMfS4056W5hsWM6rw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XA8R7iMpBeDRjMa8OJpHCw9pBZF3N4J8Ecsr8+cx7Yw=;
+	b=LO2DSDOSU93wFwxI+oUneHz9SfUdbWlRyRasK4HVge9i6Kl+BHt/t/oYFjNPToSchRN5
+	 eKwJG6k+gyeLYU78N/O9NXCgT+jjonqBU9pItaK40loVsdJtpLDJ+q9jsncHzkeDEk+GY
+	 Upr+fHlxTcHhvjmRf7AFq2Cdhz+WVz+qO+pQk5DyrVPUSG8qH/9l5FGNxrPJTJd545zoK
+	 OuDMZOon6hpHwMMKHZjOB1DX1W6WanIVCX9nNNOYZnMQub2KSI2nku+d9nri9TZ/zid+t
+	 iY3zHTJEiD49AUqDi50gBO6I2pPwmikcf7Q2N4VvFyPd53vGDTLi/jN+Sf3zqF4asEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cn4xkMTt;
-	arc=none smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="E/6NoteO";
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15842606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:30:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15842606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0CE6082BDB
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:30:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD0CE6082BDB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cn4xkMTt
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b309147589so4047917b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:30:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E/6NoteO
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a089dfee18so942546b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:30:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964638; x=1794569438; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793964635; x=1794569435; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TKghWzau878d+P/3ACxwFCi2OTeMRAfi/WpTSl8a68c=;
-        b=cn4xkMTtVGWAfQQu1ylH8slNz4eaRFMrXtFIQfBp8HAUI3Rd5bbWJ21DOT8zgT6S6w
-         Aadr2PBtBwwAaexojDStXMWFIf2ZawjcOFLQkjuVOAUUM0HZ8HLh5Vrd4a5OyqgCAg+i
-         XwCHHIlaGJzL2IcVE/oOyid6ed2IadfVryMHuNLiPBvhr8YZiX/czi6qpdDhe1Oaof0X
-         JQU9ozv5JD5y8PHHrRsf1W6vQIi9DtoE+VnqjOg9Ma7zWtEouhQbnwezTZpQpgqeQkvp
-         /Jfvc1Lt1/UxVsFsHsaG9Lsqgi5A8mA2fze59n+MyNHH2oJgJoARCQZ02v3adZ6zTWdc
-         ch5A==
+        bh=XA8R7iMpBeDRjMa8OJpHCw9pBZF3N4J8Ecsr8+cx7Yw=;
+        b=E/6NoteO9iLfm/5PXHp2QQxvMql2vgayNbxfbO2AiKpDOIPQaWhANkFbiWMKDuAg2y
+         6lssST8pwp7ubLMzxG93KATVMwNlh0mYwyCGanpdZAQ5w/mC64fV79M0xp7eYptjWg6J
+         cXozeiezUgYDJ5iDnoKmAV9dkwolEcpKmH18KjXGM2jJn0ttX30ZojaqunASOJa/EZpi
+         9YVX6hnHfyED/ViGVPw9v7VeM9vWm7glnu71MXmRVizzDZiLbgPrRP8ByzKiJikNpHq9
+         EG359J5AHs77Ar5agp1AyB3lFxN29NpjSkJdIeEDsHoCSow8D58rlucjBX2ZvBrHH5aI
+         FPFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964638; x=1794569438;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TKghWzau878d+P/3ACxwFCi2OTeMRAfi/WpTSl8a68c=;
-        b=XFvKHNL1OShe6HFxIPe9ZLEhL37khGh4yR6/5siJdP5hVe/9aSuZOc6MY7M01IA7A+
-         K8sXOGvkwWnItCZ601XCQLOa/+x9tBA1WzSmZaYegHK3MS8fI3YpWJCy2zPZD+GMgCRx
-         k/LmmeFs6wE/zSpZiyqRNhCdKPI+Iu7yEERZjocgIBoB5mjxJbNzFd/9o5TiQAEYdu8e
-         xF+H9i4bxf2PmE3/obT9eZkDYcYyMaiN5tSq2b5hXtBxX0LvuW22EvYnsmkyDf/RIele
-         kdZykqrEbcZ9be+8Eo65lYLr6Av+f6oPixxj80r2UzDEEu6XZBg1mu5IetGhAA8iL7GD
-         rRQA==
-X-Forwarded-Encrypted: i=1; AL+hErG3bH6ptpIOW9R7BeMrIr40Vspm+CgXDlS42EekHm5aHREeZ6uwtNfK272kaEYMDoMZkl6VDwb4ZSuZ3jg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9opBizqsP0MqohSNZEO5CLarxud5DXj5u0lVS/D3go2czhcKE7
-	BAFDuCoueEjPiyRUHH3jhgSOOEJgwghqRveez6WPlbMtjJa/u0bAQCRR
-X-Gm-Gg: AYBFou384PZ+33di2KE4MnMDFgQduv8ZWy7J8+cHxh3nY7jqTEWlvMV2b275BlT3fDq
-	7cw+uarXnKRx8P0c4UNYUNmObrMbLSTCLd7k2Y5QU0ov+5bwE5pb9zz+SnJbj2thadCB6v6TZ8H
-	6EDyPoBcLow57yu9dEkhoK+vSg6UvvbRnGCCCWg72Dff0DUvr1eqIyXQlzb8/U0HYOmwLCkIvQ2
-	gwnUENvf6yIP8hHWTevumZQWcMnSFjRYpszPtD/5ESNLC30R7KPoEgtBnztf+upKym9JLX31V+U
-	sv6Hosc9xmFVLnkYAcB0+nGsCslRmfnyTyhQ/DkfGUPvnLVuaL0ilHLJ4pbfAG5mc3aj3cfEWsP
-	ZwmOTFNjL2GwMsJ/C2qmMdC4L9QDWaXcBU9aNqYgRViTuE1lTPTlSowUO/muMB8FYP9UbCKl8Ka
-	a24NFbyx9P4MV+pliZDklnJDQDqcyLnX9fGV1IgVsvOQdfdiu3XBSog3ecISvs55FG6RLDymK1l
-	gX1sO+sLJ0U9BhH5ycxQeTkWCs2suiBwUiXFw0wY/6JvJSgs+4a7ibDgN5vwbHUjGj30pYlAaM1
-	Szvlqhvs6rZaC28+esqyh3Qdg3g=
-X-Received: by 2002:a05:690c:9c0a:b0:8b0:d438:a024 with SMTP id 00721157ae682-8b341966129mr11571477b3.37.1793964638115;
-        Fri, 06 Nov 2026 03:30:38 -0800 (PST)
-Received: from localhost ([2a03:2880:30ff:44::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f8880d2sm16574347b3.42.2026.11.06.03.30.37
+        d=1e100.net; s=20260707; t=1793964635; x=1794569435;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XA8R7iMpBeDRjMa8OJpHCw9pBZF3N4J8Ecsr8+cx7Yw=;
+        b=LAFt+lvsZ93C3lurtMSJaaEXgkJsVMGYqrfgXPXMXv29V0C6wgAR+rCe4Q2qTgHAzh
+         1azwEnpgwrNPYBtDDZ0YFteGj4TzwHrX677gQOAJHSTN98HIjPsYbNNh4T32kO49kMnT
+         MtPKCziGmKNrhZZu9G0q/Ko77k+hzgrZzJTfYoLYVoMA+l5TrfFBUC/8idM/QdGZHRtr
+         ssQ3mhUYiS1Hm/NHAEPszSPBr2u83b9uFV55U0Fh6sG1pV+WUTQSO+xtvlZDkiW+VZQm
+         yx+B+sSWWyvhK52fR+m4lTpBJaWYrNmnuxH1tUkzWgA2O5mUV8V0VPxve08QoWOzdrvJ
+         Ngsw==
+X-Forwarded-Encrypted: i=1; AKwUvByLzmUfVpZ1oNRemkZcr+3Wh93dZqiEyWfEAfpt3P5r5EqftKGYq8oTUZxaHu9WAI7j8i/U71AzTrhnop8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/XRPZD8s7zuDJS6SaHJJFmzkOM+0U+b4v2GW2RZqZpuhREnNt
+	LFYP3tkBGTkgWxAGzE4ecUjI9DQHsaKPy5CsACtySrNE69O3Ey57Xl79
+X-Gm-Gg: AYBFou0uQI+bRQ9pZg5iTvrzWNEAxGETviwJoYidP8OgxMo5u+A5VkxJbsnQ3Tv8XeI
+	1z0pk5Yh9h7UZFuWj3kc7DABQyyeuuyarPSXOKRemRZkrFJukqZ6aEJJ1P4JU49QfqbK2a+JdF4
+	cnQF+3LHCxJtGRPJLhD6OVGg2B8iKm+bTNv4GVJAj04i5x2TICk93C0FxJGO19izIa9tdzQga0l
+	nHdbCA1YDsFfJ56Jx2LZ1+VUWb9Ufyca5zSLt4TzXrkwFahnNnjewhrtYvhxpAQKsXTYzmSfL0P
+	splEzJH10+tVO3AL6fqNxdawPUhc7je7AX6/RxKIi6u6BENNESGWWGHAaqV7r9FBM+7wZNV3Khi
+	y0RcFN9cOInTvZl252nFPrK+KbacMzuI7hAnBdUX7lLTkOn6EMzuWqg/X3NWOFvbzvDV2UCG+Ng
+	PWxxLFImBfkskHVSngxfvmcOBR8RfhPi4YPW/p5ggVBXWYnmG8OcHeLtDvZE2fccfneWwI828VW
+	opIk1DHPyFjRkyk9/DXuGY25tvDl3rTyO4sh6Nj3q7tZL/xkqtXJPuu3WuZul2pu++UECQEL4B2
+	o5F44DjJ5c8INHl6ruBmu0p6RJKEE0rz2YLBvoh9IE5DQYNwf6uiPerjhVevFBR8XxMYD2AjjWQ
+	5e9l+STrg3VYGx1YtBjn9Yy5yuwWCQC0FNpYTwUtpiUrk
+X-Received: by 2002:a05:6a20:430c:b0:3eb:50c9:b3c6 with SMTP id adf61e73a8af0-3eb985175f6mr4148228637.22.1793964635163;
+        Fri, 06 Nov 2026 03:30:35 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb70aa6ab9sm479228a12.27.2026.11.06.03.30.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:30:37 -0800 (PST)
-From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Fri, 06 Nov 2026 03:30:06 -0800
-Subject: [PATCH net-next 2/6] eth: mpnic: Rx checksum offload
+        Fri, 06 Nov 2026 03:30:34 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Andrew Jackson <Andrew.Jackson@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Xingyu Wu <xingyu.wu@starfivetech.com>
+Cc: Tim Bird <tim.bird@sony.com>,
+	Yuri Zaporozhets <yuriz@vodafonemail.de>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Maxim Kochetkov <fido_max@inbox.ru>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 4/5] ASoC: dwc: Fix DMA fifo_size calculation
+Date: Fri,  6 Nov 2026 18:29:39 +0700
+Message-ID: <20261106112940.53550-5-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106112940.53550-1-phucduc.bui@gmail.com>
+References: <20261106112940.53550-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,207 +108,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-mpnic-lso-v1-2-e943ff1493e4@gmail.com>
-References: <20261106-mpnic-lso-v1-0-e943ff1493e4@gmail.com>
-In-Reply-To: <20261106-mpnic-lso-v1-0-e943ff1493e4@gmail.com>
-To: Alexander Duyck <alexanderduyck@fb.com>, 
- Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>, 
- Mohsin Bashir <mohsin.bashr@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-The device reports two Rx completion fields to the driver related to
-checksums: l2_csum and l4_csum_unnecessary. l2_csum is the ones'
-complement sum of the frame starting from the end of the ethernet
-header. l4_csum_unnecessary means the device validated the l4 checksum of
-the packet. This is only supported for tcp or udp in
-ipv4/ipv6/4-in-6/6-in-6.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Report checksum none/complete/unnecessary counts via netdev qstats API.
+fifo_size should be the FIFO size in bytes (depth * width / 8), but
+the code shifts by 8 instead of 3. For capture the parentheses also
+make it always 0.
 
-Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
+Use depth * width / 8 for both directions.
+
+Fixes: 52ea7c0543f8 ("ASoC: dwc: i2s: Add StarFive JH7110 SoC support")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- drivers/net/ethernet/meta/mpnic/mpnic_csr.h    |  2 ++
- drivers/net/ethernet/meta/mpnic/mpnic_netdev.c | 14 ++++++++++-
- drivers/net/ethernet/meta/mpnic/mpnic_netdev.h |  3 +++
- drivers/net/ethernet/meta/mpnic/mpnic_txrx.c   | 34 ++++++++++++++++++++++++++
- drivers/net/ethernet/meta/mpnic/mpnic_txrx.h   |  3 +++
- 5 files changed, 55 insertions(+), 1 deletion(-)
+ sound/soc/dwc/dwc-i2s.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_csr.h b/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
-index 62304be203e6..1c86f114ab0c 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
-@@ -60,6 +60,8 @@ enum {
- #define MPNIC_RCD_AL_PAGE_FIN		DESC_BIT(53)
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index 0de7bcb2d0c5..1ff5b6f8864d 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -664,14 +664,14 @@ static int dw_configure_dai_by_pd(struct dw_i2s_dev *dev,
+ 			idx2 = COMP1_TX_WORDSIZE_0(comp1);
+ 			dev->play_dma_data.dt.addr = res->start + I2S_TXDMA;
+ 			dev->play_dma_data.dt.fifo_size = dev->fifo_th * 2 *
+-				(fifo_width[idx2]) >> 8;
++							  fifo_width[idx2] / 8;
+ 			dev->play_dma_data.dt.maxburst = 16;
+ 		}
+ 		if (COMP1_RX_ENABLED(comp1)) {
+ 			idx2 = COMP2_RX_WORDSIZE_0(comp2);
+ 			dev->capture_dma_data.dt.addr = res->start + I2S_RXDMA;
+ 			dev->capture_dma_data.dt.fifo_size = dev->fifo_th * 2 *
+-				(fifo_width[idx2] >> 8);
++							     fifo_width[idx2] / 8;
+ 			dev->capture_dma_data.dt.maxburst = 16;
+ 		}
+ 	} else {
+@@ -711,7 +711,7 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
+ 		dev->capability |= DWC_I2S_PLAY;
+ 		dev->play_dma_data.dt.addr = res->start + I2S_TXDMA;
+ 		dev->play_dma_data.dt.fifo_size = fifo_depth *
+-			(fifo_width[idx2]) >> 8;
++						  fifo_width[idx2] / 8;
+ 		dev->play_dma_data.dt.maxburst = 16;
+ 	}
+ 	if (COMP1_RX_ENABLED(comp1)) {
+@@ -720,7 +720,7 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
+ 		dev->capability |= DWC_I2S_RECORD;
+ 		dev->capture_dma_data.dt.addr = res->start + I2S_RXDMA;
+ 		dev->capture_dma_data.dt.fifo_size = fifo_depth *
+-			(fifo_width[idx2] >> 8);
++						     fifo_width[idx2] / 8;
+ 		dev->capture_dma_data.dt.maxburst = 16;
+ 	}
  
- /* Metadata Completion Descriptors */
-+#define MPNIC_RCD_META_L2_CSUM			DESC_GENMASK(47, 32)
-+#define MPNIC_RCD_META_L4_CSUM_UNNECESSARY	DESC_BIT(52)
- #define MPNIC_RCD_META_ERR_MAC_EOP		DESC_BIT(53)
- #define MPNIC_RCD_META_ERR_TRUNCATED_FRAME	DESC_BIT(54)
- #define MPNIC_RCD_META_UNCORRECTABLE_ERR_MASK	\
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-index 3de5abc20f9a..91b70fe8483c 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.c
-@@ -167,10 +167,12 @@ static void mpnic_get_queue_stats_rx(struct net_device *dev, int idx,
- {
- 	struct mpnic_net *mpn = netdev_priv(dev);
- 	struct mpnic_ring *rxr = mpn->rx[idx];
-+	u64 csum_unnecessary, csum_complete;
- 	u64 bytes, packets, alloc_failed;
- 	struct mpnic_queue_stats *stats;
- 	struct mpnic_q_triad *qt;
- 	unsigned int start;
-+	u64 csum_none;
- 
- 	if (!rxr)
- 		return;
-@@ -181,6 +183,9 @@ static void mpnic_get_queue_stats_rx(struct net_device *dev, int idx,
- 		bytes = u64_stats_read(&stats->rcq.bytes);
- 		packets = u64_stats_read(&stats->rcq.packets);
- 		alloc_failed = u64_stats_read(&stats->rcq.alloc_failed);
-+		csum_complete = u64_stats_read(&stats->rcq.csum_complete);
-+		csum_unnecessary = u64_stats_read(&stats->rcq.csum_unnecessary);
-+		csum_none = u64_stats_read(&stats->rcq.csum_none);
- 	} while (u64_stats_fetch_retry(&stats->syncp, start));
- 
- 	qt = container_of(rxr, struct mpnic_q_triad, cmpl);
-@@ -190,6 +195,9 @@ static void mpnic_get_queue_stats_rx(struct net_device *dev, int idx,
- 	rx->bytes = bytes;
- 	rx->packets = packets;
- 	rx->alloc_fail = alloc_failed;
-+	rx->csum_complete = csum_complete;
-+	rx->csum_unnecessary = csum_unnecessary;
-+	rx->csum_none = csum_none;
- }
- 
- static void mpnic_get_queue_stats_tx(struct net_device *dev, int idx,
-@@ -248,6 +256,9 @@ static void mpnic_get_base_stats(struct net_device *dev,
- 	rx->bytes = base->rx.bytes;
- 	rx->packets = base->rx.packets;
- 	rx->alloc_fail = base->rx.alloc_failed;
-+	rx->csum_complete = base->rx.csum_complete;
-+	rx->csum_unnecessary = base->rx.csum_unnecessary;
-+	rx->csum_none = base->rx.csum_none;
- }
- 
- static const struct netdev_stat_ops mpnic_stat_ops = {
-@@ -310,7 +321,8 @@ struct net_device *mpnic_netdev_alloc(struct mpnic_dev *mpd)
- 
- 	netdev->features |=
- 		NETIF_F_SG |
--		NETIF_F_HW_CSUM;
-+		NETIF_F_HW_CSUM |
-+		NETIF_F_RXCSUM;
- 
- 	netdev->hw_features |= netdev->features;
- 	netdev->vlan_features |= netdev->features;
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.h b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.h
-index 94f7a3355c5c..76ec9811e79e 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_netdev.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_netdev.h
-@@ -26,6 +26,9 @@ struct mpnic_base_stats {
- 		u64 dropped;
- 		u64 alloc_failed;
- 		u64 errors;
-+		u64 csum_complete;
-+		u64 csum_unnecessary;
-+		u64 csum_none;
- 	} rx;
- 
- 	unsigned int num_tx_queues;
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-index edb087b12a1e..680625810ec0 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-@@ -655,9 +655,34 @@ static void mpnic_put_pkt_buff(struct mpnic_pkt_ctxt *ctxt, bool napi)
- 	page_pool_put_full_page(page->pp, page, napi);
- }
- 
-+static void mpnic_rx_csum(u64 rcd, struct sk_buff *skb,
-+			  unsigned int *csum_complete,
-+			  unsigned int *csum_unnecessary,
-+			  unsigned int *csum_none)
-+{
-+	skb_checksum_none_assert(skb);
-+
-+	if (!(skb->dev->features & NETIF_F_RXCSUM)) {
-+		(*csum_none)++;
-+		return;
-+	}
-+
-+	if (FIELD_GET(MPNIC_RCD_META_L4_CSUM_UNNECESSARY, rcd)) {
-+		skb->ip_summed = CHECKSUM_UNNECESSARY;
-+		(*csum_unnecessary)++;
-+	} else {
-+		u16 csum = FIELD_GET(MPNIC_RCD_META_L2_CSUM, rcd);
-+
-+		skb->ip_summed = CHECKSUM_COMPLETE;
-+		skb->csum = (__force __wsum)csum;
-+		(*csum_complete)++;
-+	}
-+}
-+
- static int mpnic_clean_rcq(struct mpnic_napi_vector *nv,
- 			   struct mpnic_q_triad *qt, int budget)
- {
-+	unsigned int csum_complete = 0, csum_unnecessary = 0, csum_none = 0;
- 	unsigned int packets = 0, bytes = 0, dropped = 0, errors = 0;
- 	struct mpnic_ring *rcq = &qt->cmpl;
- 	struct mpnic_rcq_state *state;
-@@ -700,6 +725,8 @@ static int mpnic_clean_rcq(struct mpnic_napi_vector *nv,
- 			}
- 
- 			if (likely(skb)) {
-+				mpnic_rx_csum(rcd, skb, &csum_complete,
-+					      &csum_unnecessary, &csum_none);
- 				napi_gro_receive(&nv->napi, skb);
- 			} else {
- 				mpnic_put_pkt_buff(&state->pkt, true);
-@@ -732,6 +759,9 @@ static int mpnic_clean_rcq(struct mpnic_napi_vector *nv,
- 	u64_stats_add(&rcq->stats.rcq.dropped, dropped);
- 	u64_stats_add(&rcq->stats.rcq.alloc_failed, alloc_failed);
- 	u64_stats_add(&rcq->stats.rcq.errors, errors);
-+	u64_stats_add(&rcq->stats.rcq.csum_complete, csum_complete);
-+	u64_stats_add(&rcq->stats.rcq.csum_unnecessary, csum_unnecessary);
-+	u64_stats_add(&rcq->stats.rcq.csum_none, csum_none);
- 	u64_stats_update_end(&rcq->stats.syncp);
- 
- 	/* Allocate buffers, force dma_wmb(), and then start writing tails */
-@@ -806,6 +836,10 @@ static void mpnic_aggregate_ring_rcq_counters(struct mpnic_base_stats *base,
- 	base->rx.dropped += u64_stats_read(&rcq->stats.rcq.dropped);
- 	base->rx.alloc_failed += u64_stats_read(&rcq->stats.rcq.alloc_failed);
- 	base->rx.errors += u64_stats_read(&rcq->stats.rcq.errors);
-+	base->rx.csum_complete += u64_stats_read(&rcq->stats.rcq.csum_complete);
-+	base->rx.csum_unnecessary +=
-+		u64_stats_read(&rcq->stats.rcq.csum_unnecessary);
-+	base->rx.csum_none += u64_stats_read(&rcq->stats.rcq.csum_none);
- }
- 
- static struct mpnic_base_stats *mpnic_base_stats_prepare(struct mpnic_net *mpn)
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-index a6dff9dc32d6..714f09f4160e 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-@@ -103,6 +103,9 @@ struct mpnic_queue_stats {
- 			u64_stats_t dropped;
- 			u64_stats_t alloc_failed;
- 			u64_stats_t errors;
-+			u64_stats_t csum_complete;
-+			u64_stats_t csum_unnecessary;
-+			u64_stats_t csum_none;
- 		} rcq;
- 		struct {
- 			u64_stats_t alloc_failed;
-
 -- 
-2.52.0
+2.43.0
 
