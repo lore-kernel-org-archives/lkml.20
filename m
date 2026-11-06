@@ -1,45 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969814;
-	b=jyPeICfuIYF8JW8iDL5jjJo0H3XtfzZdvjMmKmIqlrsBlEJ1/iQTHKeE2wrVii8vwIGa
-	 2pylbRsAg4q1Z+F6plJFfcBtGfc5INSYb7GnhwDraPvmVAd4CbB8HRUYyk6J7WtkP156s
-	 bDnyixs8wkkpVBtKNM5NU3Fu+N0q77g1jkimrktq4he30DS37cSOfEs9zl1Tw/qZ4Tfs7
-	 yJ9i27bQWt6/BgkinEA7ePFRSoSJ6nNaUgeYUUpc6eQXtHVS4XdxEk8dODuhlcC7h5XD+
-	 7CdZ7msTr7aFEHRfkPiZQppljmaUl6NshL+YROhPkHJHhTTQ3tRn9M4FNAwqWq4Aolw==
+	t=1793969879;
+	b=r3AFnsZ3fz/phYPGnGfl6KqsUaQESr0+cCuQviQ6NlAPUNNjAiAvXOeiUpkqaYmB5lXY
+	 7Sgy7NfoxfQ1NdgE2tIvgYxIzB3bfcqp3chwW9sdM1kl7nPkCMtZ6qcqCGyGX92w73lXz
+	 zE1YgU3DDleuraBbnp3c9Ei5pn3LdYE+Y0xsPVbtdvhsvK3KRPrDrYubDRlkwhOUz7/4X
+	 K+jfy7Qt3jRyESL+dPIGEDdkImn4m4xpkXuqPt6lej/yhmnmLS0gSl2FqCHh7HJvFVNr+
+	 WwEesiXlr+7RBI80+FfZgHAP4bWLBNVAvdqsN630g+7w6UvxDKzq/lFNppEbBTqgVNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969814;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=ovnYpUVr+IdQBtBnTvW85eyzWvjLk9RyflmM2dhK/t0=;
-	b=fWZqdEx+2v19ch6GjoSGCtf/f8rV3w8L7kLRJOXaj7IAPqiOivTZOF9tHpGegMnIvVuK
-	 y9aBK7MSKyWDPiXFwhE+Zrki8ruuFs+FcLXoJkjFHArRDESUNvdsYwJTHlzTLGnSJAb+J
-	 MDEchjcpznwPcOgJnihltK0Rbpiot5MnQ44Hkb0PFsryRLrqwbQP2qseZfhzKkHrBHfv3
-	 47w/yqJWKz5ySHkM38lkSIEbFTXB+hSDYI9+0JdLd7MxuggqlO67GIouAREhWKheKmfge
-	 FQEYtK+G7hshfGN2d2M6bCD/kOkOw14IiDKq2XjtnNMowKxB9JE54c/KHPfXa03lOYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969879;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iZ4lN681ajQHPx1uvbvHoK+Cj6ldX5GuC96t5z/VUy0=;
+	b=LP5DFUPxNpwRpy9LDxdLQgPx8/20UyNrP0bWgz6ISeilivpqAwgstSmUJ4bXyPS3MTdi
+	 yOIE1LRt7B25YxpEjE4OKDTqzIpA458kwUph7n1QETBmoblXm58FGWv8yqKpyXnhm0jIg
+	 FqdJfYB07Ld6jiaAwVg9pNI5CupUP5pkiD4vZJ2DYxEwrmYjyej2xzy8G6TY5Q8OV3A6v
+	 UJ07n6iJ4fVQtwrT5dGmfR1G9WyMNK4f64BFcV62K8H87J3yCJ6Fgs2afeRwX75Ws6I3a
+	 yOgny5BQkRlLUqgIHG9QYM1C1pjvwT2ZdceqTHLQXBdCoJX3ISquKNXuPVOO7/ely/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hS6VoyOt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kw6iZr0x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D20606A32C;
-	Fri,  6 Nov 2026 12:56:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E919B606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:57:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hS6VoyOt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26CB1F008A4;
-	Fri,  6 Nov 2026 12:56:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kw6iZr0x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F201F0089F;
+	Fri,  6 Nov 2026 12:57:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969814;
-	bh=ovnYpUVr+IdQBtBnTvW85eyzWvjLk9RyflmM2dhK/t0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=hS6VoyOtgic16aZ0AgveOu3XhsVKgcvrasGkriV1nlFg8fTTyU8OpjY5SIhNGiWlO
-	 aymV9/0GO7jbB7dwbvaGBSpqXo40vQMInfuvrzXQA0jZ/CD3I1yrYyxCO/VrEU7DAo
-	 7TuKPASb4g/afkDwDT2TZqjvmUD1sm795roDYGVic28HkkEHAt2tbPrJkQIe8ZNKHw
-	 SoZNj4RTK2DlNNmwsJYj1diYFFjt8V0dZigW5aZW4WBcTHI9aorDcuQizm7z3/4zZl
-	 me196IJssApCckaMtEz5GF8fLlJv9TQG5fqKCwDgNw/BmCb2/dfIP56OntSpmyeoLz
-	 5vZGIoCOsHnSw==
-Content-Type: multipart/mixed; boundary="===============7160097930942034138=="
+	s=k20260515; t=1793969878;
+	bh=iZ4lN681ajQHPx1uvbvHoK+Cj6ldX5GuC96t5z/VUy0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Kw6iZr0xdVbUVhaorQzM+c2I5I5tSdtyy0WJFxR+cWWcoPDeY5aQf5fDy9MbwAqHd
+	 3+K2hixVUatcMeQ9phS1sB7NXBPM4/HnxfYoaiTAjOF7trOLC7O5/WTcm3It+dJCkN
+	 TlSHZ9s7CbbBeZ2eZPTL02/gaDl7RQXeHC4X5BurkL1wy+8ZKaRLQjRuyWjopXrVL/
+	 H6T8HWTF0ztxMUS6f2w3spK6ZLdX+Jhj3NocxzM9mf8C0UrJUQt0wYvREdX0Nm/VWr
+	 IGtz7qAYdCcdV0SG0/rkjsvzpvRgW12X/4qbCRVIdvBNkl1mIWxxEGjTzc/UBgxgq8
+	 Kd6uooG/WzNAg==
+Date: Fri, 6 Nov 2026 14:57:51 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Ivy Lopez <skunkolee@gmail.com>
+Cc: david@kernel.org, akpm@linux-foundation.org, ljs@kernel.org,
+	liam@infradead.org, vbabka@kernel.org, surenb@google.com,
+	mhocko@suse.com, fvdl@google.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] mm/cma: fix range selection in
+ cma_declare_contiguous_multi()
+Message-ID: <au3Oz50x-y3GPYpA@kernel.org>
+References: <6099bcde-15be-4197-905e-13dfa4c83bfe@kernel.org>
+ <20261106002347.255584-1-skunkolee@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,114 +60,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <3c8441b7a6884f0f66bf3fb4e00fd9fa675654b71b59dfb3966537c19d3e7989@mail.kernel.org>
-In-Reply-To: <20261106122356.3224638-4-cui.tao@linux.dev>
-References: <20261106122356.3224638-4-cui.tao@linux.dev>
-Subject: Re: [RFC PATCH v13 3/4] selftests/bpf: add iocost cost model test
-From: bot+bpf-ci@kernel.org
-To: cui.tao@linux.dev,tj@kernel.org,josef@toxicopanda.com,axboe@kernel.dk,alexei.starovoitov@gmail.com
-Cc: cgroups@vger.kernel.org,linux-block@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,andrii@kernel.org,eddyz87@gmail.com,ast@kernel.org,daniel@iogearbox.net,linux-kselftest@vger.kernel.org,cui.tao@linux.dev,cuitao@kylinos.cn,ameryhung@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri,  6 Nov 2026 12:56:53 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106002347.255584-1-skunkolee@gmail.com>
 
---===============7160097930942034138==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Nov 05, 2026 at 06:23:47PM -0600, Ivy Lopez wrote:
+> On 11/5/26 20:38, David Hildenbrand (Arm) wrote:
+> > Do these two fixes still apply?
+> 
+> Yes. I checked against akpm/mm-new at dba8aba0a9a0: both patches still
+> apply (two hunks with a small line offset from the accept_memory()
+> additions) and both problems are still present, since
+> list_insert_sorted() and the sizesum accounting are unchanged there.
+> If Mike's rewrite is going to replace this code soon, dropping them is
+> fine with me. Otherwise I can respin them.
 
-> selftests/bpf: add iocost cost model test
+Sorry, got distracted, here's my version:
 
-TL;DR: Nits only in the iocost selftest models: stale deviation comments,
-macros duplicated across both progs, and a redundant op check in iocost_ms.c.
+https://lore.kernel.org/linux-mm/20261106-cma-multi-v1-1-054eae6e2c1c@kernel.org
+ 
+> ivy
 
-> diff --git a/tools/testing/selftests/bpf/progs/iocost_model.c b/tools/testing/selftests/bpf/progs/iocost_model.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/progs/iocost_model.c
-
-[ ... ]
-
-> + * One known deviation, mispricing only: the builtin does not move its cursor
-> + * for an IO whose cgroup fails to activate; this model does not see the
-> + * activation result. Another, narrower one: with "flushiops"
-> + * configured, the builtin also advances its cursor for a
-> + * preflushed discard, which this model still ignores.
-
-This isn't a bug, but submit_bio_noacct() already fails any bio carrying
-REQ_PREFLUSH or REQ_FUA unless its op is REQ_OP_WRITE or
-REQ_OP_ZONE_APPEND:
-
-    if (WARN_ON_ONCE(bio_op(bio) != REQ_OP_WRITE &&
-                     bio_op(bio) != REQ_OP_ZONE_APPEND))
-            goto end_io;
-
-so a preflushed discard never reaches iocost.  Could the deviation lists
-in the header comments of both progs be trimmed to the cases that can
-actually happen?  The same "flushiops" sentence is repeated in the
-iocost_ms.c header, which also carries the "measured 89x overcharge,
-12.9x throughput collapse" and "measured 107x undercharge" figures that
-might fit better in the changelog.
-
-[ ... ]
-
-> +#define IOCOST_REQ_OP_MASK	0xff		/* REQ_OP_MASK, not in BTF */
-> +
-> +/*
-> + * DIV64_U64_ROUND_UP / DIV_ROUND_UP_ULL equivalents, folded at
-> + * compile time
-> + */
-> +#define RU(x, y)		((x) / (y) + (((x) % (y)) ? 1 : 0))
-> +
-> +#define RBPS	174019176ULL
-> +#define RSEQIOPS	41708ULL
-> +#define RRANDIOPS	370ULL
-> +#define WBPS	178075866ULL
-> +#define WSEQIOPS	42705ULL
-> +#define WRANDIOPS	378ULL
-> +
-> +#define RPAGE	(RU(VTIME_PER_SEC, RU(RBPS, IOC_PAGE_SIZE)))
-> +#define RSEQIO	(RU(VTIME_PER_SEC, RSEQIOPS) - RPAGE)
-> +#define RRANDIO	(RU(VTIME_PER_SEC, RRANDIOPS) - RPAGE)
-> +#define WPAGE	(RU(VTIME_PER_SEC, RU(WBPS, IOC_PAGE_SIZE)))
-> +#define WSEQIO	(RU(VTIME_PER_SEC, WSEQIOPS) - WPAGE)
-> +#define WRANDIO	(RU(VTIME_PER_SEC, WRANDIOPS) - WPAGE)
-
-This isn't a bug, but these macros (IOCOST_REQ_OP_MASK, RU(), the six
-AUTOP_HDD parameters and the derived coefficients) and the
-READ/WRITE/ZONE_APPEND classification in calc_cost() appear verbatim in
-both progs/iocost_model.c and progs/iocost_ms.c.
-
-Could they go into a small progs/iocost_common.h, the way
-bpf_qdisc_common.h is shared by bpf_qdisc_fifo.c and bpf_qdisc_fq.c, so
-the two models don't drift apart?
-
-[ ... ]
-
-> diff --git a/tools/testing/selftests/bpf/progs/iocost_ms.c b/tools/testing/selftests/bpf/progs/iocost_ms.c
-
-[ ... ]
-
-> +	/*
-> +	 * only bios the builtin prices participate in stream tracking;
-> +	 * the early return below skips the merge discount, which only
-> +	 * applies to tracked data bios
-> +	 */
-> +	if (!(((opf & IOCOST_REQ_OP_MASK) == REQ_OP_READ ||
-> +	       (opf & IOCOST_REQ_OP_MASK) == REQ_OP_WRITE ||
-> +	       (opf & IOCOST_REQ_OP_MASK) == REQ_OP_ZONE_APPEND) && nbytes)) {
-
-This isn't a bug, but the earlier if/else chain in iocost_ms_calc_cost()
-already returns 0 for every op other than REQ_OP_READ, REQ_OP_WRITE and
-REQ_OP_ZONE_APPEND.  By this point the three-way op test is always true,
-so could this condition just be:
-
-    if (!nbytes) {
-
-?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42219005018
---===============7160097930942034138==--
+-- 
+Sincerely yours,
+Mike.
