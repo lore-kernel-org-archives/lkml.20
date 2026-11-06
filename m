@@ -1,75 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793996414;
-	b=T8cKHP/qGPKDoMY9t8PqeKygJHOI1U1jAWrbvJFSvwQLsRxDpU4UKGkdPFNYW811qfHM
-	 v5inKpaq1kk+pRNqqoyvX/uKvV5SwMxIxO5Zt02AN7EWXoiO3bJI3AaHO7vf8p72YZZQR
-	 +Gk2GHZ9IFt/mr2xkuhRcgkwwts9OZIwehsM/HuaB3YAxq7PsR6WayY5Ks2rIUki+vPln
-	 69lO2ochh0UukVprKCLR4vrK7QxJLZCQq663XXumohxGpy+nvFGbO32Uf4wLRpre3Y0tW
-	 5CfiUcSPnezJN9aiPI374NLgaL9g9mW1F+Eb6WAAlm6x944Z4W0zUHRZtVc5gZ/DQRQ==
+	t=1793996406;
+	b=BS4VzOUJqseXSxg2g2dF/bScnCxBaiqJSF/IVtfZ4zeQcL3iYDDds3RSh1WXblxer71F
+	 sMPBcfyi0IbM4rfLaAuw7AIn7Jh5D75GawOu+OfmWx5wODdBZsq/9IZfWnHK0AF9Mv+gW
+	 nf4l1fX9YAJmdBa12P4v6p+s2OKzpC6ofpoRiI0c1AZ25nk49rNpMQ5CWPwC3IW6WsbXv
+	 s2s1gQehOyghBF7BtuNXcoa6G1UxOs5xpqeis3NhHJf0bz1YrgJruSauDCsTcyQWZsRqi
+	 x9kDMUF/WIS1FTt1r1fNJlkz2JvHZo+qwaaOkxyXaEhc6zsis3PD7Bg/AOc054iOCrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996406;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=v1K3WFaaxXIY1YG+wT7d7rSFJH79cYXrlV1wWh3xm5M=;
-	b=Ox+JvsIpKNm2hN4x4X6E4YezHGOJxszD2OLmLExZmdFZL08VvAOO83/6BMlzh9KykQ0j
-	 E8zAiTctBa3Ri2bAqfJC3TwrS5k/0HyVrG/Tv0RpemjrxHAos1OaPzpQU/tp17iqrAdo2
-	 l+uZmuLYyWLpkm+Hu+Wt5RFJO4TIM66FWYtscQ910vRstRHfwi2HIBESqKJZ1t+ZtA0Xe
-	 hCeEtWoMXwuudlgppHQA/zss5bu7nVsuTB4z+XfOnkNNlKE7S55dxlsEUPy5F+dPw6fY3
-	 XlwZl8jUUzLY2tndqM2OFm3zamQ+wY0mYAEsMPiRzK6nM5eTai9Oi49njGMEP7nORqg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=IGK4DQjcIX187U9vI9ioaxMrjg9ZTSKqMzVUmGClviU=;
+	b=IbW+/9KFLy3MXZ7pdiB7rsLaYPh7nuiEdjw7sHlB3ogtEJZ3YOx7CtgMlteTF5tI2SQG
+	 Qd9eAWtI3BJphAxh+0b4jtgTZ1tCKibdasx4zNn3hTCgUk0WgIHtwwfxYRTcc9gyQZzc3
+	 zl6x96MulnA51+FfU74SvK7z+WMX42DPERbMzMNKsXLCXie7J1TuKJJyRMTgdyWwzksyz
+	 6ZFfkBrOWFcbVciqvAjcaxGwFIcq3Y2z3NHPaQkisE9/h8OOr8mFF7wESfCIYEsjbkNJL
+	 lmH4d0i4hEpTI0FAYTSlPuaPZ1OZd7LUjL4BbASomotvPiSNrG3P8ol25We/mlGTqPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=feZwjoGg;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=hRhTLQV5;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BA5606A32F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3BA5606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FDB606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FDB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=feZwjoGg
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b09a466295so811719a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:13 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=hRhTLQV5
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso153353866b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793996413; x=1794601213; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=linux-foundation.org; s=google; t=1793996403; x=1794601203; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v1K3WFaaxXIY1YG+wT7d7rSFJH79cYXrlV1wWh3xm5M=;
-        b=feZwjoGgZvGjnvAisqizVGEX7FwYxeX/flqBPhC1rp6tU5CK/e1YOUcxdojAZ9VjW0
-         WdZlIaJ7E3hwE7nXWH5vVRjyGHUT4DRSHpAU7tBVB2qSoFeghnKkJz9VFsWBfEPGtBRv
-         uwVNYhhDt0a60x4KP+5VsWVAKxdYTXuYlfoXdQ3vix84NjZ+RwFJWJmId2AD3VtroGW0
-         uYdusyoUuEh1VwXyS/06VhXTaOWps2U7VktiU3QDi3cblL5JWS6nT07QMe4pLXxgCwLJ
-         2/AbYTL8qvubkbvKZjFJzGFluu2LadCh7pdbG4iIZWmvLMnoN4Ify38svTa4fJsLHacD
-         ykRA==
+        bh=IGK4DQjcIX187U9vI9ioaxMrjg9ZTSKqMzVUmGClviU=;
+        b=hRhTLQV50B6IWErTtrVVNq+7KVVENRzQF3wBEWiH9u3Sucp0iVU+VUsKh4z3HIu5vU
+         pq6VmUoBaqHfiNHy9giHsbE3tlbfaGcLcW2MYLpNk7wgm/mM2t2V3qndkulvOf/dk1TM
+         ahADn/v32B/35/OJZ4dbdKMN9tzJXDvx3QbcU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793996413; x=1794601213;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v1K3WFaaxXIY1YG+wT7d7rSFJH79cYXrlV1wWh3xm5M=;
-        b=wdQvgbhGEWR7YzDPaCK4RFBEJr1Lm9R9HHe0kExJJWMrCgmyxApwktNfBPe9iXgEtG
-         +3WnAPKmlsDsmAm4nzz2dSpPZClBhxXydKhYcnN0lxNC+I9r2wIm7qdzrh/s5pr/K7/O
-         Ka4gHNwO5OxxE5W8BlWAvFhV+2r2PHxOKTKByHKTXmbkj5Y+cRm+3z+qmzlpfnkWLj4k
-         YNLZqUO4W/uft0Xt1Vva6MAWbtr+Wdug18vxK6IO4BNKicxAuiT67+EIWNuZIMzLpfZj
-         LXFCMfoiAIdlBTt0Q9joy/5RfO/naf9CwhrwAbG9oA/vYMN9RT5BqIi/++mN2uLHe8jz
-         Uu5Q==
-X-Forwarded-Encrypted: i=1; AL+hErGrpGpNFb6lpWmlONjSfqjhBa5s072b7DB1E/WxNkd996UDw9QJmoapXQUOc6j5zGDE4UvCQGSySu88Jq0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+UEGGzjH6cIQlxZ+uykiSnSDucp0I71xJ6klkudG0g7GuU2vZ
-	jJ12KnEXZ+ck62EUl9Q/SAs7wUutZTCKOEiixFfRRJjMDjANi6Aq/Zbw6MDhY4IZ/mV9j+lUKir
-	1QNuZM++cWLbZQfUofA==
-X-Received: from pjqt7.prod.google.com ([2002:a17:90a:ae07:b0:3ae:7abe:56ae])
- (user=sidnayyar job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4fd0:b0:3a4:945e:bc33 with SMTP id 98e67ed59e1d1-3b0db705ccbmr3457348a91.47.1793996412941;
- Fri, 06 Nov 2026 12:20:12 -0800 (PST)
-Date: Fri, 06 Nov 2026 20:19:49 +0000
-In-Reply-To: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
+        d=1e100.net; s=20260707; t=1793996403; x=1794601203;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IGK4DQjcIX187U9vI9ioaxMrjg9ZTSKqMzVUmGClviU=;
+        b=dx7NCu53QudsfuEMiLQFkaCXsgFxdFXRkRCuESHUxh7Qw6DNuvGFW4M200oUe7SNnt
+         /nu5dVgfUHrP7JxeUM0yQVszBphE+M55rc/AnSahBeyKfa5pTtH1GCVAocuVW1qkIi9p
+         jBU1Ic5PJxhthqz5eMUCQp9zcXkXDTCbC5ocM29/iOtaqWdnbdJJj0BFQjy5ZO234kIA
+         f0tXKPdmYndGGC25RBhFs9W7I/S1cg7sMWyew0mBp2/BrnxGtOCChy94DnTt/8PKjcGI
+         eJXiFJm5Mb6vv7hXxKBk9M0y+o9nd7rj5unh0bx+3OK1mclBeDreMquJGn8MPPq3QxHD
+         IM1A==
+X-Forwarded-Encrypted: i=1; AKwUvBzOEi/cGRJNeLAtQcJGI3rt7aRzxWLYBuVKMqBUv+NxxGsC3KNAKrijt9IqmP6Ri5tagNyzB0ptvrRrRRc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9QYeCaOvRGlHE/tFlWqbEQAB3+kgFxCTu15xvLKwCSUGO71oUl
+	w6Ivl4jDINUSXe51BV6UZZRuTYiSZnn6x+oF24wb8Fa01w70VSXSmNIEwQKzX2/CBH6tUcvVVQy
+	ajz8D793m/A==
+X-Gm-Gg: AYBFou1NwsjApGACl6ZguQdQWeTyYi+2036H7cxFoucKsM0ateM9nDb/gh1Gy5XB/5j
+	ZGfAcHMtDDsCy+a7zIsxKMmhbv9wvV4q1LInxqf758agCKcZsvvl7DIyJ2ad09wgJNe0TEx29Th
+	p6NVFLVWxkTtDTYqM9vR7G3IggZoNcNDT1SJjziU6HpOzQM5yXX9YRsFnPu0V58SufJX48M52j4
+	SbQzhjmEKI8NIQM+2K12oiJTFmTWcBxLFGR9HzKHAZZPfCfo5NrddeWYkXZBIHLewO5iY1YikUx
+	vgD571rKvzwbYiYEhK8qJOl0Zvtfu9WZ4qZTH/GvWFYOzzXMaK1JiDJdBVkcGZjSdnnYVl5Gvj8
+	6VD5mEwdjZgWbAkBQpD0k8l8HvN73kGmC19WmXShyoY548ifVgiIVQPYl4+kYMUIXqlRRv4W8pm
+	uHo57duvz0Ygr2dHM5/pd8aaiBzoE93/sa/x2ger8xg1AzMjXq6tTMTopLUb0STLxlYbVQPKG37
+	ZOgW+TyZpPhR3eBNrSwRvYs0PObvjfSbPdHYRfj/3T0RChrwUWCq9HSiETyP9m0X3w2HmtXQ3C7
+	LRPBx9vD9kCZ+gQ4DbSLPU/310KnLt6pcRcKR+2XAmCKHkzmSfIKQzC9Y/BRkkhwLPpH6KwJTF9
+	0aQ==
+X-Received: by 2002:a17:906:c102:b0:c3f:84aa:af0d with SMTP id a640c23a62f3a-c4d354b9d2dmr290399866b.18.1793996403238;
+        Fri, 06 Nov 2026 12:20:03 -0800 (PST)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com. [209.85.218.48])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3562ea8csm101538466b.22.2026.11.06.12.20.02
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 12:20:02 -0800 (PST)
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso153350666b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBy3lMttPllqOQOJNku8YTcf+VdV8AQjjFgEgsupyMogRGW8FtrniFlhn+jdpxiFp/GDdqArteRS5NhzGwA=@vger.kernel.org
+X-Received: by 2002:a17:907:d22:b0:c29:659e:2fd2 with SMTP id
+ a640c23a62f3a-c4d35519e9fmr286852966b.27.1793996401983; Fri, 06 Nov 2026
+ 12:20:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,384 +93,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
-X-Mailer: b4 0.14.3
-Message-ID: <20261106-lskel-struct-ops-v1-2-a4486ffc79cb@google.com>
-Subject: [PATCH RFC bpf-next 2/7] libbpf: Implement bpf_gen__init_kern_struct_ops()
- for light skeletons
-From: Siddharth Nayyar <sidnayyar@google.com>
-To: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Quentin Monnet <qmo@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Giuliano Procida <gprocida@google.com>, 
-	Neill Kapron <nkapron@google.com>, "=?utf-8?q?Thi=C3=A9baud_Weksteen?=" <tweek@google.com>, 
-	Maxime Ripard <mripard@kernel.org>, Siddharth Nayyar <sidnayyar@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+References: <20261104-work-procfs-fs-v2-0-319e0f9a8aae@kernel.org>
+ <CAHk-=wj9Y9NcOesBBm+jhPjYa7qO00fD7g7uwX+H-k0-R2difA@mail.gmail.com>
+ <20261104-allein-bepacken-hitzig-5e517d3c129f@brauner> <20261105-genehm-dachrinnen-infusion-9cdf4868d32e@brauner>
+ <CAHk-=wgLpWDjmcNWphCMkKXKwuZsa8KWRPvJ4j=C_ktCL4gBzg@mail.gmail.com>
+In-Reply-To: <CAHk-=wgLpWDjmcNWphCMkKXKwuZsa8KWRPvJ4j=C_ktCL4gBzg@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 6 Nov 2026 12:19:45 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wi-B--TBQuYjz6J6vKtEMpNSm4_wVRzTP_vE=uTLb7P5g@mail.gmail.com>
+X-Gm-Features: AclHuK94jU-Q2Wt87Ad4tvQ_sMRVW1xDG99ONHJ5t99rOlTRyHhYCt5Ue-I2zS4
+Message-ID: <CAHk-=wi-B--TBQuYjz6J6vKtEMpNSm4_wVRzTP_vE=uTLb7P5g@mail.gmail.com>
+Subject: Re: [PATCH RESEND v2 00/30] proc: convert the fs, kernel and mm
+ entries (Part 5/7)
+To: Christian Brauner <brauner@kernel.org>
+Cc: Al Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
+	Christoph Hellwig <hch@lst.de>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add bpf_gen__init_kern_struct_ops() in gen_loader.c and wire it up in
-bpf_object__init_kern_struct_ops_maps() when generating a light
-skeleton.
+On Fri, 6 Nov 2026 at 12:10, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> It does compares 'count' to PROC_BLOCK_SIZE, and then after that it
+> just allocates PAGE_SIZE and does
 
-At runtime, the generated loader program:
-1. Resolves the BTF ID and module BTF FD of the wrapper struct
-   bpf_struct_ops_<tname> via bpf_btf_find_by_name_kind().
-2. Queries the wrapper struct's size and "data" member offset using
-   bpf_btf_get_struct_member_info().
-3. Resolves the BTF ID and module BTF FD of the target interface struct
-   <tname> for program attach_btf_id resolution.
-4. Allocates a 4 KB kern_vdata buffer in the loader data blob and
-   populates non-zero scalar/array fields and per-program member offsets
-   and attach indices.
+Ahh, this all goes away in "scsi: core: let procfs copy in writes", so
+never mind.
 
-Signed-off-by: Siddharth Nayyar <sidnayyar@google.com>
----
- tools/lib/bpf/bpf_gen_internal.h |   4 +
- tools/lib/bpf/gen_loader.c       | 197 +++++++++++++++++++++++++++++++++++++++
- tools/lib/bpf/libbpf.c           |  43 ++++-----
- tools/lib/bpf/libbpf_internal.h  |  24 +++++
- 4 files changed, 245 insertions(+), 23 deletions(-)
-
-diff --git a/tools/lib/bpf/bpf_gen_internal.h b/tools/lib/bpf/bpf_gen_internal.h
-index 206adf28793d..b424410e8839 100644
---- a/tools/lib/bpf/bpf_gen_internal.h
-+++ b/tools/lib/bpf/bpf_gen_internal.h
-@@ -84,5 +84,9 @@ void bpf_gen__record_extern(struct bpf_gen *gen, const char *name, bool is_weak,
- 			    bool is_typeless, bool is_ld64, int kind, int insn_idx);
- void bpf_gen__record_relo_core(struct bpf_gen *gen, const struct bpf_core_relo *core_relo);
- void bpf_gen__populate_outer_map(struct bpf_gen *gen, int outer_map_idx, int key, int inner_map_idx);
-+void bpf_gen__init_kern_struct_ops(struct bpf_gen *gen, struct btf *btf,
-+				   struct bpf_struct_ops *st_ops,
-+				   __u32 *vtype_id_off,
-+				   unsigned int *val_sz_off);
- 
- #endif
-diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
-index 555d4757a898..09713c39f71e 100644
---- a/tools/lib/bpf/gen_loader.c
-+++ b/tools/lib/bpf/gen_loader.c
-@@ -14,11 +14,14 @@
- #include "hashmap.h"
- #include "bpf_gen_internal.h"
- #include "skel_internal.h"
-+#include "relo_core.h"
- 
- #define MAX_USED_MAPS	64
- #define MAX_USED_PROGS	32
- #define MAX_KFUNC_DESCS 256
- #define MAX_FD_ARRAY_SZ (MAX_USED_MAPS + MAX_KFUNC_DESCS)
-+#define STRUCT_OPS_VALUE_PREFIX "bpf_struct_ops_"
-+#define KERN_VDATA_MAX_SIZE 4096
- 
- /* The following structure describes the stack layout of the loader program.
-  * In addition R6 contains the pointer to context.
-@@ -1338,3 +1341,197 @@ void bpf_gen__map_freeze(struct bpf_gen *gen, int map_idx)
- 	debug_ret(gen, "map_freeze");
- 	emit_check_err(gen);
- }
-+
-+/* Expects:
-+ * BPF_REG_8 - (btf_obj_fd << 32) | btf_id
-+ *
-+ * Overwrites BPF_REG_{0, 1, 2, 3, 4, 7}
-+ * Returns result in BPF_REG_7
-+ */
-+static void emit_bpf_get_struct_member_info(struct bpf_gen *gen, const char *mname)
-+{
-+	emit(gen, BPF_MOV32_REG(BPF_REG_1, BPF_REG_8));
-+	emit(gen, BPF_MOV64_REG(BPF_REG_2, BPF_REG_8));
-+	emit(gen, BPF_ALU64_IMM(BPF_RSH, BPF_REG_2, 32));
-+	if (mname) {
-+		int mname_len = strlen(mname) + 1;
-+		int mname_off = add_data(gen, mname, mname_len);
-+
-+		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_3, BPF_PSEUDO_MAP_IDX_VALUE,
-+						 0, 0, 0, mname_off));
-+		emit(gen, BPF_MOV64_IMM(BPF_REG_4, mname_len));
-+	} else {
-+		emit(gen, BPF_MOV64_IMM(BPF_REG_3, 0));
-+		emit(gen, BPF_MOV64_IMM(BPF_REG_4, 0));
-+	}
-+	emit(gen, BPF_EMIT_CALL(BPF_FUNC_btf_get_struct_member_info));
-+	emit(gen, BPF_MOV64_REG(BPF_REG_7, BPF_REG_0));
-+	debug_ret(gen, "get_struct_member_info(%s)", mname ?: "NULL");
-+	emit_check_err(gen);
-+}
-+
-+/* Expects:
-+ * BPF_REG_8 - (btf_obj_fd << 32) | kern_type_id
-+ * BPF_REG_9 - kern_data_off
-+ */
-+static void emit_st_ops_member_val(struct bpf_gen *gen, const char *mname,
-+				   const void *mdata, __u32 msize,
-+				   int kern_vdata_off)
-+{
-+	int mdata_off;
-+
-+	if (libbpf_is_mem_zeroed(mdata, msize))
-+		return;
-+
-+	if (msize > KERN_VDATA_MAX_SIZE) {
-+		gen->error = -E2BIG;
-+		return;
-+	}
-+
-+	mdata_off = add_data(gen, mdata, msize);
-+	emit_bpf_get_struct_member_info(gen, mname);
-+
-+	/* Extract member byte offset (lower 32 bits of R7), add kern_data_off, and bound it */
-+	emit(gen, BPF_MOV32_REG(BPF_REG_2, BPF_REG_7));
-+	emit(gen, BPF_ALU32_REG(BPF_ADD, BPF_REG_2, BPF_REG_9));
-+	emit(gen, BPF_JMP_IMM(BPF_JLE, BPF_REG_2, KERN_VDATA_MAX_SIZE - msize, 2));
-+	emit(gen, BPF_MOV64_IMM(BPF_REG_7, -E2BIG));
-+	emit_check_err(gen);
-+
-+	/* Copy msize bytes from mdata_off into kern_vdata_off + offset */
-+	emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
-+					 0, 0, 0, kern_vdata_off));
-+	emit(gen, BPF_ALU64_REG(BPF_ADD, BPF_REG_1, BPF_REG_2));
-+	emit(gen, BPF_MOV64_IMM(BPF_REG_2, msize));
-+	emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_3, BPF_PSEUDO_MAP_IDX_VALUE,
-+					 0, 0, 0, mdata_off));
-+	emit(gen, BPF_EMIT_CALL(BPF_FUNC_probe_read_kernel));
-+}
-+
-+/* Expects:
-+ * BPF_REG_8 - (btf_obj_fd << 32) | kern_type_id
-+ * BPF_REG_9 - kern_data_off
-+ */
-+static void emit_st_ops_member_prog(struct bpf_gen *gen, const char *mname,
-+				    struct bpf_struct_ops *st_ops, __u32 member_idx,
-+				    struct bpf_program *prog)
-+{
-+	int attach_type_off;
-+
-+	if (st_ops->progs[member_idx] && st_ops->progs[member_idx] != prog)
-+		bpf_program__set_autoload(st_ops->progs[member_idx], false);
-+	st_ops->progs[member_idx] = prog;
-+
-+	if (!prog)
-+		return;
-+
-+	st_ops->kern_func_off[member_idx] = add_data(gen, NULL, sizeof(__u32));
-+	attach_type_off = add_data(gen, NULL, sizeof(__u32));
-+	bpf_program__set_expected_attach_type(prog, attach_type_off);
-+
-+	emit_bpf_get_struct_member_info(gen, mname);
-+
-+	/* 1. Store member byte offset (lower 32 bits of R7 + kern_data_off)
-+	 * into st_ops->kern_func_off[member_idx]
-+	 */
-+	emit(gen, BPF_MOV32_REG(BPF_REG_2, BPF_REG_7));
-+	emit(gen, BPF_ALU32_REG(BPF_ADD, BPF_REG_2, BPF_REG_9));
-+	emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
-+					 0, 0, 0, st_ops->kern_func_off[member_idx]));
-+	emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_2, 0));
-+
-+	/* 2. Store member index (upper 32 bits of R7) into attach_type_off */
-+	emit(gen, BPF_MOV64_REG(BPF_REG_2, BPF_REG_7));
-+	emit(gen, BPF_ALU64_IMM(BPF_RSH, BPF_REG_2, 32));
-+	emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
-+					 0, 0, 0, attach_type_off));
-+	emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_2, 0));
-+}
-+
-+void bpf_gen__init_kern_struct_ops(struct bpf_gen *gen, struct btf *btf,
-+				   struct bpf_struct_ops *st_ops,
-+				   __u32 *vtype_id_off,
-+				   unsigned int *val_sz_off)
-+{
-+	struct ksym_relo_desc relo = { .kind = BTF_KIND_STRUCT };
-+	const struct btf_member *member;
-+	const struct btf_type *type;
-+	char tname[192], stname[256];
-+	const char *tname_raw;
-+	__u32 i;
-+
-+	type = btf__type_by_id(btf, st_ops->type_id);
-+	tname_raw = btf__name_by_offset(btf, type->name_off);
-+	snprintf(tname, sizeof(tname), "%.*s",
-+		 (int)bpf_core_essential_name_len(tname_raw), tname_raw);
-+	snprintf(stname, sizeof(stname), "%s%s", STRUCT_OPS_VALUE_PREFIX, tname);
-+
-+	/* 1. Resolve BTF ID of struct bpf_struct_ops_<tname> */
-+	*vtype_id_off = add_data(gen, NULL, sizeof(__u64));
-+	relo.name = stname;
-+	emit_bpf_find_by_name_kind(gen, &relo);
-+	emit_check_err(gen);
-+	emit(gen, BPF_MOV64_REG(BPF_REG_8, BPF_REG_7));
-+	emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
-+					 0, 0, 0, *vtype_id_off));
-+	emit(gen, BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_7, 0));
-+
-+	/* 2. Use the BTF ID to find the struct_ops value struct size and "data" offset */
-+	*val_sz_off = add_data(gen, NULL, sizeof(__u32));
-+	emit_bpf_get_struct_member_info(gen, NULL);
-+	emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
-+					 0, 0, 0, *val_sz_off));
-+	emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_1, BPF_REG_7, 0));
-+
-+	emit_bpf_get_struct_member_info(gen, "data");
-+	emit(gen, BPF_MOV32_REG(BPF_REG_9, BPF_REG_7));
-+
-+	/* 3. Resolve BTF ID of struct <tname> */
-+	st_ops->type_id_off = add_data(gen, NULL, sizeof(__u64));
-+	relo.name = tname;
-+	emit_bpf_find_by_name_kind(gen, &relo);
-+	emit_check_err(gen);
-+	emit(gen, BPF_MOV64_REG(BPF_REG_8, BPF_REG_7));
-+	emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
-+					 0, 0, 0, st_ops->type_id_off));
-+	emit(gen, BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_7, 0));
-+
-+	/* 4. Allocate and populate space in the data blob for kern_vdata */
-+	st_ops->kern_vdata_off = add_data(gen, NULL, KERN_VDATA_MAX_SIZE);
-+	member = btf_members(type);
-+	for (i = 0; i < btf_vlen(type); i++, member++) {
-+		const struct btf_type *mtype;
-+		const char *mname;
-+		void *mdata;
-+		__s64 msize;
-+		__u32 moff;
-+
-+		mname = btf__name_by_offset(btf, member->name_off);
-+		if (btf_member_bitfield_size(type, i)) {
-+			pr_warn("struct_ops init_kern: bitfield %s is not supported\n",
-+				mname);
-+			gen->error = -ENOTSUP;
-+			return;
-+		}
-+
-+		moff = member->offset / 8;
-+		mdata = st_ops->data + moff;
-+		msize = btf__resolve_size(btf, member->type);
-+		if (msize < 0) {
-+			pr_warn("struct_ops init_kern: failed to resolve the size of member %s\n",
-+				mname);
-+			gen->error = msize;
-+			return;
-+		}
-+
-+		mtype = skip_mods_and_typedefs(btf, member->type, NULL);
-+		if (btf_is_ptr(mtype)) {
-+			struct bpf_program *prog = *(void **)mdata;
-+
-+			emit_st_ops_member_prog(gen, mname, st_ops, i, prog);
-+		} else {
-+			emit_st_ops_member_val(gen, mname, mdata, msize,
-+					       st_ops->kern_vdata_off);
-+		}
-+	}
-+}
-diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-index 0e2a93a42908..7754d6640167 100644
---- a/tools/lib/bpf/libbpf.c
-+++ b/tools/lib/bpf/libbpf.c
-@@ -523,25 +523,6 @@ struct bpf_program {
- 	__u32 subprog_cnt;
- };
- 
--struct bpf_struct_ops {
--	struct bpf_program **progs;
--	__u32 *kern_func_off;
--	/* e.g. struct tcp_congestion_ops in bpf_prog's btf format */
--	void *data;
--	/* e.g. struct bpf_struct_ops_tcp_congestion_ops in
--	 *      btf_vmlinux's format.
--	 * struct bpf_struct_ops_tcp_congestion_ops {
--	 *	[... some other kernel fields ...]
--	 *	struct tcp_congestion_ops data;
--	 * }
--	 * kern_vdata-size == sizeof(struct bpf_struct_ops_tcp_congestion_ops)
--	 * bpf_map__init_kern_struct_ops() will populate the "kern_vdata"
--	 * from "data".
--	 */
--	void *kern_vdata;
--	__u32 type_id;
--};
--
- #define DATA_SEC ".data"
- #define PERCPU_SEC ".percpu"
- #define BSS_SEC ".bss"
-@@ -1462,7 +1443,7 @@ static int bpf_map__init_kern_struct_ops(struct bpf_map *map)
- static int bpf_object__init_kern_struct_ops_maps(struct bpf_object *obj)
- {
- 	struct bpf_map *map;
--	size_t i;
-+	size_t i, j;
- 	int err;
- 
- 	for (i = 0; i < obj->nr_maps; i++) {
-@@ -1474,9 +1455,25 @@ static int bpf_object__init_kern_struct_ops_maps(struct bpf_object *obj)
- 		if (!map->autocreate)
- 			continue;
- 
--		err = bpf_map__init_kern_struct_ops(map);
--		if (err)
--			return err;
-+		if (obj->gen_loader) {
-+			const struct btf_type *type;
-+
-+			bpf_gen__init_kern_struct_ops(obj->gen_loader, obj->btf,
-+						      map->st_ops,
-+						      &map->btf_vmlinux_value_type_id,
-+						      &map->def.value_size);
-+			map->mod_btf_fd = -1;
-+			type = btf__type_by_id(obj->btf, map->st_ops->type_id);
-+			for (j = 0; j < btf_vlen(type); j++) {
-+				if (map->st_ops->progs[j])
-+					map->st_ops->progs[j]->attach_btf_id =
-+						map->st_ops->type_id_off;
-+			}
-+		} else {
-+			err = bpf_map__init_kern_struct_ops(map);
-+			if (err)
-+				return err;
-+		}
- 	}
- 
- 	return 0;
-diff --git a/tools/lib/bpf/libbpf_internal.h b/tools/lib/bpf/libbpf_internal.h
-index e90b5336bac0..845d6557c922 100644
---- a/tools/lib/bpf/libbpf_internal.h
-+++ b/tools/lib/bpf/libbpf_internal.h
-@@ -293,6 +293,30 @@ struct btf_map_def {
- 	__u64 map_extra;
- };
- 
-+struct bpf_struct_ops {
-+	struct bpf_program **progs;
-+	__u32 *kern_func_off;
-+	/* e.g. struct tcp_congestion_ops in bpf_prog's btf format */
-+	void *data;
-+	/* e.g. struct bpf_struct_ops_tcp_congestion_ops in
-+	 *      btf_vmlinux's format.
-+	 * struct bpf_struct_ops_tcp_congestion_ops {
-+	 *	[... some other kernel fields ...]
-+	 *	struct tcp_congestion_ops data;
-+	 * }
-+	 * kern_vdata-size == sizeof(struct bpf_struct_ops_tcp_congestion_ops)
-+	 * In standard mode, bpf_map__init_kern_struct_ops() will populate the
-+	 * "kern_vdata" buffer from "data".
-+	 * In gen_loader mode, bpf_gen__init_kern_struct_ops() will allocate
-+	 * space for "kern_vdata" in the loader data blob and record its offset
-+	 * in "kern_vdata_off".
-+	 */
-+	void *kern_vdata;
-+	int kern_vdata_off;
-+	int type_id_off;
-+	__u32 type_id;
-+};
-+
- int parse_btf_map_def(const char *map_name, struct btf *btf,
- 		      const struct btf_type *def_t, bool strict,
- 		      struct btf_map_def *map_def, struct btf_map_def *inner_def);
-
--- 
-2.56.0.455.g6c5a503b38-goog
-
+             Linus
