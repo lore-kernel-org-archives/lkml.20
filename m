@@ -1,102 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793995189;
-	b=U0/7+nmkPo9ln5V0Ei+QmySpiT5Ir639bvxwHzLNkWSUbw7t26RKpcEBCGNlniDQOU7h
-	 kACOtWsapOJeLoO2/4humHjes4ZkOY6QHlLIJUr6uXBDoUe6LGHu8B4hGi74Ic8vdljhw
-	 04oFFt+C6BLmYMULcRNqgCwY1L/PPUmMhccEdQZ8VG36exRVY2boXbZ0Qdb9j0GrYCWxs
-	 /2pBlMXl4eiaKdbcdTUaHQ9H1J4UGL8r2mszl84iZdOh6hB+JEkxeDlKVe95FMIGy1fBS
-	 Iu0PXV7d3xmMVz3rxiJBUGs7t+DsakF90VIBBDt5EzrQ56OPyqb1se02uRKf4m8n76g==
+	t=1793995176;
+	b=QU/1PkWmQj+0TOvJK1XRVCyctTRII06byVoPygsck1MYRQf5ghfw5i9b5iSlHXvN0t0m
+	 t+NCdTfN0RrdnwgnFjejomSPd4Lz7vQnLTBRdROCRHnRtCi3bTthjKmJ1p0zoJZ+ezehT
+	 TrOqHbEDYLPpO747fj7OO1bvwpP9aJSHzhuSJy/9jO2SKyFzV+DIxXViLm+BOjtryre7L
+	 DYiXkO16FNAlsjR6wf966acYrIXBgYwIwx2myZfmffHsRffYvWmLy5GT/Z/bjwJsx2T3s
+	 GoWdEV2P1IxvxGLkKlKk6vI0tXFzKR19SIREV1UAJKtCZVkkeAO+979llTqiO81SCnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995189;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yk3scaKWk/QUvYfp97Kf/l/OTmiicn4mPluBuDOW+S0=;
-	b=dL2Q3Y+ka/wXR39slHu0WsTYE6Ansv3FzD1wvi99/qYVZN8d1sZIxHZE+2hpGBHdz2ND
-	 f39UYIf1x3I1u2zc1h5UKXCrpwTO7RchB1jSxqKHR/Vqy2T//wPlmariGMLayHN8lkK3w
-	 3Gl8zEE8JBfM4gqRzaK2HswSA3ajQG52O+26gJiHvS5QypihQ1UkPhMJM658vBqYk26ip
-	 6W/4Icz7OA4ceurLkg4trsHruUiezs/adsx83euGlnShWnK0Qh/JxhnZ6n2UAhIAuxnJG
-	 fY+pWlprpdr6RyIDPULEhUQKIVHRZgIcu15ybl2wlgfIafmbyyfpb61wiKb+hyzRtQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995176;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=4JJO7J4fojnA0nt5hwOEl9UDSFikUampjKz664dNgaI=;
+	b=UxnQ84L8ykdngxvojz6bpdDPZBcvEsOUcuYs6V8KAlg6/05+Q3a8uJQ6HUxutiGevRXg
+	 I9Gurp536qurXsqKQ7UNZKYRCFm8mfhGTAbNyTpBZxlt7zQzPIR0vkAlePJd58Nk3v8PT
+	 iGIOk18LL55kD3jaSD8kSNlpQFBNmXVugofDcYEnajulfWdh+G5yboLx4fgMMQUPcxRa+
+	 wU+y9i6gGs5SCO3Y1eHh/shT0+rkHCMOdHwL8LckWqijxqmFwzVPl4JyNmsttJRtq+TSp
+	 Y91av6Xqotm7R3s0f15DVn3IQjf7u1McZhFNNOxcl20t/8HWLe4VHibHnE1BpcilsHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jnfvgDlR;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=hallyn.com;
+	spf=pass smtp.mailfrom=hallyn.com;
+	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=Opz9o4VQ;
+	arc=none smtp.remote-ip=178.63.66.53
+Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1313C606A335
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:59:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1313C606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92459606A326;
+	Fri,  6 Nov 2026 19:59:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92459606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jnfvgDlR
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso9892505e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:59:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793995187; x=1794599987; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yk3scaKWk/QUvYfp97Kf/l/OTmiicn4mPluBuDOW+S0=;
-        b=jnfvgDlRBI+yxIh0kTBPlhMYJzE8Ir1UlsS0SxW1/czqfaMO+7NvdK68wIq6ghkziI
-         gKUgnEm+CMfUTo+wMw7944hB3nN/K4cuwuqUzB9uw4J8T1SsoHbV2OomgfEKN6tbRiaE
-         YvKGhAJzQFxkwDjm822TeEDbrFUSfLOXWSold/vj+045lGB7y4zWYbTiBrgd4M6OVAsk
-         koBOXJThh2DeklPjV49e/BWK0t7l/rBPQawLKX3oi0642VX5uHF2f24OOIKWd1e5oZOX
-         hH7ENv4q2enAwomT7b2170r09JoFGYqrC8qH19o3VlBIp+BAer3wuV0tKG5stFxhfrjU
-         3HKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793995187; x=1794599987;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yk3scaKWk/QUvYfp97Kf/l/OTmiicn4mPluBuDOW+S0=;
-        b=0pmRpFUuK9jZDfr5fESc7s5wNTHY2TOq25beoGFhgdcAdJFKK2WzlSlJscwM2w7Cqt
-         gJsaQnmHty91oZtZHJwnj0lFAYpGdc+bFB0sV+0ARTtTYBgZEOofFgmBcvKPEuUDzxCY
-         G6zgMrMB4Bzhj9M4fkV9bNb7iuI120irzCzq2EjwM3pbz9iWp1JzrZ5xfHiyIxh9VqF2
-         NIjGbibWbNWa8UE8gyQrRKD5eJOh4OszmOmIAulo6GwfL4CwLQGCjCLiBcF9Hs+3b5+z
-         7/2lFsKso7BbAX3p05FksIj2WGW4Ds4wdzjsiBY13hqA08uAaN9HcOoQxTJ5u3aQalRR
-         iJdQ==
-X-Forwarded-Encrypted: i=1; AKwUvByn7sYvTa+Eh4vu5/75TyTFRjAEN6C4kP+gGGxk4fhUFO657oJzZBjljB1mYF+HaUX7pzh/KNDh2kkw2Mk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+u8/bhQiifxDVCtxf6s5FgnuUEcu0JYh6IKcAczlEPaIeMxVOT
-	lbnWddiH3+bK+mNWnV+2kORGaxVCWuW1p3criIbHKOKXWcjgVPokYCly
-X-Gm-Gg: AYBFou1tX32+cFs7dm2ZlIs68x4zWrE2fEFUC+xp7UQ5K2a/q01TcP2pfr7TxwSHHzz
-	K5Vrhv7+rX7eyW2NO2fDQC7z0Ff8n1R+vRAW4RhTnxjHtGXxI6la8bTuae7bbDXIetNUkw5VQUb
-	++8STx/p32yEGDlNLIw8CPi8IUxrXSY6pNKni/ht4/wgkhQP2eLszt3TSGLNvpHmYpgwTg8Ni5M
-	nE72yVCCIQJpuOf+iXNFGmx/bfS9O5vBtjgwxRmamzi4j7hjSyobwVdAcvkk0ejNSAjFTDXvDRT
-	up37GGVwfgxtTy9iVacmAqfThqqM+aFz3WI7GewLrTNAQq1rJEwkY41tpSuo5GqdjXBT1sKVsg5
-	Ia3WMwyFHWAgdiY6NdQAnEfdDq7VNRy4kgNVBl4lWRAkrafviaR6STkh5XZfNsBdMKuo/WnHzmu
-	XTG839go+OAPLPQRm1AOBH5NhoWuyiBFrpcAcokTMjrUpwB2HrB2TaFmCe/NpJT7obb6v9Q6/JV
-	nnbNTfKSKY29WT5ENqUTUeUqXKMLA4V+u/MZhC4nnbtTvDXS+I6W9NLIfUO2/7+WZ/OWZDquU6x
-	fUDaZKH6wwmJ7PH1k7YBaWRtCwxv1yg=
-X-Received: by 2002:a05:600c:6090:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4b6db0d0817mr56859775e9.4.1793995187215;
-        Fri, 06 Nov 2026 11:59:47 -0800 (PST)
-Received: from hp-z640.fritz.box ([64.43.161.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7da62ecc1sm4414165e9.2.2026.11.06.11.59.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 11:59:46 -0800 (PST)
-From: Owen O'Hehir <oo.hehir@gmail.com>
-To: E Shattow <e@freeshell.de>,
-	Conor Dooley <conor@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=Opz9o4VQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
+	t=1793995173; bh=I8hBdflsjy5ULST78omV7Oaz6W+NqRtKI6XBIEd0n60=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Opz9o4VQjwN9tzX/hO5eSaQ5FQr2WLZl2g1ulAKlt/I2IxmzJ07EHL9LiEfJOVcZ1
+	 cx+7z1Uy5uM+BDh9hDXSmu4+YnsGU3op5jSCjUG33hSaM+zPGOjky5ElfFMhbwHAT1
+	 13EStbhliD7a6DbxEWKx0jLosOxuuYIn/Huix4qegeXUbaoah8N3m625DbjOYsK+4f
+	 7JNeWuVf9y2lKTxVFGvq2lheqSxd7h16n+LxptqmB8cjs41rJd9N/v+1Wiv0Up6Dmz
+	 pIMe67tgdd44TRJhG2FM9jstawe6mBUAFw5k4oHUGNTZOPLyKwPUmef05sBb2tl67/
+	 +C8idkqAnfGOQ==
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+	id 952DC8B5; Fri,  6 Nov 2026 13:59:33 -0600 (CST)
+Date: Fri, 6 Nov 2026 13:59:33 -0600
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: tsbogend@alpha.franken.de, paul@paul-moore.com, jmorris@namei.org,
+	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, stephen.smalley.work@gmail.com,
+	casey@schaufler-ca.com, longman@redhat.com, tj@kernel.org,
+	hannes@cmpxchg.org, mkoutny@suse.com, chenridong@huaweicloud.com,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	omosnace@redhat.com, kees@kernel.org, neelx@suse.com, sean@ashe.io,
+	chjohnst@gmail.com, steve@abita.co, mproche@gmail.com,
+	nick.lange@gmail.com, cgroups@vger.kernel.org,
+	linux-mips@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status power LED on
-Date: Fri,  6 Nov 2026 19:59:45 +0000
-Message-ID: <20261106195945.4157095-1-oo.hehir@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de>
-References: <20261106184055.3891621-1-oo.hehir@gmail.com> <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de>
+Subject: Re: [PATCH v5] security: Expand task_setscheduler LSM hook
+Message-ID: <au4xpT1D8WzBxdvY@hallyn.com>
+References: <20261105172210.76706-1-atomlin@atomlin.com>
+ <au4ovp/Ghd25rtfZ@hallyn.com>
+ <kn57okulm7cmodzdzvzqqswzafu3vopsatfcsptyrz5ztknx4w@ngwh6si3zgpo>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,18 +74,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <kn57okulm7cmodzdzvzqqswzafu3vopsatfcsptyrz5ztknx4w@ngwh6si3zgpo>
 
-Hi E,
+On Fri, Nov 06, 2026 at 02:50:34PM -0500, Aaron Tomlin wrote:
+> On Fri, Nov 06, 2026 at 01:21:34PM -0600, Serge E. Hallyn wrote:
+> > > This change updates all in-tree security modules (capabilities, SELinux,
+> > > and Smack) to accommodate the new parameters mechanically, while
+> > > providing LSMs with the necessary context to enforce strict scheduling
+> > > and affinity policies.
+> > > 
+> > > Reviewed-by: Casey Schaufler <casey@schaufler-ca.com>
+> > 
+> > This seems misleading - Casey explicitly said "for the smack bits".  This
+> > makes it seem like he reviewed and approved of the whole set.
+> 
+> Hi Serge,
+> 
+> Apologies for that, it was not my intention to misrepresent the scope of
+> Casey's review. The qualifier line was dropped when collecting the trailer.
+> I will update the tag in the next revision to explicitly scope it:
+> 
+>     Reviewed-by: Casey Schaufler <casey@schaufler-ca.com> # Smack
+> 
+> > I see no issues with the commoncap.c and security.c changes, but as
+> > Paul said two versions ago in
+> > https://lore.kernel.org/lkml/CAHC9VhSROg6RGUN4_ZVBoEwYjRnKvyjnkbx2D88c09KiTgY3KQ@mail.gmail.com/
+> > nothing appaers to be using these.  Where is the user?
+> 
+> The intended consumer is the BPF LSM (via the generated
+> bpf_lsm_task_setscheduler() hook and the __nullable BTF annotations in
 
-Thanks for checking. You're right about the commit message: I saw the
-LED lit before Linux probes and assumed the firmware set it, without
-checking where it comes from.
+Ah, I see, thanks.
 
-On the Lite, the schematic (sheet 21) shows RGPIO3 driving the system
-LED and also used for fastboot detection, through jumper J20 that pulls
-it to 1.8 V via R257 (1k). Detection happens at reset, before Linux,
-and R257 limits the current whichever level the pin is driven to
-afterwards, so I don't think driving it high conflicts there.
+> include/linux/lsm_hook_defs.h). As discussed with Peter and Paul in the v3
+> thread [1], when sched_setaffinity() is called, the cpuset controller
+> silently intersects and truncates the requested mask without surfacing the
+> original request, and seccomp cannot safely dereference the __user cpumask
+> or sched_attr pointers without TOCTOU races. Exposing the copied-in
+> sched_attr and cpumask to task_setscheduler allows BPF LSM programs to
+> audit or mediate the actual userspace request before it is sanitised or
+> applied.
+> 
+> In my reply to Paul on v3 [1], I mentioned that once the MIPS prerequisite
+> landed, I would include a concrete in-tree demonstration alongside the hook
+> expansion, which I neglected to include in v4 and v5.
+> 
+> Would adding a BPF LSM selftest (under tools/testing/selftests/bpf/) that
+> attaches to lsm/task_setscheduler and exercises both the sched_attr and
+> cpumask parameters (including NULL and non-NULL paths) be sufficient as an
+> in-tree user/test?
 
-Owen
+Self-tests are good :)
+
+> [1]: https://lore.kernel.org/lkml/ozsngetxq44lahategdi43sqrwdnpotsrebssczymqtkbh7snl@u6ytkznmpne5/
+> 
+> Kind regards,
+> -- 
+> Aaron Tomlin
