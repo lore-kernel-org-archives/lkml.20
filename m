@@ -1,66 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.60
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793940377;
-	b=R/Xs8GM0ilroJCazM4oPUPtVIqnesX3y4Gm3xwt01meqYC8mQ2+j6/3K2TpzAL1Q2cSa
-	 ahMviERy3T/hhoGL//NJyneBX6SoCDP03oDZGLmJ7ZsyMmU07B0rbeRERHVjvD8ysUBrG
-	 MVDXScQ9TX+96nC7tTn9zmWyRfY1XuTR3gPKwN+YFl0j2G+OiDt3o+4q3rXnUEcmA8Km+
-	 ZAxKqZ0UnrFuuE302A6KgZPuuFr+1HnDPUtuxaz6ZnoC8nmJFD6OLgBdDPM+KYZ49B5dH
-	 UW98yvO13CvRou+7S/7NZ91ywdaPky4iT8+jRek8WWOcCsNyo7MJYZMnko2atmoRRaQ==
+	t=1793940422;
+	b=ms1rRIEUfGqw+xDBhKoFvGUYcIHMm+EF0aTq8HAMxgkT4dpQeSJ5eYSmvkt7YKcKRU01
+	 RSz0vbj3fibXQ/cTPJ44rJ1e7QBcsbqA8PgPXzbpSGbZ5tSLSI15RuCKry43jdYf5p9S7
+	 aCJSYhjaZmR9vu37XBUUMUzu+E37OwpJ/EYO2D93E/bXnv0tHHQqHbKb1rYpDWLXf7wob
+	 lkXFVAaDlB6pmhIjYW9rb/tfZ+Ru01lsVvccYUq8ZoezrGVfP/TFNuj2C72IiCY+I0fLk
+	 VtP/IkgydGcuycboA5uRavyEf+tU5ER+DabnuwMJy+oHs7wWX+rqbgJXTJnabeoqQ5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793940377;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ujJweeX8qITox928eFn3cQoAcKyfkaVR0X9Gvjt0uRg=;
-	b=Fi1EqMo1wUJ9qzRuxbS+QLtnMw+Ij74ehCZubhdbPvljEzerIzb7x8G14UK9KTO3VIZQ
-	 EcMAgTprwUIfmNAu+Uc1u3UwZPBdTSh02PO2dCV2XsO1mLDcK/l0TBAgbfdOZoHB5lKwQ
-	 Dz+dwvWJJOQB9sBLbc1JeD8ouY9BSvIGFu1zH4BkAIh3gyiFPQkg9NqCk5uCTgVLarhYZ
-	 5OOISd/X7pEv7lx9RlRKWD20W2/+xTmFfLshPB/jiRvoIuYnEYvg2k+diVIJQm7NbMSi/
-	 +L8p5mHpa63fdhMeMCFl7ckKD3qdlIiXeJ1oVWihL8X/ZnAxGSDDVs1u4dWgeWkmvfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793940422;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=nT8GsGl9ylVIBcndChf2G1+bvGTn9s7An5P12CIB7to=;
+	b=B+iZha6okZBhXodl79hNxNL9AAqiSdBewHblPgs5ABeKYHi9tCgBQJovgttWCtFPSeXC
+	 0yYD+1sY+kOFJk0n+Qe6UR82FQ+CzDB9uPAbSdmyx7D/WijOP5hV1rvAOipaxTaH5afM0
+	 PhuthFWjs/2TYOfZpzHDCjj4PYUvXEtP/ZXuQZYSH4FWvDnCB2Uu58qwUyHDsSosSKL/7
+	 6hZOKOEXfA4aboV/HVMV/qIhffos91aF7G6nIdrdjH952MOwIsXfeLVstJ1Of4zf8Rqcb
+	 YW5QXsDySAQz+5C9SGYNsXoqfRf9W7MO4jVv16bF9vUQeqLdjUYSKML5o9hebb8/Zxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=NwHCypQR;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iO2nZl6q;
+	arc=none smtp.remote-ip=95.215.58.60
+Received: from mta1.migadu.com (out-60.mta1.migadu.com [95.215.58.60])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996AF606A326;
-	Fri,  6 Nov 2026 04:46:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 996AF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851A5606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 04:46:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 851A5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=NwHCypQR
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jLRTM7535zlfvq9;
-	Fri,  6 Nov 2026 04:46:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793940374; x=1796532375; bh=ujJweeX8qITox928eFn3cQoA
-	cKyfkaVR0X9Gvjt0uRg=; b=NwHCypQR7B+SSbzm/pbMhzBKfErGLe/OqHsFYSBZ
-	AUST1EA5iR6ayAeUUrtPd11eT7kGiRP1Q5X5nhId19fVpsLBwcfpwTPybuh57Viw
-	NKvavvedu/C3MBdiVtBC6kVeHnNr8PPYf+XANnRBVrtimMnBJDZIaO3+JgzuBytw
-	m7AxjeQNXGLT2qwToaFGnD5fg8zIcLaoACIH1k+XPLXtm1U5lptYz/N6LahDb8wz
-	PF2zaZ87AiHbja7VDkvod1Vk3oRyCq74oZVbTU++IUIrExoPrV2WW7R/uGVTkkF/
-	XflFC+ebI8+WyshH+5WoXPBCfDH1MeVMKYOuYK+//kYRYw==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id yp3lZjR_c_Tc; Fri,  6 Nov 2026 04:46:14 +0000 (UTC)
-Received: from [192.168.0.215] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jLRTK51Spzlfvq8;
-	Fri,  6 Nov 2026 04:46:13 +0000 (UTC)
-Message-ID: <788a942f-6c6c-487e-87c3-25eeb823ef95@acm.org>
-Date: Thu, 5 Nov 2026 20:46:11 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iO2nZl6q
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JaY48vU82NpgXndow1t+yYyeEA70Dvrc3FgWUyhC1LQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793940418; v=1; x=1794545218;
+ b=iO2nZl6qyBzhoePfyqFBlVtZKcDfW9+p1u2Bu0CQ1+Dk2zZ+G++eol6MT1rDrLtIFmprt8+R
+ xgHulVSkNjRNhiWE3m7TWPiFJ7AgkZ5cJExArE4pnIp+8R7c8ry7cxeLAolxJblFkNlfeuHvDi0
+ YTGpoItu6jISRF5u0J3bflkA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5b9226a0469bd136;
+	Fri, 06 Nov 2026 04:46:58 +0000
+X-Mizu-Trace-ID: 5b9226a0469bd136
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: linux-fsdevel@vger.kernel.org,
+	brauner@kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] eventpoll: check the event mask before taking ep->lock
+Date: Fri,  6 Nov 2026 12:46:23 +0800
+Message-ID: <20261106044624.278356-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,27 +66,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] scsi: ufs: core: Clear saved errors in
- ufshcd_link_recovery()
-To: HOYOUNG SEO <hy50.seo@samsung.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, mkp@kernel.org, martin.petersen@oracle.com,
- stanleyjhu@google.com, alim.akhtar@samsung.com, kwangwon.min@samsung.com,
- kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-References: <cover.1793931113.git.hy50.seo@samsung.com>
- <CGME20261106022020epcas2p397f84c634df3397fcb1c98d1837bb83f@epcas2p3.samsung.com>
- <a0b59fb709e8c53a72e2839bb6b1635a4a20f395.1793931113.git.hy50.seo@samsung.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <a0b59fb709e8c53a72e2839bb6b1635a4a20f395.1793931113.git.hy50.seo@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 6:15 PM, HOYOUNG SEO wrote:
-> ufshcd_link_recovery() resets both the device and the host and then
-> re-establishes the link. Unlike ufshcd_reset_and_restore(), however, it
-> does not clear hba->saved_err, hba->saved_uic_err and hba->force_reset,
-> so the errors latched before the recovery remain pending after the link
-> has already been recovered.
+ep_poll_callback() takes ep->lock and only then checks whether the
+event matches epi->event.events. But epi->event.events is not protected
+by ep->lock, ep_modify() and the EPOLLONESHOT disarm update it under
+ep->mtx.
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+So a wakeup for an event nobody asked for takes and releases ep->lock
+for nothing. E.g. a UDP socket registered with EPOLLIN only gets an
+EPOLLOUT wakeup for every freed tx skb.
+
+Check the mask first and return early if the event is not wanted. The
+comment in ep_modify() counts on ep_poll_callback() taking ep->lock, so
+do smp_mb() and read the mask again before dropping the event. Wanted
+events take the lock as before.
+
+Benchmark, based on stress-epoll.c [1]: N threads share one epoll, each
+thread registers its own eventfd with EPOLLPRI, which eventfd never
+raises, and loops on write() + read(). Both call ep_poll_callback(),
+with EPOLLIN and EPOLLOUT. 12 vCPU VM, ops/ms:
+
+  threads   before    after
+        1      396      402
+        4     1514     1604
+       12     1264     4817
+
+The original stress-epoll.c hits this path too: the poller read()s the
+eventfds, and eventfd_read() wakes with EPOLLOUT while they are
+registered with EPOLLIN. 32 vCPU VM, events/ms, average of 6 runs:
+
+  threads   before    after
+        8     1293     1315
+       16     1407     1422
+       32     1304     1431
+
+Real case, udp rr over veth with 1000 connected sockets registered with
+EPOLLIN: _raw_spin_lock_irqsave drops by ~1%.
+
+[1] https://github.com/rouming/test-tools/blob/master/stress-epoll.c
+
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ fs/eventpoll.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index e0c4bf88a838..29e034e3a295 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -1495,8 +1495,22 @@ static int ep_poll_callback(wait_queue_entry_t *wait, unsigned mode, int sync, v
+ 	struct eventpoll *ep = epi->ep;
+ 	__poll_t pollflags = key_to_poll(key);
+ 	unsigned long flags;
++	__poll_t events;
+ 	int ewake = 0;
+ 
++	/*
++	 * epi->event.events is updated under ep->mtx, not ep->lock, so an
++	 * event nobody asked for can be dropped without taking ep->lock.
++	 */
++	events = READ_ONCE(epi->event.events);
++	if (pollflags && !(pollflags & (events | POLLFREE))) {
++		/* Pairs with smp_mb() in ep_modify(). */
++		smp_mb();
++		events = READ_ONCE(epi->event.events);
++		if (!(pollflags & events))
++			return !(events & EPOLLEXCLUSIVE);
++	}
++
+ 	spin_lock_irqsave(&ep->lock, flags);
+ 
+ 	ep_set_busy_poll_napi_id(epi);
+-- 
+2.43.0
+
