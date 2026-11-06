@@ -1,61 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949995;
-	b=cE1FlfNQ/8IUzj1jIluZCCqJKyWevpp+677+zUiYxcMVHOOqEc4KYEznDPnjFawjltGz
-	 1xZWGJ5iBT+Ztt6f5/iFD41myflIncHOdZdACkGcHg0ohSTf9zBxLPb5DUsRV2uhTZg5X
-	 c/yg0vcyVrPCVuoAixBrOr4wBasbIP57JrJQtREP8Q1KWjQA1wmyRW3tdAl0nCKllH/8P
-	 SZ5TNFJvQl4jtipqKkyeDPPd0bGQ4B1pfo7HfulCJq049ABSWkMIVXxzWfVlIgrF18izU
-	 uFKeuXGxQ70YA8uAG+Iv+2eKKRsbRdQbq5OMlQTNQm7RxrUoZBnFOKZ2q6kFA6gUPGA==
+	t=1793950066;
+	b=28NfUsepYqBF+LNybqiiwr8TnsTAtrmLwMpeKwPcMNrIkQ1ajWHtmtJr2H90CeIVTflt
+	 CL6FJC4t3/o8WMTVS67BAJqA0hlG2ZPfVeDICPSjR2JLgbkdHq9TTsJzlXSq3n1cwLA3s
+	 E1WNrebH98KSEsjthuxP5x01ER5dzef1XU8RVeeyaMRq5ayCg1sj1jdc93VSrMYuJxSum
+	 WCY3bQ2L6nk7n9zeyKQy2UHl1QpVjEywh0HBXV9MnHq1PxmKX3J8t0V6dH/gIKXqCq5o2
+	 7uXkv3A3yORPDeCKnZRJDZJrzG10x2Ef4X3OVhrjjO9+pbxTxwUgxqEkXmGAg/L1NwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949995;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BGdQzBcMwo7usWV7WuvqWtlKe4y+jxcjyFFOJGQbfG0=;
-	b=PZ/IaVUX9erXjRJMZViYjHb1+FS8Jt9tXp+q8OtkuRS5V232QJ42U/5oRy4enviSOa0Y
-	 W1Sxkfehb91ToKIxYBlKkKabqQ3a/9OllhoNHH7/6uA3EB7ZffsSxaUc8p5v+iDlNCr72
-	 arvD+ADusr7gzGENYmqlxrHvHON8hr8N85VR+jQ38qUeSXjj/90Vmpn+I1nKI+X0z0HQD
-	 NJmVPlqPLL73Xrl4eglBlnGRJZd+3RZDHQ1qXU0ZTs8m016WlPoYSgm+EeoTMJkr9ioXt
-	 4bD8FChZcapx9uBoADaO3AoRf+jTK+6+gYlAZKd0ieGVBOFjUjIGQ2WzKUA824g53fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950066;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	b=zB51csUn3+jXkaINxILRF8MBk/g+5oHekQQzrkY/CYjd53F4UKTTnKKb9RSjlBK6zw6o
+	 MIki3fApP5EnbuAa74u53DuRdtsUPbPX8VmV/iChE+OSwLVHc3Vt7YboysBt3dCcWsiGy
+	 5Ff3go1Lb4l5W9Q9OS7l+6XK4YIO3f+Xo0Ch9LsHU1ueBDbuzhx3I8rr34sf9Uy4gf14f
+	 X/KbA5tXEmKa7LcsNS1Ho+iYzoTaxdS/qlPdcKBnBMncDXCSxRYvGe/5SNJ1s2Bf8s+8h
+	 exYPXvGS0F7xDAPgUd+9lcXgf7efUdEFH2bq/t9JDe1V6MEtGEycYeve/SH5jHIndjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WiViVpDy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKNhEjMR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D838E606A326;
-	Fri,  6 Nov 2026 07:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53047606A328;
+	Fri,  6 Nov 2026 07:27:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WiViVpDy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4F91F0089F;
-	Fri,  6 Nov 2026 07:26:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKNhEjMR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0AC61F008A1;
+	Fri,  6 Nov 2026 07:27:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793949994;
-	bh=BGdQzBcMwo7usWV7WuvqWtlKe4y+jxcjyFFOJGQbfG0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WiViVpDyOdAL3WJwcak2d5wU00yl9klqIRBiWGYS4JgiyKJ9fWBdCSMRZ8bBPm65M
-	 qgliTPuUA3nbVDUiexvb8m4fiU16Kjaxf5YKUFFPIDyA7LP4HnXfIPIu5uXluusq8q
-	 7ZDD3cebC7QNVYiWxX8EhHSOu6cgHaWVnTruTtd34Ejm1vT9KXvmhrkGEtdMZnV4nv
-	 NM8/KHsug6BY68XbxGlSiZ07a1eiYyfLKizSQgxwjCD2STc1wqFuUigwf6EcjI3uXY
-	 5GQC3xFLoYzJhyAy6J4zvA/zEIDeC5z0GzTXfN9xSVslbQibM1ZpLvtQd8iuxUaWgK
-	 EIj5YW8ly6SXw==
-Date: Thu, 5 Nov 2026 23:26:32 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	Edward Baker <edward.baker@intel.com>,
-	Thomas Falcon <thomas.falcon@intel.com>,
-	Perry Taylor <perry.taylor@intel.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel test robot <yi1.lai@intel.com>
-Subject: Re: [PATCH v1] perf jevents: Don't encode MSRs with no value
-Message-ID: <au2BKOeDHgzqUNh5@google.com>
-References: <20261105044841.102295-1-irogers@google.com>
+	s=k20260515; t=1793950066;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gKNhEjMR74cIFZOUA1+Ep9r3zugd2rYr3x7LAOhmt/iSSRTB1rheh65+EY25Thmdt
+	 INZRkytec0ymzJUuQzDfNSp3uEuqQhhBLBGcbBguorgyTfEg5k2B3gwX6FlEwHUMfY
+	 nufGX9aZECuMDIfagOMnVKh/GiIlrgfmZ8L3Lj7HeVWZ5f3INVHqVoabSbLKDLNSDv
+	 TxZnTIYt5SL9G9Z0zdFEtT3MIKNInMAc7fl6MA4XKiz/IKS5s8i673bdlwbc+9XhAY
+	 GeJWW10isTvnTepbZtY3PusFfEOpOz/hnXO9qBOkuIuWc6ffZs/yKCBmpXO2Lv6HUr
+	 lmqtBIQulCPJw==
+From: netdev-bot+sinfo@kernel.org
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Eric Dumazet <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Alexandru Tachici <alexandru.tachici@analog.com>,
+ Ciprian Regus <ciprian.regus@analog.com>, linux-kernel@vger.kernel.org,
+ yana06070@163.com
+Subject: Re: [PATCH net-next] net: ethernet: adi: adin1110: Fix phy_device
+ leak in probe_netdevs()
+Date: Fri, 06 Nov 2026 07:27:45 +0000
+Message-ID: <179395006518.488859.7603845397469844366@kernel.org>
+In-Reply-To: <1793949783000.333861.5224091507677300156@cmss.chinamobile.com>
+References: <1793949783000.333861.5224091507677300156@cmss.chinamobile.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,42 +66,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105044841.102295-1-irogers@google.com>
 
-On Wed, Nov 04, 2026 at 08:48:41PM -0800, Ian Rogers wrote:
-> Fixes the events mem_trans_retired.load_latency (EMR) and
-> mem_inst_retired.latency_above_threshold_0 (NHM, WSM) that were having
-> their ldlat= value encoded as python's None.
-> 
-> Fixes: ffc606ada3d7 ("perf jevents: Add python converter script")
-> Reported-by: kernel test robot <yi1.lai@intel.com>
-> Closes: https://lore.kernel.org/oe-lkp/202611050801.67bb4af4-lkp@intel.com
-> Signed-off-by: Ian Rogers <irogers@google.com>
+Hi!
 
-Arnaldo, I think it's good to go to v7.4.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Thanks,
-Namhyung
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-> ---
->  tools/perf/pmu-events/jevents.py | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
-> index 080e04b51b8c..e083f7495e67 100755
-> --- a/tools/perf/pmu-events/jevents.py
-> +++ b/tools/perf/pmu-events/jevents.py
-> @@ -396,7 +396,7 @@ class JsonEvent:
->          event += f',{value}{canonicalize_value(jd[key])}'
->      if filter:
->        event += f',{filter}'
-> -    if msr:
-> +    if msr and msrval:
->        event += f',{msr}{msrval}'
->      if self.desc and extra_desc:
->        self.desc += extra_desc
-> -- 
-> 2.56.0.455.g6c5a503b38-goog
-> 
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
