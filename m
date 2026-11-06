@@ -1,64 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793926691;
-	b=o+iMYSK9WpUViTOpQA5YD9OoslkKctgT7uUuJ24dqWtYQNMeQlWlth5jkWqPpPR9RI1m
-	 QlxzsS5adYHlqvwelQT1q5x/ApIT4w5Xl0cCKQBNzIDXoAMX4BcDe7aO0orQFJssNaoop
-	 N9kkmHYCndyRnWFknApi+Z7gJ2wHAuTEfJ69hVrDVcchPSVahcPGa+JBC6MwZIAGkgR68
-	 pm0KcLjS6dStgOIIKrClmau+ExjIA9JWgvcxDU+jqEBWKU7rsah0jiwiATjWcJTTr8EHw
-	 anX704Uo2ge4Iz2RbldX2rOoEWH+fUmQkHdID5i3WX6jE3R6PKXLWPSuzbNWQKCdgCg==
+	t=1793926700;
+	b=BkubEA+W3p53rBFx8NL+LoI32sND2H+HnoKxiy0nbYGhcNBJb7oZlyGLveOJGzPkE2lr
+	 f1f4hYLGAhtUyOAFCgoCZiqVOBOJuzaXQ3QCXNK4NW8gkoULT2OiLt2cFDBijBAoW8nD+
+	 GRFlzzSWieQAjn6o84hLinYid9hRLgewILgeLjMuiPUNxEFgfPl1S1FnFnMwFHIUt6n4h
+	 UyZh97LQtoNh0IKaKq0Jfg+VY90WtL7i1Uc123LB0mgSfnbhymd8iKIOX799xSQ+XYoEK
+	 S2V3eMb1dZCo7CDO9KnzFNWCoLNg6h1FwKn9psJI+QqA1w/1i9srshkuGU/PZnlp/Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793926691;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=UXoY+F3SsvFAd2zjwkFfZ2t9ltzlt+k4Gc/Cjjr6yOo=;
-	b=Nz1J/nsbdcWk3+mf1EWRFPF5oqcyitS+EbPTt8XJbZzvUjx5fbJeTc77iIklYccGXp+9
-	 DPHAdvABRIySw6v4Hf7A6+5rgiQcBcQPX22QMw0r5tUNe+5pfWXuA0H7e2YnLzbCoBiXK
-	 7NwmtUnjDaz8XOuDJpVvd8SgQzBkwyhRHyg5yBgRTRQSuD30Zr9TNS9C18/4i3jwnyJ9O
-	 pNdh/RCYjLyYLh5rUclhJrYeagknO0bH6GSNaJdt5WUXXIO2428M1blUfPNNdJWJthsJS
-	 sDq6ZQCFhXUVdV1FVB7h3c7oVnohlbKgQ7V+++jeBgWWC5yhFaCdf+tFKxhlhR2P/3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793926700;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:X-Patch-Reply:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vjOXYVDqRH2HgoUzugKNvV8yU/Hk2+a8jJ4AiDy3/mo=;
+	b=kjtyAZAJ5Q+tGKvBAojXwJ1f2eL+xaviD18PFhHZ++y/gBCmnIXhMNZKjcKEFRuIQYPj
+	 xgxtx8dVKmwPLfZTo8Uk09vIdFMu/3PTxhL9YUZ2WAto2By928j6NIewbcapyop7D1+RZ
+	 EHMIDEKbcqOnLx4MoloVsp2Bru/m2qq4eWD8eQ8BjsrbqcsXeKvgCKm7L6zhvG8fnngMH
+	 wNxFYzKHv/oV/1/Jw6bkRh0KP7u9ZYE5XbiLOtQISlzG5rojs/XqFyYPwxn8xFQFSi82u
+	 VsGwyt+QkFLXciQIyladU2ZwVTwGfJ5fq0FMd2mqm8uGwQsqKnPl+jLaKhGhOj53x9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iWUf0+EP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PsdcK2Nj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1C5606A32E;
-	Fri,  6 Nov 2026 00:58:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04E5606A31B;
+	Fri,  6 Nov 2026 00:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iWUf0+EP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04631F0089F;
-	Fri,  6 Nov 2026 00:58:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PsdcK2Nj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D714E1F008A5;
+	Fri,  6 Nov 2026 00:58:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793926690;
-	bh=UXoY+F3SsvFAd2zjwkFfZ2t9ltzlt+k4Gc/Cjjr6yOo=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=iWUf0+EP2eYzLYExMJFpQoG7U7BMsEuqtCBdQVb7gzrSijYhVe9/z3BJg/9KQteKv
-	 Yx62aijC+PGUp5wzVAKR758UIu6SMdMF+dlJEom3ZLspyZCryrLSb7dxND8IWreBcK
-	 Vv91ST2Y+OUKwbAstklVHeT29f/2N9IF/MYUti2ckwoUFvHF5kCl+EDdIR/v/sEwP7
-	 1wu21MDdLu9lGbLTmhm8vYrVsXErpjWyGEQksOA3lyGzrSJRe6PQGty/XN+MaiSWE2
-	 QEqLzawT9fJVLZosELmDimg2SU8xluR0UIK58BvanJqmmhkCJUlvLqZY4fToHDTVS7
-	 xCVzrAgDAGRog==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D83F6391B1B3;
-	Fri,  6 Nov 2026 00:58:10 +0000 (UTC)
-Subject: Re: [GIT PULL] hwmon fixes for v7.4-rc2
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261105041558.3259881-1-linux@roeck-us.net>
-References: <20261105041558.3259881-1-linux@roeck-us.net>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261105041558.3259881-1-linux@roeck-us.net>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-for-v7.4-rc2
-X-PR-Tracked-Commit-Id: e395bbf3ddf1b3175fd3bddaead63a2909b33694
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 3e516eae690b3f24c19168cc0fe605e1c610eb21
-Message-Id: <179392668937.268614.6405564038710984492.pr-tracker-bot@kernel.org>
-Date: Fri, 06 Nov 2026 00:58:09 +0000
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+	s=k20260515; t=1793926700;
+	bh=vjOXYVDqRH2HgoUzugKNvV8yU/Hk2+a8jJ4AiDy3/mo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PsdcK2NjqIxUuSprRJR1YX930JwKVBJYJjhMiUN79i/9pCTIA7LP3Na30+GqiJzhs
+	 ruZKnpJ10ha84jILNfzy5F/NjkJFKIMaqIaYIow7F9+RYody5YR8uH9Ypm/WhiJuN5
+	 +AIqGKvVlGp6DFieUb6ql/HQt3RWJxlIyMFtNMnFnTi/q3OkPVCxIvVM4NlM8t6Uqg
+	 I4twseP80qEo5XYgBNxxDMERXHg40cn0zqDkHSJiQOApxtmcAoeiaL0XV0S2dUiCWk
+	 Kl6+CDEGCKhrXizZFfPLQ6jzvErQXUlziFAQTVj56p370eCk/+1qIuJg7ZUHgKm4iv
+	 GKR9DogOA+Rag==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Won Chung <wonchung@google.com>
+Subject: Re: [PATCH] driver core: fix memory leak in physical location error path
+Date: Fri,  6 Nov 2026 01:58:17 +0100
+Message-ID: <20261106005817.1353792-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102083018.1275566-1-johan@kernel.org>
+References: <20261102083018.1275566-1-johan@kernel.org>
+X-Patch-Reply: applied
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +64,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The pull request you sent on Wed,  4 Nov 2026 20:15:58 -0800:
+On Mon,  2 Nov 2026 09:30:18 +0100, Johan Hovold wrote:
+> [PATCH] driver core: fix memory leak in physical location error path
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-for-v7.4-rc2
+Applied, thanks!
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/3e516eae690b3f24c19168cc0fe605e1c610eb21
+  Branch: driver-core-testing
+  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
 
-Thank you!
+[1/1] driver core: fix memory leak in physical location error path
+      commit: c890943b295b
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+The patch will appear in the next linux-next integration (typically within 24
+hours on weekdays).
+
+The patch is in the driver-core-testing branch and will be promoted to
+driver-core-next after validation.
