@@ -1,75 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958629;
-	b=XEFc+TIvswjbJhNJtmbVVFfecmSfDcm3LmjC8qWGJtV+OBBhuvFBp9XuEbtMJYvIJDdT
-	 /xZAHMPXYqrR2fxAzYVZ8lnljafQElCmPD8l2GDgHx9SnnNXYZ1Ie3rtuTqFZpEQnS8jR
-	 9YLTCWc83r/YiGI0obrXGz0PKBcPgB9bXSDhMi7LIRdUJO3+maCaj65UEifR6oodKMl8B
-	 4H7Hte3otAvTAGttcZ7PavtjXok1c7tXEr/kU0NtWIIfmadHjy2ia6egOvMxYQNyiwqtR
-	 H2LXMqpi9aqrLC0YP80J61Z5wwWMSXEDAJAi/gBsgzctmuRpmfQqaPJKibpnE+HUZeg==
+	t=1793958640;
+	b=gt3SdAzbLmnWLqgwdhYCrqk8JKJ+CufZ4PaWyI3zqztHSscop2dADMNtXGNNtiOfNrFQ
+	 PnilOgSDpCWg6ISeI6kAxj8MUtK/JTYdpwqobrisV9tcP2m1iGImkHMoPPYLJl7V1GEgf
+	 /uQ87oGo2SFoplqpLloIPQuWqSJlzbnbz9gAQXEwwcwLmtCtW/UMVbKdQFkYuERm7QuuA
+	 wPQsJhtJ1MlcBWI0piIvrB1KAQBtlMozpzlo4Wphws58MbFkxUcoPW5Xi6Z1A1k4GTOiC
+	 x5bLRlc1fBeWn5pMmarH7T1dkJXeY3BeluOr2btWJ8wgUOCGSjzpDcbCpVT7P76+Pog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958629;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=Yw5bNsADi5KTgHZgSsrCXyAtajzD+j1fgwgopci2HFg=;
-	b=z3DVKvVtgLrRYKV7/sBQIYz+O/mZoPyXB8o7TYzw/wJ/Z65w/zv4OO0iYCsid6+rPXJ9
-	 qBix4VF4v7Goc2pbMCuVWqI9AETYVZCN7S5m0djtgfZILQbDb+oSwc41flf05eSm/uCUG
-	 GVcxpPqaxzkvIgA9Tp7vSzfZmwP76C730JZX+9+A0wGBZcKhlVPJDjqq9ThnxveMLdDIk
-	 1M7LG0kSs8GZ9pXZu/nC6ozFTUKByKRFGH0rSgFJyIddRZocJffQKo6m7kaXf7UlCCpNS
-	 6qx6gZF4bBqNzNs1odbUtvN34IyzwfZ9Ol3euXno1CoXcalpBRyIkyVirHsMIjKQ5Ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958640;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RupwrtSRCRknDTCP4U8+mHVorluG3D1aDqrqCuXGL/o=;
+	b=H5+8YVA17QG8OSHJ2jsyKTpDvNMsMJ0X1lO9auZVmS6ug4+QNVta7bzFL/h2MnQmc3V5
+	 KKuMcVGBPEF3FY6Z/ooeSp8TsiddnroFTKrhrtl0eCma8iTWP3IhJRW5wIqKLWj5PRqIR
+	 nCNyXMJwNQlza7jeX2IHilF+TNiiEpu3WwJdM80fvdV3Xf3sfTqOCNhcaRaYtx2NTq7T6
+	 ToQpdNLsf1RcbaDWooPta/FH7abN/y2dknleaIUFtQlNahugabyP85Yso/iWGezVP/ZDK
+	 fqOgoxdOrzYC5lHYlUWKN4QwdFYXrHt4UX4EK3uaCw3STMAdlIffjGum+WNfSCRdeuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=A2e3Dxoh;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=F56bPKOM;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t1D9H5iu;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D37606D802;
-	Fri,  6 Nov 2026 09:50:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0D37606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC206606EEAF
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC206606EEAF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=A2e3Dxoh;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=F56bPKOM
-Date: Fri, 06 Nov 2026 09:50:25 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793958627;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Yw5bNsADi5KTgHZgSsrCXyAtajzD+j1fgwgopci2HFg=;
-	b=A2e3DxohWpcEwZfdcBzItMxjArpDGtk4ab+2C3c14GkUEjwNloskgaRwhrV4a1Na4cVsEk
-	YihSY1TPMDA0PDoe+Mr830219lAt//t3m4oxvQ8uS4/lX++JsRWvDKD1klj6ZtiSuj01dJ
-	MTg433bIIYR6PT1XijIW5buOar/63mCPP8LZx2th6H02FdQBntgrGWJg8mls8UhlFPUGhY
-	S24d1Tpb5d/gLQvdQIcFBYFNgLyQrQoWyIncnT+Q2ukZmZftTRD2n8zjPuI2nVcQ2nHjgV
-	4/kCn3bl2gHxv4Qf5pjcPowV0zsYqNoDUOKGLRBLMcZ/2uI+Y2aN+KK09j4tCQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793958627;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Yw5bNsADi5KTgHZgSsrCXyAtajzD+j1fgwgopci2HFg=;
-	b=F56bPKOM7otbKhEUwPUsVEIepH9Zb+eJ8K4gPcPon63Zao5qKB3jdk6WBvQsrX18vadjEk
-	+O0e3KMfTKI1SHAg==
-From: "tip-bot2 for Ian Rogers" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/urgent] perf/core: Clamp deferred callchain entry count to
- fit u16 header.size
-Cc: Ian Rogers <irogers@google.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261025215508.1237480-2-irogers@google.com>
-References: <20261025215508.1237480-2-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t1D9H5iu
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so447401f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:50:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793958638; x=1794563438; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RupwrtSRCRknDTCP4U8+mHVorluG3D1aDqrqCuXGL/o=;
+        b=t1D9H5iuTUmjdPhOVJmZIub2cA7iiSUr41ZQ3yS+raxwi2K9JW5USUNO1Ej8W7ktyy
+         jDlpr6IYaICDt5N3782Vm+vT8R7N+VD6e282WCZUIr3qHs3ymqVae8nOek4p5Qr6O/oS
+         dqZpOzvc4Swchkzri6wDXvUOBTWJM5lyg5UOT7Y/iAiO/bDMWNay73N2vmeXoqlrNWa3
+         CWfy2PPZ8DtSbf0uhLB61kRz/tBH8yhEbP0mgAap9N/KETVXb+EF1zhC7HOG5tW8CGpR
+         ZOvm0YUZZDiDTRNjJd5C/6nVAnSAYqMrPeB1m3dSCFZzIl8NAmnARF5bgl9O49QSbyKD
+         /grw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793958638; x=1794563438;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RupwrtSRCRknDTCP4U8+mHVorluG3D1aDqrqCuXGL/o=;
+        b=TbpDJwgpyYztBgx+uCWzSv5LqVqBUxcbL5Z60/rxYiW38YwPLt8Qjc0TLzta6dc5ER
+         1lHH31lXF96czDylrQBqkg7vap8K8rvN150JrH9dXQ4XeI4+I6qYPy5K330yHUhvVEr4
+         +QeHrdDQF/HVopRW6Hy1u6HOAlQmWd7iKbEUEPCrPvvBJn5TuTtASiapzA9d3OLBTYkz
+         2i9v9osRimXXYg/Byl9ryKTdQgw/z5wa8ldIQ/wLLk7rXW38JjYfRbJFqbqAt2t/M/s1
+         2USXxHHGeEdBsyBzG6nNuh8kAzZcJ7uj5FuQxMk3skhXQ/P4aLU7acbTp1DCBG1CEq0y
+         +shQ==
+X-Forwarded-Encrypted: i=1; AL+hErEsYmWzFamjYBaICxVJQ/TiGtU1C/eZOKZabvXXXtQfO+Dx2mQ/Pj3I+taKytxBzNg7eHP6+7oNh1yy8JE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Hxnx0tUmjfo3UPg+1XE5bXPEImkZ6xppJkbjgUtUaiPgunNDs
+	H/HS1Dcsuh9y9M4B1i7fU2Ww1w5UKAva1hCvGFXmXc6AUp0SCyyI0G4n
+X-Gm-Gg: AYBFou0Pms+u5+5b96V2vLhFqL3Cr+rDFndj8MTG33GV13dvOyQXsyyB14CEmo2bB0H
+	9ppBUexb5i2BLxtU8wTY3e7QiLL4iu2UvumgoMIXB9MeJC4qkofkEsne50NnGDlMq3lpd3nP0rp
+	Df8SaUSHh2m5n7vtIRgttnM5kGgNk7bXK+RQYmvvhiflgOfEfwFlN0s4cpONqgJV2Z2g6/hxE0z
+	ZoyKzkraSItb5G0OV0oSXnYuQqFLimwbU0XwXyHOe7mnYRtct/0MVRAlfymQftvSPnLto2E3568
+	6HtqAmVc0LzLctnDuc7eW7cVsGDqfaYiFpBPIGP2pA6oBasrqFh7+I635DneDBe+Dq/WfuIOzl4
+	dkORA4tL4TfkPaHcHRAsbGSOZVsdgnlHmDi70Anijrt31qnY/yNAjwuTV+IRe8Ffs+UQQ/ZcU4u
+	gC6Hry9XGreHXQmekesFQQq7FpR/7zU5oMyOJvdky7MjqBmYWC1oQMYAz2TkeKFRB4WilwitRnB
+	kLKM8Bc3yUa0GJHGPIPlucIImqH1NKSIwWggcqL670tmdXm/Y5xJfuyXUN4mG7oLN95ofLbdxi3
+	RHoBp2JrXYv+zzuDQvfLGrI=
+X-Received: by 2002:a5d:5d82:0:b0:491:83e7:32bd with SMTP id ffacd0b85a97d-49277f88313mr3982559f8f.50.1793958637679;
+        Fri, 06 Nov 2026 01:50:37 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d3d60e78sm2755152f8f.1.2026.11.06.01.50.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 01:50:37 -0800 (PST)
+Message-ID: <6662ae76-c8dc-4bc5-9730-bf9f537ca9cb@gmail.com>
+Date: Fri, 6 Nov 2026 10:50:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,98 +92,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179395862567.1009794.17873500038552197703.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] mm: limit pagecache folio refcount when splicing into
+ pipes
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+ Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
+ Steve Sistare <steven.sistare@oracle.com>, John Hubbard <jhubbard@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ iommu@lists.linux.dev, stable@vger.kernel.org
+References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
+ <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the perf/urgent branch of tip:
+On 11/5/26 2:10 PM, David Hildenbrand (Arm) wrote:
+> Similar to mapping pagecache folios into page tables, let's reject splicing
+> folios into a pipe if the refcount is at it's limit, similar to how we
+> handle it during GUP.
+> 
+> This will prevent more cases of possible folio refcount overflows with
+> large pagecache folios.
+> 
+> Let's keep it simple and check in the two callers of
+> splice_folio_into_pipe().
+> 
+> Also check in try_get_page() to cover pipe-buffer duplication by tee()
+> and partial pipe-to-pipe splicing.
+> 
+> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Commit-ID:     5e4d83fb3616ebf807df1ce1b0ee7a8cdcb5ff87
-Gitweb:        https://git.kernel.org/tip/5e4d83fb3616ebf807df1ce1b0ee7a8cdcb=
-5ff87
-Author:        Ian Rogers <irogers@google.com>
-AuthorDate:    Sun, 25 Oct 2026 14:55:08 -07:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Fri, 06 Nov 2026 09:39:43 +01:00
+LGTM:
 
-perf/core: Clamp deferred callchain entry count to fit u16 header.size
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-In perf_callchain_deferred_output(), if trace->nr is large enough that
-sizeof(deferred_event->event) + trace->nr * sizeof(u64) + id_header_size
-exceeds U16_MAX, header.size wraps while the output loop still writes
-all trace->nr entries into the ring buffer.
-
-Clamp nr per event (accounting for event->id_header_size when
-sample_id_all is enabled) so the record never overflows u16 header.size.
-
-Fixes: c69993ecdd4d ("perf: Support deferred user unwind")
-Signed-off-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Link: https://patch.msgid.link/20261025215508.1237480-2-irogers@google.com
----
- kernel/events/core.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 6cbd701..580590b 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -10514,8 +10514,6 @@ struct perf_callchain_deferred_event {
- 	struct {
- 		struct perf_event_header	header;
- 		u64				cookie;
--		u64				nr;
--		u64				ips[];
- 	} event;
- };
-=20
-@@ -10524,12 +10522,19 @@ static void perf_callchain_deferred_output(struct p=
-erf_event *event, void *data)
- 	struct perf_callchain_deferred_event *deferred_event =3D data;
- 	struct perf_output_handle handle;
- 	struct perf_sample_data sample;
-+	u64 nr =3D deferred_event->trace->nr;
-+	u16 size, id_size, max_payload;
- 	int ret;
--	u16 size =3D sizeof(deferred_event->event) + (deferred_event->trace->nr * s=
-izeof(u64));
-=20
- 	if (!event->attr.defer_output)
- 		return;
-=20
-+	id_size =3D event->attr.sample_id_all ? event->id_header_size : 0;
-+	max_payload =3D round_down(U16_MAX - sizeof(deferred_event->event) -
-+				 sizeof(u64) - id_size, sizeof(u64));
-+	nr =3D min_t(u64, nr, max_payload / sizeof(u64));
-+	size =3D sizeof(deferred_event->event) + sizeof(u64) + nr * sizeof(u64);
-+
- 	/* XXX do we really need sample_id_all for this ??? */
- 	perf_event_header__init(&deferred_event->event.header, &sample,
- 				PERF_RECORD_CALLCHAIN_DEFERRED,
-@@ -10543,8 +10548,10 @@ static void perf_callchain_deferred_output(struct pe=
-rf_event *event, void *data)
- 		return;
-=20
- 	perf_output_put(&handle, deferred_event->event);
--	for (int i =3D 0; i < deferred_event->trace->nr; i++) {
-+	perf_output_put(&handle, nr);
-+	for (u64 i =3D 0; i < nr; i++) {
- 		u64 entry =3D deferred_event->trace->entries[i];
-+
- 		perf_output_put(&handle, entry);
- 	}
- 	perf_event__output_id_sample(event, &handle, &sample);
-@@ -10559,7 +10566,6 @@ static void perf_unwind_deferred_callback(struct unwi=
-nd_work *work,
- 		.trace =3D trace,
- 		.event =3D {
- 			.cookie =3D cookie,
--			.nr =3D trace->nr,
- 		},
- 	};
-=20
+-- 
+cheers,
+jose a. p-a
