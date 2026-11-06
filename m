@@ -1,100 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.26
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793987313;
-	b=imRzUFSnFr4FDQKHtb3tz+l+ua9ugnrD8ktICQ2oBW5CkkdRc7NbrLcwJYiE7KpIJUd1
-	 90MPpQfA+5cn+gLSl7Sp35YHlsNOsRWFL2bUZ7adgfAbnSDLyDScdof4wVz6w5wgxWf7A
-	 kBmjCEYjVR/xYuUFPCBXuedLK2PkyV6+J2lY6dpG4VP84pilbqc1I+PnOpECbBoppsZjg
-	 QOzktjGFOnCQG8mIMpdgP+jFT+lwVoIPY62txXBLrQHl6iL/LoZqQARUnVz9Qds7yo0R9
-	 S5GQmtxwVuoBeFstt+7qy9LfaQZwsFgYfDLJmtGGLE58gpClWULshYNwbAtkls68yTA==
+	t=1793987348;
+	b=Vi2ykWJf45MOtdjv7JFohF9ifwr80oM1mrpWH6NJOyhjf7aI+SzEsn5gsx86JbM7MlGc
+	 CuFhkC89Pve4NivJeG8TWsxhjB6jVKbV1m9MyjPfZXiez8lbHYZE/EmCJ55PwTz6CURBW
+	 TrpPdonNyEdvp1TkFZb80+NBG/4G3zT/+bdUGGB1c1/5rdTo8CU+AdIcJSDeBp6zzaoKj
+	 PjaYgzICyjfC1dZql+GdvSCrdBF05xNm2aeR0CLyls5uPDWeBIp0eZ6w07qGtb5ooWAe/
+	 1j8Wa6c5VIczDvnehoak2f748z69BuYXI9JCUAstt7o3LGEmhkiqOLaYg2KpEepjZwg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987313;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wW8vMELsSAVnBK6VCjyzxOTijbmPZLXMkWBj11p0mqM=;
-	b=vzhxz6bzH1KmIBk32Mm28qqVcck5x9Rd3nmlkcO+jLhymBjixzRNLHkwaIvOUmeNJ7Ff
-	 buhX714w4wEBZ/jorZYipamlpLKX/rfUBRRrJdN/ZvFpH/NUBCDfoWC8XhwrWR5pR5VyJ
-	 F8QenSpu3Rj/BB1KROzGR1E0Ls43ms+GD/6s1/oGd4CSLN931fjK/gSN9IyQerHUZnHal
-	 NOS93HchnWfMEO4VdaWD+DlPKB2kedTPYs1/5m0ax/LItoe5yB531WShpf9PAjAX8fNxJ
-	 7nwM0bTt3wUyVf45Bmxd/G0GY271AHrCN19UDF7lUESeBJPnBNYbTTwi2jZM0rbPdTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987348;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1/CPqvQ0yqH320FO0/Ce52aHenybZyQTGeEOpzOCKDc=;
+	b=LAII73/Y2zPd7oOKHQyZlq8KJzzJx62+TiGKnr/WjakD7wil9zBwm1vJdSxEpmlt8qNs
+	 wcAtQM7c6PFA94r154lx4Xb0NnKahieLiBvq0uqQko5kEvss9n+R6X9iDMZyKKQG5v6oT
+	 ggyn+RFbI4G8+YOTp12clr8negEOcREFUVC2wUtgEDNVoJvTSbNZT3P0KtnX5Cx0UADRH
+	 0hEArhuAccjcjDlPekofostQQ93w/P0gBHK8mpaV1gx86IjMZk6GMeHNtF3wsL2LAP8rE
+	 DQSAKmKgztKKYWDtddod9FLqrEROF0umXzCmht8j07wy/EBd7lnGJERyOof0l3fYyFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yixKFmpR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=XBXRfglq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.26
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011026.outbound.protection.outlook.com [52.101.65.26])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA565606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:48:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA565606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46B8606A326;
+	Fri,  6 Nov 2026 17:49:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A46B8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yixKFmpR
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e987a2ba0cso5176005ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:48:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793987312; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FAFdQ/fYHMx2krJ/581+WDb5yN4y5sSlJMJEdhYDE8LjorHGhp9lPpGU+kv1uIQbp/
-         0TqJsnF9ebpW7itqhxUl0duMJ1X3K1bv8ChgAXT3cagVvKZZulYmAcyIoz1dXUS4+xc1
-         CZkn5BllpU9jDOXMaQTSd0Mf1sPlebxg4S5hTlqZVyvoTxvMEo+r3jQSzdB6l7YM4cX/
-         E8V9iU+QpKdkQER9Iwq9lIJvXw9UIddzYfpcgDj3Iy2NVTzlGiGg9r3Y41tRQlbF+ZlY
-         A0yVwuGBUeQz1CxytbNgKuaFUV1Lq7cqM/ErZoJySnTT89WhXJqjWNzDA3HSRp2nJcsa
-         B7Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wW8vMELsSAVnBK6VCjyzxOTijbmPZLXMkWBj11p0mqM=;
-        fh=W61cOWASSdUAbJ/3ej4TV99twXAkE/WQeootx+AJmU0=;
-        b=O7yNCVaIZlb6C+kbisjk+F+xKzZpbOrnW1Ab91EQy4wQd6eAUNHpEZ3MkAwYYe/NiD
-         S5F6EX2EbOqjaDpD2QzkKG3XFy5VHIidUe8BMWPRtZ7qKIvkhAwPvpSaJrfo6mBv9C0i
-         subM7S6ipl5MzpngLR+TpUUQQodPvHfs/wFiCo0/Mujp+mfZCDl006wmJS+TUDmBFYD0
-         ZsYXcR4DR4Cun43pdNni+rIsGDjkMLzyAaNU9WIIZoflkPfNFa89qej4H+9+HiN4eD5x
-         /14omwxHUFvoEZFJo/hjrAjw4hP+VL2xkKI1LeodJjlC5jDtmFBAeevq9eR3/LRkvNqN
-         Dwhw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793987312; x=1794592112; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wW8vMELsSAVnBK6VCjyzxOTijbmPZLXMkWBj11p0mqM=;
-        b=yixKFmpRcBMF//X09M50mh2S5/EOg7hKShzsAngsCyLSF3KfFWa8hzZktyl5UoeMwE
-         dHf9H6unilL1dutvIOd4XLxHP+ujF6ttvCOLXHVg00az7TlBfsDGLa8WFmbJMu5XNF2w
-         RulIdnjeLfsiZRK9200ts/dMIR9qfn7fxELYEx3/yWqrAOi4Lx86kq/q0aK7rKfSKz97
-         zwcDjC6YxqEbsXiz1snrUvC3xeUqS5JDEj9WAImw8WOOhkrNicLI8UTywSkk7ovGHrKf
-         Z1hnGVAuhJVDCYhGkQJl7JlFs/70kGbIGeOrqKoq2ql55JFPRQTlnnk7XtgIgygBETqJ
-         HzBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793987312; x=1794592112;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wW8vMELsSAVnBK6VCjyzxOTijbmPZLXMkWBj11p0mqM=;
-        b=s/vyTMV9nOWJJ0lXEw7jS37aF3iZClRpHaZ18xt33ZiUVc47jUrns6Zio5maN5ueH0
-         9y/M1DNGHWUb4x/EfGQ8S9Tud/woalbx7r9TLpHcY4+BQvmKQXkf97LVKsw/lslsvIW4
-         xxrMH0c1SbnoXrJE0jx/GrtelD0FZGhQ3o+vuKht0+ZGKSJHVtJlYPJy5LVGLjBHkrHV
-         hDXJknbzD1AoRysJwRLBOuxJeU63X9XqEHQs7ltu1g7N9rnP4o73/AyFByDkwBEElsiQ
-         77jFroQ31RznN0FllTUHsyrnVF3kUwA3rEwS/1TdOTCVa5umimqQ7xfKa/KQqT/Er7mj
-         bsng==
-X-Forwarded-Encrypted: i=1; AL+hErHwTcEjnYCYt3fyUHUfXgJA2VzzVenLprl1nGV7q6cd8K2cXmPpYZzFPMVFZRYpdu5RvzQFDgxftgm3kKE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9t2TOvmVekGc0r11BTEEnnaC7q0BE8YACDafYzCPzWpCyjD5G4
-	Y6DoCqd+/YD0zOdrse9y0gIBsk9p5xgRQyb4i28kswNuIilci1EpvIr6EBjLHLfmJCH2mPXVyNX
-	RmFrptn3MYcIlxww/gxe7QL787i8zI2g=
-X-Gm-Gg: AYBFou3xomFqIl0n4AWh5kIgMlk8yghVVS/pQuUgp0R79AHjWdwvFx8cTBuyhllGnQX
-	M26+O3U6v4iWt12uj1fFgHiPaSabUwT0r/tfKR5ADf915FrG4pnMrKIutee7oOReUiDzf7ehpts
-	IIhNLoE9U1yWMO2t1pHe7Ad++FQkBvXXogcpu6bhklMyBBRLEvBgqhButhP7ZuGXw3m/W6YbK3l
-	19IQSPNPM4XKkw4JBsVROT5lfDFYiOKDUWCXcuTTfGhFHAPPQOfLdehmmdBXQ1wD57FLpuKkeTW
-	FH6mhHD6kractM8m66Z7z+vvXe567X12MqmdU8K7eYd9K7cTKCgyPrj0kYo/wqlyKHwkY/NkA3M
-	u/Kh79uLfNFEKDyWefsC1wmwrypo/PaCgor/X8bRqHC1+z0ykeYlxduakFRE=
-X-Received: by 2002:a17:902:ce8d:b0:2df:9057:8bf4 with SMTP id
- d9443c01a7336-2ed40c7730fmr38292825ad.43.1793987311883; Fri, 06 Nov 2026
- 09:48:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=XBXRfglq
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SGOrz62wcID24pSjy0QcUzQ+ual4Hdok1ayTPYV2bzot4KNb7mGM6UYVNHy+ILz6Wn08Bi8TpuIzm03eRmNSHgGL8Es8K+38gZYtbEc1qf+GRGj65/Jjq47vll7UIatTviTHvneOUnsd7M025fP7kcImN9Lm9xpzo+oRLAefCkNd5Q6pt+3Gdqn9tIu18sb2Z4yR2E0ehTHMpUdqpwzirahYVGgHAyvWkRyKuMBxWP7VMOFF7WZIne8YDBoRSyV539u67oLsja2s1wJ037J/D/EVC3pADm2OXssjCLN6cBXfVQz5WZTg6EVw7zB4tF/MERD8+AF2oyxjMEU5PWxzTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1/CPqvQ0yqH320FO0/Ce52aHenybZyQTGeEOpzOCKDc=;
+ b=U7/VmKgahxvHCTy1S1ZxTDuknC14RQj3iudlFMQVzUA1wfmWOvAnzLf97bjkt5vimwYcSPTNIf3JhOW9H8J19QiNhQUStn4J1vvq6xggyXdG0jYQ8iZV0EFfwkozPNvT/I7lv3ens5WQcugpKA767DjrspVucxqMC8a044RYflZvlqhdXxbksNWfjHGSgCpbBdxGzrXEwsKcdtxTr3nbMvuWg6xEJuMTo9YP6Zp7aBsw5E8A8QzlK2rUOf3qMnCrm2UsKtBzqm7IOHF3RTSqBRgo+PS+tZ4j8BFjpjDN6U9mh0L+xaeZv24qXd2OwcxY69C1O00PsRu5hKEFjdy6gw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1/CPqvQ0yqH320FO0/Ce52aHenybZyQTGeEOpzOCKDc=;
+ b=XBXRfglqI2Je4ZhAL9BS2DwxDnEV3nReHyIrmq3Kxa4WOsoOV1Z17y8fA2Z+iLyQLTmgQP1uFu8Zc45eAvX1Sv6AajRNYvwrOQSAkg4FKeaawckZ5H9SC9gbzKkqq8SOteajIdNI4ZtGuAWUhI9b3N2JvgD/5UYPV35tMtGdjFH4LHMEADcTp/024bPiXsIi8L0RhWC0rcSgLT0vUwKdZGeQ8sJ8dpHBuA441leP+ZfZaEkF3en+SKdraFM+T4WpOyiVUjrNlsxZtNSCvdLfxEC1L9ygGLofSo2TI/fvxqcYRRrPZAwtdQVv+yjqrzTbl/05pwRMsNk8NqNsdt5Jsg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI2PR04MB10268.eurprd04.prod.outlook.com (2603:10a6:800:21f::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 17:49:04 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 17:49:04 +0000
+Date: Fri, 6 Nov 2026 12:48:58 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Logan Gunthorpe <logang@deltatee.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.li@nxp.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 5/6] dmaengine: plx_dma: use spin_lock_bh() in
+ plx_dma_process_desc()
+Message-ID: <au4TCjPFQN0mPIv4@lizhi-Precision-Tower-5810>
+References: <20261103155202.461725-1-logang@deltatee.com>
+ <20261103155202.461725-6-logang@deltatee.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103155202.461725-6-logang@deltatee.com>
+X-ClientProxiedBy: DS1PR06CA0009.namprd06.prod.outlook.com
+ (2603:10b6:8:458::15) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,129 +98,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030195025.5153-1-muniquefeitoz4@gmail.com>
- <CAD++jLkRYb1Pn2G=cP2yGkSFbuHhzRQ-fDbTygmpxbCsm-02gw@mail.gmail.com>
- <CANA1Db=sBQFR99pw0YUSS9sUcHtHVn-SoUyj3p6Vxa+LLJF_Ug@mail.gmail.com> <a7668081-54cc-4f8a-9d9b-376365b90dc8@amd.com>
-In-Reply-To: <a7668081-54cc-4f8a-9d9b-376365b90dc8@amd.com>
-From: Munique Feitoza <muniquefeitoz4@gmail.com>
-Date: Fri, 6 Nov 2026 14:48:20 -0300
-X-Gm-Features: AclHuK--dc6lBKAHReoOoB6g9IcoALLNd05TNw0fRkqc3CU2ssJv_1d6fR8uNF8
-Message-ID: <CANA1Db=d9=Suwh0V8Zu_G_BGq8YX=dsXKU+1DF1hy_NhYU4aWA@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: amd: Clear interrupt enable on spurious IRQ and
- skip unhandled EOI
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Linus Walleij <linusw@kernel.org>, "Mario Limonciello (AMD)" <superm1@kernel.org>, 
-	Basavaraj Natikar <Basavaraj.Natikar@amd.com>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI2PR04MB10268:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6936c09b-145c-4756-d404-08df3c2e3fa9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|376014|23010399003|366016|18002099003|22082099003|10067099003|4143699003|11063799006|261026140227099003|261028144727099003|261021121427099003|56012099006|261102123227099003|261022105027099003|261021123027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	QSu8ujRa9A6DFcSXKD7ZId5enTzQSq/KrGiTvBICWxvyXAIDGHqIfvr+CO13g+ABoH0XlJ8ygTuy5jbqVIORxLu/1oti43Tz2dmxWlGiuST+Wli/WfLmX13WikyUSaL/kflW1CLgdFtDDGJq1I3VHqWEFJBG0MgjfJv3D+e8Oq3aNeidTMGQ56STPhQwq3Vz3Wvz/mTJNfpZwk+vBMpYIZFNQtdUitON8FztO0+GZs0dd2MMr2UAN+9CKKM+/r7tUQAvu2nAUBsNl8AdXtfZUo7HxcoC2JI7Jd3EE+C4rt2zkitqgQXkLbf/6IAfGse+mF2LHalGRDrTOlmU/ou3XIHxbD6ltO72D78EnxqMG8guXkEBxRHtkiJ4ZBlKXxrkCN1S5kYSmL0v9hUTvddmTWTeI5XYwPZshrQHzzVstbPeVzdiYf7t40TqZhX5fugfyVL5o0z4Elqo0a1gYN12bNz+XulRWLKPyVtwEOOZfEqdmZlpF7ATDhKpI5hSwdDXm5KNcylDD96bBMiVmLsKuG+9SCcs9Pvn4PPSAVWV62VdOm36DSEyIaFZnD9MnQR3GO7V6dCTFGpsjikq39lC+OQxFSipL/o/mPincHHfhUs2T+cvGFwp72eAJ6ddzi5g
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(261026140227099003)(261028144727099003)(261021121427099003)(56012099006)(261102123227099003)(261022105027099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?I/lgJyB+PKZ3LFdjFvmtXzczoEE0pwVPYgRxdUWYwETZyO6IFc9Iv3vRi7fU?=
+ =?us-ascii?Q?tTP19mNSsEZdAzvn13VRm3Zu+C0FFjgqn/gWPM4YSkqbd0i/H4WjQMhwoYFt?=
+ =?us-ascii?Q?FDdybCundWoEoGnqz3JhjQdarIa3QspxwLkxdTFfkHIkW03CGiKzaBwFzX/f?=
+ =?us-ascii?Q?gBIwvc2/8t11WRCEjoalErfE/7zaZZIHemwufFvxMbZEcrFZ9ZXK94E2TWyY?=
+ =?us-ascii?Q?N6qhB6HhV3iUiWp5CuilKKQk0NhdrhKu8U/9XOArUgNARzGoRVHdm8CK0NKa?=
+ =?us-ascii?Q?OFkqST1qp7lpXPNlqKnOtdgvHbm79nT07Jl62ONrRrs932JH+bXPbaeIB0vz?=
+ =?us-ascii?Q?ZWTpdMpc+oJAjrALgQ7zveKatZjisJhlxD5DJPojsiCJc4wKwJ/JboaZJ0W2?=
+ =?us-ascii?Q?UZZURMMH8BEQ0QoSEkofWNELYkzQWPb7Fy4A6Xd8CGTHM99l/v7ZVk7N5JRb?=
+ =?us-ascii?Q?40aFbT1ZZDSRllmmyXkcCXAY7CYDMr7WnhUUYI/mRinoEpwRMREvDJbsnX8n?=
+ =?us-ascii?Q?Moq4fa+rEeDQVWnDduSTyQK2EnGsZNiz7a7B5HLM88Q9Q5zM/BHpc5c3CBb+?=
+ =?us-ascii?Q?udY15p7sZb3d7tHEtZ52D8kuJxZEhpiBdWVNYc0B38a9pYFwyAen1fHJd8j2?=
+ =?us-ascii?Q?nZqpQ3pAdbsqXiPyZ4KXzWYqkRk0qOt8+OwlbWDE8PjxLCiO+BroKk/0LGyT?=
+ =?us-ascii?Q?c4p6zYZ3vgvxaf+9PWA8KR3dh21AD+RcMEMtIisl4rTuCBy2+meNcTD1Q11Z?=
+ =?us-ascii?Q?C3Y0iOaE/XmIQzndMReA5LE2oFa5MtnCG2yJLYURL0tLJVmkNNLOMKLqRqTg?=
+ =?us-ascii?Q?KhrQVwxv0JAqiyXy3R16ezMmPJZkbI/Sp8ejOJDjV8PX3PVxkglEFeg49EFe?=
+ =?us-ascii?Q?3CYIRAFvFtm3nysOOjBYvaNubihNJ9lR4X2vRYfkKTPtqEoq86HbiEimXl0M?=
+ =?us-ascii?Q?TiIkxf5W25st5MO0BnKefWJqaqS6VzufWoXbpnNGilUospBu5r4XYi6L3aX6?=
+ =?us-ascii?Q?1uKSZAAxnC01V/Ibpy6klWwGlQqSchnydyztSN/QltZcBhD6L3Sdo+99Xg+0?=
+ =?us-ascii?Q?H7mII+YSpEi70xR4fXpM32XkrUC6e/RAQGGZmA9WeN5IWxArMYmeUQ24XgS2?=
+ =?us-ascii?Q?arJD1xQnoIXL1gkRZyV0vAbAXFbcDyCVL6YHE1UuboI4sk+BNWb9wCeicA2s?=
+ =?us-ascii?Q?jHGYsLUtu96h5x3N0k3pg6iwnIrdaciBJz7UHA8l7VApGGPaS2f8h7FYBvsE?=
+ =?us-ascii?Q?IT3rpMJhhg+Wbvzq9CaOojsiqm3ObAwZrryYITwR3hZrlqQj3HwcIsBU8YQf?=
+ =?us-ascii?Q?aZgf5EKe5QXF3jysKFux6yg4RalFdiV6N1WVYC9bIwZ4uTXpKynrZMMuUORu?=
+ =?us-ascii?Q?O6ozkv1Nf4A+IaSiA8sX0M0ELUXEZ8ngAM2hXIP3yYKhlIQ2g3tlOXGOrRwQ?=
+ =?us-ascii?Q?vCbEwNYEV+mfR0koJfMftIVikwxlIG6pMuV/ff+zkcpSX2e+BIYu7iyaMkbf?=
+ =?us-ascii?Q?MDWoVaSo0h5PhKAVM7j6vdL54LrcdlDIGzN61k4xD5ieT0PX/dyzajDgHvMD?=
+ =?us-ascii?Q?tmwHGuPSUSN6c+5rJyH5wmUYEPEvvSuH5Uma0+JQKJAbXRj9jmJY2ksmux9T?=
+ =?us-ascii?Q?Z/ACD/hrrMijRdxsm80lnmez9B2yz8ECeo8+/Owyx2C/vORRkqKx0dGv16TR?=
+ =?us-ascii?Q?vTyRPApxI79ja5KS41SIZ/4vDGgEvB+GOhmZT0Fj9y+BNQo08nHXaz3nC9B/?=
+ =?us-ascii?Q?l2b1FdvFvuuN8ZuF5Ob7IjV4rDztdVnTGLnZubJcjx3CdzLZtEKr?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6936c09b-145c-4756-d404-08df3c2e3fa9
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 17:49:04.6100
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jRKPKxOz7dT5j0CYlKTUixDbdiPlueey0CPL9mAjExqsFYtcc2sNtNnVF45cmaM6ZlFEDO/VbtRDoP9C/XijS9uv1EB3kAYanLkbwUsSmYSDDvNRnVWxSOrF2TzuRfiS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10268
 
-Hi Mario,
+On Tue, Nov 03, 2026 at 09:52:00AM -0600, Logan Gunthorpe wrote:
+> plx_dma_process_desc() is also called from plx_dma_tx_status() in
+> process context. With a plain spin_lock(), the desc_task tasklet can
+> run on the same CPU while the lock is held, and spin on it forever.
+>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/dmaengine/20260717223217.B6FBF1F000E9@smtp.kernel.org
+> Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
+> ---
 
-Thanks! I've created Bugzilla ticket 222242 and attached the requested
-files: https://bugzilla.kernel.org/show_bug.cgi?id=3D222242
-
-Please let me know if you need any additional information or further debugg=
-ing.
-
-Best regards,
-Munique
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
 
-On Thu, Nov 5, 2026 at 11:49=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
+>  drivers/dma/plx_dma.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
+> diff --git a/drivers/dma/plx_dma.c b/drivers/dma/plx_dma.c
+> index e4243b66f933..8c4b19d681ad 100644
+> --- a/drivers/dma/plx_dma.c
+> +++ b/drivers/dma/plx_dma.c
+> @@ -138,7 +138,7 @@ static void plx_dma_process_desc(struct plx_dma_dev *plxdev)
+>  	struct plx_dma_desc *desc;
+>  	u32 flags;
 >
+> -	spin_lock(&plxdev->ring_lock);
+> +	spin_lock_bh(&plxdev->ring_lock);
 >
-> On 11/5/26 18:27, Munique Feitoza wrote:
-> > Hi Mario,
-> >
-> > This is a real issue observed on my desktop system during boot:
-> >
-> > CPU: AMD Ryzen 5 5500
-> > Motherboard: HA0QING A520 (BIOS 5.17)
-> >
-> > During boot, the system experiences an interrupt storm on the AMD GPIO
-> > controller (IRQ 7), eventually triggering irq 7: nobody cared and
-> > leading the kernel to disable the IRQ line entirely:
-> >
-> > =C2=B4=C2=B4=C2=B4
-> > irq 7: nobody cared (try booting with the "irqpoll" option)
-> > CPU: 5 UID: 0 PID: 0 Comm: swapper/5 Not tainted 7.2.14-arch1-1 #1 PREE=
-MPT(full)
-> > Hardware name: HA0QING A520/A520, BIOS 5.17 04/02/2026
-> > Call Trace:
-> >   <IRQ>
-> >   dump_stack_lvl+0x5d/0x80
-> >   __report_bad_irq+0x35/0xaa
-> >   note_interrupt.cold+0x1a/0x58
-> >   handle_irq_event+0x72/0x90
-> >   handle_fasteoi_irq+0xb6/0x1f0
-> >   ...
-> > handlers:
-> > [<00000000d546c9c3>] amd_gpio_irq_handler
-> > Disabling IRQ #7
-> > =C2=B4=C2=B4=C2=B4
-> >
-> > Checking /proc/interrupts shows IRQ 7 (pinctrl_amd) accumulating
-> > around 200,000 unhandled interrupts on core 5 before being disabled.
-> >
-> > When looking into do_amd_gpio_irq_handler(), pins that trigger an
-> > interrupt but are not registered as IRQ lines
-> > (!gpiochip_line_is_irq()) only have BIT(INTERRUPT_MASK_OFF) cleared
-> > while BIT(INTERRUPT_ENABLE_OFF) remains set. Clearing both bits stops
-> > the spurious interrupt status from re-asserting.
-> >
-> > Best regards,
-> > Munique Feitoza
-> Hi,
+>  	while (plxdev->tail != plxdev->head) {
+>  		desc = plx_dma_get_desc(plxdev, plxdev->tail);
+> @@ -172,7 +172,7 @@ static void plx_dma_process_desc(struct plx_dma_dev *plxdev)
+>  		plxdev->tail++;
+>  	}
 >
-> Thanks for confirming.  Can you please share:
-> 1) your full kernel log
-> 2) an acpidump
-> 3) /sys/kernel/debug/gpio
+> -	spin_unlock(&plxdev->ring_lock);
+> +	spin_unlock_bh(&plxdev->ring_lock);
+>  }
 >
-> On a kernel bugzilla?  I'd like to look at a few things.
->
-> At least this sure *sounds* like a floating GPIO.
->
-> Thanks,>
-> > On Thu, Nov 5, 2026 at 5:18=E2=80=AFAM Linus Walleij <linusw@kernel.org=
-> wrote:
-> >>
-> >> On Fri, Oct 30, 2026 at 8:50=E2=80=AFPM Munique Feitoza
-> >> <muniquefeitoz4@gmail.com> wrote:
-> >>
-> >>> When do_amd_gpio_irq_handler() detects a spurious interrupt on a pin
-> >>> that is not configured as an IRQ line (!gpiochip_line_is_irq()), it
-> >>> currently only clears BIT(INTERRUPT_MASK_OFF) while leaving
-> >>> BIT(INTERRUPT_ENABLE_OFF) set. Unlike amd_gpio_irq_disable(), leaving
-> >>> INTERRUPT_ENABLE_OFF enabled allows the pin status bit to keep
-> >>> re-asserting in WAKE_INT_STATUS_REG0/1. Clear both INTERRUPT_MASK_OFF
-> >>> and INTERRUPT_ENABLE_OFF when disabling a spurious GPIO IRQ on both
-> >>> main and RGPIO banks.
-> >>>
-> >>> Additionally, if no GPIO interrupt was handled (ret =3D=3D false), re=
-turn
-> >>> early before acquiring gpio_dev->lock and writing EOI_MASK to
-> >>> WAKE_INT_MASTER_REG. This avoids unnecessary MMIO accesses and spinlo=
-ck
-> >>> contention when the IRQ line is shared or asserted by an unhandled
-> >>> spurious interrupt storm.
-> >>>
-> >>> Signed-off-by: Munique Feitoza <muniquefeitoz4@gmail.com>
-> >>
-> >> Sashiko comments aside, we really need to put Mario on CC for
-> >> AMD patches, Mario what about adding yourself to this MAINTAINERS
-> >> entry:
-> >>
-> >> PIN CONTROLLER - AMD
-> >> M:      Basavaraj Natikar <Basavaraj.Natikar@amd.com>
-> >> M:      Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> >> S:      Maintained
-> >> F:      drivers/pinctrl/pinctrl-amd.c
-> >>
-> >>
-> >> Yours,
-> >> Linus Walleij
+>  static void plx_dma_abort_desc(struct plx_dma_dev *plxdev)
+> --
+> 2.47.3
 >
