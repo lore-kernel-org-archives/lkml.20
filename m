@@ -1,59 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967823;
-	b=cqVj76jTtSBPyWVqHHjEgPfgYzzWCNY3Iy39EPKZvN4eVuCIvwTS7DPhobP0bqTXK2nv
-	 wpOHKRk6HrOikBWvuvMS4z7T3cFk9jVI75vgbf1+ZUPFFKxb0ZeEpMxmLaWwJlwAiMtkb
-	 dA4vZeHnosyqWMkKDXmB5OeN4SRZvw0CD+dru20qBbPIkO+NAg9hYNgiv0urLOR3AdeqI
-	 hVTg2AkEaqcY7ltoUysHVSRZJlRifXzrrxPVBJ14B99qpaRqTjsOP9zOl40I9KTl5QiDV
-	 MzBBaeiNyeIEc2GK+jfBoyzcTVNRu4noLR0q+INYXXX0/1lsaAnN7+HSQXI+KiRMh7w==
+	t=1793967857;
+	b=dWRJinuUQFL5MWns0nDmk8Jh70thW7xHjJXLdEJbaQFw/+gAu1/Eqx8MDLaJWkLrjsq+
+	 8vcNqAEVHerj40EzwEsGHWsGWoTeNZ7Ze7HBwB0zZK/RIDGd0c2rnUkW/GWvCw5dD70C9
+	 CSrUNmGMTYh+Hbv/38imrgk9XNCp4Dln/Kpdfc5mOUhZCGyPSpQ0yJ3I4rqVBC7OO0/1g
+	 ooRxZmoSA4MviqlO/uTSBefCy7VHkefFwnJkpYg5rjoRcWIK7BpdRr7QfhD3tYZ/B6qtF
+	 LTXDOSgVptGfOtf/TmUKVbtstVXtmIm5CWoFjCOtxn4CbGzNZZ4bKr2X7kvYtD+zC0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967823;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xLjGM2UfwmU67W0l87AptAXAx/R+n7IKoR/u/mXJKpg=;
-	b=uzRSnw8uNAHwaCO6bkNCjP0Cdvwm+m68kEuf+aUqUA2nK2jqUTzIhGh756NoKKpasr9+
-	 XjojkoF6uBOgyFASB2xtdy3D0icHht28Wk33mivt+MuGFTpxrsno3kO7MD9HYYMlHfCcR
-	 mLLYGgtPglxpI7E49F3z1yjen+Dg8snWMAFP5/WNQsv7eK37C2wdYvdwg6ymJkTeaJAuK
-	 evBdhzQon33x1RwxDw86b4gz0Ad8/0qc0z3rQ2gprVSmGmuvx91MCoTAgvtkOk7ocsN4o
-	 TrlEu2XVVabyX1DQ4URS9Wg7J4F7ADk7WplZPMR12E1qp0IWT3ESrBmnVVh4YH4Rw+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967857;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=+WnGg6RHgnyqDd5ldVy5BEuIn5Cw/n9Yw7ajiiWZxlI=;
+	b=v05UqGS+NUZAsvjyKJW+MymMokAjiQVldGn47dhpJpnVZjBUDOJJbNfPkADK4DnPWbGd
+	 O/ryUjaJEu1lFQ6H0w77Bf8YmF5vb3lxH4ZLLsyxdFCMud9ZF1sOvm6EcxrNZIgDZ8HCZ
+	 fdsiTzVrtJF8oL1oHSGLDbNJIVUmODM3SaeeEuQXmYW8J+6cEBM4qcp3Om7cyReKZ4WPq
+	 s2KC+vHy4mJ868N4okHhHqujTBlJjI8aDMNcvdLQ7Zhd8vgtGwOkQonzfu6sQWHOzCQei
+	 zNrqD5g2dAWfugKlRJr5bTdc0pzEHsxkopWxu5Uf4ni0OjJ7wu3oxwMyuei8qI10UNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L0/p3SHz";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c6TY7xq8;
+	arc=none smtp.remote-ip=95.215.58.105
+Received: from mta1.migadu.com (out-105.mta1.migadu.com [95.215.58.105])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB31A606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:23:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DDB606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:24:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2DDB606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L0/p3SHz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B8181F0089F;
-	Fri,  6 Nov 2026 12:23:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793967823;
-	bh=xLjGM2UfwmU67W0l87AptAXAx/R+n7IKoR/u/mXJKpg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L0/p3SHznilxSDO7OgzJM7rwJVgmsnj//HpVD5hDrikLDqFEazTyfc8l5n7oVdoiZ
-	 QWqfdk8UdMTE2CQJ0nNUuF8ihSuQ9UGqu9MpGCGBthQgERbzl6GlodrEvMp789U6Tq
-	 IGyMCBX3rfBGZ+ewCHoHjhVKJjGtgDTztZBs5ViGhWmx6fLHcd694D4KgLYgywOnLE
-	 pLwPhu20b9BywaahSTEmmDCVbSZ2j4G1i8tof4OEFeXpOem6F/1IYAAveAiUX/edng
-	 bmyP8tHh1UqgyuqVmpL0Hji09IzIMoialiDNggEd9ZhkEgm5n0za/LmJPskyy90Wbp
-	 KYS7Q+S8hhQ+A==
-Date: Fri, 6 Nov 2026 12:23:37 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] mm/khugepaged: release contended mmap read lock
- after scanning enough VMAs
-Message-ID: <au3GntBF9AE57h4C@gremlin>
-References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
- <20261105-khugepaged-latency-fix-v2-3-4384bbfe4606@kernel.org>
- <au3CUJO9zBMHLx-B@gremlin>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c6TY7xq8
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h/NpQVbSX0lmFSKYQ4kXG0v09GVq/A5mrfxqP7xtn18=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793967853; v=1; x=1794572653;
+ b=c6TY7xq883Haj25OXqwpRsd4NIM3krJcHN0WzFuy1+uDp9Me8N96kyYLRSTGIAW9r+g6/aaj
+ BlyvACGixAkQZIk3B5PDaxB4cNlwJoqzVVX94cVQFMwKJFPqARyJgz6vVxwvQtxd9rEQzoSq0B+
+ 6t8bl95TWsNXIKRdw2eGmM34=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 69ffad1ec8c56768;
+	Fri, 06 Nov 2026 12:24:13 +0000
+X-Mizu-Trace-ID: 69ffad1ec8c56768
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	josef@toxicopanda.com,
+	axboe@kernel.dk,
+	alexei.starovoitov@gmail.com
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	linux-kselftest@vger.kernel.org,
+	cui.tao@linux.dev,
+	cuitao@kylinos.cn,
+	ameryhung@gmail.com
+Subject: [RFC PATCH v13 0/4] blk-iocost: BPF struct_ops cost model
+Date: Fri,  6 Nov 2026 20:23:52 +0800
+Message-ID: <20261106122356.3224638-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,21 +76,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au3CUJO9zBMHLx-B@gremlin>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 12:07:53PM +0000, Lorenzo Stoakes (ARM) wrote:
-> On reflection, I think this would be better implemented as something like:
->
-> static void collapse_scan_mm_slot(unsigned int progress_max, ...)
-> {
-> 	unsigned int long lock_start = jiffies;
+From: Tao Cui <cuitao@kylinos.cn>
 
-The rare unsigned int long type, rarely deployed but super effective when it is
-:P
+This series lets a BPF program take over the cost model of one
+device.  The BPF model provides calc_cost() for charged IOs plus two
+transfer coefficients for the completion-time sizing, io.cost.model
+selects between the attached model and the builtin one, and enabling
+and disabling the controller stays with io.cost.qos.
 
-(sorry losing my mind, should be an unsigned long)
+The builtin model is a linear formula derived from a handful of device
+parameters, and the right formula is device specific.  A BPF model can
+be adapted to the device and updated without rebuilding the kernel.
 
---
-Cheers, Lorenzo
+The series is based on next-20261105.
+
+Tao Cui (4):
+  blk-iocost: add BPF struct_ops cost model support
+  blk-iocost: add iocost_ioc_tick tracepoint for per-period device
+    summary
+  selftests/bpf: add iocost cost model test
+  docs: cgroup-v2: document the iocost BPF cost model attachment
+
+ Documentation/admin-guide/cgroup-v2.rst       |  49 +-
+ MAINTAINERS                                   |   1 +
+ block/Kconfig                                 |   4 +
+ block/blk-iocost.c                            | 284 +++++-
+ include/trace/events/iocost.h                 |  43 +
+ tools/testing/selftests/bpf/config            |   2 +
+ .../selftests/bpf/prog_tests/iocost_model.c   | 812 ++++++++++++++++++
+ .../selftests/bpf/progs/iocost_model.c        | 180 ++++
+ tools/testing/selftests/bpf/progs/iocost_ms.c | 197 +++++
+ 9 files changed, 1560 insertions(+), 12 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/iocost_model.c
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_model.c
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_ms.c
+
+Changes since v12:
+
+- the iocost_ioc_tick emission now sits inside the
+  trace_iocost_ioc_tick_enabled() check, as tracepoints.rst requires,
+  and the usage_pct trace field is widened to u64
+- detaching a model resets the autop stepping timestamps, so the
+  cooldown restarts fresh when the builtin model comes back
+- iocost_bpf_supported() probes kernel BTF for the struct_ops wrapper
+  type instead of /proc/config.gz, so an unavailable config no longer
+  skips the tests, and the probe result is cached across cases
+- the selftest sets up its private mount namespace and configfs mount
+  once instead of stacking them across cases
+- the multi-stream case feeds two interleaved streams and asserts that
+  calc_cost() actually priced them
+- the selftest cgroup names are created inside the per-pid work
+  directory (leading '/'), nullb_create() rolls back the instance on
+  its own error paths, and the streams test cleans up in the right
+  order
+- docs: document the attach rejection codes (-EOPNOTSUPP, -ENODEV,
+  -EBUSY) and that root-cgroup IOs still use the attached model's
+  transfer coefficients for completion-time sizing
+
+Tested on next-20261105 (qemu x86_64): the selftests pass, and the 2x
+example model doubles the charged cost over the builtin on a
+rotational device (2.00x measured), returning to 1.00x after
+"model=linear".
+
+Link: https://lore.kernel.org/r/20261103132613.1952975-1-cui.tao@linux.dev # v12
