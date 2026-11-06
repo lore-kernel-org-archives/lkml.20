@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958573;
-	b=2EjCmE2FA7yEWkysSd3c0udDSm+bxOj81iQtc589dWttvUVLwIloHSEFL5u8dXEOt6z5
-	 ftX2jbuw5Jads/Nn6grRkK64pREVX5okP1fVWXBTFgm0qC/4mPTqxTxFcXudH4pxRLqPh
-	 KL+N/26lOMefZPhD1Kuga9p9PaI6Ao/VKOdFyhM0vCA1OxdnwsEmyScgx2EaOaJjJoxbA
-	 vmZOxyhmDU7yck1yXiZYt/yRjNrxC/bT8m+Gr4CkwD9NKK83eOmsOsFsdosEgbG7XiV8I
-	 z1x3Q0Pv9y+3qwTqDnVaonITO5T7HR+9GDO7Loy3ziBw4iK+HHw3xpiQ+jvjiaeSC1w==
+	t=1793958590;
+	b=P1kyAqwQnG7s17QMx83PP0N7azp/c9GdjR+gqsmntYjd9XuxoB0vjguxQnhw04HX4l7Q
+	 5FSR8gmtDNcwFS3q+ltFpKTVmP8DwNgByClmTkATwa7wIr1uzFQt8Sa2foUrKuB31rXwY
+	 Ael0aOiq2TV+U+kp6bSyYf3x/nPZF3tHu89hnqbiBNGcLunonHr1708A0mc37gVFouSsX
+	 s084N1IvWLTjK7axDYnZHs6Cq7g7OA52UXEjpYw7zdkDQowfggiklibm8vgKstR6pqZZY
+	 vzSDyjP4PitxPwC8+0DtO1HDvvzUK/jATf5kTUcFJ8Nx69Rz2zX/aqMXZwWtVMF9ztQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958573;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958590;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
 	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
 	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=mGEVtVjtz0KdzhZ4I6DHO8/MAISpHDmHM9ZM3zRq5ss=;
-	b=INykqbBiR6ufgE7iw6HDeXFsrUIKPS4lnaoZR9neIVToiUBepUYJzjutbap+bHywDhbg
-	 nReqxl7B9sDBLgQKQLombFfiTSVqYrNWL/QfHmVXvIU4jze8M8fCL2R/S+EIgbzZJAMOd
-	 jRltcUhRXbjEJSdIkv6klKn2BA/DqA6+GFYTYPryyepitw04QnYShqWCX+upQKMxq+kzW
-	 18BkWqHmoewN/tadvMdv4VCL78ZA0GY5Bn1aALZmw9w9688iQ3XRRp5WgwXiKs4f5uZDZ
-	 QoIz3T9K2mcrtsR/e3RRLjz4Gvit1x0M335rX7EPDWLSRGhPd3WPXieiNm7Jqw1AzPw==
+	bh=ZiIKqYRHXYUrq5jY4SAhBx+dxEMk/9hW4rEcLk5Peqs=;
+	b=QGQ1tkgXPI2nAotoCsFa5CV6XetmvOTI3s5wLYy/H/BXfzhsFhqycOnEmSRl6Vis0pp7
+	 un8d0DfVp0peGpQRDUKw5j6SJlcAmZSp30TKMB0Zo3GZ0IRme8fmVgQNS8Vh2Dv8z8cVp
+	 5CVSbJqzZIL9g5la0zQ5gOfm4IYYyGxE5y8ZfyyysVIf/uxY0u0BeCbrKjpZLi1I2xxr6
+	 mct4gRA0Yyc5vIzyqPuaW8mIu0d62Q4rNccN5VUtSSta6uD/Hc/27LN82nPb4XvKoHEHI
+	 ofcmkqFF9F/LFdoEwkoSVEFJGwxHN1PNp6M3uXBpGZfS4gbcWqsl0kb1cse9F3QzQSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OewCBRCP;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sjTGYC6q;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4AEB3606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:49:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AEB3606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 16F7E606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:49:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16F7E606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OewCBRCP
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sjTGYC6q
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 406B41682;
-	Fri,  6 Nov 2026 01:49:28 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7871F3F628;
-	Fri,  6 Nov 2026 01:49:30 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6AEAA1682;
+	Fri,  6 Nov 2026 01:49:46 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B9E23F628;
+	Fri,  6 Nov 2026 01:49:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793958571; bh=rLjhCA81jsFFZwqXTBDCS2ZN6MP7pRTuX1rJ8TeDxJg=;
+	t=1793958589; bh=LQ0TS4wrpbh7eTZLNIBqGnXpSRsa0/ujpXDDC9XeSSc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OewCBRCPbvf6K6u//AQLua4egeAPRExi5r/EQa7FK6boaqTALhV+g89fa4QSv6wSZ
-	 clvU+ONgkTvvMAyQci1F5UATL4nn1URWApob7+sVx/XttaDKXa3W0Hq/QzAOa78iAP
-	 a59A+CsLaK3SQa6zeZ1fXoQcw4NbNkX5aRr5uLlY=
-Message-ID: <cb37c75b-51eb-48de-b254-0c495f3c543b@arm.com>
-Date: Fri, 6 Nov 2026 09:49:29 +0000
+	b=sjTGYC6q6C4GKCQI3+YrAvT5ASM/aJRD9nUT9eOvYm/rPv4C+9p9QtONiqNBnYqx3
+	 qbi50ikTMnDem31yG+ZUwH5Hu3mKGoetr+1io8wKqWzAHu1+j4WiklGCpvu4W/IBWq
+	 fM1ctohDAb61wRN3gdtFT6cV2myIz0RDVgD3pOEc=
+Message-ID: <5ca3f30c-5fea-4602-919a-6182aba20310@arm.com>
+Date: Fri, 6 Nov 2026 09:49:46 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,57 +54,61 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: arm_mpam: selecting hard or soft MBW_MAX limits
-To: Ping Li <leeonion.muyu@gmail.com>, james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- reinette.chatre@intel.com, fenghuay@nvidia.com
-References: <20261106043611.790930-1-leeonion.muyu@gmail.com>
+Subject: Re: [PATCH 1/3] irqchip/gic-v3-its: Align sub-page ITTs to 256 bytes
+To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>, Steven Price <steven.price@arm.com>,
+ Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261106092625.3977163-1-fuad.tabba@linux.dev>
+ <20261106092625.3977163-2-fuad.tabba@linux.dev>
 Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261106043611.790930-1-leeonion.muyu@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261106092625.3977163-2-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Ping,
-
-On 06/11/2026 04:36, Ping Li wrote:
-> Hi Ben,
+On 06/11/2026 09:26, Fuad Tabba wrote:
+> Commit e36d4165f0796 ("irqchip/gic-v3-its: Rely on genpool alignment")
+> dropped the ALIGN() of the ITT address in MAPD, on the premise that the
+> ITT pool returns 256-byte aligned blocks. However, the pool's minimum
+> allocation order is get_order(ITS_ITT_ALIGN), which is 0, so its
+> granule is a single byte. An ITT whose size is not a multiple of 256
+> leaves the next one misaligned, MAPD drops the low bits of its address,
+> and that device's ITEs land on the previous device's ITT. QEMU's
+> emulated ITS has 12-byte ITEs, so two devices with 32 vectors each are
+> enough to hit it.
 > 
-> mbw_max support in the driver always programs MPAMCFG_MBW_MAX without
-> setting MPAMCFG_MBW_MAX.HARDLIM, so the limit is always soft: a
-
-Just to clarify. The limit is always soft whenever a soft limit is supported but if it isn't
-MPAMCFG_MBW_MAX.HARDLIM is RAO/WI and so even though the driver writes 0 to MPAMCFG_MBW_MAX.HARDLIM
-you would still get a hard limit.
-
-> PARTID above its MAX contends with low priority for bandwidth beyond
-> the limit, but is not prevented from exceeding it. On our platform we
-> would like to be able to select the hard limit, where a PARTID above
-> its MAX is throttled even when the system is otherwise idle - soft
-> limits let a noisy task exceed its limit and disturb higher-priority
-> work when bandwidth contention appears.
+> Create the pool with a granule of ITS_ITT_ALIGN.
 > 
-> MPAMF_MBW_IDR.MAXLIM reports whether the MSC implements a hard limit,
-> a soft limit, or both, but the driver does not read it today.
+> Fixes: e36d4165f0796 ("irqchip/gic-v3-its: Rely on genpool alignment")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>   drivers/irqchip/irq-gic-v3-its.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Is there a preferred way to expose this choice? The options we see:
-> 
->   - a mount option or info flag, if the choice must be global
->   - a per-resource or per-group resctrl knob
->   - selecting hard limits by default whenever MAXLIM reports the MSC
->     supports them
+> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+> index 282e4bafb084f..5613c52adf88e 100644
+> --- a/drivers/irqchip/irq-gic-v3-its.c
+> +++ b/drivers/irqchip/irq-gic-v3-its.c
+> @@ -5849,7 +5849,7 @@ int __init its_init(struct fwnode_handle *handle, struct rdists *rdists,
+>   	bool has_v4_1 = false;
+>   	int err;
+>   
+> -	itt_pool = gen_pool_create(get_order(ITS_ITT_ALIGN), -1);
+> +	itt_pool = gen_pool_create(ilog2(ITS_ITT_ALIGN), -1);
 
-The current plan is that this will be an extra line in the schemata file. Fenghua was looking into
-this and there is some discussion here [1]. This relies on the generic schemata changes to have
-multiple controls for resources. The same series as linked although there is a rfc v2 now.
 
-[1] https://lore.kernel.org/lkml/e13cf2e7-3956-4069-ac43-c65e874c6109@intel.com/
+gen_pool_create expects the first argument as:
 
-Thanks,
+min_alloc_order: log base 2 of number of bytes each bitmap bit represents
 
-Ben
+So, passing get_order() is definitely wrong and ilog2 is the correct
+choice here.
 
-> 
-> Thanks,
-> Ping
+Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+
+>   	if (!itt_pool)
+>   		return -ENOMEM;
+>   
 
