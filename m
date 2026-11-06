@@ -1,68 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953878;
-	b=EwCkvUL7OzpmKBIDUWIxQP2LnVi31hFBmfbInDzJz34sBG0gW40XMcF0nQZvfgx5uc6f
-	 Q6R1o0PwdJEcqeHAfphxppUxUsTG3gjxoxpBKjBziwQZx/zESOw+FW072lMcAzkXx+u/C
-	 h8MBW9tEWCe3riU9tU1X0Q2zBEkrvlEHO6N7loFM4wvWLkfLq7m1S+IlX0FwvMbVCif46
-	 5kThBG/seEg2WYH7SZUAsw0gbLcNzoFn3dN8tGZaFtjCG59HW7DW5c5qa4lAPQ+88NHla
-	 MbbffOkAO/HbvahASvpb213IlTwMtAli1C9h+hmf/dXIw96XBHPZ0zYnkCjJNAavEIg==
+	t=1793953881;
+	b=4QJNJbSL79DDjwvVCW4bmbRuU7X3pN3ptP02Jp21Jv+xlcLbhCzl72L1OXBBvsD0EDRl
+	 oqJIcWTCx67ss9gebAjjKRZ9nb1km1dE/QjBrw7JhuriDVlF2HYNX1jNXd7x2dbPFq6tj
+	 p07OTxD6SdOioo+AH18Rp/Ws5YPk3s+tfObX+d1b/IjuMYy7IM81713vf1FQ3bVsEyS5E
+	 /8JDYo8/2KRWOTSVbZYOeoxWQmtQCvB6z3izj6AClVzrJf9jJeJapQWE/m8fYbWaleY76
+	 02EJI27z100HqijcliYCx9TLuJJePo0v4QsHPQkYvA8WJXwkG2xa3TxR3mA5z0bImaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953878;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=4jNCFbyCB/Vu8kY+F6l8sQpNAWlz5UlpBMsBVseO/Mc=;
-	b=PWgQ012PTJaUcyeDSX1nCHuBqV3xSltmmpSEp1UZBYwB8mWx3F8mgSLQFY4OeTKP6Jfr
-	 uuU0Y2UCMh4z3QpMcOmZBa9soRjiiwYgsVwu8IJIdmmo3xYVmCEt1dyEKbxa0KOHjvNs7
-	 eMlwC94VAsf+v+BrXJjq9hTERFIF8lHQDteREovtqr2Bl87iG1k6LX5KoQTOzGVT+gi7T
-	 E+gWYWjCaVHT89Rs29jRVm8wI1VNxyQif2mpu/+RoQAnwBmX13gg17COxLCDE7rko9HpH
-	 Oz6NeHQkWEhRZjMGthtLv3gWlG+t4c0LSMgMFNtn4scoDGOfW3eyyZeiSAui6q0S5Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953881;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=+gZ1dPq5yxIl2dPI32VCfpqqFGwlrNDJvLijDLBz3sI=;
+	b=e0pheJTBemmP0XPPdhl3/OIBQDu8NNnPh4NycaHokuJn1Uc85IDF6j4fomLuNHW6sBJ8
+	 Mdg4zcJWveLyKesoxQgGeVZdeHDjgF0b3YVp7G54pFZj9P4dwOU/4QEUGzHXroG8gPHD5
+	 KvJi9WtW2arymoDPc/yC5yF6tZhE06rJUra+nUeol0IK10UbEdD8gcbY/JTacRWz6ONdg
+	 /rqwUqWk038mNX3G09W5V+ZXH0Kcyo0LTr+M7zUMUUZL5n+bI29Y+NWfgR/Q0/xR4wEJG
+	 VEhsrNM3TmdSLzPB+h5f8fOnzBY0aL7NpJa/7L+fHS0ty5ky4+vqoNCBagWjICPik3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BsSU43iy;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JVw3kCu0;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823DB606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08D3606D801
 	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:31:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 823DB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C08D3606D801
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BsSU43iy
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=4jNCFbyCB/Vu8kY+F6l8sQpNAWlz5UlpBMsBVseO/Mc=; b=BsSU43iyCBTF5NH1+04aupAp7C
-	elIyQyQj7eUnieW+JDxotp7YMDlRftSPBpT5YXRLX1C402yqyEo6vRU8n5d4Zo0CbHfJGOAbtY37y
-	SlXrnOIFKWXCpIWqwXfpI6aLGj+Bh5u2l8QIpvHF6B/ig7DxWzsSYeBJmfSnUqhWios5GrZH5UNOO
-	5WZZTrtER5ZSjp4H0aka8CirNy1xeUnKHf80ADzS8sAzuXQK5xy66W8Q9k4PDzOYW4jNKLMVYbfPm
-	YpcG7GMkvdRO86BjGL2M3DS3Kx9KKHbP931Ewu2R2uORV+wug0XimUiFlRGVQk3PaRMlum6jIyenK
-	8PMd6qaw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPFLn-00000003zSQ-3fcx;
-	Fri, 06 Nov 2026 08:31:07 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 4E2AC300302; Fri, 06 Nov 2026 09:31:06 +0100 (CET)
-Date: Fri, 6 Nov 2026 09:31:06 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, joshdon@google.com,
-	tj@kernel.org, jakub@okonski.org
-Subject: Re: [PATCH 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor
- tg::idle
-Message-ID: <20261106083106.GC1779021@noisy.programming.kicks-ass.net>
-References: <20261105165525.011876858@infradead.org>
- <20261105170157.616859418@infradead.org>
- <auzB7x4lVcFmTVMs@scheduler.schedules>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JVw3kCu0
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=+gZ1dPq5yxIl2dPI32VCfpqqFGwlrNDJvLijDLBz3sI=;
+	b=JVw3kCu0U5+iU8hit/E9+8/nQx7WiAj6e/TRJWXpg9Tt+JdhjLcqi3RnREY+NEfYYfTm3naZu
+	Lo264yRT7lM/VbPFtE/aD8yOIPsVF+StoVOiIUBhurWxSCS3syGw226V8LO8nRBU3j0YGnpMQFE
+	xSd/lRhPq0QTf9pUzYRAKJc=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jLXSf3Gxjz1K96j;
+	Fri,  6 Nov 2026 16:30:58 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 91AD540586;
+	Fri,  6 Nov 2026 16:31:04 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 6 Nov
+ 2026 16:31:03 +0800
+Message-ID: <318fccde-8ff8-491f-9449-6bb8e0924626@huawei.com>
+Date: Fri, 6 Nov 2026 16:31:02 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,54 +62,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auzB7x4lVcFmTVMs@scheduler.schedules>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 00/14] arm64: entry: Convert to Generic Entry
+To: Kees Cook <kees@kernel.org>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<oleg@redhat.com>, <luto@amacapital.net>, <wad@chromium.org>,
+	<peterz@infradead.org>, <ada.coupriediaz@arm.com>, <linusw@kernel.org>,
+	<yeoreum.yun@arm.com>, <kevin.brodsky@arm.com>, <anshuman.khandual@arm.com>,
+	<james.morse@arm.com>, <thuth@redhat.com>, <vladimir.murzin@arm.com>,
+	<tglx@kernel.org>, <broonie@kernel.org>, <liqiang01@kylinos.cn>,
+	<ryan.roberts@arm.com>, <pengcan@kylinos.cn>, <kmehltretter@gmail.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
+ <202609221129.B5E13A7@keescook>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <202609221129.B5E13A7@keescook>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Thu, Nov 05, 2026 at 10:20:00PM +0300, Kayra Cizmeci wrote:
-> On Thu, Nov 05, 2026 at 05:55:27PM +0100, Peter Zijlstra wrote:
-> > Rather than keeping cfs_rq::idle as a copy of tg::idle, make it the sum of
-> > all ancestor tg::idle. This makes it trivial to tell if the current cgroup
-> > is marked idle somewhere along its ancestral path.
-> > 
-> > This makes se_id_idle() behave differently. Notably is will now be true
-> > when there is a idle cgroup anywhere in the ancestor path. This
-> > addresses an issue where preemption of cgroup::idle was overlooked when
-> > flattening the runqueue.
+
+
+在 2026/9/23 2:29, Kees Cook 写道:
+> On Tue, Sep 22, 2026 at 11:54:56AM +0800, Jinjie Ruan wrote:
+>> This series converts arm64 to the generic entry infrastructure.
 > 
-> How? The diff doesn't touches se_is_idle(). se_is_idle() just looks to
-> the policy for tasks:
+> With my trusty LLM driving a bunch of orchestration, I gave this
+> a fairly wide before/after run under qemu-system-aarch64, trying
+> to cover things beyond the ptrace/breakpoints/abi/fp/vDSO list in
+> the cover letter. But since this is all emulated, it's mainly basic
+> correctness coverage, without any meaningful concurrency coverage. I
+> just wanted to find stuff that maybe hadn't been exercised yet.
 > 
-> static int se_is_idle(struct sched_entity *se)
-> {
-> 	if (entity_is_task(se))
-> 		return task_has_idle_policy(task_of(se));
-> 	return cfs_rq_is_idle(group_cfs_rq(se));
-> }
-
-> Or am I getting something wrong?
-
-cfs_rq_is_idle() := cfs_rq->idle > 0
-
-and cfs_rq->idle is now getting incremented for the whole subtree. So if
-any ancestor is idle, this is now true.
-
-
-> > --- a/kernel/sched/fair.c
-> > +++ b/kernel/sched/fair.c
-> > @@ -15594,8 +15594,10 @@ static void set_next_task_fair(struct rq
-> >  		hrtick_start_fair(rq, p);
-> >  }
-> >  
-> > -void init_cfs_rq(struct cfs_rq *cfs_rq)
-> > +void init_cfs_rq(struct cfs_rq *cfs_rq, struct cfs_rq *parent)
-> >  {
-> > +	if (parent)
-> > +		cfs_rq->idle = parent->idle;
+> tl;dr: the only behavioral difference I could find anywhere is what
+> patch 1 fixed, and I found no meaningful regressions.
 > 
-> AFAICT this creates a race:
+> Setup: the series applies cleanly to v7.3-rc2 (I only noticed later
+> the series was actually based on -rc4), so "base" is v7.3-rc2 and
+> "patched" is the same tree plus the 14 patches, with each pair built
+> from the same config with GCC 16.1.0. The guest was QEMU 11.1.0:
+> 
+>   -M virt,gic-version=max,mte=on -cpu max,pauth-impdef=on -smp 4
+> 
+> I used four kernel configs, each built for both base and patched:
+> 
+>   plain    defconfig + SECCOMP, USER_NS, AUDITSYSCALL, KUNIT_ALL_TESTS
+>   lockdep  plain + PROVE_LOCKING, TRACE_IRQFLAGS, PROVE_RCU,
+>              DEBUG_ATOMIC_SLEEP, DEBUG_PREEMPT
+>   hooks    lockdep + the options that add work to syscall entry/exit:
+>              FTRACE_SYSCALLS, KSTACK_ERASE, LKDTM, NO_HZ_FULL,
+>              CONTEXT_TRACKING_USER (booted nohz_full=2-3)
+>   rt       hooks + PREEMPT_RT
+> 
+> and ran userspace tests from both an AArch64 and an AArch32 (armhf)
+> userspace, since the latter takes the is_compat_task() side of
+> ptrace_save_reg() and the cover letter didn't mentioned COMPAT.
+> 
+> Results were identical on base and patched (pass/fail/skip):
+> 
+>   seccomp_bpf                   98/1/12 (AArch64), 94/2/15 (AArch32)
+>   ptrace selftests              get/set_syscall_info, peeksiginfo,
+>                                 vmaccess: no change
+>   breakpoint_test_arm64         213/0/0
+>   rseq basic, percpu_ops        pass
+>   KUnit (KUNIT_ALL_TESTS)       ~1500 results, no change
+>   MTE selftests                 117/0/0 (but see below)
+>   strace 6.18 test suite        81/6/0 (ptrace/seccomp tests)
+>   audit (a0 filter)             pass
+>   syscall tracepoints           pass (argument recorded correctly)
+>   lkdtm KSTACK_ERASE            pass
+>   lkdtm stack-entropy.sh        7 bits
+>   lockdep/RCU                   0 splats in lockdep, hooks, and rt
+> 
+> The only delta I could find was the expected one:
+> 
+>   sysemu_singlestep (new test)  FAIL on base, pass on patched
+> 
+> So patch 1 fixes the described bug, but it had no in-tree test, so I
+> wrote one. I'll send that separately.
+> 
+> Various things I noticed along the way:
+> 
+> - The set of traceable symbols on the syscall path changes:
+> 
+>     removed: syscall_trace_enter, syscall_trace_exit,
+>              el0_svc_common.constprop.0
+>     added:   trace_syscall_enter, trace_syscall_exit,
+>              syscall_enter_audit
+> 
+>   These aren't ABI, and the new names are the same ones x86,
+>   riscv, loongarch, and s390 already expose, so this is really an
+>   improvement. But it might be worth a sentence in the cover letter,
+>   since patch 13's "[Compatibility]" note could be read as "nothing
+>   observable changes", which isn't _strictly_ true. :)
+> 
+> - Syscall-path stack use grows by 48 bytes. Base do_el0_svc() has a
+>   16-byte frame and calls el0_svc_common() with a 48-byte frame; with
+>   patch 14 inlining it (plus the __always_inline generic enter/exit
+>   helpers), do_el0_svc() grows from 48 to 808 bytes and 1 to 13 calls,
+>   with a single 112-byte frame: 112 - 64 = 48. lkdtm KSTACK_ERASE with
+>   randomize_kstack_offset=off confirms exactly that at runtime (2288 vs
+>   2336 bytes, ten samples, no variance), on both userspaces and in
+>   both the hooks and rt configs. It's small, but it's not mentioned as
+>   a (minor) trade-off for patch 14's ~1% speedup. Other size deltas:
+>   .text +12K, ptrace.o -3.6K, and +3.1K of shared
+>   kernel/entry/syscall-common.o (all seems expected/unremarkable).
+> 
+> - Patch 14 also moves that inlined code into .noinstr.text (+896
+>   bytes). Since arm64 doesn't have objtool noinstr validation like x86,
+>   I checked the images directly: no calls from .noinstr.text to
+>   instrumentation outside the noinstr range, and no __mcount_loc entry
+>   falls inside it, on either kernel. But we don't seem to have anything
+>   that will continue to enforce this?
+> 
+> - CONFIG_DEBUG_RSEQ "depends on ... && !GENERIC_ENTRY", so patch 13
+>   makes it unselectable on arm64 and rseq_syscall() becomes the no-op
+>   stub. Patches 5 and 9 carefully reposition that call, and then patch
+>   13 removes its effect. Not a bug (generic entry does the equivalent
+>   via rseq_debug_enabled, and I can see __rseq_debug_syscall_return()
+>   called from the new do_el0_svc()), but patch 5 reads like a
+>   standalone fix that disappears eight patches later, so a note in the
 
-> Or am I missing something?
+Hi Kees,
 
-Nah, you're right, this needs rq->lock.
+You are correct, if it is not a refactoring, we should clarify whether
+the rseq modification is a bug fix.
+
+So I verified that this is indeed a bug through an rseq test case. The
+rseq patch will be included in v21 as a bug fix, and a corresponding
+selftest test case will be added.
+
+Thank you very much!
+
+>   cover letter might help make sense of this?
+> 
+> - The cover letter includes the gvisor SUD numbers, but SUD needs
+>   ARCH_SUPPORTS_SYSCALL_USER_DISPATCH (as well as GENERIC_ENTRY),
+>   and with the SUD patch dropped in v18, arm64 doesn't select it,
+>   so CONFIG_SYSCALL_USER_DISPATCH can't be enabled yet. (rseq slice
+>   extension is similarly blocked on HAVE_GENERIC_TIF_BITS.) A reader
+>   could take those numbers as something this series delivers.
+> 
+> - arm64 defconfig has FTRACE_SYSCALLS=n, which means
+>   SYSCALL_WORK_SYSCALL_TRACEPOINT can never be set and the tracepoint
+>   paths touched by patches 2, 3, and 9 aren't even built. So anyone
+>   testing with defconfig isn't exercising those; you may want to test
+>   with it enabled. (Also, compat tasks never hit syscall tracepoints
+>   on arm64 at all, due to ARCH_TRACE_IGNORE_COMPAT_SYSCALLS, so that
+>   path can only be covered by native tasks, but that's unchanged by
+>   the series.)
+> 
+> - I verified that the entry work ordering is unchanged. It looks
+>   correct to me: arm64 did ptrace, seccomp, tracepoint, audit; generic
+>   entry does the same. (It also checks SUD and rseq-slice before those,
+>   but neither can be enabled on arm64 yet.)
+> 
+> Suggestions:
+> 
+> - rr: Since you have real hardware, could you also run the rr test
+>   suite? rr has been the most sensitive ptrace user I've encountered,
+>   and it depends on exactly the syscall-stop and single-step behavior
+>   this series touches. I couldn't run it: QEMU's TCG PMU exposes PMUv3
+>   but only counts CPU_CYCLES (BR_RETIRED always reads 0, on every
+>   CPU model I tried), so rr aborts in check_working_counters(). If
+>   you do, note that you'll need "proc_mem.force_override=always" (or
+>   CONFIG_PROC_MEM_ALWAYS_FORCE=y), or three rr tests fail for unrelated
+>   reasons (rr-debugger/rr#4093). Build and test instructions are here:
+>   https://github.com/rr-debugger/rr/wiki/Building-And-Installing#tests
+> 
+> - MTE: I didn't see MTE in the cover letter's test list, and it seems
+>   relevant since patch 13 puts _TIF_MTE_ASYNC_FAULT into
+>   ARCH_EXIT_TO_USER_MODE_WORK, so an async tag check fault lands
+>   on the reworked exit path. The MTE selftests showed no differences,
+>   but a third of them don't actually run for me under QEMU, so they'd
+>   be worth running on your hardware. (Testing MTE under QEMU saw
+>   check_mmap_options hang at test 5, the first test with tag checking
+>   on, and check_child_memory never produces output, on both base and
+>   patched, so only 117 of the 183 planned MTE tests ran. But this is,
+>   of course, a QEMU/selftest issue unrelated to the generic entry.)
+> 
+> So, for the series:
+> 
+> Tested-by: Kees Cook <kees@kernel.org>
+> 
+> -Kees
+> 
+
+-- 
+Best regards,
+Jinjie
 
