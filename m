@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793968174;
-	b=lCG11ydcoQk0XbOQQVfHAkiltrW6X4ziwsiziC+DP2nSoudHedRN/uzi43P7ZMuz09UV
-	 7rRLxnJHojDoYQP3kv+mNAgUCd80S74XU59kmQL1LLi2xDdtjrfmIZQLGX077daLkGsVN
-	 BtUFMk8iTEmLi8VHSfsxTRLBhoDoce3dNx7ywqgw9LdoYQmhilv1khnTKGZZfq0pfgAWv
-	 fGuK3wx/uClJoMeP4K6SkiBDiZn7CPoMWWffB5cEDyMZQOAlXFRCq7M+dJ7kNx4JeUK8h
-	 KOh6t5WiEXNVVzJQZnstrUbByaQ9rB+gpZR+pOrhtJK8++1B0E/E4cpjVdDx6GQMp0Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968174;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=gH1mJSj/kyZPh+4tLVnw5BdMCKvmnBAyYQhJaAhQgzo=;
-	b=39iHqBPnXxtTLSm/P1uFAoQky6Ulrg6diq1ss7eEl3fHk+we2v4DRa3g3PitT54Eo//8
-	 G1TFZA081t3yzBEf+BPmFHAnFyRjY3IAWq3w+HtpeOab/HJIqjJM6FsehGt807gRk2/Dk
-	 UNM+1cafP6fWU53e2FdSO302Bls2eTXIaO+gCk80oyY45lw/mTZAyiOeWgQSVqj4S8Igf
-	 nKenmpvZjY5grNdIZnuuBZo/Yb1/rJnISC8p1MnI3Qc9V19GUhsa5BGDxI3w8MijHj4AX
-	 mSqHJ656T7wi+yUMMimBWrpz3DPZZZbwMbjS4S+QPpPUd+5rN555y9gryTSlu1ZvEdQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="CmPnMt/+";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.174
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793968182;
+	b=qO1U8IDmHFEdl0R2yZBmc7BAcbgzy+iLxvViy6ZOlqvh2TZmKEbKAcjI+/VCgp+/rAgY
+	 S+Z8FThn6RO97Hk4t/3Ii0F4C4hH574Ft5Mx5iE1td/WtfRuX7m+1SoNp8Na1RIBds7DB
+	 suWIqKiC155+NHtUlNlK42SrSlGOVcwoQjEDFUyasGGLwc4Je2k7OW1wTgvUbYiLs7Y48
+	 VlPBohx9AEBkU1sYYfN7ApQgxoMyBSdCmXym2DSRbmtuWDijvFC4kg+/+HPdkG3c6DuO0
+	 AVUDliRH2g1Or23dKH72Nv5VXevGOiBDYvWJLe53YrR7184E32eWF7W4yAp3V9epZSg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968182;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=E/qJOYK6EsQ+0HnufRvzr3oyqfusTYvNMauUgRpuc5o=;
+	b=W4sg1VZc+uon6xnXoAm/wxVpb+P6A5081x9DVJMEWSwy5uNXNEV9EcNQUjnIN1dWFLqF
+	 Zt/DBGDnZ3NnZsZdzo83yMIEXk/T6/pDoEW6bFtoRNj1MWoMn6qtcBu6sFxzbnW5e/ULD
+	 ybZy3Jm04A//K0T5qYSId+tgTw/hpdHmgZ4XsAiAJarXlS0XUwpzLZE02sSJ0TuSk8wWF
+	 UPcTm6o7iOT/Jqt+S4N0S4BLIQ8w+zXZCB6Fu8/lFkj1fSqXrfmg9V3Zclkhy4BWW1Vci
+	 FX+vNyzlszBAAywKaDXVuSzbh6HIyJJbgEnKp1sVBdsHokqUP3K47qxxKWV3djS0KqA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fVYEbyez;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB5C606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFB5C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD28606A32D;
+	Fri,  6 Nov 2026 12:29:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CmPnMt/+
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93f3c616c84so52520685a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:29:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793968173; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AtsZ3VG2LMt8Ugh0uVEQgIwf/R414gmZgaVMVpFwvUVKQFgsVOuVlIbvalMFdzs48g
-         iDOLnOXc27stvhX4RbU/t9PmseSg65mHIOKo684vIzAui13/jmYvKV1lAkqynsrEuKZ+
-         QEKvcTLLr+h8HPqzp/ITQVyAww0mln06jCdvQuzSEBbW+jhFOZ7aRw3xrLiIRwnSwmwE
-         S7YwNPJL+QyI9jrURo8qVOenxgJYKVaZ2Yhu/sgWiDow+KKvJ+Tvc8D4dp9SMmhBtdyY
-         E9kjCcgWNjeR52fGtFbxQMXa0C05Nr6dDu32C10B/VGObS2Q+lOUAtYPJXORMyc+5C0U
-         fHKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=gH1mJSj/kyZPh+4tLVnw5BdMCKvmnBAyYQhJaAhQgzo=;
-        fh=DFMGfxXjDB+kw/nOwEzpIUtadkTlQsKMYDeIPribhHY=;
-        b=S7mXMha+tpP4PZ8NHmrhhvARgmLE07Hm0DBkQTMd+bf+tCe1qTj9ODM7XRdb/MEJ3L
-         RcqnnBw8AglRx3dt5w1QqfBeqKZJJvtAURemMGHtaIu3O1xuh253CoLM0C+oJnuQyso6
-         ZILwgdFv6/Lsl6zb/E+/CqlbHp0Od2e1MnWD0b5kM2S1NLcUykR+HwX4OYpghgS8Aqj3
-         Szgb//7rVNyy/gV2yDXy/fJgmCTns2vNWHYOOS4tj4DlhhnMaL8AzDKOTcEoV2fSCuGE
-         1D86tSl0aDo6OAYZ1TiUb5Z2J9zDnAe0r+arIriX467Fj4UASb7t0snDA71qbpZWdGA+
-         d1QA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793968173; x=1794572973; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gH1mJSj/kyZPh+4tLVnw5BdMCKvmnBAyYQhJaAhQgzo=;
-        b=CmPnMt/+L+pcGEx8o8xV4PJnt+gAVP8+SO9XVfHNPDIU+jEa0+KSEbY/rbEYIk/cZe
-         8LFT/xraPsCHng2diNi8SAQlnIKziq4K/t83l+1XhI4ryTqfau9iGgEDpkAacevs5Kyt
-         JANBZDjyqPaRCYZVCf1nENMjltlVE73FT5fiTFqZ+iVJOwWBCns2AOmpa0a41ssSnNWa
-         hYWe+TBpi7oputXl9AqwchOWtqMheb1lyOSrLxebE7d66+Ad568H6MfM5tKWWsJWwmsR
-         ixeYLc0MbyP/0IvMwD3y0yHHULVOmVwMGd6bD/q6RP88BlgX84USg4mvQrwxQCJy/FZM
-         EvKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793968173; x=1794572973;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gH1mJSj/kyZPh+4tLVnw5BdMCKvmnBAyYQhJaAhQgzo=;
-        b=DDKOuMUGNzoOMGgd6ZXJrY8Fmr3cFCJ1efeapqZO4UAzBRIyAAIgKfgfHFc0ifctHL
-         fODur8qX76AccYihV0fTi3znGr+q12tTp0cdIcWaPieXwrqlEi5jkr6NFouipseY3cRv
-         AL8AduPdUSx2wxtF4o5rRYXJxPF8pRBuKBKa2V6DNeJxCU14Jivr00QLLC0IQXnphzdl
-         M/KDIPHcY/hA+lPOoHKQ/P44IFlUdSU9ct0iZ5YC+HxVu7rY9yLtNMX2CG4SzZOExNwR
-         YBpg00hN7hXWbVaCYUbK3ZlccSC0pYeL/dczamYATkvF7fzDvzy0ulA3LYGHJ/Wjx/82
-         /FWA==
-X-Forwarded-Encrypted: i=1; AKwUvBw7lle7yYUT04nGiwjiQbVUunmVNXGgLQa/Ahd8VB4fg3Xc1fruDPUYCuQFQvHGR6LLknvAt+Ycp25vZDE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FYIYeknVTb5OPpVL/uJ97C2EoYtD1uncyNmIzQpSXECR4oie9
-	sFIFQF8by7Q5/4aMPAxtRExSyifMQ90Jmg4btEFSUGA86Dh9HMGk/FnG5pMNdRu4kMqwJMsxPCf
-	j5G5MYzJadNvSNlBkn2J71Fe70dz/x/I=
-X-Gm-Gg: AYBFou20Du/0ygb/G2RR1OzO07XGZyoWTyfzLpB3Z2RmPVyaJWSsKQ5A8AWoUnRgoZF
-	yTddaqoNmTCkPzsLUy2syJPpsogk+0oU1xg+UBXDnH1tB8b0h5yY7UI6yaYY/i3F8aQeKg4iOp1
-	0hm7EO/Jp3vdJqiQwLjuEFfSxS08q4+QeUReZwhUQ1PeisY6Ksv9t9JN6/2MtKjtYMt8B/CYWY7
-	jWLe6yGBS+iyr2cAeHUTUM6wKqZUfCBkKULE28Um77+BZbur0VPBFhJFjruAX64WOkjJg4QQMWt
-	aGZYyR1yQRYkP2PWp3Jvs/RWr0AWceMiaGZRgwle2VGaq1BPAcNlNGUWkMqvKwB+GLsV1bcnYm6
-	pBFu2nxJKI0SgmTTredNmwYpwdfPALloeqPINdoZ2x2SEFlGNUhsFMRHDe2DfqeBjuRRS+CE=
-X-Received: by 2002:a05:620a:2794:b0:945:f28f:ce92 with SMTP id
- af79cd13be357-945f34b9241mr264204285a.40.1793968171614; Fri, 06 Nov 2026
- 04:29:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fVYEbyez
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF33F1F008A4;
+	Fri,  6 Nov 2026 12:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793968182;
+	bh=E/qJOYK6EsQ+0HnufRvzr3oyqfusTYvNMauUgRpuc5o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fVYEbyez7MLSFPPF0DqlzMCAspA/1SI3Pq88KEJDaICPyStfMIc+0Yf+tn/E5zntt
+	 YLGitZkVB6uUnNDR8g2MzKIINKY6SkvyeT1DAHf16xQiTD09h1/0QzQ+dHGbN1fUwl
+	 cBqRLzB34EAXRg38U0mPk39V4X7MqhrTxPH/nXnvtaG699XGwsQ9OdpLzF72xJlpuy
+	 ZhTn/5nr9I3YiayzJePVQEHpHqgoJqgwKMO2h1Z3tKn63PEyVaGQgrvoO8N3SFPOps
+	 g/BTLuERbEtVrdjpRm+4fwHCWHY9gn4Iu/lZavoSZfmElLbFi7Jvxjwm+njeZuR+cX
+	 l+hXTS0nO34lQ==
+Message-ID: <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
+Date: Fri, 6 Nov 2026 13:29:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,92 +51,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103041134.33310-1-physicalmtea@gmail.com>
- <20261103041134.33310-3-physicalmtea@gmail.com> <auxFXGVwY5IxlP5L@sgarzare-redhat>
-In-Reply-To: <auxFXGVwY5IxlP5L@sgarzare-redhat>
-From: Jia Jia <physicalmtea@gmail.com>
-Date: Fri, 6 Nov 2026 20:28:55 +0800
-X-Gm-Features: AclHuK8WSWZqF0YhOcKmUqT_DW8bT4U1CLlE79rQgfWA3WujjgxC2J69k28qsgw
-Message-ID: <CAJwVaMLa2kNAtQvJkE-2aVX7M=pA4eNOTTHeixdZ919DbKu5Nw@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 2/5] vsock/virtio: factor RX skb metadata
- budget check
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: netdev@vger.kernel.org, stefanha@redhat.com, bobbyeshleman@gmail.com, 
-	mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com, 
-	xuanzhuo@linux.alibaba.com, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, kvm@vger.kernel.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
+ MADV_COLLAPSE
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins
+ <hughd@google.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org
+References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
+ <au3C8lNElGg4LnR1@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <au3C8lNElGg4LnR1@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
->
-> On Tue, Nov 03, 2026 at 12:11:31PM +0800, Jia Jia wrote:
-> >Extract the skb metadata budget check from virtio_transport_inc_rx_pkt()
-> >into virtio_transport_rx_buf_full().
-> >
-> >The helper retains the existing condition and will be reused by a
-> >following RX batching change.
-> >
-> >Signed-off-by: Jia Jia <physicalmtea@gmail.com>
-> >---
-> > net/vmw_vsock/virtio_transport_common.c | 12 +++++++++---
-> > 1 file changed, 9 insertions(+), 3 deletions(-)
-> >
-> >diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-> >index 43325d7aebbb1..2a9cfed085515 100644
-> >--- a/net/vmw_vsock/virtio_transport_common.c
-> >+++ b/net/vmw_vsock/virtio_transport_common.c
-> >@@ -576,11 +576,17 @@ virtio_transport_collapse_rx_queue(struct virtio_vsock_sock *vvs,
-> >       skb_queue_splice(&new_queue, &vvs->rx_queue);
-> > }
-> >
-> >-static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
-> >-                                      u32 len)
-> >+static bool
-> >+virtio_transport_rx_buf_full(struct virtio_vsock_sock *vvs)
-> > {
-> >       u64 skb_overhead = (skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0);
-> >
-> >+      return skb_overhead > vvs->buf_alloc;
-> >+}
->
-> As I pointed out in patch 3, I'm not sure we need this.
-> After we introduced the collapse, SOCK_STREAM should collapse rx_queue
-> before hitting this, so not sure we really need this function.
->
-> Thanks,
-> Stefano
->
+On 11/6/26 13:09, Kiryl Shutsemau wrote:
+> On Thu, Nov 05, 2026 at 07:16:44PM +0100, David Hildenbrand (Arm) wrote:
+>> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
+>> uptodate. For example, shmem fallocate() can put such folios into the
+>> page cache.
+>>
+>> collapse_file() already refuses to proceed with folios that are not
+>> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
+>> such folios, leaving handling to the page faults.
+>>
+>> Note that collapse_file() effectively clears shmem folios through
+>> shmem_get_folio(); let's keep this fix simple and simply let the page
+>> fault path deal with that.
+>>
+>> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
+>> Reported-by: Chris Mason <mason@kernel.org>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> 
+> Separately from this fix: nothing on the mapping side catches this.
+> Every caller checks uptodate on its own (next_uptodate_folio(),
+> filemap_fault(), shmem_get_folio()), and khugepaged was the one that
+> went straight from filemap_lock_folio() to do_set_pmd().
+> 
+> Should do_set_pmd() and set_pte_range() assert it? Something like
+> 
+>         VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
+>                               !folio_test_uptodate(folio), folio);
 
-This patch only factors out the existing metadata check from
-virtio_transport_inc_rx_pkt() into virtio_transport_rx_buf_full() so
-can_continue() in patch 3 can reuse it.
+I think so. But looking at these hard-to-trigger but in the end very nasty
+problems, should we actually reject the operation and do a pr_warn_once() or
+something?
 
-virtio_transport_recv_enqueue() attempts collapse when the queue is
-already at this limit, and then inc_rx_pkt() runs the check again.
-Collapse may not free enough slots: some skbs cannot be merged, and
-allocation of a replacement skb can fail. As explained in the patch 3
-reply, when virtio_transport_rx_buf_full() is true before the packet is
-handled, the caller releases the socket lock. A waiting reader then has
-a chance to drain before that packet reaches
-virtio_transport_recv_enqueue().
+-- 
+Cheers,
 
-> >+
-> >+static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
-> >+                                      u32 len)
-> >+{
-> >       /* Allow at most buf_alloc * 2 total budget (payload + overhead),
-> >        * similar to how SO_RCVBUF is doubled to reserve space for sk_buff
-> >        * metadata. Check payload against buf_alloc to be sure the other
-> >@@ -588,7 +594,7 @@ static bool virtio_transport_inc_rx_pkt(struct virtio_vsock_sock *vvs,
-> >        * queue growth.
-> >        */
-> >       if ((u64)vvs->buf_used + len > vvs->buf_alloc ||
-> >-          skb_overhead > vvs->buf_alloc)
-> >+          virtio_transport_rx_buf_full(vvs))
-> >               return false;
-> >
-> >       vvs->rx_bytes += len;
-> >--
-> >2.53.0
-> >
->
+David
