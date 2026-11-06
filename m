@@ -1,75 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960391;
-	b=bS9wBZf12VxE6Y2cl5U+lvlRyT9QwWtUCerNSquWQcnnspaRrDDb/IcuNlfvlU7OYIrI
-	 yLc8LW/KpaVzuGMDpJOCDTJtmelLwlNfAKoujvnX+HO6lV9QTn/8MqLTs6LDd1zymtJH+
-	 eQxpwNVTZxiptjNZHJEtEBkyk4247oYtdNChEWm9CdDjcgOR3uVDq0yLuov5rvLEr1P+C
-	 Rzsvn4QMJj/WoRo3PI/fhu3CbUkfXrn0+mZZcN6Qb5acM2/FIWPDkiveieUF8GHNNHqh7
-	 nFd2KcZxCBtAsQhEfQeBQ5Q2Ng2Yck/l0lZ7nD220+ho6sX2wbH6ZLHrCq+CMNJqCew==
+	t=1793960378;
+	b=4ZC5m8vwizCNxFNqvq02sj9zeGV4vGtwr811NacvXrwaQIsrkjt8anFekbhm43fia0rD
+	 JtexRNkmVPwFoWSuTcCNM49w1mwC7GIImVGJHb7xGmutuIwj6QrqhJAjcJlNbvqGPmTZI
+	 Hb0etN1rV2XjIhaZ0El0seAvGXYqX9AoJmwaw1BBzABwLNe0qPCpG9RcY2W62edz7fQQT
+	 eX9szDKDWGgUO3fcJEErKuTIDl+0OAI6i5z7vMzcf7XDGo6chjmpWLB2cRkg7QdO/O6YZ
+	 wypxBDucamk4ML3xTf3PKHxIUXTVLdBvtS4cZxuvn5FwnT631WtgHO9LsweDNafGQIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960391;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=GFNlZgRP13IBZuiKBZMBO0d3Ilfk/5CdZkXEcGlEUuo=;
-	b=Hv81bnSpx8UwVO4AulYT/ruwnrwIUHAzQaRvWNk5STEeLJVOe7m73rfWBoFtFjN1pJVf
-	 UQ0MJmW5qe+BiUJyq5nHnR0rk4ny1YnhIDwJnVKWZ1ewlAKb2gxUKRHPl2dIOupQPul2L
-	 ukmqG20ZrewEAWt8japVi3VCROBAjrQc9i0XX5LAffm1AG3I1ShUo/mFoiO2ct12kHKT5
-	 7d8K6IstkwHW3Tia73esxDxnb0vR2NsnFMLdduD+4ti+3NaoDmDCMSUYuslZD57lJI4dG
-	 vsjSK3W+7tJze5s6o2CYC2KCPQMMFBMAb08lff1bAYGS6qXky6HXYXN0+9SWte/M/ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960378;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
+	bh=dSK6Qss+gWvybGICqOwyGsIjhnfJGdmoQt5OqdnLTHo=;
+	b=XPGUChBl5LuWW4vuYuY2sU14aWL0/Y3oWS5TunkkkyedexCZ/5doGH0FEEVcAik7a0eI
+	 RvzYNWx3Ny0BV/gSeRvJ1cqqQYdlOCmvL0MG/Uv+0YGdvv0zSBDQof+/7zF2Fr46sWANh
+	 b/2wfWM0v/RjERP8KSjTLr6DXYmJE0ECk3p495UBp2WGCNXjZup50ZOCOoqyB6ElIQh4T
+	 hBdTGeX1MXpDHEzPbj8gFekwhZiJSZvq7EnSkvxw9mZb7MQ3Y+1firHjAV9Yl3ZuNB7Ix
+	 p/OkvsNHXslwy5IS8ELCBDQX4TrKhrPyoKJsonLIIKnrnX2llVW+S1UjNSLK7q1M5xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=eqBkmIgG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=GhtTusHk;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=student.uibk.ac.at;
+	spf=pass smtp.mailfrom=student.uibk.ac.at;
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=OTr64l7G;
+	arc=none smtp.remote-ip=138.232.1.140
+Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D02606EEAA;
-	Fri,  6 Nov 2026 10:19:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80D02606EEAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D05606A33C;
+	Fri,  6 Nov 2026 10:19:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3D05606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=eqBkmIgG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=GhtTusHk
-Date: Fri, 06 Nov 2026 10:19:47 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793960389;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GFNlZgRP13IBZuiKBZMBO0d3Ilfk/5CdZkXEcGlEUuo=;
-	b=eqBkmIgGe1l/8fn6EQ75hHXiiSO24LzDf+TrPMFdRmE69rHlVonVATFOA+psZO7lzMjbDU
-	sk8cq8g83F45epXL9+hZSU+ST5O/d2RJjgsqQSsj1J1Hm1mrh48FoxBfDeIU7wmgGpLtnF
-	nzjnq/fG11n684j3Hxl+8WMQogTo0nfN1/w+v+E5Ej2SZXlKqYEyREwS2rpGhYhgOHdZVK
-	BiUa+8J+HZOy701J5mLBONxPJP+zyzuJyoZS8HgOuQSrmlG/KofBO7Al23F2BVML+6AXvv
-	2VqS8AML8sRN20an8R5E5yzDEVZJOxnkMg52LtFYk7Cxwtd0WsybAESzN9Giag==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793960389;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GFNlZgRP13IBZuiKBZMBO0d3Ilfk/5CdZkXEcGlEUuo=;
-	b=GhtTusHkkgIFie5lXiwKk02qLDs7Di+uenajMth/MVpUq3EOl/EnETuHN4A9bUe7PpmI0f
-	IeZoZwAjp5SDxXAA==
-From: "tip-bot2 for Zhuangzhuang Wang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: locking/urgent] locking/lockdep: Fix inverted "on"/"last" CPU
- label in lockdep_print_held_locks()
-Cc: Zhuangzhuang Wang <3050681779@qq.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261030-lockdep-fix-cpu-label-v1-1-96875c74b15b@qq.com>
-References: <20261030-lockdep-fix-cpu-label-v1-1-96875c74b15b@qq.com>
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=OTr64l7G
+Received: from surface-pro-5 (ydWLT-U1-95-184.uibk.ac.at [172.25.95.184])
+	(authenticated bits=0)
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6AJFCX1863929
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 6 Nov 2026 11:19:22 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6AJFCX1863929
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
+	s=prod24a; t=1793960362;
+	bh=dSK6Qss+gWvybGICqOwyGsIjhnfJGdmoQt5OqdnLTHo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OTr64l7Gdgk015jkXzpixEqd+24O/Iq8jMLOKPXrL6CcfNItxL+l92pF93/aP1Yz+
+	 TBt7ML469pTLmGeYHsv+uCEVdfb9J3qsRRKUiXt7QNP+lgjxNKNTDUzIS/Z28h7aSa
+	 ENho7H32ZN3yslUMDapFe0e/zH1SBNjEddNtfPwg=
+From: christian.koever-draxl@student.uibk.ac.at
+To: glaroque@baylibre.com, rafael@kernel.org, daniel.lezcano@kernel.org,
+        rui.zhang@intel.com, lukasz.luba@arm.com, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v2 3/3] thermal/drivers/amlogic: do not log the secure monitor deferral as an error
+Date: Fri,  6 Nov 2026 11:19:13 +0100
+Message-ID: <20261106101913.46664-4-christian.koever-draxl@student.uibk.ac.at>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106101913.46664-1-christian.koever-draxl@student.uibk.ac.at>
+References: <20261106101913.46664-1-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,58 +69,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179396038726.1009794.9880369297652053678.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: () -13.0 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,U_H_APTO_LONG,U_RCPTS_11_PLUS
+X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
-The following commit has been merged into the locking/urgent branch of tip:
+From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-Commit-ID:     aa63c0df79920f6abe1b66e1f8b6443ad2d62d0e
-Gitweb:        https://git.kernel.org/tip/aa63c0df79920f6abe1b66e1f8b6443ad2d=
-62d0e
-Author:        Zhuangzhuang Wang <3050681779@qq.com>
-AuthorDate:    Fri, 30 Oct 2026 07:07:27=20
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Fri, 06 Nov 2026 11:16:04 +01:00
+The thermal sensor usually probes before the secure monitor, so the
+first attempt always defers and logs "Failed to get secure monitor
+firmware" as an error on every boot, although the second attempt
+succeeds. Use dev_err_probe(), which records the reason for the
+deferral instead of logging it.
 
-locking/lockdep: Fix inverted "on"/"last" CPU label in lockdep_print_held_loc=
-ks()
-
-Commit 051f5d223dfc ("lockdep: Enable the printing of held locks of
-remote running tasks and print task CPU") added the task's CPU to the
-"locks held by" line. As the comment above the printk() describes, a
-running task should be reported as "on CPU#N" and a task that is not
-running as "last CPU#N". The ternary has the two strings swapped, so
-the labels are inverted.
-
-Swap the strings so the output matches the comment.
-
-Fixes: 051f5d223dfc ("lockdep: Enable the printing of held locks of remote ru=
-nning tasks and print task CPU")
-Signed-off-by: Zhuangzhuang Wang <3050681779@qq.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Link: https://patch.msgid.link/20261030-lockdep-fix-cpu-label-v1-1-96875c74b1=
-5b@qq.com
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 ---
- kernel/locking/lockdep.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/thermal/amlogic_thermal.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index c3dc84a..fdae495 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -811,7 +811,7 @@ static void lockdep_print_held_locks(struct task_struct *=
-p)
- 	 */
- 	printk("locks held by %s/%d: %d, %s CPU#%d%s\n",
- 		p->comm, task_pid_nr(p), depth,
--		task_is_running(p) ? "last" : "on", task_cpu(p),
-+		task_is_running(p) ? "on" : "last", task_cpu(p),
- 		depth > 0 ? ":" : "");
-=20
- 	for (i =3D 0; i < depth; i++) {
+diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_thermal.c
+index 4c107b3100c0..bbf910ba8513 100644
+--- a/drivers/thermal/amlogic_thermal.c
++++ b/drivers/thermal/amlogic_thermal.c
+@@ -196,10 +196,9 @@ static int amlogic_thermal_probe_sm(struct platform_device *pdev,
+ 
+ 	pdata->sm_fw = meson_sm_get(ph_args.np);
+ 	of_node_put(ph_args.np);
+-	if (!pdata->sm_fw) {
+-		dev_err(dev, "Failed to get secure monitor firmware\n");
+-		return -EPROBE_DEFER;
+-	}
++	if (!pdata->sm_fw)
++		return dev_err_probe(dev, -EPROBE_DEFER,
++				     "Failed to get secure monitor firmware\n");
+ 
+ 	pdata->tsensor_id = ph_args.args[0];
+ 
+-- 
+2.56.0
+
