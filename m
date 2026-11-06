@@ -1,62 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986948;
-	b=YWjixZiopJNKf6AE/vFLeXRWrHBufdxUt2NeWMFxwwcoGuwWLFO41yXtWlxynnoPGMV+
-	 92yYkD8sl0P7KX1esiqi3vTuteDaLqTBLYZMxN0InonUAJkvpOZnU+WMDVczHZCgaL7UK
-	 IrzX4DW/aJT+QhtZ1rsl6JfUXEhGw61l/RdBhOz3wDvmHbP55wz7hSWlebaWu4oF6Ju/v
-	 2fKPYikeZEv9c01fI3gZ2gFKUZa7DvzqCLmZ24rpziqZ0aCfYlJelzbc60P0zOVNFeykZ
-	 PR/vp+wko9QpISFs3D/ISXDjrYaXer/6q2FfC1zPMgXApfzAK6k7S4Lw1OsX3j33eLA==
+	t=1793986981;
+	b=SmhZVsI53fcff2lX/XWtZM6UM370YOOL18oJRel51ET1ZdEriyYRiLowgPAbA5W2XHC+
+	 WKQJB6nw+BPiJwgor6kfl+F54PkemCekNRJBC9TxB8AAX4wKCZQVXiyceoOO21UTvb9NO
+	 T7KdQ5uUtrBOutSRrJ3cIcMjd65XX8hgsZsWLddOq8/yiwsYBQ0foZFTLL/1KsAMh4feK
+	 g/BPC8MA83zAGn6GnDgFBNVjYU+dQJZbFRljuF9FTcvhDbSQNar7T/0020+EwTxo2m72V
+	 zhBLuEuRR80sd4pKBTjfCftINsCsgOhS7MaRrtR/ZTmLeg8Nrk1CW+0Tjo5233AUGgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986948;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+q4fBaayeFFlFMq8uGMRkJxmg9BxhSzj1XcGm2+OXbo=;
-	b=2Q+8Pza1W+qGfapKTZIF/AkyGrdaeHHyMzk3UTxxLvVK2JEa4KWYjwzRnwlHXwdvFj9H
-	 cQRxlL/VH1sLE9LzJe6Z+3y9g1pUT2pAERaWV+vPvNYy8sFGBixW7iLXpVGJxUcGwdFbv
-	 U2rVqo1ZY+uXTCh1N9B/0ECFok8d8R3QR5njxnhOQraWRAk6MCqyfKmUW3FWcX/JPalNh
-	 hSc+APtvTaOlC28Lb1ufUyORzoIaBH6F534fM1zwNCEanbCJJXW+2gbtubHk42HXu2TtP
-	 j/kgSusyCNbtzenl58jEDbn6XpnjVW1B2mZpobiajiatkfFbiPVtNUYTfUh5Atb/L1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986981;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=iyg6Q+qrD2UpnjN6XRmPgrn4h4cKaTQ6cc1+uggWPUE=;
+	b=3e6vInr/CJ1++gDXG+U2jKXV8dU60qP9EuGvqUZ2NdkK9oTpiQemn7tQ3FTBcSPNlKT6
+	 aM0Yr+IpDIVlx4XaMZ7Tk9p1XtOgWpo4g42nk4to/SxOLC6vCzPs6StTxXrJmVNw60sUv
+	 7E4IpHoLl6ovDxG+8clKGEh+zLV3HzOjPEPffnZdsAlR2oVtzS4v68BiTJYxzgjiuJwz6
+	 sHqyoS9Twt21yyR1y7oAxw8/ReAiox+4l7SJfBLuELYDXER2R900eK1bcUxh5g87Ge29n
+	 D1uuWH37KcGnvcqTcSJyc1BAHJdhUTOenD/GFRw2AmEe95PXbA8+jfN+wYxcyYnqInw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UmWKc631;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVBk83LQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F43606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:42:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0565D606A332
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:43:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UmWKc631
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0F41F008A1;
-	Fri,  6 Nov 2026 17:42:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVBk83LQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B77671F008A2;
+	Fri,  6 Nov 2026 17:43:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793986948;
-	bh=+q4fBaayeFFlFMq8uGMRkJxmg9BxhSzj1XcGm2+OXbo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UmWKc631vhsumw1+vJW8p01VmsJppONkP7+d9n+c7QE9cbCuL9v6MhyWuCBuVtIA8
-	 yypFhxl/2SHSuvD4CVkFGQesEcEhZO5HjxsZC3XrWsPRRmom/QtNGIg/q1wDaCXdHu
-	 BBUuItdKUysyzWtUrG+dxieJ9HK3OjlSC1GlnvkWiUnZndxhiaGDETZROxPWf4aa5Z
-	 MiOJqckFCt764nU6j8YQ6r8Dr7STofUYda3xazb5dCE+SSo4YaU6m4jUzIKqX5zZJ8
-	 WbeogzAp0LyGLyWAmUFkR6T/SiJsU4MTKBR0TlDui4AGXycpjjVRTFOJ1Pp5er2byu
-	 sBdCo4xzbeRKQ==
-Date: Fri, 6 Nov 2026 17:42:20 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, 
-	Gregory Price <gourry@gourry.net>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH 1/2] mm/vmscan: consolidate promo vs. high watermark
- checks
-Message-ID: <au4REhIF64b6TUms@gremlin>
-References: <20261106172620.318113-1-joshua.hahnjy@gmail.com>
+	s=k20260515; t=1793986980;
+	bh=iyg6Q+qrD2UpnjN6XRmPgrn4h4cKaTQ6cc1+uggWPUE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oVBk83LQW0wLM6C4DDhMhh3lLYgVGrr7V07EMSbERL19EvIlevFWWHtokFnEnZ1GK
+	 R1YeMHM7pAcHdpCccIrx0KRqlt3W619KGZPYSyZa7bL3hetis6E0sNZqmG/41wfXy8
+	 dsoPswHqmCJNXX5V+xNacjzGI6t7ceRBs30p1zFRdPOYy0TnpSHbWpJzwBIcqJjAHY
+	 TMprK4hwdvg163C7vQ7OSa5lxTYxQHQDP6kdmraKbZ3O34aYBVDlTBuNg6L3Z0RyqS
+	 Wa8EpwVwA4TexvFM+PG59bsGvJwFMhTo8jQYlF3/4kR7CVLlRADNBtFXsm40nwd0/7
+	 b001/vjR7H2JQ==
+Date: Fri, 06 Nov 2026 07:42:59 -1000
+Message-ID: <bafc737c395f64580feac56148429264@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Marco Crivellari <marco.crivellari@suse.com>, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH wq/for-7.5 v4 2/2] workqueue: Keep the limits of both max_active domains current
+In-Reply-To: <au3smjfpG3_ic2Me@gmail.com>
+References: <20261029-wq_final-v4-0-2985ea9f24fd@debian.org> <20261029-wq_final-v4-2-2985ea9f24fd@debian.org> <56db993fd60efc4892e1cf1e38ba48e1@kernel.org> <au3smjfpG3_ic2Me@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,22 +58,26 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106172620.318113-1-joshua.hahnjy@gmail.com>
+Content-Transfer-Encoding: 7bit
 
-Hi Joshua.
+Hello, Breno.
 
-Please send patch series of two patches or greater with a cover letter,
-with each email sent in-reply-to the cover letter.
+On Fri, Nov 06, 2026 at 07:10:56AM -0800, Breno Leitao wrote:
+> > Maybe this means there should be further restrictions on how low max_active
+> > can be pushed. For example, a workqueue created with max_active > 1
+> > shouldn't be driven down to 1 in either domain, however it gets adjusted, so
+> > that whether a workqueue can end up at 1 is decided by the max_active it was
+> > created with. One way could be a floor of 2 in the setters and the
+> > derivation for workqueues created with max_active > 1, while one created
+> > with max_active 1 can still go back to 1, e.g. after being raised. That's
+> > just one option though.
+>
+> Sure. Should the floor cover min_active as well?
 
-The easiest way of accomplishing this (+ our preference) is to use
-b4 [0], otherwise format patches like this:
+Yes. For a workqueue created with max_active > 1,
+workqueue_set_min_active() shouldn't take min_active below 2 either.
 
-$ git format-patch --cover-letter --thread ...
-
-(You've got 22 patches landed in mm, I shouldn't need to say this :)
-
-[0]: https://b4.docs.kernel.org/en/latest/contributor/send.html
+Thanks.
 
 --
-Cheers, Lorenzo
+tejun
