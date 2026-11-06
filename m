@@ -1,101 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793976514;
-	b=4rjoasXHsn37B4nk4vN7egsF1mxkvZrBW+/i9U/5Ml2mrUBPzkrcniuBO7asJGUCwpt5
-	 w3T+Dw2qiSqqGeThBBKD5clcJ35mmz+iaYkk3hQmA2n9e3fv3HdfLzv2JO2Gt3yaGUQxt
-	 lJTrnat/ylcDq/fxfsQ5ueIsNP5GR5EvfKbZWYUWq6vNN80JlRj5mk3xPQBV0uFeN2sMy
-	 VbKgMnfRrU5Akjk46jdzpw7RYqTxZf/mRTMPKjVbdmEnb32UiOpbIlX6JEBPrYndYRrct
-	 gyTx6rYwyrPH9emE6FEPsPrs3ofASpeRqu1V9l/Nhz8NX7bC2Q9jL6ysrNheShfbgGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976514;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793976539;
+	b=guAYAGoCKG67EGjedLMciosLV5Z57ov6Rosu1bqeXFNf+Dzs2FCIVfUaukh9qGtvEOnf
+	 i+O/EYUZOE3q75UaCFgz1zyajaRsWWhNKiOVyChPh5tg7a6Va5b0eEEzQOh8nO2DJAbpY
+	 zdSBoC8IYi/Hx//jVQRck4dhRXe8PHbzAdqbHt7lBTlsTlBCqw/Ur2TYd+EwIWxZmxqsW
+	 bRUDeeTXh4GBLsXvtN7lDDlzcHSJjDSUMR7AFFQLuNZ6yzGqcVwyt7NqDEOoFbnyVZ0tT
+	 uwCuBx+GBVUQa930souInl7r2FgEvAIUdQ430yeGv4bRE1x9rwe82q9VChJHdFbn2tQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976539;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=EVsynTIkUKlA3sM+VFVmSipU+rZiRJg3NzlUB6F6w3c=;
-	b=FDGX8gstt/Mm5CcD4t/0oY6/9fDt8+kCyhWAhcFtIvjQIfK9+TQFKzcd9g44BAN6q+E3
-	 05CngLFwMUNrq6v1UhkfhNB1HPDF7CIbShSLIGR6zb1UAuMculP/BM2wY+Mfg84rEZNLs
-	 yC675JhQIr5BbiTbbqOlBPMMRZL3HVIfEfAC9ShCFWxUwMOrCAieWhPm9ox64rPV9ROW9
-	 du13H7sXsXy6s1DZ5hH4L9uKDYP9qKULn+QpmODYBmyA1ahD/HYjBGskf0Dv6wmBqszHU
-	 6DJUo7MUpQt47NIhfUYZkPrEe6ZfHjqYrxErMhmbIaEmcXStjOq9ULVEyrjUUeshisg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=KmBUd9exzk7mgN4IOC0euSWsN74BamsE8FTjSoZz/1w=;
+	b=x14KcSEdAEIfxQ1ApJ606pUoUk+QL42wYIHGJ/rqG55nJyibgbsGffXn+oe5TTeopmAI
+	 UaVCj1SBLpi9nvd1+Uhgz/Oh2zpb3zEZU+J/rP+wo0XU9gnRwas+bch+PQSpw9wipvvdC
+	 Rw7HYvWcDsel1ImNh2LVyWu9hNFq5aF1t3rlzRMZ59vPsd0SOWLmM0cS+oQLXJsTmFY09
+	 NdOahuTGKbM27yBeKJzdrNJB0WSbYBh/ENZRDrxPhyhGzeBP3b9dPvI6G8pVbbmk5hUK+
+	 M7hPBXjkQdHDjXfq7YRXBVZSr7OafCcbP6xkpkSLC0OWkBeVnTdgrQJ3OTTQXzoXPIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I6fFiPpe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nI/43n0C";
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D044606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:48:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D044606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11E8606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:48:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B11E8606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I6fFiPpe
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36e795af1d4so623521eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:48:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793976513; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M/FVk+q9xZPHuBVCMIWjs2GgYxlyMo29NfF11Ms1DaX/XpvlbbaVyeFS3QBnpBqZKO
-         vzqKDQK0yQWLMuIEc48qdsE6GQTWREkU1VDwtrMI4jrmZ2ozduFoKF6K8ql8bb6PD80o
-         1LSWMq/blrKk2+kI0t04r2fZ9kOkrKhPI7qGG5duYmJ0jm/KZR/RFTDtJo4VKi/VS7qq
-         NVRtS5jlcKmG6bJfvOvogSq65kybt/TUPUuRqm0QOe1lWoJhby6ojOZRTnEL8gN5tdKn
-         iE/eNT1OfcPX+8njJDyu9vGJcGbrTUoiq/+A7+1oT9bBMlyVqyh5kqo2qLHvsi9F9nkP
-         eRaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EVsynTIkUKlA3sM+VFVmSipU+rZiRJg3NzlUB6F6w3c=;
-        fh=CwWDqwR3AoPbai6Xr/3mqD+f6Klv6C9pPwXSt+9TQoM=;
-        b=di0BRbDVi/HXGXaU+T5KF3K2xsbhQldjzJ2vwqWgiTgLEziHuqiWzCTRpTXZD5nkhs
-         ABZoyK2kn8XL024TzAqdbSRN5TloatxIdO2T7QzrJZrIWpr9VcSzm7gOV9CetdRqUrB5
-         KFrqE8Rsi9gpPu9qwHDRmFiHF0zX6tOKy/NRM2+wLRyvBqF/IyoIgp5cJYWqAMSjYCtY
-         juZGZMx46w6NvcVhdWdX58XEXaR/Le+u8eTTlQWxEV010IDCpaAKdZOF2Q+ZcOFlPCEz
-         p7s5/krMyqhsGq2P3Y27skW8+fAXLA+sTejg5a9znYTYJWENiAbgYmOeDaCrMuhy925n
-         ZsEw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nI/43n0C
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so1335559c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:48:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793976513; x=1794581313; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793976538; x=1794581338; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EVsynTIkUKlA3sM+VFVmSipU+rZiRJg3NzlUB6F6w3c=;
-        b=I6fFiPpet3LDIrtYZwCrjVU0804rG3FM7aU8xyPN2TiTV0A3w515GX/EMw7fDua5wy
-         vLyJHiJxKbWFGRe6hhn5erMUxwHE4+rVEsR4cZE2Zj1YGrxM321N0JGFNAkJFxtZAWJn
-         doo3BfZwVlv2lZlIB6rvt6MU+Iq9aMF+4GxvXEYs4f7lfLjm024VmqCjFN1NXESBvxlK
-         PKkVkHVoX64uvhNwCa2hKyX74J0AoB95uY7PszXhiR6STicH3ZS0rS5vR8rwqeDH6Ca9
-         qve7fdmCe0MUJ20BYi3xlkjOKZkSxV7NuhL5nba2Zs559O0wnWtjdvGNFZWSu7sndenB
-         eLLw==
+        bh=KmBUd9exzk7mgN4IOC0euSWsN74BamsE8FTjSoZz/1w=;
+        b=nI/43n0C+rFZwHbfKiP50Gu300gQvTOeFIWjKqmN34VnX/JLU7Li8hqalh4NUxLjsM
+         oIxmexytObScGVnUv6DB0KjflvOIYxXL/EYoMMziP2EHLhP+GbFHLVh2FckeqZqrzk9I
+         6eMzsSxLhaFSe1f98VDrI/NZRk18wB8os3kDtC9WypwpDkb00pRyc19a86Hjezhf0smo
+         sc3kGMhfiny29tG8v9nCo0NewknL8C0QP17LkjKIr5MJpkdhQ4Ht6rkZ1ueJ9OjdMogH
+         hvrRN9h0/2iboJrOuyYesanUF1huR9rbhPAsCRGmWDifgKQi1ZONLLODvHmTpbrF+mWG
+         xCEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793976513; x=1794581313;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793976538; x=1794581338;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EVsynTIkUKlA3sM+VFVmSipU+rZiRJg3NzlUB6F6w3c=;
-        b=RYnBAedjD3hQysuyNmrXP2zO6tja7K6ROzPW5G7zqQHZy0oPxs+hfndupqvv9aGskN
-         7gx/xuhD5JB0cjslwK4nP/kN5SU/GvOE12WuDUoe8O+qs/Y/FzQsMS06vZMbaR8cs5u7
-         HERPvkk954Dl/TOaiTU6Y4IE5FpFa8KJmkj2MhuEWsEJDwkJiOsjHhjba3kZndV0ngLm
-         td2U1mOJUEcJi5PI5b+rrFjPySOMA9+46Z/EImQ+YuOpx4E+Ft9Kw43EFulDEwVlF11r
-         aycdUuHwAC6mFysvK7pCDhpCysY6oCBh/LxzJuYvRs+B1LsFw4AjjdC3IrQQa97nzxf7
-         9E1w==
-X-Forwarded-Encrypted: i=1; AL+hErElRzW6/13/x40JFqz0yWovLMz2WbxBZhN08FZxiYzgAOf9CI+fJRlw2UM4D895cxsTsxaKDt1rmu/VqNA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qEsLYJ9B5Tl1+n6rncOp84WdsSy2nTIbmo2gYzSHJrwvM1BVR
-	x8/CKaEBJKL9WG76mObGZr49wciKYAOTZ4HicZA2daoDeHZFjjxo+nbUzLokdNBZBHl92V+Y+8V
-	pVABT5Jbis65pKL4YLNZkzC97ttSt65c=
-X-Gm-Gg: AYBFou2JMGHi/A4Qi8IGqeGHzyG1LftCHuLgxxZtbe7Njivv63QwwDx08IYq9ujGgKK
-	en8HbXytlJfM0xANNKGTWDZIdIgXQp6PiLxgjksbCdah4XTxLI4fuOcSwYe8Oimd3X10C8L7QZr
-	onY2I9lwEfPzwALdmPkvzHGU0LjVaDVeTcFQIKl8z4IDm2B2/42c7r+NEYNq5fc0pfq6skbkiBQ
-	m7dhByrP7w26Knk834ADrIIwcgkJ1y3FJKtjdRHuXGXDsezmmsZcMeUCuMPtZHJHLc3s+s9D7Ep
-	bBKqb+Yv6UP9c3pwBB2yr7wVgsUX0P3Rc7HnIJlX56ylNxQ9z2VbqLGWnoGdJaBO9koW8nyIbx1
-	lonp0waeRevsxNRD0avSZyUmK8wd0YPeBeMwpJZ54WCWYpmIUJNONl3WWof6wFK+ghML23WV2j0
-	bhF6EPH7v8xtMPxhaK0Br9OBdtcQzAcA==
-X-Received: by 2002:a05:693c:3881:b0:36e:ca05:8c3c with SMTP id
- 5a478bee46e88-36eca058eeamr5256866eec.2.1793976512062; Fri, 06 Nov 2026
- 06:48:32 -0800 (PST)
+        bh=KmBUd9exzk7mgN4IOC0euSWsN74BamsE8FTjSoZz/1w=;
+        b=erS+o6qwa0V6WchniNRTB5KJ8GL07ZDYsxdOBUrLp2IP/8MlwotoQbr7SuFNDMv7kv
+         WelI+5+5n6hHEHE103YxvzbBfE+5yTEop8QM3ttXRoGbsuJ637y9k9BZGZf1OZJZ9H7N
+         QdozfKw2r1uda/4EHPBZg+giz6MKjHMxXVII0qg4Aj9ubYMeKiXGgjO5hanMsLZmVDf3
+         kDZ5FiTNbVrv812UlOLLou2AjHJwfELjStfxSruR3d8dQWKzq3X2N6Uti2b0kfA4FsHg
+         ZE4oHLknGck+aLioHZ5LC0ALEboLteorkiIn7XP6uL+98Bg0U0dBLXOeUs/FN9CstlrH
+         bo6A==
+X-Forwarded-Encrypted: i=1; AKwUvBxSjX6h2co3XxpHHwYFbnEiKaNTCgUSbnjJTCfSIvQyCD0JMSoFxLc4Vtp5+a0HlrqnvPZ8V7D5jbwnmNE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SjE27lQvdx3aNMASnZ1m7m0G4kZkRtQhQE6QgwDQPd/iPSiz0
+	nd8NQC4y82ulnNv5Y7QItcSBPHrO4x7j+S7qcDGJV789VFC8HBc5rtMz
+X-Gm-Gg: AYBFou2uZLH8/PyuQwxUenFJbW5BnIWoO7K90MnUUn0Nfiqbcb8JJrHLuAVnbu61VZ8
+	0OVZ4sJfHGt7U21qgu3ot03K25tTcvnic+6oQiIdxsduhQQvRvfHn7GYlKBwLDDLALhO3vHEiAZ
+	jPDjhRjF+f2mq0bHowvdRlGpVkgoS6y5LX6lZ0FYiZC2pGAh6YkHatJCJSLLiRi/bqmc4JsLACt
+	lRsVCX9jhSyEuQBgSimMlf/2WRUGyUdjsElfrC6MsiYK1Ia7zJ115LPP4jAbVfgNG4nCr0xU8MY
+	7419oqGKsaIMgAAb2V8d1pvlEXfSB1X40oRs5ivngbdHbnU7os7dS6hQi/3BDl7Pb9HUNb9N8qz
+	aWKputEz+cFyc3wShlDNMAD4qGquFxit00/6fNTkvknk2l+3tAHBgXE0Cyn0XscHHMz2NGXqvqL
+	lsEYlYF1EDUyiPLFbxSXrjVchhUiceR+oABG461BLNfvTf+PZ/Q9rU/A7p//2cnvv9oXxQYW7+f
+	0B7dflK1YIE3D9FnfSZy+V6KYYdXlN8ZDzJwBJFU2Jf3LtMuZBYKbhFPW0km02ZKPT/lFkm0BIk
+	8cHrBjrK3eSwMdw76gKHQfP/HVCV8k+gtQ1eBefOjgS6ljiPg9wQXWPzpNGhKLdnbzUr6wpbxFt
+	LZrXhnHhPtVL2iUei4GxG0CjsIr8uDcLWJo5O5nMbpprtgWH/WEf/ZA==
+X-Received: by 2002:a05:701b:4542:20b0:17f:7280:1332 with SMTP id a92af1059eb24-1b25d3303bamr3329207c88.40.1793976537298;
+        Fri, 06 Nov 2026 06:48:57 -0800 (PST)
+Received: from fedora-laptop ([120.229.31.43])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4879adsm7528337c88.6.2026.11.06.06.48.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 06:48:56 -0800 (PST)
+Date: Fri, 6 Nov 2026 08:48:52 -0600
+From: Ming Lei <tom.leiming@gmail.com>
+To: socketpair@gmail.com
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ublk: publish a new device by its id only once it is
+ set up
+Message-ID: <au3o1OB1vxt1fJ-1@fedora-laptop>
+References: <20261105-ublk-del-gendisk-hang-v1-0-913a91a4314d@gmail.com>
+ <20261105-ublk-del-gendisk-hang-v1-1-913a91a4314d@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,90 +99,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105140510.165165-1-clamor95@gmail.com> <20261105140510.165165-10-clamor95@gmail.com>
- <au3etybQlb5CtjBL@orome> <CAPVz0n3o5pc62eF6gv+PYmJh1KN1a5s=qmjxpNGJfxbCC4tqzQ@mail.gmail.com>
- <au3mloMMzQFPUept@orome>
-In-Reply-To: <au3mloMMzQFPUept@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 6 Nov 2026 16:48:17 +0200
-X-Gm-Features: AclHuK8DwPrQnJ-dtjZgKOk6mQHPlCNwM8DshspgESp7qhKKTAtefGWbono97xk
-Message-ID: <CAPVz0n1j0M1Zjj90pEGCYiNqUQv00N89oPcAxZbA7upuxhoF9w@mail.gmail.com>
-Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-ublk-del-gendisk-hang-v1-1-913a91a4314d@gmail.com>
 
-=D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:40=
- Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Fri, Nov 06, 2026 at 04:11:12PM +0200, Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 1=
-6:08 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Thu, Nov 05, 2026 at 04:05:09PM +0200, Svyatoslav Ryhel wrote:
-> > > > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> > > > Tegra20/30 SoCs display controller.
-> > > >
-> > > > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> > > >  .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 ++++++++++++++=
-++++
-> > > >  .../display/tegra/nvidia,tegra20-dc.yaml      |  22 ++++
-> > > >  2 files changed, 135 insertions(+)
-> > > >  create mode 100644 Documentation/devicetree/bindings/display/tegra=
-/nvidia,tegra20-dbi.yaml
-> > > >
-> > > [...]
-> > > > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia=
-,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,t=
-egra20-dc.yaml
-> > > > index 69be95afd5627..ffeb124905dbf 100644
-> > > > --- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra2=
-0-dc.yaml
-> > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra2=
-0-dc.yaml
-> > > > @@ -79,6 +79,16 @@ properties:
-> > > >    rgb:
-> > > >      type: object
-> > > >
-> > > > +  "#address-cells":
-> > > > +    const: 1
-> > > > +
-> > > > +  "#size-cells":
-> > > > +    const: 0
-> > > > +
-> > > > +patternProperties:
-> > > > +  "^dbi@[0-1]$":
-> > > > +    $ref: /schemas/display/tegra/nvidia,tegra20-dbi.yaml#
-> > >
-> > > I think it might be better to group these under a separate dbi node a=
-t
-> > > the top-level, making it a sibling to the "rgb" node. If you add
-> > > #address-cells and #size-cells here, I think that means technically t=
-he
-> > > "rgb" is now in the same address space as those new dbi nodes and wou=
-ld
-> > > need its own "reg" property and such.
-> > >
-> >
-> > Only 1 DBI node per DC is available. Adding address/size cells means
-> > nothing for rgb.
->
-> If only one node is available, then "reg" isn't the right property.
-> "reg" indicates we're somehow addressing the child, which applies to all
-> children, so I don't think that would work here. A separate property
-> would make more sense in that case.
->
+On Thu, Nov 05, 2026 at 12:25:05AM +0500, Mark Korenberg via B4 Relay wrote:
+> From: Mark Korenberg <socketpair@gmail.com>
+> 
+> ADD_DEV stores the device in ublk_index_idr when it allocates the id,
+> and control commands find it there as soon as ublk_add_chdev() has
+> initialized its struct device, before the char device is added. If
+> dev_set_name() or cdev_device_add() then fails, ublk_add_chdev() drops
+> the initial reference to free the device. A DEL_DEV that found the
+> device meanwhile waits for ublk_ctl_mutex, then calls ublk_remove():
+> cdev_device_del() of a device that was never added, and a second put of
+> the initial reference, which frees the device under the callers still
+> holding references.
+> 
+> Reserve the id with a NULL entry, which idr_find() and the idr iterators
+> skip, and store the device once ublk_add_chdev() succeeded.
+> 
+> Fixes: 71f28f3136af ("ublk_drv: add io_uring based userspace block driver")
+> Signed-off-by: Mark Korenberg <socketpair@gmail.com>
 
-Check v5 and talk to Mikko
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
-> Thierry
+Thanks,
+Ming
