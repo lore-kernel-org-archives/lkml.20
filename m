@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.191
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971227;
-	b=wOvPO7+VWkxcABHk1b0DSKzsEn6JBUqkwH101aUaJN4oQOOTvKlo2LDpX6oTp5f1wdtJ
-	 ha4+oaQUsQYRmrLF61iAbhF96bpOq2b/Zg/KRisNLsw64lIobiCJpy2QuVzUhoC7nesBU
-	 OlP8rTRheD0l4lxVDpvDENpx3zDH89aEeSq/+XeKY7FC9tZihbBcBcYHp8g2s664mKuYP
-	 C4X7oLuq0EKM8arXseLFF37tbLsEaiJDVLJO4CxvzvRMXwPBUK3OaHrpF/bc5HxlDP2pA
-	 FMJ8SedcbWYxgFHLxo6u0lCM7H6SeyzDPzRm40Svs912RccB1xZr6CEdRAQ1N/OffDg==
+	t=1793971246;
+	b=mB3AQV5mZABV8lsfIVaYUnN99tpf6gG0Jc+r6n4EzrShoUwFWB0cIr11/HtSDSykPVV/
+	 l4zSTapRIqNg+v8Bp5C9oInmCrNTQTYZVfmgubdHvZeA2xtp5/CqVRYyVulHIkL+tjTw6
+	 zePWOCDpPz6vjiSpiA0ygl/O0JfSHC9os4MoeTjjm+W3af2Wws1MtJ/eVB2G+R26VeCin
+	 Yp+p8gEq7HdkAQV25u/le7Be/+AoTM0X38DSy6ClvfzNWluYto1TVcnbQO3HRE25dOQMn
+	 cp+XRGpJJ7q4WaDzqaJGiyrTT6/sjIkWH5lGTmuT1k/E2fY4drg10P9iNSHefafPxEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971246;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=q5STX0i0nZe9qBiCwKpYPE22fAldGg2mVbLAiRStB5A=;
-	b=1bMRStHxfv2cVfA60SvDSkF+e19Zhyn7+NDk/r4r68XrOudtwnntYa7fLWC7crlFpfKx
-	 woG+dgEJkBGhxLd7md02kOmknlVuMO6BNk/5g6hr+Jc7Q+hM5nhnqXjHbiiW/1kafrxE/
-	 4H2yxBQFTNmzZAjlHqpC7lioRoRcwJ+9n82E+h1MoOljUZJcb9e3ccxZkMJt4q+6wqNV/
-	 g4mLJSmf2k5TfDyT4hyxwl+1o6Rv/3W6bj1Wq6hY9eGh/S/s/oy5nPW2cLa6GAXLcGs5m
-	 k/i2cBWJRquVNCd7LRkbGdeH8HkEjlXmZTWNVGoWBrxD98HXIbT6aLvgVCB7dYE71XQ==
+	bh=fUXCYLhn52D7jjqtCGZ+7rWovE/XUiCSennV1JjWXTc=;
+	b=LNs+J6O6Mepd/4LtUM5x0Cq/9Yb8/4zva77quApfRTm2HZmj7E5BlbI5CrPtsHz+GMV4
+	 Sc4yPQrstrac/grzt8AnGz9T3Uwa5sJeEsmjfmeAdHNZtKQfebiD988nsDosKVy8vW8Z2
+	 zKbSVHJ9qycObzoBs0ErPSkF7k4+QU3Ny0CAq9woAfsE5TFebJubQMsk0LmU62HguBdz0
+	 0/jrdzfD8lCBrz3B+gxqUb517oILM3MDaa8gxNuhY8wKzfHkFC5NUZPJBEjaF4Kr8dxCb
+	 J9i1RkE6I2stWe57vsvUG7SKVAQCQ6TUyTVq9H2SegnJEqN6C9F6AbKKyeEYpz4GRKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tTWcvoJF;
-	arc=none smtp.remote-ip=95.215.58.162
-Received: from mta1.migadu.com (out-162.mta1.migadu.com [95.215.58.162])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AWU+oP3u;
+	arc=none smtp.remote-ip=95.215.58.191
+Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DD9606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:20:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0DD9606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A91606A331
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57A91606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tTWcvoJF
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AWU+oP3u
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lnwy3IIIUITEEW39wV2rv1u7rm4YP9o1MSolIsKb45g=;
+DKIM-Signature: a=rsa-sha256; bh=ojgBXCCljWWMx/by6O5nBZ1cYADUOJnAnHqRvmqKFno=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793971225; v=1; x=1794576025;
- b=tTWcvoJFhREnEQce4WCZ3iyBtwJ88lVb41kXcUU14zTdACClX1UBA8ST/5W8aC4OORpFSjok
- PY/QxaUVCsJk0mtuUJL2rIBltOH9TqnhodbbNfQQ2yywMsYC8BQceK2fsDaSr5fzvkr+B7tzBhe
- WHMLhXhd7qR6ADqpzdTXVBgg=
+ t=1793971243; v=1; x=1794576043;
+ b=AWU+oP3uE+Bp9M4NHthTv7q7awqULRAk7AJ+yUdGd8HP3gv4OZ3L3y2iim+wbp8ZY+SmjP6f
+ RQOZ8k1aHyjLLkndQT62PYK+Mb5tL6fxCe7tCZ6NDOnwdYBj1Z+KZlsMEmliGrhC5h4dkKcDQnt
+ /zsj+KNoWYeiGHHuaHTmkkzg=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 42ebb214afb95bc7;
-	Fri, 06 Nov 2026 13:20:17 +0000
-X-Mizu-Trace-ID: 42ebb214afb95bc7
+Received: by smtp.migadu.com with ESMTPS id fd2f547758ebbf7f;
+	Fri, 06 Nov 2026 13:20:43 +0000
+X-Mizu-Trace-ID: fd2f547758ebbf7f
 X-Migadu-Flow: FLOW_OUT
 From: Tao Cui <cui.tao@linux.dev>
 To: akpm@linux-foundation.org,
@@ -93,9 +93,9 @@ Cc: linux-mm@kvack.org,
 	vbabka@suse.cz,
 	cui.tao@linux.dev,
 	cuitao@kylinos.cn
-Subject: [PATCH 5/7] iommufd: account the hw_queue page array to memcg
-Date: Fri,  6 Nov 2026 21:18:27 +0800
-Message-ID: <20261106131829.3228926-6-cui.tao@linux.dev>
+Subject: [PATCH 6/7] io_uring: account the ring context and SQPOLL thread data to memcg
+Date: Fri,  6 Nov 2026 21:18:28 +0800
+Message-ID: <20261106131829.3228926-7-cui.tao@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106131829.3228926-1-cui.tao@linux.dev>
 References: <20261106131829.3228926-1-cui.tao@linux.dev>
@@ -112,35 +112,83 @@ Content-Transfer-Encoding: 8bit
 
 From: Tao Cui <cuitao@kylinos.cn>
 
-IOMMUFD_CMD_HW_QUEUE_ALLOC pins up to max_npages pages just to check
-that a user supplied queue region is physically contiguous, and the
-page array for that check is plain GFP_KERNEL.  The size comes from
-cmd->length, a u64 that is only overflow checked, and the array is
-freed again as soon as the contiguity check fails, so the allocation
-can be repeated concurrently: a 1GB region costs about 2MB of
-uncharged memory per attempt.
+The io_ring_ctx and the SQPOLL io_sqd are the last per-ring allocations
+made with plain GFP_KERNEL.  The larger surfaces around them are
+already charged: io_mapped_ubuf and io_rsrc_node since commit
+075d5837bafc ("io_uring/rsrc: charge buffer arrays and nodes to memcg"),
+the tctx node and its XArrays since commit 0b34e7b20a48 ("io_uring:
+charge tctx nodes and personalities").
 
-Every other iommufd allocation that scales with user input is already
-charged, and the pinned pages charge the mapper at map time.  Charge
-this array like the rest.
+Charge the context and the SQPOLL thread data the same way.
 
 Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
- drivers/iommu/iommufd/viommu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ io_uring/io_uring.c | 2 +-
+ io_uring/rsrc.c     | 3 ++-
+ io_uring/sqpoll.c   | 2 +-
+ io_uring/tctx.c     | 4 ++--
+ 4 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iommu/iommufd/viommu.c b/drivers/iommu/iommufd/viommu.c
-index f7951057a1e5..ab17e190da49 100644
---- a/drivers/iommu/iommufd/viommu.c
-+++ b/drivers/iommu/iommufd/viommu.c
-@@ -330,7 +330,8 @@ iommufd_hw_queue_alloc_phys(struct iommu_hw_queue_alloc *cmd,
- 	 * Use kvcalloc() to avoid memory fragmentation for a large page array.
- 	 * Set __GFP_NOWARN to avoid syzkaller blowups
- 	 */
--	pages = kvzalloc_objs(*pages, max_npages, GFP_KERNEL | __GFP_NOWARN);
-+	pages = kvzalloc_objs(*pages, max_npages,
-+			      GFP_KERNEL | __GFP_NOWARN | __GFP_ACCOUNT);
- 	if (!pages)
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 03724419c4e1..d39cdde49a9f 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -229,7 +229,7 @@ static __cold struct io_ring_ctx *io_ring_ctx_alloc(struct io_uring_params *p)
+ 	int hash_bits;
+ 	bool ret;
+ 
+-	ctx = kzalloc_obj(*ctx);
++	ctx = kzalloc_obj(*ctx, GFP_KERNEL_ACCOUNT);
+ 	if (!ctx)
+ 		return NULL;
+ 
+diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
+index e0345c3e764e..9a971c983686 100644
+--- a/io_uring/rsrc.c
++++ b/io_uring/rsrc.c
+@@ -825,7 +825,8 @@ static bool io_coalesce_buffer(struct page ***pages, int *nr_pages,
+ 	unsigned i, j;
+ 
+ 	/* Store head pages only*/
+-	new_array = kvmalloc_objs(struct page *, nr_folios);
++	new_array = kvmalloc_objs(struct page *, nr_folios,
++				  GFP_KERNEL_ACCOUNT);
+ 	if (!new_array)
+ 		return false;
+ 
+diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
+index d387488db2de..b82d3a285337 100644
+--- a/io_uring/sqpoll.c
++++ b/io_uring/sqpoll.c
+@@ -172,7 +172,7 @@ static struct io_sq_data *io_get_sq_data(struct io_uring_params *p,
+ 			return sqd;
+ 	}
+ 
+-	sqd = kzalloc_obj(*sqd);
++	sqd = kzalloc_obj(*sqd, GFP_KERNEL_ACCOUNT);
+ 	if (!sqd)
+ 		return ERR_PTR(-ENOMEM);
+ 
+diff --git a/io_uring/tctx.c b/io_uring/tctx.c
+index b4fecea3ea47..6673393100ec 100644
+--- a/io_uring/tctx.c
++++ b/io_uring/tctx.c
+@@ -23,7 +23,7 @@ static struct io_wq *io_init_wq_offload(struct io_ring_ctx *ctx,
+ 	mutex_lock(&ctx->uring_lock);
+ 	hash = ctx->hash_map;
+ 	if (!hash) {
+-		hash = kzalloc_obj(*hash);
++		hash = kzalloc_obj(*hash, GFP_KERNEL_ACCOUNT);
+ 		if (!hash) {
+ 			mutex_unlock(&ctx->uring_lock);
+ 			return ERR_PTR(-ENOMEM);
+@@ -85,7 +85,7 @@ __cold struct io_uring_task *io_uring_alloc_task_context(struct task_struct *tas
+ 	struct io_uring_task *tctx;
+ 	int ret;
+ 
+-	tctx = kzalloc_obj(*tctx);
++	tctx = kzalloc_obj(*tctx, GFP_KERNEL_ACCOUNT);
+ 	if (unlikely(!tctx))
  		return ERR_PTR(-ENOMEM);
  
 -- 
