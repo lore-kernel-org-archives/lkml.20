@@ -1,74 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793973293;
-	b=QNNkQq1QA/iX1wWIqp3IoMPpfpKgsOEzOFgOwX/7LYLx5UZ2HA08mI6r/Jx7beI0jr3M
-	 wlCOLNruwtKX8xOugPMCRsWhQ5UInDW+7ecRMDRnYbfC3l2ifaCT9ljlHmpPLqf4psxlT
-	 EiNzS/xMOT22UFTEEH6N7aVU+XYa2ISfIYcq3z8B7pvnfl7syK1khF4reMC2dpbZyWaWZ
-	 tX2L7DeTVAqlhwMqiuaqnzIsdGzyDhb/YgSHIPu1zYm/S8Q2DK3pDSTDURT9AoS8R4VtK
-	 sjOaAKfM4qtu0BQlwUTa6gGNZYejkIQlp5nHBOaOT3GHgqWiFob1OUmbCW06KJpkJCQ==
+	b=EM6K1lJKCFzuvs9nvS5zrbZ1Y7ljA2sHUqDGHLTMPPOX0zt2Y3Ua3WdrVxfAwy7qBj4I
+	 co4FhLu/7pPVbOtc3EAhCF33f/1X79E7U0/UnjZoqCsYPGzzvO39gZKO0TFMWj/BltAnf
+	 ZjKdg3OEsVUjCTYse4TmfRABy9YmHsW8V8HP63R5926CymV/SICVEPK7L1nrLlpxB/ptJ
+	 LmjvxFqpqmu30RTKum2dKzIXdXuxj99maYO/rS+EG1Wjl6qmJsAWCUSujdAJwGCqgwWXS
+	 sUtdtetW/SUQrQae4CUaOYgaXgugfS8hH1FqPBWRbyYYWMhZeAvYAW/B2eEkaCiq1uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793973293;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=f9AcNQk+E2Uh8Cu5xVuG9tcvbwsMIkzO8WOpBpYCAgs=;
-	b=3yAKmZeeWB7ulqPFeYcG5Ud8XMxrTmN6AGLOuFWIfA2Dj2SVZ3OrDnNHfMDqor3gFIUW
-	 x6UtHurc/Y3VShsaTe/piUOVPWyxznLuSGZTywXvF7KEUupHhkGpZIEPhDidKHxFUEpQn
-	 vNE0jMkhbaWyp/2PKPzkvOI2LBFXQJ2caOLEOmRI2gSnTNzUsZtgMdhWP3TvpGylXMOr+
-	 bPL+DiBDNcoG0KEljXR3A2J0dHh5mTPS8qOKMkBQz4uBIclRSoK9TtWxMr413KdhtJ318
-	 dh6G2MpopQ3WgOLTrVzaW3YyJWxap+31AnCMsjD5ZP3kiW8PJ63hnqH6zmj9P8/QzIA==
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=34mQdD+b5YZ6XAjM1LZE1WQBn5OVOW6NRSCCNvZHD7s=;
+	b=HyNxoEfcwi6EfJccAUVlGOgL+Y7+Bfg4Bbfxxhbo4s6iJWcXdk96wasxpjF1z9xO5AhZ
+	 NyNo0tSugdohVFXFISFOq5xwrU4ueceiw8mG8/WqwHttZkMwCCWGRscKYjPzndvcRytZw
+	 tiqAvIKOS8VzzoFy76WNj0ruNLdmuTET7068luVpvfG46RmrBPS4RKxYjmo2vgoUxl9Ip
+	 ktg5BjixvVbPMpwaiOIEPcaMcgKORvQMBowTMgT4BcZahistcpoDR4MSJbbr4t0wC6nVz
+	 ABnRWk6QT7VD9OsMJhH1/23/fmd6NVTb08tViYmW9mY3O61+yDsTvMVIvUR9HqCCOkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=tQuCMTAl;
-	arc=none smtp.remote-ip=162.62.57.137
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjuKuYCY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211B4606A339;
-	Fri,  6 Nov 2026 13:54:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 211B4606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED13606D802;
+	Fri,  6 Nov 2026 13:54:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=tQuCMTAl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793973281; bh=f9AcNQk+E2Uh8Cu5xVuG9tcvbwsMIkzO8WOpBpYCAgs=;
-	h=From:To:Cc:Subject:Date;
-	b=tQuCMTAlJdh9TBAB0kcxFJ3oATVWzvPPBHXN5P9liFaO6jerquWh9POmyHPNt/020
-	 54iLXlJAK9/cJbWm5KDeov0r1o3wOPAtADj9EO61PFkw8567zaWzkyvhLJ7JPW4taC
-	 t+cuLhx0YJNjgOtNWOinVGGN0zLKKnos8tkwNIrw=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id DA7AD633; Fri, 06 Nov 2026 21:54:39 +0800
-X-QQ-mid: xmsmtpt1793973279tsdxdqbg3
-Message-ID: <tencent_A85D514AA9FADF1423994E41A6F851213E08@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoeF9R5xDbzU0MXB0V86cqjgru6iz3yUgboFdp3Wp3qZEkdVcYCk7
-	 1BdupbI8FTABzocOqn1iq/MIdF5qIYO8r73iZNXG2No2Fs1UWjaACRFWN0acwg8dZVpx1t9zDQoM
-	 IFIKYA5I8tLtQovYIOUdcYx+7bELy6/Jgns7AEWcn4xyG0i4CqS602cYUBTSsL0sx+trOyXA4Snj
-	 ojYwwRk6e1/kMBBb9Up8vSku2prOigJ8YTORvKuSMkYZSvLGxejGX4+qtuDyGqJr8vH2vjP3eaS2
-	 of3mh1RKX+PJIWsxz26Ly/5OixCL1j1/YCWRNAKf++VWRof1UVnJ6aKKxBX51W5CxoIBH+3+Hav9
-	 jJyzrheSndFCzqK2iPGa7ktDb/oelHIthfJcYzXBr3bhGtM0t63gWBpZBDQdeeHFyo+gC2xKmbVI
-	 JHolu4ETxJaWh3GNN4IKlguihpw+qF6G0DD3b7JcvL9OCD7wr2jLZ5B8k7DebDSZM/EImKERfPR0
-	 nww3alyp550F/iewtdYc7F325t7o9KdzQEyxKrfLhf0WXR1Yg3zJ/7RJhqN40kC0/OR55TnpcQVN
-	 WT7zslcH/niTB8pSp3400jzeQHK3gAN8qoQxaDwKslxswsUAHZFemBlyL7DZKudCRBS0rE8ADX5w
-	 8KFZj8aR2BOQHyoI4CjGsbOZoYYRX3fq2JETvj0YiIPzQqisIAPtDEQOU+ZEi1WX85tAyypPEMWM
-	 eWiouAXcDax1VIeRVc/yX6KYUwL1VaSRcVUWcor5zaMWkjSntBJY/LTp2yOmO1VhANjPWFS5+roG
-	 MO7CLIs0+mpcAmZSqth+7aupct3Qhpfws/Jfl1yFCePcsb94cKos7y2OT3m8yZvXxV52N/R1c5Cr
-	 T9wBjkUShONx0gYzFt9/kz1X0XLwOfoHpe14Fxajjm0tO/Is/ins6/oguhtX15NltbyPiOjo+RG3
-	 ZW3pOrzGM4w/40R0HQtuAT3H0hXr/nZlQaXQezDMIVFPaVZ1f7YJFUPsKeePz/2bw7OB+nMAxLHY
-	 snskZTgccP7a6yPypUKaGNF9JdqLO5+Kt92Nzj/lEJ7c4vba9H
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: ntfs3: log replay reads past the restart page buffer when the on-disk
- sys_page_size is larger - slab-out-of-bounds in log_replay()
-X-OQ-MSGID: <c21-ntfs3-logreplay-oob-20261106@qq.com>
-Date: Fri, 06 Nov 2026 20:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjuKuYCY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA351F0089F;
+	Fri,  6 Nov 2026 13:54:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793973292;
+	bh=34mQdD+b5YZ6XAjM1LZE1WQBn5OVOW6NRSCCNvZHD7s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JjuKuYCYc+1Mx7nL0LE9YfXxydZve4TxL2sCZmkw3PvNaVeRMcK0S3+qk3K1QdcM6
+	 EITNbtqJU8dVj1nHvyFj0eRNmSyiN9Fb+vo5OlbeKKORB01Zb4oe5VEsyxkbWNnMP5
+	 6GuiLetqoMgPqmHZvKo6ASeFi5vxUvgzeYQbZ2d9G9c5fATAn0DUmOQPECHqAMqTcj
+	 ozwW7x6FtyzpJUsjalnHsI9fatbD7T0XNoH9hernaArn2uyW3OTgswysrIkgl6iLPp
+	 +sZkpb1boQixmQaET3jzS+h6KHF+1KZZ05qXOcXGeT30EWihR/4lGwRN4vkl2CXR3U
+	 a6bjcBhxSeiGw==
+Message-ID: <cc803a06-f6a1-440b-9752-917f3698da6c@kernel.org>
+Date: Fri, 6 Nov 2026 14:54:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,104 +51,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
+ MADV_COLLAPSE
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins
+ <hughd@google.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org
+References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
+ <au3C8lNElGg4LnR1@thinkstation>
+ <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
+ <au3YD92l6BwCQIPJ@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <au3YD92l6BwCQIPJ@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 11/6/26 14:41, Kiryl Shutsemau wrote:
+> On Fri, Nov 06, 2026 at 01:29:31PM +0100, David Hildenbrand (Arm) wrote:
+>>> Separately from this fix: nothing on the mapping side catches this.
+>>> Every caller checks uptodate on its own (next_uptodate_folio(),
+>>> filemap_fault(), shmem_get_folio()), and khugepaged was the one that
+>>> went straight from filemap_lock_folio() to do_set_pmd().
+>>>
+>>> Should do_set_pmd() and set_pte_range() assert it? Something like
+>>>
+>>>         VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
+>>>                               !folio_test_uptodate(folio), folio);
+>>
+>> I think so. But looking at these hard-to-trigger but in the end very nasty
+>> problems, should we actually reject the operation and do a pr_warn_once() or
+>> something?
+> 
+> Yes, rejecting sounds better.
+> 
+> Not in set_pte_range() as I suggested, though. Fault-around only gets
+> there with folios that next_uptodate_folio() checked under the folio
+> lock, and for CoW it maps the new anon folio after do_cow_fault() has
+> already copied from the page cache one.
+> 
+> Checking the folio ->fault() returned in finish_fault() covers PTE, PMD
+> and CoW; do_set_pmd() covers khugepaged. Both return VM_FAULT_SIGBUS.
+> 
+> Something like this, only compile-tested:
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 6fe0b7dab927..ff2f2deff761 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -5674,6 +5674,22 @@ static vm_fault_t __do_fault(struct vm_fault *vmf)
+>         return ret;
+>  }
+> 
+> +/*
+> + * A page cache folio that is not uptodate holds data that was never read in
+> + * or cleared, and mapping it leaks stale memory to userspace. The callers are
+> + * expected to check, so treat a hit as a kernel bug and refuse the mapping.
+> + */
+> +static bool file_folio_not_uptodate(struct folio *folio)
+> +{
+> +       if (likely(folio_test_uptodate(folio)))
+> +               return false;
+> +       /* Driver pages from ->fault() never get PG_uptodate */
+> +       if (folio_test_anon(folio) || !folio->mapping)
+> +               return false;
+> +       WARN_ONCE(1, "refusing to map a page cache folio that is not uptodate\n");
+> +       return true;
+> +}
+> +
+>  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+>  static void deposit_prealloc_pte(struct vm_fault *vmf)
+>  {
+> @@ -5714,6 +5730,9 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+>                 return ret;
+>         page = &folio->page;
+> 
+> +       if (file_folio_not_uptodate(folio))
+> +               return VM_FAULT_SIGBUS;
+> +
+>         /*
+>          * Just backoff if any subpage of a THP is corrupted otherwise
+>          * the corrupted page may mapped by PMD silently to escape the
+> @@ -5849,6 +5868,16 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
+>         unsigned long addr;
+>         bool needs_fallback = false;
+> 
+> +       /*
+> +        * Check the folio ->fault() returned. For CoW that is the source of the
+> +        * copy; DAX CoW has none.
+> +        */
+> +       if (vmf->page) {
+> +               folio = page_folio(vmf->page);
+> +               if (file_folio_not_uptodate(folio))
+> +                       return VM_FAULT_SIGBUS;
+> +       }
+> +
+>  fallback:
+>         addr = vmf->address;
 
-Mounting an NTFS volume whose restart page declares a sys_page_size
-larger than the host page size ends in a slab-out-of-bounds read inside
-log_replay(), during mount:
+Can you send that as a proper patch? I think this is the right thing to do to
+catch more of these things if they ever pop up in a better way.
 
-  BUG: KASAN: slab-out-of-bounds Read in log_replay+0x...
-  Read of size 80 at addr ... (kmalloc-4k)
-  Call Trace:
-   log_replay fs/ntfs3/fslog.c
-   ntfs_load_log_and_replay
-   ntfs_fill_super
+-- 
+Cheers,
 
-## The gap
-
-log_replay() starts with the host page size:
-
-  log->page_size = norm_file_page(PAGE_SIZE, &log->l_size, true);  /* 4096 */
-  log->one_page_buf = kmalloc(log->page_size, GFP_NOFS);
-
-The restart page is read by log_read_rst() -> read_log_page() while
-log->page_size is still 4096, so the buffer holding it
-(log->rst_info.r_page) is a 4096-byte allocation.
-
-Later, log_replay() adopts the on-disk page size:
-
-  t32 = le32_to_cpu(log->rst_info.r_page->sys_page_size);
-  if (log->page_size != t32) {
-          log->page_size = norm_file_page(t32, &log->l_size, ...);
-          if (log->page_size > old_page_size) {
-                  buf = krealloc(log->one_page_buf, log->page_size, ...);
-                  log->one_page_buf = buf;
-          }
-  }
-
-5a35454179 ("fs/ntfs3: resize log->one_page_buf when adopting on-disk
-page size") added exactly this krealloc, but it only covers
-one_page_buf. rst_info.r_page is left allocated at the old page size
-and is never re-read:
-
-  ra2 = Add2Ptr(log->rst_info.r_page, ra_off);
-  ...
-  log->ra_size = le16_to_cpu(ra2->ra_len);   /* raw on-disk u16 */
-  ...
-  memcpy(ra, ra2, log->ra_size);             /* fs/ntfs3/fslog.c:4176 */
-
-The destination ra is kzalloc(log->restart_size) - sized from the
-adopted page size, so it is large enough. The source ra2 points into
-the still-4096-byte r_page, and ra_len is a raw on-disk field bounded
-only by sys_page_size - ra_off. With sys_page_size = 8192 (a legal
-power of two, accepted by norm_file_page) and ra_len = ra_off + 80,
-the memcpy reads 80 bytes past the end of the kmalloc-4k object.
-
-The branch at fslog.c:4181 has the same problem from the other side:
-
-  memcpy(ra->clients, Add2Ptr(ra2, t16), le16_to_cpu(ra2->ra_len) - t16);
-
-same source, same unbounded length.
-
-## Observed
-
-Deterministic, 6/6 runs with panic_on_warn=1; the unmodified volume
-mounts cleanly as a control. Trigger is mount(2) alone - no file is
-opened. The forged restart page carries a valid update sequence array,
-a consistent client list and matching seq_num_bits, so every existing
-check passes; only the page-size adoption is abused.
-
-sys_page_size = 8192, ra_len chosen just past 4096 - ra_off gives the
-reported 80-byte overread; larger ra_len values read further.
-
-## Suggested fix
-
-Re-read (and reallocate) the restart page at the adopted page size, or
-grow rst_info.r_page alongside one_page_buf in the same branch, before
-ra2 is derived from it:
-
-  if (log->page_size > old_page_size) {
-          ...
-          log->one_page_buf = buf;
-  +       /* r_page was allocated with the old page size */
-  +       kfree(log->rst_info.r_page);
-  +       log->rst_info.r_page = kmalloc(log->page_size, GFP_NOFS);
-  +       /* re-read the restart page at the new size */
-  ...
-  }
-
-Alternatively, validating that ra_len fits within the buffer the page
-was actually allocated with would bound the memcpy directly.
-
-The reproducer (image builder that walks $MFT/$LogFile runlists and
-writes the restart page with USA and client-list consistency, plus a
-ready-made image and serial log) is available on request.
-
-Tested on 7.3.0 (ntfs3 as a module); the adoption branch, ra_len
-handling and the memcpy are unchanged in current mainline as of
-2026-11-06.
-
-Thanks,
-Guikun Yang
-
+David
