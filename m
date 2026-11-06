@@ -1,75 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793927556;
-	b=y5DvHiEANblv39C/ijGgi7aMG3EqPL1pnNRVuYavqePduG5raFeorLZVIDl1fHicOIPP
-	 Q+o0Enqrf02cmmA4ku0YL/UPGQfl8efA0XL7REgIbTOPuXXaeFy1XMWOBZFgWEfOIYxoh
-	 4rYkLaa7T1qpZSPvDT9BVA8LORLVys0rZ2pUSZdNFc281jpI+qIns1sqHkXKHFQ74T5yt
-	 2Qa+excc25vYsn6z34HizYPWa8/X2Je7DUJ8slZGbOhox9XjEVlxkSBy8B43XYM4AY5x1
-	 2MoBz2hzIgAcdH6SqJ2aHpu9HaB81BA3w6MDb9siT99lg45v8wDvdUR26vbzB3K+7EQ==
+	t=1793927755;
+	b=KN3FfqCCQAa/uDpa2o5ssKbD6RZxVdULXF4qBVByAXgQAiEC8elYqKS4+QrbzEr5rAHd
+	 AYa5huX1GlDNxYhfY1Bv0pU729pzlj3j96Ed9rg6AiOYg3+bFhi/lJrvdz8cc69qeHEUB
+	 p+JUSUQ7/L68ukMuWFjeWpN9s0xH3sRb4S2SunOVvOKOJz6rc0rovFFaoFG3uZL7u994f
+	 Q2M9BJQeU2QN7mmiNTObPLhGhxVB+/H2lb1i/mI1Hi4DmzRgk6qW7OrCAaTrOZv8Iv2Kz
+	 3zAUTPlF3ddtgz+6UVrFh+MMxyJlW3THsYhJMBvd8qZLx75vHMKxzE5IxcYoVuYiqUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793927556;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793927755;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=Br8dhDWTMEC1IX0hIx4rLmHT+plyiVBiJUhQUy7wYRs=;
-	b=ZMNempIxPQaMVUPxviCOb2vZKRJyYnFhby0cRIlckCFf76uDMeNa9YGwawrkxSivLYdo
-	 8W9oFsb4J69mznrwd19vjsmcqSyCofZVVON+YLvVMBiRwJq71JFQuKA0m7b8B8i9TkxkN
-	 euWwPOpGy3wIMmdUJYg3c+za2gj4Cmwdbch2menJuVr1aORBIwiiwLOR1ZmcPSbPrGf/G
-	 KbYf3W/Gz1Tj45n283Nfzns9olQ+TrlVx8shk4TTrYZVinql/DVtKx7P3wQb+G4NWtl7r
-	 l6Oj1FeQnQxweUgoUFLFaoxSBJN2jo82evxgxdYXNfGeGXD2MxPbSuRzk1fuKQQR9+w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=alLL1aRZfj6wt40HSFYb5SB8NlHrXFN4c0xYy1pcLT8=;
+	b=4DdOco7EgHUgrw7IvU84l+UbtaObsi8ujP8GduaPd4OOV7QBU5V0q1URUmh2/0JaACOg
+	 Pfng8zRUZhmRgbKCYK2GkcAn5GeCUfV4e+/uJwi9ZivKvkQTo2GAdeVo2cjeDolsozmDM
+	 iY89GEaBKhVO8U2jASKv/o3gO0zDeU/KsR3tvsMFCwvFfrmpoxsZw4xYHrERSdXyrx9L7
+	 W/cPPY7z1Ox3bPJmpFzevhLcjxp9lzk4w+Ohgh/Bktj2R5Cr7Gu8iEiSicpFAdmM6aSJk
+	 hqJV6DbRf/ruhTHbRb63hGNLKjgpW9vqKV/0zeNTgtjntss2se6UGbrbjJUVBN2TdaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K+N8WoK1;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P8IFIrWJ;
+	arc=none smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8380A606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:12:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8380A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99874606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:15:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99874606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K+N8WoK1
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ed216ed20dso1265585ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 17:12:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P8IFIrWJ
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b0a921ee46so516937b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 17:15:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793927556; x=1794532356; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Br8dhDWTMEC1IX0hIx4rLmHT+plyiVBiJUhQUy7wYRs=;
-        b=K+N8WoK1Btrlgg1twpuR//2hzgh/LirM1LyGpiuo7Axg97lj3p/pwHEaRJCOcs6Swl
-         ndxeLGKNmgIt6V2h08tjW1U1IW/QeSdRNb1PfWg3RjzgmcnHPnu1pcmg5My2nwtL+ip5
-         ZHquhgVCyEM5jaiJQHcO9o6Y+vSuvPNc4FG8kvDmus4RpBOgb3Njc/tDfThDosGjXXC/
-         c1RpcKlSQHiiUAZEGw41WWfuC0O1tswHzGMAeg1K2o/zi+9rbfUWcQ84qop+Oc7//8Rl
-         k4UEv0+kf+/RhMBVaiWTLwSCCQM4mqgrkv9G67YFViudBUyORXCzbthop4yJz7xyCOYJ
-         sCgw==
+        d=gmail.com; s=20260707; t=1793927754; x=1794532554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=alLL1aRZfj6wt40HSFYb5SB8NlHrXFN4c0xYy1pcLT8=;
+        b=P8IFIrWJKzcIslrm1VEd1vQmHhWOwjik1vgKMosMn2cVAasyQLrSdQOCyWtd6A5AgJ
+         l2Ix/ysD3Bjrv6ONnAGyTawfQ104cCSJuxF6MOOiEOlnM2jvtmGzUTCu1g8iGYGCGmoO
+         7ssKSX2Z49ZqQXHf5uzA71r4AXg5yVy8+whe8RfuKr28ol/Gx6ziV9QqgoVvTJyGH+Wd
+         IL6j/kRtk+WxECFfS2ypGBEtvaZ/Ju8fsCBq1zyfT4Ag+BdZOO9epNGmojJwYQ2+WY2i
+         qaaZwfLSPnIHuScJQyWHCTqWFM2cM6B4JnM41zrSFL5ryl1yYY5JQeCCpezXSIJldnFG
+         zf/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793927556; x=1794532356;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793927754; x=1794532554;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Br8dhDWTMEC1IX0hIx4rLmHT+plyiVBiJUhQUy7wYRs=;
-        b=qf2JS5FCHtilADE3j2T4AUcbPUYQnga2az36iAzkXDxNZpmsoOpE5seY8YTjEzLlC/
-         LndgA1+n1mFFtf93KasjwzDrPCz4LdLWiQm5Td7SmpHbTuuczOTGZX2Pc747mZ0cYgDb
-         ZrRHdwunXvP1Wk7OPI60nvjN7amlj6OPKSwhmDdTVf71Z/yPB/4YK5+NxQrFgOd3+eB9
-         9taZLm9xb0W2Fftirr6sZyjbX+Zss2pGmMO7L/+C0Dn3gRiBeS7YHnsklI97DS8bFrvf
-         IJ/Lp78Wsk1kGzxNwoHrXEcwF6/Vu0S63WZWno2m61rmWcXnf53Pu5d+1//pE7DhftZI
-         sH6g==
-X-Forwarded-Encrypted: i=1; AKwUvBwqFKp5+fkV6bW8bP0owiWa01tEw5Ai21bc7cOm2Fkd/tm//E+PiajgT1ait3h6Xa3XwIKAeWPMPKvMJLI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZPzSFWjj7aQuSrCIs5iUNW9gEQDq1O2xNEnU01r8bwfjMfduO
-	zodMyJJe5f2X3C/qpGXR2AuMJA+6swoF8ZeMH8KTn6Lgklwq8kuFRYmDCSvdjKh8tW2z+xZlSg8
-	FI7ExyEYUKZ9fMaJFsalikA==
-X-Received: from plbkh3.prod.google.com ([2002:a17:903:643:b0:2ed:27e1:d579])
- (user=jenhaochen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:cf42:b0:2ed:520:2641 with SMTP id d9443c01a7336-2ed244ecb8emr32394355ad.31.1793927555492;
- Thu, 05 Nov 2026 17:12:35 -0800 (PST)
-Date: Fri,  6 Nov 2026 01:12:33 +0000
-In-Reply-To: <auxjJapQ4j8518aH@google.com>
+        bh=alLL1aRZfj6wt40HSFYb5SB8NlHrXFN4c0xYy1pcLT8=;
+        b=rsFQ8FbTXmF3avqF8aMQohDvkLU+4q34+5viIYYVcs5+8+DHwkmUkGD8RxtbDVGaMG
+         tF7QytYDjjksp+2bk9kg465Y5QzBkkPrFQGeunt5rpUH8k2zmnrEJISRiKlteK/qDe5K
+         eQIa4lONsbqMfVP+jIqytnI5G0kPYohiqPqRqbFwo5zWUGIF/F6ekyHj4LijlFI9SGZy
+         ymDUBtSuhDNE58o/W655oQuGuG6B/IE0r46zbOYn7K0XqMUg+6pfrvBOykYJsGwBIT0a
+         y7KKC3jEnMPkOWsfUY97Dmz3j9G8+377TRzx8w0mUMoyIkok6ezq6XSkN+s2WqajQRHf
+         TGGQ==
+X-Forwarded-Encrypted: i=1; AL+hErG3UXU3vJosEtzzW8Vdorj94agYKhzc5H3996I8ktW+ttMNe7wP8iWIW3t34F6Hx/3pkhm2ZZxotVlA4IE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/27GcboLUzy5jYcDBQonhJy+uf5Fe1PYLnUn8QMi1iEXOHwAB2
+	RJ4nvLh5GOTZNllM4WXi3UtUGSsAEyZ+YXCBvSOm9v5+utibMiVNvc0u
+X-Gm-Gg: AYBFou00Q3bRSo3rFoER3C4cw5I+/yzcrTPaQPXftDEkwbktXn3H6ZBRhfeEjRL/QUU
+	PgJXKDRsQryrF5B7yXtXWoiqHc0fvUdZy5kfcwy9P29Hs7DV4K3R+5JzZdrZbs2AE7GNcBM3u6m
+	e2sV5wVm8lUXigJfYsf0WU3Rj624ZJllguIK1Rv3zAHdHHTx508HM/vwmpuwZKAatQKsHLIKa/6
+	0wWH1hG7berk3gzhZjoyGviJuRokFxL8EEowdvt5EhTl0ZKrPRqtpJgd1iSUa9VJkSWd/exOvPF
+	3vy2dFhFqgF6EVJNKRLjaOwdJ4NbVDOPL5k0CN1UKACqr0nttvJjGjNF2WTc/R89lLwJUV7jwHg
+	upc9d3zgALbubn2oUSTX/ifwX9oZ4TkMnyS6S5uoBO7xLKAFpI/TocDFROb5JZIuD+at41oRCF6
+	rY5SR0iBoRQghNEQ9hVy5T8FzcdB59Q2MJya+VHxrClCwLvjmTMyubXFUx1i7e7azzI2bUZOALx
+	L2kV5ijIOLCChdHkcWYxn8lKP1JFYhShpJJVEABdTn/hJHn/6PEuX37PX4xUQ0D7Q8+C2tveY/p
+	seq+1rKR5QJGEv9VOA7dxrr8RKzAlghZpJlqsyQXyocj7aRS7JR0zQ==
+X-Received: by 2002:a05:690c:f03:b0:8b0:db26:88be with SMTP id 00721157ae682-8b341921355mr4114727b3.19.1793927753513;
+        Thu, 05 Nov 2026 17:15:53 -0800 (PST)
+Received: from VPN-156-173.vpn.usf.edu ([2607:fe50:0:f802::4046])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f7721ddsm8307427b3.7.2026.11.05.17.15.51
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 05 Nov 2026 17:15:53 -0800 (PST)
+From: Juan Agustin Niccolini <juanagusnicco@gmail.com>
+To: netdev@vger.kernel.org,
+	linux-afs@lists.infradead.org
+Cc: dhowells@redhat.com,
+	marc.dionne@auristor.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@kernel.org,
+	davem@davemloft.net,
+	horms@kernel.org,
+	jaltman@auristor.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] rxrpc: Fix rxrpc_sock UAF caused by missing poke in rxrpc_abort_eproto()
+Date: Thu,  5 Nov 2026 20:15:50 -0500
+Message-ID: <20261106011550.59902-1-juanagusnicco@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,46 +101,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030121700.260975-1-jenhaochen@google.com>
- <auwR7gnuLsF0lpmG@google.com> <20261105103947.7521-1-jenhaochen@google.com> <auxjJapQ4j8518aH@google.com>
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106011233.3270937-1-jenhaochen@google.com>
-Subject: Re: [PATCH] mm/zsmalloc: inline obj_malloc() and obj_free()
-From: Jenhao Chen <jenhaochen@google.com>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, minchan@google.com, 
-	liumartin@google.com, benwei@google.com, Jenhao Chen <jenhaochen@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On (26/11/05 20:09), Sergey Senozhatsky wrote:
-> >    If we also mark obj_write() __always_inline alongside obj_malloc()
-> >    and obj_free() (with noinline on alloc_zspage()), the compiler CSEs
-> >    those redundant operations across the fast path:
-> >    - arm64 (Clang 22): -31.3 (-O2, -4.0%) / -34.7 (-O2 + AUTOFDO, -4.5%)
-> >      retired instructions per zs_store() + zs_free() pair (vs. -8.4 for
-> >      obj_malloc() alone), shrinking zs_store() under AUTOFDO from
-> >      3,144 B to 2,448 B (-22%).
-> >    - x86_64 (Clang 22): -26.6 (-O2) / -31.8 (-O2 + AUTOFDO) retired
-> >      instructions per pair (~4.0-4.5% latency reduction).
-> >    - x86_64 (GCC 15 -O2): -37.1 retired instructions (-5.1%) and -5.3%
-> >      latency (-5.5% cycles) per pair, while keeping zs_store() slightly
-> >      smaller (1,997 B -> 1,943 B).
-> 
-> Great, I'd love to see that in v2 commit message.
-> 
-> > Would you prefer that I send v2 rebased on top of [1] (including
-> > __always_inline on obj_write()), or send v2 against current mm-new
-> > first?
-> 
-> If it doesn't trouble you too much, can we finalize [1] first so then
-> you can send your patch atop of it?  I can ping you when [1] is done.
+Since commit 03fc55adf876 ("rxrpc: Only disconnect calls in the I/O
+thread"), only the I/O thread disconnects a call from its connection
+channel, and hence, code that completes a call elsewhere must poke it
+with rxrpc_poke_call(), which queues the call for the I/O thread.
 
-Sounds good to me -- no trouble at all. Let's finalize [1] first, and
-I'll send v2 on top of it (with __always_inline on obj_write() and the
-benchmark numbers in the commit message) once [1] is ready. Thanks for
-offering to ping!
+rxrpc_abort_eproto(), which aborts a call when a DATA packet fails
+security verification in recvmsg() or rxrpc_kernel_recv_data(), marks
+the call as complete but doesn't poke it.  The call is then never
+disconnected, not even when its socket is closed, because
+rxrpc_propose_abort() skips calls that are already complete.  It stays
+in conn->channels[], and its call->socket pointer, which holds no
+reference on the socket, dangles once the socket is closed and freed.
 
-Best,
-Jenhao
+If the peer then sends an rxgk CHALLENGE on that connection,
+rxrpc_post_challenge() finds the call and reads the freed socket's
+flags.  If the socket had enabled RXRPC_MANAGE_RESPONSE, the call is
+then passed to rxrpc_notify_socket_oob(), which takes the freed
+socket's lock:
+
+  BUG: KASAN: slab-use-after-free in rxrpc_input_conn_packet+0x3b2/0x820
+  Read of size 8 at addr ff1100011b343328 by task krxrpcio/21029/1030
+  ...
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irq+0x72/0xe0
+  Write of size 4 at addr ff1100011b343308 by task krxrpcio/21029/1030
+  Call Trace:
+   _raw_spin_lock_irq+0x72/0xe0
+   rxrpc_notify_socket_oob+0x54/0x3f0
+   rxrpc_input_conn_packet+0x682/0x820
+   rxrpc_input_packet_on_conn.part.0+0x5f4/0xc30
+   rxrpc_input_packet.constprop.0+0x8a2/0xea0
+   rxrpc_io_thread+0x944/0x1570
+
+rxrpc_post_challenge() doesn't appear in the reports because the
+compiler inlined it into rxrpc_input_conn_packet().
+
+Depending on the freed socket's contents, rxrpc_notify_socket_oob()
+can also call a function pointer obtained from it (sk->sk_data_ready()
+or rx->app_ops->notify_oob()).  The use-after-free is deterministic, an
+unprivileged process can trigger it, and since the attacker controls
+when the CHALLENGE is sent, they can reclaim the freed memory first.
+These conditions make the bug reliably exploitable to hijack kernel
+control flow and escalate privileges.
+
+Note that without rxgk the stranded call still leaks.  A client call
+pins its connection, so destroying the local endpoint hits the BUG()
+in rxrpc_destroy_client_conn_ids(); and for any stranded call, netns
+teardown hangs in rxrpc_destroy_all_calls() waiting for it to be
+freed.
+
+Fix this by poking the call from rxrpc_abort_eproto(), as
+rxrpc_abort_calls() already does.
+
+Fixes: 03fc55adf876 ("rxrpc: Only disconnect calls in the I/O thread")
+Cc: stable@vger.kernel.org
+Signed-off-by: Juan Agustin Niccolini <juanagusnicco@gmail.com>
+---
+A deterministic reproducer for the KASAN report above is available on
+request.  A working privilege escalation exploit was sent to
+security@kernel.org on 20 October, and I can share it with the rxrpc
+and netdev maintainers upon request.  The bug was first reported to
+the rxrpc maintainers and the security team on 11 October.  rxrpc
+autoloads on Ubuntu, Fedora, and Arch when any process opens an
+AF_RXRPC socket.
+
+ net/rxrpc/ar-internal.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index 865f05fe37ab..31528b5e34cb 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -1455,6 +1455,7 @@ static inline int rxrpc_abort_eproto(struct rxrpc_call *call,
+ 	struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
+ 
+ 	rxrpc_abort_call(call, sp->hdr.seq, abort_code, -EPROTO, why);
++	rxrpc_poke_call(call, rxrpc_call_poke_abort);
+ 	return -EPROTO;
+ }
+ 
+
+base-commit: fafbc4051123d5459ea6950899cec08ed946e278
+-- 
+2.53.0
+
