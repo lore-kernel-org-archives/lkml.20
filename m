@@ -1,111 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793996045;
-	b=ni9MPKl0LHPEBGVN3MZiT26JYLF4gpLqmSxU2lvSylFQkuon20FdLw3JsnzvRMpXhABi
-	 YVuXl1HN3TtpIG32SF5roOequ07IPX4UXsE4mshujYgvoivDzTv8yyAQbdIIAhoFoDFw1
-	 uY+cnH59cCzEFhVuN1m7C7EDDs0nZ6o17syDNpxZeg0ED6JKwUqhUdLG5vUpID7VgzNGv
-	 JDnnU3GPy6qtcAf4gqEmcgT5nCB8GADSb8QaQ66PVujhipcJJoEKJn+oUZKajSzkgtU1k
-	 Erdj8k7agiL6aGcE6gM4VtpcDLAo5hmnEzAsddj6pVNCoZ+4aOwIQei3hNMZwjvmJfg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996045;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
-	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IcKitxzFbdZtipPQYe9PvSfBL/XFMlmnVpB2vCn25vk=;
-	b=euWHp/HK5hz3068sGBDkk5hcoE+vj2ku2g6nMLL9S5uxwTofG/oDMnWf/0sTZ6KE8Kez
-	 +LeXvy71CnVdUb/hKUne7KcmYx1PSfjW8k4qFbRpZV4EunqNeq5QogLKXYcJDsi3YVuJc
-	 qg2isHUfwaMYDuk/7sPTY2c0otPoTNrmfEIXdM3aq9evCnnyGuslP2pLn92b3OTngukB7
-	 woHntVhp7e+2Opkr8OfZJ+JGRyE5s02Ijz8fmfGk61PXuoL1Y2GuJX12++NY+Km2B+7bz
-	 CGl+6ezPmp6vKr20+LNaqADEMH+LhnGDRolMrSjvI+UOumjvK80MHcvRGdbUktJ3L2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DN6RCXKi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.47
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012047.outbound.protection.outlook.com [52.101.66.47])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793996051;
+	b=k6K6zr1b0KQT/fL151/SCFmlhwZqe+QX0IwFzFAd6XMXEcDG2rciMToNpBQufb1YRVfe
+	 e+agrc9ZvJ5oOAjoB/QeLEQbmu74pBvk3UDkvvXudzyrA7scrpOONezdEdpBhW7cwTFU4
+	 4qWmLlPOMb19Vd8EUjwezYXboHTDGSevWHerbusunWjobMrop3UPToqUeUIx8jbu539Eg
+	 v3it+t1Lhzu0AclJNyU0ONtKI4Ik0xn/DzOE4FB91WIEwPqt7YPwR3//euXacXzU2OWH9
+	 NJT5ZwnY7W8xKzJvyiNM/3qOOZt8Az9Ay0P2mO5dBmvInF5fnto7wcBnBE34xNRK3Rw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996051;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=J2iofcJL87VuzLLEHzx5m8VEI9RC+TD/ZaA8aoGOZDw=;
+	b=kTzUV4VDTFEn86/HKd8OmZ08kNWZ/SnSIV172kVWq5wICfdLuPsLbls7QQE2s+Y+yaGu
+	 iG0xjXsp5d+Bl0ax1MSStgCt/HuAPOIaYx2tzXu8yHH0T1gkVHf0RrYKtnCr0S5zEJe6c
+	 iEtJ7B2qScGrld0eDXQAAqb+NMcAAtJcrVN4jnoW3CisQgI56k3si5h2uH+K9QNUGPRRS
+	 Mi2KbqXSKd32DTV255aDn8jRsCxYqAOufp/b7QmPREW+79jX/JloU5nJLUa/VavNiOWSa
+	 mtK13IhVf74AW+Bv0XyLp2AcI1htuOeTBJKm/p62VuIcnS3tmrvxQTDesy+B+4aX4Vw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXaD1Xzg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C82606A326;
-	Fri,  6 Nov 2026 20:14:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74C82606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11D1606A329;
+	Fri,  6 Nov 2026 20:14:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DN6RCXKi
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YUfJKYkm5sw1oxRChWHEU+31l5D7bhjoSLEff3cjWoQI2cwRYzRwqY8MrSv/VlBaNCBqONrtA0myr58DTt+ggV11yT1MeE31/CCdnZ4e+SIBs1exqlbpY+qudqnaBGVvakOmBT89J4J6dyUDw7eSsYNEdsoKcGxBkS2YRJ0e4iLTPzy+5kLMNaA+eiIQEP545Em2lNnU4h+8CJTGAGsWsYRnEs4c8trnewMyAXU5tTcLzTKaAhlagCkaJCJwFwPv5MCcrqqbtRrI2ZlYjGGJq6xDX4H5D12cM7ljnoynVqk+hE+N+bZBTcFOOjJ7aG2tF3ZuHUvdfGw0SYSBzoIU/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IcKitxzFbdZtipPQYe9PvSfBL/XFMlmnVpB2vCn25vk=;
- b=taxcvUpu1TH49ZlxBE8wbDKnEl+/At8zJZRuH3SwGTBnrjvOfvVFNENH0cGJd/IaZYTIQTU+z8wZb+CvBuvbH/StB/LaImz9+EsvCj0gYIgXyA0giRINuieoiJFbACmHnz2JMM3j2SOCaUGraU+Gfo9rOATtStKi8fkkiNJ/rzWnBwFEKyuicPbSF/eamluyYgd5kmKJmZshUuSGaEN0UjAGRFwlyqyvoHTsw5kvDTvcGKIx/to9SNMf1gz6Hdp119xI2CFnHl3sbLFRK79E6lgyCzupkb3zEmcVViNjw90HLeZWH2b32PtHpZ8r6IavBg4CPmVLMDj4v9rFm2jeTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IcKitxzFbdZtipPQYe9PvSfBL/XFMlmnVpB2vCn25vk=;
- b=DN6RCXKiLINUnIUvRbj0zufByDIFgAdEKBI5KaIwW4h8dIR99pGGMf4qZdd7clWGjp1RyPzjAfSFPhM/o201XAqLqWQy1fK7wNI7oKQAG+oWkVDISLVeusDenQ3k29wtM5erYv0yzHbMMxcB8ls4Yj2aonl8nlLxrWDgc7UlhVHOWPc3jxggJs+PV1hr2tKcym+oidP7wB4tKwnmJTMepMFwunQrSRWgewI52CiaB25LU4PMx5OorbFmnvo4iuYbOQUVt001RN3BWEwOJS8Xb157Oi/9bxJuwaVhNCaMqhrWbwepHyZ7Ah01XrQmnC2Ep1A9ugrwFqhUvo7KzEoivA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AS8PR04MB8580.eurprd04.prod.outlook.com (2603:10a6:20b:427::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 20:14:01 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 20:14:00 +0000
-From: Frank.Li@oss.nxp.com
-Subject: [PATCH 0/4] ASoC: Use dmaengine API instead of chan->device->dev
-Date: Fri, 06 Nov 2026 15:13:44 -0500
-Message-Id: <20261106-dma_sound_cleanup-v1-0-5eb8a7b81e87@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPk07moC/yXMQQqDMBBA0avIrA04KYTiVYpITCZ1RKNkmlIQ7
- 26qy7f4fwehxCTQVjsk+rLwGguwrsCNNr5JsS8G3WiD2BjlF9vLmqPv3Uw25k15M2gM4WnCA6F
- 0W6LAv+v56m5LHiZyn/8IjuMECGJSpXUAAAA=
-X-Change-ID: 20261106-dma_sound_cleanup-d6b21ff86f31
-To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Sen Wang <sen@ti.com>
-Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-renesas-soc@vger.kernel.org, imx@lists.linux.dev, vkoul@kernel.org, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793996035; l=1662;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=zChPA7w9TULBn2E1cBohmy8ghhrAYYbSV6Z445wfl/8=;
- b=pCU+SPc2QGiqzG362oi9zIYtU81vC6ntteLyOyqRfWHwQlKcZ6Y3I8MEpMXgiSsP//EQsGqgl
- RUFr/EvKbwXD8MD8AHcsQDjaWJ4f/K0Un44bra/ns7I5WbSrRmHz8aF
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: PH7PR03CA0009.namprd03.prod.outlook.com
- (2603:10b6:510:339::33) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXaD1Xzg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC18C1F008A4;
+	Fri,  6 Nov 2026 20:14:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793996050;
+	bh=J2iofcJL87VuzLLEHzx5m8VEI9RC+TD/ZaA8aoGOZDw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oXaD1Xzgw1JyR1wcRKyOpDEt0LIlgXV8PHnUfD8BQf9ROua1LidW2jrnieOcvqXW+
+	 zAoHYyub6OnczfElGs+pnnj2kFuD4+fwhQte2FQnBmqPGrm8lSPBMsS5Cd2+mTcVVg
+	 RDPSWZSOcA6K7zg4fTx7dB5xNHzUk58Jss8K5ZR3BSlIX7BEET4KF/fX1fo92aPD/k
+	 6m7mtph7fTIQJCnjygbzqdSVDBqnErFn6VMXOAr0pfTjqLYrEpqaDwuqr/kcbg0yY/
+	 HPYjo3NAO5LmRVXMwYJYlBdtGCAv2cWcdPqJS3+rpKnF+BbJ7B9ANqEJGxbmxH44uW
+	 afcjzZC2lBQsQ==
+Date: Fri, 6 Nov 2026 20:14:08 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
+	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [PATCH v3 10/18] KVM: x86/pmu: Document GLOBAL_STATUS_RESET
+ passthrough erratum
+Message-ID: <au40uLZo3C8a7fdg@google.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
+ <20261106013927.166209-11-zide.chen@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,109 +62,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS8PR04MB8580:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2d5deea-3ccc-4311-585e-08df3c427ee5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|19092799006|1800799024|366016|23010399003|6133799003|18002099003|4133799003|10067099003|921020|11063799006|261022075727099003|261026121527099003|261009223027099003|261026140227099003|261026130827099003|261028144727099003|261021135927099003|261021121427099003|261022113327099003|261021130227099003|261021123027099003|261022115727099003|261102123227099003|261022105027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	0gXQWFPcaNYoTieYnfFC5j1H447u+exCWbW5hjW+hklr98piEY+jBET8ojEk9Ta8KmJIVNI8Zi94JfALj51rwjCWLMpIypH2lUTdSNmwCdtUzCDFqwbqX2G7lV0kUv2buWTlS5FwpCiR6wxn/iPG3K7oPB+k7j8bnGmETnG4R8g/6oQ7B8a7C/B2ZIuCmw3XKKsOVZuLJgNp1csYBe9biYnPWQdWPdvEnglHKmnIQAvdAuMfeOUM3vUxs+8LinNoc3F2gZx2CvK92Jzg2NPqN+r0i6RNddqFKxBKRYvlSptoNdiE3ZDQMdcefbLy7yXAqZws0411OfWY5C5Ojw9Po5KUfGCC494hP+8vyNW3O15UVHsBXSQlpLHO/bZJb0nSrO5lmJyHNKCxRZ62FdUXNRCbKJMuCxBW/PKyiVp0FfpdEsps4n2lwtr+e6aarIe5nvSjq5N+MzYkx2RCRRno7Py0A5I34vMEx6s3JEmoKlNMV1m9QuD3X4zEKwVPGUDyYGp+JT4uhLhtxl4o1opI5S3p4gY02z9mAP1PsBpHBX4A+DR8u0mn/O7RZDPNvzaBoVUcOcfiZz+UYeYaK4vg26kyagonemExiablTzBNWuIlUQYHUNE6uiovVGGnIbB7foAQSS7w4A7PNCOxNiXQX+wf0E1Lzmfvd/BMAxk9SDw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(1800799024)(366016)(23010399003)(6133799003)(18002099003)(4133799003)(10067099003)(921020)(11063799006)(261022075727099003)(261026121527099003)(261009223027099003)(261026140227099003)(261026130827099003)(261028144727099003)(261021135927099003)(261021121427099003)(261022113327099003)(261021130227099003)(261021123027099003)(261022115727099003)(261102123227099003)(261022105027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ait1dHdBNWlOL3hwZjNXMDFwMG9ZYS95KzlHRnFDR3o0TGRsVlIvSDZkekZS?=
- =?utf-8?B?MHRUN2JoVDBsN2FHT0krMzN5VFRJTjNtN1l3S24rNEMyNkorSlFYWHMwQm5S?=
- =?utf-8?B?aFhpR2VxOXlVbDcxOU1aR0E0TTdtblhsTU1yZ1E3MVpNQmN1ZHhKS3FmeVBu?=
- =?utf-8?B?Z0grVHRwMHVhWTczM2FwZlczcXQ4bUMzOTkzdFJIZHJQak9NV2ZjdVQwNm5W?=
- =?utf-8?B?akxiTE8xWUgzeE1YTjI5alFIcGZrdUtiQ2hadHRLYmZTZ0xqQ1d3MVpXUUVV?=
- =?utf-8?B?Y3JZbldBRDBaSkhCVDlsRnd2SERLMmphSjhvQmNGN1ZpVDlUM0tORjlQYlp4?=
- =?utf-8?B?T1JTR2NFVUxNUzBoZFBwblY4M2RxSU5aYmVsaEIyUFg0NTZHTjV1NzN4V1Ns?=
- =?utf-8?B?ZjhoMWVLd0RtK09iQ2o0RzFXS1A3dXBlL0pxMjJhem9rNGpOVkNoelhrK2hw?=
- =?utf-8?B?TEhadHJ0UkJyMDUxRkc3L24rTG9OWUtLTjk2cmZreGkzYVJjWVZDZVpnVzVj?=
- =?utf-8?B?T3pnVHkxeVdLR1pqTnpxd2g4MmdKc2xFUG53QzlmbWF0bUlJWG5vNHVxZXlX?=
- =?utf-8?B?QjZsRnVOTklRL3R5QTQ2eDR3RHlEdVNESXpmY1l1TWIvZ0tyeElGdzJ5VEtz?=
- =?utf-8?B?UHB0aDRUT1M1U2lieDJrTmFsQjlKaTFDNlo3aE9XbUdxdVZJVnptZXJsVTds?=
- =?utf-8?B?MmJZUXNVTyt0SGZ2d3RWTEJSWXoyTDZQMHdOTXp1SWRTYS95eTB5VVBRaFV3?=
- =?utf-8?B?K01hUmU3ajcrRFFtVGMwNWdoYzNGdVBXaVkzZXFKcGdpQUZiYjZLTmg5VkNW?=
- =?utf-8?B?UCtkVmoyVytQcms1cWcvRjRjMDJPWXIyMGRpUmtVeUVwb3k4bHhFNWtjbTgy?=
- =?utf-8?B?QmNSNnhPU3BNdkdGODk5cVpnMUZGb0tNREdxY2dYMlVDNVk4NE1TRWczKy9J?=
- =?utf-8?B?N2xoWDJUNEc5bXJ6L3ZSTjRRcG14QUYrQ1NiVmFkWU5kek1Eck15cnBhMjFZ?=
- =?utf-8?B?MHVHVThPaTJqZkRNaE1sTForR0FJWG9BalFHMnIvUUs3T2pIU3VndytSVHg1?=
- =?utf-8?B?bnFuQnJuUWFMcnRRMXhkSnpuUzB1OFJkUC9FNDI0TDRPM0o5OG8wUWVRU3Ur?=
- =?utf-8?B?TUJxYTI3eXJ4R0JwYks5TmJ1Zk1RYzB0aWlzRVRlWkxDazY4L05QZFBuRXNG?=
- =?utf-8?B?bWo1SHVqcE1GTTc3anZCS2xJM082VVNtQnh4RTY1a05KM1FqNVhDMzZKR094?=
- =?utf-8?B?Y2lPay9wYWYyZ1FZMDVzc0RSZStoYXhXTXZicTFyNmJqUDA4SXFpOTgyVCtR?=
- =?utf-8?B?dG5ZWTNzR3d0K1FnNG1KVzhjSWM1Rmx4cHlOenZFL0xXV3VmNzU1bEFJYUE5?=
- =?utf-8?B?emdoSkJFM2xMVUZEVUxaeFMzSmpibDhyWjB1VXRwUHNQQVE4b25ITW4yTWxN?=
- =?utf-8?B?MWZhOWxtcUxzUEtaUTE0RXFNNXlWblEyRjVEWnhpU2kyb0lDVjlhb3FXdVNp?=
- =?utf-8?B?V1VPbVFJUVd3L1M2RmlSMkRQa0xLQm94czlWdktuNHBjRUhiVHdmem9qUjdK?=
- =?utf-8?B?cUU3d2lTc0Q4RjBPK01Pc1F4UWxoR3dzblhzaDcrd0JpMEZHZFZnRnRqdjg3?=
- =?utf-8?B?eVN0S1NYRElIRkNhcWRCak5yWHM0cXJJVXNQQXptL3BZNGRBcDF0Nmd0OHNp?=
- =?utf-8?B?UmJCZHZWcFFxVlVHNmpNQ3pTV3lTemRmQm5IdUZOUnZjUjlzZ3BpMC8zOGdY?=
- =?utf-8?B?Tkx4SldaaWx0S1VzUlhzZ2hXTm84SmhFMTNHUG9JZ1owR3FTT0tnektyNFl6?=
- =?utf-8?B?VkNlaVdaYjJrRDFkTE5nYWhNRllCd0JSYzlJMHUram5DWEVVS2NyMkt5aU9R?=
- =?utf-8?B?dnkwelMzNGRUc3JhQ2NaZEltUjUzSUFEd0ZUdHRyOE03Rm9uWS9XMTViQkwz?=
- =?utf-8?B?aWxUUDNWOEdnTCtidWlweU9qYmVkdE40OEFmeU1HenFXMk40UWJjaUs4NjI3?=
- =?utf-8?B?aCtjeHNXdzdOMHpBdEdtMGxrK0QzVWkwL1ljWmpPNkJSVGtqcEh1cFk0VU90?=
- =?utf-8?B?a2s3Q2gxRWxZS0cydmdiZGc4SUIrRXNUZVl4YjFoTld6cUhzOHVoTmFBN1hE?=
- =?utf-8?B?dDRyREUxZ0d5MVBDb3Q4Z29DUDJSZ0paUEtGaGR6Q3hIVkJoR2VDejNDbzVw?=
- =?utf-8?B?T1U0bmxzak5nYWZjZUpqQlBwMmlzWkcyN1pvdUp4ekNxNXFibzZVRzJQMWt2?=
- =?utf-8?B?N2kyY0IxOWs5ZCtJUmc4Q2RBdnZtdy9ZeXNKTFM5R1RvWWVWdkkvMzh2MUxo?=
- =?utf-8?B?TlpIUEJqb0x0YTFpelJXWkRVSTN3NlZZWmQyUUtBbkdRaU11VG1mc29wYTdG?=
- =?utf-8?Q?otvdEGiY0I7gavhqGLzu/n/PEJjB9cAOv4M0G?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2d5deea-3ccc-4311-585e-08df3c427ee5
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 20:14:00.7820
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wkt1Ixb6X386w3AzS2VVtY2TAZtFx/VWi0/RCaVzHi8P3OkSW+sUR3wAHAN/1NyWvSKJ5ETeankphKrzfPDo3R3+FZz/wrTGNVQRK3/1aHrBhOaZPFpBFrF1M7cVKu+2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8580
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106013927.166209-11-zide.chen@intel.com>
 
-Replace open-coded chan->device->dev accesses in ASoC drivers with
-the proper dmaengine accessor APIs:
+On Thu, Nov 05, 2026 at 06:39:19PM -0700, Zide Chen wrote:
+> IA32_PERF_GLOBAL_STATUS_RESET, introduced in PerfMon version 4,
+> inherits the MSR address and architecturally defined bits from
+> IA32_PERF_GLOBAL_OVF_CTRL, while providing additional bits to clear
+> new indicators in IA32_PERF_GLOBAL_STATUS.
+> 
+> From an emulation perspective, KVM handles it identically to the
+> OVF_CTRL MSR: reads return zero, and intercepted writes are guarded
+> against pmu->global_status_rsvd. No code changes are needed in KVM
+> to emulate this MSR.
+> 
+> However, to reduce VM exits, KVM passes through this MSR in mediated
+> PMU mode when GLOBAL_STATUS is also passed through. Consequently,
+> writes to bits that are valid on the host but unvirtualized by KVM
+> will not trigger a #GP (unlike when the MSR is intercepted). Except
+> for the known limitation where host Intel PT in system mode can
+> assert Trace_ToPA_PMI (bit 55), unvirtualized status bits are not set
+> while the guest is running, so clearing them has no negative effects.
+> 
+> Document this divergence in errata.rst.
+> 
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+> ---
+> v3:
+> - New patch prompted by Jim and Yosry's review on unvirtualized
+>   status bits.
+> ---
+>  Documentation/virt/kvm/x86/errata.rst | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/virt/kvm/x86/errata.rst b/Documentation/virt/kvm/x86/errata.rst
+> index a9cf0e004651..161ba6d1beb4 100644
+> --- a/Documentation/virt/kvm/x86/errata.rst
+> +++ b/Documentation/virt/kvm/x86/errata.rst
+> @@ -84,4 +84,12 @@ memory.
+>  
+>  Note, this erratum does not affect AMD CPUs, which fully virtualize CR0.CD in
+>  hardware, i.e. put the CPU caches into "no fill" mode when CR0.CD=1, even when
+> -running in the guest.
+> \ No newline at end of file
+> +running in the guest.
+> +
+> +IA32_PERF_GLOBAL_STATUS_RESET
+> +-----------------------------
+> +To reduce VM-exits on performance-critical paths, KVM passes through writes
+> +to IA32_PERF_GLOBAL_STATUS_RESET (0x390) in mediated PMU mode when the guest's
+> +counters match hardware, without injecting #GP on unvirtualized bits.
 
-  - dmaengine_get_dma_device(): returns the device used for DMA
-    mappings; may return a per-channel device if the dmaengine
-    supports per-channel IOMMU mapping.
-  - dmaengine_get_provider_device(): returns the dmaengine provider
-    device that carries the of_node, used for device-tree based
-    channel filtering.
+Might be worth clarifying that this refers to the number of counters
+matching, not the values in the counters.
 
-This avoids direct access to DMA engine internals and prepares
-for making struct dma_device private.
+> +Because the MSR is read-as-zero and write-to-clear, this cannot leak
+> +host information to the guest.
 
-After previous post patch
-1: applied https://lore.kernel.org/imx/179396622411.3073895.524075215689851221.b4-ty@b4/
-2: under review https://lore.kernel.org/imx/CAA+D8ANwEqFJYQ39h+1A3zXhcUfpFGzSvVjEzx2htoYxB4sLGg@mail.gmail.com/
+It can let the guest clear host state tho, but I assume this isn't a
+problem because GLOBAL_STATUS is saved/restored on guest PMU load/put.
+Might be worth clarifying.
 
-sound directory can pass build with allyesconfig after really move
-struct dma_device to drivers/dmaengine/dmaengine.h
-
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
-Frank Li (4):
-      ASoC: apple: mca: Use dmaengine_get_dma_device() instead of chan->device->dev
-      ASoC: fsl: asrc: Use dmaengine API instead of chan->device->dev
-      ASoC: renesas: rcar: Use dmaengine_get_dma_device() instead of chan->device->dev
-      ASoC: ti: davinci-mcasp: Use dmaengine_get_provider_device() API
-
- sound/soc/apple/mca.c        |  4 ++--
- sound/soc/fsl/fsl_asrc_dma.c |  4 ++--
- sound/soc/renesas/rcar/dma.c |  2 +-
- sound/soc/ti/davinci-mcasp.c | 10 ++++------
- 4 files changed, 9 insertions(+), 11 deletions(-)
----
-base-commit: 13716421a63a932e09c1f56d78f6055c2fa069c1
-change-id: 20261106-dma_sound_cleanup-d6b21ff86f31
-
-Best regards,
---  
-Frank Li <Frank.Li@nxp.com>
-
+> -- 
+> 2.56.0
+> 
