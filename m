@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.160
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.149.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965241;
-	b=pXsisNb5Zrj1uKDaahBWkTi96DM1zK+bIX8F409mxbiHhCNRuFuGhEBzRfQMPDYhPfCa
-	 p9wkfBBbxUjtDQZj72J670Zwwdbhz6KezBG94cQr2iXeR/57q1tBCRlrPYvslFuyCroH1
-	 fhn71CcPI20vkEV0+rtj5nIZlENfd1p68RAxbnTSBTQOQI/2efiJ3/JA+UcQWoZBe7plc
-	 3kmVFKbc256ele3K00HO7SczP6Y6oiWhHuIDVQmJQojsK+DQ51sLgZbC7RWt324NANjVw
-	 g/Lqbu+K8Tr05Xw7DZBvLZqpp8P7XAIP+5DDKo8CujO0M18WtwikWUfldCO/c55J98A==
+	t=1793965293;
+	b=EAh6JlbGvqq+vFDevEr0kbsZ+H8ZG8u6uDa041AArnhQjRRg+ozk+4oWM+py9ez0q+tT
+	 ZXubcQEV4xykmp//UmM4I0cdsNVO99RwsHrbKCMKzzXqufd1bgllWzuNm6ZLJrfqvkpdk
+	 dtAj97gujyL6Ego9Nryt7WgcdADipR7iH0F0DxO8Rij7O4dHa+VryDttD2Fns1I23fqEy
+	 b5rKEPVb7EOdgQkfI9SQHACEwxhHfIgGNQKjrxWD5D+zV/5NiWoRX4X2CGGn8WsVqHkzu
+	 N4PZkSNlvIr75QhA+mwx0DX5Nx0ViG+NrNWwL+8Dxmq2PBSkaEN+hXa24nGQw4/WCSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965241;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=B+rXA+LG0Nr4Rov1TlcYamFjy6WxxoNhz5HuSoYobUY=;
-	b=x0VkL/oEDyh4GV0rOoUF8EeuCnNTzl1+1Ocrae+8hz1ArVqlyIPFBIcM7OvTGl2fjYgE
-	 ag8NzOi8NDE2TNTsCT8PnHBoJ1kT7KO9zRTVurJeKImc6XgJSEHU5i3m4FgY33qIuinZj
-	 vLcJgeTbj2tmHXoyA+SpeQuYcDumHTMjwiccWlF8zMVnslbg0x1wEWDPhmdImIvSYJl2Y
-	 TuD0ajTwoMXAfEkcbdxI3zFONVRX6fdLHHw6RClw145eXvUyULE68XGuGJfRb+hZW+bps
-	 nXPtGDAPK1zCPKTh+dgwKIt3BbieOV4Yz6/HuKBIHhWSSVHoDJUrwnLkTaKuhDJTZ9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965293;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=6JqcFZw2DreE50hImFuQgRUSPI0sEWGLexA8Fi5Q35c=;
+	b=2OVnDvYBK1oCsi7FWCS/LPbSai348eYE53HekSmJzjOsByxkQm0DN4r59+a7rvTFXgwv
+	 9LgOqEqdnlqoWnK2L9oWI2zsn9VFMqbe2IXj0AnGz1FQe18CfomB3oOTlXhLqJnMXWl86
+	 NMSTy93Bk/A9Eygg9KMsIn7D6/PSwv5EssMGVTbasPaKgfAujjut+gsY/q59FmUU3Effc
+	 hogsqW8MCH7thhdlRMiGY5UMogg36g6ubNM8Pfx8XrEjE32HvSkOT4k+hbc35FFtMQPJT
+	 rtyw0PyyWDT5CJ/VliDAleKLsoorTqfYcRAqTro6Nz52cAvHA585EFZWBIr70cOjfHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UxqFOB8J;
-	arc=none smtp.remote-ip=95.215.58.160
-Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=akamai.com;
+	spf=pass smtp.mailfrom=akamai.com;
+	dkim=pass header.d=akamai.com header.i=@akamai.com header.a=rsa-sha256 header.s=apr2026.eng header.b="Xqd2BA/8";
+	arc=none smtp.remote-ip=67.231.149.131
+Received: from mx0a-00190b01.pphosted.com (mx0a-00190b01.pphosted.com [67.231.149.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294C1606BD50
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:40:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 294C1606BD50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2E1606A329;
+	Fri,  6 Nov 2026 11:41:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B2E1606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=akamai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=akamai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UxqFOB8J
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n/VbboCzefOB4w9vQ5BrdPfsWaF38INAGCXHBm5L/o0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793965239; v=1; x=1794570039;
- b=UxqFOB8JQGG7F49kF92x+CGnLLUWLwCAW1AQJ3CnNa6nn3JUGvoblA58nO/XU0PD3u+y4n3o
- JC1jp3hQzWrqFLEoFnm7SDeaECcb7fe2qNlwGB40dDep0GAe8pBOUAGjAY5v5qbsCL91T4Gg8rp
- ClyfyxL3aZncrU0qWlUuTytU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a9641b311cb11270;
-	Fri, 06 Nov 2026 11:40:18 +0000
-X-Mizu-Trace-ID: a9641b311cb11270
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2a6c5985-6767-4eb4-88a6-3d53196ec5bd@linux.dev>
-Date: Fri, 6 Nov 2026 12:40:12 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=akamai.com header.i=@akamai.com header.a=rsa-sha256 header.s=apr2026.eng header.b=Xqd2BA/8
+Received: from pps.filterd (m0050093.ppops.net [127.0.0.1])
+	by m0050093.ppops.net-00190b01. (8.18.1.11/8.18.1.11) with ESMTP id 6A63ZOSF982660;
+	Fri, 6 Nov 2026 11:41:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=apr2026.eng; bh=6JqcFZw2DreE50hImFuQ
+	gRUSPI0sEWGLexA8Fi5Q35c=; b=Xqd2BA/89bmWdvaTFptK1org502yaTinBIFH
+	+DlbrKdyTmKIzLMncP+O466NCzaiWt7dQLaPUWtE4DbFJBAOZ0nToGSVjCw5tAsA
+	1fhbbStLM+delM/W6KkcRHaa39r/Y7GbBPMICZpE69F9iBG82KeYoJ3Sp5ZJ7vJR
+	Sqy6xKJoN4oMnvMqb6a5klTsZKStrP1xB5H651cnYviH+RKzXmwYO0stsDSpp5MR
+	ZDe1cpR9GtoMHt8RIwV7eLAXuj4yY2BgtfbZlu3y4uUwcAZBYigfF73rs0QBtEFF
+	7fRNkDNpla/ygOIdME65GgVp43lMdodrW87hicn4AK5nrFqE7A==
+Received: from prod-mail-ppoint6 (prod-mail-ppoint6.akamai.com [184.51.33.61])
+	by m0050093.ppops.net-00190b01. (PPS) with ESMTPS id 4hrey5ty49-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 11:41:10 +0000 (GMT)
+Received: from pps.filterd (prod-mail-ppoint6.akamai.com [127.0.0.1])
+	by prod-mail-ppoint6.akamai.com (8.18.1.7/8.18.1.7) with ESMTP id 6A6BZeaD006231;
+	Fri, 6 Nov 2026 06:41:09 -0500
+Received: from prod-mail-relay02.akamai.com ([172.27.118.35])
+	by prod-mail-ppoint6.akamai.com (PPS) with ESMTP id 4hs3una43f-1;
+	Fri, 06 Nov 2026 06:41:09 -0500 (EST)
+Received: from [127.0.1.1] (muc-lhv4ep.munich.corp.akamai.com [172.29.0.215])
+	by prod-mail-relay02.akamai.com (Postfix) with ESMTP id 71C0A83;
+	Fri,  6 Nov 2026 11:41:07 +0000 (UTC)
+From: Max Boone <mboone@akamai.com>
+Date: Fri, 06 Nov 2026 12:40:55 +0100
+Subject: [PATCH net-next] net: lwtunnel: use GFP_KERNEL in build_state
+ paths
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,259 +76,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] RDMA/siw: Fix early peer close handling on listeners
-To: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261105022253.368316-1-lee@jaeyeong.cc>
-From: Bernard Metzler <bernard.metzler@linux.dev>
-In-Reply-To: <20261105022253.368316-1-lee@jaeyeong.cc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-build-state-use-gfp-kernel-v1-1-18084382f878@akamai.com>
+X-B4-Tracking: v=1; b=H4sIAMa87WoC/x3MQQqDMBAF0KvIrDuQWCy1VyldGPNjh8pUMlEE8
+ e4NXb7NO8iQBUaP5qCMTUy+WuEvDY3vQSewxGpqXXvz3nUcVpkjWxkKeDXwlBb+ICtmHq9df4+
+ +dyEFqsGSkWT/509SFFbshV7n+QOOl99udgAAAA==
+X-Change-ID: 20261105-build-state-use-gfp-kernel-c3598d190bfb
+To: "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+        Justin Iurman <justin.iurman@gmail.com>,
+        Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: Donald Sharp <sharpd@nvidia.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+        Max Boone <mboone@akamai.com>,
+        Debabrata Banerjee <dbanerje@akamai.com>,
+        Nick Hudson <nhudson@akamai.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793965267; l=4428;
+ i=mboone@akamai.com; s=20260317; h=from:subject:message-id;
+ bh=LJP5KneWils/U/2yCjDE5joxzXA50czLgi/CoNddHkU=;
+ b=CzpEqdWibOlncF0n9BKTV1FMFsXu0NAAzWIED5xUqpNW7e/ctavs6AzOQ6jVXqpX9Hku0CCW7
+ eiphS3gHuMVBtFARadIfrNHQUZNdI7qbKpnISqBkwt3dBQ3T2pYDHMe
+X-Developer-Key: i=mboone@akamai.com; a=ed25519;
+ pk=jWdC/h5H2KWQCiC2kpr/puMVX0mJmP9W5sM8YTGBXA4=
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2611040000
+ definitions=main-2611060046
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA0NiBTYWx0ZWRfX+2gdTpzq+Q6S
+ DTawaMSb50DCinsIn5mCc1pP648mrWw/Ujfi9/fBzndWZIGFUnV+3u4wiTlJP0kPiENuk8wHATE
+ M4lUGSgPf3uNcWwG0B1KLIehFA8jL3I=
+X-Proofpoint-GUID: TCIrFhySC1P4xMTTBKrOhaESz6hGIorH
+X-Authority-Analysis: v=2.4 cv=e5KT2qp/ c=1 sm=1 tr=0 ts=6aedbcd6 cx=c_pps
+ a=WPLAOKU3JHlOa4eSsQmUFQ==:117 a=WPLAOKU3JHlOa4eSsQmUFQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Ifg-1AOnLHOf1gn6spyb:22 a=d4nn1RXdvEacMIURMw2s:22 a=X7Ea-ya5AAAA:8
+ a=Yl7yAlAd151cMgl_QPEA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA0NiBTYWx0ZWRfX1DitL39BG4vN
+ yxCy9pOCDp2qfu+IeAGEjkwFbUGWA0nBvX81AbcAmIEOBC6OmomeumYMkvSsH4HFn11ZCe6YbVp
+ CEEPZvpGY3Gxk0nAxtQgvgu7enV8GoLGIv72Z9OlSS5e7MHb1ywvoo+ZlAWmhB3VBDQxOhNsVcc
+ DODRe4ITwlap4Hvf/IkwX8iOLNBgBZgBJunzsCiC6YDiEoG4OY0GS86AnrEdoJrS0FmIhL7LpAh
+ AHCWDlvtRl/8VpDHVhZbR1UfgzOE92r1P2nbf3XU4Jy4HXEqWWKpk7ahW+faQvN0vnsI/Yob7o1
+ +uaQ8SbCDdnhM8GtveoeFFX3uhAMIBX5tL+bKZD5LvL2wxyz+yQaw2rlBQJ0dU6XQO8k1dayldF
+ GhoCsyImTGf9HMUCRZiZiRwq6WAkTYybhPb0+iHNxcBIt360qXbcvXs8On0ry7WySPMEY5MbNUM
+ QDPlsuublZIYEcCUTVg==
+X-Proofpoint-ORIG-GUID: TCIrFhySC1P4xMTTBKrOhaESz6hGIorH
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1011 bulkscore=0 adultscore=0 suspectscore=0
+ phishscore=0 priorityscore=1501 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060046
 
-On 05.11.2026 03:22, Jaeyeong Lee wrote:
-> A TCP child socket inherits the listener callbacks and sk_user_data before
-> kernel_accept() associates it with a new connection endpoint. If the peer
-> closes during this window, siw_cm_llp_state_change() queues a PEER_CLOSE
-> work item against the listening endpoint.
-> 
-> The worker releases that endpoint without removing it from the listener
-> list. A later listener teardown then walks the dangling entry, causing a
-> use-after-free in siw_destroy_listen(). KASAN reports:
-> 
->    ==================================================================
->    BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x32/0x1a0
->    Read of size 8 at addr ffff888008f502c8 by task rping/59
-> 
->    CPU: 0 UID: 0 PID: 59 Comm: rping Tainted: G    B               7.4.0-rc1-g6628e7d4c6b2 #1 PREEMPT(lazy)
->    Tainted: [B]=BAD_PAGE
->    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->    Call Trace:
->     <TASK>
->     dump_stack_lvl+0x54/0x70
->     print_address_description+0x73/0x1f0
->     ? __list_del_entry_valid_or_report+0x32/0x1a0
->     print_report+0x58/0x70
->     kasan_report+0x117/0x150
->     ? add_taint+0x43/0x90
->     ? __list_del_entry_valid_or_report+0x32/0x1a0
->     __list_del_entry_valid_or_report+0x32/0x1a0
->     siw_destroy_listen+0xe1/0x630
->     destroy_cm_id+0x25c/0x480
->     ? srso_return_thunk+0x5/0x5f
->     ? srso_return_thunk+0x5/0x5f
->     ? lock_acquire+0xf7/0x220
->     ? _destroy_id+0x2d1/0xe30
->     iw_destroy_cm_id+0xf/0x80
->     _destroy_id+0x6cc/0xe30
->     _cma_cancel_listens+0x2ee/0x360
->     _destroy_id+0x2ad/0xe30
->     ucma_destroy_private_ctx+0xb7/0x9d0
->     ? srso_return_thunk+0x5/0x5f
->     ? do_raw_spin_unlock+0x4d/0x230
->     ucma_close+0xd5/0x130
->     __fput+0x31a/0x720
->     fput_close_sync+0x91/0x110
->     filp_close_sync+0x18/0x30
->     put_files_struct+0x25a/0x280
->     do_exit+0x70e/0x1d00
->     ? lock_acquire+0xf7/0x220
->     ? get_signal+0x21c/0xf60
->     do_group_exit+0x19e/0x250
->     get_signal+0xf20/0xf60
->     ? futex_wait+0x99/0x230
->     arch_do_signal_or_restart+0x46/0x420
->     exit_to_user_mode_loop+0xbd/0x510
->     do_syscall_64+0x2ed/0x3b0
->     ? entry_SYSCALL_64_after_hwframe+0x76/0x7e
->     ? srso_return_thunk+0x5/0x5f
->     ? trace_hardirqs_off+0x65/0x90
->     entry_SYSCALL_64_after_hwframe+0x76/0x7e
->    RIP: 0033:0x7f92984c6e51
->    Code: Unable to access opcode bytes at 0x7f92984c6e27.
->    RSP: 002b:00007ffeae782d10 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
->    RAX: fffffffffffffe00 RBX: 000055fb4e9819b8 RCX: 00007f92984c6e51
->    RDX: 0000000000000000 RSI: 0000000000000189 RDI: 000055fb4e9819b8
->    RBP: 00007ffeae782d50 R08: 0000000000000000 R09: 00000000ffffffff
->    R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
->    R13: 0000000000000000 R14: 000055fb4e9819b8 R15: 000055fb4e97da25
->     </TASK>
-> 
->    Allocated by task 59:
->     kasan_save_track+0x3e/0x80
->     __kasan_kmalloc+0x72/0x90
->     __kmalloc_cache_noprof+0x245/0x3c0
->     siw_cep_alloc+0x4f/0x390
->     siw_create_listen+0x39e/0xd60
->     iw_cm_listen+0xfc/0x1d0
->     rdma_listen+0x749/0xa90
->     cma_listen_on_dev+0x404/0x760
->     rdma_listen+0x3dc/0xa90
->     ucma_listen+0xe2/0x180
->     ucma_write+0x1bd/0x1e0
->     vfs_write+0x1a9/0x8e0
->     ksys_write+0xba/0x180
->     do_syscall_64+0xee/0x3b0
->     entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> 
->    Freed by task 30:
->     kasan_save_track+0x3e/0x80
->     kasan_save_free_info+0x40/0x50
->     __kasan_slab_free+0x3a/0x60
->     kfree+0x155/0x470
->     siw_cm_work_handler+0x7af/0x2d40
->     process_scheduled_works+0x970/0x12d0
->     worker_thread+0x894/0xd20
->     kthread+0x2db/0x3b0
->     ret_from_fork+0x266/0x570
->     ret_from_fork_asm+0x1a/0x30
-> 
->    The buggy address belongs to the object at ffff888008f50200
->     which belongs to the cache kmalloc-512 of size 512
->    The buggy address is located 200 bytes inside of
->     freed 512-byte region [ffff888008f50200, ffff888008f50400)
-> 
->    The buggy address belongs to the physical page:
->    page: refcount:0 mapcount:0 mapping:0000000000000000
->    index:0xffff888008f51400 pfn:0x8f50
->    head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
->    flags: 0x4000000000000240(workingset|head|zone=1)
->    page_type: f5(slab)
->    raw: 4000000000000240 ffff888005842040 ffff888005840d08 ffff888005840d08
->    raw: ffff888008f51400 00000000000a0003 00000000f5000000 0000000000000000
->    head: 4000000000000240 ffff888005842040 ffff888005840d08 ffff888005840d08
->    head: ffff888008f51400 00000000000a0003 00000000f5000000 0000000000000000
->    head: 4000000000000002 ffffea000023d401 00000000ffffffff 00000000ffffffff
->    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
->    page dumped because: kasan: bad access detected
-> 
->    Memory state around the buggy address:
->     ffff888008f50180: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->     ffff888008f50200: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->    >ffff888008f50280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->                                                  ^
->     ffff888008f50300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->     ffff888008f50380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->    ==================================================================
-> 
-> There is a second race while creating a listener. listen() starts
-> accepting connections before the endpoint is linked to the CM ID and
-> changed from IDLE to LISTENING. ACCEPT work queued in this interval can
-> run immediately, see the IDLE state, and return without accepting the
-> first child.
-> 
-> Keep the listener endpoint in use from allocation until its CM ID, listener
-> list entry, and LISTENING state have all been published. This makes early
-> ACCEPT work wait for listener setup to complete.
-> 
-> During accept, serialize the endpoint handoff with socket state changes and
-> reject a child that has already reached TCP_CLOSE or TCP_CLOSE_WAIT. Ignore
-> close notifications inherited from the listener before that handoff. Live
-> accepted sockets continue through the normal close path.
-> 
-> The issue was found by static analysis.
-> 
-> The unpatched kernel reproduced the KASAN report above in an x86_64 QEMU
-> guest. With a temporary 500 ms delay after listen(), the previous version
-> lost the first child and timed out waiting for an MPA response; this
-> version accepted the same child and returned an MPA response.
-> RST-before-accept and MPA-request-followed-by-FIN tests also completed
-> without KASAN or lockdep reports. The final SIW object was built with
-> LLVM 22.1.8 and W=1.
-> 
-> Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
-> Suggested-by: Stefan Metzmacher <metze@samba.org>
-> Link: https://lore.kernel.org/r/33abff2233b36a51e468d691cb4327d0294d2734.1620343860.git.metze@samba.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
-> ---
-> Changes in v3:
-> - Serialize listener setup so early ACCEPT work cannot be consumed in IDLE.
-> - Include the complete KASAN report requested by Leon.
-> 
-> Changes in v2:
-> - Cover the IDLE interval between listen() and the LISTENING transition.
-> - Serialize accepted-socket handoff and reject an already closed child.
-> 
->   drivers/infiniband/sw/siw/siw_cm.c | 23 ++++++++++++++++++++---
->   1 file changed, 20 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
-> index ed49818793dde..90adb9543d9d0 100644
-> --- a/drivers/infiniband/sw/siw/siw_cm.c
-> +++ b/drivers/infiniband/sw/siw/siw_cm.c
-> @@ -973,6 +973,7 @@ static void siw_accept_newconn(struct siw_cep *cep)
->   	struct socket *s = cep->sock;
->   	struct socket *new_s = NULL;
->   	struct siw_cep *new_cep = NULL;
-> +	bool peer_closed;
->   	int rv = 0; /* debug only. should disappear */
->   
->   	if (cep->state != SIW_EPSTATE_LISTENING)
-> @@ -1009,11 +1010,23 @@ static void siw_accept_newconn(struct siw_cep *cep)
->   	}
->   	new_cep->sock = new_s;
->   	siw_cep_get(new_cep);
-> -	new_s->sk->sk_user_data = new_cep;
->   
->   	if (siw_tcp_nagle == false)
->   		tcp_sock_set_nodelay(new_s->sk);
-> +
-> +	lock_sock(new_s->sk);
-> +	write_lock_bh(&new_s->sk->sk_callback_lock);
->   	new_cep->state = SIW_EPSTATE_AWAIT_MPAREQ;
-> +	new_s->sk->sk_user_data = new_cep;
-> +	peer_closed = new_s->sk->sk_state == TCP_CLOSE ||
-> +		      new_s->sk->sk_state == TCP_CLOSE_WAIT;
-> +	write_unlock_bh(&new_s->sk->sk_callback_lock);
-> +	release_sock(new_s->sk);
-> +
-> +	if (peer_closed) {
-> +		rv = -ECONNRESET;
-> +		goto error;
-> +	}
->   
->   	rv = siw_cm_queue_work(new_cep, SIW_CM_WORK_MPATIMEOUT);
->   	if (rv)
-> @@ -1361,6 +1374,10 @@ static void siw_cm_llp_state_change(struct sock *sk)
->   
->   	case TCP_CLOSE:
->   	case TCP_CLOSE_WAIT:
-> +		if (cep->state == SIW_EPSTATE_LISTENING ||
-> +		    (cep->state == SIW_EPSTATE_IDLE &&
-> +		     !READ_ONCE(sk->sk_socket)))
-> +			break;
->   		if (cep->qp)
->   			cep->qp->tx_ctx.tx_suspend = 1;
->   		siw_cm_queue_work(cep, SIW_CM_WORK_PEER_CLOSE);
-> @@ -1880,6 +1897,7 @@ int siw_create_listen(struct iw_cm_id *id, int backlog)
->   		rv = -ENOMEM;
->   		goto error;
->   	}
-> +	siw_cep_set_inuse(cep);
->   	siw_cep_socket_assoc(cep, s);
->   
->   	rv = siw_cm_alloc_work(cep, backlog);
-> @@ -1932,14 +1950,13 @@ int siw_create_listen(struct iw_cm_id *id, int backlog)
->   
->   	siw_dbg(id->device, "Listen at laddr %pISp\n", &id->local_addr);
->   
-> +	siw_cep_set_free(cep);
->   	return 0;
->   
->   error:
->   	siw_dbg(id->device, "failed: %d\n", rv);
->   
->   	if (cep) {
-> -		siw_cep_set_inuse(cep);
-> -
->   		siw_free_cm_id(cep);
->   		siw_socket_disassoc(s);
->   		cep->state = SIW_EPSTATE_CLOSED;
+Since 3d25eabbbf67 ("ip_tunnel: Add dst_cache support in lwtunnel_state
+of ip tunnel"), build_state runs outside RCU and all its callers can
+sleep, but paths still use GFP_ATOMIC.
 
-Thank you Jaeyeong. While it seems sound, I have to look
-closer. I'll reply soon.
+For dst caches, that limits allocation to populated percpu pages. A
+large burst of SRv6 nexthops outruns the refill worker and will fail
+with -ENOMEM despite there being free memory:
 
-Thanks,
-Bernard.
+  percpu: allocation failed, size=40 align=8 atomic=1, atomic alloc
+failed, no space left
+
+Batching 20000 RTM_NEWNEXTHOP under QEMU gave 10-109 failures per run
+before, none after.
+
+This commit converts the allocations reached through ops->build_state()
+and are called after the rcu_read_unlock():
+
+  - ila_build_state(), ioam6_build_state(), rpl_build_state(),
+    seg6_build_state(): build_state ops
+  - bpf_parse_prog(): only called from bpf_build_state()
+  - lwtunnel_state_alloc(): only called from build_state ops (also
+    affects mpls, ip/ip6 tunnel, xfrmi and seg6_local)
+
+Signed-off-by: Max Boone <mboone@akamai.com>
+Reviewed-by: Debabrata Banerjee <dbanerje@akamai.com>
+Reviewed-by: Nick Hudson <nhudson@akamai.com>
+---
+ net/core/lwt_bpf.c        | 2 +-
+ net/core/lwtunnel.c       | 2 +-
+ net/ipv6/ila/ila_lwt.c    | 2 +-
+ net/ipv6/ioam6_iptunnel.c | 2 +-
+ net/ipv6/rpl_iptunnel.c   | 2 +-
+ net/ipv6/seg6_iptunnel.c  | 4 ++--
+ 6 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
+index da49364ec63d..6d1059ff0c49 100644
+--- a/net/core/lwt_bpf.c
++++ b/net/core/lwt_bpf.c
+@@ -359,7 +359,7 @@ static int bpf_parse_prog(struct nlattr *attr, struct bpf_lwt_prog *prog,
+ 	if (!tb[LWT_BPF_PROG_FD] || !tb[LWT_BPF_PROG_NAME])
+ 		return -EINVAL;
+ 
+-	prog->name = nla_memdup(tb[LWT_BPF_PROG_NAME], GFP_ATOMIC);
++	prog->name = nla_memdup(tb[LWT_BPF_PROG_NAME], GFP_KERNEL);
+ 	if (!prog->name)
+ 		return -ENOMEM;
+ 
+diff --git a/net/core/lwtunnel.c b/net/core/lwtunnel.c
+index 8223c44f10c8..f2f4d1ace0e9 100644
+--- a/net/core/lwtunnel.c
++++ b/net/core/lwtunnel.c
+@@ -70,7 +70,7 @@ struct lwtunnel_state *lwtunnel_state_alloc(int encap_len)
+ {
+ 	struct lwtunnel_state *lws;
+ 
+-	lws = kzalloc(sizeof(*lws) + encap_len, GFP_ATOMIC);
++	lws = kzalloc(sizeof(*lws) + encap_len, GFP_KERNEL);
+ 
+ 	return lws;
+ }
+diff --git a/net/ipv6/ila/ila_lwt.c b/net/ipv6/ila/ila_lwt.c
+index 7bb9edc5c28c..01fd78a232e7 100644
+--- a/net/ipv6/ila/ila_lwt.c
++++ b/net/ipv6/ila/ila_lwt.c
+@@ -228,7 +228,7 @@ static int ila_build_state(struct net *net, struct nlattr *nla,
+ 		return -ENOMEM;
+ 
+ 	ilwt = ila_lwt_lwtunnel(newts);
+-	ret = dst_cache_init(&ilwt->dst_cache, GFP_ATOMIC);
++	ret = dst_cache_init(&ilwt->dst_cache, GFP_KERNEL);
+ 	if (ret) {
+ 		kfree(newts);
+ 		return ret;
+diff --git a/net/ipv6/ioam6_iptunnel.c b/net/ipv6/ioam6_iptunnel.c
+index cfb2c41634a0..3093446ad89a 100644
+--- a/net/ipv6/ioam6_iptunnel.c
++++ b/net/ipv6/ioam6_iptunnel.c
+@@ -166,7 +166,7 @@ static int ioam6_build_state(struct net *net, struct nlattr *nla,
+ 		return -ENOMEM;
+ 
+ 	ilwt = ioam6_lwt_state(lwt);
+-	err = dst_cache_init(&ilwt->cache, GFP_ATOMIC);
++	err = dst_cache_init(&ilwt->cache, GFP_KERNEL);
+ 	if (err)
+ 		goto free_lwt;
+ 
+diff --git a/net/ipv6/rpl_iptunnel.c b/net/ipv6/rpl_iptunnel.c
+index 4e10adcd70e8..838ede10a79d 100644
+--- a/net/ipv6/rpl_iptunnel.c
++++ b/net/ipv6/rpl_iptunnel.c
+@@ -102,7 +102,7 @@ static int rpl_build_state(struct net *net, struct nlattr *nla,
+ 
+ 	rlwt = rpl_lwt_lwtunnel(newts);
+ 
+-	err = dst_cache_init(&rlwt->cache, GFP_ATOMIC);
++	err = dst_cache_init(&rlwt->cache, GFP_KERNEL);
+ 	if (err) {
+ 		kfree(newts);
+ 		return err;
+diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
+index 0d39a38a5dd2..7c64680e4632 100644
+--- a/net/ipv6/seg6_iptunnel.c
++++ b/net/ipv6/seg6_iptunnel.c
+@@ -833,11 +833,11 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+ 
+ 	slwt = seg6_lwt_lwtunnel(newts);
+ 
+-	err = dst_cache_init(&slwt->cache_input, GFP_ATOMIC);
++	err = dst_cache_init(&slwt->cache_input, GFP_KERNEL);
+ 	if (err)
+ 		goto err_free_newts;
+ 
+-	err = dst_cache_init(&slwt->cache_output, GFP_ATOMIC);
++	err = dst_cache_init(&slwt->cache_output, GFP_KERNEL);
+ 	if (err)
+ 		goto err_destroy_input;
+ 
+
+---
+base-commit: 0822d2fe38262e8b55c5ea55c970022bca8dd2a9
+change-id: 20261105-build-state-use-gfp-kernel-c3598d190bfb
+
+Best regards,
+-- 
+Max Boone <mboone@akamai.com>
+
