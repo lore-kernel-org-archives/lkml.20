@@ -1,64 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793925479;
-	b=Q4R59maMe9Qny7NRwXOngIoZ/zgrtnp5dUeAdsk8/P1HUwAknEXzx3reSZI/mUy8v4R8
-	 b48UAPKaUl2j8X4wm0odIUiKJ9uOuugLc5GaWlbBldh+vv6eWnFIcDFQzbaGDj/3DiFc7
-	 qW2HRc57HBjrhpogeHgTcz8PaOuLJpnCRQyB6XAIC6xM0IYFzfEWmFDAjTsrDUQSub/qf
-	 dUBY7g5s0fgGg2D1VJHNjB8mqBlRuQxvG5gf1qLs1urKjK7lfu+wmT3vtilCkvysL59C1
-	 cZuex0RgiGaqJhz+0C76zVVg1d3PyYLIr5LGJ5P1hmhtaE8Q6V2xdDli02w1TxdeKMg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793925479;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Zoho-Virus-Status:X-Zoho-AV-Stamp:X-ZohoMailClient;
-	bh=sdoSdWPwCgIPKnV1U3gXURglAJm1i0Icgi+YPF80Ui4=;
-	b=KNIfa4cbqyfF7YsNJYdXQsyv+AFYHFMQxyk+tg6B/7mHxKxRQhhZs9Gt2HhRxI3HP8Sz
-	 2VUfmN+8Wx+apdJgs1b6e5Zixq4HJvZkFQgUcKiLNlZJmg4lrxCOhgMjWUpGGxX4S6YWr
-	 Tw4Zw8b+Df5J4ytEHGLjWOY7Vn6/P8WaXrmwEcdW4bIJCTWnUyLluyepNmCQtGfFvx6fS
-	 2b0u5X00VQr7fO7PUrvlNtezB6/f2xzUtg4pAOvbv4Q9w2eN0VbUPheJqyXo8rzJod6nz
-	 kihy6RExA2oGQ/mVRn9v8zGGr4hZ2M+zy5mZ81yn/qhYDGPaUthzZPKIqgId/mQWb6g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=WXZsiHrz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793925590;
+	b=pj21FNxfNLAdGrgeae3LT1G1Q9MrVf9R5oII7umgftvPaMovFoXYhmU4e30jzF1S8Um9
+	 VyhFxRPPB+Y88SX3yDZyrLBkP5eS+rSHBkyzVtmtXepmcwWEQeNkLC15uud+RDEXxfLax
+	 Z+bVaKMX4ekrqX9H8fFujVZNqUE0jw+rx1iFoGsuc+5zfPgoU1Fwm08sQfpbismifDEux
+	 UEE4JL0RSvwYCJKTzqXAKUnWnrxyL8GpSkruY1W+TxTxspm3IVd9q3BU61TvTOW367yB3
+	 kJ1AH+FO+jSJKi48wK/uFiu5c/y53BZFIP+WzKuvCYUFR59iiI+IFc1n1PAaObun/DA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793925590;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=WL8nwJ/wMqsPR/6qL4tukpzx0z/mXpqqzRzogjQyULk=;
+	b=kvst2xUPUCNTsHEJG87WF1v4OZQ3MPgloC+kJJ2xOXigPCXTK4lbGdoap6an0QEF+0A+
+	 1BL82/q5GYII4MgNa6oQ4CeoDnV8EW37HN1VvZkjithv6Mys4rptyNNeWMOo6t2p+REZT
+	 oi9WvRW2Qg1lbrO19MFRLkeaPc0T0VK74tvSROCuI3t2ji5h+wQaFehbQBNOOtL0l5bcp
+	 1sif3EFc5LWvl/913XFCJAgx1t0HnX4ocZOCDOBBwuiGkd4jy9dhDhYQBElUgYYozo0Ii
+	 u0ZteLcFixwrksRV3ZLxU8HDsgF5rc0+5bVHfjWiWJw6uUAIfL84usQ3dNCimHl9kfA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="SM/lD++c";
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763D7606A31B;
-	Fri,  6 Nov 2026 00:37:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 763D7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CE5606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:39:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CE5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=WXZsiHrz
-ARC-Seal: i=1; a=rsa-sha256; t=1793925466; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OfYjXpRewqBZ2nokUWf6vGNQf0Y85gbOg36/1SO0Cu8zxdFwVAkXUxkrcZ96wZLzDP3SJwneYmOgINgK5amPpE3MFre6A+yny4FmB1Wm8fxEv8Q1/iFnLYeN4IF9IGzVNNarnubpoZj09qkpr6M0RnqNLRqywXRjsGsRJnSIUms=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793925466; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=sdoSdWPwCgIPKnV1U3gXURglAJm1i0Icgi+YPF80Ui4=; 
-	b=O/piH8zXgmhfD9KBe0Tw3FXIiWWOahte5a+IYYeWVT1Et0N5nPocQSdEvMO2LoCJq6N2c0CD4F+vhvu/tXlrf7EzhwSPH//On4YIR6GmZt/VEUSCHK3xMPHakPRoNN0atLh1Y0yCV1TGYyeR7YFB6zpH5ImwAFX/+B+Sm32uztY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=WXZsiHrzTymHXmchiZc3soumXnHZ7CINWHZKZTwkxbfmQP97Y/xNy5x0Lenl3ZecqO4hZlWzlu+tNMYz0Z9RJiRK73IWlsu1rfyJgUvjMAZVZem6dcZqnl/OnlwgsNN/V54V4TH5RT+EW8MVtVgzqheWR9VSQgK1cMf2OlxE0cE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=sdoSdWPwCgIPKnV1U3gXURglAJm1i0Icgi+YPF80Ui4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793925465455255.28372820052175;
-	Thu, 5 Nov 2026 16:37:45 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 9052B180354; Fri, 06 Nov 2026 01:37:41 +0100 (CET)
-Date: Fri, 6 Nov 2026 01:37:41 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Yaohan Li <shunsheng1218@gmail.com>
-Cc: hansg@kernel.org, marex@denx.de, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] power: supply: bq25890: cancel pump work before supply
- removal
-Message-ID: <au0gsSfR64U3Bs3S@venus>
-References: <179378565123.72475.2497991563887142080@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SM/lD++c
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc751eddf25so45691a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:39:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793925589; x=1794530389; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WL8nwJ/wMqsPR/6qL4tukpzx0z/mXpqqzRzogjQyULk=;
+        b=SM/lD++c6lirjLOLHvGOARsCbeXJx0kzVB7LOKmQZ+hXKpnJD7Le8+indVem8SmHIG
+         xgiOgoZK5SSqk/+gCMRsSn7DQi8mj8YyKqldXps1yVFfqcY0+wLxEIJ1k1LvGROg0nYa
+         ZiVAGyd8D2qvJ7A+vQpMmcP9Bh7sn9b8PebgkeG4+mKNUu4qSZ6gWDZ0ElTjC/CwI48+
+         pVV0toREk/pTX16I520nKhw2Ds2Vwdap5BTYCVKvFg2e0kMqMuDqGTMH35OJkX4IAAZH
+         bXmYSoB1BU3fmVnIgxP4Ym1DUf1D3au1/+ZNHFgSm5kPPfAPDHu2arg9fr+RdECeJ06P
+         DfIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793925589; x=1794530389;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WL8nwJ/wMqsPR/6qL4tukpzx0z/mXpqqzRzogjQyULk=;
+        b=frheHLgyFf0qUv9SXgNEWpsocpyGu/OVvXhZGF2YxHJRDbrO3qgsNz/1YuLYxeoM1w
+         +/3gPs8VD2m9Oj0d4J0Yn3Xlf77e6LjfisXS3YR60Tg2/EtbqLBsQDdON+AnmTcCmsjc
+         TwkrVdLzsELvNSwFgn4Md/8X1ZXOX1m9P81pUvlT3bfiPh1CnbfQH1nHJaBG/O0oEZ2S
+         UeW06pKRFyb6AdGi1Pusi9+eeyRQ5+DB9sFzuk7SaDJbRGwS0ZqNTML8BMWw6MgCsVOJ
+         5fnBsmNn9xklf5P6IvX85Go/gt4d1P9hEs7iYnVrS1T8ORH5Trvu/Nyy/iGQ5e3V8UpB
+         MoGA==
+X-Forwarded-Encrypted: i=1; AKwUvBysi7Ho1YZXCvSVe7tyMEjZduhuB3xp16bLHC4oU9UycERq1FbNDhwpmCkFlWxmjqGTK6LlqpCQymICQbg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7LwCxVzFuYsucBAXBj+rt8nRcqcz+0UKhfzeFr6sM97vktBp2
+	eZHD7ycjVGEz63LMXUFybBHsjzyaVgahE2+/v79DfqLoUh1lTEYNHm6J
+X-Gm-Gg: AYBFou0N0KNY+yN0aB69WSyoBIwwcx/C6jMcAFCHglgzD336Mbo34b682F30dLWkKxm
+	+sGGWulmw6vJBEA6j8tcPNh3DG7Q5Mcvk3kbNIXsVdNzEQHtojHLKJG+gboMmlejrtDIegabJlk
+	4MKQAgot7PKLeLpMQ18SIh+MWR0IE0YospSfd1NQzJ8b0s3bx+uEo8aMUXKmKJmb+WVKqEVCnx7
+	5PIkXibN0l4u+b7yhI9MSZmMOD6HTayYfOmP2KkdhQxgoAVD5uxc5Q9FDBtYawZU75JgRmn4fIw
+	qGeBLZNdCjmEtcDKB/e5LoG115XN2j/JbNIzedSH24RAo/9oBnz2t9yGfLXbQxaOKmu9Y1A2EDh
+	h3f/ZPYmtUzJa9URzU98Je4ORg/PScjOcNX6QfbH2Kcsc3lcrGq1pcdWIaVrC/mK2rUUa3W22q2
+	YpSjdbMKeZGof/dF5CbHaiCHtibwDI+rjrJB2iVSPmHRcXtyE9UFP7ZRF8Czcv/lS27ZZEchcYn
+	iHSdNRdUhSBlp/hj+T00XgLvC80YHe7BGFP9X7LautHmT9CJwjSercQ5wZ6qKaaQ4wKmGFuzvXq
+	22UqiX9jEB9pph8mk5pQ3yOZPFWP4effiF23Gt6UzuSJgrFVubOommTX6DQy0QhGdIT8vAZLFZj
+	HJj4=
+X-Received: by 2002:a17:90b:3890:b0:39d:84af:a0b3 with SMTP id 98e67ed59e1d1-3b0db6bba9cmr784048a91.18.1793925589389;
+        Thu, 05 Nov 2026 16:39:49 -0800 (PST)
+Received: from [172.19.1.51] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0993fb8a8sm5197377a91.4.2026.11.05.16.39.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 16:39:48 -0800 (PST)
+Message-ID: <4d739128-248f-4b35-8e0c-6f6b8fbebc3b@gmail.com>
+Date: Fri, 6 Nov 2026 08:39:35 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,84 +91,273 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <179378565123.72475.2497991563887142080@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.901.53
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+From: Shan-Chun Hung <shanchun1218@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org,
+ Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, kees@kernel.org, gustavoars@kernel.org,
+ linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+References: <20261103022202.2139674-1-shanchun1218@gmail.com>
+ <20261103022202.2139674-3-shanchun1218@gmail.com>
+ <20261104-airborne-vivid-caterpillar-991425@quoll>
+ <de0bcd11-edfe-471b-a22d-f1e748a7fda6@gmail.com>
+Content-Language: en-US
+In-Reply-To: <de0bcd11-edfe-471b-a22d-f1e748a7fda6@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Krzysztof,
 
-On Wed, Nov 04, 2026 at 05:47:31PM +0800, Yaohan Li wrote:
-> The existing devm cleanup for pump_express_work runs after the
-> managed power supply has been unregistered. A delayed or running pump
-> work item can therefore call power_supply_changed() with a freed
-> power_supply pointer.
->=20
-> Register an additional devm cleanup action after power-supply
-> registration, so devres reverse ordering drains the work while the
-> supply is still alive. Keep the original late cleanup as a backstop
-> for work that might be queued again during supplier teardown.
->=20
-> A KASAN test using a simulated I2C device and the real bq25890
-> driver reproduced the use-after-free before the change and not under
-> the corresponding teardown sequence afterward.
->=20
-> Fixes: a7aaa80098d5b7608 ("power: supply: bq25890: Ensure pump_express_wo=
-rk is cancelled on remove")
-> Assisted-by: ZCode:GLM-4
-> Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
-> ---
->  drivers/power/supply/bq25890_charger.c | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
->=20
-> diff --git a/drivers/power/supply/bq25890_charger.c b/drivers/power/suppl=
-y/bq25890_charger.c
-> index f7510ada6b734..a3e35e036b97b 100644
-> --- a/drivers/power/supply/bq25890_charger.c
-> +++ b/drivers/power/supply/bq25890_charger.c
-> @@ -1459,6 +1459,23 @@ static void bq25890_non_devm_cleanup(void *data)
->  	}
->  }
-> =20
-> +static void bq25890_cancel_pump_express(void *data)
-> +{
-> +	struct bq25890_device *bq =3D data;
-> +
-> +	/*
-> +	 * Cancel the delayed work while the power supply is still alive:
-> +	 * bq25890_pump_express_work() calls power_supply_changed() at its
-> +	 * end and must not run against an already released supply.
-> +	 *
-> +	 * bq25890_non_devm_cleanup() stays in place as well: it runs
-> +	 * after the devres-managed power supply has been unregistered,
-> +	 * catching work queued again from the supplier-change path
-> +	 * between this cancel and the unregister.
-> +	 */
-> +	cancel_delayed_work_sync(&bq->pump_express_work);
-> +}
-> +
->  static int bq25890_probe(struct i2c_client *client)
->  {
->  	struct device *dev =3D &client->dev;
-> @@ -1531,6 +1548,10 @@ static int bq25890_probe(struct i2c_client *client)
->  	if (ret < 0)
->  		return dev_err_probe(dev, ret, "registering power supply\n");
-> =20
-> +	ret =3D devm_add_action_or_reset(dev, bq25890_cancel_pump_express, bq);
-> +	if (ret)
-> +		return ret;
+Sorry, I missed this comment.
 
-Use devm_delayed_work_autocancel() (and drop the INIT_DELAYED_WORK).
 
--- Sebastian
+On 11/5/2026 12:11 PM, Shan-Chun Hung wrote:
+> Hi Krzysztof,
+> 
+> Thanks for your review.
+> 
+> On 11/4/2026 10:06 PM, Krzysztof Kozlowski wrote:
+>> On Tue, Nov 03, 2026 at 10:22:02AM +0800, Shan-Chun Hung wrote:
+>>> +#include <linux/align.h>
+>>> +#include <linux/bitfield.h>
+>>> +#include <linux/bits.h>
+>>> +#include <linux/clk.h>
+>>> +#include <linux/compiler_types.h>
+>>> +#include <linux/container_of.h>
+>>> +#include <linux/dev_printk.h>
+>>> +#include <linux/device.h>
+>>> +#include <linux/dma-direction.h>
+>>> +#include <linux/dma-mapping.h>
+>>> +#include <linux/dma/ma35d1-pdma.h>
+>>> +#include <linux/dmaengine.h>
+>>> +#include <linux/err.h>
+>>> +#include <linux/errno.h>
+>>> +#include <linux/gfp_types.h>
+>>> +#include <linux/interrupt.h>
+>>> +#include <linux/io.h>
+>>> +#include <linux/irqreturn.h>
+>>> +#include <linux/limits.h>
+>>> +#include <linux/list.h>
+>>> +#include <linux/math.h>
+>>> +#include <linux/minmax.h>
+>>> +#include <linux/mod_devicetable.h>
+>>> +#include <linux/module.h>
+>>> +#include <linux/of.h>
+>>> +#include <linux/of_dma.h>
+>>> +#include <linux/overflow.h>
+>>> +#include <linux/platform_device.h>
+>>> +#include <linux/scatterlist.h>
+>>> +#include <linux/slab.h>
+>>> +#include <linux/spinlock.h>
+>>> +#include <linux/spinlock_types.h>
+>>> +#include <linux/stddef.h>
+>>> +#include <linux/string.h>
+>>> +#include <linux/types.h>
+>>
+>> Do you use all these defines?
+I'll double-check the defines.>>
+>> I don't see usage of header with bindings, though.
+The bindings header is indeed unused and will be removed in the next 
+revision.
+>>
+>>> +
+>>> +#include "dmaengine.h"
+>>> +#include "virt-dma.h"
+>>> +
+>>
+>> ...
+>>
+>>> +static int ma35d1_pdma_probe(struct platform_device *pdev)
+>>> +{
+>>> +    int i, irq, nr_chans, ret;
+>>> +    struct clk *pdma_clk;
+>>> +    struct device *dev = &pdev->dev;
+>>> +    struct device_node *node = dev->of_node;
+>>> +    struct ma35d1_chan *ch;
+>>> +    struct ma35d1_pdmadev *pdmadev;
+>>> +    void __iomem *reg_base;
+>>> +
+>>> +    pdma_clk = devm_clk_get_enabled(dev, NULL);
+>>> +    if (IS_ERR(pdma_clk))
+>>> +        return dev_err_probe(dev, PTR_ERR(pdma_clk), "Failed to get 
+>>> clk\n");
+>>> +
+>>> +    ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+>>> +    if (ret)
+>>> +        return ret;
+>>> +
+>>> +    irq = platform_get_irq(pdev, 0);
+>>> +    if (irq < 0)
+>>> +        return irq;
+>>> +
+>>> +    ret = of_property_read_u32(node, "dma-channels", &nr_chans);
+>>> +    if (ret)
+>>> +        return dev_err_probe(dev, ret, "Failed to get dma-channels\n");
+>>> +
+>>> +    if (nr_chans > PDMA_MAX_CHANS) {
+>>> +        dev_warn(dev, "dma-channels %d exceeds max %d, clamping\n",
+>>> +             nr_chans, PDMA_MAX_CHANS);
+>>> +        nr_chans = PDMA_MAX_CHANS;
+>>> +    }
+>>> +
+>>> +    pdmadev = devm_kzalloc(dev, struct_size(pdmadev, channels, 
+>>> nr_chans), GFP_KERNEL);
+>>> +    if (!pdmadev)
+>>> +        return -ENOMEM;
+>>> +
+>>> +    pdmadev->nr_chans = nr_chans;
+>>> +
+>>> +    reg_base = devm_platform_ioremap_resource(pdev, 0);
+>>> +    if (IS_ERR(reg_base))
+>>> +        return dev_err_probe(dev, PTR_ERR(reg_base),
+>>> +                     "Failed to map pdma global registers\n");
+>>> +
+>>> +    dma_cap_zero(pdmadev->ddev.cap_mask);
+>>> +    dma_cap_set(DMA_SLAVE, pdmadev->ddev.cap_mask);
+>>> +    dma_cap_set(DMA_PRIVATE, pdmadev->ddev.cap_mask);
+>>> +    dma_cap_set(DMA_MEMCPY, pdmadev->ddev.cap_mask);
+>>> +    dma_cap_set(DMA_CYCLIC, pdmadev->ddev.cap_mask);
+>>> +
+>>> +    pdmadev->ddev.dev = dev;
+>>> +    pdmadev->ddev.src_addr_widths = PDMA_SLAVE_BUSWIDTHS;
+>>> +    pdmadev->ddev.dst_addr_widths = PDMA_SLAVE_BUSWIDTHS;
+>>> +    pdmadev->ddev.directions = BIT(DMA_MEM_TO_DEV) | 
+>>> BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_MEM);
+>>> +    pdmadev->ddev.device_prep_dma_memcpy = ma35d1_prep_dma_memcpy;
+>>> +    pdmadev->ddev.device_prep_slave_sg = ma35d1_prep_slave_sg;
+>>> +    pdmadev->ddev.device_prep_dma_cyclic = ma35d1_prep_dma_cyclic;
+>>> +    pdmadev->ddev.device_free_chan_resources = 
+>>> ma35d1_free_chan_resources;
+>>> +    pdmadev->ddev.device_issue_pending = ma35d1_issue_pending;
+>>> +    pdmadev->ddev.device_tx_status = ma35d1_tx_status;
+>>> +    pdmadev->ddev.device_config = ma35d1_slave_config;
+>>> +    pdmadev->ddev.device_terminate_all = ma35d1_terminate_all;
+>>> +    pdmadev->ddev.device_synchronize = ma35d1_synchronize;
+>>> +
+>>> +    spin_lock_init(&pdmadev->lock);
+>>> +    INIT_LIST_HEAD(&pdmadev->ddev.channels);
+>>> +    for (i = 0; i < nr_chans; i++) {
+>>> +        ch = &pdmadev->channels[i];
+>>> +        ch->dev = dev;
+>>> +        ch->pdmadev = pdmadev;
+>>> +        ch->id = i;
+>>> +        ch->base = reg_base;
+>>> +        ch->vc.desc_free = ma35d1_pdma_desc_free;
+>>> +        vchan_init(&ch->vc, &pdmadev->ddev);
+>>> +    }
+>>> +
+>>> +    ret = devm_request_irq(dev, irq, ma35d1_pdma_interrupt, 0, pdev- 
+>>> >name, pdmadev);
+>>> +    if (ret)
+>>> +        return dev_err_probe(dev, ret, "Failed to request IRQ\n");
+>>> +
+>>> +    ret = dmaenginem_async_device_register(&pdmadev->ddev);
+>>> +    if (ret)
+>>> +        return ret;
+>>> +
+>>> +    ret = of_dma_controller_register(node, ma35d1_of_xlate, pdmadev);
+>>> +    if (ret)
+>>> +        return dev_err_probe(dev, ret, "of_dma_controller_register 
+>>> failed\n");
+>>> +
+>>> +    platform_set_drvdata(pdev, pdmadev);
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +static void ma35d1_pdma_remove(struct platform_device *pdev)
+>>> +{
+>>> +    struct ma35d1_pdmadev *pdmadev = platform_get_drvdata(pdev);
+>>> +    int i;
+>>> +
+>>> +    of_dma_controller_free(pdev->dev.of_node);
+>>> +    writel(0, pdmadev->channels[0].base + PDMA_INTEN);
+>>> +
+>>> +    for (i = 0; i < pdmadev->nr_chans; i++)
+>>> +        tasklet_kill(&pdmadev->channels[i].vc.task);
+>>> +}
+>>> +
+>>> +static const struct of_device_id ma35d1_pdma_match[] = {
+>>> +    { .compatible = "nuvoton,ma35d1-pdma" },
+>>> +    { /* sentinel */ }
+>>> +};
+>>> +MODULE_DEVICE_TABLE(of, ma35d1_pdma_match);
+>>> +
+>>> +static struct platform_driver ma35d1_pdma_driver = {
+>>> +    .probe = ma35d1_pdma_probe,
+>>> +    .remove = ma35d1_pdma_remove,
+>>> +    .driver = {
+>>> +        .name = "ma35d1-pdma",
+>>> +        .of_match_table = ma35d1_pdma_match,
+>>> +    },
+>>> +};
+>>> +module_platform_driver(ma35d1_pdma_driver);
+>>> +
+>>> +MODULE_DESCRIPTION("PDMA controller driver for Nuvoton MA35D1");
+>>> +MODULE_AUTHOR("Shan-Chun Hung <shanchun1218@gmail.com>");
+>>> +MODULE_LICENSE("GPL");
+>>> diff --git a/include/linux/dma/ma35d1-pdma.h b/include/linux/dma/ 
+>>> ma35d1-pdma.h
+>>> new file mode 100644
+>>> index 000000000000..13f1410d74da
+>>> --- /dev/null
+>>> +++ b/include/linux/dma/ma35d1-pdma.h
+>>> @@ -0,0 +1,24 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>>> +/*
+>>> + * Header file for the MA35D1 PDMA Controller driver
+>>> + *
+>>> + * Copyright (C) 2026 Nuvoton Technology Corp.
+>>> + */
+>>> +#ifndef _MA35D1_PDMA_H
+>>> +#define _MA35D1_PDMA_H
+>>> +
+>>> +/**
+>>> + * struct ma35d1_peripheral - PDMA peripheral configuration
+>>> + * @prescaler: timeout prescaler value
+>>> + * @counter: timeout counter value
+>>> + *
+>>> + * Slave device drivers fill in this structure and pass it via
+>>> + * dma_slave_config.peripheral_config/peripheral_size to configure
+>>> + * the MA35D1 PDMA engine's per-channel timeout detection block.
+>>
+>> Hm? Confusing, how is it supposed to be used? Do you just reimplement
+>> board files?
+> 
+> Sorry, the comment did not clearly explain the intended usage.
+> 
+> For UART RX DMA, the UART driver calculates the PDMA timeout prescaler 
+> and counter values based on the current baud rate, then passes them 
+> through dma_slave_config.peripheral_config to configure the channel's 
+> timeout detection. These are runtime settings.
+> 
+> However, I understand that passing raw prescaler and counter values 
+> couples the UART driver to the MA35D1 PDMA register layout. I will 
+> consider having the UART driver specify the required timeout duration 
+> and letting the PDMA driver convert it into the hardware settings.
+> 
+> In the next revision, I will remove this timeout configuration interface 
+> and revisit it together with the UART DMA support patches, so the 
+> intended usage and client implementation can be reviewed together.
+>>
+>>> + */
+>>> +struct ma35d1_peripheral {
+>>> +    unsigned int prescaler;
+>>> +    unsigned int counter;
+>>> +};
+>>> +
+>>> +#endif /* _MA35D1_PDMA_H */
+>>> -- 
+>>> 2.25.1
+>>>
+> 
+> Best Regards,
+> Shan-Chun
 
-> +
->  	ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
->  					bq25890_irq_handler_thread,
->  					IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
-> --=20
-> 2.34.1
->=20
+Best Regards,
+Shan-Chun
+
