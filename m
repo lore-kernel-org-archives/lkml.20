@@ -1,88 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793990900;
-	b=uzb0VUpyr292BJNBiUKiLHkMkWGAyCrjSBlKU2cDh7AltxUtCBaqt25syLkG+wSllGy4
-	 BrOpAaSbcwOrsur5SdWHEzBZfYBrIRChXbcSKoTN9Hj4oGJISJUJNXVhFc2tNrw2N8h/F
-	 elrMhdZ7uh0oqubNoQ3uFc37I6G2wtkIca2fT8QlN3OfGxf6RGnUApf/QSgdd1kQMQ3pz
-	 SiObCSAF7KQdKNeOJPSJWo+7EnxCsJw4LTZGS5ZwU7+BZANU9EFjAZZE6QEQB43Xop6pr
-	 zFplfSdzALqpLyoOa+UhcGFIyfF6Kl7RCs5sJ17Fblo/5JOeRN9tY8YHswbK4kSFoVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990900;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Lh7QAjeNlS39ktI+dlJIULFlvwkgAS1H1OKsWGYccyg=;
-	b=1dU6mbXyPknO29aCyI1sEp1EMMuw2y7FelHdblzW5vpeCpQAlNz7kZMTcTr+X9uEn+LW
-	 r0L85lORmuHoqXB/+vaEmAbEcpQfcTQgY55wIhPW5QUjcjT8I7ZZc9NR8aRDbEDJ7gnLA
-	 7ESN28YjeYVKE9On3elMpysQoNbWlm7JAfNSxc95IFipZ7WSTggkIbjRTKqB9OWwmHmKM
-	 nR90kqlYI+HpLyvL6c0CY1ln150c6aIYly9HN6iGLpXOhpTUVUuvwbIHrXv/7fyrOUgOK
-	 Iv8fgmrTSRaokDxVqcZGHzrDoZ/3WdHMFB0os5CxviRPoy/2P6sSWKNYzJQ7l02NvpQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SFFBC08W;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793990908;
+	b=jv5RV7lWtrNYt2b8LolS9uZt6uFTrkWGIS3JRSh+MLjeZed5hNVesKy26vaFUqlgE1GQ
+	 iwQmCqAbBzgcshGSKsrQMNzpu1TFhb2eAzVRgHux0t8ugFq/QMXPZ/xdD/3nCo14uCw9K
+	 ZAs1bGhtGtIM0p41+R6uR2sk5397Hmvp0yWsJClZQRP/vl6zcdyrmaDV/UsDWXYSx7XEi
+	 kkXkJfyHehlp7d5EHiQM22IXdtgvKuEAtYd06VKlxsoM/L2g54VSUsL/qhkh5o+5xsgZ4
+	 XoQdayof17ldwACg5gfy7X0IXD3B/Ngr7hJNYYWXLqBB2S1bpvdhpbSi8ANmQP0Da6Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793990908;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=csVR1b1qOunnprGs/YKmTHhPqHommGDzIirA2HbkNBs=;
+	b=dSU1bjftAOOxC2loor7kLS6gjpcqlTW9d1odEuqoZnmKKYHcWSgt+2qqO9cP79hBu8Kf
+	 CD/lT8Oc+ZBk/LSQOXUSeCfSHH2xLX8BQnIZUx4gDiN2WF6M8yfrczt2Oqp3+2v7TjfF9
+	 oA1JtE4mxEUBBOiqQWAyleMz9dGLxvtxGww+hp18H3Y5NAfllq5ja+mrbHwCHAknPDKUJ
+	 Kv6MRIndRPaIj8FGaSroA0RwZ3aAWw+D/GvjysXFwYFKDAmaL/rePfjY8TtBD3tsDAlNY
+	 p6l+2Ju6MckTX3L6dIdX79qU6bHQq1HwUJG1Z1yJ+oimWXglzITtgsaDDS3LkJ6pmew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcbEq8pO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55953606A326;
+	Fri,  6 Nov 2026 18:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcbEq8pO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793990908;
+	b=zrMBcnPJyIaFGjvLo/GeiaOlbKmLpkhsFIK5gbRha4STMsQRUYQ1/hDLGCQ36CibwkZL
+	 xOY2DQa78LLAya1e/jTUqIGwAxGmXyiq/CtydxC9FZi+NGLHkf1R8PxOW6lj1TYlwFRt3
+	 y/ZVhjDCsotvOLylzGHIycMtjmed+o7oFujxUqulRNj1DcsQGC+ay560Z+3+77SJDQcVM
+	 wIaEg+OFcomWQItXB/k//+Zo3EMjcxd0xdFlqXsk1LF8ZA7tqErFzrnEQBwkO56H4LnSX
+	 HZkZOUjs9XBHAKl0hh7pvg2sFwqN+q6W2IUHqnJ3Yee6gmXF2ASeSqRmppKJLV9y7XA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793990908;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=csVR1b1qOunnprGs/YKmTHhPqHommGDzIirA2HbkNBs=;
+	b=LdHql8uTVhxZ4wgz6lmXEvDW7lbPsZS8U/sYPfdJKeBkXD0cNqEg/p8Lt6+MQqvi3oQ/
+	 KNCPh8AxyfPf3HZGlcUI0uwX/C9ZixusV1+VgeRWACmuHNf3Em/sxcOeOZpNlRS+YWhFd
+	 uhPwog72u5YC4Wr/p4BDib9b5WC8lCfOSgLu95KR79vx2ciHLup+FiDwBEkG3UhV92mP6
+	 xWKJ9IeioDy7YV6cNwRXIW5yL/+Q9JKA9zmfLReFJoNRv9TuvU8Vbv1OBg9cBcHWzLxt7
+	 NplZYTGFXcp9egyIwWu11Ec/UA5/H7T/RgAUQrRwwgBFEug9Qtts45xHX6uirC0cZJA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2948606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:48:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2948606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SFFBC08W
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36f8cdd30beso1342565eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:48:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793990899; x=1794595699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lh7QAjeNlS39ktI+dlJIULFlvwkgAS1H1OKsWGYccyg=;
-        b=SFFBC08WcZtGzmZeMUwARd5K2V6POj20bd8u0XsZSWDzfnpZ3TMWQqLqV1Fx4HUWTd
-         mr4mQRoJlC9AuJ2ReOuQ4l07U5SCIDdM2i2O2y79k5jLzNxcmKzO06Y+SxAeeFnTimax
-         bPISaRFa37iAoDFl8Uo5DIuIlF4NATPqX5YIQD2MXwipjO2N0FNWoG537jXWrq+L/9dj
-         usC0S5+y8c1fZYR0bhM5znk9tGwRABkXdWWowDA+RBzovAIXFgUr0q8soeLEcG7Jj2xc
-         tqOR+VtEJCFbdjF+rvfvQRFbeGy2xCzhYMxItRi0bMslQ10TzG30XfwrZp4PixlZFJ/p
-         Dk0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793990899; x=1794595699;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Lh7QAjeNlS39ktI+dlJIULFlvwkgAS1H1OKsWGYccyg=;
-        b=TZXsxHaK1DZQl27tf2LcPtoioTPryTdotezykGBfCDqvZfY2Ytdubwz0b/uliooUXj
-         0AlRGplFmxitRTIPJw2NmUXQbBX+sXW8TUV9KwK0RgIzlkW0lEZRGFEh8TGTc+v079FO
-         Rzg8wisOmNXouYx9bEqWAafKL9v+uGDrXoumGUkRhUHH6jSn1eDlkw3HYiRCcfg3dJXx
-         FGpC1gGNYbI2P0hYUh+qKfM2AGn5D3Sq58X7h2WLXeDu7Ja3ca8tPxch5dTVUrt164I4
-         HeM6/p85bXd0/Wc0w1S1CGq4H0BW7YvF96RSyw2zIaKtwJsgbOnqACL09Bc+9HSLB88U
-         C3PQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz5u9E8TlxMAzosFZRm65YcPuO+yHolZAkDJojYu+4joIkmkU01xjhZ1fZ8ea/qhbLkNxgGWeL9qxz1p00=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/q0pzq9KQJ0vNtxtO9q4e+kRodPafJMQ+jcigQh/Q/te8S/O0
-	Zx0WWLPll8ezwxsf+ZYxaKkdZGczYsTYJSIGkPLVcjO69UCjnCx/6+bl
-X-Gm-Gg: AYBFou0hsSVIDYHmltGJnlKn9DzvHeRN1FqU5l+fa7qukadXAzbNfJpeRG9c4Mk6uvM
-	dTN+7LGOAIccZBDu5EmN/3EB22GDxA6rqjFK7fCczYKYLI+hQJB8UKz30G4gQNW8ZNoGpWFWy4K
-	fn+q375vzppTz1P1RCBjOQI/M0ZbihqttW3fryaJBnDyccYM1CLxPpEaExeMPFlwcM942rgWQl3
-	dUQGWLadNOVfk6WkgqkGbB6GfN7a+qXVD8MfYFebNacshUgTUA5v+RcpUufVHJX2OFWyQqkuN0W
-	bhcQWqgYQcB6kC4ej4nt1najzlnXbV5vv1ZUhOI4RwD3vOdXxaKiHXqf0/bfpEpuiKolFhLnmhB
-	R+09COzBfu3y9Ef/Vhv9qlqXgTgRLBCCOKDKRi+r84jM7Bl9j9w/Xi85i+ZdJOxvQLJG6vOMtOD
-	pVu0vc4pzjnYNCoIMbdK/RySXHLoXcY5Y7bhMbN75bo6uqWUvMA+6wRYqNR3Qr/XDLNJycp4/cj
-	GS7zwEAmsFmmYVadSXbMu44YMNbo+8uUyECaFiKnmQYPeAKPaZEsAE+mEIJvf4xXDKTuFUNqZX2
-	LLyfSP0d8E5b+iwajL3FPtcyKlaoavK/
-X-Received: by 2002:a05:701b:4588:20b0:17d:7b45:f927 with SMTP id a92af1059eb24-1b25d3499d6mr4163431c88.33.1793990898558;
-        Fri, 06 Nov 2026 10:48:18 -0800 (PST)
-Received: from [192.168.100.6] ([121.144.254.242])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4879adsm8661940c88.6.2026.11.06.10.48.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 10:48:17 -0800 (PST)
-Message-ID: <60362312-e40c-4d23-8476-1b554fee19da@gmail.com>
-Date: Sat, 7 Nov 2026 03:48:11 +0900
+	by smtp.kernel.org (Postfix) with ESMTPS id 707931F008A1;
+	Fri,  6 Nov 2026 18:48:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793990907;
+	bh=csVR1b1qOunnprGs/YKmTHhPqHommGDzIirA2HbkNBs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ZcbEq8pO2TyJbAVy4EvEOFhhMI9NYvNSsWGnIbRpYSeomKaKbVuwaH90F4xPxyvkG
+	 pOwCAO55/yiHdnsZQVdxhO3w733bPBn8d1EqjllKeVEif9QmmOAXXRtD0Hf46zzAZX
+	 c9xcg/8jQ+ZvIkJJvHxxT6YZ/GntvrxT307hHUeY1xZaEIc0K+4tMDF3F6uWr7BTOR
+	 XoLlzTfGi/1VU6eze1MTTtNExt+dSGIlgdntpCp+1rmwOl/m0Ez1jYxSTbJYshMk5K
+	 oXtOBfkrl+lmifJLw2Khij6qZ7nD3/MZVFl4gj8svHm1+TejuBiCKNt9d6BZPn2d8x
+	 NnLCd1yg+Aprg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EABD647832;
+	Fri,  6 Nov 2026 18:48:26 +0000 (UTC)
+From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
+Date: Fri, 06 Nov 2026 12:48:27 -0600
+Subject: [PATCH 2/2] wifi: ath12k: simplify copying a peer's PPE thresholds
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,65 +82,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261104211038.406938024@linuxfoundation.org>
-Content-Language: en-US
-From: Joungmin Lee <leejm516@gmail.com>
-In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-ath-peer-ppe-thres-loop-v1-2-f6bb5fe9ffb3@gmail.com>
+References: <20261106-ath-peer-ppe-thres-loop-v1-0-f6bb5fe9ffb3@gmail.com>
+In-Reply-To: <20261106-ath-peer-ppe-thres-loop-v1-0-f6bb5fe9ffb3@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>, 
+ Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
+ linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+ ath12k@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
+ Christopher Griffin <christophergriffin05@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793990906; l=1559;
+ i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=JLN7YicOXOFCr/vXZYPyTuLNZ3CcFDfpEDaO5w1TJNk=;
+ b=Pa8jp3EhLqfYJuIC7j4KkGCHkhfh1h+xKMZt9a6cFmdDX3spOspd8+5b5OhSlyFuwKhqyqXF2
+ ZHVoE/lhKZABcQNqO1MD6D7HrYmmogO93RLPDR6yKg0NyBvFKos6x/+
+X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
+ pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
+X-Endpoint-Received: by B4 Relay for
+ christophergriffin05@gmail.com/20261024 with auth_id=1309
+X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
+Reply-To: christophergriffin05@gmail.com
 Content-Transfer-Encoding: 7bit
 
+From: Christopher Griffin <christophergriffin05@gmail.com>
 
-On 11/5/26 6:03 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.2 release.
-> There are 547 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.2-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+ath12k_peer_assoc_h_he() copies each 6-bit PPE threshold of a peer's HE
+capabilities into the WMI layout one bit at a time, shifting it in from
+the top: val >>= 1, then the new bit at bit 5, six times over. After the
+sixth bit, bit i of the field sits at bit i of val, so put it there
+directly.
 
-Tested on my ASUS Zenbook UM3504DA running Gentoo Linux.
+No functional change: a userspace copy of both loops gives the same
+ppet16_ppet8_ru3_ru0 for every 6-bit value in every RU slot and for 2.5
+million random threshold fields. Compile-tested with W=1.
 
-Kernel: Linux 7.3.2-rc1
-Architecture: x86_64
-CPU: AMD Ryzen 7 7735U
-iGPU: AMD Radeon 680M
-Compiler: Clang 23.1.5
+The change, this message and the test were written with Claude, an AI
+coding assistant.
 
-The kernel builds and boots successfully.
-No dmesg regressions observed compared to 7.3.1.
+Suggested-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Link: https://lore.kernel.org/all/b60c4c56-483b-406e-92ab-643b0fdf2dc8@oss.qualcomm.com/
+Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
+---
+ drivers/net/wireless/ath/ath12k/mac.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Tested:
-- Video output: OK
-- Wi-Fi: OK
-- Audio: OK
-- USB: OK
+diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
+index 9fd3841f71b71..12dfac1d3b42c 100644
+--- a/drivers/net/wireless/ath/ath12k/mac.c
++++ b/drivers/net/wireless/ath/ath12k/mac.c
+@@ -2731,9 +2731,8 @@ static void ath12k_peer_assoc_h_he(struct ath12k *ar,
+ 				if ((arg->peer_ppet.ru_bit_mask & BIT(ru)) == 0)
+ 					continue;
+ 				for (i = 0; i < 6; i++) {
+-					val >>= 1;
+ 					val |= ((he_cap->ppe_thres[bit / 8] >>
+-						 (bit % 8)) & 0x1) << 5;
++						 (bit % 8)) & 0x1) << i;
+ 					bit++;
+ 				}
+ 				arg->peer_ppet.ppet16_ppet8_ru3_ru0[nss] |=
 
-Tested-by: Joungmin Lee <leejm516@gmail.com>
+-- 
+2.43.0
 
-P.S. This e-mail is sent again to all CCs as I first sent an email to
-only Greg by mistake, sorry.
-
-Best,
-Joungmin
 
