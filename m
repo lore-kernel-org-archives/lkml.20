@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957676;
-	b=ahYGO8t4Iz27hGTV7KGApcmZfmVb5WwdwSL/FVjVwZA2iKaDjFmPewUPoxmx8KV+9tL2
-	 nxzcfDIGa/AxGjYQk53GOolkeJiVNPmTUlJhFGhXpwP3ahKItC2O0CgpGY0M7qLI/Qgph
-	 8yzXRoS5TSLuMwQ3Z6zPU8cxKiHS+Bq9uzlvSsVcPQtWAhNMsEgc+ay3waCV05wGS9beF
-	 HLUWHltuMHeWsZ4qOPwDUcBulW4205/KfmaPVedDbiyiQp9Ttk7AtLYXwJrRGXG/IHPxs
-	 TgLZpK48fjREspYleZALFYnQ8brRlan3U9ojXA7IC6yG0iuzOMzEMH2Y2RepBtflXeA==
+	t=1793957686;
+	b=Sa5B0eeHmpRImv8AhM91wBQk8Yq3UsTgmrmgwV2r6ewlUlZVWPk6znkHDhdFG72h6s0V
+	 tP3roHbdN5shlpLMY9A29o4O8msvsKgvEnEa9iT59ZVpZWMF9gMYYmqdvB48RACQkDHfx
+	 Wp6Tvm/RvxCx7zdZD0cYb4LzNBZJlXzgJhVjpcI2NNGvS66muPdlbI0H4Em46FtaeWN94
+	 4hpZfKtbwh01c8wSN4RUGT+SGdo0+GS5TE2sq0yUtjD/aNCEEiDnqDw8wTA/1AvQVLvc6
+	 cyjDY5+Bb5K8lpyesrYvK1xblFFK+MKxHCwYOYXBLfJ5TrvLz3VHfsvU0ZkQWHpIRAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957676;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957686;
+	h=DMARC-Filter:Received:Subject:From:To:Cc:Date:Message-ID:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=5DpkpCFdql2S/x8Err04oU2KI9wV3J7R3Kv596mw4Ww=;
-	b=m0rWA12CqwJypwWXeWoyRvejqLkiNUtQMgfbzzgUvUI6ofEOZzEWjMdXSDBn358EyARU
-	 ZKW/kk1cRlD/fNUOBkDAGqfmVmtCk9J7obmmm9O49QMNtMa+1lw71TybHj1IjWWibij4g
-	 VB0rd6QSlMqqdX6Z/28zz9ag4GSKpwOpqG2u+5SrkECWkTvVHzrarHD1NP7pCViLm85JJ
-	 gAB7tdzLOHAa0W71l1uHtvQ02UQhRE7Po3vfaHEH+2afkxkxKvBKeqzRx2su6/gQfaQp9
-	 Olo1Qm/hB7Xgv+M4m+l0WOjWJqh8kwbDIDgIxamLLDTTSO71FJVBfybwOqKkwOgm2MA==
+	bh=xsG8abRujiFyWBg81NBDxlAHRqMenxQF3ucpAS0lOag=;
+	b=Hv2fIslAXG9IX8mnfB1PaE7TKnMh5nhz4wixerGrjEr/keM62s1EzLwkHjJYwbmk4ZGJ
+	 Lm+Aue6Lq1jUExdgDvubxbidzTxTOdB8B2QRGWxTv2ic80tDo7q1QwXtNAyCDrB+4UUBp
+	 j+8Zeeos/uMMgtLJSZ/s0g4yPyG5hNgQ68bEoNnA9QOYFs0sQPEZ4Qj2QTbd3W4U8dqn+
+	 c3R5jyjajEC7zg/JktVrDTGyF47gW3+BGfLvktxQMSuZpfqSpSks82ydsRXn+U9QJP+wu
+	 96VMDyE6AlcI0NnkqgA10k2DJlfygDlz7ElrkwS8JOAY+eRy7L9sdPS4Ykg0L8v/8+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,28 +25,24 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E81606A32D;
-	Fri,  6 Nov 2026 09:34:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0E81606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0AC606A335;
+	Fri,  6 Nov 2026 09:34:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE0AC606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3v5Akn+1qE3ZrAA--.5072S2;
-	Fri, 06 Nov 2026 17:34:29 +0800 (CST)
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAD3+4wnn+1qQHZrAA--.5284S2;
+	Fri, 06 Nov 2026 17:34:31 +0800 (CST)
+Subject: Re: [PATCH] drm/tidss: Fix serial clock reference leak in tidss_oldi_init()
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: leon@kernel.org
-Cc: jgg@ziepe.ca,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rolandd@cisco.com,
-	vulab@iscas.ac.cn,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] RDMA/core: Fix member use-after-free in process_group_error()
-Date: Fri,  6 Nov 2026 17:34:38 +0800
-Message-Id: <20261106093438.366229-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260923084752.GN563127@unreal>
-References: <20260916184555.2093238-1-vulab@iscas.ac.cn> <20260923084752.GN563127@unreal>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Aradhya Bhatia <a-bhatia1@ti.com>, Jyri Sarha <jyri.sarha@iki.fi>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+Date: Fri, 06 Nov 2026 09:34:41 -0000
+Message-ID: <179395768117.2284846.12976462915703779115@iscas.ac.cn>
+In-Reply-To: <59a88d56-264f-4540-90e3-b9f609681486@ideasonboard.com>
+References: <20260916182950.2092071-1-vulab@iscas.ac.cn> <59a88d56-264f-4540-90e3-b9f609681486@ideasonboard.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,29 +52,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3v5Akn+1qE3ZrAA--.5072S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYq7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
-	r41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCF54CYxVCY1x0262kKe7AKxVWUAVWUtw
-	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
-	14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU75l1DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIDA2rtky8q+gABsx
+X-CM-TRANSID:rQCowAD3+4wnn+1qQHZrAA--.5284S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JFW7KrykGFWUKw4xKrW7urg_yoWfXrg_u3
+	y8ua45uw48Z397KF17KF4UJr4IkFZrZryDu3yIkayfJFyrZF1fWF4qvr1fCw1xurZ5Jrn7
+	Cr4jywn8Gw17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWU
+	tVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr
+	1UYxBIdaVFxhVjvjDU0xZFpf9x07bbXocUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUDA2rtky8t7wAAsl
 
-Hi Leon,
+Hi Tomi,
 
-You are right, I looked at it again and can't prove it. Please drop the patch.
+Sorry for the very late reply.
 
-Sorry for the noise.
+You are right.  The clk_put() I added to tidss_oldi_deinit() only covers
+the unbind path.  When tidss_oldi_init() fails for a second OLDI
+transmitter, tidss_probe() returns the error directly and
+tidss_oldi_deinit() is never called, so the reference taken for the
+first transmitter is leaked as well.
+
+I have switched to devm_get_clk_from_child(), which is
+of_clk_get_by_name() with a device managed reference.  The reference is
+then dropped both when the driver is unbound and when probe fails, and
+no explicit clk_put() is needed any more.  The updated patch follows in
+a separate mail.
+
+For transparency about how this patch was produced: the candidate issue
+was found with static analysis tools, and DeepSeek-V4.1-Flash and
+GPT-6.1 Sol were used to help audit the error paths and to prepare the
+patch.
 
 Thanks,
 Wentao
