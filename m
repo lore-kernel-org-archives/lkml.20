@@ -1,60 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959745;
-	b=awl5RR4ltKID1fSwre3ZRzFPa09DSKthmes+ZRzB1NqVe1JPDtmwHZIxMH5ZFrGT4YGD
-	 2UBZoTIpRHcT2/me6RMz5n3r81QgnChj46WbFGrkDesAGeTDDqDkkhlSfbqhLEwJzpTEz
-	 Bn8DX+ZyJKlJ5RMNfrOaKTnleSgHEbmMsTN0LydNY6acEzRwRs0/eQ43XOwamWZouGo4V
-	 0u0B7QruEyhBs9y8U59zunKdwuIbKevFc8NklhJNoICT4qn1DtVcFpjOyZevHE1JI01Ru
-	 xjR6cmzw6W53cgGioFnZB8o8/MYrl2+N166162WnlKv79HpxOEe6I7mnIcqaxczmeEw==
+	t=1793959785;
+	b=Z0Sfqbw/yrFDbbccFM9js5FsZgF1wazQYZ4Lo2P15GoekGuu6W7y7oKUGfO6ni7L4dvM
+	 KCs026sdHzst+pjQUkHUuOyJpYWYY9m60J5BKnALYXy89omympRYYPx4ZJxIOZ9iEU81f
+	 D/m6hjUwFe7v/calTVGPA1CB/Q5f9zgUXcJcr8Q4HTo+TtKOEnrViWXgH01xtRTpQqtqj
+	 VTkvSE5QlpyRldoYn0kjNw93X3pTKMpTwhqG1dvxSCg5ZGouKYqnnAjqp67SBeaw4FhoC
+	 SwkDEmB3PmffQGuujwXfqW+XmkXsNxkOp6dinjY2IsFcQ9DCP6Tkr/YLs6XsTM+5k4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959745;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=OzxYqfOe5wWDr5TtA6JkHbhEc949LE7biXmqyPX/UII=;
-	b=2ZoI5CQn4i+N6qC6dw6qCj/05qviYqevZC9tjSDftLa51kvtqaYhdObTaYNYbAGg8eAW
-	 EAieXtrpqozKFLnwd/VSkMOU8P3y8V8sU3lQ6QF6HCbGJExKLOEtOhdtU6Gti92PzI5OR
-	 XK71EFoLQ4A3KyJZZSOD4bXlomounVxz/io9hLpFuWZfuFYEss6IN30GFv0gicGP/7ts0
-	 bhVwTY7BnDpLZKyJotacGuVF69DGfoa0A+RopVA1GYgQ8lKwb4jF50S/ToIictao0gftU
-	 c/yBv1SkndA51Spp5JfVzJTBAXFAvrGNGKzgEThmFPhCeTUMrg7WkHjwVy+PI1KqSJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959785;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=S8nYPHZ5sRm7H2t5xmzRj8iBg0Moiw8TSdKlr7ve9cg=;
+	b=VICtuSR9kHnwx31o58K6Tu0yArn+EXAkyYFnH9Oj0J5Uwx4CHUvN3U9ta+o9d8JJJb0J
+	 F0UYIjgnlLi68XNCTJXCD0xwdlIH59vBZA7F9U0+wbcpPwUW1oZz+4NbNozaqN+oM0lR6
+	 tO4Nh2jR22UQjjauQvBOFsftYqSVZOagI2G0kxaoF8pLwaPG8Ozyron4HKKk3/Ydq1AAy
+	 autnJg4lQipamfHRFN28r6r20ju/tfl5z9I08fY2AFh1YJe2alrW9WW1yypsFXK81sAms
+	 HFSS6oc/ydr38KuVFEX2vZyBjxnjG9klI4cCyUW1Y96NZsQUn+UrkP6Q2XIffWDcTww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=rUKlc1j3;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A756606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:09:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A756606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=rUKlc1j3
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261106100901euoutp02cb82a9f14c5c3085bc27b6c903ee591f~lbOE_x50O3206332063euoutp02I
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:09:01 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261106100901euoutp02cb82a9f14c5c3085bc27b6c903ee591f~lbOE_x50O3206332063euoutp02I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793959741;
-	bh=OzxYqfOe5wWDr5TtA6JkHbhEc949LE7biXmqyPX/UII=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=rUKlc1j37YyfGc+HQ/BKO8+uZNtc/axmEYXEiJAe0QD64UvCTpKdbeWGu/8Qr9tfw
-	 BG+Y52dLM40scveAFebI8KUIbaz7mcnysg4cFApxGoeNMgjerj1YxTqoHaJ6sbnfRv
-	 drpKbTz4wEvEmjpm+jsIZNQU3Vd4O5dcuXoOGvxE=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261106100900eucas1p267f037803dde62c10657cc3e34ee405e~lbOEu4IHM1522315223eucas1p2j;
-	Fri,  6 Nov 2026 10:09:00 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261106100859eusmtip13b5cf4c16eea4ef916d8542234814384~lbODrujOM0555205552eusmtip1w;
-	Fri,  6 Nov 2026 10:08:59 +0000 (GMT)
-Message-ID: <f1180687-6e4d-4d76-9a09-bb20d3676099@samsung.com>
-Date: Fri, 6 Nov 2026 11:08:59 +0100
+	dmarc=pass header.from=hygon.cn;
+	spf=pass smtp.mailfrom=hygon.cn;
+	arc=none smtp.remote-ip=101.204.27.37
+Received: from spam01.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 87932606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:09:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87932606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jLZfH0c5MzBpFyL;
+	Fri,  6 Nov 2026 18:09:27 +0800 (CST)
+Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jLZfD3NTjzBpFyL;
+	Fri,  6 Nov 2026 18:09:24 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id 550BD308158A;
+	Fri,  6 Nov 2026 18:08:46 +0800 (CST)
+Received: from ws.local (172.25.64.90) by cncheex04.Hygon.cn (172.23.18.114)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Fri, 6 Nov
+ 2026 18:09:25 +0800
+From: Zhiteng Qiu <qiuzhiteng@hygon.cn>
+To: Ying Huang <ying.huang@linux.alibaba.com>
+CC: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost
+	<matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul
+ Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Alistair Popple
+	<apopple@nvidia.com>, Xin Hao <xhao@linux.alibaba.com>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mm/migrate: don't batch the TLB flush when there is
+ nothing to batch
+Date: Fri, 6 Nov 2026 18:09:17 +0800
+Message-ID: <179395975709.1235605.1971486611419119070@hygon.cn>
+In-Reply-To: <87zevmwbaj.fsf@DESKTOP-5N7EMDA>
+References: <20261106041628.1177963-1-qiuzhiteng@hygon.cn>
+ <87zevmwbaj.fsf@DESKTOP-5N7EMDA>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,72 +68,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 1/2] tty: serial: samsung: pause the RX DMA channel in
- stop_rx
-To: Samarth Narang <samarth.colleges@gmail.com>, Krzysztof Kozlowski
-	<krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Greg
-	Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
-	<jirislaby@kernel.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261031004217.3340610-2-samarth.colleges@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261106100900eucas1p267f037803dde62c10657cc3e34ee405e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261031004233eucas1p241e1ded0d1050e67eeb170026da382c7
-X-EPHeader: CA
-X-CMS-RootMailID: 20261031004233eucas1p241e1ded0d1050e67eeb170026da382c7
-References: <20261031004217.3340610-1-samarth.colleges@gmail.com>
-	<CGME20261031004233eucas1p241e1ded0d1050e67eeb170026da382c7@eucas1p2.samsung.com>
-	<20261031004217.3340610-2-samarth.colleges@gmail.com>
+X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-On 31.10.2026 01:42, Samarth Narang wrote:
-> In s3c24xx_serial_stop_rx(), the driver pauses dma->tx_chan before
-> reading the residue of the RX transfer on dma->rx_chan to determine how
-> many bytes have been received. Since pausing the TX channel does not
-> stop RX DMA, additional bytes may arrive before the RX channel is
-> terminated, causing them to be omitted from the data passed to the tty.
-> This also unnecessarily pauses an active TX transfer, which the driver
-> does not subsequently resume.
->
-> Pause the RX channel instead, following the existing handling in
-> s3c24xx_serial_rx_chars_dma() on the RX timeout path.
->
-> Fixes: b543c301c2c5 ("serial: samsung: add DMA support for RX")
-> Link: https://lore.kernel.org/r/20261030162334.3000737-1-samarth.colleges@gmail.com
-> Assisted-by: LLM
-> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Hi Ying,
 
-That's a real, long standing issue.
+"Huang, Ying" <ying.huang@linux.alibaba.com> writes:
 
-Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> IIRC, after commit b99a342d4f11 ("NUMA balancing: reduce TLB flush via
+> delaying mapping on hint page fault"), we can avoid most TLB flushing
+> caused by do_numa_page().  Could you check why it does not work?
 
+Thanks for looking.  b99a342d4f11 is in effect here: on success
+do_numa_page() returns without rebuilding the PTE, so the PTE is still
+PROT_NONE when try_to_migrate() runs, and both the batched and the
+direct unmap path should skip the flush because pte_accessible() is
+false.
 
-> ---
->  drivers/tty/serial/samsung_tty.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/tty/serial/samsung_tty.c b/drivers/tty/serial/samsung_tty.c
-> index 4eeef149b..2f6c69bec 100644
-> --- a/drivers/tty/serial/samsung_tty.c
-> +++ b/drivers/tty/serial/samsung_tty.c
-> @@ -553,7 +553,7 @@ static void s3c24xx_serial_stop_rx(struct uart_port *port)
->  		ourport->rx_enabled = 0;
->  	}
->  	if (dma && dma->rx_chan) {
-> -		dmaengine_pause(dma->tx_chan);
-> +		dmaengine_pause(dma->rx_chan);
->  		dma_status = dmaengine_tx_status(dma->rx_chan,
->  				dma->rx_cookie, &state);
->  		if (dma_status == DMA_IN_PROGRESS ||
+The numbers disagree for the batched path.  On the same workload and
+setup there are about 200 TLB shootdown interrupts per migrated page
+with TTU_BATCH_FLUSH, and about 13 with this patch applied.  So
+something makes the batched path flush where the direct path does not,
+and I don't have the answer yet.  I'm instrumenting the unmap path and
+will follow up with data.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Thanks,
+Zhiteng
 
