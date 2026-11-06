@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972397;
-	b=NO9P+5SqkfKnE2YK/MfH/p/zRlXOd947tCfTE5Jzp79ptmD/DVjpGE5vlHay1mMzPTSx
-	 hu3Yy5AluUKwgL+ZQTNTqCHO8GsHH/hQfSUomQf9pDCHT7iAuleJwybJFzk0kgTUuLaEU
-	 UJks3yiHzjPNztNcV6E+BsKucuX/dttzfrvL69qaiJh08NAW3xSCb5Cz+M11vuaVZsrf8
-	 fEu06HrDVuH+Uu+zctz/AF0p4czya0w7DaKQX7q7ulunJjsXKVi0YBWyOrCHNhpe9z15d
-	 eVA1SRF8LUGlWTJ0cDsVk3PJyoDi+P9qR2lR2GutX4P24L1lvFKxpISZ8hFIaYu05lw==
+	t=1793972417;
+	b=0doVuqOCQcdd8RT+McJKgwW8C5D3w2SQRWoJ3lgfU3lpE0hSwkBBJyl1n+XDKWv1nkmC
+	 fl+npyDhHpecL9BrY83LDDrF4/BZWosqzuA5DvIi5MsrTijTysd6p+XGhlPGKv0Nom1sY
+	 GJHeo24RYrhAm5ND6eNWcXF6QCNiav4y1r74DGdSwgBEKMx+HwrAyBdA3tYFCLDG2t2CF
+	 11IPnkeC1awkGIHLhEL7tepnPL5hxJngdoBGl/U6fj0Dl6yqLzBtWAmKVEQsKgYge/Izn
+	 K1/3I5cJK0Yg8VFcgmmEYBkiGGe8dKeQPrQsJYEV+ofiaRs9rlqqseHUILH6uf/3RIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972397;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=R8LTPnB0bmzSzQWOaG3qHm4ach4XDFSjGPHv33JlVx0=;
-	b=Vg7j9C39aMAefIL5aKlH5hkoRQA5fIE6B7sj+w8/BVhGzl1x8kPVa3GvW6nNuVNpBRce
-	 bnjLQTgMKNZ+0rr+Sc4wKeVcjFfUWvTLCvKi51UoqpFmQe6i+L5TQQCJTn76GPCe+Ykmm
-	 ehIxujOZG3iLLZMw+9CJhcqmdx2LNWKcDudOmiuZXVCtm1fCG7wQFPB90/o4vvhF++vnt
-	 I++RyzQu+PtUDy1h6/GTtOOB/71mw6X1GOrx7qK3II1uzFj35luEZb2JiHELV4eeGDcOr
-	 //GHp4kmNc9QgybCact04gRAYZHDv/n2CCzuV3998zw44XjdceVuTzIIV6Z+FGTt8Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972417;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=3rATodojpsxEqkftZ1FEKOTyrl/GuBlbM9Q9jLKkyls=;
+	b=QwnJKwUxpIngzACJTAtgXjLp2Ql93ueyPckR4KHq5cnSDgJNt9c05N+KTgGTI4aWa076
+	 MBqtwwfiHxrKCY76IWAG/da+RJ8ZLDnXUQvUl/1ZtjKl/KK6LXVRRipZb+dNrvpbLiLjm
+	 9O5VmkWzEH9OYOjzuZFu857lbjGqVlFX0B5exqeOtf9NXkBKYuf7vLZJkAsgL4jXNLDNk
+	 bOcZzkfmFzmKh06zqfumRB18XgM8NOPRWJwFR7ZerraT+C0BWFeAHM74KYjjxoepxi6Qx
+	 b4YOBY+8gFeZtU3EYR31ijGTLXDKBnt3WvnnpvAiz29q4JfPSVm1Z5I4fy6uD74ksGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCrLCvnS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hnWrxozl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CEB606A329;
-	Fri,  6 Nov 2026 13:39:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1B5606A335;
+	Fri,  6 Nov 2026 13:40:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCrLCvnS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8B031F0089F;
-	Fri,  6 Nov 2026 13:39:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hnWrxozl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018451F0089F;
+	Fri,  6 Nov 2026 13:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793972396;
-	bh=R8LTPnB0bmzSzQWOaG3qHm4ach4XDFSjGPHv33JlVx0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hCrLCvnSXdPzgDIyr/J+9SkvJDXVrW0fzmad4rOiZ/xpMekL9TiD1snDfiuwDBgU5
-	 u8oDt0u4K2HgqT+2kjc/hMzoVib33R67q8JLdpvsaZt2rE5SM6nEVcUALzi+7zKkD+
-	 pkvuf7Q7YAWmZDFKuIr11pjQduf2S3/Wt+dDRepqUFNNpqmdyczDY1A9yKzOvNdAeV
-	 PKV5J+ZIw+4EaBOUIfonWwIBKkbkiIKXXhgfrkWr2XWtL68Ecr5mXXTC+wlkvEXA7d
-	 ejOLw6InJPzOHuwrvqCRFR8HFnbdvKIRKyimw1KUK37gGFtKKvIHMjb51Vgx7llrV+
-	 4minbdf1l+Tlg==
-From: Joshua Crofts <crofts@kernel.org>
-To: Peter Chen <peter.chen@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Bin Liu <b-liu@ti.com>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] usb: musb: remove redundant pm_runtime_dont_use_autosuspend() calls
-Date: Fri,  6 Nov 2026 13:39:32 +0000
-Message-ID: <20261106133933.1577-3-crofts@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106133933.1577-1-crofts@kernel.org>
-References: <20261106133933.1577-1-crofts@kernel.org>
+	s=k20260515; t=1793972417;
+	bh=3rATodojpsxEqkftZ1FEKOTyrl/GuBlbM9Q9jLKkyls=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hnWrxozl6fgklbBYR94ILVesaaLnMI85nZvhReOChn8irCGUXVHsR/jrFA54a2Krx
+	 F0P7SBUSECSqPBv5nklAanE00bWOj3ZBd57AGQwR6rPCvX1tHSkEDsXPwAA8Lo3yZ0
+	 reeZSCDzEb8SEF/3am924Jnf0DL6UWD1ENStCq9358h5nqdJR/eofcqDpsq+n0gfSi
+	 m+ckgATYZqAxojBjuj6ZL8my0S7SKD4GiRfDKpHFXBJJbLRW//yQdXU52hbb6eX9pj
+	 xbgGEynKFGTqMY9Dub6BaupMckwVI4g09wTNaRiJVTyZ5v7LejRcMI6EjQfKdBdG4Y
+	 ggTSvbJAOgiBQ==
+From: Christian Brauner <brauner@kernel.org>
+To: viro@zeniv.linux.org.uk, Hungyu Lin <dennylin0707@gmail.com>
+Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261027044257.90408-1-dennylin0707@gmail.com>
+References: <20261027044257.90408-1-dennylin0707@gmail.com>
+Subject: Re: [PATCH] fs: allow sendfile EOF at the file size limit
+Message-Id: <20261106-benzinkanister-gehen-rhodium-13157543d782@brauner>
+Date: Fri, 06 Nov 2026 14:40:13 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,39 +58,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-driver core is now responsible for undoing any
-pm_runtime_use_autosuspend() calls on driver exit.
+On Tue, 27 Oct 2026 04:42:57 +0000, Hungyu Lin wrote:
+> do_sendfile() returns EOVERFLOW when a positive-count request starts
+> at the effective file size limit. If the input file ends exactly at
+> that limit, this rejects the final EOF probe even though no bytes
+> remain to be copied.
+> 
+> For example, Python 3.12 shutil.copyfile() copies all 4294967295 bytes
+> of a maximum-size FAT32 file to ext4, then raises EOVERFLOW on its
+> next sendfile() call instead of completing successfully.
+> 
+> [...]
 
-Remove the redundant function calls.
+Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.misc branch should appear in linux-next soon.
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
----
- drivers/usb/musb/musb_core.c | 2 --
- 1 file changed, 2 deletions(-)
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
-index 73ac25f53698..28e59b53fd02 100644
---- a/drivers/usb/musb/musb_core.c
-+++ b/drivers/usb/musb/musb_core.c
-@@ -2576,7 +2576,6 @@ musb_init_controller(struct device *dev, int nIrq, void __iomem *ctrl)
- 	usb_phy_shutdown(musb->xceiv);
- 
- err_usb_phy_init:
--	pm_runtime_dont_use_autosuspend(musb->controller);
- 	pm_runtime_put_sync(musb->controller);
- 	pm_runtime_disable(musb->controller);
- 
-@@ -2644,7 +2643,6 @@ static void musb_remove(struct platform_device *pdev)
- 	spin_unlock_irqrestore(&musb->lock, flags);
- 	musb_platform_exit(musb);
- 
--	pm_runtime_dont_use_autosuspend(musb->controller);
- 	pm_runtime_put_sync(musb->controller);
- 	pm_runtime_disable(musb->controller);
- 	musb_phy_callback = NULL;
--- 
-2.47.3
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.5.misc
+
+[1/1] fs: allow sendfile EOF at the file size limit
+      https://git.kernel.org/vfs/vfs/c/7c1cb643ddb7
 
