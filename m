@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793946626;
-	b=tjPxtTOU0S1mx498N3vFDqtQXIycxVlJm2eMXW2/YKA0Kw4OV0TFPiKexy7sy02nfBEf
-	 ANVLyqjWYqio0v1wKGvkfxAmmkSD8ijGk7/rzzfbxGc8hKGEGFH9YZuftbnl+entzGEfW
-	 qStzmMXfwcwBNpgP2FH3gu7wcyHmYBwnW1B2UKjczxilHGi6eMXnSBfeTfXmW9wCGxv6d
-	 dCsibY4v01oXBemy1Q9/pX7RZx34KZp9cg96X6iNRmJ7hMxAMPrBgn544RXy3gVQ5oCPj
-	 5rK0J/CwfWE1P1WmOuhKUb/gk0nkRcvcvoQj3U6xPnmr3Z3lw9HfwSP3oVA7ZhwL2Gg==
+	t=1793946623;
+	b=iOn3vWWYso0ipM80puCN1u7SdrgDa6kgY0MaJqr2ejH6jjHmnesOXCrAOnL3Iyb8PvS4
+	 R5bNfenEIV7R7TEM1EkLSEJzGakOXE+so6azahrTJyDWuF+wDJhavo1ltvikUwxrPa3WA
+	 ERAMDLBCOgP34feZnlYf98v2gMUUghITBDzpN1cx31lD+c3GRjhWLnOWZFT1Qa4ihCVz2
+	 NzHcIRVlP2KVNUe1fLka9bmBC2oCIgTs4TEWRb2e1fHgrAX700D3p0k1f5hGHqOqikt0+
+	 Lm/lF30X/iWwBPdJE25HD8jvm+ypV09708Y6rU+4s/46/Z6kRqTAA4Y9rsb3VBEpvAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793946626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793946623;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=1Ku8/6VaW3K/wjjrFY6r/mW/cVKo9k/p+ByDBfymbSQ=;
-	b=mCC6n/AKEgdEAOFVPS0LJaYF3BfM4NrxTa0MNqlLW+hSuNwKPT+QJZLW+PPrTYpifkza
-	 ONIczJa01Ail2IVsFBK5SRwE4ZDt8b1/Ynq/s0kapKcWLSEpDuje/QF0OkNz0qYIe7whb
-	 CMCbHQewgBXmaAtlrzoXftBAF+dSrHKMiox1Kg8JVorKIszUdjunli4v4eJaOtCBTnRMf
-	 I5AYdgaHV0hSpzCBOwuacxtyqJ7rjGDGPplWvlhqIUi7YYgb/XOYkPXIJRlZLBSEy9JPc
-	 +MwEgcyeeDgaB8exoYMsrZ4R3DWNp85NzJSKLurbmXT0p2jDrJ30/y49aGj26FTo7pQ==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=ItBykLd5DoKUCAFjji4dnCaemcLNkADKFd9nP3zuwvE=;
+	b=RsptTaRyRTB5nqHVC1DyYkGi6JF5ehW4GEzUPgv04RPvNFNblgnkXfUBLTWT9kCEf4RH
+	 BBQgDiVw6KD+mY4ufFSQhe4TP44Fg/W8Uhf14Lv3Nzmw1PvBJfe4cZg1ivf/he+GJ2Vq1
+	 UHdYif3LaNg8TT4zmLEQeMeWwQlCLrSapkKp9LAvUNO0190H9aMRc6L5EaR2WvVeyV+VI
+	 bGeP7Q95SXLEv2Fv0ASL4dlIHBb08Aa3wIthIfZn22MzA6hVOxhTx5r4QKQrTOr6TYvXG
+	 l8PD22irUJlxjAGkGMiCSLTzUdYItjbDFDJ5T1D2femliOOkxZeLP0MaC8/UKm215FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xb+GN8kz;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vinlYpl9;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF10606A330
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:30:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BF10606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE21C606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:30:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE21C606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xb+GN8kz
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so468542c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 22:30:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vinlYpl9
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a2af4c8d00so808252c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 22:30:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793946624; x=1794551424; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1Ku8/6VaW3K/wjjrFY6r/mW/cVKo9k/p+ByDBfymbSQ=;
-        b=Xb+GN8kzMCS0E6UynPJF3KUB9tPTBZuiv/zt1uXCM+Pj/61GboNjy3I6BlkGFSQ83O
-         yzOx8N9YY3nw7yGweAnRn3MoCFSgMzbxie0usBTZA3GT9LCJcgNgrygFPoZ86+16yt99
-         VLnAHSHoyTg+vu59RlEQlwCrPo6v2VFQBTHTPxPs70kNTo0oqDxcaW0tcRvJLpRHjYlv
-         j98ekeWqtbqhgYq2U03HtwXzm12GUvwU0aoUTDCSoEI3Y98gPtwApdTwfCKyzuKkJVFr
-         IH7BjrWy5BdPpI7/8Tf9sgpS2htpj7KNpQTYrtrsFFc77VyXs3WyLG8jiRDzNUCQBOLe
-         7Kgg==
+        d=gmail.com; s=20260707; t=1793946621; x=1794551421; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ItBykLd5DoKUCAFjji4dnCaemcLNkADKFd9nP3zuwvE=;
+        b=vinlYpl9vBdmMhv67mK6yvmlR4aUZu57cPe5otGjYVU+p/03YHOq8NGo18bFHskP1+
+         pv5rpotqFLH8UoWaNZKfOp1aXWkE7KeSXYIlGmE/cd8FmmSLQ6NFTwE+cldkjZUnW4pp
+         U23Vt50ue61zbaVKImHYsoKSQRWL6igLL171bobvHdjmA/wal89LC1aPPpPoIgmSvZJg
+         z3LgTFOX4iyiG4GE8x+08SoHYBKWGh2AvYQR9mOD0DRz1pOweQQM5TQNQmDWI3okvh9e
+         o5FkosdaPFRoSY1iEw8/PDoIJ78NY5qZJCE+D4nSoPiopXUM46WpthJVrOrY80E+Rkqq
+         TUPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793946624; x=1794551424;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1Ku8/6VaW3K/wjjrFY6r/mW/cVKo9k/p+ByDBfymbSQ=;
-        b=NGYr6nXYTBOmOGwQQGVPHwVwMpHwEWAwyJXryKujjoKiDmvUVS0igJcO6FEWVGvfo1
-         wJV5daJSeLdfQc6OoXzPiShxAY1ekbz5hXzBk94v+22bhlH+g08gVYjZ2cjKUOQLUa1B
-         TbwlYsPcoEj9xpKTZZ7l/nN9dpLN/t/K/vzCTaBVk2WCEbkOoJi1/ivznG7+Vg67qMAM
-         vii3hAXU6b7yDMt0SLIUbcibNfsOcnPXQl1iK6sdXgFniybfq+JN89WkU6nKissakhtF
-         2JDEw6YWJLCxHybbOSou9cq4UnTd30cEdiQpEH0lh1zCYNmzxgrz4qMwSoAJlXwuUo29
-         Uppg==
-X-Forwarded-Encrypted: i=1; AKwUvBxIhKROiQLyULxnv+lnQgcK6fljiyA+Q6V8tnDbkNULJ2Lvwu63VrBWrg7IWw/ulYcDif+vC85nN0z47TI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vsE+a84EpuNxlOu94Cz3d1NVjtT8/lYlzwaMOaQQdAulNlFkW
-	yKlr3w2gXGJZ3pIkeh1VRMHTVFsCwKZuerrNg9KRaockh0OrM2zQ98xT
-X-Gm-Gg: AYBFou1oeroQR3MGnZ8A7M2KxlWVFwkgELaShVQogaKhQ2neeV7yHWf2ETcGHj07Y9f
-	hU7v3weifN3vGeBNwm38yPkCNC7O6qPezqUjEHk0AkhiNYQnNuOzDJ8JJxtbIpVFu/XOGNcWa7v
-	RF/6251hZOX52d4RjpHXG72zGj144ixGrivxnIN+ZopxmNeLiWcNZM43Ml5ggfGEK1GBrTiSJYZ
-	PDZHChzp3z3pTzll8rMPGUSQaNbhhOwqgrT527ekwetmaIUlrCrOeiU30jqZe5IZLXhEIwA+O6+
-	n8gpG8UuFCpXMow3F/GQ/WTXMz7OJ9nm15txk8EHNBZYGv9VVu74AMWAjs5qPwcBEQaYbvm9bX3
-	JvrOvoUxUJuDvMk/tAaNQazr9njngLZ7tALL5hVe3EGmkElYlrXEjsbdcmdtnatX43MtHs9cmBL
-	Koy3s49H3XnoTOqwZRL7ekjnnj/ihp80oxdAeOFIjFO8YLWq20x7l9rUxl+09v4OkNMibS0Efa1
-	fdM31Q9cO7BlwezR4ncp23/wJQGrgzZaNA+6TPqdz6Mm8fjmdLkg+Vxw4P51P8Ej2YsbeznG9xe
-	UOoG/VKE4hMWJlXfXd9r61pFlOjdMcYf7nfdxYwT6K+VvHro806hAeOa8mQNhpLTqWRErc7U4ky
-	ydqo6WCDVn3Obgu/OoIUmEHpu1C6DQPrvvIMxIvQ=
-X-Received: by 2002:a05:701b:2916:b0:198:b1e:90d9 with SMTP id a92af1059eb24-1b25d315409mr1601587c88.10.1793946624411;
-        Thu, 05 Nov 2026 22:30:24 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793946621; x=1794551421;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ItBykLd5DoKUCAFjji4dnCaemcLNkADKFd9nP3zuwvE=;
+        b=T71Otu1OLdX5Mpw28toL+xbvTtwxiTik9a0Hg9WOqxehjaO4Sah4JjWhoFNIwe1AO3
+         JoyZw66Yxpx8VPkPTVx7PMxa1c5HM/WKv/BWf5i2ROovgGY2PbFq4U8kn3Va1Hvq+9jM
+         G8Lr0NwkITRj21QD9PMEju9GKfm46pxLHd4mBuLK1QSOHqXtvh7ao+xoOM6PG7ZqgRqm
+         Hvy8VMeItZERQLSpzefBIX/KdS//VuzsPITh1fhzUpKdP1NsBPvm9HkSzV3BzuGgFJQa
+         Pcr0Fgu/S2hEyYDtRSr0Vom9pda6bZau/cNwN/jCoGvYl7g2goQZG0zakJ+IlricinnA
+         A2FQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzT4mQ5eoqm23McmK+iwZro4FxhtTn+iGMJjYVTv/midTkceS08+SxplKaPt+7owX7iKPUiS9JGeYi0yFA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9H9QA+dv8khABy+knICYj+ZVDql74azyKeaiX9CjJxO86ztS2O
+	z9yjf+6TqTTxFilAYC3TEAxUg8k+CoEupnTG4Vf1maZAs/wo1OReNQ+C
+X-Gm-Gg: AYBFou0yjfw2jYY4yWMFjEaQguzF0/mqRtfTrrltKNUdb9AQIeaF0DtrpCRLjMP6/ro
+	oh83B5nCEjH5LH4AQSPupYYYkNXaGM+QzZIGGX7cikwEXc6IzkB+PJ87KG0MMhzP3+O4buvZz7m
+	LPqr47ZpKjVoIjhCyjfeT3+DHjxH0id/r7YmOFvV3edzDncBphwl6/5mcZMYg8vOogH9JH1sBTz
+	bgVh5u0X2Tlnfm+npdWUbSUnR11fP3dHfc7+D7C+01oyFZufqZQn5UNanP32kWTog50rwLEm9x4
+	GIuoRmeM+L9JAbm47mjoqES3Zom2LRqtDrV3Kylui4IBDUBgGniioQQvL1bDjuqvjHnbB5blydW
+	wPrZ71uPPEchFhJidnrJely29ZzsuGt/oSo0MJGEmkEolEsGzBVgBCrBgRpCMga/Xcs9k1JusMx
+	iYRcjCbmB6AfL8dj5fvoAbCgOifIzzYqQeuZaf0Ir/rdLcyoMYJyCnIaMNdEW2aDwTrcKACh0x8
+	1GbovBRbO5hGlvG02aZ7LvUyhSKMAvL+OpikHWPA4/3yNI5qqxdSWxIH51Ygha+UVVpInDtcL6B
+	blCswm2wcbwQ3aIkHBWIStoN3qClK8ytwaO2q+au3USb4E9bp3E4uJz4Xn1y1B+CZWjT3rH7slI
+	q8CfJ4bBc78gJX1UD
+X-Received: by 2002:a05:7022:3b8c:b0:18c:e014:6f1d with SMTP id a92af1059eb24-1b25d2889f6mr2108897c88.1.1793946621244;
+        Thu, 05 Nov 2026 22:30:21 -0800 (PST)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:64e:8358:c9cb:c17b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4a63f6sm3734266c88.9.2026.11.05.22.30.23
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4a63f6sm3734266c88.9.2026.11.05.22.30.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 22:30:23 -0800 (PST)
+        Thu, 05 Nov 2026 22:30:20 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Thu, 05 Nov 2026 22:30:16 -0800
-Subject: [PATCH v3 2/8] gpiolib: fix fast-path cancellation in
- gpiod_get_array()
+Subject: [PATCH v3 0/8] gpiolib: scope-based management and cleanup for
+ GPIO descriptor arrays
+Date: Thu, 05 Nov 2026 22:30:14 -0800
+Message-Id: <20261105-b4-gpiolib-free-v3-0-bb47ad58642d@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,9 +95,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-gpiolib-free-v3-2-bb47ad58642d@gmail.com>
-References: <20261105-b4-gpiolib-free-v3-0-bb47ad58642d@gmail.com>
-In-Reply-To: <20261105-b4-gpiolib-free-v3-0-bb47ad58642d@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAPZz7WoC/2WOQQ6CMBBFr0K6dkg7IIgr72FcQBlgFChpsdEY7
+ m7RRE3cTPKT/96fh3BkmZzYRw9hybNjM4aQbCKhu3JsCbgOWaDETElUUKXQTmx6rqCxRJCndYF
+ UFmorExGoyVLDt5fxeHpnd63OpOdVszY6drOx99ekV2vvY1dFOBgjJvlOpqCgHni29zj0zaUz/
+ tAOJfexNoNY3R6/tJLJ328eQQKVaZZnuS50s/vll2V5AmTDBVT+AAAA
+X-Change-ID: 20261021-b4-gpiolib-free-74d92ea91503
 To: Linus Walleij <linusw@kernel.org>, 
  Bartosz Golaszewski <brgl@kernel.org>
 Cc: Andy Shevchenko <andy@kernel.org>, 
@@ -105,37 +107,82 @@ Cc: Andy Shevchenko <andy@kernel.org>,
  linux-kernel@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
 X-Mailer: b4 0.17-dev-e56a4
 
-In gpiod_get_array(), when a pin on the same chip is not in hardware
-order and the preceding pins form a contiguous block, the fast path is
-cancelled by setting array_info to NULL. However, descs->info was
-already populated with the array_info pointer during the first
-iteration, leaving descs->info pointing to the aborted array_info.
-Consequently, subsequent array operations still use the fast path with
-remaining bits set in the masks and wrong hardware pin numbers.
+This series fixes a GPIO descriptor leak and a fast-path cancellation
+bug in gpiod_get_array(), fixes the !CONFIG_OF_GPIO stub for
+of_gpio_count() to return -ENOENT instead of 0, introduces
+DEFINE_FREE() scope-based cleanup helpers for GPIO descriptors
+(gpiod_put and gpiod_put_array), converts gpiod_get_array() to use
+them, reworks descriptor array allocation to avoid krealloc(),
+switches fastpath bitmaps in struct gpio_array to bitmap_zalloc()
+and bitmap_free(), and uses the %*pb format specifier when printing
+array masks.
 
-Clear descs->info alongside array_info when cancelling the fast path so
-callers do not erroneously use the aborted array_info.
+In patch 7/8, each of the three fastpath bitmaps (get_mask,
+set_mask, and invert_mask) is allocated with its own bitmap_zalloc()
+call rather than packing all three into a single bitmap_zalloc()
+allocation. While Andy suggested a single 3x bitmap_zalloc() call to
+avoid multiple allocations, slicing one bitmap into three pointers
+still requires rounding the bit count up to BITS_PER_LONG and doing
+manual unsigned long pointer arithmetic (which would still break if
+bitmaps ever gained a header or tail), while still adding a second
+allocation and extra bitmap_free() paths on fastpath cancellation and
+teardown. Using three separate bitmap_zalloc() calls achieves full
+bitmap API abstraction at the cost of three extra slab allocations when
+the fastpath is used, and is kept as a separate patch so the
+maintainers can decide whether they prefer the single contiguous
+allocation in patch 6/8 or the strict bitmap abstraction in patch 7/8.
 
-Fixes: c4c958aa64f3 ("gpiolib: Fix array members of same chip processed separately")
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/gpio/gpiolib.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v3:
+- In patch 1/8, declared loop induction variable in for loop header and
+  carried it through the series.
+- In patch 5/8, placed descs definition and kzalloc_flex()
+  initialization on a single line, and preserved reverse Christmas
+  tree order.
+- In patch 6/8, moved descs definition after count < 0 error check.
+- In patch 7/8, deferred descs definition in gpio_descs_alloc() until
+  after the early return, using struct_size_t() and a single statement
+  initialization at the kzalloc() call site.
+- Added patch 8/8 using %*pb format specifier when printing array masks.
+- Added Reviewed-by tags from Andy Shevchenko and Linus Walleij.
+- Link to v2: https://patch.msgid.link/20261103-b4-gpiolib-free-v2-0-ea46767c9cf8@gmail.com
 
-diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index a5a519c0f001..e095aaef0a09 100644
---- a/drivers/gpio/gpiolib.c
-+++ b/drivers/gpio/gpiolib.c
-@@ -5307,6 +5307,7 @@ struct gpio_descs *__must_check gpiod_get_array(struct device *dev,
- 			 * hardware number is different from its array index.
- 			 */
- 			if (bitmap_full(array_info->get_mask, i)) {
-+				descs->info = NULL;
- 				array_info = NULL;
- 			} else {
- 				__clear_bit(i, array_info->get_mask);
+Changes in v2:
+- Added cover letter for the series.
+- Added a patch fixing the !CONFIG_OF_GPIO of_gpio_count() stub to
+  return -ENOENT instead of 0, and dropped the count == 0 check in
+  gpiod_get_array().
+- In patch 6/7, separated array_info assignment from declaration in
+  gpio_descs_check_fastpath() immediately before NULL check to preserve
+  reverse-christmas-tree order.
+- Added patch 7/7 switching fastpath bitmaps in struct gpio_array to
+  individual bitmap_zalloc() and bitmap_free() calls per Andy's review
+  feedback.
+- Link to v1: https://patch.msgid.link/20261021190212.2237804-1-dmitry.torokhov@gmail.com
+
+---
+Dmitry Torokhov (8):
+      gpiolib: fix GPIO descriptor leak in gpiod_get_array()
+      gpiolib: fix fast-path cancellation in gpiod_get_array()
+      gpiolib: of: return -ENOENT from of_gpio_count() stub
+      gpiolib: add support for scope-based management of GPIO descriptors
+      gpiolib: use __free(gpiod_put_array) in gpiod_get_array()
+      gpiolib: avoid krealloc() in gpiod_get_array()
+      gpiolib: use bitmap_zalloc() for fastpath bitmaps
+      gpiolib: use %*pb format specifier when printing array masks
+
+ drivers/gpio/gpiolib-of.h     |   2 +-
+ drivers/gpio/gpiolib.c        | 225 ++++++++++++++++++++++++------------------
+ drivers/gpio/gpiolib.h        |   2 +-
+ include/linux/gpio/consumer.h |   4 +
+ 4 files changed, 135 insertions(+), 98 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261021-b4-gpiolib-free-74d92ea91503
+
+Thanks.
 
 -- 
-2.56.0.506.g506a7eabc5-goog
+Dmitry
 
