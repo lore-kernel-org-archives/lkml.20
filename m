@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958288;
-	b=m3wviwfb+Ibf5L5faezATnvSvWuQxh3cf/yi8qP5cNfDVzL+56P6UyfrSN+E0b8524Hc
-	 FsIJuYq0T30pa0q+ck4aa9m5cymAZVIhUkTr3J8njowWoc+w40TJpuEiKGE2rfRon8IZg
-	 4hfsWMbJHlf1CWbHDG05wHbVfvp4oJ3xZgy55aIO+OtKfmjEz+If9jxo9hFFS8lN1yEcj
-	 M67MykDGxMOTgxRWF4WXVIM8/EkNKNWpcXIwsdGvDIMPPwE6xfKVwu62JqMsE5aAb/yFN
-	 3QoBL9bQVAHDM3RrQO8kUC1oxeA6nzyMTA2iAnTyxMaKd9UdTZ8xcJrmLwnRpOqQvqg==
+	t=1793958311;
+	b=zmgJr/uUWBq1HGleCWSU1vkuA8GRWkc3wH1Y6QFIK8JlFofA05FbMr+EoWqNvvR+BYss
+	 FJc0QWVbqZNOi45w5n+QgJDxfe7Hlo4Ca2becINchIl4E9GoH/Ujv/AxYUbudl4GuKrjy
+	 UrXv9Trs7ZxrIdMxI4gUDi47EiOe8R4+WT/6Bc2iY0Am/KPnrmlitTqIlcdfx/Vz8i9H5
+	 +7oABagV3eA6HAEQrr7MZ/gcpyGl6CdyuszF/UfGLcyuDM8modWGY81pVl1YSt+TOR3MQ
+	 cskCSSc+Zd7KRH4VR5yr77NvCeI7MMoHyXKujUWa8T32QHG1wxL3jGkWlXDJe5MCvEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958288;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ps0xYlSYCmwUWraNNN2Iemin8yq/Sy7PvPoXOFKbDHg=;
-	b=d4WAw4yozxmEyq9g7o7kDpxcnLgghwW+oRfBPiYTy7xfXNf4D3UXW9P6AYSYiDkWwtaf
-	 wsdNPYZ62xIMd6fxKPCH51ala38FhD5GeWxYsfeNG6LuiyLxMj1U6PKS0WI3uYIza1IuV
-	 6FU1AQMSNo9paEeouYozbzOWc3gKdO2HfYykZpMMt/L5RIiMqiJtkubl6+QGDvk5Bn3sD
-	 3cFJIB88ZmECixwrJGg4tB8r/z6TewLfWCZD6veCotpH5Sv1ZbQ/rC4LloBzQ8O+57jrF
-	 s5yLWNFrgbGhNBCWZv/jYi5tcVQleVSjltRQlFUjEwF7412AYIGSdW7JIs9h13diyMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958311;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=blMJGbxMwm6av2/iDvDL9moahXaJKRpPkibjKFYQdkI=;
+	b=UfP30RX/MfmGAsKUkECcUp40zOK/DxtuLGIGdVOGpXXPkE7M9fMoTwcay8f5AjpGU3tL
+	 Ez2REEj5iRrlt5RU7D4bY6ZiV3Y6OWC7NG7vGmFHnAthHx8+zLGAiEDsSId4m4rZGOg/9
+	 2nf0s8N4RhBSFSEHCYrMxI0oAuJcvb6OddKHoi0JyJG/72hiW/iSK/RdrMjk89034pGm4
+	 ZPp+M8KevqAiGdeu8QpQ3RzvRuAHZuLu0a1glzZ7c7v7WScX7yrhhGJjXL80O2hsZRnwr
+	 Td7yfVWRVrYJyBROdNPTM//LuslOwGTf6wIy89OdqjGLXUkUn7DJhAP82SXAPkZasBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LTlnpsf/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=fguBcwZu;
+	arc=none smtp.remote-ip=54.254.200.128
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 43AAD606A92B;
-	Fri,  6 Nov 2026 09:44:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0837606A333;
+	Fri,  6 Nov 2026 09:45:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0837606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTlnpsf/
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EF75D1F008A4;
-	Fri,  6 Nov 2026 09:44:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793958287;
-	bh=Ps0xYlSYCmwUWraNNN2Iemin8yq/Sy7PvPoXOFKbDHg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LTlnpsf/fuUoHW4ZvhRz5tn+DZafR2Vn3mtEgHXN99FHXr9KjQGxWFD+9IuGO34EQ
-	 VnR250fIMWwlHkykSsInVEHo4OQIvd+u054OXS5slL1LbfiYqHvXNCpD4ncInd1BmA
-	 wD8UJuuT8I+l7gUKyXBO8hS7Jtn/p8w+Lh17h+RSo0QU+B0UrNsW5Uhm4QvZgSG9Gp
-	 B/SGN8notslRhlyF8wCjzW7zMtLw8LywltQWyBQrqd7l4H6yRbESwfWg/twsxjo3fb
-	 NNmJ57vpimaqxiJa9v4b7tIPbLV/XTp0+wZWPQYh7NglwH0foITHulzCGsB6tbRwR8
-	 C6Dr6aWjX9Pxg==
-Date: Fri, 6 Nov 2026 10:44:43 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Hex Lindqvist <hex@freenixos.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-bluetooth@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Bluetooth: qca: Disable SoC debug logging for WCN3990
-Message-ID: <ite22xqbml5wairruy4ehopxpvk4to6qsksbfgjw3qjdm6y5q4@dtoenm5nknti>
-References: <20261105201952.1556185-1-hex@freenixos.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=fguBcwZu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793958204;
+	bh=blMJGbxMwm6av2/iDvDL9moahXaJKRpPkibjKFYQdkI=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=fguBcwZuma/+ZTYPeBCBS+YwpzOB/uE6cevPzKfZJUSFEbY6XwfJbNJbEXCJLmLY+
+	 mKGW+Lhby4ramecbS+iIUioq+YKNeaTiFGSbivos/UzPTVy6f94sWZhaOo6KIY1DH/
+	 xb4E+ZF9OB1eQVXts7u40vw1rCVnlq6hc4Z40rKY=
+X-QQ-mid: esmtpgz15t1793958202t3e9cd9d6
+X-QQ-Originating-IP: jIuZSmu909T2mXIbvXI+whezccbjBGBVhrC1Z/FFRxU=
+Received: from = ( [58.254.68.27])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 06 Nov 2026 17:43:19 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8979647044632498265
+EX-QQ-RecipientCnt: 20
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,30 +58,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105201952.1556185-1-hex@freenixos.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=a74825bda5efc2129772b0dfb928ded8e9c9b2e043bd604a7be0814b50ab;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 06 Nov 2026 09:41:31 +0000
+Message-Id: <DMO12HWY5N64.2IJ5XMUKM8WWR@linux.spacemit.com>
+Cc: "Breno Leitao" <leitao@debian.org>, "Ali Tariq"
+ <alitariq45892@gmail.com>, <netdev@vger.kernel.org>, "Andrew Lunn"
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Yixun Lan" <dlan@kernel.org>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>, "Vivian Wang"
+ <wangruikang@iscas.ac.cn>, "Chukun Pan" <amadeus@jmu.edu.cn>, "Siddharth
+ Vadapalli" <s-vadapalli@ti.com>, "Tomas Hlavacek" <tmshlvck@gmail.com>,
+ "Muhammad Bilal" <meatuni001@gmail.com>, "Maxime Chevallier"
+ <maxime.chevallier@bootlin.com>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
+ emac_suspend()
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Vadim Fedorenko" <vadim.fedorenko@linux.dev>
+In-Reply-To: <6c36ec6d-5bc8-4ac3-8ad0-79eac7873b67@linux.dev>
+References: <20261105123441.2524171-1-alitariq45892@gmail.com>
+ <auyG7hGJtMzV0Gbi@gmail.com>
+ <6c36ec6d-5bc8-4ac3-8ad0-79eac7873b67@linux.dev>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Nt9jTSMqbQyw7EzQ8rBzq4Z9Zp4Alencx3ESmXDi8+V3mLaZZKAMQxag
+	eMH/LEvUPhGMVz7ZJLR824JShUJQPkUwqRJrIqVQR8I+1vO1nnybph8pvo/4ASeUSejXE9s
+	Fmdyu1SlYhXey1BW+R8MtZTV7/MepWDoy/+A9mLyPstGL8fXZznbExmEe7WVV6+1Mq2pmdX
+	ukmf6WfY/X9MtRoJWdOVnOWquAk/TPWndOik7BoV8QR5kzbYGK1P/sMgffHeN1giaUlByfs
+	02qFY+770r7A91OYa6+i6wWHeTnhrNFp6N3xJEVTb67IekgpUAsdIHn6b3JGAF/80WVJw00
+	OTtwMp13ToR+CSXODrzteBTBRSZ8USDlYEb3UCzrYN/b7amLZkudY3wy6DcniHPRIJZg7es
+	s4B4jB5euwKb2KFCPGw6vFmcKRGnsapzAKw5A36UQQwk6ApnwnH75rwyXvA3KrmYQFcLUlc
+	Ll8gRK7GZvfzrJZlXkqX1b5nkAfDuCU+wvaEMfOUSqO2IJ/Z2j3I9AQb0afLUrDwnKpviY5
+	dDeWAstsXz1nLcrZz+oqDVC9kX08NjUtwvSWeOiokRZYFUXJRiBD8mMbm8Ah0MTAxq3jabs
+	XFh6IgD/Kbedgm/oqfEQZODcAadSNlzMeRvhJ19T+aIRPJYprZUsLFmm3kFMgNWTNNP2Pku
+	0lUlAV1Ti/Ee0dQuIpHd7Md5HvfFnj0m3tHcqSrxJwQ65jDTPlQGkBA+qG3F+OqL+kysm7i
+	cHvxRnUO197e9QnSMFpzqAD/j9YUHB8UZ/zRDlB/0CecNnzlRghzXULKm/uk2gsel2HvtUI
+	K1bItrZ03usGjV07KDUAbRuttFUnzgyyavWvkUHoSv0UwVzumMoqk0mWccv2SBJeA5GzBeh
+	k58gg+4IdTIXdOsvjm7zxaQUSVIN0lTE7GAXvu9iaD1IkAUIrgyTCoC/SZx5iF+Gzc2eSaN
+	vWGf9+uMDzvoiqhzwcNgO6LWC94e59IplSC0rOixxp3HbPg7JiEH2QV3oD3OF35/uKcMJ57
+	JQ7CM05sUha82fzRAIKckKwM/G/8pvpEVaGVQePkn60bZKdeVabLFCkfspO5VsqWqZkICvN
+	agVX6jrGf0WUHwL39XMBR7++mlRm4d0CY5RZRvb0nrW
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Nov 05, 2026 at 12:19:52PM -0800, Hex Lindqvist wrote:
-> Unless the host turns it off, the WCN3990 firmware sends debug logs to
-> the host as ACL packets on handle 0x2EDC. hci_qca passes them on as
-> diagnostic packets, which the core copies to the monitor socket and then
-> frees. On a OnePlus 6T (SoC version 0x40010214, ROM version 0x0201) that
-> is a packet of about 490 bytes every seven seconds on average, for as
-> long as the controller is up.
-> 
-> The driver already turns this logging off after the firmware download
-> for WCN3950 and WCN3991. Do the same for WCN3990.
-> 
-> Tested on a OnePlus 6T. With the crbtfw21.tlv rampatch from the OnePlus
-> firmware, no diagnostic packets arrive any more. The controller also
-> accepts the command with the crbtfw21.tlv from linux-firmware.
-> 
-> An AI assistant helped find and test this change and drafted this
-> message.
-> 
-> Signed-off-by: Hex Lindqvist <hex@freenixos.com>
-> ---
+--a74825bda5efc2129772b0dfb928ded8e9c9b2e043bd604a7be0814b50ab
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On Thu, 5 Nov 2026 23:28:31 +0100, Vadim Fedorenko wrote:
+> > This would work, but I am wondering if it would be possible to call
+> > rtnl inside the _open function, when dealing with the PHY? in other
+> > words, shrink the time rtnl is held.
+>
+> +1, especially in emac_open() rtnl is needed only in error path case
+
+emac_open() and emac_stop() are also the driver's .ndo_open and
+.ndo_stop, which the core already calls with RTNL held, see
+Documentation/networking/netdevices.rst +214. Taking rtnl_lock()
+inside them would deadlock on every open and close, so the lock has to
+stay in the PM callbacks.
+
+--=20
+Troy Mitchell
+
+--a74825bda5efc2129772b0dfb928ded8e9c9b2e043bd604a7be0814b50ab
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCau2gyyEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC/sYgEArnzrvoEorz2G
+Y2hnIBkthr/roqcA3mN1Myib4RGNrAgBALHeFO9LRWtQPHq465XKysk/b8m4tfA+
+3Ot7ASy+eIcE
+=2hA2
+-----END PGP SIGNATURE-----
+
+--a74825bda5efc2129772b0dfb928ded8e9c9b2e043bd604a7be0814b50ab--
