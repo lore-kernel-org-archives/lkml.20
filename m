@@ -1,67 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793952783;
-	b=bxVfbpkMOEUSos5cWpysuExu7uZXC6kXgzJGdqsx9BKvAsRCA77TYjulMFuTDI/UORn0
-	 gPE5D6RvLiYX347HQPgWxWx311vpxyIXHUnjreJOF50OkA//MezznmKV4hVFTfW7gUpJm
-	 j45CVdu0JwHAju+uBTqBlB7KcbmNjfY0Y/RwCbexwbyqpEI9M4tO8N8ySg9SmwMlpviL4
-	 PPgyYszvrQQ8aHH0GTnWoLp2ZEzHLv8rnTgjRV5GLKc0IoK3sjDl2LeaFwCCaPTs2R0jP
-	 OJD62c6r7EiG6Xdo3TsL1kOjCzBtm5L/5D0mB7uacWo1jCHMab/g2FjX8aTzbZ74dvg==
+	t=1793953022;
+	b=KQB+od0SoFhczzh/36p5zdDMiBKTuQCEw48yVV81c6vpi0blGNrPiVYHWTyC1npNOfab
+	 p4RFblTbo0Ga2U5x+xP6BmWXtVKXpk1CyoNaaz5q95w9uM9L/YySPIgqJbOo8HNcGgbbq
+	 Gvps0W9UBulaNBpZQn5t+XpH1jU2/L+TI+RtMfY0TV1uCtQd8XxfSGWTM4RtetpRyiRg1
+	 qNWtA9btZqQ11LhVn2lZMrSqo8KG9Y4pHifPMEQLodgV9nJ19FxEM0pYyLZJa8/QhKOQK
+	 2lppcxx5kOTjoTUXlsJQbbNetkdB8sEqKXhl55RKoBTILi996COSfau/B/kBd9lWNdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952783;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cpAgV4w6U0U/HuUVIVHBx3ZFGpiiR3doBeWDIG8xh+A=;
-	b=HjALFGCmwAPgypRuyRHvChJqEh/dLB6vIZS5kB9UI5GomOlBHQPn2B45xtgFT4+VO3rw
-	 wwL7+N5f1IiH906zAnXevrGaMDWiTIpCYZiDmxYIWvmEr6gjNML6cG+kAAWQWg8VMcpdS
-	 NKdLIVkjOnnO6RITHJVsEtsTbbBfyUR6FjAHcc2EEOmAHK5WQe0epjpjY9FWfn4t9h5jr
-	 39WmlOtCS79LZcEfSth8mDWjKITBoZ9EyluYqX/iVNL3kVl7rFNfaTeoi67JLZW7H4Mns
-	 7FHu40E58mdfsWs7VJQgJ/MUNovdcmY4rrCrp3lC1HGH6NK6yKjqLBgrqxo4Bb9ZgpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953022;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=s/l8D3JxGDWZApr72OtI8O1AtYzAjh9O4VHecn90e54=;
+	b=JsRCkYKCW8FB0HwCL4xd+J39yhetl6h56U+IaCCVxgrseMKSX7KsIpokDLViEp2E1Wtq
+	 wvaiFrxd0x/duaM0Wqot73AfGYOMeIKA7zqIca7bbROVyTqiSlG0jyC9mNualaifH9/lw
+	 olkyi+oh29mPiHYt93DJoviuF8iymxYBDCd63UWMgaRZ+QoG2ChbqENtbo9cFBLloXi91
+	 8/YPPNDLh30JSoOJAu9pyIxNROndCmbcfJp/ovcM87e0sEfl/wrUQNG69yYoA5H0tzGrV
+	 KL3e34be1MEdPJPxJYJsPdhdpp5Nsh2GsPjQ1kOQ1hpnvAY+cIDorPBIEknJxHnxQbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bbElk0wl;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76164606A333;
-	Fri,  6 Nov 2026 08:13:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76164606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mOEXl7kH;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF463606A32C;
+	Fri,  6 Nov 2026 08:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF463606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bbElk0wl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=bbElk0wlLo5LB2pAoUs/ov3DtP3yxgvjIKvNuFdHGJpAfFV7TJDTFrdMIfrx3mXs39dXyw929wiz1
-	 wmeWV4UiBU2HQ17TI5gpH+XbtKnWP2mlla8R4XmVaT+BIw87Rcr1OKtGpwEZ80NiBliCUahCj/btM9
-	 GQKVXZAKfAq06Ows=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86aed8c092af-4f19e;
-	Fri, 06 Nov 2026 16:12:58 +0800 (CST)
-X-RM-TRANSID:2ee86aed8c092af-4f19e
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36aed8c0628c-184db;
-	Fri, 06 Nov 2026 16:12:58 +0800 (CST)
-X-RM-TRANSID:2ee36aed8c0628c-184db
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: linux-usb@vger.kernel.org
-Cc: johan@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] USB: serial: mct_u232: fix NULL deref in open error path
-Date: Fri,  6 Nov 2026 16:12:54 +0800
-Message-ID: <20261106081254.1389-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mOEXl7kH
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C9A9F152B;
+	Fri,  6 Nov 2026 00:16:56 -0800 (PST)
+Received: from NH27D9T0LF (unknown [10.57.15.89])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2213D3F673;
+	Fri,  6 Nov 2026 00:16:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793953019; bh=rXwsk/WrD524YCt9YFulEiGevSeXmR5lXAfW7nO0uAw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mOEXl7kH10cLFRzfY3uiWfAjQghZxFUrj/EZPjV79cmkrjQNjtnD+sAeOBQrpYsqD
+	 +AD453KGYXh1yJzOX0YxJoqcwvmtMxL8ffTGdmpHrisg2Ba85+WrP+Hl5/8wuLKiph
+	 zFR8bpTkIVgBKef+2k5p2Ni0Ybbx7Vj2u20JpMfI=
+Date: Fri, 6 Nov 2026 08:16:56 +0000
+From: Emanuele Rocca <emanuele.rocca@arm.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/crc: arm64: use .arch_extension to enable CRC and
+ crypto
+Message-ID: <au2M-JBEobgEETQh@arm.com>
+References: <20261105154145.557042-1-emanuele.rocca@arm.com>
+ <20261105194220.GC3266627@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,52 +61,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105194220.GC3266627@google.com>
 
-The MCT U232-P9 has no bulk-in endpoint; received data arrives
-through the interrupt-in endpoint of the second port, whose URB is
-stashed in priv->read_urb by mct_u232_port_probe().  The generic
-port->read_urb is only allocated for ports with a bulk-in endpoint
-and therefore remains NULL for this device.
+Hi Eric,
 
-If submitting the read URB fails in mct_u232_open(), the error
-message dereferences port->read_urb->pipe, causing a NULL pointer
-dereference at offset 0x50 (the pipe field of struct urb), as
-reported by syzbot on KASAN-enabled kernels.
+On 2026-11-05 07:42, Eric Biggers wrote:
+> Thanks.  Just to confirm, all supported versions of binutils and clang
+> support this?  (As per Documentation/process/changes.rst, the kernel
+> currently supports binutils 2.30 and later, and clang 17.0.1 and later.)
 
-Print the pipe of the URB that was actually submitted instead.
+Yes, binutils supports .arch_extension since 2.26:
+https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=ae527cd876fe35de72d876d3484e194ccc66232f
 
-Reported-by: syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=58b2d8b19cd6761a395b
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-No Fixes tag: the buggy error message appears to date back to the
-original driver import; the introducing commit could not be verified
-with the trees available to me.
+$ git tag --contains ae527cd876fe35de72d876d3484e194ccc66232f | head -1
+binutils-2_26
 
-Not runtime-tested (no hardware).  The affected lines are identical
-in current linux-next (drivers/usb/serial/mct_u232.c @ ddfe51b0a0f5),
-so the patch applies there as-is.
+clang added support in 8.0.0:
+https://releases.llvm.org/8.0.0/docs/ReleaseNotes.html#changes-to-the-aarch64-target
 
- drivers/usb/serial/mct_u232.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> A lot of the arm64 crypto code uses ".arch armv8-a+crypto".  Should
+> those be replaced with ".arch_extension	crypto" for the same reason?
 
-diff --git a/drivers/usb/serial/mct_u232.c b/drivers/usb/serial/mct_u232.c
-index 6570c8817a..ad11697e3b 100644
---- a/drivers/usb/serial/mct_u232.c
-+++ b/drivers/usb/serial/mct_u232.c
-@@ -459,7 +459,7 @@ static int  mct_u232_open(struct tty_struct *tty, struct usb_serial_port *port)
- 	if (retval) {
- 		dev_err(&port->dev,
- 			"usb_submit_urb(read) failed pipe 0x%x err %d\n",
--			port->read_urb->pipe, retval);
-+			priv->read_urb->pipe, retval);
- 		goto error;
- 	}
- 
--- 
-2.39.2
+I think so, yes. Let me look more closely, I'll send another series for
+those if they need changing as well.
 
-
-
+Thanks!
+  Emanuele
