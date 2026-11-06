@@ -1,65 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981523;
-	b=w/M7iedMOSkd0BQSYYwuHMOy6kvUKPK08c1YL5Nl03KHGkXqC0Rl4u8qHCy3nPphLqvT
-	 Syaz37pO+UyJeojozMpQmnymNayu2EdS3AXRPiJI5jbs+ew1ORnJBoFS2jvGD6z++fgpi
-	 fZQarUrKr/TtxH9AsbNDmLte2tQp4tp+XLFsY3glKl2xQCud4TSYrlWipa8M6dLgZOHRS
-	 npAj9oGnoI0lAXIKyvMtHe9JQAXgKv3kY6bZamO5+0tFZqRYiFXoXbzMFIAwqvmYMwUjL
-	 X25Ldt397q+su11LLRI68qrVGj8VH9zymlzp9pTNW82sFgarOUYY6feYKgZqXCnSFTg==
+	t=1793981573;
+	b=mTWZbxyDtP1MAUnmfOh676BRBuXoGMSh96WBb0iadA5Q+vZT09gyLw/9bZ7wGzHY0Qni
+	 fH7LXLBtTOjoOZbFAVQ19d9bGNVmBV9SWLmhrj9rTLGg0hQqTn8jB9TDyS7RhVYYz/wFg
+	 oi4pTIqxCJPu+2yT9YmyZddx+05zDFFMbjsY1HARljUz0Pj0RNaATAg6aGbWxds7/tGip
+	 v6xmrrtHr4/Kmc+AuuIpk7MvV41t5D1KMi0imoSqDbeGb4JSHDMhtjSs/hxb5JgsryjLz
+	 kE6bDyxADg2WK4IZ4JXr92CdDgXTLk92Idma/YZGz+0tj4NP5N0I6prtsaQprOSoyVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981523;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=u4dADfwBHaP9Z+trAd/cC1BAnQN/RgHMjjBme6z20L0=;
-	b=am7NyczQPO7Pj5WDFC+OsetVr6//ozuod2D8K7fEXinB0ADuu5bCCA5+j6d/nixC+E0c
-	 9eRqLTZua0rPfrif56EZv3MwckNpAg3u7jYI7WYGZ41vy6caJHdSjsaPDz8J0XYkPzt6v
-	 6zOYI/JTo685ZkGy+HkjCO6NJwxVFgogN0G7DXUa8pVd4VBi2XYyAGEULixygwq9zVq0D
-	 oOZ5L9pOxTKzTafQutiSZo4q+kET8pZVlIJiZJ6ibgEQ9v2FRQlR3RUOPlgWS3BRQk/wk
-	 JWL1Vfaap2gKZa2t6rwpxPTtGH7R57sIvFCCBChF+GSK6D7me1Dq4RXCFMCJ0HwGz/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981573;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=IFAfLDa2G0pobeptroxUQtjS8pyt7hWdsBfMuvMIm20=;
+	b=umqXqRgPSb0hAzREQwilVzNoJ0KB6lamO01EdJJrAKyQB//31qw6Q3zH5xBu4BzM3HrD
+	 7bQL8sspsfkTHTWIvqcY6SW1hGpN6M/ObSHrsuPwyNpsiMc75QGP+Np2Ccj7uQ3z07x3H
+	 cLYCQHaQQztA+Z94NZL6Qqu2jH54AeKxj3hJzKOPcaem0cZD86mBKb1Ws4nfPjf4ut/Kp
+	 HiIFioRDKipLZH82wQEArPHLA31HKZELAKvQWmGA2f2Duy+NaIWwhYZQ7mvBkzwaEfwhz
+	 zgcUMeZxtpe5eq1z4/oTSjFXhosZrVzXafXBl6ewq2k7W7cqc94Ff18BLcdmTpg+qVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=XXPykNJ8;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D2D606A32F;
-	Fri,  6 Nov 2026 16:12:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85D2D606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MnuHt9Sb;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3CFA1606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:12:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CFA1606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=XXPykNJ8
-Received: from omf15.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id A0DD61A0101;
-	Fri,  6 Nov 2026 16:11:59 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf15.hostedemail.com (Postfix) with ESMTPA id 4E3761C;
-	Fri,  6 Nov 2026 16:11:56 +0000 (UTC)
-Date: Fri, 6 Nov 2026 11:11:54 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Mitch Hen Chez <mitch9654@gmail.com>
-Cc: deduce@gmail.com, Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Stanislaw
- Gruszka <stf_xl@wp.pl>, David Laight <david.laight.linux@gmail.com>,
- Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] ftrace: Drop weak function locations of modules
- when loading them
-Message-ID: <20261106111154.0e09925f@gandalf.local.home>
-In-Reply-To: <CALr3rD93RT_=w8VB6aKfuV5crbwXK4Tffq9bLD=eJBj07Tv1=A@mail.gmail.com>
-References: <20261004-ftrace-mod-bsearch-v2-0-c1de73e72e73@gmail.com>
-	<20261004-ftrace-mod-bsearch-v2-2-c1de73e72e73@gmail.com>
-	<CALr3rD93RT_=w8VB6aKfuV5crbwXK4Tffq9bLD=eJBj07Tv1=A@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MnuHt9Sb
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6034A143D;
+	Fri,  6 Nov 2026 08:12:48 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F70A3F673;
+	Fri,  6 Nov 2026 08:12:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793981571; bh=fXE743sIM/nQSiWcBGoUx8NbFyewBUf1llAQH/QXNJM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=MnuHt9Sb+syEafyBaeM1VdRur+RFCBLMdc35HRKO0voFqYPihaxQ/0iuOxzGzwnyx
+	 XO1HWEmbzX1i9JdIvtQzoL9m6uh+qWaKwoDrZ8MdF2Dl67cMz0RxWaf9kpnurUxmwp
+	 f6b/zR92MB0nQ44lhocGA/na1WBmaZYVQ8UcSxJc=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Leonardo Bras <leo.bras@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND v4 0/3] Optimize S2 hugepage splitting, introduce skip-level flags
+Date: Fri,  6 Nov 2026 16:12:35 +0000
+Message-ID: <20261106161240.1345126-1-leo.bras@arm.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,36 +71,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 4E3761C
-X-Stat-Signature: u39macfkr4u77ts611ireors5td7cx3t
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19WZpY2CziLb2q1uamnYVWTswP1sdOp1K4=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=u4dADfwBHaP9Z+trAd/cC1BAnQN/RgHMjjBme6z20L0=; b=XXPykNJ8QCC8JloyhyOflNzNt9HDMDXBWwL85CYMqFzm6U/6QuMiKvZzr1+F6mM8w4A+qv1R1ZIXhitiPQsMdx9GPo6NyXFD2yVSXqWY1WqW9uCTGNaHXM2GmjJubFF0aVmVZlupCSCPxFpjg5FpGoxCol+XB4JfG3+SG2AcHSo=
-X-HE-Tag: 1793981516-592299
-X-HE-Meta: U2FsdGVkX18tIJgVk2Kh8K2BGR56MnLRhOpGzmX+90HkUSF5JlssVjnmb4dK7Y8yLj9lOBDNJA+cx1YCddIqXASgGcV7CozyG4tMgaCuG/OGBGL3PvQmXs3oVaYcP76Ov7g3eTjex86XeEn1JE6/457jMNjHmJFgyG6FNU2tDtt5q0wF+mJ1uFhUfOtk2cU/riThtCs3hUkanKbRfqe51n0Eko7JLUusixRGetrttQzGIfp4tFV6+UQxB6TZOAaUYiJi0moZAHXukQc3dgWZyvfoLEwTHZLcWH819qG1aZFlD3sGLPEJNL4X7k01/3J82AiP88Kq6YcYLcOaAnRHwg/58GG3S6l8K7/dJBMZzxIhbQWdHLihIw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4418; i=leo.bras@arm.com; h=from:subject; bh=6jIvAO7qm3jjgSq+Dla4mVhMhm4SWwAU9Gn4g47wvek=; b=owGbwMvMwCX2pizjszvTwvWMp9WSGLLe/smqfXdr3/QC53L1aX8mMvmf+DYhfPHizStCGDTN9 9+ce7y4q6OUhUGMi0FWTJFF9tH8VTzfp2QcufJjAcwcViaQIQxcnAIwkWtzGBl+nDzL6qf1XndL v2DdF9XkSQ3iDCXR6UtPaD+YVmBqKreZkeHv5rbfu1j/qv3Y1Lm9O1PN9JSoVuGXkyldK0+WnWU Ne8gMAA==
+X-Developer-Key: i=leo.bras@arm.com; a=openpgp; fpr=36E6C95AE0F111CC5B6F4D2E688C33F8A0C5B0C5
+Content-Transfer-Encoding: 8bit
 
-On Fri, 6 Nov 2026 14:13:56 +0100
-Mitch Hen Chez <mitch9654@gmail.com> wrote:
 
-> Would it be possible to have another review pass on this patch? I
-> don't want it to fall between the cracks :)
+While playing with dirty-bit tracking, I decided to take a look on how page
+splitting works. Found out all entries are walked, even though we don't need
+to walk the level-3 entries, as they don't need to be split. 
 
-It's in patchwork and you can monitor it status here:
+This patches' idea is to introduce new walking flags to skip pagetable
+levels 0-3.
 
-  https://patchwork.kernel.org/m/20261004-ftrace-mod-bsearch-v2-2-c1de73e72e73@gmail.com/
+Optimization measured on two scenarios involving eager-splitting on a
+VM with 32 memslot of 2GB (total 64GB), and vcpu per slot:
+- Scenario 1: No manual protect, whole memslot split at dirty-track enable
+  (KVM_SET_USER_MEMORY_REGION2 ioctl with KVM_MEM_LOG_DIRTY_PAGES)
+  - Split happens only once, whole region
+  - Evalutes improved batch performance of splitting
+- Scenario 2: Manual protect, split happens during every dirty-bit clean
+  (KVM_CLEAR_DIRTY_LOG ioctl), average for 2 iterations.
+  - Split called multiple times, for smaller 64-page sections.
+  - Evaluate improved performance for multiple calls
 
-The workflow is:
+Scenario 1, improvement on dirty-track enable ioctl for the memslot:
+- Memory was already split (4k pages):  -47.82% runtime
+- THP backed memory:                    -27.50% runtime
+- 64x1GB hugetlb memory:                -28.47% runtime
 
-  New				- first submitted
-  New delegated to someone	- Added to somebodies queue (in their TODO list)
-  Under Review			- Added to local machine for testing
-  Queued			- Uploaded to linux-next
-  Mainlined			- Added to Linus's tree
+Scenario 2, improvement on dirty-log clean ioctl for the memslot:
+- Memory was already split (4k pages):  -44.72% runtime
+- THP backed memory:                    -29.80% runtime
+- 64x1GB hugetlb memory:                -30.01% runtime
 
-It currently is just New delegated to me, which means it's in queue behind
-lots of other patches :-/
+For collecting above numbers, the following script was ran in both vanilla
+and patched kernels, with kernel parameter 'default_hugepagesz=1G', on an
+TX2 with 128GB RAM.
 
--- Steve
+--- dirty_test.sh
+#!/bin/bash
+filename=$(uname -r |cut -d'-' -f 4-)
+
+run_test(){
+  base_test="./dirty_log_perf_test -b 2G -v 32 -m 6 -m 8"
+
+  # Manual cleaning disable
+  ${base_test} -g
+  ${base_test} -g -s anonymous_thp
+  echo 64 > /proc/sys/vm/nr_hugepages  
+  ${base_test} -g -s shared_hugetlb
+  echo 0 > /proc/sys/vm/nr_hugepages
+
+  # Manual cleaning enable
+  ${base_test}
+  ${base_test} -s anonymous_thp
+  echo 64 > /proc/sys/vm/nr_hugepages  
+  ${base_test} -s shared_hugetlb
+  echo 0 > /proc/sys/vm/nr_hugepages
+}
+
+run_test 2>&1 | tee ${filename}
+---
+
+Above dirty_log_perf_test command is the standard kvm selftest found in the
+kernel tree. It tested the following guest modes:
+Testing guest mode: PA-bits:40,  VA-bits:48,  4K pages
+Testing guest mode: PA-bits:40,  VA-bits:48, 64K pages
+(Modes with PA-bits:36 were discarted in this version, given the amount
+of RAM being used for testing, and the similarity of previous results)
+
+Performance numbers from above modes were used to calculate average showed
+in the optimization improvements.
+
+Changes since v3:
+- Check if root level should be skipped,
+- Improve commit messages (Marc)
+- Improve skip_level documentation (Marc & Wei Lin)
+- Improved skip_level code (Marc)
+- Dropped skip_children explanation in the cover letter (Dev)
+- Rebased on top of v7.3-rc5
+v3 Link: https://lore.kernel.org/all/20260708134101.2514759-1-leo.bras@arm.com/
+
+Changes since v2:
+- Rebased on top of v7.2-rc1
+- Improved testing, added more memory, re-tested
+  - Now: 32 vcpus @ total of 64G
+  - Before: 1cpu @ 16G
+v2 Link: https://lore.kernel.org/all/20260618131447.764085-1-leo.bras@arm.com/
+
+Changes since v1:
+- Fixed inverted flag verification priority (Sashiko)
+- Fixed incorrectly skipping POST call if level was skipped (Sashiko), and to that
+- New pre-patch that changes goto-out -> return to avoid re-testing walk_continue 
+v1 Link: https://lore.kernel.org/lkml/20260610202112.2695205-2-leo.bras@arm.com/
+
+Changes since RFC:
+- Changed approach from return value to walk flags (Will Deacon)
+- Discarted skip_child approach (Oliver Upton)
+- Measured in real hardware, and from userspace perspective (Marc Zyngier)
+- Better explanation of what and how numbers were collected
+RFC Link: https://lore.kernel.org/all/20260515195904.2466381-1-leo.bras@arm.com/
+
+Thanks!
+Leo
+
+Leonardo Bras (3):
+  KVM: arm64: Avoid re-testing walk_continue
+  KVM: arm64: Introduce KVM_PGTABLE_WALK_SKIP_LEVEL* walk flags
+  KVM: arm64: Make stage2_split_walker() skip unnecessary walks
+
+ arch/arm64/include/asm/kvm_pgtable.h | 14 ++++++++++++++
+ arch/arm64/kvm/hyp/pgtable.c         | 25 ++++++++++++++++++-------
+ 2 files changed, 32 insertions(+), 7 deletions(-)
+
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.55.0
+
