@@ -1,47 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973293;
-	b=EM6K1lJKCFzuvs9nvS5zrbZ1Y7ljA2sHUqDGHLTMPPOX0zt2Y3Ua3WdrVxfAwy7qBj4I
-	 co4FhLu/7pPVbOtc3EAhCF33f/1X79E7U0/UnjZoqCsYPGzzvO39gZKO0TFMWj/BltAnf
-	 ZjKdg3OEsVUjCTYse4TmfRABy9YmHsW8V8HP63R5926CymV/SICVEPK7L1nrLlpxB/ptJ
-	 LmjvxFqpqmu30RTKum2dKzIXdXuxj99maYO/rS+EG1Wjl6qmJsAWCUSujdAJwGCqgwWXS
-	 sUtdtetW/SUQrQae4CUaOYgaXgugfS8hH1FqPBWRbyYYWMhZeAvYAW/B2eEkaCiq1uA==
+	t=1793973309;
+	b=wxnX/sKB7EIHXLj/cXuZaYLdnZpwf2IiIS2pmak21GA+tK5UNh1FsEYoxcHI1GM+W+Yx
+	 mFX2IsK/v5NEqNLtlJIRMRxDqqEy5zKZpMnDhu7brfLj1bPjgDQvaldxggz1DpWM+Ul21
+	 npuvBNeSwxF8LOceh0X5FLVLubCts5RUf6xDiVzjHgmjxgjlMXybS3RjBG5Kj9EjbBT4t
+	 W6324Oa30ZN+Az5jPZSCNW7mpITsif7UOdD5zogZPXSfIO7gUPP3DkEU3wNdsn5zYbSHW
+	 3xrkHG3e3S3v8z2aW1hO+xIeeFfDFVBRuTrGLzhDEn3wx39ijwuvnh/OjyTZzG9r+aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973293;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=34mQdD+b5YZ6XAjM1LZE1WQBn5OVOW6NRSCCNvZHD7s=;
-	b=HyNxoEfcwi6EfJccAUVlGOgL+Y7+Bfg4Bbfxxhbo4s6iJWcXdk96wasxpjF1z9xO5AhZ
-	 NyNo0tSugdohVFXFISFOq5xwrU4ueceiw8mG8/WqwHttZkMwCCWGRscKYjPzndvcRytZw
-	 tiqAvIKOS8VzzoFy76WNj0ruNLdmuTET7068luVpvfG46RmrBPS4RKxYjmo2vgoUxl9Ip
-	 ktg5BjixvVbPMpwaiOIEPcaMcgKORvQMBowTMgT4BcZahistcpoDR4MSJbbr4t0wC6nVz
-	 ABnRWk6QT7VD9OsMJhH1/23/fmd6NVTb08tViYmW9mY3O61+yDsTvMVIvUR9HqCCOkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973309;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:
+	 X-EPHeader:X-CMS-RootMailID:References;
+	bh=QWsQgLiwnkC/ulnhSGJ/u2XyKoE/N56d2d46C2Nra3g=;
+	b=hbcd35hRY5QCP6bFxDZGRwkoJY7cFVdf31QqU35qYlcw+ShK8oJ+ACdqIHCK40JiZZzc
+	 8KdOpWJ24YZSHPSOtSRyE1RsWJsb1yQYzVC7lenGgKZUBXKXIoz591w/sfnCLuN8d41Rw
+	 eO/4o6UI9qUqO9mx7t7xzQkjVuCtJXxKCqQwxs1qw5idD35JFUowWKYQQP050twswvwTO
+	 MYgpWZGtWAzBTPVFrbuW+gpKNTin5k5MY6HsiucRhX34Imv0pVi6yTnH4B1i7sKl6CXW3
+	 o+PBAe6eovHKDbRrmLbgRr4UmplKNsLi5yyrDfZcJqWXl2qjiL3Te2FYu1NdU8Ymg3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjuKuYCY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KE4SEBQ2;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED13606D802;
-	Fri,  6 Nov 2026 13:54:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1AEE606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:55:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1AEE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjuKuYCY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA351F0089F;
-	Fri,  6 Nov 2026 13:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793973292;
-	bh=34mQdD+b5YZ6XAjM1LZE1WQBn5OVOW6NRSCCNvZHD7s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JjuKuYCYc+1Mx7nL0LE9YfXxydZve4TxL2sCZmkw3PvNaVeRMcK0S3+qk3K1QdcM6
-	 EITNbtqJU8dVj1nHvyFj0eRNmSyiN9Fb+vo5OlbeKKORB01Zb4oe5VEsyxkbWNnMP5
-	 6GuiLetqoMgPqmHZvKo6ASeFi5vxUvgzeYQbZ2d9G9c5fATAn0DUmOQPECHqAMqTcj
-	 ozwW7x6FtyzpJUsjalnHsI9fatbD7T0XNoH9hernaArn2uyW3OTgswysrIkgl6iLPp
-	 +sZkpb1boQixmQaET3jzS+h6KHF+1KZZ05qXOcXGeT30EWihR/4lGwRN4vkl2CXR3U
-	 a6bjcBhxSeiGw==
-Message-ID: <cc803a06-f6a1-440b-9752-917f3698da6c@kernel.org>
-Date: Fri, 6 Nov 2026 14:54:45 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KE4SEBQ2
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261106135505euoutp01694a0352ebffb4beda10118e44dbd661~leTeEOK3w0202602026euoutp01V
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:55:05 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261106135505euoutp01694a0352ebffb4beda10118e44dbd661~leTeEOK3w0202602026euoutp01V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793973305;
+	bh=QWsQgLiwnkC/ulnhSGJ/u2XyKoE/N56d2d46C2Nra3g=;
+	h=From:Subject:Date:To:Cc:References:From;
+	b=KE4SEBQ26l6lxX381jqVk0oL+gySE9u77Wui03TMdem8UBwYWvzyU/dukgMGiGr5h
+	 ayqV4bmD7lwcvLyE5IGn7GOrS5QMvJyHZgzHm9aKtJOV2IxgsQddru8Aw2r2cQCLPU
+	 xdYnhkOQbMutJnmQlelaZUqY9YIXC+N5oY/N59oU=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261106135504eucas1p14138c1ce829febb8bcd63c4de1f29ffb~leTc9VSqF0517605176eucas1p1d;
+	Fri,  6 Nov 2026 13:55:04 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261106135503eusmtip2ef623fe1ef475ee1b18554c6ad6b987c~leTcEUONE2093020930eusmtip2_;
+	Fri,  6 Nov 2026 13:55:03 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Subject: [PATCH v7 0/5] phy: Add the StarFive JH7110 Innosilicon HDMI PHY
+Date: Fri, 06 Nov 2026 14:52:58 +0100
+Message-Id: <20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,159 +66,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
- MADV_COLLAPSE
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins
- <hughd@google.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org
-References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
- <au3C8lNElGg4LnR1@thinkstation>
- <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
- <au3YD92l6BwCQIPJ@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <au3YD92l6BwCQIPJ@thinkstation>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALrb7WoC/3XOwQ7CIAyA4VcxnK1hsAHz5HsYDxO6gXGwDCUuy
+	95dtkQTDx7/Jv3amUQcHUZy3M1kxOSiCz6H3O+Ito3vEJzJTRhloqBMwc3KoqDgvA9gTe9gsBM
+	ojpVuG1Fy5CSvDiO27rWx50tu6+IjjNN2JVXrdANpzeoPqO/YeIjoDaQKKCh2LY1CroWWp9j08
+	em7gw49Wb0kvsb/p5LITMu5rIUqTS3xl1mW5Q2WKpyw/gAAAA==
+X-Change-ID: 20261028-jh7110-inno-hdmi-phy-83e5cfa643e3
+To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
+	<neil.armstrong@linaro.org>,  Manivannan Sadhasivam <mani@kernel.org>, Rob
+	Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
+	Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,  Emil Renner
+	Berthing <kernel@esmil.dk>,  Hal Feng <hal.feng@starfivetech.com>, Dominique
+	Belhachemi <db@domibel.de>,  Michal Wilczynski <m.wilczynski@samsung.com>,
+	Andy Yan <andyshrk@163.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
+	Szyprowski <m.szyprowski@samsung.com>,  Icenowy Zheng
+	<zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	Joshua Peisach <jpeisach@ubuntu.com>, Byron Stanoszek <gandalf@winds.org>, 
+	OOHehir <oo.hehir@gmail.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3883;
+	i=m.wilczynski@samsung.com; h=from:subject:message-id;
+	bh=o256jFXr6zL1bPuxFl+13GnEJ0mu3QrvYdJuIVka6jY=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9vWPOLnuiU2bNPI1Dofp/3uuK2tQet5NvWtGb92D9h
+	21Ncwy/dZSyMIhxMMiKKbKc3RhtJPmP4Wn58ce/YOawMoEMYeDiFICJKE1lZFgVuve2wErlg7xr
+	z+ZmvBZYt0t5v/VqXRbxd9u3yBwW//iF4X/xmZ2/3u5yeVH6mn/BisSzEnY/gh8xbu5uFZq5c7f
+	Lq4vcAA==
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261106135504eucas1p14138c1ce829febb8bcd63c4de1f29ffb
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261106135504eucas1p14138c1ce829febb8bcd63c4de1f29ffb
+X-EPHeader: CA
+X-CMS-RootMailID: 20261106135504eucas1p14138c1ce829febb8bcd63c4de1f29ffb
+References: <CGME20261106135504eucas1p14138c1ce829febb8bcd63c4de1f29ffb@eucas1p1.samsung.com>
 
-On 11/6/26 14:41, Kiryl Shutsemau wrote:
-> On Fri, Nov 06, 2026 at 01:29:31PM +0100, David Hildenbrand (Arm) wrote:
->>> Separately from this fix: nothing on the mapping side catches this.
->>> Every caller checks uptodate on its own (next_uptodate_folio(),
->>> filemap_fault(), shmem_get_folio()), and khugepaged was the one that
->>> went straight from filemap_lock_folio() to do_set_pmd().
->>>
->>> Should do_set_pmd() and set_pte_range() assert it? Something like
->>>
->>>         VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
->>>                               !folio_test_uptodate(folio), folio);
->>
->> I think so. But looking at these hard-to-trigger but in the end very nasty
->> problems, should we actually reject the operation and do a pr_warn_once() or
->> something?
-> 
-> Yes, rejecting sounds better.
-> 
-> Not in set_pte_range() as I suggested, though. Fault-around only gets
-> there with folios that next_uptodate_folio() checked under the folio
-> lock, and for CoW it maps the new anon folio after do_cow_fault() has
-> already copied from the page cache one.
-> 
-> Checking the folio ->fault() returned in finish_fault() covers PTE, PMD
-> and CoW; do_set_pmd() covers khugepaged. Both return VM_FAULT_SIGBUS.
-> 
-> Something like this, only compile-tested:
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 6fe0b7dab927..ff2f2deff761 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5674,6 +5674,22 @@ static vm_fault_t __do_fault(struct vm_fault *vmf)
->         return ret;
->  }
-> 
-> +/*
-> + * A page cache folio that is not uptodate holds data that was never read in
-> + * or cleared, and mapping it leaks stale memory to userspace. The callers are
-> + * expected to check, so treat a hit as a kernel bug and refuse the mapping.
-> + */
-> +static bool file_folio_not_uptodate(struct folio *folio)
-> +{
-> +       if (likely(folio_test_uptodate(folio)))
-> +               return false;
-> +       /* Driver pages from ->fault() never get PG_uptodate */
-> +       if (folio_test_anon(folio) || !folio->mapping)
-> +               return false;
-> +       WARN_ONCE(1, "refusing to map a page cache folio that is not uptodate\n");
-> +       return true;
-> +}
-> +
->  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
->  static void deposit_prealloc_pte(struct vm_fault *vmf)
->  {
-> @@ -5714,6 +5730,9 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->                 return ret;
->         page = &folio->page;
-> 
-> +       if (file_folio_not_uptodate(folio))
-> +               return VM_FAULT_SIGBUS;
-> +
->         /*
->          * Just backoff if any subpage of a THP is corrupted otherwise
->          * the corrupted page may mapped by PMD silently to escape the
-> @@ -5849,6 +5868,16 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
->         unsigned long addr;
->         bool needs_fallback = false;
-> 
-> +       /*
-> +        * Check the folio ->fault() returned. For CoW that is the source of the
-> +        * copy; DAX CoW has none.
-> +        */
-> +       if (vmf->page) {
-> +               folio = page_folio(vmf->page);
-> +               if (file_folio_not_uptodate(folio))
-> +                       return VM_FAULT_SIGBUS;
-> +       }
-> +
->  fallback:
->         addr = vmf->address;
+This series adds the HDMI PHY driver for the StarFive JH7110 and shares
+the pre-PLL code it has in common with the Rockchip RK3328 Innosilicon
+HDMI PHY.
 
-Can you send that as a proper patch? I think this is the right thing to do to
-catch more of these things if they ever pop up in a better way.
+Up to v5 it was part of the JH7110 display series [1]. It is split out
+as Vinod suggested, so it can go through linux-phy on its own; the rest
+continues as v6 of "drm: starfive: jh7110: Enable display subsystem".
+Nothing here depends on the display series. The display series depends
+on this one: its HDMI subsystem binding references the PHY binding from
+patch 1, and it needs the PHY driver at runtime.
 
+[1] https://lore.kernel.org/all/20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com/
+
+The JH7110 has the same Innosilicon PHY as the RK3328, offset by 0x100
+because it sits behind the HDMI controller in a shared register block.
+Patch 2 factors out the pre-PLL config format, table lookup,
+determine_rate, recalc_rate and the pre-PLL programming; patch 3 moves
+Rockchip onto it; patch 4 adds the JH7110 driver. Pixel clock tables,
+post-PLL and analog config stay SoC specific.
+
+Patch 3 should be a no-op for Rockchip - same writes, same order, same
+values - and RK3228, whose pre-PLL is at different addresses, keeps its
+own register code and shares only the lookup. I have no Rockchip
+hardware, so it is build tested only (arm and riscv). A Tested-by would
+help.
+
+Patch 5 adds a MAINTAINERS entry for the binding and the driver, as the
+other JH7110 PHY drivers have.
+
+Testing
+=======
+
+Tested on a VisionFive 2 v1.3B together with the display series, using
+modetest: all 42 modes the sink advertises work, with pixel clocks from
+25.175 MHz up to 297 MHz.
+
+Every commit builds for riscv and arm.
+
+Changes in v7:
+- Point the binding example comment at the hdmi-subsystem binding's new
+  location in bindings/display/starfive/, where the display series moved
+  it
+- Rebased onto v7.4-rc1
+- Link to v6: https://lore.kernel.org/r/20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com
+
+Changes in v6:
+- Split out of the JH7110 display series (Vinod)
+- inno_read() returns the regmap_read() error and recalc_rate checks it,
+  instead of a failed read turning into a zero divisor (Vinod)
+- Bound the pre-PLL and post-PLL table walks with the table size instead
+  of relying on a sentinel (Vinod)
+- Lowercase hex in the JH7110 pixel clock table (Vinod)
+- New patch 5: a MAINTAINERS entry for the JH7110 HDMI PHY, moved out of
+  the display series' entry
+- Rebased onto v7.3, collected tags
+- Link to v5: https://lore.kernel.org/all/20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com/
+
+---
+Michal Wilczynski (5):
+      dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
+      phy: Add common Innosilicon HDMI PHY helpers
+      phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
+      phy: starfive: Add jh7110-inno-hdmi-phy driver
+      MAINTAINERS: Add StarFive JH7110 HDMI PHY entry
+
+ .../phy/starfive,jh7110-inno-hdmi-phy.yaml         |  49 ++
+ MAINTAINERS                                        |   6 +
+ drivers/phy/Kconfig                                |   8 +
+ drivers/phy/Makefile                               |   1 +
+ drivers/phy/phy-inno-hdmi.c                        | 358 +++++++++++++
+ drivers/phy/rockchip/Kconfig                       |   1 +
+ drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 169 +-----
+ drivers/phy/starfive/Kconfig                       |  20 +
+ drivers/phy/starfive/Makefile                      |   1 +
+ drivers/phy/starfive/phy-jh7110-inno-hdmi.c        | 587 +++++++++++++++++++++
+ include/linux/phy/inno-hdmi-phy.h                  |  88 +++
+ 11 files changed, 1144 insertions(+), 144 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261028-jh7110-inno-hdmi-phy-83e5cfa643e3
+
+Best regards,
 -- 
-Cheers,
+Michal Wilczynski <m.wilczynski@samsung.com>
 
-David
