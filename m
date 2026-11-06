@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967403;
-	b=LDUZ2lJCiX5CbqP+C9Gm+I2MaDfTHKnjEm4h2i3XnWlrzxg6nFVVCrNjH0vH6lnCn9SG
-	 BKXvkMet8c4aDCJa1ixpSRvuJF4E/SGiEEeQ+o2stucA7FrKPRPdjsXixvflz6dNoACy0
-	 8lZkztvbOZvAjuiHRRuvL88tPUVqnyZbhHjB6XKmE/zidvEJtHeKaB52bzcmP3TL7gs3W
-	 hNjK/sXpdkEuNop9MWe5kLGPhqiakS+NF44nJOULKnfkNdugQPtUE29HeVOzy5PQn/8yh
-	 NdOCQSoDXpjF2rWkKZSb6N0Df5D4OO7IimvV4dxR7WZsykDjKo6UU1obGbnK2pUcXHg==
+	t=1793967456;
+	b=W04fBanTJw3K9E9mwEc812bNBaVYG+XBRxnaHE9MwGUuSCvaNI3BE7ko7uA57Ib1V89O
+	 GyqUOz27+J1AVpdB9s02hVFKz8VtXUtyO+JNvEd5WvUtz5k37KsT0r2K4IiGZLjqnbOU5
+	 USQK5SooPM1j8NoqyU8SUmuXFGVasPS0UVaRGwYQ595294VXJRNW2wjLiQ5xIpMzE4vTC
+	 Dt3y3L+SmFcYl24WZiPD/VLytih1HTqX0i8L9d9UF1EfzSe+f3FQAWlIJAWbU4xwmd740
+	 bdoASYB8tsvKOv3LMcvlczoWtpLf9eSwudbmS8gFf7Muc5p4XZGND5YOt6w76Qru78A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967403;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=uPV41jSVh75rYc+JIJbUNHJbDDtf2LfeuBMNekJNoXI=;
-	b=DJzQzYRpW2jJ+CwFNTduJHUrgonFGjC5Bn9pZwVtTddc8E+Tk1PgfbQAB/Zu25PhHjQ1
-	 v5TLRg6j/uP2ihWpNF1VqW7IzN7EfbQjGF6cSVw0AGv8GG6CKeAnMNJUTDL7gk2xqsFW/
-	 cOBDoS4JW5rqZPMr6jOeXd7Vlo7whXd8Gf8lPQCaBGh8Q9P5Vr9GwcCYAxZY5wcskp9v6
-	 fxg/fgGNzTgxyv/Z+t9xPDIJEddEC5uPRFUnkqUVOmQGfG6kgz3MaZRG2ikaNxIQatpYC
-	 yqGTr/yBnbYbFPHwyFrtOFDhBhHah74Cd0Ty6eQ60uTIJWLwyEG3bFR+HcHrBpIXLMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967456;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=K0F12eVq6pVIQK4QXRpq0UoyWpPy8goPaCprht+deEw=;
+	b=uBwqbAvC26098RQd/lJNCsUcYnj6kSlZsef2M5TpHzLlRWXY3fe5tWhnRWAQmTgr6w/0
+	 Oq/1+JIU/4yWaEhiXyODZG/U2x3Ot8i7U9qYPCfMpYSL3djuibvt/g21TjxVGDs61VlEG
+	 UERWjhA0/ULOYh7ZciA2HnN9HOHanJuhx4jbWdI5RfMRTBTIQfj6cOzyYFOxk9WLz4taO
+	 EpYHKsm26UY2oJdJ0PuaL0dXCUlAS4t4PrfivXT6wEXCWs+g7f6qlCLUO15pbYq00E+mW
+	 yZ1ZXGQROJ72AXZ4oE/bzL/M40/kQoBsyh2ANYAAr7OjevaE2FE+IlqyqwGVgEPtCzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=aOiYjqch;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kovEYkcs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342D4606A326;
-	Fri,  6 Nov 2026 12:16:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 342D4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DB6606A326;
+	Fri,  6 Nov 2026 12:17:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=aOiYjqch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793967363;
-	bh=uPV41jSVh75rYc+JIJbUNHJbDDtf2LfeuBMNekJNoXI=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=aOiYjqchXoq+x7L4YmfMKFJdirrnFkXFaqMf2R0VSCuZzqYlLTNqZ4fqrVZ90uV0t
-	 qV2m1u4e3x87MINI53+v5h2FY/SE0PzxNVk1BoxiEEk784AFusOt2+KJV06V6NfmLr
-	 OKRG1CGrWNOkceXTzhhXZ0TMtWrSq95iL+oexfgM=
-X-QQ-mid: zesmtpgz5t1793967357t99f51f88
-X-QQ-Originating-IP: 5CM8gtx0OpiyIrvv908inz6iqEmJ5kK3cBL1mHMnBbk=
-Received: from = ( [58.254.68.27])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 06 Nov 2026 20:15:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 2384512835884255270
-EX-QQ-RecipientCnt: 16
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kovEYkcs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 057141F008A2;
+	Fri,  6 Nov 2026 12:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793967455;
+	bh=K0F12eVq6pVIQK4QXRpq0UoyWpPy8goPaCprht+deEw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kovEYkcsZWegaqfGTsc3dbTFvkaBD1XFpSpsuTHgVktR388C3duDiahBvOMCCIAOE
+	 n+7v59wLFRjJC6+lTOyUGBFzaNUPmDRgt71MxHNNXVCqNOzEKlEG58cCv4jWYqcuT0
+	 oWEGnztMg6qE4m06wpLz3i+cMkKcNB/xfMXctdemAE0BOUOo+lvPjCFzosaf9eqC7C
+	 XFk+X3VoHANnNlOj9SyQastt3GBLbd2zoL/2W5hrbvzOMG6B9bmFKKfbVMICGGvL13
+	 75OrG/Kbwfp6HD5uRQL1YOmM1UWtUXBxBvSyhvN3NFYHLiLHV6ZdxN6ggHbJ3e60s7
+	 q8XCl8Zy/jYTQ==
+Date: Fri, 6 Nov 2026 12:17:31 +0000
+From: Simon Horman <horms@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Elad Nachman <enachman@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] net: prestera: release the ruleset in
+ prestera_flower_prio_get
+Message-ID: <20261106121731.GI865646@horms.kernel.org>
+References: <20261103100532.1309990-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,126 +61,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=1b3755cfd99b64d0a0dda969f37ac993ccdcbb4bdd501bc08f16b6da9e66;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Fri, 06 Nov 2026 12:15:54 +0000
-Message-Id: <DMO4CP89Q1AA.17HKYA50DLY8L@linux.spacemit.com>
-Cc: <srini@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
- <conor+dt@kernel.org>, <dlan@kernel.org>,
- <troy.mitchell@linux.spacemit.com>, <pjw@kernel.org>, <palmer@dabbelt.com>,
- <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <p.zabel@pengutronix.de>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Jiayu Du"
- <duge1256@gmail.com>
-Subject: Re: [PATCH 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Jiayu Du" <duge1256@gmail.com>
-In-Reply-To: <20261106060525.346873-3-duge1256@gmail.com>
-References: <20261106060525.346873-1-duge1256@gmail.com>
- <20261106060525.346873-3-duge1256@gmail.com>
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NhOYPyditAFRQ5uYznxRKF8muA5nO+NaNcSH2Lhnac2NP9UG2XU0YBE7
-	NSNa1+V5moxihLAFuACLYPZMTmpTrJtV25ZxbhJtE2nn5Tw1kneqTBBmD42OfK9JbpJeZvZ
-	ESH9srt4i/zwtfgUQUERIuHzjHv6NO9wi7RYayeRNFYn4PGWvyRsudajNbSsRatHPoF8dN/
-	Wn/3rbjJOHrpQS7BNCWNwPw2v1ZGfK2dP+jxIFxHWe0FMzpGgtkBtewBVDiSWuk1vmf//KS
-	LtCxRhxfuQLT4AiBmtlb5bZyZ8/srxmqthG0pxwhmme2ZaES2ZNKnXgRzTnhhDOcCsGCib+
-	wSaaOm/xfTRGjbhxoxWr28dZXUJIMmQK6+6HkMVO96OvoeHLRhlf2buLSpzMCeEMAcJlpkL
-	wCCvQckU+2wWsi1uiFgUxzS46CTU2u7ctzE/CdJCyK/HFulq2tqxIYUfA1GZJG2fMFZW+st
-	vptgWr5H5swm9TTCB3n+O7OjQolt6g670D/MU4xhbaq1l+fGTfdy7uADKO3FinWqKRoQxhx
-	eeXaQ7Le6QAXloxWrP6eKVPtDEncmU6+7C4T7hjnK0EfBSV0ioLkFvqGs++J2qfui0LHUQE
-	0HoDXKpZ6eujIs2PXbagVp20SLUCk1OGj0XmxahHndmUFQYa7K+SDrQ4K4VFrUgQdbnste5
-	JAtM/Pn/7+3gMYRvC+lrBS63MIgBzN99F3eSCq3hLupML3kjdpLl1KA02IY0dj+2iSYK4mN
-	Y52Q00skO2k2vFopzP1cr66dP4+Fdx/nzsgwCmfQSXX1anQziDzcOlqSTnr8UdXGlO7K44q
-	F1IHau+ULbz4xQhpKjQ2mBb0aW4phraf6ODvHsZCG3FDf9jctl44sjqH1LedEKc/CON22QD
-	azJB2a68rjhAQ25XMavtQAt5wR27w5RID8DgIPCYSIuVqHVl5E30/wCb4WUTxFw9AjmN/IY
-	wZ5bfvgTb0YPCAZqfPypOiBtzkCIoZG5NGCUTVEpFY8f+7ACXXjs8NSHihe1RbXJ9CKQvvf
-	PX4V1NoCMkHKLdmjf5aoIHXqI7jS/g0wP6y9PbPSazfu9vFwk3U6eEUPN8iXzcnsxi0d+HW
-	hoEcGgT6R9kpGlhczNFJ34RVuOggf5J4TqsljIqCqcE
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103100532.1309990-1-vulab@iscas.ac.cn>
 
---1b3755cfd99b64d0a0dda969f37ac993ccdcbb4bdd501bc08f16b6da9e66
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Tue, Nov 03, 2026 at 10:05:32AM +0000, Wentao Liang wrote:
+> prestera_flower_prio_get() looks up the ruleset with
+> prestera_acl_ruleset_lookup(), which increments its reference count,
+> but returns without calling prestera_acl_ruleset_put().
+> 
+> The ruleset reference is leaked on every successful priority query.
+> Release it after the priority range has been copied out.
+> 
+> Fixes: 44af95718fed ("net: prestera: manage matchall and flower priorities")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-On Fri, 6 Nov 2026 14:05:24 +0800, Jiayu Du wrote:
-> Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3
-> eFuse controller. These banks contain temperature calibration
-> parameters and other configuration data.
-The rest of the window holds the root key and the SSK, which is why
-only these two banks are exposed. Please say so here and in a comment
-above k3_efuse_keepouts.
+Hi Wentao,
 
-> Snapshot the shadow registers with aligned 32-bit reads and expose the
-> data in little-endian order at controller-relative offsets. Serve
-> reads from the snapshot and use keepouts for the remaining register
-> ranges. Keep the AES_WTM clock enabled and its shared reset deasserted
-> while the provider is registered.
-Why keep the clock on? Reads are served from the snapshot and nothing
-touches the hardware after probe.
+While I have reservations about the large number of patches you
+have sent to netdev in the past days, as others have commented,
+I do believe this patch is correct.
 
-Tested on CoM260:
-- clock on only around the snapshot: probe and unbind/bind work, the
-  clock stays off (AES_CLK_RES_CTRL 0x00c30050), same bank 0/7 data.
-- this patch: unbind gates the clock and asserts the reset
-  (0x00c30070 -> 0x00c30040), rebind reads the same data.
-- this patch: 3s of WTM_RST or of clock gating leaves the shadow
-  values and FUSE_READY unchanged.
-
-[...]
->
-> +	depends on COMMON_CLK && RESET_CONTROLLER
-Not needed, both APIs have stubs.
-
-[...]
->
-> +#define K3_EFUSE_REG_SIZE		0x400
-> +#define K3_EFUSE_BANK_SIZE		0x20
-> +#define K3_EFUSE_BANK0_OFFSET	0x104
-> +#define K3_EFUSE_BANK7_OFFSET	0x190
-Nit: the last two are not aligned with the others.
-
-[...]
->
-> +	if (resource_size(res) !=3D K3_EFUSE_REG_SIZE ||
-> +	    res->start % sizeof(u32))
-No need to validate DT here. Drop it and use
-devm_platform_ioremap_resource().
-
-[...]
->
-> +	reset =3D devm_reset_control_get_shared_deasserted(dev, NULL);
-This asserts the reset on unbind, rmmod and probe failure. The fuse
-data survives, but WTM_RST resets the whole GEU (FUSE_SCLK_DIV_CNTR
-went back to its boot value). The driver does not need the block after
-the snapshot, so use devm_reset_control_get_shared() and only
-deassert it.
-
-[...]
->
-> +		for (i =3D 0; i < K3_EFUSE_BANK_SIZE; i +=3D sizeof(u32)) {
-[...]
-> +			put_unaligned_le32(val, efuse->data[bank] + i);
-Please poll FUSE_READY (GEU_FUSE_STATUS bit 1, offset 0x184) before
-taking the snapshot, and fail the probe if it never sets.
-
---=20
-Troy Mitchell
-
---1b3755cfd99b64d0a0dda969f37ac993ccdcbb4bdd501bc08f16b6da9e66
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCau3E+iEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC8/6QEAllu4wjVxKXH3
-uf4Pn1BZKUjMfwLjUg+BimDFWivcETIA/007JxYadXwHPjWz8USoQQ1YsrDbubN+
-o3RBNq5Q4U0D
-=nbMm
------END PGP SIGNATURE-----
-
---1b3755cfd99b64d0a0dda969f37ac993ccdcbb4bdd501bc08f16b6da9e66--
+Reviewed-by: Simon Horman <horms@kernel.org>
