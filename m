@@ -1,58 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967691;
-	b=r/vtSutJvzArlG+53h420b8RvqtIwHpjbaCoEeU9lav7ZaQp5UFSfxrePj0Gzjb+JgF7
-	 QSthgdeDwGa2eMF2n40nPwEiNuueWd13AtWa2oxiDvKQB07oRbjiM6WqXq26a/cmvtvnS
-	 EVB4t2hGPvdZZ08cXIsYBalY44OGXwkZCM3Yj8htF33XYNiP1T3b2nV3hWJRMoELRHNhU
-	 A6/ew3Sjrv4febOqlrJ7y2z60G1Yp7TnI3md0Lrji98ceE5vp6OZDR79OpMdpGJeBF//A
-	 eDozJYMV74cPLExhTFKuBrOc0q4htVHE/IrG9IruC0pQsJT8UENQOM+FGOC4GTLGR+w==
+	t=1793967700;
+	b=kTUInqV06eYE5X7hY/+4fKJPkPMZHU5u5VdAr/V5jCqHqyyRWh3EAfQGuBAWXzZjFl2o
+	 8u0Y4PW+dwvvRvt/TznCK6X9NDvHDd5xQyD4ZsfcivW9XDarDXrzrd5TiSZK3bOU23KB4
+	 SDSue+abYC+0nu6s0/79Pjw9a9JKDblzlr2VFpTjB0B4WRmLGztGNyhcqsDT+aU8mkXmk
+	 iN78AUgOGBRdrSMp/w6E4dZ4VJHn4Chn9IsyHgIkvvUYnYsP+SAhbL39LbIDGHo2/PLxW
+	 7VgBVuabpryiuDJFu1p/jj+J5we07JhTXTDpCxHY4ndyY2f+1LbMUrhjQlwW16jBMMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967691;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cRzTH+yd4d8od9LM7sI2UHx2nrHb7DkZirOlIhvtcmU=;
-	b=cOGRsYFWj5AkxbiNgGVq+ofijt2Pcmc7lDWFkc3zZlXR2tQ65PQIWzFVJvKVgEBviajJ
-	 cjt+aT0ImWznCMEyoMWATUdtbAFawF0hwuIqMoVFjHhxvhiGOEW0+UrD9gXC2yk44SUys
-	 HeUYkAt61RhkBckdRjskw5xNorCau8n9goswhkWGbqoe6JkpkSJjGZ6ME4RLY45cvP93X
-	 Pa2jNAbVV6HSZPbGQDnb+PuAVV2QBMI7AnN9Ohk5fGKQ+6ZXWMsoI7Wwe/OB78lKttVey
-	 9FIFmvZpvOnqDRPRxJa9azRaEqJHIbzFg5V7xMbYkueHWTtGQGCyjZl05V1b/2LAf2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967700;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
+	bh=Qn/RhPLFe7eM2gOJPShYS3JZVu2J5rMSgiNX2tNxYRk=;
+	b=lozNVT44xKHmSP5zy05nlJ6S6VN7VQ2X6d2Ys4jfl7sOvxozCAOujhSwYXpNheUZXqU3
+	 tLQvNuDzSm3eFCOJl1oRPhbbJooSdpqjRj3QU/Pvl6cTodtFuKZXG9msPhp6nbBcKb7Yh
+	 WE6eWUT87lf5Y9PwbMO5K8IE8vo0Xcq8fWmLSe0O267T6q7eOH+2HoLiwYgBKeksK5Uk4
+	 gsXDyT1b7PjrlZpaOa82hcSd6OXxrPzkLFckY7pikMUzmTkZkNiUETaoR0u8IvdtCj3l4
+	 /a/y/UbJBtzj0BcDlWeD+VW3Rez9tMETD5AbsWauJCDrWqirlBcOPX5PT71CcbQcJNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZILsJYw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=IMz99JC7;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B4B606A326;
-	Fri,  6 Nov 2026 12:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0AC606A326;
+	Fri,  6 Nov 2026 12:21:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA0AC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZILsJYw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F25F1F0089F;
-	Fri,  6 Nov 2026 12:21:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793967691;
-	bh=cRzTH+yd4d8od9LM7sI2UHx2nrHb7DkZirOlIhvtcmU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GZILsJYwu5BayQcmz0opObBE0Ra84AH2emZVoDsYwET5lsnXq/90QfHCKSiuVcyng
-	 QK6GS6TxvENK+/sND0HJk/pISIlyglRaJyq+yYhObAQDtBYNHdEpVa63IlVAN5jN2n
-	 Bl71ZLc1hzVRPjVqVBic13CoXv5zTenBbEqK2e4ETjWnl2nEyM+OP3mMgP/jgfMMhI
-	 gkeW+EK9keSGXtJBvkIbdh35aMPfca1IHC/jAU7w9xnDnPoyviV3mUPcSBB7hkElxv
-	 wte2pRHKe9ddWnUtU/1XJDkCxQk3YddRhQ4Og723Jd8cfqg3VuPHeQIezaf2h/RZEN
-	 Fe1/F8bvxLhzA==
-Date: Fri, 6 Nov 2026 12:21:28 +0000
-From: Harry Yoo <harry@kernel.org>
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>, vbabka@kernel.org, 
-	paulmck@kernel.org, qiang.zhang@linux.dev, akpm@linux-foundation.org, 
-	hao.li@linux.dev, cl@gentwo.org, rientjes@google.com, roman.gushchin@linux.dev, 
-	linux-mm@kvack.org, rcu@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	zhanxusheng@xiaomi.com
-Subject: Re: [PATCH 2/2] mm/slab: don't queue the page cache work under
- krcp->lock
-Message-ID: <au3ELzm_s9vhs7UO@thinkstation>
-References: <20261028134647.3176080-1-zhanxusheng1024@gmail.com>
- <20261028134647.3176080-2-zhanxusheng1024@gmail.com>
- <au2fUYzBLv3uvj_2@milan>
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=IMz99JC7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793967699; x=1825503699;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=iZGWGigFbhC9MrM8azfnVKSspKL7hUqD96apEFTUXBc=;
+  b=IMz99JC7kKmoQ0czDUeeP8MhmexnWtjoB4y7Y9fcJTtSUeUWQcF5G1qa
+   LZflHJasMxIOWCi6oI4WsDshZqkWThcZMtFA9sSmWfWq6zKCgevnaRPGV
+   zNgI3H83TWuS0OdqCRR+O26dWvWVJ6ixWCdjpVLRx0a6MFbNvZPSINBm4
+   1cgI8wH3W9NF5Kt90zME+IDZ9OTg7nfJLdIstX9R/lNZgh6JxFTZe5UDx
+   L1unlZRdNXEE/67YK1nyK+jRE18KLeBAz9sdU0Q0Mj901GJoq/KL+xaWp
+   yYu3rbaHLb5BUCS1+UUrLO/KdBc17b4YaQDEEdii55Zsq3DgwqwB9nRGI
+   Q==;
+X-CSE-ConnectionGUID: LIMx5t7+Rba3YaoGHNWEdg==
+X-CSE-MsgGUID: HcP1GZoTTEG/h7kAFQZ/Kw==
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="297557753"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 06 Nov 2026 05:21:32 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 6 Nov 2026 05:21:32 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Fri, 6 Nov 2026 05:21:30 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Fri, 6 Nov 2026 13:21:22 +0100
+Subject: [PATCH net-next] MAINTAINERS: Add myself as maintainer of the
+ lan966x driver
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,90 +74,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au2fUYzBLv3uvj_2@milan>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261106-lan966x-maintainers-v1-1-476bfb921aca@microchip.com>
+X-B4-Tracking: v=1; b=H4sIAEHG7WoC/x2MwQrCMBAFf6Xs2YUkxkj9FfEQzKtdqFtJQgmU/
+ ruhhznMYWangiwo9Bh2ytikyKpd7GWg9xz1A5bUnZxxwVrjeIk6htD4G0VrB7mwx3Xy5p7CzSf
+ q5S9jknZen6SorGiVXsfxB7zhFGNvAAAA
+X-Change-ID: 20261102-lan966x-maintainers-4e3f407d654d
+To: Horatiu Vultur <horatiu.vultur@microchip.com>,
+	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: b4 0.14.3
 
-On Fri, Nov 06, 2026 at 10:35:13AM +0100, Uladzislau Rezki wrote:
-> On Wed, Oct 28, 2026 at 09:46:47PM +0800, Zhan Xusheng wrote:
-> > From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> > 
-> > run_page_cache_worker() runs under krcp->lock, from kvfree_call_rcu()
-> > callers that may hold more, such as set_cpus_allowed_force() under
-> > pi_lock, so it kicks the refill work from an hrtimer.  Under memory
-> > pressure it instead queues the work with a delay of
-> > rcutree.rcu_delay_page_cache_fill_msec, which may be 0, and a zero delay
-> > queues it at once, taking pool->lock under krcp->lock.
-> > 
-> > With the delay set to 0, calling kvfree_rcu() on vmalloc memory under
-> > pi_lock after a drop_caches makes lockdep report:
-> > 
-> >   Chain exists of:
-> >     &pool->lock --> &p->pi_lock --> krc.lock
-> > 
-> > Use the hrtimer when the delay is 0.
-> > 
-> > Fixes: d0bfa8b3c411 ("kvfree_rcu: Release a page cache under memory pressure")
-> > Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> > ---
-> >  mm/slab_common.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/mm/slab_common.c b/mm/slab_common.c
-> > index 3729aa7a6156..ef5ff0a20249 100644
-> > --- a/mm/slab_common.c
-> > +++ b/mm/slab_common.c
-> > @@ -1987,7 +1987,13 @@ run_page_cache_worker(struct kfree_rcu_cpu *krcp)
-> >  
-> >  	if (rcu_scheduler_active == RCU_SCHEDULER_RUNNING &&
-> >  			!atomic_xchg(&krcp->work_in_progress, 1)) {
-> > -		if (atomic_read(&krcp->backoff_page_cache_fill)) {
-> > +		/*
-> > +		 * A zero delay would queue the work right here, under
-> > +		 * krcp->lock and possibly the caller's pi_lock, so let the
-> > +		 * hrtimer do it.
-> > +		 */
-> > +		if (atomic_read(&krcp->backoff_page_cache_fill) &&
-> > +		    rcu_delay_page_cache_fill_msec) {
-> >  			queue_delayed_work(rcu_reclaim_wq,
-> >  				&krcp->page_cache_work,
-> >  					msecs_to_jiffies(rcu_delay_page_cache_fill_msec));
-> > -- 
-> > 2.43.0
-> > 
-> > 
-> Can we just clamp this to 1 - 100 seconds interval?
+Horatiu is busy with PHY work and will not maintain the lan966x
+driver for a while. Until then I will look after it, so add
+myself as a maintainer to have lan966x patches routed to me as well.
 
-You mean clamp to [1:100,000] milliseconds interval?
+Acked-by: Horatiu Vultur <horatiu.vultur@microchip.com>
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+---
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-> <snip>
-> diff --git a/mm/slab_common.c b/mm/slab_common.c
-> index 7223a7596dab..2c9236236ac9 100644
-> --- a/mm/slab_common.c
-> +++ b/mm/slab_common.c
-> @@ -2249,12 +2249,12 @@ void __init kvfree_rcu_init(void)
->  			WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
->  	WARN_ON(!rcu_reclaim_wq);
->  
-> -	/* Clamp it to [0:100] seconds interval. */
-> -	if (rcu_delay_page_cache_fill_msec < 0 ||
-> +	/* Clamp it to [1:100] seconds interval. */
-> +	if (rcu_delay_page_cache_fill_msec <= 0 ||
->  		rcu_delay_page_cache_fill_msec > 100 * MSEC_PER_SEC) {
->  
->  		rcu_delay_page_cache_fill_msec =
-> -			clamp(rcu_delay_page_cache_fill_msec, 0,
-> +			clamp(rcu_delay_page_cache_fill_msec, 1,
->  				(int) (100 * MSEC_PER_SEC));
->  
->  		pr_info("Adjusting rcutree.rcu_delay_page_cache_fill_msec to %d ms.\n",
-> <snip>
-> 
-> so we forbid zero as value to use?
+diff --git a/MAINTAINERS b/MAINTAINERS
+index fe23913b1e432..eec511996f845 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -18312,6 +18312,7 @@ F:	drivers/net/phy/microchip_t1.c
+ 
+ MICROCHIP LAN966X ETHERNET DRIVER
+ M:	Horatiu Vultur <horatiu.vultur@microchip.com>
++M:	Daniel Machon <daniel.machon@microchip.com>
+ M:	UNGLinuxDriver@microchip.com
+ L:	netdev@vger.kernel.org
+ S:	Maintained
 
-IMO in general we should keep existing behaviour unless we could
-demonstrate setting a delay < 1ms is fundamentally flawed?
+---
+base-commit: 6584acd42820478910a771efb28a355a707e9cb0
+change-id: 20261102-lan966x-maintainers-4e3f407d654d
 
+Best regards,
 -- 
-Cheers,
-Harry / Hyeonggon
+Daniel Machon <daniel.machon@microchip.com>
+
