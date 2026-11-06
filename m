@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930548;
-	b=VzY+ydSIBkU/tVEJ3C++5yDALIlnLqYrUuTPzwvj6sNEsd5U6PQZR6zmZLu4x0eZHrwp
-	 LbKFFo7nZpICNh+el3WKDyXVgoEiYSdWMeumpUJit1SXd6A23+J18urv2RiCC2xX+c3Jy
-	 3Yh43jy2MN0aUuYR6MEPKOtjjqcjenE/35BNUwDnLqoLf2Kl4aQibeJW/fRQP89cXl4bZ
-	 SgC2Q6kzNv/7pCoWOG3vNQvPLZ/xT7jLAe9RW4AovVTdSGNNIuXzYWeV5rF71pj/TTf8f
-	 bFXoSxdw82Vea8HTDseewQ1V+24xG30e3VlAx2Gj/FMUQO5RSfUPXCh0N1zhHIjqUwg==
+	t=1793930599;
+	b=UNk47fny5ZTYAx30wZshpUY2++5K2K/QvvvYL3JEEv6E8VpyExNcgE6PkGAEOaizwFb+
+	 pt1l4xXVcK0JfXpa3ju8PtKhol0cJVup+vCJfDeTVHiHHp1KLbs5aP3hOOLq+kzptUL38
+	 QBUPeb5kVKICnpmqI49Rnchfoc03M/d4VED9u16vCRB/l3qVxMdRgHkGJ8GUZG7/r0yy/
+	 MIpYGfUO4DAbb2BAbaUuXlaicPf4W1wsh6fNdaY0VsZqb1Hit5CPjrhCk4zYxdMSkZJBz
+	 Y7Ay9I0ln2bQqxsep7+gFPuhgHrA+GJU6AcCgtja/MAyMF9F2EBIxSYUhtv8X88RT9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930548;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930599;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=pKmPuefvTAbfdN4jAqHdCzsBrC5bf2nTi/bHl0k4C9Y=;
-	b=dyQiP6VjsdCQUSyz1LJ8gU2/TwuTh5Dx5K9WRPhV+2Jf1FXeWsNSw1AnnZ3K0geuuy5M
-	 8RSs/qOiIboBqCR3sGW68A7zazVsL2LYyjDNAS7EU33b0TziO/KUBkyB3vuZ8uf8gxoQ2
-	 Ttt1DhstAmOTXyMDUdF0aWQrk3MkQr+Acgj7ZY0y3ISgSv1zyw/n5pdJsgqXqr4o4O1UF
-	 tpFrXb820R5i+Mi7wDYlt7tEjafOORj2TMGyzjPOzpSVpSC9f4l7jlsK+zLrH4Nash6Ev
-	 sRc5fVdonMDaYb77VlBxlk1/1ZvveIheC4xS00etp9cjpculmfK48cSNS4GTujua0MQ==
+	bh=a5+XHx9VkmMYhdeQ2fq6mtWIZa8h3SwrC9yL/0CDbts=;
+	b=qc96gG1UglocMUownRzeKJ86glxdLVy3inp+9B9RhGmHwOeQkSO3orL7bOQbRC1DLBIl
+	 Oig/wzmFECOAGFICINxmw11lVjXG745kB4Ac5qvy+QVhm+DqwIxoB9MaoE75quIKQJwyx
+	 CBTRUloooGeH18vtf4MuZfN03opxAy12kvU72OKO1LbiAAu2UdIQnUvOXWjY0Goft4E9o
+	 EUkdgxX4IbvejGjAJsAg4MSpp3MoXDhjGh2jns5itvX9sCzPm1NZCEOb0/bAroh5/ki/K
+	 3JQupgwLpvQDj+2NVL51wFl1cG2jC2F6DCkhEV+EleVrpX1FQM0942aDuvuBtszxahg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ladNjTS8;
-	arc=none smtp.remote-ip=115.124.28.145
-Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com [115.124.28.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E937606A31B;
-	Fri,  6 Nov 2026 02:02:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E937606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ppqx8sxJ;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2A9C606A31B;
+	Fri,  6 Nov 2026 02:03:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2A9C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ladNjTS8
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793930538; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=pKmPuefvTAbfdN4jAqHdCzsBrC5bf2nTi/bHl0k4C9Y=;
-	b=ladNjTS89SBkUvIF6eC4kNtp6THHEQ6TWrndAhaZWxqrPi2Y4EwN8GoJ7g2sxQEchyl/HueT0MT1rC3Uu8d7P3naI0G1UX0LtnukGC7u7qUVqbHmn6TiJpglD9zzi+u0VU0cSh93VH7PJVrsnS28/709iFOoXqnAb2XLaPM+6BM=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2143449|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0535512-0.204086-0.742363;FP=3679924564259477098|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045038069;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jxvJMbx_1793930537;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jxvJMbx_1793930537 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 10:02:17 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Markus Armbruster <armbru@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] Input: xen-kbdfront - bound the backend-supplied keycode
-Date: Fri,  6 Nov 2026 10:02:17 +0800
-Message-ID: <20261106020217.48481-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261106014957.4130059-1-guozh23@xiaopeng.com>
-References: <20261106014957.4130059-1-guozh23@xiaopeng.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ppqx8sxJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=ppqx8sxJ8Y1oVubf3Xg5bguV+QMQxKmL+cCdlXzbu0LgBP86xeJ3+F7UTxJ2uAknIGRcpIL9bXeWi
+	 pMyyWqk87dpvk62JNYUvKSGXZlggWNdgxSR8TqC4ijC0wLHPLg04zA3sbRXinwDTDpZZTrbE6SWs0F
+	 INzD1jQm3raEDvMM=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96aed35621f5-b01d6;
+	Fri, 06 Nov 2026 10:03:14 +0800 (CST)
+X-RM-TRANSID:2ee96aed35621f5-b01d6
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from cmss.chinamobile.com (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16aed3561424-0d505;
+	Fri, 06 Nov 2026 10:03:14 +0800 (CST)
+X-RM-TRANSID:2ee16aed3561424-0d505
+From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Kees Cook <kees@kernel.org>, nuno.sa@analog.com, Heiner Kallweit <hkallweit1@gmail.com>, Chen Ni <nichen@iscas.ac.cn>, "Alexandru Tachici" <alexandru.tachici@analog.com>, Lennart Franzen <lennart@lfdomain.com>, linux-kernel@vger.kernel.org
+Subject: [PATCH net v3] net: ethernet: adi: adin1110: mask the RX IRQ of the port being stopped
+Date: Fri, 06 Nov 2026 10:02:51 +0800
+Message-ID: <20261106-adin1110-net-stop-v3-1-yuehongwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,87 +65,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
 
-Keycodes arrive from the shared ring the backend writes:
+adin1110_net_stop() programs the RX-ready interrupt mask of the wrong
+port: it uses ADIN2111_RX_RDY_IRQ (the second port's bit) when stopping
+port 0 and ADIN1110_RX_RDY_IRQ (the first port's bit) when stopping
+port 1, while adin1110_port_rx_ready() uses the opposite mapping, port 0
+-> ADIN1110_RX_RDY and port 1 -> ADIN2111_P2_RX_RDY.
 
-	if (test_bit(key->keycode, info->ptr->keybit)) {
-		dev = info->ptr;
-	} else if (test_bit(key->keycode, info->kbd->keybit)) {
-		...
-	} else {
-		pr_warn("unhandled keycode 0x%x\n", key->keycode);
-		return;
-	}
+The port being stopped therefore keeps its own RX interrupt enabled
+while the peer's is masked.  On ADIN2111 that stalls RX on the peer port;
+on ADIN1110 the RX interrupt is never masked at all.  As the interrupt is
+level triggered and adin1110_read_frames() skips the FIFO while
+netif_oper_up() is false, the stopped port also keeps re-raising its
+interrupt with nobody draining the FIFO.
 
-The keycode is a plain u32 from the ring page, while the keybit
-bitmaps it is tested against are sized for the KEY_CNT keycode bits
-declared to the input core. A backend that sends a keycode at or
-above KEY_CNT makes test_bit() read past the bitmap to decide which
-device gets the event, and no keycode at or above KEY_MAX is a valid
-EV_KEY code in the first place.
+Swap the two bits so the port being stopped masks its own interrupt.
 
-Since the event sits in memory the backend keeps writing access to,
-the keycode must also be fetched exactly once: re-reading key->keycode
-after the bounds check would let a concurrent backend write feed an
-unchecked value to test_bit() and input_event(). Snapshot the keycode
-into a local variable with READ_ONCE() before validating it, and use
-the snapshot (as well as the already snapshotted pressed value)
-throughout.
+Found by code review while comparing the bit mapping against
+adin1110_port_rx_ready().  I do not have access to ADIN1110 or ADIN2111
+hardware, so this was only compile-tested (CONFIG_ADIN1110=m, x86_64),
+not exercised on a device.
 
-Ignore keycodes the bitmaps cannot hold.
-
-Fixes: 4ee36dc08e5c ("xen pvfb: Para-virtual framebuffer, keyboard and pointer driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+Fixes: bc93e19d088b ("net: ethernet: adi: Add ADIN1110 support")
+Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
 ---
+v2 -> v3: no code change.  Cc the ADI commit-signers that
+get_maintainer.pl reports once a git history is available (Nuno Sa,
+Heiner Kallweit, Chen Ni).  Thanks to Andrew Lunn for pointing out that
+Nuno was missing.
 
-v2: Snapshot the keycode with READ_ONCE() so a concurrent backend
-write to the shared ring page cannot feed an unchecked value past the
-KEY_MAX check (double-fetch, sashiko review); also reuse the already
-snapshotted pressed value instead of re-reading key->pressed.
+v2:
+- Cc the netdev maintainers, as flagged by the cc_maintainers CI check on v1.
+- Explain how the issue was found and that the change was only compile-tested,
+  no hardware access (netdev guideline for patches found by code review).
+v1: https://lore.kernel.org/all/20261103-adin1110-net-stop-1-yuehongwu@cmss.chinamobile.com/
 
- drivers/input/misc/xen-kbdfront.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/net/ethernet/adi/adin1110.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/input/misc/xen-kbdfront.c b/drivers/input/misc/xen-kbdfront.c
-index 6471d836f6fe..f95aefedf026 100644
---- a/drivers/input/misc/xen-kbdfront.c
-+++ b/drivers/input/misc/xen-kbdfront.c
-@@ -91,22 +91,28 @@ static void xenkbd_handle_key_event(struct xenkbd_info *info,
- {
- 	struct input_dev *dev;
- 	int value = key->pressed;
-+	u32 keycode = READ_ONCE(key->keycode);
+diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
+index 53fac3d..abdc160 100644
+--- a/drivers/net/ethernet/adi/adin1110.c
++++ b/drivers/net/ethernet/adi/adin1110.c
+@@ -945,7 +945,7 @@ static int adin1110_net_stop(struct net_device *net_dev)
+ 	u32 mask;
+ 	int ret;
  
--	if (test_bit(key->keycode, info->ptr->keybit)) {
-+	if (keycode >= KEY_MAX) {
-+		pr_warn("unhandled keycode 0x%x\n", keycode);
-+		return;
-+	}
-+
-+	if (test_bit(keycode, info->ptr->keybit)) {
- 		dev = info->ptr;
--	} else if (test_bit(key->keycode, info->kbd->keybit)) {
-+	} else if (test_bit(keycode, info->kbd->keybit)) {
- 		dev = info->kbd;
--		if (key->pressed && test_bit(key->keycode, info->kbd->key))
-+		if (value && test_bit(keycode, info->kbd->key))
- 			value = 2; /* Mark as autorepeat */
- 	} else {
--		pr_warn("unhandled keycode 0x%x\n", key->keycode);
-+		pr_warn("unhandled keycode 0x%x\n", keycode);
- 		return;
- 	}
+-	mask = !port_priv->nr ? ADIN2111_RX_RDY_IRQ : ADIN1110_RX_RDY_IRQ;
++	mask = !port_priv->nr ? ADIN1110_RX_RDY_IRQ : ADIN2111_RX_RDY_IRQ;
  
- 	if (unlikely(!dev))
- 		return;
- 
--	input_event(dev, EV_KEY, key->keycode, value);
-+	input_event(dev, EV_KEY, keycode, value);
- 	input_sync(dev);
- }
- 
+ 	/* Disable RX RDY IRQs */
+ 	mutex_lock(&priv->lock);
 -- 
-2.50.1
+2.43.0
+
+
 
