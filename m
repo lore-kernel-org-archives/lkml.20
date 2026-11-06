@@ -1,61 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963709;
-	b=hHREOTweFEg4Vsx51BXRUBGcJSUWgDDuDGgiL4QNkvTIDGuKkawQKgbyMbkqy1zBkAuI
-	 yaV5p66rD0wDz6oHN8G93EdtRWoQbNh+RohyObDtymNC9Yju842Zb2XQeknhaRFblFSpR
-	 dPXdO4TacTzrZNWsXoNbXearx5F+85iQQzl8Eu5xYaWsUhG6N7gFSqDwJYqcphON6uy8s
-	 ZInjWsulN6DQr8xPRAT5nBLxL7UisMk+IK0yxvPfRG2U83+Mfu2NShJ/d/GkUPpDDxgKt
-	 Nk80O7RPaslPHpehHrDcrKxcoUP073d3BYZiYgbG6Uuel/t5uH/fKRIq26+WvLyIQuA==
+	t=1793963715;
+	b=DXKuXHYovml+AS5p3bPLeC3IGs0n2NpUaV2qmS73kvOFDkG9/nEKKDSbXOmt9S6w+Y+q
+	 dvl5J14nTb28nshsOqIeBeztUWutnc+mKYNMoLS2Lbx76PBHCDun7w6z0qxlTDsoeSNds
+	 UmxVGRCkfNJNVS07Azf5HjcoTO4CmY7WAAVbb+etVwERzLsSgnBBwUKCZYTmtGijpE/im
+	 YUPXRlirC6YSUjstsviC8mLqhFzRj51VJ8FIb87yCaB3v01WVtX2ycPrzV4AeqeC6Ig6R
+	 V8cC9b+B+dum/qSnFuPRUKb0YP5YzlGNXa/78HcEP48ovNzUIKiCfXpl4CbQnhmj/vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963709;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=m5MTk+iMSF8IJK5g5CfhcVnBo8V+eg0v1q4zXApCeQM=;
-	b=0de9PX199MXSNcwK5fKRvyJsjIG5aK2gIq7oRbUjdrSksVD1aFSJQikZ+oFN1VPloVQo
-	 SMeTTbVAbqcm8m6mkiHhwfJ6dMMEsBGJv7Vp+WXm9PDbgoB6SKAzhutlbpj34radA92YA
-	 bUkrAEUHYOZoCfi9DK/D9VwK47++6XX6Y3yjrjVLfBkJHYPNS2ZwrXDWCptC2WAo2mqa1
-	 smapmt3WnQ66SbtF3vzRBnuLbk0K1d8+9pQ1T8GrhgOrsdWeBrM5kNdaZZLNQBL8peOKk
-	 EAw8L5M0DolgGx89A0Nz6TlExuckkdW6aTi84CzqUlT93njuWviOu9XX/lssVv8v79g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963715;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=dVDv9rKtKm3uc/SRgdflJogWFO4h+MZZZBsSymmU5Cs=;
+	b=Z9Bg3jaZKN7ReRy2lWNutxrzQ9IICn7k6iZq1krlHqwduw8Z/03Hp/b8LFW+AQ6mq0XM
+	 VB+uoiDMHaW5AFnC16DAxF7Jqbbw0Uf+oeDSBRHERg0/MSCLdc52h5DV/fg5gyM/mo10l
+	 WubYqv4f05tvVIl5WUA6fGNbXuxSMA6Z5D2ezCfR9rK3BnSjsItzbP63/aAg0zkOAoLjJ
+	 ekMHl6QS0TUmQQuMgON1JG06K+fKZ14ewcaksiYe5fhPAu72idlhkaK8cY1h4iAan25ja
+	 AGym4ojspWwzrectOkDyEHJ7xtDbkHMX7L4UBztctvybqLqFTNFSwsLrX89+IsS0S0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yivdFmH2;
-	arc=none smtp.remote-ip=115.124.30.133
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A02QhSiN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F5B606A334
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F5B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7206606EEBC;
+	Fri,  6 Nov 2026 11:15:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yivdFmH2
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793963704; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=m5MTk+iMSF8IJK5g5CfhcVnBo8V+eg0v1q4zXApCeQM=;
-	b=yivdFmH2066+MEl5Z81MqW2bW/Z5FPU3wThDFKO3DlcVHTYNEGUge3dmOpL7y8S04kynIIYn3SQeUOMqnBhRUpKDGSVXQxmsmDfEloVyoRFFp1GPSQfh0O/L8/+8s73kC0AeL/Q7wf/dHbGgfY2Qi8i7qNR9N9djxBFGhjEa4nU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEBSvNK_1793963703;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEBSvNK_1793963703 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 19:15:03 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH v2 05/31] ocfs2: abstract the dinode fs_generation mismatch check
-Date: Fri,  6 Nov 2026 19:14:32 +0800
-Message-Id: <20261106111458.1467464-6-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20261106111458.1467464-1-joseph.qi@linux.alibaba.com>
-References: <20261106111458.1467464-1-joseph.qi@linux.alibaba.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A02QhSiN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399231F00901;
+	Fri,  6 Nov 2026 11:15:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793963714;
+	bh=dVDv9rKtKm3uc/SRgdflJogWFO4h+MZZZBsSymmU5Cs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A02QhSiNE4NGPTUQCuGzj1iVBhYgM6BX6b8C1BIi1P8xENfZS5qBw5xYcHmUU7yJP
+	 QFiY3BpNAKalSkeV6ypjfhFpcaz30JAR4nzP1PSqb9v8YLjXnULCpKqSXLMBgN0a6E
+	 +xX8B0Bl8zinzI1WnT5W9ohsnY7q6YagJ1Fy6yRVzgnbY7JmhZKsCg6PJFe2dsggRX
+	 9glf8NfRlxGp5aI9VRxmURiWvXy47HuWg9e86W8yQJgePIoPguxJNDYdFzi2rf4zTa
+	 CqYqM7X8GaDsWXsS4wG1R/+EufT/LXMzUPt4Rr+2fhTzNvRr12X0jGqRNusji+xoVT
+	 VbYMqHs96NyZg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id D1AA127E856E; Fri, 06 Nov 2026 11:15:09 +0000 (GMT)
+Date: Fri, 6 Nov 2026 11:15:09 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jun Chang <jun.chang@metanoia-comm.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Sebastian Reichel <sre@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Ben Zong-You Xie <ben717@andestech.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
+	CL Wang <cl634@andestech.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Minas Harutyunyan <hminas@synopsys.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Randolph Sheng-Kai =?utf-8?B?TGluKOael+iBluWHsSk=?= <randolph@andestech.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH 00/25] riscv: add support for the Metanoia MT2824 SoC and
+ MT5824 EVB
+Message-ID: <f6bb6461-c9d0-4685-8c93-7e62691a93b8@sirena.org.uk>
+References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,70 +89,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZXWeqLAvAJo/GorL"
+Content-Disposition: inline
+In-Reply-To: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-The comparison against OCFS2_SB(sb)->fs_generation is open-coded in the
-normal validator, the filecheck validator and the repair path.  Fold it
-into a shared predicate.
 
-Each call site keeps its own log message and return code: the normal
-validator escalates through ocfs2_error(), filecheck reports
-OCFS2_FILECHECK_ERR_GENERATION, and repair rewrites the field.
+--ZXWeqLAvAJo/GorL
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-No functional change intended.
+On Fri, Nov 06, 2026 at 10:29:57AM +0100, Beno=EEt Monin wrote:
 
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/inode.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+> The series is organised as:
 
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 8b4652002ae2..6b78b3f3c5fa 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -92,6 +92,12 @@ static bool ocfs2_dinode_has_no_valid_flag(struct ocfs2_dinode *di)
- 	return !(le32_to_cpu(di->i_flags) & OCFS2_VALID_FL);
- }
- 
-+static bool ocfs2_dinode_has_wrong_fs_generation(struct super_block *sb,
-+						 struct ocfs2_dinode *di)
-+{
-+	return le32_to_cpu(di->i_fs_generation) != OCFS2_SB(sb)->fs_generation;
-+}
-+
- static bool ocfs2_valid_inode_mode(umode_t mode)
- {
- 	return fs_umode_to_ftype(mode) != FT_UNKNOWN;
-@@ -1542,8 +1548,7 @@ int ocfs2_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
- 
--	if (le32_to_cpu(di->i_fs_generation) !=
--	    OCFS2_SB(sb)->fs_generation) {
-+	if (ocfs2_dinode_has_wrong_fs_generation(sb, di)) {
- 		rc = ocfs2_error(sb,
- 				 "Invalid dinode #%llu: fs_generation is %u\n",
- 				 (unsigned long long)bh->b_blocknr,
-@@ -1868,8 +1873,7 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
- 
--	if (le32_to_cpu(di->i_fs_generation) !=
--	    OCFS2_SB(sb)->fs_generation) {
-+	if (ocfs2_dinode_has_wrong_fs_generation(sb, di)) {
- 		mlog(ML_ERROR,
- 		     "Filecheck: invalid dinode #%llu: fs_generation is %u\n",
- 		     (unsigned long long)bh->b_blocknr,
-@@ -1964,8 +1968,7 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
- 		     (unsigned long long)le64_to_cpu(di->i_blkno));
- 	}
- 
--	if (le32_to_cpu(di->i_fs_generation) !=
--	    OCFS2_SB(sb)->fs_generation) {
-+	if (ocfs2_dinode_has_wrong_fs_generation(sb, di)) {
- 		di->i_fs_generation = cpu_to_le32(OCFS2_SB(sb)->fs_generation);
- 		changed = 1;
- 		mlog(ML_ERROR,
--- 
-2.39.3
+> - patches 1-14 add the device tree bindings, the Metanoia vendor prefix,
+>   the RISC-V board schema and the SoC block compatibles
+> - patch 15 adds ARCH_METANOIA and selects the AX45MP errata
+> - patches 16-23 add the reset, SPI, watchdog, MMC, PHY and USB changes
+>   needed to build and probe on this SoC
+> - patch 24 adds the MT2824 SoC and MT5824 EVB device trees
+> - patch 25 adds the MAINTAINERS entry
 
+This sort of thing tends to work better if you submit the patches for
+subsystems as separate serieses, it avoids enormous CC lists and keeps
+the individual serieses a managable size.
+
+--ZXWeqLAvAJo/GorL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau22vQAKCRAv73Ows9A4
+iSNTAP4rU2Xrvxi8fy+eP8UEYNGho+uarNFSdWt9hM96/9EozgEApzMYGgxBMFYZ
+W99aAqcYjlf4CTh09AToNdhaBlDyUwY=
+=kTKE
+-----END PGP SIGNATURE-----
+
+--ZXWeqLAvAJo/GorL--
