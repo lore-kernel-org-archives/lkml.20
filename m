@@ -1,75 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.148
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793932416;
-	b=B2GIWY+cQy7GQyoKCXpSHBHMwl64SvHvvWmq8LdTc5jq01eBz/yYwbC+/q3i1Fqp4EqY
-	 f3YmVgpOo5arhsjFOLOLdSFs1amhd4DdorkbMv8kI20s8s4M1a+bDxSSlyhDzKnXAm0uF
-	 UMGXx/jkm8eEcGUrq5swcUMvCFdu2/ybYMkucQo0itkaCYknbKl0yFTt02024G1zoe8Ei
-	 L/AisOvS3Uiz4DQbT/tbKFOKqmi/svhJF9wAPn74bU55E+KAGARBfUIhrMCh9oWanme2P
-	 UTX+CN0LC0tIATweMIE1fHdKQLR+8cdgZd57u6UKM2yP13T2S8Rl35f6zn6F3FWU1qw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932416;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=SXoEZIq19ZsudykahfhHlUjp3Tw92I3IYYm3tv8K4kc=;
-	b=gRKndp2PQMzLn9TttLzdQBq4ryoK+BQowlfoXqi3yGq3LJ3g/eArhvYGnvmDa/uYi1WS
-	 9bJvWVESHuDewTYvVlWTdD8P3l8UIdpH1+iOXZOidGHPf8DiGlqkCcTVIWRez+f88XqLd
-	 J8D6OcQ6cdJSQMGm+wmY792JwzOU6d6nDpwWhjaDAtXS08e/hN03Wf8mdIYHK3F+LYY9O
-	 6svATM9jjBKHJ43R0+6NghXYAR/NHjgm7d3mSdRRidpSrPOgw0QSVDVO/0KYChnalCxkc
-	 5CLtUDI/M4hiGX5/BVnpKwkKu4NQllCIiYDAwMwPUQq8g8GTx8Qmnk2mn6WRykrP2GQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PWPIDWjJ;
-	arc=none smtp.remote-ip=91.218.175.148
-Received: from mta0.migadu.com (out-148.mta0.migadu.com [91.218.175.148])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793932486;
+	b=31134ymYWVOOaroOfTm24IwpRle+53/SGw/hLpWD44+zO2nuesV2jpik3ZdHOUvillfi
+	 HDOA6PYw6uETsR00hIF+KUXxQzMQHOjva0IARQZU2F9b2n33MPHJGc9ZzrdGp6dPg3sWN
+	 rD0W6S9Lziy55EI+BPlOJjsuytA/UuSgHZMIi3VOlDjJcc2joWIxRBhvZQl4rglnWOw9u
+	 D5lk6s0tM3dCvB1zL/WLPuAO/Jsez+RdDcQlSNZP/vMaJG2ozbC+s8HQz0djh6bUdR7nv
+	 3gI5LUyLVmTmGRtIzSBMDncsk5m3C3ju0LxZBifrrIGFQ9AobcCdL0ga4S3D+W/C2Nw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793932486;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=c19Lu+c4fJRiA/nlxBTG4fS9ydGJz71G0vCMsc6bU8E=;
+	b=t90Ei8vtti9LCa0fEIvqKQ9QTlU7PqCC/Ri5S6gs5NeXpkI9S34ZZvuE+hef3VYc5cq0
+	 NheiUpC+9MGVnBpL0OPErW2HQBvJNCJwacmtvlBpz97u2+l5UoQPb9VppRtYU4Kbbtfxf
+	 mHMh4DqNGX82fEC3inQtckAJriU7U7PuSrRA385Qr2h6v3ys3Uh2WR8YvhpUsux1Vb4oz
+	 PodIEHdZvAKj56Avw+h7TI2HOeS1bfrP1neocwu34Y8KQpvMxM5Or5oE1SujlDGrqpgnp
+	 F4wmck7G+eoVWRTiyFkAK9AgJP9G42MDQSwC5CK9YK+r1RwHs49xsqhSN9ZmMS9NWog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="S8JDcFy/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3BC606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S8JDcFy/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793932485;
+	b=qKsM0oCzLHMsEMi+yrKEeL5eLyReefFP2AvQaavT6b6/8dIS1DtKEHJACYVPw0g7hUnB
+	 Cq35OWPWiNwqzS9DER4DFRpnEMwur5/Y+nqxF0xSftIAj6A+wxqdix6/xcMBYfxf/fGEp
+	 dGUYb/Jj9ReCP71oZPTGTgAcwGFoJJA0A78SV/tH8yRnjZS+Kg6/97iRhfUSMo8tO5zD3
+	 9lWW+uIzQWMGFpbvnBFz3Ass19mNJ6oRnERLfNyJxfcTSXfmUR1PFrd9F6Zv9DaibJf2a
+	 JZxPaUQTbxr4KyXMg6ohlDqt51SEiwIGPyqdb1+QtW/1BuSf/I2NWLTcTMxoPxIz83Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793932485;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=c19Lu+c4fJRiA/nlxBTG4fS9ydGJz71G0vCMsc6bU8E=;
+	b=ujsAStN1xJU07Pw2p4j5oQo7Q4T9b4sXb7nTf35ED5Tm4NHdlF8K4l52JnxTdQUtfxKO
+	 6VwgQr7djl0uH4kdaPohrODfjr1cgeBIvAkenJ8nLNLnLcVrpXIDiEcGtmBQoa1BZZRP+
+	 WzNw4RWQ+rZMsAeVtVFCv90Pi8huVi7iGYiE+bLzDzYB/++mjBffwCWDJvoMTcb3GpcwL
+	 XfaeFPJysANC1TIw/4I67NOjLsLfHO6125apdheRHVjUr0g3rhsGGecytOXNO9lbkD/VN
+	 tppBBLNhdUHU7ZEuvUvzZcT5aetehm5+PuqfhvLxiBIh1+ofh4oUx+wUIG7iprIDdBg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F539606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:33:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F539606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PWPIDWjJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MBSsQLLplL/UU5QOXZ54mCnI8R9Q6VI+6tV+Y55tm1g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793932412; v=1; x=1794537212;
- b=PWPIDWjJxWGw2L3YTyhc/Z2Ua9WWc0b0D90Rxyn63I/0PTrfPFwY4/n2fRPufO3oksjMd1Q8
- o9ymJaEgRpbGfIdDHParXAVnj0xt4BWd5TFPVwrpRO9ZE7Ze1fsiSIaeWXtLeZEZyDxR77qv2er
- Ir4qrEzXlO1k6m2p+UVqyj7M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ebccd1c96b4da325;
-	Fri, 06 Nov 2026 02:33:31 +0000
-X-Mizu-Trace-ID: ebccd1c96b4da325
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: baolin.wang@linux.alibaba.com,
-	david@kernel.org
-Cc: lance.yang@linux.dev,
-	baohua@kernel.org,
-	akpm@linux-foundation.org,
-	ljs@kernel.org,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	qi.zheng@linux.dev,
-	pfalcato@suse.de,
-	ayushr@modal.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio sizes
-Date: Fri,  6 Nov 2026 10:33:26 +0800
-Message-ID: <20261106023326.10838-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <f06d2004-f3c5-46b0-b708-780ffd6727ce@linux.alibaba.com>
-References: <f06d2004-f3c5-46b0-b708-780ffd6727ce@linux.alibaba.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 70DB51F008A1;
+	Fri,  6 Nov 2026 02:34:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793932485;
+	bh=c19Lu+c4fJRiA/nlxBTG4fS9ydGJz71G0vCMsc6bU8E=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=S8JDcFy/HyXzXijfqCMkXycNNr2n4gR6O971SqSXYN9zuiK8hPusd9uvy/PZdMqA3
+	 /aMWK8jzwit0PetFN6IVElYkmAUmp/PIT/3/wxGlO3wC31XpRzihtoShr+ifs97+cY
+	 GEyIlAFT517/+cqQn8IfnIVcXy3PcEP6DSawhw2Ys75UhbxyjrGwnSihJOmRBtx1CP
+	 SESwn3AKBZZ1Hzsp2QPHqFxLbNWUx3tG4PapV2CEuLPDqHj3nxdtOxrs2wBDv+8gHa
+	 XmA9Cw11WtrdtecDfoHfXGACdoSMzAYf7mnK7I2C1hOBUkRjPyhmqK8SgFSUZX9DxQ
+	 2hUNKJNeAoEkg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C5DE245B60;
+	Fri,  6 Nov 2026 02:34:43 +0000 (UTC)
+From: Angel Gabriel Crispin Valdivia via B4 Relay <devnull+angelcrispinvaldivia.gmail.com@kernel.org>
+Subject: [PATCH RFC 0/4] drm: Add Fresco Logic FL2000 USB display driver
+Date: Thu, 05 Nov 2026 21:34:32 -0500
+Message-Id: <20261105-fl2000-upstream-v1-0-bb163ecb2309@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,274 +83,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNT3bQcIwMDA93SguKSotTEXF3jtGSjVMM0A4MUIxMloK6CotS0zAq
+ widFKQW7OSrEQweLSpKzU5BKQWUq1tQDUX/caeAAAAA==
+X-Change-ID: 20261105-fl2000-upstream-3fc2e1f00d24
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793932482; l=7669;
+ i=angelcrispinvaldivia@gmail.com; s=20261106; h=from:subject:message-id;
+ bh=o80ZlbLtqJbPPBYviaA46EomKJ04cMpSWmbMMVC7hWk=;
+ b=VgHjT/VIfS6gH+mXP+xAAC/pqvVfOtq6y0GAKHzUkXTKsqQwTmFrQ/92tCN5Iy67byqDZxf5+
+ tT9DB7xsCOnBWNNifu2+7NcCxEDoRF3MXRkAsDq5/2QS/0/wt5/IGwS
+X-Developer-Key: i=angelcrispinvaldivia@gmail.com; a=ed25519;
+ pk=80bQU/p2R0pLIfdfJaB5I/2obI+RxQHondq5DEM0tbg=
+X-Endpoint-Received: by B4 Relay for
+ angelcrispinvaldivia@gmail.com/20261106 with auth_id=1425
+X-Original-From: Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
+Reply-To: angelcrispinvaldivia@gmail.com
+
+Hi,
+
+This series adds a DRM driver for USB display adapters built around the
+Fresco Logic FL2000DX (USB ID 1d5c:2000). These are sold under many
+brands as cheap USB 3.0 to VGA/HDMI dongles; the HDMI variants pair the
+FL2000 with an ITE IT66121 HDMI transmitter on the FL2000's I2C bus.
+Today these adapters only work on Linux with out-of-tree drivers.
+
+The driver started as Artem Mygaiev's out-of-tree fl2000_drm driver,
+itself partly based on Fresco Logic's reference driver; their copyright
+lines are kept. I ported it to current kernels, fixed the problems found
+on real hardware (EDID, bridge lifetime across USB resets, crashes on
+disconnect, frames that were never terminated, imported buffers read
+from the wrong VRAM), added the analog VGA output and cleaned it up for
+submission.
+
+I intend to maintain this driver for the long term: patch 1 adds a
+MAINTAINERS entry with me as maintainer, I have the hardware to test
+on, and I will keep following review and bug reports on dri-devel.
+
+The series builds the driver up in four steps, each of which compiles
+on its own:
+
+  1. USB driver, FL2000 register access (regmap) and I2C adapter
+  2. IT66121 HDMI transmitter bridge, including the EDID fallback
+  3. frame streaming over bulk URBs
+  4. the KMS pipeline, which makes the display usable, including the
+     analog VGA output of adapters that have both connectors
+
+It is posted as an RFC because there are design points I would like
+feedback on before doing the larger reworks:
+
+1. IT66121 support. The series carries its own small IT66121 bridge
+   (fl2000_it66121.c) instead of reusing drivers/gpu/drm/bridge/
+   ite-it66121.c, because I could not find a way to use the in-tree
+   driver on a PC: it depends on OF (x86 distribution kernels have no
+   CONFIG_OF), reads bus-width and its next bridge through of_graph,
+   requires a reset GPIO the FL2000 boards do not have, and DRM has no
+   bridge lookup without OF. It also reads the EDID through its DDC
+   engine, which on these boards is not connected to the monitor (the
+   EDID is read with the FL2000 I2C engine instead).
+   Reusing it would take converting ite-it66121 to the fwnode API with an
+   optional reset GPIO, a fwnode-based bridge lookup in drm_bridge.c, and
+   a small bridge of this driver providing the EDID. Is that the direction
+   you would like, or is a private IT66121 bridge acceptable for a USB
+   device like this one?
+
+2. Hotplug. The bridge attaches with DRM_BRIDGE_ATTACH_NO_CONNECTOR and
+   the HDMI connector comes from drm_bridge_connector. The bridge
+   reports DETECT and EDID only: the IT66121 interrupt reaches the host
+   through the FL2000 interrupt endpoint, which makes the driver send a
+   hotplug event for the device, so there is no DRM_BRIDGE_OP_HPD and
+   the connector is also polled. Would reporting HPD with
+   drm_bridge_hpd_notify() from that path be preferred?
+
+3. The FL2000 exposes three USB interfaces, and the state they share
+   (regmap, I2C adapter, IT66121 client, component match) is kept as
+   drvdata and devres of the struct usb_device rather than of an
+   interface, so that it survives the unbind/rebind cycles of
+   usb_reset_device(). Is there a better established pattern for a
+   multi-interface device that needs this?
+
+4. Pixel conversion. The stream converts with its own small line
+   converters instead of drm_fb_xrgb8888_to_*(). The framebuffer is
+   usually imported from the primary GPU and sits in write-combined
+   VRAM; the format helpers read such I/O memory with memcpy_fromio(),
+   which takes ~88 ms per 1080p frame, while drm_memcpy_from_wc() into a
+   cached line buffer takes ~8 ms. The converters also apply the
+   FL2000's 32-bit word swap and only touch the damaged rectangle of a
+   shadow frame. Would a helper that reads its source through
+   drm_memcpy_from_wc() be welcome, so this could go away?
+
+5. VGA detection. The chip has a single monitor sense input, which on
+   the adapter I have follows whichever monitor is plugged in, HDMI or
+   VGA. The VGA connector therefore reports a monitor when the chip
+   senses one and the IT66121 hot plug line is low, which means a
+   monitor on VGA is not reported while one is on HDMI (clone mode
+   needs video=VGA-1:e). Is this an acceptable way to do it, and is
+   there a better signal I should look for in the chip?
+
+The rest of the pipeline follows the current helpers: regular atomic
+plane/CRTC/encoder objects with managed initialisation, a cursor plane
+blended by the CPU, GEM SHMEM with shadow-plane access, the DRM vblank
+timer (the FL2000 has no vblank interrupt) and fbdev emulation through
+drm_client_setup().
+
+Other known limitations: RGB565, used when the USB link cannot carry
+RGB888 (2560x1080 on USB 3.0, 640x480 on USB 2.0, as there is no
+compression), has not been tested on hardware; and adapters with a VGA
+connector only, without an IT66121, are not supported: the analog output
+is only added next to the HDMI one.
+
+Tested on x86_64 (amdgpu laptop, GNOME Wayland) with a UGREEN USB 3.0
+adapter with HDMI and VGA connectors: a 1920x1080 monitor on HDMI, and
+an old 1366x768 monitor without a usable EDID on VGA. EDID, mode
+setting, the desktop and the cursor work, at 59 frames per second on
+the link.
+Every patch builds without warnings with W=1 on top of drm-misc-next,
+sparse is clean, and the series passes checkpatch --strict.
+
+Tool use, as described in Documentation/process/generated-content.rst: I
+used an AI coding assistant (Claude Code with Anthropic Claude models)
+extensively while preparing this series. It helped port the driver to the
+current APIs, clean it up to kernel style, write the shadow-frame
+streaming and the cursor plane, track down and fix the hangs on unplug,
+and draft the commit messages and this letter. I reviewed the result and
+tested it on the hardware described above; the Signed-off-by lines are
+mine. The series was generated and checked (per-patch builds, checkpatch)
+by scripts in the out-of-tree repository this driver is developed in.
+
+---
+Angel Gabriel Crispin Valdivia (4):
+      drm/fl2000: Add USB driver with register and I2C access
+      drm/fl2000: Add ITE IT66121 HDMI transmitter support
+      drm/fl2000: Add frame streaming
+      drm/fl2000: Add KMS display pipeline
+
+ MAINTAINERS                                  |    7 +
+ drivers/gpu/drm/Kconfig                      |    1 +
+ drivers/gpu/drm/Makefile                     |    1 +
+ drivers/gpu/drm/fl2000/Kconfig               |   19 +
+ drivers/gpu/drm/fl2000/Makefile              |   13 +
+ drivers/gpu/drm/fl2000/fl2000.h              |  192 +++++
+ drivers/gpu/drm/fl2000/fl2000_drm.c          |  986 ++++++++++++++++++++++++
+ drivers/gpu/drm/fl2000/fl2000_drv.c          |  281 +++++++
+ drivers/gpu/drm/fl2000/fl2000_i2c.c          |  182 +++++
+ drivers/gpu/drm/fl2000/fl2000_interrupt.c    |  237 ++++++
+ drivers/gpu/drm/fl2000/fl2000_it66121.c      | 1030 ++++++++++++++++++++++++++
+ drivers/gpu/drm/fl2000/fl2000_it66121.h      |   19 +
+ drivers/gpu/drm/fl2000/fl2000_it66121_regs.h |  283 +++++++
+ drivers/gpu/drm/fl2000/fl2000_registers.c    |  320 ++++++++
+ drivers/gpu/drm/fl2000/fl2000_registers.h    |  272 +++++++
+ drivers/gpu/drm/fl2000/fl2000_streaming.c    |  993 +++++++++++++++++++++++++
+ drivers/gpu/drm/fl2000/fl2000_vga.c          |  256 +++++++
+ 17 files changed, 5092 insertions(+)
+---
+base-commit: 41ecf852c07391687beb129e12a231760b5d783f
+change-id: 20261105-fl2000-upstream-3fc2e1f00d24
+
+Best regards,
+--  
+Angel Gabriel Crispin Valdivia <angelcrispinvaldivia@gmail.com>
 
 
-On Fri, Nov 06, 2026 at 09:57:47AM +0800, Baolin Wang wrote:
->
->
->On 11/5/26 9:22 PM, Lance Yang wrote:
->> 
->> On Thu, Nov 05, 2026 at 11:06:29AM +0100, David Hildenbrand (Arm) wrote:
->>> On 11/5/26 10:00, Baolin Wang wrote:
->>>> CC Barry, who added the TTU_SYNC in shrink_folio_list().
->>>>
->>>> On 11/5/26 1:48 PM, Lance Yang wrote:
->>>>>
->>>>>
->>>>> On 2026/11/5 12:54, Lance Yang wrote:
->>>>>>
->>>>>>
->>>>>> Good catch!
->>>>>>
->>>>>>
->>>>>> Right. Whether the folio can be PMD-mapped doesn't tell us whether its
->>>>>> PTE table can be reclaimed, so those extra checks can skip synchronization
->>>>>> that the caller explicitly asked for ;)
->>>>>
->>>>> Ouch ... one thing I missed ... what about order-0 reclaim?
->>>>>
->>>>> shrink_folio_list() only sets TTU_SYNC for large folio, so can't we still
->>>>> hit the same race there?
->>>>
->>>> Thanks Lance. But this matches the purpose of the TTU_SYNC flag, which is used
->>>> to avoid racy checks with PVMW_SYNC. If no TTU_SYNC flag is set, it means the
->>>> caller can tolerate some racy checks.
->>>>
->>>> For this case, I think we should set TTU_SYNC unconditionally in
->>>> shrink_folio_list(). Barry, what do you think?
->>>
->>> That makes sense. I hope this doesn't throw a big wrench into our reclaim
->>> performance numbers.
->>>
->>> Can someone benchmark this?
->>>
->>> But maybe we should really follow-up with the folio-size based optimization in
->>> sync_with_folio_pmd_zap(), where we only need a memory barrier (and sufficient
->>> documentation why something that cannot be PMD-mapped can get away cheaper).
->> 
->> Dug into the history a bit :D
->> 
->> TTU_SYNC goes back to Hugh's THP splitting fix [1]. A racing zap could
->> clear the PTE/PMD before updating mapcount, so the walker could skip the
->> lock and return before the accounting caught up.
->> 
->> Barry later enabled it for large-folio reclaim [2], to avoid skipping
->> temporarily cleared PTEs and ending up with a partially unmapped folio.
->> He mentioned that small folios had the same race, but with just one PTE,
->> they couldn't be partially unmapped. That's where the large-folio check
->> in shrink_folio_list() came from.
->> 
->> Then PTE table reclaim [3] added another way to end up with an empty PMD,
->> even for a folio that can't be PMD-mapped. The truncation fix [4] moved
->> the rmap flush before the PMD clear and extended synchronization in
->> zap_pmd_range() to cover those folios too.
->> 
->> Looking back at the truncation discussion [5], you also pointed out that
->> page_vma_mapped_walk() needed checking, and suggested a possible
->> folio-size based optimization in the helper.
->
->Thanks.
-
-Cheers!
-
->> [1] https://lore.kernel.org/all/c1e95853-8bcd-d8fd-55fa-e7f2488e78f@google.com/
->> [2] https://lore.kernel.org/all/20240306095219.71086-1-21cnbao@gmail.com/
->> [3] https://lore.kernel.org/all/92aba2b319a734913f18ba41e7d86a265f0b84e2.1733305182.git.zhengqi.arch@bytedance.com/
->> [4] https://lore.kernel.org/all/14ebbd556cc4941f0ebc43da59fa6a2fdca25dc8.1793148609.git.baolin.wang@linux.alibaba.com/
->> [5] https://lore.kernel.org/all/08a0907f-8e3a-4071-a2e4-fd1411c446f3@kernel.org/
->> 
->> So, how about starting with order-0 folios?
->> 
->> ---8<---
->> diff --git a/include/linux/rmap.h b/include/linux/rmap.h
->> index 74cca0e3c726..d01fe8282417 100644
->> --- a/include/linux/rmap.h
->> +++ b/include/linux/rmap.h
->> @@ -872,6 +872,8 @@ struct page_vma_mapped_walk {
->>   	spinlock_t *ptl;
->>   	unsigned int flags;
->>   	bool pgoff_is_anon : 1;
->> +	/* Set from the folio, not the number of pages being walked. */
->> +	bool folio_is_order0 : 1;
->>   };
->> 
->>   #define DEFINE_FOLIO_VMA_WALK(name, _folio, _vma, _address, _flags)	\
->> @@ -883,6 +885,7 @@ struct page_vma_mapped_walk {
->>   		.address = _address,					\
->>   		.flags = _flags,					\
->>   		.pgoff_is_anon = folio_test_anon(_folio),		\
->> +		.folio_is_order0 = !folio_test_large(_folio),	\
->>   	}
->> 
->>   static inline void page_vma_mapped_walk_done(struct page_vma_mapped_walk *pvmw)
->> diff --git a/mm/internal.h b/mm/internal.h
->> index 9b8864a8540a..e70869b38292 100644
->> --- a/mm/internal.h
->> +++ b/mm/internal.h
->> @@ -592,21 +592,29 @@ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
->>    * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
->>    * @mm: The mm_struct.
->>    * @pmdp: Pointer to the pmd that was found to be pmd_none().
->> + * @order0: True if the target is known to be an order-0 folio.
->>    *
->> - * When we find a pmd_none() while unmapping a folio without holding the PTL,
->> - * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
->> - * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
->> - * for the table have been removed, but nothing orders the pmd_none() read
->> - * against later mapcount reads. Skipping the PMD without synchronization
->> - * could make folio unmapping code assume that unmapping failed.
->> + * An empty PMD does not guarantee that a later mapcount read sees the
->> + * completed rmap updates. For PMD-mapped folios, zap_huge_pmd() clears
->> + * the PMD before updating mapcount, so we must wait for the PMD lock.
->>    *
->> - * Wait for concurrent zapping to complete by grabbing the PTL.
->> + * Order-0 folios cannot be PMD-mapped. Their fully ordered
->> + * atomic_add_negative() updates mapcount before PTE table reclaim clears
->> + * the PMD. The PTE lock preserves this ordering if another CPU reclaims
->> + * the table. A read barrier therefore suffices for order-0 folios.
->> + * Keep taking the PMD lock for all other folios.
->>    */
->> -static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp)
->> +static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp,
->> +					   bool order0)
->>   {
->> -	spinlock_t *ptl = pmd_lock(mm, pmdp);
->> +	if (order0) {
->> +		/* Order the PMD read before subsequent mapcount reads. */
->> +		smp_rmb();
->> +	} else {
->> +		spinlock_t *ptl = pmd_lock(mm, pmdp);
->> 
->> -	spin_unlock(ptl);
->> +		spin_unlock(ptl);
->> +	}
->>   }
->> 
->>   struct zap_details;
->> diff --git a/mm/memory.c b/mm/memory.c
->> index 44376321180b..8955d1cd31b0 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -2112,7 +2112,8 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
->>   			/* fall through */
->>   		} else if (pmd_none(*pmd)) {
->>   			if (details && details->single_folio)
->> -				sync_with_folio_pmd_zap(tlb->mm, pmd);
->> +				sync_with_folio_pmd_zap(tlb->mm, pmd,
->> +							!folio_test_large(details->single_folio));
->>   			addr = next;
->>   			continue;
->>   		}
->> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
->> index e6b6170c2f4f..36881f8fd45e 100644
->> --- a/mm/page_vma_mapped.c
->> +++ b/mm/page_vma_mapped.c
->> @@ -293,11 +293,9 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
->>   			spin_unlock(pvmw->ptl);
->>   			pvmw->ptl = NULL;
->>   		} else if (!pmd_present(pmde)) {
->> -			if ((pvmw->flags & PVMW_SYNC) &&
->> -			    thp_vma_suitable_order(vma, pvmw->address,
->> -						   PMD_ORDER) &&
->> -			    (pvmw->nr_pages >= HPAGE_PMD_NR))
->> -				sync_with_folio_pmd_zap(mm, pvmw->pmd);
->> +			if (pvmw->flags & PVMW_SYNC)
->> +				sync_with_folio_pmd_zap(mm, pvmw->pmd,
->> +							pvmw->folio_is_order0);
->> 
->>   			goto next_pmd;
->>   		}
->> @@ -379,6 +377,7 @@ unsigned long page_mapped_in_vma(const struct page *page,
->>   		.nr_pages = 1,
->>   		.vma = vma,
->>   		.flags = PVMW_SYNC,
->> +		.folio_is_order0 = !folio_test_large(folio),
->>   	};
->> 
->>   	if (folio_test_anon(folio))
->> diff --git a/mm/vmscan.c b/mm/vmscan.c
->> index 7db6be53f3a9..79cfa9bc475b 100644
->> --- a/mm/vmscan.c
->> +++ b/mm/vmscan.c
->> @@ -1434,26 +1434,17 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
->>   		 * processes. Try to unmap it here.
->>   		 */
->>   		if (folio_mapped(folio)) {
->> -			enum ttu_flags flags = TTU_BATCH_FLUSH;
->> +			enum ttu_flags flags = TTU_BATCH_FLUSH | TTU_SYNC;
->>   			bool was_swapbacked = folio_test_swapbacked(folio);
->> 
->>   			if (folio_test_pmd_mappable(folio))
->>   				flags |= TTU_SPLIT_HUGE_PMD;
->> +
->>   			/*
->> -			 * Without TTU_SYNC, try_to_unmap will only begin to
->> -			 * hold PTL from the first present PTE within a large
->> -			 * folio. Some initial PTEs might be skipped due to
->> -			 * races with parallel PTE writes in which PTEs can be
->> -			 * cleared temporarily before being written new present
->> -			 * values. This will lead to a large folio is still
->> -			 * mapped while some subpages have been partially
->> -			 * unmapped after try_to_unmap; TTU_SYNC helps
->> -			 * try_to_unmap acquire PTL from the first PTE,
->> -			 * eliminating the influence of temporary PTE values.
->> +			 * Synchronize with concurrent rmap updates before checking
->> +			 * folio_mapped(). Also avoid skipping temporarily cleared
->> +			 * PTEs, which could leave a large folio partially mapped.
->>   			 */
->> -			if (folio_test_large(folio))
->> -				flags |= TTU_SYNC;
->> -
->>   			try_to_unmap(folio, flags);
->>   			if (folio_mapped(folio)) {
->>   				stat->nr_unmap_fail += nr_pages;
->> --
->> 
->> atomic_add_negative() provides full ordering for mapcount updates. With
->> 243cf1f67b36, rmap removal completes before clearing PMD, including when
->> another CPU reclaims an empty table under PTE lock. So smp_rmb() is enough
->> here, without an extra writer-side barrier.
->
->I'm afraid the memory barrier here is subtle. __folio_remove_rmap() is 
->complex, and in the CONFIG_NO_PAGE_MAPCOUNT branch, 
->folio_sub_return_large_mapcount() doesn't provide full ordering, so we 
->may still need smp_wmb().
-
-Yeah, agreed for large folios. In the diff above, only order-0 folios
-use smp_rmb().
-
-Note that order-0 folios take the fully ordered atomic_add_negative()
-branch and skip the CONFIG_NO_PAGE_MAPCOUNT branch entirely.
-
-static __always_inline void __folio_remove_rmap(struct folio *folio,
-		struct page *page, int nr_pages, struct vm_area_struct *vma,
-		enum pgtable_level level)
-{
-	...
-	switch (level) {
-	case PGTABLE_LEVEL_PTE:
-		if (!folio_test_large(folio)) {
-			nr = atomic_add_negative(-1, &folio->_mapcount);
-			break;
-		}
-
-		if (IS_ENABLED(CONFIG_NO_PAGE_MAPCOUNT)) {
-			nr = folio_sub_return_large_mapcount(folio, nr_pages, vma);
-			...
-		}
-		...
-	}
-	...
-}
-
-And large folios still take the PMD lock :D
-
->Anyway, as David said, let's fix this race first. Memory barrier
->optimization requires careful analysis and clear documentation.
->
-
-Yep, fine by me :D The fix goes first, of course. Thanks!
-
-Cheers, Lance
