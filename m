@@ -1,99 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955428;
-	b=KUeYnFTcWI30EFEp1BfE3hqIkLHy6oUQD5yLB+xKObCO86KNWniiDG+cx8DpzHhkFXfl
-	 SWHE4VJV1K24yjhrmuhaveDgm1HKaIYsYJj3MZJKQA0NIorzeCRFWIDz6ZNn0ZbLDK+Uq
-	 IOdPs3WCIm94iVIiGHKEQJYW4etwgnFswWJn1JXv/LnZQ5xB7wbXeIw2rDQJrEL2r6hrH
-	 BfP5MflORmQWKItQoN/5ORWYSvmK/DiO03nbc2L5WEsVnNQ4ssuz7CthPy23YCh1XOG/7
-	 a4p4J43fQ1ZBIF9gXHTABcxx1O7W31ELcNN/cEZtnFOoDHC4I76TWgJTdWSoXFyLUAw==
+	t=1793955445;
+	b=Qmvty7/HL3lQ6DqNwEQxSCrFjfkxJTGmGB03n8VlMfSXDxgzKF3XjFoXiHvpbehlBeSC
+	 9+JSNbXLozS2u0TdoXqY14jGf1FOJwXWF5VHKgTrCkKfQAWrAhZU5pXqVhYlVBdYgBoLD
+	 InwwFT6/NKq+ffIguhkzccozA2dpTNvjhC9Y/hj2pFheSJAr+P+OOCwFVsiZEn7M5ifJG
+	 Ic1Ryqt0Vlniph7AsP5wpmsB5WSwvbON1jz4X4ruubAkM/rLLvLI9QyfiHtitQ7G1Yj6v
+	 crhvq/2trHKoi/HwNFjunFwofxCY1kWW+PfOWwu+++DzpYZQLZlyV/ejlbYfdjFEp+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955428;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=TleoKkxXPZY3Z7b7K5NFKwzPY4O1tD3951tcf6rOerE=;
-	b=1cjvs89mUMxxtBxIdWDA5kB3sq6pai1sdex6i7pkitqEmWz5VhhbSfj+XXa9Te2OV2O3
-	 isn+IjU7LVPr++CCbSu1PIMKMwWkrBxzB3p1J2rtzaiYmBgdRVF+2+mFeJoYs/zD7TdpD
-	 OeLXTAw6bM6qXKXMrZDyuvpPohXi4qPf2IZ+kGSIlioGZMA/gZ0D5bB1HdiT/wwAetfKM
-	 JyGSGZ7DUSpjf0cdyv7hemrNFxstCFOX3CIMjz+S7ABE9XUmsZeQNNRnpgQvK4uyMdkc3
-	 XVruFWnALjjLm2hGfnc5sCLdvV3ItG2kecTdReJR7Ckqu90/DpgRLMMcTsVSMaodBWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955445;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=zAm+Qxq3AwNjcyzNwTLKYZPfyr4szSJKsRwUt3uckiY=;
+	b=iJxK4K1NY6Dp+QX9SdJDzKcUOG61nq65ummd4qifM5R9r8p7i5UEm+Hq7Qzrgr7j2M0x
+	 4DS9XBJ6bGqhB/FTLJPFsGkWJeIrwxIQvd+yqjyM6i4hLAhizDJw0YqK37NKHLATYM6YL
+	 9bu2lfYrhRQk8//jDcmQm1AMZwcpA5I2jVsWCtsKuQOrRpU0Qy6jlPxyxvFqvZdlO9tVq
+	 M4g/iHI0o+8aH2Bcl9RKotFQZ7d5louFjc6yhmvoUYNqClHjnKyUvc7XDIZB1eGa0143S
+	 5imZlvWxXBhpRqaOZvbg+MTJ2KIOXlAKbZGyI/8esP4Ci8MLZWZQawDlzTadWDHE+pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k8eZWjOe;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kztpnqol;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7194F606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:57:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7194F606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72AB606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:57:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k8eZWjOe
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-49123d2e4dcso7711f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:57:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793955426; x=1794560226; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TleoKkxXPZY3Z7b7K5NFKwzPY4O1tD3951tcf6rOerE=;
-        b=k8eZWjOebqAe81ZM2MtqXdYmT0DRPScBCtB7Va3CByQu1EwE2ExQ7q4jW85DFOVTGv
-         QB4+GtPdGiLtTBKYmpEOCorHmuK4crvqpYra2Bv61rsLFK+Ouo2T5SzMwLLADdYhsLpI
-         tMi06t/IFLmnmEOhdfjJi0vnZzPCIrP4GeAdkGDOVhH4ozFNfZq+Wok+2XP489tG8JE3
-         q0w0gr9oi163V2e+WlL8bKgdB+oyaPNZngUCsxorOsjRcq1wp4glsqP1GRhGxMtYjwPR
-         nyXPikfDxyc4r7wx22H9weJZ7t6C4o7ghPxL5tWqgLYyKmHxT6S92zVufjaMftT22p1S
-         sjmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793955426; x=1794560226;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TleoKkxXPZY3Z7b7K5NFKwzPY4O1tD3951tcf6rOerE=;
-        b=k99e7aEyYQkhOyFnDr9dPsoxGkp1j1oWkQz2ZPlp5BPmV1qtw8P0ebb3MQdr5dx5yk
-         P+0oYgaK0EhMUritBGZ3U/m2tEg7XGl11V2gNpQ17RiwEo639m6QWgthqA3wN1cgHYDD
-         1uRd6CHIl+M3gV2mtfFJqYPFz0UBksS3IxER9zDKPLb0Rq6EXviPQsRSyzEMXhfF3dvD
-         1bcKplTkW3yP03WJCX7T98T1KnuQK+9WG27DC7NxgiVmCgwKjB/ufgUyLesGtXrn5isL
-         MTFtQIYhBGiPn9oWN6O8GVZwmQSz5E1UFlj2an7jHAHPgSTpZJvLnsXBCXt1NebMmIbw
-         b4Vg==
-X-Forwarded-Encrypted: i=1; AL+hErG0g+s6Z58KAK3JFA2DwSdHsbsZydTE4Q4nvOpB6NZoka0b6WMy14dUufOff+IhDduIWO6LHM+8qgLoI5c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/v3iXLeGbzydgXlsNdM7QCWW9vmtFU6JEGCR3wxnH8ml7BoICq
-	DEqknz4tCSAZvAa6eD/miqwLEleaZEtSk+P8THOHSHFicVDSLZZeUyOn
-X-Gm-Gg: AYBFou0WRuqyTb3tMknXuPy1OmBjxxhqjAhpc7gk95Z1RDqAATC4e+9D+gVQtToIivP
-	s3j69QsGrqEKuFC/z3eQfkm9ovbqvjOZUIOdGXxW63cSY8eGhW1jiI7fG2tIQ2oSQLovBKQATx4
-	etd56pjO1/vHSTLZddN9pXbCJ2mFPJlsu69xupZ+5mP53egqqBOG06fVrMUzpqp8dSgwNDL/c2E
-	LGTgw6I6h5YBzwBLMwMYGnejOLtZWLAaK0jfpOhcK6E69GIavPxmPAOe0a5pLB1+/B8T/WMRW3Q
-	QUs04/3XuYprZUlzKRkSK6dgXcw6RDB8vIzTcHVSOf+kHPuMe6LHxr5dfjIOJXTjvHaGPg+fSFk
-	PcM2843lWL84y83/sOMnEFdYDBGrpZQqLzRphUXYG6u1H0lzUn2D37e69KLmExIjdKcCXIVcQJT
-	C8Rq1875/4NBPjF6PHIznkxyS/jqKod1JKdOnPBzUPvW5QN5Nw0ckfhHad4mOuSqqrIFL0M6Ps9
-	k5Emc7UnuCqu3OLjjcepTnBhuYhyJ5X9ZufI3wVB7qHrEQFVEheco0jKUcg6KoznPknE5EvMzog
-	wmbhBhsdGezWBS6VYdy9gFdhXJx0C37DRq58B1f5PF5PLle/31qx0z5PINnSMx8hx+JUPq7Sb3u
-	t
-X-Received: by 2002:a05:6000:460b:b0:48e:6675:3a77 with SMTP id ffacd0b85a97d-49275093a8dmr4228228f8f.3.1793955426185;
-        Fri, 06 Nov 2026 00:57:06 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7232257sm1905430f8f.22.2026.11.06.00.57.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 00:57:05 -0800 (PST)
-Date: Fri, 6 Nov 2026 11:57:03 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	joshdon@google.com, tj@kernel.org, jakub@okonski.org
-Subject: Re: [PATCH 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor
- tg::idle
-Message-ID: <au2VkE9005PlW8VN@scheduler.schedules>
-References: <20261105165525.011876858@infradead.org>
- <20261105170157.616859418@infradead.org>
- <auzB7x4lVcFmTVMs@scheduler.schedules>
- <20261106083106.GC1779021@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kztpnqol
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4211F008A5
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:57:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793955444;
+	bh=zAm+Qxq3AwNjcyzNwTLKYZPfyr4szSJKsRwUt3uckiY=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=KztpnqolyWzW9MJQyqnhiTG4kyH8l6eMbVJGBq+p1Ar0/3L0qwCAVtga3R583rsCn
+	 7+i94iSmzJkY0b5inaoJpf+/JsuqHvxpHO1Ayv3ENv4cC6wHX+KkHnNX9dTE3pa5s+
+	 WJPmJuhvSKjjFwO8e1PeXWIuQcQtFzAGliTQrFTSIPLhZfNJ3HeU1IRKMQA9ebjfak
+	 Pzc0XGl3YB3yA9rOGbSfQPm+6Al6mM17o9gFnm6RLWB4okA8F3/hE1roPVibnUZkn5
+	 YU7iBQm7RBIfBM0ZYrLIaB37pNkdc1dQWC5zniPmBtOQO2hNhWK8PPVeM0M9UCs66v
+	 IzMwh1cJKhUmg==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 8A917198003A;
+	Fri,  6 Nov 2026 03:57:22 -0500 (EST)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 06 Nov 2026 03:57:22 -0500
+X-ME-Sender: <xms:cZbtatRtl0UbVGZjhqfJbQ_LNDiFRc2sGw_21gQkSNY8oA4m77TTBQ>
+    <xme:cZbtahkPJaHUiQ3liKL3jggyTWVRSC0bm8VLKbbydJbLkESROwHXb1rn36bGa8WIz
+    -TYgD7qbTLa3y_wc_m_KbwncSftrcCu_t1uf9T5ZOBvPZQCWd_JTG0v>
+X-ME-Proxy-Cause: dmFkZTE3w9h05NTT/kixG6tbOeWGsgiAqxt80A9hxhkIQpVwRz7C7d7vp8eiKZoUdix7nV
+    s7/IQXJQDzDmD/JDIM+DJH4+oqUzwkb41yHMSQbfDaHZDaxCZzWRZgXtvPno33YDvmP2eS
+    q9JHAFaS3ZpFEWXTbcVxSggDZNzKx7+EnftaRLF4/iTQvpVt8euyaHL9mwj9+kY/gO0h+R
+    xEzYuPVCgoCoGyqZcTPmgtaekdZVB4bqbEHs6Sq5b4Qoa0d4CzWWG/tPWXXxDvArFJKSG9
+    WnoL1orA7uvBHWJac1mLFcygLSczR035g/y4afz7fccJEZ/MdoiBlfrTaPBuz5imOlMINH
+    /hgSrZ02mUw9vtePeRBUq0ct1CiQKKBUmU33bJqt1cDp8BSG94h1wjMAKet1PqZtcPT5ZN
+    A0I/eCFtr+LmzLLNb/hdW4z8ocy72pjvsKbv5D4leWqNRkAGvycBpt4Kox/byy5XL3qD/8
+    bepfbxu4PDqnSkNEWoeAUapTwnnVuhsyEfUXVV1UztB1nWwzr0NN3esx3Loo27+S9KoCm7
+    4SlTDKJKi7N8AFBRjBufwBG2x9srM2VaqoYgcHokeBxXrvBBLjTL+aORjfXyea1A82IOEp
+    IAl/AjWe4UiUiX5fSlCbIP4vxhhzE1wFUonorn0aGICydn6dQRnzuhBpdQhw
+X-ME-Proxy: <xmx:cpbtak4Zu0Yz30U0TfHQ3QHCXB7W-nsSZYBnawLC4-jKNAToyYvZWA>
+    <xmx:cpbtahUo5HxSt7AICtGWj34zVZYScGNUKo5oquJdFu-08uFH7mdf-Q>
+    <xmx:cpbtam8Cb9or82HBcSkq4swlTSZYf3fb0OXeqLFuHG5c-vLXhDnSFA>
+    <xmx:cpbtatmp9FgENH1XAmeP8O8gQ_lp0QX8kUs8aBMxF4ZRvNg-UQ6mgw>
+    <xmx:cpbtakXa4xWV1evXyDpOr9YZZZCif6KLUVJEFEtOlTH_eYRxjAPvP9j8>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 46EB1F8008E; Fri,  6 Nov 2026 03:57:21 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,39 +77,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261106083106.GC1779021@noisy.programming.kicks-ass.net>
+X-ThreadId: AMwy3xRkW0AJ
+Date: Fri, 06 Nov 2026 09:57:01 +0100
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Emanuele Rocca" <emanuele.rocca@arm.com>,
+ "Eric Biggers" <ebiggers@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <68e24de8-0c94-473b-b2a1-47b9b79eb974@app.fastmail.com>
+In-Reply-To: <20261105154145.557042-1-emanuele.rocca@arm.com>
+References: <20261105154145.557042-1-emanuele.rocca@arm.com>
+Subject: Re: [PATCH] lib/crc: arm64: use .arch_extension to enable CRC and crypto
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 06, 2026 at 09:31:06AM +0100, Peter Zijlstra wrote:
-> On Thu, Nov 05, 2026 at 10:20:00PM +0300, Kayra Cizmeci wrote:
-> > On Thu, Nov 05, 2026 at 05:55:27PM +0100, Peter Zijlstra wrote:
-> > > Rather than keeping cfs_rq::idle as a copy of tg::idle, make it the sum of
-> > > all ancestor tg::idle. This makes it trivial to tell if the current cgroup
-> > > is marked idle somewhere along its ancestral path.
-> > > 
-> > > This makes se_id_idle() behave differently. Notably is will now be true
-> > > when there is a idle cgroup anywhere in the ancestor path. This
-> > > addresses an issue where preemption of cgroup::idle was overlooked when
-> > > flattening the runqueue.
-> > 
-> > How? The diff doesn't touches se_is_idle(). se_is_idle() just looks to
-> > the policy for tasks:
-> > 
-> > static int se_is_idle(struct sched_entity *se)
-> > {
-> > 	if (entity_is_task(se))
-> > 		return task_has_idle_policy(task_of(se));
-> > 	return cfs_rq_is_idle(group_cfs_rq(se));
-> > }
-> 
-> > Or am I getting something wrong?
-> 
-> cfs_rq_is_idle() := cfs_rq->idle > 0
-> 
-> and cfs_rq->idle is now getting incremented for the whole subtree. So if
-> any ancestor is idle, this is now true.
+Hello Emanuele,
 
+On Thu, 5 Nov 2026, at 16:41, Emanuele Rocca wrote:
+> Instead of using ".cpu generic+crc+crypto", use ".arch_extension crc" and
+> ".arch_extension crypto" to enable the required instructions.
+>
+> The ".cpu generic+crc+crypto" directive replaces the assembler's current
+> feature set with generic+crc+crypto, dropping any other features that were
+> previously enabled, for example by -march or by a toolchain configured with
+> --with-arch=armv9-a. In contrast, ".arch_extension" enables the requested
+> extensions while preserving the current feature set.
+>
+> This is not a functional change: crc32-core.S only uses base A64
+> instructions plus CRC32 and PMULL, which remain available, and BTI landing
+> pads are emitted as HINT instructions. However, using .arch_extension
+> avoids the pitfall of silently disabling features. See commit 9142c2f8f84b
+> ("octeontx2: use arch_extension to enable LSE").
+>
 
-Yeah, it is for group path. But we call se_is_idle for tasks in
-wakeup_preempt_fair(). Not groups, no?
+I don't mind the patch, but I will point out that issues such as these can
+never occur in .S sources. The emitted instructions are always the same, and
+the only reason we need the .arch is so that the assembler permits the use
+of the special ones.
+
+Commit 9142c2f8f84b is different because it uses .arch in inline asm, where
+it switches the assembler into a different mode behind the back of the
+compiler, leading it to reject instructions generated by the compiler.
+
