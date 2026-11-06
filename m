@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794002245;
-	b=a9tsPCa/bsMmtzJYeqBo+RvkwlI6MqvTT68pagPffvyJpemFts7wku+nQdYMIqeVttSS
-	 gpfuftJJW0wdGth27iE0rrmbYSWM1qFaoTwLQnCF65AcV7GIOpfIvq+6pheSYpn4fMFSt
-	 V2K9i2MD9yV58Vj2KNh1EOegRmmzdD2WbdAeZSzURol1RH51T5w6aNtTkIUZw6PgH5bN1
-	 xDi13MNYSgXsNtDsGutaT3P16iKPQOhgWFR4vtmCryM7+rCaUCo0lrjVPkEeiO28t6T7M
-	 LIb4Y4be/ob+2TZfF/XSCmLgqPftPBLLPWBBzSCX7CIfpbO18ldP6WXEBgGcgARop2w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002245;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7ybh3E16d2SUEDENtkilOBR9lZ4BgG8EeV/MZT26TyI=;
-	b=j0TDMTCjXb3pd59v5EFVWMmLBmNHJZoleGBRVJ5kaFzjeoUEX0f0DTedGyvJ9r0eFqMW
-	 ACa7rr8UPiz2EmFA2dPiu92RSXzd3+H5ofR4ZiGqvlyc+EhSGYS+ha2fv9BU4C/bIvycC
-	 dNOB4Ac8nicwsB+srSlha9fKT9jDA9WLM75aRuknu3nrkIHBx4b/0XtzAschrqperQ/go
-	 99pPc1RPqc4OXWMTw/+GFATvQoVEeI3R0uLM7DEhFIuMuwj6u0qJ0dyxyxqsMuzkxiXN0
-	 aKAvLR7T6JbV3GZlSkyYLhkEFU70qK803GeoZWr4pqZiPeTma3emeKiy6yNgR4TW1IQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5nikFIQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30962606A326;
-	Fri,  6 Nov 2026 21:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5nikFIQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794002244;
-	b=wo9BRt52MOj5TfOST4CARRMGcL+0AJm/7kIUQOzbe+EXWHhwflI4xVCiQFVECr8yJ7zM
-	 8huiuPI/J4lQpe4D4EPEjpnScoQ7p/mq9Yxnj1QFTG50paKFOqIEqhWKdo2mE8xm1PHIT
-	 nehgNVY3xtrXmR0DBdkxyTHvllgySqj+HXKnEiFbDsinXov3R/tHMrVdamWBJce1Dj9BZ
-	 Tvj3gZZlpGmm/sl/q41m+Uz3P1GKZCzTKOzgNIximzOUEbiZNDCvsVQdngoFhC8ayqk6q
-	 7u+IMrU2LLzJsODSJOmVkkG0GSKMVcz/gE9naqVcqlBxh4XPTa3KnOJwIxEd1WD7FjA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794002244;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7ybh3E16d2SUEDENtkilOBR9lZ4BgG8EeV/MZT26TyI=;
-	b=ypoKyOpb64VAeWp9IyMY7hVAa7W4uFpAKrAEDOFCbkQG+84kFzJ0/koG2dd+abE9LOcH
-	 OIL7Ba7snm65U9gtqKvpWhpKNn6JwI4SwbZToO6tC+AVLRCQ34OplaLolQQwEA+4wCLlY
-	 JF2fq7TIQhgEZHmp1J2iWo1S1dLCW+hDK0vVWlfAVCrbpz04Ftayy8Qcu7xe4H2s8omDE
-	 076CiFtQgB9owt3RolDgDovuk0aUE8ZQ7vdzbBIx1diSOYfFwWg8JqNoL9Es7IQl83UJ1
-	 P1yeu4YDNXSOJleqng9iETpO7IiHn8yoj2FuL5rTxfZHVZ2TAlbS2fC1IGzNtIX6HDw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794002248;
+	b=S853dvXRlH6Z1Gl1fmjDizW58CdlpoCxlFbKh0kp+LRWAAmHxP/0G4zCnI3pjxo5qRpC
+	 8GAIAeDLMm8EpRTp76j6pnzzkHM1z1RhH7JrzxSTh+gp9ULsCSH7oVnGa9SfyTqnYR0ig
+	 69VgTAKDiKF0T1tWXXXvLDoHhQuuqsJpRWpBByx5pyQxrYGPPlRhte9WcpHS/Y/OG97tc
+	 F2aj1016cqApJVM2F6ubyYfmN4yzK1x0IzGfwGUWo3CB2bk8pbTm9qfZLA58qeWRMFlq9
+	 3aoG6zIxSiptguRtvfhpvKUZmBarJgVoh1YloeTRxDYke+AxBj6mNp3IKGdSnNt8SrQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002248;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=J6FGxaE+BKZWzR9xhh6QXS5FUiYExw1VU2q+cVJlNMA=;
+	b=Nv1CrdKENSD+oS5ase6/pK+SIcgqrIwY5Pl/tCUmDFkUYi2hiBowZ00LShRhT7RIMrtp
+	 m+GjTaqM3cS+uyV//GvK3JPlgG3xXiL/rp6ka6Bn85JE8kBlZDi9MjfxozxAt6FEvDEyJ
+	 7B7w7xAIbzvyIgCHDj4czDDx+SPK+y/J/yIW669KtAWDNwTplSrd+eDD/s2BxrrOkjPjG
+	 GIvBucYe28tTlfGlE16yHollYnQqJUw4zApwlkP+BlOat429BlyTsp9WMnaQVue3LuwCK
+	 tSl4H2mRjzGbpZVC077OTHHurxeSFE+t8Vb1k6LnvWtwcD4wnoEYas2xTCtwKLF4j0Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=iSOWaYN5;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0636E1F0089F;
-	Fri,  6 Nov 2026 21:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794002244;
-	bh=7ybh3E16d2SUEDENtkilOBR9lZ4BgG8EeV/MZT26TyI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=W5nikFIQSAle88623t11L9MWWNRYzwis8kAGioVtbDtDfzSp4+ELgdEvma0Fjs/x3
-	 0+3ZJPvxyDPkGQExXztsmdhV307fsFaZBFXfkTu8o+C1GIjWijh1Csgn66OR+OgeMJ
-	 Dh/YOevYYCKRAHAi3BcRSEsL4AZFZQLX6oegCGE6KuvI4XXXQ6RDBxhuHQ1vJxzD5E
-	 46brBqPZT4S86cP2CvZtOblip7++CrhteLxlIY6wHYrneKc+oqIW+CWV5kacM08Jto
-	 NRxZHa60hMY+TEy7nQv4PLlQ73DtfWPcsURhmFKRNxLYgL9fY9WguAyqTZz7KuCV+s
-	 IiFRgaClZnbfw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7DD33478B5;
-	Fri,  6 Nov 2026 21:57:23 +0000 (UTC)
-From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
-Date: Fri, 06 Nov 2026 22:57:22 +0100
-Subject: [PATCH net v4 2/2] vsock/bpf: fix zero-length, MSG_OOB and
- MSG_ERRQUEUE reads in recvmsg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57448606A332;
+	Fri,  6 Nov 2026 21:57:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57448606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=iSOWaYN5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794002240;
+	bh=G/mSckIqYLymBWxges+EZZ+zPguC1KkQ7jjJsAjrooo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=iSOWaYN5Aj4TZS+pbET4koN2DAjIheUhWCZ/Dg7IvuHYEs9CBLb5lr1AY41RZJtuF
+	 w53sj+B+T/DW+jYX4JwMS+ut40sNFn9En04eQknokfUHHOAKuScdmJkB6r2GiXwTg2
+	 sOglD1WRoHe0Nd5GqVGaedjl7Kh/lRfDFpf7ez5oSSmNqGe5q58WbVdXmZpjK0EZXE
+	 Z0z73wRbnYNMGKEz9xZpK41TM6HVufGivYphaGkSmHUlGHQ1UMAcCFBCaZrUMlhpFS
+	 hBXMYONYYUtSfwLK91404KH5I9J64r7OBlfWlbgACNhdDb5Leo0DWzPQ72GiGOib/n
+	 AopcM2wCHHvNA==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5D64817E094A;
+	Fri, 06 Nov 2026 22:57:20 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 15AF6480030; Fri, 06 Nov 2026 22:57:20 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 06 Nov 2026 22:57:08 +0100
+Subject: [PATCH 3/5] arm64: dts: rockchip: Enable HDMI sound on RK3588 EVB1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,88 +66,84 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-kbh3-1-022-fix-v2-v4-2-c7d36703814d@eldare.de>
-References: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
-In-Reply-To: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
-To: Stefano Garzarella <sgarzare@redhat.com>, 
- Bobby Eshleman <bobbyeshleman@meta.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794002242; l=2197;
- i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
- bh=dwUGR/eCK7GtoK8H9bbKU0ilJyfRtgnQIrQ7vPni5kQ=;
- b=4nZ5slW3UfHVgJAEtqPZdz8lRe6LZIvhoXJrslECxOHSir4x5eu+lfl6KdZ04cTHPnrsnMHUi
- AqwPFJDB60RDKoWYhN1qCGgcwQVMb13vpu1lai55X4LjYu6QHfWu1sK
-X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
- pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
-X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
- auth_id=1075
-X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
-Reply-To: jrmmhm.kernel@eldare.de
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-rk3588-evb1-dt-updates-v1-3-bdbe16223589@collabora.com>
+References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+In-Reply-To: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1128;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=G/mSckIqYLymBWxges+EZZ+zPguC1KkQ7jjJsAjrooo=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGruTT/9SbKdXLvJ8/09A8B/5V1FChKcudzVx
+ qMP1DRTHGxNk4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7k0/AAoJENju1/PI
+ O/qaF9MP/2cX/bGPiQ02ZI6INneWEKUKwMzN36Jsa4/ByhHHpuqosM58H4sN12Z/ymxaO0Im+8j
+ SaBeJijiyCecrLpRcZjupQuRdqbkVeVuq9Lx9/Rz7MklFiYu1RIUIkAMhoyeqLwzOW0tccPlNHB
+ QO840NkqKUFPHxCVLR8UQe0X8kd+j2Mb5N1q+KOpTiNmMA28PBbI9vA0yi/6q1UWiuZGxTHAQ5v
+ 3muoDW/PcvuwMFqNxa1ZNmZsfxZR653vbfvRlmrOWCdcGcKjb6q/KpmYAACNJGtnsqpHN9sNqwz
+ gRxS7IKgNcZx5wm+F2Uju2aby9fmonkDnsBxYJ+OLuQRHXfS+jt1WKYSBxb2gEZOvqkFYJh9Mi9
+ GDEGHaVl9MDcJXt/xscQM26SEplvbOiJqaSlSIFp2+PzPEMouRpdqiiTIFJtb0PkxkMEvK1XH5D
+ 6rIjxrcnxqedutRYD1YO2kAEG6cLph7k5aKzCOkRdSh5+gLAoFS9IRe96w2ZKPmYD30e+HPWO3H
+ cPcDNYHrxF1M6H4f0Ww7UHDw1J5FGH9xkQizYh9iOcgl9kr3uXxYAyiG9La9gCHgqTRCHJWbYCY
+ 2j6s6PA/81upLHdC/9L/d0Ls/VcZlFSXS1Wq07QqdHlL2s8/D+4JbBfNRONYEjGFrdXvyCeTpfk
+ ExPDUMPMTJZ6NPj7l8B0t/w==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+The RK3588 EVB1 supports audio on both HDMI ports, so enable it
+accordingly.
 
-vsock_bpf_recvmsg() sends every read that the transport queue cannot
-serve through sk_msg_recvmsg() and the sockmap wait, which handle
-neither a zero length nor these flags:
-
- - with len == 0 and data in the psock ingress queue the loop spins with
-   lock_sock() held, and the delivery worker blocks on the lock;
- - MSG_ERRQUEUE with data in the psock ingress queue consumes stream
-   bytes, and a zero-length MSG_ERRQUEUE read, as MSG_ZEROCOPY users
-   do, never reaches the error queue: it gets -EAGAIN, or waits for
-   stream data if it blocks;
- - MSG_OOB consumes ordinary stream bytes or waits for data, where the
-   native path returns -EOPNOTSUPP.
-
-Handle them at the top of vsock_bpf_recvmsg(). The order matters:
-MSG_ERRQUEUE goes to the native path first, as in tcp_bpf, or a
-zero-length error-queue read would return 0; MSG_OOB comes before
-len == 0, as in unix_bpf, so recv(fd, buf, 0, MSG_OOB) returns
--EOPNOTSUPP as on a connected native socket.
-
-The MSG_ERRQUEUE case was found with the help of Anthropic's Claude, the
-zero-length and MSG_OOB cases by the netdev Sashiko review. Each was
-reproduced in a VM with a vsock-loopback socket in a sockmap, without
-kernel changes or error injection. With the series applied the reads
-behave as on a connected native socket, and the vsock vmtest.sh
-single-VM tests and the BPF sockmap test_progs pass.
-
-Fixes: 634f1a7110b4 ("vsock: support sockmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- net/vmw_vsock/vsock_bpf.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-index 6d96ff03f28c..58b32fbc1f4b 100644
---- a/net/vmw_vsock/vsock_bpf.c
-+++ b/net/vmw_vsock/vsock_bpf.c
-@@ -119,6 +119,15 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
- 	struct vsock_sock *vsk;
- 	int copied;
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+index 6476d9e3be6f..6a95a8bb6fb8 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+@@ -379,6 +379,10 @@ hdmi0_out_con: endpoint {
+ 	};
+ };
  
-+	if (unlikely(flags & MSG_ERRQUEUE))
-+		return __vsock_recvmsg(sk, msg, len, flags);
++&hdmi0_sound {
++	status = "okay";
++};
 +
-+	if (flags & MSG_OOB)
-+		return -EOPNOTSUPP;
+ &hdmi1 {
+ 	frl-enable-gpios = <&gpio4 RK_PB2 GPIO_ACTIVE_LOW>;
+ 	pinctrl-0 = <&hdmim2_tx1_cec &hdmim0_tx1_hpd
+@@ -399,6 +403,10 @@ hdmi1_out_con: endpoint {
+ 	};
+ };
+ 
++&hdmi1_sound {
++	status = "okay";
++};
 +
-+	if (!len)
-+		return 0;
+ &hdmi_receiver_cma {
+ 	status = "okay";
+ };
+@@ -514,6 +522,14 @@ &i2s0_sdi0
+ 	status = "okay";
+ };
+ 
++&i2s5_8ch {
++	status = "okay";
++};
 +
- 	psock = sk_psock_get(sk);
- 	if (unlikely(!psock))
- 		return __vsock_recvmsg(sk, msg, len, flags);
++&i2s6_8ch {
++	status = "okay";
++};
++
+ &mdio0 {
+ 	rgmii_phy: ethernet-phy@1 {
+ 		/* RTL8211F */
 
 -- 
-2.56.0
-
+2.53.0
 
