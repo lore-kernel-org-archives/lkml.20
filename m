@@ -1,65 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793970983;
-	b=4SWVzGO4z0Pir4MCrt8t4kXHc+Fj14aZvJjkJ1Vh8I8z8saH9oR62DhxKKyxa+p1ZZoq
-	 VdxO6Lvx+cijm16u/tgQzltmR7ENjIyMmn0uUAYUXHUF58q3PJKYT5gXiLDDqvFFf4pKz
-	 9PjGx04Y6mXtnl4Fn2m8PHJFWk4n5mtnxH9cga8HM8uN9FrdjYq7ZdBcvl99dVPcNg5j/
-	 GteBfkZTkAS9WYKJAvHU6sIEXPcwSBCr87BVYhBAO8wR6xvfH0buQ9ddHp6C56pZl3Ofq
-	 QpukleqaShDfULTm0mnZqtdM4YmY3AXvzso4FTw0a+D2Ohx8UknvAMPreHjbByrP6Mg==
+	t=1793971053;
+	b=f2vzHYSeZaKrRJu+o8RIryMmKxmMHCCorUV+7qiRHmQI+x1TR0c4VKdn/f8zPKTeUSLl
+	 1/Yi7nm2Q5GgR1A4AuHl+9S1BIwblSvhZqhGDvRb84HwxWzGMGT5i1fa9aYIf1hcPaMUB
+	 hrqKFoqirfIHQProTEnomENtJlbjib3qkfRrsvWFe2vzeD2yuga917tms5X5QB0yIe+p2
+	 gs0Y9gg/Neskxpwhw+Qw/zpwTht4T1f/O4foGh0SqGYESvHoXfp7KWj/dznxwQHhQXeXO
+	 0IpQmS7hwE5KpgbT4wYZadYzfwcksVErJ385BrcuuGaFJmJEQ5fLUugc53FpTaipvrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793970983;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=54/+rHQFMYvpuWYFEAf46nqywk/lWRkyCTOs1SPupfE=;
-	b=tc/PHVPcbGTcSPp/ZqRQnfxbs959bl137Jzb6pYzVf1hfNpHvYlvhgrC3UCHR1WvACRI
-	 k4Rl/mAKpVpqbDLAEnQcfYyqkXm9JhHLbChJmo8lqVsAHR4GQiYzpS7VsGFKXnmBl6PTm
-	 OLvVDeNSi3SkRLTo3Sw/x8tPkYktKIjOISQBVW9ZI+XFUjcex3WYK72oPJEN7ABGAjmJB
-	 dhNtcwi5GTbcg6ReLEGByR1hD5AVs4xQFIV2NQgqdxFbts4Ld5U3fpWaIFFZsuNo2bUh4
-	 lWQMCddrW2cDNsHTEMIv/SS7qDbQZKghYs5ier3TgZP8tipp0VGYMjK4RQwWjZaSqIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971053;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=u+wf99cMGcQ0pMiHmoB58UApKCibH+wm8RpTNlP6OIw=;
+	b=AjWa74Zeyjeu/tCy1LaJBqrNUY6+6gpzn0vT3VWJXBZY/D5/EogTGnAzcFOZEPi30KDA
+	 hvuSDP6XGiUS37jjrvsa8k27nmxekSx6RD+v8LAVhGRf4csrap5akkgkp1e8fN2xelDLb
+	 +dsOZy+qH8nLEcJrs46ev0R20wA98KG37cWa2neJXd3FDcrhMmfhYcRP5YfbLIqsgJjR5
+	 fL6bwSNvlB9i0nvPrM5DcUXEAYqBJUJOtKkw26hUA2JWID3sazOdkrFgarIoNirrFmu0m
+	 FZE1guKvixhfPtTiV6gDxgHs+tojXut9GwxbDriYfiHbcoV8V7Fe2bGV3G3mWUmQlCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gtrtT3f7;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GfynEgaF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4364E606A326;
-	Fri,  6 Nov 2026 13:16:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4364E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34E3606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:17:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gtrtT3f7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=54/+rHQFMYvpuWYFEAf46nqywk/lWRkyCTOs1SPupfE=; b=gtrtT3f7dWuXt+w/aww8AhVVBL
-	wAv1YnSmmC0EWAmfyfsO0pItJaixnOL2/M4L860NwcVyt7gfkmSmedZs6g/tTrwGWtI7c8rPhppfG
-	6jrCLT1SaqgZOuQhOnx0Ol/XEnTERl/uXCRPfXnAovOLFHX4i5ImAQBFTJaE7h+PkHcM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xPJnf-00Elui-KS; Fri, 06 Nov 2026 14:16:11 +0100
-Date: Fri, 6 Nov 2026 14:16:11 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel@pengutronix.de,
-	Jens Emil Schulz =?iso-8859-1?Q?=D8stergaard?= <jensemil.schulzostergaard@microchip.com>
-Subject: Re: [PATCH net-next 1/3] net: dsa: microchip: ksz9477: apply a
- shorter ageing time at once
-Message-ID: <fcf99993-fdc3-4563-a93a-d5b5298b3302@lunn.ch>
-References: <20261104-ksz-stp-ageing-v1-0-2c2bc7217dea@pengutronix.de>
- <20261104-ksz-stp-ageing-v1-1-2c2bc7217dea@pengutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GfynEgaF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 405ED1F008A2
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:17:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793971052;
+	bh=u+wf99cMGcQ0pMiHmoB58UApKCibH+wm8RpTNlP6OIw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GfynEgaFImZ746mES31pK1q7yEqfdXB+ZB4yDlEw3Z+sSnzAzz6//XKUgnTJkS5Jn
+	 4AeE3OLN5vWpvgn6+hlRCbOM8V962ys2bNlnO8yb7Fg4MHR40KPWrj+XXJOH2kbsdc
+	 C9TWWQAa22FJ/icts183MXcedtUP0q+So1USkbpUTyJLiAdv/kSLhlWAYB14mhQ18a
+	 e8W8RVQ0ur2g0VI8OW4io0HO9cpCBP7gcsZdViZbuT/ebf9GGBg+vIzLSY6jXImDi3
+	 zooBz1gt7JKIsTEvMQPGB7w+QVXRHdi4/7RFmH6S5IhtkEcAOJ0grIr5VXP4Ac+i8s
+	 5rnTXe2nEGZIA==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bff8fc7cf2so677849e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:17:32 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwrNHtn7OHxCStGPYprfwNXwzbB8/4fHqIHV+SLfqZaTQDRqWwu4kLd5zuHhsT3bgCHRtCnOpN/i/V3CJg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/51ROGGJlwgZboyKL6BTPL7821xR5X0K16/Z6wAjOOHzAQBTj2
+	QZllKEA5nEjES2K+w9iDcDNtrdqfp7PA2NnMTCgXLRynzxgZBqI/Q6cOL/SVYnHk0qiN3GuEQw5
+	1ZT8WnxsXy22rGIaD2zfcFkRSITqdTtk=
+X-Received: by 2002:a05:6512:ba5:b0:5bf:fd1e:1677 with SMTP id
+ 2adb3069b0e04-5c003c088d2mr846658e87.63.1793971051040; Fri, 06 Nov 2026
+ 05:17:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,20 +59,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-ksz-stp-ageing-v1-1-2c2bc7217dea@pengutronix.de>
+References: <20261105-pinctrl-qcom-uaf-v1-1-c9cbc0a93161@oss.qualcomm.com>
+In-Reply-To: <20261105-pinctrl-qcom-uaf-v1-1-c9cbc0a93161@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 6 Nov 2026 14:17:18 +0100
+X-Gmail-Original-Message-ID: <CAD++jLn5fT=DuVZkXQdW4rM7Td46sKAfBxUkeYCrYhGj0KyHUQ@mail.gmail.com>
+X-Gm-Features: AclHuK97tULkimWCed7he8xYURQ5GlgGYoHRoVb9Wa0-fs_u313mHIyxiwKFPhg
+Message-ID: <CAD++jLn5fT=DuVZkXQdW4rM7Td46sKAfBxUkeYCrYhGj0KyHUQ@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: qcom: fix a use-after-free bug in system
+ shutdown path
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Stephen Boyd <sboyd@codeaurora.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +	/* On a KSZ9893 a new period applies only when the running one ends,
-> +	 * and entries keep the Age Count they were stored with. If the total
-> +	 * time or the Age Count got smaller, pulse Fast Aging; on a KSZ9893
-> +	 * that removed the dynamic entries and started the new period.
+On Thu, Nov 5, 2026 at 5:09=E2=80=AFPM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
 
-The tenses are wrong here.
+> msm_pinctrl_probe() allocates the pctrl structure via devm_kzalloc() and
+> unconditionally populates the global variables poweroff_pctrl and
+> pm_power_off.
+>
+> If msm_pinctrl_probe() subsequently fails, devres resources - including
+> the memory allocated for pctrl - are automatically freed. However, the
+> global pointers are never cleared, resulting in a use-after-free during
+> kernel_power_off().
+>
+> Schedule a devres action clearing the global pointers that runs before
+> the pctrl memory is freed.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://sashiko.dev/#/bug/linux-0c3a18a4-3de8-489b-abc9-e9e3a8641=
+ed2
+> Fixes: ad64498762dd ("pinctrl: qcom: Hook pm_power_down for shutdown supp=
+ort")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-    On a KSZ9893 that removes the dynamic entries and starts the new
-    period.
+LGTM
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Otherwise the logic seems sensible.
+I guess you will decide if it's an urgent or nonurgent fix and
+send to me as pull request.
 
-	  Andrew
+Yours,
+Linus Walleij
