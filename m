@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978666;
-	b=2g8I5IdprTJhecWtUk9HxnRasO9jzt/6uraD6qj8YAprTkY4WltjKviy8C7/FunP4Qzl
-	 7ma+Jf3VvQ0sPlFoe8sm2S4IZK4LhbkXPgweYIHaijlWUCg4RV7tG54R5dt3bpQcbwq0/
-	 gYHHtZ1/TbEVg17cgnhsPF0wT2EuS9B2PvZHSDI6zAXPuS/Z2JvRNrJUzDm2g7I68Hh0k
-	 pGR65lZLb573lsanlzf76VO0awOLWPlrbkEZkhV7vHR1gYfopV943O77xWACJXMl4t8g5
-	 9oLIJktQ9OcKOp0OSpdjE90RPcEC/QYsC8EMqj7sm7ytqeLz9VrRbF8ZZfX2rpm12Bg==
+	t=1793978679;
+	b=Z3+9dGVzCj3gg4TG6BOaTzCoeyDbWLAXukmPjfkDWHCUuU1Fuy1BmpDWHZrQDTKBo0I9
+	 SORxFGn7z1DA53lOc7M937pfll4ZSWnU5nAKkNgZ2ny1kvo2RqaRRru29XrHfA5LDcRkf
+	 e4AAhHH2V6uj+OnXCbB+18nEIG/hcl5JczmmsDFgWSawEvPHJs3DpRXbNLRD7NNxcb4o+
+	 /NiNUg4MXXx1WPQDlJsXNR1DMuebhAG2+3EokMex3etfYhmPQc8H4NzV2JYIBW/beqCiV
+	 K/RZkVmg0Rj+xnBRhKNOrCKFM3YlQvcq2dGsg+0ve2czxdzkTKL6YCj1GMFXzjxvbDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978666;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978679;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TLgNyXFrGS0TryALTyECIzzY5cEQxpys9ixb+i595LQ=;
-	b=NrcZK3qauMCBMJQ7ueSpiwcan6f8Zydol5azxPNGbbTZ3uJjj58dqrzOJzCTx3FFKW7i
-	 6/+XFhIDd0+X2XxrHClby9q5yfUeGWNRZUxzjjdKkUoHP6Adu6t4kPCNU7xu2B7MNVCPX
-	 pP4wah9ZLHxP6LTeVJvmL5obVKrhYL/gtxOxRR0x5LWE1Ni1/zlmP84NTgEdZf1W/BL3T
-	 BSWDt5i+0HSg/QsSa3ytDTDDhZXkFqHBvfns/ZAGzkevvU4ModYdfC/5F70UuNzYUVEfE
-	 P3YhAfrW+6ts7VCRwP1J3xzw819ngcaEeGsoW1xjU2izLW1VGjH6nKbBxz9Q8tWH4og==
+	bh=VsmKhMCPI5TGuiotzbDgLac51lD11IUhvG6TQedGDOc=;
+	b=Y7NIvA5IAxw4Z1AO6LnvGLfD6ESmRfKx/FGT2gQ/hf2nr8WyCk4Gm7Shu/7wg5LgiTNi
+	 slALQYNASlYdHkB2hqEObV+RpiV1ffTaydPSm7UqYEMd9HCRCwK7ItJFvPntHN2K/rYTf
+	 NOgR8kjjwwu6g7rNsAFFZsrlI5wISlWDT2ZCDZqzCImNuR9yVWLGwg9drNJIaJHpdvHC5
+	 yZBzMwmxMz7Y5dzs1qDcFDpYql3nc/kSjrCpDXAy49q6lRlgw84oISa2WjFvH/BEHxAl5
+	 pYjatJRDNwio6FG+1MwCeERv+UX1glT5a7+g59LbtrSC7lXN2vMz9UxgaOr4fEJRQfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9dNbIMv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fkb1w2S9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5A6606A331
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:24:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 76206606D818;
+	Fri,  6 Nov 2026 15:24:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9dNbIMv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D538B1F0089F;
-	Fri,  6 Nov 2026 15:24:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fkb1w2S9
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8EFE51F0089F;
+	Fri,  6 Nov 2026 15:24:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978666;
-	bh=TLgNyXFrGS0TryALTyECIzzY5cEQxpys9ixb+i595LQ=;
+	s=k20260515; t=1793978679;
+	bh=VsmKhMCPI5TGuiotzbDgLac51lD11IUhvG6TQedGDOc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E9dNbIMvKrV4r7KYAGyHcAcgMkbVi7NVeGv74QZS6YsZpCAawM3rJyKrzu0kGUmoR
-	 Bj/DAcnTvVZR1djvBU9Lg3QVTY5LCV5uAawidByHA+Ke5JNXq5LeZ6zopldNKKlpKo
-	 QZKc90oVLJgkOm0eDLkALAvGz2ocxyqEugxe5zKZc550TuDT6jOZBCOdFNbPijdy+f
-	 HJris1dK2k20jvpzqMEVCuPzLq3CWHKZYiqMDQvvlOhke4+5fCFu8sT++gBEPE6aj8
-	 tCdFDNSeX2ABRCxwuoO3Pm/1oR9uq4MerdTgx8flrWHgSzBy7gvU6RusFUM85qyq0D
-	 Z0TJT2KFPERkw==
-Date: Fri, 6 Nov 2026 15:24:20 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Vernon Yang <vernon2gm@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] mm/khugepaged: release contended mmap read lock
- after scanning enough VMAs
-Message-ID: <au3xEVu-SGXZYfyi@gremlin>
-References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
- <20261105-khugepaged-latency-fix-v2-3-4384bbfe4606@kernel.org>
- <au3CUJO9zBMHLx-B@gremlin>
- <798cd192-9ec2-4f37-9cba-44db275a269c@gmail.com>
+	b=fkb1w2S9YfZl9PyYR0g0GUMkYYob+m+kDMqQTOfGKB4sZBjfCI6pgKG1l9HZS7WCe
+	 Wn6aN3BCEhrCgMTfZmIT5GCi7l/22whgq8NeHK1q/+eskLG1eJHEQwvyAB3oAKFTHe
+	 plNpOy5qsdUGVbTR/iXyEekllI+fZoZlbtAlnE7CpuLVagrqXcsxX2PAI/mjPaovji
+	 d9cGQb4Jx0pnBrirleEmesXmT0Cxwsr0Z2TzlGau4yZkTYxxLDXJQF9rDKSIfaIYIa
+	 roMU+FoYjDsRv7KhSvD76wEx8I/kU6pKwDBEPdc3HdB9vrFS03E2UQo0eeaMsMs0Q0
+	 cJgDnqe4JKQ1Q==
+Date: Fri, 6 Nov 2026 17:24:35 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Guo Zihao <guozh23@xiaopeng.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Matthew Garrett <matthewgarrett@google.com>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] tpm: efi: reject a final events table with an oversized
+ preboot log
+Message-ID: <au3xM-7onNTtgceh@kernel.org>
+References: <20261106014956.4129904-1-guozh23@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,42 +62,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <798cd192-9ec2-4f37-9cba-44db275a269c@gmail.com>
+In-Reply-To: <20261106014956.4129904-1-guozh23@xiaopeng.com>
 
-On Fri, Nov 06, 2026 at 09:26:01PM +0800, Vernon Yang wrote:
-> On Fri, Nov 06, 2026 at 12:07:53PM +0000, Lorenzo Stoakes (ARM) wrote:
-> > On reflection, I think this would be better implemented as something like:
-> >
-> > static void collapse_scan_mm_slot(unsigned int progress_max, ...)
-> > {
-> > 	unsigned int long lock_start = jiffies;
-> > 	...
-> >   	for_each_vma(vmi, vma) {
-> > 		...
-> >                 if (time_after(jiffies, lock_start) && mmap_lock_is_contended(mm)) {
-> >                         mmap_read_unlock(mm);
-> >                         cond_resched();
-> >                         mmap_read_lock(mm);
-> >                         lock_start = jiffies;
-> >                         vma_iter_set(&vmi, mm_slot->address);
-> >                         continue;
-> >                 }
-> > 	}
-> > }
-> >
-> > Which avoids magic numbers, and means if we hold the lock for 1-10ms (depending
-> > on HZ), which is a long time in the kernel to hold a lock, AND the lock is
-> > contended, we drop/reacquire.
->
-> Looks good to me. Is the test result of this solution the same as the
-> current one?
+On Fri, Nov 06, 2026 at 09:49:56AM +0800, Guo Zihao wrote:
+> The preboot portion recorded in the main event log is subtracted from
+> the size of the final events table taken from the firmware:
+> 
+> 	/*
+> 	 * The 'final events log' size excludes the 'final events preboot log'
+> 	 * at its beginning.
+> 	 */
+> 	final_events_log_size -= log_tbl->final_events_preboot_size;
+> 
+> Both sizes come from EFI configuration tables and are not validated
+> against each other. A final events table claiming a preboot portion
+> larger than the table itself makes final_events_log_size go negative:
+> the subsequent devm_krealloc() can then end up with a wrapped, too
+> small allocation, and the memcpy() that appends the final events log
+> uses the negative value as its length, running far past the buffer.
+> 
+> The boot path has no way to fix up such a table, so fail the final
+> events log instead of appending from it.
+> 
+> Fixes: 166a2809d65b ("tpm: Don't duplicate events from the final event log in the TCG2 log")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 
-Thanks! I will update the commit to reflect the changes.
+Ditto.
 
->
-> --
-> Cheers,
-> Vernon
+For all four address validation vs bug fix intersection. I did not
+check throughly enough to be exactly sure of all four.
 
---
-Cheers, Lorenzo
+Br, Jarkko
