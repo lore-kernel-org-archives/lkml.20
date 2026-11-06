@@ -1,97 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793976150;
-	b=3X+MBQ0/SRKReHrKkJeJBwmxR8jgL2PkELpu5YPTA4EBMVtV919dHSr9D7tjJqz5p/Q4
-	 a4iDZsK5aJRjqdALBFPhP8jDZwIgM1/y0lFBWzcHiogSQUwLFmTdvG5y3Aus/fV0n1ZIm
-	 BfnokuNTo0blqOBNK9NGumGy3LXF3zPG9AkESGwTce09woLu/QsJuXaaXizGOzLEOImvy
-	 BreGoZ25oqXh4Wa+U97u8gMyGBwVWEi+ji4JF3wV7Bu4qhi3sdT8LuSf7b2RFqeXDs52A
-	 HYPcBf3k9xjsxjJ2JJgmR9NRX3s3MaiDCuvvWm2nKFxd66dVOazGEXK6C2BQMwbImgg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976150;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=hO8RZ/alad6ynvlLYhBYTO4+DMjCkHeWgqZ3f60gKoo=;
-	b=LblOPqukaCcGMk/PWyE2pmcmDlA5WJgR0z/JKmoPOLc0fmF3JLMBYq7zPQKcR6zulmjQ
-	 jKilozFiGAIPoq2rFO4QpH3PtRB6yc16H84TQ03nRLhcVKc4e9+iTLgzPhslfL6UAuzXC
-	 LKqzjUso9HZDEB/fEzh4YJtKICkB6QAp89lHekqBBywrf4JGxaA5e+f810EIHDrUc9nhX
-	 9lxWfPuJE7EufTykI7SaXeWYqaLw6YZ0fTcuT/AxmdvjoYiGpOtbmc+3sQhKrhDUQk6Mr
-	 +y29KX/UV2yvvpX0Rgwr/OSuzf/p2lmvhZe0hbkP88ENtOwtN/5OxdNoXqSoF39DZYA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qpZvejSD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.13
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010013.outbound.protection.outlook.com [52.101.56.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793976179;
+	b=1I23agUwQSz6U2QOL5VxfnBT7KFuw6CAzeYJjP6MD77OuDiShYq7+VnSZpi1Gk9Cvxr1
+	 xtLxGijw7+rH3lDVfmjavqsZKAYO4kdncs1VUEeIz4XnT+NsmGD3LYtIxyQWYRaXqNEr9
+	 sbfRA3Ub2haWeyMIP675PN5ZwsN/lCh90UP4Z9iYRplRlRAoy1P5u0W7m2/xv0NT/TuGq
+	 tO6G6j+oAPfoqs6Yz2q+WL7h50c0ZehPjWj6orxMkNeJa7vgePYuSQesKigjIANsQfGGc
+	 BdWPF2wBtJPcCb6QNHDdJqEK000YgbTqCRJrP1+3HTLWGyWDsezU7ByW3Sn4IE5wLwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976179;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=WSR+OYxGYuCEt4HZgWaGut42QNF8mF7rpyHwN5g0Fmw=;
+	b=pjR5S0Coijb8kdYAO/9SEZ8lg2Qr+d78uuivjAq2s41y5An1wzolTVvRUU+gYz4p74AV
+	 17yDkR9RvTtaJPx9iXc1qHy8BzWGWIjWJkVnNir4xM06z+vuzBsCe8nk9fb8ngZr8SIZz
+	 +tzh4ocllkKLRKh7Lcjxfo6zxT+6zO1tiPPhHvc8t1fG2iB8nX4F7OD9ta00lZpehSxCw
+	 yAScw4hc5iTXLP4Y08ZaXAnbeemSLg+kzXWDNCOZWDeriVDqvwOUu3Dd9/Wsj9t8GIiRi
+	 cYuG/Lfl0JSCXqVWNdkPxtCpfGqOzk0ilii7ziBzqwSaE2RTxmH8McFtuiM+rqo8j/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=iNy7LdYD;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0436606A33B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:42:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0436606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD49606A337;
+	Fri,  6 Nov 2026 14:42:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FD49606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qpZvejSD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fFo2oOkK/tM5UYn/kOBjcbRjmT217e5zEuiQW9WxHMqKloP1IjgBGQwQf3XgZcIEwknZlEzHkxpVLM58ZGf3QXWtEq/kTJlQn/A3iGGOnBHWqcskOBn44j5Bb3/4An6d8LvH6BS/8G35Nw3OX9fG0aw8NOt2X+lZ0ZzcRkTtFZLwdyoTOOJ1M+7gipKSMI7BaY9gzjWw1DxgL7MjizjkhaAYhEEiVyIoT7JnJ+onfumgcbiZQyRS4OoQJV++nKBd+hKZjoSeVwNQiJf07cQ1logAUDXQaPQzyh8PpfoCvz1iEYgW4eKC+xrPmFSDt2lNx7gUBNNx+JPDkNsOoOdBiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hO8RZ/alad6ynvlLYhBYTO4+DMjCkHeWgqZ3f60gKoo=;
- b=Crncrs6kyLkqlcZXYDi6o3ZIpjt8xiq9E0MKtXor/Jdqdx8DEVztogBRVxa3eGVWjKcN+0P/jNd7y9cJEb7ZZoAIxLN4ezt4WbpDHF5LNuusHH9CFSMI6voDgSekNXlMHCYqM66tPI6D6Ka3PHmW330bVCXSpIYeKQ1RM7t9LwcRTdgsMwxdOLW7JFFOPlMRLmTHD/LhtLo9XT9BYv2g/gYvSoFGc2pktk4o4NibyQ/UWh6U3n5Oo/S+T7RwfTuOtCoDpAI5jkfdBg9mlLdjUhlsSOLTC6Ns/ZpI5mgSGUI9FMqH2NYsJcxS9FZL8Fs1IrGZRvi0y/w0/Cxr1+Q7sA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hO8RZ/alad6ynvlLYhBYTO4+DMjCkHeWgqZ3f60gKoo=;
- b=qpZvejSDhbfa6jsL2AHi8XWsrlZbJzkHRKWxJzw/Qvce7kn7/n6wa9jNSq/mLl+BUqVY3C5A2vWyOzOu/HK8H5KFtFnJlcHnR0Zpcd7+9yPgXWKfjo3CwqrcLhwsmseL57f27e5m70MHql5qCSmf0pkVeZZO0bbLY4ifyOlOk6A=
-Received: from SJ0PR03CA0247.namprd03.prod.outlook.com (2603:10b6:a03:3a0::12)
- by LV2PR12MB5919.namprd12.prod.outlook.com (2603:10b6:408:173::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 14:42:20 +0000
-Received: from CO1PEPF00018868.namprd03.prod.outlook.com
- (2603:10b6:a03:3a0:cafe::2a) by SJ0PR03CA0247.outlook.office365.com
- (2603:10b6:a03:3a0::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 14:42:17 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF00018868.mail.protection.outlook.com (10.167.249.153) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 14:42:16 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 6 Nov
- 2026 08:42:15 -0600
-Received: from [10.254.93.142] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 6 Nov 2026 08:42:13 -0600
-Message-ID: <3b112cb8-a2b1-4c40-8e0c-553d49d5e165@amd.com>
-Date: Fri, 6 Nov 2026 09:42:13 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=iNy7LdYD
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261106144257euoutp02f046c48219c70db95596d964730e31d9~le9QW44K01214112141euoutp025;
+	Fri,  6 Nov 2026 14:42:57 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261106144257euoutp02f046c48219c70db95596d964730e31d9~le9QW44K01214112141euoutp025
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793976177;
+	bh=WSR+OYxGYuCEt4HZgWaGut42QNF8mF7rpyHwN5g0Fmw=;
+	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
+	b=iNy7LdYD9y3Ce85ur99gVOgP70PRAxMlKgJ50WH0DEUBnvXrShJMbvfe3bxA28980
+	 UAciP+g1AouqHElYOm5zofikYQj7Afh276F1w/Rk4NBMq/wRm6tm+0RcLd2EuCebCw
+	 IG4+EnibCn2k/wLwGCpIOYZjqtVBgcW3SMirHPT8=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261106144256eucas1p1beb947272dc94f916c8c8131722a480d~le9Pd9eIp0320903209eucas1p1W;
+	Fri,  6 Nov 2026 14:42:56 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261106144254eusmtip1291e4ba24e2a230c09af0eb481e22639~le9N6-Ryb0161401614eusmtip16;
+	Fri,  6 Nov 2026 14:42:54 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Fri, 06 Nov 2026 15:42:45 +0100
+Subject: [PATCH v2 05/15] lib/lz4: backport upstream's -Wmissing-prototypes
+ fix
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,102 +66,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 01/16] drm/amd/display: Fix planes atomic_create_state
- implementation
-To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Louis
- Chauvet" <louis.chauvet@bootlin.com>, Haneen Mohammed
-	<hamohammed.sa@gmail.com>, Melissa Wen <melissa.srw@gmail.com>
-CC: Daniel Stone <daniels@collabora.com>, Harry Wentland
-	<harry.wentland@amd.com>, Jocelyn Falempe <jfalempe@redhat.com>,
-	=?UTF-8?Q?Jonas_=C3=85dahl?= <jadahl@redhat.com>,
-	=?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, Pekka Paalanen
-	<pekka.paalanen@collabora.com>, Sebastian Wick <sebastian.wick@redhat.com>,
-	Simon Ser <contact@emersion.fr>, Victoria Brekenfeld <victoria@system76.com>,
-	Xaver Hugl <xaver.hugl@kde.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, Rodrigo Siqueira <siqueira@igalia.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
-	<christian.koenig@amd.com>, <amd-gfx@lists.freedesktop.org>
-References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
- <20261030-drm-reset-state-flag-v7-1-4e55eaeae683@kernel.org>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20261030-drm-reset-state-flag-v7-1-4e55eaeae683@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018868:EE_|LV2PR12MB5919:EE_
-X-MS-Office365-Filtering-Correlation-Id: b26dd344-dffa-413b-3646-08df3c142743
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|42112799006|23010399003|7416014|18002099003|22082099003|10067099003|4143699003|11063799006|5023799004|261102123227099003|261021123027099003|261022075727099003|261021121427099003|56012099006|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	sA+ARBmxFve2piLebY7TaaPdgsL/DmT+AI2IZuRBfB5Jk37HxsK58WsU+hECZatYDCzNvqtwsfjP2jFz7hYmFp2pzXnFkybi6SmyMBa/xmMIEc2uugJy2KJQGez90vIomXKrCYrs1m/6EiQ58zyG7XySU3JnqZVDIdEKqNC2VsSyEqueQrbPdB6NdFmdzvzHS6pGcF8FXnH8iJq+TaKYEVA3qWfivfgFtJM1wzZmbUIBl8FqL2YFEq5ZMiEm0ZFwyGSwZURBN5wWhXhjoT3jWH1YwXYfKKmv0OC87BzyfrACOtnuzu03fSz0np2H9gOYMeeIuLf8+Q8l1ptBQcSCEFkN9wyGXH0ZFfg+dp+AW6BtoinH3lcCmYOtxmlPbrV7hkoWbwg/r5ok1JBLUWex5Q57xOkt5JHjRn3qn75bbXlJkp2jUAiao9sqMY30iLExCPnBR27Z3Q+rw4JeM4qQrhlWa+ol1SshjtLEh1+tmaoEnZb849LlIfYy6vxnk3ZBYBz7hPMRhFe4uIFWxQDdVas2DHFuclbI5a2zNmN2RnmFMQuRLh4DHsptns30oOAQy2VNiFAPEOc5pW+62A1Gn26oDjt2MG3PmtWozhYmhwsWHw5HxAYKuc0JJG4UiGilywE4icBoJIVKZJdfCLYQzltu6h9ereAULBCgUuWBdtC+Tp4qxCMTjBjWkMxZN+6Ep5ULJhxrnHGbVs7AXDy4iw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(42112799006)(23010399003)(7416014)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(5023799004)(261102123227099003)(261021123027099003)(261022075727099003)(261021121427099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Y1HKAcksb2i+kJb80kqfnLXr+mYf9zjIr5Gw8UtFz/PP7w1wzFrV4IEsqQzxVFHvs/YaWH+2xuAxlZta7x8pNCo0I0hA70aoLlYrPEwjU+BoqWbDc6FKGZ3Zlplj8ZQ+JGgnVvZjfoS1J0KqKgJ6iOgxSNrWlx/AYY0NLnmIjHJSUN6HnhDDKm8rzFQtcNhF+K0vsJ3r/nTC4ZaBNnRsItDT+FGBCJYgcdTETvFcbDHOnktdA8ckH1a6YIi+l/PAqIa7RWzu06wWTpxnE5umO/Zveb69aT6RkQj9lH0Ve6Bvdwb1hOvcBj8nPsid/24IbnRl6G46Tl4UoLArJF1fS5OlW+1+CJ+ZwLP8jmvL7qTmxInlnH0OuWSVhVe79I3F33l2vSr4MSNCBDb4DFq0Eez3jF7OzFJXTgd3EDXqJm7i5tWwEDuo/oKc5CJ9QcNs
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 14:42:16.4280
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b26dd344-dffa-413b-3646-08df3c142743
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00018868.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5919
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-lz4-vendor-upstream-v2-5-ee04c3f0d7dc@samsung.com>
+In-Reply-To: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
+To: Michal Wilczynski <m.wilczynski@samsung.com>,  Nathan Chancellor
+	<nathan@kernel.org>,  Nick Desaulniers <ndesaulniers@google.com>,  Bill
+	Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,  Russell
+	King <linux@armlinux.org.uk>,  Thomas Bogendoerfer
+	<tsbogend@alpha.franken.de>,  "James E.J. Bottomley"
+	<James.Bottomley@HansenPartnership.com>,  Helge Deller <deller@gmx.de>,
+	Heiko Carstens <hca@linux.ibm.com>,  Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>,  Christian Borntraeger
+	<borntraeger@linux.ibm.com>,  Sven Schnelle <svens@linux.ibm.com>, Thomas
+	Gleixner <tglx@kernel.org>,  Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>,  Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Minchan Kim <minchan@kernel.org>,  Sergey
+	Senozhatsky <senozhatsky@chromium.org>, Jens Axboe <axboe@kernel.dk>, 
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org, 
+	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>,  Nick
+	Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>,  Chao Yu
+	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,  Eric Biggers
+	<ebiggers@kernel.org>,  Herbert Xu <herbert@gondor.apana.org.au>,  David
+	Laight <david.laight.linux@gmail.com>,  Sungguk <sungguk.na@samsung.com>,
+	Jaehoon Chung <jh80.chung@samsung.com>,  Marek Szyprowski
+	<m.szyprowski@samsung.com>, linux-erofs@lists.ozlabs.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-crypto@vger.kernel.org
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2114;
+	i=m.wilczynski@samsung.com; h=from:subject:message-id;
+	bh=8N9wzkj/hKUNj1BW6DsxrUcKBRzHlHt4de1GPUas8dA=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9fZ4aKBHw4KzylIunL5nMWL5nDtPGvfc/njCasV+lt
+	GrWpcMX93eUsjCIcTDIiimynN0YbST5j+Fp+fHHv2DmsDKBDGHg4hSAiYSUMjKsiXqrvCj13sck
+	jXdXYxcp/xC/+X8L552H1zvu7FxWvP6wLsP/nMgZJ7gTtqpMCPyt4XBn0/uNTa3qbC/maddKfOC
+	7kveWFQA=
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261106144256eucas1p1beb947272dc94f916c8c8131722a480d
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261106144256eucas1p1beb947272dc94f916c8c8131722a480d
+X-EPHeader: CA
+X-CMS-RootMailID: 20261106144256eucas1p1beb947272dc94f916c8c8131722a480d
+References: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
+	<CGME20261106144256eucas1p1beb947272dc94f916c8c8131722a480d@eucas1p1.samsung.com>
 
+v1.10.0 defines LZ4_loadDict_internal() in lz4.c and LZ4HC_searchExtDict()
+in lz4hc.c with external linkage and no prototype, which the kernel's
+-Wmissing-prototypes rejects. The first would also prevent linking once
+lz4_compress.c and lz4_decompress.c both include lz4.c, later in this
+series, since each would define it.
 
+Neither can be forward declared static in the lz4_deps.h a later patch
+adds, as the other bare helpers are, because their signatures use types
+declared inside the .c files.
 
-On 2026-10-30 06:27, Maxime Ripard wrote:
-> Commit 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
-> converted the amdgpu planes to use atomic_create_state instead of reset.
-> 
-> Unlike reset, atomic_create_state is meant to allocate a new default
-> state without any side effect on the hardware or software state.
-> 
-> However, during the conversion we forgot to remove the call to destroy
-> the existing plane state if any. While this was expected from a reset
-> implementation, it's not for an atomic_create_state one. Remove it.
-> 
-> Fixes: 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Take the two hunks of upstream commit 5ef1f16929b5
+("fix -Wmissing-prototypes warnings") that apply to the files we vendor.
+This goes away at the next re-sync.
 
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+---
+ lib/lz4/upstream/lz4.c   | 2 +-
+ lib/lz4/upstream/lz4hc.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Thanks!
+diff --git a/lib/lz4/upstream/lz4.c b/lib/lz4/upstream/lz4.c
+index a2f7abee19fb9a5c768f2a6c266acf5b571f0855..0d474be0236a698d297ab9a430f5082485eb3709 100644
+--- a/lib/lz4/upstream/lz4.c
++++ b/lib/lz4/upstream/lz4.c
+@@ -1584,7 +1584,7 @@ int LZ4_freeStream (LZ4_stream_t* LZ4_stream)
+ 
+ typedef enum { _ld_fast, _ld_slow } LoadDict_mode_e;
+ #define HASH_UNIT sizeof(reg_t)
+-int LZ4_loadDict_internal(LZ4_stream_t* LZ4_dict,
++static int LZ4_loadDict_internal(LZ4_stream_t* LZ4_dict,
+                     const char* dictionary, int dictSize,
+                     LoadDict_mode_e _ld)
+ {
+diff --git a/lib/lz4/upstream/lz4hc.c b/lib/lz4/upstream/lz4hc.c
+index 4d8c36a6978fcae09e4c4a936572b4b271513466..32b29f382268d961d65383b24c7225494d9044ad 100644
+--- a/lib/lz4/upstream/lz4hc.c
++++ b/lib/lz4/upstream/lz4hc.c
+@@ -360,7 +360,7 @@ typedef struct {
+     int back;  /* negative value */
+ } LZ4HC_match_t;
+ 
+-LZ4HC_match_t LZ4HC_searchExtDict(const BYTE* ip, U32 ipIndex,
++static LZ4HC_match_t LZ4HC_searchExtDict(const BYTE* ip, U32 ipIndex,
+         const BYTE* const iLowLimit, const BYTE* const iHighLimit,
+         const LZ4HC_CCtx_internal* dictCtx, U32 gDictEndIndex,
+         int currentBestML, int nbAttempts)
 
-> 
-> ---
-> 
-> To: Harry Wentland <harry.wentland@amd.com>
-> To: Leo Li <sunpeng.li@amd.com>
-> To: Rodrigo Siqueira <siqueira@igalia.com>
-> To: Alex Deucher <alexander.deucher@amd.com>
-> To: Christian König <christian.koenig@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 2f88b9d65b82..779dabb7fc51 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1821,7 +1821,4 @@ STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(
->  	}
->  
-> -	if (plane->state)
-> -		plane->funcs->atomic_destroy_state(plane, plane->state);
-> -
->  	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
->  	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
-> 
+-- 
+2.34.1
 
