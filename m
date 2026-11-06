@@ -1,86 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976924;
-	b=U6+udi0+eQgJnPKRRnbaMebrKaD/kVTiwV/natzItgyxjKXMHkmg2uoi71gv1JcHB/KC
-	 kBo3/m+8Hj8ITaxP5ourFWdn6Oh4ouh66x5Wjpu6Us3AZypeBcUzNQ6HNo3HVhY4cLC0S
-	 XVY2DgXVaORjFyoGQ3VIYMVf8VGDASBoNFzXoCjTnq7el9VrP1sgWQfJZ121WAj0VwAzQ
-	 y6BUGuMXjvaEr+SQB8ZH6pWUQWCmizFTb73meaO6kYb+8K69Ft924CgQ9Samhjn/7XLVC
-	 UAmfHrUiOI7/GvKs09vjpBG0calyd74lBRYvQTeEzRh2vqWisWeQgJFS7Mp4OXwnWAQ==
+	t=1793976969;
+	b=TUzhy6lm5B9aMeSMT7u5J4mr331toK42ghSUwTNsmJiKvC93qKOJ75ZApxn/wLx49GPD
+	 yWY6NtEe/TNfktamPNgtPoErpSwFOuwAIRT9dfwPrdBSphBx5ks8vYpU0L4w3io8QKeZ2
+	 hw6qvKYMlD05j01IyDfc66lI8GQXSXbjtj54YTlEsZ+QctzpLyAJIY3hG7vgmuR9RTnuP
+	 c4TkS6jRvaDRDgxORbjbMvLWyINaZRfrQHeuXxHvx662sXVxRUIU4tJ5C2oNqdUBjLRmz
+	 8IumtMEj+FVrkuPnOi0Fjkoxdefo2OANrGzEKg1nkGlZ1bF0aaYm7djj7HTXsNBkybw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976924;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=CEvqs1X/nNyjFGF57/UwB1GPydCvgLvUiPVC3sYODKY=;
-	b=hZ4PmgwzAJOwOntGzmIUwxF11t7hiVTGorre+HLHiW8Rm5FTO2lJNxlyaOJESMIUDNbF
-	 PVr4Qm6u0k2e2u1IqtMcxFm4TUF+VrPrYnZLCohCcjOCX7wdnuXMgFmoGHewwLB3c3+3C
-	 htq8XtCrK5dEMNxEZPW4DQGKp6tXObByCsJe9XsSgQM3CxVaHwDyqvuY/pgB4pwaMyVhD
-	 jzS3/h0C3pmtHqvV70Z97bMjgbPIp9TqCqhHcEM9DqH3l+uFaaiQmDy+SG5qC4DxNF8pE
-	 ltObKOXrpAGaPc5i+z9bTxA1kqB/h+U9Aav1RZpg5C3JFCqdO/lD1DdKGRPC3Vf5G7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976969;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OZO2+7G4k6RkoglmAS6YzLo/PJ0QFmsDlFGqO/wIKqU=;
+	b=nSY7RnORv1S3MfATLwSd7G3bsYMDebSwS07morBbn9ksgO5oOUFNkk3QUY1cXHIMIi/s
+	 pPQm0lCPkcQdhOGQmSqJqWi5IJUC4X3/FkQqEkxXF4PxFUpjUw3+PobmWHHoTcII8rc91
+	 U+LCHAirf4FuxFe2tuDlSurwsY8ZckARoLJB8M+CKQvKPTJUM5gBlgP+K4d3A9NGTT/Mr
+	 J/5kd21H9Nd1iDsoV0IFqcml7IjdHeRyShvzcESk0RkTiGfIszPRl5dktXc/xAfsyA7f8
+	 vUxKic+mleax+mQSX8fySHURmmVIKZ0UlptOh1DnZuWRxVtpP5TfnqDN/fE/Q3n7xkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pvEcq5EW;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FL3b2pjP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0B8606A331
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:55:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F0B8606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96DC606A32E;
+	Fri,  6 Nov 2026 14:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pvEcq5EW
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b0d0b80fb9so444822a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:55:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793976923; x=1794581723; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CEvqs1X/nNyjFGF57/UwB1GPydCvgLvUiPVC3sYODKY=;
-        b=pvEcq5EW5p5RyHhNApIpanjG+XM0py0wkLCpq1Xoa3Rz+fpzGcOAiH/VQsXsemgM2S
-         9/PT4v1X1PrWv/6wko+hr5538Uzoi1ZxC/AFsLOhd+bY+DRPLkKcZleqOOGtCDQoD8M1
-         mM+eeXRYItk6md6ykyYNeDjO7DnyXRssj+9poenaAlETqHqgC2ei9cd5PQGhXJvEHMpk
-         kpIkYRIWkVJQf+Vzm9fgwIXNAbdVd8ZfceNtJOW4YQRZKD/LlADYQsXXuNKPzzq4wbV4
-         10BaI/kiV81y1PXRDYlGI2+oI5LvaqZsbIOBT6KGXLMGbic1FIcM+oW6WCpBUL7XCdmP
-         vB+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793976923; x=1794581723;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CEvqs1X/nNyjFGF57/UwB1GPydCvgLvUiPVC3sYODKY=;
-        b=i9C2TQJGF/6oAIXdotJBajKofQcw/3dQdwTXAOms83q3eDqrBXpJdHmS2e8B6WZtoN
-         J+ZbaxmSBXEH9lmHlmYTkY3eaGlcVvNPQt/16PGHbMbnFmuCeSpm0XV/reBu7hq5ntaV
-         3+W6GSTi7OgWBMUwl5LDphVSviPgI005EyeEfz/BxHTSt8JnqxZl/nDoFNb8qbvMslYW
-         HD2mw6Bn+36PQmpNC4LnqNC7iBJvxYgl0FrbhqdEAoIjrpiBd3ltmpN/2AUAOykWIucW
-         X95ho82MwOf8lGN9+XrdJm/Rj24sTBAEIzXwmgpWFTryA2WXpxm0rtx63DQDS9N4tmHn
-         3lFQ==
-X-Forwarded-Encrypted: i=1; AL+hErHPJRjEaJuDwbICy3f8xWBVI/4py4kxUu6kWfI6wnfHx5nYICmJXQ17mr6+VO9EQ6Jska465cZu8/pz1NQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/q/OIP5q6TkVoMOgnOClGkC8c9G2rlZPk+BtZ/XvvNdzsjO6y+
-	AVYBGAp8NxU5i5EZc/CGu6ZOJ85TaSemlh1uQdaEY96DXCfp7Mzzi85D
-X-Gm-Gg: AYBFou2czOKp90Ogfy1xFwxbDsvwFQ1FiqAhbvzLPd/4cWQ2dBfb9IHB56Znt4pwUwR
-	vLXQf9tvzwnffWRdutPyoLkXfqw1Rmi/DLMlvUrk2ORA/ZeI347ZEPuxMtxtWG0CPJXttJjWpRH
-	EWGiOfrTrvMoBo5nPtX0jKGl5xcUcyrSILTYX/YmbD9G5AIm37Va+bVIf+b5mPEHOr9UB9/EVp8
-	6qL1T2LhInSiO6V3WGrOPTR8bXoVd6eFf0y8EkwSUJpGlyEiuIMU59ygx7Sa+FWAzBUm1LiUtGJ
-	eZIVOjUXzpMyCXtj/cu3jdwz7Kbm5bXBXPn+FUa29telcln+VVSd2I3N4IJ/F5OnaWX9q7p8Y8A
-	tslbiX6ojd/UUfZrmABGNhBaDJgNxLaduNl/JSRNgK/qWY1fOSzzdil5wcYz/fyUPgsEYh9nY+k
-	WsifIH6sI15uneCMDvsyXnyUTyKymj8+dMXj1BFMCuQgHI9o4dDB1E6qr0dMn5ti9O4a3dFOhsO
-	jYOw3/8w+0ETYqtxZi2r5Csq2sq8r1shOjCPa9XxMBuiRDWy/LP2VaY01Ch+GN387JCsgFVv1B6
-	0rrE7IefIgMG8L7+vC/sQ+LXluFQhC9QGGBu6w3eGke65ULsr574sDU=
-X-Received: by 2002:a17:90b:2d85:b0:3ac:83c1:2c0 with SMTP id 98e67ed59e1d1-3b0db700c35mr2482629a91.64.1793976923367;
-        Fri, 06 Nov 2026 06:55:23 -0800 (PST)
-Received: from [192.168.255.10] ([111.55.212.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c42a72sm3783225a91.3.2026.11.06.06.55.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 06:55:22 -0800 (PST)
-Message-ID: <4c5e04a6-afba-4f7e-b790-c109ddad0318@gmail.com>
-Date: Fri, 6 Nov 2026 22:55:10 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FL3b2pjP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93AA21F0089F;
+	Fri,  6 Nov 2026 14:56:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793976968;
+	bh=OZO2+7G4k6RkoglmAS6YzLo/PJ0QFmsDlFGqO/wIKqU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FL3b2pjP4eHV1sse1FCUItCjs7WSyqKVQlm1eN2jCUmHu0R9vI4R5catcSy55jdyJ
+	 JOUKfCl2j58V/ngp7J5DauX+QE/lEYXrvqts2JBOm7zCiE1X3LgkaKAE4hwBf//qMh
+	 dMWv5mavfztWIVeEzCj2sM9tYiuUon4hwvojwAJ07py/MpMYaIBA5Abkkz7U6FYXMR
+	 kaIIcwxbF+YfCiXG0Us9PryUlZddR4DitWpuhShM//KfOmihsx7KrjcX2AOetsROPv
+	 9k2ftDAZJ4aZaUcuhuECQ2WHN4fMepu+0d3lVLCbAX/MLhswgxSzLpi2Pgypz/jY8z
+	 Go2SN7cDi4krA==
+Date: Fri, 6 Nov 2026 15:56:05 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Frank.Li@oss.nxp.com, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Russell King <linux@armlinux.org.uk>, 
+	Richard Genoud <richard.genoud@bootlin.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Laxman Dewangan <ldewangan@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Chunyan Zhang <zhang.lyra@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Cunhao Lu <1579567540@qq.com>, 
+	Raul E Rangel <rrangel@chromium.org>, Yenchia Chen <yenchia.chen@mediatek.com>, 
+	Zhiyong Tao <zhiyong.tao@mediatek.com>, Carlo Caione <ccaione@baylibre.com>, Moteen Shah <m-shah@ti.com>, 
+	Kendall Willis <k-willis@ti.com>, Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>, 
+	Nicolai Buchwitz <nb@tipi-net.de>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	Stefan =?utf-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>, Shitalkumar Gandhi <shital.gandhi45@gmail.com>, 
+	Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>, 
+	John Ogness <john.ogness@linutronix.de>, Pan Chuang <panchuang@vivo.com>, Petr Mladek <pmladek@suse.com>, 
+	Robin Gong <yibin.gong@nxp.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>, Zhaoyang Yu <2426767509@qq.com>, 
+	"Nikola Z. Ivanov" <zlatistiv@gmail.com>, Haoxiang Li <haoxiang_li2024@163.com>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Myeonghun Pak <mhun512@gmail.com>, 
+	Wenhua Lin <Wenhua.Lin@unisoc.com>, Cixi Geng <cixi.geng@linux.dev>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>, 
+	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
+	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, 
+	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>, 
+	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>, 
+	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
+	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, 
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, vkoul@kernel.org
+Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
+Message-ID: <au3nMfg8QzGtaH-i@orome>
+References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
+ <aux2VKHnVLwq_wzi@orome>
+ <auyQEVmA2KeGu9DL@ashevche-desk.local>
+ <2e12316d-d079-471f-9c29-ef5fb765216a@kernel.org>
+ <auygwakavp_Uk52V@orome>
+ <auyr2lqlSegIXFnc@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,101 +94,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: reuseport: avoid duplicate closed socket
- insertion
-To: netdev-bot+sinfo@kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>, Kuniyuki Iwashima
- <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemb@google.com>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Martin KaFai Lau <kafai@fb.com>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, TencentOS Corvus AI <corvus@tencent.com>,
- stable@vger.kernel.org, Lin Jiapeng <jiapenglin@tencent.com>
-References: <20261106135841.418-1-ljp1205831794@gmail.com>
- <179397371960.488859.17332481477084448537@kernel.org>
-From: Lin Jiapeng <ljp1205831794@gmail.com>
-In-Reply-To: <179397371960.488859.17332481477084448537@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hyjsm6c5ofwknahy"
+Content-Disposition: inline
+In-Reply-To: <auyr2lqlSegIXFnc@ashevche-desk.local>
 
 
+--hyjsm6c5ofwknahy
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
+MIME-Version: 1.0
 
-On 2026-11-06 10:01 p.m., netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->   - Whether the issue was actually triggered, or is only theoretical
->     (e.g. found by code inspection). If it was triggered please include
->     the symptoms, like the stack trace or error messages.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+On Thu, Nov 05, 2026 at 06:16:26PM +0200, Andy Shevchenko wrote:
+> On Thu, Nov 05, 2026 at 04:34:15PM +0100, Thierry Reding wrote:
+> > On Thu, Nov 05, 2026 at 03:35:20PM +0100, Krzysztof Kozlowski wrote:
+> > > On 05/11/2026 15:17, Andy Shevchenko wrote:
+> > > >>> ---
+> > > >>>  drivers/tty/serial/8250/8250_dma.c  | 6 ++----
+> > > >>>  drivers/tty/serial/8250/8250_mtk.c  | 3 +--
+> > > >>>  drivers/tty/serial/8250/8250_omap.c | 6 ++----
+> > > >>>  drivers/tty/serial/amba-pl011.c     | 6 ++----
+> > > >>>  drivers/tty/serial/atmel_serial.c   | 6 ++----
+> > > >>>  drivers/tty/serial/fsl_lpuart.c     | 6 ++----
+> > > >>>  drivers/tty/serial/imx.c            | 6 ++----
+> > > >>>  drivers/tty/serial/msm_serial.c     | 6 ++----
+> > > >>>  drivers/tty/serial/mxs-auart.c      | 6 ++----
+> > > >>>  drivers/tty/serial/pch_uart.c       | 6 ++----
+> > > >>>  drivers/tty/serial/samsung_tty.c    | 6 ++----
+> > > >>>  drivers/tty/serial/serial-tegra.c   | 6 ++----
+> > > >>>  drivers/tty/serial/sh-sci.c         | 9 +++------
+> > > >>>  drivers/tty/serial/sprd_serial.c    | 3 +--
+> > > >>>  drivers/tty/serial/stm32-usart.c    | 6 ++----
+> > > >>>  15 files changed, 29 insertions(+), 58 deletions(-)
+> > > >>
+> > > >> Reviewed-by: Thierry Reding <treding@nvidia.com>
+> > > >=20
+> > > > Krzysztof, now look at this case. I would argue that this is even l=
+ess fit than
+> > > > # subpart(s) case, because it might imply anything. Again the probl=
+em is the
+> > > > bundle, and for such a case (when tons of independent changes are b=
+undled in
+> > > > the same stuff, *every* Rb tag has to be explained on what has been=
+ reviewed!
+> > >=20
+> > > I think this case is obvious - Thierry reviewed this patch and gives =
+Rb
+> > > tag, according to reviewer's statement of oversight. I don't see a
+> > > problem here or what is questionable.
+> >=20
+> > Correct. I looked at this whole thing and approve of it.
+>=20
+> for this type of bundles it's not obvious.
 
+I think it's obvious if you interpret the tag the way it's described in
+the process documentation. If everyone has their own interpretation of
+what it means we have a whole other set of problems.
 
-The issue was actually triggered, not found by code inspection.
+> > If I review only parts of something at most I'll give an Acked-by.
+>=20
+> Which is strange, don't you find it? The review is not an acknowledgement.
+> These are two different operations.
 
-Reproducer outline (unprivileged, uid 65534, inside a fresh user + network
-namespace with net.ipv4.tcp_migrate_req = 1):
+I think review is a stronger form of acknowledgement.
 
-   1. Create two TCP listeners in the same SO_REUSEPORT group (one is kept
-      hashed as an anchor).
-   2. setsockopt(SO_REUSEPORT, 0) on one listener: sk_reuseport is cleared
-      but sk_reuseport_cb stays attached.
-   3. Repeat connect(AF_UNSPEC) + listen() 129 times on that socket. Each
-      disconnect goes through inet_unhash() -> reuseport_stop_listen_sock(),
-      which re-inserts the same socket into the closed section until
-      num_closed_socks exceeds max_socks.
-   4. The 129th insertion writes socks[-1], which overlaps reuse->prog on
-      x86_64. Attaching a classic BPF filter with SO_ATTACH_REUSEPORT_CBPF
-      on the other socket then consumes the struct sock pointer stored in
-      reuse->prog as a struct bpf_prog *.
+> > I don't think I've ever done partial reviews. I don't think you can rea=
+sonably do
+> > that
+> > because if you don't know what other parts of a patch are doing, how can
+> > you say that a specific hunk does what it's supposed to.
+> >=20
+> > Patches are an atomic set of changes,
+>=20
+> Of course, not always the case. This patch is a bundle of atomic changes
+> in a single drop.
 
-Kernel: v7.4-rc1 based tree (d68ce4e71248), x86_64, CONFIG_KASAN=y,
-CONFIG_UBSAN_BOUNDS=y, QEMU.
+That seems like a slippery slope. It means we now need to interpret what
+atomic means. If a commit is not atomic, that to me is grounds for
+rejection. Maybe atomic is the wrong term here. The patch to me is still
+one logical change because it applies the same transformation to all
+these different drivers, and therefore it doesn't require to be split up
+explicitly.
 
-Symptoms, first the out-of-bounds write itself:
+> > so I don't think it makes sense to review only parts of it. If you can'=
+t be
+> > bothered to look at the entirety, that's absolutely fine of course, but=
+ in
+> > that case don't provide a Reviewed-by.
+> >=20
+> > Or, I suppose, you do and then you bear the consequences of lending
+> > credibility to something that you haven't looked at or understood.
+>=20
+> No, I review *my* part, that I understand and I confirm.
 
-   UBSAN: array-index-out-of-bounds in net/core/sock_reuseport.c:152:9
-   index -1 is out of range for type 'struct sock *[] 
-__counted_by(max_socks)'
-   CPU: 0 UID: 65534 PID: 22 Comm: poc
-   Call Trace:
-    __ubsan_handle_out_of_bounds+0x91/0xa0
-    reuseport_stop_listen_sock+0x290/0x310
-    inet_unhash+0xd5/0x400
-    tcp_set_state+0x125/0x260
-    tcp_disconnect+0x47/0x1950
-    __inet_stream_connect+0x2d0/0xab0
-    __x64_sys_connect+0x71/0x80
+I think we need to distinguish between various levels of complexity. For
+this particular case there's not much to understand, it's purely a
+transformation, so you could very well review all the patch hunks
+without needing more context as to the drivers.
 
-then, after SO_ATTACH_REUSEPORT_CBPF is issued on the second listener, the
-corrupted prog pointer reaches the RCU free path as a struct sock *:
+If there were more complexity to this, then I would also argue that it'd
+be better to have separate patches per driver. Most of the time
+submitters tend to do that all by themselves because it's almost common
+sense. But like I said, I don't think that applies here.
 
-   Oops: general protection fault, probably for non-canonical address
-   0xdffffc000000008e: 0000 [#1] KASAN
-   KASAN: null-ptr-deref in range [0x0000000000000470-0x0000000000000477]
-   RIP: 0010:call_rcu+0x10d/0x260
-   Call Trace:
-    ? reuseport_attach_prog+0x6c/0x140
-    reuseport_attach_prog+0xdd/0x140
-    sk_reuseport_attach_filter+0x97/0xf0
-    sk_setsockopt+0x973/0x1cc0
-    __x64_sys_setsockopt+0xac/0xc0
+Also, I'd like to remind everyone that this is a community project and
+if everyone is only ever going to review *their* part, it's all going to
+deteriorate over time. Again, I sympathize with people not having time
+to extensively review everything. However, for cases like this once you
+already load enough context to review *your* part, you might as well
+spend the extra minute or two reviewing the other parts, which is all
+that's necessary to make this a full review.
 
-   followed by "Kernel panic - not syncing: Fatal exception".
+Of course it's a bit questionable that a full review is really needed
+here, in which case an Acked-by is really all you need.
 
-With the proposed fix applied, the same reproducer completes cleanly: no
-UBSAN report, no oops, the SO_ATTACH_REUSEPORT_CBPF call and socket
-teardown all succeed, PoC exits 0.
+Thierry
 
-I can share the reproducer program if that is useful.
+--hyjsm6c5ofwknahy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt6oIACgkQ3SOs138+
+s6FcVxAAv0rp5SLtEPRjUT//i58IZP/aVR/4ZYrRNo0F1Y3ECYjFQ94qa1m8tvTg
+X2/GMdlycFs5dgwdbVVhbHB8wK89n1ABMjH9gnkWFCvpDk6VJ4ux8FuzyI08tukU
+l6sfyAptqb6O97trV6Rzj1UYvvampY6H//QbmE1GAnMiujp5mx7qabeoL0dbrJjE
+WGY+IBsyqimxNJ/6A6ZcIzj53KzzqDnJQeMkiEFWjCZTjWk5CSOpKi/DFryfdatD
+O7mSJzUp0NYWzs9KPEYHxuiAlTBf4SD9tjiEGU5poqnwUqyWoinTCJJRGH5np4tM
+f1zGTtGY3XFKA9nBY3i7wODHqGdZNmn7G4+d60LV3C5uS96ooYS6T55asYun1vLO
+rpTeLmAC7ClIp2hVDTLziEFwayuQlz30TGVAPDJQr0ViyE5VIgNZQXHaYfqqMh8T
+vXBMJH6255KbTCjsv6Kc7fvGxoCOWZ6SSMWuOFakVKJkbgaDDBunkckjNJQh4lCk
+g4c8fwM+4J859WhpjGafYnSor+zhfOU6YRZWCcNOEXJqPof567IlKShI56Wt9tgr
+UzHb3L6+OzTEd+MKeNWdvD8RqSAAt1yv5Fks2TM69qH/rxD81y6ewIqQE3GryhmZ
+w5jNiIbDq4g1IsBNqnS0LXMC1pPNTZMY8IF0l//XMWnNwl0Z8Vg=
+=xdRj
+-----END PGP SIGNATURE-----
+
+--hyjsm6c5ofwknahy--
