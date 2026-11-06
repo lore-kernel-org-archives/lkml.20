@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964758;
-	b=wyGd8hu1115/en62jsaxpQbR4vNUSUC0uU8kyc1MkMxwYfHDrFIIt1z2ngu9cG44iLiD
-	 e/UF+LH/iOs2tx5i+vgrn8jknUeuam/LYhId+SkFkDC+sdPsAWhPoUxUaPkwB/VLllknu
-	 GpyUCiTHGMabhbRVBbvskY6Zs4jVdTHNUukzBkUnEpijKQmI7Z9FQYeJ8tJW9CCk0+Tqz
-	 j+/NFbN+srZR3AOIvXJtRTH2NwhMfX9gmYqs6qcsMZf3cYWh5xI7wwradkhzH0IhSmxWh
-	 WI6UxbYmcqJVHcIEM+Bm2eL84gBGTDXPBwkhpb6yZbsK8leJMB1/9MWvrEHkYnEfRYQ==
+	t=1793964765;
+	b=TwJHAhi7UwRuVuhJfu5zCKlBuz3NNAnvDtMRgK25kQ9Ka5ZxNuwy5ZFwjXsqOq77+yUu
+	 GqbplrF1r203eriWdnv0+fTySRg6a94zoXMaz3y7be3G5XcSjsEB2WVnTwOL1QgH4vX6b
+	 EAZ1Aj+BDPGSRQ04rE/kDCOWWgx9Q5OnfMjaH0DN+V9Jrd7XEDvqmf9PL5JSoSn2uMupw
+	 3E+aMpO3RqrQ07GfunBUpk/tzBEpjF0xp5vU5PoyKt4rkVAoNXHpw/Wm648HbGo+JaZuc
+	 zcPfRv6GX5LMsc5zyhJLr9YGbQM1aUjxnsyUoce1v4SP7DY+RYRQCAWl4AbKNEZqnkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964765;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qQ6dPOK097pgvu31x83awoqREmNw4NrpdSa+JAb8QvY=;
-	b=Asf3GD6xyniPewEIYut+fBKFu3kH5wMFb1l6SnZTjlb747SzwZhPpZCf1uN/AxRdv/Up
-	 FKVGLGWuANbZSQol8YNXVFgVfLo1dSdi8KkwJIfcUVfdbm7/7iTfZjYNtIgWrvAJaxU3t
-	 GRMFjvJNYT75t1X/sOu1nfQlMraL+3iKILYlVOId1dGyiNoTjgEhk7fTmkfc1gQ7Uw+Tq
-	 ux+yQ37ZAzuumsYG2YjSJy3XBQD8/Ru13oYqsOMzySw9qQPewVRPyn/D3qeyWb9Av41FY
-	 1qhaXUysU56NLT9I1Pncoj11UeMUdRefJpOhvxIY8cZtyV1ZEBSPljQIpd5uKbWw/Wg==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=4+W/y1+xKwI/Q11z+x4eNw/QII2gfHgjNOLpuKt+j0k=;
+	b=pNree3uNI/kw0j3TTHRbS6mgydH6PE+fpqWOQs20NvAuPr7zUWzKTxn6/wQubpOaX5s0
+	 TQU9I+pJz/sxlsrDmYG8qTfaVHcrk4ECOdxHPR50ERcpU9lnDqCJcUTTNwwcsjduhrarg
+	 NTU2fxjoLv1PfDzOTkEwyuN7YQWoZmuHuURqUABnYShZC01TpAHixLrCQbKRNZx3w++8V
+	 DBR8bV3MryH3LxpKkkW547ixuKRrbGOcWUr+1cpP0N4EeCvWty+iVGDDcgkzZb02KuWST
+	 tC/GAvGTajxtej1CzjfDjIuPcU2Ao3aQ4cDU2sgEaPslXoz9ub3S+I+GmGOT0S/Sc0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WE6CcHFz;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPedi2Tt;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4BE0606A90B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4BE0606A90B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E82606BD6C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:32:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0E82606BD6C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WE6CcHFz
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-491f34b4e0fso250487f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:32:37 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TPedi2Tt
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b0b6cae44aso106858a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:32:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964756; x=1794569556; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qQ6dPOK097pgvu31x83awoqREmNw4NrpdSa+JAb8QvY=;
-        b=WE6CcHFzOVQzbA+mUD4qQNTJMKjQRW5CJzplWTyz2Msv5pvp3YPupn8DzIfuW5RVTs
-         bkmEGYBiMuNuTSJZkxCDUrCnv5SMxd/V5sGCM8ZCqLmFPFsPa7Qh2XVPsHc37I/7i6+l
-         EcOIesGMaRFasy+8tM/fFw93Icrj8sW6LOf11IFcjwl0iZyJiuUgWF4oXnXG2G0bNbfJ
-         4N8BMJsymqzP5V8h6Pktoi6cPLSTRTjGXaNZrHx2Dgvi4lRH5F5qFm8XqNetbmCAZfMI
-         hPgYsKcVS79sduOMIqlr+ryh8dJeEZw5BvIfr4iYDuy97e1AogrSLEpRYSlGg4TpBD0W
-         fwLw==
+        d=gmail.com; s=20260707; t=1793964764; x=1794569564; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4+W/y1+xKwI/Q11z+x4eNw/QII2gfHgjNOLpuKt+j0k=;
+        b=TPedi2Tt7s5bQPLdOGcyv0jVHL8ACZwpy0gQJ9PI4IV6SYNS3yR+fPNQV3lSdVkMGx
+         5s8cSJkPsENl8Y1DRGTnFhGYYSVqZuUv2SWYbDCUbxPUj13LkB9Wm9QW+RGFPebTp85W
+         yOfPtq+ElnZtMKd13kLc1+JvEx9Kvls3NYf5A1EZshHqwQPBTnd4g7NMXOc8uIwh7PER
+         /rV6tKrVx7zVIBxu2T9T/RapKleWr3UaWhDNcwmabxop/vErLP1bVMLpV/JoDQN2vUK2
+         STEEL8cm/rTVAPU8172aJsjKMaKK1DvsHkMq7Ek9TiDbeBqzFUH+uEIo/i8gSU2QcQVO
+         GvsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964756; x=1794569556;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qQ6dPOK097pgvu31x83awoqREmNw4NrpdSa+JAb8QvY=;
-        b=yBjUcomtn1PW2DTILvBoG2wCVYE5cz0yDu2bh1ZrdO+DVK2E1qsKiIb31JnbfcJuqM
-         Er9W3lH2I/3xfOirQBxx15B8COHBY4qTVdHn3WUCOvrBuIB4LighKK9eXJy2rhSWQAVP
-         FjPKmlq3M+r4YIeWJQpx41vo0SvGrTWgz80GN+CG3Q6eIJ3MsZ05S+KpZdqVkuRvZq+Q
-         ycw6I+32QBHiyHUGyZYm5sxqxD8JaElYnZnhHN/dahXVBBwfYv1PdKSav7EHbLVwQetP
-         xUHCV83DjroA4LYd/DavvPcZNpPQgFt92H1XCPam07lZPXnnZaOJFzO1DTT9rProkYI+
-         nIUA==
-X-Forwarded-Encrypted: i=1; AL+hErFOOQ8vx5ug+OprmpUTYJXcbprpg8pvs9iXy37mSzfZqROAGbSz5Tiotzqo5TDBcU9pzbasYj/FB2P4YsY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ohNCWqj0gpFPBCEzzW223rlUkWDb/p0wjdvNPbIYiyV4ryVuj
-	UrK2TDYYxyfwD+QNtmA3DNKZ8M63VtxdhqIQ+xIZG/BLZFeQFmglrtW4
-X-Gm-Gg: AYBFou2DKDrR/B7SqDLTHZ90u7/hq7QT0SQJvD2fHxvMmFPmqatZ0XwR1j430miSW1t
-	gIO7UaiUK4H1iJhtzpOe+pkzV0NzykofeMvRD/Y19cSpGuRejPfKrye/zaBJdmdi06YYLiOMpa8
-	s8QIKYGP5bJN3U+xkBOHLfUlNFvSPl32vlrTBZgXfKQRx0cdDXDHdIwpJC6NXuV72lnfUcXEvfc
-	APKLiNemciphcczBSHzDlUmckp1wMhH3OtNTkFY7lI0wYz7vEy72Sdoi7wav/CPBy71s1ilCggR
-	ywluFIWpUS/k260ZnL72C9yQc0PHEfwvus8LlCF0Sd+QRUFVLHf5B/dYcR/ED1NgjL2j1mPZtZn
-	NBUDFE9e/ys9XBnIZGyrT8KJNwGXK0m2ns0CDv90RvlvcZ4eqw29f7aOo4D0BN1KtB6I85vopJ7
-	e7vsmOC428PgL9ldWzwnCuDNiRPgtmjJZ7MyLSWe8sU7iHIWnIvYtJr4ABLlZhYCrWtBg7dDtK0
-	7eRTomp+jHyPEWOouPuPjmPcn43tvVsnR0lzkB1lzDRfmkZ5VDtW6r8uAe9wFXP3xZ7I7bQuZNF
-	hiMbNIsRU6SbqoBxjCcOJMRaO25iDaVcPWFRG88fiUcSU2gnq5AXSLUE4rd2M8YTGhOH1LAez+y
-	X7ZZOlqAf8YK0Y8CezEx3ryg559S9jWJZow==
-X-Received: by 2002:a05:6000:47:b0:490:2d81:ccbb with SMTP id ffacd0b85a97d-4927845510emr3645571f8f.52.1793964756021;
-        Fri, 06 Nov 2026 03:32:36 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-492d72333f9sm3254280f8f.29.2026.11.06.03.32.35
+        d=1e100.net; s=20260707; t=1793964764; x=1794569564;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4+W/y1+xKwI/Q11z+x4eNw/QII2gfHgjNOLpuKt+j0k=;
+        b=KXjHN3nCGPpYrQILICnFBkHkjIxI08CdE/9oPSS3w55qUQb/ALxGdZoLgrxPG2e+xe
+         //3lXYVS2leWU5YyUSekP+DXU8uvDCz+GuwZ3WGsL0OfuBKUl8BauiUvKxaI6UXBtENE
+         tgrebdkyPwXHkKzwT6Jwy6JUgkhy3VxBgYtbUg/s+1upqdwFO64TKtH/fmM4pYaZiyHD
+         o1/uEPKfUTr8/mCHkIXXu0RhVV+0+ndmMtjLbMF5L5Z38SG96RmsunrBIqYFxBs0wnC4
+         2tW/CT4oGIjsgXYkrntmwrh3EKMt0qyBAFsUQTYRTShFnZ7Jar/icC031LE2cEgS1YGF
+         oD0Q==
+X-Forwarded-Encrypted: i=1; AL+hErHqcFraS4rEpvV/BfC2Ab3D6jb9mLARXqJDmpHrWrgjr/t4k0gws1OG/tb8Tmds3rluA4SFw1yGMQ9SJOs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+45od7q6Ii8smBKaC2lNkU24I6/GYLwGS8Cdpl+GgXC6CDSu1B
+	5JPgDZi7RANghQs+OIqWFmquoXPHom9bhdbhKeYL/yQik55GIzE8tL+X
+X-Gm-Gg: AYBFou1PJ8Qa2FceNLreeoURGiG/nYEGP7det+gFeWhFbP10kfVOxW5jQgIYNbKmuRM
+	jG+1r1Nc8FsearFgk93bABsEO+5R926vy0iNvPxXtxfa1sRlqshMY0PTil+Fdf3WjDeOR2SuZFJ
+	NeSEHaJx/QtspgGhVdA6KHk8PXc/wdTCSbnOSDObOHvhvw10JRvhtHgs1zab56sMU8uUpSyYxE1
+	kp2B2U+DgfZA96NIRNpmZEoJdmHgb5DaBx25HIp5XLsPiY4eHsRI639S3bTpUnIXFZTKi471CBC
+	wMFRBGDnCAdmJdt/XtASFDTj8wA9Y+mrcKCo6FmoHpPmMdN31wc95rLb365hsbT7jZxQ3kHQ/tC
+	HhfYGvHKf23hrfbUPTZydid51+adjnbumiiS6NnJFXAkzZEQnVhgUMKbSHJcBPUQAKb/+pEslMl
+	oX13CD1X/XhxWekp0ZLo6esKNMTr1U3/nP+h0czebShHhEkx8w/bRu/46yyZvzAqVyY+51PnZhX
+	042qdDZQsk0DT5UYh5BceC7zttMw5UYRoocIBpKMloS7aj2eMYBL9kStPcXuyYjeybmFvDuSOWH
+	Akgkl+5AtDA9xhas74r/Q62VYzSgraoO3+yk6p2inisG9nJRXyBzTLVRzZ+y7Jl6bvB+uBA3tJQ
+	6Bx+FdJO2UV1T7vX4pX3pR/3L
+X-Received: by 2002:a17:90b:4a89:b0:3b0:975b:2256 with SMTP id 98e67ed59e1d1-3b0db6f8e05mr3196782a91.4.1793964763898;
+        Fri, 06 Nov 2026 03:32:43 -0800 (PST)
+Received: from chenyou.ncku.edu.tw ([140.116.19.13])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7ca4b03sm3116477a91.14.2026.11.06.03.32.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:32:35 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v4 2/2] clk: en7523: add support for .set_rate for en7581
-Date: Fri,  6 Nov 2026 12:32:25 +0100
-Message-ID: <20261106113227.182324-3-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261106113227.182324-1-ansuelsmth@gmail.com>
-References: <20261106113227.182324-1-ansuelsmth@gmail.com>
+        Fri, 06 Nov 2026 03:32:43 -0800 (PST)
+From: Chen-Yu Yeh <chenyou910331@gmail.com>
+To: Alex Shi <alexs@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Weijie Yuan <wy@wyuan.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chen-Yu Yeh <chenyou910331@gmail.com>
+Subject: [PATCH 16/25] docs/zh_TW: process: sync security-bugs.rst with the English original
+Date: Fri,  6 Nov 2026 19:31:31 +0800
+Message-ID: <20261106113142.706783-17-chenyou910331@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106113142.706783-1-chenyou910331@gmail.com>
+References: <20261106113142.706783-1-chenyou910331@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,331 +104,395 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add support for EN7523 driver to configure rate for Airoha EN7581 SoC.
-The SoC expose both base clock selector and clock divisor hence it's
-possible to change the rate.
+The translation still mirrors the 2021 text: a short "Contact" section
+pointing at security@kernel.org and a coordination section about the old
+vs.openwall.org list and its "[vs]" subject prefix.  Since then the
+English document has been rewritten section by section, so retranslate
+it in full against the current text:
 
-This will be especially needed for new SoC AN7583 that require changes
-for the MDIO and the eMMC.
+- add "Preparing your report" with the mandatory and desirable items
+  (commit 496fa1befba1 ("Documentation: clarify the mandatory and
+  desirable info for security reports"), commit e447f7f33fa0 ("docs:
+  security-bugs: clarify what counts as a valid version"))
+- add "What qualifies as a security bug", including the threat-model
+  link and the rule that AI-found bugs are to be treated as public
+  (commit a03ef333fbd6 ("Documentation: security-bugs: explain what is
+  and is not a security bug"), commit 561458db0d6b ("docs:
+  security-bugs: add a link to the threat-model documentation"),
+  commit 4bf85afb9f3e ("Documentation: security-bugs: clarify
+  requirements for AI-assisted reports"))
+- add "Identifying contacts" with the get_maintainer.pl examples
+  (commit a72b832a4823 ("Documentation: explain how to find maintainers
+  addresses for security reports"))
+- add "Responsible use of AI to find bugs" and the steps an AI assistant
+  must follow (commit 4bf85afb9f3e ("Documentation: security-bugs:
+  clarify requirements for AI-assisted reports"),
+  commit 6ffecfe0805e ("docs: security-bugs: clarify some mandatory
+  steps for AI reports"))
+- add "Sending the report": collaboration with the reporter, when to
+  "Cc:" the security team, the plain-text requirement
+  (commit d49172bbd7eb ("Documentation: clarify the expected
+  collaboration with security bugs reporters"),
+  commit ceddb2c001d9 ("Documentation: insist on the plain-text
+  requirement for security reports"),
+  commit aed3c3346765 ("Documentation: security-bugs: do not
+  systematically Cc the security team"))
+- replace the coordination and CVE sections with the current
+  "Coordination with other groups" and "CVE assignment" text
+  (commit 4fee0915e649 ("Documentation: security-bugs.rst: update
+  preferences when dealing with the linux-distros group"),
+  commit 0217f3944aeb ("Documentation: security-bugs.rst: linux-distros
+  relaxed their rules"), commit 3c1897ae4b6b ("Documentation:
+  security-bugs.rst: clarify CVE handling"),
+  commit 5928d411557e ("Documentation: Document the Linux Kernel CVE
+  process"))
+- localize terminology (內核→核心, 信息→資訊, 代碼→程式碼, 爲→為,
+  發佈→發布)
 
-The clock were assumed correctly configured by the bootloader but this
-goes against the rule of "kernel should not depend on external
-configuration".
+zh_TW has no translation of process/cve.rst, so the CVE section names
+Documentation/process/cve.rst as plain text rather than a :doc: link.
 
-To support the use of standard clock divider API, clock_div_table are added
-where needed (BUS, SPI and SLIC) in additionl to the previous info to
-derive and simulate the clock from the divisor registers.
+Now that the file is in sync, drop the not-kept-in-sync notice.
 
-Recalc rate for Airoha EN7581 is updated to use the divider_recalc_rate API
-for consistency with .set_rate and .determine_rate.
+update to commit 6ffecfe0805e ("docs: security-bugs: clarify some
+mandatory steps for AI reports")
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 ---
- drivers/clk/clk-en7523.c | 228 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 227 insertions(+), 1 deletion(-)
+ .../zh_TW/process/security-bugs.rst           | 296 +++++++++++++++---
+ 1 file changed, 249 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-index 6640e814d36a..db7447be31c3 100644
---- a/drivers/clk/clk-en7523.c
-+++ b/drivers/clk/clk-en7523.c
-@@ -119,6 +119,8 @@ struct en_clk_desc {
- 	u16 div_val0;
- 	u8 div_step;
- 	u8 div_offset;
-+	unsigned long div_flags;
-+	const struct clk_div_table *div_table;
- };
+diff --git a/Documentation/translations/zh_TW/process/security-bugs.rst b/Documentation/translations/zh_TW/process/security-bugs.rst
+index 783d7c77b5fa..bdb8f8f35a9c 100644
+--- a/Documentation/translations/zh_TW/process/security-bugs.rst
++++ b/Documentation/translations/zh_TW/process/security-bugs.rst
+@@ -1,74 +1,276 @@
+ .. SPDX-License-Identifier: GPL-2.0
  
- struct en_clk_gate {
-@@ -161,7 +163,88 @@ struct en_clk_soc_data {
- static const u32 gsw_base[] = { 400000000, 500000000 };
- static const u32 emi_base[] = { 333000000, 400000000 };
- static const u32 bus_base[] = { 500000000, 540000000 };
-+/* From documentation divisor 1 is n/a */
-+static const struct clk_div_table bus_div[] = {
-+	{ .val = 1, .div = 2 },
-+	{ .val = 2, .div = 3 },
-+	{ .val = 3, .div = 4 },
-+	{ .val = 4, .div = 5 },
-+	{ .val = 5, .div = 6 },
-+	{ .val = 6, .div = 7 },
-+	{ .val = 7, .div = 8 },
-+	{ /* sentinel */ }
-+};
- static const u32 slic_base[] = { 100000000, 3125000 };
-+static const struct clk_div_table slic_div[] = {
-+	{ .val = 0, .div = 20 },
-+	{ .val = 1, .div = 2 },
-+	{ .val = 2, .div = 4 },
-+	{ .val = 3, .div = 6 },
-+	{ .val = 4, .div = 8 },
-+	{ .val = 5, .div = 10 },
-+	{ .val = 6, .div = 12 },
-+	{ .val = 7, .div = 14 },
-+	{ .val = 8, .div = 16 },
-+	{ .val = 9, .div = 18 },
-+	{ .val = 10, .div = 20 },
-+	{ .val = 11, .div = 22 },
-+	{ .val = 12, .div = 24 },
-+	{ .val = 13, .div = 26 },
-+	{ .val = 14, .div = 28 },
-+	{ .val = 15, .div = 30 },
-+	{ .val = 16, .div = 32 },
-+	{ .val = 17, .div = 34 },
-+	{ .val = 18, .div = 36 },
-+	{ .val = 19, .div = 38 },
-+	{ .val = 20, .div = 40 },
-+	{ .val = 21, .div = 42 },
-+	{ .val = 22, .div = 44 },
-+	{ .val = 23, .div = 46 },
-+	{ .val = 24, .div = 48 },
-+	{ .val = 25, .div = 50 },
-+	{ .val = 26, .div = 52 },
-+	{ .val = 27, .div = 54 },
-+	{ .val = 28, .div = 56 },
-+	{ .val = 29, .div = 58 },
-+	{ .val = 30, .div = 60 },
-+	{ .val = 31, .div = 62 },
-+	{ /* sentinel */ }
-+};
-+static const struct clk_div_table spi_div[] = {
-+	{ .val = 0, .div = 40 },
-+	{ .val = 1, .div = 2 },
-+	{ .val = 2, .div = 4 },
-+	{ .val = 3, .div = 6 },
-+	{ .val = 4, .div = 8 },
-+	{ .val = 5, .div = 10 },
-+	{ .val = 6, .div = 12 },
-+	{ .val = 7, .div = 14 },
-+	{ .val = 8, .div = 16 },
-+	{ .val = 9, .div = 18 },
-+	{ .val = 10, .div = 20 },
-+	{ .val = 11, .div = 22 },
-+	{ .val = 12, .div = 24 },
-+	{ .val = 13, .div = 26 },
-+	{ .val = 14, .div = 28 },
-+	{ .val = 15, .div = 30 },
-+	{ .val = 16, .div = 32 },
-+	{ .val = 17, .div = 34 },
-+	{ .val = 18, .div = 36 },
-+	{ .val = 19, .div = 38 },
-+	{ .val = 20, .div = 40 },
-+	{ .val = 21, .div = 42 },
-+	{ .val = 22, .div = 44 },
-+	{ .val = 23, .div = 46 },
-+	{ .val = 24, .div = 48 },
-+	{ .val = 25, .div = 50 },
-+	{ .val = 26, .div = 52 },
-+	{ .val = 27, .div = 54 },
-+	{ .val = 28, .div = 56 },
-+	{ .val = 29, .div = 58 },
-+	{ .val = 30, .div = 60 },
-+	{ .val = 31, .div = 62 },
-+	{ /* sentinel */ }
-+};
- static const u32 npu_base[] = { 333000000, 400000000, 500000000 };
- /* EN7581 */
- static const u32 emi7581_base[] = { 540000000, 480000000, 400000000, 300000000 };
-@@ -215,6 +298,7 @@ static const struct en_clk_desc en7523_base_clks[] = {
- 		.div_shift = 0,
- 		.div_step = 1,
- 		.div_offset = 1,
-+		.div_table = bus_div,
- 	}, {
- 		.id = EN7523_CLK_SLIC,
- 		.name = "slic",
-@@ -230,6 +314,7 @@ static const struct en_clk_desc en7523_base_clks[] = {
- 		.div_shift = 24,
- 		.div_val0 = 20,
- 		.div_step = 2,
-+		.div_table = slic_div,
- 	}, {
- 		.id = EN7523_CLK_SPI,
- 		.name = "spi",
-@@ -242,6 +327,7 @@ static const struct en_clk_desc en7523_base_clks[] = {
- 		.div_shift = 8,
- 		.div_val0 = 40,
- 		.div_step = 2,
-+		.div_table = spi_div,
- 	}, {
- 		.id = EN7523_CLK_NPU,
- 		.name = "npu",
-@@ -311,6 +397,7 @@ static const struct en_clk_desc en7581_base_clks[] = {
- 		.div_shift = 0,
- 		.div_step = 1,
- 		.div_offset = 1,
-+		.div_table = bus_div,
- 	}, {
- 		.id = EN7523_CLK_SLIC,
- 		.name = "slic",
-@@ -326,6 +413,7 @@ static const struct en_clk_desc en7581_base_clks[] = {
- 		.div_shift = 24,
- 		.div_val0 = 20,
- 		.div_step = 2,
-+		.div_table = slic_div,
- 	}, {
- 		.id = EN7523_CLK_SPI,
- 		.name = "spi",
-@@ -338,6 +426,7 @@ static const struct en_clk_desc en7581_base_clks[] = {
- 		.div_shift = 8,
- 		.div_val0 = 40,
- 		.div_step = 2,
-+		.div_table = spi_div,
- 	}, {
- 		.id = EN7523_CLK_NPU,
- 		.name = "npu",
-@@ -775,11 +864,148 @@ static unsigned long en7581_recalc_rate(struct clk_hw *hw,
- 		return 0;
- 	}
+ .. include:: ../disclaimer-zh_TW.rst
+-.. include:: ../unmaintained-zh_TW.rst
  
--	return rate / en7523_get_div(desc, val);
-+	if (desc->div_bits) {
-+		val >>= desc->div_shift;
-+		val &= (1 << desc->div_bits) - 1;
-+
-+		rate = divider_recalc_rate(hw, rate, val,
-+					   desc->div_table,
-+					   desc->div_flags,
-+					   desc->div_bits);
-+	}
-+
-+	return rate;
-+}
-+
-+/*
-+ * Simulate rate with every divisor supported
-+ * 1. Search the divisor for the requested rate
-+ * 2. Simulate the final rate with the new divisor
-+ */
-+static unsigned long en7581_get_div_for_rate(struct clk_hw *hw,
-+					     unsigned long rate,
-+					     unsigned long parent_rate,
-+					     const struct en_clk_desc *desc,
-+					     int *div_val)
-+{
-+	*div_val = divider_get_val(rate, parent_rate, desc->div_table,
-+				   desc->div_bits, desc->div_flags);
-+	if (*div_val < 0)
-+		return 0;
-+
-+	return divider_recalc_rate(hw, parent_rate, *div_val,
-+				   desc->div_table, desc->div_flags,
-+				   desc->div_bits);
-+}
-+
-+static int en7581_get_vals_for_rate(struct clk_hw *hw,
-+				    const struct en_clk_desc *desc,
-+				    unsigned long rate,
-+				    u32 *base_val, u32 *div_val)
-+{
-+	struct device *dev = clk_hw_get_dev(hw);
-+	unsigned long parent_rate, tmp_rate;
-+	int tmp_base_val = 0;
-+	int tmp_div_val = 0;
-+
-+	if (!desc->base_bits && !desc->div_bits)
-+		return -EINVAL;
-+
-+	if (!desc->base_bits) {
-+		parent_rate = desc->base_value;
-+
-+		tmp_rate = en7581_get_div_for_rate(hw, rate, parent_rate,
-+						   desc, &tmp_div_val);
-+
-+		/* Matching clock found */
-+		if (tmp_rate && tmp_rate == rate)
-+			goto exit;
-+	}
-+
-+	/* Search requested rate with every matching base rate + divisor */
-+	for (; tmp_base_val < desc->n_base_values; tmp_base_val++) {
-+		parent_rate = desc->base_values[tmp_base_val];
-+		tmp_rate = parent_rate;
-+
-+		if (desc->div_bits)
-+			tmp_rate = en7581_get_div_for_rate(hw, rate, parent_rate,
-+							   desc, &tmp_div_val);
-+
-+		/* Matching clock found */
-+		if (tmp_rate && tmp_rate == rate)
-+			break;
-+	}
-+
-+	/* Failed to found matching clock, return error */
-+	if (tmp_base_val >= desc->n_base_values) {
-+		dev_err(dev, "Invalid rate for clock %s\n",
-+			desc->name);
-+		return -EINVAL;
-+	}
-+
-+exit:
-+	*base_val = tmp_base_val;
-+	*div_val = tmp_div_val;
-+
-+	return 0;
-+}
-+
-+static int en7581_determine_rate(struct clk_hw *hw,
-+				 struct clk_rate_request *req)
-+{
-+	struct en_clk *en_clk = container_of(hw, struct en_clk, hw);
-+	u32 div_val, base_val;
-+
-+	/* Just check if the rate is possible */
-+	return en7581_get_vals_for_rate(hw, en_clk->desc, req->rate,
-+					&base_val, &div_val);
-+}
-+
-+static int en7581_set_rate(struct clk_hw *hw, unsigned long rate,
-+			   unsigned long parent_rate)
-+{
-+	struct en_clk *en_clk = container_of(hw, struct en_clk, hw);
-+	const struct en_clk_desc *desc = en_clk->desc;
-+	struct device *dev = clk_hw_get_dev(hw);
-+	struct regmap *map = en_clk->map;
-+	u32 base_val, div_val;
-+	u32 reg, val, mask;
-+	int err;
-+
-+	err = en7581_get_vals_for_rate(hw, en_clk->desc, rate,
-+				       &base_val, &div_val);
-+	if (err)
-+		return err;
-+
-+	if (desc->div_bits) {
-+		reg = desc->div_reg ? desc->div_reg : desc->base_reg;
-+
-+		mask = (BIT(desc->div_bits) - 1) << desc->div_shift;
-+		val = div_val << desc->div_shift;
-+
-+		err = regmap_update_bits(map, reg, mask, val);
-+		if (err)
-+			return dev_err_probe(dev, err, "Failed to update div reg for clock %s\n",
-+					     desc->name);
-+	}
-+
-+	if (desc->base_bits) {
-+		mask = (BIT(desc->base_bits) - 1) << desc->base_shift;
-+		val = base_val << desc->base_shift;
-+
-+		err = regmap_update_bits(map, desc->base_reg, mask, val);
-+		if (err)
-+			return dev_err_probe(dev, err, "Failed to update reg for clock %s\n",
-+					     desc->name);
-+	}
-+
-+	return 0;
- }
+ :Original: :doc:`../../../process/security-bugs`
  
- static const struct clk_ops en7581_clk_ops = {
- 	.recalc_rate = en7581_recalc_rate,
-+	.determine_rate = en7581_determine_rate,
-+	.set_rate = en7581_set_rate,
- };
+ 安全缺陷
+ =========
  
- static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_data *clk_data,
+-Linux內核開發人員非常重視安全性。因此我們想知道何時發現了安全漏洞，以便儘快
+-修復和披露。請向Linux內核安全團隊報告安全漏洞。
++Linux 核心開發人員非常重視安全性。因此，我們希望在發現安全缺陷時能夠得知，
++以便盡快修復並披露。
+ 
+-聯絡
+------
++準備你的報告
++------------
+ 
+-可以通過電子郵件<security@kernel.org>聯繫Linux內核安全團隊。這是一個安全人員
+-的私有列表，他們將幫助驗證錯誤報告並開發和發佈修復程序。如果您已經有了一個
+-修復，請將其包含在您的報告中，這樣可以大大加快進程。安全團隊可能會從區域維護
+-人員那裏獲得額外的幫助，以理解和修復安全漏洞。
++和任何缺陷報告一樣，安全缺陷報告需要開發人員進行大量的分析工作，因此你能提供
++的問題資訊越多越好。如果你不清楚哪些資訊有幫助，請參閱
++Documentation/admin-guide/reporting-issues.rst 中概述的步驟。以下資訊在
++**任何** 安全缺陷報告中都是絕對必要的：
+ 
+-與任何缺陷一樣，提供的信息越多，診斷和修復就越容易。如果您不清楚哪些信息有用，
+-請查看“Documentation/translations/zh_CN/admin-guide/reporting-issues.rst”中
+-概述的步驟。任何利用漏洞的攻擊代碼都非常有用，未經報告者同意不會對外發布，除
+-非已經公開。
++  * **受影響的核心版本範圍**：沒有標明版本的報告將不會被處理。注意，像「最新
++    的 mainline」這類會隨時間改變的版本是不可接受的，必須提供穩定的識別方式，
++    例如 commit ID 或確切的版本號碼。非來自 kernel.org 的核心（例如發行版
++    核心）的版本號碼對維護者沒有意義，也不會被處理。相當一部分報告針對的是
++    已經修復的缺陷，因此務必在較新的版本（開發樹或最新的穩定版）上驗證漏洞，
++    至少要確認自發現問題的版本以來，相關程式碼沒有改變。
+ 
+-請儘可能發送無附件的純文本電子郵件。如果所有的細節都藏在附件裏，那麼就很難對
+-一個複雜的問題進行上下文引用的討論。把它想象成一個
+-:doc:`常規的補丁提交 <../process/submitting-patches>` （即使你還沒有補丁）：
+-描述問題和影響，列出復現步驟，然後給出一個建議的解決方案，所有這些都是純文本的。
++  * **問題描述**：必須詳細描述問題，附上顯示問題如何出現的追蹤記錄，並說明你
++    為什麼認為觀察到的行為是核心的問題。
+ 
+-披露和限制信息
+----------------
++  * **重現程式**：開發人員需要能夠重現問題，才能確認修復有效。這包括觸發問題
++    的方法，以及確認問題確實發生的方法。需要提供依賴項簡單的重現程式（原始碼、
++    shell 腳本、一系列操作步驟、檔案系統映像檔等）。只有二進位執行檔的重現程式
++    不被接受。可用的漏洞利用程式（exploit）非常有幫助，未經報告者同意不會對外
++    發布，除非它們已經公開。按照定義，無法重現的問題就無法被利用，因此也不是
++    安全缺陷。
+ 
+-安全列表不是公開渠道。爲此，請參見下面的協作。
++  * **條件**：如果缺陷取決於特定的設定選項、sysctl、權限、時序、程式碼修改等，
++    應該一併註明。
+ 
+-一旦開發出了健壯的補丁，發佈過程就開始了。對公開的缺陷的修復會立即發佈。
++此外，以下資訊也非常需要：
+ 
+-儘管我們傾向於在未公開缺陷的修復可用時即發佈補丁，但應報告者或受影響方的請求，
+-這可能會被推遲到發佈過程開始後的7日內，如果根據缺陷的嚴重性需要更多的時間，
+-則可額外延長到14天。推遲發佈修復的唯一有效原因是爲了適應QA的邏輯和需要發佈
+-協調的大規模部署。
++  * **疑似的缺陷位置**：疑似存在缺陷的檔案名稱與函式非常重要，至少有助於把報告
++    轉給適當的維護者。如果無法提供（例如「每次執行這個指令系統都會凍結」），
++    安全團隊會協助找出缺陷的來源。
+ 
+-雖然可能與受信任的個人共享受限信息以開發修復，但未經報告者許可，此類信息不會
+-與修復程序一起發佈或發佈在任何其他披露渠道上。這包括但不限於原始錯誤報告和
+-後續討論（如有）、漏洞、CVE信息或報告者的身份。
++  * **建議的修復**：在原始碼中分析過缺陷成因的報告者，幾乎總是很清楚該如何修復
++    它，因為他們花了很長時間研究缺陷及其影響。提出經過測試的修復能為維護者節省
++    大量時間，即使該修復最終並不正確也一樣，因為它有助於理解缺陷。提出經過測試
++    的修復時，請務必將其整理成可以直接合併的格式（請參閱
++    Documentation/process/submitting-patches.rst）。如果修復被接受，這能省去
++    一些來回溝通，而你也會因為發現並修復這個問題而獲得認可。注意，在這種情況
++    下，當報告者與作者是同一人時，只需要 ``Signed-off-by:`` 標籤，不需要
++    ``Reported-by:``。
+ 
+-換句話說，我們唯一感興趣的是修復缺陷。提交給安全列表的所有其他資料以及對報告
+-的任何後續討論，即使在解除限制之後，也將永久保密。
++  * **緩解措施**：在分析缺陷的過程中，經常會找到一些緩解問題的方法。分享這些
++    方法很有用，因為在終端使用者套用修復之前的這段時間，它們有助於保護使用者。
+ 
+-協調
+-------
++什麼才算安全缺陷
++----------------
+ 
+-對敏感缺陷（例如那些可能導致權限提升的缺陷）的修復可能需要與私有郵件列表
+-<linux-distros@vs.openwall.org>進行協調，以便分發供應商做好準備，在公開披露
+-上游補丁時發佈一個已修復的內核。發行版將需要一些時間來測試建議的補丁，通常
+-會要求至少幾天的限制，而供應商更新發布更傾向於週二至週四。若合適，安全團隊
+-可以協助這種協調，或者報告者可以從一開始就包括linux發行版。在這種情況下，請
+-記住在電子郵件主題行前面加上“[vs]”，如linux發行版wiki中所述：
+-<http://oss-security.openwall.org/wiki/mailing-lists/distros#how-to-use-the-lists>。
++大多數缺陷都應該公開處理，才能讓最多的人參與並找到最好的解決方案，這一點很
++重要。就本質而言，在少數參與者之間以非公開討論處理的缺陷，比較不容易得到最好
++的修復（例如可能遺漏合理的使用情境、測試能力有限）。
+ 
+-CVE分配
++事實上，透過安全團隊回報的缺陷，大多只是一般缺陷，只因為不了解 Linux 核心的
++威脅模型（如 Documentation/process/threat-model.rst 所述）而被錯誤地認定為
++安全缺陷；它們原本應該透過 Documentation/admin-guide/reporting-issues.rst
++所述的一般管道回報。
++
++安全列表是為緊急缺陷而設的：這類缺陷讓攻擊者在設定正確的生產系統上獲得原本不
++應擁有的能力，而且容易被利用，對許多使用者構成迫切的威脅。回報之前，請想一想
++這個問題在這樣的系統上是否確實跨越了信任邊界。
++
++**如果你藉助 AI 找到缺陷，就必須將其視為已公開**。雖然你可能有合理的理由認為
++並非如此，但安全團隊的經驗顯示，以這種方式發現的缺陷總是會同時被多位研究人員
++發現，而且往往就在同一天。在這種情況下，不要公開分享重現程式，因為這可能造成
++意料之外的傷害；只要說明有重現程式即可，維護者如果需要，可能會私下向你索取。
++
++如果你不確定某個問題是否符合條件，寧可選擇私下回報：安全團隊寧願分流處理一份
++模稜兩可的報告，也不願錯過真正的漏洞。然而，把一般缺陷回報到安全列表並不會讓
++它們處理得更快，反而會消耗其他報告所需的分流人力。
++
++找出聯絡對象
++------------
++
++回報安全缺陷最有效的方式，是直接寄給受影響子系統的維護者，並 Cc: Linux 核心
++安全團隊。在這個階段不要寄到公開的郵件列表，除非你有充分的理由認為這個問題已經
++公開或很容易被發現（例如任何人都能重複執行、廣泛可得的自動化漏洞掃描工具所找到
++的結果，或是使用 AI 工具找到的問題）。
++
++如果你要回報的問題影響核心中的多個部分，即使這些問題相當類似，也請分別寄送訊息
++（想想看，維護者們不會同時處理這些問題）。唯一的例外是，問題涉及的是由完全相同
++的一組維護者所維護、彼此密切相關的部分，而且這些部分預期會由同一個 commit 一次
++修復，這時一起回報或許是可以接受的。
++
++對大多數第一次回報的人來說，困難之一是找出報告該寄給哪些收件人。在 Linux 核心
++中，所有正式的維護者都是受信任的，因此不小心把錯誤的維護者加進收件人，後果基本
++上只是給那個人多一點雜訊，並不嚴重。因此，找出維護者名單的一個合適方法（核心
++安全人員也是這麼做的）是使用 get_maintainer.pl 腳本，並調整參數讓它只列出
++維護者。把檔案名稱傳給這個腳本時，它會在 MAINTAINERS 檔案中尋找該路徑，找出
++相關維護者的階層式名單。第一次以最精細的過濾層級呼叫它，多數時候會回傳這個特定
++檔案的少數幾位維護者::
++
++  $ ./scripts/get_maintainer.pl --no-l --no-r --pattern-depth 1 \
++    drivers/example.c
++  Developer One <dev1@example.com> (maintainer:example driver)
++  Developer Two <dev2@example.org> (maintainer:example driver)
++
++接著就應該把訊息寄給這兩位維護者。如果指令沒有回傳任何結果，表示受影響的檔案
++屬於一個更大的子系統，因此我們應該放寬範圍::
++
++  $ ./scripts/get_maintainer.pl --no-l --no-r drivers/example.c
++  Developer One <dev1@example.com> (maintainer:example subsystem)
++  Developer Two <dev2@example.org> (maintainer:example subsystem)
++  Developer Three <dev3@example.com> (maintainer:example subsystem [GENERAL])
++  Developer Four <dev4@example.org> (maintainer:example subsystem [GENERAL])
++
++在這裡，挑選最前面、範圍最明確的那幾位就足夠了。名單很長時，可以像下面這樣
++產生一行以逗號分隔、適合用在郵件客戶端 To: 欄位的電子郵件地址列表::
++
++  $ ./scripts/get_maintainer.pl --no-tree --no-l --no-r --no-n --m \
++    --no-git-fallback --no-substatus --no-rolestats --no-multiline \
++    --pattern-depth 1 drivers/example.c
++  dev1@example.com, dev2@example.org
++
++或者像下面這樣產生範圍較廣的名單::
++
++  $ ./scripts/get_maintainer.pl --no-tree --no-l --no-r --no-n --m \
++    --no-git-fallback --no-substatus --no-rolestats --no-multiline \
++    drivers/example.c
++  dev1@example.com, dev2@example.org, dev3@example.com, dev4@example.org
++
++如果到了這一步，你仍然難以找出正確的維護者，**而且只有在這種情況下**，才可以
++只把報告寄給 Linux 核心安全團隊。你的訊息會經過分流處理，如有需要，你會收到
++應該聯絡誰的指示。你的訊息也可能被原封不動地轉寄給相關維護者。
++
++負責任地使用 AI 尋找缺陷
++------------------------
++
++提交給安全團隊的缺陷報告中，有相當大一部分其實是借助 AI 工具進行程式碼審查的
++結果。雖然這可以是在鮮少有人探索的領域中找到缺陷的有效手段，卻也造成維護者的
++負擔過重，有時他們不得不因為這類報告的品質或準確度太差而忽略它們。因此，報告者
++必須特別注意以下幾點，它們往往讓這些報告變得不必要地難以處理：
++
++  * **長度**：AI 產生的報告往往過於冗長，包含多個章節與過多細節。這使得受影響
++    的檔案、版本與影響等重要資訊難以找到。請確保先列出清楚的問題摘要與所有關鍵
++    細節。不要讓負責分流的工程師閱讀好幾頁的文字。請設定你的工具，讓它產生簡潔、
++    像人寫的報告。
++
++  * **格式**：大多數 AI 產生的報告充斥著 Markdown 標記。這些裝飾讓尋找重要資訊
++    變得更困難，而且在轉寄或回覆所涉及的引用過程中也無法保留。寄出之前，請
++    **務必把報告轉換成純文字**，不要帶任何格式裝飾。
++
++  * **影響評估**：許多 AI 產生的報告缺乏對核心威脅模型的理解（請參閱
++    Documentation/process/threat-model.rst），並費盡心思杜撰理論上的後果。
++    這只會增加雜訊，讓分流更複雜。請只陳述可驗證的事實（例如「這個缺陷讓任何
++    使用者都能取得 CAP_NET_ADMIN」），不要列舉推測性的影響。請在評估過程中讓
++    你的工具閱讀這份文件。
++
++  * **重現程式**：AI 工具通常有能力產生重現程式。請務必確保你的工具提供重現
++    程式，並 **徹底測試它**。如果重現程式無法運作，或工具無法產生重現程式，就
++    應該嚴肅質疑這份報告的有效性。注意，由於報告會被張貼到公開的郵件列表，重現
++    程式只應在維護者要求時才分享。
++
++  * **提出修復**：許多 AI 工具其實比較擅長寫程式碼，而不是評估程式碼。請在回報
++    問題之前，要求你的工具提出修復並 **測試它**。如果因為修復依賴罕見的硬體或
++    幾乎絕跡的網路協定而無法測試，這個問題很可能就不是安全缺陷。無論如何，如果
++    提出了修復，它都必須遵守 Documentation/process/submitting-patches.rst，並
++    包含一個 'Fixes:' 標籤，指出引入該缺陷的 commit。
++
++沒有考慮這些要點的報告，可能會面臨被忽略的風險。
++
++評估報告時請運用常識。如果受影響的檔案已經超過一年沒有被修改，而且只由單一個人
++維護，那麼它的使用量很可能已經下降，受影響的使用者幾乎不存在（例如非常老舊硬體
++的驅動程式、過時的檔案系統）。在這種情況下，沒有必要用不重要的報告佔用維護者的
++時間。如果問題顯然微不足道且可被公開發現，你應該直接回報到公開的郵件列表。
++
++至少，在使用 AI 助理尋找並回報缺陷時，要讓助理在開始之前先閱讀這份文件與
++threat-model.rst，並讓它遵循 coding-assistants.rst 中描述的程序：在最新的
++mainline 樹上工作並記下 commit ID、確認缺陷確實存在、撰寫修復、建置時沒有警告
++且通過 checkpatch 檢查、以 Fixes 標籤提交 commit，並用 get_maintainer.pl 找出
++維護者。
++
++除了該程序之外，AI 助理 **必須**：
++
++1. 準備一份說明問題的純文字報告。報告必須包含本文開頭列為絕對必要的四個項目：
++   遵循上述程序時記下的受影響版本或 commit ID、問題描述、重現程式或其狀態，以及
++   觸發條件。
++2. 在報告開頭加上一個暫時的段落，列出收件人地址（補丁寄給維護者加郵件列表，報告
++   與重現程式只寄給維護者），並附上提醒報告者確認其郵件客戶端設定正確的說明（請
++   參閱 email-clients.rst），再由報告者自行刪除這個暫時的段落。
++
++更詳細的流程請參閱 https://github.com/masoncl/kres.git 。
++
++寄送報告
+ --------
+ 
+-安全團隊通常不分配CVE，我們也不需要它們來進行報告或修復，因爲這會使過程不必
+-要的複雜化，並可能耽誤缺陷處理。如果報告者希望在公開披露之前分配一個CVE編號，
+-他們需要聯繫上述的私有linux-distros列表。當在提供補丁之前已有這樣的CVE編號時，
+-如報告者願意，最好在提交消息中提及它。
++報告只能透過電子郵件寄送。請使用可正常收發的電子郵件地址，最好就是你希望出現在
++``Reported-by`` 標籤（如果有的話）中的地址。如果不確定，請先把報告寄給自己。
+ 
+-保密協議
+----------
++安全團隊與維護者幾乎總是需要報告最初所提供內容以外的額外資訊，並仰賴與報告者
++積極而有效率的協作來進行進一步的測試（例如驗證版本、設定選項、緩解措施或補丁）。
++在聯絡安全團隊之前，報告者必須確保自己有空說明發現、參與討論並執行額外的測試。
++如果報告者沒有即時回應，或無法有效地討論其發現，而溝通又沒有很快改善，報告就
++可能被擱置。
++
++報告必須寄給維護者。如果你的訊息收件人只有兩位或更少，你也必須一律 Cc: Linux
++核心安全團隊，他們會確保訊息送達正確的人，並能協助小型維護團隊處理他們可能不
++熟悉的流程。對於較大的團隊，在你最初的幾份報告，或需要特定協助時（例如重新寄送
++一封一週內都沒有得到回應的訊息），請 Cc: Linux 核心安全團隊。當你在幾份報告之後
++已經熟悉這個流程，寄給大型團隊時就不再需要 Cc: 安全列表。可以透過電子郵件
++<security@kernel.org> 聯絡 Linux 核心安全團隊。這是一個由安全人員組成的私有
++列表，他們會協助驗證缺陷報告，並協助開發修復的開發人員。安全團隊可能會請相關
++領域的維護者提供額外協助，以理解並修復安全漏洞。
++
++請盡可能寄送不帶附件的 **純文字** 電子郵件。如果所有細節都藏在附件裡，就很難
++針對一個複雜的問題進行引用上下文的討論。把它想成一次
++:doc:`一般的補丁提交 <../process/submitting-patches>`
++（即使你還沒有補丁）：描述問題和影響，列出重現步驟，然後附上建議的修復，全部
++都以純文字呈現。Markdown、HTML 與 RST 格式的報告特別不受歡迎，因為它們對人類
++來說相當難讀，還會促使人使用專門的檢視器，有時甚至是線上檢視器，而這對機密的
++安全報告來說，按照定義就是不可接受的。注意，有些郵件客戶端預設會弄亂純文字的
++格式，更多資訊請參閱 Documentation/process/email-clients.rst。
++
++披露與保密期資訊
++----------------
++
++安全列表不是披露管道。關於披露，請參閱下面的「協調」一節。
++
++一旦開發出可靠的修復，發布流程就會開始。已公開缺陷的修復會立即發布。
++
++雖然我們傾向在修復可用時就立即發布尚未公開缺陷的修復，但應報告者或受影響方的
++要求，發布可以從發布流程開始起延後最多 7 個日曆天；如果大家同意缺陷的嚴重程度
++需要更多時間，可以例外延長到 14 個日曆天。延後發布修復唯一正當的理由，是為了
++配合 QA 以及需要協調發布的大規模部署的作業安排。
+ 
+-Linux內核安全團隊不是一個正式的機構實體，因此無法簽訂任何保密協議。
++雖然為了開發修復，保密期內的資訊可能會與受信任的個人分享，但未經報告者許可，
++這些資訊不會隨修復一起發布，也不會在任何其他披露管道上公開。這包括但不限於原始
++的缺陷報告與後續討論（如果有的話）、漏洞利用程式、CVE 資訊或報告者的身分。
++
++換句話說，我們唯一關心的是修好缺陷。提交到安全列表的所有其他資訊，以及關於該
++報告的任何後續討論，即使在保密期解除之後，也會永久保密。
++
++與其他團隊協調
++--------------
++
++核心安全團隊只專注於修復缺陷，而其他團隊則專注於修復發行版中的問題，以及協調
++作業系統廠商之間的披露。協調通常由 "linux-distros" 郵件列表負責，披露則由公開
++的 "oss-security" 郵件列表負責，兩者關係密切，並在 linux-distros wiki 中有所
++介紹：
++<https://oss-security.openwall.org/wiki/mailing-lists/distros>
++
++請注意，由於這三個列表追求的目標不同，它們各自的政策與規則也不同。核心安全團隊
++與其他團隊之間的協調並不容易，因為對核心安全團隊而言，偶爾設定的保密期（受最多
++允許天數的限制）是從修復可用時開始計算，而 "linux-distros" 則是從首次張貼到該
++列表時開始計算，不論修復是否可用。
++
++因此，核心安全團隊強烈建議，身為潛在安全問題的報告者，在受影響程式碼的維護者
++接受修復之前，以及在你讀過上述的發行版 wiki 頁面、並完全理解聯絡
++"linux-distros" 會對你和核心社群帶來哪些要求之前，千萬不要聯絡 "linux-distros"
++郵件列表。這也表示，一般來說同時 Cc: 兩個列表並沒有意義，除非是在修復已被接受
++但尚未合併的期間，或許為了協調而這麼做。換句話說，在修復被接受之前不要 Cc:
++"linux-distros"，而在修復被合併之後，不要 Cc: 核心安全團隊。
++
++CVE 分配
++--------
++
++安全團隊不分配 CVE，也不要求報告或修復必須有 CVE，因為這可能讓流程變得不必要地
++複雜，並可能延誤缺陷的處理。如果報告者希望為已確認的問題分配 CVE 識別碼，可以
++聯絡核心 CVE 分配團隊取得（請參閱 Documentation/process/cve.rst）。
++
++保密協議
++--------
+ 
++Linux 核心安全團隊不是正式的組織，因此無法簽訂任何保密協議。
 -- 
-2.55.0
+2.43.0
 
