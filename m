@@ -1,116 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793993638;
-	b=TaplFa/raeS1gb5cSMuczYr3Ys/MZTijK/bdPHFkRKhJ7MdBbUCxkMuFUVEoOIuDw1Vs
-	 hXpxcvfBrj1iooOD9vyEjKAdIzHb1KrAfhy0T5JFssewC3Uc7JDWsTbwPofH0hQ4OCoAU
-	 olIaLw3NZEgXZYhCRPq0T+4D7W/Lom9HIp613u2k+QIRFYkORBaq+d/jIS65XcF26uzL2
-	 d942cyzapVal9IAdOHLPn1qsDHNAVKCDL1aS3oNa1MUUY9NnTCVnD1BrNoTM6LQtUlSZ2
-	 6Ws1vwuqb/M/QUC+pm5rNbvjZMmVPUbVq9xEgkdVQPfwyGlsLnIAWgeXWHccJnvmQdg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993638;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
-	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=7/zqCzzGYvUAL+BeZz5OYRAv6Ex/hzfGP7FkSFADc8A=;
-	b=SSapOIX8lUcfn2bwsTW9BJsIMzR5LVf5SlE3Fd3BoKEd/YUoiVtTxShzY1RbHbBIN1li
-	 HgoQgStN8z3bAtYAIcA9nHeezqiv3u9W1xN0/D4aNf1q0+RKSuBLlgvAJK6lMcVh/jOv5
-	 Bgo7lF02hlofSyLyB7pRl7HH8KTHFZh5lEiJVBX/UeiXDQL1EW9QMIlfh4KhJLTDs1OvY
-	 vtC2GFnYeTCXqpELhCRqB/V2LquhWMQDQON/ldbTM9bes3HAN8rastINPwWujx+a0/7Kb
-	 F5mFEul9DIXduPK3Ou7CJn/jHQbSl73kkAsxE0NTZhCPvo2Uie3f8uN342ER3hpQAuw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ts0hVgLc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.54
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012054.outbound.protection.outlook.com [40.107.200.54])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793993675;
+	b=YzgFHnl7GFte25BX9LS1jLpXoiPyVWOsGC+wDNkssd6TtdVE/JSiUZMwPVMNPou+lNxU
+	 YzV1a20uP/a1bIWyuQ6WEVhM8JPXTmy7hX4xVXUpxTvvx1+k7M32Sy2BVo1LaBCAo33jp
+	 zsHkGESXxeX+8pBPdrrQbDnJArbp41GuEauMsyhb9WYdFdrq5WSQcROBte8pzWUbwlBsu
+	 yIVucbznZZlqJE2MapaWdS0aH+0YJC1jUI4HMe0Xy9ipE3Bj1n1w0BLENBEdLgheBti0J
+	 18Rgz/YSfNZVDkdswzvAdq01ahnAHYyasf/qBdOc0HxAvDr/11XWY5JNuPzk4m235TA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793993675;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=88C97N6UH9Uyrq41e1ngidp2rYbzeD72tqfq3U+ZGhg=;
+	b=wYy4ZEQG0ZDzBnzQUlbm+7ZS23a7PPGiOzy91Sqe72MhneUItMhKQlhIUrVF8G+0jSSz
+	 o7GIe6QlfHAD+a7yX/U9wLAws64ZD+MyEY6ou0PnbJ6QwdAcXmOsWccU+U1nMG9VjG+ij
+	 4XWdYx0iDnorSEv3fIOMyRjXJpT7myCJy0gXA8+NwAv/6mYFNp8et3b6E+/183yiHzuBu
+	 Txzg7Cw2grTksERacGJKxkTgdx4OyJKwYTvxVtYUFJEup1jSoGJQpn0gSfTPsagAPVpUj
+	 OmK0xxMozEfBlPZl64w6Z5We0l0FZ/eVLW8qW+s2sYYG5Fu6+FyUWqXD1O2hpwl+tfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYMyLm1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C255606A326;
-	Fri,  6 Nov 2026 19:33:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C255606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAD4606A337;
+	Fri,  6 Nov 2026 19:34:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ts0hVgLc
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=whnsNQrfI02rnq9rPxNcy9UvJlhjlbOZCzIWm60s3PnibekWXs4kb5iMfU60Ic9cR5USLlpBmsB5sHacODd64A04U+bIrUH+YG4zeCifXDj6vMzsHusTfEY4ZQk98meX0Hr4oKGulW0JQ/3mXwxxr1vIjQGNT/FmWd30Mlhklq9UgtbZ3+5z22l1/BgxhOwUiPqVD3Ceg2vQswEheAWIDT29D43pGhcHF0/9iNHkZNqUxV5MoybXBz0s/WpTwncqPd6kbTsVAVUQW7QGi80cFnBfQ3Wi+eGjahMMysJt7B907oCJbTEn4rYKbq9/96GC+PM+Rv8900mTYtijSDj1hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7/zqCzzGYvUAL+BeZz5OYRAv6Ex/hzfGP7FkSFADc8A=;
- b=EVlI0Lr4Q2I8b+3hJ41ScxggozIVPEEjsfAq1fZK34ciCPmNh8GELSC+GqAtlhPbLRYBzKKohr6hz/+IeUuZ3r7iZMbzigJc37sJoToslcxGptpSp1DhzlBZkJFOzn+iQs2pqav+DyHdVPnvPmQGqgeWxGgFa5QfElKlOCBMdUqZAKVwHIA76i4UcaE5v7fXW5AYjQ0/z/FVNc7TW0UDBFxhNbNDpDlx9tr+dbdCkNSBmBZBjmpu+LygKxv9YFx+f0FjfIAa7xWQfi7YlOasUkIeosPt8SuuXqNW2xT3C7xuon1xkQAufNSmDm1Qe6q7P6lKHBDk4Y1vP8oj78E0RA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7/zqCzzGYvUAL+BeZz5OYRAv6Ex/hzfGP7FkSFADc8A=;
- b=Ts0hVgLcgoZ//VKLHlIqbLIkeM/roZ+oxw90ByaBJXMnjeY9AiWdfJIE0zGJMMEvKyzXdBdc2Rbv907hZSfbEHECXe/FYfUX4Atj2FQRK+3iLlzOEZjqHUooVKi+3VTQVZHRHSY1OI7UFGckLTpXDwA5p2JWA89uQeugWfOjreKrL1LkJqdE9zYdT0YtacBqA6qYDQhIi6N9eszP+rSwQAocf0f16TXwuPDyNl2d6gDlYA8pngU4jJXbg6Nu1CYECzesvykTT1bV8jSmSxiGA2vrUlauUqEyWF5dIxvOESoI0xEA0CSHQvAwnBdpklS32+Wmaq8pzMUp3liuL6DiRg==
-Received: from DM6PR04CA0020.namprd04.prod.outlook.com (2603:10b6:5:334::25)
- by MW6PR12MB8758.namprd12.prod.outlook.com (2603:10b6:303:23d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
- 2026 19:33:46 +0000
-Received: from CH3PEPF0002457A.namprd04.prod.outlook.com
- (2603:10b6:5:334:cafe::84) by DM6PR04CA0020.outlook.office365.com
- (2603:10b6:5:334::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
- Nov 2026 19:33:46 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- CH3PEPF0002457A.mail.protection.outlook.com (10.167.252.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 19:33:45 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 6 Nov
- 2026 11:33:30 -0800
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 6 Nov 2026 11:33:29 -0800
-Received: from sumitg-l4t.nvidia.com (10.127.8.14) by mail.nvidia.com
- (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
- Transport; Fri, 6 Nov 2026 11:33:23 -0800
-From: Sumit Gupta <sumitg@nvidia.com>
-To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <pierre.gondois@arm.com>,
-	<christian.loehle@arm.com>, <ionela.voinescu@arm.com>,
-	<zhenglifeng1@huawei.com>, <zhanjie9@hisilicon.com>, <lenb@kernel.org>,
-	<ray.huang@amd.com>, <mario.limonciello@amd.com>, <perry.yuan@amd.com>,
-	<kprateek.nayak@amd.com>, <maciej.wieczor-retman@intel.com>,
-	<pawel.chmielewski@intel.com>, <linux-pm@vger.kernel.org>,
-	<linux-acpi@vger.kernel.org>, <acpica-devel@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>
-CC: <treding@nvidia.com>, <jonathanh@nvidia.com>, <vsethi@nvidia.com>,
-	<ksitaraman@nvidia.com>, <sanjayc@nvidia.com>, <mochs@nvidia.com>,
-	<bbasu@nvidia.com>, <sumitg@nvidia.com>
-Subject: [PATCH v9 0/8] ACPI / cpufreq: CPPC: Preserve OSPM-set registers and add ospm_nominal_perf
-Date: Sat, 7 Nov 2026 01:02:56 +0530
-Message-ID: <20261106193304.3347374-1-sumitg@nvidia.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYMyLm1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89641F008A4;
+	Fri,  6 Nov 2026 19:34:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793993674;
+	bh=88C97N6UH9Uyrq41e1ngidp2rYbzeD72tqfq3U+ZGhg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bVYMyLm1nDv27Q2qjtwhqnzl4hU2tyTPpIn+sRFquHEo6/5vMMdWZsKKjCjhWYYHc
+	 TfTVg0v24uLDFhjNjnQmmogI+G8fXKuWqf76T0QEW6RcnJ/eTyHjflEppwmFApBkQq
+	 FhwrKE+W/4f2jfp8mGYSm47ULtFcT328UvVYB/0+Blc8+7eYoz5eWUghd73epEyAFO
+	 iJF/Nj+eRYLnvmamsx9uZANUrfs/0TSIJtrtFIKiMP7Z2MIA9Su6R5kHKQoXn7SPiZ
+	 2IGve5m0VEfd9wAvfkh4uhBnZPtNNV+P3eO+l2fIVPUI+zDi0vSrI6+hDdLz9IvY+6
+	 OneYkL/ql9WXw==
+Date: Fri, 6 Nov 2026 19:34:32 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
+	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [PATCH v3 05/18] KVM: x86/pmu: Drop nr_arch_{gp,fixed}_counters
+ from kvm_pmu
+Message-ID: <au4pSeg5AcHEbfDv@google.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
+ <20261106013927.166209-6-zide.chen@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,129 +62,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0002457A:EE_|MW6PR12MB8758:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d6bbe43-bcd7-4fba-fab5-08df3c3cdfd3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|82310400026|376014|23010399003|36860700016|6133799003|261102123227099003|18002099003|56012099006|13003099007|10067099003|261009223027099003|261009221227099003|261021121427099003|921020|261021123027099003|11063799006|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	vyVXCYQe7B8bv8iGinTRRnBW0SRAhYn/fhGnvBqhPO7IVBRuA+qNJ6eZsLm2PdATCAUSQTXWVMemlDTK1CsAzARlWgl06trB0hyQ3kVDSMaDSe3/wvKtu245PT1HtHF1y/NiSW+52Pp4hPnJJwjF9VbVPly0by8BoQFi45YnRF2PArkzAuZv4iU0PjF8OEDqO0my7fgrfLXPvgGP7/VifFhpXSWTmRz1KqsEYmWpnHjvlUdh4z28rGMmyjJPuy07lM07opptQj2h3U8quNIe831jVxIS5MReUbFVMTQxzhahrMJ5asQfrndBn5ZibttMCU/+Q+rjG+UoMG+A0hmkTLmzdD0aPY5K8+H5HYlf7IVC9wcxxrSthizv0YOPUUHQiNwiGtK9zXZbGnG1jgwrRlDyzAsc/ngX3AO33KOeLwxjjZvJPY19xnhkwOZ6xc6XV/rpkeh5lPEhCIWSGNxLBQ8Ug7IGFtcQCIeOaLqNW/pWzjrxv6HjpSUEDO2fKwTrmYfpXuTxGObctL8pT2kK2yqpcBb8G9KKBuBmtXvfhLN5BEpbsAMGHISJ1dWe5rJTWEP8AaFv9SI8cbbBNpHBQaBhO2csMj5CrYSiX0BcO0P15q1MzQsbHTRLjqofm4KHXfYnoCEzl1dRVoEkmhJFyVU8kPXZQP8TAzUo4wkq9wVH+JBeKX7wVR9r5eZQugJLPUskwvASwRdW0ZEbE8EMpRyFFftQTPnPGei+cXuNpazWojWlxY/cS8pkjlq08+c+
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(6133799003)(261102123227099003)(18002099003)(56012099006)(13003099007)(10067099003)(261009223027099003)(261009221227099003)(261021121427099003)(921020)(261021123027099003)(11063799006)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	MEcO48vL71m38pbCYUDzAws7AHKcrkYwpFFYpgUIxH7aGQ9px/egMXT582CmuYauSzeFn3XQJoZJWfmfFdGGVI4h0LTUChfp/KNtAPODCP7pEsTuJ/XJOoQwKLEEcT18yzuCzfBuloo2jOxMdpNXatcIipTkdOH5vNML5Rpex5wjyiL9uXQq0wpa+gLMzBlWdHF0T8UbdaglP93BeQezfYFWzv/d/CNP3c+EoQ9KCGVNMe5xBY9PazOV68FNlsxcEIv6e3aQdeUCmrF8Wr3fbZRL0W2XcFFFvm9kRhES90kp9yxKWO0AEPnlENcyGc/NvzWH0Z/GAAQ9lmiGY/yBxf3cEohq6m0g8RJrWKqchyo+3prz5bKgGDN0+fv3h+Zy2Hp4cOjE4iO2/HsshI7igTWpuW9NCeBIn/NCmhxXw10Jr4b+E6xDo+Jag8AjVBfB
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 19:33:45.9400
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d6bbe43-bcd7-4fba-fab5-08df3c3cdfd3
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF0002457A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8758
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106013927.166209-6-zide.chen@intel.com>
 
-This series combines two series, as the second one builds on the first:
- - Patches 1-5:
-     cpufreq: CPPC: Preserve OSPM-set registers across hotplug and
-     unload, v7 [1].
- - Patches 6-8:
-     ACPI / cpufreq: CPPC: Add ospm_nominal_perf support, v8 [2].
+> @@ -979,8 +979,6 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
+>  	kvm_pmu_reset(vcpu);
+>  
+>  	pmu->version = 0;
+> -	pmu->nr_arch_gp_counters = 0;
+> -	pmu->nr_arch_fixed_counters = 0;
+>  	pmu->counter_bitmask[KVM_PMC_GP] = 0;
+>  	pmu->counter_bitmask[KVM_PMC_FIXED] = 0;
+>  	/*
+> @@ -1008,16 +1006,12 @@ void kvm_pmu_refresh(struct kvm_vcpu *vcpu)
+>  	 * in the global controls).  Emulate that behavior when refreshing the
+>  	 * PMU so that userspace doesn't need to manually set PERF_GLOBAL_CTRL.
+>  	 */
+> -	if (pmu->nr_arch_gp_counters &&
+> +	if (kvm_gp_pmc_mask(pmu) &&
+>  	    (kvm_pmu_has_perf_global_ctrl(pmu) || kvm_vcpu_has_mediated_pmu(vcpu)))
+> -		pmu->global_ctrl = GENMASK_ULL(pmu->nr_arch_gp_counters - 1, 0);
+> +		pmu->global_ctrl = kvm_gp_pmc_mask(pmu);
+>  
+>  	if (kvm_vcpu_has_mediated_pmu(vcpu))
+>  		kvm_pmu_call(write_global_ctrl)(pmu->global_ctrl);
+> -
+> -	bitmap_set(pmu->pmc_exists, 0, pmu->nr_arch_gp_counters);
+> -	bitmap_set(pmu->pmc_exists, KVM_FIXED_PMC_BASE_IDX,
+> -		   pmu->nr_arch_fixed_counters);
 
-There are no code changes from those versions. The series applies on
-7.4-rc1.
+I understand the vendor modules are responsible of initializing this
+now, but should we clear it before calling into the vendors like other
+fields above?
 
-Patches 1-5
------------
-These preserve the OSPM-set CPPC registers (Energy Performance
-Preference, Autonomous Activity Window, Autonomous Selection - set via
-sysfs) across CPU hotplug and suspend/resume. On driver unload, they put
-back the values the registers had before the driver loaded.
+>  }
+>  
+>  void kvm_pmu_init(struct kvm_vcpu *vcpu)
+> @@ -1328,6 +1322,8 @@ static __always_inline u32 gp_eventsel_msr(u32 idx)
+>  static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
+>  {
+>  	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+> +	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+> +	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
 
-To do this, the driver keeps the CPPC cpufreq policy alive across CPU
-hotplug. It also orders the performance-control writes in
-cppc_set_perf(), so that restoring them after a platform reset never
-sends an invalid request.
+All these should go away if we pass the pmu into the iterators.
 
-Without online()/offline() callbacks, the core tears a policy down when
-its last CPU goes offline and rebuilds it on the way back, re-reading the
-CPPC capabilities each time. The values written to these registers can
-be lost:
+>  	struct kvm_pmc *pmc;
+>  	u32 i;
+>  
+> @@ -1336,14 +1332,14 @@ static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
+>  	 * is intercepted if hardware has counters that aren't visible to the
+>  	 * guest (KVM will inject #GP as appropriate).
+>  	 */
+> -	for (i = 0; i < pmu->nr_arch_gp_counters; i++) {
+> +	kvm_for_each_gp_counter(i, gp_mask) {
+>  		pmc = &pmu->gp_counters[i];
+>  
+>  		if (pmc->counter != rdpmc(i))
+>  			wrmsrq(gp_counter_msr(i), pmc->counter);
+>  		wrmsrq(gp_eventsel_msr(i), pmc->eventsel_hw);
+>  	}
+> -	for (i = 0; i < pmu->nr_arch_fixed_counters; i++) {
+> +	kvm_for_each_fixed_counter(i, fixed_mask) {
+>  		pmc = &pmu->fixed_counters[i];
+>  
+>  		if (pmc->counter != rdpmc(INTEL_PMC_FIXED_RDPMC_BASE | i))
+[..]
+> @@ -117,7 +116,7 @@ static bool amd_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
+>  		return pmu->version > 1;
+>  	default:
+>  		if (msr > MSR_F15H_PERF_CTR5 &&
+> -		    msr < MSR_F15H_PERF_CTL0 + 2 * pmu->nr_arch_gp_counters)
+> +		    msr < MSR_F15H_PERF_CTL0 + 2 * hweight_long(kvm_gp_pmc_mask(pmu)))
 
- - Across CPU hotplug or suspend/resume: the platform may reset them
-   while the CPU is offline or suspended.
- - On driver unload: the driver-written value is left in the register
-   instead of returning to its pre-driver state.
+This assumes the MSRs are contiguous, which IIUC is always true, but I
+wonder if it should also be handled since the series claims to also
+prepare for discontiguous GP counters.
 
-Handle these with:
+>  			return pmu->version > 1;
+>  		break;
+>  	}
+[..]
+> @@ -107,6 +108,8 @@ static struct kvm_pmc *intel_rdpmc_ecx_to_pmc(struct kvm_vcpu *vcpu,
+>  	if (WARN_ON_ONCE(!pmu->version))
+>  		return NULL;
+>  
+> +	idx &= INTEL_RDPMC_INDEX_MASK;
+> +
+>  	/*
+>  	 * General Purpose (GP) PMCs are supported on all PMUs, and fixed PMCs
+>  	 * are supported on all architectural PMUs, i.e. on all virtual PMUs
+> @@ -117,23 +120,25 @@ static struct kvm_pmc *intel_rdpmc_ecx_to_pmc(struct kvm_vcpu *vcpu,
+>  	 */
+>  	switch (type) {
+>  	case INTEL_RDPMC_FIXED:
+> +		if (!kvm_is_fixed_pmc_supported(pmu, idx))
+> +			return NULL;
+> +
+>  		counters = pmu->fixed_counters;
+> -		num_counters = pmu->nr_arch_fixed_counters;
+> +		num_counters = KVM_MAX_NR_INTEL_FIXED_COUNTERS;
+>  		bitmask = pmu->counter_bitmask[KVM_PMC_FIXED];
+>  		break;
+>  	case INTEL_RDPMC_GP:
+> +		if (!kvm_is_gp_pmc_supported(pmu, idx))
+> +			return NULL;
+> +
+>  		counters = pmu->gp_counters;
+> -		num_counters = pmu->nr_arch_gp_counters;
+> +		num_counters = KVM_MAX_NR_INTEL_GP_COUNTERS;
 
- - Patch 1: orders the Desired, MIN and MAX writes in cppc_set_perf(), so
-   that the platform never sees an invalid request.
- - Patch 2: adds online()/offline() callbacks so the core keeps policy
-   alive across CPU hotplug instead of tearing it down and rebuilding it.
- - Patch 3: makes the autonomous selection register helpers take a u64.
- - Patch 4: saves each register's firmware value at init() and each
-   successful sysfs write as the requested value. offline() restores the
-   firmware values, and online() reapplies the requested values.
- - Patch 5: extends the same restore and reapply to system
-   suspend/resume.
+num_counters is no longer an accurate name, is it? Maybe max_counter
+(and use KVM_MAX_* - 1) or max_nr_counters?
 
-Patches 6-8
------------
-These add support for the OSPM Nominal Performance register (ACPI 6.6,
-Section 8.4.6.1.2.6) to the CPPC ACPI and cpufreq drivers.
+>  		bitmask = pmu->counter_bitmask[KVM_PMC_GP];
+>  		break;
+>  	default:
+>  		return NULL;
+>  	}
+>  
+> -	idx &= INTEL_RDPMC_INDEX_MASK;
+> -	if (idx >= num_counters)
+> -		return NULL;
+> -
+>  	*mask &= bitmask;
+>  	return &counters[array_index_nospec(idx, num_counters)];
+>  }
+> @@ -495,9 +500,10 @@ static __always_inline u64 intel_get_fixed_pmc_eventsel(unsigned int index)
+>  
+>  static void intel_pmu_enable_fixed_counter_bits(struct kvm_pmu *pmu, u64 bits)
+>  {
+> +	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+>  	int i;
+>  
+> -	for (i = 0; i < pmu->nr_arch_fixed_counters; i++)
+> +	kvm_for_each_fixed_counter(i, fixed_mask)
+>  		pmu->fixed_ctr_ctrl_rsvd &= ~intel_fixed_bits_by_idx(i, bits);
+>  }
+>  
+> @@ -509,6 +515,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  	union cpuid10_eax eax;
+>  	union cpuid10_edx edx;
+>  	u64 perf_capabilities;
+> +	u64 fixed_mask;
+> +	int nr_gp_counters;
+>  	u64 counter_rsvd;
+>  
+>  	if (!lbr_desc)
+> @@ -535,8 +543,6 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  	if (!pmu->version)
+>  		return;
+>  
+> -	pmu->nr_arch_gp_counters = min_t(int, eax.split.num_counters,
+> -					 kvm_pmu_cap.num_counters_gp);
+>  	eax.split.bit_width = min_t(int, eax.split.bit_width,
+>  				    kvm_pmu_cap.bit_width_gp);
+>  	pmu->counter_bitmask[KVM_PMC_GP] = BIT_ULL(eax.split.bit_width) - 1;
+> @@ -544,6 +550,17 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  				      kvm_pmu_cap.events_mask_len);
+>  	pmu->available_event_types = ~entry->ebx & (BIT_ULL(eax.split.mask_length) - 1);
+>  
+> +	fixed_mask = BIT_ULL(edx.split.num_counters_fixed) - 1;
+> +	fixed_mask &= BIT_ULL(kvm_pmu_cap.num_counters_fixed) - 1;
 
-Unlike the read-only Nominal Performance register, OSPM Nominal
-Performance is writable and lets OSPM request a nominal level below
-the platform-reported nominal. The platform treats performance above
-this level as boost and below as throttle.
+Why not do min() like the old code?
 
- - Patch 6: adds ACPI helpers to write the register and to check that
-   the platform supports it.
- - Patch 7: adds the per-policy ospm_nominal_freq attribute in kHz. The
-   value is kept across CPU hotplug and suspend/resume. The register
-   cannot be read back, so a read returns the last value written.
- - Patch 8: uses the OSPM nominal as the maximum frequency while boost
-   is off. Lowering the nominal creates a boost range on a platform
-   that has none, and boost can then be enabled.
+> +
+> +	/*
+> +	 * The number of counters comes from guest CPUID data. Clamp the value
+> +	 * to avoid a shift-by-64 in BIT_ULL().
+> +	 */
+> +	nr_gp_counters = min_t(int, eax.split.num_counters, X86_PMC_IDX_MAX - 1);
+> +	pmu->pmc_exists64 = (BIT_ULL(nr_gp_counters) - 1) &
+> +			    (BIT_ULL(kvm_pmu_cap.num_counters_gp) - 1);
 
-v8 -> v9:
- - Combine the two series into one. (Christian, Rafael)
- - Rebase on 7.4-rc1.
- - Add Christian's tags.
+Why not just do min(eax.split.num_counters, kvm_pmu_cap.num_counters_gp)
+directly like it used to be?
 
-Christian Loehle (1):
-  ACPI: CPPC: Order performance-control updates
-
-Sumit Gupta (7):
-  cpufreq: CPPC: Keep the policy across CPU hotplug
-  ACPI: CPPC: Make autonomous selection helpers take a u64
-  cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
-  cpufreq: CPPC: Preserve OSPM-set registers across suspend/resume
-  ACPI: CPPC: Add ospm_nominal_perf support
-  cpufreq: CPPC: Add ospm_nominal_freq attribute
-  cpufreq: CPPC: Reflect the OSPM nominal in boost and limits
-
- .../ABI/testing/sysfs-devices-system-cpu      |  31 +
- drivers/acpi/cppc_acpi.c                      | 362 +++++++--
- drivers/cpufreq/amd-pstate.c                  |   2 +-
- drivers/cpufreq/cppc_cpufreq.c                | 689 ++++++++++++++++--
- include/acpi/cppc_acpi.h                      |  19 +-
- 5 files changed, 970 insertions(+), 133 deletions(-)
-
-[1] https://lore.kernel.org/lkml/20261030092416.1993889-1-sumitg@nvidia.com/
-[2] https://lore.kernel.org/lkml/20261030172745.2045743-1-sumitg@nvidia.com/
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.34.1
-
+> +
+>  	entry = kvm_find_cpuid_entry_index(vcpu, 7, 0);
+>  	if (entry &&
+>  	    (boot_cpu_has(X86_FEATURE_HLE) || boot_cpu_has(X86_FEATURE_RTM)) &&
+> @@ -565,8 +582,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  	if (pmu->version == 1)
+>  		return;
+>  
+> -	pmu->nr_arch_fixed_counters = min_t(int, edx.split.num_counters_fixed,
+> -					    kvm_pmu_cap.num_counters_fixed);
+> +	pmu->pmc_exists64 |= fixed_mask << INTEL_PMC_IDX_FIXED;
+>  	edx.split.bit_width_fixed = min_t(int, edx.split.bit_width_fixed,
+>  					  kvm_pmu_cap.bit_width_fixed);
+>  	pmu->counter_bitmask[KVM_PMC_FIXED] = BIT_ULL(edx.split.bit_width_fixed) - 1;
+> @@ -575,8 +591,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  						 INTEL_FIXED_0_USER |
+>  						 INTEL_FIXED_0_ENABLE_PMI);
+>  
+> -	counter_rsvd = ~((BIT_ULL(pmu->nr_arch_gp_counters) - 1) |
+> -			 ((BIT_ULL(pmu->nr_arch_fixed_counters) - 1) << KVM_FIXED_PMC_BASE_IDX));
+> +	counter_rsvd = ~((u64)kvm_gp_pmc_mask(pmu) |
+> +			 ((u64)kvm_fixed_pmc_mask(pmu) << KVM_FIXED_PMC_BASE_IDX));
+>  	pmu->global_ctrl_rsvd = counter_rsvd;
+>  
+>  	pmu->global_status_rsvd = pmu->global_ctrl_rsvd
+> @@ -591,7 +607,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>  			pmu->pebs_data_cfg_rsvd = ~0xff00000full;
+>  			intel_pmu_enable_fixed_counter_bits(pmu, ICL_FIXED_0_ADAPTIVE);
+>  		} else {
+> -			pmu->pebs_enable_rsvd = ~(BIT_ULL(pmu->nr_arch_gp_counters) - 1);
+> +			pmu->pebs_enable_rsvd = ~(u64)kvm_gp_pmc_mask(pmu);
+>  		}
+>  	}
+>  }
