@@ -1,79 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976851;
-	b=RSt2yQ/EQWVIXKE1IOrvIZBD9UkyHtFHh4UofkbnsGFkmEpj3B5HGbPjj6V+0P+1bXcf
-	 xx5tz4iYbLYKjY1Wnwvus99l24YO/NDfggIi0e6yJe17qPQWEjwkiU870Bt7guqfSU7vj
-	 Lazn5A6ZLpHwaDQmEpktLpZf+fUyynBO+w4G3GX4iVU2rnvvT2WIlpHl22fQ05StENGSb
-	 dQT6X917UMcrqWtv2e/FChLdVDwdFmcXklWe4UwdfxXlIY1wZZ3jlAO5hXRXwm7NLuxFt
-	 iInyHl1B0OC1rfbxQAZqxvC6TYxm6NHRcyycC6bSFJu5Ki8pF4NqS/jvN0L4QqqQ1FA==
+	t=1793976916;
+	b=E9mXBZy84e6UivSrf9Tf85lv0KbtH2iHEUcj5A/WVws+bU9YY4nypAQ4TxuJ8us24N9p
+	 rYeSigDDKfJQSmAfakAdl/Ggs8Ft4fyZCdYsmivRkp97Kw/DYeXBu53lo2yzqG6d7mSrE
+	 pwes3/TK3nTZRd3W/g/ah43mJpYvbzSP7N8RXDw38aF5TUuxos6qrxlRbqJ433KUUNxcB
+	 cqU7zwkRC74JauUZP7LcJaArV2wCpHaAsSok9RmIBC54HgGp8l6oFF7yrBCTW5DO+ZK3u
+	 x9k72rvSOdA8arjAkx7guYtkL46xtcmi61Mgn8pl11gTcu7BMMTWVP3D08+FzVfy2MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976851;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=O3YmW0BbhxwcbBCPm1vGZAcOKmRX7wdgt/lQRqqF2Jk=;
-	b=bMutFe5rv19r9VOlUCGwvzQ1R14vFMaSksxQXv+TgpjWpLk43W91Kyqx/hskUfbxxLts
-	 09zyQNlxMjFd4N1F/lscLwhFRyKm4SMJ9ZVRp62MZR9uqgP0ufwkzYtorJeaO1HWiElTe
-	 BqrZE5woqd1ajX1pBFOWzePtLADaXN5UWXr0rhHN7CFEULZCH056Vutqw/a+SBu8BF6qa
-	 Ofo9KXm+8eKuHMAw9AKbVxC5ZjkiLvorXxwTaFshW8+u/rtke6yaXETjXAlee4NPWPQYJ
-	 gM0lJOVmQwGa6gwZoV6cUjGfdBNdqjtAcpvg8+KE7IaMBL/FRSCMCAp3ddp1JBQHxOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976916;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=+nrK2YFm2tTLcI3fq5wsXDhJRtmhHdtZNvzuXe8Ht+U=;
+	b=BA3F2+emVL1OgKtUuO04SCWTcgEahaOkpnf5TbMTpTuC1t9mZMjXvVvFhjPVnWWVHbbE
+	 BiACKFN/U6k/k7gs+omF7KmpY6MLzmVVgA41APRv2r2U+9MHD/7LiPEmsoWFO3lkYCEEN
+	 lBJb1JvajmDLuVG8Wtawce6AkuGbxceZwzz3zvk8sLl4+CRu3dqqUfY3qpmGdvVOdamuC
+	 u0ZxNtnNrrrGdm7oYAeKlABR56HWBH4YMSt5rlhDJnAkWkv/quUvHDHh5GCTb0vshnqJ6
+	 68E2h9xvxwYkBuJ1zENNwZwqjPlbLdl1+JDkhNiV71sgcE5lZu9SBtzg2jxJo9V8BQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LtEPX2k3;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NA2MeEcB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75FD7606A329;
-	Fri,  6 Nov 2026 14:54:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75FD7606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A1A606A329;
+	Fri,  6 Nov 2026 14:55:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LtEPX2k3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793976850; x=1825512850;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ZuBdw5DmXTfIFkI82MvJcqrcC6PuDLNBfHrf3a8NSnw=;
-  b=LtEPX2k38ftzb3iZmgk5ly7YTziC6Aod8gyM68e5AT2y10CVrnDsD6uY
-   keUWP2EavwwM4vVi3XydxqrggmlBnAwZa5082A1C+pryMWO/uiW03p37a
-   3NMU/dctJEu6XUSioDVkMhhdy1Bm2CcUFLBoOBAfFza7RkWWTAyRhyxqy
-   j8r2d+Ak/4ZJAdmeT6kh2bNrHhCC9Mn1j0YVbgEEx2ZgGRIQ8QXElzzaA
-   853uzodDrJ6ZWH2UJPwG5OnhzSfZFPa1TVKWvm30mkP9B09vf94H5PeNp
-   fUguy6LmhxFrfteHpQoV5voaREbNta+Bfw/f9Mh31MpVfF0DSj3gTQ49l
-   w==;
-X-CSE-ConnectionGUID: dgHERlRYQ9Cg3WtfJRXYLw==
-X-CSE-MsgGUID: ND1tkqSYTCeiIjuab9I2vA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2678410"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2678410"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 06:54:10 -0800
-X-CSE-ConnectionGUID: PfkvRGDlRJiFi2SaS6w1VA==
-X-CSE-MsgGUID: iNJCUPdoThSSQUyyxzSTmg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="9056552"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa011.fm.intel.com with ESMTP; 06 Nov 2026 06:54:09 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 5C2BE99; Fri, 06 Nov 2026 15:54:07 +0100 (CET)
-Date: Fri, 6 Nov 2026 15:54:07 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>,
-	linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
-	stable <stable@kernel.org>
-Subject: Re: [PATCH 14/19] usb: typec: mux: it5205: fix oops on accessory
- modes
-Message-ID: <au3qDw094t54vE_a@black.igk.intel.com>
-References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
- <20261027-llm-usb-v1-14-b9751ddb9c7c@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NA2MeEcB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2748D1F0089F;
+	Fri,  6 Nov 2026 14:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793976915;
+	bh=+nrK2YFm2tTLcI3fq5wsXDhJRtmhHdtZNvzuXe8Ht+U=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=NA2MeEcB05+GcKTGYnziqBEnacs2HijEyO0g5KLtQRWF8X0mSbdxki7/QgbQiS4Z4
+	 CJ1rqUjrgeBBgbPvCNTeQ6pwmN6YWz3EioQTjRdxzIFrX4dOeddxcwJluTVqO7uNlo
+	 8YmCetxpXj2Q5Ry6aUMhznTGbp1AV0IV9uuxDkmmgQE2C0HbaCvHg2JgEYRJzDbDup
+	 h/NY8fU9fH46LjQ19/1v1ynworZ9WklbPuP1Ztg0vRHtCJbHrqKwop4kBdJDVAsitT
+	 FLw6aZtDpPTcx6vGV/+l1VziMRUauy/qIAkoM6azbpOqCPOnqEB72D1GaU8dnrBOSB
+	 VZx7fLJCjRk6w==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 9C8D2289C309;
+	Fri, 06 Nov 2026 14:55:11 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,75 +52,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-llm-usb-v1-14-b9751ddb9c7c@linuxfoundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] ASoC: samsung: i2s: Fix runtime PM usage count leak on
+ failed trigger
+From: Mark Brown <broonie@kernel.org>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261103013125.1067-1-laixiangwu@cmss.chinamobile.com>
+References: <20261103013125.1067-1-laixiangwu@cmss.chinamobile.com>
+Date: Fri, 06 Nov 2026 14:55:10 +0000
+Message-Id: <179397691069.3231166.15159234758356297627.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=743; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=tu5PRQfWNSpyDTM9czH1vzhTGHOj9DCZt/mYaemwVMY=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLevvI/LM/preDEqncgP8/kx/Itn/97/zlVau3y9UjH3
+ K0sUaYMHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZhI2C2Gf5b1RwoeaD595mSk
+ Zut35GHVN8F3C3R4JRsVppgudlJ6YcTwV+z8/E+f7k46k/LxnI/KFUkrEXu/b68uv4pX/6BW+o5
+ TmBUA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Oct 27, 2026 at 03:57:54PM +0100, Greg Kroah-Hartman wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> typec_set_mode() passes a state without an alternate mode, and the USB
-> and accessory modes (TYPEC_MODE_USB2 ... TYPEC_MODE_DEBUG) start at
-> TYPEC_STATE_MODAL like the states of the alternate modes. TCPM and UCSI
-> set TYPEC_MODE_AUDIO or TYPEC_MODE_DEBUG when such an accessory is
-> attached. it5205_mux_set() then reads state->alt->svid: plugging in an
-> analog audio adapter is a NULL pointer dereference.
+> i2s_trigger() calls pm_runtime_get_sync() when the stream is started,
+> but if config_setup() fails it returns -EINVAL directly without
+> dropping the reference.  The matching pm_runtime_put() only runs in
+> the STOP path.
 
-Please just explain here that the code is accessing state->alt->svid
-without first checking does state->alt exist.
-
-Then make a note that state->alt is NULL if for example TCPM sets the
-mux to an accessory mode TYPEC_MODE_AUDIO or TYPEC_MODE_DEBUG.
-
-> The numbers must not reach the switch either: TYPEC_MODE_AUDIO has the
-> value of TYPEC_DP_STATE_D. Without an alternate mode connect the
-> SuperSpeed lanes for TYPEC_MODE_USB3 and disconnect them for the rest.
-
-I think what that is trying to say is that this driver needs to handle
-the mode value separately with the "normal" USB Type-C modes and the
-alternate modes, because those values overlap, right?
-
-> Fixes: 41fe9ea1696c ("usb: typec: mux: Add ITE IT5205 Alternate Mode Passive MUX driver")
-> Cc: stable <stable@kernel.org>
-> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  drivers/usb/typec/mux/it5205.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/mux/it5205.c b/drivers/usb/typec/mux/it5205.c
-> index 2ab2ba6a3cbd..00d5bd55e423 100644
-> --- a/drivers/usb/typec/mux/it5205.c
-> +++ b/drivers/usb/typec/mux/it5205.c
-> @@ -92,13 +92,19 @@ static int it5205_switch_set(struct typec_switch_dev *sw, enum typec_orientation
->  static int it5205_mux_set(struct typec_mux_dev *mux, struct typec_mux_state *state)
->  {
->  	struct it5205 *it = typec_mux_get_drvdata(mux);
-> +	unsigned long mode = state->mode;
->  	u8 val;
+> @@ -936,7 +936,7 @@ static int i2s_trigger(struct snd_pcm_substream *substream,
 >  
-> -	if (state->mode >= TYPEC_STATE_MODAL &&
-> -	    state->alt->svid != USB_TYPEC_DP_SID)
-> -		return -EINVAL;
-> +	if (mode >= TYPEC_STATE_MODAL) {
-> +		/* USB and accessory modes: not the DP pin assignments */
-> +		if (!state->alt)
-> +			mode = mode == TYPEC_MODE_USB3 ? TYPEC_STATE_USB :
-> +							 TYPEC_STATE_SAFE;
+>  		scoped_guard(spinlock_irqsave, &priv->lock) {
+>  			if (config_setup(i2s))
+> -				return -EINVAL;
+> +				goto err_put;
 
-So now if the mux is set to an accessory mode, this function returns
-successfully, even thought the connector is not actually in that
-accessory mode?
+This mixes scoped_guard and goto, that is prone to breakage.
 
-Return -EINVAL in that case?
+> +err_put:
+> +	pm_runtime_put(dai->dev);
 
-thanks,
-
-
-> +		else if (state->alt->svid != USB_TYPEC_DP_SID)
-> +			return -EINVAL;
-> +	}
+If the subsream is not linked then the core will unwind th start which
+does actually do the trigger() the commit message said won't happen...
 
 -- 
-heikki
+Mark Brown <broonie@kernel.org>
