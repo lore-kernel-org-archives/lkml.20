@@ -1,58 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953881;
-	b=4QJNJbSL79DDjwvVCW4bmbRuU7X3pN3ptP02Jp21Jv+xlcLbhCzl72L1OXBBvsD0EDRl
-	 oqJIcWTCx67ss9gebAjjKRZ9nb1km1dE/QjBrw7JhuriDVlF2HYNX1jNXd7x2dbPFq6tj
-	 p07OTxD6SdOioo+AH18Rp/Ws5YPk3s+tfObX+d1b/IjuMYy7IM81713vf1FQ3bVsEyS5E
-	 /8JDYo8/2KRWOTSVbZYOeoxWQmtQCvB6z3izj6AClVzrJf9jJeJapQWE/m8fYbWaleY76
-	 02EJI27z100HqijcliYCx9TLuJJePo0v4QsHPQkYvA8WJXwkG2xa3TxR3mA5z0bImaA==
+	t=1793953983;
+	b=G0r/eielRzd/5fwIHmENtndbBJkMspJPkhe7y6hCRWhQK4ILSZ7xA+b2gIpY8cBvk+39
+	 3tlRHSwWkfXO4RoCkM8qE4VR9ANLBrKB15PpDBTCNX3eID5B79jbvbwM0pBOP6/Y0YrJE
+	 +aAD38MvBRtOK4Vj+qZdWG0NzfznmmNg4tU9oek3rYUJJ8G1s7aVueE7zrPzfMpmxePSF
+	 hvf/bLFXtoB2+Et7UnojzoI4FlTnNj+JS9tnYaKG1nf+1ZBcx+zo0vqtaietFm5FzmN1M
+	 oQRmml2cMaPYI6Jenhw4W+VgqiAvDryCK/Jt7mZEhPatZz4iu/rj9B+s8ZE+7x5iSqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953881;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=+gZ1dPq5yxIl2dPI32VCfpqqFGwlrNDJvLijDLBz3sI=;
-	b=e0pheJTBemmP0XPPdhl3/OIBQDu8NNnPh4NycaHokuJn1Uc85IDF6j4fomLuNHW6sBJ8
-	 Mdg4zcJWveLyKesoxQgGeVZdeHDjgF0b3YVp7G54pFZj9P4dwOU/4QEUGzHXroG8gPHD5
-	 KvJi9WtW2arymoDPc/yC5yF6tZhE06rJUra+nUeol0IK10UbEdD8gcbY/JTacRWz6ONdg
-	 /rqwUqWk038mNX3G09W5V+ZXH0Kcyo0LTr+M7zUMUUZL5n+bI29Y+NWfgR/Q0/xR4wEJG
-	 VEhsrNM3TmdSLzPB+h5f8fOnzBY0aL7NpJa/7L+fHS0ty5ky4+vqoNCBagWjICPik3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953983;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
+	b=M8UfG8z+T6ycJGCe7SP0IK8eBoAIso/GOMQwRHXlBkKFZ2XQ299Laka78l+ZLXWclxee
+	 pZgg01tXtMk4lvY6drU8GNpTw67F6hC0i5Dalk4KOVBqZ9ilu6t0WE/P/ObXBUGYprJ0+
+	 Saf39v7yLxF5B8hDWAjBWMwBEugOHfhzsdRPk6DK4nicyOaUom78c6nrsUI0pViwFqL1a
+	 yc1aS26TYs0Uz9KZWkUCu7joqKHkJ3BuCx0yweTQGMv5+u3nFkHOeX9FOtHpt2qCuiNfj
+	 BbWvHI43odbSNr17w4f2nnrP9lIMmYbTJeoCevawo3mQEUwvV/hpiED8K4Djd42m3SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JVw3kCu0;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=u1b2yEKn;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sZO5cXiD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=u1b2yEKn;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sZO5cXiD;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08D3606D801
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:31:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C08D3606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5C6606A326;
+	Fri,  6 Nov 2026 08:33:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E5C6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JVw3kCu0
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=+gZ1dPq5yxIl2dPI32VCfpqqFGwlrNDJvLijDLBz3sI=;
-	b=JVw3kCu0U5+iU8hit/E9+8/nQx7WiAj6e/TRJWXpg9Tt+JdhjLcqi3RnREY+NEfYYfTm3naZu
-	Lo264yRT7lM/VbPFtE/aD8yOIPsVF+StoVOiIUBhurWxSCS3syGw226V8LO8nRBU3j0YGnpMQFE
-	xSd/lRhPq0QTf9pUzYRAKJc=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jLXSf3Gxjz1K96j;
-	Fri,  6 Nov 2026 16:30:58 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 91AD540586;
-	Fri,  6 Nov 2026 16:31:04 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 6 Nov
- 2026 16:31:03 +0800
-Message-ID: <318fccde-8ff8-491f-9449-6bb8e0924626@huawei.com>
-Date: Fri, 6 Nov 2026 16:31:02 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=u1b2yEKn;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sZO5cXiD;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=u1b2yEKn;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sZO5cXiD
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 514372227B;
+	Fri,  6 Nov 2026 08:33:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793953981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
+	b=u1b2yEKnANEWG3Z0h+pkZ5D51q34HP1Z2hK2Iy4ewFDMq9uWlmnF+mH4+cCB907/110IEl
+	WHOEaRugp/okQXuI+7Ss2FuWICtpg+ljpgUA3WlcqO7a9nciHJxfJhF/GwqLZyZ91hCkMB
+	N4tR9euFrZ8MSs4CkeuQsb4KqbLKFPI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793953981;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
+	b=sZO5cXiDIZyLoC6LtENpj8BkutBAw38UPqKWlM1dulS36AjKmnwBpgyl7UeYCWNqfH2pU5
+	oqsnadd6C98a2dCQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=u1b2yEKn;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sZO5cXiD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793953981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
+	b=u1b2yEKnANEWG3Z0h+pkZ5D51q34HP1Z2hK2Iy4ewFDMq9uWlmnF+mH4+cCB907/110IEl
+	WHOEaRugp/okQXuI+7Ss2FuWICtpg+ljpgUA3WlcqO7a9nciHJxfJhF/GwqLZyZ91hCkMB
+	N4tR9euFrZ8MSs4CkeuQsb4KqbLKFPI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793953981;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xTeyXotE9CqHyoXVzJOPjd+DZKi1ifsw28DOJpbzOlE=;
+	b=sZO5cXiDIZyLoC6LtENpj8BkutBAw38UPqKWlM1dulS36AjKmnwBpgyl7UeYCWNqfH2pU5
+	oqsnadd6C98a2dCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E24CE132C9;
+	Fri,  6 Nov 2026 08:33:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id b+ULLbyQ7WqgfQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 06 Nov 2026 08:33:00 +0000
+Date: Fri, 06 Nov 2026 09:33:00 +0100
+Message-ID: <87h5huqs03.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: Re: [PATCH v1] ALSA: hda: cs35l41: Override malformed _DSD properties for various laptops
+In-Reply-To: <20261105170341.219204-1-sbinding@opensource.cirrus.com>
+References: <20261105170341.219204-1-sbinding@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,195 +113,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 00/14] arm64: entry: Convert to Generic Entry
-To: Kees Cook <kees@kernel.org>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<oleg@redhat.com>, <luto@amacapital.net>, <wad@chromium.org>,
-	<peterz@infradead.org>, <ada.coupriediaz@arm.com>, <linusw@kernel.org>,
-	<yeoreum.yun@arm.com>, <kevin.brodsky@arm.com>, <anshuman.khandual@arm.com>,
-	<james.morse@arm.com>, <thuth@redhat.com>, <vladimir.murzin@arm.com>,
-	<tglx@kernel.org>, <broonie@kernel.org>, <liqiang01@kylinos.cn>,
-	<ryan.roberts@arm.com>, <pengcan@kylinos.cn>, <kmehltretter@gmail.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
- <202609221129.B5E13A7@keescook>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <202609221129.B5E13A7@keescook>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 514372227B
+
+On Thu, 05 Nov 2026 18:03:34 +0100,
+Stefan Binding wrote:
+> 
+> Several HP laptops have malformed and incorrect _DSD properties used by
+> the CS35L41 HDA driver. This results in audio for those laptops being
+> broken. We can fix this by overriding the _DSD for those laptops,
+> ensuring the driver uses the correct settings.
+> 
+> The laptops whose _DSD will be overridden are:
+> 
+> - 103C8E11
+> - 103C8E12
+> - 103C8E13
+> - 103C8E3A
+> - 103C8E3B
+> - 103C8E60
+> - 103C8E61
+> - 103C8E62
+> - 103C8E75
+> - 103C8F57
+> 
+> Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+
+Applied now.  Thanks.
 
 
-
-在 2026/9/23 2:29, Kees Cook 写道:
-> On Tue, Sep 22, 2026 at 11:54:56AM +0800, Jinjie Ruan wrote:
->> This series converts arm64 to the generic entry infrastructure.
-> 
-> With my trusty LLM driving a bunch of orchestration, I gave this
-> a fairly wide before/after run under qemu-system-aarch64, trying
-> to cover things beyond the ptrace/breakpoints/abi/fp/vDSO list in
-> the cover letter. But since this is all emulated, it's mainly basic
-> correctness coverage, without any meaningful concurrency coverage. I
-> just wanted to find stuff that maybe hadn't been exercised yet.
-> 
-> tl;dr: the only behavioral difference I could find anywhere is what
-> patch 1 fixed, and I found no meaningful regressions.
-> 
-> Setup: the series applies cleanly to v7.3-rc2 (I only noticed later
-> the series was actually based on -rc4), so "base" is v7.3-rc2 and
-> "patched" is the same tree plus the 14 patches, with each pair built
-> from the same config with GCC 16.1.0. The guest was QEMU 11.1.0:
-> 
->   -M virt,gic-version=max,mte=on -cpu max,pauth-impdef=on -smp 4
-> 
-> I used four kernel configs, each built for both base and patched:
-> 
->   plain    defconfig + SECCOMP, USER_NS, AUDITSYSCALL, KUNIT_ALL_TESTS
->   lockdep  plain + PROVE_LOCKING, TRACE_IRQFLAGS, PROVE_RCU,
->              DEBUG_ATOMIC_SLEEP, DEBUG_PREEMPT
->   hooks    lockdep + the options that add work to syscall entry/exit:
->              FTRACE_SYSCALLS, KSTACK_ERASE, LKDTM, NO_HZ_FULL,
->              CONTEXT_TRACKING_USER (booted nohz_full=2-3)
->   rt       hooks + PREEMPT_RT
-> 
-> and ran userspace tests from both an AArch64 and an AArch32 (armhf)
-> userspace, since the latter takes the is_compat_task() side of
-> ptrace_save_reg() and the cover letter didn't mentioned COMPAT.
-> 
-> Results were identical on base and patched (pass/fail/skip):
-> 
->   seccomp_bpf                   98/1/12 (AArch64), 94/2/15 (AArch32)
->   ptrace selftests              get/set_syscall_info, peeksiginfo,
->                                 vmaccess: no change
->   breakpoint_test_arm64         213/0/0
->   rseq basic, percpu_ops        pass
->   KUnit (KUNIT_ALL_TESTS)       ~1500 results, no change
->   MTE selftests                 117/0/0 (but see below)
->   strace 6.18 test suite        81/6/0 (ptrace/seccomp tests)
->   audit (a0 filter)             pass
->   syscall tracepoints           pass (argument recorded correctly)
->   lkdtm KSTACK_ERASE            pass
->   lkdtm stack-entropy.sh        7 bits
->   lockdep/RCU                   0 splats in lockdep, hooks, and rt
-> 
-> The only delta I could find was the expected one:
-> 
->   sysemu_singlestep (new test)  FAIL on base, pass on patched
-> 
-> So patch 1 fixes the described bug, but it had no in-tree test, so I
-> wrote one. I'll send that separately.
-> 
-> Various things I noticed along the way:
-> 
-> - The set of traceable symbols on the syscall path changes:
-> 
->     removed: syscall_trace_enter, syscall_trace_exit,
->              el0_svc_common.constprop.0
->     added:   trace_syscall_enter, trace_syscall_exit,
->              syscall_enter_audit
-> 
->   These aren't ABI, and the new names are the same ones x86,
->   riscv, loongarch, and s390 already expose, so this is really an
->   improvement. But it might be worth a sentence in the cover letter,
->   since patch 13's "[Compatibility]" note could be read as "nothing
->   observable changes", which isn't _strictly_ true. :)
-> 
-> - Syscall-path stack use grows by 48 bytes. Base do_el0_svc() has a
->   16-byte frame and calls el0_svc_common() with a 48-byte frame; with
->   patch 14 inlining it (plus the __always_inline generic enter/exit
->   helpers), do_el0_svc() grows from 48 to 808 bytes and 1 to 13 calls,
->   with a single 112-byte frame: 112 - 64 = 48. lkdtm KSTACK_ERASE with
->   randomize_kstack_offset=off confirms exactly that at runtime (2288 vs
->   2336 bytes, ten samples, no variance), on both userspaces and in
->   both the hooks and rt configs. It's small, but it's not mentioned as
->   a (minor) trade-off for patch 14's ~1% speedup. Other size deltas:
->   .text +12K, ptrace.o -3.6K, and +3.1K of shared
->   kernel/entry/syscall-common.o (all seems expected/unremarkable).
-> 
-> - Patch 14 also moves that inlined code into .noinstr.text (+896
->   bytes). Since arm64 doesn't have objtool noinstr validation like x86,
->   I checked the images directly: no calls from .noinstr.text to
->   instrumentation outside the noinstr range, and no __mcount_loc entry
->   falls inside it, on either kernel. But we don't seem to have anything
->   that will continue to enforce this?
-> 
-> - CONFIG_DEBUG_RSEQ "depends on ... && !GENERIC_ENTRY", so patch 13
->   makes it unselectable on arm64 and rseq_syscall() becomes the no-op
->   stub. Patches 5 and 9 carefully reposition that call, and then patch
->   13 removes its effect. Not a bug (generic entry does the equivalent
->   via rseq_debug_enabled, and I can see __rseq_debug_syscall_return()
->   called from the new do_el0_svc()), but patch 5 reads like a
->   standalone fix that disappears eight patches later, so a note in the
-
-Hi Kees,
-
-You are correct, if it is not a refactoring, we should clarify whether
-the rseq modification is a bug fix.
-
-So I verified that this is indeed a bug through an rseq test case. The
-rseq patch will be included in v21 as a bug fix, and a corresponding
-selftest test case will be added.
-
-Thank you very much!
-
->   cover letter might help make sense of this?
-> 
-> - The cover letter includes the gvisor SUD numbers, but SUD needs
->   ARCH_SUPPORTS_SYSCALL_USER_DISPATCH (as well as GENERIC_ENTRY),
->   and with the SUD patch dropped in v18, arm64 doesn't select it,
->   so CONFIG_SYSCALL_USER_DISPATCH can't be enabled yet. (rseq slice
->   extension is similarly blocked on HAVE_GENERIC_TIF_BITS.) A reader
->   could take those numbers as something this series delivers.
-> 
-> - arm64 defconfig has FTRACE_SYSCALLS=n, which means
->   SYSCALL_WORK_SYSCALL_TRACEPOINT can never be set and the tracepoint
->   paths touched by patches 2, 3, and 9 aren't even built. So anyone
->   testing with defconfig isn't exercising those; you may want to test
->   with it enabled. (Also, compat tasks never hit syscall tracepoints
->   on arm64 at all, due to ARCH_TRACE_IGNORE_COMPAT_SYSCALLS, so that
->   path can only be covered by native tasks, but that's unchanged by
->   the series.)
-> 
-> - I verified that the entry work ordering is unchanged. It looks
->   correct to me: arm64 did ptrace, seccomp, tracepoint, audit; generic
->   entry does the same. (It also checks SUD and rseq-slice before those,
->   but neither can be enabled on arm64 yet.)
-> 
-> Suggestions:
-> 
-> - rr: Since you have real hardware, could you also run the rr test
->   suite? rr has been the most sensitive ptrace user I've encountered,
->   and it depends on exactly the syscall-stop and single-step behavior
->   this series touches. I couldn't run it: QEMU's TCG PMU exposes PMUv3
->   but only counts CPU_CYCLES (BR_RETIRED always reads 0, on every
->   CPU model I tried), so rr aborts in check_working_counters(). If
->   you do, note that you'll need "proc_mem.force_override=always" (or
->   CONFIG_PROC_MEM_ALWAYS_FORCE=y), or three rr tests fail for unrelated
->   reasons (rr-debugger/rr#4093). Build and test instructions are here:
->   https://github.com/rr-debugger/rr/wiki/Building-And-Installing#tests
-> 
-> - MTE: I didn't see MTE in the cover letter's test list, and it seems
->   relevant since patch 13 puts _TIF_MTE_ASYNC_FAULT into
->   ARCH_EXIT_TO_USER_MODE_WORK, so an async tag check fault lands
->   on the reworked exit path. The MTE selftests showed no differences,
->   but a third of them don't actually run for me under QEMU, so they'd
->   be worth running on your hardware. (Testing MTE under QEMU saw
->   check_mmap_options hang at test 5, the first test with tag checking
->   on, and check_child_memory never produces output, on both base and
->   patched, so only 117 of the 183 planned MTE tests ran. But this is,
->   of course, a QEMU/selftest issue unrelated to the generic entry.)
-> 
-> So, for the series:
-> 
-> Tested-by: Kees Cook <kees@kernel.org>
-> 
-> -Kees
-> 
-
--- 
-Best regards,
-Jinjie
-
+Takashi
