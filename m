@@ -1,42 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.31.26.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957635;
-	b=koGSZpL/pBDDv8uomlqoDHQ+uUwHTV7xCiEhFpteDKYVq8dhyvD2v9H22ZNIE6hsX6VC
-	 XI3OrHjMlDvYGqk6PkGGkY6JKhMO5dqdhgdEoihIfQCnhKiBxtnQksTSCqgq//aAHWoiu
-	 Q5UC70UDVPiDkrycxPQeq6LoIA5dZSNLgjiZBMsErWPWj+Hmyfr4zEgh1DNUJR4JsSG57
-	 j4ZjyKajK3IrRwv31alz6e+k4mNQhfBMMVMgIu7mtnoN94gbJJaMN1SGJOpkc24lNUyNq
-	 6sYK4FqtnSOBSz2Ny9/eOqDD+o+PU1cWAyiPc2OONGLvq7NXjAFktkBoqHmWLH80b6w==
+	t=1793957676;
+	b=ahYGO8t4Iz27hGTV7KGApcmZfmVb5WwdwSL/FVjVwZA2iKaDjFmPewUPoxmx8KV+9tL2
+	 nxzcfDIGa/AxGjYQk53GOolkeJiVNPmTUlJhFGhXpwP3ahKItC2O0CgpGY0M7qLI/Qgph
+	 8yzXRoS5TSLuMwQ3Z6zPU8cxKiHS+Bq9uzlvSsVcPQtWAhNMsEgc+ay3waCV05wGS9beF
+	 HLUWHltuMHeWsZ4qOPwDUcBulW4205/KfmaPVedDbiyiQp9Ttk7AtLYXwJrRGXG/IHPxs
+	 TgLZpK48fjREspYleZALFYnQ8brRlan3U9ojXA7IC6yG0iuzOMzEMH2Y2RepBtflXeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957635;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=quGIdAlr6cVbKO+/sUYwx3r9laCtkrX2RSOwIZ+MluE=;
-	b=XHEGuq4t+3bC1PUWVxbfsOb9Gs9h7A2t6xpvl6UM1MKmo2j79zA2lrBGYLXIeW7zsJZf
-	 he7Zd6p1kUdJGIRXWqAd0b6m9G/ksTkx8OVCnFptGmP3Rj8YJbbjzLDmpRc3+MiNlKUdc
-	 a4gTphGLIJaSTjw46kQW/LP30nH/iYzqWPWO3lZxdIuT7gNfODmQwY/reDgheyZmNeMfS
-	 eb2Wa6QhGlLBqykBkeA+bXoH0LcFxS5mzqkJnqEIVch8aXxv6PazH060KoAttdze6oUu5
-	 Kb6dBrZbHusWgeJatxoBhnEIOYhFg7sA+a3iQC+Yj9fkLBcsLAmzgINB5OE8OZspOlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957676;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=5DpkpCFdql2S/x8Err04oU2KI9wV3J7R3Kv596mw4Ww=;
+	b=m0rWA12CqwJypwWXeWoyRvejqLkiNUtQMgfbzzgUvUI6ofEOZzEWjMdXSDBn358EyARU
+	 ZKW/kk1cRlD/fNUOBkDAGqfmVmtCk9J7obmmm9O49QMNtMa+1lw71TybHj1IjWWibij4g
+	 VB0rd6QSlMqqdX6Z/28zz9ag4GSKpwOpqG2u+5SrkECWkTvVHzrarHD1NP7pCViLm85JJ
+	 gAB7tdzLOHAa0W71l1uHtvQ02UQhRE7Po3vfaHEH+2afkxkxKvBKeqzRx2su6/gQfaQp9
+	 Olo1Qm/hB7Xgv+M4m+l0WOjWJqh8kwbDIDgIxamLLDTTSO71FJVBfybwOqKkwOgm2MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rudorff.com;
-	spf=pass smtp.mailfrom=rudorff.com;
-	arc=none smtp.remote-ip=193.31.26.27
-Received: from rudorff.com (rudorff.com [193.31.26.27])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F613606EE9D;
-	Fri,  6 Nov 2026 09:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F613606EE9D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rudorff.com
-Received: from [127.0.1.1] (dynamic-002-211-221-196.2.211.pool.telefonica.de [2.211.221.196])
-	by rudorff.com (Postfix) with ESMTPSA id 7277F404D7;
-	Fri,  6 Nov 2026 10:33:46 +0100 (CET)
-From: Christoph Rudorff <chris@rudorff.com>
-Date: Fri, 06 Nov 2026 10:33:26 +0100
-Subject: [PATCH v5 1/3] dt-bindings: iio: light: gp2ap002: add leda power
- supply
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E81606A32D;
+	Fri,  6 Nov 2026 09:34:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0E81606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3v5Akn+1qE3ZrAA--.5072S2;
+	Fri, 06 Nov 2026 17:34:29 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: leon@kernel.org
+Cc: jgg@ziepe.ca,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rolandd@cisco.com,
+	vulab@iscas.ac.cn,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] RDMA/core: Fix member use-after-free in process_group_error()
+Date: Fri,  6 Nov 2026 17:34:38 +0800
+Message-Id: <20261106093438.366229-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260923084752.GN563127@unreal>
+References: <20260916184555.2093238-1-vulab@iscas.ac.cn> <20260923084752.GN563127@unreal>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -46,50 +56,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-iio-light-gp2ap002-v5-1-070631a7252c@rudorff.com>
-References: <20261106-iio-light-gp2ap002-v5-0-070631a7252c@rudorff.com>
-In-Reply-To: <20261106-iio-light-gp2ap002-v5-0-070631a7252c@rudorff.com>
-To: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Christoph Rudorff <chris@rudorff.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3v5Akn+1qE3ZrAA--.5072S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYq7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
+	r41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCF54CYxVCY1x0262kKe7AKxVWUAVWUtw
+	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
+	14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
+	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+	0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU75l1DUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIDA2rtky8q+gABsx
 
-According to datasheet page 8 "Recommended external circuit",
-it has tree pins that need power: vio, vdd and leda ("vled" !)
+Hi Leon,
 
-Signed-off-by: Christoph Rudorff <chris@rudorff.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
----
- Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+You are right, I looked at it again and can't prove it. Please drop the patch.
 
-diff --git a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
-index 99bddf31cbed..643021f1d820 100644
---- a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
-+++ b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
-@@ -33,6 +33,9 @@ properties:
-   vio-supply:
-     description: VIO power supply a phandle to a regulator
- 
-+  leda-supply:
-+    description: LED anode power supply a phandle to a regulator
-+
-   io-channels:
-     maxItems: 1
-     description: ALSOUT ADC channel to read the ambient light
+Sorry for the noise.
 
--- 
-2.39.5
+Thanks,
+Wentao
 
