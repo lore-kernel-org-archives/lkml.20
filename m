@@ -1,104 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794004067;
-	b=4pWnmaW+w+1C/KQkGrMJ8v0u7Qj3R0wq4wZJpy+0BJrEDBNLp4aOOv1j2a5K7KQVaQZ8
-	 cUDaoQXeYr1RXV+Z1zigqtrNyDMB8o4QimZWas7U8yjh2k/bCvxOWUP+Ke5152BPpt5RQ
-	 maxlsCZtoH+InuAUs95t1R9bzYe7d2E9ItwYG46vtxMgUK31MwXkIrPPqfuvU1OUBjt+v
-	 OekHRCLdLhMKf8YdoICeXvyZ+79v2SW1eTXH9NKh8besmILQi+whk7N7MLolHZz6F8R6J
-	 cEKbFopIwCs6x3kHv8j9Rb5EE1qNu/YpCL0MqMISkOFv+E2hlSPSbry8EP/y9kAoQdA==
+	t=1794004152;
+	b=jZacH8Uc3H5UNaDbU3Tgk33g+zIuwj0CaEbmcrfjuvlG3TLiXBYlfsHM0BAC0u+qf0MX
+	 KFBRE8XqWi063oDiOy9M3Cbaj7yfueHNmiZoQIroIVD3F6diY0gwdMTiG+Vx8LhA3idqR
+	 rX9SqSR5yAj3vdONeSZHgZlxXbCU1DOe41t+DB9Tj+Xrc7pDI2hS6scOlhSTYIZUffmQX
+	 EhoDqSk1GsOk3nFpy6MBL5pMeXLsC0QkLSCemmgnG6faHTg4g5wo/iP1dv+ySSOoa/uHg
+	 0hX+yR01OWYni8dBp7HO9MGQKfT/HcSGAtuzB9LPUOWjSwoppUUzVX27LE6ChMOW6cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794004067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794004152;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Tm44yLE9zR/+xclgm4/iFVDEIIryMy4vkUArG8yur4M=;
-	b=wcIshrwX4rWVLRf0gFCaHdU+h+i4LuTtKegto2/4Hy5C8ZjnCKGFp2lp/J347p5uIZ7y
-	 enPlKzLvGQZ8KkiBC09C9jE2upZvIJjK4CGWZJi3QgU8Y07bWh63AwK+WQULWHkwy3fv7
-	 iW1kOhojj0ku1ZhXJcNfxDT+p1Mp/MeUBRe7bK2+DVnIW9Vr6HPFtXiESQq2sGpC3Fv6W
-	 scjFJcw1EKlGlaYu+eMz5PCuCJDB6ueTfd55JqguhpWOOtaIO81qVh/vamZGz26rJ4Lvk
-	 Hla82QctX8JTROuWALCI+Kyn79vEIRDoicMHRICug66ylIFQRX6lKqDpGrdw6KNDflw==
+	bh=i6wtLwteYwyUZUWdoRocIhX8iiQGzMdlm5waC4g0QLs=;
+	b=ex54829fM4iJ4AV7ZaZLyeIR9BnW6USCsBQa/uon3YtuK9KXyYhYZ1uej4SM5uL4PNfq
+	 UBvgk7A5YTZdRK2oHxvDBNyrphiyp7ZqnezBLAJ6Xm8eAR6EgQ0jaqKrFzBS7+4etq7jH
+	 yOiT07twMaHX/Y0W1UpSwSD61pUr/tapiayT4rnptms7vCYKc9YMS9cb0C4Nstv6tNb8J
+	 L9EWhMCj6VA/2B21xKNeZP3LKUVxKq/6baEuoayvnsTAs4YQ0BMipkQdeo61GtFpmDvRo
+	 BTRVxhx4CVX7irArGP7iD0a8ZD4RlQsKnwZAaA22nYorCmndCWJ7xjfpp4MwQu4I5TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LrO6gz3q;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gkl+CmfF;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891B8606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:27:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 891B8606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB33F606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:29:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB33F606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LrO6gz3q
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so658011f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 14:27:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gkl+CmfF
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ed3f563739so11555ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 14:29:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794004065; x=1794608865; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794004151; x=1794608951; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Tm44yLE9zR/+xclgm4/iFVDEIIryMy4vkUArG8yur4M=;
-        b=LrO6gz3q3TY5UyCJOUBox/jjNcpxcJ2iAUHSQ0uClQVQf0wM2zRmqenKRj+0+YEWiW
-         yV2HOJRF3YA+WPieH13BkTkh7BEKnK040T6AxoBSU/NZTmP6uA2l5fW5B3zeTwH+n6wT
-         PBK0Fihz1HLsWmo0/C98BGnDAsRDCdtWZrWElYILBY2JcuYZKOBBVwLZEhNzZVRbtkxS
-         ug+KkGnyno3GobtlniguEXtAX/Y7ZSWcbFoKp5v+NeQi53SUrFn9GTu/o4mUslsT5GLs
-         0CQE0/7Yi5XJ0jYhQ6kvPCXZIIp6raSkr09c0B64iFEt5q+7wtbJkmvR6BWeM5uRL2Zk
-         +VhA==
+        bh=i6wtLwteYwyUZUWdoRocIhX8iiQGzMdlm5waC4g0QLs=;
+        b=gkl+CmfFQ+Co71nT6Egy2HcSuWbxjmTrMcP4xLom+yPt7cEbNxsDoECW+9ukC5saGE
+         +AySoNHT/voHJzM5UxjovhfbBA4XVMmOzenTYYDHMTsRbS8yBDI6QJCC/DhqETSb9rfi
+         DOMe5p5m8Jf6QID1xENOM2zAR1ZJEac4eAVE38l+dObMh2ofbhr/jGqeJ6w/wQziIRyG
+         7e0XENuBRYE2xUyk1zPMSoXhVrt2mPi/FAktijRb4aYgmhwzysr64/2u5MQmgud0WLGQ
+         edRQIb+VHahReTzYz8nVaVx/ZTWIZiGWFzXVnUzS8RaVeSJDFuxuhL+tw/ESiAOBb6g1
+         rz8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794004065; x=1794608865;
+        d=1e100.net; s=20260707; t=1794004151; x=1794608951;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Tm44yLE9zR/+xclgm4/iFVDEIIryMy4vkUArG8yur4M=;
-        b=FBYum4ywH1JkH3ecpNd5XwdA640YF+T8duJtDgIlOzYE+Zt7hb+hSBFaNkR8MqPkKb
-         gs3xzqEQneVG3i3c2BFrXUwvch+aY2sbG0CrN/db1I31ayJSXwcid1JCJi42TSk1KkOj
-         c20hLxRTXTwiDB21c48Y0pJ2pE9sEUohKr6JmVbOGCpRHSmCiaYA/YWRyvDZ2jcULx6o
-         ZjqaRqNzIQfXfBzO6RQiM1fHTT+R1wbhSE9nTeV11WcfXJ3YWoeimTOVxH3SCwwsYoPp
-         YgTLhL3FN1MVhSxzc7iUhTgPp6+8BOot9nviu/2I2faT4ipinOPTdA9/XUoLsHyQdMZJ
-         PI8Q==
-X-Forwarded-Encrypted: i=1; AL+hErHJsYSJp5xbPAqJ/rRHI60Pq2irIBxPOM/KkL/4F4HSs0iLWFWBKHmFX4AEpSayD8AVInQ2c9NSEqaGKMg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/tGEuKlqi1rOFIrGJwSE3w5Oe4NfZc3lLe8ZM2mr5OfpMuMqLV
-	x3cQ/Y78vU/RjtiXbUu0/cKWbYVhxCBnPKsVodfBGo/ANWcD4zTjxwy80IDoe5zyG34=
-X-Gm-Gg: AYBFou3trzI4emPOqPng7DFgIge4Hs9WADWguoHhy8WY3QD9Dj/k0PXKM6F94E+aGi4
-	B2TJp3+++LSBxZbQ0eagui4uM+W0B4M7g9qhtNkMwCYj7oRWeEKPrA7foKdlNHVsTyTaC17s8my
-	CxU5CqYKPl0rK7KpPhweBcmYUmU4xBAqbJOpqw0AvAelUfHvcReguKzBbtuDCVxufJahNv/HGuJ
-	C/myIrd1C5i51kxPwMWqSZbOfU0L6v7g1KnL771+oh4fapQLJ/0nlplDqqqaTpJ5LJXT+Urg9EB
-	Ry4jsJhpQ9YZb0j/shEUQUZ1CpPrizHRxhhVx/wKn07833oV6ckhrNUxTxcgxKi6Fen6ZHOGd87
-	zHWfl2y2r33WD4yCJ3YJWBwxmb14sN8RDYBlICuUpQAAvA57MjAemBM7aTCMzVaIgL7F4+vivUR
-	6mMg0SN1wPjfN0uj1oO1uuGQ1GoyVZZSEc5QX0NWgEa++1r50Nu/MGn72J+2nJM1nfly+WQBGMp
-	JyrupnrbX0NN/Z/1NPqHM9Cc1Spcw013nkFPqnMx3eUAMaEzfpgsakQWZJ78KFlscH2SsHM7gUH
-	BQmVmLDcBSpM2JIpy5d0QW6Nl1FYXDsGsX55lOqVSogKXeTSfM0eBXpXSx4Sa9tYMDAs9ab7zS/
-	rTrzdqNdf8SE=
-X-Received: by 2002:a5d:5d13:0:b0:490:ef5a:bf39 with SMTP id ffacd0b85a97d-492733d12f2mr5925598f8f.6.1794004064618;
-        Fri, 06 Nov 2026 14:27:44 -0800 (PST)
-Received: from macbook (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d73286cdsm5497080f8f.28.2026.11.06.14.27.39
+        bh=i6wtLwteYwyUZUWdoRocIhX8iiQGzMdlm5waC4g0QLs=;
+        b=Wie5NgHr27boA9EGUtr192Nm2zAMlpWBG4qs3V7S5FZDj1SaaQ//itDzXOEPRPN3gP
+         8F6hd7fNyerxaFjJAq2ediClfJ/liv/JKLzICPFr2s9EqT67Acm6MVJghvTI6FSZjRLG
+         jkXrzrMUnFpNAKj6rakEjoz9rdEWUIZXvv+00e3d/5L54Ro1lo3vEl+zx0+xFwvaBfXr
+         RSQod1KSyP6iJy/nW3LPC9A8CpFRH7YVRDPYbh+yCuTdMdzI5jgDBHMWySkeK7hvH/LN
+         X4BfTisYXrBLCThtLqU90AEdmH0QuLwtohz09aUacY8IQcISmD2brJ54SFcpaNb6n19v
+         tPjg==
+X-Forwarded-Encrypted: i=1; AL+hErGxqHVYsWAyoJTpFAz3NOlEY/Mdq2gkm1rbkaPdfDO02SLvRQql5oQDRAW4UkMVJxbUI75+CMlhcOT5v8A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Vk2B0mwS5rV1jeeq+HY6a7Nc5bovybZfD6iWcIW5/fq1C7X7K
+	1sSK86GSP5D2rJnb+mYibWFOD9bpMddKAwdFmCcYaGmo/ZHs7JMl4iH+KCGEaBImew==
+X-Gm-Gg: AYBFou1ChWz9rm6i4OL6zPYPlmK5d6EA1yS4NA1ekhcsWchw9vqSSSAyePI7r5y1WQi
+	m7Z3qtANLzU150YZNPH1lUBHG/aDgXp8VIuej1Pnv263rZ/m5lBznlm6pLZjv4NFH7BHAE+aTgs
+	dzq/Wz9QeSV5XKzrXEO05V8g+lhdTU+B8077lT6ijy4eWq/0+zZLsSuqZH9mApLOp7yYaoiwEyd
+	K8WHVVWRx1aCfMmAZBF8vwmpdDFbktZ1wv+USDU1SoWnMrGJpuNnd/sZ1W4W4PtSfo65giOCEoT
+	+Eh4uT/WLDQegLzi/5tFRHf2wN+vuZeGfD91d6t4Zf3gBsyZSl5mOlejnUNW5sjbz/twc+iBJfj
+	YOGqTo0CGiakOcMA+o/OiWOynAAULQqjKlnJTX0PErvNeblSYxjAvPvcBuoXG3ePD5bVXlcUQUy
+	4C/o2zNtis1Ec31h1+DUdyl7jsrilAVxk1Fo9Ke/PRsOsiZyLekKqYXPuLh+vZ+o4lLZFzMMtMX
+	TUt8/c9n9BfzbPPllLRa4RaQ6jav88XZggdQ1U+Kby+ndGtaFaAjl1Kg42NvFe8LAIjDapg0OLq
+	ssRn3sbqsHIfizkeQf4SLVEQgTPtNoFbhxrQfc3brHdF5Ro4KjUv3TTClqXGeLOj2ckPR3BVAYT
+	UItzMYEPJTY6TYmrntWqvL9qO6hg1u4HwUxHIMaAnyVI=
+X-Received: by 2002:a17:902:ef11:b0:2eb:188a:1c06 with SMTP id d9443c01a7336-2ed6a865b76mr263955ad.9.1794004150728;
+        Fri, 06 Nov 2026 14:29:10 -0800 (PST)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0fc27e829sm775868a91.0.2026.11.06.14.29.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 14:27:44 -0800 (PST)
-Date: Fri, 6 Nov 2026 23:27:38 +0100
-From: Carlo Caione <ccaione@baylibre.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 6/7] dt-bindings: clock: Add Amlogic S7 peripherals clock
- controller
-Message-ID: <au5RoF6BooP14xhY@macbook>
-References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
- <20261106-upstream-s7-clk-v1-6-7d501d62621f@baylibre.com>
- <20261106-unwilling-preoccupy-156dbb310448@spud>
- <au4p0xYEFkgEU6T4@macbook>
- <20261106-headband-buckwheat-fecbd459ee85@spud>
+        Fri, 06 Nov 2026 14:29:09 -0800 (PST)
+Date: Fri, 6 Nov 2026 22:29:06 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Vipin Sharma <vipinsh@google.com>
+Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kselftest@vger.kernel.org, linux-pci@vger.kernel.org, ajayachandra@nvidia.com, 
+	alex@shazbot.org, amastro@fb.com, ankita@nvidia.com, apopple@nvidia.com, 
+	bhelgaas@google.com, chrisl@kernel.org, christian.koenig@amd.com, corbet@lwn.net, 
+	dmatlack@google.com, graf@amazon.com, jacob.pan@linux.microsoft.com, jgg@nvidia.com, 
+	jgg@ziepe.ca, jrhilke@google.com, julianr@linux.ibm.com, kees@kernel.org, 
+	kevin.tian@intel.com, leon@kernel.org, leonro@nvidia.com, lukas@wunner.de, 
+	mattev@meta.com, michal.winiarski@intel.com, parav@nvidia.com, 
+	pasha.tatashin@soleen.com, praan@google.com, pratyush@kernel.org, rananta@google.com, 
+	rdunlap@infradead.org, rientjes@google.com, rodrigo.vivi@intel.com, rppt@kernel.org, 
+	saeedm@nvidia.com, schnelle@linux.ibm.com, skhan@linuxfoundation.org, 
+	vivek.kasireddy@intel.com, witu@nvidia.com, yanjun.zhu@linux.dev, yi.l.liu@intel.com
+Subject: Re: [PATCH v6 04/27] vfio/pci: Register a file handler with Live
+ Update Orchestrator
+Message-ID: <au5T7qouVfxJSDmr@google.com>
+References: <20261102153656.1431701-1-vipinsh@google.com>
+ <20261102153656.1431701-5-vipinsh@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,144 +110,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20261106-headband-buckwheat-fecbd459ee85@spud>
+In-Reply-To: <20261102153656.1431701-5-vipinsh@google.com>
 
-On Fri, Nov 06, 2026 at 20:48:01 +0100, Conor Dooley wrote:
-> On Fri, Nov 06, 2026 at 08:34:37PM +0100, Carlo Caione wrote:
-> > On Fri, Nov 06, 2026 at 17:34:14 +0100, Conor Dooley wrote:
-> > 
-> > > > +    #include <dt-bindings/clock/amlogic,s7-pll-clkc.h>
-> > > > +    #include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
-> > > > +
-> > > > +    soc {
-> > > > +        #address-cells = <2>;
-> > > > +        #size-cells = <2>;
-> > > > +
-> > > > +        clock-controller@0 {
-> > > > +            compatible = "amlogic,s7-peripherals-clkc";
-> > > > +            reg = <0x0 0x0 0x0 0x49c>;
-> > > 
-> > > What's with the weird numbers in this example?
-> > > 
-> > > Examples don't have to be real, but when it looks like this the
-> > > immediate thought is that the modelling of the device might be
-> > > incorrec.t
-> > 
-> > The numbers are actually real, but the example simply lost their context
-> > because I copied the node from the S7 dtsi (not yet submitted), where
-> > the controller sits under the APB bus node (bus@fe000000) and the bus
-> > ranges make the addresses relative to it.
-> > 
-> > 		apb: bus@fe000000 {
-> > 			compatible = "simple-bus";
-> > 			reg = <0x0 0xfe000000 0x0 0x480000>;
-> > 			#address-cells = <2>;
-> > 			#size-cells = <2>;
-> > 			ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
-> > 
-> > 			clkc_periphs: clock-controller@0 {
-> > 				compatible = "amlogic,s7-peripherals-clkc";
-> > 				reg = <0x0 0x0 0x0 0x49c>;
-> > 				#clock-cells = <1>;
-> > 				...
-> > 
-> > In V2 I'll use an absolute address for the sake of clarity (PLL has the
-> > same issue).
-> 
-> Before you do that, can you please share with me the s7 dtsi? Cos surely
-> you've got it in some git repo online somewhere.
+On Mon, Nov 02, 2026 at 07:36:33AM -0800, Vipin Sharma wrote:
+>Register a live update file handler for vfio-pci device files. Add stub
+>implementations of all required callbacks so that registration does not
+>fail. Register it with both live update framework and PCI subsystem.
+>
+>This file handler will be extended in subsequent commits to enable a
+>device bound to vfio-pci to run without interruption while the host is
+>going through a kexec Live Update.
+>
+>Put this support behind a new Kconfig VFIO_PCI_LIVEUPDATE. Initial
+>support is added for no-iommu model vfio-pci devices.
+>
+>Co-developed-by: David Matlack <dmatlack@google.com>
+>Signed-off-by: David Matlack <dmatlack@google.com>
+>Signed-off-by: Vipin Sharma <vipinsh@google.com>
+>---
+> MAINTAINERS                            |  1 +
+> drivers/vfio/pci/Kconfig               | 11 ++++
+> drivers/vfio/pci/Makefile              |  1 +
+> drivers/vfio/pci/vfio_pci.c            | 11 +++-
+> drivers/vfio/pci/vfio_pci_liveupdate.c | 75 ++++++++++++++++++++++++++
+> drivers/vfio/pci/vfio_pci_priv.h       | 14 +++++
+> include/linux/kho/abi/vfio_pci.h       | 28 ++++++++++
+> 7 files changed, 140 insertions(+), 1 deletion(-)
+> create mode 100644 drivers/vfio/pci/vfio_pci_liveupdate.c
+> create mode 100644 include/linux/kho/abi/vfio_pci.h
+>
+>diff --git a/MAINTAINERS b/MAINTAINERS
+>index 5d1b58271989..167aa9d66ce8 100644
+>--- a/MAINTAINERS
+>+++ b/MAINTAINERS
+>@@ -28662,6 +28662,7 @@ F:	Documentation/ABI/testing/debugfs-vfio
+> F:	Documentation/ABI/testing/sysfs-devices-vfio-dev
+> F:	Documentation/driver-api/vfio.rst
+> F:	drivers/vfio/
+>+F:	include/linux/kho/abi/vfio_pci.h
+> F:	include/linux/vfio.h
+> F:	include/linux/vfio_pci_core.h
+> F:	include/uapi/linux/vfio.h
+>diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
+>index 296bf01e185e..e8285ad93a69 100644
+>--- a/drivers/vfio/pci/Kconfig
+>+++ b/drivers/vfio/pci/Kconfig
+>@@ -42,6 +42,17 @@ config VFIO_PCI_IGD
+> 	  and LPC bridge config space.
+>
+> 	  To enable Intel IGD assignment through vfio-pci, say Y.
+>+
+>+config VFIO_PCI_LIVEUPDATE
+>+	bool "VFIO PCI support for Live Update in no-iommu mode"
+>+	depends on PCI_LIVEUPDATE && VFIO_NOIOMMU
 
-The S7 dtsi is already upstream at [0], the peripheral clock controller
-and PLL will be enabled in that DTSI with a following series after the
-bindings and the drivers in this set are acked, following the diffs that
-will be submitted:
+Can we handle this dependency in code instead of doing through
+configs? Are there any build dependencies on noiommu?
+>+	help
+>+	  Support for preserving devices bound to vfio-pci in no-iommu mode
+>+	  across a Live Update. It enables a device to continue working (DMA)
+>+	  while host kernel is going through a kexec live update.
+>+
+>+	  If you don't know what to do here, say N.
+>+
+> endif
+>
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-index 2c204dcebbba..5f2a61f42cbd 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-@@ -7,6 +7,8 @@
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/pinctrl/amlogic,pinctrl.h>
-+#include <dt-bindings/clock/amlogic,s7-pll-clkc.h>
-+#include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
- #include <dt-bindings/power/amlogic,s7-pwrc.h>
-
- / {
-@@ -160,6 +162,22 @@ apb: bus@fe000000 {
-                        #size-cells = <2>;
-                        ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
-
-+                       clkc_pll: clock-controller@8000 {
-+                               compatible = "amlogic,s7-pll-clkc";
-+                               reg = <0x0 0x8000 0x0 0x1e8>;
-+                               #clock-cells = <1>;
-+                               clocks = <&scmi_clk CLKID_TOP_PLL_OSC>,
-+                                        <&scmi_clk CLKID_TOP_PLL_OSC>,
-+                                        <&scmi_clk CLKID_TOP_PLL_OSC>,
-+                                        <&scmi_clk CLKID_TOP_PLL_OSC>,
-+                                        <&scmi_clk CLKID_HDMI_PLL_OSC>;
-+                               clock-names = "fix",
-+                                             "gp0",
-+                                             "hifi",
-+                                             "hifi1",
-+                                             "hdmi";
-+                       };
-+
-                        uart_b: serial@7a000 {
-                                compatible = "amlogic,s7-uart",
-                                             "amlogic,meson-s4-uart";
-
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-index 5f2a61f42cbd..afc88abea301 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-@@ -162,6 +162,40 @@ apb: bus@fe000000 {
-                        #size-cells = <2>;
-                        ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
-
-+                       clkc_periphs: clock-controller@0 {
-+                               compatible = "amlogic,s7-peripherals-clkc";
-+                               reg = <0x0 0x0 0x0 0x49c>;
-+                               #clock-cells = <1>;
-+                               clocks = <&clkc_pll CLKID_FCLK_DIV2>,
-+                                        <&clkc_pll CLKID_FCLK_DIV2P5>,
-+                                        <&clkc_pll CLKID_FCLK_DIV3>,
-+                                        <&clkc_pll CLKID_FCLK_DIV4>,
-+                                        <&clkc_pll CLKID_FCLK_DIV5>,
-+                                        <&clkc_pll CLKID_FCLK_DIV7>,
-+                                        <&clkc_pll CLKID_HIFI_PLL>,
-+                                        <&clkc_pll CLKID_GP0_PLL>,
-+                                        <&clkc_pll CLKID_HIFI1_PLL>,
-+                                        <&scmi_clk CLKID_GP1_PLL>,
-+                                        <&clkc_pll CLKID_HDMI_PLL>,
-+                                        <&clkc_pll CLKID_HDMI_PLL_PIX>,
-+                                        <&xtal>,
-+                                        <&scmi_clk CLKID_ACLKM>;
-+                               clock-names = "fclk_div2",
-+                                             "fclk_div2p5",
-+                                             "fclk_div3",
-+                                             "fclk_div4",
-+                                             "fclk_div5",
-+                                             "fclk_div7",
-+                                             "hifi_pll",
-+                                             "gp0_pll",
-+                                             "hifi1_pll",
-+                                             "gp1_pll",
-+                                             "hdmi_pll",
-+                                             "vid_pix",
-+                                             "xtal",
-+                                             "axi_frcpu";
-+                       };
-+
-                        clkc_pll: clock-controller@8000 {
-                                compatible = "amlogic,s7-pll-clkc";
-                                reg = <0x0 0x8000 0x0 0x1e8>;
-
-[0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-
---
-Carlo Caione
+Thanks,
+Sami
