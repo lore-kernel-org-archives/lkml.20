@@ -1,72 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793993527;
-	b=35LdBj5ENPk83mCyTYaOMpQIk1k7kFgfzfH1cjClEXKW1NdW+siqh08oSavLUbQDe1aq
-	 iM4nkAUICkbYETn1n0AtM3bINvsodEtUt+r7Q3gvSde6qS3nmea/p31LfA/9vNd6wwmQL
-	 byxWxZ+0MY3s/U/agbU0DQWD2h3Grkz/NAmWhf8Ieh+SLb1pJo/oe0sTaa3uBN+2Y2v7P
-	 LDd2ajPojEdiJsDgx+eKX1Ou+RxCU2fAT+8xrMOI+wz9Gfe3NwTmW9FK4YRQRtRuLdYfQ
-	 xsoEHFSF68Q7fXLd4mnCtnjUUBIBdebBv8ev7gkaKC1s1U/q0w4JoDkG48eMGASpRhg==
+	t=1793993537;
+	b=zgFvzPMUSlRuVol2do7l5ODYYzwP4+D3eR1BKQZY/5RSR947+crZFQN4N7PerAAy6ZrS
+	 gkWMumXOK2RBe0CstJu8Ia5HFJMZ/9Ckha5G3myLcekXsn60v9CNTU38pLDxx0M1aryHw
+	 MjlMEYBvd1fXTN/BZkOf6SqK03Y3IlbixWg4n8Bxm+dQvPtdWnwFoakNI6i5CRcVMFcqB
+	 4eA/DXOCLq/oWYicIUlfSmnfLaivzcJ4b62fbFTiYt38qtg5tNPFOM1NLrFn6A2FJuOdv
+	 HVWhz0KWzK3m44z3/qGJLQXutTT5Dd2kzI/NLUqUig8l9UCk5k6ETy8zTEj89d/BriA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993527;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Iw0r9KyM9yE8+UHLOBvRU3eF9rfoOEr06pAaRlmDbAI=;
-	b=UGl0oWFou4zuNN0VbVMx/ADPw+zFmgzMZqvdSGQq8D+mure7AVC/CCHPzVm7eB2U3w0s
-	 x6Gqlobtj99VEc/a5cbYTLdC4hAPozViYnFY8T6Y5ZBUflZLW9kJHdROo5xFvd0D5OPps
-	 vEr/mJbEnmOCdlvJ6/+4ZgOHvk164KYy9mV8BRIyFm4ESVGrsQ3sJdwG7ocrKLAuxAOGX
-	 f/b0AdJzYj48n9yySFiwa7TAro7fB+cUUZNFLRtG1EQ09I8x5ydwceBhukF/Mw470Zgxg
-	 8HQyK/VOz9H4nBLOguAolF+nKNJmyHRAbPW7KC3r+07AFEMrkuPYwYk8fzE+5lK0p7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793993537;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=473crE0SSGdE25OE/ZhuZNLv2HWb2HSt1DmR/h4oQgU=;
+	b=V4HJVAhRxs//uwy9JI4QN8SKv4CIRgMv6vyGhsJRQph+VLzZLujjAQ2lPK61QqTg/uv3
+	 /3gSxQtxUyB98HpoILMYO71ukVSqz5veIKP8LolYW4k2D/B/LvSRjFJWgqW7TYkHBNf+3
+	 0LqGa/pW7CaDNmACo3QpIP8IfgUgHXzAjMzQqA8Arapyw6f+Bi4g9jDJcDYNnkkFhp9qL
+	 jjw1+aExM495sLsIwcL72xiVRK+25KzHrUvGNECKuEYqrobjlzMBJ1eg4jke75gwuSj0j
+	 dwIp7o8T1hJyBaZBa/YFFDT62vDqYpEjSk4liAG2/zuPUgGG87UwDgRfEMrSHTR3x4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dbalint.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JOLCqPsW;
-	arc=none smtp.remote-ip=209.85.208.197
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com [209.85.208.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFTsCOI4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6AF606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:32:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE6AF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dbalint.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A7D606A326;
+	Fri,  6 Nov 2026 19:32:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JOLCqPsW
-Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-3ab3089df39so4054381fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:32:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793993525; x=1794598325; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Iw0r9KyM9yE8+UHLOBvRU3eF9rfoOEr06pAaRlmDbAI=;
-        b=JOLCqPsWEhNqvFOx3/qaiUcFebdO112TNKsSqX2AFW5xG81g+8535F24cncdWzB9d0
-         NijKGrQduJPe8aMZlBWGmexK/h2h9cay7gxZ+wMrq9yQFHgl5dyvrlANHcgvLKcvvap1
-         VTOUupmkJEuDGKnveoP7c4sVve4o9I3+FO/NpJq3+9+VtTbYRMjXilKh7JvuN1L5yK1+
-         RD9+bTKAEOaS239HwvTaWfCn6WDPcXnKNPEHYIJmJ2w+QA4UaVoP4BROpNoAi2/uWIMF
-         FjpLb4UydY+jEPABvttUBtOrdZ4+9Fp0ssgtVfwhUiVLHBKUiF6jsdrf2fc/6Ue1cfMP
-         pa+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793993525; x=1794598325;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Iw0r9KyM9yE8+UHLOBvRU3eF9rfoOEr06pAaRlmDbAI=;
-        b=JVZG3/4sb7H0X5tcbZyI/qnpDctWAnU20y87s+BpEZltJDsEfDZUx9eCtUozke94Hr
-         1uywB5DNObQbi7K4l6/Pvps4Pd8eV0wRTini9CSPu38L8IrHq9Yf32ogV/dq62zJDbSK
-         PQ85pOVS77iwroiXWJi2h8/cvPRQOwSTWTsAk1DVIVhuWYkzN2Q9ogm+u6hRlM36XogM
-         61zkSTON8qX16UXnejyw/25YxWN5c1OoVn6r9T7Wq/RlCdEFRxU6ZkBOs6vdh+WKT0A1
-         03c4P4Eq7UeyvXd92zujin7Jt+mx/dHZISQpvqifEwqvfXYSPwXbWIJ6sMUfpDMIm634
-         AuNw==
-X-Forwarded-Encrypted: i=1; AL+hErFc1MQ4+azFPGyhaVkiUznFjvNSU+NilZ4+ptkgA0NTC7HbqkIL9iob+KQprRpqaHjMpp+EmI2K9++YgzY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FljWEQXpU4vLt75kYf4ZGEMek+zAH73BUAlDuR1rmNmoUe6mr
-	Ya9lEs3Kfzy/eUdDKA7Gb4+uUPLdRi2fImcIdaEW99Y28wTiE9Di5aavwlMPuZSnm2zryQH5nG0
-	s7uxquYcFUw==
-X-Received: from ljgi21.prod.google.com ([2002:a2e:8095:0:b0:3ac:f040:c4e9])
- (user=dbalint job=prod-delivery.src-stubby-dispatcher) by 2002:a05:651c:31d1:b0:3a9:7e4d:7fc5
- with SMTP id 38308e7fff4ca-3acf3b2f8cemr7731911fa.18.1793993524757; Fri, 06
- Nov 2026 11:32:04 -0800 (PST)
-Date: Fri,  6 Nov 2026 19:31:14 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFTsCOI4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE53D1F0089F;
+	Fri,  6 Nov 2026 19:32:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793993537;
+	bh=473crE0SSGdE25OE/ZhuZNLv2HWb2HSt1DmR/h4oQgU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iFTsCOI4oI1zkZNrVA8LjHza+UVYi6S7tdHT3B0oZiNyUC9EnIZg3H9jtS3N5DXKB
+	 VrjW1eRSqzNpLb/edNPgzKeTNcJ9TljYFmWZsL8NTyAZJByiFR0oQvpsbv6qtRqJlO
+	 G4SvuNU7RNHlY94j6vBFGGTvFa6c4MJHariBSV3gP3U5s77YifMVPInzpVFJ8DQWhN
+	 CTXte7G70bCVMJ0YYHoDfBevxvDM5DMvmAVftVWTMeBQzlD1+G0wR55VPQCJcjY7sE
+	 OWN5M28QAcGG+pzSHqGi08+1tT6m4Ay4SRXhV1ALW0wObbkJ9LzJokV9SLFGeI3dRg
+	 kE1+DyfXkeDKg==
+From: William Breathitt Gray <wbg@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: William Breathitt Gray <wbg@kernel.org>,
+	andriy.shevchenko@intel.com,
+	andy@kernel.org,
+	dlechner@baylibre.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	m32285159@gmail.com,
+	nuno.sa@analog.com,
+	sozdayvek@gmail.com
+Subject: Re: [PATCH v3] counter: ti-eqep: use devm for runtime PM to
+Date: Fri,  6 Nov 2026 14:32:07 -0500
+Message-ID: <20261106193208.4136410-1-wbg@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102100031.5573-1-phucduc.bui@gmail.com>
+References: <20261102100031.5573-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,48 +65,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106193129.43493-1-dbalint@google.com>
-Subject: [PATCH v1 0/3] Introduce cros_ec power monitoring
-From: Daniel Balint <dbalint@google.com>
-To: Jonathan Cameron <jic23@kernel.org>, Benson Leung <bleung@chromium.org>, Lee Jones <lee@kernel.org>, 
-	Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: linux-iio@vger.kernel.org, chrome-platform@lists.linux.dev, 
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Daniel Balint <dbalint@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=707; i=wbg@kernel.org; h=from:subject; bh=3e2hmBvwAtTabO9HdSERGS+iq1d9dFwYIQ8s6fwBlQg=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFnvtBV1s+dZnM9KXO0VpSP78r3uNL6uuXsWaE/vmRnzz Y493i2no5SFQYyLQVZMkaXX/OzdB5dUNX68mL8NZg4rE8gQBi5OAZjILA6GvwKH/YVfpQSe5uGv u+9Yrn9GcL+TYtrkkOx2lwPT/9idaGP4Z3+EW+Hamg3WtZyiX68tn2G05R5r647ZPP1z7jlMuSl 3hgsA
+X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
+Content-Transfer-Encoding: 8bit
 
-This series adds the ChromeOS EC On-Device Power Monitoring 
-(cros_ec_pwrmon) driver to read onboard power-monitoring ADCs,
-such as PAC194x, wired through the embedded controller (EC).
+On Mon, Nov 02, 2026 at 05:00:31PM +0700, phucduc.bui@gmail.com wrote:
+> Hi Stepan,
+> 
+> William pointed me to this thread after I sent a similar patch. It
+> looks like there has been no v4 since May. Are you still planning to
+> send one? If not, I'm happy to pick it up, keeping you as the author,
+> and address the comments from Andy and William.
+> 
+> Best regards,
+> Phuc
 
-Several ChromeOS platforms are equipped with onboard ADCs that are
-connected to the EC via I2C bus. The driver interfaces with the EC
-via the existing EC_CMD_PWRMON host command API (and EC_MKBP_EVENT_PWRMON
-events) to manage ADC accumulation and expose accumulated per-rail energy
-through an IIO sysfs attribute.
+Hi Phuc,
 
-The driver is only loaded when the underlying hardware feature is present.
-The series also fixes alignment padding in EC_CMD_PWRMON definitions.
+Go ahead and submit a v4 addressing the comments from Andy. Submit a
+follow-up patch as well to eliminate the ti_eqep_remove() callback as
+described in my earlier comment[^1] in this thread.
 
-Daniel Balint (3):
-  platform/chrome: cros_ec: fix alignment of ec_params_pwrmon
-  iio: adc: add cros_ec_pwrmon driver
-  mfd: cros_ec: load cros_ec_pwrmon on supported ECs
+Thanks,
 
- .../ABI/testing/sysfs-bus-iio-cros-ec         |  13 +
- MAINTAINERS                                   |   7 +
- drivers/iio/adc/Kconfig                       |  11 +
- drivers/iio/adc/Makefile                      |   1 +
- drivers/iio/adc/cros_ec_pwrmon.c              | 333 ++++++++++++++++++
- drivers/mfd/cros_ec_dev.c                     |   9 +
- .../linux/platform_data/cros_ec_commands.h    |   2 +
- 7 files changed, 376 insertions(+)
- create mode 100644 drivers/iio/adc/cros_ec_pwrmon.c
+William Breathitt Gray
 
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.56.0.455.g6c5a503b38-goog
-
+[^1]: https://lore.kernel.org/all/20260604021902.891327-1-wbg@kernel.org/
