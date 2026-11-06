@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793998598;
-	b=cKDpHQUlr9N6YIYfKpAKyVEtoLXfsM2Grubjb9eeHfjTb5j5kStmzChpF9N/xMpyWlVF
-	 piB1gj47b8gEbM8FzUSMW8/3crNVGcRbE1Yh1YjzuEw5WP5avwvuVX1ldKgyNyxelKjKp
-	 tsgN64IygTojcfyX0hQVWyAhqlww0j2YNjDHaybahFg88qq4+M9IHJSebe5DF0BaETet6
-	 NNhmxr/mBbdVP12F5dzV949IAeSRYiyw3VMOD/WXhjCNpIcAiq/9CjHCjXPfWkbnDWYQf
-	 3BLBp5Ahz/uMzMxONT9Dc6CYI0d/tDyP2e3icVB+x2OUwmJgf9fwfkguLEYbfQGe88w==
+	t=1793998594;
+	b=tWGzmBeUGM3ovF3u0DFs/yMLbKbxwjOHrHB/ONeDw05qHQVc7yKm+gY/rOg+fseOOyCF
+	 i1hO5fvE1eBcfPL0PVFP+UOIcpRhjDPihbVJwHKyXij1Kcqqab11Rc/m5VCiWTP9OeKxx
+	 HQOlMKEhnTEd9VyTQdZPRuxt6QttYL2qf9jyBx6SRw4694QlZyTFycECWtrMQpwKEeZMU
+	 OQOaoVSFBoft8WAqBWXdyJbcAvwrhhDb+QMSpqHa9TvPsOYK6xhM3uPkczSi0rEigp49M
+	 l2l4D9cB5rLN/TejEnJZeOSXIgzoJK9xC2NaFDJ3suGJx0Nb4qQRPt7dArSP5nrNxLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793998598;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793998594;
 	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
 	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=ErWiuFp9/TbFuEZjYat7Wfoqr4sd7GG4h/sKsc3g0ro=;
-	b=cRxG0H4Y3UAn3UjWvJxtcRCmsyH+T/oZj30UoSbVd59Nd9sYlStN5MKljOwJpT9XB7ag
-	 q0tn2HNT4z/6ANbzW+VnLhGH3vyWrGbLFjWW6HN7KWrWA2ff0sWRgHWyqDnXjg1mOOoh0
-	 YYBmvZqUShZp7PdUrixVJhWuW4DfLrfiAurGmC3nzub+7O+IhGu0fyiDvFB0Rhi7RtLu0
-	 GakYw+EVmAfDxuhpbWHcjNFv8QyYGDq3DztWQkOVOfdSdUzR64DEVFvTsa4/C1glbl672
-	 /24aoD0QRzPFo2OPCAEIcElPASueJaI41E1tIbU11GudQUkdek/hd4pbSYHBaq8iQMw==
+	bh=LmbsQyOPiObeVQ4Oyywc1Eh0zv4uea6QG51XLaUXbO8=;
+	b=S6hCknlsQzXIBceLDcwjFOvCG9t1DUAE8DUADaNyhF8XTQjI+xbXJL+GOdo6qy0cZMXf
+	 zgj5IwVA7lGNHUI4IGe0NCyFFrRkGU7tOJx857n1PuW1EcUrljG+pwpXJMtjXYBRpxXSA
+	 tR/MfszshE++4c0zQNUyDUadUrxP5QIv49aHjxAbkUtj1PfQ+7lSETQG2spCRdXnbh2ql
+	 Knno34l5cufR8n3vyoT18M5Hka9WimZFEiv9v3OitwsXd71lWe5p91KyV6jpTEL8/QxUc
+	 +NdGNkQxBfhJI5ylNgRZMKeG5zrPyAmgoHAYCQTiG6tdSkYTd91uez0v1599wQLIEEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtubZ48x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PlmlLxV+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDEF606A33E;
-	Fri,  6 Nov 2026 20:56:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834DE606A336;
+	Fri,  6 Nov 2026 20:56:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtubZ48x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6011F0089F;
-	Fri,  6 Nov 2026 20:56:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PlmlLxV+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBDB11F008A5;
+	Fri,  6 Nov 2026 20:56:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793998598;
-	bh=ErWiuFp9/TbFuEZjYat7Wfoqr4sd7GG4h/sKsc3g0ro=;
+	s=k20260515; t=1793998594;
+	bh=LmbsQyOPiObeVQ4Oyywc1Eh0zv4uea6QG51XLaUXbO8=;
 	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=gtubZ48xUhO3CSZ57SrmhW8ks4lUTq+BCadaYE+Me4hx98qpsLBmhZnpV2BUaTqn4
-	 xlVYAAhBtXpLIADNFeqSt4F65zxxQpfkUJ4u9sXcNdIRAPCXwyo5pddA2J4EnhR+EF
-	 Excb0rESml94/JznsogoNUzd9/5zHCPfT+hTr74mw4KCWsmeqE9/eMOowtsqJ6pNXK
-	 1eWlP1eKzzZx3Tc8jEBFTmpR07lxsBkdk3l41XcDGUXZOJOiJxC1jQa/jh21GoVATs
-	 Px+oVwe9c5FYulj2lfURgOg4wRZ7YOXSDAYVD8hPx6zais1S1bCjiRBjW+uxu4lJ/j
-	 Hv0GlEWsLllWw==
-Content-Type: multipart/mixed; boundary="===============1853805646858724504=="
+	b=PlmlLxV+8BJ0T4iY7wc+r36eXC/XsgkqkA/TUWWk/Iq70scU4hUHfUroR+bRZKtaF
+	 2SXLYFj7/vmljm343Z5ZunP0QwMnYtSFJMoGk56RlVXiPgyqJh/A0oUVJ9POR4BvGQ
+	 /kUHaTBsHvbcLI6KYObVmt+Kzome8s8XzaEvBbWbtsXWcN6fc1dOn3xxCwiFDdYs+F
+	 8oFFpFBs1/k2zioXBa3aNLCPULddw1xj9GRlhXqmC4EkclmjR6AvqvhbAsmjfC4MZP
+	 pM70gZqYimyQw+2fu8sH1TzSn6Y6DH00QXBO8NyGW8LLxqifa/kElzX3gRWpFNrrTG
+	 EuRRFyOoxBrsA==
+Content-Type: multipart/mixed; boundary="===============7211679506512085853=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,106 +49,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <d443a99c61ebd277a8b46dfeaa5061cb20a64abaffb750e390188e892aa79db8@mail.kernel.org>
-In-Reply-To: <20261106-lskel-struct-ops-v1-4-a4486ffc79cb@google.com>
-References: <20261106-lskel-struct-ops-v1-4-a4486ffc79cb@google.com>
-Subject: Re: [PATCH RFC bpf-next 4/7] libbpf: Support BPF_PROG_TYPE_STRUCT_OPS in bpf_gen__prog_load()
+Message-Id: <a60379dcab142fefbf17dcfafa9e9aa445a1458da82d15cf31214fd1783c7a6c@mail.kernel.org>
+In-Reply-To: <20261106-lskel-struct-ops-v1-1-a4486ffc79cb@google.com>
+References: <20261106-lskel-struct-ops-v1-1-a4486ffc79cb@google.com>
+Subject: Re: [PATCH RFC bpf-next 1/7] bpf: Add bpf_btf_get_struct_member_info() helper
 From: bot+bpf-ci@kernel.org
 To: sidnayyar@google.com,ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,qmo@kernel.org,shuah@kernel.org
 Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,gprocida@google.com,nkapron@google.com,tweek@google.com,mripard@kernel.org,sidnayyar@google.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri,  6 Nov 2026 20:56:37 +0000 (UTC)
+Date: Fri,  6 Nov 2026 20:56:33 +0000 (UTC)
 
---===============1853805646858724504==
+--===============7211679506512085853==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> libbpf: Support BPF_PROG_TYPE_STRUCT_OPS in bpf_gen__prog_load()
+> bpf: Add bpf_btf_get_struct_member_info() helper
 
-TL;DR: In light skeletons, a kernel-module BTF fd for struct_ops may leak
-(stay open in the loader's fd table) if any struct_ops program load fails,
-since no error-path close is emitted.
+TL;DR: Design question: the new UAPI helper is added despite the frozen helper
+list, which says to use kfuncs; syscall programs can already call kfuncs, and
+the commit message doesn't explain why a helper is needed.
 
-> diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
-> --- a/tools/lib/bpf/gen_loader.c
-> +++ b/tools/lib/bpf/gen_loader.c
+> diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+> --- a/include/uapi/linux/bpf.h
+> +++ b/include/uapi/linux/bpf.h
 
 [ ... ]
 
-> @@ -1151,6 +1151,20 @@ void bpf_gen__prog_load(struct bpf_gen *gen,
->  		emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_0, BPF_REG_7,
->  				      offsetof(union bpf_attr, attach_btf_obj_fd)));
->  	}
-> +	if (prog_type == BPF_PROG_TYPE_STRUCT_OPS) {
-> +		move_blob2blob(gen, attr_field(prog_load_attr, expected_attach_type), 4,
-> +			       load_attr->expected_attach_type);
-> +		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
-> +						 0, 0, 0, load_attr->attach_btf_id));
-> +		emit(gen, BPF_LDX_MEM(BPF_DW, BPF_REG_7, BPF_REG_1, 0));
-> +		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_0, BPF_PSEUDO_MAP_IDX_VALUE,
-> +						 0, 0, 0, prog_load_attr));
-> +		emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_0, BPF_REG_7,
-> +				      offsetof(union bpf_attr, attach_btf_id)));
-> +		emit(gen, BPF_ALU64_IMM(BPF_RSH, BPF_REG_7, 32));
-> +		emit(gen, BPF_STX_MEM(BPF_W, BPF_REG_0, BPF_REG_7,
-> +				      offsetof(union bpf_attr, attach_btf_obj_fd)));
-> +	}
->  	emit_relos(gen, insns_off);
->  	/* emit PROG_LOAD command */
->  	emit_sys_bpf(gen, BPF_PROG_LOAD, prog_load_attr, attr_size);
+> @@ -6279,6 +6291,7 @@ union bpf_attr {
+>  	FN(user_ringbuf_drain, 209, ##ctx)		\
+>  	FN(cgrp_storage_get, 210, ##ctx)		\
+>  	FN(cgrp_storage_delete, 211, ##ctx)		\
+> +	FN(btf_get_struct_member_info, 212, ##ctx)	\
+>  	/* This helper list is effectively frozen. If you are trying to	\
+>  	 * add a new helper, you should add a kfunc instead which has	\
+>  	 * less stability guarantees. See Documentation/bpf/kfuncs.rst	\
 
-For a struct_ops type defined in a kernel module, can the module BTF fd
-leak into the process running the light skeleton when a struct_ops
-program fails to load?
+This adds a new UAPI helper id right above the comment saying the helper
+list is effectively frozen and that new functionality should be a kfunc.
 
-The block above copies the upper 32 bits of the u64 at
-load_attr->attach_btf_id into prog_load_attr.attach_btf_obj_fd.  That
-value was produced at runtime by bpf_btf_find_by_name_kind() in
-bpf_gen__init_kern_struct_ops().  For a module type it creates a new fd
-with __btf_new_fd() and returns:
+BPF_PROG_TYPE_SYSCALL programs can already call kfuncs, for example via
+register_btf_kfunc_id_set(BPF_PROG_TYPE_SYSCALL, &generic_kfunc_set) in
+kernel/bpf/helpers.c.
 
-    ret | ((u64)btf_obj_fd << 32)
+Is there a reason this needs to be a helper rather than a kfunc?  Perhaps
+the generated light skeleton loader cannot resolve a kfunc BTF id for its
+own call instruction, while a helper has a fixed id, but the commit message
+only says:
 
-so this is an open fd owned by the loader.
+> This helper will be used by BPF light skeletons (gen_loader) to
+> initialize struct_ops maps and programs against kernel and module BTF
+> at load time.
 
-The existing code closes module BTF fds whether the load succeeds or not:
-
-    /* successful or not, close btf module FDs used in extern ksyms and attach_btf_obj_fd */
-    cleanup_relos(gen, insns_off);
-    if (gen->attach_kind) {
-            emit_sys_close_blob(gen,
-                                attr_field(prog_load_attr, attach_btf_obj_fd));
-            gen->attach_kind = 0;
-    }
-    emit_check_err(gen);
-
-bpf_gen__map_create() does the same for value_type_btf_obj_fd, but the
-struct_ops path here does not.  The fd cannot be closed here because all
-programs of the map share it.  The only close is in
-bpf_gen__struct_ops_update_elem(), added later in the series, which is
-emitted from bpf_object_prepare_struct_ops() after all programs are
-loaded and so only runs on success.
-
-If BPF_PROG_LOAD fails for any struct_ops program (for example a verifier
-rejection), emit_check_err() jumps to gen->cleanup_label.  The cleanup
-code emitted by bpf_gen__init() only closes the prog_fd[] stack slots and
-the map fds in the blob fd_array:
-
-    for (i = 0; i < nr_progs_sz; i += 4) { ... BPF_FUNC_sys_close ... }
-    for (i = 0; i < nr_maps; i++)
-            emit_sys_close_blob(gen, blob_fd_array_off(gen, i));
-
-Nothing there knows about st_ops->type_id_off, so the module BTF fd of
-every struct_ops map initialised so far stays open in the caller's fd
-table.  The same applies to any later failure before
-bpf_gen__struct_ops_update_elem() runs, such as another program's load or
-an emit_check_err() in emit_relos().  vmlinux struct_ops types are not
-affected, since the upper 32 bits are 0 and __emit_sys_close() skips
-fd <= 0.
-
-No later commit in the series adds an error-path close.  Should these fds
-be added to the cleanup_label path, or closed in an error branch around
-the prog-load emit_check_err()?
+Could the commit message explain why the freeze is being broken here and
+why a kfunc will not work?
 
 
 ---
@@ -156,4 +109,4 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42289585064
---===============1853805646858724504==--
+--===============7211679506512085853==--
