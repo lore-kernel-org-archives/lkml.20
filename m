@@ -1,47 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945377;
-	b=fAtPubQndBB/E2SlZFHWLSoamKFyNqglpEVEaJDSnBmCFAhyNPS2M9PJqVJYSR/4uECt
-	 HD+Z0eEjdqrVDBfWqjQX+jgcd/lVHFWWmtzRg8RPx4oqbs+mxPy7s6FaGKtBRqrUQCcl1
-	 vq/J/4eo/ks9SaaAN8rF5ntIZbj0I/FvQvQllEFf5r432K3yXUILboob9Yuz27EKFJcBY
-	 qHYichK/z+WX8R4BiHLazeJdgDzX6sqGN8gFFiFseK0zZqTXQ1C1H70fkaLvsHhgPmvav
-	 mq4OCrJXgmLaW8lJG7Rxb8H6fkcjvQUoVsUAe5R+pg2/SyN6LQSTCA27RcTgVYkrsAg==
+	t=1793945385;
+	b=NjreArxvrYSvTM2zaqH2nf9JUF0APMFufof22qudgBajx+wxVtYCSgmD8Lv9jCxPH9ti
+	 8E4kNbHKJE6FqLlP2qUqanK6GMj/6MMrfrhlsEbKcGvdHsQ0tJannvnbmgXkkuZGgcM6s
+	 TvkXJGuuWcMuf7w5wuPCQp91yeDeaMzcTKky2WnJUB5djG4VfKMGRVwWNNe6QyD4PVM+I
+	 thuPXIB7xrPDvfGTFp7a6MLtfRwkX3ZZCfR0HK87TwtpopPaTD7f+6vV3x7oxUoQZ1sn2
+	 BgC57Nm84OMPFEmexFM5wiHULU+9O2jvjh40Eu/SNVu5lcR0M7suM9F39RPGpkwLjLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945377;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=H78gSmzAHOzV4l0I/w1s/VX9KmPbK8qgl1NsjdEHRpk=;
-	b=dxVsa25QTNCafxmPM8bhBqrcQGhO5Tttq7OX7JhLbNwej17HLMKblq/rXQigQVbugGyh
-	 EH7NOHUsjpw2+/HYpdW+9jTbFW1SbPX9DcL/E7eRegffmLWcQLV1n86gp0xPcUcBEQy9s
-	 L/aaE1A7Ni0eXM9Jv5MBBVUcvlIxZzL4i03wotjzlfx+Y+2dQanOIqNJQzjYe/QJJUFZV
-	 +an54cN+pi7cBZqtpsC9cmEkLqpwIJn/jgEdskFgIF7xe1q6l6Xe9BmH/ggQYH8l0aXN/
-	 paGWH98v9cat+mc8ECSY4fBbltX8uZCSMd6e2cTbq/BbRttYQutv+4TvLnOSySY5opA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945385;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=vkdvesY0qq3K2dD6/XbYf2PPk4M7/A8430gTiRL/0b0=;
+	b=08OaGGWBjyTQEJTZ03NLrB6cPdnhqtFHkH0dZRAFGiaRfgc1dnz9V+NXnFdVJnE+TNaG
+	 FgGvew2u2ukYYEcYLU8C744b/UQ6RLeRdpEtbNqdzW4u4YIZkYVJOipgu9qiqkVSJMo2I
+	 1poBAEIGlvID8Wzn6n7lnV3l8dcMOl0d8AXCJQeapig6mRe5L9gqfxX0wxWul0kzUBrA0
+	 59+RwzUIiMReNrKL+Q/+IYI3PA+XJ6dbDLl+ba0CufztNQIWFPNkimGGd1w/JoHWdCloY
+	 ve3QtU9qt9zlZxB38/2uKW6fkY05prHaTXlaWlo5sSkg6lIdRcPQlB4PSLEi/Bx+DKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtK2mIPm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=f0X4FDwp;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9636606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:09:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0931A606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0931A606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtK2mIPm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C061F0089F;
-	Fri,  6 Nov 2026 06:09:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793945376;
-	bh=H78gSmzAHOzV4l0I/w1s/VX9KmPbK8qgl1NsjdEHRpk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VtK2mIPmdOtcoCU5NUWc7mH9aLhWebzf0IBqCaPAEhNffYTrgEA5WSgTuGS80V6zh
-	 UOT5wKVYrVyZ5/BJU4JcUfsXbc0c+kMxSq4PBjHBQ8fd1S6r0tgO5NYVWIhY6s9Jt3
-	 UZZt22HxCBPyZ88q9P04SouS1EJjqoNAukx8vIuNmBFl8640K+WAKMOiYE7DcMrUq6
-	 xzotTWSrvVSLyxEMyO3uemVIVz8wFeTJQ21qPk+BDTTudzeFEMmbMbCJGhb5/74ljy
-	 2PY9uvZL0MByIjzNNwEqtO6znZkrrvRjDBz9m+CLdk35s4288xiQwgd+4OjcIequpC
-	 iZww5vss3e5Zw==
-Message-ID: <b9537359-9558-43b3-975f-de2a1017e463@kernel.org>
-Date: Fri, 6 Nov 2026 07:09:32 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=f0X4FDwp
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261106060936epoutp03cfa5f74bcfe29de04eb1264140d082cf~lX9CeQ2MA1286112861epoutp03I
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:09:36 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261106060936epoutp03cfa5f74bcfe29de04eb1264140d082cf~lX9CeQ2MA1286112861epoutp03I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793945376;
+	bh=vkdvesY0qq3K2dD6/XbYf2PPk4M7/A8430gTiRL/0b0=;
+	h=From:To:In-Reply-To:Subject:Date:References:From;
+	b=f0X4FDwpSWlRvZjjKbpyGvgwY1SbEnMd9VUWjMFhD3BaKy7JfP3DIRbfQ6NuM5B2n
+	 P9NivtXi6gV0CIKdXtN/iizwfeaEZ1+1P9blKbVrAylnKm0amLZKtY1Appy6pETaiQ
+	 tpsPb4F+LbQrmLYdHjPB9HJekyM00H6FaHz73CQM=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261106060935epcas2p3559caf5cdda3ca2483cbe60ea213acc4~lX9CMkPEF0476904769epcas2p35;
+	Fri,  6 Nov 2026 06:09:35 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.210]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jLTKW3sbpz3hhTC; Fri,  6 Nov
+	2026 06:09:35 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261106060934epcas2p13055d05b271d0111eeca609efb4e4b07~lX9BThzER1167511675epcas2p1G;
+	Fri,  6 Nov 2026 06:09:34 +0000 (GMT)
+Received: from KORCO118546 (unknown [12.80.207.184]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261106060934epsmtip1805bfabf56ccc47c59fd956946b6d4bb~lX9BPEWJv0250102501epsmtip1s;
+	Fri,  6 Nov 2026 06:09:34 +0000 (GMT)
+From: "hoyoung seo" <hy50.seo@samsung.com>
+To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <mkp@kernel.org>,
+	<martin.petersen@oracle.com>, <stanleyjhu@google.com>,
+	<alim.akhtar@samsung.com>, <kwangwon.min@samsung.com>,
+	<kwmad.kim@samsung.com>, <cpgs@samsung.com>, <h10.kim@samsung.com>
+In-Reply-To: <5f1692ad-d718-4446-bd62-57e7049be92a@acm.org>
+Subject: RE: [PATCH v6 3/3] scsi: ufs: core: Set shutting_down in
+ ufshcd_wl_poweroff()
+Date: Fri, 6 Nov 2026 15:09:27 +0900
+Message-ID: <015601dd6db5$65501c40$2ff054c0$@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,156 +81,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] MAINTAINERS: fix bouncing {sbranden,rjui}@broadcom.com
-To: Ray Jui <ray.jui@broadcom.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- bcm-kernel-feedback-list@broadcom.com, linux-arm-kernel@lists.infradead.org,
- Scott Branden <scott.branden@broadcom.com>
-References: <510bf9b037c522ccfba270926c95170291115ef3.1793602003.git.jirislaby@kernel.org>
- <CAJ8Y1dTUmFXTHnoPuYMNKULVdaQPtr4S8OiCqhHKZ05WeyGCFA@mail.gmail.com>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <CAJ8Y1dTUmFXTHnoPuYMNKULVdaQPtr4S8OiCqhHKZ05WeyGCFA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQLLI625VyEVqOdBlj4qNrrnpnoJ9gG2+eacAZdllVQCEdgNN7UaISdw
+Content-Language: ko
+X-CMS-MailID: 20261106060934epcas2p13055d05b271d0111eeca609efb4e4b07
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261106022021epcas2p20d78ac51e55f03348d496f45e96031e1
+References: <cover.1793931113.git.hy50.seo@samsung.com>
+	<CGME20261106022021epcas2p20d78ac51e55f03348d496f45e96031e1@epcas2p2.samsung.com>
+	<66845a28b3014bb53b7f1332c258009b80707297.1793931113.git.hy50.seo@samsung.com>
+	<5f1692ad-d718-4446-bd62-57e7049be92a@acm.org>
 
-On 02. 11. 26, 17:20, Ray Jui wrote:
-> Thanks, Jiri.
-I am not sure who can pick this up, I tried couple of recipients without 
-much success... I give up resending this for now -- you will likely need 
-to pursue this yourselves. Maybe feed it through some your (broadcom) tree?
+Hi Bart,
 
-Thanks.
+Thank you for the review and the Reviewed-by on patch 1.
 
-> On Sun, Nov 1, 2026 at 11:47 PM Jiri Slaby (SUSE) <jirislaby@kernel.org 
-> <mailto:jirislaby@kernel.org>> wrote:
-> 
->     Both emails are bouncing like:
->        Final-Recipient: rfc822; rjui@broadcom.com <mailto:rjui@broadcom.com>
->        Action: failed
->        Status: 5.1.3
->        Diagnostic-Code: smtp; The email account that you tried to reach does
->          not exist. Please try double-checking the recipient's email address
->          for typos or unnecessary spaces.
-> 
->     According to Florian, it should be first.lastname@broadcom.com
->     <mailto:first.lastname@broadcom.com>.
-> 
->     Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org
->     <mailto:jirislaby@kernel.org>>
->     Acked-by: Florian Fainelli <florian.fainelli@broadcom.com
->     <mailto:florian.fainelli@broadcom.com>>
->     Link: https://lore.kernel.org/all/688738af-100b-48af-
->     bee1-4bcbe4422f94@broadcom.com <https://lore.kernel.org/
->     all/688738af-100b-48af-bee1-4bcbe4422f94@broadcom.com>
->     Cc: bcm-kernel-feedback-list@broadcom.com <mailto:bcm-kernel-
->     feedback-list@broadcom.com>
->     Cc: linux-arm-kernel@lists.infradead.org <mailto:linux-arm-
->     kernel@lists.infradead.org>
->     Cc: Scott Branden <scott.branden@broadcom.com
->     <mailto:scott.branden@broadcom.com>>
->     Cc: Ray Jui <ray.jui@broadcom.com <mailto:ray.jui@broadcom.com>>
->     ---
->     [v3] just resend, noone picked it up yet
->     [v2] fix emails instead of their removal
->     ---
->       MAINTAINERS | 10 +++++-----
->       1 file changed, 5 insertions(+), 5 deletions(-)
-> 
->     diff --git a/MAINTAINERS b/MAINTAINERS
->     index 04f465490612..88e010e78eb4 100644
->     --- a/MAINTAINERS
->     +++ b/MAINTAINERS
->     @@ -5318,8 +5318,8 @@ F:        drivers/iommu/generic_pt/fmt/*bcm2712*
-> 
->       BROADCOM BCM281XX/BCM11XXX/BCM216XX ARM ARCHITECTURE
->       M:     Florian Fainelli <florian.fainelli@broadcom.com
->     <mailto:florian.fainelli@broadcom.com>>
->     -M:     Ray Jui <rjui@broadcom.com <mailto:rjui@broadcom.com>>
->     -M:     Scott Branden <sbranden@broadcom.com
->     <mailto:sbranden@broadcom.com>>
->     +M:     Ray Jui <ray.jui@broadcom.com <mailto:ray.jui@broadcom.com>>
->     +M:     Scott Branden <scott.branden@broadcom.com
->     <mailto:scott.branden@broadcom.com>>
->       R:     Broadcom internal kernel review list <bcm-kernel-feedback-
->     list@broadcom.com <mailto:bcm-kernel-feedback-list@broadcom.com>>
->       S:     Maintained
->       T:     git https://github.com/broadcom/mach-bcm <https://
->     github.com/broadcom/mach-bcm>
->     @@ -5616,8 +5616,8 @@ F:        drivers/net/mdio/mdio-bcm-unimac.c
->       F:     include/linux/platform_data/mdio-bcm-unimac.h
-> 
->       BROADCOM IPROC ARM ARCHITECTURE
->     -M:     Ray Jui <rjui@broadcom.com <mailto:rjui@broadcom.com>>
->     -M:     Scott Branden <sbranden@broadcom.com
->     <mailto:sbranden@broadcom.com>>
->     +M:     Ray Jui <ray.jui@broadcom.com <mailto:ray.jui@broadcom.com>>
->     +M:     Scott Branden <scott.branden@broadcom.com
->     <mailto:scott.branden@broadcom.com>>
->       R:     Broadcom internal kernel review list <bcm-kernel-feedback-
->     list@broadcom.com <mailto:bcm-kernel-feedback-list@broadcom.com>>
->       L: linux-arm-kernel@lists.infradead.org <mailto:linux-arm-
->     kernel@lists.infradead.org> (moderated for non-subscribers)
->       S:     Maintained
->     @@ -5654,7 +5654,7 @@ F:        drivers/net/ethernet/broadcom/bgmac*
->       F:     drivers/net/ethernet/broadcom/unimac.h
-> 
->       BROADCOM KONA GPIO DRIVER
->     -M:     Ray Jui <rjui@broadcom.com <mailto:rjui@broadcom.com>>
->     +M:     Ray Jui <ray.jui@broadcom.com <mailto:ray.jui@broadcom.com>>
->       R:     Broadcom internal kernel review list <bcm-kernel-feedback-
->     list@broadcom.com <mailto:bcm-kernel-feedback-list@broadcom.com>>
->       S:     Supported
->       F:     Documentation/devicetree/bindings/gpio/brcm,kona-gpio.yaml
->     -- 
->     2.56.0
-> 
+I will take your suggestion for ufshcd_wl_poweroff(): it will take
+host_sem and keep holding it until ufshcd_wl_resume() releases it, so it
+behaves like ufshcd_wl_suspend() and the unbalanced up() on the
+.restore path goes away too. I will add the Fixes: tag (b294ff3e3449,
+which added the WLUN .poweroff callback) and Suggested-by, and put the
+patch in front of the one that limits the early link recovery.
 
+For the patch that limits the early link recovery, v7 will:
+ - use READ_ONCE() in ufshcd_err_handler() and WRITE_ONCE() in
+   ufshcd_wl_runtime_suspend() and ufshcd_wl_runtime_resume();
+ - describe the behavior change during shutdown in the commit message:
+   errors that occur while the final START STOP UNIT command is being
+   processed are no longer handled by the error handler, recovery then
+   only happens through ufshcd_eh_timed_out();
+ - correct the poweroff statement: the error handler waits for host_sem
+   there, it is not stopped by hba->shutting_down.
 
--- 
-js
-suse labs
+I will send v7 shortly.
+
+Thanks,
+
+> -----Original Message-----
+> From: Bart Van Assche <bvanassche@acm.org>
+> Sent: Friday, November 6, 2026 1:50 PM
+> To: HOYOUNG SEO <hy50.seo@samsung.com>; linux-scsi@vger.kernel.org; linux-
+> kernel@vger.kernel.org; mkp@kernel.org; martin.petersen@oracle.com;
+> stanleyjhu@google.com; alim.akhtar@samsung.com; kwangwon.min@samsung.com;
+> kwmad.kim@samsung.com; cpgs@samsung.com; h10.kim@samsung.com
+> Subject: Re: [PATCH v6 3/3] scsi: ufs: core: Set shutting_down in
+> ufshcd_wl_poweroff()
+> 
+> On 11/5/26 6:15 PM, HOYOUNG SEO wrote:
+>  > +	down(&hba->host_sem);
+>  > +	hba->shutting_down = true;
+>  > +	up(&hba->host_sem);
+>  > +
+>  >  	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
+> 
+> I agree with both issues reported by Sashiko:
+> - ufs_mtk_system_suspend() is also the .poweroff callback of the
+>    MediaTek host controller device and returns -EBUSY if
+>    hba->shutting_down has been set. Since the .poweroff callback of the
+>    WLUN is called before that of its parent, this patch makes
+>    hibernation fail on MediaTek hosts.
+> - If hibernation is aborted after the WLUN .poweroff callback has been
+>    called, ufshcd_wl_resume() is called as .restore callback.
+>    Nothing clears hba->shutting_down, so the error handler and user
+>    access (ufshcd_is_user_access_allowed()) remain disabled.
+> 
+> Additionally, the existing code already has an unbalanced
+> up(&hba->host_sem) on that path: ufshcd_wl_poweroff() does not acquire
+> host_sem but ufshcd_wl_resume() releases it.
+> 
+> How about making ufshcd_wl_poweroff() behave like ufshcd_wl_suspend()
+> instead, i.e. acquire host_sem and keep holding it until .restore releases
+> it? Something like this (untested):
+> 
+> static int ufshcd_wl_poweroff(struct device *dev) {
+> 	struct scsi_device *sdev = to_scsi_device(dev);
+> 	struct ufs_hba *hba = shost_priv(sdev->host);
+> 
+> 	/* Released by ufshcd_wl_resume() if hibernation is aborted. */
+> 	down(&hba->host_sem);
+> 	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
+> 	return 0;
+> }
+> 
+> That serializes the error handler against poweroff the same way as for
+> system suspend, fixes the unbalanced up() call and leaves
+> hba->shutting_down alone. Please also add a Fixes: tag and move this
+> patch in front of patch 2/3.
+> 
+> Thanks,
+> 
+> Bart.
+
