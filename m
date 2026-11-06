@@ -1,114 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.60
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.54
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793982886;
-	b=cHUCAptPz4T6O96GbCC21AMHbV2ZyWmjX8Xao7P3up9ramLarDDND9ZhV9vC6kdL3iRz
-	 CINmexDMHNDxpHXiuPI4X0Q99ZqixTgrTrH2Dv6O6KtwAcdv/RrR1G4mqzZJmQeIqskzu
-	 s7qky1julbx4A2m/qA+/s4t6imFRctA/VUarg5BX8aBBeqtmTGlcpAIIleyRfDjPZAk9F
-	 caOgDt97ECfTyBDpUQe5Ig1ATIqBaR655c7SSWw7YRfmcz/sqCIyAf6nw9HwAcjD70TfO
-	 2MXbWvHj0L3eULvhsk61uiJndBBB3xOlh9cJgqDuF6VUHQfRjtoBC0/IEJXM3TDMyHw==
+	t=1793982905;
+	b=LbteUHX/ANnc03UmAL2sx6SB1tv71FowTR2a4VEFxkRCPJT2NZu+Eihm93MpqoNiOr8E
+	 unLAZUXHdGQiBTJI4XMfvbeB1zqnvmx6K/Rh1iNa4xHZj8ODW40yEnvkUCurpwXVchtH+
+	 Wv8pgRHWbLEC7uQqjMi0cLIXzXsG/cW7IQwjpfj/6BeUk7zAftOE4L0FQsp2hbebC6MN2
+	 ng2OJhC8Iz5zXIqd9DkswglSbu/qql+sJDADremX1aRnKiKCUjqzyyI2mEe4W3rxhEfmN
+	 gvuHLckJLdGUKbbXKg5jkyOOfmShAgZxV7cJmNCqnL1un2db7NxVJkPkjBsKYZUjCUQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982886;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=aQwAv6WnSs+J2ruf4myxwVwMq1MyTJ3pd5/KTrKAqFo=;
-	b=wU6J/xVUCnWzy2/THOKp9Irfh54H2Jo/AeGu2H7vwIEcZeiJEcb+yEnAS/bMXyjPhaNO
-	 9FtY8riq9zBZLH95SP/JZtDR51h+Myc7z/3I2qWa7qOeTzx6F7igL5eG/jJaNrpjpk1MK
-	 JGGjSGESdHpbSEuUOXlJ32WZSExpLnlvMrBXwe1P7Omf/hRC/Wr+Si+OmtMIq5/q+qHRP
-	 uccgY+YJDel4bNqNlcOzN75oSPoT95/3Fi+32mg5NaRFXGy9LRv0oiGBcJ4UacaHIhqy9
-	 2rhEr9KPD1Ix79Pd4N4/8dVB9WQvWLfJr63wNcB2TxmlYHu3DMsmLYskeBiRDt7Yeiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982905;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8CVOtjuY7d2VzQ4Z2Zf3KQsMmbUtgWXk/lvdZGEh5Z4=;
+	b=foLv+MDJtqeFqbjj+uVfJgz6EzNakiKHOSUOT2n0py52cx8o+a5FE5iSonjqZbqWK3Hf
+	 3NUuA8AKMc+nhwcYZQ04RLAulkXHsvffUrOT+ruFTMnnbhxqrcFzxw2CKuarh/OGHR1Ih
+	 yJZDEvYqzNTRMsw6/rdCxw2JukNTR1T/ntaI6pqMimNtlUT8DJgceHPnWiOdQQ5GYgYIC
+	 nfMbxAzCZdE1JmS3T/hbwLi8XDKBOsy8t4jqg/N86GTRoKEP8u8erGWXI/YOc08wTU0hw
+	 jn2mkfNNPjHyVYGs0PIFvSLYVo0mADyz9nasxu/M34DggMvP3kxspH7FnX3SF5hxmdA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Lr2+gm3X;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.60
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011060.outbound.protection.outlook.com [40.107.130.60])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QqgtdqNV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.54
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17CF606EEBC;
-	Fri,  6 Nov 2026 16:34:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F17CF606EEBC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A796E606A33C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:35:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A796E606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Lr2+gm3X
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HgxHXsWBX7qhFHq3hdWQzufUaBNuXC6l7yGjEfJzD2DBX1vT1OepZLm0GMFB1zrwlR3jmIKKIeG4tdYQV+dTL/iQ8l+mNwT1YD0GhT3plEzRB9KbOBjHyegbc5f3P3/e8OIc3b49S7fP+YLOYzJ9qXaC7sIoXhxpyYlfYnz0Cb6EMvxp40O3PFAkVKwXJ3xmGcio5eKGPYq4BAsQTtCLWLrZ04Urunux1bVmtAZC216EyTN5qOMML1UuDrH5wX+PYZaPa3L0Y69TFbr9moZrbbN5JIj/Mq7V9n/440mDrfdF2vtuwQO5ledoSxw31hAOhVOUlU0h+f0uFrWz4GyzEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aQwAv6WnSs+J2ruf4myxwVwMq1MyTJ3pd5/KTrKAqFo=;
- b=TOE2HVrtyvSxklIRelSnUkfPcCPm8Px3kfjOpJILZRL4fr/RAa7AquqUL/7PfrshnrPQ5Ofm2ClKoeQfaX30pyUX9hMMjfV5CNsIQ4LQwWeYPT61jHQnDbsq0uOnCs0bM6M2ztdWhqTLFWTMDJcGxgxvP0c3DlV99W0L7u6iNR2k3XJbxW25qid/Qp51s3j7dkJ+EBlU2e0J9vh3sCqSgqF0lrQji0DmyJofQ05/C6CM2fe/D/CiEJMrlIonQw+YYP8vfSNUZBD5QX1RHZ+kN2+mYGKLZWBRWwvlSltZsFbS8YLJ2GnZzCgeUmtgDe6j17tuHjLUDCOnzM7JhB4stw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aQwAv6WnSs+J2ruf4myxwVwMq1MyTJ3pd5/KTrKAqFo=;
- b=Lr2+gm3XqBm8zMbpUthQxgjrMSxK5pYMlOWV5slfhwXc1T5CmY2XP3lOrjcGb93drSwI+iodBNBXfUTNczRhz7dyVxVHdXEdjIfhKU9dbmbu6rk8GUAHWhmOMlP9kcWsByRsuKkmTBr0Fn++PkvjLAF9XObzMLc8HSRYJKJ2Arp60YwcBnwGIkj/4K1zOFGUksUTgoNq4MjdQ6ORwzR17Qn6kNoKzF/iUh4krsU4EJNjum1Ohce36Ux9/Xldk1JPggLdHeFAIOgIFbo67AfUAdsXFD2f7Sfula/e/NWYEE5ZQSajVdBPdVTcFjAjN8ywCxlXIJEC6dRSE4Zlyc/hdg==
-Received: from FR4P281CA0184.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:ca::19)
- by MA9PR10MB922269.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:250:119::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.5; Fri, 6 Nov 2026
- 16:34:39 +0000
-Received: from MI3PEPF0000847F.eurprd02.prod.outlook.com
- (2603:10a6:d10:ca:cafe::43) by FR4P281CA0184.outlook.office365.com
- (2603:10a6:d10:ca::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.5 via Frontend Transport; Fri, 6
- Nov 2026 16:34:39 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MI3PEPF0000847F.mail.protection.outlook.com (10.167.240.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 16:34:38 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
- 2026 17:35:24 +0100
-Received: from localhost (10.48.87.124) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
- 2026 17:34:38 +0100
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>, Wim Van Sebroeck
-	<wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>,
-	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: Antonio Borneo <antonio.borneo@foss.st.com>,
-	<linux-watchdog@vger.kernel.org>, =?UTF-8?q?Cl=C3=A9ment=20Le=20Goffic?=
-	<clement.legoffic@foss.st.com>, Amelie Delaunay <amelie.delaunay@foss.st.com>
-Subject: [PATCH v3 08/13] ARM: dts: stm32: enable arm smc watchdog on stm32mp15x scmi boards
-Date: Fri, 6 Nov 2026 17:34:24 +0100
-Message-ID: <20261106163429.618392-9-antonio.borneo@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261106163429.618392-1-antonio.borneo@foss.st.com>
-References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QqgtdqNV
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bfc3292d90so659282e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:35:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793982903; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MfmJ+ZYxRKPAC5+9KMgTDWUbtcBz91JC2abUs2vtd6jkfjWeKh2sDPfae8JU91c4zW
+         RxfrE7C/Uf4dz7SkX78/TW/VW9vYcg0ZeA/Ks51JmCh0aiqisJ1TezJO6BjKgo6+FJje
+         FMezTta/NtlqEx6wrfDKYtM9JMtGLeNUggIvcmceIIFouAwiE8im50c4HMwXYRFvV9XT
+         ibw1SNDUFX6OWR81cpLOuRYYf9c2xIQmDIRDw2BsD5tlWFEJBhW2HUjPz4/9duUXowtL
+         xgPdeMWGlTHj73spHqMKhUoXrFaOwh59uZjzpLU0AkUb+2BkEp6Q4Da+B6FDuBWmAZ9q
+         23UQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8CVOtjuY7d2VzQ4Z2Zf3KQsMmbUtgWXk/lvdZGEh5Z4=;
+        fh=7aWGqlZVYUqPxgI+uGRus7erSPnuI3ocX3RrKBNQ+1g=;
+        b=qd/XTuK1SWqvxVwJAhhQgATTTWYYIhuXa6YYnen394fK4eYRziYSVhKhYlMQ0Rlg5q
+         OLEqTsLWkdt3qettNpkmQLFyV0tS82d7nhO61bBUdAcfCm4FXXRji80Xr7vAWs6HAjHR
+         5mtA35CyFyk9ghqNt5HSKX6HWRpgNXAxxoRmS1XHyR8mUY6N7h86+1k8ESxmjEEmInXF
+         V7gszynB7Nu1vhb5A6XsrH2NNpFXiuyxNGyYvHPP2UKPlRu5qdkAJHo/XnfzOq2Sq/aV
+         8hDMfs9TI1A7qFuDT3jAkMV9h+B0zVS3uxptsCEzSl87O4toqcbsS3wu00dPo1uxVdzp
+         veSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793982903; x=1794587703; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8CVOtjuY7d2VzQ4Z2Zf3KQsMmbUtgWXk/lvdZGEh5Z4=;
+        b=QqgtdqNVzy2wCLu9jnzrmY5brlkpB0KFVfgtGnfjqeGueDKupQB9ItrFXco7PaOAt/
+         /KRpbrCJngm3D+Dnaz8RQzG28Yw9uLqysf4xf0V2F+F8GKu032joCyOI0aY+kqidpCfm
+         WDYdaUKxUn1V3lT7mcEg0yFV+yIC/Lv1WhM8BPP57ZTLuX3ZZ3w62Lx3Pc/d9VPNdqhT
+         QlDr+ypPC0MgXQvMK4QTLJzHqvxSZraANnhBkr57StHgvz/WQXJ6sJG1q9JZ5FRDoWe1
+         8FY4kbuhwvxzkrZp3j05cKtN0RinGluUOLBGdeLl2XKSMrjJFbW7olWNEzkFyAGf82TN
+         BNOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793982903; x=1794587703;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8CVOtjuY7d2VzQ4Z2Zf3KQsMmbUtgWXk/lvdZGEh5Z4=;
+        b=QQ5ROnwQ2UJtpP1arYp5P1epnqTJjpBuxu075SZblAoXlmON1MWyu5qJVxYZc3WCZY
+         9qTxyAvW3qJzP7QXrNl5Y5QXqvXnUc7M/duRFiLJuaFHEffXStPxqNKuR/MnM/02RJ8d
+         0cJhL+E6l4vbHAD3ohNJlc/pOqHN0i7rMpuQSCjMMX+kV2kScqQa1ePTYo7QKIejpVF7
+         QeBY7QfHH+0NAH37n49w5mCX28/4FFmnBkcT5BLQFpOg0ucpFJJ9xfexxkOQpmU9XgB+
+         nh9/UH83WYWzqBTSL/nQwhCJUZwC2Df35kPiXtqHfg3J7wKk0xqyJHsLNDLWDenszBqL
+         fzjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpIw6xak90qrsOpeFqEfx/HZ1CREkau0TNg9QotQm6D5u/V9PfZbNHSz+h3Z/vXR1SGgjlgxMQ3GKomtQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BiMNo1LyqBcmgKSwrCKvR0FTBjEEZOVuxoH7KYPPoCZWIUiG5
+	yUkVMge6FI4D+MqfZDW1oZnU31h4sB1Dt5zgM8hZERXyhx9+EKk5Bh1gK4CY/RKS/qiuUu4t+JQ
+	j5+LECmRUtVuYWbTkqdlfgBs/tCC0AV0=
+X-Gm-Gg: AYBFou00Mial7kaorSUhvi5bxQOXbde11oe6SPMd9OtHDOoed2/sQSb8+ox56ZIQuk4
+	T1aZCA1eK9+z0nduxPxnk2jkZpjp/lyPbHY78VHJapdn5Ch0oHBa6OHmccLL+bD7Zpa51EbkgM4
+	7uuJdIwsVWmvPBYnvSHILonhSoZH8jLdgZEJ52R1KCnmg9K/f8BryYSgM5TO9AoVzZzz2Qjo2cz
+	X0nFMKX6lnC8ewf1iskK6ERaVrJHccg6ayqDHahA8WqBK0jEX5TAkdGYvLfr8SF5BjXIsEJ59NY
+	vio5jEL+WkTAmgII6RZ7vsytIgjUNOxFOZk6b4uVr55lrzQxY3G+PNjCwPyGFCn2F7sgMIW+uWZ
+	Dxl3GjR3R3APh2HHxYXMZe8HyProPIUnKECXhgX+0FUHBIRQTDoCQXL332qeTdE6FltWKsT7MIx
+	5/umFgumQ9oDwl9WSl29qql+iRji0LObjz9rq22JhRcOsOvwHdU6yieJlk9SCVPDhbQHBYzpRwB
+	g==
+X-Received: by 2002:a05:6512:2524:b0:5bf:a363:3392 with SMTP id
+ 2adb3069b0e04-5c0037c305cmr1026548e87.2.1793982902662; Fri, 06 Nov 2026
+ 08:35:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,166 +106,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF0000847F:EE_|MA9PR10MB922269:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a6b41f8-54f0-4556-8c06-08df3c23da0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|7416014|1800799024|22082099003|10067099003|18002099003|921020|56012099006|11063799006|261026121527099003|261102123227099003|261021121427099003|261021123027099003|261021135927099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	zfsHvwoPgqy8hZqk5Xe1NYuqJsHK4oDi59IhIodM7Q/J0UU0dkQrtNaiCvVXyXpBPYKj/jbLPUhufpp1h3i29533RMaF8D+SvUFtWuOtQn2ZjLMChKdtvaOXh1ztwcWUBy6CMvMJyh9GEKEs2oWzGeZz6C3+30LsVpW2Erxjzi2mTGp+pbv9yTjmIY/98+sOfUq9hchHcIljKfKn38VKfMuuFi7DiZDg4Bkiqo23Dv/iYsSmK6OduXb8nGhZAKVgqLrVQqPX4FQ4br/C99TcpD3WaFYh8faAgr4hw+glh2QCd/iH6x8iuHfk+ABNkTqGEHB67qV3XDtatTq+g2urHP1sqb1GW3vGTRnMC3heU7InVJlOeSOweHwWVjbH/iBg1DzU53RK8g7Feo/Z8uhJuLKimzJMaZdX8u8Djz9bXHdCt+9MhtVim2qC6Il2jj/bNrVJOaMf1ZTsvVPBrRgx+PKMoricEwSRKA4S/2n958eG8koH4zHaDeggXkTjYcaH4UCNlud9b40gKSEeytxLsmJYFv1LM5Gw18Z+VgEdUXtvnKR94h++MQndHB0FMkiC7WGGpPn+78Dn+V4Lke13gK0eflbQvUjMQVPT+UWQO7yAnYq2r1djXeiX1q/bJXOoSafafTFeisqp9NU6gsTb0VMrU9CSc0hWWCmNQfbbOzBVfxw0RBtJk6UyFNg9OGbA9obCwj/gsvQYBCVwIj4jXhT0D5HpOyE6U5cc/2khZPOvHOMsRhY6koGaxHIz6H/a
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(7416014)(1800799024)(22082099003)(10067099003)(18002099003)(921020)(56012099006)(11063799006)(261026121527099003)(261102123227099003)(261021121427099003)(261021123027099003)(261021135927099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	MFMK6xmcSrGFp/4nVA5LKwZzWmiPPyzFpS9NGWSJLSwQy+oqEnyS27u3+zhRPwlxMHHFKEYZcyHKQ8O5ABWIUHldUlcE8BCVS3lQOCgDZX3BHB5sCsKN/SbXWbcgdOopyRxMFQ4emkBgApxlo0wddoRBKgMOvNAilPHBepp2y8DAOkqyfT0kvz+aOcpJWYgPwKAkBXoyr1IrBuDV6OvglQdYxWwGCKKKwVb4wXnH9tdVDEgHuxn6DreGK0LsOTTuZTFbIgU6ltzXz+r/H1FbEBWlbVE6Z93/bA1yuuSKoKCLYjshM3uwHwqkCYcQKducqVeYZEB+SstFctxPi6U5BxmntapTlJ323ODEOxP0bSTBrfgq2/jfgbAEwAfHlMV0IUz75zB5sN38zLcgrDT5zfEwTnrU1XRgYNW1c/p8UvvvOqIqJ8+WtAfIIZ2GJMYf
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 16:34:38.9344
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a6b41f8-54f0-4556-8c06-08df3c23da0d
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000847F.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA9PR10MB922269
+References: <20261106-zsmalloc_stat-v1-1-b574f4714adf@gmail.com>
+In-Reply-To: <20261106-zsmalloc_stat-v1-1-b574f4714adf@gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Fri, 6 Nov 2026 09:34:50 -0700
+X-Gm-Features: AclHuK9bkduKRW_-rCB-rmHbL-N2hWHiB5NT8He7c1ja5_0IYw7qh2rihJItOYc
+Message-ID: <CAKEwX=P+8AhOV-HQGHmtWftMs=if7LTk6K16Q39bJyF3DFFtdA@mail.gmail.com>
+Subject: Re: [PATCH] mm/zsmalloc: keep fullness stats consistent with CONFIG_ZSMALLOC_STAT
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: Minchan Kim <minchan@kernel.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+On Fri, Nov 6, 2026 at 2:56=E2=80=AFAM Xueyuan Chen <xueyuan.chen21@gmail.c=
+om> wrote:
+>
+> The fullness-group counters are only used by the debugfs classes report,
+> which is enabled by CONFIG_ZSMALLOC_STAT. However, these counters are
+> stored and updated even when the option is disabled.
+>
+> Make the counter storage and updates conditional on CONFIG_ZSMALLOC_STAT.
+> Keep ZS_OBJS_ALLOCATED and ZS_OBJS_INUSE, since zs_can_compact()
+> still needs these counters.
+>
+> The behavior with CONFIG_ZSMALLOC_STAT=3Dy remains unchanged.
 
-On STM32MP15x SCMI boards, IWDG1 is secure and monitored by OP-TEE.
+Do we need CONFIG_ZSMALLOC_STAT in the first place? Is the overhead that hi=
+gh?
 
-Enable the arm,smc-wdt node on ST SCMI board variants so that
-Linux can control the secure watchdog through SMC calls.
+Also we already have a #ifdef CONFIG_ZSMALLOC_STAT section. Can we
+just move these helpers inside it, and provide no-op skeletons in
+!CONFIG_ZSMALLOC_STAT case?
 
-With two watchdogs now enabled on ST STM32MP2xx boards, assign the
-watchdog0 alias to the ARM SMC watchdog that may have been started
-by an earlier boot stage. This allows userspace to identify and
-ping the appropriate watchdog.
-
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
----
- arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts | 9 +++++++++
- arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts | 9 +++++++++
- arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts | 9 +++++++++
- arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts | 9 +++++++++
- 4 files changed, 36 insertions(+)
-
-diff --git a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-index 53e40e2f776b7..2f4d212de3e9c 100644
---- a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-@@ -13,6 +13,10 @@ / {
- 	model = "STMicroelectronics STM32MP157A-DK1 SCMI Discovery Board";
- 	compatible = "st,stm32mp157a-dk1-scmi", "st,stm32mp157";
- 
-+	aliases {
-+		watchdog0 = &arm_wdt;
-+	};
-+
- 	reserved-memory {
- 		optee@de000000 {
- 			reg = <0xde000000 0x2000000>;
-@@ -21,6 +25,11 @@ optee@de000000 {
- 	};
- };
- 
-+&arm_wdt {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
- &cpu0 {
- 	clocks = <&scmi_clk CK_SCMI_MPU>;
- };
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-index 0790ed426ebc0..41ba8a5b756b1 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-@@ -13,6 +13,10 @@ / {
- 	model = "STMicroelectronics STM32MP157C-DK2 SCMI Discovery Board";
- 	compatible = "st,stm32mp157c-dk2-scmi", "st,stm32mp157";
- 
-+	aliases {
-+		watchdog0 = &arm_wdt;
-+	};
-+
- 	reserved-memory {
- 		optee@de000000 {
- 			reg = <0xde000000 0x2000000>;
-@@ -21,6 +25,11 @@ optee@de000000 {
- 	};
- };
- 
-+&arm_wdt {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
- &cpu0 {
- 	clocks = <&scmi_clk CK_SCMI_MPU>;
- };
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-index 0a3894aff4aea..2fad04ed60161 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-@@ -13,6 +13,10 @@ / {
- 	model = "STMicroelectronics STM32MP157C-ED1 SCMI eval daughter";
- 	compatible = "st,stm32mp157c-ed1-scmi", "st,stm32mp157";
- 
-+	aliases {
-+		watchdog0 = &arm_wdt;
-+	};
-+
- 	reserved-memory {
- 		optee@fe000000 {
- 			reg = <0xfe000000 0x2000000>;
-@@ -21,6 +25,11 @@ optee@fe000000 {
- 	};
- };
- 
-+&arm_wdt {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
- &cpu0 {
- 	clocks = <&scmi_clk CK_SCMI_MPU>;
- };
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-index c2b6efb1cbb74..d14506e9b6f0e 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-@@ -13,6 +13,10 @@ / {
- 	model = "STMicroelectronics STM32MP157C-EV1 SCMI eval daughter on eval mother";
- 	compatible = "st,stm32mp157c-ev1-scmi", "st,stm32mp157c-ed1", "st,stm32mp157";
- 
-+	aliases {
-+		watchdog0 = &arm_wdt;
-+	};
-+
- 	reserved-memory {
- 		optee@fe000000 {
- 			reg = <0xfe000000 0x2000000>;
-@@ -21,6 +25,11 @@ optee@fe000000 {
- 	};
- };
- 
-+&arm_wdt {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
- &cpu0 {
- 	clocks = <&scmi_clk CK_SCMI_MPU>;
- };
--- 
-2.34.1
-
+And if we're going to have CONFIG_ZSMALLOC_STAT,  anything else can we
+wrap in CONFIG_ZSMALLOC_STAT? stat field of struct size_class? struct
+zs_size_stat's definition?
