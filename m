@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962043;
-	b=wP6N5JZD0Qn1fwvZXy+xi3f+fsT6aRynMmWl3w1gu0m4FqIVVtTA+Eu1EVAE2r4Q+TwT
-	 PU7NZx3OvaFfFju1ES7pE38Tf7uL48PChYjvOApEkNhPO+BhRmXhQih4zK3pWVCeSALOp
-	 iY0bzJhE1DOcdtfsHST6yp7Hl6jCh8oCvOzcFS7QKjI6uAU4MHf+wu7BoI4yV4hOTo7VT
-	 1L/Jz/F8oN6rBD+Llka/vZ86J7/JYt+jMQIXHaSoCLB0ZKNMVNHvMb7YLNsja4AC/cN5V
-	 iOQ8ZX/hx9sCcUNuQ7zNGb3U+OOUWgzD0m1bUG2B/qwLjiumPhp8wKJssedr3yn8Msg==
+	t=1793962047;
+	b=w/b/Ozkz1CIBUeGzi/QdfmlvJIQNghuIFY6He3aG8h/u5+P0PvliMdlacQnNgVhi4Ayv
+	 GgPKwttV1Ya5hDavu6o3MP18mRnPJSJllSlKzRSwtgsmUbY2gYazSMBTHJ9RNDvsyR3TS
+	 ouqDNjKrRz9GY5mHbapGhLBBwkczmgLcxmjfPiWC94hbsI9QU57eimYEIFQlhrxzMx7ze
+	 WTCLKWxXI8/iqZTIiaqp/mlx+M3m8jCkGOVkMj9d5KcEUmhmJ0fub5U7yP3cMVABdm7uv
+	 pKDn+DbUIGHv45+aWkO83p2QIziYkTJfpPOzb3CtfbjC5cyMAv2H8Hl6quo548tIndg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962043;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962047;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=1aOQMD6JlTDLVsQjQedtpJM3c2lEIuqtDtE0HdhEhiI=;
-	b=PpKCrBdfybLi85R5uYyn5HslQvY94A4TK8J+S69XTt8SrcZQxB+iNLpMKK9KXRNQYzhp
-	 1AlxLr77xDRv8NFZIlGVtd/6tIvaX0FU+oG+n8dHgy5BKBmHquBIPbkaQKLWFMmejm7Mv
-	 ZDQp2TRIoia6Xt4kDqC48VE3/hfIg+bDKpDkUQdbpKymxt5W9SjmH9pk4qTFYriVm3duk
-	 E9mUS4fk8MmuE/5w3jE24d4vkq8RlRXvD/w711kQqUyPksxZYL5oMxgJPR0ZgnuQoGFrI
-	 S+7DC6RCVaXTz7opvUFigM5ReUKuE7ZPoSKLvNNAg5AxcBZkDQMi12I6tVUCEjUTg1w==
+	bh=pPs+LFjQd4/vwzx0cx5k8n7Xns8+xDNlOq6HRQ/nnB8=;
+	b=oPUqDUOjs//qAQt7JfLJPv+D85b0+22RnO6m/563QopdWY6H40b5FgcT5yBJKQCgR5UM
+	 +YOkke2tzXHbTgEp/fLYCziFvBP7zlqTm2hnfCnWDbJVbal1QfocxGMQ4mIbfoc96ZsIO
+	 wAjY3sd9RxQFUj+0Vrx2kRmO7xh9NOgY5tZFH76MVGKAe9Rh3egP3sBfPEmYvebuB7m9B
+	 +GS1mgXV2JybRHIXsj5NvpJzr2CNL5YJKeSAkf17mTboZIDXYqjetDXM8TD6WrE5iitxP
+	 qHsY4arsHTLw7Jwv5BhQbTJDP4lolz8VQVlF3WQ0huAubfdL3T0ATcGcbSoo0/UeMdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=student.uibk.ac.at;
 	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=QV5zVbqx;
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=WDiuIdwm;
 	arc=none smtp.remote-ip=138.232.1.140
 Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3C8606D82C;
-	Fri,  6 Nov 2026 10:47:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D3C8606D82C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9CD606EE9D;
+	Fri,  6 Nov 2026 10:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D9CD606EE9D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=QV5zVbqx
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=WDiuIdwm
 Received: from surface-pro-5.uibk.ac.at (ydWLT-U1-3-167.uibk.ac.at [172.25.3.167])
 	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6Al07M1953426
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6Al07O1953426
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Fri, 6 Nov 2026 11:47:11 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6Al07M1953426
+	Fri, 6 Nov 2026 11:47:13 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6Al07O1953426
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1793962032;
-	bh=1aOQMD6JlTDLVsQjQedtpJM3c2lEIuqtDtE0HdhEhiI=;
+	s=prod24a; t=1793962034;
+	bh=pPs+LFjQd4/vwzx0cx5k8n7Xns8+xDNlOq6HRQ/nnB8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QV5zVbqxanNS1CeFFjg+76A+oNaXC5XKw8wiH1xXRkYtRe6w30RTfhZ/lm6yVCNUK
-	 uBitPPczjeZRTuRgC9NDz4yfT+smLsMEWnP8Yau3JEkJEoSGdsvmGgVhlnJpcQl0qN
-	 5bHlOfkk7zDvwrfnC2HNZxwLbNrZoyhPACg5rrpY=
+	b=WDiuIdwm8UFous+4e6je7OsE/8ufj1XtOgyvdnUxhllJALqtuVpEksTgZHay5aGN2
+	 OSUw31Y4Evz4a9e98UBjvLW2OBd38tJ2O2r6cA+qKRwc50nhkulAKp0Gczk+44weBF
+	 7rfLXx9GIzn+uaIW0S+fA31LeNfKiUyl4zfxnncc=
 From: christian.koever-draxl@student.uibk.ac.at
 To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
         neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
@@ -54,9 +54,9 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-arm-kernel@lists.infradead.org,
         linux-amlogic@lists.infradead.org,
         =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH 07/10] arm64: dts: amlogic: meson-s4: add the GE2D
-Date: Fri,  6 Nov 2026 11:46:56 +0100
-Message-ID: <20261106104659.54656-8-christian.koever-draxl@student.uibk.ac.at>
+Subject: [PATCH 09/10] arm64: dts: amlogic: meson-s4: add the AO CEC controller
+Date: Fri,  6 Nov 2026 11:46:58 +0100
+Message-ID: <20261106104659.54656-10-christian.koever-draxl@student.uibk.ac.at>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
 References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
@@ -76,34 +76,55 @@ X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
 From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-Add the GE2D 2D graphics accelerator, compatible with the AXG one.
+Add the AO_CEC_A controller and its pin group.
 
 Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 ---
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 24 +++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-index 1e8b845b80c3..8bbd70e52a29 100644
+index 155997649dc3..dd51e786d29d 100644
 --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
 +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-@@ -199,6 +199,16 @@ soc {
- 		#size-cells = <2>;
- 		ranges;
+@@ -747,6 +747,14 @@ mux {
+ 					};
+ 				};
  
-+		ge2d: ge2d@ff040000 {
-+			compatible = "amlogic,s4-ge2d";
-+			reg = <0x0 0xff040000 0x0 0x10000>;
-+			interrupts = <GIC_SPI 217 IRQ_TYPE_EDGE_RISING>;
-+			clocks = <&clkc_periphs CLKID_GE2D>;
-+			resets = <&reset RESET_GE2D>;
-+			power-domains = <&pwrc PWRC_S4_GE2D_ID>;
-+			status = "disabled";
-+		};
++				ao_cec_a_pins: ao-cec-a {
++					mux {
++						groups = "ao_cec_a";
++						function = "ao_cec_a";
++						bias-disable;
++					};
++				};
 +
- 		gpu: gpu@fe400000 {
- 			compatible = "amlogic,meson-g12a-mali", "arm,mali-bifrost";
- 			reg = <0x0 0xfe400000 0x0 0x40000>;
+ 			};
+ 
+ 			gpio_intc: interrupt-controller@4080 {
+@@ -970,6 +978,22 @@ sec_ao: ao-secure@10220 {
+ 				amlogic,has-chip-id;
+ 			};
+ 
++			cec_a: cec@44000 {
++				compatible = "amlogic,meson-gx-ao-cec";
++				reg = <0x0 0x44000 0x0 0x14>;
++				interrupts = <GIC_SPI 179 IRQ_TYPE_EDGE_RISING>;
++				clocks = <&clkc_periphs CLKID_CECA_32K_CLKOUT>;
++				clock-names = "core";
++				assigned-clocks = <&clkc_periphs CLKID_CECA_32K_DIV>,
++						  <&clkc_periphs CLKID_CECA_32K_SEL_PRE>,
++						  <&clkc_periphs CLKID_CECA_32K_SEL>;
++				assigned-clock-parents = <0>,
++							 <&clkc_periphs CLKID_CECA_32K_DIV>,
++							 <&clkc_periphs CLKID_CECA_32K_SEL_PRE>;
++				assigned-clock-rates = <32768>, <0>, <0>;
++				status = "disabled";
++			};
++
+ 			ir: ir@84040 {
+ 				compatible = "amlogic,meson-s4-ir";
+ 				reg = <0x0 0x84040 0x0 0x30>;
 -- 
 2.56.0
 
