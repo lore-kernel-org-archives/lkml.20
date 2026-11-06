@@ -1,63 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793961963;
-	b=dldRNM74wfziISJ5hztb4CxEIkCCa7fl3sJAuikRLR6RybMtfdHUSKgHIL4fZrd2PwkY
-	 3gGsFbuKUVvXUUV/Dx4lTgdURRGqY28F4mw6jw0gf2gG/P0rQKpQeyCyCZp/Nkpyh8RTX
-	 /YFSKW5XOlrW29KTotMzCFBIzi/Yb1eMAZ6uiwcrvJAfXGk/8kNbas8Vp9vm8a9ywaNyW
-	 YhBHTAfE3GudKsPwsU1R2atzZcaqeFCReX5GD2P5IJLZO/PeaocPvXHHol69fzoQquHnA
-	 LFA62ZgVaaLMbZyJE2ywp0lpF+//9OXOilXYhepSVfF3DfDxEjwCU+QbftFIhNpSzOg==
+	t=1793961977;
+	b=iXWTXv/g8aJ7BQierlfd6Y7yMP5T6oec6dD7Wy5e4Jr4Q/4UkASHhbOZJrvVaig4mKAA
+	 bprpICLA5tZYdorrf+TtPULPWDKSAm6DtpPG+K5vhE0Kv8C/iuY/Moatjly6Hi8CgHkYB
+	 3Ap2SC8F5MRpzcu4reXSrTNF3n70JppCYQsACV0k8NzEfIB/ow8XPWrMotJk+OyHuZBQl
+	 4q+ykvnyWpVUwFSUfrhMV6h92Hk8175PM/pnvfc9XZXPwHDMkz2XRx7P9zzhHUr45StY2
+	 y4R8giH5xsKx79gVwNIckjLoXOjt1OkCCSw4O5D2CtQbUR8O01cofK/UzrHEbD2eKfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793961963;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=EBOzhR38zAbfIVOw2so9GKfjXciI6NC0gGb/q053Uvw=;
-	b=ZgYqKiQxIobpkuhxuoGDfrzbV7ivW2QfOHwKolAq7dnmoBvsTUMnS/WzqxEyXBkmoNWf
-	 M/DYIIfZleI39o05sawhgd8pdFH0Locmoq7rn9/nAW6o5o5fvAaSh/40+adfZB9LAZrO0
-	 zXFccXZBL33lxADVFVRKPDfmkEE9nTObQz5o7bDmRJukm6Tu/wgN/sfZQH1SK/lyBXy/z
-	 PCYrxwVlHzTkxiGoa37OM7yeLsdGykN0piN+2piurc97r8nYnss2MH/1+MrdCXyr+C8RT
-	 RfkL1xR1AuJR/jL+1E832SDmi8e85sRPpcw1nGtAME5WsiHm/936trmM89t8P4fKP+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793961977;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=bFMefXNV5N4MRE7vZflvBnk4vd+rwC7CnxpG7xTJOq0=;
+	b=kcJBR6JwdbDRTUc8dumNaVfWOjai+y8t/f2Pioi85ZmOej6eFaanPierSIl6QrIWi1Zw
+	 WYCcmeseL7VyME4ABQ3rnPOt2TyGYFH+2rgEkxUDx1Z6HMx8mm0ZLrS4MVCod6e6mXf7i
+	 IGfuOUWT83lM0KlGZ+WWtERyCwfYwZ+3GmLoCNr6ijbpoIUT4NTpWUMBk8yq8eRtjjzie
+	 as+8VpGk7Bq4zk6sKAvEhh+rgPcXvUl3LXwgP1EObLCkgychUxenppKbw5glx02sNlxY8
+	 fcksSxBcOQupqMiYa5oQkVWVNX65CeLqqWPE1bPsgl2tpn3Bt9GiMWbt2UQB+RIY7lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DSxvniHD;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C83EF606A329;
-	Fri,  6 Nov 2026 10:46:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C83EF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=KLlbSeem;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=AbKd9uT6;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17046606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:46:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17046606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DSxvniHD
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1A57415A1;
-	Fri,  6 Nov 2026 02:45:58 -0800 (PST)
-Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74B503F673;
-	Fri,  6 Nov 2026 02:45:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793961961; bh=Kz0mSCmJER1t1vnDARZyfMev49ZrLe9m/+tlQWtAGgU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DSxvniHDbqcztfN5wXQ+N71HLuRwr1uD8C0kMxaoe5FTSBtVaGGF4RjPVSfcQL6p3
-	 jCXxICd99aAnXYQI66kJlgyBYM5pciaOPd9d5JvxC6SNe5VPJ6jxZ2U60EU2qW5eI5
-	 COBjnYgGy5DFy/yemQkddtpjAdQ1ebJFXF5tu96I=
-Date: Fri, 6 Nov 2026 10:45:56 +0000
-From: Alexandru Elisei <alexandru.elisei@arm.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, pbonzini@redhat.com,
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, maz@kernel.org,
-	oupton@kernel.org, suzuki.poulose@arm.com, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, david@kernel.org,
-	mark.rutland@arm.com, ackerleytng@google.com
-Subject: Re: [PATCH v2] KVM: Ignore MMU notifiers for guest_memfd-only
- memslots
-Message-ID: <au2v5EoitiAGhoA3@raptor>
-References: <20260714160411.302386-1-alexandru.elisei@arm.com>
- <amPCdAswlk24Xilf@google.com>
- <anxAGkdyPYXBlS00@raptor>
- <autwsR83Ii-tRrqF@gremlin>
- <auzSxEsGAcm3MYtN@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=KLlbSeem;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=AbKd9uT6
+Date: Fri, 6 Nov 2026 11:46:14 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793961975;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bFMefXNV5N4MRE7vZflvBnk4vd+rwC7CnxpG7xTJOq0=;
+	b=KLlbSeemZD0zoz2cIAltcNVqFLoxaCHAzAUshf0EbPMYikbqQBQ5LZU3hW8+qGVcBJWmbt
+	cxJAsVOLXCUaSxUMcd7XwY2Hxo6OdLRyQicdSWVTZSj8iLb3Jmou5xG0YvRGenlAZXUJwZ
+	eyffUe+XeT8115UN56UHf+nzMv7IHnDOe3Tc30AV2aKkeGF/w2/2Y9I9gWGpRg4lDUXYG7
+	/2yGsoyNP1wn+Z4h0D0DdU6orEbGm47Bba3UgTALyPRQozlrFBNAlklJ8BnfMPnmJs4mUP
+	FVZs9Q5hxcAnoP2cQnCK263porUCa4ZfTdbMWorVG2NMcskjA24zz+fghKYKCA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793961975;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bFMefXNV5N4MRE7vZflvBnk4vd+rwC7CnxpG7xTJOq0=;
+	b=AbKd9uT6iyQ51zRrzq1q+J4aDfy2PJ9vjs+OVRPP2pYGNAePs/PhoWK1oa4eaeTJxsFQtJ
+	EYsNSzj5TBU/hcDg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: mt4022@columbia.edu
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+	tz2294@columbia.edu
+Subject: Re: [PATCH v2] smpboot: Run the thread function only once before
+ parking
+Message-ID: <20261106104614.LMF0MgmB@linutronix.de>
+References: <20261104-smpboot-park-once-v2-1-ea28ec9fd85e@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,104 +73,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <auzSxEsGAcm3MYtN@google.com>
+In-Reply-To: <20261104-smpboot-park-once-v2-1-ea28ec9fd85e@columbia.edu>
 
-Hi Sean,
+On 2026-11-04 16:58:09 [-0500], Mani Tofigh via B4 Relay wrote:
+> From: Mani Tofigh <mt4022@columbia.edu>
+> 
+> Since commit 4a3b51aab6e2 ("smpboot: Don't park the thread if work is
+> pending"), smpboot_thread_fn() parks only once thread_should_run() is
+> false.  CPU offline waits for that with no timeout and with
+> cpu_hotplug_lock held for write.
+> 
+> When the outgoing CPU keeps receiving more packets than it can process,
+> ksoftirqd always has NET_RX pending and never parks.  The offline then
+> waits for as long as the packets keep coming and everything that takes
+> cpus_read_lock() waits with it:
 
-On Thu, Nov 05, 2026 at 11:02:28AM -0800, Sean Christopherson wrote:
-> On Wed, Nov 04, 2026, Lorenzo Stoakes (ARM) wrote:
-> > [updated David's email address to @kernel.org]
-> > 
-> > On Wed, Aug 12, 2026 at 10:42:50AM +0100, Alexandru Elisei wrote:
-> > [ ... ]
-> > > On Fri, Jul 24, 2026 at 12:52:20PM -0700, Sean Christopherson wrote:
-> > > > It'll probably take me a few weeks to circle back to this, as I finally crawled
-> > > > out from underneath a pile of urgent and am just now getting back into review
-> > > > mode, but this is fairly high on my todo list, so with luck we might still squeeze
-> > > > this into 7.3.
-> > 
-> > Hey Sean,
-> > 
-> > I wondered whether you'd had a chance to look at this?
-> > 
-> > After discussing this with Marc and Alex it is clear that this is really a
-> > blocker for Alex's SPE series, as we need a sensible means of ensuring
-> > that stage-2 mappings stay in place.
-> > 
-> > So ideally would prefer to get something like this in in the next cycle,
-> > if you don't have any objections to it? :)
-> > 
-> > If it'd be easier, I think a smaller version of the same patch would also
-> > give us what we need? I.e. your snippet from June with the page ageing part
-> > dropped, as below.
-> 
-> The GPC invalidation fix landed, so we can go straight to the super simple v1.
-> Compile tested only at this point, I'll formally post this (hopefully today),
-> assuming nothing explodes in testing.
-> 
-> --
-> From: Alexandru Elisei <alexandru.elisei@arm.com>
-> Date: Mon, 15 Jun 2026 16:52:44 +0100
-> Subject: [PATCH] KVM: Skip gfn-based MMU notifier invalidations for
->  guest_memfd-only memslots
-> 
-> Don't invalidate gmem-only memslots when responding to MMU notifier
-> invalidations, as the entire point of gmem-only memslots is so that KVM
-> doesn't need a VMA to install mappings into KVM's MMU.  Specificially,
-> page faults are resolved by going straight to guest_memfd, using the gfn
-> and the associated memslot's gmem.file.  I.e. whether or not userspace
-> happens to have valid mappings to the same gmem instance is irrelevant,
-> as are any invalidations for those mappings.
-> 
-> Note!  The exception is KVM's gfn_to_pfn_cache implementation which isn't
-> yet wired up to pull pfns directly from guest_memfd, i.e. still relies on
-> userspace mappings/VMAs and thus need to be invalidated, e.g. to ensure KVM
-> doesn't retain a kernel mapping+pointer to PRIVATE memory.  However, as of
-> commit da260bcb56fe ("KVM: pfncache: use a dedicated invalidation sequence
-> for cache refresh"), GPC invalidation no longer relies on memslot lookups,
-> because GPCs also support HVA-based mappings.  I.e. KVM *must* be able to
-> detect and handle relevant MMU notifier invalidations even if there is *no*
-> memslot whatsoever.
-> 
-> In addition to the obvious performance benefits, avoiding unnecessary and
-> spurious SPTE zaps and TLB flushes will allow KVM to support features like
-> ARM's Statistical Profiling Extension (SPE)[1] and x86's Secure AVIC[2],
-> both of which rely on the pages *never* being unmapped from the stage-2
-> page tables.
+I would end with a full stop and strip the backtrace. We do know what it
+looks like.
 
-Looks great, and thank you for updating the commit message!
-
-Alex
-
+>   [   41.469979] INFO: task kworker/0:1:10 blocked for more than 20 seconds.
+>   [   41.470020] task:kworker/0:1     state:D stack:28392 pid:10    tgid:10    ppid:2      task_flags:0x4208060 flags:0x00080000
+>   [   41.470055] Workqueue: events vmstat_shepherd
+>   [   41.470077] Call Trace:
+>   [   41.470082]  <TASK>
+>   [   41.470091]  __schedule+0x10f1/0x4760
+>   [   41.470175]  schedule+0xd7/0x2c0
+>   [   41.470189]  percpu_rwsem_wait+0x1f8/0x4e0
+>   [   41.470269]  __percpu_down_read+0x11f/0x3e0
+>   [   41.470287]  cpus_read_lock+0xc1/0xd0
+>   [   41.470301]  vmstat_shepherd+0x22/0x2a0
+>   [   41.470315]  process_one_work+0x92b/0x16d0
+>   [   41.470393]  worker_thread+0x4e6/0xd60
+>   [   41.470507]  kthread+0x300/0x3e0
+>   [   41.470542]  ret_from_fork+0x4f0/0x6f0
+>   [   41.470597]  ret_from_fork_asm+0x1a/0x30
+>   [   41.470623]  </TASK>
+>   [   41.470635] INFO: task cpuhp/3:33 blocked for more than 20 seconds.
+>   [   41.470653] task:cpuhp/3         state:D stack:27976 pid:33    tgid:33    ppid:2      task_flags:0x4208040 flags:0x00080000
+>   [   41.470678] Call Trace:
+>   [   41.470682]  <TASK>
+>   [   41.470690]  __schedule+0x10f1/0x4760
+>   [   41.470753]  schedule+0xd7/0x2c0
+>   [   41.470766]  schedule_timeout+0x176/0x250
+>   [   41.470849]  wait_for_completion+0x169/0x3b0
+>   [   41.470918]  kthread_park+0xff/0x180
+>   [   41.470934]  smpboot_park_threads+0xd5/0x160
+>   [   41.470959]  cpuhp_invoke_callback+0x2b0/0x1190
+>   [   41.470995]  cpuhp_thread_fun+0x2f8/0x6d0
+>   [   41.471027]  smpboot_thread_fn+0x2fb/0x8a0
+>   [   41.471051]  kthread+0x300/0x3e0
+>   [   41.471083]  ret_from_fork+0x4f0/0x6f0
+>   [   41.471132]  ret_from_fork_asm+0x1a/0x30
+>   [   41.471154]  </TASK>
 > 
-> Link: https://lore.kernel.org/all/20260903160623.315525-1-alexandru.elisei@arm.com [1]
-> Link: https://lore.kernel.org/all/cover.1783490022.git.naveen@kernel.org [2]
-> Cc: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Cc: Naveen N Rao (AMD) <naveen@kernel.org>
-> Signed-off-by: Alexandru Elisei <alexandru.elisei@arm.com>
-> [sean: rewrite changelog to capture the new gpc behavior]
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> That commit only needs the work queued before the park request to run
+> once on its own CPU.  Softirqs left pending are taken over by the
+> dead-CPU callbacks as before.  So on a park request, run the thread
+> function once if there is work and then park.  With the fix, the
+> offline finishes under the same load.
+> 
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within about 25s.
+>
+> Fixes: 4a3b51aab6e2 ("smpboot: Don't park the thread if work is pending")
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+
+Other than that,
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
 > ---
->  virt/kvm/kvm_main.c | 4 ++++
->  1 file changed, 4 insertions(+)
+> Changes in v2:
+> - Use Sebastian's comment above the thread function call
+> - Link to v1: https://lore.kernel.org/all/20261102-smpboot-park-once-v1-1-920282635d20@columbia.edu/
 > 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index cf4cb586f140..599dea22afb8 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -601,6 +601,10 @@ static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
->  			unsigned long hva_start, hva_end;
->  
->  			slot = container_of(node, struct kvm_memory_slot, hva_node[slots->node_idx]);
-> +
-> +			if (kvm_slot_has_gmem(slot) && kvm_memslot_is_gmem_only(slot))
-> +				continue;
-> +
->  			hva_start = max_t(unsigned long, range->start, slot->userspace_addr);
->  			hva_end = min_t(unsigned long, range->end,
->  					slot->userspace_addr + (slot->npages << PAGE_SHIFT));
-> 
-> base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
-> --
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/ksoftpark.c
+
+Sebastian
