@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985112;
-	b=YtAGYejdUymTQCVHqE12QRqg0kBw4CQv9j49USUUYmMtPWabxD+xmDsx2umv4fNASgGw
-	 vRZK3rNubVZKFQ/0QuaARO4M/Q4fP15FDMjLGUajHa+NcY8hN/c87FrFyIF9TP7CsE0V/
-	 /qY6WYC4Qd1bBN8hBVBpJGW7JVVRRiD5pFEgzz6WPPWJW3JF/a0ZMJViZHlHF0V0+WCjB
-	 DHalfny/RD+M22LpqKDqN8YpJBGqQWLHDrQQ95+bvtkGfOcroBij6gQd/poXNM8/4qszD
-	 eZBQmNrK/Z1Z08a8TRWO7LwwCO5BJDG1Fjd99P5h+TcgOCW6iXPsLruKxfFB3yZ22XA==
+	t=1793985133;
+	b=Z6H0q5RjZjleWsrFtLraUKNu5bOES50neFNbOoyHEiGSLnsYinYp3cOcIzIGBWxlAgWH
+	 NjVx9ZohfeTCoT9IrO0Z5tXptkWLqQ6UziOFgkmNcPbQ9b7aUBrfj/0wXMSCTdgQuc3Mr
+	 4Nkqnk25Xh0oCSQMmz3krp0VWbTBgoo7ytmObkupA/jlsaN81EtPZNn5lovz/6wDM4ZWn
+	 Giwq/a3VAAUNr2dRQo+4WIKBmNO6LBYHBRODIgvcjIfZu5kwog4Paapy9olm7nV74fpzP
+	 A8bbpYvDfZKakmUVjBudwQMVRrK8+qqaagJr4+bQ0hBt8MH8THTbypXbEjpVvhIF7ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985112;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=KC09ZFwwTt1laafJpmjQa1oZqrnPlGfwhuKbiRREODE=;
-	b=kn61gSueorxhRW9uflKqEgecvFCNps4OxwoJsAs6aSgj1eiXZmFcmRDpX42H7dnDeYXU
-	 nn6bWsTo3oyMXysSw35Q+lz0iBC3aWHEuRwPje9S26fU90kWdnf4zjwZITlsSLUSHqAqX
-	 kyIbiiD4agAo18cfHPLiMN6BaFPqt33dzZhQh5ld65/3bdV1H1JWCMDAD5POvsWjK48vP
-	 kA/Z60JSzgJh0zpD9iHHZRep+048DqQAAGmseKL+GsBDoM4s0yI/I1Gz0ysbiaLNG93No
-	 NFjwXSLpeqwb2y3bDGWSwnJNeS0PczcOvwlxWAE/uYjpRJycx5BHxMhs+iHoDQOAk1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985133;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yw+fiJnGacYZip0Sy8vz5R4fiYZZxfSHrVr/u3AJtsg=;
+	b=1Hy9wrb3pcmQGxjAmvcPE5ulJr56rg33Am2M76miNP56M/b6HqKzWHVDFlaNb7Lj71cd
+	 8CBF1KbT2s7pdOyS8it9Kh0XiqBxwdi5goEw4Zo1viJj1/YrmjZrfxl1lu6dI/MNiy57Q
+	 cniywFIpOHgEfNgOzu6/4TCFH2BrRB+8DVIBSYJczvsUyQkD1tqnh7+vTMj28lO8bwle2
+	 u0UM3MC0b40N4MKud5a9eY6N6TgRmymSg0eMQibslbfM7N8QW6bxOeMKZiTh1iamOviol
+	 RYt3xJJLqzE8LkNvHwRyR1JRunm6d77SnqY2KiOodfAp5Re+A7HS02+qWZBpWnT0lVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXZYGJ+9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767C6606A326;
-	Fri,  6 Nov 2026 17:11:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 767C6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jLm1d1yw5z8Xrr9;
-	Sat, 07 Nov 2026 01:11:49 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6A6HBeV3052695;
-	Sat, 7 Nov 2026 01:11:40 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sat, 7 Nov 2026 01:11:44 +0800 (CST)
-X-Zmail-TransId: 2afc6aee0a50559-e44a2
-X-Mailer: Zmail v1.0
-Message-ID: <20261107011144094m_yk29jjckmiwGqC832qf@zte.com.cn>
-In-Reply-To: <a9c36a69-a0d3-62af-e5d7-cf99c427a1ff@linux.intel.com>
-References: 20261107002305850zuBaVsGBz3wbco2Ae4ScR@zte.com.cn,20261107002315181vFaB7Y_zoFugWEVkOSGJZ@zte.com.cn,a9c36a69-a0d3-62af-e5d7-cf99c427a1ff@linux.intel.com
-Date: Sat, 7 Nov 2026 01:11:44 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F495606A326;
+	Fri,  6 Nov 2026 17:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXZYGJ+9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00EDD1F0089F;
+	Fri,  6 Nov 2026 17:12:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793985132;
+	bh=yw+fiJnGacYZip0Sy8vz5R4fiYZZxfSHrVr/u3AJtsg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MXZYGJ+9hZDzjTHk5gS409UcyjiXbtdAcctcAVsuxMbKKud7ZX74SVCglsnmLnC3+
+	 d9FWwycn9H4X1JX5q03xBf/WL4xEy9Bp+3E3VHRrPD4aNj6e2Jni7BD89MOBNO+AWZ
+	 ACiGWawy/gW1dTl3y5KQ5fQRjeNKhMVmvZODcBoiO5WB1gk1np4zqQJkmlk/HMWmm0
+	 3iyT6P5mcoOuK7Hpz+EJ7E2BZ+V5+brqLJVHV0JTgbIEbe6QflMFdMLwg7UJWZWs3j
+	 FfU8i6UShk63PKhDydd8dGKpMT8hGLGG3n06/pPFyJ91X8vgPB6cwrwVrOckKw4L+e
+	 8U4tSZLUFduQA==
+Date: Fri, 6 Nov 2026 17:12:08 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v8 1/2] regulator: dt-bindings: willsemi,wl2868c: add the
+ WL2868C camera PMIC
+Message-ID: <20261106-lucrative-sadden-741ffe6c43e9@spud>
+References: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261106114252.988023-2-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,69 +59,195 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <ilpo.jarvinen@linux.intel.com>
-Cc: <bhelgaas@google.com>, <linux-pci@vger.kernel.org>, <mani@kernel.org>,
-        <kwilczynski@kernel.org>, <lpieralisi@kernel.org>, <kishon@kernel.org>,
-        <Frank.Li@kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCA0LzVdIFBDSTogcmViYXI6IEd1YXJkIHBjaV9yZWJhcl9ieXRlc190b19zaXplKCkgYWdhaW5zdCBvdmVyZmxvdw==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A6HBeV3052695
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sat, 07 Nov 2026 01:11:49 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEE0A55.000/4jLm1d1yw5z8Xrr9
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="K6bwFbsNcc6jfS5d"
+Content-Disposition: inline
+In-Reply-To: <20261106114252.988023-2-xiaqinghuan@mail.ustc.edu.cn>
 
-Hi Ilpo,
+--K6bwFbsNcc6jfS5d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the review.
+On Fri, Nov 06, 2026 at 07:42:51PM +0800, Qianhui Xu wrote:
+> The WL2868C is an I2C-controlled camera power management IC from Will
+> Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are fed
+> from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and LDO4 sha=
+re
+> VIN34, and LDO5 to LDO7 each have their own input, covering 1.504 V to
+> 3.544 V. All outputs are programmable in 8 mV steps and are gated by
+> per-output enable bits with a chip-wide SYS_EN master. The chip also
+> exposes an optional active-low RST_N input.
+>=20
+> VIN7 and VSYS are both inputs of the internal control logic, which is
+> powered from the higher of the two voltages, so a device tree has to
+> describe at least one of them. The remaining inputs only feed LDOs, so
+> they stay optional: an input can be left unconnected when the outputs it
+> feeds are unused on a given board.
+>=20
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-> This is missing how it can be reproduced with the existing kernel code.
-> If it's not triggerable, the Fixes tag should be dropped.
+Rob#s feedback on v6 was ignored:
+https://lore.kernel.org/all/20261106141036.GA2921668-robh@kernel.org/
 
-The only existing path I can point at is device-controlled: sriov_init()
-leaves barsz[] zero for unimplemented VF BARs, and a device can point the
-VF ReBAR control's BAR_IDX at such a BAR.  sriov_restore_vf_rebar_state()
-then calls pci_rebar_bytes_to_size(dev->sriov->barsz[bar_idx]) with zero,
-on the sriov_restore_state() path.
-
-That is not a conforming-device path, so I understand if you don't want
-to treat it as a Fixes bug.  If so, I'll drop the Fixes tag and keep the
-guard as hardening.  The commit message will describe the path and the
-TEST-ONLY hook honestly either way; it should have done that from the
-start.
-
-The bit-63/U64_MAX inputs are hardening: the largest valid BAR size is
-128 TB, so no real resource reaches them.  I'll keep that guard but not
-use it to justify Fixes.
-
-> So no real reproducer?
-
-No real-hardware reproducer: QEMU has no rebar model, and the hook only
-calls the function directly.  It is a deterministic test for the guard,
-not a path-level reproduction.
-
-> Won't this clash with the normal return values? -EINVAL seems better
-> choice.
-> ...So now you get to add the error handling too.
-
-Agreed; 0 is a valid encoding (1 MB), so returning it for invalid input
-is ambiguous.  v2 will return -EINVAL and handle it at the callers:
-
-- pci_restore_rebar_state() and sriov_restore_vf_rebar_state() write
-  BAR_SIZE directly, so they will skip the BAR on -EINVAL.
-- i915's _resize_bar() and xe's resize_bar() log 1 << bar_size, and
-  xe_pci_rebar_resize() also calls pci_rebar_size_to_bytes(); they need
-  a negative check before those shifts.
-- amdgpu_device_resize_fb_bar() needs the same before using rbar_size.
-
-pci_resize_resource() already rejects a negative size through
-pci_rebar_size_supported(), but the direct register writes and log
-sites above do not.
+pw-bot: changes-requested
 
 Thanks,
-Shao
+Conor.
+
+> ---
+>  .../bindings/regulator/willsemi,wl2868c.yaml  | 104 ++++++++++++++++++
+>  MAINTAINERS                                   |   7 ++
+>  2 files changed, 111 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,=
+wl2868c.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c=
+=2Eyaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+> new file mode 100644
+> index 0000000000..df7990d0d8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+> @@ -0,0 +1,104 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Will Semiconductor WL2868C camera power management IC
+> +
+> +maintainers:
+> +  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> +
+> +description:
+> +  The WL2868C is a camera power management IC with seven programmable LD=
+Os.
+> +  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3=
+ and
+> +  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504=
+ V to
+> +  3.544 V. All outputs are programmable in 8 mV steps.
+> +
+> +  VIN7 and VSYS feed the internal control logic, which is powered from t=
+he
+> +  higher of the two, so at least one of them has to be connected. The ot=
+her
+> +  inputs only feed LDOs, so an input may be left unconnected on a board
+> +  that does not use the outputs it feeds, which is why they are not
+> +  mandatory.
+> +
+> +properties:
+> +  compatible:
+> +    const: willsemi,wl2868c
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: Active-low RST_N input.
+> +
+> +  vin12-supply:
+> +    description: Input supply for LDO1 and LDO2.
+> +
+> +  vin34-supply:
+> +    description: Input supply for LDO3 and LDO4.
+> +
+> +  vin5-supply:
+> +    description: Input supply for LDO5.
+> +
+> +  vin6-supply:
+> +    description: Input supply for LDO6.
+> +
+> +  vin7-supply:
+> +    description:
+> +      Input supply for LDO7 and one of the two supplies of the internal
+> +      control logic.
+> +
+> +  vsys-supply:
+> +    description:
+> +      System supply, the other supply of the internal control logic. The
+> +      control logic is powered from the higher of VIN7 and VSYS.
+> +
+> +  regulators:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    patternProperties:
+> +      "^ldo[1-7]$":
+> +        type: object
+> +        $ref: regulator.yaml#
+> +        unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - regulators
+> +
+> +anyOf:
+> +  - required:
+> +      - vin7-supply
+> +  - required:
+> +      - vsys-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        pmic@2f {
+> +            compatible =3D "willsemi,wl2868c";
+> +            reg =3D <0x2f>;
+> +            vsys-supply =3D <&vsys_reg>;
+> +
+> +            regulators {
+> +                ldo1 {
+> +                    regulator-max-microvolt =3D <1128000>;
+> +                    regulator-min-microvolt =3D <1128000>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +    vsys_reg: regulator-vsys {
+> +        compatible =3D "regulator-fixed";
+> +        regulator-name =3D "vsys";
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index fe23913b1e..08cfa3db0e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -30180,6 +30180,13 @@ L:	linux-input@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/hid/hid-wiimote*
+> =20
+> +WILLSEMI WL2868C CAMERA PMIC
+> +M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> +L:	linux-kernel@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+> +F:	drivers/regulator/wl2868c-regulator.c
+> +
+>  WILOCITY WIL6210 WIRELESS DRIVER
+>  L:	linux-wireless@vger.kernel.org
+>  S:	Orphan
+>=20
+
+--K6bwFbsNcc6jfS5d
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4KaAAKCRB4tDGHoIJi
+0kbNAP47h6RwmupUnRM9xwGx1Lucs3meQvJTVY0/eCU7Vg0W9gEAwy3QyeC+rxAB
+Zy/7INF+1GiqpqZAlT+DoTNEmRpyBQg=
+=g8S0
+-----END PGP SIGNATURE-----
+
+--K6bwFbsNcc6jfS5d--
