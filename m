@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793934373;
-	b=CGhgwkmF3lnB6KylHnvwuJc8NT60JuoLtvX5HuIQXUiukjeSxAIi3JQyfqZg+BGa6aY4
-	 kv1S/T5T2KGHmNj3uLfCyyCxWP3a6Cyz+b5dxVnC6HMi0lTQsoqgbevNko7hOejk9d4iU
-	 1slLvJZSlLoeKM0yHhKoYORG6ug1CV9p27nNEC7Mb+5bOm33G23MXapz74gNyCgcjIhYj
-	 My+zYE9exN6UfO2n9eeWA1pJ03RJy8a2+fk9INbWwkD8TFzSel58NvvApspp9O6CpwpaS
-	 RMt12O5XzRkNRFy0+T2JFLUqkewfuLlsKqK/oMDZM2MpfUZo+VwPNnz3kQEuWWH9gQQ==
+	t=1793934378;
+	b=Rcs+OxrD0s1IIjwnuFEeA/saFREx192sm1g31J0jJ934X/MqJZoTVlCog7P0kjviAVVi
+	 q4Fa2p5/d6L1YHW2kS1uR+Oym8zCQITH9mSFQcc2Hpphjc8FOQuxLrtlaTBifgLiPrMR2
+	 SsSZo4roXK57MYBLnOaoLGpHZ9qvPcmLO55AvmmB0wgzvbNq4TW0JS/MH2BmjTfrEFzL0
+	 RvjP/eT/tNQQyiJlWKh4121lokl/6kOyHFeq/D9cvLhRbuYnbGWAXSpwwfITFnWCgc6AM
+	 jb6FZRTFVu+ll+9KdNNYoA3YlVN/imJNw+Mtj372gi2+9Y1uzOzkcxrZlSdJXkQpWKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934373;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793934378;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=anavCBK3SCp8Ujq//YSmuDMckikQh71WLxxHmaHr4cw=;
-	b=gA+7rsMQOzFA00LW2uaj8sJMd53ddz+5SNQHm9L8jt0KvujFvYkdNghZlkQGgZ14zMtu
-	 9MVlqbRBZRBcmfvZeN50DWey1L4BKpp/s0kWBd+0CpusYh3vdpT6JzrbZBSWb4bZJ+37g
-	 KwaUwlGLt1uJoD9iLYOYIyTUXABcmTmMRl/0ltMe+9Nq4XZadfEfVQsxQdJBvoAiZI+am
-	 Mtjm6E9Q+7El6ckoNfZbxe8bsYunHVI/0kpAgn+QUfG/JNGqlrN1EwELahbzH1aGLXDX9
-	 DSR/s583j0KoXDljmjmdopFBVeeWmcc6Afyx9RaH0VrdUs0sk05kv9uBmcnLoFY5ljA==
+	bh=SFN7QdsDLQ4jCa9vD0JR+UWCPjLFqpbGwK2CZE9LN7Q=;
+	b=CjBjyCaTcRmQsmbJQFcy4LsIqEOUk3MHd+l6/s1fesW9E2VO6RA4zOaex2Hs6cBQzbki
+	 jIINPtTTPu3KTTycL2Mhj7wJVp5NMAZAT6AhKjY9ysfLtBzQ/JfcGMX5z6Gy3XpDlaSPX
+	 4jTLXIatDbah/4wQ0pznX5aRfsaB8LkeTvp85m5iJQnWqfeQs4mf/Q96Ju0sg/Rtk3Tme
+	 1JnD3zOYmcYPKc/Z9XvmirlvguNwE8kFuYlm5eOmmi9eeUyKQnQpI/7Lh7MtzyttYhiXl
+	 AfHAJ5+S7qSwTxVS4sUEF4gVCGWgSaft5+iLe95BM7PQhomA+wwdh/MbZo9CcpE33sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=bnihwohJ;
-	arc=none smtp.remote-ip=115.124.28.4
-Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=FgImZkCd;
+	arc=none smtp.remote-ip=115.124.28.125
+Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C8E606A326;
-	Fri,  6 Nov 2026 03:06:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72C8E606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76E2606A32E;
+	Fri,  6 Nov 2026 03:06:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B76E2606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=bnihwohJ
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=FgImZkCd
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793934369; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=anavCBK3SCp8Ujq//YSmuDMckikQh71WLxxHmaHr4cw=;
-	b=bnihwohJEoU/va55tbf0n1YF50PQrQy4yNIADVahhBBY5jfgEdRCYNv9Wp3FOksxRCxTAhYj8MHWhGLynyBc+6SXwjd+jzZFf3t3O563tk+X7SgTHvNXpaMAE28BHQVq4PF6zGpc1py2yLcozxRCWyB62JyTc/APKJJohnWKBzM=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00337272-2.50226e-05-0.996602;FP=18050258625328350392|14|2|19|0|-1|-1|-1;HT=maildocker-contentspam011083099174;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jxsfG50_1793934367;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jxsfG50_1793934367 cluster:ay29)
+	t=1793934368; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=SFN7QdsDLQ4jCa9vD0JR+UWCPjLFqpbGwK2CZE9LN7Q=;
+	b=FgImZkCd6E7D4QLeUEq7KLPuUJMtdg2oTdtirex5JYmt7O5pR9VzBhtadavbFL4uUSX4yVgECOwFhSt/NbfDD8RbKq9ayHzh2z4ALosHjL6A970AKfXn3aiyNxkV8YpQWAUMyuUlbMX8Z0DE2kTiYdRJ5KI461AByBlZl2LOK9o=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07902923|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00260988-0.000500615-0.99689;FP=14554920093083864496|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jxsfG3j_1793934365;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jxsfG3j_1793934365 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 11:06:08 +0800
+          Fri, 06 Nov 2026 11:06:06 +0800
 From: Liu Chao <liuc63@xiaopeng.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Andrew Morton <akpm@linux-foundation.org>
@@ -58,12 +58,10 @@ Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org
-Subject: [PATCH v4 1/2] lib/net_utils: allow mac_pton() to take a custom delimiter
-Date: Fri,  6 Nov 2026 11:06:04 +0800
-Message-ID: <20261106030605.576584-2-liuc63@xiaopeng.com>
+Subject: [PATCH v4 0/2] usb: gadget: u_ether: fix out-of-bounds read in get_ether_addr
+Date: Fri,  6 Nov 2026 11:06:03 +0800
+Message-ID: <20261106030605.576584-1-liuc63@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261106030605.576584-1-liuc63@xiaopeng.com>
-References: <20261106030605.576584-1-liuc63@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,86 +73,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mac_pton() hardcodes ':' as the only accepted separator, which pushes
-callers that need a different notation to open-code their own parser.
+Rework of
 
-Split the body out into parse_mac_pton() taking the set of accepted
-delimiters as a string, and turn mac_pton() into a static inline wrapper
-passing ":" so that every existing caller keeps its current behaviour.
-The strnlen() guard still runs before any delimiter is inspected, so
-strchr() is never handed a NUL character.
+  [PATCH v3] usb: gadget: u_ether: fix out-of-bounds read in get_ether_addr
+  https://lore.kernel.org/all/20261105072147.3383565-1-liuc63@xiaopeng.com/
 
-No functional change intended.
+following Andy's review: 1/2 prepares a parse_mac_pton() helper in
+lib/net_utils.c, 2/2 uses it in get_ether_addr().
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
----
-v4: no change.
-v3: pick up Andy's Reviewed-by, no code change.
-v2: new patch, split out of the u_ether fix at Andy's suggestion.
-Link: https://lore.kernel.org/all/20261105072147.3383565-2-liuc63@xiaopeng.com/
+The two patches belong to different trees: 1/2 touches lib/ and should go
+via netdev or -mm, 2/2 is for the USB tree.  2/2 depends on 1/2, so it
+can only be applied once 1/2 has reached Linus' tree.
 
- include/linux/hex.h |  7 ++++++-
- lib/net_utils.c     | 17 ++++++++++++++---
- 2 files changed, 20 insertions(+), 4 deletions(-)
+Changes since v3:
+  - no code change at all, the tree is byte identical to what Andy
+    reviewed, only the log of 2/2 changed
+  - 1/2: unchanged
+  - 2/2: pick up Andy's Reviewed-by
+  - 2/2: name 331a2d82bcaf ("[PATCH] USB: ethernet/rndis gadget address
+    params") from v2.6.7 as the commit that introduced the loop, and
+    record that it only resolves in the history.git tree, which is why
+    the series carries no Fixes tag
+  - 2/2: record that the Cisco notation and irregular groupings are
+    historical and rarely met these days, and that the commit introducing
+    the loop never documented accepting them
 
-diff --git a/include/linux/hex.h b/include/linux/hex.h
-index 2618382e5b0c..408825478cda 100644
---- a/include/linux/hex.h
-+++ b/include/linux/hex.h
-@@ -30,6 +30,11 @@ extern int hex_to_bin(unsigned char ch);
- extern int __must_check hex2bin(u8 *dst, const char *src, size_t count);
- extern char *bin2hex(char *dst, const void *src, size_t count);
- 
--bool mac_pton(const char *s, u8 *mac);
-+bool parse_mac_pton(const char *s, u8 *mac, const char *delim);
-+
-+static inline bool mac_pton(const char *s, u8 *mac)
-+{
-+	return parse_mac_pton(s, mac, ":");
-+}
- 
- #endif
-diff --git a/lib/net_utils.c b/lib/net_utils.c
-index 215cda672fee..011857cc978b 100644
---- a/lib/net_utils.c
-+++ b/lib/net_utils.c
-@@ -5,7 +5,18 @@
- #include <linux/export.h>
- #include <linux/hex.h>
- 
--bool mac_pton(const char *s, u8 *mac)
-+/**
-+ * parse_mac_pton - convert a MAC address string using a custom delimiter
-+ * @s: string to be parsed
-+ * @mac: buffer to store the result, left untouched if @s is malformed
-+ * @delim: characters accepted as a separator between the byte pairs
-+ *
-+ * @s must be MAC_ADDR_STR_LEN characters long and use a character from
-+ * @delim at every separator position, e.g. "aa.bb:cc.dd:ee.ff" with ".:".
-+ *
-+ * Return: true on success, false if @s is malformed.
-+ */
-+bool parse_mac_pton(const char *s, u8 *mac, const char *delim)
- {
- 	int i;
- 
-@@ -16,7 +27,7 @@ bool mac_pton(const char *s, u8 *mac)
- 	for (i = 0; i < ETH_ALEN; i++) {
- 		if (!isxdigit(s[i * 3]) || !isxdigit(s[i * 3 + 1]))
- 			return false;
--		if (i != ETH_ALEN - 1 && s[i * 3 + 2] != ':')
-+		if (i != ETH_ALEN - 1 && !strchr(delim, s[i * 3 + 2]))
- 			return false;
- 	}
- 	for (i = 0; i < ETH_ALEN; i++) {
-@@ -24,4 +35,4 @@ bool mac_pton(const char *s, u8 *mac)
- 	}
- 	return true;
- }
--EXPORT_SYMBOL(mac_pton);
-+EXPORT_SYMBOL(parse_mac_pton);
+Changes since v2:
+  - 1/2: pick up Andy's Reviewed-by, no code change
+  - 2/2: keep the separator-less notation "aabbccddeeff" working by
+    falling back to hex2bin() when parse_mac_pton() does not match, as
+    suggested by Andy
+  - 2/2: drop the Fixes tag, the loop predates the git history
+  - 2/2: spell out in the log which notations stop being accepted
+
+Changes since v1:
+  - rework the fix on top of parse_mac_pton() as suggested by Andy
+    instead of open coding the bounds checks in get_ether_addr()
+  - add the KASAN report and the malformed address example that v1 was
+    missing, both collected on a KASAN build by loading g_ether with a
+    short and with a non-hex dev_addr
+  - select GENERIC_NET_UTILS for USB_U_ETHER
+  - drop Cc: stable: 2/2 calls parse_mac_pton(), which 1/2 introduces,
+    so it cannot be backported to any stable tree on its own
+
+One user visible effect remains: the Cisco notation "aabb.ccdd.eeff" and
+irregular groupings such as "123456:789abc" are no longer parsed and now
+fall back to a random address.  Details are in the log of 2/2.
+
+Liu Chao (2):
+  lib/net_utils: allow mac_pton() to take a custom delimiter
+  usb: gadget: u_ether: fix out-of-bounds read in get_ether_addr
+
+ drivers/usb/gadget/Kconfig            |  1 +
+ drivers/usb/gadget/function/u_ether.c | 18 ++++++++----------
+ include/linux/hex.h                   |  7 ++++++-
+ lib/net_utils.c                       | 17 ++++++++++++++---
+ 4 files changed, 29 insertions(+), 14 deletions(-)
+
+
+base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
 -- 
 2.50.1
 
