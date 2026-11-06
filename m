@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950204;
-	b=nmP/dNmRBm90M2lZO9NXeAqdBWic0YJ19k+Sm74oU0cvoolhJcznse9b96fiAyUjH3as
-	 O2zE2m1hPRNRk526E57ZevtLH1E1Md9Xhkfp3oIJUzFeWbwFqOA/XQhTIIazJaFZKuoc3
-	 Xt7zmlQl7XVdfMEtVdjImmMFX39M2heQkUhvW5yFNcV5L6hhAxwZsAeU+ipI3VC2hSs04
-	 y0GjOsoFN+faJS/j1/1GKaLnZcH9zgTRu1TbkqdtwSnxJyZkqiuw78X3oEeupgQnKaTqs
-	 ls7sdNbRJbsddZHwvRTGndRGxLBtM1NArtihppnqO90LhFUJzUMbqgue/yD/Mqw81Lg==
+	t=1793950257;
+	b=ydROAECDNoNZmx6XeiQ5ht/gDvgeuNgHdBWnDk/Q/1EOxy5EvfkPCIv0lLQkqNjny61O
+	 sTULfrWKysVDP++2AOIFmTnmqswJ4xfgKFA3Bk4znYE1XG/Ui7TD2fI9diVI8GNXiNf79
+	 qFKmHBseGLfZWdbT2O1t2XeLtfY4VYEvYuOYjcxmShd37fP5RT1oHG7QRi+hBDS2LbQOa
+	 OTXI5MIqcGttukJjfYAkx0SF6KR4jY8o7yvEYfKYQpD2s1BjHFDlWAV5F8NRjR31w5gqj
+	 tiQs/dnXrGuHls5/A+O0PokvtZ7cFejgfmg0WbOg1XHH3jhp2B10ysNffhTI2UMsAng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950204;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=waNo/gCY18u4onJc2VEN79eNR4Xdtc7DHg6nfR5Bve8=;
-	b=mWHa4qNBS4SZp5Fdy1MkjCi+l6ME2mL8y5u/of1H3gTOLYGZ/i6ctrJ0QgE6Zph5mOZ7
-	 wdPQ62VHYEslU+4RpS/mPFVfls/ZFRl0f5Vlp0OwavuH0iR9j3bFGj0EZb10gFNmc8fyi
-	 MCpmSU9b+2NmIHtnHOtZ2T+HkOBHqjeTta3DHJVmue6c7xcy+hIp9K6jrFMfe01QQoVjl
-	 L6zWYGuAx5edQhDkoCxu0bcPinpV8c0Krm0xVvMeBzkDUXSxkQ3fofQHIWpvdpG+TsLSS
-	 S0/ssXAe0hWQSHwNlU9swn6YM9Zfdj8/KmEM7Kr+nvYv22MTPjm7xc3NmUfMDp6GTcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950257;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7wSEXHkBeUm7jmx/vvmB6o23ptrbx9HTwP0lEI9vdgY=;
+	b=JFDZVTrrMH5bnb7v14kHifT+NqJk5jrCOEwFzNmOUXq9SL85qNS1xvA7C0xWX18bEX1F
+	 quCGsdI0Asf4/6yDEJRUvhY9LvLm6MHhJm0G3Zjhg2un5vBYdDrX1lbU+GBlInrmNOAK7
+	 VhpX6K11KJpLIqtynvYFrRi+4G+d3iwVGDTEkhpQhSsry/WoRYYObv0IKW4gZTmPTeRPZ
+	 XILW/oKnnV4yCaWLdApIWgVHbdXpfsc9mZ23Ab1/CmHay/P6zCSZKTNcC0AhYmom0r9Sb
+	 c2ViYCQJc/SUOdSv2TiUBK3TCkDqKGz6O8MiKCFcdEu1ezMR1DIt8toTyGI1wPKYsOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nsJmSuzG;
+	arc=none smtp.remote-ip=91.218.175.220
+Received: from mta0.migadu.com (out-220.mta0.migadu.com [91.218.175.220])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8BF606A331
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:30:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A8BF606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABXX5Dpge1qAdxpAA--.3990S2;
-	Fri, 06 Nov 2026 15:29:45 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH v2] drm/bridge: cdns-dsi: Handle runtime PM resume failures in bridge callbacks
-Date: Fri,  6 Nov 2026 07:29:54 +0000
-Message-Id: <20261106072954.2116361-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260916145427.GA40507@killaraus.ideasonboard.com>
-References: <20260916145427.GA40507@killaraus.ideasonboard.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B5D606A32F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:30:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71B5D606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nsJmSuzG
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aaCHJPtjUYTzU9qBVb0bveZ30m9yiBJImLPHyP2kHKg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793950254; v=1; x=1794555054;
+ b=nsJmSuzGtKp/9cUxFg7ULhPcboclm2j7V+Nc/W3nWsy24/svLKsee3mv0J+R3k84HRUy0ib6
+ TF7f3DPHseyxKwA44HnHtXT971+7BMnJ3LdjfFuKU1K298f+EohqqFuAnrIn6k0tnb143zXGj1I
+ n/8/UkO/F9imbnmELU/wS/LE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0621bc41cbb61551;
+	Fri, 06 Nov 2026 07:30:54 +0000
+X-Mizu-Trace-ID: 0621bc41cbb61551
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a95b787e-06ee-424a-a154-e4fdaef2eab7@linux.dev>
+Date: Fri, 6 Nov 2026 15:30:49 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,111 +58,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABXX5Dpge1qAdxpAA--.3990S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrWDJw1xJFykuFyxur43Awb_yoW5ur1xpF
-	40ga4YkrWDZF4Yv393Cr1UXa45A3Z2yayrGrW7Kw1Ivrn5u3WUur9xCryavFyDCF92qF17
-	Xw1kJ34xGF10yFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9C1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
-	x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
-	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAa
-	w2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJw
-	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
-	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIDA2rtTzW3zAAAsI
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v1] net/mlx5e: kTLS, Fix missing error unwind when
+ enabling RX offload
+To: Tariq Toukan <tariqt@nvidia.com>, Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, saeedm@nvidia.com, leon@kernel.org,
+ mbloch@nvidia.com, borisp@nvidia.com, witu@nvidia.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+References: <20261026095346.1212609-1-xuanqiang.luo@linux.dev>
+ <20261029134019.GG257209@horms.kernel.org>
+ <53ba3677-af71-4d8e-b445-39e08eea8b2d@nvidia.com>
+ <c27e8ceb-c0d6-4801-a53b-837545dc51f6@nvidia.com>
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+In-Reply-To: <c27e8ceb-c0d6-4801-a53b-837545dc51f6@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-cdns_dsi_bridge_atomic_pre_enable() uses pm_runtime_get_sync() to resume
-the DSI controller.  The helper increments the runtime PM usage count
-even if the resume fails.
+Hi Tariq,
 
-The corresponding post-disable callback unconditionally accesses the
-controller registers, releases the PHY, and drops the runtime PM
-reference.  However, the DRM bridge pre-enable callback returns void, so
-a failed resume does not prevent the later post-disable callback from
-running.
+On 2026/11/6 at 01:49 Tariq Toukan wrote:
+> 
+> Seems that we need a resend here.
+> Let me know if you want me to do that.
 
-Use pm_runtime_resume_and_get() to avoid retaining a usage count on
-failure.  Track successful runtime PM acquisition and skip post-disable
-cleanup if pre-enable failed.
+Yes, please go ahead and resend it. I saw the patch is marked
+"Awaiting Upstream" in patchwork, so I understand it needs to go through
+the mlx5 tree. Thanks for taking care of it!
 
-Also move the bridge state validation before runtime PM acquisition.
+I'll send the follow-up cleanup to net-next once the fix has landed.
 
-This change was prepared with assistance from DeepSeek-V4.1-Flash and
-GPT-6.1-Sol.
-
-Fixes: e19233955d9e ("drm/bridge: Add Cadence DSI driver")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-
----
-Changes in v2:
- - Sorry for the very late reply, and thanks for the review.
- - Use pm_runtime_resume_and_get() as suggested by Laurent.
- - Track successful runtime PM acquisition.
- - Skip post-disable cleanup after a failed pre-enable.
- - Validate the bridge state before acquiring the PM reference.
----
- drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c | 12 +++++++++---
- drivers/gpu/drm/bridge/cadence/cdns-dsi-core.h |  1 +
- 2 files changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-index 1e28ea579b06..da27f5611bb7 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-@@ -613,6 +613,9 @@ static void cdns_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
- 	 * disable their streams.
- 	 */
- 
-+	if (!dsi->bridge_pm_active)
-+		return;
-+
- 	val = readl(dsi->regs + MCTL_MAIN_DATA_CTL);
- 	val &= ~(IF_VID_SELECT_MASK | IF_VID_MODE | VID_EN | HOST_EOT_GEN |
- 		 DISP_EOT_GEN);
-@@ -630,6 +633,7 @@ static void cdns_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
- 	phy_exit(dsi->dphy);
- 
- 	pm_runtime_put(dsi->base.dev);
-+	dsi->bridge_pm_active = false;
- }
- 
- static void cdns_dsi_hs_init(struct cdns_dsi *dsi)
-@@ -734,13 +738,15 @@ static void cdns_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 	 * enable their streams.
- 	 */
- 
--	if (WARN_ON(pm_runtime_get_sync(dsi->base.dev) < 0))
--		return;
--
- 	new_bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
- 	if (WARN_ON(!new_bridge_state))
- 		return;
- 
-+	if (WARN_ON(pm_runtime_resume_and_get(dsi->base.dev) < 0))
-+		return;
-+
-+	dsi->bridge_pm_active = true;
-+
- 	dsi_state = to_cdns_dsi_bridge_state(new_bridge_state);
- 	dsi_cfg = dsi_state->dsi_cfg;
- 
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.h b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.h
-index 5db5dbbbcaad..6ed6e1bb8573 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.h
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.h
-@@ -76,6 +76,7 @@ struct cdns_dsi {
- 	struct clk *dsi_sys_clk;
- 	bool link_initialized;
- 	bool phy_initialized;
-+	bool bridge_pm_active;
- 	struct phy *dphy;
- };
- 
-
+Thanks,
+Xuanqiang
