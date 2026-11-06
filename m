@@ -1,65 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956309;
-	b=TRmKeWstGYgq7CT7hY/lUq4E41PHUcAMGPpDw7xmc9W+Zc+F3cYIlD1XTJEw/wH8xEWb
-	 WS3iJtHZIoIbBj0MYufpgQHdfenPYB5XQDxJGbUFf1wE4kIkh+YHwSzZTlIaL6W8n+5oz
-	 7lFP+Wqjzjo/l3WW4ZReveg0QxiRENta1ZswWtZv7JZH8e0wZLMd8/8P+a0UgOrDC6U+4
-	 kLBi6FT2zWm5m/8jW01uhzXNj/46q+G9rvr2VnGF3GrnjY1QMUgCsguxrXti3T1rxBhjw
-	 hZXX/jPrMcaoiv5Y35BrC8EgDZ6LlgeumtASt0WOu349vWgMbhTgWBCnsIkRW5QIA6A==
+	t=1793956316;
+	b=5gHnlX7a04/0r6LbvJW7jboOIx/M9xPltv/MdQia25T+XwBKyGeoMq9C2rnI9vBf6ieW
+	 TaaP2ZtLnplozR4Rb+C7+XDg/gx67+QQH1F7L4hFJa0Oyu45IRPLodVWhY354sM0ACq1k
+	 da/Adb2c2HjdtEusXZUFSF3FuufDfVx6T6971Ld6CSD/z0BXzgjGS4vKJ7tosf7htNcSL
+	 3Y0oStPtDOvLat83Y+OS+DO2ufehESL77hY1sE7VfnmEdD4qRO330kk0KI8/wJFn18RTK
+	 3pq4EDXqy39oP3Py57DAzJBVt3fN6rn/zpe3AndrSIJMra46VYg/XuxWCKmUkogQuaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956309;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	b=Jf18l1IGlMqetL2mYxMuzRF8dySzLjesGajEOdzqOGv1W1AZTq/UymTwUcysZ99GCnE/
-	 YyfGsavLexjk1XqdFyP/5NjEbY+KnjLE+6aN4/jP+p44oCJUhj21ixf4VHclJPsEXlkDo
-	 CJMlV7SKaXVXVfLmPU3+H34v6nRdwXnzuTef7+lMJs5M7pgnbuZiTP0+FaLOhfPc+2KL7
-	 IuWm2JCrLtTycX6G51ES+UIQcHZS/LeTPbJzpWdvFd4SbX646hCkX4dMwZIa88dqGRH3x
-	 NUFKkICM+Pff/fSFyBLRa6RAV85CJjJ3wB2wsATQpdZ3j+TxBqFNh3KH+MLNNfDvBiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956316;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=eA+Ud+gFJNcVj31tDphP7Ap6AZDSCnf20xd55ColT4w=;
+	b=UFfWJYtr40UmtsPm3SlGsjeTAGJb9G2x1KGpDNMfDynSMBfoj1e6S1fmjKmZec2KVccf
+	 jxkyxZ7/JRiujauNY93Hgqu1Y7TcQWsy5YXQoYKNdSZ2VycQWBT6F3UWCWVGfZjGyIcXF
+	 e/AIWB37da1q6ke3eddc2ikjzpTRHEE4Sp5btkA4Q7TDLuasWr6MPdg5C5huzl6O9FEq5
+	 kp9ajKzpz4Z/r5fvXL0OXohv69B/M2BIwFm66J/wnRpR+Z/lvTl2JuY5p7UICr4sFKkYR
+	 qiZOoTefuuQyHLP8MKIHBNtJE1HIIaSYwvMdTyUPeKNvFEzGX5jIsfRMqg0TAVlIMhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4ZcNPkS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AAE606A328;
-	Fri,  6 Nov 2026 09:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4ZcNPkS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46D7E1F0089F;
-	Fri,  6 Nov 2026 09:11:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793956309;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C4ZcNPkSyRQJZ0ssAxyOMZ6NFqyoKY/VDCujA8FssoHINi3z2X3hPbUHDPdeXI9vc
-	 eYCG814CQSAlEICIRTKLQ0GM88EyBjkhZ+qdk4fqN1/egDjG9IK4Zp64lxEV87Gdu0
-	 IBCJIeac5mBite0gVy9eUWdY2B1MMyUR3VlVGaV1L6dpHIgEK8MUeBC4zv73EQ/PK6
-	 TPtzgyakdQ21r3JF8eZQQOHd+Us4Xo6p0ETmPwXoY578Lvmkt/svBechSexZLD+tLv
-	 4jlJugHLDXDXRx9e0giw3MySAaf8XEcHaych+oiYGidzNOERGrbfvMgXTeLgmMUGKq
-	 frDF3t+wXlFWw==
-From: netdev-bot+sinfo@kernel.org
-To: Ding Hui <dinghui1111@163.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dinghui@lixiang.com, xiasanbo@lixiang.com, yangchen11@lixiang.com,
- liuxuanjun@lixiang.com
-Subject: Re: [PATCH net-next v6 RESEND 0/4] net: stmmac: fix DMA descriptor
- ring cleanup issues
-Date: Fri, 06 Nov 2026 09:11:47 +0000
-Message-ID: <179395630778.488859.15565408556126944757@kernel.org>
-In-Reply-To: <20261106090507.1020751-1-dinghui1111@163.com>
-References: <20261106090507.1020751-1-dinghui1111@163.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A04D606A326;
+	Fri,  6 Nov 2026 09:11:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A04D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <a19cb7baea1434ddbbffc3176bdf493c895c7ea3.camel@crapouillou.net>
+Subject: Re: [PATCH 1/3] clk: ingenic: Poll JZ4780 CPU1 power status
+ atomically
+From: Paul Cercueil <paul@crapouillou.net>
+To: Florian Fainelli <f.fainelli@gmail.com>, linux-mips@vger.kernel.org
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Paul Burton	
+ <paulburton@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
+ <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ =?UTF-8?Q?=E5=91=A8=E7=90=B0=E6=9D=B0?= "(Zhou Yanjie)"	
+ <zhouyanjie@wanyeetech.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>, open
+ list	 <linux-kernel@vger.kernel.org>, "open list:COMMON CLK FRAMEWORK"	
+ <linux-clk@vger.kernel.org>, "H. Nikolaus Schaller" <hns@goldelico.com>, 
+ Paul Boddie <paul@boddie.org.uk>
+Date: Fri, 06 Nov 2026 10:11:48 +0100
+In-Reply-To: <20261105203243.2292647-2-f.fainelli@gmail.com>
+References: <20261105203243.2292647-1-f.fainelli@gmail.com>
+	 <20261105203243.2292647-2-f.fainelli@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,24 +58,49 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi!
+Hi Florian,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Le jeudi 05 novembre 2026 =C3=A0 12:32 -0800, Florian Fainelli a =C3=A9crit=
+=C2=A0:
+> The CPU1 clock enable callback runs under the clock framework's spinlock
+> with interrupts disabled. Its readl_poll_timeout() can sleep between
+> reads, which is invalid in this context when SMP powers up CPU1.
+>=20
+> Use readl_poll_timeout_atomic() with the existing interval and timeout.
+> This is a prerequisite for the JZ4780 SMP bring-up path. The original
+> CPU1 clock implementation by Zhou Yanjie is already upstream.
+>=20
+> Cross-built for CI20; the subsequent SMP-enabled image brought up both
+> CPU cores. Development and validation used Codex assistance.
+>=20
+> Fixes: 6673db4f3f26 ("clk: JZ4780: Add function for enable the second cor=
+e.")
+> Link:
+> https://lkml.kernel.org/r/1582215889-113034-3-git-send-email-zhouyanjie@w=
+anyeetech.com
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Cheers,
+-Paul
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+> ---
+> =C2=A0drivers/clk/ingenic/jz4780-cgu.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/clk/ingenic/jz4780-cgu.c b/drivers/clk/ingenic/jz478=
+0-
+> cgu.c
+> index 1e88aef7ac0f..f5983033583a 100644
+> --- a/drivers/clk/ingenic/jz4780-cgu.c
+> +++ b/drivers/clk/ingenic/jz4780-cgu.c
+> @@ -242,7 +242,7 @@ static int jz4780_core1_enable(struct clk_hw *hw)
+> =C2=A0	spin_unlock_irqrestore(&cgu->lock, flags);
+> =C2=A0
+> =C2=A0	/* wait for the CPU to be powered up */
+> -	retval =3D readl_poll_timeout(cgu->base + CGU_REG_LCR, lcr,
+> +	retval =3D readl_poll_timeout_atomic(cgu->base + CGU_REG_LCR, lcr,
+> =C2=A0				 !(lcr & LCR_SCPUS), 10, timeout);
+> =C2=A0	if (retval =3D=3D -ETIMEDOUT) {
+> =C2=A0		pr_err("%s: Wait for power up core1 timeout\n", __func__);
