@@ -1,105 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793992020;
-	b=EL4TirO0WIKvkZfgACyApvPU19UoxcoZpzMsF6dJliAB3AC13huI6Ew3bGk/zpi1Df14
-	 oF+f7nbxWYag/2GZeT8FE6bhzdSrE5JekY2Q2mUzjXV2noaF7nlGXH+rKjs4IfSdFEtDT
-	 Tw/fANC5I+RbpOtHgeEuruhPS43veIZNGJN9+UtdOwCwYnUQCtib2fGMKpiACcs1se/MS
-	 ylB4NeuLcD6ceEsyquNE5Hke61NmSGOgN2C8bxKL4XxIFmiR/MsaHXennWt4oeEAGlxzc
-	 lc2J3UoFGyQu31GpJPfyo4WoUAjBr4P8JGiwJHqusEncnb0GjbFq62IxMFT23azpzwA==
+	b=3DC6fiwU2Z+Ecu+XDqtgJTclmT9afOYSiAOacKhmdPQkYLmKMhyUfHwGtjdsgswJZwqE
+	 egDEFm6eAdbSPBCGL5mdpeh0ODlIC8FhWk/vESN208eTTMZp/bmbo1N4MWbpe3x+gZYrB
+	 fs6uPd9XcVZgnScAPDWQdnUfyUT3c72nAK5VnOl9vklnYl/a8mFeSSss18y51JCguD1Qo
+	 csv14wZ8iG8CdyYOAJ1GsvJuZ2YiMGZ7KB4PZbApeT9oqz4aVVAPAybUQpQ45JJjqIqfl
+	 Z3ufD4DIbo71lnS2FAYd7WpUJBaMjkGVEVYBhsZjx1meOFVkTmFEpHDGMoef0ohaDXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793992020;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1K7EZP2+wHAYvCb783vqa7KQmg+bgtLN8J+Z08UbgB8=;
-	b=CVyCS4OMeK2tcODYY1ISvQ1eozM/w/bkY8UPGQbQ1PuUR3G9MEtECD4W92+ks7e2LQv7
-	 VZ3cah5sBQk5UBS0PBiNpXdKFF1mEJxMTX0926idc5vUPk3UeSIYF+hPMi5NbDb8VhWnB
-	 qWfkJb13SnezavrCLM9QDSDniv4m3Qrfo8dO2NAqCRMHX/m5oAUy0D1dyHsaYNH7nZKk9
-	 ZOg/bz0610ar1iQ2YZsTcr2yJfLaeJx68cohBbNu3Ar2qqRmYPBVVeqiYln8lqaVOcRre
-	 TqFVZfpfNq9A7ZsK9SciW47IjG0SnJgcrT9vQux4QfLYOL7FeDQZqDVBXRmEULHnjPA==
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=iZ2LBKf2o/a6NuQvYXs34F5ZooH4kEfB31uOLqQEQ6g=;
+	b=OzZRrSS3i4tbLYeOLUjpTI73b+srVjzg16wxbAbPIxPWZIOOQnJN1JDfQCzUuM6YlG17
+	 hZBB2gdW2xz9oF6E06M3kP/Qk0hau7K9xp+4Jd9r0AQsZ0i8YzA2NsfW2owghqO4tftnY
+	 UAHaJCw/weWC2bpnoO8nZ2MuTIwvoR5HiIL/fBoYC0zy2nFeys1Af2v0gDxWPhBwoIcj4
+	 CF7zH5w0yaAYfWefLlxaAU2EmNC8OY4fPE4U3DG1k7oznl4zGymka/01VzMLvnst9nEcd
+	 nsen3VZ3MQElGN8vK2GeiH9rjr69aJMOisP3xLpQh0FXyJVL7Zs+i48RoHFIUxvRAaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jkTgj0db;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=freeshell.de;
+	spf=pass smtp.mailfrom=freeshell.de;
+	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=NqIjTpZ5;
+	arc=none smtp.remote-ip=116.202.128.144
+Received: from freeshell.de (freeshell.de [116.202.128.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE62F606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:06:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE62F606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289C5606A326;
+	Fri,  6 Nov 2026 19:06:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 289C5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jkTgj0db
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so8488815e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:06:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793992018; x=1794596818; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1K7EZP2+wHAYvCb783vqa7KQmg+bgtLN8J+Z08UbgB8=;
-        b=jkTgj0dbm07+TANWE6TbCW//HlGPyYd5G2qeV+KSzu2bBPxeeYPm7D8yupNcGDti5U
-         3U3/jC517nFr9w04v3URH7iC9AskFCMF6/rqUhEXM+wVm9/vm48apY8+qLqeX919Kj5z
-         FDlNdavqcVWbcZ/qdW2JBrRgcjDx3VjFVD3kcJSaCWi2FweyLM2Q/LrR9l7siADFutSy
-         OtnhEPQpzZ6OkXE/wVYzKw2F/IOR7vNLVIyFtF80rSWc420m5qMBW9FIqEr14vELGswF
-         kgI0K6EDaYc3l/ZeMv+MUXAcwbEBpVneCSkvqgIQfaIScjBIzkNQ4LpfSbRcl4dH9uTg
-         e0KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793992018; x=1794596818;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1K7EZP2+wHAYvCb783vqa7KQmg+bgtLN8J+Z08UbgB8=;
-        b=GCXTt/pytGRr69aVZIqH4Q/lLGig7mkn0RLOXzfrlSZDae0wu4dEfJ8kqSdF9tQlwT
-         k/Fu44aXbwmBG54QQJ578n80IRgcH09Eu5kXHj3QdOkReWHZtRQXFiTXirskxtsD2RhK
-         zSNGeW+HWfKkqR0kO+3BlI7vPWVwokqMk9RN0yEcgsegAQ6TVNiE6lRCXh8X8Of0sK7p
-         8OCLIsimHMdAEmfsSH62EJPOkswJ6K1MAX1fdpu12Y4UxLRS4gFiYUMx7uYdv6ISwwge
-         +P3cGzapjIZjKDvHDE/Sv2CJz4JWjz64nOEt4NetImnrakg3/gL0i6wcEOOEtauZHWTP
-         JqAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzOeQJx9Ic+WLSSF2GyKnCSJrnLpb8hCFqMFtLulKX/8lqYmwCWbHq0TbQY1+Wdq90EIy1nUQu9Ifj7dwM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VseNF546FKZkYBZrz5/sE8wiQfJbL7hjFpHHzbON2GsudvYtu
-	0XczPMNlWrIc+ZVXL1kl/AtOi/cYYB7MRcvpjh5C0fDBX1ErvRJ1+e0N
-X-Gm-Gg: AYBFou2mQPS5cQq6zgZh7929bhFyjBIwkqZsuqL8O+IkR6bjZKRT9wjX80Jz3tLWN4E
-	jkuj9WnhpQ8j6u25w5deHHQ7mJLqyliY/kKUci4s6TpQJ6lbcHvcZasQSajGbaWXd2ZxOcZuhoZ
-	S+HS54a3e7W9TJ0tPNicOsYwXNm/MRctnFZkRneuV4sjfTUzfTPUBeQ5XAFVG6xbU8Jbwq2xiC/
-	RkCile6fg4dGr8TPcqlltD20+7PpQ7/ht5UO05EhocGxm+nECmf8nWd52QBy2/keMwgQc/vIpdq
-	wk2Q8PjkDQtaWP5reCybmGdf+RfBXDWQpKQtdEekUoacjxlfFwFPlyMQHVdeil2UDt/5+zdwQ3e
-	Jyz9NN/n7Yl+1M4oNYIBkHNiiB23QzAJI4W3Nj3oNy/ilHfU8cNbU0eNpjynz+Ve4GjIbho9Zx1
-	qgl7j51smx7XB9Ov3K5Y1KK4ZojECpV5sRAi/PFF7sQJsc1YzhWkbK/PSuKv8j6MjW1QYHgL6q8
-	arVDXmKTspRD5F/XPJXcurEEvewPkS2DRFXQx/xamsTxvwcbwOyvKQhBCaUu5yAttAJNazeZ86J
-	qH0bFslaewp6iDWmHPX7ek3ur7EENLXMEMGe68Weuhw2SpawZj3SjIBVZ3GfHtppUdfIARohzQa
-	rIpsGOXtXANjmRJg=
-X-Received: by 2002:a05:600c:19cc:b0:4ab:e27d:e241 with SMTP id 5b1f17b1804b1-4b6de4a6badmr58331705e9.15.1793992018029;
-        Fri, 06 Nov 2026 11:06:58 -0800 (PST)
-Received: from localhost.localdomain ([74.244.226.39])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4930a5a91dbsm3960533f8f.35.2026.11.06.11.06.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 11:06:57 -0800 (PST)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: linkinjeon@kernel.org,
-	stfrench@microsoft.com
-Cc: icb@fastmail.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	ematsumiya@suse.de,
-	lsahlber@redhat.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/4] ksmbd: use the channel signing key for session setup on a bound channel
-Date: Fri,  6 Nov 2026 20:06:21 +0100
-Message-ID: <20261106190622.20990-4-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106190622.20990-1-mike.michalo@gmail.com>
-References: <20261103171742.18816-1-icb@fastmail.org>
- <20261106190622.20990-1-mike.michalo@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=NqIjTpZ5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1793991986;
+	bh=iZ2LBKf2o/a6NuQvYXs34F5ZooH4kEfB31uOLqQEQ6g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NqIjTpZ5NoDlROcd2MKaHLgNafgOSjtxF39ejQn0wKqesVlCTyNO6uynAxybIGIN9
+	 XJXomOfpV6Twr6nug0BatN9zUvqARt4A+vZvQutcIZf5YiYZwdTyCig8Meyr0qI+5z
+	 NlDXSdlPpwyM8PVSW8m8eRSzYv4HX4pJPcGr6Hz3lQuSY6iMu831NNxTgjhwFxJUgu
+	 76P4DcgQPqnnsuosGqBxHdd3w6GnXcHBW/MYzylzLVGM/778mpefQuzoN0v4P13toM
+	 j7gmSZZfnloXdh1ofiQmTkbfxPrVsszk+Nw3y6PsCiSTTBOtaRjU9OjJmEgXT5DJFP
+	 mCVI5FgQgf1sA==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id 53C0EB22073F;
+	Fri,  6 Nov 2026 20:06:24 +0100 (CET)
+Message-ID: <181fdcd8-80ff-4486-ab16-9cbce16b0a29@freeshell.de>
+Date: Fri, 6 Nov 2026 11:06:22 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,220 +58,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
+ power LED on
+To: Conor Dooley <conor@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Owen O'Hehir <oo.hehir@gmail.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261106184055.3891621-1-oo.hehir@gmail.com>
+ <179399127414.1902073.729566010968054971.b4-ty@microchip.com>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <179399127414.1902073.729566010968054971.b4-ty@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-smb3_check_sign_req() and smb3_set_sign_rsp() always use the session
-signing key for SESSION_SETUP. That is right for a binding request and
-its non-final responses (MS-SMB2 3.3.5.2.4, 3.3.5.5.3), but a
-reauthentication sent on a channel that is already bound is then also
-verified and signed with the session key instead of that channel's
-key.
+Hi Conor,
 
-Use the session key for binding requests, for their non-final
-responses, and for SESSION_SETUP on a connection that is not yet a
-channel of the session. Use the channel key for everything else on a
-channel. Samba does the same. MS-SMB2 is ambiguous here: 3.2.4.1.1
-has the client sign any session setup with Session.SigningKey, while
-3.3.5.2.4 has the server verify non-binding requests with
-Channel.SigningKey.
+On 11/6/26 10:54, Conor Dooley wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
+> 
+> On Fri, 06 Nov 2026 18:40:55 +0000, Owen O'Hehir wrote:
+>> The firmware turns the status power LED on, but the node has no
+>> default-state, so the LED switches off when leds-gpio probes and the
+>> board looks powered down.
+>>
+>> Default the LED to on.
+>>
+>> Tested on a VisionFive 2 v1.3B.
+>>
+>> [...]
+> 
+> Applied to riscv-dt-fixes, thanks!
+> 
+> [1/1] riscv: dts: starfive: jh7110-common: keep the status power LED on
+>       https://git.kernel.org/conor/c/68dbe2550bd4
+> 
+> Thanks,
+> Conor.
 
-The signature of a reauthentication was not checked at all, because
-SESSION_SETUP is exempt from the check in __process_request(). A
-reauthentication of a live session with a forged signature therefore
-got STATUS_MORE_PROCESSING_REQUIRED signed with the session key, with or
-without multichannel: the same kind of signing oracle as an unverified
-binding request. Verify it
-with the same helper as binding requests. Also refuse an unsigned
-reauthentication of a session that requires signing, as smbtorture's
-bind_negative tests expect from Windows. Do not expire the session
-when either check fails, since the request did not come from its
-owner.
+I replied this a moment earlier:
+https://lore.kernel.org/lkml/179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de/
 
-For a SESSION_SETUP that is not the first command of a compound,
-__process_request() already checks the signature and zeroes the
-Signature field, so the new reauthentication check then failed. Restore
-the field after that check.
+This disagrees with VisionFive 2 Lite schematic; if when this node is
+consumed by a bootloader it will be evident we are not describing the
+hardware correctly, no?
 
-An AI assistant was used to draft the patch and as an independent
-reviewer.
+If you want the light on and it wasn't on at reset or due to boot ROM,
+then that is userland stuff and not hardware description... but that is
+your decision to make as maintainer.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
----
- fs/smb/server/server.c  | 11 +++++
- fs/smb/server/smb2pdu.c | 90 ++++++++++++++++++++++++++++-------------
- 2 files changed, 73 insertions(+), 28 deletions(-)
-
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
-index 064f99427ca6..4430c8d6393e 100644
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -150,7 +150,18 @@ static int __process_request(struct ksmbd_work *work, struct ksmbd_conn *conn,
- 	}
- 
- 	if (work->sess && signed_req) {
-+		struct smb2_hdr *hdr = ksmbd_req_buf_next(work);
-+		char signature[SMB2_SIGNATURE_SIZE];
-+
-+		/*
-+		 * check_sign_req() zeroes the Signature field. Restore it:
-+		 * smb2_sess_setup() checks the signature of a SESSION_SETUP
-+		 * again and adds the request as received to the preauth
-+		 * integrity hash.
-+		 */
-+		memcpy(signature, hdr->Signature, SMB2_SIGNATURE_SIZE);
- 		ret = conn->ops->check_sign_req(work);
-+		memcpy(hdr->Signature, signature, SMB2_SIGNATURE_SIZE);
- 		if (!ret) {
- 			conn->ops->set_rsp_status(work, STATUS_ACCESS_DENIED);
- 			return SERVER_HANDLER_ABORT;
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index f587a76971e9..89cce31f7da6 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2561,15 +2561,17 @@ static int krb5_authenticate(struct ksmbd_work *work,
- #endif
- 
- /*
-- * A binding request must be signed with the signing key of the session it
-- * binds to (MS-SMB2 3.3.5.2.4). Check it before the request is processed
-- * and before any response is signed with that key. The Signature field is
-- * restored afterwards, because SMB 3.1.1 adds the request as received to
-- * the channel's preauth integrity hash.
-+ * SESSION_SETUP is not covered by the signature check in __process_request(),
-+ * because work->sess is not set for it. A binding request must be signed
-+ * with the signing key of the session it binds to (MS-SMB2 3.3.5.2.4), and a
-+ * signed reauthentication with the key of the channel it arrives on. Check
-+ * them before the request is processed and before any response is signed
-+ * with that key. The Signature field is restored afterwards, because SMB
-+ * 3.1.1 adds the request as received to the preauth integrity hash.
-  */
--static bool smb2_check_binding_sign_req(struct ksmbd_work *work,
--					struct smb2_hdr *hdr,
--					struct ksmbd_session *sess)
-+static bool smb2_check_sess_setup_sign_req(struct ksmbd_work *work,
-+					   struct smb2_hdr *hdr,
-+					   struct ksmbd_session *sess)
- {
- 	struct ksmbd_session *prev_sess = work->sess;
- 	char signature[SMB2_SIGNATURE_SIZE];
-@@ -2577,7 +2579,11 @@ static bool smb2_check_binding_sign_req(struct ksmbd_work *work,
- 
- 	memcpy(signature, hdr->Signature, SMB2_SIGNATURE_SIZE);
- 	work->sess = sess;
--	ret = smb3_check_sign_req(work);
-+	/* The key, and so the way it signs, belongs to the session */
-+	if (sess->dialect >= SMB30_PROT_ID)
-+		ret = smb3_check_sign_req(work);
-+	else
-+		ret = smb2_check_sign_req(work);
- 	work->sess = prev_sess;
- 	memcpy(hdr->Signature, signature, SMB2_SIGNATURE_SIZE);
- 	return ret;
-@@ -2665,7 +2671,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 			goto out_err;
- 		}
- 
--		if (!smb2_check_binding_sign_req(work, &req->hdr, sess)) {
-+		if (!smb2_check_sess_setup_sign_req(work, &req->hdr, sess)) {
- 			rc = -EKEYREJECTED;
- 			goto out_err;
- 		}
-@@ -2759,6 +2765,25 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 			goto out_err;
- 		}
- 
-+		/*
-+		 * A reauthentication of a session that has keys must be
-+		 * signed if the session requires signing, and must verify.
-+		 * The session has keys once this connection is one of its
-+		 * channels, including while a reauthentication is in
-+		 * progress. Do not expire the session if the check fails:
-+		 * the request did not come from its owner.
-+		 */
-+		if ((READ_ONCE(sess->state) != SMB2_SESSION_IN_PROGRESS ||
-+		     lookup_chann_list(sess, conn)) &&
-+		    ((req->hdr.Flags & SMB2_FLAGS_SIGNED) ?
-+		     !smb2_check_sess_setup_sign_req(work, &req->hdr, sess) :
-+		     sess->sign)) {
-+			rc = -EKEYREJECTED;
-+			ksmbd_user_session_put(sess);
-+			sess = NULL;
-+			goto out_err;
-+		}
-+
- 		if (work->session_setup_reauth)
- 			WRITE_ONCE(sess->state, SMB2_SESSION_IN_PROGRESS);
- 
-@@ -12982,22 +13007,24 @@ int smb3_check_sign_req(struct ksmbd_work *work)
- 	 * A key must be used with the algorithm it was generated for: the
- 	 * session key with the one of the connection that created the
- 	 * session, which can differ from this connection's when binding.
-+	 *
-+	 * A binding request, or a SESSION_SETUP on a connection that is not
-+	 * yet a channel of the session, is verified with the session key. A
-+	 * request on an existing channel, including a reauthentication, is
-+	 * verified with that channel's key, so that the session key is not
-+	 * used at the MessageIds of another connection.
- 	 */
--	if (le16_to_cpu(hdr->Command) == SMB2_SESSION_SETUP_HE) {
-+	chann = lookup_chann_list(work->sess, conn);
-+	if (le16_to_cpu(hdr->Command) == SMB2_SESSION_SETUP_HE &&
-+	    (!chann || (((struct smb2_sess_setup_req *)hdr)->Flags &
-+			SMB2_SESSION_REQ_FLAG_BINDING))) {
- 		signing_key = work->sess->smb3signingkey;
- 		signing_algorithm = work->sess->signing_algorithm;
-+	} else if (chann) {
-+		signing_key = chann->smb3signingkey;
-+		signing_algorithm = conn->signing_algorithm;
- 	} else {
--		chann = lookup_chann_list(work->sess, conn);
--		if (!chann) {
--			if (le16_to_cpu(hdr->Command) != SMB2_SESSION_SETUP_HE ||
--			    !(hdr->Flags & SMB2_FLAGS_SIGNED))
--				return 0;
--			signing_key = work->sess->smb3signingkey;
--			signing_algorithm = work->sess->signing_algorithm;
--		} else {
--			signing_key = chann->smb3signingkey;
--			signing_algorithm = conn->signing_algorithm;
--		}
-+		return 0;
- 	}
- 
- 	if (!signing_key) {
-@@ -13041,17 +13068,24 @@ void smb3_set_sign_rsp(struct ksmbd_work *work)
- 	hdr = ksmbd_resp_buf_curr(work);
- 	command = le16_to_cpu(hdr->Command);
- 
-+	/*
-+	 * Responses to binding requests, other than the final one, are signed
-+	 * with the session key (MS-SMB2 3.3.5.5.3), as is any SESSION_SETUP
-+	 * response on a connection that is not yet a channel. Everything else
-+	 * on a channel, including a reauthentication on a secondary channel,
-+	 * is signed with that channel's key.
-+	 */
-+	chann = lookup_chann_list(work->sess, work->conn);
- 	if (command == SMB2_SESSION_SETUP_HE &&
--	    (!work->session_setup_binding || hdr->Status != STATUS_SUCCESS)) {
-+	    (!chann || (work->session_setup_binding &&
-+			hdr->Status != STATUS_SUCCESS))) {
- 		signing_key = work->sess->smb3signingkey;
- 		signing_algorithm = work->sess->signing_algorithm;
--	} else {
--		chann = lookup_chann_list(work->sess, work->conn);
--		if (!chann) {
--			return;
--		}
-+	} else if (chann) {
- 		signing_key = chann->smb3signingkey;
- 		signing_algorithm = conn->signing_algorithm;
-+	} else {
-+		return;
- 	}
- 
- 	if (!signing_key)
--- 
-2.43.0
-
+-E
