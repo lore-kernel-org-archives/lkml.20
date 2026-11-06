@@ -1,100 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793932911;
-	b=47PwbyDcoeRYGkRavsUYACD8Y3zOZF+8feIAIkaDB8s0Oyj6paxM80pNSnhbfeKVz8Zz
-	 fiA9QFKESzeUOBZ2MYAm1T8cCItToDP3ajw3AloJPlnm+NQDv4G3yZiRyaC0cyWVusSeN
-	 PIN4UwhkMFsT7ShYlzQ6oS75W0rB+dfYsBnSFX6MDBi3cbW2kycyQqUEToSbNIIOrllG2
-	 Lcf9F40PNJXhTznZfIYMs0AA1zAM2xa1l2hjpcDdTmsob546E1HOl+/Rb0GZlJQk9/u33
-	 ZtbQ1ArTmmYR+5ZE44dkTDmDAw4ioDKuEfLTPC7oC5Ii1h8Z/j+ACkm3spGk7QbaQZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932911;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rXPT9ftSD1W4Pls/uGVHMwPU27w36zSFUh8Oy468MZ0=;
-	b=kRugEjvEyLEUg8LxBteLQ62izRPblZ+eE2bT6PoeO8AZWRprtBBym78lMGb5LHsJCJ2g
-	 s2GJplt1j35rZEHSOumLPRAeHEksuMmiwkjsdcxeb2noF8U45D7/ynSd1OAjtVShb/U27
-	 YNylPBY7poEuE3X15HN3CHYN6FceLYEl/MUg/CHH5CnEyD5OfO4kcHh63bJm4uxUWJ9Yv
-	 zgaVe4T9MtMTZb8hvjlIFx3iZBtNrzfW0YpFbNIKN2lun3qapv++wB5ZnBCW3IzLFdGjS
-	 olGywWJaOZ08f+OpN0QwRzeJHdcLQwjh6/yboUAjeSNN101ncuJ4fe11nR/MqOVSL2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793932926;
+	b=c885EQPylgRIwAa9UrO2rqGPnoDfzdUxDVDRsg9maYsvlO2h0CUcx7COUW3AFCEcXK9I
+	 N9GWRp4RGNsj0/pR8BBfCO6elX5ORf9l7GZz9N3SlFsoOXKViBcEXDZhnbHHvRDIy8LU3
+	 KtqzNjnFgswxDgzz7AVhkliHuBhxbB281wE/sIgigfzEQI26gH3dXU/Gn/VUha4COmjf5
+	 tsXyhPTH63pNX97uOFX8ePebk7EEp3W9DVBZ3WfjgAO3zUTB+fQfLU2DNo/sY0DjfxwO5
+	 YV8oWcLQpqKWGl92t1mUd+uL++heEJZzzntzRn4NfsRjsbuDQdUn9BdQ3HEEbLpYbYg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793932926;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6852XYg4nQB/at/PLi5oS751NBudRh/wjJbfpaCbjiE=;
+	b=b+T0UdNN1/ezDFsiwIe2SBfBxAizdZMvAkiw/2ebVuEzUB+QE4NTA2m1sDFA2l/cHXhP
+	 9znxFGZX8N3DlO//47lWFazNM23tPa7oiBmlGv5mC1toD4lvy5tKuxBhTxF8d0ZXvP8Ql
+	 kkKGQ0E7vIGcXVTPy5/NAgY55ecRwSe6tyuWVwPHCZy82Hu9nFOQ6dKcHg2JnlDQ4e8uV
+	 EPdVbo3erWmH5noimvvv9eS1S1yT1x2A2dDwLy5WpRIb9rLtdbdfHiP3LgrZICdOPIG/e
+	 kLiTA+SQtzPpQ9XKsDAckSigJEurG55LjFi4BEHbiPjjNQczFFgNgPZ2qyrTZSWDvXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=andrewgigena.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRSk5lqN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	arc=none smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88594606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:41:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88594606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C86606A32F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:42:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20C86606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRSk5lqN
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so978985e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:41:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793932910; cv=none;
-        d=google.com; s=arc-20260327;
-        b=S6dGT5n1cFo9NtSQaDZ1Du4XsnPNxshiXoz2fdsw1+nRa0eYoQnpiYxdysfHg2xXmV
-         XZyuMg80AXFKZCBDRulXCCHIMW4G64egV/V1GX0FzKZS796DQC3I2ggto6ErJgdeohDa
-         qp86CsjlTffTPh76UwpgKa3ciAX1BAIbS1uUZoNrzvc9lSFvdcVu/SNU6bKNxjh4v4Q2
-         uieGF4ivw9CLqmMD13JTTa5rq3XPISa77woj81eKG2x3q372ipfYcbpsl5fKlF1ySWUR
-         WqXiEPoA0PYJ7tXfzi8mOvukquCqii3ywgoVs/LWTTanp8O0g/VcN+jy8mKu93ghNMTn
-         F1Sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rXPT9ftSD1W4Pls/uGVHMwPU27w36zSFUh8Oy468MZ0=;
-        fh=5sr27O+cD/1uBLscXCHfjggDT9VHMhD/3r2azI8lf1Q=;
-        b=UDnZcerzwpwvXQIEuaYPt6kEwmVXcoV7ogXQxG/JEersRxO/Jn4jjIp9sFN7gvZSyj
-         bKhhPiclT2fKGV6Kn5q2i0vMA6pDtEeZrXhaKtqh7KJ4+3dS034aoD+J5ztUmn3ZKK3p
-         c1nhGX8iFOYVmfiD6ReKClGO5LGAKuUWbyJOgCAe3oPlo00Py8szdqBpV7G9cCCgcOE9
-         U2qTb/o8DAw4ZR93bckXMRqrstGo8NtYvg52CfW1e3lLg2nz43NcRuiBGhJwInv/LkXt
-         WaILp+AfOOwyZWgAMPlwmKjHroMVqMk4anhf49mYE0LUKM3mPYpdL157MVQRQxibEt+E
-         LtVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793932910; x=1794537710; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rXPT9ftSD1W4Pls/uGVHMwPU27w36zSFUh8Oy468MZ0=;
-        b=NRSk5lqNe80aQecN8piJscSed2+4dtCYF9cGKNuDh3/Ps2IsTNKGDK0qxR3Ll2RHQN
-         wJSBtjwUVLEnQYuobMm18u8tV1W6vuW7HlIVYLU1QhRckCEwhKSJneuJ15I/923U8H+1
-         5zCzKUBMJDwAercoUth0AkAAHtDsSQVIcusHk1QTTZVyHXmlR3/KDCgdjbcIMkPKfBVn
-         0vVsedn4fTjRLwtQKkjKzph/kJhi0E+M5N8jRlNrTsYUf/u4mYkOBxz8xg/SIbK9XgXv
-         3HzEyd2rUKbDT9HV6yzVwcHhcwlj3kLSDIMfLFb6nBw5ePVFDceVrelnSpGWxmV+zcWq
-         fwrg==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ace2e3a2acso959701fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:42:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793932910; x=1794537710;
+        d=1e100.net; s=20260707; t=1793932924; x=1794537724;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rXPT9ftSD1W4Pls/uGVHMwPU27w36zSFUh8Oy468MZ0=;
-        b=xeFlR3d1oSUDATlocAc0sPr7HpktX7ed+J7j4n8B59rVcEBn4SIogSoQi+fqiopq4Y
-         ZXyce5f2Ql/Vp+MOIodoVHg3QNzgMW57l2fldCw/sRSgcW7+25K+n9RwDs4SsAX1kqmQ
-         qTpYKaLX+7yD62L7zSbI4BqUOSnyRJrEOBerDa2/I0TuCvObxWU/1cz9V/AA+I6rc556
-         cdxaoYhXs9/3In1LxSySYn06bNucfBdrGyieFET7+x32tiXI9v4sI32zZIEVV8ImcKRc
-         OefBKJ3kyjdno0Lghe749sfS2p0n+FOa9iUlzh3Pabz6wns/vT0tgG2Ba63GONW5dWTQ
-         4deg==
-X-Forwarded-Encrypted: i=1; AKwUvByZrVzCIYI/9Z4y+NBUKCcCyA6pWIL+0z3nrlL8DvOisBgkdljZATztXNCqEYFmL1hmZLDafq2LWse9Lzk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Z5s8zPbFzd6juGOwsLVzooWkTihjkwuSRevbWVRMWDXL5QGkI
-	Ro/6Wd0K9nqvyLPE0puv6WOSlOz0c0AZYF0C8HpLQ9FFhX19IKR7dMO/aeaqL9FTXNZl3lZMxK4
-	RaHD7IMqAvJ3+AT2P5+Tu8ZHBrm75x5Y=
-X-Gm-Gg: AYBFou13AkoHIICdoQd0Sge1R5Y23OfRDRhC/GYA95tZbwDv2/iaiWm5NIfLqCuiQON
-	2hg8jhjuYXd5Rfi5cH02WbobnstwuqP0nm0EBF0CHp960FSN2P+Dc9gZN984C6x9Yf6oQuBU/pZ
-	cpuO+HetRjncEBqDW25015QhNeq9BoHkawgFt3lINnTM7QsAWe8rs4H/6l7H5OCRr1dk1KdymW8
-	ji4eyOd34AYvSBbb/Wz0mpTDFY3IgbdxITt8QiCGpa1DHXg//vUzyx4rhKoHnjjfLRGHx1fu24S
-	DOhNcdceEqFPzhOy+X3cSPEalJd6U/9OPsqIpaONi2iG1hxYIwL1ex09K8xNnSlhqRHdzcNvmb+
-	GQJm1jQkSpGGxL06KQjUzjV08T/lgffVHwe9LINfSs+Tu8n4IgFU+3VPHQQQ=
-X-Received: by 2002:a05:600c:4f13:b0:4a1:d8fc:8165 with SMTP id
- 5b1f17b1804b1-4b6de1c645dmr14873335e9.20.1793932909304; Thu, 05 Nov 2026
- 18:41:49 -0800 (PST)
+        bh=6852XYg4nQB/at/PLi5oS751NBudRh/wjJbfpaCbjiE=;
+        b=auS3MHzz2bH5R/Dcy6BDMU6datJLvQ6CaTZrlnoZ/cW93sti9A2Rl2T90cRfz4k7Sb
+         X8dCsIrfLBjMLzwqSPy/uDCqScvICZT41OzwddonZUktz0xSd8msJj7bGjx7Y0XYc0As
+         nDFNTBIg+h/sdJ07lBY84IK5aPt755pdqwD+0U9ynz1NTLIPtWPMu0hYvi250k8crkXT
+         YV5Emt19EDUo0qpLuSXKtPGOoLMGAcd8H+HMhWK8dlIIa+anbo9ZRuv0N0dJqM8l38Jn
+         hZUvdJ16OQqClNCdbi/t6oOOj2TMT9EP9gnW+ADkDnArstChudkE4Hbwg7qpWLNuUGJ+
+         eJZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzy4AFiFqTnbtoZBJygBHLhIXM7BkVEJ79H4VkwwpDcyHW619b2UnJn6N1hgE3X/+EqjB8hNPudniVqz2U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/U601MRDnvSqolkn/CJQaTjsLAniW7/I4WK80YlfImh8kbGNvK
+	XlfM5HUH1KG0y5aTSKwRuNjl9VDJ38dnScnFjGndfJXEXsAnBwWOHKAdL/Bs9rtIRZuLoA==
+X-Gm-Gg: AYBFou1rR/aukUks3mpBe9pMumUtWcWFFSnz/yZM7iBanAvW8EGJiwSJl5+AoHqJ5/b
+	+X96T9EivnHLkntoTLma5eZkpYy+gZ7nwzxjC6b5jGu/kL4T6KBr7LtYS9Xng9Bh9SX+ZXRkqtQ
+	q8xE1D+1CpixGwe7HYwz/Qq8NUOgwIxcEEy0y4PV2GT2LJ/XRkcCY+bdVBgOo9Qk1Srvjizo6bo
+	xtIkaspyeVJQ7zO80opsMdgXYFTXaTuyTgJkMSHD/VhOaiylT2PqLzd54Rplm0s5u0jgrsGyV/3
+	4zufTpi9Nd4DgFIF8z0rXZnD+ORiPMTzN7B/ZvPYMPjL6twZ2AVUfgfAmek2SOeWmPBWj9CVw/f
+	DzhdvlYZlepII+wYEyLjllLl/9IgD3J4eUv7Ys0+exLGuLgkfKlvknv49TBXKOS5f6gxSOgw/Vk
+	UoOVV1Zzoo4Gm3RabPieQ/Q0Cmgm+LdI9myCXaitcJ9OBQMi+bfB89oiVuSgQ1rNZlOP3sAay0N
+	IWWgFN1sDKP4w5ggaLIGJLvRLSPrjyke0p+qrTnmS7ojAD/u44EXgyk/r9iFjPoomm9Gs2fLQ2w
+	JsxjdRbcWkbCrhtvW9+nrcljhDUC3r32nbOVdxo1zM0zqh55EZ9Qw/5ArQ4pNc72+eA/7S4=
+X-Received: by 2002:a05:6512:1383:b0:5b8:f0d9:98cc with SMTP id 2adb3069b0e04-5c003c4aaa8mr217538e87.61.1793932924154;
+        Thu, 05 Nov 2026 18:42:04 -0800 (PST)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com. [209.85.208.170])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c0030a049bsm140316e87.76.2026.11.05.18.42.02
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 18:42:03 -0800 (PST)
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab39af88aeso1460371fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:42:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByQEC81xCPITCB4a/qdVArXyma5cySm7iG2iIjeG7ZRyXQZlqjLD+NUz7nlfuoIVlt231DrCgN6G7I6Vpg=@vger.kernel.org
+X-Received: by 2002:a2e:a80b:0:b0:3a9:db75:823b with SMTP id
+ 38308e7fff4ca-3acf3b2b509mr2161401fa.17.1793932922440; Thu, 05 Nov 2026
+ 18:42:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,126 +81,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261009160010.1829642-1-kunwu.chan@gmail.com>
- <20261009160010.1829642-2-kunwu.chan@gmail.com> <20261012104208.GQ4121339@noisy.programming.kicks-ass.net>
- <CAN_Opa9S2ObHYqa+w5Tqh8PFPRijo=iUZDk97aCYmNZT_75yVQ@mail.gmail.com>
-In-Reply-To: <CAN_Opa9S2ObHYqa+w5Tqh8PFPRijo=iUZDk97aCYmNZT_75yVQ@mail.gmail.com>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Fri, 6 Nov 2026 10:41:37 +0800
-X-Gm-Features: AclHuK8qaZa9j-EaRF6SECEA-dJP4xeAumfQIepVXAc0Je3LqIVzsucrbjhA_sM
-Message-ID: <CAN_Opa96ww9yOwDVOERLkrByxMU6Dha9f5=i2vFjAWSr4hvUYg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/5] perf/core: add AUX buffer ownership for kernel events
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, acme@kernel.org, namhyung@kernel.org, sj@kernel.org, 
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
-	irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org, 
-	akpm@linux-foundation.org, lianux.mm@gmail.com, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, wangkefeng.wang@huawei.com
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev> <a83a948e-3430-4133-ade6-b30045b8b186@linaro.org>
+In-Reply-To: <a83a948e-3430-4133-ade6-b30045b8b186@linaro.org>
+From: Andrew Gigena <mail@andrewgigena.dev>
+Date: Thu, 5 Nov 2026 23:41:35 -0300
+X-Gmail-Original-Message-ID: <CANn8Umedp8s=rupOkSdi5NBxOE8AUnWSvfyeQsMSohZG+Hce8A@mail.gmail.com>
+X-Gm-Features: AclHuK9yR1l3Ka6EneLFe1X-dNaa_gcGDfVBlZZtGQ6nC7Dgsgyzy5WyWv0PGgw
+Message-ID: <CANn8Umedp8s=rupOkSdi5NBxOE8AUnWSvfyeQsMSohZG+Hce8A@mail.gmail.com>
+Subject: Re: [PATCH 3/4] media: qcom: camss: Add support for SM8150
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Bryan O'Donoghue" <bod@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 5:41=E2=80=AFPM KunWu Chan <kunwu.chan@gmail.com> w=
-rote:
->
-> On Mon, Oct 12, 2026 at 6:42=E2=80=AFPM Peter Zijlstra <peterz@infradead.=
-org> wrote:
-> >
-> > On Fri, Oct 09, 2026 at 11:59:48PM +0800, Kunwu Chan wrote:
-> > > Add an in-kernel AUX owner reference and setup/release helpers for
-> > > kernel-created perf events that need an AUX buffer without a userspac=
-e
-> > > mmap.  The setup path validates that the event is a kernel event with
-> > > no parent, rejects non-power-of-two page counts and negative watermar=
-k
-> > > values, allocates the perf buffer and AUX pages, records the kernel
-> > > owner, and attaches the buffer under the same lock.
-> > >
-> > > perf_event_release_aux() stops AUX writers, frees AUX storage, and
-> > > detaches the buffer, in that order, matching the AUX teardown orderin=
-g
-> > > of perf_mmap_close(): perf_pmu_output_stop() walks event->rb->event_l=
-ist
-> > > and rb_free_aux() must run while the buffer is still referenced by th=
-e
-> > > event.  The single event->rb reference is dropped by
-> > > ring_buffer_attach(event, NULL) itself, so the release path does not
-> > > put it again.
-> > >
-> > > Both functions run under event->mmap_mutex, the lock that already
-> > > serialises ring-buffer attach/detach transitions for an event:
-> > > perf_mmap(), perf_mmap_close(), _perf_event_set_output() and
-> > > _free_event() all hold it around ring_buffer_attach().  Concurrent
-> > > perf_event_release_aux() callers therefore go through the same
-> > > serialisation point, and a second release call, or a release of a
-> > > buffer this API does not own, is a no-op.
-> > >
-> > > Keep aux_mmap_count dedicated to userspace mappings.
-> > > perf_aux_output_begin() accepts a writer while either a userspace or =
-kernel
-> > > owner remains, preserving the existing teardown ordering.
-> > >
-> >
-> > > diff --git a/kernel/events/internal.h b/kernel/events/internal.h
-> > > index c03c4f2eea57..760b7659ad87 100644
-> > > --- a/kernel/events/internal.h
-> > > +++ b/kernel/events/internal.h
-> > > @@ -48,6 +48,12 @@ struct perf_buffer {
-> > >       int                             aux_nr_pages;
-> > >       int                             aux_overwrite;
-> > >       refcount_t                      aux_mmap_count;
-> > > +     /*
-> > > +      * In-kernel AUX owner reference, set by perf_event_setup_aux()=
-:
-> > > +      * admits writers and ties the AUX teardown to
-> > > +      * perf_event_release_aux() when no userspace mmap holds the bu=
-ffer.
-> > > +      */
-> > > +     refcount_t                      aux_kernel_count;
-> > >       unsigned long                   aux_mmap_locked;
-> > >       void                            (*free_aux)(void *);
-> > >       refcount_t                      aux_refcount;
-> >
-> > This doesn't make sense to me. If the even is a kernel event, then ther=
-e
-> > cannot be mmap users, so adding another refcount is just for giggles?
->
-> Hi Peter,
->
-> I added `aux_kernel_count` to keep `aux_mmap_count`
-> specific to userspace mappings. The two paths have different
-> teardown responsibilities: `perf_mmap_close()` handles mmap
-> cleanup, while `perf_event_release_aux()` stops AUX output,
-> frees the AUX pages and detaches the buffer for a kernel
-> consumer.
->
-> `perf_aux_output_begin()` checks both counts so writers are
-> admitted while either owner remains.
->
-> Would you suggest a simpler approach here?
->
-> Thanks,
-> Kunwu
+Thanks for checking the 1.1 sequence and confirming that the upstream
+one is fine. I've fixed the ordering of CAMSS_8150 in the switch
+statements for v2
 
-Gentle ping.
+Regarding Sashiko's note about the VFE-lite clocks: I confirmed it on
+hardware. Routing the IMX363 through CSIPHY3 and CSID-lite1 to
+VFE-lite1, the stream produces no frames and the clock stays at
+19.2 MHz without the extra match. With the match, the same path
+streams 10 frames and cam_cc_ife_lite_1_clk goes to 320 MHz. The normal
+VFE0 path is unaffected.
 
-On your aux_kernel_count question: the separate count
-is for teardown, not admission control.
+I fixed it by making the driver also match the vfe_lite0/vfe_lite1
+clock names. Since the same problem affects sc7280 and sc8280xp, should
+I create a new patchset exclusively for this fix or include it on v2?
 
-When aux_mmap_count reaches zero, perf_mmap_close() subtracts from
-mmap_user->locked_vm and vma->vm_mm->pinned_vm before calling
-rb_free_aux().
-A kernel owner has neither of these accounting requirements.
-
-Reusing the count would therefore require either branching in
-perf_mmap_close() on owner type, or duplicating the teardown in
-release_aux().
-Keeping separate counts lets each side handle its
-own teardown without needing to know about the other.
-
-If you'd prefer a single count with teardown selected by owner type,
-I'm happy to rework it.
+I can send the small media-ctl/v4l2-ctl script I used if it is useful.
 
 Thanks,
-Kunwu
+Andrew
+
+El jue, 5 nov 2026 a la(s) 6:44=E2=80=AFa.m., Bryan O'Donoghue
+(bryan.odonoghue@linaro.org) escribi=C3=B3:
+>
+> On 04/11/2026 20:54, Andrew Gigena via B4 Relay wrote:
+> > The hardware reuses the existing 3-phase 1.0 CSIPHY, Gen2 CSID and
+> > VFE 17x implementations; the CSIPHY uses the SC8280XP lane register
+> > layout. Add CAMSS_8150 to the version enum and to the shared code
+> > paths, then add the per-block clock, regulator, power domain,
+> > interrupt and interconnect resources.
+>
+> That's odd. sm8150 and sm8250 are proximate both seven nanometers
+> sc8280xp is five nanometers.
+>
+> PHYs are about converting the analog to the digital domain and so
+> process geometery - ends up making a difference.
+>
+> You can get the PHY init sequences here:
+>
+> drivers/media/platform/msm/camera/cam_sensor_module/cam_csiphy/
+> =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_core.c
+> =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_soc.c
+> =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_dev.h
+> =E2=94=94=E2=94=80=E2=94=80 include/
+>      =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_1_0_hwreg.h    sdm845
+>      =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_1_1_hwreg.h    sm8150
+>      =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_1_2_hwreg.h    sm7150
+>      =E2=94=94=E2=94=80=E2=94=80 cam_csiphy_1_2_1_hwreg.h  kona/sm8250
+>
+> https://git.codelinaro.org/clo/la/platform/vendor/opensource/camera-kerne=
+l/-/blob/LA.AU.1.3.7-02900-gen3_gvmgh.0/drivers/cam_sensor_module/cam_csiph=
+y/include/cam_csiphy_1_1_hwreg.h?ref_type=3Dtags
+>
+> So yeah going by the name that's CSIPHY 1_1 same for sc8280xp and sm8150.
+>
+> Hmm so much for my understanding of how dependant on process node these
+> sequences really are.. perhaps the PHYs area fully synthesizable in RTL,
+> probably.
+>
+> Anyway.
+>
+> The one thing to do here is to please _verify_ what's upstream now
+> against the tag provided there.
+>
+> If there is a divergence then we need to upstream a 8150 compliant versio=
+n.
+>
+> ...
+>
+> Actually its fine, did the verification for you, the 1.1 init sequence
+> as is upstream is fine.
+>
+> Just please tidy up the ordering of the 8150 switches.
+>
+> ---
+> bod
+>
