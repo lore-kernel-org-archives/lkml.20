@@ -1,75 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958624;
-	b=vfAUGrxbgo/rsc2kMS5jndxZZajf7LFIMNiC3XnisUo+JIkvjEN1NiKHejTNBWA39oUt
-	 rZ7OSE4OI2feVr5n47xqbrcmlPx1lEcbzXgyVBFtojuSouF852wofgVWp9nAM6z2ZejJA
-	 730FsTD+Tfj9IE72wk19fpmZemdB6bfXvuQRhgxGte24JaDYlBdd6n7kgNewQSBe1Gl42
-	 MBbRrKfvaX/TGx3t5Il3ewhsUbWREqU+E1e8UmlI7b1dKAuVFma4kA2wbjpCukOZ6s+im
-	 kL1ziZXcBVU+4JkGWpwUFjR8otpOmLvX+YfEVa2ZSKGxOVfnd0ietYykFQEQ5/kCeQA==
+	t=1793958626;
+	b=z1ImekO4ekKt227BbuZ8RxAeQj09wGLgQO8YvNAatg6Aheqa7s55lAcELLtgpOrgYLPV
+	 7X95OO/DGR8//yPHzAw7i/le6fIjHpFHVzsBv58WtmOMJRTYeW8upsRSoqSIrQ5lSE43W
+	 a1tF2p6gtuE8KLrAAsqlZVNr07cnQb3xScNH5lD+JbSbjjnL3zNZ5IcCwlhClBMYjl39B
+	 VUtEmD036jsuzdICh5G14IU+J6gBwNODs7UvGWdCYNsBDMOOpSjn9xjoyiAv4OnmWInBd
+	 mc5FPJsNTco0p06BwPYtStnItSpftPLWL0xE6Vu1MDGBFupUiOQXQDA/BqCvYLxGvfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958624;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958626;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=9lbjNCwvn/VsFTMhsMK+kRtIbp5EoP1q2579NPuNAE0=;
-	b=k8h1Nz/RALtIMYBi/zW4cvQ+wk38cE1zbqYOrbF3YPsYIkUxo8+PeaUs/zXE6ipm2Dk5
-	 ZPi4lhvyOzBEdU3Xgj7sNldGbiv1ZJpWYqgzZw/i0Ra+E2mbj4CQQhmaR0kaGb3IdO0kB
-	 NUyY08pWfkIoXhZSEDrXr4Ml5O6ccXwsgRdbIgBo6Yb1mq2UqKOQecaIzl8Z3iltI66vI
-	 KLmrJGgi2I4MRl9uCaa99pMpDhHUwPGU8P6ZSbbmqJzkBFvoH06+uiNjM24iy0VFl7F/H
-	 qlqNbgjWKAHFrL1W3dUUNCIr8jCP5iGX0bB8HT9LdVmFRugI/mC4yWm0LrEFqknVj0w==
+	bh=0BFGf5Gqnt46AUvW3mAdakz12b9NgAjCrOay4QNcQyI=;
+	b=uBJlk8/6UFYefXfgjlZHjShTMqvrp4ifOSDPh1dsxsruaq6vIA3aK5xLahQBWG3LTySC
+	 R3ytccPzQ2GXjEbG2rG6VQGwERbi5qeRJZ80iRXVkuzwUhCbgEh6qxdMN/5wWOLdzrMYP
+	 LWoHyauMF6gemIMvdqryS2T4Zujpe3myo7PL0Suw0GiDI4e4sfNXTKrs6PCYNDS5+kaMD
+	 hnxwH+7TIwA84TGXvEsi55V7AGIXjrtDssqYrf63bLTePjRyIjFoy+o85cq8V3HI3jAsH
+	 W82kfPXwhkLOeeX/oQEH3zYi8ZkXe8xcJSkOifefZSUjj4UItiPd3UDxwvbW6eKLyBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="VOWN/pSw";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PV9f3sty;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=cIGLv33I;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=aBViO0Te;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68528606A339;
-	Fri,  6 Nov 2026 09:50:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68528606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF553606A32E;
+	Fri,  6 Nov 2026 09:50:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF553606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VOWN/pSw;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PV9f3sty
-Date: Fri, 06 Nov 2026 09:50:20 -0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=cIGLv33I;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=aBViO0Te
+Date: Fri, 06 Nov 2026 09:50:22 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793958622;
+	s=2020; t=1793958624;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9lbjNCwvn/VsFTMhsMK+kRtIbp5EoP1q2579NPuNAE0=;
-	b=VOWN/pSww4ehscEYTP3L22FsgtRKLKq5f3DRxQsJcl6BJWQz5QOna452z6BSmMQpkiNnOg
-	KB+7sRdrHpsEDPl5zQeWaudYDY3/qgsL6w7qtpGfz4PoroE/e9Zcsd82qPKb4WfBHAa6d6
-	ZUGTZhwmuOjWWVSjq/HqJHraq4DBbwZ8GWPKt2n1w0Nr1x+lqblO8nDTna4NlyIDY2LnOa
-	clMxq/X3hDS8BfLLZjzcD47JGqrbhCknQjyOplFKHjVwgP8FPhgynVYD5iIc3h1VLBeKev
-	E4+ajVPyzYUB5cF1WktpYGa/NoKQpPRUAiTdfb0b3ZXoaK0/Co1+MDASXq9aIQ==
+	bh=0BFGf5Gqnt46AUvW3mAdakz12b9NgAjCrOay4QNcQyI=;
+	b=cIGLv33IE7ouV+SByIIihXItWzIhyQko8ZkOIJF5E8iorNs7TzehR2Adm3hLCSv19fBEV4
+	Wu620I0jRuXbVV4f+wtL1AMT5aNBJRSjKrRprkHBFraSYiZmhLX6gqpv9BUVlT1xvX5AP+
+	q28+zv9dBlpmzJezRfZOXbGNN7StzUKn6L2b/bOCXFPyDCPCkMXTg2bjjUN5O7dAw61EZ2
+	I5Xf4dLxO23XSelFtz4gFxxwMNoC3bZrlDIQk7htNr8ymqxF6H16/X1r1MsZ3ABYn5ExD3
+	biXKBursWThWnlzywbUTo0/bPhU0FG+2mL2NBE/Ik30KUCflgvVLWf/BEN1bZQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793958622;
+	s=2020e; t=1793958624;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9lbjNCwvn/VsFTMhsMK+kRtIbp5EoP1q2579NPuNAE0=;
-	b=PV9f3styv2S9xNtkgC9xSSLGe/jVRmSCd+ueV4fhGv7XsKDhS9/IR12biV5mkJsVWf9AI0
-	bPDke3Kn/d7OjgCg==
+	bh=0BFGf5Gqnt46AUvW3mAdakz12b9NgAjCrOay4QNcQyI=;
+	b=aBViO0TejV64vUQ+iEFhTwFe5ho73XayNKVQbHokNnsADWi8nHQmaP3pcje0j1/UXqPuSR
+	QZaSqv1Bo6xx78DA==
 From: "tip-bot2 for Ravi Bangoria" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/urgent] perf/amd/ibs: Simplify event state handling with
- IBS_CAPS_DIS
-Cc: Jim Mattson <jmattson@google.com>, Ravi Bangoria <ravi.bangoria@amd.com>,
+Subject: [tip: perf/urgent] perf/amd/ibs: Fix kernel address leak via
+ REGS_USER and REGS_INTR
+Cc: Gennady Kupava <gennady.kupava@gmail.com>,
+ Jayapal Ashwin Nair <janair@amd.com>, Ravi Bangoria <ravi.bangoria@amd.com>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>,
  Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261026041838.941-4-ravi.bangoria@amd.com>
-References: <20261026041838.941-4-ravi.bangoria@amd.com>
+In-Reply-To: <20261026041838.941-3-ravi.bangoria@amd.com>
+References: <20261026041838.941-3-ravi.bangoria@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,7 +80,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179395862060.1009794.12554125086657970042.tip-bot2@tip-bot2>
+Message-ID: <179395862242.1009794.11131252308264311238.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -89,247 +90,156 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the perf/urgent branch of tip:
 
-Commit-ID:     927f9c5cdadbc4ac6973bcd1690107fcb392612c
-Gitweb:        https://git.kernel.org/tip/927f9c5cdadbc4ac6973bcd1690107fcb39=
-2612c
+Commit-ID:     b61c12527223423ab66891b2e8131da0d66537c4
+Gitweb:        https://git.kernel.org/tip/b61c12527223423ab66891b2e8131da0d66=
+537c4
 Author:        Ravi Bangoria <ravi.bangoria@amd.com>
-AuthorDate:    Mon, 26 Oct 2026 04:18:37=20
+AuthorDate:    Mon, 26 Oct 2026 04:18:36=20
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Fri, 06 Nov 2026 09:50:21 +01:00
+CommitterDate: Fri, 06 Nov 2026 09:45:25 +01:00
 
-perf/amd/ibs: Simplify event state handling with IBS_CAPS_DIS
+perf/amd/ibs: Fix kernel address leak via REGS_USER and REGS_INTR
 
-The IBS_{FETCH|OP}_CTL2[Dis] bit allows IBS sampling to be stopped without
-a RMW of IBS_{FETCH,OP}_CTL. Systems providing this bit therefore do not
-require the IBS_STARTED and IBS_STOPPED states used to coordinate control
-MSR updates with late NMIs.
+IBS hardware captures a sample and raises an NMI. Since the NMI can be
+delivered with a delay, a privilege change may occur between sample
+capture and NMI delivery. Because IBS only provides the sample RIP, the
+kernel records GPRs from the NMI pt_regs, which may reflect kernel mode
+if a privilege switch occurred in the interim. This can leak kernel
+addresses to unprivileged users through PERF_SAMPLE_REGS_USER and/or
+PERF_SAMPLE_REGS_INTR.
 
-Add a separate stop path for these systems. Preserve the Val bit while
-disabling the event so that a delayed NMI can be identified and consumed,
-and wait briefly for such an NMI before restarting the event.
+Fix this by using interrupt regs while preparing PERF_SAMPLE_REGS_USER
+and PERF_SAMPLE_REGS_INTR. With the change, when IBS samples a user mode
+instruction but the NMI is delivered in kernel mode, PERF_SAMPLE_REGS_USER
+will source its register state from task_pt_regs(current) and
+PERF_SAMPLE_REGS_INTR will be omitted from the data sent to userspace.
 
-Leave the existing handling unchanged on systems without IBS_CAPS_DIS.
+In addition to fixing the kernel address leak, this change also ensures
+GPR snapshot consistency, which resolves the DWARF unwinding issue with
+IBS.
 
-Closes: https://lore.kernel.org/r/20261007234815.4026028-1-jmattson@google.com
-Fixes: efa5700ec0da ("perf/amd/ibs: Support IBS_{FETCH|OP}_CTL2[Dis] to elimi=
-nate RMW race")
-Reported-by: Jim Mattson <jmattson@google.com>
+Closes: https://lore.kernel.org/r/CAPu-DQqF0aF6=3DGS8Z6KKWeeX_V5LiXeKU_rJQZC+=
+uGg8zuTPNw@mail.gmail.com
+Fixes: d29e744c7167 ("perf/x86: Relax privilege filter restriction on AMD IBS=
+")
+Reported-by: Gennady Kupava <gennady.kupava@gmail.com>
+Reported-by: Jayapal Ashwin Nair <janair@amd.com>
 Signed-off-by: Ravi Bangoria <ravi.bangoria@amd.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Jim Mattson <jmattson@google.com>
-Link: https://lore.kernel.org/r/20261007234815.4026028-1-jmattson@google.com
-Link: https://patch.msgid.link/20261026041838.941-4-ravi.bangoria@amd.com
+Link: https://patch.msgid.link/20261026041838.941-3-ravi.bangoria@amd.com
 ---
- arch/x86/events/amd/ibs.c | 145 +++++++++++++++++++++++++++++++------
- 1 file changed, 122 insertions(+), 23 deletions(-)
+ arch/x86/events/amd/ibs.c  | 50 +++++++++++++++++++++++++++++++++++++-
+ include/linux/perf_event.h |  6 ++++-
+ kernel/events/core.c       | 10 +++----
+ 3 files changed, 61 insertions(+), 5 deletions(-)
 
 diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
-index 010d14d..66e67e2 100644
+index bfb51f8..010d14d 100644
 --- a/arch/x86/events/amd/ibs.c
 +++ b/arch/x86/events/amd/ibs.c
-@@ -28,6 +28,7 @@ static u32 ibs_caps;
- #include <linux/hardirq.h>
-=20
- #include <asm/nmi.h>
-+#include <asm/delay.h>
- #include <asm/amd/ibs.h>
-=20
- /* attr.config2 */
-@@ -73,7 +74,12 @@ static u32 ibs_caps;
-  *
-  * XXX: we could probably be using !atomic bitops for all this.
-  */
--
-+/*
-+ * NOTE: IBS_CAPS_DIS eliminates the RMW race on the IBS_{FETCH|OP}_CTL, mak=
-ing
-+ * IBS_STARTED and IBS_STOPPED states unnecessary. We use only IBS_ENABLED a=
-nd
-+ * IBS_STOPPING states when IBS_CAPS_DIS is present. Semantics of IBS_STOPPI=
-NG
-+ * changes a bit as well.
-+ */
- enum ibs_states {
- 	IBS_ENABLED	=3D 0,
- 	IBS_STARTED	=3D 1,
-@@ -557,7 +563,9 @@ static void perf_ibs_start(struct perf_event *event, int =
-flags)
- 	struct hw_perf_event *hwc =3D &event->hw;
- 	struct perf_ibs *perf_ibs =3D container_of(event->pmu, struct perf_ibs, pmu=
-);
- 	struct cpu_perf_ibs *pcpu =3D this_cpu_ptr(perf_ibs->pcpu);
-+	unsigned int delay =3D 50;
- 	u64 period, config =3D 0;
-+	u64 ctl;
-=20
- 	if (WARN_ON_ONCE(!(hwc->state & PERF_HES_STOPPED)))
- 		return;
-@@ -575,23 +583,87 @@ static void perf_ibs_start(struct perf_event *event, in=
-t flags)
+@@ -1533,6 +1533,56 @@ fail:
+ 		throttle =3D perf_event_account_interrupt(event);
+ 		goto out;
  	}
- 	config |=3D period >> 4;
-=20
--	/*
--	 * Reset the IBS_{FETCH|OP}_CTL MSR before updating pcpu->state.
--	 * Doing so prevents a race condition in which an NMI due to other
--	 * source might accidentally activate the event before we enable
--	 * it ourselves.
--	 */
--	perf_ibs_disable_event(perf_ibs, hwc, 0);
-+	if (ibs_caps & IBS_CAPS_DIS) {
++
++	/*
++	 * IBS captured RIP is out of sync with NMI pt_regs due to NMI
++	 * delivery latency. Use NMI pt_regs for PERF_SAMPLE_REGS_USER.
++	 *
++	 * Note: Valid user regs are required for PERF_SAMPLE_STACK_USER.
++	 */
++	if (event->attr.sample_type & (PERF_SAMPLE_REGS_USER |
++				       PERF_SAMPLE_STACK_USER)) {
++		perf_sample_regs_user(&data.regs_user, iregs);
++
 +		/*
-+		 *      IBS HW                     SW
-+		 *
-+		 *  o Capture sample       o ->stop()
-+		 *  o Set VAL bit            CTL2[Dis] =3D 1
-+		 *  o Raise NMI --.        o ...
-+		 *                 \       o ->start()
-+		 *                  \        wrmsr(IBS_{FETCH|OP}_CTL, new value);
-+		 *                   \       (wrmsr clears the VAL bit)
-+		 *                    `--> o Receives delayed NMI
-+		 *                           (Unknown NMI since VAL bit is cleared)
-+		 *
-+		 * Handle this with induced delay.
++		 * Don't update dyn_size if user has not requested for
++		 * PERF_SAMPLE_REGS_USER.
 +		 */
-+		rdmsrq(hwc->config_base, ctl);
-+		while ((ctl & perf_ibs->valid_mask) && delay--) {
-+			udelay(1);
-+			rdmsrq(hwc->config_base, ctl);
++		if (event->attr.sample_type & PERF_SAMPLE_REGS_USER) {
++			/* regs dump ABI info */
++			int size =3D sizeof(u64);
++
++			if (data.regs_user.regs) {
++				u64 mask =3D event->attr.sample_regs_user;
++				size +=3D hweight64(mask) * sizeof(u64);
++			}
++
++			data.dyn_size +=3D size;
 +		}
-+	} else {
-+		/*
-+		 * Reset the IBS_{FETCH|OP}_CTL MSR before updating pcpu->state.
-+		 * Doing so prevents a race condition in which an NMI due to
-+		 * other source might accidentally activate the event before we
-+		 * enable it ourselves.
-+		 */
-+		perf_ibs_disable_event(perf_ibs, hwc, 0);
-+		/*
-+		 * Set STARTED before enabling the hardware, such that a
-+		 * subsequent NMI must observe it.
-+		 */
-+		set_bit(IBS_STARTED,    pcpu->state);
-+		clear_bit(IBS_STOPPING, pcpu->state);
++
++		data.sample_flags |=3D PERF_SAMPLE_REGS_USER;
 +	}
-+	perf_ibs_enable_event(perf_ibs, hwc, config);
 +
-+	perf_event_update_userpage(event);
-+}
++	/*
++	 * IBS captured RIP is out of sync with NMI pt_regs due to NMI
++	 * delivery latency. Use NMI pt_regs for PERF_SAMPLE_REGS_INTR.
++	 */
++	if (event->attr.sample_type & PERF_SAMPLE_REGS_INTR) {
++		/* regs dump ABI info */
++		int size =3D sizeof(u64);
 +
-+/* ->stop() for platforms with additional CTL2[Dis] bit. */
-+static void perf_ibs_stop_dis(struct perf_event *event, int flags)
-+{
-+	struct hw_perf_event *hwc =3D &event->hw;
-+	struct perf_ibs *perf_ibs =3D container_of(event->pmu, struct perf_ibs, pmu=
-);
-+	struct cpu_perf_ibs *pcpu =3D this_cpu_ptr(perf_ibs->pcpu);
-+	u64 config;
-+	u64 ctl2;
++		perf_sample_regs_intr(&data.regs_intr, iregs,
++				      event->attr.exclude_kernel);
 +
-+	WARN_ON_ONCE(test_bit(IBS_STOPPING, pcpu->state));
++		if (data.regs_intr.regs) {
++			u64 mask =3D event->attr.sample_regs_intr;
++			size +=3D hweight64(mask) * sizeof(u64);
++		}
 +
-+	set_bit(IBS_STOPPING, pcpu->state);
++		data.dyn_size +=3D size;
++		data.sample_flags |=3D PERF_SAMPLE_REGS_INTR;
++	}
 +
-+	rdmsrq(hwc->extra_reg.reg, ctl2);
-+	if (ctl2 & perf_ibs->disable_mask)
-+		goto reset_state;
-+
-+	wrmsrq(hwc->extra_reg.reg, perf_ibs->disable_mask);
-+
-+	WARN_ON_ONCE(hwc->state & PERF_HES_STOPPED);
-+	hwc->state |=3D PERF_HES_STOPPED;
-+
-+	if (hwc->state & PERF_HES_UPTODATE)
-+		goto reset_state;
-+
-+	rdmsrq(hwc->config_base, config);
-+
-+	config &=3D ~perf_ibs->valid_mask;
-=20
  	/*
--	 * Set STARTED before enabling the hardware, such that a subsequent NMI
--	 * must observe it.
-+	 * Clear the Val bit otherwise ->start() will unnecessarily
-+	 * wait for 50us.
- 	 */
--	set_bit(IBS_STARTED,    pcpu->state);
--	clear_bit(IBS_STOPPING, pcpu->state);
--	perf_ibs_enable_event(perf_ibs, hwc, config);
-+	if (in_nmi())
-+		wrmsrq(hwc->config_base, config);
+ 	 * Prevent leaking physical addresses to unprivileged users. Skip
+ 	 * PERF_SAMPLE_PHYS_ADDR check since generic code prevents it for
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index eb3f7ba..7884489 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -1814,6 +1814,12 @@ extern unsigned long perf_misc_flags(struct perf_event=
+ *event, struct pt_regs *r
+ extern unsigned long perf_instruction_pointer(struct perf_event *event,
+ 					      struct pt_regs *regs);
 =20
--	perf_event_update_userpage(event);
-+	perf_ibs_event_update(perf_ibs, event, &config);
-+	hwc->state |=3D PERF_HES_UPTODATE;
++extern void perf_sample_regs_user(struct perf_regs *regs_user,
++				  struct pt_regs *regs);
++extern void perf_sample_regs_intr(struct perf_regs *regs_intr,
++				  struct pt_regs *regs,
++				  bool exclude_kernel);
 +
-+reset_state:
-+	clear_bit(IBS_STOPPING, pcpu->state);
+ #ifndef perf_arch_misc_flags
+ # define perf_arch_misc_flags(regs) \
+ 		(user_mode(regs) ? PERF_RECORD_MISC_USER : PERF_RECORD_MISC_KERNEL)
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 580590b..51bca42 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -7919,8 +7919,8 @@ perf_output_sample_simd_regs(struct perf_output_handle =
+*handle,
+ 	}
  }
 =20
- static void perf_ibs_stop(struct perf_event *event, int flags)
-@@ -602,6 +674,9 @@ static void perf_ibs_stop(struct perf_event *event, int f=
-lags)
- 	u64 config;
- 	int stopping;
-=20
-+	if (ibs_caps & IBS_CAPS_DIS)
-+		return perf_ibs_stop_dis(event, flags);
-+
- 	if (test_and_set_bit(IBS_STOPPING, pcpu->state))
- 		return;
-=20
-@@ -1416,19 +1491,43 @@ static int perf_ibs_handle_irq(struct perf_ibs *perf_=
-ibs, struct pt_regs *iregs)
- 	unsigned int msr;
- 	u64 *buf, *config, period, new_config =3D 0;
- 	int br_target_idx =3D -1;
-+	u64 ctl2, ctl;
-=20
--	if (!test_bit(IBS_STARTED, pcpu->state)) {
--fail:
-+	if (ibs_caps & IBS_CAPS_DIS) {
- 		/*
--		 * Catch spurious interrupts after stopping IBS: After
--		 * disabling IBS there could be still incoming NMIs
--		 * with samples that even have the valid bit cleared.
--		 * Mark all this NMIs as handled.
-+		 * ->stop() {
-+		 *     set_bit(IBS_STOPPING);
-+		 *                               <-- NMI (race 1)
-+		 *     CTL2[Dis]=3D1;
-+		 *     ...                       <-- NMI (race 2)
-+		 * }
- 		 */
--		if (test_and_clear_bit(IBS_STOPPED, pcpu->state))
--			return 1;
-+		rdmsrq(perf_ibs->msr2, ctl2);
-+		if (test_bit(IBS_STOPPING, pcpu->state) /* race 1 */ ||
-+		    (ctl2 & perf_ibs->disable_mask) /* race 2 */) {
-+			rdmsrq(perf_ibs->msr, ctl);
-+			if (ctl & perf_ibs->valid_mask) {
-+				ctl &=3D ~(perf_ibs->enable_mask |
-+					 perf_ibs->valid_mask);
-+				wrmsrq(perf_ibs->msr, ctl);
-+				return 1;
-+			}
-+			return 0;
-+		}
-+	} else {
-+		if (!test_bit(IBS_STARTED, pcpu->state)) {
-+fail:
-+			/*
-+			 * Catch spurious interrupts after stopping IBS: After
-+			 * disabling IBS there could be still incoming NMIs
-+			 * with samples that even have the valid bit cleared.
-+			 * Mark all this NMIs as handled.
-+			 */
-+			if (test_and_clear_bit(IBS_STOPPED, pcpu->state))
-+				return 1;
-=20
--		return 0;
-+			return 0;
-+		}
+-static void perf_sample_regs_user(struct perf_regs *regs_user,
+-				  struct pt_regs *regs)
++void perf_sample_regs_user(struct perf_regs *regs_user,
++			   struct pt_regs *regs)
+ {
+ 	if (user_mode(regs)) {
+ 		regs_user->abi =3D perf_reg_abi(current);
+@@ -7933,9 +7933,9 @@ static void perf_sample_regs_user(struct perf_regs *reg=
+s_user,
  	}
+ }
 =20
- 	if (WARN_ON_ONCE(!event))
+-static void perf_sample_regs_intr(struct perf_regs *regs_intr,
+-				  struct pt_regs *regs,
+-				  bool exclude_kernel)
++void perf_sample_regs_intr(struct perf_regs *regs_intr,
++			   struct pt_regs *regs,
++			   bool exclude_kernel)
+ {
+ 	/*
+ 	 * Hardware skid can lead to a scenario where a PMI is
