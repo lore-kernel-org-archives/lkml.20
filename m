@@ -1,81 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793947641;
-	b=mesM0XO/evmmUJeMJ3rLf0VJeLXTpG2G1FZ9ObJ/s85Hgdkj4GnAsc0xTnXyb7ViIOSk
-	 j3NQlG9qdxbROBVqk3kfOw8VkX/+tmU0uWjbl7eAWcJ8JElcq8ZWtqOxfZcQrTqljyY8x
-	 Kj3Y07vMt6FTIP4yeax4iHnJKJehmRNqEbtDq2q3WdFFaXtjkPp4606SswhBJP8t24Z1c
-	 cKor/WDX0QHRmGGaPlde1GIO+8yK+HMMQazq+9GqxGipkXNJoS8YSRHVaqpz8eUm7QtDu
-	 SBukK9+JJ/+p5GhMMxTvsS2M6oWvrwl5vYH3P5wdi3AQ2FGxDRb+24pmxVjdBTFDRTw==
+	t=1793947745;
+	b=JpX83hIwDjmUPZ14juBKWU/m70PcSgGSsH2QLVye5XifV21gmvbSADMVh9j+iYHeB3dd
+	 1cdjNRV8B4wFz7OWAK6k8M6Fkc8RnVtsmnScn9+PMXYxiYiSp9vwXdLVM9t1g4CP6LiQj
+	 7ShPlsN4niG7oqhUpixhk1iVy2zfYlaA27rqtZbbbf3FI+VQBqI7jXzChcs/d8z1QZEav
+	 I8HErB4yVSdbnwDNige+4njBlLSUUKZP8Oq6Dl96EdoREbk0MLQoZYGL7S0KEY32Fhg1h
+	 0KwmUoGQ8nw/A6SkmJCirh4eUWtZFYnJHiTWABeLGaUxsWqY8houPH4It10h9JBT75w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793947641;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lFJ4Bk9Szd6iDcz+AwPPa8L1TNNV0r9ZDRnxCUcLem8=;
-	b=YNbmw29G4kHi8Ywm4Ip/E7JPX2N4sP6DkExYycN+CYhRsd1fn6+EDW04R+7p0QhYeGhu
-	 TBKlgo8zrvwT9qDWqKSu0aflQpc/hxiG2KLR8k8+qsrMYdubD3Oh/El0Gd/ytW1ZCzyB6
-	 /G1kD1PkDrGWe4w87ThrlRen7g+znbWcl0Wxa/sDIG/FGFCRkVfC+cDo1a8wx3MT2vm3p
-	 6TWGju+UcpqiWAfoVnWhL+vm0NpMkfxmdxmrfxs89/X1mtoM7jhA5n4V207BigX1TrKt7
-	 7m2Otya8HTbSPBkTwJXr3XgS5EqFDCIiP23ykBXvK6UYQ6nkuf/hBNUA9taGhgMJRBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793947745;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=wu1oQVOgc/20Z0C7YFsmJAp66/PX07S+eX43UkLI+xg=;
+	b=KTrJ9kuQIuG3H5vibDHNy6Lmlg6omGUYXLNjTBUFtNoqU4IB5+HXngR7TmItoNqH9sq2
+	 5rSL/+90zMIsxn9UrmtSXEKfwuMYaIqumFXVujxHWvp9Sdy7O0Xremce7s+fFLnncRxPA
+	 KcRj5dYT81YKnFbYiwswzEUOIhaAKOmWKvm223kXPJBucjS6V/1Pt4BxaN1qln2APyDQH
+	 5pl6QNoAibkiA15QmjuKxarlgjRxtLJrDkgozCO7Vvkcu2BEde4eEGPTzNheq/EseX/hP
+	 f9GbLJZ4Dunh2FB7yJR6RchDSJqI0k41IgPZ5Xc6ot4PKZAWvyeL4QKWROkFZeyYzfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=RfaMmIe+;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AC6606A326;
-	Fri,  6 Nov 2026 06:47:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17AC6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=RfaMmIe+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793947633; bh=lFJ4Bk9Szd6iDcz+AwPPa8L1TNNV0r9ZDRnxCUcLem8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RfaMmIe+ywMbLXca3R2UmGDrQQ4eTPzogG/LdFGJrLN8UVh2f5IK0NcfK755UGK1C
-	 i9HzzPlcPZwmQ6e58CxSvUlL4MFlLTHazu7mRJ7xJ5tUeNrp7x57X8IRz2e1huqugK
-	 G8Wivl6jFqJ6f96gCf7F3finxVv/86qJTIAUvieA=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id BC20A2BA; Fri, 06 Nov 2026 14:47:02 +0800
-X-QQ-mid: xmsmtpt1793947622tuse42h1u
-Message-ID: <tencent_29EE4AD2892C62F20E4D49B8626246134B08@qq.com>
-X-QQ-XMAILINFO: ODQfruXGvXmaI/SBdJ5Rlb2p6UcDTYznVkHqvapaL/Ytc5q6HIAS/J2QRzAEbz
-	 DHedU4gIZyHitD641FzBJkJBW2Pr8TCFN0ogdcd+kPrEZhFy1ud7TXu0DdIPwK/YInFV0KoIZpK6
-	 uwHLb4GO9apQels8qOFSRXYPmsTT2d7uraTV71QGYGsdRl7NFQlkFfodq7y6ieEBB0ctwzohhldD
-	 a8CGeMeRHBEBLd8T2HMO+hC4zFTnl9EXsQ8R5wG+JUAAJVuNaZIeST++AjSosVFvtgSJyvhP+GaP
-	 NvE+ZYsozA/4tgrerGBn7u36WDAhDQZTc6FZud/eEkil3S2nEcKWBSwsurkVdJ+6M0OOFhPYZh+S
-	 Q5fwrVd/LSIyxCbACj+Ukg0WoqiCbtjAUmJ9YsB3edIBXt9z90ZlvXJIj8OUnogbyD1m8Qqb5dRF
-	 1TBeIfMJGs1IYkuCnVLVXuGDmLuz22bnxDmG1zisfUXJbNenoU6TCEvFC9ddsbOhd3Aye+TTI743
-	 FIpC5pGXQHkZFfpZ3Mb8xAip4fq53sAzQSyfs5a8j18LGbVy+lqFgolvNBMFlgZj8hywYN9IGrAY
-	 yZ3Eo/QKPEkN82u0+XhZY+Qy6OLG6UVtMRvtgBzrBiz3NQVd1AN9FmvRdzxkIRh40mHX3WdkuIvz
-	 Re9orkvjHK5lKGG8gTMcbrFJ8514N4e+NZD1eqwLpXbgCm57IPIkKcshViIBCxq8yiw5/yzcT6dz
-	 /jn7eGb6vLgkasHwr8sCQbvnrvftQvl1nWS8DSAPGHUFpiy1Ynzt6l+CYoLMuxgjJowC6BdH/zn1
-	 krgviNH8I/IQ6CEW2YystvKKtPyC0EJbQea60N4PYNfl+nbcX5NkqXCz8AbYp4qGVwrvy5Z1TFN8
-	 CHdRM1OrZkQpnfH/VJ3LAU3u/Il8zHu0aMZLF9IWY3froBIkFfWO2+6nsDprvYAnxypcd8gtUPCl
-	 lC81dE2FVfWcikxLKkGCxIUsLPRhuJATAY7BgwHeAGhJZAwJQdF/bamMYFE7+vXwYm8MfxGSgFsr
-	 ajIhYV8Flzw2CW2BzytqsrtfZNrxZzXBCpbJstqZS0oecZVSnXDkSXkqDzvrxDpfV2pxswWklUY3
-	 qsgJexRZWygzsQTzzYZegoZP8S4lOaP+xdyXR8
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-fsdevel@vger.kernel.org
-Cc: viro@zeniv.linux.org.uk,
-	neil@brown.name,
-	brauner@kernel.org,
-	jack@suse.cz,
-	linux-kernel@vger.kernel.org,
-	syzbot+2ed46b6b748df855347f@syzkaller.appspotmail.com,
-	Shuai Liu <847807867@qq.com>
-Subject: Re: end_dirop() can unlock the i_rwsem of a re-parented dentry on PREEMPT_RT (DEBUG_LOCKS_WARN_ON in filename_symlinkat)
-Date: Fri,  6 Nov 2026 14:47:00 +0800
-X-OQ-MSGID: <20261106064700.525802-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <tencent_EE9EBC53933F6E9658D6848B7B89F4370B06@qq.com>
-References: <tencent_EE9EBC53933F6E9658D6848B7B89F4370B06@qq.com>
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2DCF606A326;
+	Fri,  6 Nov 2026 06:49:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2DCF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 256CE92009E; Fri,  6 Nov 2026 07:49:02 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 1E1CD92009C;
+	Fri,  6 Nov 2026 06:49:02 +0000 (GMT)
+Date: Fri, 6 Nov 2026 06:49:02 +0000 (GMT)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Imre Kaloz <kaloz@kernel.org>
+cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    linux-mips@vger.kernel.org, Paul Burton <paulburton@kernel.org>, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] MIPS: mm: Fix the cache error vector jump for XKPHYS
+ kernels
+In-Reply-To: <20261021185709.22561-1-kaloz@kernel.org>
+Message-ID: <alpine.DEB.2.21.2611060611100.17804@angie.orcam.me.uk>
+References: <20261021185709.22561-1-kaloz@kernel.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,41 +52,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Al, Neil, Christian, Jan,
+On Wed, 21 Oct 2026, Imre Kaloz wrote:
 
-Adding you to Cc on this -- my first mail in this thread only reached
-the list address due to a sendmail mishap on my side.
+> diff --git a/arch/mips/mm/cex-gen.S b/arch/mips/mm/cex-gen.S
+> index e528583d1331..6989fe274aab 100644
+> --- a/arch/mips/mm/cex-gen.S
+> +++ b/arch/mips/mm/cex-gen.S
+> @@ -37,6 +38,21 @@
+>  	nop
+>  	nop
+>  
+> +#if defined(CONFIG_64BIT) && VMLINUX_LOAD_ADDRESS >= XKPHYS && \
+> +    VMLINUX_LOAD_ADDRESS < XKSEG
 
-In short: on PREEMPT_RT, syzbot reports DEBUG_LOCKS_WARN_ON
-(rt_mutex_owner != current) from inode_unlock() called by end_dirop()
-via filename_symlinkat -> end_creating_path() -> end_creating()
-(syzbot dashboard: https://syzkaller.appspot.com/bug?extid=2ed46b6b748df855347f).
+ Not VMLINUX_LOAD_ADDRESS < CKSEG0 to take care of CONFIG_MAPPED_KERNEL?
+Of course we'd have to switch caching in the wired TLB entry then too, but 
+at least we won't crash outright...
 
-end_dirop() re-derives the directory to unlock from the current
-de->d_parent, while start_dirop() locked the parent it was given
-*before* the lookup.  The warning therefore implies the dentry was
-re-parented between the two.
+> +	/*
+> +	 * An XKPHYS kernel may lie outside the 256MB region a j from the
+> +	 * vector reaches, so jump to the handler's uncached XKPHYS address.
+> +	 */
+> +	PTR_LA	k0, cache_parity_error
+> +	PTR_LI	k1, TO_PHYS_MASK
+> +	and	k0, k0, k1
+> +	PTR_LI	k1, UNCAC_BASE
+> +	or	k0, k0, k1
+> +	jr	k0
+> +	nop
 
-I audited the candidates that could move a held dentry
-(lookup_one_qstr_excl/d_lookup; d_splice_alias_ops() both branches --
-IS_ROOT __d_move under rename_lock, and the __d_unalias path with its
-s_vfs_rename_mutex + inode_trylock_shared()/-ESTALE fallback) and
-could not construct an interleaving that re-parents the dirop dentry
-while the exclusive parent lock is held.  Runtime instrumentation at
-both ends (owner check in end_dirop(), parent-identity check in
-end_creating_path()) ran ~48k iterations of the C reproducer with
-zero hits and zero false positives.
+ Given that this runs at ERL, a much shorter sequence could look like:
 
-The full analysis and my questions (Q1: should start_dirop() capture
-the locked inode explicitly for end_dirop() to unlock; Q2: which
-d_move() callers do you suspect; Q3: could the divergence originate
-at start time) are in my previous mail in this thread.  I'd greatly
-appreciate your insight, Neil especially given the start_dirop()/
-end_dirop() rework.
+	LEAF(except_vec2_generic)
+0:
+	[...]
+	PTR_L	k0, %lo(0x100 + (1f - 0b))(zero)
+	jr	k0
+	 nop
+1:
+	.quad	cache_parity_error
+	[...]
+	END(except_vec2_generic)
 
-Thanks,
-Shuai Liu (刘帅)
+but I guess it doesn't matter that much as long as we don't overrun the 
+exception handler slot, since this is obviously not a hot path.  Still it 
+could be considered neater, couldn't it?
 
+  Maciej
