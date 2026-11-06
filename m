@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981870;
-	b=yrzNV6a9+2HNvfCdQ0HBe0WvR0/gnr6NDW8iXaY9UhtNDA/191SL8CXkkhfMQ+AhqFVG
-	 QqmmMeaJRNi8F03sC1oDt0CSgpSYuqI9YXzRfXk0TTbzWA9f0Bh3YbdOZFDns1/oKsVYV
-	 s1+VWcVtOiYWiw0Eh5wjM+oOHgcMKkVofbarD6nMXALzOqQvGIHNDhAfzL6jUFLZA712W
-	 hd9CRzaOgSjSYWASDDzY1o/pvO4tzr5sDv03grVnQUdVsAqnACDUU0gCUwG3thwDhnBI+
-	 WGgO5HKCyGyYv0SnCnqjGMMTxbMtyfoAK8imzPDoBZL7yJrU7FkZRYU3iO2ZugBRQtg==
+	t=1793981877;
+	b=CTvQX4YOCXIermqhEtLh9SHjgWgdDh/XLGFiDTPjwpt6S/5xkggm6kxXrrv8qFUCKRTy
+	 Dps1YMIslIoQw5+TUIPoNsz6kUuVPqWgjjN1+qWQAWzW+FENX9FH535Zwc/NgP+EgFFou
+	 9UmCbaMGLRlhrFussdkLLtuNJGpnJkl3/MfptDr/buOFV283fqsSeSTIPvaDFGp/oirOX
+	 gI/vy+nhbNlOYQwIkacBV4sRwilaL/gsiFjVH7Gd2ROmVQz/pRcBn8VxtS8zOOl0YwXKK
+	 zUtbQ32t1HfvseMkd7X0tsns12MCFPuAObPgQdHAHpHR8m8+nCzVdp6HvfEtd166EzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981870;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981877;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=CKwMnEUj4bTsuKO0oSBkdV6rE9qwvY1RjDCI8454OCM=;
-	b=1JGgZuDPQegEtfW5tzPYwNwt4v/H7AqmtUcm1k0RzKCsI3f9nU6C9VbPpyrJM3DgN5wa
-	 iLgbUZJouPdL3uL6pCehFl+i+ljNP8flT6VpLljfCZWJgMcLOtoj5OTbh3rvoEF4mRU50
-	 5jdLSZBnDMzIuhAFs9HvbX7JZbRDEjsrPF6IfaRNDAN0qN4nv4b7kSKKvooBRPtF7AL83
-	 P6puQXpe7+TjnimcLpdIBeXwkyhFhW+EqCrkea+6lPK9cdtAbZdQ6i7CC1IpBYKyj/Nmj
-	 Cd8aBO9LNApk70LCnspAXf9oFw0c3Tm7rnW+WlYPDZ6AlResmp9H9/aAZxs8LDdzHCQ==
+	bh=g/mjz1OUUoqXbqPLNSe96R4c6ToI5fSjvGbxgA8nu8U=;
+	b=Iozk0ibb1bdmT84wtvufq8dSAY3QnXKH9vuqDjexvTjGz4gkzu9ZLjbjigRRWOVArMVN
+	 H4hXZAXMICb6qNo3WZiodOzOxmkH1wA2xCWY2dgCzK9QK6lalMorCAKuln+RRyIaus++o
+	 u0pzwur0/ILEdS3pggs209Fd/3EH6oI4nf3kpBHPUw3sbUi4OHr3TdpVKq0lR9B68Fjxx
+	 tdKNZceDUHqt7kXU4MWJleISoZrL6d8mDj2eXm8HKi/76lCRmTGNmBr7is+L8OSSradCa
+	 srSgJ8AKQiW3iIAgfu5YV1lb6xJ4I0X+M4GEXdWTtI2w7y4XF9Fs3swkFjGA6wdF2cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ztKXed1m;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="wVu/Qaet";
 	arc=none smtp.remote-ip=185.171.202.116
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6B2606D80A
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA6B2606D80A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5577C606A33B;
+	Fri,  6 Nov 2026 16:17:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5577C606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ztKXed1m
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wVu/Qaet
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id E2CBDC6916C;
-	Fri,  6 Nov 2026 16:17:46 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7E6C4C69169;
+	Fri,  6 Nov 2026 16:17:54 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4A8EC5FFBC;
-	Fri,  6 Nov 2026 16:17:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 38D58103292CA;
-	Fri,  6 Nov 2026 17:17:39 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D04BB5FFBC;
+	Fri,  6 Nov 2026 16:17:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5D2E7103291BA;
+	Fri,  6 Nov 2026 17:17:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793981861; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1793981869; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=CKwMnEUj4bTsuKO0oSBkdV6rE9qwvY1RjDCI8454OCM=;
-	b=ztKXed1mjd73LCPlNvEG2FOfcKs8NtEVdr3hJjrfgoVmpXKrrpfRnBcrKROTALsd7FeCP+
-	yv72DeWFJA6VSKkYDYD48JFeSnz9Bcp3IeLFrWBA3afasjcQS23AOBB5j1nntFpaNU1Qrb
-	SM62WQNYcMk+uVlGpPW1rpqlrPhpRxv9QraQswzqx2MnhHj5fFHYTZxJA/Zar2yB32U9S7
-	0ZqeFs+oydqbnD+PanIDfAH/CKJ5gs/iaL/WHuowN4sYvs9M7DDb/wiq/SFT40loe27QQn
-	c3ISR82B7tmAel4rISMxnhptzSlW2NW0FxoKLA/U6Sn6gE7Ca+AiCtac5dEvsA==
+	bh=g/mjz1OUUoqXbqPLNSe96R4c6ToI5fSjvGbxgA8nu8U=;
+	b=wVu/QaetU10edGf+LE0Wd9jYa7AulpXBXcs3a6FZGn1CLZU5JOKqQ5g3f2t1/hsf04tfq8
+	dUbNNZqAxhLhFjT2Gn4hXBze+y6Xc7chmww/FcTRNSIPy7mHRx5pn4A3MyqE8P/uo5wXjT
+	yUqPatPiDsdBtrDI7cCebX+EaiRXWzyA/Whuj4azZJlH8nzfZ8bXIejCxd4OI14QIg1Cr0
+	RgPhcD31HACdfO+4ywcsvz/om/GzAUaMsg/+Ob+kZfhZpmi72M07k9tZW11rfX/z+iFHQX
+	IQPOZ5N5DXZ6Xu6BSqaDgKf3Hm7S+zg/DTfJdaUTHOU1IYmB55gaxGk5Pfziew==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 06 Nov 2026 17:17:04 +0100
-Subject: [PATCH 1/3] drm: adp: stop using deprecated drmm_of_get_bridge()
+Date: Fri, 06 Nov 2026 17:17:05 +0100
+Subject: [PATCH 2/3] drm/panel: remove drmm_of_get_bridge()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-1-c0ea3382b798@bootlin.com>
+Message-Id: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-2-c0ea3382b798@bootlin.com>
 References: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-0-c0ea3382b798@bootlin.com>
 In-Reply-To: <20261106-drm-panel_bridge-remove-drmm_of_get_bridge-v1-0-c0ea3382b798@bootlin.com>
 To: Sasha Finkelstein <k@chaosmail.tech>, Janne Grunau <j@jannau.net>, 
@@ -84,62 +84,93 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-drmm_of_get_bridge() is deprecated, switch to
-of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
-a refcounted bridge, ensure the reference is put on later bind error and on
-unbind.
+This function is deprecated and has no remaining users.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/adp/adp_drv.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_panel.c | 40 ----------------------------------------
+ include/drm/drm_panel.h     | 10 ----------
+ 2 files changed, 50 deletions(-)
 
-diff --git a/drivers/gpu/drm/adp/adp_drv.c b/drivers/gpu/drm/adp/adp_drv.c
-index fdf0e6316175..1c4c39695e42 100644
---- a/drivers/gpu/drm/adp/adp_drv.c
-+++ b/drivers/gpu/drm/adp/adp_drv.c
-@@ -517,7 +517,7 @@ static int adp_drm_bind(struct device *dev)
- 
- 	writel(ADP_CTRL_FIFO_ON, adp->fe + ADP_CTRL);
- 
--	adp->next_bridge = drmm_of_get_bridge(&adp->drm, dev->of_node, 0, 0);
-+	adp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
- 	if (IS_ERR(adp->next_bridge)) {
- 		dev_err(dev, "failed to find next bridge");
- 		return PTR_ERR(adp->next_bridge);
-@@ -525,17 +525,21 @@ static int adp_drm_bind(struct device *dev)
- 
- 	err = adp_setup_mode_config(adp);
- 	if (err < 0)
--		return err;
-+		goto err_put_next_bridge;
- 
- 	err = request_irq(adp->fe_irq, adp_fe_irq, 0, "adp-fe", adp);
- 	if (err)
--		return err;
-+		goto err_put_next_bridge;
- 
- 	err = drm_dev_register(&adp->drm, 0);
- 	if (err)
--		return err;
-+		goto err_put_next_bridge;
- 
- 	return 0;
-+
-+err_put_next_bridge:
-+	drm_bridge_clear_and_put(&adp->next_bridge);
-+	return err;
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index 560ea57591bd..3a633beed090 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -526,46 +526,6 @@ struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
  }
+ EXPORT_SYMBOL(devm_drm_of_get_bridge);
  
- static void adp_drm_unbind(struct device *dev)
-@@ -546,6 +550,7 @@ static void adp_drm_unbind(struct device *dev)
- 	drm_dev_unregister(drm);
- 	drm_atomic_helper_shutdown(drm);
- 	free_irq(adp->fe_irq, adp);
-+	drm_bridge_clear_and_put(&adp->next_bridge);
+-/**
+- * drmm_of_get_bridge - Return next bridge in the chain
+- * @drm: device to tie the bridge lifetime to
+- * @np: device tree node containing encoder output ports
+- * @port: port in the device tree node
+- * @endpoint: endpoint in the device tree node
+- *
+- * This function is deprecated. A drm_bridge is embedded into every panel.
+- * Don't use it in new drivers and convert your driver to
+- * of_drm_get_bridge_by_endpoint().
+- *
+- * Given a DT node's port and endpoint number, finds the connected node
+- * and returns the associated bridge if any, or creates and returns a
+- * drm panel bridge instance if a panel is connected.
+- *
+- * Returns a drmm managed pointer to the bridge if successful, or an error
+- * pointer otherwise.
+- */
+-struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
+-				      struct device_node *np,
+-				      u32 port, u32 endpoint)
+-{
+-	struct drm_bridge *bridge;
+-	struct drm_panel *panel;
+-	int ret;
+-
+-	ret = drm_of_find_panel_or_bridge(np, port, endpoint,
+-					  &panel, &bridge);
+-	if (ret)
+-		return ERR_PTR(ret);
+-
+-	if (panel) {
+-		bridge = drmm_panel_bridge_add(drm, panel);
+-		drm_panel_put(panel);
+-	}
+-
+-	return bridge;
+-}
+-EXPORT_SYMBOL(drmm_of_get_bridge);
+-
+ #endif
+ 
+ /**
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index 58113ea7d63a..28ecbf2c8a29 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -434,8 +434,6 @@ static inline int drm_panel_bridge_set_orientation(struct drm_connector *connect
+ #if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL_BRIDGE)
+ struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct device_node *node,
+ 					  u32 port, u32 endpoint);
+-struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm, struct device_node *node,
+-				      u32 port, u32 endpoint);
+ #else
+ static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
+ 							struct device_node *node,
+@@ -444,14 +442,6 @@ static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
+ {
+ 	return ERR_PTR(-ENODEV);
  }
+-
+-static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
+-						    struct device_node *node,
+-						    u32 port,
+-						    u32 endpoint)
+-{
+-	return ERR_PTR(-ENODEV);
+-}
+ #endif
  
- static const struct component_master_ops adp_master_ops = {
+ #endif
 
 -- 
 2.56.0
