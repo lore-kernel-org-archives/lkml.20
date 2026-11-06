@@ -1,61 +1,139 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793926847;
-	b=ieUhF3xAdb4iettzFoUC4+5uAtHtB6jq+tu225ncSXVlf1L41LFoeyzhMI0ga3rD9FKM
-	 B9UIurtIg4fRsQv9uMvc9oAKNNEpTI1E84Bp366l57dkzwBeH3vVCXd4M8SrnUnDqGPXJ
-	 zxIMMb7BScrdTVLYgAMoBA+d9M3jwz9egkn6Nt8lrmKNuvmUsCTYje7QucN15luOSmheX
-	 x+7ozQTyW1P5nPFumRkleRWPp9y5JmNn6Xl0pDzOiMqzth1HStQybTNdFr6dK3GLI8c/s
-	 dq4FYsYsNyZi+TkyAHHb75O/gI14drhuQG/5In/G5t1V5x/1gZ0gGzgBVqf2RGgzw+A==
+	t=1793926871;
+	b=kvnB/h6MW68vsadN1BzQ6jVMna73utNOkCfAZ0fI4QsCCLVgix1ZE2uGz/HIl/0eRLX6
+	 HlHjsfCS8n+Jy9Q++Rb9kvhwa7NJk3MQbmwtn2XLmw5I9OL6C2NCUPWfrxR2KoCV4Fo4A
+	 MwMc0ZjqVeNCMC6ikDa2NimdpYUtkVIDLPXPqowuHFs6YLPHm8Zb/Kx7bTLaLGufQT6tx
+	 ZEDXrF4FIQP0HI17rd8LjjLBsi5B/JwVZEEoaXraUzit4MAwR/wtT1GKtKbhyCr5CsBxM
+	 tqlPzowwZgTXXuCUYjeFDXu6A5PnDGiDZp94hgX3LEi8Cz6HNREf9ApELwQpLjuQH/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793926847;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793926871;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=07VnCDdZgrzdsG+27Xy41SOvbpr4/0B1ubxXinJ54D4=;
-	b=kgrQbn1qSF5iIQBzbE09Ckswqbun1ps4lkz0IHpGYjspe2CDB/Y3MgAEoxUuBv5XAbJ9
-	 U78+W80VN7JRFd6zTKdBDN+Fu4u7HygD1rgYRAZAp+cNwDieeQyTlQocT+73aJ1mZlFTJ
-	 UCYOrdGlxCWxuG6HD3toGUypgOnXFRAD9dRWuAScW4Dm2vroX4hfsRCrWWKBW0KujOvKZ
-	 NitRvHQ8L5fvyIvc4fwU3EMH0x/PaNftS32zoKvtIoynVtM+0elda7QsATTqIS0VzLGyX
-	 Fopq2KKoC3hMbGpk8svwtix7NtNEq+Rs7C4JrHHm3eR8ADJ+ZP5ATorv2GuQWlnRFVQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Fy6mIR6EGyX3GNnS9djVNVrLOtUG60iOXxWGxnZZW30=;
+	b=BpadSkoFAjPbiAncENEbZM9ZhHsLc5Aa2tpRTLqNt98ya1Ng6w8lyDI8QRF58rM70p/D
+	 uoPRlFu8t2F48CeUQPDXBqwLOIC88iBpcG72wab9A4TLjeqVdGeM5TvGQRGNzaVgzBWIz
+	 JFMBkKkQLlvYL4sNOe0Ke5RGIG7o3+d74TMdlIbjNHpHjasdoU1G5tRbV7JrbkMNBhchP
+	 qH3mI558055IklDMfO61vbv8CQdP9WQ6K5D88fH2hPBKMgouNrA/nSuBTPy32MEL9A9sj
+	 4NuHk86/wWEi/gZPSkMOpLkl9wveaCLMZYRf1qRmRN+/3BirA9wTK02GRm5iZF/jZ7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QDBeBjv6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aMed2u12;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66E8606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8334D606A31B;
+	Fri,  6 Nov 2026 01:01:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QDBeBjv6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9551F0089F;
-	Fri,  6 Nov 2026 01:00:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aMed2u12
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8841F0089F;
+	Fri,  6 Nov 2026 01:01:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793926846;
-	bh=07VnCDdZgrzdsG+27Xy41SOvbpr4/0B1ubxXinJ54D4=;
-	h=From:To:Cc:Subject:Date;
-	b=QDBeBjv6NmLn18PB8g59CCbSZS4Z3hXFPUoxDHMbPPzaSVAZSnBOUzE6kur3wQ1XT
-	 BzdQl055/pQj5sQEUqML6hIw+fqs7iB1LMjPjH986yMBbV13YyApbahkYIw3NEr55D
-	 Z5mYlkFjyLOqwEFGkXn4dAbVwu09f5ElHiLTqH6eAZiGdLgclKF6xswaCRA/8jI7yG
-	 GHzPyV6hJ8/xnYLnOZr0OU36aUPq/6NRtELg4gYgNCSDZtcysZ0vyU+XRWqmjs/dDy
-	 uXgzfVKdBjcUGKRAa2jY+bCWeqkb4tisJSPdGDi5m6k5VULUHVe3QeGsVPV3PmPStE
-	 Y8S8miXf5v9+g==
-From: Thorsten Blum <blum@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
+	s=k20260515; t=1793926871;
+	bh=Fy6mIR6EGyX3GNnS9djVNVrLOtUG60iOXxWGxnZZW30=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aMed2u127+wL/B/NdfIXyeoxB6u5xmOokzrftZzRxfrzI6qQeKPWKSpVsgX0qJ51K
+	 hx2TLIa43xHxqsfLVPrxRVay6PdfrX7mVbGwOXR+GprD2T0ugi0eemDwVQYtftIEAO
+	 AqnH5rLl+mfNwIoidLDPL9fz9NteNzXOPqZFmF/+nB0H5OL81nSlzxUQlOqsF6xT+0
+	 5QY5GeM2meFlG1UUnXQC/vfBg4rzbC7YhVChXxU6K5rZJtXN1G4Idsj+btrhdV4YuU
+	 XQ1ILjd6bCfk2EaJ5OXQ4ZcSqefqhddDJ2l/ZedoICv4cZPOsUrxDdXC7gYP8ju6iJ
+	 4EZOWwEnjp8wA==
+From: SJ Park <sj@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Rik van Riel <riel@surriel.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Xu Xin <xu.xin@linux.dev>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Rakie Kim <rakie.kim@sk.com>,
+	David Rientjes <rientjes@google.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
 	Mark Rutland <mark.rutland@arm.com>,
-	shechenglong <shechenglong@xfusion.com>,
-	Thorsten Blum <blum@kernel.org>,
-	Jonathan Marek <jonathan@marek.ca>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Jinqian Yang <yangjinqian1@huawei.com>
-Cc: Zenghui Yu <zenghui.yu@linux.dev>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: proton-pack: Remove redundant fallthrough statements
-Date: Fri,  6 Nov 2026 01:59:52 +0100
-Message-ID: <20261106005952.1369-3-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	John Johansen <john.johansen@canonical.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Fan Wu <wufan@kernel.org>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	=?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org,
+	damon@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	selinux@vger.kernel.org
+Subject: Re: [PATCH 08/13] mm: convert miscellaneous VMA flag tests to use vma_flags_t
+Date: Thu,  5 Nov 2026 17:01:00 -0800
+Message-ID: <20261106010101.95918-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261105-late-2026-vma-flags-v1-8-0d3cd15ab75f@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,71 +143,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2160; i=blum@kernel.org; h=from:subject; bh=Xl6KJ6mk95FWXjn9wfGKPGwewowEPHLFqb1NTJTb9Bo=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlv1TpPm0v++iOv1DmZhUm66Madze4X/7lskP82c/Zzt pjGjl03OkpZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAiUoKMDL8kDpva3Nv8dIdT w/3Is77HOA4/kq2oWKkTXJwX0ivdqcjIsPKBlkHI5whef32xPSEt2i1NpdH3X67vKm8vuV9sJjC VFQA=
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Consecutive switch labels do not need fallthrough statements. Remove the
-redundant statements.
+On Thu, 05 Nov 2026 21:30:59 +0000 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- arch/arm64/kernel/proton-pack.c | 7 -------
- 1 file changed, 7 deletions(-)
+> Replace use of the legacy vm_flags_t flags with vma_flags_t values in the
+> remaining straightforward VMA flag tests scattered throughout core mm, HMM
+> (and its test module), DAMON and the OOM reaper.
+> 
+> No functional change intended.
 
-diff --git a/arch/arm64/kernel/proton-pack.c b/arch/arm64/kernel/proton-pack.c
-index 8096f8069893..155504de3ab3 100644
---- a/arch/arm64/kernel/proton-pack.c
-+++ b/arch/arm64/kernel/proton-pack.c
-@@ -141,7 +141,6 @@ ssize_t cpu_show_spectre_v2(struct device *dev, struct device_attribute *attr,
- 
- 		return sysfs_emit(buf, "Mitigation: %s%s\n", v2_str, bhb_str);
- 	case SPECTRE_VULNERABLE:
--		fallthrough;
- 	default:
- 		return sysfs_emit(buf, "Vulnerable\n");
- 	}
-@@ -187,7 +186,6 @@ static enum mitigation_state spectre_v2_get_cpu_fw_mitigation_state(void)
- 	case SMCCC_ARCH_WORKAROUND_RET_UNAFFECTED:
- 		return SPECTRE_UNAFFECTED;
- 	default:
--		fallthrough;
- 	case SMCCC_RET_NOT_SUPPORTED:
- 		return SPECTRE_VULNERABLE;
- 	}
-@@ -436,7 +434,6 @@ ssize_t cpu_show_spec_store_bypass(struct device *dev,
- 	case SPECTRE_MITIGATED:
- 		return sysfs_emit(buf, "Mitigation: Speculative Store Bypass disabled via prctl\n");
- 	case SPECTRE_VULNERABLE:
--		fallthrough;
- 	default:
- 		return sysfs_emit(buf, "Vulnerable\n");
- 	}
-@@ -480,11 +477,9 @@ static enum mitigation_state spectre_v4_get_cpu_fw_mitigation_state(void)
- 	case SMCCC_RET_SUCCESS:
- 		return SPECTRE_MITIGATED;
- 	case SMCCC_ARCH_WORKAROUND_RET_UNAFFECTED:
--		fallthrough;
- 	case SMCCC_RET_NOT_REQUIRED:
- 		return SPECTRE_UNAFFECTED;
- 	default:
--		fallthrough;
- 	case SMCCC_RET_NOT_SUPPORTED:
- 		return SPECTRE_VULNERABLE;
- 	}
-@@ -768,7 +763,6 @@ static int ssbd_prctl_get(struct task_struct *task)
- 		/* Mitigations are disabled, so we're vulnerable. */
- 		fallthrough;
- 	case SPECTRE_VULNERABLE:
--		fallthrough;
- 	default:
- 		return PR_SPEC_ENABLE;
- 	}
-@@ -930,7 +924,6 @@ static enum mitigation_state spectre_bhb_get_cpu_fw_mitigation_state(void)
- 	case SMCCC_ARCH_WORKAROUND_RET_UNAFFECTED:
- 		return SPECTRE_UNAFFECTED;
- 	default:
--		fallthrough;
- 	case SMCCC_RET_NOT_SUPPORTED:
- 		return SPECTRE_VULNERABLE;
- 	}
+Thank you for this nice cleanup!
+
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[...]
+> --- a/mm/damon/vaddr.c
+> +++ b/mm/damon/vaddr.c
+> @@ -240,7 +240,7 @@ static void damon_va_walk_page_range(struct mm_struct *mm, unsigned long start,
+>  		goto lock_mmap;
+>  	}
+>  
+> -	if (!(vma->vm_flags & VM_PFNMAP)) {
+> +	if (!vma_test(vma, VMA_PFNMAP_BIT)) {
+>  		ops->walk_lock = PGWALK_VMA_RDLOCK_VERIFY;
+>  		walk_page_range_vma(vma, start, end, ops, private);
+>  	}
+
+For DAMON part,
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+
+Thanks,
+SJ
+
+[...]
