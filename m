@@ -1,87 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793925590;
-	b=pj21FNxfNLAdGrgeae3LT1G1Q9MrVf9R5oII7umgftvPaMovFoXYhmU4e30jzF1S8Um9
-	 VyhFxRPPB+Y88SX3yDZyrLBkP5eS+rSHBkyzVtmtXepmcwWEQeNkLC15uud+RDEXxfLax
-	 Z+bVaKMX4ekrqX9H8fFujVZNqUE0jw+rx1iFoGsuc+5zfPgoU1Fwm08sQfpbismifDEux
-	 UEE4JL0RSvwYCJKTzqXAKUnWnrxyL8GpSkruY1W+TxTxspm3IVd9q3BU61TvTOW367yB3
-	 kJ1AH+FO+jSJKi48wK/uFiu5c/y53BZFIP+WzKuvCYUFR59iiI+IFc1n1PAaObun/DA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793925590;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793925658;
+	b=J0FF3I56ESZXGBJwWmsRkFpynuislgTmGeo0nWlYHB3rkKl7nTVAFkAmxSPm1QNgasPj
+	 omVULv4ePyl2KBOebiuDFdK5Fb5RmxoH7rV+y61HjMi04u4YCUcBVEYt/KhRpuMgqPQoC
+	 E1f9v45wGyIY8PVtygLQ4QJZ/wnJH3V2bOd14jS0YL8mGNfvgs14ZMxUz8sZ3AMahGH9f
+	 Jp6yAFP/94enaWWXT50LFpjqVRDH/H2FfZcCd5uFilqle1/P/H+LsTapxgcrLVmn0Ezhq
+	 dturp7kKfHIPNImFooqmIPqQuEZIGEoVuIJzKg/VssQ+rTp73CMDLRxJKlCVF7RIciQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793925658;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=WL8nwJ/wMqsPR/6qL4tukpzx0z/mXpqqzRzogjQyULk=;
-	b=kvst2xUPUCNTsHEJG87WF1v4OZQ3MPgloC+kJJ2xOXigPCXTK4lbGdoap6an0QEF+0A+
-	 1BL82/q5GYII4MgNa6oQ4CeoDnV8EW37HN1VvZkjithv6Mys4rptyNNeWMOo6t2p+REZT
-	 oi9WvRW2Qg1lbrO19MFRLkeaPc0T0VK74tvSROCuI3t2ji5h+wQaFehbQBNOOtL0l5bcp
-	 1sif3EFc5LWvl/913XFCJAgx1t0HnX4ocZOCDOBBwuiGkd4jy9dhDhYQBElUgYYozo0Ii
-	 u0ZteLcFixwrksRV3ZLxU8HDsgF5rc0+5bVHfjWiWJw6uUAIfL84usQ3dNCimHl9kfA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="SM/lD++c";
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NWW6VWRvfnKcgFIlw1Yh6tcTkZ0ARdGpxylaeqJx8hg=;
+	b=bkjjgpTERVWhRsuQrN0SZWaucpw7Quax2GLAg3hgYBZd7l1co/pPBumlFYtY4+FGLxsu
+	 Ik4c/+Kyx64k0B122Kg5TecWn1AZz7/yWnQTS+6opy2B9TNUJ8FaMKwrouF5qIO6H2FS9
+	 QBzjMJAAxhxKNBCobMIvLvHBr4Vvdm4y0QbqE8NwSjs1JRYFnSeYzthvnzUmVpuakeH8H
+	 T4zbHCfoUnpyldbT+EWZ73Z22S+GaQmyfsIfwZeDVX70fE9D1YYerjbN1ZKPtZ2BpxpY0
+	 HJlfZH1e8eKD1utyGc9hZLPVdsIYe1i7agu/pbnUNyegQBNXtGUIr1tplRSTbWLvhPg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fvdvi436;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CE5606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:39:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CE5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4D8606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:40:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF4D8606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SM/lD++c
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc751eddf25so45691a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:39:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fvdvi436
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b6966d9508so20a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:40:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793925656; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kjYwvHoXPi3qvrJZBK1rhZtDxA8VNp4VlAcO3a/AtySAA3I2NqOZZk+k+Soyp2HtQJ
+         M7It4ZCeeTYbrLNmefdjfdSFhjloUzftnkLHkP7WeqsYzUsw2AFCGPEazN4C4HSi+iea
+         YfM5oq3pNzteAYVlOxSgQR5xFAjpZl6q7t4zHorbH2jOb/72Ju81YgoCzvEJfOwXMhT9
+         HIMLJWF0vktMix3Xr3pcsKhr0FcRIQpQq/oTUBaJUSvsBKR02132udW+HvrSpJY5jLb2
+         kBF6HFv7l/RTWiHUcjYIyr/cvigj1AzAqWIXFslCdWsx3Zk66F6tTvurmOUMmGeT//iw
+         Mtlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NWW6VWRvfnKcgFIlw1Yh6tcTkZ0ARdGpxylaeqJx8hg=;
+        fh=wNzp1F9cPvySlRwZ9dEl8uk3G4ILHypIuIUIvrrK4ww=;
+        b=ZWIDHRgxENGu6IcYbI+pzY3cYMqW+LUZJD4k64ctUlA2LTeKPu/TJeccNc1cirSBRB
+         LUGA+35t+mTiLZ7mmIsdg2qO2Rae5vJIAosQmIgsKcRugrerQZjKqWTl64ga2dKRM65L
+         5PnAP1cHOeX+nSJOQgDdL4lU09JAsvBiUwwMVVuhez7uCIODBPXmzSWvmbQoQ4w+kURU
+         YH7rdUEa6A9+SPI5nRdYBKgScgE27iUfndH8FNtlXv9b8fRkLRSo8b+OcvEM4uTV/Pzo
+         uJBUXN79YaiKpWXwL1VNWOFAtE+wz2Aahpk1avWE1jN0hnOezqpVtYj5V34DKRXKSp3I
+         OQnA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793925589; x=1794530389; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WL8nwJ/wMqsPR/6qL4tukpzx0z/mXpqqzRzogjQyULk=;
-        b=SM/lD++c6lirjLOLHvGOARsCbeXJx0kzVB7LOKmQZ+hXKpnJD7Le8+indVem8SmHIG
-         xgiOgoZK5SSqk/+gCMRsSn7DQi8mj8YyKqldXps1yVFfqcY0+wLxEIJ1k1LvGROg0nYa
-         ZiVAGyd8D2qvJ7A+vQpMmcP9Bh7sn9b8PebgkeG4+mKNUu4qSZ6gWDZ0ElTjC/CwI48+
-         pVV0toREk/pTX16I520nKhw2Ds2Vwdap5BTYCVKvFg2e0kMqMuDqGTMH35OJkX4IAAZH
-         bXmYSoB1BU3fmVnIgxP4Ym1DUf1D3au1/+ZNHFgSm5kPPfAPDHu2arg9fr+RdECeJ06P
-         DfIA==
+        d=google.com; s=20260707; t=1793925656; x=1794530456; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NWW6VWRvfnKcgFIlw1Yh6tcTkZ0ARdGpxylaeqJx8hg=;
+        b=fvdvi436qEqauV2hnhDmQVirJAqbX7yiljRe9cOvyeMaPEVMh2eDz1lenbawGE2ZwD
+         7nICz7zL7xJq1VNJn1KzBqi2RzRWUTUd5j23vxjqnME7d5n3JmCMRfK2Jz6cbPFUkHGW
+         JJqreYxj0zMKkDnTYEVldHl+NH8VkdhA/wYXf0D9iDHGZoDGG5Xkt7+ic1X8Ne3jjyui
+         Gr3LTLhA9G4Hjl+exYc1rSLykY5LzBpL9IPfRrd4Y7vynHORBNwb2OT/5T3HOqJFtcB2
+         8b7bP4Op1s1KC19DSn3v3YbWpdC+cj7sbJHijwxKTvOSjyB5yvBKizjm8qr5htCtGNO6
+         Vn9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793925589; x=1794530389;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WL8nwJ/wMqsPR/6qL4tukpzx0z/mXpqqzRzogjQyULk=;
-        b=frheHLgyFf0qUv9SXgNEWpsocpyGu/OVvXhZGF2YxHJRDbrO3qgsNz/1YuLYxeoM1w
-         +/3gPs8VD2m9Oj0d4J0Yn3Xlf77e6LjfisXS3YR60Tg2/EtbqLBsQDdON+AnmTcCmsjc
-         TwkrVdLzsELvNSwFgn4Md/8X1ZXOX1m9P81pUvlT3bfiPh1CnbfQH1nHJaBG/O0oEZ2S
-         UeW06pKRFyb6AdGi1Pusi9+eeyRQ5+DB9sFzuk7SaDJbRGwS0ZqNTML8BMWw6MgCsVOJ
-         5fnBsmNn9xklf5P6IvX85Go/gt4d1P9hEs7iYnVrS1T8ORH5Trvu/Nyy/iGQ5e3V8UpB
-         MoGA==
-X-Forwarded-Encrypted: i=1; AKwUvBysi7Ho1YZXCvSVe7tyMEjZduhuB3xp16bLHC4oU9UycERq1FbNDhwpmCkFlWxmjqGTK6LlqpCQymICQbg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7LwCxVzFuYsucBAXBj+rt8nRcqcz+0UKhfzeFr6sM97vktBp2
-	eZHD7ycjVGEz63LMXUFybBHsjzyaVgahE2+/v79DfqLoUh1lTEYNHm6J
-X-Gm-Gg: AYBFou0N0KNY+yN0aB69WSyoBIwwcx/C6jMcAFCHglgzD336Mbo34b682F30dLWkKxm
-	+sGGWulmw6vJBEA6j8tcPNh3DG7Q5Mcvk3kbNIXsVdNzEQHtojHLKJG+gboMmlejrtDIegabJlk
-	4MKQAgot7PKLeLpMQ18SIh+MWR0IE0YospSfd1NQzJ8b0s3bx+uEo8aMUXKmKJmb+WVKqEVCnx7
-	5PIkXibN0l4u+b7yhI9MSZmMOD6HTayYfOmP2KkdhQxgoAVD5uxc5Q9FDBtYawZU75JgRmn4fIw
-	qGeBLZNdCjmEtcDKB/e5LoG115XN2j/JbNIzedSH24RAo/9oBnz2t9yGfLXbQxaOKmu9Y1A2EDh
-	h3f/ZPYmtUzJa9URzU98Je4ORg/PScjOcNX6QfbH2Kcsc3lcrGq1pcdWIaVrC/mK2rUUa3W22q2
-	YpSjdbMKeZGof/dF5CbHaiCHtibwDI+rjrJB2iVSPmHRcXtyE9UFP7ZRF8Czcv/lS27ZZEchcYn
-	iHSdNRdUhSBlp/hj+T00XgLvC80YHe7BGFP9X7LautHmT9CJwjSercQ5wZ6qKaaQ4wKmGFuzvXq
-	22UqiX9jEB9pph8mk5pQ3yOZPFWP4effiF23Gt6UzuSJgrFVubOommTX6DQy0QhGdIT8vAZLFZj
-	HJj4=
-X-Received: by 2002:a17:90b:3890:b0:39d:84af:a0b3 with SMTP id 98e67ed59e1d1-3b0db6bba9cmr784048a91.18.1793925589389;
-        Thu, 05 Nov 2026 16:39:49 -0800 (PST)
-Received: from [172.19.1.51] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0993fb8a8sm5197377a91.4.2026.11.05.16.39.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 16:39:48 -0800 (PST)
-Message-ID: <4d739128-248f-4b35-8e0c-6f6b8fbebc3b@gmail.com>
-Date: Fri, 6 Nov 2026 08:39:35 +0800
+        d=1e100.net; s=20260707; t=1793925656; x=1794530456;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NWW6VWRvfnKcgFIlw1Yh6tcTkZ0ARdGpxylaeqJx8hg=;
+        b=bO2Ih1/ZO3HLmszUV4S1uk2+d8ePvuEBnPcdwmvCBlpjmkVhJk9s7kNAXndUjc02L5
+         iS6z+CRG6CWvSHVG2QV5oLtnuuKc7oustXbU2KkAaTLvNtV7Iami7ePwcFG4W2R0BKmC
+         4OYXvLvwmQf+i1CItY3P0MSMe+PH+5Sl9a+VAjCXX/oWK3oQ+yqXe5GPPasXD38a5648
+         oGYBTJ+RU/0lgBQ/8v1/FguCOKds4oOQ1gPF5ETpI26Dodkri0+9o3auM5l5lx8xNVl4
+         j2X0b4F0AXxMHpdJzAlMv0jKDQ6xy/PvN9N/j4JUKxIC2IA7te3ZzOI+GzB6E2j8Ilp2
+         mPRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwt1YIUdDP5h6Sv1hroJAqfkKvjqyMXZ4W5NGwMQnSeJiVFDH1E9r38M4Pdq6x7UorNrmd+rKybHZnySuI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+408sgAXeNlXmMBBnCG3URKtLKUnUqStIWTCBhaEmCi1Sc9lT0
+	1AFJrjsZtVdh3tSgP8bek0ACaG20975R01LdvJnXgqyBKULj398w5+we6hVwvuYo01yPXI620z+
+	aLn/PlVsk4rWVbQ/0XjaqgQgMs2mD9vCNDxjKxw5V
+X-Gm-Gg: AYBFou3xlikNkJJ7MoNiK1wV7VhhxrkZFEHq9GEOww1wXTuWxyXQ7s15GB7gqzopfPb
+	NZRS9VA6gran1p7vQ0165lnCRpgHqoZxuGU2H73+LSK8/aRAJG8Gfm8php9D4EMsoLPKcOA3H+U
+	pxUoKPN7Dieq8eLNKcwjCqfFNndjCftH5IQGWBrQFKh0iEGTxM2Jg+/3AEo54v2rQSK5RMM8+2g
+	ROCkYGjuoUXpWlcMendWJSCp1uTuwFL1Qflo8PgkkeI+8whlFCz6o0VbXt5yRA9qsGDfKLt3PLv
+	aMe3KOHalE1ezRcy/bMHuLfLq1f2COOi7lr5sSypCvpMgACDYe0zsdpPYKmDq87eZbVmfsaBA5S
+	aAdMOrSnXPyp/vi6hhToipEvobEqqvDXKWfnNJ9mTuMTESe1ppagTUlBbPqKN/Gk1Yqn8WExsuh
+	z9AX1eNSfdf9mCQNNXMKleQjuPDQ==
+X-Received: by 2002:a05:6402:1806:b0:6b4:629a:6352 with SMTP id
+ 4fb4d7f45d1cf-6b597833cb7mr35960a12.5.1793925655384; Thu, 05 Nov 2026
+ 16:40:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,273 +105,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
-From: Shan-Chun Hung <shanchun1218@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org,
- Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, kees@kernel.org, gustavoars@kernel.org,
- linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <20261103022202.2139674-1-shanchun1218@gmail.com>
- <20261103022202.2139674-3-shanchun1218@gmail.com>
- <20261104-airborne-vivid-caterpillar-991425@quoll>
- <de0bcd11-edfe-471b-a22d-f1e748a7fda6@gmail.com>
-Content-Language: en-US
-In-Reply-To: <de0bcd11-edfe-471b-a22d-f1e748a7fda6@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260930210750.1487547-1-chang.seok.bae@intel.com> <20260930210750.1487547-9-chang.seok.bae@intel.com>
+In-Reply-To: <20260930210750.1487547-9-chang.seok.bae@intel.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 5 Nov 2026 16:40:42 -0800
+X-Gm-Features: AclHuK-4sGsbJMrfSl64kCcEOiMA7UjfuzawJTnrgKST2LlZsQ5qYXn3PXqPGmk
+Message-ID: <CALMp9eTEd3jHNwh8M-xbtrTVD5-RgWuUDr=ZxRPWtL20_=WDQg@mail.gmail.com>
+Subject: Re: [PATCH v8 08/20] KVM: VMX: Support instruction information extension
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: pbonzini@redhat.com, seanjc@google.com, kvm@vger.kernel.org, 
+	x86@kernel.org, linux-kernel@vger.kernel.org, zhao1.liu@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Krzysztof,
+On Wed, Sep 30, 2026 at 4:55=E2=80=AFPM Chang S. Bae <chang.seok.bae@intel.=
+com> wrote:
+>
+> Define the VMCS field offset for the extended instruction information.
+> Then, support 5-bit register indices retrieval from VMCS fields.
+>
+> Note the APX enumeration alone indicates the extension is available.
+> For safety, do not assume that previously reserved bits were zero
+> on older implementations.
+>
+> Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Tested-by: Zhao Liu <zhao1.liu@intel.com>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> Link: https://lore.kernel.org/aakEsXJgO-3m2xca@google.com
+> ---
+>
+> Note for the review of extensions in following functions:
+> +-------+------------------+------------------------------------+
+> | Bits  | Field Name       | Related KVM Functions              |
+> +=3D=3D=3D=3D=3D=3D=3D+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D+
+> | 3:2   | ASIZE            | vmx_get_instr_info_addr_size()     |
+> +-------+------------------+------------------------------------+
+> | 4     | Mem/Reg (1=3D>reg) | vmx_get_instr_info_is_reg()        |
+> +-------+------------------+------------------------------------+
+> | 9:7   | Segment          | vmx_get_instr_info_seg_reg()       |
+> +-------+------------------+------------------------------------+
+> | 10    | IndexInvalid     | vmx_get_instr_info_base_reg()      |
+> +-------+------------------+------------------------------------+
+> | 11    | BaseInvalid      | vmx_get_instr_info_base_is_valid() |
+> +-------+------------------+------------------------------------+
+> | 20:16 | Reg1             | vmx_get_instr_info_reg()           |
+> +-------+------------------+------------------------------------+
+> | 28:24 | Index            | vmx_get_instr_info_index_reg()     |
+> +-------+------------------+------------------------------------+
+> | 36:32 | Base             | vmx_get_instr_info_base_reg()      |
+> +-------+------------------+------------------------------------+
+> | 44:40 | Reg2             | vmx_get_instr_info_reg2()          |
+> +-------+------------------+------------------------------------+
+>
+> Reference:
+>   APX Specification, Table 3.11 Extended Instruction-Information (EII)
+>   VMCS Field
+> ---
+>  arch/x86/include/asm/vmx.h |  2 ++
+>  arch/x86/kvm/vmx/vmx.h     | 42 +++++++++++++++++++++++++++-----------
+>  2 files changed, 32 insertions(+), 12 deletions(-)
+>
+> diff --git a/arch/x86/include/asm/vmx.h b/arch/x86/include/asm/vmx.h
+> index f98e40df5004..0b1e2353db3b 100644
+> --- a/arch/x86/include/asm/vmx.h
+> +++ b/arch/x86/include/asm/vmx.h
+> @@ -277,6 +277,8 @@ enum vmcs_field {
+>         PID_POINTER_TABLE_HIGH          =3D 0x00002043,
+>         GUEST_PHYSICAL_ADDRESS          =3D 0x00002400,
+>         GUEST_PHYSICAL_ADDRESS_HIGH     =3D 0x00002401,
+> +       EXTENDED_INSTRUCTION_INFO       =3D 0x00002406,
+> +       EXTENDED_INSTRUCTION_INFO_HIGH  =3D 0x00002407,
+>         VMCS_LINK_POINTER               =3D 0x00002800,
+>         VMCS_LINK_POINTER_HIGH          =3D 0x00002801,
+>         GUEST_IA32_DEBUGCTL             =3D 0x00002802,
+> diff --git a/arch/x86/kvm/vmx/vmx.h b/arch/x86/kvm/vmx/vmx.h
+> index 863b08478544..4a76af613720 100644
+> --- a/arch/x86/kvm/vmx/vmx.h
+> +++ b/arch/x86/kvm/vmx/vmx.h
+> @@ -330,9 +330,18 @@ static __always_inline unsigned long vmx_get_exit_qu=
+al(struct kvm_vcpu *vcpu)
+>         return vt->exit_qualification;
+>  }
+>
+> +/*
+> + * The APX enumeration guarantees the presence of the extended fields.
+> + * The host CPUID bit alone is sufficient to rely on it.
+> + */
+> +static inline bool vmx_instr_info_extended(void)
+> +{
+> +       return cpu_feature_enabled(X86_FEATURE_APX);
+> +}
 
-Sorry, I missed this comment.
+Sashiko is not wrong. When KVM runs on top of Hyper-V with eVMCS enabled,
+vmcs_read64() becomes evmcs_read64(). Because eVMCS v1 does not define a
+mapping for EXTENDED_INSTRUCTION_INFO (0x2406) in vmcs_field_to_evmcs_1[],
+get_evmcs_offset() triggers a WARN_ONCE() and evmcs_read64() returns 0 on
+every instruction exit that calls vmx_get_instr_info(), even when APX is
+not enabled for the guest.
 
+Until eVMCS supports EXTENDED_INSTRUCTION_INFO, vmx_instr_info_extended()
+must be predicated on !kvm_is_using_evmcs().
 
-On 11/5/2026 12:11 PM, Shan-Chun Hung wrote:
-> Hi Krzysztof,
-> 
-> Thanks for your review.
-> 
-> On 11/4/2026 10:06 PM, Krzysztof Kozlowski wrote:
->> On Tue, Nov 03, 2026 at 10:22:02AM +0800, Shan-Chun Hung wrote:
->>> +#include <linux/align.h>
->>> +#include <linux/bitfield.h>
->>> +#include <linux/bits.h>
->>> +#include <linux/clk.h>
->>> +#include <linux/compiler_types.h>
->>> +#include <linux/container_of.h>
->>> +#include <linux/dev_printk.h>
->>> +#include <linux/device.h>
->>> +#include <linux/dma-direction.h>
->>> +#include <linux/dma-mapping.h>
->>> +#include <linux/dma/ma35d1-pdma.h>
->>> +#include <linux/dmaengine.h>
->>> +#include <linux/err.h>
->>> +#include <linux/errno.h>
->>> +#include <linux/gfp_types.h>
->>> +#include <linux/interrupt.h>
->>> +#include <linux/io.h>
->>> +#include <linux/irqreturn.h>
->>> +#include <linux/limits.h>
->>> +#include <linux/list.h>
->>> +#include <linux/math.h>
->>> +#include <linux/minmax.h>
->>> +#include <linux/mod_devicetable.h>
->>> +#include <linux/module.h>
->>> +#include <linux/of.h>
->>> +#include <linux/of_dma.h>
->>> +#include <linux/overflow.h>
->>> +#include <linux/platform_device.h>
->>> +#include <linux/scatterlist.h>
->>> +#include <linux/slab.h>
->>> +#include <linux/spinlock.h>
->>> +#include <linux/spinlock_types.h>
->>> +#include <linux/stddef.h>
->>> +#include <linux/string.h>
->>> +#include <linux/types.h>
->>
->> Do you use all these defines?
-I'll double-check the defines.>>
->> I don't see usage of header with bindings, though.
-The bindings header is indeed unused and will be removed in the next 
-revision.
->>
->>> +
->>> +#include "dmaengine.h"
->>> +#include "virt-dma.h"
->>> +
->>
->> ...
->>
->>> +static int ma35d1_pdma_probe(struct platform_device *pdev)
->>> +{
->>> +    int i, irq, nr_chans, ret;
->>> +    struct clk *pdma_clk;
->>> +    struct device *dev = &pdev->dev;
->>> +    struct device_node *node = dev->of_node;
->>> +    struct ma35d1_chan *ch;
->>> +    struct ma35d1_pdmadev *pdmadev;
->>> +    void __iomem *reg_base;
->>> +
->>> +    pdma_clk = devm_clk_get_enabled(dev, NULL);
->>> +    if (IS_ERR(pdma_clk))
->>> +        return dev_err_probe(dev, PTR_ERR(pdma_clk), "Failed to get 
->>> clk\n");
->>> +
->>> +    ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
->>> +    if (ret)
->>> +        return ret;
->>> +
->>> +    irq = platform_get_irq(pdev, 0);
->>> +    if (irq < 0)
->>> +        return irq;
->>> +
->>> +    ret = of_property_read_u32(node, "dma-channels", &nr_chans);
->>> +    if (ret)
->>> +        return dev_err_probe(dev, ret, "Failed to get dma-channels\n");
->>> +
->>> +    if (nr_chans > PDMA_MAX_CHANS) {
->>> +        dev_warn(dev, "dma-channels %d exceeds max %d, clamping\n",
->>> +             nr_chans, PDMA_MAX_CHANS);
->>> +        nr_chans = PDMA_MAX_CHANS;
->>> +    }
->>> +
->>> +    pdmadev = devm_kzalloc(dev, struct_size(pdmadev, channels, 
->>> nr_chans), GFP_KERNEL);
->>> +    if (!pdmadev)
->>> +        return -ENOMEM;
->>> +
->>> +    pdmadev->nr_chans = nr_chans;
->>> +
->>> +    reg_base = devm_platform_ioremap_resource(pdev, 0);
->>> +    if (IS_ERR(reg_base))
->>> +        return dev_err_probe(dev, PTR_ERR(reg_base),
->>> +                     "Failed to map pdma global registers\n");
->>> +
->>> +    dma_cap_zero(pdmadev->ddev.cap_mask);
->>> +    dma_cap_set(DMA_SLAVE, pdmadev->ddev.cap_mask);
->>> +    dma_cap_set(DMA_PRIVATE, pdmadev->ddev.cap_mask);
->>> +    dma_cap_set(DMA_MEMCPY, pdmadev->ddev.cap_mask);
->>> +    dma_cap_set(DMA_CYCLIC, pdmadev->ddev.cap_mask);
->>> +
->>> +    pdmadev->ddev.dev = dev;
->>> +    pdmadev->ddev.src_addr_widths = PDMA_SLAVE_BUSWIDTHS;
->>> +    pdmadev->ddev.dst_addr_widths = PDMA_SLAVE_BUSWIDTHS;
->>> +    pdmadev->ddev.directions = BIT(DMA_MEM_TO_DEV) | 
->>> BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_MEM);
->>> +    pdmadev->ddev.device_prep_dma_memcpy = ma35d1_prep_dma_memcpy;
->>> +    pdmadev->ddev.device_prep_slave_sg = ma35d1_prep_slave_sg;
->>> +    pdmadev->ddev.device_prep_dma_cyclic = ma35d1_prep_dma_cyclic;
->>> +    pdmadev->ddev.device_free_chan_resources = 
->>> ma35d1_free_chan_resources;
->>> +    pdmadev->ddev.device_issue_pending = ma35d1_issue_pending;
->>> +    pdmadev->ddev.device_tx_status = ma35d1_tx_status;
->>> +    pdmadev->ddev.device_config = ma35d1_slave_config;
->>> +    pdmadev->ddev.device_terminate_all = ma35d1_terminate_all;
->>> +    pdmadev->ddev.device_synchronize = ma35d1_synchronize;
->>> +
->>> +    spin_lock_init(&pdmadev->lock);
->>> +    INIT_LIST_HEAD(&pdmadev->ddev.channels);
->>> +    for (i = 0; i < nr_chans; i++) {
->>> +        ch = &pdmadev->channels[i];
->>> +        ch->dev = dev;
->>> +        ch->pdmadev = pdmadev;
->>> +        ch->id = i;
->>> +        ch->base = reg_base;
->>> +        ch->vc.desc_free = ma35d1_pdma_desc_free;
->>> +        vchan_init(&ch->vc, &pdmadev->ddev);
->>> +    }
->>> +
->>> +    ret = devm_request_irq(dev, irq, ma35d1_pdma_interrupt, 0, pdev- 
->>> >name, pdmadev);
->>> +    if (ret)
->>> +        return dev_err_probe(dev, ret, "Failed to request IRQ\n");
->>> +
->>> +    ret = dmaenginem_async_device_register(&pdmadev->ddev);
->>> +    if (ret)
->>> +        return ret;
->>> +
->>> +    ret = of_dma_controller_register(node, ma35d1_of_xlate, pdmadev);
->>> +    if (ret)
->>> +        return dev_err_probe(dev, ret, "of_dma_controller_register 
->>> failed\n");
->>> +
->>> +    platform_set_drvdata(pdev, pdmadev);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static void ma35d1_pdma_remove(struct platform_device *pdev)
->>> +{
->>> +    struct ma35d1_pdmadev *pdmadev = platform_get_drvdata(pdev);
->>> +    int i;
->>> +
->>> +    of_dma_controller_free(pdev->dev.of_node);
->>> +    writel(0, pdmadev->channels[0].base + PDMA_INTEN);
->>> +
->>> +    for (i = 0; i < pdmadev->nr_chans; i++)
->>> +        tasklet_kill(&pdmadev->channels[i].vc.task);
->>> +}
->>> +
->>> +static const struct of_device_id ma35d1_pdma_match[] = {
->>> +    { .compatible = "nuvoton,ma35d1-pdma" },
->>> +    { /* sentinel */ }
->>> +};
->>> +MODULE_DEVICE_TABLE(of, ma35d1_pdma_match);
->>> +
->>> +static struct platform_driver ma35d1_pdma_driver = {
->>> +    .probe = ma35d1_pdma_probe,
->>> +    .remove = ma35d1_pdma_remove,
->>> +    .driver = {
->>> +        .name = "ma35d1-pdma",
->>> +        .of_match_table = ma35d1_pdma_match,
->>> +    },
->>> +};
->>> +module_platform_driver(ma35d1_pdma_driver);
->>> +
->>> +MODULE_DESCRIPTION("PDMA controller driver for Nuvoton MA35D1");
->>> +MODULE_AUTHOR("Shan-Chun Hung <shanchun1218@gmail.com>");
->>> +MODULE_LICENSE("GPL");
->>> diff --git a/include/linux/dma/ma35d1-pdma.h b/include/linux/dma/ 
->>> ma35d1-pdma.h
->>> new file mode 100644
->>> index 000000000000..13f1410d74da
->>> --- /dev/null
->>> +++ b/include/linux/dma/ma35d1-pdma.h
->>> @@ -0,0 +1,24 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->>> +/*
->>> + * Header file for the MA35D1 PDMA Controller driver
->>> + *
->>> + * Copyright (C) 2026 Nuvoton Technology Corp.
->>> + */
->>> +#ifndef _MA35D1_PDMA_H
->>> +#define _MA35D1_PDMA_H
->>> +
->>> +/**
->>> + * struct ma35d1_peripheral - PDMA peripheral configuration
->>> + * @prescaler: timeout prescaler value
->>> + * @counter: timeout counter value
->>> + *
->>> + * Slave device drivers fill in this structure and pass it via
->>> + * dma_slave_config.peripheral_config/peripheral_size to configure
->>> + * the MA35D1 PDMA engine's per-channel timeout detection block.
->>
->> Hm? Confusing, how is it supposed to be used? Do you just reimplement
->> board files?
-> 
-> Sorry, the comment did not clearly explain the intended usage.
-> 
-> For UART RX DMA, the UART driver calculates the PDMA timeout prescaler 
-> and counter values based on the current baud rate, then passes them 
-> through dma_slave_config.peripheral_config to configure the channel's 
-> timeout detection. These are runtime settings.
-> 
-> However, I understand that passing raw prescaler and counter values 
-> couples the UART driver to the MA35D1 PDMA register layout. I will 
-> consider having the UART driver specify the required timeout duration 
-> and letting the PDMA driver convert it into the hardware settings.
-> 
-> In the next revision, I will remove this timeout configuration interface 
-> and revisit it together with the UART DMA support patches, so the 
-> intended usage and client implementation can be reviewed together.
->>
->>> + */
->>> +struct ma35d1_peripheral {
->>> +    unsigned int prescaler;
->>> +    unsigned int counter;
->>> +};
->>> +
->>> +#endif /* _MA35D1_PDMA_H */
->>> -- 
->>> 2.25.1
->>>
-> 
-> Best Regards,
-> Shan-Chun
-
-Best Regards,
-Shan-Chun
-
+Moreover, enable_apx should be forced off when kvm_is_using_evmcs() is true=
+.
