@@ -1,46 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793990433;
-	b=k6aXOd+U/rqXhYN+hViMVveuE7ncOtafJY/b0Wn25KlATmQJzmQ9s8saFxHu5YzIPf4m
-	 OzvQ5OyIthgaPBa5hklB8u6JcB8YFX1lDkFuOjmPsb4iU1heEBk2fYAzyf7hEaAGT0Dcl
-	 q4mzF5sDIjONCi9tRS4S37Ak6v5p/VssfjrdRLVSSvxChCTtCpNhJ5LBv6enqdyks+qiO
-	 ILgfwHvWshnjxhPDdN7OsDlpfRVZSaAC7rl9YNbxniZ+70xSq4lbozaiEBr0cEI5nJoMX
-	 UJFOZ3QzTv92L/Gc2LypF2+GrhwlNanKiShYDB4v4I+KEI9peCxl8LfDUfGXK+RxjvA==
+	b=YzJiveVD262RRYqQqCzqkRUs2wZK8ErK1cpvxSN+HLXwMafRc2Pz3Wibwx3FDdbYmQLK
+	 NhGnNVgTb+E8sWqAkpxHp00liLxyGKlwRyki2lurJq6L2oXN/X6KCECjeh5g9bjfO3Exf
+	 PSs8wg9SBjfvFD/z/lt32+sIGnVfdHhb8Tb0c/F4mdM1GEZAcNJnXdM8CRctUHZhVasNe
+	 mDnqCLMymAQlb0nrg1f9NiWTuzPao2yGgfdHu7OMnUiWn438bsmehmLoLBI1HjDI+8MGP
+	 btjpRQB9B7zcbEBh5ftrmuDQ9ijTZa/CVTtOfcwGq3clUrHi5fh15CUsorzYh/LLXMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793990433;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:DKIM-Signature;
-	bh=xw8y7NipFBtF37TOjU1QzM3pd2cVDyuZyFnPeUbK0KM=;
-	b=lHQiKrB2yt19ggiGFOJVeX+bOBeT+k5Gq5GX64mgYO+gXdTAdZ+mGPM7nxowzDdvl6t1
-	 9bz/jtYtrg4vIkPEzxSdZa6vist3tSzijmjweCYsdwhkva9MLNbiotkzY0Pgx5/1uHA0C
-	 TLrrYR10Sde89enUtaa6kQIG3d6hQZg3LbhwwF8EldylU6VDf0AB6l31Jp7D/oTgzgZLv
-	 BiQbxf10RVpB7jEp88Iwv/pdwnWCFcO4PjUMonbAtIobxdMjmBU/d7nzxkJWafmvMAYzd
-	 SjuGL2EFk7UlHCpxO+dn3A94Bv5r/AozuOh+Wx4DS8GG7U/MoCRDgO1MVGXt7ibWXDg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vYU0Cu9JcID5yAMPzRs7M2je5qmnSyymlx29rhLddj0=;
+	b=mRQppAx/rC/c5shO4ZFk6pn3SHZC2Nq7ojHvxKEG3DAjGJln+ErCVHXjCAbPtLfYVnX8
+	 uREIvQccruoi/cvwHGfwjRwW79VPql+/YQCxTAOf2b4xD6ViKRuDkBTsYsBBAYbCRv/yf
+	 O1IA7MkV8bsi0vR0bYOUHIp+CptTlfmWiITp5B4C0N/bgaaSpdPsGHCnzQg+xlutsy9O7
+	 L4Y1LDu9D1upJEPAYa1YZ8JRkXcHYaQVUkH/Tisp/pe1Oz4Zjm/wdmxp5IMM9krKQHARj
+	 zLgHfvXdsrc4PawDmPciLuv9I3yVKC7H4bSISQC+SG5QUPADD6mykCndUKvCxDYnI1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=QfzpUOnt;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 70B40606A329;
-	Fri,  6 Nov 2026 18:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70B40606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="PvwzG6y/";
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E59C606A334
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:40:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E59C606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=QfzpUOnt
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>, Viresh Kumar
-	<viresh.kumar@linaro.org>, <linux-pm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <zhongqiu.han@oss.qualcomm.com>, Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH v5 0/2] cpufreq: acpi-cpufreq: fix P-state index mismatch between perf->states[] and freq_table[]
-Date: Sat, 7 Nov 2026 02:40:06 +0800
-Message-ID: <20261106184008.1728-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PvwzG6y/
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-19305bcb72cso919201c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:40:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793990432; x=1794595232; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vYU0Cu9JcID5yAMPzRs7M2je5qmnSyymlx29rhLddj0=;
+        b=PvwzG6y/YoteN55M2ufyriOBO9fAs1HgQDFd/ZHL5f/c0XP02ly9n/nRbcfNkRJlwk
+         5CMXaj19wn40oRxXehlYY6qHL/xY1NAaq16Eua28DKpHbb6dlbL9+4uuGvGorWz6oNZC
+         WoyFas5fM5hp3/ZLLiCpZZIVW4YQAMW6+a/rLWLv0FvpUNK8oAN2gF+o81NYA4SF5jE9
+         PdB/PA7IYCeKe8JJ01Aar2bCi6n85H4kQ84P01jpWLVDw58Ny3/9fOOQIlMzQWtKtf8g
+         R/CT/bkJGlHmm7ZL/mlfQs5bTJOBP+YwkSm5Y48DZKTihiwSOMtA3tSzstdC9SGZtA2Z
+         HObw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793990432; x=1794595232;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vYU0Cu9JcID5yAMPzRs7M2je5qmnSyymlx29rhLddj0=;
+        b=ZvvgPeVkt6mzZDZ4oTtMlFg1KG9dCXrRdaHJGr4n8ar5dBbH204wSK2/+u3cOiZ3PO
+         secsG2PQ4l0r1f0WJ5mHB7lgHTryYZlsXE5qOdPjYFop1SWz2GlM2X7hYX6GMKrJcL4J
+         Va/Sphj0Yw1yi/8ln0t0juJ/yUJtjXlIbCCuutAdEKcBEmgKF/ZH0vnyK/gufeXaHJG2
+         g66x7KwUMrY3YFlzcOW+8qRKn+UErA16+4vzyaLUhVu6h7W9BhfGsMuXMf0m9T2EOUZC
+         8ji1RpxkzB9CvLjXeQqPNMVF4v35NyKg88UGZKnweHruIvWZ26K842Qfp20Wzz3JNRL1
+         71pQ==
+X-Gm-Message-State: APuU4Z9UmFnnCjsqzoRANNEDrEYm1HxlYhh5idHM2mkL8YAdZTECurmJ
+	E7NHQZurDeb2fCUY8paBH5IJa/Kq7OkzTW8OWRF5lJVVEZ3X8HfdIXnM
+X-Gm-Gg: AYBFou2qBFp+SvqRXkEr/QDKwlHnS0lHms7sapFQ+aSss1iZlS8axq2OCvc+QXibXZ7
+	V/mT1yAyDeQgg6M+G4edzMybvid+olCmg+x/JxDku7500CzNCaSaYchV+VcCK0Tv0V3F5l9Kss7
+	9jyfxarcXVQ7/ktR/9Qp4xGM7qAY7n9pkj5q6+yAxf4Amo9h5+9yIcuii4wq5mG5wBEtJ/iTpwS
+	L6ZlG5I4J+IfzED3y02UWONAFStaKDEobWGEdN6EIqgSu1fvNy0P2KAP4cUCuSnEv6rC2tNPPdZ
+	6MaEcGEKB26idsHSIeuyl1RLriB+CO4cDKSZ3jHmxGc4LIY4QL7x5bw+L2GwHjLQm3PWRCyTXFs
+	HnPQfV0OrfDVJvNdzzwS3lnu7a2rjEM5VtgFGPvnA/NokC+NLzPH1H5HD30tkRdnV+HHuuk5/Md
+	U122dq4QI8MSH3sXXMHk5hKv8P7VyYDYOH4767SY6KCZBeQSAIDU0PlThsDlxbRdRumD4kRyx+M
+	Z49efp16hye/3luVFR248IQ3BE/b5buxTIklXRWlClmYTAKYB2t+jxABiFTn07H8LPPE0HJ7GY3
+	1HPFLhlS51mRm7/wUN7laaN3420bVOsh+lNSMaz2zq5N99QNGRBa
+X-Received: by 2002:a05:7022:2206:b0:144:eaa7:2763 with SMTP id a92af1059eb24-1b25d2f7959mr4976305c88.16.1793990432426;
+        Fri, 06 Nov 2026 10:40:32 -0800 (PST)
+Received: from localhost.localdomain ([103.177.253.113])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4879adsm8622836c88.6.2026.11.06.10.40.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:40:32 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: sreekuttan2156239@gmail.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	tiwai@suse.de
+Subject: [PATCH v2] ALSA: control: Synchronize LED mode accesses
+Date: Fri,  6 Nov 2026 18:39:53 +0000
+Message-ID: <20261106183953.2762-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261106180812.5097-1-sreekuttan2156239@gmail.com>
+References: <20261106180812.5097-1-sreekuttan2156239@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,65 +99,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjhj-exc7.internal.baidu.com (172.31.3.17) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1793990420;
-	bh=xw8y7NipFBtF37TOjU1QzM3pd2cVDyuZyFnPeUbK0KM=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=QfzpUOntR53qSLC19f8ZPvL6ZBJUKbjAJUi3a/UxXfXxwFTzJfF9b5ioM6x7wUCOf
-	 sL3z88irQWF2MfNvk1CKRYkT37rUZWLphspLl69vNYlyNEWKcTZCn+8b2InW4h1NQp
-	 y86+deAWF95ttuhURHQEUNkIDae3JSHP1wmQX54aOTfZSpg654b9UV8zlpC7VJ8fKi
-	 t5PbSyi3Jlp7fMUWlfZrbiGPLkHmBR5iXm4S8qfvNCQC2EGVoTr5GzqoBEVrEssfdc
-	 R5dvKN2VF3fuUbH/ssC7qqa+U4cZyQV0fPlGfo+6HrH0AuwxL9kzeN7smQDK7VHAkv
-	 n4Cn71MgnbiFA==
+Content-Transfer-Encoding: 8bit
 
-From: Li RongQing <lirongqing@baidu.com>
+mode_store() updates led->mode while holding
+snd_ctl_led_mutex.
 
-policy->freq_table is built by filtering out _PSS entries that are not
-lower in frequency than the previous one, and the original ACPI P-state
-index of each remaining entry is kept in freq_table[].driver_data.  The
-index spaces of perf->states[] and freq_table[] therefore differ, and
-mixing them up leads to the frequency of one P-state being attributed to
-another.
+However, snd_ctl_led_set_state() and mode_show() read this
+field without holding the same mutex.
 
-Patch 1/2 is unchanged from v4 and fixes the cached frequency used by
-get_cur_freq_on_cpu() to detect a firmware frequency change behind the
-OS's back.
+This can cause a data race when userspace changes the mode
+while another path reads it.
 
-Patch 2/2 is new in v5.  As Rafael pointed out, Sashiko observed that
-the extract_msr() fallback interferes with 1/2 and can render it
-ineffective: when the status read from the hardware matches no
-freq_table entry, extract_msr() returns freq_table[0].frequency instead
-of reporting the status as unknown.  If the OS is already at the P-state
-corresponding to freq_table[0], a firmware switch to a filtered-out
-P-state then compares equal to the cached frequency, data->resume is
-left clear and the next ->target() call does not rewrite the control
-register.  So 1/2 alone does not make the detection work in that case,
-and the two patches are posted together rather than separately as I had
-suggested earlier.
+Read the mode under snd_ctl_led_mutex in
+snd_ctl_led_set_state() and use the local value after
+releasing the mutex.
 
-v4: https://lkml.iu.edu/2609.1/07369.html
+Also protect the mode read in mode_show() with the mutex.
 
-Changes since v4:
- - Drop "cpufreq: acpi-cpufreq: fix P-state index mismatch in
-   extract_io()", which has been applied.  This series is based on top
-   of it.
- - Add 2/2 to stop extract_msr() from masking firmware P-state changes,
-   as reported by Sashiko, and note the dependency in 1/2's changelog.
- - 1/2: no functional change; changelog extended to say that it fixes
-   only the cached side of the comparison, and a duplicate
-   Signed-off-by was removed.
+Fixes: cb17fe0045aa ("ALSA: control - add sysfs support to the LED trigger module")
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+v2:
+ - Add the Fixes trailer.
 
-Li RongQing (2):
-  cpufreq: acpi-cpufreq: fix P-state index mismatch in
-    get_cur_freq_on_cpu()
-  cpufreq: acpi-cpufreq: don't mask firmware P-state changes
+ sound/core/control_led.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
- drivers/cpufreq/acpi-cpufreq.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
+diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+index 501387287ae6..044430b2f1a2 100644
+--- a/sound/core/control_led.c
++++ b/sound/core/control_led.c
+@@ -140,6 +140,7 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+ {
+ 	struct snd_ctl_led *led;
+ 	struct snd_ctl_led_ctl *lctl;
++	enum snd_ctl_led_mode mode;
+ 	int route;
+ 	bool found;
+ 
+@@ -168,8 +169,9 @@ static void snd_ctl_led_set_state(struct snd_card *card, unsigned int access,
+ 				UPDATE_ROUTE(route, snd_ctl_led_get(lctl));
+ 			}
+ 		}
++		mode = led->mode;
+ 	}
+-	switch (led->mode) {
++	switch (mode) {
+ 	case MODE_OFF:		route = 1; break;
+ 	case MODE_ON:		route = 0; break;
+ 	case MODE_FOLLOW_ROUTE:	if (route >= 0) route ^= 1; break;
+@@ -382,6 +384,8 @@ static ssize_t mode_show(struct device *dev,
+ 	struct snd_ctl_led *led = container_of(dev, struct snd_ctl_led, dev);
+ 	const char *str = NULL;
+ 
++	guard(mutex)(&snd_ctl_led_mutex);
++
+ 	switch (led->mode) {
+ 	case MODE_FOLLOW_MUTE:	str = "follow-mute"; break;
+ 	case MODE_FOLLOW_ROUTE:	str = "follow-route"; break;
 -- 
-2.9.4
+2.55.0
 
