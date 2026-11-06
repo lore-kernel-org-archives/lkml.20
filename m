@@ -1,105 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985023;
-	b=l8b2E5zx+6wJwz5JEdNkV//yT9NCO1PeYIZRmYnZou1DD6rHQxQ10KXxEBMkZu1FVV/P
-	 3YyVwss8QvTmHlefeZyv4Sz0QSdbBVFoKcxniYNuz+QQ8iPeNfTLpSxC3WL/dREGhooJw
-	 /SWpLn/ACIKQmBNoGt1z22QMM68s0Yhb8vkOq9oQc36toi8bD1mA8ZO0+HlUVtne6KzBI
-	 OZc51zhfcpDdUItRpya/0YUueTUoghf6Ehc7ndyUSE5UWlakrqeRRYWntnhEVhjfoI0LX
-	 tlYINW9IfJRGixa9zBN1rorICxRdW+6006ctcSwzsYoC+36Q+4hnhV7VY5f/9d+6EeA==
+	t=1793985112;
+	b=YtAGYejdUymTQCVHqE12QRqg0kBw4CQv9j49USUUYmMtPWabxD+xmDsx2umv4fNASgGw
+	 vRZK3rNubVZKFQ/0QuaARO4M/Q4fP15FDMjLGUajHa+NcY8hN/c87FrFyIF9TP7CsE0V/
+	 /qY6WYC4Qd1bBN8hBVBpJGW7JVVRRiD5pFEgzz6WPPWJW3JF/a0ZMJViZHlHF0V0+WCjB
+	 DHalfny/RD+M22LpqKDqN8YpJBGqQWLHDrQQ95+bvtkGfOcroBij6gQd/poXNM8/4qszD
+	 eZBQmNrK/Z1Z08a8TRWO7LwwCO5BJDG1Fjd99P5h+TcgOCW6iXPsLruKxfFB3yZ22XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985023;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-Mailer;
-	bh=V9n1CV17mWoyinWHCGFvDxtvvBlrLNzZtRYoJJeVLOM=;
-	b=MCLJigVmiKnOV95e+O7GDBGFUc1rb0/cj4u3sZKZfRjLhO3x0ncfJ/6Msv/Xm2hi43wF
-	 ytfbRT1UAPAM+uIxXsYxy6Y4/U3dGSOKEFjvV9QPkiEDCKFc7gxCyGJnjvmrYhczQvk7B
-	 Mf7ew9fvs3Y9s09TLPd9C0ETCj/UwPW+nj345sXea+iYcOPsBiU9/rywk7efpCFXfOOXD
-	 7aVrcawOMPUr5ubwhSb67zJ0hWZz+iXrBXmUi8aLzOAyXuYLwDk2QPrIsabItlP7Jkpk8
-	 EyXfrHEQ/EPhn27+ZE+o6J9DSpE74djoyQLX1pqeUv2YdINQM7X4tpMM0qHgwhm8iqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985112;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=KC09ZFwwTt1laafJpmjQa1oZqrnPlGfwhuKbiRREODE=;
+	b=kn61gSueorxhRW9uflKqEgecvFCNps4OxwoJsAs6aSgj1eiXZmFcmRDpX42H7dnDeYXU
+	 nn6bWsTo3oyMXysSw35Q+lz0iBC3aWHEuRwPje9S26fU90kWdnf4zjwZITlsSLUSHqAqX
+	 kyIbiiD4agAo18cfHPLiMN6BaFPqt33dzZhQh5ld65/3bdV1H1JWCMDAD5POvsWjK48vP
+	 kA/Z60JSzgJh0zpD9iHHZRep+048DqQAAGmseKL+GsBDoM4s0yI/I1Gz0ysbiaLNG93No
+	 NFjwXSLpeqwb2y3bDGWSwnJNeS0PczcOvwlxWAE/uYjpRJycx5BHxMhs+iHoDQOAk1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JmCY9+dU;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF730606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:10:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF730606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JmCY9+dU
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a214af2076so6265745e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:10:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793985021; x=1794589821; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=V9n1CV17mWoyinWHCGFvDxtvvBlrLNzZtRYoJJeVLOM=;
-        b=JmCY9+dUgxS5al2xR2i/XttbJnL8MfzEPMrncmnFAJnVL+gRl4itq+wpGv6Jzso3Yj
-         lsk9opNlfH1q6cogTLxcMOr/jZwaFd4QymTJydkFSRwHxhBqO5bObfC5so48hHssFmrq
-         sICMazWWuMHYi0vG8N6PXOEBpXAVQT9rLSS+ierixgnKOc2BfrhI3KS/yQhTLPPENp65
-         t4QE/4ntdP5IOo0BlYwugM8vilNwIsuvetXiqAeqJsnjdvK1Nk6hiXO3yzYG3Iy/6PeL
-         r1vVQNWfuH1vpSk1OE7ahsO4yut0wnGR1Np/teY+XPdds3Esv96rCGDLziZNRgq+sfZ3
-         SXmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793985021; x=1794589821;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V9n1CV17mWoyinWHCGFvDxtvvBlrLNzZtRYoJJeVLOM=;
-        b=uhtm0HYZHDYHudAZtTafElF0NsAYUmzkfV09V+SD3XZirL+lvwNfB/dRPKPFqQrqaF
-         CS7IZ9pn/+/UpulIXXxR3Ct1Zm0rw9dpaeH4OMiJKLXlg5aaXjhZLzutzDUVKyiSmRzi
-         k7IGgItoEWrSVxeK9BsSXiGrvPJf+vK6MzkJQBLKKrpoCSt7nOjJqY6xuZr9KKtGx6b+
-         S1YHk+AxOfXyqycRA4UAnUbeDgYhxqZA2TpKU3yLu8RCpihWXLChlLYdcRGlqP5PZaTN
-         jgYfWoQotoN+pKGtqYNCstN4crUVirfRj59nJWMOGPF+fORQJL21FfjU4jWEwx2RSZTL
-         F6VQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw/H86ddgk+bzXN3lIVQ9XklCwcp9RTPvovpOMVZhKfOSBkFKgyueg2mdz//1db8WVROGFy21Kc8hi3I98=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LM+t3UsIrXtElxzj34smsXBKOUt+FB2sNYptrooc9cJpm5pgB
-	vgmhNNlyzulvfh+1k59epEkBTI+2+rpZRNWtmMFfwI9z4L6/yqVhK+Lj
-X-Gm-Gg: AYBFou2XuRFnKhd1aBcds705J+QUviTfL5RVyjYUtSJe13UvRD0GR/mEVfmiILMldGq
-	RJWcoG81nelYzFnr2p16qIW2NuPsAS7+PgEabjxZrGMILfs+Rj88NUqnj+4BuMkLaTp9KPBFSlD
-	RVU1z1Xg6so61Vck1awuiYU8wfzWiu7/2Xvzt1canQ4mx+6lar3hY11OadGNIINKN+sP513oWAB
-	1+e+N23xkjS3LnaPgJuNw3f3qRQqwGK22gwvHJl0HSrVuKNhfMNQjruCFVsKaTmSeoqN9bednex
-	C9dBzMAaQk2fyTust7vhs9nHGe06qWmmdx/bfG8xk3uGpeZiostmYE8+qTmsrOhca7ZAiytB3tD
-	i5PPz+r4W9dnhu9DFvRBkPrp+zmQl/d2tJZyvLsi726Yf7d6GGQh/fyIkT7ckVJHUMq1fvhrSLL
-	4inX5FKMO6macpTa64CYtUhk0va+SPHg29LceGdQ7w0ByESjXmvlZ91UiMVEF0lstJHQYbbXRHy
-	0Zm9QCMjIjTcj/3oBcLa8x/k7EOmWymShrfitbDUwYIWIOeeOaSNGaKqbkW174k1uV4sCleKbtx
-	Ox3ARBxwZSO789s5rPo87QiJYwJN08rm
-X-Received: by 2002:a05:600c:64c5:b0:4b0:a7aa:843 with SMTP id 5b1f17b1804b1-4b6df4f1dfdmr55413875e9.25.1793985021160;
-        Fri, 06 Nov 2026 09:10:21 -0800 (PST)
-Received: from localhost ([82.77.126.113])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57317cae5sm238886225e9.12.2026.11.06.09.10.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:10:20 -0800 (PST)
-Date: Fri, 6 Nov 2026 19:10:19 +0200
-From: Daniel Matyas <matyasdaniel006@gmail.com>
-To: Nam Cao <namcao@linutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-staging@lists.linux.dev,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alex Lanzano <lanzano.alex@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [RFC] staging: fbtft: Moving fb_ili9341 (and others) to DRM
-Message-ID: <au4J-0GOUuueHLZe@rabbit>
-References: <20261105201154.37294-2-matyasdaniel006@gmail.com>
- <874idv2bol.fsf@yellow.woof>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767C6606A326;
+	Fri,  6 Nov 2026 17:11:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 767C6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jLm1d1yw5z8Xrr9;
+	Sat, 07 Nov 2026 01:11:49 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 6A6HBeV3052695;
+	Sat, 7 Nov 2026 01:11:40 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sat, 7 Nov 2026 01:11:44 +0800 (CST)
+X-Zmail-TransId: 2afc6aee0a50559-e44a2
+X-Mailer: Zmail v1.0
+Message-ID: <20261107011144094m_yk29jjckmiwGqC832qf@zte.com.cn>
+In-Reply-To: <a9c36a69-a0d3-62af-e5d7-cf99c427a1ff@linux.intel.com>
+References: 20261107002305850zuBaVsGBz3wbco2Ae4ScR@zte.com.cn,20261107002315181vFaB7Y_zoFugWEVkOSGJZ@zte.com.cn,a9c36a69-a0d3-62af-e5d7-cf99c427a1ff@linux.intel.com
+Date: Sat, 7 Nov 2026 01:11:44 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,33 +58,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <874idv2bol.fsf@yellow.woof>
-X-Mailer: mutt
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <ilpo.jarvinen@linux.intel.com>
+Cc: <bhelgaas@google.com>, <linux-pci@vger.kernel.org>, <mani@kernel.org>,
+        <kwilczynski@kernel.org>, <lpieralisi@kernel.org>, <kishon@kernel.org>,
+        <Frank.Li@kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCA0LzVdIFBDSTogcmViYXI6IEd1YXJkIHBjaV9yZWJhcl9ieXRlc190b19zaXplKCkgYWdhaW5zdCBvdmVyZmxvdw==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A6HBeV3052695
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Sat, 07 Nov 2026 01:11:49 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEE0A55.000/4jLm1d1yw5z8Xrr9
 
-On Thu, Nov 05, 2026 at 10:47:06PM +0100, Nam Cao wrote:
-> Daniel Matyas <matyasdaniel006@gmail.com> writes:
-> > Questions:
-> >  a) Is removing fb_ili9341 acceptable, pointing users of other ILI9341
-> >     modules to panel-mipi-dbi? The KD233 node would then have no driver.
-> >  b) Or should KD233 panel support go into a DRM driver first? I don't have
-> >     its init sequence or physical size, or the board...
-> >  c) Is removal of all of fbtft already planned?
-> >  d) Several other fbtft drivers have drm counterparts. Should I inspect those
-> >  to see if removal is needed?
-> 
-> IIRC the main reason fbtft needs to stay is because it supports parallel
-> interface which is missing in the DRM drivers.
-> 
-> Nam
+Hi Ilpo,
 
-Thank you for clarifying. However, the fb_ili9341 driver uses only the
-SPI interface. Is it alright then to move (or remove) those drivers that only use
-SPI interface and have DRM counterparts?
+Thanks for the review.
 
-Furthermore, would there be a need to enable parallel interface support
-in the DRM subsystem?
+> This is missing how it can be reproduced with the existing kernel code.
+> If it's not triggerable, the Fixes tag should be dropped.
 
-Daniel M
+The only existing path I can point at is device-controlled: sriov_init()
+leaves barsz[] zero for unimplemented VF BARs, and a device can point the
+VF ReBAR control's BAR_IDX at such a BAR.  sriov_restore_vf_rebar_state()
+then calls pci_rebar_bytes_to_size(dev->sriov->barsz[bar_idx]) with zero,
+on the sriov_restore_state() path.
+
+That is not a conforming-device path, so I understand if you don't want
+to treat it as a Fixes bug.  If so, I'll drop the Fixes tag and keep the
+guard as hardening.  The commit message will describe the path and the
+TEST-ONLY hook honestly either way; it should have done that from the
+start.
+
+The bit-63/U64_MAX inputs are hardening: the largest valid BAR size is
+128 TB, so no real resource reaches them.  I'll keep that guard but not
+use it to justify Fixes.
+
+> So no real reproducer?
+
+No real-hardware reproducer: QEMU has no rebar model, and the hook only
+calls the function directly.  It is a deterministic test for the guard,
+not a path-level reproduction.
+
+> Won't this clash with the normal return values? -EINVAL seems better
+> choice.
+> ...So now you get to add the error handling too.
+
+Agreed; 0 is a valid encoding (1 MB), so returning it for invalid input
+is ambiguous.  v2 will return -EINVAL and handle it at the callers:
+
+- pci_restore_rebar_state() and sriov_restore_vf_rebar_state() write
+  BAR_SIZE directly, so they will skip the BAR on -EINVAL.
+- i915's _resize_bar() and xe's resize_bar() log 1 << bar_size, and
+  xe_pci_rebar_resize() also calls pci_rebar_size_to_bytes(); they need
+  a negative check before those shifts.
+- amdgpu_device_resize_fb_bar() needs the same before using rbar_size.
+
+pci_resize_resource() already rejects a negative size through
+pci_rebar_size_supported(), but the direct register writes and log
+sites above do not.
+
+Thanks,
+Shao
