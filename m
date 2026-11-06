@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959583;
-	b=CGZndxmsrUoWM2Xc4Z/MDzy0eZNq/HI2oU3wcwsLyh2MG0yNcCye7Qdb4mWs5bparSe6
-	 1YxLMDSo//PS8akBCQuLsdVb4A4FFynuGr+MKJrrbNHVIVtTxhSmWgmqF2wlT5qYea28A
-	 a05hcV68Qx8gd81K608uq8VA6K1h8pk9EFC/I54MXzrx2JuHgIenGAIfRjsR8yRLwKXCS
-	 65SsrZE/MTEInNWfNEz4EEHHaasJInrhs1lbq0JH5RWe0X0qw2cNvKaVNkttKf/WckHAJ
-	 +LytVtGvIW+e0SSsiQHh0qr+Jj0T/yyeoaAD9TSboyfOJBpDxGQKI54imQu8I+ou6bQ==
+	t=1793959596;
+	b=45c2R96z207TDNN7/Hr8sI7HuzaYJiNGJZo/xjW8pdqwSGF+gYBatd85CtmOC70WiWvH
+	 uC2u6pt2oF0A/diTsJj+P85Ux+Jk1OuX8waPQDaVTIY5D3S3ques3ajzzuOXHNvcF8Awe
+	 F1uJjesimdpGd1K6jEsNv++wqfdOrArbnm1cmn7wMCo8fMCZY7CNIpqOyQxa/OFZAUoHW
+	 wlXy58zn6j+6Qp4DhWBH1XY+jAe6NF/uDbbCSEwW4YNRuSyjyLq/YMqqycGVeGrNH/5Qb
+	 tSlivsyli/cIsRfDAHWvvFCjIjOVK1ABl5pB3B93WT1EW3xVEYiMQdPTyhpCgvFul9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959583;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/9BnZCc3AyeXmUrPueWNphtKIjBY7I8CwK6A+9WhDPY=;
-	b=A3wFvo/OkpZud2mE9xImdrusGh99IOsl8CQmZEYEug5AhthsTXoBLou6dK9+oB7Qv2N2
-	 M1kXYHGtERE8CqKQ7o+HF14hm1MzZXwAmVDHSBONyRJQ4cB5MrEdjOPJTGZpKYrPBIFq9
-	 AkaWsGs5b0YrlKdvWbdGAxzsdAf91WdVa54GVPdN1LRLK7bFc4o3X7fkzGabYcrttlCwG
-	 JllOb96ELovpHp+Yq+vE3I4y1WQLEz7BWJK9OL4JeTzAv2k5aPgljOoKutTVw4KEmxPCj
-	 d4oGHn/7Km7XTZJh4vMJqKF5lWUsPSivhisePjg0x4uY4FfMW17t/a9J66e0Z2aoX0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959596;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KFGqHmlZ7kyyucv0XoyuudTtcwfUCAlrm/1qIgBDADc=;
+	b=KLHnvDlv5+XFcw55F4DHoWbftCc918pjZJwJODnqYOs03EecZUMoDrzn6L5SKLC98igE
+	 Qrd4vfBmGyBXR+GIQXjxCN1LBizdF93ECc73avoHEIAh7Q9QcyGHjWIp0Xg3v3QiIus8I
+	 ImgarAABeAZ2edZAvPh6rHHswvbIMzgPRu1G39TU4wo9PGoJ57WdhCjLJvv0+BWzsWqpD
+	 +ETarlAN+FKLMdtvOJK8YYSwomfWetlLvKDhL3M70hC2z1CpRhEXrr4ZfcxbIzIvutbD3
+	 pWQClWQAZJQGI+8HNkYchCNE56yqfs8yo98bI8vUh5DAgOLdjI0rj2X0OFNDpGAs85g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XHqjXr+Q;
-	arc=none smtp.remote-ip=91.218.175.134
-Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHJxEDOr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E87606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:06:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34E87606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3343F606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:06:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XHqjXr+Q
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cz8qa6DzkcisB34BFCPw3QEyfCK3GSBqxBmS2t4VIu4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793959581; v=1; x=1794564381;
- b=XHqjXr+QHtEpiO2gAWd7JpqDjzsiNAXBluTaL59ZvfPvBL9bfhTMbQn/uEWvVr6RhNb9vCg+
- YoFapqP2M2Vjk9Y6q8a9w4cK415laXIAZom2hEVlMjqeG9U3/xlMhZH5Fdc4CMXsGvPbnZO0Nkp
- 3U8gzbdDcF4QG+0uKMvkQTIM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0b034621e7146dc7;
-	Fri, 06 Nov 2026 10:06:21 +0000
-X-Mizu-Trace-ID: 0b034621e7146dc7
-X-Migadu-Flow: FLOW_OUT
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-To: Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Mani Tofigh <mt4022@columbia.edu>,
-	Zi Yan <ziy@nvidia.com>,
-	Mike Kravetz <mike.kravetz@oracle.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Frank van der Linden <fvdl@google.com>,
-	Chris Down <chris@chrisdown.name>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v3 4/4] mm/hugetlb: Account NR_HUGETLB at folio state transitions
-Date: Fri,  6 Nov 2026 18:05:21 +0800
-Message-ID: <20261106100521.30099-5-kaitao.cheng@linux.dev>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261106100521.30099-1-kaitao.cheng@linux.dev>
-References: <20261106100521.30099-1-kaitao.cheng@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHJxEDOr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56491F008A3;
+	Fri,  6 Nov 2026 10:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793959595;
+	bh=KFGqHmlZ7kyyucv0XoyuudTtcwfUCAlrm/1qIgBDADc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FHJxEDOriuMSmbOrU4SpGNiSBKw/9Jb3uq4aMlW72XQdEaI0v+BxNt2FtxfjKcb+/
+	 ZPsDBhnXm8lOz6yhMBT2nLrbPdLZRVXBGuIZzUJPXebDCVraSzlADyzTMcotPyQgU/
+	 aTxPZwGvLAZK6QwWmv5JLrHB/AjfTEAn5GYGsbmZVCL2U92/3LEd+E1ly0V8uuPb7C
+	 h5mkmVQqo+473q5g29BJQy2CuKty2qQOJtZfqNskDjfEPImTI6UIndQCCZ4Gsm+eRu
+	 l1bA0vdJwJSinqCKRZ/5/GusscDywb+rHrmooSrY4uamHQMWQyFvOdjFzFuSoTuEG9
+	 w9CGcyUhKyoXA==
+Date: Fri, 6 Nov 2026 10:06:31 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Rik van Riel <riel@redhat.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/ksm: avoid unsafe anon rmap dereference in KSM merge
+Message-ID: <au2mm0Y9PdumuzgE@gremlin>
+References: <20261102-ksm-anon-rmap-fix-v1-1-68962acfb59b@kernel.org>
+ <179387163181.11797.15205182972949028650.b4-ty@b4>
+ <75926835-508f-48d3-a5d9-176cea61546d@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,204 +59,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <75926835-508f-48d3-a5d9-176cea61546d@bytedance.com>
 
-From: Kaitao Cheng <chengkaitao@kylinos.cn>
+On Fri, Nov 06, 2026 at 10:43:45AM +0800, Zhao Gongyi wrote:
+> I tested Lorenzo's posted patch on Linux 7.3.0-syz-13001714+
+> with CONFIG_KSM=y, CONFIG_KASAN=y and CONFIG_SLUB_RCU_DEBUG=y.
+>
+> An earlier unpatched run of the fixed-pool KSM/mremap reproducer hit a
+> KASAN slab-use-after-free in page_address_in_vma() after about 342 seconds.
+> With the patch applied, the workload ran for 12 minutes (1027 KSM full
+> scans) without KASAN, BUG or panic. The fork/COW smoke test passed.
+>
+> ksm_functional_tests reported 8 passes, 1 failure and 1 skip. The
+> "ptrace write failed" failure is a known test-environment issue; dmesg
+> showed no kernel error.
+>
+> Tested-by: Zhao Gongyi <zhaogongyi@bytedance.com>
 
-NR_HUGETLB updates are spread across allocation entry points and
-freeing paths, mixing node accounting with memcg statistics. This
-makes the accounting harder to follow and requires compensating
-updates when freeing unused surplus folios.
+Thanks!
 
-Consolidate node accounting around folio state transitions.
-Increment NR_HUGETLB when taking a folio from the free pool or
-allocating a fresh surplus or migration folio, and decrement it
-when returning the folio to the pool or removing it from use.
-
-Separate memcg statistics into mod_hugetlb_memcg_state(), updating
-them after a successful charge and before uncharging. This keeps
-node accounting independent of memcg charging and removes redundant
-updates from the allocation entry points and surplus cleanup paths.
-
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Suggested-by: Oscar Salvador <osalvador@suse.de>
-Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
----
- mm/hugetlb.c    | 50 +++++++++++++++++++++++++++----------------------
- mm/memcontrol.c |  6 +-----
- 2 files changed, 29 insertions(+), 27 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 31a92ed4165a..70a2e55b2895 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1288,6 +1288,8 @@ static struct folio *dequeue_hugetlb_folio_node_exact(struct hstate *h,
- 		folio_clear_hugetlb_freed(folio);
- 		h->free_huge_pages--;
- 		h->free_huge_pages_node[nid]--;
-+		mod_node_page_state(folio_pgdat(folio), NR_HUGETLB,
-+				    pages_per_huge_page(h));
- 		return folio;
- 	}
- 
-@@ -1423,6 +1425,9 @@ void remove_hugetlb_folio(struct hstate *h, struct folio *folio,
- 		folio_clear_hugetlb_freed(folio);
- 		h->free_huge_pages--;
- 		h->free_huge_pages_node[nid]--;
-+	} else {
-+		mod_node_page_state(folio_pgdat(folio), NR_HUGETLB,
-+				    -(long)pages_per_huge_page(h));
- 	}
- 	if (adjust_surplus) {
- 		h->surplus_huge_pages--;
-@@ -1700,6 +1705,17 @@ struct hstate *size_to_hstate(unsigned long size)
- 	return NULL;
- }
- 
-+static void mod_hugetlb_memcg_state(struct folio *folio, int nr_pages)
-+{
-+	struct mem_cgroup *memcg;
-+
-+	guard(rcu)();
-+	memcg = folio_memcg(folio);
-+	if (memcg)
-+		mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, folio_pgdat(folio)),
-+				       NR_HUGETLB, nr_pages);
-+}
-+
- void free_huge_folio(struct folio *folio)
- {
- 	/*
-@@ -1747,7 +1763,7 @@ void free_huge_folio(struct folio *folio)
- 				     pages_per_huge_page(h), folio);
- 	hugetlb_cgroup_uncharge_folio_rsvd(hstate_index(h),
- 					  pages_per_huge_page(h), folio);
--	lruvec_stat_mod_folio(folio, NR_HUGETLB, -pages_per_huge_page(h));
-+	mod_hugetlb_memcg_state(folio, -pages_per_huge_page(h));
- 	mem_cgroup_uncharge(folio);
- 	if (restore_reserve)
- 		h->resv_huge_pages++;
-@@ -1763,6 +1779,8 @@ void free_huge_folio(struct folio *folio)
- 		spin_unlock_irqrestore(&hugetlb_lock, flags);
- 		update_and_free_hugetlb_folio(h, folio, true);
- 	} else {
-+		mod_node_page_state(folio_pgdat(folio), NR_HUGETLB,
-+				    -(long)pages_per_huge_page(h));
- 		arch_clear_hugetlb_flags(folio);
- 		enqueue_hugetlb_folio(h, folio);
- 		spin_unlock_irqrestore(&hugetlb_lock, flags);
-@@ -2130,6 +2148,9 @@ static struct folio *alloc_surplus_hugetlb_folio(struct hstate *h,
- 	 */
- 	account_new_hugetlb_folio(h, folio);
- 
-+	/* The overcommit recheck below can free this folio. */
-+	mod_node_page_state(folio_pgdat(folio), NR_HUGETLB, pages_per_huge_page(h));
-+
- 	/*
- 	 * We could have raced with the pool size change.
- 	 * Double check that and simply deallocate the new page
-@@ -2140,8 +2161,6 @@ static struct folio *alloc_surplus_hugetlb_folio(struct hstate *h,
- 	if (h->surplus_huge_pages >= h->nr_overcommit_huge_pages) {
- 		folio_set_hugetlb_temporary(folio);
- 		spin_unlock_irq(&hugetlb_lock);
--		/* Balance the NR_HUGETLB decrement in free_huge_folio(). */
--		lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
- 		free_huge_folio(folio);
- 		return NULL;
- 	}
-@@ -2169,6 +2188,7 @@ static struct folio *alloc_migrate_hugetlb_folio(struct hstate *h, gfp_t gfp_mas
- 
- 	spin_lock_irq(&hugetlb_lock);
- 	account_new_hugetlb_folio(h, folio);
-+	mod_node_page_state(folio_pgdat(folio), NR_HUGETLB, pages_per_huge_page(h));
- 	spin_unlock_irq(&hugetlb_lock);
- 
- 	/* fresh huge pages are frozen */
-@@ -2227,10 +2247,6 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- 
- 	spin_unlock_irq(&hugetlb_lock);
- 
--	if (folio)
--		lruvec_stat_mod_folio(folio, NR_HUGETLB,
--				      folio_nr_pages(folio));
--
- 	return folio;
- }
- 
-@@ -2258,9 +2274,6 @@ struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
- 						    nmask);
- 	}
- 
--	if (folio)
--		lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
--
- 	return folio;
- }
- 
-@@ -2378,6 +2391,8 @@ static int gather_surplus_pages(struct hstate *h, long delta)
- 		if ((--needed) < 0)
- 			break;
- 		/* Add the page to the hugetlb allocator */
-+		mod_node_page_state(folio_pgdat(folio), NR_HUGETLB,
-+				    -(long)pages_per_huge_page(h));
- 		enqueue_hugetlb_folio(h, folio);
- 	}
- free:
-@@ -2386,13 +2401,9 @@ static int gather_surplus_pages(struct hstate *h, long delta)
- 	/*
- 	 * Free unnecessary surplus pages to the buddy allocator.
- 	 * Pages have no ref count, call free_huge_folio directly.
--	 * These pages were not accounted in NR_HUGETLB, so balance the
--	 * decrement in free_huge_folio().
- 	 */
--	list_for_each_entry_safe(folio, tmp, &surplus_list, lru) {
--		lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
-+	list_for_each_entry_safe(folio, tmp, &surplus_list, lru)
- 		free_huge_folio(folio);
--	}
- 	spin_lock_irq(&hugetlb_lock);
- 
- 	return ret;
-@@ -2957,13 +2968,6 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
- 
- 	ret = mem_cgroup_charge_hugetlb(folio, mm,
- 					gfp | __GFP_RETRY_MAYFAIL);
--	/*
--	 * Unconditionally increment NR_HUGETLB here because if
--	 * mem_cgroup_charge_hugetlb failed, freeing the page will
--	 * decrement NR_HUGETLB.
--	 */
--	lruvec_stat_mod_folio(folio, NR_HUGETLB, nr_pages);
--
- 	if (ret == -ENOMEM) {
- 		folio_put(folio);
- 		/*
-@@ -2978,6 +2982,8 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
- 		return ERR_PTR(-ENOSPC);
- 	}
- 
-+	mod_hugetlb_memcg_state(folio, nr_pages);
-+
- 	return folio;
- 
-  err_uncharge_hugetlb_cgroup:
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index ac6c43ea8c5a..e8af131de67e 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5440,11 +5440,7 @@ int mem_cgroup_charge_hugetlb(struct folio *folio, struct mm_struct *mm,
- 	struct mem_cgroup *memcg = get_mem_cgroup_from_mm(mm);
- 	int ret = 0;
- 
--	/*
--	 * Even memcg does not account for hugetlb, we still want to update
--	 * system-level stats via lruvec_stat_mod_folio. Return 0, and skip
--	 * charging the memcg.
--	 */
-+	/* Skip charging unless hugetlb accounting is enabled for cgroup v2. */
- 	if (mem_cgroup_disabled() || !memcg_accounts_hugetlb() ||
- 		!memcg || !cgroup_subsys_on_dfl(memory_cgrp_subsys))
- 		goto out;
--- 
-2.53.0
-
+--
+Cheers, Lorenzo
