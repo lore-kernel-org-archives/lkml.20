@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977910;
-	b=OospQTNvo7h+X+pA3IPQGTpaaGpb3YkSeMcpKOxioAswjZpJtUAFKjmQEUY4rkNp8Y3d
-	 2CnpHS01MXdRnGrLk/tAFtOQhpsqcLevu7qqR520EdvHEsdxybhrCP+VX2ALfGZ9V562o
-	 RvuXKn78xYecy311XGl/Ctfq27eId2zTYKGGF557KaEy8rpVFgV3hEviAhKBaABwguHU+
-	 bRDWl+zBX/ApYRJDoFuXVh+K2uUU6olzW/OFNPy/H13DpzKUuBdKbRjWazuuWddTrfGHB
-	 dh2bs/iIbmXbug8eH6HLcv8F7/cA15xONTa+2fjobjqBsMqHGhA3kNYk6gz+37gQL8Q==
+	t=1793977918;
+	b=oGTaY4+qEH2HDOFBP5M9jRu6G+5vBMM15L62wScGKEHEtuQzG3+3jW5KWuxK86RlSBWz
+	 LUay7QNAX/w2dHsrNNvKNEd1agXloHjhDXkoW7ZfMKW2kgC3V+H3VSm8/b8dc9HVbyVk5
+	 nzfw3+UpFdYfcWBIwH7fX5gb0W6hsSuve7t7X1esfbDKEqSKDHscXZX/VrIdukSp8eiVt
+	 8K3DlK/y78kCO56NuHJG/+iP5+PUagB2Kh85vIUsGX5pc4K5gl1uieS53Lrcu/6uocFT2
+	 RvvHN4O0W1BSKXdFJktMuFOC/U32+otcz8swE2A2KIQgRitWrltM5cBQu5ohkG86/8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977910;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5PCTieHW/ReyuPu3rgS6AWSeGEwuh1j7rISPeH6NvNg=;
-	b=KoJdxTbDNDZu95jZrJx7/AF8So7YMZHub5rzUU+3zigRxyb8/d3Bkx1yzO9EX4rznJqn
-	 PEnrjIDJtPngJX41Fnum02fmxWGDs4To2CGDzWxNTea6V73YO+qR2vuwViQwlQinUioJ3
-	 Ox1JsFgWg2vMb0+Lbr3TjMsRqiBJSEiSV8bx7td5D3/ETrrbpKJ9Q5aF8EcUrXf8Vlw+v
-	 wIRMm4v/Vr3TmvlComCLr3HBgNshTXZ8LpptframhyGOR25a5UO/kyBW0+3zFpgCwW9ub
-	 RMRAS28tdmDc5vN8lpG15KKSfsrL1HDqM5KY9tpXyATZquaCF42fhB+IIzh9ASa95xQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977918;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=fBR/d2kDO7ofonwugntYIl0PHaKrMZ/PUvdO3M4g6VM=;
+	b=sStJqZWjOhD5LVIq2/2lDLI4CRJrjkskUrtvdTrjcZKhr4dcybZCwc0WTBJ0yJHS32MV
+	 MDaECm2xMyEQfEKLU74Cq/PVwEmOjsZw0YQJfGiDcSJGygLuYYnxVXats8othFtrxnL19
+	 G90cph/BjHzMQFiFl62gpak4jXbhbPTVAuX+lZdk7HLRr2Sq7yFlxEnIZDNKyxG5lZp2T
+	 9A1aUOrhon4Vg1TCdli1t8F8YLVikUIdsprCa8J5GcRWcV4gltNj2cRuhJ/WgmL+QHxJi
+	 +ng3zvYH0xQzweIIkXgw+gl7nOmE0KKVdKt90U5cm7lFPKTBO9qNYnye11az5YvfYyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CnPXfDJH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E5MkiU4O;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90480606A32D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:11:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B729D606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:11:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CnPXfDJH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6971F008A5;
-	Fri,  6 Nov 2026 15:11:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E5MkiU4O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C606A1F008A2;
+	Fri,  6 Nov 2026 15:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793977910;
-	bh=5PCTieHW/ReyuPu3rgS6AWSeGEwuh1j7rISPeH6NvNg=;
-	h=From:Subject:Date:To:Cc;
-	b=CnPXfDJHvTmNpxdFueJtgjRlF0M0E/s0rJjfBSE9wslFwp15tBShMfKIZmwJvZdg4
-	 GTyzPyQSMWiVPqzOW5xRf2GTl7mgG3zzydxC8zS4/RWTycfvP3x/pQaj3D1rnyIAcD
-	 c3CINNjVgSwcoEVR7dNWNa+6/ZIH+bu3FXaPjIIVP94KprzlLZRmwz1RKtiAUoA61R
-	 cNEJOGUVDhZjz+XHklcWjFZneRgG5bPe/HpSREuPU4QRzersLeQ/GkgZwZ5aHKvxnf
-	 iSzpw0a1gKeaXhPVL03oYyjtTLOcvIL9pyiajhIQLf/weljgb1igmhkmhOlNmVfPdo
-	 jhl+XMPLtKhPw==
+	s=k20260515; t=1793977917;
+	bh=fBR/d2kDO7ofonwugntYIl0PHaKrMZ/PUvdO3M4g6VM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=E5MkiU4OkCagSJTioDoqawNCSolUj0Lfd3dcSFbpbyQrs3H3laSMpCLHesKF6aTli
+	 RRZIav9d+5CawdLmWR4TBB3VOGtdP2Vbxfx1LjPqQKcAoSnjN4kOpv4Sb4coveH4cr
+	 05Et8b85DQQ10gYTqJnGdnsuTavEjwUhhUNRlRYrMPenBnGT56xrOoKqZm+t7BzT5s
+	 tYhrXZDYn9+YYxCMl2g+iYrssHDCOhgNdDGduAf2iVeBcFH/tJDvl8GoZAEBPfP0go
+	 XOX2fQK+qgWl/yTymlMCdn8ATV4BTLAbKSbQfPn3SfN32MifHogFoRmPAwf2cFgz+Y
+	 5LDbD1qHZUrAw==
 From: Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH v8 0/7] drm: Add DRM_MODE_ATOMIC_RESET flag
-Date: Fri, 06 Nov 2026 16:11:38 +0100
-Message-Id: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
+Date: Fri, 06 Nov 2026 16:11:40 +0100
+Subject: [PATCH v8 2/7] drm/atomic: Add
+ drm_atomic_implements_create_state() helper
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,14 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4XSTWrDMBAF4KsYrTNlJFk/9qr3KF3I1sgRje1Wc
- k1LyN2LndIkGNPtwHxvGN6ZZUqRMquLM0s0xxzHgdWFPRSsPbqhI4ie1QUTKDQatOBTD4kyTZA
- nNxGEk+tAhEY0ynAeKsMOBXtPFOLXyr68Hgp2jHka0/eaMvNl+g84c0BopfFtZVVplX9+ozTQ6
- WlMHVvEWdwUy8WOIgCBKt0Sl5Ibv1XkTal2b5GAUKFSBoO0xpUbpbxT+J5SAoJynqOWBgOqjaL
- +FI5c7ygKELzzwuuy0ZVsNoq+U8TeXzQgBKm9LrExZPRGMXeKxB3FAEJJSpEjR9rKB+VyrUGij
- 8+Y43TtAmtcJmjHvo9TXXjhbEtU8Sa4pTU95ezWxtXFGs1RrdHDCP2YlsUhxO73krUiPCjrOUk
- pLT7GX34A3PLEJNsCAAA=
-X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+Message-Id: <20261106-drm-reset-state-flag-v8-2-50fd046b705f@kernel.org>
+References: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
+In-Reply-To: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
@@ -77,231 +72,106 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, Daniel Stone <daniel@fooishbar.org>
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11163; i=mripard@kernel.org;
- h=from:subject:message-id; bh=D+cXHWB3ZYIbADwVy64IUvfY1S88A4r6Lt+bz906HkI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlv3+k9fKnI86ZK5O/7mw0TlF5XvE1+XrdGJutL/0V+Z
- f8r+W4TOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEFFwYG96kmfCn2fW8PrP4
- 8gPFyp1ng3RXep6cFLzd8GWEyN45h4M+Cneb1UxpTryizB6tyTa9ibGGszWcyejaidzdfwz/y6/
- pdbks1T9nD3PvlPI1Qs+M7iTW8h35nX1w1tXgCrEKPpYdB6cBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3340; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=eNy3jfcG0T74BgjzpyssXa+LxgGLkHAW2kof6DzNhSc=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlv3+mrxR8tvem7V9Lur4THu7LP36QPcP3doVYibWlef
+ Xe5537RjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRWW6M9S4bnub+WhXVwPTZ
+ 3z+fbd/kSX1Xtb2vqUnkL7vz+/3Enbvie8+2sx1h4m5o/l2blvckg7GKef2s1E3HHbNTnul0C70
+ S3/mrtvxoytLKzmqB0289LLX8DxtXdV28tvvGl6lrPG/svVwHAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-Hi,
+The atomic reset path will need to create pristine default states from
+scratch for every plane, CRTC, and connector. This requires all of them
+to implement the atomic_create_state hook.
 
-Userspace currently has no atomic way to bring a display pipeline back
-to a pristine state. A compositor that wants to start from a known
-baseline must explicitly set every property on every KMS object to its
-default value, which requires tracking which properties exist and what
-their defaults are. This is fragile and must be updated every time a
-new property is added to the kernel.
+Introduce a drm_atomic_implements_create_state() helper that iterates
+over all planes, CRTCs, and connectors and returns whether they all
+provide the hook. Color operations are excluded since they always use
+drm_atomic_helper_colorop_create_state() directly.
 
-This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
-atomic ioctl. When set, the kernel fills the commit with default
-states for all KMS objects before applying the properties supplied in
-the request. Properties not explicitly included remain at their
-defaults. This allows userspace to describe the desired end state
-declaratively, without caring about the current state or the full set
-of properties.
+This will be used both as a precondition before filling a commit with
+default states, and to report the device capability to userspace.
 
-The bulk of the series extracts the state insertion logic from each
-drm_atomic_get_*_state() into standalone helpers, since the
-fill_with_defaults path creates states through atomic_create_state()
-rather than atomic_duplicate_state() and cannot reuse the existing
-functions directly.
-
-A driver-specific property is added to vkms planes for testing.
-Standard properties are impractical for this: compositors like Mutter
-enumerate all known properties, making it hard to isolate the reset
-behavior in a test.
-
-Mutter has a working implementation using the new flag, with a
-vkms-based test exercising the reset behavior:
-https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
-
-And we have IGT tests as well:
-https://lore.kernel.org/r/20261030105135.268065-1-mripard@kernel.org
-
-This series relies on all drivers implementing atomic_create_state.
-The conversion is in progress but not yet complete.
-
-Let me know what you think,
-Maxime
-
+Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Changes in v8:
-- Fix more leases issues
-- Drop applied patches
-- Link to v7: https://lore.kernel.org/r/20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org
+ drivers/gpu/drm/drm_atomic.c | 49 ++++++++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_atomic.h     |  2 ++
+ 2 files changed, 51 insertions(+)
 
-Changes in v7:
-- Fix a whole bunch of sashiko issues to deal with color_mgmt_changed,
-  leases, partially leased devices (like a plane leased but it's crtc
-  isn't) and the interaction with PAGE_FLIP_EVENT better
-- Fix crtc create_state implementation for ssd130x
-- Actually make it possible for a compositor to recreate the same whole
-  state without passing ALLOW_MODESET
-- Fix EDEADLK bugs with kunit tests
-- Don't report DRM_CAP_ATOMIC_RESET on !atomic drivers
-- Fix error handling in vkms for the new property
-- Add more kunit tests for the new corner cases
-- Link to v6: https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 81591173265d..7a77051096c9 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1601,4 +1601,53 @@ drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
+ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
+ 
++/**
++ * drm_atomic_implements_create_state - check if a device supports creating pristine states
++ * @dev: DRM device
++ *
++ * Check whether every plane, CRTC, and connector in @dev implements the
++ * &drm_plane_funcs.atomic_create_state, &drm_crtc_funcs.atomic_create_state,
++ * and &drm_connector_funcs.atomic_create_state hooks respectively. These hooks
++ * are required to create default states from scratch rather than duplicating
++ * the current state.
++ *
++ * Color operations are not checked because they always use
++ * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
++ *
++ * Returns:
++ * True if all objects implement atomic_create_state, false otherwise.
++ */
++bool drm_atomic_implements_create_state(struct drm_device *dev)
++{
++	struct drm_connector_list_iter conn_iter;
++	struct drm_connector *connector;
++	struct drm_plane *plane;
++	struct drm_crtc *crtc;
++
++	/*
++	 * colorops don't have an atomic_create_state hook but
++	 * drm_atomic_helper_colorop_create_state()
++	 */
++
++	drm_for_each_plane(plane, dev)
++		if (!plane->funcs->atomic_create_state)
++			return false;
++
++	drm_for_each_crtc(crtc, dev)
++		if (!crtc->funcs->atomic_create_state)
++			return false;
++
++	drm_connector_list_iter_begin(dev, &conn_iter);
++	drm_for_each_connector_iter(connector, &conn_iter) {
++		if (!connector->funcs->atomic_create_state) {
++			drm_connector_list_iter_end(&conn_iter);
++			return false;
++		}
++	}
++	drm_connector_list_iter_end(&conn_iter);
++
++	return true;
++}
++EXPORT_SYMBOL(drm_atomic_implements_create_state);
++
+ /**
+  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 3ae35b09c0cf..72c3d420f40c 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -703,4 +703,6 @@ drm_atomic_commit_alloc(struct drm_device *dev);
+ void drm_atomic_commit_clear(struct drm_atomic_commit *state);
+ 
++bool drm_atomic_implements_create_state(struct drm_device *dev);
++
+ /**
+  * drm_atomic_commit_get - acquire a reference to the atomic state
 
-Changes in v6:
-- If using a lease, only considered the leased objects
-- Fix amdgpu plane atomic_create_state implementation
-- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
-
-Changes in v5:
-- Fix bisection issue
-- Improve the documentation
-- Fix connector hotplugging issue
-- Added kunit tests for drm_atomic_commit_fill_with_defaults()
-- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
-
-Changes in v4:
-- Improve the drm_atomic_get_private_obj_state and
-  drm_atomic_get_connector_state array reallocations
-- Return void on functions to insert an object state into a commit when
-  it cannot fail
-- Rename drm_atomic_can_create_state() into
-  drm_atomic_implements_create_state()
-- Move capability check from drm_atomic_commit_fill_with_defaults to its
-  caller 
-- Added IGT test
-- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
-
-Changes in v3:
-- Rebased on top of the latest atomic_create_state series
-- Sebastian Wick created and tested this work with mutter and vkms
-- Fix colorop locking
-- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
-
-Changes in v2:
-- Fix bisection
-- Add capability to let userspace know if it can reset the state
-- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
-
----
-Maxime Ripard (6):
-      drm/amd/display: Fix planes atomic_create_state implementation
-      drm/atomic: Add drm_atomic_implements_create_state() helper
-      drm/lease: Add a helper to tell whether a lease was revoked
-      drm/atomic: Allow filling a commit with pristine object states
-      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
-      drm/vkms: Add driver-specific plane property for testing
-
-Sebastian Wick (1):
-      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   3 -
- drivers/gpu/drm/drm_atomic.c                       | 407 +++++++++++++++++++++
- drivers/gpu/drm/drm_atomic_uapi.c                  |  44 ++-
- drivers/gpu/drm/drm_ioctl.c                        |   5 +
- drivers/gpu/drm/drm_lease.c                        |  26 ++
- drivers/gpu/drm/tests/drm_atomic_test.c            | 322 +++++++++++++++-
- drivers/gpu/drm/vkms/vkms_drv.h                    |   3 +
- drivers/gpu/drm/vkms/vkms_plane.c                  |  63 +++-
- include/drm/drm_atomic.h                           |   4 +
- include/drm/drm_lease.h                            |   2 +
- include/uapi/drm/drm.h                             |  10 +
- include/uapi/drm/drm_mode.h                        |  17 +-
- 12 files changed, 895 insertions(+), 11 deletions(-)
----
-base-commit: d2a8cee91bfa8616f713c7c8f539a81e8e3554ea
-change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
-prerequisite-message-id: 20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org
-prerequisite-patch-id: 3fd105fbfdbb4eee1f8ae9682b359477d5c2d610
-prerequisite-patch-id: ed1d1dd244e64b18c5682800b546ebb2d0f44ec8
-prerequisite-patch-id: 6b00324107d28bfe6ccd346730c6370d8f8362c4
-prerequisite-patch-id: bac8bfa53c3c77a832500f711322530e39d26c74
-prerequisite-patch-id: 60002e0ea0141b4051f2062152244b545450ffdf
-prerequisite-patch-id: a82ef0b22909efd3a2f1a779e27ad60b08554203
-prerequisite-patch-id: 4d4db6fb993ce12a03f5f22e07b060defc28b7d8
-prerequisite-patch-id: 7a716ac0b6df5a2d9423bfa09457e7c2ae11e35f
-prerequisite-patch-id: 35c60176b5a45a76a30285767fba4f83c5059868
-prerequisite-patch-id: 23ef4052a7a932ec4611b640d4323e0f93760a6d
-prerequisite-patch-id: f6a08bc40145c9a61508a37fe632e007c58566b9
-prerequisite-patch-id: 942ec51b8579c4a7d5652d390dbcaa6fe1ef35bb
-prerequisite-patch-id: cac9b8740c50ed002bdb7df8471c4493a53948b0
-prerequisite-patch-id: 083d50c81b3609bc6756a2b9c89b30c5918dbcd3
-prerequisite-patch-id: 97dd764d28e34d6c1fd346602931c1688aa4fe8d
-prerequisite-patch-id: 566c8a35a9734a8e8a254afcc0fbd9765c980334
-prerequisite-patch-id: a2ae7568eef2833217f55eb9528e2f846c73f993
-prerequisite-patch-id: 4bdc653ad663151585ed7d71ed9f70ac702301fa
-prerequisite-patch-id: ee3f427f087dde1290f0c0a3e821379427552961
-prerequisite-patch-id: d14cd6008b88c7c9b61ca5241c961c4747a6fdfe
-prerequisite-patch-id: c642e4fcebdbfc0ab86bba68c957ad5bbe62ef58
-prerequisite-patch-id: 71afb7db95568dfa686ab670039ba60faeb91914
-prerequisite-patch-id: 6557c88b83cd8d2ded0e4d70378c9a868659fea0
-prerequisite-patch-id: 4020d12428794416f75edb398d84a6a14905f588
-prerequisite-patch-id: a4806b41921baa3b8a3039d5431e099138fe6fa6
-prerequisite-patch-id: 7a742e65aa5d69a733376641d0eb45281239b866
-prerequisite-patch-id: ba3e625c15aa8e34747292c95ea9158b0cb98b34
-prerequisite-patch-id: ba92010fead3c007e2cbaeb15bce922eb304ccac
-prerequisite-patch-id: 2fc97bb7478092919001b21d2455a73373a5ba73
-prerequisite-patch-id: 97a28c8af17b043429e3b40325576f74518ff802
-prerequisite-patch-id: 37ae6417556eea439aab01725cfd920c1107e630
-prerequisite-patch-id: 3f8725771832d7cccd8c88a33b4fac362a2a1221
-prerequisite-patch-id: 5d51033ca88aa46e8347396cdc17fd5473636c13
-prerequisite-patch-id: 983be3e35801efe3052f0983d728a9703e7ded88
-prerequisite-patch-id: 20f874f2f1b44d9a27824a2e3944477fc3c02af5
-prerequisite-patch-id: fc7f1510621f228d42bf1666c06f34926f3e10f4
-prerequisite-patch-id: b9e987299142a89ca3a7bfb5b0335a215c7cdd52
-prerequisite-patch-id: 1d11dea3090f6b72322c3827bd260ed3d12e1201
-prerequisite-patch-id: 4182aa31cbc4b985e3a628c3dc9a2fd039188f7e
-prerequisite-patch-id: 7b7f07b1c57398f185a93d6b3212394753292be7
-prerequisite-patch-id: e6bd5afbc9593e93203caa0ae9f08545511e2bf2
-prerequisite-patch-id: c6d466588800f94684ebf9fb785ce085510c8f93
-prerequisite-patch-id: 5f8a9d6fd20c05d708df6424102575251d32331f
-prerequisite-patch-id: 18c2d823dc5b44514c0b2278986933a1a9834f02
-prerequisite-patch-id: a8c4944302cbea92690957fd18162ca303757874
-prerequisite-patch-id: 962e6cc26e53a3319302fd4c2aae2bc4b593f4be
-prerequisite-patch-id: 366fc63bc744ea4a2af4f16befaa1d7e8c66bf84
-prerequisite-patch-id: 33c4fd1e1ccd1eac9fde961a0f7ed8509e713c7e
-prerequisite-patch-id: 496318ad0a87ec138780d4a50a2f8a49ca126ca6
-prerequisite-patch-id: f85ec023f5ab9903987d867c330bde94b3c24c55
-prerequisite-patch-id: 34fc06cb69e34ec4d67015187969e8d2c0c56660
-prerequisite-patch-id: 3b789a4e47c47f855c44c125a75de3a79709d411
-prerequisite-patch-id: b03787ca5a3d60d4ad5682313424a114c1862fb0
-prerequisite-patch-id: 4ec079edf0025f849b1b8c7e3beb47db057ab6d2
-prerequisite-patch-id: b44382d38528c92150f2d7cac5722cf8e09c0fab
-prerequisite-patch-id: 02e42a505f17dbf5bc3e85b55d5df716e3819141
-prerequisite-patch-id: faf2c686c253faa5a81801f78ba955d3ae8c0c4f
-prerequisite-patch-id: 6407fec511e4d3bf785c3be581b828abac884ba7
-prerequisite-patch-id: 1a9fc394fdf6b19434652a4c137a0ea819702325
-prerequisite-patch-id: 6de415eec4ab2f2b8dec1f194fb89cfe01568f9b
-prerequisite-patch-id: 73e1360c2be46882c0ca58d6d60f0c394f1d47f4
-prerequisite-patch-id: fada6f5ef59f7119d5b202b64ce2184795428d7c
-prerequisite-patch-id: 7f31438e1f326350688f7aa7169038a7a33b4ddc
-prerequisite-patch-id: a9940a88c19f95573008a9e2bd950a43c12b7e3c
-prerequisite-patch-id: 2d5e46c029b523f6d6f13a0716e56267691757cf
-prerequisite-patch-id: 7aa60266913380f85e46f8dc71885356e3d7902a
-prerequisite-patch-id: cd12813a72a4c558660f8f8d093928533ddbf5ee
-prerequisite-patch-id: 186129fe8188f5b7cb6fef2701400fc6772aaf2e
-prerequisite-patch-id: c99a84af1b60e1c8f80168706f5ed600a6eb4553
-prerequisite-patch-id: 598515adbecc5c14e8ffe631206a906fb2c9f59c
-prerequisite-patch-id: cf84de09ca65f4577268e9a4a8a166436735b7da
-prerequisite-patch-id: cfd9ec749b0f3c78e0a64a73756f978bfd853391
-prerequisite-patch-id: 87104eb556b1cef43ded0979f0b806f35ec819bb
-prerequisite-patch-id: 5536c46e78e53cc31224b2730ca5fb454cd17761
-prerequisite-patch-id: 48e3546e357a8e68e4abaeb2faf1081afb8f3ae3
-prerequisite-patch-id: be78356c5aabcd0e68c61b2bc785c73a0c2edff9
-prerequisite-patch-id: 7192a8aa88903ca758655dea8eaac94b98481e82
-prerequisite-patch-id: f28910d02bfc6e11c1ecc2ce03db57ccaba0d185
-prerequisite-patch-id: 48fc2a91c98aac131457deed8d9c2965eaffd1fb
-prerequisite-patch-id: 0c829edd4d3d8cb4765d649411dec1124fd20fbd
-prerequisite-patch-id: e994569657dc0537d6d3b9f7cd4d919ba2602126
-prerequisite-patch-id: bce46caeb9616651be519c0474855ce9341de611
-prerequisite-patch-id: a2a70a62d2684c072e3927abeb7a9e86dbec759b
-
-Best regards,
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.55.0
 
