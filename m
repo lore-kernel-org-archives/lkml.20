@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.37
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793928437;
-	b=4+jabtcdSJDRalbkgzLW9xb2e49fhs9F0MGUyZfcNytDo9irHxCCiEPVP3GkIp05Ggd/
-	 s7YDBBQ2yp1tit2NZCGwJHXIR2tYc3I5K/YyZLnBBeYBJiBrpA5jGrFdUCc6IT4NboizX
-	 KTvjSFR+8z0xEfl1qCqd9A1g2k7rkADdkAxGEOwIxSMhHGLByPXEWdiX6QhTf2tPkER0+
-	 YFR2fMe7+6R5nxhDZ2FYMiqywdRkJqEb/ADt4uyS10lPoIcsKn4EbUXUNY2iOS/5yJjyg
-	 7S9h/rX4e8fGFHCWeXFxDL9UbyBHC2O+TX3RkJHyXeuU6Y3peJy6mt4pvEJvNTB6mrA==
+	t=1793928439;
+	b=Qg96Lq6BbEaV5JhOeOalt1tYkds1ofW3G5JAWxEjb9M8RiLyDktFK/YMr4SvOl9f+C7o
+	 H/X0zFoGHeXmF+ipUP8cdcDNyy104GoxU/RDNzheWvvlG95nfpIql10zr3ARErUeUJBKN
+	 gYkPptJmSMDgTRuwYAA9CyHjU9OaurOj7yTbuJZvG68OhHmFUhL90ep3GrhUyRwPCRZuN
+	 vF+yoSZeoj48fRa+3Z7MLB+UWLcVa+95dXZwltbdT67IhXLXYj6/wUQ1XSGl/E/hOtFDK
+	 aiVFkZbZ5PPG8yRvarZx7gpkrwBX9R3TQ6b/WSquInCyM6xpcbgdFl90i/BDPIVY3sQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793928437;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793928439;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=FoY4JLK+WVtCsOFg5MfrVWfhHjHf85oH/xHelWXxiYI=;
-	b=iN1TSqKadizNZjkeHBtMNg5HYdnM/n/0OmiOmmSeX7n8BCtyD3RkgrePg+uiG3gG9hq1
-	 3SwJvgxC9M0A0RXJQDDNSBKK6kQT3zHNjcfOo+6X+tHwtY5ll17luFgOlykIlQ1Kcl9XQ
-	 SU8w99BdAqOnXd9KnmBw+DP1Be13AW6l7TLogABh7jAf/GSmRA2LuRDuQQexk5g4z9TrP
-	 1dKeCInx2TYYFKBK6QYHt/8IWMju8xPeS2rxkdaFs0u9RInEVRlHPG9B47tdDTqF4V1rn
-	 JdyVfuuxSchaP0N+cPP2cNux8JIE1qPNYc+3xc8LVGhEWHJRcEZqrMbRJEMRJSkPF9g==
+	bh=POkXr8B/ilmqJmWbOdrFsL2gRI8YjuDzRHktgGuIYjI=;
+	b=Wi6afeOJS9YslnCXTvTL6zmOC0etkjfRk5J2qdCRTjWeqgIMzYoG5ZjyrtOj5/WBwly2
+	 kHqcyuEFDmCfWa6x184Rt4zaTNb+OcG9t3JBhHG3SqOOTSEzvBxOCcVgODm8KughmBnbC
+	 VE4Z0uiJ9tMa1zw7BVXyzEn5D5vsGExcw7do7IFx9TauujYPapH5FDFkfenkfDx4MOCQA
+	 DCOhoCSoKlz/Wbj3n/Ux53YvwoGHCK77PT+lepPdx1WQkzK92tGMMtE1qK9/kQYiV/0rD
+	 fEG13IOPLA2ftONMsgZ8eUGMUr/TbvJPfmQrUiXvrlVREm+hOpY3pw5t9fnFbBShqAA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SkF1FYiG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.37
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011037.outbound.protection.outlook.com [52.101.62.37])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qltXzZ3r;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.47
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011047.outbound.protection.outlook.com [40.93.194.47])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08A3606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:27:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B08A3606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1052A606A335
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:27:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1052A606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SkF1FYiG
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qltXzZ3r
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kHaVeQADp6RqCnVG7y6r4QEUxptGRN3VvqRmHVOt65fmf7BReINc8/2n4oalVGjnQd0ic5ZlksSX4VF+F7jYVsH8U0BXqx7Q+eOpCs6F9eL1tyxyI7NWbMxlReuiXAmN924cPkJGmAiPlgs7LX9XFIkw1ch1KSfwGMtmN2mQxm0Zrj5Np8Lo9roO9djBJ2YYnBjowsCn2PvndsvZWRGS2wWD6eCRp0L37XCdxbvEfB+2lHUu9U2R1AYEG0E53lkMx72P8okYDaNQ5gtpRf+j9Bgb73ek1xwwVfDqTsWjqLWFKFuLzzeIAXbNM3ShO58Pj6XhQ6mJM5alDT6hJLSA6g==
+ b=w9EMa71HybN3W30IzlEN4+nyHEZwZgdB8OtyBIznAC4/QzxNEiWPqIrfRIrMIMZgsvt9hkQY7d1XZmVKrt8QH98H379tZP596XBZS1mVbH5IBF7INdMmhJdlvorGHQ60plWnMqYR+XXr5T/DpNec30nmv+RCDRKszd2XJOY4+SAzzgHG1i/Mn3GGtOeyhigL/voDYbtcxWoVzsqVkJH+rpE9cz2/tIkZs1rhMBvnQzsi41f9IvLfqwdbC7sGvety5oIlro8lpQ/3/VDOpZG0JQ4w45NtCKl9unY14MfETmLmFhKp2lHpbmYM8KaOyw2DI7rFpve4Wu2QPJDcTPK/Kw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FoY4JLK+WVtCsOFg5MfrVWfhHjHf85oH/xHelWXxiYI=;
- b=qQU580bxrMSpQUmMczz6BliQYYdBWdOs3+VB6Lw5jXBd9/LQZ85v4Bc9ab7xatfIpoLN7o01SES0UdGTRjZ4wEtNm/XZ9gn1N+sqBEme8QBFCv8mhpfFxZUzarOXn7cqgOQgCFfxMkVAllU7/HSiLAVVd9ZdZ06nP2nYyixvLZsZqHRkOXevoLdXhG5W6JSe8nFeGxwEGgMGUl4mdnG8TgTqmu2iAPlahshaP+fQXnrQXusgumrpaP1cU3wBUfkkhYgbk82T4MfKDqwX/BQ7kZNSIKfVxmEmk+avloClFYW251lJS248Ontc9K1yG8L65Vhut1BIzlhM+rSIatDYBw==
+ bh=POkXr8B/ilmqJmWbOdrFsL2gRI8YjuDzRHktgGuIYjI=;
+ b=F1SvPbgWF5j0uKfieFv3WJE/3GVu0rUkpc08IZ97CM1QpoKaz07n9ckngbp/7VVoXWGVoV4PQo49ZXFZKbDybugXSb/viHlpndYADlU7t+4hpGcIi6Qn9LRqSZLZ6jaZLyG1ex2mkTjknho9j1Nxr02PLjsjoEAHVA71TSKdP6t8+Sq5Cc4FqHV3RaDPZ6VcVAry91XJGZgHBgt3gZYtc5etApx+2hhw/w+jEzkfIma/RSqFwxFjM6aNWzr3PUpt+osPOoFBbtmHP19HeHQ6MfCp8pcN2QoTKTIuvvtcUxToMi2xzpBQTpvPG18jWhrALWfAuA649rgk4gpTefqoAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FoY4JLK+WVtCsOFg5MfrVWfhHjHf85oH/xHelWXxiYI=;
- b=SkF1FYiGbwsl5m4/NarHv/W+CYnPS6DTEvHW5ZqU1qbylheoRp4ZDGiytl+UwqYci9Le71IYbrLVh5oIkfo6RdWsnmgR+dsqfo+7JAT86KlIwRdZ4Uknzr7XltITe0LYwRJE2KhNPnFpq0vvGu1bo2JoqdBihFSwSqGqAIwayL8=
-Received: from CH0PR03CA0374.namprd03.prod.outlook.com (2603:10b6:610:119::34)
- by CH3PR12MB8851.namprd12.prod.outlook.com (2603:10b6:610:180::11) with
+ bh=POkXr8B/ilmqJmWbOdrFsL2gRI8YjuDzRHktgGuIYjI=;
+ b=qltXzZ3rILieWaDJyLgqXAkb2ar5/jFOl9KtFDe5iHWL6jxrT9bDicL9hoYVW1bbWmvjnlPuKyYpxuzKCP4J6Qr5uygDHA5WBpx+qB/Mq5ADk9dfY2qOguO4Vf3TI56CvWHK9tpAP0gFN2rqO9sqBtxoyL6XNltU3+jt3xnBMC4=
+Received: from CH3P221CA0026.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1e7::27)
+ by DM4PR12MB9736.namprd12.prod.outlook.com (2603:10b6:8:225::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 01:26:52 +0000
-Received: from MN1PEPF00079401.namprd05.prod.outlook.com
- (2603:10b6:610:119:cafe::39) by CH0PR03CA0374.outlook.office365.com
- (2603:10b6:610:119::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
- Nov 2026 01:26:52 +0000
+ 2026 01:27:15 +0000
+Received: from MN1PEPF000793FE.namprd05.prod.outlook.com
+ (2603:10b6:610:1e7:cafe::3b) by CH3P221CA0026.outlook.office365.com
+ (2603:10b6:610:1e7::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 01:27:15 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,21 +80,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF00079401.mail.protection.outlook.com (10.167.249.197) with Microsoft
+ MN1PEPF000793FE.mail.protection.outlook.com (10.167.249.202) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 01:26:51 +0000
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 01:27:15 +0000
 Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
- 2026 19:26:49 -0600
+ 2026 19:27:11 -0600
 From: Melody Wang <huibo.wang@amd.com>
 To: <x86@kernel.org>
 CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
 	<thomas.lendacky@amd.com>, <ardb@kernel.org>, Melody Wang
 	<huibo.wang@amd.com>
-Subject: [PATCH v6 5/7] x86/sev: Register Alternate Injection protocol during OVMF boot
-Date: Fri, 6 Nov 2026 01:25:31 +0000
-Message-ID: <bc08967cc41dd4454c75e9315e37dbe34225e258.1793926736.git.huibo.wang@amd.com>
+Subject: [PATCH v6 7/7] x86/sev: Indicate that Alternate Injection is supported in the guest
+Date: Fri, 6 Nov 2026 01:25:33 +0000
+Message-ID: <0aab2845fe78dd02df06533c645888ce86cbf959.1793926736.git.huibo.wang@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1793926736.git.huibo.wang@amd.com>
 References: <cover.1793926736.git.huibo.wang@amd.com>
@@ -113,135 +113,66 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF00079401:EE_|CH3PR12MB8851:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a839fcf-c5fb-4c81-6a8c-08df3ba50932
+X-MS-TrafficTypeDiagnostic: MN1PEPF000793FE:EE_|DM4PR12MB9736:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06885242-17f4-4bef-385f-08df3ba51753
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|261026140227099003|261021123027099003|11063799006|5023799004|56012099006|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261028144727099003|261102123227099003|18002099003|22082099003|6133799003|10067099003|3023799007;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|56012099006|11063799006|261009223027099003|261021121427099003|261021123027099003|261102123227099003|18002099003|22082099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	N6u+JMHZKJW2utWzuDdPi1klnZ0LGEvXvlet4rGn7cAT/V9FAcKxHzofW8QYfvJ1ajyvs1FlgUIbfL3CG1HlP9O23zwusUaRiqrlA8fcrJAz9FxIelPsjNzemvbI7uwOkCkOlj2bKMqgT0p7/+cKiBZd9hbGzt4mSy/23gBumBezlWJXdY7fj36hShxr7Yahtr5SsZ4aKCPboyvpEvN3C6wrjIGyX6Y1KN0cWYTaj0QZssoscSuiMKHVXgto/Ds2Os3Mw6u7x/UZ+3hmwFIxCZC8mS70lJt5AdhnoexNpmAW9ngFhDRefdvXbvujXggdn16AOkbuu1n9mqOElXrpVhY6iWySmXjLyXbzGGvrY8CqSuLxBr4Pn0iohCKyxoOLs075eBvQWz+gLEbJK0Zc879HcbDtd4zgGVWt+/lkbotGmcSNbscJkoEW8hxMxPgS7Kbu0vPTtPmhPhsxKXvrZaa4/SdI5SnHTV+AuMF4U3caelzf8niW2E7Ogt+fWlmzSC3EA5WNUqqucUVx9LCEGmmK9LmHzO7LWLKm7kynbzX/y+eEtif0Me1djogdOZvDQ17dGvhSRLmOvQ4uSoCgtCcgns/EQ1guv8rO1heIj5Xs++kDxwn1NBkRXMKGv9ITckRddGc+Am5O63/j90rir7GFZVK6zKxYxz4fz3n/Cni73oJh7SALZmzL6qmJ+Lk6KAmuhXwh2TkftYcxfnq6Og==
+	IfFEo1YcGb2ke1FmgNoAPKZe8MXKb7x3TbqN11qh9XJXNSSoVApdjd3uRMdldbV5l+t79A1w6rLYtUX9FJpGJ3ExIrQ0elc9FoGFve/Gvx9ZfOgOsNfMmRog12jIVwXoYap3/VqKxQBVLtaZygIv+spDdvzftWuKRW9Wyx9BTDmeTzGxd7ed9FaRR7PpOWmY71K1cUWAKwR6JXZdKJMK8AeeD8fOO8f92tH2HEbZOsoWy0evCyjGSUC1f063DwBJAVen9h7dX2PDzIqyz3UHaKCiSOIEm7x/a9i1knckHyIflMIwhvWkwHcpukunvgVlzY5Rt9Tck4MC3rmvdvX/N/TQGb8Cp4VOTpWpGKz1Xcyfy3Y2E4M93gc4hNnYY4HIdv34YHPRr8A/VgFKvbg33j+hmulr1oDgOfHKC96PNsgDLxhSN+fcLT7rdeFGm2RlTFUT9ZJYxEEnd7r/QMKg8xbYrTcAMnn3F3bOET7TNAEuN1wWdABqgLs7YJe1cgVzjD9f/efgZs5cddtjMX85PMuG9Gjt0Yv7uAAoxN4DJZOEGGWdGCxXXEcKMDOsMYucpQRZ8uNGXnttdX+mbXUu9T3Wg7q0Q8HrfXFRN7Nre8Mis9lZ/5vwFiYYTm1iVCuX1w3ZfBNS+0H+/XBWoikg6FSkDkB9Vs+Hdm9EqOqYcFos4Wi9ZdiqqYJPPaB2fpDLwAVPySagB2jtgIEN+rjtHg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(261026140227099003)(261021123027099003)(11063799006)(5023799004)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261028144727099003)(261102123227099003)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(261021121427099003)(261021123027099003)(261102123227099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ifDNGkAr9P+mGPiuQkW5r39EWhD4eXhDmBmT2vqsDx+IpujbLPr8DHvKTMiRXJsT+90P3oozYO/pqSE0GHYxQrr3hc15S+MjAudEDJE9aiVDJhdYjf9//Suxb7TvD4wymv18nwhWIBNkp0w0aM8pDYu0hBgBQZmfFSosQI3gmGSIh0WuhRQrVQMuNhXwGalEFPX6OyHRA/hxEKlpz5KQQuma7RiK7d9An6JIH4NM+qZqnWgagrja+SJkgQZWU4Gh2rrAE9Al5pQibc7A2G4nR2oUQ9Qdgc2nXUXieJk0MyNFUaFHRqSvkT5A+xdTio/jjp7TIOheqJkQ0gXhQ2LVsa+zJM4+jvajokPiytJxg+/1DMscQ2zEIVqaWj+k7+qbq/vW7nQ4vNAmxb/Y6FQxlhvbUBY9KFE0HKYdQJ+voy/aSPiTpkKRIMVhyo+rGL34
+	36K8P040pXon29wzT1IUysgh+QNkMgLuwgC20hj20bje40BRnvw93jwTd56FsH8e2m4+sxXwZjJAlEe07Oa3Qn0wyBYSEAFQwwbNXInncgxNFX6t0igqhzOOgErq3u4fCY9LH8zD3MgFuiUtfXBOuTaRzAcyOBPVaO5vU8KXajqeGFXsTZetQiCSEI7kdc6lOkUFzSfiKCxG1TIC8Wf0swuGMQXV1Smy0wJektFoIfvHuI02V6GC09m1w5+KibU+GdmyU5ZVeKtSAm/adwyOqxtD55qm/qy3EG3XdUjHYimHA+/NhId0bUYQGXZvSonbGgv72b9ZvgBPwRsg9dtJl2kqZx4FMHKXp0+mSmQdgkyNpLkIrlVqkuddtCEGxZHkop3ufyWvj/ajoVlt2xwD71aHQZm+2YPtmXEKQFGLzDlYgDjWs4wO7xbjYwRuj1AC
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 01:26:51.9394
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 01:27:15.6434
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a839fcf-c5fb-4c81-6a8c-08df3ba50932
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06885242-17f4-4bef-385f-08df3ba51753
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF00079401.namprd05.prod.outlook.com
+	MN1PEPF000793FE.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8851
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9736
 
-The SVSM provides the SVSM_APIC_CONFIG_EMULATION protocol to register
-and deregister Alternate Injection. This configuration must be completed
-before ExitBootServices() is called. Therefore, OVMF needs to invoke
-this protocol early to set up Alternate Injection for SEV-SNP guests.
-
-Implement this registration by default for guests that have SEV-SNP
-Alternate Injection enabled.
+Now the Alternate Injection support is complete, add it to the present
+SNP features.
 
 Signed-off-by: Melody Wang <huibo.wang@amd.com>
 ---
- drivers/firmware/efi/libstub/efistub.h  | 11 ++++++++
- drivers/firmware/efi/libstub/x86-stub.c | 36 ++++++++++++++++++++++++-
- include/linux/efi.h                     |  2 ++
- 3 files changed, 48 insertions(+), 1 deletion(-)
+ arch/x86/boot/compressed/sev.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/libstub/efistub.h
-index f5eec8c12894..edc6c4908faa 100644
---- a/drivers/firmware/efi/libstub/efistub.h
-+++ b/drivers/firmware/efi/libstub/efistub.h
-@@ -177,6 +177,17 @@ void efi_set_u64_split(u64 data, u32 *lo, u32 *hi)
+diff --git a/arch/x86/boot/compressed/sev.c b/arch/x86/boot/compressed/sev.c
+index fc2029746c50..ba42a1aee7e9 100644
+--- a/arch/x86/boot/compressed/sev.c
++++ b/arch/x86/boot/compressed/sev.c
+@@ -197,6 +197,12 @@ bool sev_es_check_ghcb_fault(unsigned long address)
+ #define SNP_FEATURE_SECURE_AVIC		0
+ #endif
+ 
++#ifdef CONFIG_AMD_ALTERNATE_INJ
++#define SNP_FEATURE_ALTERNATE_INJ	MSR_AMD64_SNP_ALTERNATE_INJ
++#else
++#define SNP_FEATURE_ALTERNATE_INJ	0
++#endif
++
+ /*
+  * SNP_FEATURES_IMPL is the mask of SNP features that are implemented
+  * by the guest kernel. As and when a new feature is implemented in the
+@@ -204,7 +210,8 @@ bool sev_es_check_ghcb_fault(unsigned long address)
   */
- #define EFI_MMAP_NR_SLACK_SLOTS	32
+ #define SNP_FEATURES_IMPL	(MSR_AMD64_SNP_DEBUG_SWAP |	\
+ 				 MSR_AMD64_SNP_SECURE_TSC |	\
+-				 SNP_FEATURE_SECURE_AVIC)
++				 SNP_FEATURE_SECURE_AVIC |	\
++				 SNP_FEATURE_ALTERNATE_INJ)
  
-+typedef union sev_alt_inj_register_protocol sev_alt_inj_register_protocol_t;
-+union sev_alt_inj_register_protocol {
-+	struct {
-+		efi_status_t (__efiapi * sev_register_alt_inj)
-+			(sev_alt_inj_register_protocol_t *);
-+	};
-+	struct {
-+		u32 sev_register_alt_inj;
-+	} mixed_mode;
-+};
-+
- typedef struct efi_generic_dev_path efi_device_path_protocol_t;
- 
- union efi_device_path_to_text_protocol {
-diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
-index a2f193da9bde..878f61cd6fab 100644
---- a/drivers/firmware/efi/libstub/x86-stub.c
-+++ b/drivers/firmware/efi/libstub/x86-stub.c
-@@ -786,6 +786,39 @@ static efi_status_t exit_boot(struct boot_params *boot_params, void *handle)
- 	return EFI_SUCCESS;
- }
- 
-+/*
-+ * When the guest is running at VMPL2 with Alternate Injection enabled,
-+ * register Alternate Injection before ExitBootServices().
-+ *
-+ * Return true in the first conditional to mean that this is not an Alternate
-+ * Injection guest and boot can continue. If it is an Alternate Injection guest,
-+ * both failure to locate the protocol and to register it, means fail the boot.
-+ */
-+static bool svsm_register_alt_inj(void)
-+{
-+	efi_guid_t alt_inj_proto = OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL_GUID;
-+	sev_alt_inj_register_protocol_t *proto;
-+	efi_status_t status;
-+
-+	if (!early_is_sevsnp_guest() || !snp_vmpl ||
-+	    !(sev_get_status() & MSR_AMD64_SNP_ALTERNATE_INJ))
-+		return true;
-+
-+	status = efi_bs_call(locate_protocol, &alt_inj_proto, NULL, (void **)&proto);
-+	if (status != EFI_SUCCESS) {
-+		efi_err("Alternate Injection registration protocol not exist\n");
-+		return false;
-+	}
-+
-+	status = efi_call_proto(proto, sev_register_alt_inj);
-+	if (status != EFI_SUCCESS) {
-+		efi_err("Alternate Injection registration protocol failed\n");
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- static bool sev_prepare(void)
+ u64 snp_get_unsupported_features(u64 status)
  {
- 	u64 unsupported;
-@@ -796,7 +829,8 @@ static bool sev_prepare(void)
- 			unsupported);
- 		return false;
- 	}
--	return true;
-+
-+	return svsm_register_alt_inj();
- }
- 
- static void efi_get_seed(void *seed, int size)
-diff --git a/include/linux/efi.h b/include/linux/efi.h
-index cc1df1577d5f..8545196ecaa3 100644
---- a/include/linux/efi.h
-+++ b/include/linux/efi.h
-@@ -444,6 +444,8 @@ void efi_native_runtime_setup(void);
- #define OVMF_SEV_MEMORY_ACCEPTANCE_PROTOCOL_GUID	EFI_GUID(0xc5a010fe, 0x38a7, 0x4531,  0x8a, 0x4a, 0x05, 0x00, 0xd2, 0xfd, 0x16, 0x49)
- #define OVMF_MEMORY_LOG_TABLE_GUID		EFI_GUID(0x95305139, 0xb20f, 0x4723,  0x84, 0x25, 0x62, 0x7c, 0x88, 0x8f, 0xf1, 0x21)
- 
-+#define OVMF_SEV_ALT_INJ_REGISTER_PROTOCOL_GUID		EFI_GUID(0x3cf00587, 0x2329, 0x4c44,  0xb1, 0x84, 0x8f, 0xd9, 0x87, 0x00, 0x42, 0xe0)
-+
- typedef struct {
- 	efi_guid_t guid;
- 	u64 table;
 -- 
 2.43.0
 
