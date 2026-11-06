@@ -1,72 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982958;
-	b=x7/fQUGYTAyLQ+2yFtftLjdjBtVwFqPD2UquleV+B92FXgV1MppttwWdxft73jmp8pju
-	 MEa5YuM03npd5RpUor+/TpwoftZo8atlRrFAsQRpjIaB21YUZP+F8KTZ/1PHp6yurLHqI
-	 /mdcU6FvvWWd18VoqWb+P8Ew0CWXuyCUWJ36PJ++yJUtuXZzS8EXxjNfgDpFRQQrhbMcr
-	 il8rclmm+AJ1wVwtjJIaUCEGDNMTrvlO6NMkA+p4sefd0r9Xi/UlJUCsasLwQsSiReUAX
-	 0/Bw4SGZBy8ntxXkL4XgfiUO3pa84HokFD3/8dQJU+D6axzzJhzihvc3CyHi0ea5mfQ==
+	t=1793982974;
+	b=wkcCpRAjqLW1tr2r6+TWYkbBIY1O7tzP7lc16EOnfvOoqIwWna74pRpgazqhy4sZ1APl
+	 ThEowV/Gutkbk91VrV6N0FvYH2eQCZZYWTV12mosKYA9ugf3ef+iY3dO1G3OKR/mJ39K7
+	 KyxvYgG6c9u9kch21GIZUEgBzenPRS64YSN/SUu0A9iuNb6TurJW6/NGeuA0PjpOHZ9rq
+	 OUuI7IHW05LieYo2NP0x6hBDs/Uvrpx4aykxAzHJqErHJ3voTEanqUiozWBv9ccyioorQ
+	 hsSoU0pGbnXfp0/CcfjrSyYLWacwBx/0adT5tcmbbYXPQ7NNMlBBmAr+TEQuZ7dAVqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982958;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982974;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8oLI0jMRmvv1l9rLn/SvFZygTNaH4wbDO6RVrpAiPz0=;
-	b=LUcLr+nIUuTZRydjEYrd4NXWuFPEWNSaOkiAjFID2odlE41cSBu0LUx/Wtk/Xm5YWqOs
-	 ANFbTeesIum0iB/53rZgmVl7/Bz6TYI1AwBolHtnZG4yLiFrPFmHMdSFyYeaveZEbPudI
-	 CMYPUJxTxspZIkLWks6Y9InMREVBQMyqq220ojCYs+tYL8MZWqGLt4EyfpOoa/VXv64yX
-	 UN4oSDBSoAKL9M5ZIfAqfownUCowP0TGGoCNbVmxLfmuejxQct0wjr65v/cmgKvLsa/EV
-	 sWlNHih2jMN94KKRLlL6e+OzsGEWCL4BsE/shVImTzKJP/KJtaf3paPikvM4LC4Y3Pw==
+	bh=f7QwotMZkYXsbgTCqlK9XdCUJPdjYh2tfsZr9k1KL7k=;
+	b=nfTfHLndcL723ALi5NcBCeF3sxZvV+VUTB1m7yiOs68G0QvQMsscvhKiY978EhIk0yvv
+	 iL4L/ZfIaanFesOLojS57+ZWn+pJcqsPrNnXJG/O2AVM6d8NoV9aIu1kesmCv2Fq0xFxY
+	 HEoJSQllF8xd5u4O2qpIBpHTMqJFCJkt1SL84oorPKJAPFnO7OAPUy3X36J4ayMo7LiEB
+	 WDYXNp+AZlbo9axNXXmskwOGQWLzPS3Um1BRjR5EhwWumArJDMyK9Cd/ZHqwdSl12Q25n
+	 5JV0X4e1ENMgYWHcw/TXzSSe5c0UOX1DYq0T0OF9khAeUqF6qnZxFLG6V2yTiKgefZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ut8Kx1TF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OflSYXy8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2433A606A32D;
-	Fri,  6 Nov 2026 16:35:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AF0606D80A;
+	Fri,  6 Nov 2026 16:36:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ut8Kx1TF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC32C1F0089F;
-	Fri,  6 Nov 2026 16:35:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OflSYXy8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A4131F008A4;
+	Fri,  6 Nov 2026 16:36:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793982958;
-	bh=8oLI0jMRmvv1l9rLn/SvFZygTNaH4wbDO6RVrpAiPz0=;
+	s=k20260515; t=1793982973;
+	bh=f7QwotMZkYXsbgTCqlK9XdCUJPdjYh2tfsZr9k1KL7k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ut8Kx1TFDaYqjPfdPTO+th/yM3bDmGfVPf5EFpL47K3Pq+82z273gToamf4jPtWFX
-	 Bld+IFD4WVWgYOuxaKKs/U8g5UfF6gQg7HDOsrrV8E0ilRfah+Oe/zYR1ccDkLqPQJ
-	 IIS+Tel91O7u0YwOVjYu3bTnFD7DHhB1g12EdiPM6t2tZ/GURT6Dy1Whbd5CTa1kOc
-	 ZodpgwdMKRSNDUQaUsCVXx8jtDBAT3m/LE5BTYp3f5b8eajy42iWbqLh9hK8YApVrT
-	 DIPZ19xsmLU1CaTQWEElcc/sP8xUDlds0h8PdwS2JopuVNmJRQqfvOtkMb52UWFIj9
-	 VfmnfiL2zd+hg==
+	b=OflSYXy8rHQqjplK+M2SKEYGh2EE29t3QlEFKrNOdli1TJD1b6ppHDDmRZAInBSSE
+	 Tq4gWnzWqzXJlmBqSSf67HszoAyCT++bJ8Rx53voxvcx6OzvkSr1zLPAfbSUI1PFPb
+	 AlIDUo+YQwUmRPyqMLPMcOvtIKEoYFT2PCW9GMaDfnFypPcwWpvgi0puq3RZhL/Zqs
+	 21AokdOadmrLch8la4AsJPz1UkgqqWlt3rMQhWvn4D5hFpZ/m2XKbLAEPWOgQgd7qd
+	 V5BlElriKxUdir3EC4pg5VDKav4fS90qLTdBjWRbnEhHDolbwvwsFKw8aka0gha9Lz
+	 IQObSQUFyxkfw==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Magnus Lindholm <linmag7@gmail.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
+	linux-alpha@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	Ronald Warsow <rwarsow@gmx.de>
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-Date: Fri,  6 Nov 2026 11:35:36 -0500
-Message-ID: <2026-11-06-1-daily-reply-0001-7.3.2-rc1-wx@kernel.org>
+	Matt Turner <mattst88@gmail.com>
+Subject: Re: [PATCH 7.1.y 7.2.y 7.3.y] alpha: honor force_successful_syscall_return() again
+Date: Fri,  6 Nov 2026 11:35:50 -0500
+Message-ID: <2026-11-06-1-daily-reply-0015-alpha-force-success@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3dfb9b8d-3bf7-4fa2-89ec-6561c1b7b70e@gmx.de>
-References: <3dfb9b8d-3bf7-4fa2-89ec-6561c1b7b70e@gmx.de>
+In-Reply-To: <20261105-alpha-force-success-fix-v1-1-8c26d60c5fff@gmail.com>
+References: <20261105-alpha-force-success-fix-v1-1-8c26d60c5fff@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,12 +64,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I need to revert:
->
-> "x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()"
+> This fix is for 7.1.y, 7.2.y and 7.3.y only.
 
-Queued "x86/mm/pat: Use pr_warn() for early W^X warnings" for 7.3, 6.18, 6.12,
-6.6 and 6.1, which is the fix Jiri pointed to for this false positive.
+Queued for 7.3, thanks.
 
 -- 
 Thanks,
