@@ -1,53 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968430;
-	b=lGh5FNgZoLSbMazvcPq1j0KLxu4orPL6Hm4GA8QMCmnLglsUySlxFpBoeBxNSH6LZXjL
-	 IYC4g/R99gcoOrPZ1dC9rOR/jAoMsSe6sgA3alrw7bwqpQp+xoKcwXpyRa+FLZQeOgyXe
-	 EE8LQBSDMYzeFAzvo7TJey0DVvICURjOXbLCRlvSXLgTc+5r6edcWhPTmdisI66SzkwZN
-	 EDghZtd8gmxvP6x9SyFxYRpqDQKfhGpL79Hk0wnEO+cdvaHvZJjVZ4nGzqQFynzfBAsvv
-	 B9cTOIvBYxvgYzO2k4AD5HbDsm3swK4gU9tby81W/dapY1t5GStk55iwUluKnswyvgw==
+	t=1793968429;
+	b=OC5jvPaLCCukLrIgvE/mPTdQXZ1BC/FbdIZ8ohaJvPvhBM2esM8uPju9PCUaVVDuZnky
+	 6PQ152fK/TLcqo8IIij/vhHWbM/+9FgmC9V1lnhDXuhOrS9T9KIJdjSjZe9A/OppOq+Yv
+	 5dPhIaWGftCNfWi6wAoD5u79OqgTvtXergPp5Fh8in8+jPr+Oe6e7VEpgm6c7lUsvxQ2m
+	 +HLS/V9eVAoHB4CBWD9m7gmJPNmowo5jzLrRCaOjR3ECELRjM+gUQII8YZOFCEpvbS6kj
+	 WtkJrJDlHv5wCJYrjzttGW8Y+BX5nB8sBjh07PlAqeGPlfeVkLlnTzWP13Wlx+q74+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968430;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=2uqcxYTgBXJbTfbI/DlmOarXlJOAhStn4Uga9XDZVLM=;
-	b=G/yFHGHljpNntsuZqJv51TcN1AIFTJLLY732bxNi309VcCPLAlE5XjoYrILnnVFKVdAd
-	 togB0jLj80+lebeANllbkhi7JcmXm9CvKkA3aFkx0wxeMzL6gpnSGZKKBz9OgWio0gMvr
-	 sgkcROBmn4Y/D0seGsTSIFqNqiuOo4llQacN3rM46WHHBKYpBJrAcHAMt3Td8rk1kphVl
-	 ODyDubGhpc8n/RhkHPYpFeJGHfCZT6lHePe7cvfMIfKi6pfOCmImko4yOvKRds7Thbqzr
-	 BdOqcdCAJu/Td/Cw17jZROQiNWwNU4XlBBxRvCEzYUmD9dXnpNBj1LwnCseP6loCwsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968429;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=vOuk4MEEMKLZz9SbU5bzBH5xfiLgItoR3reCPXp3778=;
+	b=NgmJmIVmiak1N+5kisS7FrCy1NWx8ktcFC4n+fTVXKKnoOdmzP4UtSA1fhKRHDp3QlxB
+	 yYB/bFj0227BRY9ooDVAnNT7SX0SEY2M4uOK+33lafzjHj+bOaPNyzAw5J096VKVqXNoS
+	 g4EQqqG6eQtuT862ieDyhkXVCROJ1YykgmOgvoGl3SMUV0hd2GwEUXCS3+NVqEvRgIkt/
+	 G20GBulMSk32bjU7ZDSfYTZeyUyIA9hH3H9jlCuAWlKV9EOm+36y2o/GhPYDh3TEnzx1m
+	 GH+wunjE07bloEwBm7Lguy2x8TH0k18llWzxo5XcNsy1IkVVlwjqb+7u1Njzq+DP3dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08016606D809
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCE9606A333
 	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08016606D809
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BCE9606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a45b3f0bdfso795344b6e.1
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5640a2d9708so601274b6e.1
         for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:33:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793968429; x=1794573229;
+        d=1e100.net; s=20260707; t=1793968428; x=1794573228;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2uqcxYTgBXJbTfbI/DlmOarXlJOAhStn4Uga9XDZVLM=;
-        b=xgeFev3484qaH6s4VwClGjCplVV0gBWv3TK18JAXzBtxlY9O3y/uC/zOfA7VZx65r2
-         pcbxOd/7Z0TTLaEFdBtlr6nW8XBn5xxru3S7We80g4lArnHKHHeyb0OfW7jjzhoY96e5
-         XD68K5CPpmFp83ZdY9xHDEq3i2Z7obcph7303g0+zByp43RsXtoKwBpuqTc/yMUysqtv
-         e38tEteuTHAeGwhb43PnNhi3zJHFBY1UR0/5AmbXL40H+VtMbGXlHBgygKXp6SGgaC5w
-         CP/jf4YqR8GYJUhgd08UqR7Gbtf+5urF8nozkEA9lfg7WffvIfXG//CWp29JLps9hTDc
-         2jug==
-X-Gm-Message-State: APuU4Z97g82oEvlMfQvQiP9FIe+tZALzzNx0lkSIvclFX9HVf/9np9SO
-	MSz2DTexw34zwul9YiMfHLEl1jOdTN9wFLJMulIydRtgArMdztmwn7mCUnRZckqEf6+Twxv/GiK
-	61fqTqIIhhwBN5MX0mthrdd5Pn4fTgV+Dvqn/Yui8o34UYAhzAXYFJpK8o/Q=
+        bh=vOuk4MEEMKLZz9SbU5bzBH5xfiLgItoR3reCPXp3778=;
+        b=0J2x3qdH9vPjvli0VJZgBSefkNwVVpFCy931BORCC1OHxQg4xSDLfbt2NGIKJmQ5PZ
+         1z+kfrEGfdYOaT6gdcdmIiw8dgMyRouMrbWESU1OJRP9YffaETNGT9ypWDoJPtR4/LAf
+         S38IdgGzTXHBx0CN/SYoLNiJ/Yn61EOpFVZaSUatggtqzrSZnQsd1+hHA6cYtVSm4ad/
+         bHZ7Skf15vdxal6qDhDFNgP15siTqavDfX40LrNNd4N7BfgSep7dXA0EdKdltmRf/O84
+         vQW0LXTVez5HtLVQFxE3kVkgD2fc05vQI1GZZPNNiusevWF/hi2ewUM01ngthdHZu1Lg
+         kzAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwzJQy87VCwEjx7gY7m7PkjPijdonxA/gaEU9exWb0H/Tt/t3VujGm2gJ0PyAzVL29gbA0/iiG+XZSOS/A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cQDRaxEc7OKmwcHZWg4G8snnt90ln0qqSTAZeq/b4Ufabakqz
+	P2EkpeLS54fj1hWadNDq5eK5e0LK/7xeDoXNSYiwcsTzUapGUbE1v+FUeDiPoNZ6cHLJhh2M9N/
+	j6yu1PHeK+Q8vodkl2Ke95DYHOKVWGr7WhcWaErqe+ad9RXuDgs4nHgh4WpA=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,52 +58,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4b07:b0:525:184c:7952 with SMTP id
- 5614622812f47-567e14c9215mr1547560b6e.16.1793968429095; Fri, 06 Nov 2026
- 04:33:49 -0800 (PST)
-Date: Fri, 06 Nov 2026 04:33:49 -0800
+X-Received: by 2002:a05:6808:c2d6:b0:4c3:ebb:63d6 with SMTP id
+ 5614622812f47-567e11247c7mr1568823b6e.39.1793968428434; Fri, 06 Nov 2026
+ 04:33:48 -0800 (PST)
+Date: Fri, 06 Nov 2026 04:33:48 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aedc92d.a716b02e.a4a62.0003.GAE@google.com>
-Subject: [syzbot] Monthly media report (Nov 2026)
-From: syzbot <syzbot+lista85d4caaecea173177e8@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+Message-ID: <6aedc92c.a716b02e.a4a62.0001.GAE@google.com>
+Subject: [syzbot] Monthly btrfs report (Nov 2026)
+From: syzbot <syzbot+liste224054b66e11f54d148@syzkaller.appspotmail.com>
+To: dsterba@suse.com, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello media maintainers/developers,
+Hello btrfs maintainers/developers,
 
-This is a 31-day syzbot report for the media subsystem.
+This is a 31-day syzbot report for the btrfs subsystem.
 All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/media
+https://syzkaller.appspot.com/upstream/s/btrfs
 
-During the period, 4 new issues were detected and 0 were fixed.
-In total, 50 issues are still open and 128 have already been fixed.
-There are also 13 low-priority issues.
+During the period, 2 new issues were detected and 1 were fixed.
+In total, 31 issues are still open and 121 have already been fixed.
+There are also 14 low-priority issues.
 
 Some of the still happening issues:
 
 Ref  Crashes Repro Title
-<1>  472     Yes   KASAN: slab-use-after-free Read in em28xx_release_resources
-                   https://syzkaller.appspot.com/bug?extid=16062f26c6480975e5ed
-<2>  349     Yes   KASAN: slab-use-after-free Read in dvb_frontend_release (3)
-                   https://syzkaller.appspot.com/bug?extid=ae466a728017ec940b41
-<3>  198     Yes   KASAN: slab-use-after-free Read in rc_dev_uevent
-                   https://syzkaller.appspot.com/bug?extid=237c754233330b2bf565
-<4>  157     Yes   INFO: trying to register non-static key in as102_stream_ctrl
-                   https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
-<5>  156     Yes   INFO: trying to register non-static key in as102_dvb_dmx_start_feed
-                   https://syzkaller.appspot.com/bug?extid=3f395d8da879a58fb019
-<6>  72      Yes   WARNING: held lock freed in device_release_driver_internal
-                   https://syzkaller.appspot.com/bug?extid=ed3ed4f52d1fb6a7367d
-<7>  33      Yes   WARNING in ttusb_start_feed/usb_submit_urb
-                   https://syzkaller.appspot.com/bug?extid=3caf6a60e5f9be12de08
-<8>  29      Yes   memory leak in v4l2_ctrl_handler_init_class (3)
-                   https://syzkaller.appspot.com/bug?extid=b1de0d5fd8a15fac11aa
-<9>  6       No    KASAN: slab-use-after-free Read in __video_do_ioctl (2)
-                   https://syzkaller.appspot.com/bug?extid=4a6e6173b1fc7916e950
-<10> 6       Yes   KASAN: slab-use-after-free Read in v4l2_release (3)
-                   https://syzkaller.appspot.com/bug?extid=34957180b0ed2581edaf
+<1>  213     Yes   WARNING in btrfs_run_delayed_refs (2)
+                   https://syzkaller.appspot.com/bug?extid=810ea5febd3b79bdd384
+<2>  113     Yes   INFO: task hung in __alloc_workqueue (2)
+                   https://syzkaller.appspot.com/bug?extid=ead9101689c4ca30dbe8
+<3>  63      No    possible deadlock in kernfs_add_one
+                   https://syzkaller.appspot.com/bug?extid=f50d605480fdec503770
+<4>  19      No    WARNING in __btrfs_update_delayed_inode (4)
+                   https://syzkaller.appspot.com/bug?extid=768687d6d7c96a124e24
+<5>  17      Yes   WARNING in __add_block_group_free_space
+                   https://syzkaller.appspot.com/bug?extid=6931616d57696102d8aa
+<6>  17      Yes   WARNING in btrfs_add_to_free_space_tree (2)
+                   https://syzkaller.appspot.com/bug?extid=554a2e08e4abc56984a9
+<7>  7       No    kernel BUG in set_state_bits (2)
+                   https://syzkaller.appspot.com/bug?extid=64579ad11e26758151bc
+<8>  1463    Yes   WARNING in btrfs_chunk_alloc
+                   https://syzkaller.appspot.com/bug?extid=e8e56d5d31d38b5b47e7
+<9>  696     Yes   WARNING in btrfs_remove_chunk
+                   https://syzkaller.appspot.com/bug?extid=e8582cc16881ec70a430
+<10> 79      Yes   WARNING in btrfs_finish_one_ordered
+                   https://syzkaller.appspot.com/bug?extid=6e54e639e7b934d64304
 
 ---
 This report is generated by a bot. It may contain errors.
