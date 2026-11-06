@@ -1,62 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976196;
-	b=25BGW0zOb8LzWPLs0VwIWxq9E0CeqF6VSsFasT63WhtXfxXldpQveZrdgfbFcEYizM1+
-	 ssUciloTqUkDc2wLINDmzmWa4FjAVLMuIrbOEg5UlDZmG02byh+Pr9LmTdw3k6h6d/slH
-	 ryFVUmTMsz8UpgMCY0tyIH5vfMa3z71+0tAsu+n16y8Q8ZkTv2O+PpX2gTcRjgw9Q19lX
-	 hFHnewSsDtDbH0TEmvJpQ/qwrux6ZKY9urpyQ0RbEiwtHeEBeUK/gHE0IUD8XovmkTZnY
-	 iI78TNaCH9k2wWjUxjwIMdAJ4vSrXj6rOk2zwZCw/8+UdkVvgCLMx2iU4NMoodJT8lA==
+	t=1793976211;
+	b=P9348o/Ha3GtrcMkaZEnceUVKGidMDfe5bB/6mSm81/wTpLa88aJEShzkUdr/62HmFQF
+	 cxRDg33M5AS9DoIjrQcIpeLcm3afcYGqOQaH3m4prP4s1TT2wp4NKnntV3iEuBbMRwxPf
+	 Am/emZmWPf53EtJRkWXUOfToH4HWubii/+B/d3SnL7c0ubdsViAD28dXjgoN3EaRxf4Dr
+	 10eoAWfSLNNqUgtW4W6a1ndFcm4zPP/7hZs2e8ty3SfuryAjP7p6g3vuwVZGW7BV9lDUE
+	 kHh4fH6pPPzJSV9UgkGEOhMyi8nbkVwocE8bcBlPLMrcF1BUnHZd98h5snB5Nc+Lisw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976196;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=up0bypD0w4MbuxMJmbcYp1qKVPmLDXcUCmPyh+TIxbU=;
-	b=Ag7LHQv4ZNVTbjspj8co09gw4TMYLLbkjJBVp7Sf7s+PYGe9no9lZuflKF2+gFhgQmdN
-	 BfgBhmDBUAeeG+g9G6qSCoNLlak55/eKlxeulWeshNges2C3aJYGcYo+EJuPOjIKvv5NG
-	 35KXLSzxp0YEd9mVTaf6MNZLK0HD/YcvCf7MHqHcXbSYkNMQXI3I2Ov8vHJ1CC2C6ENQz
-	 D3VSL47twhqqi0Sv8UXffxt4OAIfdsrTp5TjmcgLswDLW+zWwDimHptzRgVCchMvzkR+G
-	 GLAITpBkCRKwzPkdScwKQJymkf9d9cOzqckOlOfWKtJqp+P4h/9UCuMnqwq8NO+AT2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976211;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4JlsES4uLUIYYaP/yiOT2rHyGIzTwamik4bNttM7hYs=;
+	b=4dow5wZZeSLZ6wSCgm83KPb+gvBpsp5iJFTXq7JM2lQRxPMNsVaA3wLqSZJRsDBVWnSf
+	 Qaf1KgzKRW6TWkD2EeR+TgRZ7z5S/DxDgqTqmESqrkVAjVcQua/2999nq0kyG5KM1hLyS
+	 WqSKeMGay7WOlxM6bz5FhFmFKaK0iyaA0iM+iPUwrilVfK9ucKY836t063FHlx8kQLCPH
+	 yw1cXhONIThzpRzDoIFTsuFQDQmi+dVylZ5YKovNO7dIR28n7ENdI6JKR+WKbw68sI3L3
+	 IaIDjVwhpadU2vnyUOJbAu1hNjl64NqOXfG2CMXAyCN69qCntBD0wC0aftGCfh4IY7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="n13D/HUQ";
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=shutemov.name;
+	spf=pass smtp.mailfrom=shutemov.name;
+	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=U1cM4ow4;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=yflA69rW;
+	arc=none smtp.remote-ip=103.168.172.149
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364AB6083620;
-	Fri,  6 Nov 2026 14:43:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 364AB6083620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCD3606EE88
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:43:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CCD3606EE88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=n13D/HUQ
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261106144313euoutp01609be1926bb6af1c0e08a55213877a47~le9fWhqkE2134921349euoutp01I;
-	Fri,  6 Nov 2026 14:43:13 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261106144313euoutp01609be1926bb6af1c0e08a55213877a47~le9fWhqkE2134921349euoutp01I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793976193;
-	bh=up0bypD0w4MbuxMJmbcYp1qKVPmLDXcUCmPyh+TIxbU=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=n13D/HUQT4qG8TsybwN9p3MSA3PMoh7Jn7AHMiqfgv3mw6zDye1isI8+PO+xE6nRP
-	 FeswtF6L761fRPLwwChHR9wM7agGc74cXBC8kujH7talPGggPwwtE3u0XTghLfMNQf
-	 b6BBhHfA5SAmlqpsglXuUoN53JI9/Rd6CbWTS9kw=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261106144312eucas1p26109d26cecef034bf7734283cb04b211~le9eXhZVO3079930799eucas1p2r;
-	Fri,  6 Nov 2026 14:43:12 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261106144310eusmtip1ef57e68a1a7cd88e3cc55dc4c661e6bc~le9cgyZ493253232532eusmtip1W;
-	Fri,  6 Nov 2026 14:43:10 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Fri, 06 Nov 2026 15:42:54 +0100
-Subject: [PATCH v2 14/15] lib/lz4: replace lz4_kernel_api.h's prototypes
- with <linux/lz4.h>
+	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=U1cM4ow4;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=yflA69rW
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 0B628EC01D2
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:43:29 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Fri, 06 Nov 2026 09:43:29 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1793976208; x=1794062608; bh=4JlsES4uLU
+	IYYaP/yiOT2rHyGIzTwamik4bNttM7hYs=; b=U1cM4ow4O99BMT/eebmQYjkJXf
+	rhloLJOiicazLExlaBKmr9yIpUt1f9P7fbJCD+uieTEvtdxjnLcGrM6EAXcz8mEU
+	OVtZgS46JzxKoSX45oFIaMFbMpgEspcYJzwz7cHzob9X2YgJMorIHGmdRkbvLRAS
+	Lcyf4A27WfYmzmwB0eF1eMtVJxNy9AeA0ll5A1KGSieFZ26Hb6KR+kA7ErWy+biK
+	CNGbOeKYZXILLSzdIXTIokIBI9bMYlVS7GBZ/Dt1AwMqG/i+pAOXoUgZqQLXFaYa
+	c4mXFi4Al0vUjyhTTvMiCHaKLN1Pqr+qODC3z2OnLLiSaDtLInibi1k3MwCg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793976208; x=1794062608; bh=4JlsES4uLUIYYaP/yiOT2rHyGIzTwamik4b
+	NttM7hYs=; b=yflA69rWK8GuffmyMc8r1ksMTIyLbmLQGCCGCrF+p8NoEdQcHuU
+	uPY1pDlXoEQ1JCuvBjcyPSUt/ytfHhmpR4PjuhuFKRQF1W3BxnajNSCibOdLG4Ww
+	IGo3BFEtzzwSDyB26M25me9XFEEK1yLe6oJ+tOXYETpWwdUWrZPBhaqL7Ka4ujwN
+	XP2azL9qaLI8+qFl27xOcNRafnlFLct/Ops5ovUB8nBS9vYrn7QP8xQZbTajp/zW
+	HZzntYNFdASRKEfEGCf5xAHJQR9lPGOiaB/h9eC/X9gZhkFQdPjG+tftGFhI8Rfu
+	237vSZXjfKayxE+0R7k4SMTWcL3mnI7lHBA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793976208; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:PPtsvNGdNW2owf4VbSqtdW3Z6lR15sfD9ApoHnp/DByMY9N
+	3pnaINH7z4myrhqrurye3ascmN0oUfLfwGoxrPaw4qAhKXlk/S3TyUd8ANPBrFK/
+	261DobXKTcRMy1xIvf9mXGZ6EklbOkzCWsvIhSJt8uWy/OVLqmcfEvo4m2TL82OW
+	1bgHfaRVYi3OE+LC9mqEzbqYKxXtyB82tuTsQ78ESdwuIkYa55i+mAi3z+c+7E7l
+	TwPmlWtczLDgpHW7M9ymyzzHDG+uw/VDzvbbvGbMQ37MCsKU43p7GTVH/Rl9kQBK
+	nlfa7CgFrOHE2h1z9MxAubiJ4886YuXwHF9/igA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:mAhdeZutzgxel4LfCIR4P0qGCtKeD7cSodqPFkRXA1A=:gcQGkw5DvWGcUvkEFyLdo943AU6EZF7qgzUb0avWdSM=;
+X-ME-Sender: <xms:kOftamgWQduRzFONPFTcWIos3i3HPa-lIEPFUG1wg93apomkVlxuGQ>
+    <xme:kOftandtYuCNjAq_gmRq6H-ZQhxzTOQt4QKT_UUlyW79K_88VpOEpiFNBSoFohIEj
+    hZb5xEH8GaO4tYwBCJ-m9026RFYE8nplPWnFql4-u_ymcJmHn5iAOER>
+X-ME-Received: <xmr:kOftat312HR9KcYnj1ohQT3PifXe-3GPCgaYzqbmPh_L5AyFWl18ledqD4Q>
+X-ME-Proxy-Cause: dmFkZTEVyi++14NxNXhrhQvWfvjlAPlwXEA1wBKBvLE0AxcstoZuNgjT8CEJY3+Dpk8v4o
+    3zadRI7ItJ0yvlmlUXvyighpPOjkwnnJ1aCWXF9uPXp3YsZjLZ7JHNPRPt7LBo3ZqxDQhu
+    RYF61EmzuRQ5IiIBv/fonHwsAvacjt08M10KWOmuhlizcdpqtxR1hAJbku1N9QaybuWg70
+    y3X4jHPSfETDmAdoEKlnQtvk8LsNFq2v+rmWQa8HQfi/z0u0UyT3A0VhsmGKVoTnMlII7u
+    0HpGg4SiOpQa5vo24Ox6FgZcOb1jj0DOSDQO8pT9sMRmU4n72a+nYSLdaMGbgB7YtD3ER/
+    c89GwVaOUugTIbweoqtmNrbobf7u8j0HKUO93+OtuRmfYjhmct+E5vPwVY8lUqSWY633lm
+    u4APdjacP8VDb6UP9h1bH1wzNv0in2FYQLoXnNQE1GG6Mk2NURyIE8FqjrVrmYUD3wJBJs
+    BsqpApVEBWHY9hKJ3xYZEdmKyBvYbdpI3XQW6IfWpixnZQIu4UbuiCavvDaHVTafeCrTRT
+    nNjJWoO5ZfYk6fb7cwWPB0vKUd3icxxSwASEqLZkt33FwpSu0QtDccIXvDnYg4emEf/4XG
+    60FDjuYkMhtpM1UcbbAZbqDqgrzkFvRSmz5pPylqNm1LlhkIXhthSx6aclwQ
+X-ME-Proxy: <xmx:kOftaroMk1EM42H6nDaEHzD_VIFPD6wf2TkTgBC7T1hE4XktrcusYQ>
+    <xmx:kOftatiRLvs1M1abJ36jKUx1x2GnhEHQpT-t_QAeqUTrl_0Xc2KBEQ>
+    <xmx:kOftanmIr0Bl6pcDvQommBy8iSjyEajTFxDrLzG-xIkAjpDsNcfMXw>
+    <xmx:kOftampZNxFKMugkdOp9rs0pgOWWrZj_KmNHQ4SaBeRCJeAFR96ZVg>
+    <xmx:kOftar0XkI40B59ajnM3xulM6jTa4rcK44UiXxyToiYwqMGS8YtGNLL->
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 09:43:28 -0500 (EST)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Hugh Dickins <hughd@google.com>,
+	Chris Mason <mason@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH] mm/memory: refuse to map page cache folios that are not uptodate
+Date: Fri,  6 Nov 2026 14:43:21 +0000
+Message-ID: <20261106144323.3634477-1-kirill@shutemov.name>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,211 +134,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-lz4-vendor-upstream-v2-14-ee04c3f0d7dc@samsung.com>
-In-Reply-To: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
-To: Michal Wilczynski <m.wilczynski@samsung.com>,  Nathan Chancellor
-	<nathan@kernel.org>,  Nick Desaulniers <ndesaulniers@google.com>,  Bill
-	Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,  Russell
-	King <linux@armlinux.org.uk>,  Thomas Bogendoerfer
-	<tsbogend@alpha.franken.de>,  "James E.J. Bottomley"
-	<James.Bottomley@HansenPartnership.com>,  Helge Deller <deller@gmx.de>,
-	Heiko Carstens <hca@linux.ibm.com>,  Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>,  Christian Borntraeger
-	<borntraeger@linux.ibm.com>,  Sven Schnelle <svens@linux.ibm.com>, Thomas
-	Gleixner <tglx@kernel.org>,  Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>,  Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Minchan Kim <minchan@kernel.org>,  Sergey
-	Senozhatsky <senozhatsky@chromium.org>, Jens Axboe <axboe@kernel.dk>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org, 
-	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>,  Nick
-	Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>,  Chao Yu
-	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,  Eric Biggers
-	<ebiggers@kernel.org>,  Herbert Xu <herbert@gondor.apana.org.au>,  David
-	Laight <david.laight.linux@gmail.com>,  Sungguk <sungguk.na@samsung.com>,
-	Jaehoon Chung <jh80.chung@samsung.com>,  Marek Szyprowski
-	<m.szyprowski@samsung.com>, linux-erofs@lists.ozlabs.org, 
-	linux-f2fs-devel@lists.sourceforge.net, linux-crypto@vger.kernel.org
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7312;
-	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=evukEav2ZpAAeGL576jqRy7FW4GV2dVQQnisPOQ1yNI=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9fZ6q3DhvMZ9VdZyu9bGM93wym+KneB2qvXpu/4595
-	xjmOP8/21HKwiDGwSArpshydmO0keQ/hqflxx//gpnDygQyhIGLUwAmwqbCyLC5dJJdpvSZGU1X
-	5BM1NwZmKOgaJW66N7Hk5FZusdeBa5UZ/sc6s8suuljt8Yb1b/zPor1HU+6a3ZmaL/PBcIbSW8F
-	vd9gA
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
-	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261106144312eucas1p26109d26cecef034bf7734283cb04b211
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261106144312eucas1p26109d26cecef034bf7734283cb04b211
-X-EPHeader: CA
-X-CMS-RootMailID: 20261106144312eucas1p26109d26cecef034bf7734283cb04b211
-References: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
-	<CGME20261106144312eucas1p26109d26cecef034bf7734283cb04b211@eucas1p2.samsung.com>
+Content-Transfer-Encoding: 8bit
 
-lz4_kernel_api.h carried its own copy of the twenty public prototypes
-because it could not include <linux/lz4.h>, which defined the stream
-types that upstream's headers also define.
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-The types are incomplete now, so it can. Two prototype lists for one
-ABI is a drift hazard: the entry points were built against one and their
-callers against the other, so no compiler ever saw both, and MODVERSIONS
-would not catch a mismatch either, since it hashes the exporter's view
-only. Now there is one list.
+A page cache folio that is not uptodate holds data that was never read
+in or cleared. shmem fallocate(2), for one, adds such folios and clears
+them only on first use. Mapping one hands userspace whatever the memory
+held before.
 
-It also puts the public constants in scope of the entry points, so the
-size assertions can name them, and the HC level clamp can use
-LZ4HC_CLAMP_CLEVEL, static_asserted equal to upstream's
-LZ4HC_CLEVEL_OPT_MIN.
+Each path that maps page cache checks for this itself: fault-around in
+next_uptodate_folio(), a fault in filemap_fault() or shmem_get_folio().
+Nothing in the mapping code does, so a caller that misses the check
+leaks stale memory silently. MADV_COLLAPSE did exactly that with
+fallocated shmem THPs until recently.
 
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+Warn and refuse the mapping in finish_fault() and do_set_pmd().
+finish_fault() checks the folio ->fault() returned rather than the one
+it maps: for CoW, do_cow_fault() copies the page cache folio and maps
+the copy. do_set_pmd() covers MADV_COLLAPSE, which maps without a
+fault.
+
+The fault gets SIGBUS, as for a folio that fails to read in.
+MADV_COLLAPSE fails and leaves the range to be faulted in.
+
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- lib/lz4/lz4_compress.c   |  2 +-
- lib/lz4/lz4_decompress.c |  2 +-
- lib/lz4/lz4_kernel_api.h | 64 +++---------------------------------------------
- lib/lz4/lz4hc_compress.c |  8 +++---
- 4 files changed, 11 insertions(+), 65 deletions(-)
+ mm/memory.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/lib/lz4/lz4_compress.c b/lib/lz4/lz4_compress.c
-index 941e32a19ac972aef543c9a03b447a8a98bf5215..3e272584ea0c905b48b6bf0b7e77acfbad131bd1 100644
---- a/lib/lz4/lz4_compress.c
-+++ b/lib/lz4/lz4_compress.c
-@@ -30,7 +30,7 @@
- 
- /* Catch any divergence from upstream's layout at build time. */
- static_assert(sizeof(LZ4_stream_t) == LZ4_STREAM_MINSIZE);
--static_assert(LZ4_STREAM_MINSIZE == 16416); /* LZ4_MEM_COMPRESS */
-+static_assert(LZ4_STREAM_MINSIZE == LZ4_MEM_COMPRESS);
- 
- /* LZ4_initStream() returns NULL for a misaligned state, which
-  * LZ4_compress_fast_extState() dereferences and
-diff --git a/lib/lz4/lz4_decompress.c b/lib/lz4/lz4_decompress.c
-index 60b57862a2e387aa89fa26f6f8e2b5485b5d9995..5d68a6f59a62ddb3701dd3531cf606c05ef4e607 100644
---- a/lib/lz4/lz4_decompress.c
-+++ b/lib/lz4/lz4_decompress.c
-@@ -31,7 +31,7 @@
- #endif
- 
- static_assert(sizeof(LZ4_streamDecode_t) == LZ4_STREAMDECODE_MINSIZE);
--static_assert(LZ4_STREAMDECODE_MINSIZE == 32); /* LZ4_MEM_DECOMPRESS */
-+static_assert(LZ4_STREAMDECODE_MINSIZE == LZ4_MEM_DECOMPRESS);
- 
- int LZ4_decompress_safe(const char *source, char *dest, int compressedSize,
- 			int maxDecompressedSize)
-diff --git a/lib/lz4/lz4_kernel_api.h b/lib/lz4/lz4_kernel_api.h
-index de75e5d976eb9dd318da5318a26b91d7aed81042..43605a0e4d7f543662af83251184968f0d1b70dd 100644
---- a/lib/lz4/lz4_kernel_api.h
-+++ b/lib/lz4/lz4_kernel_api.h
-@@ -3,19 +3,10 @@
-  * Copyright (c) 2026 Samsung Electronics Co., Ltd.
-  * Author: Michal Wilczynski <m.wilczynski@samsung.com>
-  *
-- * lz4_kernel_api.h -- the LZ4 API this directory exports
-+ * lz4_kernel_api.h -- hand the LZ4 names back to the kernel
-  *
-- * lz4_deps.h renames upstream's entry points to __lz4_* so that the kernel's
-- * own definitions can use the real names; this header undoes that renaming
-- * and the optimize() override, and declares what lib/lz4 exports.
-- *
-- * The same functions are declared to callers in <linux/lz4.h>, in terms of
-- * opaque stream types.  We cannot include that header here -- it and
-- * upstream's lz4.h describe the same library and collide -- so the
-- * declarations are repeated, expressed in upstream's own types.  Keep the two
-- * in step; <linux/lz4.h> is the one callers compile against.
-- *
-- * Include after upstream/lz4.c or upstream/lz4hc.c.
-+ * Undo lz4_deps.h's renaming and its optimize() override, and pull in
-+ * <linux/lz4.h>.  Include after upstream/lz4.c or upstream/lz4hc.c.
-  */
- 
- #undef LZ4_compress_fast
-@@ -40,51 +31,4 @@
- 
- #undef optimize
- 
--/*
-- * The objects that do not build lz4hc.c never see this type, and it is only
-- * ever used through a pointer here.  Upstream declares it the same way.
-- */
--typedef union LZ4_streamHC_u LZ4_streamHC_t;
--
--/* Compression.  wrkmem is LZ4_MEM_COMPRESS bytes, supplied by the caller. */
--int LZ4_compress_default(const char *source, char *dest, int inputSize,
--			 int maxOutputSize, void *wrkmem);
--int LZ4_compress_fast(const char *source, char *dest, int inputSize,
--		      int maxOutputSize, int acceleration, void *wrkmem);
--int LZ4_compress_destSize(const char *source, char *dest, int *sourceSizePtr,
--			  int targetDestSize, void *wrkmem);
--
--/* Streaming compression. */
--void LZ4_resetStream(LZ4_stream_t *LZ4_stream);
--int LZ4_loadDict(LZ4_stream_t *streamPtr, const char *dictionary,
--		 int dictSize);
--int LZ4_saveDict(LZ4_stream_t *streamPtr, char *safeBuffer, int dictSize);
--int LZ4_compress_fast_continue(LZ4_stream_t *streamPtr, const char *src,
--			       char *dst, int srcSize, int maxDstSize,
--			       int acceleration);
--
--/* Decompression. */
--int LZ4_decompress_safe(const char *source, char *dest, int compressedSize,
--			int maxDecompressedSize);
--int LZ4_decompress_safe_partial(const char *source, char *dest,
--				int compressedSize, int targetOutputSize,
--				int maxDecompressedSize);
--int LZ4_setStreamDecode(LZ4_streamDecode_t *LZ4_streamDecode,
--			const char *dictionary, int dictSize);
--int LZ4_decompress_safe_continue(LZ4_streamDecode_t *LZ4_streamDecode,
--				 const char *source, char *dest,
--				 int compressedSize, int maxDecompressedSize);
--int LZ4_decompress_safe_usingDict(const char *source, char *dest,
--				  int compressedSize, int maxDecompressedSize,
--				  const char *dictStart, int dictSize);
--
--/* HC compression.  wrkmem is LZ4HC_MEM_COMPRESS bytes. */
--int LZ4_compress_HC(const char *src, char *dst, int srcSize, int dstCapacity,
--		    int compressionLevel, void *wrkmem);
--void LZ4_resetStreamHC(LZ4_streamHC_t *streamHCPtr, int compressionLevel);
--int LZ4_loadDictHC(LZ4_streamHC_t *streamHCPtr, const char *dictionary,
--		   int dictSize);
--int LZ4_compress_HC_continue(LZ4_streamHC_t *streamHCPtr, const char *src,
--			     char *dst, int srcSize, int maxDstSize);
--int LZ4_saveDictHC(LZ4_streamHC_t *streamHCPtr, char *safeBuffer,
--		   int maxDictSize);
-+#include <linux/lz4.h>
-diff --git a/lib/lz4/lz4hc_compress.c b/lib/lz4/lz4hc_compress.c
-index 4d56d45028110805628be766b2758a8dffd56f0c..4f40a12df17cfed2bab7f5d87ac087b4d423cef7 100644
---- a/lib/lz4/lz4hc_compress.c
-+++ b/lib/lz4/lz4hc_compress.c
-@@ -39,7 +39,7 @@ static int LZ4_compressBound(int isize)
- 
- /* Catch any divergence from upstream's layout at build time. */
- static_assert(sizeof(LZ4_streamHC_t) == LZ4_STREAMHC_MINSIZE);
--static_assert(LZ4_STREAMHC_MINSIZE == 262200); /* LZ4HC_MEM_COMPRESS */
-+static_assert(LZ4_STREAMHC_MINSIZE == LZ4HC_MEM_COMPRESS);
- 
- /* Levels >= LZ4HC_CLEVEL_OPT_MIN (10) reach the optimal parser, which needs
-  * a ~64K opt[]: too big for a kernel stack, and in the heap mode lz4_deps.h
-@@ -48,10 +48,12 @@ static_assert(LZ4_STREAMHC_MINSIZE == 262200); /* LZ4HC_MEM_COMPRESS */
-  * working.  Levels 3..9 keep their meaning; 1 and 2 are upstream's lz4mid,
-  * faster and weaker than the shallow hash chain the fork used for them.
-  */
-+static_assert(LZ4HC_CLAMP_CLEVEL == LZ4HC_CLEVEL_OPT_MIN);
-+
- static int lz4hc_clamp_level(int compressionLevel)
- {
--	if (compressionLevel >= LZ4HC_CLEVEL_OPT_MIN)
--		return LZ4HC_CLEVEL_OPT_MIN - 1;
-+	if (compressionLevel >= LZ4HC_CLAMP_CLEVEL)
-+		return LZ4HC_CLAMP_CLEVEL - 1;
- 
- 	return compressionLevel;
+diff --git a/mm/memory.c b/mm/memory.c
+index 6fe0b7dab927..ff2f2deff761 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5674,6 +5674,22 @@ static vm_fault_t __do_fault(struct vm_fault *vmf)
+ 	return ret;
  }
+ 
++/*
++ * A page cache folio that is not uptodate holds data that was never read in
++ * or cleared, and mapping it leaks stale memory to userspace. The callers are
++ * expected to check, so treat a hit as a kernel bug and refuse the mapping.
++ */
++static bool file_folio_not_uptodate(struct folio *folio)
++{
++	if (likely(folio_test_uptodate(folio)))
++		return false;
++	/* Driver pages from ->fault() never get PG_uptodate */
++	if (folio_test_anon(folio) || !folio->mapping)
++		return false;
++	WARN_ONCE(1, "refusing to map a page cache folio that is not uptodate\n");
++	return true;
++}
++
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+ static void deposit_prealloc_pte(struct vm_fault *vmf)
+ {
+@@ -5714,6 +5730,9 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+ 		return ret;
+ 	page = &folio->page;
+ 
++	if (file_folio_not_uptodate(folio))
++		return VM_FAULT_SIGBUS;
++
+ 	/*
+ 	 * Just backoff if any subpage of a THP is corrupted otherwise
+ 	 * the corrupted page may mapped by PMD silently to escape the
+@@ -5849,6 +5868,16 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
+ 	unsigned long addr;
+ 	bool needs_fallback = false;
+ 
++	/*
++	 * Check the folio ->fault() returned. For CoW that is the source of the
++	 * copy; DAX CoW has none.
++	 */
++	if (vmf->page) {
++		folio = page_folio(vmf->page);
++		if (file_folio_not_uptodate(folio))
++			return VM_FAULT_SIGBUS;
++	}
++
+ fallback:
+ 	addr = vmf->address;
+ 
 
+base-commit: dba8aba0a9a00ff781c03d82ae534fc6f8c2e263
 -- 
-2.34.1
+2.54.0
 
