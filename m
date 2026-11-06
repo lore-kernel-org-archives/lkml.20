@@ -1,56 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984208;
-	b=h02OhAMww7E7JSDqOqqkK1UF2JjwsJxss+asae0FBEJvIwCF1evPLE7e16z0ECIMrxPR
-	 z6NhBZKW0Uv1aSMAsfO2QwdPQuBcV/M6BG6M0F0xrw4ilpyIieg7D8O72TOP62KDrIIYk
-	 zqTnVtyO/B6zV86hGlB3fksTQwC9tkCRFo8g+r2dM7Vy5PQ0zgm1ORiwVcj+4erHyWVLg
-	 7MlnTrL7SDX4PYsbzRP3KeJKStYOZ11n1xMMneNrPGnWZOTbHjWn5qx8qSrxErRRDNynG
-	 dZCTocH78LmgieToF+SFp4LHdM6/1oRvkt6s+7y3GINHmTJCDvNZcCGgbB+v3FLvyDA==
+	t=1793984249;
+	b=EeJ8HjR+/FOL3IGAO2fgMYDaUErlYb9xHK8RLNOjJC2On2QAPrkwtWdt1vb6Ejg6Ykau
+	 kwtOJdpk5TzSaujypepZtqSsd9Ygxeo0pTYSqZvBBiB2JVrPL1ZoDVBOkywmSeRDZk3dH
+	 b4/riUJj0vAKxZn037ojCnPQo4/iVIC5BYrPCcrlPpGYP/GhiO+ebAbBmqv/79Yr0QnMB
+	 5MSOnrNbT/Bo29pJeS40t3u7N74bfTj3dDFbJX/8zhWbXo16Zz+IkWPIFTJm6c9fAWbPo
+	 OTIb5LosdC4NCp6dCbZ8IcCHDbrigmuIoM4zJHPKzN30bLiVGRjcwisbmZ54TC12FUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984208;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UMoPahHv2EIHkQEJjh5Tshzm/BTxLvso7C8eR52i+G4=;
-	b=xA1kLNUQZGsPNwOXJDs24jAEhnMbg+KwJTEC6eP6FLMiP1qvwND0Ko3/Kz5dOI0fF4s3
-	 Ln78O38NQR1EiiUjqpDwWu1p1GSBKfpz9DdWq2wB7ZtuT7pbdAngfaxcMtpcP1PUAiy4H
-	 JDPtyjoFKst3LEWY5Z9WCCT1Z2Lzp95GUv9ETMfkFZ5KVtIPKOI9XCdq04nExn7HtwP1o
-	 Qb8Bzoi4o8cIYRhQsUrG/rsadTfH6WWhBcGnd7OeOjNMUW/Qg7RcD/hBkG05QdOBFwZvT
-	 Z8Qk3C/18CF2IZDhR/ZguMVAPff4dJeuPt6Nlc43Y/8H/6wJWAF9aQJLC1SyRm8tXZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984249;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=0GkE8hZIJYtd3UHUB9YTMTqSfhEImKLinoLGGzd5XkM=;
+	b=eI5wB/440/wfuFJYzL58Fo5R+rzKClCnSH+sdsUkalYsVSt5YBbom47avu4Hs9JXk2ur
+	 z4cxocE8E3jl5UYzB0Puq8K3wHXVO+71hWTH6QJK90Q18ZzxFAl00UKP7bNMWbTYlsUtz
+	 2mlRVoV5pLdfK2Eb3BvJAvXmMY+o0y2rv64KuhkQUrUVCd4aMkrgeJTqooZKcYSie/FGx
+	 0rr0FFAymayTLYxoqQO8my/kgDGn4O8MGwTJVHvSurMRFIQI40uazCp/kQS5FlCkhUszn
+	 CoJAzvxm9GfatixzOqftn8llX8ffDfsLMOAWPNHHIheOJBpWw38SCCyHtUuIoDwKFvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AI1VXYlb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCdGM8rw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A295A606A32C;
-	Fri,  6 Nov 2026 16:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACA2606A326;
+	Fri,  6 Nov 2026 16:57:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AI1VXYlb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B72DD1F0089F;
-	Fri,  6 Nov 2026 16:56:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCdGM8rw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9C11F0089F;
+	Fri,  6 Nov 2026 16:57:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793984208;
-	bh=UMoPahHv2EIHkQEJjh5Tshzm/BTxLvso7C8eR52i+G4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AI1VXYlbGHKHBSDeYRPa9IfNna+l0TQHpTzeMjjLxqEtHsr1KUrWx3LjcHDD2EsHG
-	 Yt2z+K3hQchT6TrSnr2E5e971gHRhO08bC1flVFfNKFN2BwCSojbig5o6XgMZ1xjJN
-	 QKS2nlzPe8fqTHeW+MRJ0cg0f+k9RZhUkismQhDXEQMSr6B6tr32DI4nkdvppZVSik
-	 jJdi3wftovQmwF2tl8gyrJ4K8RBaoICTVulwRxUuBsk5apX2nuI0AuNJ/rx+wAJ7cq
-	 93KRStOvSJKCghD/E/i2SyXdr+rPUNNhbwLbwnA4qNgQp3M7Wu+h8FkLe4WVmmJ83a
-	 a/JcOXxrCyf3Q==
-Date: Fri, 6 Nov 2026 09:56:46 -0700
-From: Keith Busch <kbusch@kernel.org>
-To: Shameer Kolothum <skolothumtho@nvidia.com>
-Cc: kvm@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, alex@shazbot.org, jgg@ziepe.ca,
-	kevin.tian@intel.com, kbusch@meta.com, michal.winiarski@intel.com,
-	satyanarayana.k.v.p@intel.com, sonangp@nvidia.com,
-	ankita@nvidia.com, nathanc@nvidia.com, mochs@nvidia.com
-Subject: Re: [RFC PATCH v2 00/16] vfio/pci: Handle PCI error recovery and
- report state to userspace
-Message-ID: <au4GznJ7p1k0kdcD@kbusch-mbp>
-References: <20260929173305.204856-1-skolothumtho@nvidia.com>
+	s=k20260515; t=1793984248;
+	bh=0GkE8hZIJYtd3UHUB9YTMTqSfhEImKLinoLGGzd5XkM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NCdGM8rwN5bCNZ6rWdVxDrw9mInGo/n3xAuqFE5kst2Q9pV8Pxq6AgwKmPDqem4XK
+	 KlTApBAXNvPKpIuk7Dp0jcuGjSnQYAut++TKz/rGLVu22G1U9HHPqSFhMABL5fX3v6
+	 ubrOEiJCCT5mDGt2a+HCJjnGll4dB+Dj+trUGB8ybQyiaWYiRGDErq8yTWcKfQ51wa
+	 CjwhWQBNkXc2V4aWq8WXZO34/HGawc+tqMuSSEmq+oVCMK8/xnEbRIMU6etL+6a81L
+	 LKKDTjL6RKDIVBLjZ7H+irbg+1mndAq+FQiGkxz7CFp/VxVAXr1cKcKs6+mIJj7qIo
+	 qF585rUxNhVRQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xPNFm-0000000CHU4-09ZA;
+	Fri, 06 Nov 2026 16:57:26 +0000
+Date: Fri, 06 Nov 2026 16:57:25 +0000
+Message-ID: <86y0b528zu.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Leonardo Bras <leo.bras@arm.com>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND v4 0/3] Optimize S2 hugepage splitting, introduce skip-level flags
+In-Reply-To: <20261106161240.1345126-1-leo.bras@arm.com>
+References: <20261106161240.1345126-1-leo.bras@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,29 +78,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929173305.204856-1-skolothumtho@nvidia.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: leo.bras@arm.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, rananta@google.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, Sep 29, 2026 at 06:32:49PM +0100, Shameer Kolothum wrote:
-> Hi,
+On Fri, 06 Nov 2026 16:12:35 +0000,
+Leonardo Bras <leo.bras@arm.com> wrote:
 > 
-> Currently, vfio-pci signals the error eventfd from error_detected() and
-> returns PCI_ERS_RESULT_CAN_RECOVER, including for permanent failure. It
-> has no slot_reset() or resume() callback, so userspace is not notified
-> when host recovery completes or whether the device was reset.
 > 
-> This series adds opt-in host PCI error recovery for vfio-pci. It blocks
-> device access during recovery, restores device state after a host reset,
-> and reports recovery status to userspace. The kernel runs host recovery
-> and the VMM decides how to recover the guest.
+> While playing with dirty-bit tracking, I decided to take a look on how page
+> splitting works. Found out all entries are walked, even though we don't need
+> to walk the level-3 entries, as they don't need to be split. 
 
-We've been experiementating with this recently. It turns out that doing
-a meaningful recovery on the user space side is a bit more difficult
-than initially thought, but we can at least get more deterministic
-behavior with these notifications and gracefully stop affected
-processes. I don't think there is much else the kernel side can do to
-make this go any better, so this series looks good to us.
+What's the point of this "RESEND"? Anything different from what you
+sent on Sept 30th? Since it is still numbered v4, I assume nothing has
+changed...
 
-Acked-by: Keith Busch <kbusch@kernel.org>
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
