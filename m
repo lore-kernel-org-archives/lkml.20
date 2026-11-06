@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793934554;
-	b=cN6xa4K5t/ff3iLTCJlUX/z1oJ2yL8tE++FWqFdj93SWO8j1MmjhHcJwVYLfj/cxMTTX
-	 +8rXCfoxZG0iuQjkehHmUU9uNemX5Tg5a+p+gdXps2XwLHsFSH24tsDk7w6q1nmT76Laa
-	 nCc3yRejX3yq4AhiCHXQaiHcsZm2CBEX14fkb31xNOEyBJuGM763H7+FOEzhcH1ZJ/zNC
-	 uYgn4kmSTYSngXTdnK997eNUGunkQdSvSAUV6vHyxU8vgCOg0YprnoraEdjS9ZInBr+cu
-	 ahx3fwkfa3fDWWyf/KACQ+zj1GVyg6u8bJ1ad7Yg0oh0zXJqvh+iNeBed5eksMOYUpg==
+	b=0iL2UIyCHpEwx5WLSf6xbByVnOOEut6mpdshSTMnCb5KMpZ54qtupjTG9c305zPt0kln
+	 +KYwq7QLoS1dEOuUn8vNGufp5LOFPiWlitelx/rDKmyLQWNcCvE3bqhAEWnZU1nnDXeRF
+	 seNZ7YjoIsEQy1pkCu70wgGKsWqhvSnOg31kxUy/sgm2lPooTepofPn5CSCVSt8TRGQ4z
+	 d01kuAFUlVmHlR3uL2hVfqpqcw3r6+oIvXFIcs22qQQZnQ7KOeka9/ESUtkN5f8+7chw0
+	 mN3BgKHoFxzXgDrAhRwjPOHZKU44PQi23F2JnlQi6fQVsfwHJfLQ/9fWtI7nxAneJtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793934554;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=19wwQDSniobi3Z1csoRNrPM8O3Z8Q6nEjwbEbH4966w=;
-	b=E4v4CNoPPzyg0gZT/Opb3nocOC93mIUBb7i4K6tZ8srrrhCDoGG4reo4aNiusfs64l7j
-	 9FWNP7fEnrPod3yN6x7G6ginuhPPojklGGnfwJOPKoVH3JS8f14YWjaUSLkPKu1cUnwIT
-	 mo3r5VeyURqrLLPU5t0HWUeBFanG/h9JDsz93VPlV7DRa8Qf7pvq0DlO1UIB+nTXQ/XUb
-	 onPlypKTDEMZKokgClqi4URq6JE55Cm48kKMARezmSmsIF/Fp/2bWFCM4rYNcMKa86yte
-	 6dqMLE5rpDt06L/X6tDvcNRkr+srGZxpw2LDey2e9YlS86qzAzfpV3aFXXbttgH15tQ==
+	bh=aiGMh1j0u+PPtk2VdEIVP/q6FzywHxKvtOJtvRlEfO8=;
+	b=Fz/YFryJXuL1BGUqYdZWNNkuyNfd4X3Q4XhIyqNyVs2HTzWa+6qWn5spcHgiA+U3Ud44
+	 3lRS/2wt7s0MT5mPYy4n5UOJBXv3aUCPfp71Wr8s98swdpOFGoHd4Ta5/rAsOT9suHWb2
+	 UwqVJz3ILfOLI72Wka430MdBzQXFTxeAAxoo0P06TcAWd6ZczG1iLK+gNohxAz3MYZNuD
+	 nbD6WrU1OOifES0dJ0AspjW88NjkFMBpnuceB0rci0WHX0JsoWJRdQ5qUTExZRuiJZm0O
+	 1SIFSd0OEdwGLMKQXP4sfJSJG1+tfhdMC3sZzakIJuhfJVb28XbzBNF7olJeeon043Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LRk8huu3;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Y5lu4Gqp;
 	arc=none smtp.remote-ip=90.155.92.199
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4A4606EE80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC740606D83F
 	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:09:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4A4606EE80
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC740606D83F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LRk8huu3
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Y5lu4Gqp
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=19wwQDSniobi3Z1csoRNrPM8O3Z8Q6nEjwbEbH4966w=; b=LRk8huu326YuWGm54Ki5Sp4LWc
-	5pi2mnd/0H8YCkbfQbdI6/XQG8tCw7nLaCebIR7XOZP9WE7AFWVEQY4mS5GIhZ/cvBDGDhJrqAyKr
-	0BLjZfCCzPTmtCUlslRoKSwxHxrVrJXgue/oD8m0Zs+3Td8VKu06TobBB3YtehJ8lQYdtiDRCTOD3
-	TEls4B/qY0BqQUWIDJKsNkxPKXeUCpEYwIZecq5k0ODN5B+QTb9GKa9inmFvXMwVvv5GuCjyLomm3
-	9sPgeSWfAsR+HXtpB5DrhNtL71r1gt4Q5oKp+y5CJg+4EW5rtPpHHB/8ZVeDFBbgfhATiK3qfN+zx
-	u5l5gZvQ==;
+	bh=aiGMh1j0u+PPtk2VdEIVP/q6FzywHxKvtOJtvRlEfO8=; b=Y5lu4GqpGbraHIpAHSBqSS+kOT
+	vt2QVT6IfPtYk7lXSHmf0Lc2sJqMIvARHQ9OSq/V0Pks5MpFjodt3efYW8hutY52jvNx5JX71haIl
+	GFBTmHqhJey4bE7Tzlj6uXqjX/Qslhdbq9GZqKV1Tl4vwhR02+1w0RO3tuVjEWukbkbR02Ren3biH
+	fKqnOZvB/gE/PVLBp7z9quslH9kA1efsfS6k7xcatF+biCbuLT+Ip4lvtzOLlMJ2054rVToB6gYDI
+	GY4bVSeSjvBNY7KXU6439ZGD4mH4EOGSsru0dfxKnHcoxRgkmowC5gkY1h+qahpOTjxivod0h/DLd
+	FGIHA1Yw==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPAK4-00000003mcm-13bk;
+	id 1xPAK4-00000003mcl-13gC;
 	Fri, 06 Nov 2026 03:09:00 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xPAK1-0000000AeGL-0YMV;
+	id 1xPAK1-0000000AeGI-0L8l;
 	Fri, 06 Nov 2026 03:08:57 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: Thomas Gleixner <tglx@kernel.org>,
@@ -64,9 +64,9 @@ Cc: Stephen Boyd <sboyd@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	nh-open-source@amazon.com,
 	David Woodhouse <dwmw2@infradead.org>
-Subject: [PATCH v2 2/6] ntp: Recalculate skew_delta when the phase offset changes
-Date: Thu,  5 Nov 2026 19:08:51 -0800
-Message-ID: <20261106030856.2538039-3-dwmw2@infradead.org>
+Subject: [PATCH v2 1/6] timekeeping: Allow tick_length changes to apply mid-tick
+Date: Thu,  5 Nov 2026 19:08:50 -0800
+Message-ID: <20261106030856.2538039-2-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261106030856.2538039-1-dwmw2@infradead.org>
 References: <20261106030856.2538039-1-dwmw2@infradead.org>
@@ -86,205 +86,126 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The skew rate is recomputed only by second_overflow(), so when
-time_offset or time_adjust changes mid-second (hardpps on each pulse,
-adjtimex, adjtime()) the stale rate keeps delivering until the end of
-the second, and the misdelivery lands in ntp_error. Pull the
-computation out into ntp_update_skew_delta() and call it from the
-writers. Settling of an opposing time_offset/time_adjust overlap stays
-paced at one chunk per second, via the settle argument.
+When the NTP tick length changes, timekeeping_apply_adjustment() applies
+the accounting for the new rate to ntp_error retrospectively for the
+partial tick which is currently in progress. So the ideal line of the
+clock conceptually changes from the moment of cycle_last (which can be
+almost a full tick ago), and ntp_error grows to show the difference
+between that and what userspace actually saw already.
 
+Commit c2cda2a5bda9 ("timekeeping/ntp: Don't align NTP frequency
+adjustments to ticks") removed the equivalent alignment term from the
+old accounting in 2018, precisely so that a new frequency took effect
+at the time of the update. Commit b7befd6d9120 ("timekeeping: Account
+for monotonicity adjustment in ntp_error") effectively reinstated the
+alignment, because *some* accounting is needed at that point — the
+same retrospective mult change also carries the dither and skew
+components, whose divergence genuinely does belong in ntp_error.
+
+This can lead to a significant value (10s of microseconds) landing in
+ntp_error which can take *days* to drain through the natural mult ±1
+dithering.
+
+The slow-draining ntp_error then applies a consistent bias to that ±1
+dithering, meaning that the precision of the effective frequency
+requested by userspace is limited to integer 'mult' values, since the
+dithering is no longer effective to achieve the fractional parts.
+
+Jie Wang reports that this makes phc2sys take minutes instead of
+seconds to settle CLOCK_REALTIME after a step of the PHC it follows:
+the servo slews at up to 10% and then backs off by several percent per
+second, charging tens of microseconds to ntp_error on every update. On
+a gPTP setup (ptp4l + phc2sys on back-to-back i226 NICs, PREEMPT_RT),
+the time for the phc2sys offset to settle below 100ns after a 1s step
+of the grandmaster's PHC rose from ~32s to 200-400s or more. Yuan Wang
+measured this patch alone restoring it to 32s across three consecutive
+steps, with the steady-state lock (~8ns rms) unchanged.
+
+Fix this by allowing the rate change to be conceptually applied at
+'offset' into the partial tick, rather than the start of the tick.
+This means that the amount of delta which gets accumulated into
+ntp_error remains low.
+
+Rather than factoring this into timekeeping_apply_adjustment() which
+already makes my eyes bleed, pre-correct it when the rate changes, to
+adjust the 'intended' clock position according to the delta between
+old and new tick lengths (but leaving skew as it should be).
+
+Fixes: b7befd6d9120 ("timekeeping: Account for monotonicity adjustment in ntp_error")
+Reported-by: Jie Wang <jie.wang@intel.com>
+Closes: https://lore.kernel.org/all/20261105032150.1763572-1-yuan1.wang@intel.com/
+Cc: stable@vger.kernel.org
 Acked-by: John Stultz <jstultz@google.com>
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
-v2: No change.
+v2: Pull the dividend/mult restructure up from patch 6 so the old and
+    new calculations match visually, and rewrite the comment explaining
+    the mid-tick compensation (John). Add the commit archaeology, the
+    gPTP symptom and measurements from Jie Wang's report, with
+    Fixes/Cc: stable.
 
- kernel/time/ntp.c | 144 +++++++++++++++++++++++++++-------------------
- 1 file changed, 85 insertions(+), 59 deletions(-)
+ kernel/time/timekeeping.c | 34 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/time/ntp.c b/kernel/time/ntp.c
-index d22b532ec536..b8b0bf1d94e7 100644
---- a/kernel/time/ntp.c
-+++ b/kernel/time/ntp.c
-@@ -593,6 +593,82 @@ ktime_t ntp_get_next_leap(unsigned int tkid)
- 	return KTIME_MAX;
- }
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index dcf47f1ffdcf..118612c4a82e 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -2436,6 +2436,7 @@ static void timekeeping_adjust(struct timekeeper *tk, s64 offset)
+ {
+ 	u64 ntp_tl = ntp_tick_length(tk->id);
+ 	s64 skew = ntp_get_skew_delta(tk->id);
++	u64 dividend;
+ 	u32 mult;
  
-+/*
-+ * ntp_update_skew_delta - Recompute the per-tick skew rate for the
-+ * current second from the pending time_offset / time_adjust phase.
-+ *
-+ * The rate is in the same units as time_offset: (ns << NTP_SCALE_SHIFT)
-+ * / HZ. If the result is so low that the skew imparted would round to
-+ * zero, pass the bare minimum +-1 to ensure that it *does* actually
-+ * drain completely to zero. It won't overshoot because
-+ * logarithmic_accumulation() only drains what it can from time_offset
-+ * or time_adjust, and the rest ends up in ntp_error which drives the
-+ * selection of 'mult' immediately each tick.
-+ *
-+ * Called from second_overflow() at each second boundary (@settle =
-+ * true), and directly by the writers of time_offset / time_adjust so a
-+ * change takes effect at the next timekeeping advance rather than
-+ * persisting a stale rate until the end of the second. @settle gates
-+ * ntp_transfer_offset_adjust(): settling the opposing overlap is paced
-+ * at one chunk per second by design and is the only mutation here, so
-+ * with @settle false the call is a pure recompute, safe at any rate.
-+ *
-+ * The timekeeper lock is held on all paths, serializing ntp_data.
-+ */
-+static void ntp_update_skew_delta(struct ntp_data *ntpdata, bool settle)
-+{
-+	if (ntpdata->time_offset || ntpdata->time_adjust ||
-+	    ntpdata->time_adjust_frac) {
-+		s64 off_chunk = ntp_offset_chunk(ntpdata, ntpdata->time_offset);
-+		s64 adj_chunk = 0, net;
+ 	/*
+@@ -2447,6 +2448,8 @@ static void timekeeping_adjust(struct timekeeper *tk, s64 offset)
+ 		/* Revert to the base mult rate. */
+ 		mult = tk->tkr_mono.mult - tk->ntp_err_mult;
+ 	} else {
++		u64 old_ntp_tick = tk->ntp_tick;
++
+ 		tk->ntp_tick = ntp_tl;
+ 		tk->skew_delta = skew;
+ 		/*
+@@ -2454,8 +2457,35 @@ static void timekeeping_adjust(struct timekeeper *tk, s64 offset)
+ 		 * scale it back up to the full per-tick rate for the mult bias.
+ 		 */
+ 		skew *= NTP_INTERVAL_FREQ;
+-		mult = div64_u64((tk->ntp_tick + skew) >> tk->ntp_error_shift,
+-				 tk->cycle_interval);
++		dividend = (tk->ntp_tick + skew) >> tk->ntp_error_shift;
++		mult = div64_u64(dividend, tk->cycle_interval);
 +
 +		/*
-+		 * Once the exponential chunk rounds to zero, deliver the last
-+		 * remaining offset this second so it converges to zero instead
-+		 * of stalling just above it.
++		 * In timekeeping_apply_adjustment(), the mult_adj value is
++		 * retrospectively applied as if it had come into effect at
++		 * the *start* of the current tick.  Any discrepancy due to
++		 * the fact that time has *actually* been counted at the old
++		 * mult rate between the start of the tick and now ('offset'
++		 * cycles into that tick) is dumped into ntp_error.
++		 *
++		 * When tick_length is changed by a large amount, that can
++		 * lead to tens of microseconds of ntp_error being accrued.
++		 *
++		 * Fix this by conceptually applying the tick_length change
++		 * now (at 'offset'), rather than the start of the tick.
++		 *
++		 * That means calculating what 'mult' would have been with
++		 * the old ntp_tick length (but the *current* value of skew),
++		 * and pre-adjusting ntp_error to compensate.
 +		 */
-+		if (!off_chunk)
-+			off_chunk = ntpdata->time_offset;
++		if (tk->ntp_tick != old_ntp_tick) {
++			u64 old_dividend = (old_ntp_tick + skew) >> tk->ntp_error_shift;
++			s64 old_base_mult = div64_u64(old_dividend, tk->cycle_interval);
++			s64 mult_delta = (s64)mult - old_base_mult;
 +
-+		if (ntpdata->time_adjust || ntpdata->time_adjust_frac) {
-+			s64 adj;
-+
-+			if (ntpdata->time_adjust >= MAX_TICKADJ)
-+				adj = MAX_TICKADJ * ONE_US_NS;
-+			else if (ntpdata->time_adjust <= -MAX_TICKADJ)
-+				adj = -MAX_TICKADJ * ONE_US_NS;
-+			else
-+				adj = ntpdata->time_adjust * ONE_US_NS +
-+					ntpdata->time_adjust_frac;
-+
-+			adj_chunk = div_s64(adj, NTP_INTERVAL_FREQ);
-+			if (!adj_chunk)
-+				adj_chunk = signof(ntpdata->time_adjust_frac);
++			tk->ntp_error -= ((s64)offset * mult_delta)
++					 << tk->ntp_error_shift;
 +		}
-+
-+		/*
-+		 * If the two slews oppose, only their net would drive the
-+		 * per-tick drain, so the cancelling part would never drain from
-+		 * either tracker and an exact cancellation would stall both.
-+		 * Settle that overlap directly between them (no clock motion).
-+		 */
-+		if (settle && off_chunk && adj_chunk &&
-+		    signof(off_chunk) != signof(adj_chunk)) {
-+			s64 conflict = min(abs(off_chunk), abs(adj_chunk));
-+
-+			ntp_transfer_offset_adjust(ntpdata, signof(off_chunk) * conflict);
-+		}
-+
-+		/* Net is what the clock delivers; reduce to per-tick, then floor. */
-+		net = off_chunk + adj_chunk;
-+		ntpdata->skew_delta = div_s64(net, NTP_INTERVAL_FREQ);
-+		if (!ntpdata->skew_delta && net)
-+			ntpdata->skew_delta = signof(net);
-+	} else {
-+		ntpdata->skew_delta = 0;
-+	}
-+}
-+
- /*
-  * This routine handles the overflow of the microsecond field
-  *
-@@ -669,65 +745,8 @@ int second_overflow(unsigned int tkid, time64_t secs)
- 	/* Check PPS signal */
- 	pps_dec_valid(ntpdata);
- 
--	/*
--	 * Set the per-tick skew rate for the next second. This is in
--	 * the same units as time_offset: (ns << NTP_SCALE_SHIFT) / HZ.
--	 * If the result is so low that the skew imparted would round
--	 * to zero, pass the bare minimum ±1 to ensure that it *does*
--	 * actually drain completely to zero. It won't overshoot because
--	 * logarithmic_accumulation() only drains what it can from
--	 * time_offset or time_adjust, and the rest ends up in ntp_error
--	 * which drives the selection of 'mult' immediately each tick.
--	 */
--	if (ntpdata->time_offset || ntpdata->time_adjust ||
--	    ntpdata->time_adjust_frac) {
--		s64 off_chunk = ntp_offset_chunk(ntpdata, ntpdata->time_offset);
--		s64 adj_chunk = 0, net;
--
--		/*
--		 * Once the exponential chunk rounds to zero, deliver the last
--		 * remaining offset this second so it converges to zero instead
--		 * of stalling just above it.
--		 */
--		if (!off_chunk)
--			off_chunk = ntpdata->time_offset;
--
--		if (ntpdata->time_adjust || ntpdata->time_adjust_frac) {
--			s64 adj;
--
--			if (ntpdata->time_adjust >= MAX_TICKADJ)
--				adj = MAX_TICKADJ * ONE_US_NS;
--			else if (ntpdata->time_adjust <= -MAX_TICKADJ)
--				adj = -MAX_TICKADJ * ONE_US_NS;
--			else
--				adj = ntpdata->time_adjust * ONE_US_NS +
--					ntpdata->time_adjust_frac;
--
--			adj_chunk = div_s64(adj, NTP_INTERVAL_FREQ);
--			if (!adj_chunk)
--				adj_chunk = signof(ntpdata->time_adjust_frac);
--		}
--
--		/*
--		 * If the two slews oppose, only their net would drive the
--		 * per-tick drain, so the cancelling part would never drain from
--		 * either tracker and an exact cancellation would stall both.
--		 * Settle that overlap directly between them (no clock motion).
--		 */
--		if (off_chunk && adj_chunk && signof(off_chunk) != signof(adj_chunk)) {
--			s64 conflict = min(abs(off_chunk), abs(adj_chunk));
--
--			ntp_transfer_offset_adjust(ntpdata, signof(off_chunk) * conflict);
--		}
--
--		/* Net is what the clock delivers; reduce to per-tick, then floor. */
--		net = off_chunk + adj_chunk;
--		ntpdata->skew_delta = div_s64(net, NTP_INTERVAL_FREQ);
--		if (!ntpdata->skew_delta && net)
--			ntpdata->skew_delta = signof(net);
--	} else {
--		ntpdata->skew_delta = 0;
--	}
-+	/* Set the per-tick skew rate for the next second */
-+	ntp_update_skew_delta(ntpdata, true);
- 
- 	return leap;
- }
-@@ -1003,6 +1022,10 @@ static inline void process_adjtimex_modes(struct ntp_data *ntpdata, const struct
- 
- 	if (txc->modes & (ADJ_TICK|ADJ_FREQUENCY|ADJ_OFFSET))
- 		ntp_update_frequency(ntpdata);
-+
-+	/* A changed phase target invalidates the current skew rate */
-+	if (txc->modes & (ADJ_OFFSET | ADJ_TIMECONST | ADJ_STATUS))
-+		ntp_update_skew_delta(ntpdata, false);
- }
- 
- /*
-@@ -1023,6 +1046,7 @@ int ntp_adjtimex(unsigned int tkid, struct __kernel_timex *txc, const struct tim
- 			ntpdata->time_adjust = txc->offset;
- 			ntpdata->time_adjust_frac = 0;
- 			ntp_update_frequency(ntpdata);
-+			ntp_update_skew_delta(ntpdata, false);
- 
- 			audit_ntp_set_old(ad, AUDIT_NTP_ADJUST,	save_adjust);
- 			audit_ntp_set_new(ad, AUDIT_NTP_ADJUST,	ntpdata->time_adjust);
-@@ -1264,6 +1288,8 @@ static void hardpps_update_phase(struct ntp_data *ntpdata, long error)
- 		/* Cancel running adjtime() */
- 		ntpdata->time_adjust = 0;
- 		ntpdata->time_adjust_frac = 0;
-+		/* The previous correction's skew rate is stale; recompute */
-+		ntp_update_skew_delta(ntpdata, false);
  	}
- 	/* Update jitter */
- 	ntpdata->pps_jitter += (jitter - ntpdata->pps_jitter) >> PPS_INTMIN;
+ 
+ 	/*
 -- 
 2.43.0
 
