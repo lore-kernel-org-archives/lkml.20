@@ -1,77 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960745;
-	b=2ZPacB1yc8Haxq1d1GYNgUs+ybufqrLWPV6AxeI9mdT1DEALPwT/zxitPeGn0F4G4tDo
-	 BAehNFkgd3HytJpx/f3FZfw9LgmOBumIni2U15YDPKZRHS/mJ/u77+lulEGYjeSzNcf5F
-	 QMh3l50XtobNbKAfH/g4nVNMLicOJ2oCI2cJZUZ8kaeCbG4lL+UXDxDmbmpY4hO74I1w6
-	 aNB8siwrMG+FXjkVruRUMs1BGfPKW8XME+7q2VUDNprPA9a2DbQeLjp3KQWV3Dx76vhul
-	 Xp+xdS/sINDM54MAoKWitAwHpl7xWrPPKOOprLuql6inifVxLBLHMMC6zBUSBqrD25g==
+	t=1793960742;
+	b=JtL/YkYm4HrC6QAE97ImrTn0S3+lcNZwRn5dP9SqmPNA1jLYTBeiQwKndabJt1ulUr5/
+	 PnEZJjnftq4EDDrR2ED++sPxaKQIoD26PVN04ucaBRl/aW3ocrS72szlygdXY4eXboxTM
+	 tjEeV2zp9GRhrHrrvux+x48WCnRpSdWRi13VGIjS169ulnt41sdmoGwqNGRqzirWidSNB
+	 bC2uOLbLC2wQm7PWBOTTbtSNhnTO/GDIn/03x2V4rj7K6KESouFUXv/4VnQ+UV8nSERYO
+	 pC9/alMRbzJ0M35wQ/3r1aXHZFF7sH1qNOqbCZxLEegE7/4exzwVSOt2T0eprby/n6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960742;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=agWbbIG4gpUGe4EbhAPAJRARSVYN9gP1AUJ10RFb9zM=;
-	b=q9+I9ZV2Wn7/o0QCPe5u/tNhgTDWhXztfrekoFatQuwV9paNaB5C6ILwqRa970TmPJOd
-	 hWBf8Gqm7xi1UsGTAWXZ5CSBc0SY2yHlXO00AtRKcE72mTJIcGp6yRrYHBrajag0MicnD
-	 jtuGVtjp1UAyxTjgQLPEjKH0tks19J23e2VOdFtNYU2PbaAOKs7vmmK+ePRmGSCu+8f/A
-	 jheIERAwF1aIXnrlJLkocpsGxgL9JNyCZEv8J0X2rgqOTU/+YmOBZlqXbvi/JOI98dk6y
-	 /j8kmUAqa2/NRAmrMSr0m9Tb9yOwQ+R/dkhhu4yCAdEquyXK5H9ZlKFD3PZQ/uBZ2WQ==
+	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
+	 Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=IwhL11IItbx+UkuTZLNhKV2dLMeWlpqPP0VOCiIgkaU=;
+	b=umK0XMuPkiEkXdlxgQHZadusOvtoJKk5E2KJcgWDt3wy2RxhoPY2kNisKRV2srCqsCCs
+	 TBZRuAxMxAu+qdzfB5QI0jpnzwG05bHn4WuSE7OxAYDw9R67tURg7HYeJ2ZuKiUv04p06
+	 v7i0KJ1EQS8OO7HgnSO6y8cdxAxKZlvJLNj9j6WrXDe8eo5MMkddKlCt3bau2PxWMUQVF
+	 wryzpb8Syas4jE7TMuGxfBpWdCPc8ff19VZVykd/7rIpUG0QxnvQ63F2IATApX+ITNob8
+	 ixAdCbdBvDwZHDsQypCgYjRn4zz77bGY6mIGwbWxYN2YBOSlwyyYykoczBJ8MTufWDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=qzxCDa2j;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=7qyiJxwO;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=QcKpG3kV;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CItvqAHL;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBFC606D832;
-	Fri,  6 Nov 2026 10:25:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FBFC606D832
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC7D606A32C;
+	Fri,  6 Nov 2026 10:25:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAC7D606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=qzxCDa2j;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=7qyiJxwO
-Date: Fri, 06 Nov 2026 10:25:41 -0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=QcKpG3kV;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CItvqAHL
+Date: Fri, 06 Nov 2026 10:25:36 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793960743;
+	s=2020; t=1793960738;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=agWbbIG4gpUGe4EbhAPAJRARSVYN9gP1AUJ10RFb9zM=;
-	b=qzxCDa2jsmUhz/p6+BaJsEJA6noOxbikRuWh/HVc0WKX8lPwqKzhKUqhMxEz2C76KTvggZ
-	Dpm/Ml6SWJ5+ry4CgpzApqn8qSpx/bUa7MeDkrLG8wVAuoMGm3gfaNGo300wrLZAeClaY+
-	zp9mtYzI0IQTxflXJJi/w4ieDmBHqXdrBT4kY7Dty/y8qG5oqwTD5O5dWc1jfM5v5skikO
-	PeGgmLBUoHO9uhGCTh1fnBNcW0uQkh9bdNk470IbJYe46ELnU9MQEtIgqaoe/yCI+QoFpj
-	gzu2U+6t5+HOolE0GGvVlbrOXXyUVNpttMXKCW2wSnj8VCGtnkUNe75V/O1rsw==
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=IwhL11IItbx+UkuTZLNhKV2dLMeWlpqPP0VOCiIgkaU=;
+	b=QcKpG3kVFNntlV7cvyy6KTZBGi71KXpl3CebGmY4urOdCFq7GY6Npi7iVkokgZrDeUMRdn
+	8CWQHJTNYbS+H+4ZKrT9vOfXV5kY3yOsFP3cIETTpSzuS6WPqsyp4pzFrHHyP+t4okd3P7
+	7ZlyYjkdeWRDZX1EOkry/StfjxcREB/LJomuaMJbZQYcrKbkrLkOs8aSUGTjcoJWXY7EEB
+	efHXf5OtPIacKwFG29idt6K5W+B8bM/JrwNWOTi2QtVUb57Klih7PiRpSgOsjX/zUy2b0O
+	0k7omdLHpL1tNMVgIEXBsg26y58cr3o3Kb9XWP2K0Lc7gq93C9cXio/iY7doQQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793960743;
+	s=2020e; t=1793960738;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=agWbbIG4gpUGe4EbhAPAJRARSVYN9gP1AUJ10RFb9zM=;
-	b=7qyiJxwOd0t4v0zF75CPUaL7yE0rSvblPb4aJTI2ZA7FkNLvEE82cuh3+mhe30/kFyDUSH
-	Wa0VGHq69SW242BQ==
-From: "tip-bot2 for David Laight" <tip-bot2@linutronix.de>
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=IwhL11IItbx+UkuTZLNhKV2dLMeWlpqPP0VOCiIgkaU=;
+	b=CItvqAHL+IvxEeCusaZ03zlDyjp3dgfv2QRB5oBWvDQcllAedzKpY9AALL7XlTNhRViApC
+	TLJRX3FKI7p2g/Ag==
+From: "tip-bot2 for Peter Zijlstra" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: locking/core] locking/osq: Save the CPU number for 'prev', not
- the node address
+Subject:
+ [tip: locking/core] locking/osq: Remove osq_wait_unlink_next(.node) argument
 Cc: David Laight <david.laight.linux@gmail.com>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, Waiman Long <longman@redhat.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260907084133.3696-3-david.laight.linux@gmail.com>
-References: <20260907084133.3696-3-david.laight.linux@gmail.com>
+ Ingo Molnar <mingo@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Waiman Long <longman@redhat.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,7 +76,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179396074127.1009794.6674908998137430262.tip-bot2@tip-bot2>
+Message-ID: <179396073678.1009794.17086241810080169681.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -91,127 +86,62 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the locking/core branch of tip:
 
-Commit-ID:     72c440a4e225879063809c3d0bcdd7e6544069fe
-Gitweb:        https://git.kernel.org/tip/72c440a4e225879063809c3d0bcdd7e6544=
-069fe
-Author:        David Laight <david.laight.linux@gmail.com>
-AuthorDate:    Mon, 07 Sep 2026 09:41:26 +01:00
+Commit-ID:     fc5209beeec87d7a5c6a5fc5054041f106f0317c
+Gitweb:        https://git.kernel.org/tip/fc5209beeec87d7a5c6a5fc5054041f106f=
+0317c
+Author:        Peter Zijlstra <peterz@infradead.org>
+AuthorDate:    Tue, 15 Sep 2026 13:27:35 +02:00
 Committer:     Ingo Molnar <mingo@kernel.org>
 CommitterDate: Fri, 06 Nov 2026 11:16:24 +01:00
 
-locking/osq: Save the CPU number for 'prev', not the node address
+locking/osq: Remove osq_wait_unlink_next(.node) argument
 
-The CPU number of node->prev is needed for both the vcpu_is_preempted()
-test and to update lock->tail. This saves reading the cache line for
-the other CPU's per-CPU data.
+In both cases, @node is always this_cpu_ptr(&osq_node), don't
+bother passing it along.
 
-The CPU member of optimistic_spin_node is no longer needed.
+No change in functionality intended.
 
-[ peterz: Renamed stuff ]
-
-Signed-off-by: David Laight <david.laight.linux@gmail.com>
+Suggested-by: David Laight <david.laight.linux@gmail.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Waiman Long <longman@redhat.com>
 Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Link: https://patch.msgid.link/20260907084133.3696-3-david.laight.linux@gmail=
-.com
+Cc: Waiman Long <longman@redhat.com>
+Cc: linux-kernel@vger.kernel.org
 ---
- kernel/locking/osq_lock.c | 29 ++++++++++++-----------------
- 1 file changed, 12 insertions(+), 17 deletions(-)
+ kernel/locking/osq_lock.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
-index 984fa11..ee1f69b 100644
+index 11d0d34..e3cd066 100644
 --- a/kernel/locking/osq_lock.c
 +++ b/kernel/locking/osq_lock.c
-@@ -13,9 +13,9 @@
+@@ -46,11 +46,10 @@ static inline struct optimistic_spin_node *decode_cpu(int=
+ encoded_cpu_val)
   */
-=20
- struct optimistic_spin_node {
--	struct optimistic_spin_node *next, *prev;
-+	struct optimistic_spin_node *next;
- 	int locked; /* 1 if lock acquired */
--	int cpu; /* encoded CPU # + 1 value */
-+	int prev_cpu; /* CPU number offset by 1 */
- };
-=20
- static DEFINE_PER_CPU_SHARED_ALIGNED(struct optimistic_spin_node, osq_node);
-@@ -29,11 +29,6 @@ static inline int encode_cpu(int cpu_nr)
- 	return cpu_nr + 1;
- }
-=20
--static inline int node_cpu(struct optimistic_spin_node *node)
--{
--	return node->cpu - 1;
--}
--
- static inline struct optimistic_spin_node *decode_cpu(int encoded_cpu_val)
+ static inline struct optimistic_spin_node *
+ osq_wait_unlink_next(struct optimistic_spin_queue *lock,
+-		     struct optimistic_spin_node *node,
+ 		     int old_cpu)
  {
- 	int cpu_nr =3D encoded_cpu_val - 1;
-@@ -137,11 +132,10 @@ bool osq_lock(struct optimistic_spin_queue *lock)
- 	struct optimistic_spin_node *node =3D this_cpu_ptr(&osq_node);
- 	struct optimistic_spin_node *prev, *next;
++	struct optimistic_spin_node *next, *node =3D this_cpu_ptr(&osq_node);
  	int curr =3D encode_cpu(smp_processor_id());
--	int old;
-+	int prev_cpu;
+-	struct optimistic_spin_node *next;
 =20
- 	node->locked =3D 0;
- 	node->next =3D NULL;
--	node->cpu =3D curr;
-=20
- 	/*
- 	 * We need both ACQUIRE (pairs with corresponding RELEASE in
-@@ -149,12 +143,12 @@ bool osq_lock(struct optimistic_spin_queue *lock)
- 	 * the node fields we just initialised) semantics when updating
- 	 * the lock tail.
- 	 */
--	old =3D atomic_xchg(&lock->tail, curr);
--	if (old =3D=3D OSQ_UNLOCKED_VAL)
-+	prev_cpu =3D atomic_xchg(&lock->tail, curr);
-+	if (prev_cpu =3D=3D OSQ_UNLOCKED_VAL)
- 		return true;
-=20
--	prev =3D decode_cpu(old);
--	node->prev =3D prev;
-+	prev =3D decode_cpu(prev_cpu);
-+	node->prev_cpu =3D prev_cpu;
- 	osq_link_next(prev, node);
-=20
- 	/*
-@@ -173,7 +167,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
- 	 * polling, be careful.
- 	 */
- 	if (smp_cond_load_relaxed(&node->locked, VAL || need_resched() ||
--				  vcpu_is_preempted(node_cpu(node->prev))))
-+				  vcpu_is_preempted(node->prev_cpu - 1)))
- 		return true;
-=20
- 	/* unqueue */
-@@ -208,7 +202,8 @@ bool osq_lock(struct optimistic_spin_queue *lock)
- 		 * Or we race against a concurrent unqueue()'s step-B, in which
- 		 * case its step-C will write us a new @node->prev pointer.
- 		 */
--		prev =3D READ_ONCE(node->prev);
-+		prev_cpu =3D READ_ONCE(node->prev_cpu);
-+		prev =3D decode_cpu(prev_cpu);
- 	}
-=20
- 	/*
-@@ -218,7 +213,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+ 	for (;;) {
+ 		if (atomic_read(&lock->tail) =3D=3D curr &&
+@@ -208,7 +207,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+ 	 * Similar to unlock(), wait for @node->next or move @lock from @node
  	 * back to @prev.
  	 */
+-	next_cpu =3D osq_wait_unlink_next(lock, node, prev_cpu);
++	next_cpu =3D osq_wait_unlink_next(lock, prev_cpu);
+ 	if (next_cpu)
+ 		osq_link_next(prev, next_cpu);
 =20
--	next =3D osq_wait_next(lock, node, prev->cpu);
-+	next =3D osq_wait_next(lock, node, prev_cpu);
- 	if (!next)
- 		return false;
+@@ -236,5 +235,5 @@ void osq_unlock(struct optimistic_spin_queue *lock)
+ 		return;
+ 	}
 =20
-@@ -230,7 +225,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
- 	 * it will wait in Step-A.
- 	 */
-=20
--	WRITE_ONCE(next->prev, prev);
-+	WRITE_ONCE(next->prev_cpu, prev_cpu);
- 	osq_link_next(prev, next);
-=20
- 	return false;
+-	osq_wait_unlink_next(lock, node, OSQ_UNLOCKED_VAL);
++	osq_wait_unlink_next(lock, OSQ_UNLOCKED_VAL);
+ }
