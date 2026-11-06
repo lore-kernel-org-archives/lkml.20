@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982755;
-	b=UU6DNG5F+daLLsXABUHU2Nog90g6pK+OvG2RN6y/UzayXyV7I+e82AyFNSeaUVdm/bC0
-	 rkQOOzZpH7YkA0t8FmFpQxAkUjtYxTj5TmXZvcxaf59i0EE5q3TP2hL9fZxSD+OTUo5h9
-	 F8jQFeLaHlkJ7K4AOT7J+6BuGaqPjC9QThkKRbY3yUim90K8oI3FlmkK0lDE6PM+6vyT6
-	 B+q6PTldpvRg2DPQc6tm9a5clmcIrHPKNqaCxx12F2YVMtwoAo2xYc+VlDjfofvKl3xby
-	 S1AniDg89KBPKLINCJvf/c4ZrjcyqzmUkzi7qoBw4EgvzclSztE8Ch5TQBp902cynLg==
+	t=1793982751;
+	b=F+zhgKDuHm9Y47vrpwM/Tlhf358yOSuYMgBuRQsHavrtt11Dlg6fKz3BJezKw9Ux2Er8
+	 uqGzerTgLbLIVit9zanK8GDqfRuNqpGNOjnq0A7ZKYhGVo/m+DQuQNeXDQ9UUDcx9Ov/z
+	 yGBCd54Je1AAKoLB6OcyQMB3KLa2jCYTxMHiaFqLnKxFdRCYWU0ZxtO7fPQtpeN53yZld
+	 SnN1bbl3fzaE3HUIkTqG4aLt232r8GkCNH3R8LYjqqhBqQrtjP1Py7SFDpl5VZn6A3lR7
+	 x3LsOVRN07QQxjAIUCq0zR/h2Of1N7lh1kCngeMRzbALcfRyJDQZRwlrZBBt+detnww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982751;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=y6CV3nwpy9JV3powdrMcn3LQpLwA+ztaN50VcVNjMTY=;
-	b=II74gRwfHmNj8t1QhPNW5Jd6rbdm+pnRYQaJx9qqtOZuIKiYsTCUiQckufhRLHLtHeoP
-	 DkRGH/LAwK0D8+hV9J6gTds8mpjoP+V4Jhw3RioGI7wPdwoKrQWEPMWBD1QYWiM+YnAza
-	 sjDuklUurbCG+8XwbnwWmT732Q/leKrEUc2UtgD7Gcv/VmF+KGjTiTpZdav2NYYviKn6g
-	 eLzm5sd7meBAIt2cAxyN4dGmCcqp1VdgOyvcZo6sPw+vvVSB4ojdsMdiPzXp5u2wzxulU
-	 v6UJA5p6+886ZtE7InoGpqpmBHkXML+PJ7DqjsL/uKff4FvyE+kipdl/CF9ttaPrcXw==
+	bh=ogULZeKBoS9bJBR+xY1nkcv/MSU5DLXAv7RQ492d6Mc=;
+	b=0T8mn53AZQ9JovRBPG5EJ4fQ3+hOGpD6lSMIw8fEK/MMASs/v/WRt3Z1QyFW81gEGt4F
+	 e0ViZvY/jDglGnKl3qrnots3ftKCbmza4n+U02ph+6+VNX6MXD0fXncmOXw0x5ZctOaux
+	 a0BJpgj6QcLVEY8cezFDMCUocH0KtoV9N0VYIbt2SNEVJaYbCJJG2CDn61/olzDPe/QxP
+	 ipiak7mjYiC0XA6zqSEHqOdiJ0SOBDoSpG9mHSWfPp0j4XRLVIW6PF8lIJg4tZgdBy4rm
+	 Ds0az3YSBSOgYR427vm7ksBtjeaca1C45snGgObPfRVTBiI6lm8loXyBm27G9ZwWjtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HkRUP+Se;
-	arc=none smtp.remote-ip=209.85.210.46
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XWfQ0qij;
+	arc=none smtp.remote-ip=209.85.210.51
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C81606A338
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:32:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20C81606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D771606D819
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:32:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D771606D819
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HkRUP+Se
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-8253bc5a613so518610a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:32:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XWfQ0qij
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-85a5455bd3cso480313a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:32:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793982754; x=1794587554; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793982750; x=1794587550; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=y6CV3nwpy9JV3powdrMcn3LQpLwA+ztaN50VcVNjMTY=;
-        b=HkRUP+Se2O0T74Y7mfZ5xKk7p+oWqagVVxBBw40WiQ6nn+Bxmss96SbgY1LiXvuUWq
-         Ei8EwiyfYhG5mNxGRlswY07NYJ2XBRAse47C5uFFJ9W1ZWZZiMlhLw1m/rOSoFr/y6is
-         O4yBc+Q0kGWqzrulSGfXdUlJgC08GsNY+nK8eKPwHlss7Rl4Gje5lVhFJKNQhZMwo9gO
-         lgQ5ZEvB0p3kUCBv58Jbf/PoPbnCK3vwBGuO06yPYw/l4huVMYm2NoukXAx6aflAamS0
-         9/868nUjEoc1wsenRzQay/kvLBYY/ifzF0vzoKDLBq4wAuBxTrBrrmYx9dpeVsfk9v1j
-         1Lrg==
+        bh=ogULZeKBoS9bJBR+xY1nkcv/MSU5DLXAv7RQ492d6Mc=;
+        b=XWfQ0qijEUU6r3i77dltIp1xpP1PX7rWnJKD7DwgrGVmseb3neS5ZwJ3PewAuqAOIo
+         IQWn9wl9JWf9aXNsWdn94cG41ExL62ycerJZpERBSgzXyKpPPXg/eLsEsgO6EfHqGqsT
+         zxATjs/M5mLsa0L5ZOZmbOTBcpCViz098hmPJDmZB8uDfqmfYD64WVMTjGAy64/QNmos
+         6gE80NvNXg+w+imSsy+r0dX9mT/bIcHmjfAYlUh/ogPMeJQucHMVXXZYSH2sJTKmJ8aU
+         OmWTOBW4sxee2h2G7yu5P9xiFFFf3c4JjBqfZi+IfU2sxx3HkgtHoEYUlu8gh7fjZGPu
+         GR5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793982754; x=1794587554;
+        d=1e100.net; s=20260707; t=1793982750; x=1794587550;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y6CV3nwpy9JV3powdrMcn3LQpLwA+ztaN50VcVNjMTY=;
-        b=Vz0x36gxXoPoEm+BqeezrlTBHXIU5g7m0liwl9KrkRNSBXOuHgMHB8UHuvGhpAoJQQ
-         qniTdKFXXH3irkYmnewh/RqPruMmLJhC3p1I1hHxvoZcVe3EiuCSe3jEP374FOcliiBX
-         r9bpJiqwFbeDMisQxZfZ5cMBGiKILFlTTCy6BajdjCQsrJpPppN+ngg5koXqN1EhIztb
-         JKkwbXprlkFRSkBCBMyDNcrqaOAOONcFjjfu9UfUyj2z7EmJOpYdUJGq2x/WlTbGpSsd
-         0Yb+b0iri/Rr3SCnRZ5G4DebabWhqd/Go8SfCZ+WrLujELPBi/GUilzisma2CkZuamRN
-         VBGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxX1catbhbSa3jQDAZnOQcVj5kBpfVy/f9Qaw4cvuVXx9zsGF69mvzV60HYoVEibt3BXjNNqJPYrYDaYzU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9JaEFXlFVMq/f2MNMHP9J8mLl455LkiNyXNzukHGPBXUbjTFWs
-	+SQNcD+TNAxyJRDYhZr30JhyaEcrmB0yChZ2vNSva5mLo5NkqiLBvQzf
-X-Gm-Gg: AYBFou09P5DNDYeRoH5HZWyQYrYzOQXPQN3vBWNE+2vQl6zqnAHGKpinpplqPaxJojq
-	CYLTDgIILbu4Rl0s8ivWMCXXoY7l7zCfIv3s9FsIsX0uOAdwkzsXD4Mn4ZaJO7B/UxU8yPTWFSB
-	bLXJliBvSJYlO21Gd2t93GSECFlDrD8EGP4DK4NGbDaVMyCU5lIVAyDlG1AieAgKjkoSmm+f21I
-	0JuB4ZCjXYC9FwiYRdTAli5wRbaexqckNTFZKjqemvIO2cT2jTt97ExuWvSXbzxbeIuhNguazEB
-	nXNTFukz7lEVZoYWtdfxxV1zyo2GkJxcz0WfgYZLfkZSbZi1LjHvwuzuNMR9CXyXhcXYH7jEFna
-	Ekm84rPng1ReT4+zJ5L4sxzjfKCNp5R86bgj9TpUbU5zqt7QFoHsMSC3BDLXxRp4x8Gy6toxXDI
-	xC0KUsS0iVOd3/vztsgveE2avzjeW6mAqL9vQ2hry8albVzWqpMlYnAVLPTkATA/zQpSgb29fv3
-	B1qXCkbyjlEM7MS7aZjjF7FU4YJNmeS/nYFrOjapyFw9dr8ULN3MqG6DbT0ubCwrMKTvbMS7Ct6
-	PQS/12vL3ZgJ5bPeV/OIX2L1PQFhuwdXUScFqdvxv3vfGLs=
-X-Received: by 2002:a05:6830:2647:b0:822:6f0d:d04d with SMTP id 46e09a7af769-85f1d000ddamr2722429a34.16.1793982754009;
-        Fri, 06 Nov 2026 08:32:34 -0800 (PST)
+        bh=ogULZeKBoS9bJBR+xY1nkcv/MSU5DLXAv7RQ492d6Mc=;
+        b=1bcfIj4JtENNbDPMeb5uw8jH6oWMYXPQn1X/pHlsJw08FyVvyzdHuUEJxIM31Uh8VI
+         rJSrkVNMiT1O/JGzukibn1xdGnuGEnpbHR9u+6KsAfsQSOVSOj2BAhSRlVApH1FE81Kx
+         9hsry2Z4ueeqrmElMyEzIvuZjE9zfGx+Y7OWMlaIzeq5lOihMikZoSjO2NInWdrbQ2+Y
+         WRUvPmgBpikRwKys7D5XPQk0frWZFgMG5Gtgl6mSoq61KIWLkmZycCXpJI0zb3Isthxp
+         70fwk9ccd7Iw9xkRZM5EAW0wlt5oGbnRLZjcK5pVAg2nZIHRks2J03lA7uqg3FeDeA8g
+         GoiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUi2okQAs7jp0scd/vwX4wGM0kiELWzn5gVc8HpTFfiUbjU9SpgGpmgCRoMvWZ8ZblReHk6r4pLGuoj6w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+djc4cS59pxMHTGMsdV4pt+RQ8p2aXrgop1uQ+Iq2fyoVquPcV
+	TUaiTVkDB0chXZNl2gwfkkvRPiR35SEzgyfxHDHR2ERbblx2UUbiThxM
+X-Gm-Gg: AYBFou0HtrUzlrP49tDXE9PQw1FI+7zmYS6C+Xs7fchjO7Lb4anzCmTOJEMz9/1tjDt
+	zJCG0VLVesBXuxBeFjOZMb797APRJuu1L4W4D++a8GXzFbRFbAf5p1gO/J2qw4Mf6cmbUVXst5a
+	pq3xBzMphv6+ecZypLpyO8qdkYJl0mdztWYKjMD2braTjbCAquFJVDA/Qg2TBiUHNed4t8QQ2pV
+	yzirLPBspM4LiBSf0jIHJGpAnZpqTPckrKP2o0J7PpEKgVDE+59MKBDd8IMgDJ9qZpy/Qe90/gC
+	q6i3ErRWy/AANDPUbNGoMbnaBof6irU73tUHdjapJ4r11BYtmMDkBxIrCwBHZLRqkZICp6Tv7eD
+	P1zAeqLj78uiYmSpoQXo3Hots2gRZ946gu8bE0t/1I1sKeoYLS4VxC8CuEXLkMyf3/P96gWybqU
+	xbhJ/iPl0NeqBHDyKgC23D+mk/qH4zSeO77Yt3Zacz5n9pnn4x8ijvmLxH5H9rpIrQhrpNuTj9/
+	psZ9IfgwUsxJGkmHh7CvS41pa6iHlJ2DoMobtBAoVtjPtbnPV43w43tBpFii5vpD14CdMx5dvyA
+	cPi2f4bgbD0DAiWRTqffrU5fM7t1yP6fB+l5SX+AJLE7bwLMfEVbYs1RJweqYf/F3vM=
+X-Received: by 2002:a05:6830:310b:b0:829:10c4:2c11 with SMTP id 46e09a7af769-85f1cb65e44mr3643211a34.0.1793982749727;
+        Fri, 06 Nov 2026 08:32:29 -0800 (PST)
 Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1de8f066sm2244780a34.23.2026.11.06.08.32.33
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1de8f066sm2244780a34.23.2026.11.06.08.32.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:32:33 -0800 (PST)
+        Fri, 06 Nov 2026 08:32:29 -0800 (PST)
 From: Will Porter <mrwillporter@gmail.com>
 To: Christian Ruppert <arc@gmx.li>
 Cc: Takashi Iwai <tiwai@suse.com>,
@@ -85,9 +85,9 @@ Cc: Takashi Iwai <tiwai@suse.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Neil Andrews <neil@androos.io>
-Subject: [RFC PATCH 10/16] ALSA: mixer_audient: add control value caching
-Date: Fri,  6 Nov 2026 10:31:23 -0600
-Message-ID: <20261106163129.1006907-11-mrwillporter@gmail.com>
+Subject: [RFC PATCH 05/16] ALSA: mixer_audient: make USB control transfer size configurable
+Date: Fri,  6 Nov 2026 10:31:18 -0600
+Message-ID: <20261106163129.1006907-6-mrwillporter@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261106163129.1006907-1-mrwillporter@gmail.com>
 References: <aupn1wwW7w08M3gu@khmer.arcnet>
@@ -105,390 +105,283 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Ruppert <arc@gmx.li>
 
-In preparation of id14 support, add control value caching.
+Previously, the USB transfer size was hardcoded in the datatype get/set
+functions. Make it configurable in the ctype structure in preparation of
+new control types for the id14.
 
 Signed-off-by: Christian Ruppert <arc@gmx.li>
-Co-developed-by: Will Porter <mrwillporter@gmail.com>
 Signed-off-by: Will Porter <mrwillporter@gmail.com>
-Assisted-by: Claude:claude-opus-5-5
 ---
- sound/usb/mixer_audient.c | 185 ++++++++++++++++++++++++++++++--------
- 1 file changed, 149 insertions(+), 36 deletions(-)
+ sound/usb/mixer_audient.c | 131 ++++++++++++++++++++++++--------------
+ 1 file changed, 84 insertions(+), 47 deletions(-)
 
 diff --git a/sound/usb/mixer_audient.c b/sound/usb/mixer_audient.c
-index f61f9fe61345..f7a422392ed1 100644
+index 1f3744a7c10a..57d856d25271 100644
 --- a/sound/usb/mixer_audient.c
 +++ b/sound/usb/mixer_audient.c
-@@ -40,6 +40,7 @@ static const DECLARE_TLV_DB_MINMAX_MUTE(snd_audient_tlv_mixer, -12800, 600);
- #define SND_AUDIENT_CTYPE_FLAGS_SIGNED		BIT(0)
- #define SND_AUDIENT_CTYPE_FLAGS_INIT_HW		BIT(1)
- #define SND_AUDIENT_CTYPE_FLAGS_FORCE_SET	BIT(2)
-+#define SND_AUDIENT_CTYPE_FLAGS_CACHE		BIT(3)
+@@ -12,6 +12,8 @@
+ #include <linux/usb.h>
+ #include <linux/usb/audio-v2.h>
+ #include <linux/slab.h>
++#include <linux/types.h>
++#include <linux/bitops.h>
+ #include <sound/core.h>
+ #include <sound/control.h>
+ #include <sound/tlv.h>
+@@ -35,8 +37,12 @@ enum snd_audient_type {
+ /* Mixer matrix: -128dB (mute) to +6dB */
+ static const DECLARE_TLV_DB_MINMAX_MUTE(snd_audient_tlv_mixer, -12800, 600);
  
++#define SND_AUDIENT_CTYPE_FLAGS_SIGNED		BIT(0)
++
  static const struct snd_audient_ctrl_type {
  	snd_ctl_elem_type_t type;
-@@ -51,7 +52,7 @@ static const struct snd_audient_ctrl_type {
++	unsigned long flags;
++	size_t len;		/* datatype size, can be 1, 2 or 4 bytes */
+ 	bool invert;
  	union {
- 		long integer;
- 	} max;		/* for booleans holds physical int value for true */
--	u32 init;
-+	u32 init;	/* hardware and cache are initialized to this value */
- 	const unsigned int *tlv;
- 	u8 unit;
- 	u8 sel;
-@@ -91,7 +92,8 @@ static const struct snd_audient_ctrl_type {
+ 		int integer;
+@@ -50,6 +56,7 @@ static const struct snd_audient_ctrl_type {
+ } snd_audient_ctypes[SND_AUDIENT_TYPE_NCTYPES] = {
+ 	[SND_AUDIENT_TYPE_MONITOR] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_INTEGER,
++		.len = 2,
+ 		.min.integer = 0,
+ 		.max.integer = 127,
+ 		.unit = 0x38,
+@@ -59,6 +66,7 @@ static const struct snd_audient_ctrl_type {
+ 	[SND_AUDIENT_TYPE_PHANTOM] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_BOOLEAN,
+ 		.invert = false,
++		.len = 4,
+ 		.min.integer = 0,
+ 		.max.integer = 1,
+ 		.unit = 0x3A,
+@@ -67,6 +75,7 @@ static const struct snd_audient_ctrl_type {
+ 	[SND_AUDIENT_TYPE_MUTE] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_BOOLEAN,
+ 		.invert = true,
++		.len = 4,
+ 		.min.integer = 0,
+ 		.max.integer = 1,
+ 		.unit = 0x3A,
+@@ -75,6 +84,7 @@ static const struct snd_audient_ctrl_type {
+ 	[SND_AUDIENT_TYPE_MUTE_OUT] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_BOOLEAN,
+ 		.invert = true,
++		.len = 4,
+ 		.min.integer = 0,
+ 		.max.integer = 1,
+ 		.unit = 0x3B,
+@@ -82,6 +92,8 @@ static const struct snd_audient_ctrl_type {
  	},
  	[SND_AUDIENT_TYPE_MIXER] = {
  		.type = SNDRV_CTL_ELEM_TYPE_INTEGER,
--		.flags = SND_AUDIENT_CTYPE_FLAGS_SIGNED,
-+		.flags = SND_AUDIENT_CTYPE_FLAGS_SIGNED
-+			 | SND_AUDIENT_CTYPE_FLAGS_CACHE,
- 		.len = 2,
++		.flags = SND_AUDIENT_CTYPE_FLAGS_SIGNED,
++		.len = 2,
  		.min.integer = -128 * 256,
  		.max.integer = 6 * 256,
-@@ -238,6 +240,26 @@ static inline u16 snd_audient_kctl_channels(struct snd_kcontrol *kctl)
- 	return info->channels;
- }
+ 		.unit = 0x3C,
+@@ -236,44 +248,91 @@ static inline u16 snd_audient_kctl_channels(struct snd_kcontrol *kctl)
+ #define U8_U8(HI, LO) ((((u16)(HI)) << 8) | ((LO) & 0xFF))
  
-+/*
-+ * A cached value is valid once a transfer confirmed it: a read, or a write
-+ * that succeeded. A probe transfer that fails leaves it invalid. CACHE |
-+ * FORCE_SET without INIT_HW keeps the earlier behaviour: the init value is
-+ * assumed, without a transfer.
-+ */
-+struct snd_audient_cache_entry {
-+	u32 value;
-+	bool valid;
-+};
-+
-+/* Cache entry of element channel i, or NULL for an uncached control. */
-+static inline struct snd_audient_cache_entry *
-+snd_audient_cache_slot(struct usb_mixer_elem_info *elem, unsigned int i)
-+{
-+	struct snd_audient_cache_entry *const cache = elem->private_data;
-+
-+	return cache ? cache + i : NULL;
-+}
-+
- 
- #define AUDIENT_REQTYPE_SET (USB_DIR_OUT | USB_TYPE_CLASS \
- 					 | USB_RECIP_INTERFACE)
-@@ -287,12 +309,26 @@ static inline int snd_audient_set_cur(struct usb_mixer_interface *mixer,
- 
- static int snd_audient_raw_get_one(struct usb_mixer_interface *const mixer,
- 			const struct snd_audient_ctrl_type *const ctype,
-+			struct snd_audient_cache_entry *const slot,
- 			const u8 cidx, u32 *const value)
+ static inline int snd_audient_get_cur(struct usb_mixer_interface *mixer,
+-				      const u8 unit, const u8 sel,
+-				      const u8 cidx,
+-				      void *const buf, const size_t len)
++			const struct snd_audient_ctrl_type *const ctype,
++			const u8 cidx, void *const buf)
  {
- 	int ret;
- 	__le32 buf = 0;
- 	s32 val;
+ 	struct usb_device *const dev = mixer->chip->dev;
+-	const u16 value = U8_U8(sel, cidx);
+-	const u16 index = U8_U8(unit, mixer->hostif->desc.bInterfaceNumber);
++	const u16 value = U8_U8(ctype->sel, cidx);
++	const u16 index = U8_U8(ctype->unit,
++				mixer->hostif->desc.bInterfaceNumber);
  
-+	if (slot && slot->valid) {
-+		*value = slot->value;
-+
-+		return ctype->len;
-+	}
-+
-+	/*
-+	 * Cached FORCE_SET controls are treated as write-only: an invalid
-+	 * cache entry does not trigger a GET.
-+	 */
-+	if (slot && (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET))
-+		return -ENODATA;
-+
- 	ret = snd_audient_get_cur(mixer, ctype, cidx, &buf);
- 	if (ret < 0)
- 		return ret;
-@@ -304,43 +340,57 @@ static int snd_audient_raw_get_one(struct usb_mixer_interface *const mixer,
+ 	const int ret = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0),
+ 					UAC2_CS_CUR, AUDIENT_REQTYPE_GET,
+-					value, index, buf, len);
++					value, index, buf, ctype->len);
  
- 	*value = val;
+-	if ((ret >= 0) && (ret != len))
++	if ((ret >= 0) && (ret != ctype->len))
+ 		return -EIO;
  
-+	if (slot) {
-+		slot->value = val;
-+		slot->valid = true;
-+	}
-+
  	return ret;
  }
  
- static int snd_audient_raw_set_one(struct usb_mixer_interface *const mixer,
- 			const struct snd_audient_ctrl_type *const ctype,
--			const u8 cidx, const u32 value)
-+			struct snd_audient_cache_entry *const slot,
-+			const u8 cidx, const u32 value,
-+			bool force)
+ static inline int snd_audient_set_cur(struct usb_mixer_interface *mixer,
+-				      const u8 unit, const u8 sel,
+-				      const u8 cidx,
+-				      void *const buf, const size_t len)
++			const struct snd_audient_ctrl_type *const ctype,
++			const u8 cidx, void *const buf)
  {
- 	int ret;
- 	u32 val;
+ 	struct usb_device *const dev = mixer->chip->dev;
+-	const u16 value = U8_U8(sel, cidx);
+-	const u16 index = U8_U8(unit, mixer->hostif->desc.bInterfaceNumber);
++	const u16 value = U8_U8(ctype->sel, cidx);
++	const u16 index = U8_U8(ctype->unit,
++				mixer->hostif->desc.bInterfaceNumber);
  
--	if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET) {
-+	if (force) {
- 		val = !value;		/* just make it different */
- 	} else {
--		ret = snd_audient_raw_get_one(mixer, ctype, cidx, &val);
--		if (ret < 0)
-+		ret = snd_audient_raw_get_one(mixer, ctype, slot, cidx, &val);
-+		if (ret == -ENODATA)	/* FORCE_SET and not cached yet */
-+			val = !value;	/* just make it different */
-+		else if (ret < 0)
- 			return ret;
- 	}
+ 	const int ret = snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0),
+ 					UAC2_CS_CUR, AUDIENT_REQTYPE_SET,
+-					value, index, buf, len);
++					value, index, buf, ctype->len);
  
--	if (val != value) {
-+	force = force || (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET);
-+
-+	if (force || (val != value)) {
- 		__le32 buf = cpu_to_le32(value);
+-	if ((ret >= 0) && (ret != len))
++	if ((ret >= 0) && (ret != ctype->len))
+ 		return -EIO;
  
- 		ret = snd_audient_set_cur(mixer, ctype, cidx, &buf);
- 		if (ret < 0)
- 			return ret;
- 
--		return 1;
-+		if (slot) {
-+			slot->value = value;
-+			slot->valid = true;
-+		}
- 	}
- 
--	return 0;
-+	return val != value;
+ 	return ret;
  }
  
  
++static int snd_audient_raw_get_one(struct usb_mixer_interface *const mixer,
++			const struct snd_audient_ctrl_type *const ctype,
++			const u8 cidx, u32 *const value)
++{
++	int ret;
++	__le32 buf = 0;
++	s32 val;
++
++	ret = snd_audient_get_cur(mixer, ctype, cidx, &buf);
++	if (ret < 0)
++		return ret;
++
++	val = le32_to_cpu(buf);
++
++	if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_SIGNED)
++		val = sign_extend32(val, 8 * ctype->len - 1);
++
++	*value = val;
++
++	return ret;
++}
++
++static int snd_audient_raw_set_one(struct usb_mixer_interface *const mixer,
++			const struct snd_audient_ctrl_type *const ctype,
++			const u8 cidx, const u32 value)
++{
++	int ret;
++	u32 val;
++
++	ret = snd_audient_raw_get_one(mixer, ctype, cidx, &val);
++	if (ret < 0)
++		return ret;
++
++	if (val != value) {
++		__le32 buf = cpu_to_le32(value);
++
++		ret = snd_audient_set_cur(mixer, ctype, cidx, &buf);
++		if (ret < 0)
++			return ret;
++
++		return 1;
++	}
++
++	return 0;
++}
++
++
  static int snd_ctl_audient_boolean_get(struct snd_kcontrol *kctl,
  				       struct snd_ctl_elem_value *ctl_val)
  {
--	struct usb_mixer_elem_list *const list = snd_kcontrol_chip(kctl);
--	struct usb_mixer_interface *const mixer = list->mixer;
-+	struct usb_mixer_elem_info *const elem = snd_kcontrol_chip(kctl);
-+	struct usb_mixer_interface *const mixer = elem->head.mixer;
- 
- 	const unsigned int nchan = snd_audient_kctl_channels(kctl);
- 	const unsigned int hwchan = snd_audient_kctl_hwchannels(kctl);
-@@ -353,13 +403,19 @@ static int snd_ctl_audient_boolean_get(struct snd_kcontrol *kctl,
- 	CLASS(snd_usb_lock, pm)(mixer->chip);
- 	if (pm.err < 0)
- 		return pm.err;
-+	/* serializes the transfers and the cache, also between gets */
-+	guard(mutex)(&mixer->lock);
- 
- 	for (i = 0; i < hwchan; i++) {
+@@ -296,12 +355,11 @@ static int snd_ctl_audient_boolean_get(struct snd_kcontrol *kctl,
  		u32 buf;
  		int ret;
  
--		ret = snd_audient_raw_get_one(mixer, ctype, base + i, &buf);
--		if (ret < 0)
-+		ret = snd_audient_raw_get_one(mixer, ctype,
-+					      snd_audient_cache_slot(elem, i),
-+					      base + i, &buf);
-+		if (ret == -ENODATA)	/* unknown write-only value: off */
-+			buf = ctype->min.integer;
-+		else if (ret < 0)
- 			return ret;
- 
- 		ctl_val->value.integer.value[i] = (buf == ctype->min.integer)
-@@ -375,8 +431,8 @@ static int snd_ctl_audient_boolean_get(struct snd_kcontrol *kctl,
- static int snd_ctl_audient_boolean_set(struct snd_kcontrol *kctl,
- 				       struct snd_ctl_elem_value *ctl_val)
- {
--	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kctl);
--	struct usb_mixer_interface *mixer = list->mixer;
-+	struct usb_mixer_elem_info *const elem = snd_kcontrol_chip(kctl);
-+	struct usb_mixer_interface *const mixer = elem->head.mixer;
- 
- 	const unsigned int hwchan = snd_audient_kctl_hwchannels(kctl);
- 	const struct snd_audient_ctrl_type *const ctype
-@@ -389,13 +445,17 @@ static int snd_ctl_audient_boolean_set(struct snd_kcontrol *kctl,
- 	CLASS(snd_usb_lock, pm)(mixer->chip);
- 	if (pm.err < 0)
- 		return pm.err;
-+	/* serializes the transfers and the cache, also between gets */
-+	guard(mutex)(&mixer->lock);
- 
- 	for (i = 0; i < hwchan; i++) {
- 		u32 buf = ctl_val->value.integer.value[i] ? ctype->max.integer
- 							  : ctype->min.integer;
- 		int ret;
- 
--		ret = snd_audient_raw_set_one(mixer, ctype, base + i, buf);
-+		ret = snd_audient_raw_set_one(mixer, ctype,
-+					      snd_audient_cache_slot(elem, i),
-+					      base + i, buf, false);
+-		ret = snd_audient_get_cur(mixer, ctype->unit, ctype->sel,
+-					  base + i, &buf, sizeof(buf));
++		ret = snd_audient_raw_get_one(mixer, ctype, base + i, &buf);
  		if (ret < 0)
  			return ret;
  
-@@ -409,8 +469,8 @@ static int snd_ctl_audient_boolean_set(struct snd_kcontrol *kctl,
- static int snd_ctl_audient_integer_get(struct snd_kcontrol *kctl,
- 				   struct snd_ctl_elem_value *ctl_val)
- {
--	struct usb_mixer_elem_list *const list = snd_kcontrol_chip(kctl);
--	struct usb_mixer_interface *const mixer = list->mixer;
-+	struct usb_mixer_elem_info *const elem = snd_kcontrol_chip(kctl);
-+	struct usb_mixer_interface *const mixer = elem->head.mixer;
+-		ctl_val->value.integer.value[i] = le32_to_cpu(buf) ? 1 : 0;
++		ctl_val->value.integer.value[i] = buf ? 1 : 0;
  
- 	const unsigned int nchan = snd_audient_kctl_channels(kctl);
- 	const unsigned int hwchan = snd_audient_kctl_hwchannels(kctl);
-@@ -423,13 +483,19 @@ static int snd_ctl_audient_integer_get(struct snd_kcontrol *kctl,
- 	CLASS(snd_usb_lock, pm)(mixer->chip);
- 	if (pm.err < 0)
+ 		if (ctype->invert)
+ 			ctl_val->value.integer.value[i] ^= 0x1;
+@@ -334,27 +392,18 @@ static int snd_ctl_audient_boolean_set(struct snd_kcontrol *kctl,
  		return pm.err;
-+	/* serializes the transfers and the cache, also between gets */
-+	guard(mutex)(&mixer->lock);
  
  	for (i = 0; i < hwchan; i++) {
- 		s32 val;
+-		u32 rbuf;
+-		u32 buf = cpu_to_le32(ctl_val->value.integer.value[i] ? 1 : 0);
++		u32 buf = ctl_val->value.integer.value[i] ? 1 : 0;
  		int ret;
  
--		ret = snd_audient_raw_get_one(mixer, ctype, base + i, &val);
--		if (ret < 0)
-+		ret = snd_audient_raw_get_one(mixer, ctype,
-+					      snd_audient_cache_slot(elem, i),
-+					      base + i, &val);
-+		if (ret == -ENODATA)	/* unknown write-only value: minimum */
-+			val = ctype->min.integer;
-+		else if (ret < 0)
- 			return ret;
+ 		if (ctype->invert)
+-			buf ^= cpu_to_le32(0x1);
++			buf ^= 0x1;
  
- 		if (val < ctype->min.integer)
-@@ -450,8 +516,8 @@ static int snd_ctl_audient_integer_get(struct snd_kcontrol *kctl,
- static int snd_ctl_audient_integer_set(struct snd_kcontrol *kctl,
- 				   struct snd_ctl_elem_value *ctl_val)
- {
--	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kctl);
--	struct usb_mixer_interface *mixer = list->mixer;
-+	struct usb_mixer_elem_info *const elem = snd_kcontrol_chip(kctl);
-+	struct usb_mixer_interface *mixer = elem->head.mixer;
- 
- 	const unsigned int hwchan = snd_audient_kctl_hwchannels(kctl);
- 	const struct snd_audient_ctrl_type *const ctype
-@@ -471,12 +537,16 @@ static int snd_ctl_audient_integer_set(struct snd_kcontrol *kctl,
- 	CLASS(snd_usb_lock, pm)(mixer->chip);
- 	if (pm.err < 0)
- 		return pm.err;
-+	/* serializes the transfers and the cache, also between gets */
-+	guard(mutex)(&mixer->lock);
- 
- 	for (i = 0; i < hwchan; i++) {
- 		s32 val = ctl_val->value.integer.value[i];
- 		int ret;
- 
--		ret = snd_audient_raw_set_one(mixer, ctype, base + i, val);
-+		ret = snd_audient_raw_set_one(mixer, ctype,
-+					      snd_audient_cache_slot(elem, i),
-+					      base + i, val, false);
+-		ret = snd_audient_get_cur(mixer, ctype->unit, ctype->sel,
+-					  base + i, &rbuf, sizeof(rbuf));
++		ret = snd_audient_raw_set_one(mixer, ctype, base + i, buf);
  		if (ret < 0)
  			return ret;
  
-@@ -517,6 +587,8 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
- 	struct snd_kcontrol *kctl;
- 	struct usb_mixer_elem_info *elem;
- 
-+	int ret;
-+
- 	knew.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
- 	knew.name = ctrl->name;
- 	knew.info = snd_ctl_audient_info;
-@@ -524,7 +596,9 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
- 						   ctrl->hwchannels);
- 	knew.tlv.p = ctype->tlv;
- 	knew.access = SNDRV_CTL_ELEM_ACCESS_READWRITE
--			| SNDRV_CTL_ELEM_ACCESS_VOLATILE
-+			| ((ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE)
-+			   ? 0
-+			   : SNDRV_CTL_ELEM_ACCESS_VOLATILE)
- 			| (ctype->tlv ? SNDRV_CTL_ELEM_ACCESS_TLV_READ : 0);
- 
- 	switch (ctype->type) {
-@@ -540,36 +614,75 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
- 		return -EINVAL;
- 	}
- 
-+	elem = kzalloc(sizeof(*elem)
-+		       + ((ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE)
-+			  ? (sizeof(struct snd_audient_cache_entry)
-+			     * ctrl->hwchannels)
-+			  : 0),
-+		       GFP_KERNEL);
-+	if (!elem)
-+		return -ENOMEM;
-+
-+	elem->head.mixer = mixer;
-+	elem->channels = ctrl->channels;
-+
-+	if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE)
-+		elem->private_data = elem + 1;
-+
-+	/*
-+	 * A failed probe transfer must not fail the card: warn and keep the
-+	 * control. Its cache entry stays invalid, so a readable control reads
-+	 * the device again on its next get, and a write-only control shows an
-+	 * unknown value until a put succeeds.
-+	 */
- 	if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_INIT_HW) {
- 		int i;
- 
- 		for (i = 0; i < ctrl->hwchannels; i++) {
--			int ret = snd_audient_raw_set_one(mixer, ctype,
--							  ctrl->val_offs + i,
--							  ctype->init);
-+			ret = snd_audient_raw_set_one(mixer, ctype,
-+						      snd_audient_cache_slot(elem, i),
-+						      ctrl->val_offs + i,
-+						      ctype->init, true);
- 			if (ret < 0)
- 				usb_audio_warn(mixer->chip,
- 					       "%s: cannot set channel %d (%d)\n",
- 					       ctrl->name, i, ret);
- 		}
--	}
+-		if (rbuf != buf) {
++		if (ret)
+ 			changed = 1;
 -
--	elem = kzalloc_obj(*elem);
--	if (!elem)
--		return -ENOMEM;
-+	} else if (elem->private_data) {
-+		struct snd_audient_cache_entry *const cache = elem->private_data;
-+		int i;
- 
--	elem->head.mixer = mixer;
--	elem->channels = ctrl->channels;
-+		for (i = 0; i < ctrl->hwchannels; i++) {
-+			if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET) {
-+				cache[i].value = ctype->init;
-+				cache[i].valid = true;
-+				continue;
-+			}
-+
-+			ret = snd_audient_raw_get_one(mixer, ctype, cache + i,
-+						      ctrl->val_offs + i,
-+						      &cache[i].value);
-+			if (ret < 0)
-+				usb_audio_warn(mixer->chip,
-+					       "%s: cannot read channel %d (%d)\n",
-+					       ctrl->name, i, ret);
-+		}
-+	}
- 
- 	kctl = snd_ctl_new1(&knew, elem);
- 	if (!kctl) {
--		kfree(elem);
--		return -ENOMEM;
-+		ret = -ENOMEM;
-+		goto free_elem;
+-			ret = snd_audient_set_cur(mixer, ctype->unit,
+-						  ctype->sel, base + i,
+-						  &buf, sizeof(buf));
+-			if (ret < 0)
+-				return ret;
+-		}
  	}
  
- 	kctl->private_free = snd_usb_mixer_elem_free;
+ 	return changed;
+@@ -379,16 +428,13 @@ static int snd_ctl_audient_integer_get(struct snd_kcontrol *kctl,
+ 		return pm.err;
  
- 	return snd_usb_mixer_add_control(&elem->head, kctl);
-+
-+free_elem:
-+	kfree(elem);
-+
-+	return ret;
- }
+ 	for (i = 0; i < hwchan; i++) {
+-		u16 buf;
+-		s16 val;
++		s32 val;
+ 		int ret;
  
+-		ret = snd_audient_get_cur(mixer, ctype->unit, ctype->sel,
+-					  base + i, &buf, sizeof(buf));
++		ret = snd_audient_raw_get_one(mixer, ctype, base + i, &val);
+ 		if (ret < 0)
+ 			return ret;
  
+-		val = le16_to_cpu(buf);
+ 		ctl_val->value.integer.value[i] = val;
+ 	}
+ 
+@@ -417,24 +463,15 @@ static int snd_ctl_audient_integer_set(struct snd_kcontrol *kctl,
+ 		return pm.err;
+ 
+ 	for (i = 0; i < hwchan; i++) {
+-		s16 rbuf;
+-		s16 buf = cpu_to_le16(ctl_val->value.integer.value[i]);
++		s32 val = ctl_val->value.integer.value[i];
+ 		int ret;
+ 
+-		ret = snd_audient_get_cur(mixer, ctype->unit, ctype->sel,
+-					  base + i, &rbuf, sizeof(rbuf));
++		ret = snd_audient_raw_set_one(mixer, ctype, base + i, val);
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		if (rbuf != buf) {
++		if (ret)
+ 			changed = 1;
+-
+-			ret = snd_audient_set_cur(mixer, ctype->unit,
+-						  ctype->sel, base + i,
+-						  &buf, sizeof(buf));
+-			if (ret < 0)
+-				return ret;
+-		}
+ 	}
+ 
+ 	return changed;
 -- 
 2.47.3
 
