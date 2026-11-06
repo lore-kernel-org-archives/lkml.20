@@ -1,73 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793955067;
-	b=LVVNooNHyj1ZRo7vcYtRYiDCIHh5c2MbNrttqb6Mvb1OWQbC2r4H1UnoaiqPbe3HWy75
-	 HT0EIxzDWkPEptlO4hZeEkvae9fypjY+Kgi087gfqjUObTIzWgLlmuPM3xxn28RC9jqM8
-	 D+ZNgvP7oE53R1VdV5V3a1etfgb2JqeqmBgSjsCtMdJpDtiREWbSzptFGVsUusnqeskdS
-	 +0vA41ykkwUlfZfT8O9vCJvTzewVL+EfwLKlsBMinSvQlgzphmg2rkhyQ7ZNPtxvwFU4O
-	 f110DgtRze5MRzubfyiSBQOgf3EggspPvZhqYgLjQqgU9K/TUM9Trt5F/nu8Sce3tAw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955067;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:X-ZohoMailClient;
-	bh=u683Mp167vRRYMWqRckD1jVWMTr0O+F8yrVQZIo8ll8=;
-	b=R+OHKKrNIrGNetP+1P10hE8GZouKo/ESB9fA+FDA8q/RRbv7tTByX6yWyPzkMAzwLvgv
-	 IFjAlTjtavaI6tVXCoq9f27rf9mNJrOrQezZC4Lbw5kMbGKEQ1Lh4mAJU84lGVcnQ2PEo
-	 KJtWn3FyKUTd84j1y4ZIFMGZSQTTh4yRbo+3hbubDsM5Ukg09y96Krj+Qge6mUEQI7/3r
-	 h3RqPmxnGgrkKvkY0v14uhzw0uiVn4I7DyPwo37sG9EXf4YsuneIjKOa62pEsUcskF24y
-	 wzWuYnKLRa863evX3Hi6LQxW4NqyH9BCnTRqOx8kAoDoA7oe+b39IRmP14t1QwqFInQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ziyao.cc;
-	spf=pass smtp.mailfrom=ziyao.cc;
-	dkim=pass header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=cg9wurH7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.111
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793955072;
+	b=ZsTQlSse8I5uTTYhHgr6pZeIVdoaS9fRBLIn8sSK9JU6A02WLFbTSZ/jpOwNME68yN5p
+	 H4i0V5xTAzdTtmeRZPj25uE0NEUxtzL/Wzvzju2Z4Z/AFVWnI8jJErMqsXO8MMQP2Rzfy
+	 evITJZNWX8T7hSmsTVRPSvTVJM53yrENs+YCLa3rRFLVsgIeB64JhS05Qnyf0inBicgdI
+	 XjobFo5fqS5aiDSpewujwMBA8S3LK/DMpGqr9z8jpI/SrZeBvjwBzvaWXdf7AbAsCYs5W
+	 TNFk3ChaHadLblQ/ulB3t4hnMecCcuWYGeJ0yvBSWQnD/sFqq1o32wIvdnaWy0Ml85A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955072;
+	h=DMARC-Filter:DKIM-Signature:To:Content-Transfer-Encoding:Subject:
+	 Content-Type:X-Original-From:X-Lms-Return-Path:Cc:Date:Message-Id:
+	 In-Reply-To:X-Mailer:From:Mime-Version:References;
+	bh=uw2jcbo2K94Ipub2qP4Q99pSQbMkC01ncZoy8NZ7ZtE=;
+	b=Orw4+F3EzWEkO1jmEgp+dhSK0Pq+y9uS1dFjK0HgBuel2oj9DzUYmiLmhF4w5EiNT+9W
+	 5FOz3vkAOh/3esNbTkMYbzyJohHRBK0GMr6nmMBq/MJb44t4oJKUMb0mueQgFh3xqapbj
+	 fpITvG0RD4iSRQ+zpKO+xR3d7xnXVP2ppxsjfP7nUVANM/jOrH0SpTzYXbqHvQNGLQ8MX
+	 C6QICSVmOar3wGTKnUr+4pzgLAAoOnstxQ0M09Yk41u1cTZ1M9uoARZuHG4TqZuMh9oLY
+	 zvT9mSm94/SIx+i65xrDRq0aEDc0Kmu4KNTeQXXrdAj0yjQQG4W4LWDoiJifie148IQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="PA/XBQAm";
+	arc=none smtp.remote-ip=209.127.231.111
+Received: from va-2-111.ptr.blmpb.com (va-2-111.ptr.blmpb.com [209.127.231.111])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A77606A326;
-	Fri,  6 Nov 2026 08:51:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22A77606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FBA606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:51:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80FBA606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ziyao.cc header.i=@ziyao.cc header.a=rsa-sha256 header.s=zmail header.b=cg9wurH7
-ARC-Seal: i=1; a=rsa-sha256; t=1793955022; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=K1sEecgNybdmwlsQxMYevt5CmsQ5ihQPj0LcKrmw9V2q8WhI9b+mH/xemeAoCQRPgjJRtsNIdHcN63pXjW9bfDVn72Bv8De18Mqg1N++SbosmpbO1KruYapOnTjFX3CXXmN8i5Ux2rIQqEJZItqs9SPaLSy1INk6uRe3iPVMMiA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793955022; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=u683Mp167vRRYMWqRckD1jVWMTr0O+F8yrVQZIo8ll8=; 
-	b=mg7xe9OEmaB0+oJUjp9z9dzXQ7E1/5tQ1TARRUpwNKr5rTRYfazlcZzgPgkwY4elXLDCreYF7TGw/r7M+EtFAfeTxRo1yAsUQnsZtBd4xxYbM/QC5IBLUdF2ysIh524fEGHSI6hQn7WnLrKxXJzQ8VaX0ojE92TnOet9TBCYWSY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: a=rsa-sha256; b=cg9wurH7f+KD2WoCD5W+v4QLoDmjBS81b79BGy2k4WFlu3/10c0Vyb4upbEllly6vKmjc7iqXCzh+7w0yqnJsOU142b9iCig0GwgUov+B+Y2B8g7TIDGeMUbK9OjWviWi8TLCtXXQ39HfZ/wvnPrV/DrPMfubgQVH1X4qCO1LVo=; c=relaxed/relaxed; s=zmail; d=ziyao.cc; v=1; bh=u683Mp167vRRYMWqRckD1jVWMTr0O+F8yrVQZIo8ll8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793955019916373.169635391934;
-	Fri, 6 Nov 2026 00:50:19 -0800 (PST)
-Date: Fri, 6 Nov 2026 08:50:06 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Sergey Shtylyov <s.shtylyov@auroraos.dev>, Yao Zi <me@ziyao.cc>,
-	Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Midgy BALON <midgy971@gmail.com>,
-	Finley Xiao <finley.xiao@rock-chips.com>,
-	Frank Zhang <rmxpzlb@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>,
-	Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>,
-	Elaine Zhang <zhangqing@rock-chips.com>
-Cc: <linux-pm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-rockchip@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/2] pmdomain: rockchip: Don't log when of_clk_get()
- fails with -EPROBE_DEFER
-Message-ID: <au2UvnY0CdGTRnum@pie>
-References: <20261105001257.1368266-1-me@ziyao.cc>
- <20261105001257.1368266-3-me@ziyao.cc>
- <71b77625-8475-43da-a62b-983cf572229d@auroraos.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=PA/XBQAm
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793955065; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=uw2jcbo2K94Ipub2qP4Q99pSQbMkC01ncZoy8NZ7ZtE=;
+ b=PA/XBQAmEx8IsPS/7OJFQLeZ4Vjk/Xgf6CGt3AkrAKm6p3LefoZj01Twa7vDqugD69JTCX
+ OoLavvqGtxiChoXZtxmsdKYlGIOffsC3eZp2ygVGEhoOVkIQv/V0wdij/ExxrW9gptS4sC
+ huFbds+bdNGUJQ5pscQMUUnTSvwRyhYbmRpMSuoA+T2UFt+TfZJvf67gSlEl3Zn81x+XTK
+ mQqcX7/6ZQthHCYwoS+rLfXUyD2l4P7ZcBA9bUtUSn1hRuYf/bd4ZCUgVcf/YA5GdKe8D1
+ AI1y+Li+bj7iFxzsRI/E00L2eRhtPBCcqpeBV17nEuyFfspF748Rn6I2/QnlNA==
+To: <nhuhuan@google.com>
+Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH v3 0/3] mm: use non-temporal stores for demotion
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26aed94f7+7c0e03+vger.kernel.org+lizhe.67@bytedance.com>
+Cc: <Liam.Howlett@oracle.com>, <akpm@linux-foundation.org>, 
+	<alirad.malek@zptcorp.com>, <anna@kernel.org>, <apopple@nvidia.com>, 
+	<bharata@amd.com>, <bp@alien8.de>, <byungchul@sk.com>, 
+	<dave.hansen@linux.intel.com>, <dave@stgolabs.net>, <david@kernel.org>, 
+	<dimitrios.palyvos@zptcorp.com>, <fvdl@google.com>, <gourry@gourry.net>, 
+	<hannes@cmpxchg.org>, <hpa@zytor.com>, <jackmanb@google.com>, 
+	<jic23@kernel.org>, <joshua.hahnjy@gmail.com>, 
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	<linux-nfs@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>, 
+	<ljs@kernel.org>, <mathieu.desnoyers@efficios.com>, 
+	<matthew.brost@intel.com>, <mhiramat@kernel.org>, <mhocko@suse.com>, 
+	<mingo@redhat.com>, <nifan.cxl@gmail.com>, <rakie.kim@sk.com>, 
+	<rientjes@google.com>, <rkodsara@amd.com>, <rostedt@goodmis.org>, 
+	<rppt@kernel.org>, <ryan.roberts@arm.com>, <shivankg@amd.com>, 
+	<sj@kernel.org>, <surenb@google.com>, <tglx@kernel.org>, 
+	<trondmy@kernel.org>, <vbabka@kernel.org>, <weixugc@google.com>, 
+	<x86@kernel.org>, <xuezhengchu@huawei.com>, 
+	<yiannis.nikolakop@gmail.com>, <yiannis@zptcorp.com>, 
+	<ying.huang@linux.alibaba.com>, <ziy@nvidia.com>
+Date: Fri,  6 Nov 2026 16:50:19 +0800
+Message-Id: <20261106085019.90487-1-lizhe.67@bytedance.com>
+In-Reply-To: <20261103223025.2482227-1-nhuhuan@google.com>
+X-Mailer: git-send-email 2.45.2
+From: "Li Zhe" <lizhe.67@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,105 +81,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <71b77625-8475-43da-a62b-983cf572229d@auroraos.dev>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.948.33
-X-ZohoMailClient: External
+Mime-Version: 1.0
+References: <20261103223025.2482227-1-nhuhuan@google.com>
 
-On Thu, Nov 05, 2026 at 11:47:13PM +0300, Sergey Shtylyov wrote:
-> Hello!
-> 
->    Please consider using --no-git-fallback with scripts/get_maintainer.pl --
-> I don't see what do I have to do with this patch (other than fixing another
-> bug in this driver earlier).
+On Tue, 3 Nov 2026 14:30:22 -0800, Huan Nguyen wrote:
 
-Thanks for the reminder, I usually enable it but forgot it this time, sorry
-for disturbing...
+> Using non-temporal stores and prefetching on x86 bypasses CPU cache
+> allocation, protecting active workload working sets and improving
+> demotion throughput.
 
-> On 11/5/26 3:12 AM, Yao Zi wrote:
-> 
-> > Current error handling code considers -EPROBE_DEFER as hard errors,
-> > logs misleading dmesg like,
-> > 
-> > rockchip-pm-domain ff600000.power-management:power-controller: power-domain: failed to get clk at index 0: -517
-> > rockchip-pm-domain ff600000.power-management:power-controller: failed to handle node power-domain: -517
-> > 
-> > Use dev_err_probe() at the callsite of of_clk_get(),
-> 
-> > and check for -EPROBE_DEFER in places> where its return value could propagate to.
-> 
->    To where?
+Could you show some real workload numbers for this? I am wondering
+whether the reduced cache allocation and improved demotion throughput
+also translate into visible application-level benefits.
 
-rockchip_pm_add_one_domain, rockchip_pm_add_subdomain, and
-rockchip_pm_domain_probe. I think it's obvious in the diff and too
-detailed to the commit message, so didn't add them here.
+> - Memory ordering:
+>   Add a wmb() barrier at the end of folio_mc_copy_nt() to ensure weakly
+>   ordered non-temporal stores are drained before page tables are updated.
 
->    And I didn't understand why you couldn't just call dev_err_probe() everywhere --
-> the error code seems to always be propagated...
+I have not looked into all the details here, so I may be missing
+something. But before migration completes, there should eventually be a
+publication step that makes the new folio visible. In theory, that
+publication step should already provide the required ordering before
+userspace can observe the new folio. So I wonder whether the wmb() in
+folio_mc_copy_nt() is really needed here.
 
-This was what I originally wanted to do, but dev_err_probe() sets the
-deferred probe reason, and if we call it several times, the earlier and
-more specific messagess ("failed to get clk at index %d") get overridden
-by the later and less descriptive ones ("failed to handle subdomain node
-%pOFn"), which I think would make it harder to debug.
-
-> > Fixes: 7c696693a4f5 ("soc: rockchip: power-domain: Add power domain driver")
-> > Fixes: 6be05b5ec161 ("soc: rockchip: power-domain: add support for sub-power domains")
-> > Signed-off-by: Yao Zi <me@ziyao.cc>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >  drivers/pmdomain/rockchip/pm-domains.c | 22 +++++++++++++---------
-> >  1 file changed, 13 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-> > index 34c862e56aad..c147cc88edb1 100644
-> > --- a/drivers/pmdomain/rockchip/pm-domains.c
-> > +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> [...]> @@ -1006,8 +1006,10 @@ static int rockchip_pm_add_subdomain(struct rockchip_pmu *pmu,
-> > 
-> >                 error = rockchip_pm_add_one_domain(pmu, np);
-> >                 if (error) {
-> > -                       dev_err(pmu->dev, "failed to handle node %pOFn: %d\n",
-> > -                               np, error);
-> > +                       if (error != -EPROBE_DEFER)
-> 
->    Why not just call dev_err_probe() instead?
-> 
-> > +                               dev_err(pmu->dev,
-> > +                                       "failed to handle node %pOFn: %d\n",
-> > +                                       np, error);
-> >                         return error;
-> >                 }
-> > 
-> > @@ -1102,15 +1104,17 @@ static int rockchip_pm_domain_probe(struct platform_device *pdev)
-> >         for_each_available_child_of_node_scoped(np, node) {
-> >                 error = rockchip_pm_add_one_domain(pmu, node);
-> >                 if (error) {
-> > -                       dev_err(dev, "failed to handle node %pOFn: %d\n",
-> > -                               node, error);
-> > +                       if (error != -EPROBE_DEFER)
-> > +                               dev_err(dev, "failed to handle node %pOFn: %d\n",
-> > +                                       node, error);
-> >                         goto err_out;
-> >                 }
-> > 
-> >                 error = rockchip_pm_add_subdomain(pmu, node);
-> >                 if (error < 0) {
-> > -                       dev_err(dev, "failed to handle subdomain node %pOFn: %d\n",
-> > -                               node, error);
-> > +                       if (error != -EPROBE_DEFER)
-> > +                               dev_err(dev, "failed to handle subdomain node %pOFn: %d\n",
-> > +                                       node, error);
-> >                         goto err_out;
-> >                 }
-> >         }
-> [...]
-> 
-> MBR, Sergey
-> 
-
-Regards,
-Yao Zi
+Thanks,
+Zhe
