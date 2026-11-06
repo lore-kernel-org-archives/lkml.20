@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793946446;
-	b=jaB1YbxNk9w7CUmjfWwTmBzZ4mu5VAJdqei/aBWMn8Rh6tAMtr1GQdlfggkiEtsen9Ck
-	 kGtBlDK3iCjmoL2qBkAGwQHcjRvTBIkM26IiNdPCj0yw+ghvIEFEPEGWGcsGF7o65Ze0w
-	 Aq5xjaCYxXSbK9gDmFH0kXIG7i+T0xhxWVkgndt1Np1YTfuihL3Dwuxo3rfz6zkOCXHrH
-	 UkjEmLy5RSYSohWvmDpYQbgGN74K0r8lngnNaFrFko6zhs6hyEwKg/Wmu2vehSl9pcmuk
-	 RvfGwrpSsJ+V+a6hCMuhrQivRVtywLFmHkYS/5h3QRHSKTPLMgduS4rK+JKnorPD5LA==
+	t=1793946613;
+	b=fVLv9+mOllFpLZJE4g7KF+bg9ZtC2E67hNHdqx2lSSRJviGOW8wGZBBVH9T00PcFCkZB
+	 NPe6MGf64Avzu1OGQHyqEzd3ZK1Inm4T5aEuk3R5gPxbil4iHIdQgOc6GWoHFI2RyS/B4
+	 YE4IhT4BqWOTG3CXxvSBLTp9lOLN0XSjNd+5cYIV5kuoeNK+2IOU76F5DGmvvsUeHOZ45
+	 dT33p05JN+KMS8moOEdp1ON0ri8yHt3Pw16bY4TOtZ/q4pgEOpo6QmibOkEjYag1rymaI
+	 9zDDAQxV1LaDV0FJCB6QuNA3p2t54gey987t16s8ecotWZeJmfjs/tl9bMbOchVOhFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793946446;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=/M96uxG+LPNfcKQbB2Yr56H+sNCiILb6tDvkzC3V2uc=;
-	b=XcvPJFxybheU9niWZq6+G5JNDsEYsMRjMo2T0DEdFijmeV3yl4u6ElezqJ1i10f7HGV4
-	 zN+rF5DAB2lJws/UskPIhAoHikft4fd7pX/J40HV4qTeiy+/pLM09QBAehozHVyKeu4S7
-	 +2ui2GqScCv8//SWidYl/5m3gwXMMInjM5CMT9jeE4jVRvOHzgf4NcFNhqZYGEDwUxkPp
-	 eYd6zmBOR0vwIj1v/fd7PU7YBtLOR1/AXyIcMevzjWh8gxB1EqLtuge6YVMr50xNBy9qn
-	 +HHvNnaHVzsxVTfobDBKjKcOgc4gyPuujZ5Fg29N2U6/RjmDiH5kbYMslBbHArQ9ZZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793946613;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=0LK6FWJkqMzmxtPw/jdEfAUhg2YMH8t8lmMIRAvfr6c=;
+	b=qcQxt4pm0IKYjmQ+KOwv5jqpZ0eC3a6tOa+/xiFa2nkTCXC9LkRFb5zg6s6qCfyTAM7Z
+	 zYRBqXRaMOyBTLY4beqhTRDVrSMtxjaA9aw42bpvuW3J0VBhcxY7+fhOrko6cMdxkKXWY
+	 RZkXaOHg2xLTE0ulc/DwQhPgdOfDeR0q2LSG2VHdAY+tP/oK/atidpFzJz8A8XSmfIBLq
+	 foZRzujNiQLS2qXTmY8RohNmdrU5Mh6z7OXnxPIfbW4640hhQkBpbjL9XnKokRjcyZccq
+	 MCBlmjFmdVnOmNDY5Oepen6Gu33nr6J6JsCzTExcC1Wfpl8cDdC6ATD9hRQRfGSp3nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.77
-Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com [115.124.28.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97713606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:27:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97713606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00604497-0.00136662-0.992588;FP=1429831647656267003|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045038069;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jy3YyPA_1793946437;
-Received: from localhost.localdomain(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jy3YyPA_1793946437 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 14:27:19 +0800
-From: Li kunyu <likunyu@open-hieco.net>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com
-Cc: linux-kernel@vger.kernel.org,
-	Li kunyu <likunyu@open-hieco.net>
-Subject: [PATCH v2] sched/fair: Distribute burst-woken tasks when rq depth reaches 3x average
-Date: Fri,  6 Nov 2026 14:26:23 +0800
-Message-ID: <20261106062623.278004-1-likunyu@open-hieco.net>
-X-Mailer: git-send-email 2.47.3
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=jrw4MULE;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B0B3606A329;
+	Fri,  6 Nov 2026 06:30:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B0B3606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=jrw4MULE
+Received: by linux.microsoft.com (Postfix, from userid 1173)
+	id C4DED20B7166; Thu,  5 Nov 2026 22:30:12 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C4DED20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793946612;
+	bh=0LK6FWJkqMzmxtPw/jdEfAUhg2YMH8t8lmMIRAvfr6c=;
+	h=From:To:Cc:Subject:Date:From;
+	b=jrw4MULEbL+lOwWOMmRXNBEKspWXmmugok7L4oJdA1/fwwGIbPaKYDRcwcoBT40Wb
+	 rFrABeV1ZK42oY2+dgyZjRzdph5O29c9kfRQvyxJjgvD4nxMCVej2fFwTHWQSL2vLU
+	 4rgeMCPF0yuhbFW2u82aa4L4aeE1h2OPmEogz9R8=
+From: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	weh@microsoft.com,
+	kotaranov@microsoft.com,
+	horms@kernel.org,
+	ernis@linux.microsoft.com,
+	gargaditya@linux.microsoft.com,
+	mawasthi@linux.microsoft.com,
+	linux-hyperv@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org
+Cc: Shradha Gupta <shradhagupta@linux.microsoft.com>,
+	Sahil Chandna <sahilchandna@linux.microsoft.com>
+Subject: [PATCH net-next] net: mana: Allocate queue MSI-X vectors on demand
+Date: Thu,  5 Nov 2026 22:30:11 -0800
+Message-ID: <20261106063011.43293-1-ernis@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,177 +75,459 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a task burst-wakes a large number of tasks in a short period, tasks
-can pile up on a single CPU regardless of whether the system has idle
-CPUs or NO_HZ enabled.
+MANA allocates its entire MSI-X budget at probe time, even when the
+active event queues (EQs) use only a small part of it. With dynamic
+MSI-X, this budget can be num_online_cpus() + 1, leaving unused vectors
+that consume interrupt resources.
 
-During the periodic load-balance pass at the top-level domain, compute
-and cache the 3x average runqueue depth threshold (floored at 3 tasks)
-in root_domain, updating it only when the value changes.
+Remove eager allocation of queue vectors and use mana_gd_get_gic(),
+which already allocates a vector when an EQ needs one. Keep the HWC
+interrupt available during device initialization.
 
-In select_task_rq_fair(), before scanning domains or siblings, check if
-the waking CPU's runqueue depth has reached this threshold. If so, fall
-back to cpumask_any_and_distribute(p->cpus_ptr, cpu_active_mask) to
-rotate waking tasks across allowed CPUs (provided the target has a
-smaller queue depth) and pull back rq->next_balance to expedite the next
-periodic load-balance pass.
+Assign affinity as each vector is created instead of spreading a
+preallocated array. Account for both Ethernet queue limits and RNIC
+completion vectors when choosing NUMA-aware or linear placement, since
+RNIC can use more vectors than the Ethernet limit. Wrap excess vector
+positions over the online CPUs if CPUs have gone offline.
 
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Link: https://lore.kernel.org/all/20261021125419.GK2823843@noisy.programming.kicks-ass.net/
-Signed-off-by: Li kunyu <likunyu@open-hieco.net>
+Measured results with one vPort per setup:
+
+vCPUs	IRQs before	IRQs after	Affinity before	Affinity after
+128	129		65		Linear		NUMA-aware
+192	193		65		Linear		NUMA-aware
+372	256		65		NUMA-aware	NUMA-aware
+
+Walk the interrupt-context xarray during PCI teardown rather than using
+the preallocated vector count, so sparse, on-demand allocations are
+released correctly. Leave CDX's preallocated vector pool unchanged.
+
+Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+Reviewed-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+Reviewed-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
 ---
-Changes in v2:
-- Rebase onto latest mainline (Kayra Cizmeci).
-- Cache pre-calculated 3x threshold in root_domain and only WRITE_ONCE()
-  when the threshold changes to avoid hotpath math and cacheline dirtying
-  (K Prateek Nayak).
-- Check rq_burst_overloaded() before domain walk / select_idle_sibling()
-  (K Prateek Nayak).
-- Expedite periodic balance via rq->next_balance gated by time_after()
-  instead of walking domains on every wakeup (K Prateek Nayak, Kayra Cizmeci).
----
- kernel/sched/fair.c     | 59 +++++++++++++++++++++++++++++++++++++++++
- kernel/sched/sched.h    |  3 +++
- kernel/sched/topology.c |  2 ++
- 3 files changed, 64 insertions(+)
+ .../net/ethernet/microsoft/mana/gdma_main.c   |  50 +++--
+ .../net/ethernet/microsoft/mana/gdma_pci.c    | 174 +++++-------------
+ include/net/mana/gdma.h                       |   4 +
+ 3 files changed, 77 insertions(+), 151 deletions(-)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index cfc982205b98..59e7511d9730 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -9900,6 +9900,33 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
- 	return target;
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index ae0ed700b3b9..d33abb5b0a6f 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -1802,44 +1802,45 @@ struct gdma_irq_context *mana_gd_get_gic(struct gdma_context *gc,
+ 	const struct gdma_bus_ops *ops = gc->bus_ops;
+ 	struct gdma_irq_context *gic;
+ 	bool dyn_msix = false;
+-	int msi, irq, err;
++	int msix_index, irq, err;
+ 
+ 	mutex_lock(&gc->gic_mutex);
+ 
+ 	if (use_msi_bitmap) {
+-		msi = find_first_zero_bit(gc->msi_bitmap, gc->num_msix_usable);
+-		if (msi >= gc->num_msix_usable) {
++		msix_index = find_first_zero_bit(gc->msi_bitmap,
++						 gc->num_msix_usable);
++		if (msix_index >= gc->num_msix_usable) {
+ 			dev_err(gc->dev, "No free MSI vectors available\n");
+ 			gic = ERR_PTR(-ENOSPC);
+ 			goto out;
+ 		}
+-		*msi_requested = msi;
++		*msi_requested = msix_index;
+ 	} else {
+-		msi = *msi_requested;
++		msix_index = *msi_requested;
+ 	}
+ 
+-	gic = xa_load(&gc->irq_contexts, msi);
++	gic = xa_load(&gc->irq_contexts, msix_index);
+ 	if (gic) {
+ 		refcount_inc(&gic->refcount);
+ 		if (use_msi_bitmap) {
+ 			gic->bitmap_refs++;
+-			set_bit(msi, gc->msi_bitmap);
++			set_bit(msix_index, gc->msi_bitmap);
+ 		}
+ 		goto out;
+ 	}
+ 
+-	irq = ops->msix_virq(gc, msi);
++	irq = ops->msix_virq(gc, msix_index);
+ 	if (irq == -EINVAL) {
+ 		/* A bus that sizes its vector pool up front has nothing left
+ 		 * to hand out once every vector has been claimed.
+ 		 */
+ 		if (!ops->msix_alloc_at) {
+-			dev_err(gc->dev, "No IRQ for MSI %d\n", msi);
++			dev_err(gc->dev, "No IRQ for MSI %d\n", msix_index);
+ 			gic = ERR_PTR(-ENOENT);
+ 			goto out;
+ 		}
+ 
+-		irq = ops->msix_alloc_at(gc, &msi);
++		irq = ops->msix_alloc_at(gc, &msix_index);
+ 		if (irq < 0) {
+ 			dev_err(gc->dev, "Failed to alloc irq msi %d err %d\n",
+ 				*msi_requested, irq);
+@@ -1848,19 +1849,19 @@ struct gdma_irq_context *mana_gd_get_gic(struct gdma_context *gc,
+ 		}
+ 
+ 		dyn_msix = true;
+-		*msi_requested = msi;
++		*msi_requested = msix_index;
+ 	}
+ 
+ 	gic = kzalloc_obj(*gic);
+ 	if (!gic) {
+ 		gic = ERR_PTR(-ENOMEM);
+ 		if (dyn_msix)
+-			ops->msix_free(gc, msi, irq);
++			ops->msix_free(gc, msix_index, irq);
+ 		goto out;
+ 	}
+ 
+ 	gic->handler = mana_gd_process_eq_events;
+-	gic->msi = msi;
++	gic->msi = msix_index;
+ 	gic->irq = irq;
+ 	INIT_LIST_HEAD(&gic->eq_list);
+ 	spin_lock_init(&gic->lock);
+@@ -1879,28 +1880,41 @@ struct gdma_irq_context *mana_gd_get_gic(struct gdma_context *gc,
+ 		kfree(gic);
+ 		gic = ERR_PTR(err);
+ 		if (dyn_msix)
+-			ops->msix_free(gc, msi, irq);
++			ops->msix_free(gc, msix_index, irq);
+ 		goto out;
+ 	}
+ 
++	if (dyn_msix && ops->setup_dyn_affinity) {
++		err = ops->setup_dyn_affinity(gc, irq, msix_index);
++		if (err) {
++			free_irq(irq, gic);
++			kfree(gic);
++			gic = ERR_PTR(err);
++			ops->msix_free(gc, msix_index, irq);
++			goto out;
++		}
++	}
++
+ 	gic->dyn_msix = dyn_msix;
+ 	refcount_set(&gic->refcount, 1);
+ 	gic->bitmap_refs = use_msi_bitmap ? 1 : 0;
+ 
+-	err = xa_err(xa_store(&gc->irq_contexts, msi, gic, GFP_KERNEL));
++	err = xa_err(xa_store(&gc->irq_contexts, msix_index, gic, GFP_KERNEL));
+ 	if (err) {
+ 		dev_err(gc->dev, "Failed to store irq context for msi %d: %d\n",
+-			msi, err);
++			msix_index, err);
++		if (dyn_msix)
++			irq_update_affinity_hint(irq, NULL);
+ 		free_irq(irq, gic);
+ 		kfree(gic);
+ 		gic = ERR_PTR(err);
+ 		if (dyn_msix)
+-			ops->msix_free(gc, msi, irq);
++			ops->msix_free(gc, msix_index, irq);
+ 		goto out;
+ 	}
+ 
+ 	if (use_msi_bitmap)
+-		set_bit(msi, gc->msi_bitmap);
++		set_bit(msix_index, gc->msi_bitmap);
+ 
+ out:
+ 	mutex_unlock(&gc->gic_mutex);
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_pci.c b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
+index ed8925296c8a..5aebf57eb412 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_pci.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
+@@ -299,7 +299,7 @@ static int mana_pci_dev_reset(struct gdma_context *gc)
+  */
+ 
+ static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
+-				     int node, bool skip_first_cpu)
++				     int node, unsigned int skip)
+ {
+ 	const struct cpumask *next, *prev = cpu_none_mask;
+ 	cpumask_var_t cpus __free(free_cpumask_var);
+@@ -317,8 +317,8 @@ static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
+ 				cpumask_andnot(cpus, cpus, topology_sibling_cpumask(cpu));
+ 				--weight;
+ 
+-				if (unlikely(skip_first_cpu)) {
+-					skip_first_cpu = false;
++				if (skip) {
++					skip--;
+ 					continue;
+ 				}
+ 
+@@ -336,7 +336,8 @@ static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
  }
  
+ /* must be called with cpus_read_lock() held */
+-static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len)
++static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len,
++				  unsigned int skip)
+ {
+ 	int cpu;
+ 
+@@ -344,96 +345,50 @@ static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len)
+ 		if (len == 0)
+ 			break;
+ 
++		if (skip) {
++			skip--;
++			continue;
++		}
++
+ 		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
+ 		len--;
+ 	}
+ }
+ 
+-static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
 +/*
-+ * Check if a CPU's rq depth reaches the 3x system-wide average threshold
-+ * cached in root_domain (floored at 3 tasks).
++ * Select NUMA-aware or linear placement using Ethernet and RNIC queue limits.
++ * Use the MSI-X index as the position in the selected placement order. The
++ * NUMA-aware walk reserves its first slot for HWC; the linear queue walk does not.
 + */
-+static inline bool rq_burst_overloaded(struct rq *rq)
-+{
-+	if (unlikely(!rq->rd))
-+		return false;
-+
-+	return READ_ONCE(rq->nr_running) >= READ_ONCE(rq->rd->overload_nr_threshold);
-+}
-+
-+static inline void reset_periodic_lb_interval(int cpu)
-+{
-+	struct sched_domain *sd;
-+	unsigned long next = jiffies + 1;
-+	struct rq *rq = cpu_rq(cpu);
-+
-+	if (time_after(READ_ONCE(rq->next_balance), next))
-+		WRITE_ONCE(rq->next_balance, next);
-+
-+	for_each_domain(cpu, sd) {
-+		if (READ_ONCE(sd->balance_interval) > sd->min_interval)
-+			WRITE_ONCE(sd->balance_interval, sd->min_interval);
-+	}
-+}
-+
- /*
-  * select_task_rq_fair: Select target runqueue for the waking task in domains
-  * that have the relevant SD flag set. In practice, this is SD_BALANCE_WAKE,
-@@ -9920,6 +9947,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
- 	int want_affine = 0;
- 	/* SD_flags and WF_flags share the first nibble */
- 	int sd_flag = wake_flags & 0xF;
-+	struct rq *target_rq;
++static int mana_pci_setup_dyn_affinity(struct gdma_context *gc,
++				       unsigned int irq, unsigned int msix_index)
+ {
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	struct gdma_irq_context *gic;
+-	int *irqs, err, i, msi;
++	unsigned int num_queue_irqs = gc->max_num_queues_vport;
++	unsigned int num_cpus, skip;
++	int err = 0;
  
- 	/*
- 	 * required for stable ->cpus_allowed
-@@ -9942,6 +9970,17 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
- 		want_affine = !wake_wide(p) && cpumask_test_cpu(cpu, p->cpus_ptr);
+-	irqs = kmalloc_objs(int, nvec);
+-	if (!irqs)
+-		return -ENOMEM;
++	if (!gc->msi_sharing)
++		num_queue_irqs *= gc->num_ports;
+ 
+-	/*
+-	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
+-	 * nvec is only Queue IRQ (HWC already setup).
+-	 * While processing the next pci irq vector, we start with index 1,
+-	 * as IRQ vector at index 0 is already processed for HWC.
+-	 * However, the population of irqs array starts with index 0, to be
+-	 * further used in mana_irq_setup_numa_aware()
+-	 */
+-	for (i = 1; i <= nvec; i++) {
+-		msi = i;
+-		gic = mana_gd_get_gic(gc, false, &msi);
+-		if (IS_ERR(gic)) {
+-			err = PTR_ERR(gic);
+-			goto free_irq;
+-		}
++	/* RNIC completion EQs can use more vectors than Ethernet queues. */
++	num_queue_irqs = max(num_queue_irqs, gc->max_num_queues);
+ 
+-		irqs[i - 1] = gic->irq;
+-	}
+-
+-	/*
+-	 * When calling mana_irq_setup_numa_aware() for dynamically added IRQs,
+-	 * if number of CPUs is more than or equal to allocated MSI-X, we need to
+-	 * skip the first CPU sibling group since they are already affinitized to
+-	 * HWC IRQ
+-	 */
+ 	cpus_read_lock();
+-	if (gc->num_msix_usable <= num_online_cpus()) {
+-		err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node,
+-						true);
+-		if (err) {
+-			cpus_read_unlock();
+-			goto free_irq;
+-		}
++	num_cpus = num_online_cpus();
++	if (num_queue_irqs < num_cpus && msix_index < num_cpus) {
++		err = mana_irq_setup_numa_aware(&irq, 1, gc->numa_node, msix_index);
+ 	} else {
+-		/*
+-		 * When num_msix_usable are more than num_online_cpus, our
+-		 * queue IRQs should be equal to num of online vCPUs.
+-		 * We try to make sure queue IRQs spread across all vCPUs.
+-		 * In such a case NUMA or CPU core affinity does not matter.
+-		 * Note: in this case the total mana IRQ should always be
+-		 * num_online_cpus + 1. The first HWC IRQ is already handled
+-		 * in HWC setup calls
+-		 * However, if CPUs went offline since num_msix_usable was
+-		 * computed, queue IRQs will be more than num_online_cpus().
+-		 * In such cases remaining extra IRQs will retain their default
+-		 * affinity.
+-		 */
+-		int first_unassigned = num_online_cpus();
+-
+-		if (nvec > first_unassigned) {
+-			char buf[32];
+-
+-			if (first_unassigned == nvec - 1)
+-				snprintf(buf, sizeof(buf), "%d",
+-					 first_unassigned);
+-			else
+-				snprintf(buf, sizeof(buf), "%d-%d",
+-					 first_unassigned, nvec - 1);
+-
+-			dev_dbg(&pdev->dev,
+-				"MANA IRQ indices #%s will retain the default CPU affinity\n",
+-				buf);
++		skip = msix_index ? msix_index - 1 : 0;
++		/* CPU hotplug can leave more queue vectors than online CPUs. */
++		if (skip >= num_cpus) {
++			dev_dbg(gc->dev, "Wrapping MSI %u affinity over %u CPUs\n",
++				msix_index, num_cpus);
++			skip %= num_cpus;
+ 		}
+-
+-		mana_irq_setup_linear(irqs, nvec);
++		mana_irq_setup_linear(&irq, 1, skip);
+ 	}
+-
+ 	cpus_read_unlock();
+-	kfree(irqs);
+-	return 0;
+ 
+-free_irq:
+-	for (i -= 1; i > 0; i--)
+-		mana_gd_put_gic(gc, false, i);
+-	kfree(irqs);
+ 	return err;
+ }
+ 
+@@ -478,7 +433,7 @@ static int mana_gd_setup_irqs(struct pci_dev *pdev, int nvec)
+ 		nvec -= 1;
  	}
  
-+	target_rq = want_affine ? this_rq() : cpu_rq(prev_cpu);
-+	if (unlikely(rq_burst_overloaded(target_rq))) {
-+		int dist_cpu = cpumask_any_and_distribute(p->cpus_ptr, cpu_active_mask);
-+
-+		if (likely(dist_cpu < nr_cpumask_bits && cpu_rq(dist_cpu)->nr_running <
-+			   target_rq->nr_running)) {
-+			reset_periodic_lb_interval(dist_cpu);
-+			return dist_cpu;
-+		}
-+	}
-+
- 	for_each_domain(cpu, tmp) {
- 		/*
- 		 * If both 'cpu' and 'prev_cpu' are part of this domain,
-@@ -11682,6 +11721,7 @@ struct sg_lb_stats {
- struct sd_lb_stats {
- 	struct sched_group *busiest;		/* Busiest group in this sd */
- 	struct sched_group *local;		/* Local group in this sd */
-+	unsigned long total_nr_running;		/* Sum of nr_running in this sd */
- 	unsigned long total_load;		/* Total load of all groups in sd */
- 	unsigned long total_capacity;		/* Total capacity of all groups in sd */
- 	unsigned long avg_load;			/* Average load across all groups in sd */
-@@ -12977,6 +13017,7 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
- 		/* Now, start updating sd_lb_stats */
- 		sds->total_load += sgs->group_load;
- 		sds->total_capacity += sgs->group_capacity;
-+		sds->total_nr_running += sgs->sum_nr_running;
- 
- 		sum_util += sgs->group_util;
- 		sg = sg->next;
-@@ -12995,11 +13036,29 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
- 		env->fbq_type = fbq_classify_group(&sds->busiest_stat);
- 
- 	if (!env->sd->parent) {
-+		unsigned int weight = cpumask_weight(env->cpus);
-+
- 		/* update overload indicator if we are at root domain */
- 		set_rd_overloaded(env->dst_rq->rd, sg_overloaded);
- 
- 		/* Update over-utilization (tipping point, U >= 0) indicator */
- 		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
-+
-+		/*
-+		 * We update the average task count at the top-level (root)
-+		 * domain, as this incurs the least overhead and comes
-+		 * closest to the ideal scenario. The trade-off is that we
-+		 * must accept some temporary data inaccuracy.
-+		 */
-+		if (weight) {
-+			unsigned long thresh;
-+
-+			thresh = max_t(unsigned long,
-+				       (sds->total_nr_running * 3) / weight, 3);
-+
-+			if (READ_ONCE(env->dst_rq->rd->overload_nr_threshold) != thresh)
-+				WRITE_ONCE(env->dst_rq->rd->overload_nr_threshold, thresh);
-+		}
- 	} else if (sg_overutilized) {
- 		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
+-	err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node, false);
++	err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node, 0);
+ 	if (err) {
+ 		cpus_read_unlock();
+ 		goto free_irq;
+@@ -523,40 +478,6 @@ static int mana_gd_setup_hwc_irqs(struct pci_dev *pdev)
  	}
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c7c5633524a..71d946da9600 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1096,6 +1096,9 @@ struct root_domain {
- 	cpumask_var_t		rto_mask;
- 	struct cpupri		cpupri;
  
-+	/* 3x average per-CPU rq depth threshold for burst wakeup distribution */
-+	unsigned long		overload_nr_threshold;
-+
- 	/*
- 	 * NULL-terminated list of performance domains intersecting with the
- 	 * CPUs of the rd. Protected by RCU.
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 919d0fb00bd9..fe154dfdf23e 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -572,6 +572,8 @@ static int init_rootdomain(struct root_domain *rd)
+ 	gc->num_msix_usable = nvec;
+-	gc->max_num_msix = nvec;
+-
+-	return 0;
+-}
+-
+-static int mana_gd_setup_remaining_irqs(struct pci_dev *pdev)
+-{
+-	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	struct msi_map irq_map;
+-	int max_irqs, i, err;
+-
+-	if (!pci_msix_can_alloc_dyn(pdev))
+-		/* remain irqs are already allocated with HWC IRQ */
+-		return 0;
+-
+-	/* allocate only remaining IRQs*/
+-	max_irqs = gc->num_msix_usable - 1;
+-
+-	for (i = 1; i <= max_irqs; i++) {
+-		irq_map = pci_msix_alloc_irq_at(pdev, i, NULL);
+-		if (!irq_map.virq) {
+-			err = irq_map.index;
+-			/* caller will handle cleaning up all allocated
+-			 * irqs, after HWC is destroyed
+-			 */
+-			return err;
+-		}
+-	}
+-
+-	err = mana_gd_setup_dyn_irqs(pdev, max_irqs);
+-	if (err)
+-		return err;
+-
+-	gc->max_num_msix = gc->max_num_msix + max_irqs;
  
- 	if (cpupri_init(&rd->cpupri) != 0)
- 		goto free_cpudl;
-+
-+	rd->overload_nr_threshold = 3;
  	return 0;
+ }
+@@ -564,17 +485,12 @@ static int mana_gd_setup_remaining_irqs(struct pci_dev *pdev)
+ static void mana_gd_remove_irqs(struct pci_dev *pdev)
+ {
+ 	struct gdma_context *gc = pci_get_drvdata(pdev);
+-	int i;
+-
+-	if (gc->max_num_msix < 1)
+-		return;
+-
+-	for (i = 0; i < gc->max_num_msix; i++) {
+-		if (!xa_load(&gc->irq_contexts, i))
+-			continue;
++	struct gdma_irq_context *gic;
++	unsigned long msi;
  
- free_cpudl:
--- 
-2.47.3
+-		mana_gd_put_gic(gc, false, i);
+-	}
++	/* Only the vectors an EQ asked for were ever created */
++	xa_for_each(&gc->irq_contexts, msi, gic)
++		mana_gd_put_gic(gc, false, msi);
+ 
+ 	WARN_ON(!xa_empty(&gc->irq_contexts));
+ 
+@@ -582,7 +498,6 @@ static void mana_gd_remove_irqs(struct pci_dev *pdev)
+ 
+ 	bitmap_free(gc->msi_bitmap);
+ 	gc->msi_bitmap = NULL;
+-	gc->max_num_msix = 0;
+ 	gc->num_msix_usable = 0;
+ }
+ 
+@@ -593,14 +508,6 @@ static int mana_pci_setup_hwc_irqs(struct gdma_context *gc)
+ 
+ static int mana_pci_setup_remaining_irqs(struct gdma_context *gc)
+ {
+-	int err;
+-
+-	err = mana_gd_setup_remaining_irqs(to_pci_dev(gc->dev));
+-	if (err) {
+-		dev_err(gc->dev, "Failed to setup remaining IRQs: %d", err);
+-		return err;
+-	}
+-
+ 	if (!gc->msi_sharing) {
+ 		gc->msi_bitmap = bitmap_zalloc(gc->num_msix_usable, GFP_KERNEL);
+ 		if (!gc->msi_bitmap)
+@@ -624,6 +531,7 @@ static const struct gdma_bus_ops mana_pci_bus_ops = {
+ 	.msix_virq		= mana_pci_msix_virq,
+ 	.msix_alloc_at		= mana_pci_msix_alloc_at,
+ 	.msix_free		= mana_pci_msix_free,
++	.setup_dyn_affinity	= mana_pci_setup_dyn_affinity,
+ 	.msix_vec_count		= mana_pci_msix_vec_count,
+ 	.setup_hwc_irqs		= mana_pci_setup_hwc_irqs,
+ 	.setup_remaining_irqs	= mana_pci_setup_remaining_irqs,
+diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
+index c610fc1067e0..fc8a0ef6c74e 100644
+--- a/include/net/mana/gdma.h
++++ b/include/net/mana/gdma.h
+@@ -443,6 +443,8 @@ struct gdma_context;
+  *	allocate their whole pool up front leave this NULL.
+  * @msix_free: Release a vector obtained from @msix_alloc_at. Only needed
+  *	by buses that implement @msix_alloc_at.
++ * @setup_dyn_affinity: Place a vector obtained from @msix_alloc_at on a
++ *	CPU. Only needed by buses that implement @msix_alloc_at.
+  * @msix_vec_count: Return the number of entries in the device MSI-X table,
+  *	used to clamp the vector count the core asks for. Buses that cannot
+  *	report a table size leave this NULL and the clamp is skipped.
+@@ -465,6 +467,8 @@ struct gdma_bus_ops {
+ 	int (*msix_virq)(struct gdma_context *gc, int msi);
+ 	int (*msix_alloc_at)(struct gdma_context *gc, int *msi);
+ 	void (*msix_free)(struct gdma_context *gc, int msi, int irq);
++	int (*setup_dyn_affinity)(struct gdma_context *gc, unsigned int irq,
++				  unsigned int msix_index);
+ 	int (*msix_vec_count)(struct gdma_context *gc);
+ 	int (*setup_hwc_irqs)(struct gdma_context *gc);
+ 	int (*setup_remaining_irqs)(struct gdma_context *gc);
 
+base-commit: 98c2ad4f5d805dbc1ea436a334ee59311806a48c
+-- 
+2.34.1
