@@ -1,75 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793996423;
-	b=T0NigBQlH0QkxmjObQIZftSi7RnbP1Pklt9gL/mJkhRGke5A0JgsyFJ/uc0rQih1ueXo
-	 kvUKMhJP0wUueXnnkWeWwRfZvVoMePFG/wH3BEq/VDW3ETh762MyFh9QfNWbhh8G57Jve
-	 Pcvb6vs63GjmyDYAJr6xwG9tPfrXs/QmBn1zUgFB8o2SO2ZJy3wcy6Fn3Avu6BvtyDLT8
-	 7yt1BXUT59N0w2wO/PpZFr5j2FGWe62HEIA2UnMSX2G5FujJ3WsL3YEyYWOriqmwH0KL+
-	 4ujWiM4hU7V0CoeWMHabJmvSRaAufIb3F4iYlVGW8XA+OIPqPrOKKjEVEp/B9/hlFSg==
+	t=1793996454;
+	b=37iJXLL4ciljSDjqelUQabJCV8nTp2P66GT7MAHdnhe+1fKuGJnBHUEA3lFFZAhxk0nD
+	 JIwmBhhVqisMXHvQNeDLeY5MdPsXRFGQtuMiPd030+ukalOioiYZdMObEqlmo0hJ87wNG
+	 QGV9p/ZmUism/yP4StRhNNykceRv1b5xctU5rfjmCXeR+z5/kI+a52/fLeI65MupDrTOl
+	 wG6ViG2NtO7jcGm+C25HsUBnQCdRZq9K2jCI5CtrJ1YycUWDj3TgacU78FinAY+u9kzg1
+	 9lMhpd2RbxB6vYD7Vi3CA+qIwXynIhiHlEjgWXd33h0fK7cKd2xwhNx0c3LbUM90M1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793996423;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=K1sGHNV060QXqvoYM3K0orPPht5P734++yZ6XL1HQug=;
-	b=2zonN/S1gYNMfH35melLBxUDcomPkw+W71wNrKAMJAtHupA9KtB281GWIFm8yZqTceCo
-	 bwSfmxApOim5Q6LegqtAxTJAtlt7qFWvXD/4EDdmE0FPHbR3OGTRcPhJSjmOX1zEpxatZ
-	 iEHh1Jvw2BIpZ9AiVtox+7oWHlDxAJyZpfiRNJdduqKh4hBfzSR6sGIqrfssXckp2fQQS
-	 +wcTxoPVPr236ErhUl4TOUJ5HI77UWYjswMoWxPT1+1DBeo/CpTrd0296br3Xlsjci4Gu
-	 dPD72c2d4jgYFE/W8hPscvZXl0/pasMtE4QfQKpzzrEtNHnv2+TxswrCpnfNnbezjHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793996454;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
+	 References:MIME-Version:Content-Type;
+	bh=FuLO2AbDaNLP40FbdFwoqBB9qAnL5dvmzRmSujGMrw0=;
+	b=x8X39B+i0po/xoZq5gjVScNhTYuu3EXnW+2UAxfQQjQxOthV2Rktm2U1Klmnzg/jrCkq
+	 3HzprYFAvy518L4cEVrCmrcwm0LXbn749fiyMH3aaNZHF0yWwgb9e/SrgHUhgxUdOUSYj
+	 IWx3/XvE7SMmHp52LXHCLLNKnBaS/f5gwoDNShDljDaU1TSUdBjAZuLz9I20D8R3QlXmD
+	 hnx+tCKCPS0gnmBTH8xt2VGeZ+G/KsBQMlE64At+bnkjhpYfSM1fP/CoO22Y+xRGFkN3S
+	 X9+UGVjm6fxm2XrLqfDWBrSJscrMdBbvsCCheII1yN4j78L35b0ON6kTH+DSzMb77vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ebw6RDKk;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=snnM6kzX;
+	arc=none smtp.remote-ip=192.134.164.83
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C219606A336
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C219606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sidnayyar.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2953606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:20:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2953606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ebw6RDKk
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3aed37745bcso15110a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:20:23 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=snnM6kzX
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793996422; x=1794601222; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K1sGHNV060QXqvoYM3K0orPPht5P734++yZ6XL1HQug=;
-        b=ebw6RDKkcjg882fzi1Z+Zdl4oglJClpfPn38raYqe9n6lGczb1D7h63+mwKE/2tYHH
-         Dgi/YgrDABxsAsm7c6FOZP/5mgr/sKFXbq48Tk5RE2xstwH6XJQiIHfqxDHu3RLyEnIh
-         0/cePF29X13v9nsDotcnqGF5l4BEawAA7ZsLmsT1G+rJgBVbRIW1gptfSWziEFV5qQgG
-         NItSsQoV5wDu72X+FLGQ8H5g7GT9sZqIPRosRSIdJukHMbJH3rhYpyLNKPGKF3aP7m6V
-         IANKWhP1zwxhtYzxZkXCZDnBo/yImuzaBPp8nTV0nePOCDlAuy1eHIRwjcncwtqNeRMJ
-         YQBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793996422; x=1794601222;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K1sGHNV060QXqvoYM3K0orPPht5P734++yZ6XL1HQug=;
-        b=Lb9DqgJIYMfVyiUFtXCR95z90/n7kABPruAgxCa2a+8OW7ZX2i8rlOlHNfzHFF/YOd
-         rQTCmXfj7gPEFH6p4vcuicSF6X3AG8IBV3TTxkUT/YR/MoD5CPs4B84maOgCEJ5xl1R3
-         1lkSsViFnKMhJaC0NGyd/BTrfkHxXQKxhgWBLRLtMLODBoYwsxk/2ZRsJtIMEfkADgrM
-         AuHG7QKOw4u2ndbturlquG7ji75r9aV03r2cu0Q1qpOveSq6KCksVD0A2Dyf8uuuOgrz
-         zPZ/SJSi1im+TDMwr0S/S+Pq5aIsqWdgqSJbx09cbinh105ktaatREAaRBXUrJZ/j9lT
-         x/Ew==
-X-Forwarded-Encrypted: i=1; AL+hErErMJZv2uKgRJOa6ATzFd5jH86kP8FguyGFAu7VNpuiZ1QzPDghAhNSh4Y8rm2E/Xd6bh9xNPHd2zFxUVU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HQk9MuSGZCruAt3TaZ65nNPPFQyMnq6uM64KmsU52mzw+JoPi
-	SaIYJrZq0he0lPee5aFjID3qKEOAsc9jezIOlmC/zv3sWEogMFsCd4SKMuJXE39KwbwctUwqZpm
-	jGS7xz6XoOWUr6JuQTw==
-X-Received: from pjbmq2.prod.google.com ([2002:a17:90b:3802:b0:3b0:c476:aabc])
- (user=sidnayyar job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3cc6:b0:3a8:786a:cfed with SMTP id 98e67ed59e1d1-3b10659feaemr50585a91.37.1793996422174;
- Fri, 06 Nov 2026 12:20:22 -0800 (PST)
-Date: Fri, 06 Nov 2026 20:19:54 +0000
-In-Reply-To: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=FuLO2AbDaNLP40FbdFwoqBB9qAnL5dvmzRmSujGMrw0=;
+  b=snnM6kzXD5VBB735Ofmowa3Qzc62oaxYJC8wB+pagwMgkRxRckVh7MAI
+   sLm/GBc0ghydvo2+JdwRQP0qbt2pQ9C+CgumBZfTxEL45GVJS1PyXavyD
+   ylJRr60CgbczYGIijrnJt5AdlasGxUAv9lfU+j+UNO/wydHDKmwOgi90R
+   Q=;
+X-CSE-ConnectionGUID: EBw5dCsWQEG+G2Dz+OdjiQ==
+X-CSE-MsgGUID: Mav8AZiNSsqwK+E6jVE/Vw==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,199,1787004000"; 
+   d="scan'208";a="304272733"
+Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 21:20:44 +0100
+Date: Fri, 6 Nov 2026 21:20:44 +0100 (CET)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Chad Aldreda <ca@modelmiser.com>
+cc: Nicolas Palix <nicolas.palix@imag.fr>, cocci@inria.fr, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] coccinelle: api: add a checker for device nodes in devm_
+ memory
+In-Reply-To: <20261106193517.3267013-2-ca@modelmiser.com>
+Message-ID: <5f30dd50-a764-8e8-8b27-5c26ad10a7dd@inria.fr>
+References: <20261106193517.3267013-2-ca@modelmiser.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,295 +66,256 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com>
-X-Mailer: b4 0.14.3
-Message-ID: <20261106-lskel-struct-ops-v1-7-a4486ffc79cb@google.com>
-Subject: [PATCH RFC bpf-next 7/7] selftests/bpf: Add light skeleton struct_ops tests
-From: Siddharth Nayyar <sidnayyar@google.com>
-To: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Quentin Monnet <qmo@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Giuliano Procida <gprocida@google.com>, 
-	Neill Kapron <nkapron@google.com>, "=?utf-8?q?Thi=C3=A9baud_Weksteen?=" <tweek@google.com>, 
-	Maxime Ripard <mripard@kernel.org>, Siddharth Nayyar <sidnayyar@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-Add selftests exercising BPF_MAP_TYPE_STRUCT_OPS support in light
-skeletons across both vmlinux and kernel module BTF targets:
 
-- struct_ops_vmlinux.c defines a SEC(".struct_ops.link")
-  tcp_congestion_ops map in vmlinux BTF, testing open/load, link
-  attachment, callback invocation over a loopback TCP connection,
-  and unregistration upon detach.
-- struct_ops_mod.c defines two SEC(".struct_ops.link") maps targeting
-  bpf_testmod_ops in module BTF (including a reordered subset struct
-  bpf_testmod_ops___v2 sharing a callback), testing module BTF FD
-  resolution, runtime member offset/index lookup via
-  bpf_btf_get_struct_member_info(), scalar member copying, detach,
-  and per-map re-attachment.
 
-Signed-off-by: Siddharth Nayyar <sidnayyar@google.com>
----
- tools/testing/selftests/bpf/Makefile.skel          |   3 +-
- .../selftests/bpf/prog_tests/struct_ops_lskel.c    | 122 +++++++++++++++++++++
- tools/testing/selftests/bpf/progs/struct_ops_mod.c |  51 +++++++++
- .../selftests/bpf/progs/struct_ops_vmlinux.c       |  42 +++++++
- 4 files changed, 217 insertions(+), 1 deletion(-)
+On Fri, 6 Nov 2026, Chad Aldreda wrote:
 
-diff --git a/tools/testing/selftests/bpf/Makefile.skel b/tools/testing/selftests/bpf/Makefile.skel
-index b8eaecc7f429..2726f9081e35 100644
---- a/tools/testing/selftests/bpf/Makefile.skel
-+++ b/tools/testing/selftests/bpf/Makefile.skel
-@@ -34,7 +34,8 @@ LINKED_SKELS := test_static_linked.skel.h linked_funcs.skel.h		\
- LSKELS := fexit_sleep.c trace_printk.c trace_vprintk.c map_ptr_kern.c 	\
- 	core_kern.c core_kern_overflow.c test_ringbuf.c			\
- 	test_ringbuf_n.c test_ringbuf_map_key.c test_ringbuf_write.c    \
--	test_ringbuf_overwrite.c callx_rodata.c
-+	test_ringbuf_overwrite.c callx_rodata.c struct_ops_vmlinux.c	\
-+	struct_ops_mod.c
- 
- LSKELS_SIGNED := fentry_test.c fexit_test.c atomics.c
- 
-diff --git a/tools/testing/selftests/bpf/prog_tests/struct_ops_lskel.c b/tools/testing/selftests/bpf/prog_tests/struct_ops_lskel.c
-new file mode 100644
-index 000000000000..4e9bac460953
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/struct_ops_lskel.c
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <test_progs.h>
-+#include "network_helpers.h"
-+#include "struct_ops_vmlinux.lskel.h"
-+#include "struct_ops_mod.lskel.h"
-+
-+static int set_tcp_ca_cb(int fd, void *opts)
-+{
-+	const char *tcp_ca = opts;
-+
-+	if (!ASSERT_OK(setsockopt(fd, IPPROTO_TCP, TCP_CONGESTION,
-+				  tcp_ca, strlen(tcp_ca)), "setsockopt"))
-+		return -1;
-+	return 0;
-+}
-+
-+static void test_vmlinux(void)
-+{
-+	char tcp_ca[] = "bpf_lskel_ca";
-+	struct network_helper_opts opts = {
-+		.post_socket_cb	= set_tcp_ca_cb,
-+		.cb_opts	= tcp_ca,
-+	};
-+	struct struct_ops_vmlinux_lskel *skel;
-+	int srv_fd = -1, cli_fd = -1, sock_fd = -1;
-+	int err;
-+
-+	skel = struct_ops_vmlinux_lskel__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		return;
-+
-+	err = struct_ops_vmlinux_lskel__attach(skel);
-+	if (!ASSERT_OK(err, "attach"))
-+		goto cleanup;
-+
-+	srv_fd = start_server_str(AF_INET6, SOCK_STREAM, NULL, 0, &opts);
-+	if (!ASSERT_NEQ(srv_fd, -1, "start_server_str"))
-+		goto cleanup;
-+
-+	cli_fd = connect_to_fd_opts(srv_fd, &opts);
-+	if (!ASSERT_NEQ(cli_fd, -1, "connect_to_fd_opts"))
-+		goto cleanup;
-+
-+	ASSERT_GT(skel->bss->ca_init_cnt, 0, "ca_init_cnt");
-+
-+	close(cli_fd);
-+	cli_fd = -1;
-+	close(srv_fd);
-+	srv_fd = -1;
-+
-+	struct_ops_vmlinux_lskel__detach(skel);
-+	skel->links.lskel_ca_fd = 0;
-+
-+	/* Verify congestion control was unregistered on detach */
-+	sock_fd = socket(AF_INET6, SOCK_STREAM, 0);
-+	if (!ASSERT_GE(sock_fd, 0, "socket"))
-+		goto cleanup;
-+
-+	err = setsockopt(sock_fd, IPPROTO_TCP, TCP_CONGESTION,
-+			 tcp_ca, strlen(tcp_ca));
-+	ASSERT_EQ(err, -1, "setsockopt_after_detach");
-+	ASSERT_EQ(errno, ENOENT, "errno_after_detach");
-+
-+cleanup:
-+	if (sock_fd != -1)
-+		close(sock_fd);
-+	if (cli_fd != -1)
-+		close(cli_fd);
-+	if (srv_fd != -1)
-+		close(srv_fd);
-+	struct_ops_vmlinux_lskel__destroy(skel);
-+}
-+
-+static void test_module(void)
-+{
-+	struct struct_ops_mod_lskel *skel;
-+	int err, link_fd;
-+
-+	if (!env.has_testmod) {
-+		test__skip();
-+		return;
-+	}
-+
-+	skel = struct_ops_mod_lskel__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		return;
-+
-+	err = struct_ops_mod_lskel__attach(skel);
-+	if (!ASSERT_OK(err, "attach"))
-+		goto cleanup;
-+
-+	ASSERT_GT(skel->links.testmod_1_fd, 0, "testmod_1_fd");
-+	ASSERT_GT(skel->links.testmod_2_fd, 0, "testmod_2_fd");
-+	ASSERT_EQ(skel->bss->test_1_cnt, 2, "test_1_cnt");
-+	ASSERT_EQ(skel->bss->testmod_1_result, 17, "testmod_1_result");
-+	ASSERT_EQ(skel->bss->testmod_2_result, 28, "testmod_2_result");
-+
-+	struct_ops_mod_lskel__detach(skel);
-+	skel->links.testmod_1_fd = 0;
-+	skel->links.testmod_2_fd = 0;
-+	memset(skel->bss, 0, sizeof(*skel->bss));
-+
-+	link_fd = struct_ops_mod_lskel__testmod_1__attach(skel);
-+	if (!ASSERT_GT(link_fd, 0, "testmod_1_attach"))
-+		goto cleanup;
-+
-+	ASSERT_EQ(skel->bss->test_1_cnt, 1, "reattach_test_1_cnt");
-+	ASSERT_EQ(skel->bss->testmod_1_result, 17, "reattach_testmod_1_result");
-+	ASSERT_EQ(skel->bss->testmod_2_result, 0, "reattach_testmod_2_result");
-+
-+cleanup:
-+	struct_ops_mod_lskel__destroy(skel);
-+}
-+
-+void test_struct_ops_lskel(void)
-+{
-+	if (test__start_subtest("vmlinux"))
-+		test_vmlinux();
-+	if (test__start_subtest("module"))
-+		test_module();
-+}
-diff --git a/tools/testing/selftests/bpf/progs/struct_ops_mod.c b/tools/testing/selftests/bpf/progs/struct_ops_mod.c
-new file mode 100644
-index 000000000000..b1bd7429149d
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/struct_ops_mod.c
-@@ -0,0 +1,51 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+#include "../test_kmods/bpf_testmod.h"
-+
-+char _license[] SEC("license") = "GPL";
-+
-+int test_1_cnt = 0;
-+int testmod_1_result = 0;
-+int testmod_2_result = 0;
-+
-+SEC("struct_ops/test_1")
-+int BPF_PROG(test_1)
-+{
-+	test_1_cnt++;
-+	return 0;
-+}
-+
-+SEC("struct_ops/test_2")
-+void BPF_PROG(test_2, int a, int b)
-+{
-+	testmod_1_result = a + b;
-+}
-+
-+SEC("struct_ops/test_2_v2")
-+void BPF_PROG(test_2_v2, int a, int b)
-+{
-+	testmod_2_result = a * b;
-+}
-+
-+SEC(".struct_ops.link")
-+struct bpf_testmod_ops testmod_1 = {
-+	.test_1 = (void *)test_1,
-+	.test_2 = (void *)test_2,
-+	.data = 13,
-+};
-+
-+struct bpf_testmod_ops___v2 {
-+	int data;
-+	void (*test_2)(int a, int b);
-+	int (*test_1)(void);
-+};
-+
-+SEC(".struct_ops.link")
-+struct bpf_testmod_ops___v2 testmod_2 = {
-+	.data = 7,
-+	.test_2 = (void *)test_2_v2,
-+	.test_1 = (void *)test_1,
-+};
-diff --git a/tools/testing/selftests/bpf/progs/struct_ops_vmlinux.c b/tools/testing/selftests/bpf/progs/struct_ops_vmlinux.c
-new file mode 100644
-index 000000000000..1d8b573ad799
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/struct_ops_vmlinux.c
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "bpf_tracing_net.h"
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+int ca_init_cnt = 0;
-+
-+SEC("struct_ops/ca_lskel_init")
-+void BPF_PROG(ca_lskel_init, struct sock *sk)
-+{
-+	ca_init_cnt++;
-+}
-+
-+SEC("struct_ops/ca_lskel_cong_control")
-+void BPF_PROG(ca_lskel_cong_control, struct sock *sk, __u32 ack, int flag,
-+	      const struct rate_sample *rs)
-+{
-+}
-+
-+SEC("struct_ops/ca_lskel_ssthresh")
-+__u32 BPF_PROG(ca_lskel_ssthresh, struct sock *sk)
-+{
-+	return tcp_sk(sk)->snd_ssthresh;
-+}
-+
-+SEC("struct_ops/ca_lskel_undo_cwnd")
-+__u32 BPF_PROG(ca_lskel_undo_cwnd, struct sock *sk)
-+{
-+	return tcp_sk(sk)->snd_cwnd;
-+}
-+
-+SEC(".struct_ops.link")
-+struct tcp_congestion_ops lskel_ca = {
-+	.init = (void *)ca_lskel_init,
-+	.cong_control = (void *)ca_lskel_cong_control,
-+	.ssthresh = (void *)ca_lskel_ssthresh,
-+	.undo_cwnd = (void *)ca_lskel_undo_cwnd,
-+	.name = "bpf_lskel_ca",
-+};
+> A struct cdev, struct miscdevice, struct video_device or struct
+> v4l2_device embedded in memory from devm_kzalloc() and friends is freed
+> when the driver unbinds, but a file that user space holds open on the
+> node outlives the unbind. Its later file operations are a use-after-free
+> when they use that memory, and for a cdev or video_device so is its
+> close(), where the core touches the object and the v4l2_device the
+> video_device points to.
+>
+> Add a script that reports such allocations: by two rules when the
+> allocation, as an assignment or a declaration initializer, and a
+> registration of it or of an address taken inside it are written directly
+> in one function, and by a third, type-based rule when the struct is
+> defined in the same .c file and the node is a direct member of it. A
+> registration in a helper function on a struct defined in a header is not
+> seen, so cx231xx is reported only through its v4l2_device.
+>
+> On 7.4-rc1 it reports 101 sites under drivers/, 50 of which are found
+> only through a v4l2_device. Not all are actionable: some drivers cannot
+> be unbound, and some miscdevice drivers never use the allocation after
+> open(); the header lists the false-positive classes and the misses.
+>
+> Tested with spatch 1.1.1, with make coccicheck MODE=report and MODE=org,
+> and on small test files for each allocation form, a struct in a header,
+> a registration in a helper, a node in an array member, a registered
+> pointer to separate memory, a v4l2_device, an embedded node that is
+> never registered and a kzalloc() control.
 
--- 
-2.56.0.455.g6c5a503b38-goog
+Thanks for this initiative.
 
+Have you sent any patches based on the results?  I'm not an expert on the
+problem being addressed, so it would be helpful to know that the semantic
+patch has led to patches that have been accepted.
+
+>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+> ---
+> The type rule uses --include-headers-for-types, which reports the same
+> 101 sites on every run. With --include-headers it also sees structs
+> defined in headers: run on one file at a time, that adds 22 sites on
+> 7.4-rc1 (xilinx-vipp and ultrasoc-smb among them). Under --dir, as make
+> coccicheck runs it, some are lost. spatch --include-headers --dir
+> drivers/media/pci/intel/ipu6 reports nothing, even as a single process,
+> while the same command on drivers/media/pci/intel/ipu6/ipu6-isys.c alone
+> reports line 990. With six jobs the rest vary as well: five runs over
+> drivers/ found 15 to 17 of the 22, a different set each time.
+>
+> So I kept the deterministic option. Is the --dir difference expected,
+> and is there a better way to give the type rule header-defined structs?
+
+The problem you have when you work on a subdirectory is that it doesn't
+know where to find the header files.  It should work better with a -I
+option.
+
+>
+>  .../coccinelle/api/devm_file_reachable.cocci  | 164 ++++++++++++++++++
+>  1 file changed, 164 insertions(+)
+>  create mode 100644 scripts/coccinelle/api/devm_file_reachable.cocci
+>
+> diff --git a/scripts/coccinelle/api/devm_file_reachable.cocci b/scripts/coccinelle/api/devm_file_reachable.cocci
+> new file mode 100644
+> index 0000000000..3847710798
+> --- /dev/null
+> +++ b/scripts/coccinelle/api/devm_file_reachable.cocci
+> @@ -0,0 +1,164 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/// Find a struct cdev, struct miscdevice, struct video_device or struct
+> +/// v4l2_device embedded in memory from the devm_ allocators.  The memory
+> +/// is freed when the driver unbinds, but a file that is open on the node
+> +/// outlives the unbind: for a cdev or a video_device the core touches the
+> +/// object, and the v4l2_device the video_device points to, on every
+> +/// close, and for a miscdevice the driver's file operations usually reach
+> +/// it through file->private_data.  Allocate such state with kzalloc() and
+> +/// free it on the last reference; see
+> +/// Documentation/driver-api/driver-model/devres.rst.
+> +///
+> +/// The first rules need the allocation and a registration of it, or of an
+> +/// address taken inside it, written directly in one function; an
+> +/// allocation inside a condition or behind a cast or a wrapper function
+> +/// is not seen by them. The type rule catches the rest, but with the
+> +/// options below it sees only a struct defined in the .c file itself, not
+> +/// in a header, and only a node that is a direct, non-array member of it,
+> +/// not one nested in another member. So a registration in a helper
+> +/// function, or through any alias of x such as vfd = &x->vdev, is missed
+> +/// when the struct is in a header or the node is not such a member. Not
+> +/// checked: a struct media_device in devm_ memory, which v4l2_release()
+> +/// also reaches; a struct v4l2_subdev with a device node, whose close
+> +/// reaches it; a static node whose file operations reach devm_ state
+> +/// through a global or drvdata pointer; memory freed by devm_add_action()
+> +/// rather than allocated by devm_k*(); a typedef'd struct; and a file or
+> +/// function spatch cannot parse.
+> +/// False positives: a driver that cannot be unbound (suppress_bind_attrs,
+> +/// platform_driver_probe()) on a device that is never removed, a driver
+> +/// whose remove() waits for the last close, a miscdevice driver whose file
+> +/// operations do not use the allocation after open(), a registration of
+> +/// an address that only uses the allocation to reach separate memory
+> +/// (&x->ptr->misc, &table[x->idx]), a v4l2_device that no video_device
+> +/// points to, and, for the type rule, a struct whose embedded node is not
+> +/// registered from this allocation.  When an allocation has several
+> +/// registrations, the report names the first one found.
+
+Could you rewrite this in a much more concise format?  If you look at the
+other semantic patches, you will see that they only have a line or two.
+We don't need a description of what each rule does.
+
+
+> +///
+> +// Confidence: Moderate
+> +// Options: --include-headers-for-types
+> +
+> +virtual org
+> +virtual report
+> +
+> +@initialize:python@
+> +@@
+> +seen = set()
+> +
+> +@alloc depends on org || report exists@
+
+Since you only support org and report, you don't really need depends on
+org || report everywhere.
+
+julia
+
+> +expression x, e, e2;
+> +identifier fn =~ "^devm_k[mzcr]";
+> +position p, q;
+> +@@
+> +
+> +x = fn@p(...);
+> +... when != x = e
+> +(
+> +misc_register@q(\(x\|&<+... x ...+>\))
+> +|
+> +cdev_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +cdev_device_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device_no_warn@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +__video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +v4l2_device_register@q(e2, \(x\|&<+... x ...+>\))
+> +)
+> +
+> +@allocdecl depends on org || report exists@
+> +identifier x;
+> +type T;
+> +expression e, e2;
+> +identifier fn =~ "^devm_k[mzcr]";
+> +position p, q;
+> +@@
+> +
+> +T *x = fn@p(...);
+> +... when != x = e
+> +(
+> +misc_register@q(\(x\|&<+... x ...+>\))
+> +|
+> +cdev_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +cdev_device_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device_no_warn@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +__video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +v4l2_device_register@q(e2, \(x\|&<+... x ...+>\))
+> +)
+> +
+> +@embeds depends on org || report@
+> +identifier S, f;
+> +type T = {struct cdev, struct miscdevice, struct video_device,
+> +          struct v4l2_device};
+> +@@
+> +
+> +struct S {
+> +  ...
+> +  T f;
+> +  ...
+> +};
+> +
+> +@bytype depends on org || report@
+> +identifier embeds.S;
+> +struct S *x;
+> +identifier fn =~ "^devm_k[mzcr]";
+> +position p;
+> +@@
+> +
+> +x = fn@p(...)
+> +
+> +@script:python depends on org@
+> +p << alloc.p;
+> +q << alloc.q;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.org.print_todo(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
+> +
+> +@script:python depends on report@
+> +p << alloc.p;
+> +q << alloc.q;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.report.print_report(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
+> +
+> +@script:python depends on org@
+> +p << allocdecl.p;
+> +q << allocdecl.q;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.org.print_todo(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
+> +
+> +@script:python depends on report@
+> +p << allocdecl.p;
+> +q << allocdecl.q;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.report.print_report(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
+> +
+> +@script:python depends on org@
+> +p << bytype.p;
+> +S << embeds.S;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.org.print_todo(p[0], "WARNING: devm_ allocation of struct %s, which embeds a cdev, miscdevice, video_device or v4l2_device" % S)
+> +
+> +@script:python depends on report@
+> +p << bytype.p;
+> +S << embeds.S;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.report.print_report(p[0], "WARNING: devm_ allocation of struct %s, which embeds a cdev, miscdevice, video_device or v4l2_device" % S)
+> --
+> 2.43.0
+>
+>
+>
