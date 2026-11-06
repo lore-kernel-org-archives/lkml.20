@@ -1,79 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793975106;
-	b=DGyoqwJs0caAcJQVRM0BP53GJvNEt9jVo3M0FLqMSWAejzihadkJacUsZt/m6FFzhjJT
-	 KsQMmlZIFkD8c2mq/7fe+MGPVyCXknb5xtEmGkOugvLTdTbceRiDY+9cwvLRa3xprDn2O
-	 mHYlmcDcm9r0JEn9V5QqSdR4PGbKy+mJBKk/+ReQM3Qz7EVoZgRvqZoQcUVTDzhg3ylfy
-	 zW2g4fXulU4d27JmYbt8B7ygRR6wGxYqHyiQRbJT7/I1a1TiB/nlicTsA+UrsL0f1w1MJ
-	 MdEX0oPfB2do0h/qXfn3QJFZAHr8C+WNDKINVpOq+Lmcb+igHC2xBZkmq+vkGBbsdrg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975106;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1rAjoe/OmKd2MpDi3ESTZf1fGH1ZDtBlky8qyDD7VKo=;
-	b=uAGlp88CBEMZRvD/gN/ATSQAukjhrnLaZQGZZ9izNvVMMYvYd7c9sMLoLEaVGv15tz3e
-	 HyTMG02+fjGpFepw1CSYM1JLGdTsssgdb081ehHR0Y/v7GcTmW+id9lX7BJ+IYLnurpe1
-	 z6acPE7zVDYAwahtIHYcb+veV4up0lUi8BgHwuuPqSp/HuxOg/Zc3JBtOkk9I18UvWsyh
-	 TyPwkqagozdT3xn4At59EI3Y7hPvZkhwQW5fhxXToW3GJ2jGCbw5gwadRQia+K4VcMxKU
-	 73MThtTOcI4XCSL7QfkohCs8JAgtsNpQr7wrufN9Dn22EBgouT65mSgEWo19hS3COIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g03C+YfQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4863D606D83D;
-	Fri,  6 Nov 2026 14:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g03C+YfQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793975105;
-	b=0GZYaxuubkzn10Y65exUiD6wwltFDWl2yPCrBiwml0AMCw4F2d23j+vTxq02Nk+2wX3o
-	 E75g1VGVOf6CwTatGSO9QPS4/nutgoqplVFo/EwYv8b5W7iDZSKqDAPoTw1xms96gzHex
-	 VyIVACZszaCBCyQ3lfWo5C0MTTPGfdM2cHf8Wdf+GvkGLeXLh1KKCvCWDJSoks+sECXAK
-	 UGEGeVMoi6tBg42PvWSgbXi0WO8svBENezCbsFHDCrN5U/FCrNYZmt9MSV7WlCg7k8eai
-	 t4/44+joNu+Uy/c8r6PiZzpSmVCZZmZxd1kI27R18p6rpPIjid5v5kKQPPwGS606HkQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793975105;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1rAjoe/OmKd2MpDi3ESTZf1fGH1ZDtBlky8qyDD7VKo=;
-	b=fmqKgV7qWhUiNtX7JPs6hHWAo5kNPbjSUJAQkGH1bzyTp/zeXquENoJtTh3+eJhG9YSv
-	 jHvYqdYcvjf3iro6VSB/+TxjTVPdeKEZA5S7GL+bKdBGO+EWc5M3ab8RaeZC1EpFmZP9X
-	 1A2vGdpwqDFoVK0Ah7alV2cHZ9W68Ewtur8t+4eDPLz5cotwTJdaK6YBlRSZiILpEGq3X
-	 1Y9guPxsROK3Mw/oiSKsaYnE6YvgYtkr3jHa3r9LBeSyB8rtfY0AALnfiUkTxYNmU2qKy
-	 XMN6xKMz7YW4EX6/WIE6FMbgeyfedobTE1eBZQLh8rJLlJYmFT0Qsa1tHqhhxU83cyg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.58
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793975100;
+	b=Snt1xnryWpjHqO6S36ELN3JTsqBIgFIcRIBAMyh+qs0iRlF5ljwVKCpGEFiI2HDowddp
+	 NAH4OypXysreLbMrNkm2zPhSxATk5bFDxnIRG6/o02pDaFKYS6d0LVhzB1hVK4Xzi2hul
+	 Tg8Hxy0Xpc21yMq77lmaN/ekCxsqKWRUxoXfvdxegodVIy8Q9CRNeYCM7gIcwxZipg8mw
+	 2nfaQQZl1Ps41S5OeGeN9NEv9CxHz7D7hnrFwYibs7SpKXMiFxsHuXax6Clj0UyQ5blZR
+	 arGwm1GwLi1FtIvyNQmhKNHC/e3OPx2jdPkRsGeLpSAp+XS51KmXVWfD9Lpon1TqxpQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975100;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3lMVPaN/EZgSdVDSBpsQlvPtUZ0v9BIFHsz3E66bU2I=;
+	b=IKkQYy1nHyp9ste4/diuSd8ISL52zCntGIp+V4AuVtf6y7Kb2l6rmcUJIQ8Fb4u2w3vm
+	 QBqA3+UbsFdHjmhcjyIGoKvknCjhfbobbmn+I+utlvxBvpYa1OpyZ2ymsvBL8z8zK19p2
+	 2mksLACUmVgrms9aEPJV/9PPS6jOJwkYxr710iM1ESA90fln7x6DSrArZqgh3Pw5qbDLE
+	 H5o0dwn1uZuX8NErRdascXVcG3P96IL7XToMKIVt41WDR7nUmhhVLw1xMyIQroK2gr4ds
+	 6BtKVTyOh7MtlKsH6t2NBJN7FVbxpfIjY68+ZcJkpxGF4mBmuCKbFetnGCJrLjOYwQw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eaNkb2Et;
+	arc=none smtp.remote-ip=95.215.58.58
+Received: from mta1.migadu.com (out-58.mta1.migadu.com [95.215.58.58])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 823B11F0089F;
-	Fri,  6 Nov 2026 14:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793975105;
-	bh=1rAjoe/OmKd2MpDi3ESTZf1fGH1ZDtBlky8qyDD7VKo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=g03C+YfQ2wDJCeuAcighxcNFuv6QMvWT1qY/MgPgioxoIFwBvJc+5ly5gjp9OJz/f
-	 a2hwrCCJ2S4Icnud9GSrGodkdqpXprZn4OWvlayxk0du36Ex+zL6cmu7vii3BbHXA7
-	 Cx3REI6Lxff/vtQ4OvtD3PCqRcWHHN75BI/IqBD7iomptQlTGGWr2thi57MbnB2IOr
-	 okWU1wOpw4TmLjQKmz0Yw4ZGB/vw3Mp4icaKPNIRkkAxxtcRrJT1XuXC7QnM8ShQX6
-	 EwgQnBlsVgv69ZOarLtVPiVC/XN5PXq+ZGo+CM690+Ga2BAM9pdsN2Qeg6iPyRSwPr
-	 E8wE2u8PYE1xA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 160A845D87;
-	Fri,  6 Nov 2026 14:25:04 +0000 (UTC)
-From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
-Date: Fri, 06 Nov 2026 08:25:04 -0600
-Subject: [PATCH] wifi: ath11k: print each user's sounding counts in
- htt_stats
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D889606D82E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:24:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D889606D82E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eaNkb2Et
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6leBhSvasHn/2S41bdFzxxeIbaMUXYhujDUSp+jRKCo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793975097; v=1; x=1794579897;
+ b=eaNkb2Et5z/K5/aMHW78KtMoUIxq+jSHfQ9U0OrKxQchkyOG7CaLStXRKjuX3d1IyhcPysMM
+ 5BoqQ/QxZpp5KCNfWw0J6BUgd5D6Ynizoy+LvdLdEDQ5Ni4E0ZVsIC+JB6+O4o4CP2Tf1n2mTBT
+ IhWtTS4IyDHlzVBf+8dumpiU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 35ade4c16144a810;
+	Fri, 06 Nov 2026 14:24:57 +0000
+X-Mizu-Trace-ID: 35ade4c16144a810
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: linux-kernel@vger.kernel.org
+Cc: linux-input@vger.kernel.org,
+	kernel@lists.opengamingcollective.org,
+	"Benjamin Tissoires" <bentiss@kernel.org>,
+	"Jiri Kosina" <jikos@kernel.org>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	"Mateusz Schyboll" <dragonn@op.pl>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	Denis Benato <denis.benato@linux.dev>
+Subject: [PATCH v14 17/18] platform/x86: asus-armoury: pick the eGPU activation from the reported GPU
+Date: Fri,  6 Nov 2026 14:23:33 +0000
+Message-ID: <20261106142334.1881-18-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261106142334.1881-1-denis.benato@linux.dev>
+References: <20261106142334.1881-1-denis.benato@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,104 +72,312 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-ath11k-sounding-stats-per-user-v1-1-6aa8e62fddf7@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAD/j7WoC/yXNwQrCMAyA4VcZORtYhk7nq8gOaRu3KHSjaUUYe
- 3erHv/L929gklQMrs0GSV5qusQadGjAzxwnQQ21oWu7nqjtkfNM9ERbSgwaJ7TM2XCVhKVSOBz
- DwN5d3PnEUJE1yV3fv8Ft/LcV9xCfvyrs+weElegYggAAAA==
-X-Change-ID: 20261106-ath11k-sounding-stats-per-user-94d9acb8b75a
-To: Jeff Johnson <jjohnson@kernel.org>, Kalle Valo <kvalo@kernel.org>, 
- Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
- Christopher Griffin <christophergriffin05@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793975103; l=3065;
- i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
- bh=c89X/CZkTuy4umNZacZz4q0MYqGlGh/C+IYiRrx7/hI=;
- b=1L3ijR4PS3qnP2Nje9ciC8eMBRgDHYfAjTdV7FHasLRnzFQGgYENXqb2aUTOUzHwXE7yDpHsI
- sYQfftSKB9jBFp3wixheBQYWu1Rf1TL0D4Y/y4DyF9tM6+Cp4Q1/U6I
-X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
- pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
-X-Endpoint-Received: by B4 Relay for
- christophergriffin05@gmail.com/20261024 with auth_id=1309
-X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
-Reply-To: christophergriffin05@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Christopher Griffin <christophergriffin05@gmail.com>
+The egpu_enable attribute used to take four values. The WMI method
+returned 1 for every one of them, so that return never said which
+activation had been used. The extra values stayed while the right
+choice was still unknown. It is known now: 0x0001 is NVIDIA, 0x0101
+is AMD and 0x0201 is Intel, and a wrong value must not be sent. The
+tools that drive this attribute only write 1, so the AMD and Intel
+values were unused unless someone requested them by hand.
 
-The TX sounding stats of htt_stats print a "Sounding User" line for
-each of the 4 (11ac) or 8 (11ax) users, but every line shows
-sounding[0] to sounding[3], the 20/40/80/160 MHz counts of user 0. The
-array holds the counts of all users, at sounding[user * max_bw + bw]
-as the comment in struct htt_tx_sounding_stats_tlv says, and ath12k
-prints it that way.
+Writing 0 turns the eGPU off and writing 1 turns it on. The value
+sent for 1 is the one that matches the GPU vendor of the connected
+station, or NVIDIA when no vendor has been reported.
 
-Print each user's own counts. On an IPQ8074 AP that sounded one HE
-client at 40 MHz (392 SU CBF), all 8 lines showed 40 MHz: 404 before;
-after, user 0 shows 404 and users 1 to 7 show 0.
+hid-asus reads that vendor from the station version query and reports
+it through asus-wmi. Removing the station stores 0, which restores
+the default. One mutex serializes the report. The connector is
+proprietary, so only one XG Mobile can be attached, and one vendor
+word is the whole state. The armoury store reads it while holding
+egpu_mutex, in the same section as the WMI call.
 
-Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
-
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
 ---
-Found on an Arista C-360 (IPQ8074) while checking that beamforming
-sounding ran after enabling SU beamforming: every "Sounding User" line
-of htt_stats type 22 showed the same counts.
----
- drivers/net/wireless/ath/ath11k/debugfs_htt_stats.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ drivers/hid/hid-asus.c                     | 38 ++++++++++++++-
+ drivers/platform/x86/asus-armoury.c        | 57 +++++++++++++---------
+ drivers/platform/x86/asus-wmi.c            | 43 ++++++++++++++++
+ include/linux/platform_data/x86/asus-wmi.h | 11 +++++
+ 4 files changed, 125 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/debugfs_htt_stats.c b/drivers/net/wireless/ath/ath11k/debugfs_htt_stats.c
-index 731f3ca867111..5ddc1ff8492f6 100644
---- a/drivers/net/wireless/ath/ath11k/debugfs_htt_stats.c
-+++ b/drivers/net/wireless/ath/ath11k/debugfs_htt_stats.c
-@@ -1235,13 +1235,12 @@ static inline void htt_print_tx_sounding_stats_tlv(const void *tag_buf,
- 				 cbf_160[HTT_EXPLICIT_TXBF_MU_RBO_STEER_STATS]);
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index 1a5ce4ca43c7..9596d5434f7c 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -89,6 +89,20 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+ #define ASUS_XGM_TLV_TAG_LEN	3
+ #define ASUS_XGM_TLV_HDR_LEN	(ASUS_XGM_TLV_TAG_LEN + 1)
  
- 		for (i = 0; i < HTT_TX_PDEV_STATS_NUM_AC_MUMIMO_USER_STATS; i++) {
-+			const u32 *snd = htt_stats_buf->sounding +
-+					 i * HTT_TX_PDEV_STATS_NUM_BW_COUNTERS;
++/*
++ * Four PCI IDs at the start of the version payload, high byte first:
++ * vendor, device, then the two subsystem IDs.
++ */
++enum {
++	ASUS_XGM_PCI_VENDOR,
++	ASUS_XGM_PCI_DEVICE,
++	ASUS_XGM_PCI_SUBSYS0,
++	ASUS_XGM_PCI_SUBSYS1,
++	ASUS_XGM_PCI_ID_COUNT,
++};
 +
- 			len += scnprintf(buf + len, buf_len - len,
- 					 "Sounding User %u = 20MHz: %u, 40MHz : %u, 80MHz: %u, 160MHz: %u\n",
--					 i,
--					 htt_stats_buf->sounding[0],
--					 htt_stats_buf->sounding[1],
--					 htt_stats_buf->sounding[2],
--					 htt_stats_buf->sounding[3]);
-+					 i, snd[0], snd[1], snd[2], snd[3]);
- 		}
- 	} else if (htt_stats_buf->tx_sounding_mode == HTT_TX_AX_SOUNDING_MODE) {
- 		len += scnprintf(buf + len, buf_len - len,
-@@ -1276,13 +1275,12 @@ static inline void htt_print_tx_sounding_stats_tlv(const void *tag_buf,
- 				 cbf_160[HTT_EXPLICIT_TXBF_MU_RBO_STEER_STATS]);
++#define ASUS_XGM_PCI_ID_LEN	(ASUS_XGM_PCI_ID_COUNT * sizeof(u16))
++
+ /*
+  * Every station answer echoes the report id, the opcode and the
+  * subcommand, then the payload.
+@@ -255,6 +269,7 @@ struct asus_xgm_info {
+ 	char part_number[ASUS_XGM_INFO_LEN];
+ 	char firmware_version[ASUS_XGM_INFO_LEN];
+ 	char generation[ASUS_XGM_INFO_LEN];
++	u16 pci_id[ASUS_XGM_PCI_ID_COUNT];
+ };
  
- 		for (i = 0; i < HTT_TX_PDEV_STATS_NUM_AX_MUMIMO_USER_STATS; i++) {
-+			const u32 *snd = htt_stats_buf->sounding +
-+					 i * HTT_TX_PDEV_STATS_NUM_BW_COUNTERS;
+ struct asus_touchpad_info {
+@@ -5205,6 +5220,18 @@ static int asus_xgm_get_version(struct hid_device *hdev,
+ 	asus_xgm_tlv_str(info->firmware_version, sizeof(info->firmware_version),
+ 			 buf, len, ASUS_XGM_TAG_FIRMWARE);
+ 
++	/*
++	 * The IDs are stored high byte first. On a captured GC33Y the
++	 * payload begins 10 de 27 17 21 fb 10 43: NVIDIA 0x10de, device
++	 * 0x2717, 0x21fb and ASUS 0x1043.
++	 */
++	if (len < ASUS_XGM_RESP_PAYLOAD + ASUS_XGM_PCI_ID_LEN)
++		return -ENODATA;
 +
- 			len += scnprintf(buf + len, buf_len - len,
- 					 "Sounding User %u = 20MHz: %u, 40MHz : %u, 80MHz: %u, 160MHz: %u\n",
--					 i,
--					 htt_stats_buf->sounding[0],
--					 htt_stats_buf->sounding[1],
--					 htt_stats_buf->sounding[2],
--					 htt_stats_buf->sounding[3]);
-+					 i, snd[0], snd[1], snd[2], snd[3]);
- 		}
++	for (int i = 0; i < ASUS_XGM_PCI_ID_COUNT; i++)
++		info->pci_id[i] = get_unaligned_be16(buf + ASUS_XGM_RESP_PAYLOAD +
++						     i * sizeof(u16));
++
+ 	return 0;
+ }
+ 
+@@ -5585,6 +5612,8 @@ static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+ 		hid_info(hdev, "XG Mobile: firmware %s, generation %s\n",
+ 			 info->firmware_version, info->generation);
+ 
++	asus_wmi_egpu_set_vendor(info->pci_id[ASUS_XGM_PCI_VENDOR]);
++
+ 	/*
+ 	 * The attribute group is not devm-managed: a creation failure is
+ 	 * fatal and unwound through asus_xgm_init_err, while on the unbind
+@@ -5633,6 +5662,7 @@ static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+ 
+ 	return 0;
+ asus_xgm_init_err:
++	asus_wmi_egpu_set_vendor(0);
+ 	sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
+ 	drvdata->xgm_info = NULL;
+ 	drvdata->xgm_led = NULL;
+@@ -5866,8 +5896,10 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	if (drvdata->listener.brightness_set)
+ 		asus_hid_unregister_listener(&drvdata->listener);
+ 
+-	if (drvdata->xgm_info)
++	if (drvdata->xgm_info) {
++		asus_wmi_egpu_set_vendor(0);
+ 		sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
++	}
+ 
+ 	if (drvdata->xgm_led)
+ 		devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+@@ -5893,8 +5925,10 @@ static void asus_remove(struct hid_device *hdev)
+ 	if (drvdata->listener.brightness_set)
+ 		asus_hid_unregister_listener(&drvdata->listener);
+ 
+-	if (drvdata->xgm_info)
++	if (drvdata->xgm_info) {
++		asus_wmi_egpu_set_vendor(0);
+ 		sysfs_remove_group(&hdev->dev.kobj, &asus_xgm_attr_group);
++	}
+ 
+ 	if (drvdata->xgm_led)
+ 		devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
+index fb382de5b57b..dcf2e761016d 100644
+--- a/drivers/platform/x86/asus-armoury.c
++++ b/drivers/platform/x86/asus-armoury.c
+@@ -86,6 +86,8 @@ struct asus_armoury_priv {
+ 	 * sequences and dGPU connection status:
+ 	 * do not allow concurrent changes or changes
+ 	 * before a reboot if dGPU got disabled.
++	 * The activation section reads the reported GPU vendor here.
++	 * That word is covered by egpu_vendor_lock in asus-wmi.
+ 	 */
+ 	struct mutex egpu_mutex;
+ 
+@@ -538,13 +540,28 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
+ ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
+ ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU");
+ 
+-/* Values map for eGPU activation requests. */
+-static u32 egpu_status_map[] = {
+-	[0] = 0x00000000U,
+-	[1] = 0x00000001U,
+-	[2] = 0x00000101U,
+-	[3] = 0x00000201U,
+-};
++/*
++ * egpu_default_enable_value() - Activation value for the connected station
++ *
++ * The eGPU switch activation value selects the vendor of the external
++ * GPU: 0x0001 activates NVIDIA, 0x0101 AMD and 0x0201 Intel. Pick the
++ * value matching the GPU vendor reported for the connected station,
++ * and fall back to NVIDIA when no vendor has been reported. The caller
++ * holds egpu_mutex. asus_wmi_egpu_vendor() takes egpu_vendor_lock.
++ *
++ * Return: the activation value for the reported GPU vendor
++ */
++static u32 egpu_default_enable_value(void)
++{
++	switch (asus_wmi_egpu_vendor()) {
++	case PCI_VENDOR_ID_ATI:
++		return 0x0101;
++	case PCI_VENDOR_ID_INTEL:
++		return 0x0201;
++	default:
++		return 0x0001;
++	}
++}
+ 
+ /*
+  * armoury_pci_rescan() - Performs a PCI rescan
+@@ -578,11 +595,17 @@ static ssize_t egpu_enable_current_value_store(struct kobject *kobj, struct kobj
+ 	if (err)
+ 		return err;
+ 
+-	if (requested >= ARRAY_SIZE(egpu_status_map))
++	if (requested > 1)
+ 		return -EINVAL;
+-	enable = egpu_status_map[requested];
+ 
+ 	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
++		/*
++		 * 0 deactivates the eGPU. 1 activates it with the value for
++		 * the GPU reported for the connected station. Read that
++		 * vendor in this section.
++		 */
++		enable = requested ? egpu_default_enable_value() : 0;
++
+ 		/* Ensure the eGPU is connected before attempting to activate it. */
+ 		if (enable) {
+ 			err = armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_EGPU_CONNECTED);
+@@ -661,7 +684,7 @@ static ssize_t egpu_enable_current_value_store(struct kobject *kobj, struct kobj
+ static ssize_t egpu_enable_current_value_show(struct kobject *kobj, struct kobj_attribute *attr,
+ 						char *buf)
+ {
+-	int i, err;
++	int err;
+ 	u32 status;
+ 
+ 	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
+@@ -670,20 +693,10 @@ static ssize_t egpu_enable_current_value_show(struct kobject *kobj, struct kobj_
+ 			return err;
  	}
  
-
----
-base-commit: 5c8eab13e391aaabd5a1ad58f3ee4bb10ce7573e
-change-id: 20261106-ath11k-sounding-stats-per-user-94d9acb8b75a
-
-Best regards,
---  
-Christopher Griffin <christophergriffin05@gmail.com>
-
+-	for (i = 0; i < ARRAY_SIZE(egpu_status_map); i++) {
+-		if (egpu_status_map[i] == status)
+-			return sysfs_emit(buf, "%u\n", i);
+-	}
+-
+-	return -EIO;
++	return sysfs_emit(buf, "%u\n", status != 0);
+ }
+ 
+-static ssize_t egpu_enable_possible_values_show(struct kobject *kobj, struct kobj_attribute *attr,
+-						char *buf)
+-{
+-	return armoury_attr_enum_list(buf, ARRAY_SIZE(egpu_status_map));
+-}
+-ASUS_ATTR_GROUP_ENUM(egpu_enable, "egpu_enable", "Enable the eGPU (also disables dGPU)");
++ASUS_ATTR_GROUP_BOOL(egpu_enable, "egpu_enable", "Enable the eGPU (also disables dGPU)");
+ 
+ /* Device memory available to APU */
+ 
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index a65090429ca7..16836e7ee3dc 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -881,6 +881,49 @@ static DEVICE_ATTR_RW(dgpu_disable);
+ #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
+ 
+ /* eGPU ********************************************************************/
++
++/*
++ * One XG Mobile can be attached: the connector is proprietary, so
++ * this word is the whole report. 0 means the station is gone and
++ * the next activation uses the default value. egpu_vendor_lock
++ * covers the word. The armoury store holds egpu_mutex and then
++ * calls the getter, which takes this lock. The setter does not
++ * take egpu_mutex.
++ */
++static DEFINE_MUTEX(egpu_vendor_lock);
++static u16 egpu_gpu_vendor;
++
++/**
++ * asus_wmi_egpu_set_vendor() - Report the vendor of the external GPU
++ * @vendor: PCI vendor ID, or 0 when the station is removed
++ *
++ * Pass 0 when the station is removed. That restores the default
++ * activation value. egpu_vendor_lock serializes this with
++ * asus_wmi_egpu_vendor().
++ */
++void asus_wmi_egpu_set_vendor(u16 vendor)
++{
++	guard(mutex)(&egpu_vendor_lock);
++	egpu_gpu_vendor = vendor;
++}
++EXPORT_SYMBOL_NS_GPL(asus_wmi_egpu_set_vendor, "ASUS_WMI");
++
++/**
++ * asus_wmi_egpu_vendor() - Vendor of the external GPU
++ *
++ * Takes egpu_vendor_lock for the copy and releases it before
++ * returning. The armoury store calls this while holding egpu_mutex.
++ *
++ * Return: the PCI vendor ID last reported with
++ * asus_wmi_egpu_set_vendor(), or 0 when no station is known.
++ */
++u16 asus_wmi_egpu_vendor(void)
++{
++	guard(mutex)(&egpu_vendor_lock);
++	return egpu_gpu_vendor;
++}
++EXPORT_SYMBOL_NS_GPL(asus_wmi_egpu_vendor, "ASUS_WMI");
++
+ #if IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS)
+ static ssize_t egpu_enable_show(struct device *dev,
+ 				   struct device_attribute *attr, char *buf)
+diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
+index b5ed8c83ace1..a53b2828bb1d 100644
+--- a/include/linux/platform_data/x86/asus-wmi.h
++++ b/include/linux/platform_data/x86/asus-wmi.h
+@@ -204,6 +204,8 @@ int asus_hid_register_listener(struct asus_hid_listener *cdev);
+ void asus_hid_unregister_listener(struct asus_hid_listener *cdev);
+ int asus_hid_event(enum asus_hid_event event);
+ bool asus_wmi_custom_fan_curve_is_enabled(void);
++void asus_wmi_egpu_set_vendor(u16 vendor);
++u16 asus_wmi_egpu_vendor(void);
+ #else
+ static inline void set_ally_mcu_hack(enum asus_ally_mcu_hack status)
+ {
+@@ -239,6 +241,15 @@ static inline bool asus_wmi_custom_fan_curve_is_enabled(void)
+ {
+ 	return false;
+ }
++
++static inline void asus_wmi_egpu_set_vendor(u16 vendor)
++{
++}
++
++static inline u16 asus_wmi_egpu_vendor(void)
++{
++	return 0;
++}
+ #endif
+ 
+ #endif	/* __PLATFORM_DATA_X86_ASUS_WMI_H */
+-- 
+2.47.3
 
