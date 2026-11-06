@@ -1,98 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.120
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793933877;
-	b=gN9gDWn2XGEHXQnVeg7w/3jarRVyi/sszO62LiKP/m8KRJ6F9qg0kC+nI3IxMZNbp+w9
-	 TzjxCspes3BkiGNvTJmiv9d+uTyAzUBZvd57L4yQJmWSK/JzHpLitrNLsQ0Xrc3bn5M9z
-	 6wK4Fe5D8zS0x9TNRsbap+WbEMjQKhe3Wdd9gF9HcQTf+EdChH1qOaDWJ6djfsQePw7E/
-	 8xZ6kkakvq1uwQHCo2sM4uUoqi66dCV33oVpqsdrsNWzvpCvEQWbO3aabQ3TvaJ9HWlPq
-	 bDjuamipOcRZR3hyVamME3EhXMCJHvtjA3Bq+Tmr4T38Xzv4IwORGvtf51BDdS/wYjQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793933877;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793933960;
+	b=FuePjQZPyepvUC7oYlF4A6wnCW2ahnIqpEw4TQqSM5DF1e9SNgKECKwicEzxrCRnLcfC
+	 ecqqjZ4X7rvyxEmzbAdIjNnF1xWV5+6jkD2imDxXpg27c9OGkbujUi7/Qkh/Ftuo1NWC1
+	 UTDsM+xT+yEMbrsEVo+8JfPZXopiAZKb0mHGiAwZ2ScSKh29bIUDXmLYHfy3P2BSYhfvN
+	 7092m6mNuakf8qG55ZqRXRrbyTRu+RNRIVUj+3ulhXC7iu031sLsZPEVRP6NJhNeptQCx
+	 i6fr5ml05Sni2EO9CFmhDgYfbr0tb2UZH9CtcTOlboHjwnW4hzW00/WFOwWoTr6QR1w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933960;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Sakc8iPOwBSEGraaTgtKYH2NnG0cfSLpR94nwwlrRwQ=;
-	b=r0fVL5lxccF6mUjCh1wmowv2V4r2XeayqyVsRQMBvXCq7yf7gAjbbjwUnUKnpS9RhBOM
-	 sAB+TfZqwFXRP/clF1zhZOBmCASPpy/AmzCMv+OugfqrbFXxsl58/zYCmcBAF5usmzz6U
-	 vryi4uxEsDw2gkMs2sgW2DEi1KBog7+P5FCwCFhVoQzaxz/fn3H5dCLVGBL9VIcgv/O8c
-	 Clndsox3y0HQNq9eX/5ue7eloMBRm+ISK4axNfnWwgZ6wvYk9MC4S8bgWV7+Tutt7vpFp
-	 XefqMlKCP9y9E8/Fsk7ukz8m6/uxsgT9f++MIgPuU194QvFjMH/rm6kwLtqmE//MtWw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=reyW22q7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.120
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022120.outbound.protection.outlook.com [52.101.126.120])
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=rWzTNqY15kY9Ycqy3ORJKlvSsbZyK/UqSUFvwFHrbr0=;
+	b=IIKTtbM6in5sgcBVkTYlOKYGvZUCCcW8Zv2qzyMAulR81vKhqizuNZJSvDfs4WnEVP1p
+	 Wojnz215y3hQD1Sv4VUsq+sBWJ7WcYuNgxyNreYgzIeR7YKlL0MTbygPiSI38CV8nnS1f
+	 SClH2byElGDvXJtypL95vMetCnwVwIJy97Wl7+8Rrr7nPTYrUMy+dIHvm0FbeX40rEO68
+	 /VkPTvVps9dCOurbf++fE91fzNGQLH6SGheCxp49WTF93diZscD05mwWC/vG/j1+BE1Qb
+	 U0gki20J26OYJwOI1mPluw/IN3DSu1pXPNKbBK2AdjYpwA/n1caCLJGFIkEyyuo9IfA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hCt+KT9s;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iDMBGmMC;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B73606A31B;
-	Fri,  6 Nov 2026 02:57:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56B73606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CC4606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:59:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80CC4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=reyW22q7
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hujCSypiNleyRobcLlNgQPO3sfl9QvgEyPMWovADMQuN1Zf6qMGC6VGo7422q6FH+Gn1uY4fKqUiqnmB4i7+bh8J78ZhUblx4kkqJvbOzuPwkczMuHDuuqqYYYErTrxCoPJqddPWu9Z+ZoOi/fwJqGqsAJb67TdMgQre8LYDlnme88mgPNOCtDMkmooMkHrVvN+E3aTILPUVMDdz/xnXeb32RAg61QpaSzrx101XSgijSeZb20CpW73+eACiOFIQReLrROgzErwESr71gniZe4QoYEVPUV0weLcANUshChGa+96/uCIqLcUJHlirLP542HjKcJOtFnol506rZ5pYTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sakc8iPOwBSEGraaTgtKYH2NnG0cfSLpR94nwwlrRwQ=;
- b=Jo4hS60782O1YO/6bAxV3cLZSU2OlpcUrVroxOZmXLOhBx1vJcHlsSIiXnHsOU5m/Wrj0Cd1ZwilnW7MvIIF75c1BBwX5Qc/AOjTRq69ZsOYYuxfH5HKG9IVpeUA7u72RNwyFP1U3lqIP3pPz+QALi6kfMMVbFbS20/oeq5SHgMO1cLVVcOyoi55e5creptuN2sXksWkyqeW5icTESgZeuvoszlbFdNkUtoA24qLu+7ZkUoLKc8CCOX8+bS4VoWCXReSqQsBsZJFC6IsiQLpKHC64ROwt8X+PvVXPBBy+EgpeBmlyphzpqyItpMYXyXtaPU68WcIa9V9IEFv8Lxuug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sakc8iPOwBSEGraaTgtKYH2NnG0cfSLpR94nwwlrRwQ=;
- b=reyW22q7YTJNqRMbpaLWIUq9R5qirLLWlD9N7Vs4iJlKeQN//MWK7FdaujprQ3HNAv7V5jdUSEwwDFkWmTY3Pd1GfeoE7PYy0bjmA7byJp9ia2WV5DSGKgO8LpVSZmBmnSofCjBgtDNYypJGbHF8pdd20tzFHLUHMtibJRB3lWmHaF/x3NHyMpxKtx4DSBDlNEVLDzqNcqqSnzIFyMpOD7UaXJOsycGVfvAkPAd4j/u1K/RvDQHW8wJ5DsL+k06M1hAFP8JXwKSwjM2XaRoPJ+eE/tbioDJXNUvdWFeYTNbbZjSf362FMEBGfMQ9qBuXRUaAt8TQsWdoGSowL4lxZA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from JH0PR03MB9035.apcprd03.prod.outlook.com (2603:1096:990:7c::13)
- by SE2PPF0DEAE0EC0.apcprd03.prod.outlook.com (2603:1096:108:1::488) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
- 2026 02:57:52 +0000
-Received: from JH0PR03MB9035.apcprd03.prod.outlook.com
- ([fe80::77d4:2931:4c4e:1cee]) by JH0PR03MB9035.apcprd03.prod.outlook.com
- ([fe80::77d4:2931:4c4e:1cee%4]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 02:57:52 +0000
-Message-ID: <7cafbdb9-1411-46ff-976b-7c7b8ab09bfe@amlogic.com>
-Date: Fri, 6 Nov 2026 10:57:47 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] Bluetooth: hci_aml: configure the RF for a shared
- antenna
-To: christian.koever-draxl@student.uibk.ac.at, marcel@holtmann.org,
- luiz.dentz@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192338.209574-8-christian.koever-draxl@student.uibk.ac.at>
-Content-Language: en-US
-From: Yang Li <yang.li@amlogic.com>
-In-Reply-To: <20261025192338.209574-8-christian.koever-draxl@student.uibk.ac.at>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2PR01CA0040.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::14) To JH0PR03MB9035.apcprd03.prod.outlook.com
- (2603:1096:990:7c::13)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hCt+KT9s;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iDMBGmMC
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5NerdC2880934
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 02:59:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	rWzTNqY15kY9Ycqy3ORJKlvSsbZyK/UqSUFvwFHrbr0=; b=hCt+KT9szoPmBrXO
+	7aWKsIr4E9ufS5X3KSJur9ekTkisEdoQLibRYufbcsQCL9ghPzS3V6edaZ2duuGq
+	ztNGm6Lc+R8Or5CbeKhOn4aEXR7+Wl42n5T7Kjdbt3Oh8vRGVSpwRgVoedlnE5nN
+	+APFXvvhdkLj5d95/kAfOk6RiE1T8oCMiXmrUuTchYt0tIANceC4HMemmsDnTfTT
+	gzYLwkHzMK66EkAVCRNlndK9DsSKnnCW13VO30q9VEj81giWCvGdi3U3FA2D6lNE
+	bR+2k20mnK/3UsSHyBgnyPJ5JJaW2JphZzI8hwFQQT4seRTJw78c+GgQeN1ao7bt
+	g3dxVg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3parm1a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 02:59:18 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b0a528ca65so216280a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:59:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793933957; x=1794538757; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rWzTNqY15kY9Ycqy3ORJKlvSsbZyK/UqSUFvwFHrbr0=;
+        b=iDMBGmMCGtNYPgPHSai1PLqHk1hBk80YNKlPZ5gWOFWFL4N+G/aO8qQPdMn/tumnw6
+         unRFTJs+1C93W4ewH0m+yzvNTZb6EXEaBlGtO2dC+seGsT17Vyavq9dAsmM4jS4PDjfT
+         QW3jOrjsGTZgEO3FdbpaNcBCtHCkgOPERxtC6SPnqDwjJ/2LLXFsRGBfnFpQ2foptd4p
+         zn9K5l3C+Uu4n4CMrb/ceGjb9NwCuLUYIbkDqqLpvRSreQaYI/Fw5CwnJtCxBSEMvuoD
+         YTKPFsEleap6d6BzWQpWGTy9M9B+g644g9l1LrFNmjdOh0zPNUMuqr8qwmGCJk8BefBw
+         aw3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793933957; x=1794538757;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rWzTNqY15kY9Ycqy3ORJKlvSsbZyK/UqSUFvwFHrbr0=;
+        b=e6pQ9ijnxVq3/VrOx45lZTqf5ce+NmfZOXDZ9HGEtwLupXIcBPNVdHrlP7Nuo5sRyB
+         52X5aKUCpxFu9PE3Huryr+dixF6EpeaDCGNs+6HtBLwzRb1UBbBzR4tjE8ANoEeAhuZO
+         I43UQXUv4/uEiwMbMTADSK6V0scc3n8JKphqUJkkTo6wyqPfGkpa7VHYIXygZogtTWUR
+         SPMNzyBpGSlEbNdFwKCI8bunL4aw48t2KgFx+ajdrLxxjbJeDz3pCmb2T0K22RZxKE49
+         4pXx91bMdjdiagkp77S9y+LCkdKHc4y9E6kLnhK+sIlbm+wKm7gOumMAm1elUrGKL/xc
+         Dq9A==
+X-Gm-Message-State: APuU4Z+4+m6eTNJoK52UFvYzUABM3o5YfA6++WASnlrM5x6k9VCFzzSJ
+	H3al6uechW02DAxXfB4uNjRb/b95ks2dbyAPmeF452+Uig3/BrNG8yGvV4jBfJi+kms78MsZaWU
+	982XsgIBeGt11m/CIpazL1SWFxoSSpXrpJ0Nzb//sNwGdvaS6MjrPdE3OJfgL0dQP5cs=
+X-Gm-Gg: AYBFou3LNqHtTMQA6UpuwGe8WgtM5XTTPTx0GDCd6/6s+tUfAB91EB0rWZPZsYOyVr/
+	g///FayhfalhYPlb9NINqRPRqrXzUdRAoDXJEXQhLcKLcHEz8Sd3Kx44WlE4BkrHAD+yqaC7hgc
+	G47E0rMCq4bsiyvfgga/ST0Rzy4XGkXDO92ZC0/RL6g8irlNvdU+YT/EZN6YcqWSY+xGqRNoxTY
+	T/bs+l+QhWgobn0QSDSZn+FHasZSX23AXrpMEWT6flhwOJnHTO4PXgDt5Jlx+4NDQcyt083+emk
+	n7O4vPoHqZXX0ySzTQmxppSPwy/jqXi4/yClp9R1xa+KpCGEpBoSqcj2r9yswBGb3IXOoWWHhmY
+	gI3g2JNjb5wPjQwZsciYNMX63B6IexhOlMGBIeTbFpeGkLOPlobdjsEpK5ceKSzV6jZZaetGYYr
+	SqmoRZab5qwWsIV3nW6cZn7lQYLbpTZqpLNtQnR3z/eYg=
+X-Received: by 2002:a17:90b:4486:b0:3b0:9deb:d994 with SMTP id 98e67ed59e1d1-3b0db7251bamr994552a91.64.1793933957081;
+        Thu, 05 Nov 2026 18:59:17 -0800 (PST)
+X-Received: by 2002:a17:90b:4486:b0:3b0:9deb:d994 with SMTP id 98e67ed59e1d1-3b0db7251bamr994515a91.64.1793933956541;
+        Thu, 05 Nov 2026 18:59:16 -0800 (PST)
+Received: from [10.133.33.115] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b096b72d5asm4603741a91.4.2026.11.05.18.59.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 18:59:16 -0800 (PST)
+Message-ID: <6cab89dc-04f0-4d54-a935-eee2254b054c@oss.qualcomm.com>
+Date: Fri, 6 Nov 2026 10:59:11 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,93 +114,464 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: JH0PR03MB9035:EE_|SE2PPF0DEAE0EC0:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfc1e697-727d-4903-5e46-08df3bb1bf59
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|18002099003|22082099003|56012099006|11063799006|4143699003|261102123227099003|261021123027099003|10067099003|261022075727099003|5023799004|261021121427099003|261009223027099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	TZFoGpg1nMRpexT0tMDGVoIDXFrdz9mAj/zyHBnw4UeUqlJLtnWPr37taJk2n9HiJZVXqSCKWmkgafdL4RFLmir8cVwtQWp2gZcnRgS4D5xxSGU2vf5sN3k9dA5TXgbP1/RYs/OHQZyFXXFU7hmWuNUGsG4Zjj17vVugIbV1HyQ+ZWMToIwtN9ghESCq6UKaF3sODdEtFZrSjfjhZp4ndKjMozveP7GDjzh1irGmCh6/4QZZ9bHGX6nXUqMjMYIXFep6pF5H2unUzdFCE2vyfLgAgG5c8cV48IA4Fa6BMZ9UlQrCxhaz88kurSovceF9IvY7N2J+Xu+PzrJKxmWfss2WIJGhaDx3hQpR6Wf4kwHpMBJMFcoh+r7+SGSvnMKRHnDElso0n6CexwX5Nnb9tZ3k7jNg32RKA1Ekwfc5sIVgVCQWF7w2zwxk+CT6aBQ2ClLnBoWtgqobLRXqYfh6QdcWkyenw6EZVgn95fjTKFdSALEsLANa9cHFKsjupisyqPNhXaopaq3zAH+3wFnEXGqN+rU2k8rNOI8C5B1GZsZT0+fnNDa2X9el3BaiYtMbvJ4M7vGKHPDQWPh63ByN5SqrBh1IkB6z7JhdXu6x0kzVQ0sRKrq5YlShwyBqbYw79nnEiiIIIMEr5d/4Je2VFWV+jQSp2oT45gMcLNqK67w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:JH0PR03MB9035.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(261102123227099003)(261021123027099003)(10067099003)(261022075727099003)(5023799004)(261021121427099003)(261009223027099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VVZJcFlIYUVjb1VMdklQZXd4dEwwNGpZeFNKLzV2UFFEVExHbnhwSWxWTDRN?=
- =?utf-8?B?aE4zQ1NkdWRiaWk3cjNIOXR3eFo5alAyOUtzMUhLN0ZVc0EzbEsxYTVnRWJE?=
- =?utf-8?B?eHVCeUQ2V0w0NVlDbTh5WDlOdjUxc1pGdG96aTcrOUY2Z3RUcnJqRWIvL3A2?=
- =?utf-8?B?NmdTQStXWnBhTnZjSm4veEhyZThtNWNHRzJPTnRHbVhyVzVYR3o1SnNTd3cx?=
- =?utf-8?B?TjlDSGc5ZEZUamZWcVJrUXZBYXRvblpGV2ltUXcwUzFIYU9hbVhCallWbEZB?=
- =?utf-8?B?WC9yNHVhRVdFT0J5ODB0MGU4WEVCM3FQRjA1QTk2dXdNSmxyaTM4ZElzbXpR?=
- =?utf-8?B?akZIeCtERk1jSVJjWEo0b1FJMzcxK1VNeE9VMGNHaDZGTzlJaHdsemRsZ2FD?=
- =?utf-8?B?VzMwM00zTG1adXJtQVRHV0xYek9kRXg1VjRabmExOCtTYzBlRFVsWGVUbmhS?=
- =?utf-8?B?a29jcEhHcVRzL25sKzZDbXA3Ri9PYU1vTFFkb3VybjRWSkdWcGkzbGI4Z2RL?=
- =?utf-8?B?aGlLb0Izc1lhcG5PSCtYVFhBQXEvN0hvanB3NU5KOG9lbkdESWpiQXVoeVdF?=
- =?utf-8?B?b1Q0VWhBdCtuUDZnVFYyNFRwN0MzWGpWcGhKb0ZGY3BCMWV3aXhVYzhOZHVy?=
- =?utf-8?B?V3V1eFgrelJaUEIyT0d6bkVnRUVUMzNFSHU1V3B1T29TNDJCWlBaVlBnSkJz?=
- =?utf-8?B?UDhMREsybGMzei9XTTlzbkpTdGN0SmN1TWVydi9WcXRFTUJxS2pRMFpRdkVJ?=
- =?utf-8?B?NE5yQzBPYlhXSEVFTEZYVDVvMng3REF2cjNSY3orbDcyc3U1eUZCT2dKMDht?=
- =?utf-8?B?TmFMZ0VhRVMyNExtMUhpaUpodnhVQVFIK20yTVlSWmVWc2p2dWJ0U0lpS0xM?=
- =?utf-8?B?SWgzV0N5RzBpdGx3NkVwR2NFWWx3NmlsQ3VDSVN4aGFMWFhsUmVhbDdqQy9B?=
- =?utf-8?B?cVNzTkxYZHJPclhtS3hUWHlYZmQrZlBkRzU5Q0gwaEJMRUw1V1BwMFVVRkJC?=
- =?utf-8?B?WlQraGVLWmRUVng0Q0tSU2l1dnM0Y0pHV3UxMXZpaWViVytqMWEvMVhQQzRZ?=
- =?utf-8?B?SERGdzhyazdGRjBUdy9BT09sb2l5RlFEM2dwZ2ZPb21lV1RPLzQxbWN4Q1Vu?=
- =?utf-8?B?K3l4ZklNVmVpdkxteTRpS2kyL1ByejIvaGV3amJEWG1oT2RxR1JwWnI0K0JO?=
- =?utf-8?B?VkxFSGJXZTBjV1BvcUxkZjFhU05PS3B1V1FlcGdCYkI5UVJFVUVHbFVuMXBC?=
- =?utf-8?B?N1pMZTRPdm94ejlGb3FBcktBSENrRWJKdjdoYmRnVm1INUtOMW1ZM0psQnhN?=
- =?utf-8?B?bmxtU2JDVEpUU0hQYmY4UU5ubUY4bG8vU20zZlNpVkRKUFp5cWRXaFNpbHlQ?=
- =?utf-8?B?WmtoQW9zRmxFZlo3Qnc0VjJBa2s4WE1Sc2pmVkxxUm5MVFo1R2Q0VkZ5dzc3?=
- =?utf-8?B?S3RMR0VueEVIN1JRL0s2ZU1XTmZsemZEUkhNMmJIWWRCQ1pyUUN6ZWhiaUdJ?=
- =?utf-8?B?eUJiR2dBUTZHNklSejNyK3YxSWlPTzhPQU1lLzdUeUZ2WkR1WFRRdkFib29O?=
- =?utf-8?B?UWVaYlpza2svbGFkUmxMZk15OG4wYWJsNzg2bHZ5cXU2U0FWdmMwTGJjR2Vw?=
- =?utf-8?B?RGdzMDFOWG13WmduRllBeGFUM2RYM3JtU1BDK3V3UUdVeGpTOVZxT0R6SXZ3?=
- =?utf-8?B?TGZVRTdjMUJDRDdmc0JEcS9rVHNyYmwrcGpLVFdEejh3OGlISzRxcUNhblFF?=
- =?utf-8?B?b09PUUZiVVlhK2RrYmV1Nk0waWxzR0x1NHREQTF5RDdJUmUycWpRZlFQWmVD?=
- =?utf-8?B?MXdZakllQjN2YzJ1d29ZSnBsZVlaQUVPV094M1E3QXd3Y2p1NnJpU2gvcnhu?=
- =?utf-8?B?WnphdkRLalliRGNKczRtZUM1bzloRWtJVURSQTFieE90d3F4VGVud2Z0NjQ3?=
- =?utf-8?B?ZlFMZ1Fnek9hYlRnZWJQN3FpWWdqUzdWaUwvck5pVHdIQjFRcVdPSFdHckVx?=
- =?utf-8?B?dzRQZnU2ODhVMUdVY0RrTGF1ZlVWWWFwRFFFcUpTUTU5Ni9vUU0vR1N3ZitE?=
- =?utf-8?B?NXRTOVIyb3JVajQ4eWZrZkNMRzQrNkN4a0s0VE9jRy9pekxzT3JIb0l2UEsx?=
- =?utf-8?B?SVNmVEZoM2ZTdExEcXB1MjQyZlBGbWxFaU10TWZYL2k5SG0wMGE3VEIvSWRQ?=
- =?utf-8?B?U0I0RGNNMDlOL1dOZDdVK3JId2FSbWNhdFJZUkJEWDBya2Npd2ZsUkxvRUgz?=
- =?utf-8?B?RXpua3lqR21ldmdTSnErUTVjUEovV1JIVnV0QWpUR2NVSzdtS2dNM1VFaE0y?=
- =?utf-8?B?MkgxNExlNWNkTEpkUGdGR3FOVkQwRUx2RTBQclR0N2ZlZHRCcTJUUT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfc1e697-727d-4903-5e46-08df3bb1bf59
-X-MS-Exchange-CrossTenant-AuthSource: JH0PR03MB9035.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 02:57:51.6921
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: durdtas3U/1Ut0y4o4VUHYNGBTKO6vZtqOC/aHGrBm9XYdGNmEtieDRyjTZEBxEsYqrEIuEXOvu3hFLDHoMu/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE2PPF0DEAE0EC0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 2/7] qcom-tgu: Add TGU driver
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, andersson@kernel.org,
+        alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
+        konrad.dybcio@oss.qualcomm.com, james.clark@arm.com,
+        krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+        devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
+        Jie Gan <jie.gan@oss.qualcomm.com>
+References: <20260730080704.2903540-1-songwei.chai@oss.qualcomm.com>
+ <20260730080704.2903540-3-songwei.chai@oss.qualcomm.com>
+ <55e1da04-1e8b-4783-a4db-0f154d8ec10e@arm.com>
+Content-Language: en-US
+From: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>
+In-Reply-To: <55e1da04-1e8b-4783-a4db-0f154d8ec10e@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAxMSBTYWx0ZWRfX+rHFW9NSC6C3
+ fKjSHs8oBF9mpwMN8L78za3Rpo4rIQQrEdXk++9N9Oe0g5sAOFIwa0Nh9UCe0rWYawraHWZrNxa
+ 2Tj4QcuAlIbnR9GWSvMhRcQDF7nMaPsSoH4qd/sb+nBOu9phgbFT6PmyTnIa9kxaGB9BlihiPsn
+ i5asxFlLtuXFdrsra463SJLcrxAPj5vAsrCARjGK6D3VVjQovbq1mwusetludusj/JDJa/x05AU
+ ZIkdrhnnWxuZsUeGMC++zaRpzgeI8/ZYwCfAGohakK9OZ+/MeYl5wFzWgV3OnQRA22MpG+yoO5n
+ n5Ro0NucKFoTz2K6VZTnmmgLHeAxhYCB3ed2f4kaHJp9LCav3ZNu+rBVc2T6PdTfdt1Y3Kq4w/a
+ 8/OxS3GqiWxiipBT/hRXW+b7FJFgHVyvdvVtRGlsL+WI7zyR39DbpbfPnjxpx8ZnldMwlO0QbVC
+ fMvAFq917aTkCYfpxKQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAxMSBTYWx0ZWRfX//xed07aPlis
+ pYHY+uoLKJKF6g3MTJ3B741gCdqJ5nE1wXAT+ngyfEOkWuIx9BcFF6fhzhypqPd4niLYyQ9bkeU
+ kATfS1yP1DaoJPAph9GUW7Sd9OJOTiU=
+X-Proofpoint-GUID: 20ZHBT1tZUTetOmwpDspKn2nXgJZ94Nz
+X-Authority-Analysis: v=2.4 cv=P4ivFSAu c=1 sm=1 tr=0 ts=6aed4286 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=VwQbUJbxAAAA:8 a=p-U3weD7bCxB8QOMAjgA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+ a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: 20ZHBT1tZUTetOmwpDspKn2nXgJZ94Nz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_06,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1011 spamscore=0 phishscore=0 suspectscore=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611060011
 
-Hi,
 
-Thank you for your patch!
-
-> From: Christian Stefan Kövér-Draxl<ckoever@outlook.de>
+On 11/5/2026 8:32 PM, Suzuki K Poulose wrote:
+> On 30/07/2026 09:06, Songwei Chai wrote:
+>> Add driver to support device TGU (Trigger Generation Unit).
+>> TGU is a Data Engine which can be utilized to sense a plurality of
+>> signals and create a trigger into the CTI or generate interrupts to
+>> processors. Add probe/enable/disable functions for tgu.
+>>
+>> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
+>> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
+>> ---
+>>   .../ABI/testing/sysfs-bus-amba-devices-tgu    |   9 +
+>>   MAINTAINERS                                   |  11 +
+>>   drivers/Makefile                              |   1 +
+>>   drivers/hwtracing/Kconfig                     |   2 +
+>>   drivers/hwtracing/qcom/Kconfig                |  20 ++
+>>   drivers/hwtracing/qcom/Makefile               |   3 +
+>>   drivers/hwtracing/qcom/tgu.c                  | 192 ++++++++++++++++++
+>>   drivers/hwtracing/qcom/tgu.h                  |  51 +++++
+>>   8 files changed, 289 insertions(+)
+>>   create mode 100644 
+>> Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+>>   create mode 100644 drivers/hwtracing/qcom/Kconfig
+>>   create mode 100644 drivers/hwtracing/qcom/Makefile
+>>   create mode 100644 drivers/hwtracing/qcom/tgu.c
+>>   create mode 100644 drivers/hwtracing/qcom/tgu.h
+>>
+>> diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu 
+>> b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+>> new file mode 100644
+>> index 000000000000..36ab64f1e301
+>> --- /dev/null
+>> +++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+>> @@ -0,0 +1,9 @@
+>> +What:        /sys/bus/amba/devices/<tgu-name>/enable_tgu
+>> +Date:        August 2026
+>> +KernelVersion:    7.2
+>> +Contact:    Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai 
+>> <songwei.chai@oss.qualcomm.com>
+>> +Description:
+>> +        (RW) Set/Get the enable/disable status of TGU
+>> +        Accepts only one of the 2 values -  0 or 1.
+>> +        0 : disable TGU.
+>> +        1 : enable TGU.
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index ce5c5185c773..4789321cca6d 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -22360,6 +22360,17 @@ S:    Maintained
+>>   F:    Documentation/tee/qtee.rst
+>>   F:    drivers/tee/qcomtee/
+>>   +QUALCOMM HARDWARETRACING DRIVER
+>> +M:    Songwei Chai <songwei.chai@oss.qualcomm.com>
+>> +M:    Jie Gan <jie.gan@oss.qualcomm.com>
+>> +M:    Suzuki K Poulose <suzuki.poulose@arm.com>
+>> +L:    linux-arm-msm@vger.kernel.org
+>> +S:    Maintained
+>> +T:    git 
+>> git://git.kernel.org/pub/scm/linux/kernel/git/coresight/linux.git
+>> +F:    Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+>> +F:    Documentation/devicetree/bindings/arm/qcom,tgu.yaml
+>> +F:    drivers/hwtracing/qcom/
+>> +
+>>   QUALCOMM TRUST ZONE MEMORY ALLOCATOR
+>>   M:    Bartosz Golaszewski <brgl@kernel.org>
+>>   L:    linux-arm-msm@vger.kernel.org
+>> diff --git a/drivers/Makefile b/drivers/Makefile
+>> index 0841ea851847..6a2cbe5b340f 100644
+>> --- a/drivers/Makefile
+>> +++ b/drivers/Makefile
+>> @@ -176,6 +176,7 @@ obj-$(CONFIG_RAS)        += ras/
+>>   obj-$(CONFIG_USB4)        += thunderbolt/
+>>   obj-$(CONFIG_CORESIGHT)        += hwtracing/coresight/
+>>   obj-y                += hwtracing/intel_th/
+>> +obj-y                += hwtracing/qcom/
+>>   obj-$(CONFIG_STM)        += hwtracing/stm/
+>>   obj-$(CONFIG_HISI_PTT)        += hwtracing/ptt/
+>>   obj-y                += android/
+>> diff --git a/drivers/hwtracing/Kconfig b/drivers/hwtracing/Kconfig
+>> index 911ee977103c..8a640218eed8 100644
+>> --- a/drivers/hwtracing/Kconfig
+>> +++ b/drivers/hwtracing/Kconfig
+>> @@ -7,4 +7,6 @@ source "drivers/hwtracing/intel_th/Kconfig"
+>>     source "drivers/hwtracing/ptt/Kconfig"
+>>   +source "drivers/hwtracing/qcom/Kconfig"
+>> +
+>>   endmenu
+>> diff --git a/drivers/hwtracing/qcom/Kconfig 
+>> b/drivers/hwtracing/qcom/Kconfig
+>> new file mode 100644
+>> index 000000000000..5c94c75ffa39
+>> --- /dev/null
+>> +++ b/drivers/hwtracing/qcom/Kconfig
+>> @@ -0,0 +1,20 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only
+>> +#
+>> +# QCOM specific hwtracing drivers
+>> +#
+>> +menu "Qualcomm specific hwtracing drivers"
+>> +
+>> +config QCOM_TGU
+>> +    tristate "QCOM Trigger Generation Unit driver"
+>> +    depends on ARCH_QCOM || COMPILE_TEST
+>> +    depends on ARM_AMBA
+>> +    help
+>> +      This driver provides support for Trigger Generation Unit that is
+>> +      used to detect patterns or sequences on a given set of signals.
+>> +      TGU is used to monitor a particular bus within a given region to
+>> +      detect illegal transaction sequences or slave responses. It is 
+>> also
+>> +      used to monitor a data stream to detect protocol violations 
+>> and to
+>> +      provide a trigger point for centering data around a specific 
+>> event
+>> +      within the trace data buffer.
+>> +
+>> +endmenu
+>> diff --git a/drivers/hwtracing/qcom/Makefile 
+>> b/drivers/hwtracing/qcom/Makefile
+>> new file mode 100644
+>> index 000000000000..5a0a868c1ea0
+>> --- /dev/null
+>> +++ b/drivers/hwtracing/qcom/Makefile
+>> @@ -0,0 +1,3 @@
+>> +# SPDX-License-Identifier: GPL-2.0
+>> +
+>> +obj-$(CONFIG_QCOM_TGU) += tgu.o
+>> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
+>> new file mode 100644
+>> index 000000000000..9c7dd4a09f02
+>> --- /dev/null
+>> +++ b/drivers/hwtracing/qcom/tgu.c
+>> @@ -0,0 +1,192 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +#include <linux/amba/bus.h>
+>> +#include <linux/device.h>
+>> +#include <linux/err.h>
+>> +#include <linux/io.h>
+>> +#include <linux/kernel.h>
+>> +#include <linux/module.h>
+>> +#include <linux/mutex.h>
+>> +#include <linux/of.h>
+>> +#include <linux/pm_runtime.h>
+>> +
+>> +#include "tgu.h"
+>> +
+>> +static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
+>> +{
+>> +    TGU_UNLOCK(drvdata->base);
+>> +    /* Enable TGU to program the triggers */
+>> +    writel(1, drvdata->base + TGU_CONTROL);
+>> +    TGU_LOCK(drvdata->base);
+>> +}
+>> +
+>> +static void tgu_enable(struct tgu_drvdata *drvdata)
+>> +{
+>> +    tgu_write_all_hw_regs(drvdata);
+>> +    drvdata->enabled = true;
+>> +}
+>> +
+>> +static void tgu_disable(struct tgu_drvdata *drvdata)
+>> +{
+>> +    TGU_UNLOCK(drvdata->base);
+>> +    writel(0, drvdata->base + TGU_CONTROL);
+>> +    TGU_LOCK(drvdata->base);
+>> +
+>> +    drvdata->enabled = false;
+>> +}
+>> +
+>> +static ssize_t enable_tgu_show(struct device *dev,
+>> +                   struct device_attribute *attr, char *buf)
+>> +{
+>> +    struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
+>> +    bool enabled;
+>> +
+>> +    scoped_guard(mutex, &drvdata->lock)
+>> +        enabled = drvdata->enabled;
+>> +
+>> +    return sysfs_emit(buf, "%d\n", enabled);
+>> +}
+>> +
+>> +/* enable_tgu_store - Enable or disable the Trigger Generation Unit 
+>> (TGU). */
+>> +static ssize_t enable_tgu_store(struct device *dev,
+>> +                struct device_attribute *attr,
+>> +                const char *buf,
+>> +                size_t size)
+>> +{
+>> +    struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
+>> +    unsigned long val;
+>> +    int ret;
+>> +
+>> +    ret = kstrtoul(buf, 0, &val);
+>> +    if (ret || val > 1)
+>> +        return -EINVAL;
+>> +
+>> +    /*
+>> +     * Hold the mutex across the whole check-and-act sequence: the 
+>> check of
+>> +     * drvdata->enabled, the PM runtime reference counting and the 
+>> state
+>> +     * update must be atomic, otherwise concurrent writers could each
+>> +     * imbalance the PM runtime usage counter.
+>> +     */
+>> +    guard(mutex)(&drvdata->lock);
+>> +
+>> +    if (val) {
+>> +        if (drvdata->enabled)
+>> +            return -EBUSY;
+>> +
+>> +        ret = pm_runtime_resume_and_get(dev);
+>> +        if (ret)
+>> +            return ret;
+>> +
+>> +        tgu_enable(drvdata);
+>> +    } else {
+>> +        if (!drvdata->enabled)
+>> +            return -EINVAL;
+>> +
+>> +        tgu_disable(drvdata);
+>> +        pm_runtime_put(dev);
+>> +    }
+>> +
+>> +    return size;
+>> +}
+>> +static DEVICE_ATTR_RW(enable_tgu);
+>> +
+>> +static struct attribute *tgu_common_attrs[] = {
+>> +    &dev_attr_enable_tgu.attr,
+>> +    NULL,
+>> +};
+>> +
+>> +static const struct attribute_group tgu_common_grp = {
+>> +    .attrs = tgu_common_attrs,
+>> +};
+>> +
+>> +static const struct attribute_group *tgu_attr_groups[] = {
+>> +    &tgu_common_grp,
+>> +    NULL,
+>> +};
+>> +
+>> +static int tgu_probe(struct amba_device *adev, const struct amba_id 
+>> *id)
+>> +{
+>> +    struct device *dev = &adev->dev;
+>> +    struct tgu_drvdata *drvdata;
+>> +    int ret;
+>> +
+>> +    drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
+>> +    if (!drvdata)
+>> +        return -ENOMEM;
+>> +
+>> +    drvdata->dev = &adev->dev;
+>> +    dev_set_drvdata(dev, drvdata);
+>> +
+>> +    drvdata->base = devm_ioremap_resource(dev, &adev->res);
+>> +    if (IS_ERR(drvdata->base))
+>> +        return PTR_ERR(drvdata->base);
+>> +
+>> +    ret = devm_mutex_init(dev, &drvdata->lock);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    drvdata->enabled = false;
+>> +
+>> +    ret = sysfs_create_groups(&dev->kobj, tgu_attr_groups);
+>> +    if (ret) {
+>> +        dev_err(dev, "failed to create sysfs groups: %d\n", ret);
+>> +        return ret;
+>> +    }
+>> +
+>> +    pm_runtime_put(&adev->dev);
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +static void tgu_remove(struct amba_device *adev)
+>> +{
+>> +    struct device *dev = &adev->dev;
+>> +    struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
+>> +
+>> +    sysfs_remove_groups(&dev->kobj, tgu_attr_groups);
+>> +
+>> +    /*
+>> +     * If the device is still enabled through sysfs, disable the 
+>> hardware
+>> +     * and drop the PM runtime reference taken in enable_tgu_store() 
+>> so the
+>> +     * usage counter stays balanced. Use the synchronous put: the 
+>> driver core
+>> +     * disables runtime PM right after ->remove() returns, and the 
+>> barrier in
+>> +     * pm_runtime_disable() would cancel a still-queued async 
+>> idle/suspend,
+>> +     * leaving the runtime-PM state inconsistent.
+>> +     */
+>> +    scoped_guard(mutex, &drvdata->lock) {
+>> +        if (drvdata->enabled) {
+>> +            tgu_disable(drvdata);
+>> +            pm_runtime_put_sync(dev);
+>> +        }
+>> +    }
+>> +}
+>> +
+>> +static const struct amba_id tgu_ids[] = {
+>> +    {
+>> +        .id = 0x000f0e00,
+>> +        .mask = 0x000fffff,
+>> +    },
+>> +    { 0, 0, NULL },
+>> +};
+>> +
+>> +MODULE_DEVICE_TABLE(amba, tgu_ids);
+>> +
+>> +static struct amba_driver tgu_driver = {
+>> +    .drv = {
+>> +        .name = "qcom-tgu",
+>> +        .suppress_bind_attrs = true,
+>> +    },
+>> +    .probe = tgu_probe,
+>> +    .remove = tgu_remove,
+>> +    .id_table = tgu_ids,
+>> +};
+>> +
+>> +module_amba_driver(tgu_driver);
+>> +
+>> +MODULE_AUTHOR("Songwei Chai <songwei.chai@oss.qualcomm.com>");
+>> +MODULE_AUTHOR("Jinlong Mao <jinlong.mao@oss.qualcomm.com>");
+>> +MODULE_DESCRIPTION("Qualcomm Trigger Generation Unit driver");
+>> +MODULE_LICENSE("GPL");
+>> diff --git a/drivers/hwtracing/qcom/tgu.h b/drivers/hwtracing/qcom/tgu.h
+>> new file mode 100644
+>> index 000000000000..ebba49402a20
+>> --- /dev/null
+>> +++ b/drivers/hwtracing/qcom/tgu.h
+>> @@ -0,0 +1,51 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +#ifndef _QCOM_TGU_H
+>> +#define _QCOM_TGU_H
+>> +
+>> +/* Register addresses */
+>> +#define TGU_CONTROL        0x0000
+>> +#define TGU_LAR        0xfb0
+>> +#define TGU_UNLOCK_OFFSET    0xc5acce55
+>> +
+>> +static inline void TGU_LOCK(void __iomem *addr)
+>> +{
+>> +    do {
+>> +        /* Wait for things to settle */
+>> +        mb();
+>> +        writel_relaxed(0x0, addr + TGU_LAR);
+>> +    } while (0);
+>> +}
 >
-> The RF configuration selects the single antenna setting only for parts
-> flagged as coexistence capable. On an S905W2 TV box with a W155S2-class
-> W1 chip, Bluetooth and Wi-Fi share one antenna; with the default dual
-> antenna setting the received signal is about 15 dB weaker.
+> This is simply replicating the CS_LOCK/CS_UNLOCK.
+> I don't mind those (and relevant definitions) to be moved into 
+> include/linux/coresight.h and reused for your driver.
 >
-> Use the single antenna setting when the board sets
-> amlogic,shared-antenna.
+> The rest looks fine by me.
+
+Thanks Suzuki.
+
+I will add a separate CoreSight API cleanuppatch to this series to move 
+common definitions such as CS_LOCK/CS_UNLOCKfrom coresight-priv.hto 
+include/linux/coresight.h, allowing them to be reused by the TGU driver.
+
+
 >
-> Signed-off-by: Christian Stefan Kövér-Draxl<ckoever@outlook.de>
-> ---
->   drivers/bluetooth/hci_aml.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
-Reviewed-by: Yang Li <yang.li@amlogic.com>
-
-
-------
-
-Best regards,
-
-Yang Li
+> Suzuki
+>
+>
+>> +
+>> +static inline void TGU_UNLOCK(void __iomem *addr)
+>> +{
+>> +    do {
+>> +        writel_relaxed(TGU_UNLOCK_OFFSET, addr + TGU_LAR);
+>> +        /* Make sure everyone has seen this */
+>> +        mb();
+>> +    } while (0);
+>> +}
+>> +
+>> +/**
+>> + * struct tgu_drvdata - Data structure for a TGU (Trigger Generation 
+>> Unit)
+>> + * @base: Memory-mapped base address of the TGU device
+>> + * @dev: Pointer to the associated device structure
+>> + * @lock: Mutex serialising enable/disable and the associated PM 
+>> runtime
+>> + *        reference counting against concurrent sysfs access
+>> + * @enabled: Flag indicating whether the TGU device is enabled
+>> + *
+>> + * This structure defines the data associated with a TGU device,
+>> + * including its base address, device pointer, the lock serialising
+>> + * enable/disable, and the enable status.
+>> + */
+>> +struct tgu_drvdata {
+>> +    void __iomem *base;
+>> +    struct device *dev;
+>> +    struct mutex lock;
+>> +    bool enabled;
+>> +};
+>> +
+>> +#endif
+>
