@@ -1,63 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964440;
-	b=QNvCcFmQAFCgRgqubCuVtqqlJz6uI7NIrmQn7kvt6u9PzjD8zNDBj3YcZvJKLfUvp5pC
-	 joRQGEQiW9YNpLfduqQC5nNzcQSb5XjAosegUYzUKt8E9X+pIbR/TsWdkhsQ/JINiWyZm
-	 2LTw0TNlnmP+Z9If8AOb9dmVBHwGcCIGbVbdWOOK28/JcNLcpJGU1IoU+AR4An7+i7QaJ
-	 m6yDkQJC1pQ3LOmd5BCFFrEZT0QGYtqXmf2s8to5kWlrMs1SP/eowkY3S6uRoQ4TfvrLU
-	 OtcZJRzDZ3ehjGMRkIMu/Q7+bq593Fsf9fByr8L0/+KhygrMkXHBu50Mo+VpALbX4SA==
+	t=1793964456;
+	b=IElBjtGEpjktsc/cu639FM0e9Cq92PJTdEBya+4OmiOix/LW3iDS8u73fCk0PATkXUTj
+	 9Gx6TL1KM47EQc8omiNShe8WgbryxxszAPXlOzRIP5YOA5PEczpBBWIEIkLm4y4Dtg5ul
+	 4W9cDD0Y14Gre6afbSmYo1N5tzax7Y1UITq3a8gPB72OHqW3kktYA1O8pOjy68tj8ot7g
+	 3j5tECbZ5y4egS+sAirDyqW5nrWomC33Y+y3RRwTVtGQ8fiseEtyTF3ncd0PgYLG8D6hT
+	 boPV2Ivl5O3jRl4ClGC8PfJ0qrXUDdrByOPDh/ieLzWI4w6zlTk2ZIoItp6HKo7gJpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964440;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=dMkNie5jgxNx3G5eTbxj6pYOJmObSXEtjaZ2+ZMR9Vg=;
-	b=Ol70R3L0/f6OVABh9ECcJEV6B5HXm0qHU3wu1WSFuzyD8FitodrT185CEsQGkr2eBZtl
-	 tZAtL5zvsoAsiV6cBAYKTLAPv7/DpGvZ4wFFLiauhaP+BlrFU20RmuLDZCdpizw7y5slu
-	 GvKqo9XLmRZnxptvkD3KTzRqev+o8N10rmqCHs6F1FhA8HmQNW4fwKX6hqbdSf5zhrRZ5
-	 uj9EGX2yRrpfIDEU5guBzVZZFs2vfeg4eilPTX9P0HT0jvxENQsIsBYfNabJ4OTD/PDMr
-	 cmXZ64w96+pfuOs4f9K8mW1Cxnr1H5lCrhcjAoghZCtUlqcmhbqd0V6pf+3ngOiVGeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964456;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=GqsfXmArDx1BFEFrYigXSG4u66Q+cf083qtsOl4mkRI=;
+	b=zWyAOmcAUfIbBb7BaJCG9N/Usp0YEaf+RLYmdUwpDj6C7YlcQKjLz9VZAOb//R+WJLGA
+	 Z0Oje1t+ggU2D5v/jWQXKekj3dLnc61zBo3Bnr8r/aIbC5LflBozf/dpABpIBGYVrYv4n
+	 RiLRlU+EE78ppa8zaRI2BH3Z/QJnrFPXwOOIFJbPnhDEQ2QHe4folhNGcD3YD8XOl5vme
+	 jJog70hE7lJNqevKwG4G/oOY5HIvZ9634fetv6xtdXN71foBYs9WdV1xyBvQe23OHe23v
+	 s/cq7GzOXalHwyMSo+Ymq7DUMZBrf22EOD8NuLsvrmPBR8q0vn1ff7vJUn2ISXuCpqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=rqgmO3jP;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="zXO+/C32";
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47852606D808;
-	Fri,  6 Nov 2026 11:27:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47852606D808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEE7606D80D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:27:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FEE7606D80D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=rqgmO3jP
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=dMkNie5jgxNx3G5eTbxj6pYOJmObSXEtjaZ2+ZMR9Vg=; 
-	b=rqgmO3jPmin9pHdVJ4zE2o9W4BOcMg7B9hoOiF6gDqhwSEILw7ca9oXdjkYoMHWOp+i8EUs1nvt
-	mE8alVOvr/wjDzVATMlRgDo5GcI+WQMb9/5ilqM8RwxD3pC3lv7OW9q/jElmYAXFaKdLk7Re9eT3m
-	YeLePMswocDe6jEUon3nGFr9EJnHVEKc6zOuQf5jNdxdN6UaNb2QE8NhvoFhAEs4tLFNFDI8Q1LoV
-	6ByIiJ0qhzRMcMSfbtr8mDlmT5Wj/xr+rlewD2yrfr09JBCy5yuyf90rpS6Lkaf5zvVsLuPpwtwAq
-	atRQ80VLfXm4DDZc/6UMMGR8lyACC5Yrjxvg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xPI6G-0000000Br29-197x;
-	Fri, 06 Nov 2026 19:27:17 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 06 Nov 2026 19:27:16 +0800
-Date: Fri, 6 Nov 2026 19:27:16 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: ZhaoJinming <zhaojinming@uniontech.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Lokesh Vutla <lokeshvutla@ti.com>, Tero Kristo <t-kristo@ti.com>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-omap@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: omap-aes - fix NULL pointer dereference in
- omap_aes_remove()
-Message-ID: <au25lCTnY1FmsPuT@gondor.apana.org.au>
-References: <20261016-omap-aes-remove-null-deref-v1-1-195d36295ed4@uniontech.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zXO+/C32
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso1025853f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:27:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793964453; x=1794569253; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GqsfXmArDx1BFEFrYigXSG4u66Q+cf083qtsOl4mkRI=;
+        b=zXO+/C32AlStvgI0+EYAWE2/Lakk51WyJPlKb6utiwbTK9+74CTcnXu12Wf+J/7NuB
+         BdOoD4ctlP0nDHnnTAP14y2UXjeKB14fwhpho2iJ6q3ClTWXfFk6Cj7nJ3WNYSFpcTMg
+         jbCSpb8ga0BL23ipmALQoFILzAVZewCiMgRMMW2zkFbS9UT+Qybk7Io3KpC7M1GZdodh
+         a4QITzKhwTU1iA4HYSCnhVhpR2eMx2R+icRk2lyGDB+DtlyGJoVlMLPk2lzYyA7Btcjt
+         I/jJS3hmHNXqxs01UtHPwjiHIwg+VofbkfZQOarqN7o6L2TO6HQavWc368QZ0IZdGvhP
+         iBHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793964453; x=1794569253;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GqsfXmArDx1BFEFrYigXSG4u66Q+cf083qtsOl4mkRI=;
+        b=YvKSmiK9c5SueqXpTNqZKcDi4IpaKlDwGVSaBtqQsYs3NtzqlYaXYyuqSuRQOI1RQ1
+         Q2lsDwJh51gciZkblfydqF8Lq4UF5XU3hSMW+Yag2Ey2DFNYyBDnPMXunaIqGaOp4LQF
+         QfwlrGKtULdsrAo5iAuGMZ9xHbnp50jazmmdLzY39STSdW6D0K7hZTE+2MZPvcwnXjC1
+         sana/zQg2kw8BHb/jRmg3orFkqbw4yTrJH4IG2vopO6kDxEgW+RdXj0n3VL+H1Ew3XF6
+         S5luJLEjWllpQpwLCrHAWpqkwFoWqPQPtSn8Wb85yafudJmhkpwODlYofWPoXXkaggUH
+         V6DQ==
+X-Forwarded-Encrypted: i=1; AL+hErHZBk3+/vxWbkb6YPkybMzXzOnieKccPHLFhgxWqzfI46AYJA8j6oeOgExPtDjWcg9e7nLekz9hIPmS8Iw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PIiVOeYgtMlIqcz4UlKmBwjgMqMOklNCsw10ulrb5ywYM/xXT
+	Cq1geQ3Bk8HJKxQFnmF2MpfvwImPthfm+p803Ut5HGKGgk4B6RP8gAAUaJEA0LExoBY=
+X-Gm-Gg: AYBFou3jOtOaaMJ5VZBS8THLArUuUG4onA6Hvnq9hIH4ESUm/f8erzh4CES0RleExDB
+	i1ScFVCwu5owDmQvV0Qu0FaKPG5j7EivO7upwnAdmNzJvkEJEr8Jtgneb+uBV/cFB9Px3MF+REy
+	9OF1O9D1F2xjsMKcTqTlJXIUFBMJI3e+a7wVp7JhEOaVU9j1e6EN4nGp+J3mW49P/3Tz+HyPJ32
+	kk4ZO/w1EkTT0fRky6UVI/ORZLdtWr7pahG6A8N49YF70bmvwcKAN/qzr+l98x6T9CHFIDtJFyP
+	jDMa0RklcYPBS4oFHyz5CthVmW6KU1v3AZVm8iuCdiVvMLOgE8U6fe1Vno5RfYmzXESYde41YzS
+	6rw7AIn/jXu6D0N3c0WCLkHJG+IKNtSUM49Du5s7xt10Al6EBVXdsY2bu+ikdcA0m4Zjtp8v4GF
+	PrKSwEEIUSl/x4g6fnKgnh+HsQxif+5NZB6rXXX4vXAqyRRenOnLAZ5UaK+uZsvwDGuzsRYtLdX
+	Fc6C6guy67G1aZDhY+tiaqxe39Q26EB4Diwh2WnScJ4f9BYTfoWD75BYDnGaxUnTnHGEbA72BTw
+	opkaHEToFTbDJcjm5rnZBflIDC7ex8nPcdpt9pnO8/rHfBrbdCdc0ISBcFhkmag=
+X-Received: by 2002:a05:6000:3c7:b0:48e:7475:fe7b with SMTP id ffacd0b85a97d-4911906d185mr9499122f8f.6.1793964453377;
+        Fri, 06 Nov 2026 03:27:33 -0800 (PST)
+Received: from [192.168.0.167] ([109.77.115.215])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d73286cdsm2941196f8f.28.2026.11.06.03.27.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 03:27:32 -0800 (PST)
+Message-ID: <e210c5f1-6a93-4387-ad1f-66d4ed35e00b@linaro.org>
+Date: Fri, 6 Nov 2026 11:27:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,55 +90,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-omap-aes-remove-null-deref-v1-1-195d36295ed4@uniontech.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] media: qcom: camss: Add support for SM8150
+To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v2-4-39ee37787b00@andrewgigena.dev>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-4-39ee37787b00@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 04:30:04PM +0800, ZhaoJinming wrote:
-> omap_aes_remove() unconditionally dereferences dd->pdata->aead_algs_info,
-> but only omap_aes_pdata_omap4 initializes that field:
+On 06/11/2026 03:24, Andrew Gigena via B4 Relay wrote:
+> From: Andrew Gigena <mail@andrewgigena.dev>
 > 
-> 	static const struct omap_aes_pdata omap_aes_pdata_omap2 = {
-> 		.algs_info	= omap_aes_algs_info_ecb_cbc,
-> 		...
-> 	};
+> Add CAMSS platform data for the Qualcomm SM8150 SoC. The camera
+> subsystem contains four CSIPHY, four CSID (two full and two lite), two
+> VFE and two VFE-Lite instances.
 > 
-> 	static const struct omap_aes_pdata omap_aes_pdata_omap3 = {
-> 		.algs_info	= omap_aes_algs_info_ecb_cbc_ctr,
-> 		...
-> 	};
+> The hardware reuses the existing 3-phase 1.0 CSIPHY, Gen2 CSID and
+> VFE 17x implementations; the CSIPHY uses the SC8280XP lane register
+> layout. Add CAMSS_8150 to the version enum and to the shared code
+> paths, then add the per-block clock, regulator, power domain,
+> interrupt and interconnect resources.
 > 
-> 	static const struct omap_aes_pdata omap_aes_pdata_omap4 = {
-> 		...
-> 		.aead_algs_info	= &omap_aes_aead_info,
-> 		...
-> 	};
-> 
-> For omap2 and omap3 the field stays NULL, so on those SoCs unbinding
-> the bound device (e.g. via sysfs unbind) or unloading the module (rmmod)
-> dereferences a NULL pointer:
-> 
-> 	crypto_engine_unregister_aeads(dd->pdata->aead_algs_info->algs_list,
-> 				       dd->pdata->aead_algs_info->registered);
-> 	dd->pdata->aead_algs_info->registered = 0;
-> 
-> This is a hard crash, reachable from the teardown path only; probe
-> errors do not get here.  The asymmetry dates back to the commit that
-> introduced GCM support, which guarded the registration of the AEAD
-> algorithms but not their unregistration.  The registration path in
-> omap_aes_probe() already guards the same access with
-> "if (dd->pdata->aead_algs_info && ...)", so add the matching check to
-> the remove path.
-> 
-> Fixes: ad18cc9d0f91 ("crypto: omap-aes - Add support for GCM mode")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
-> ---
->  drivers/crypto/omap-aes.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
