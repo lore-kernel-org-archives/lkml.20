@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999079;
-	b=gmywgc6S0yCoSXqypGaKcUwDsx6AlHMZuuD4Ouuk/yZBec9RnkNy9qxoAS8+dN+4K00m
-	 oKA+1pgmM9v7ln4nSTRGjVLeIHz3rFVGYebZH0OEJ/PBbWVSETZ8E8+/ok45eBw8YiEP8
-	 RFzVt+4Rg5or/8GroKZkZ9/f4rtiDs8SMOwLy/kDp0RjychzFl7FGUKyDHwzNzR97DK0V
-	 KsPw4bW+6/RT9zI+4Du9q36r1p6NW8B6sS4PndfYb58w7WYMY4qg0ZCLqgobc5Hpb4KP1
-	 4umG7CXw0lthzKPW/0s+qWY+B/+Flpf+TKENK5AIApk+Yq+Ytb0qfBBgsuZzs9DD0cQ==
+	t=1793999065;
+	b=ANC0bDjtqHwMj3mwkKD7OXojs6A7YtVTonzar8KSLIYOjjMU4CPywKnSoi3Ia7u3F7xZ
+	 DTRXB6hYeadZfQjRx4Ce2KK5bGLzmS57oBAWPppoXYxg2xVMI68Iul63146h6ED4XHuob
+	 CL7Vout37/xzu26Eatkohkw866nVZ/26d7AZpv2yAxgf7AOvpDJcIjg9jA8S2kqLxsenI
+	 B73GJRF3pX1bsgODIEtVrqMXSKMtHBaVJlWk5DkbnlF/nHx447KuZotxo6vAcMNofDlaA
+	 XiEkasTfN14Bf0mY91WyAw0gww1S3huDRGIVa1XADeJAIAVOxMIxktPIMjFikpsM6CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999079;
-	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc;
-	bh=5triKr4rWQNxHPSUFjuxeCn4xvtnFfYzHmRmVnByAwk=;
-	b=ojk4EBdOPkbb0s2zIl6gbs1uzkNR//qmCr3OCEZr2UTlZD365q+O5pbJ43OBmzqt45SS
-	 GK9Adsuas0/ujwP4ia203f0P97VMiMne8a/cxo0xjsZ4/1owbgzO/VJaxAaB81G/9V+c6
-	 py2aTKSohT8bbAVkCcMnJT6t98u8Op5WhHbYi3HjFvFGnpfEBG9FbCFJhxgowUAPmEwMV
-	 6kP7geCXypZhDlclJke881wy3XCTCAxB3i+LmpDZzabQhS9J9sus+3d3mAFEpWVbhPgGy
-	 c/Q9pz8eh/WlpRmbLypZ3fB0FHNzdh6/1z9LZEJf70U4YoFpALJ47m+Ou10Ee7nQpgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999065;
+	h=DMARC-Filter:From:DKIM-Signature:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc;
+	bh=mD6/Zsa6MXsbkU1fOaDxMLRIoAvXnGdC1NZLhMLVQto=;
+	b=Ote9Ygn/vCCtOrAsP/SZwEIaOl/MFsCTG9DdyCODmo/kJBaL8c7w/OLZa4eoIhSCuhI+
+	 +ZYj9JMhD1rHUsxREl3hIRUCwJJazw+N9EtOBvTg+lo/OeOMepvwyF8PhCde3u0TMOg4c
+	 2/+yh1JqMrsLOsPlSXLWK+9U33LZ6L7j4CKG+Wll11t0rj6SJVz4jr1jY18ChoJX/YRUC
+	 KGDTJtlfW0ZpiGQi4VMF5R99LrYC8oU/kB7J/tszM/TGC+8GMxsyByv6MpbbSKzyibMK3
+	 vX+kIxTa5SJYReTcWvsNoV0p/cy89nECjb7/qGz5L3TyArfZmQ4qBmud3Ti/QXkVeQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cyberchaos.dev;
 	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=vAzfAhT2;
+	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=Sjh29a4h;
 	arc=none smtp.remote-ip=195.39.247.168
 Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C431606D815;
-	Fri,  6 Nov 2026 21:04:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C431606D815
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57409606A329;
+	Fri,  6 Nov 2026 21:04:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57409606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=vAzfAhT2
+	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=Sjh29a4h
 From: Yureka Lilian <yureka@cyberchaos.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1793999073;
+	s=mail; t=1793999059;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5triKr4rWQNxHPSUFjuxeCn4xvtnFfYzHmRmVnByAwk=;
-	b=vAzfAhT2ifQjmGW+amZ6BcB6Fz40QRShUJXE5+S9b6z+HcRyks+HCN7kZEsxwF57sri++p
-	wFm568xmArVEGbbPHZ0MGesOhISUJdqr9deTcTCCXldt4ig/zBQzndDwka73IYS01HlmGf
-	miqonh2HztGmhUOeiKdtipCN2Qzg0/8=
-Date: Fri, 06 Nov 2026 22:04:20 +0100
-Subject: [PATCH 11/15] dt-bindings: iommu: apple,sart: Add t8142
- compatibles
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=mD6/Zsa6MXsbkU1fOaDxMLRIoAvXnGdC1NZLhMLVQto=;
+	b=Sjh29a4hgpnIanwe/63+LNd9h5t5LYsMoBS7Ex8FlqfA2VhjelCuJd7xi1CBYLT+1fuTkW
+	UYwkCJCSCByYYtXYnZt03RtfCLVabmgTcRJYgT3TxvtDWA/vIKAUClx+uuk3EZ/YsugLi5
+	0sde1Dg/4wYPJIpyMADe+8HMrGVTo68=
+Subject: [PATCH 00/15] NVMe support for Apple M4, M4 Pro/Max and M5 devices
+Date: Fri, 06 Nov 2026 22:04:09 +0100
+Message-Id: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,9 +57,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-apple-dts-m4-m5-nvme-v1-11-22f4827b4ece@cyberchaos.dev>
-References: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
-In-Reply-To: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTtJS2wRr2JYFBhwjK1NpxISw
+ t0punyL/zcQSkwC92qDRAsLf0KBvlQwPF2YCXkshlrVVmtl0MX4JhyzoL+iNxgWT9jY9tYYa5x
+ uFZQ0Jpp4/W0f3d/y7V805PMF+34Apg0U2ngAAAA=
+X-Change-ID: 20261105-apple-dts-m4-m5-nvme-76987565a190
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
  Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -71,26 +71,69 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  iommu@lists.linux.dev, Yureka Lilian <yureka@cyberchaos.dev>
 
-The SART IOMMU in the Apple M5 SoC is compatible to "apple,t6000-sart".
+Hi!
+
+this series adds the dt-bindings and device tree nodes for NVMe on the
+M4, M4 Pro/Max and M5 SoCs. A previous patch series[1] already included
+M4 (t8132) driver support and ANS dt-bindings and is part of 7.4-rc1,
+but omitted the device tree nodes.
+
+Add the SoC-specific ANS NVMe controller compatibles for M4 Pro/Max and
+M5 SoCs to go with the t8132 base compatible.
+Also add the SoC-specific SART and mailbox compatibles for all three
+SoCs, which have remained functionally unchanged from previous Apple
+Silicon generations.
+Finally, add the device tree nodes required for the internal NVMe on 
+these devices.
+
+As the t8132-nvme-ans2 compatible has already landed in 7.4-rc1, this
+cleanly passes `make dtbs_check` without any additional prerequisites.
+
+Merge strategy:
+There are no changes to the driver in this patch series. Thus, I would
+prefer to merge the dt-bindings through apple-soc, provided the Acked-by
+from the respective maintainers.
+
+Happy hacking,
+
+Link[1]: https://lore.kernel.org/asahi/20260906-apple-nvme-t8132-v2-0-ac0328590823@cyberchaos.dev/
 
 Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 ---
- Documentation/devicetree/bindings/iommu/apple,sart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Yureka Lilian (15):
+      dt-bindings: nvme: apple: Add apple,t8140-nvme-ans2 compatible
+      dt-bindings: nvme: apple: Add apple,t6041-nvme-ans2 compatible
+      dt-bindings: nvme: apple: Add apple,t8142-nvme-ans2 compatible
+      dt-bindings: mailbox: apple,mailbox: Add t8132 compatible
+      dt-bindings: mailbox: apple,mailbox: Add t8140 compatible
+      dt-bindings: mailbox: apple,mailbox: Add t6041 compatible
+      dt-bindings: mailbox: apple,mailbox: Add t8142 compatible
+      dt-bindings: iommu: apple,sart: Add t8132 compatibles
+      dt-bindings: iommu: apple,sart: Add t8140 compatibles
+      dt-bindings: iommu: apple,sart: Add t6041 compatibles
+      dt-bindings: iommu: apple,sart: Add t8142 compatibles
+      arm64: dts: apple: t8132: Add NVMe nodes
+      arm64: dts: apple: t8140: Add NVMe nodes
+      arm64: dts: apple: t604x: Add NVMe nodes
+      arm64: dts: apple: t8142: Add NVMe nodes
 
-diff --git a/Documentation/devicetree/bindings/iommu/apple,sart.yaml b/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-index f79242f112df..e6482453d6da 100644
---- a/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-+++ b/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-@@ -39,6 +39,7 @@ properties:
-               - apple,t8122-sart
-               - apple,t8132-sart
-               - apple,t8140-sart
-+              - apple,t8142-sart
-           - const: apple,t6000-sart
-       - enum:
-           - apple,t6000-sart
+ .../devicetree/bindings/iommu/apple,sart.yaml      |  4 ++
+ .../devicetree/bindings/mailbox/apple,mailbox.yaml |  4 ++
+ .../devicetree/bindings/nvme/apple,nvme-ans.yaml   |  7 ++++
+ arch/arm64/boot/dts/apple/t6041-pmgr.dtsi          |  1 +
+ arch/arm64/boot/dts/apple/t6041.dtsi               | 44 ++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t8132-pmgr.dtsi          |  1 +
+ arch/arm64/boot/dts/apple/t8132.dtsi               | 41 ++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t8140-pmgr.dtsi          |  1 +
+ arch/arm64/boot/dts/apple/t8140.dtsi               | 42 +++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t8142-pmgr.dtsi          |  5 ++-
+ arch/arm64/boot/dts/apple/t8142.dtsi               | 42 +++++++++++++++++++++
+ 11 files changed, 190 insertions(+), 2 deletions(-)
+---
+base-commit: 1492e5e32d3bc21b80fa1ca9835e1876431113b7
+change-id: 20261105-apple-dts-m4-m5-nvme-76987565a190
 
--- 
-2.56.0
+Best regards,
+--  
+Yureka Lilian <yureka@cyberchaos.dev>
 
