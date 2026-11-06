@@ -1,102 +1,152 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793931077;
-	b=psBnE9qVm30EWmrCowsWAFabpohAb6AX3Zv091DcFw2WH0E1CGbWZNamQF6epZ0UG97Y
-	 qrrZShmc+phM/h52erxwehfdXz79qus60mOqKH/g3Kq+Pl1MYC+rqkDSOavg8JUTvFTvm
-	 7JHRvrWy2Kxq7enNTnWvMZclEXolNUhok888mdzp69HCUIRWrMQe0KlyWOfxxVZb8cSyi
-	 bF17xxp2y7xMyMfcXnxPQ3QSLnRaJ4ZIavdC3w/nNiNx9DADzVijGpiTZgA3u1hABa0kq
-	 Tlh2U9Yo0SMU6Mut4M7+PUJOM3hOxp4qP3scTOBSDmTN5Xi73aXgwxNRG2nVy3u4rgg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793931077;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 Content-Transfer-Encoding:In-Reply-To:References:MIME-Version;
-	bh=jf62vaeUsY2yO43cSs/blH2TUhxnaYyy44Chrc7BGd4=;
-	b=HQmAyWsGC9mLMfzmWc4brm2ShVUc2f2dCDMqplw7n8YbgUsLo3RrN7/usN/RB5IGCoKw
-	 /gSUPoXbr7gm43dNVIo1hLOHgTo/lZXEIEt+j77mHCMJC86hYTLlM7RP8u9PoshI2iHVd
-	 +zTmx9zrl2/iBu/UIkVGTgFkmMKO9zq5qNyoqxePDAKUZvL69UBbiYXz8jkxFeg8Va74b
-	 oNgCRvrFsOweWr8KJZFH85qeSoL8VimQTS62vj2hIQXlOSOSBf9mB//HU8W7Em7mWwevo
-	 88iKZAQmTN0nscccyNZF/B0rQZ0eey88z1/pEcuevydDqgb9NLmZQqPe5TdbYbeCs6g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b="bd/1gPIM";
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.62
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793931083;
+	b=L/xPFXIfJm5c+V09CMUBSosaS2/RZ5lJmchYmQD2D4k/vbBGZqh+i4zhHByxYLKHsq15
+	 xpYWJ+yXjDNkRt1Cl3mCd7S+Ty2pnXcQbwU/nutM3s1z4VzKP3lYDMeG94ETOmAZzVOau
+	 3ei1I99suIvT/c1F2M4p+FWmfV9k+yZHbRUg4jiOo5pUQH7oiIAjbaemOi7rwKJLJuQHQ
+	 Vl02faj28Fpag5av1tHjPaFkg6upPznQRSKS4Dvq7c2vlzzWN0148dw8nyD3XxmgswHsD
+	 AirVZpy7N5CjomtdlQ/F70KjfqRVLyGlxXZriJoGbHCI2H9iqt12RVyqARkB9bEVuKw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793931083;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GeVQkxVcB7WZPeejm2TOLX9uTcMHcgubKNTlCWpA+o4=;
+	b=AK9bETLNEwEmBqSNqZfoFXnpR9xd5Y94L1mGs3/YG2BNtunoVIAxRU8FdefHgfW4z2n3
+	 C1ZZpwAqOGH29R/akKRjcRNUrdT/w3qrnAbEJlHzR+nLxhYrOGm+o9hiJhkSEGU9nXTQK
+	 Jlwt6es+D10KWURtPJRuqBX23cRDH+niD6EbGgYE2EXXRiLZpskiIe9dZJlNzoChsfvPE
+	 uvycW6vweJpYFomnOVsrj3luheOw4svTnUS4FqM1sABpuBKu5XGWfzr9alFbg5U2WXhzZ
+	 aY7nJdg0q+SA2k12ovi4y5DB4DhfoEnY+QTmfAwAUu8tNF37+iIGBCAvvkSNgUpc56Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=SjhFGKqm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.62
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012062.outbound.protection.outlook.com [52.101.66.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC9E606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC9E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF34606A334;
+	Fri,  6 Nov 2026 02:11:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABF34606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=bd/1gPIM
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso466769eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 18:11:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1793931076; x=1794535876; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:content-transfer-encoding:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jf62vaeUsY2yO43cSs/blH2TUhxnaYyy44Chrc7BGd4=;
-        b=bd/1gPIMML4DE+FFEFx8J25j7lGYR+PX0sSnFmHkdk/bm6JCWrsXM9/nNxODkEmv7v
-         KYTrQjqwUOlS5hJ32SIXnTgqZRCQUFhel1fwmuxL1iV4oDrFFbxGRi3/GoS4Hr/l8V7u
-         tSLNPHRwD+6ezTizTFhHUmfV7in9PQDZmcVdoW+BOz98YatfDA9PaI8sFjVHMfVCj54+
-         0+IsgPM2bWdNTaY/6Dz/IqRsPD7ndLzUU4r2wG8Skit2rcjfYkmTvAJCxN1oiFQ+vBfC
-         hDxhM3rLfxnZ43TGzhYgEFDOscXW/0apUlg5ejiR/7bf9HwuKqb3YBc3gGzJFfxk6V/R
-         L3Gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793931076; x=1794535876;
-        h=mime-version:references:in-reply-to:content-transfer-encoding:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jf62vaeUsY2yO43cSs/blH2TUhxnaYyy44Chrc7BGd4=;
-        b=hKnTdv2ind8fmx9Go/agTrWesIK5Dk6Ptit2vIudp5gSATAeU0mipmvLh8ZB1Hxw5E
-         vAI9LlELQSC+00s8f/VvEuGlpWvEdTEwG1IndovbKMfXSkURsw8U+Xf4LvsAuaF+gsmt
-         oeSr7wqgFI4SGvsTg5/vDyMk831j9i/lN8d2xkWGEhwIAE+puZBNW19JEYUN+WW4rmFv
-         xsW8SOesoxImNV1GgJ+eus+78yvsOxRUGwL69uVIKIWB0HQPxtbLKI0hMK5fqToXurnK
-         WmMMEpLBsd+N5nSWZ+5u1Ky530PygjldKsgBVTMXURIvQ0tViT+YCiJovkuXEtCs7I1W
-         qX3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwBiRbh8y7LGXUT8oM+hZtNLYLz6a2lJeKZvwiGR0OwW0UDpa2I4VacG0N97+5u6zdDP4iLhayXGzgxIII=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9y6+CeQaWLJ7qVfke2BUJm/4D/h6Mj2uepkdLl92XoPKtE0Yf8
-	TBY77QdWaNKybWKG/pXbBySEep0uKsRMYQfAoC8njPFQaHeJo3AqVqwnDTMqqAQ5Ivw=
-X-Gm-Gg: AYBFou2K7GdfQCPH+YXxA56l8yg+4Aw5u1k2KPxwsnvRC3ba/HGY2PVAVLVnTfQXqLS
-	lH2O8twR/jmEa5p7bev2F03vvsm2po6jTsDaEXxUOd2N79TND0keo1BzAJuh7EEquV0fsSd1Zpu
-	29R3+DCRQSzFy5nUubebg/FAE3qkgJfbj8JcN1KLbkHBaByNwZ5BApOqCrBl6W7b4tZ6ApvTVdp
-	3lrwKMjICLFDRzZ80wthtblKOi4HFBIqkrx/TNjQxsK1zRs1iSd++BA6MbZoN/nCKlOIBHSx8Bh
-	Udu8akoT0tjeo2jpObi2X10FH8TKq09iDCNE5CNr/ZNDXZQfaNspatvWMpr2m9LM9mFWFE1GBIF
-	N15vW7+71/spHPgIdgduKSbB+ccGaINk9tgXSHITpoIO7KUut0P3urFL9+TQVnvNIHd3rPZOJFc
-	WqX5aVfIvISvhBhAw5SEaB/XZNWdaIun0BDO7ciW1i0UyeN7Qt7O3fW1qyBmU/3Ei29QTKEP41F
-	YKeupW1RhAM5czGG7vohLhASQzniL699tExovmRMKZFys8MHN6CSLY/T8UY9sUXg8t4t5yjnKuF
-	dXN7wNQxQrvRxbFrBjyiY48+9PIgeQ==
-X-Received: by 2002:a05:7301:18ac:b0:36e:c04b:53ca with SMTP id 5a478bee46e88-36f76c11206mr1366102eec.28.1793931075409;
-        Thu, 05 Nov 2026 18:11:15 -0800 (PST)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faaa8f1e9sm1136097eec.28.2026.11.05.18.11.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 18:11:14 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 18:11:14 -0800
-Message-Id: <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai>
-Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
- <frowand.list@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Shawn
- Guo" <shawnguo@kernel.org>, "Grant Likely" <grant.likely@secretlab.ca>,
- "Grant Likely" <grant.likely@linaro.org>, "Pantelis Antoniou"
- <pantelis.antoniou@konsulko.com>, "David Daney" <david.daney@cavium.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Rob Herring" <robh@kernel.org>
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105124030.GA1449284-robh@kernel.org>
-References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
- <20261105124030.GA1449284-robh@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=SjhFGKqm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Tr0Uz/EqOJwc41YA8KaAeHT1DtIbLLRO8fjlVXEzRL5/S5RActzf7SDYF/tBP0uARYY2ZD7dEJRG0ktlDMDCM4hsOrmmJLVl18NnHplxQ1o424irBmyKdjv+uV50NziOnk/uaHmS5Ki0Z1ynrCvCbjRdHgBVoVMEEWAbsvtgMjIPh7NVPndWp7+pAPcPfjQYNBbDdhYeT8PvkInQOcpcL5Bqz5mg5P8xB2KShNsbVAZMqrCulgHgM4XWcwef1KMxD+J/q4Ja7gKB0NG2SNgQLROf0Eq+hNpBxclazlPEIcQGE5MCBWqb93xDIU9m9Or1pCCwNwJ1Pk4osGhBzdgIQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GeVQkxVcB7WZPeejm2TOLX9uTcMHcgubKNTlCWpA+o4=;
+ b=eVugQGc2P44P/a4nIue/xTlzD9SAuCHdQKQXTQ0wRW76FUwxS8Q5YTKmw+z2Tc1onUISTaYzwABaMPmr5252b5wX0OkHK25+y/kb5RNrszfj7ms1bc0jaP9bWQ7Sx91CsQlm7Tj4TD8bErM1HT2sME2kCFEvKYePRN9XObHHDz+fsksU7JLKgqakZg0hm0ABNdXpOz2xQtSwDFLXsGIOMK9DFwV3mg3jqTDT87heLJnIwdQ+abNhqrBdK5lqJSiRK7t94EkvK4+M6LmUy8pPpEVqrgf2fj58FtZ+LnjRZ1bPAcBfp1q2Ku1k2oSOUmr+mzDTYepOoHg+1PFSGlrf0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GeVQkxVcB7WZPeejm2TOLX9uTcMHcgubKNTlCWpA+o4=;
+ b=SjhFGKqmIqD5MO+AfRWL4mtzvHP43LZ6/t98w5/lGkO3Fkz6+WY+Vd/fbS6lYG40yRfVY3KxUd07MAAVy2oV5WF12INYbxt266V3x9I29FjlrobHerxdJmx64qBC4MHJR+wJYOysGCEb/CEebEf8RMSUiWeBQxF/SmIZA8idoL7dk+swLnhR52sMD2q9yHiYqB0GsecB+12nFvW2CQc76zxhyejQ5p9Zw54yu/tKvircljbaok1DdBJ1v3/WSKHclAorWBpr7u5sJnoQxJ9lC0p30objiOKLCLEkuELfSkHLoOaYDs7s0u+fKBCPVYz036JidWsRr4F7SZ7wt6smXA==
+Received: from AS8PR04MB8820.eurprd04.prod.outlook.com (2603:10a6:20b:42f::13)
+ by AM9PR04MB8212.eurprd04.prod.outlook.com (2603:10a6:20b:3b7::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
+ 02:11:19 +0000
+Received: from AS8PR04MB8820.eurprd04.prod.outlook.com
+ ([fe80::35d2:bfbc:a06e:fcb]) by AS8PR04MB8820.eurprd04.prod.outlook.com
+ ([fe80::35d2:bfbc:a06e:fcb%4]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 02:11:19 +0000
+From: Bough Chen <haibo.chen@nxp.com>
+To: Joshua Crofts <crofts@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, =?iso-8859-1?Q?Nuno_S=E1?=
+	<nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Eugen Hristev
+	<ehristev@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre
+ Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea
+	<claudiu.beznea@tuxon.dev>, Frank Li <frank.li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+CC: "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>
+Subject: RE: [PATCH 06/10] iio: adc: imx93_adc: remove redundant
+ pm_runtime_dont_use_autosuspend() call
+Thread-Topic: [PATCH 06/10] iio: adc: imx93_adc: remove redundant
+ pm_runtime_dont_use_autosuspend() call
+Thread-Index: AQHdbR+euUEnjqmEIEGg9GX0ijAEsLcgTbMw
+Date: Fri, 6 Nov 2026 02:11:19 +0000
+Message-ID:
+ <AS8PR04MB8820E824F11971A6CCA2E4BB90762@AS8PR04MB8820.eurprd04.prod.outlook.com>
+References: <20261105121635.1612-1-crofts@kernel.org>
+ <20261105121635.1612-7-crofts@kernel.org>
+In-Reply-To: <20261105121635.1612-7-crofts@kernel.org>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS8PR04MB8820:EE_|AM9PR04MB8212:EE_
+x-ms-office365-filtering-correlation-id: 383dc14e-fab8-4a2a-6c32-08df3bab3f24
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|376014|7416014|10067099003|22082099003|18002099003|921020|38070700021|261009221227099003|4143699003|261026140227099003|11063799006|261022105027099003|261021135927099003|261028144727099003|261022075727099003|261021123027099003|56012099006|261009223027099003|261026121527099003;
+x-microsoft-antispam-message-info:
+ OCr87zNI90CyviaQDSMn5lMHmgcV90TFnyf14uWu8zPvqlmN+osDGjKKEuzgNw5TGkaKPG7T9D+aJQzasbPOvbc1DJ69Dc7kQfOBV0GCX7KWaxDfGp0Vf1aci+nzpSPGexlYdy31dHKBHgpUtwBA/0cA6RoRcammthNU1AeL4LpdsHlqKmo08MoM9EDORMgXqQnkGN0rpK35u/2s4EqdZe9MitMbMDqAFb4whmdOfBPagWVDB/D6L5hZBAiLB87So+h25ba/tD+EYG9iJGKMq9XvDQbyJNSHJX8Q/9iFMoNe8ei4lVmhsZZE+XHyfroeKohzgqvOZXi4eTDsotF1fm6QMLJ2+FGqXdxePFLMkfXSW2uzZ1jupyVLt+ifUSAFqZJ9faq9wzAg8OK7SUVOIz+phy4tjR0prxkPp2bx0WEJUBvvxkMV0Lbt2+JszHA7SyS0Xvg+FZnWUgZfxqoIOKnZjh1mSToQoaianFTXs0mQijJ/4NLfT1cr8L4wlWuWHgF8JvZZLTTFT+bo8nlj9h27uNLsx7szhQImaTNgOQkkeT8csEVLtrFgdOTMpRV9SO+KAEpIqI/Rmf6D/kUBj4iXKiycJcIsDEPkSZ472bSToVQasD6WWXYEd6XEen2oBexar0kNTzZEu7M3RjgbQ9XpfHzuRl7qgnLY8rCDmHDuIDP6CAQYOwPzaiO2nXc+YJPS7AxglEjqpn2igWcXSHvZhmVlMbGBE8hllY6ql9E=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8820.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(376014)(7416014)(10067099003)(22082099003)(18002099003)(921020)(38070700021)(261009221227099003)(4143699003)(261026140227099003)(11063799006)(261022105027099003)(261021135927099003)(261028144727099003)(261022075727099003)(261021123027099003)(56012099006)(261009223027099003)(261026121527099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?Xloxb5Py5D+1hvyyXKPUIiJGB+Ex0GIKWui6YBgHg53GUz0BYZlZlj+3y7?=
+ =?iso-8859-1?Q?b+NyInFm0UbXtuiLirGVlsBnBcxyszL6AvqS/Of+QsnfDaJV57dcD0U3lt?=
+ =?iso-8859-1?Q?0f6Phm2z2HFbeSQ7l8OBWP7dOTf7UZLYK2KgisnjCHEKcGbi64gRrVB3dx?=
+ =?iso-8859-1?Q?ofaf/Zz4Ao5CRF3+1pSZIjLJr9O2W/pZGlMsrbMCa/vzuTGoEEnLHarhhO?=
+ =?iso-8859-1?Q?jUJ9NDswgW/YYtRoYG4XDVZEcrKhPBqeAmvARJTe+m/kC7WRBhkrtTbmQj?=
+ =?iso-8859-1?Q?ZC5136aV3zgDhjd6LeWhvqbwA1DTJ6CeMxGwc54cxawzTeWbbyCE7qQrlU?=
+ =?iso-8859-1?Q?3eVslvkWayBnNunkS9nHgKq4i4KjbjXPJgBoB63mUuXKksKRQLjukDGtX0?=
+ =?iso-8859-1?Q?u50UEx2l3VszZLjux8d6aX51qSOjjzsXQpkkrvMExC1aZGix0q4nVtg6sY?=
+ =?iso-8859-1?Q?3B8dIrx4yb11MbaG6FwJqW7IToC0eC/N+JTX0V2X4+0Dhl9n+G0dabcMWk?=
+ =?iso-8859-1?Q?0RJs/dyqiG2Lqf/XM9mm49MYImqSd+WL0bln8sq+Zhl8vnJOY2GNeXAboq?=
+ =?iso-8859-1?Q?7S0YH+jIYZ9GJxnDq3xjOsCdk0JJBT6PstqECn+CmcLzi9UveHjGYLW7XV?=
+ =?iso-8859-1?Q?HRK3oIr8E/ucTap/IM2ODWrHYUrgZUWvug7a4WV+weEUoScLNiakhdaccX?=
+ =?iso-8859-1?Q?j2TURjttFtdP2O3B6jXr9c/p/8GIzvlf1nwyAcf+N+V6azCGfPlFcMKYEW?=
+ =?iso-8859-1?Q?GB9wqK+4/202+ghnOFfW0qmaXxoUBPlgpH3PXPXxYJ3RKf2Ho7TESpRKAR?=
+ =?iso-8859-1?Q?yU4Z5WzVmii7M9kUpn9m1eTEA/+SlNA1pfnhFeEGIU7JYLN+IDB4oQukzJ?=
+ =?iso-8859-1?Q?/VFvwshDgptOe6VJEnTzYLPnlmyCH7+2Ov/+UN8g1VoqXTCeECJYcMgi/T?=
+ =?iso-8859-1?Q?sEGnYXaqutwC7vW8N5rzQK8w6ygzy5ZxFK3OoO9tUbf5fcJmrK9XpRXIaD?=
+ =?iso-8859-1?Q?TxvjavLBAhdXdeMWR4OTVnAD+s5dJthMRkGCQm62KSmEYMdWeAo6jCeE2A?=
+ =?iso-8859-1?Q?zXzBXTSzVmSoN30G1Dw6BI4lFZq3aECZA7pw/QU1GSDFcVtxBqdMmZjF1Z?=
+ =?iso-8859-1?Q?U4mAlwbVuIqQgDeHbYHaBGdzsoo+rIK/Kw8bJvDgiwuTqsNmYquP/m8QXD?=
+ =?iso-8859-1?Q?ut0zUxc/kn4BHzQmj/Bgkhw6Qzu6xHblG+geFzE6o3SNmxUoUXAVmK4scn?=
+ =?iso-8859-1?Q?MucFKIM/0h3vEpNDzUWMrDjX2Zp7CrtESDH7KJ//FvVbcYTQ/WtiDcFHwK?=
+ =?iso-8859-1?Q?Lj6qlVQQcEmTOunK7ai5dGtoDUkAr6cTAw6pJLYycjP3hi5/cnfQEBV6LR?=
+ =?iso-8859-1?Q?UV1BTrlY8r7mfB+FhWd441i2EScd9Y2Ecu+U61GRG85OmJLMIrpw8Dj90m?=
+ =?iso-8859-1?Q?VEapJ6dCznNVsyqUTb4x6DF0Z7HsIWd5+iPK0ECIKl1Xcv6IdJz8VOXxvz?=
+ =?iso-8859-1?Q?SUNge5I0JzkKXnDLNZoa5HOtMakvVKeAfu1bbTfC1UatjbDq7pRYGcprN7?=
+ =?iso-8859-1?Q?yltSV3bF82F7s3RMyqYtHMWs5ft7Uxmf/ti7DTc/Fr0qspn0y9XmRyaeTJ?=
+ =?iso-8859-1?Q?agqcqxS7nf5MsKVF0+G1VpY02SGAJ1Z3ov0+lGicjP2rvcA+XYJDF0vmEk?=
+ =?iso-8859-1?Q?qZRJu/azQQtTHt5PECLzQ6fX6/JbNdR1AiAIMo8WSnNb61q3YlR5bQXe1z?=
+ =?iso-8859-1?Q?ZdmxO0rgaVHVs4sgNIWSIfkpuc5NPCi8MIovE/03LQDkFs?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,62 +156,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8820.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 383dc14e-fab8-4a2a-6c32-08df3bab3f24
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 02:11:19.3952
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /20bilYVUBzH+7DeTLpNeCTccGv1/59Ne5RJDu15TGcljLq6nqsjCZ4KsGleB0k7M6s/UqIlyOqkXnwz6e9jqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8212
 
-On Thu, Nov 05, 2026 at 06:40:30AM -0600, Rob Herring wrote:
-> I'd rather have my added device working than refusing to probe because
-> some arbitrary device index couldn't be used. There may be some user
-> that has a working system today and then this change would break them.
-> We can't really have that. I view aliases as a request, not a
-> requirement. It's perfectly valid for an OS to just ignore them
-> completely.
->
-> I have no issue if we make the failure to use an alias louder, but I
-> guess that's not your main issue.
+> -----Original Message-----
+> From: Joshua Crofts <crofts@kernel.org>
+> Sent: Thursday, November 5, 2026 8:17 PM
+> To: Jonathan Cameron <jic23@kernel.org>; David Lechner
+> <dlechner@baylibre.com>; Nuno S=E1 <nuno.sa@analog.com>; Andy Shevchenko
+> <andy@kernel.org>; Eugen Hristev <ehristev@kernel.org>; Nicolas Ferre
+> <nicolas.ferre@microchip.com>; Alexandre Belloni
+> <alexandre.belloni@bootlin.com>; Claudiu Beznea <claudiu.beznea@tuxon.dev=
+>;
+> Bough Chen <haibo.chen@nxp.com>; Frank Li <frank.li@nxp.com>; Sascha Haue=
+r
+> <s.hauer@pengutronix.de>; Pengutronix Kernel Team <kernel@pengutronix.de>=
+;
+> Fabio Estevam <festevam@gmail.com>
+> Cc: linux-iio@vger.kernel.org; linux-kernel@vger.kernel.org; linux-arm-
+> kernel@lists.infradead.org; imx@lists.linux.dev
+> Subject: [PATCH 06/10] iio: adc: imx93_adc: remove redundant
+> pm_runtime_dont_use_autosuspend() call
+>=20
+> Since commit d1706f9da9f4 ("PM: runtime: call
+> pm_runtime_dont_use_autosuspend() on reinit()"), driver core is now respo=
+nsible
+> for undoing any
+> pm_runtime_use_autosuspend() calls on driver exit.
+>=20
+> Remove the redundant function call.
 
-OK. I'll drop that from overlay-notes.rst.
+Reviewed-by: Haibo Chen <haibo.chen@nxp.com>
 
-Watchdog and rtc already treat an alias as a request: they try the
-aliased id and take a dynamic one if it is in use. The subsystems that
-fail are the ones that keep their dynamic range clear of boot-time aliases,
-which they cannot do for an overlay applied later: i2c, i3c, spi and
-mmc. On x86/ACPI and other systems booting without a base DT there are
-no boot-time aliases at all, so that range is empty and dynamic
-numbering starts at 0, right where overlay aliases would land.
+Thanks
+Haibo Chen
+>=20
+> Signed-off-by: Joshua Crofts <crofts@kernel.org>
+> ---
+>  drivers/iio/adc/imx93_adc.c | 1 -
+>  1 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/iio/adc/imx93_adc.c b/drivers/iio/adc/imx93_adc.c in=
+dex
+> 797adaf371ba..1ced0c59609c 100644
+> --- a/drivers/iio/adc/imx93_adc.c
+> +++ b/drivers/iio/adc/imx93_adc.c
+> @@ -415,7 +415,6 @@ static void imx93_adc_remove(struct platform_device
+> *pdev)
+>  	pm_runtime_get_sync(dev);
+>=20
+>  	pm_runtime_disable(dev);
+> -	pm_runtime_dont_use_autosuspend(dev);
+>  	pm_runtime_put_noidle(dev);
+>=20
+>  	iio_device_unregister(indio_dev);
+> --
+> 2.47.3
 
-Would you like v9 to give those four the same fallback, with a warning,
-so the behaviour is consistent across subsystems? For i2c, the alias
-lookup would move into i2c_allocate_adapter_id(), so i2c_add_adapter()
-just sets nr = -1:
-
-	if (adap->nr == -1)
-		alias = of_alias_get_id(adap->dev.of_node, "i2c");
-	...
-	mutex_lock(&core_lock);
-	if (alias >= 0) {
-		id = idr_alloc(&i2c_adapter_idr, NULL, alias, alias + 1,
-			       GFP_KERNEL);
-		if (id != -ENOSPC)
-			goto unlock;
-		pr_warn("adapter '%s': alias i2c%d already in use, using a dynamic bus number\n",
-			adap->name, alias);
-	}
-	id = idr_alloc(&i2c_adapter_idr, NULL, start, end, GFP_KERNEL);
-unlock:
-	mutex_unlock(&core_lock);
-
-i3c, spi and mmc would get the same few lines in their id allocation.
-mtd and serial don't keep a range clear for aliases, so boot-time
-aliases can already collide there today; I'd leave them for a
-follow-up.
-
-That would extend the series beyond drivers/of into four subsystems,
-with acks needed from their maintainers, so I wanted to check you're
-OK with that scope before going ahead.
-
-Your two earlier suggestions, keeping alias and dynamic ranges apart
-or only honoring overlay aliases whose names are absent from the base
-DT, run into the same empty range: the first would reject every
-overlay alias, the second would accept every one.
-
-Thanks,
-Abdurrahman
