@@ -1,68 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949814;
-	b=WC2SghllebnSJRyQ2mJ/Ibpz+JxAZy7iz9ZqCqZAJTVoaFkPAM4xiUR5LjwW+bGxl4mz
-	 FBjUzBddnLWk04l7vv/39C1A8dtfEQSfVkihJcsIOQAwr9lZkbuiThFZlHiwMuSq+EBSm
-	 QITryqzdvsPgvitArd3teIMC60QpCWE168ZvGnfKs/m+PegP5sCL83RuT2crWvjT0ECrO
-	 4BTf8Z+Z8NQ0vc5Qnm0jNE/h5s5Uw42HvSkg0I3IQvpOrrQZVW2r4OrqSbZvXry0XUGrW
-	 Rmp3WbdN6UTReLVxk8GvxyAbj9JaHCX62wpk8mklOSya4wy47+RKT2l5LmJ/H2PzlKw==
+	t=1793949840;
+	b=UTjmt2+/oSnHgRItyLRC6ljWs+D2ec2bVi9/S4PwCOVsftArNJQ7G0nf081DbvUKD4RG
+	 s0p+P2sS+pKF/IqnuLFYGomroJ48powiEXTFAYp/Z0nxVI2eU0zJXYRugdazL3VYl/WEs
+	 VU92BTXaCvC3gFTrNYarJDcgOhuFMrHOjDRBiQWhmgTPXlnZxnfztwaA0ZbmCfvAOBdPz
+	 hH9N2NJdVa4+Sthifx/UcvkpYJH9Of1raW4pSCsh10uDYjUtoWHkhHSQ03T6KNoe2Esw2
+	 JOK3TYvppSC2gbK0nZciiCKrUFowGXcOHnVfoIJBm4jWPNig4chNEqULEMfaKUZ4Vqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949814;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=x8Yz07kSluvwAHy3cIT05lp9fxH/Ngxpo6xMev2wtuo=;
-	b=YNd1mxZrJ9Kveysml+JOODm95rxjRc1EQnmzqdLOZ7HU2qCXzBoHQatGqQTz67NsWXQz
-	 /UxZtM6/2SVlnj39oc43OXec2E7Cd7BIlE6AvFFDXEd/G4bRx0NrtTaRYOhCQN6BfFFUh
-	 tbxVcO8VWgyNkJNNxUgwO2cFXADqrXbNWOtgVSNEkGpzIR6nWeJ47nOvGYixfYcstSifs
-	 2AyjapYl1efNgiVIws7ykoNGW/tI7aV50SB1+vPdX0AZ1bYdDamCSZWRMu8aqeLV5cFMQ
-	 VoxFpvDIpZMebXZgDf+B2gAB0gpNTg2UOL4q6JhXxLwdje6o8u8QAl9a6xuLk3XzjfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949840;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=t8XtYL0CMtSz8VjOCnnSQ70xiU2Xw1jxqraDN3jPXMg=;
+	b=Sg9kt/mldPsRkT9caTXCiNK6UjZzZjJ2GvR7e5jpoTA4PbueTO02E83rvJBPu327uTYP
+	 FsYm8y1CW8RdO09jgB8XCLOLgbJ6oBiiFpmHdQ0f7bmFecLub+703pYAIryBOOVS8Acv0
+	 DXyXfLaclBk4O0gkUSTnzSiAd3ramhh59iEjX4iPPRKyVqalmh3sVbhlsUrnNOuonSRXs
+	 Uyr6Pa1LDJCnHyyMANJzpiDtQxITJWhIGwpAw/6s5M+UEbL4PxT8omMlwy+FIr5rUwowp
+	 TSjp1LIjpbs4We2RAB7FYtwnouDe292B2V8Cj3cPAtSTs2CxX7goN+0pKEdqC9Mhf4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aIMkWAsp;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kGBbZnod;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87EF606A32D;
-	Fri,  6 Nov 2026 07:23:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D87EF606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A402606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:23:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A402606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aIMkWAsp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793949814; x=1825485814;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=zp4vqpYBIpUjKiyvnTG4hu8LVUrMb+IWLGdUWghYpag=;
-  b=aIMkWAspkK00D3nUKWFmJVE+P78X7wZIM9Dw4ruIeZLaQhIo+slqqJi8
-   DKOE32ps/DSowIOJNrvEM+l78fclOa3OAjw12S+Sbu20RXyrzDu0It9qg
-   itBhYTBWwXlWcmGTrWAOAbhFRp44p7WWzpj/SzLpPPjoNU6myNz1kcN5h
-   2hlJKnCq19DZYctx3mHJZoA2d/BZG+sioBSWN6/ioUrFh1OpCDwRKhJZC
-   JPYIEXB2LbarUd0SK3GvGvrbz5pBccegvspR1p208+jhPaQVL8X8R6ywO
-   cWj3DvwCbtacsrtMCMvNR0IflmwgPje/BIQNQxlWRb5EIG+1c+2tmmUqM
-   w==;
-X-CSE-ConnectionGUID: DXvHfQSoRb6MVzuFXhTDhg==
-X-CSE-MsgGUID: uzVmpJPiRpaIq+cyYtarkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2773397"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2773397"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 23:23:33 -0800
-X-CSE-ConnectionGUID: ToaV5sdvTMiZ8HqIyzy3kg==
-X-CSE-MsgGUID: r0NX1qRWTQSTHMNYkFB/rQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7548899"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 23:23:28 -0800
-Message-ID: <90d0b16a-af97-477d-bca6-eb4c7886b492@linux.intel.com>
-Date: Fri, 6 Nov 2026 15:23:26 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kGBbZnod
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b001cd92bso144763f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:23:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793949838; x=1794554638; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t8XtYL0CMtSz8VjOCnnSQ70xiU2Xw1jxqraDN3jPXMg=;
+        b=kGBbZnod8XQnKie+neGU0oSsdMf640fuVY3LMH62Kdx/RsV0wqM9m/4fWuO+TFelZt
+         CEyOZWB+UMLEwvAqwtOjrQDeorsnSWzt2ybuhLKtpwoARVxcFelFWLt9jUyS8/ZFkPOJ
+         6G4wPFiK15XIeZyiK0Zam7UUEq6m0NncvzKqwJ90FOSXhk/n8jrX9TqzkO1tVJfBpiLG
+         YITZu7Ba3fp8nLzg5pxAe42NXVImf2N2UQT6EoE6hBb55s1SrYnfPi/s3tBH+ckVDhR6
+         QvDW3w4GpVV0cOgxFQEDRmkFAVswgfkxBvD2Gh1e8jqJl8acqtFFslJ6uzxpgKE4reVO
+         Z40A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793949838; x=1794554638;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t8XtYL0CMtSz8VjOCnnSQ70xiU2Xw1jxqraDN3jPXMg=;
+        b=vFrEVo24QLBIJ7Y4mcJEbBXhItAg05T0RgUkcOGu+X9ChVuXe+wtgQxbVv99+GcdVO
+         jXDrtCj8xkuY07CWzZLRVSF3WUYcyFLb6DXL/kD1rZzXBQ9hEkfneZA73vxKZVHVK9oV
+         FmW0U+8EQT1YwTrAcmq1XeiXA4rZB0g6Y5CEQN6xIKgO4zusHx4QWuinug4jFuh3Mwgw
+         La4kwFsgBuyXIUck/2Q9parCF4aP4vfg+TWdm7gnmTC9XVqC2oSu+7AoDq0Fic9lJtLM
+         owPimI38RThcx5dmUBrq3hjKADT9ChY6TFOLjteYFfBSznukvx9hvzwrd+PRhPG+5gqN
+         FlRQ==
+X-Forwarded-Encrypted: i=1; AL+hErFUmMEg2xmr7bxLw3doaUtuQT+Rh6wJscufkRZfgMauFrmesOcpp6AYPmItCqSzjIeyGbbztlQV0s0i1jE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9d25m2YtGdebHCKujEfQqXexTujnktWIYrmMGgsulx0HlxgP5r
+	9NxYNTnUd/ED1FTVtJ1zmqPzLIEn2pGI3qyOF4nn3JE64azByz2HQLdj
+X-Gm-Gg: AYBFou050OOFUEc7MczqrHyWKZ862HeTDrwW3Cei1yJBszW8LIugrcNAjEbk6509jTU
+	0+tKGX6JmrFl4Kpa6crTN9CMDquBmWj4kXfGjp533sPGVIrq+T/H8wFGbKglM8mBvuxmREk8FWc
+	UMR0OHbfDdCNte+vUFqoIaKHO0jQix/XB38tdTBoRxtKPiJaRBHq/IgnWpGcB46XwyfLK0onDLm
+	xiTBvKYe9o4tSgSs+GGxbOQEHDIOcj/D5SJTF4QPpineKuqHvg4sn8mseZP+bosJWv6b47sjgqL
+	JdYI8sW4DoF2+tbj5hfXjYBkunjdQDu9oA2utWdC/Kf8JtP0NY9hcmoCA5+Yb1dOt6dXkJEbfmY
+	GBRWEpBhIPBlXwFBcqTmvys+/Z9z7nHNLRKqx+ardCt6pNlt0WTohY80TDtoyz1/sSCpfj1qK6G
+	b+jCTE6g+f/nzHAQLSfdC5Ogpy1d6i8naOhUa/S0DikYhirwMBWi6O/xe78PS+5uw24QTKib+tE
+	wPk1j29/m1byR+4wDfbYo2Sn561IT9xnMxlWouJWkf25HKDl/HnxVgg08n80tRiWeUermeth0IH
+	XMqqSXmlPTq5lFYkAd1bvdd6xOp4DgRf8etr
+X-Received: by 2002:a5d:5d82:0:b0:48d:facb:5937 with SMTP id ffacd0b85a97d-49273e5b191mr3119041f8f.7.1793949838028;
+        Thu, 05 Nov 2026 23:23:58 -0800 (PST)
+Received: from LAPTOP-AVI.lan ([2a06:c701:475e:f800:a7fc:23a0:3fe2:eb8b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d3d609c8sm2201123f8f.6.2026.11.05.23.23.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 23:23:57 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: rppt@kernel.org
+Cc: akpm@linux-foundation.org,
+	rientjes@google.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm/mm_init: avoid overflow in percentage-based core sizing
+Date: Fri,  6 Nov 2026 09:23:55 +0200
+Message-ID: <20261106072354.2234189-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,162 +96,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v6 00/20] perf/x86: Fix multiple LBR sampling issues
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
- Sandipan Das <sandipan.das@amd.com>, Andrii Nakryiko <andrii@kernel.org>,
- Song Liu <song@kernel.org>, Ravi Bangoria <ravi.bangoria@amd.com>,
- Ananth Narayan <ananth.narayan@amd.com>
-Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
- Zide Chen <zide.chen@intel.com>, Falcon Thomas <thomas.falcon@intel.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20261106043257.842864-1-dapeng1.mi@linux.intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20261106043257.842864-1-dapeng1.mi@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Sashiko reported an issue on the patch 15/20 "perf/x86/intel: Refresh LBR
-stack for non-PEBS LBR events when needed",
-https://lore.kernel.org/all/sashiko-outbox-200872@kernel.org/.
+The kernelcore= and movablecore= percentage calculations multiply the
+total number of pages before dividing. On 32-bit kernels, the
+intermediate unsigned long product can overflow, producing incorrect
+memory zone boundaries. With 2 GiB of RAM and kernelcore=100%, a
+32-bit HIGHMEM kernel incorrectly creates ZONE_MOVABLE.
 
-It looks a new version is needed to fix the issue. Thanks.
+Use mult_frac() to calculate both percentages without overflowing
+the intermediate product.
 
-On 11/6/2026 12:32 PM, Dapeng Mi wrote:
-> This patch series fixes several x86 LBR sampling issues discovered during
-> review and debugging. Most of them are related to BPF LBR snapshotting
-> support.
->
-> The series originally targeted the BPF stack out-of-bounds access issue,
-> but additional problems were found during debugging and code review,
-> including:
-> - PMU and LBR being re-enabled unconditionally at BPF snapshotting exit,
->   even when they had already been disabled before BPF snapshotting on both
->   AMD and Intel.
-> - LBR not being fully frozen in the PMI handler on Intel, which allows
->   branches in the PMI path to pollute the BPF LBR snapshot.
-> - BPF snapshotting overwriting the cached LBR stack of PEBS LBR events on
->   Intel.
-> - PEBS LBR events overwriting the LBR stack of non-PEBS LBR events on
->   Intel when both overflow in the same PMI.
-> - LBR counter events reporting zero counters on Intel when multiple
->   LBR counter events overflow in the same PMI.
->
->
-> Patch layout:
-> - Patch 01: Add a sanity check to ensure the LBR stack does not exceed
->   MAX_LBR_ENTRIES.
-> - Patch 02: Validate that hardware LBR data has actually been stored in
->   the XSAVE area before parsing it.
-> - Patch 03-04: Fix the potential LBR stack out-of-bounds access issue on
->   AMD and Intel separately.
-> - Patch 05-08: Fix the incorrect PMU and LBR re-enabling issue
->   in perf_snapshot_branch_stack() for AMD and Intel separately.
-> - Patch 09: Freeze LBR throughout the PMI processing period and ensure
->   all LBR events observe a consistent LBR stack in the PMI handler.
-> - Patch 10: Add counted bounds tracking for perf_branch_stack{}.
-> - Patch 11-12: Add a dedicated LBR stack for BPF LBR snapshotting to avoid
->   overwriting the default LBR stack of other LBR events.
-> - Patch 13: Ensure perf_snapshot_branch_stack() snapshots the live
->   hardware LBR data instead of the cached PEBS LBR stack.
-> - Patch 14: Refresh LBR stack in PMI only when LBR users are active for
->   AMD.
-> - Patch 15: Prevent PEBS LBR data from overwriting non-PEBS LBR data when
->   both overflow in the same PMI.
-> - Patch 16: Remove dead lbr_pebs_users and relative code.
-> - Patch 17-18: Ensure LBR counters are not dropped when multiple LBR
->   counter events overflow in the same PMI.
-> - Patch 19: Clamp the parsed PEBS LBR stack depth to x86_pmu.lbr_nr to
->   avoid LBR stack out-of-bounds access.
-> - Patch 20: Fix the shared LBR stack depth truncation issue.
->
->
-> Changes in v6:
-> - Patch 01: Move LBR stack depth validation into common
->   init_hw_perf_events(). (Peter)
-> - Patch 10: New patch, add __counted_by() tracking for flexible array
->   entries[] of perf_branch_stack{}. (Peter)
-> - Patch 14: Refresh LBR stack only when LBR users are active for AMD.
->   (Peter)
-> - Patch 15: Refactor code to ensure no duplicated LBR stack reading.
->   (Peter)
-> - Patch 16: New patch, remove dead lbr_pebs_users.
->
-> Changes in v5:
-> - Patch 02: Clear xsave->header.xfeatures before calling the xsaves
->   instructuion to read LBR states.
-> - Patch 05-18: New patches to fix newly discovered issues described above.
->
-> Changes in v4:
-> - Patch 01: Disable LBR if parsed x86_pmu.lbr_nr exceeds
->   MAX_LBR_ENTRIES (Sashiko).
-> - Patch 05: New patch, which always snapshots live hardware LBR stack
->   for BPF path (Sashiko).
->
-> Changes in v3:
-> - Patch 01: A new patch to ensure x86_pmu.lbr_nr not to exclude
->   MAX_LBR_ENTRIES (Internal Sashiko).
-> - Patch 03: Clean cached LBR stack when reseting hardware LBR registers,
->   which prevents stale LBR stack leakage.
-> - Patch 04: Don't reset cached LBR stack if all LBR events are PEBS
->   events. This ensures PEBS captured LBR stack isn't cleared (Sashiko).
->
-> Changes in v2:
-> - Include a fix for Intel LBR.
-> - Add Tested-by from Dapeng to the Intel fix.
->   https://lore.kernel.org/all/eb6c7bda-0dcf-4fac-ad69-9f5b24abc21b@linux.intel.com/
->
-> History:
-> v5: https://lore.kernel.org/all/20261029043914.1395147-1-dapeng1.mi@linux.intel.com/
-> v4: https://lore.kernel.org/all/20261021050711.4043703-1-dapeng1.mi@linux.intel.com/
-> v3: https://lore.kernel.org/all/20261019070836.2972403-1-dapeng1.mi@linux.intel.com/
-> v2: https://lore.kernel.org/all/cover.1792064123.git.sandipan.das@amd.com/
-> v1: https://lore.kernel.org/all/20261007181002.4005262-1-sandipan.das@amd.com/
->
-> Dapeng Mi (19):
->   perf/x86: Disable LBR if x86_pmu.lbr_nr exceeds MAX_LBR_ENTRIES
->   perf/x86/intel: Validate LBR XSAVE state before updating LBR stack
->   perf/x86/intel/lbr: Limit branch snapshots to valid entries
->   perf/x86: Add lbr_enabled to track LBR state
->   perf/x86/amd: Avoid re-enabling PMU and LBR for BPF when disabled
->   perf/x86/intel: Add helper to enable PMU without LBR
->   perf/x86/intel: Avoid re-enabling PMU and LBR for BPF when disabled
->   perf/x86/intel: Keep LBR frozen throughout PMI handling
->   perf: Add counted-bounds tracking for perf_branch_stack
->   perf/x86/intel: Allow LBR read helpers to operate on explicit stacks
->   perf/x86/intel: Use a dedicated LBR stack for BPF snapshotting
->   perf/x86/intel: Always snapshot live hardware LBR state for BPF
->   perf/x86/amd: Refresh LBR stack in PMI only when LBR users are active
->   perf/x86/intel: Refresh LBR stack for non-PEBS LBR events when needed
->   perf/x86/intel: Remove dead lbr_pebs_users
->   perf/x86/intel: Clear raw LBR counters in the LBR stack
->   perf/x86/intel: Refill LBR stack for LBR counter events in PMI handler
->   perf/x86/intel: Pass LBR stack size into store_lbr()
->   perf/core: Don't overwrite shared LBR stack depth
->
-> Sandipan Das (1):
->   perf/x86/amd/lbr: Limit branch snapshots to valid entries
->
->  arch/powerpc/perf/core-book3s.c |  43 +++++---
->  arch/x86/events/amd/brs.c       |   7 +-
->  arch/x86/events/amd/core.c      |  21 ++--
->  arch/x86/events/amd/lbr.c       |  48 +++++----
->  arch/x86/events/core.c          |   8 +-
->  arch/x86/events/intel/core.c    | 130 ++++++++++++++++++++----
->  arch/x86/events/intel/ds.c      |  20 ++--
->  arch/x86/events/intel/lbr.c     | 170 +++++++++++++++++++-------------
->  arch/x86/events/perf_event.h    |  45 +++++++--
->  drivers/perf/arm_brbe.c         |   5 +
->  include/linux/perf_event.h      |  15 ++-
->  kernel/events/core.c            |   8 +-
->  12 files changed, 365 insertions(+), 155 deletions(-)
->
->
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+Fixes: a5c6d6509342 ("mm, page_alloc: extend kernelcore and movablecore for percent")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ mm/mm_init.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 2a0e782a151d..27a50ecd5c20 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -7,6 +7,7 @@
+  *
+  */
+ #include <linux/kernel.h>
++#include <linux/math.h>
+ #include <linux/init.h>
+ #include <linux/kobject.h>
+ #include <linux/export.h>
+@@ -448,11 +449,9 @@ static void __init find_zone_movable_pfns_for_nodes(void)
+ 	 * amount of necessary memory.
+ 	 */
+ 	if (required_kernelcore_percent)
+-		required_kernelcore = (totalpages * 100 * required_kernelcore_percent) /
+-				       10000UL;
++		required_kernelcore = mult_frac(totalpages, required_kernelcore_percent, 100);
+ 	if (required_movablecore_percent)
+-		required_movablecore = (totalpages * 100 * required_movablecore_percent) /
+-					10000UL;
++		required_movablecore = mult_frac(totalpages, required_movablecore_percent, 100);
+ 
+ 	/*
+ 	 * If movablecore= was specified, calculate what size of
+
+base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
+-- 
+2.43.0
+
