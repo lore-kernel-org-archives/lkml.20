@@ -1,101 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793972708;
-	b=dQ93UxAuIOJXr8/RWuDMcWjgDqerZl3yKM8EJs6KVejK8qReO9WXqTpquJXK+Ro3z7jQ
-	 lhnX2a38vnWdZKCj8DWyG+qkEn7whsnPwlBYFKscMBcSHvjL37yRuEXQNENB9prIrg1YB
-	 tgQKOIZYSL8VcoKlCU1CXJ5jZ/MmHnIbs29+2VpEZwcOt8wD7Vixulh0yizqKpHntu/C8
-	 NTd7Xv6TdFVrOXvrh+LplgcK+QZWcRkICZU7fRgQgOs7hGyR3oEAtmFUoiqfD9yrszKFR
-	 T097jxulI+YOLjR+pYr9HULW0Et2C1m/TC/KaHpd1TG9JjEe90DnKfkoyfo8y2xZL/g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972708;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=K63SRYXJYnToUzmwwdizK3xJn9h0hSaj5lF2H2514zI=;
-	b=1osRsqQLWBPRcD6SUWOtZgz/JK8n2d4+tmF2SDaOxTjwDhnjyFxD2M//ZUe1pvE1T9a4
-	 +3PiOp316GK8goVx/Y0SDoVdLU3FlhLOEAUw3bU3uVa9c9DZKnQVOjIzYI5zoKZXeOjSn
-	 Mztum1dfV3S9HgXZ1uQyNve44JG1J2oytOSPNE0XPE4hbZeJmR1MALbgphAzalBwNBEnh
-	 +UEPRjkzZS41cA5h2BE9tTFJyhXUOkKVnzUu34yE+KtuIhscKW+99QR/NlLxR/HqGqAol
-	 yJ8l8pybLbr5+7+T0IaepJfTjpvVzABgiCYW7Ubj876qLoxSz6zwug/Y7U3XouAAkMQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d2JVQdvL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793972724;
+	b=bfrSihhx6XNWwfl1f0eHwT/ZKI5AZbMmtJ/DfDCn3eMAC2odIKL9NpucqS14nWdLcGNm
+	 l3m2UBLsgHDOE5HqyTIGenSNUwJSGfsFkjlIkOdkshFyWYdN+3Xp3qZ6HezLd1PTwHxf5
+	 QaS+vQdIAr3AEDnLSigJiL3pkbRnjqdFENfYtRZO6KylHhF1/NkO7k2Rht8eYc0UlGG7d
+	 kHgTjDLuIUjYz2c+R5wsLSiEPJDSKEfOWwd12/yv1WvWpo2bb6VfDToKgZerFymzFqxH1
+	 AFUu5oFHqDe8bs99UbfJQ4iOVhp2jCMywaiQiWd9qyK8lbeqeLMFwPNMYaQaehKbb1A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972724;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rx7gGWe+qVjnuJYaCuf3PNKK+ddgMsbwCNHflbLARwg=;
+	b=gvher7n2lihMWZImEVdOEnH1XdJDWiTtML7FsPU3qw+gXqWUywP0SfyjzPghwiBCUCYh
+	 xxdU1GU82o2AORvbFinSMMtcSsdf/BiKnd6SYtAQNjEM+8A2jM6NGr+9Gt8BgrI6pU9RK
+	 M6qIj9X5IgGP7Wh3g+IPnkpGKdoD/G3Z+Oium+5FYSaWdM1uES9DArGboaW52DwmHjCe3
+	 Fr4jnbJAJWsv90G0WNZgiiu0FB8S52F7kD1R6Wpbrt1D2PLBfbJwJWzOzyJkVYCBubOSw
+	 g6kmhuyPM9cNotohPN4ZqUelSl7mOqu9eiNFuwvtmu6QHfrRVeZdtLVd/sBxuNoLRjQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Et9fL52Y;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80558606D80E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 13:45:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80558606D80E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D522606A333;
+	Fri,  6 Nov 2026 13:45:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D522606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d2JVQdvL
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4c9abc1824so93000366b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 05:45:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793972707; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DSI+IkhRqgb2Z0UZJto3iIy8F5CkzhmfFKlT0eoRPJ5ANurR3yxXlwX+Dm8NTj4mI/
-         P4bXiGpW7nP/Fo2eKMZBsdCy3VywPLm4nGRb/wzz7iK5Va7/zeYcVC4gJiOsQJ8XSuYy
-         PXLSPtdQH7suoh70ac/WXHRs/LNiYl46V0OvVPifRdemCRFK+7yuuDscDS3LFc9MOzez
-         awHcy6+mFCQcRd72+eWeuCxzricfhUMY8HlRhDZKtxtAiGIgTqKIgora9ZGoj/N3kx+s
-         l2RhW0kiAIN89nreoKPLbQZ00gl1/49a6shQpf+JKUku4rv+kc4awGowDYe05AKYW6qT
-         +qzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=K63SRYXJYnToUzmwwdizK3xJn9h0hSaj5lF2H2514zI=;
-        fh=9oWcadSBSIV4+MNpgw8CmVLmkf3nUnVBXCJldMp0Mcg=;
-        b=n2tvvv1nOu1WXWv7UjsEg5I7FntC7jtd8j5BXEf2y5Yt5h3hBtU/4HWfHIVPmEwqmr
-         f04A7xjF5NsBqbrXn8i+AkUV2HifTl1Dn48AhR+YI+6V8HPUPSyB6cV1Er+QTeaJpHGO
-         gG/drxXau8W8i0V/ef3Ejtq8OLNsQI1U2WucZSdK8NTjjvIXTMBtYPTXqaXAjZo6Mr/K
-         GfSJhX6W2n7lv8kMmcQue48/SL1h7UR3J7G0zUkQ9vuv7KPJeWhNAoloR0/qr64pPNzb
-         JHgfJ0qlcWcfRmvB+MTZkyKbDMKNv/E3GCtAvI+o7iNc4AWg4ylxEAt88XF7Gxygon2C
-         Gflg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793972707; x=1794577507; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K63SRYXJYnToUzmwwdizK3xJn9h0hSaj5lF2H2514zI=;
-        b=d2JVQdvLfHRRFU/9OajScUqNz6CIKbCaSp2D4Io5kCHMRRpXsoTNBwA/PnRxye4Qfm
-         9HdfsacDpjYiMOycWgwUAH7asXfv4Dh1/y6gRVeCaM6PGgZ0w/nfz14wdcLsQ0EXZ4fx
-         vKaNFcWXfWfA8eNqDcScRKySJH3pnGX5j91/rjBf5CirdNyqritRekG3Mz3osdAOGBdc
-         5I/66tzj/3umdKEgS3yhEthrehRd/7SiF930Z1Qz8bWWdFf/bwNBBgw9MATkT7MJjY8z
-         NRDRoTF+WeYrI5HVryl5Qj8CaGmmONK4EAaUyNroAXPKWFyYv2lVbq8My+W7TIcG+oIK
-         uDzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793972707; x=1794577507;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K63SRYXJYnToUzmwwdizK3xJn9h0hSaj5lF2H2514zI=;
-        b=rkJChQSNTT73k/e+h0/zMs4tCCMQkcNirjYwiZ55U48qmBgh8CvynSlhivQjOFGKGn
-         M9jyzrD5JWvtuE9kTt2QxuIxkc805e/4JWmUXZ5HFKn+o8IHwiOs0UwOoH7Y/ZZNoZBJ
-         k6FERvxZ2oU85AID31rkk9kBEAo/++kgx57VRqZe/Pg+WRtx34+H5vyx43pvtKP4p1N/
-         6hdTo6n/Tg/BBt47Vr6qH8RzphlvuZLqCPo9NAAPgRtEL4BfkPsSZtPIMPH1M1t0u2Ml
-         oURrThk7k19AxYZcqsZaNVt6uHut9Tw0y7wNSc88rrXApVgZPuXZwx/ihyy0xmsgJ5PO
-         h1/w==
-X-Forwarded-Encrypted: i=1; AKwUvBz+GsMB6QFw+J7P8Aj1AF8Oq2zABYiVtGY8ekVRz27z/uIZdho5d78QDNwhLGvwW8B2n9PqscPT8Ab+BjA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zAG4dckmKo/H4XLp3fE9wC9EZYHv6u3DFhOWtxqhbPbOlXlBs
-	nzv4HCMFU2lI7TKHAdGRZ+Jrch2C7QxRd+Fju7r63OnS27XZ3pVLl1PKmGmDaYYRGbPgYYP4a/u
-	Yubm4VeP0jaP7lEW9h1N5uZVz0V+vfdAGr6m0
-X-Gm-Gg: AYBFou0xEuKGqrAG0v/VoJz/tEKTP/NuXDxWrzUTcq2KBowdTQnxfOwVVYNApzdrBrb
-	zD8iSyXJ4fvsPKQ/Hy2ED0ZGe88xomcHqZ9nP3PW++gk1tEmEd0raAAL/+scew3PgbBPOgxVYyY
-	92IKqefQ8u5mSR5CgDLk15hLcUwpLz/6Wt3Geg0qXn4MBIhYv1RRNKgKVhWRLKqB/XTolef1jSN
-	pnP+ceA24UJKhpkVp6z5rMkO41VFR4mo5OIdMw7DIdOyroSvC2DSwfDGBcaxSvZJc0ZXsUEMm7W
-	oNfAGugyaxriuZRICPlXAUYAKVDXKxl233tXHrclKzdgNL7kIWuI3dqdbnBxBlYgt3IrPchADHE
-	dEyNs78zSIVCbTozhSaDXZim2msp3zLMHQVe4SLqewoBdvK5zBITjR0TjAES4WMYZaIXq0dgmxj
-	aqtwKhO2OKXAzcV+sgjxWXQhCRcz9sZtq3Xuqo5VRTRitKN6j7Qw==
-X-Received: by 2002:a17:907:ea89:b0:c4c:bff4:200c with SMTP id
- a640c23a62f3a-c4d3531f031mr216233766b.32.1793972706561; Fri, 06 Nov 2026
- 05:45:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Et9fL52Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793972723; x=1825508723;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=T4yGvXzWmKxa4531S1rrSDgyYW3DGI1nzB/fVYkEmEs=;
+  b=Et9fL52Y0qNFm43atOHmpqnkysvJjlR1imntmkfbmHuUZKnzRm0NfqC6
+   O87vhL6kYC0iCyFQ47FypBFP25XAzr7t0OEcpaVhvpNFMu2anmHdGaJ2c
+   PlymsfapV006otXYS/cV4wgzu6pTTDH48mPnxAuf2hIBMIO6omGvWxyBG
+   KsHRy0fydf3aLhEXncLShyXGlgN/vHqMFeyKeO59E2Ds7IVPUyUerwEry
+   JFm7B6009qIP6y73O3mfGrVax0kaimSYqPnHZRAbe7FSmEYBUmsyw/rOC
+   PUdlla89QOoGfJAsbqbZRm/UQK6GWnl8lm3XzNLTlhPPy1Kip6YHjHQB8
+   Q==;
+X-CSE-ConnectionGUID: vOh0j7LsRE6mWUzhLBZ0fw==
+X-CSE-MsgGUID: cE8Anu/hTZm3lGTdMUTLpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2662035"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2662035"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:45:22 -0800
+X-CSE-ConnectionGUID: BsGBMQ4JR6GY88O+RbhffA==
+X-CSE-MsgGUID: SaRM3n8vRAqJ564RAPZjFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="9028391"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.104])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:45:07 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	Mesih Kilinc <Mesih.Kilinc@sony.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Matt Turner <mattst88@gmail.com>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Chris Zankel <chris@zankel.net>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	David Airlie <airlied@redhat.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-alpha@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-sh@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v5 08/14] PCI: Honor alignment overrides
+Date: Fri,  6 Nov 2026 15:43:29 +0200
+Message-ID: <20261106134341.39493-9-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
+References: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,170 +130,476 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <202611041404.befe64cd-lkp@intel.com> <20261105-trommeln-einspannen-radius-ccb4e174e407@brauner>
- <auygOHcuBba_o132@gmail.com> <CAGudoHFpNbxL13ZOWiyyLSPpmzXcB=e=RBZ8ZGk+Oc58Aad9pA@mail.gmail.com>
- <au2vjpu_yqNa83pN@gmail.com>
-In-Reply-To: <au2vjpu_yqNa83pN@gmail.com>
-From: Mateusz Guzik <mjguzik@gmail.com>
-Date: Fri, 6 Nov 2026 14:44:54 +0100
-X-Gm-Features: AclHuK9fhTVlPSoaFVQpmWKFtp3rg-Yo_vESXYaoYYRFIlvR-B2NGlbbcPxrfcY
-Message-ID: <CAGudoHF3de_55YvdztPs7QiYs25u6nPEV=uMOzfr=bWmwof69g@mail.gmail.com>
-Subject: Re: [linus:master] [fs/pipe] f7f4665dc5: lmbench3.PIPE.bandwidth.MB/sec
- 18.5% regression
-To: Breno Leitao <leitao@debian.org>
-Cc: Christian Brauner <brauner@kernel.org>, kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev, 
-	lkp@intel.com, linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>, 
-	linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 6, 2026 at 12:11=E2=80=AFPM Breno Leitao <leitao@debian.org> wr=
-ote:
->
-> On Thu, Nov 05, 2026 at 04:57:33PM +0100, Mateusz Guzik wrote:
-> > On Thu, Nov 5, 2026 at 4:28=E2=80=AFPM Breno Leitao <leitao@debian.org>=
- wrote:
-> >
-> > The test at hand has multiple readers and writers using the same pipe,
-> > with 64KB i/os.
-> >
-> > Prior to the patch each writer had its own private pool to draw from,
-> > guaranteeing no allocation will happen under the mutex.
-> >
-> > With the patch the reader exit also drains the pool.
-> >
-> > As a result tons of allocation ends up happening under the lock again:
-> >
-> > -   94.88%    94.88%  bw_pipe          [kernel.kallsyms]     [k]
-> > __alloc_frozen_pages_noprof
-> >      94.88% __internal_syscall_cancel
-> >         entry_SYSCALL_64_after_hwframe
-> >         do_syscall_64
-> >         ksys_write
-> >         vfs_write
-> >       - anon_pipe_write
-> >          - 47.46% alloc_pages_noprof
-> >               alloc_pages_mpol
-> >               __alloc_frozen_pages_noprof
-> >          - 47.42% anon_pipe_prefill_and_lock
-> >               alloc_pages_noprof
-> >               alloc_pages_mpol
-> >               __alloc_frozen_pages_noprof
->
-> Ack, this matches what I found as well. Thanks for investigating it.
->
-> Because the preallocated pages are not private to the writer anymore,
-> the reader flushes them while the writer waits for room in the pipe,
-> and the writer then has to allocate them inside the lock.
->
-> This basically loses the wins[0] from commit 212ed884a1aeef ("fs/pipe:
-> pre-allocate pages outside pipe->mutex in anon_pipe_write") for this
-> specific scenario.
->
-> > I don't think multiple high-volume writers vs multiple high
-> > volume-readers is a realistic scenario and I would not bother fixing
-> > it.
->
-> Agree, but I would like to spend some cycles on it.
->
-> > However, should someone want to address it, I think the patch should
-> > be reverted and the resulting state tweaked. The patch at hand came
-> > after the mutex is released -- the kernel prior to any of this would
-> > still put_page on the reader side under the lock. This bit would have
-> > to get tweaked to recover the loss in that scenario (not to be
-> > confused with the loss reported here).
->
-> We can revert the patch, but that would bring back the two page pools
-> (the on-stack prealloc and tmp_page[]), which is probably worse than
-> this regression itself (IIRC it would also lose the gains for smaller
-> writes (about 20% for 8-16 KiB writes IIRC ))
->
+pci=resource_alignment argument can override the default alignment for
+the resource. The remainder code introduced in the commit 9036bd0efcb6
+("PCI: Align head space better") can move remainder space (non-aligning
+part of the size) before the aligning left edge which results in
+violating the requested alignment.
 
-Like I said above, per my understanding the win is not specific to the
-unified pool thing, but merely to the fact that the reader would put
-pages *after* releasing the lock. this can be done in either approach.
+Introduce struct pci_resreq_data to hold device and user-given alignment
+to be able to honor it in pci_align_resource(). When user-given alignment
+is found, any remainder movement is skipped.
 
-> That said, these are the items I am planning to spend some time one:
->
-> 1) Reclaiming the pooled pages from a shrinker, as suggested in [1]
->
+PowerNV will not be able to use the current remainder logic after this
+change because on it pcibios_default_alignment() always results in
+setting min_align but this code is in a transient state and the problem
+will be fixed by an upcoming change that rewrites the resource
+placement algorithm with a more generic approach.
 
-The more I look at this the more the extra memory usage bothers me --
-even with shrinker support there is just plain waste until it runs and
-it is going to cost elsewhere. If this was "free" performance I would
-have no comments.
+Fixes: 9036bd0efcb6 ("PCI: Align head space better")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/linux-pci/20260923133202.07DF61F000FF@smtp.kernel.org/
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
 
-Makes me wonder if there is any practical win to pursuing it in the first p=
-lace.
+Jani Nikula <jani.nikula@intel.com> did ack this with a condition that
+there is a proper review done by somebody else so I've not yet included
+his tag.
 
-But here is an idea just to ponder: what if the threads using the pipe
-were guaranteed to trim it at some point, even if it remains open and
-unused?
+ arch/alpha/kernel/pci.c          |  3 ++-
+ arch/arm/kernel/bios32.c         |  5 +++--
+ arch/m68k/kernel/pcibios.c       |  4 ++--
+ arch/mips/pci/pci-generic.c      |  5 +++--
+ arch/mips/pci/pci-legacy.c       |  5 +++--
+ arch/parisc/kernel/pci.c         |  5 +++--
+ arch/powerpc/kernel/pci-common.c |  5 +++--
+ arch/sh/drivers/pci/pci.c        |  5 +++--
+ arch/x86/pci/i386.c              |  5 +++--
+ arch/xtensa/kernel/pci.c         |  5 +++--
+ drivers/char/agp/intel-gtt.c     |  5 ++++-
+ drivers/gpu/drm/i915/i915_gmch.c |  5 +++--
+ drivers/pci/pci.c                |  4 ++--
+ drivers/pci/pci.h                |  2 ++
+ drivers/pci/setup-res.c          | 33 ++++++++++++++++++++++++++------
+ include/linux/pci.h              | 15 +++++++++++++--
+ 16 files changed, 79 insertions(+), 32 deletions(-)
 
-Currently there is the notion of task_work, which allows for arbitrary
-callbacks to execute on the user<->kernel boundary. As implemented it
-is rather expensive (atomics) to use and always flushes the entire
-work queue.
+diff --git a/arch/alpha/kernel/pci.c b/arch/alpha/kernel/pci.c
+index 11df411b1d18..c5d725a9781f 100644
+--- a/arch/alpha/kernel/pci.c
++++ b/arch/alpha/kernel/pci.c
+@@ -128,7 +128,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	struct pci_controller *hose = dev->sysdata;
+ 	unsigned long alignto;
+ 	resource_size_t start = res->start;
+diff --git a/arch/arm/kernel/bios32.c b/arch/arm/kernel/bios32.c
+index ac0e890510da..3e61826f07fb 100644
+--- a/arch/arm/kernel/bios32.c
++++ b/arch/arm/kernel/bios32.c
+@@ -564,7 +564,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 	struct pci_host_bridge *host_bridge;
+ 
+@@ -578,7 +579,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				start, size, align);
+ 
+ 	if (res->flags & IORESOURCE_MEM)
+-		return pci_align_resource(dev, res, empty_res, size, align);
++		return pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 	return start;
+ }
+diff --git a/arch/m68k/kernel/pcibios.c b/arch/m68k/kernel/pcibios.c
+index 7a9e60df79c5..3024408412bc 100644
+--- a/arch/m68k/kernel/pcibios.c
++++ b/arch/m68k/kernel/pcibios.c
+@@ -31,14 +31,14 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
+ 	resource_size_t start = res->start;
+ 
+ 	if ((res->flags & IORESOURCE_IO) && (start & 0x300))
+ 		start = (start + 0x3ff) & ~0x3ff;
+ 
+ 	if (res->flags & IORESOURCE_MEM)
+-		return pci_align_resource(dev, res, empty_res, size, align);
++		return pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 	return start;
+ }
+diff --git a/arch/mips/pci/pci-generic.c b/arch/mips/pci/pci-generic.c
+index c2e23d0c1d77..7f3ecb91b85b 100644
+--- a/arch/mips/pci/pci-generic.c
++++ b/arch/mips/pci/pci-generic.c
+@@ -25,7 +25,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       const struct resource *empty_res,
+ 				       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 	struct pci_host_bridge *host_bridge;
+ 
+@@ -39,7 +40,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				start, size, align);
+ 
+ 	if (res->flags & IORESOURCE_MEM)
+-		return pci_align_resource(dev, res, empty_res, size, align);
++		return pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 	return start;
+ }
+diff --git a/arch/mips/pci/pci-legacy.c b/arch/mips/pci/pci-legacy.c
+index dae6dafdd6e0..82d4b01db64e 100644
+--- a/arch/mips/pci/pci-legacy.c
++++ b/arch/mips/pci/pci-legacy.c
+@@ -55,7 +55,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	struct pci_controller *hose = dev->sysdata;
+ 	resource_size_t start = res->start;
+ 
+@@ -70,7 +71,7 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 		/* Make sure we start at our min on all hoses */
+ 		if (start < PCIBIOS_MIN_MEM + hose->mem_resource->start)
+diff --git a/arch/parisc/kernel/pci.c b/arch/parisc/kernel/pci.c
+index 96950fe9c2b7..36a3a439f609 100644
+--- a/arch/parisc/kernel/pci.c
++++ b/arch/parisc/kernel/pci.c
+@@ -193,7 +193,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t alignment)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t align, start = res->start;
+ 
+ 	pci_dbg(dev, "%pR: pcibios_align_resource(%lx, 0x%llx, 0x%llx)\n",
+@@ -205,7 +206,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 	if (align > alignment)
+ 		start = ALIGN(start, align);
+ 	else
+-		start = pci_align_resource(dev, res, empty_res, size, alignment);
++		start = pci_align_resource(rr, res, empty_res, size, alignment);
+ 
+ 	return start;
+ }
+diff --git a/arch/powerpc/kernel/pci-common.c b/arch/powerpc/kernel/pci-common.c
+index 4fc52c21fe5d..23594759cfe2 100644
+--- a/arch/powerpc/kernel/pci-common.c
++++ b/arch/powerpc/kernel/pci-common.c
+@@ -1131,7 +1131,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 
+ 	if (res->flags & IORESOURCE_IO) {
+@@ -1140,7 +1141,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 	}
+ 
+ 	return start;
+diff --git a/arch/sh/drivers/pci/pci.c b/arch/sh/drivers/pci/pci.c
+index 878a27a1acfb..279f2770ff4b 100644
+--- a/arch/sh/drivers/pci/pci.c
++++ b/arch/sh/drivers/pci/pci.c
+@@ -172,7 +172,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	struct pci_channel *hose = dev->sysdata;
+ 	resource_size_t start = res->start;
+ 
+@@ -186,7 +187,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 	}
+ 
+ 	return start;
+diff --git a/arch/x86/pci/i386.c b/arch/x86/pci/i386.c
+index e2de26b82940..4178ae4380c2 100644
+--- a/arch/x86/pci/i386.c
++++ b/arch/x86/pci/i386.c
+@@ -156,7 +156,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 
+ 	if (res->flags & IORESOURCE_IO) {
+@@ -165,7 +166,7 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 		/* The low 1MB range is reserved for ISA cards */
+ 		if (start < BIOS_END)
+diff --git a/arch/xtensa/kernel/pci.c b/arch/xtensa/kernel/pci.c
+index 305031551136..4e8ad4a3c9fe 100644
+--- a/arch/xtensa/kernel/pci.c
++++ b/arch/xtensa/kernel/pci.c
+@@ -42,7 +42,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 
+ 	if (res->flags & IORESOURCE_IO) {
+@@ -55,7 +56,7 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 	}
+ 
+ 	return start;
+diff --git a/drivers/char/agp/intel-gtt.c b/drivers/char/agp/intel-gtt.c
+index bcc26785175d..06990fad8e48 100644
+--- a/drivers/char/agp/intel-gtt.c
++++ b/drivers/char/agp/intel-gtt.c
+@@ -1038,10 +1038,13 @@ static struct agp_memory *intel_fake_agp_alloc_by_type(size_t pg_count,
+ 
+ static int intel_alloc_chipset_flush_resource(void)
+ {
++	struct pci_resreq_data rr;
+ 	int ret;
++
++	pci_init_resreq_data(&rr, intel_private.bridge_dev);
+ 	ret = pci_bus_alloc_resource(intel_private.bridge_dev->bus, &intel_private.ifp_resource, PAGE_SIZE,
+ 				     PAGE_SIZE, PCIBIOS_MIN_MEM, 0,
+-				     pcibios_align_resource, intel_private.bridge_dev);
++				     pcibios_align_resource, &rr);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_gmch.c b/drivers/gpu/drm/i915/i915_gmch.c
+index b0ef6ef577a3..f11ed5509095 100644
+--- a/drivers/gpu/drm/i915/i915_gmch.c
++++ b/drivers/gpu/drm/i915/i915_gmch.c
+@@ -38,6 +38,7 @@ static int mchbar_reg(struct drm_i915_private *i915)
+ static int
+ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
+ {
++	struct pci_resreq_data rr;
+ 	u32 temp_lo, temp_hi = 0;
+ 	u64 mchbar_addr;
+ 	int ret;
+@@ -55,12 +56,12 @@ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
+ 	/* Get some space for it */
+ 	i915->gmch.mch_res.name = "i915 MCHBAR";
+ 	i915->gmch.mch_res.flags = IORESOURCE_MEM;
++	pci_init_resreq_data(&rr, i915->gmch.pdev);
+ 	ret = pci_bus_alloc_resource(i915->gmch.pdev->bus,
+ 				     &i915->gmch.mch_res,
+ 				     MCHBAR_SIZE, MCHBAR_SIZE,
+ 				     PCIBIOS_MIN_MEM,
+-				     0, pcibios_align_resource,
+-				     i915->gmch.pdev);
++				     0, pcibios_align_resource, &rr);
+ 	if (ret) {
+ 		drm_dbg(&i915->drm, "failed bus alloc: %d\n", ret);
+ 		i915->gmch.mch_res.start = 0;
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 7c6f2aba8144..8c40f86d75ee 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -6507,8 +6507,8 @@ static DEFINE_SPINLOCK(resource_alignment_lock);
+  * RETURNS: Resource alignment if it is specified.
+  *          Zero if it is not specified.
+  */
+-static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+-							bool *resize)
++resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
++						 bool *resize)
+ {
+ 	int align_order, count;
+ 	resource_size_t align = pcibios_default_alignment();
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index 77efa4c5c960..e6e2afcceb33 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -515,6 +515,8 @@ void devm_pci_alloc_host_bridge_release(void *data);
+ struct device *pci_get_host_bridge_device(struct pci_dev *dev);
+ void pci_put_host_bridge_device(struct device *dev);
+ 
++resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
++						 bool *resize);
+ void pci_resize_resource_set_size(struct pci_dev *dev, int resno, int size);
+ int pci_do_resource_release_and_resize(struct pci_dev *dev, int resno, int size,
+ 				       int exclude_bars);
+diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
+index 376f09630a4a..9c55b9f9462c 100644
+--- a/drivers/pci/setup-res.c
++++ b/drivers/pci/setup-res.c
+@@ -248,6 +248,20 @@ static int pci_revert_fw_address(struct resource *res, struct pci_dev *dev,
+ 	return 0;
+ }
+ 
++/*
++ * TODO: Improve PCI resource assignment interface so that callers outside PCI
++ * core do not need to know about this detail.
++ */
++void pci_init_resreq_data(struct pci_resreq_data *rr, struct pci_dev *dev)
++{
++	bool dummy;
++
++	memset(rr, 0, sizeof(*rr));
++	rr->dev = dev;
++	rr->min_align = pci_specified_resource_alignment(dev, &dummy);
++}
++EXPORT_SYMBOL_GPL(pci_init_resreq_data);
++
+ resource_size_t pci_resource_alignment(const struct pci_dev *dev,
+ 				       const struct resource *res)
+ {
+@@ -265,17 +279,21 @@ resource_size_t pci_resource_alignment(const struct pci_dev *dev,
+  * before res->start if there's enough free space there. This enables
+  * tighter packing for resources.
+  */
+-resource_size_t pci_align_resource(struct pci_dev *dev,
++resource_size_t pci_align_resource(struct pci_resreq_data *rr,
+ 				   const struct resource *res,
+ 				   const struct resource *empty_res,
+ 				   resource_size_t size,
+ 				   resource_size_t align)
+ {
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t remainder, start_addr;
+ 
+ 	if (!(res->flags & IORESOURCE_MEM))
+ 		return res->start;
+ 
++	if (rr->min_align)
++		return res->start;
++
+ 	if (IS_ALIGNED(size, align))
+ 		return res->start;
+ 
+@@ -306,18 +324,21 @@ resource_size_t __weak pcibios_align_resource(void *data,
+ 					      resource_size_t size,
+ 					      resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
+ 
+-	return pci_align_resource(dev, res, empty_res, size, align);
++	return pci_align_resource(rr, res, empty_res, size, align);
+ }
+ 
+ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 		int resno, resource_size_t size, resource_size_t align)
+ {
+ 	struct resource *res = pci_resource_n(dev, resno);
++	struct pci_resreq_data rr;
+ 	resource_size_t min;
+ 	int ret;
+ 
++	pci_init_resreq_data(&rr, dev);
++
+ 	min = (res->flags & IORESOURCE_IO) ? PCIBIOS_MIN_IO : PCIBIOS_MIN_MEM;
+ 
+ 	/*
+@@ -329,7 +350,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 	 */
+ 	ret = pci_bus_alloc_resource(bus, res, size, align, min,
+ 				     IORESOURCE_PREFETCH | IORESOURCE_MEM_64,
+-				     pcibios_align_resource, dev);
++				     pcibios_align_resource, &rr);
+ 	if (ret == 0)
+ 		return 0;
+ 
+@@ -341,7 +362,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 	     (IORESOURCE_PREFETCH | IORESOURCE_MEM_64)) {
+ 		ret = pci_bus_alloc_resource(bus, res, size, align, min,
+ 					     IORESOURCE_PREFETCH,
+-					     pcibios_align_resource, dev);
++					     pcibios_align_resource, &rr);
+ 		if (ret == 0)
+ 			return 0;
+ 	}
+@@ -354,7 +375,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 	 */
+ 	if (res->flags & (IORESOURCE_PREFETCH | IORESOURCE_MEM_64))
+ 		ret = pci_bus_alloc_resource(bus, res, size, align, min, 0,
+-					     pcibios_align_resource, dev);
++					     pcibios_align_resource, &rr);
+ 
+ 	return ret;
+ }
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index aa3765a20a96..c945f5753e7c 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1221,12 +1221,23 @@ int __must_check pcibios_enable_device(struct pci_dev *, int mask);
+ /* Architecture-specific versions may override this (weak) */
+ char *pcibios_setup(char *str);
+ 
+-/* Used only when drivers/pci/setup.c is used */
++/**
++ * struct pci_resreq_data - Data passed to pcibios_align_resource()
++ * @dev: PCI device
++ * @min_align: Minimum alignment bound (from pci=resource_alignment or arch)
++ */
++struct pci_resreq_data {
++	struct pci_dev *dev;
++	resource_size_t min_align;
++};
++
++void pci_init_resreq_data(struct pci_resreq_data *rr, struct pci_dev *dev);
++
+ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       const struct resource *empty_res,
+ 				       resource_size_t size,
+ 				       resource_size_t align);
+-resource_size_t pci_align_resource(struct pci_dev *dev,
++resource_size_t pci_align_resource(struct pci_resreq_data *rr,
+ 				   const struct resource *res,
+ 				   const struct resource *empty_res,
+ 				   resource_size_t size,
+-- 
+2.47.3
 
-But imagine the mechanism got extended such that there is a separate
-queue where only current can add stuff (so it is cheap). Getting to
-the code could be gated with the same branch which tells the kernel
-about task_work, so no extra overhead in syscall handling as long as
-you don't have anything queued up.
-
-With this in place pipe code seeing a big buffer could add a callback,
-which would do some magic to decide whether to trim the pool and by
-what amount. Just for the sake of argument, here is an example: 1/16
-chance it will do anything to begin with. if it chooses to do
-something, it checks if there is a "trimmer was here" bit. If no, sets
-the bit and leaves. If yes, shrinks the pool in half. The pipe write
-code would clear the bit, so a pipe with continuous usage would mostly
-remain intact and an unused pipe would eventually drain to nothing
-(including the currently held 2 pages).
-
-> 2) Trimming the pool gradually on the reader side, instead of cutting it
->    down to two pages in one go. Or not trimming it while a writer is
->    in the waiting room (!?)
->
-
-There is no indicator there is a writer pending, at best you can check
-if the lock is contested. This seems like gaming the benchmark to me
-though, as a real program who happened to generate data a little later
-would suddenly find itself with the pool trimmed.
-
-Granular trimming definitely makes sense, provided shrinker support is
-implemented.
-
-> 3) Keeping the writer's preallocated pages private again, while keeping
->    the unified pool (i.e. without bringing tmp_page[] back).
->
-> 4) Freeing the pages the reader drops after releasing pipe->mutex,
->    instead of under it, as you suggested. This is independent of the
->    options above.
->
-> 5) Longer term: copying the data into the preallocated pages before
->    taking pipe->mutex, so the writer only links them into the pipe
->    under the lock. This doesn't seem trivial, but it would make this
->    whole pre-allocated buffers go away
->
-
-I think this is sounds awfully complicated in face of multiple writers.
-
-> 6) Any other idea?
-
-The SMAP stuff is the primary problem right now. To reiterate: every
-single buffer read/write takes a SMAP trip, which is very expensive
-even on modern uarchs. Refactoring this into i/o under one SMAP round
-would provide a visible speed up. It also happens to not pose a
-tradeoff in terms of memory usage and would be my first avenue of
-attack if I was working on this.
-
-All that said, one reader vs one writer scenario definitely makes
-sense to optimize.
-
-Apart from that, highly parallel i/o on one pipe is imo the wrong
-thing to look at in the first place. What is more likely to occur in
-the real world is the user having separate processes operating on
-distinct pipes, but this was not benchmarked at all. Another case to
-look at is one reader vs one writer, but all the tuples have unique
-uids.
