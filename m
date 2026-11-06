@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945471;
-	b=2uPBJhwqOlefb6QtVgbzG2DqLYs1g02yp4c5Vfnwhd4HnPQ57HGmHs9P6MIAqnlsZUmC
-	 nzvR+3W5b610rUGQSb+YIrHumIwi3s0F30E4qc2h8HDWLsXkLlL1ql7Yz6xb615LIJCYp
-	 zLAJ+7TRxPXezqmEyQ+uErM4nL1XWLet9xaZY2iWH1UE+lEvLQUjsmrdmWhbq+o5z2XLO
-	 8YHYHvZwY1vZKCsKhxeM/BGNi53ifNlz2bTib86SdMs0kmfJTdeoMKOc1c4E1rxA45Q5/
-	 UCNxjy8+b7AL8ne/Xyzn34ny9ascVmU9XGKvFO0p3+kzYghci3Q09jrbwJPz54B9z1A==
+	t=1793945474;
+	b=ks73vkrNberWNhLQ0xBTF52zSyVkEb7RRsbWxWNeiBLE8HZkW+ss7+3qWXcM6K1MN7sB
+	 iRkSJd72qikcODHtf+gSx9JhuEvVagq1IrP/Z8d1jPQ9+nmqGUAuk8dGjP8mXURqcrgsu
+	 5D8LWczWCpjDjl+2tHh+Z+sf+p3LavQ3FOYhDAPjkpzULZMXDuIUpzLw2Hkx6fncaOBvQ
+	 Loep8iPL+5HG43v+A4wgF+LrlizwToex5t5vsAd9MZ5aO5ZudrHBLy1MyXYTmz7ondoX3
+	 c4p70A45qlM3MbiAxbgk7IHi+4hEP5Fc9QUNKq8kRO3i8/YGooWlBHgGNDE1PkZ8H0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945471;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=dlMB2EQjuzBySmR5GqJBziBOr+KKGv+oGqz2McQg0Ss=;
-	b=01v914k0LqrKO7v3mUdDxg92VtnEaGV1YRDFYqqgd7CyzVXpQeV620SE391XF++nv+qT
-	 f0ma+vbpzBZPfq1KJG0upR8WElDjH5iKhcXQ09MLnE3b6l74gvVsIfuF1Fc3dguDTYvIO
-	 11q2FWLukVKSbaTviftXa3vcGiyYCCsmeXtADPV0Qfmmt5TfTv91QgQpmbUoan6qZ6YmG
-	 WFW95NpfPBTJuo2X9NotjHKNOIw6c6SHPEpzduUYsc9/B1AQS60EaWVJ4JrnG1DG2dQ/Y
-	 rHyQpsGrwwRSsTC0OccW3P5vfa2luAxKVtcy3QDU+7WiK78UEQwLvKwbmJ6X51sauvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945474;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=8YF17ywi0dWJGRvCkQz9HkVWfG/t9IghxQFLb2psZSk=;
+	b=xAFCtv42C5nZ5qVJOiemF1vLpLTBjNLe3LPtJgyTcQTN+79v8Vb23b8S9rwDzLxyaKd1
+	 MNLPWO1BuDX1yzCrpTJ9pYmkScIzhFj+T4mt9uwia6PWWt2uM/nyQJNXDmyr/BRGGV+LD
+	 r8JP1Smy4867ZxRhJq0cu6E7I3E/mzWb/l1ReVCkZCynAlP7/WeNt33Gg1I8/IiUs45cI
+	 eWHZy3SsDEzGima4VBOZjIALGwrCvBUkUVjjcAycy2Zg9zlhc2kVmN1e1irdaUwVSksQC
+	 pdXeZm+K10fAs/6T4uI8LwuEGaw6OKKHdlEIMpBAWU9eyr6xPEFrCEX+VbPN4zQr2IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=CoEmUfaY;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=YgMup7zM;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC727606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:11:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC727606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81847606A328;
+	Fri,  6 Nov 2026 06:11:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81847606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=CoEmUfaY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793945416;
-	bh=dlMB2EQjuzBySmR5GqJBziBOr+KKGv+oGqz2McQg0Ss=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=CoEmUfaYL00ZRlWq6ulYaVkNZeN1ZD+oNWBABhrwQYxaFtvOnN9pwRBSLFqh06Sag
-	 4ZqWGNbpBo5bEhwIdg4CHV1E9yXk4Kzwqm6LtKzDaiSs9h2all9wJqzNkNK7/yX+of
-	 WnwoMnfoY2evLp4/GtEdziIhXoAC6VjsWuZKbTSU=
-X-QQ-mid: esmtpgz12t1793945414t31773276
-X-QQ-Originating-IP: TvjStvLttQ2jKx3rjkbSQUng+nHe5KV9P0Hm81jxCs8=
-Received: from localhost ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 06 Nov 2026 14:10:12 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 186222589772570272
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=YgMup7zM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8Y
+	F17ywi0dWJGRvCkQz9HkVWfG/t9IghxQFLb2psZSk=; b=YgMup7zM/fedPmb4Q8
+	ElAARwa4KSD9cPFRztZHcTWbK4j27JwOQ8lcd9KzYWU4HV8QKRJCXGgzBSHneIMV
+	nuCjwbTbErUdXZhKM5dPqzldr4t6um8IUgBdgbG4yVWX3oCSwDQTU2lezvRWHc4x
+	aJmJbRC9+jEq2TV6gVLthxnBg=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3fxMtb+1qBVQ1FA--.50369S2;
+	Fri, 06 Nov 2026 14:09:51 +0800 (CST)
+From: luoqing <l1138897701@163.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Patrick McHardy <kaber@trash.net>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 1/2] netfilter: conntrack: avoid secs-to-jiffies overflow in SIP helper
+Date: Fri,  6 Nov 2026 14:09:47 +0800
+Message-Id: <20261106060948.540233-1-l1138897701@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,137 +68,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 06 Nov 2026 14:10:12 +0800
-Message-Id: <DMNWKP4OI5IT.2S74EHH6A8Z6G@linux.spacemit.com>
-Cc: "alessio.belle" <alessio.belle@imgtec.com>, "luigi.santivetti"
- <luigi.santivetti@imgtec.com>, "maarten.lankhorst"
- <maarten.lankhorst@linux.intel.com>, "mripard" <mripard@kernel.org>,
- "tzimmermann" <tzimmermann@suse.de>, "airlied" <airlied@gmail.com>,
- "simona" <simona@ffwll.ch>, "dlan" <dlan@kernel.org>, "imagination"
- <imagination@lists.freedesktop.org>, "dri-devel"
- <dri-devel@lists.freedesktop.org>, "linux-kernel"
- <linux-kernel@vger.kernel.org>, "linux-riscv"
- <linux-riscv@lists.infradead.org>, "spacemit" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH] drm/imagination: retry runtime idle when firmware is
- not yet idle
-From: "Baihui Liang" <liangbaihui@linux.spacemit.com>
-To: "Gyeyoung Baek" <gye976@gmail.com>, "troy" <troy@kernel.org>
-X-Mailer: aerc 0.17.0
-References: <20261029-img-pm-autosuspend-v1-1-26851840a34e@linux.spacemit.com> <DMHSRIU2XCB0.35RV6ADY6W1IE@kernel.org> <CAKbEzns6CYjNXmf4jTx_eGSH2j6AjpKJPx=EtoqxweGLiQ85JA@mail.gmail.com>
-In-Reply-To: <CAKbEzns6CYjNXmf4jTx_eGSH2j6AjpKJPx=EtoqxweGLiQ85JA@mail.gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: ODTmzx1EshNFL4WFHQIljyjY0SnRwoPgWzJAelDdb5qUjsIeI8MIINUL
-	D9CTRx5CD08jrkzzVgZBDNww7zePC2CF/8+UWWZLH3+G3/M72V2UMKlsuM+w3yE0ElycuNp
-	fZXR9y6WUYYvJjjmtvMjq7C5I2Y2cpNAVhHoq0g30znS94LdIoIQwZg/nH2881ESceU0auv
-	T0AOekcJye1Nudr5SPxcOaxTShNdK5ktjrGlYT7vyCJVaLRyuVBdxUQR/VfyawZAHqkq9vM
-	j45DnHJkAiZ1nfqb38TMIoUV5z/QYUEZopKUTK2km0Ulu8Ec8pnUP+FMh75TwH1sTCdh0cz
-	qQXWM4nPgu76ovGwX3wj8AxBJM0/lE0p4IuEeJlYHko/PhLDO/mBpeJKFccF5htBjvb0a2Z
-	W4gDYJoiM6yPaxvMK399/9h9lHyPA0AvvWjRiAVObCgbfa3OHgKCBqBwM9nfig4EZdCY/TS
-	v87ZcAjIHLaIUZ1Np4bpPOIgencFFkO8M2KCy3vt0w3RAWcSWoaM0MPp2J9cclRmbfFRMzX
-	P5QUuWv9dJXXBE7R9pDwxHkALP3AFyXKvpFfIcjKT2qYdrqXOkx5VSjEFW+YVPKdODON6U5
-	N2XbbakVA2bRDPPyHN/SOPjFxdmRsD8HLDClrw3uVoXzjfuZYZPjcf3TNlUBdYi+cwWM14j
-	239A2tnXn9cByrkvrolAdgy4ORbbDTvUTyi/u1qTJ3TUIuX/zBMqE+qI7z/KBN20SvBZeDk
-	BXckoFb8nfWsth7/Yy7ZDylfrS0zlNy6fovcPEgiCpmMNpAnjhiTYDXxXC6/shVDvagkjBW
-	fy/NAan3fwqmPpT/bIcg0LGgjAz8qsG4ONwlpZmr6HGA7h5u1h08hmENy8I0Gignl+I4Ux3
-	p2UGRyFu5cyodIbpYjU5tVVPRuGOtVWWkfS+Nflajctd+MK9ocR9gOeUuVuC5UeDO05fbek
-	qt1dAUdMOCU8NpEpyU9Paw0Klr8xpDZ4CJYj+GAO4+0QmQw==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3fxMtb+1qBVQ1FA--.50369S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCr47Zr4fAryUAF45ZF48Crg_yoW5tw4DpF
+	Z5t34Syr47XF4Fya1kCwn7A3Z8Ww4fGa4fWFWYk3yrCan8JF1rtFZ5Kry2qa4DJr4ktry3
+	Xay5Wr1jkF1kAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U6q2_UUUUU=
+X-CM-SenderInfo: jorrjmiyzxliqr6rljoofrz/xtbC3Q-8QWrtby-JUwAA3y
 
-Hi all,
+From: Qing Luo <luoqing@kylinos.cn>
 
-Thanks for the review. All three of you are right, and v1 was wrong.
+refresh_signalling_expectation() converts the expiry from a SIP
+REGISTER 2xx response with "expires * HZ" in 32-bit arithmetic and
+stores it in a u32.  sip_strtouint() only rejects values above
+UINT_MAX, so the answering registrar controls the input.
 
-On Sun Nov 1, 2026 at 12:34 AM CST, Gyeyoung Baek wrote:
-> Hi Baihui, Troy,
->
->
-> On Fri, Oct 30, 2026 at 10:55=E2=80=AFAM Troy Mitchell <troy@kernel.org> =
-wrote:
-> >
-> > Hi Baihui,
-> >
-> > On Thu Oct 29, 2026 at 4:38 PM +0800, Baihui Liang wrote:
-> > > Returning -EBUSY from ->runtime_idle() prevents the PM core from
-> > > retrying the idle check. Schedule an autosuspend so the idle state
-> > > can be re-evaluated once the firmware reaches ROGUE_FWIF_POW_IDLE.
-> > >
-> > > Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
-> > > ---
-> > > Tested on SpacemiT K3 (PowerVR Rogue BXM-4-64) by running vulkaninfo
-> > > repeatedly. Without this change the device intermittently stayed
-> > > runtime-active after the last user went away, because the firmware ha=
-d
-> > > not yet reached ROGUE_FWIF_POW_IDLE when the idle check ran. With the
-> > > change the device reliably suspends.
-> > > ---
-> > >  drivers/gpu/drm/imagination/pvr_power.c | 11 ++++++++++-
-> > >  1 file changed, 10 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/dr=
-m/imagination/pvr_power.c
-> > > index eb4b6ecdf4f..6f38249ffcb 100644
-> > > --- a/drivers/gpu/drm/imagination/pvr_power.c
-> > > +++ b/drivers/gpu/drm/imagination/pvr_power.c
-> > > @@ -434,7 +434,16 @@ pvr_power_device_idle(struct device *dev)
-> > >       struct drm_device *drm_dev =3D platform_get_drvdata(plat_dev);
-> > >       struct pvr_device *pvr_dev =3D to_pvr_device(drm_dev);
-> > >
-> > > -     return pvr_power_is_idle(pvr_dev) ? 0 : -EBUSY;
-> > > +     if (pvr_power_is_idle(pvr_dev))
-> > > +             return 0;
-> > > +
-> > > +     /*
-> > > +      * Firmware not yet idle; reject but schedule autosuspend so
-> > > +      * runtime_idle() can be retried.
-> > > +      */
-> > > +     pm_runtime_autosuspend(dev);
-> >
-> > If I read the PM core correctly, when this autosuspend timer fires it
-> > calls ->runtime_suspend() directly rather than retrying
-> > ->runtime_idle(), so this looks equivalent to returning 0.=20
+Expectations are reaped with "(__s32)(exp->timeout - nfct_time_stamp)
+<= 0".  A wrapped product can only cut the lifetime short, never
+extend it: at HZ=1000 an expiry of 2147484 seconds (24.9 days)
+crosses 2^31, so the expectation is born expired and registration
+refreshes break, while 4294968 seconds wraps to 704 jiffies and the
+expectation is reaped almost immediately.
 
-That's right. It merely delays unconditional FW teardown without
-re-checking idle state. I'll send v2 with a different approach.
+Add nf_ct_secs_to_jiffies(), which multiplies in u64 and saturates at
+INT_MAX so the signed expiry test stays positive, and use it for the
+SIP expectation refresh.  Oversized expiries now saturate to the
+INT_MAX jiffies ceiling - about 24.8 days at HZ=1000 and 248 days at
+HZ=100 - which is the same maximum a registrar could already request
+with the largest non-wrapping value; the longest lifetime does not
+change.
 
-> > Could the
-> > real issue be the pm_runtime_put() in pvr_watchdog_worker(), which
-> > perhaps should be pm_runtime_put_autosuspend()?
+Sweeping all 2^32-1 inputs at HZ=1000, the helper never wraps, never
+yields a value that reads as expired, and matches the old expression
+up to INT_MAX / HZ.
 
-That put is only reached when pm_runtime_get_if_in_use() actually
-returned a reference. Our stuck-active case was the opposite case: the
-device was active with a zero usage count, which jumps directly to
-out_requeue and skips pm_runtime_put entirely. Changing this call
-won't help.
+Fixes: 0f32a40fc91a ("[NETFILTER]: nf_conntrack_sip: create signalling expectations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+---
 
-> I think sashiko's point is valid.
->
-> Calling pm_runtime_autosuspend() from pvr_power_device_idle() when the
-> FW is busy only adds a delay, and the device is then suspended without
-> re-checking idle, and this is effectively the same as
-> returning 0. I guess it worked in testing because the FW was busy at
-> pvr_power_device_idle() time but reached idle before the autosuspend
-> delay expired.
->
-> How about moving the pvr_power_is_idle() check into
-> pvr_power_device_suspend() (and dropping pvr_power_device_idle()), and
-> returning -EBUSY after pm_runtime_mark_last_busy() if the FW is busy?
-> The PM core then reschedules the autosuspend regardless of whether the
-> last put comes from the watchdog or elsewhere, so suspend is retried
-> until the FW becomes idle.
+v2: 
+- Clarified in the commit message that this patch introduces the
+  nf_ct_secs_to_jiffies() helper, which the subsequent H.323 patch depends on.
+- Added a note about the stable backporting dependency for the helper.
+- Addressed the Sashiko AI review comments.
 
-Agreed, v2 will follow this approach.
+v1: https://lore.kernel.org/all/20261104085925.773471-1-l1138897701@163.com/
 
-> I think this is the pattern described in
-> Documentation/power/runtime_pm.rst, section 9 ("If the
-> ->runtime_suspend() callback returns -EAGAIN or -EBUSY ...").
-> --
-> Thanks,
-> Gyeyoung
+---
+ include/net/netfilter/nf_conntrack.h | 10 ++++++++++
+ net/netfilter/nf_conntrack_sip.c     |  3 ++-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-Thanks,
-Baihui
+diff --git a/include/net/netfilter/nf_conntrack.h b/include/net/netfilter/nf_conntrack.h
+index c39425e54d87..b32716084ea8 100644
+--- a/include/net/netfilter/nf_conntrack.h
++++ b/include/net/netfilter/nf_conntrack.h
+@@ -210,6 +210,16 @@ bool nf_ct_get_tuplepr(const struct sk_buff *skb, unsigned int nhoff,
+ void __nf_ct_refresh_acct(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
+ 			  u32 extra_jiffies, unsigned int bytes);
+ 
++/* Convert a timeout in seconds to jiffies, saturating at INT_MAX instead of
++ * wrapping the "secs * HZ" product in u32.
++ */
++static inline u32 nf_ct_secs_to_jiffies(u32 secs)
++{
++	u64 delta = (u64)secs * HZ;
++
++	return delta > INT_MAX ? INT_MAX : (u32)delta;
++}
++
+ /* Refresh conntrack for this many jiffies and do accounting */
+ static inline void nf_ct_refresh_acct(struct nf_conn *ct,
+ 				      enum ip_conntrack_info ctinfo,
+diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
+index 64bc440b1181..e2fd97f53386 100644
+--- a/net/netfilter/nf_conntrack_sip.c
++++ b/net/netfilter/nf_conntrack_sip.c
+@@ -891,7 +891,8 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
+ 		    exp->tuple.dst.protonum != proto ||
+ 		    exp->tuple.dst.u.udp.port != port)
+ 			continue;
+-		WRITE_ONCE(exp->timeout, nfct_time_stamp + (expires * HZ));
++		WRITE_ONCE(exp->timeout,
++			   nfct_time_stamp + nf_ct_secs_to_jiffies(expires));
+ 		WRITE_ONCE(exp->flags, exp->flags & ~NF_CT_EXPECT_INACTIVE);
+ 		found = 1;
+ 		break;
+-- 
+2.25.1
+
