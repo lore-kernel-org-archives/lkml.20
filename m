@@ -1,52 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.60
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959355;
-	b=SzmgWlesWnU7gdHwV8RzZOq7d2WaP+w/t3Cg8YTw+AZOu2n+aJObGowAuuSzqazTYYmJ
-	 pJRsLbevdrU0XxUMmy9xjpJ6wVPpVdGOfgQ4IryHaTTPclivnX1t21OyxXQDQ7BdFGTrF
-	 Ff51Gg9JmuQdjYaBwbIuU0Ez7Nts2uuEsFdJy6HFmvRTzMnT5ho13ZzSUtp9fHYEVtF5r
-	 LQCHRI3+IKWu0f4ZB6PpeY8hhwSAa9maqKXgdVcoeqjK6RcOxxQRsQMqQur5y7p5AspKj
-	 CxeZm2pXESpNMXZdUPpwP5K17yirbC6MNCcIpV1JX23YhwRrmQj6wP6DSmu0TPSCpsQ==
+	t=1793959412;
+	b=Xx4IXmNGX3u0/a+JU6QeENU8R3HY/x2GbdCIfJxjFxHVUCoaNHvpTZB0fgiIjOCbV9MQ
+	 CinpQv0usNsSOr/E2tWiuNT+bvWz9nMDf5sq27KpgX9UuTAkO+QCMigbBIYFUJPY94jg4
+	 y63Gse1DWOkAUl8h4WBNU/4q7jU5fHUN0xOK+kMaeyeeatC6MVWkD9TZfXe0r4YPtczyi
+	 cpd+em2LALz3eYJh6vr1yOXr7SJYvLIMCQKCtCKlgflwWjTK9X0Dlyiok2xf7/bpjEhEG
+	 F1ZNv2Neixtx4D0yZW/XhVTCypXEGQ88zjcXBNQZyZfr8ikWJBoUgPPxeMAmHbuW5ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959355;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=YYAFLfnmuClaWisHccCt9quMqBTksbzuaIA8Tf9zLis=;
-	b=lrhhdc12ArVLVEn/6m/tgYQ9nRRG3LjIw+anHcH3RtX0jVho7EajjfWqykyu9D6iP5rS
-	 p7GkL44IWyxl+GvYzTByzmA7WShV5xAdMi5KvodeJtsd0PezXqFxPKeEUrPbyh1+JCFxx
-	 G37nRn6CWQJ9ygIEqMo8D/Wh65JRicU9rNGP7LZtFarg34AzLNt3KYhIZn1w2jBZihYil
-	 30Md9LDrOc2I29W+n8U20Ka7+6QdTRy7zP2xi2W56MCwqprH7m5XCJeGLOou75pitzIXX
-	 JLxYDklaxhaJQ7924z5wS5eUJfracnSNqPgbsOaE9a07pocGQAzP88+GQUJEcJxFdlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959412;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rMheU+EhCPcWnJV6yby7BQW3sus9xoZHDLVucVGtR10=;
+	b=EzKGz+2J+kKzxnHH4pEZxljFGdIJO3y994SMunpOg/auurUdonm2AFaXOk14kxL1AGbq
+	 2RoZ8G0gwOJXrVKAR/KOT/kmZmB0t0v2+dQYzkX7x2qGffxZPD797DHMOKdB2ZRcMSByQ
+	 11m2tt5f60eXK8SsHn8L62sRWszkmAWq33YDSjSVLRt/lJXSAUbgMOe5EvnjLKKvrfeX3
+	 tEsiJvuHmPmf8pKT1mIVZDwcvRERGbV74AHHZ1OfpdjaXciBGuuOt+Bzzk0i68tTn05Re
+	 fNY7tJJN6BN4vHBaW3x96VIaBiKpz4/aVMEGm7HXlOTJRvU2UYg30ORy/5VyhMGRSBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjieQEfA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K70IeZK4;
+	arc=none smtp.remote-ip=91.218.175.60
+Received: from mta0.migadu.com (out-60.mta0.migadu.com [91.218.175.60])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 34E12606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:02:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDC9606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:03:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BDC9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjieQEfA
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E91221F0089F;
-	Fri,  6 Nov 2026 10:02:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793959354;
-	bh=YYAFLfnmuClaWisHccCt9quMqBTksbzuaIA8Tf9zLis=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XjieQEfADSPpDOh3BxUfDruK9GH2h9Xogmr4wr/MaFYtVcE7ePTBV2RJGRoMh5C5V
-	 0bQbHWDATG/rN87vGep2AaT31xoXUKjcghQPdT05x4n5ChXi2Kc0HCq3F9fcq3N0Bb
-	 CEoGhK7hScgcNLkUIS2tAz9jdAKaZolQIWtIDGg1SdpjlShRJSUBvXl6pnuzlGNdHd
-	 DyXLBkZKPczbtbHfKBklLLLShiUPM+f/WZRGtsAN6zRoE6U1GYefR1zXhJ7POlkn35
-	 96IvF+dcK88QNAYAxMKkmDobok37n52jshOUUpJCsqJs4QdNfet+newtSQ+hbQFwXv
-	 S+bHIKNmVS3AQ==
-Date: Fri, 6 Nov 2026 11:02:30 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] reset: gpio: Parent the reset-gpio device to the GPIO
- controller
-Message-ID: <sb5jpqtpvrtghyo5ainfsr6flrcooaavg4whvp6qog2baovu3p@efgy6u57tcbw>
-References: <20261026-b4-reset-gpio-parent-to-gpio-controller-v1-1-11549e6ea930@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K70IeZK4
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HebWn3oEvn+Xp5ULYEc4RbMXXdDqctn1MVk/JQNM9Qc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793959408; v=1; x=1794564208;
+ b=K70IeZK4ChyvsIjWjnf+4PyYUZUZL+M7DAGxBjGVRAmkn4E59xs9gXe+dS1tEo52DLU3NhHk
+ wXzvG7P/tU2y7zNLQsSQnRMcfXQ4yMM+F2CZjQk+ARRmJKVphNGgrmSLhAxkOKraKZmY/dMWglf
+ 06tBoeDwOxOfZFLyydTEs3CE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cd637f8f166aebf7;
+	Fri, 06 Nov 2026 10:03:28 +0000
+X-Mizu-Trace-ID: cd637f8f166aebf7
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	peterx@redhat.com,
+	hannes@cmpxchg.org,
+	songliubraving@fb.com,
+	riel@surriel.com,
+	hughd@google.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	peterz@infradead.org,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	joro@8bytes.org,
+	robin.murphy@arm.com,
+	steven.sistare@oracle.com,
+	jhubbard@nvidia.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	iommu@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/5] mm: limit pagecache folio refcount when splicing into pipes
+Date: Fri,  6 Nov 2026 18:03:20 +0800
+Message-ID: <20261106100320.77084-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
+References: <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,53 +109,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-b4-reset-gpio-parent-to-gpio-controller-v1-1-11549e6ea930@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 02:21:55PM +0200, Abel Vesa wrote:
-> The reset-gpio auxiliary device is a child of the GPIO device providing
-> the reset line. That GPIO device is unregistered when its controller is
-> unbound, which removes the sysfs directory of the reset-gpio device with
-> it, while the reset-gpio device itself stays registered. When the
-> controller is bound again, probing the reset-gpio device fails:
-> 
->   reset_gpio reset.gpio.0: really_probe: driver_sysfs_add failed
-> 
-> and so do the consumers of its reset line. This happens for example with
-> the LPASS LPI pin controller, which goes away together with the ADSP.
-> 
-> Make the controller the parent instead, which stays registered while it
-> is unbound and gets a new GPIO device when it is bound again. Keep using
-> the GPIO device if it has no parent.
+
+On Thu, Nov 05, 2026 at 02:10:11PM +0100, David Hildenbrand (Arm) wrote:
+>Similar to mapping pagecache folios into page tables, let's reject splicing
+>folios into a pipe if the refcount is at it's limit, similar to how we
+>handle it during GUP.
 >
+>This will prevent more cases of possible folio refcount overflows with
+>large pagecache folios.
+>
+>Let's keep it simple and check in the two callers of
+>splice_folio_into_pipe().
+>
+>Also check in try_get_page() to cover pipe-buffer duplication by tee()
+>and partial pipe-to-pipe splicing.
 
-I believe the commit message is a bit imprecise and mixes up the naming
-of actors.
+What about fuse_ref_folio()? Buffered FUSE_WRITE requests can carry
+pagecache folios into a pipe through /dev/fuse without going through
+splice_folio_into_pipe() or try_get_page() ...
 
-We have the "GPIO parent" - the optional[1] device that's bound to a driver
-and calls gpiochip_add_data() - and the "GPIO controller" device which is the
-device we register (and optionally bind to the GPIO stub driver) which is the
-one exposing the lines.
+Cheers, Lance
 
-I'd reword it to:
-
-"The reset-gpio auxiliary device is the child of the GPIO controller device
-providing the reset line. That device is unregistered when its parent if
-unbound, which removes (...). When the parent is bound again, probing
-reset-gpio device fails: (...).
-
-(...)
-
-Make the parent of the GPIO controller, the parent of the reset-gpio
-auxiliary device too (...)."
-
-I still need to test it and Tyler's fix with my reset-gpio +
-gpio-shared-proxy setup.
-
-Thanks,
-Bartosz
-
-[1] Unlikely but there are still legacy platforms which register GPIO
-controllers directly from platform code in board files. In case of
-reset-gpio it will always be bound to a driver.
+>Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+>Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+>Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
+> include/linux/mm.h | 9 ++++++---
+> mm/filemap.c       | 4 ++++
+> mm/shmem.c         | 4 ++++
+> 3 files changed, 14 insertions(+), 3 deletions(-)
+>
+>diff --git a/include/linux/mm.h b/include/linux/mm.h
+>index 79ae8fc0d6bb4..a82cfbce18215 100644
+>--- a/include/linux/mm.h
+>+++ b/include/linux/mm.h
+>@@ -2287,10 +2287,13 @@ static inline void get_page(struct page *page)
+> 
+> static inline __must_check bool try_get_page(struct page *page)
+> {
+>-	page = compound_head(page);
+>-	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
+>+	struct folio *folio = page_folio(page);
+>+
+>+	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
+> 		return false;
+>-	page_ref_inc(page);
+>+	if (unlikely(folio_ref_count_over_limit(folio)))
+>+		return false;
+>+	folio_ref_inc(folio);
+> 	return true;
+> }
+> 
+>diff --git a/mm/filemap.c b/mm/filemap.c
+>index 920bbf86dfdff..0f2ec790a5b65 100644
+>--- a/mm/filemap.c
+>+++ b/mm/filemap.c
+>@@ -3168,6 +3168,10 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
+> 			if (writably_mapped)
+> 				flush_dcache_folio(folio);
+> 
+>+			if (unlikely(folio_ref_count_over_limit(folio))) {
+>+				error = -ENOMEM;
+>+				goto out;
+>+			}
+> 			n = min_t(loff_t, len, isize - *ppos);
+> 			n = splice_folio_into_pipe(pipe, folio, *ppos, n);
+> 			if (!n)
+>diff --git a/mm/shmem.c b/mm/shmem.c
+>index cda1a0f7db99d..1c0f6bceac486 100644
+>--- a/mm/shmem.c
+>+++ b/mm/shmem.c
+>@@ -3819,6 +3819,10 @@ static ssize_t shmem_file_splice_read(struct file *in, loff_t *ppos,
+> 			 * Ok, we have the page, and it's up-to-date, so we can
+> 			 * now splice it into the pipe.
+> 			 */
+>+			if (unlikely(folio_ref_count_over_limit(folio))) {
+>+				error = -ENOMEM;
+>+				break;
+>+			}
+> 			n = splice_folio_into_pipe(pipe, folio, *ppos, part);
+> 			folio_put(folio);
+> 			folio = NULL;
+>
+>-- 
+>2.43.0
+>
+>
