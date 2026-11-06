@@ -1,64 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964379;
-	b=4SLqoXq9vSz2tibSauoYwd5NR6gIYFxQOWovkYmTYmMthwGPs6Djggua/WUi/MWs4/fb
-	 vj0G1Zj/iTxKQ09Y8+nErKWfEIpDMyMyjrp2rmrd8T/03x3NnPqyu+1maeX8v5lGBlk+W
-	 PAkldZ1fiQNx4nR5aPE1G//QZu/9mv5U/95lzJw1ZUPuzPZbpynDi48cGOcPfzMV/nkUo
-	 JUr/NxKOsyAE5H/LQV4LXk3cFDMokCwXzsGTzMzXgutYuq9T+R6v8kTMkdW53OUopI3mI
-	 AAoH0xhMmQNrquuNEpl7unBIw0eOxV9Ilug3nIQ7wMZP7ovwn3ZjHzm8gxVPUqG7iyg==
+	t=1793964390;
+	b=lq6Mr0fPfFVQ9ytOexPdU9agbyeLbEOo7hqdo8wnHOxIxSNa/53DomwLG7T2b+5d6T9R
+	 wfkAuyWmZuBbM2YqAZVxcnXrJaTDPpTDKGA0hn8y0lAEj2vRXDcMn43Cx1k6cw4cnBThh
+	 VsQzOdlBX+MvG/GBcIaGwFO4laQDigUHRYkeMA5uvSaer56oGLTHQJfvCyN00et8//FGS
+	 PD3j8UJX5rN9f3pn19RUul4saYmLOtkw/+KDsxeMf5Nv8ddyflSjeOVeGBDv8cJPRAyde
+	 3yeVAOGkTE2lrZgyPFyKptgbMwPTLR3OMKqJnMQwuuCzm48TXcQ7b5tnAXzLw5ob8DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964379;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=IrtBx70IGrZR+xti2Gbk8jTJWI2O0dNnEpiHwlFt96Q=;
-	b=pmD7361tvFsW/dAnw3VM8WfgJwvuazmESfktuvNmqwsOweZGyi3gB0g9poTICQpWpB4B
-	 dfIBMlyZnxX7yNYdf1Ypo2WvO0A2rZLywfPi24xXSJyA9uhjkyZKymGPKgEh8R1RvlABl
-	 jOlOTxvSE/8S9qlVXqZ4PAApH//OEsQe31Uu1Qf+6GrYFMzDveUW/WCgN6FdEaiZ090cz
-	 sSd6h1FC+esE/s9E+fmvvlecGSnmOseoip0pBPmB4yEwtctg/YaiKuYGQVP7Z+R492Es8
-	 Md71eIoR5apHFEguX9iNkXlRzOj81WQdYlJVc5K0AKW6t3baHHXyoJ+fjrD6d56gq4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964390;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=JIN8oEdosMaUM7J7IKPgHIHkvQbHyBxozoGEFLEDHOg=;
+	b=G0BpyKCSTsUy8ZERKEqGIK4B5GVIaioWTYWeG9XmN1layhqM0HxuMY+Llu+reF08mF6Z
+	 ta8D3E2e3yZk6bDmbIXV2oiqkkwrpA4cZZJzJ5ScrGRX9Skq8QK1p/94xZ8aB3tOvxKHR
+	 TswHCz0lURlvGefVj2Z4C3LBtJsOpOwwkRFQd8N6NMBy6M2kkLRHXO7stvRJCyudnT4RW
+	 Iki+bS8aM6obSn54rss3hmaiN0hUYnrzWRBLNdhPX2SVvnM0On7kiYQy0ZktdSTaQ/Z55
+	 oX+gSI+OIm8RqwzwbPTE3+8A/TsYuPV+t98eVGWKua6hMIjgHWBEtOBZy/tbGQrLCBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=rsPfBbY9;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=opUqJAWA;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AF9606A335;
-	Fri,  6 Nov 2026 11:26:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54AF9606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E494606A333
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:26:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E494606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=rsPfBbY9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=IrtBx70IGrZR+xti2Gbk8jTJWI2O0dNnEpiHwlFt96Q=; 
-	b=rsPfBbY9RHC/vk1wSrMzXMjMU4qFpD8QxIE3NFfbKIkpdYIZDcu1MremiPFaGgQLTOc1Ob4mg3Z
-	nJ0gnaE8W3cssxfir2SalKGSEAPPjnLgtZLg+OpJBY2raBmD5b1u6m5WFa6WYye7VBF13l8w6DYY2
-	WsEvZ8CWhV5Sgdr1rbuizrXdz7HWAtvk3gGK7KhmOTbPcDVnTQUF+/pOGjPel6HrtnLpUWecPZefN
-	++u51lV1Hm5Rmn/lqcvhSIUYMMB+R7P5XMCqtqxdSH9CA1Rzt7nzhCQN8x3Ml9ZSR6EcD9ZETA7fD
-	gKAv5M0XtJYSj/usYkLAdxE+Bc1U4nsPtSmA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xPI5E-0000000Br0X-2ZhD;
-	Fri, 06 Nov 2026 19:26:13 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 06 Nov 2026 19:26:12 +0800
-Date: Fri, 6 Nov 2026 19:26:12 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
-	Ulf Hansson <ulfh@kernel.org>, linux-kernel@vger.kernel.org,
-	Hadar Gat <hadar.gat@arm.com>, Olivia Mackall <olivia@selenic.com>,
-	linux-crypto@vger.kernel.org
-Subject: Re: [PATCH 01/13] hwrng: cctrng: Discard
- pm_runtime_put_autosuspend() return value
-Message-ID: <au25VCRKopC2NI4I@gondor.apana.org.au>
-References: <20261006231900.3230373-1-briannorris@chromium.org>
- <20261006161337.1.I8e0880001b352bc2b0e99c40b78cb57e03c88a12@changeid>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=opUqJAWA
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-491846221ffso440873f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:26:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793964388; x=1794569188; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JIN8oEdosMaUM7J7IKPgHIHkvQbHyBxozoGEFLEDHOg=;
+        b=opUqJAWAOya7CeKLUFeRUpto0xhDsHDE0HohVtyIZnuUT+wiPe4cORcwLddq3v5huy
+         i9pGZ4OqYg6HndDaZqJmJeiHMZxsorpAMu860/wKTG7jmUDZwZFMb21qzEfUqDhPRHdB
+         wjgK5PPTSFqeFOVI/OkI0pg1Hf6EEUS+XwWDB7brg/tpwo4MRp2+2iu8CpUB2WynFEex
+         NSNn5adlK+HYH8TtofdR2pDp8iRQ9QCMWtk3fFoKfJkzsbo2JN86EjBX51QXAZfEJqKS
+         B36XSyIS3N15WdMNs5DmDNZNNYh5w6CaTX7o76QRuGcUTqhk9zNOqmfNd81CkTGX/w+4
+         HhtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793964388; x=1794569188;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JIN8oEdosMaUM7J7IKPgHIHkvQbHyBxozoGEFLEDHOg=;
+        b=jGnt6Sks5HLVa0y+Qrl81+GQtVEiF4LUihYsV8hZKoXBxXs4jep3yNBgEq6Xy6Txsb
+         DtQaCwTC6CvmlVf2XrE/yc3voFt9tdUDCSQ9Ts2dunZPk8hPYJJtGTF1xAmSUkxvTGM6
+         kChu43WfXdkqoq5i4x6HEd+hzgtmBScnrJj8KcLOtJIop8XEX2AN5/qZ+OhiTTlZjU9P
+         Dkr3a/WNJFIPtQeDPHDf8sEZveLZKCimgzTMo3Ulv1nrwL6UzacMcMN2kqqj7fDRoZnS
+         UZ+52MfecIW25ZO2y7YYdn5IA+2hF7cC/I+Lr/TfQ3LR4sUyYR/WDVaqpWCATEfx8tJB
+         vHNQ==
+X-Forwarded-Encrypted: i=1; AL+hErHCNF10MTzhWccE0nPggKy1d4bBrje1VV3WM/4DxLYR+TyMVMBfm74Q57K07xlSK1bGsedTWkdI9WaZtyU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Nnu2juSkQmSfr58fIeX5xg0n5QQzjg1LX/1shawSmpCw29e0k
+	n2MfxRPa+vs86h3kEf7RcG6/bWsQNDucM/nka0cTG9QZ4+HQZuaMz5n7wRamCVZL71Y=
+X-Gm-Gg: AYBFou0g+Qm4vJn8k2HpO0ZNoyN+Pge9o23DseFHozrOXWpNeNjuEUlz/+ZT6P/+uvO
+	yGllihaVDgzV4zMQREOVRIGkEkYXVsrNb+mR4wkAast6Zt3pL2lI0qm0yRhP+lR/S5eykqRnSdG
+	E1qlnuUE6IvE/IOcLobB72pZiYER8ysJod6Ar5OHHnu3fdtX6TPcBLOzOWGUvHBsj3PQvFvIP1o
+	PhBPrDAkLi/wQXEciXIN1cz4pfaHlSZDkUw2ZKVgSV2YHGwd4/BQ3anwIVvrIcVEsTvnYBwV6bF
+	/NiiiQikoDGGH9sF/MY/igu11sVbpN8S1dzXPVnYDdGUUiOqW/+tcveLH6vHRjTfQ0jIO7OPzkY
+	QdrEmTfC01cNOzQ/C49RIqjzKTyrExYe3bz6cxU+qTiv66MLuDqDAtNbCB8IeuTnfjH2zmwyQKs
+	/InR6roO+mgfTJQuMt2s1r4O+7VUcOi3Bl00VNkkE9Pm03kXlsLkjPjq3T9TEIMXpQruN9G1UWa
+	Vw4gu1ZM8fme5AB7VPKpbAcoJNzLHBGRKS3vRBxoe9fadu5T+LEHuSyG/FqIt8j7hc7Xfs9Z6sV
+	X9PKZ21bOpRYa2hN4HYiKN+p08AfozxxLnn4qEltVw==
+X-Received: by 2002:a05:6000:4685:b0:48e:5e1f:9a36 with SMTP id ffacd0b85a97d-492778d1fb7mr3239346f8f.42.1793964387965;
+        Fri, 06 Nov 2026 03:26:27 -0800 (PST)
+Received: from [192.168.0.167] ([109.77.115.215])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492ff85585esm2390286f8f.5.2026.11.06.03.26.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 03:26:27 -0800 (PST)
+Message-ID: <ac2e970b-1f3a-4aef-9a84-034d7e460c0f@linaro.org>
+Date: Fri, 6 Nov 2026 11:26:26 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,39 +90,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006161337.1.I8e0880001b352bc2b0e99c40b78cb57e03c88a12@changeid>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] media: qcom: camss: Match VFE lite clocks by name
+ prefix
+To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v2-3-39ee37787b00@andrewgigena.dev>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-3-39ee37787b00@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 06, 2026 at 04:13:29PM -0700, Brian Norris wrote:
-> Printing an error message on pm_runtime_put_autosuspend() returning a
-> non-zero value is not particularly useful.
-> 
-> Returning an error code from pm_runtime_put_autosuspend() merely means
-> that it has not queued up a timer or work item to check whether or not
-> the device can be suspended and there are many perfectly valid
-> situations in which that can happen, like after writing "on" to the
-> device's runtime PM "control" attribute in sysfs for one example.
-> 
-> Accordingly, update cc_trng_pm_put_suspend() to simply discard the
-> return value of pm_runtime_put_autosuspend().
-> 
-> This will facilitate a planned change of the
-> pm_runtime_put_autosuspend() return type to void in the future, similar
-> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void").
-> 
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
-> ---
-> This patch is independent of the rest of the series, except for the end
-> (changing the return type). I expect it can be applied by individual
-> maintainers, and we pick up the end once the dust is settled.
-> 
->  drivers/char/hw_random/cctrng.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
+On 06/11/2026 03:24, Andrew Gigena via B4 Relay wrote:
+>   		!strcmp(clock->name, vfe_lite_name) ||
+>   		!strcmp(clock->name, "vfe_lite") ||
+> +		(vfe->res->is_lite && !strncmp(clock->name, "vfe_lite", 8)) ||
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Shouldn't this be the case for existing clocks ? i.e. only check lite 
+clocks on lite VFEs ?
+
+---
+bod
