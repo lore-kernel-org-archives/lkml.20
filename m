@@ -1,84 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989241;
-	b=wIxFCAAF3f/HVARYT7GmKEVJPPq8HnJcV7c6AWjtJSyp2a2irqezwIQRiSTflvnv27II
-	 QMEcoMvduB7Hfo/RWQYqRb1GG9mSbX7AbX8X6+ZiC/TygeklqTh4//gM0moVoA7QAKJZe
-	 ok5gpMTrZgPrmcbdE5sYqBq3p+DIsZrE+qQruoMzsjj+ZHyfAJm27R+ko9S2OW0tEuEMN
-	 mcBBgcE3Bv80/hSlhslirJezRuBoqt1uoelVa8b/6J2gzedkQz1YGXooidgpgIeYyTtA3
-	 BngSdUzUWZWhd/I9BaiVRlOd2/qBGmdZJLZXyPxSji3kv41Y9xNRaatNAzn3DMoJkGA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989241;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=9qaZQMzb7DXoF7l3soDYlbhGMbKj+MV76UM39vsbcMY=;
-	b=ozHr/lPfDGulKlJRaTwE19JJwAxY3Zpt5YuEeErU/kJf42aDieZAlfOab8EU6JR5d+P5
-	 eq7VIFpxFzjO2BG0YHD+zOkPMQ0ywMvCI56W/bZk0xXpaZ7WaIBawdh6fzM7G1Y0G689I
-	 8NqCGIo5Hg0B5wGWgSTWK/FRR6fNlMCpdtLhq/79VhIUrejSH7juqpdgv2zss01kTAoN6
-	 jy0G3GPY0PsEdM0YrfOhoaDL4ex4PT77UKgHxz4g/WkImxrp2vabJXYxQ+HUsQ24ReDlO
-	 bby4ZrobT5oQsG1xBb9Sy1p82iGkj2JRDcKActY2+qTPNHbkzxEtW5vjw+kF7ZFgovg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hdq9hgQ5;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793989255;
+	b=Kgn2ANp2K67xp8LtiWsbuXOYI/5/cIgw2s6voxtcQR7i3s9oXDh4zjim4KnIhstAY3eU
+	 rFWR8Uvcr40vb7A6CO9jx58bBqSUgUsz0yHy6c4kzot+MkSLBnFPpU629qDCmSrkhiIiF
+	 HCBICteYUHkP8qighQalw6wUMLLL70oGFHXrFnLRfeuS/4wA2YP16iE5QbKM2P8FlMjpe
+	 PRtq5vg0zeOH12Ae0b6xGylXEmUIqEPPYojQtscRdzhLOFfSFDAnRR+kl7rN1JFcevtFZ
+	 KN02akaE8UQ6dciR6Ka1Ej1ClJbbrcJ/g6T9K6bjPxGhWA/m1WFbrvzZCxgRuD990mg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989255;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=51begsGUfivuSorz69L8EKKXRls1v9NQ+e8dSf+Y5AU=;
+	b=O1EgcwnI1gSW+giqthAWH4EfbRuUhbnX+wmJln2eXeIPXUnvKvSAnCI8EpsEo5p3Jqp6
+	 jeub1M4j9jvvPxJtzmXeymV37fpZzErBuiHaZRTheG3odWI/PIRrRJpTu4ajugxmlRegf
+	 5CIAOTodvsnXieKlZvntm+E/THTBS0ma8v48tSdeEkm2C2tKy7QxIvIfSVyG1MGN0rRoc
+	 MQEZrD6ma23/Jwk1y/uF/imVmXcxI9SPqhfrC5L0OMkPp9OOmTazuvJxuf0ptnGT5+Agy
+	 WyKClAac8km1ylvmCR28ycwjY3QmAkH3hYD2bxDZRub8M6QoCcv9H0hYEREQcd7d5OQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTps8VVV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A46606A32C;
+	Fri,  6 Nov 2026 18:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTps8VVV
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793989254;
+	b=JmW/gkOpw5uenbSgaUgmrJahefqZGC/ONX6TXUbh2x0hLnjOgrpNrN0+yZaGtBvMGPVH
+	 b/8ci+3aDF0TamhUj3yH3YBWz0O0ShlirNLtdifz8d3iydJCj2qmNZQVlepTGKqARA69i
+	 XOOE6Dvd3D10oMX6yNp68r/jLMFClJipc3Sfwu3kM7ivDyoQ5fyrr28SRCd9Uu6lGXe5s
+	 CSIYGkZHz+HD2+ZRH0WFQH0yhwA2y9Fsk9jrGsb+nXCfULKy+f9QGp7XjAvDIW9PD9P92
+	 hthr66ufmwnI4VlFljak0orE0tbiNySuoY7T8AspEmRTrQexwHxaiwr+tE8Og3ZF/Rg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793989254;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=51begsGUfivuSorz69L8EKKXRls1v9NQ+e8dSf+Y5AU=;
+	b=QeZ4SMOM9tU7conema3onP39xOMHSD2+o4ZKJytKTXQy1ujW6MJoO7gGheGhuKaxnHdD
+	 pzbT5MZmvIH2ZeCpuVfrcjl/fKJ1ki8nOFOBX/CqnZB+YnnuteDvfHjZ8yxcf9C0PnszE
+	 +JcbPRXG8DZIShsn7n8CrFgLbOElImI7sB5DPwVsJSStM+kzbeTzmCItUPkTUKs4isu8S
+	 izfmAq2leO48vaJOwQm1C/nm03jtZ+/hp5mzCAiQTRPUGlnYadedaZ8/15ERPEeUUeidd
+	 10jf1gyESjQfTo+Z+lHPRv0hBQZ6mkA+6Va0VoGe5/CpxyPi79ltY+6gVLaF1K8TLKw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EDC606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:20:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2EDC606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hdq9hgQ5
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so749360b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:20:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793989240; x=1794594040; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9qaZQMzb7DXoF7l3soDYlbhGMbKj+MV76UM39vsbcMY=;
-        b=hdq9hgQ5D5WGukz31Z5zUw40C0NII9+8G5GH9bbZGnHfAnojoP57z8tHMmhX3hRi3G
-         TAEZnNIl7XxI9nA/PCD69RWqu7/2Knkm9ucEaCvPIsFJ1c0y4Ac/raB06y/h4vHHeTu2
-         hrH7qlIfvjY7PR8AnU/6c4zFLEnn45p8w/5FfOhg888gnTl+fqudKdJfz3T+gsKSeJR9
-         fVgO74BDLxLtH551xZ2aswoR80e7+rpwg71fLO9mwB4xwBk6IE7kQPbsFqWnmLpSqjUl
-         7q6IQrSAjZcGOGyBu+palvwfywQO3OIBnIspyAaIbBt3U/ybx1R5Aw8UptwUCkXTV7E3
-         PFWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793989240; x=1794594040;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9qaZQMzb7DXoF7l3soDYlbhGMbKj+MV76UM39vsbcMY=;
-        b=W3fm/WO+bFkVBpvP7yCeoOflJdBxqQ+d03ujahb34mx1idG+3vlBpVSIb1UGJa4uSF
-         VZULTpBLHAiW9yE6vWuypZrguoivRiLc8BrvmdrpUw7mRWzG1fB+suq+YNVeKyuZZz2f
-         g6Fj2u6lClJFrLCo1UiFVFHZVBhy+f7xlKn0LK3bHNa+Z4kFub39V3F+Eg9/atFxozB8
-         UUGdEpVtVjud7DUTUvGJfXTwqjKCg10B1ClJfVLgspOQgAh3dcPyY86SQ7BUsnyA+KpO
-         aAMDJ2iHY+1CeK7FnhtrkEyGa09G4pgYmFnwRgE1RVciuChZu1C2wccH7jYsc4rVQ/6M
-         V8lw==
-X-Forwarded-Encrypted: i=1; AKwUvBxX1HUKTEsmHU6JWXlzRqnQTLNgVXc7rK2TJsHeIeLvd+h7RuA803Pgw7E8vtHtblpYVwJNju5S1jB+TrE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FK64d8ZhF6FmHK675EP6hbga9R0ygar25eYYczDVl3VdikIj8
-	ngwrwBOei3k4tjzDFOuISHwuqr/Eqfx6ARX0XE5s2i35ezHaYImQmK2xXX+5z8WTow==
-X-Gm-Gg: AYBFou18zZHmx1i4SPW/5CbhyqvSwUDkX0Yy7uhaf/3HhJGYjg3M/IJy3ka4OdNalX7
-	Kt7VgsB5AM8a5H13y2XvwTVVlSXmzKzwC0aYvccvqL2bljBWCDimQ0GdiADUEQ9G2T28JfmdWOO
-	EhlYex/SBjbXjmg5W7gmF/ScJ7sk5Xh0xvLtJUhTK9jkNi7MITOcZHi/PVfLQtqvpm7XtoX0HqQ
-	dQnia/q3NwcrhkYw0WX2upNEa4gj0uRD0kTn8R5VYlEWE2QFkhmDGm2v01ft6S11QzFy7p3d3Bd
-	LuXcqhq+dy0ElnFOWHMRVDPWa0+YhgL5wwYqYyS8Pi509VlU3/mW+vpHxwICxKyXTmPQDhafXpK
-	AWiUDmXWziCQf+PtgW+RTxRTQPdDxUWxQNZYexI4XGfsbrzTGPpxyZlHTrPuyt8fTlXvlTpOxQw
-	+jIziBKEl2Vrj7o1/0dHjq3+fm6q2f3nGISIvMMo9W/qTxA2HWeyb67pvGAG7sJVDE4TA75dXdB
-	FBI/fEFXDFxqcrZKclOsVnpeQYjPTAeunsljo0YO0eVcEng5Zs2TsWYZgOs3smKF0y22Lo8qhRT
-	GRQj9YiFAyEdw9qh57K6nSyysTw9s6m1hSjGzLm7jMMuAS+/8ofelbBbmRQSnDto
-X-Received: by 2002:a05:6a00:2188:b0:8a0:3483:51ec with SMTP id d2e1a72fcca58-8b37cdfd31bmr3344310b3a.58.1793989239208;
-        Fri, 06 Nov 2026 10:20:39 -0800 (PST)
-Received: from localhost (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b359128352sm848989b3a.13.2026.11.06.10.20.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 10:20:37 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 323E11F008A3;
+	Fri,  6 Nov 2026 18:20:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793989254;
+	bh=51begsGUfivuSorz69L8EKKXRls1v9NQ+e8dSf+Y5AU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=BTps8VVVQkxxSu11kvfnR7JDC2M+AAh3gObFseLZWRat1nKWvlATKw28GA7WbUc1G
+	 V8qOkywpdnXa+YYFTNwMbmgbdQGWmUNBoliVzTmkwDvP8V8wupFYBVIOnvGHhI/DkC
+	 0NS0dDieB9oR55X66C59S1lEAbDTOaRZ+rbsHwPRzsmTTFOWcZ7IFp+f5ZhzRcYFDK
+	 bVP82AswnnLBH/w9e6Ga5c42+SnTdIjXOIJUI/a2zBmiu2mYy5FutKAX1BOIwGgOrn
+	 kVv8RORTzC3SqwiEnjMoYB3XhZPcS5jbQaMehXKqhzhOLEU4hUugVzK00jRSst7jfl
+	 z+dxtLA8fXPHg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 940C945E39;
+	Fri,  6 Nov 2026 18:20:53 +0000 (UTC)
+From: incharilla via B4 Relay <devnull+incharilla.incharilla.site@kernel.org>
+Date: Fri, 06 Nov 2026 19:20:08 +0100
+Subject: [PATCH] md: dont warn about sb update on auto read only arrays
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,147 +81,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 06 Nov 2026 18:20:36 +0000
-Message-Id: <DMOC3XV68W0K.3FGK4UZ87838R@google.com>
-Cc: <kexec@lists.infradead.org>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-pci@vger.kernel.org>, "Adithya Jayachandran"
- <ajayachandra@nvidia.com>, "Alexander Graf" <graf@amazon.com>, "Alex
- Williamson" <alex@shazbot.org>, "Bjorn Helgaas" <bhelgaas@google.com>,
- "Chris Li" <chrisl@kernel.org>, "David Rientjes" <rientjes@google.com>,
- "Jacob Pan" <jacob.pan@linux.microsoft.com>, "Jason Gunthorpe"
- <jgg@nvidia.com>, "Jonathan Corbet" <corbet@lwn.net>, "Josh Hilke"
- <jrhilke@google.com>, "Leon Romanovsky" <leonro@nvidia.com>, "Lukas Wunner"
- <lukas@wunner.de>, "Mike Rapoport" <rppt@kernel.org>, "Parav Pandit"
- <parav@nvidia.com>, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Pranjal
- Shrivastava" <praan@google.com>, "Pratyush Yadav" <pratyush@kernel.org>,
- "Randy Dunlap" <rdunlap@infradead.org>, "Saeed Mahameed"
- <saeedm@nvidia.com>, "Samiullah Khawaja" <skhawaja@google.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, "Vipin Sharma" <vipinsh@google.com>,
- "William Tu" <witu@nvidia.com>, "Yi Liu" <yi.l.liu@intel.com>
-Subject: Re: [PATCH v10 05/13] PCI: liveupdate: Auto-preserve upstream
- bridges across Live Update
-From: "David Matlack" <dmatlack@google.com>
-To: "Bjorn Helgaas" <helgaas@kernel.org>, "David Matlack"
- <dmatlack@google.com>
-X-Mailer: aerc 0.21.0
-References: <20261013162529.1928093-6-dmatlack@google.com>
- <20261106173427.GA1633106@bhelgaas>
-In-Reply-To: <20261106173427.GA1633106@bhelgaas>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-md-auto-read-only-sb-warn-v1-1-5bfde3559841@incharilla.site>
+X-B4-Tracking: v=1; b=H4sIAFca7moC/x3MTQqDMBBA4avIrDuQqIzYq5Quohl1wCZl4k+Le
+ HeDy2/x3gGJVTjBszhAeZMkMWTYRwH95MLIKD4bSlOStYbw49GtS0Rl5zGG+Y+pw91pwKavPFH
+ dGqoryP1XeZDf/X69z/MCqaYV42sAAAA=
+X-Change-ID: 20261106-md-auto-read-only-sb-warn-7c3d66490643
+To: Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>, 
+ Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>
+Cc: Yu Kuai <yukuai@fnnas.com>, Corey Hickey <bugfood-c@fatooh.org>, 
+ linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ incharilla <incharilla@incharilla.site>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793989253; l=2603;
+ i=incharilla@incharilla.site; s=20261106; h=from:subject:message-id;
+ bh=+Wd6+KQm8viRtD/x34JdBjsIzmmj3vcZRVUKHpYuaGI=;
+ b=ipL8t19JS3Mm0slekkicOmxJ0gwtSHfF1GGUH3z36OC+7GEwiABPyFZ3R6wIfsRRw+5JQ9BP8
+ UGFQCnt/q1CANoKkBDYueW4IXWCsQM3WL9c2u9Zh5cFTno706XykKj3
+X-Developer-Key: i=incharilla@incharilla.site; a=ed25519;
+ pk=xE5D6YKyyCtab6ZeeJEA15KoJWTPKAxBRXCtRrslYk4=
+X-Endpoint-Received: by B4 Relay for incharilla@incharilla.site/20261106
+ with auth_id=1436
+X-Original-From: incharilla <incharilla@incharilla.site>
+Reply-To: incharilla@incharilla.site
+Content-Transfer-Encoding: 7bit
 
-On Fri Nov 6, 2026 at 5:34 PM UTC, Bjorn Helgaas wrote:
-> On Tue, Oct 13, 2026 at 04:25:21PM +0000, David Matlack wrote:
->>  static int pci_liveupdate_preserve_device(struct pci_flb_outgoing *outg=
-oing,
->>  					  struct pci_dev *dev)
->>  {
->> -	struct pci_dev_ser *dev_ser;
->> -
->>  	if (dev->is_virtfn) {
->>  		pci_warn(dev, "Cannot preserve Virtual Functions\n");
->>  		return -EINVAL;
->>  	}
->> =20
->> -	if (dev->liveupdate.outgoing) {
->> +	/*
->> +	 * Endpoint devices should not be preserved more than once.
->> +	 * Bridges are preserved once for every downstream device that
->> +	 * is preserved.
->> +	 */
->> +	if (dev->liveupdate.outgoing && !dev->subordinate) {
->>  		pci_warn(dev, "Device is already preserved\n");
->>  		return -EBUSY;
->>  	}
->> =20
->> -	if (!pci_is_root_bus(dev->bus)) {
->> -		pci_warn(dev, "Cannot preserve devices behind bridges\n");
->> +	if (dev->liveupdate.outgoing && !dev->liveupdate.outgoing->refcount) {
->> +		pci_WARN(dev, 1, "Preserved device with 0 refcount!\n");
->>  		return -EINVAL;
->>  	}
->> =20
->> -	dev_ser =3D pci_flb_alloc_dev_ser(outgoing);
->> -	if (IS_ERR(dev_ser))
->> -		return PTR_ERR(dev_ser);
->> +	if (!dev->liveupdate.outgoing) {
->> +		struct pci_dev_ser *dev_ser;
->> =20
->> -	pci_info(dev, "Device will be preserved across next Live Update\n");
->> -	outgoing->ser->nr_devices++;
->> -	outgoing->ser->devices =3D kho_block_set_head_pa(&outgoing->block_set)=
-;
->> +		dev_ser =3D pci_flb_alloc_dev_ser(outgoing);
->> +		if (IS_ERR(dev_ser))
->> +			return PTR_ERR(dev_ser);
->> =20
->> -	dev_ser->domain =3D pci_domain_nr(dev->bus);
->> -	dev_ser->bdf =3D pci_dev_id(dev);
->> -	dev_ser->refcount++;
->> +		pci_info(dev, "Device will be preserved across next Live Update\n");
->> +		outgoing->ser->nr_devices++;
->
-> This looks a little funny because prior to this patch, nr_devices was
-> always incremented in pci_liveupdate_preserve_device() and always
-> decremented in pci_liveupdate_unpreserve_device().  Now it's only
-> incremented once (per device) in pci_liveupdate_preserve_device(), so
-> it looks unbalanced.
->
-> My guess is this is because previously we didn't expect to preserve
-> bridges at all, and now pci_liveupdate_preserve_device() might be
-> called several times for a bridge, and it's all just fine, but it's a
-> little subtle.
+From: incharilla <incharilla@incharilla.site>
 
-Right. nr_devices counts struct pci_dev_ser entries that are in use, so
-it goes up when a device's refcount goes from 0 to 1 (the entry is
-allocated) and down when it goes from 1 to 0 (the entry is released).
-For endpoints that is every preserve/unpreserve call, but a bridge is
-preserved once per preserved device below it, so most calls for a
-bridge only change its refcount.
+Commit 8c9e376b9d1a ("md: warn about updating super block failure") added
+an error when md_update_sb is called on a read only array to help debug io
+hangs.
 
-> I suppose the "(dev->liveupdate.outgoing && !dev->subordinate)" test
-> above is what allows us to just increment refcount each time a bridge
-> is preserved.  And the test around pci_flb_alloc_dev_ser() is doing
-> basically the same thing.  I wonder if there's a way to connect them
-> more explicitly.
+An array that is started auto read only prints this error for no reason.
+This happens when it is assembled with start_ro set or when a degraded
+array is created with start_ro set. md_update_sb already defers the
+update by setting MD_SB_CHANGE_DEVS and the sb is written as soon as the
+first write makes the array read write. No io can hang on an array that
+has not been written to yet.
 
-Agreed, both points come from the same thing being spread out. I think
-both can be fixed by splitting pci_liveupdate_preserve_device() into
-"already preserved" and "first preservation" cases, and moving the
-nr_devices accounting into helpers that allocate and release the
-struct pci_dev_ser, so it is visibly paired:
+Skip the message for MD_AUTO_READ the same way dm raid is already skipped.
+It is still printed for arrays that are really read only.
 
-	if (dev_ser) {
-		/*
-		 * Endpoints can only be preserved once. Bridges are
-		 * preserved once for every preserved device below them.
-		 */
-		if (!dev->subordinate) {
-			pci_warn(dev, "Device is already preserved\n");
-			return -EBUSY;
-		}
-		...
-	} else {
-		dev_ser =3D pci_liveupdate_alloc_dev_ser(outgoing, dev);
-		if (IS_ERR(dev_ser))
-			return PTR_ERR(dev_ser);
-	}
+Tested in qemu on loop devices with raid1 and raid5 and raid10. Before
+this patch assembling a clean array with start_ro set prints the error
+for all three levels. Creating a degraded array with start_ro set prints
+it in 5 of 10 tries for raid1 and 8 of 10 for raid5 and 4 of 10 for
+raid10. After this patch none of these print it. On raid1 the first write
+still makes the array read write and the sb events go from 17 to 19.
+Assembling with mdadm --readonly still prints the error.
 
-	dev_ser->refcount++;
+The fix and the qemu test were made with help from Claude Code.
 
-with pci_liveupdate_unpreserve_device() calling a matching
-pci_liveupdate_free_dev_ser() when the refcount drops to 0.
+Fixes: 8c9e376b9d1a ("md: warn about updating super block failure")
+Reported-by: Corey Hickey <bugfood-c@fatooh.org>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222162
+Signed-off-by: incharilla <incharilla@incharilla.site>
+---
+Found from bugzilla 222162. The qemu test script used is a busybox
+initramfs that creates raid1 and raid5 and raid10 arrays on loop devices
+with start_ro set and counts the message in dmesg.
+---
+ drivers/md/md.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-The helpers would only manage the entry and nr_devices, not the
-refcount, so there would still be a single refcount++ shared by both
-paths, as you asked for in v8.
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03e35386a80283032e317e037a749eca23ce170e..a0fc6028990530026404f0019a458dfabed02349 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -2819,7 +2819,8 @@ void md_update_sb(struct mddev *mddev, int force_change)
+ 	if (!md_is_rdwr(mddev)) {
+ 		if (force_change)
+ 			set_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags);
+-		if (!mddev_is_dm(mddev))
++		/* auto read only arrays write the sb once they become writable */
++		if (!mddev_is_dm(mddev) && mddev->ro != MD_AUTO_READ)
+ 			pr_err_ratelimited("%s: can't update sb for read-only array %s\n",
+ 					   __func__, mdname(mddev));
+ 		return;
 
-Since the series is already in liveupdate.git, I'll send that as a
-follow-up patch on top of lu-pci-preservation. If you are ok with that,
-then an R-b or A-b tag on this patch would still be needed.
+---
+base-commit: a91337fb5e8e0127c8b5be87be9f3027f95b48bc
+change-id: 20261106-md-auto-read-only-sb-warn-7c3d66490643
 
-Otherwise, happy to send a v11.
+Best regards,
+-- 
+incharilla <incharilla@incharilla.site>
 
-Thanks for the review!
+
