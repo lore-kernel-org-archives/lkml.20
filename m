@@ -1,72 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957325;
-	b=3fVUAiURTS44TjoGQ1pv7Aah/a8VEbAoBZOvCycNWlZ7OS8BJnUrrie5ZBrScP0hMF0p
-	 21zxSlKDIN8nbmfH1cwHmKY9uhWV3hDvnQbYRtwEk/WeQ9bxn7w+Qg4LdUvUB9HQ1hMHT
-	 kR3xtJJDPXCM2Xe0OYOWPR0HCm19hnKOht/swRQRtld0VOqdOJNFZS3u6Gvnbn8z/7YTX
-	 Z2+2dQK2BRqdEOAYdQeGZbFClZq+zLnqnPGEJvAw8Jpl00vWjnV5roS0ZBYIa0r5Vduwr
-	 LGGGEYsINPWjWnjQHYAAlFLdxMd9YRUkQ2LPIwi3dOT/bsb/9JG1joYP7HdZTCLO38g==
+	t=1793957353;
+	b=QC9ktiC/wGAupA+kLpRUSEKS1iSdHKg8pvT3MUKMHFiaB++FipD9UZxQ205/lRmbrfdj
+	 OboAerCj0ZtQpH7XuPwuCQz3PZCr8QVIo32Qq0lAcxFg9kt/MSPe2QkuiQwH24oivmU6f
+	 SENFd6yOjrjw9AaeNiKu3hLqgT/1WtHhymSNfk+fhI5VEWAzXHgdb9c4T6C/5P4ofl7F+
+	 BN/AIKV80nMkiueJr3DirPWJ3UPGWyDLHvHLEHTWe0BCquSunoVUUvVcBsgCXQb8b2kyc
+	 OOgPS8O/PsZhSIfStPLNtYzsgUpcvwne+htVNI0h01E8H8s1ExpY8e7f8+i/XW3AmAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957325;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=VC16RfQ/Ch74ykYoajUZJ+R1KFdW7fHzBmB94MytVlk=;
-	b=WzQxChkHI14oFq4yEbBaoozusuAfMETEJqHgsvIlbbrk3f7FJMyKM0h0ede1zTF2wlNW
-	 tPdrK3zRAHQnUUaHigveEg5wBUFkPF8iMzTIFCABBZfq0zm3T3FZj+jIkGjxYZUtFZaCX
-	 W7v5YMGtmIOevBz4VVk1l18Xfj3sKMz+K/AnlFyMQFaTf7V1KRgfvFL+bNwPJxxra0WvX
-	 3rDyoKisrYk0d63aKxIdNezjdauRpVXfh3viFfcJUHrNXINP7TwO8D52bIJzEbZVsHZOC
-	 LQkd3+5+VkpH+w5+o7L0fPzhMuQqVMR4z4+VgzaN1tWoqXO/l910xeghKnN2lvUgqkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957353;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=zfbxeYdI31iwNJOEXfTUaItVeY5T7kuVbbS50caxSFE=;
+	b=ri86nhfLGxnkEwKHmyo/rKRbD2VIE2/Q9dQsH8OrhCm5QuRbA1W9nxwVYu1caQYkMG0U
+	 kTYkwf2pT6YIEgdtD08aw/de97ImAbMde4uWVkBJy95WIDoTJ0FdDPGiV2lPhL2JJ7ylX
+	 vZnQCAGggyxsJQ6J1Kcaft27ZrVWj7UFj/GqToYxbCNEZH1b9o5EIsdkITZfDMppXaKw5
+	 pVH80bY1mXQwrdPRrR5gUW8/UQ3uEu7YNhFHOZZ7ddNqaTQKnx4oGEXB0ueUY0n7b1IgL
+	 xyja3Dp5sfwXrvDQh6BoKKVrDrz2UzVCgHtx95ulb+pExUsk6wJdNFSUIsJsRw1gyaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kqeWePhs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ag3RIJVf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1504606A326;
-	Fri,  6 Nov 2026 09:28:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130EB606A326;
+	Fri,  6 Nov 2026 09:29:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kqeWePhs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0C551F0089F;
-	Fri,  6 Nov 2026 09:28:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ag3RIJVf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521E81F0089F;
+	Fri,  6 Nov 2026 09:29:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793957324;
-	bh=VC16RfQ/Ch74ykYoajUZJ+R1KFdW7fHzBmB94MytVlk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kqeWePhskc8HNNCmYcdAWgvx59rFaItJGQOF/OyXIt/sCZd7S07yg+8aS/fnB0zNp
-	 VZWmUIjL5yONrrC/I3jiwH2+dnKikXHjGeTuLUGr0j0eRPY5SO/KWrCGOFcgNA3ZZL
-	 HdLccbtIl2+rB52+gfXthzuEXvhI4yjsjlV4x4GCkb7bizD6hCKSxpyMWCje9+/s6U
-	 4d4hYcIqy+tap693g+yX6oZ4XvZL7fnGPKzTviF5CpGIRYQ1kG01IAXQpkl7+VYCF1
-	 E9JusScvtWLyNrSjSK8j0HDA6lphKi+qTFh2GDRYyMedmYzEVbuuhiiS7jnOcasf3z
-	 PDOC78hNF61Zw==
-From: Christian Brauner <brauner@kernel.org>
-To: me@bobcopeland.com,
-	Hungyu Lin <dennylin0707@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	willy@infradead.org,
-	viro@zeniv.linux.org.uk,
-	jack@suse.cz,
-	akpm@linux-foundation.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	geert@linux-m68k.org,
-	tsbogend@alpha.franken.de,
-	maddy@linux.ibm.com,
-	linux-karma-devel@lists.sourceforge.net,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH] omfs: remove the filesystem
-Date: Fri,  6 Nov 2026 10:28:33 +0100
-Message-ID: <20261106-vortrag-exotisch-pelzmantel-66235662f81f@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105044046.52180-1-dennylin0707@gmail.com>
-References: <20261105044046.52180-1-dennylin0707@gmail.com>
+	s=k20260515; t=1793957352;
+	bh=zfbxeYdI31iwNJOEXfTUaItVeY5T7kuVbbS50caxSFE=;
+	h=From:Subject:Date:To:Cc;
+	b=Ag3RIJVfaWCeshVxA6v5c4WRyu8cDeNi0XVy4KeKwViqwDQPGwu155j+iH1fdshLF
+	 gz8VX7ppNkeWHcOYRC6bFRXxlL7+ktMFqGRDvGyr5d0ERQSbMbtxNpMBR6TiNHy2Fl
+	 es9mrxyOgHbfKaJFC5p+Cxk8wHqWeQJcd/Dwj88VSJfgloVw9J4cSDjMoDW39o7EMz
+	 CMCSDsGi99N9d2Y954sn/ZQTeW4NAFpICK4Wc98TAAoqyD3YPmYkmFM5zw5E3qhr5h
+	 J8/D0s714vRe30aOe7tzN/1Jf7snSuynTUvSasnoLllEzwFLDIKU0SPHY8Q5HpfWhR
+	 TdnAQwuoiYmrQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH v3 0/8] Commonize Glymur regulator settings for fixed rails
+Date: Fri, 06 Nov 2026 10:29:01 +0100
+Message-Id: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,40 +54,119 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1286; i=brauner@kernel.org; h=from:subject:message-id; bh=i3zpqEJ74dna9za+0x2JJjtzgM6lB6eRNkY0jcS+yfg=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9nXv4bfPNlUcWTPn4uXNLgONU2auKFum3j/m/yNjO3 u7/4QGPcEcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEkjYzMkw6HKYfmszBsTjg nQ9D0/sLfp1fF166+WGPjq32xIUV3GcZfrMKhXHuzlJ3P5KXsnvXZd3mx77RJ1add2gs+WygyOB fzwsA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQQ6CMBAF0KuYri0pU4HiynsYY0oZpEYottBoC
+ He3xY0xupnkJ3/en4lDq9GR/WYmFr122vQh8O2GqFb2F6S6DpkAgzxlIOhoBq2o08NZmYrmWd1
+ wDhnWIEj4GSw2+rF6x9M7u6m6ohojEhutdqOxz3XQp7H3z/YpZVQwWeUF20kl+cE4l9wneVOm6
+ 5JwSJzw8IFw9o1AQNKsRCixLJSAH8iyLC8rGYLlCAEAAA==
+X-Change-ID: 20261028-topic-sip_cob-65df3325ed28
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>, 
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
+ Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>, 
+ Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+ Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>, 
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793957347; l=3984;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=i8NYw4fnhzuaJtMa6ToNTldRAPb4HEjfZRoKZJuNyrc=;
+ b=1Opw1a7XvB+sfTT1AhXgN1WC/3PTtaeMX+28wWt885dlSeR8zBdUgZNynCH40aXCYA9gqhoBa
+ zNzDNlNHy83CnJSRFgPWX+43Qcw/y8gVd7cShP1QLVfvLAygPhRGIW+
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Thu, 05 Nov 2026 04:40:45 +0000, Hungyu Lin wrote:
-> OMFS supports the on-disk format used by the long-discontinued Rio Karma
-> music player and ReplayTV DVR. While reviewing a fix for incorrect block
-> mapping on writes starting beyond EOF, Matthew suggested removing the
-> filesystem instead of continuing to maintain it.
-> 
-> Existing OMFS media can still be accessed using an older kernel with OMFS
-> support.
-> 
-> [...]
+Certain rails are predefined and will ALWAYS have to be the same for a
+given PMIC configuration (due to electrical and other requirements).
+Factor these out to remove a layer of pain when creating DTs and let
+one have a better way to reason about the settings across the platform.
 
-I agree. It's great to see that we are are able to shed a whole bunch of
-legacy tech.
+Glymur-SiP will be the next target after/if this is accepted
+
+Depends on the (reviewed and awaiting merge) Mahua QCB series:
+https://lore.kernel.org/all/20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com/
+
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v3:
+- Rebase on next-20261105
+- Pick up t-b
+- Add SiP commonization and SiP CRD DT. I realize this extends the
+  scope of the series but I believe all the changes are pretty
+  straightforward and any subset may be picked up)
+- Commonize the overlooked pcie3_phy supplies as well
+- Link to v2: https://patch.msgid.link/20261030-topic-sip_cob-v2-0-159e29e97c82@oss.qualcomm.com
+
+Changes in v2:
+- Fix regulator ranges, boot test on glymur-crd-cob now
+- Streamline Mahua setup (all Mahuas are CoB)
+- Fix leftovers (Sashiko)
+- Remove L4F0 from all Glymur/Mahua DTs
+- Rebase on the Mahua QCB patchset
+- Drop reviews from p1/p2 due to an invasive rebase
+- Link to v1: https://patch.msgid.link/20261028-topic-sip_cob-v1-0-80ab6704aca3@oss.qualcomm.com
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+Cc: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+Cc: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
 ---
+Konrad Dybcio (8):
+      arm64: dts: qcom: Unify Glymur/Mahua regulator handles
+      arm64: dts: qcom: Consolidate Glymur CoB power grid
+      arm64: dts: qcom: glymur: Drop L4F0
+      arm64: dts: qcom: glymur-crd: Fix L8B0 voltage
+      dt-bindings: arm: qcom: Add Glymur SIP CRD
+      arm64: dts: qcom: Consolidate Glymur SiP power grid
+      arm64: dts: qcom: glymur-crd: Move DP0/DP1 to common dtsi
+      arm64: dts: qcom: Add Glymur SiP CRD
 
-Applied to the vfs-7.5.omfs branch of the vfs/vfs.git tree.
-Patches in the vfs-7.5.omfs branch should appear in linux-next soon.
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts  | 242 +-----------
+ .../dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts  | 362 +++---------------
+ arch/arm64/boot/dts/qcom/glymur-cob.dtsi           | 319 ++++++++++++++++
+ arch/arm64/boot/dts/qcom/glymur-crd.dts            |  46 +--
+ arch/arm64/boot/dts/qcom/glymur-crd.dtsi           | 411 +++++---------------
+ .../boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts    | 225 +----------
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts    | 328 +++-------------
+ arch/arm64/boot/dts/qcom/glymur-qcb.dts            |  22 +-
+ arch/arm64/boot/dts/qcom/glymur-qcb.dtsi           | 305 +++------------
+ arch/arm64/boot/dts/qcom/glymur-sip-crd.dts        |  14 +
+ arch/arm64/boot/dts/qcom/glymur-sip.dtsi           | 304 +++++++++++++++
+ arch/arm64/boot/dts/qcom/mahua-crd.dts             |  27 +-
+ .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 412 ++++-----------------
+ arch/arm64/boot/dts/qcom/mahua-qcb.dts             |  34 +-
+ arch/arm64/boot/dts/qcom/mahua.dtsi                |  29 +-
+ 17 files changed, 1029 insertions(+), 2053 deletions(-)
+---
+base-commit: dde2e8a7cd2a498c5e0624b80cc97d34b517d602
+change-id: 20261028-topic-sip_cob-65df3325ed28
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.5.omfs
-
-[1/1] omfs: remove the filesystem
-      https://git.kernel.org/vfs/vfs/c/b4d257187fe7
