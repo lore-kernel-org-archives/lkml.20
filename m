@@ -1,87 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971312;
-	b=Ybe5gybEojRK15hudzQAOGaMnyUk7TrR8PxUfftOuWZDW+dBoHSc7CMvNM0WU08LBH0h
-	 /2tFZm7lG5unrUvWug+Kl5tx7l+lz9Aee4aARU4tfan5SqU1NsCeoHnAKSAf4Jh08Gp21
-	 u3RRzORfemQre/30Z91gXFwQK0zWc1teK+a6ZDWnrhOmMc1zvOFI0OxGTJCP9G4a+Mk3B
-	 WdMLhHcFVv8+Ww8Goob74BCbiwfZbsOkTHtPO9l6F6Tef7j4GmymHX32HSNElHJt2JOO/
-	 SSDLaROmrQWLd7kJTGFBR8XjtT0o/504XH3asYFlMr5P7tEWWE4Fm4G7KNscLaNBaGg==
+	t=1793971438;
+	b=1riAvx7482LwScsn6BEpC+b5AZIgwx9FIg5fBWrCAobQTp6qbebebdATv0YaZ2OoCBvO
+	 NlbrWNPls+jxkwdEnN1z2EU1THwRF3TCJVlJNZ0SQ8O430z+HnlhN0qd/XUZeXB4AJUSy
+	 VDp5kWeeWjXGbCrKTVHYbkHc2qvxGDFXZwNUkn7LXxaqepde3HdFlc4fVLNVMP4QT6BRP
+	 rjcK6skAOQx9NFC97i3BJcD0axrWHJS8TXg+HnObyOAaaE3W+V60rhOuTmDGASt4aYs80
+	 vcu2hd50KGTQpZ0UXYToPqij1Ym/GEV6WL/3+K/XqwC9qkBEzYgXB2uPzhRlZ4nMv+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971312;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DRGUowhFqVlQEc8mCF0Quf48QQilintdaUx75V1QpwM=;
-	b=pGYcK0DN3lvjtC5uj4HNGCGNPgQzr6w6qSBGjVFs0TzOuekafWBQ07eCasa47XJEMfIL
-	 /ffMVL+LKg/VeSZ6vioPtzPlDCFRdNzdi7pCZMWpJImb6YmegUw9PCrMX/3C/gblrrGKF
-	 rwLYt2+uooyvp9+atwNUh0om43A6FCw9ZFOH92+mKQs/L0/kI9M9CG8WSi0e0kZYvGgcS
-	 MR6NOqBiEtF/VeeUBdEmhV54z+NrxovFeV+IJk0k1jOKoJ8aodcjVYpGHI/AH50pqMwnL
-	 xOlzHuBvIJ2d1XuqwQ6wxAlRJ5AXWNYqIsSamJLdUBQssVgEpJpqpMPw15ethxkUfpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971438;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/kodSX96ujDziaB7lGvbVTnU34UOPakkV0ayfzL5L94=;
+	b=P+RSeAQg9gYKCN9pR9ChiviOXFq2woj7/8yabHwSagWVY1VzPcwMPiwS3Mtq3Kn9v1S+
+	 sW1Rd+V+RWqYqeIzycEA6muFfEQ7hnmCNvgHqQn7tShdG5HbX7vNqoN29BGahQu3VQR7T
+	 oMiOsOFt2N+zvIVaYz8rkPRXNr9rgBUxYZTuGXkp7Rn5XcEqlH/1v3KTXEwvD4Q2fbcUS
+	 dKniHUNMJmA1nLFPRswqoUsXUWMhemcR/knnmRNhJhp684rUgSCFs6bw/4Tcagks0tZeO
+	 CZB83cpIHjdxPVLh6YLMTnvGLj3fvPc9zpqTxWrk6+6oW1o28k8w2i1k03MJjRvSwnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=INg6F1WC;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ho07j9cZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4225606A330;
-	Fri,  6 Nov 2026 13:21:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4225606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67629606D80A;
+	Fri,  6 Nov 2026 13:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=INg6F1WC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793971310; x=1825507310;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=cPoDJJurJ3JFCVkslxCJnfPoFcsZBtUovXSys0F7q7A=;
-  b=INg6F1WCpAfpIyE83JlCJ0e2MeJ3N7V327lfC5ShieemmZOL4WzG1rKY
-   6n618IFFmDqxlhiKO0aJsXIIIX1SbOhIlOQwwH5lb2usQp4Pfp4cbbiqq
-   RyWaMCugVui7tCn5yUNYMetCXUSfkUlVT7G3N+cl8OLqPDie//H/X25Nw
-   lVY9b6WyL/u8HaObE+jNILWH9MdtfuqrPDAHJG62c0zLdgiD3x8smfnfK
-   wNTCv508f6UZkyjBqQF2fqjiGoN4dTNatFQEf9IwMx+8cdkA4JfE/i2vD
-   M/fjt3d8piy8dGmG+x21FYDY1NMmFV/d64W4IOJkdhGDDtVTH/aYbn8xs
-   g==;
-X-CSE-ConnectionGUID: TS40Jf1lTQ+Up5HyjmWKfA==
-X-CSE-MsgGUID: 6gztYhBZSlmKOchV+UBJ4w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2786777"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2786777"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:21:50 -0800
-X-CSE-ConnectionGUID: 8WywxznZSS6Ok8WS9EUFdg==
-X-CSE-MsgGUID: lngGdN+ASem/cvk8RYqPig==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7397277"
-Received: from 984fee019967.jf.intel.com ([10.23.153.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:21:50 -0800
-From: Chao Gao <chao.gao@intel.com>
-To: linux-kernel@vger.kernel.org,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org
-Cc: yilun.xu@intel.com,
-	arjan.van.de.ven@intel.com,
-	Chao Gao <chao.gao@intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>
-Subject: [RFC PATCH v2 2/2] x86/virt/seamldr: Support multiple sigstruct pages
-Date: Fri,  6 Nov 2026 05:21:56 -0800
-Message-ID: <20261106132159.1551365-3-chao.gao@intel.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261106132159.1551365-1-chao.gao@intel.com>
-References: <20261106132159.1551365-1-chao.gao@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ho07j9cZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 812661F008BC;
+	Fri,  6 Nov 2026 13:23:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793971438;
+	bh=/kodSX96ujDziaB7lGvbVTnU34UOPakkV0ayfzL5L94=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ho07j9cZPpIFko6+b33h7hgp49r0Jv5esWt04CGV55mDgMi4ztV5nlxeGDNtFvvHQ
+	 wNc84qttMZ6c1HH0Wz4zic72EazVEMi7rlYABUchxcFNmNlQvH7Pe93nq06YKijeXa
+	 JuaaH1BWG2w29Cz++yEB9wUtMPOYRli8YR1S2nu990V/l5jAiJ5HyoyZD630l1AVlt
+	 +V4LQSJpTCgWlI1CinOeTcKa5E1CPyUPbkZBG7zn0f8FXYph3Nl+zBcFP9F2KgVc/t
+	 9c/ieaiLntkWOx4jCKTRFbe3IDSn947+zyciyMZFoz3hqn+Nllc4b/4zxOJPBGB/eq
+	 Mrquu4m3cIfcg==
+Date: Fri, 6 Nov 2026 14:23:55 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 03/10] drm/panel: Convert LG LH400WV3-SD04 to use MIPI
+ DBI bus
+Message-ID: <au3UDDpLUmeIOwEH@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-4-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,79 +64,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qkzlestmbzyulvpc"
+Content-Disposition: inline
+In-Reply-To: <20261105140510.165165-4-clamor95@gmail.com>
 
-Each TDX module update image carries a sigstruct, which is passed along
-with the module binary to P-SEAMLDR. 'struct seamldr_params' has a single
-physical address slot for it, so a sigstruct can be at most one 4KB page.
 
-TDX modules are moving to a post-quantum signature algorithm. Its
-signatures are far larger than the ones in use today, so the sigstruct
-no longer fits in 4KB.
+--qkzlestmbzyulvpc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 03/10] drm/panel: Convert LG LH400WV3-SD04 to use MIPI
+ DBI bus
+MIME-Version: 1.0
 
-The P-SEAMLDR ABI was extended for this. It now has four sigstruct
-address slots instead of one, for sigstructs of up to 16KB. A new
-'version' value of 1 tells P-SEAMLDR that this layout is in use.
+On Thu, Nov 05, 2026 at 04:05:03PM +0200, Svyatoslav Ryhel wrote:
+> Switch from a generic platform driver to a dedicated MIPI DBI driver.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 103 ++++++++++------------
+>  1 file changed, 46 insertions(+), 57 deletions(-)
 
-Extend 'struct seamldr_params' to match the new ABI. The sigstruct
-address list is already populated in a loop over all sigstruct pages, so
-raising SEAMLDR_MAX_NR_SIG_PAGES is enough to fill the new slots
+Same comments as for the previous patch.
 
-Set 'version' to 1 only when the sigstruct spans more than one page. Old
-P-SEAMLDRs reject version 1, so this keeps updates with a single-page
-sigstruct working on them.
+> diff --git a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c b/drivers/gpu/drm/=
+panel/panel-lg-lh400wv3.c
+[...]
+> -#define panel_dbi_command(priv, cmd, seq...) \
+> +#define panel_dbi_command(dbidev, cmd, seq...) \
 
-Do not query P-SEAMLDR for version 1 support. Userspace selects the
-update image and is responsible for ensuring the module is compatible
-with P-SEAMLDR.
+This probably also applied to the previous patch, but there seems to be
+no reason for this change and the related changes below.
 
-AI was used under supervision to review code and workshop logs
+>  ({ \
+>  	const u8 d[] =3D { seq }; \
+> -	struct drm_panel *panel =3D &(priv)->panel; \
+> -	struct device *dev =3D panel->dev; \
+> +	struct device *dev =3D &(dbidev)->dev; \
+>  	int ret; \
+> -	ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d)); \
+> +	ret =3D mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SIZE(d))=
+; \
+>  	if (ret) \
+>  		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret,=
+ cmd); \
+>  	ret; \
+[...]
+> @@ -177,14 +166,13 @@ static int lg_lh400wv3_get_modes(struct drm_panel *=
+panel,
+>  static const struct drm_panel_funcs lg_lh400wv3_panel_funcs =3D {
+>  	.prepare =3D lg_lh400wv3_prepare,
+>  	.enable =3D lg_lh400wv3_enable,
+> -	.disable =3D lg_lh400wv3_disable,
+>  	.unprepare =3D lg_lh400wv3_unprepare,
+>  	.get_modes =3D lg_lh400wv3_get_modes,
+>  };
 
-Signed-off-by: Chao Gao <chao.gao@intel.com>
----
-v2:
- - drop macros for versions to keep the diff minimal
- - explain why the sigstruct filling code needs no change
----
- arch/x86/virt/vmx/tdx/seamldr.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+It's not obvious, and also not documented, why .disable is removed.
 
-diff --git a/arch/x86/virt/vmx/tdx/seamldr.c b/arch/x86/virt/vmx/tdx/seamldr.c
-index 087bdf10a9a7..9cef6fff2a6c 100644
---- a/arch/x86/virt/vmx/tdx/seamldr.c
-+++ b/arch/x86/virt/vmx/tdx/seamldr.c
-@@ -36,7 +36,7 @@
- #define SEAMLDR_PARAMS_NR_PAGES		16
- #define SEAMLDR_NR_MODULE_PA_ENTRIES	(496 + 512 * (SEAMLDR_PARAMS_NR_PAGES - 1))
- #define SEAMLDR_MAX_NR_MODULE_PAGES	(SEAMLDR_NR_MODULE_PA_ENTRIES - SEAMLDR_PARAMS_NR_PAGES)
--#define SEAMLDR_MAX_NR_SIG_PAGES	1
-+#define SEAMLDR_MAX_NR_SIG_PAGES	4
- 
- /*
-  * The seamldr_params "scenario" field specifies the operation mode:
-@@ -57,7 +57,7 @@ struct seamldr_params {
- 	u32	version;
- 	u32	scenario;
- 	u64	sigstruct_pages_pa_list[SEAMLDR_MAX_NR_SIG_PAGES];
--	u8	reserved[104];
-+	u8	reserved[80];
- 	u64	module_nr_pages;
- 	u64	module_pages_pa_list[SEAMLDR_NR_MODULE_PA_ENTRIES];
- } __packed;
-@@ -166,6 +166,13 @@ static void populate_seamldr_params(struct seamldr_params *params,
- 				    const u8 *mod, u32 mod_nr_pages)
- {
- 	params->version		= 0;
-+	/*
-+	 * Use version 1 only for multi-page sigstructs, to stay
-+	 * compatible with old P-SEAMLDRs that lack version 1 support.
-+	 */
-+	if (sig_nr_pages > 1)
-+		params->version	= 1;
-+
- 	params->scenario	= SEAMLDR_SCENARIO_UPDATE;
- 	params->module_nr_pages	= mod_nr_pages;
- 
--- 
-2.52.0
+Thierry
 
+--qkzlestmbzyulvpc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt1OsACgkQ3SOs138+
+s6E7RhAAhYaqjQpfxuR0l1ZuY4dmYeegPdxooSOgCYqYp6c11Rh7fip7s4vdJYqE
+emn9EvuSsZjwV0kF3BTkroWFkJBKtFZB1KpHqJMiUfB+l9zRZJEb1w1/rovBXP9n
+XhAroklrn494LRa5A6WMuSU35U5AXCOvY2PX3euu9HJlTjwO4tKqoXLy+JvjPifE
+LNCylIWfRgampR3y8wPzpjoon3e5QnIeK9yMOyLetAd1/dl9+pCH6ROlFc8eWiim
++6dJ5V2p2kDuauD3CVGI7oPTDV+jscsaUV+PjkB1urv9TVEGvNC2P3vDz4gTZa1s
+FwnZNQqFj84PUho4vCZZKIffM7eV20S5jBPuzgWdagZVTY6wxKwsIH/OXY7E0FU0
+dCRqGabKG4a4v8iqSdB1f1IrxVK7Ic8aQgliAVdt4SjtNu+/GbVm/FcinEbu4Psz
+LbqDxv/T8HGc9YVhyqQdY7ni09OuEaTez7FdmmHZL1nzSaf0OjAHhqgCVyH+HDZo
+nIeWl1MxRe1q0cuwHeYMQj0uQ6JSenhDHEILix2i6AFt6w3pspErjxkb3Xo7Dm4G
+r+R9/oZPi/zcZ5oH0aCWQRTkK9a6WgVscbNh7K7dwQfPMMFZ51CWG1riVluLRxGf
++rdrQlldQVhAEJrgw3lwjVerdbSRz76nVMwadaXh+lhcbeR+3tU=
+=TgBu
+-----END PGP SIGNATURE-----
+
+--qkzlestmbzyulvpc--
