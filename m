@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974099;
-	b=VD6vCHuuZMDtj7jZTbaVIACg4qsCUQAFHyEDbyV26FjEeRNaTOum8CK4JiMoYULz6Kvj
-	 tp/5YujdgfqRygXsE41T09vOdFz4bO61HD/65ezDPLhBCzoysJHSYJfkR7UC4xYGMqAjh
-	 kmGxaadC5Mp4cbduyxu4ULJw9qq118saHqhsCq/vojIql9yw/Vj4zQKe9YmkesO0PxNMw
-	 RIfOw2Vtz5JH/8z9hxT2eFDzg0OKWekStp1m2d9eYzPeNmogJkrUAyZz7bzicGLlXZUZg
-	 lyd1Ko0KJD5zWfQXKUL9d/EpoxmMS9MphWLt9Upn+I7hVzNBkdV6wQhiSEMmuUbFYKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974099;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hrYX149OSdk3k+YOin/rIkohEIQs6jD419zibT9vgxU=;
-	b=pKoPfBzQbcFXPRzioFIQRcrPDHiaSxxRMlVoGvKNgn4SrjGuw2r3ASvhPcxmv0TP/oY6
-	 NCZ9uBTQvaZlRF5hqJ96MxhJD6Ud50rs7lfp8Ipw2YEkZTIwlZQDCpK2AxrAUTlbdMbqY
-	 gkKtxbxGy+BamlF1OtritTmKeAX+OR1auxAWqyoGarsMZY+giEP4N4TGJY9DVVuKrcOLt
-	 7K7Xqbt4dLpTvw4UMBSOx4UF7ecEo6AFlXWh56Ef6d9uBVRG33iRXCBoVLPIHP/EY/IzW
-	 Mzl+QUDwZcH+3pprTD6q6Mfnk4fpqFZ404UE6RJ3xf7jgQfssUNU6WUTtAxnShOvFqw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fh6r6JqT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.139
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793974096;
+	b=z2JcLfKEr9XgUlB0Xr1NehIpRG2xDUCScwnfSZN7eZxxLHFHtF6dGC/Xmm1SAw8dzy4I
+	 NuGn/tGSWxxTFfz98DmBMwdJkUUfR7waMW4oJ4WpO2iToA3DB6lC3/uKHMhpE8nfU4IcX
+	 d+Ta8HPI09IanNThIt52kvs1STRDlRH+KYgd9XhxEw5d/icIuXw9b89DKl7j8jwv5Y5Ni
+	 eEIR4dzdckiFB209WMF3jQBvdkDeUoCv2ElwBLsjUyqDFEZSE5+9b900XkcfPV4PIIqZu
+	 LFkAn0hhAcPjqmKZTJ7HZLN5qeEvUncum5Yf2V34AvRXbXQXohnju8SasEHZFDg/S+A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974096;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Op6KfpUeeWzwK9z8FLWKm37+4oTkBnz/6pxiR59GP/I=;
+	b=YO7XnxZkP0SrRqG0x8RoitBfQTmA4jM1KcnhJdCVhbdoE4/vgnByAUEzvt7CikdTwfPi
+	 3JiQtJGiM7wQdupej6UF71G52u4hweEy7S8KInDOa0iuqBFNDElcjMoW8WuoxAJBJ9lO0
+	 BDP/Zt1negat8ZPUgXM/P/bRh/ZWMaMAzkhNf9ouOkhE88VI5T1VhGM2h5pG15rdrIYby
+	 g3imFYXdLjklgJfI/kcf02wZ14Ysq7wBdUEBb9xEmeiWfHVbGdEwFSgRbfEmCCT0r7HK7
+	 /Rbg1LaBV4d5Db7I7tm3Ifff3+DWcVT7RKbK+kDzu431TRa0M6UMsiivK3AJawDp/KQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=phytec.de;
+	spf=pass smtp.mailfrom=phytec.de;
+	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=VqlCqGhJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.139
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020139.outbound.protection.outlook.com [52.101.84.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4B2A3606A326;
-	Fri,  6 Nov 2026 14:08:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F79D606A335;
+	Fri,  6 Nov 2026 14:08:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F79D606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fh6r6JqT
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6D1331F008A4;
-	Fri,  6 Nov 2026 14:08:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974099;
-	bh=hrYX149OSdk3k+YOin/rIkohEIQs6jD419zibT9vgxU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Fh6r6JqT9W8Hnz3tANti0KLpqS7sv0c9iueIpUquCp04Dn+y2973apbGc9JzFrcGD
-	 w+35nlorw7FqrNrGtSpEuPFV6uzE2NXLVthgnSwTqVW4uFpAk7Ng+5J6g5PYwUG6+a
-	 p/dKC3Rt9SGcj+/0SF7tnZj9WSWRN5Rp4h1xbWb47Z2O8kw3khIQnY3969bABkQLpN
-	 sp59C0skZ56wF2+7VfZcZQv4Vb3USBtN6YJa01erKVQlZP8VF1LBcKND7C2AaVgFHz
-	 PSQrFrUsWH5nNy02ZJPn0LlSgVQWBTXEEUReSTgvuQz22kf8T0dXAW6PpuRgJEWvwd
-	 n90pRF9foNiNg==
-Date: Fri, 6 Nov 2026 16:08:15 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Yuansheng Yang <0xbeac@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4] KEYS: Protect pkey method checks against type removal
-Message-ID: <au3fT5HMq7IF-M3e@kernel.org>
-References: <auy1ANMSKTXZb8GE@kernel.org>
- <20261105193632.34363-1-0xbeac@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=VqlCqGhJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yVv5PMap7W1D1yJr9BhjMlMmNmxkt+6yvk3hKHssCn9tE9hyMmGO6O6QRGCW3pfBPhohxkyRKmmev+wKzAhn8RKANUs0FZBvqOE+yMr4hhxKvTH0woM41dMSNkExszokv+RwRCTk4XIEkjHhIgqw4PKYvqthjkSZPqoJWHrwM3fSvE6HeDwKfXTEt51tsfSQmLhE2Tfnl6S5C9LygH+ymeS1XpXdvnd8/u1CCiZhQxso5SN8cqyBoN0jAn/q48oLWtqZu6Zt6sXa/xW6inkfvVJeZjWnt5ctvybxiHE5e/cIvVvGdxeMY4oEkDl38U7edm9TNNXnjD3Qc6FWCPDUOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Op6KfpUeeWzwK9z8FLWKm37+4oTkBnz/6pxiR59GP/I=;
+ b=U6nGqWmClrIj2/VHfWzj85U5ltGDpJcPejgQL+mVDDAAz53oziBYUv4K1Gk3Rr9t8VjQm6k6M/BXOvNcVVu1CmRkii72o1eUJ1rqUkevP6c4OqLK1GdPdlyA2f+c+E6PDc3DWnzivBLmFOUt0eEt5LqyxVuubM5cUAyv9IEPFdKZxH5Qr2uY3dwTfplikgDC6gmOQszAQ2SMe2j9ATf9E3neqcxgUpgcZpVGff7N5r88n6SlsStzPGomblGfphiB9oq8DW/sOtjvyNebYvxl7evDocqC+DAHrZRUuITuq1D/h/iUjSbqnE1JPbaWZ7oKQAMl88Uyr6+0QLBIaAeB5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 91.26.50.189) smtp.rcpttodomain=kernel.org smtp.mailfrom=phytec.de;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=phytec.de; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Op6KfpUeeWzwK9z8FLWKm37+4oTkBnz/6pxiR59GP/I=;
+ b=VqlCqGhJI7Dp4hEsc/pwlWAAQgyOz+siIwuseafJ504BbxZmGx7dQ0IuTCgKSF8v9Q4/tQC76Uu5lDndn1N3bnnzfeYcJiE8fPvPiFW/9Mc73ja2szK4Cmrf2e62Z9gETpm8bCb4XKurJ2aTZZkITHCZomqA6pTz4WZgpoAsVlhiPuW5RomRjuX3VAxO9UFWkOEdrejHyLZqq7J0xvyr9DKzSdZQ5q3mWYbwvsCXDubNww2znfu8LDaxMyHu1O6r3RTazfPZ1/ZPyKcUTXSNAP4qB1PxOISausN4tg9YbyBiF8rfj538pa5zMd+uER1OCEn2ULmS/oCTV4TUv6fOAA==
+Received: from GVZP280CA0029.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:276::6)
+ by DB9P195MB1370.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:29f::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
+ 14:08:11 +0000
+Received: from WA1PEPF000099D0.eurprd04.prod.outlook.com
+ (2603:10a6:150:276:cafe::4b) by GVZP280CA0029.outlook.office365.com
+ (2603:10a6:150:276::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 14:08:11 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 91.26.50.189) smtp.mailfrom=phytec.de; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=phytec.de;
+Received-SPF: Fail (protection.outlook.com: domain of phytec.de does not
+ designate 91.26.50.189 as permitted sender) receiver=protection.outlook.com;
+ client-ip=91.26.50.189; helo=Postix.phytec.de;
+Received: from Postix.phytec.de (91.26.50.189) by
+ WA1PEPF000099D0.mail.protection.outlook.com (10.167.242.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 14:08:11 +0000
+Received: from llp-jremmet.phytec.de (172.25.39.81) by Postix.phytec.de
+ (172.25.0.11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 6 Nov
+ 2026 15:08:09 +0100
+From: Jan Remmet <j.remmet@phytec.de>
+Date: Fri, 6 Nov 2026 15:08:03 +0100
+Subject: [PATCH 1/2] arm64: dts: imx8mp-phyboard-pollux: fix i2c3 gpios
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,216 +100,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105193632.34363-1-0xbeac@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261106-wip-j-remmet-phytec-de-bspimx8m-4200_pollux_upstreaming-v1-1-aea3a86f3f57@phytec.de>
+References: <20261106-wip-j-remmet-phytec-de-bspimx8m-4200_pollux_upstreaming-v1-0-aea3a86f3f57@phytec.de>
+In-Reply-To: <20261106-wip-j-remmet-phytec-de-bspimx8m-4200_pollux_upstreaming-v1-0-aea3a86f3f57@phytec.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+CC: <devicetree@vger.kernel.org>, <imx@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, "Jan
+ Remmet" <j.remmet@phytec.de>, Yannic Moog <y.moog@phytec.de>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
+ (172.25.0.11)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: WA1PEPF000099D0:EE_|DB9P195MB1370:EE_
+X-MS-Office365-Filtering-Correlation-Id: 973e6d43-f033-4d1c-7b4b-08df3c0f6411
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|376014|7416014|36860700016|261022105027099003|11063799006|56012099006|261009223027099003|261021121427099003|261021135927099003|261102123227099003|261028144727099003|261021123027099003|261026140227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	r2Z/dv3eVfS83e5Z+VKA1IAZcny7pXJpCbNABlYtqfr/xftDAC9KKSgSV0e5L0nhmTl/WKyN2Bhmz625JABVMFVciFqy5t9fZvA/iLL8uFZaGfz50X55fosUf6AKYOf5mRxAooH8Etm6tyevn2Tkrm+e4Lz4OAXjP4stZCtm7h0in3Vdmziot6Pv2OGn3EOpil+U1l3PD3pD/smfuRV/r1W4q+vedjk6nYtZ+RC2nxnSmWLOLmO1dTBrpTekqCBjuX5bjD1n3D40kAr6X1x+pYJbXhy6PWSuiTDuYAs17Ta5JaB4dOYb2AyBM7eTivDAaZ8MXuZhfNff/EmmIodDMtZhKjbZOPqKidq4AB+xS4VybYPk6U/gBJWZk4Tw04a3A9D9Lwo61wZYtzSlv7YgmNaQ1LrCVQ22ce7GDPq5qPt9EwLqCywgbjPSeZjz8kVCt3DnpL8gmOaoZ+rza/+aEa77iH8VkKJ1adIwR4zwc2qDBlwvzO8prJ+WdDro5o40YI6yYnGRosnRNl3E87bIqArsKGL01cQRMQIatgf7nO61WY3NAMPBWApp++NfPuvVQiZFNChkBPGxSCVjPStGztpFuJ+6QREY87fiIwY/unXYfSI+izHMTIUFDEoFXyEgJlLnvXh3yDAK0+tMqR50jNhfDG+LVyPbVhjIYVXQE4QuVZVNi8PAzWHR9Bdrc76c/MIJtUY2hy3vNkH2KYwVcw==
+X-Forefront-Antispam-Report:
+	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(376014)(7416014)(36860700016)(261022105027099003)(11063799006)(56012099006)(261009223027099003)(261021121427099003)(261021135927099003)(261102123227099003)(261028144727099003)(261021123027099003)(261026140227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9wBoDWjcuNA6t25/WwMWyvyAbQr31i/UD2wuhwWwXRF4ADJaoQwujPNYA189FCvpNrtqyKHFp7x/XBjoERVaCXFYzmxrMleOI9lW4xr9q6+9PKottnxYogS6QsGlCXLNnD/MgzsSqt0IiQtnCN3Re7biQrLm1V6vwzzNusUub+/3jNR+mXkG6Y9v5FuKxY19L+sRv0X7KZtW4h74FmoSArIMzNGTZY/TILU1hZ0WTJdgKbSHoirApk4caypYzxX39j84SMxbUqJZB0OxbvxQqzYOcamTgTNh5MaQ9ub+ZhNZ53P2t9cApsTz0ruCLU+7V0ZNvnTw7bFFTO7auij2erZUSM/Zeoivs5NmPc7tXXqYzL0YIdiGVCw4mMMPb/lubjMAgqmDNuxv7gIzKQ3VFfUCVVCfl+BVUSk2ZAYnGk5voge7fkv53O8PUsK7vrOe
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 14:08:11.0371
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 973e6d43-f033-4d1c-7b4b-08df3c0f6411
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
+X-MS-Exchange-CrossTenant-AuthSource:
+	WA1PEPF000099D0.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P195MB1370
 
-On Fri, Nov 06, 2026 at 03:36:31AM +0800, Yuansheng Yang wrote:
-> keyctl_pkey_params_get() looks up the key, and keyctl_pkey_query(),
-> keyctl_pkey_e_d_s() and keyctl_pkey_verify() then dereference
-> key->type->asym_* outside key->sem.  A reference keeps the key alive, but
-> does not pin the module providing its type.
-> 
-> unregister_key_type() calls key_gc_keytype(), which retypes every
-> remaining key of the type to key_type_dead under key->sem for writing.
-> The pkey paths read key->type again after their checks, so a concurrent
-> module unload can turn the checked callback into the NULL key_type_dead
-> member and call through a NULL function pointer, e.g.:
-> 
->   KEYCTL_PKEY_SIGN task              Module unload and key GC
->   ------------------------           ------------------------
->   keyctl_pkey_e_d_s()
->     if (!key->type->asym_eds_op)     unregister_key_type()
->                                        GC: down_write(&key->sem)
->                                        GC: retype to key_type_dead
->                                        GC: up_write(&key->sem)
->                                      free_module()
->     in = memdup_user(...)
->     key->type->asym_eds_op(...)      -> NULL call
-> 
-> In-tree, turris-signing-key provides such methods.
-> 
-> Remove the key->type->asym_query check from keyctl_pkey_params_get(): it
-> runs without key->sem, so key_gc_keytype() can retype the key right after
-> it.  Instead, make keyctl_pkey_params_get_2(), keyctl_pkey_query(),
-> keyctl_pkey_e_d_s() and keyctl_pkey_verify() each take key->sem for
-> reading, check the key->type->asym_* method they are about to call, call
-> it and release key->sem.  As key_gc_keytype() takes key->sem for writing
-> before it retypes the key, key->type cannot change between the check and
-> the call.  Drop the asym_eds_op and asym_verify_signature checks that
-> keyctl_pkey_e_d_s() and keyctl_pkey_verify() did before memdup_user() for
-> the same reason; -EOPNOTSUPP is now returned from under key->sem.
-> memdup_user(), kmalloc() and copy_to_user() stay outside key->sem, as in
-> __keyctl_read_key().
+From: Yannic Moog <y.moog@phytec.de>
 
-This is a transliteration of the source code changes. How this helps me
-to quickly understand them vs reading the source code changes and 
-skipping this?
+sda-gpios and scl-gpios were swapped.
+scl is GPIO5 18 and sda is GPIO5 19. Assign the correct GPIOs.
 
-I'd like to know what is that you are trying to do by doing those
-changes, which is the higher leve question. You should know this
-already. I see pretty much the same thing done for those sites so maybe
-that action is what you want to describe. Action taken, why that action
-won't cause any harm,  enumerate the coverage and address that it is the
-full coverage.
+Signed-off-by: Yannic Moog <y.moog@phytec.de>
+Signed-off-by: Jan Remmet <j.remmet@phytec.de>
+---
+ arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-rdk.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-The above looks to me as if someone had literally prompted "translate
-this source code change to English". Neither much effort thinking  done.
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-rdk.dts b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-rdk.dts
+index 4efdc6bdfe12..8bb2a8976df8 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-rdk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-rdk.dts
+@@ -289,8 +289,8 @@ &i2c3 {
+ 	pinctrl-names = "default", "gpio";
+ 	pinctrl-0 = <&pinctrl_i2c3>;
+ 	pinctrl-1 = <&pinctrl_i2c3_gpio>;
+-	sda-gpios = <&gpio5 18 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+-	scl-gpios = <&gpio5 19 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++	sda-gpios = <&gpio5 19 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++	scl-gpios = <&gpio5 18 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+ };
+ 
+ &lcdif3 {
 
-> 
-> This problem was recently fixed for keyctl_read_key() by 925c84e3cc21
-> ("keys: Protect the read method check against type removal") and for
-> key_update() by aef3a8a4f988 ("KEYS: Protect the update method check
-> against type removal").
-> 
-> Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
-> ---
-> Changes in v4:
-> - Rewrite the commit message: describe what changes in
->   keyctl_pkey_params_get(), keyctl_pkey_params_get_2() and the three
->   keyctl handlers and why, and cite the read/update fixes by subject.
-> - Rename the out_unlock labels to out_up_key_sem.
-> - Use out_up_key_sem / out_free_in / out_free_params in
->   keyctl_pkey_verify(); leave the other functions' existing labels alone.
-> - No functional change relative to v3.
-> 
-> v3: https://lore.kernel.org/all/9d47e202bd11857b3555e6b95694b3c3a4f2460b.1793852399.git.0xbeac@gmail.com/
-> v2: https://lore.kernel.org/all/20261104021414.50696-1-0xbeac@gmail.com/
-> 
->  security/keys/keyctl_pkey.c | 58 +++++++++++++++++++++++++++----------
->  1 file changed, 42 insertions(+), 16 deletions(-)
-> 
-> diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
-> index 15b6bf6399..3e3253330c 100644
-> --- a/security/keys/keyctl_pkey.c
-> +++ b/security/keys/keyctl_pkey.c
-> @@ -100,9 +100,6 @@ static int keyctl_pkey_params_get(key_serial_t id,
->  		return PTR_ERR(key_ref);
->  	params->key = key_ref_to_ptr(key_ref);
->  
-> -	if (!params->key->type->asym_query)
-> -		return -EOPNOTSUPP;
-> -
->  	return 0;
->  }
+-- 
+2.53.0
 
-I'd drop this as technically it is not part of the bug fix and then you
-have pretty much symmetric action. Helps at least with the description.
-
->  
-> @@ -129,7 +126,16 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
->  	if (ret < 0)
->  		return ret;
->  
-> +	down_read(&params->key->sem);
-> +	if (!params->key->type->asym_query) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out_up_key_sem;
-> +	}
-> +
->  	ret = params->key->type->asym_query(params, &info);
-> +
-> +out_up_key_sem:
-> +	up_read(&params->key->sem);
->  	if (ret < 0)
->  		return ret;
->  
-> @@ -185,7 +191,16 @@ long keyctl_pkey_query(key_serial_t id,
->  	if (ret < 0)
->  		goto error;
->  
-> +	down_read(&params.key->sem);
-> +	if (!params.key->type->asym_query) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out_up_key_sem;
-> +	}
-> +
->  	ret = params.key->type->asym_query(&params, &res);
-> +
-> +out_up_key_sem:
-> +	up_read(&params.key->sem);
->  	if (ret < 0)
->  		goto error;
->  
-> @@ -230,10 +245,6 @@ long keyctl_pkey_e_d_s(int op,
->  	if (ret < 0)
->  		goto error_params;
->  
-> -	ret = -EOPNOTSUPP;
-> -	if (!params.key->type->asym_eds_op)
-> -		goto error_params;
-> -
->  	switch (op) {
->  	case KEYCTL_PKEY_ENCRYPT:
->  		params.op = kernel_pkey_encrypt;
-> @@ -260,7 +271,16 @@ long keyctl_pkey_e_d_s(int op,
->  	if (!out)
->  		goto error_in;
->  
-> +	down_read(&params.key->sem);
-> +	if (!params.key->type->asym_eds_op) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out_up_key_sem;
-> +	}
-> +
->  	ret = params.key->type->asym_eds_op(&params, in, out);
-> +
-> +out_up_key_sem:
-> +	up_read(&params.key->sem);
->  	if (ret < 0)
->  		goto error_out;
->  
-> @@ -305,31 +325,37 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
->  	ret = keyctl_pkey_params_get_2(_params, _info, KEYCTL_PKEY_VERIFY,
->  				       &params);
->  	if (ret < 0)
-> -		goto error_params;
-> -
-> -	ret = -EOPNOTSUPP;
-> -	if (!params.key->type->asym_verify_signature)
-> -		goto error_params;
-> +		goto out_free_params;
->  
->  	in = memdup_user(_in, params.in_len);
->  	if (IS_ERR(in)) {
->  		ret = PTR_ERR(in);
-> -		goto error_params;
-> +		goto out_free_params;
->  	}
->  
->  	in2 = memdup_user(_in2, params.in2_len);
->  	if (IS_ERR(in2)) {
->  		ret = PTR_ERR(in2);
-> -		goto error_in;
-> +		goto out_free_in;
->  	}
->  
->  	params.op = kernel_pkey_verify;
-> +	down_read(&params.key->sem);
-> +	if (!params.key->type->asym_verify_signature) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out_up_key_sem;
-> +	}
-> +
->  	ret = params.key->type->asym_verify_signature(&params, in, in2);
->  
-> +out_up_key_sem:
-> +	up_read(&params.key->sem);
->  	kfree(in2);
-> -error_in:
-> +
-> +out_free_in:
->  	kfree(in);
-> -error_params:
-> +
-> +out_free_params:
->  	keyctl_pkey_params_free(&params);
->  	return ret;
->  }
-> -- 
-> 2.43.0
-> 
-
-Br, Jarkko
