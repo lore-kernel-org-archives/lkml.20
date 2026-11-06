@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793948500;
-	b=UmyFQ1GEXdso8TEbPyeZJHuMRkBvdMrxMvDwBTh/UEFMzqpPLnKRgGmUtPsYZo142l8g
-	 duWd8XtgBz2H0IuFgkGttR2pq0pUOSIhkdDBYzCkL3fyLKMVehgPQYXj6jhrciRYNXYwD
-	 pFPo3KIh9fml+9DkVR2mZGS97TbR/25nXXf7KgB+IMt5+3brZLA+2rkN9dGomblPhTwKh
-	 adO9EMvAGK9L4CkN19EZHN6xz9kinTOW0Dzo/vkaYgppf8GuUZlk5OD6QX1XdOFTtez3q
-	 vkAKkTqh72ZcKDYMFlhjFXtHKoRFLchhGQrGBm+fVIRLLcJjS7kP4i7S8zobeP/WSYw==
+	t=1793948592;
+	b=v3JJ5rBzAJLyWKgaMgLYhbHC57N3U504G2DssPUYibG2qZj1N/O9ew0BTHsitJTlUeDk
+	 3REnRXHdmGBrrYKXny0Pz74kXwgXjDvAAo4PtSYxNrWNX3zvMkhGZrjcr3Bb/PhtCl56N
+	 l0LddP+wQD2BtpQ93bT6HLr0o2kt/zoYgQh0ZddSy1TMxiTdQJ+34YDEugayR3L/bgu5G
+	 IdQ0KnZKAw+pQnJAgiB+fUXpVUlsBcxu/j8xzADKlVDLrtjj57ywxg/wyVvGE6/xlDN8i
+	 3i72WBqjAi2PkfPRQkJDJOIWRODU/DXKKNoVOiMqh4YF7cFAAfpVkrRzcD1s+Vp4pRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793948500;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=IFfuY1hZMoRwXCoL1hkTowy7WzV9kAbU4DoD/5e7u9o=;
-	b=qbWVesElw7CK5URSzECnmddKhPUJmCFLOhAy0NJ8kSx0OeKkfWmw+SxP+5YrqvqWcOad
-	 pj8RPsXOhU96uDKGUaU9rcETEcNkovvevig4EN/HVZmYiwI8Vh+fxXv9XceHrOc8Ln3YL
-	 O0wjbqdJGMsr8ZpF7ukLx0caDWW9n7c+e62+57hj4uxgc/tY12OFzmU7eCOfgkbenkIzJ
-	 xQujdra3Rm4FxDZXrZgdZFbWOxiTNbDZTW/8HnVmVaOH8mAhfQHhaAzsc+VVxl6+/9XN2
-	 35EPkXH7gDwybq8zhkm3lTUM9AYT4zUmlik1J5R7XFNTb1FMoTUSrSUsG61wreNIs4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793948592;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HJgFJeGyP2RXmPUrqatqK2hfmi9m5K+BAW+Bimi7a/M=;
+	b=a6ZsXTX+J3yedLVMOJldrXAeRuXW6r53UpuHsfBCfZ7UOPdj/Fs5XiXdMkKvp0LDzdGC
+	 QqWSjNADOoYLjDpirmfFlO7oAvTxiv5wTyH41Ebo8vIsTFGniZ+c9+cZ8/VHRAkhTSXxV
+	 F43yuOhHQ3Q/XPLlOuzp3evH04NqIGkEUe6k4yuSYZ/9RHRKN9ZJBWFclKoa/FFnEZJ0A
+	 1V3w/H+TR3FIbPMfmJK8DtcAGmOrrlbN5XBwAt656lxbYW327MsrJsKN2Qqe04kDy/8OI
+	 qonCVRC7NUbR+IU94WVhyB2UOjMPeAAPdvgQ3iNzlahU1ZEcS9elSk9s5igOxQxq1TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgxMoMOP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vAP9lf4L;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7FE606A326;
-	Fri,  6 Nov 2026 07:01:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F895606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:03:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F895606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgxMoMOP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC181F008A2;
-	Fri,  6 Nov 2026 07:01:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793948499;
-	bh=IFfuY1hZMoRwXCoL1hkTowy7WzV9kAbU4DoD/5e7u9o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UgxMoMOPai0m3Br8spwQ/+zamPjOwrI3Q3KNAv2F+WvOSgcZTdOO2SByUIWHkMbRh
-	 Funn9wbf6L0m8LN9e7UBFyvY0uIXuZ396mFvjRcrSWiKRCg/UNtHp4S45OFB9rcPKE
-	 ZxJZ97LLSP4zR6FYCOsLF3cvXrNy4Ozj/0RyF9DE5bRVvR89ccW2Y/dGKhUknk3kVp
-	 DHYznMXadWOw6599upaz6R2so3pq/bJK6/z8RHQmwNBZFOaLefl7mg8viCl7Aip6ka
-	 ajS05lKJa85udrwczqy9wVmkZFKOlSYtt51TsRSFQIcoP7m9DbZMyZKzutRmyjWVsF
-	 LNpeswl0g59sg==
-Message-ID: <8ffdf2f9-dd67-419f-83af-8dd4206d54de@kernel.org>
-Date: Fri, 6 Nov 2026 08:01:31 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vAP9lf4L
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36dbde64409so450587eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:03:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793948590; x=1794553390; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HJgFJeGyP2RXmPUrqatqK2hfmi9m5K+BAW+Bimi7a/M=;
+        b=vAP9lf4LC4FognGLWC813NI09sXXLXgYu+exp7h2HyG1VRhASWFg6ggPWl7g0Fp7Km
+         r/OGFfuD06IX8lTQwX2Rl853ZBiZ0HIlpoisbD0b7iSMw8k94MQv8nmtrI9fodGjnFwI
+         75A06TjtqLP2IYZy+eose7VvNp3Ph6rNlFpLdMzBXx74UHoCN0WyOjsqxQGivxxHGcAx
+         cXWidSUT/WRXmwak6JS+jitRHyc+M1I2Kto+WQvca5ukv0PyhNShhUWceo/lV0ER1MId
+         AIGGR/uhVjzKa24nI4x7qyO94PJnq3plxJ5iFj1UIa/TSPM8VR/FOvJjpRCLIwVhvGvC
+         M0Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793948590; x=1794553390;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HJgFJeGyP2RXmPUrqatqK2hfmi9m5K+BAW+Bimi7a/M=;
+        b=oUd2VN4fvmbtV6Qcyy0AmigmYMm1vi3w3AQ6uy1in3VedfnA1lYQxk8k50WeZ3D8RH
+         CZRQxsSnJHZLRpmS5AhpKpCPsHO0E4NhKGLIiZZuvpNjkxgXwV3V7sAzdtnKdKbwZWP1
+         0D56wdev52TIcN6HJmsTPb6PRgMAAlVf9gRCnWHIjPP+qbevD8TcBS+pLqCIGLGloahF
+         iP8uF1XKju52ZAQEmd65ufD7yZZvLGFTYyF6Ke8ztTvIHme/duMcJ/uj1H81yV+MfRDc
+         Esnc7qL8WbXCfWB2wO2uDJ6H6LgeXCo6PAiyTty6zf1rgOEuw25qDWmDppNt40mmSE01
+         sNiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwudxvlQBFFjQAVt73gxhyUkSpkg4s0uql7cq8iWuw8iI9LWoPAOkeNz8tvY+jXhQmf/dZuxItPr1Ds7eQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//HBPWKYOVUs/IYpuoWnlGYb0T5zKVnzSDuK6NFATH3g8wX01p
+	dt7deOpYF3Tx0n7lBORqXYFSUVyUVrHcM2MkCKCji8zgY8bmZDr/0kg=
+X-Gm-Gg: AYBFou2RMaKIDh9SmOwb9h4NXf/VCle0FyCtT2QQ3nttQ9+eXTY5uq+stQuJEQW+xCS
+	AfvOUDJFhK2hLUKHcyBUZ5AYXL8A8rtEP5bVL1UNrLlaEB7XXlNR9qw27jZJdQs3qYi+gcDCG18
+	8U7iaA5P4dO713hGIe9jcnJAFsKiQN7sVUGfsfdjOhp2e8VShGbRQy10lBn4MU92rO+irmEV+nE
+	68XPqnoM9C/0f791olxSrA/vuPI89Tn0mHQLh8D1M00x9yZdeYfWm0IoABh1eGWJjIgV47gYjtq
+	eOkGc6o2xDBjWNNSu3XIs6Kk6TfyvDifcx94+ISAIPxd1bxSl5Hpf2zpqivu0wxY+FNUreanbKq
+	SSxyGpN5AEzFwqCTdJBNHxzwTogSBLSchEj8qmjJY+8hvCmaVuIhbQU8oVMuu6Z+sWAsNl8Y9vl
+	qdLiwc7lr95g/hGb6RopNAwrENmbVTd23A0fN0maAA1y6VjjIc63J063SqF5NvX9ICsLu98ptir
+	qqQ16Zy5hwusr1riaW5vZKw1/4vbJdRRFxHe5CM4G6Zxku+Hz0KQoEaLBGCPx3XcfjfaOOb16IL
+	vLdfQJopzNsFJEvSsGttF8J5qbVtlQ7iG8NXl9ZdLj4hSc9u5Is=
+X-Received: by 2002:a05:7300:ea95:b0:36a:18d2:8c79 with SMTP id 5a478bee46e88-36f76117e58mr2224940eec.19.1793948590001;
+        Thu, 05 Nov 2026 23:03:10 -0800 (PST)
+Received: from localhost.localdomain ([155.69.103.70])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faac86a96sm3508887eec.29.2026.11.05.23.03.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 05 Nov 2026 23:03:09 -0800 (PST)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: linux-i2c@vger.kernel.org
+Cc: Yige Jiang <yigejiang86@gmail.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stephan Gerhold <stephan@gerhold.net>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v2] i2c: qup: Release DMA channels if interconnect lookup fails
+Date: Fri,  6 Nov 2026 15:03:02 +0800
+Message-ID: <rc-review-20261106-v2-vc48-group-8e29ee9ee1f6@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,200 +98,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-To: Hongliang Yang <hongliang.yang@cixtech.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
- Roger Quadros <rogerq@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- cix-kernel-upstream@cixtech.com, Gary Yang <gary.yang@cixtech.com>,
- Fugang Duan <fugang.duan@cixtech.com>
-References: <20261105011803.4058557-1-hongliang.yang@cixtech.com>
- <4d075b70-f2af-4aad-a1d7-cd8ea26387ca@kernel.org>
- <20261106055050.948470-1-hongliang.yang@cixtech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261106055050.948470-1-hongliang.yang@cixtech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/11/2026 06:50, Hongliang Yang wrote:
-> On Thu, Nov 05, 2026 at 08:49:05AM +0100, Krzysztof Kozlowski wrote:
->> NAK, you did not respond, did not implement feedback or part of the
->> feedback.
-> 
-> You are right, and I owe you a proper answer instead of another version.
-> I replied to the cover letter of v5 and to nothing else, so the per-patch
-> comments on v5 (b28d5657) and on v4 (a5586b54) were never answered.
-> Answering a cover letter is not answering a review. Below is the
-> point-by-point answer, including what I got wrong and what I have not
-> implemented.
-> 
-> 1) "No MMIO here? ... If you have here MMIO for some glue over IP block,
->    then it is unlikely to be a syscon." (v4, 7c52bcf5)
+qup_i2c_probe() acquires both BAM DMA channels before getting its
+interconnect path. If devm_of_icc_get() fails, the direct return skips
+the DMA cleanup and leaks both channels, including when probe is
+deferred. A later probe can no longer acquire those channels.
 
-So instead of replying under each comment, you selected a few of them
-and expect me to map/figure out which ones you ignored?
+Use devm_dma_request_chan() so probe failure automatically releases the
+channels. Group the two requests so a failed RX request also releases
+TX immediately before probe falls back to PIO. Keep reusing the acquired
+pair when the transfer path calls qup_i2c_req_dma() again.
 
+Close the successful group so it can be released explicitly at the
+existing probe unwind and remove sites without releasing later device
+resources. Release the group directly in remove, preserving the channel
+pointer state there. The direct interconnect error return is covered by
+the automatic devres cleanup.
 
-OK, then find me where did you reply to this:
+Fixes: d4f35233a634 ("i2c: qup: Vote for interconnect bandwidth to DRAM")
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+---
+Changes in v2:
+- Use devm_dma_request_chan(), as suggested by Konrad.
+- Group TX/RX requests to preserve immediate rollback before PIO fallback.
+- Reuse an existing pair in the transfer path and release the closed group
+  at the existing probe unwind and remove sites.
 
-"And do not combine USB patches with other subsystems."
+v1: https://lore.kernel.org/r/rc-review-20261105-vc-48-dbf6a486c74f@gmail.com
 
-"I do not see how you addressed my feedback from v1. I asked, not to
-combine USB patches with other subsystems, within one patchset. These
-are separate patchsets."
+Based on linux-next next-20261102 (2637bdec0535).
+Validated this package on arm64: the W=1 i2c-qup module build and
+a DMA_ENGINE-disabled driver build passed without warnings.
+QEMU KUnit/KASAN passed 11 expected observations using real
+DMAengine/devres code and a synthetic DMA provider. These checks
+do not execute QUP hardware transfers or prove concurrent unbind
+safety. No QUP/BAM hardware test was available.
+AI assistance was used for analysis and patch preparation.
 
-Either here below or in original threads (more than one):
+ drivers/i2c/busses/i2c-qup.c | 54 +++++++++++++++++++++-----------------------
+ 1 file changed, 26 insertions(+), 28 deletions(-)
 
-> 
-> We do have MMIO. Each controller owns registers in the USB30 Type-A
-> DRD0/1 RCSU block at 0x091c0000. "What is the actual memory map there?"
-> (791fe5ba) - this is the block:
-> 
->   offset   register        contents                                  belongs to
->   0x0300   STRAP_PIN0      stream ID (SID/SSID), controller 0        USB4
->   0x0304   STRAP_PIN1      stream ID (SID/SSID), controller 1        USB5
->   0x030c   STRAP_PIN3      clock enables, controllers and PHYs       USB4, USB5
->   0x0314   STRAP_PIN5      awcache[3:0], arcache[7:4], controller 0  USB4
->   0x0324   STRAP_PIN9      awcache[3:0], arcache[7:4], controller 1  USB5
->   0x0328   STRAP_PIN10     USB2 PLL controls, controller 0           USB4
->   0x0400   STRAP_STATUS0   AXI clock en/valid/req, controller 0      USB4
->   0x0410   STRAP_STATUS4   AXI clock en/valid/req, controller 1      USB5
-> 
-> Controller 0 of the block is used by USB4, controller 1 is used by USB5.
-> The driver writes the AXI cache attributes of its own controller and
-> polls its own AXI clock valid bit. By the rule you stated, this is a
-> device with MMIO, so a device node, not a syscon, and the
-> cix,sky1-usbss-rcsu syscon binding from v4 is gone.
-> 
-> 2) "Individual registers are not a device." (791fe5ba)
->    "You need to describe the address ranges, hierarchy, not the
->    registers." (291fc3be)
-> 
-> Agreed, and v6 still got this wrong: two reg entries of 0x10 bytes each
-> are just a register with padding. What I intend to send as v7 is one
-> range per controller, starting at its AXI cache attribute register and
-> covering the register file up to its status register:
-> 
->   usb@91c0314  reg = <0x0 0x91c0314 0x0 0x100>   /* USB4, controller 0 */
->   usb@91c0324  reg = <0x0 0x91c0324 0x0 0x100>   /* USB5, controller 1 */
-> 
-> 0x100 is the same size as the glue window of ti,j721e-usb in
-> Documentation/devicetree/bindings/usb/cdns3-ti.yaml, so the range is
-> comparable to what the other Cadence users describe for glue registers.
-> 
-> I want to be explicit about the hardware rather than let the DT imply
-> otherwise: the strap and status registers of the two controllers are
-> interleaved in this one block, and 0x0328 inside controller 1's range
-> belongs to controller 0. There is no per-controller contiguous range
-> that contains only that controller's registers, so the two ranges
-> overlap, and the binding will say so. That is also why the driver maps
-> the range with devm_ioremap() and not devm_platform_ioremap_resource():
-> request_mem_region() would make one of the two controllers fail with
-> -EBUSY for registers the hardware shares.
-> 
-> To be clear that this is the controller's register file and not an
-> arbitrary register: the same register set exists as a dedicated block per
-> controller on the four Type-C instances of this SoC, at 0x09000000,
-> 0x09070000, 0x090e0000 and 0x09150000. There the block is not shared, and
-> the cache attribute register is at 0x310 instead of 0x314 - which is why
-> the status offset comes from per-compatible driver data. Only the two
-> Type-A controllers share one block.
-> 
-> 3) "Shared region is not a simple bus." / "Drop node. Not relevant."
->    (b28d5657)
-> 
-> Done. usb-rcsu@91c0300 and its ranges translation are removed; v6 and
-> v7 use absolute addresses with nothing translated.
-> 
-> 4) "So this is @14 / But this is at @91d0000 / You have completely fake
->    representation of hardware." (b28d5657)
-> 
-> That was the v5 container: a node at a translated offset 0x14 with a
-> child at an absolute address. In v7 the unit address of each node is the
-> first address in its reg, so usb@91c0314 and usb@91c0324 are where those
-> registers actually are, and the Cadence core children usb@91d0000 and
-> usb@91e0000 are at their own addresses.
-> 
-> 5) "Syscon is not a USB device. This is not supposed to be in USB."
->    (f76cef66)
-> 
-> The RCSU binding is gone since v5. The only syscon reference left is
-> cix,usb-syscon, which points at the S5 system controller for the USB
-> mode strap at 0x424, bit 8 for USB4 and bit 10 for USB5. That register
-> is in the system control module, not in the USB controller.
-> 
-> 6) "NAK, undocumented ABI. Drop entire alias and do not sneak such stuff
->    in the future." (6029d402)
-> 
-> Done in v6: of_alias_get_id() and the "id" property are gone, the driver
-> no longer derives an index from DT. axi_bmax_value is no longer a DT
-> property either, it is a driver constant, which also answers Conor's
-> "Why is this not a fixed value per SoC?".
-> 
-> 7) "In the description you describe hardware, not binding." (f76cef66)
-> 
-> I extended the description because I did not know how else to answer
-> "What is the actual memory map there?" in the patch. In v7 the
-> description is back to what the block is and which registers it holds;
-> the map above lives in the commit message, where it belongs.
-> 
-> 8) "No improvements, since v2." (7c35c198)
-> 
-> You were right about the register model, and that is what v7 changes.
-> The rest changed in v2..v6 but the changelog never said so - it only
-> ever listed the previous revision, and v5's text was a stale copy of
-> v2's. Complete one:
-> 
+diff --git a/drivers/i2c/busses/i2c-qup.c b/drivers/i2c/busses/i2c-qup.c
+index ce30634e1f402ddbc092d9b220532d76455fc047..865c03d9aa891b9fc38538ae184541f74c0a2819 100644
+--- a/drivers/i2c/busses/i2c-qup.c
++++ b/drivers/i2c/busses/i2c-qup.c
+@@ -637,10 +637,7 @@ static int qup_sg_set_buf(struct scatterlist *sg, void *buf,
+ 
+ static void qup_i2c_rel_dma(struct qup_i2c_dev *qup)
+ {
+-	if (qup->btx.dma)
+-		dma_release_channel(qup->btx.dma);
+-	if (qup->brx.dma)
+-		dma_release_channel(qup->brx.dma);
++	devres_release_group(qup->dev, qup);
+ 	qup->btx.dma = NULL;
+ 	qup->brx.dma = NULL;
+ }
+@@ -649,27 +646,32 @@ static int qup_i2c_req_dma(struct qup_i2c_dev *qup)
+ {
+ 	int err;
+ 
+-	if (!qup->btx.dma) {
+-		qup->btx.dma = dma_request_chan(qup->dev, "tx");
+-		if (IS_ERR(qup->btx.dma)) {
+-			err = PTR_ERR(qup->btx.dma);
+-			qup->btx.dma = NULL;
+-			dev_err(qup->dev, "\n tx channel not available");
+-			return err;
+-		}
++	if (qup->btx.dma && qup->brx.dma)
++		return 0;
++
++	if (!devres_open_group(qup->dev, qup, GFP_KERNEL))
++		return -ENOMEM;
++
++	qup->btx.dma = devm_dma_request_chan(qup->dev, "tx");
++	if (IS_ERR(qup->btx.dma)) {
++		err = PTR_ERR(qup->btx.dma);
++		dev_err(qup->dev, "\n tx channel not available");
++		goto err_release_group;
+ 	}
+ 
+-	if (!qup->brx.dma) {
+-		qup->brx.dma = dma_request_chan(qup->dev, "rx");
+-		if (IS_ERR(qup->brx.dma)) {
+-			dev_err(qup->dev, "\n rx channel not available");
+-			err = PTR_ERR(qup->brx.dma);
+-			qup->brx.dma = NULL;
+-			qup_i2c_rel_dma(qup);
+-			return err;
+-		}
++	qup->brx.dma = devm_dma_request_chan(qup->dev, "rx");
++	if (IS_ERR(qup->brx.dma)) {
++		err = PTR_ERR(qup->brx.dma);
++		dev_err(qup->dev, "\n rx channel not available");
++		goto err_release_group;
+ 	}
++
++	devres_close_group(qup->dev, qup);
+ 	return 0;
++
++err_release_group:
++	qup_i2c_rel_dma(qup);
++	return err;
+ }
+ 
+ static int qup_i2c_bam_make_desc(struct qup_i2c_dev *qup, struct i2c_msg *msg)
+@@ -1952,9 +1954,7 @@ fail:
+ 	qup_i2c_disable_clocks(qup);
+ fail_dma:
+ 	if (qup->btx.dma)
+-		dma_release_channel(qup->btx.dma);
+-	if (qup->brx.dma)
+-		dma_release_channel(qup->brx.dma);
++		qup_i2c_rel_dma(qup);
+ 	return ret;
+ }
+ 
+@@ -1962,10 +1962,8 @@ static void qup_i2c_remove(struct platform_device *pdev)
+ {
+ 	struct qup_i2c_dev *qup = platform_get_drvdata(pdev);
+ 
+-	if (qup->is_dma) {
+-		dma_release_channel(qup->btx.dma);
+-		dma_release_channel(qup->brx.dma);
+-	}
++	if (qup->is_dma)
++		devres_release_group(qup->dev, qup);
+ 
+ 	disable_irq(qup->irq);
+ 	qup_i2c_disable_clocks(qup);
 
-Where is the reply?
-
-Best regards,
-Krzysztof
+base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
