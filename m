@@ -1,97 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793943903;
-	b=wen+lY5i5JbdvulVH7sRtZQCFQKaGUhWRn7jC/jRwl8yGg8IobDEVp6VXqtxClFBpSdQ
-	 NFP1ig6V7uWlsXdBW9kryG0ErTtfQSrImpqkxuShGNrDL5jJ5YUlHSa82LiPKIUfDXCgL
-	 XDXHo99xsm21hGYMJcrdkqFwi6zGT+y4F1zUxL0d0uspns/hfAG/82S650L8rsk+kJi7W
-	 7soHPicJWdf3nBhES1XqRIe61XuD4G8eaAGb3DyH8Bbq+TGy0sGaN+PzJSGp19CFyv/OV
-	 pQkyJHZOcx1ARrraJwZep7lt93JRGN5cPvG55AqEoJLDPjBoHBMUYJFo+8yvoerrrug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793943903;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aICijDd7xJCkTfq11nR+yzRU5122aZYdbxC4LCJRnpg=;
-	b=OhXh9fv4IFbZqVt2GYsMqJ/PXp+bpneUvIb4MZK+WdzxfyZpj4fvoOHfzUkE8KEY4NSl
-	 KDyBf8o4ToNHrp2aqFfo4wRKqfNTSSKATfu+ym2ju1RW8QCz4Q7dfMb5L7MtSPt3DME1k
-	 JlY97HxDNgLZmJuEaFeNrdvF5OP58Fe/pTo/rmb9ONUhgXxPYoyPZG0BT8BtBLuIeXxes
-	 ptVIKH9a8EcU/S23YV0+kjw+svHbYQp7YNM+K6fcvo+nYPTs9c12pLdOSqUs9wb1j2/Hm
-	 Zq3JGbwzdOvKVchQQs3zCDLVZPeGm7i5Rq257R1p7v4UKN186BIaDsm1SWss/B8r5NQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A+XTIMuZ;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793943908;
+	b=umVhdK5SW33M4IYsyty9lBNI+zMWNa6PtH4Oi76VIEiAK9vwL45GYKSolMav4igYORAH
+	 H5QJT/IPiiengMYPvIjNTep2rTRWPhgF4q0RxUiuNEU8f6PZPtmEzKhI12F/DUi/hgz4J
+	 7VOAZ8c/Dl0VrOxEdiaMawjpafPv7uqtb1SJlaV0LXG5czDBb/ux9FxJRuBYkJ8S3vz3h
+	 6o16UI5ImqppDD0A+iKz2aJiMpgd4Z4OgxAfmCPDNi4PjbZIPmmMp/hk4WFcyPOfhKxdB
+	 7ZwYgIFtL5guAy1ba9YKl11w5j6hAzwuuVaekZ2IMG3XoVMeH4Zl0BFrM5z7QXB69bA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793943908;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=G8mgOswGuepWRRBaUG9ZWm7C68CwS0Zp37xHFTz+mus=;
+	b=TfsGMg0zi18IF/FXLqSrzU3WyWIBJ737DLWlUifFZQXRHU0Y2mUMA0WBWOTgsTbtw1Mi
+	 B5ftTZ56XNNt2sKYzsvFb2UKO0sxhtOhMlB0I1vMcmTQE/465wpwawMfhV2QvwYqtW2R4
+	 S68jlGiDv2Bkp18rUjprzSkt0K6l8cAc9sjmjgqnfpASmSq/ki4XJx7j5m5YJQKrEjov+
+	 VDn6KuwkZXXDvOt6SLY548HeELg9H+qiYDtA8lkDGbqyc0Kyjv4uyEsupY5IBuKL0Lt1V
+	 lacp82x497oi6nyp+7kJv6n/wBQLv9mj7DabHpXEH1bM0c4PNrna1fVT9JdlHrB0ejw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cOMeMN7q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.69
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013069.outbound.protection.outlook.com [40.93.196.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58DA606A33C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:45:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C58DA606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAB7606A332;
+	Fri,  6 Nov 2026 05:45:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDAB7606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A+XTIMuZ
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso1241175ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:45:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793943902; x=1794548702; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aICijDd7xJCkTfq11nR+yzRU5122aZYdbxC4LCJRnpg=;
-        b=A+XTIMuZOsIXKHhMFKxs1APRslKsJq7nlr359txDUw7lVA7nympWDlULP9Pky2QaK+
-         gpxqaN1ViX9e89SK+OIS6sywgsBbbSRJ58QWnprFSVME7mDSKOkYa75dCgcLC4r0RyYT
-         5b9fSjfsINPBwj6CnsyNsAa2G7GV73PWySJRGcHfOonm3vttkntn/2BGxZVQZzi7TBOA
-         yFdtzBQw8DSGwEYxrmk4P4zRzNch1ZqqjIpzBU0BMWOc9oUjV0BaQHqV0McBVYWxsnSo
-         qdPojH6jFSK8SCNEcp3LmEuecxB2Csw62Oo+F+0JL73/N1eodJwHgh26Yeco9K3V4bZR
-         EbXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793943902; x=1794548702;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aICijDd7xJCkTfq11nR+yzRU5122aZYdbxC4LCJRnpg=;
-        b=K+nGyR9pnw1xaa++zsnk9lpDC4isqRi3Szqej7+GqbShkpgRt0yCDhG3VA8UR50TWJ
-         IvvXVteR+AbT12Lx4n+y9nBvbujhwbCljjIobcI2tkWKtnmywipc5BdU1hNryerfX6/b
-         kVcncRobeFASqwErCxS9GGbiptg+tvwecJY5LRqCjkp+AfBEclYLmiJJut/SbF2fkIK/
-         F+bpCM/BtamRJCTzxC8roGHk1EfQ3dGeufwZHJhDMN2kY4+XEi2GgKKDAeiMxARLlKvI
-         9+GWzxmKltttQkXEr78KbUFc4fQvtYdAxjh4kXim/P3lj0d3OlBRkxygmlrRpr70hLLd
-         5DLA==
-X-Forwarded-Encrypted: i=1; AL+hErFsvrURi467uhDFjpUSNhgnaXs4UQ2fQ8xf1JUhqHyxFVksU654nj7ywX1zxsjaQdFss1DcBxAGt5nPtlw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VPHqjVtZpVcsATHmy6ZAOvyX08wn1knRbE3jL8XBMtC/PUqAZ
-	1b7j4mCM79mApHK+bqf0FUMHJ08YD3DngUmhgC9673Xa+nH9P3NI6cHE
-X-Gm-Gg: AYBFou1KZsnoyFdlLqIBPUIkT2Mlsg3iAr6DNYXxb32fZZuODGyoByEFefhjWXWiwKf
-	HPvl31EcKMwn7MvTdTRNfJc74t/WdZdbMm6/AIZBePB+xCfWXnBtK7aIbrLXD+bz0XnBgohaXGR
-	osgNvXpzlHu/42CcC//eINjUIikzL3RwP2KzejszS3wrWTdkWIxHyTt27XuU3jdoWAOvTA0SK6K
-	9DZZzOQ3420R5Ld/1OtRE8/KPxEfIhx9BzVSccZm7GCKVkvAkWJRPcPNshfYU74hR1DW9t4LSvN
-	V5eu6U9/4oM5HKuPubayY2KLyZHaFEmLAVd5wLYsS3AyxfttneiR81mFO3Ak93yhGUJKI7TJMx2
-	yeqGqodsDxAd309OufMZu9BhYCsgl3ajIZlk7OSI/NSA5su2xLERU5T6TzrRsCiYDGiO5zWt2LR
-	HmiSIh9EOF1IHTXflD1WI2YGQ6xA/XTtB8v9tAeKkEbriCCF4OxIH+4S7ANy5pGvHuysOh8NV1R
-	hgNZyExmrFclugob78SgEgNxrDH5TDaA9/4IpxyFBJQGBiKnW53Lx53aW1mGuH1z8Wm/vOaAI7p
-	jOrjAmcPn1AfXLKeTxEXrICOEzbXVtsC3uqpKtgNj6iiidSQ
-X-Received: by 2002:a17:902:cf03:b0:2e9:7190:32e3 with SMTP id d9443c01a7336-2ed41bf64cdmr19435685ad.38.1793943901959;
-        Thu, 05 Nov 2026 21:45:01 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d5f7cfsm1756635ad.48.2026.11.05.21.44.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 21:45:01 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ASoC: codecs: wcd-mbhc-v2: cancel button long-press work on deinit
-Date: Fri,  6 Nov 2026 14:44:47 +0900
-Message-ID: <20261106054447.2019214-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106052242.2000264-1-hj351016@gmail.com>
-References: <20261106052242.2000264-1-hj351016@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=cOMeMN7q
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OjWs2dNuYe6kSW6vGrH4NU3uOTLR2GRFzb94i1ipMwGNawygwl47KuEnxNbHDjicgSDCBElW/aoy4Qvzgkj/gAKA1MQ1flyj9A1Ig9Hb+5uGLYbo4XLpeZ5VKkiSFEL4axYZw1XBOMpGjOOuLB9bE9qdsqbZRVq3940qwzDjs8R9uY5XvbPNA742BRMOKVCp7HRwFmcePNXhzq/NVvwva00TuYvIfLzzykxyTLpGhoxdrfDBaalEv16oqLxEqdHvOct5Va16r1PMqUnMuAw+u1F+Pov+oxi+HF1n92HuKoEFwytzepvzn+6ZoLPnx6Ogb0X2N/gR8fHCgInU3lNrKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G8mgOswGuepWRRBaUG9ZWm7C68CwS0Zp37xHFTz+mus=;
+ b=Ll+t8s6z5z8vKdtHApzvoxlLLIki9Q+vfcEH5F79MZRL14igKcJxE+JwAaQcgAszOTLYe/eG1FWOCDxaIMnNqrQwU5rjxbsLKUkQU3W8ofWv/L3XVxhEW+EIaKBk/J9rPuMWLs92UXHu6qN2t6PDeETMoQ7Fkz1/PVvBn/T0eaT3e1A+nZXjHs014D/nQGV1i/jNDUSGoakOrOkJWuM9Emp8olhbSzpRvTJi7Eefd6zRzjqdCoQ17uM29ihmY3rGSG35hIAqVCjVNGoIHYhnsUG3b+mYgrR91jgWYAiFJPwh2WFgogx38AM7oafnMMjwBiVkr4RrX/x6SHcXnabBKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G8mgOswGuepWRRBaUG9ZWm7C68CwS0Zp37xHFTz+mus=;
+ b=cOMeMN7q76xTZSaB7Zy/N279VzlUKxb6HTKB5c4cAS0mU4/JKjdCWh0/K1Cx1iEiyJ0nXC1gnSIqsaSS3bM/gwkskwo620h5gQtCFHCE5ywrkXwkHq4BjpSFM/mOZE5tJjgFrvV406jWyzERu/pmrY96eymc46qbImZemWjOw8Gdm9MAsLjSXPjL9OnX6Q+aaG9FJm1VJOMJKzA21osmmbB44aziSnXzfRjdT3K+SpSbUS7JZ5SG+YdIdWHhbcewLM9HrMrYTqMhrwcThTaMOEW/B92ywoivX+9bYKTXqhfwnlTzk8MtkV87bUgAuuW3xHKAuK2wrQsvqkrp7wRekA==
+Received: from MW4PR03CA0334.namprd03.prod.outlook.com (2603:10b6:303:dc::9)
+ by LV0PR12MB273923.namprd12.prod.outlook.com (2603:10b6:408:3b5::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 05:45:04 +0000
+Received: from PH7PEPF00000009.namprd04.prod.outlook.com
+ (2603:10b6:303:dc:cafe::25) by MW4PR03CA0334.outlook.office365.com
+ (2603:10b6:303:dc::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 05:45:03 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ PH7PEPF00000009.mail.protection.outlook.com (10.167.243.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 05:45:03 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
+ 2026 21:44:47 -0800
+Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 21:44:34 -0800
+From: Alok Kumar <alkumar@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+	<rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+	<linux-pci@vger.kernel.org>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+	<simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+	<boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+	<lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+	<tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
+	<apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
+	<cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+	<alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+	<kwankhede@nvidia.com>, <targupta@nvidia.com>,
+	<linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+	<boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+	<work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+	<kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<peter@colberg.org>, <xinmengs@nvidia.com>
+Subject: [PATCH v4 17/32] gpu: nova-core: gsp: factor out NVKV payload conversion
+Date: Fri, 6 Nov 2026 11:09:50 +0530
+Message-ID: <6acb8db2973e5fc0047815ab76d121330bd6fff4.1793906667.git.alkumar@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1793906667.git.alkumar@nvidia.com>
+References: <cover.1793906667.git.alkumar@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,76 +127,143 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PEPF00000009:EE_|LV0PR12MB273923:EE_
+X-MS-Office365-Filtering-Correlation-Id: 619efaaa-76c7-41c4-6c84-08df3bc91aa0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|82310400026|1800799024|36860700016|56012099006|11063799006|261021123027099003|261102123227099003|261022105027099003|261021121427099003|261009223027099003|261026140227099003|261022075727099003|261028144727099003|22082099003|18002099003|6133799003|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	7sIk2VBQ+EsW2LGeMySR4efi1ldzNRpejtxlpoX3Hq3ZoxYY5YXkYhjWAuGSn4or/ztHdP+/QIWX+PJ90t7bc4R+ph8dWqIrdmUUy8oHZaljv9j4YlDhqFZ+UWS9pAB2VEXfyb164SUFJVu2m7zwcFdGSyYuORej6qW0vVC2uH7Otl+oLlQhS2hLI5CpYRBUQflFCfXaOroTza8zXbMzTHN+BhaQULSmUt6CTYQn774xiNOaGzaR32dpLrqMwoP0X8llF40+9PqUXDoxJy5BU5CFnAAX6+uLwrorXcm5PP/Ks0bnSblT674ApBYFuIhXqcY8j8V4NnS/yfoy1e6MEr2k79YZMo+xPe3kRqNpInUVX/hrpywhMXVx1CBv2Aqm3K2YF1hB5qeJmFLPpRoq2GVMFsV4pTLCF+q+N+FCPI25w/Q6QnOJTzfgirgygQDOOYRgaYstyLy0Q2Zo59f3d2F3ODaJwu3OwghabYEtRRHq3CvL9Y6//L/ygZ3k27KSVlAxQW/9MD5zKQN+2Z6yPjbPUQ5lLhiJwcJzYhDig3awSxv+fPCeyp1D3x6E50AjmBWCC5ho4shCK315wf82C0nvaPv9XTSLmZqwkHf6H64zDK6MA4ty0D3OlixxsXOeZQG/Vph9EphEnhSvNV4PF3iv0TT3sN/P8qY9Ynoz3sI9DWXxVmOK8UBNt3Zd90YVk1ZoqwaG2pPS8u7MPFaQfg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(82310400026)(1800799024)(36860700016)(56012099006)(11063799006)(261021123027099003)(261102123227099003)(261022105027099003)(261021121427099003)(261009223027099003)(261026140227099003)(261022075727099003)(261028144727099003)(22082099003)(18002099003)(6133799003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ZSPugBiDaK1NAw6cUEh9tDgqCitYspMJa+kyxZEr3d8ZJlcLm3qbwxPZtHxIqnRrFcv1VHRaU4b1cNp9BetIpEyAX085KCBKyrNIbkLHR8hHxo22lt2O9glpESRDlfupMzELzDcHpi3HItSsiBSvtu+MhrHiq7xue1GUmTZbHWMfwjK/cnIG2nyF2Ta4NOUzp5uqbXrtk+mA34xuFT2XYvTntzTyq9d6IENip/TPwrtOfMznbxDZLsuH2xi9nxdCIVyfFdqk5MKzhgvOS7YD3hD+UonOS5SRkyNBSm6Ieo/tSrYmRRVOMMzK70lnOv6WFfXYNbnDy0AWTsY4QCyn/hJo9F19PyeFm6FWQHxdGFVbtc6S33ICOWdW9jUlXLC/evQ3MefFWOTQjGTIlV2Evnu9CIuPH0uII7WS0WJrXI3pQBxiYT5ZzPNcDktUpVDU
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 05:45:03.0530
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 619efaaa-76c7-41c4-6c84-08df3bc91aa0
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH7PEPF00000009.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB273923
 
-From: Hyunjung Ko <hj351016@gmail.com>
+From: Zhi Wang <zhiw@nvidia.com>
 
-wcd_mbhc_deinit() drains two of the three works embedded in struct
-wcd_mbhc before freeing it - correct_plug_swch (via
-wcd_cancel_hs_detect_plug()) and mbhc_plug_detect_work - but not the
-button long-press delayed work mbhc_btn_dwork:
+Both GSP initialization and vGPU property queries decode their replies as
+NVKV streams.
 
-	mutex_lock(&mbhc->lock);
-	wcd_cancel_hs_detect_plug(mbhc, &mbhc->correct_plug_swch);
-	cancel_work_sync(&mbhc->mbhc_plug_detect_work);
-	mutex_unlock(&mbhc->lock);
+Move the byte-to-word conversion helper into the NVKV module and make
+that module accessible to the vGPU firmware interface.
 
-	kfree(mbhc);
+No functional change is intended.
 
-mbhc_btn_dwork is armed from the button-press interrupt handler
-wcd_mbhc_btn_press_handler() with a 400 ms delay:
-
-	schedule_delayed_work(&mbhc->mbhc_btn_dwork, msecs_to_jiffies(400));
-
-and its handler wcd_btn_long_press_fn() dereferences @mbhc
-(container_of(), mbhc->current_plug, mbhc->jack).
-
-wcd_mbhc_deinit() frees the MBHC interrupts first, which stops new work
-from being queued, but free_irq() does not cancel a delayed work that was
-already scheduled. If a button was pressed within ~400 ms of component
-removal, mbhc_btn_dwork is still pending when kfree(mbhc) runs, so
-wcd_btn_long_press_fn() later executes against freed memory
-(use-after-free).
-
-The freeing of mbhc was introduced by commit a5475829adcc ("ASoC: codecs:
-wcd-mbhc-v2: fix resource leaks on component remove"), which switched mbhc
-to kzalloc() and added the kfree(mbhc) above; the deinit path cancels
-correct_plug_swch (added with the multi-button support in 0e5c9e7ff899)
-and, later, mbhc_plug_detect_work (added in 0c105997eefd), but
-mbhc_btn_dwork has never been cancelled there.
-
-Use the existing wcd_mbhc_cancel_pending_work() helper, which cancels
-mbhc_btn_dwork (via wcd_cancel_btn_work()) and then correct_plug_swch,
-matching the other cancellation sites in this file and ensuring
-mbhc_btn_dwork is cancelled before wcd_cancel_hs_detect_plug() briefly
-drops mbhc->lock.
-
-Found by code review; not runtime-reproduced (requires WCD codec hardware
-and a button-press event racing component removal).
-
-Fixes: a5475829adcc ("ASoC: codecs: wcd-mbhc-v2: fix resource leaks on component remove")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+Signed-off-by: Alok Kumar <alkumar@nvidia.com>
 ---
-v2:
- - Use the existing wcd_mbhc_cancel_pending_work() helper instead of an
-   open-coded cancel_delayed_work_sync(), per review - it cancels
-   mbhc_btn_dwork before wcd_cancel_hs_detect_plug() drops the lock and
-   matches the other cancellation sites.
- - Add Fixes: tag and correct the commit history in the changelog (the v1
-   reference to CVE-2023-53842 was inaccurate), per review.
+ drivers/gpu/nova-core/gsp.rs              |  2 +-
+ drivers/gpu/nova-core/gsp/commands/gmc.rs | 12 ++-------
+ drivers/gpu/nova-core/gsp/nvkv.rs         | 31 ++++++++++++++++++++++-
+ 3 files changed, 33 insertions(+), 12 deletions(-)
 
- sound/soc/codecs/wcd-mbhc-v2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
---- a/sound/soc/codecs/wcd-mbhc-v2.c
-+++ b/sound/soc/codecs/wcd-mbhc-v2.c
-@@ -1623,7 +1623,7 @@ void wcd_mbhc_deinit(struct wcd_mbhc *mbhc)
- 	free_irq(mbhc->intr_ids->mbhc_sw_intr, mbhc);
-
- 	mutex_lock(&mbhc->lock);
--	wcd_cancel_hs_detect_plug(mbhc,	&mbhc->correct_plug_swch);
-+	wcd_mbhc_cancel_pending_work(mbhc);
- 	cancel_work_sync(&mbhc->mbhc_plug_detect_work);
- 	mutex_unlock(&mbhc->lock);
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index cac123cbeac4..8424aa3937e7 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -28,7 +28,7 @@
+ pub(crate) mod cmdq;
+ pub(crate) mod commands;
+ mod fw;
+-mod nvkv;
++pub(crate) mod nvkv;
+ mod regs;
+ 
+ pub(crate) use fw::{
+diff --git a/drivers/gpu/nova-core/gsp/commands/gmc.rs b/drivers/gpu/nova-core/gsp/commands/gmc.rs
+index 6f88c99349ac..33aea614cf72 100644
+--- a/drivers/gpu/nova-core/gsp/commands/gmc.rs
++++ b/drivers/gpu/nova-core/gsp/commands/gmc.rs
+@@ -29,6 +29,7 @@
+             GmcCommandId, //
+         },
+         nvkv::{
++            nvkv_words,
+             Decoder,
+             Encodable,
+             Encoder,
+@@ -151,16 +152,7 @@ impl MessageFromGsp for GspStaticInfo {
+     fn read(payload: &mut SBufferIter<core::array::IntoIter<&[u8], 2>>) -> Result<Self> {
+         let bytes = payload.flush_into_kvec(GFP_KERNEL)?;
+ 
+-        let chunks = bytes.chunks_exact(size_of::<u64>());
+-        if !chunks.remainder().is_empty() {
+-            return Err(EINVAL);
+-        }
+-        let mut words = KVVec::with_capacity(chunks.len(), GFP_KERNEL)?;
+-        for chunk in chunks {
+-            // `chunks_exact` yields slices of exactly `size_of::<u64>()` bytes.
+-            let word = chunk.try_into().map_err(|_| EINVAL)?;
+-            words.push(u64::from_le_bytes(word), GFP_KERNEL)?;
+-        }
++        let words = nvkv_words(&bytes, &[])?;
+ 
+         let decoder = Decoder::new(&words, UnknownKeyPolicy::Ignore);
+         let mut schema = KBox::init(GspInitResponseSchema::init(), GFP_KERNEL)?;
+diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gsp/nvkv.rs
+index f81a9e60d89c..5887a61af02a 100644
+--- a/drivers/gpu/nova-core/gsp/nvkv.rs
++++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+@@ -20,11 +20,40 @@
+ use kernel::{
+     alloc::ArrayVec,
+     bitfield,
+-    num::Bounded, //
++    num::Bounded,
++    prelude::*, //
+ };
+ 
+ use crate::bounded_enum;
+ 
++use crate::sbuffer::SBufferIter;
++
++/// Joins the two halves of a wrapped payload into the `u64` words an NVKV stream is made of.
++///
++/// # Errors
++///
++/// - `EINVAL` if the combined length is not a whole number of words.
++/// - `ENOMEM` if the buffer cannot be allocated.
++pub(crate) fn nvkv_words(payload_0: &[u8], payload_1: &[u8]) -> Result<KVVec<u64>> {
++    const WORD_SIZE: usize = size_of::<u64>();
++
++    // Each byte slice is at most `isize::MAX` bytes, so their sum fits in `usize`.
++    let len = payload_0.len() + payload_1.len();
++    if len % WORD_SIZE != 0 {
++        return Err(EINVAL);
++    }
++
++    let mut words = KVVec::with_capacity(len / WORD_SIZE, GFP_KERNEL)?;
++    let mut bytes = SBufferIter::new_reader([payload_0, payload_1]);
++    for _ in 0..len / WORD_SIZE {
++        let mut word = [0u8; WORD_SIZE];
++        bytes.read_exact(&mut word)?;
++        words.push(u64::from_le_bytes(word), GFP_KERNEL)?;
++    }
++
++    Ok(words)
++}
++
+ mod encode;
+ pub(crate) use encode::*;
+ 
+-- 
+2.53.0
 
