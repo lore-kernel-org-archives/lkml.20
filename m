@@ -1,52 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986539;
-	b=kDMlAjrb6XiW4QjjkQu63CggD5Lf8LbPsyE3fzp6UzwLH44fVL7bWURrfY6rjKn79SXm
-	 V1NAMDsxjn5o0lFD/NGwrRfkT9xX5/PopYrhMBHtP/OAJanMJ4mQVLnUpisGvgL1312Iu
-	 tNlEmSSkxg3v/QCptUVwUegjhcsH0o3Id/yW/yEx0ZsG9pmKoQlbdSOgrM2oh6/4JmuOi
-	 +FgJ8xvPO8q3CuY1muubMsguQX+Y2GY62NJT411N1M8El7EjCEJRSw/zZ9FLY/ivuJPai
-	 gpcw+k53j3qpMQSjd5zfBWQtPwvZ6fhEPlTKdmM6ZUKYquf4CgQ5jcN5zpIdsP+Wyyg==
+	t=1793986551;
+	b=eoNbB9IZj6GeiPxwaEYjyUcnYuT6U7Oi65VLEe6+yWXwihjqVbLcEwHTIXtoATB+7RAY
+	 89J4wTes7PNuh+yLZR/xtE2KeZMPavJBBBFztEP6InPCYGjdqzG+Sx54ulaS2UVEwxcSx
+	 VtKYDNtySO3JuHSFbF5tS+VMCZJqgKPJxoOGg+C+89pnIEIe2KMgBA/Kz7Ky66htTi1fG
+	 FWgrQhbxdLlMzO/LNPOOPeRVuJxpdiOKHjH9s5hcCBKzcfzpr/C8fQalw99lhqU9WnfWv
+	 iViBKXywOd3JVt8RhPYuL0bd8qdQbdwXGZrN2RICjvn7JCHrekiKyZgd+4GiVWd4tAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986539;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=9h1qWQSo2bfZtMhtQwi2j+0baKULX5LG8qfPi6Czi9Q=;
-	b=Tyg3H8xR+rF39DJKX1fZRk1Xn4L9EydfZc4QXtthNio9cxtS+qXJyy+RVU0i+h1nl2Ia
-	 udJtP01BHTODojk0K+nDXUcnbEzvz3wFRc/A4ANvidNTvYpvPCIPuLXx0FfgXHzmJ5Cyx
-	 Qg1TZY3TCAFzGUI0evuqG2Gq+w27J10E6lxyDoGlyqIjSC8TOiaWSOJm2hAo5eHsjp7oa
-	 5Mlq/3l10VZcMtRcDMXhfGz2wgIJHLedrqWo+MHXGJ19BddeNGUA7HIzwuaCtiM02I/nV
-	 d276p4lUcbbLSiT+15TZImcoV2PNx+//kazgdxkbEula7rsXVljX0gGzVzf16RMsQrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986551;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=sm4OrPi0zAjxyxaN26uT9wuIudWQNgaYQxVZ5vD4Joc=;
+	b=JF4+Cz2HS1wHVXkrvBWTLt7xIN7pGZv2zwgv+Qc6UTi6yd/C7p69g+ZY/DFvFgQR0wS7
+	 LhLPLSM6gKWkhH+//UeRuf2OY5XOLu+yX+RFeTGsANtd9YWU2WO6Ffdmo5TUdu/XJ7fgq
+	 MZ+es1Z3t69cEWtHv7eSHebh72JADP/59oztm0M6i93p4nA5UGqm0fCcoAC3XuhAGNiv5
+	 KZLynCC9IuQD798PYoSBFoxfb/Gxnfz0lNUaigt5ZSKsHFMXcJjkSAOwR0HZVL61ThfVY
+	 IJ/AL1icU+38v6ut7O4v69lY+XdxUhCUq7r8XoajsDeaGyDYrpEtugAqWcEq01srP+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="lct/ELIR";
-	arc=none smtp.remote-ip=91.218.175.1
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ho15CKcB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D15F606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:35:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D15F606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6762B606A326;
+	Fri,  6 Nov 2026 17:35:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lct/ELIR
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UAw4luFEqDTEvPhZffw7Um2r/LrzYhDoiu6+Pdiro9g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793986535; v=1; x=1794591335;
- b=lct/ELIRKuHBomUTFoBq19HCaAcqSwoOz7FBS43kZ2ktXBRCBfNn0vvUTJwcscU4GLs44nP3
- pybKJeeh2ZVKNqP+onVr1faCtmxHnynN1vsBbbmSBnWpFhGvMC1z4tHwBlmwufIaQqfTqhDteW6
- YUxvRLBrI2z/7LFTWGZqC+cA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id df4875bbaf29c7f8;
-	Fri, 06 Nov 2026 17:35:24 +0000
-X-Mizu-Trace-ID: df4875bbaf29c7f8
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ho15CKcB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019931F0089F;
+	Fri,  6 Nov 2026 17:35:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793986551;
+	bh=sm4OrPi0zAjxyxaN26uT9wuIudWQNgaYQxVZ5vD4Joc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ho15CKcB7O4FZs2HAbtefpKLJ/LqAH8zzCA74y7TPaatxXg0QE8bv/qA3KELSY6EW
+	 4NkpZqnp9/XvJAmRE/fUfWtPhr+EPvI/E64BEgo5puMhL6O7BI0T4cMbleCI1EleiI
+	 basOdYQyENe27qbK+jycvzN1+7mfXgCnYuTl2U/ljl9Hrq8U5CYWYnnsfIYH9el36+
+	 73C2bo8RjaoT5VFRXhEVgUX7H0dHGQwwFN9DPs84gv+6b4RVRFn4pGuq0gclGif5VB
+	 Na6rXacF7nQFpSh+Z+V+pF9eZDOOVyv6pvtHMjfWv35XmERXu73oaB5a+r8FrQgvuW
+	 +szG84Z/vn31w==
+Date: Fri, 6 Nov 2026 17:35:46 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Carlo Caione <ccaione@baylibre.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 4/7] dt-bindings: clock: Add Amlogic S7 PLL clock
+ controller
+Message-ID: <20261106-armed-spoils-909d7d4f7d21@spud>
+References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
+ <20261106-upstream-s7-clk-v1-4-7d501d62621f@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,54 +69,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 06 Nov 2026 17:35:23 +0000
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="O0FeJVII/ayv5UPE"
+Content-Disposition: inline
+In-Reply-To: <20261106-upstream-s7-clk-v1-4-7d501d62621f@baylibre.com>
+
+--O0FeJVII/ayv5UPE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <ada56d168f44385c12672eee9f4a750716e6de67@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v2 7/7] wifi: rtw88: 8812a, 8821a: respect peer
- A-MPDU size limits
-To: "Ho Jie Feng" <hjf3108@gmail.com>, "Ping-Ke Shih" <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, "Ho Jie Feng" <hjf3108@gmail.com>,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261031070950.425176-8-hjf3108@gmail.com>
-References: <20261031070950.425176-1-hjf3108@gmail.com>
- <20261031070950.425176-8-hjf3108@gmail.com>
 
-Hi Jie Feng,
+On Fri, Nov 06, 2026 at 09:30:27AM +0100, Carlo Caione wrote:
+> The S7 PLL controller supplies clock sources for the peripheral clock
+> tree and receives its reference clocks through firmware-controlled
+> oscillator gates.
+>=20
+> Add the binding and clock identifiers needed to describe this
+> controller and its connections.
+>=20
+> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
 
-Two small comments below.
+This looks okay, but I don't want to sign off on it before seeing an
+answer the my quesiton on the other binding.
 
-October 31, 2026 at 8:09 AM, "Ho Jie Feng" <hjf3108@gmail.com> wrote:
+Thanks,
+Conor.
 
-> diff --git a/drivers/net/wireless/realtek/rtw88/rtw8821a.c b/drivers/ne=
-t/wireless/realtek/rtw88/rtw8821a.c
-> index f7391f6aa3039c7ba4d88249d968a5f1763ea866..f597edec290f64fda1c4578=
-12b240515360dc387 100644
-> --- a/drivers/net/wireless/realtek/rtw88/rtw8821a.c
-> +++ b/drivers/net/wireless/realtek/rtw88/rtw8821a.c
-> @@ -49,6 +49,13 @@ static void rtw8821a_cfg_ldo25(struct rtw_dev *rtwde=
-v, bool enable)
->  {
->  }
->
-> +static void rtw8821a_set_ampdu_factor(struct rtw_dev *rtwdev, u8 facto=
-r)
-> +{
-> +     factor =3D min_t(u8, factor, IEEE80211_HT_MAX_AMPDU_64K);
-
-For a VHT peer rtw_set_ampdu_factor() passes the VHT exponent here, so
-IEEE80211_VHT_MAX_AMPDU_64K would match the 8812a version. It is the
-same value, so this is only about readability.
-
+> ---
+>  .../bindings/clock/amlogic,s7-pll-clkc.yaml        | 73 ++++++++++++++++=
+++++++
+>  include/dt-bindings/clock/amlogic,s7-pll-clkc.h    | 42 +++++++++++++
+>  2 files changed, 115 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/clock/amlogic,s7-pll-clkc.=
+yaml b/Documentation/devicetree/bindings/clock/amlogic,s7-pll-clkc.yaml
+> new file mode 100644
+> index 000000000000..e2b5ba5524a7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/amlogic,s7-pll-clkc.yaml
+> @@ -0,0 +1,73 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (c) 2026 BayLibre, SAS.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/amlogic,s7-pll-clkc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +     rtw_write32(rtwdev, REG_AMPDU_MAX_LENGTH, (8192 << factor) - 1);
-> +}
+> +title: Amlogic S7 Series PLL Clock Controller
+> +
+> +maintainers:
+> +  - Neil Armstrong <neil.armstrong@linaro.org>
+> +  - Jerome Brunet <jbrunet@baylibre.com>
+> +  - Carlo Caione <ccaione@baylibre.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: amlogic,s7-pll-clkc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#clock-cells':
+> +    const: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: input fixed pll
+> +      - description: input gp0 pll
+> +      - description: input hifi pll
+> +      - description: input hifi1 pll
+> +      - description: input hdmi pll
+> +
+> +  clock-names:
+> +    items:
+> +      - const: fix
+> +      - const: gp0
+> +      - const: hifi
+> +      - const: hifi1
+> +      - const: hdmi
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - '#clock-cells'
+> +  - clocks
+> +  - clock-names
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
+> +
+> +    soc {
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <2>;
+> +
+> +        clock-controller@8000 {
+> +            compatible =3D "amlogic,s7-pll-clkc";
+> +            reg =3D <0x0 0x8000 0x0 0x1e8>;
+> +            #clock-cells =3D <1>;
+> +            clocks =3D <&scmi_clk CLKID_TOP_PLL_OSC>,
+> +                     <&scmi_clk CLKID_TOP_PLL_OSC>,
+> +                     <&scmi_clk CLKID_TOP_PLL_OSC>,
+> +                     <&scmi_clk CLKID_TOP_PLL_OSC>,
+> +                     <&scmi_clk CLKID_HDMI_PLL_OSC>;
+> +            clock-names =3D "fix",
+> +                          "gp0",
+> +                          "hifi",
+> +                          "hifi1",
+> +                          "hdmi";
+> +        };
+> +    };
+> diff --git a/include/dt-bindings/clock/amlogic,s7-pll-clkc.h b/include/dt=
+-bindings/clock/amlogic,s7-pll-clkc.h
+> new file mode 100644
+> index 000000000000..4014314a3eb0
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/amlogic,s7-pll-clkc.h
+> @@ -0,0 +1,42 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (c) 2026 BayLibre, SAS.
+> + */
+> +
+> +#ifndef _DT_BINDINGS_CLOCK_AMLOGIC_S7_PLL_CLKC_H
+> +#define _DT_BINDINGS_CLOCK_AMLOGIC_S7_PLL_CLKC_H
+> +
+> +#define CLKID_FIXED_PLL_VCO			0
+> +#define CLKID_FIXED_PLL				1
+> +#define CLKID_FCLK_DIV2_DIV			2
+> +#define CLKID_FCLK_DIV2				3
+> +#define CLKID_FCLK_DIV3_DIV			4
+> +#define CLKID_FCLK_DIV3				5
+> +#define CLKID_FCLK_DIV4_DIV			6
+> +#define CLKID_FCLK_DIV4				7
+> +#define CLKID_FCLK_DIV5_DIV			8
+> +#define CLKID_FCLK_DIV5				9
+> +#define CLKID_FCLK_DIV7_DIV			10
+> +#define CLKID_FCLK_DIV7				11
+> +#define CLKID_FCLK_DIV2P5_DIV			12
+> +#define CLKID_FCLK_DIV2P5			13
+> +#define CLKID_GP0_PLL_DIV0P5			14
+> +#define CLKID_GP0_PLL_VCO			15
+> +#define CLKID_GP0_PLL				16
+> +#define CLKID_HIFI_PLL_DIV0P5			17
+> +#define CLKID_HIFI_PLL_VCO			18
+> +#define CLKID_HIFI_PLL				19
+> +#define CLKID_HIFI1_PLL_DIV0P5			20
+> +#define CLKID_HIFI1_PLL_VCO			21
+> +#define CLKID_HIFI1_PLL				22
+> +#define CLKID_HDMI_PLL_DIV0P5			23
+> +#define CLKID_HDMI_PLL_VCO			24
+> +#define CLKID_HDMI_PLL_OD0			25
+> +#define CLKID_HDMI_PLL_OD1			26
+> +#define CLKID_HDMI_PLL				27
+> +#define CLKID_HDMI_PLL_PIX_DIV5			28
+> +#define CLKID_HDMI_PLL_PIX_DIV6P25		29
+> +#define CLKID_HDMI_PLL_PIX_DIV7P5		30
+> +#define CLKID_HDMI_PLL_PIX			31
+> +
+> +#endif /* _DT_BINDINGS_CLOCK_AMLOGIC_S7_PLL_CLKC_H */
+>=20
+> --=20
+> 2.56.0
+>=20
 
-This is the same as rtw8812a_set_ampdu_factor() apart from the limit.
-Maybe a single rtw88xxa_set_ampdu_factor() that picks the limit by chip
-id, like rtw88xxa_set_crystal_cap() in patch 5 does for the mask?
+--O0FeJVII/ayv5UPE
+Content-Type: application/pgp-signature; name=signature.asc
 
-Best regards,
-Luka Gejak
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4P8QAKCRB4tDGHoIJi
+0k29AQCTJ294Vyu8WoKtwTE8vCVIj2e8Prhj+z474CV/zh6qUgD/QuGi2AwUeJZM
+rEmZ2XkOgYe+EHZj67+lAYXHcliGTgQ=
+=Aa3O
+-----END PGP SIGNATURE-----
+
+--O0FeJVII/ayv5UPE--
