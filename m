@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985716;
-	b=K17/p7xWh9BykMxZda+OfP5zebGvN9AK4h0pxhmxQwIjYepIcZ5PDyexRdEVKQyuzOlz
-	 Vnyn7uPK7Xm3J/O9m5kZhI0+iD0QJOFNzK+0qrGISW7ul9rKH5CxbHzY5BmMdeKWPjKTF
-	 gXuqTqd0HWeSj49o6Ko8rtrrPH9o5+q9ZqjYtsPI5+Q9D9NoOobZrxgVK79y9rOLMw+z+
-	 cjtlIe0fLQbctV7zEs9rAJnkUqz/BYKBwpKXRPsCVib2Zk4/umqg/wtfBF6lIXj/XfCrj
-	 Y8/fILyGtUFz+XYD8kKQkyMmu8PJasa4wSprm0Vkpkgqcu8zFqB8HBlkigWIc2LtJPg==
+	t=1793985728;
+	b=OWxBRrgLey+6cZiBewbSltJ/uyM86TYexCypz5jE8YMSluTq7OyB1CYPIzltblwvFjd3
+	 F2c4zdpXeGf1cM+LNlRmlDeDg3KgdhZn42oQZ8PCT+GpXg5cPGfPSmSA+u1RuZWFoq8Aw
+	 JDT4ySrLIeqv6VZTCtQI34sa3S/5IpaI4dgbkjXtslsBtltqljdGO7MPgBA7Wi8wJXu54
+	 hzlWhWpx2ywV7iCRCpLS4REsGqroA8E71FA3sk0fkn+a2OFp2f3yS18HYmkV56YaVVKll
+	 M047jBeXyWz77sf24mUolPrCgravGmc+E07u0uZUe4XA+R8HsNbGaoqGYX+yVWedPgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985728;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=3B/XdCDqxYihkjutrAtk9GxRkkYw7MTTo/yR+JY2t+U=;
-	b=WXoBQdPjaSX2fb31aE0kj5FUnHd/eDMZBbkWGPnEDFhQjlsfd0eKenJde7Xd6KEhNa2R
-	 FSRHf06Y6ws/zqCD2bOjdTY/mesxppPGrnaAmcrhU+2Z+IaDrb/hc6CvWdJsjXKh+UAVc
-	 jKs8YcinItOOFXS4PhCFrIWI0ZlVIZz3VLU7c6zJLauMTXtg2sf5Uf0PjOSMFKfQY1ZUX
-	 FGz26r5uvfh4W6Cz/W6WF12VCWTxuo+1sW9Q5n1QszLzJ6XXeWbIdaYG7chRYjdM58Aod
-	 4h/s9EVF8An3pJIjO7x7o/fxnRC5Fwgepzcx9A8bZXR7ip/oJLSGPM580rk12Ee/c9w==
+	bh=Z1d9Rq/osPQvOJOvEkzQXVqv9nV0kIEEShdUH3s8pbQ=;
+	b=DC0rF93ZVrOitNlRcrJE7CfeL/yiEjXkY43JfScYXIP4A68qn73Mn/QCiMLryg5ywXCP
+	 GtxVmZnwPaPENCB1hBhEPj6CZrMw6cXcBqtF4+7BirebmBbu5Ag+nXxKKD2YdrbLt+fot
+	 K4YzVojMJovicwcnt9EQVZgDXqYmCheRIR+i55HakvYsz5UWyqSBXrQdlhnim/ZaXoQbY
+	 d2CaQSfhsFbweKas9WRFMraexZG5TZDdm8Cxe9x1QEvCaxIPYu4ZaE49AGh9jSuPdeFdZ
+	 Xx2qZRcx+XDB0scW9F6TZrRJCJvF3FtXew2SwP8Igb2aGPSJqBWwBrIksfDjYRrZe9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="MDfCgBM/";
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ct7xhBqq;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188EB606A335
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:21:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 188EB606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF79606A330
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 17:22:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CF79606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=MDfCgBM/
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so9260735e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:21:55 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ct7xhBqq
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso8957615e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:22:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793985714; x=1794590514; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1793985726; x=1794590526; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3B/XdCDqxYihkjutrAtk9GxRkkYw7MTTo/yR+JY2t+U=;
-        b=MDfCgBM/CQgrXyzGdmg2hzoAwWak3W99lvCTIT4EqWwTVBVETD05dGUcXYd4EsB1Lr
-         jB+ELsHIhYnkUgvSnIsLgjJRQGlTlUefkPnq0V/ArzM2AUD+PurN7iV7YJ/HJ1NVSNwu
-         3HQxBd9XpdUmNPyx6stUW28NpFtZMe0iVVj+FrouE2lXK+SX201S3Q5oEcwd71WVdtJF
-         Y6BB5yflYCFeZpP0xbjJ+Chfzd5UQ19Z0Rirrmf6aN1I9/Nqwhnc44eybbf8b6Jcw/gM
-         GSJ77Fpt3nfsPhapGS1zuMFEOKiYApJPVqft83YUCsVD04g3r6GCsY/k/TV13Ctk/XSF
-         fCEA==
+        bh=Z1d9Rq/osPQvOJOvEkzQXVqv9nV0kIEEShdUH3s8pbQ=;
+        b=ct7xhBqqAjAHFAkxQe13PdnKjy1lYNKYDj46SYZIX60lPWeDdWjQC99xmcalzfv4QG
+         +D6yo3wfYeDaGgFTRl6kOlQZVUArvs7fJv02YtBq8hnbsV+eyUcVOmkO/y4WqBVo6t3F
+         X7jmcS/etL44pvfo+qlT5FAKKLcCZ6tycZwb7T2XUw2uVNnP7C9DfBL1ydKcKMwFJM4r
+         CNEGYfKcGooe2GTvINgLTP8oGMDGUl/McwlholuPurccP500Flwm1dr6gKkDIWWe/I9D
+         v/OiCbpaXGZ9KfF6Jj1Y280b2HZyZBRL2k8SnKBnpFsO1P0vF2ajB+FF+fX1VrzUabRS
+         gVkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793985714; x=1794590514;
+        d=1e100.net; s=20260707; t=1793985726; x=1794590526;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3B/XdCDqxYihkjutrAtk9GxRkkYw7MTTo/yR+JY2t+U=;
-        b=fI6SulFh1gBWModx8fa12gbMt+VkmZR2mLfMNGzxwpyrKoagwax0K1LsjBEe3KJFg9
-         8C8EZ13D+IBKj2wLDGJouPYOilPmHWwxfB5Gf/kEBFIHOrQLVXBgBsfENbIt8Er0u0Yh
-         BvuaMPbSJi6lFQ0A4r10El7fCnaCV4m6epnuCvbpEsONMeMl14/x453qhkqKhENbXAMg
-         4GsaqXHJ+ShvjHumvkAaDjt9KYwY4F9u5AgWitbExyqTVNNDG6WFMaCS8uIumISb7A9H
-         OrMzio9DGUZnBAfVleec9adXYOm2bEwhQ8SaAagBhNiL2gfmzcMGmR9VM39PoqfVhC8u
-         CY+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzQeo/iY2IVBcMsJI4YtIrMXDjrpCXQ19vlsfLrCoG+Y5DYGCJsrUUHmKsmqNvRSG9ig7E2ze+sjWVj6lA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hhRPujeEoYRpyB0BwSVd1twbLJRe4tjUtmt4YSO2OAzdRJehF
-	NEzRaN6hGDsF3LD7HzOFHC1u9f5tvtY32fEI0J1r+Gg4/4L7J+rdR8Eg98cYtJaOgLzcj9Z7RS8
-	7LLUUI4c=
-X-Gm-Gg: AYBFou1Xm4ms0kPwfX56xVnV+rSf9DMz9fd873Kt3nmKXJnkxsjltLlpuIfhLMqw+3F
-	dNTxuDbbsU4igg8Lg/IJVtH9Xm0HWg7dCMdLve/2YARJQnsPh5WomlxFMhHBnTN7fqa4PLCbnt2
-	adPQBkshaoWxqs2Sdf33f4OPL+reuJAdpCnrFqqYwMzHlOznoLPQyTfaJPgtgf9oBflzCBbJb/Y
-	2YgE4hfrNpgGu4XrWwV6K9GaTrYzzpUSiWlQqR9ERENYNbPRHCezSYva3kxS2LeQ/HUgQWteJIj
-	j5et+IosKWiEaF0LdbeOGkoarMGfcYQ+Ve5WC2Ny/o1RPgeHBWkA0/ARg2kA2AmnA/wOeoF2QR9
-	A2zAaW8+r/6QUSmAve0GFJMkx3JQCK9oES/2LYkK9nZo2WFFJhyYVHXI1L/h8ohofU4KhaYaJRx
-	/t5oRMTC5TqjKDfM9NDXcArsp3jZq2UWamQiECM6r9BoJx9Q4kIcj1Lv9A0p8coIt9qCHVBnxyD
-	QtMMcFzQkt8iI+phN54t2o6mvKaLv8Ow1pRwawEr0QW53nUtuLBMUsI5IktMZRRXfnnJLmmyw+F
-	tp8++Yrh985uYGNa6NFXjJ0CKbauaHE=
-X-Received: by 2002:a05:600c:1d1d:b0:4a2:1612:637a with SMTP id 5b1f17b1804b1-4b6df4f28bdmr54940675e9.16.1793985714465;
-        Fri, 06 Nov 2026 09:21:54 -0800 (PST)
+        bh=Z1d9Rq/osPQvOJOvEkzQXVqv9nV0kIEEShdUH3s8pbQ=;
+        b=Vnbs504ICLnLDAzppF4XNS+OmrGa9FrtfC3HmzvAEsIGShWO11C8Bm+kvFH+KJxLXn
+         XntNFJJf+dU4k7XOfe+yehJdOS5OBO4CNOQDS+ep0BVHtC4oEHmjZRDxHq1zPpwSCq7n
+         DG295pY4o03ZExaIJQ9KL9yYSQN2nhWNXqHGCNq9wWHzvyqulbhYlsRsg5I+8gBSDZ5K
+         8EAoRxIM4QYC6gH9oynhm8OLig//oNhBNYrjmoXLssdBcdna/vF8W42MqVNCarmAX2fH
+         0UEQgkpgyZM6Kzuv3YEdegq4fviMrkSbY+XcshK589JB9iiM+iHm+cOCW1WgW6OTLj/z
+         rd5g==
+X-Forwarded-Encrypted: i=1; AKwUvByqP/s+s2ZHuS4fke/3ZsT/oT/3/McjmYLAPOAQF68a8QKnVGaalgkzAEW1DUCL6+Ls/SHdC2NNca5F/ms=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OsWVEm9xW8jHmNfGLWRnuSP0mbHPh78OiLQo4q+i0UbmvySiP
+	zVj4lPx6nKJCA2q8kGbR6G6KT/N7WFZTp+fyNliyVd+D8aY2DdECL6m31cpioM/D6H0=
+X-Gm-Gg: AYBFou3IGOjWUDvpqKY90/tmEEfr0zo6WtcbmaAknW8C1jRF19b2BHF3+9scaIsmpHg
+	mjutoTvWXVYL6UWNxhAd41y0tqOLWNcf742EclO7102w2g7Zjkf3S4WUziiccXuEXWko1aoWi8E
+	rmfWSymdklux7Kw49P8CIrqGDfiYR3WLksml3dUxSIo5ckrOzQQsjGNeJcvz+6m/eImCkyOQkve
+	4cK35pc6ipE+T4t+zCFah8VyVNG/I4bmCyn7Ve1ydAJHKhpkYQS/ooGr7bTPRCxeY6z/FiFyglO
+	cMEffklBVlQ4zZI9zO1hNeCxGqLV7pMeElfSng7VIvkvgvT6QZuFxAus2F6oMqKZJVG/WjbDyKp
+	PitfbPmy+cUExMkqKxAPwy0JzfJuf4rRN/vEqPmLVp0t2sHjL4xHEcR1pww8CfB4Vl6wFECh1jm
+	7AGzP8AlD/vUFgsn/lLyJPLTsWVXPynLdDO0XcjA+I88q2w2B/HAYhKgpkbpuE4Zuc/y1OYf4lR
+	thhzyTh8znDs00hkwaxdCVtStev2lNmaKMSzhdJivd9GVbi+qBYU9fn8eprARgoP/X9zszbuf4u
+	2EcazFsuYLD5Ctn0a+nXL/t7yv8xqsRUXk4/q8G/6tzTL19d8zvE
+X-Received: by 2002:a05:600c:530f:b0:4a2:133:45e1 with SMTP id 5b1f17b1804b1-4b6dfbabcf9mr52591765e9.24.1793985725981;
+        Fri, 06 Nov 2026 09:22:05 -0800 (PST)
 Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm146293965e9.5.2026.11.06.09.21.53
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbfa121sm6631065e9.1.2026.11.06.09.22.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:21:54 -0800 (PST)
+        Fri, 06 Nov 2026 09:22:05 -0800 (PST)
 From: Petr Mladek <pmladek@suse.com>
 To: John Ogness <john.ogness@linutronix.de>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
@@ -89,9 +88,9 @@ Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
 	printk@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Petr Mladek <pmladek@suse.com>
-Subject: [PATCH v6 08/16] printk: Ensure consistent name and devname when updating preferred console
-Date: Fri,  6 Nov 2026 18:19:44 +0100
-Message-ID: <20261106171952.207909-9-pmladek@suse.com>
+Subject: [PATCH v6 09/16] printk: Do not quietly ignore adding entry for a preferred console when there is no space
+Date: Fri,  6 Nov 2026 18:19:45 +0100
+Message-ID: <20261106171952.207909-10-pmladek@suse.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106171952.207909-1-pmladek@suse.com>
 References: <20261106171952.207909-1-pmladek@suse.com>
@@ -106,80 +105,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Make sure that add_or_update_preferred_console() updates the right entry.
-It is a paranoid check which prevents a potential misuse of the API in
-the future.
+It is hard to imagine that anyone would want to add more than 8 preferred
+consoles. But never say never. And do not ignore new entries quietly.
 
 Signed-off-by: Petr Mladek <pmladek@suse.com>
+Acked-by: Chris Down <chris@chrisdown.name>
+Reviewed-by: John Ogness <john.ogness@linutronix.de>
 ---
- kernel/printk/printk.c | 31 ++++++++++++++++++++++---------
- 1 file changed, 22 insertions(+), 9 deletions(-)
+ kernel/printk/printk.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 2c205c454321..60923b997e4f 100644
+index 60923b997e4f..1eb542a321a5 100644
 --- a/kernel/printk/printk.c
 +++ b/kernel/printk/printk.c
-@@ -2564,6 +2564,8 @@ asmlinkage __visible void early_printk(const char *fmt, ...)
-  *
-  *   2. Either @name and valid @idx OR @devname and @idx=-1 are allowed. [*]
-  *
-+ *   3. Only matching entries can be updated.
-+ *
-  *  [*] A valid @name and @idx will get assigned for a devname later when
-  *	@devname matches during the device initialization, see
-  *	match_devname_and_update_preferred_console().
-@@ -2589,10 +2591,7 @@ static int add_or_update_preferred_console(unsigned int i,
- 		return -EINVAL;
- 	}
+@@ -2578,8 +2578,10 @@ static int add_or_update_preferred_console(unsigned int i,
+ 	struct preferred_console *pc;
+ 	bool is_new_entry = false;
  
--	if (!pc->name[0] && !pc->devname[0])
--		is_new_entry = true;
--
--	if (is_new_entry && devname) {
-+	if (devname) {
- 		/*
- 		 * A valid console name and index will get assigned when
- 		 * a matching device gets registered.
-@@ -2608,11 +2607,18 @@ static int add_or_update_preferred_console(unsigned int i,
- 			return -EINVAL;
- 		}
+-	if (i >= MAX_PREFERRED_CONSOLES)
++	if (i >= MAX_PREFERRED_CONSOLES) {
++		pr_err_once("Reached maximal number of preferred consoles.\n");
+ 		return -E2BIG;
++	}
  
--		strscpy(pc->devname, devname);
--		pc->index = idx;
-+		if (!pc->devname[0]) {
-+			is_new_entry = true;
-+			strscpy(pc->devname, devname);
-+			pc->index = idx;
-+		} else if (strcmp(pc->devname, devname) != 0) {
-+			pr_err("Updating a preferred console with an invalid devname: %s vs. %s\n",
-+			       pc->devname, devname);
-+			return -EINVAL;
-+		}
- 	}
+ 	pc = &preferred_consoles[i];
  
--	if (is_new_entry && name) {
-+	if (name) {
- 		/* A console name must be defined with a valid index. */
- 		if (idx < 0) {
- 			pr_err("Adding a preferred console with an invalid index: %s, %d\n",
-@@ -2620,8 +2626,15 @@ static int add_or_update_preferred_console(unsigned int i,
- 			return -EINVAL;
- 		}
- 
--		strscpy(pc->name, name);
--		pc->index = idx;
-+		if (!pc->name[0]) {
-+			is_new_entry = true;
-+			strscpy(pc->name, name);
-+			pc->index = idx;
-+		} else if (strcmp(pc->name, name) != 0 || pc->index != idx) {
-+			pr_err("Updating a preferred console with an invalid name or index: %s%d vs. %s%d\n",
-+			       pc->name, pc->index, name, idx);
-+			return -EINVAL;
-+		}
- 	}
- 
- 	/*
 -- 
 2.56.0
 
