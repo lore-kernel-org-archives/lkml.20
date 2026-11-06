@@ -1,66 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989374;
-	b=JG2DjlYIGAuD6kK14A9d08OIP1qf5ydfoAIRAa19R23C34scLOXK35nQq/BaJGszaXFB
-	 SQiV7N+iUzVU1fuxMn4RRtLrUJFZz+KZqz9L07ENxs5SEvDTxH+GeCMpQsCXJdRCUXgFk
-	 b6+EsDKWMfacLRrTIfYdz3NWGDB31b5ZziIUeSB39DyTZ+zEsSQlacQNlaHF3ZGzXmsxn
-	 gTqOnqfSZWs2haY5MYodZrjoEYCFXPhjv5BQ3+Lg1lGZlAnzY3tzoW3AkzVph5JLmDiEM
-	 APwYsZKoRdvV5uGtV020OJ73EBJM7jp52WFEddVpXKqTaHMYzMBQ2h5WGXte2ZXLz/A==
+	t=1793989500;
+	b=Xk9Goub5P15goHum88C9TCg7qEwzhhfY/3z59lGnenv1C6k0QAG/TvJZ5+uxw1s+J/JN
+	 ERfYuLm0B8l+SeFLjCXy5KZ+QIdTr71+mENTvRaaDPLTWNMGHDWR0QiREHAp8Rv9lQcgS
+	 vLpEhkwLUOqNjJTGBv/BnWlayvV+Sjo3QWqY3ZB1kzcO2cj3cyAX13i5B11huja4QmQod
+	 HWXnEsZFsH2JFCuc0k9SdShx61p5T71tdZfhvX+8hTon2oMgpA+dfEUNft69mV89+c7n5
+	 7z1n9TCcBJElQOqfvy4RKpLZrz02UCJqUCuy89UMVeoD+ZT9lHfei51FE/dMeRCcmMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989374;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Jk2ZwxV40Z5cBoAxsVcL6on1/+5n7nlvs0/xx/GRVak=;
-	b=sfNgcxrHdSg3KBoU7F/ISAdhyQiyJJHPXXw5jOIukiPsKFAXCi1sL7YVMKT1YzALgggE
-	 O7/B6RnX7ZtbkgfZyMru6jBiAImtp/wdZHq0WfY6IT3C3h/vMNAJbb2ZhksZzi+p/awEW
-	 z5blVO7BQoq975jA58j6duduaS6E/5yg5FU6yYMauDpPck5q5DCdfsa4oIvxpWn3okobR
-	 ZrxGWY30FZSL1M6IJtA+Mx3ty4UaVe6FS92ipkHKXhCBHSHGKGZU5vWI0KEXhJ/2dZ/Kp
-	 sM1+LNKKBGtsiUxpYCiomRoxa8WgbbOHKlXPmKIQQJqNl2pTu/3OYD2tIUL8B9N37TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989500;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=zDwXRUgmgjLzyK+vNatlIuTEGq/PIv3VbBlkOOgIGzM=;
+	b=D0K/uv3qIZA0HsHL80P4d2hc/nV1aYJrDmkHKLmr/LYoq7bUPzloELXz0msg7Dj9c2w8
+	 d8tzlRTZBA2mto8aWv0I75Zu0tDgxwV6WvBjhv7IKZvEBSdiQH5TuLtTgMjEQfU/hJm+E
+	 MyKfSgY6W3ACCgSpcyuvNGqtoOtkxA7pn6N9jEoPE9zMkvOpBXfpNtEzkd1I33buR9MaZ
+	 zxQziCmzpf3QB85FNrwvWAabBrGfJBUIlAsAkJBIjkTPfdEidJMpwIo5+A1ZnHNtkGuW5
+	 NFMuSAB+7LXk4XQMHw1KwVlls2cj2eX19K4Y6ElAy+bhlt5Kect/vYq6UGoCxDng/ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="p/j7qCWB";
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rErTEwF9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E76606A326;
-	Fri,  6 Nov 2026 18:22:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6E76606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A2FE606A33F;
+	Fri,  6 Nov 2026 18:25:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=p/j7qCWB
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jLnbd0TrQz1XMmDj;
-	Fri,  6 Nov 2026 18:22:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793989370; x=1796581371; bh=Jk2ZwxV40Z5cBoAxsVcL6on1
-	/+5n7nlvs0/xx/GRVak=; b=p/j7qCWBtI5/FiljsNFOFFGK2VQdlXxI9owZGo2s
-	85Padf9qXJyWhB3UuLUgozFKvd0M0Q2tETzxnzIqMtwWJgJBiKXljiilqty9XGzy
-	bybCV++RWeRpKeVtllDe2z8zUwx1dE5OULJHQrNl5kp5uCH7lO3Gi9Zdp2APSTSg
-	NcLv27IGJAF5cgBR9ISoWBf9u1UD9uLz65AFIKiJ53heJrWZL84gk0XVUFUD8A+s
-	+uS0UAz95s0Rpv8mDDubkN4BIOQ2YLDG62SoQpmQC14ZCaTun1rKLTSsOC5H0IdV
-	NI8FaN9vjA8rihXDklEySYwdR4IRy2F9TK7swH3zcw6iBQ==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id aQXB9dUkTU-N; Fri,  6 Nov 2026 18:22:50 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:a09a:30e6:d2b4:a215] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jLnbZ1klFz1XMmDg;
-	Fri,  6 Nov 2026 18:22:50 +0000 (UTC)
-Message-ID: <d8ccc4f4-d9d1-45d6-8b19-e1762dff14df@acm.org>
-Date: Fri, 6 Nov 2026 10:22:48 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rErTEwF9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A9F1F008A4;
+	Fri,  6 Nov 2026 18:24:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793989500;
+	bh=zDwXRUgmgjLzyK+vNatlIuTEGq/PIv3VbBlkOOgIGzM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rErTEwF9zpKkoVqCr3dWV7p3qu2Z0UCBu5YJ2m7mvFZZ6KkLZXLo2kbPR9hr8dVQI
+	 IvmGzwmMXT7U0qpLcIv3MddCFMrlkCZO+5iLQYwTwus7jNsmj3W3z5KFhludk0jLZz
+	 /sQc2B8EYDD9F0D2pg8BpcfrTQQuGk/TIrV+GYNE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	torvalds@linux-foundation.org,
+	stable@vger.kernel.org
+Cc: lwn@lwn.net,
+	jslaby@suse.cz,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: Linux 5.15.225
+Date: Fri,  6 Nov 2026 13:24:55 -0500
+Message-ID: <2026110655-glorious-vocalist-72a7@gregkh>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <2026110655-upright-drained-3d9c@gregkh>
+References: <2026110655-upright-drained-3d9c@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,25 +59,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 01/20] compiler-context-analysis: Avoid unused
- parameter warning in _context_unsafe_alias()
-To: Ian Rogers <irogers@google.com>, acme@kernel.org, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, elver@google.com, james.clark@linaro.org,
- jolsa@kernel.org, justinstitt@google.com, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, llvm@lists.linux.dev, mingo@redhat.com,
- morbo@google.com, nathan@kernel.org, ndesaulniers@google.com,
- peterz@infradead.org
-References: <20261106070344.329897-1-irogers@google.com>
- <20261106070344.329897-2-irogers@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261106070344.329897-2-irogers@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 11:03 PM, Ian Rogers wrote:
-> -static inline void _context_unsafe_alias(void **p) { }
-> +static inline void _context_unsafe_alias(void **p) { (void)p; }
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-
+diff --git a/Makefile b/Makefile
+index 39856e1c9c4a..215bf5d254d3 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ VERSION = 5
+ PATCHLEVEL = 15
+-SUBLEVEL = 224
++SUBLEVEL = 225
+ EXTRAVERSION =
+ NAME = Trick or Treat
+ 
+diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-blkback/common.h
+index a28473470e66..8d92082f2927 100644
+--- a/drivers/block/xen-blkback/common.h
++++ b/drivers/block/xen-blkback/common.h
+@@ -318,8 +318,10 @@ struct xen_blkif {
+ 	unsigned int 		nr_ring_pages;
+ 	bool			multi_ref;
+ 	/* All rings for this device. */
++	rwlock_t		rings_lock;
+ 	struct xen_blkif_ring	*rings;
+ 	unsigned int		nr_rings;
++
+ 	unsigned long		buffer_squeeze_end;
+ };
+ 
+diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
+index 1525e28c5d70..6808b9cef6e4 100644
+--- a/drivers/block/xen-blkback/xenbus.c
++++ b/drivers/block/xen-blkback/xenbus.c
+@@ -126,15 +126,23 @@ static void xen_update_blkif_status(struct xen_blkif *blkif)
+ 	return;
+ }
+ 
+-static int xen_blkif_alloc_rings(struct xen_blkif *blkif)
++static int xen_blkif_alloc_rings(struct xen_blkif *blkif,
++				 unsigned int nr_rings)
+ {
+ 	unsigned int r;
++	struct xen_blkif_ring *rings;
+ 
+-	blkif->rings = kcalloc(blkif->nr_rings, sizeof(struct xen_blkif_ring),
+-			       GFP_KERNEL);
+-	if (!blkif->rings)
++	rings = kcalloc(nr_rings, sizeof(struct xen_blkif_ring), GFP_KERNEL);
++	if (!rings)
+ 		return -ENOMEM;
+ 
++	write_lock(&blkif->rings_lock);
++
++	blkif->rings = rings;
++	blkif->nr_rings = nr_rings;
++
++	write_unlock(&blkif->rings_lock);
++
+ 	for (r = 0; r < blkif->nr_rings; r++) {
+ 		struct xen_blkif_ring *ring = &blkif->rings[r];
+ 
+@@ -174,6 +182,7 @@ static struct xen_blkif *xen_blkif_alloc(domid_t domid)
+ 	blkif->domid = domid;
+ 	atomic_set(&blkif->refcnt, 1);
+ 	init_completion(&blkif->drain_complete);
++	rwlock_init(&blkif->rings_lock);
+ 
+ 	/*
+ 	 * Because freeing back to the cache may be deferred, it is not
+@@ -268,6 +277,7 @@ static int xen_blkif_disconnect(struct xen_blkif *blkif)
+ 	struct pending_req *req, *n;
+ 	unsigned int j, r;
+ 	bool busy = false;
++	struct xen_blkif_ring *rings;
+ 
+ 	for (r = 0; r < blkif->nr_rings; r++) {
+ 		struct xen_blkif_ring *ring = &blkif->rings[r];
+@@ -334,10 +344,16 @@ static int xen_blkif_disconnect(struct xen_blkif *blkif)
+ 	 * blkif->rings was allocated in connect_ring, so we should free it in
+ 	 * here.
+ 	 */
+-	kfree(blkif->rings);
++	write_lock(&blkif->rings_lock);
++
++	rings = blkif->rings;
+ 	blkif->rings = NULL;
+ 	blkif->nr_rings = 0;
+ 
++	write_unlock(&blkif->rings_lock);
++
++	kfree(rings);
++
+ 	return 0;
+ }
+ 
+@@ -385,6 +401,7 @@ void xen_blkif_interface_fini(void)
+ 		unsigned int i;						\
+ 		unsigned long long result = 0;				\
+ 									\
++		read_lock(&blkif->rings_lock);				\
+ 		if (!blkif->rings)				\
+ 			goto out;					\
+ 									\
+@@ -395,6 +412,7 @@ void xen_blkif_interface_fini(void)
+ 		}							\
+ 									\
+ out:									\
++		read_unlock(&blkif->rings_lock);			\
+ 		return sprintf(buf, format, result);			\
+ 	}								\
+ 	static DEVICE_ATTR(name, 0444, show_##name, NULL)
+@@ -1109,8 +1127,7 @@ static int connect_ring(struct backend_info *be)
+ 				requested_num_queues, xenblk_max_queues);
+ 		return -ENOSYS;
+ 	}
+-	blkif->nr_rings = requested_num_queues;
+-	if (xen_blkif_alloc_rings(blkif))
++	if (xen_blkif_alloc_rings(blkif, requested_num_queues))
+ 		return -ENOMEM;
+ 
+ 	pr_info("%s: using %d queues, protocol %d (%s) %s\n", dev->nodename,
+diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
+index f20ddaaa2451..90658aa58e8c 100644
+--- a/drivers/net/xen-netback/interface.c
++++ b/drivers/net/xen-netback/interface.c
+@@ -809,8 +809,6 @@ void xenvif_disconnect_data(struct xenvif *vif)
+ 
+ 		xenvif_disconnect_queue(queue);
+ 	}
+-
+-	xenvif_mcast_addr_list_free(vif);
+ }
+ 
+ void xenvif_disconnect_ctrl(struct xenvif *vif)
+diff --git a/drivers/net/xen-netback/xenbus.c b/drivers/net/xen-netback/xenbus.c
+index 5b78d9172aac..b9219b394de5 100644
+--- a/drivers/net/xen-netback/xenbus.c
++++ b/drivers/net/xen-netback/xenbus.c
+@@ -267,6 +267,8 @@ static void backend_disconnect(struct backend_info *be)
+ 		vif->num_queues = 0;
+ 		synchronize_net();
+ 
++		xenvif_mcast_addr_list_free(vif);
++
+ 		for (queue_index = 0; queue_index < num_queues; ++queue_index)
+ 			xenvif_deinit_queue(&vif->queues[queue_index]);
+ 
+@@ -837,6 +839,7 @@ static void connect(struct backend_info *be)
+ err:
+ 	if (be->vif->num_queues > 0)
+ 		xenvif_disconnect_data(be->vif); /* Clean up existing queues */
++	synchronize_net();
+ 	for (queue_index = 0; queue_index < be->vif->num_queues; ++queue_index)
+ 		xenvif_deinit_queue(&be->vif->queues[queue_index]);
+ 	vfree(be->vif->queues);
