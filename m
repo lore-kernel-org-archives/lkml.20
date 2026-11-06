@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964968;
-	b=hxVrBClm5Sf9t5Uvsuosad/0Mlk4PIh8WJOKphdQv36fxh/ywKAHME7RjMhTncBeGDl7
-	 3wgYXFp3XK9VzcyfNyAeWIqS8HGslxJIivVgJULZ10G2Cnbi8MeSTdTTl/uCloGtwlJWZ
-	 j1id7QZxNsvlgCWmm64dd5uWp1Ea80tV7Qk+4oQTm+IRLBXiWC4DGnPgOxm+3C9WlJ88D
-	 PvDJ2S4Y58TPY1f+CDHiMshbcMLRkfNzlCvDCLzoRr/R8f1nSD1ryOKvTnCOu88fuyD8H
-	 0sMpcsKu5sshOfGu0sxjCNaFjYm7tifWIfcqj6N0Abs7w5XFWxIm99OfcJGnuckgGUA==
+	t=1793964979;
+	b=zsbVnTxtovtb0X22UAT1r+UZR22uRd9ImCJOlbGa7RWizL4uBtNkCspr0canTwe30hJY
+	 MBif//HfnR0bJfsJ4UfdExvfWpEH2pzOBwrOgsyctdZYeHgpfarFCwQAxrZmnMEZX/n8l
+	 TWCFabzwiC65iD8KwYr/bPNeis7hf8PnTRAMB1ETsJWMO6ftMZsfXsvR56pvjMKEM6oyC
+	 reIS97vChkYIhR8AxJ1LiKkRn2hZFRrfD5UDXZJCtO/C/Uy5vQz0c5r6z4rF8sVsG0+vJ
+	 Ez9enefb8q2fxOsPloLcmVi7YF962xq5vzxLbl49reEePwBOno+dJTxKVvN6qdF9yuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964968;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964979;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Zbmt2ixb0KFXB6Jaw3+0LqCyd2KJCA0Oxb5KRmGIPyU=;
-	b=3t5tCe+/6nOozI1Lw3RpwLXUT5PFNAQSqgnwdZAUY7zlS0JMr0GW1+iCE/NPOsNeCFOm
-	 XTHOWJbCN/FpkiUtBDQ96hn6Tu/IWaK25EkvZWJ1TH2uBs/hltNpFbowQT0N8Wkq45hfZ
-	 9SYXOc9VfbwglkdoF/hJC1weFkmjFa5FtrqJulSH0CdC5O0Zllt8m2B/gK161/2ZJ0nTv
-	 XI1pL/RfBLztGi06bfr6PtHJHma4//wLC567o5/m2nX0n+x2Y2h5xF+plxAwNv/wq0XfH
-	 JZxXCCvLSgHLdLRDWp7wKImkkUJsVtw6Q385nSRYoGiilrm//Gfz2KLPodo7N2o3q4g==
+	bh=Rdcgs3hK1Dl4xfC+rToIfq/AKqPp5z6cwJiA0bViBuA=;
+	b=Vc74I2EwjvprRfeyHL1l5nPtcGbSJE/HZ5SlM0Wn+qbdmKa55IN1c0MPMVJYVv+FQI79
+	 bdTuJY5ldZkU9yuPeIpEdufyy0uOq40jmu/cDWp1qQhkzVTdupz5zJ3UGY7MejRJualF3
+	 Jkn0l3FRiFIa0kUwdb7hSA4TUqFSXHwd8btXAEZGaa8/DyOES02GotHYMrNhm48R/hsLN
+	 IzQzYAYR6J8EPA0+nDThbYa6ye8kUsdHZEipl8/z17iYaYthboTcmEavKFvjI2DufJtJh
+	 ja/7tOxfmI6LgiPQtGYpw1eJVE7lGe1+gOdLavnrseObF4ZK4fRGmv/Tr1gPCN32MGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jXbI4nn+;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nGnN5N27;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4B260A2601
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B4B260A2601
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B5C606BD5B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:36:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4B5C606BD5B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jXbI4nn+
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b09cc7ed1aso107185a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:36:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nGnN5N27
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b0b6cae44aso107411a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:36:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964966; x=1794569766; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793964977; x=1794569777; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Zbmt2ixb0KFXB6Jaw3+0LqCyd2KJCA0Oxb5KRmGIPyU=;
-        b=jXbI4nn+tH5iyAAkhkkR2BCMVUpGnlPTxZrRJ/+i1aBKgVEAwuSbD9ldxM6uW9dAUw
-         GOvtNNzeLsFYoBfIK2Eo4+dhWx7midZAY3elxTJu6A1aFLgSgPGvOSmiARb5vq5czvyT
-         7SNGG6g7tEd6VRkj9wuIiAm3hsLJKZD55Kop8WgraJiVQkzQeDpX8mkmMV59F98vt1UH
-         76iBdQkwQBGdIDwvEm84DjJ8+tUGd38n0EMDmnExIStR3jacNzju99PUroSHOnDau2B3
-         HMr26euUSeSDGq/EXvpeJCq2qp3CvFK5eGp9GTGf3mHZ9OkMSQbs9FUD1/KpmxtAiKE1
-         buGw==
+        bh=Rdcgs3hK1Dl4xfC+rToIfq/AKqPp5z6cwJiA0bViBuA=;
+        b=nGnN5N27K7sLwqtcdP8+wtPS1f1CY5/qSE/bfT3MFsSQOPqucLc9JDjEadis70Muhc
+         7ddCBOpjDvQgk/Is2El6uKbszqjbNkuH2KN8B5o+nGHUN4H6uf7oabMR3swhdTcQXt01
+         XnB/NzSVNq9Kza4ioZ6H9nLEbuVbJyF3Lyg7NOqGpwpJifNdUMWgGyGFxtqnIyLi6OSx
+         yGviaTk1VNaXV9FzR7erOtkfaDq0koqCBb7hPo3OM6568s5E90dyQ7k5az5NCq3lffap
+         RaG/EmRC/2tSPGZQo+4Y6miwBQZL2e9xhSzcxdI0x7sEMMfZNXtSslEFW5AUHM7FPzh/
+         cuOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964966; x=1794569766;
+        d=1e100.net; s=20260707; t=1793964977; x=1794569777;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Zbmt2ixb0KFXB6Jaw3+0LqCyd2KJCA0Oxb5KRmGIPyU=;
-        b=xcAjse/BQQLmBPgPGf0EmX/WQ7sr11gKfGFGivd6aolj1LM00KbFf1LAWmH1MnKAZb
-         YKy5lNmnhONRUjl37w58xydeQwpUNjR1C5jYwgcoHaZlODEn8E4m6rFPTpArYLRLIzWu
-         f3VIg6nbz8BxLoFS+9KzhVRlfb4oVVXyWBcgQD9OxiwJeGkkXGTi04RHgMBA6tUmZ3SW
-         62sC0IB38TdMDaXMTDFlMl6yw/Kf7BMoIxaIFKsvLGHrkvDzT6KhOA3mZsjQRs5Fs4HR
-         +qpgkzy3mh+QvWydmAippnBUdRLuCeHHgQp1o0aZPbu+j4kptgXAsgdcGHbVRi5nzfuP
-         HVYQ==
-X-Forwarded-Encrypted: i=1; AL+hErHmO5nuK4mkJSBv8RFcV1Fq2Y1/aXdnPf9PyIHTmw5pVfWCx7BMg0Yhuq2ORxFOZUUBD/FTnFKdwtqOQJQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lGvVgP+L44zbbyr+XS1S96wI5VQm6n0Sojwy1RmDcdOq70HRs
-	+VAGgR2hCsz1AGl/Ch7Y/fNti1N+mPWi7ZVDBjUGdpQfESgTSdbcDfh28u0e8/ov
-X-Gm-Gg: AYBFou2m57kH0/bicKeBThDhtFF39VPQ3tuVO+DOicVszdVwIi+wllymIvfqboDURwm
-	jn4pj7MJJl+bRbYPPCUxugI/k57XvZrzESs581pm0DJWDSnIqj16j4nrOfzaKb2INHAn1S3LB6Q
-	MZtlOJnWoxU52R4qOCaefQPr8QJ6ZHEwskNY0QZt+X0Y4jsezWPsYqyiEnYII0CLjDIU44q1XYc
-	gT954RPeyKdBo3/PEphjUkxaI6LHH4hhKC3KJK5VRvTiC5F9nM3kaU9kNDqMLIZmmCywh/jiz2W
-	5tLn0s7bV+KMRthAKrO0YupEF/bG8ee2zflvNX34h+BI0JfcwQ395GqCQWw/JjFdloP8GHiBo2A
-	xWhsvPlvyj29C0lFw0K2rtD+nQwFGoBdmL9hl2SLFK/hjWNuRC7+z2E6j+5JIkzzU3cbM+o/0f5
-	MfYpjYZ+Xdhwe5BubDP4/fyb4xNoh0nuM2eTz/Zn/sHabUBJ2ykHnGAT7YSFTzr0IW/2PYmhHjv
-	sSkkFPJPksgGmKgirAu0mw7ujO7LET/UDXfiTYadoblIMMabWcIDFACAmFOK5kPN6TbMAZVP5oB
-	VoBsnoZss/G8M6xa8Bj9KOGnQGoZP1NjlfNkMXNN65WO3P+yG1x64A9cQAmf8QgTAReWxyIr2bY
-	CgKAgdNnIfo2SLPMpzDpL/moobQ==
-X-Received: by 2002:a17:90b:4a89:b0:3b0:975b:2256 with SMTP id 98e67ed59e1d1-3b0db6f8e05mr3208766a91.4.1793964965999;
-        Fri, 06 Nov 2026 03:36:05 -0800 (PST)
+        bh=Rdcgs3hK1Dl4xfC+rToIfq/AKqPp5z6cwJiA0bViBuA=;
+        b=h8oDS7EK6GA/9dX6f2pdTgn2NNueVUwseaWI7+wZ2j4VhDeWRH1pyVDScRbHG3yBRw
+         X5GTp+8PAydBehr5W4h1dOXNF6G8BMelqwYCxgEiyMV9b0vg7/90+fDdsFR6Y9ByCr7/
+         b9oVgkWY3TPriv+GjJK4GVLiZyxTTfMOyOJsH86xVpKAQPNnYjXiyWauv1e2GVA/2Tgc
+         /QB0RLh+0EEGLSCJd9E+XXl7nMe+97aD2uqbXWXbia38lq5FDbNYvRzuZcqTyv24wh2r
+         qbzWElfITZinx0OI1AQHRLFb7LZViRUl02SfonnRxgsYGDshd33GKv9Rrk4OAMxrGJHC
+         oThQ==
+X-Forwarded-Encrypted: i=1; AL+hErE5qd/BMhbM9Q2kZaNyVNrezlTgNVjFhpMHTpD33gt54OTiWeE+q+AoB72z4N3OqMhQ+U4wQ38Hyi+TM9I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YqCKAZPb7qxZY531h9qwspmvY8uwdqzQM5PQgqqBlhq94s3Ge
+	0q1x42LwlM4LGK79+4Uy5AdElIG/TT+6r6WoqRlFVeUEz/jqs4Cj2cYa
+X-Gm-Gg: AYBFou3MCQXbXm74jG+U8cetg8cFyKCruidCWvvETZITT/zRa6wGZWgKLiMZ8/JWMTL
+	j51vfEEw4vHznMMJ0YtiRvXc0Eco8lZ+XEiUuKag73bl5laVn1vt3kRt1n0uKjsCGoAp2Wo245l
+	+YBz6hNGvcQQLix6PZ3FNR1I7VLE/IFg/XheaLBf501CVjTdyr41c6SWGjP60qhJX5RbDazjPOY
+	wnJPwBsE1UJGm6wFdvKw2psGXTipSaxEy8tu4Orl01ecAdhJOFbboYneJ7s0FLbf6glsnWbLIjh
+	NLAXK8Cym9GakBdBTi1qgoeDenIBOR32daENhgmtkAfa+xJIsKV0UJ0Hl/qqiHBkbEuPxXrNnCp
+	kQsVTvRcPxd2nLSedRvMRTOd4s5KVwDcah6SOdSiTxz/PJdTXOMUcTkvuCkhHdjOxh/KLn9vsel
+	bTCvIX6LuRaq+eRrFRbx8YVQcYYKZa8dzQ++7WrtSHJM4l6M+anqxaPpFXmZmcpHB4JYhNGRWEX
+	K94aB7dRYoV+lGFn3icAgPL4POvcrxa1oM1eNT9wiZxbTs1MdBrfvbqZgksiXbxBSHQHt6dzS1u
+	P/yynbGJa5B36DsIrwomYuTs2XoPB4uIB/YBCmtJHIhoFEJnRDMfGVncgLZiH9poP7dEUOzMn6Q
+	nzXsFX56F4Cf/4fpnchT4Gtj6vlNv0XYPbReNSsf3146JoA==
+X-Received: by 2002:a17:90b:2c90:b0:3ac:9e76:aa96 with SMTP id 98e67ed59e1d1-3b0db6e269amr3118694a91.3.1793964976622;
+        Fri, 06 Nov 2026 03:36:16 -0800 (PST)
 Received: from chenyou.ncku.edu.tw ([140.116.19.13])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32b6507sm8343173a91.16.2026.11.06.03.36.02
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32b6507sm8343173a91.16.2026.11.06.03.36.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:36:05 -0800 (PST)
+        Fri, 06 Nov 2026 03:36:14 -0800 (PST)
 From: Chen-Yu Yeh <chenyou910331@gmail.com>
 To: Alex Shi <alexs@kernel.org>,
 	Jonathan Corbet <corbet@lwn.net>
@@ -89,9 +89,9 @@ Cc: Weijie Yuan <wy@wyuan.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: [PATCH 04/13] docs/zh_TW: process: add maintainer-pgp-guide.rst translation
-Date: Fri,  6 Nov 2026 19:35:35 +0800
-Message-ID: <20261106113545.708896-5-chenyou910331@gmail.com>
+Subject: [PATCH 06/13] docs/zh_TW: process: add handling-regressions.rst translation
+Date: Fri,  6 Nov 2026 19:35:37 +0800
+Message-ID: <20261106113545.708896-7-chenyou910331@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261106113545.708896-1-chenyou910331@gmail.com>
 References: <20261106113545.708896-1-chenyou910331@gmail.com>
@@ -107,846 +107,1020 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Translate Documentation/process/maintainer-pgp-guide.rst into
+Translate Documentation/process/handling-regressions.rst into
 Traditional Chinese from the current English text, including the
-GnuPG 2.4 requirement, the Nitrokey 3 entry, the B4 note on patatt and
-the updated kernel.org documentation links.  The zh_CN translation was
-consulted for wording only.
+regzbot sections and the "Quotes from Linus about regression" section.
+The quoted mails are kept in English as in the original literal
+blocks.  There is no zh_CN translation of this file to consult.
 
 List the new file in the toctree of process/index.rst, after
-coding-style as in the English index, and drop it from the TODOList.
+debugging/index as in the English index, and drop it from the
+TODOList.
 
-update to commit 4a0be1a25d98 ("Documentation: process: Capitalize Git,
-Quilt, and Mercurial consistently")
+update to commit fdd100ee60a0 ("docs: process: use gender-neutral
+pronouns")
 
 Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
 ---
+ .../zh_TW/process/handling-regressions.rst    | 969 ++++++++++++++++++
  .../translations/zh_TW/process/index.rst      |   2 +-
- .../zh_TW/process/maintainer-pgp-guide.rst    | 795 ++++++++++++++++++
- 2 files changed, 796 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/translations/zh_TW/process/maintainer-pgp-guide.rst
+ 2 files changed, 970 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/translations/zh_TW/process/handling-regressions.rst
 
-diff --git a/Documentation/translations/zh_TW/process/index.rst b/Documentation/translations/zh_TW/process/index.rst
-index 7917fb96dd01..7b830c48942a 100644
---- a/Documentation/translations/zh_TW/process/index.rst
-+++ b/Documentation/translations/zh_TW/process/index.rst
-@@ -42,6 +42,7 @@
- 
-    programming-language
-    coding-style
-+   maintainer-pgp-guide
-    email-clients
-    applying-patches
-    volatile-considered-harmful
-@@ -49,7 +50,6 @@
- TODOList:
- 
- * changes
--* maintainer-pgp-guide
- * backporting
- * adding-syscalls
- * botching-up-ioctls
-diff --git a/Documentation/translations/zh_TW/process/maintainer-pgp-guide.rst b/Documentation/translations/zh_TW/process/maintainer-pgp-guide.rst
+diff --git a/Documentation/translations/zh_TW/process/handling-regressions.rst b/Documentation/translations/zh_TW/process/handling-regressions.rst
 new file mode 100644
-index 000000000000..34d920cb37cc
+index 000000000000..54cfc5dda768
 --- /dev/null
-+++ b/Documentation/translations/zh_TW/process/maintainer-pgp-guide.rst
-@@ -0,0 +1,795 @@
-+.. SPDX-License-Identifier: GPL-2.0
++++ b/Documentation/translations/zh_TW/process/handling-regressions.rst
+@@ -0,0 +1,969 @@
++.. SPDX-License-Identifier: (GPL-2.0+ OR CC-BY-4.0)
++.. 重新散布的相關資訊請見本文件結尾。
 +
 +.. include:: ../disclaimer-zh_TW.rst
 +
-+:Original: Documentation/process/maintainer-pgp-guide.rst
++:Original: Documentation/process/handling-regressions.rst
 +
-+.. _tw_pgpguide:
++處理迴歸問題
++++++++++++++
 +
-+=======================
-+核心維護者 PGP 指南
-+=======================
++*我們不製造迴歸* ——本文件說明這條「Linux 核心開發的首要規則」在實務上對
++開發者的意義。本文件是 Documentation/admin-guide/reporting-regressions.rst
++的補充，後者從使用者的角度說明這個主題；如果你從未讀過那份文件，請在繼續
++閱讀本文之前，至少先大致瀏覽一遍。
 +
-+:作者: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
++重點摘要（亦即「TL;DR」）
++=========================
 +
-+本文件的對象是 Linux 核心開發者，特別是子系統維護者。內容是 Linux 基金會
-+發布的、更通用的「`Protecting Code Integrity`_」指南中所討論資訊的一部分。
-+若想更深入了解本指南提到的某些主題，請閱讀該文件。
++#. 確保 `迴歸郵件列表 <https://lore.kernel.org/regressions/>`_
++   （regressions@lists.linux.dev）的訂閱者能盡快得知任何新的迴歸報告：
 +
-+.. _`Protecting Code Integrity`: https://github.com/lfit/itpol/blob/master/protecting-code-integrity.md
++    * 收到沒有抄送（CC）該列表的郵件報告時，立即至少發送一封簡短的
++      「全部回覆」（Reply-all）並抄送該列表，讓列表參與其中。
 +
-+PGP 在 Linux 核心開發中的角色
-+=============================
++    * 把提交到缺陷追蹤器的報告轉寄或退回（bounce）到該列表。
 +
-+PGP 有助於確保 Linux 核心開發社群所產出程式碼的完整性，並在較小程度上，
-+透過 PGP 簽名的電子郵件往來，在開發者之間建立可信任的通訊管道。
++#. 讓 Linux 核心迴歸追蹤機器人「regzbot」追蹤這個問題（此步驟可選，但建議
++   這麼做）：
 +
-+Linux 核心原始碼主要以兩種形式提供：
++    * 對於郵件報告，檢查報告者是否附上了類似 ``#regzbot
++      introduced: v5.13..v5.14-rc1`` 的一行。如果沒有，請發送一封回覆（抄送
++      迴歸列表），其中包含類似下面的段落，告訴 regzbot 問題從何時開始發生::
 +
-+- 分散式原始碼儲存庫（Git）
-+- 定期發布的快照（tarball）
++       #regzbot ^introduced: 1f2e3d4c5b6a
 +
-+Git 儲存庫和 tarball 都帶有建立正式核心版本的核心開發者的 PGP 簽名。這些
-+簽名提供密碼學上的保證，確保透過 kernel.org 或任何其他鏡像站提供下載的
-+版本，與這些開發者工作站上的版本完全相同。為此：
++    * 把缺陷追蹤器中的報告轉寄到迴歸列表時（見上文），請附上類似下面的
++      段落::
 +
-+- Git 儲存庫的所有標籤都附有 PGP 簽名
-+- tarball 的所有下載檔都附有分離式（detached）PGP 簽名
++       #regzbot introduced: v5.13..v5.14-rc1
++       #regzbot from: Some N. Ice Human <some.human@example.com>
++       #regzbot monitor: http://some.bugtracker.example.com/ticket?id=123456789
 +
-+.. _tw_devs_not_infra:
++#. 提交迴歸的修正時，依照 Documentation/process/submitting-patches.rst 與
++   :ref:`Documentation/process/5.Posting.rst <tw_development_posting>` 的要求，
++   在修補程式描述中加上「Closes:」標籤，指向所有回報該問題的地方。如果你
++   只修正了造成迴歸之問題的一部分，可以改用「Link:」標籤。regzbot 目前
++   不區分這兩者。
 +
-+信任開發者，而非基礎設施
-+------------------------
++#. 一旦找出肇事提交（culprit），請盡快修復迴歸；大多數迴歸的修正應在兩週
++   內合併，但有些需要在兩到三天內解決。
 +
-+自從 2011 年 kernel.org 核心系統遭到入侵以來，Kernel Archives 專案的主要
-+運作原則，就是假設基礎設施的任何部分都可能隨時遭到入侵。因此，管理員刻意
-+採取措施，強調信任必須永遠放在開發者身上，而絕不放在程式碼託管基礎設施
-+上，不論後者的安全實務做得多好。
 +
-+上述指導原則正是需要本指南的原因。我們希望確保，把信任放在開發者身上，並
-+不只是把未來可能發生的安全事件的責任轉嫁給別人。本指南的目標是提供一套
-+準則，讓開發者可以用來建立安全的工作環境，並保護用來確立 Linux 核心本身
-+完整性的 PGP 金鑰。
++與開發者相關的 Linux 核心迴歸完整細節
++=====================================
 +
-+.. _tw_pgp_tools:
 +
-+PGP 工具
-+========
-+
-+使用 GnuPG 2.4 或更新版本
-+-------------------------
-+
-+你的發行版應該已經預設安裝了 GnuPG，你只需要確認你使用的是夠新的版本。
-+要檢查版本，請執行::
-+
-+    $ gpg --version | head -n1
-+
-+如果你的版本是 2.4 或以上，那就沒問題了。如果版本更舊，表示你使用的
-+GnuPG 版本已經不再維護，本指南中的某些指令可能無法運作。
-+
-+設定 gpg-agent 選項
-+~~~~~~~~~~~~~~~~~~~
-+
-+GnuPG agent 是一個輔助工具，每當你使用 ``gpg`` 指令時就會自動啟動，並在
-+背景執行，用途是快取私鑰的密碼短語。有兩個選項你應該知道，用來調整密碼
-+短語何時從快取中失效：
-+
-+- ``default-cache-ttl`` （秒）：如果你在存活時間（time-to-live）到期前再次
-+  使用同一把金鑰，倒數計時會重設，重新計算一段時間。預設值為 600（10 分
-+  鐘）。
-+- ``max-cache-ttl`` （秒）：不論你在第一次輸入密碼短語後最近一次使用金鑰
-+  是什麼時候，只要最長存活時間的倒數計時到期，你就必須再次輸入密碼短語。
-+  預設值為 30 分鐘。
-+
-+如果你覺得這兩個預設值太短（或太長），可以編輯 ``~/.gnupg/gpg-agent.conf``
-+檔案，設定你自己的值::
-+
-+    # set to 30 minutes for regular ttl, and 2 hours for max ttl
-+    default-cache-ttl 1800
-+    max-cache-ttl 7200
-+
-+.. note::
-+
-+    現在已經不需要在 shell 工作階段開始時手動啟動 gpg-agent。你可能需要
-+    檢查你的 rc 檔案，移除先前為舊版 GnuPG 所做的設定，因為它們可能已經
-+    不再正確。
-+
-+.. _tw_protect_your_key:
-+
-+保護你的 PGP 金鑰
-+=================
-+
-+本指南假設你已經有一把用於 Linux 核心開發的 PGP 金鑰。如果你還沒有，請
-+參閱前面提到的「`Protecting Code Integrity`_」文件，了解如何建立新的金鑰。
-+
-+如果你目前的金鑰強度低於 2048 位元（RSA），你也應該建立一把新的金鑰。
-+
-+了解 PGP 子金鑰
-+---------------
-+
-+PGP 金鑰很少只由單一金鑰對組成——通常它是一組彼此獨立的子金鑰，可依其
-+建立時所指派的能力用於不同用途。PGP 定義了金鑰可以具備的四種能力：
-+
-+- **[S]** 金鑰可用於簽名
-+- **[E]** 金鑰可用於加密
-+- **[A]** 金鑰可用於身分驗證
-+- **[C]** 金鑰可用於認證其他金鑰
-+
-+具備 **[C]** 能力的金鑰常被稱為「主」金鑰（master key），但這個說法容易
-+造成誤解，因為它暗示認證金鑰可以取代同一條鏈上的任何其他子金鑰（就像實體
-+的「萬能鑰匙」可以打開為其他鑰匙打造的鎖）。由於事實並非如此，本指南將它
-+稱為「認證金鑰」（Certify key），以避免任何歧義。
-+
-+務必完全理解以下幾點：
-+
-+1. 所有子金鑰彼此完全獨立。如果你遺失了某把私有子金鑰，就無法從你鏈上的
-+   任何其他私鑰還原或重新產生它。
-+2. 除了認證金鑰之外，可以有多把能力相同的子金鑰（例如，你可以有 2 把有效
-+   的加密子金鑰、3 把有效的簽名子金鑰，但只能有一把有效的認證子金鑰）。
-+   所有子金鑰都完全獨立——加密給某一把 **[E]** 子金鑰的訊息，無法用你
-+   可能擁有的任何其他 **[E]** 子金鑰解密。
-+3. 單一子金鑰可以具備多種能力（例如，你的 **[C]** 金鑰也可以同時是你的
-+   **[S]** 金鑰）。
-+
-+具備 **[C]** （認證）能力的金鑰，是唯一可以用來表示與其他金鑰之間關係的
-+金鑰。只有 **[C]** 金鑰可以用來：
-+
-+- 新增或撤銷具備 S/E/A 能力的其他金鑰（子金鑰）
-+- 新增、變更或撤銷與該金鑰關聯的身分（uid）
-+- 新增或變更它自己或任何子金鑰的到期日
-+- 為了信任網的目的簽署其他人的金鑰
-+
-+GnuPG 在產生新金鑰時，預設會建立以下內容：
-+
-+- 一把同時具備認證與簽名能力的子金鑰（**[SC]**）
-+- 一把具備加密能力的獨立子金鑰（**[E]**）
-+
-+如果你產生金鑰時使用的是預設參數，那麼你擁有的就是這些。你可以執行
-+``gpg --list-secret-keys`` 來確認，例如::
-+
-+    sec   ed25519 2022-12-20 [SC] [expires: 2024-12-19]
-+          000000000000000000000000AAAABBBBCCCCDDDD
-+    uid           [ultimate] Alice Dev <adev@kernel.org>
-+    ssb   cv25519 2022-12-20 [E] [expires: 2024-12-19]
-+
-+``sec`` 項目下方那一長串就是你的金鑰指紋——在下面的範例中，每當你看到
-+``[fpr]``，指的就是這個 40 個字元的字串。
-+
-+確保你的密碼短語夠強
-+--------------------
-+
-+GnuPG 會先用密碼短語加密你的私鑰，再把它們儲存到磁碟上。如此一來，即使
-+你的整個 ``.gnupg`` 目錄外洩或被竊，攻擊者若沒有先取得用來解密的密碼
-+短語，也無法使用你的私鑰。
-+
-+用強度足夠的密碼短語保護你的私鑰是絕對必要的。要設定或變更密碼短語，請
-+使用::
-+
-+    $ gpg --change-passphrase [fpr]
-+
-+建立獨立的簽名子金鑰
-+--------------------
-+
-+我們的目標是把你的認證金鑰移到離線媒體上加以保護，所以如果你只有一把合併
-+的 **[SC]** 金鑰，就應該另外建立一把獨立的簽名子金鑰::
-+
-+    $ gpg --quick-addkey [fpr] ed25519 sign
-+
-+備份你的認證金鑰以供災難復原
-+----------------------------
-+
-+你的 PGP 金鑰上來自其他開發者的簽名越多，你就越有理由為了災難復原，建立
-+一份存放在數位媒體以外的備份。
-+
-+要製作私鑰的可列印紙本，一個好方法是使用專為此目的撰寫的 ``paperkey``
-+軟體。關於其輸出格式，以及它相較於其他方案的優點，請參閱
-+``man paperkey``。大多數發行版應該都已經有 Paperkey 的套件。
-+
-+執行以下指令，建立私鑰的紙本備份::
-+
-+    $ gpg --export-secret-key [fpr] | paperkey -o /tmp/key-backup.txt
-+
-+把該檔案列印出來，然後拿一支筆，把你的密碼短語寫在紙張的邊緣。**強烈建議
-+這麼做**，因為印出來的金鑰仍然是用該密碼短語加密的，而如果你哪天變更了
-+密碼短語，你將不會記得建立備份時用的是哪一個——*保證如此*。
-+
-+把印好的紙本和手寫的密碼短語放進信封，存放在安全且受到妥善保護的地方，
-+最好不在你家裡，例如銀行的保險箱。
-+
-+.. note::
-+
-+    金鑰仍然是用你的密碼短語加密的，所以即使用「整合雲端」的現代印表機
-+    列印，也應該仍是相對安全的操作。
-+
-+備份你的整個 GnuPG 目錄
-+-----------------------
-+
-+.. warning::
-+
-+    **!!!不要跳過這個步驟!!!**
-+
-+當你需要復原 PGP 金鑰時，手邊有一份隨時可用的備份是很重要的。這和我們用
-+``paperkey`` 所做的災難等級準備不同。每當你需要使用認證金鑰時——例如變更
-+你自己的金鑰，或在研討會和高峰會之後簽署其他人的金鑰——你也會依賴這些
-+外部副本。
-+
-+首先，準備一張外接儲存卡（最好是兩張！）作為備份用途。你需要用 LUKS 在
-+這個裝置上建立一個加密分割區——如何操作請參閱你的發行版文件。
-+
-+加密用的密碼短語可以和你的 PGP 金鑰使用同一個。
-+
-+加密程序完成後，重新插入你的裝置，並確認它已正確掛載。把你的整個
-+``.gnupg`` 目錄複製到加密儲存裝置上::
-+
-+    $ cp -a ~/.gnupg /media/disk/foo/gnupg-backup
-+
-+現在你應該測試一下，確認一切仍然正常運作::
-+
-+    $ gpg --homedir=/media/disk/foo/gnupg-backup --list-key [fpr]
-+
-+如果沒有出現任何錯誤，那就沒問題了。卸載裝置，清楚地標示它，以免不小心
-+覆寫，然後把它放在安全的地方——但不要放得太遠，因為你偶爾還需要用它來
-+做一些事，例如編輯身分、新增或撤銷子金鑰，或簽署其他人的金鑰。
-+
-+從主目錄中移除認證金鑰
-+----------------------
-+
-+我們主目錄中的檔案，並沒有我們想像中受到那麼好的保護。它們可能透過許多
-+不同的途徑外洩或被竊：
-+
-+- 為了設定新工作站而快速複製主目錄時意外外洩
-+- 系統管理員的疏忽或惡意
-+- 保護不周的備份
-+- 桌面應用程式（瀏覽器、pdf 檢視器等）中的惡意軟體
-+- 跨越國境時遭到脅迫
-+
-+用好的密碼短語保護金鑰，可以大幅降低上述任何一種風險，但密碼短語仍可能
-+透過鍵盤側錄程式、偷窺螢幕或其他各種方式被發現。因此，建議的做法是把
-+認證金鑰從主目錄中移除，存放在離線儲存裝置上。
-+
-+.. warning::
-+
-+    請參閱上一節，確認你已經完整備份了 GnuPG 目錄。如果你沒有可用的
-+    備份，我們接下來要做的事會讓你的金鑰變得無法使用！
-+
-+首先，找出你的認證金鑰的「keygrip」::
-+
-+    $ gpg --with-keygrip --list-key [fpr]
-+
-+輸出會類似這樣::
-+
-+    pub   ed25519 2022-12-20 [SC] [expires: 2022-12-19]
-+          000000000000000000000000AAAABBBBCCCCDDDD
-+          Keygrip = 1111000000000000000000000000000000000000
-+    uid           [ultimate] Alice Dev <adev@kernel.org>
-+    sub   cv25519 2022-12-20 [E] [expires: 2022-12-19]
-+          Keygrip = 2222000000000000000000000000000000000000
-+    sub   ed25519 2022-12-20 [S]
-+          Keygrip = 3333000000000000000000000000000000000000
-+
-+找出位於 ``pub`` 那一行下方（就在認證金鑰指紋的正下方）的 keygrip 項目。
-+它會直接對應到你 ``~/.gnupg`` 目錄中的一個檔案::
-+
-+    $ cd ~/.gnupg/private-keys-v1.d
-+    $ ls
-+    1111000000000000000000000000000000000000.key
-+    2222000000000000000000000000000000000000.key
-+    3333000000000000000000000000000000000000.key
-+
-+只要移除與認證金鑰 keygrip 對應的 .key 檔案就夠了::
-+
-+    $ cd ~/.gnupg/private-keys-v1.d
-+    $ rm 1111000000000000000000000000000000000000.key
-+
-+現在如果你執行 ``--list-secret-keys`` 指令，它會顯示認證金鑰已經不在
-+（``#`` 表示該金鑰無法使用）::
-+
-+    $ gpg --list-secret-keys
-+    sec#  ed25519 2022-12-20 [SC] [expires: 2024-12-19]
-+          000000000000000000000000AAAABBBBCCCCDDDD
-+    uid           [ultimate] Alice Dev <adev@kernel.org>
-+    ssb   cv25519 2022-12-20 [E] [expires: 2024-12-19]
-+    ssb   ed25519 2022-12-20 [S]
-+
-+你也應該移除 ``~/.gnupg`` 目錄中所有的 ``secring.gpg`` 檔案，它們可能是
-+舊版 GnuPG 留下來的。
-+
-+如果你沒有「private-keys-v1.d」目錄
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+如果你沒有 ``~/.gnupg/private-keys-v1.d`` 目錄，表示你的密鑰仍然儲存在
-+GnuPG v1 所使用的舊式 ``secring.gpg`` 檔案中。對金鑰做任何變更，例如變更
-+密碼短語或新增子金鑰，應該都會自動把舊的 ``secring.gpg`` 格式轉換為使用
-+``private-keys-v1.d``。
-+
-+完成之後，務必刪除已過時的 ``secring.gpg`` 檔案，因為它仍然含有你的
-+私鑰。
-+
-+.. _tw_smartcards:
-+
-+將子金鑰移到專用的加密裝置
-+==========================
-+
-+雖然認證金鑰現在已經不會外洩或被竊，但子金鑰仍然在你的主目錄中。任何
-+設法取得這些子金鑰的人，都能夠解密你的通訊或偽造你的簽名（如果他們知道
-+密碼短語）。此外，每次執行 GnuPG 操作時，金鑰都會被載入系統記憶體，夠
-+先進的惡意軟體可以從那裡把它們偷走（想想 Meltdown 和 Spectre）。
-+
-+要完整保護你的金鑰，一個好方法是把它們移到能夠執行智慧卡操作的專用硬體
-+裝置上。
-+
-+智慧卡的好處
-+------------
-+
-+智慧卡內含一顆加密晶片，能夠儲存私鑰，並直接在卡片上執行加密運算。由於
-+金鑰內容永遠不會離開智慧卡，插入該硬體裝置的電腦，其作業系統無法取得私鑰
-+本身。這和我們先前用於備份的加密儲存裝置大不相同——那個裝置在插入並掛載
-+時，作業系統是能夠存取私鑰內容的。
-+
-+使用外接加密媒體並不能取代具備智慧卡功能的裝置。
-+
-+可用的智慧卡裝置
++重要基本事項詳述
 +----------------
 +
-+除非你所有的筆記型電腦和工作站都有智慧卡讀卡機，否則最簡單的做法是取得
-+一個實作智慧卡功能的專用 USB 裝置。有幾種選擇：
 +
-+- `Nitrokey Start`_：開放硬體與自由軟體，以 FSI Japan 的 `Gnuk`_ 為
-+  基礎。最便宜的選擇之一，但提供的安全功能最少（例如防竄改或抵抗某些
-+  旁通道攻擊）。
-+- `Nitrokey 3`_：與 Nitrokey Start 類似，但更能防竄改，並提供更多安全
-+  功能和 USB 外形規格。支援 ECC 密碼學（ED25519 和 NISTP）。
-+- `Yubikey 5`_：專有的硬體與軟體，但比 Nitrokey 便宜，功能也相近。支援
-+  ECC 密碼學（ED25519 和 NISTP）。
++收到迴歸報告時該怎麼做
++~~~~~~~~~~~~~~~~~~~~~~
 +
-+你的選擇將取決於成本、在你所在地區能否運送，以及對開放或專有硬體的考量。
++確保 Linux 核心的迴歸追蹤者以及
++`迴歸郵件列表 <https://lore.kernel.org/regressions/>`_
++（regressions@lists.linux.dev）的其他訂閱者得知任何新回報的迴歸：
 +
-+.. note::
++ * 如果你收到的郵件報告沒有抄送該列表，請立即至少發送一封簡短的「全部
++   回覆」並抄送該列表，讓列表參與其中；如果你回覆的郵件漏掉了該列表，
++   也請設法確保再次抄送它。
 +
-+    如果你列在 MAINTAINERS 的 `M:` 項目中，或擁有 kernel.org 帳號，你就
-+    `qualify for a free Nitrokey Start`_ （有資格免費獲得 Linux 基金會
-+    提供的 Nitrokey Start）。
++ * 如果提交到缺陷追蹤器的報告出現在你的收件匣中，請把它轉寄或退回到該
++   列表。轉寄之前，不妨先查看列表的封存，確認報告者是否已經依照
++   Documentation/admin-guide/reporting-issues.rst 的指示轉寄過該報告。
 +
-+.. _`Nitrokey Start`: https://www.nitrokey.com/products/nitrokeys
-+.. _`Nitrokey 3`: https://www.nitrokey.com/products/nitrokeys
-+.. _`Yubikey 5`: https://www.yubico.com/products/yubikey-5-overview/
-+.. _Gnuk: https://www.fsij.org/doc-gnuk/
-+.. _`qualify for a free Nitrokey Start`: https://www.kernel.org/nitrokey-digital-tokens-for-kernel-developers.html
++進行上述任一動作時，可以考慮讓 Linux 核心迴歸追蹤機器人「regzbot」立即
++開始追蹤這個問題：
 +
-+設定你的智慧卡裝置
-+------------------
++ * 對於郵件報告，檢查報告者是否附上了類似
++   ``#regzbot introduced: 1f2e3d4c5b6a`` 的「regzbot 命令」。如果沒有，
++   請發送一封回覆（抄送迴歸列表），其中包含類似下面的段落::
 +
-+你的智慧卡裝置一插上任何現代的 Linux 工作站，就應該能直接運作（Just Work
-+(TM)）。你可以執行以下指令確認::
++       #regzbot ^introduced: v5.13..v5.14-rc1
 +
-+    $ gpg --card-status
++   這會告訴 regzbot 問題開始發生的版本範圍；你也可以用 commit ID 指定
++   範圍，或在報告者已用二分法找出肇事提交時，只指定單一 commit ID。
 +
-+如果你看到完整的智慧卡詳細資訊，那就沒問題了。可惜的是，要排除所有可能
-+導致無法運作的原因，遠遠超出本指南的範圍。如果你無法讓智慧卡與 GnuPG
-+搭配運作，請透過一般的支援管道尋求協助。
++   請注意「introduced」前面的插入符號（^）：它告訴 regzbot 把上層郵件
++   （你所回覆的那封）當作你想追蹤之迴歸的初始報告；這一點很重要，因為
++   regzbot 之後會尋找帶有「Closes:」標籤、指向 lore.kernel.org 封存中
++   該報告的修補程式。
 +
-+要設定你的智慧卡，你需要使用 GnuPG 的選單系統，因為沒有方便的命令列
-+選項::
++ * 轉寄回報到缺陷追蹤器的迴歸時，請附上包含下列 regzbot 命令的段落::
 +
-+    $ gpg --card-edit
-+    [...omitted...]
-+    gpg/card> admin
-+    Admin commands are allowed
-+    gpg/card> passwd
++       #regzbot introduced: 1f2e3d4c5b6a
++       #regzbot from: Some N. Ice Human <some.human@example.com>
++       #regzbot monitor: http://some.bugtracker.example.com/ticket?id=123456789
 +
-+你應該設定使用者 PIN（1）、管理員 PIN（3）和重設碼（4）。請務必把這些
-+記錄下來並存放在安全的地方——特別是管理員 PIN 和重設碼（重設碼可以讓你
-+完全清除智慧卡）。你很少需要用到管理員 PIN，所以如果不記錄下來，你一定會
-+忘記它是什麼。
++   之後，regzbot 就會自動把帶有「Closes:」標籤、指向你的郵件或上述工單
++   的修補程式與該報告關聯起來。
 +
-+回到卡片主選單後，你也可以設定其他值（例如姓名、性別、登入資料等），但這
-+並非必要，而且萬一你遺失了智慧卡，還會額外洩漏關於這張智慧卡的資訊。
++修復迴歸時的要點
++~~~~~~~~~~~~~~~~
 +
-+.. note::
++提交迴歸的修正時不需要做任何特別的事，只要記得照著
++Documentation/process/submitting-patches.rst、
++:ref:`Documentation/process/5.Posting.rst <tw_development_posting>` 與
++Documentation/process/stable-kernel-rules.rst 中已更詳細說明的做法即可：
 +
-+    雖然名稱叫做「PIN」，但卡片上的使用者 PIN 和管理員 PIN 都不一定要是
-+    數字。
++ * 使用「Closes:」標籤指向所有回報該問題的地方::
 +
-+.. warning::
++       Closes: https://lore.kernel.org/r/30th.anniversary.repost@klaava.Helsinki.FI/
++       Closes: https://bugzilla.kernel.org/show_bug.cgi?id=1234567890
 +
-+    某些裝置可能要求你先把子金鑰移到裝置上，才能變更密碼短語。請查閱
-+    裝置製造商提供的文件。
++   如果你只修正了問題的一部分，可以依照上述第一份文件的說明改用「Link:」。
++   regzbot 目前把兩者視為相同，並將所連結的報告視為已解決。
 +
-+將子金鑰移到你的智慧卡
-+----------------------
++ * 加上「Fixes:」標籤，指出造成迴歸的提交。
 +
-+離開卡片選單（使用「q」）並儲存所有變更。接下來，我們把你的子金鑰移到
-+智慧卡上。大多數操作都會同時需要你的 PGP 金鑰密碼短語和卡片的管理員
-+PIN::
++ * 如果肇事提交是在較早的開發週期中合併的，請使用
++   ``Cc: stable@vger.kernel.org`` 標籤，明確標記此修正需要向後移植。
 +
-+    $ gpg --edit-key [fpr]
++以上這些都是對你的期望，且在處理迴歸時十分重要，因為這些標籤對每個可能在
++數週、數月甚至數年後研究這個問題的人（包括你自己）都非常有價值。這些標籤
++對其他核心開發者或 Linux 發行版所使用的工具和腳本也至關重要；regzbot 就是
++其中之一，它高度依賴「Closes:」標籤，把迴歸報告與解決它們的變更關聯起來。
 +
-+    Secret subkeys are available.
-+
-+    pub  ed25519/AAAABBBBCCCCDDDD
-+         created: 2022-12-20  expires: 2024-12-19  usage: SC
-+         trust: ultimate      validity: ultimate
-+    ssb  cv25519/1111222233334444
-+         created: 2022-12-20  expires: never       usage: E
-+    ssb  ed25519/5555666677778888
-+         created: 2017-12-07  expires: never       usage: S
-+    [ultimate] (1). Alice Dev <adev@kernel.org>
-+
-+    gpg>
-+
-+使用 ``--edit-key`` 會讓我們再次進入選單模式，你會注意到金鑰列表有點
-+不同。從這裡開始，所有指令都在這個選單模式中執行，如 ``gpg>`` 所示。
-+
-+首先，選擇我們要放到卡片上的金鑰——方法是輸入 ``key 1`` （它是列表中的
-+第一把，也就是 **[E]** 子金鑰）::
-+
-+    gpg> key 1
-+
-+現在你應該會在輸出中看到 **[E]** 金鑰變成 ``ssb*``。``*`` 表示目前「被
-+選取」的是哪一把金鑰。它的作用是 *切換*，也就是說，如果你再輸入一次
-+``key 1``，``*`` 就會消失，該金鑰也就不再被選取。
-+
-+現在，把那把金鑰移到智慧卡上::
-+
-+    gpg> keytocard
-+    Please select where to store the key:
-+       (2) Encryption key
-+    Your selection? 2
-+
-+由於這是我們的 **[E]** 金鑰，把它放進加密（Encryption）槽位是合理的。
-+送出選擇後，系統會先要求你輸入 PGP 金鑰的密碼短語，然後再要求輸入管理員
-+PIN。如果指令執行完畢且沒有出現錯誤，你的金鑰就已經移過去了。
-+
-+**重要**：現在再輸入一次 ``key 1`` 取消選取第一把金鑰，然後輸入
-+``key 2`` 選取 **[S]** 金鑰::
-+
-+    gpg> key 1
-+    gpg> key 2
-+    gpg> keytocard
-+    Please select where to store the key:
-+       (1) Signature key
-+       (3) Authentication key
-+    Your selection? 1
-+
-+**[S]** 金鑰可以同時用於簽名（Signature）和身分驗證（Authentication），
-+但我們希望確保它放在簽名槽位中，所以選擇（1）。同樣地，如果指令執行完畢
-+且沒有出現錯誤，操作就成功了::
-+
-+    gpg> q
-+    Save changes? (y/N) y
-+
-+儲存變更後，你移到卡片上的那些金鑰會從主目錄中刪除（不過沒關係，因為我們
-+的備份裡還有，如果之後要為替換的智慧卡再做一次，就可以使用）。
-+
-+確認金鑰已經移過去
-+~~~~~~~~~~~~~~~~~~
-+
-+如果你現在執行 ``--list-secret-keys``，會在輸出中看到細微的差異::
-+
-+    $ gpg --list-secret-keys
-+    sec#  ed25519 2022-12-20 [SC] [expires: 2024-12-19]
-+          000000000000000000000000AAAABBBBCCCCDDDD
-+    uid           [ultimate] Alice Dev <adev@kernel.org>
-+    ssb>  cv25519 2022-12-20 [E] [expires: 2024-12-19]
-+    ssb>  ed25519 2022-12-20 [S]
-+
-+``ssb>`` 中的 ``>`` 表示該子金鑰只存在於智慧卡上。如果你回到密鑰目錄檢視
-+裡面的內容，會發現那裡的 ``.key`` 檔案都已經被替換成存根（stub）::
-+
-+    $ cd ~/.gnupg/private-keys-v1.d
-+    $ strings *.key | grep 'private-key'
-+
-+輸出中應該會有 ``shadowed-private-key``，表示這些檔案只是存根，實際的
-+內容在智慧卡上。
-+
-+確認智慧卡正常運作
-+~~~~~~~~~~~~~~~~~~
-+
-+要確認智慧卡如預期運作，你可以建立一個簽名::
-+
-+    $ echo "Hello world" | gpg --clearsign > /tmp/test.asc
-+    $ gpg --verify /tmp/test.asc
-+
-+執行第一個指令時，應該會要求你輸入智慧卡 PIN，接著在你執行
-+``gpg --verify`` 後顯示「Good signature」。
-+
-+恭喜，你已經成功讓別人極難竊取你的數位開發者身分！
-+
-+其他常見的 GnuPG 操作
-+---------------------
-+
-+以下是一些你會需要對 PGP 金鑰執行的常見操作的快速參考。
-+
-+掛載你的安全離線儲存裝置
++修復迴歸的期望與最佳實務
 +~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+以下任何一項操作都需要用到認證金鑰，所以你首先需要掛載你的離線備份儲存
-+裝置，並告訴 GnuPG 使用它::
++身為 Linux 核心開發者，你應該盡最大努力，避免讓你最近的變更所造成的迴歸
++使使用者只剩下以下選擇：
 +
-+    $ export GNUPGHOME=/media/disk/foo/gnupg-backup
-+    $ gpg --list-secret-keys
++ * 執行一個帶有影響使用之迴歸的核心。
 +
-+你要確認輸出中顯示的是 ``sec`` 而不是 ``sec#`` （``#`` 表示該金鑰無法
-+使用，而你仍在使用一般的主目錄位置）。
++ * 改用較舊或較新的核心系列。
 +
-+延長金鑰的到期日
-+~~~~~~~~~~~~~~~~
++ * 在找出迴歸的肇事提交後，繼續執行過時、因而可能不安全的核心超過三週。
++   理想情況下應少於兩週。而如果問題嚴重或影響許多使用者（無論是整體而言，
++   還是在普遍的環境中），則應該只有短短幾天。
 +
-+認證金鑰的預設到期日是建立日起 2 年。這麼做既是出於安全考量，也是為了讓
-+過時的金鑰最終從金鑰伺服器上消失。
++實務上如何做到這一點取決於各種因素。請以下列經驗法則作為指引。
 +
-+要把金鑰的到期日從今天起延長一年，只要執行::
++一般而言：
 +
-+    $ gpg --quick-set-expire [fpr] 1y
++ * 將迴歸的處理優先於所有其他 Linux 核心工作，除非後者涉及嚴重問題（例如
++   緊急的安全漏洞、資料遺失、硬體變磚……）。
 +
-+如果使用特定日期比較好記，你也可以這麼做（例如你的生日、1 月 1 日或
-+加拿大國慶日）::
++ * 加速修復最近進入正式主線、穩定版或長期支援版發布（無論是直接進入還是
++   經由向後移植）的主線迴歸。
 +
-+    $ gpg --quick-set-expire [fpr] 2038-07-01
++ * 不要把目前週期中的迴歸當作可以等到週期結束再處理的事情，因為這個問題
++   可能讓使用者和 CI 系統現在或往後都不願或無法測試主線。
 +
-+記得把更新後的金鑰發送回金鑰伺服器::
++ * 以必要的謹慎進行工作，避免造成額外或更大的損害，即使這樣解決問題可能
++   會比下文所述花費更長的時間。
 +
-+    $ gpg --send-key [fpr]
++找出迴歸的肇事提交之後，關於時程：
 +
-+做了任何變更之後更新你的工作目錄
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ * 如果問題嚴重或困擾許多使用者（無論是整體而言，還是在特定硬體環境、
++   發行版或穩定版／長期支援版系列等普遍情況下），目標是在兩到三天內將修正
++   合併進主線。
 +
-+當你使用離線儲存裝置對金鑰做了任何變更之後，會需要把這些變更匯入回你平常
-+的工作目錄::
++ * 如果肇事提交進入了最近的主線、穩定版或長期支援版發布（無論是直接進入
++   還是經由向後移植），目標是在下下個星期日之前將修正合併進主線；如果
++   肇事提交在一週的前段就已確認且容易解決，請盡量在同一週內將修正合併進
++   主線。
 +
-+    $ gpg --export | gpg --homedir ~/.gnupg --import
-+    $ unset GNUPGHOME
++ * 對於其他迴歸，目標是在接下來三週內的最後一個星期日之前將修正合併進
++   主線。如果該迴歸是人們可以輕鬆忍受一段時間的問題（例如輕微的效能迴歸），
++   延後一到兩個星期日也可以接受。
 +
-+透過 ssh 使用 gpg-agent
-+~~~~~~~~~~~~~~~~~~~~~~~
++ * 強烈不建議把迴歸修正延到下一個合併視窗才合併進主線，除非該修正的風險
++   極高，或肇事提交是在一年多以前合併進主線的。
 +
-+如果你需要在遠端系統上簽署標籤或提交，可以透過 ssh 轉送你的 gpg-agent。
-+請參考 GnuPG wiki 上提供的說明：
++關於流程：
 +
-+- `Agent Forwarding over SSH`_
++ * 一定要考慮撤銷（revert）肇事提交，因為這通常是修復迴歸最快、危險最小
++   的方式。不必擔心之後把修正過的版本合併進主線：這應該很直接，因為大部分
++   程式碼都已經審查過一次。
 +
-+如果你能修改遠端的 sshd 伺服器設定，運作起來會更順暢。
++ * 盡量在目前的開發週期結束前，解決過去十二個月內在主線中引入的任何迴歸：
++   Linus 希望這類迴歸能像目前週期中的迴歸一樣處理，除非修復它們有不尋常
++   的風險。
 +
-+.. _`Agent Forwarding over SSH`: https://wiki.gnupg.org/AgentForwarding
++ * 如果迴歸看起來很棘手，可以考慮在討論或修補程式審查中抄送 Linus。在危急
++   或緊急的情況下也這麼做，特別是子系統維護者可能無法聯繫時。當你知道這類
++   迴歸已進入主線、穩定版或長期支援版發布時，也請抄送穩定版團隊。
 +
-+.. _tw_pgp_with_git:
++ * 對於緊急的迴歸，可以考慮請 Linus 直接從郵件列表取用修正：對於沒有爭議
++   的修正，他完全可以接受這種做法。不過理想情況下，這類請求應該與子系統
++   維護者協調一致，或直接由他們提出。
 +
-+在 Git 中使用 PGP
-+=================
++ * 如果你不確定在新的主線版本發布前幾天套用某個修正是否值得冒險，請寄一封
++   郵件給 Linus，並照常抄送相關列表與人員；在郵件中概述情況，同時請他考慮
++   直接從列表取用該修正。之後他可以自己做出決定，必要時甚至可以延後發布。
++   同樣地，這類請求理想上應該與子系統維護者協調一致，或直接由他們提出。
 +
-+Git 的核心特色之一是它的分散式本質——一旦把儲存庫複製到你的系統上，你就
-+擁有該專案的完整歷史，包括它所有的標籤、提交和分支。然而，當外面流傳著
-+數以百計的複製儲存庫時，任何人要如何確認自己手上的 linux.git 副本沒有
-+被惡意第三方竄改？
++關於穩定版與長期支援版核心：
 +
-+又或者，如果在核心中發現了惡意程式碼，而提交中的「Author」行說是你做的，
-+但你很確定自己 `跟它毫無關係`_，那又會怎樣？
++ * 如果迴歸從未在主線中出現過，或已經在主線中修復，你可以把它們留給穩定版
++   團隊處理。
 +
-+為了同時解決這兩個問題，Git 引入了 PGP 整合。簽名標籤可以確保儲存庫的
-+內容與建立該標籤的開發者工作站上的內容完全相同，藉此證明儲存庫的完整性；
-+而簽名提交則讓別人在無法取得你的 PGP 金鑰的情況下，幾乎不可能冒充你。
++ * 如果某個迴歸在過去十二個月內進入了正式的主線發布，請務必在修正中加上
++   「Cc: stable@vger.kernel.org」標籤，因為單靠「Fixes:」標籤並不能保證會
++   被向後移植。如果你知道肇事提交已被向後移植到穩定版或長期支援版核心，
++   也請加上同樣的標籤。
 +
-+.. _`跟它毫無關係`: https://github.com/jayphelps/git-blame-someone-else
++ * 收到最近的穩定版或長期支援版核心系列的迴歸報告時，請至少簡單評估一下
++   該問題是否也可能發生在目前的主線中；如果看起來很可能，請接手處理該報告。
++   如有疑問，請報告者在主線上檢查。
 +
-+設定 Git 使用你的 PGP 金鑰
-+--------------------------
++ * 每當你想迅速解決一個最近也進入了正式主線、穩定版或長期支援版發布的迴歸
++   時，請在主線中盡快修復它；在適當的時候，請 Linus 協助加速處理這個修正
++   （見上文）。這是因為穩定版團隊通常既不撤銷、也不修復在主線中造成相同
++   問題的變更。
 +
-+如果你的金鑰環中只有一把密鑰，那其實不需要做任何額外的事，因為它就會是你
-+的預設金鑰。不過，如果你剛好有多把密鑰，可以告訴 Git 應該使用哪一把
-+（``[fpr]`` 是你金鑰的指紋）::
++ * 對於緊急的迴歸修正，你可能會想在修正合併進主線後，給穩定版團隊留個訊息，
++   以確保它盡快被向後移植；在合併視窗期間及其後不久特別建議這麼做，否則該
++   修正可能會排在一個龐大的修補程式佇列的最後面。
 +
-+    $ git config --global user.signingKey [fpr]
++關於修補程式的流程：
 +
-+如何使用簽名標籤
-+----------------
++ * 開發者們，在設法達成上述時限時，請記得把修正接受測試、審查以及被 Linus
++   合併所需的時間計算在內，理想情況下修正至少要在 linux-next 中待上一小段
++   時間。因此，如果某個修正很緊急，請明確表示出來，確保其他人適當地處理它。
 +
-+要建立簽名標籤，請在 tag 指令加上 ``-s`` 選項::
++ * 審查者們，懇請你們及時審查迴歸修正，協助開發者達成上述時限。
 +
-+    $ git tag -s [tagname]
++ * 子系統維護者們，同樣也鼓勵你們加速處理迴歸修正。因此，請評估對於特定的
++   修正是否可以跳過 linux-next。必要時也可以考慮比平常更頻繁地發送 git 拉取
++   請求。並且盡量避免在週末把迴歸修正壓著不處理，特別是當該修正被標記為需要
++   向後移植時。
 +
-+我們建議一律簽署 Git 標籤，因為這能讓其他開發者確認他們拉取的 Git 儲存庫
-+沒有遭到惡意竄改。
 +
-+如何驗證簽名標籤
-+~~~~~~~~~~~~~~~~
++開發者應該留意的其他迴歸相關面向
++--------------------------------
 +
-+要驗證簽名標籤，請使用 ``verify-tag`` 指令::
 +
-+    $ git verify-tag [tagname]
++如何處理已知有迴歸風險的變更
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+如果你是從專案儲存庫的另一個分叉拉取標籤，Git 應該會自動驗證你所拉取的
-+最新端點上的簽名，並在合併操作期間顯示結果::
++評估迴歸風險有多大，例如在 Linux 發行版和 Git 託管平台（forge）中搜尋
++程式碼。也可以考慮請可能受影響的其他開發者或專案評估、甚至測試所提議的
++變更；如果出現問題，或許可以找到所有人都能接受的解決方案。
 +
-+    $ git pull [url] tags/sometag
++如果最後看來迴歸風險相對較小，就繼續進行這個變更，但要讓所有相關人員知道
++這個風險。因此，請確保你的修補程式描述清楚說明這一點。變更合併後，請告知
++Linux 核心的迴歸追蹤者和迴歸郵件列表這個風險，讓大家在有報告陸續出現時都
++已注意到這個變更。視風險而定，你可能也會想請子系統維護者在他們的主線拉取
++請求中提及這個問題。
 +
-+合併訊息中會包含類似以下的內容::
++關於迴歸還有什麼需要知道的？
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+    Merge tag 'sometag' of [url]
++請參閱 Documentation/admin-guide/reporting-regressions.rst，其中涵蓋了許多
++你可能想要了解的其他面向：
 +
-+    [Tag message]
++ * 「無迴歸」規則的目的
 +
-+    # gpg: Signature made [...]
-+    # gpg: Good signature from [...]
++ * 哪些問題真正算是迴歸
 +
-+如果你要驗證別人的 Git 標籤，首先需要匯入他們的 PGP 金鑰。請參閱下面的
-+「:ref:`tw_verify_identities`」一節。
++ * 誰負責找出迴歸的根本原因
 +
-+設定 Git 一律簽署附註標籤
-+~~~~~~~~~~~~~~~~~~~~~~~~~
++ * 如何處理棘手的情況，例如迴歸是由安全修正所造成，或修復某個迴歸可能造成
++   另一個迴歸
 +
-+如果你要建立附註標籤（annotated tag），你很可能也會想要簽署它。要強制
-+Git 一律簽署附註標籤，可以設定一個全域設定選項::
++遇到迴歸時可以向誰尋求建議
++~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+    $ git config --global tag.forceSignAnnotated true
++寄一封郵件到迴歸郵件列表（regressions@lists.linux.dev），同時抄送 Linux
++核心的迴歸追蹤者（regressions@leemhuis.info）；如果問題比較適合私下處理，
++可以省略該列表。
 +
-+如何使用簽名提交
-+----------------
 +
-+你也可以建立簽名提交，但它們在 Linux 核心開發中的用處有限。核心的貢獻
-+流程仰賴寄送修補程式，而把提交轉換成修補程式並不會保留 Git 提交簽名。
-+此外，把你自己的儲存庫 rebase 到較新的上游版本時，PGP 提交簽名最後也會
-+被捨棄。因此，大多數核心開發者並不費心簽署自己的提交，也會忽略他們工作
-+所依賴的任何外部儲存庫中的簽名提交。
-+
-+話雖如此，如果你的工作用 Git 樹公開放在某個 Git 託管服務上（kernel.org、
-+infradead.org、ozlabs.org 或其他），那麼即使上游開發者無法直接從這種做法
-+中受益，我們仍建議你簽署所有的 Git 提交。
-+
-+我們建議這麼做的理由如下：
-+
-+1. 如果有一天需要進行程式碼鑑識或追查程式碼來源，即使是在外部維護、帶有
-+   PGP 提交簽名的樹，對這類用途也很有價值。
-+2. 如果你需要重新複製本地儲存庫（例如，重新安裝系統之後），這可以讓你在
-+   繼續工作之前驗證儲存庫的完整性。
-+3. 如果有人需要 cherry-pick 你的提交，這能讓他們在套用之前快速驗證這些
-+   提交的完整性。
-+
-+建立簽名提交
-+~~~~~~~~~~~~
-+
-+要建立簽名提交，請在 ``git commit`` 指令加上 ``-S`` 旗標（因為和另一個
-+旗標衝突，所以是大寫的 ``-S``）::
-+
-+    $ git commit -S
-+
-+設定 Git 一律簽署提交
-+~~~~~~~~~~~~~~~~~~~~~
-+
-+你可以告訴 Git 一律簽署提交::
-+
-+    git config --global commit.gpgSign true
-+
-+.. note::
-+
-+    在開啟這個選項之前，請務必先設定好 ``gpg-agent``。
-+
-+.. _tw_verify_identities:
-+
-+如何使用簽名修補程式
-+--------------------
-+
-+你可以用 PGP 金鑰簽署發送到核心開發者郵件列表的修補程式。由於現有的電子
-+郵件簽名機制（PGP-Mime 或 PGP-inline）往往會對一般的程式碼審查工作造成
-+問題，你應該使用 kernel.org 為此目的建立的工具，它會把密碼學證明
-+（attestation）簽名放進郵件標頭中（類似 DKIM）：
-+
-+- `Patatt Patch Attestation`_
-+
-+.. _`Patatt Patch Attestation`: https://pypi.org/project/patatt/
-+
-+安裝與設定 patatt
-+~~~~~~~~~~~~~~~~~
-+
-+.. note::
-+
-+    如果你使用 B4 寄送修補程式，patatt 已經安裝好並整合進你的工作流程中。
-+
-+許多發行版都已經有 Patatt 的套件，所以請先到那裡找找看。你也可以用
-+「``pip install patatt``」從 pypi 安裝。
-+
-+如果你已經在 Git 中設定好 PGP 金鑰（透過 ``user.signingKey`` 設定參數），
-+那麼 patatt 不需要任何額外設定。你可以在想要的儲存庫中安裝 git-send-email
-+掛鉤（hook），開始簽署你的修補程式::
-+
-+    patatt install-hook
-+
-+現在，你用 ``git send-email`` 發送的任何修補程式，都會自動加上你的密碼學
-+簽名。
-+
-+檢查 patatt 簽名
-+~~~~~~~~~~~~~~~~
-+
-+如果你使用 ``b4`` 取得並套用修補程式，它會自動嘗試驗證遇到的所有 DKIM 和
-+patatt 簽名，例如::
-+
-+    $ b4 am 20220720205013.890942-1-broonie@kernel.org
-+    [...]
-+    Checking attestation on all messages, may take a moment...
-+    ---
-+      ✓ [PATCH v1 1/3] kselftest/arm64: Correct buffer allocation for SVE Z registers
-+      ✓ [PATCH v1 2/3] arm64/sve: Document our actual ABI for clearing registers on syscall
-+      ✓ [PATCH v1 3/3] kselftest/arm64: Enforce actual ABI for SVE syscalls
-+      ---
-+      ✓ Signed: openpgp/broonie@kernel.org
-+      ✓ Signed: DKIM/kernel.org
-+
-+.. note::
-+
-+    Patatt 和 b4 仍在積極開發中，你應該查閱這些專案的最新文件，了解任何
-+    新增或更新的功能。
-+
-+.. _tw_kernel_identities:
-+
-+如何驗證核心開發者的身分
-+========================
-+
-+簽署標籤和提交很簡單，但要如何確認用來簽署某樣東西的金鑰，確實屬於那位
-+核心開發者，而不是屬於惡意的冒名者？
-+
-+使用 WKD 和 DANE 設定自動擷取金鑰
++關於迴歸追蹤與 regzbot 的更多資訊
 +---------------------------------
 +
-+如果你還沒有大量收集其他開發者的公鑰，可以靠金鑰的自動探索與自動擷取來
-+快速建立你的金鑰環。如果從零開始建立你自己的信任網（Web of Trust）讓你
-+望而卻步，GnuPG 可以借助其他委派信任技術，也就是 DNSSEC 和 TLS，讓你
-+先開始使用。
 +
-+把以下內容加到你的 ``~/.gnupg/gpg.conf``::
++為什麼 Linux 核心有迴歸追蹤者？為什麼要使用 regzbot？
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+    auto-key-locate wkd,dane,local
-+    auto-key-retrieve
++像「無迴歸」這樣的規則需要有人確保它被遵守，否則就會因意外或刻意而遭到
++破壞。歷史已經證明，這對 Linux 核心來說也是如此。因此 Thorsten Leemhuis
++自願擔任 Linux 核心的迴歸追蹤者來留意這些事，偶爾也有其他人協助。他們都
++沒有因此獲得報酬，所以迴歸追蹤是盡力而為的。
 +
-+基於 DNS 的具名實體認證（DNS-Based Authentication of Named Entities，
-+「DANE」）是一種在 DNS 中發布公鑰，並使用 DNSSEC 簽名區域來保護它們的
-+方法。Web 金鑰目錄（Web Key Directory，「WKD」）則是另一種方法，使用
-+https 查詢來達到同樣的目的。使用 DANE 或 WKD 查詢公鑰時，GnuPG 會分別先
-+驗證 DNSSEC 或 TLS 憑證，才把自動擷取到的公鑰加入你的本地金鑰環。
++先前手動追蹤迴歸的嘗試顯示，這是一項令人筋疲力盡又沮喪的工作，因此在一段
++時間後就被放棄了。為了避免這種情況再次發生，Thorsten 開發了 regzbot 來協助
++這項工作，長期目標是盡可能為所有相關人員自動化迴歸追蹤。
 +
-+Kernel.org 為所有擁有 kernel.org 帳號的開發者發布 WKD。在你的
-+``gpg.conf`` 做了上述變更之後，就可以自動擷取 Linus Torvalds 和
-+Greg Kroah-Hartman 的金鑰（如果你還沒有的話）::
++regzbot 如何進行迴歸追蹤？
++~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+    $ gpg --locate-keys torvalds@kernel.org gregkh@kernel.org
++這個機器人會留意已追蹤迴歸的報告所收到的回覆。此外，它也會尋找以
++「Closes:」標籤引用這些報告、已發布或已提交（commit）的修補程式；對這些
++修補程式貼文的回覆也會被追蹤。綜合這些資料，就能清楚了解修復過程目前的
++狀態。
 +
-+如果你有 kernel.org 帳號，那麼你應該 `把 kernel.org UID 加到你的金鑰`_，
-+讓 WKD 對其他核心開發者更有用。
++regzbot 盡量以最少的額外負擔為報告者和開發者完成工作。事實上，只有報告者
++多了一項額外的責任：他們需要使用上述的 ``#regzbot introduced`` 命令，把
++迴歸報告告知 regzbot；如果他們沒有這麼做，其他人可以使用
++``#regzbot ^introduced`` 代為處理。
 +
-+.. _`把 kernel.org UID 加到你的金鑰`: https://korg.docs.kernel.org/mail.html#adding-a-kernel-org-uid-to-your-pgp-key
++對開發者而言，通常不需要額外的工作，只需要確實做到早在 regzbot 出現之前
++就被期望做的事：在修補程式描述中加上連結，指向所有關於所修復問題的報告。
 +
-+信任網（WOT）與首次使用信任（TOFU）
-+-----------------------------------
++我一定要使用 regzbot 嗎？
++~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+PGP 包含一種稱為「信任網」（Web of Trust）的信任委派機制。其核心是試圖
-+取代 HTTPS/TLS 世界中對集中式憑證授權單位（Certification Authority）的
-+需求。PGP 不讓各家軟體廠商來決定誰應該是你信任的認證實體，而是把這個責任
-+交給每一位使用者。
++如果你使用，這對所有人都有好處，因為像 Linus Torvalds 這樣的核心維護者在
++工作中部分依賴 regzbot 的追蹤，例如在決定要發布新版本或延長開發階段時。
++為此，他們需要知道所有尚未修復的迴歸；眾所周知，Linus 會查看 regzbot 每週
++發送的報告。
 +
-+可惜的是，很少有人了解信任網是如何運作的。雖然它仍是 OpenPGP 規範中重要
-+的一部分，但較新版本的 GnuPG（2.2 及以上）已經實作了另一種稱為「首次使用
-+信任」（Trust on First Use，TOFU）的機制。你可以把 TOFU 想成「類似 SSH 的
-+信任方式」。使用 SSH 時，第一次連線到遠端系統，其金鑰指紋就會被記錄並
-+記住。如果之後金鑰改變了，SSH 用戶端會警告你並拒絕連線，迫使你決定是否
-+要信任改變後的金鑰。同樣地，第一次匯入某人的 PGP 金鑰時，它會被假定為
-+有效。如果之後 GnuPG 在任何時候遇到另一把身分相同的金鑰，先前匯入的金鑰
-+和新金鑰都會被標記為需要驗證，你必須手動判斷要保留哪一把。
++我一定要把遇到的每個迴歸都告訴 regzbot 嗎？
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+我們建議你使用合併的 TOFU+PGP 信任模型（這是 GnuPG v2 新的預設值）。要
-+設定它，請在 ``~/.gnupg/gpg.conf`` 中新增（或修改）``trust-model``
-+設定::
++理想上是的：我們都是凡人，當更重要的事情突然出現時很容易忘記問題，例如
++Linux 核心中更大的問題，或是現實生活中讓我們有一陣子無法碰鍵盤的事情。
++因此，最好把每個迴歸都告訴 regzbot，除非你立即寫出修正，並把它提交到一個
++會定期合併到受影響核心系列的樹中。
 +
-+    trust-model tofu+pgp
++如何查看 regzbot 目前追蹤哪些迴歸？
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+.. _tw_kernel_org_trust_repository:
++請查看 `regzbot 的網頁介面 <https://linux-regtracking.leemhuis.info/regzbot/>`_
++以取得最新資訊；或者，`搜尋最新的迴歸報告
++<https://lore.kernel.org/lkml/?q=%22Linux+regressions+report%22+f%3Aregzbot>`_，
++regzbot 通常每週日晚上（UTC）發送一次這份報告，也就是 Linus 通常發布新的
++版本或預發布版本的幾個小時之前。
 +
-+使用 kernel.org 信任網儲存庫
-+----------------------------
++regzbot 監看哪些地方？
++~~~~~~~~~~~~~~~~~~~~~~
 +
-+Kernel.org 維護一個存放開發者公鑰的 Git 儲存庫，用來取代過去幾年大多已經
-+停擺的同步式金鑰伺服器網路。關於如何把該儲存庫設定為你的公鑰來源，完整
-+文件可以在這裡找到：
++regzbot 會監看最重要的 Linux 郵件列表，以及 linux-next、主線和穩定版／
++長期支援版的 git 儲存庫。
 +
-+- `Kernel developer PGP Keyring`_
++哪些問題應該由 regzbot 追蹤？
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+如果你是核心開發者，請考慮提交你的金鑰，讓它收錄到該金鑰環中。
++這個機器人是用來追蹤迴歸的，因此請不要讓 regzbot 處理一般問題。不過，如果
++你用 regzbot 追蹤嚴重的問題，例如卡死（hang）、資料損毀或內部錯誤（Panic、
++Oops、BUG()、warning……）的報告，Linux 核心的迴歸追蹤者也可以接受。
 +
-+.. _`Kernel developer PGP Keyring`: https://korg.docs.kernel.org/pgpkeys.html
++可以把 CI 系統發現的迴歸加入 regzbot 的追蹤嗎？
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++可以，只要該迴歸很可能影響實際的使用情境，因而可能被使用者注意到即可；
++因此，請不要讓 regzbot 處理不太可能在實際使用中出現的理論上的迴歸。
++
++如何與 regzbot 互動？
++~~~~~~~~~~~~~~~~~~~~~
++
++在直接或間接回覆迴歸報告郵件時使用「regzbot 命令」。這些命令必須自成一個
++段落（換句話說：必須用空行與郵件的其他內容分隔開）。
++
++其中一個命令是 ``#regzbot introduced: <version or commit>``，如前所述，它會
++讓 regzbot 把你的郵件視為一份加入追蹤的迴歸報告；另一個這樣的命令是
++``#regzbot ^introduced: <version or commit>``，它會讓 regzbot 把上層郵件
++視為一份迴歸報告並開始追蹤。
++
++一旦使用了這兩個命令之一，就可以在直接或間接回覆該報告時使用其他 regzbot
++命令。你可以把它們寫在某個 `introduced` 命令的下方，或寫在回覆以下郵件的
++郵件中：使用了其中一個命令的郵件，或本身是回覆該郵件的郵件：
++
++ * 設定或更新標題::
++
++       #regzbot title: foo
++
++ * 監看討論該問題其他面向或修正的討論串或 bugzilla.kernel.org 工單，例如
++   修復該迴歸的修補程式貼文::
++
++       #regzbot monitor: https://lore.kernel.org/all/30th.anniversary.repost@klaava.Helsinki.FI/
++
++   監看功能只適用於 lore.kernel.org 和 bugzilla.kernel.org；regzbot 會把
++   該討論串或工單中的所有訊息都視為與修復過程有關。
++
++ * 指向一個有其他值得注意之細節的地方，例如稍微相關、但主題不同的郵件列表
++   貼文或缺陷追蹤器中的工單::
++
++       #regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=123456789
++
++ * 將迴歸標記為已由某個正在送往上游或已經合併的提交修復::
++
++       #regzbot fix: 1f2e3d4c5d
++
++ * 將迴歸標記為另一個已由 regzbot 追蹤之迴歸的重複::
++
++       #regzbot dup-of: https://lore.kernel.org/all/30th.anniversary.repost@klaava.Helsinki.FI/
++
++ * 將迴歸標記為無效::
++
++       #regzbot invalid: wasn't a regression, problem has always existed
++
++關於 regzbot 及其命令還有更多資訊嗎？
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++關於 Linux 核心迴歸追蹤機器人更詳細且最新的資訊，可以在它的
++`專案頁面 <https://gitlab.com/knurd42/regzbot>`_ 找到，其中包括
++`入門指南 <https://gitlab.com/knurd42/regzbot/-/blob/main/docs/getting_started.md>`_
++和 `參考文件 <https://gitlab.com/knurd42/regzbot/-/blob/main/docs/reference.md>`_，
++兩者涵蓋的細節都比上面這一節更多。
++
++Linus 關於迴歸的發言
++--------------------
++
++以下是 Linus Torvalds 的一些發言，有助於了解 Linux 的「無迴歸」規則，以及
++他期望如何處理迴歸：
++
++迴歸應該多快修復
++~~~~~~~~~~~~~~~~
++
++* 出自 `2026-01-22 <https://lore.kernel.org/all/CAHk-=wheQNiW_WtHGO7bKkT7Uib-p+ai2JP9M+z+FYcZ6CAxYA@mail.gmail.com/>`_::
++
++    But a user complaining should basically result in an immediate fix -
++    possibly a "revert and rethink".
++
++  稍後在 `2026-01-28 <https://lore.kernel.org/all/CAHk-%3Dwi86AosXs66-yi54%2BmpQjPu0upxB8ZAfG%2BLsMyJmcuMSA@mail.gmail.com/>`_ 又進一步說明::
++
++    It's also worth noting that "immediate" obviously doesn't mean "right
++    this *second* when the problem has been reported".
++
++    But if it's a regression with a known commit that caused it, I think
++    the rule of thumb should generally be "within a week", preferably
++    before the next rc.
++
++* 出自 `2023-04-21 <https://lore.kernel.org/all/CAHk-=wgD98pmSK3ZyHk_d9kZ2bhgN6DuNZMAJaV0WTtbkf=RDw@mail.gmail.com/>`_::
++
++    Known-broken commits either
++     (a) get a timely fix that doesn't have other questions
++    or
++     (b) get reverted
++
++* 出自 `2021-09-20(2) <https://lore.kernel.org/all/CAHk-=wgOvmtRw1TNbMC1rn5YqyTKyn0hz+sc4k0DGNn++u9aYw@mail.gmail.com/>`_::
++
++    [...] review shouldn't hold up reported regressions of existing code. That's
++    just basic _testing_ - either the fix should be applied, or - if the fix is
++    too invasive or too ugly - the problematic source of the regression should
++    be reverted.
++
++    Review should be about new code, it shouldn't be holding up "there's a
++    bug report, here's the obvious fix".
++
++* 出自 `2023-05-08 <https://lore.kernel.org/all/CAHk-=wgzU8_dGn0Yg+DyX7ammTkDUCyEJ4C=NvnHRhxKWC7Wpw@mail.gmail.com/>`_::
++
++    If something doesn't even build, it should damn well be fixed ASAP.
++
++以撤銷來修復迴歸如何有助於避免維護者過勞
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2026-01-28 <https://lore.kernel.org/all/CAHk-%3Dwi86AosXs66-yi54%2BmpQjPu0upxB8ZAfG%2BLsMyJmcuMSA@mail.gmail.com/>`_::
++
++    > So how can I/we make "immediate fixes" happen more often without
++    > contributing to maintainer burnout?
++
++    [...] the "revert and rethink" model [...] often a good idea in general [...]
++
++    Exactly so that maintainers don't get stressed out over having a pending
++    problem report that people keep pestering them about.
++
++    I think people are sometimes a bit too bought into whatever changes
++    they made, and reverting is seen as "too drastic", but I think it's
++    often the quick and easy solution for when there isn't some obvious
++    response to a regression report.
++
++最後一個 -rc 或新版本即將發布時，將修正合併進主線
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2026-02-01 <https://lore.kernel.org/all/CAHk-%3DwhXTw1oPsa%2BTLuY1Rc9D1OAiPVOdR_-R2xG45kwDObKdA@mail.gmail.com/>`_::
++
++    So I think I'd rather see them hit rc8 (later today) and have a week
++    of testing in my tree and be reverted if they cause problems, than
++    have them go in after rc8 and then cause problems in the 6.19 release
++    instead.
++
++* 出自 `2023-04-20 <https://lore.kernel.org/all/CAHk-=wis_qQy4oDNynNKi5b7Qhosmxtoj1jxo5wmB6SRUwQUBQ@mail.gmail.com/>`_::
++
++    But something like this, where the regression was in the previous release
++    and it's just a clear fix with no semantic subtlety, I consider to be just a
++    regular regression that should be expedited - partly to make it into stable,
++    and partly to avoid having to put the fix into _another_ stable kernel.
++
++只為單一修正發送合併請求
++~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2024-04-24 <https://lore.kernel.org/all/CAHk-=wjy_ph9URuFt-pq+2AJ__p7gFDx=yzVSCsx16xAYvNw9g@mail.gmail.com/>`_::
++
++    If the issue is just that there's nothing else happening, I think people
++    should just point me to the patch and say "can you apply this single fix?"
++
++* 出自 `2023-04-20 <https://lore.kernel.org/all/CAHk-=wis_qQy4oDNynNKi5b7Qhosmxtoj1jxo5wmB6SRUwQUBQ@mail.gmail.com/>`_::
++
++    I'm always open to direct fixes when there is no controversy about the fix.
++    No problem. I still happily deal with individual patches.
++
++使用 Link:/Closes: 標籤指向缺陷報告的重要性
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2025-07-29(1) <https://lore.kernel.org/all/CAHk-=wj2kJRPWx8B09AAtzj+_g+T6UBX11TP0ebs1WJdTtv=WQ@mail.gmail.com/>`_::
++
++    [...] revert like this, it really would be good to link to the problems, so
++    that when people try to re-enable it, they have the history for why it
++    didn't work the first time.
++
++* 出自 `2022-05-08 <https://lore.kernel.org/all/CAHk-=wjMmSZzMJ3Xnskdg4+GGz=5p5p+GSYyFBTh0f-DgvdBWg@mail.gmail.com/>`_::
++
++    So I have to once more complain [...]
++
++    [...] There's no link to the actual problem the patch fixes.
++
++* 出自 `2022-06-22 <https://lore.kernel.org/all/CAHk-=wjxzafG-=J8oT30s7upn4RhBs6TX-uVFZ5rME+L5_DoJA@mail.gmail.com/>`_::
++
++    See, *that* link [to the report] would have been useful in the commit.
++
++為什麼會有「無迴歸」規則
++~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2026-01-22 <https://lore.kernel.org/all/CAHk-=wheQNiW_WtHGO7bKkT7Uib-p+ai2JP9M+z+FYcZ6CAxYA@mail.gmail.com/>`_::
++
++    But the basic rule is: be so good about backwards compatibility that
++    users never have to worry about upgrading. They should absolutely feel
++    confident that any kernel-reported problem will either be solved, or
++    have an easy solution that is appropriate for *them* (ie a
++    non-technical user shouldn't be expected to be able to do a lot).
++
++    Because the last thing we want is people holding back from trying new
++    kernels.
++
++* 出自 `2024-05-28 <https://lore.kernel.org/all/CAHk-=wgtb7y-bEh7tPDvDWru7ZKQ8-KMjZ53Tsk37zsPPdwXbA@mail.gmail.com/>`_::
++
++    I introduced that "no regressions" rule something like two decades
++    ago, because people need to be able to update their kernel without
++    fear of something they relied on suddenly stopping to work.
++
++* 出自 `2018-08-03 <https://lore.kernel.org/all/CA+55aFwWZX=CXmWDTkDGb36kf12XmTehmQjbiMPCqCRG2hi9kw@mail.gmail.com/>`_::
++
++    The whole point of "we do not regress" is so that people can upgrade
++    the kernel and never have to worry about it.
++
++    [...]
++
++    Because the only thing that matters IS THE USER.
++
++* 出自 `2017-10-26(1) <https://lore.kernel.org/lkml/CA+55aFxW7NMAMvYhkvz1UPbUTUJewRt6Yb51QAx5RtrWOwjebg@mail.gmail.com/>`_::
++
++    If the kernel used to work for you, the rule is that it continues to work
++    for you.
++
++    [...]
++
++    People should basically always feel like they can update their kernel
++    and simply not have to worry about it.
++
++    I refuse to introduce "you can only update the kernel if you also
++    update that other program" kind of limitations. If the kernel used to
++    work for you, the rule is that it continues to work for you.
++
++「無迴歸」規則的例外
++~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2026-01-22 <https://lore.kernel.org/all/CAHk-=wheQNiW_WtHGO7bKkT7Uib-p+ai2JP9M+z+FYcZ6CAxYA@mail.gmail.com/>`_::
++
++    There are _very_ few exceptions to that rule, the main one being "the
++    problem was a fundamental huge and gaping security issue and we *had* to
++    make that change, and we couldn't even make your limited use-case just
++    continue to work".
++
++    The other exception is "the problem was reported years after it was
++    introduced, and now most people rely on the new behavior".
++
++    [...]
++
++    Now, if it's one or two users and you can just get them to recompile,
++    that's one thing. Niche hardware and odd use-cases can sometimes be
++    solved that way, and regressions can sometimes be fixed by handholding
++    every single reporter if the reporter is willing and able to change
++    his or her workflow.
++
++* 出自 `2023-04-20 <https://lore.kernel.org/all/CAHk-=wis_qQy4oDNynNKi5b7Qhosmxtoj1jxo5wmB6SRUwQUBQ@mail.gmail.com/>`_::
++
++    And yes, I do consider "regression in an earlier release" to be a
++    regression that needs fixing.
++
++    There's obviously a time limit: if that "regression in an earlier
++    release" was a year or more ago, and just took forever for people to
++    notice, and it had semantic changes that now mean that fixing the
++    regression could cause a _new_ regression, then that can cause me to
++    go "Oh, now the new semantics are what we have to live with".
++
++* 出自 `2017-10-26(2) <https://lore.kernel.org/lkml/CA+55aFxW7NMAMvYhkvz1UPbUTUJewRt6Yb51QAx5RtrWOwjebg@mail.gmail.com/>`_::
++
++    There have been exceptions, but they are few and far between, and they
++    generally have some major and fundamental reasons for having happened,
++    that were basically entirely unavoidable, and people _tried_hard_ to
++    avoid them. Maybe we can't practically support the hardware any more
++    after it is decades old and nobody uses it with modern kernels any
++    more. Maybe there's a serious security issue with how we did things,
++    and people actually depended on that fundamentally broken model. Maybe
++    there was some fundamental other breakage that just _had_ to have a
++    flag day for very core and fundamental reasons.
++
++更新使用者空間的某些東西即可解決迴歸的情況
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2018-08-03 <https://lore.kernel.org/all/CA+55aFwWZX=CXmWDTkDGb36kf12XmTehmQjbiMPCqCRG2hi9kw@mail.gmail.com/>`_::
++
++    And dammit, we upgrade the kernel ALL THE TIME without upgrading any
++    other programs at all. It is absolutely required, because flag-days
++    and dependencies are horribly bad.
++
++    And it is also required simply because I as a kernel developer do not
++    upgrade random other tools that I don't even care about as I develop the
++    kernel, and I want any of my users to feel safe doing the same time.
++
++* 出自 `2017-10-26(3) <https://lore.kernel.org/lkml/CA+55aFxW7NMAMvYhkvz1UPbUTUJewRt6Yb51QAx5RtrWOwjebg@mail.gmail.com/>`_::
++
++    But if something actually breaks, then the change must get fixed or
++    reverted. And it gets fixed in the *kernel*. Not by saying "well, fix your
++    user space then". It was a kernel change that exposed the problem, it needs
++    to be the kernel that corrects for it, because we have a "upgrade in place"
++    model. We don't have a "upgrade with new user space".
++
++    And I seriously will refuse to take code from people who do not understand
++    and honor this very simple rule.
++
++    This rule is also not going to change.
++
++    And yes, I realize that the kernel is "special" in this respect. I'm proud
++    of it.
++
++* 出自 `2017-10-26(4) <https://lore.kernel.org/all/CA+55aFwiiQYJ+YoLKCXjN_beDVfu38mg=Ggg5LFOcqHE8Qi7Zw@mail.gmail.com/>`_::
++
++    If you break existing user space setups THAT IS A REGRESSION.
++
++    It's not ok to say "but we'll fix the user space setup".
++
++    Really. NOT OK.
++
++什麼算是使用者空間介面、ABI、API、有文件記載的介面等
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2026-01-20 <https://lore.kernel.org/all/CAHk-=wga8Qu0-OSE9VZbviq9GuqwhPhLUXeAt-S7_9+fMCLkKg@mail.gmail.com/>`_::
++
++    So I absolutely detest the whole notion of "ABI changes". It's a
++    meaningless concept, and I hate it with a passion, [...]
++
++    The Linux rule for regressions is basically based on the philosophical
++    question of "If a tree falls in the forest, and nobody is around to
++    hear it, does it make a sound?".
++
++    So the only thing that matters is if something breaks user-*conscious*
++    behavior.
++
++    And when that happens, the distinction between "bug fix" and "new
++    feature" and "ABI change" matters not one whit, and the change needs
++    to be done differently.
++
++    [...]
++
++    I just wanted to point out that the argument about whether it's an ABI
++    change or not is irrelevant. If it turns out that some program - not a test
++    script, but something with relevance to conscious user expectations ~
++    depended on the old broken behavior, then it needs to be done some other
++    way.
++
++* 出自 `2026-02-13 <https://lore.kernel.org/all/CAHk-=whY-N8kjm8kiFUV5Ei-8AuYw--EPGD-AR3Pd+5GTx2sAQ@mail.gmail.com/>`_::
++
++    > [...] this should not fall under the don't break user space rule [...]
++
++    Note that the rule is about breaking *users*, not breaking user space per
++    se. [...]
++
++    If some user setup breaks, things need fixing.
++
++    [...] but I want to make it very clear that there are no excuses about "user
++    space applications".
++
++* 出自 `2021-09-20(4) <https://lore.kernel.org/all/CAHk-=wi7DB2SJ-wngVvsJ7Ak2cM556Q8437sOXo4EJt2BWPdEg@mail.gmail.com/>`_::
++
++    [...] a regression is a bit like Schrödinger's cat - if nobody is around
++    to notice it and it doesn't actually affect any real workload, then you
++    can treat the regression as if it doesn't exist.
++
++* 出自 `2020-05-21 <https://lore.kernel.org/all/CAHk-=wiVi7mSrsMP=fLXQrXK_UimybW=ziLOwSzFTtoXUacWVQ@mail.gmail.com/>`_::
++
++    The rules about regressions have never been about any kind of documented
++    behavior, or where the code lives.
++
++    The rules about regressions are always about "breaks user workflow".
++
++    Users are literally the _only_ thing that matters.
++
++* 出自 `2019-09-15 <https://lore.kernel.org/lkml/CAHk-=wiP4K8DRJWsCo=20hn_6054xBamGKF2kPgUzpB5aMaofA@mail.gmail.com/>`_::
++
++    One _particularly_ last-minute revert is the top-most commit (ignoring
++    the version change itself) done just before the release, and while
++    it's very annoying, it's perhaps also instructive.
++
++    What's instructive about it is that I reverted a commit that wasn't
++    actually buggy. In fact, it was doing exactly what it set out to do,
++    and did it very well. In fact it did it _so_ well that the much
++    improved IO patterns it caused then ended up revealing a user-visible
++    regression due to a real bug in a completely unrelated area.
++
++    The actual details of that regression are not the reason I point that
++    revert out as instructive, though. It's more that it's an instructive
++    example of what counts as a regression, and what the whole "no
++    regressions" kernel rule means.
++
++    [...] The reverted commit didn't change any API's, and it didn't introduce
++    any new bugs. But it ended up exposing another problem, and as such caused
++    a kernel upgrade to fail for a user. So it got reverted.
++
++    The point here being that we revert based on user-reported _behavior_, not
++    based on some "it changes the ABI" or "it caused a bug" concept. The problem
++    was really pre-existing, and it just didn't happen to trigger before. [...]
++
++    Take-away from the whole thing: it's not about whether you change the
++    kernel-userspace ABI, or fix a bug, or about whether the old code
++    "should never have worked in the first place". It's about whether
++    something breaks existing users' workflow.
++
++* 出自 `2017-11-05 <https://lore.kernel.org/all/CA+55aFzUvbGjD8nQ-+3oiMBx14c_6zOj2n7KLN3UsJ-qsd4Dcw@mail.gmail.com/>`_::
++
++    And our regression rule has never been "behavior doesn't change".
++    That would mean that we could never make any changes at all.
++
++* 出自 `2020-05-21 <https://lore.kernel.org/all/CAHk-=wiVi7mSrsMP=fLXQrXK_UimybW=ziLOwSzFTtoXUacWVQ@mail.gmail.com/>`_::
++
++    No amount of "you shouldn't have used this" or "that behavior was
++    undefined, it's your own fault your app broke" or "that used to work
++    simply because of a kernel bug" is at all relevant.
++
++* 出自 `2021-05-21 <https://lore.kernel.org/all/CAHk-=wiVi7mSrsMP=fLXQrXK_UimybW=ziLOwSzFTtoXUacWVQ@mail.gmail.com/>`_::
++
++    But no, "that was documented to be broken" (whether it's because the code
++    was in staging or because the man-page said something else) is irrelevant.
++    If staging code is so useful that people end up using it, that means that
++    it's basically regular kernel code with a flag saying "please clean this
++    up".
++
++    [...]
++
++    The other side of the coin is that people who talk about "API stability" are
++    entirely wrong. API's don't matter either. You can make any changes to an
++    API you like - as long as nobody notices.
++
++    Again, the regression rule is not about documentation, not about API's, and
++    not about the phase of the moon.
++
++* 出自 `2012-07-06 <https://lore.kernel.org/all/CA+55aFwnLJ+0sjx92EGREGTWOx84wwKaraSzpTNJwPVV8edw8g@mail.gmail.com/>`_::
++
++    > Now this got me wondering if Debian _unstable_ actually qualifies as a
++    > standard distro userspace.
++
++    Oh, if the kernel breaks some standard user space, that counts. Tons
++    of people run Debian unstable
++
++* 出自 `2011-05-06 <https://lore.kernel.org/all/BANLkTi=KVXjKR82sqsz4gwjr+E0vtqCmvA@mail.gmail.com/>`_::
++
++    It's clearly NOT an internal tracepoint. By definition. It's being
++    used by powertop.
++
++使用者或測試套件／CI 發現的迴歸
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2026-01-22 <https://lore.kernel.org/all/CAHk-=wheQNiW_WtHGO7bKkT7Uib-p+ai2JP9M+z+FYcZ6CAxYA@mail.gmail.com/>`_::
++
++    Users complaining is the only real line in the end.
++
++    [...] a test-suite complaining is then often a *very* good indication that
++    maybe users will hit some problem, and test suite issues should be taken
++    very seriously [...]
++
++    But a test-suite error isn't necessarily where you have to draw the
++    line - it's a big red flag [...]
++
++* 出自 `2024-29-01 <https://lore.kernel.org/all/CAHk-=wg8BrZEzjJ5kUyZzHPZmFqH6ooMN1gRBCofxxCfucgjaw@mail.gmail.com/>`_::
++
++    The "no regressions" rule is not about made-up "if I do this, behavior
++    changes".
++
++    The "no regressions" rule is about *users*.
++
++    If you have an actual user that has been doing insane things, and we
++    change something, and now the insane thing no longer works, at that
++    point it's a regression, and we'll sigh, and go "Users are insane" and
++    have to fix it.
++
++    But if you have some random test that now behaves differently, it's
++    not a regression. It's a *warning* sign, sure: tests are useful.
++
++承認迴歸的發生
++~~~~~~~~~~~~~~
++
++* 出自 `2026-01-22 <https://lore.kernel.org/all/CAHk-=wheQNiW_WtHGO7bKkT7Uib-p+ai2JP9M+z+FYcZ6CAxYA@mail.gmail.com/>`_::
++
++    But starting to argue about users reporting breaking changes is
++    basically the final line for me. I have a couple of people that I have
++    in my spam block-list and refuse to have anything to do with, and they
++    have generally been about exactly that.
++
++    Note how it's not about making mistakes and _causing_ the regression.
++    That's normal. That's development. But then arguing about it is a
++    no-no.
++
++* 出自 `2024-06-23 <https://lore.kernel.org/all/CAHk-=wi_KMO_rJ6OCr8mAWBRg-irziM=T9wxGC+J1VVoQb39gw@mail.gmail.com/>`_::
++
++    We don't introduce regressions and then blame others.
++
++    There's a very clear rule in kernel development: things that break
++    other things ARE NOT FIXES.
++
++    EVER.
++
++    They get reverted, or the thing they broke gets fixed.
++
++* 出自 `2021-06-05 <https://lore.kernel.org/all/CAHk-=wiUVqHN76YUwhkjZzwTdjMMJf_zN4+u7vEJjmEGh3recw@mail.gmail.com/>`_::
++
++    THERE ARE NO VALID ARGUMENTS FOR REGRESSIONS.
++
++    Honestly, security people need to understand that "not working" is not
++    a success case of security. It's a failure case.
++
++    Yes, "not working" may be secure. But security in that case is *pointless*.
++
++* 出自 `2017-10-26(5) <https://lore.kernel.org/lkml/CA+55aFwiiQYJ+YoLKCXjN_beDVfu38mg=Ggg5LFOcqHE8Qi7Zw@mail.gmail.com/>`_::
++
++    [...] when regressions *do* occur, we admit to them and fix them, instead of
++    blaming user space.
++
++    The fact that you have apparently been denying the regression now for
++    three weeks means that I will revert, and I will stop pulling apparmor
++    requests until the people involved understand how kernel development
++    is done.
++
++反覆來回
++~~~~~~~~
++
++* 出自 `2024-05-28 <https://lore.kernel.org/all/CAHk-=wgtb7y-bEh7tPDvDWru7ZKQ8-KMjZ53Tsk37zsPPdwXbA@mail.gmail.com/>`_::
++
++    The "no regressions" rule is that we do not introduce NEW bugs.
++
++    It *literally* came about because we had an endless dance of "fix two
++    bugs, introduce one new one", and that then resulted in a system that
++    you cannot TRUST.
++
++* 出自 `2021-09-20(1) <https://lore.kernel.org/all/CAHk-=wi7DB2SJ-wngVvsJ7Ak2cM556Q8437sOXo4EJt2BWPdEg@mail.gmail.com/>`_::
++
++    And the thing that makes regressions special is that back when I
++    wasn't so strict about these things, we'd end up in endless "seesaw
++    situations" where somebody would fix something, it would break
++    something else, then that something else would break, and it would
++    never actually converge on anything reliable at all.
++
++* 出自 `2015-08-13 <https://lore.kernel.org/all/CA+55aFxk8-BsiKwr_S-c+4G6wihKPQVMLE34H9wOZpeua6W9+Q@mail.gmail.com/>`_::
++
++    The strict policy of no regressions actually originally started mainly wrt
++    suspend/resume issues, where the "fix one machine, break another" kind of
++    back-and-forth caused endless problems, and meant that we didn't actually
++    necessarily make any forward progress, just moving a problem around.
++
++有造成迴歸風險的變更
++~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2023-06-02 <https://lore.kernel.org/all/CAHk-=wgyAGUMHmQM-5Eb556z5xiHZB7cF05qjrtUH4F7P-1rSA@mail.gmail.com/>`_::
++
++    So what I think you should do is to fix the bug right, with a clean
++    patch, and no crazy hacks. That is something we can then apply and
++    test. All the while knowing full well that "uhhuh, this is a visible
++    change, we may have to revert it".
++
++    If then some *real* load ends up showing a regression, we may just be
++    screwed. Our current behavior may be buggy, but we have the rule that
++    once user space depends on kernel bugs, they become features pretty
++    much by definition, however much we might dislike it.
++
++以核心內的權宜做法避免迴歸
++~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2017-10-26(6) <https://lore.kernel.org/lkml/CA+55aFxW7NMAMvYhkvz1UPbUTUJewRt6Yb51QAx5RtrWOwjebg@mail.gmail.com/>`_::
++
++    Behavioral changes happen, and maybe we don't even support some
++    feature any more. There's a number of fields in /proc/<pid>/stat that
++    are printed out as zeroes, simply because they don't even *exist* in
++    the kernel any more, or because showing them was a mistake (typically
++    an information leak). But the numbers got replaced by zeroes, so that
++    the code that used to parse the fields still works. The user might not
++    see everything they used to see, and so behavior is clearly different,
++    but things still _work_, even if they might no longer show sensitive
++    (or no longer relevant) information.
++
++缺陷修正造成的迴歸
++~~~~~~~~~~~~~~~~~~
++
++* 出自 `2018-08-03 <https://lore.kernel.org/all/CA+55aFwWZX=CXmWDTkDGb36kf12XmTehmQjbiMPCqCRG2hi9kw@mail.gmail.com/>`_::
++
++    > Kernel had a bug which has been fixed
++
++    That is *ENTIRELY* immaterial.
++
++    Guys, whether something was buggy or not DOES NOT MATTER.
++
++    [...]
++
++    It's basically saying "I took something that worked, and I broke it,
++    but now it's better". Do you not see how f*cking insane that statement
++    is?
++
++內部 API 的變更
++~~~~~~~~~~~~~~~
++
++* 出自 `2017-10-26(7) <https://lore.kernel.org/lkml/CA+55aFxW7NMAMvYhkvz1UPbUTUJewRt6Yb51QAx5RtrWOwjebg@mail.gmail.com/>`_::
++
++    We do API breakage _inside_ the kernel all the time. We will fix
++    internal problems by saying "you now need to do XYZ", but then it's
++    about internal kernel API's, and the people who do that then also
++    obviously have to fix up all the in-kernel users of that API. Nobody
++    can say "I now broke the API you used, and now _you_ need to fix it
++    up". Whoever broke something gets to fix it too.
++
++很久之後才發現的迴歸
++~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2024-03-28 <https://lore.kernel.org/all/CAHk-=wgFuoHpMk_Z_R3qMXVDgq0N1592+bABkyGjwwSL4zBtHA@mail.gmail.com/>`_::
++
++    I'm definitely not reverting a patch from almost a decade ago as a
++    regression.
++
++    If it took that long to find, it can't be that critical of a regression.
++
++    So yes, let's treat it as a regular bug.
++
++在 linux-next 中測試迴歸修正
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 在 `2024 年維護者高峰會 <https://lwn.net/Articles/990599/>`_ 上::
++
++   So running fixes though linux-next is just a waste of time.
++
++與迴歸相關的其他幾個面向
++~~~~~~~~~~~~~~~~~~~~~~~~
++
++* 出自 `2025-07-29(2) <https://lore.kernel.org/all/CAHk-=wjj9DvOZtmTkoLtyfHmy5mNKy6q_96d9=4FUEDXre=cww@mail.gmail.com/>`_
++  [這件事 `雖然不完全算是迴歸，但造成了極大的不便 <https://lore.kernel.org/all/CAHk-=wgO0Rx2LcYT4f75Xs46orbJ4JxO2jbAFQnVKDYAjV5HeQ@mail.gmail.com/>`_]::
++
++    I no longer have sound.
++
++    I also suspect that it's purely because "make oldconfig" doesn't work,
++    and probably turned off my old Intel HDA settings. Or something.
++
++    Renaming config parameters is *bad*. I've harped on the Kconfig phase
++    of the kernel build probably being our nastiest point, and a real pain
++    point to people getting involved with development simply because
++    building your own kernel can be so daunting with hundreds of fairly
++    esoteric questions.
++
++..
++   end-of-content
++..
++   如本文件開頭所述，本文以 GPL-2.0+ 或 CC-BY-4.0 授權提供。如果你想只以
++   CC-BY-4.0 授權散布本文，請以「The Linux kernel developers」作為作者署名，
++   並連結以下網址作為來源：
++   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain/Documentation/process/handling-regressions.rst
++..
++   注意：只有在 Linux 核心原始碼中找到的本 RST 檔案內容才以 CC-BY-4.0 授權
++   提供，因為經過處理的文字版本（例如經由核心的建置系統處理）可能包含取自
++   授權較嚴格之檔案的內容。
+diff --git a/Documentation/translations/zh_TW/process/index.rst b/Documentation/translations/zh_TW/process/index.rst
+index 90c33d020d34..e73d78362315 100644
+--- a/Documentation/translations/zh_TW/process/index.rst
++++ b/Documentation/translations/zh_TW/process/index.rst
+@@ -89,13 +89,13 @@ TODOList:
+    :maxdepth: 1
+ 
+    debugging/index
++   handling-regressions
+    security-bugs
+    cve
+    embargoed-hardware-issues
+ 
+ TODOList:
+ 
+-* handling-regressions
+ * threat-model
+ 
+ 維護者資訊
 -- 
 2.43.0
 
