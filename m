@@ -1,67 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963381;
-	b=DuDqBjzKzOCc7Dsci515R0GKTM/mBlYfjtEs/nLxBtyxVHVBM74gYv1FuWrHJCHG7vMZ
-	 ALQNdDnwmsnu5otxny8oTAFC6vycYUzy7k2jHygiAz6kvtdJ7QiJbDufAnFsjp3m6e0PP
-	 sDHPRS7zKJeV6cyRnYDcC8Uhxitp9fRWqHaFs1y7JYznuPupXDU2IehzabIR4NO9FJF7n
-	 nI1Qi7Zg6V7/f4PRVQi5Thf24tiEiDaw9wTOY3LebrnIdi/ViUcdJ4MQhbhh6kI7Wohgf
-	 e2Q8+sI3+I0EX3re1l5sNxzw2lU+Vqek4snQYjMk3hUr0yzWpQsXvxqKC+Ark6PT7Gw==
+	t=1793963382;
+	b=GDsipnKFLeABtvvvkq9rV4f3J9zQTZpnJNVx/Vjc6iJ7H7jzd4mGO9uPDBDl/ioAgJov
+	 MGfLjuwEXyI/V52Ghum/DkAprI/+R5WovhYEEPTTWbYPGEL5vEf4jB3TtiTnvSggSPnc9
+	 LHRtD1ctb9JKYx6AFIhKHfy75kaBvVWbzfbz1hQ+aWk25zzqnbh71u6UWMyvGk2LIftcw
+	 mQKDkUBvzE0npxSXecLiXYaxI/0wZG69+cPg1JS7JqZ8P+DTFXLwExi/+L3FhiWs0vnao
+	 dMF1P4yyNH/qLwQ+GlaxGKF0KqKEOQyhu/1MWMV517YUZPEAuilTW32azYcBvALX9jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963381;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=BbgI/fg5Vv6TpV5LNbbTNKOCgVgDnfLxy/DdQCF/Nt0=;
-	b=I/QRl9xJH1uRbngtg8qyfOxKy0j3OZeFyT/+paNO8EFOFz/jD8kSgN1rd5zTrahczhAp
-	 RB1cv5fthjYPDqPv6377+zn/lJXdkJD3JEW3RaCx/KKo/4vnk0JkVli9U2Q0evW3JAH7L
-	 XWtfmmr1bNG8kAN8gmIMeswvafJe+VZOT8sdd9zsenliGIpfakSR8mEUnLSQto2HoRhyk
-	 RLZaV/3wOcyYxiBjzxeVb0arNyTHEcuE1wE4u2uh/bd3IcJf9JZwlypgzrgVw1UUhorgW
-	 zVCbj9Bhty7Pp2Z4EtEwTKbLjVIo74DgAfYSYFCncoAZDF8YsBddSQOhMYVu/iNjy9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963382;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kRZnFYcOPcT7Wj77cIQssMiZxFc0z0H1rY/MUaYgSUg=;
+	b=5T1Dfx+tggwD+R/IShU3+/ZGUVFqRWvPF6ZzWjZwhUL+oOza/YpHa5Ujn3vlanzmw8En
+	 PI/6Vz9AmjTx10oC/cWQMVjgd9oxFg4BJSNFKe8Y8pARdC499iqTM4QRAgGTTeUknheQN
+	 zVuWQs2uHu1nkU1G1YblOQXzb5j1hOcAuJGpnhoXSgAfdt0M9JjIvGOVwZjkQ4LqhcV8O
+	 nbD671ilNLk2PA3JuDL380pXHFa1dQJNIkVE1NwJQPfonOqtd/YYXiJZrrtjVK8ciZbG2
+	 CVzYWA0ECnnHixE7U1DQN2/20aGEdwcLvmL4YipxsQhNGeR/MOAoYD7tL7fRg9vPzUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQlq67op;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DIl88d6n;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58641606A330;
-	Fri,  6 Nov 2026 11:09:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5E4606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:09:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C5E4606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQlq67op
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64BF21F008A1;
-	Fri,  6 Nov 2026 11:09:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793963381;
-	bh=BbgI/fg5Vv6TpV5LNbbTNKOCgVgDnfLxy/DdQCF/Nt0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=WQlq67opXPqkif8MNGGSCwjy7SciDVJagjdlSWNRZuM4ylEbyBBDwxBGGk5POOxKy
-	 7Dokl1dRtARuYheK7fwSEMyZQCiA+98Pe2iefyJzGPg9zppFx9InTAJM1oGD4eZIr0
-	 UHdLUOkGChewbSEkTTQgJMjYuJPItVOh0Fdgsz8qNU2cUq6W4NpmvkdLzVCle80dMS
-	 IouHDFBpdM8agJaqF0pN8ZLfwbq7mz6d+DYTqiJDmDeZLpGAgu5G6a5DIf+wzFLiGY
-	 DBlGNho33XG9rwxxHiNrqwJV2K3bi2ocljTdzs4ZrNl5yFQnN3RLdHYha3goru9yVH
-	 6oVk7S6LbgJ0w==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 985D627E8440;
-	Fri, 06 Nov 2026 11:09:29 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Paul Cercueil <paul.cercueil@bootlin.com>
-Cc: Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
- "Guilherme G . Piccoli" <gpiccoli@igalia.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-spi@vger.kernel.org, Bharat Bhushan <bbhushan2@marvell.com>, 
- Sunil Kovvuri Goutham <sgoutham@marvell.com>, 
- Tanmay Jagdale <tanmay@marvell.com>
-In-Reply-To: <20261016102917.171095-1-paul.cercueil@bootlin.com>
-References: <20261016102917.171095-1-paul.cercueil@bootlin.com>
-Subject: Re: (subset) [PATCH v4 0/7] spi: Add support for panic mem writes
-Message-Id: <179389951044.3073895.8929573229341803829.b4-ty@b4>
-Date: Thu, 05 Nov 2026 17:25:10 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DIl88d6n
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so530407f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:09:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793963379; x=1794568179; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kRZnFYcOPcT7Wj77cIQssMiZxFc0z0H1rY/MUaYgSUg=;
+        b=DIl88d6nhmwOGknDnpQMw7CDUEcprSXVTAPuRqwC+aviu4k/vGuQALYjTSBcSCtDib
+         A+O063FGBBxZSI4K4lMMq6PFNcG99PZP35ePyg+HwenKZPHBHiBPHcxuF+zuRfte1zOr
+         WQ8Jgn2U0SWilYh+xF7PZ5bmOeBVb3P95PLFuVhKhy6OWmPK+yWFicrpRnEPLTyHUmZr
+         7WU8uSJQ26KmrcpwBThcG1AeCk8uzvMrk0X1on+8fSFXeoX0eVFHpDprK5+Dva6bqySi
+         0D9Dx13jA+Az5kGNfDHPQDwUSdxxmmQAECT+DVJGdOM8paiXQ6+gbYLKud+bdvkyUMVq
+         39FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793963379; x=1794568179;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kRZnFYcOPcT7Wj77cIQssMiZxFc0z0H1rY/MUaYgSUg=;
+        b=EWiHTHjbmU4oYyr8KFmtuW/uhB7Rwd5sif8oNDVCpwROyO2EPUqmXgQOJf3PcWl8ua
+         hcC7Otj4/wr+QEV+C4uS4jKhjdyPRLHGKJ9+rFTv+Ey9t/Mk9Gsuwnw7JioyhI3AWQEq
+         u34d6R3oVJve5VeWAV5mibo7uKRf8mWSTJWfNJbU5Ao5nsRBctIb0ePuAmOQi5RibgLm
+         JPzaXvtEaQahccCnFLCSZo8otIG2itImRJc4W25SC989+oOo+1J65dm2Hc40PfYC2Ftp
+         6m3YpI0JcQ7h+sOPydc+9Hh9JludG6/YeXYVjwzHfbxDjLKYRd8ipP+TwcStgvuYuKjQ
+         wWKA==
+X-Forwarded-Encrypted: i=1; AL+hErGqE3oOh5AM82QRYVCdl1HhsMJo+HOchhrCuFqscbw3lj0QII25VqtLbhitDA6UcmJeUIMq+OAsDMThZwE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6BlqEQLfxsUbu+t7gtf/GtnO42Wl2J0W+Nk96yQ6sX1dw/5lQ
+	0HA0s6BiZZhGlf5yHGc8YO3pmsgW2s0CJmooW/Sn+4HRLkGPG/iM9Kf4
+X-Gm-Gg: AYBFou2AC49qjcx4RDSzgw3N5HQDwVw/a2CDDhsr7tvmUp/BvJgF334i7oDNrHDi6Pj
+	VbbEMuo8Db+WUgwE/Pvx6Eq7aw/0ealhIZEXOOlriNPQwS7RmqyluHaWlMbCf30e+fdmmc4FqJc
+	jIg/Z+TGKSQhu9g6+T69EcFILogpSSx7p70Ck1nqBaO2cyW7wckafcQMa11vCozH6dKEeVlKpF8
+	x636h7vd01Eg+ABHR3gevBGey10D7agFk5ZzLlc1HKOjA5+Q3RAXwC8ImEZyVDkU83rFydcYoVX
+	HqZU4hjEuQ5WF53Vi7rBQ8TcVwfP+hrdKhIqpZAkTxSAHQEZNPLEMGbuoiJslRUtCr7jigR3CAU
+	+0WD1/Jk9wxcbGfu4z0EyzzaN9UGdmSK7GgdC2VtQng8VtasOo+/wmMSkXfbRQia7rMo0QBQtro
+	OOjSIQd6AH0IaqlC0oEMmurdo19GryIZwXsGgG4nioLzJ3FgQ7ZdkLvIyUO7gOKcZ6KSUviRoP0
+	0U2kOlf30xn/u4qBTKp0Q6WkxOi6OrKJxRtoyQ3fBTtWZlre/5tXm5P49ARAWkXTksxybyTZq8t
+	p+Fnr5GGboCNrMHX/G61PRRzz3KE3RH6kk8tpi6xwjXo3P4QXNvlgVkPhUS05g50c5BKfiKX8kk
+	M8S8xgFvNnczwsN6ppigRkeYfUTvbQtrPgL4w9f42pz2r7kwIv2R9pN2WNBCMBVRg7yks6m4TXw
+	==
+X-Received: by 2002:a05:6000:4283:b0:48e:3b53:e100 with SMTP id ffacd0b85a97d-492781748d7mr4732531f8f.56.1793963379122;
+        Fri, 06 Nov 2026 03:09:39 -0800 (PST)
+Received: from iku.lan ([2a00:23c8:254f:fd01:1de5:ca41:50c1:3f2d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d087a3c5sm2768243f8f.0.2026.11.06.03.09.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 03:09:38 -0800 (PST)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 0/2] Add ADC clocks and reset for R9A09G05[6/7] SoCs
+Date: Fri,  6 Nov 2026 11:09:21 +0000
+Message-ID: <20261106110923.164090-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,54 +105,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1312; i=broonie@kernel.org;
- h=from:subject:message-id; bh=z5DoyuXWSXWF8C2OUkElOyX4o16/3/SLC3dohqCg9mA=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLebs0s2xu6SUPRbnGxcpn6s9fnv9bzWjtz9SyOeum4z
- CRqxq4jHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZiIGifD/yzWTRUmRe5CPJt2
- a8T9kItRmHjXrmzuoeL1iq1HL24yz2VkOG9osDjdZ93Z+n5j6R1Fmo+6WznX6lXNWXPo6cYZSQ8
- 9mQE=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 12:29:10 +0200, Paul Cercueil wrote:
-> spi: Add support for panic mem writes
-> 
-> Hi,
-> 
-> Here is the v4 of my patchset that updates the MTD spi-nor code as well
-> as the spi-mem code, to add support for panic mem writes to a memory
-> partition configured as pstore.
-> 
-> [...]
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Applied to
+Hi all,
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+This patch series adds the necessary ADC clocks and reset controls
+for the RZ/V2H(P) and RZ/V2N SoCs.
 
-Thanks!
+v1->v2:
+- Renamed adc_pclk_gear to pllcm33_adc_pclk_gear in patch #1
+- Renamed adc_pclk_gear_div2 to pllcm33_adc_pclk_gear_div2 in patch #1
+- Renamed adc_adclk_gear to pllcm33_adc_adclk_gear in patch #1
+- Renamed ADC_ADRST_N to ADC_0_ADRST_N in patch #1
+- Renamed adc_0_pclk to adc_pclk in patch #2
+- Renamed adc_0_adclk to adc_adclk in patch #2
 
-[1/7] spi: spi-mem: Add support for panic mem writes
-      https://git.kernel.org/broonie/sound/c/20f1752b9241
+v0: https://lore.kernel.org/all/20260929113921.119489-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Cheers,
+Prabhakar
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Lad Prabhakar (2):
+  clk: renesas: r9a09g057: Add ADC clocks and reset
+  clk: renesas: r9a09g056: Add ADC clocks and reset
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+ drivers/clk/renesas/r9a09g056-cpg.c | 22 ++++++++++++++++++++++
+ drivers/clk/renesas/r9a09g057-cpg.c | 22 ++++++++++++++++++++++
+ drivers/clk/renesas/rzv2h-cpg.h     |  2 ++
+ 3 files changed, 46 insertions(+)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.56.0
 
