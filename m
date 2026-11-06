@@ -1,68 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793946312;
-	b=4ZFqqXwrg5V4DoiZxOF37AzjV4wf391rLB9wcSTmOiDuMRbm5dAyM+Vg6qgaIETb4WQW
-	 uqAcE+W84L3CIwtCTa4ckRuOm8K4fgSYMlTIjY+EC64X+pX3SmR3lJU1dj2DKNGdI4ICH
-	 xVEHseII65fZGTC7znwd0HBbmr9/TdMBaLfKcF0uRv+E1mA4uFBmjhLe79RldB4Jqw10H
-	 dhjbpDL69HFECRzDgfKTDSsh3Kd2Upwu+l0pLOwoLqEf3Ixk3tSYbDcoOQX0WOkzmZw+P
-	 jzTKlgjM1VH5HYJiyc/ykSE8eGFn54ELOAT84cCnAve4Yfh10163U08LKpjkvmuGXJg==
+	t=1793946332;
+	b=aoYYuQpLEv2IbGJKbwFeyJJ17w0ZAkqx2Wr7nL0OreWWesQ1KfzPSRYtvdqNwBYPUI7L
+	 oye80XJ8M++ZiHcz0mYczPtgGcE5bvFbrCMdlGMiUPtxvbrVypiDeJV+KcyoP2Ep3e7yp
+	 PjKX/UFoI+4VJY/+lOqfJ1iftSW217wm7Nj4VRO4bHN/5DMW5HFrYGpJTellnuyCZ+fD0
+	 NMn5DHymNYW4XzXRQExQq01elKy6woZA7HdzOnfMvvhL7LbU45jZ+zkaeoHKgIIZH8Am0
+	 sUHpFLYfYazY5303xW+Z8dba+XM0508q1OJJWwZBC5jH5x8ZRNTNPWXNt2aqoEc1nnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793946312;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=4D5Aw1kmCq4DsiYS+lucaHDE9Hk1hB54tE80B9HVb3c=;
-	b=r255fUOdFJlXl6cOLrrmtSc75S7WgENzKncA521QhpR6VCOZSiEocf3Jp0d5Z5zpPFjh
-	 5EKJqLoU8AJauenxaXoYjS9VfygG7lxVeZN1mZH0/2HvKSkcVgmQ22XmvaShCNOsXqx9v
-	 KWkyh8WCCElumj8Lm2Q7oBD3FMgCBCHN3nPmfCWCRQB3huvfmyyRySsabFiW3FH/2k1JP
-	 UhtBUtWb7YO045r7nnvyg51yPEZyTgVDAORcuARofENSWg8jTvpPyRtwYZCce5OhTZvHo
-	 KAESV6sKiLsvuxF/39PeiBSH0s/9JkWyWUoUxL9CVTc1w6HJQ0sYP0DG9RxnTaV1RXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793946332;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=9nbHrpdZ+FKysVhhp4Y+Wfae1ZVEWqntwWaQsXRxDi0=;
+	b=GScocB9j4a1nIelhDFk1vNBIit4822e5N0V6yfWejnD86PvQMbSELrUI8GsbT0W6655M
+	 cba47drHXVAA8x1NbEc0GiwHGuQrVczJ/Y23K8vqRbTuFo4O9GjbnMkydlbB85iCGFiiv
+	 SqVaSD+IhtoX3gzpml6Xe6p2rvpRo4RB+vIrs0nUordL7iqfa3CzzIfmBEfZu9u/hRIVa
+	 OxzsRzcbcIJgEqiUuwH8qBh9Rnhr+i+8oBVtQUBEAC94by4vIsAdEBZ0FqX/6OCTJT6pg
+	 eBKT7csqOKfUVyU415BeZfP5r+6Y9qYf6w7jrj+ZECxyUvJvHEpXYej9JWNpr/Dbkfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=n2GjRFhM;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=UPH8NmHx;
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC10606A326;
-	Fri,  6 Nov 2026 06:25:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CC10606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F63606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:25:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89F63606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=n2GjRFhM
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=4D5Aw1kmCq4DsiYS+lucaHDE9Hk1hB54tE80B9HVb3c=;
-	b=n2GjRFhMc3wafmSu0U5/Vh/pP/CTWJY5KQGQzAJoCaPmgHNoYobyrykNuXv3IfCpBNR349n5D
-	dHjjVD1bcXbz/NWYOSjsG02TYia5VQFMujxyP9bCTVYI96kqfKVLMSlesCdP62ogF/w/M0RGXIW
-	vvlTZHrUzYGEDVnK1WmNFL4=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jLTgB4lPHz1prmZ;
-	Fri,  6 Nov 2026 14:24:54 +0800 (CST)
-Received: from kwepemr200011.china.huawei.com (unknown [7.202.195.32])
-	by mail.maildlp.com (Postfix) with ESMTPS id 606B940561;
-	Fri,  6 Nov 2026 14:25:00 +0800 (CST)
-Received: from localhost.localdomain (10.50.159.234) by
- kwepemr200011.china.huawei.com (7.202.195.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 6 Nov 2026 14:24:59 +0800
-From: zhangqiuhao <zhangqiuhao@huawei.com>
-To: <ldm@flatcap.org>, <axboe@kernel.dk>
-CC: <hewenliang4@huawei.com>, <yangyun50@huawei.com>,
-	<chenrenhui1@huawei.com>, <wuguanghao3@h-partners.com>, <wozizhi@huawei.com>,
-	<linux-ntfs-dev@lists.sourceforge.net>, <linux-block@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] block: partitions: ldm: avoid overflow in VMDB size check
-Date: Fri, 6 Nov 2026 14:16:15 +0800
-Message-ID: <20261106061615.1688398-1-zhangqiuhao@huawei.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <179360149774.20265.17257530536010482220@huawei.com>
-References: <179360149774.20265.17257530536010482220@huawei.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=UPH8NmHx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793946319; bh=9nbHrpdZ+FKysVhhp4Y+Wfae1ZVEWqntwWaQsXRxDi0=;
+	h=From:To:Cc:Subject:Date;
+	b=UPH8NmHxDd+JGIHrooY+1eyw51nRdUZNFJl5oMGo7no9fniTFyGqoC+FUgSLoh64u
+	 4MAZh4QRFsqIlGJGQmQ25uXZd3UgxENUafs5nV/tBMVgY81A+2pVXGwBntMJjqYTIa
+	 X/d+vIfl0FxSP2SgBs5hBvCnOb6CjUwzbvPevlys=
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:7ec2:9796:1e6d:4c54])
+	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+	id 6511921F; Fri, 06 Nov 2026 14:25:17 +0800
+X-QQ-mid: xmsmtpt1793946317topchmmih
+Message-ID: <tencent_1B8D08FB52E404EC3FE4933548D6CACB7305@qq.com>
+X-QQ-XMAILINFO: OJNvdD+rp7v+p0jSwX4jP4ypq+9pDOsbzA0E3p+o7ZdCyeEBKIMNOwlHDMM+CB
+	 sai2xsZHlqr2kgETm5LwPNnrSds/srsKZB81TTn23zV9kIJ36lAZNO2rVjtdthreRxJ4H2BL/sd1
+	 Bd6brMg1ata8nItHJtkjgWYKpqkcPsqIrizK6MyqX3/AgcwJ0UETI7nSgmBh3lkpwrg/ApwFdD3i
+	 cT57vp+CzpGLQSWOIPwAZMZU7umKhl4VD3ixgMbmaRqaDcOVKQFppoTUw6wMQePh2ndEWTU1fYXw
+	 moZoSUeZYpepAOlbKo8FANphkWJquc4pidPy8znbwguykrLoeR/E1J8385ekR/BnX8Pfd1ZA4ZJy
+	 /Ss6rT6WI9IHayfdBDVOfLgdY/OmqMiP9MSoaAj+KgDUwcLHWsOvgw4X2UHAP0AuLNpLeBxx5dpe
+	 kQ8qzDGo1X7T176b1usztx+5k9XDS/uq5c9LcNFaf+8OIYjyFIgE+ETt2gwMi4H8R01MjYq8arrp
+	 jWFdKSr43kBTcy5QQpcfdfJ7+RHco4VCFIIMDqJfObiiQazXZHWfBH8XibKi5C/yEhktFZPxDizI
+	 nvGXyy5zquC49jTLCj0k+Hv1pCZCYMAD8ASu8CmpE+1uYdHx14DM4lCHTnawa1X08nSGUzcWt7u5
+	 7vOrE4VJELv4K6i8Nbd0YpieXSD7h9RaJmx3P94HIioht2EF9KWmxTBf9Lio7P+j3JhrTG9FV5R8
+	 TFnBOyTUhK+VLMxuboM0zk8ggl+xwvAUWwjJUNGkzsZDF6H+p7Zho9WfVuUwVRDam82EYBPvls1k
+	 74ZNeeskV+z7djG9uoSPQVMrpEadHqSjGXevFnWqkEdrcm52q/mEokoVvLwKFFCvyoJ/yf+25rrI
+	 Dtpkb/hsaA7z3rB4JSzS132duLwSldrRwn4MTBajlTQKk70/WDp61cpZ0OULKlPiMMe0mEdr0uls
+	 vyTY7OAYBhT4ph8wa1hxsbC5zwOK9otVftQbzgVOmEVAguAhbpAjuYpIOhmePKLAIwyxNLr4eiMh
+	 VoQzgt0LlQWUx7pABQWJ6LI3Os51tuSneWDZ4FeHvujyewrB5KacI1p9j28mI=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Yingjie Wang <1075151112@qq.com>
+To: linux-nvme@lists.infradead.org
+Cc: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Marc Olson <marcolso@amazon.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] nvme: avoid wrapping admin_timeout and io_timeout
+Date: Fri,  6 Nov 2026 14:25:16 +0800
+X-OQ-MSGID: <a09cbe79b8adb7d5317f2630d4ac604a3708a97c.1793946310.git.1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,65 +80,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemr200011.china.huawei.com (7.202.195.32)
+Content-Transfer-Encoding: 7bit
 
-Hi, maintainers
+NVME_ADMIN_TIMEOUT and NVME_IO_TIMEOUT multiply the admin_timeout and
+io_timeout module parameters by HZ in unsigned int arithmetic, and
+nvme_fw_act_work() does the same through secs_to_jiffies(). The parameters
+accept any unsigned int, so values above UINT_MAX / HZ wrap. With HZ=1000,
+io_timeout=4294968 becomes 704 jiffies, and a controller created afterwards
+times out I/O after 0.7 seconds instead of about 49.7 days. On 32-bit
+systems, results above MAX_JIFFY_OFFSET are also unsafe relative delays and
+can be treated as already expired.
 
-Kindly ping.
+These large values are used in practice. AWS documents
+nvme_core.io_timeout=4294967295 for EBS volumes and says Amazon Linux uses
+it by default. With HZ=1000, the current code happens to wrap this setting
+to 4294966296 jiffies, which still behaves as a long timeout on 64-bit
+systems.
 
-On Mon, 2 Nov 2026 14:38:17 +0800, zhangqiuhao wrote:
-> ldm_validate_vmdb() can accept a VMDB whose declared VBLK extent
-> exceeds the TOCBLOCK configuration bitmap.
->
-> For example, these fields on a 4 MiB image pass the preceding PRIVHEAD
-> and TOCBLOCK bounds checks:
->
->     disk capacity = 8192 sectors
->     config_start  = 6144 sectors
->     config_size   = 2048 sectors
->     bitmap1_start =   17 sectors
->     bitmap1_size  = 1024 sectors (524288 bytes)
->     vblk_size     =  128 bytes
->     last_vblk_seq = 0x02000008 (33554440)
->
-> The configuration area fits on the disk, and the bitmap ends at sector
-> 1041 within the 2048-sector area. The VBLK extent is 128 * 33554440 =
-> 4294968320 bytes (4 GiB + 1024 bytes), so the VMDB should be rejected.
-> Both multiplicands are u32, however, so the product wraps to 1024 before
->
-> it is promoted to u64 for the comparison. The check evaluates
-> 1024 > 524288 as false and incorrectly accepts the VMDB.
->
-> Cast vblk_size to u64 before multiplying. The check then evaluates
->
-> 4294968320 > 524288 as true and rejects the out-of-range extent.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: zhangqiuhao <zhangqiuhao@huawei.com>
-> ---
->
-> Based on Jens Axboe's for-next at
-> 70866cfa169d5ee149364267289e71d50f9a7ae9.
->
->  block/partitions/ldm.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/block/partitions/ldm.c b/block/partitions/ldm.c
-> index c0bdcae58..d5c133a33 100644
-> --- a/block/partitions/ldm.c
-> +++ b/block/partitions/ldm.c
-> @@ -458,7 +458,8 @@ static bool ldm_validate_vmdb(struct parsed_partitions *state,
->  	 * The last_vblkd_seq can be before the end of the vmdb, just make sure
->  	 * it is not out of bounds.
->  	 */
-> -	if ((vm->vblk_size * vm->last_vblk_seq) > (toc->bitmap1_size << 9)) {
-> +	if (((u64)vm->vblk_size * vm->last_vblk_seq) >
-> +	    (toc->bitmap1_size << 9)) {
->  		ldm_crit ("VMDB exceeds allowed size specified by TOCBLOCK.  "
->  				"Database is corrupt.  Aborting.");
->  		goto out;
-> --
-> 2.33.0
+Add nvme_timeout_to_jiffies(), which caps the seconds value so that the
+result fits the u32 timeout fields and stays within MAX_JIFFY_OFFSET for
+32-bit timers, and use it for both macros and for the firmware
+activation wait. On 64-bit kernels every timeout that did not wrap is
+unchanged. Larger values saturate instead of being rejected so that the
+documented setting keeps a long timeout.
+
+Fixes: 8ae4e4477d8f ("nvme: update timeout module parameter type")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+---
+
+Notes:
+    Unlike the recent tls_handshake_timeout fix, which rejects out-of-range
+    values, this saturates so the documented io_timeout=4294967295 setting
+    remains accepted as a long timeout.
+    
+    AWS documentation referenced above:
+    https://docs.aws.amazon.com/ebs/latest/userguide/timeout-nvme-ebs-volumes.html
+    
+    Tested on nvme-7.4 f33c8bc78540, x86-64 (HZ=1000) in QEMU. With a
+    3-second dm-delay read, io_timeout=4294968 timed out after 704 ms and
+    failed with EIO on the base kernel; with this patch the read completed
+    after 3 seconds with no timeout. The 4294967 boundary and a 1-second
+    control behaved the same on both kernels. admin_timeout and io_timeout
+    readback also matched the expected boundaries over nvme-loop.
+    
+    The affected objects built with W=1 for x86-64 allmodconfig and i386
+    HZ=1000; the i386 objects had no 64-bit division helper dependency.
+
+ drivers/nvme/host/core.c |  2 +-
+ drivers/nvme/host/nvme.h | 13 +++++++++++--
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 03671bba1754..af8ccbc11c53 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -4891,7 +4891,7 @@ static void nvme_fw_act_work(struct work_struct *work)
+ 	if (ctrl->mtfa)
+ 		fw_act_timeout = jiffies + msecs_to_jiffies(ctrl->mtfa * 100);
+ 	else
+-		fw_act_timeout = jiffies + secs_to_jiffies(admin_timeout);
++		fw_act_timeout = jiffies + NVME_ADMIN_TIMEOUT;
+ 
+ 	nvme_quiesce_io_queues(ctrl);
+ 	while (nvme_ctrl_pp_status(ctrl)) {
+diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+index 82cdc7d32b22..8305fd82038b 100644
+--- a/drivers/nvme/host/nvme.h
++++ b/drivers/nvme/host/nvme.h
+@@ -22,11 +22,20 @@
+ 
+ extern const struct pr_ops nvme_pr_ops;
+ 
++/* Seconds to jiffies, capped for the u32 timeouts and timer delays */
++static inline unsigned int nvme_timeout_to_jiffies(unsigned int timeout)
++{
++	unsigned long max_secs;
++
++	max_secs = min_t(unsigned long, UINT_MAX, MAX_JIFFY_OFFSET) / HZ;
++	return min_t(unsigned long, timeout, max_secs) * HZ;
++}
++
+ extern unsigned int nvme_io_timeout;
+-#define NVME_IO_TIMEOUT	(nvme_io_timeout * HZ)
++#define NVME_IO_TIMEOUT	nvme_timeout_to_jiffies(nvme_io_timeout)
+ 
+ extern unsigned int admin_timeout;
+-#define NVME_ADMIN_TIMEOUT	(admin_timeout * HZ)
++#define NVME_ADMIN_TIMEOUT	nvme_timeout_to_jiffies(admin_timeout)
+ 
+ #define NVME_DEFAULT_KATO	5
+ 
+
+base-commit: f33c8bc785401669b29229bcf3d0086ba9f5b87c
+-- 
+2.43.0
+
