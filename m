@@ -1,67 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793998088;
-	b=Qy6EktVQyg8+6JhKNs7M+hh39FqiQX4RLLrha6B3hvPrMjfVNPj+r61fydy7nPZePAFy
-	 edHwMxEpDEHfQ61RIQLq0/Ij5SRGUVqKzZBq4+Z92un53hu517lQFWHBLmTs3bhWkdzad
-	 oat5ehMvMVywGjZROsl49T7SZmHIsdhbgIvfDpfyilHlhWHqF+FFnO6bYU+fRqLJYtkDI
-	 bg0gUqj3xUemivOMh/tdQkavTT7zV9NbTkZP6npsTaIDDVH4U3mF0nn0MbL+hVrvxJUME
-	 kldtLp4Md0pD0fSFKpIVHeKzO3YF9tLOJmB+w9Za15V3KVK+2pnB90fPxkkB7craz+w==
+	t=1793998265;
+	b=NQFTo2cUJFKoSvn2br40J7whfnA7rJEh7TMbas8k/oef2gRxt7tjL1PkloKHyx9FrKZi
+	 DTGWLKaRiFCcxV92vgkO3OPH/IIaJE7ivye2+6cxUfjssDsEm4CLq6oiSW+fV9hmo6r/i
+	 m8CYa1C73FbOA9FRwrpSMdyL6YIOGYtWfVJhxkfQZPPgv0v4xiWxa+/8/k6RZlrIHm71S
+	 aZJLBZWtdC2wrSEYB2M6AB0Khrx5ow82bmkpeQnHpdQSXTvWLTE/gS2t6ymeDv9sZ4fs1
+	 Qbg/WBc8YH5W9UP2CMqfRvOHaB7TyhwUFRg29hl7gkD5fmYn/kwdkjXnx9E2e08VXbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793998088;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HZho2msgoJMdouDBhI/tZS+qfCR+U++y56XOVqrTM1M=;
-	b=uOvAZh9S8c/5ZCWh7sXRWz83HylT0FkGYiORoyPIFXZO3ZjEcgIpouRFOfpzBmfgKd+9
-	 whIaJnbZ0cNbWojYJlRGe5mwcJ2KW8wx9A/HuZqrqjeKpJUIJs6/5vqcEA51Qkrvw2EdB
-	 7a5Y2+RVy6WGjKH1L0LggH9T1M/XEAt4YNb4C4l7AsK5dSgP/SogLKIDyaGcXhus6/13f
-	 4GiFS4kHYNYk6Tajqxcvb5/vo8dRiCectjfDK0AoJbz0yH3JZf/TpXodX3xIUopuDjy0w
-	 fsUW/mn8CiRrt5Wc6ZqVwvaPEmKC24OKzEQO9A7e2gtIjQNeXnRxeseueMDi3z9Uy7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793998265;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cLzvJMVvplTAItMLAARGpBIr6UmHk5O/wuxWTnhHIsk=;
+	b=BPbGdtTo9tpBAVRiuU5E4pbokz1wka6Pwsa1kecmEycRZHY5hiH2Ct59uWU5S2jvb5z4
+	 LKuNcLgBAqvW7IRCyQC4Wc9BqkYwyWtU5UM0fFH8QG7rUA5ZUSDONl02xsyjU/aNfFdWO
+	 G6xXNpgzlUoyJ7AEsPD5gkkFdGCOk+EA8IzzBX7Cily/JdaeXyWt/Y7VwHOzzTlYeCg6E
+	 TjVaMUJ4sC3/c6g/ncD6U04+yAhW4NM/32M2E+azxXocXG9AQwp6bBC3T0ZPqhYtZHfiA
+	 TKAdQT0f9yXtoMHyN6AK/+fBHND+5VcSvKetjCjMcwFuIGAtAFZO3anLPcF/DgLjDQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIr5sIzw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NUBD40ky;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7779606A326;
-	Fri,  6 Nov 2026 20:48:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35375606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:51:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35375606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIr5sIzw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF5AE1F0089F;
-	Fri,  6 Nov 2026 20:48:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793998087;
-	bh=HZho2msgoJMdouDBhI/tZS+qfCR+U++y56XOVqrTM1M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NIr5sIzwS2dfqHfuqwatw7sGo8fIj91w5JB/t+CRq5heewdF7e/Q3g9bqdzswAUC8
-	 ET4qWklG9GUx7R3W5HvZhRODQ8BUm1AKEmPInIYd2NShU8i9wYG0S6+QYe98JGhPsa
-	 kpqZ1t7cTo/DvoKmvUw17MZIdH1y14qz3UwgEPkqUEF0i6P0QAu3fB5PPvGZS+DQ0L
-	 jzwVAZfVrbgC1lkdxKJVUtnJLIteGLFtJBR+wj4AiJy5IHvE80+PLYOw/ls9lUEkxZ
-	 o859DxAU+qbao+Wug7AGJHeEHsLUT0CfpjCXJvLxgPWApUV4KH2BDriljqQYdBPUZS
-	 j+uT8HHNuTyzA==
-Date: Fri, 6 Nov 2026 20:48:01 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Carlo Caione <ccaione@baylibre.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 6/7] dt-bindings: clock: Add Amlogic S7 peripherals clock
- controller
-Message-ID: <20261106-headband-buckwheat-fecbd459ee85@spud>
-References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
- <20261106-upstream-s7-clk-v1-6-7d501d62621f@baylibre.com>
- <20261106-unwilling-preoccupy-156dbb310448@spud>
- <au4p0xYEFkgEU6T4@macbook>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NUBD40ky
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a8cc11ac42so1084508c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:51:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793998263; x=1794603063; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cLzvJMVvplTAItMLAARGpBIr6UmHk5O/wuxWTnhHIsk=;
+        b=NUBD40kyjtGjEy4a+yKQZ1M2hpN9/b2ZoS/It3RnkhS+524C0pYe+oy3I6tovE7bGs
+         GU9jF043Zt4whv7L1NfAQ5p04kxL/tP5RAnM49D5PNHA/YMjSrdkPd45DxQZ+51goPjh
+         VkUSbfHIohFl8db2DgBiEAERFX4d6JNSf33vcsNlmKpCNfPq7WWQjunnIb2xy2HS9D4y
+         FcwmlTqj+A7eYDGbnkv4WaEnZQFt/k3RHFzSVetQAdOyRCJuMzlQFKjtjPghJ0VKxijm
+         nzrBmloKmAQxvlroDdRQdQs4+GyOhlbTaH9yWSKPyF3vVOBDNepEfHnTCrxONMjBRZm/
+         g9bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793998263; x=1794603063;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cLzvJMVvplTAItMLAARGpBIr6UmHk5O/wuxWTnhHIsk=;
+        b=m0WVZiFrV2V1dQm1yNOyUk+apDhnV4Y1x7PMJd+H7QhF45EGuwDMvweGFnOlfCHdfy
+         t2XPEKJF22ZJom+tpPeX2ZIHTQ6CNlbZ3ewAsARUuMj1uFuU9hhJezTCpyxvg7vrr8nn
+         huOT+zTvijymmr8N1lySO5E+kSNf6WBR6FYnIlDce+OF3LqcR9rpQfkx0ZREB3XqR3q8
+         x8cTEmbC2hFnCOJ1jahOaNA8PzqQA4P8u0jzS46aQ6ypubKh1kYvKq6Seusv7qQ+m66U
+         7j/yDhahokhDYpqY0GbWdyXdFQ3nr/1/fUiQnXfbgiENkis/Pr8fHDS9OxJi+H+cw9w3
+         MgbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxnylZXd0H/jbJ/ZAIKCayhQp34AnYW2s1zqU51+giISCCteehKQTMXcByOECUFT5ARK26BZMd4pjwynW8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QnMQz/px4Wh/sOlsG9ps6fBZDxIQX7qvIFlef64jx1Kg1If4p
+	PyOaLPyAd5Wjl6hs2f1+1FYfm2ZofAn+xWn6g6Tq2x8KK3zAcJ/M9kSi
+X-Gm-Gg: AYBFou1h4DCgQNH8JZ7PKUxS1ci4XML5vvCV4WbQphQM4+u0mj3AhVx7jU2xMRrAKUd
+	Uum6ZD0T6pSi9qLBtY2hvWneai92BGUslfxBAR0VC+GkGZ+7+RF4iyILK9WvYs8Cpe0ThfEY0Cr
+	dY3Oz8pgyELhRZ9QUKNaHDMI9B4ZA7/cigAktkJtd7sACOG8Yxp3Z71ciB4q8+kI+uzQrdKYQId
+	Inx1vE7+p0z9tzyVx3UG3oochryxffp3JSKRgGHRrTywAU2MvNuvt9Tcr1p17qNG7xlDQDP6Krv
+	rNQ/9g9s+EcUO3iNpgh9h7T8QgKA+Cx0h75fj4pStlrvUA0Sy6rJcIfPhsQ6AH/K0PnjtlvgsJE
+	xw3SWxJPwAFnW8u6RcgNOEh/DrGHUDcmj9I4LwpTSLsXh6wlfTAGFD9yI8ThG8V1nzt6Hx8UsFr
+	QErQsC9uVETCQG/6xG8U85ZEOOCgaAA/rWb1aj5zQaRs/qAP4uZLsmt1Cpujbo4Hn8LOjUFLifa
+	zKCH3loky2bvpugtvm94Vp7YdAFkexhwHLIHFk/TiLB2uL4crukSUj0qJ2pNLMHbQOrbp9eQ7iJ
+	RhA3OgSLrH3JKbB557pNEa4LiNQ+TC25JaGauxb5ILlZaAkat7aQIVrH1KVpa1HWuI/KTR7vUyO
+	jRjZotb+S
+X-Received: by 2002:a05:701b:465a:b0:192:fd91:c567 with SMTP id a92af1059eb24-1b25d315b9amr4036297c88.11.1793998262901;
+        Fri, 06 Nov 2026 12:51:02 -0800 (PST)
+Received: from LAPTOP-DPAKMOI4.it.purdue.edu (pal-210-106-74.itap.purdue.edu. [128.210.106.74])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4d36efsm8445952c88.17.2026.11.06.12.51.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 12:51:02 -0800 (PST)
+From: Yifei Gao <gyf161023@gmail.com>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yifei Gao <gyf161023@gmail.com>
+Subject: [PATCH 0/2] ALSA: hdsp, hdspm: Fix unlocked control_register updates in MIDI paths
+Date: Fri,  6 Nov 2026 20:50:45 +0000
+Message-ID: <20261106205050.8048-1-gyf161023@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,69 +97,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LmB6H6jGQB3RSrN8"
-Content-Disposition: inline
-In-Reply-To: <au4p0xYEFkgEU6T4@macbook>
+Content-Transfer-Encoding: 8bit
 
---LmB6H6jGQB3RSrN8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+hdsp and hdspm keep a software copy of the card's control register and
+update it read-modify-write under the card lock, except in some MIDI
+input paths, where concurrent updates can be lost.
 
-On Fri, Nov 06, 2026 at 08:34:37PM +0100, Carlo Caione wrote:
-> On Fri, Nov 06, 2026 at 17:34:14 +0100, Conor Dooley wrote:
->=20
-> > > +    #include <dt-bindings/clock/amlogic,s7-pll-clkc.h>
-> > > +    #include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
-> > > +
-> > > +    soc {
-> > > +        #address-cells =3D <2>;
-> > > +        #size-cells =3D <2>;
-> > > +
-> > > +        clock-controller@0 {
-> > > +            compatible =3D "amlogic,s7-peripherals-clkc";
-> > > +            reg =3D <0x0 0x0 0x0 0x49c>;
-> >=20
-> > What's with the weird numbers in this example?
-> >=20
-> > Examples don't have to be real, but when it looks like this the
-> > immediate thought is that the modelling of the device might be
-> > incorrec.t
->=20
-> The numbers are actually real, but the example simply lost their context
-> because I copied the node from the S7 dtsi (not yet submitted), where
-> the controller sits under the APB bus node (bus@fe000000) and the bus
-> ranges make the addresses relative to it.
->=20
-> 		apb: bus@fe000000 {
-> 			compatible =3D "simple-bus";
-> 			reg =3D <0x0 0xfe000000 0x0 0x480000>;
-> 			#address-cells =3D <2>;
-> 			#size-cells =3D <2>;
-> 			ranges =3D <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
->=20
-> 			clkc_periphs: clock-controller@0 {
-> 				compatible =3D "amlogic,s7-peripherals-clkc";
-> 				reg =3D <0x0 0x0 0x0 0x49c>;
-> 				#clock-cells =3D <1>;
-> 				...
->=20
-> In V2 I'll use an absolute address for the sake of clarity (PLL has the
-> same issue).
+In 2011, commit c0da00145f9a ("ALSA: hdspm - Fix locking in
+snd_hdspm_midi_input_read") fixed the MIDI work side in hdspm. The
+interrupt handler side was left unlocked, and hdsp has both problems.
+Patch 1 fixes hdsp. Patch 2 fixes the remaining interrupt handler side
+in hdspm.
 
-Before you do that, can you please share with me the s7 dtsi? Cos surely
-you've got it in some git repo online somewhere.
+Both issues were found by static analysis. The patches are
+compile-tested only (W=1). I have no access to this hardware, so tests
+on a real card would be very welcome.
 
---LmB6H6jGQB3RSrN8
-Content-Type: application/pgp-signature; name=signature.asc
+Yifei Gao (2):
+  ALSA: hdsp: Serialize control_register updates in MIDI input paths
+  ALSA: hdspm: Take hdspm->lock when masking MIDI interrupts in IRQ
+    handler
 
------BEGIN PGP SIGNATURE-----
+ sound/pci/rme9652/hdsp.c  | 16 ++++++++++++----
+ sound/pci/rme9652/hdspm.c |  8 +++++---
+ 2 files changed, 17 insertions(+), 7 deletions(-)
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau49AQAKCRB4tDGHoIJi
-0s31AQDovk3BCRNZkzAP0JDIfM+oVR7DeKQ2kE3TEp2hr8RKvAEAi5/KPKD3qcua
-lDaZqwmPOKSB/JV+k2gT9cYzHgcbmAQ=
-=tBnu
------END PGP SIGNATURE-----
+-- 
+2.34.1
 
---LmB6H6jGQB3RSrN8--
