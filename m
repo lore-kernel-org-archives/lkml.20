@@ -1,44 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.242.92
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979808;
-	b=A4zE9K3V+J12epCnFXzjnWp13X5B7yOZAtyQ8ob1IGl/UXT3Ky6R2wL3a7dnE7wZVmZc
-	 /5fUl+ZQogicPpUE2kOo6XyiItmbrKhfPKD7kws0gXI5x71qLfC4w+YbUvsM5ROqImy3t
-	 u9TbiFCGWJzur4+i1sjjz1fqfNmcLOPM9AHk764VAxYqlzhtKILTA+Z11+daQQoqHjwe5
-	 GjoX1QHdsKh0ReJeh+2Qqfa7G8Wq1+FWwD5pkBZYsvSK5GpdPKpGYm5nRT0bXmjve3udr
-	 dAkhzPVfs/adn2OqW/Grneifsn2D5Tmv9Kq+YASflyVAKY9U3etALKxD8+mRhi6bBjA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979808;
-	h=DMARC-Filter:Received:X-Spam-Checker-Version:X-Spam-Level:
-	 X-Spam-Status:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jPRtGsIMr+vS8k8SFEAZBCQ/fTK7nGN3sKe7Ag8BEKA=;
-	b=QE5ozW0ul+0sTFJSHecxtc/ldogPobFKamG8wHJ3gl7d2fhT4j9U1zqw8fIdJcKsQ7cu
-	 htvf7FtJX2WZG3LzKYVawOotLyuMrmT+mSKH1bxdT3fdtcuIgb5HfnHeXnYYLoGIq7tJm
-	 ZzC65MFbhnY/wprWnHarFsz61MqK5hQnZd6xaMl+3Eg258I10bgsLqdde55QyVvGfp1QZ
-	 mDb9T399nvHlEOQY3SSooEMe3QqR43p028Ivj8AltxzTpCM7aWBrPcG2JZ+k9dLni/rjh
-	 +7q06z9dzKFrYtfSTNEPyvvAQ1ChqQB/qWPMt4Jzy/EdgficO8iQlTcW/mdgV0u31lQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=davidgow.net;
-	spf=pass smtp.mailfrom=davidgow.net;
-	arc=none smtp.remote-ip=203.29.242.92
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793979810;
+	b=IEGcGYCi9XuLma2idiIlHhLk1MvS5oBriJ/GkqohfQAEa0MPBFZPd4YzilqZWRy2kd49
+	 fI1hkaWAVLLGGLTR25BF9eCYciD1bUtP9AaGP/YRFmGwVv9pNA6aqDF4f2AjKPZDg5IRL
+	 Dmlw2w9/9JwcSUKuqT/wajOuOGYeBX9UWClCUcbyaxPfoOfLvYMwKt1zCsSOX63x8TIam
+	 cdqXni2vL20IXW2zd6s4fPQiCaYs4WELIzAjFLvyn8OWzIKWnzqW2Km03HfO/yqIk+zl7
+	 3nVi249hhStvWWJE8IrTn1AVvCeEg4dYqv7oCtkbsCkIZ1WUV6qOWWBxZ0jBW4AAy9Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979810;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=Ft4rlE6xgUDwJFJWLMKbBhHCXnLHriXBruDjaCPK2Fo=;
+	b=Rb1TjWhArYKcHbGHIB/awnNAjfrlfhWaTsrYxrq6/DVvLQRYv8jKEvG5zjw/WNUOCBa/
+	 Su1shiIBDkAV2yQNTfZbez/EWR6JHISxWib6gBXG4ARiCDMrvtfqsQJYvdwo2ClewbhV6
+	 AfJvWYhjrs8pCAhdMAg3isQ85Tptf5B7AttwYDVb66LRSLu6cSIAARRPO5T9Hq8UksviI
+	 VbLXHSGufplxz1fLAVKCcsfjasUT5/t0UDBdzEJLCapYw0rtsfFcOCJNqMqsAo3t8mX6U
+	 ClO6RzLwJT9+R1B/1JhDZ4bVfLEtHoZ8WOHg3Yz6uUQueRv9hHxS5IKmjnqDLNJ9ZOg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=LTP04wSg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0304606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0304606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
-	id 5B316200BBA; Fri,  6 Nov 2026 23:43:25 +0800 (AWST)
-X-Spam-Level: 
-Received: from [IPV6:2001:8003:8802:7000::41b] (unknown [IPv6:2001:8003:8802:7000::41b])
-	by sphereful.davidgow.net (Postfix) with ESMTPSA id 7ACEF200BAB;
-	Fri,  6 Nov 2026 23:43:21 +0800 (AWST)
-Message-ID: <f0781521-3436-4651-82f0-f9fdfbe864de@davidgow.net>
-Date: Fri, 6 Nov 2026 23:43:17 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45655606A326;
+	Fri,  6 Nov 2026 15:43:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45655606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=LTP04wSg
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4695E202AA3;
+	Fri, 06 Nov 2026 16:43:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793979802;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Ft4rlE6xgUDwJFJWLMKbBhHCXnLHriXBruDjaCPK2Fo=;
+	b=LTP04wSgXkGHMwU4eH5I0gvsxMb6EXJFKgy+abft+uvBck0oDQVs74GeoXLSVuUW3uNDhH
+	I+yZzGElWxdI+GnlXhLk+B8bW7Hfki2H2ou3+TdnCOYfYQVb+AMLt6KZTT3PmwHxggsNc1
+	LRWKTN5BE+TVJwT1g3eq3zO3t7Wrty/p+Ss3AhzOcvC0pzj+YbUWU5fw8fIM035N9wQZPQ
+	f6+2vpqxuIzgwQyUb0U1Y44h43gSV7sZkmTIY5D/rVtihHR8GUw/2baMcviUrbXcbx3L6M
+	XVnZypDE6Wkr1FzbicEo9dKfjb1aJiyuDgKuyeEu+qHajQcsWuc3MNVNFIzCDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793979802;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Ft4rlE6xgUDwJFJWLMKbBhHCXnLHriXBruDjaCPK2Fo=;
+	b=VenupWQEY8nOe84ixduo0VSMNEK6DrfczSYnifRljwVm1gXwNxBZnFO9yH3fYva9loVCTG
+	N8MoCFAoUf6saTv4nDkd9aoLI1SYXXYFKMwVEPapEVNbgmf1NLeTAlSsD4Nh6pj8Lm8b3o
+	XI99YBNooDPaymYJoKs8mZxSP4b6cpN28Lh8ZKxno2eLHE+/Ru1XIEIM82eyoRJjkFhvIO
+	NggXiurhYzeNAfDEXvNBFvI+PWlu7lPziX3lhSbJ4rU5roIJby6c41L42jjxDI7oGtR41j
+	6uP6B0FsU1mHrmd8PM+eKxgFMs7dqdGisIG7d1QEMLdecVh1t61hGMdwGoH9KA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793979802; a=rsa-sha256;
+	cv=none;
+	b=QI6EntLSkCs6Sxb1jZl2SzvT/7aIoTvlnurB9aIb62st+UXNxC7icuqhAzEJXwfw015arh
+	Tbto7/3ZNqLn1j3tBJfZr4Xahy3EhXMTBWQex0XcMo0+1MIWdzSkazfOCcHg8wKmTfg1Pv
+	xwXXxRBTZVEKIKITXymDWn3U2UGDll1wD83cHyTX5H1BpEtAff1nvP4EB4Cv99AfsktLRA
+	+4vq3j7I1VptCxzuEAwD20NuobFGFzzg4e5WilgUZMsvCHGXkJ9TPrqFGXZYSQRuPOmJ6W
+	+ypBa5FY3HqdZz4Ba2jxKdhqPr7F6EHfbizjWKYBaZEJ5Rt73I+Uk40wLvS0VQ==
+Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1xPM66-002vN5-0h;
+	Fri, 06 Nov 2026 16:43:22 +0100
+From: Philipp Zabel <p.zabel@pengutronix.de>
+Date: Fri, 06 Nov 2026 16:43:19 +0100
+Subject: [PATCH] fpga: altera-hps2fpga: do not request reset by index
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,108 +86,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] x86: make CX8 usage unconditional
-To: Arnd Bergmann <arnd@kernel.org>, Ingo Molnar <mingo@redhat.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>, Thomas Gleixner
- <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>, Will Deacon <will@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Alexander Usyskin <alexander.usyskin@intel.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org, linux-um@lists.infradead.org
-References: <20261105163440.2381661-1-arnd@kernel.org>
- <20261105163440.2381661-4-arnd@kernel.org>
-Content-Language: en-US
-From: David Gow <david@davidgow.net>
-In-Reply-To: <20261105163440.2381661-4-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-reset-deindex-fpga-v1-1-5672928ba5f6@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAJb17WoC/yXMQQqDMBBG4avIrDuQSSEUryJdqPljx0WUjC2Ce
+ HfTdvkt3jvIUBRGbXNQwUdNl1wht4bGV58nsMZq8s4HERe4wLBxhOaIndM69Zy8uwd5BPGDUA3
+ XgqT7b9o9/7b3MGPcvic6zwuktIzQdgAAAA==
+X-Change-ID: 20261106-reset-deindex-fpga-f203618612b1
+To: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>, 
+ Tom Rix <trix@redhat.com>
+Cc: linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+X-Mailer: b4 0.15.2
 
-Le 06/11/2026 à 00:34, Arnd Bergmann a écrit :
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> All supported CPUs now provide the cmpxchg8b instruction, so remove
-> all compile-time and runtime checks for its presence and the fallback
-> implementation, to assume it just works.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
+There is no need to request a single reset by index.
+Use of_reset_control_get_exclusive() to request the first and only
+reset.
 
-Hi Arnd,
+Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+---
+ drivers/fpga/altera-hps2fpga.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-As-is, this breaks 32-bit UML, as atomic64_cx8_32.S is removed from the 
-Makefile. With that reinstated, 32-bit UML at least builds and passes 
-some basic KUnit tests here (though I haven't tried it on actual 586+ 
-class hardware yet, and building with CONFIG_M586TSC still fails the 
-checksum tests[1]).
+diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
+index f2f1250689cb..9b7f5b8191b8 100644
+--- a/drivers/fpga/altera-hps2fpga.c
++++ b/drivers/fpga/altera-hps2fpga.c
+@@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
+ 
+ 	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
+ 
+-	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
+-								     0);
++	priv->bridge_reset = of_reset_control_get_exclusive(dev->of_node, NULL);
+ 	if (IS_ERR(priv->bridge_reset)) {
+ 		dev_err(dev, "Could not get %s reset control\n", priv->name);
+ 		return PTR_ERR(priv->bridge_reset);
 
-Reproduces with:
-make O=.tmpuml ARCH=um SUBARCH=i386
-or
-./tools/testing/kunit/kunit.py run --arch um --kconfig_add CONFIG_64BIT=n
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261106-reset-deindex-fpga-f203618612b1
 
->   arch/um/include/asm/asm-prototypes.h  |   4 
->   arch/x86/Kconfig.cpu                  |   3 -
->   arch/x86/Kconfig.cpufeatures          |   6 +-
->   arch/x86/include/asm/asm-prototypes.h |   4 -
->   arch/x86/include/asm/atomic64_32.h    |  15 --
->   arch/x86/include/asm/cmpxchg_32.h     |  76 +---------
->   arch/x86/include/asm/percpu.h         |  14 +-
->   arch/x86/lib/Makefile                 |   4 -
->   arch/x86/lib/atomic64_386_32.S        | 195 --------------------------
->   arch/x86/lib/cmpxchg8b_emu.S          |  97 -------------
->   arch/x86/um/Kconfig                   |   2 +-
->   arch/x86/um/Makefile                  |   3 +-
->   lib/atomic64_test.c                   |   7 +-
->   13 files changed, 13 insertions(+), 417 deletions(-)
->   delete mode 100644 arch/x86/lib/atomic64_386_32.S
->   delete mode 100644 arch/x86/lib/cmpxchg8b_emu.S
-> 
+Best regards,
+--  
+Philipp Zabel <p.zabel@pengutronix.de>
 
-...snip...
-
-> diff --git a/arch/x86/um/Kconfig b/arch/x86/um/Kconfig
-> index 44b12e45f9a0..5b78440a78b9 100644
-> --- a/arch/x86/um/Kconfig
-> +++ b/arch/x86/um/Kconfig
-> @@ -13,7 +13,7 @@ config UML_X86
->   	select ARCH_USE_QUEUED_SPINLOCKS
->   	select DCACHE_WORD_ACCESS
->   	select HAVE_EFFICIENT_UNALIGNED_ACCESS
-> -	select UML_SUBARCH_SUPPORTS_SMP if X86_CX8
-> +	select UML_SUBARCH_SUPPORTS_SMP
->   
->   config 64BIT
->   	bool "64-bit kernel" if "$(SUBARCH)" = "x86"
-> diff --git a/arch/x86/um/Makefile b/arch/x86/um/Makefile
-> index 100b68f601f9..716da7b1e3e9 100644
-> --- a/arch/x86/um/Makefile
-> +++ b/arch/x86/um/Makefile
-> @@ -19,8 +19,7 @@ ifeq ($(CONFIG_X86_32),y)
->   
->   obj-y += syscalls_32.o
->   
-> -subarch-y = ../lib/string_32.o ../lib/atomic64_32.o ../lib/atomic64_cx8_32.o
-> -subarch-y += ../lib/cmpxchg8b_emu.o ../lib/atomic64_386_32.o
-> +subarch-y = ../lib/string_32.o ../lib/atomic64_32.o
-
-Reinstate ../lib/atomic64_cx8_32.o here!
-
->   subarch-y += ../lib/checksum_32.o
->   subarch-y += ../kernel/sys_ia32.o
->   
-> diff --git a/lib/atomic64_test.c b/lib/atomic64_test.c
-> index d726068358c7..37af41df3e6a 100644
-Cheers,
--- David
-
-[1]: 
-https://lore.kernel.org/all/20240720063937.2311958-2-davidgow@google.com/
