@@ -1,73 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793934483;
-	b=sNtT3xhoM0MmiedfxuF7BkXHbOCcGOZ1fV/pFenX8YoNAg1p2xZxpi4D9a+cbYCGCumb
-	 yE9vfM7F5AK20QQi2aWP3ofRKQOLIWfiHblrNIWOjmJQunWb8Y/+R/Qsdco6UW4mGEFm1
-	 LS7I6V34se1jgcwv53Uj8xAzugGI+D0wEfJbLiqFuCfiZ2Sujnz7U/N+1XpSyAo2cuZBD
-	 W53ycat//Yl1Vwo0R3YL8HUmIMm8aXsXP7GO+9CTJuEM35UupwifI3YE0saPRLTzdNNog
-	 7JOY0SlsaIL2Dmj5j58ilSeDpNwn0gMwY9O8uaM7fTS/6SeoCswj9x4aypcIBkr+jow==
+	t=1793934543;
+	b=z9nSlKByE+Sm7HTEp/4i6neY/yCIbv/4omH21rFB4BEGT++VPI+Dj3YJploU8I5UV6tj
+	 Rsc2tZvs3n42DU7nBEXGfP4Lpq0DpfbKHZY7XSSULerULKjIXimioQuE1piyUNOza0nWs
+	 P3oMzhdau2I+QqllJYrRlju8JruMCcdqA7LzUO0xvuMdyw6m3L6XxcgSFdoDCZMAwSB0I
+	 0y37DKWaiLAO/Ha1HNviVUEFbC2TAlYp6XgCdGVVPNbC6oeu0UNbKGjRQ3fzwvm36ciyB
+	 Xc3fgkmksCAOktyRx1f/RM4sfVOlTYuOjMfE8sT5M5CHph4tDg37JIFrvfEa5XeYEUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934483;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=6i0giO9JC/Tn20VM9MLp6JL4dkTvjBKFn8ta8TGBzWs=;
-	b=KPK72vWhs77hltg0vNZnvIk6nJYK+FHDpTk/QtVVXzXIKHsAqqcx27tdpLijbExkVn3N
-	 dKmS2I7tsAdFu9LSE+pHivpYJBtTSJrhqFbY0NiTz2zZ4KUu5l6+W/1zvFAcfO3Tc/8lv
-	 rGVmtJDcPRGxPkGNzCpOMg4ppPRpdLe1gZvC3c0hfT7oChW2ikuG/GUuDc19bBZci3PAt
-	 RimKqkrXVNbpHAULHCmFaWzXXJSunWw5i+VIYvMpTnfoAxerZbr2TWcCm5UB4eEHOtyNR
-	 csvk1VmqYHlRdqMObA9mF1WHKmibdUNPjtFCDwpLZwBirk1zbVZMeC5R01TVh4LFe2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793934543;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=/NJygmiRV/53CJZPOV8/PsuJgRTZqH5CPzz2gkXirJ8=;
+	b=Dnghc1R106y9MPMrGzF1LdlUasprXrXjmwXoh015PIkMPdIU+Ksv9hkumTXuHDglsXli
+	 emMr4+sbwBTdFFJGpj5X2H6p/wPsvDBYZ9J9Qmw/H9PQSnCktxgjus9RnwXZGbgCPEG3v
+	 4jrUAzq0ls7ji4HFPr6Hc5q/gRaZwaS7MNZyGt4ZYsHBVIxrAx7yt6nidrcvgoW0CgBXX
+	 HMBnbbrFWhWKKDIH0G0nmqjroaK39kY5aSm3vuya2KcWWM1Lnz7R71apKAAY59ESXy34s
+	 CN9/HkxM+p9xsRa6sb8usteVDE82Bj7bCQl3TuD+ctfShffuqe7fGxmP+vdbMSy3zJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OLHcz1g7;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=SeexSk3z;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DBC606A326;
-	Fri,  6 Nov 2026 03:08:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42DBC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E81606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:09:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87E81606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OLHcz1g7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793934482; x=1825470482;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=sHSsITdw52eBg+7eK+akWWmzeFire5iQg00Atu2e4KQ=;
-  b=OLHcz1g7ePmTwXiI2D1PYd68YXvvXFhJ8a3cEvcnsFWrimfYlx88iXbQ
-   U7DotrZ1C9gradlyq0rm+C/StskvilDk4YQ0OBVKPontrNgogugPORSDe
-   z82y2oYzKtt0JFSZYzdoz91SpMVXcq1GlcLK3P9R1R9Mzl/I0YPJF+02M
-   j38DC4SnUKO0oG/E/ErXlMxfiPEEa8GcTmf/xexUEN1lLZ35lKDQEcdxY
-   pTtWLuCpMxSPhZ3Iqi/ij4CxOn9C6EyDRxIzuVWJ5g7Gnno+uAL2ZPnT8
-   C7jbkmBHJeQVdtLglmiZT3DGgmutEzX9rQmymagrPJFIL9FZuW+3MFrmi
-   w==;
-X-CSE-ConnectionGUID: 57bvP8uYSJqLQOPkc+Wa/Q==
-X-CSE-MsgGUID: ipEf1IVkSxGza7g9XvwmpQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2744334"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2744334"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 19:08:02 -0800
-X-CSE-ConnectionGUID: XqXT3RTHTsKW0Tln1c9DNQ==
-X-CSE-MsgGUID: ETiATnndQ/KqparOYXV0Yg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="9047896"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 19:07:59 -0800
-Date: Fri, 6 Nov 2026 11:07:56 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Martin Kaiser <martin@kaiser.cx>, Vinod Koul <vkoul@kernel.org>,
-	linux-trace-kernel@vger.kernel.org, yi1.lai@intel.com
-Subject: [linus:master] [tracing]  b5cc230af5:
- WARNING:at_kernel/trace/trace_events.c:#test_double_dereference
-Message-ID: <202611060303.c90f27a7-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=SeexSk3z
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=/NJygmiRV/53CJZPOV8/PsuJgRTZqH5CPzz2gkXirJ8=; b=SeexSk3z2qG63NDwDVhs+oXj3n
+	2WvqPjCz0ZNmhUiiB7Ricw1zH387exeVobjr4em0I19qP7N4TrscRG8f8UoUuNBCHv+kES+GbllLL
+	F9QiMkBSLc7Dbh8SjVKRQtKdm6wl7Pa06dqboMOIRHuA2OdkW/JhFAxpdUF5iMlbjOOzKKAUI6fyU
+	aNtX4imtmnI478UuvqSvb/+GQURTL9tfX6gmSN5Woo2uSUQBy5V+sj05AALD76EryuR8si71TPNsM
+	YMnGgfna45SAOJBPLnOEHMU5BheLLQ6jgFKNJjlMLAR0nf7fE8Z3+Rv3U5KGHfpnt5b+nbh7Wq0hp
+	LUq15MUw==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xPAK1-0000000FwPa-1anS;
+	Fri, 06 Nov 2026 03:08:57 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xPAK1-0000000AeGQ-0lsX;
+	Fri, 06 Nov 2026 03:08:57 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: Thomas Gleixner <tglx@kernel.org>,
+	John Stultz <jstultz@google.com>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>,
+	Rodolfo Giometti <giometti@enneenne.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Jie Wang <jie.wang@intel.com>,
+	Yuan Wang <yuan1.wang@intel.com>,
+	Ryan Luu <rluu@amazon.com>,
+	Julien Ridoux <ridouxj@amazon.com>,
+	linux-kernel@vger.kernel.org,
+	nh-open-source@amazon.com,
+	David Woodhouse <dwmw2@infradead.org>
+Subject: [PATCH v2 3/6] timekeeping: Bound idle sleep while a phase slew is in flight
+Date: Thu,  5 Nov 2026 19:08:52 -0800
+Message-ID: <20261106030856.2538039-4-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261106030856.2538039-1-dwmw2@infradead.org>
+References: <20261106030856.2538039-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,109 +79,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
+From: David Woodhouse <dwmw@amazon.co.uk>
 
+Phase offset for adjtime() can be delivered at a rate of 500µs/s, and
+for STA_PPSTIME potentially even more. The skew is recalculated in
+second_overflow() each second, and if that's missed in a tickless
+kernel, the skew continues to be applied for the whole of the idle
+period. While skew is active, clamp timekeeping_max_deferment() to the
+top of the current second to avoid the overshoot.
 
-Hello,
+The bound is only evaluated when a CPU stops its tick, so it helps only
+if some CPU does that after the slew starts. If the do_timer duty is
+vacant and its last holder is already sleeping on a timer programmed
+before the slew began, nothing enforces the wakeup until an unrelated
+interrupt arrives. Claim the vacant duty for the CPU performing the
+adjtimex() call, exactly as if its tick had fired: when it next stops
+its tick it becomes the duty-last CPU and applies the bound.
 
-kernel test robot noticed "WARNING:at_kernel/trace/trace_events.c:#test_double_dereference" on:
+Acked-by: John Stultz <jstultz@google.com>
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+---
+v2: Fix the ADJ_OFFSET_READONLY test: that flag aliases ADJ_NANO and
+    only has its read-only meaning in the ADJ_ADJTIME form, so the v1
+    check skipped the immediate update for the standard
+    ADJ_OFFSET|ADJ_NANO call. Also trigger it for ADJ_TIMECONST and
+    ADJ_STATUS, which likewise invalidate the skew rate, mirroring the
+    condition in process_adjtimex_modes(). (Found by Sashiko.)
 
-commit: b5cc230af5e536ff752f8bd5c30e23612936d5c3 ("tracing: Warn when an event dereferences a pointer in TP_printk()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+    Claim the do_timer duty when starting a slew, so the deferment
+    bound is honoured even when every other CPU is already asleep.
+    The vacancy is real: in a 4-CPU qemu guest, a slew started from a
+    non-timer wakeup found the duty vacant (and claimed it) on 3 out
+    of 3 attempts. The overshoot itself is harder to demonstrate
+    there, because ambient interrupts advance the timekeeper at
+    better than 1Hz anyway.
 
-[test failed on linux-next/master ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b]
+ kernel/time/tick-internal.h | 18 +++++++++++++++
+ kernel/time/timekeeping.c   | 44 +++++++++++++++++++++++++++++++++++--
+ 2 files changed, 60 insertions(+), 2 deletions(-)
 
-in testcase: boot
-
-config: x86_64-randconfig-r2309-20261012
-compiler: gcc-14
-test machine: qemu-system-x86_64 -enable-kvm -cpu Cascadelake-Server-noTSX,enforce -smp 4 -m 16G
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202611060303.c90f27a7-lkp@intel.com
-
-
-[    0.808840][    T0] ------------[ cut here ]------------
-[    0.810236][    T0] Event hfi1_txq_complete has double dereference in TP_printk: REC->sde ? REC->sde->this_idx : 0
-[    0.812882][    T0] WARNING: kernel/trace/trace_events.c:417 at test_double_dereference+0x95/0x100, CPU#0: swapper/0/0
-[    0.815697][    T0] Modules linked in:
-[    0.816602][    T0] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5+ #1 PREEMPT
-[    0.818731][    T0] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    0.821353][    T0] RIP: 0010:test_double_dereference (trace/trace_events.c:417 (discriminator 3))
-[    0.822786][    T0] Code: 30 e8 c9 27 fb ff 80 7b 01 3e 75 25 e8 be 27 fb ff 48 8b 7d d0 e8 75 fa ff ff 48 89 c6 48 8d 3d 8b 30 8f 06 4c 89 e1 44 89 f2 <67> 48 0f b9 3a eb 3b e8 99 27 fb ff 41 0f b6 c7 f6 80 00 a1 fd 85
-All code
-========
-   0:	30 e8                	xor    %ch,%al
-   2:	c9                   	leave
-   3:	27                   	(bad)
-   4:	fb                   	sti
-   5:	ff 80 7b 01 3e 75    	incl   0x753e017b(%rax)
-   b:	25 e8 be 27 fb       	and    $0xfb27bee8,%eax
-  10:	ff 48 8b             	decl   -0x75(%rax)
-  13:	7d d0                	jge    0xffffffffffffffe5
-  15:	e8 75 fa ff ff       	call   0xfffffffffffffa8f
-  1a:	48 89 c6             	mov    %rax,%rsi
-  1d:	48 8d 3d 8b 30 8f 06 	lea    0x68f308b(%rip),%rdi        # 0x68f30af
-  24:	4c 89 e1             	mov    %r12,%rcx
-  27:	44 89 f2             	mov    %r14d,%edx
-  2a:*	67 48 0f b9 3a       	ud1    (%edx),%rdi		<-- trapping instruction
-  2f:	eb 3b                	jmp    0x6c
-  31:	e8 99 27 fb ff       	call   0xfffffffffffb27cf
-  36:	41 0f b6 c7          	movzbl %r15b,%eax
-  3a:	f6                   	.byte 0xf6
-  3b:	80 00 a1             	addb   $0xa1,(%rax)
-  3e:	fd                   	std
-  3f:	85                   	.byte 0x85
-
-Code starting with the faulting instruction ===========================================
-   0:	67 48 0f b9 3a       	ud1    (%edx),%rdi
-   5:	eb 3b                	jmp    0x42
-   7:	e8 99 27 fb ff       	call   0xfffffffffffb27a5
-   c:	41 0f b6 c7          	movzbl %r15b,%eax
-  10:	f6                   	.byte 0xf6
-  11:	80 00 a1             	addb   $0xa1,(%rax)
-  14:	fd                   	std
-  15:	85                   	.byte 0x85
-[    0.827992][    T0] RSP: 0000:ffffffff87403d48 EFLAGS: 00010046
-[    0.829610][    T0] RAX: ffffffff87183110 RBX: ffffffff87dcba95 RCX: ffffffff87dcba82
-[    0.831687][    T0] RDX: 0000000000000021 RSI: ffffffff87183110 RDI: ffffffff87fe7ae0
-[    0.833687][    T0] RBP: ffffffff87403d78 R08: 0000000000000000 R09: 0000000000000000
-[    0.835822][    T0] R10: 0000000000000000 R11: 0000000000000000 R12: ffffffff87dcba82
-[    0.837895][    T0] R13: ffffffff87dcbaa3 R14: 0000000000000021 R15: ffffffff87dcb92d
-[    0.839689][    T0] FS:  0000000000000000(0000) GS:ffff8884a6e38000(0000) knlGS:0000000000000000
-[    0.841148][    T0] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    0.842182][    T0] CR2: ffff88843ffff000 CR3: 0000000007497001 CR4: 00000000000300b0
-[    0.843452][    T0] Call Trace:
-[    0.843961][    T0]  <TASK>
-[    0.844424][    T0]  test_event_printk (trace/trace_events.c:599)
-[    0.845211][    T0]  ? __pfx_trace_event_raw_init (trace/trace_events.c:640)
-[    0.846111][    T0]  trace_event_raw_init (trace/trace_events.c:650)
-[    0.846904][    T0]  event_init (trace/trace_events.c:3384)
-[    0.847591][    T0]  trace_event_init (trace/trace_events.c:4857 trace/trace_events.c:4950)
-[    0.848366][    T0]  trace_init (trace/trace.c:9957)
-[    0.849014][    T0]  start_kernel (main.c:1071)
-[    0.849736][    T0]  x86_64_start_reservations (x86/kernel/head64.c:310)
-[    0.850600][    T0]  x86_64_start_kernel (x86/kernel/head64.c:291)
-[    0.851419][    T0]  common_startup_64 (x86/kernel/head_64.S:418)
-[    0.852218][    T0]  </TASK>
-[    0.852686][    T0] irq event stamp: 0
-[    0.853291][    T0] hardirqs last  enabled at (0): 0x0
-[    0.854409][    T0] hardirqs last disabled at (0): 0x0
-[    0.855533][    T0] softirqs last  enabled at (0): 0x0
-[    0.856645][    T0] softirqs last disabled at (0): 0x0
-[    0.857758][    T0] ---[ end trace 0000000000000000 ]---
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261106/202611060303.c90f27a7-lkp@intel.com
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/kernel/time/tick-internal.h b/kernel/time/tick-internal.h
+index 65680db95053..9328582b1eb7 100644
+--- a/kernel/time/tick-internal.h
++++ b/kernel/time/tick-internal.h
+@@ -23,6 +23,23 @@ DECLARE_PER_CPU(struct tick_device, tick_cpu_device);
+ extern ktime_t tick_next_period;
+ extern int tick_do_timer_cpu __read_mostly;
+ 
++/*
++ * The bound on idle sleep imposed by timekeeping_max_deferment() is only
++ * evaluated by the do_timer duty CPU (or its last holder) when it stops
++ * its tick. If the duty is vacant and its last holder is already asleep
++ * on a timer programmed before the bound became necessary, nothing will
++ * honour it. Claim the vacant duty for the current CPU, exactly as if
++ * its tick had fired: when it next stops its tick, it becomes the
++ * duty-last CPU and applies the bound. Racing with a real tick taking
++ * the duty is benign, as in tick_sched_do_timer().
++ */
++static inline void tick_nohz_claim_do_timer(void)
++{
++	if (IS_ENABLED(CONFIG_NO_HZ_COMMON) && !tick_nohz_full_enabled() &&
++	    READ_ONCE(tick_do_timer_cpu) == TICK_DO_TIMER_NONE)
++		WRITE_ONCE(tick_do_timer_cpu, smp_processor_id());
++}
++
+ extern void tick_setup_periodic(struct clock_event_device *dev, int broadcast);
+ extern void tick_handle_periodic(struct clock_event_device *dev);
+ extern void tick_check_new_device(struct clock_event_device *dev);
+@@ -101,6 +118,7 @@ static inline void tick_set_periodic_handler(struct clock_event_device *dev, int
+ #else /* !GENERIC_CLOCKEVENTS: */
+ static inline void tick_suspend(void) { }
+ static inline void tick_resume(void) { }
++static inline void tick_nohz_claim_do_timer(void) { }
+ #endif /* !GENERIC_CLOCKEVENTS */
+ 
+ /* Oneshot related functions */
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index 118612c4a82e..667b4c2817b5 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -1978,6 +1978,21 @@ u64 timekeeping_max_deferment(void)
+ 
+ 		ret = tk->tkr_mono.clock->max_idle_ns;
+ 
++		/*
++		 * Skew introduced for phase offset is intended to be
++		 * recalculated each second. Ensure a tickless kernel
++		 * wakes up for that and does not overshoot, while skew
++		 * is being applied.
++		 */
++		if (abs(tk->skew_delta) > 1) {
++			u64 nsec_in_sec = tk->tkr_mono.xtime_nsec >>
++					  tk->tkr_mono.shift;
++			u64 remaining = NSEC_PER_SEC - min_t(u64, nsec_in_sec,
++							     NSEC_PER_SEC);
++
++			ret = min_t(u64, ret, max_t(u64, remaining, TICK_NSEC));
++		}
++
+ 	} while (read_seqcount_retry(&tk_core.seq, seq));
+ 
+ 	return ret;
+@@ -3062,9 +3077,34 @@ static int __do_adjtimex(struct tk_data *tkd, struct __kernel_timex *txc,
+ 		tk_update_leap_state_all(tkd);
+ 	}
+ 
+-	/* Update the multiplier immediately if frequency was set directly */
+-	if (txc->modes & (ADJ_FREQUENCY | ADJ_TICK))
++	/*
++	 * Update the multiplier immediately if the frequency was set
++	 * directly, and refresh the cached skew_delta for anything
++	 * which may have changed the skew rate — mirroring the
++	 * condition in process_adjtimex_modes() — so that it bounds
++	 * idle sleep while the slew is in flight.
++	 *
++	 * In the old-style ADJ_ADJTIME form the mode bits mean
++	 * different things (ADJ_OFFSET_READONLY aliases ADJ_NANO);
++	 * only the write form of adjtime() starts a slew.
++	 *
++	 * Also claim the do_timer duty if it is vacant, so that the
++	 * deferment bound is honoured even if every other CPU is
++	 * already sleeping on a timer programmed before the slew
++	 * began (not for the aux clocks, which are not bounded).
++	 */
++	if (txc->modes & ADJ_ADJTIME) {
++		if (!(txc->modes & ADJ_OFFSET_READONLY)) {
++			if (!aux_clock)
++				tick_nohz_claim_do_timer();
++			result->clock_set |= __timekeeping_advance(tkd, TK_ADV_FREQ);
++		}
++	} else if (txc->modes & (ADJ_FREQUENCY | ADJ_TICK | ADJ_OFFSET |
++				 ADJ_TIMECONST | ADJ_STATUS)) {
++		if (!aux_clock)
++			tick_nohz_claim_do_timer();
+ 		result->clock_set |= __timekeeping_advance(tkd, TK_ADV_FREQ);
++	}
+ 
+ 	return ret;
+ }
+-- 
+2.43.0
 
