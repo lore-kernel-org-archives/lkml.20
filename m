@@ -1,70 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963579;
-	b=jvhKlh1CI+ta7gv6XvZYqaHtm46/giQXM1Ec9HoGBdAB9i0/6MmaO+7rWRSpXHf1J8Ey
-	 SpOKj4kDdGOZySfYamfepZ4M5bpSCURhthbaaIc9ZIGdDgGWCseNiJYFjZyzlltTkFBw1
-	 f2U1b4lpZzTObRuK2an8RdfsaBYr44BfFOXMUs+KgGjLAiY0BNtISmRvglikirJp4oT/E
-	 hY/7C6G8bSuTlixmtrtnHsXdTZoYuYbHTSc8GSZPdCVUhVs+ijNBe79bOmwrV+xMSl4zT
-	 SK0JnQBYPMrjz0hIN17Wgg4gM1lPkhc85QnMs8UHM8IRN9f7zo0TD671tjNt40EGOnA==
+	t=1793963611;
+	b=F0jomTP4/U2qlMpUM2n3EAHSOlOuWsAqxRiw6NeHPwrlwR9O6gedHpNdR5ODZpjK9L5P
+	 SmSygZ2Zvol2dFwlcGTNZWZvOAoKb3UQ/hTPiAHKFAG8OLeA9fumfLwHnF3rw97Qher7M
+	 8VHadqO8CAtMFfDYXDKxKYXy8/lk55ckMSJFc0tizks1xwbQkCR/b2YW0AR6LyZfMYcCh
+	 rdB2VMiFNsc+v8Z1fuZEKVUCJ4H9upxVLGht3FcaWdg8k9nbdKHSQE62LwUWV5agZyIi8
+	 +Qp0zzLjn63KSefoylSdBH39nO+e7tEhxVhRU4vWj/IEmneOIzqFJ1YALVlaHSDHK5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963579;
-	h=DMARC-Filter:Date:X-Lima-ML-UUID:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uOlICXe5m6UkPEsKQm5ZQ2HRTSw6FYz/OTKxqH66Wss=;
-	b=4100thI1V9EOt9ly5JiXV9DXsLGl4sKdFC6mMjfZXV56kCbkXYI/vyozbKUPygUHcjUj
-	 /BoxlNjPRcVIhFt1GqPY9eiLD/14lf17Xb3u8P9la0N2pGbz+sOzcTJKpHkwlxVZg9MSL
-	 kioIqnQL3UZwlj8sa4DMb23Sd5tFPNRn4LTgKnULttHMD6qedvZtB7bujUz1E76kSwgcA
-	 gRGljMZnpPyQBt1F5xkYm2SRrs/O8Z01cOk1USVwUNBvT7F3tTRE5dqRCbIliwo9y1+KO
-	 ZyLntmVj0L+kfSMxINWn76/KrsrKXDegQgAxCBqsA1HueK6GfkbUGEaKgkl9vlQwIkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963611;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ODNMsiZEnMLL1WYjHMau2I/sXNI//hE1fIb6cUY+iEA=;
+	b=P4YLWiHuHX4pFfW2KSGyhxh5ybtsGqFqKMO8GTw1dUOnFrHyIRnEjnDtoty64nGwWfMw
+	 4rYPjy2HuXpj3pFi0vyF8fG/lpmBL7fPQY2uit7KZ8HI/6E7BdB/Hva4o1avyJGECwWBo
+	 +xj4XIKsqmP5LX/WDM/8yUhVeluuXawuN59JPL1pAmIbT0BHyflLu4TXVw8HaqVYgJFg0
+	 SsO/slFQG7siH7uq48WBWiefkbMNvzI7xtPJVTQy4QdnsGmnwftmusco3GkfoExAV9isl
+	 P6MECWiEuZO2zMlm66J9IgcbvNUpfXgRbhlZKst8sOQ8wtW9Vg3y+ReYghAk22PCnsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b="h5JU/H53";
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b="h/fmb8Gm";
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD42606A333;
-	Fri,  6 Nov 2026 11:12:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FD42606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D043B606A32E;
+	Fri,  6 Nov 2026 11:13:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D043B606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=h5JU/H53
-Date: Fri, 6 Nov 2026 12:12:50 +0100
-X-Lima-ML-UUID: 21ffc2cf-d5b5-4b50-bff9-4d2e6e69e61b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793963574;
-	bh=uOlICXe5m6UkPEsKQm5ZQ2HRTSw6FYz/OTKxqH66Wss=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=h5JU/H53ovbcvOj9+4xwyKZtltEwUv5agWdUg/jQ7GqdM26PDum6snSV/4YFPG1fG
-	 SbN9TAjgfxPK/5YVKP10X3R5Isn2FdfgVTJLZ/lO/qPBcXkyEeB6WYP3onoGtXXKNk
-	 S+0Yqu4DV3FsKXwQ8eODr8JhLbSt1M+D5EabULuP/rfjug1oxH4Jr+9bk86CaIkEo9
-	 PzHG9wAM/xhyckWLV/9LsoPcxmoeopCG02BKo+JW//M4aTJvP1rfFCeqc5Fhl7Q0ST
-	 +2fh/+4cTqdMSBESXqsp/AFlHnmnqm38p6GL6BTUM1JrWPF5DxRiqHyBAppirQm/KC
-	 JdHIgN6H74zgQ==
-From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Myria Sarvay <myrialsarvay@gmail.com>, marcel@holtmann.org,
- luiz.dentz@gmail.com, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, sven@kernel.org, j@jannau.net,
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, Yossef Osman
- <Yossef.Osman@proton.me>, Aditya Garg <aditya.garg@linux.dev>
-Subject: Re: [PATCH v2 1/2] Bluetooth: btbcm: raise ACL priority on Apple
- Broadcom controllers
-Message-ID: <20261106121250.0caf3299@kait2en-mbp15-1>
-In-Reply-To: <5F81A6CC-46B6-4C45-BB05-8483057EEE7C@chaosmail.tech>
-References: <20261105085750.120392-1-dev@deq.rocks>
-	<20261105085750.120392-2-dev@deq.rocks>
-	<au1uH6uxtsw2vHfP@macbookair>
-	<20261106083339.677cc75d@kait2en-mbp15-1>
-	<CB3B84A2-76AD-45F5-B2B9-39E5A9ED3BE7@chaosmail.tech>
-	<20261106113946.60c6c5f6@kait2en-mbp15-1>
-	<5F81A6CC-46B6-4C45-BB05-8483057EEE7C@chaosmail.tech>
-Organization: KaiT2en
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=h/fmb8Gm
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=ODNMsiZEnMLL1WYjHMau2I/sXNI//hE1fIb6cUY+iEA=; 
+	b=h/fmb8GmQc1Fla6JbkPYof8s9i75M3yP7+nr7gPaiL8l0dqoXxrJmZ4o46FkqWeStg+ZSj57iMG
+	OnNPu/DjYYC0IBmM6kdormy0ShlP1QXnEeEC0PTVEgcHt2SpK32Uy/NzG3WzCFeSDA6hkDceRFoiC
+	HUuG+nmcGdf/5m7FAYpYZToDL3bQC7N2hURGm9WhdySSs8cIgv928yRAxGiSWZZG18fxri7VxzkID
+	qv5OD5moqRXd7k6peEEUAC3cgZO0aRnhTqf+C/jEdY9ruVV7dw2kR4Etd4MVc2zk0MfXksnykLijC
+	ch58GzBk+GqpDOeJjbti1ZvokrwPHhznlQ5A==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xPHss-0000000BqWX-3fXC;
+	Fri, 06 Nov 2026 19:13:27 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 06 Nov 2026 19:13:26 +0800
+Date: Fri, 6 Nov 2026 19:13:26 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: T Pratham <t-pratham@ti.com>
+Cc: "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sebin Francis <sebin.francis@ti.com>,
+	Manorit Chawdhry <m-chawdhry@ti.com>,
+	Praneeth Bajjuri <praneeth@ti.com>,
+	Vishal Mahaveer <vishalm@ti.com>
+Subject: Re: [PATCH v10 00/15] Fix several issues in DTHEv2 driver
+Message-ID: <au22VnPj-y7cgSYS@gondor.apana.org.au>
+References: <20261016124456.1802080-1-t-pratham@ti.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,19 +67,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016124456.1802080-1-t-pratham@ti.com>
 
-On Fri, 6 Nov 2026 11:53:13 +0100
-Sasha Finkelstein <k@chaosmail.tech> wrote:
+On Fri, Oct 16, 2026 at 06:14:41PM +0530, T Pratham wrote:
+> This series fixes a handful of independent and mostly benign till now
+> issues in the DTHEv2 driver which were flagged by bots and AI agents.
+> Except for the fifth patch in this series which was found in an
+> internal testing.
+> 
+> The Sashiko review on DTHEv2 hashing driver patch series v5 pointed out
+> some pre-existing issues which needed to be fixed [1].
+> 
+> One of the issues had already been flagged by kernel test bot and a fix
+> sent on the list by Mert [2].
+> 
+> I included this patch in this series with minor edits. Then the Sashiko
+> review page for [2] had more comments [3]
+> 
+> Overall this resulted in a bunch of fixes patches which would have
+> deviated the DTHEv2 hashing driver series had they been included with
+> it. So I clubbed them together in a new patch series which is this.
+> 
+> Signed-off-by: T Pratham <t-pratham@ti.com>
 
-> Sleep. I intened to say sleep and I have no idea how I managed to typo
-> it as stream, but that is what I meant. Sorry.
+Please respond to the Sashiko comments on this series:
 
-Bwah! Well... np. But you know we are using s3 on T2? So the
-controller will be off to Nirvana anyways. My last info is that Asahi
-is stuck on s2? So even when testing with s2 on T2, we have UART
-transport on the 4634 chips... So if at all the 4377 on 9,1 and 15,4
-T2s is in question, right?
+https://sashiko.dev/#/patchset/20261016124456.1802080-1-t-pratham%40ti.com
 
-Andre
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
