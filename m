@@ -1,104 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953296;
-	b=pW7R3jbVw7vt2EgJ16PlVPHk+jtqXTxFp5JMrJiouDu9PbMPtYkhNuj+RvnTuSOfalOd
-	 c2waUkdeeyzn1lq2snBpkJdDbDbSS5itf+6yQAeTXYEiz5cbzFwLIKuowhDj1FImOh76I
-	 UqYDvuFl71SrIbQZNl8h2JZ1NJ/+g88dQ96+wkO1Wv9CYEsPqc7RgV4bA9M805jVGRLqB
-	 P3s68vHTH4DO186tL0sJ0p5klqFq4w0T/e2aeUp02YXd3fRDYoL7fMSjQReOnOoVeoZJx
-	 n1b+TbVWOhNgcYqwApVc7uNv5ezU7tp0gkypOq3ba22eCt9nUu+XYhkTvJENTPKmrtw==
+	t=1793953421;
+	b=crYWYUtksIIjYAhOW7IYpN/4dK212HIFj0WJ26RHSpbqi7aM5DTMYBzkNMY4crX8lX+t
+	 KYDOenwxAUp3F193RmAqKoDJtJxckbEWe5hvRvk5es8UtKX6jZWr9LFyEthn6jPnTj2UC
+	 cqc527aOTpXz5/oTX4iBUYumt2vY0Cxszq5Gcx88UPEV9po3zmnecpSI14TlvlxhE0pO1
+	 K1OxV7TI2/fO9TqalbD5W8wjtCRdQobtLYytyzuM90P8x5NRUE7IEcyhn/w64G/pzjfJc
+	 qi5mg9iJyveoxCXKr7UOAmRsQp5J41LmEkAK/5nES5Rrc0UhrawmxtBbU5zd+tjaMlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953296;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=Z2Ju1cQkbqfSchQm4ea439mNBOoXAWoCo7WUPi9dWQU=;
-	b=aBcHWfxI1f7ilVUOdxAxgwLMZPe9F2EoQAJTtCXiait9LCftuRwOvDAJPYovS7Z4EVLe
-	 wzNHFBy77BRb5MAniPdAHgo+cN6yyFG4tNETgY2Q91vOKF49OeptGIPx/7KwIIqAtnzK1
-	 UHRx1JGO7GdYxPbDK3sCtS4Ye7/gbp5XFV6Vm/FmqCvLk91tpn+PUzL+7nGg7QsVMQJo8
-	 KnP7sPBMAUJg65x/GmsQEjgQBGO3voErGFZpfU9yusiroUqGi/cz9dDOIFcinnW/t//b7
-	 6hOYuWSkL4exGPK+RT5Bc5cdugL2pVxdUjpSnknvA9fb9ip7U9mQ/VmearsNKyL3dtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953421;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ymrZpA8Fy9JtHf0tOEjbIKru6WLcYWV1jdxeTqeYIWQ=;
+	b=IvSizdQVGZk0e/aWI84H2/rlNGc0R+ljFkXnaZJRSzGbX/509OvG6CRkZNEwTWambSJm
+	 9BLFvAMq/jZz+yUPGWBcCJL4Jd7+G3R1XuJKtfpzkvsS6/S9BjCGxyX1hWtHerPBBrKDp
+	 cwIV9NaZf0Sp5ddCHhwk37ODAO8haHsCXezRIJ7OJJY/YcLGgDsHmX0/d+gr+XAsHJaha
+	 X8dyMeSaV3iQzgZMOHMAVc7n+CsbDlFvVE6Rd6V7p4iOAl0l0cwnTlDBw0yU8Uo4LnMBB
+	 EMxZHitzT4vpeuLXsaEGDH+eFAyu5lBUgIQbW0ZZLo0w5vKZXgcaM575zrBsYPLSEEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=V4e5eAoA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="3u/TIF1Q";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=U40lI6F8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=epjkPEdS;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCof7OFh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24135606A330;
-	Fri,  6 Nov 2026 08:21:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24135606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B4D606A326;
+	Fri,  6 Nov 2026 08:23:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=V4e5eAoA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3u/TIF1Q;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=U40lI6F8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=epjkPEdS
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EE3591FB93;
-	Fri,  6 Nov 2026 08:21:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793953294; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z2Ju1cQkbqfSchQm4ea439mNBOoXAWoCo7WUPi9dWQU=;
-	b=V4e5eAoAEcrMVPiURQAjginCIXmCcDDV6As0NtqHDwA3yiK2awePWJ2CRTFLJBufcxbk6v
-	SWzt9hdEwkjKuP0L4WA90U3T9tQf68Bif5DvttfMuIsjdaMyfpNdO3eEvnGgn2x/tpalY5
-	np0yi/68rs46xpFXejPNMswmeEoi0D8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793953294;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z2Ju1cQkbqfSchQm4ea439mNBOoXAWoCo7WUPi9dWQU=;
-	b=3u/TIF1Qfg3BoZVshE9rOBJ2ON+ybz08g6+kZZxQqx99cgMBDykCtrbAARoGIZzGPl9BCj
-	e0CXdI0JHfJE23Aw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=U40lI6F8;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=epjkPEdS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793953293; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z2Ju1cQkbqfSchQm4ea439mNBOoXAWoCo7WUPi9dWQU=;
-	b=U40lI6F8wEBaSZ2brkRKY7emrMDprR6jHx07Go8XDqIDYEHXrXq5EDXDND/575qJEzvkT6
-	B7BU9RQ0+et4qoMWcBW52+8AzfnQB3J76HxGc1jcVyTFa6gmjl+GjTNgwNvyK9olKYpZZ6
-	rFi5WEZILTdEJxtTuHKBKgVltpgX+Mo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793953293;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z2Ju1cQkbqfSchQm4ea439mNBOoXAWoCo7WUPi9dWQU=;
-	b=epjkPEdSL4wtMOZoeFcoy1kEE4pRVcMJ3AYKhXn+8eoImry0vFoijUAhqv85m3cIcLDM0g
-	mWN/aMxISNozc8DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F035D132C9;
-	Fri,  6 Nov 2026 08:21:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id JRMLKwyO7WqXcQAAD6G6ig
-	(envelope-from <hare@suse.de>); Fri, 06 Nov 2026 08:21:32 +0000
-Message-ID: <27015846-0161-4700-b810-4643e1f7b63a@suse.de>
-Date: Fri, 6 Nov 2026 09:21:32 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCof7OFh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE021F0089F;
+	Fri,  6 Nov 2026 08:23:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793953420;
+	bh=ymrZpA8Fy9JtHf0tOEjbIKru6WLcYWV1jdxeTqeYIWQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mCof7OFhh6WPdXc6ZOc1oB2YKq4sWYk/6d6hqdFst7do13U6MfLOD5VErszqR7qYB
+	 eQux1XTChgxk19c50Ns6jkSaVrRygZEs5WMKxpLfOUupTJvst5gG7WHhmeglpgpodo
+	 7AX8zhnK/1Fotitw7NklhGl/OiILSSf9KBoYEmKvPaUDcgNTDm6BksoQyDrAPH/1HG
+	 4mTBdPtcGEJdL38/1yTmjmD9ZYOWEjYXp/OUDr6BlXyQA2Yd+5oQIs2uZcIi6Tjfko
+	 TIXhwStX8+Ln24+ATdAMfZrjjJVaM8wCl4cqsbsemqlJAtpKbzxF9iosGLd/ZtP6Re
+	 jaeMUegpgL3lQ==
+Message-ID: <eeec310a-a271-4e56-8958-a03318f07e82@kernel.org>
+Date: Fri, 6 Nov 2026 09:23:32 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,130 +52,95 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] KEYS: Replace assoc_array with rhashtable
-To: Jarkko Sakkinen <jarkko@kernel.org>, David Howells <dhowells@redhat.com>
-Cc: bpf@vger.kernel.org, dm-devel@lists.linux.dev, fsverity@lists.linux.dev,
- keyrings@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-security-module@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
- Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Andrii Nakryiko <andrii@kernel.org>, Benjamin Marzinski
- <bmarzins@redhat.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Dongliang Mu <dzm91@hust.edu.cn>, Eduard Zingerman <eddyz87@gmail.com>,
- Emil Tsalapatis <emil@etsalapatis.com>, Eric Biggers <ebiggers@kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, James Morris <jmorris@namei.org>,
- Jiri Olsa <jolsa@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Mike Snitzer <snitzer@kernel.org>,
- Mikulas Patocka <mpatocka@redhat.com>, Paul Moore <paul@paul-moore.com>,
- Randy Dunlap <rdunlap@infradead.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Song Liu <song@kernel.org>,
- "Theodore Y. Ts'o" <tytso@mit.edu>, Yanteng Si <si.yanteng@linux.dev>,
- Yonghong Song <yonghong.song@linux.dev>,
- Linus Torvalds <torvalds@linux-foundation.org>
-References: <20261105031401.956609-1-jarkko@kernel.org>
- <20261105031401.956609-3-jarkko@kernel.org>
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Olivier Louvignes <olivier@mgcrea.io>, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ Joshua Crofts <crofts@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261105213210.87457-1-olivier@mgcrea.io>
+ <20261105213210.87457-2-olivier@mgcrea.io>
+ <49e69d9c-6cb1-453f-bbf5-e2202f97e4ef@kernel.org>
+ <30B040B3-D371-443C-A66D-11EF89FC7C63@goldelico.com>
+ <f74bf2cc-c459-4b9c-ad94-c60afcaed3cf@kernel.org>
+ <05798D24-C5A7-41BD-8FDF-F7075F2F0D01@goldelico.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261105031401.956609-3-jarkko@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: EE3591FB93
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[38];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[vger.kernel.org,lists.linux.dev,redhat.com,kernel.org,linux-foundation.org,iogearbox.net,hust.edu.cn,gmail.com,etsalapatis.com,linux.dev,namei.org,lwn.net,paul-moore.com,infradead.org,hallyn.com,linuxfoundation.org,mit.edu];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	R_RATELIMIT(0.00)[to_ip_from(RL3deh5x9onbckmuwxjk3fsykq)];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.50
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <05798D24-C5A7-41BD-8FDF-F7075F2F0D01@goldelico.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 11/5/26 4:14 AM, Jarkko Sakkinen wrote:
-> The keyrings subsystem is the sole user of assoc_array. It has over 1700
-> lines of code, no test suite, and a long history of bugs, with LLMs now
-> finding more.
+On 06/11/2026 09:18, H. Nikolaus Schaller wrote:
+>>
+>> Again, please drop inaccurate tag from this patch.
 > 
-> This unfortunate outcome has evolved over time by large from the shortage
-> of in-kernel callers, time bandwidth and 3rd party contributors.
+> Ah, on third thought I start to understand...
 > 
-> What the keyrings needs is just a generic key-value store, which performs
-> well with sparse key sets.
-> 
-> Replace struct assoc_array in struct key with struct keyring_index:
-> 
-> - keyring_index: holds an rhashtable for direct lookups, an RCU-protected
->    list of keyring_link entries for stable walks, the active link count, and
->    an rcu_work item for deferred teardown.
-> - keyring_link: links a key into a keyring's hash table and list, caching
->    its 32-bit SipHash digest rehashed with jhash by rhashtable.
-> 
-> Correspondingly, struct assoc_array_edit is replaced by struct keyring_edit
-> for delivering transient state across link operations.
-> 
-> Other behavioral changes:
-> 
-> - KEYCTL_READ and sibling-keyring searches follow list order instead of
->    hash order: keyrings are prepended, other keys are appended, and
->    replacing a matching key retains its position.
-> - key_unlink(), keyring_clear(), keyring_revoke(), and keyring_gc() no
->    longer allocate memory.
-> - keyring_index_free() uses queue_rcu_work() instead of call_rcu() because
->    rhashtable_destroy() may sleep.
-> 
-> Suggested-by: Eric Biggers <ebiggers@kernel.org>
-> Co-developed-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-> ---
->   include/keys/keyring-type.h |   1 -
->   include/linux/key-type.h    |   1 -
->   include/linux/key.h         |  28 +-
->   security/keys/Kconfig       |   1 -
->   security/keys/internal.h    |  14 +-
->   security/keys/key.c         |  22 +-
->   security/keys/keyring.c     | 986 ++++++++++++++++--------------------
->   security/keys/request_key.c |   8 +-
->   8 files changed, 465 insertions(+), 596 deletions(-)
-> 
-While I am pretty much in favour with this approach, is there a specific
-reason why siphash has been chosen?
-Would there be a chance to make this configurable?
-I do see slight complications when running in secure environments
-(ie FIPS-certified environments) where most of the hash functions
-might not be available ...
+> Because you look at *this* patch in isolation while I looked at the whole
+> series.
 
-Cheers,
+I did not comment under the driver patch, nor under the cover letter. I
+placed my comment in specific context - this patch touching the
+bindings, because you cannot test bindings on a device.
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+
+> 
+> Yes, you are right - the dt-bindings is not directly tested (indirectly it 
+> was because I copied the example from this patch into my device tree and
+> it worked). Then, the ADC driver was tested (but not the hardware).
+> 
+> So this tag should not simply be dropped but moved to the driver code.
+Yes, please. Thank you for testing, it is important and should be
+credited, just accordingly.
+
+
+Best regards,
+Krzysztof
