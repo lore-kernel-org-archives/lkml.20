@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976002;
-	b=rQ/g27tmx8ygpv2IlsT8Wexzc6PudW60vIZJ7uVwxA6v6YzsSU48TzIe//nsKkHcPn08
-	 pZSjyysL4I6jFsNE69z6rulfJwW3xUoaWHmSuU4Z594idk/MOZJuf+jKJSj737D53o0I7
-	 rFCwZirc/FQkb6RgQIEmxYoIDIyCHwUmCLSJWfJgR39i4/wxGeawigYgGYzCv94ZJUM/r
-	 Ff6chPqa/0jtFrWnGy9CZFS7FZp2Yb06nI52kbi+OlPRJuPwJu6KRgrg0RDHEhjdXkTwR
-	 hH2wme8gA/fWKH+l5TmDx4pwltzfyh3VxAL4P5aBdKNvSJS9yVQkbgwNoaR+e/Vzx2Q==
+	t=1793976009;
+	b=rxgTQ2eWoMDT0wRKPxeslsaxpF/ZihLYxRD8UuKzbrjyChQZahSuRVjjPZ6UopyNwcOT
+	 0j8mXqbbaSC2aolPXVs/YOOdcXDWuwPhYbFbZpJ37A3MqVdjwLh+Ul7cSdvcXugvoX3ZS
+	 UcxG356fYPlcDVPSrN2ruPiuHRIQfiR+fulgc04yWIQ8XgwR5oIqFCANcrKftqBPetKCb
+	 z2w765azhjG/zc3awZa1Zijs7y10h1MEHTaB2UJm+v2TVj7qP9+1vxQEC23+613x154GE
+	 bA6bS/zRsiqBPyBSlJ5B3NKrmFYYtPgtXOYJjtywPK6S7uGC6Y95WhyBJ3WFm0fer8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976009;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=JToukDNMNPYjncVinCRQVqH4lNSXma38Neh0EQ6yzFk=;
-	b=S4f0Ou/kZTdSeB8HTmEFiMrV5XkVZIg1P/w4Pnz4VQsyLt0JXzi3ZEDukpP5SX25JYn1
-	 TeORqPH2/r/C3yidxui2djhZmbwL+P5IpdrAixHaXGvFMJsDK2Jm20woRax3QcHsK7oYa
-	 c+ySgudfm3UBeKDH6ijgxYNHul4BkwoANArNuGWO4phl2Qbd/3/ClRMrjse6rPlfvzV1y
-	 R8A6Rdn/spDmdcE+K927jhUEKsPr80zGpugNLYujNEMw8/SBODFl+vYuj7zuNSsDxGKiW
-	 tYLxHps/GGzn9GrMlC5MLDTNh2MhQxwdwWB/ZG0v5FjGrwsQllTh/SaBfxWM5KfYMdg==
+	bh=VX9HHcw2MD3Gr5P9Ztz5qkm8xBMf/5Qk5NjDMCVJWCY=;
+	b=siBcCJCzRe9GZ2SOnp1C8xV0YMDTz1Rmfa0KcXlobxQaCh2m8eKnLWtk3JQmUUa578HE
+	 5Z2G+L8X3mU7Viu1/d0qToOby3UpsHS2haVfXOw8MIg0ps24YHCp/iGx9reCVsB6PHpFj
+	 fyfnjDIrELmyKp0q0EyMmrPnUduEpH2vja42g8QX1hV2JYyQ0pf5WRa6bkWbusYTijPLC
+	 lsmGPz6Q3c6Wg5VISOtm2+RGoKAmervi7CSd7Ws65xvTFDxqON54u/TfmRl9m3CxPP8iR
+	 CfItN3NdY2Dk8S8wRM5XU3HpSfE4IaimvleSMqlvsbaX4OyB4Rghf1bigiBMHvkviKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SiWP5Rp6;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="NUYt/w0W";
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385A0606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:40:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 385A0606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC09606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:40:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DC09606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SiWP5Rp6
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3282db206d3so1468237eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:40:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NUYt/w0W
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-370a1bc464cso40879eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:40:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793976001; x=1794580801; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793976008; x=1794580808; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JToukDNMNPYjncVinCRQVqH4lNSXma38Neh0EQ6yzFk=;
-        b=SiWP5Rp6kd3p6MMbZBzvLpzPMo+fAyp1/SPx/oyv8p5muNVS98HYdpTM5HVYNFJ1Jh
-         5wxRL+iFKXsDyxkQa8SP4ITL6xuSb1hHga0qOuIABwwuaCCLKZ1h/OHNoqPNvCUwIyyD
-         suxhxanohfNlOIFVHYwndFNpekv9Sos1VacqB/bBk8lPILelwFi2l5N3fS5nzR4K11ys
-         YzQELGZ3YDrE4fZQnIjAigv23jNxRGsUolcTsQ/WC9G8+buPa7sgBBS1lu/4uE8BvCwl
-         fSidnoobNdypRBq6i2mNTUe9tMJVnR1IK1jzqAMij18IexUeVoZNgr6Jse3rkSmgXLlS
-         B3CQ==
+        bh=VX9HHcw2MD3Gr5P9Ztz5qkm8xBMf/5Qk5NjDMCVJWCY=;
+        b=NUYt/w0W2yY1B6gWSKEl+10ga20huiLHLffz5z4qjB7JIyJPgCftSaIOpzZVsmZbF6
+         kbMrpLlpxRL0ijlUh0rDGdGS6j5S3PSXz37V34ZppjT33ADpI5+vBf3kwoCtRoeoA3AL
+         jRvoY62taTx8LV3FLSQB3i+W3Ujo36cOMWdicPoxJBVQUn1toC7vbjmPHg8LNyLnETnc
+         n2CV1b2+TQV0J6wTi6yNkzS0k9QuCkeNpECIR1uAM5mAZKqoPoMQ96agbDzKdfVZtb/W
+         buDtY2pELMedR9BcZ4TQzT8+jq/2XhYpVO8wk41OeXE8KoqDOvdCzSCw6UbBFEFbK4cc
+         KKrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793976001; x=1794580801;
+        d=1e100.net; s=20260707; t=1793976008; x=1794580808;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JToukDNMNPYjncVinCRQVqH4lNSXma38Neh0EQ6yzFk=;
-        b=nGOGbOkRavgm0exsAoYSQQS20hlc0JBhl5hyTjSyzZLmMOq5sv50J8D4hEKR25IRTG
-         aU+agjI8yt5e73GHPwS4GqEGStx8ygJHjH84zqdqvgltxMEcyidfQ3PxaRhAxwVU0FgP
-         UZKSSIJrK5THGioUUjAgBUsIATfJa7F10uZ48wm9CJzHBSBbfT6CjETSQ/xLrXcyAkd1
-         FiCE6Ihe2wJL6uUo8yxTJ0RztxKO0JqncqrucvHUfZluWxyFc9I59/oB6ClF8BLfcCbK
-         jJtyLFQXrpfWB50eOgldXlVJi67u0V+7kpCNrh1xJ8d+eSZEg3DFd1tyUgwwXBXIRkkI
-         HwNA==
-X-Forwarded-Encrypted: i=1; AL+hErGHV007H859lS3oqywe9ZPBmSPmKrcRvD9LAfHLLYtD6cy5LACGSLwHo8Qk5uRtjgnhBSRPiul/p25LgZU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NOE1bLF5U6dqW15XucPLzjhsBbfqPBgYby7ISqOy3PcCXp3SI
-	vzn+7smIM0USTs77KfxmmwaJW4WqQ27bbSi71lu5iKXPFlMSAvmQzL3W
-X-Gm-Gg: AYBFou2ndiPCvb8crEBTNcEPKprbZZnX2UW/7Oo/XkdZn/zvlVF48SrqJTgq+L+ezpb
-	EhrBaMRtNWru95mbaneSWsgvP9EcQOTmScPCHaq01eENIjdo7loHm23QdQi4GKZpk6NJJ+anSTU
-	YBAz33uYhsM16Msyc+PXYrpseIio3JGtnjzGjU85cyBGjbyIbQ1GR/56PD7YJbCURZdpOtFBEsn
-	kKLdjIiKsV6ABwcuwNhOOCscl9Py8sXXfeBSypl/huZfkPBjbXAPeB9YGeF+Epq3uwsd2EuXLA3
-	5Twdu5Us9e7ip4XCHtNPq1rPEXbni4otc3lwpsUBjwl7WogSsnlYwH5LYr6U+LGt+bupCiYa5MT
-	X3QpsTsU7TITKHvZkcKag1SIwnZkgasuTwVZK2L6qLuiBE0dNOvQY7vDnuYhq5aPqUgWuohek0y
-	tVRSb5VvTAvemOQjcmx1n+eBIgNdEb+tYwolDy4DPN/5+BfCFeECe/e8ZDM0Xaz545CdouO+Fz3
-	KfO+w1YeUSOtyo+qAjHnun2yvels6C+VC4VVLIYAhAXSRpCBuk2ucr1+YPpzIEY2diBmtL5owQk
-	PwZ2BM9HGcUur6mHOW0aU/AliVfsFuOHeWtQmn0=
-X-Received: by 2002:a05:7300:f68b:b0:368:c6b9:d3c0 with SMTP id 5a478bee46e88-36f76719fd4mr3580740eec.28.1793976000977;
-        Fri, 06 Nov 2026 06:40:00 -0800 (PST)
+        bh=VX9HHcw2MD3Gr5P9Ztz5qkm8xBMf/5Qk5NjDMCVJWCY=;
+        b=EjEN2Wvrhi6RU9CeHegoaEbiZjJZhEzOrv+VUzy0yDPmkLqBrtFMcddxJwVjhBHW0J
+         kHfw/H+s8c7uvr5RarJy3ovzDmdfzqSHkTEO76Yn6Lwd73BqZe4/1lYZWKu3aPDKbX7Y
+         ieF5Pd1mVoMJHbRu4LOh2yenf6ViF42Mr7CquHV2dIAh1rU60zAjHEwKE3jJHxw/eKRi
+         WuUizvbK6YG0lL0TlqfKZi77DV7FUNZe/+eFr8pu9UUEGywG5f4/ZiKemJ4kG8Xaoyzh
+         RQ7DkAr/0XaQS4GYcjLvOaRmm5Pwvleh2uu7BjaIFDAjBgcGgDcWn049TNHdidg8FDnY
+         tUPg==
+X-Forwarded-Encrypted: i=1; AL+hErG9vEP4KaEPbyvam3R0tAJPzh27AywD2DclpDHGLpdYKLlKumuzOhfA3ftpm8xdlu3Oi0mN8N3YopwTksw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8knJsek+Zooq1lLBXVVDUptODAJBP/j5z7GaMF5PBKYl7c2Yau
+	fFZY+nVxoNyZxrEDV/jnwV6cMerocA0Jotv2iubdX155WcxhjFfaKOHb
+X-Gm-Gg: AYBFou06SUJ3AGU18wKkMTFbCE8TNwcaAtrit3jTusNwaXqwe9JGHi5sfkDqg9yGrd0
+	f2HzYed+rqb1xKMbrVBZPxfcxmQhDxkwiw1rQTbPAYyI2SozuPDmOqpTtmQcaBerKANL+r5Z0rn
+	oOr3pBiViqHPK03452XYSGrlFyMPN6m6nAuWuF/UEWyzkq37yhEZQEvTzOXWZ4EnPgRMMFTT8k0
+	B7kmRg8on/quuqzOIQcdvfBQpshvcmI13sHBOx7N28rFuZEUR5Nusa2WUDK4xiByyE7Hw1KoG2l
+	5Z2VqKW9VSRdd6A55a2nY2dT3vMEIUAQXcb83xZP7HQCVY+w/1oNbNjTAdrHoakbVoLIOYD2PgQ
+	jsQwhYwit+1x0VTFijNgxdz5tQCZIOHHNCd0NbJME30R4LhatKg45IY9VCN8rlnIZWS0Gs2G9LZ
+	ojwseUacVw0+D4wZOqB/kFmSQx/HFxoeYB5taYhVHO/RgvHtWB/Xn1KEyJo9crkyp6dAGQ5++dP
+	pzoMUdTGa9NJb0DUUvZao58WA7HL8dWSjiKrKNJ/TwTUx5XnWIqrFTLBR8uNUjUPdD1rRaxKH0w
+	4970fXbVYkAFBddtz09F80GTzsij5MQ+pxK/B3Y=
+X-Received: by 2002:a05:693c:608d:b0:36a:1e50:e45 with SMTP id 5a478bee46e88-36f7681436cmr4458864eec.9.1793976007904;
+        Fri, 06 Nov 2026 06:40:07 -0800 (PST)
 Received: from kernel.. ([216.195.201.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa6a649csm7182068eec.26.2026.11.06.06.39.55
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa6a649csm7182068eec.26.2026.11.06.06.40.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 06:39:59 -0800 (PST)
+        Fri, 06 Nov 2026 06:40:07 -0800 (PST)
 From: Kunwu Chan <kunwu.chan@gmail.com>
 To: dave@stgolabs.net,
 	paulmck@kernel.org,
@@ -95,9 +95,9 @@ Cc: rostedt@goodmis.org,
 	rcu@vger.kernel.org,
 	Kunwu Chan <kunwu.chan@gmail.com>,
 	Kunwu Chan <chentao@kylinos.cn>
-Subject: [PATCH 4/5] rcu: Add KASAN aux-stack verification test
-Date: Fri,  6 Nov 2026 22:39:12 +0800
-Message-ID: <20261106143913.3627722-5-kunwu.chan@gmail.com>
+Subject: [PATCH 5/5] rcutorture: Add KASAN aux-stack verification scenarios
+Date: Fri,  6 Nov 2026 22:39:13 +0800
+Message-ID: <20261106143913.3627722-6-kunwu.chan@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261106143913.3627722-1-kunwu.chan@gmail.com>
 References: <20261106143913.3627722-1-kunwu.chan@gmail.com>
@@ -112,203 +112,157 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a test module that verifies kasan_record_aux_stack()
-recording for RCU callbacks.  The flavor to test is selected at
-build time by a Kconfig choice.  The test enqueues a callback from
-a noinline helper, drains it while the rcu_head is still allocated,
-then frees the rcu_head and triggers a use-after-free report.  The
-report should list the enqueue helper under "Last potentially
-related work creation:".
-
-Draining before the free keeps the callback from ever running on
-freed memory, and the post-call statement in the helper prevents
-GCC from tail-calling the enqueue API, which would drop the
-helper's frame from the recorded stack.
+Add one rcutorture scenario per RCU flavor for the aux-stack
+verification test: TASKSKASAN01, TREEKASAN01, TINYKASAN01,
+SRCUKASAN01, and SRCUTINYKASAN01.  Each sets CONFIG_KASAN=y,
+CONFIG_RCU_KASAN_AUX_TEST=y, the appropriate flavor choice, and
+the kernel config needed for that RCU implementation.
 
 Suggested-by: Zqiang <qiang.zhang@linux.dev>
 Cc: Kunwu Chan <kunwu.chan@gmail.com>
 Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
 ---
- kernel/rcu/Kconfig.debug        |  38 ++++++++++++
- kernel/rcu/Makefile             |   1 +
- kernel/rcu/rcu_kasan_aux_test.c | 107 ++++++++++++++++++++++++++++++++
- 3 files changed, 146 insertions(+)
- create mode 100644 kernel/rcu/rcu_kasan_aux_test.c
+ .../selftests/rcutorture/configs/rcu/SRCUKASAN01    |  6 ++++++
+ .../rcutorture/configs/rcu/SRCUKASAN01.boot         |  2 ++
+ .../rcutorture/configs/rcu/SRCUTINYKASAN01          | 12 ++++++++++++
+ .../rcutorture/configs/rcu/SRCUTINYKASAN01.boot     |  2 ++
+ .../selftests/rcutorture/configs/rcu/TASKSKASAN01   | 13 +++++++++++++
+ .../rcutorture/configs/rcu/TASKSKASAN01.boot        |  2 ++
+ .../selftests/rcutorture/configs/rcu/TINYKASAN01    | 12 ++++++++++++
+ .../rcutorture/configs/rcu/TINYKASAN01.boot         |  2 ++
+ .../selftests/rcutorture/configs/rcu/TREEKASAN01    |  6 ++++++
+ .../rcutorture/configs/rcu/TREEKASAN01.boot         |  2 ++
+ 10 files changed, 59 insertions(+)
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01
+ create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01.boot
 
-diff --git a/kernel/rcu/Kconfig.debug b/kernel/rcu/Kconfig.debug
-index 7c3c6017b266..5c6c07d36157 100644
---- a/kernel/rcu/Kconfig.debug
-+++ b/kernel/rcu/Kconfig.debug
-@@ -53,6 +53,44 @@ config RCU_TORTURE_TEST
- 	  Say M if you want the RCU torture tests to build as a module.
- 	  Say N if you are unsure.
- 
-+config RCU_KASAN_AUX_TEST
-+	tristate "KASAN aux-stack verification test for RCU callbacks"
-+	depends on DEBUG_KERNEL && KASAN_GENERIC
-+	help
-+	  This option builds a test that verifies that the selected
-+	  RCU flavor's callback-enqueueing path records the
-+	  enqueueing call path via kasan_record_aux_stack().
-+	  The test intentionally triggers a single KASAN
-+	  use-after-free report at init time.  The report should
-+	  list the enqueue helper under "Last potentially related
-+	  work creation:".  Check the kernel log for the report.
-+	  Select the RCU flavor to test below.
-+
-+choice
-+	prompt "RCU flavor"
-+	depends on RCU_KASAN_AUX_TEST
-+
-+config RCU_KASAN_AUX_TEST_FLAVOR_TREE
-+	bool "Tree RCU (call_rcu)"
-+	depends on TREE_RCU
-+
-+config RCU_KASAN_AUX_TEST_FLAVOR_TINY
-+	bool "Tiny RCU (call_rcu)"
-+	depends on TINY_RCU
-+
-+config RCU_KASAN_AUX_TEST_FLAVOR_SRCU_TREE
-+	bool "Tree SRCU (call_srcu)"
-+	depends on TREE_SRCU
-+
-+config RCU_KASAN_AUX_TEST_FLAVOR_SRCU_TINY
-+	bool "Tiny SRCU (call_srcu)"
-+	depends on TINY_SRCU
-+
-+config RCU_KASAN_AUX_TEST_FLAVOR_TASKS
-+	bool "RCU Tasks (call_rcu_tasks)"
-+	depends on TASKS_RCU
-+endchoice
-+
- config RCU_TORTURE_TEST_CHK_RDR_STATE
- 	bool "Check rcutorture reader state"
- 	depends on RCU_TORTURE_TEST
-diff --git a/kernel/rcu/Makefile b/kernel/rcu/Makefile
-index 478ef2237fee..bca05ac9c4cc 100644
---- a/kernel/rcu/Makefile
-+++ b/kernel/rcu/Makefile
-@@ -12,6 +12,7 @@ obj-$(CONFIG_TREE_SRCU) += srcutree.o
- obj-$(CONFIG_TINY_SRCU) += srcutiny.o
- obj-$(CONFIG_HAZPTR_TORTURE_TEST) += hazptrtorture.o
- obj-$(CONFIG_RCU_TORTURE_TEST) += rcutorture.o
-+obj-$(CONFIG_RCU_KASAN_AUX_TEST) += rcu_kasan_aux_test.o
- obj-$(CONFIG_RCU_SCALE_TEST) += rcuscale.o
- obj-$(CONFIG_RCU_REF_SCALE_TEST) += refscale.o
- obj-$(CONFIG_TREE_RCU) += tree.o
-diff --git a/kernel/rcu/rcu_kasan_aux_test.c b/kernel/rcu/rcu_kasan_aux_test.c
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01 b/tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01
 new file mode 100644
-index 000000000000..df3169ac39b0
+index 000000000000..c115af0446ee
 --- /dev/null
-+++ b/kernel/rcu/rcu_kasan_aux_test.c
-@@ -0,0 +1,107 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * KASAN auxiliary-stack verification test for RCU callbacks.
-+ *
-+ * Copyright (C) 2026 Kunwu Chan <kunwu.chan@gmail.com>
-+ *
-+ * For each supported RCU flavor, this module enqueues a callback
-+ * from a noinline helper, drains it while the rcu_head is still
-+ * allocated, then frees the rcu_head and immediately reads the
-+ * freed memory.  The resulting KASAN use-after-free report should
-+ * list the enqueue helper under "Last potentially related work
-+ * creation:", which verifies that the flavor's enqueue path called
-+ * kasan_record_aux_stack().  Check the kernel log for the report.
-+ */
-+
-+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+
-+#include <linux/module.h>
-+#include <linux/rcupdate.h>
-+#include <linux/slab.h>
-+#include <linux/srcu.h>
-+
-+static void aux_test_cb(struct rcu_head *rhp)
-+{
-+	/* Empty: runs while the rcu_head is still live. */
-+}
-+
-+#ifdef CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_TREE
-+static noinline void aux_test_call_rcu_tree(struct rcu_head *rhp,
-+					    rcu_callback_t func)
-+{
-+	call_rcu(rhp, func);
-+
-+	/*
-+	 * Prevent tail-call optimization so that this function remains
-+	 * in the stack recorded by kasan_record_aux_stack().
-+	 */
-+	pr_info("Tree RCU: callback enqueued\n");
-+}
-+#endif
-+
-+#ifdef CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_TINY
-+static noinline void aux_test_call_rcu_tiny(struct rcu_head *rhp,
-+					    rcu_callback_t func)
-+{
-+	call_rcu(rhp, func);
-+	pr_info("Tiny RCU: callback enqueued\n");
-+}
-+#endif
-+
-+#if defined(CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_SRCU_TREE) || \
-+	defined(CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_SRCU_TINY)
-+DEFINE_STATIC_SRCU(test_srcu);
-+static noinline void aux_test_call_srcu(struct rcu_head *rhp,
-+					rcu_callback_t func)
-+{
-+	call_srcu(&test_srcu, rhp, func);
-+	pr_info("SRCU: callback enqueued\n");
-+}
-+#endif
-+
-+#ifdef CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_TASKS
-+static noinline void aux_test_call_rcu_tasks(struct rcu_head *rhp,
-+					     rcu_callback_t func)
-+{
-+	call_rcu_tasks(rhp, func);
-+	pr_info("RCU Tasks: callback enqueued\n");
-+}
-+#endif
-+
-+static int __init aux_test_init(void)
-+{
-+	struct rcu_head *rhp = kmalloc(sizeof(*rhp), GFP_KERNEL);
-+
-+	if (!rhp)
-+		return -ENOMEM;
-+
-+#if defined(CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_TREE)
-+	aux_test_call_rcu_tree(rhp, aux_test_cb);
-+	rcu_barrier();
-+#elif defined(CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_TINY)
-+	aux_test_call_rcu_tiny(rhp, aux_test_cb);
-+	rcu_barrier();
-+#elif defined(CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_SRCU_TREE) || \
-+	defined(CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_SRCU_TINY)
-+	aux_test_call_srcu(rhp, aux_test_cb);
-+	srcu_barrier(&test_srcu);
-+#elif defined(CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_TASKS)
-+	aux_test_call_rcu_tasks(rhp, aux_test_cb);
-+	rcu_barrier_tasks();
-+#else
-+#error "No RCU flavor selected for KASAN aux-stack test"
-+#endif
-+
-+	kfree(rhp);
-+
-+	/* Immediate read of the freed memory to trigger the report. */
-+	(void)READ_ONCE(*(u8 *)rhp);
-+
-+	pr_info("done, see kernel log for the KASAN report\n");
-+	return 0;
-+}
-+
-+module_init(aux_test_init);
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Kunwu Chan <kunwu.chan@gmail.com>");
-+MODULE_DESCRIPTION("KASAN aux-stack verification for RCU callbacks");
++++ b/tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01
+@@ -0,0 +1,6 @@
++CONFIG_KASAN=y
++CONFIG_KASAN_GENERIC=y
++CONFIG_KASAN_INLINE=y
++CONFIG_RCU_EXPERT=y
++CONFIG_RCU_KASAN_AUX_TEST=y
++CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_SRCU_TREE=y
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01.boot b/tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01.boot
+new file mode 100644
+index 000000000000..69ed391bd61c
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcu/SRCUKASAN01.boot
+@@ -0,0 +1,2 @@
++rcutorture.torture_type=srcu
++rcutorture.stat_interval=60
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01 b/tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01
+new file mode 100644
+index 000000000000..e42387061bb9
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01
+@@ -0,0 +1,12 @@
++CONFIG_SMP=n
++CONFIG_PREEMPT_LAZY=y
++CONFIG_PREEMPT_NONE=n
++CONFIG_PREEMPT_VOLUNTARY=n
++CONFIG_PREEMPT=n
++CONFIG_PREEMPT_DYNAMIC=n
++CONFIG_RCU_EXPERT=y
++CONFIG_KASAN=y
++CONFIG_KASAN_GENERIC=y
++CONFIG_KASAN_INLINE=y
++CONFIG_RCU_KASAN_AUX_TEST=y
++CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_SRCU_TINY=y
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01.boot b/tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01.boot
+new file mode 100644
+index 000000000000..69ed391bd61c
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcu/SRCUTINYKASAN01.boot
+@@ -0,0 +1,2 @@
++rcutorture.torture_type=srcu
++rcutorture.stat_interval=60
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01 b/tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01
+new file mode 100644
+index 000000000000..e4c1d9740498
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01
+@@ -0,0 +1,13 @@
++CONFIG_SMP=n
++CONFIG_PREEMPT_LAZY=y
++CONFIG_PREEMPT_NONE=n
++CONFIG_PREEMPT_VOLUNTARY=n
++CONFIG_PREEMPT=n
++CONFIG_PREEMPT_DYNAMIC=n
++CONFIG_FORCE_TASKS_RCU=y
++CONFIG_RCU_EXPERT=y
++CONFIG_KASAN=y
++CONFIG_KASAN_GENERIC=y
++CONFIG_KASAN_INLINE=y
++CONFIG_RCU_KASAN_AUX_TEST=y
++CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_TASKS=y
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01.boot b/tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01.boot
+new file mode 100644
+index 000000000000..b9b6d67cbc5f
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcu/TASKSKASAN01.boot
+@@ -0,0 +1,2 @@
++rcutorture.torture_type=tasks
++rcutorture.stat_interval=60
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01 b/tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01
+new file mode 100644
+index 000000000000..219e599fa8f3
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01
+@@ -0,0 +1,12 @@
++CONFIG_SMP=n
++CONFIG_PREEMPT_LAZY=y
++CONFIG_PREEMPT_NONE=n
++CONFIG_PREEMPT_VOLUNTARY=n
++CONFIG_PREEMPT=n
++CONFIG_PREEMPT_DYNAMIC=n
++CONFIG_RCU_EXPERT=y
++CONFIG_KASAN=y
++CONFIG_KASAN_GENERIC=y
++CONFIG_KASAN_INLINE=y
++CONFIG_RCU_KASAN_AUX_TEST=y
++CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_TINY=y
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01.boot b/tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01.boot
+new file mode 100644
+index 000000000000..d5dafe68a5da
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcu/TINYKASAN01.boot
+@@ -0,0 +1,2 @@
++rcutorture.torture_type=rcu
++rcutorture.stat_interval=60
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01 b/tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01
+new file mode 100644
+index 000000000000..578711fb2d43
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01
+@@ -0,0 +1,6 @@
++CONFIG_KASAN=y
++CONFIG_KASAN_GENERIC=y
++CONFIG_KASAN_INLINE=y
++CONFIG_RCU_EXPERT=y
++CONFIG_RCU_KASAN_AUX_TEST=y
++CONFIG_RCU_KASAN_AUX_TEST_FLAVOR_TREE=y
+diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01.boot b/tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01.boot
+new file mode 100644
+index 000000000000..d5dafe68a5da
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/rcu/TREEKASAN01.boot
+@@ -0,0 +1,2 @@
++rcutorture.torture_type=rcu
++rcutorture.stat_interval=60
 -- 
 2.43.0
 
