@@ -1,77 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989609;
-	b=MbZUvRc4uFig3koWd84ggvqw3cHXm035EdZKZLKrceuMoDJx4xNiM9tsDRzHWfQkAYDb
-	 4zblbVw6e42dpvTpPoT5PlU0qWoC5mEJfgmSZFhVujOTJI7vpchk4qdCTw0PFyLkoZWp/
-	 k32p2Cz3ZRUvMd6Z+yWdSahxIasTeLV/5IqjntmpSuOVZXDLMlnQmRbN45ZSam/BsoGT0
-	 RpDQaoQLpcmUAePo6geQVGVOdb51IJsHfzTmlOW9UZcGrv2hpqVOrN+4JtluUaELoawLr
-	 RHnoQx1OghpfjbI5YWdHaZU78zpCCNety8FAdfHkUOpJspNpHX4PALgV96Al6wV+6Ew==
+	t=1793989661;
+	b=WreYZIYwUcyUAeo+VyK7HLuwz2uY0ZjKP/3TeG8hwl73lCjf/gLIwCqXXw1um0YoOsfa
+	 OZzIZpGchdKOyx2CUs/FY3a2q02TeLghHbPjuum7LGxz6N1XzWiznGmPb1YI5YOqFR9jW
+	 m0LhYwfoEyVbLJhot8GjamBAO99cDA4F2SlT9nyJ6+RiJPrBTSuG6N0JAvYP/IksqdVu0
+	 DYjkRdKT7ux/8r8jCoV3lfNzGV4QQnQXfyQcnT79d+YHPx5kzl+DRs2gVVwdJ46C4F7Bf
+	 fSUXe/rczz/eX++/7ab/w/O+fBLIiyKGo95SYcemFW8oq1SWEvzBKTsyAhrZPZE1O5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989609;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wspKiW0hD3dBrqADNHKAUvUnRHsMW1qUo4TQycTg8jY=;
-	b=jc2BqYuClZnLVBRhe6VL/jjYr1OUjjvieAhwqG6PDthlR4+k+9YMjcZzYgFmTKGrEPVN
-	 76d9zOwczEHx7OkX77d0fIH0haq+xfx99A546pEwufYccAPhGd864XHeR/jskvID4s0uA
-	 qEDokCZhyys7uMRlMtLlFb9xVf2lsIDoNUBaD1iYThjeK4OHWtvw1gH5WjF+s1Kz3EmTg
-	 GI/MLDVn27BymRAtvP9iS1R/+lrQL3utf8kwqwmrA66HLAJZiFMVANFG94Y0fXgyRHaCU
-	 gGvpsdXs/i5OiU0omRpUTSjhNcSzdouBDg/zYTPSOytg+JWrdCTVfhmwHZEKFX0nkvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989661;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=WlCEZESfOmb1UfVHdqxtpBorzwyZKIs/pd0KVUd31AM=;
+	b=xIOFkIWsl+1TIX8RJ8zIW7AfyyPrxJlpG/+7wptHSUm/1wRp6S2Ylz8x84NzdD9bOiyU
+	 ZBy/mKyaJ7pK40zWnfW7z9SLSD92hq8QeP1M3KNLWEn+tc2sw10V5jxYHsd7JtWGtgSvh
+	 HEvcCqQB39+tCF7eFPJMy3dHHSLlNHeYy4CqN0sjglNLQAokw+SZ1msE5NSLzx29EV6EC
+	 6NHUTMOqBr8gAWVx+4qh/mit95GGIsj0NXNNtOkqcJMsus0nBXHvLiyMnt9d6QpchbQ2Q
+	 AjZBPZ6VIGq1QiNPoq7RuuaK69iXKflpNz9vANGC2aC4irViEoDfXp74CrGgpayilEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.win;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=E9qNzqww;
+	arc=none smtp.remote-ip=79.135.106.31
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33234606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:26:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33234606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.win
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4ceaee6770so124228166b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:26:49 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793989607; x=1794594407;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wspKiW0hD3dBrqADNHKAUvUnRHsMW1qUo4TQycTg8jY=;
-        b=Wpi9fRY+GvXtNIZC7khQF9FYiAPQvLYDqQWOFjtkHcJAqmfyqjMVM3cyf4LbotRgQM
-         SKANAhMW0T0TxDEAvaV2kIFiyQEJxGAfDpveXR7VR9RTbGLh2mWP3CBwPNNZJWASzo+R
-         zu9huBrkRFsQ4yza/zq3fIP+Q14Z4SYXms/Va+irJqjWyQzuqNHEO5LUJ8YEE8CLC4i6
-         LYRc1HJiBxTGd/MgcJL0JeM1A/2xnUjfmF5oPBk0MykZeHfeUTQCc0jrh11udztMFtIK
-         2y+KdHT5mUL4aImv5h6wCHgbs8eaMHXnYT8pQTYnaK1NQ+eBBQ4tTnxb8JwHUlYjWOSn
-         //Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBxa9ONV0/678QkZzPHeBYnQcJzChEMhPqH+0Wm3ggnZwP51XSOGw/Lv/8LAjbQo2tGPzJCTaRUSlquf8YM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9SXAFfieSc6McUsl7M3sAs3Ieue/bRbtKk85jdKgl9UkKQZf+2
-	L7YUQxvbCACklZTN4WRoiiB7jL5/L6/bWDZaNMglgbNvuDdepjrks4+zdj6zOiFnFIY=
-X-Gm-Gg: AYBFou2f+MvxXB/hfsbgVUrm9SAn3okHV3ruNGJix+moRkvb7ur31Fs4ksvPrOxwg5b
-	l4eaE8LNXwA9GDUqZx+QjvBz9EaYsqYemrbE5/LT43mPhlw4iOYAfOHFxM8keo1wPrg0Gb8q0Nf
-	VCyER9lY+xAXNmMhDRy5TdJv69LccNE7R0AvZBIBRgJQV7/k1m94szQjupdUaxtWi8B8BCSdVvg
-	Ie4NvW9JmiXMEltSn9LObiVHxripNJ2mjj07YkaxCPBR17CR9UJWbSK7fcuA8PnN8Bxy66B8WDR
-	LGiuCpQ2amv6leVJK300hsPgv1zfAG88VLimU8GjnMqgvaaf7hcB5gKVrRm7e5y+PcrGp+lGtmh
-	GuJQiXin4Vi5ZW2xzCXNKVg7l7K0/AaspkAosfgi6XgjLPNBj6/pS4K1yXEJNcpLQtALz/GMQxG
-	t3+D5nWfEpIhBd3Op2vOdCqIIaIl+dOAlQxhUYQcnz3h4WDDLHBmKCGKtRAKoozmCjSYBwFttcN
-	AmYhzHNABh+S9hrI7FYsGqTPlrrATwGdlVTDV0s3OrRM1bf9/5mY22j09wIU0FVsryzJXZuW9Y6
-	FSDDAkyCi6aJlsJ3BJs9WRE76SC89ODatnZQ0JHlHzhoIJqm28bRrsVSgpk=
-X-Received: by 2002:a17:907:1610:b0:c32:110d:682f with SMTP id a640c23a62f3a-c4d35429a08mr314998566b.18.1793989607449;
-        Fri, 06 Nov 2026 10:26:47 -0800 (PST)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com. [209.85.208.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d354ac21dsm97870766b.12.2026.11.06.10.26.46
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 10:26:46 -0800 (PST)
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b5973a4b4cso1168616a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:26:46 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxNSdXz2oKqBwZ4OVueB2gOi0KW73nOi/eqQwsiZM+XMJzRpoh6yZEGAc/55OIApvsmG03L510+jBeBJ2w=@vger.kernel.org
-X-Received: by 2002:a17:907:97c3:b0:c46:5973:2a1c with SMTP id
- a640c23a62f3a-c4d354f2af0mr301446066b.37.1793989606141; Fri, 06 Nov 2026
- 10:26:46 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DC2606A326;
+	Fri,  6 Nov 2026 18:27:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2DC2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=E9qNzqww
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793989657; x=1794248857;
+	bh=WlCEZESfOmb1UfVHdqxtpBorzwyZKIs/pd0KVUd31AM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=E9qNzqwwcOgulpKnm8UeZTapr25+17D4M0OrhVFDD9j3tHAReSmVCqXse2fl+FYRZ
+	 J/cFTZ5BYxkZ5bFAWhlLzWzoM3QDuIG6ChC45tsSbYgngi0EzV46icCs1zCzLOnsOX
+	 sfnBhu4xEROtX7Kd4SMG/LuHhsi4TFZ7hchLQTdWK7LJ3c7tjoeWBadGVvyfglSvUA
+	 AexL7vsYkFkAQHFHNS4hnwqXm2pylPMdhbAxA3tp6CHRKLDMWi4fCjuaRDwVrV4WEA
+	 HO4xk2I6aU4Y0UacfLTrlm122o87rAmLlViiiAv/SEdKSquC0QVMlQsnP/3DPifauq
+	 LzHaaP9kBEnYg==
+Date: Fri, 06 Nov 2026 18:27:32 +0000
+To: Krzysztof Kozlowski <krzk@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] dt-bindings: pinctrl: qcom,tlmm-common: Add wakeup-enable
+Message-ID: <0orir54c0rbF6-ZvpZq9hVVwLOMN02Et6AtRxRh3DU_DbJ_dwkDo3PFVFftKlaDI2IGdFsZdH-olYFZHn_5AA4U03M0-uV_e5UUtnXQIHg4=@pm.me>
+In-Reply-To: <20261020-delicate-serval-of-fruition-fe0cb8@quoll>
+References: <20261015-tlmm_wakeup_gpio_support-v1-0-c6d6f37a7e51@oss.qualcomm.com> <20261015-tlmm_wakeup_gpio_support-v1-1-c6d6f37a7e51@oss.qualcomm.com> <20261020-delicate-serval-of-fruition-fe0cb8@quoll>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: a845e39c3a4ac81e44bf1ebf3626e10ae16b1ca9
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,102 +64,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928042641.307683-1-pawliczekerwin@gmail.com> <20261026034429.742489-1-pawliczekerwin@gmail.com>
-In-Reply-To: <20261026034429.742489-1-pawliczekerwin@gmail.com>
-From: Ignat Korchagin <ignat@linux.win>
-Date: Fri, 6 Nov 2026 18:26:34 +0000
-X-Gmail-Original-Message-ID: <CAOs+rJXfSBYrWTiuDDs=a=fHJjQfZmgiXtL+inOn_TEn+bDrqQ@mail.gmail.com>
-X-Gm-Features: AclHuK-wbvCyvvqqMYIWIT3bx5pHhKw58mEs2iXFDK51EX3tNnHQ9F5CYVQcD20
-Message-ID: <CAOs+rJXfSBYrWTiuDDs=a=fHJjQfZmgiXtL+inOn_TEn+bDrqQ@mail.gmail.com>
-Subject: Re: [PATCH] crypto: ecc - Randomize the initial Z in ecc_make_pub_key()
-To: Erwin Pawliczek <pawliczekerwin@gmail.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
-	Lukas Wunner <lukas@wunner.de>, Stefan Berger <stefanb@linux.ibm.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Paul Louvel <paul.louvel@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 3:44=E2=80=AFAM Erwin Pawliczek
-<pawliczekerwin@gmail.com> wrote:
->
-> ecc_make_pub_key() calls ecc_point_mult() without an initial Z, so the
-> final Z, and therefore the input to vli_mod_inv(), is a deterministic
-> function of the private key. vli_mod_inv() is not constant time, so
-> key generation leaks information about the private key through its
-> running time.
->
-> crypto_ecdh_shared_secret() already passes a random initial Z, which
-> blinds the inversion input. Do the same in ecc_make_pub_key().
->
-> Key generation is used in the kernel by Bluetooth SMP and TPM2 HMAC
-> sessions, which generate ephemeral P-256 keys.
->
-> crypto_kpp_generate_public_key(), KVM guest on an i7-1165G7 (median
-> over 4 boots of the best of 9 runs of 300 calls):
->
->     P-256:   744.9 us ->  753.2 us (+1.1%; within noise)
->     P-384:  1674.2 us -> 1651.6 us (-1.4%; within noise)
->
-> Suggested-by: Ignat Korchagin <ignat@linux.win>
-> Signed-off-by: Erwin Pawliczek <pawliczekerwin@gmail.com>
+On Tuesday, October 20th, 2026 at 2:19 AM, Krzysztof Kozlowski <krzk@kernel=
+.org> wrote:
 
-Reviewed-by: Ignat Korchagin <ignat@linux.win>
+> On Thu, Oct 15, 2026 at 07:52:59PM +0530, Mohammad Rafi Shaik wrote:
+> > The TLMM can gate whether a toggle of a pad is transferred to the wake =
+up
+> > controller (PDC/MPM) while the system is in a low power mode. The pinct=
+rl
+> > driver arms this for pins it requests as GPIO interrupts, but that path
+> > takes over the pin mux, so it cannot be used for a pin that has to stay
+> > muxed to a peripheral function.
+> >
+> > Such a pin exists on boards with a SoundWire codec: while the bus is cl=
+ock
+> > stopped the codec requests a wake up by toggling the SoundWire data lin=
+e,
+> > which is muxed to the SoundWire function and not to GPIO. Unless the pa=
+d is
+> > armed, the toggle never reaches the wake up controller, the controller =
+is
+> > never resumed and the event - a headset insertion, for instance - is lo=
+st
+> > until something else happens to wake the bus.
+> >
+> > Add a pin configuration property so such a pin can be armed from its ow=
+n
+> > pin configuration, without being turned into a GPIO.
+> >
+> > Assisted-by: Claude Opus 5
+> > Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.co=
+m>
+> > ---
+> >  .../devicetree/bindings/pinctrl/qcom,tlmm-common.yaml        | 12 ++++=
+++++++++
+> >  1 file changed, 12 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common=
+.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml
+> > index aec72e8c0..95f539611 100644
+> > --- a/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml
+> > +++ b/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml
+> > @@ -87,6 +87,18 @@ $defs:
+> >        output-high: true
+> >        output-low: true
+> >
+> > +      wakeup-enable:
+>=20
+> As Sashiko points, there is no such generic property.
+>=20
+> Anyway, the wekeup is per device rather. Arming a pin would be different
+> sleep function, no?
 
-> ---
-> Replaces "crypto: ecc - Use constant-time modular inversion in ecc_point_=
-mult()":
-> https://lore.kernel.org/all/20260928042641.307683-1-pawliczekerwin@gmail.=
-com/
->
->  crypto/ecc.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/crypto/ecc.c b/crypto/ecc.c
-> index c7366eb7ce1f..6696bf0d90a6 100644
-> --- a/crypto/ecc.c
-> +++ b/crypto/ecc.c
-> @@ -1614,20 +1614,26 @@ int ecc_make_pub_key(unsigned int curve_id, unsig=
-ned int ndigits,
->  {
->         int ret =3D 0;
->         struct ecc_point *pk;
-> +       u64 rand_z[ECC_MAX_DIGITS];
-> +       unsigned int nbytes;
->         const struct ecc_curve *curve =3D ecc_get_curve(curve_id);
->
-> -       if (!private_key) {
-> +       if (!private_key || ndigits > ARRAY_SIZE(rand_z)) {
->                 ret =3D -EINVAL;
->                 goto out;
->         }
->
-> +       nbytes =3D ndigits << ECC_DIGITS_TO_BYTES_SHIFT;
-> +
-> +       get_random_bytes(rand_z, nbytes);
-> +
->         pk =3D ecc_alloc_point(ndigits);
->         if (!pk) {
->                 ret =3D -ENOMEM;
->                 goto out;
->         }
->
-> -       ecc_point_mult(pk, &curve->g, private_key, NULL, curve, ndigits);
-> +       ecc_point_mult(pk, &curve->g, private_key, rand_z, curve, ndigits=
-);
->
->         /* SP800-56A rev 3 5.6.2.1.3 key check */
->         if (ecc_is_pubkey_valid_full(curve, pk)) {
-> @@ -1641,6 +1647,7 @@ int ecc_make_pub_key(unsigned int curve_id, unsigne=
-d int ndigits,
->  err_free_point:
->         ecc_free_point(pk);
->  out:
-> +       memzero_explicit(rand_z, sizeof(rand_z));
->         return ret;
->  }
->  EXPORT_SYMBOL(ecc_make_pub_key);
-> --
-> 2.53.0
->
->
+Heads up this also appears to be needed outside of sleep, was looking at NF=
+C
+enablement on the Nothing Phone (3a) and left out clock from DT since MGPI
+is meant to handle CLK_REQ and enable relevant clock, but MGPI does not
+work unless the wakeup_enable bit is set on the pin.
+
+>=20
+> Best regards,
+> Krzysztof
+>=20
+>=20
+> 
