@@ -1,125 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958213;
-	b=212b7m25BMQlQom/G8RkqH/W1oOVbdqzrizKeV5t56Wxx0H8qD9dQ/Ut7ssMFRP2W/LN
-	 g4EC/FguPyyquhRl8Gw/5FbZr5vKvqDwQRcD9RJHkkUhEbZ9ezxw+yBEF2czBCQ75mYsC
-	 +NgHQ1A+YYdHwxKDIV9SqMh1enw8QS+tHAyTSo29dmS5EmfNnRambjjZykjXzgPk/SQ+t
-	 WamhfceSOb7F6VHnwKg3vv5XjpeN43rIE0KoEZfokyTi/MKyXfJSOvmH5iUUwWJ7HvxAP
-	 6EbPRdj3k/kKp4zAJAcB6WXwhbDmSt1acKsdhtayl6uEYeEcvob2EkHbZqt9dWv4vSw==
+	t=1793958230;
+	b=xZ2fklfBs7PmbfYSTiIuGY4DCb5dXD4LP3UKDmvqRjV8jva7orn79lVHRjMiG910eZP4
+	 54sMrZFzUXYfa3jOMA5W5S6/Nv76UyUHdgBBG+bnW9B0G+BFYyeIZmk15145EjkRYlpjR
+	 Fx6q1/CxLjZjm50Z+zXirN4tTg9XUclXJJKp9XiySVrM+1m2FjMYSdmJLYCgFe2yzB3de
+	 iQRmUFCWK5HDxxDk/kG7CgHvHv6e6kHVLAYA6N1sXsnSbVwAppQOVZ2qnjma7fNHDKM2w
+	 vVmm6dTtj1IIEzqnGO6s31d/63Tphd2ir07JDPQeAHrhWqVcqrgfGkrAjs77t4TN0Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958213;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=fZXYuUJlq0DIs/ZhnbnzwAKYCaaO0O+UtNup8mIm1co=;
-	b=bD3T+wAQBUpXUYvh4I8MJg7gzohG8jKTE0LNlRhUsu8sIFQV5IWkTVXFcsorlLcKgPS+
-	 kIQ+D56UTzgjrxNhORk+E0+mHbasp+YdWvxj3MG/2YkN/BLnVpqeKsegbJBV++vbzHzNd
-	 kXprasMOPXx07ZQGXE/w8qe8yk1avsUw0j51ogJJS6uIXHMdg6vhQaEbcG0aQUmfX0UqB
-	 4YWNQSMu5reHznnNmEc+KW8RRrFZq6bDbqtGnCuEoxoRRRPh941pVrp+vek5PQgyWOVSV
-	 7nUX6YBQNUHxahC87OTEOzuLrNmuCj03N55C0x/Zqmdi2Det9KoNmDvElDn3vQF9hhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958230;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nmDBfgrakA2SCIvOPfJqKnMNUKn5sx6kjpDscY55NnI=;
+	b=utu9iF48pMvNrGKAJmYwFdkRp7Wfzc0aAUFrhKbpq7Nuy5LBEIcYcw4Q3MgnNmVgQEkI
+	 kitdA4ZgvboKnCWei1Ro8oWE4ThwWsy7tS/FymoyYN8groi8Ev3f9slxFtWWeFNVP3zth
+	 52q8iPhpTyI2jUO8SjvdESJyo8FetBNMc87aTuFkaNttCKsx4eZWxInwJVeGItpswPC0y
+	 e7oafqDZ9+ZfKLxo2zMj43x2tugnBao/ZlqExrCMabfmKtQEZy8gRMc9eEQaH5ZNBjGjB
+	 pkNHmtzDdCADBShxGYVt4V/hcpypksTIvuQvjtyRJTUFIzB/8McVPN0Mmijg9TmOaHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Djh+AL/+";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OhvJ4FX7;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VRSkcGXm;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC498606A920
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:43:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC498606A920
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56306606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:43:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56306606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Djh+AL/+;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OhvJ4FX7
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67RAfY3243938
-	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 09:43:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fZXYuUJlq0DIs/ZhnbnzwAKYCaaO0O+UtNup8mIm1co=; b=Djh+AL/+2B4ZApp5
-	yOwfqn6TlwAScj+d/ugY0FXMbUgR5g1+1rMHR6RvMAOf+hJ+Pttm/UrErNDHFHDR
-	qOtM8Wz7A3XlGzghzTJzQMqdWfDHxkwp1WDVthuV7/Ff75La540KRE0FciQU3lfZ
-	sTZT5grtLChD1vzby7iSkYInHjgOzAtG5NBGUR+C8DXmcTHDy/nVbLUhgF//OwnZ
-	DXl4YjsCjlQKErrNql4OQs28tb3jGUiWLi+LQPxREIGjHMPr/0rS7CeWlJwyRHnk
-	JpHcanVHutOof1g8hfUqKFfehC87yP2NNbKrc+dH/ObaL86I0deabSRSmD/jeG5U
-	NC1P+A==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa250u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 09:43:32 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-945b0154705so72397885a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:43:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VRSkcGXm
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48fd2e38825so283647f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:43:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793958211; x=1794563011; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fZXYuUJlq0DIs/ZhnbnzwAKYCaaO0O+UtNup8mIm1co=;
-        b=OhvJ4FX7LG+WpvGluyN2NDNGy6p/RL8XW7NM13JYzS9+8MEvgAZyuA8kPovD6e88/Q
-         RzUAWFG05nR2I569LzBZPcYZCYFD09f+N7JyZH3VrMCbapWfF+fl1b2I7p6HBuQPqmkl
-         Mz0YTIU/q9hwRa1P0jg3yGT6A76mzyRlerO9Ex/Xr+Ruy4xOHrVYg6W3ZCRfuiKyoozQ
-         /zMxtNgA1Qrgz7hWcjT5EDmZAKATMBnv35Uc50ktpPUyVuwsmpEfAt6tlbry3G+GdjZg
-         rlU+R7fWsVi5usvcjPRZT5ytwI6b8Z5CYHambiWBax1LwKBXjVQQClKEc9mf8wToqsb+
-         MPUA==
+        d=gmail.com; s=20260707; t=1793958228; x=1794563028; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nmDBfgrakA2SCIvOPfJqKnMNUKn5sx6kjpDscY55NnI=;
+        b=VRSkcGXmLwvrHtHpJJJlWVI/08GXMuhPKL3EN1d5kq9AQt5dVg7QZGTKNPOki5F6wq
+         gXRJT4Lh/VZ8k9k9VsQ8oawMhdjOVA983eXv15fSpmmyHSel4IhToGxmNwno6HQ4RFmo
+         50b0hhEu4aSNyQitKgIMPRB6jRr6+wSLSG6kSlm8lEpKsKoUk6uVWCArKJCcmpo9vjl8
+         y1yzWnhgUyLBqia7e0jp6a71cuj0VPXCDvzaZMvBFO3w/rRbHqhm7dLvWby3Y0qOo0co
+         RH/LnR7+K/A7GxU7aCFqhXtXxYsKxkfZ/kkPUeJyaHUUB211VAohk+ChslMp24Dd1nil
+         mOHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793958211; x=1794563011;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fZXYuUJlq0DIs/ZhnbnzwAKYCaaO0O+UtNup8mIm1co=;
-        b=t94A2IdcwTiRo6gruBoV3BSmkoUsMWobFwotEPDu6fYbrdNHqmtJSknG2V0mGN0Vzr
-         wCrdsNoBTIGEEBk2+accf0FR5cYZyeM/Z6E5OB6wtRNIkwCdQeiFRWLYHVKCXAjx418T
-         TGyHDTEEzR7PsD9nH34ULm61ApJqNxI4DFf5argiL4NiwhEjD1g9OjfbIiprykXQEwjb
-         twh6lp3zgXONqRnsM/lQEeZV/InrmIeQ0ulpvfypwz8uQdrSJSutuSWorJIEbIm8feW9
-         q7RyAWoM6nPNI4RYdd3NfblDiesDaawryB+FP68wkgLA/o55EFLkgVSng6m34VAnm5Xb
-         3EWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSBe0LcoXxjH9zTKSVNpkQ+AnwfYH4x4oXjhEjngO2a8isEwZcoWJsfaSLRbl9fBYx5Oq6yLa0D/sCVx4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6S1uBWDzKoaQ7zxKmQ3Nm/PDTM1udlQ8qI8lVWDRsXlsjqCke
-	5RRUTE4lTH8/oXqAIvWZTVZTzn2TThsztuW0YVVd5HyuBxX/DWuemssJ/6ueuIrB+xT+JWUT160
-	GopFiwXScnYQSmdZYuNRIew4aMHSdl76YuFDxykB4gLdxNAhAGCe2Kou1K1Y7olqFfKc=
-X-Gm-Gg: AYBFou0TZa2faVwwPZdEeqCRYRwJXpZZ556SQ7v/vmpOyEqSv5+M2tDJDoUG8OO2bUi
-	v3Ehem9oadxjcW8jCK987AoPxxMLZKNBZ7PdKf6eUVmFLc0/DC2dW90nhs4azd2EK6D1o44TR7Y
-	v99ZAwRmf46HmRW+MsklXSV8bqT4+MaAyMMAsrepzEoimawvbWpV2i69p9LoUTG59vpz4Z+XB/Z
-	z/JjS0eZdC6PE100Mr33ax2vZztwXrEilyNcRiJ28K/b8poippOwsmkuokT7OWANTxeXPdoRwkJ
-	0OtwSvrsvyEMMSENC3X/fpALj2ejXqIF8VDNmEJKwVfZyObTSCo8xfUhLZ8Wx/Z1x8CjMc8T2gr
-	8Z5ACeBmhs/eJYKyXyzxec337lqbRsi/BxzpbRmeK/VGBIWn4x13NQA29nkmWfJExfhbiTu1Quo
-	JL
-X-Received: by 2002:a05:620a:1794:b0:93e:e1fd:b87f with SMTP id af79cd13be357-945f368b0e7mr244268785a.83.1793958211215;
-        Fri, 06 Nov 2026 01:43:31 -0800 (PST)
-X-Received: by 2002:a05:620a:1794:b0:93e:e1fd:b87f with SMTP id af79cd13be357-945f368b0e7mr244266685a.83.1793958210720;
-        Fri, 06 Nov 2026 01:43:30 -0800 (PST)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6ed5b8159sm41299075e9.2.2026.11.06.01.43.29
+        d=1e100.net; s=20260707; t=1793958228; x=1794563028;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nmDBfgrakA2SCIvOPfJqKnMNUKn5sx6kjpDscY55NnI=;
+        b=usycooDSJaYyLES2Q4T9wflZDsZK6zvQAaCicQnF0E4XDYuGWM4CkWEgx2nk014/qr
+         n9nRriD57qTCb0mXNBk5C0G2Uo+wMHVJpttMRmO5Yb43rfyr1PLFV6haHHOiFveME+gc
+         UAG0Wuj+0NrB+li1or9c3Mpr2pSc6OFYlz0zkGz/rS80K62jFRa6EP3Lb8Uwdq/sMIOI
+         Pt05MhuuDUZ3P601VtH5Qglk4lX0xcjvlaI/0sZeop1eaO+ieohy0GQi3/I1uIF5/Pdl
+         A1Ic/kUKZUNH9Ug+rL0OHQ5pT2eOWOjyk8aev8p182qEBZ26mu6baBVc/B0p6TZgEDFF
+         SN2Q==
+X-Forwarded-Encrypted: i=1; AL+hErEhJG1ZWlqQiEgxUwtkLqxCPtQ/JeUTSU8t4SDqjgomAJBDIEBZ7Mu9OP2Ay5wTyRQng9xpmncF1vPURcU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8z/BhNTPmBllllXI4c8Hv7rlyJBco3Ruhq4OvY3MIBi6dY51he
+	/8KFiWDOHBuCn91VafR/Sryogpor5dfKMN76opuCxgn/shVxUQaBum0k
+X-Gm-Gg: AYBFou1z9fwoiQP6d0Tj82newZ8nJ+34guB2nWpnJEQ90LIabcP/Ao3fDzsDlgJG4lV
+	pagzJeIsuWhrzviEUVIDmSnxpKCIR0nhsTPsPbn8jcFcJh0cW+0HahTAdw2MtE+oNGz8IumJrUr
+	UZXjtC3zEgFj7iWJTw813CMc/8wg8tPxX7ul8oBw7jZYg9iXjNhYcd85/TNIf2CB24j0jHp2MHl
+	7U92eqMvEVJhClqyqgX1No1q5HZA4TmpKxF9VCc49qvRe8ewVNNzVzEb80vxsGxPpnZWz6Jf10T
+	Mf8l8HB22dsZnWL0V0p25FEwof4Vk0hTJAs3tXprtSnrUhUZbseuGl6mNHyGQgJ3Ex3JvFoZABW
+	QSjk5MeeZqkqFLbH/5u036tJOr22hULiC5K590Fhnw1FqYhL7AubJA0N8onKTHx+3OO0YDA5eVd
+	ZrR5KM8OtMs4BZxzDDpLXPYD0+NWHcuYE4QWB1sS4yYar0vqilQrquk0tzPO3V+uLJwfqCAltZd
+	vHfVthvlZ+6dWKoSDjWieCLtNZPF/NfTbXz0UkzT2aH+11UlSEaQiWEuZ+iNOC3WLqUatLSkBy+
+	nvv/Y31c2nkL/S0tbuhC6jiNqVThIW+mhR3PcqZY0+1915e3SaNWINn3RCjfhNRbbY9h3pgrV9K
+	LZQ==
+X-Received: by 2002:a05:6000:455c:b0:48e:932:af0b with SMTP id ffacd0b85a97d-49276c57fa5mr2571846f8f.32.1793958227477;
+        Fri, 06 Nov 2026 01:43:47 -0800 (PST)
+Received: from localhost.localdomain ([86.124.84.219])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492fc80e017sm2228205f8f.34.2026.11.06.01.43.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:43:29 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Conor Dooley <conor.dooley@microchip.com>,
-        Valentina Fernandez <valentina.fernandezalanis@microchip.com>,
-        Daire McNamara <daire.mcnamara@microchip.com>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Isaac Adjei <code@isaacadjei.me>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-riscv@lists.infradead.org, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
-        Dan Carpenter <error27@gmail.com>
-Subject: Re: [PATCH] gpio: mpfs: reject unsupported interrupt types
-Date: Fri,  6 Nov 2026 10:43:28 +0100
-Message-ID: <179395820571.6762.15630695302653081248.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105-gpio-mpfs-irq-type-v1-1-cbb2b0b2a807@isaacadjei.me>
-References: <20261105-gpio-mpfs-irq-type-v1-1-cbb2b0b2a807@isaacadjei.me>
+        Fri, 06 Nov 2026 01:43:47 -0800 (PST)
+From: Radu Toader <radu.m.toader@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	tj@kernel.org,
+	tglx@kernel.org
+Cc: juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	frederic@kernel.org,
+	anna-maria@linutronix.de,
+	bigeasy@linutronix.de,
+	joshdon@google.com,
+	haoluo@google.com,
+	brho@google.com,
+	linux-kernel@vger.kernel.org,
+	sched-ext@lists.linux.dev,
+	bpf@vger.kernel.org
+Subject: [PATCH 0/2] softirq: fix idle accounting for an interrupted idle task
+Date: Fri,  6 Nov 2026 09:43:41 +0000
+Message-ID: <20261106094343.174905-1-radu.m.toader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,53 +116,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=PLeaavqC c=1 sm=1 tr=0 ts=6aeda144 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=kmRQxf5D32N2tAlX4cYA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzOCBTYWx0ZWRfX7GsP3CPH7Gnp
- kGcWTvEFIewz8cJBzynbcQEO3SaSNyufquabHg+mO//xmijR5Jc7o2+Sz5xzPNJz6l125FywG3s
- 3OhOxKbWe1R+xTOGo3tmWQY4My82/a0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzOCBTYWx0ZWRfXx8NZi/1Jj1zp
- ftkdLkN+ON92iRiCLT4vC3S4rX6yRz6jQ5OoLhtQ8WkNVFH697cxTWb8kBphx4hyxsV08MIE4iV
- iuwfgZBvzT/+7JMRvqOpEVJIAmxLpyGbQg2OeQSG4BvnNXwWWej3vsOZOdUUoA5rWnjA0ny/+nb
- 9gxMaBnLe7/jrA72ymo9KwacTNW2kbwQ+Se9P/5y1HyXl8B6C1mltVitQ7/HecWzm6eNQexIPLJ
- XMAArz2RHE6FpB/77CztQoJ70pSiGBDBUbw/54WtpEqSI0vXwfddblA/Ovz6tiyWS3+W/2TbZhy
- zmG6UkglpE7s2ZQJusg17PH+S9pICzAoXi7Hf8ctH2hf37n+p/4uvyenyohXg+k4OqzDh2mSKFK
- uliorQ6jjcf4k7t1QUG2tljz0K6z0EADWoTR/1Qlk2NG0xN0dhzaDwNyQuGQ1FF/rsKTJnGiWKS
- 30alYLrKzS7U2VyYXJw==
-X-Proofpoint-GUID: LSiHc6e2MZSD5blErqOpdjb8LmF9Zei2
-X-Proofpoint-ORIG-GUID: LSiHc6e2MZSD5blErqOpdjb8LmF9Zei2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 malwarescore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060038
+
+tick_irq_exit() decides whether an interrupt that just finished ended
+inside the idle loop, and it asked sched_core_idle_cpu(), which is
+idle_cpu(): false whenever the run queue is not empty. But a CPU can be
+in the idle loop with tasks queued on it - forced idle under core
+scheduling, and any task a sched_ext BPF scheduler holds back while
+leaving it runnable - and every interrupt taken in that state skipped
+tick_nohz_irq_exit(). The fix asks is_idle_task(current) instead, which
+is the question the function means to ask.
+
+Patch 1 adds the scheduler that holds the state open long enough to
+measure, patch 2 is the one-line change.
+
+Measurements:
+
+One thread spinning 10 ms in every 100 ms in a cgroup, pinned to the
+CPU the scheduler holds it on, 20 s windows, three repetitions per
+cell, arms interleaved, on one 16-CPU KVM guest booted with
+"no-kvmclock tsc=unstable" - which is what it takes to get an unstable
+sched_clock in a guest, because mark_tsc_unstable() clears sched_clock
+stability only when using_native_sched_clock(). Two kernels from this
+tree differing only in patch 2, booted in turn.
+
+The number is the cgroup's cpu.stat usage_usec over the thread's own
+CLOCK_MONOTONIC measurement of its busy time, which is an upper bound
+on the CPU it can possibly have used. 1.00 is correct accounting;
+above 1.00 the kernel charged the task time it did not spend.
+
+  hold (ms)   without patch 2   with patch 2
+      7            1.32            0.964
+     13            1.21            0.963
+     23            2.00            0.963
+     37            1.69            0.964
+     53            1.33            0.964
+
+  control, fair class, no BPF scheduler loaded:
+                   1.005           1.006
+
+Nothing in the fixed kernel's figures varies with the hold, and none of
+the unfixed kernel's is within 20% of correct. The three repetitions of
+each cell span at most 0.04.
+
+The unfixed kernel also understates how long it held the task, which is
+the same bug seen from the other side: the scheduler measures the hold
+with scx_bpf_now(), the sched_clock that is not being resynchronized.
+For the 23 ms cell it reported a 5.1 ms mean hold where the fixed
+kernel reported 15.2 ms for the identical configuration. So the fixed
+kernel accounts correctly across holds three times longer than the ones
+the unfixed kernel gets wrong.
+
+What is not shown, and what was not done:
+
+No loss in /proc/stat. The sum of that CPU's fields 2 to 9 over the
+window stayed within 0.6% of the window on both kernels, so in this
+configuration the kcpustat_irq_exit() half of what tick_nohz_irq_exit()
+does has no visible effect, unlike the forced idle case that commit
+548796e2e70b ("sched/core: introduce sched_core_idle_cpu()") widened
+the gate for.
+
+The mechanism is bounded rather than measured. A kprobe on
+tick_nohz_irq_exit() filtered to the idle task counted 998 calls per
+20 s window on the held CPU without patch 2 against 1321 with it, n=3
+each, but those ranges overlap and the two kernels run the load on
+different timings.
+
+The forced-idle half of the problem is not measured here at all. Patch
+2 changes the same gate for core scheduling, where that commit first
+widened it, but every number above comes from the sched_ext path.
+
+The figures were taken with an earlier revision of patch 1, before an
+automated review of the tool found six defects in it. Four of them
+cannot move these numbers: the per-task hold timestamp (only one task
+was ever held, so the global it replaces was never overwritten), the
+ops.dequeue() bookkeeping (the load never changes affinity or priority
+while parked), the release timer's pinning check (a mispinned timer
+fails the run loudly, and no run failed) and the userspace CPU
+validation. Two could: @target_cpu now stays in the idle loop while it
+holds something instead of taking shared work, and a %SCX_ENQ_LAST
+enqueue of the tagged task is now held rather than put back. Both make
+the held state wider, so both move the unfixed kernel further from
+1.00, not closer. The load exhausted a 20 ms slice only if a 10 ms
+burst ran long, so the second one was rarely reached. The test machines
+are gone and this was not re-measured.
+
+Open question:
+
+The Fixes: tag. The sched_ext path this was found on dates from commit
+f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class"),
+which is what patch 2 carries. But the gate was idle_cpu() before that,
+and what put sched_core_idle_cpu() there was commit 548796e2e70b
+("sched/core: introduce sched_core_idle_cpu()"). Whichever of the two
+you prefer, or neither, is yours to pick.
+
+Tooling:
+
+Both patches were written by Claude Opus 5 (Claude Code), including the
+test scheduler, the measurement harness and these changelogs. The
+measurements were run and the results checked by hand. The one-line
+change in patch 2 and the reasoning for it are in Documentation terms
+tool-generated content; review it as such.
+
+Radu Toader (2):
+  sched_ext: Add scx_tickbug, a scheduler that holds a task on an idle
+    CPU
+  softirq: Treat an interrupted idle task as idle in tick_irq_exit()
+
+ include/linux/sched.h             |   2 -
+ kernel/sched/syscalls.c           |  12 -
+ kernel/softirq.c                  |  12 +-
+ tools/sched_ext/Makefile          |   2 +-
+ tools/sched_ext/README.md         |  13 +
+ tools/sched_ext/scx_tickbug.bpf.c | 534 ++++++++++++++++++++++++++++++
+ tools/sched_ext/scx_tickbug.c     | 177 ++++++++++
+ 7 files changed, 735 insertions(+), 17 deletions(-)
+ create mode 100644 tools/sched_ext/scx_tickbug.bpf.c
+ create mode 100644 tools/sched_ext/scx_tickbug.c
 
 
-On Thu, 05 Nov 2026 08:16:51 +0000, Isaac Adjei wrote:
-> The switch statement in mpfs_gpio_irq_set_type() does not handle
-> unsupported interrupt types. For example, IRQ_TYPE_NONE is not listed.
-> 
-> When an unsupported type is passed, interrupt_type remains
-> uninitialised. Its undefined value is then written to the GPIO control
-> register. The function still returns 0, making the caller believe the
-> operation succeeded.
-> 
-> [...]
-
-Applied, thanks!
-
-[1/1] gpio: mpfs: reject unsupported interrupt types
-      https://git.kernel.org/brgl/c/cfbd01eddaf5bfdd4f53560013fe830571a186e9
-
-Best regards,
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.43.0
+
