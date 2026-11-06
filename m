@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963737;
-	b=oV+KZZvo4w/LabE6ndG5fb8md6d01yuB3xOFIrKSWMQOuxbJ1YArFCBnrvJBz7dj8VII
-	 jHNSa1PjfSChG2sfsw0gH+RvUffxR/n0pfbNMHvwNZ4Fnp/yhSrn2kqx38ZlhUkJtcu98
-	 eys1i7/VV2OY7qJ3eN4fIvq6ZhggS/DqE1VVBY/yBgcsUq+QrK+GgafUKgXVdGrRXuwWY
-	 LiIWYyMTpluquntBw5mKEovyru7ns+OjA8yYw/IzzDHxs9sPM23rQYq40kzKLCzAdC/tQ
-	 ifPbE/gLC/36kepm01cMe9uokzSDN9FSlryQJah1IUs6x9DJaVWUGEd614hFaxdnp1Q==
+	t=1793963734;
+	b=C+7yfWsrYb9BNHcE/0jNHQSQbEu3J1rPm3GPhjEk5GA1UwOwETt7KG1o9MvfQno1XqRd
+	 B4B5DveE6N/JvOOuRE94sPpV9/x2xjmkWnwUBR9H/bhox9rzk+OTeP+UWeAKuKEhosq+F
+	 MfuzpW1qvO3RttFcWoIhTQoYJnK0489RT+RPnoZhWm3UyDJ/IAR9ZNBXMurBgpUcoZuG7
+	 fO3KxMUTJZ6b1wq2C3It4Jb/3NKNLQuHss7EbjCrw7oqZ2xtc1I35RBfILsN5t5cMYWcW
+	 TfQatbBQd0YfLJei4psjRngZjZbPniiSX+T/xJBwrQFR6SQu0rw6ADIergy+ZRLsdcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963737;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963734;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=p9HDBJnn1eQ0/AK6EF8W6NIrJwKqMxPtpyUQ3JrmvsQ=;
-	b=31Wz1yPEpYZLc5Qg4yQ40L3U8vPvlQ8iUbhi1OmSAofYa41QsUpNRDbcn5vkurF74JLr
-	 XL/0Nbh8Cwpigse1YMyw/SoFdYenqgsRH830X48gTCSgkhOWy6ZnUvchgBDKfiBvKo68W
-	 goXzgOKm3OxWDEAsYgLjeeY9BC6HiUZS1UPGoKqkzGw0AaifO3IBWITM/D/kJ5LUSHShB
-	 cynE+lVxGIy8KyKXRbBsEA2oPWMKUT3Q/UvJsr76oXa2NmUZ+k4B/aOgZdtGTPkW/cUcw
-	 xIwZrdBoR4WJYCbxycHrCAmf1DWw1ac6efQOcaA2AMi3KccIQojzy25/848RNI4gNwA==
+	bh=nSoExF9u7rDYtXlhgYfrk5sitZuzd2CCQt8usBL9iqM=;
+	b=TkyomQX0P/FqajVYxC41yXTWA/t6D6GSFC4EOEwI2x1azYgDEKn99g+hQ6Tzi56fCAVz
+	 ObGAGSxGk+XSoNpFN5dssfMME/jyS7TaEYy5F6qnAxv0P5lBIyTeI4emGRqaQ4B1iT3oC
+	 OVwsqyLVsUWDGipRW/01r0iuzTsDgkxpceuLBN2qN8ve9CT5XjWYQjP1PMJD6iR78xAVw
+	 cc+6yHWZ2mCe1YHxJyJIRvCSeD9j/jhonRHmmoLCt/1uKdu46YJrmT4xAhtt3soIY9RNE
+	 cBzXE7ZbRo9jkfrQubEJmzTWvv54o7mylFFHmMRYJLjVdgmqNNOdYmjY1B+xnpnpvfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=v7cf6mR4;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="wCGlz/yZ";
+	arc=none smtp.remote-ip=115.124.30.119
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFFF606EE8E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:15:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CFFF606EE8E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC6060705DA
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:15:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CC6060705DA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=v7cf6mR4
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=wCGlz/yZ
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1793963728; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=p9HDBJnn1eQ0/AK6EF8W6NIrJwKqMxPtpyUQ3JrmvsQ=;
-	b=v7cf6mR4qWcbx5YVua0McAI9NroFEJZms2yaUlZl5XZpd+qzrp2qic74cyi9eFxeb5ePRFKfKNgxUQwLAG9fOvCwTbt8srbOdmB4i/CCSS1FyD3J5jvBtG3ZXHxm7L/BoDei4hVTyt0/YC8tFrqKKR+bobD/qIwQdevqSkJVRV0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R801e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEBf75m_1793963727;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEBf75m_1793963727 cluster:ay36)
+	t=1793963723; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=nSoExF9u7rDYtXlhgYfrk5sitZuzd2CCQt8usBL9iqM=;
+	b=wCGlz/yZla8SwoRmtcWJA0GgTyIl+Ek9Timg8lPx77LkzWtWs+q9DTNStBfKDsi3oDN3931yugsAUyz+YsQJ+Msp19lByOVGfv8+POsmOroTX5YCdwe6QWDFQjTsQjzh38T4aJQneHlN5KbK8mgpExnn683VTwypl3UHPPeo21I=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R961e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEBf74N_1793963721;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEBf74N_1793963721 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 19:15:27 +0800
+          Fri, 06 Nov 2026 19:15:22 +0800
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Heming Zhao <heming.zhao@suse.com>
@@ -50,9 +50,9 @@ Cc: Mark Fasheh <mark@fasheh.com>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH v2 31/31] ocfs2: check extent list dinodes in online filecheck
-Date: Fri,  6 Nov 2026 19:14:58 +0800
-Message-Id: <20261106111458.1467464-32-joseph.qi@linux.alibaba.com>
+Subject: [PATCH v2 25/31] ocfs2: check dinode suballoc bit in online filecheck
+Date: Fri,  6 Nov 2026 19:14:52 +0800
+Message-Id: <20261106111458.1467464-26-joseph.qi@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20261106111458.1467464-1-joseph.qi@linux.alibaba.com>
 References: <20261106111458.1467464-1-joseph.qi@linux.alibaba.com>
@@ -67,66 +67,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Wire the extent list guard and its three sub-checks into the filecheck
-validator: a zero l_count, an l_count beyond ocfs2_extent_recs_per_inode(),
-and an l_next_free_rec beyond l_count.
-
-This brings the filecheck validator to parity with
-ocfs2_validate_inode_block() for every dinode check except the inline
-xattr one.  ocfs2_validate_inode_xattr() calls ocfs2_error() through its
-helpers in xattr.c, so sharing it would mean threading a reporting flag
-down into that file; it is deliberately left out.
-
-The l_next_free_rec predicate is already used by the repair path, which
-fixes that field, so a repair of it now revalidates cleanly.
+Wire the suballoc bit range predicate into the filecheck validator.  A
+suballocator group bitmap lives in a single block, so a bit at or beyond
+ocfs2_suballoc_bits_per_block() can never be valid; accepting it would
+later trip the BUG_ON() in _ocfs2_free_suballoc_bits() when the inode is
+deleted.
 
 Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- fs/ocfs2/inode.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ fs/ocfs2/inode.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index ff46daf02509..ea2e2d2589d7 100644
+index a70415f31aa4..2709c139ecff 100644
 --- a/fs/ocfs2/inode.c
 +++ b/fs/ocfs2/inode.c
-@@ -2204,6 +2204,37 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
+@@ -2047,6 +2047,15 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
  		goto bail;
  	}
  
-+	if (ocfs2_dinode_has_extents(di)) {
-+		struct ocfs2_extent_list *el = &di->id2.i_list;
-+		u16 count = le16_to_cpu(el->l_count);
-+		u16 next_free = le16_to_cpu(el->l_next_free_rec);
-+
-+		if (ocfs2_dinode_has_zero_extent_count(di)) {
-+			mlog(ML_ERROR,
-+			     "Filecheck: invalid dinode #%llu: extent list l_count is zero\n",
-+			     (unsigned long long)bh->b_blocknr);
-+			rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+			goto bail;
-+		}
-+
-+		if (ocfs2_dinode_has_oversized_extent_count(sb, di)) {
-+			mlog(ML_ERROR,
-+			     "Filecheck: invalid dinode #%llu: extent list l_count %u exceeds max %u\n",
-+			     (unsigned long long)bh->b_blocknr, count,
-+			     ocfs2_extent_recs_per_inode(sb));
-+			rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+			goto bail;
-+		}
-+
-+		if (ocfs2_dinode_has_bad_extent_next_free(di)) {
-+			mlog(ML_ERROR,
-+			     "Filecheck: invalid dinode #%llu: extent list l_next_free_rec %u exceeds l_count %u\n",
-+			     (unsigned long long)bh->b_blocknr, next_free, count);
-+			rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+			goto bail;
-+		}
++	if (ocfs2_dinode_has_bad_suballoc_bit(sb, di)) {
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: suballoc bit %u\n",
++		     (unsigned long long)bh->b_blocknr,
++		     le16_to_cpu(di->i_suballoc_bit));
++		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
++		goto bail;
 +	}
 +
- bail:
- 	return rc;
- }
+ 	if (!ocfs2_valid_inode_mode(le16_to_cpu(di->i_mode))) {
+ 		mlog(ML_ERROR,
+ 		     "Filecheck: invalid dinode #%llu: mode 0%o has unknown file type\n",
 -- 
 2.39.3
 
