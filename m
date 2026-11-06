@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973799;
-	b=QQNsl2g/p0QJnTs1h+dvt+Wx+FgXjStSGG5QE/lIqo7Xki6JkFH6BTWG1rcea9mMdmYn
-	 HtoAAgw5WRwjJkNrHiaEIjews3grnAmh4/5i/Dk8SrXo9VkAOLpniJnwLItMtqvnyI8YB
-	 5jyJQhur5Ydfn4bBjhy2kQxSf3liyyCW3zL88JP+1Fxni8a08SGLqC9Mz6F+TAWj/4pIg
-	 Fxo0mw1TRcWdaT/w2EcoQsAiTVXkXkZQqll7weZG/F100iFlIIFqzQb/rjHTEMsAS53jM
-	 kdrpZErMXhJC11e2IBijM6ilwt62HJgz378gD1dZRUx0QE9hXve9IPt33P3psHlHwkw==
+	t=1793973827;
+	b=uU0wQq8GW2J4qnYK+3CmSsIUALUBTDCX1Cb2XL+NAbrq6ZUxk82PHMXr0sOqZN8lwJUy
+	 DEOwd4e1BiJMw0EGfnFbhPvws6xWbc0zol8ANF7v2g4A5odwVnl11b9HekvQucV2BVQsx
+	 nw10vxEQhDS9XhUCbqVG6WEn9M4P73MsnMOAsjS2p29+4QDpwrptAtyxjJFKO67D92/ot
+	 3GQsa4vm9iXQNUCLtn8abpQw7t2q66dULPfaVKbDJDKiPNaVaqHh0ZyNwSAsBXClXF04l
+	 oBoPAxmyW16Zc6GM+acDxK3eIDKCvgLAKkt8w6xHOu8S7LOrcAZTWnDlu8Oc7MpTHSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973799;
-	h=DMARC-Filter:Received:Received:Message-Id:Received:Received:
-	 X-Zmail-TransId:X-Mailer:In-Reply-To:References:Date:Mime-Version:
-	 From:To:Cc:Subject:Content-Type:X-MAIL:X-MSS:X-TLS:X-ENVELOPE-SENDER:
-	 X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=NB0Y4V8K19KZ9Mjs/nRDJQF2F1aefmQ654/1qRnC28w=;
-	b=UphIAx+DtZImjOA3LbFVp/v0DTzZP6LL96wrkX6QoT4dXRa/8aw/g87mt4YAcqRzSJ5g
-	 J6VkjWtGNHFQmiTPPirfnylv2up+F1DKtWG0w2wSxB3nD8V6xkA9v11sKEzj7/o2Uowas
-	 xaATxBKZeLcuLvT1APnRIO01mqTthyDg+7NqIYHffq6F1LEcnfOyIxoFnp90R/CJmdQE7
-	 LsX63tw55nsg7NrJlN4iRnULx1H1eCQYR+W7zYI5jDHQCwjq5ar6POddzqds3An/1Kv3n
-	 j32OCNApAKZtEBBV96KE2ToyaBiUvPM0KQ7W/8N8TKLS4Jq8tyPMJAu/b8zpGPRfGGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973827;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=r01AnCB1g7MdmpYPg0ZnBJs0g80mYMTlVMkCnqdRvfc=;
+	b=vmD6Ahvd8S/eqjzQAaqo9zqqyVt0DM2R44Y22MFxcgpTtF9nWGnh9jpoBCTyhV3cESkp
+	 8yh9cDGQs+Ug2au4X7DzpkYO66ktOj/+vQ2IU5bagYInmBgtZqltXHoLH5dpKl1qCHPUk
+	 HjwlrSq29mmKPq8JFHzP1F9xegclb6OQvOhGWI9yLwj5Zgomym2LwZrBVSIAeUGe/WH9j
+	 3j3zK0SwmIlhK+DVciXYKDgy6t5vH7aJNPGyTOeyitOXfF6tv5Xv2YlRguS37v4V3jJ1w
+	 W2EuY1yRMCodUEUf4JIcYp7zLMYKInqXfEk7fmprozmspJMFsGo24FLq/LmiqMJrm4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ey0xCQQz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E7B606D83A;
-	Fri,  6 Nov 2026 14:03:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60E7B606D83A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-db.zte.com.cn (unknown [10.5.228.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jLgqs3cckz501Rl;
-	Fri, 06 Nov 2026 22:03:05 +0800 (CST)
-Received: (from root@localhost)
-	by mse-db.zte.com.cn id 6A6E35HY078932;
-	Fri, 6 Nov 2026 22:03:05 +0800 (+08)
-	(envelope-from lv.yating@zte.com.cn)
-Message-Id: <202611061403.6A6E35HY078932@mse-db.zte.com.cn>
-Received: from szxlzmapp04.zte.com.cn ([10.5.231.166])
-	by mse-fl1.zte.com.cn with SMTP id 6A67xGYT042489;
-	Fri, 6 Nov 2026 15:59:16 +0800 (+08)
-	(envelope-from lv.yating@zte.com.cn)
-Received: from mapi (szxlzmapp04[null])
-	by mapi (Zmail) with MAPI id mid16;
-	Fri, 6 Nov 2026 15:59:18 +0800 (CST)
-X-Zmail-TransId: 2b066aed88d64a0-a3646
-X-Mailer: Zmail v1.0
-In-Reply-To: <CAP-5=fUbpxz9HQV+BRd62Yk+mQ5Bq-G3XvcK8ea3W8E3BqM6jg@mail.gmail.com>
-References: 202610271154.69RBsOlq045164@mse-fl2.zte.com.cn,CAP-5=fUbpxz9HQV+BRd62Yk+mQ5Bq-G3XvcK8ea3W8E3BqM6jg@mail.gmail.com
-Date: Fri, 6 Nov 2026 15:59:18 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BAC606A32C;
+	Fri,  6 Nov 2026 14:03:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ey0xCQQz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4490D1F0089F;
+	Fri,  6 Nov 2026 14:03:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793973826;
+	bh=r01AnCB1g7MdmpYPg0ZnBJs0g80mYMTlVMkCnqdRvfc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ey0xCQQzmimr7ba0JYJlGpx2fGJlo/8MmgXhnKTxSKdYGHSPrzhliVcJ7zZEHJMIi
+	 qPyJxdCoc+z9xN3eQbNBqVX1HdgnT0WY+43NFERrh9w0wzEy+aQpjrrnV2lViFw/Hg
+	 kkF0rq8gUAnWwz7WhL9DYMmjQ4AyL7THYL0SNwD2Hn7lPcRRkfdPkIvU6km4uD29/U
+	 QdrHx64JpEEkNI0ugLrSYn4ZBw116X5q0YKkb0zgTrfI8GfdtVtC3epHoTJPfoDyU9
+	 jn1A0scaHVmJpvfy+Fq7dd0Q4Ju72ltRsF20lUybB5+dRyE5sxADArHCCLotIbxcWa
+	 8nwyYxPwP0IrA==
+Date: Fri, 6 Nov 2026 15:03:42 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>, 
+	Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Josef Bacik <josef@toxicpanda.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/7] proc: move procfs to what kernfs does
+Message-ID: <20261106-melodie-wettstreit-abmildern-69eed7bf3178@brauner>
+References: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
+ <464ef986eab97abf226791c7e19ad111.josef@toxicpanda.com>
+ <20261105-erbrechen-unecht-bauformen-0794d3cfb679@brauner>
+ <87ld77sf9n.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,32 +59,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <lv.yating@zte.com.cn>
-To: <irogers@google.com>
-Cc: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
-        <namhyung@kernel.org>, <mark.rutland@arm.com>,
-        <alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>,
-        <adrian.hunter@intel.com>, <james.clark@linaro.org>,
-        <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <liu.qingtao2@zte.com.cn>, <he.yilin@zte.com.cn>,
-        <zhang.cheng35@zte.com.cn>, <ye.zhihao1@zte.com.cn>,
-        <shen.lin1@zte.com.cn>, <dai.hualiang@zte.com.cn>,
-        <stable@vger.kernel.org>, <hu.shengming@zte.com.cn>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSF0gcGVyZiBtYWNoaW5lOiBGaXggTlVMTCBkZXJlZiBpbiB0aHJlYWRfX3Jlc29sdmVfY2FsbGNoYWluX3NhbXBsZSgp?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-db.zte.com.cn 6A6E35HY078932
-X-MSS: AUDITRELEASE@mse-db.zte.com.cn
-X-TLS: YES
-X-ENVELOPE-SENDER: lv.yating@zte.com.cn
-X-SOURCE-IP: 10.5.228.131 unknown Fri, 06 Nov 2026 22:03:05 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEDDE19.000/4jLgqs3cckz501Rl
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <87ld77sf9n.wl-tiwai@suse.de>
 
-Thanks for applying the fix. 
-I've sent a follow-up patch adding the LBR test coverage to record_lbr.sh
+On Thu, 05 Nov 2026 12:12:52 +0100, Takashi Iwai wrote:
+> Indeed it's a real bug (regression by the commit).  Also your fixes
+> for old issues should be taken sooner.  Would it make sense to pick up
+> those for 7.4-rc, then rebase your rest series for 7.5?
 
-Thanks,
-Lv yating
+Yeah, I plan to send the fixes portion for v7.4 unless Linus has
+objections.
