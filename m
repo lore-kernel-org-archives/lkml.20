@@ -1,82 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963079;
-	b=belBh7KcSmO3wa4aXbWSzSOtx1q4q4xMjI3ySqGfMQS3Xgz/n1AHX6nA0s2zhn9GPqZ8
-	 f77B2Eb+X+0v3v8zX/qNhMcRm7mYBGn2sVUauAa3x56+hyP9e9jQSpuL6V/l28gKPtIv1
-	 yvZyJR/FE3M+tAOgYEQVEYUEKnWAPtjk6LpWr1IUyS2E7rkr8+Y2bdJmhsJfiS1gaCbVW
-	 K9qkbZO3HspqchbcRieC8HHJB6RG7PtDnBoaf+ToMGrz4E7FV5JuryEutBrV0T/wscYCC
-	 ndBM+Lqj8M8nN+bfgDWh6HiTa7s/8YmlZhverlXE/T97LbYnXV8Txat2Qywvrj9SMUA==
+	t=1793963097;
+	b=uXcM2l6M45uT752SuOvm+NHDJgqwFLLbSXQRSxxpF1m3sZNfNnXW/XlVlJaSEGyU9KVj
+	 lSyOKrK4ngh+3PWoBHT5Eg/SALINGcAQ/m3SJT4G6V9rdhnF06VpP2D7CwQpmSN0mxl4E
+	 flzH5mX+BtNahIlYyJ3m92qcTwxeI4iq9IxdJXz7oKlXGXIGKADQOvTguaHrvjcdaVofZ
+	 FqWiyzp41T1MbcCNXCOsJ82gd4zX8PYMiRcU+w9QHgiD9sxQNdEs1RDEomrrTys7gA7wP
+	 EAUThfjRgqw5bDHs3vQZ721j4sXQVj2xLeCWua+mLnMBhl7XSaoqMmQZA53BP/ncD2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963079;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=9O2vKxr3vIPnGovxy920EtF3PDuvoKhJLdNO+mkZXkw=;
-	b=2KbSWxOQWeHOX66V8huyVVDdy5Su6yNhyWElnNIM2RjlHE0Am1vIAhydKTVH8rIAw/Ai
-	 KcKBBjyt5GPkWPR+7ljEUmvTnSeN0Z1lKRT4JWdQL6qjJqlmtIBmwo0COAhapWzcFcjxu
-	 hA3r6K4VQSy78pchvmZ1AgxI4I81nePUrzSxkE6zHNO27lJpmRlUnbFO2sDgjE9RZDNYU
-	 72yD4PUcgLXAl/mQU1k/OIHRYrUigyCcAYq6ApEHXvoMUouAolOhfGbrM9zP423x1aV3i
-	 sMDEyz7yOz/8N2ERUhskWGHBGJlWTEGirtR0iLp2Rr3wBCXelGhk2HePGkRa8TSy2ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963097;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=840l1+NRCJffqP8jGWZU81yXph/OTtF9PmFfJpjGlIQ=;
+	b=ZKrOIhQMODz3Sy8WOkPEImYNWlKk/vgz625iiDD9dokXz8olX1T0P4geIYsp5teqEN3l
+	 QCGoQKlrQpsMdYxGNC4PMMPrQB4NMGa5r3QNQ72WSZgIYIyRsPXuLPQ8IdVuWdqhOT7PB
+	 Sjj9vsTydEJ7DJdGlXRuPrWiYjVf3563t3Zfa0ODl1BZmjgklrlErg6MOtNSF3RuMjA+2
+	 HHo9zmpcuxN+E1ag5ez24N6wp2wMTsM7+IByVgrkeyVFsGZchjV8pSv1VZFOJ54XSwIXP
+	 +X01q9Y8OkQZ8m6rzNZiOwVC21rx4ymX2Gymz3qqpbOpDonoMMCG1/1tZCzpcFgdQEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HtyHjLYm;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=44LMbXC1;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=nY37wDZi;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30863606A326;
-	Fri,  6 Nov 2026 11:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30863606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59531606A326;
+	Fri,  6 Nov 2026 11:04:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59531606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HtyHjLYm;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=44LMbXC1
-Date: Fri, 6 Nov 2026 12:04:35 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793963077;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9O2vKxr3vIPnGovxy920EtF3PDuvoKhJLdNO+mkZXkw=;
-	b=HtyHjLYmmh1VG/Af1qQAAKmwuCkuqAQEF5RlWvyqH+1HCUqgdnos4eYr82H9lI2lp8Oty3
-	a8ogFjsk9K1T7dY8/3KO7wEreD5yCs6kZLhEW7E+EV2EpwxQe7h7pvJdF3AorUjPIhum/M
-	jC3mji5amnbDvR4O45i8oeYTD/TheNcPHlH4tEPln/nWkB2rJq0lgtuRFlpy6ja1lJIVA3
-	Aaa/PT7catdNZ51RJal8jEpSg885TDcdvNfjw0Rk/UvGuX0+N8K/k2BSOY111+rpyUyyI8
-	a/glYmgwoZVZ3aoA2+b82udb/JX55xcGQiFh/n/n740s/IlzQuCERMzZSmu80A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793963077;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9O2vKxr3vIPnGovxy920EtF3PDuvoKhJLdNO+mkZXkw=;
-	b=44LMbXC1z2hogBrAf+RVFd6f+/6xUuu+52pujs91eMqtr4+g3rwmjiLKqYUHbF9xbQlsx1
-	G9NxWbV/oOTGLHBA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Tejun Heo <tj@kernel.org>, linux-rt-devel@lists.linux.dev,
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: Re: [PATCH] sched: Remove CONFIG_RT_GROUP_SCHED
-Message-ID: <20261106110435.5MWA_4Hw@linutronix.de>
-References: <20261105164724.yxONBd03@linutronix.de>
- <auy6nyTUuHBlgrV_@slm.duckdns.org>
- <20261105193010.tXUDDu2w@linutronix.de>
- <20261106105003.GU1813469@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=nY37wDZi
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=840l1+NRCJffqP8jGWZU81yXph/OTtF9PmFfJpjGlIQ=; 
+	b=nY37wDZi0jBnlX/oA7zBeeEBGxGYFwFX8l8my1sOEs8KnCoSCytMq3UOEVoCFeJm3HVY5cox0UK
+	uGl26azA0WwKCBCeaOmffBfKdoAVfNaaqAR5ZpB4cIxbhfRbJSYtcQlplYv6qkglrNhNPPnESsfL/
+	SSYTpkxArvZX1DKpqYj91k7l02cK/Zgj5PtfV9To3IuP/4jpt2i16r+UfYGchmRUc0Ukz8GZoVXyf
+	9NKQty7SaeEY5+vpCpe6fbvhF8F8Z3XhB9P4RFTwEkPBKnQolwG8gKp/DGAUzKMdm/6uIZwQyqOmv
+	VX1kNAxk2IUtwuOsgAh5vU0rQVhP7vwPayeA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xPHkP-0000000BqNb-1p4G;
+	Fri, 06 Nov 2026 19:04:42 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 06 Nov 2026 19:04:41 +0800
+Date: Fri, 6 Nov 2026 19:04:41 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: ZhaoJinming <zhaojinming@uniontech.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Thara Gopinath <thara.gopinath@linaro.org>,
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 0/3] crypto: qce - fix CCM AAD buffer leak and the AEAD
+ error paths
+Message-ID: <au20Sf0r0Ck6Mc53@gondor.apana.org.au>
+References: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,34 +68,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106105003.GU1813469@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
 
-On 2026-11-06 11:50:03 [+0100], Peter Zijlstra wrote:
-> On Thu, Nov 05, 2026 at 08:30:10PM +0100, Sebastian Andrzej Siewior wrote:
-> > On 2026-11-05 07:19:27 [-1000], Tejun Heo wrote:
-> > > Hello, Sebastian.
-> > Hi Tejun,
-> > 
-> > > 
-> > > I'm not against it but wonder whether it'd be useful to do it more gradually
-> > > so that people can pipe up if they depend on it. ie. Mark it deprecated and
-> > > put it behind EXPORT for a bit and then BROKEN before actual removal.
-> > 
-> > I would be surprised if this is actually used especially since it is
-> > cg-v1 and v2 is the default/ used by everyone (?). 
-> 
-> So I would love to actually delete this. But IIRC there were actually
-> people who used it.
+On Fri, Oct 16, 2026 at 10:09:42AM +0800, ZhaoJinming wrote:
+> This series fixes a memory leak in the QCE AEAD driver together with two
+> bugs in the error handling around it.
 
-That would mean that it is working which does surprise me.
+Please check the Sashiko review:
 
-> But yes, we need to replace this with that other thing.
+https://sashiko.dev/#/patchset/20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0%40uniontech.com
 
-so no removal, keeping this thing that nobody can use? You don't give
-your love a chance?
-The plan is to make HCBS appear as CONFIG_RT_GROUP_SCHED or do I mix up
-things?
-
-Sebastian
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
