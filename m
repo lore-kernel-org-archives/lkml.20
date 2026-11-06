@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793993736;
-	b=xHX8stdl1qwtXQhpo6uPCcRak7TcMQRr9Is06v/eGGLcKsx3oG8rRUCsNUVrMui7Qiod
-	 UHIzAXYOjS928/SjiL8LLb67oNCXkABJR/iKdEkpnBEE2MWeumtD2lK0B9i9iyP0fCZHO
-	 /SUC7/ypoFJOYtZr1KkzSxVMFzHFo9PS4/PU2vDxv8zenPb4j03UmohQhox1k+j8Wf+Ye
-	 84tikf9zdvq+YVv6sVqy4gm0dnuvJxM94469FPru1F/ozP6bWtAgT2IAb9EZnErZGj1Sm
-	 CsOO18Xoi/rpddt8XLXqButbgH4ZMJmgadXpQnwElY8EUzwUwuP9e5PehJOw/Mp2xbQ==
+	t=1793993779;
+	b=zYLhNv67HEHl4z4eLbkIzNFJdy21q4iZzaHvFCHfkvleadx5Bqtf8ABhPxuusmy+h4QC
+	 2YXt+qouAQgk7a3o8dd578yG+kE6/YvLAXwvCBKQ9p5nN2edPx5po4+Z1KF46R2cZVZ4q
+	 3TOA6IyEJTvE1jy++nWlCObZpSehZ2gE64yT4zTKMsZ8EYnnQ99qmtHfq5UufpzyTjo2s
+	 erPpWsVZafcpiYWJKQiLh1LvaEa2M6uJnyyk0KG4C6gXsJL3e4Cjh4QAkwbLzC0GHCasv
+	 0C+4b7OAKsnGmc40OoDEB8LIl0mQygion8UIS60FerteZVz5GjDqjJXDulIApTy11Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993736;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793993779;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=U+GMiC/0PnCN2U2/dRiS6xeO1SVteXmyJzYr93GAZi8=;
-	b=ppK1a5jnPKzy79kM1JDF1Zi0OPzrOrRwJU5+RAMGn/DnpFSuSIdXvzpKdjUJkjA5ZjEH
-	 +rg/1Yembb5YSELqWQ9L5Y7JTW7/qzTrhgkSd/dWSqQclvR22SxgxeB+4mfUhguCAAfKm
-	 UlxKdqJnbsZHoGQ/w7HoM0XKJdIdPKZ6IR83iaahcEHD4ESDIV56Qm8imka4CIXai7gXb
-	 XBo5lsCIHCauNwUowFI3d4g09q4CD5Uaf84mqvpC560KBr8Dljmt2qr/j1vg5pu62qvgS
-	 Fi5K23POtMU0actPKSLYbU2mNVHTLLFQay4QSGhDstnPzAKwiLtaDidnbrBR4jc9VSA==
+	bh=6xTKEOGFRLXidPHrCfmBqE6GgEsv5eOpzmihaPx4Isg=;
+	b=rWG0/u+2mDECliMBWFvnjS2uWLPqdiWWjY6UwOjQ0g6YNCROTdz/OFaplkJqYwI7RFwv
+	 QU96TbEQnQwmW3o1TSSuckWDS2MHztwMzTREqHcgd5hd9KGAi9QY5n2BfzKSN40T9VSh6
+	 znRiYFUiD8PKier87zwSvJw4LeNKiN1Uqm8iLvw5OhxQEcaYljM4oEFf7ehFU1IaAbIZ1
+	 ejSPXS1Ij5DEkBHDyRkP/KMb2kZTnCZ/8t7OGcYAf5izz+A6pNwrJacB9LIP/MsvsWZm2
+	 VA18bg4NfQjOM6uhRW/rpLrMBjC7rKD93EvJNyirK55njtqp6a6uQ8OUjh7Xr8Y8dAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=modelmiser.com;
 	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=PK0Xe4f4;
-	arc=none smtp.remote-ip=79.135.106.25
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=O03VjtsC;
+	arc=none smtp.remote-ip=185.70.43.98
+Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAEE606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:35:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DAEE606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57B1606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:36:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C57B1606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=PK0Xe4f4
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=O03VjtsC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1793993732; x=1794252932;
-	bh=U+GMiC/0PnCN2U2/dRiS6xeO1SVteXmyJzYr93GAZi8=;
+	s=protonmail; t=1793993774; x=1794252974;
+	bh=6xTKEOGFRLXidPHrCfmBqE6GgEsv5eOpzmihaPx4Isg=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=PK0Xe4f41YIyYmcBrpJuqGIPbqfhx0CPawsWcZFWMhW7DyKXBcEOAHIFBT4Je4xuh
-	 JCuIxOcOAmSLu4Y+QhxhbDAdpRXbAQZn0YuB4mCyzoxqprlf3a0obHHi36pIAlTu1a
-	 oWSMnKPrL4hA/227ROw+iSQuvtzgMDPPtPIBvJRGM45iFaEq41o1oYBGtCmDH5bn6l
-	 tkIaWtRpL1mptKBGbXC5xuJUfA8h12iF0vzTM5DAXxNqZlNMLuuFVlzuDUHraPP5eU
-	 s3dc4KfhYINIZ/8I/hxjKrCBlqQr/VDp22Vi9hX2iSHEJUbx7uSc+votMRc6LZfXsx
-	 VKG+gwYcBKXjQ==
-Date: Fri, 06 Nov 2026 19:35:25 +0000
-To: Julia Lawall <Julia.Lawall@inria.fr>, Nicolas Palix <nicolas.palix@imag.fr>
+	b=O03VjtsCY5bZQorTEx3GDBoMlcCM6LY58ixfoMVronH0DkRdO5QEQKeUEIrKPUG9F
+	 9QSU5u2Uf5kj1iS8sVpiOJqaNi4MMCJJcMWLZrHdwiBlaMVUA+3peZK2NIzGL+4cVH
+	 fPmeuoE8Cuy3oSNiWZp2s5+EpWpByvVCFEsYLZUus/HQQE/tPSeZIkk6KvckFzVS0t
+	 I0a8vUQm92JcXmgL6rhSNTHwEVBx0jYgsHcpBqfSmcyGo5NBRWbFx/AEfUpMynt3jO
+	 1eS5e4kWEKsOXLWOJKETZcbLO2siyrGhaF63fqHuAJLeqZv51CYYaIgNz8pvCPA1al
+	 Sq+JmjylcG7tQ==
+Date: Fri, 06 Nov 2026 19:36:07 +0000
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
 From: Chad Aldreda <ca@modelmiser.com>
-Cc: cocci@inria.fr, linux-kernel@vger.kernel.org
-Subject: [PATCH] coccinelle: api: add a checker for device nodes in devm_ memory
-Message-ID: <20261106193517.3267013-2-ca@modelmiser.com>
+Cc: Johan Hovold <johan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, driver-core@lists.linux.dev, linux-media@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] Documentation: devres: warn about device nodes in managed memory
+Message-ID: <20261106193600.3267465-2-ca@modelmiser.com>
 Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 0919c766be63babccd11c4cbbbda29866fc3fbaa
+X-Pm-Message-ID: 9b7570ea9211575eca35ac2ab2eedd2b8679507e
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,237 +64,85 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-A struct cdev, struct miscdevice, struct video_device or struct
-v4l2_device embedded in memory from devm_kzalloc() and friends is freed
-when the driver unbinds, but a file that user space holds open on the
-node outlives the unbind. Its later file operations are a use-after-free
-when they use that memory, and for a cdev or video_device so is its
-close(), where the core touches the object and the v4l2_device the
-video_device points to.
-
-Add a script that reports such allocations: by two rules when the
-allocation, as an assignment or a declaration initializer, and a
-registration of it or of an address taken inside it are written directly
-in one function, and by a third, type-based rule when the struct is
-defined in the same .c file and the node is a direct member of it. A
-registration in a helper function on a struct defined in a header is not
-seen, so cx231xx is reported only through its v4l2_device.
-
-On 7.4-rc1 it reports 101 sites under drivers/, 50 of which are found
-only through a v4l2_device. Not all are actionable: some drivers cannot
-be unbound, and some miscdevice drivers never use the allocation after
-open(); the header lists the false-positive classes and the misses.
-
-Tested with spatch 1.1.1, with make coccicheck MODE=3Dreport and MODE=3Dorg=
-,
-and on small test files for each allocation form, a struct in a header,
-a registration in a helper, a node in an array member, a registered
-pointer to separate memory, a v4l2_device, an embedded node that is
-never registered and a kzalloc() control.
+devres entries are not reference counted, so managed memory must not
+hold state that can still be reached after the driver unbinds. State
+that rule for its common case, a cdev, miscdevice or video_device
+embedded in devm_kzalloc()'d driver state that an open file can still
+reach, including the v4l2_device and media_device that v4l2_release() in
+v4l2-dev.c reads on every close, and say where each kind of node frees
+its state on the last reference: the struct device release behind
+cdev_device_add(), per its kernel-doc in fs/char_dev.c, and the
+v4l2_device release callback in
+Documentation/driver-api/media/v4l2-device.rst. That the video_device
+release callback runs first, and must not free the shared state, follows
+v4l2_device_release() in v4l2-dev.c, the video_device's struct device
+release. A miscdevice has no release callback, so a kref, with its
+ordering against misc_deregister(), is spelled out here; it is not in
+the miscdevice documentation. An embedded media_device is also reached
+by media request files and the media device node without a v4l2_device
+reference, and has no reference count of its own; the text says so and
+leaves its lifetime out. The point that unregistering does not close
+open files follows the cdev_del() kernel-doc. That an open through a
+cached inode can still reach ->open() follows chrdev_open(), which uses
+inode->i_cdev while the cdev has references; the same kernel-doc says
+the cdev can no longer be opened, which holds for a new lookup, and for
+a cached inode only once the last reference is gone.
 
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Chad Aldreda <ca@modelmiser.com>
 ---
-The type rule uses --include-headers-for-types, which reports the same
-101 sites on every run. With --include-headers it also sees structs
-defined in headers: run on one file at a time, that adds 22 sites on
-7.4-rc1 (xilinx-vipp and ultrasoc-smb among them). Under --dir, as make
-coccicheck runs it, some are lost. spatch --include-headers --dir
-drivers/media/pci/intel/ipu6 reports nothing, even as a single process,
-while the same command on drivers/media/pci/intel/ipu6/ipu6-isys.c alone
-reports line 990. With six jobs the rest vary as well: five runs over
-drivers/ found 15 to 17 of the 22, a different set each time.
+ .../driver-api/driver-model/devres.rst        | 36 +++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-So I kept the deterministic option. Is the --dir difference expected,
-and is there a better way to give the type rule header-defined structs?
-
- .../coccinelle/api/devm_file_reachable.cocci  | 164 ++++++++++++++++++
- 1 file changed, 164 insertions(+)
- create mode 100644 scripts/coccinelle/api/devm_file_reachable.cocci
-
-diff --git a/scripts/coccinelle/api/devm_file_reachable.cocci b/scripts/coc=
-cinelle/api/devm_file_reachable.cocci
-new file mode 100644
-index 0000000000..3847710798
---- /dev/null
-+++ b/scripts/coccinelle/api/devm_file_reachable.cocci
-@@ -0,0 +1,164 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/// Find a struct cdev, struct miscdevice, struct video_device or struct
-+/// v4l2_device embedded in memory from the devm_ allocators.  The memory
-+/// is freed when the driver unbinds, but a file that is open on the node
-+/// outlives the unbind: for a cdev or a video_device the core touches the
-+/// object, and the v4l2_device the video_device points to, on every
-+/// close, and for a miscdevice the driver's file operations usually reach
-+/// it through file->private_data.  Allocate such state with kzalloc() and
-+/// free it on the last reference; see
-+/// Documentation/driver-api/driver-model/devres.rst.
-+///
-+/// The first rules need the allocation and a registration of it, or of an
-+/// address taken inside it, written directly in one function; an
-+/// allocation inside a condition or behind a cast or a wrapper function
-+/// is not seen by them. The type rule catches the rest, but with the
-+/// options below it sees only a struct defined in the .c file itself, not
-+/// in a header, and only a node that is a direct, non-array member of it,
-+/// not one nested in another member. So a registration in a helper
-+/// function, or through any alias of x such as vfd =3D &x->vdev, is misse=
-d
-+/// when the struct is in a header or the node is not such a member. Not
-+/// checked: a struct media_device in devm_ memory, which v4l2_release()
-+/// also reaches; a struct v4l2_subdev with a device node, whose close
-+/// reaches it; a static node whose file operations reach devm_ state
-+/// through a global or drvdata pointer; memory freed by devm_add_action()
-+/// rather than allocated by devm_k*(); a typedef'd struct; and a file or
-+/// function spatch cannot parse.
-+/// False positives: a driver that cannot be unbound (suppress_bind_attrs,
-+/// platform_driver_probe()) on a device that is never removed, a driver
-+/// whose remove() waits for the last close, a miscdevice driver whose fil=
-e
-+/// operations do not use the allocation after open(), a registration of
-+/// an address that only uses the allocation to reach separate memory
-+/// (&x->ptr->misc, &table[x->idx]), a v4l2_device that no video_device
-+/// points to, and, for the type rule, a struct whose embedded node is not
-+/// registered from this allocation.  When an allocation has several
-+/// registrations, the report names the first one found.
-+///
-+// Confidence: Moderate
-+// Options: --include-headers-for-types
+diff --git a/Documentation/driver-api/driver-model/devres.rst b/Documentati=
+on/driver-api/driver-model/devres.rst
+index 4f0b90e7e1..6dc6ab261e 100644
+--- a/Documentation/driver-api/driver-model/devres.rst
++++ b/Documentation/driver-api/driver-model/devres.rst
+@@ -208,6 +208,42 @@ Lifetime of a devres entry begins on devres allocation=
+ and finishes
+ when it is released or destroyed (removed and freed) - no reference
+ counting.
+=20
++Because nothing counts references, managed memory must not hold state
++that the core or the driver's file operations can still reach after the
++driver unbinds. A common case is driver state in devm_kzalloc()'d
++memory that an open file can still reach: state embedding a struct cdev
++or struct video_device, or the v4l2_device and media_device a
++video_device points to, which the core touches on every close, or a
++struct miscdevice whose file operations use the state. Unregistering
++the node in ->remove() does not close files that are already open, and
++for a cdev an open through an already cached inode can still reach the
++driver's ->open(). Allocate such state with kzalloc() and free it when
++the last reference to it is dropped:
 +
-+virtual org
-+virtual report
++- for a cdev, from the release callback of a struct device embedded in
++  the same state, with dev->devt set, and added with cdev_device_add();
++  see its kernel-doc in fs/char_dev.c. ->remove() calls
++  cdev_device_del() and then put_device(); a probe that fails after
++  device_initialize() calls cdev_device_del() if cdev_device_add()
++  succeeded, then put_device(), never kfree().
++- for a video_device, from the release callback of its v4l2_device; see
++  Documentation/driver-api/media/v4l2-device.rst. The video_device
++  release callback runs before that and must not free the state. The
++  v4l2_device release callback is not the last access to an embedded
++  struct media_device: media request files and the media device node
++  reach it without a v4l2_device reference, and the media core gives it
++  no reference count, so its lifetime is not covered here.
++- a miscdevice has no release callback, so the driver counts the
++  references itself, for example with a kref that ->probe()
++  initializes, ->open() takes (and drops again if it then fails) and
++  ->release() drops, and that ->remove(), or a probe that fails after
++  misc_register(), drops only after misc_deregister() has returned.
 +
-+@initialize:python@
-+@@
-+seen =3D set()
++In each case, dropping a reference is the last access to the state by
++whoever drops it. Keeping the memory is not enough on its own: file
++operations that run after ->remove() must not touch the hardware or
++other managed resources.
 +
-+@alloc depends on org || report exists@
-+expression x, e, e2;
-+identifier fn =3D~ "^devm_k[mzcr]";
-+position p, q;
-+@@
-+
-+x =3D fn@p(...);
-+... when !=3D x =3D e
-+(
-+misc_register@q(\(x\|&<+... x ...+>\))
-+|
-+cdev_add@q(\(x\|&<+... x ...+>\), ...)
-+|
-+cdev_device_add@q(\(x\|&<+... x ...+>\), ...)
-+|
-+video_register_device@q(\(x\|&<+... x ...+>\), ...)
-+|
-+video_register_device_no_warn@q(\(x\|&<+... x ...+>\), ...)
-+|
-+__video_register_device@q(\(x\|&<+... x ...+>\), ...)
-+|
-+v4l2_device_register@q(e2, \(x\|&<+... x ...+>\))
-+)
-+
-+@allocdecl depends on org || report exists@
-+identifier x;
-+type T;
-+expression e, e2;
-+identifier fn =3D~ "^devm_k[mzcr]";
-+position p, q;
-+@@
-+
-+T *x =3D fn@p(...);
-+... when !=3D x =3D e
-+(
-+misc_register@q(\(x\|&<+... x ...+>\))
-+|
-+cdev_add@q(\(x\|&<+... x ...+>\), ...)
-+|
-+cdev_device_add@q(\(x\|&<+... x ...+>\), ...)
-+|
-+video_register_device@q(\(x\|&<+... x ...+>\), ...)
-+|
-+video_register_device_no_warn@q(\(x\|&<+... x ...+>\), ...)
-+|
-+__video_register_device@q(\(x\|&<+... x ...+>\), ...)
-+|
-+v4l2_device_register@q(e2, \(x\|&<+... x ...+>\))
-+)
-+
-+@embeds depends on org || report@
-+identifier S, f;
-+type T =3D {struct cdev, struct miscdevice, struct video_device,
-+          struct v4l2_device};
-+@@
-+
-+struct S {
-+  ...
-+  T f;
-+  ...
-+};
-+
-+@bytype depends on org || report@
-+identifier embeds.S;
-+struct S *x;
-+identifier fn =3D~ "^devm_k[mzcr]";
-+position p;
-+@@
-+
-+x =3D fn@p(...)
-+
-+@script:python depends on org@
-+p << alloc.p;
-+q << alloc.q;
-+@@
-+if (p[0].file, p[0].line, p[0].column) not in seen:
-+    seen.add((p[0].file, p[0].line, p[0].column))
-+    coccilib.org.print_todo(p[0], "WARNING: devm_ memory registered at lin=
-e %s as a device node or a v4l2_device; an open file outlives unbind" % q[0=
-].line)
-+
-+@script:python depends on report@
-+p << alloc.p;
-+q << alloc.q;
-+@@
-+if (p[0].file, p[0].line, p[0].column) not in seen:
-+    seen.add((p[0].file, p[0].line, p[0].column))
-+    coccilib.report.print_report(p[0], "WARNING: devm_ memory registered a=
-t line %s as a device node or a v4l2_device; an open file outlives unbind" =
-% q[0].line)
-+
-+@script:python depends on org@
-+p << allocdecl.p;
-+q << allocdecl.q;
-+@@
-+if (p[0].file, p[0].line, p[0].column) not in seen:
-+    seen.add((p[0].file, p[0].line, p[0].column))
-+    coccilib.org.print_todo(p[0], "WARNING: devm_ memory registered at lin=
-e %s as a device node or a v4l2_device; an open file outlives unbind" % q[0=
-].line)
-+
-+@script:python depends on report@
-+p << allocdecl.p;
-+q << allocdecl.q;
-+@@
-+if (p[0].file, p[0].line, p[0].column) not in seen:
-+    seen.add((p[0].file, p[0].line, p[0].column))
-+    coccilib.report.print_report(p[0], "WARNING: devm_ memory registered a=
-t line %s as a device node or a v4l2_device; an open file outlives unbind" =
-% q[0].line)
-+
-+@script:python depends on org@
-+p << bytype.p;
-+S << embeds.S;
-+@@
-+if (p[0].file, p[0].line, p[0].column) not in seen:
-+    seen.add((p[0].file, p[0].line, p[0].column))
-+    coccilib.org.print_todo(p[0], "WARNING: devm_ allocation of struct %s,=
- which embeds a cdev, miscdevice, video_device or v4l2_device" % S)
-+
-+@script:python depends on report@
-+p << bytype.p;
-+S << embeds.S;
-+@@
-+if (p[0].file, p[0].line, p[0].column) not in seen:
-+    seen.add((p[0].file, p[0].line, p[0].column))
-+    coccilib.report.print_report(p[0], "WARNING: devm_ allocation of struc=
-t %s, which embeds a cdev, miscdevice, video_device or v4l2_device" % S)
+ devres core guarantees atomicity to all basic devres operations and
+ has support for single-instance devres types (atomic
+ lookup-and-add-if-not-found).  Other than that, synchronizing
 --=20
 2.43.0
 
