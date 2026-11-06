@@ -1,79 +1,154 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.74.85
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793935541;
-	b=Cq+IONJGG+af916s50LZlhI6/s83sOh8aS09pEFpBV/OsAoNsChNbp4UGwDtmG/Sywxx
-	 ezfUjnHKDRCRCvG/UGO3C8m5MI1XEOk1Gx3Kh8+wu4NmeRS0hB7L5Yd5WkUFxD7qnszhA
-	 MqZujo9LWafhmehAhFISEod+f7Ql76PIiBvnWLSWYfuiolmDCMhcv/q77e4Ciw4PZDoQc
-	 4igvnbSyLlxc1zmTych9xpRxZTgjzxNOSb48Rby1heUYarcQsUmFmeyFiZ4Tz2Rfk/4ce
-	 lzNtD/LbbvJUd+tjB6QxvTFOzKtHEX+5mrMXgSl5nMTSCWIo+SLRfO88NOzbSxFE4RQ==
+	t=1793935561;
+	b=cwuoDl2y76hL3rYsJun5q94X6XJrmcZq+4ImCah/fqrPzGf/y6YOfpPfwEOfOj6Fm70j
+	 BMyFm6y7t+bMYsAiVtZC3qqR2vD6/5Mcdttgki8GP6QyBTL85EURx8yO4nuZiguUWbOUQ
+	 nMXpBY9171uH29PHzwW+jCNKLy7BbMJBBMjAj4tWNZBJsVkPe5nzgZB7Vyc5WAUjTpz80
+	 WKtMyots9Od5SDTVX1cuhWkrFY8ZbKpcnoVX9wz6v8QyV/M3gtqkf0TUGezACl+xQ+aab
+	 cJ8LR27NqcN5VfdDQ7cN9kJwTGfusDuLB/w3qbKgzR+EA8VPbfS7DPZ8Xj0BPAbh7vQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793935541;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YEq03Ma2RWRxBrKge2VYXi0I/KTbXWcD4AK6bpkqPhw=;
-	b=UTxl2c4ftqf7jBZZ5Bf6EE6dZB0QEZOq9aGNww77V9evb/RXzN7UoQnrjHub0JZ/JvUB
-	 Q8g+uIfQTXoa8obZUdvl6Rp0/ERHvgSCWBTMGUUh0hs3UDABCbmAfsUNvSskwsLqAIBDo
-	 CZ7/aUbyGDRAvASZQDYWpfmwW055ce78f/VAfw8wPllidCox3w7/RX+FPxES+tF/oS5/w
-	 eMytInAg2HjSNfXsg4XzS/RjDDgJ471U0f0FL/mKne30rhZ3F+vtWtum7WnVkym+iXMYz
-	 3emgmqbGQGOPxQrlWG+jNtbpvwdIYeCZu3xA0F2IDdRnq2U29w+EyLEflp3+/e6zh9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793935561;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8Dn+ZO/LbH6n7zDym7Y2kwF9buhP+xkXsoIgrMY1f94=;
+	b=HsE8WD45dCgwF4fT+s+UBe3QsxadNn44HcsJBvzXA1XOMzGbIFoN+Cv9VDXrNbBF7QDq
+	 7pIkq+XNQRexfBefgAI12hwmWqnaMagf0QOY+N7uztjjUDiQ9fKFZdxs5cRRfFqxgcA69
+	 ECWkoPEAwnryh8nDptjsrnkLZKL13Mvo9HIylQbZx86U0YCbx2Cc+trm4ovN4hiEddor3
+	 kClDUmFJi0xiCCcZbWBhs56ipnf8Lfukuk6X7s9gRldIsHxlKATZhQfMk0nCVsWhqCDXm
+	 ZqBCgwmjnLzEVojjfAkzQSvMAgP8fWPQOXLfrA4irNH5Xoqow2XXHBVlhBJWO641pTA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVEwD1Mq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=HHyEkdmY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.74.85
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazolkn19013085.outbound.protection.outlook.com [52.103.74.85])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7B8606A32D;
-	Fri,  6 Nov 2026 03:25:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33B8606A31B
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 03:26:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C33B8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVEwD1Mq
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793935534;
-	b=XuuX3+iHaV89K18LC96tk9zBqt3z2vmVK0rmcmC6QPnIcNiR029/o9YzWhIGeWzWtRTb
-	 wc29EylPx6P1XPwGwKkWCvAS4Dt1p+6iCH/ExHE5V4DPs4eUNDwaUKKoZ36lRqyAqvdMH
-	 4K48PDtRB8ozNHPZGwX6w4zEyept4FcyFpkH3po41vhLpo2lfhKvNRlBLkDZ8itqPOMRo
-	 FWAqvkTiNgNXtvJzZ7VaEpE0WRCmPE+UXGbX4Trf5BZzcRsAj61i9RZTbVNhC7mx6VTr7
-	 r+KyqmONOXONOKfqzWNw7tuediF6zRDE64xtxv96YAECyRkIVy3EIiJkdUIvOILE1Ew==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793935534;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YEq03Ma2RWRxBrKge2VYXi0I/KTbXWcD4AK6bpkqPhw=;
-	b=z9elkvbFOaFOPp3dBOR2X5OOtfoiQSt4U6pfzRHOgtjEWaQ8Ac8JwyOiI55S9/7D6gDt
-	 j0qM+jC9P2txvLffZGgqj+C8jmBLM2k5FxFbr0EB8zZC19IRI82/Xhq4UasOI/mLEIeiZ
-	 1FBI/a5O5H/7Qd7YIWxWxmRHLqukHmjAxijF9mPaJyyhIt0jXVjp03fUZK9pD5uYXU9K0
-	 Kuv9oR9xJW+b1Q6bbo5FUCwuIaSuZa35qt/wGehQ6n2MF8Mzlgj8Z7JDYjKk9G9NZ1Qno
-	 sc7AH0BZutJ0rUbE4LVLe+SsnrHG2KfavoYDJDL2KFnN7sWiS6fHvmAUDYgBA+QybEg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 28CF41F008A1;
-	Fri,  6 Nov 2026 03:25:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793935534;
-	bh=YEq03Ma2RWRxBrKge2VYXi0I/KTbXWcD4AK6bpkqPhw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=AVEwD1MqfC/U2WvRjelxQsD/JoXNJ23dxBfdX0tVXZJwBXBrtXA9UrYB7eryyD4WP
-	 GANu9RjeZb6cL5q5zOxt76RHzkWPWz7k5iAnkeZxQUvnwv7pJg0KwMwkfitXfm1yea
-	 0A3H6d0xdqEVs/hDwe8dpWnt23dxVqbNFOwO36A3XVYhpBimlX4Tx32bktOpveBb0j
-	 AiMdPeFJSxXdlnRFdACpBDwkGZapyFmEOjVmgsthGdDj669pxMxTsX3Xvn+2S+r0fQ
-	 Gr/8ZyZDimAwdfBDMlmN+EeermeV+vQavH0RWtnlCjnrfsQwYKx3JmI+FLaZXdmVsv
-	 bTMSxTlkusR6A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8FE3945B7A;
-	Fri,  6 Nov 2026 03:25:32 +0000 (UTC)
-From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
-Date: Fri, 06 Nov 2026 03:24:52 +0000
-Subject: [PATCH v2 1/5] dt-bindings: i2c: qcom-cci: Document SM8150
- compatible
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=HHyEkdmY
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oJwCtVEWE53gjhEby0D23N1yQT7cyNlB5C5LdjsYI3cgEFt5Hc/88i/vThtSx1n3HBOKUuhWE7rbLf1SNcxAB+jcwuOk0tmLN9LNVeqkymIhdYdElj4E9nWH1P9DD3W2iy070k1R/3AcoF7cxqyT2Ui7oogOQv6dR19WnQINz9mUJkAYgjtCBIMVPx9r9AWaMbx/UCmld545uXnOHTgbF3FdfLspPzAmGMMHSLZszSiDEPSJczL3We0JcAKWus38HMSMJAZdiMTBdLfHydb4LAXYT6PJDL8HWUK3xDXWwonukQITfGZb4/wDsoiP66I+uLKQ8TYbQqKmyb0rEbRWyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8Dn+ZO/LbH6n7zDym7Y2kwF9buhP+xkXsoIgrMY1f94=;
+ b=i/8hJ9wTyaLm3/hhb/Fo1LGdHr3pgtG/iLS7rIXWtDYkaby9ob9wcV6xGsRWnE53S3UE4MvoAiB5JcK9EVC1hG8wLtQS4lKJuSNVAx1DWzTX6BvXE75nMz+VXQLzX4mPJLU5Xcy7nmUXrn7Bw0fF6XCAIi5oNMsyLDWcjTCrc6nqVIKHYR444XU7rp4Z1Wg5R/nJYKpSHBDi21fQc/cohDmm1lOjACqHAZr3jbn4Fc8sic+2luogF4a+POYBe4MSxUg1Mv6tvz5mzqJbjBRCW2uQNuYwnUkpl6NeshDuD1T0gECrXZts512IHK+mGKmri57iZFuglXFMw1CyM4/oWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8Dn+ZO/LbH6n7zDym7Y2kwF9buhP+xkXsoIgrMY1f94=;
+ b=HHyEkdmYKF4bWIfuzRg2MNFmkz5pl+DoND13TQ0MbxS2vQ6t4d1mV3lMIMYVi4SV/aMt3rnd8Rvad4DsWufgC3KPeZDTl9uf3x3vU3vp/hqKmyNZe3Zrhx2eVB3kMMkhAX6cImKVoUswzjT8+lffXTxfIinEIRFNkW53Sm5psZ6GN0bn2NyEladlVRxerOrDuqCO6QxMg59fiVRh0yNOFAumB6xwLRcqM/vgP8i2/p25woJKJ+UrwDLzjjoOsh6bKhssBf3AWd8gaYDA8ZxchNTbrlrbzpMOVvXXZExGygVTC/wjMzcRKGt/RLKAjj0mcojFn2+3G+61NHMXdPyh4A==
+Received: from SEYPR04MB9237.apcprd04.prod.outlook.com (2603:1096:101:2f1::20)
+ by TYSPR04MB7281.apcprd04.prod.outlook.com (2603:1096:400:476::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 03:25:55 +0000
+Received: from SEYPR04MB9237.apcprd04.prod.outlook.com
+ ([fe80::decd:90bc:3bca:9f8]) by SEYPR04MB9237.apcprd04.prod.outlook.com
+ ([fe80::decd:90bc:3bca:9f8%3]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 03:25:54 +0000
+From: Zhang Zhenzhe <zhenzhe.zhang@outlook.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+	<alexander.deucher@amd.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
+	<christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+	<simona@ffwll.ch>, Austin Zheng <austin.zheng@amd.com>, Jun Lei
+	<jun.lei@amd.com>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/amd/display: Increase DCN314 SR latency by 1us
+Thread-Topic: [PATCH] drm/amd/display: Increase DCN314 SR latency by 1us
+Thread-Index: AQHcsvuFzeiUQFQOEEa7ePJTe6Ab+Lch1p95
+Date: Fri, 6 Nov 2026 03:25:54 +0000
+Message-ID:
+ <SEYPR04MB923770653CE59AF6FE8E9485E6762@SEYPR04MB9237.apcprd04.prod.outlook.com>
+References:
+ <KUZPR04MB9265F4DDEF7627D2E3747BBBE645A@KUZPR04MB9265.apcprd04.prod.outlook.com>
+In-Reply-To:
+ <KUZPR04MB9265F4DDEF7627D2E3747BBBE645A@KUZPR04MB9265.apcprd04.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEYPR04MB9237:EE_|TYSPR04MB7281:EE_
+x-ms-office365-filtering-correlation-id: 490aaa6a-8e4a-48d7-2b75-08df3bb5aa75
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|19101099003|25010399006|15030799006|51005399006|31061999003|15080799012|19110799012|22091999003|8062599012|24121999003|8060799015|40105399003|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?qjto9+7DC76FA3KxPNd7ld6MDAcvsSotwfFu5onf/f5wn1Xwa38jc7C9CY?=
+ =?iso-8859-1?Q?s6J2Zy+IpDO32/fC5oQG6xlwsoCWclKb6ebdleishLxpCVOUcIvgxDcCx2?=
+ =?iso-8859-1?Q?iO+7WLeAtCqSFc2yA0E2EEqUwKcZO2z2+LJUUGchPx5gzvk+HgWxAHaWxK?=
+ =?iso-8859-1?Q?f8S6sky6nAWk9BBHrdLtc1QB/JnoXOvVef/qSMlabVMfYvZB6w8fdhsWzE?=
+ =?iso-8859-1?Q?WBSFie071c5ba/v5b33sinluyQagfYbin2S3b1hNtvmYii8/o1bUtv7HnD?=
+ =?iso-8859-1?Q?XZn7v7P89MDPd576lx/9V6NyeTr01xUXdYTCkBuWeo+DQCSscygMD0F40N?=
+ =?iso-8859-1?Q?xw50Z/jtbzolckscMNfRbuFWv1x+6rPE+5qCXKBZoJ8cjTdh8Q/sNwJKV5?=
+ =?iso-8859-1?Q?O++3ta8mILCKR2QxNh4gQfMes0ChuZZ2ljkL0NMmRaP+m1xELTnqd2t3Og?=
+ =?iso-8859-1?Q?ANvG+DiSs3OWolxVTSKa+0A/FGERQoCA8ssYGBhLZYpc6UlS8Ffx9t7fcu?=
+ =?iso-8859-1?Q?PUEZl/Wejt/br550qWcNFws3ICrOn+HVR9w8eduabxKjXcE5W4C/o9B/oV?=
+ =?iso-8859-1?Q?SItp1o+61nE8AyAf8I/jPCMswgHMjLd3/OHmlM3ZjuTm3JV+f1bzDl297h?=
+ =?iso-8859-1?Q?kUVr/VfGHbymbgfWmd9ceMxWWdLP7z4pwVUXwaIg8Nh+Pqo7frwCWmIk7V?=
+ =?iso-8859-1?Q?lWh2ET8h4S46I6KcLxvNCbnnzysaG8NJfPHxTene3YHkwXhd70UClSFzmr?=
+ =?iso-8859-1?Q?G77aOY0PwZAKqF7Er8oa5RN3Cdn5uSLBul/3jNVzDEBQJGmRBkn3BlHy7V?=
+ =?iso-8859-1?Q?bEV+NppfFr9BE3Nbrj6AxEnVryGVhvCrixUUgAdjzGZxO8mc3xgWw6Rhah?=
+ =?iso-8859-1?Q?mz8ItsBdVgE3f7PdKfzK+wAkHvmPH4PiueE3IeXSIvee3KJw6AP3P2RJuB?=
+ =?iso-8859-1?Q?Iti++mFycFDzdipU2WUSRLSnU4RXBCsbC9ylxEht03ZS4Vmngcy8OjHxfn?=
+ =?iso-8859-1?Q?3G6/EUkIitgwDFw0U7ibvgkE9D834DsJoRps6PZx7D/vUkj2WNK3Uz7RU0?=
+ =?iso-8859-1?Q?RNgctcNWkj9WMnIsSCoT3hE=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?cTw4YhmGtm0hxyaY2vXv1FZ4zVz/E1LDPk2IKy8SZryyHi8RQkZpWOri2F?=
+ =?iso-8859-1?Q?vmuXUbl5k3zlO50jIPBiQdsnZScPnWZoob2aRH64mNDCiMXd/AcU9Y+Nbm?=
+ =?iso-8859-1?Q?kMLWwWttL5nnNXS/Ot4W8Red8q76KtFRn+1y1uJtnRyOiL3q9mWDOO50Ob?=
+ =?iso-8859-1?Q?CNqt6qytnz02rC+avq5T/69pnVIrshbAHLE1UqmR2X+yiCUxdzhuyDvukn?=
+ =?iso-8859-1?Q?2D02tP4EkDZw6euvX00HAIxg9RfOoSe2EZeI+5v01pHQhNydZ1lIM8pU2w?=
+ =?iso-8859-1?Q?m/laicw0lJBTfZGgwtgsljyghyv+30miuVw+x9/nYYncH56C9rgReKGRVL?=
+ =?iso-8859-1?Q?rPazu8tSgJZtdKNncUhfW3WR4EMLonWwQ3DraBkHCWCbdmDa6uSYvXlmaX?=
+ =?iso-8859-1?Q?krjkI3B4Zba4YrKdtwTGkDSIRcOJl1T8tuViDPA+11L7aDlCpREpnGWIMD?=
+ =?iso-8859-1?Q?Zm/Jvczd73cyE966Qvf0x+djM1wkmlXgO/SZo4spav6ZG18QRlFStS5yZ9?=
+ =?iso-8859-1?Q?4RzVKJBI3vX+k4tWLZPYk6y+9tyUQns3QfWsS0DD97IpeHJKb/DCmbxarA?=
+ =?iso-8859-1?Q?ITCaAKLDiF6DsOYhSsoYgdhhL/MiqZ+JDFcbpPKT5EVi4a0b7N/6mKd4zo?=
+ =?iso-8859-1?Q?3Dj9qI/MN1eDZZD6oVE7UGF4rCCQBxU9HD2+uRkeesu3a68Ra7fm2vH2z7?=
+ =?iso-8859-1?Q?soheK2u4V0u4aYEXCqS38Mjgx/SL07HBTYC9neifyJiusywafKTh3Z7dOy?=
+ =?iso-8859-1?Q?ABxPDLkQwhPMuBE2XTNTRZ/c+P3p71FeCmg+wbyFL4P0irFQaIuCF/PR47?=
+ =?iso-8859-1?Q?cAFm0u+ukRcyrXMxAzpZ/ly1wzhu3tKxg1fIhOVbDjIPFEAIQei5/b4akW?=
+ =?iso-8859-1?Q?70z8zrYHnq7i5VbcwgZPRWZ2QCyGOmkfMj5NrhsnPJbDib0E2y73WrB7UE?=
+ =?iso-8859-1?Q?XyVMMsETXpHHXN3EuR9POrS0Qp75fbzk2q4cFgHZy/m9PP1kMfiZ3S22pn?=
+ =?iso-8859-1?Q?ViCtbdXfyWIrW5snEgeOCYzK5zzAp3wj2PvOIkY5zJDj8IoSLUglQHLJUT?=
+ =?iso-8859-1?Q?oMGYj22x3SwgPM21bOvlQmIfaH6B1iuUnQz+3mhc7oupbfpf542wNgvAS9?=
+ =?iso-8859-1?Q?8ZzpkfFXzufDijT2VfIiXcaSxo4wjG2BXVn/Q2MHuXnLUUyHnVD6IOM+IO?=
+ =?iso-8859-1?Q?1DYdQ6Jx0ERqzQyYBs3i/FbYlQxUOcbd/grQZAtUTw1S7US5rJAdub89h6?=
+ =?iso-8859-1?Q?Y1ST2nhO5zlX2VnkuMeK+RQ9ufQjqCK4OhCTQBnXpLHUNX/U+wyzsiwNeS?=
+ =?iso-8859-1?Q?rurh5pLblubiUhZQbFO8tk2e3vLlzWCy8jdnLs71KITgw95kc3XC/L+7/t?=
+ =?iso-8859-1?Q?nJiYdX6PwE9ht6bTdVd4YLAqFjAL4uLMkNPZmm95PrxHeYE8UGRQG5Oh7w?=
+ =?iso-8859-1?Q?qcxzvBG/0GUnelhq?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,68 +158,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-sm8150-v7.4-rc1-camss-v2-1-39ee37787b00@andrewgigena.dev>
-References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, Andrew Gigena <mail@andrewgigena.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793935531; l=1044;
- i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
- bh=sa4H+sId6xjwTKga9V2ilYs1U4cIetnjPZQJfvPUFeM=;
- b=zKSBOehskHj8OCCfbZWVn/cYD5BlWB0dn8wN4oS57cGNV0bVlKjCgwg8PLDrx3yGpjagItAce
- 58dtYbm8R/IA3K39QgxQfB/j3KfOrb5oiaIsYSw0IjSX3tKSrfwRWzh
-X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
- pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
-X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
- auth_id=1402
-X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
-Reply-To: mail@andrewgigena.dev
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEYPR04MB9237.apcprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 490aaa6a-8e4a-48d7-2b75-08df3bb5aa75
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 03:25:54.4517
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR04MB7281
 
-From: Andrew Gigena <mail@andrewgigena.dev>
-
-Add qcom,sm8150-cci as a CCI v2 compatible, with qcom,msm8996-cci as
-the fallback.
-
-Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
----
- Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
-index 1e8def25ec0e..1e7a8efaa398 100644
---- a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
-+++ b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
-@@ -39,6 +39,7 @@ properties:
-               - qcom,shikra-cci
-               - qcom,sm6150-cci
-               - qcom,sm6350-cci
-+              - qcom,sm8150-cci
-               - qcom,sm8250-cci
-               - qcom,sm8450-cci
-               - qcom,sm8550-cci
-@@ -218,6 +219,7 @@ allOf:
-           contains:
-             enum:
-               - qcom,sc7280-cci
-+              - qcom,sm8150-cci
-               - qcom,sm8250-cci
-               - qcom,sm8450-cci
-     then:
-
--- 
-2.56.0
-
-
+Hi,=0A=
+=0A=
+Just following up on this patch, as it hasn't received any maintainer feedb=
+ack yet.=0A=
+=0A=
+This patch follows the same approach as commit 318917e1d8ec ("drm/amd/displ=
+ay: Increase DCN35 SR enter/exit latency"), which addresses a similar displ=
+ay underflow issue on DCN35.=0A=
+=0A=
+On DCN314 with LPDDR5 memory, increasing the SR enter/exit latencies by 1us=
+ also resolves the underflow issue in my testing.=0A=
+=0A=
+I also noticed that the original commit message incorrectly used the Fixes:=
+ tag for a GitLab issue. I'll change it to Closes: in v2 if needed.=0A=
+=0A=
+Could someone from the AMD display team take a look and let me know if any =
+additional testing or changes are needed?=0A=
+=0A=
+Thanks,=0A=
+Zhenzhe=
