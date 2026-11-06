@@ -1,107 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793942635;
-	b=B6Z5aBpVv8Zh/nWau3/Ao9UBSmsenoACCLMnOhxXBKyCRIS40+9XGYZl9FJA57oubLJL
-	 hO078z8hmSo1X5q/Ri9sDSQcyZP9FQfyFcuWJusXl1lYUlBDhenprDSkjf522luodtjtK
-	 F0TCxIDUtJfgmiCtzKtcFnLhcsGzDcNPFlaeLEDUUF0jCBM3wlrGm0ioMmPx0JuAPiukc
-	 goa6W5nfa/qSQpOrX2dctjxByN/DWPTR0gNJdf0JkthRREZ2uqfUMiJZ62VD7V/B9ATSG
-	 hAikftKDQneQ4MW6o24cEu/nqPd4ouE2tRpXXhn1nmLu2m6XriS0tryLBElAeKl01RA==
+	t=1793942705;
+	b=w7LDPkaF17PN8ThXhLyr6/9VoAhZpCP1RdjvY9pvIRNyOIpi3n0p2YaEVfHy1OjV5bRi
+	 wtH3et3/yUjZJ32Rndbmuaw3VuSSm9oGoC6g0RrA/KqeN21TlxiAerTqJbFC1dLsdY1TD
+	 8fofSnMkkwuFMwsHDEKRznK2EMNfuOyt/joeD6PuxVcIwy8QDS2x9fg0A6MaXxbJDjhVp
+	 QkZ5vjfObgdzzN+akNBAcz2D2DDWhJ7P2WQYX8Lf5D+baGGGeyvdJACij8TRx7Vq+T6UG
+	 ROjJfoRMjna11bCQvYkI65uWsI2RSmyi5pd56Pww7KaFJ6DskseVrw58j+Z89gHPqAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793942635;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YoVjGUFXpjQMcATtlpzVSprfp+MS50wgD3gLJA7JasU=;
-	b=ae9TvGWl9IvSxrLuYYUMmikwVMjX5HNkxUilGTbEk6WaQyakMPG8wych2bk9pBIxpa7o
-	 sKiR/pMswWUzV6+A1GYtP48dNQegac8sxfSZW5bC2AzHXsrcL6itCh/3TB7ieA4AMiHBE
-	 T0wprFiy5KAJnWMo5vjbF8iII5LJHSUJJmWOYCPB71WSVCGLlY9TFtGUxV0gEelN1NChB
-	 jj26JPLNhPqGn6ymcBvrsg1eF8bGQ9ozH1HwJ8CnbmT5SMtOq0jvrZ9+LmsoZQOYfgj4M
-	 B/fBPq++9DXjPBynucOJ9ecEkFJqRcD3fsGf6GU194bfHJOs5mQmpwl0lXI8esRAdKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793942705;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=rc1B5L9x4KU9XV5a9KjL0IyzS9SFrFYxX5fwdEU8zEU=;
+	b=10Vh5kbTfKpgZxu4F+V77hfDGllO4C2N4XbuBUEXBaq5NCC8CoYdoRcyrTb6zeoFLsAK
+	 bW/ijci7lmIrgXwdmI0aGHGKPQ4+4dHyXrWrEUH6bNQ71TcZZqoz5sCTAnhRfPOOQzqph
+	 DfPiDYem7gZ3SkAat8P/a9u7D5RkUYIIRS4h0xgonw6offJNXU/UYSpH0TIbCD7uaP/Y3
+	 AlhE8MGp7qrfyov2XXx6OEJp2mueq7q+E+ZhfscV0f43O40pv2h8qOktJt4NMioUwdWDy
+	 I7JFAGbiPWRLSLF39L8nUVq7siuluEFe5nvsez5cKI3mrmi1OhIb1fMSKcWadV+nDMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crusoe.ai;
-	spf=pass smtp.mailfrom=crusoe.ai;
-	dkim=pass header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=UCJvIfCd;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b="KbVDF/ZZ";
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11AF7606A31B
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 05:23:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11AF7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AAF606A31B;
+	Fri,  6 Nov 2026 05:25:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3AAF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=UCJvIfCd
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso817225f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 21:23:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=KbVDF/ZZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1793942633; x=1794547433; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YoVjGUFXpjQMcATtlpzVSprfp+MS50wgD3gLJA7JasU=;
-        b=UCJvIfCdsa5d/5EFYrAqm4c0g9WZYomO5Ec+puuBWs9BjcYnTIMWUB3AxMeEuX7tjV
-         2S0/OovwQKkbM9XKqvCGCsG8wGfRa89+FhBfbmZXVdtpkL9Xpxk+fKdc6ONqqtzFZmsb
-         q/m9CyKDcSRF9xrQgd99vAqbtPYBUfQ1oRt87fzZL2nOuTGHIug0Oab72s/29LBBN5hL
-         6ItDanqPeVRCINoT+E1An037YRJprH/aT3PY2MXdNMKXQTMXOE/T5Ui5zF+yyX6DzCii
-         zU7+wKfcgopUUZq3fCA4GIIlW7NeEY5Str4h9Qx2LOPWoD4wHZwhUea6hrKcKW9c2l/L
-         AGRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793942633; x=1794547433;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YoVjGUFXpjQMcATtlpzVSprfp+MS50wgD3gLJA7JasU=;
-        b=R4ReAYEwI+Dty8M4utV6YoVnP1iY8j6HWrXj8wDDqYZF6gUDF3f3HgBO3uAAtt4O4R
-         yiKixqZtDOAwYsVpTcXaF7O49TUbh0EWqR6Buusfp9luqgdXqwtD5Mzb0f7ZcTqPzSWz
-         VNz3yomskt2Paud/EWnRTlwl271eLsdXBvggBCLGVLPC/HMhD1Osng9fRnNj2QJFwT3i
-         7OGAzNU1V71ua+JJb6QMNpo9IuoSG/CeZIkd/5lAqBaBfAiBFvdZe2tBgXTsXCId5YKq
-         JC4hDmAEhg4CA5bXAlCyh6h1CUpRJeTBi5dbB9tmMdvxM1Wnw6ulNZ/uuDRVBAITolwu
-         +Hmw==
-X-Forwarded-Encrypted: i=1; AL+hErEvvRShaUTJ/OSYw2G8OT4/2a1yWk2doLHUWp6Vlhf7Y3//5pnZ/GzfEVtKi2/4vD3eH1rUsVCA4OZIjPc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97REqQsp85xRSnVYYsXdD1yXqmO7YSmCxE8bjZCdHjb2lV0vhC
-	h3Ta5X8NpKOFBOIPps00ahLMOGcFwVB/JZxxRFRaxDDnJeQCx7abCBx+a5vNlabL4bI=
-X-Gm-Gg: AYBFou12Pehxqty9tB1piSxsJJecRU+2AcSeBrlkQ8PDr7DxTHayd0QyXKAlz8JMxlc
-	VYU3V1fc8saLUGk/k3O3tWKqcrpf4cUuYMxPYGumJSqlAHgWJbV5aQMBzUhGfv1zxOiMKKu3zls
-	rcSItC4DmPOe2mx1cdetkqVVYke6HUuQpAXPgyZFnE7ZqXwt1PRLbkxFz7/cJFnrkv77zXJNh8Y
-	mVo756NTqCyru5TBkhng/bfkeRpnf4VqIFOQth013pz8gnEbGdFJM4uFrfD47/0MMzhKMh+qAN+
-	lN/Cbr5fY3UeKJan6AfPJkRyAHvA6YJ48G8v1kVMv1YmEWoztMQfhtnCzHCI6ZoKZBvJV9GVu1I
-	Dg8UKxpeMIYeKfN6L1mIfSgr1Ddpts9dfmWzwRPxF76THgckrIMwdnlkQoxGW98ZZf0cWjmfMkd
-	OZg+tM79zPhB4MRUQNCYdZdPRUuQ4dR8xki6BUq2x9YmrenalKAk212jWtBers6M5EEvacHS8//
-	X99VCMhD89hVK5D7B3AvHb6TVD6oSDVbx/1v7UwQRByfX7lZQyYI+Tvno4GpRiARm7shvkxB5cq
-	bezfwmcDBpUSXWsunWVoFqIRAzjlDh3ZUwaVYpnqn8KU7v5hBnvcww9RvdjFPm5CxSQyVBI9mQ=
-	=
-X-Received: by 2002:a05:6000:2284:b0:48e:678d:396e with SMTP id ffacd0b85a97d-4911906d313mr9445010f8f.9.1793942633454;
-        Thu, 05 Nov 2026 21:23:53 -0800 (PST)
-Received: from MBP-Saravanan-D.civet-hops.ts.net ([185.57.101.252])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d63ae2sm1456239f8f.11.2026.11.05.21.23.51
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 05 Nov 2026 21:23:52 -0800 (PST)
-From: Saravanan D <saravanand@crusoe.ai>
-To: Daniel Wagner <dwagner@suse.de>
-Cc: linux-nvme@lists.infradead.org,
-	kbusch@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	nilay@linux.ibm.com,
-	sgogte@purestorage.com,
-	hare@kernel.org,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org,
-	iyamahata@crusoe.ai,
-	kiyer@crusoe.ai,
-	ganbalagane@crusoe.ai,
-	sjpark@crusoe.ai,
-	bchen@crusoe.ai
-Subject: Re: [PATCH v7 1/2] nvme: add per-queue sysfs directories
-Date: Fri,  6 Nov 2026 05:23:42 +0000
-Message-ID: <20261106052342.12808-1-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <23f41537-23bb-44e8-84e3-7069138d151d@flourine.local>
-References: <cover.1793800758.git.saravanand@crusoe.ai> <656dac7329c8452efe786b0c76a3b8c0bbf53159.1793800758.git.saravanand@crusoe.ai> <23f41537-23bb-44e8-84e3-7069138d151d@flourine.local>
+	d=codeconstruct.com.au; s=2022a; t=1793942702;
+	bh=rc1B5L9x4KU9XV5a9KjL0IyzS9SFrFYxX5fwdEU8zEU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=KbVDF/ZZlKW+8X1Vp2xhdZH2JdZ3LdHuFkg7F0ExZz3B9V4shzzGT9MBmcdhE15A0
+	 rwHSBsy2yR3p+qiDcq2LPyXE2wvePRvsmBh6ty6wjvi5jNHIiQ4umHU8eOjB/k7TWe
+	 6JZhmgwkXkl+4HNSvAuqhn/fK3Q6cqxx6ti/kb1TsfBBj4SnWQr5h8jjPv+axoLuKr
+	 UtSvFIikSTMKKGzLeOQFjUkG8UBZhABXcMrtcWTsYTijokWRofu2bP5aeKZR79XU2p
+	 TgfhhjDipdr5JOrq2deYgHexwEDM8p9PyYj4dVOzUvx380bjRberr47UdzK6+kOeU3
+	 /RfaOavucwNag==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 0978A64952;
+	Fri,  6 Nov 2026 13:25:02 +0800 (AWST)
+Message-ID: <69a28877e3ed57f9f248d31d1972b62446a4d230.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v4 0/2] Aspeed GPIOP handover with managed controller
+ lifetime
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>, 
+	linusw@kernel.org
+Cc: joel@jms.id.au, ryan_chen@aspeedtech.com, billy_tsai@aspeedtech.com, 
+	brgl@kernel.org, tan.siewert@9elements.com, linux-aspeed@lists.ozlabs.org, 
+	linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 06 Nov 2026 15:55:01 +1030
+In-Reply-To: <20261106022907.10735-1-prasanth.padarthi10@gmail.com>
+References: <20261105152348.8567-1-prasanth.padarthi10@gmail.com>
+	 <20261106022907.10735-1-prasanth.padarthi10@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,21 +72,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 06:30:56PM +0100, Daniel Wagner wrote:
-> > +	ret = sysfs_create_groups(&qinfo->kobj, ctrl->ops->queue_attr_groups);
-> > +	if (ret)
-> > +		goto out_put;
->
-> Don't you have to call kobject_del(&qinfo->kobj); here?
+On Fri, 2026-11-06 at 07:59 +0530, Prasanth Kumar Padarthi wrote:
+> This series continues the AST2600 global-to-local GPIOP passthrough
+> handover work, rebased on v7.4-rc1. It adds a shared pinctrl lifetime
+> fix before the G6 handover change.
+>=20
+> The registration lifetime issue was identified by automated review:
+> the G6 callback data is devm-allocated, while the shared helper used
+> unmanaged pinctrl registration. Patch 1 switches registration to
+> devm_pinctrl_register(), ensuring unregister runs before earlier
+> devres allocations are freed. Patch 2 retains the v3 handover logic.
+>=20
+> Changes since v3:
+> - Add managed registration as a separate prerequisite patch.
+> - Keep the handover implementation unchanged.
+> - Add KASAN lifecycle testing in QEMU and on B650D4U hardware.
+> - Update validation statements to distinguish lifecycle and power tests.
 
-Yes. Sashiko flagged the same error path.
+Can you please re-send v4 so it's not threaded under v3?
 
-I will send a v8 that adds an out_del label calling kobject_del()
-before kobject_put(), so a failed sysfs_create_groups() unlinks the
-<qid> directory before nvme_add_queue_info() returns.
+Also, I received the v4 cover letter twice. Something seems wrong with
+your mail setup.
 
-Thanks for the review.
-
-Saravanan D.
+Andrew
