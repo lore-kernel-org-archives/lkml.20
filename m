@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793963382;
-	b=GDsipnKFLeABtvvvkq9rV4f3J9zQTZpnJNVx/Vjc6iJ7H7jzd4mGO9uPDBDl/ioAgJov
-	 MGfLjuwEXyI/V52Ghum/DkAprI/+R5WovhYEEPTTWbYPGEL5vEf4jB3TtiTnvSggSPnc9
-	 LHRtD1ctb9JKYx6AFIhKHfy75kaBvVWbzfbz1hQ+aWk25zzqnbh71u6UWMyvGk2LIftcw
-	 mQKDkUBvzE0npxSXecLiXYaxI/0wZG69+cPg1JS7JqZ8P+DTFXLwExi/+L3FhiWs0vnao
-	 dMF1P4yyNH/qLwQ+GlaxGKF0KqKEOQyhu/1MWMV517YUZPEAuilTW32azYcBvALX9jw==
+	b=hOyqvxuoe3oV25m7U0p+SpE5gyE704B6xC/7qUED936ZaUltOtH2zwaIuzGAaoeLHTnt
+	 h2YD//8jlVkJ+g793VdWlR96ynOzB0shbKF68HQT/Hhw85KWUF6WeXI2QH1Zn2OPL5hlQ
+	 Q27sN/ZNmDF9lNU4Zz7MemiBL4L4lzDo9drWY+ers0w09qwcUZUlOB3oZz0fUlzCaxTfl
+	 d1M2CIhXzg4fDsg4bO0knk0cAjvALFosaLphEFR1nnTk/neZZcwrc0d3yYAkuXchGqrZG
+	 OlEy13lNTWt6zIh55mFyUrHo5CsecvTAX1Qi1lJH/3QwZiSjYwhxmuDaq3Q8FVAevjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793963382;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kRZnFYcOPcT7Wj77cIQssMiZxFc0z0H1rY/MUaYgSUg=;
-	b=5T1Dfx+tggwD+R/IShU3+/ZGUVFqRWvPF6ZzWjZwhUL+oOza/YpHa5Ujn3vlanzmw8En
-	 PI/6Vz9AmjTx10oC/cWQMVjgd9oxFg4BJSNFKe8Y8pARdC499iqTM4QRAgGTTeUknheQN
-	 zVuWQs2uHu1nkU1G1YblOQXzb5j1hOcAuJGpnhoXSgAfdt0M9JjIvGOVwZjkQ4LqhcV8O
-	 nbD671ilNLk2PA3JuDL380pXHFa1dQJNIkVE1NwJQPfonOqtd/YYXiJZrrtjVK8ciZbG2
-	 CVzYWA0ECnnHixE7U1DQN2/20aGEdwcLvmL4YipxsQhNGeR/MOAoYD7tL7fRg9vPzUA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=JTbyh58iiuFNzTp6atljdu96OB/wZRJMCHvu1cBZ0J8=;
+	b=VWGxpJTNqyTCah2rnHSM8VmpyeRBrGHxL+hs8qH2N91tHkwaSClQlKuc8Hl6R3W5Liko
+	 hEQrOvLi8djBmv16wVmLN3aHFAztVazcyhjz9x0lJ7thhjBxxlgOA+ew3MQUVemfgcyKn
+	 6JPdX2fdP5/PcGGZu9u4wBN9gXsqfEBE5Q991KuwgAg0+6vzCcynfck5Gk41v7YNqGYDR
+	 udNcwYILpIGWiE4GuQ1ByPvnpf8JAPvROgkvEUi7fzGNVU1s605gs+lF/+85hgUCrvpOr
+	 7i3eVMO58vfdPLYJt8I1osvGfblHpKDwGzUFQpTJ9p8MjgcoCL7LegpfLBfkGuhDXwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DIl88d6n;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NTiuM0bR;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5E4606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:09:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C5E4606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A07606A33F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:09:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59A07606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DIl88d6n
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so530407f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:09:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NTiuM0bR
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so4078625e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:09:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793963379; x=1794568179; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kRZnFYcOPcT7Wj77cIQssMiZxFc0z0H1rY/MUaYgSUg=;
-        b=DIl88d6nhmwOGknDnpQMw7CDUEcprSXVTAPuRqwC+aviu4k/vGuQALYjTSBcSCtDib
-         A+O063FGBBxZSI4K4lMMq6PFNcG99PZP35ePyg+HwenKZPHBHiBPHcxuF+zuRfte1zOr
-         WQ8Jgn2U0SWilYh+xF7PZ5bmOeBVb3P95PLFuVhKhy6OWmPK+yWFicrpRnEPLTyHUmZr
-         7WU8uSJQ26KmrcpwBThcG1AeCk8uzvMrk0X1on+8fSFXeoX0eVFHpDprK5+Dva6bqySi
-         0D9Dx13jA+Az5kGNfDHPQDwUSdxxmmQAECT+DVJGdOM8paiXQ6+gbYLKud+bdvkyUMVq
-         39FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793963379; x=1794568179;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793963381; x=1794568181; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kRZnFYcOPcT7Wj77cIQssMiZxFc0z0H1rY/MUaYgSUg=;
-        b=EWiHTHjbmU4oYyr8KFmtuW/uhB7Rwd5sif8oNDVCpwROyO2EPUqmXgQOJf3PcWl8ua
-         hcC7Otj4/wr+QEV+C4uS4jKhjdyPRLHGKJ9+rFTv+Ey9t/Mk9Gsuwnw7JioyhI3AWQEq
-         u34d6R3oVJve5VeWAV5mibo7uKRf8mWSTJWfNJbU5Ao5nsRBctIb0ePuAmOQi5RibgLm
-         JPzaXvtEaQahccCnFLCSZo8otIG2itImRJc4W25SC989+oOo+1J65dm2Hc40PfYC2Ftp
-         6m3YpI0JcQ7h+sOPydc+9Hh9JludG6/YeXYVjwzHfbxDjLKYRd8ipP+TwcStgvuYuKjQ
-         wWKA==
-X-Forwarded-Encrypted: i=1; AL+hErGqE3oOh5AM82QRYVCdl1HhsMJo+HOchhrCuFqscbw3lj0QII25VqtLbhitDA6UcmJeUIMq+OAsDMThZwE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6BlqEQLfxsUbu+t7gtf/GtnO42Wl2J0W+Nk96yQ6sX1dw/5lQ
-	0HA0s6BiZZhGlf5yHGc8YO3pmsgW2s0CJmooW/Sn+4HRLkGPG/iM9Kf4
-X-Gm-Gg: AYBFou2AC49qjcx4RDSzgw3N5HQDwVw/a2CDDhsr7tvmUp/BvJgF334i7oDNrHDi6Pj
-	VbbEMuo8Db+WUgwE/Pvx6Eq7aw/0ealhIZEXOOlriNPQwS7RmqyluHaWlMbCf30e+fdmmc4FqJc
-	jIg/Z+TGKSQhu9g6+T69EcFILogpSSx7p70Ck1nqBaO2cyW7wckafcQMa11vCozH6dKEeVlKpF8
-	x636h7vd01Eg+ABHR3gevBGey10D7agFk5ZzLlc1HKOjA5+Q3RAXwC8ImEZyVDkU83rFydcYoVX
-	HqZU4hjEuQ5WF53Vi7rBQ8TcVwfP+hrdKhIqpZAkTxSAHQEZNPLEMGbuoiJslRUtCr7jigR3CAU
-	+0WD1/Jk9wxcbGfu4z0EyzzaN9UGdmSK7GgdC2VtQng8VtasOo+/wmMSkXfbRQia7rMo0QBQtro
-	OOjSIQd6AH0IaqlC0oEMmurdo19GryIZwXsGgG4nioLzJ3FgQ7ZdkLvIyUO7gOKcZ6KSUviRoP0
-	0U2kOlf30xn/u4qBTKp0Q6WkxOi6OrKJxRtoyQ3fBTtWZlre/5tXm5P49ARAWkXTksxybyTZq8t
-	p+Fnr5GGboCNrMHX/G61PRRzz3KE3RH6kk8tpi6xwjXo3P4QXNvlgVkPhUS05g50c5BKfiKX8kk
-	M8S8xgFvNnczwsN6ppigRkeYfUTvbQtrPgL4w9f42pz2r7kwIv2R9pN2WNBCMBVRg7yks6m4TXw
+        bh=JTbyh58iiuFNzTp6atljdu96OB/wZRJMCHvu1cBZ0J8=;
+        b=NTiuM0bRFB1dOjn1ZKrp3AYl72iiEVSCnVtVnCHMCg+IUkoVB9jaFi/3lcuEZv9je3
+         N16BCXHj5+AGuRY9mkKDiluZtiAj9Ffd20w7s+WCXIDtw7yHEXGOc/T6LR3tAKXbH6At
+         mioZqPHfzMicFPLwq/jOM9nsKW4hW8wLFG1p8LZPKZs4NN0bNva+BFTm619drhu+lpuz
+         nZ+csvW4UiPo640p3N7bybTSXHEcrpIE9GWqpmS0H/Hc+Nwxp3aCpfXg9n5yZpKVR7NW
+         xKe28lJs69cn6rpAldEXdrEr/A4PceygQl1+v6erusPsk+6sN9Foq1WAMgzJcE4z/Gj4
+         yNNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793963381; x=1794568181;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JTbyh58iiuFNzTp6atljdu96OB/wZRJMCHvu1cBZ0J8=;
+        b=vWFs/1HnBQ32TBx/KjL/0n94Iv1y9ycuNPCNOfcXFhFRfs5nhAUDDTIyNiRkHotZcx
+         IRqpaE87qrsiEzAcasCYuJ1cLqMh1+T+z4AhQ7B8E4pxzf+7wr1bS4C4B6Rplp95gTJw
+         AS9S6zTI2yz7KXH/ztFpQZ36OYTs9Xy8NURj7OQiKv9hXDenNfetxDy/M1rEve+cDf9X
+         CQdVGqBSvwgBNjmaJnxV102Mz+N8z80BUtZZVdIwd8EbnxRpIY0w9ZrdpYZAf+q6DDd5
+         Kqg4xeSnKwtzTcGrFrTJ+pi80GtVh+Kgapfx9NzsajPXh/Gqy5d3uRdZAE6kKerOFcAo
+         kl1w==
+X-Forwarded-Encrypted: i=1; AKwUvByNDYeaLMMcZykm8QVcrMVxQjwsNRwuBboZVl4BejwdHvIxhr5TZ0vXFAwkzafrXAd9dYEIgqaTUpj42Mk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zJQyRSQe9C2jSgO7CAE+inKJyzUfS3un7JxYn9hlGfT+2fbGy
+	hBwluJfhUluNE0vB/MI3DbPZGKfEwECpgWwxwGW39vblfP64SPVdscvz
+X-Gm-Gg: AYBFou1l17FA4M+d23MHTLzMxqnkZeaQ/neSWyyFAGL/EaZzrQImvMxISUocmKTGyyk
+	x+T83ZkFtjNvrFns6mit6c4oul0haLX+tU4js9/uO5at11FezIHRIPbPCZ+Ltw6C7hiNFq9XhAT
+	ZlrxT0ChE7IF6jrThP47tlZk9CReqkgru4yCm0qJ0Pgw95YfUpJde2PrTdqWGkpX+v+UCyrjNMk
+	euHds7gpKI37188xce7vzt+uhcTBH/JHc6YSX2Dvrk6LdPKDKKmvx+7q+xskwR5i1WQNJ8r17cU
+	CQbLVBFU/pVe2QRARrpPRwNUf33PEmowOoaEV7mEDrmWXy/t63oCX9fkOld2TLqh2N/u3+diWoc
+	L6HIyXOe+Znc6HzHQLJjFIbeanQ0CZ1spoc38NGJvFJeMQJSVKQg6OucEsSfAYdxjq/qJpYNlSp
+	rJTP1TCshpPj+GfbxKhl7HjZU6f+qfj47ZqKd1A7S/M91+ls4C1K2mmuXEAEiWQ2Fj66vR1Nf2O
+	Yjo1TmpvMZP3puZzd40edG/7b0M2k4rv1piShSn6BftehT7PYPjAOSHreAZ74J33/+QiJzhlYf0
+	RwCFv7xgwa1FRT5UXpAjdfpr+fJK6LejXBYjk6IH47xSS3wPJ4qgPikwq5Q8qIxfuspwK3jpclg
+	IVs+NFn6qnDSD7JqBx5JeXYtKjZxwEMWB3oSIwVBVhu4GMFbl35lf36My+rfMzVin7fpbKzfEBA
 	==
-X-Received: by 2002:a05:6000:4283:b0:48e:3b53:e100 with SMTP id ffacd0b85a97d-492781748d7mr4732531f8f.56.1793963379122;
-        Fri, 06 Nov 2026 03:09:39 -0800 (PST)
+X-Received: by 2002:a05:600c:3509:b0:4a6:4d6b:a840 with SMTP id 5b1f17b1804b1-4b6e0172854mr38401445e9.31.1793963380560;
+        Fri, 06 Nov 2026 03:09:40 -0800 (PST)
 Received: from iku.lan ([2a00:23c8:254f:fd01:1de5:ca41:50c1:3f2d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d087a3c5sm2768243f8f.0.2026.11.06.03.09.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d087a3c5sm2768243f8f.0.2026.11.06.03.09.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:09:38 -0800 (PST)
+        Fri, 06 Nov 2026 03:09:40 -0800 (PST)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -92,10 +93,12 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 0/2] Add ADC clocks and reset for R9A09G05[6/7] SoCs
-Date: Fri,  6 Nov 2026 11:09:21 +0000
-Message-ID: <20261106110923.164090-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 2/2] clk: renesas: r9a09g056: Add ADC clocks and reset
+Date: Fri,  6 Nov 2026 11:09:23 +0000
+Message-ID: <20261106110923.164090-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106110923.164090-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261106110923.164090-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,33 +112,91 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi all,
+Add clocks and reset entries for the ADC controller.
 
-This patch series adds the necessary ADC clocks and reset controls
-for the RZ/V2H(P) and RZ/V2N SoCs.
-
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
 v1->v2:
-- Renamed adc_pclk_gear to pllcm33_adc_pclk_gear in patch #1
-- Renamed adc_pclk_gear_div2 to pllcm33_adc_pclk_gear_div2 in patch #1
-- Renamed adc_adclk_gear to pllcm33_adc_adclk_gear in patch #1
-- Renamed ADC_ADRST_N to ADC_0_ADRST_N in patch #1
-- Renamed adc_0_pclk to adc_pclk in patch #2
-- Renamed adc_0_adclk to adc_adclk in patch #2
-
-v0: https://lore.kernel.org/all/20260929113921.119489-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (2):
-  clk: renesas: r9a09g057: Add ADC clocks and reset
-  clk: renesas: r9a09g056: Add ADC clocks and reset
-
+- Renamed adc_pclk_gear to pllcm33_adc_pclk_gear
+- Renamed adc_pclk_gear_div2 to pllcm33_adc_pclk_gear_div2
+- Renamed adc_adclk_gear to pllcm33_adc_adclk_gear
+- Renamed adc_0_pclk to adc_0_pclk
+- Renamed adc_0_adclk to adc_adclk
+---
  drivers/clk/renesas/r9a09g056-cpg.c | 22 ++++++++++++++++++++++
- drivers/clk/renesas/r9a09g057-cpg.c | 22 ++++++++++++++++++++++
- drivers/clk/renesas/rzv2h-cpg.h     |  2 ++
- 3 files changed, 46 insertions(+)
+ 1 file changed, 22 insertions(+)
 
+diff --git a/drivers/clk/renesas/r9a09g056-cpg.c b/drivers/clk/renesas/r9a09g056-cpg.c
+index 51c1e322826a..9c611f12ad4e 100644
+--- a/drivers/clk/renesas/r9a09g056-cpg.c
++++ b/drivers/clk/renesas/r9a09g056-cpg.c
+@@ -35,11 +35,15 @@ enum clk_ids {
+ 	CLK_PLLGPU,
+ 
+ 	/* Internal Core Clocks */
++	CLK_PLLCM33_DIV2,
+ 	CLK_PLLCM33_DIV3,
+ 	CLK_PLLCM33_DIV4,
+ 	CLK_PLLCM33_DIV5,
+ 	CLK_PLLCM33_DIV16,
+ 	CLK_PLLCM33_GEAR,
++	CLK_PLLCM33_ADC_PCLK_GEAR,
++	CLK_PLLCM33_ADC_PCLK_DIV2,
++	CLK_PLLCM33_ADC_ADCLK_GEAR,
+ 	CLK_SMUX2_XSPI_CLK0,
+ 	CLK_SMUX2_XSPI_CLK1,
+ 	CLK_PLLCM33_XSPI,
+@@ -135,6 +139,12 @@ static const struct clk_div_table dtable_2_100[] = {
+ 	{0, 0},
+ };
+ 
++static const struct clk_div_table dtable_8_10[] = {
++	{0, 8},
++	{1, 10},
++	{0, 0},
++};
++
+ static const struct clk_div_table dtable_16_128[] = {
+ 	{0, 16},
+ 	{1, 32},
+@@ -171,11 +181,18 @@ static const struct cpg_core_clk r9a09g056_core_clks[] __initconst = {
+ 	DEF_PLL(".pllgpu", CLK_PLLGPU, CLK_QEXTAL, PLLGPU),
+ 
+ 	/* Internal Core Clocks */
++	DEF_FIXED(".pllcm33_div2", CLK_PLLCM33_DIV2, CLK_PLLCM33, 1, 2),
+ 	DEF_FIXED(".pllcm33_div3", CLK_PLLCM33_DIV3, CLK_PLLCM33, 1, 3),
+ 	DEF_FIXED(".pllcm33_div4", CLK_PLLCM33_DIV4, CLK_PLLCM33, 1, 4),
+ 	DEF_FIXED(".pllcm33_div5", CLK_PLLCM33_DIV5, CLK_PLLCM33, 1, 5),
+ 	DEF_FIXED(".pllcm33_div16", CLK_PLLCM33_DIV16, CLK_PLLCM33, 1, 16),
+ 	DEF_DDIV(".pllcm33_gear", CLK_PLLCM33_GEAR, CLK_PLLCM33_DIV4, CDDIV0_DIVCTL1, dtable_2_64),
++	DEF_CSDIV(".pllcm33_adc_pclk_gear", CLK_PLLCM33_ADC_PCLK_GEAR, CLK_PLLCM33_DIV2,
++		  CSDIV1_DIVCTL0, dtable_8_10),
++	DEF_FIXED(".pllcm33_adc_pclk_gear_div2", CLK_PLLCM33_ADC_PCLK_DIV2,
++		  CLK_PLLCM33_ADC_PCLK_GEAR, 1, 2),
++	DEF_CSDIV(".pllcm33_adc_adclk_gear", CLK_PLLCM33_ADC_ADCLK_GEAR, CLK_PLLCM33_ADC_PCLK_GEAR,
++		  CSDIV1_DIVCTL1, dtable_2_16),
+ 	DEF_SMUX(".smux2_xspi_clk0", CLK_SMUX2_XSPI_CLK0, SSEL1_SELCTL2, smux2_xspi_clk0),
+ 	DEF_SMUX(".smux2_xspi_clk1", CLK_SMUX2_XSPI_CLK1, SSEL1_SELCTL3, smux2_xspi_clk1),
+ 	DEF_CSDIV(".pllcm33_xspi", CLK_PLLCM33_XSPI, CLK_SMUX2_XSPI_CLK1, CSDIV0_DIVCTL3,
+@@ -539,6 +556,10 @@ static const struct rzv2h_mod_clk r9a09g056_mod_clks[] __initconst = {
+ 						BUS_MSTOP(3, BIT(4))),
+ 	DEF_MOD("gpu_0_ace_clk",		CLK_PLLDTY_ACPU_DIV2, 15, 2, 7, 18,
+ 						BUS_MSTOP(3, BIT(4))),
++	DEF_MOD("adc_pclk",			CLK_PLLCM33_ADC_PCLK_DIV2, 16, 7, 8, 7,
++						BUS_MSTOP(3, BIT(9))),
++	DEF_MOD("adc_adclk",			CLK_PLLCM33_ADC_ADCLK_GEAR, 16, 8, 8, 8,
++						BUS_MSTOP(3, BIT(9))),
+ 	DEF_MOD("tsu_0_pclk",			CLK_QEXTAL, 16, 9, 8, 9,
+ 						BUS_MSTOP(5, BIT(2))),
+ 	DEF_MOD("tsu_1_pclk",			CLK_QEXTAL, 16, 10, 8, 10,
+@@ -634,6 +655,7 @@ static const struct rzv2h_reset r9a09g056_resets[] __initconst = {
+ 	DEF_RST(13, 13, 6, 14),		/* GPU_0_RESETN */
+ 	DEF_RST(13, 14, 6, 15),		/* GPU_0_AXI_RESETN */
+ 	DEF_RST(13, 15, 6, 16),		/* GPU_0_ACE_RESETN */
++	DEF_RST(15, 6, 7, 7),		/* ADC_ADRST_N */
+ 	DEF_RST(15, 7, 7, 8),		/* TSU_0_PRESETN */
+ 	DEF_RST(15, 8, 7, 9),		/* TSU_1_PRESETN */
+ };
 -- 
 2.56.0
 
