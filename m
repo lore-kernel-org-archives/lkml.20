@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977621;
-	b=fBXlnsYxYx910jORjtMoCDZf5YUtk/N4xd0NXqDLKS2vOHPldqF9f01BIls9mSZG4t57
-	 iQWjwtXQfv1I7sv91AhaupWq7YGrtvZ1IyiuBKK2Onn41jCvZpW9lWZ1N4CM3cgU5i2cE
-	 Zc4EXzn4vylyCDgaLZaahf7z1GhSOvERJTYjZ/IV/ohEPeEtBYEGrMKy9oRRjfE/TNfiQ
-	 ah2yZcP56nOdPo56P/aCkXpsB6Tz6YmsYcHHRgmKRPvqUaumr8HzKseDM+YHU7VOnQbuu
-	 hYn/3srNOvJC9hwqX1aVVf1CBmme2On5DntPuDzZbjutiN7wpVr+HhpBcM3qDPWPccQ==
+	t=1793977617;
+	b=Y/UC9Xzyug02scilTNtMhGDA/2mpgbLtLDqLjM5ZqBRvqX/1Ss3LJJPE7HKkqogCosGw
+	 YHmKGOl76YrdKoqk2zDPyFlpgPKpQTwfPU/o3tyFPCieADSNsUtAoolxCw+m5c83zZ3L+
+	 x1G5hVcWskCqloPiO9FoZnIkCOQNAWjVn1Ey87qMz0tRzTsJXFMxCsiLZW80D8vKtqJ7/
+	 oqcwCObR+L/PQJmpkHy226hyJ/9kFeq8EqnzanW0TSXi4jpxXrStRt1bcAqeBfCyfzsi9
+	 mWSg8Y3gtF6jT5aeN62fxiqDqdE6dK9qeEUlo+YEpl1qXq/wY3tYX6XgZRO+U5S4EXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977621;
-	h=DMARC-Filter:Date:X-Lima-ML-UUID:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=a24+d9xvaf+CDIz2+89Hx2fexrG15RfEetPbz91IQO8=;
-	b=06vy9tzkwRRXudw7p42nYSB9KbAdvQSbwP7YIvas6WfLkBxkOe2fowCndtD3yhCmK/5L
-	 2N7psNufVEnmkMyWLRshrds/QVM4zW0jP5EmRceXgW1z6X0OZ58W9hbS5+qx4aazSd2ul
-	 KDBNnhfNv1d/foMgnYzbSs+mtcfTzztwtqJ1fXVF5G0hqJ+tjv70hy74IVe+2s6oZZ8lI
-	 7EyLEow25FjNvqDzEzkguwg9ggJzXaFidpMAe6GfJsO1gQi1VjdEu33D2jQy/9jzZHze8
-	 i5du+T0fDMC6/ybq1CJ4QuSzpwCXu4bdIyeKPF7nIDxBBPi/cnnUm5NtZmmh/lfiDXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977617;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=gqJdpxgraavV9cayMwotUN97OO7P7jUb+2s38dDaeHo=;
+	b=33eMxmeW6/Guszm/7g4kxeiYd49H1vIP91d068658HvekUQbclzjxSJYEDUDgjkQX2z5
+	 3NfIvqMx535uZ8DhIrw7NHSYqu4DE1AATshUizfbTqmj5YLPCYrw3mjYHxE7yzK9yBRLH
+	 r3ZOXEQeyETwVPZGhmm8Y2n2w3lvHDZ5MloId8vuKg0FP5KsrNovwFcKwPBNtFNDLKWva
+	 OyuhdoARXmqF/WfmUn6O+AQvLPwc/ADsz7MUNvT0gTO7fiSj/mfeb89QSeKwsL+ptCeTH
+	 WUu3SGWOiqcN82XbxqlWuDh0YsKoVvj82WwQJe2L087AlojQSAAMRiM8pAhTXw/ENTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D9B606A33A;
-	Fri,  6 Nov 2026 15:06:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46D9B606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
-Date: Fri, 6 Nov 2026 16:06:48 +0100
-X-Lima-ML-UUID: 59084f74-4df0-4d05-8f4d-796d5e595ebe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793977612;
-	bh=a24+d9xvaf+CDIz2+89Hx2fexrG15RfEetPbz91IQO8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=DcQqrWYJrmn/TxAwJu3//ceI1EKsNKPNB8iDm6H18mLIZKbwXuz77tMxy2jzUuJoa
-	 IUZ2hw0xefq1/6Im1d3mtxNqxYDmw4m+OcCHHZF/IdnqcQGJ+VoQQo43iHqRmXPaSk
-	 YnXSFCJl1QLMYypmDUuFQDY3bNrV01msSjaXmFSzn1eBcW8DwKWqOo8os+EQ59X+qc
-	 TYDxHRB/h5CdG+ccCtGn9shroQvEX84ZFLZ8Gy/DjoMyaOZcb4Qj0+O4Sv4xrQ0wNE
-	 MnNR1H06/oBatRS969+5s12uKSIsXWFXz0Yq7UsN3m+Yqz/XpL9zxAsEktQl7+6PEi
-	 wUY2Nb0VTg8cA==
-From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Myria Sarvay <myrialsarvay@gmail.com>, marcel@holtmann.org,
- luiz.dentz@gmail.com, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, sven@kernel.org, j@jannau.net,
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, Yossef Osman
- <Yossef.Osman@proton.me>, Aditya Garg <aditya.garg@linux.dev>
-Subject: Re: [PATCH v2 1/2] Bluetooth: btbcm: raise ACL priority on Apple
- Broadcom controllers
-Message-ID: <20261106160648.05117894@kait2en-mbp15-1>
-In-Reply-To: <5F81A6CC-46B6-4C45-BB05-8483057EEE7C@chaosmail.tech>
-References: <20261105085750.120392-1-dev@deq.rocks>
-	<20261105085750.120392-2-dev@deq.rocks>
-	<au1uH6uxtsw2vHfP@macbookair>
-	<20261106083339.677cc75d@kait2en-mbp15-1>
-	<CB3B84A2-76AD-45F5-B2B9-39E5A9ED3BE7@chaosmail.tech>
-	<20261106113946.60c6c5f6@kait2en-mbp15-1>
-	<5F81A6CC-46B6-4C45-BB05-8483057EEE7C@chaosmail.tech>
-Organization: KaiT2en
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC864606A32C;
+	Fri,  6 Nov 2026 15:06:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC864606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <71aa432f71144f446dba2037ab5664eea3569fdc.camel@crapouillou.net>
+Subject: Re: [PATCH v3 3/5] drm/ingenic: Add a driver for the X1600 display
+ controller
+From: Paul Cercueil <paul@crapouillou.net>
+To: Olivier Louvignes <olivier@mgcrea.io>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>, Thomas
+ Petazzoni	 <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
+ 	devicetree@vger.kernel.org, linux-mips@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 06 Nov 2026 16:06:50 +0100
+In-Reply-To: <20261106143827.15926-1-olivier@mgcrea.io>
+References: <20261106112000.1612-4-olivier@mgcrea.io>
+	 <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net>
+	 <20261106143827.15926-1-olivier@mgcrea.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,29 +60,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 6 Nov 2026 11:53:13 +0100
-Sasha Finkelstein <k@chaosmail.tech> wrote:
+Le vendredi 06 novembre 2026 =C3=A0 15:38 +0100, Olivier Louvignes a =C3=A9=
+crit=C2=A0:
+> Hi Paul,
+>=20
+> On Fri, Nov 06, 2026 at 02:34:08PM +0100, Paul Cercueil wrote:
+> > > +	struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
+> >=20
+> > This bothers me a bit, shouldn't it be using 'crtc_state'?
+>=20
+> Yes. v4 takes the mode from crtc_state.
+>=20
+> > > +	writel(readl(lcd->base + X1600_LCD_ST), lcd->base +
+> > > X1600_LCD_CLR_ST);
+> >=20
+> > Not fond of the writel(readl()) nesting here.
+>=20
+> OK, a local in v4, here and in probe.
+>=20
+> > > +	writel(val, lcd->base + X1600_LCD_DISP_COM);
+> >=20
+> > This whole block above looks like out of place. Why not do it in
+> > x1600_lcd_encoder_atomic_mode_set()?
+> >=20
+> > Bonus point, you wouldn't need the 'bus_flags' and 'color_order' variab=
+les.
+>=20
+> The controller only takes register writes while its clock runs, and the
+> clock is off when atomic_mode_set() is called: on a full modeset the
+> CRTC's atomic_disable() has stopped it, and atomic_enable() starts it
+> again afterwards. I checked it on the R1: with the clock gated (CLKGR0
+> bit 23), every register reads 0x80, and a write to TFT_HSYNC is lost,
+> the register still holds the old value once the clock is back.
+>=20
+> So moving the block means starting the clock in atomic_mode_set() too,
+> or leaving it running while the CRTC is off. I'd rather keep the writes
+> in atomic_enable(), next to clk_prepare_enable(), and look the bus
+> format up in the new connector state there, so the two fields go
+> anyway. Would that work for you?
 
-Hi Sasha, coming back to this after testing
+Is there really a point in enabling the clock on-demand? Why not keep it en=
+abled
+always? It makes the driver more complex and I don't see a real benefit.
 
-> >> You probably shouldn't, or at least base it on v2, not v3 (that one
-> >> ended up being a bad idea and caused firmware timeouts, so Asahi
-> >> downstream ships something more similar to v2).
+>=20
+> > > +	if (pixels > X1600_LCD_MAX_PIXELS)
+> > > +		return MODE_MEM;
+> >=20
+> > The max resolution is 1280x720 so you should check mode->hdisplay / mod=
+e-
+> > > vdisplay individually. Otherwise bogus resolutions like 1920x480 woul=
+d be
+> > accepted.
+>=20
+> Right for 1920x480, but 720 per side would refuse the R1's own panel,
+> which is 480x800 in portrait. The manual only says "frame size up to
+> 720p". v4 can bound each side by 1280 and keep the 1280x720 pixel count,
+> would that do?
 
-Linux doesn't keep ACL link across sleep. The core disconnects all
-links before suspend ("terminated by local host for suspend"). I saw
-that with S3 on the BCM4364 and with s2idle/s3 on the BCM4377. After
-resume my headphones reconnect and my patch sets the priority again.
-On the T2 Macs the BCM4377 BT itself does not come back from
-s2idle yet, even with patches 01, 04 and 05 from your 4388 series,
-so I couldn't test there. Would need to investigate, tho s2idle is not
-my priority right now.
+Ok. Then I guess keep the current check.
 
-Since connection time works on these chips, I'd keep 1/2 as it is while
-being open for proposals.
+> > > +		spin_lock(&lcd->drm.event_lock);
+> >=20
+> > spin_lock() can sleep with CONFIG_PREEMPT_RT so it looks wrong in an IR=
+Q
+> > handler. I *think* you don't need to lock it here anyway, as the spinlo=
+ck is
+> > locked in other places using spin_lock_irq().
+>=20
+> On PREEMPT_RT the handler doesn't run in hard IRQ context:
+> force_irqthreads() is always true there, and the IRQ is requested
+> without IRQF_NO_THREAD, so the handler runs in a thread, where a
+> spinlock_t is fine (Documentation/locking/locktypes.rst).
+>=20
+> And it needs the lock: drm_crtc_send_vblank_event() wants the caller to
+> hold event_lock, and lcd->event is shared with queue_event() and
+> atomic_disable(). Their spin_lock_irq() only keeps the handler off the
+> CPU they run on. armada, omapdrm and malidp take event_lock the same way
+> in their handlers. So I'd keep it.
 
+Ok.
 
-Andre
+> > You enable it later in the probe, so you could just use
+> > devm_clk_get_enabled()
+> > here.
+>=20
+> Probe only enables it to stop what the boot loader left running, and
+> disables it again before drm_dev_register(). From then on atomic_enable()
+> and atomic_disable() gate it. devm_clk_get_enabled() would keep it
+> running for as long as the driver is bound, display off included.
+
+Yeah, I forgot that the devm action would cause a clk_disable_unprepare() t=
+o be
+called on unprobe, which wouldn't work here. So ignore that.
+
+As for the clock running for as long as the driver is bound, I don't think
+that's much of a problem.
+
+> > I saw a patch from Maxime replacing these - you should be calling
+> > drm_mode_config_create_initial_state(drm) here (and handle the error).
+>=20
+> Will do, it's in drm-misc-next already.
+>=20
+> I'll leave v3 a few more days for the drm-misc side before sending v4.
+
+Great.
+
+Cheers,
+-Paul
