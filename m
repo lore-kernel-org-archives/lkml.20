@@ -1,65 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959587;
-	b=L9BTq8m7nNg4ldespZE+spVeLcbYFzd6ZkgxRZxeFlyZPs21T9jBB7ShvIAEPaF9PpEA
-	 m+4Z3hn4iC+ibaep7HnoBIZkN4tR7wI5uPB+fkhji99lUIqP95ZamRe4LZcEYTbevV1K0
-	 JoRDFKBAp5bktyPpyTHyJ2WGO3bsFbYYDjwI3C53dcGF5RDYRKus70+xDO9ijr2iGFSJk
-	 Ln8AzI5TIFzkmhNIsKL7t+ZU6i8llvwyxsyWc7yeBV0YopI3Co9dpbm0ltGNiVdy/H6Ws
-	 r0z29wW/BeBF2prA5oxYnbS3XEyehEGiMlGpOdCO4hbC4N9mysA1AyLxOWGs+YB3Mlw==
+	t=1793959583;
+	b=CGZndxmsrUoWM2Xc4Z/MDzy0eZNq/HI2oU3wcwsLyh2MG0yNcCye7Qdb4mWs5bparSe6
+	 1YxLMDSo//PS8akBCQuLsdVb4A4FFynuGr+MKJrrbNHVIVtTxhSmWgmqF2wlT5qYea28A
+	 a05hcV68Qx8gd81K608uq8VA6K1h8pk9EFC/I54MXzrx2JuHgIenGAIfRjsR8yRLwKXCS
+	 65SsrZE/MTEInNWfNEz4EEHHaasJInrhs1lbq0JH5RWe0X0qw2cNvKaVNkttKf/WckHAJ
+	 +LytVtGvIW+e0SSsiQHh0qr+Jj0T/yyeoaAD9TSboyfOJBpDxGQKI54imQu8I+ou6bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959587;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959583;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=71tMgdF+10Y5Seh1rmO4IE/SPqvJVm/4F8OYPfOhRQo=;
-	b=VL6shN/8E8+HRxA1ytKcJ3eWFsS97Ymn11kCyI7opnl7ESJI9eTWj6SzE7ddfpbLGTxC
-	 4UFkWOHP55vHaJlQWwgXEpFKdXqE6AQRS6fjgRHQiclS5ldRzG5m/bV8Dr50iesRop8a7
-	 whsOEvqVSNQ/je4aMlPihbvyKmVaIAlAwZZ4VHnyoYu27OGplVOJZuuaV80NTRkWZr7xK
-	 uPXl8ECq8Lthb112LlcXF3moP250RB3M5GOLSG19k15BLZpICSDIhENVUsPuxny8HFaOb
-	 dDOPjd8m8VAgj1Kfil6kW5Y2JjxmSVOiYezrKNsfAefVvmQTWnaYmGYDNqZ4u+h6VhA==
+	bh=/9BnZCc3AyeXmUrPueWNphtKIjBY7I8CwK6A+9WhDPY=;
+	b=A3wFvo/OkpZud2mE9xImdrusGh99IOsl8CQmZEYEug5AhthsTXoBLou6dK9+oB7Qv2N2
+	 M1kXYHGtERE8CqKQ7o+HF14hm1MzZXwAmVDHSBONyRJQ4cB5MrEdjOPJTGZpKYrPBIFq9
+	 AkaWsGs5b0YrlKdvWbdGAxzsdAf91WdVa54GVPdN1LRLK7bFc4o3X7fkzGabYcrttlCwG
+	 JllOb96ELovpHp+Yq+vE3I4y1WQLEz7BWJK9OL4JeTzAv2k5aPgljOoKutTVw4KEmxPCj
+	 d4oGHn/7Km7XTZJh4vMJqKF5lWUsPSivhisePjg0x4uY4FfMW17t/a9J66e0Z2aoX0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vaSMBQxz;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 94539606A334;
-	Fri,  6 Nov 2026 10:06:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94539606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XHqjXr+Q;
+	arc=none smtp.remote-ip=91.218.175.134
+Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E87606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 10:06:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34E87606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=vaSMBQxz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=vaSMBQxzx6/RTto0J4NOeSIr5cxBRdUzsgSAQISADASaIcKj4EO40u7xb/Yxz5PhIStZYdvyn/IOo
-	 ifY9hCceOFI+jr3heW1tqTc3V6A6bd45w02CG89jRuVTfFJ6fX6E9aysKsLYSR1oL+EjdkFR4u1WBF
-	 EJBLKG0PHzfpup+Y=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16aeda69db43-8cdcf;
-	Fri, 06 Nov 2026 18:06:24 +0800 (CST)
-X-RM-TRANSID:2ee16aeda69db43-8cdcf
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHB-W5100250 (unknown[36.137.216.21])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66aeda698002-1c227;
-	Fri, 06 Nov 2026 18:06:24 +0800 (CST)
-X-RM-TRANSID:2ee66aeda698002-1c227
-From: Gu Bin <gubin@cmss.chinamobile.com>
-To: lee@kernel.org
-Cc: pavel@kernel.org,
-	david@lechnology.com,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tools/leds/uledmon: force NUL-termination of device name
-Date: Fri,  6 Nov 2026 18:06:13 +0800
-Message-ID: <20261106100614.2312-1-gubin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XHqjXr+Q
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cz8qa6DzkcisB34BFCPw3QEyfCK3GSBqxBmS2t4VIu4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793959581; v=1; x=1794564381;
+ b=XHqjXr+QHtEpiO2gAWd7JpqDjzsiNAXBluTaL59ZvfPvBL9bfhTMbQn/uEWvVr6RhNb9vCg+
+ YoFapqP2M2Vjk9Y6q8a9w4cK415laXIAZom2hEVlMjqeG9U3/xlMhZH5Fdc4CMXsGvPbnZO0Nkp
+ 3U8gzbdDcF4QG+0uKMvkQTIM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0b034621e7146dc7;
+	Fri, 06 Nov 2026 10:06:21 +0000
+X-Mizu-Trace-ID: 0b034621e7146dc7
+X-Migadu-Flow: FLOW_OUT
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Mani Tofigh <mt4022@columbia.edu>,
+	Zi Yan <ziy@nvidia.com>,
+	Mike Kravetz <mike.kravetz@oracle.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Frank van der Linden <fvdl@google.com>,
+	Chris Down <chris@chrisdown.name>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH v3 4/4] mm/hugetlb: Account NR_HUGETLB at folio state transitions
+Date: Fri,  6 Nov 2026 18:05:21 +0800
+Message-ID: <20261106100521.30099-5-kaitao.cheng@linux.dev>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261106100521.30099-1-kaitao.cheng@linux.dev>
+References: <20261106100521.30099-1-kaitao.cheng@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,34 +87,202 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-strncpy() does not NUL-terminate when the source is at least as long
-as the bound. uleds_dev.name is passed to the kernel with
-write(fd, &uleds_dev, sizeof(uleds_dev)), so a >= LED_MAX_NAME_SIZE
-byte argv[1] leaves name without a terminator and the write sends
-trailing bytes that are not part of a valid device name.
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-Force NUL-termination after the strncpy.
+NR_HUGETLB updates are spread across allocation entry points and
+freeing paths, mixing node accounting with memcg statistics. This
+makes the accounting harder to follow and requires compensating
+updates when freeing unused surplus folios.
 
-Fixes: fa7f32422ea1 ("tools/leds: Add uledmon program for monitoring userspace LEDs")
-Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
+Consolidate node accounting around folio state transitions.
+Increment NR_HUGETLB when taking a folio from the free pool or
+allocating a fresh surplus or migration folio, and decrement it
+when returning the folio to the pool or removing it from use.
+
+Separate memcg statistics into mod_hugetlb_memcg_state(), updating
+them after a successful charge and before uncharging. This keeps
+node accounting independent of memcg charging and removes redundant
+updates from the allocation entry points and surplus cleanup paths.
+
+Suggested-by: Muchun Song <muchun.song@linux.dev>
+Suggested-by: Oscar Salvador <osalvador@suse.de>
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- tools/leds/uledmon.c | 1 +
- 1 file changed, 1 insertion(+)
+ mm/hugetlb.c    | 50 +++++++++++++++++++++++++++----------------------
+ mm/memcontrol.c |  6 +-----
+ 2 files changed, 29 insertions(+), 27 deletions(-)
 
-diff --git a/tools/leds/uledmon.c b/tools/leds/uledmon.c
-index c15a39c1f271..6df35b817233 100644
---- a/tools/leds/uledmon.c
-+++ b/tools/leds/uledmon.c
-@@ -32,6 +32,7 @@ int main(int argc, char const *argv[])
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 31a92ed4165a..70a2e55b2895 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1288,6 +1288,8 @@ static struct folio *dequeue_hugetlb_folio_node_exact(struct hstate *h,
+ 		folio_clear_hugetlb_freed(folio);
+ 		h->free_huge_pages--;
+ 		h->free_huge_pages_node[nid]--;
++		mod_node_page_state(folio_pgdat(folio), NR_HUGETLB,
++				    pages_per_huge_page(h));
+ 		return folio;
  	}
  
- 	strncpy(uleds_dev.name, argv[1], LED_MAX_NAME_SIZE);
-+	uleds_dev.name[LED_MAX_NAME_SIZE - 1] = '\0';
- 	uleds_dev.max_brightness = 100;
+@@ -1423,6 +1425,9 @@ void remove_hugetlb_folio(struct hstate *h, struct folio *folio,
+ 		folio_clear_hugetlb_freed(folio);
+ 		h->free_huge_pages--;
+ 		h->free_huge_pages_node[nid]--;
++	} else {
++		mod_node_page_state(folio_pgdat(folio), NR_HUGETLB,
++				    -(long)pages_per_huge_page(h));
+ 	}
+ 	if (adjust_surplus) {
+ 		h->surplus_huge_pages--;
+@@ -1700,6 +1705,17 @@ struct hstate *size_to_hstate(unsigned long size)
+ 	return NULL;
+ }
  
- 	fd = open("/dev/uleds", O_RDWR);
++static void mod_hugetlb_memcg_state(struct folio *folio, int nr_pages)
++{
++	struct mem_cgroup *memcg;
++
++	guard(rcu)();
++	memcg = folio_memcg(folio);
++	if (memcg)
++		mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, folio_pgdat(folio)),
++				       NR_HUGETLB, nr_pages);
++}
++
+ void free_huge_folio(struct folio *folio)
+ {
+ 	/*
+@@ -1747,7 +1763,7 @@ void free_huge_folio(struct folio *folio)
+ 				     pages_per_huge_page(h), folio);
+ 	hugetlb_cgroup_uncharge_folio_rsvd(hstate_index(h),
+ 					  pages_per_huge_page(h), folio);
+-	lruvec_stat_mod_folio(folio, NR_HUGETLB, -pages_per_huge_page(h));
++	mod_hugetlb_memcg_state(folio, -pages_per_huge_page(h));
+ 	mem_cgroup_uncharge(folio);
+ 	if (restore_reserve)
+ 		h->resv_huge_pages++;
+@@ -1763,6 +1779,8 @@ void free_huge_folio(struct folio *folio)
+ 		spin_unlock_irqrestore(&hugetlb_lock, flags);
+ 		update_and_free_hugetlb_folio(h, folio, true);
+ 	} else {
++		mod_node_page_state(folio_pgdat(folio), NR_HUGETLB,
++				    -(long)pages_per_huge_page(h));
+ 		arch_clear_hugetlb_flags(folio);
+ 		enqueue_hugetlb_folio(h, folio);
+ 		spin_unlock_irqrestore(&hugetlb_lock, flags);
+@@ -2130,6 +2148,9 @@ static struct folio *alloc_surplus_hugetlb_folio(struct hstate *h,
+ 	 */
+ 	account_new_hugetlb_folio(h, folio);
+ 
++	/* The overcommit recheck below can free this folio. */
++	mod_node_page_state(folio_pgdat(folio), NR_HUGETLB, pages_per_huge_page(h));
++
+ 	/*
+ 	 * We could have raced with the pool size change.
+ 	 * Double check that and simply deallocate the new page
+@@ -2140,8 +2161,6 @@ static struct folio *alloc_surplus_hugetlb_folio(struct hstate *h,
+ 	if (h->surplus_huge_pages >= h->nr_overcommit_huge_pages) {
+ 		folio_set_hugetlb_temporary(folio);
+ 		spin_unlock_irq(&hugetlb_lock);
+-		/* Balance the NR_HUGETLB decrement in free_huge_folio(). */
+-		lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
+ 		free_huge_folio(folio);
+ 		return NULL;
+ 	}
+@@ -2169,6 +2188,7 @@ static struct folio *alloc_migrate_hugetlb_folio(struct hstate *h, gfp_t gfp_mas
+ 
+ 	spin_lock_irq(&hugetlb_lock);
+ 	account_new_hugetlb_folio(h, folio);
++	mod_node_page_state(folio_pgdat(folio), NR_HUGETLB, pages_per_huge_page(h));
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
+ 	/* fresh huge pages are frozen */
+@@ -2227,10 +2247,6 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
+-	if (folio)
+-		lruvec_stat_mod_folio(folio, NR_HUGETLB,
+-				      folio_nr_pages(folio));
+-
+ 	return folio;
+ }
+ 
+@@ -2258,9 +2274,6 @@ struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
+ 						    nmask);
+ 	}
+ 
+-	if (folio)
+-		lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
+-
+ 	return folio;
+ }
+ 
+@@ -2378,6 +2391,8 @@ static int gather_surplus_pages(struct hstate *h, long delta)
+ 		if ((--needed) < 0)
+ 			break;
+ 		/* Add the page to the hugetlb allocator */
++		mod_node_page_state(folio_pgdat(folio), NR_HUGETLB,
++				    -(long)pages_per_huge_page(h));
+ 		enqueue_hugetlb_folio(h, folio);
+ 	}
+ free:
+@@ -2386,13 +2401,9 @@ static int gather_surplus_pages(struct hstate *h, long delta)
+ 	/*
+ 	 * Free unnecessary surplus pages to the buddy allocator.
+ 	 * Pages have no ref count, call free_huge_folio directly.
+-	 * These pages were not accounted in NR_HUGETLB, so balance the
+-	 * decrement in free_huge_folio().
+ 	 */
+-	list_for_each_entry_safe(folio, tmp, &surplus_list, lru) {
+-		lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
++	list_for_each_entry_safe(folio, tmp, &surplus_list, lru)
+ 		free_huge_folio(folio);
+-	}
+ 	spin_lock_irq(&hugetlb_lock);
+ 
+ 	return ret;
+@@ -2957,13 +2968,6 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
+ 
+ 	ret = mem_cgroup_charge_hugetlb(folio, mm,
+ 					gfp | __GFP_RETRY_MAYFAIL);
+-	/*
+-	 * Unconditionally increment NR_HUGETLB here because if
+-	 * mem_cgroup_charge_hugetlb failed, freeing the page will
+-	 * decrement NR_HUGETLB.
+-	 */
+-	lruvec_stat_mod_folio(folio, NR_HUGETLB, nr_pages);
+-
+ 	if (ret == -ENOMEM) {
+ 		folio_put(folio);
+ 		/*
+@@ -2978,6 +2982,8 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
+ 		return ERR_PTR(-ENOSPC);
+ 	}
+ 
++	mod_hugetlb_memcg_state(folio, nr_pages);
++
+ 	return folio;
+ 
+  err_uncharge_hugetlb_cgroup:
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index ac6c43ea8c5a..e8af131de67e 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5440,11 +5440,7 @@ int mem_cgroup_charge_hugetlb(struct folio *folio, struct mm_struct *mm,
+ 	struct mem_cgroup *memcg = get_mem_cgroup_from_mm(mm);
+ 	int ret = 0;
+ 
+-	/*
+-	 * Even memcg does not account for hugetlb, we still want to update
+-	 * system-level stats via lruvec_stat_mod_folio. Return 0, and skip
+-	 * charging the memcg.
+-	 */
++	/* Skip charging unless hugetlb accounting is enabled for cgroup v2. */
+ 	if (mem_cgroup_disabled() || !memcg_accounts_hugetlb() ||
+ 		!memcg || !cgroup_subsys_on_dfl(memory_cgrp_subsys))
+ 		goto out;
 -- 
-2.55.0.windows.3
-
-
+2.53.0
 
