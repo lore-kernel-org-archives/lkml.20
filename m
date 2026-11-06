@@ -1,65 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976189;
-	b=lB72io5wO2MLlZd7+94Jy9Ci2nwekzt0UtZMATiC5+BDhA1Lp0QYSVIHNoq2bK7x4O0r
-	 Uy7jOHra0YK/aK7+yVbP3U2VwRdFa3DGh/Id+E6xRgP6NTY7n46obDVh0IcgdHjQtEqpM
-	 7RW8/F2LgpQIIvhmvZrodu300BnG3LAbV24Cya207iaMiLCZf7z3LvDppXUDA770n4/kJ
-	 +obFg7fa9GOcsJIgHfmS968ULhXa59IkIeVfSOL0OgVbB7FjqSFEZwV91lL2Q25B7+JE/
-	 BzfNANlOco1+GD+uDIU6k/i6e0jsjAlR+3hSH2Hq/uYcaGpOPywUmCyAfdZgKAm0rlw==
+	t=1793976186;
+	b=fXc7fGE6KrE4Kz938VkvfDtk1Niku94ItxKanwVr9Drj3QXw2BRtbdKmmbibr6GMUPGi
+	 zbKXbUwvyX730G1MmCI+/Dg1DGyWi+ZVTRyYdqoAPCR3nI5kme5y3ZZ/5tw5fmbTuZ9Oa
+	 vol9Nacl691ckDjEhY+bXp1bfuxGVEzPDtxvS4qn5pqi6Rq9x9Van5NtlsNQYAoERzjQZ
+	 VneMmt4iEgsN28VOEX9Oicy08pvm8cS9vVHzr6MTmUMe96Bdi5/mHBTt+MLpcnxpuelUU
+	 u1M/duml0F0wrSKKaWJnG6Fxi9NzLOORJ3+82GHmMrC0CBmCKZqYh+YXa14kFsIlW+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976189;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info;
-	bh=afKRoa4LbV4htm6pkon4V5tCJ3Npdx9Kujo0AmaTWO0=;
-	b=fsZ+xoFdHiiOEnain/mr5r1Q8DlAALHGiHZ0BJV9U+iJArDrc8K3nFH9kmJIrNnZmbiR
-	 5K9TyunkXYs+CouzSVWzljPgoVspJmthG3r3GSJsBHgLCrYs5LSdV7mdwkVmYq5VKj9DY
-	 e8e4saE17TIvTXpuq01UDOJP1RirSKSk9/vmKfXbVmXsvHdQ6idZYLQjT5h+gqqrBdj+K
-	 IUzaWqhjr6DleC4AxmvV7ANshKzGBiF+nYNHeRlrl+3rprQc4mlIHriaVlJUf2JFyefDa
-	 uWoL0dIXGUVL4ZWNlXTLTmOrS+zVox3SrJZLfDMgrenVcozOvFreU9V2w11NBWShrjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976186;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=tE044CLT+O9aM7ggt8NgUVH7lY5mxY8O8ZwLuiN0opU=;
+	b=cCGE1yh6S2GRxT65jM7iWrVyXyO8IvomlhQRebTiDkof4ojL4V8K3zh9LL7gxMDlNN2x
+	 ahXHA5aOiKh57hRXxwubyEhyLmWhicVUxC/3Iipo7IViqBoSrJgnrlwXxNinIvYkHETbe
+	 4DL7G+BnrJ4VEtxZNErT4jX3l1W73fgsrgzpi1mBGHVyLmFKZUXrAvd8TbTCvyxHCWWrj
+	 S0/5t8+1KtFiK0xsUt+RRzlNZDFtxGRmb4xMfMeRj+SbvAwyJNagwkwszarkpSF7GY/e6
+	 Kjc/4iMm3EXRpCOtIngEGVKRpOLcPobhScb59mDrhpZCELr0bUH50IXkHRxiIRdiXfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=imgtec.com;
-	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=FqkZh5Eo;
-	arc=none smtp.remote-ip=185.132.180.163
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="Lk/Elm8B";
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AD9606D82D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24AD9606D82D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A185606D81F;
+	Fri,  6 Nov 2026 14:43:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A185606D81F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=FqkZh5Eo
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6ER8Vk2487470;
-	Fri, 6 Nov 2026 14:42:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=afKRoa4LbV4htm6pkon4V5t
-	CJ3Npdx9Kujo0AmaTWO0=; b=FqkZh5EoTq8wuxAr0stD4+I6nXKtGchC0sqpYKo
-	I546MKlKJxF/u36qk296pCqvo3Grn5go7NRuQUVxUs7F0ocHuJuhDIU8iFi6CTmH
-	pHjrB+6T0f+HJ4Qb0EvZ9dcveW2qHzTCR6CH5n4GY/tvileodyAOVZaho/ysMKB9
-	QZi+t2tJ/F4Ok93kRRJAm1NnpM0VW21rvV+UX5kvj72NorY1P0PMnUOeiarV+YI4
-	pz7/pPPepK3XSC72VyKk+YO95G6SZG7Mt9v7Y7tlpMJKXRBcc4YfCEaW6NXUe0cM
-	lSMYCfiwH0GF+GXMgggr2Y0nZOWuKRPmllSFfEcwaZVt2Jg==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hry5frqbg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 14:42:48 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.128.158) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 6 Nov
- 2026 14:42:44 +0000
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Fri, 6 Nov 2026 20:12:23 +0530
-Subject: [PATCH v5] drm/imagination: Support for querying Firmware
- information
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Lk/Elm8B
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261106144303euoutp02eabd0503bf6a619d2956065db44053c9~le9WZOv5z1426614266euoutp02Y;
+	Fri,  6 Nov 2026 14:43:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261106144303euoutp02eabd0503bf6a619d2956065db44053c9~le9WZOv5z1426614266euoutp02Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793976183;
+	bh=tE044CLT+O9aM7ggt8NgUVH7lY5mxY8O8ZwLuiN0opU=;
+	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
+	b=Lk/Elm8BzZ3Q4byd+GCj1SL7xKT/tfnydUR7wmEZIeYeK5icO/drRV6YTcmoosbxh
+	 sNOuJN5kVo/Sc1xTgjo4ea30TYQSqNTYDIC7R4GxK4fqUABPcNXWA5r7RiU/QcCqXK
+	 Qn2MQfJEmc35oOItF0ahIwT7NDcEt/1+K3K5loAI=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261106144303eucas1p10d145c55d4e168ac6d2d12758125a532~le9V8N_4w0320903209eucas1p1j;
+	Fri,  6 Nov 2026 14:43:03 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261106144301eusmtip168e2556b5065823be9a76df286f79ad9~le9UV2Sji0540305403eusmtip1R;
+	Fri,  6 Nov 2026 14:43:01 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Fri, 06 Nov 2026 15:42:49 +0100
+Subject: [PATCH v2 09/15] arch: boot: put the LZ4 freestanding headers on
+ the decompressor path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,277 +66,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261106-fwversion-v5-1-d0074f992e75@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAE7n7WoC/3XMvQ6CMBQF4Fchna3pL6VOvodxaMstdABMIVVDe
- HcLEwYd7nBuzndmNEIMMKJLMaMIKYxh6HOQpwK51vQN4FDnjBhhJc2H/TNBXFtYS1Mxo6nXXqH
- cf0Tw4bVt3e45t2GchvjephNdv79WEsUUc6ipcqW0Xrhr6JoJ3NkNHVpnEvtLWabWEiad5oYIc
- 6B8T9We8kw9L3kNUjMi7YGKPa32VGRqnKmk4tIwq77osiwf7H9X41QBAAA=
-X-Change-ID: 20261026-fwversion-95a82a91f9f7
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Frank Binns <frank.binns@imgtec.com>,
-        "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard
-	<mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Brajesh Gupta <brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7413;
- i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
- bh=u0qpUd0/wftmnTEyRoJw1vHyKz8+6U2x2fO/4i0mYms=;
- b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBq7edjHgObVsMX3yiCdjV0y7yaWqov7q+UDec5K
- 8OjOYSIlluJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCau3nYwAKCRDQJndZfgLx
- cIM6D/9olhXrCsIcYN2fnQepWWdQ4ZjFnq+MSiw7CiIuDowYJ46yPcQLDkwY1zUf2kv/TfHeltT
- BAsMbyFNGbrYCtBKYBllNcvo2yPENlTLn5DMkhqzywnEOY1zzTCW/BdocWz5YqFN87/RfvJKo37
- 2medzO6NRLKFhALIXPDjYWRkMvAZMLY2ye/jhvW3MsOhGr6jhAeoo2lD73adH+dV7H5CDVsPbnG
- gGxg3YEkNWEwAF75i9X5+ZDt7CG74isoFS8R9CMKaZXzsvKZ3eDTs0mTMARfGCVbb2HF3fyZ22Z
- d5dxyee7h6bPfkU1ipnBY83HxhajUnb+J/LwFfvUqU363WdGkOE7M/QFr7xQsgobxAkpI0UoOoq
- /LkI69RsxsNTKp2CL+Tbho4cyrbHO4Y4MlZDe6aUjz7ZPY0IZ0uG+SEi7cGogzmh9s2hMOsiFVf
- uv18T1xToFTf2O/LWxbvs7Zrd4PnTWaFaRDJMlvlSklRxdcXa2CSVl/v6BjQiwhSZO8MVAATh1A
- r0zjJuhRnglH+5HHqDIpqkprOfDFvUbzSuXFuGHDJvqMOfWMD0KIYf/mDWBEUUgeFvrZ+c8pEla
- R+YsE861e4PNbC2JNnLyKQRzPwaJlEFIeBFfQta1t+1TTUEWJCpYBMThIha5IclKZ4glNHKTlfd
- Sd6lmn9AdvkpA3A==
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
- fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1OCBTYWx0ZWRfX+Iny8ltPmOQU
- 43KvThRIQY1hurBH1LqueNSomiREFPUQRnMV2+4+cqC45W6oOx4uuCf30we8R0r68jAQd6amExP
- Fe/VuUTHr5/AV/KdHUo8TBRk3/f2HTSnkd8Td6m9gscYaZGtEa6eaVFNnR+iJJMcyPfKzPVQu3S
- oQsSeQjgm9O9f7skVGWM93r5D3zXfZmNwbcU8T8GhWEykjTZ8ixH8KnQTWgRsLstO8SSsXCBPG8
- 0FM2+QydHvBcSQ0f94mzwNNS9tIQBkn98M9EpOYkopS/W2L8Dz8/FFhELsuW0HhhAbtSuf3ilAN
- y/bqIdoGIDUZMQLcEJaTsO7H7OoBGwUihJEas8+7MN/vr1GuF/9hRc1UhHI538kKQIiJeC3Vssa
- mzJzcq0ri8EUEb/ulsozYhMGR+87t0IQU9sOHIFYYZbypen+xT6uWD3X8BVCKBlsZcZNAZl6CD8
- 6XkSPGbtGTVE5bq4MBA==
-X-Proofpoint-GUID: 1tDAhF8pY1ad2pOZLHVkOCkJLC6fnUgP
-X-Proofpoint-ORIG-GUID: 1tDAhF8pY1ad2pOZLHVkOCkJLC6fnUgP
-X-Authority-Analysis: v=2.4 cv=B40sQ+tM c=1 sm=1 tr=0 ts=6aede768 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=x1VBDH5lXswA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=e5mUnYsNAAAA:8 a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=VwQbUJbxAAAA:8
- a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=DXV5632NrbJo1gk5ZQUA:9 a=QEXdDO2ut3YA:10
- a=Vxmtnl_E_bksehYqCbjh:22 a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1OCBTYWx0ZWRfX1ddxS4WzpeJJ
- hHZc9TeBH6OX5fFN8hwn4RKOIkSC3W4K84IWTs6otiEytSsq+Kpnm+u+OTNl13IqEMmmfvK8+uz
- qbn9jBA6+6Dg4Ru7xnkKFGknJuo/bqs=
+Message-Id: <20261106-lz4-vendor-upstream-v2-9-ee04c3f0d7dc@samsung.com>
+In-Reply-To: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
+To: Michal Wilczynski <m.wilczynski@samsung.com>,  Nathan Chancellor
+	<nathan@kernel.org>,  Nick Desaulniers <ndesaulniers@google.com>,  Bill
+	Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,  Russell
+	King <linux@armlinux.org.uk>,  Thomas Bogendoerfer
+	<tsbogend@alpha.franken.de>,  "James E.J. Bottomley"
+	<James.Bottomley@HansenPartnership.com>,  Helge Deller <deller@gmx.de>,
+	Heiko Carstens <hca@linux.ibm.com>,  Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>,  Christian Borntraeger
+	<borntraeger@linux.ibm.com>,  Sven Schnelle <svens@linux.ibm.com>, Thomas
+	Gleixner <tglx@kernel.org>,  Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>,  Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Minchan Kim <minchan@kernel.org>,  Sergey
+	Senozhatsky <senozhatsky@chromium.org>, Jens Axboe <axboe@kernel.dk>, 
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org, 
+	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>,  Nick
+	Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>,  Chao Yu
+	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,  Eric Biggers
+	<ebiggers@kernel.org>,  Herbert Xu <herbert@gondor.apana.org.au>,  David
+	Laight <david.laight.linux@gmail.com>,  Sungguk <sungguk.na@samsung.com>,
+	Jaehoon Chung <jh80.chung@samsung.com>,  Marek Szyprowski
+	<m.szyprowski@samsung.com>, linux-erofs@lists.ozlabs.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-crypto@vger.kernel.org
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4734;
+	i=m.wilczynski@samsung.com; h=from:subject:message-id;
+	bh=EjARMhFoCMzWsj3vk/VEbPmoiRLB6nbA/8uSS+4Yr4M=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9fZ4aecc/V2jNh+JNaSsN3dnetDZNjgrI3DbH40Pks
+	hKOkE2OHaUsDGIcDLJiiixnN0YbSf5jeFp+/PEvmDmsTCBDGLg4BWAiDjIM/6tSdvGlxk421Z/E
+	7VuzkYPn56FdL38IdArmOPQ9n+a1lJGR4dlfTjmH+/Hq02s4CnPWcPF2nbgSLpF+T/271NZdghN
+	fsAMA
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261106144303eucas1p10d145c55d4e168ac6d2d12758125a532
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261106144303eucas1p10d145c55d4e168ac6d2d12758125a532
+X-EPHeader: CA
+X-CMS-RootMailID: 20261106144303eucas1p10d145c55d4e168ac6d2d12758125a532
+References: <20261106-lz4-vendor-upstream-v2-0-ee04c3f0d7dc@samsung.com>
+	<CGME20261106144303eucas1p10d145c55d4e168ac6d2d12758125a532@eucas1p1.samsung.com>
 
-Add a new subtype DRM_PVR_DEV_QUERY_FW_INFO_GET under
-DRM_IOCTL_PVR_DEV_QUERY to query Firmware information. This allows the
-userspace to detect any bug fixes and features present in the Firmware
-and take appropriate action.
-Currently it supports querying major and minor version of the Firmware.
+lib/decompress_unlz4.c pulls lib/lz4/lz4_decompress.c into the pre-boot
+decompressor on these five arches. A later patch makes that file include
+the vendored LZ4 sources, which include ISO C headers that -nostdinc does
+not provide, so put lib/lz4/freestanding on the include path first.
 
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
+Only the one object that includes decompress_unlz4.c gets it, so the
+rest of each boot directory keeps -nostdinc's view.
+
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 ---
-Changes in v5:
-- Added reviewed-by tag to the description.
-- Added reference to corresponding MESA MR https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40973
-  that needs this change.
-- Link to v4: https://patch.msgid.link/20261028-fwversion-v4-1-aca85735a2b7@imgtec.com
+ arch/arm/boot/compressed/Makefile    | 3 +++
+ arch/mips/boot/compressed/Makefile   | 4 ++++
+ arch/parisc/boot/compressed/Makefile | 3 +++
+ arch/s390/boot/Makefile              | 3 +++
+ arch/x86/boot/compressed/Makefile    | 3 +++
+ 5 files changed, 16 insertions(+)
 
-Changes in v4:
-- Add description for the new interface introduced.
-- Link to v3: https://patch.msgid.link/20261027-fwversion-v3-1-f363de59205b@imgtec.com
+diff --git a/arch/arm/boot/compressed/Makefile b/arch/arm/boot/compressed/Makefile
+index e3f550d6285786c8405b16768255af87b4dc8222..713225008aa71e614af8c9c6472fda180354569b 100644
+--- a/arch/arm/boot/compressed/Makefile
++++ b/arch/arm/boot/compressed/Makefile
+@@ -92,6 +92,9 @@ targets       := vmlinux vmlinux.lds piggy_data piggy.o \
+ 		 head.o $(OBJS)
+ 
+ KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
++# decompress.c includes decompress_unlz4.c, which builds the vendored LZ4
++# sources; they include a few ISO C headers -nostdinc drops.
++CFLAGS_decompress.o += -I$(srctree)/lib/lz4/freestanding
+ 
+ ccflags-y := -fpic $(call cc-option,-mno-single-pic-base,) -fno-builtin \
+ 	     -I$(srctree)/scripts/dtc/libfdt -fno-stack-protector \
+diff --git a/arch/mips/boot/compressed/Makefile b/arch/mips/boot/compressed/Makefile
+index e0b8ec9a9516281933b6cc5b175e82f4013c2f54..48f8a63c54a66826889634a54d3537d735f63512 100644
+--- a/arch/mips/boot/compressed/Makefile
++++ b/arch/mips/boot/compressed/Makefile
+@@ -30,6 +30,10 @@ endif
+ KBUILD_CFLAGS := $(KBUILD_CFLAGS) -D__KERNEL__ -D__DISABLE_EXPORTS \
+ 	-DBOOT_HEAP_SIZE=$(BOOT_HEAP_SIZE) -D"VMLINUX_LOAD_ADDRESS_ULL=$(VMLINUX_LOAD_ADDRESS)ull"
+ 
++# decompress.c includes decompress_unlz4.c, which builds the vendored LZ4
++# sources; they include a few ISO C headers -nostdinc drops.
++CFLAGS_decompress.o += -I$(srctree)/lib/lz4/freestanding
++
+ KBUILD_AFLAGS := $(KBUILD_AFLAGS) -D__ASSEMBLY__ \
+ 	-DBOOT_HEAP_SIZE=$(BOOT_HEAP_SIZE) \
+ 	-DKERNEL_ENTRY=$(VMLINUX_ENTRY_ADDRESS)
+diff --git a/arch/parisc/boot/compressed/Makefile b/arch/parisc/boot/compressed/Makefile
+index 14eefb5ed5d1d781a4ee0cb2ef61ab86c905cc56..9e82f9d1285f62b164073bdacc0d4a1828d4965c 100644
+--- a/arch/parisc/boot/compressed/Makefile
++++ b/arch/parisc/boot/compressed/Makefile
+@@ -12,6 +12,9 @@ targets += $(OBJECTS) sizes.h
+ 
+ KBUILD_CFLAGS := -D__KERNEL__ -O2 -DBOOTLOADER
+ KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
++# misc.c includes decompress_unlz4.c, which builds the vendored LZ4
++# sources; they include a few ISO C headers -nostdinc drops.
++CFLAGS_misc.o += -I$(srctree)/lib/lz4/freestanding
+ KBUILD_CFLAGS += -fno-strict-aliasing
+ KBUILD_CFLAGS += $(cflags-y) -fno-delete-null-pointer-checks -fno-builtin-printf
+ KBUILD_CFLAGS += -fno-PIE -mno-space-regs -mdisable-fpregs -Os
+diff --git a/arch/s390/boot/Makefile b/arch/s390/boot/Makefile
+index 10b75e053a6f6bb9083548e8f82796f0aa9a9958..44355051a8c7f96b5c4dab5d110bc8aaf79c8f55 100644
+--- a/arch/s390/boot/Makefile
++++ b/arch/s390/boot/Makefile
+@@ -21,6 +21,9 @@ KBUILD_AFLAGS := $(filter-out $(CC_FLAGS_MARCH),$(KBUILD_AFLAGS_DECOMPRESSOR))
+ KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_MARCH),$(KBUILD_CFLAGS_DECOMPRESSOR))
+ KBUILD_AFLAGS += $(CC_FLAGS_MARCH_MINIMUM) -D__DISABLE_EXPORTS
+ KBUILD_CFLAGS += $(CC_FLAGS_MARCH_MINIMUM) -D__DISABLE_EXPORTS
++# decompressor.c includes decompress_unlz4.c, which builds the vendored LZ4
++# sources; they include a few ISO C headers -nostdinc drops.
++CFLAGS_decompressor.o += -I$(srctree)/lib/lz4/freestanding
+ KBUILD_CFLAGS += $(call cc-option, -Wno-default-const-init-unsafe)
+ 
+ CFLAGS_sclp_early_core.o += -I$(srctree)/drivers/s390/char
+diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
+index 06934f9691d6a9d6952532ae5f7d96f5858719dd..328eafcfc35bd14a16bc4ec5472f6c6dc72336a1 100644
+--- a/arch/x86/boot/compressed/Makefile
++++ b/arch/x86/boot/compressed/Makefile
+@@ -30,6 +30,9 @@ KBUILD_CFLAGS += -fno-strict-aliasing -fPIE
+ KBUILD_CFLAGS += -fno-jump-tables
+ KBUILD_CFLAGS += -Wundef
+ KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
++# misc.c includes decompress_unlz4.c, which builds the vendored LZ4
++# sources; they include a few ISO C headers -nostdinc drops.
++CFLAGS_misc.o += -I$(srctree)/lib/lz4/freestanding
+ cflags-$(CONFIG_X86_32) := -march=i386
+ cflags-$(CONFIG_X86_64) := -mcmodel=small -mno-red-zone
+ KBUILD_CFLAGS += $(cflags-y)
 
-Changes in v3:
-- Add missed check for padding field added in v2.
-- Link to v2: https://lore.kernel.org/r/20261026-fwversion-v2-1-bb025c93a04a@imgtec.com
-
-Changes in v2:
-- Add padding field to align new FW query struct to 64-bit.
-- Link to v1: https://patch.msgid.link/20261026-fwversion-v1-1-3ed17c65bf4c@imgtec.com
-
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/imagination/pvr_drv.c |  5 ++++
- drivers/gpu/drm/imagination/pvr_drv.h |  4 ++-
- drivers/gpu/drm/imagination/pvr_fw.c  | 46 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_fw.h  |  3 +++
- include/uapi/drm/pvr_drm.h            | 21 ++++++++++++++++
- 5 files changed, 78 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 5c965ef0274f..2d522a8e46ad 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -6,6 +6,7 @@
- #include "pvr_device.h"
- #include "pvr_drv.h"
- #include "pvr_free_list.h"
-+#include "pvr_fw.h"
- #include "pvr_gem.h"
- #include "pvr_hwrt.h"
- #include "pvr_job.h"
-@@ -658,6 +659,10 @@ pvr_ioctl_dev_query(struct drm_device *drm_dev, void *raw_args,
- 	case DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET:
- 		ret = pvr_static_data_areas_get(pvr_dev, args);
- 		break;
-+
-+	case DRM_PVR_DEV_QUERY_FW_INFO_GET:
-+		ret = pvr_fw_info_get(pvr_dev, args);
-+		break;
- 	}
- 
- 	drm_dev_exit(idx);
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
-index 7fa147312dd1..4e058a6fdd5c 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.h
-+++ b/drivers/gpu/drm/imagination/pvr_drv.h
-@@ -13,9 +13,10 @@
- /*
-  * Driver interface version:
-  *  - 1.0: Initial interface
-+ *  - 1.1: Add DRM_PVR_DEV_QUERY_FW_INFO_GET query
-  */
- #define PVR_DRIVER_MAJOR 1
--#define PVR_DRIVER_MINOR 0
-+#define PVR_DRIVER_MINOR 1
- #define PVR_DRIVER_PATCHLEVEL 0
- 
- int pvr_get_uobj(u64 usr_ptr, u32 usr_size, u32 min_size, u32 obj_size, void *out);
-@@ -68,6 +69,7 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
- 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_heap_info, heaps) \
- 	PVR_UOBJ_DECL(struct drm_pvr_static_data_area, offset) \
- 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_static_data_areas, static_data_areas) \
-+	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, _padding_4) \
- 	)
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index c6c77b152342..d014a34b4f1f 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -4,6 +4,7 @@
- #include "pvr_ccb.h"
- #include "pvr_device.h"
- #include "pvr_device_info.h"
-+#include "pvr_drv.h"
- #include "pvr_fw.h"
- #include "pvr_fw_info.h"
- #include "pvr_fw_startstop.h"
-@@ -1496,3 +1497,48 @@ pvr_fw_hard_reset(struct pvr_device *pvr_dev)
- 
- 	return 0;
- }
-+
-+/**
-+ * pvr_fw_info_get()
-+ * @pvr_dev: Device pointer.
-+ * @args: [IN] Device query arguments containing a pointer to a userspace
-+ *        struct drm_pvr_dev_query_fw_info.
-+ *
-+ * If the query object pointer is NULL, the size field is updated with the
-+ * expected size of the query object.
-+ *
-+ * Returns:
-+ *  * 0 on success, or if size is requested using a NULL pointer, or
-+ *  * -%EINVAL if args contained non-zero reserved fields or
-+ *    if the input object is smaller than the minimum required, or
-+ *  * -%EFAULT if local memory could not be copied to userspace.
-+ */
-+int
-+pvr_fw_info_get(const struct pvr_device *pvr_dev,
-+		struct drm_pvr_ioctl_dev_query_args *args)
-+{
-+	struct drm_pvr_dev_query_fw_info fw_info = {0};
-+	int err;
-+
-+	if (!args->pointer) {
-+		args->size = sizeof(struct drm_pvr_dev_query_fw_info);
-+		return 0;
-+	}
-+
-+	err = PVR_UOBJ_GET(fw_info, args->size, args->pointer);
-+	if (err < 0)
-+		return err;
-+	if (fw_info._padding_4)
-+		return -EINVAL;
-+
-+	fw_info.major_version = pvr_dev->fw_version.major;
-+	fw_info.minor_version = pvr_dev->fw_version.minor;
-+
-+	err = PVR_UOBJ_SET(args->pointer, args->size, fw_info);
-+	if (err < 0)
-+		return err;
-+
-+	if (args->size > sizeof(fw_info))
-+		args->size = sizeof(fw_info);
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 4b25291135b6..7e18f3e7d4be 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -496,4 +496,7 @@ int
- pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
- 				  u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr);
- 
-+int
-+pvr_fw_info_get(const struct pvr_device *pvr_dev, struct drm_pvr_ioctl_dev_query_args *args);
-+
- #endif /* PVR_FW_H */
-diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
-index ccf6c2112468..1179c1e7d92d 100644
---- a/include/uapi/drm/pvr_drm.h
-+++ b/include/uapi/drm/pvr_drm.h
-@@ -434,6 +434,21 @@ struct drm_pvr_dev_query_static_data_areas {
- 	struct drm_pvr_obj_array static_data_areas;
- };
- 
-+/**
-+ * struct drm_pvr_dev_query_fw_info - Container used to fetch information
-+ * about the GPU Firmware like its version.
-+ */
-+struct drm_pvr_dev_query_fw_info {
-+	/** @major_version: Major version of the Firmware. */
-+	__u16 major_version;
-+
-+	/** @minor_version: Minor version of the Firmware. */
-+	__u16 minor_version;
-+
-+	/** @_padding_4: Reserved. This field must be zeroed. */
-+	__u32 _padding_4;
-+};
-+
- /**
-  * enum drm_pvr_dev_query - For use with &drm_pvr_ioctl_dev_query_args.type to
-  * indicate the type of the receiving container.
-@@ -476,6 +491,12 @@ enum drm_pvr_dev_query {
- 	 * a pointer to &struct drm_pvr_dev_query_static_data_areas.
- 	 */
- 	DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET,
-+
-+	/**
-+	 * @DRM_PVR_DEV_QUERY_FW_INFO_GET: The dev query args contain
-+	 * a pointer to &struct drm_pvr_dev_query_fw_info.
-+	 */
-+	DRM_PVR_DEV_QUERY_FW_INFO_GET,
- };
- 
- /**
-
----
-base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
-change-id: 20261026-fwversion-95a82a91f9f7
-
-Best regards,
---  
-Brajesh Gupta <brajesh.gupta@imgtec.com>
+-- 
+2.34.1
 
