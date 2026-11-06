@@ -1,71 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966055;
-	b=Rhy5WPr7U/T+1Syj0ACZNisxq6nYYEILtFyu9IKXaX4uqOy8l1w0b/kZ9SQrC8OjbDsM
-	 wCYMK+qCShCLZhSp5GS4T0QNe4xQAlsxpvu7ty141bS5HPPcuV/da4rQuClfxC2sX8nPO
-	 UtYX9s91FqSeTZ0A4VX8mHFPEf5duTdx5EAI8BHLK2V4biQjbE+4yluHwmyxvYTlgpmPg
-	 soiS6blvIf9CfQX7QDDlC7I85hUgrr9XRz6gNDZn1L+afzpjpf8lQmqwAicoHYOW0HMGq
-	 b1JJYkkWN3QcTVtVJERKSF+CIgWbQRpvGB6pLAuwaOeuBd56x0t+aoR5IWz7bzNmG5Q==
+	t=1793966072;
+	b=pY+bcWY6/OcjIbLmxcJkk69ugGikWc0C4XqDLb4u7EaNpSDzcv3v+f05U3tbeiNiNez4
+	 ji6dDQZ2hKVew0prDdF3TzdYnPI9J4rVszdktaMOGDIKix3IASaD7TUn80bYiW1G+ZWA2
+	 G/iF1iMVbxfhGs95EQ56WWlJ34VfuHXevU/kpX38lBQL4pmXwTf54j/dUurvgZ8+tcHfP
+	 2oqVXHva1UkNe+F9gAjFqbXK9vt0gFm62bHKNddG0QBfDGDZRJUsWIZSyXc/3CfUcyT52
+	 /q13HuWhgbnFNJ/XcIMmX9uSLsYwbTEdKoJHwHem5KyTgkIdQlPIz6fa0UJfQT7bL+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966055;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=zeUGkAr+dd5pvA9ddLYxv09ZmZOzgKimQinHuYdcXGY=;
-	b=nD944bRzJtD01Czk8LogNd0ovrkOzknjFr/iqGF72spuChB8nmnNHScqjt/VPcNrmKtT
-	 rocvj/HvKXDUdKydAVHqQASrZCftPk0B8ziPi7gfYqCpDjL0g/13TGDd/t/xEsdF9SqTU
-	 33yxlA/bxmaoUZtom1a7kpv5cbJUzVU6WMrhmmkl2pPvJXM5S3rsGE6KFE54ti1ElDZ7a
-	 9OQpnBKxhRIiB0nVa+hdWUHzDEJrMErbphH5HMGugFJAx8kgoNzlPZTnVWxpcwEswjTg8
-	 zRzhm9T4Zy07Zr0PiRqL/irM8MdysJOJv/BQ0WjtwKTmXaxvvZSMVJrMs4wD61Mqgzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966072;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=pB0iZgKEny2fvSR6eS1A0tzFJUrMX/Uyf3/srhOTE2A=;
+	b=mnWvUPuGmRXhW3zXs4WE6phJAYjN6UKWnLrIOls8L69EtHXX36eHHtSGbiroi1efiIx0
+	 ilY6/INJ5xJSqz4o1SzJ1PYrmRNgP9JJkoTFrId+9V4Y7r0yWr/ZM9iBT2S38JPcGExvh
+	 taAIKrdsWjk0gH4DBXXH3IrFAkYG+VMYSdXK7Jo/1uC/1yMUFv2bFAppgrBBhwUjk6J2E
+	 0RATCLB3JeaHhG9B9DQM3/inFsZRTareza8Dbsiz246f2DcrWZ/FXwkoVTCWcpCixE+Fs
+	 nEbEQbN7Eu68nPGk0tt3Y4bHk6iFPBc/NAhCLUpWWG33Zncu+pRW8ATsCUT8WivF4LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRtzz8Ow;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="WLxq2Wd/";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF392606A32D;
-	Fri,  6 Nov 2026 11:54:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66325606A32D;
+	Fri,  6 Nov 2026 11:54:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66325606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRtzz8Ow
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A36C1F008A1;
-	Fri,  6 Nov 2026 11:54:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793966054;
-	bh=zeUGkAr+dd5pvA9ddLYxv09ZmZOzgKimQinHuYdcXGY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DRtzz8OwVZ8h54GrjlHTDasRVBAtPcFhfr0YDhT28zp43jVnv922ia2GefpiSxLaP
-	 yJXFCDtltMQPVRqKI9XDeUNQsQFV2xMb9f3OCVoNPlwI38PEUXRH+kADoZWdAgOsK5
-	 Bn+IngDuAfKSFPhD+fzi3S3NK4SMCmXifiAivN6Cm7tvLub7p769OUi04UjLkAj4Jc
-	 vTSVJ0E76oZyp9PUYzhzqHCSQHGHz9R0kOSBm/lYfSzttPRp3SiPh+J1Q0SyMHCR4j
-	 5ysZKp2SKvW9jfZOfQ8/bOogtll/OOaT4woBxUVwTacfXodHtYRkjWtlBIRJDHa9iN
-	 zdKoYNy5p7M5w==
-Date: Fri, 6 Nov 2026 12:54:10 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?utf-8?Q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jun Chang <jun.chang@metanoia-comm.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Sebastian Reichel <sre@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Samuel Holland <samuel.holland@sifive.com>, Ben Zong-You Xie <ben717@andestech.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>, Mark Brown <broonie@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Minas Harutyunyan <hminas@synopsys.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	Randolph Sheng-Kai =?utf-8?B?TGluKOael+iBluWHsSk=?= <randolph@andestech.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org, linux-spi@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 13/25] dt-bindings: usb: dwc2: add Metanoia MT2824
-Message-ID: <20261106-dexterous-predictable-pelican-ae2094@quoll>
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
- <20261106-mt2824-v1-13-86087eaf5af4@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=WLxq2Wd/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=pB0iZgKEny2fvSR6eS1A0tzFJUrMX/Uyf3/srhOTE2A=; b=WLxq2Wd/hptJdFC/EzGqrSGlvq
+	yIsyA3/bgqiOO7kXsrqke/n5XlMt/7rMp5rvXYbotyo3YWNAx4jWx5ZyUKaDhyzaHA8TGjvkQnoC4
+	b+rPKv93sD7Q3rDWIRvszfrCcPo1ljWrB2BEiRjk4sf67HZKIKvePdGc4LKqsq8GmuJWx70+yIVvK
+	KGjgOKsduh09JDUqgNgCZbOVPeDyn3J3pdbuKCHA+QJcYPDueKIiP3ZwFnfCT4PwFXKu3ncEQYe5m
+	47Q8IKHNhMeeqo3oM51IHdG3WdcJg30YMCtu/3tjuvktCpGmXHsqDXJ42Rp3oPveLqIh9fGGIhtDF
+	gl/MdH6A==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xPIWS-009GUp-0P;
+	Fri, 06 Nov 2026 11:54:20 +0000
+Date: Fri, 6 Nov 2026 03:54:14 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
+	Ali Tariq <alitariq45892@gmail.com>, netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Yixun Lan <dlan@kernel.org>, 
+	Vivian Wang <wangruikang@iscas.ac.cn>, Chukun Pan <amadeus@jmu.edu.cn>, 
+	Siddharth Vadapalli <s-vadapalli@ti.com>, Tomas Hlavacek <tmshlvck@gmail.com>, 
+	Muhammad Bilal <meatuni001@gmail.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
+ emac_suspend()
+Message-ID: <au2_yS85zJYqOaYm@gmail.com>
+References: <20261105123441.2524171-1-alitariq45892@gmail.com>
+ <auyG7hGJtMzV0Gbi@gmail.com>
+ <6c36ec6d-5bc8-4ac3-8ad0-79eac7873b67@linux.dev>
+ <DMO12HWY5N64.2IJ5XMUKM8WWR@linux.spacemit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,47 +76,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261106-mt2824-v1-13-86087eaf5af4@bootlin.com>
+In-Reply-To: <DMO12HWY5N64.2IJ5XMUKM8WWR@linux.spacemit.com>
+X-Debian-User: leitao
 
-On Fri, Nov 06, 2026 at 10:30:10AM +0100, Beno=C3=AEt Monin wrote:
-> Document the metanoia,mt2824-usb compatible, which falls back to the
-> generic snps,dwc2 binding, so that the DWC2 USB controller on the Metanoia
-> MT2824 SoC can be described in device trees.
+On Fri, Nov 06, 2026 at 09:41:31AM +0000, Troy Mitchell wrote:
+> On Thu, 5 Nov 2026 23:28:31 +0100, Vadim Fedorenko wrote:
+> > > This would work, but I am wondering if it would be possible to call
+> > > rtnl inside the _open function, when dealing with the PHY? in other
+> > > words, shrink the time rtnl is held.
+> >
+> > +1, especially in emac_open() rtnl is needed only in error path case
+> 
+> emac_open() and emac_stop() are also the driver's .ndo_open and
+> .ndo_stop, which the core already calls with RTNL held, see
+> Documentation/networking/netdevices.rst +214. Taking rtnl_lock()
+> inside them would deadlock on every open and close, so the lock has to
+> stay in the PM callbacks.
 
-This is completely redundant commit msg. You repeat subject and diff, so
-obvious things, while completely skipping non-obvious part - why do you
-thing they are compatible.
+That makes sense to me.
 
->=20
-> Originally-by: Jun Chang <jun.chang@metanoia-comm.com>
-
-Please drop (or read submitting patches if you need other tags)
-
-> Signed-off-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
-> ---
->  Documentation/devicetree/bindings/usb/dwc2.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/usb/dwc2.yaml b/Documentat=
-ion/devicetree/bindings/usb/dwc2.yaml
-> index 6c3a10991b8b..898c83e57843 100644
-> --- a/Documentation/devicetree/bindings/usb/dwc2.yaml
-> +++ b/Documentation/devicetree/bindings/usb/dwc2.yaml
-> @@ -55,6 +55,7 @@ properties:
->                - amlogic,meson-g12a-usb
->                - amlogic,meson-a1-usb
->                - intel,socfpga-agilex-hsotg
-> +              - metanoia,mt2824-usb
->            - const: snps,dwc2
-
-Is it then compatible with DWC2? Your driver code suggests not.
-
->        - const: amcc,dwc-otg
->        - const: apm,apm82181-dwc-otg
->=20
-> --=20
-> 2.56.0
->=20
+Reviewed-by: Breno Leitao <leitao@debian.org>
