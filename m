@@ -1,61 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794002250;
-	b=dwmG3CqkF6gHlgs0Fjm/lShKtBK3Dj06S41CBx9d3BBZkgweuU4bkWsL7kq53h1jHOnL
-	 RfXOrcs6rAK7ZnylDsopDxeelb3tVcZUn0h7R2AGEHTdKRfNTikPvabofc1j4Yk8DJ86f
-	 kvLBnp07xeVJaIVbmgs7uq/RLDJg9vkuhwvjjACgP5gc65mXMWyQQNlz24BPJ7LvKzDyY
-	 Ov/fNK/fvKTf7vjpibRpwo6u375vw5X8CYfTXqEKKN8i/qQh7K0V5qHlhqV1fPU7FtWce
-	 0CeG9TcMH1Ex4/aJ+mlZxI+htB1NaNrXtsM/8nHnYVmf/KDF/OCdLBSywcdAtPLRGDw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002250;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=sWWjal4kg7Bb+zbbKRMSSMoIbhDieiVkL3VfmhZSjks=;
-	b=k6wrb2l4Mr7gCATPWlhx4iSLSdsmvgtjX/Z600udVMzU74i6riL9F3URBm2OrqjfDkD1
-	 hdlcBivmvJcKNwdNjzgjl+cwhCg9kqjMt/A+KV4I6imqGzEKxf8Upbme7de4tAP3XGuGu
-	 AB8SDFTzXlYQtZ4YKtjifA21luT9pdRvKDIuuzYgfDxrvY/4uBuHVrjJVx6WHzjx60jqG
-	 Frtcu7cgah6jI9+zAMcaiKlMhMSi7BiuR4x74hygmfkFQpawqJoqYyH2e1IH3I15CWmFc
-	 flDuHKM5+MbDaQNCwC1AcAkxiGDRfqWW7ZtHB5wTn0R6Wx+9dtzUMe9hnjHEy6LN0Rw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Y0OFJrYE;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794002246;
+	b=2n7hvBYuYi1bO/KFwoEHcb0Ax0w4u0/U6L4O2dPmsHcFkVlUFxh6HHEOw8hcNi3iqM2N
+	 DRE4Oy8XhlNtsQHUoy6qMEYxyOShNdPRIbkZy/6M85v9nBYMe+z11dqq18B9DCq7RIkKX
+	 q/kNLM1ODl/aD5aRC3KctT02mVQWRpymIYqHovJtm6Ue5Mexdba6baXcpcuefSzKyuw1D
+	 j2EOxRHccjXRez5CzvF6ONiGVyrGdaVivN55p3cz1G3/Y9TD157u0BwcY4hzas9TvBcfX
+	 nkHEclhNOPY2XJFz02oKnAxe5u3kmyS1Ftv4rDTq6N1mPLXRdgGaUDFUJgWGiU7wFJg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002246;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=4hTF15KGZnWZXaxkczJaxpuVmQOPU5K6aaPcUmXIxUQ=;
+	b=kGra/X7YgnHH57i6K/DykpFuU+1EIX7sVwMsc5+K7cpPLo6jB77p1GyFETGGMgxEK3ue
+	 F/YsRxaq00sSzXG3asEF2vb0aN7fOj9zDY3imHMgQ7t7iSYc4gaUJLufHnhs3aLu9q4Y/
+	 FpUjNLwaaxCYo6R9xdJylUdEwmmaF6oFlj32289vF8HopL0iDKNMVVqlBVHBheJsPGuVs
+	 4kbCYlbscenHAgsKnDWH0A2x/Z/cKGuy5E4ILXGmxCkNE4q255sh6DstHvlcB1+9G8O4+
+	 yVic63Z7yFAe0wJ/pnsW65ha38ffW+9xur/fK1Z2GUDmplkAdyUSyDNStq6/qRl7FDA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmXRZoMV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA96606D815;
-	Fri,  6 Nov 2026 21:57:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABA96606D815
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3511606A33A;
+	Fri,  6 Nov 2026 21:57:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Y0OFJrYE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794002240;
-	bh=KU/YEFe4JzRFcgmGM8I2qV26IQDEGg/npT6S9CcZluo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Y0OFJrYEBo/ZQ67iXHxq68DAVcxSc/5yJ65BxIMtmzxoi6mIORZMgZo0OSnbpeK9W
-	 F3k6upV8o8u3wonv2/Bc21V5yWa6Oo46Vz6D5UtXwL6oyVP54EMV6hCy54YSWpYdZ5
-	 zFprHrXSAkKITZVb3Ue5s3YcCvAU/OsLOhZPFqj+sFIJOtvhpeRLSD3PyWmlsO7tRG
-	 yBFAdKOLn077SceHMW05PzJazRH8qpcQnlGpltvZFipyyt5PvyUNq5oOgnpKiwbSD1
-	 nY1HpfIGbhIpG9JLdNf/4Zc986KZoQVMDrJAFTW16L6aZ6zjFImgY16Epq5wj9eV7C
-	 H/NFutHBdiGJw==
-Received: from jupiter.universe (unknown [100.64.1.62])
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmXRZoMV
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794002245;
+	b=GQFLqXs9ZSBdCVsaypa7ul4+rB/iuREMX8x+JAM/ZwvYWCLIEHkT37MuQMykjSSUxLuP
+	 7Iw98j8+vBhEh1UU4XAAAn0Gq4aOOzeobM+MLcZksrd90fxd4KXbgu/FwuHwOHy+G97zD
+	 a3DCuOatsN01DUn8pYLrzuIdk5OfZEoVufoIqVms6o687eLx2vxNECG/x93PFJqHNrip/
+	 7QS5GzqDjbLVQiTdkU+0Grx1Tx2lQ9Stch7nBelg91RZhnIV8Of39eRBMPl/CV11JBzaV
+	 7In/AJKP8LFfvBdm3FtjN8wm27lCcjUvwlAiZg9pjZqyCYJ1KhMf6gqCuRX1cpKKdoQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794002245;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=4hTF15KGZnWZXaxkczJaxpuVmQOPU5K6aaPcUmXIxUQ=;
+	b=XMA4wY13oO2feldtj9iB8YOXNB2F8mmGe2//7wSY5Rhy8KdAQrFiFSzEaDOEJUYmr/d+
+	 iiEVkEdVFcYY7+xtPB9vFfxumjp7ttFbuy82Lc9lY7dT4GkR8UUbZqi4wodG6893xGMHA
+	 j3W9RX9mJX4PKj5eHGJwwm02K0lmfRhZbBFSG2aEhx010N9wfB4Gmzwxg2pA4zQw9F19Z
+	 MRdk+IXErvKnsmSlJ9eB/DczKsCNi5XhlXEyqICQC9ZSQ1TUUQ3hVS+l14nJltjCA6isR
+	 pFFHdxa3u5NbZ46Us9MR4/VDa6fCqZBQVR7FOl9SlEItVVRZdJmHcECMAt3gePqlDmw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A910517E0A80;
-	Fri, 06 Nov 2026 22:57:20 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 19411480035; Fri, 06 Nov 2026 22:57:20 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 06 Nov 2026 22:57:10 +0100
-Subject: [PATCH 5/5] arm64: dts: rockchip: Add Bluetooth to RK3588 EVB1
+	by smtp.kernel.org (Postfix) with ESMTPS id 068601F008A1;
+	Fri,  6 Nov 2026 21:57:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794002245;
+	bh=4hTF15KGZnWZXaxkczJaxpuVmQOPU5K6aaPcUmXIxUQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=BmXRZoMVRUwrx6vKTJEE8lQTIttkKxTb9rd4NZ15y4yLfggmRPBh6TkjotfmWONCL
+	 eSD/PAh+Lm2TXi/lWQeZh8a/GeeItO/4pFknTB/gNMbgCGjgmvbO9XLGvBbksZ47aG
+	 A6LOWPartW7dCrWVT3dH2Y9FcsGtVl6KOMME2v2J9KnmVdsSYHZqK/lvLzz3hhJBJM
+	 B9sp+TruqCfV+GGwTmTFb671dLECc7Yq6PFgYofTf8NlQs98ok3uZHKTJLJFwNk6/a
+	 D7WngxUmDbC9tfKQPJ3h5HILbzG7xq1bUdAGQCYVYvZr4CNRfktqQNfAXOJOf+MlwU
+	 bYwFDDYeB8nCg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5BF06478B1;
+	Fri,  6 Nov 2026 21:57:23 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Subject: [PATCH net v4 0/2] vsock/bpf: fix waiting and flag handling in
+ recvmsg
+Date: Fri, 06 Nov 2026 22:57:20 +0100
+Message-Id: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,109 +86,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-rk3588-evb1-dt-updates-v1-5-bdbe16223589@collabora.com>
-References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
-In-Reply-To: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2510;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=KU/YEFe4JzRFcgmGM8I2qV26IQDEGg/npT6S9CcZluo=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGruTUDhUQVicPoNxtxccVrec0dAAQEnlbepf
- Z4vNAZIrbhsJokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7k1AAAoJENju1/PI
- O/qaWycP/jrWeVm6udq9KbIRARBPUsUY5H8nx4/zJ59EvCTZ0ELerG4Mp+NWNlMs3HtbqwUtbd0
- COZCYCtnI25b0kRefTr2GOJFk6qmWnVguUlbGB2Wlr4Sqr+3WSngSdDYZ26cxBbsEiOMeZPOP7o
- J5ckOgx8/nx4Z9Sc1FFoU2yGzqtwKwAI7F/UD5ryLVazmILZSWiSRkgxkNsdrd8Chm6iR4WSfO9
- Z0kJ4Aq7prDbDCYuwzPnBW85MtapNLhYBUC/Tze9z8j0Wf6QfsZISfmP6shagUDs6Hbu8qaZk2p
- qiPzhMQ+OwT3M2aHFUKQMzwY+J4sayWdurhmnFVs4CoG/zmdcxgjqK3qAlrEgsKV6DrYI2noIyI
- Cg8Zj5FSEUBxjBhlJ/+T00VQISo96rmS3RnNiwysDEfZTrMvNh95QyBCIGwmfv/nYl+5qQkFNOU
- LCr2aHFApUjimDjhhcBCTNzvHVDSjk9ZBbf+AcVsUq1iSLEbSZMGLnC4pJYlJhi0dVA7uiSqgeJ
- dsINdbO+nAcaWwRVHW+oLaIOuyo/TZLmhWz0D6KUDHt9Vq7f6A9p/+zfvGJS6WsNifN+G5M/tgO
- Ueej5Cwc6FcUxQ5T4Cp/pVRNAOwNu+NzXJyOjfEijP+imyQXfe846m2rxHnrQEvrWtZ+VIj5V62
- a/B/iTW3EsUblJCSbm58plA==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NOw7CMBBErxK5ZpG9zpeKeyAKfzbEgBJkBwsU5
+ e44oUmBKN/uzJuJBfKOAjtkE/MUXXBDnyDfZcx0qr8QOJuYIcdScC7gpjsJAjgitO4FEYFkK3J
+ seJkLxVLv4Sl9VueJ9TSy8/cYnvpKZlxsS6xzYRz8e12OYg3/GYkisWkVNUWtRFOVR7pb5Wlva
+ fVHuTFg/csggYM2vCpQo5VWbw3zPH8AJ4gEqgsBAAA=
+X-Change-ID: 20261001-kbh3-1-022-fix-v2-e3f14290641a
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ Bobby Eshleman <bobbyeshleman@meta.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794002242; l=3156;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=3N1HVbW/FKojBN21DNx2VL0tmiNZKFzaJqEUw7vm67M=;
+ b=dzk2bNoM+L/XeEtTJDqisAtunD/8hRkFnTCN+GQfp2y4JcrBsy04acBNPoTkUcxKfYxQm442M
+ 4vz/Xn5ONiVC2M5bVBzXmgcbfqPuYtoIEKpgY5HrdJ2I16tmzZnqwXK
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
 
-The RK3588 EVB1 has an AP6275P WIFI6/BT Module. The WLAN side is
-connected via PCIe and already described. This adds the BT side, which
-is connected via UART. BT is also connected to I2S, which can be used
-for BT audio. By default BT audio is routed via the HCI UART interface
-instead.
+vsock_bpf_recvmsg() holds lock_sock() while it sleeps for data, so the
+transport's delivery worker, which needs that lock to queue the data,
+deadlocks with the reader. Patch 1 releases the lock around the wait and
+makes the wait loop with the exit conditions of the native path. Patch 2
+handles the reads that should never reach the sockmap wait: len == 0,
+MSG_ERRQUEUE and MSG_OOB.
 
-The added I2S complexity is avoided for now, but would require the
-following steps:
+Not addressed here, as in v3: data that sits only in psock->ingress_skb,
+and READ_ONCE()/WRITE_ONCE() for the lockless accesses; both are left for
+separate patches. Not run: the ns_* tests of vmtest.sh (they need root on
+the host); the reproducers ran in a guest over virtio-vsock (PCI) and
+vsock-loopback only.
 
-1. Setup "brcm,bt-pcm-int-params" in the bluetooth node
-2. Add a simple sound card for Bluetooth using &i2s2_2ch (using default
-   M1 pinmux) on the CPU side and "linux,bt-sco" on the codec side
-3. Extending "linux,bt-sco", so that it supports 2 channels, because
-   the Rockchip I2S hardware cannot output single channel
+The deadlock and the MSG_ERRQUEUE case were found with the help of
+Anthropic's Claude; the other cases come from the netdev Sashiko review.
+The reproducers are available on request.
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Changes in v4:
+- 1/2: comment why the wait stops on sk_err and why it checks
+  signal_pending() (Stefano).
+- 1/2: one data <= 0 check in vsock_bpf_recvmsg() (Stefano).
+- 1/2: say why this is one patch and how non-blocking reads change
+  (Stefano).
+- 2/2: say that MSG_ERRQUEUE consumed stream bytes and why the checks
+  come in this order (Stefano).
+- Shorter commit messages.
+- Rebase onto current net.
+- Retested, with a new reproducer for a dataless wakeup during a timed
+  wait.
+- Link to v3: https://patch.msgid.link/20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de
+
+Changes in v3:
+- Split into two patches (Michal): 1/2 releases the lock and loops in
+  the wait, 2/2 handles len == 0, MSG_ERRQUEUE and MSG_OOB.
+- 1/2: also end the wait once the socket is no longer TCP_ESTABLISHED
+  (0 with SOCK_DONE, else -ENOTCONN, as __vsock_connectible_recvmsg()
+  does), so a reset connection whose error was read with SO_ERROR no
+  longer waits out the timeout (Sashiko review of v2).
+- 2/2: reject MSG_OOB with -EOPNOTSUPP before the len == 0 check, as
+  unix_bpf does; this also stops MSG_OOB from consuming ordinary bytes
+  (Sashiko review of v2).
+- Stefano's Acked-by on v1 is not carried: neither patch matches v1.
+- Drop the Assisted-by trailer (removed upstream); tool use is disclosed
+  above instead.
+- Rebase onto current net.
+- Link to v2: https://lore.kernel.org/netdev/20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976@eldare.de/
+
+Changes in v2:
+- Make vsock_msg_wait_data() loop, check sk_err and the peer
+  SEND_SHUTDOWN, and add the len == 0 guard (Sashiko review of v1);
+  route MSG_ERRQUEUE to the native path ahead of the guard.
+- Link to v1: https://lore.kernel.org/netdev/20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de/
+
 ---
- arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 37 ++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+Jerome Mohm (2):
+      vsock/bpf: release sock lock while waiting for data in recvmsg
+      vsock/bpf: fix zero-length, MSG_OOB and MSG_ERRQUEUE reads in recvmsg
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-index 327ca13b60f0..f578e7dd5aa1 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-@@ -695,6 +695,20 @@ speaker_amplifier_en: speaker-amplifier-en {
- 		};
- 	};
- 
-+	bluetooth {
-+		bt_pwr_en: bluetooth-pwren {
-+			rockchip,pins = <3 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+
-+		bt_wake_host_irq: bluetooth-wake-host {
-+			rockchip,pins = <3 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+
-+		bt_wake_gpio: bluetooth-wake {
-+			rockchip,pins = <3 RK_PA1 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
- 	rtl8111 {
- 		rtl8111_isolate: rtl8111-isolate {
- 			rockchip,pins = <1 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
-@@ -1522,6 +1536,29 @@ &uart2 {
- 	status = "okay";
- };
- 
-+&uart8 {
-+	pinctrl-0 = <&uart8m1_xfer &uart8m1_ctsn &uart8m1_rtsn>;
-+	pinctrl-names = "default";
-+	uart-has-rtscts;
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "brcm,bcm4345c5";
-+		clocks = <&hym8563>;
-+		clock-names = "lpo";
-+		device-wakeup-gpios = <&gpio3 RK_PA1 GPIO_ACTIVE_HIGH>;
-+		interrupt-names = "host-wakeup";
-+		interrupt-parent = <&gpio3>;
-+		interrupts = <RK_PA0 IRQ_TYPE_LEVEL_HIGH>;
-+		max-speed = <1500000>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&bt_wake_host_irq &bt_wake_gpio &bt_pwr_en>;
-+		shutdown-gpios = <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
-+		vbat-supply = <&vcc3v3_pciewl_vbat>;
-+		vddio-supply = <&vccio_wl>;
-+	};
-+};
-+
- &usb_host0_ehci {
- 	status = "okay";
- };
+ net/vmw_vsock/vsock_bpf.c | 77 ++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 63 insertions(+), 14 deletions(-)
+---
+base-commit: 6d2cf411aba2aa0bd641b49be5b1964ac5097a50
+change-id: 20261001-kbh3-1-022-fix-v2-e3f14290641a
 
--- 
-2.53.0
+Best regards,
+--  
+Jerome Mohm <jrmmhm.kernel@eldare.de>
+
 
