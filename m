@@ -1,62 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999477;
-	b=sf3oQSQZtBMOQz3iP/kkbR/LVkPa4WTqLFItofsry4rtoMRPyvAUbbYgkOsCHMC+/v6l
-	 MeeVwseRudW2c4uNT6ycLZAXAk9eaA3PzE4nfG8rOmpRAzVTKewzSJxeQrRHuiej5qLmy
-	 w8wGu2YmKRhutPfQ/FCAEMlY5MV4AKzpSgI5WP+FIJawNEEJiTJzci6d1rqSAb+yGWfhM
-	 i5hjnQ77QtGigGlv4CR6IITAOTEFxYBydsMAU1AvDQgsoG8GkWIBAXzeTLE/tAt1ixtox
-	 5Rtgc2i1UoLoy3XEFUU5KrN+Inor11ZjGssFgSXc4C4BVfRdS/pxR/vevW5SJ+LQqJA==
+	t=1793999599;
+	b=uBCMVhTzY3vIuSpNUTKuiUEz5bnXFVRMsHSc3W9WtL+vajOUoCg93EueiuPwPV8nwYj1
+	 dq36rn99HdtJ+odINvLvObw5+qwPUkONvlnaZDQpaJK4Hk3qX2ktK9468fXVWqoI/6l4c
+	 oI6miK4ZiGEHup6OB+15zsQe2GgRdwbT+1HiHHRLSLlRHUBG8x0O/GnFan4GCtxYDxFad
+	 R5tN+AP+e0OeVZNHvhNbso2LLMqfZVuYQmbSNPhzoox3TTIeymIztbuC0UpGtZuTLhGUl
+	 pCsUMZi5FWjMl3Jm6Z9753cmk31iYshp5I1VGVbh/vm8c271gveYRS5sx7hl3G/5m9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999477;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=qyq2PLhyOao6mpFoudZyaRzzk5GKGs33fo3H1xwZTCc=;
-	b=yxqetiNG/DXUQzN6MUE0GyYuFu5NXIolUutguOQTHWBbEBP+dMixtocWuEKorIBTQPLI
-	 9aB7geGs7axHa+mF1lB44bTq/VcQLJ4R9uLHwzubmEOpgBDDjVIYSqMKbc+EgMv4TRPlm
-	 10pQg2zsI32KNWRtuKTKNeHvnen/QAVipFFBalsuccm3dp1L2Ne43YoOP9l4zB7bAuX//
-	 z+lbXGJJpIDbr2fs5FZXLgqSPzHVJ4iaUmTPtz0BsvcHISR8mRcb/z1xB8yYmLnFYrIgh
-	 e75Evk7vsdoq18EzRTa3e1A83+HQXneTlmoeNBj/iFBwqK/qOYgOKgjJ3/CyWU1sKWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999599;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KAgB2fssjvIHHivLsh4UbVD8IvzJBAHBr6xJYRkzEJE=;
+	b=0HSA8zSNaaKTQU4sCHoLSbJHLtONA3xSZaMdk6GfL8fNY6OvAv8/NXPPqGv8E2H3Bl64
+	 t/G45kLaJARfg8YErfGF0VKN12Qhfv/WgkHf+4CkvGLviOB9DN+iNbnf0ej7Qctu/M8xU
+	 it3ADUf1GoQbtES9Js/kT6e+yo/5z5HpN3o/sC+y1D3keqin5hMJ+hr7GuzhdcJ9CcjVV
+	 YyUQeiXje/Aq99LG5hODjBDspJrbhXEM7Wcx8MM6NWXxAsj6EdcjOCZkMlIdTa3sXnuFs
+	 EDiIEp1OXKj0UYWLDCViOaVyLtAEiRYRAQYGmvRrIz/HmSiH5XLLFP25GDt4aeWYPUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mB0kYrP5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNssPANh;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D430B606A32C;
-	Fri,  6 Nov 2026 21:11:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AC4606A329
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 21:13:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12AC4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mB0kYrP5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18B31F008A1;
-	Fri,  6 Nov 2026 21:11:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793999476;
-	bh=qyq2PLhyOao6mpFoudZyaRzzk5GKGs33fo3H1xwZTCc=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=mB0kYrP5E+kMoJW2mWs2JUrhZYEfNrOdE7QmZqdxLxBfLtwmvQzB2Oi6gKwS6ySzh
-	 1uZ7uHeKKX9x1VgJdIYDM+gglleI0ShCoN8TjDsCRRlm3pQG23X532TDgRxcyedFzM
-	 fKt4BqbNfFRXSRU7NHjCg7Rm9nkq8Pnwo3e3tRrubOWgF/KYO73uLd/xBdEgrXZbXv
-	 2jV+f5yPjI6EsOAX0kw3IoaZXYDj2tFvveOpkm6h8Z6PAYD5MbXqdWN+ZCf4vcB+FS
-	 Ms1TlwhnuUy3Y77es6z6Bxl6UBUE8De2KjirhvxnGwxspmDVQy96AcaZ6dlFOjIL/j
-	 qLu0fnWqjUi+Q==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 4E8A6CE0840; Fri,  6 Nov 2026 13:11:16 -0800 (PST)
-Date: Fri, 6 Nov 2026 13:11:16 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: Kunwu Chan <kunwu.chan@gmail.com>, dave@stgolabs.net,
-	josh@joshtriplett.org, frederic@kernel.org,
-	neeraj.upadhyay@kernel.org, boqun@kernel.org, urezki@gmail.com,
-	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com, qiang.zhang@linux.dev,
-	linux-kernel@vger.kernel.org, rcu@vger.kernel.org
-Subject: Re: [PATCH 0/5] rcu: Record callback enqueue stacks and add torture
- tests
-Message-ID: <dda59546-c03a-4c4c-9df3-a107bc629e2c@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261106143913.3627722-1-kunwu.chan@gmail.com>
- <7883f32c-80b8-4bfa-a4e4-f1e04da647f3@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNssPANh
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso10983925e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 13:13:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793999597; x=1794604397; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KAgB2fssjvIHHivLsh4UbVD8IvzJBAHBr6xJYRkzEJE=;
+        b=nNssPANhtZ3wzKp1c63u6YxR9nA9RLek2d5ZArlqR/5bmeQT7Q8Syuod0hALs9b9BK
+         NGyyci6Mqiu8Va+cquY4+qPrWRxTpJ2qg+/AOWHQgfEwf+O2tZChYBiCxQ1ek4SkLULZ
+         HKCnkbyLbNxBlb71sB05ArRhzSB9wGamoXLzIkvEEOR8ozKcAedKV7b3Jv0ibtu/KD/Q
+         Zm8Li/iWTpogD+j9W37+RWXVAzAXIp7/OKtLisQictcTPoTlE5HPvAmU++MUBLyvO2oT
+         4NQvWT40HbaG9WTiOOCO9Nh4GgJHsY2FxO+a83RIP4/XFHH9t8rRgihiwUy00eM+bv2z
+         9TpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793999597; x=1794604397;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KAgB2fssjvIHHivLsh4UbVD8IvzJBAHBr6xJYRkzEJE=;
+        b=by6mvK1HrYE8N3tDAjkhsfV+dyUM/leD5ZaT7YLODahB0xklBG511xhrwUidM+/HAc
+         tzghiSAEDapmVDK5uBpsSvEkLmiok42ibubqrX5jVvWGZ85cpmfDkgI4Q6w9dpZmm1Zc
+         y8JtwMCIAXOpligLsJVoG4wRmpFD4cTh5morA6SaIPHdp0qdE6lg11eKBKknRHb1P2Xw
+         CIMJH8hjJpqAOmYWCyDEDomw4uPlxfJydcv/TQVO9zCHfQQtWMKUNI6SOAunmVpLuZy+
+         2lrMmR/ZTNikTJqhpg5DlbZShmQbG/4Tf0hoI6qVAMxHGAdWl0IoP9UCXbIXr2Ac8ao2
+         21VA==
+X-Forwarded-Encrypted: i=1; AKwUvBwkojbyQG6bZJdn1pjmI0/2QFl3FTM+81w4jatnpbC7FVXQkzKrykDpwerl0fhog162l14X9xft+BWk5pM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8r1/illQxyTZF1rRDtD7mRgTNFzXhWjoneP5uX3Nm2Ov+EpLsi
+	o0VzWPFKpDGHoYlstmp9/C0mOAWAMI0WXTSuRbsAdBh2k0XQA0HWgkkw
+X-Gm-Gg: AYBFou1k1QBG4/Uorc8vcO+dTYtE13HtOwe1ixpPguiMBTCodCyqseIcvAmCVPlqcR6
+	KQdieU0g76y14BHDCXlEgvjtyR7jbY9h4aSio2Cf0Z+1WbJMrkTbxHOPQ7FqbpfskhXe9+qkCvv
+	DN55lPTV/uO+ftqVdfPIsB8thRQCcZkQfE3gMooc4b3M0WrYGDpx6bQ1hOaxlWCAgT4U7gj6Gu1
+	RRnzfH97CBMkTxovuK7u/f0JywhfFn8s8Os6+HzARcR0t9IXiEJbaxSyZoRnSfhoml3GtyLJDn+
+	sYLNM5jVyiS8DeeW8y36ioM8EfeX32n9796fgZZj2ZSU07ffs/eA5XZbXH8iyImPEIuKrFJXR94
+	fbqur0k8IK3Fpl2AqVVTQ/IJLZ9kKhYABNJAR1fFardPWnG39Q9VsBjwmIaAv7be/QuFQxUPlup
+	AAnGZreYNXBftP73vlpt4TwhSPeGTu6E8voGc6BqabzbsqTCpDZKeTYnJCSxFsdaM812j1ScVrf
+	EbMMCkds7cIeU5Gy89DAi9FX8x9Osbq0BxBJxKPniqthXGcLLvfmD4qB1bUH03PiAwwnnct3d7l
+	Aa2jMx+wuJik+ce5jbAAxLyhJP+FPqA=
+X-Received: by 2002:a05:600c:a013:b0:4a1:f625:2108 with SMTP id 5b1f17b1804b1-4b6e054964cmr57690945e9.33.1793999597217;
+        Fri, 06 Nov 2026 13:13:17 -0800 (PST)
+Received: from hp-z640.fritz.box ([64.43.161.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7950206e3sm11271025e9.3.2026.11.06.13.12.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 13:12:57 -0800 (PST)
+From: Owen O'Hehir <oo.hehir@gmail.com>
+To: E Shattow <e@freeshell.de>,
+	Conor Dooley <conor@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status power LED on
+Date: Fri,  6 Nov 2026 21:12:49 +0000
+Message-ID: <20261106211249.73440-1-oo.hehir@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <d051c5f2-3df2-4eeb-b324-6e9ce39a6b27@freeshell.de>
+References: <20261106184055.3891621-1-oo.hehir@gmail.com> <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de> <20261106195945.4157095-1-oo.hehir@gmail.com> <d051c5f2-3df2-4eeb-b324-6e9ce39a6b27@freeshell.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,107 +106,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7883f32c-80b8-4bfa-a4e4-f1e04da647f3@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 01:49:04PM -0500, Joel Fernandes wrote:
-> 
-> 
-> On 11/6/2026 9:39 AM, Kunwu Chan wrote:
-> > This series adds KASAN auxiliary stack recording for RCU Tasks
-> > callbacks, rcutorture coverage for duplicate-callback detection,
-> > and KASAN aux-stack verification tests across RCU and SRCU flavors.
-> > 
-> > This series is based on [1]. For testing, I also applied Joel
-> > Fernandes' fix for debugobjects tracking of barrier callbacks
-> > [2], which is needed for the barrier tests.
-> > 
-> > The changes:
-> > - Record the enqueueing stack in call_rcu_tasks_generic().
-> > - Enable duplicate-callback testing for the "tasks" and
-> >   "tasks-tracing" torture types.
-> > - Add a KASAN aux-stack verification test module with a Kconfig
-> >   choice for each supported flavor.
-> > - Add one rcutorture scenario per flavor for the verification
-> >   test.
-> > 
-> > Tested on x86_64:
-> > 
-> > - TASKS01, TASKS02, TASKS03, TRACE01, and TRACE02 completed
-> >   3-minute runs successfully.
-> > 
-> > - With CONFIG_DEBUG_OBJECTS_RCU_HEAD=y and
-> >   rcutorture.object_debug=1, duplicate-callback detection was
-> >   triggered as expected for both torture types.
-> > 
-> > - TRACE01 was run for 1 minute with
-> >   CONFIG_DEBUG_OBJECTS_RCU_HEAD=y and
-> >   rcutorture.object_debug=1. The test detected both duplicate
-> >   callback heads through the SRCU enqueue path:
-> > [    0.405836] rcutorture: WARN: Duplicate call_tasks-tracing() test starting.
-> > [    0.405852] ODEBUG: activate active (active state 1) object: 0000000020df980d object type: rcu_head hint: 0x0
-> > [    0.734724] rcu: __call_srcu(): Duplicate call_srcu() CB 0000000020df980d->rcu_torture_leak_cb+0x0/0x10()
-> > [    0.734780] ODEBUG: activate active (active state 1) object: 000000006634e8c9 object type: rcu_head hint: 0x0
-> > [    0.776688] rcu: __call_srcu(): Duplicate call_srcu() CB 000000006634e8c9->rcu_torture_leak_cb+0x0/0x10()
-> > [    0.779126] rcutorture: WARN: Duplicate call_tasks-tracing() test complete.
-> > [   65.411342] tasks-tracing-torture:--- End of test: SUCCESS: ...
-> > 
-> > Both duplicate callback heads (the stack-allocated rh2 and
-> > the kmalloc-allocated rhp) were rejected and neither was invoked.
-> > 
-> > - With CONFIG_DEBUG_OBJECTS_RCU_HEAD=y,
-> >   object_debug=1, and n_barrier_cbs=4, the TASKS01 barrier
-> >   test completed 630/630 rounds without barrier errors.
-> >   The only debugobjects warnings were the four intentional
-> >   warnings from the duplicate-callback test at startup.
-> > 
-> > - All five aux-stack scenarios (TASKSKASAN01, TREEKASAN01,
-> >   SRCUKASAN01, TINYKASAN01, and SRCUTINYKASAN01) produced the
-> >   expected KASAN use-after-free reports. Each report's
-> >   "Last potentially related work creation" entry showed the
-> >   expected enqueue helper:
-> > 
-> > ===== TASKSKASAN01 =====
-> > [    1.244567] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0xb0
-> > [    1.244707] Last potentially related work creation:
-> > [    1.244716]  aux_test_call_rcu_tasks.constprop.0+0xc/0x20
-> > 
-> > ===== TREEKASAN01 =====
-> > [    0.670399] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0xb0
-> > [    0.670561] Last potentially related work creation:
-> > [    0.670571]  aux_test_call_rcu_tree.constprop.0+0xc/0x20
-> > 
-> > ===== SRCUKASAN01 =====
-> > [    0.658679] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0xc0
-> > [    0.658919] Last potentially related work creation:
-> > [    0.658932]  aux_test_call_srcu.constprop.0+0x16/0x30
-> > 
-> > ===== TINYKASAN01 =====
-> > [    0.951503] BUG: KASAN: slab-use-after-free in aux_test_init+0x8d/0xb0
-> > [    0.951641] Last potentially related work creation:
-> > [    0.951650]  aux_test_call_rcu_tiny.constprop.0+0xc/0x20
-> > 
-> > ===== SRCUTINYKASAN01 =====
-> > [    1.009005] BUG: KASAN: slab-use-after-free in aux_test_init+0x94/0xc0
-> > [    1.009141] Last potentially related work creation:
-> > [    1.009150]  aux_test_call_srcu.constprop.0+0x16/0x30
-> 
-> I'm not feeling very excited about adding more configs just for KASAN. That
-> sounds like a maintenance burden. I believe Paul already has KASAN testing in
-> his scripts. Is it possible to activate this testing only when those are enabled?
+Hi E,
 
-The usual way that I do KASAN testing is with the --kasan argument
-to kvm.sh.  I use --kconfig and --bootargs to specify further testing,
-usually as another option in torture.sh.  This causes the testing to
-be carried out as a matter of course.
+Ok, fair point.
 
-One good thing is that the Kconfig choice in patch 4/5 is automated so
-that RCU_KASAN_AUX_TEST causes the right testing to happen depending on
-what is configured.
+Conor, could you please drop this patch? Apologies for the hassle.
 
-Is it possible to drive this from --kasan and the rcutorture.object_debug
-kernel boot parameter or something similar?  Or is there a better way
-to make the overall testing happen?
-
-							Thanx, Paul
+Owen
