@@ -1,97 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793925315;
-	b=4JDkbCZa6sq+UNOfO+hE1wxeBqn0dv7IuBNcqOY9gHPZef3O4Wm9PpLMGc5AVLHSUsX5
-	 QNjGzuSaW6/whzyznkNf9gJvcE5u25SUi1EgESQS22q+kgu26bPlxp/Cvjky7D2I75r/w
-	 EwphJ3AVyS3QsJFZCIZNBrU8zdFIslkq6MoBwuJS03duMGIUyVOiXgp/+JRuUhYu/JrJD
-	 f6wCwOq1hVPw/z+JBPNTxWf/fYRbjH3RnEQlxXECcNfy/lLUyBxhngY6LRSPMNqJhAEUM
-	 EMpBeCOk+MkL2VgxU8e3JWncBkBMlldTtTQP4/FwZ1fWN9Yb40r0PGxKZ2jnNQtXxpg==
+	t=1793925371;
+	b=vDwvkBqTUrGdVm2+Z3r1o4vAPbzyYL1N9Mxp/7w908soRQ7rZw3aSpI5MmdE2kLZKtgY
+	 Sse9y8id3yfcujN1NEHFu2RzYAJ9g2JH8gDzza7Zyh+3M3CqPdvKCRhNZVsZRJVScwu4m
+	 A1Wd6YXO1dF1m30YXtUpKMrzPc+HBG8DNyW/aHd4K5/3xMtANV/DRDtal8hApq6p8yU3Q
+	 uwUKdfB4SqlRMc2Z5hjv17jqOUy/kBweh+q8ZgZ0dtHVs7o333P5+CdJnu8eOifm0h2sR
+	 VJ5sz6JOMD5Y15sFmBP+FBzXUQ8G4wkFXG4t/quvxYJmCz3aads0pI2753ieZ3Oxing==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793925315;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
-	 X-SRS-Rewrite;
-	bh=6TNCgRmL/23mHPVturwpYhS1/L+Zqx8rGxIrqrETX5o=;
-	b=J/eN9CI5iBVrvP9xdchfK9XDIecVFqtb2d6T++kegtXRFr794qOK5lbDpW1SgUdU/5wT
-	 DWQyWonpL/NsB3TIbAHqiYdq2CrwFnBenpzNdPeqRug020RmpK9qOd2SiyRS28TAX68p6
-	 pJyp2GjecCiUqEDSZYGPM3MYVmUKxkJuWIzyM4uNvt5/KDxiSbgdJGUXXGoY14//AqYsV
-	 jaZi9sNwImBxt5HAzjU2WiD2vNo+eiJGmQV0/ySatqQG+0Luqafx/qQL2664gqRsnPFxH
-	 yFwvnJpLe9CMqlKno4MH+LELomH3TXIwt+ztcjiLFo462EiZAzyHAl3jZRiwOiUazfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793925371;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=kQ/TzfU3HeuNw7uzOiPI9CLulv8c3xdEm3+EwYgyk6c=;
+	b=an/f1p5R9c5xrsj+wFSVBFOWqebKp4/l6lRflpH9OikSyR5oUdTVgBHyMMybt+tJ5cQd
+	 adkAuAbzDAXJK/K0n0ybhsT1hIwUJ1OCcC+2G4xzfHsNBBGzeWspJY6EQbVXQC0FjyXMB
+	 8cqxj0N/03HYVeKgoGYEXkFhmUhe6LjyYjYXsRpUqFH6+CG7YRyELgXIvzl32v6eFuTTL
+	 C1eklUQen2fkLTOU/orgssxHlItylfnx7qkiR1Ot3e9xIt5Cp7fZYHdO1wvr4VL8Z/CuB
+	 wToTTiSFK+RYnbTj8YaQCBA3GnfoN3h3PuJ1iqY7l8xlnpoJn+RhZ05OKh/8VVqASuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="eQdN9M2/";
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=NQZjNUv8;
+	arc=none smtp.remote-ip=154.81.10.87
+Received: from mail-m1087.netease.com (mail-m1087.netease.com [154.81.10.87])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADB9606A31B;
-	Fri,  6 Nov 2026 00:35:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ADB9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D5D606A326;
+	Fri,  6 Nov 2026 00:36:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4D5D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=eQdN9M2/
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6TNCgRmL/23mHPVturwpYhS1/L+Zqx8rGxIrqrETX5o=; b=eQdN9M2/rNw+BU8m/E6O/8OYF7
-	rQynrR5VfrTx3nqBv28uIvCr8lMXtstjEbOSk/dIaASeICHfcsUZhmw8GWxh3LA6/bkABBx2GraMj
-	TUgkUT38MkwKFrW7+iKSat5ykUYDKgKeWxpZUkHwC87GsuvKH/SC2Hq4PhcYkeX4DrTHpHnszfGRf
-	3pKIDXdt8bsXYPp71p1RiQCYDhljxFSnULrnZUh8DySiUJoi/nLn/88PQELGj9rE6h7rzqo9zFjGp
-	XAlUiHrkjXx2SD8PhEQikpLsOGg5os6f5T8udNzGtIP18yCcCYB8hHFcSqYsX6O5LnphTLi/AqZWy
-	qLQpwhsA==;
-Received: from [205.251.233.52] (helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xP7ue-0000000EEk3-0BZ5;
-	Fri, 06 Nov 2026 00:34:36 +0000
-Message-ID: <b63e75987464d669779b1a861d4a073c9caf85f4.camel@infradead.org>
-Subject: Re: [PATCH 13/14] ptp: vmclock: convert mmap hook to mmap_prepare
-From: David Woodhouse <dwmw2@infradead.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Juergen Gross
- <jgross@suse.com>,  Stefano Stabellini <sstabellini@kernel.org>, Oleksandr
- Tyshchenko <oleksandr_tyshchenko@epam.com>, Madhavan Srinivasan	
- <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, Michael
- Ellerman	 <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)"
- <chleroy@kernel.org>,  "Ritesh Harjani (IBM)"	 <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Haiyang Zhang	
- <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui	
- <decui@microsoft.com>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang	
- <jasowangio@gmail.com>, Eugenio =?ISO-8859-1?Q?P=E9rez?=
- <eperezma@redhat.com>,  Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jarkko
- Sakkinen <jarkko@kernel.org>, Dave Hansen	 <dave.hansen@linux.intel.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar	 <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Jan Kara <jack@suse.com>, Paul Moore
- <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej =?UTF-8?Q?Mosn=C3=A1=C4=8Dek?=	 <omosnacek@gmail.com>, Joel Stanley
- <joel@jms.id.au>, Andrew Jeffery	 <andrew@codeconstruct.com.au>, Ryan Chen
- <ryan_chen@aspeedtech.com>, Billy Tsai	 <billy_tsai@aspeedtech.com>, Bjorn
- Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Jens Wiklander	 <jenswi@kernel.org>, Sumit
- Garg <sumit.garg@kernel.org>, Scott Branden	 <scott.branden@broadcom.com>,
- Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Richard Cochran
- <richardcochran@gmail.com>, Andrew Lunn	 <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet	 <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni	 <pabeni@redhat.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- linux-hyperv@vger.kernel.org, 	virtualization@lists.linux.dev,
- linux-sgx@vger.kernel.org, 	selinux@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-aspeed@lists.ozlabs.org,
- linux-arm-msm@vger.kernel.org, 	op-tee@lists.trustedfirmware.org,
- netdev@vger.kernel.org
-Date: Thu, 05 Nov 2026 16:34:23 -0800
-In-Reply-To: <20261105-late-2026-mmap_prepare-v1-13-c56aadfbab8a@kernel.org>
-References: <20261105-late-2026-mmap_prepare-v1-0-c56aadfbab8a@kernel.org>
-	 <20261105-late-2026-mmap_prepare-v1-13-c56aadfbab8a@kernel.org>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-RN0WgQiIue6jLyM+SxS4"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=NQZjNUv8
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 53adeb366;
+	Fri, 6 Nov 2026 08:35:57 +0800 (GMT+08:00)
+Message-ID: <6a6ca2e5-9a61-465a-a877-e167188e0b81@rock-chips.com>
+Date: Fri, 6 Nov 2026 08:35:56 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,137 +48,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Alexey Charkov <alchark@flipper.net>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v9 0/9] PCI: dw-rockchip: add system suspend support
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+References: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1ae489ed603a4kunmfb28950e220837
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHk8aVh8aSkhCTxlKGh4aQlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=NQZjNUv8fGoO9xeRIViLMwP/ALH9EtJ32byg9Zlp98Oo5UWNYhF+FVT4v0hp9AB7PEzNfWVkSOOuXk5nYWviqK68r2X7DnAEheG+rYyOneCft2zGxoHCGnZasO8O4EgkPHLvzu1+LZTPAYGaZxjef042RSCItLD4H9sn+MG5PgU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=kQ/TzfU3HeuNw7uzOiPI9CLulv8c3xdEm3+EwYgyk6c=;
+	h=date:mime-version:subject:message-id:from;
 
+Hi Sebasitain,
 
---=-RN0WgQiIue6jLyM+SxS4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+在 2026/11/05 星期四 21:33, Sebastian Reichel 写道:
+> I've been working on fixing up at least basic system suspend support on
+> the Rockchip RK3576 platform. This series is a follow-up for Shawn Lin's
+> series with feedback from Niklas Cassel and Manivannan Sadhasivam being
+> handled as well as some of my own changes fixing up things I noticed.
+> 
+> Tested boards:
+>   * Sige5 (RK3576)
+>   * Rock 4D (RK3576)
+>   * RK3588 EVB1 (RK3588)
+>   * ODROID-M1 (RK3568), Igor Velkov (previous version)
+> 
+> Somewhat related, RK3588 also needs [0] to fix PCIe IOMMU issues after
+> resume. Additionally RK3588 runs into SError on resume due to a USB2 PHY
+> problem, which is fixed via [1]. RK3576 does not use PCIe IOMMU and does
+> not run into the USB2 PHY problem (at least Sige5 and Rock 4D), so this
+> series can easily be tested standalone on that platform.
+> 
+> [0] https://lore.kernel.org/all/20260929034510.2023173-1-praan@google.com/
+> [1] https://lore.kernel.org/linux-phy/20261105-phy-rockchip-inno-usb2-clock-fix-v3-0-b20608c08b94@collabora.com/
+> 
+> Changes in v9:
+> - Link to v8: https://patch.msgid.link/20261105-rockchip-pcie-system-suspend-v8-0-0434b4f373bc@collabora.com
+> - Collect Reviewed-by tag from Shawn Lin for pme_turn_off patch
+> - Ignore suggestion from Shawn Lin to make pme_turn_off return error
+>    codes as out-of-scope. I think it is sensible, but should be done
+>    in a separate series as it will touch all glue drivers. (Shawn Lin)
+> - Update rockchip_pcie_rc_reset_root_port() to also use the
+>    rockchip_pcie_set_controller_mode() helper (Sashiko)
+> - Update DLL IRQ unmask helper to also handle instances not involving
+>    PCIE_RDLH_LINK_UP_CHGED (Sashiko)
+> - Move INTx caching after dw_pcie_suspend_noirq() to avoid a race
+>    condition (Sashiko)
+> 
 
-On Thu, 2026-11-05 at 21:05 +0000, Lorenzo Stoakes (ARM) wrote:
-> Move from the deprecated mmap hook to the new mmap_prepare hook, using th=
-e
-> I/O PFN remap mmap action to map the clock page and retaining the -EAGAIN
-> error on failure via the action error override.
->=20
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+You seem to forget to take TB tag from Igor Velkov as he tested your v8.
 
-Acked-by: David Woodhouse <dwmw@amazon.co.uk>
+> Changes in v8:
+> - Link to v7: https://patch.msgid.link/20261104-rockchip-pcie-system-suspend-v7-0-6ae6875939a2@collabora.com
+> - Drop the final debug patch; I took that over from Rockchip's vendor
+>    tree as it seems useful for debug purposes. Using it involves reading
+>    the register via /dev/mem. It's not directly tied to actual system PM
+>    support itself, so it can be submitted separetely. It's not worth
+>    fighting Sashiko for it.
+> - In LTSSM control mode patch also replace one occurance that I missed
+> - In system PM support patch add guard not suspending an already
+>    suspended PCIe devices, which can happen when resume failed following
+>    the example of UltraRISC (Sashiko)
+> - In the same patch replace 0xffff mask with PCIE_INTR_MASK to avoid
+>    overflow issue; the new mask is not functional equivalent as we just
+>    work on the lower 8 bit now. The following 8 bit are reserved on
+>    RK3588 and RK3576 anyways, though. Thus this effectivly better
+>    documents the purpose of the cached value. (Sashiko)
+> - Drop incorrect custom PERST# handling in the resume handler (Sashiko)
+> - Modify interrupt masking to follow RC instead of EP logic (Sashiko)
+> - I've not picked up the Tested-by tag from Igor Velkov on v7
+>    as there are some changes (even though I'm fairly sure they
+>    don't matter), which add RK3568 to the tested SoC range.
+> 
+> Changes in v7:
+> * Link to v6: https://patch.msgid.link/20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com
+> * Rebased to v7.4-rc1
+> * Collect Reviewed-by tags from Shawn Lin to (mostly) unchanged patches;
+>    I skipped some due to changes in v7
+> * Keep dev_err_probe() message for rockchip_pcie_phy_init in patch
+>    restoring vpcie3v3 regulator handling
+> * Avoid dynamic mask for extra flags in "enhanced LTSSM control mode helper"
+>    by just adding specific support for the extra flag needed. Apparently
+>    some compiler configurations don't like it.
+> * Avoid duplicated register define in In pme_turn_off patch
+> * Move bit defines to the correct register defines in pme_turn_off patch
+> * In broken L1SS resume flag patch move the explanation comment from the
+>    code to the commit message (FWIW this comment is not AI generated by
+>    me, but was copied from the Qcom implementation).
+> * In system PM support patch, set pp->suspend_poweroff to fix the issue
+>    identified by Igor
+> * In system PM support patch, just return 0 for DW_PCIE_EP_TYPE (Mani)
+>    to keep the status-quo (I've not tested this specifically).
+> * In system PM support patch, use the same init order as probe (Sashiko)
+> * In clear debug buffer patch, drop dw_pcie_dbi_ro_wr_dis(), which
+>    is already done by the core nowadays (Sashiko, Mani)
+> * In clear debug buffer patch, fix actual register write (Sashiko)
+> * In clear debug buffer patch, update patch description with
+>    better explanation about the register (Mani)
+> 
+> Changes in v6:
+>   * https://lore.kernel.org/r/20260316-rockchip-pcie-system-suspend-v5-0-5bb5ad37d643@collabora.com
+>   * Rebase to pci/next
+>   * Minor changes to make checkpatch happy
+>   * Update patch description of the last patch and drop RFC tag
+>     according to feedback from Shawn Lin
+>   * Prepend new patch, which fixes Nicolas Frattaroli's conversion
+>     to FIELD_PREP_WM16 accidently dropping a flag.
+>   * Add another new patch, which sets .broken_l1ss_resume to tell the
+>     PCI core that the controller is powered off during suspend following
+>     the Qcom example
+> 
+> Changes in v5:
+>   * https://lore.kernel.org/r/20251029-rockchip-pcie-system-suspend-v4-0-ce2e1b0692d2@collabora.com
+>   * rebase to v7.0-rc1
+>   * Add an RFC patch at the end with some bits I found in the Rockchip vendor kernel;
+>   * Made some tests on Rock 5B+ (RK3588); with this patch series suspending works
+>     when setting pm_test to devices. A full system suspend fails in a later step,
+>     but that is independent of PCIe.
+> 
+> Changes in v4:
+>   * https://lore.kernel.org/linux-pci/1744940759-23823-1-git-send-email-shawn.lin@rock-chips.com/
+>   * rename rockchip_pcie_get_ltssm to rockchip_pcie_get_ltssm_status_reg
+>     in a separate patch (Niklas Cassel)
+>   * rename rockchip_pcie_get_pure_ltssm to rockchip_pcie_get_ltssm_state
+>     in a separate patch (Niklas Cassel)
+>   * Move devm_phy_get out of phy_init to probe in a separate patch
+>     (Manivannan Sadhasivam)
+>   * Add helper function for enhanced LTSSM control mode in a separate patch
+>     (Niklas Cassel)
+>   * Add helper function for controller mode in a separate patch
+>     (Niklas Cassel)
+>   * Add helper function for DDL indicator in a separate patch
+>     (Niklas Cassel)
+>   * Move rockchip_pcie_pme_turn_off implementation in a separate patch
+>   * Rebase to v6.18-rc3 using new FIELD_PREP_WM16()
+>   * Improve readability of PME_TURN_OFF/PME_TO_ACK defines (Manivannan Sadhasivam)
+>   * Fix usage of reverse Xmas (Manivannan Sadhasivam)
+>   * Assert PERST# before turning off other resources (Manivannan Sadhasivam)
+>   * Improve some error messages (Manivannan Sadhasivam)
+>   * Rename goto labels as per their purpose (Manivannan Sadhasivam)
+>   * Add extra patch for dw_pcie_resume_noirq, since I've seen errors
+>     during resume on boards not having anything plugged into their PCIe
+>     port
+> 
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+> Sebastian Reichel (9):
+>        PCI: dw-rockchip: Fix LTSSM set functions
+>        PCI: dw-rockchip: Restore vpcie3v3 regulator handle
+>        PCI: dw-rockchip: Move devm_phy_get out of phy_init
+>        PCI: dw-rockchip: Add helper function for enhanced LTSSM control mode
+>        PCI: dw-rockchip: Add helper function for controller mode
+>        PCI: dw-rockchip: Add helper function for DLL interrupts
+>        PCI: dw-rockchip: Add pme_turn_off support
+>        PCI: dw-rockchip: Set broken L1SS resume flag
+>        PCI: dw-rockchip: Add system PM support
+> 
+>   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 283 +++++++++++++++++++++-----
+>   1 file changed, 228 insertions(+), 55 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20251028-rockchip-pcie-system-suspend-86cf08a7b229
+> 
+> Best regards,
+> --
+> Sebastian Reichel <sebastian.reichel@collabora.com>
+> 
+> 
 
---=-RN0WgQiIue6jLyM+SxS4
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-NDA5NlNIQTM4NDIwMjRDQTEuY3J0MA0GCSqGSIb3DQEBCwUAA4ICAQChxpuuHVw93mze9jmueUFV
-BJNzvOzZlazrt0AiW1H7TlYQutgKVXPNSEyz8s4k+WsRSjjlQMOiZerfwPEV6lo9336I0uNd+ffc
-Rf8gbjiPTiVT+gX9GD1V5AguRgtsJn/H3A6M0dlzhI3J1jsOG9/+xPloHPzy7sPn5rNkntB/VTnv
-Bix4IfUy3ScOu2vnLX0gnwP3EknfdEUvq9+kdkEEBDz7dGqQo3EuhXZoW9CHF2GM0sOpO/cuNQh2
-JzA+to3smTES7sJXYuRrt5GomCRYvtIrRiYGMalFp+z6Jw/843lEIIpNNvpWVfx5Mbawkl+wWG8k
-0IK3rF7FtbNa0it8/s288G/AEHvfsDIQYFmRLlo2LNMxxREkZO/1Qq8GHUsX/602Fi0u88I3uh5w
-bOEIeG32NzBKTKBOjdjpiUrdCA676dyaIFt967CUtnUvFti8bqGA2pe/u7pjIANthqMBAlcnY5B6
-ff2mbdD8BBLItgb4HyUOCVawzy1hc+UR2tglySwYroWeohfoG6afjesGigsl2JmnhaZ9Z0vanF74
-vFEOOmuaq7VamuLEPFQtJM4olmipOW6CzrLcFz6J/6yAecEG3P1ZDoy08eSHvM40MAUgpwGa/w6o
-9ALHQXda/c4TJvAylfHQ6wqArzAuV1pfWldwy7IOBMtKqzQBXQ4dSDGCBCAwggQcAgEBMHYwYjEL
-MAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMTowOAYDVQQDEzFEaWdpQ2VydCBB
-c3N1cmVkIEcyIFNNSU1FIFJTQTQwOTYgU0hBMzg0IDIwMjQgQ0ExAhADNSi2uzJskfEdOMo4hV0g
-MA0GCWCGSAFlAwQCAQUAoIIBezAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
-BTEPFw0yNjExMDYwMDM0MjNaMC8GCSqGSIb3DQEJBDEiBCB3Y3XV29ylkatqX3VXwcZZSIluUrOS
-+puFtePMlHSd1jCBhQYJKwYBBAGCNxAEMXgwdjBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGln
-aUNlcnQsIEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBT
-SEEzODQgMjAyNCBDQTECEAM1KLa7MmyR8R04yjiFXSAwgYcGCyqGSIb3DQEJEAILMXigdjBiMQsw
-CQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQsIEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFz
-c3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQgMjAyNCBDQTECEAM1KLa7MmyR8R04yjiFXSAw
-DQYJKoZIhvcNAQEBBQAEggIArWdZeNYTQnhbl/9EdJl/V9gr+nmhqRD7/ZTiMHCfuh8h8t9QpCPv
-yuIsqjMjiguQ6GsPf+GCR1Dpu0gTksjwlfJZt6ss+83uKK9Zol47BDT+gWdf0ScJrW7w+FM5VfBU
-zT56PJwjC6uXNNpLYElejHha7shNPKViZ3BqmXylAJ7+BTZmK2rXHNsmz7chrAw820UHdOEded5b
-jQeE41f2FDZ4B5hyrR7V6myNdu7Ycx5WXcxV9X3LYp78ZTEGg3Kmvk8YvBRLJMEF+G/7tYHFsqgn
-5PQRfKRNhjh6N8TQQCFOb68MdbG+jVDcPA0vPcg9J8ZJlg1YgBgNTcE7jezC0UvQC8zVRK1W5WgE
-axzKwfmwR0TZV8l0VuKe7dHeZwRmpY5gLqE5yPSverPDiYooBaPGWNS6WPrMsQ2K3JJ5L2CJXWiH
-tF6ylOgAAtEuFRR0TujFmimZD/pEr6S3vpWnEwEPff7tZ9oqafqzkBZv4rJcAp1IoKU6ULSyZBrT
-LRXHNXCVlpN8tgz31s4NaT+yliIDpEy7fhAd39MJC/1HD/t4KfzFf6l5ldAZdTRlXCl7AR6o6G/S
-exb7Cl8/JYYFr/iN4hjwDLt8+F7Oa1Ab0USlr8ENF6wkg6UZ7EWvMWQoU+KZ7QkCGGHt+ZD8xkNW
-Wd3tVt5mM9c7I1ZpaKcELisAAAAAAAA=
-
-
---=-RN0WgQiIue6jLyM+SxS4--
