@@ -1,61 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793991987;
-	b=vfpWF0+m1ANI6KrfxkCG7P/1Vcy5Vk84SH6cute3sKt2NnVXtF7vZpUTxe0wdqhz0SAp
-	 Do5URNY+g9fJqjae0aF5+paF6MPvFpuJy55huE2qerymAELjGdKop14xz8vi0LbrLeYC/
-	 TtP0sooMT4VP59nyeOJA69Joh99dgB77we6PicrMgeHYEgnFdN6gEIKItxJyW0Ngfwazw
-	 OZOXj/bUH+xqgNcHp9YDxq1fFd2XJVJ0qT6teImPp1gh9JPcq7Qa2IrTF58xHekj8tW1s
-	 YUYntIMpjXxURo9bFi07hKMhWgSOPS6OO5JQojrFdHDiRs5+pqK2byx6E4zlbBAjb6g==
+	t=1793991993;
+	b=QBfncWQcEEQN1/72XHxDW9lbiH1oOaPmfSNcRkDNH2Rtzw7Dcuz6wtker8dlPHdhxMcD
+	 ynL+Q+zZCgHe1LQRSWh5uw9lJTaH18Bvr45u2wCK+vjmJyupZ/pMnZdWc/ZHBcwGH2ad5
+	 D3Xaq1n/avAeiqIeOkBu+9YutePX4vDGMUXcoC5AXK1dPi3JPRBjdKwIDxcLKzF3R8cZ3
+	 7sEIm64OP+979FrUTzSJR6V0oJuBkjyWSvKnRbWv+RUSTodH4b30pHAMkbn/Ay9Wxcxdv
+	 Hq9Sx9maHdxoQ0pgYDL5FZsJhG5G375J9B1NAX+8USvLJVTo8UA51vWZEHPZS6KoUdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793991987;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=+NjOJ5pOnnofcQsbhIWpah3NkmqOpyo95zcnCMhbHME=;
-	b=RStOaE9OlgH7TgVKCl1Oeq3QUAK/7wMCGc246c91/UJg5WdI12Mmutn13oh2KnPJ6i1r
-	 SDk+zucogBYBVgDzneZyBCyxWliagg4UW+aC8OauY3IeQW1deXGs8Y9+R59azUhSKt2o0
-	 wN0KtKw0nwwqBO89rWZWv6giAsyMAfhz1JfEcHFH6gDe/XhkEStEt9suRDZfwBP1zxiPj
-	 2RTegs1G/3OJ6u7mriAF7mGBhVxACpSb9QSoR4b27pz+vY/3uVyDASzHZ+v2S8L+uWKnZ
-	 p/0TVPvpK4xLs8Bbv/NGTxWbiBxWKxXbjcb4KHjRqw4eaZAQETQMENVLPjqiuLWMaVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793991993;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bSA9v8W3T7lo5Myhbr3wCFSrLSSjl8OXlhbS86xJyGM=;
+	b=PfLDgeYAQoLniwUPtv7+KlW7aDDqe2mb11cORZfXSdkyKSBR/0Q2Pry4lzCNVjVFerKd
+	 jM6ZD5mRcLJHLyJSzJ0nXjQ1XHdSiDBucTFKw9ya08nCQXRkJ4nAI+t3eaHKdMYLjsu5V
+	 Hs0cgGdLx+xhv/8DqjB38ocIvHl/y/NAhNDKk6Ezd+L7qbi4iO18Unv6QtuYdSF8gudCR
+	 8oWMFFaJw8P8JNnS0+4YakNpyKu6U+rOvhf8I5KjJLyxDLgmRYyq19qRaVbrh4Of40Tnj
+	 5XCHxd2TbNCgEXoy6apPVPNUiskYyFgv6iUmtRkZ6HUzTbeidljfH9pAVhwej2kTzgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVLbISwJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yBfT0MUb;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389EC606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:06:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5215606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 19:06:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5215606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVLbISwJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA2811F0089F;
-	Fri,  6 Nov 2026 19:06:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793991986;
-	bh=+NjOJ5pOnnofcQsbhIWpah3NkmqOpyo95zcnCMhbHME=;
-	h=From:To:Cc:Subject:Date;
-	b=mVLbISwJpnnfXwKrUfpK5RoRnvYR3mJl8hiNfaEOgHvr7B6w5pxWW9hgM2FueGeuA
-	 9nepsf3qgW0ITzv8cI8AM4iNsP7JqGG6yEa5kXCdGmbBN6myI/rGlVlMWWfUdASqcc
-	 +M90YZD44xQbBrxYOEs7wGC52MUpJqxWr7WbNjw9XFzNZ7ewIo15poo+UWLUuyenms
-	 1J+qI6tCPJx+XswvTi/1ahF6E5WAXr/kb6+WXzk57GjVSn6znvkVzQv2OW4yZwfuTo
-	 LAJlFLaoBIPamhGfXMr5/WlsEjvjn6d1eFEdQYtvSefWEgtQKm0u4OhRRFGQr/pEH1
-	 h5aABMjlZq/TQ==
-From: Conor Dooley <conor@kernel.org>
-To: linux-riscv@lists.infradead.org
-Cc: conor@kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Jisheng Zhang <jszhang@kernel.org>,
-	Andrew Jones <andrew.jones@linux.dev>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Guodong Xu <guodong.xu@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] riscv: remove RISCV_ISA_EXT_BUNDLE[_VALIDATE]
-Date: Fri,  6 Nov 2026 19:05:59 +0000
-Message-ID: <20261106190559.1906130-3-conor@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yBfT0MUb
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so1133696f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 11:06:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793991991; x=1794596791; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bSA9v8W3T7lo5Myhbr3wCFSrLSSjl8OXlhbS86xJyGM=;
+        b=yBfT0MUb8h87VbQCan7nkpZMlMecNwwSNQcSV5CcfwLQY7KQcYy0j28hZ3gKVcVYto
+         7OYDt7qTQbxxLTSgGRZTCGfLaCP8C/suZo7bvIp4K5ugbZcPqZ8ZGLaKett5LXtweDBr
+         ShR0WZV8d3OjUiAdHZGXaoUHnfrpn8LVLTTRIkSM+6UHkTlZLfouEPUDe8Sdlp0JhPMs
+         f/X/NHOzLVKfncmthvQu8bn3SMw9tJXR8aG8NyrsQfnw8xCJd7G/cOXvey+2OR36N4HH
+         fHi2QbAdAKqwUQVoGmWJ8+bZSGtCxWbmq7UYzd+t0ikThdYK3AayPHCSfDARV0rmNk0F
+         Wf2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793991991; x=1794596791;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bSA9v8W3T7lo5Myhbr3wCFSrLSSjl8OXlhbS86xJyGM=;
+        b=CeTrazY/WONVNGCh38QFcqr5Mcb/GM3NumdqNgG6O4HiOTUTo/pG66YelQrJlaQz1Z
+         WecPbth0v2ZPulGCw2TlRoar5bpX77SV2ALBPDQRxfYDImusvqYVlaTHnHaJP2HLCFG0
+         2jk0+7OV/7KYaQrFm62U+PIUfsZRi0X57pnPREJtqefLdlUS/z1YEeYresLvSv7t3P2B
+         6CIG3KBrTi86bDpxKXWkJV1xCXJNWm9MLGeQocL+RA3PrAx7tjU/3UXKnpKwPdOdIMGJ
+         P9ceLHtBoLW31hI7IoDbJSF2zIiVFC3SGmCK8BonXcuqBFY1IdExdeWzmpWPv9A9CmM6
+         57FA==
+X-Forwarded-Encrypted: i=1; AL+hErGNyjuoij6Kv2yq6KMaCeio3OLeb/7rZLBD1NYk+zAsSiTTpRSu6mAwqSj+gsqNfQdgg/khOespI/7lUOo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/k1asBdoBHnICd7GdSWkrX4ph4CBTfsevULRcL3aRNAezIIU8i
+	mxIzm4NZ8NxVnIuijV9zdNLj9kabSFVYPt/dzfFIswr2si691QoZgXYJ
+X-Gm-Gg: AYBFou3CIjAJC+XxpMkN1OFUMgxHOVEkWZCDUHucxj4So4SLSqThcR3h0iuqAgrSwQc
+	JyavoD1+92r4Iz8EEUSgqVMYNywBsfOxa7XsS7vEPbwSZ0kpcQvQGayOAvgfxBU0kWKK82AREeS
+	8WNaArrj+bLNn76p8Bhm+E5/rBj/sVFnO9o6DS+HWD/YBEQZridweyziA4TZ2ldqa7jXdHv2Xl+
+	DOQQPNFxGl8+iiN5hAwGcfNhfGUPuyo7d+EneJj2y+jMOWhWQHSHqRbdBsqR4kOdec01Pii0yVx
+	fBVha9c6m2zKzd1UruAprU2BXnLMxPlZeJsD4FqF6tSUKUyBBsBm8pNI1ljTJNuRS55XgckoDzo
+	g0F4ESn57kOsz4eZ58zOxjFEXOcM8d+d1f9rLjLeB3Z+U2dCTEz9XxR5OW3R4igv1UNa0IOee8L
+	K/axd+T8PwQdyCIy7XSiJNno8PFgABvkxCxPuykx5eV45mH4RrvijbEghDCvjV+/tzzKhFsv8/J
+	6Nj8JG/dEX6oOmL/bvsNdaSOErUgGSyuZiOa8WJ18uLZ2SYNck+tNVkrK2AnYLvzgipgPP2VJg6
+	h90JyOLtKbC38Dx/x9e07wKOUFNDNhUjdRyy31s9GeyHb1Ikxdahwr/7NVBDF5Q10qkpfV2cnaa
+	muND9EkjW+mWCAvQC5Tfv/0soOXC1UbRbWvDLbA==
+X-Received: by 2002:a05:6000:2089:b0:491:1e11:9ffe with SMTP id ffacd0b85a97d-49273f50710mr7197658f8f.2.1793991991245;
+        Fri, 06 Nov 2026 11:06:31 -0800 (PST)
+Received: from localhost.localdomain ([74.244.226.39])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4930a5a91dbsm3960533f8f.35.2026.11.06.11.06.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 11:06:30 -0800 (PST)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: linkinjeon@kernel.org,
+	stfrench@microsoft.com
+Cc: icb@fastmail.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	ematsumiya@suse.de,
+	lsahlber@redhat.com,
+	hyc.lee@gmail.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Subject: [PATCH v2 0/4] ksmbd: verify session setup requests before signing with their key
+Date: Fri,  6 Nov 2026 20:06:18 +0100
+Message-ID: <20261106190622.20990-1-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103171742.18816-1-icb@fastmail.org>
+References: <20261103171742.18816-1-icb@fastmail.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,276 +107,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10948; i=conor.dooley@microchip.com; h=from:subject; bh=85cdTfTeCH8rmQXRT4bau4H2m8Xbgfwdn6wt/FXqDGU=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFnvVMVNj0m9+pz43o9t6qNlC5eeZPr7O9TRY43vygLBz 3r/XRZM6yhlYRDjYpAVU2RJvN3XIrX+j8sO5563MHNYmUCGMHBxCsBEKoMZGRpPLtj2Kaj91pMm o8cvFj+6FXGjWyDjVejhZwxT/pSt5PzC8JOxy1xtYs0hk6LVzId/hhUqnWst2xc78aPkvZ+8117 4CvAAAA==
-X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
 Content-Transfer-Encoding: 8bit
 
-From: Conor Dooley <conor.dooley@microchip.com>
+ksmbd signs some SESSION_SETUP and error responses with a session's key
+without having verified the request, which lets a peer that does not hold
+the key obtain signatures made with it. This series fixes those cases and
+makes ksmbd sign with the SMB 3.1.1 signing algorithm it negotiated.
 
-RISCV_ISA_EXT_BUNDLE actually made sense when it was originally added,
-since it presented a simple interface where users (be that in kernel or
-userspace via things they are presented by the kernel) would check the
-exact extension needed for a feature, rather than muddying the water
-with parent extensions. As a result, the kernel does not track the
-status of the parent extension in the bundle, nor expose it to
-userspace.
+1/4 verifies multichannel binding requests with the session signing key
+    (MS-SMB2 3.3.5.2.4), as reported by Ian Bridges.
+2/4 keeps the negotiated SMB 3.1.1 signing algorithm instead of always
+    using AES-CMAC, and signs each key with its own algorithm.
+3/4 verifies signed reauthentication requests and uses the channel key
+    for session setup on a bound channel. A reauthentication with a
+    forged signature used to get a response signed with the session key.
+4/4 checks the MessageId and signature of a request before signing
+    STATUS_NETWORK_SESSION_EXPIRED, also reported by Ian Bridges.
 
-This is in comparison to RISCV_ISA_EXT_SUPERSET,
-where the parent extension provided some explicit value, and would have
-to be checked for itself for some potential feature, and therefore we
-actually track the status of both child and parent extensions, and let
-userspace detect them independently.
+Changes since v1:
+- 1/4 is new: verify the signature of session binding requests, as
+  reported by Ian Bridges.
+- 2/4 (v1 1/2): reset the negotiated signing state on every NEGOTIATE;
+  Cc stable, since 3/4 depends on it.
+- 3/4 and 4/4 are new.
+- The AES-GMAC signing patch (v1 2/2) is dropped from this series and
+  will be posted separately.
 
-Since we added this stuff, there's been some retroactive extension
-releases by RVI that have made previous monolithic extensions into pure
-wrappers that we intended using RISCV_ISA_EXT_BUNDLE for. Since we
-previously tracked that as one extension, and exported it to users as
-one extension, we can't just use RISCV_ISA_EXT_BUNDLE, and have to use
-RISCV_ISA_EXT_SUPERSET instead and nobody seems to know what to use each
-actually for anymore.
+Testing, on a KASAN/lockdep UML kernel with ksmbd-tools: forged and
+replayed binding, reauthentication and expired-session requests, also
+inside compounds, get unsigned refusals with AES-CMAC and HMAC-SHA256;
+randomized requests against these paths and concurrent bind/reauth/
+logoff stress found no signed response to an unverified request and no
+KASAN or lockdep report; the Linux cifs client works with SMB 2.1 to
+3.1.1, signed and encrypted; smbtorture's session, signing, I/O,
+compound, lock, oplock, lease, notify and ioctl suites give the same
+results as without the series. Ian Bridges also tested an earlier
+revision with his own probes and smbtorture. Not tested: Windows
+clients, and Kerberos expiry with a real KDC (it was emulated with a
+test-only change).
 
-Just delete RISCV_ISA_EXT_BUNDLE for the sake of consistency between
-things that were always a bundle from ratification and for those
-retroactively made into bundles, with the side benefit of being less
-confusing for those adding extensions to the kernel.
+An AI assistant was used to draft the patches and as an independent
+reviewer.
 
-Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
----
-Not 100% on if my comments on the initial rationale are right, they're
-just my recollection...
+Michail Andreas Michalopoulos (4):
+  ksmbd: verify the signature of session binding requests
+  ksmbd: sign with the negotiated SMB 3.1.1 signing algorithm
+  ksmbd: use the channel signing key for session setup on a bound
+    channel
+  ksmbd: check a request before signing STATUS_NETWORK_SESSION_EXPIRED
 
-This is a rebase of the rfc, I didn't change anything functionally I
-just ran it on a board in the interim.
+ fs/smb/server/auth.c              |  14 +++-
+ fs/smb/server/auth.h              |   4 +-
+ fs/smb/server/mgmt/user_session.c |   1 +
+ fs/smb/server/mgmt/user_session.h |   2 +
+ fs/smb/server/server.c            |  39 +++++++++-
+ fs/smb/server/smb2ops.c           |   4 +-
+ fs/smb/server/smb2pdu.c           | 114 +++++++++++++++++++++++++-----
+ 7 files changed, 154 insertions(+), 24 deletions(-)
 
-Cheers,
-Conor
 
-CC: Paul Walmsley <pjw@kernel.org>
-CC: Palmer Dabbelt <palmer@dabbelt.com>
-CC: Alexandre Ghiti <alex@ghiti.fr>
-CC: Conor Dooley <conor.dooley@microchip.com>
-CC: Jisheng Zhang <jszhang@kernel.org>
-CC: Andrew Jones <andrew.jones@linux.dev>
-CC: Charlie Jenkins <thecharlesjenkins@gmail.com>
-CC: Guodong Xu <guodong.xu@oss.qualcomm.com>
-CC: linux-riscv@lists.infradead.org
-CC: linux-kernel@vger.kernel.org
----
- arch/riscv/include/asm/cpufeature.h |  8 ---
- arch/riscv/include/asm/hwcap.h      | 13 +++-
- arch/riscv/kernel/cpufeature.c      | 97 ++++++++++++++++-------------
- 3 files changed, 64 insertions(+), 54 deletions(-)
-
-diff --git a/arch/riscv/include/asm/cpufeature.h b/arch/riscv/include/asm/cpufeature.h
-index 99799cc6c198..4be952a41bba 100644
---- a/arch/riscv/include/asm/cpufeature.h
-+++ b/arch/riscv/include/asm/cpufeature.h
-@@ -58,14 +58,6 @@ void riscv_clear_hypervisor_csr(void);
- #define __RISCV_ISA_EXT_DATA_VALIDATE(_name, _id, _validate) \
- 			_RISCV_ISA_EXT_DATA(_name, _id, NULL, 0, _validate)
- 
--/* Used to declare pure "lasso" extension (Zk for instance) */
--#define __RISCV_ISA_EXT_BUNDLE(_name, _bundled_exts) \
--	_RISCV_ISA_EXT_DATA(_name, RISCV_ISA_EXT_INVALID, _bundled_exts, \
--			    ARRAY_SIZE(_bundled_exts), NULL)
--#define __RISCV_ISA_EXT_BUNDLE_VALIDATE(_name, _bundled_exts, _validate) \
--	_RISCV_ISA_EXT_DATA(_name, RISCV_ISA_EXT_INVALID, _bundled_exts, \
--			    ARRAY_SIZE(_bundled_exts), _validate)
--
- /* Used to declare extensions that are a superset of other extensions (Zvbb for instance) */
- #define __RISCV_ISA_EXT_SUPERSET(_name, _id, _sub_exts) \
- 	_RISCV_ISA_EXT_DATA(_name, _id, _sub_exts, ARRAY_SIZE(_sub_exts), NULL)
-diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwcap.h
-index b5952db9259f..a1cf9a935519 100644
---- a/arch/riscv/include/asm/hwcap.h
-+++ b/arch/riscv/include/asm/hwcap.h
-@@ -126,10 +126,19 @@
- #define RISCV_ISA_EXT_ZIC64B		116
- #define RISCV_ISA_EXT_SV48		117
- #define RISCV_ISA_EXT_SV57		118
-+#define RISCV_ISA_EXT_ZK		119
-+#define RISCV_ISA_EXT_ZKN		120
-+#define RISCV_ISA_EXT_ZKS		121
-+#define RISCV_ISA_EXT_ZVKN		122
-+#define RISCV_ISA_EXT_ZVKNC		123
-+#define RISCV_ISA_EXT_ZVKNG		124
-+#define RISCV_ISA_EXT_ZVKS		125
-+#define RISCV_ISA_EXT_ZVKSC		126
-+#define RISCV_ISA_EXT_ZVKSG		127
- 
--#define RISCV_ISA_EXT_XLINUXENVCFG	127
-+#define RISCV_ISA_EXT_XLINUXENVCFG	255
- 
--#define RISCV_ISA_EXT_MAX		128
-+#define RISCV_ISA_EXT_MAX		256
- #define RISCV_ISA_EXT_INVALID		U32_MAX
- 
- #ifdef CONFIG_RISCV_M_MODE
-diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeature.c
-index 72bce616491f..b4ce5221a26c 100644
---- a/arch/riscv/kernel/cpufeature.c
-+++ b/arch/riscv/kernel/cpufeature.c
-@@ -340,14 +340,6 @@ static const unsigned int riscv_a_exts[] = {
- 	RISCV_ISA_EXT_ZALRSC,
- };
- 
--#define RISCV_ISA_EXT_ZKN	\
--	RISCV_ISA_EXT_ZBKB,	\
--	RISCV_ISA_EXT_ZBKC,	\
--	RISCV_ISA_EXT_ZBKX,	\
--	RISCV_ISA_EXT_ZKND,	\
--	RISCV_ISA_EXT_ZKNE,	\
--	RISCV_ISA_EXT_ZKNH
--
- static int riscv_ext_smcdeleg_validate(const struct riscv_isa_ext_data *data,
- 				       const unsigned long *isa_bitmap)
- {
-@@ -369,60 +361,77 @@ static int riscv_ext_ssccfg_validate(const struct riscv_isa_ext_data *data,
- 	return -EPROBE_DEFER;
- }
- 
--static const unsigned int riscv_zk_bundled_exts[] = {
--	RISCV_ISA_EXT_ZKN,
-+static const unsigned int riscv_zk_sub_exts[] = {
-+	RISCV_ISA_EXT_ZBKB,
-+	RISCV_ISA_EXT_ZBKC,
-+	RISCV_ISA_EXT_ZBKX,
-+	RISCV_ISA_EXT_ZKND,
-+	RISCV_ISA_EXT_ZKNE,
-+	RISCV_ISA_EXT_ZKNH,
- 	RISCV_ISA_EXT_ZKR,
- 	RISCV_ISA_EXT_ZKT
- };
- 
--static const unsigned int riscv_zkn_bundled_exts[] = {
--	RISCV_ISA_EXT_ZKN
-+static const unsigned int riscv_zkn_sub_exts[] = {
-+	RISCV_ISA_EXT_ZBKB,
-+	RISCV_ISA_EXT_ZBKC,
-+	RISCV_ISA_EXT_ZBKX,
-+	RISCV_ISA_EXT_ZKND,
-+	RISCV_ISA_EXT_ZKNE,
-+	RISCV_ISA_EXT_ZKNH
- };
- 
--static const unsigned int riscv_zks_bundled_exts[] = {
-+static const unsigned int riscv_zks_sub_exts[] = {
- 	RISCV_ISA_EXT_ZBKB,
- 	RISCV_ISA_EXT_ZBKC,
- 	RISCV_ISA_EXT_ZKSED,
- 	RISCV_ISA_EXT_ZKSH
- };
- 
--#define RISCV_ISA_EXT_ZVKN	\
--	RISCV_ISA_EXT_ZVKNED,	\
--	RISCV_ISA_EXT_ZVKNHB,	\
--	RISCV_ISA_EXT_ZVKB,	\
--	RISCV_ISA_EXT_ZVKT
- 
--static const unsigned int riscv_zvkn_bundled_exts[] = {
--	RISCV_ISA_EXT_ZVKN
-+static const unsigned int riscv_zvkn_sub_exts[] = {
-+	RISCV_ISA_EXT_ZVKNED,
-+	RISCV_ISA_EXT_ZVKNHB,
-+	RISCV_ISA_EXT_ZVKB,
-+	RISCV_ISA_EXT_ZVKT
- };
- 
--static const unsigned int riscv_zvknc_bundled_exts[] = {
--	RISCV_ISA_EXT_ZVKN,
-+static const unsigned int riscv_zvknc_sub_exts[] = {
-+	RISCV_ISA_EXT_ZVKNED,
-+	RISCV_ISA_EXT_ZVKNHB,
-+	RISCV_ISA_EXT_ZVKB,
-+	RISCV_ISA_EXT_ZVKT,
- 	RISCV_ISA_EXT_ZVBC
- };
- 
--static const unsigned int riscv_zvkng_bundled_exts[] = {
--	RISCV_ISA_EXT_ZVKN,
-+static const unsigned int riscv_zvkng_sub_exts[] = {
-+	RISCV_ISA_EXT_ZVKNED,
-+	RISCV_ISA_EXT_ZVKNHB,
-+	RISCV_ISA_EXT_ZVKB,
-+	RISCV_ISA_EXT_ZVKT,
- 	RISCV_ISA_EXT_ZVKG
- };
- 
--#define RISCV_ISA_EXT_ZVKS	\
--	RISCV_ISA_EXT_ZVKSED,	\
--	RISCV_ISA_EXT_ZVKSH,	\
--	RISCV_ISA_EXT_ZVKB,	\
-+static const unsigned int riscv_zvks_sub_exts[] = {
-+	RISCV_ISA_EXT_ZVKSED,
-+	RISCV_ISA_EXT_ZVKSH,
-+	RISCV_ISA_EXT_ZVKB,
- 	RISCV_ISA_EXT_ZVKT
--
--static const unsigned int riscv_zvks_bundled_exts[] = {
--	RISCV_ISA_EXT_ZVKS
- };
- 
--static const unsigned int riscv_zvksc_bundled_exts[] = {
--	RISCV_ISA_EXT_ZVKS,
-+static const unsigned int riscv_zvksc_sub_exts[] = {
-+	RISCV_ISA_EXT_ZVKSED,
-+	RISCV_ISA_EXT_ZVKSH,
-+	RISCV_ISA_EXT_ZVKB,
-+	RISCV_ISA_EXT_ZVKT,
- 	RISCV_ISA_EXT_ZVBC
- };
- 
--static const unsigned int riscv_zvksg_bundled_exts[] = {
--	RISCV_ISA_EXT_ZVKS,
-+static const unsigned int riscv_zvksg_sub_exts[] = {
-+	RISCV_ISA_EXT_ZVKSED,
-+	RISCV_ISA_EXT_ZVKSH,
-+	RISCV_ISA_EXT_ZVKB,
-+	RISCV_ISA_EXT_ZVKT,
- 	RISCV_ISA_EXT_ZVKG
- };
- 
-@@ -606,13 +615,13 @@ const struct riscv_isa_ext_data riscv_isa_ext[] = {
- 	__RISCV_ISA_EXT_DATA(zbkc, RISCV_ISA_EXT_ZBKC),
- 	__RISCV_ISA_EXT_DATA(zbkx, RISCV_ISA_EXT_ZBKX),
- 	__RISCV_ISA_EXT_DATA(zbs, RISCV_ISA_EXT_ZBS),
--	__RISCV_ISA_EXT_BUNDLE(zk, riscv_zk_bundled_exts),
--	__RISCV_ISA_EXT_BUNDLE(zkn, riscv_zkn_bundled_exts),
-+	__RISCV_ISA_EXT_SUPERSET(zk, RISCV_ISA_EXT_ZK, riscv_zk_sub_exts),
-+	__RISCV_ISA_EXT_SUPERSET(zkn, RISCV_ISA_EXT_ZKN, riscv_zkn_sub_exts),
- 	__RISCV_ISA_EXT_DATA(zknd, RISCV_ISA_EXT_ZKND),
- 	__RISCV_ISA_EXT_DATA(zkne, RISCV_ISA_EXT_ZKNE),
- 	__RISCV_ISA_EXT_DATA(zknh, RISCV_ISA_EXT_ZKNH),
- 	__RISCV_ISA_EXT_DATA(zkr, RISCV_ISA_EXT_ZKR),
--	__RISCV_ISA_EXT_BUNDLE(zks, riscv_zks_bundled_exts),
-+	__RISCV_ISA_EXT_SUPERSET(zks, RISCV_ISA_EXT_ZKS, riscv_zks_sub_exts),
- 	__RISCV_ISA_EXT_DATA(zkt, RISCV_ISA_EXT_ZKT),
- 	__RISCV_ISA_EXT_DATA(zksed, RISCV_ISA_EXT_ZKSED),
- 	__RISCV_ISA_EXT_DATA(zksh, RISCV_ISA_EXT_ZKSH),
-@@ -632,17 +641,17 @@ const struct riscv_isa_ext_data riscv_isa_ext[] = {
- 	__RISCV_ISA_EXT_DATA(zvfhmin, RISCV_ISA_EXT_ZVFHMIN),
- 	__RISCV_ISA_EXT_DATA_VALIDATE(zvkb, RISCV_ISA_EXT_ZVKB, riscv_ext_vector_crypto_validate),
- 	__RISCV_ISA_EXT_DATA_VALIDATE(zvkg, RISCV_ISA_EXT_ZVKG, riscv_ext_vector_crypto_validate),
--	__RISCV_ISA_EXT_BUNDLE_VALIDATE(zvkn, riscv_zvkn_bundled_exts, riscv_ext_vector_crypto_validate),
--	__RISCV_ISA_EXT_BUNDLE_VALIDATE(zvknc, riscv_zvknc_bundled_exts, riscv_ext_vector_crypto_validate),
-+	__RISCV_ISA_EXT_SUPERSET_VALIDATE(zvkn, RISCV_ISA_EXT_ZVKN, riscv_zvkn_sub_exts, riscv_ext_vector_crypto_validate),
-+	__RISCV_ISA_EXT_SUPERSET_VALIDATE(zvknc, RISCV_ISA_EXT_ZVKNC, riscv_zvknc_sub_exts, riscv_ext_vector_crypto_validate),
- 	__RISCV_ISA_EXT_DATA_VALIDATE(zvkned, RISCV_ISA_EXT_ZVKNED, riscv_ext_vector_crypto_validate),
--	__RISCV_ISA_EXT_BUNDLE_VALIDATE(zvkng, riscv_zvkng_bundled_exts, riscv_ext_vector_crypto_validate),
-+	__RISCV_ISA_EXT_SUPERSET_VALIDATE(zvkng, RISCV_ISA_EXT_ZVKNG, riscv_zvkng_sub_exts, riscv_ext_vector_crypto_validate),
- 	__RISCV_ISA_EXT_DATA_VALIDATE(zvknha, RISCV_ISA_EXT_ZVKNHA, riscv_ext_vector_crypto_validate),
- 	__RISCV_ISA_EXT_DATA_VALIDATE(zvknhb, RISCV_ISA_EXT_ZVKNHB, riscv_ext_vector_crypto_validate),
--	__RISCV_ISA_EXT_BUNDLE_VALIDATE(zvks, riscv_zvks_bundled_exts, riscv_ext_vector_crypto_validate),
--	__RISCV_ISA_EXT_BUNDLE_VALIDATE(zvksc, riscv_zvksc_bundled_exts, riscv_ext_vector_crypto_validate),
-+	__RISCV_ISA_EXT_SUPERSET_VALIDATE(zvks, RISCV_ISA_EXT_ZVKS, riscv_zvks_sub_exts, riscv_ext_vector_crypto_validate),
-+	__RISCV_ISA_EXT_SUPERSET_VALIDATE(zvksc, RISCV_ISA_EXT_ZVKSC, riscv_zvksc_sub_exts, riscv_ext_vector_crypto_validate),
- 	__RISCV_ISA_EXT_DATA_VALIDATE(zvksed, RISCV_ISA_EXT_ZVKSED, riscv_ext_vector_crypto_validate),
- 	__RISCV_ISA_EXT_DATA_VALIDATE(zvksh, RISCV_ISA_EXT_ZVKSH, riscv_ext_vector_crypto_validate),
--	__RISCV_ISA_EXT_BUNDLE_VALIDATE(zvksg, riscv_zvksg_bundled_exts, riscv_ext_vector_crypto_validate),
-+	__RISCV_ISA_EXT_SUPERSET_VALIDATE(zvksg, RISCV_ISA_EXT_ZVKSG, riscv_zvksg_sub_exts, riscv_ext_vector_crypto_validate),
- 	__RISCV_ISA_EXT_DATA_VALIDATE(zvkt, RISCV_ISA_EXT_ZVKT, riscv_ext_vector_crypto_validate),
- 	__RISCV_ISA_EXT_DATA(smaia, RISCV_ISA_EXT_SMAIA),
- 	__RISCV_ISA_EXT_DATA_VALIDATE(smcdeleg, RISCV_ISA_EXT_SMCDELEG,
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
 -- 
-2.53.0
+2.43.0
 
