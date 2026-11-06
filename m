@@ -1,95 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988493;
-	b=Ie4eSI9xG8vSM72UfnuxErRcslvKqanvW1uo7Ukb3OOs1cB+hSydVCTfozRgYESNI6Du
-	 pCXg/hUTS1kzGD/curURfm+B3CzioQV99jYLjncQ6VvfuhdOPdqY9iS9TCIQWdr0kk5Gs
-	 mkvcBrRMDJ6yfG6Uvx8rcpQcpWuNSEyggfDiEeh6Tus5qCduf/g0G7/UTFrSwK7LRgsNN
-	 ZC1RyGVZkfhb78loNbl4Qx+yrJ0cYrv6bMjwmNZxZzpZWQaaPvP2kPoblgg/kv8+sKpVC
-	 M/wrWxTldxtZxgas5eDeKjGML4KCGlA9FV3eVxH0Ekr+/6wLxsin//2L+6F9olUCmUQ==
+	t=1793988487;
+	b=osZyYe+aQeo0Z7C5GeR6smvDEC880Ufq2UfgIgCiHyws+XOspkxLlLYk56uwh8py5T9G
+	 acjLkrx+WoK1X1fEuoWXJj42Ww66VYFbWXWYXq5d2nA+Y6pm03RabL529DShFWmpBLtk1
+	 Ae3BP4hUizulToU6CXLPVpIhbr7P11lOYN3+C22NosXWWAqAvCIMMDUz3vncHtBTxKE8+
+	 TuXiGy0Fze0U9RtcN1osHmGlw7VtLDop30xc/4G9s8S2BIexIzLrO6Xv8g6zGOxASKd06
+	 jPPqWnyMhfJQV+NjLrhB0zAYAOn8JzLjptqhySAQJirOLe+fM/Uy82QSyOSP75QG+ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988493;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988487;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=4SY/KgBc5jPjR7kY6LZ58uTUj68rwgS+h0034ZsmJvw=;
-	b=mzBKNa8LXztuvK4or684gPCBXlJrttdDsuRNmuk/MfEfFgc3gg2F1dgJ9YNWJj8NXSG+
-	 nSCTAFd1PEReelp5V3XNwdC/T2nmyT7RrqfT1rNhcJXbPZbY9fRCWvcyTGOKs5A0VuTrd
-	 mXHSdyZFSI7cKeS/qAST6TSY6lnbofkm6+CAQ6k8rguK+LIzDZgniHytI4b3DuYZ/rYvd
-	 Ry/nLc4hSp5cgIPmG+CDjna7kqDzqFVhAnitkP8c5bHLMz6QGAWd0Etz610WrM/MGSVNj
-	 lAKX8ubpuvrBIZdEiUMkS4lOy19fKpO7umjI4OgsraYblwBMs/YGa5vYsmfuEQIb3TA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=RGdmMv/zejXl0U6EZP3BlJHi6QkCr6F3J9LIF8hljBo=;
+	b=O20JxejnsdcO7HxM8XY8oce0wgXnNJtHu9X7KKWO53lDLD+19/xgPduk2eEhEZVwdlco
+	 QwEkSj8sRFCoiVJd4Ev0ZI6A42GjPseu/kGf6y5C++jLNFIXbbSufS0bv5WBTE6fRlvmu
+	 7YAOLUkn1IhBxXMY5loEPaY4e6u+Pa75Kc7VYZ0gqBtQ9O9hceBP69lkFKsP67Q5O9Hz2
+	 WBnSiuNV6MubZlaN4LeH23o6GU6bMEiagNjELmxPXYpOczOUHiFbJqkixc7oaJ1sWedtf
+	 Ws8YX7YZDj7l99twVbAfOVOIY19PkSLXJr6q0hlHBpZN2JUBPQw6mRWJv430KJIPsng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eg3g87tP;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NCTRVGOQ;
+	arc=none smtp.remote-ip=209.85.128.70
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606AF606EE8A
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:08:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 606AF606EE8A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5E9606D831
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:08:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B5E9606D831
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eg3g87tP
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e46e449e8so601383f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:08:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NCTRVGOQ
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a210f93860so8168335e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:08:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793988492; x=1794593292; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4SY/KgBc5jPjR7kY6LZ58uTUj68rwgS+h0034ZsmJvw=;
-        b=eg3g87tP5Bh515faKrCEqgJd0gAd7dhAmq53sTBq8Yr8HcVOUMAaJpogGoG3dXhm/O
-         G4QmKXoXySuj9nh0JIbFuGxW7VcgSl45SpHMSZ8PYd0XU+EXnEWca1dC6+2TTFC8dg0F
-         clW3kJPqtYi5NWWLR9iP/7CAzJFhshKFlVHKa1C/bvpcXKiyoRrdoq86+Iofbh8/TfF6
-         UhpubSHgDbp3OAiynlOuFY+TeDpycXmp4uTCff8aTBOioOKzgyZFVR0SjioKBuUehMbU
-         CiLjYkgsYHbEa+Y/H5eMMyFDzt8r1FuKgyk2tTDf60VtEJ6v+VPJQyV57kQPHiLsOisy
-         XiHQ==
+        d=google.com; s=20260707; t=1793988485; x=1794593285; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RGdmMv/zejXl0U6EZP3BlJHi6QkCr6F3J9LIF8hljBo=;
+        b=NCTRVGOQpOKwpIsobsxmzo7UkslqKtAbghaKQMmZ1QUiEncvYK0fL6wkGL7q4JXoWV
+         pZEradxsKS5rs2IR8CQ/PZ4xNXXjFsBp9ghe0JxGr1U8t7jIJNS7SJ0a52i9Y9sYOFo6
+         KXZ3Gmm9Gs51aH7Wvr/mzkcU17dP1EaUfF6yO/cG9gAaoyyNfK7nqdBxSxSUdsrvkNtX
+         4/dFFBVaDN/f1qXzNjV9fA01LRSORM8YsPwOlIQjA11F8fqpDXb+zhNOayAetbGYMyBW
+         vGo4sNBfZtsPolnWIbJUVG/sld+bkvLdd6Ea9hLFaT67Od2eKWAKo4QwioaWT3aXLHSz
+         RUxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988492; x=1794593292;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793988485; x=1794593285;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4SY/KgBc5jPjR7kY6LZ58uTUj68rwgS+h0034ZsmJvw=;
-        b=BplTzkf2Xa/9N/l+B9YAkCdalv9ok9rqez2WTCeKHd8eBn9kt3A3PyLQoM+NEV+WP4
-         /0TLgFTFMfi4FX+D31ISqzZtYSS+V3E82Rqo1Oah1yKaJQv128mazjrO0Py8OnkfXKYO
-         V3aeu2IjMR/frBJaAsSHEDvRnzkIztyvm1IyO9IbGmhRQQ+1EByuikPyI2yKm+1iItSm
-         V3Iw59tLHWhKeq1XG8cRavsxG4Cu84lWSXUqHJ7jT6EFpHV1F+v0koGUuulwyy2tlOlF
-         vRWE8zqeKAhOKM5TdVDCzopKEwOGuBCaFPdLxXVKzCzS7DGj8qKsyAvE8/eahPONiMba
-         cRiw==
-X-Gm-Message-State: APuU4Z952E0+bi87kEoghVsF06BsS0W5+b/5QFqqtVDKfeodcqpBxAdJ
-	70TlM3kks1ho7i1umxWdqi6tZ+8US05kCrTs51wtVpIwSuN49tTgogvD
-X-Gm-Gg: AYBFou3SyfHUN9Iud//piYVT4fxJtpcJyccMkI9a9Uls6XYu38ieoJRKF4RkS7MeeHZ
-	/4YUkJAvZV9E/Lz35bNCLXJuHce0YXL6KXLnbxvB0WteGDzXY1zifK09bA9zJuDvE85YbwFbsMW
-	1f4gjsEUVUKE8Rxvdj7AVGouEJ0VAxZAJNOaQMHfJkrFaeBYzMh3k8YxQDnATDuROQQseWzcnTd
-	ZUA6KTUglMC/08G4Rv6D+LFtWSdlGmx70FBs/Nr8/utmBYEo0smzHNvyf+xCwg0+LAxlii3pWWY
-	2bY+dAbVZ5TUAFyh5NRwnVOCYCy5ZgPwiCxwFVxjgY2nJRt7l8OVS5TcvYv2JW32XbsnabLuA0b
-	85tFY+SawO1qz9gmb65Rh0WLVvmi02icOgkvORfbD4z6Bm1C0lH1rrG1no+PaW7jGNiNoX+bwlT
-	s0iQzDJQQ1+zvM2+463HhYBdMmZ3wvDkpHBqxXZ1oSHH6eGdOlr7YEYS2lBLVPNVIc3z5DKfnrE
-	WYstadRtOHED5Lvntjpqky0/qwqRfMee+I71v4NU8m5Jq+KdHVk84zacNZiqw5qFJpyS7xkshiq
-	u6JOSq3SJJjbprV5IP9Ou/BACZbAyRkhZvM9mq12Px+cRQdxn61KhEwGAtMf3D2MFCoJPL+AGWH
-	4fALkEyyrQUOMuoU/2EPgyZ7Zm4rnAbceDiOQAFHZC4kZLDWKY+zIjErU3BfO
-X-Received: by 2002:a05:6000:4818:b0:492:820d:5e6 with SMTP id ffacd0b85a97d-492820d0d4amr5606669f8f.49.1793988491610;
-        Fri, 06 Nov 2026 10:08:11 -0800 (PST)
-Received: from DESKTOP-IR7J1S9.localdomain ([105.99.148.33])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7232832sm4830636f8f.25.2026.11.06.10.08.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 10:08:11 -0800 (PST)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	dm-devel@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Subject: [PATCH] dm cache: fix divide error in too_many_discard_blocks()
-Date: Fri,  6 Nov 2026 19:08:08 +0100
-Message-ID: <20261106180809.1419-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=RGdmMv/zejXl0U6EZP3BlJHi6QkCr6F3J9LIF8hljBo=;
+        b=Ipe9D95zNEQT1xWgaCoCisp4flwh8GrTkXex1QMgC3eP4ACA2mYMXdvlQCotID4Hw0
+         S0BdNNDWxul+DQxw1m29N9Mya7J003QwvzjClts0H3XoMhxeYWtCUf2U6V3sCKa/JZKa
+         OwVniA2XmBdA6Cm2FCrfFOS83uVQzmkQOh7+Gbp41by8ykRhrhCxvJv+NPByHgtEzfHh
+         ucRIUPuQ0FteSxGY/NhO14OHmtCYYWRlLv/UwshWaub5mfC1UowzVkaVA00YfGEuxPAd
+         Af2sajqXp345lGEc1YqVSZT0xcJobfZeCOHw2KhSEuuhr+YbE91eha+y+IVByP4Tmzm4
+         v9sA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbjnP+YvW+4cL5KlrBb1TrB1zFfPctPVQgWf9I5iyziLsu5y85Z5zb5/Z5IzYmx9bBzEyJwGLzUzblLm0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8c6kq29BCjvGTMvoR9Zff/uy0nSq3fKN1kaay6EZYFg1NxqXdx
+	/OymCH9dwGiLjJVeIWw3RxNKupF/BrS+2vIqoFVgazYF5U85Fb/w3/6zcltznLPkjfIUj87uwWS
+	5q0aww0R5T9SRDPO4CPQCuw==
+X-Received: from wmfx12.prod.google.com ([2002:a05:600c:2d0c:b0:4a1:f979:6ce2])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3f16:b0:4a7:76fa:87e9 with SMTP id 5b1f17b1804b1-4b6dea6a06cmr53003985e9.21.1793988484831;
+ Fri, 06 Nov 2026 10:08:04 -0800 (PST)
+Date: Fri,  6 Nov 2026 18:06:55 +0000
+In-Reply-To: <20261106180657.2460376-1-vdonnefort@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,45 +78,203 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261106180657.2460376-1-vdonnefort@google.com>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261106180657.2460376-20-vdonnefort@google.com>
+Subject: [PATCH v8 19/21] tracing/remotes: Add trace_remote cmdline options
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-too_many_discard_blocks() uses sector_div(), whose divisor is a u32.
-discard_block_size is a 64-bit sector_t that calculate_discard_block_size()
-keeps doubling, so once it reaches a multiple of 2^32 the divisor is
-truncated to 0 and the division traps with a divide error. Smaller values
-above 2^32 are also silently truncated, giving a wrong quotient.
+Following the same format as trace_instance, add a cmdline to configure
+a trace remote on registration:
 
-This needs an origin of more than 2^45 sectors, which is unrealistic (this
-is a thing still in 2026!!) for a real device but reachable with a fuzzer.
+  trace_remote=<remote>^<opt1>^<opt2>,<evt1>,<evt2>
 
-Use div64_u64 so the full 64-bit divisor is used.
+Enabling events automatically turns on tracing.
 
-Reported-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3e16980543e238b95bd1
-Fixes: 08b184514f65d ("dm cache: revert "prevent corruption caused by
-				discard_block_size > cache_block_size"")
-Cc: stable@vger.kernel.org
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- drivers/md/dm-cache-target.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ kernel/trace/trace_remote.c | 144 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 144 insertions(+)
 
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 1a5072425c4a..2d40d6047ef1 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -2383,9 +2383,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
- static bool too_many_discard_blocks(sector_t discard_block_size,
- 				    sector_t origin_size)
- {
--	(void) sector_div(origin_size, discard_block_size);
--
--	return origin_size > MAX_DISCARD_BLOCKS;
-+	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
- }
+diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
+index ebfc2dd67b79..9fa8d38caa3b 100644
+--- a/kernel/trace/trace_remote.c
++++ b/kernel/trace/trace_remote.c
+@@ -14,6 +14,8 @@
+ #include <linux/trace_seq.h>
+ #include <linux/types.h>
  
- static sector_t calculate_discard_block_size(sector_t cache_block_size,
++#include <asm/setup.h>
++
+ #include "trace.h"
+ 
+ #define TRACEFS_DIR		"remotes"
+@@ -1177,6 +1179,135 @@ static int poll_ms_show(struct seq_file *s, void *unused)
+ }
+ DEFINE_TRACE_REMOTE_ATTRIBUTE(poll_ms);
+ 
++static char trace_remote_cmdline[COMMAND_LINE_SIZE];
++
++static int __init set_trace_remote_cmdline(char *str)
++{
++	trace_append_boot_param(trace_remote_cmdline, str, '\t', COMMAND_LINE_SIZE);
++	return 1;
++}
++__setup("trace_remote=", set_trace_remote_cmdline);
++
++static bool trace_remote_apply_cmdline_opts(struct trace_remote *remote, char *cmdline)
++{
++	bool dmesg_on = false;
++	char *opt;
++
++	while ((opt = strsep(&cmdline, "^"))) {
++		if (!*opt)
++			continue;
++
++		if (!strcmp(opt, "dump_on_panic")) {
++			WRITE_ONCE(remote->panic_on, true);
++		} else if (!strcmp(opt, "dmesg")) {
++			dmesg_on = true;
++		} else if (!strncmp(opt, "buf_size=", 9)) {
++			unsigned long long size;
++			char *end;
++
++			size = memparse(opt + 9, &end);
++			if (!*end && size && size < ULONG_MAX)
++				WRITE_ONCE(remote->trace_buffer_size, size);
++			else
++				pr_warn("Invalid trace remote buffer size '%s'\n", opt);
++		} else if (!strncmp(opt, "poll=", 5)) {
++			unsigned int poll_ms;
++
++			if (!kstrtouint(opt + 5, 10, &poll_ms) && poll_ms)
++				WRITE_ONCE(remote->poll_ms, poll_ms);
++			else
++				pr_warn("Invalid trace remote poll '%s'\n", opt);
++		} else {
++			pr_warn("Unknown trace remote option '%s'\n", opt);
++		}
++	}
++
++	return dmesg_on;
++}
++
++static struct remote_event *
++trace_remote_find_event_by_name(struct trace_remote *remote, const char *name);
++
++static int
++trace_remote_enable_event(struct trace_remote *remote, struct remote_event *evt, bool enable);
++
++static bool trace_remote_apply_cmdline_events(struct trace_remote *remote, char *cmdline)
++{
++	bool tracing_on = false;
++	char *token;
++
++	while ((token = strsep(&cmdline, ","))) {
++		struct remote_event *evt;
++		int ret;
++
++		if (!*token)
++			continue;
++
++		evt = trace_remote_find_event_by_name(remote, token);
++		if (!evt) {
++			pr_warn("trace remote event '%s' not found\n", token);
++			continue;
++		}
++
++		ret = trace_remote_enable_event(remote, evt, true);
++		if (ret)
++			pr_warn("Failed to enable trace remote event '%s' (%d)\n", token, ret);
++		else
++			tracing_on = true;
++	}
++
++	return tracing_on;
++}
++
++static void trace_remote_apply_cmdline(const char *name, struct trace_remote *remote)
++{
++	char *cmdline __free(kfree) = NULL;
++	char *events_cmdline = NULL;
++	char *opts_cmdline = NULL;
++	bool tracing_on = false;
++	bool dmesg_on = false;
++	char *curr, *next;
++	int ret;
++
++	if (!trace_remote_cmdline[0])
++		return;
++
++	cmdline = kstrdup(trace_remote_cmdline, GFP_KERNEL);
++	if (!cmdline)
++		return;
++
++	guard(mutex)(&remote->lock);
++
++	next = cmdline;
++	while ((curr = strsep(&next, "\t"))) {
++		char *token = strsep(&curr, ",");
++		char *rname = strsep(&token, "^");
++
++		if (strcmp(rname, name))
++			continue;
++
++		opts_cmdline = token;
++		events_cmdline = curr;
++
++		if (opts_cmdline)
++			dmesg_on |= trace_remote_apply_cmdline_opts(remote, opts_cmdline);
++		if (events_cmdline)
++			tracing_on |= trace_remote_apply_cmdline_events(remote, events_cmdline);
++	}
++
++	if (dmesg_on) {
++		ret = trace_remote_enable_dmesg(remote, true);
++		if (ret)
++			pr_warn("Failed to enable trace remote dmesg (%d)\n", ret);
++	}
++
++	if (tracing_on) {
++		ret = trace_remote_enable_tracing(remote);
++		if (ret)
++			pr_warn("Failed to enable trace remote tracing (%d)\n", ret);
++	}
++}
++
+ static int trace_remote_init_tracefs(const char *name, struct trace_remote *remote)
+ {
+ 	struct dentry *remote_d, *percpu_d, *d;
+@@ -1353,6 +1484,7 @@ int trace_remote_register(const char *name, struct trace_remote_callbacks *cbs,
+ 	}
+ 
+ 	list_add(&remote->node, &trace_remotes);
++	trace_remote_apply_cmdline(name, remote);
+ 	retain_and_null_ptr(remote);
+ 
+ 	return 0;
+@@ -1840,3 +1972,15 @@ static struct remote_event *trace_remote_find_event(struct trace_remote *remote,
+ 	return bsearch((const void *)(unsigned long)id, remote->events, remote->nr_events,
+ 		       sizeof(*remote->events), __cmp_events);
+ }
++
++static struct remote_event *
++trace_remote_find_event_by_name(struct trace_remote *remote, const char *name)
++{
++	int i;
++
++	for (i = 0; i < remote->nr_events; i++) {
++		if (!strcmp(remote->events[i].name, name))
++			return &remote->events[i];
++	}
++	return NULL;
++}
 -- 
-2.43.0
+2.56.0.455.g6c5a503b38-goog
 
