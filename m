@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978401;
-	b=4nLEDWjSrCpqKg4CQpwJAnZh0i09sgqcb40CLfy/x1Yj2n3mhqwM+QdYDEpt35QCE+fz
-	 vXPpEmBbhaHbdtQ3fYzh7ic17+WlLe3B/l43Oqyer8ppiBC21tsEszdADt52qgbJkex6N
-	 /JODtI8JLS1nin5slXtIssuCmc5sC/JwtOllOIGBFOvLgDYuI8brBgzgV3GwKnCDS2uWn
-	 DLDRiG1fJtxBXvEMetjqmtMx+ItZXLPb0NggHQ4LP4pnHsK2C+/uCMtZCoxc/VU2DIfBj
-	 XxqnP3IZAxnZU86XIxA7JivvM+lXgZnu7zekb3pXGZ4zGCmwosIKiYg42k3r+b9BLNA==
+	t=1793978413;
+	b=FZD/0BCWyktKbnQa/Jzu4aAR7QdW5M9Kb6Xk68G1ah2RS1/0RW013Vbnls6o5WYMYLPW
+	 BBZfOnb8q/tKdDNrpKz6N5IN/KotdcSUCDOLT3OHHie98O2j/mkH4YAbo6t2TSGtOnU52
+	 9QokZgVEluhvHUBeCgTCFjftOMjv+LgrAWeMyMSyiZ6Critccvd/FPfS7WtgHfHJLg3kD
+	 TSMRuQPrkFZvO+NepyFp3JK+BsDOXjLOrEQNvKCDKZPNJF1B8shXrSYKMFHAubAsRhcYW
+	 32cPWtlXwJ4tiTwgzcqiifAJoBxOWz4g3QreImSTnVRnvBDacEJ3xvEDPWlr0FqtaPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978401;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978413;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=UwfbJWPzhnrx0wIoFojbwEGGK1EaNf0y0KOrOChCXjU=;
-	b=2EpOACZ7/fs7VTPMe2RbR4KLlxYcMYswsEwEy1BjHtlCmLeFEO66Sj9dNIkca293qk7a
-	 pY92xpQI6RQ4Lbi9K09Mid51kZA3moRJaL5R7Nr+s6J9FykIBBwqOlMNMylRWSmb+q72O
-	 F9DrWU4WhPKUaQHWECzdKrvwQQKRHQUEMKYinCUbNsCrlwb8dylFpBx6WpeFfSKB192ro
-	 qwKM0LYQpaT3DvX25XqPX/4PUTunOQ8W8gTdTYlQu3J1+8rcCr7AqytSi0t1Qi/aiZAD8
-	 vJ4U1jygFj0rmJwW7tnUyVQgFu3E3lFspwmJQWewSP8w6PNgbaqyBEOPjUQSDBoEq8A==
+	bh=uTux42or8tslpeNsQeZIKjxhj1hCw7fR6WEWeRorK0M=;
+	b=Z6RCv5y1JmQHZ9iuXj2gN/L3OGW35nylQtX+kJVBbRemKV0y3dJgol4dnANj2Zw451AH
+	 zFb1QwXiJyjyPIkJGqkfvHVRUYusNDRoAUtXgrZYG34FIhKxYy3NhvUBjL35g9xmz33Kz
+	 JUn9oapZjXPku9jP+awfKoqkU1jdTgwihRs7B50lkfVn6XyHPOh3jiyuSMA+jJ1LGn8Rs
+	 n781DOslskAdy1HdV9PE1bHi2LIIhvxWCPFhrN+W98RFjV1DQSOrhinZhJwYMifTAdzW+
+	 ZoMyOq85wcnHyTlpoXwjm+7FSgY8IhfXevl447femGRPviZCDHb913TflrL3c89Sxsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=m+2yBrse;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WpY12vZq;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDD2606A33F
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:20:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFDD2606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D556082BC9
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:20:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75D556082BC9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=m+2yBrse
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e46e449e8so491822f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:20:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WpY12vZq
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e4831c028so773840f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:20:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793978399; x=1794583199; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793978412; x=1794583212; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UwfbJWPzhnrx0wIoFojbwEGGK1EaNf0y0KOrOChCXjU=;
-        b=m+2yBrseO5m5TLXpRDXIXWYVcsoRdptxoOkmolG4XHT7SEj7Mp39I9L9JZYYL2Of2m
-         lxCcycP7+JGKx2+ZoYVWvItVoSDKs+lrRsZ5/Y1X2zSGkQn8J3oqQMd7EbcjCK2X96JM
-         +Gv+HEPU964scI6YZsIMG8InYSpnprKcrLkr/MOarIFAak2A7y7HbmgrcQtMGJFLwJ3h
-         hdb4id41sSMQekNAjW0nT3GF8Tv3acqLHcTKJ86EDd4NkDwdCrQZrgoS3IyxYji4c7vU
-         RbIPg5Bzh/dui11dUB2uVOdevUAjAtDcPoNDjt6nKLQBq0GjxgjkljZDZYueez9AeTOb
-         ByGg==
+        bh=uTux42or8tslpeNsQeZIKjxhj1hCw7fR6WEWeRorK0M=;
+        b=WpY12vZqX9HaWMiktbe3oRxr5j75D0BUxxbxanSa9dzlMNfi2+8Mg4rWPrIlVge5Ed
+         tGK1SqzO8ieW+6T3iMtcIdp4nKgjj96tsOMyrToe9zCVb8ki+NOcCYCcQXNGYHNVr6z0
+         QhiGqk13/k7qBsoxYxgxw+1/6PhgLo2mMe3OIjNFWir9P9h2+J4i+82WhAz3W58ooJZj
+         XzD8hv/kLcr8qOaRrcz/J3cRl74oo+VyEjGiuSoNfliRv/gq9YlpbjNzaTQVzlYWbzPt
+         +uQuu/2OJwBgB3s94xOjgse7mY2AqqSlsgZpxu3oft2ZiXTmNw53ngVO+cXRpvQpEfcD
+         R6HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793978399; x=1794583199;
+        d=1e100.net; s=20260707; t=1793978412; x=1794583212;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UwfbJWPzhnrx0wIoFojbwEGGK1EaNf0y0KOrOChCXjU=;
-        b=t6UpGTve+r2FoH2/z/CWP/WUJZ9C+YqdgaPFDGucmK+ZB3121ZVuXcxtLzvB4rKZ9A
-         0HmHLI5C8Om6k72XqdO8RjuTOZPcZL1IvO3gACYYPaniC3nHzxmKOBJPG9hRTU5LYO2v
-         9kiudTDbdeKHDav1sBw3vMK+ieUpxyAcyKRr4zEAZSbXwsRxEYwvYSBvE8pnd6i41+FN
-         QiOiRgMhICowKCeTJ7JpTBE6AFLYG3dzskBlB69ZkRNz4IZH/D/CaoUIRDnqhVXTT7eF
-         jANCd0GZu7Ra+JPCWB6aQc7n7pXH+A1+tuPjYezxqS2UPiXun8Lf5sLVFOhEePy6NKZE
-         BKgQ==
-X-Forwarded-Encrypted: i=1; AL+hErH4qCFCaMHWd3owPh4lcY5IGToIaQTYWKUKh1GEp28wKIULk6H0KEskXYDrz+iVm/hIGjhyRLIPvEhe0dI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91lPKGtYO0mR4bY+Af1KWXvNHhQDyPhiSfYEzXT4zq4AlYVzIv
-	czcSptr9HU0KAYxs/NmO7MDt4vcIZZJw+eospoKQtIQplko7++Gnxt+/cIpxOlQ20XY=
-X-Gm-Gg: AYBFou2lLXWOh0QuYSpDwmwUahJCFjcNg4cwmGhq0I27keO4K8OSpCO91XItoZk/obb
-	LAbwzIaHzuCS/rMnh5IlGAyVARUqm7x+A6fcvOcK75wqJ9rlFmBKNdCOcOv266snD2to0gERgKk
-	+znF62WBZOfCsQBj5v82o8RgPjJnuoSw54vYKcNHKXEY0B0JS9ttMmvENvzMD4uf2EZM3nKqZLz
-	runuYIR0mNgvQcq2SFkdqT8OZuj25Dt7+FbLsWib7t82/S6SyqqRspRZ2JzbNICcsBPkVTirxwF
-	0qaU6nFAf4lTaI+3pXXE0V7UKd+KKLezeE1OYKFuZsRkcWm327pJvAhUwEPnrgYAUD0dWqVPlWb
-	d5X7VaDtDbGmoH0l6bpj9zcWAnXUh+DX94BuVNuo8PZrF/lyEdeEzqgYolY/uu5EekXMHB71lNf
-	ZS+qIOKMk6s9H8PJOGYMUToZMdDHQ7wgMzTzd6DW3GmagI8TYu+LZtKjOPmjtAd7clKLBZIQ+L1
-	JlEDN3jSbOjwa9FmoMKqcLViGzqGBgzDGiZXj7bdeSoPgWMMaQAzxU6lDprUneCsllMaXPaWqXC
-	vw4gUmc9kYdRPUFQdNERXusjWReKBgX0PJ+asGI1U715i0M=
-X-Received: by 2002:a5d:5f04:0:b0:491:68e2:bf2f with SMTP id ffacd0b85a97d-49278174603mr5569876f8f.52.1793978399093;
-        Fri, 06 Nov 2026 07:19:59 -0800 (PST)
+        bh=uTux42or8tslpeNsQeZIKjxhj1hCw7fR6WEWeRorK0M=;
+        b=xX0WyBTX776uL9tVgbqTaSbHyZ46WjWz7Eqjzghi80kVtF4FmEW8CHjtjvKdfraCMg
+         GaBqftp4wFAtbdFV33r2Iob7flVBWb1xS/PlaR35JYD6WzGnB3f8I0aNUk8QmA/Sb8n5
+         CuBOE0YhAJdFOpDAJDdYre+TPdXKQvXC3YeD+izasAwRXZUsU0Gisn/u3QoaewAlfFNG
+         t3mvslMHmRkUS6N1gIznbZTYEMR8D1qlLxO2gYRCksXTy24LKQg2LhlNOoSwEHbVgT6I
+         3ISUJzaLR4GjDItTav18LIb1B9WpnldoMckmKkEv/vwuNV4jI14FTUCi9zRE8Y6N1PtJ
+         cNSA==
+X-Forwarded-Encrypted: i=1; AL+hErHu3RgZMi9OuMuC29ndUbqzSrmYr3Kwh7+ncXzdi6y3tYNJ9dQpUsd0nPELexjihPI/us4Xe48L0SQpkiM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LQgBgD1w6E/eQf83NocUESXsveqiWjsVOfSgAMc23oZA7tF8k
+	ZJa1HzYIdlB1pbvNFrErnrxMWPPxiQYevXIMwexBk1I+HaCVKio3WXL9z7SUOL1+MpA=
+X-Gm-Gg: AYBFou1wuxHPoPQTv/ucttL95gAfWGZDS+8qZ83nDxLZ6s0lazORaVK585GLBeXMl8e
+	Xyfhl3VhdWV0GRSVuXAar7WJhjW3hbBo7qDbS38Qru9BgxdXEi/iAPQo1T+CeeWD8nZfZFTQX/R
+	IhcyEoGnstz29AEGmzUGssTSlZ7SIscxx+Z71vU5D2Emc3wIAgghmAXm5Pk4Y6ihNbEq02Njb8U
+	cmkxdi8uP4+loqmsIYlQu7ghlmoByxNoMy8LC+g0FOpsbygoq9yn8REjwY1G5U3p4IVHOWm1o9O
+	qPpzNuqo7WiE7KfFRoC5DxdWhLqZOfAzCjJbPYHX61fs9p1x/E5Jksc2n3f/mOqr0xutSONRk+F
+	glDVGidnH6AScthyEY1l1TkYBfadWkBRR1YmdM1IBX58YPFZsIsuNQ4kvSBUw6p/qbxCwYlTjUo
+	W7KGbxsU+yvYkdq4Ui8S4PJlZrv5Uindo+JJBWJKsFfNv7zWAJxicpVbXEd0gfPHOPx3LA+ZumT
+	luxoWOYAT19XQjimLLbVFunIxqKo+pRRH27UvpBeX27wIfhxNlBqmyb72XUT+iq3AMIenkVasL0
+	nU+KnExWH+YmVnl2M01bT8L7EUfvYf6WCXyJoWXQqsZ/p6c=
+X-Received: by 2002:a05:6000:25eb:b0:490:421f:1555 with SMTP id ffacd0b85a97d-49275b1bc23mr5251354f8f.22.1793978411922;
+        Fri, 06 Nov 2026 07:20:11 -0800 (PST)
 Received: from vingu-cube.home ([2a01:e0a:11f4:3020:ed97:32bc:977a:3b65])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc5e23sm4477405f8f.45.2026.11.06.07.19.57
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc5e23sm4477405f8f.45.2026.11.06.07.20.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 07:19:57 -0800 (PST)
+        Fri, 06 Nov 2026 07:20:11 -0800 (PST)
 From: Vincent Guittot <vincent.guittot@linaro.org>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -104,9 +104,9 @@ Cc: qyousef@layalina.io,
 	kayracizmeci@gmail.com,
 	tim.c.chen@linux.intel.com,
 	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 05/20 v3] sched/eevdf: Add per cpu cached min_slice
-Date: Fri,  6 Nov 2026 16:19:32 +0100
-Message-ID: <20261106151947.3991524-6-vincent.guittot@linaro.org>
+Subject: [PATCH 12/20 v3] sched/fair: Support not wakeup case in select_idle_sibling
+Date: Fri,  6 Nov 2026 16:19:39 +0100
+Message-ID: <20261106151947.3991524-13-vincent.guittot@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106151947.3991524-1-vincent.guittot@linaro.org>
 References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
@@ -121,94 +121,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In order to use min_slice during CPU selection, update a cached value when
-needed after en/dequeing a new task. This cached value includes current
-task.
+With push callback mecanism, select_task_rq_fair() can be called for a
+task that is already enqueued. Task into account this case when choosing
+an idle CPU.
 
 Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
 ---
- kernel/sched/core.c  |  1 +
- kernel/sched/fair.c  | 28 ++++++++++++++++++++++++++++
- kernel/sched/sched.h |  1 +
- 3 files changed, 30 insertions(+)
+ kernel/sched/fair.c | 31 +++++++++++++++++++++++--------
+ 1 file changed, 23 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index d7c3b43158de..031efe7d49fb 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -9012,6 +9012,7 @@ void __init sched_init(void)
- 		rq->sd = NULL;
- 		rq->rd = NULL;
- 		rq->cpu_capacity = SCHED_CAPACITY_SCALE;
-+		rq->min_slice = ULONG_MAX;
- 		rq->balance_callback = &balance_push_callback;
- 		rq->active_balance = 0;
- 		rq->next_balance = jiffies;
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 6ce4162a7703..cfc99b94d9ce 100644
+index f2a0d2c2bb63..980eda9c935a 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -1130,6 +1130,30 @@ RB_DECLARE_CALLBACKS(static, min_vruntime_cb,
- 		     RB_AUG(slice, min_slice, min),
- 		     RB_AUG(slice, max_slice, max));
+@@ -8187,10 +8187,27 @@ static int choose_sched_idle_rq(struct rq *rq, struct task_struct *p)
+ 	return sched_idle_rq(rq) && !task_has_idle_policy(p);
+ }
  
-+/*
-+ * Entity's slice is in the range [100us:100ms].
-+ */
-+static unsigned long get_rq_min_slice(struct rq *rq)
++static int idle_rq_without(struct rq *rq, struct task_struct *p);
++static unsigned int task_running_on_cpu(int cpu, struct task_struct *p);
++
++static int choose_idle_rq_without(struct rq *rq, struct task_struct *p)
 +{
-+	return READ_ONCE(rq->min_slice);
++	if (rq->nr_running != 1)
++		return 0;
++
++	if (!task_running_on_cpu(cpu_of(rq), p))
++		return 0;
++
++	return idle_rq_without(rq, p);
 +}
 +
-+static void __update_rq_min_slice(struct rq *rq)
-+{
-+	unsigned long min = cfs_rq_min_slice(&rq->cfs);
+ static int choose_idle_cpu(int cpu, struct task_struct *p)
+ {
++	struct rq *rq = cpu_rq(cpu);
 +
-+	/*
-+	 * When there is no task enqueued, we check idleness instead of slice.
-+	 * Reset min_slice so the rq will be selected because its idlenes and
-+	 * not because of slice comparison.
-+	 */
-+	if (min == ULONG_MAX)
-+		min = 0;
-+
-+	if (min != get_rq_min_slice(rq))
-+		WRITE_ONCE(rq->min_slice, min);
-+}
-+
- /*
-  * Enqueue an entity into the rb-tree:
+ 	return available_idle_cpu(cpu) ||
+-	       choose_sched_idle_rq(cpu_rq(cpu), p);
++	       choose_sched_idle_rq(rq, p) ||
++	       choose_idle_rq_without(rq, p);
+ }
+ 
+ static void
+@@ -12968,23 +12985,21 @@ static unsigned int task_running_on_cpu(int cpu, struct task_struct *p)
+ }
+ 
+ /**
+- * idle_cpu_without - would a given CPU be idle without p ?
++ * idle_rq_without - would a given CPU be idle without p ?
+  * @cpu: the processor on which idleness is tested.
+  * @p: task which should be ignored.
+  *
+  * Return: 1 if the CPU would be idle. 0 otherwise.
   */
-@@ -8295,6 +8319,8 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
- 		__enqueue_entity(cfs_rq, se);
- 	}
+-static int idle_cpu_without(int cpu, struct task_struct *p)
++static int idle_rq_without(struct rq *rq, struct task_struct *p)
+ {
+-	struct rq *rq = cpu_rq(cpu);
+-
+ 	if (rq->curr != rq->idle && rq->curr != p)
+ 		return 0;
  
-+	__update_rq_min_slice(rq);
-+
- 	if (!rq_h_nr_queued && rq->cfs.h_nr_queued)
- 		dl_server_start(&rq->fair_server);
+ 	/*
+ 	 * rq->nr_running can't be used but an updated version without the
+ 	 * impact of p on cpu must be used instead. The updated nr_running
+-	 * be computed and tested before calling idle_cpu_without().
++	 * be computed and tested before calling idle_rq_without().
+ 	 */
  
-@@ -8420,6 +8446,8 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
- 	if (se != cfs_rq->curr)
- 		__dequeue_entity(cfs_rq, se);
+ 	if (rq->ttwu_pending)
+@@ -13027,9 +13042,9 @@ static inline void update_sg_wakeup_stats(struct sched_domain *sd,
+ 		sgs->sum_nr_running += nr_running;
  
-+	__update_rq_min_slice(rq);
-+
- 	sub_nr_running(rq, 1);
+ 		/*
+-		 * No need to call idle_cpu_without() if nr_running is not 0
++		 * No need to call idle_rq_without() if nr_running is not 0
+ 		 */
+-		if (!nr_running && idle_cpu_without(i, p))
++		if (!nr_running && idle_rq_without(rq, p))
+ 			sgs->idle_cpus++;
  
- 	/* balance early to pull high priority tasks */
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 24f9b7bd8f0f..7a95df4f14d2 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1173,6 +1173,7 @@ struct rq {
- #endif
- 	unsigned int		ttwu_pending;
- 	unsigned long		cpu_capacity;
-+	unsigned long		min_slice;
- #ifdef CONFIG_SCHED_PROXY_EXEC
- 	struct task_struct __rcu	*donor;  /* Scheduling context */
- 	struct task_struct __rcu	*curr;   /* Execution context */
+ 		/* Check if task fits in the CPU */
 -- 
 2.53.0
 
