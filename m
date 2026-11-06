@@ -1,81 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793990771;
-	b=woGVF7rY+VUyIPn1j9SpewmShDsIYC45fblmDipRT2mFoJCx+DBmQgM1rTwUilZ+L1Gr
-	 rU5tksvVyc0LS956LA/sy3ZbM+LlC44JlblUFCXsuzGnbtElybNzoLNatUP6CzUje+VNI
-	 Log9+XuN9VY5MvRFcnoBhiYzAy9J15Z0hj5/MQMompUnb/YYAHsDo1a3V37bFTRdpdl6w
-	 o+Lw6Ye3MEKUDvhtu/5KboVYeOiBX8AQcnUvu1E/9paz9wPc5OKDxWhgxblmvdiojCizY
-	 5ql3el2YdlR78ZhuvememeZtxcHyZcFQZXYXhMB5HzCn2VvE+5fMqRcA4su/3T83iCw==
+	t=1793990784;
+	b=OHu/imsYRJJBIRIUx10ulORxBrOYlJ9dRLB5UTj/SDN3Adz9zWYvJuFxp5plz4JvHotM
+	 CjyJALjlF+hjPMyohX/aQnn+ElcGM2ZdlSPJ30Hsw7MeGWsTp/jo6uVs3iVE/EF0OKMTw
+	 NhZBoBz2nDlphNbO2s/4jIOXZhuI69ivboVLOsJlxZ49HUPv3/NZo3/m50UWxcRemj2Zd
+	 CMeylLm3KsTWA/r70iicfUM6T5GQkAtX0TWdGb0run2yF4JkDv14EMpRQ8zQ6QfUDvEcv
+	 dF+TT+jua709+D7rHw6arcxbpLbAVnpyeU43/GQ0hy7isz4366ERJ2okq1B1Bfhul5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990771;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6TYaT587yULVEsFdUlV21e0IlEIkrM/S8nTlyyj5duE=;
-	b=INVmNIV1jmM7AtGG51HlofAW7mmgs22h9X4OieZJVOT5ngbKoXpLLijOYtdcu/z2ZuzD
-	 0q4fhLQB8drxX73XrInQ/tx+VgA683rjLefewNbuSu7K6qS+YMyNKnCQcwbctUUxIQjni
-	 j+BBrs76SvU/12R4q2MPOkwKCDWacRq5i1xNOWUIHh+4LUyqWXeZOIVx0iBipyDgeAgAE
-	 TxHa3nxz7sr3xNjkZr/RCnD84feWOjPxuPANeQuHTI8NOhAauWiPCKe+6E/Md5uh6RLn+
-	 k9s52Rd4zdr+l/cDJ/ATzEhSTn1OXIX6lES9XjV9YcJzg5Ja7/YXz7Jgzesktv4YhAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793990784;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mdb5UfcjVPqmmz40z4OyyqW7IHEgbzuUGCcwras+GW8=;
+	b=f2v4NEyYyPs2zvYJMpR8rP0hKbFFhsYy667sIIw4DUk4TRwpstc73OHbIbD50dGLwn7Z
+	 C3BO+hEab6lTtXCJiqt1E8s3vfimcR/rLDbZ9abMPZ7VerTOamLxv4bJXU6yckVALA39u
+	 Z+CrFJtZyYZG/3GJ6DUzZYvzGFozvZp9AUQfhalLVOGBPgH0yoRRvejmTnUMetpNT70kC
+	 ZotjKowfy5XnUqSyQ0cWv+EbqRJlC0SB0gkm4l2fczEDmZ4Kygg/KqRL3VwCBIiMOePTl
+	 NW4qxFGoE1HZlTfLw9AgPeBQSnD9EzI+mUCuYbvk4UsR80itpPdM1VhBmlKGweL5VNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ag0eQnT6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xigg6Bad;
+	arc=none smtp.remote-ip=209.85.167.53
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D457606A329;
-	Fri,  6 Nov 2026 18:46:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90DE606A33F
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:46:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B90DE606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ag0eQnT6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74ED11F0089F;
-	Fri,  6 Nov 2026 18:46:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793990770;
-	bh=6TYaT587yULVEsFdUlV21e0IlEIkrM/S8nTlyyj5duE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ag0eQnT68Qn48+lD/gKwyNvXHdwktPEYZRXu+mkFQY9vzL7wiMhYgWeuG+JY3KsEF
-	 gI3XCn0aWsviJENdO79ADtBJ4wfZIqOpW7bHvPyXu5Yx7OAaI64goY95XQoscGuga3
-	 RiRZJJ+z/HCAmj4OreqwgRKM+/JYt0+pMQU8Vi4xBe9mSgJSOH8KtXW9Mw/WQ3o4OY
-	 mrux7OQRSU/obswR+R8vfPypl/xQz/SLtQ2oRx1EySjeD+3V+DGTpGrrAHC+sqD+48
-	 zU0B/50JD3C7b1U4wU/hmZFCOReDSKirjZePi9z/7MbizoMhTqfACiM30W+Y2YprUi
-	 C/pdfJQ6qj/LQ==
-Date: Fri, 6 Nov 2026 18:46:01 +0000
-From: Conor Dooley <conor@kernel.org>
-To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jun Chang <jun.chang@metanoia-comm.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Sebastian Reichel <sre@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Ben Zong-You Xie <ben717@andestech.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
-	CL Wang <cl634@andestech.com>, Mark Brown <broonie@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Minas Harutyunyan <hminas@synopsys.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Randolph Sheng-Kai =?utf-8?B?TGluKOael+iBluWHsSk=?= <randolph@andestech.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 00/25] riscv: add support for the Metanoia MT2824 SoC and
- MT5824 EVB
-Message-ID: <20261106-annotate-roundup-3cdf03205a91@spud>
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xigg6Bad
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bfbc67991cso704816e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:46:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793990782; x=1794595582; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mdb5UfcjVPqmmz40z4OyyqW7IHEgbzuUGCcwras+GW8=;
+        b=Xigg6Bad8vROktjBLChSFTJxmcKHG1CvUIakZ3vsIaEefu44U3Bt8v/md9COyzvgy1
+         XTgvSARD4JdJeR+rQSPUqOcAc27UTRpLj260564XNAwIlLen4CXP0/Ht+ee+wfYQztlb
+         9jpDSOp5AurBUH0yhsghScu5an4AJi0eJFKgHx4MKXNFkKy1D0gnrzgQhm2B17C9Oc9I
+         vbduQFpvwghiv7g7znqOGc7FaQLMfBzBiM7rjZU2GQu8RWP8AfhQNN0sYVInvUMU8aX8
+         2cqgkZCXkFxNoek1WqERuz1cZS7HOG+Kk6uJP9STl4l6bKFDt6Y0GGmWMa1e6feOQ7qb
+         F+RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793990782; x=1794595582;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mdb5UfcjVPqmmz40z4OyyqW7IHEgbzuUGCcwras+GW8=;
+        b=BnZlvYNjKn9cmhB7jy/3dDc3mTqQxeC+h8TFMXMA7DzkVOKf43vHYFIAFVud/wRffi
+         o92/A+cKcngXFp5T1XEIacmg5EuuWr5jYsSelI0oyYj95X6fhy29hISZqv5kp340tWxz
+         ALyMS5UNDvxJy4OxQ8oA6S/3js3dyI6tIkXuuBR+ACoCeBy8wZvev+WG7+NNuwWwu4Ti
+         +MZHdQxitV2xHIqBIQVCqwaksoiMUchib/KD3AocvdLDtQVabVM8/PEJYm4enjgVOYCb
+         yMgC80MlzJqc0PyIgyP4ScI0lj91iEf3gca+BmViR0jWwoT7Tn6bB2FC0uZrFL9Xbl1y
+         PAZA==
+X-Forwarded-Encrypted: i=1; AL+hErFzDYzTMTygpgIGf8ax47OzKgabHpuBEXRiQkr1gUZmG2C/WT0LctHJnJrIYqcjTcWC/oaoFCundhT5wUc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/U89uyrb+QMUG5Pt3dgq8nWwEOkffx08ny7LVBEambjW7bItuY
+	uLMIIOZkfDKUylJZQ/5+31F50inoFb89DqhrUUo0ioeMF6SKkBvNB/xK
+X-Gm-Gg: AYBFou3MmZQw8o6Jxnu2wOttQeHzRZKnjD2eTSJUzSDQgABWkaQP6zV41KyAQSqvD+u
+	03iSLMU49MrHBAUk7QYpUASntaOnJ2Z8VFOpa0f3nBoSc1S1MBFvf1gawUy55OjYFNC5seuuS45
+	i3D552zmK8IQL/oQR8HyxNuumfL4jFmI2cLn33BsfmjsEgUjN2CBeSn0aD4Im/Gv01dkWHm4YIb
+	Sz65JaGI2O4i07OvqOd4uY3ugv+GrKdi/FDotNZ1BqGWioOf36ZLFqfJgh0jg9KmDtvDAPpHEwB
+	UaIYTdKN/kXl00CmKFoPXCJ1n8u23F6RpWNmLcGhKT1++hvmbg9ZdDfEpZmqnL3Tzytltcr4N14
+	dJAEXaLy9Z24eeIH1FNuFOnxexdUSZVLDRbMa0B3ZIPZBYtU2Fe06PWswQtzxDWKGWSoJ1h19jZ
+	TqDR0+oVJU9RnnW3OWYF/gTeYzdFq5lgLRYFUYO0GQwYFNFYZ07maUd0toXt0QYM0EkjHdsrbPu
+	lWLVWDy0Flm1zJ+BoJgWbE9YCGdpQ1M+9XTNO43ZzjuXTW8WWyyywnKkE+88hdFewQpKtcf35vb
+	DfHCgjEeTum4JcDNmn6c4yuPBMs6pDJ6
+X-Received: by 2002:a05:6512:10c2:b0:5bf:f5a3:9a1d with SMTP id 2adb3069b0e04-5c0037aafbamr1088628e87.7.1793990781675;
+        Fri, 06 Nov 2026 10:46:21 -0800 (PST)
+Received: from localhost ([192.165.153.208])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c002ed4934sm466318e87.7.2026.11.06.10.46.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:46:21 -0800 (PST)
+Date: Fri, 6 Nov 2026 19:46:20 +0100
+From: Fredrik Noring <fredrik.noring@gmail.com>
+To: Amit Patole <amit.patole@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] lib/genalloc: don't dereference a NULL pool in
+ gen_pool_dma_[z]alloc()
+Message-ID: <au4gfAfX_p4D4L75@aerith>
+References: <20261106-kunit-genalloc-v1-0-ba1ea397dfd8@gmail.com>
+ <20261106-kunit-genalloc-v1-1-ba1ea397dfd8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,130 +102,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="O+KStvozO2m15yOI"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+In-Reply-To: <20261106-kunit-genalloc-v1-1-ba1ea397dfd8@gmail.com>
 
---O+KStvozO2m15yOI
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Amit,
 
-On Fri, Nov 06, 2026 at 10:29:57AM +0100, Beno=EEt Monin wrote:
-> Hi all,
->=20
-> This series adds initial upstream support for the Metanoia MT2824 SoC
-> and its MT5824 evaluation board.
->=20
-> The MT2824 is a dual-core RISC-V SoC built on Andes AX45MP cores. It
-> integrates two 8250-compatible UARTs, the Andes PLIC/PLICSW/PLMT interrupt
-> and timer blocks, the AX45MP L2 cache controller, a simple reset controll=
-er
-> and a system reboot controller, the ATCWDT200 watchdog, one QSPI and eight
-> ATCSPI200 SPI controllers, a Synopsys DWC MSHC 2.00a eMMC/SD controller,
-> and a Synopsys DWC2 USB2 host controller with a reset-only USB2 PHY.
->=20
-> The series is organised as:
->=20
-> - patches 1-14 add the device tree bindings, the Metanoia vendor prefix,
->   the RISC-V board schema and the SoC block compatibles
-> - patch 15 adds ARCH_METANOIA and selects the AX45MP errata
-> - patches 16-23 add the reset, SPI, watchdog, MMC, PHY and USB changes
->   needed to build and probe on this SoC
-> - patch 24 adds the MT2824 SoC and MT5824 EVB device trees
-> - patch 25 adds the MAINTAINERS entry
->=20
-> The ATCSPI200 driver gains optional interrupt support for PIO transfers:
-> when the controller IRQ is wired, the FIFOs and the end of transfer
-> are serviced from the handler, with a fallback to polling when no IRQ
-> is available.
->=20
-> The DWC MSHC controller on the evaluation board is wired to either an
-> SD slot or an eMMC through a board jumper that the SoC cannot read. In
-> the absence of a fixed card type in the device tree, the driver probes
-> the eMMC first at 1.8 V and falls back to the SD slot at 3.3 V. The
-> controller also needs custom tuning and HS400 PHY DLL handling, which
-> is why it has its own sdhci_ops.
->=20
-> The MT2824 SoC contains other controllers not yet exposed (I2C, GPIO,
-> pinctrl, Ethernet, DSP, ...). This first series allows accessing the
-> evaluation board via its serial console, and all its storage options
-> (SPI-NOR, eMMC, SD card). The watchdog and the USB port are also
-> available.
->=20
-> The driver changes do not depend on the DTS at build time and are gated
-> on the new compatible strings. For merge ordering, the DTS depends on the
-> ARCH_METANOIA Kconfig entry (patch 15) and on the binding compatibles
-> being accepted. The patches can therefore go through their respective
-> subsystem trees, with the Kconfig, DTS and MAINTAINERS patches going
-> through the RISC-V tree once the driver and binding patches have landed.
+On Fri, Nov 06, 2026 at 09:02:32AM -0500, Amit Patole wrote:
+> gen_pool_dma_alloc() returned NULL for a NULL pool since it was added.
+> Commit cf394fc5f715 ("lib/genalloc.c: Add algorithm, align and zeroed
+> family of DMA allocators") moved that check into
+> gen_pool_dma_alloc_algo(), but gen_pool_dma_alloc() now reads
+> pool->algo and pool->data before calling it, so a NULL pool is
+> dereferenced instead. gen_pool_dma_zalloc(), added by the same commit,
+> has the same problem. The _algo() and _align() variants still return
+> NULL.
+> 
+> All in-tree callers check the pool before calling, so this is not
+> known to be reachable today, but the four entry points disagree and
+> the original behaviour is easy to restore. Check for a NULL pool before
+> dereferencing it.
 
-I kinda pointed it out elsewhere, but that's not actually the path for
-the Kconfig, dts and MAINTAINERS bits. They go via the soc tree, after
-being applied by a metanoia specific maintainer.
+If this change is accepted, may I suggest that the corresponding
+documentation
 
->=20
-> The series is based on v7.4-rc1.
->=20
-> Signed-off-by: Beno=EEt Monin <benoit.monin@bootlin.com>
-> ---
-> Beno=EEt Monin (25):
->       dt-bindings: vendor-prefixes: add Metanoia Communications
->       dt-bindings: riscv: add Metanoia SoC-based boards
->       dt-bindings: reset: add Metanoia MT2824
->       dt-bindings: power: reset: add Metanoia MT2824 reboot
->       dt-bindings: phy: add Metanoia USB2 PHY
->       dt-bindings: cache: andestech,ax45mp-cache: add MT2824 compatible
->       dt-bindings: interrupt-controller: sifive,plic-1.0.0: add Metanoia =
-MT2824
->       dt-bindings: interrupt-controller: andestech,plicsw: add Metanoia M=
-T2824
->       dt-bindings: timer: andestech,plmt0: add Metanoia MT2824
->       dt-bindings: mmc: snps,dwcmshc-sdhci: add Metanoia MT2824
->       dt-bindings: spi: andestech,ae350-spi: make DMA and interrupts opti=
-onal
->       dt-bindings: spi: andestech,ae350-spi: add Metanoia MT2824
->       dt-bindings: usb: dwc2: add Metanoia MT2824
->       dt-bindings: watchdog: andestech,ae350-wdt: add Metanoia MT2824
+	@pool: pool to allocate from
 
-Other than the tag issues in most of these, riscv and dt wise this looks
-mostly fine. The reset/reboot stuff and probably missing clock support
-are the only real problems.
+is updated to (something like)
 
-Probably, I would split this series up into multiple smaller
-submissions. spi, mmc, phy, usb, watchdog at least should be their own
-mini series. clock/reset should probably be another, presumably also
-with the reboot thing. What's left (interrupts, timer, cache I think)
-can stay part of the dts series and probably go through the soc tree
-together. For interrupts and timer, the maintainers are usually not
-super responsive in terms of binding only series which is why they may
-go via soc.
+	@pool: pool to allocate from, or %NULL
 
-Cheers,
-Conor.
+as well? There seem to be 8 instances, but some of the others currently
+don't accept %NULL, for example gen_pool_virt_to_phys(), which I suppose
+could be made to return -1 in that case?
 
->       riscv: add ARCH_METANOIA Kconfig entry
->       reset: simple: add Metanoia MT2824 support
->       spi: atcspi200: add optional interrupt support
->       spi: atcspi200: allow building for Metanoia SoCs
->       watchdog: atcwdt200: allow building for Metanoia SoCs
->       mmc: sdhci-of-dwcmshc: add MT2824 support
->       mmc: sdhci-of-dwcmshc: add MT2824 tuning and HS400 support
->       phy: metanoia: add USB2 PHY driver
->       usb: dwc2: add support for Metanoia MT2824
->       riscv: add Metanoia MT2824 SoC and MT5824 EVB support
->       MAINTAINERS: add RISC-V Metanoia SoC support
+And then there's gen_pool_destroy(), which currently doesn't accept
+%NULL either. Error paths can often be simplified if free/destroy/release/etc.
+accept %NULL.
 
---O+KStvozO2m15yOI
-Content-Type: application/pgp-signature; name=signature.asc
+I'm not up-to-date with the latest NULL handling policy in the kernel,
+but I think some inconsistencies can be found still. :-)
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4gaQAKCRB4tDGHoIJi
-0nenAQDXOOACr5dTLojlsekDLPEmerVvDKLX9MTt2AL32IK7ugD+NliqmV6l2V/K
-f/dhIRRWsafkCoQptXJ5wafLha8CkAM=
-=fT+J
------END PGP SIGNATURE-----
-
---O+KStvozO2m15yOI--
+Fredrik
