@@ -1,88 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958143;
-	b=iNCA58DCAik3rEC/rrlOeJus4zYnp4wDb/cyxmO1SnTQXOBCAI+aOLSledoVJqj1pQL8
-	 ZqJEhXsf+EKijl441HNQu0c1896mGM3j32hIQIxoAlp7gjLUba3svllpBwcNh+yxqHugn
-	 g+GUNSgQvZQhVyLUZQzqCkpi3GaJdKXVNOy/zu0zRm1xwX0/bMEBU1bJM8U/0agxVdBNi
-	 V9497Qs4bAkOEEhrMbZSRJ6wdZLU8zIKPqQBizs/D+cvmaftCT0RMWU97c0M5x88u0puj
-	 nb2ZrhF3c5z1h2S/YjBTh2YNzHdJxQIGYxyRMyoFc/zw72haCAR2z+VfSKpZCsQ68/A==
+	t=1793958170;
+	b=vadGk6TuFVJn29wmP+lOAbVPu4RyrPElYKnLpSnBxoHZrlAE2zIuMWMjavfFMMpISuQz
+	 5NDmoBNX+gqaXfdRRpLJwIVtNIZgCu/d8OHi8gM6MBqwkzcaumsGHqujGp6PuHuh5o2MD
+	 hhVuSuZE1X48Ygn4RNSP8yumXadk5NLQi/EICmSuCBt1fmk78iHdm3Q7jfzk6JCeZQh3f
+	 VPNkiuHf5Otv54p5jfQbiYZ5mPSisYnGXmjxOaos4tBvKAfmgDHpkNqyZrbdEWEcu8tfa
+	 pvUN2xRzgU2lCCNsbbamRcVjyRaDWU+Hi0Dp7ybQbB7YEpY6aseULYkRzN2A1uzIaNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958143;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958170;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wxjoU6eh1AnEB74q9TNTzzgoHGIbkez0gtAfCeShC9g=;
-	b=tmVF4SeaGk4BFQn/Y137JZ/QX9QO8bPFoqEXYgIEmBJmlu5cjBkhlbf1DYjdTRQ8yz4S
-	 RyrYCjnjZziF/emCSqJPG/itRb60BnH9S5OUnDK1wg9ZnfDyj9Tu7TLxy7+78Pxv131vt
-	 0/U/lHfVEND4HGjOoz1MCl9wozmYuBDJjPCu7/Ag2fIf+kct7M93xFWMGtYvIgJEZzKFZ
-	 /hfpkNeRNf1xrPr8j+Gh62g0F545t7iup9dBBOouyGM13tXcHbt36z5QYrdfB1XHKUhk9
-	 n87Cy4E1kUxaOGlGVQ+ElDI4tUI+BG7DBdYWFYYrKJGFRku+0dToDbNh5/gjtEv0kdQ==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=K7jOVqAETJcaglRqxXxRgOA2nRul8j6+4Z7YUWOjC3E=;
+	b=j6qWyZ9X2nH9Wlo98Zz2gyFXVWxyQ9WHI7IbQSNpdqlr0/OyKgp7isp6c/cVhO7Obd9B
+	 PcAcE3PpW0KMfKewzlhkisUkcos/E7We4sYNAX/NX8/M6sA4zUUBn7ma4+V6hO4jdmWYQ
+	 t5h6DeJlV+efUF4C3QqqbSQcO0k4Feqhg2CNQWxlXGf6/+FQaI1FC4m48OqMoHhFXtJaz
+	 UdoUnU8Tfc1Y3BIZTMR/EW035Hg3aRXp8FwZh4eb5mjdTox+YDDb3eRBXV74R5knLsHcL
+	 ubEOyZdgZrpoTt7uaMpwflVHM3e/o5NslxnSX2mcEO1kyhnJwIjgzHozMtvORk5ujkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f5aviNlW;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BjLxmIZE;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C055B606A90D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:42:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C055B606A90D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E26A606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:42:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E26A606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f5aviNlW
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so3188215e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:42:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BjLxmIZE
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ed0f842b02so466035ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:42:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793958141; x=1794562941; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wxjoU6eh1AnEB74q9TNTzzgoHGIbkez0gtAfCeShC9g=;
-        b=f5aviNlWe44WrD8IRdQX6ADMuIeIzKR0W9+k5UrolgZdhp5s/PGxmiZR+YoERBoVJ/
-         6icSuT1pJK1BhDf9IIxn5cOoFPu3PXRcOjMBVS/auhQmMFJtiS811F3SN0M+HYUhfQ3z
-         zv/RNhWZeAqD7XzxOLY04ZCApDq0VHzqjeoX1GyvA8W4WDjDzzcBAxWierLV9QWXD/NZ
-         UQ+7cbI6on3aS/XAL23R+H0tD54FGUBzA783tY3f96ogm/iz8k5ihmez/pJCMZMaPljs
-         p05ksTgKwyP1b297hjQpu/uHw9xgDm+3JpKi0vgksCEUrs8AbsWwzuqXcRGIAUH0fsFK
-         Fu/w==
+        d=gmail.com; s=20260707; t=1793958169; x=1794562969; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=K7jOVqAETJcaglRqxXxRgOA2nRul8j6+4Z7YUWOjC3E=;
+        b=BjLxmIZE6tI+gC91ydXbSUgNH7MlVWikZo4RjnJlP4T0hzQVLQgm04+2mfvccdD0OR
+         9G9/hXcSr01WGaVQG3u6bBG4L4Jxrh5b+LqS9InnDtKbnm+loKf9rdqPHddUxxvoq3pM
+         T4UEdU3OdRUi8kG59idiJU+X1QEGRoJ+qa72FxQfjwLBxGyErzW0G7p7IT85uIrtBXrN
+         uXJxBZFEqcmc1Z7SDS0Bidv6kThCOSoAfXmuKLOvf25IpEECFy5J8ch0nH1hCERKhrtd
+         dHN+PirEewm3iAQ04LRtJ64fnX934kMW1zYGZoxKUc2x+J7s2kKY+LAHH9tQOckSHy/v
+         HnLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793958141; x=1794562941;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wxjoU6eh1AnEB74q9TNTzzgoHGIbkez0gtAfCeShC9g=;
-        b=pYNYzGxS+vkap8e2urmiCe2WTKe2YyiQzKbi55jhamYimwpG6mRAUoBXSQrmG0vWKx
-         iS5hvvz0FUEcAk+6L1v40ZF7pf0hElL4uPx+dLoFmhBX22EnjXRpZIsirc8l4mD3prFG
-         +Ap86/zl/SeCO2Fz52IFMhunNmDisd/3EchNwDmbSwle6WJngKguQzxqHJVbNcenvYEk
-         sGSuBwoD/nDysooXRbpL0TEprsGxVuZtrtU7stwJwjWE4AWJznWLOiQQxCkmHHu+mBXu
-         KtC7Gb5E8l691YwAwlSvxN7lbSrRxvWvIALVITdfEYVMfwRcwdYGUImr1KNaXUPFORe+
-         S1vw==
-X-Forwarded-Encrypted: i=1; AKwUvBzW3WVzTz730SWKm1VrAHy4SQ4ALXmEDWjyKjPn6uOgGyWH6NLg2XvED0ctdi7st+PO2JmICRXvvvOy6LQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gALruhIpkQzqT2Oqhw9hlORh1LQTbhLLbaaI26U0rGdzmwxJJ
-	RwvF669wCgI8ynC1+oC5D4cIYjjNFv06/f7B/R1TAxeDEOkBxuvvcNsp
-X-Gm-Gg: AYBFou1ma7EVwpO7NtgZBI3GHNCDagLQ5bmEHwD1Dvsxxt1bxTlXH60XE5htkCNbXtE
-	5IjKPjl3g6v9eHoHPC3G2/JEYPzM5QH+43XGTX9+rsnVHniQv8RqiXqvkgyuUjlsxYfziHak6T0
-	PrKxuXBPeROHFOIyoHTSUlcgCodMxPh5ISc9BOAdkEMdL9tP5VSdUtvy6h3dvpY2uLdrSI+sSw3
-	LJ85uk58DDCoD3V7nsSJ/gZ6vPUiwq6TdQyr0tOWNBS23VlXGVnIbah05vYiOdGhGWNfa6oWLnn
-	tq/JIiiZpZuoiXnOF42BYyNSNiDIwID23xQnB6gSsNiDCvnFVOmdDI+/S01v1GwYbv34hS5ww2c
-	AWu609nP5fMPW2bKhFjoRTXxu4snc61YU54plVfaNX+EgCYJbvRkdOu+mdLNlPH7ISmZFezMbkt
-	neYhvqBLqRKYaqCs/4NwYGJygCh7PDEU723ddpGrIgprIjjYFwKJx6MrI4m/xtZ27n99BTq2Dqf
-	OB137sUCcJrANbJjV/JAtOuuamFic82yQ9jrySm7+afM9V0yh3r6XcHLwhTQvmvhFi63Bb31BPG
-	pUkp64IUXtpweyhYlK/rX48=
-X-Received: by 2002:a05:600c:c168:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4b6db2ba2demr25269125e9.4.1793958140866;
-        Fri, 06 Nov 2026 01:42:20 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b741cdd8d7sm22361285e9.1.2026.11.06.01.42.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 01:42:20 -0800 (PST)
-Message-ID: <528e3a0e-04fb-427f-88c7-63a7f4bbc505@gmail.com>
-Date: Fri, 6 Nov 2026 10:42:17 +0100
+        d=1e100.net; s=20260707; t=1793958169; x=1794562969;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=K7jOVqAETJcaglRqxXxRgOA2nRul8j6+4Z7YUWOjC3E=;
+        b=f24POibVIeMZPTHsX3Soy6VacvuaFTE0NWfmxHbnhReyGi/rxjpfupuW1NHpExBjNS
+         i0i1foHECGxbCD/7osk/yWxUxng6OZHTRCxNduDijohe9qWJSfFRLPNLzLYq9ZDs9i6H
+         YeTDYePGDTjLEN+iz9n9hhUaP3YrlSLv3UuxzZ+zyLQkkieDKsfmLuu7YHlYWJth3I1R
+         /BbQnSggvO+L5FI+219IGMTeETIhE5r2DFIgQI7FIRDrNGkwALQVSj9dxeaUYljHP0Cn
+         fOdsb4bI07BWH330o42C8GXTIePGOd6AOp4/H5Owlgs8uYohH7lLELM5FAuhngkeBwrV
+         596w==
+X-Forwarded-Encrypted: i=1; AL+hErFz/BvSrd1nuyllkGGu4DRCLIy+VLiNdLXRp6aDAIhA/+YIyVA8SxPGwDbhU7kCYmyghN0IEOqdmAR/1+8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9oReJvdxt/2kN+ByQRladgDnDEbhTzE3zJBRw3csSTq7XOK3J+
+	vu9kDqWm+wSXlIesohKkkyoqafn6cbGRKgXNgL26R6Af7wRz5JtGj+pzbhEAN40M6QE=
+X-Gm-Gg: AYBFou3EZ5sRBPiSiTaRqv3GQO0GBsbyXjY/k4qwpbWIvuGH5AnG7Fc0zlGvxG56kFf
+	7aMy+/d6YxjtJjwZBrQLg+ab6rl1sDAmDR7zGOZYm8ncZq+6S1SZKXae0+b078XIRY+kKrNtnpV
+	Fy8cfi79F4Wm0itky5PmFYrkAGm32wXUWfJetNQKNL6NgEVsy9BHsO+OJsScAzajgGDsdQBJI/v
+	4dbYGZMQNem4JN+lSR9XAzyG+om//Bw+TZL2tiRN1rLkkfox2qBLT5K7aExfdx/ZbTY6L/w9rGj
+	Bdyah1vx3YF275HNOzo+DOVuY6coMMd+7HgusJ0aW0cNwMoBCoDL6MxYbzcMSBOE5VKazDpOinV
+	5aEiZ4mYOHFvdihC0ZeVXe3+U6lK1IGWYeDGJ17Au6viHLdXdpl/bO5U57Os61VL2Vv7rvTJ4+9
+	MhdNioxZ2SzyTqUZGzKufrN2YRZI8KGu2gETKrI+0pD45D7XSOwNMeOyGZuu99LsUmYTCsFDG7a
+	k/GCZB8CcoHSZtqP7qbFDzPNDptqU7cA3IEvuDgLSY4chpEIw2LSI4bfpgG1r7Lv20HPyyTf85I
+	1OIXOrw4Eww92AAoKlJKjlM1DB63Nmc4nQDgHa/Gbseir3YDSLO3qZGmAsadnuRQVdg=
+X-Received: by 2002:a17:902:d4c8:b0:2d8:f4d4:7044 with SMTP id d9443c01a7336-2ed41854f4emr38856425ad.3.1793958169104;
+        Fri, 06 Nov 2026 01:42:49 -0800 (PST)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9ed126csm5080993eec.18.2026.11.06.01.42.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 01:42:48 -0800 (PST)
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Date: Fri, 06 Nov 2026 17:42:43 +0800
+Subject: [PATCH] mm/zsmalloc: keep fullness stats consistent with
+ CONFIG_ZSMALLOC_STAT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,81 +91,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] mm: limit pagecache folio refcount when mapping pages
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard <jhubbard@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- iommu@lists.linux.dev, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
- <20261105-refcount_overflow_stable-v1-1-70b9c655da3e@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261105-refcount_overflow_stable-v1-1-70b9c655da3e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-zsmalloc_stat-v1-1-b574f4714adf@gmail.com>
+X-B4-Tracking: v=1; b=H4sIABKh7WoC/zWMUQrCMBAFr1L228UmlAheRUQ2m9VGairZKGLp3
+ U0UP2d4bxZQyVEU9t0CWZ5R45wqmE0HPFK6CMZQGWxvnTG9w7feaJpmPmmhglJtGAIbu3NQP/c
+ s5/j69g7HH+vDX4VLi7SFJxX0mRKPTfkBm9n+s9iysK4f0xIJ65kAAAA=
+X-Change-ID: 20261106-zsmalloc_stat-e261d4dc1276
+To: Minchan Kim <minchan@kernel.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Xueyuan Chen <xueyuan.chen21@gmail.com>
+X-Mailer: b4 0.16.0
 
-On 11/5/26 2:10 PM, David Hildenbrand (Arm) wrote:
-> With large file folios, overflowing the folio mapcount and refcount
-> became possible. For anon folios it is currently not really an issue:
-> each large anon folio can only be mapped once into a process.
-> 
-> That's not really big news, but it's about time that we do something
-> about it because some modern technology might find ways to abuse it :)
-> 
-> One of the enablers for that was commit ddc58f27f9ee ("mm: drop tail page
-> refcounting"), however, file thp support was added later.
-> 
-> File folios can be mapped multiple times into the same process, allowing
-> for processes to hold many references to the same folio.
-> 
-> As a short-term solution, let's introduce two folio refcount limits:
-> one for ordinary consumers and one for admins. Leave some headroom
-> before the refcount goes negative, which we really don't want (having
-> the mapcount go negative is also not expected).
-> 
-> Start reporting SIGBUS if we run into limits. When restoring mappings
-> from migration entries, instead zap the pte/pmd entry. We allow for
-> slightly exceeding the limit to keep things simpler.
-> 
-> This is far from ideal, but better than all easy alternatives we can
-> backport comfortably. For now it fixes the big problem: letting
-> the refcount (+mapcount) go negative and cause trouble.
-> 
-> This is only a temporary fix, we'll follow up with something better.
-> 
-> While the refcount checks are not required for order 0 folios, let's
-> just add them for consistency: each folio_add_file_rmap*() and
-> folio_dup_file_rmap*() needs a prior check.
-in mm-new copy_huge_pmd() now does a folio_dup_file_rmap_pmd() at fork,
-since Konstantin's "mm/huge_memory: copy file THPs at fork like
-copy_present_ptes() does". doesn't that one need the check too?
+The fullness-group counters are only used by the debugfs classes report,
+which is enabled by CONFIG_ZSMALLOC_STAT. However, these counters are
+stored and updated even when the option is disabled.
 
-the rest LGTM:
+Make the counter storage and updates conditional on CONFIG_ZSMALLOC_STAT.
+Keep ZS_OBJS_ALLOCATED and ZS_OBJS_INUSE, since zs_can_compact()
+still needs these counters.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+The behavior with CONFIG_ZSMALLOC_STAT=y remains unchanged.
 
--- 
-cheers,
-jose a. p-a
+Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+---
+ mm/zsmalloc.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
+index 7ef80e0da626..eb77d7cd948c 100644
+--- a/mm/zsmalloc.c
++++ b/mm/zsmalloc.c
+@@ -212,8 +212,12 @@ enum fullness_group {
+ };
+ 
+ enum class_stat_type {
++#ifdef CONFIG_ZSMALLOC_STAT
+ 	/* NOTE: stats for 12 fullness groups here: from inuse 0 to 100 */
+ 	ZS_OBJS_ALLOCATED       = NR_FULLNESS_GROUPS,
++#else
++	ZS_OBJS_ALLOCATED,
++#endif
+ 	ZS_OBJS_INUSE,
+ 	NR_CLASS_STAT_TYPES,
+ };
+@@ -721,7 +725,9 @@ static void insert_zspage(struct size_class *class,
+ 				struct zspage *zspage,
+ 				int fullness)
+ {
++#ifdef CONFIG_ZSMALLOC_STAT
+ 	class_stat_add(class, fullness, 1);
++#endif
+ 	list_add(&zspage->list, &class->fullness_list[fullness]);
+ 	zspage->fullness = fullness;
+ }
+@@ -737,7 +743,9 @@ static void remove_zspage(struct size_class *class, struct zspage *zspage)
+ 	VM_BUG_ON(list_empty(&class->fullness_list[fullness]));
+ 
+ 	list_del_init(&zspage->list);
++#ifdef CONFIG_ZSMALLOC_STAT
+ 	class_stat_sub(class, fullness, 1);
++#endif
+ }
+ 
+ /*
+@@ -1896,7 +1904,9 @@ static void async_free_zspage(struct work_struct *work)
+ 
+ 		class = zspage_class(pool, zspage);
+ 		spin_lock(&class->lock);
++#ifdef CONFIG_ZSMALLOC_STAT
+ 		class_stat_sub(class, ZS_INUSE_RATIO_0, 1);
++#endif
+ 		__free_zspage(pool, class, zspage);
+ 		spin_unlock(&class->lock);
+ 	}
+
+---
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+
+--  
+Best regards,
+Xueyuan
+
