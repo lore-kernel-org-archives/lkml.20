@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963422;
-	b=oRwDA/h7P9uVEJMHOTba5Hsg/eF4yHCmL4xEZT8AP/e8E3y/g3SdnuGS+r+2yOhBrkX7
-	 rxxpKP0WhhHfu/TEN+jz52bK0nFMQHhftxHqW4cf7g0+wJ3DiU08M1zlBwYhCQaNkWIab
-	 mahI+sigfb6iGL90JiFSCZ72bE0xxSF7LhKzvnB9L+YuIvulQHSwnmJ3leDKd+W3N+8Br
-	 +shXm0m0TRIopYJMwHbKuBO70EZU+plqrUMmq8vnNh9SJxkpWqG8zqFwrJaiMZVtBzs6p
-	 K3D4AfsHADbCV7FeVLi+K3F/P2/WWcHWkGFkwa4aAoTymROUWRw6NmGe6BJ3uK/LQ6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963422;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oeattwECPU0zNFydieCS3AExCz1X9vo7Z8coC/cH1aQ=;
-	b=Y7kTFWTLIyrWHA0ZQPm/3kyhMnjEq1f/PytMTpmSqWyIAQdPY6AeTUb3kNNI+QZ0bwC8
-	 gdHPS3+7ewptn2QpBXbkZ7SLGrh0Nu6KhtZFJXRBA72K0N7ssraY7S4BAz6PMsDr3g3Op
-	 8BOUxqeg12PUR0DuwhNg0qm1Xtg0EHL9hd8msJGC+0k+hpt2KKsHw1tL+249iWqZuGxce
-	 9LVrkPSh2vvj39BUUiP1Is+cvUscxVIRFH8avdKCGmc08E5VJLudw7gB1wpbDAm+mdWeK
-	 0Ty7KDEADG9xyCKv6VHhVXXvJcZiBa/lXa0po5OA0eELeGIre2hp25OjcnqJj5ynjRg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IjTwgHru;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793963404;
+	b=WkXIalcOteZb12/QbyyLh1qy8fgeW57sGjt+YMoEK/p02MpJFfgbL9ulX5cpCtYYoRlp
+	 gX/cVO9ErbXwvYIoWF+NH7mihUFbH8/lcOks4t2lQ7+yfmcVAcwwS5dYW0/qvMZcZlVkw
+	 IVJFTSsPvYmb2oRxUKXJtevC9jaDgL/Yf/7Xk0biX0GTm+MN3gh7req+sZZJlAliHa7ED
+	 9HNXVj2X2UU1j57SvJddQJevBThBbUYb1kkIlYewF1cIWJooUfs6u0E7Ab7k1vfHCJqLy
+	 IvCeph5DkFSI3By2q5mDZ5XqdqEIadgKglM9FZXj0U9u8Oy2BEKq1/xAG+4PwHCq2Vg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963404;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=g/leEMY3T0xFKOpb94XgJ/IAKICADBoapFLrHWlkHIg=;
+	b=WrnbjhWEM0Oob2q8ia2H9RBbVcw9N+4twZjxOyn9kLzhJQlxeQ8cIwtK+RJJIv3qMc1a
+	 EE/32yKMk79kLmTc9VQTjME21YU209c3ub+/zCSVi7Se9oJfbDawZvdkhVb1NCdZw0e6v
+	 2UtbOaI1EPJkKLe7Pb6Cyn5Sbw9nWoA12k1nQhLqwL1Wd6ySjHmogVWzJI+J3Zjo3ygsb
+	 rMRaWV9kKrtp3e3+478iZ83TB2/qrR9PUGzeU8wzY8AKgQqRCt+Fs+l8H/2mevURMsyu4
+	 nzMdHHiZl1pwytt0p8B8TWRm8B6vjiZ9b6ZrvGrbICV/tvqcRJBE8elptmNIKe50eTw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FxRTYJ9k;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3658C606A329;
+	Fri,  6 Nov 2026 11:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FxRTYJ9k
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793963403;
+	b=CX6PPLW49MfBKCrNO7mKZV1k21IV1fOGlaaV/QGsox3Gyd2vYKRgTnhBt3v9M8fXNdVB
+	 0tggfwdfyKKQ1uEDhhd02pACpNKFz6q3hcfS2Wfo4RxpwGKu+S1xOqGRGPTPBMM3/cBa/
+	 SRGXuKPCCVGmrkriQe2sB12OTJJeba7GpSmbWnEHgCDGasOQa3UpBCp01WOPQn4MTPw9h
+	 1BVlegeS1FhSGOflNlCN/EiDP+mMl9uu2N12r3geYMyli8se/UDGdt8N7KqHyDuSg7p9p
+	 hzh9geTVpfKB4O7pqLDlyPalXqzzcDRIEkCsWrH4ezO/9s67Bn402Veg1r2K9JcqRjg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793963403;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=g/leEMY3T0xFKOpb94XgJ/IAKICADBoapFLrHWlkHIg=;
+	b=EyDX9e1f9jM7gO5bEF21VC5Y0Gmo9tBaHz7g7u90AqXBLUxcO6+xWaBleo+RVgp9SEjA
+	 v2+qoQZkec3rKznPalNP8jqMXfoitoyhCnU35ibTfmfy/0BfTxc6TsdP+7DeuI55b5Vs0
+	 PBHXzE2w5Xy0/4JjQDXGSBvruv+48uL4O9gqj1hWabwgtYEriJI1fset6qTu071YqydOz
+	 b4ws1GupYg3c9xTtuVuoTBeyyaogs+glJxjetyEU1AI2NpYTOSdCrpqekGruixx7zCHsn
+	 KfFkuQ1/QGmLdPdiszTF4/Kyvz0akKnBKpM68GE0+bEHOwZOeBBfmicISfuextii31g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B73606A33A
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2B73606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IjTwgHru
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so9619565e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:10:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793963420; x=1794568220; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oeattwECPU0zNFydieCS3AExCz1X9vo7Z8coC/cH1aQ=;
-        b=IjTwgHru6kogC5bm2QamChGSGAqWL9U+tfdfrMbOj5Tpj047PDb+A7v3D6TEM+7zaR
-         bh3453txCU6uG/bxC1k4KbSKT1jc9lBw8YToXw+oTJahs4PVgORklonU/XrwMKyUA+8/
-         y8j6/m2mOSqap3xjPkxw0fWyaeHJpsBmcpN9zPk2oYFgiBa0fqL3yYjRlMfUXcbQhfg4
-         141EQW3FnlEcEK74zR2OhBewpMe0vcYyXqhTkO7wbS99rH1Bft5ZGKVkH1WMckVKY8Ts
-         CaVNpn5OKZYoy8Vq/zs1w0w/Pk7XKMH1InzCHtFsnBZGHjNmr2TOv90Qc4/3zlKZHu/s
-         dguQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793963420; x=1794568220;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oeattwECPU0zNFydieCS3AExCz1X9vo7Z8coC/cH1aQ=;
-        b=0ZVF8x/DlobGyeA2xBhW6b2s5Kj1XAGEA2vRiTXGI0CxJYi3K5vv5qBMKxHqMaM+AF
-         23cCLQqT/HVsz4Ac0iDE3ZEJCgx0uPgZt/IEqFtJeR9xrHGKU7w9Kly838RyaPtT6xkw
-         fe0UvxbziTIIGisQGgFRh5msDzwRi4eVRtMepVjf2nbZCNFql3QKDqScq66CT0D1HJpb
-         AC2p9uMjTJBw2rw2Cb6dAc2LtdP9HfHNvaSvHFdKTzohVb+wWuGpxxs5ZPHtDJjJAtRa
-         lTFFhzHvvZhJEh3L11FY6cJfbs+aSGKnAKC4vToFVXtWIOkORoBZryImbMmJZUj7YlBS
-         j89Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwqk372Iy062PPgJyutqDDYmgGeO08xwnpScIrInIDiRxXOPt6p2p948SJvk77PzPLSDEMANVPQKCnqJ88=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Gu0/lzbvrM2fjqgTDgJ2qdz4yNeSHcUH+aLp/XOE5i0IvO5NZ
-	yHRVoI9Fj72GA625l3A2fDQoD8wA8EZQEYM31cHYTJcGapvhsPCEwEYl
-X-Gm-Gg: AYBFou3JeQpnC4ixdkeLn/PUMK720+hUFVv+KTFaizYV+OAZ52nqW/F6ra3xODd59eu
-	/B88G3kGDIeB5RBcFKPMWSQ7ZOWPH4nv87eOcjl+ZwEvAstMGGO7iizLC5CPVhVlvHTsfFMu9gu
-	wzhWPfYRvbXrwhbFDRH5+VxoDpnlvpH3eJ6VAvo0PqkTDZMTMACqH9O/iL8KlYZf20NyLMhmgd+
-	HWvoQE5E+0VSrWskXxdlHyxjNxyQd0GxwCsyml33qPSOQg7yhRUAJqR/VF8uoD51zM9L2D9WR1i
-	jrn1x+EmB+mzY8T5EzhgQW8JLWlTeMm1ZaR4n3hY6jcOvFr/EP//UhIjsHI8TFZW6lsiTQcCsAZ
-	d6ntG/Fkfmc+Wcn6pTZ7NyHMhMyMBC/7KxVc7jcgO8cS8iBlyKEEiR0T1Q6WysDVe4/aHVkyMb0
-	xVNgMsE18l0J+qaaaQmeBiaAt3O5GRqnbxjFSUMfzAuYcc4ru7WyoH5QqOJiRHRtj0mG5E9VXVy
-	JMGLWYnaIm7i8sm6WhkxDGu+OrnbyKyGiPYy/sM7HT3zAUARPqeHP/XVFH20CrC+dvoQkVEi0d1
-	wSlJ8mGyk861i/u1T9qbVq8TC3xD4zUUUCslj2GQx6bM1JNoxbm2rVbzk+qrJMNhVH/gxDs0RJ0
-	Nh6+t7OaSftPKGdQPFNARWXPddYeK8ButbyXXSoqWx8R2Q+tIblkn9XmARlJeL9kaAjszWh20NZ
-	OzWSI=
-X-Received: by 2002:a05:600c:8708:b0:4a1:8dd1:305a with SMTP id 5b1f17b1804b1-4b55a00bdf3mr115102715e9.0.1793963420006;
-        Fri, 06 Nov 2026 03:10:20 -0800 (PST)
-Received: from DESKTOP-IR7J1S9.localdomain ([105.98.0.61])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7233297sm3280485f8f.27.2026.11.06.03.10.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:10:19 -0800 (PST)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: Paul Moore <paul@paul-moore.com>,
-	jmorris@namei.org,
-	serge@hallyn.com
-Cc: viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	jack@suse.cz,
-	linux-security-module@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com,
-	neganhat@gmail.com,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Subject: [PATCH v2] lsm: don't call d_path() when current->fs is NULL
-Date: Fri,  6 Nov 2026 12:10:16 +0100
-Message-ID: <20261106111016.5783-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 482DB1F0089F;
+	Fri,  6 Nov 2026 11:10:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793963403;
+	bh=g/leEMY3T0xFKOpb94XgJ/IAKICADBoapFLrHWlkHIg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=FxRTYJ9kF0QZwkNeH12mJldeUPKLJJDeCRkaU7b0vG2kCuC1lg5IGkRRaExVX2o5L
+	 ySYae0muusyxHfnRxTesRP26XtbVoM2DdC/olow8iU5eR49eJ9Qu+FyA9pf2VfgZ13
+	 mVmSaX8bl9WkGTaJH8D4J1IULqflNWjb8hiP1ygP+2vl7y8Jq/kskWaka6CJx3gm9E
+	 dtqYLRWfkK7Xi4jMTCF0Td5+gGX4BLJvhIpLb1sA/yYdg60AGFm1pNom9fweO+uu2N
+	 KbhPe/jisy227Eww+d/gR8VC8dTv8/iFSh7HF9+ZjvNQFy9tnPVONPWftcbbrDaC2t
+	 6Y/Th0hD2KFpw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 92DDF45CF0;
+	Fri,  6 Nov 2026 11:10:02 +0000 (UTC)
+From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
+Date: Fri, 06 Nov 2026 12:09:59 +0100
+Subject: [PATCH RFC] power: sequencing: pcie-m2: stop requiring subsystem
+ IDs for WCN6855/WCN7850
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,177 +83,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-pwrseq-bt-subsystem-v1-1-11fb09f63c93@oldschoolsolutions.biz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMz3YLyouLUQt2kEt3i0qTiyuKS1FxdIxPLZHOLVAsDo+QkJaDOgqL
+ UtMwKsKnRSkFuzkqxtbUAp1bYMWoAAAA=
+X-Change-ID: 20261106-pwrseq-bt-subsystem-249c78e802cb
+To: Manivannan Sadhasivam <mani@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Wei Deng <wei.deng@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793963402; l=3002;
+ i=jens.glathe@oldschoolsolutions.biz; s=20240919;
+ h=from:subject:message-id;
+ bh=t5UII2v99mLuMKVxGQklvEBJsKKUJFSN4tb1ImMhs0k=;
+ b=w/e8/FRzz6dIH+oxyAlLxQfsWrqcdJm7iFVI1QuyVeFH6PoCpRsMpGN4qOtU3cdHjsY+ll4Dk
+ DkK+mUkRAs6AXl5Gv9xCUltGGe9clDlEvEBWvC18dFgvMdomfojfkol
+X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
+ pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
+X-Endpoint-Received: by B4 Relay for
+ jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
+X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Reply-To: jens.glathe@oldschoolsolutions.biz
+Content-Transfer-Encoding: 7bit
 
-When the last reference to a file is put from exit_task_work(), the task
-has already run exit_fs(), so current->fs is NULL.
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-syzbot reported:
+Commit a39ac4651e3b ("power: sequencing: pcie-m2: Match WCN6855 and
+WCN7851 UART BT variants by subdevice ID") narrowed the PCI match for
+the WCN6855/WCN7850 family from PCI_DEVICE() to PCI_DEVICE_SUB() in
+order to avoid creating a UART serdev on USB-BT variants that share
+the same device ID.
 
-Call trace:
- get_fs_root_rcu fs/d_path.c:244 [inline]
- d_path+0x224/0x4dc fs/d_path.c:287
- audit_log_d_path+0xdc/0x19c kernel/audit.c:2221
- audit_log_lsm_data+0xe0/0x12d0 security/lsm_audit.c:199
- dump_common_audit_data security/lsm_audit.c:421 [inline]
-...
- security_file_open+0xec/0x258 security/security.c:2739
- do_dentry_open+0x2a8/0xfbc fs/open.c:973
- vfs_open+0x44/0x2dc fs/open.c:1101
- dentry_open+0x74/0xc0 fs/open.c:1124
-...
- security_file_release+0x84/0x148 security/security.c:2424
- __fput+0x2c4/0x74c fs/file_table.c:506
- ____fput+0x20/0x30 fs/file_table.c:541
- task_work_run+0x1cc/0x25c kernel/task_work.c:233
- exit_task_work include/linux/task_work.h:40 [inline]
- do_exit+0x58c/0x1a74 kernel/exit.c:986
+The practical result is that every legitimate UART-BT board must now be
+explicitly listed. Missing entries (e.g. Lenovo T14s Gen 6, subsystem
+17aa:e0e9) silently prevent serdev creation even though the DT graph
+already describes a UART link on the connector.
 
-d_path() renders a path relative to current->fs->root.  After exit_fs()
-there is no such root, and no substitute root is meaningful: the
-record's pid/comm describe a task that can no longer name the file, and
-the file may have been opened by a different task entirely.  Falling
-back to another root would produce a well-formed but misleading path,
-so report the field as path=?
+The graph link is the reliable signal that a UART BT interface exists.
+Once it is present, the vendor + device ID is sufficient to select the
+correct compatible string for the dynamically created node. A pure
+USB-BT card simply has no UART graph endpoint, so no serdev is created.
 
-Handle this in audit_log_lsm_data(), where the meaning of the field is
-known, for LSM_AUDIT_DATA_PATH (Smack file_open), LSM_AUDIT_DATA_FILE
-(SELinux file_open), LSM_AUDIT_DATA_IOCTL_OP and the AF_UNIX path in
-LSM_AUDIT_DATA_NET.
+Keep a single PCI_DEVICE_SUB() entry for the QCA2066 (which shares the
+1103 ID but needs distinct BT driver data) and fall back to bare
+PCI_DEVICE() matches for the rest of the 1103 and 1107 families.
 
-Fixes: 4a9d4b024a31 ("switch fput to task_work_add")
-Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=975ace299d6ba2eb1cea
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+This removes the growing OEM subsystem-ID catalog from the critical
+path while preserving the one case that actually needs a subsystem
+distinction.
+
+Fixes: a39ac4651e3b ("power: sequencing: pcie-m2: Match WCN6855 and WCN7851 UART BT variants by subdevice ID")
+
+Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 ---
-v2:
-  - Replaced logging from path=(null) to path=?
-  - Added audit_log_lsm_inode helper
-v1: https://lore.kernel.org/all/20261019222858.1766-1-drifabdelmalekmohamedsaid@gmail.com/
- security/lsm_audit.c | 70 ++++++++++++++++++++------------------------
- 1 file changed, 31 insertions(+), 39 deletions(-)
+ drivers/power/sequencing/pwrseq-pcie-m2.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/security/lsm_audit.c b/security/lsm_audit.c
-index 955b2e7b2c8e..d92b0823e871 100644
---- a/security/lsm_audit.c
-+++ b/security/lsm_audit.c
-@@ -169,6 +169,27 @@ static inline void print_ipv4_addr(struct audit_buffer *ab, __be32 addr,
- 		audit_log_format(ab, " %s=%d", name2, ntohs(port));
- }
- 
-+static void audit_log_lsm_inode(struct audit_buffer *ab, struct inode *inode)
-+{
-+	if (!inode)
-+		return;
-+
-+	audit_log_format(ab, " dev=");
-+	audit_log_untrustedstring(ab, inode->i_sb->s_id);
-+	audit_log_format(ab, " ino=%llu", inode->i_ino);
-+}
-+
-+static void audit_log_lsm_path(struct audit_buffer *ab, struct inode *inode,
-+			       const struct path *path)
-+{
-+	if (current->fs)
-+		audit_log_d_path(ab, " path=", path);
-+	else
-+		audit_log_format(ab, " path=?");
-+
-+	audit_log_lsm_inode(ab, inode);
-+}
-+
- /**
-  * audit_log_lsm_data - helper to log common LSM audit data
-  * @ab : the audit buffer
-@@ -194,60 +215,33 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 		audit_log_format(ab, " capability=%d ", a->u.cap);
- 		break;
- 	case LSM_AUDIT_DATA_PATH: {
--		struct inode *inode;
--
--		audit_log_d_path(ab, " path=", &a->u.path);
-+		struct inode *inode = d_backing_inode(a->u.path.dentry);
- 
--		inode = d_backing_inode(a->u.path.dentry);
--		if (inode) {
--			audit_log_format(ab, " dev=");
--			audit_log_untrustedstring(ab, inode->i_sb->s_id);
--			audit_log_format(ab, " ino=%llu", inode->i_ino);
--		}
-+		audit_log_lsm_path(ab, inode, &a->u.path);
- 		break;
- 	}
- 	case LSM_AUDIT_DATA_FILE: {
--		struct inode *inode;
--
--		audit_log_d_path(ab, " path=", &a->u.file->f_path);
-+		struct inode *inode = file_inode(a->u.file);
- 
--		inode = file_inode(a->u.file);
--		if (inode) {
--			audit_log_format(ab, " dev=");
--			audit_log_untrustedstring(ab, inode->i_sb->s_id);
--			audit_log_format(ab, " ino=%llu", inode->i_ino);
--		}
-+		audit_log_lsm_path(ab, inode, &a->u.file->f_path);
- 		break;
- 	}
- 	case LSM_AUDIT_DATA_IOCTL_OP: {
--		struct inode *inode;
--
--		audit_log_d_path(ab, " path=", &a->u.op->path);
--
--		inode = a->u.op->path.dentry->d_inode;
--		if (inode) {
--			audit_log_format(ab, " dev=");
--			audit_log_untrustedstring(ab, inode->i_sb->s_id);
--			audit_log_format(ab, " ino=%llu", inode->i_ino);
--		}
-+		struct inode *inode = a->u.op->path.dentry->d_inode;
- 
-+		audit_log_lsm_path(ab, inode, &a->u.op->path);
- 		audit_log_format(ab, " ioctlcmd=0x%x", a->u.op->cmd);
- 		break;
- 	}
- 	case LSM_AUDIT_DATA_DENTRY: {
--		struct inode *inode;
-+		struct inode *inode = d_backing_inode(a->u.dentry);
- 
- 		audit_log_format(ab, " name=");
- 		spin_lock(&a->u.dentry->d_lock);
- 		audit_log_untrustedstring(ab, a->u.dentry->d_name.name);
- 		spin_unlock(&a->u.dentry->d_lock);
- 
--		inode = d_backing_inode(a->u.dentry);
--		if (inode) {
--			audit_log_format(ab, " dev=");
--			audit_log_untrustedstring(ab, inode->i_sb->s_id);
--			audit_log_format(ab, " ino=%llu", inode->i_ino);
--		}
-+		audit_log_lsm_inode(ab, inode);
- 		break;
- 	}
- 	case LSM_AUDIT_DATA_INODE: {
-@@ -263,9 +257,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 			audit_log_untrustedstring(ab, dentry->d_name.name);
- 			spin_unlock(&dentry->d_lock);
- 		}
--		audit_log_format(ab, " dev=");
--		audit_log_untrustedstring(ab, inode->i_sb->s_id);
--		audit_log_format(ab, " ino=%llu", inode->i_ino);
-+		audit_log_lsm_inode(ab, inode);
- 		rcu_read_unlock();
- 		break;
- 	}
-@@ -321,7 +313,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 				if (!addr)
- 					break;
- 				if (u->path.dentry) {
--					audit_log_d_path(ab, " path=", &u->path);
-+					audit_log_lsm_path(ab, NULL, &u->path);
- 					break;
- 				}
- 				len = addr->len-sizeof(short);
+diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/sequencing/pwrseq-pcie-m2.c
+index 56c5d51293c10..72c721149dfae 100644
+--- a/drivers/power/sequencing/pwrseq-pcie-m2.c
++++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
+@@ -217,15 +217,9 @@ static const struct pci_device_id pwrseq_m2_pci_ids[] = {
+ 	  .driver_data = (kernel_ulong_t)"nxp,88w8987-bt" },
+ 	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1103, PCI_VENDOR_ID_QCOM, 0x0108),
+ 	  .driver_data = (kernel_ulong_t)"qcom,qca2066-bt" },
+-	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1103, PCI_VENDOR_ID_FOXCONN, 0xe105),
++	{ PCI_DEVICE(PCI_VENDOR_ID_QCOM, 0x1103),
+ 	  .driver_data = (kernel_ulong_t)"qcom,wcn6855-bt" },
+-	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1103, PCI_VENDOR_ID_QCOM, 0x337e),
+-	  .driver_data = (kernel_ulong_t)"qcom,wcn6855-bt" },
+-	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1107, PCI_VENDOR_ID_QCOM, 0x337c),
+-	  .driver_data = (kernel_ulong_t)"qcom,wcn7850-bt" },
+-	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1107, PCI_VENDOR_ID_LENOVO, 0xe0e9),
+-	  .driver_data = (kernel_ulong_t)"qcom,wcn7850-bt" },
+-	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_QCOM, 0x1107, PCI_VENDOR_ID_FOXCONN, 0xe0ee),
++	{ PCI_DEVICE(PCI_VENDOR_ID_QCOM, 0x1107),
+ 	  .driver_data = (kernel_ulong_t)"qcom,wcn7850-bt" },
+ 	{ } /* Sentinel */
+ };
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261106-pwrseq-bt-subsystem-249c78e802cb
+
+Best regards,
 -- 
-2.43.0
+Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+
 
