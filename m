@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.98
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793946987;
-	b=3FAZU0iI/70tBwP+pLJwTIILET4ImZhLcJYpPDMAS4wUCOOvJuo6v7GnsSvuGrgDHcU2
-	 h62AcAc6q7dGv6646+fXR23ctDkKtmZDNQ/lbzIK0wqJOeHE/omS5rr1OBLTOvO4cisBf
-	 +Li5l42dWq97e8x8VlM/MWZTyXIm+Yh/PRuDxYyL/hcbTJwThUePUKI+1pxly7j+CSodK
-	 UpI/LEdmgBPE/OBpuaj8sCyseTRr1TjnWH4L4FQNVmHpGE7EJZKweWoqnqls1DoBi1gXz
-	 mlyFMdfPi/xtGRRxvr8eMv4UnedvivcK5kBllvx9+YDLD/x8qt9S1wZE7DlbiSJo8tQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793946987;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HSkq7GM/C7a8WzdehCU5wxcvtBC9C9CoJO/ODOkIDzs=;
-	b=CLG7dZ2SYcsD3SsQ17vNdqj0boXhMxG4TRdWYT8o55b9Cy1qLGlq1XAHzBdgDIxDWPmW
-	 lJ1jFSZ8QwyeKUX2hxQ31uLj6nHnG2WI8NJllUeWwFw7yX5oiFnA7qMVc91sPVA/xDGPW
-	 aovvE0zov4isTzLfot36iHOwF5Ms7DLucI8lQIVLq2ewhOBgT/TUnnmTOc+9nPDiRxXj7
-	 eqySsddOb+vyoZDaHktfAyuz8bBaRBHVWDKr9LLFvbLSDT7J6g2DEo8RwTyTC9J8NIN6Y
-	 icHvzsdef+o2Vzomrt2GTueiblLG/ENaiF8N0qDeWoBerUAY5BYOcvDHMQloCNwjYmg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	arc=none smtp.remote-ip=185.70.43.98
-Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.68
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793947104;
+	b=s9pa+AJ/8UTd4/VoN4XB0fPTWgpE9AfgPW/YOzihj8MWFN+P0Wnd0UdevxEEYpSFB71E
+	 u3Qw+0PwuEB00Rzx2xNOnsGOkjHNRfjAzq2sDRVRPevDhQ6MR4bRGjWBSUovNMCPCCPjf
+	 PiEeOAwGYG7Ey2oYuOs5HlPkuzt1iJR0uPMZMbzKnxrFq76uAAvdWthMdv6pCVwKO6+CI
+	 uyJ33wSzYIjKgMbqRZh6zB9JxU8HDn5HLAFgtk4qLsOZD/g7O2bKgPjigCReZTB6UPHv7
+	 QMqdUVcZM+R6f865UcQcaWzW5YaC0qMRBlIEhuzc1XoVPFSpfleDjDY3+p9t+49zpCw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793947104;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:Date:
+	 Message-Id:Cc:Subject:From:To:Content-Transfer-Encoding:References:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=0jR1F7KAg8+jp7B24zhMxP4ZhKVtmMOKcP2H6tz6jjo=;
+	b=UBqPA2i94s6SOKPPNOEAR5ykai5p8whSpQ5eqzh2I/YKJrPQy8r0ej2SEWZUwAbA/bnU
+	 0nOCq2RJ1Wphi3Lx1Q3Wq9YvwYiUO3JnvMWQ2SLiZ65C30/mIAPBNi1Mn9F+BJdD9pDUI
+	 GyUURq+W27LtQ64LO5ctswI019WiH0Y2gjqYrR5Q4TDF78cjBzyc6ToJ3m8UJw/rUJhf0
+	 HLES6jTtlRSGfRGcpAhEauBE3OAJ2gq1Wh1PMhr/yNemXsHJMGUVUEJHeWDUwfm6ZQijz
+	 IDbhfnir/mSydzLJxaov65DYf4J79nFmqvHPMPgrjtyRE1zMjuyv592s/AcWLeG12fQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AP4Cu9Yi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.68
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011068.outbound.protection.outlook.com [40.107.208.68])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F261606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:36:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F261606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793946975; x=1794206175;
-	bh=HSkq7GM/C7a8WzdehCU5wxcvtBC9C9CoJO/ODOkIDzs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=KtTxaRmAXOyIoVXeeIsPjLsZ7swy2hG7y7mFLGdW3kC4jInBu2uCOIGKiCL2j2cLg
-	 WF4DuioBfuVqDw4aN6snsDEyTm1tiayWlpR3kozsr1eh+3y3PyOiSwx3XY/1AOpQs7
-	 NQO+RsY1frOV3eciiO/9siXk7BO3quAkrOTuo+iNCOUdCV8QN0fjfkDTcZoTjrys9Y
-	 gTnqH/oHMr1IahYsENwILs7hdmkLe+LJpxX2XTMiMnzWFcQ6W5UpbIKnw3o6vTKhEl
-	 E8+o2QgowLpMlPvRQofkryAAiVRybcZtBx1gXEmvDedoFQERxAAUZNpeRq64FdQr/0
-	 HqDTdU2+cqr6A==
-Date: Fri, 06 Nov 2026 06:36:05 +0000
-To: Ding Meng <meng.ding@siemens.com>
-From: Paul Moses <p@1g4.org>
-Cc: netdev@vger.kernel.org, Willem de Bruijn <willemdebruijn.kernel@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jonathan Corbet <corbet@lwn.net>, Andrew Lunn <andrew+netdev@lunn.ch>, Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Richard Cochran <richardcochran@gmail.com>, florian.bezdeka@siemens.com, jan.kiszka@siemens.com, wq.wang@siemens.com, gerhard@engleder-embedded.com, Jason Xing <kerneljasonxing@gmail.com>, Simon Horman <horms@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Mathieu Desnoyers
-	<mathieu.desnoyers@efficios.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, intel-wired-lan@lists.osuosl.org, linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH] net: mark skb NAPI IDs independently of busy polling
-Message-ID: <KPhGx8a4LdMBr3rj5NRNGc_DxDUpjoDXn1RDkAisaWwvTg_MoClMGQ0iCyrMM6Ev21UbYwHrlCBPZ-xJUx0NbOMhSY1o8MlozwhRUSs15SQ=@1g4.org>
-In-Reply-To: <eqrkw7wsawjtbvjkndmpik7jryb2sau6fdsu4njw6twn2lcfp3@k67o5wav5f5m>
-References: <20261105071706.7043-1-meng.ding@siemens.com> <Tif4BSB0H3l8O1bLzRnhCE9hUYhsz6G3MIhQAgYZImUx1_8YwnCyzy89IV6OSTsXdHDT6fFf7rEL1qfRFJC9OPDHRlhl3cgNJyyE_mVlHWM=@1g4.org> <eqrkw7wsawjtbvjkndmpik7jryb2sau6fdsu4njw6twn2lcfp3@k67o5wav5f5m>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 98fcd52a7ec1792cf8bb61aff9005d55238b06cf
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1350F606A326;
+	Fri,  6 Nov 2026 06:38:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1350F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AP4Cu9Yi
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QVli/NBDMP3j4xx5qSGjiffg5qRMUc+cNVV9YXYmrI0pEjqsNt/TSJoPu6k4BVFl7LD9H3+CXFqQmBClNUyq8fnyypAy3A88e9D+l+JryIZoiAmR+O/WBeeE0yt49coqYXZIpQlIc89FDOkXsg6q1Q/m8OpvKLR3UUOgyaJUTjOVNYzxJKJzSH9jn8qmxX2Hro/XNQkhJVtB+2AwgX9iUDwhS+vv+USq7rmXQYKfuWDS/BsZ4yfgQAuCeOsfPUOYEakrGLK9ypDBLSF2GUQwdqvGm8oHf5xWvn+9hDI6zSJSw1nn6M2AR6C6PmIHlTzaAUreu3vhtcw+UeILsNL+Mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0jR1F7KAg8+jp7B24zhMxP4ZhKVtmMOKcP2H6tz6jjo=;
+ b=X0CXIiXtiYW8Wz7+vlLAM0IUMW4YB7+qoielzPKKy+XRTQeMURJVHu5+WkgVRTHxemso9FAcAr0zb3bV1Ghuef0V0bBEk/mg2NTXXs8Bu1G9tyLybLGj5xXR+xjt2GCXx5Vgxp7eYbXeU3yg0uc2bHpNcXnwm3iNx+tUvzXEQ/rup8ZUGemtESIqb2Xz/RBPoVdn2Req7DaYZxJp1OkzS9bVtyBi2Qhrm0sYI2k9CjYPGGGwXUhwV62sTdyHZ0R9EIET+NcQ+53y7hbfq8UCFU9AxgRbvyRooHm6C3lnERjyaMT4UxmUygEcjiC4T3iD60P1qfWYPwYUeHvLgXhFXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0jR1F7KAg8+jp7B24zhMxP4ZhKVtmMOKcP2H6tz6jjo=;
+ b=AP4Cu9YixOGS0ulifCWbJaJq5mlhWavPc9/NRV/w0v5Xg5Jd+WTSmayo4tNr4OVaLSkaznXoUhyYzil1nGud4qeu5rSSeQ7OxvIh+odcPw+hyQCHi2WUS6Z7WuNZXNHaLhs1nE4PRwg7i2iGa/mq6rN0uxL1VQOOEPQYll+b13VL+FGQnD3E/zcBNf9KYh0nL5gxC8XjZNjIZ3lOEPGPiPjH7ZqK2Dt8zmHJvurhqEJ583IzYpMH0/fJJQqHmEOfaCaaFsH2l7PYKjmEDuGSkRs8XrqvcjKbMIyZNWsfhp4sr38kTxLLrj/zZbwUkWY+wpc+erGmykAoSZqfCBRH2A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH8PR12MB6793.namprd12.prod.outlook.com (2603:10b6:510:1c4::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 06:38:18 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.007; Fri, 6 Nov 2026
+ 06:38:18 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 06 Nov 2026 15:38:14 +0900
+Message-Id: <DMNX661YLSXA.3DZ2LVCDVD3GT@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 4/4] gpu: nova-core: gsp: cmdq: add the GMC receive path
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20261103-r000_rebase_on_cmdq-rpc-v1-0-189f9ff3bfd2@nvidia.com>
+ <20261103-r000_rebase_on_cmdq-rpc-v1-4-189f9ff3bfd2@nvidia.com>
+ <DMN62G2CDG3N.ETT4GRFXWKKU@nvidia.com>
+In-Reply-To: <DMN62G2CDG3N.ETT4GRFXWKKU@nvidia.com>
+X-ClientProxiedBy: OS7PR01CA0037.jpnprd01.prod.outlook.com
+ (2603:1096:604:257::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,317 +103,418 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH8PR12MB6793:EE_
+X-MS-Office365-Filtering-Correlation-Id: f58604c7-ed5a-48ba-3ab3-08df3bd08aee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|376014|22082099003|18002099003|6133799003|3023799007|10067099003|5023799004|4143699003|56012099006|261026140227099003|11063799006|261026121527099003|261028144727099003|261021121427099003|261022075727099003|261102123227099003|261009223027099003|261021123027099003|261022105027099003|261021135927099003|260925021911599003|260925022911599003|260925021311599003;
+X-Microsoft-Antispam-Message-Info:
+	gtZ98oc18PmrMcbv5hpUHDScLlaB5Geb142Cv8j9t/xYuGMboTOPpjGm8/HXRP6AZUAv2xUnp/ZdAN/4TiB8P+RoVqG1iU6yVc+Df/er7N6V3HBh6sXj/TYpTBufLpVjx/vGvgwob3Un2PktGQM4/LItuR+SKrSdaDrl6Iq2q897lqOeyRJqvEgXKNKf8yaCUdHRXKB1+6es4pg0If0qZT2WuT/KgnAm3ial2eDZiRoAsUqZxbYRlKqZAjBwWLdesCu56DSf/loJqTnxvMk+7fjbB8+S7Lq3Kb2ukszlccQUf+pMHbO7K4iFYLWBQhIULKMvirYJSwtI3jcb9vb63VhST88B/w7kG8B9DnM4EjSZp5HeLxNnLmZX6uC5UI0womna1Hi8AjQGaXsO+7GsQ0dwbz+92aompB0EhjXQtksClu6L5ardRYF3ahhxTkoNg2l5vGkeVbmEw8Y9XLgTdoGIUwP9NTelLPXlDF/SM48sEs4Sdtu1sylQjqANn/BuqEO/vbYzIzNfJaWNjH+2DJk7Ddr6jt2b4dQNd+BN7/e0szf7Kix9kIKzhQqNTojahEJ1V31sV+VHe4l43MiS2tNhVryjI9BEtl1b5qrcvNxcPs/wYzlOL9n2LqErpmpG02hSh7Vn1VfXP1QUTf4d4GyjVTynqI4wfkHiqEDQBNg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(376014)(22082099003)(18002099003)(6133799003)(3023799007)(10067099003)(5023799004)(4143699003)(56012099006)(261026140227099003)(11063799006)(261026121527099003)(261028144727099003)(261021121427099003)(261022075727099003)(261102123227099003)(261009223027099003)(261021123027099003)(261022105027099003)(261021135927099003)(260925021911599003)(260925022911599003)(260925021311599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eXN0cWpKMGxMVEdSZTN6dHJiK045RmU4OW5IT2owQjdNaW5mN2RNdXlLeXVF?=
+ =?utf-8?B?OTM3RERHVEEvWDhSYU8xNk5qRjNuVDl2ellsaXo1WEVsRFJ1QmtwWVhrYVg3?=
+ =?utf-8?B?aVl4SEx0QjRqdUNSeG5wd3NUTWg2ZGRDRUpGZ2R6ZTNUVEl6MXlpR3RYV05l?=
+ =?utf-8?B?c2hPek04ZzA3Z0NNU3ZaQ1lVS3VOS2FwY0FvclAyVkwvTElncit2bHIrU0tr?=
+ =?utf-8?B?dzNiZ1NOK2lYbHZ1THNPUkpkU3lid2xaTU1RRTBSaHoyVEkzQ0YvUmVXUExE?=
+ =?utf-8?B?ZW96dkhtelpEaDhGb2p5TVRjM1d3cmRLV0lnMDg0TzFKNW1OaDBabkFrVllY?=
+ =?utf-8?B?NkRaUkQ3cE5xbndtajBTRWdWSUN6NGxoM0hLb2lsNUhpR3pZMTg5WnpRcmpu?=
+ =?utf-8?B?bjVFVWMydkx1Rml5TDcvcGxTYXFyWnhLdHRQc1ZjL1FIOS8zNC9heEZtV0FY?=
+ =?utf-8?B?VWZqc0Z5WEZzMVU4dkgzSDRoRnk1ZzBwWGlwRWo4ck5icWJvRUR1cnZuZVVH?=
+ =?utf-8?B?dWlKSE9MbzFmOU5qM05zYTlob3BvRXFDYk9vZ1NGZ2ZIWUs0QUFMQmlHU0dK?=
+ =?utf-8?B?Uyt1anluSmtOSm9VYkh6eVE2TERnMTNFYTBDeW9KOURQN2h3eTg0bVFvMVRn?=
+ =?utf-8?B?VjVTMG1xU0J5VVZYa21wV3JrMG1McEgzdHJjcU44ZW5vYWoyR3d2WXVjVzhD?=
+ =?utf-8?B?NjNEZ2gwbUJmYTRRaXR3VDdXZTdhNDJiUmNPWjBickFxV2lsSWFBZlhCdElM?=
+ =?utf-8?B?MlZWY3pHZkc3eEpMTzJhQ09NYjRGYTJFcEhSOEx1V3J4a1dkVHV5Nnc3UHZG?=
+ =?utf-8?B?ekdnVjZ3TWNUSFFmeGhTVWw0MmlPdzFxbytwRWYxcVRZWVl4MHA0N0V4Zllz?=
+ =?utf-8?B?Z3hyTVdGd09IRFVNUzZDRi9IUW5hZDVQSTk2RkJtVjdtVzR5VlduV3I1amlV?=
+ =?utf-8?B?bTVpbStud1BxSk5GWmw5VzNkQWJhQ3VCS2ZrQStkZmpYSWMyQnlHMGpMWjND?=
+ =?utf-8?B?UXlZcXo2UDUyMDZpOTRxU3lycjVLMlRxMC9ISmgvc25ud0ltUmZ2b0JNcVM4?=
+ =?utf-8?B?alNDeFZWQWdYdDlOcHhUQkFzMUk1Qmp5ZDY1OTNCV0czbGJhUHYxQ3ZDUTNR?=
+ =?utf-8?B?bzQ3aFhhK1J4MjkxQTBnckdBbWorZkhJSjZjR3pYcmM4eEZxTFZ5R3lXS0th?=
+ =?utf-8?B?QnU4WGFYaXFBbVBQT2hDYlhxaUw4THRtVWs3cjNQeDludG84WjR6YkwwUU5s?=
+ =?utf-8?B?SlB0SG5keEtPUWo0ZGpTZkpBZXQ1MlNoNjlPQWE1Y1lDWjRoM3dHdm41Z3o3?=
+ =?utf-8?B?Ui9qMkMxallNMjBtczFHODFQN0JmNjNEekpaa2NKSWcwdVNsYTBnU1FmU3lY?=
+ =?utf-8?B?bWM3Wi9mK2M1a0cwSHZVYkRVL1dCWXVhaFVJZm4yZnZvQ1hjSUwyZVFEbW1l?=
+ =?utf-8?B?RGJGS0hWd1JvcXk0Ui95bzhLWW83UEJwOGcraTlYQW16RUFIWFgwZW5IQjFr?=
+ =?utf-8?B?eFVyR3FsREM4dmtNMGlTbFc1WGEwSUdSeHBiVVptY0J6bkN3T292cVhEUUhG?=
+ =?utf-8?B?V0VQU1Nvdi9GamFuM21iZllBZlV6bmQ2NTUwWkozdlFxRjA0NkpVZjFQV2Uy?=
+ =?utf-8?B?QWNvVTNvUHNXRGhmekJIQWRLNVdYazRab3ZnNkhYRzVwQWRxYU1JTk95TFBr?=
+ =?utf-8?B?alpjT1JYaitIcGpGTGswd1JvSjZ6ZFhyT1dLZFJSbWFKZzg1VzFzNzdnV1lY?=
+ =?utf-8?B?d2k4Y0xRNktlNG1iZDJUSFpnQlUzK2tRRFZvQWpjUW50WVllZFdBbTZqdW92?=
+ =?utf-8?B?SERqQXJBMGlyOWFwY2Y5Mk5UdHZncFZkMmxJaHhnZ3U2NmNqNnFyZG9lNHlq?=
+ =?utf-8?B?WTQ3RkJEWWZIY1RDSlhJSFFhdVZZMU8xQk1PeUVHY0pMSHNSWGxBZVB2Sk4z?=
+ =?utf-8?B?Q0gwNXg5QUJKOHI5dWIrR1NCZ25aMzVqQ2puZkw2ZTZYRHJXeEJFRDRNaXJ6?=
+ =?utf-8?B?eFJXSFRLS2tzUHZhbmVCcXYxY2QweTJaWllFWWF3QVJBK1B4cmdEaWZqa01B?=
+ =?utf-8?B?aDFFYVI2bVI2azdsN0I2ZTJ0Z3FKSHFicDE3NzVwUTRPL1BmcXBXN1B5WDBU?=
+ =?utf-8?B?KzdiK2lCUllYWDJERUdYQ2xVRzRkdlI1VXRrR0xXSlJ0M0Y1ejBsa3RwaCth?=
+ =?utf-8?B?VEVtQnBobGxkb2EyVGd3U3ZEZ0o5R3VHOUJIOTlWOTJzVStkZWxQbko0OVlR?=
+ =?utf-8?B?RkRSbkZZSG1FM3Zwbk1sdkpONzNhdC9tdHJRUnpWN3VId0V1dmVTZVVsVDBO?=
+ =?utf-8?B?SEF6SWNHZ2VQRG5Nb1NRakNqWlI0MXV3QjN5YzVkNkZocm9tbkpZOEI0TXdN?=
+ =?utf-8?Q?xtpthKq0vHBIU+WBlsLf+U9wRCGtC3wtdR0Fce6pkrhD5?=
+X-MS-Exchange-AntiSpam-MessageData-1: URAXOmGRNDKO5g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f58604c7-ed5a-48ba-3ab3-08df3bd08aee
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 06:38:18.2818
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HEuc6msUNd8OWkEgEc0CAfC4wHgOMoR+yzZsDUhLbk5uE4RT8mWmLatprvTnCSKM4cCiBiEJpBviUahTb9kNug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6793
 
+On Thu Nov 5, 2026 at 6:23 PM JST, Eliot Courtney wrote:
+<...>
+>> index b035f30479a8..9adba5cbcd5c 100644
+>> --- a/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
+>> +++ b/drivers/gpu/nova-core/gsp/cmdq/gmc.rs
+>> @@ -29,7 +29,9 @@
+>>  use super::{
+>>      Cmdq,
+>>      CmdqInner,
+>> -    CommandElement, //
+>> +    CommandElement,
+>> +    GspMessage,
+>> +    GspParsedMessage, //
+>>  };
+>> =20
+>>  /// Trait implemented by types representing a GMC command to send to th=
+e GSP.
+>> @@ -150,7 +152,167 @@ fn write(&self, dev: &device::Device, seq: u32, ds=
+t: &mut GspCommand<'_>) -> Res
+>>      }
+>>  }
+>> =20
+>> +/// Trait representing GMC messages received from the GSP.
+>> +///
+>> +/// These can be either replies to sent commands that expect a reply, o=
+r an event not bound to any
+>> +/// command.
+>> +pub(crate) trait MessageFromGsp: Sized {
+>> +    /// Id of the command this is the reply to.
+>> +    const COMMAND: GmcCommandId;
+>
+> What about removing "COMMAND" here, and have `await_gmc_reply` take the
+> CommandToGsp type, returning C::Reply (where C::Reply: MessageFromGsp)?
+> That removes needing to define a bidirectional mapping which could
+> become out of sync. Also, if this is going to be used for "an event not
+> bound to any command" then it's better not to specify `COMMAND` imo.
 
+Oh yes, that simplifies things quite a bit, thanks!
 
+<...>
+>> +impl<'a> GmcMessage<'a> {
+>> +    /// Validate the GMC layer of `element` and returns its GMC API hea=
+der and its contents trimmed
+>> +    /// down to the GMC payload.
+>> +    ///
+>> +    /// # Errors
+>> +    ///
+>> +    /// - `EIO` if the element is shorter than the GMC API header, or t=
+han the payload length
+>> +    ///   advertised by the GMC API header.
+>> +    pub(super) fn parse(dev: &device::Device, element: GspMessage<'a>) =
+-> Result<GmcMessage<'a>> {
+>> +        let GspMessage {
+>> +            contents: (slice_1, slice_2),
+>> +            ..
+>> +        } =3D element;
+>> +
+>> +        // The GSP message header and the GMC API header together are g=
+uaranteed to fit entirely
+>> +        // into a single page, so it's ok to only look at `slice_1` her=
+e.
+>> +        let (gmc_header, slice_1) =3D GmcApiHeader::from_bytes_prefix(s=
+lice_1).ok_or(EIO)?;
+>> +        let payload_size =3D gmc_header.payload_size();
+>> +
+>> +        dev_dbg!(
+>> +            dev,
+>> +            "GSP GMC: receive: seq# {}, command=3D{:?}, length=3D0x{:x}=
+\n",
+>> +            gmc_header.sequence(),
+>> +            gmc_header.command(),
+>> +            payload_size,
+>> +        );
+>> +
+>> +        // Check that the driver read area is large enough for the mess=
+age.
+>> +        if slice_1.len() + slice_2.len() < payload_size {
+>> +            return Err(EIO);
+>> +        }
+>> +
+>> +        // Cut the message slices down to the actual length of the mess=
+age.
+>> +        let (slice_1, slice_2) =3D if slice_1.len() > payload_size {
+>> +            // PANIC: we checked above that `slice_1` is at least as lo=
+ng as `payload_size`.
+>> +            (slice_1.split_at(payload_size).0, &slice_2[0..0])
+>> +        } else {
+>> +            (
+>> +                slice_1,
+>> +                // PANIC: we checked above that `slice_1.len() + slice_=
+2.len()` is at least as
+>> +                // large as `payload_size`.
+>> +                slice_2.split_at(payload_size - slice_1.len()).0,
+>> +            )
+>> +        };
+>
+> Consider sharing a helper for this (with the RPC code which does the same=
+ thing).
+> The split_at_checked also IMO simplifies the code.
+>
+> ```
+> fn message_prefix<'a>(
+>     (s1, s2): (&'a [u8], &'a [u8]),
+>     len: usize,
+> ) -> Option<(&'a [u8], &'a [u8])> {
+>     match s1.split_at_checked(len) {
+>         Some((p, _)) =3D> Some((p, &[])),
+>         None =3D> s2.get(..len - s1.len()).map(|rest| (s1, rest)),
+>     }
+> }
+> ```
 
+Although the subtraction from the `None` branch can never underflow, it
+would still need a justifying comment and I was wondering whether we
+could remove it entirely. I came with this alternative version which I
+like slightly better, let me know if you see a problem with it:
 
-On Thursday, November 5th, 2026 at 11:50 PM, Ding Meng <meng.ding@siemens.c=
-om> wrote:
+    // See if `slice_1` covers the whole message, take it entirely if it do=
+esn't.
+    let slice_1 =3D slice_1
+        .split_at_checked(length)
+        .map(|split| split.0)
+        .unwrap_or(slice_1);
+    // `slice_2` is the remainder of the message not covered by `slice_1`.
+    let slice_2 =3D slice_2
+        .get(..length.saturating_sub(slice_1.len()))
+        .ok_or(EIO)?;
 
-> On Thu, Nov 05, 2026 at 10:29:51PM +0000, Paul Moses wrote:
-> >
-> >
-> >
-> >
-> > On Thursday, November 5th, 2026 at 1:19 AM, Ding Meng <meng.ding@siemen=
-s.com> wrote:
-> >
-> > > Commit 97dc7cd92ac6 ("ptp: Support late timestamp determination")
-> > > added support for deferring RX timestamp conversion to
-> > > ndo_get_tstamp(). When the timestamp is consumed, get_timestamp()
-> > > uses the skb's NAPI ID to find the device that owns the timestamp
-> > > cookie and invoke its callback.
-> > >
-> > > Commit e68b6e50fa35 ("udp: enable busy polling for all sockets")
-> > > gated NAPI ID bookkeeping with CONFIG_NET_RX_BUSY_POLL. As a result,
-> > > when busy polling is disabled, the skb may not carry a usable NAPI ID=
+>
+>> +
+>> +        Ok(GmcMessage {
+>> +            header: gmc_header,
+>> +            contents: (slice_1, slice_2),
+>> +        })
+>> +    }
+>> +
+>> +    /// Returns the GMC API header of the message.
+>> +    pub(crate) fn header(&self) -> &'a GmcApiHeader {
+>> +        self.header
+>> +    }
+>> +
+>> +    /// Returns the payload of the message.
+>> +    ///
+>> +    /// The second slice is empty unless the message loops over the mes=
+sage queue.
+>> +    pub(crate) fn payload(&self) -> (&'a [u8], &'a [u8]) {
+>> +        self.contents
+>> +    }
+>> +
+>> +    /// Returns the status code of this message if it is the reply to `=
+command` sent with sequence
+>> +    /// number `seq`, `None` otherwise.
+>> +    fn is_reply_to(&self, command: GmcCommandId, seq: u32) -> Option<u3=
+2> {
+>> +        if matches!(self.header.command().id(), Ok(id) if id =3D=3D com=
+mand)
+>> +            && self.header.sequence() =3D=3D u64::from(seq)
+>> +        {
+>> +            self.header.status()
+>> +        } else {
+>> +            None
+>> +        }
+>> +    }
+>
+> What about calling this "reply_status" since it returns an optional
+> reply status?
+
+Done.
+
+>
+>> +
+>> +    /// Logs an event, meaning a message that no caller was waiting for=
 .
-> > > The device lookup then fails, so the driver callback is not invoked.
-> > > get_timestamp() falls back to hwtstamp, which does not contain the
-> > > converted timestamp, resulting in an incorrect RX hardware timestamp.
-> > >
-> > > Record skb NAPI IDs independently of busy-poll support to support
-> > > drivers that use deferred timestamp conversion and future driver
-> > > features that need to look up a device by its NAPI ID.
-> > >
-> > > Signed-off-by: Ding Meng <meng.ding@siemens.com>
-> > > Reviewed-by: Florian Bezdeka <florian.bezdeka@siemens.com>
-> > > ---
-> > > In the discussion of the issue reported at
-> > > https://lore.kernel.org/netdev/20260630112056.885071-1-meng.ding@siem=
-ens.com/
-> > > this previous patch added an igc-specific fallback for configurations
-> > > with CONFIG_NET_RX_BUSY_POLL disabled. It populated skb's hwtstamp
-> > > field with a timestamp converted using the default hardware timer,
-> > > allowing get_timestamp() to return it without invoking ndo_get_tstamp=
-().
-> > > But Jakub Kicinski noted that the proposed fix appeared to be a
-> > > driver-specific workaround for a generic problem. The engleder driver
-> > > would also be affected by the same issue.
-> > >
-> > > This patch introduces a new configuration option to enable NAPI ID
-> > > bookkeeping independently of busy polling. The option is enabled
-> > > whenever busy polling is enabled, preserving the existing behavior.
-> > > It is also selected by the igc and engleder drivers, ensuring that
-> > > skbs carry a NAPI ID even when busy polling is disabled.
-> > >
-> > > Another approach considered was to require drivers using deferred
-> > > timestamp conversion, such as igc and engleder, to enable busy pollin=
-g.
-> > > However, this would introduce an unnecessary dependency between two
-> > > independent features: hardware timestamp reporting should not require
-> > > busy polling to be enabled.
-> > >
-> > > Timestamping has been tested only with igc; it has not been tested
-> > > with engleder.
-> > >
-> > >  Documentation/networking/timestamping.rst | 11 ++++++++---
-> > >  drivers/net/ethernet/engleder/Kconfig     |  1 +
-> > >  drivers/net/ethernet/intel/Kconfig        |  1 +
-> > >  include/linux/skbuff.h                    |  4 ++--
-> > >  include/net/busy_poll.h                   |  2 +-
-> > >  include/trace/events/net.h                |  2 +-
-> > >  net/Kconfig                               |  4 ++++
-> > >  net/core/filter.c                         |  2 +-
-> > >  net/core/skbuff.c                         |  2 +-
-> > >  9 files changed, 20 insertions(+), 9 deletions(-)
-> > >
-> > > diff --git a/Documentation/networking/timestamping.rst b/Documentatio=
-n/networking/timestamping.rst
-> > > index 2162c4f2b28a6..dbe40a1972639 100644
-> > > --- a/Documentation/networking/timestamping.rst
-> > > +++ b/Documentation/networking/timestamping.rst
-> > > @@ -278,9 +278,14 @@ SOF_TIMESTAMPING_OPT_PKTINFO:
-> > >    packets with hardware timestamps. The message contains struct
-> > >    scm_ts_pktinfo, which supplies the index of the real interface whi=
-ch
-> > >    received the packet and its length at layer 2. A valid (non-zero)
-> > > -  interface index will be returned only if CONFIG_NET_RX_BUSY_POLL i=
-s
-> > > -  enabled and the driver is using NAPI. The struct contains also two
-> > > -  other fields, but they are reserved and undefined.
-> > > +  interface index will be returned only if CONFIG_SKB_MARK_NAPI_ID i=
-s
-> > > +  enabled and the driver is using NAPI. This hidden configuration is
-> > > +  selected automatically by busy-poll support and by drivers that ne=
-ed
-> > > +  skb NAPI IDs to resolve deferred hardware timestamps. Drivers that
-> > > +  use deferred timestamp conversion must select it so the networking
-> > > +  stack can find the device and call its timestamp callback even whe=
-n
-> > > +  busy polling is disabled. The struct contains also two other field=
-s,
-> > > +  but they are reserved and undefined.
-> > >
-> > >  SOF_TIMESTAMPING_OPT_TX_SWHW:
-> > >    Request both hardware and software timestamps for outgoing packets
-> > > diff --git a/drivers/net/ethernet/engleder/Kconfig b/drivers/net/ethe=
-rnet/engleder/Kconfig
-> > > index 3df6bf476ae7e..9700a243bea11 100644
-> > > --- a/drivers/net/ethernet/engleder/Kconfig
-> > > +++ b/drivers/net/ethernet/engleder/Kconfig
-> > > @@ -22,6 +22,7 @@ config TSNEP
-> > >  =09depends on PTP_1588_CLOCK_OPTIONAL
-> > >  =09select PHYLIB
-> > >  =09select PAGE_POOL
-> > > +=09select SKB_MARK_NAPI_ID
-> > >  =09help
-> > >  =09  Support for the Engleder TSN endpoint Ethernet MAC IP Core.
-> > >
-> > > diff --git a/drivers/net/ethernet/intel/Kconfig b/drivers/net/etherne=
-t/intel/Kconfig
-> > > index 780f113986ea8..7fb63f351fc20 100644
-> > > --- a/drivers/net/ethernet/intel/Kconfig
-> > > +++ b/drivers/net/ethernet/intel/Kconfig
-> > > @@ -376,6 +376,7 @@ config IGC
-> > >  =09depends on PCI
-> > >  =09depends on PTP_1588_CLOCK_OPTIONAL
-> > >  =09depends on ETHTOOL_NETLINK
-> > > +=09select SKB_MARK_NAPI_ID
-> > >  =09help
-> > >  =09  This driver supports Intel(R) Ethernet Controller I225-LM/I225-=
-V
-> > >  =09  family of adapters.
-> > > diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-> > > index 6787fcf6ac3e4..164c862f7a403 100644
-> > > --- a/include/linux/skbuff.h
-> > > +++ b/include/linux/skbuff.h
-> > > @@ -1059,7 +1059,7 @@ struct sk_buff {
-> > >  =09=09=09__u16=09vlan_tci;
-> > >  =09=09};
-> > >  =09};
-> > > -#if defined(CONFIG_NET_RX_BUSY_POLL) || defined(CONFIG_XPS)
-> > > +#if defined(CONFIG_SKB_MARK_NAPI_ID) || defined(CONFIG_XPS)
-> > >  =09union {
-> > >  =09=09unsigned int=09napi_id;
-> > >  =09=09unsigned int=09sender_cpu;
-> > > @@ -1267,7 +1267,7 @@ static inline bool skb_pkt_type_ok(u32 ptype)
-> > >   */
-> > >  static inline unsigned int skb_napi_id(const struct sk_buff *skb)
-> > >  {
-> > > -#ifdef CONFIG_NET_RX_BUSY_POLL
-> > > +#ifdef CONFIG_SKB_MARK_NAPI_ID
-> > >  =09return skb->napi_id;
-> > >  #else
-> > >  =09return 0;
-> > > diff --git a/include/net/busy_poll.h b/include/net/busy_poll.h
-> > > index 6e172d0f6ef5f..f7c0e62c6a7d7 100644
-> > > --- a/include/net/busy_poll.h
-> > > +++ b/include/net/busy_poll.h
-> > > @@ -130,7 +130,7 @@ static inline void sk_busy_loop(struct sock *sk, =
-int nonblock)
-> > >  static inline void __skb_mark_napi_id(struct sk_buff *skb,
-> > >  =09=09=09=09      const struct gro_node *gro)
-> > >  {
-> > > -#ifdef CONFIG_NET_RX_BUSY_POLL
-> > > +#ifdef CONFIG_SKB_MARK_NAPI_ID
-> > >  =09/* If the skb was already marked with a valid NAPI ID, avoid over=
-writing
-> > >  =09 * it.
-> > >  =09 */
-> > > diff --git a/include/trace/events/net.h b/include/trace/events/net.h
-> > > index dbc2c5598e35a..99ed7645242eb 100644
-> > > --- a/include/trace/events/net.h
-> > > +++ b/include/trace/events/net.h
-> > > @@ -208,7 +208,7 @@ DECLARE_EVENT_CLASS(net_dev_rx_verbose_template,
-> > >
-> > >  =09TP_fast_assign(
-> > >  =09=09__assign_str(name);
-> > > -#ifdef CONFIG_NET_RX_BUSY_POLL
-> > > +#ifdef CONFIG_SKB_MARK_NAPI_ID
-> > >  =09=09__entry->napi_id =3D napi_id_valid(skb->napi_id) ?
-> > >  =09=09=09=09   skb->napi_id : 0;
-> > >  #else
-> > > diff --git a/net/Kconfig b/net/Kconfig
-> > > index 76ab44aa439a6..8fa7586dc08ca 100644
-> > > --- a/net/Kconfig
-> > > +++ b/net/Kconfig
-> > > @@ -346,9 +346,13 @@ config CGROUP_NET_CLASSID
-> > >  =09  Cgroup subsystem for use as general purpose socket classid mark=
-er that is
-> > >  =09  being used in cls_cgroup and for netfilter matching.
-> > >
-> > > +config SKB_MARK_NAPI_ID
-> > > +=09bool
-> > > +
-> > >  config NET_RX_BUSY_POLL
-> > >  =09bool
-> > >  =09default y if !PREEMPT_RT || (PREEMPT_RT && !NETCONSOLE)
-> > > +=09select SKB_MARK_NAPI_ID
-> > >
-> > >  config BQL
-> > >  =09bool
-> > > diff --git a/net/core/filter.c b/net/core/filter.c
-> > > index b7ac145b68b1f..e2218c18622b8 100644
-> > > --- a/net/core/filter.c
-> > > +++ b/net/core/filter.c
-> > > @@ -10274,7 +10274,7 @@ static u32 bpf_convert_ctx_access(enum bpf_ac=
-cess_type type,
-> > >  =09=09break;
-> > >
-> > >  =09case offsetof(struct __sk_buff, napi_id):
-> > > -#if defined(CONFIG_NET_RX_BUSY_POLL)
-> > > +#if defined(CONFIG_SKB_MARK_NAPI_ID)
-> > >  =09=09*insn++ =3D BPF_LDX_MEM(BPF_W, si->dst_reg, si->src_reg,
-> > >  =09=09=09=09      bpf_target_off(struct sk_buff, napi_id, 4,
-> > >  =09=09=09=09=09=09     target_size));
-> > > diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> > > index eb9fcc4b1fd1a..386a32cdc0cc8 100644
-> > > --- a/net/core/skbuff.c
-> > > +++ b/net/core/skbuff.c
-> > > @@ -1581,7 +1581,7 @@ static void __copy_skb_header(struct sk_buff *n=
-ew, const struct sk_buff *old)
-> > >  #ifdef CONFIG_NETWORK_SECMARK
-> > >  =09CHECK_SKB_FIELD(secmark);
-> > >  #endif
-> > > -#ifdef CONFIG_NET_RX_BUSY_POLL
-> > > +#ifdef CONFIG_SKB_MARK_NAPI_ID
-> > >  =09CHECK_SKB_FIELD(napi_id);
-> > >  #endif
-> > >  #ifdef CONFIG_XPS
-> > >
-> > > base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> > > --
-> > > 2.47.3
-> > >
-> > >
-> >
-> > Are you sure this does not make the preexisting timestamp lifetime
-> > issue more pathological? I think it needs to be fixed now as well.
-> > It was the last item mentioned by Sashiko in your review if I
-> > remember correctly.
-> >
-> > Paul
->=20
-> The hardware timestamp lifetime issue may indeed exist,
-> but it is independent of this patch. Even if that issus is fixed,
-> we still need to obtain the netdevice from the skb, so the decoupling
-> configuration introduced by this patch is still necessary.
->=20
-> Ding Meng
->=20
+>> +    ///
+>> +    /// A reply that nobody claimed (e.g. one that arrived after its re=
+quest timed out) and an
+>> +    /// unknown command id are logged at warning level. Other events ar=
+e not logged.
+>> +    pub(super) fn log(&self, dev: &device::Device) {
+>> +        let command =3D self.header.command();
+>> +        let seq =3D self.header.sequence();
+>> +
+>> +        match command.id() {
+>> +            Ok(id) if command.is_response() =3D> {
+>> +                dev_warn!(dev, "unclaimed GSP GMC reply to {:?} (seq {}=
+)\n", id, seq);
+>> +            }
+>> +            // Nothing to do for the remaining known command ids.
+>> +            Ok(_) =3D> {}
+>> +            Err(_) =3D> {
+>> +                dev_warn!(dev, "unknown GSP GMC command {:?} (seq {})\n=
+", command, seq);
+>> +            }
+>> +        }
+>> +    }
+>> +}
+>> +
+>>  impl Cmdq<'_> {
+>> +    /// Sends `command` to the GSP and waits for the reply.
+>> +    ///
+>> +    /// GMC events that arrive before the reply are passed to `on_event=
+`, and RPC messages are
+>> +    /// logged and consumed. The boot sequence relies on this to handle=
+ the load-and-execute
+>> +    /// events that GSP-RM raises before it answers `GSP_INIT`.
+>> +    ///
+>> +    /// The queue is locked for the entire send+receive cycle, includin=
+g the calls to `on_event`,
+>> +    /// to ensure that no other command can be interleaved. `on_event` =
+must thus not use the queue.
+>> +    ///
+>> +    /// # Errors
+>> +    ///
+>> +    /// - `EMSGSIZE` if the command does not fit in a single command qu=
+eue element.
+>> +    /// - `ETIMEDOUT` if space does not become available to send the co=
+mmand, or if the reply does
+>> +    ///   not arrive within [`Self::RECEIVE_TIMEOUT`] of the send, howe=
+ver many events arrive
+>> +    ///   while waiting.
+>> +    /// - `EIO` if the variable payload requested by the command has no=
+t been entirely
+>> +    ///   written to by its [`GmcCommand::init_variable_payload`] metho=
+d, or if the reply carries
+>
+> [`GmcCommand::init_variable_payload`] =3D>
+> [`CommandToGsp::init_variable_payload`]? Can you check the doclinks?
 
-Your patch changes non busy poll kernels from returning the raw cookie=20
-pointer to dereferencing that cookie just like busy poll already did.
+Fixed, thanks!
 
-So I guess that's an improvement? My apathy has reached a threshold
-where that sounds good to me.
+<...>
+>> +    /// Receives the reply of type `R` to the command sent with sequenc=
+e number `seq`, waiting up
+>> +    /// to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
+>> +    ///
+>> +    /// Any GMC event that arrives first is passed to `on_event`, and a=
+ny RPC message is logged.
+>> +    /// Neither extends the deadline.
+>> +    ///
+>> +    /// # Errors
+>> +    ///
+>> +    /// - `ETIMEDOUT` if the reply does not arrive before the deadline,=
+ however many other messages
+>> +    ///   arrive while waiting.
+>> +    /// - `EIO` if a message fails framing or checksum validation, or i=
+f the reply carries a status
+>> +    ///   other than `NV_OK`.
+>> +    ///
+>> +    /// Error codes returned by [`MessageFromGsp::read`] and by `on_eve=
+nt` are propagated as-is.
+>> +    fn await_gmc_reply<R: MessageFromGsp>(
+>> +        &mut self,
+>> +        seq: u32,
+>> +        on_event: impl Fn(&GmcMessage<'_>) -> Result,
+>> +    ) -> Result<R>
+>> +    where
+>> +        // This allows all error types, including `Infallible`, to be u=
+sed for `R::InitError`.
+>> +        Error: From<R::InitError>,
+>
+> Currently, we have this flow:
+> await_gmc_reply -> await_msg_with -> consume_element -> closure
+>
+> `consume_element` returns Result<R>. The outer Result is a transport
+> level result. The inner R is a gmc/rpc level object, and it has the
+> contract that ENOMSG means drain this element. In `await_gmc_reply` we
+> provide the closure which is doing this gmc/rpc level job, and also
+> asking the `MessageFromGsp` to decode itself plus getting the nvstatus.=20
+>
+> I think that `await_gmc_reply` should return Result<Result<R>> (and
+> Result<Result<R, NvStatus>> in the future, or even Result<Result<R,
+> NvStatus>, CmdqError>). For example, if we add an NvStatus enum and have
+> it convertible to ernno, then later someone adds a conversion to ENOMSG,
+> it could trigger this. And semantically, there is a difference between a
+> successfully received reply that had a failed status vs a failed/borked
+> reply. The RPC code also has this issue where it doesn't distinguish
+> between a successfully received reply which conveys a failed status vs
+> borked reply (actually, we don't even check the status for RPC, which
+> isn't good).
+>
+> It's also worth considering adding a custom error type enum that has
+> Drain or something instead of using ENOMSG - then we can encode drain in
+> the type system and make it impossible for decoder/encoder
+> implementations to affect cmdq control flow.
+>
+> Another reason to do this is that the later vGPU code [1]  (see
+> `CeUtilsAllocError`) needs to distinguish this case - explicitly failed
+> command vs transport failure.
 
-The big question is why does igc alone need core modification to properly=
-=20
-store Timer 1. Seemed like an intel question so I digress.
+Yeah, that's indeed a blind spot in the command queue design. Your
+nested Result suggestion makes sense, so I'll introduce the idea as a
+separate patch in the next revision.
 
-Good luck and have fun
+>
+> [1]: https://lore.kernel.org/all/6fbf38e3622a135c662443155513976898b1ab68=
+.1790580105.git.zhiw@nvidia.com/
+>
+>
+>> +    {
+>> +        let dev =3D self.dev;
+>> +
+>> +        self.await_msg_with(|message| {
+>> +            let gmc_message =3D match message {
+>> +                GspParsedMessage::Gmc(gmc_message) =3D> gmc_message,
+>> +                _ =3D> {
+>> +                    message.log(dev);
+>> +                    return Err(ENOMSG);
+>> +                }
+>> +            };
+>> +
+>> +            match gmc_message.is_reply_to(R::COMMAND, seq) {
+>
+> It's possible if we hit a timeout earlier, to get an old reply here
+> (`is_response` is true but one or both of the sequence number or command
+> id doesn't match). In that case IMO we should log and return Err(ENOMSG)
+> rather than calling `on_event`, because it feels odd for `on_event` to
+> receive things with `is_response` true.
 
+Done. TBH I am still not super happy with the way we are handling events
+actually, but would like to have a bit more visibility about how we will
+use GMCAPI to change things more fundamentally. The current way is not
+perfect for gets the job done for now.
 
-[    7.971832] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[    7.971852] BUG: KASAN: use-after-free in igc_ptp_rx_pktstamp+0x12c/0x19=
-0
-[    7.972002] Read of size 4 at addr ffff88800549c008 by task test/197
-[    7.972013]=20
-[    7.972041] CPU: 0 UID: 65534 PID: 197 Comm: test Not tainted 7.3.0-nobu=
-sy-patched-20261105+ #1 PREEMPT_RT=20
-[    7.972064] Call Trace:
-[    7.972103]  <TASK>
-[    7.972122]  dump_stack_lvl+0x43/0x60
-[    7.972215]  print_address_description+0x55/0x1d0
-[    7.972265]  ? igc_ptp_rx_pktstamp+0x12c/0x190
-[    7.972285]  print_report+0x58/0x70
-[    7.972295]  kasan_report+0x130/0x170
-[    7.972356]  ? igc_ptp_rx_pktstamp+0x12c/0x190
-[    7.972366]  igc_ptp_rx_pktstamp+0x12c/0x190
-[    7.972375]  __sock_recv_timestamp+0x72b/0xe10
-[    7.972451]  __sock_recv_cmsgs+0x168/0x3c0
-[    7.972461]  udp_recvmsg+0x4c9/0xb40
-[    7.972525]  ? __pfx_inet_recvmsg+0x10/0x10
-[    7.972546]  sock_recvmsg+0x125/0x170
-[    7.972556]  ____sys_recvmsg+0x167/0x3b0
-[    7.972567]  __sys_recvmsg+0x14c/0x1b0
-[    7.972578]  ? do_syscall_64+0x115/0x310
-[    7.972660]  do_syscall_64+0xdb/0x310
-[    7.972671]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[    7.972697] RIP: 0033:0x20af4c
-[    7.972726] Code: be 01 00 00 00 0f 05 c3 cc cc cc cc cc cc 4d 89 cb 48 =
-89 f8 4c 8b 4c 24 08 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 d8 0f 05 <c3=
-> cc cc cc e9 db ff ff ff cc cc cc c3 cc cc cc cc cc cc cc 55 41
-[    7.972744] RSP: 002b:00007ffd6dcb7308 EFLAGS: 00000246 ORIG_RAX: 000000=
-000000002f
-[    7.972775] RAX: ffffffffffffffda RBX: 00007ffd6dcb73a0 RCX: 00000000002=
-0af4c
-[    7.972783] RDX: 0000000000000000 RSI: 00007ffd6dcb7320 RDI: 00000000000=
-00003
-[    7.972790] RBP: 0000000000000003 R08: 0000000000000000 R09: 00000000000=
-00000
-[    7.972796] R10: 0000000000000000 R11: 0000000000000246 R12: 00000000000=
-00230
-[    7.972802] R13: 00007ffd6dcb73e0 R14: 0000000000000000 R15: 00007ffd6dc=
-b75e0
-[    7.972812]  </TASK>
+>
+>> +                // Message is not the reply to our command, log it.
+>
+> Comment says it'll log, but it only calls "on_event".
+>
+>> +                None =3D> {
+>> +                    on_event(&gmc_message)?;
+>
+> It's probably worth a note that if `on_event` returns Err(ENOMSG) then
+> it'll skip (drain) that event. So Ok(()) and Err(ENOMSG) are equivalent
+> here, which is a bit odd.
 
+Indeed. This behavior will be gone in the next revision.
 
+>
+>> +                    return Err(ENOMSG);
+>> +                }
+>> +                // Reply has an error status.
+>> +                Some(status @ 1..) =3D> {
+>
+> Ok for now, but maybe a TODO to add the NvStatus enum? I sent a patch
+> adding it before [2]. It will probably be more important to delineate
+> the transport vs message vs content layer errors if we do this.
 
+I am not quite sure what you want to me do here (probably because I lack
+the context about NvStatus). Can you be more specific?
