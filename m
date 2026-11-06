@@ -1,113 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951980;
-	b=bdw4acDWlVHC/5CW8PZnQ2JVujED6Cfxc3D0woZgLNVcWQLU2E4C1+zAZ3K712LMjvzr
-	 eRkJOBuhA4QSRTwzaIufjhDlIgc6qB1Pmb1fij6HjV03+OxjVCumfRGQCyv5bdfM4Go3d
-	 xpLacvXdlPWX7g/v/lFw6kXAk77bU54afkcMFekidTS56fXRGxOmKjXkv4IlDJD+hizSv
-	 L6MYACEevn303NZke95yCdc2UV41E39Do08fgTmmSLeAykQYARF9B6zKSmFaZ8A6qp6Lc
-	 E9zjSklkDDqB4si7bLYxmz54vRPA9ZAv5fapwZqQseK//QV4ckHsYFkD7u5U6GtThZw==
+	t=1793951970;
+	b=aSv5rwI8uqTySP37/PGOckgHRK7lcRtQNVonFvoPQbH3NPgM5tOvM+ZAIYr5nhCX3SOT
+	 oVSUuP17QWnxlxIA9puPSnHEjDAuLiopevWtPqyj74IWNHQ6tbmbhce1dfO29dWYaqJ7p
+	 hWo+w/HNONyDc3wTE1nbt8B+zkoHAfxSB0xfaYyd7VJqhAeKxK+/bc5VRAaHxIDLxiVNa
+	 6NiocqEDCnuyE4DTcn3IGDP36NqrP7CbM7vk4RABNazcPrkezhtI0ssHHbbEuWQXdXOhm
+	 8UZjOJj5kKXNPgOBudqiKWfmxfcDaqiFnryCssw38qdKdq50OyywXn+qE2yK+H6r6Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951980;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951970;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=x0QQjRlNHP0O5PIlx1OdLW0gzdTLxrN/TWp+snq7vsk=;
-	b=3jITm/I7Tecnsxf1CwL2js/KWPGCLtFQ2tAIc4iPixeaVc5ZIYWN9/mfXg5xLIolX9qt
-	 uIOW0XVJjjpjZ4ZVaiAyZj51RCKg6l/pw3kvOSt/aNYvZjh6c48Fum30TwetuFadT99Dc
-	 wMqI0Jz1qilH9BmGvoqz7m+ExKL3+FYNj1sqyz9Fzmkm3Yc2bajgZfmfCyqoF/Zugdy7h
-	 TK7kfkQuOuvyCHl1zgLtO+VWF1U1yGALjwoKixTxWe7EqV5N4F1sy57BxjTHIEBViQTmC
-	 /KYfVST4y0VSm7Me6FsKe9Hiim4Haf8XC28NNloDtvYYcEYOzFo1lOe6j1ey+XvIVxQ==
+	bh=Z8XHujJiBkcagFsfgBICSH9wnbIRlzmSj2ubDb+7t+w=;
+	b=SZGxaR0nQdWiP0cfoaNki//d/uTXCGhv3ccpyNMkIBDwRgYW/7YOrjwn5YhYGNjWZ0Mu
+	 w3xUHe8qjBcv2EyPZQbT6EVFYOE3ahnDCfdrRmVNFeYfNM1SkroOpgroUNAU0O6+ealNq
+	 iyloTKUSGdL4M00WKqUV8hHN+H/+3QprqBAtstcdGSi1MoEqLBpk4B/G5faPPetHlgWRR
+	 d/Ew+UiMqTjQvgs4AMRd5sedl/McvCeOD0JUzrWbgKDMAQWekOCKALaF3thtyyKKttAyb
+	 dkpjji9DIJ6tO4pHbIq2WwEUUMTyTf9OLVCfX8uzoyF4ee8CsHkKM2NrJpIN7XD2Ygg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FLvqAqiu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kh8sITx4;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AGGVL6VJ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BauU+aCt;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18512606D829
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:59:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18512606D829
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53190606D830
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:59:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53190606D830
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FLvqAqiu;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kh8sITx4
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67RCVR045321
-	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 07:59:38 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AGGVL6VJ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BauU+aCt
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67RkBd3883417
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 07:59:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x0QQjRlNHP0O5PIlx1OdLW0gzdTLxrN/TWp+snq7vsk=; b=FLvqAqiuNtzOEt5Y
-	eDCdwoeoEL8ttjQdTMHqi7CJT1fyT6mO0IhmA/CXl42LL84yNSqkOy76rdAOM9hO
-	e5ERbR60JY54CZQ/KinvGA6XuqSU1Z1W0J8QEXYQ4X2INuw2abcSE+ODrthdmZEI
-	MMDj7Z/f/VBhDInWjIPWHbwp0ZiehshWXFWdLSO61LdanQJN9RgWuYXG91P3/7Fp
-	OojdJ3GSlju8F0UyPL75tDr2OKa7anRw0/p0B7uOTUow5non/VRw5HJlSSq+X3sI
-	jcgUamZ+GQ3r0xPliP48E4bzLGPfakVqzZ4or3ZkyX9LbTTYcQD/uwaDXFFy6jfc
-	ApP0ig==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p9srqj-1
+	Z8XHujJiBkcagFsfgBICSH9wnbIRlzmSj2ubDb+7t+w=; b=AGGVL6VJCWqbMFe3
+	NU0FoWm0rGnLg6ePtDt5wgLrnOdOytuJduRT1pajE0k//bmR1M+D1Cyn93rAqdq4
+	i4p6JOAEcFzSLsXFRRv3dMJ0JEuZodhh66KyEesfnzEV1v+IT/g9viD73AgN9gzR
+	4BbNDhQVdxMiPAVqriLGJmiENwKWtkXDDhH01xrQWPXgfFfdqxOAgrmhvMawjkny
+	SnaloR1WDbiar57CosTQ9nsa8ml1s6tvniZAzSrV8rY3PEB80ZhJGUgsnB7zsIlb
+	P1SD37rpG2Ncqd975ucXhozVRgeSoQQ4p8MQ5U21X+BBcybQlCOJwy9czYDni2Pl
+	S3HLAQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pb1qvq-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:59:38 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so722528a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:59:38 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:59:29 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b0a528ca65so409006a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:59:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793951977; x=1794556777; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793951968; x=1794556768; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=x0QQjRlNHP0O5PIlx1OdLW0gzdTLxrN/TWp+snq7vsk=;
-        b=kh8sITx4YLjoLZgeS1bXAqIY9dOs4yPA9W0dud8j8sIGCqu4kclfwKk4ou9QxYo9ry
-         VNuh62Glz+EsiTRa+O13yAjuSqerzgIQRegB6cAzsGLcqtB2Vl/OfdxFHbhhwfUGSyDD
-         PlFh61UUXvpcxg1wpEN2OnYRMZUvuRElu8Oo1qqgsyp9RErzMe3o1h0v3DmwdQtxBY2O
-         tH/Noq5+YMHo/dwJdB89jPSNLGiO3FiXsPoNj6n/9SmNoLv1H2gyB3s0QsrYVjkAAOE7
-         uJnRt9kiQ/OGueRzEenpYtl0AczcNBDsJKIKG8PSHWLGpEdyxUITuoxl/kNnWd5ytAXB
-         QKLQ==
+        bh=Z8XHujJiBkcagFsfgBICSH9wnbIRlzmSj2ubDb+7t+w=;
+        b=BauU+aCtCfBcdx8WUOnPok7FMtdVrvRrdj3pyWdKfjGLZMCLJ63Kl9RuONFz6URPNG
+         BDc08RgSsgGZ7uN4CYxEZOvIoiG04b54vFrnSFp37rhDwy8Xe+RE4sPR9wkdpH9rqIrL
+         kvYHOyduU10po+2xOud9YTKfmG1w0pn++t0SeVXobBg/IOmidyuyhrDjyRhhCFMPXZOJ
+         NzOcVX1/dL2Rh8njlhnGX9/sgDa05y2SieWn3bZ8uoggi9SSuZOT1pAYEVbYbijaNKb3
+         1KouGjHaOVzKkYJcCbof+g3pNFRbCalJ/lCcBYczUuWlniDXe0o3SbBlh6M1r6GxrkAw
+         +17g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793951977; x=1794556777;
+        d=1e100.net; s=20260707; t=1793951968; x=1794556768;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=x0QQjRlNHP0O5PIlx1OdLW0gzdTLxrN/TWp+snq7vsk=;
-        b=ykf4yjwEoO03EAUUUPZr/NdhltadBtNcVU3xh4TLuKdnet5pqj/SGqtrlk8j9/9l+f
-         yXgRq0AJLZ2659drpAqTlCATIexxgdPjAWRZ5rYGYC421uh4FAgt6j6MSRoD1MmASAxJ
-         L9tLv/JSVfOaFainJG5Lz2zaL6k1dD9e7vSJ9x8uuFIF2qBOmw/ER6DhHvM7MyB8ST4a
-         C/nLwxWuC74rcFOOe01yW5bVTG14WVPAin8PE96Y2SIACRifx4qQgNyLmsljMBc5Ub8D
-         c54cgOniiAt6vVCvkwckXUdFvWlyRS4cg25rzwzdjxZu4mUkVsnnfvNHk6MS+fBIXD9+
-         IOWg==
-X-Forwarded-Encrypted: i=1; AL+hErEfjiZdw/ejBR5+IL5r4FDCXx7JW/AbKVMW0eJLZvfBj+GCBzNnfgX2EsFBG6/jKySHDKA6NHHvXzNXo9I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JP5vr4J/k9C7mrxsUoIiKkhbFY0yUHKkMUIV2vdF3tI0K3PEO
-	tXPXcWjYO4A7aaheKo1BoqgLmMvCaGohJliGrX5q2ITLSk04MqjEqxGgPIJfHKS8Xs7U7xqCWF6
-	0d+D0kdDVy7YRqzMCJMvsmx/aBrYGduegaMUxYFe7Ksg9DhChr+re8C5/69UmJQkw4A==
-X-Gm-Gg: AYBFou1cTkuB9ZcDx7pwEYdaoQWm9QzUaBimNYLZjOX4DKEAI7OlmNlqc/DamcTICft
-	JNfbHtXQrLgalTq5y7ZIujcztL/eNth7gRXXnvBLHkLYkgsIcNvYYiRNfREmjW5K0iCxz8MHS+1
-	SE0inhS8wsKR6mjo6zI9zhdQ2EHs54McJ9m6K5BCn/D0WBxyGaP4c5RstH+gSBEvUhpnhkTVAZV
-	U78s/smVS0ovqjm5t38pG8DBq+7FkBv+8YSpQhY3/l84IUzfSFIlGBxDzykNj+BW8qsm7sBd4Kl
-	a1qWS5pHDv/zT0E+cGDe+QDp+17zcX4uTlFO1TnWfu6HTpx3l3yABJBJU5lrMlK5IsPtcvbQHFm
-	Eu085fnG7zKfxIjbzD62IAFUaXBw2L+Y9f6T5dJLtdRUbmVFnPMVnLTPk0dYKbGpmcaF/jsgJsI
-	P7//SYiBmSdXfEomobE5TCDl0zYVP9RNBmyGu0cYLGWZDy20F//3Kmtp4luF9hVI2myBo6eso=
-X-Received: by 2002:a17:90b:48d2:b0:3a6:e99b:bbdb with SMTP id 98e67ed59e1d1-3b0db705314mr1562213a91.50.1793951977314;
-        Thu, 05 Nov 2026 23:59:37 -0800 (PST)
-X-Received: by 2002:a17:90b:48d2:b0:3a6:e99b:bbdb with SMTP id 98e67ed59e1d1-3b0db705314mr1562189a91.50.1793951976722;
-        Thu, 05 Nov 2026 23:59:36 -0800 (PST)
+        bh=Z8XHujJiBkcagFsfgBICSH9wnbIRlzmSj2ubDb+7t+w=;
+        b=iOtEmAsPC+DL91U5dOuN5hDJHiYaENMXJ0MvthPNDCq3+6GCuEZ8yDHk6hmI4JTb+1
+         eQLv+NbjOjUK92x2xPOFBcLzus8hGNTqtITPuBOGkz0UCLAckTxabFM9nttsvg2w2JRF
+         sIyJzHQGDYIy8yVy+q65BjTh8Yj4lmO2wnKCVei4NGBgoWnHaAAtJCqRvmP8ETbCmcmn
+         XEvtJahdjuoWHiZDM0MyuMHK6tgtsNu+CUgegkRx6OAHFJDhIsoyL996VofJB8RFtHdq
+         VlrONeaO4Eq18ZYzAg/8XneZpuSIfUfaKf8Pci5H0eBg0A7/ybAVOlmfuwiPDP8X6HR1
+         NTKQ==
+X-Forwarded-Encrypted: i=1; AL+hErGne08g75onvhpU+N2P7j6ajGmTtRHK9DOf4eHHWrHZfyWDxeXUxYcasCVhg+R/XwSRbHafGY04WHBlHo0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++/NJ5+/g4MAZZUl0reCUZ4ByO1VZXS76tAxtn0tjayuPx5kzW
+	iwiBbkSYW14yQuoTGKtKOQ0qO6CXK5BQjE2mEf8W7GdjZjU8TncBDPy5nTxfXmOutLP1fPOY22T
+	/iu1mIDAr+WZYEniNSCPw2BKI8sZap35KlKuUgE3qr7c8xLMXbb9YT4XVpWUTd5Qcsw==
+X-Gm-Gg: AYBFou1X/EUpLUIZqlfRaBsW6b0qdzgmTz0DMXnME0nzC+Z6MdhLG0bUZ3v22bYjYbR
+	T/k7k6I/p2/UQaN3MuRgXRbVDEL23mGB3qkkWYooFkHF7d39R8gDbJ8H3IlYRm1aAEc06/nMS2a
+	F8oPY/3ZS5s5ul0ec8CEg5arDJMKG4kJHjh2c8IBc1lWgUfo/Rs/Amp09t1tyUTY72/eyY8+r9y
+	mVp2z+wXwy+C08NizSZrig8EWWsx2eT+mD1oYVFsr1eNsVNTb7Rqw7OgoTFgz4gr1q+oGTbou6j
+	JyKFkZnZi6LfgU47kabX0VME1Rgldd94JdBczImx6Fo3Wnb6MZJ4JQdHc7FKNfO8O+Qt3D5Npd7
+	76oCjr0LgXNSf2rmOadSt/FV0TBgVrVFkuhGOeQuD+n6KMBdJcex+ArwRmd6bVaeVcjcsP2BDGK
+	Lkltyz7GY2P4HDpiWOJ9kQwq4g7x6heHjo+I4rkUZ4ow9KYGhK48rMYsKS7apxrrr+X2NhX4Q=
+X-Received: by 2002:a17:90b:3889:b0:3ac:aa8d:19f2 with SMTP id 98e67ed59e1d1-3b0db7232edmr1616098a91.62.1793951967840;
+        Thu, 05 Nov 2026 23:59:27 -0800 (PST)
+X-Received: by 2002:a17:90b:3889:b0:3ac:aa8d:19f2 with SMTP id 98e67ed59e1d1-3b0db7232edmr1616085a91.62.1793951967338;
+        Thu, 05 Nov 2026 23:59:27 -0800 (PST)
 Received: from hu-pooventh-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0e4b3cf54sm321685a91.2.2026.11.05.23.59.34
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0e4b3cf54sm321685a91.2.2026.11.05.23.59.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 23:59:36 -0800 (PST)
+        Thu, 05 Nov 2026 23:59:27 -0800 (PST)
 From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-Date: Fri, 06 Nov 2026 13:28:42 +0530
-Subject: [PATCH wireless-next v4 05/21] wifi: nl80211: define interfaces
- for SMD BSS Transition context transfer
+Date: Fri, 06 Nov 2026 13:28:38 +0530
+Subject: [PATCH wireless-next v4 01/21] wifi: nl80211: define Seamless
+ Mobility Domain (SMD) device capability
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,356 +118,159 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-smd-v4-5-62e39487f51a@oss.qualcomm.com>
+Message-Id: <20261106-smd-v4-1-62e39487f51a@oss.qualcomm.com>
 References: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
 In-Reply-To: <20261106-smd-v4-0-62e39487f51a@oss.qualcomm.com>
 To: Johannes Berg <johannes@sipsolutions.net>
 Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
         pooventhiran.g@oss.qualcomm.com
 X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzMSBTYWx0ZWRfX7gD3mBUuAdzp
- mpGYck5vRSUzsdtJxntivl+igKYKFT2oVkosr5EeUAC9ktXEj5sZn5WuMyZeKRQLGfam1B7Tnqu
- P6D7wAkp2ly41TMZagcffMFUrQR7L1w=
-X-Proofpoint-GUID: _EAMbpmxgPDgZlaUzw7KsFgRFjpLPefQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzMSBTYWx0ZWRfX+isTOyArGpEL
- uHDJk2Ag6+N73JqdMD+HiYNIMKGQnAXILhNmsWFGhzHzsbYtLu6IKcSsIoos135/LVgFs2FgAD5
- wC4P55+hWW2DG77X/5I9c5ZaojEybfbYTob2M11L/F8VZJ0ORzU0S4i4ZR+C/DRcRGVqMsz7kiB
- CSrPMzmP8RObb+cUICRKNLLwHc26hguLb4chLIhmUgSEZFeXCEhq6bHmbE/JpccpHE2CJdd5cHh
- PW8VbBh4rVZi0WiI6r/EAbZwVvpoPubgYgZM9KBsdJTwFaF/eODdP7xM/JRR6hsz/vLsOY7Qm6G
- q3LWfN6Vlp8w9n9zBZAK4IeQmpci36CfVwUsbVafmoQxwvHeDbJq+waTFPViYPXNLQ2DyjC0N3E
- +2AWwDKBX4EjzuWxLoIeCKSa3/IYNlvAAP0B/GYEO6PUgctKQdIpADUd7rdM76PW1eeXS7Kh70o
- 0yJRq96dAeapBouxpRw==
-X-Proofpoint-ORIG-GUID: _EAMbpmxgPDgZlaUzw7KsFgRFjpLPefQ
-X-Authority-Analysis: v=2.4 cv=ZIZCCn7b c=1 sm=1 tr=0 ts=6aed88ea cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-GUID: dq7apoTZUsm3NGoVYxBD6FRZwI9hkDhV
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzMSBTYWx0ZWRfX11ZwuXQW6R56
+ ivlM4OCKnmeGObA+Ml62s6EOMvqCuJ0SrxB9ozWTo4nKcaT3YkZ0qrAEPWYLqyBi3Aq350d4c4P
+ 5v4UyfU12xZdAsyhaZYcFhqftbw8ABo=
+X-Authority-Analysis: v=2.4 cv=LIrz05W9 c=1 sm=1 tr=0 ts=6aed88e1 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=A4pAW7IlmD6AYZ-BFbAA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=mv3qBhzh20y5QnxvG48A:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: dq7apoTZUsm3NGoVYxBD6FRZwI9hkDhV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzMSBTYWx0ZWRfX2OUmuC57Swo1
+ AVutaHKjtfmejPsmzWguzVGp7xltktHjhQeZmefKXgdwZrFH38u8FIhrUGkoy4ulNSRilPfYepT
+ t754N+3h26OS0/S9ehpV14H2m8jzwCqltPy1nDoKW49ai3mB8yTp2vlEE0EegWv8+bm4/RRz9/U
+ R3CCdhpfXJ9SJ/7ookwaNzq2kvFcVpu98vDbnp84vXXbA7B7F6ftTMp8Oe1Eyu3QRlRV3t7SX3X
+ qe6hqGHOzN508QiGGKz2nuK2o89HVwRiAsLR4xfTlepgOD7btqLo3H3V+nlmW2A/sFgGOedvwaE
+ M8RpSpEsUmux5Qzmsdilf4PZe5TeMOhxHtQhsq7bJSQQikaIwDBHhdVU3g3suo1E2RpFDcV2DSU
+ 7Xxr/F6mzi8sWJVvhCF7QszLEyAqk1pOgtt+m2BiIRNagRas1rXQAyFLffXrv/O1S3L+EVWOEh+
+ rVjGT6qB7uYRVCjF6Pg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060031
+ spamscore=0 suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611060031
 
-Define nl80211 attributes and policies required to pack SMD BSS Transition
-context along with NL80211_CMD_FRAME to be sent to userspace, and to set
-and get the context during roaming via current AP MLD and roaming via
-target AP MLD. Without these, userspace will not be able to transport the
-context to the target AP MLD, program the context on the target AP MLD TX
-and RX queues, nor fetch the context on behalf of the target AP MLD if
-the ST Execution frame is sent directly to the target.
+Per IEEE P802.11bn/D2.0, Aug 2026, subclause 37.16, an AP MLD can be
+managed by a Seamless Mobility Domain Management Entity (SMD-ME) along
+with partner AP MLDs to enable seamless transition of an associated
+non-AP MLD from the current AP MLD to a target AP MLD. A non-AP MLD
+advertising SMD supports association to an SMD-ME and SMD BSS
+Transition between AP MLDs within an SMD.
 
-Suggested-by: Jouni Malinen <jouni.malinen@oss.qualcomm.com>
+Userspace needs a way to be aware of the driver's SMD capabilities so that
+it can enable SMD configuration and operation only on capable devices.
+Define nl80211 and wiphy flag interfaces to advertise SMD support to
+userspace.
+
+Co-developed-by: Rohan Dutta <drohan@qti.qualcomm.com>
+Signed-off-by: Rohan Dutta <drohan@qti.qualcomm.com>
 Signed-off-by: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
 ---
- include/uapi/linux/nl80211.h | 190 +++++++++++++++++++++++++++++++++++++++++++
- net/wireless/nl80211.c       |  48 +++++++++++
- 2 files changed, 238 insertions(+)
+ include/net/cfg80211.h       |  3 +++
+ include/uapi/linux/nl80211.h | 25 +++++++++++++++++++++++++
+ net/wireless/nl80211.c       |  7 +++++++
+ 3 files changed, 35 insertions(+)
 
-diff --git a/include/uapi/linux/nl80211.h b/include/uapi/linux/nl80211.h
-index 81c16ea2fd34..fbc23aca006e 100644
---- a/include/uapi/linux/nl80211.h
-+++ b/include/uapi/linux/nl80211.h
-@@ -375,6 +375,19 @@
-  *	on the target AP MLD while creating the station entry.
-  *	%NL80211_STA_FLAG_SMD_{EXEC_CURRENT,DL_DRAIN}, on the other hand, can be
-  *	set using %NL80211_CMD_SET_STATION on the current AP MLD.
-+ *
-+ * Drivers can use %NL80211_ATTR_SMD_CTX to pack the dynamic context of the
-+ * non-AP MLD along with the ST Preparation or ST Execution Request frames in
-+ * the %NL80211_CMD_FRAME event.
-+ *
-+ * On the target AP MLD, this collected context, received in the
-+ * userspace-managed backhaul between the AP MLDs, can be programmed using
-+ * %NL80211_CMD_SET_SMD_CTX.
-+ *
-+ * In case the non-AP MLD executes directly with the target AP MLD, the current
-+ * AP MLD can request the context from the driver on the target's behalf using
-+ * %NL80211_CMD_GET_SMD_CTX and the response can be reported back using
-+ * %NL80211_CMD_SMD_CTX_EVENT.
+diff --git a/include/net/cfg80211.h b/include/net/cfg80211.h
+index 46ba0fb27b14..b4f384ade47a 100644
+--- a/include/net/cfg80211.h
++++ b/include/net/cfg80211.h
+@@ -5796,6 +5796,8 @@ struct cfg80211_ops {
+  *	STA) basis for station and P2P client interfaces.
+  *	(Note that if userspace doesn't give the MAC address, the AP's address
+  *	is substituted to allow for older userspace versions.)
++ * @WIPHY_FLAG_SUPPORTS_SMD: The device supports Seamless Mobility Domain (SMD)
++ *	setup and BSS Transition.
   */
+ enum wiphy_flags {
+ 	WIPHY_FLAG_SUPPORTS_EXT_KEK_KCK		= BIT(0),
+@@ -5823,6 +5825,7 @@ enum wiphy_flags {
+ 	WIPHY_FLAG_HAS_CHANNEL_SWITCH		= BIT(23),
+ 	WIPHY_FLAG_NOTIFY_REGDOM_BY_DRIVER	= BIT(24),
+ 	WIPHY_FLAG_CHANNEL_CHANGE_ON_BEACON     = BIT(25),
++	WIPHY_FLAG_SUPPORTS_SMD			= BIT(26),
+ };
  
  /**
-@@ -1502,6 +1515,21 @@
-  *	and multiple can be nested in %NL80211_ATTR_MLO_LINKS but then the
-  *	update isn't atomic if any failures happen.
-  *	Only supported with %NL80211_EXT_FEATURE_UPDATE_BEACON.
-+ *
-+ * @NL80211_CMD_SET_SMD_CTX: Set the SMD BSS Transition dynamic context for a
-+ *	non-AP MLD sent from the current AP MLD on the target AP MLD managed by
-+ *	an SMD-ME. This command carries %NL80211_ATTR_MLD_ADDR,
-+ *	%NL80211_ATTR_SMD_CTX_TYPE and %NL80211_ATTR_SMD_CTX. The station must
-+ *	be present on the target AP MLD in the "prepared" state with a default
-+ *	key installed.
-+ * @NL80211_CMD_GET_SMD_CTX: Get the SMD BSS Transition dynamic context for a
-+ *	non-AP MLD associated to an AP MLD managed by an SMD-ME. This command
-+ *	carries %NL80211_ATTR_MLD_ADDR and %NL80211_ATTR_SMD_CTX_TYPE.
-+ * @NL80211_CMD_SMD_CTX_EVENT: Event reporting the collected SMD context
-+ *	(requested via %NL80211_CMD_GET_SMD_CTX) to userspace. It carries
-+ *	%NL80211_ATTR_MLD_ADDR, %NL80211_ATTR_SMD_CTX_TYPE, and
-+ *	%NL80211_ATTR_SMD_CTX.
-+ *
-  * @NL80211_CMD_MAX: highest used command number
-  * @__NL80211_CMD_AFTER_LAST: internal use
+diff --git a/include/uapi/linux/nl80211.h b/include/uapi/linux/nl80211.h
+index b56a96f57bec..3e71564ce87c 100644
+--- a/include/uapi/linux/nl80211.h
++++ b/include/uapi/linux/nl80211.h
+@@ -343,6 +343,26 @@
+  * processing of peer DH IE to generate PMK.
   */
-@@ -1784,6 +1812,10 @@ enum nl80211_commands {
  
- 	NL80211_CMD_UPDATE_BEACON,
- 
-+	NL80211_CMD_SET_SMD_CTX,
-+	NL80211_CMD_GET_SMD_CTX,
-+	NL80211_CMD_SMD_CTX_EVENT,
++/**
++ * DOC: Seamless Mobility Domain (AP)
++ *
++ * Seamless Mobility Domain (SMD) is a mobility domain consisting of multiple
++ * non-colocated AP multi-link devices where a non-AP MLD can perform SMD BSS
++ * Transition (ST) between the AP MLDs without reassociation (hence, seamless).
++ * ST is done in two phases:
++ *	Preparation (where the target AP MLD sets up the links for the non-AP
++ *	MLD but keep in powersave) and
++ *	Execution (actual roaming where the non-AP MLD transitions to the
++ *	target AP MLD and continues traffic).
++ *
++ * To use this in nl80211, multiple commands carry the %NL80211_ATTR_SMD_SUPPORT
++ * attribute:
++ *	Drivers set %WIPHY_FLAG_SUPPORTS_SMD to indicate userspace about the
++ *	SMD capability in %NL80211_CMD_GET_WIPHY.
++ *	%NL80211_CMD_START_AP carries %NL80211_ATTR_SMD_SUPPORT to indicate that
++ *	the AP affiliated to an AP MLD is part of an SMD.
++ */
 +
- 	/* add new commands above here */
- 
- 	/* used to define NL80211_CMD_MAX below */
-@@ -3282,6 +3314,13 @@ enum nl80211_commands {
-  * @NL80211_ATTR_SMD_ROAM_STA: Flag attribute to indicate that the station is
-  *	created as part of SMD BSS Transition and not by typical association.
+ /**
+  * enum nl80211_commands - supported nl80211 commands
   *
-+ * @NL80211_ATTR_SMD_CTX: Nested attribute associated with UHR SMD BSS
-+ *	Transition data. Used with %NL80211_CMD_FRAME, %NL80211_CMD_SET_SMD_CTX,
-+ *	and %NL80211_CMD_SMD_CTX_EVENT. See &enum nl80211_smd_ctx.
-+ * @NL80211_ATTR_SMD_CTX_TYPE: u8 attribute specifying the type of SMD context.
-+ *	Used along with %NL80211_CMD_FRAME, %NL80211_CMD_SET_SMD_CTX,
-+ *	%NL80211_CMD_GET_SMD_CTX, and %NL80211_CMD_SMD_CTX_EVENT.
+@@ -3243,6 +3263,9 @@ enum nl80211_commands {
+  * @NL80211_ATTR_ASSOC_PROTECTED_TWT: Enable protected TWT for the association,
+  *	requires protected TWT support (flag attribute)
+  *
++ * @NL80211_ATTR_SMD_SUPPORT: Flag attribute to indicate SMD support. Used with
++ *	multiple commands to indicate appropriate SMD support (refer DOC).
 + *
   * @NUM_NL80211_ATTR: total number of nl80211_attrs available
   * @NL80211_ATTR_MAX: highest attribute number currently defined
   * @__NL80211_ATTR_AFTER_LAST: internal use
-@@ -3892,6 +3931,9 @@ enum nl80211_attrs {
- 	NL80211_ATTR_SMD_SUPPORT,
- 	NL80211_ATTR_SMD_ROAM_STA,
+@@ -3850,6 +3873,8 @@ enum nl80211_attrs {
  
-+	NL80211_ATTR_SMD_CTX,
-+	NL80211_ATTR_SMD_CTX_TYPE,
+ 	NL80211_ATTR_ASSOC_PROTECTED_TWT,
+ 
++	NL80211_ATTR_SMD_SUPPORT,
 +
  	/* add attributes here, update the policy in nl80211.c */
  
  	__NL80211_ATTR_AFTER_LAST,
-@@ -9253,4 +9295,152 @@ enum nl80211_nan_peer_map_attrs {
- 
- #define NL80211_NAN_SCHED_NOT_AVAIL_SLOT 0xff
- 
-+/**
-+ * enum nl80211_smd_ctx_type - SMD Request Type values
-+ *
-+ * Used with %NL80211_ATTR_SMD_CTX_TYPE.
-+ *
-+ * @NL80211_SMD_CTX_TYPE_PREP: SMD BSS Transition (ST) Preparation.
-+ * @NL80211_SMD_CTX_TYPE_EXEC: ST Execution.
-+ * @NUM_SMD_CTX_TYPES: internal.
-+ * @NL80211_SMD_CTX_TYPE_MAX: Max type of ST context.
-+ */
-+enum nl80211_smd_ctx_type {
-+	NL80211_SMD_CTX_TYPE_PREP,
-+	NL80211_SMD_CTX_TYPE_EXEC,
-+
-+	NUM_SMD_CTX_TYPES,
-+	NL80211_SMD_CTX_TYPE_MAX = NUM_SMD_CTX_TYPES - 1,
-+};
-+
-+/**
-+ * enum nl80211_smd_ctx_ba_param - SMD Block Ack Context attributes
-+ *
-+ * @__NL80211_SMD_CTX_BA_ATTR_INVALID: Invalid attribute.
-+ * @NL80211_SMD_CTX_BA_ATTR_BUFF_SIZE: Required (u16) BA buffer size.
-+ * @NL80211_SMD_CTX_BA_ATTR_POLICY: Required (u8) BA policy.
-+ * @NL80211_SMD_CTX_BA_ATTR_AMSDU_SUPPORT: Flag attribute to indicate
-+ *	AMSDU support.
-+ * @NL80211_SMD_CTX_BA_ATTR_TIMEOUT: Required (u16) Block Ack timeout.
-+ * @NL80211_SMD_CTX_BA_ATTR_EXT_NO_FRAG: Flag attribute to indicate
-+ *	fragmentation support.
-+ * @NL80211_SMD_CTX_BA_ATTR_EXT_FRAG_LEVEL: Required (u8) HE fragmentation
-+ *	level.
-+ * @NL80211_SMD_CTX_BA_ATTR_EXT_BUFF_SIZE: Required (u16) extended buffer size.
-+ * @NL80211_SMD_CTX_BA_ATTR_WINSTARTO: Required (u16) Starting Sequence Number
-+ *	of the BA window.
-+ *	Applicable only with %NL80211_SMD_CTX_DL_ATTR_BA_PARAMS.
-+ * @__NL80211_SMD_CTX_BA_ATTR_LAST: Last attribute, used internally.
-+ * @NL80211_SMD_CTX_BA_ATTR_MAX: Max attribute.
-+ *
-+ * Used with %NL80211_SMD_CTX_DL_ATTR_BA_PARAMS and
-+ * %NL80211_SMD_CTX_UL_ATTR_BA_PARAMS.
-+ */
-+enum nl80211_smd_ctx_ba_param {
-+	__NL80211_SMD_CTX_BA_ATTR_INVALID,
-+	NL80211_SMD_CTX_BA_ATTR_BUFF_SIZE,
-+	NL80211_SMD_CTX_BA_ATTR_POLICY,
-+	NL80211_SMD_CTX_BA_ATTR_AMSDU_SUPPORT,
-+	NL80211_SMD_CTX_BA_ATTR_TIMEOUT,
-+	NL80211_SMD_CTX_BA_ATTR_EXT_NO_FRAG,
-+	NL80211_SMD_CTX_BA_ATTR_EXT_FRAG_LEVEL,
-+	NL80211_SMD_CTX_BA_ATTR_EXT_BUFF_SIZE,
-+	NL80211_SMD_CTX_BA_ATTR_WINSTARTO,
-+
-+	__NL80211_SMD_CTX_BA_ATTR_LAST,
-+	NL80211_SMD_CTX_BA_ATTR_MAX = __NL80211_SMD_CTX_BA_ATTR_LAST - 1
-+};
-+
-+/**
-+ * enum nl80211_smd_ctx_dl - SMD Dynamic Context - DL direction
-+ *
-+ * @__NL80211_SMD_CTX_DL_ATTR_INVALID: Invalid attribute.
-+ * @NL80211_SMD_CTX_DL_ATTR_VALID_TID_BITMAP: Optional (u8) TIDs included.
-+ * @NL80211_SMD_CTX_DL_ATTR_SN: Optional (nested) next SN (u16) per TID to
-+ *	be assigned to DL individually addressed frames.
-+ * @NL80211_SMD_CTX_DL_ATTR_PN: Optional (binary) starting PN (max 16 bytes) for
-+ *	DL individually addressed frames.
-+ * @NL80211_SMD_CTX_DL_ATTR_BA_PARAMS: Optional (nested) Block Ack parameters,
-+ *	nested array of TIDs (uses &enum nl80211_smd_ctx_ba_param).
-+ * @NL80211_SMD_CTX_DL_ATTR_MGMT_SN: Optional (u16) next SN to be assigned for
-+ *	DL individually addressed management frames.
-+ * @NL80211_SMD_CTX_DL_ATTR_MGMT_PN: Optional (binary) starting PN
-+ *	(max 16 bytes) for DL individually addressed management frames.
-+ * @__NL80211_SMD_CTX_DL_ATTR_LAST: Last attribute, used internally.
-+ * @NL80211_SMD_CTX_DL_ATTR_MAX: Max attribute.
-+ *
-+ * Used with %NL80211_SMD_CTX_ATTR_DL.
-+ */
-+enum nl80211_smd_ctx_dl {
-+	__NL80211_SMD_CTX_DL_ATTR_INVALID,
-+	NL80211_SMD_CTX_DL_ATTR_VALID_TID_BITMAP,
-+	NL80211_SMD_CTX_DL_ATTR_SN,
-+	NL80211_SMD_CTX_DL_ATTR_PN,
-+	NL80211_SMD_CTX_DL_ATTR_BA_PARAMS,
-+	NL80211_SMD_CTX_DL_ATTR_MGMT_SN,
-+	NL80211_SMD_CTX_DL_ATTR_MGMT_PN,
-+
-+	__NL80211_SMD_CTX_DL_ATTR_LAST,
-+	NL80211_SMD_CTX_DL_ATTR_MAX = __NL80211_SMD_CTX_DL_ATTR_LAST - 1
-+};
-+
-+/**
-+ * enum nl80211_smd_ctx_ul - SMD Dynamic Context - UL direction
-+ *
-+ * @__NL80211_SMD_CTX_UL_ATTR_INVALID: Invalid attribute.
-+ * @NL80211_SMD_CTX_UL_ATTR_VALID_TID_BITMAP: Optional (u8) TIDs included.
-+ * @NL80211_SMD_CTX_UL_ATTR_SN: Optional (nested) last SN received per TID
-+ *	for UL individually addressed frames.
-+ * @NL80211_SMD_CTX_UL_ATTR_PN: Optional (nested) last PN received per TID
-+ *	for UL individually addressed frames.
-+ * @NL80211_SMD_CTX_UL_ATTR_BA_PARAMS: Optional (nested) Block Ack parameters
-+ *	(uses &enum nl80211_smd_ctx_ba_param).
-+ * @NL80211_SMD_CTX_UL_ATTR_MGMT_SN: Optional (u16) last SN received for
-+ *	UL individually addressed management frames.
-+ * @NL80211_SMD_CTX_UL_ATTR_MGMT_PN: Optional (binary, max 16 bytes) last PN
-+ *	received for UL individually addressed management frames.
-+ * @__NL80211_SMD_CTX_UL_ATTR_LAST: Last attribute, used internally.
-+ * @NL80211_SMD_CTX_UL_ATTR_MAX: Max attribute.
-+ *
-+ * Used with %NL80211_SMD_CTX_ATTR_UL.
-+ */
-+enum nl80211_smd_ctx_ul {
-+	__NL80211_SMD_CTX_UL_ATTR_INVALID,
-+	NL80211_SMD_CTX_UL_ATTR_VALID_TID_BITMAP,
-+	NL80211_SMD_CTX_UL_ATTR_SN,
-+	NL80211_SMD_CTX_UL_ATTR_PN,
-+	NL80211_SMD_CTX_UL_ATTR_BA_PARAMS,
-+	NL80211_SMD_CTX_UL_ATTR_MGMT_SN,
-+	NL80211_SMD_CTX_UL_ATTR_MGMT_PN,
-+
-+	__NL80211_SMD_CTX_UL_ATTR_LAST,
-+	NL80211_SMD_CTX_UL_ATTR_MAX = __NL80211_SMD_CTX_UL_ATTR_LAST - 1
-+};
-+
-+/**
-+ * enum nl80211_smd_ctx - SMD Context information
-+ *
-+ * Top-level container for SMD BSS Transition dynamic context.  Carried in
-+ * %NL80211_ATTR_SMD_CTX with %NL80211_CMD_SET_SMD_CTX (target AP MLD) or
-+ * with %NL80211_CMD_FRAME (current AP MLD reporting context to userspace)
-+ * and %NL80211_CMD_SMD_CTX_EVENT (current AP MLD reporting the requested
-+ * context on behalf of the target AP MLD).
-+ *
-+ * @__NL80211_SMD_CTX_ATTR_INVALID: Invalid attribute.
-+ * @NL80211_SMD_CTX_ATTR_DL: Optional (nested) DL parameters.
-+ *	See &enum nl80211_smd_ctx_dl.
-+ * @NL80211_SMD_CTX_ATTR_UL: Optional (nested) UL parameters.
-+ *	See &enum nl80211_smd_ctx_ul.
-+ * @__NL80211_SMD_CTX_ATTR_LAST: Last attribute, used internally.
-+ * @NL80211_SMD_CTX_ATTR_MAX: Max attribute.
-+ */
-+enum nl80211_smd_ctx {
-+	__NL80211_SMD_CTX_ATTR_INVALID,
-+	NL80211_SMD_CTX_ATTR_DL,
-+	NL80211_SMD_CTX_ATTR_UL,
-+
-+	__NL80211_SMD_CTX_ATTR_LAST,
-+	NL80211_SMD_CTX_ATTR_MAX = __NL80211_SMD_CTX_ATTR_LAST - 1
-+};
-+
- #endif /* __LINUX_NL80211_H */
 diff --git a/net/wireless/nl80211.c b/net/wireless/nl80211.c
-index 5df145ab4ab1..d2cd03d8b0c5 100644
+index 2fc680382418..16d00ebed10a 100644
 --- a/net/wireless/nl80211.c
 +++ b/net/wireless/nl80211.c
-@@ -789,6 +789,51 @@ nl80211_nan_conf_policy[NL80211_NAN_CONF_ATTR_MAX + 1] = {
- 	[NL80211_NAN_CONF_INSTANT_COMM] = { .type = NLA_FLAG },
- };
- 
-+static const struct nla_policy
-+nl80211_smd_ctx_ba_policy[NL80211_SMD_CTX_BA_ATTR_MAX + 1] = {
-+	[NL80211_SMD_CTX_BA_ATTR_BUFF_SIZE] = { .type = NLA_U16 },
-+	[NL80211_SMD_CTX_BA_ATTR_POLICY] = { .type = NLA_U8 },
-+	[NL80211_SMD_CTX_BA_ATTR_AMSDU_SUPPORT] = { .type = NLA_FLAG },
-+	[NL80211_SMD_CTX_BA_ATTR_TIMEOUT] = { .type = NLA_U16 },
-+	[NL80211_SMD_CTX_BA_ATTR_EXT_NO_FRAG] = { .type = NLA_FLAG },
-+	[NL80211_SMD_CTX_BA_ATTR_EXT_FRAG_LEVEL] = { .type = NLA_U8 },
-+	[NL80211_SMD_CTX_BA_ATTR_EXT_BUFF_SIZE] = { .type = NLA_U16 },
-+	[NL80211_SMD_CTX_BA_ATTR_WINSTARTO] = { .type = NLA_U16 },
-+};
-+
-+static const struct nla_policy
-+nl80211_smd_ctx_dl_policy[NL80211_SMD_CTX_DL_ATTR_MAX + 1] = {
-+	[NL80211_SMD_CTX_DL_ATTR_VALID_TID_BITMAP] = { .type = NLA_U8 },
-+	[NL80211_SMD_CTX_DL_ATTR_SN] = { .type = NLA_NESTED },
-+	[NL80211_SMD_CTX_DL_ATTR_PN] = { .type = NLA_BINARY,
-+					 .len = IEEE80211_SMD_CTX_MAX_PN_LEN },
-+	[NL80211_SMD_CTX_DL_ATTR_BA_PARAMS] =
-+		NLA_POLICY_NESTED_ARRAY(nl80211_smd_ctx_ba_policy),
-+	[NL80211_SMD_CTX_DL_ATTR_MGMT_SN] = { .type = NLA_U16 },
-+};
-+
-+static const struct nla_policy
-+nl80211_smd_ctx_ul_policy[NL80211_SMD_CTX_UL_ATTR_MAX + 1] = {
-+	[NL80211_SMD_CTX_UL_ATTR_VALID_TID_BITMAP] = { .type = NLA_U8 },
-+	[NL80211_SMD_CTX_UL_ATTR_SN] = { .type = NLA_NESTED },
-+	[NL80211_SMD_CTX_UL_ATTR_PN] = { .type = NLA_NESTED },
-+	[NL80211_SMD_CTX_UL_ATTR_BA_PARAMS] =
-+		NLA_POLICY_NESTED_ARRAY(nl80211_smd_ctx_ba_policy),
-+	[NL80211_SMD_CTX_UL_ATTR_MGMT_SN] = { .type = NLA_U16 },
-+	[NL80211_SMD_CTX_UL_ATTR_MGMT_PN] = {
-+		.type = NLA_BINARY,
-+		.len = IEEE80211_SMD_CTX_MAX_PN_LEN
-+	},
-+};
-+
-+static const struct nla_policy
-+nl80211_smd_ctx_policy[NL80211_SMD_CTX_ATTR_MAX + 1] = {
-+	[NL80211_SMD_CTX_ATTR_DL] =
-+		NLA_POLICY_NESTED(nl80211_smd_ctx_dl_policy),
-+	[NL80211_SMD_CTX_ATTR_UL] =
-+		NLA_POLICY_NESTED(nl80211_smd_ctx_ul_policy),
-+};
-+
- static const struct netlink_range_validation nl80211_punct_bitmap_range = {
- 	.min = 0,
- 	.max = 0xffff,
-@@ -1203,6 +1248,9 @@ static const struct nla_policy nl80211_policy[NUM_NL80211_ATTR] = {
+@@ -1201,6 +1201,7 @@ static const struct nla_policy nl80211_policy[NUM_NL80211_ATTR] = {
+ 	[NL80211_ATTR_ASSOC_CIP] = { .type = NLA_FLAG },
+ 	[NL80211_ATTR_CIP_CAPABILITIES] = { .type = NLA_U8 },
  	[NL80211_ATTR_ASSOC_PROTECTED_TWT] = { .type = NLA_FLAG },
- 	[NL80211_ATTR_SMD_SUPPORT] = { .type = NLA_FLAG },
- 	[NL80211_ATTR_SMD_ROAM_STA] = { .type = NLA_FLAG },
-+	[NL80211_ATTR_SMD_CTX] = NLA_POLICY_NESTED(nl80211_smd_ctx_policy),
-+	[NL80211_ATTR_SMD_CTX_TYPE] =
-+		NLA_POLICY_MAX(NLA_U8, NL80211_SMD_CTX_TYPE_MAX),
++	[NL80211_ATTR_SMD_SUPPORT] = { .type = NLA_FLAG },
  };
  
  /* policy for the key attributes */
+@@ -3824,6 +3825,12 @@ static int nl80211_send_wiphy(struct cfg80211_registered_device *rdev,
+ 		if (nl80211_put_nan_capa(&rdev->wiphy, msg))
+ 			goto nla_put_failure;
+ 
++		state->split_start++;
++		break;
++	case 19:
++		if (rdev->wiphy.flags & WIPHY_FLAG_SUPPORTS_SMD)
++			nla_put_flag(msg, NL80211_ATTR_SMD_SUPPORT);
++
+ 		/* done */
+ 		state->split_start = 0;
+ 		break;
 
 -- 
 2.34.1
