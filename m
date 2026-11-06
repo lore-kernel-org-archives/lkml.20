@@ -1,90 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793962885;
-	b=XRedxe+VPus0ZOQn1a3nJ+FidEntMxkgsdABXits4NzWVE3rCLGnLUbZ2h0d+8v4gYMu
-	 MgBDeobNDRj2EzKTKCrbCgUGcMRzcbqxfm2h0RUg4YSok+8aFa4fdFPCjLlSaxFXP3ULt
-	 B/+8HQKsYDVZuEf57CCVJ2G9d0doDHqF/oG59TwyF4u8Q3wAefZzLMJ1w/m7/WxpcUQzg
-	 i+L2kGWu0l0q/kDJGK/wjGEa271F+iqq3qOIA5ZwOi7FaaJHJZjiitBFiz3gNf0WPV3xk
-	 zSxNWD2TEmTaVRgjTPF3XXVf89N2Eh/Sss+5wpHT6f0hMYpr1WWYsp5lDKV3wMp8MWQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962885;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=EeDsxAF/zXVe2GdPWnTly40Y15heeB9zeZSjGZi6FhU=;
-	b=mEpqaNdZ/tzSPrR7FeGFLqyWg4LG5gCGPi1mmsXN6661zV5a13kz31opoIetqRH5nCI6
-	 iXokt9MJJS6/q/o7iMLEqxVc/qYf646hWwImCJjZb4sVaoTVKqGP9YJoz9WozmGlWQKoh
-	 fgXjA6BXGyvdpyvZzVxR8hmSBS2HDzV00NkPTgJb+LncW1DrguLIvudZ6OShwj2ydXl4T
-	 DBnWBCTkwxtcTyU0F2KgUAaGI4hRLuyIi10s26hN4qbyhMJtrT/SGM2gC4fR8oqhNJpJd
-	 cek2BW7CXzRWYwqOBInHhEMhxXftwRe9T6Ewg5G71Guj/VqBF/7mA0fp7WDiyFjCUeQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Ijj2cHzr;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=djTZ4X9L;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.171
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A887B606A32E;
-	Fri,  6 Nov 2026 11:01:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A887B606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793962904;
+	b=wvqczitmVV2Gbm777ugUILHMDzYlOVCFkfCKBzCoPR6C/PJc8yvBs+ob6svFjOMclZI6
+	 FtZDJcbHslQVgfxH6wCN3XirpMvhX+TBcrYoQa+OGAEEYvhpbD4F31V8RSQd6fPUQKXQ0
+	 OPOLP8eVQXMsEgPjfj4kC8hcIT/iYfGWfM3IpD0oBYaQHyX8J+Di2FKbqUhT6mFxCTgiB
+	 goMJc+bCDZFzdmDdJCIvDtpz9pZ01njbVxRrnQ7wBjN3V5i5/hjlD3rKoPFhVnW7LxBIp
+	 5BZ4zvE6/GWLI3/cUbfqNdSP23YyjXqxWM1ebXBhVkIm1AklObZrIl+aCwFiqKPobZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962904;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ZIHJgBIecluMYLROh71YXq+HCih/5D9ly7hK71I8Bb4=;
+	b=k3AyCsNA9boCESnk5fMPDRoiTk99XN55Y3loMOoevZ6G4MsVmupY4fbi5TSLA8BdRpiS
+	 IaWRmjKbgbvhCylH+JVa5u6Y5d4+MMJn8wPsiM1qpJ8YALBRvXH+id4MgJcLe8RB+rf9h
+	 QSsKjaGA6PISDuUoqv9kHyUV2emSp9+kv5kaZLonF0xgPveNhMl0+iuIcGUnuA/rw6KBN
+	 ME1XBCfub6foa3m9j617vgQXF+g0YT7xAJyK4xrT3PHaoPHcmiliCpy8WCcdf5Ox/uyZH
+	 cVkumHXxN85jsC8ddv2L58ovbrx7Tbl4jsf0VbMkuTz6fzQlPiaP4RWhGjuY5+JWagg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=J8N5T5xe;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5569606A335
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:01:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5569606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Ijj2cHzr;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=djTZ4X9L
-ARC-Seal: i=1; a=rsa-sha256; t=1793962834; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=TSlcNqDEn9rMnZXgI4y8yb9DxQEQ9C1Os1qKDIJKqPdMT0ZDT5ZSKimBFW4E0Y5goB
-    j5kjK/OreXcFJV3w1rruMaKvG9DtlM+vAbGpgvzfPFQLBPov+DVCV6mlwByenrjthEC6
-    9oqnnTnmI+fmvm4sh7/MaD692lwJkUyQjzp2P3vCD6ZlX2ZXVH3awA5o5PmpmOCgsrEi
-    0h+Jjnp6PGn7otVBIoeURkRHrHhn+bLQdl5Nsq10dkIVsR2cA02njEU87SbEVsBGaZ60
-    tjVZhok8oHd6N9lkUL1VilTjr4XHgZABSun3pmzLCLYUFbqia1sssrKih9NbUpjf/VXf
-    ZvNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793962834;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=EeDsxAF/zXVe2GdPWnTly40Y15heeB9zeZSjGZi6FhU=;
-    b=QTkYe2D+d8CF6+IX3B2toi14K6XDwugKPGFC3P3T0f+F21OJqbgZTGJooczZ3OIDZA
-    Dh8YaheSr4wuycxGiYI/qNRE8V2Bqm+14duK/d+PqMCFrC8LAVgrkKPjqV3CHBs7o6iO
-    pCSM3dXkWFDsaWZA6ysSIp88VsLrNMKUtqnFJLZi/K+I1CQzGMS+2i55T5E7J8pFpDaG
-    m8CuxVkmUz1Q++eWWeHwFWxLXq0plH8TIoR3CSEtgoRbFwNpP/TIpcAvCDQ6R2oL/bsa
-    1ZXcuhibsAYaD5nbds/rt+3ubymTRi35m/KhG92r/LShn4EmemFeHRaXZMpJ/vE+qE1m
-    O/qQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793962834;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=EeDsxAF/zXVe2GdPWnTly40Y15heeB9zeZSjGZi6FhU=;
-    b=Ijj2cHzrvTCyEAsDbIULbt+jEquE42MlSnYkyK7Puxk4/DyYA71+J5J/tysIQN8Fqo
-    jPtlad+nAEotlHtHY7FwmnTszgR0HDw2+BU5Mio9X66T9avJCqq5cudFPiDQthTpRjA2
-    23t1ZMdXkKT8M5M8RwFNIb8F6FxmIUzNHjd8OrFPGDGD/cg+y8udbsdvKei8RTrKHoXY
-    SvVCP+yqSvpC19WaZUsYLpb4unqaGjUrKYebqxBMEfYid/sjm4Gmn0teOvAA2rTM+My7
-    oXiglOScfOeks9OCZrtyQsTIBX+rrtmIsgPi4ziZgyAE9eVm2Z1YQ54hEjL/BbYjT1Yj
-    mUDw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793962834;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=EeDsxAF/zXVe2GdPWnTly40Y15heeB9zeZSjGZi6FhU=;
-    b=djTZ4X9L+mhnAxbGhSak7C8+JJlekW2esSaGJCj7pyMHCkMcMVAYnojUrV1CuePoYI
-    ZvZdUgBdi0t7Q010nCCw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrVjZoMy8iN4frnsPsBQ4l+mfK4O7kvgww6TmAq"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22A6B0Xmx2
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Fri, 6 Nov 2026 12:00:33 +0100 (CET)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=J8N5T5xe
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD1AF1476;
+	Fri,  6 Nov 2026 03:01:39 -0800 (PST)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C5C4B3F673;
+	Fri,  6 Nov 2026 03:01:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793962903; bh=tuFbUaRK+W1wBzd5BZD3FUKT3qSXzJlu2M6LMGLUW8U=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=J8N5T5xe0WmE3JnueQsHlPV8nwzp8UA3pm5KFuiPkGTGALZ2nXy3Nqzla5vZVZySP
+	 hK8ywbnVYFdQLEDgfaOPtw+r84YwAglMzJwl4sDpTysEuUyv7KrF8Wrrpn3YT2Qk8w
+	 68/nUODgpukEWrpd/ejDVu9hZ2MkuCbSNjcoRmTo=
+Message-ID: <28cbd086-af52-47c4-9e71-6957ab8caf76@arm.com>
+Date: Fri, 6 Nov 2026 11:01:40 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,76 +52,160 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH 0/3] MIPS: CI20: Enable SMP with two CPUs
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261105203243.2292647-1-f.fainelli@gmail.com>
-Date: Fri, 6 Nov 2026 12:00:03 +0100
-Cc: linux-mips@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Paul Burton <paulburton@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- =?utf-8?B?IuWRqOeQsOadsCAoWmhvdSBZYW5qaWUpIg==?= <zhouyanjie@wanyeetech.com>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>,
- Paul Boddie <paul@boddie.org.uk>,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <235BA61E-07AB-4A64-955D-8E4ABF0A52F1@goldelico.com>
-References: <20261105203243.2292647-1-f.fainelli@gmail.com>
-To: Florian Fainelli <f.fainelli@gmail.com>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arm_mpam: resctrl: Limit num_rmids to the CLOSIDs in
+ use
+To: Jinjie Ruan <ruanjinjie@huawei.com>, james.morse@arm.com,
+ reinette.chatre@intel.com, fenghuay@nvidia.com, gshan@redhat.com,
+ jic23@kernel.org, zengheng4@huawei.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261106081923.2333070-1-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261106081923.2333070-1-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Jinjie,
 
-> Am 05.11.2026 um 21:32 schrieb Florian Fainelli =
-<f.fainelli@gmail.com>:
->=20
-> This patch series resurrects SMP support for the CI20 board. This was
-> submitted back in 2020 by Zhou Yanjie.
+On 06/11/2026 08:19, Jinjie Ruan wrote:
+> On MPAM an RMID is a PMG within a PARTID, so resctrl can only allocate
+> the PMGs of the CLOSIDs it uses. info/L3_MON/num_rmids is instead set
+> to the whole PARTID and PMG space when the monitors are initialised,
+> and halved when CDP is enabled. It reports more RMIDs than resctrl can
+> allocate in two cases:
+> 
+> - With CDP each CLOSID takes two PARTIDs, and resctrl halves the
+>   CLOSID count rounding down, while MPAM halves the whole RMID space.
+>   With 5 PARTIDs and 2 PMGs resctrl has 2 CLOSIDs and 4 RMIDs, but
+>   num_rmids reads 5. The count is too high whenever the number of
+>   PARTIDs is odd and there is more than one PMG.
+> 
+> - On a monitor-only system there are no control groups and resctrl
+>   only uses the default CLOSID, but num_rmids still covers every
+>   PARTID. With 5 PARTIDs and 2 PMGs it reads 10 while only 2 RMIDs
+>   can be allocated.
+> 
+> RMID allocation is limited to the CLOSIDs in use, so only the value
+> reported to userspace is too high. Creating as many monitor groups as
+> num_rmids allows fails with -ENOSPC before that number is reached.
+> 
+> Work out the number of CLOSIDs with the rules resctrl applies when it
+> is mounted: schemata_list_add() halves a resource's CLOSID count
+> while CDP is enabled on it, rounding down, closid_init() takes the
+> smallest across the resources, and a monitor-only system has only the
+> default CLOSID. Report (pmg_max + 1) RMIDs for each of those CLOSIDs,
+> counting at monitor initialisation and from
+> resctrl_arch_set_cdp_enabled(), which resctrl calls whenever a mount
+> or unmount enables or disables CDP.
+> 
+> Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: <stable@vger.kernel.org> # 7.1.x
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Ben Horgan <ben.horgan@arm.com>
+> Cc: Reinette Chatre <reinette.chatre@intel.com>
+> Cc: Fenghua Yu <fenghuay@nvidia.com>
+> ---
+> v3:
+> - Drop resctrl_arch_set_mon_rmid_count() and count the CLOSIDs in the
+>   MPAM driver instead, as Ben suggested.
+> - v2: https://lore.kernel.org/all/20261105123304.2281987-1-ruanjinjie@huawei.com/
+> v2:
+> - Also fix num_rmids on monitor-only systems, as Ben suggested.
+> - Retitle from "arm_mpam: Round the CDP RMID count down to whole CLOSIDs".
+> - v1: https://lore.kernel.org/all/20261104101622.563280-1-ruanjinjie@huawei.com/
+> ---
+>  drivers/resctrl/mpam_resctrl.c | 45 +++++++++++++++++++++++-----------
+>  1 file changed, 31 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index 5468367776e2..6859849f299b 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -191,6 +191,34 @@ static void mpam_resctrl_monitor_sync_abmc_vals(struct rdt_resource *l3)
+>  	 */
+>  }
+>  
+> +/* The RMID count follows the CLOSIDs resctrl uses. */
+> +static void mpam_resctrl_set_num_rmid(void)
+> +{
+> +	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_L3];
+> +	struct rdt_resource *l3 = &res->resctrl_res;
+> +	enum resctrl_res_level rid;
+> +	u32 num_closid = UINT_MAX;
+> +
+> +	for_each_mpam_resctrl_control(res, rid) {
+> +		u32 res_num_closid;
+> +
+> +		if (!res->resctrl_res.alloc_capable)
+> +			continue;
+> +
+> +		res_num_closid = mpam_partid_max + 1;
+> +		if (res->cdp_enabled)
+> +			res_num_closid /= 2;
+> +
+> +		num_closid = min(num_closid, res_num_closid);
+> +	}
 
-Great!
+There are global variables mpam_partid_max, cdp_enabled and a helper resctrl_arch_alloc_capable().
+Using these should make this simpler.
 
-We are carrying some of these patches along locally for a long time so =
-it
-is good to integrate them.
+> +
+> +	/* Monitor-only systems have only the default CLOSID. */
+> +	if (num_closid == UINT_MAX)
+> +		num_closid = 1;
+> +
+> +	l3->mon.num_rmid = (mpam_pmg_max + 1) * num_closid;
+> +}
+> +
+>  int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+>  {
+>  	u32 partid_i = RESCTRL_RESERVED_CLOSID, partid_d = RESCTRL_RESERVED_CLOSID;
+> @@ -217,11 +245,6 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+>  	cdp_enabled = enable;
+>  	mpam_resctrl_controls[rid].cdp_enabled = enable;
+>  
+> -	if (enable)
+> -		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx() / 2;
+> -	else
+> -		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
+> -
+>  	/* The mbw_max feature can't hide cdp as it's a per-partid maximum. */
+>  	if (cdp_enabled && !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
+>  		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = false;
+> @@ -238,6 +261,8 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+>  	if (!cdp_enabled && mpam_resctrl_controls[RDT_RESOURCE_MBA].class)
+>  		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = true;
+>  
+> +	mpam_resctrl_set_num_rmid();
+> +
 
-What should be considered in the future is to extend this SMP stuff to
-x2000 and x2600. We have work in progress but nothing to submit yet.
+Why move the location of where num_rmid is set?
 
->=20
-> Florian Fainelli (1):
->  clk: ingenic: Poll JZ4780 CPU1 power status atomically
->=20
-> =E5=91=A8=E7=90=B0=E6=9D=B0 (Zhou Yanjie) (2):
->  MIPS: Ingenic: Add JZ4780 SMP support to the generic platform
->  MIPS: CI20: Enable SMP with two CPUs
->=20
-> MAINTAINERS                           |   1 +
-> arch/mips/configs/ci20_defconfig      |   2 +
-> arch/mips/generic/Makefile            |   1 +
-> arch/mips/generic/ingenic-smp-entry.S |  54 ++++++
-> arch/mips/generic/ingenic-smp.c       | 240 ++++++++++++++++++++++++++
-> arch/mips/generic/ingenic-smp.h       |  20 +++
-> arch/mips/generic/init.c              |   4 +
-> arch/mips/ingenic/Kconfig             |   6 +
-> arch/mips/kernel/idle.c               |  25 ++-
-> drivers/clk/ingenic/jz4780-cgu.c      |   2 +-
-> 10 files changed, 353 insertions(+), 2 deletions(-)
-> create mode 100644 arch/mips/generic/ingenic-smp-entry.S
-> create mode 100644 arch/mips/generic/ingenic-smp.c
-> create mode 100644 arch/mips/generic/ingenic-smp.h
->=20
-> --=20
-> 2.53.0
->=20
->=20
+Thanks,
 
-BR and thanks,
-Nikolaus
+Ben
 
+>  	if (enable) {
+>  		if (mpam_partid_max < 1)
+>  			return -EINVAL;
+> @@ -1344,15 +1369,7 @@ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
+>  	l3->name = "L3";
+>  	l3->mon_scope = RESCTRL_L3_CACHE;
+>  
+> -	/*
+> -	 * num-rmid is the upper bound for the number of monitoring groups that
+> -	 * can exist simultaneously, including the default monitoring group for
+> -	 * each control group. Hence, advertise the whole rmid_idx space even
+> -	 * though each control group has its own pmg/rmid space. Unfortunately,
+> -	 * this does mean userspace needs to know the architecture to correctly
+> -	 * interpret this value.
+> -	 */
+> -	l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
+> +	mpam_resctrl_set_num_rmid();
+>  
+>  	if (type == QOS_L3_MBM_TOTAL_EVENT_ID) {
+>  		int err;
 
