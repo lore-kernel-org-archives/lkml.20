@@ -1,52 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989350;
-	b=sLSkXGKsDpLBhY3hTb79UxkOK4wTy4dqEAiJMvkoaLiRzinly4X4OIRb6EJ2o6RWt48V
-	 FyuEIB80ioT59aG2DgmpbZjyN+nlvY2dQB+O4P/0ht/icxnc8s0fhxCa9iwPfBJRx1mt/
-	 sx3QEcCtNPd6N3xOa0hqTgCFnByE15DdCWXPtce44VL/JFRrlR1T5im18mV7NTtrEbt8V
-	 ly6Iu/wuz/tulZTJE3WOXpVKHdhkBgGeQKTlWjRT7e7VcBFJOHq4Tyt4lRfaoSL0N4re2
-	 XJPtbkg4YTekQTbApNbaQtcsHftWONCB+hJiDeGVr9Kq6UlobufitVROHYpSTHipLZg==
+	t=1793989374;
+	b=JG2DjlYIGAuD6kK14A9d08OIP1qf5ydfoAIRAa19R23C34scLOXK35nQq/BaJGszaXFB
+	 SQiV7N+iUzVU1fuxMn4RRtLrUJFZz+KZqz9L07ENxs5SEvDTxH+GeCMpQsCXJdRCUXgFk
+	 b6+EsDKWMfacLRrTIfYdz3NWGDB31b5ZziIUeSB39DyTZ+zEsSQlacQNlaHF3ZGzXmsxn
+	 gTqOnqfSZWs2haY5MYodZrjoEYCFXPhjv5BQ3+Lg1lGZlAnzY3tzoW3AkzVph5JLmDiEM
+	 APwYsZKoRdvV5uGtV020OJ73EBJM7jp52WFEddVpXKqTaHMYzMBQ2h5WGXte2ZXLz/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989350;
-	h=Received:DKIM-Signature:Received:Date:From:To:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:X-Cookie;
-	bh=0r07gRhJoYV0U2CTt/p05Pz6Buu++NhzWKubwX2Vggs=;
-	b=HNQ9MooFsey72dtCGrxIYQbJ9+KuCnIYwMnoc49r5KSeaTeGtICeV3QIM2h404vvFocI
-	 Dv7J229DA3OESulPRnXC4LY4jhuFOkJ+3onzRKqqxOktbONwCfFtmuR96eCanJpM0oRqS
-	 jbrylCKmqAEmlHj/QDcg5lO0YS5n0lVDyqllv3aAqGTUj4s7aQpfXLLJCmx4ej4y+CPoI
-	 urMbGrbE4v7iF4u8w6HzY+NUfz46rNRRniE0cee+1iQAB0qM45wAOkLfGw0yiP+j4vU1G
-	 IN7vs8/0D52vQQ6ylaCMqwc+Owy0V9K8u63dy6zCmXEnmsPffN5ceZOKR0fAZYmHVsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989374;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Jk2ZwxV40Z5cBoAxsVcL6on1/+5n7nlvs0/xx/GRVak=;
+	b=sfNgcxrHdSg3KBoU7F/ISAdhyQiyJJHPXXw5jOIukiPsKFAXCi1sL7YVMKT1YzALgggE
+	 O7/B6RnX7ZtbkgfZyMru6jBiAImtp/wdZHq0WfY6IT3C3h/vMNAJbb2ZhksZzi+p/awEW
+	 z5blVO7BQoq975jA58j6duduaS6E/5yg5FU6yYMauDpPck5q5DCdfsa4oIvxpWn3okobR
+	 ZrxGWY30FZSL1M6IJtA+Mx3ty4UaVe6FS92ipkHKXhCBHSHGKGZU5vWI0KEXhJ/2dZ/Kp
+	 sM1+LNKKBGtsiUxpYCiomRoxa8WgbbOHKlXPmKIQQJqNl2pTu/3OYD2tIUL8B9N37TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JbHXGtgm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="p/j7qCWB";
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB2D606A329;
-	Fri,  6 Nov 2026 18:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E76606A326;
+	Fri,  6 Nov 2026 18:22:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6E76606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JbHXGtgm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC4E1F0089F;
-	Fri,  6 Nov 2026 18:22:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793989350;
-	bh=0r07gRhJoYV0U2CTt/p05Pz6Buu++NhzWKubwX2Vggs=;
-	h=Date:From:To:Subject;
-	b=JbHXGtgm2JMGh1ZXpKmuzJIIGnVL6+8cLA166dGfALQK/OiVBmlDzVptew7+TbFX9
-	 JbTKwhTgI0X3OyUmw9MMrS5OM80jqNfwsyUKXvH4zXJsRD28sRPjoapCesv8Z3o7JR
-	 7oQJV2TzQfGRhwsvkl4TZU2bmaZFo/ICzsbOgiDSV2yuCJEflToymkHvTMBaapZ3BJ
-	 IJJpHghMSX8ZC9WRZiYT8QicY3o2AQSJ6c6VuyK1xZfdv6fd59qRCN8+FbsB7cxSxm
-	 8pWOlR3E1x9R2RxOiaNrDOTcUf0VmcJDzzYY/OX6AAwwITEWjlLWkiQGkUFqL2vWU4
-	 H1Jh596ltwAOA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 0FB2C1AC5995; Fri, 06 Nov 2026 18:22:28 +0000 (GMT)
-Date: Fri, 6 Nov 2026 18:22:28 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: no release today
-Message-ID: <au4a5I8KcpW337Se@sirena.co.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=p/j7qCWB
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jLnbd0TrQz1XMmDj;
+	Fri,  6 Nov 2026 18:22:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793989370; x=1796581371; bh=Jk2ZwxV40Z5cBoAxsVcL6on1
+	/+5n7nlvs0/xx/GRVak=; b=p/j7qCWBtI5/FiljsNFOFFGK2VQdlXxI9owZGo2s
+	85Padf9qXJyWhB3UuLUgozFKvd0M0Q2tETzxnzIqMtwWJgJBiKXljiilqty9XGzy
+	bybCV++RWeRpKeVtllDe2z8zUwx1dE5OULJHQrNl5kp5uCH7lO3Gi9Zdp2APSTSg
+	NcLv27IGJAF5cgBR9ISoWBf9u1UD9uLz65AFIKiJ53heJrWZL84gk0XVUFUD8A+s
+	+uS0UAz95s0Rpv8mDDubkN4BIOQ2YLDG62SoQpmQC14ZCaTun1rKLTSsOC5H0IdV
+	NI8FaN9vjA8rihXDklEySYwdR4IRy2F9TK7swH3zcw6iBQ==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id aQXB9dUkTU-N; Fri,  6 Nov 2026 18:22:50 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:a09a:30e6:d2b4:a215] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jLnbZ1klFz1XMmDg;
+	Fri,  6 Nov 2026 18:22:50 +0000 (UTC)
+Message-ID: <d8ccc4f4-d9d1-45d6-8b19-e1762dff14df@acm.org>
+Date: Fri, 6 Nov 2026 10:22:48 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,34 +70,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="skjAh1jPiP1+ojoT"
-Content-Disposition: inline
-X-Cookie: Victory or defeat!
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 01/20] compiler-context-analysis: Avoid unused
+ parameter warning in _context_unsafe_alias()
+To: Ian Rogers <irogers@google.com>, acme@kernel.org, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, elver@google.com, james.clark@linaro.org,
+ jolsa@kernel.org, justinstitt@google.com, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, llvm@lists.linux.dev, mingo@redhat.com,
+ morbo@google.com, nathan@kernel.org, ndesaulniers@google.com,
+ peterz@infradead.org
+References: <20261106070344.329897-1-irogers@google.com>
+ <20261106070344.329897-2-irogers@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261106070344.329897-2-irogers@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 11/5/26 11:03 PM, Ian Rogers wrote:
+> -static inline void _context_unsafe_alias(void **p) { }
+> +static inline void _context_unsafe_alias(void **p) { (void)p; }
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 
---skjAh1jPiP1+ojoT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi all,
-
-There will be no -next release today, I might try to finish up the
-release tomorrow instead.  As previously advertised Monday is also at
-risk.
-
-Thanks,
-Mark
-
---skjAh1jPiP1+ojoT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau4a4wAKCRAv73Ows9A4
-iRvaAQCHsfUFpbkU7K4Ew1IJmBo8nZyIc8rGwNlSDYF41X9//AEAvtHL99uuGauu
-+gM8OzxZFJrdcZcOO/65EDKLhN3zxws=
-=cVVn
------END PGP SIGNATURE-----
-
---skjAh1jPiP1+ojoT--
