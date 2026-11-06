@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793998613;
-	b=oBA/ykxcck79bPjBcS7eo3idhq1AjE/ZFOSwX/5Ihd2v9ccW5Mh2EEDw7PdaI4ltyVms
-	 /vsVjMkYeIK6o4KuFPSrJjd5Bik1pFXDCLavDOzO7V7+wi3jotADLaBS+9EHYGp0/+XnH
-	 VLtsig+RyqveBSkk5lehiPC9eqg6xBzwchEB/px94c4BVBSPLtBln3DXnnluruwi0N6G6
-	 f3vEmFQnXyZ/Aj1Rtw4DrI8749psmkgISnqP9CuQQbMaLkDNvWqPP85wznIAXHStL/6f8
-	 /EKdBeJxN/k93lMQIn2NP/CPAJe9iylMVDXVUsbehNXiSUUtL/tT/6Ug1kKA4FEMqLg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793998613;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=MMaWQsczzZcm8K8JnEeTjc5hgg7jUrVOLpWrSWR254s=;
-	b=Py9+oly+b1eYcKDFNP50+5X+0Q/Nzk6fAndtSaGWrk9txXYSDkpgxKVaOqkatiRAfGWQ
-	 +k+Ggh8Vp9jrIVTEFU3DsOQsyj+NmCzK7S/IHLNDSOe2aDq+KCHjXHF0pJpVzQRWSRtk6
-	 acNSPT4A68eZFumcmVztnLzpyp5bGaEaEavmhBKWDfleAnoOkd7JcE9L1y62wtrZ5UoGV
-	 3Bhy7NLDuQfuu7DbvUhW9fWXEvjy4ifhLCWzjgVE/prWxGwzj/fD+bfdKA17HwEuE93mS
-	 8iuauth24BBZWj9DiK9y/BE3ngdiLbiFu49boHDwGyDV6iryif9uHcAiMsClu+IOgSQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfK9vcX4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3696606D804;
-	Fri,  6 Nov 2026 20:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfK9vcX4
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793998612;
-	b=Kxaw6trEaMa8Ny1++Bf12NvzqksJ7Gi/DkTGJ6fZ4i1w1bgeSZji3K8aUmiHSlAP3Wa9
-	 HW2ycvImuHtToAkpvhWlZHw+d/dyX27sio2bmiNijM228G1GguMlralkT87FK6kYxgbNw
-	 CFPRok4TsdYuyW80OIgmKg/7cIOM2zbQGS2z5Gw6Oykn+GJWs+Iuv1Ho8PeQ5qORV397q
-	 e2zqtnkUEVvHmT7Iq9XeA/exOUfBJ2kVtBzZluyLWXi/8CWiYyXh3Clv68FdLAg9GBCax
-	 0Vabtb+3pd+2V7rn8qYZaQu6EToLSpihrSoLtqhIJOwbo8f/kD04qUpnkONtPZNezuA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793998612;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=MMaWQsczzZcm8K8JnEeTjc5hgg7jUrVOLpWrSWR254s=;
-	b=zC/7TuiRssRPBwYxxJP1d4Mofy9CQdmjubKrq484zpJr4sowotkS4y+5NTbCrmCL3n/D
-	 McecD0ogvluF1V4w2tIIf9MTIG9OyXy8q8vqFDToN5qSNakb3flKBsxyoyBTQOaQKVOD+
-	 c+7FKiIW12ptz+wHLOsl3IO923uoDbOCcbBJP79mUai3wAFs98vnTatO08svd0TVlKIwI
-	 ZBgmaiXWOJr6+I46gLg/8B8gCt/evieTeqImt0dO6nR0iwJQrZcMKxzW0+JaqsNrOdi0+
-	 cQJwu1zoBbEV3hVXZgur1NLMzJX0DBEjs7B0RMa+j9bYKuSSfQXBtO87beFWjC8Sd8A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793998667;
+	b=ipcjsjoxDEyyYX98c/Oe5k2tPvjzXwCxHKrBacH1ToikD8StPAhHfxJIyQzmiZ2vdiMo
+	 suf/evT3BymQLB+jRcWO8Oh+DWpzLo+WuNrVXsxY+94V7mYiCI9H+bCJffwQ3x2zVJntU
+	 Tom+bj28j2tI6f7uzavXzYvb7Po8RsxceUTFvHzNkGwijCgEfuTO7gNrMiXpN1sP4k/TA
+	 vbfnC5NmlxuKr34hwsOnJ0D6awrQxjHOB58BNAbI2WDj2eQZGgFxJMUC/eKUDsKAOr/K0
+	 YrvgnRfi5knGQ36065GReMH7dcAGPDlpL8c3hPHrq0bD5CQhv0F3622CPiz7x2qTP+w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793998667;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=QlZfCydMdiZJG6iKdjekNCpuqnBx+M7L7gaCG7InoYA=;
+	b=IuyuiAZJRtxvOwaa6w8s/x3mgm5i2ENYfS2VYWORlZdDHNfUDROjMWTNGSszjoL4CPJx
+	 k5By6w1VLcDxYp5sm7SMcgWaBlqwk91ZUAKNyZ2l7n4SPBAPnmS5bVqkgGyDgWYzOD6WC
+	 9VN14rcpyjbodWH/0hmKlCuwD2y7wYFvEE77BGLgl/7ZOy/9RSLJcIOyCguQE1xgV57ps
+	 6yyG/MVtkDUb62YE/VR1EgCxVAWYYOdD8megXQchT0MRAeTAF617VLcASFG48ua8UEYZW
+	 s0gYO+19tenuEV/aerhFvIjKCh90yVSgzT9tQgmrBDXzcHMqAz5jM5SYKJatJd1Rz3w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=virtuozzo.com;
+	spf=pass smtp.mailfrom=virtuozzo.com;
+	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=jbypRHMI;
+	arc=none smtp.remote-ip=130.117.225.111
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 30AD11F008A2;
-	Fri,  6 Nov 2026 20:56:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793998612;
-	bh=MMaWQsczzZcm8K8JnEeTjc5hgg7jUrVOLpWrSWR254s=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=jfK9vcX4yxJvBWo4s2+L3MbCKIb10J8/FcjUPolxhSAUODlgKnGIUPAc6rxsIkhJd
-	 4MpL2qyeRcmCqjBNsQMyXXbjAwRkILhhGtvkx+YfeC8Ti6kMyXfVGYrU/ONo1QJhTV
-	 6mIBSjbSDdGMh4q6L78qDgwXHz6x0f16n75f8tRkRXMTJJPrL7MGyvnK/sENrlDqmD
-	 gvy0gS3gD6Gp5/bUEbNoelXhDHjb5SDg60wt1WYELYZx2h92zubCqu7VaSqa+EjzfS
-	 22cbqo/xwM4ZxScfkWORW/1r9c4g/+qJ0mP6nQXZEBH8ZShqrIfikyK0zOHyHSJNjU
-	 XxcbV51Qt7QmQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B185A4787D;
-	Fri,  6 Nov 2026 20:56:50 +0000 (UTC)
-From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Subject: [PATCH v2 0/2] iio: light: Add Capella CM3217 ambient light sensor
-Date: Fri, 06 Nov 2026 21:56:28 +0100
-Message-Id: <20261106-upstream-iio-cm3217-v2-0-d97adde9171c@tsv-stahl-riesa.de>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D675D606A32C;
+	Fri,  6 Nov 2026 20:57:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D675D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=jbypRHMI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+	:From; bh=QlZfCydMdiZJG6iKdjekNCpuqnBx+M7L7gaCG7InoYA=; b=jbypRHMIVpVutCK8Nol
+	Tan4TShI831g7CfN/Mo2Nd0qav2Ss/+ZlydhIURkJEda6ycqz0+j7ehj+V/J0iUiSO2t2y8kgVp7x
+	P/KClbHbZgldSMh3T4vdfSXdYbEb0eY5X89BRKekg+p9RK176e3TWoP+YT8h5FkWf7VYDQI0ql3/h
+	XTE3FdJLDFNT39N1jEOWl0sNRnWSeLzLvQQIaE/y8v1EZRs1DrqWQpCl4A4orQ1CuyJ4P0XYl2st7
+	D4wiQhA3qnuv+LYa6GdVrBR00ugw+oNt6hMn3vcljrKVLt9H398TqLUU9c5itXVicCCKYa+qgTqA8
+	loW3UjLHi9GpvQg==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xPQwJ-001xD7-0l;
+	Fri, 06 Nov 2026 21:57:39 +0100
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Fri, 06 Nov 2026 21:57:38 +0100
+Subject: [PATCH v2 2/2] selftests/exec: check the errors of an unloadable
+ program header table
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,121 +61,501 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OzQ6CMBCEX4X07Bq2/DTx5HsYDqUsskaEdEujI
- by7FO8ev2Tmm1mVkGcSdclW5Smy8PTaQZ8y5Qb7uhNwt7PSua4Rc4RlluDJjsA8gRsLjQao6LF
- 0palzqtTenD31/D6st+bHsrQPciGpUmJgCZP/HLMRU+7/QkTIoSI0unSWTGuuQSJIsMMT0n977
- kg127Z9AVqhuwvRAAAA
-X-Change-ID: 20261101-upstream-iio-cm3217-e3f14c4760e5
-To: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793998608; l=4415;
- i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=kLKFgYm2QwqADdGOjoKVwsmNobJ9M++Xyl5SxExLuB0=;
- b=wr33SH4t4XPFdMDBe0HXzG4jVN0HMIE/A45qNcALpuiwmKap/kWziTKYeUsvpEq3BZCi1fbBi
- dW0pOFpZxfTDqJZrjVO03yAxoHR1L7rLGcmXCq5G/IcjPCzh69e7qFW
-X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
- pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
-X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
- auth_id=1251
-X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-Reply-To: admin@tsv-stahl-riesa.de
+Message-Id: <20261106-b4-prep-vstor-149847-binfmt_elf-enomem-load-elf-phdrs-v2-2-1c8b7b1dae5c@virtuozzo.com>
+References: <20261106-b4-prep-vstor-149847-binfmt_elf-enomem-load-elf-phdrs-v2-0-1c8b7b1dae5c@virtuozzo.com>
+In-Reply-To: <20261106-b4-prep-vstor-149847-binfmt_elf-enomem-load-elf-phdrs-v2-0-1c8b7b1dae5c@virtuozzo.com>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Kees Cook <kees@kernel.org>, Paul Burton <paulburton@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13649;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=Z5LQpkRS8qi5xVqPX8O16A4VfgmR+BUDze/ifhqek3Q=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq7j9GdrJFhg85nhzAWbIE1poVOskcQev2YnF+Z
+ Mf8HCQUNHmJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCau4/RgAKCRBRlgpH+WFc
+ Kk1cD/9+mHZPI4GROV4icAfXOUXn0rO1zrLPRK9xOObLQi+AgwbMtW9DstFpKZ3BL7Sao+30vmn
+ 0H9AYo8+MqOqxYhY+KS+wUKhY9AI6ygViz7ObKj2dGyN7QNBw7NmAB+4U9yHi/Aab7WrBcSiCTt
+ pyxhc32Ii98TEXPAO1MR/LD9HQvkcgwW71fYNYsNY51yp7Vqz9kRjTBPMgh9JIMN8QhHMB5q4WA
+ ucc/UR+mZdqyXxNudiF54dJ1xp/eNLXcQ58smNCUdBoEP4VyGOZr3VTwXnlEXMhvMAVogJIKI+i
+ 1rMAW29rGwkoW99+is86Thdlm63YVEzpUMzBOwRLke1GdY++1mu/kboOhV3nrIS/emfQl1c8mVf
+ MjF9/7IggZoc8PLQdMV2JmiUL3AA82wcBslkzJya4YTubBTZ/9QmGOydvThTSJuO2Rxq7R+dgMz
+ cpcKwdRvI7Ccy0o79ikxP3MQJ8bBNlyrI+LJMwHViQhJ9YCZ1F1fJ/HqZVhLotmJ17wdSrp6HE6
+ Uvw5MCMyqKf9muYG1Olv5K4QNIzfzOQRXQnXhyVZHT16NDkHmD9DKAW2Qh+lxV5ee26UGD50MgE
+ eSEf+SctpXakaGLepHfQDIIowtcf9F6wd1l+qMzDUMyt3+h5TYL0q1C3dSVZtSuX5gjCyHCVzl0
+ qR6OPxBk4OC3DLQ==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-The Capella CM3217 is a small ambient light sensor without registers.
-NVIDIA used it in the Tegra Note 7 and the Shield Tablet. Mainline has
-no driver for it: cm32181 and cm3232 expect registers and an ID, the
-CM3217 has neither.
+load_elf_binary() reports a program header table that it cannot use as
+-ENOEXEC, and as -ELIBBAD when the table is the interpreter's. A failed
+allocation of the table says nothing about the file and has to come
+back as -ENOMEM.
 
-Patch 1 adds the binding, patch 2 the driver with raw value, scale and
-integration time. The datasheet is not public, so the bit fields come
-from NVIDIA's downstream drivers and the scale from Capella's published
-detection range. Patch 2 explains both.
+The test builds ELF files whose table is malformed, placed past the end
+of the file or cut short, both as the executable and as the PT_INTERP of
+one, and checks for those two errors. As root, on a kernel with fault
+injection, it then fails each fault injection point of an execve() in
+turn and checks that none of them comes back as -ENOEXEC or -ELIBBAD;
+without root or fault injection that case is skipped.
 
-Tested on a Tegra Note 7 (P1640) with v7.3 and the driver built as a
-module, the device created through new_device. In room light all 32
-combinations of integration time and scale gave the same illuminance
-within the count resolution (6.0 to 7.3 lux), and the first read after
-each change matched the second one. The raw counts scale linearly with
-both fields. Svyatoslav Ryhel also tried it on the P1988 variant of the
-Tegra Note 7.
+Fault injection here means CONFIG_FAULT_INJECTION, CONFIG_FAILSLAB and
+CONFIG_FAULT_INJECTION_DEBUG_FS.
 
-Probing through the device tree works with the real supply (vdd_dev,
-Palmas LDO6), and unloading and reloading the module twice brought the
-device back each time. Next to a phone light sensor the readings were
-about 7 to 20 times lower. NVIDIA's Android HAL for this tablet
-multiplies the count by 2.1505 at the same 2 T/100 ms setting, which is
-7.2 times the scale here, so most of that is the dark cover window. With
-that factor the tablet was within 15 % of the phone in bright light but
-a factor of three lower in dim room light; I could not tell whether that
-was my setup.
-
-Probing through the device tree was run with v1 and not repeated for
-v2. Suspend/resume was not tested.
-
-There is no MAINTAINERS entry: drivers/iio/light/cm* is covered by the
-Capella entry and the binding by IIO. I am happy to add one if you
-prefer.
-
-The device tree node for the Tegra Note 7 will follow with Svyatoslav's
-tegratab series.
-
-Tool use (see Documentation/process/generated-content.rst): this series
-was prepared with an LLM coding assistant (Claude Code). It read the
-NVIDIA downstream drivers and Capella's product data, wrote the driver,
-the binding and the texts from my instructions, and ran the build and
-binding checks. I reviewed the code and ran the tests on the device.
-
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 ---
-Changes in v2:
-- Binding: describe the two I2C addresses under reg, including what each
-  one is used for (Jonathan).
-- Driver: replace the scale list that was recomputed on every change of
-  the integration time by a const table built at compile time;
-  read_avail() returns the row for the current integration time, so no
-  table is rewritten while a caller may hold a pointer to it (Jonathan,
-  Sashiko).
-- Driver: write the resolution constant with NANO and explain its unit
-  (Jonathan).
-- Driver: add cm3217_power_down() for the shutdown write used in three
-  places (Jonathan), and a helper for the table lookups in write_raw()
-  so the loop counter can live in the for statement (Jonathan).
-- Driver: take the conversion time from the integration time table and
-  drop the separate table in milliseconds.
-- Pick up Svyatoslav's Tested-by on patch 2 (given on v1).
-- Commit messages: name the downstream trees, note that the 4 T field
-  value differs from the vendor header, drop "driver" from the binding
-  text.
-- Rebase onto the current iio togreg branch (based on v7.4-rc1).
-- No functional change intended. The 32 scale values match the v1
-  computation. Run again on the Tegra Note 7 (P1640) as a module: each
-  integration time lists the same scales as with v1, all 32 settings are
-  accepted and read back, invalid values are rejected, and the sensor is
-  shut down when the device is removed.
-- Link to v1: https://patch.msgid.link/20261101-upstream-iio-cm3217-v1-0-5e1724cae7b7@tsv-stahl-riesa.de
+ tools/testing/selftests/exec/.gitignore       |   2 +
+ tools/testing/selftests/exec/Makefile         |   4 +
+ tools/testing/selftests/exec/load_elf_phdrs.c | 399 ++++++++++++++++++++++++++
+ 3 files changed, 405 insertions(+)
 
----
-Patrick Fischer (2):
-      dt-bindings: iio: light: Add Capella CM3217
-      iio: light: Add Capella CM3217 ambient light sensor driver
+diff --git a/tools/testing/selftests/exec/.gitignore b/tools/testing/selftests/exec/.gitignore
+index e42ecd4c908d1..3736834117f7c 100644
+--- a/tools/testing/selftests/exec/.gitignore
++++ b/tools/testing/selftests/exec/.gitignore
+@@ -11,9 +11,11 @@ non-regular
+ null-argv
+ /check-exec
+ /false
++/false-dynamic
+ /inc
+ /load_address.*
+ !load_address.c
++/load_elf_phdrs
+ /recursion-depth
+ /set-exec
+ xxxxxxxx*
+diff --git a/tools/testing/selftests/exec/Makefile b/tools/testing/selftests/exec/Makefile
+index 91decfa8ff2c1..607f5ecd9d76c 100644
+--- a/tools/testing/selftests/exec/Makefile
++++ b/tools/testing/selftests/exec/Makefile
+@@ -20,6 +20,8 @@ TEST_FILES := Makefile
+ TEST_GEN_PROGS += recursion-depth
+ TEST_GEN_PROGS += null-argv
+ TEST_GEN_PROGS += check-exec
++TEST_GEN_PROGS += load_elf_phdrs
++TEST_GEN_PROGS_EXTENDED += false-dynamic
+ 
+ # binfmt_misc must not be reachable as an exec source or as a stacking layer,
+ # or an 'F' entry can pin the instance that owns it. Unprivileged, no bpf.
+@@ -98,6 +100,8 @@ $(OUTPUT)/load_address.static.0x%: load_address.c
+ 		-fPIE -static-pie $< -o $@
+ $(OUTPUT)/false: false.c
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -static $< -o $@
++$(OUTPUT)/false-dynamic: false.c
++	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@
+ $(OUTPUT)/inc: $(CHECK_EXEC_SAMPLES)/inc.c
+ 	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@
+ $(OUTPUT)/set-exec: $(CHECK_EXEC_SAMPLES)/set-exec.c
+diff --git a/tools/testing/selftests/exec/load_elf_phdrs.c b/tools/testing/selftests/exec/load_elf_phdrs.c
+new file mode 100644
+index 0000000000000..7d888a3e9d7f4
+--- /dev/null
++++ b/tools/testing/selftests/exec/load_elf_phdrs.c
+@@ -0,0 +1,399 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * execve() of an ELF file whose program header table cannot be loaded.
++ *
++ * A malformed, misplaced or truncated table fails with ENOEXEC, and with
++ * ELIBBAD when it is the interpreter's. A failed allocation of the table is
++ * reported as ENOMEM, never as one of those two: checked as root with
++ * CONFIG_FAULT_INJECTION, CONFIG_FAILSLAB and CONFIG_FAULT_INJECTION_DEBUG_FS
++ * (so CONFIG_DEBUG_FS), skipped without them.
++ */
++#define _GNU_SOURCE
++#include <elf.h>
++#include <errno.h>
++#include <fcntl.h>
++#include <limits.h>
++#include <link.h>
++#include <linux/magic.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/mount.h>
++#include <sys/resource.h>
++#include <sys/statvfs.h>
++#include <sys/vfs.h>
++#include <sys/wait.h>
++#include <unistd.h>
++
++#include "kselftest_harness.h"
++
++/* The test itself could not fork or arm the fault, as opposed to an errno. */
++#define SETUP_FAILED	(-2)
++
++enum table {
++	BAD_PHENTSIZE,
++	NO_PHDRS,
++	TOO_BIG,
++	HUGE_PHOFF,	/* on 32-bit only past the end of the file */
++	PAST_EOF,
++	TRUNCATED,
++};
++
++static int write_file(const char *path, const void *buf, size_t len)
++{
++	int fd = open(path, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0755);
++	ssize_t ret;
++
++	if (fd < 0)
++		return -1;
++	ret = write(fd, buf, len);
++	close(fd);
++	return ret == (ssize_t)len ? 0 : -1;
++}
++
++static int read_ehdr(ElfW(Ehdr) *eh)
++{
++	int fd = open("/proc/self/exe", O_RDONLY | O_CLOEXEC);
++	ssize_t ret;
++
++	if (fd < 0)
++		return -1;
++	ret = read(fd, eh, sizeof(*eh));
++	close(fd);
++	return ret == sizeof(*eh) ? 0 : -1;
++}
++
++/* An ELF header for this machine with one program header, then that header. */
++static size_t one_phdr_image(char *buf, const ElfW(Phdr) *ph)
++{
++	ElfW(Ehdr) eh;
++
++	if (read_ehdr(&eh))
++		return 0;
++	eh.e_phoff = sizeof(eh);
++	eh.e_phentsize = sizeof(*ph);
++	eh.e_phnum = 1;
++	eh.e_shoff = 0;
++	eh.e_shnum = 0;
++	eh.e_shstrndx = 0;
++	memcpy(buf, &eh, sizeof(eh));
++	memcpy(buf + sizeof(eh), ph, sizeof(*ph));
++	return sizeof(eh) + sizeof(*ph);
++}
++
++static size_t bad_table_image(char *buf, enum table table)
++{
++	ElfW(Phdr) ph = { .p_type = PT_NULL };
++	ElfW(Ehdr) *eh = (ElfW(Ehdr) *)buf;
++	size_t len = one_phdr_image(buf, &ph);
++
++	if (!len)
++		return 0;
++	switch (table) {
++	case BAD_PHENTSIZE:
++		eh->e_phentsize--;
++		break;
++	case NO_PHDRS:
++		eh->e_phnum = 0;
++		break;
++	case TOO_BIG:
++		eh->e_phnum = 65536 / sizeof(ph) + 1;
++		break;
++	case HUGE_PHOFF:
++		eh->e_phoff = (ElfW(Off))1 << (8 * sizeof(eh->e_phoff) - 1);
++		break;
++	case PAST_EOF:
++		eh->e_phoff = 1 << 20;
++		break;
++	case TRUNCATED:
++		eh->e_phnum = 2;
++		break;
++	}
++	return len;
++}
++
++/* An executable whose PT_INTERP names @interp. */
++static size_t interp_image(char *buf, const char *interp)
++{
++	ElfW(Phdr) ph = {
++		.p_type = PT_INTERP,
++		.p_offset = sizeof(ElfW(Ehdr)) + sizeof(ElfW(Phdr)),
++		.p_filesz = strlen(interp) + 1,
++	};
++	size_t len = one_phdr_image(buf, &ph);
++
++	if (!len)
++		return 0;
++	memcpy(buf + len, interp, ph.p_filesz);
++	return len + ph.p_filesz;
++}
++
++/* Returns the errno of a failed execve(), 0 if it did not return. */
++static int exec_errno(const char *path, char *const argv[])
++{
++	char *const envp[] = { NULL };
++	int pipefd[2], err = 0, status;
++	pid_t pid;
++
++	if (pipe2(pipefd, O_CLOEXEC))
++		return SETUP_FAILED;
++	pid = fork();
++	if (pid < 0) {
++		close(pipefd[0]);
++		close(pipefd[1]);
++		return SETUP_FAILED;
++	}
++	if (!pid) {
++		execve(path, argv, envp);
++		err = errno;
++		write(pipefd[1], &err, sizeof(err));
++		_exit(1);
++	}
++	close(pipefd[1]);
++	if (read(pipefd[0], &err, sizeof(err)) != sizeof(err))
++		err = 0;
++	close(pipefd[0]);
++	waitpid(pid, &status, 0);
++	return err;
++}
++
++FIXTURE(table) {
++	char dir[64];
++	char exe[96];
++	char interp[96];
++};
++
++FIXTURE_VARIANT(table) {
++	enum table table;
++	bool interp;
++};
++
++FIXTURE_VARIANT_ADD(table, bad_phentsize) { .table = BAD_PHENTSIZE };
++FIXTURE_VARIANT_ADD(table, no_phdrs) { .table = NO_PHDRS };
++FIXTURE_VARIANT_ADD(table, too_big) { .table = TOO_BIG };
++FIXTURE_VARIANT_ADD(table, huge_phoff) { .table = HUGE_PHOFF };
++FIXTURE_VARIANT_ADD(table, past_eof) { .table = PAST_EOF };
++FIXTURE_VARIANT_ADD(table, truncated) { .table = TRUNCATED };
++FIXTURE_VARIANT_ADD(table, interp_bad_phentsize) { .table = BAD_PHENTSIZE, .interp = true };
++FIXTURE_VARIANT_ADD(table, interp_no_phdrs) { .table = NO_PHDRS, .interp = true };
++FIXTURE_VARIANT_ADD(table, interp_too_big) { .table = TOO_BIG, .interp = true };
++FIXTURE_VARIANT_ADD(table, interp_huge_phoff) { .table = HUGE_PHOFF, .interp = true };
++FIXTURE_VARIANT_ADD(table, interp_past_eof) { .table = PAST_EOF, .interp = true };
++FIXTURE_VARIANT_ADD(table, interp_truncated) { .table = TRUNCATED, .interp = true };
++
++static void remove_files(FIXTURE_DATA(table) *self)
++{
++	unlink(self->exe);
++	unlink(self->interp);
++	rmdir(self->dir);
++}
++
++FIXTURE_SETUP(table)
++{
++	char bad[sizeof(ElfW(Ehdr)) + sizeof(ElfW(Phdr))];
++	char exe[sizeof(bad) + sizeof(self->interp)];
++	size_t bad_len, exe_len;
++	struct statvfs st;
++	int ret;
++
++	ASSERT_EQ(0, statvfs("/tmp", &st));
++	if (st.f_flag & ST_NOEXEC)
++		SKIP(return, "/tmp is on a noexec mount");
++	bad_len = bad_table_image(bad, variant->table);
++	ASSERT_NE(0, bad_len);
++	strcpy(self->dir, "/tmp/load_elf_phdrs.XXXXXX");
++	ASSERT_NE(NULL, mkdtemp(self->dir));
++	snprintf(self->exe, sizeof(self->exe), "%s/exe", self->dir);
++	snprintf(self->interp, sizeof(self->interp), "%s/interp", self->dir);
++
++	if (!variant->interp) {
++		ret = write_file(self->exe, bad, bad_len);
++	} else {
++		exe_len = interp_image(exe, self->interp);
++		ret = !exe_len || write_file(self->interp, bad, bad_len) ||
++		      write_file(self->exe, exe, exe_len);
++	}
++	if (ret)
++		remove_files(self);
++	ASSERT_EQ(0, ret);
++}
++
++FIXTURE_TEARDOWN(table)
++{
++	remove_files(self);
++}
++
++TEST_F(table, execve)
++{
++	char *const argv[] = { self->exe, NULL };
++	int expect = variant->interp ? ELIBBAD : ENOEXEC;
++	int err = exec_errno(self->exe, argv);
++
++	ASSERT_NE(SETUP_FAILED, err);
++	EXPECT_EQ(expect, err) {
++		TH_LOG("execve(): %s, expected %s", strerror(err), strerror(expect));
++	}
++}
++
++#define DEBUGFS		"/sys/kernel/debug"
++#define IGNORE_GFP_WAIT	DEBUGFS "/failslab/ignore-gfp-wait"
++#define VERBOSE		DEBUGFS "/failslab/verbose"
++
++static int read_str(const char *path, char *buf, size_t size)
++{
++	int fd = open(path, O_RDONLY | O_CLOEXEC);
++	ssize_t ret;
++
++	if (fd < 0)
++		return -1;
++	ret = read(fd, buf, size - 1);
++	close(fd);
++	if (ret <= 0)
++		return -1;
++	buf[ret] = '\0';
++	return 0;
++}
++
++static int write_str(const char *path, const char *str)
++{
++	return write_file(path, str, strlen(str));
++}
++
++/* errno of execve() with fault @nth injected; 0: the new image exited, -1: it died */
++static int exec_fail_nth(const char *path, unsigned int nth)
++{
++	char *const argv[] = { (char *)path, NULL };
++	char *const envp[] = { NULL };
++	int pipefd[2], err, status;
++	char buf[16];
++	pid_t pid;
++
++	if (pipe2(pipefd, O_CLOEXEC))
++		return SETUP_FAILED;
++	pid = fork();
++	if (pid < 0) {
++		close(pipefd[0]);
++		close(pipefd[1]);
++		return SETUP_FAILED;
++	}
++	if (!pid) {
++		struct rlimit no_core = { 0, 0 };
++		int null = open("/dev/null", O_WRONLY | O_CLOEXEC);
++		int fd;
++
++		/* Faults past the point of no return kill the new image. */
++		setrlimit(RLIMIT_CORE, &no_core);
++		if (null >= 0) {
++			dup2(null, STDOUT_FILENO);
++			dup2(null, STDERR_FILENO);
++		}
++		fd = open("/proc/thread-self/fail-nth", O_WRONLY | O_CLOEXEC);
++		if (fd < 0 || write(fd, buf, sprintf(buf, "%u", nth)) < 0)
++			_exit(2);
++		execve(path, argv, envp);
++		err = errno;
++		write(fd, "0", 1);
++		write(pipefd[1], &err, sizeof(err));
++		_exit(1);
++	}
++	close(pipefd[1]);
++	if (read(pipefd[0], &err, sizeof(err)) != sizeof(err))
++		err = 0;
++	close(pipefd[0]);
++	if (waitpid(pid, &status, 0) != pid ||
++	    (WIFEXITED(status) && WEXITSTATUS(status) == 2))
++		return SETUP_FAILED;
++	if (err)
++		return err;
++	return WIFEXITED(status) && WEXITSTATUS(status) == 1 ? 0 : -1;
++}
++
++FIXTURE(alloc) {
++	char ignore_gfp_wait[8];
++	char verbose[8];
++	bool mounted;
++};
++
++static void failslab_restore(FIXTURE_DATA(alloc) *self)
++{
++	write_str(IGNORE_GFP_WAIT, self->ignore_gfp_wait);
++	write_str(VERBOSE, self->verbose);
++	if (self->mounted)
++		umount(DEBUGFS);
++}
++
++FIXTURE_SETUP(alloc)
++{
++	struct statfs st;
++	int ret;
++
++	self->mounted = false;
++	if (geteuid())
++		SKIP(return, "needs root for the failslab settings");
++	if (access("/proc/thread-self/fail-nth", W_OK))
++		SKIP(return, "no fault injection (CONFIG_FAULT_INJECTION)");
++	if (statfs(DEBUGFS, &st) || st.f_type != DEBUGFS_MAGIC)
++		self->mounted = !mount("debugfs", DEBUGFS, "debugfs", 0, NULL);
++	if (read_str(IGNORE_GFP_WAIT, self->ignore_gfp_wait, sizeof(self->ignore_gfp_wait)) ||
++	    read_str(VERBOSE, self->verbose, sizeof(self->verbose))) {
++		if (self->mounted)
++			umount(DEBUGFS);
++		SKIP(return, "no debugfs or no failslab (CONFIG_FAULT_INJECTION_DEBUG_FS)");
++	}
++	/* The allocations of an execve() may sleep, and a splat for each is noise. */
++	ret = write_str(IGNORE_GFP_WAIT, "N") ?: write_str(VERBOSE, "0");
++	if (ret) {
++		ret = errno;
++		failslab_restore(self);
++		SKIP(return, "cannot set up failslab: %s", strerror(ret));
++	}
++}
++
++FIXTURE_TEARDOWN(alloc)
++{
++	failslab_restore(self);
++}
++
++TEST_F(alloc, no_enoexec)
++{
++	unsigned int nth, clean = 0, failed = 0, wrong = 0;
++	char path[PATH_MAX];
++	ssize_t len;
++	int err;
++
++	/* Dynamically linked, so that the interpreter's table is allocated too. */
++	len = readlink("/proc/self/exe", path, sizeof(path) - sizeof("false-dynamic"));
++	ASSERT_LT(0, len);
++	path[len] = '\0';
++	strcpy(strrchr(path, '/') + 1, "false-dynamic");
++	if (access(path, X_OK))
++		SKIP(return, "false-dynamic not found next to the test");
++
++	/* Done once the faults to inject lie past the whole exec and exit. */
++	for (nth = 1; clean < 50 && nth < 100000; nth++) {
++		err = exec_fail_nth(path, nth);
++		ASSERT_NE(SETUP_FAILED, err) {
++			TH_LOG("fail-nth %u: fork or fail-nth write failed", nth);
++		}
++		if (!err) {
++			clean++;
++			continue;
++		}
++		clean = 0;
++		if (err < 0)
++			continue;
++		failed++;
++		if (err == ENOEXEC || err == ELIBBAD) {
++			wrong++;
++			TH_LOG("fail-nth %u: execve(): %s", nth, strerror(err));
++		}
++	}
++	ASSERT_EQ(50, clean) {
++		TH_LOG("no clean exec after fail-nth %u", nth);
++	}
++	if (!failed)
++		SKIP(return, "no execve() failed: failslab did not inject");
++	EXPECT_EQ(0, wrong);
++}
++
++TEST_HARNESS_MAIN
 
- .../bindings/iio/light/capella,cm3217.yaml         |  51 +++
- drivers/iio/light/Kconfig                          |  10 +
- drivers/iio/light/Makefile                         |   1 +
- drivers/iio/light/cm3217.c                         | 407 +++++++++++++++++++++
- 4 files changed, 469 insertions(+)
----
-base-commit: 1390ca4953a7400ca932cb49635f02c727f885a6
-change-id: 20261101-upstream-iio-cm3217-e3f14c4760e5
-
-Best regards,
---  
-Patrick Fischer <admin@tsv-stahl-riesa.de>
-
+-- 
+2.43.0
 
