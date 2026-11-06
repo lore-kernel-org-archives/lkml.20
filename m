@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978425;
-	b=eyu2bXpA0ujppguCcCCcmoFoECRlo0xOwb2ew98xbzDqwEdboo+lI+VAwRmhlCgTNa/+
-	 P0L0lfmQ6LYTN/P7C2QN2A7TfwWK6JLUGOSG8anh0ipXbqNPE0aKyuWnjPTtW+DVpIn6N
-	 DGPsQiG4hB5UXvvUyrwDZwiXH5TUr2TZsF+1zQXnrXtWDIiIbCSDDdqjPrLd8MV+lUVV2
-	 fkhIPKlD+9LrkNQ5SmiAzYD+ofTzxTAFHFYCDTfUoG6KIap5bhiJbsaTI9mXzmJfJ4KQ5
-	 jXSOAM89ftwl/N4jldYEoU7XO6ktZsbeL+YylagSRsiFB6DYU5VmyR7vHejGPn6DaSg==
+	t=1793978411;
+	b=rIYL4FdK1dNxiao/H2Xc7VoUq7MlGtL/pLUQUyOzrJcElnqmTngqLMbD+sSx2Kbz51Hd
+	 PBz2t4V9ZHxnTkssW4Al8TU5PIinaggsYNq14YEmhJPIF+zGAj64oDZigdU/bMEemwF+F
+	 yx0Vlxnxpi92dyDUH7jFQ+kEJVLGOgEi2SE5K8ZOpPQlOpL4G15OWkeklfb0R5g05UYvK
+	 ygUyJxLnvEl8jowzX2q565cSLUZezgUr+Pjf1K25KF9C7gZLbSn4MuacpLzSd+2pQ2lZJ
+	 +vCxfxonc34cKG+REvf+C4MuOslq85NiQbmg3i78sB36ZShe/WcYTGa8BASypADk4Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978425;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978411;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=1AczkvEVMwyiADmz9Aen/RP9scTy6HPzxTwLuS0NkCE=;
-	b=a4u3znBQLexUYoLV3bV1HtAu7Vm64bormGQphqEgJkwERWSU+lZWZNOTfapioOSgBKDM
-	 fMGZyQIIYPoBiqlozDGhix8/jB32fyHsKCZDC3s6v8gdPQJlhmXRSJ4hI/ER8zixDgVCN
-	 oacSPdraRuLjjW9BixCMHK7NPAd6URjGVqEszMA60axazxDdhnDHsi8d9lRyiiRoYGVzu
-	 YUPDud8mg2Anv9+t+Xhs9KvcTGyxlfZYzYHDhJfkO7/h7HGaKsd3T1ziHQiTVjBl5pr1g
-	 BDxNoYG2IjYfBTUz+CHZCY8VwCuJvH+1SnGECsLLtpO6FE0Z2AzUf5IIf0BSVusahQw==
+	bh=4qbyeG9eFUqyN+f4sUofqJ7pdB2mxcChsrdeY7rrJZg=;
+	b=LtWGCg96stJS4E8TucEPW/qrVYODiZCA5VwODqJe0Hp2euXjR+cZzCfvYJgeSRqTfaSJ
+	 PBGaa1OTjtvEUnE5iI7hdafdoiYnA+GS4DwGnXxlobaI+3bSGOwxliHFAjKU5uZlGdrcD
+	 n/SZHw26JEblgfjCFNoXzxN8TpHyB5VQFZS2orqmabEw/TqmQpo1eM6HZ9uJ9kyhwaCGP
+	 9/4J1zcPu7ocbf/io2XsJD1pzZKx1Lal0HCr/RshmrmcX4e48lRmMWZxJ2glmIp9CGrpr
+	 wq1QZxZkCWMV1299bhJinPGaNv+rwq0pqiPGB517qOzQxm+r9/vWIw+vIfJtoo1CajA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CgcwZkLT;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VoXPf2oL;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD646083632
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:20:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCD646083632
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D69606D822
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:20:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10D69606D822
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CgcwZkLT
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so7000745e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:20:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VoXPf2oL
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214af2076so5320315e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:20:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793978423; x=1794583223; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793978409; x=1794583209; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1AczkvEVMwyiADmz9Aen/RP9scTy6HPzxTwLuS0NkCE=;
-        b=CgcwZkLTdJjTamyQPWN3H3LGgBGtJcrCenPRp9EWTeGzgs1B+CfX0P/y6VwDJChjBS
-         lqIHhFuYol0h5rY581aHbOm55F8idncc2Q8hSqXmf3bTQGjREg6zkY0dBEK20zUNqYml
-         a9Y+JuIE02bs36jTeo4OGb4iptafjfp8f/ZZgsbdGrtC0FN5DV0QNQo1hC7TLLwH5wda
-         vNt182UXZYAPtTiFrcK0MqfYC2w907Ni2OmIDw8nxTUOwB9F1DM58BUYMOWGRO2WULH/
-         M4+a/XkMlY4dYX8HbSi22esxPHlcOtF2U06U4rJE5rDzTA3+4L+jHv/6MNkjg1gXTibx
-         XsDw==
+        bh=4qbyeG9eFUqyN+f4sUofqJ7pdB2mxcChsrdeY7rrJZg=;
+        b=VoXPf2oLIqYEZI6x2o/FPB+P+jCsne0NbS/8hF/6xoWC8KidTBYh0OXPYNf0lYyZXN
+         B+7FpZbOyn5nazMbWuc8IvN2jyX81GRgGq+EjyLVm6wXuSGikqdrr4FOeXwacZTbo13L
+         NueMFflSU190T17bE0s07fnoVmjyo8MOOI2xXyMy2bTUEdpz7UShDsUA+5LRFpQsPlIp
+         aDjxGB9dF4J3yl/j55ftFNH+ITGAF40eFt1NrIK6ZaQU6jao06ZkUu9ZtDShsKeWt5Mn
+         RPkcLFR5pBujDGtnfgFSdAw5LhfHNu3V8kMhvQAOuH386irx9HVRknGijfULx1iv+gbt
+         O+LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793978423; x=1794583223;
+        d=1e100.net; s=20260707; t=1793978409; x=1794583209;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1AczkvEVMwyiADmz9Aen/RP9scTy6HPzxTwLuS0NkCE=;
-        b=P+gEC6/AcuRB9QMuKo4QT2fpvOsWysVx4RHkqcyroWc6jevXpy27dhMK3LyeKJI8hv
-         dE6ZKbMHKiGc0+VQy1k6eN0nMMYUdYjhwmol7qlwvip6Z0ShnVAt2IyHQZ01d50z6c+h
-         rcS1bKKJNT9VDvNEqBu7Xj1CQywgGglGtqXcMWlvh6nTvtFjFwybLBCYSRhS2K0yV3vM
-         DypobWYlD7WDr/iY2cBBeYDYtglawVG6vpMJVu/RAvkpvXk+RndGf3lAN6prcq0h6REU
-         8Mv1/mWgHOgmghXBhv4GfdBa1zERnb1jxaYxRn8039wdARiMVq1LGsbECgMQa5mlBiUy
-         bMTA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ/JOV8cQ8JUXhoYl8tHOknqPNN+qtQg45+EaGnG+nQCU5+7pykFBnXwUVPHa6Dd+vLQaghQG6MfSZF5w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8IfGvMcncTzbIVN5XYFHerR8ymcczQkRgrONW+0J+3NCY8giiU
-	d7RLibkmj50YYsdD8tg38IKZXRemJ1YeLrdGRzvSc6I8MZm4YwQ6MxJr9jlMzAsvDlg=
-X-Gm-Gg: AYBFou2pC6z2WrBWX8OH+6wLsyO24WuyCD+n5oCSefwaasGnuGeSYPX6kD9AVeAZmGU
-	HoJ8H5qENhSe56MSuqbwABKOcHepjcRoFsQBfcC3748t9u/6em/rekXYSo5l9FL08ZTImXFUIXW
-	sq9qGd0LH6k3OmI2xUI9feGkyVViQW8i0nlH/Ng6V7CrNN1JtPqMo22qNU3vbRKzc4LV0k8vH3y
-	I6SCndVbciuDDbAtJFek0bQ93gbIUAr8fHA7n24ZQ4mLuS4KGTIUfuJT0QlII5lU37WP85RPnJk
-	7BNCYSiqF74ft9930BxIM9teRLPsH1eCVtJDekq8ESIFfWn8fRNWVR2xiwJvPHtEYD3G4Qb1jtb
-	Vqp7ZMAz/9P6gCmnKiY9m16kvhXvulfBEOI8nC9uV0aQdHtVSyn5Kzy5iYV5AMG3RGX17iGDpgL
-	VwxYbxnZm6IQtDlXDtxxd6GgMDvW7uzUeUWJoizWJUmpfoT36sEcjimhWHMU6rBLq7FcmpbqxFt
-	VvQBirjGvaSKMK5VeSo+8UUqkjGNYfZ1ikPRP82neZQhcMlUQLEx6ovyMkNYkP7olfJodoNKSpY
-	4XIAin1EJ/fCbO7NnuuNuH9MgeBVz+aux0b/t8uGsZPOlRhy3cGDYk+FtCdJlNwXloZ8
-X-Received: by 2002:a05:600c:c491:b0:4a4:de70:2ad4 with SMTP id 5b1f17b1804b1-4b6dff83dc4mr53929695e9.22.1793978423274;
-        Fri, 06 Nov 2026 07:20:23 -0800 (PST)
+        bh=4qbyeG9eFUqyN+f4sUofqJ7pdB2mxcChsrdeY7rrJZg=;
+        b=gkLbKJA1uXoX+5zHpbqvLAZ7EWXZa/CotSLa4pgghTQVY4H2mh08m5iyEIYzo0arSI
+         MKcaaHttcUob9IsfxzNt32WkEnxHiibDpqCIJzlXo0Xf6RYx2I9k87v3Dl8eTvIQ2jSi
+         ng5l/WSDaCNk013E1KlSpgoy2//WqM+XQP/f2LbN79ioGZBeo+IvcJ6FxZdLanihGc/L
+         nsHDSNOxSyex2NnC7SxxA3PuT8un0Fv9G9cxWscres23WVkxzHbfe7IZEA0CdZ7HnlQ4
+         ov8bCRn6HdAU+uIJR+W7znhCw/h+PoK108Rg5PUrFh0wUvrbYBaNr9EzRM9TZrKZmCie
+         zrGw==
+X-Forwarded-Encrypted: i=1; AKwUvBxOzUMlYlJqazuN0Tgs8KUCgHiJdJtAJvwlVsGzlU7UJijI5emhvOh9H7IH2bPKi56oyiqjbloXUTUPEn8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85TJmmWFDszKeBiPZ89e2KuZ7yrHWAgWFFnoAA5TIUM7a9VaGk
+	5EWuTQIS8QeFLnWFGK5Hs8u0iS8jAZCi4xNHtpbbXwIN/QyGx1VA6ECsLXkFNt7Ouq8=
+X-Gm-Gg: AYBFou024pC0TyDtwY+II+rt0/Lyc8YaMFB48YqJa1AgQV2UXXqggXX7ymOy5NMikqb
+	RHAFAneA9cKjizFgvLLmWK2bHjJUk6K6hFtiIl3oiJ4QdLxG0R7J6laiU8k9AFNK5uBRqZHHYba
+	f6oFBCemPTECxFi2XrGB45Dktq4d7Ab0vRbT1oayjNnob9QoLvYt9C8mV4asFwxubgcpDMi7hOW
+	KfTMLNu6H5kVVkdp0Dv1k0gpAqGfdmW6To0SsSQuGkme+UKf62ucroXavm8Gln0CKc6dMuxMOVN
+	TuqmLsK4YiSDYs8QJmLzqk6Hn3R2ckoh9vTCcr3Xi0MqW3bWM+c06kYoI1ET+aUEMd1ev/bHLdC
+	U7Am2HsBWejBhzuD1AU5UmjiLFLkNC7Sv8X95k3RB0qE0+2O/WjMfiXcZIsLANBTT1lxraoxwmd
+	sHJGtst0RWTkqxHJ1Zdr/vkuYrsA/DVscb8mjbpF8YcBWK5cki+hRMQ0gN7TaYrkKejUA2kwtPe
+	OHleKmLeLhf8U/6aLjAYMH774zKjvGQpOd8zmL906ybNoYWPyPn7f7lVyvywYKkreDn4IYl4fBy
+	v+9zqFmQop+p9kREWRCGaX4xmFlhFn37eDFzueBKsXTgENA=
+X-Received: by 2002:a05:600c:8b28:b0:4a1:a2c0:7b73 with SMTP id 5b1f17b1804b1-4b6dfba8628mr43728685e9.30.1793978409162;
+        Fri, 06 Nov 2026 07:20:09 -0800 (PST)
 Received: from vingu-cube.home ([2a01:e0a:11f4:3020:ed97:32bc:977a:3b65])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc5e23sm4477405f8f.45.2026.11.06.07.20.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc5e23sm4477405f8f.45.2026.11.06.07.20.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 07:20:22 -0800 (PST)
+        Fri, 06 Nov 2026 07:20:08 -0800 (PST)
 From: Vincent Guittot <vincent.guittot@linaro.org>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -104,9 +104,9 @@ Cc: qyousef@layalina.io,
 	kayracizmeci@gmail.com,
 	tim.c.chen@linux.intel.com,
 	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 18/20 v3] energy model: Remove unused em_cpu_energy()
-Date: Fri,  6 Nov 2026 16:19:45 +0100
-Message-ID: <20261106151947.3991524-19-vincent.guittot@linaro.org>
+Subject: [PATCH 10/20 v3] sched/core: Add rq flag to tick parameters
+Date: Fri,  6 Nov 2026 16:19:37 +0100
+Message-ID: <20261106151947.3991524-11-vincent.guittot@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106151947.3991524-1-vincent.guittot@linaro.org>
 References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
@@ -121,128 +121,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove the unused function em_cpu_energy()
+In order to force migration in tick, we need to unlock the rq
 
 Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
 ---
- include/linux/energy_model.h | 97 ------------------------------------
- 1 file changed, 97 deletions(-)
+ kernel/sched/core.c      | 6 +++---
+ kernel/sched/deadline.c  | 2 +-
+ kernel/sched/ext/ext.c   | 2 +-
+ kernel/sched/fair.c      | 2 +-
+ kernel/sched/idle.c      | 2 +-
+ kernel/sched/rt.c        | 2 +-
+ kernel/sched/sched.h     | 2 +-
+ kernel/sched/stop_task.c | 2 +-
+ 8 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/energy_model.h b/include/linux/energy_model.h
-index 89cf109cbca6..c4f9558b58d1 100644
---- a/include/linux/energy_model.h
-+++ b/include/linux/energy_model.h
-@@ -244,97 +244,6 @@ em_pd_get_previous_state(struct em_perf_state *table,
- 	return -1;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index d71da9069218..a1a3aa45ecf6 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -923,7 +923,7 @@ static enum hrtimer_restart hrtick(struct hrtimer *timer)
+ 
+ 	rq_lock(rq, &rf);
+ 	update_rq_clock(rq);
+-	rq->donor->sched_class->task_tick(rq, rq->donor, 1);
++	rq->donor->sched_class->task_tick(rq, rq->donor, &rf, 1);
+ 	rq_unlock(rq, &rf);
+ 
+ 	return HRTIMER_NORESTART;
+@@ -5857,7 +5857,7 @@ void sched_tick(void)
+ 	if (dynamic_preempt_lazy() && tif_test_bit(TIF_NEED_RESCHED_LAZY))
+ 		resched_curr(rq);
+ 
+-	donor->sched_class->task_tick(rq, donor, 0);
++	donor->sched_class->task_tick(rq, donor, &rf, 0);
+ 	if (sched_feat(LATENCY_WARN))
+ 		resched_latency = cpu_resched_latency(rq);
+ 	calc_global_load_tick(rq);
+@@ -5953,7 +5953,7 @@ static void sched_tick_remote(struct work_struct *work)
+ 				u64 delta = rq_clock_task(rq) - curr->se.exec_start;
+ 				WARN_ON_ONCE(delta > (u64)NSEC_PER_SEC * 30);
+ 			}
+-			curr->sched_class->task_tick(rq, curr, 0);
++			curr->sched_class->task_tick(rq, curr, NULL, 0);
+ 
+ 			calc_load_nohz_remote(rq);
+ 		}
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index c0ebdcde5fe5..1f6bc63b3110 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -2879,7 +2879,7 @@ static void put_prev_task_dl(struct rq *rq, struct task_struct *p, struct task_s
+  * and everything must be accessed through the @rq and @curr passed in
+  * parameters.
+  */
+-static void task_tick_dl(struct rq *rq, struct task_struct *p, int queued)
++static void task_tick_dl(struct rq *rq, struct task_struct *p, struct rq_flags *rf, int queued)
+ {
+ 	update_curr_dl(rq);
+ 
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 0403c4634281..8728e394d4fb 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3822,7 +3822,7 @@ void scx_tick(struct rq *rq)
+ 	update_other_load_avgs(rq);
  }
  
--/**
-- * em_cpu_energy() - Estimates the energy consumed by the CPUs of a
-- *		performance domain
-- * @pd		: performance domain for which energy has to be estimated
-- * @max_util	: highest utilization among CPUs of the domain
-- * @sum_util	: sum of the utilization of all CPUs in the domain
-- * @allowed_cpu_cap	: maximum allowed CPU capacity for the @pd, which
-- *			  might reflect reduced frequency (due to thermal)
-- *
-- * This function must be used only for CPU devices. There is no validation,
-- * i.e. if the EM is a CPU type and has cpumask allocated. It is called from
-- * the scheduler code quite frequently and that is why there is not checks.
-- *
-- * Return: the sum of the energy consumed by the CPUs of the domain assuming
-- * a capacity state satisfying the max utilization of the domain.
-- */
--static inline unsigned long em_cpu_energy(struct em_perf_domain *pd,
--				unsigned long max_util, unsigned long sum_util,
--				unsigned long allowed_cpu_cap)
--{
--	struct em_perf_table *em_table;
--	struct em_perf_state *ps;
--	int i;
--
--	lockdep_assert(rcu_read_lock_any_held());
--
--	if (!sum_util)
--		return 0;
--
--	/*
--	 * In order to predict the performance state, map the utilization of
--	 * the most utilized CPU of the performance domain to a requested
--	 * performance, like schedutil. Take also into account that the real
--	 * performance might be set lower (due to thermal capping). Thus, clamp
--	 * max utilization to the allowed CPU capacity before calculating
--	 * effective performance.
--	 */
--	max_util = min(max_util, allowed_cpu_cap);
--
--	/*
--	 * Find the lowest performance state of the Energy Model above the
--	 * requested performance.
--	 */
--	em_table = rcu_dereference_all(pd->em_table);
--	i = em_pd_get_efficient_state(em_table->state, pd, max_util);
--	ps = &em_table->state[i];
--
--	/*
--	 * The performance (capacity) of a CPU in the domain at the performance
--	 * state (ps) can be computed as:
--	 *
--	 *                     ps->freq * scale_cpu
--	 *   ps->performance = --------------------                  (1)
--	 *                         cpu_max_freq
--	 *
--	 * So, ignoring the costs of idle states (which are not available in
--	 * the EM), the energy consumed by this CPU at that performance state
--	 * is estimated as:
--	 *
--	 *             ps->power * cpu_util
--	 *   cpu_nrg = --------------------                          (2)
--	 *               ps->performance
--	 *
--	 * since 'cpu_util / ps->performance' represents its percentage of busy
--	 * time.
--	 *
--	 *   NOTE: Although the result of this computation actually is in
--	 *         units of power, it can be manipulated as an energy value
--	 *         over a scheduling period, since it is assumed to be
--	 *         constant during that interval.
--	 *
--	 * By injecting (1) in (2), 'cpu_nrg' can be re-expressed as a product
--	 * of two terms:
--	 *
--	 *             ps->power * cpu_max_freq
--	 *   cpu_nrg = ------------------------ * cpu_util           (3)
--	 *               ps->freq * scale_cpu
--	 *
--	 * The first term is static, and is stored in the em_perf_state struct
--	 * as 'ps->cost'.
--	 *
--	 * Since all CPUs of the domain have the same micro-architecture, they
--	 * share the same 'ps->cost', and the same CPU capacity. Hence, the
--	 * total energy of the domain (which is the simple sum of the energy of
--	 * all of its CPUs) can be factorized as:
--	 *
--	 *   pd_nrg = ps->cost * \Sum cpu_util                       (4)
--	 */
--	return ps->cost * sum_util;
--}
--
- /**
-  * em_pd_nr_perf_states() - Get the number of performance states of a perf.
-  *				domain
-@@ -407,12 +316,6 @@ em_pd_get_previous_state(struct em_perf_state *table,
+-static void task_tick_scx(struct rq *rq, struct task_struct *curr, int queued)
++static void task_tick_scx(struct rq *rq, struct task_struct *curr, struct rq_flags *rf, int queued)
  {
- 	return -1;
+ 	struct scx_sched *sch = scx_task_sched(curr);
+ 
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index e2999d3f88e4..3bcb663ebcde 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -15686,7 +15686,7 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr) {}
+  * and everything must be accessed through the @rq and @curr passed in
+  * parameters.
+  */
+-static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
++static void task_tick_fair(struct rq *rq, struct task_struct *curr, struct rq_flags *rf, int queued)
+ {
+ 	struct sched_entity *se = &curr->se;
+ 
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index 76f3c84ca684..1ba0303aacb4 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -538,7 +538,7 @@ dequeue_task_idle(struct rq *rq, struct task_struct *p, int flags)
+  * and everything must be accessed through the @rq and @curr passed in
+  * parameters.
+  */
+-static void task_tick_idle(struct rq *rq, struct task_struct *curr, int queued)
++static void task_tick_idle(struct rq *rq, struct task_struct *curr, struct rq_flags *rf, int queued)
+ {
+ 	update_curr_idle(rq);
  }
--static inline unsigned long em_cpu_energy(struct em_perf_domain *pd,
--			unsigned long max_util, unsigned long sum_util,
--			unsigned long allowed_cpu_cap)
--{
--	return 0;
--}
- static inline int em_pd_nr_perf_states(struct em_perf_domain *pd)
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 1535046a23ff..35b3831a72cf 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -2541,7 +2541,7 @@ static inline void watchdog(struct rq *rq, struct task_struct *p) { }
+  * and everything must be accessed through the @rq and @curr passed in
+  * parameters.
+  */
+-static void task_tick_rt(struct rq *rq, struct task_struct *p, int queued)
++static void task_tick_rt(struct rq *rq, struct task_struct *p, struct rq_flags *rf, int queued)
  {
- 	return 0;
+ 	struct sched_rt_entity *rt_se = &p->rt;
+ 
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index b88857dd3941..95a18c0d21c6 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2751,7 +2751,7 @@ struct sched_class {
+ 	 * sched_tick: rq->lock
+ 	 * sched_tick_remote: rq->lock
+ 	 */
+-	void (*task_tick)(struct rq *rq, struct task_struct *p, int queued);
++	void (*task_tick)(struct rq *rq, struct task_struct *p, struct rq_flags *rf, int queued);
+ 	/*
+ 	 * sched_cgroup_fork: p->pi_lock
+ 	 */
+diff --git a/kernel/sched/stop_task.c b/kernel/sched/stop_task.c
+index 1e0109ec36b3..3d99b23afd89 100644
+--- a/kernel/sched/stop_task.c
++++ b/kernel/sched/stop_task.c
+@@ -74,7 +74,7 @@ static void put_prev_task_stop(struct rq *rq, struct task_struct *prev, struct t
+  * and everything must be accessed through the @rq and @curr passed in
+  * parameters.
+  */
+-static void task_tick_stop(struct rq *rq, struct task_struct *curr, int queued)
++static void task_tick_stop(struct rq *rq, struct task_struct *curr, struct rq_flags *rf, int queued)
+ {
+ }
+ 
 -- 
 2.53.0
 
