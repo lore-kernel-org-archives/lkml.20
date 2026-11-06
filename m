@@ -1,54 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945587;
-	b=E+B/iKOD06M42CD7M1q/meKpyyHuQFuz0g0nzBpn99i68/I/KaYiDnzO+qG5L50+4k/x
-	 w+FHVmUUdDF8tV7Ke2umJKrAXsTe2yu5+Yno27ruZWZxQudkSHB22t3eVaL24WLG94qfj
-	 h3HaMmphqYZmeYrWO6btNOrsweURKKP0E4KNRL5JO6OmVoyqli6XPlh1mYql+6mX5bqo4
-	 +Jo8plcclL3YfWg8hhbSUhkbJYDoga9ta+S7XoORUsF7xM/5jx2qOT3O1exmfg3ROlWy5
-	 06OLpFpelKmaFvk4dixJ7IUyMadFSwqpkxMtt+2Dzz7KkY+Z/K3trQ2M0DZ8dCdTggA==
+	t=1793945626;
+	b=1BZFmPncgUZ0p6llOkOfUm7rgPQrul2IbOtKCSuktU6VajoTU2EO+kKP8lHl0QqAQQxq
+	 WI8GtF7rwiMMtwRNS4tI6d1ydiSRU/0MAjC/xgTtGiC53iddMzvMMw1/KRS8P9BuhSevR
+	 01xOaslmGtO7J/T0Pf06QHxy/R9AjQaHUUxULUgDK1E4FbQCFVaS46qDprB+Zi3h9Hcye
+	 B2fx8R2kbuAYqd3s1i7DPxtbIUczW9jraFl36bxAeFVtT1et2Fs7P1E+vPyc3SeNKU8DZ
+	 Y+GRjw7dFjZcx0rCBmCPBCpYTZILUgG5gOi7kF0xyWkmfl5c6LMhOW887kdJsnRYJLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945587;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UeFRryLaJVqpKuXcRGUVHxdnIHbny7uLg2c6R3dh+AA=;
-	b=xZre7e/km7XZr3nwvCL1ZXZH2YzQDcLmXbHodjD0r4341U4Xpjx6VwJbBYjKnmc9dadA
-	 PLBx72H14hDXSFhVWfKzp6mlGXgL8EdzSLhtP94e+cxUGz401roJCHqVNxtHPAKzfJPz6
-	 IyLI0+7G6phmRwq2FaTIJpAQPz25JZ19fsEPb8lfWdT48+9+oSC77zxrPhEslUxCQsDxX
-	 BX5uZBdMfiBlG17bu7rf3MtQuxZnBsNdwbz+d4iT6CjRIwEEuYY6530msuSSrJsWG/z7K
-	 24MoyEc0R5oNNDoZErNjskzNujOLhITXMZD5vJ0mfDXagQoNN7kRQmDCy/XiGdctItg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945626;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=rzvF6MsRtSNRQYkAnE8s0gTVzXdnYrXPinbLwOnBUXA=;
+	b=bSEmuTrOkZsHmO7qCn16/ULKgYWYd+PvQt4VpjjvYEAcuBplaMVa/r9drUvMVaY03me4
+	 T/Tw2YV7UM2uK58hrzmR+an76hSyZwBe70w99TFAQJ9Mb/2iJ9i1tNMN5qr5a/KkvBedz
+	 wEUgP/6I8wmr1UxBzMI8jWOlb6LeWOJNNZYRB2p51FR0xTMyHDjZqHx/U/MS0CuO6g9Pq
+	 7p4NxUbYe8SNWJD8jHVE7gClkSt8qs0mOmQJlDkIrQMf8Y0cJiFaQFhGSJa1BVxUYJIwx
+	 r0N77At/ZTZwZlE4oM7JDxD5DudF9koDNR4LR7oKgbypffuTZo5u+tPTv0mnDC7gakg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bvPJUts0;
-	arc=none smtp.remote-ip=95.215.58.252
-Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=ndZFzLE5;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9394B606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9394B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6105606A326;
+	Fri,  6 Nov 2026 06:13:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6105606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bvPJUts0
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UtMR0huybFZzo68zuG5r3t/yLCzKnw9Q4ZZ92vgROyE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793945583; v=1; x=1794550383;
- b=bvPJUts0NfHUKQVK2bHna3jm1DTJS6OWUm5OJ5OLiijya+d6Vfg8vLaYBXApL2GOXiidk85N
- dP/RwNh/+nLcYXh2IEvX2bbeESfUaQVPaZ79T7zXLqfJ1a6I9Wp+4Y/yIp8ubSq0waJlyLf55yu
- jrfU62V+HSgFBkLFlkNckuxA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ff19274c30c44807;
-	Fri, 06 Nov 2026 06:13:03 +0000
-X-Mizu-Trace-ID: ff19274c30c44807
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d035a565-aa50-4aba-8213-f39869baad05@linux.dev>
-Date: Fri, 6 Nov 2026 14:12:56 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=ndZFzLE5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1793945623;
+	bh=rzvF6MsRtSNRQYkAnE8s0gTVzXdnYrXPinbLwOnBUXA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ndZFzLE5AsFZxPNSYiwe1F7iskrv784pVUWFqTXYG7o/4s6WIGZF/QcWN8C9inFSo
+	 d8MXP2mSJgLPYNoW2AWLn5VRNIrPj1LvIP1mHVKZgWOhOhRI1K25XLF/k41y826lKv
+	 7v6ZUAbAXf0oSctj+L3mLhLfjRcu6yV4dTGlwR+GFYPnnTZ0Mpl4+zXQrBBq5Jf9Ps
+	 6HKEmS/q5zVbYOPc/TJlicZ8TdETKFUGMYUXrevKj92uB3KYj9iN289JumYhwMUiVc
+	 xZc+5Q1POjXSzWFRBjBDRuAzzg7r5Zf16DH2Yx6Mk9Yn6HZE//t+JEvCfKXgJZTiuz
+	 1HdzsucRlCc9Q==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 0140E649EE;
+	Fri,  6 Nov 2026 14:13:41 +0800 (AWST)
+Message-ID: <8afcccd35b8a78730c6a9cc46c30dbeb99694e6e.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v4 1/2] pinctrl: aspeed: Use managed pinctrl registration
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>, 
+	linusw@kernel.org
+Cc: joel@jms.id.au, ryan_chen@aspeedtech.com, billy_tsai@aspeedtech.com, 
+	brgl@kernel.org, tan.siewert@9elements.com, linux-aspeed@lists.ozlabs.org, 
+	linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 06 Nov 2026 16:43:41 +1030
+In-Reply-To: <20261106022907.10735-2-prasanth.padarthi10@gmail.com>
+References: <20261105152348.8567-1-prasanth.padarthi10@gmail.com>
+	 <20261106022907.10735-1-prasanth.padarthi10@gmail.com>
+	 <20261106022907.10735-2-prasanth.padarthi10@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,60 +72,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
-To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
- akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
- <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
- <auxTwrKCeg7a3hfY@localhost.localdomain>
- <1535887c-6be2-4415-b54e-2008e6e7a35c@linux.dev>
- <au1qtSMDpimURGuq@localhost.localdomain>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <au1qtSMDpimURGuq@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+On Fri, 2026-11-06 at 07:59 +0530, Prasanth Kumar Padarthi wrote:
+> The shared Aspeed probe helper registers its controller with
+> pinctrl_register(), but does not unregister it when the device is
+> unbound.=C2=A0
+>=20
 
+This is a problem in its own right. IMO the rest of the discussion can
+be left out, as it depends on the subsequent change, which still needs
+consideration.
 
-On 11/6/26 1:50 PM, Oscar Salvador (SUSE) wrote:
-> On Fri, Nov 06, 2026 at 10:43:53AM +0800, Qi Zheng wrote:
->> I'd still prefer to keep __GFP_COMP so that
->> cma_alloc_frozen_compound() itself guarantees compound allocation,
->> without requiring callers to supply the flag.
-> 
-> Well, but aren't all callers hugetlb? And we already do supply __GFP_COMP there
-> for evident reasons.
-> And should that not be the case, and you want to catch someone who went rogue,
-> I would just place a WARN_ON_ONCE to catch it here, so we know who is not following
-> the rules.
-> 
-> Makes sense?
+> Registration can therefore outlive device-managed callback
+> data, leaving a registered controller with pointers to freed memory.
+> The G6 handover change in this series embeds that data in a
+> device-managed allocation.
+>=20
+> Use devm_pinctrl_register() so controller teardown runs before earlier
+> devres allocations are released. This also cleans up the registration
+> if later probe processing fails.
+>=20
+> With this change and the G6 handover patch, one unbind/rebind cycle
+> passed under generic KASAN in AST2600 QEMU and on B650D4U hardware.
 
-Ah, make sense.
+IMO this sentence is enough to describe the testing, the rest reads
+like unnecessary detail that tends to be generated by LLMs.
 
-How about this:
+> Controller debugfs entries disappeared on unbind and returned on
+> rebind; a subsequent pins read succeeded without observed KASAN
+> reports. The unfixed control case has not been runtime-tested.
 
-diff --git a/mm/cma.c b/mm/cma.c
-index 876635a56180e..45017ed876f76 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -935,7 +935,8 @@ struct page *cma_alloc_frozen(struct cma *cma, 
-unsigned long count,
+What is this last sentence referring to?=20
 
-  struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int 
-order, gfp_t gfp)
-  {
--       gfp |= __GFP_COMP | __GFP_NOWARN;
-+       if (WARN_ON_ONCE(!(gfp & __GFP_COMP)))
-+               return NULL;
+>=20
+> Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+> ---
+> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed.c | 3 ++-
+> =C2=A01 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/as=
+peed/pinctrl-aspeed.c
+> index 7e0ebf11a..d19b4d23c 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> @@ -461,7 +461,8 @@ int aspeed_pinctrl_probe(struct platform_device *pdev=
+,
+> =C2=A0
+> =C2=A0	pdata->pinmux.maps[ASPEED_IP_SCU] =3D pdata->scu;
+> =C2=A0
+> -	pctl =3D pinctrl_register(pdesc, &pdev->dev, pdata);
+> +	/* Unregister before earlier devres allocations such as pdata are freed=
+. */
 
-         return __cma_alloc_frozen(cma, 1 << order, order, gfp);
-  }
+I'd rather the comment is removed.
 
->   
-> 
+Cheers,
 
+Andrew
+
+> +	pctl =3D devm_pinctrl_register(&pdev->dev, pdesc, pdata);
+> =C2=A0
+> =C2=A0	if (IS_ERR(pctl)) {
+> =C2=A0		dev_err(&pdev->dev, "Failed to register pinctrl\n");
