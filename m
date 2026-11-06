@@ -1,99 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.32.148.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794003373;
-	b=SMTpl3UPPizR57AQnanMFJYXbFP4pIGg8oIyYFAy4iGUCOgSqcUNdQ/KOMnFXZgWx29y
-	 IiwjxQPOlbBbXwAH1B4cYCv68sTBcfLe/06ws2qiObA7ir/792BTHlWcVDJpd93uo+MYR
-	 l7xm9QLp8TOd4uTyycnLrWvjS0waj04FQJN/4WbVwkHDt7TGgUfqAF5qaNCbP9tEim80Y
-	 f4oK/bMQc6zWiJxn/OvvHwwI2zn6LT+fVDruNnaJ/A9u+6OarN38q4CM6v+ZyEUWEdcTJ
-	 AxTku+6wXg3UcJAbg0l+vRx6NvHfWB7ZB28+KSyjWCw4gWbvds3BcEjm8kCSk5FEmJg==
+	t=1794003540;
+	b=fdhK9Ck6IbOKD5GAKFWvjOEF/MPjwj4JRTuQb7NEXJWuD8Bg5nQgnXndJRCDoypTIsF8
+	 hkvZfStJJuSusjbgX9Z3+BILVifvQGpIT2D9ctKrZLuqH3q0Zrz1p2PsH+nHTY1BI/YG6
+	 AtibzoMbSxQlGiiu+y+K7Z3hohX4/7wJgFlD2ci3mA5I8oDbxW8ZNxSPpPthwxoDIoBzP
+	 9RrX7q+Gosvb47MSC+r8zfV+TcEvzupXbw6kY+w/sIJs2lzQ8wvNRxCwEpuLFPz69oKTy
+	 G6qn6QDZ9ktX7U1jhnVITiIvPN49UAi33adbbrV2XGU84gHOvxdYvhR4dwLRUgiZeyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794003373;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=laRzMMYDJxkaw25Allc7O+S/jwUBfxfqJWPXHy4lzgc=;
-	b=Zbw1+D5rJmuuuA2lOfzsTRf8x4HW2jpVUGMZKeJfT09I7yUFIHPgThepkfM67Z81d/gC
-	 EdnvJcgWPZfEn1Iw43OeO+EjX8FeKkDbEpJeWiZ9E02Fihbc36YuPaULpwqyYa//YzNW9
-	 fixx8Vrw7vUaPARTddi9Crpp0I8+cZvUmlmagozBmfYrkeo+Y0UQPXzlsFAWKoQyXC47C
-	 PZ7b373kITNYsiOcSqPT9D3hzLYRebOesCZcmheXAXAAoI9V5hSAIwvqd4/e2vIukEa8B
-	 QMQZlgsOORQLwLERsTsYKvJBdR7/sS7qCTuWYIckdo/hUlMhb6dxsposPNrQEyZ7CRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794003540;
+	h=DMARC-Filter:DKIM-Signature:To:Date:Subject:Cc:Message-Id:
+	 List-Unsubscribe-Post:From:X-Mailin-EID:X-sib-id:Origin-messageId:
+	 Feedback-ID:List-Unsubscribe:X-CSA-Complaints:
+	 Content-Transfer-Encoding:X-Mailer:Received:Mime-Version:
+	 Dkim-Signature:X-Last-Tls-Session-Version;
+	bh=R6n0aYpkmHjIgahCRbhjVhsZJsulzyuC2Atz+IY4FEI=;
+	b=Z06XjCl4+QBwevBXbChzJnhN7/v5kJTvN4TjIrySO6fr7VmeJZeheAL/aj2irBB/ytGO
+	 Tnw0gQPEVHsIB03MUy8sLgGRIJCOkzls38r+GyYkmRzArmwnb0VbDXNUuiglZsDV7oo28
+	 xJregYMW0C3v5Cu3ZPddsvgL3g2GKiOFb3TRvxVMMlFEcu+hbOpaFhMUDcJyKr6LL2hY4
+	 TJxsqvm/BNQtPhgMq3gzAXYucCsWkfXtd304UGaNh6YmSihu1H0PE4a0MD1l0387o/r5o
+	 HEVD5m1fMz9QBKBq0pv327vz2wQHgfunyxtLBdwrFKjLtSpvIqNXkzWRjepsaC+DMwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gQvBDgbF;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=romitsagu.com;
+	spf=pass smtp.mailfrom=if.d.sender-sib.com;
+	dkim=pass header.d=romitsagu.com header.i=@romitsagu.com header.a=rsa-sha256 header.s=brevo1 header.b=rb72UruA;
+	dkim=fail reason="signature verification failed" header.d=romitsagu.com header.i=@romitsagu.com header.a=rsa-sha256 header.s=dkim header.b=LeBoK3iV;
+	arc=none smtp.remote-ip=77.32.148.58
+Received: from if.d.sender-sib.com (if.d.sender-sib.com [77.32.148.58])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA803606A32C
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:16:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA803606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9899606A32D
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 22:18:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9899606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=romitsagu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=if.d.sender-sib.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gQvBDgbF
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36ff9c9da34so1465214eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 14:16:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794003372; x=1794608172; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=laRzMMYDJxkaw25Allc7O+S/jwUBfxfqJWPXHy4lzgc=;
-        b=gQvBDgbFA/4j7YiasxpWEVpB7LYJeUQ/608Smr5g2DvH+4wlTZbamMoh/jom5eH60v
-         7BUPKgySkmsEwxedP9Ln5xYvxRy9RA5ntDOuslgf+6PaV5oxmPqlkDmop6XQ+CmCjX9J
-         w+M70TPMLFKiw85O6wmXSCoaCvINfkD6T/gjdRz24Naq2W+A3ib+9liMdZ17PfbFZQTu
-         eZPbWOI6gxdKvLOlUWQJxTRYKwlJj8nnCcbUVcTsywbFwEtwodL783omRdr4HwM3TE1u
-         DAKGmtbCjRtE4LGk5gYflfLh/OKzyabNe0XJx2vyd87u65ecHLu1fDD+U/3CeBEVu3QX
-         tEvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794003372; x=1794608172;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=laRzMMYDJxkaw25Allc7O+S/jwUBfxfqJWPXHy4lzgc=;
-        b=ZWoZtacohubzEb6CuDVBBAH3wQeBRyg1xjYvY92Eb+v5z32DZRTXVFmlr8CPl4tbga
-         L8kmfk/7fb0u/zKzKltElMfJez9fk2kS2dbQPgyCqDVIOOFpViGrBYe0Ip6aP12PqxYa
-         DTe2O9x9eT1v0xG+P2OrjF3IeN4mvq2iMVRmPqETjzV6olg/5cQKrSJBSYDBgGXhpQ2V
-         KH2iwkNLy9IcGGelgXq8u9IqkxafR5yxsbAbb+4YjhNCLplAk9Z/4QI6S5WOzIxrjqtL
-         elB7XGUJFCInPNuy2wPhVWHKcphz5V9c3QATfiDEJgQtIUN3LIU6JAPfsbV7Ov8unEmM
-         ef5g==
-X-Forwarded-Encrypted: i=1; AL+hErHx40mEtyABotEaWrw1vyX003lE93rFRv9eah8NnyDFCM9tjXfqblm5ITazB9uxeQcUX7i+nXtoGzwHkV8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+a9Mpm61KUe2ZoHkvB0ZNW2WYOmnBH+bQiV7LHtYoIjhNX5VZn
-	6m8HHRQxfkq780RmLSW8Z89dIGCQcXJluzFI+lC16snn8yUflenoHAta
-X-Gm-Gg: AYBFou1XyCweGQ9IVbGJjDEsMQ0KpEm3mgNE40v7emF1z60o6WX4eOEREjCIV/oWSxX
-	kWghXGOcf+BJuWMCzB6RHFoyqr3M8qhmy3rU26y4bQC8dZO+myBv1a6nbDplhnN8XNcmgQwXjI3
-	H1N9KoJYd3bjRTRBQ+Jy8+IjCYKgfpE3e3GXOdXJ7zt7069OE+60TIcAsycfo4x0oTHLzURZA0q
-	f1ujcjvWYa/WOy517+tE+cQP5FVGOlDTPqro0b+vNdT0DcpKN5u+/JKj8hABtNAt6/T6wR6OkMz
-	EdiwWs9iGYSLxg4OuBVEzaqEeCmSYsBCL1QSfoBou6HDinm74nP7DH1i4xHUpwTD2Z+hfvbmaGz
-	pVLrBew8xe4t8pbQOWAedCey1NKIef5032DAz1hgmclSUpkbFc6n75gtwSOfgdOStCGCCITbdaa
-	PudgxkoYrPFeCUBk80tAOfhldqUAkCdhLwU7tK9zsUCHKA2aVDdML6QOFDCsgUGUNCp34heHCij
-	7KGba9UuYZ7sGcMNCGQwp2Tp9sxmPhHDpKYokW7bT/HHN1WpszmUSa3GfiWPBEzdDkxSnNvhhWW
-	FASZkUsQay2a3u2BFJv/Qpa+/45Thoqjn9sjItxerHb39rXIwGM24wGK5WNRhusgvNWkhBGo/I1
-	nk9ym4Jd6crqtMTQTRteufSyVMtVeUGEX724DVkf8YFKka039Ot+ASPD8EOopNK+iPydzHIQk+q
-	EEsg==
-X-Received: by 2002:a05:7300:ce92:b0:36f:14ef:ad08 with SMTP id 5a478bee46e88-36f75253a9dmr4860666eec.9.1794003370707;
-        Fri, 06 Nov 2026 14:16:10 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa5afffasm11333663eec.25.2026.11.06.14.16.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 14:16:09 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Chris Snook <chris.snook@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net] net: ag71xx: let both QCA9550 MACs use MII, RGMII and SGMII
-Date: Fri,  6 Nov 2026 14:16:07 -0800
-Message-ID: <20261106221607.16215-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=romitsagu.com header.i=@romitsagu.com header.a=rsa-sha256 header.s=brevo1 header.b=rb72UruA;
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=romitsagu.com header.i=@romitsagu.com header.a=rsa-sha256 header.s=dkim header.b=LeBoK3iV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=romitsagu.com;
+ q=dns/txt; s=brevo1; bh=R6n0aYpkmHjIgahCRbhjVhsZJsulzyuC2Atz+IY4FEI=;
+ h=from:subject:date:to:cc:mime-version:content-transfer-encoding:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
+        b=rb72UruAEIUhgv2WCyebzSE2tiMYjCT+cUtTW5nBk/hWu4FNW5fDXSa2kwOjp/FaA90JOdlTzBwX
+        6pZdd+PSY1GURZ0nAxs/l/f74nLoAqHwfP7kzlmxNcy2t36+ScGD1U/Ys/SLgPkJ9f6I3Wpvk9xH
+        AA79+7BJODUpRYQpCAx7CDMI1pbqe0Ndqnim2rQUjtKTx6bhOfs8hFDhUhiF9IiXo2tz0Qm1rbA1
+        MWEQBT2nDwG/1ZBPARM64dXPGQbz+fiYhqcLwwRvtEoGgRYPWgjf95M0IK6yJEGdpv+G/uEG0/YB
+        YqxO1kdidt7fwbz918Ob6aGzHgjbIul6SZAHDQ==
+To: <netdev@vger.kernel.org>
+Date: Fri,  6 Nov 2026 22:18:29 +0000
+Subject: [PATCH net-next v2] net: sfp: add quirk for OEM SFP+ONU-XGSPON
+Cc: <linux@armlinux.org.uk>,  <andrew@lunn.ch>,  <hkallweit1@gmail.com>,  <davem@davemloft.net>,  <edumazet@kernel.org>,  <kuba@kernel.org>,  <pabeni@redhat.com>,  <linux-kernel@vger.kernel.org>,  "Romit Sagu" <romit@romitsagu.com>
+Message-Id: <20261106221836.3445-1-romit@romitsagu.com>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+From: "Romit Sagu" <romit@romitsagu.com>
+X-Mailin-EID: MjY5NTA4NDE4fmxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmd%2BPDIwMjYxMTA2MjIxODM2LjM0NDUtMS1yb21pdEByb21pdHNhZ3UuY29tPn5pZi5kLnNlbmRlci1zaWIuY29t
+X-sib-id: pjU5hgLRTXVu-zj707ajCwYhXqQn4WKZ_NTT7iuOh20BB7xCRs-JY5D6WJI0XqV-hPFxUmsBM2dtFQjXs1XBwf4rdGvmZQd8pCIA5vSO4u6dLid0nOeJzIIhTH2TZLFLH2rtXD9jR1IlUENW9Akv29ai_L3y25jAgzgQDc1ivHOc_GrZFFt10u7y
+Origin-messageId: <20261106221836.3445-1-romit@romitsagu.com>
+Feedback-ID: 77.32.148.58:7631162_-1:7631162:Sendinblue
+X-CSA-Complaints: csa-complaints@eco.de
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: git-send-email 2.43.0
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3DE4F4063A; Fri,  6 Nov 2026 17:18:41 -0500 (EST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,57 +68,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=romitsagu.com; s=dkim; t=1794003529; h=from:subject:date:message-id:to:cc:mime-version: content-transfer-encoding; bh=Xlywh/A5GtLCtifpFseekBFA0sryMULQdDy/KRtRFDA=; b=LeBoK3iV5UQvZCnPfFKbKBR8QkqZDoLVXUbJ/vCydngFGoSxzUu0oT1eICvM0OlR1Pa45Q PAIFTCIVMNK5MTAdzHNNipnwERs7ZlwXJxrk2zVS2Xyb0MVs2ZG6Ujau2Y+PyHumkZdp90 FU0DrCWZVa129R5pGgei4sBjAua31JQZzFFs0DH5VCuKMU6+xwvw40R7NI2ZGB/mpyQvy2 dlE4jaGpRQrNdnJE2iToMpdyPFz5bQN/awKvmVoWRt7P1SKTQdWIgabK60ErIts4c+cvdw q8/GZTX/KQn8ldMou4I7WspT9oJD5sY41jzkTFxAnNN8y8NAKVpTZYasEB5ZmA==
+X-Last-Tls-Session-Version: TLSv1.3
 
-The GE0_SGMII bit of the QCA955x ETH_CFG register selects which GMAC
-gets the SerDes (QCA9558 datasheet, 10.8.1): when it is clear, GMAC0
-connects as RGMII/MII and GMAC1 as SGMII, and when it is set, the other
-way around. The driver only allows the second layout, with SGMII on
-GMAC0 and RGMII/MII on GMAC1, but boards like the TP-Link Archer C7
-use the first one, with GMAC0 on RGMII.
 
-Allow MII, RGMII and SGMII on both MACs.
+This XGS-PON ONU stick (vendor OEM, part SFP+ONU-XGSPON)
+needs the same handling as other Potron-based modules. Without it,
+the module fails to connect and the kernal shows these errors:
+sfp sfp1: module transmit fault indicated
+sfp sfp1: module persistently indicates fault, disabling
 
-Tested on Archer C7 v2. RGMII on port 0 of the switch works.
+This module requires TX_FAULT/LOS behaviour and boot delay tuning.
+Add a quirk using the existing sfp_fixup_potron.
 
-Fixes: 0767ec042897 ("net: ag71xx: extend link validation to support other SoCs")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Romit Sagu <romit@romitsagu.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- drivers/net/ethernet/atheros/ag71xx.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+v2:
+- Move the new quirk to be better sorted alphabetically within the
+  OEM section and next to another XGS-PON ONT (requested by Jakub Kicinski)
+- Added LOS in the quirk comment (recommended by Sashiko)
 
-diff --git a/drivers/net/ethernet/atheros/ag71xx.c b/drivers/net/ethernet/atheros/ag71xx.c
-index 16434a7139bc..b2d78819a0a2 100644
---- a/drivers/net/ethernet/atheros/ag71xx.c
-+++ b/drivers/net/ethernet/atheros/ag71xx.c
-@@ -1079,7 +1079,7 @@ static int ag71xx_phylink_setup(struct ag71xx *ag)
- 	if ((ag71xx_is(ag, AR9330) && ag->mac_idx == 0) ||
- 	    ag71xx_is(ag, AR9340) ||
- 	    ag71xx_is(ag, QCA9530) ||
--	    (ag71xx_is(ag, QCA9550) && ag->mac_idx == 1))
-+	    ag71xx_is(ag, QCA9550))
- 		__set_bit(PHY_INTERFACE_MODE_MII,
- 			  ag->phylink_config.supported_interfaces);
- 
-@@ -1089,7 +1089,7 @@ static int ag71xx_phylink_setup(struct ag71xx *ag)
- 		__set_bit(PHY_INTERFACE_MODE_GMII,
- 			  ag->phylink_config.supported_interfaces);
- 
--	if (ag71xx_is(ag, QCA9550) && ag->mac_idx == 0)
-+	if (ag71xx_is(ag, QCA9550))
- 		__set_bit(PHY_INTERFACE_MODE_SGMII,
- 			  ag->phylink_config.supported_interfaces);
- 
-@@ -1098,7 +1098,7 @@ static int ag71xx_phylink_setup(struct ag71xx *ag)
- 			  ag->phylink_config.supported_interfaces);
- 
- 	if ((ag71xx_is(ag, AR9340) && ag->mac_idx == 0) ||
--	    (ag71xx_is(ag, QCA9550) && ag->mac_idx == 1))
-+	    ag71xx_is(ag, QCA9550))
- 		__set_bit(PHY_INTERFACE_MODE_RGMII,
- 			  ag->phylink_config.supported_interfaces);
- 
--- 
-2.56.0
+v1: https://lore.kernel.org/all/20261103011849.181392-1-romit@romitsagu.com=
+/
+
+---
+ drivers/net/phy/sfp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/net/phy/sfp.c b/drivers/net/phy/sfp.c
+index 85e57a16bb52..915156743701 100644
+--- a/drivers/net/phy/sfp.c
++++ b/drivers/net/phy/sfp.c
+@@ -638,6 +638,10 @@ static const struct sfp_quirk sfp_quirks[] =3D {
+ 	SFP_QUIRK_F("OEM", "RTSFP-10", sfp_fixup_rollball_cc),
+ 	SFP_QUIRK_F("OEM", "RTSFP-10G", sfp_fixup_rollball_cc),
+=20
++	// OEM SFP+ONU-XGSPON is a XGS-PON ONT stick with broken TX_FAULT and
++	// LOS indicators and slow startup, just like potron.
++	SFP_QUIRK_F("OEM", "SFP+ONU-XGSPON", sfp_fixup_potron),
++
+ 	// OEM XGSPONST2001 is an XGS-PON ONT stick with broken TX_FAULT and
+ 	// LOS indicators and slow startup, just like potron. On cold
+ 	// power-up the EEPROM vendor PN field reads back with non-printable
+--=20
+2.43.0
+
 
