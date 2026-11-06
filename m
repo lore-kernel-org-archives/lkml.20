@@ -1,64 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793926660;
-	b=cIZUOziz764aRdcGwIn5zLnOHCWyMAVhWYbCJsIgpW2ZdF6iToQDnbx9SeVffVQBTy1n
-	 WRfPXxZOduQmLZaeFUY515exUGvmqUk6aWLmSmf3mr+Veq0CrjeItXBA9ASKPHLfc1CN7
-	 J0OCu26T6vCjF6slsotCJq2FwELOqu6ZbpVG8n/XN4UF2/SwcvtWqqHX01cUxsOxmlqxF
-	 NyOPExFjD2wmLuKaRMun3KAhaMaVoGmjWN/gQb5+skWy7/DXUteLPuWXoFLp9mo7X4Opi
-	 PsD3DPUbAILQMPKeMAtUA9GwtTTLSvsvon+JdtjBKIIsMdMwmcbn13MyuwTAAvflMqA==
+	t=1793926658;
+	b=CGA+fAqFe8Y9dyOS84HPVz178h3uB9exZPOrnSxiIgSPiPFn489JGJK4ttwYPMtxlccB
+	 Xlr9ke+GtMu91WHwWWxNMP+nr2C+Flepx+eexHocS8wuki1PN0P79Y9prQI/F8V+jTrgR
+	 Le6n0w7Hszg8JxgWTyMRWyDY5+oqQSAOIA4SE5WginXLGwFTRavmzGZRJgNo0ow2pY2iP
+	 Bnqn8QfxWHksOLuiscIbFuN54RA6SzJzW5BrE3uLA46ufeNEF1x+qhbVldxWD0C8yeVOm
+	 IecK1qs6SxoaCN09jDORajAXTzK/aY8cmxRRuidpjyIefdxkvQg+Yz7WXGWTk5/V01w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793926660;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=YVeFT7LriaxY+L/H0hfcnFbGAhPLt1+tTB5zxNdoDVU=;
-	b=L6iCeWXvoU3UV59Q3fY8gjsL5E+zD4Izkfq5OUXhstfmNIfiX3f6eDYTskagE1FrQaAv
-	 tUfL7zHArEt/JihiaTXLIaOYqrNkCG+Tfc4KHd0lZ5xawpeLaflyygmYrpY0fM+hvwtdd
-	 HAmbaFNeyADZN6eHwHxhUmUviuMWBNsdjq018X0BQrK902i05cDUmfrDc/k0skfW7U6tC
-	 Ck/WdK+xutUEZ9sBo1TWucKcKQyH7TSJe1iB8ZerqJ3U2PvO80EcpzDAeNEerw4k+hYpj
-	 XRTYCE43sINKyZYfx+miQlddR0NFelWrVIpBQ/1IlqYcajzNYJva9Ft5UT0yPMkTtGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793926658;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=MzO4HkQE4feh9CJIkUPme6koPbQN4aGycua9YwNQmpg=;
+	b=GpgTVuPUbgd4SdGUgXbMjNsZSXcAv9t/gehKQm29/VNvO2QIlhEMr6MNdcBgSXiMgz3I
+	 psvwkeMPx6TSNg1YbIb7TA6so2Q8rCXYLcmljSweYZc3M6wwxL1Crzc3dU1cvAzEaXC9s
+	 Vy6MZlzIq2H0MOFB6XJhbeHoG2Wijh85Ib0tQBNjGqd7yYsj8K0KoWm1Q6OYkEdRGR86R
+	 z+R+ECdJY7OcZ9etqMLy4x9oaqY3zdcFFwQf4VzkzFFGo9VX2bxfw74zWiOXKbNJ3Sw5+
+	 vmdq0Crw1Jx9+Mir1HLvK+g2vDZEQ2oFrJZrU4QjFAPbQ5a+6gw9yWL9KYkd/IdB6gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XakR83wQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ni0CSVhT;
+	arc=none smtp.remote-ip=91.218.175.27
+Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE67606A328;
-	Fri,  6 Nov 2026 00:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A478606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 00:57:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A478606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XakR83wQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A6271F0089F;
-	Fri,  6 Nov 2026 00:57:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793926660;
-	bh=YVeFT7LriaxY+L/H0hfcnFbGAhPLt1+tTB5zxNdoDVU=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=XakR83wQf0Ix863N0vXhbIqzVGqQhO/jm+HBtAp9ZTXtIfxgzmJWc+oDyyyqqwJmQ
-	 g855WRlEoQxkvPY652C34AJxhkTkOHb02Asl5F0rbImw16Fwwpv4EAsp/4KuXevYSA
-	 QRKPR/AsmfB/GHaWGHQ/sS8e82qqSkr1S9/eFjzCNU75OHz5vpeZIukAL+yBpn3b6f
-	 6MG2LG7r58nXTs3XdPnNFckSeSfhNSg/CJhZ/rMmcOOSRf3xjDstn+0ruOyjDpkpsa
-	 OTM+MksXpj6V7/coXXfjnXxepiJU6OjiXWebya1ztKxpisys55VMMJNVPV1N7Bvjo6
-	 ToOJIAbmQOYMw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5DFEA391B1B3;
-	Fri,  6 Nov 2026 00:57:40 +0000 (UTC)
-Subject: Re: [GIT PULL] chrome-platform-firmware fixes for v7.4-rc2
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <auwLLFIY6FBdB1H0@google.com>
-References: <auwLLFIY6FBdB1H0@google.com>
-X-PR-Tracked-List-Id: <chrome-platform.lists.linux.dev>
-X-PR-Tracked-Message-Id: <auwLLFIY6FBdB1H0@google.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git tags/chrome-platform-firmware-fixes-v7.4-rc2
-X-PR-Tracked-Commit-Id: 2433db2af8e1482a3a50b8cefaf25cf7e4a9374d
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: eedaa7d61f1ec8ae053a9ece0d553785350ac486
-Message-Id: <179392665906.268614.221300077378715668.pr-tracker-bot@kernel.org>
-Date: Fri, 06 Nov 2026 00:57:39 +0000
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: torvalds@linux-foundation.org, briannorris@chromium.org, jwerner@chromium.org, tzungbi@kernel.org, linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ni0CSVhT
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lmJNeb3DN5jK+TXwkr+MYTngEf4BBEhnBDhSJ0RrI3Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793926654; v=1; x=1794531454;
+ b=ni0CSVhTEM3tE9GTWZrtXZrplsF7/97kpcHDUI9+02T5VaxNC0tUoo2nKAoNbiEYtGxU4WHf
+ gShAlxhOUn1dhQZM3UX3vMG57oc3FXbAXj3mVes6O3uohJJI2fWmRmls47O1xLdYJIgErTDDAre
+ CFvIfy9r7lvyZJXHTdLXi254=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 9660360d78ffce8a;
+	Fri, 06 Nov 2026 00:57:34 +0000
+X-Mizu-Trace-ID: 9660360d78ffce8a
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 6 Nov 2026 08:57:20 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Ramses de Norre <ramses@well-founded.dev>,
+	Jay Vosburgh <jv@jvosburgh.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Jiri Bohac <jbohac@suse.cz>,
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nikolay Aleksandrov <razor@blackwall.org>
+Subject: Re: [PATCH net v5 2/2] bonding: give a slave that starts UP a full
+ arp_missed_max window
+Message-ID: <au0l8F5t3-ldHcAA@fedora>
+References: <20261030-bonding-last-rx-v5-0-0b9b653f2f94@well-founded.dev>
+ <20261030-bonding-last-rx-v5-2-0b9b653f2f94@well-founded.dev>
+ <5abaf2a2-73b5-4400-a585-0955556a01a5@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +72,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5abaf2a2-73b5-4400-a585-0955556a01a5@redhat.com>
 
-The pull request you sent on Thu, 5 Nov 2026 04:50:52 +0000:
+On Thu, Nov 05, 2026 at 10:21:15AM +0100, Paolo Abeni wrote:
+> On 10/30/26 15:51, Ramses de Norre wrote:
+> > The ARP monitor marks an UP slave DOWN once jiffies passes
+> > last_rx + arp_missed_max * arp_interval + arp_interval/2. bond_enslave()
+> > seeds last_rx one arp_interval (plus a tick) in the past, which brings
+> > the down deadline of a slave that starts UP forward by one interval
+> > compared to what arp_missed_max promises.
+> > 
+> > Active-backup mode hides this with a grace period after enslavement in
+> > bond_ab_arp_inspect(). Load-balance mode has no grace period after
+> > enslavement. With arp_missed_max=1 the deadline is half an interval
+> > after enslavement, and the first monitor run checks the slave before it
+> > sends the first probe. If that run lands in the second half of the
+> > interval, a healthy slave is reported "interface is now down" and comes
+> > back UP on the next run.
+> > 
+> > Seed a slave that starts UP with last_link_up instead, so it gets a full
+> > arp_missed_max window for its first reply. bond_arp_rcv() and
+> > bond_na_rcv() only trust ARPs seen on backup slaves once the active
+> > slave's last_rx is after its last_link_up. A seed equal to last_link_up
+> > keeps that check false until a real reply arrives, as it is today.
+> > 
+> > This only covers a slave enslaved while the ARP monitor is running.
+> > When the monitor starts later, from bond_open() or when arp_interval is
+> > set at runtime, the seed is still as old as the time since enslavement,
+> > as it was before this patch.
+> > 
+> > Fixes: 5944b5abd864 ("Bonding: add arp_missed_max option")
+> > Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
+> > ---
+> >   drivers/net/bonding/bond_main.c | 8 ++++++--
+> >   1 file changed, 6 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> > index 2f5638f4d3a78..84eafb607c370 100644
+> > --- a/drivers/net/bonding/bond_main.c
+> > +++ b/drivers/net/bonding/bond_main.c
+> > @@ -2158,9 +2158,13 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+> >   		new_slave->last_rx = jiffies -
+> >   			(2 * msecs_to_jiffies(bond->params.arp_interval) + 1);
+> >   	} else {
+> > +		/* Give a slave that starts UP a full arp_missed_max window.
+> > +		 * Not seeding it later than last_link_up keeps bond_arp_rcv()
+> > +		 * from trusting ARPs on backup slaves before the active one
+> > +		 * got a reply.
+> > +		 */
+> >   		new_slave->last_link_up = jiffies;
+> > -		new_slave->last_rx = jiffies -
+> > -			(msecs_to_jiffies(bond->params.arp_interval) + 1);
+> > +		new_slave->last_rx = new_slave->last_link_up;
+> >   	}
+> >   	for (i = 0; i < BOND_MAX_ARP_TARGETS; i++)
+> >   		new_slave->target_last_arp_rx[i] = new_slave->last_rx;
+> > 
+> 
+> @Jay, @Hangbin: can you please have a look here?
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git tags/chrome-platform-firmware-fixes-v7.4-rc2
+Yes, I’ve read this patchset a few times but haven’t thought through it
+carefully, since the ARP inspection logic is a bit complex. I’ll try to
+finish the review today.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/eedaa7d61f1ec8ae053a9ece0d553785350ac486
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Thanks
+Hangbin
