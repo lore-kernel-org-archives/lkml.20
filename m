@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794006730;
-	b=YFrcGW68lXPKnnvy7U1VktD8DhpukBqIB/vw16C6cb1qcGTWtRKYtlEB+C1IT6Vy3GTq
-	 G9AeSInqc7VlzUv+VpR8MrebU5m4syc2vHP4BhzzdrSi0CC/PMdX2MdXAxVDqH4QvROOW
-	 zFW4tlf5h2zwRxVYtixa3/39Er2ptXJGCrJTxN0j1ZQTKOpsZ/EkSGqzvg4n/hoPzO1uO
-	 +AyEYTM0YhqgUGh7dm4VJy3v0H7yG6/7RcKRfDw0GMrtd9mpDhTmk5vrzOy/dkFOeHkZJ
-	 WKHHx18RcgOK8/j3tYNyy5TcMHP/uPEq6CrNe0E6341dJ0g8pIx4NVREW0pivpcgJ6Q==
+	t=1794006737;
+	b=EgdeQduQ6os8V92yLKkb2v2tbLlIvPDKXVKh6K7yW6yhiuBrwnKws9+4qDiIOjz+/QJ8
+	 WUyo0Z/h6F3cdaCxkVMtW4cDc0aA9ME++nlwQ36FjDq+fLztwSI9HNEO2cXhXYIYF/ibv
+	 x5eQ+t6AdOSfQ9fIzdCoM0K+utC9YoRigDq2Bbj1oMYgPpndrn0FV/wVFtE00Q98lgWtw
+	 MPHglGActKkDN+Z2pEDyDRCLi1VuK5yEl0/e4hqG0N7/QdmiZsVazqpTIQqYy9PW6HIjE
+	 tiMXo2oXHKMITb3/Hrj5au4DRRyTbfOcFQYQSqBvMCuveVDLxt84T/FUQaYpDjuGVxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794006730;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794006737;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=UbpFueGBEvU53Vb7/q/PLhrOg44UG6dCmPzDN0HPnNM=;
-	b=qi2FAi/TV3osFmZf2sBXL1XOipd/INnyOY+MZvjsPMPRMil0sr8Y26RoKCaVZ9lY2wze
-	 9yrgPy4off6Gpg8CCoFKv0yrhT+qKtlnWFw2SZXs6W1LuKxWl1gGrQG2MDS1dypBtvUV2
-	 hKSuPJZz47Okdu+8XvM+Vftq5UUUkZMzV8LnCuMgteQVho1s/AirvkQFAAb6TxE7bWqoK
-	 X6V21X9zFvxm/OJf0muGC2InWIXDym4ylXi19vQpg1mao4caWQA2PafSjDPr78iJ4BxOp
-	 pR1By+DHactiUxstYKWYQ80fcbDMrHBh7QVd3ROTQLQB0hSAVvvKlT1TFlS/ScqQGNg==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jnGioh87gWlEmtGWli1y3neDt1GK+Ypc7KPSHRbg4yE=;
+	b=QS+2d9zNerm5VoixOgw5hVzp7W20yQiw6MxdbCfLsf5UX6QOJdMLQvLtuNlwHr64W82x
+	 eE9hc6Lgrgev1MX1XlJ5+ffbREgwuQlw/9UOSZez1kSzGhh/s6sjz3b/McY8cwAdJAi8N
+	 FljmXKlIjO75m1CPqZvh2PzTYIL0/iuGD7tvdahJuU1O12MQFhcPyX/FemsJTTSF4D/6v
+	 KczofZ8MmxiWyrSKFNGVng6B2vLMyJdBvL604psfpvRHQYs0nbT7L7zevKBuFIviuhyVO
+	 4bN9/2NlFs6VARdNXyNMARvF5HNIdJLsVoQMlf4rAvFUYH/1e/P/ohXahAeKmZCzOpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CDuhJUnK;
-	arc=none smtp.remote-ip=95.215.58.122
-Received: from mta1.migadu.com (out-122.mta1.migadu.com [95.215.58.122])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VJQ5B1Oo;
+	arc=none smtp.remote-ip=95.215.58.125
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA83606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:12:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA83606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B86606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 23:12:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B86606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CDuhJUnK
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VJQ5B1Oo
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LNw6d4GW0mbl2KSWZ2jOylagT+FVNJ4ieKN77f/dhjY=;
+DKIM-Signature: a=rsa-sha256; bh=7Yu6+rrOPANaEoxxfFHcNS87o/Sd4Syb4FBkRa0tru0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794006727; v=1; x=1794611527;
- b=CDuhJUnKzabU0b8UvRoJ2bk8PxK6ucEH6vA8nMw3Up+EgoywyZa+umT7uPAjrL2UK/4MCuye
- YTuG3LKinbahycxAmhqj7wwxhT0RPrurdBIrLg9/hb/6wCGiN4tCaHTPdZ5qzpnD56BtFt7wDBj
- TZLRYIp4ue4rufUIdiLs7Lgk=
+ t=1794006734; v=1; x=1794611534;
+ b=VJQ5B1OoILzS38G+YIr+imMuHgrf8tp19E5RRNFqSr5fz/Wgv2kthp1ZpCduiDdrp9aUab/5
+ L7YN2UEwVDeaFOvuURrWqL9HakXO6VLkz/KlDkvcdwgnJHQ3QN05cPDlcSKXTj009k+Qo36/t+M
+ m8Nxm9xXElI0zY0KyPxg5s8A=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id b8ac95d11857e0d1;
-	Fri, 06 Nov 2026 23:12:07 +0000
-X-Mizu-Trace-ID: b8ac95d11857e0d1
+Received: by mta11.migadu.com with ESMTPS id fe5d74df9d92ac50;
+	Fri, 06 Nov 2026 23:12:14 +0000
+X-Mizu-Trace-ID: fe5d74df9d92ac50
 X-Migadu-Flow: FLOW_OUT
 From: Ihor Solodrai <ihor.solodrai@linux.dev>
 To: Alexei Starovoitov <ast@kernel.org>,
@@ -58,10 +59,12 @@ Cc: Amery Hung <ameryhung@gmail.com>,
 	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	kernel-team@meta.com
-Subject: [PATCH bpf v1 0/4] bpf: Scope callback arguments to their frame
-Date: Fri,  6 Nov 2026 16:11:53 -0700
-Message-ID: <20261106231157.2840635-1-ihor.solodrai@linux.dev>
+Subject: [PATCH bpf v1 1/4] bpf: Scope the bpf_user_ringbuf_drain() dynptr to its callback frame
+Date: Fri,  6 Nov 2026 16:11:54 -0700
+Message-ID: <20261106231157.2840635-2-ihor.solodrai@linux.dev>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106231157.2840635-1-ihor.solodrai@linux.dev>
+References: <20261106231157.2840635-1-ihor.solodrai@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,61 +76,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A callback-calling helper can pass its callback a pointer that is only
-valid for the callback invocation, and the verifier has no way to
-express that lifetime.
+The dynptr argument to a bpf_user_ringbuf_drain() callback points to a
+descriptor on the helper's stack. The descriptor and the sample it
+describes are valid only during that callback invocation.
 
-Two helpers need fixing:
+The callback can save the dynptr pointer, a slice, or a clone in the
+caller's frame and use it after the drain returns. An escaped descriptor
+pointer can allow arbitrary kernel read/write once the helper's stack
+is reused.
 
-  * bpf_user_ringbuf_drain() passes a CONST_PTR_TO_DYNPTR over a
-    sample it releases as soon as the callback returns. Saving this
-    pointer in callback_ctx leaves it pointing into reused kernel
-    stack and allows arbitrary kernel read and write since v7.3.
+The verifier assigns the dynptr a type and an id, but does not tie it
+or its descendants to the callback's lifetime.
 
-  * bpf_for_each_map_elem() over an array or per-CPU array map passes
-    the address of a u32 held in bpf_for_each_array_elem()'s own frame,
-    leaking four bytes of kernel stack.
+Give the callback frame an id and make it both the id and the parent_id
+of R1, then invalidate that id and everything derived from it when the
+frame is popped. R1 has to be its own parent: slices take the dynptr's
+id as their parent_id, and bpf_dynptr_data() clobbers R1, so with a
+separate dynptr id nothing would connect a slice to the frame.
 
-Give the callback frame an id and make it both the id and the
-parent_id of such an argument, so that slices and clones descend from
-it. Invalidate the id and its descendants when the frame is popped.
-
+Fixes: 205715673844 ("bpf: Add bpf_user_ringbuf_drain() helper")
+Fixes: 1f737e46ca6a ("bpf: Remove artificial limitations on pointer types eligible for spilling")
+Cc: stable@vger.kernel.org
+Reported-by: Nicholas Carlini <npc@anthropic.com>
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
 ---
+ include/linux/bpf_verifier.h |  2 ++
+ kernel/bpf/states.c          |  3 +++
+ kernel/bpf/verifier.c        | 16 ++++++++++++++++
+ 3 files changed, 21 insertions(+)
 
-v2->v3:
-  * Replace REF_TYPE_FRAME with a frame_id in bpf_func_state and drop
-    the preparation and refactoring patches (Alexei)
-  * Rebase on bpf, and add Fixes: tags
-v2: https://lore.kernel.org/r/20261009202759.50520-1-ihor.solodrai@linux.dev
-
-v1->v2:
-  * Add the refactoring patches: release frame references in one scan,
-    and fold diagnostics into the REF_TYPE_FRAME introduction
-  * Replace temporary argument mask and deferred register scan with
-    reference acquisition directly in the owning verifier state during
-    callback setup (Eduard)
-  * Reuse callback_park_dynptr() for the nested drain test
-v1: https://lore.kernel.org/r/20260922010333.1226537-1-ihor.solodrai@linux.dev
-
----
-
-Ihor Solodrai (4):
-  bpf: Scope the bpf_user_ringbuf_drain() dynptr to its callback frame
-  selftests/bpf: Cover the user ringbuf callback dynptr lifetime
-  bpf: Scope the bpf_for_each_map_elem() array key to the callback frame
-  selftests/bpf: Cover callback-frame map key lifetime
-
- include/linux/bpf.h                           |   2 +
- include/linux/bpf_verifier.h                  |   2 +
- kernel/bpf/arraymap.c                         |  19 ++-
- kernel/bpf/states.c                           |   3 +
- kernel/bpf/verifier.c                         |  16 +++
- .../selftests/bpf/progs/user_ringbuf_fail.c   | 135 ++++++++++++++++++
- .../bpf/progs/verifier_iterating_callbacks.c  |  91 ++++++++++++
- 7 files changed, 266 insertions(+), 2 deletions(-)
-
-
-base-commit: 475a0cfd02f14d764023e926ac01fc7597134229
+diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+index b43eb97bcd44..dabdd286182c 100644
+--- a/include/linux/bpf_verifier.h
++++ b/include/linux/bpf_verifier.h
+@@ -377,6 +377,8 @@ struct bpf_func_state {
+ 	 * reused after returns, while this ID is preserved across state clones.
+ 	 */
+ 	u32 diag_frame_id;
++	/* parent_id of the args that are gone when this frame returns */
++	u32 frame_id;
+ 	/* subprog number == index within subprog_info
+ 	 * zero == main subprog
+ 	 */
+diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
+index 50480c42bcad..d8ad497f9b4b 100644
+--- a/kernel/bpf/states.c
++++ b/kernel/bpf/states.c
+@@ -998,6 +998,9 @@ static bool func_states_equal(struct bpf_verifier_env *env, struct bpf_func_stat
+ 	if (old->in_rcu_callback_fn != cur->in_rcu_callback_fn)
+ 		return false;
+ 
++	if (!check_ids(old->frame_id, cur->frame_id, &env->idmap_scratch))
++		return false;
++
+ 	for (i = 0; i < MAX_BPF_REG; i++)
+ 		if (((1 << i) & live_regs) &&
+ 		    !regsafe(env, &old->regs[i], &cur->regs[i],
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 5e4700fda66b..a801b8da2b63 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -11804,6 +11804,16 @@ int map_set_for_each_callback_args(struct bpf_verifier_env *env,
+ 	return 0;
+ }
+ 
++/* The arg points into the stack frame of the helper that calls the callback */
++static void mark_frame_scoped_arg(struct bpf_verifier_env *env,
++				  struct bpf_func_state *callee, u32 regno)
++{
++	if (!callee->frame_id)
++		callee->frame_id = ++env->id_gen;
++	callee->regs[regno].id = callee->frame_id;
++	callee->regs[regno].parent_id = callee->frame_id;
++}
++
+ static int set_callee_state(struct bpf_verifier_env *env,
+ 			    struct bpf_func_state *caller,
+ 			    struct bpf_func_state *callee, int insn_idx)
+@@ -11955,6 +11965,7 @@ static int set_user_ringbuf_callback_state(struct bpf_verifier_env *env,
+ 	 */
+ 	bpf_mark_reg_not_init(env, &callee->regs[BPF_REG_0]);
+ 	mark_dynptr_cb_reg(env, &callee->regs[BPF_REG_1], BPF_DYNPTR_TYPE_LOCAL);
++	mark_frame_scoped_arg(env, callee, BPF_REG_1);
+ 	callee->regs[BPF_REG_2] = caller->regs[BPF_REG_3];
+ 
+ 	/* unused */
+@@ -12223,6 +12234,11 @@ static int prepare_func_exit(struct bpf_verifier_env *env, int *insn_idx)
+ 	if (err)
+ 		return err;
+ 	invalidate_stack_slices(env, callee->frameno, INT_MIN, 0);
++	if (callee->frame_id) {
++		err = invalidate_reference(env, callee->frame_id);
++		if (err)
++			return err;
++	}
+ 
+ 	/* for callbacks like bpf_loop or bpf_for_each_map_elem go back to callsite,
+ 	 * there function call logic would reschedule callback visit. If iteration
 -- 
 2.56.0
 
