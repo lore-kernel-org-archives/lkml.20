@@ -1,112 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977346;
-	b=SfsSYKE1M+QchdIQlqm5xkqwe25nsQQ4grOnyG0i5wrUe4ibtEFU2GX0Y3JbPBZwGg1Q
-	 jUn9qX1z0rmuAkZFBPY3sVIqTldb1zsvPRBkGSS9mLUA6QZzLf1oa9Hu7IWYamUjt+x3l
-	 2FY6wlu41F7pzeDWXAUf82/4l3vB7JS07bjsx21TcgPqTs4KTT8V3DxlED2Cx6ixijdpO
-	 Ze3StbymVC+cEo2fMM1QBYzhqbhzsQk3Pl7uJ+FtMUPQLEmI3p4p3Hse2n6w6DT0Zd1Ue
-	 iZTk/RC8DnhK8wXAdcpoA84JkRo/fRv49qeaRfq5yAmk+AjkzhsVwNTWSWMBR4RbYFA==
+	t=1793977356;
+	b=PiwwpCU6dwcEK9q+mOhIo0rMWj2F60NWD+41/r/e1g7KYIjRXyXjHtvEUrr00yfk7fEO
+	 8ZfNGTJ2TcrjAcgehasRvMvSGjTBG/doV1WQ6zAsTrDcoOmN+ElUzpe1ghBZmeY4mB0yS
+	 mSxvCLYBxy49l8mOCDnm4avUPyubxOLEJe2wkcE/EJECWcr/Dod8QDlISlICQtPl6o4f9
+	 WuHrp1n6A9CP28+NcprVpQ6zoarpe5mbiQSFOHYSAEwR58mj/Jfi9CphbCDT7KJDnNpTx
+	 Y2b4aqPY/rjQtApoyL4++xkoBuAgPi/7+GGxaFtvw0+FOD/GhynJhpYYnMh2SLy8YJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977346;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=99GhaTNH5mb9xE9J4JWzIgUnSd5N1QJXdiYFGKhRYFY=;
-	b=HynYhwywKRieaxr3P4n3LrKOht+WA16hj/Q2QWKYU6XUj22gyVtoDIeTaEEF3N5woLwr
-	 Avf8V+yK3Ie68HnWWJps+3OpcmaUuNZUoQ5Qw7xYyt2yGdznBZSv9r3sQwcYUq/wMVqDn
-	 i5UQsiZgYyvVvEgTPFPcP8tpk5cyVrw69kkDcsQzj1IfOhbrUc9JCTRDJ9p3brUJm1Uya
-	 XZlmLeV46rebt7SfR2Fonta79IiiTGafc1Z8tUV6/GN7Lh6XcYvJ94Y82y883UkU2coU2
-	 lU/q5dxdfKyEndZD4HntA5wBA8U45wDdZnKBir1l029jJh8Eq1zWN7VbDqdu0LLe7Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977356;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ndSzg4JkQBQJHn4jazHUqZ66cUlM0M5E75MVJxa0ep8=;
+	b=MpTyZKMGEUCMP+nYlSjqReJmeIbWQmo1x34Ie3Lx5SM3yfx8smqCmYeW3f82SO4s1BRU
+	 gpYaejJ5jBOERB/EE0vMk5/E44XfKbSeeHZoGsuF5QucQxZn3940tIZLLTNGdCZcuDZjw
+	 vOq/OOjk31lA86p4qm7v7jFdLuP5Zb3ly6Vdv8RtB4Kwk1nxUxQX954+SpjMV10RooGE2
+	 9784GdPf70VqAd9koVFIriiQRNfxOyd9a0t2u6fx0tU4qpNzLfo5x8URhM5scorh9MA5d
+	 aYKBI2TSfBoP28n1cq0OJzPzn4I4AqND3Bu9fcJxQUxLDLIc9R8uU2FLspsLZef8PiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PpQsVZ5L;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="c2m/3BbZ";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYidPhog;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF17606EE93
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:02:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AF17606EE93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DDC6082BDB
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:02:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67DDC6082BDB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PpQsVZ5L;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c2m/3BbZ
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6ExvaV3722893
-	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 15:02:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	99GhaTNH5mb9xE9J4JWzIgUnSd5N1QJXdiYFGKhRYFY=; b=PpQsVZ5LfHyljO2n
-	B8PBSeI3SP7QWydxoXexEgZECre951XwZcx5mNOiKqOXDDcjy6XXaos+tadoWUic
-	0YF/0fO1FmCEgi9BpVJ7UpiQBcEsqEvoKIv1V1Dt7+eI74uGv08w928CIwMPwisg
-	QArspzJZcbJVY+QgUmsZox1RD6oxO6QZGtwHfhJytBI0rnE7JQxMWkyFNIe1Aikg
-	txbStzwfaEpY+YqWJrCNIIQIn/LTeYzlws3X5zUcppT+vdck+A3Phc4A9rz3leJ3
-	gjQGEAI6NamhFczGbbp4TTk0CodjeNAryoXmd0vIPXMPX2PN6XE58tGPefAtPR64
-	0t6VQA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p9k7q0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 15:02:24 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so1108196a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:02:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYidPhog
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4682977f9aso85826366b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:02:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793977344; x=1794582144; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793977354; x=1794582154; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=99GhaTNH5mb9xE9J4JWzIgUnSd5N1QJXdiYFGKhRYFY=;
-        b=c2m/3BbZB6KMf6j3kJ4jJ4FDXd+F2hsCdF7lFfJZN9oXsPszJ9sLTZrc+aA2RDmbzS
-         U7nVwrLBjbsgBGmKkK0TBxHxfC5sB9zIPH2mp0c1lxZnAE0OXGsCV9s/Du/Cb3O+iENN
-         a6cyCuwogda5laBrW8O2hWbTYlvWgJVPujBqkKqElYvv6V3A/OwG5jIhoaOJS+dsAWME
-         9mP+4Bw0aCEYeeWaRHMCSsL+6CYajqZNvrYvNDqu/DvuMWR+jCTCZGSs38E7jjzjJoKW
-         xfGdK9CWl/JgCpSiuSvNtDnMjtCEF8jveaymTLG/sBO/CoOqMY7/bD1lhCdve//MTgLL
-         kdaA==
+        bh=ndSzg4JkQBQJHn4jazHUqZ66cUlM0M5E75MVJxa0ep8=;
+        b=QYidPhog6nppHZEI57WaydtJhx8ECZ1KP55FAge9utvKt/RtiQzjX8/DS/Goo2XC3y
+         KRhpyeUTL3xXeOAXx5a57xwUzt/+rhw2wZohl/4n5iSArmZObreZl2j9oMX9ENKVDr76
+         QMK9s1D9mRsn3mjeyEHOEjK2ix41BuHVK+cOXXLC9znUR+YyMBIi3aNE20HuHC2Y+Kv0
+         ln4ywMxFbrGRreWT6Oabk1G9Vno5jqAyvVb1G2LLdBVUMVkir+eV8m/7euoipYPT/81K
+         7v6hWybYSXyARLdQRwMiUm0155iFsNhHl31UvF25EUD2tHcz8hhAMOnYx5mB0hazs8F0
+         gPJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793977344; x=1794582144;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=99GhaTNH5mb9xE9J4JWzIgUnSd5N1QJXdiYFGKhRYFY=;
-        b=DAWus8PWPoLiVYumHqBy0Sp3Vr6cXV2LwY3JqHqRZPmZc/GA0mD6XJclj2FSqG5edY
-         QxgNnnxFNNn13zcQQVcYskXkHBjTr3Q4uFayo4xTjcqnvgpylkidEbb4FkMVut0PlhVx
-         wxpD1E2FuecaqXPWn24QxltNu3Mv+vPzBVviIXIOBEsDM33KjuUD9apjUEBlz8i6gPUu
-         cpL/nKzJvEhHec3vnRGTPA476G+IWcpSB3GPun0VvLG4qp7YKMHJS3q8UN8WQbV/UPWA
-         pff/dgm1IHvi8gcMaO3bHN1Bbiha1bFlEYMKFFrWbhff8LOW+aMf4jP/K4sSVwC6SYsK
-         VpYA==
-X-Forwarded-Encrypted: i=1; AL+hErHrI8hUZp1sYQtBZP+OehrI38PDMnqZoBnhY0l80Ssb77k/AJ7RhRa0/GN5kF0WuTfkiIxkIy8vrBiTWKg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dr6ekc6FFIzVI8Lfp7l0N8BKag5hA5jdujchYGqEjxMmi21/v
-	ERvwCYiLl9hnWCorlk3E567bBPH04K5SsZtJ1Tj7pOG2NWOeJVN7BpXeBW6EXbmxmREPMg7W8Fw
-	FqQ/MbS/vTJDi/9m3cOk33pQCPLFv2HWmC5sPM0PynJsY9qc36uBWsK0yz2yO5kiaenI=
-X-Gm-Gg: AYBFou2FTjiKJi46OvQj5Hit9Dx5ZEpaNVIC3jZ8+OTzNDPG0vF2okhzHNVonV171TM
-	N+7oqYz7pdEh+HZRiwmQwi1edQq47qP4W+WFFxEtoyRK2lT3XR0gKXm2B0NBFJD2cRMgt7lQxoW
-	v0TUTmOxQP1TvGjw1IEdwBgBkAmdHFcU8FbZiwvq1VuBmDvNf8wub0geIhw9tgvNYFMuvvCHl5X
-	5lNR/Oc36GS/k0pqoT8fr87HG363qoD+hC1qB6JdmNqZOV3/qwHC4DMWbtPVkI0gnT0VZdt6CqQ
-	R/9sWULYVM9/+29hH55iPospbALv7B7dYlU5m+k9xZyKkmLC6MgiRFQpsusD67XHjpMxqhvNfmY
-	5x9D8vZzrYPpqqFX7VzD5E1VnIZGH7iwIiOmHc5YgMqe8Ml0PLhesy96rfCPDgopiGzExKxviIY
-	sai8Ij2/WU
-X-Received: by 2002:a17:90b:1642:b0:3ab:36c4:b502 with SMTP id 98e67ed59e1d1-3b0db6d6e03mr2861075a91.30.1793977343824;
-        Fri, 06 Nov 2026 07:02:23 -0800 (PST)
-X-Received: by 2002:a17:90b:1642:b0:3ab:36c4:b502 with SMTP id 98e67ed59e1d1-3b0db6d6e03mr2861014a91.30.1793977343194;
-        Fri, 06 Nov 2026 07:02:23 -0800 (PST)
-Received: from hu-jseerapu-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0fc1bc1e6sm100032a91.0.2026.11.06.07.02.17
+        d=1e100.net; s=20260707; t=1793977354; x=1794582154;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ndSzg4JkQBQJHn4jazHUqZ66cUlM0M5E75MVJxa0ep8=;
+        b=RyrzBJOcCaTckDokHT8+VB1W+Fpq7Y05/8YqvfHs0jX1j80g0WHu2z8ngEW8vpnXZb
+         YS6SJHEbs8DALYDa1TZ2fwm/PmZgZmB/NcoJ9pRCtik4QSDNjq3EzMjFBHbZKhMsJvSP
+         dhRqpPCx/APVTyTz07mXClV434aAQXbvAh5cw2O1UbXKpR50L9zLCdm9DwB8Qb0ZDjHl
+         tYo/Cfaf+Z1zCyWlMDTZc2G4sxCHAOhRJ5mRAmQEicKEvEFhYmb3fYOjQvvSNfPzMp3d
+         ZDJZqQOrj8s3x5g1yG+c4yd9yN+gv+9O9fnQ8f10kYFT8+BqRlr8I1dIgYRSE/TCcwbW
+         7Cpg==
+X-Forwarded-Encrypted: i=1; AKwUvByRufbNyTX2SFK9GyJ5pnTOxcyI3Bj+pOSHgyAiMXpjcfDOTrrHotIOGCsho9jjIa7UvXrjlZVqBkPcgd4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0fgB8eCtGbrhKlIqd+lZ9MwU8GN/fhUZFpWRgMmNt8n9qWadK
+	7arH8/B2o/9Nmx35pb18WXnAUmq9JXhb1Y7qm0mWHYVWNMq9O99BuBwi
+X-Gm-Gg: AYBFou2QUPNmo2hrGPpknJlG3yvCzUgGV9j95z3qdVjZkbtcgFuup3sPA+u7x4gdISZ
+	vWLCCC7RhTpHfcyiUw0oes5lZJJSKBFua8ZHCyZXg/i5aPrRcL5fKlA7y8dZTJKb0HwAMMOXvib
+	/3YQIaivlLbtc49WmkttpFdTsIAQAm4NvQTB4L2+IoNqU8cDK2Qzjya+aQki/W7NntyoArkQC3a
+	Pr5eMFC7MFYYElJjeDCYas8b9wEMBcYX/usjJ5NqcO0lQzMQEKxuzSRFNjSksMgPlqaK5KK2N2b
+	DVBblFefl4f/yUkUt2Uu2Qfb1R5iPfD/uP0bTei6Ezu6qZkXtFLjfmQMGSL41oLc/ou7cr60E2K
+	ahXHzl0NlEfftWWC32xdsQPoRBgHHpQQoHrFpMH6yymA/K0va94rkvYvoJRheW7poPJJJcMpWRm
+	f0xigy33QA3A0umxRK4TQAULQ8nhW4MG1RDXPx3uEm+3Ngr3gRBsJ74Oz5sRW+LJR823zlFsbMi
+	8pk8JDdKQWed16MJipOs2+SnKr2DcCnsiYz5ij68SD4S8DhqaB2Qz0I094+E0pNfbfrMr2zodcW
+	bkEKy7Lrk0B8armNzvIgkzzF52CumTuFutBamUKjOI7O2auKupILdmYTPT25t+QnMjybRAhkE28
+	Cp7Jbf+SrYHqFpJ6SNwEMQeLhgHVN8Z7v8c7waO39gVVj0S+/IYaoR+PCpQncr+nN0oNCsznhV2
+	f0
+X-Received: by 2002:a17:907:2d26:b0:c2d:bf61:24d1 with SMTP id a640c23a62f3a-c4d35261e03mr240008666b.1.1793977353602;
+        Fri, 06 Nov 2026 07:02:33 -0800 (PST)
+Received: from desktop.home.arpa (2a02-1810-1e16-ac80-898e-1938-27eb-b890.ip6.access.telenet.be. [2a02:1810:1e16:ac80:898e:1938:27eb:b890])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d356a2ee4sm84905766b.60.2026.11.06.07.02.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 07:02:22 -0800 (PST)
-From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Date: Fri, 06 Nov 2026 20:31:23 +0530
-Subject: [PATCH 5/6] dmaengine: qcom: gpi: Add QSPI protocol support
+        Fri, 06 Nov 2026 07:02:33 -0800 (PST)
+From: Stijn Cleynhens <stijncleynhens@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 2/2] net: dsa: realtek: rtl8365mb: keep the neutral PVID in VLAN-unaware bridges
+Date: Fri,  6 Nov 2026 16:02:25 +0100
+Message-ID: <20261106150225.3700205-3-stijncleynhens@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106150225.3700205-1-stijncleynhens@gmail.com>
+References: <20261106150225.3700205-1-stijncleynhens@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,207 +108,593 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-qspi_upstream_series-v1-5-21f43042dd60@oss.qualcomm.com>
-References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
-In-Reply-To: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
-To: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
-        linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793977309; l=5767;
- i=jyothi.seerapu@oss.qualcomm.com; h=from:subject:message-id;
- bh=DU/0jG2VsMzJIcwjBy6FqxX/qcBvTcCraw1OReUmll4=;
- b=rJ/9kkVw20vLRULI1yFVmo5VxruTh4sAL4u3bITIWG4T1/lZbTVomTOkN+copafILcYhGGGCn
- DQI3jNFgoTeCFHUl57qrFQG/WpRtyrkkr4Xng7kDRgfrGE1IXO5RNjb
-X-Developer-Key: i=jyothi.seerapu@oss.qualcomm.com; a=ed25519;
- pk=9vafyYsia0OnBKWSEwhmWe3hPVQfI2T1xOs5dPaFvEo=
-X-Proofpoint-ORIG-GUID: OaV0XW7Nkk776ddfkP2fE03Ukz8pveei
-X-Proofpoint-GUID: OaV0XW7Nkk776ddfkP2fE03Ukz8pveei
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1OSBTYWx0ZWRfXyEBzB6Y+eZui
- pxFJlJb2JsXoMXRz/lqI7VzSP1GJh5xjOtTrVafCCIMprOVy9ZXAKcczuA0k/uAtduh2kAZy+Km
- T2+/1nqOkXpkuzjNhq2VFiGgCpm0k7M=
-X-Authority-Analysis: v=2.4 cv=XvNvqlF9 c=1 sm=1 tr=0 ts=6aedec00 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=Ygj2nM-Zz2zQjpz6_bQA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1OSBTYWx0ZWRfX60hj+aMCWDzl
- B3BvXpPddDl2WPdTY7Q1VnqHcQRmU+wc6Xvt1RpIqV38p4WIJzVfP3gOme8at3ZrP4vvzyahSQn
- fIk+FELL65q7TJk9gD4iePSlLF4X50B0EduXdUh25U+BuQxj0J7TW/XQqMczXxHOlHe0JboRm73
- yT7l3XliMixzR48B0mlsoUd3aYKw4cKyp7Sa/G/Dp/LTKoeDMZ93Xr0C/zcwXHSFJqsFSaKKFkN
- b8fLUCn3/zGPVuyZE+OEAcIS1Jiktk+xfcXwg8mQJ0ANLl+6UuLibaByQyJi57WDjErzZZOj7X6
- geGC9q00ZEizSHibYveeqder5K30TM/VuUaHcEbZFrrtTxaxt0hVtZ8lNbKQ9XRTsy/nMdotJhb
- zL/3Gup4YCky78UJyGVXVZ/+gH2ADbH+6vWlC9E31n/waffE6DRubeBbSrFP5MbT8hfKJdzT+bW
- UeTSQj8SzQ/yA/W3IvQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0
- phishscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060059
+Content-Transfer-Encoding: 8bit
 
-QSPI reuses the SPI TRE format but requires protocol-specific handling
-for GO TRE fragmentation, transfer mode selection and dummy cycles.
+The switch looks up its forwarding database by the VLAN that it
+classifies a frame to, and untagged frames are classified to the port
+PVID. With configure_vlan_while_not_filtering, the bridge PVID is
+programmed into the port also while the bridge is VLAN-unaware, so
+untagged frames of such a bridge are looked up in VLAN 1. DSA however
+installs the FDB and MDB entries of a VLAN-unaware bridge with VID 0,
+so these entries never match a lookup.
 
-Add QCOM_GPI_QSPI support to the SPI TRE generation path and extend
-gpi_spi_config with QSPI transfer mode and dummy-cycle parameters.
-Encode dummy cycles in CONFIG0 and select the appropriate GO TRE
-format based on the channel protocol, enabling single, dual and quad
-SDR transfers while preserving the existing SPI encoding.
+This breaks assisted learning on the CPU port: when a station that was
+first learned behind a user port moves behind the CPU port (e.g. a
+wireless client roaming between access points), the static entry that
+DSA installs for it on the CPU port does not override the learned one,
+and unicast to the station is dropped as a hairpin until the learned
+entry ages out. Clients that need a DHCP reply in that window do not
+get one.
 
-Also add SPI_TX_RX to the GPI DMA interface to represent sequential
-TX-then-RX transactions used for QSPI read operations.
+Keep the PVID requested by the bridge per port and only program it
+while the port filters VLANs. Otherwise keep the neutral PVID (VLANMC
+index 0, VID 0) that standalone ports already use, so that untagged
+frames are classified to VID 0, the VID that DSA uses for the FDB and
+MDB entries of a VLAN-unaware bridge. The per-bridge EFID keeps these
+lookups local to the bridge.
 
-Enable RX end-of-transfer events for QSPI TX-then-RX commands so
-clients can wait for both transmit and receive DMA completion.
+The PVID and the accepted frame types now both follow from the bridge
+PVID and the filtering state. Replace rtl8365mb_vlan_pvid_port_set() and
+rtl8365mb_vlan_pvid_port_clear() with rtl8365mb_vlan_pvid_port_commit(),
+which programs both, and call it whenever either input changes. The
+filtering state is passed in, as DSA still reports the old one while
+VLAN filtering is being toggled.
 
-Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+This only covers untagged frames. Tagged frames in a VLAN-unaware bridge
+are still classified by their tag, so a tagged station that roams keeps
+hitting the stale learned entry until it ages out, as before. Fixing
+that would need the switch to ignore the C-tag on ingress of these
+ports, which is left for a separate change.
+
+Fixes: 336e3e4a1ab3 ("net: dsa: realtek: rtl8365mb: add FDB support")
+Signed-off-by: Stijn Cleynhens <stijncleynhens@gmail.com>
 ---
- drivers/dma/qcom/gpi.c           | 22 ++++++++++++++++++----
- drivers/spi/spi-geni-qcom.c      |  1 -
- include/linux/dma/qcom-gpi-dma.h |  6 ++++++
- 3 files changed, 24 insertions(+), 5 deletions(-)
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 149 +++++++++--------
+ drivers/net/dsa/realtek/rtl8365mb_vlan.c | 202 ++++++++---------------
+ drivers/net/dsa/realtek/rtl8365mb_vlan.h |   6 +-
+ 3 files changed, 151 insertions(+), 206 deletions(-)
 
-diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
-index a5055a6273af..487e023287aa 100644
---- a/drivers/dma/qcom/gpi.c
-+++ b/drivers/dma/qcom/gpi.c
-@@ -36,6 +36,7 @@
- #define TRE_SPI_C0_CS		BIT(11)
- #define TRE_SPI_C0_CPHA		BIT(12)
- #define TRE_SPI_C0_CPOL		BIT(13)
-+#define TRE_SPI_C0_DUMMY_CYCLES	GENMASK(21, 14)
- #define TRE_SPI_C0_TX_PACK	BIT(24)
- #define TRE_SPI_C0_RX_PACK	BIT(25)
- 
-@@ -48,6 +49,10 @@
- #define TRE_SPI_GO_CS		GENMASK(10, 8)
- #define TRE_SPI_GO_FRAG		BIT(26)
- 
-+/* QSPI GO WD0 */
-+#define TRE_QSPI_GO_FRAG	BIT(22)
-+#define TRE_QSPI_GO_MODE	GENMASK(31, 28)
-+
- /* GO WD2 */
- #define TRE_RX_LEN		GENMASK(23, 0)
- 
-@@ -1719,6 +1724,7 @@ static int gpi_create_spi_tre(struct gchan *chan, struct gpi_desc *desc,
- 		tre->dword[0] |= u32_encode_bits(spi->loopback_en, TRE_SPI_C0_LOOPBACK);
- 		tre->dword[0] |= u32_encode_bits(spi->clock_pol_high, TRE_SPI_C0_CPOL);
- 		tre->dword[0] |= u32_encode_bits(spi->data_pol_high, TRE_SPI_C0_CPHA);
-+		tre->dword[0] |= u32_encode_bits(spi->dummy_cycles, TRE_SPI_C0_DUMMY_CYCLES);
- 		tre->dword[0] |= u32_encode_bits(spi->pack_en, TRE_SPI_C0_TX_PACK);
- 		tre->dword[0] |= u32_encode_bits(spi->pack_en, TRE_SPI_C0_RX_PACK);
- 
-@@ -1736,7 +1742,12 @@ static int gpi_create_spi_tre(struct gchan *chan, struct gpi_desc *desc,
- 		tre = &desc->tre[tre_idx];
- 		tre_idx++;
- 
--		tre->dword[0] = u32_encode_bits(spi->fragmentation, TRE_SPI_GO_FRAG);
-+		if (chan->protocol == QCOM_GPI_QSPI) {
-+			tre->dword[0] = u32_encode_bits(spi->fragmentation, TRE_QSPI_GO_FRAG);
-+			tre->dword[0] |= u32_encode_bits(spi->qspi_mode, TRE_QSPI_GO_MODE);
-+		} else {
-+			tre->dword[0] = u32_encode_bits(spi->fragmentation, TRE_SPI_GO_FRAG);
-+		}
- 		tre->dword[0] |= u32_encode_bits(spi->cs, TRE_SPI_GO_CS);
- 		tre->dword[0] |= u32_encode_bits(spi->cmd, TRE_SPI_GO_CMD);
- 
-@@ -1750,7 +1761,7 @@ static int gpi_create_spi_tre(struct gchan *chan, struct gpi_desc *desc,
- 			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_LINK);
- 		} else if (spi->cmd == SPI_TX) {
- 			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_CHAIN);
--		} else { /* SPI_DUPLEX */
-+		} else { /* SPI_DUPLEX or SPI_TX_RX */
- 			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_CHAIN);
- 			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_LINK);
- 		}
-@@ -1783,7 +1794,10 @@ static int gpi_create_spi_tre(struct gchan *chan, struct gpi_desc *desc,
- 		tre->dword[3] = u32_encode_bits(TRE_TYPE_DMA, TRE_FLAGS_TYPE);
- 	}
- 
--	tre->dword[3] |= u32_encode_bits(direction == DMA_MEM_TO_DEV,
-+	/* QSPI TX-then-RX commands need a separate RX completion event. */
-+	tre->dword[3] |= u32_encode_bits(direction == DMA_MEM_TO_DEV ||
-+					 (chan->protocol == QCOM_GPI_QSPI &&
-+					  spi->cmd == SPI_TX_RX),
- 					 TRE_FLAGS_IEOT);
- 
- 	for (i = 0; i < tre_idx; i++)
-@@ -1841,7 +1855,7 @@ gpi_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
- 		return NULL;
- 
- 	/* create TREs for xfer */
--	if (gchan->protocol == QCOM_GPI_SPI) {
-+	if (gchan->protocol == QCOM_GPI_SPI || gchan->protocol == QCOM_GPI_QSPI) {
- 		i = gpi_create_spi_tre(gchan, gpi_desc, sgl, direction);
- 	} else if (gchan->protocol == QCOM_GPI_I2C) {
- 		i = gpi_create_i2c_tre(gchan, gpi_desc, sgl, direction, flags);
-diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-index 25c03096ee23..c2c3400b24c4 100644
---- a/drivers/spi/spi-geni-qcom.c
-+++ b/drivers/spi/spi-geni-qcom.c
-@@ -66,7 +66,6 @@
- /* M_CMD OP codes for SPI */
- #define SPI_TX_ONLY		1
- #define SPI_RX_ONLY		2
--#define SPI_TX_RX		7
- #define SPI_CS_ASSERT		8
- #define SPI_CS_DEASSERT		9
- #define SPI_SCK_ONLY		10
-diff --git a/include/linux/dma/qcom-gpi-dma.h b/include/linux/dma/qcom-gpi-dma.h
-index 332be28427e4..d2d659a075f9 100644
---- a/include/linux/dma/qcom-gpi-dma.h
-+++ b/include/linux/dma/qcom-gpi-dma.h
-@@ -11,11 +11,13 @@
-  * @SPI_TX: SPI peripheral TX command
-  * @SPI_RX: SPI peripheral RX command
-  * @SPI_DUPLEX: SPI peripheral Duplex command
-+ * @SPI_TX_RX: SPI peripheral Tx-then-Rx command (QSPI read transactions)
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index b90e46c16..4f0e0ab7f 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -838,6 +838,8 @@ struct rtl8365mb_cpu {
+  *         access via rtl8365mb_get_stats64
+  * @stats_lock: protect the stats structure during read/update
+  * @mib_work: delayed work for polling MIB counters
++ * @bridge_pvid: PVID requested by the bridge, 0 if none. Only programmed
++ *               while the port filters VLANs. Protected by vlan_lock.
   */
- enum spi_transfer_cmd {
- 	SPI_TX = 1,
- 	SPI_RX,
- 	SPI_DUPLEX,
-+	SPI_TX_RX = 7,
+ struct rtl8365mb_port {
+ 	struct realtek_priv *priv;
+@@ -845,6 +847,7 @@ struct rtl8365mb_port {
+ 	struct rtnl_link_stats64 stats;
+ 	spinlock_t stats_lock;
+ 	struct delayed_work mib_work;
++	u16 bridge_pvid;
  };
  
  /**
-@@ -33,6 +35,8 @@ enum spi_transfer_cmd {
-  * @cs: chip select toggle
-  * @set_config: set peripheral config
-  * @rx_len: receive length for buffer
-+ * @dummy_cycles: number of dummy clock cycles for a QSPI transfer
-+ * @qspi_mode: QSPI bus-width/SDR-DDR mode for the GO TRE
-  */
- struct gpi_spi_config {
- 	u8 set_config;
-@@ -43,10 +47,12 @@ struct gpi_spi_config {
- 	u8 word_len;
- 	u8 fragmentation;
- 	u8 cs;
-+	u8 dummy_cycles;
- 	u32 clk_div;
- 	u32 clk_src;
- 	enum spi_transfer_cmd cmd;
- 	u32 rx_len;
-+	u16 qspi_mode;
- };
+@@ -2004,42 +2007,44 @@ rtl8365mb_port_set_vlan_egress_mode(struct realtek_priv *priv, int port,
+ 			RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK, val);
+ }
  
- enum i2c_op {
-
++/* Program the PVID that the port should use for untagged frames: the PVID of
++ * the bridge while the port filters VLANs, and the neutral PVID (VID 0)
++ * otherwise. A VLAN-unaware bridge, like a standalone port, gets its FDB and
++ * MDB entries with VID 0 from DSA. As the switch looks up its forwarding
++ * database by the VLAN that it classifies a frame to, a bridge PVID would make
++ * those entries miss every lookup.
++ */
++static int rtl8365mb_port_commit_pvid(struct dsa_switch *ds, int port,
++				      bool vlan_filtering,
++				      struct netlink_ext_ack *extack)
++{
++	struct realtek_priv *priv = ds->priv;
++	struct rtl8365mb *mb = priv->chip_data;
++	u16 pvid;
++
++	if (vlan_filtering)
++		pvid = mb->ports[port].bridge_pvid;
++	else
++		pvid = 0;
++
++	return rtl8365mb_vlan_pvid_port_commit(ds, port, pvid, vlan_filtering,
++					       extack);
++}
++
+ static int rtl8365mb_port_vlan_filtering(struct dsa_switch *ds, int port,
+ 					 bool vlan_filtering,
+ 					 struct netlink_ext_ack *extack)
+ {
+-	enum rtl8365mb_frame_ingress accepted_frame, prev_accepted_frame;
+ 	enum rtl8365mb_vlan_egress_mode mode;
+ 	struct realtek_priv *priv = ds->priv;
+ 	u32 configured_ports = 0;
+ 	struct dsa_port *dp;
+-	u16 pvid_vid;
+ 	int ret;
+ 
+ 	dev_dbg(priv->dev, "port %d: %s VLAN filtering\n", port,
+ 		vlan_filtering ? "enable" : "disable");
+ 
+-	ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
+-						  &prev_accepted_frame);
+-	if (ret) {
+-		NL_SET_ERR_MSG_MOD(extack,
+-				   "Failed to get current framefilter");
+-		return ret;
+-	}
+-
+-	/* While filtering, only accepts untagged frames if PVID is enabled */
+-	if (vlan_filtering) {
+-		ret = rtl8365mb_vlan_port_get_pvid(priv, port, &pvid_vid);
+-		if (ret)
+-			return ret;
+-
+-		if (pvid_vid)
+-			accepted_frame = RTL8365MB_FRAME_TYPE_ANY_FRAME;
+-		else
+-			accepted_frame = RTL8365MB_FRAME_TYPE_TAGGED_ONLY;
+-	} else {
+-		accepted_frame = RTL8365MB_FRAME_TYPE_ANY_FRAME;
+-	}
++	mutex_lock(&priv->vlan_lock);
+ 
+ 	/* When vlan filter is enable/disabled in a bridge, this function is
+ 	 * called for all member ports. We need to enable/disable ingress
+@@ -2047,7 +2052,7 @@ static int rtl8365mb_port_vlan_filtering(struct dsa_switch *ds, int port,
+ 	 */
+ 	ret = rtl8365mb_port_set_ingress_filtering(priv, port, vlan_filtering);
+ 	if (ret)
+-		return ret;
++		goto out_unlock;
+ 
+ 	/* However, we also enable/disable egress filtering because the switch
+ 	 * still consider the egress interface VLAN membership to forward the
+@@ -2064,15 +2069,12 @@ static int rtl8365mb_port_vlan_filtering(struct dsa_switch *ds, int port,
+ 		configured_ports |= BIT(dp->index);
+ 	}
+ 
+-	if (accepted_frame != prev_accepted_frame) {
+-		ret = rtl8365mb_vlan_port_set_framefilter(priv, port,
+-							  accepted_frame);
+-		if (ret) {
+-			NL_SET_ERR_MSG_MOD(extack,
+-					   "Failed to set port framefilter");
+-			goto undo_transparent;
+-		}
+-	}
++	/* Also sets which frames the port accepts: while filtering, untagged
++	 * frames are only accepted if the bridge gave the port a PVID.
++	 */
++	ret = rtl8365mb_port_commit_pvid(ds, port, vlan_filtering, extack);
++	if (ret)
++		goto undo_transparent;
+ 
+ 	/* When VLAN filtering is disabled, preserve frames exactly as received.
+ 	 * Otherwise, the VLAN egress pipeline may still alter tag state
+@@ -2085,14 +2087,12 @@ static int rtl8365mb_port_vlan_filtering(struct dsa_switch *ds, int port,
+ 
+ 	ret = rtl8365mb_port_set_vlan_egress_mode(priv, port, mode);
+ 	if (ret)
+-		goto undo_set_framefilter;
++		goto undo_commit_pvid;
+ 
+-	return ret;
++	goto out_unlock;
+ 
+-undo_set_framefilter:
+-	if (prev_accepted_frame != accepted_frame)
+-		rtl8365mb_vlan_port_set_framefilter(priv, port,
+-						    prev_accepted_frame);
++undo_commit_pvid:
++	(void)rtl8365mb_port_commit_pvid(ds, port, !vlan_filtering, NULL);
+ undo_transparent:
+ 	/* The DSA core guarantees this callback is only invoked on an actual
+ 	 * state transition, ensuring the previous hardware state was the
+@@ -2111,6 +2111,8 @@ static int rtl8365mb_port_vlan_filtering(struct dsa_switch *ds, int port,
+ 
+ 	rtl8365mb_port_set_ingress_filtering(priv, port, !vlan_filtering);
+ 
++out_unlock:
++	mutex_unlock(&priv->vlan_lock);
+ 	return ret;
+ }
+ 
+@@ -2120,8 +2122,11 @@ static int rtl8365mb_port_vlan_add(struct dsa_switch *ds, int port,
+ {
+ 	bool untagged = !!(vlan->flags & BRIDGE_VLAN_INFO_UNTAGGED);
+ 	bool pvid = !!(vlan->flags & BRIDGE_VLAN_INFO_PVID);
+-	u16 pvid_vid;
+ 	struct realtek_priv *priv = ds->priv;
++	struct rtl8365mb *mb = priv->chip_data;
++	u16 prev_bridge_pvid;
++	u16 *bridge_pvid;
++	bool vlan_filtering;
+ 	int ret;
+ 
+ 	dev_dbg(priv->dev, "add VLAN %d on port %d, %s, %s\n",
+@@ -2137,41 +2142,33 @@ static int rtl8365mb_port_vlan_add(struct dsa_switch *ds, int port,
+ 
+ 	mutex_lock(&priv->vlan_lock);
+ 
+-	ret = rtl8365mb_vlan_port_get_pvid(priv, port, &pvid_vid);
+-	if (ret)
+-		goto out_unlock;
++	vlan_filtering = dsa_port_is_vlan_filtering(dsa_to_port(ds, port));
++	bridge_pvid = &mb->ports[port].bridge_pvid;
+ 
+-	/* Set PVID if needed */
+-	if (pvid) {
+-		ret = rtl8365mb_vlan_pvid_port_set(ds, port, vlan->vid,
+-						   extack);
+-		if (ret)
+-			goto out_unlock;
+-	} else {
+-		/* or try to unset it if not */
+-		ret = rtl8365mb_vlan_pvid_port_clear(ds, port, vlan->vid);
+-		if (ret)
+-			goto out_unlock;
+-	}
++	/* Set PVID if needed, or unset it if this VLAN was the PVID */
++	prev_bridge_pvid = *bridge_pvid;
++	if (pvid)
++		*bridge_pvid = vlan->vid;
++	else if (*bridge_pvid == vlan->vid)
++		*bridge_pvid = 0;
++
++	ret = rtl8365mb_port_commit_pvid(ds, port, vlan_filtering, extack);
++	if (ret)
++		goto undo_bridge_pvid;
+ 
+ 	/* add port to vlan4k. It knows nothing about PVID */
+ 	ret = rtl8365mb_vlan_4k_port_add(ds, port, vlan, extack);
+ 	if (ret)
+-		goto undo_set_pvid;
++		goto undo_commit_pvid;
+ 
+-	ret = 0;
+ 	goto out_unlock;
+ 
+-undo_set_pvid:
+-	/* undo the pvid definition */
+-	if (pvid != (pvid_vid == vlan->vid)) {
+-		if (pvid_vid)
+-			(void)rtl8365mb_vlan_pvid_port_set(ds, port, pvid_vid,
+-							   NULL);
+-		else
+-			(void)rtl8365mb_vlan_pvid_port_clear(ds, port,
+-							     vlan->vid);
+-	}
++undo_commit_pvid:
++	*bridge_pvid = prev_bridge_pvid;
++	(void)rtl8365mb_port_commit_pvid(ds, port, vlan_filtering, NULL);
++	goto out_unlock;
++undo_bridge_pvid:
++	*bridge_pvid = prev_bridge_pvid;
+ out_unlock:
+ 	mutex_unlock(&priv->vlan_lock);
+ 	return ret;
+@@ -2183,6 +2180,10 @@ static int rtl8365mb_port_vlan_del(struct dsa_switch *ds, int port,
+ 	bool untagged = !!(vlan->flags & BRIDGE_VLAN_INFO_UNTAGGED);
+ 	bool pvid = !!(vlan->flags & BRIDGE_VLAN_INFO_PVID);
+ 	struct realtek_priv *priv = ds->priv;
++	struct rtl8365mb *mb = priv->chip_data;
++	u16 prev_bridge_pvid;
++	u16 *bridge_pvid;
++	bool vlan_filtering;
+ 	int ret;
+ 
+ 	dev_dbg(priv->dev, "del VLAN %d on port %d, %s, %s\n",
+@@ -2193,10 +2194,20 @@ static int rtl8365mb_port_vlan_del(struct dsa_switch *ds, int port,
+ 	if (vlan->vid == 0)
+ 		return -EOPNOTSUPP;
+ 
++	vlan_filtering = dsa_port_is_vlan_filtering(dsa_to_port(ds, port));
++	bridge_pvid = &mb->ports[port].bridge_pvid;
++
+ 	mutex_lock(&priv->vlan_lock);
+-	ret = rtl8365mb_vlan_pvid_port_clear(ds, port, vlan->vid);
+-	if (ret)
++	prev_bridge_pvid = *bridge_pvid;
++	if (*bridge_pvid == vlan->vid)
++		*bridge_pvid = 0;
++
++	ret = rtl8365mb_port_commit_pvid(ds, port, vlan_filtering, NULL);
++	if (ret) {
++		/* keep the state in line with the PVID still in hardware */
++		*bridge_pvid = prev_bridge_pvid;
+ 		goto out_unlock;
++	}
+ 
+ 	ret = rtl8365mb_vlan_4k_port_del(ds, port, vlan);
+ 	/* There is little incentive to try to undo the removal of PVID (if it
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+index 58948e76f..64acd762e 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+@@ -42,7 +42,8 @@
+  *    may be useful for ACL rules which specify alternative forwarding
+  *    decisions.
+  *
+- * VLANMC index 0 is reserved as a neutral PVID, used for standalone ports.
++ * VLANMC index 0 is reserved as a neutral PVID, used for standalone ports and
++ * for the ports of a VLAN-unaware bridge.
+  *
+  */
+ 
+@@ -780,35 +781,41 @@ rtl8365mb_vlan_port_set_framefilter(struct realtek_priv *priv,
+ }
+ 
+ /*
+- * rtl8365mb_vlan_pvid_port_set() - Configure a port's PVID and associated
+- * VLANMC entry
++ * rtl8365mb_vlan_pvid_port_commit() - Program a port's PVID and frame filter
+  * @ds: dsa switch instance
+  * @port: port index
+- * @vid: target VID
++ * @vid: VID to use as PVID, or 0 for the neutral PVID (VLANMC index 0)
++ * @vlan_filtering: whether the port filters VLANs
+  * @extack: netlink extended ACK for error reporting
+  *
+- * Allocates or reuses a hardware VLANMC entry to map the given port to its new
+- * PVID. Gracefully unwinds and restores previous configuration if a hardware
+- * write operation fails during execution.
++ * Points the port at the VLANMC entry of @vid, allocating it if needed, and
++ * drops the port from the VLANMC entry of its previous PVID, which is freed
++ * once no port uses it anymore. Untagged frames are accepted unless the port
++ * filters VLANs and has no PVID. Restores the previous configuration if a
++ * write fails.
+  *
+  * Context: Can sleep. Must be called with &priv->vlan_lock held.
+  * Takes and releases &priv->map_lock.
+  * Return: 0 on success, or a negative error code on failure.
+  */
+-int rtl8365mb_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
+-				 struct netlink_ext_ack *extack)
++int rtl8365mb_vlan_pvid_port_commit(struct dsa_switch *ds, int port, u16 vid,
++				    bool vlan_filtering,
++				    struct netlink_ext_ack *extack)
+ {
+ 	enum rtl8365mb_frame_ingress accepted_frame, prev_accepted_frame;
+ 	struct realtek_priv *priv = ds->priv;
+-	struct rtl8365mb_vlanmc prev_vlanmc = {0};
++	struct rtl8365mb_vlanmc prev_vlanmc;
+ 	u8 _unused_first_free_idx;
++	u8 vlanmc_idx = 0;
+ 	u8 prev_vlanmc_idx;
+-	u8 vlanmc_idx;
++	bool vid_changed;
+ 	int ret;
+ 
+ 	lockdep_assert_held(&priv->vlan_lock);
+ 
+-	/* Read the old PVID exclusively to undo in case of error */
++	/* The VLANMC entry of a PVID always has a non-zero VID, so the previous
++	 * VID reads as 0 if the port used the neutral PVID.
++	 */
+ 	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &prev_vlanmc_idx,
+ 					 &prev_vlanmc);
+ 	if (ret) {
+@@ -823,153 +830,80 @@ int rtl8365mb_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
+ 		return ret;
+ 	}
+ 
+-	/* Find or allocate a new vlan MC and add port to members,
+-	 * although members are not checked by the HW in vlan MC.
+-	 */
+-	ret = rtl8365mb_vlan_mc_port_set(ds, port, vid, true, extack, true);
+-	if (ret)
+-		return ret;
+-
+-	/* look for existing entry */
+-	ret = rtl8365mb_vlan_mc_find(priv, vid, &vlanmc_idx,
+-				     &_unused_first_free_idx);
+-	if (ret) {
+-		dev_err(priv->dev, "Failed to find a VLAN MC table index\n");
+-		goto undo_vlan_mc_port_set;
+-	}
+-
+-	if (!vlanmc_idx) {
+-		dev_err(priv->dev, "VLAN should already exist in VLAN MC\n");
+-		ret = -ENOENT;
+-		goto undo_vlan_mc_port_set;
+-	}
+-
+-	ret = rtl8365mb_vlan_port_set_pvid(priv, port, vlanmc_idx);
+-	if (ret) {
+-		dev_err(priv->dev, "Failed to set port PVID\n");
+-		goto undo_vlan_mc_port_set;
+-	}
++	vid_changed = vid != prev_vlanmc.evid;
+ 
+-	/* Changing accept frame is what enables PVID (if not enabled before) */
+-	accepted_frame = RTL8365MB_FRAME_TYPE_ANY_FRAME;
+-	ret = rtl8365mb_vlan_port_set_framefilter(priv, port, accepted_frame);
+-	if (ret) {
+-		dev_err(priv->dev, "Failed to set port frame filter\n");
+-		goto undo_vlan_port_set_pvid;
+-	}
++	if (vid_changed && vid) {
++		/* Find or allocate a VLANMC entry and add the port to its
++		 * members, which only serve as a reference count.
++		 */
++		ret = rtl8365mb_vlan_mc_port_set(ds, port, vid, true, extack,
++						 true);
++		if (ret)
++			return ret;
+ 
+-	/* A VLAN can be added with PVID without removing from the old
+-	 * PVID VLAN. Clear PVID from the old VLAN MC (if needed).
+-	 */
+-	if (prev_vlanmc_idx && (prev_vlanmc.evid != vid)) {
+-		ret = rtl8365mb_vlan_mc_port_set(ds, port, prev_vlanmc.evid,
+-						 false, NULL, false);
++		ret = rtl8365mb_vlan_mc_find(priv, vid, &vlanmc_idx,
++					     &_unused_first_free_idx);
+ 		if (ret) {
+-			dev_err(priv->dev, "Failed to clear old VLAN MC\n");
+-			goto undo_set_framefilter;
++			dev_err(priv->dev,
++				"Failed to find a VLAN MC table index\n");
++			goto undo_vlan_mc_port_set;
+ 		}
+-	}
+-
+-	return 0;
+-
+-undo_set_framefilter:
+-	(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
+-						  prev_accepted_frame);
+-
+-undo_vlan_port_set_pvid:
+-	(void)rtl8365mb_vlan_port_set_pvid(priv, port, prev_vlanmc_idx);
+ 
+-undo_vlan_mc_port_set:
+-	if (prev_vlanmc.evid != vid)
+-		(void)rtl8365mb_vlan_mc_port_set(ds, port, vid, false, NULL,
+-						 false);
+-
+-	return ret;
+-}
+-
+-/*
+- * rtl8365mb_vlan_pvid_port_clear() - Remove a port's PVID configuration
+- * @ds: dsa switch instance
+- * @port: port index
+- * @vid:  VLAN VID for PVID
+- *
+- * Resets the target port's hardware PVID allocation to 0. Cleans up and frees
+- * the associated VLANMC entry if no other ports are referencing it.
+- *
+- * Context: Can sleep. Must be called with &priv->vlan_lock held.
+- * Takes and releases &priv->map_lock.
+- * Return: 0 on success, or a negative error code on failure.
+- */
+-int rtl8365mb_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid)
+-{
+-	enum rtl8365mb_frame_ingress accepted_frame, prev_accepted_frame;
+-	struct realtek_priv *priv = ds->priv;
+-	struct rtl8365mb_vlanmc vlanmc = {0};
+-	u8 vlanmc_idx;
+-	int ret;
+-
+-	lockdep_assert_held(&priv->vlan_lock);
+-
+-	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx,
+-					 &vlanmc);
+-	if (ret) {
+-		dev_err(priv->dev, "Failed to read current VLAN MC\n");
+-		return ret;
++		if (!vlanmc_idx) {
++			dev_err(priv->dev,
++				"VLAN should already exist in VLAN MC\n");
++			ret = -ENOENT;
++			goto undo_vlan_mc_port_set;
++		}
+ 	}
+ 
+-	/* Port is not using PVID. Nothing to remove. */
+-	if (!vlanmc_idx)
+-		return 0;
+-
+-	/* We are leaving a non PVID vlan, Nothing to remove. */
+-	if (vlanmc.evid != vid)
+-		return 0;
+-
+-	ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
+-						  &prev_accepted_frame);
+-	if (ret) {
+-		dev_err(priv->dev, "Failed to get current framefilter\n");
+-		return ret;
++	if (vid_changed) {
++		ret = rtl8365mb_vlan_port_set_pvid(priv, port, vlanmc_idx);
++		if (ret) {
++			dev_err(priv->dev, "Failed to set port PVID\n");
++			goto undo_vlan_mc_port_set;
++		}
+ 	}
+ 
+-	/* Changing accept frame is what really removes PVID. But only do
+-	 * that if we are filtering vlan
+-	 */
+-	if (dsa_port_is_vlan_filtering(dsa_to_port(ds, port))) {
++	if (vlan_filtering && !vid)
+ 		accepted_frame = RTL8365MB_FRAME_TYPE_TAGGED_ONLY;
++	else
++		accepted_frame = RTL8365MB_FRAME_TYPE_ANY_FRAME;
+ 
++	if (accepted_frame != prev_accepted_frame) {
+ 		ret = rtl8365mb_vlan_port_set_framefilter(priv, port,
+ 							  accepted_frame);
+ 		if (ret) {
+ 			dev_err(priv->dev, "Failed to set port frame filter\n");
+-			return ret;
++			goto undo_vlan_port_set_pvid;
+ 		}
+-	} else {
+-		/* skip undo_set_framefilter */
+-		accepted_frame = prev_accepted_frame;
+ 	}
+ 
+-	ret = rtl8365mb_vlan_port_set_pvid(priv, port, 0);
+-	if (ret) {
+-		dev_err(priv->dev, "Failed to set port PVID to 0\n");
+-		goto undo_set_framefilter;
++	/* Drop the port from the VLANMC entry of its previous PVID */
++	if (vid_changed && prev_vlanmc_idx) {
++		ret = rtl8365mb_vlan_mc_port_set(ds, port, prev_vlanmc.evid,
++						 false, NULL, false);
++		if (ret) {
++			dev_err(priv->dev, "Failed to clear old VLAN MC\n");
++			goto undo_set_framefilter;
++		}
+ 	}
+ 
+-	/* Clears the VLAN MC membership and maybe VLAN MC entry if empty */
+-	ret = rtl8365mb_vlan_mc_port_set(ds, port, vlanmc.evid,
+-					 false, NULL, false);
+-	if (ret)
+-		goto undo_port_set_pvid;
+-
+ 	return 0;
+ 
+-undo_port_set_pvid:
+-	(void)rtl8365mb_vlan_port_set_pvid(priv, port, vlanmc_idx);
+-
+ undo_set_framefilter:
+-	if (prev_accepted_frame != accepted_frame)
++	if (accepted_frame != prev_accepted_frame)
+ 		(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
+ 							  prev_accepted_frame);
+ 
++undo_vlan_port_set_pvid:
++	if (vid_changed)
++		(void)rtl8365mb_vlan_port_set_pvid(priv, port, prev_vlanmc_idx);
++
++undo_vlan_mc_port_set:
++	if (vid_changed && vid)
++		(void)rtl8365mb_vlan_mc_port_set(ds, port, vid, false, NULL,
++						 false);
++
+ 	return ret;
+ }
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.h b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
+index 809034009..4c83c9475 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_vlan.h
++++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.h
+@@ -34,7 +34,7 @@ int rtl8365mb_vlan_4k_port_add(struct dsa_switch *ds, int port,
+ 			       struct netlink_ext_ack *extack);
+ int rtl8365mb_vlan_4k_port_del(struct dsa_switch *ds, int port,
+ 			       const struct switchdev_obj_port_vlan *vlan);
+-int rtl8365mb_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
+-				 struct netlink_ext_ack *extack);
+-int rtl8365mb_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid);
++int rtl8365mb_vlan_pvid_port_commit(struct dsa_switch *ds, int port, u16 vid,
++				    bool vlan_filtering,
++				    struct netlink_ext_ack *extack);
+ #endif /* _REALTEK_RTL8365MB_VLAN_H */
 -- 
-2.34.1
+2.56.0
 
