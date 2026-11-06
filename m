@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982741;
-	b=cefqMooFZcDcgQgjQCMiZGutQgGZ7IzppdSXFbaHyIrIw1HuQdmPD+PAbG4Z3lkorUXC
-	 NTNv2CXCADuCmYcVrkmeENTefmbNu1Lei2mtJRvcARLQmoGe4OaFJY51kaF3Ciw5iyHgs
-	 wmBP/J6a8OquViNErJ3nB0kDkqSEZDVl8pJdB/BVWTA029cXOWFX4RT/3fFI5jca+arS2
-	 qEy+1FbzccsM4ODVRc3FpM0sPp0ZYZr5lSW3oT4L959UJUiLezXI1Eoi7YyJSOA+xEMC5
-	 xWkInpqeq9/05Ri2kaPD/FMWDgQJMbrSDirTUfjTfi/JrtUkx7r74iq3KZEsXhO9TpA==
+	t=1793982752;
+	b=R+Y1eUGiATU07C2tnqceAVOAU2yIEdjqe7Lx+MIDmppe2AxjDufOOdLj0efA6DphIXLN
+	 +Vxo+z8XhZHqsOQ4tbhCrEXHqHuDjlDsAhZwdukWbfKlcKeXhj78vKRxwpSdkcs4GteiW
+	 Wy6jCQoM7H69j5FRtR+wzhRv7As6tmFuXODYdEboYaljZTF8GNmH6briS8Osqk9VVVeNT
+	 KXO8tKQ73lPPPiTdIrn8k9zDAKa74FB1het9/Uswb655AOuo2AWnBCz2jtPdC6MhApDYx
+	 jlROWak3gB8utOBBa8duQ6UQmXwNKWJIJX30GtiLq2UfGVZLARSXlQV0iymyRMeWGOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982741;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982752;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=RChgsve2szNJ3b5mAMnEQC1I71q5nELdLnWCslX6oGg=;
-	b=xeQYXT/O/DZyVXBa5NFrhulRx1vgXw9Wx4EyGyzRIrwjlwDA1tIb4nQ6FB9oso4hbI95
-	 evIiiRX8jpvSuFIUfruUxZzWRs/8MaLjjw3u2cfo0eFRZ2b41XbkxjguGnue/hoVQa28l
-	 fD3hjzO50R0dUCM5CEWBZY4p/Lkl7CIHbJGHpbPJZg0th2s+V/HWEyVhrze31eEOqpmHJ
-	 RvgGKD6iY7g+8zFG2EgyWTBhnnGSJsY3U01p7lkrlDTBreWP3DdvWoCeKjPzLKIVj0MNW
-	 RU+anfxXwWc4OdDmBY/pQn4ahTuv+G62S3ZJzdgvJ/XvpwOpj0vhJf88WW+gD+QbBaQ==
+	bh=PLhpD9ccdquyHXvw/JVPQGaivr5kK+qZR5BeQNamL4A=;
+	b=yzAnKR6jDyg3+8jSm+GdRbgSnqbf5QL8OqxBNFuMp/DInsVCl+kcN5ondx6yVnr+6Tqx
+	 g2/2V0DIfYhl/hU+gQ/GB9SrKlwCXnfiwLUIwSsZdsMVJ9l1hucgSb1FSFwERkPwLCcpU
+	 m5AHEMnpw0wq7fllwlb6IKuq4OxWn5Ah02PWWWSLPViq8mVp4li46kyW40zCZgdyoIJ5y
+	 9yizZuWOjyCl6zQZXGd4/+GRwjeIIOgpd5yNA1erfx0gWCY4r8kMp8+vOdloek2GHxJU7
+	 Mv+DTXi99rQXSlMfskhxGSFnp8n/2vKE7IofmWpr0JXwRTcmifJFtwJRgcmg/WLxuSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H30F4iRA;
-	arc=none smtp.remote-ip=209.85.210.54
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="wd2gDNI/";
+	arc=none smtp.remote-ip=209.85.161.43
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D03B606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:32:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D03B606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FFF606D820
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 16:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94FFF606D820
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H30F4iRA
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-846566246e8so763032a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:32:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wd2gDNI/
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-7037daaa820so467808eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 08:32:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793982740; x=1794587540; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793982750; x=1794587550; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RChgsve2szNJ3b5mAMnEQC1I71q5nELdLnWCslX6oGg=;
-        b=H30F4iRAZHRzzH5WqhMuQWK1dOfasDflfDyAkereNzfCXgfkwzOX08//+6E8j0newJ
-         r2IPmpTD0+U+52P178zcJgYo/BV48kw4iFJolgvxzMiUn3IbluFrq3jr4KIEQE7Y3ZxE
-         IBuGc19Y6z51+DyWyW4WY4dGxRof3bkjzbyCrZa7aREFgVqf9uoaegf7IjfUFxg9CAtC
-         cSS5q04HZaIMjjRTGI0JkKdKvPjKi3+bzky/rB4t+AzCjiRdHiDbJqWKuKNKD6qF51jV
-         bYuyW0WwVPbyR3OHmnnf7oXGwUHIe3Mtv96AwRgyCHg2hNWFoHMnYTciyHLbjslTMd5i
-         oeUA==
+        bh=PLhpD9ccdquyHXvw/JVPQGaivr5kK+qZR5BeQNamL4A=;
+        b=wd2gDNI/+JV11jjBs63iRALRbyoxDRJDGVb5gHVbNYlAjWCtLzN0yrA/zTMApkGwn/
+         YwSnYELBy1v0H2vdhrx81XxQmcVKhQKwQHjNQHsP1Zzv6EXGhIzo7wog1oAOVZWIefQw
+         /iGLqX3pM4+ExwmzMaMu2+EfTWjDbYHP34PDnmajxzQOaYjryVz8cUlnFounxEIAPoz1
+         c8nJCWtRVz735NKpKbw9ulg6kzfayZ9SHYhFFSl3MTfOAunoeB/FMldxqGVYMsCzsjz1
+         /cafzugwEVud67cr0OvCfWL1EKHpf/fbQuMcj7B+wpXwlmKkMEPHgNjZDkO31GEmyDHA
+         soPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793982740; x=1794587540;
+        d=1e100.net; s=20260707; t=1793982750; x=1794587550;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RChgsve2szNJ3b5mAMnEQC1I71q5nELdLnWCslX6oGg=;
-        b=BXY/k8ifN/21chlH42cElSMQv7aL9p8j/WV0b7F9mPNHKVf2rdapUjBmo50YpEH9rN
-         NZXHjwctA2+TWImUm0FwrN9zGmWcEJ3+rdRzUhnNNICT1FoqRFlo0S7ysXXRitAKw2w/
-         368l+lLQXp3hxbGSked+NRgg56VGUygORg5S627yRH31xJFJli9Z+XF1usofGfLvz5If
-         /vVKTq1lArHuP3FXFvS5IADJXWBsztI6AqzsFLzbp/pLH8pEdDlQipUgY+B0pZqJcGOI
-         RrhndsqRPTGdFvfnx5Fph2U2ZGGmXmnWg5Hchdf9AK9bfb45vSj63Py2eP7/JzvZXaLB
-         iI8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwQNuV3T9v4DC492n5lGC7pDm95Y1lKazrHJGULVjA1y2IGEGOkiPF+dDi/ayTL+C/7GLcQdEt8Pkra0Kw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ghOuKvo6qbLpUOgmcSOMApenA3rdkMyo5zRQ078wgQJrLhvLh
-	/ioVoZXc612SrSTLJ02CzlxDIFKUABD3TyenwZhvmYtKJ9bpOFiMEqBW
-X-Gm-Gg: AYBFou14SPOE4cmbxxti6x+VPJJJDbAmoOFt8cVt7T6iVd7931KOdcDJHstvb9r30Gc
-	pfBYF7x15T0SG7bnFsJ9wR5SgiArYKO1YCeWsdS2uOIHkl9VdJ7wqlzHWHmrUdyN/KTWZkHqDCn
-	CmbMHeuYxUvgC2ci8zbmRITzKNj2ILM0xFSNRyNsL0oV6GL8+IsF9dXOsUDadNHJAVRUXA/CYRa
-	gsffEzPF5p9oS0wS9fpDV828CIEgd3KXGN7m926v2W79v7ebi8xoDHbz1NmDeqBJfL3PsuWngtJ
-	txXHCa+VDy1uyPOOg9RjQ9XcLYX7kZ2BGhiMwOBzEmerpad4fOiKVMq2rI9msFH8mnarFVXcCRX
-	OAxnWQJjBlHl/gQMYeK5W2pzFrhXfdhBNElI26PLcKuSs17ubIMjRGQ+DqszGW5pipXbJKhta2S
-	5yn7l/ogJkeyH07a4czmtFg0/maajMOZZ0rJ5FPdRvm5Ik7Wm5GuwdVh0iRQKl7/5TpPawlE/5X
-	9onm0aw5eF6coiIorcb6L4F+M6eItROcJlMxcEv4Ar1bT0I+dRnBassw7jWrsIQbdu8A/8MgFrO
-	cmgyPkzbstx6qxwPvybhmFG2c2yxBE7wz37+W37q107U4w==
-X-Received: by 2002:a05:6830:4487:b0:821:dd7e:330a with SMTP id 46e09a7af769-85f1cf9a329mr1922143a34.8.1793982739784;
-        Fri, 06 Nov 2026 08:32:19 -0800 (PST)
+        bh=PLhpD9ccdquyHXvw/JVPQGaivr5kK+qZR5BeQNamL4A=;
+        b=UGbZNZj7eaE9eZuiBI8jag5D4OHh8K5p7VdWGBGRN73MBz3OpICsMZGYwlnsHU6u1e
+         YNZogNtWHv7u04p13XpTBuI/335O8ndkOXExzVTm+bpD53aEOxXbdTqdI2yCmfexmiF7
+         URMShw61Z9q2mrFVffoOHWfCaSj9FQg8ZSVIswfavxQpFknvzB+0KwILVcM8SAvfjviY
+         HcsemeYEXOkUDobpRH/57hqHG4zROmjGa1MJ8OTdITBEvI5nC8kyETO6hcrWfoZKLmOI
+         6mb/dMCmNq4vbekespRxvNDKRDEvXGeqP8p0rfMMCKCHBU4NBuqB+iZUAxkv+ArWiMvY
+         5/tA==
+X-Forwarded-Encrypted: i=1; AKwUvBznUv1LmGuPGRCyXwD3vBoVJRaV5o+WbIDthrtxPJ+h2yTIhS3nGI3uyZz/vYoK5J+s30zQFDdOpIfWh/4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z84dfK27bydAg9Ngo18S1KvJ/1H2rMCTll6XLLgr/9hgdbtxkSY
+	btS2YgiHuhvn3ol7tEEmpGgVYfKRGKM0+bFP2WObcZ9ayHSopFjAcDUO
+X-Gm-Gg: AYBFou2okVT1ZjVlBwEyvovnfCdbrn+tJE9lSuv25ch8SMtS3wBr9WVGOOXXwV+HbJU
+	QuOyyctH5yv9JAi9uf4W2OhslUPWTqVveh7J25YzaGw3DBiSG6AJwJET8Kfml5REafSxwv5XHsA
+	b8Enqtio35PawANUtCizZdq7SYvVlO92zCRQPTrTHcMzohe/F6FcdfH6TZvOU1z5ctxLrxCoOHg
+	RYl2XwzIKCjJ/AKlrzzqddRWGKDp3WZp0r0MKZRfCDEnMx0jNePstWo5ZihuB/HYXWkU1iUwUMM
+	xyMi/D0KFXYDpiwAbT007Tux/Yb6pVW7iOrsckE0cKzLD5G++ZoOyknFRYiwFma41PVk0fWqriq
+	hsJTnNfGpInDJ1pqrqOWzB1Cf4X7/urRQsGhollFxxUjzhpjtlWGDE6fbbPwTuQhFPeV73r6eUK
+	/zM/4MdE5tvwrPrtf0/l74yyr9rW+PHLYvMTvDLhgYzYPWq+LC4QyBVHBOwKm4TF/Es4WlboRoE
+	fr1fzdHNnOrHNvuFCHURhBmim4u3xJNla/9HzQn/YWfmXjkXEayMgHJfuQ9aJr2KLfZiFOXO50Q
+	Y0pm1sFkckslZtjFit9fAXKTepE1Wf0q1CEZliqGVNPtHA==
+X-Received: by 2002:a05:6820:428a:b0:6f8:92ab:bb4e with SMTP id 006d021491bc7-716e7750a3amr1705274eaf.6.1793982750550;
+        Fri, 06 Nov 2026 08:32:30 -0800 (PST)
 Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1de8f066sm2244780a34.23.2026.11.06.08.32.18
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1de8f066sm2244780a34.23.2026.11.06.08.32.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:32:19 -0800 (PST)
+        Fri, 06 Nov 2026 08:32:30 -0800 (PST)
 From: Will Porter <mrwillporter@gmail.com>
 To: Christian Ruppert <arc@gmx.li>
 Cc: Takashi Iwai <tiwai@suse.com>,
@@ -85,12 +85,13 @@ Cc: Takashi Iwai <tiwai@suse.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Neil Andrews <neil@androos.io>
-Subject: [RFC PATCH 00/16] ALSA: usb-audio: Audient driver and iD14 MkI support
-Date: Fri,  6 Nov 2026 10:31:13 -0600
-Message-ID: <20261106163129.1006907-1-mrwillporter@gmail.com>
+Subject: [RFC PATCH 06/16] ALSA: mixer_audient: Allow arbitrary boolean control values
+Date: Fri,  6 Nov 2026 10:31:19 -0600
+Message-ID: <20261106163129.1006907-7-mrwillporter@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <aupn1wwW7w08M3gu@khmer.arcnet>
+In-Reply-To: <20261106163129.1006907-1-mrwillporter@gmail.com>
 References: <aupn1wwW7w08M3gu@khmer.arcnet>
+ <20261106163129.1006907-1-mrwillporter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,93 +103,122 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+From: Christian Ruppert <arc@gmx.li>
 
-On Wed, Nov 04, 2026 at 12:01:47AM +0100, Christian Ruppert wrote:
-> I guess that depends how we define force_set. In my mind it's literally
-> force set, i.e. for write-only values we must explicitly specify both
-> FORCE_SET and CACHE.
+In preparation of id14 support, allow arbitrary values for true and false
+of boolean switches. This also rids us of the tedious invert flag.
 
-That definition makes sense to me. With it, the read before the write
-is fine: an uncached FORCE_SET control is one the device can read.
+Signed-off-by: Christian Ruppert <arc@gmx.li>
+Signed-off-by: Will Porter <mrwillporter@gmail.com>
+---
+ sound/usb/mixer_audient.c | 43 ++++++++++++++++++---------------------
+ 1 file changed, 20 insertions(+), 23 deletions(-)
 
-I also prefer the current return value. If a put always returned 1,
-the kernel would send a change event even when alsactl restores an
-unchanged value. So I dropped my diff. Patch 10 has only the comment
-typo fixed and the blank line removed.
-
-> Is there a reason 4, 5 and 6 are separate? They should all be one big
-> update in the device definition tables without any code changes, right?
-
-Right, they add only table entries, the device ID and the map lines.
-They are now one patch (15 of this series).
-
-> Happy to review and test an RFC of the complete series until he's back and
-> takes a decision.
-
-Thanks, here it is: your 11 RFC V2 patches, then the five iD14
-patches. It sits on top of your four mixer_evo fixes. I can rebase
-it once Takashi decides how those go in.
-
-Patches 12 to 16:
-- 12 adds a step size to integer controls (the iD14 volumes move in
-  1 dB steps).
-- 13 adds enumerated controls (routing, iD key function, talkback
-  source, digital input mode).
-- 14 gives the iD14 MkI its own mixer map; the MkII keeps the shared
-  one.
-- 15 adds the iD14 MkI controls: monitor section, routing, mixer
-  matrix and the write-only controls.
-- 16 replaces the generic FU 12 control, whose GET returns stale data.
-
-Base: sound master 603a4df9e6ae with your four fixes (Patchwork series
-1193966). Each patch builds on its own with W=1 without warnings. On
-an iD14 MkI (7.2.11 stable), the complete series passed the same read
-and write checks as RFC V2, change events included.
-
-Thanks,
-Will
-
-Christian Ruppert (11):
-  ALSA: rename mixer_evo to mixer_audient
-  ALSA: mixer_audient: explicitly define full control names
-  ALSA: mixer_audient: clarify USB control message definition
-  ALSA: mixer_audient: Add length check to USB transfer
-  ALSA: mixer_audient: make USB control transfer size configurable
-  ALSA: mixer_audient: Allow arbitrary boolean control values
-  ALSA: mixer_audient: Add integer range checks
-  ALSA: mixer_audient: Add control initialization at probe
-  ALSA: mixer_audient: Add readback-free parameter set
-  ALSA: mixer_audient: add control value caching
-  ALSA: mixer_audient: Create matrix programmatically
-
-Will Porter (5):
-  ALSA: mixer_audient: Add a step size to integer controls
-  ALSA: mixer_audient: Add enumerated controls
-  ALSA: usb-audio: Give the Audient iD14 MkI its own mixer map
-  ALSA: mixer_audient: Add Audient iD14 MkI controls
-  ALSA: mixer_audient: Replace the Audient iD14 MkI FU 12 control
-
- MAINTAINERS               |    7 +-
- sound/usb/Makefile        |    2 +-
- sound/usb/mixer_audient.c | 1342 +++++++++++++++++++++++++++++++++++++
- sound/usb/mixer_audient.h |   13 +
- sound/usb/mixer_evo.c     |  526 ---------------
- sound/usb/mixer_evo.h     |   12 -
- sound/usb/mixer_maps.c    |   10 +-
- sound/usb/mixer_quirks.c  |    7 +-
- 8 files changed, 1374 insertions(+), 545 deletions(-)
- create mode 100644 sound/usb/mixer_audient.c
- create mode 100644 sound/usb/mixer_audient.h
- delete mode 100644 sound/usb/mixer_evo.c
- delete mode 100644 sound/usb/mixer_evo.h
-
-
-base-commit: 603a4df9e6ae60a26adb335fe8d8f6e8f19e5d8e
-prerequisite-patch-id: 522b05214a3c615ec30e50574b2bcc9c6c55dc3c
-prerequisite-patch-id: 4c58588cb3fd46832de61018d60452ad1f5de1f9
-prerequisite-patch-id: e15c90c1732110d25b16d26b4f919715cae7f5be
-prerequisite-patch-id: 02c9ab9c3fd4cc8617060c81eed06affae2da0d2
+diff --git a/sound/usb/mixer_audient.c b/sound/usb/mixer_audient.c
+index 57d856d25271..4b20db9a82e2 100644
+--- a/sound/usb/mixer_audient.c
++++ b/sound/usb/mixer_audient.c
+@@ -43,13 +43,12 @@ static const struct snd_audient_ctrl_type {
+ 	snd_ctl_elem_type_t type;
+ 	unsigned long flags;
+ 	size_t len;		/* datatype size, can be 1, 2 or 4 bytes */
+-	bool invert;
+ 	union {
+ 		int integer;
+-	} min;
++	} min;		/* for booleans holds physical int value for false */
+ 	union {
+ 		int integer;
+-	} max;
++	} max;		/* for booleans holds physical int value for true */
+ 	const unsigned int *tlv;
+ 	u8 unit;
+ 	u8 sel;
+@@ -65,7 +64,6 @@ static const struct snd_audient_ctrl_type {
+ 	},
+ 	[SND_AUDIENT_TYPE_PHANTOM] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_BOOLEAN,
+-		.invert = false,
+ 		.len = 4,
+ 		.min.integer = 0,
+ 		.max.integer = 1,
+@@ -74,19 +72,17 @@ static const struct snd_audient_ctrl_type {
+ 	},
+ 	[SND_AUDIENT_TYPE_MUTE] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_BOOLEAN,
+-		.invert = true,
+ 		.len = 4,
+-		.min.integer = 0,
+-		.max.integer = 1,
++		.min.integer = 1,
++		.max.integer = 0,
+ 		.unit = 0x3A,
+ 		.sel = 0x02,
+ 	},
+ 	[SND_AUDIENT_TYPE_MUTE_OUT] = {
+ 		.type = SNDRV_CTL_ELEM_TYPE_BOOLEAN,
+-		.invert = true,
+ 		.len = 4,
+-		.min.integer = 0,
+-		.max.integer = 1,
++		.min.integer = 1,
++		.max.integer = 0,
+ 		.unit = 0x3B,
+ 		.sel = 0x01,
+ 	},
+@@ -359,16 +355,12 @@ static int snd_ctl_audient_boolean_get(struct snd_kcontrol *kctl,
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		ctl_val->value.integer.value[i] = buf ? 1 : 0;
+-
+-		if (ctype->invert)
+-			ctl_val->value.integer.value[i] ^= 0x1;
++		ctl_val->value.integer.value[i] = (buf == ctype->min.integer)
++						  ? false : true;
+ 	}
+ 
+ 	for (; i < nchan; i++)
+-		ctl_val->value.integer.value[i] = ctype->invert
+-							? ctype->max.integer
+-							: ctype->min.integer;
++		ctl_val->value.integer.value[i] = 0;
+ 
+ 	return 0;
+ }
+@@ -392,12 +384,10 @@ static int snd_ctl_audient_boolean_set(struct snd_kcontrol *kctl,
+ 		return pm.err;
+ 
+ 	for (i = 0; i < hwchan; i++) {
+-		u32 buf = ctl_val->value.integer.value[i] ? 1 : 0;
++		u32 buf = ctl_val->value.integer.value[i] ? ctype->max.integer
++							  : ctype->min.integer;
+ 		int ret;
+ 
+-		if (ctype->invert)
+-			buf ^= 0x1;
+-
+ 		ret = snd_audient_raw_set_one(mixer, ctype, base + i, buf);
+ 		if (ret < 0)
+ 			return ret;
+@@ -485,8 +475,15 @@ static int snd_ctl_audient_info(struct snd_kcontrol *kctl,
+ 
+ 	uinfo->type = ctype->type;
+ 	uinfo->count = snd_audient_kctl_channels(kctl);
+-	uinfo->value.integer.min = ctype->min.integer;
+-	uinfo->value.integer.max = ctype->max.integer;
++
++	if (ctype->type == SNDRV_CTL_ELEM_TYPE_BOOLEAN) {
++		uinfo->value.integer.min = 0;
++		uinfo->value.integer.max = 1;
++	} else {
++		uinfo->value.integer.min = ctype->min.integer;
++		uinfo->value.integer.max = ctype->max.integer;
++	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.47.3
 
