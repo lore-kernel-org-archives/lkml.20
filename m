@@ -1,118 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793949375;
-	b=M8uQ89STo+E5RmHg2k07T0RI9a5uhJ8mKDTt+L7iuKFnLlxiJpHQyIrs2LQsKuoyj7bm
-	 aH7aX+OybXOAxfWC5cZCqzgrlyfKk897UJ8Mk00eM+jA0rjpp7c0cMkWYINc3B/Kk6X1h
-	 QaP+YpQK7sWg1jNrS47muLMYYmj54xroyizu5vXVAudr5myINKBfpWvNHhJMpEozf3wU3
-	 8dx9fOENlp/Jd9q9XaZIdeDKJAMKg/mwiOUplLpHU2dGy/CT/dBSzZJ1lLO4bmcdSIAHj
-	 CUuMbHFBb3EnCRuBgrYvQTdo3of4pdTky2KdPB4z9n23OtO1KsPMKzQypIPDkokLaEg==
+	t=1793949372;
+	b=hg4IGMDVZdvukJ8grliab3b1mBKVNAyH3AvpLzmvxW0jXZ4OrkOXULj2C6UdESbq8Dsu
+	 0BAXJsOZVZRO1N9nx6nFmHiORAJiZ3rhpPXXMiYFz6lX4GSfFciGgRFJ0xvazD06D7qOG
+	 oPX+w736aC0UQxMzZv+xqiEuFKlH74KrxcBbRhta2kPFdFBafr2wgbWaoR/eBi8Dn6ULA
+	 qf2qIXYDlpnY83sn0FJS4DovNavogdPz7MCtzVDoT5Z77ynamo5AjFyehaz3wnl9vbCFD
+	 2trFJduw58G0wss95sbAobAPllmuoSi7t9jByJxGXC1xD4CVqq1mDqbFzySDTtYAUjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949375;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=wEtBKDb0MJ/hesgLaUZ1AmZ8Y49zDVocm3g03+nRNeE=;
-	b=riQIApEWQJy/XovVjDUpQOrPK34YYczYB8rp3nhrOg1P/4jcWRs9QFz8mczHXCpv0qRR
-	 dWWVFaxJkc3Js73U1rVg2tLETy/qOZiQtYS1igY6lp1KDpeCE8iBGh8Zm4W3TlL/o+Nib
-	 t3XQt6Bzy9IGpJFrxHHXBw4J5/F7DWTiYfKwzurRXSd9gay6Yiqvop7YIwjqN4LGc+mcs
-	 mJz4nlqZi35hXe+NHDYpkKAI/faz4EEK6MPo1T2wO1gWXT3Lx1ETnsZJY5htE8I8nfGXR
-	 IIgTGn9dEfHcO0rWnAFBTnTpl2FPx3k6Shai/Z2CPZDLQ9BKn3DOfHWJDLQf1rtUrmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949372;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:List-Id:To:Cc:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=bxyhLGFli38ds0TGUbKdVWpQ1ZVJ1vM6lFd2Hmh0ka4=;
+	b=k87bHuUD+vdrZUIWTrKraDJNY40U+t1M3WUGPoTfLM7XRumWQwf9RHSm0ax6qEtgXD0S
+	 v6gGLaBT7076SSHfTNTDSKfSA4LDzDzPMOqbDbVqLelco1N4XFiLgZN4CpuzCRMMgS4N4
+	 CoTv+4YZHbmzrCDThvBrOyNpPlJhfdDHkPm4mQ1ogHMrzIwE7oNi+mHuR9wToQBQMBjYh
+	 cub1wDEnPombQWjeGb/DCdJdd9jgY/vzz6l5i8Nk6fzltrdTWz+2V/wOEy5QoeLcabNtY
+	 OIys9/p8Y/0/oYqAfyNb+dwsvjO/lccs5yZfUrvGxlSCv5wUt9e2HqrJqN5FLUGfmnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZtngVeIz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lLu+zf76;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZtngVeIz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lLu+zf76;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NnmTzAuS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DCA606A326;
-	Fri,  6 Nov 2026 07:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66DCA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZtngVeIz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lLu+zf76;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZtngVeIz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lLu+zf76
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 953F71FB91;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0E8606A32C;
 	Fri,  6 Nov 2026 07:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793949372; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wEtBKDb0MJ/hesgLaUZ1AmZ8Y49zDVocm3g03+nRNeE=;
-	b=ZtngVeIz/TscJr8b9y5RTN9n5X+bg/cNRN00Oz2g+hFPMmLSmqsADPx22wIU+tW5frtTXf
-	IWsmAsZ4rOlHuhJBlnrm/4U0uvbiJZCYS1DlBvBc4iO3kgpSMb8MxJgF+27T7U4KqY2x7/
-	YeIetPUkth5XD3Y94Co75NmVA/cfwbk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793949372;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wEtBKDb0MJ/hesgLaUZ1AmZ8Y49zDVocm3g03+nRNeE=;
-	b=lLu+zf76rfClxEuSsGW0Ae6rkgGtWxyCr+fsvMkHXRmrwdiVDnipU6nREaSTFb11PVlnOU
-	LX3GWXoWdJd0BjDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793949372; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wEtBKDb0MJ/hesgLaUZ1AmZ8Y49zDVocm3g03+nRNeE=;
-	b=ZtngVeIz/TscJr8b9y5RTN9n5X+bg/cNRN00Oz2g+hFPMmLSmqsADPx22wIU+tW5frtTXf
-	IWsmAsZ4rOlHuhJBlnrm/4U0uvbiJZCYS1DlBvBc4iO3kgpSMb8MxJgF+27T7U4KqY2x7/
-	YeIetPUkth5XD3Y94Co75NmVA/cfwbk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793949372;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wEtBKDb0MJ/hesgLaUZ1AmZ8Y49zDVocm3g03+nRNeE=;
-	b=lLu+zf76rfClxEuSsGW0Ae6rkgGtWxyCr+fsvMkHXRmrwdiVDnipU6nREaSTFb11PVlnOU
-	LX3GWXoWdJd0BjDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CABA6134E9;
-	Fri,  6 Nov 2026 07:16:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id eUSTJ7t+7WpeLQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 06 Nov 2026 07:16:11 +0000
-Date: Fri, 06 Nov 2026 08:16:11 +0100
-Message-ID: <87ld76qvk4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org,	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,	Jani Nikula <jani.nikula@linux.intel.com>,
-	Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,	Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,	Maxime Ripard
- <mripard@kernel.org>,	Thomas Zimmermann <tzimmermann@suse.de>,	David Airlie
- <airlied@gmail.com>,	Simona Vetter <simona@ffwll.ch>,	Takashi Iwai
- <tiwai@suse.com>,	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,	Harry Wentland <harry.wentland@amd.com>,	Leo
- Li <sunpeng.li@amd.com>,	Alex Deucher <alexander.deucher@amd.com>,
-	amd-gfx@lists.freedesktop.org,	Lyude Paul <lyude@redhat.com>,	Danilo
- Krummrich <dakr@kernel.org>,	=?ISO-8859-2?Q?Tom=E1=B9?= Hnyk
- <tomashnyk@gmail.com>,	Wim Taymans <wtaymans@redhat.com>,
-	nouveau@lists.freedesktop.org,	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] drm: Populate ELD Port_ID to identify audio endpoints
-In-Reply-To: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
-References: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NnmTzAuS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392061F0089F;
+	Fri,  6 Nov 2026 07:16:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793949371;
+	bh=bxyhLGFli38ds0TGUbKdVWpQ1ZVJ1vM6lFd2Hmh0ka4=;
+	h=Date:Subject:List-Id:To:Cc:References:From:In-Reply-To;
+	b=NnmTzAuS3u3p3vuTqR4A2aqgMSLmxTKrTLQZgKuqWKEHlzJH8GDhFnjshmUKBY76h
+	 Tkj4/e+ou9dXfwlpfYpBDZ/2mi5iFsdj4EJ9TqaNapNtP2xsz033O9lHgyN58UHKLd
+	 9c+EHBk21/mZNyAHj+43KpTSZqQlooCKAVvlPfC5mIb+h+a9fszlIh/ZuNFX9OZN2O
+	 oxRCX9B2CCVJ4u8NtsWFJUltrcY4iOt07xDvOznYSW7mNH+Tnco38wUN2Opi4PYIpF
+	 lvWPWG04a+d+dYLMuqjonN5bXTwo4jSdKfHROJePeGHMnGZBM/Ov4445rAMCvtsdz3
+	 nHikKEUYQJ4jA==
+Message-ID: <2ed0ae18-8e64-4725-bcb4-4ca45cb59fda@kernel.org>
+Date: Fri, 6 Nov 2026 08:15:58 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,81 +50,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[27];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,linux.intel.com,intel.com,ursulin.net,kernel.org,suse.de,gmail.com,ffwll.ch,suse.com,perex.cz,vger.kernel.org,amd.com,redhat.com];
-	R_RATELIMIT(0.00)[to_ip_from(RL9y5169nakf5i7mj5a3kbj5yk)];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Alejandro Colomar <alx@kernel.org>,
+ linux-hardening@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
+ Kees Cook <kees@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>,
+ Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Saravana Kannan <saravanak@kernel.org>, linux-acpi@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <cover.1793876837.git.alx@kernel.org>
+ <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+ <20261105111423.360f4ba8@gandalf.local.home> <auyuINXEJKc1KoG7@devuan>
+ <20261105115019.2fe7c91b@gandalf.local.home> <auy0O467UqOzqYub@devuan>
+ <auzGMV1YbO9DodBq@ashevche-desk.local>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <auzGMV1YbO9DodBq@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 05 Nov 2026 17:02:38 +0100,
-Kai Vehmanen wrote:
+On 05/11/2026 19:08, Andy Shevchenko wrote:
+> On Thu, Nov 05, 2026 at 06:46:18PM +0100, Alejandro Colomar wrote:
+>>> Date: 2026-11-05 11:50:19-0500
+>>> From: Steven Rostedt <rostedt@goodmis.org>
 > 
-> The ELD Port_ID field (bytes 8..15 of the baseline block) is typically
-> zero on Linux today: drm_edid_to_eld() leaves it empty and no in-tree driver
-> fills it in. amdgpu, radeon and nouveau pass the raw connector->eld to
-> the audio component. On the amdgpu DC Azalia register path the value
-> is a hardcoded constant, the same for every port.
-> Only closed display drivers fill the value.
+> [...]
 > 
-> Pipewire added support for "Port_ID" in merge request:
-> https://gitlab.freedesktop.org/pipewire/pipewire/-/merge_requests/3025
+>>> Oops, typo, I meant trace_event_filter.c
+>>
+>> Still not found.
+>>
+>> 	alx@devuan:~/src/linux/linux/master$ find | grep trace_event_filter.c
+>> 	alx@devuan:~/src/linux/linux/master$ find | grep trace.event.filter
+>> 	alx@devuan:~/src/linux/linux/master$ 
 > 
-> As a result, when two identical monitors are connected their ELDs are
-> byte-identical, and userspace (e.g. PipeWire/WirePlumber) cannot
-> passively tell which HDMI/DP PCM belongs to which DRM connector.
+> Oh, you are an oldschool guy :-)
 > 
-> This series adds a DRM helper that fills Port_ID with a common layout,
-> and uses it in i915:
-> 
->   bits 63:48 - PCI domain of the DRM device
->   bits 47:32 - PCI bus/device/function of the DRM device
->   bits 31:0  - DRM connector object ID
-> 
-> The upper half follows the layout documented for the AMD Azalia sink
-> info registers (dce_audio.c: "PORT_ID1 = 16bit BDF"). The aim is for
-> this to become a convention other drivers can opt into. For drivers
-> that copy connector->eld to the audio component (amdgpu DM, radeon,
-> nouveau), adopting it would be a one-line change. Comments from the
-> AMD and nouveau folks on whether the layout works for them are very
-> welcome.
-> 
-> An alternative would be to fill Port_ID directly in drm_edid_to_eld(),
-> so every driver gets it without changes. I went with an opt-in helper
-> to avoid changing the ELD contents seen by all drivers and existing
-> userspace at once.
-> 
-> The value is exposed to userspace via the ALSA ELD control and
-> /proc/asound/cardX/eld#Y.
-> 
-> Kai Vehmanen (2):
->   drm/eld: Add drm_eld_set_port_id() helper
->   drm/i915/audio: Populate ELD Port_ID
+> I can't believe people with Git index available are using `find`
+> and not `git ls-files`. `find` is too slow...
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+You all are oldschool! When I need to find a file in Git repo, I ask
+Claude to write me a simple Rust application searching for given
+filename, store it somewhere and then execute it, giving me the result
+output.
 
+Thanks to this I already have 25 apps to find specific files, so I can
+even re-use them later. Ha, think about that, how optimal is that!
 
-thanks,
-
-Takashi
+Best regards,
+Krzysztof
