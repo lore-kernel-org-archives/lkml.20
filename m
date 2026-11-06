@@ -1,92 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793932205;
-	b=RaYetGB5LFvNLSyZnewwwmgjov3qXVdO2aBIlr4zD1V4ZQ/YqHUNkietSfldQYVTFnwm
-	 dTW63AllopgS8Au1lLIYq/0NmX7C0UhHM3HarHGyf+2AMORUb1wlOvcegfJEn4h+UCy69
-	 KjLvDHMIZYYScqjgfdzhGT53sAY9Ks/cS/Kv2fvoDKxou0UEy4T1vWvpyx/XlkN6NqLcH
-	 MafivaZTDv3mGItEynjPUUAtFoi1i8rYc1i2Oew0eua02CYAZAenT/I1yKQIlda9Bi40n
-	 U2307pCF2uXXQhAiMEddqsBDMdwGK44bCmFF5DJFZQHawCBWh+DMETvW/hY0ViEoVYQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932205;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793932211;
+	b=Gd0Qt5+KLkQESp+g6rgF3ED7ucggZJSwI/cw/7NNVO2LcvQQQXTfcywghOushQ0pvqYm
+	 EpKGC537wB6YvuigeFzHZdphjxYddUxS+v1XWenXzzpgGx6dd+MNwbHd2bwL1S77Pfz/D
+	 LThLj8BTApK+BSEvoxFW5IrOvcOkhCqkUy4aT8YrPNqN74mevk8lErtILQjOdjykS/zDJ
+	 H0tbFIectQGGENfWJQpJ3l3S0tkeknhQkQpxve4qC+l8QqMl2qAaDFHOGhN8rIFDJTmFZ
+	 0ZrMGf/sPMoJOfjM4h0nChkbY6G/iZANNBeVzzjghvod9qEvyVU3rOIFRXAvfl71nGw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793932211;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=iz3HkQ8S5G/MQ2i6xDUU1DsVvSdEnv/maZkfcMkgzs8=;
-	b=HgzgqV9srFzpRH11Zku6HEFsCM3/BEx+jg0AZdhUFyabty+uE47nTAjHl+4W/XuqsFMi
-	 1q1HIZuIK3JkSPtdzlwHp2WuY+oWFCE7yKqAl0XTny+Y4g1DvBkPdu8kjjjG98wOH9M7B
-	 2HGMmVxFVcGrOHdW3fC0F/KzmmH+LMVmGEn0sS1q1ppzJuWCT0euQXJr5oLrEgUfF01kI
-	 Avg1fRs066l0/9c+UYjR384IlDdkJj9+9W9KmPXsv4Q5oci9Z38ihtAUTW2ypyeoNnQtP
-	 k+NE5aDHFTqXLHTFuM7JxwAhCZuLaPptcDMFpCuemveTO9JoDIWKXiEjM5vbCWsaN2A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=KdtR85JzjNqyKejxAMjXKSZ9WEjSDk5bm7R1NYn6XM4=;
+	b=yhzhg/msNY2dRtGAjIeoOpQu9Jz2UotTJn4fC2LsxLZXAkzRHfQTIVzPq/8NtoGufQqM
+	 RAtCh3rj0dTMBRsKBSagm3AKyrlg6312EGpTYwTk01dK4TCKBuZ1+q5YfEGiW9fIqUrCu
+	 sNYmsZPxE8SSjJjp/IdpasCG4B0qYe8eO9IPIKdd3SEEnjTwBLk7ert5D5Mcrb99VWKSC
+	 nxQSW5Zw44faC8WMoAhfiaXTeVSzSSIjgh9uxa8dS6hC/ftx7SJyhiHx3ye6oRwNSltJo
+	 hLeppSLcdxK3KDd4UDoWDMvgTwPS3u7cuC1cK4UX4deRXd0fCS6lpfIeW1cibyrjD2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IFBsEjIR;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="oCdz/kgQ";
+	arc=fail smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920DC606A328
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:30:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 920DC606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA51606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 02:30:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AA51606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IFBsEjIR
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oCdz/kgQ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793932203; x=1825468203;
+  t=1793932210; x=1825468210;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2bnU+hnGrKYfloG+zTnJKn1FMGS0ygPDx+kuky5Yi54=;
-  b=IFBsEjIRJnhWf9PYwKqkTrwJKqMjj6GkHzPElXpyP0DR/+0vyrJ7BiNm
-   VhE+Jbvax5zf14AGnyWatFqzXVfDqFyIJhejiA2IEz9/5NZhMtaUJb14A
-   8A4kP93GT6JUMW3NaShdF3MBdubgVWPYte7kxfr0fATqaGnO9ERoS/Yer
-   +hhIWOzzxMT4QbRxCiuQOyt3JBPVWDFm2Bed8ohve9ypX7gGr97MtivJq
-   qRUm915YFD9nCZnKijuW9G+XEKPUqfUel4+KYjmCIqWsCwozZw++pkei1
-   MQnmC5ic5HrysUsQvOBTIMRdv2X0DLsHHDSHQ86WDfvgjEpcpu1wS26iH
-   A==;
-X-CSE-ConnectionGUID: Ry6EK4eDSguzgr39qGAXvw==
-X-CSE-MsgGUID: l/JtYqfWTLadz5VH2F16Wg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2640274"
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=kaeMUF51ToU415C+Pvc+NFsyeJTr1pdTsR9Zt71H5yc=;
+  b=oCdz/kgQjqaY7NpLpHaXtUa/jm5D7Z5q8wRRJpYzKHJbDNbyZe60J/KN
+   hsU/XFCiu2dE0h0f+Nu5UxEmQ5gBFpn16VzYWuSPKRlIPDju6MFyaeyPp
+   sq0pGafub2ZxwOiuHXhD871VEfYKufBBygjrZ1oRHiWXs9BlkGIPXrfES
+   glhobvSIo9pWlrJSL+Mqjr9soqBX0AZ8U2cUx9tz1ZqZOMftCR8gYq+HR
+   7VQc0EFIfVVZ9a96BaRypmQJ0C0LgxdBuua/JalpGQBFd7KHFxoCQ6rai
+   D1Y8ThReH20xJBEJmQhxKBOrD1c5yOoczJXlC1SX3Ulj8Eo5nNBBbOCnf
+   Q==;
+X-CSE-ConnectionGUID: 1T/vKRlXQOWRyElpmWCQrA==
+X-CSE-MsgGUID: 1wyhbR43QV+kdd2moaS0Mg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2645599"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2640274"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:30:01 -0800
-X-CSE-ConnectionGUID: oR5yJ2edRGelgA0+PDF/Ig==
-X-CSE-MsgGUID: q0Qh1rswRDGuNJoMg9CT8Q==
+   d="scan'208";a="2645599"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:30:09 -0800
+X-CSE-ConnectionGUID: qyTjkWQnQES/5XQ+fKbrWQ==
+X-CSE-MsgGUID: jEWwxn08Sd6gOSnT6Y1fsw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="6999021"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 05 Nov 2026 18:29:53 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xP9i7-00000000nCd-0Cju;
-	Fri, 06 Nov 2026 02:29:47 +0000
-Date: Fri, 6 Nov 2026 10:29:01 +0800
-From: kernel test robot <lkp@intel.com>
-To: Arnd Bergmann <arnd@kernel.org>, Ingo Molnar <mingo@redhat.com>
-Cc: oe-kbuild-all@lists.linux.dev, Arnd Bergmann <arnd@arndb.de>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>, Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, linux-um@lists.infradead.org
-Subject: Re: [PATCH 3/7] x86: make CX8 usage unconditional
-Message-ID: <202611060951.0UkJ1SVg-lkp@intel.com>
-References: <20261105163440.2381661-4-arnd@kernel.org>
+   d="scan'208";a="7072715"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:30:09 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 18:30:08 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 18:30:08 -0800
+Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.36) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 18:30:08 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xybYjdYZD09rYwJLUBkcVXW5IwJXB/6kBi0HNEzmc8IRT1grFBODKuenW/eGiz829KayHikhSRsEwiIn+tySALpySExD9JqnNAhbGaIRQfNE8DyDyltpy8deTdFGy/Qs7hsiwFljmhh3asVccwH86ngZZAfafaBizreZo1naHyIvaZ9YYgszx+1wyydSqoYuguYlewYPyq2JVuycaOqYfd4xAZXGZqyH6h+zlfCdDXbsG1kAcX6JwD08KvNQ4JaZxNxS3dTJuM/y5v4dZGDABDzmo4pQ3Ocn2MUV3Tn8q+bX72HVk1tRaO+tkMmBYVObbLJ5HHTvAziKs+ZZGcOmLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2pq2hNE3VJt3Ik6bm9rg/6HMOwNrcCZh5dUk60gwJXY=;
+ b=ovZOKOJJVgGzVEu0DhKRC0Ve9PE+6Ca7N0tsxhAtLqJ8Fd1iOdvloOAgJy4e1xJvqnoWbZ6who7NPXZu1tSAKNIBO/+f8U3OhwzmE+G/iQlf9A6i4/z1IWbqsLIR5qqpIclCEugX6LTV5bzCa8pNtE7Ce2kGeMTVN9AmD4dJyVVD9CrGdWtp0Dg5Xmv+56gHHZkGZz0I3ReKqaT5qtTIqP3v/Kk3b1IuI3j2aUzjTFQjX+IaLUsKYegM9XeVElNBW5rKXep086IN4uAd+0oj4veHk00ws0kcNQhJJUoh5/3jmJ6TH+N6LYxERjEUv5rKRFj4edjUf1WkK++gws7ztQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by LV1PR11MB8844.namprd11.prod.outlook.com (2603:10b6:408:2b4::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 02:30:05 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0569.011; Fri, 6 Nov 2026
+ 02:30:04 +0000
+Date: Thu, 5 Nov 2026 18:30:01 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 02/33] drm/ttm/pool: Add ttm_pool_page_order_nodma()
+ helper
+Message-ID: <au07qcYIZwtgeYn5@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-3-matthew.brost@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-3-matthew.brost@intel.com>
+X-ClientProxiedBy: SJ0PR03CA0192.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::17) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,334 +140,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105163440.2381661-4-arnd@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|LV1PR11MB8844:EE_
+X-MS-Office365-Filtering-Correlation-Id: cee41f52-e71f-4b40-d94c-08df3baddd2c
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|22082099003|6133799003|10067099003|4143699003|11063799006|261026140227099003|261026121527099003|261028144727099003|261102123227099003|261009221727099003|261009223327099003|261022105027099003|56012099006|261009223027099003|261102130727099003|261009220027099003|261009221227099003|261022075727099003|261021123027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: ocmz50cCY8wfP6qG7fGTvHUIniyMIXQkRNRekICTZY5yUwSarKqApZMf2t6yaSsBxRxnQ+PPAk4Vq9/1bQIop/289bYPs6dA0CGKIo7n8J18Su8/f4/P9MMSGfklAw6fyiHftRDyIXtc2+r6/SoKWTznwmjFI3chB9JKc0rTcpVZ3qOpGUd2JJ+gExCEBZswisGbLuyJSNWVco2E4puhRVEJaOZEtbyIZ49Rbae8Vrs1dqdZn1DEuOxzp5miNVFeoLat1w7VdBkgn56B4+GJTSLCtp62uzvBDG6mwAV6gY0y4aERuHJRFNL3EzSxABvndRI4YwNpswW5syBbhlQ3bSJg/iVZR7ZSAXgLU8jv0gzBr6i25/KeYYlCHkmVFa0Zk1ZE5XGW5DSx6hN33KKcmVOf6i6cwNckY1CddMEDKL0rYWhWSpYcUEk/U4YE8+kEA8d9R2chvR2K4Nui8xLCdVuzOoZe6OtjgDnrq5djskYQuhB9RIrF9nhRZG1hduekzzHkcchRwPiqMaru9+kUgKWoTQl7aUOcQZs6BvJOnlDIDSkQPRXUf1wr5BcA+gAYAUu9yeyRP0B/y0UdBhfp3QQhDTgk1phQUMmpBQxuX083RdSvNFcnoNhCiv3GpiRCaKrIZj8/2YGRLHwA8JixniCH5fdD506E5OMfRrV5Hdw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(4143699003)(11063799006)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(261009221727099003)(261009223327099003)(261022105027099003)(56012099006)(261009223027099003)(261102130727099003)(261009220027099003)(261009221227099003)(261022075727099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?CrE+rN/V4xHw5/aLjdxDFytHRJVSY4TcPB2RJXOduZSQgGTkDBiatDZNF+?=
+ =?iso-8859-1?Q?/I9sI4aeWHcgbA9iqjy5uUzsUMO2gVno7HJR6AaLjPDvOGV9Duer33jrf+?=
+ =?iso-8859-1?Q?xToL3fhGaw5lwxKcT1lJQtHSjtdJYWquhmVaaCeODTNSfPjDnpM5rZhOnG?=
+ =?iso-8859-1?Q?VmpVxdRuapJutf7T3KxPV212F8H0xHNwmOvd/w1YN3ySF6Fo6ELYQqoNoI?=
+ =?iso-8859-1?Q?Unx61MEzvZ61XtQ3TXArm8WQGSbyo3TS5cRX2zJMW99VIk+HuuRtNtDm19?=
+ =?iso-8859-1?Q?tYtMS3DbCS6VQYaHYRVg/ixicmhEqXnx6pFuaICw2SQAin+20P4rUwY6//?=
+ =?iso-8859-1?Q?HyO06/lHzD93xrpulh0b9Q6ASULYIR7cX5+By3fBdU+thFs3x+g9WbCbVm?=
+ =?iso-8859-1?Q?GY4RKJAPL/xJVDwROTC9veQqnmrSCNM0O41GJzrOm/13yOyBASN5maDby0?=
+ =?iso-8859-1?Q?qrjMEuBFfh78sUSdzdZkyWtmKU4YHo/ZahKcC1V9EUYJmYo7X38almBe0M?=
+ =?iso-8859-1?Q?87jC+T/bIC2dm9CjVK7v8UcCsM4LwQGhIdM32g6SwwypiGm10eMzGEnT5G?=
+ =?iso-8859-1?Q?LfQF5dank7RnnCF/OY9/QOFGistnvXVmnt76Tv5K3WI/QCD4+lAyvSHk0e?=
+ =?iso-8859-1?Q?ZoFOQBVPRePL9pEUFCAnpKrH+gzGKXY8/0/GJ0rbhQ2Mco55AYrsTePdzR?=
+ =?iso-8859-1?Q?kSBbKZdbJERaASVguKkZkEZe5V8626DaNwe58+v/e1vTHGAM7myXPKHQIe?=
+ =?iso-8859-1?Q?MVCTdg8WIsvY86na9BlY0uYCz/BkJoNdGrAbmyYFVW3ne05LLNNTXTB9v6?=
+ =?iso-8859-1?Q?FFUlG5TtmWzqsQtV2E8LZcgJch8+q1MSfEL7t1tX8nrkO4V8eTPQILXuF0?=
+ =?iso-8859-1?Q?2QNXRFteeIUC+ZW6ZA6UOtkRpsZXKqCwUxr7huOn2sxbDGmG/bkvLVW88I?=
+ =?iso-8859-1?Q?jt9+ir0TDGlxBJbtoAdcp2S/jhDTw8tzYb8QdBCasEpVN0d8RPB3G985Tw?=
+ =?iso-8859-1?Q?eHGfQHQGstmKdcM2NK51tp/pyMb1GxAqRnn72PqVxVLKTKGpsIRE7QGqX7?=
+ =?iso-8859-1?Q?NuPHeiRaz4UGJhrJNIQL7PCTtcP/EgUnxjQnaYN38VffJUVnL0AYrVP1BZ?=
+ =?iso-8859-1?Q?sezlhL/+S2oredEghsnxQHyjjX3G1/rqiy1L6PAIGD2Dt7NeQublAI+1Ew?=
+ =?iso-8859-1?Q?daW7m4Dl1kadHetbc6UC3pegILuAJ+/BvPIGRYzKFvOuOozSr9zF9o5nxH?=
+ =?iso-8859-1?Q?OJuPboYm9C1FKX50AV57H8U/zmh2wfc93XJoBpCgKA9G+aK5VdV/3pPfKa?=
+ =?iso-8859-1?Q?MRQdm5qaM/KB70dcizwYJ0kzwDBcgMdDTfMTDRz317qZIRXqbfHoScfX+y?=
+ =?iso-8859-1?Q?gfzocE6RGz5kpQi/ZU4dc5iSzLqp10dKrUn/0yw04r5UBNZBI7C8VQWbj7?=
+ =?iso-8859-1?Q?MlZt3y/D3HlxfCjRWs5BnhpE0EqPGrAyibGWvhTHVLTDbbQ65qnPkX/JPF?=
+ =?iso-8859-1?Q?CKkaaFWoZ2WQTGJp9ncIzNzMPBdSfTJzFl6rE4x+S7kbjWDEA23R7PTMLp?=
+ =?iso-8859-1?Q?YczCAGbR5pHGID8FXh5zMZDgeNdMKb0NtTPHfL/ExpS5J4gQ8R/AYb5fbG?=
+ =?iso-8859-1?Q?09abHWqw5ypM6OXT/I2U8HQxeF/AiUoBNo81/9wgeA9d85jPpLCaV/d546?=
+ =?iso-8859-1?Q?+/esW/AR/EnXV+J2YJQfDH7y5H9uPyYOT5XZ5zOtUYHMsF3J3CHNduq3+m?=
+ =?iso-8859-1?Q?newc2fZyi7fGxfhGqoVoBNDkPrKdUaEoRxtdVccn+8uGs4dW2/rnjJ7Jaq?=
+ =?iso-8859-1?Q?FYO8PBn2e5WXAXQeME7i756pxAobakr3aJn7IAn5nsnacGIvfKrg?=
+X-Exchange-RoutingPolicyChecked: CYF4Kfg9Nm69W7v+SolvmnEnupeNbFWHysPdcyVe0ClWooOM8Ca8bwQPiFRuC1JeDkC+tUHrlFzcGaKxEUaSHj4zXJ2/PsMqbgdLqVd4CSqWgO22Oo2kSoe29if4WrSS81Hstlku+MSCZrE0iCDaG/hYMpf+z1RMDNAKsrAGTr2qOsKDpNsyoGwLgVYWimvUjAoJNVzjk0Vy3HDI2oIA5L/W66Are0iBLaWWsYE7jGGS7vefGTDK1AKiFEAarF56QbdXZMoJgKCP6j6CxgVGed+lifLuZ2qqlMCvT5UCirbXVCQo6ApFJPj96gog0ZosIBYZ19+QY5SpmB5WD6nsRQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: cee41f52-e71f-4b40-d94c-08df3baddd2c
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 02:30:04.8340
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YbTMtqOxzle6lmKF2wDfYGvySyquWu4vM5xKuyG8WKAVs1OZPortU10wU//U+3GebFFFmqeNTfM38WNB08P1MaWr8SgvJj2dDEgppqbjRk5freSW7G7HkShlUSxvU56l
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR11MB8844
+X-OriginatorOrg: intel.com
 
-Hi Arnd,
+On Fri, Jul 10, 2026 at 07:55:48PM -0700, Matthew Brost wrote:
+>TTM records the allocation order of a multi-order page in page->private at
+>allocation time. For pools that do not use dma_alloc the order is stored
+>directly, while dma_alloc pools store a struct ttm_pool_dma pointer there
+>instead. Drivers that do their own DMA mapping (e.g. Xe) need the per-page
+>order to walk a populated ttm_tt one chunk at a time, but cannot rely on
+>folio_order(): TTM allocates high-order pages with alloc_pages_node()
+>without __GFP_COMP, so they are not compound and folio_order() always
+>returns 0.
+>
+>Expose ttm_pool_page_order_nodma(), a thin wrapper that returns the order
+>recorded in page->private. It is only valid for pages from a pool that does
+>not use dma_alloc; whether a TTM device uses dma_alloc is fixed at ttm
+>device init time, so callers know from their device configuration that this
+>helper applies. Use it from the existing internal ttm_pool_page_order() to
+>keep a single source of truth.
+>
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Assisted-by: GitHub_Copilot:claude-opus-4.8
+>Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>---
+> drivers/gpu/drm/ttm/ttm_pool.c | 25 ++++++++++++++++++++++++-
+> include/drm/ttm/ttm_pool.h     |  2 ++
+> 2 files changed, 26 insertions(+), 1 deletion(-)
+>
+>diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>index ab242ad4339e..5b7d7f5ae53d 100644
+>--- a/drivers/gpu/drm/ttm/ttm_pool.c
+>+++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>@@ -461,6 +461,29 @@ static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
+> 	return num_pages;
+> }
+>
+>+/**
+>+ * ttm_pool_page_order_nodma() - Allocation order of a non-dma_alloc TTM page
+>+ * @p: The page to query.
+>+ *
+>+ * Return the allocation order that the TTM pool allocator recorded in
+>+ * @p->private at allocation time. This only works for pages that were
+>+ * allocated from a pool which does *not* use dma_alloc (i.e. pages backed by
+>+ * alloc_pages_node()), where TTM stores the order directly in page->private.
+>+ *
+>+ * For dma_alloc pools, page->private instead holds a struct ttm_pool_dma
+>+ * pointer and this helper must not be used. Whether a TTM device uses
+>+ * dma_alloc is fixed at ttm device init time, so callers are expected to know
+>+ * from their TTM device configuration that their pages are not dma_alloc
+>+ * backed before using this helper.
+>+ *
+>+ * Return: The allocation order of the page.
+>+ */
+>+unsigned int ttm_pool_page_order_nodma(struct page *p)
+>+{
+>+	return p->private;
+>+}
+>+EXPORT_SYMBOL(ttm_pool_page_order_nodma);
 
-kernel test robot noticed the following build errors:
+NIT...make page pointer const?
+LGTM.
+Reviewed-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 
-[auto build test ERROR on tip/x86/core]
-[also build test ERROR on uml/next linus/master v7.4-rc1 next-20261105]
-[cannot apply to uml/fixes]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Arnd-Bergmann/x86-remove-AMD-lan-remnants/20261105-173432
-base:   tip/x86/core
-patch link:    https://lore.kernel.org/r/20261105163440.2381661-4-arnd%40kernel.org
-patch subject: [PATCH 3/7] x86: make CX8 usage unconditional
-config: um-i386_defconfig (https://download.01.org/0day-ci/archive/20261106/202611060951.0UkJ1SVg-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261106/202611060951.0UkJ1SVg-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611060951.0UkJ1SVg-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   /usr/bin/ld: kernel/fork.o: in function `arch_atomic64_set':
->> arch/x86/include/asm/atomic64_32.h:108:(.text+0x5fd): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: kernel/ksysfs.o: in function `arch_atomic64_read':
->> arch/x86/include/asm/atomic64_32.h:117:(.text+0x58): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: kernel/sched/fair.o: in function `arch_atomic64_add':
->> arch/x86/include/asm/atomic64_32.h:165:(.text+0x1c52): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: kernel/sched/build_policy.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x2790): undefined reference to `atomic64_add_return_cx8'
->> /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:165:(.text+0x5310): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: kernel/printk/printk.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0xf41): undefined reference to `atomic64_set_cx8'
->> /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:108:(.text+0xf57): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: kernel/printk/printk.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x115f): undefined reference to `atomic64_read_cx8'
->> /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x1188): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: kernel/printk/printk.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x1228): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: kernel/printk/printk.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x242a): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x248d): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x2501): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x2560): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: kernel/printk/printk.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x25c3): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:108:(.text+0x25e4): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: kernel/time/timekeeping.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x32d3): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x339e): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: kernel/futex/core.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0xbf9): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: kernel/futex/core.o: in function `arch_atomic64_inc_return':
->> arch/x86/include/asm/atomic64_32.h:144:(.text+0xc13): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: fs/inode.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x4cd): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: fs/inode.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x1df4): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x1f3c): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: fs/ext4/mballoc.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x253a): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: fs/ext4/mballoc.o: in function `arch_atomic64_inc':
-   arch/x86/include/asm/atomic64_32.h:181:(.text+0x2ac8): undefined reference to `atomic64_inc_return_cx8'
->> /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0x4d1a): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0x4ee5): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0x4f7b): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0x523a): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: fs/ext4/mballoc.o:arch/x86/include/asm/atomic64_32.h:181: more undefined references to `atomic64_inc_return_cx8' follow
-   /usr/bin/ld: fs/ext4/mballoc.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x5454): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x546c): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x5499): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x54be): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x54d9): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: fs/ext4/mballoc.o:arch/x86/include/asm/atomic64_32.h:117: more undefined references to `atomic64_read_cx8' follow
-   /usr/bin/ld: fs/ext4/mballoc.o: in function `arch_atomic64_sub':
->> arch/x86/include/asm/atomic64_32.h:173:(.text+0x651f): undefined reference to `atomic64_sub_return_cx8'
-   /usr/bin/ld: fs/ext4/mballoc.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x6526): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: fs/ext4/super.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x850): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: fs/ext4/super.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x201a): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: fs/ext4/super.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x87f9): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: fs/ext4/super.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x8a43): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: fs/ext4/sysfs.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x1fc): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: fs/ext4/sysfs.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x4f2): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: fs/ext4/fast_commit.o: in function `arch_atomic64_inc':
-   arch/x86/include/asm/atomic64_32.h:181:(.text+0x3b0): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0xefd): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0xf18): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0xf69): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0xfa4): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: fs/ext4/fast_commit.o:arch/x86/include/asm/atomic64_32.h:181: more undefined references to `atomic64_inc_return_cx8' follow
-   /usr/bin/ld: fs/ext4/fast_commit.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x12dc): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: fs/ext4/fast_commit.o: in function `arch_atomic64_inc':
-   arch/x86/include/asm/atomic64_32.h:181:(.text+0x133c): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0x17f7): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0x1830): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:181:(.text+0x18fe): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: fs/ext4/fast_commit.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x19db): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: fs/ext4/fast_commit.o: in function `arch_atomic64_inc':
-   arch/x86/include/asm/atomic64_32.h:181:(.text+0x19e9): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: fs/ext4/fast_commit.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x19fb): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x2bf4): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x2c06): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x2c17): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x2cd0): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: fs/ext4/fast_commit.o:arch/x86/include/asm/atomic64_32.h:117: more undefined references to `atomic64_read_cx8' follow
-   /usr/bin/ld: block/genhd.o: in function `arch_atomic64_inc_return':
-   arch/x86/include/asm/atomic64_32.h:144:(.text+0x17d5): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:144:(.text+0x18c5): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: net/core/sock_diag.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x4a5): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: net/core/sock_diag.o: in function `arch_atomic64_dec_return':
->> arch/x86/include/asm/atomic64_32.h:155:(.text+0x4e7): undefined reference to `atomic64_dec_return_cx8'
-   /usr/bin/ld: net/core/sock_diag.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x50d): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: lib/kobject_uevent.o: in function `arch_atomic64_inc_return':
-   arch/x86/include/asm/atomic64_32.h:144:(.text+0x1d0): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:144:(.text+0x75e): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: fs/ext4/inline.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x1faf): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: io_uring/rsrc.o: in function `arch_atomic64_sub':
-   arch/x86/include/asm/atomic64_32.h:173:(.text+0x480): undefined reference to `atomic64_sub_return_cx8'
-   /usr/bin/ld: io_uring/rsrc.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x5ac): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: kernel/nstree.o: in function `arch_atomic64_inc_return':
-   arch/x86/include/asm/atomic64_32.h:144:(.text+0x962): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: kernel/time/posix-cpu-timers.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x129): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x137): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x145): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x1b7): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: kernel/bpf/core.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x260b): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: kernel/bpf/core.o: in function `arch_atomic64_xchg':
->> arch/x86/include/asm/atomic64_32.h:96:(.text+0x2ba8): undefined reference to `atomic64_xchg_cx8'
-   /usr/bin/ld: kernel/bpf/core.o: in function `arch_atomic64_dec':
-   arch/x86/include/asm/atomic64_32.h:190:(.text+0x46dd): undefined reference to `atomic64_dec_return_cx8'
-   /usr/bin/ld: fs/libfs.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x275): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x293): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x303): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: fs/proc/task_mmu.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x272c): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: fs/ext4/balloc.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x95): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: fs/ext4/dir.o:arch/x86/include/asm/atomic64_32.h:117: more undefined references to `atomic64_read_cx8' follow
-   /usr/bin/ld: fs/ext4/inode.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x5221): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: fs/ext4/ioctl.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x1746): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: fs/ext4/resize.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x1adf): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: fs/ext4/xattr.o: in function `arch_atomic64_read':
->> arch/x86/include/asm/atomic64_32.h:117:(.text+0x58): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: fs/ext4/xattr.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x9eb): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: block/blk-cgroup.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x1f9): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x254): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: block/blk-cgroup.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x2d2): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: block/blk-cgroup.o: in function `arch_atomic64_sub':
-   arch/x86/include/asm/atomic64_32.h:173:(.text+0x2e6): undefined reference to `atomic64_sub_return_cx8'
-   /usr/bin/ld: block/blk-cgroup.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x10dc): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:117:(.text+0x1a77): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: block/blk-cgroup.o: in function `arch_atomic64_add':
-   arch/x86/include/asm/atomic64_32.h:165:(.text+0x1f64): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: block/blk-cgroup-rwstat.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x22): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:108:(.text+0x2a): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:108:(.text+0x32): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:108:(.text+0x3a): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: arch/x86/include/asm/atomic64_32.h:108:(.text+0x42): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: block/blk-cgroup-rwstat.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x1b7): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: net/ipv4/inet_timewait_sock.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x254): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: net/ipv4/inet_timewait_sock.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x265): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: net/ipv4/inet_connection_sock.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x112b): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: net/ipv4/inet_connection_sock.o: in function `arch_atomic64_read':
-   arch/x86/include/asm/atomic64_32.h:117:(.text+0x17e9): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: net/ipv4/inet_connection_sock.o: in function `arch_atomic64_set':
-   arch/x86/include/asm/atomic64_32.h:108:(.text+0x17fa): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_read_cx8':
->> .vmlinux.export.c:(___ksymtab+atomic64_read_cx8+0x0): undefined reference to `atomic64_read_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_set_cx8':
->> .vmlinux.export.c:(___ksymtab+atomic64_set_cx8+0x0): undefined reference to `atomic64_set_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_xchg_cx8':
->> .vmlinux.export.c:(___ksymtab+atomic64_xchg_cx8+0x0): undefined reference to `atomic64_xchg_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_add_return_cx8':
->> .vmlinux.export.c:(___ksymtab+atomic64_add_return_cx8+0x0): undefined reference to `atomic64_add_return_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_sub_return_cx8':
->> .vmlinux.export.c:(___ksymtab+atomic64_sub_return_cx8+0x0): undefined reference to `atomic64_sub_return_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_inc_return_cx8':
->> .vmlinux.export.c:(___ksymtab+atomic64_inc_return_cx8+0x0): undefined reference to `atomic64_inc_return_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_dec_return_cx8':
->> .vmlinux.export.c:(___ksymtab+atomic64_dec_return_cx8+0x0): undefined reference to `atomic64_dec_return_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_dec_if_positive_cx8':
->> .vmlinux.export.c:(___ksymtab+atomic64_dec_if_positive_cx8+0x0): undefined reference to `atomic64_dec_if_positive_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_inc_not_zero_cx8':
-   .vmlinux.export.c:(___ksymtab+atomic64_inc_not_zero_cx8+0x0): undefined reference to `atomic64_inc_not_zero_cx8'
-   /usr/bin/ld: .vmlinux.export.o: in function `__ksymtab_atomic64_add_unless_cx8':
-   .vmlinux.export.c:(___ksymtab+atomic64_add_unless_cx8+0x0): undefined reference to `atomic64_add_unless_cx8'
-   collect2: error: ld returned 1 exit status
-
-
-vim +108 arch/x86/include/asm/atomic64_32.h
-
-276b893049e4cd Uros Bizjak    2024-04-10   90  
-7aab7aa4b4bed2 Peter Zijlstra 2023-01-26   91  static __always_inline s64 arch_atomic64_xchg(atomic64_t *v, s64 n)
-a7e926abc3adfb Luca Barbieri  2010-02-24   92  {
-79c53a83d7a31a Mark Rutland   2019-05-22   93  	s64 o;
-a7e926abc3adfb Luca Barbieri  2010-02-24   94  	unsigned high = (unsigned)(n >> 32);
-a7e926abc3adfb Luca Barbieri  2010-02-24   95  	unsigned low = (unsigned)n;
-224788b63a2e42 Josh Poimboeuf 2025-03-02  @96  	alternative_atomic64(xchg,
-224788b63a2e42 Josh Poimboeuf 2025-03-02   97  			     "=&A" (o),
-224788b63a2e42 Josh Poimboeuf 2025-03-02   98  			     ASM_INPUT("S" (v), "b" (low), "c" (high)),
-224788b63a2e42 Josh Poimboeuf 2025-03-02   99  			     "memory");
-a7e926abc3adfb Luca Barbieri  2010-02-24  100  	return o;
-a7e926abc3adfb Luca Barbieri  2010-02-24  101  }
-37f8173dd84936 Peter Zijlstra 2020-01-24  102  #define arch_atomic64_xchg arch_atomic64_xchg
-1a3b1d89eded68 Brian Gerst    2010-01-07  103  
-7aab7aa4b4bed2 Peter Zijlstra 2023-01-26  104  static __always_inline void arch_atomic64_set(atomic64_t *v, s64 i)
-a7e926abc3adfb Luca Barbieri  2010-02-24  105  {
-a7e926abc3adfb Luca Barbieri  2010-02-24  106  	unsigned high = (unsigned)(i >> 32);
-a7e926abc3adfb Luca Barbieri  2010-02-24  107  	unsigned low = (unsigned)i;
-224788b63a2e42 Josh Poimboeuf 2025-03-02 @108  	alternative_atomic64(set,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  109  			     /* no output */,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  110  			     ASM_INPUT("S" (v), "b" (low), "c" (high)),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  111  			     "eax", "edx", "memory");
-a7e926abc3adfb Luca Barbieri  2010-02-24  112  }
-1a3b1d89eded68 Brian Gerst    2010-01-07  113  
-7aab7aa4b4bed2 Peter Zijlstra 2023-01-26  114  static __always_inline s64 arch_atomic64_read(const atomic64_t *v)
-1a3b1d89eded68 Brian Gerst    2010-01-07  115  {
-79c53a83d7a31a Mark Rutland   2019-05-22  116  	s64 r;
-224788b63a2e42 Josh Poimboeuf 2025-03-02 @117  	alternative_atomic64(read, "=&A" (r), "c" (v), "memory");
-a7e926abc3adfb Luca Barbieri  2010-02-24  118  	return r;
-1a3b1d89eded68 Brian Gerst    2010-01-07  119  }
-1a3b1d89eded68 Brian Gerst    2010-01-07  120  
-7aab7aa4b4bed2 Peter Zijlstra 2023-01-26  121  static __always_inline s64 arch_atomic64_add_return(s64 i, atomic64_t *v)
-a7e926abc3adfb Luca Barbieri  2010-02-24  122  {
-819165fb34b977 Jan Beulich    2012-01-20  123  	alternative_atomic64(add_return,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  124  			     ASM_OUTPUT("+A" (i), "+c" (v)),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  125  			     /* no input */,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  126  			     "memory");
-a7e926abc3adfb Luca Barbieri  2010-02-24  127  	return i;
-a7e926abc3adfb Luca Barbieri  2010-02-24  128  }
-37f8173dd84936 Peter Zijlstra 2020-01-24  129  #define arch_atomic64_add_return arch_atomic64_add_return
-1a3b1d89eded68 Brian Gerst    2010-01-07  130  
-7aab7aa4b4bed2 Peter Zijlstra 2023-01-26  131  static __always_inline s64 arch_atomic64_sub_return(s64 i, atomic64_t *v)
-a7e926abc3adfb Luca Barbieri  2010-02-24  132  {
-819165fb34b977 Jan Beulich    2012-01-20  133  	alternative_atomic64(sub_return,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  134  			     ASM_OUTPUT("+A" (i), "+c" (v)),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  135  			     /* no input */,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  136  			     "memory");
-a7e926abc3adfb Luca Barbieri  2010-02-24  137  	return i;
-a7e926abc3adfb Luca Barbieri  2010-02-24  138  }
-37f8173dd84936 Peter Zijlstra 2020-01-24  139  #define arch_atomic64_sub_return arch_atomic64_sub_return
-a7e926abc3adfb Luca Barbieri  2010-02-24  140  
-7aab7aa4b4bed2 Peter Zijlstra 2023-01-26  141  static __always_inline s64 arch_atomic64_inc_return(atomic64_t *v)
-a7e926abc3adfb Luca Barbieri  2010-02-24  142  {
-79c53a83d7a31a Mark Rutland   2019-05-22  143  	s64 a;
-224788b63a2e42 Josh Poimboeuf 2025-03-02 @144  	alternative_atomic64(inc_return,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  145  			     "=&A" (a),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  146  			     "S" (v),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  147  			     "memory", "ecx");
-a7e926abc3adfb Luca Barbieri  2010-02-24  148  	return a;
-a7e926abc3adfb Luca Barbieri  2010-02-24  149  }
-9837559d8eb01c Mark Rutland   2018-06-21  150  #define arch_atomic64_inc_return arch_atomic64_inc_return
-a7e926abc3adfb Luca Barbieri  2010-02-24  151  
-7aab7aa4b4bed2 Peter Zijlstra 2023-01-26  152  static __always_inline s64 arch_atomic64_dec_return(atomic64_t *v)
-a7e926abc3adfb Luca Barbieri  2010-02-24  153  {
-79c53a83d7a31a Mark Rutland   2019-05-22  154  	s64 a;
-224788b63a2e42 Josh Poimboeuf 2025-03-02 @155  	alternative_atomic64(dec_return,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  156  			     "=&A" (a),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  157  			     "S" (v),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  158  			     "memory", "ecx");
-a7e926abc3adfb Luca Barbieri  2010-02-24  159  	return a;
-a7e926abc3adfb Luca Barbieri  2010-02-24  160  }
-9837559d8eb01c Mark Rutland   2018-06-21  161  #define arch_atomic64_dec_return arch_atomic64_dec_return
-1a3b1d89eded68 Brian Gerst    2010-01-07  162  
-dce2a224763ce9 Uros Bizjak    2024-06-05  163  static __always_inline void arch_atomic64_add(s64 i, atomic64_t *v)
-a7e926abc3adfb Luca Barbieri  2010-02-24  164  {
-819165fb34b977 Jan Beulich    2012-01-20 @165  	__alternative_atomic64(add, add_return,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  166  			       ASM_OUTPUT("+A" (i), "+c" (v)),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  167  			       /* no input */,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  168  			       "memory");
-a7e926abc3adfb Luca Barbieri  2010-02-24  169  }
-1a3b1d89eded68 Brian Gerst    2010-01-07  170  
-dce2a224763ce9 Uros Bizjak    2024-06-05  171  static __always_inline void arch_atomic64_sub(s64 i, atomic64_t *v)
-a7e926abc3adfb Luca Barbieri  2010-02-24  172  {
-819165fb34b977 Jan Beulich    2012-01-20 @173  	__alternative_atomic64(sub, sub_return,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  174  			       ASM_OUTPUT("+A" (i), "+c" (v)),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  175  			       /* no input */,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  176  			       "memory");
-a7e926abc3adfb Luca Barbieri  2010-02-24  177  }
-1a3b1d89eded68 Brian Gerst    2010-01-07  178  
-7aab7aa4b4bed2 Peter Zijlstra 2023-01-26  179  static __always_inline void arch_atomic64_inc(atomic64_t *v)
-a7e926abc3adfb Luca Barbieri  2010-02-24  180  {
-224788b63a2e42 Josh Poimboeuf 2025-03-02 @181  	__alternative_atomic64(inc, inc_return,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  182  			       /* no output */,
-224788b63a2e42 Josh Poimboeuf 2025-03-02  183  			       "S" (v),
-224788b63a2e42 Josh Poimboeuf 2025-03-02  184  			       "memory", "eax", "ecx", "edx");
-a7e926abc3adfb Luca Barbieri  2010-02-24  185  }
-4331f4d5ada568 Randy Dunlap   2018-09-02  186  #define arch_atomic64_inc arch_atomic64_inc
-1a3b1d89eded68 Brian Gerst    2010-01-07  187  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>+
+> /* Return the allocation order based for a page */
+> static unsigned int ttm_pool_page_order(struct ttm_pool *pool, struct page *p)
+> {
+>@@ -470,7 +493,7 @@ static unsigned int ttm_pool_page_order(struct ttm_pool *pool, struct page *p)
+> 		return dma->vaddr & ~PAGE_MASK;
+> 	}
+>
+>-	return p->private;
+>+	return ttm_pool_page_order_nodma(p);
+> }
+>
+> /*
+>diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+>index 26ee592e1994..753203980e2c 100644
+>--- a/include/drm/ttm/ttm_pool.h
+>+++ b/include/drm/ttm/ttm_pool.h
+>@@ -94,6 +94,8 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *ttm,
+> int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+> 			       const struct ttm_operation_ctx *ctx);
+>
+>+unsigned int ttm_pool_page_order_nodma(struct page *p);
+>+
+> int ttm_pool_mgr_init(unsigned long num_pages);
+> void ttm_pool_mgr_fini(void);
+>
+>-- 
+>2.34.1
+>
