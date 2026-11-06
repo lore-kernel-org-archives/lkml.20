@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956931;
-	b=rYsQiTEmYJsGSiAwbUmWGlvEOns0SlTEqTnXDdXOM/W7wBtcQCcEYWozt9Fi2Km7yssu
-	 gxkkB5qJDHHcDJWs/LjzSs7APW64AC5VZMIY2qjTp2CDODyrmEPOMSfs1HTbfr5xflA1o
-	 34bZ3XcERTMWzwImSpMPoG+nrHgJNoJcwfjGa6uOPZOLs1QHDWCS9GT0o+mwq2nrkmxQl
-	 fyfjzEDtbzcWyx+c10vfMtYAw68Efzzjsza9rxqpsnZo9duunWEdWaGh8BU/FHRAe5NWm
-	 CHpWry2/YJ7olPE5JJ/Inqt4CXlxZXd/JE+g0y9OOLvcZL43sSSenPKDVi63PDq5Qpw==
+	t=1793956925;
+	b=jWpp5ugImvCAGRqJVZjvL2PWHaAoeXba6BsbaSgdRog6Ha28/ajMxh8El7RlD63PwILz
+	 e/7jLM/1RnrffcP6LCB3/x6Yw1b9EFytU+ctjMFAStiqcfJiKZmE46i1t1kWLIh+HSVBn
+	 usKpavb+D7ju9s+Ug9lGtz0A9aSZdb5kcqdiwOUhiHH3r6B9EcEneJeQMFnOlt36pq6Af
+	 3sAMH1RMzSA4JAPV8SKyrCwq+6PypmfyFn2tOVwHs6bd2k7P91o+AnGqNRss9VPbFHVeV
+	 S4Q4IbSl4pnlXYMOkyl29L57j8bQICrKB80TZGyFQQsh1d0uy8Mg2I7wRU22VD1D6eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956931;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956925;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BK67UWeyDCYkVIdsN2UiQcCy7uNbGk0i6Dpj6j7cO5M=;
-	b=hNDizjjB9qFPDNnl4vfu3cQU6iN+6StoHSldxfANKEW/pAxa8fyZmJxuxAXPNY4nj+fY
-	 iybLKao0LP1jEvN1LeIr3U/KyTxsd+WwGjTKPEtTu1vr8LZsTaO0rfsw8MuGmm2FAAm6T
-	 CYO7RnsNkIzJpXzy5AtJwE6UtraGiK82ol2oA2z+u4fz6SKMNV6Px88s+f6XrJ5Miqvev
-	 4f6fpS2hUGxmJ8FkzgE9nxcMNiqBwKKwkigQhZYCjBGrDJVlbRcyx9Usa+oP+ORFfJYgq
-	 NnYphnsRpVTAtLo4J7Ll/eywPic6HbZX95CG2rf51CWwoQO4m6U4LD/4xwA10oxVTPA==
+	bh=TmTInOdBW2S88oUds34DqgFhVrod/eStkNJs0WetGwk=;
+	b=3NsZyZj4lE/y99tad5FeWDqsPR0EKkTYNWayum/JGn4r/XX/Pbqfy1XpxESHzFN6gIoA
+	 ZU932Wa8wbllopdSRanghGGdsxN1CmpIiTk7OmhFR6pJ5lMG4EPZqQ59Jr98BcPi+MUys
+	 F9ZEbFdQ8nxIxXiB3XcGpg5lU15s3nBiUpYc03Gi8xG6wEa+DxQCXv1dNwviw0S9wZ84m
+	 Swq02BezPm6cYRiyaDPW31BBALHQDZvfd/kX5zf0LzdtUL8FJ/wChipWVwNr9PVQHLewQ
+	 94XMJU9fK87zbll1kHBf95Ay7qolPqToet9dAsghf2KcXlh3nnlAxDB5atoG4GeS+XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TbevARwK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5HHW2pU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C4DDE606D815;
-	Fri,  6 Nov 2026 09:22:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8318D606A32C;
+	Fri,  6 Nov 2026 09:22:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TbevARwK
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E78581F008AB;
-	Fri,  6 Nov 2026 09:22:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5HHW2pU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1651F1F008A1;
+	Fri,  6 Nov 2026 09:22:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793956930;
-	bh=BK67UWeyDCYkVIdsN2UiQcCy7uNbGk0i6Dpj6j7cO5M=;
+	s=k20260515; t=1793956925;
+	bh=TmTInOdBW2S88oUds34DqgFhVrod/eStkNJs0WetGwk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TbevARwKj03Idms0HL0Vf4StM+AvKFmGABtHRc9fLJYptaU5MXjyG4PFu0c5Wvahu
-	 7QkGaO8YEoVPmTRIHQXW/AURaMl9dJCJMUi77sPXxdL4tuzmWdODFTO/IJwIKxXch2
-	 BeIkhAsvRK7n071pWasKGZeYR/WiCntFX1dN+Y6AezvZ53/psQ4fZ4IGE0yjqjDOQ3
-	 gOSD0dA2gp8CRBnXnn1turpZCNPTlBNGF5GtPwu14/TnFgNx22wURFVQrTPTRtdDQ/
-	 J3S2kTOYLMEXRUOfpUdZg+1Enj97eg7m6lUELbS2YN746KlMFLpIDGqRzWGqStpjfX
-	 EJUj/cEgDnQaw==
-Date: Fri, 6 Nov 2026 10:22:07 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] gpiolib: synchronize updates of descriptor labels
-Message-ID: <zgvjoccnnhhjmlejoazmz7mpfmndbhi2filwbtudq5i6s46boy@szoywmokacny>
-References: <20261105-gpiolib-set-desc-label-corruption-v1-1-fa84726ceac0@oss.qualcomm.com>
- <auyYVmSaLBS--52n@ashevche-desk.local>
+	b=H5HHW2pUxekXofpc6Fv4C5hcrSkxXSFsMYSAh7S8prSqKcDY4UeSSs1fPx2A+rMWo
+	 2i+g9Y5nH+1A0lxynudwpu9KBFzfFvWgbnL/1xym2fOm8xXqZbflTD9WRvB0KncBaU
+	 /88dluHXESNwx4+O2LU6jqhpsHs96Xk3clE+2WqPYHI1x5A8n8iDYnYJ9MEYMyqGRy
+	 jxjdzT4yYA51JDM1q0sC9m7gno5W/7JuBhXtLfxbnJ5nkvQDy5DvmUknn3YG+rVZX+
+	 UCf19B+QkVXPNf5ZLSAqJ0hCsKdqWC4c7VKj7W6NejuqIzfFNMukmexSMeNmCrdGop
+	 0AIHXmbeQ/hXQ==
+Date: Fri, 6 Nov 2026 10:22:01 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Guikun Yang <yangguikun19@qq.com>, linux-kernel@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org
+Subject: Re: [Bug report] qnx6: unvalidated di_filelevels in an inode drives
+ a shift-out-of-bounds in qnx6_block_map() - UBSAN panic at first read
+Message-ID: <20261106-einstellen-herzmuskel-behaupten-26599d61136d@brauner>
+References: <tencent_6946E1A60E7EAF8C6439BD988E45D5F9580A@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,51 +56,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <auyYVmSaLBS--52n@ashevche-desk.local>
+In-Reply-To: <tencent_6946E1A60E7EAF8C6439BD988E45D5F9580A@qq.com>
 
-On Thu, Nov 05, 2026 at 04:53:10PM +0200, Andy Shevchenko wrote:
-> On Thu, Nov 05, 2026 at 02:23:45PM +0100, Bartosz Golaszewski wrote:
-> > desc_set_label() swaps desc->label with rcu_replace_pointer() but
-> > without any synchronization of concurrent updates. The swap is a plain
-> > read + write: two threads can observe the same old label and then call
-> 
-> s/call//
+On Sat, Oct 31, 2026 at 09:00:00PM +0800, Guikun Yang wrote:
+> A natural fix is to reject the inode in qnx6_iget() when di_filelevels
+> exceeds what ptrbits allows, and to tighten the superblock check to the
+> same bound. QNX6_PTR_MAX_LEVELS alone is not sufficient for small block
+> sizes: with ptrbits = 7 the usable maximum is 31 / 7 = 4. Happy to test a
+> patch.
 
-Why? It's "call $function_name" which happens to be call_srcu().
-
-> 
-> > call_scru() on the same SRCU head corrupting the state of the chain.
-> > 
-> > Add a spinlock to struct gpio_device - we're using a single spinlock for
-> > all descriptors as using a per-descriptor lock would unnecessarily bloat
-> > the size of the desc array with very little chance and no consequences of
-> > contention - and use it to serialize the pointer update.
-> 
-> ...
-> 
-> > -	old = rcu_replace_pointer(desc->label, new, 1);
-> > -	if (old)
-> > -		call_srcu(&desc->gdev->desc_srcu, &old->rh, desc_free_label);
-> > +	scoped_guard(spinlock, &desc->gdev->desc_lock) {
-> > +		old = rcu_replace_pointer(desc->label, new,
-> > +					  lockdep_is_held(&desc->gdev->desc_lock));
-> 
-> Can lockdep_is_held() return anything except LOCK_STATE_HELD here? Or is it
-> checked outside of this scoped_guard()?
-> 
-
-No, but I'm doing it for completness and to self-document the intention.
-
-Bart
-
-> > +		if (old)
-> > +			call_srcu(&desc->gdev->desc_srcu, &old->rh, desc_free_label);
-> > +	}
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+Please send a patch. qnx6 is orphaned and reports for orphaned or badly
+maintained filesystems have low priority. Patches don't.
