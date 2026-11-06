@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929837;
-	b=Lov3JK615JA47MVbVXwGH542KcjBdRX/BIuq/QboCTPXg/Daie5/Ba10q07Wid5/iXQv
-	 fhifmoh71XkB8plYlJGb3s7IlC83nNWYjacoFrHgRlQDStAZL0sA3gutQx5iNYGvmC3QA
-	 wf0PTZ5tJ9vTbpvLjwJSdEiWKXVAaYUbnaG8DWf20Tp3GMNNOiDFXSb43H5SCy7IPfIIJ
-	 Wk2SUJlFbs2Qw4kayyd4qh8z38s2nsFj7gGFbvagbBN12Kgm9KaPYIC7G3mrgKcuZmnt+
-	 ElUE4zpITHItU/Lc9MmNyWMPwIhCqom+4ptKPSW5sMAHpzD/Mg0jncnyih69TM7D2cw==
+	t=1793929840;
+	b=n3FwoNKpnNpAhhZ3+NWA2TzfSxurwvC5xEHLC3Tu3HIBEguS8OtMij5bLNMfYHngZEB4
+	 nm8giFxLkfOcTH1dtxVzM9BpHfgfNP0vW9cjGvaRopyXuH7TmhP32SHQOXtGInZl4tXAH
+	 zvwSCfgi60d1VRHJ/Nt/lmUsRkkEqWnaoRDQMou5p/B9bhEGZto5+Uu1mio1grJk9OMH6
+	 OIUdei87Os55eSmdfmCBEri5ISsdyZr7qNpqhPiHZjxSONKZVsR/TIz9i88KOaz6/hCcY
+	 qPKEHoO+rkFaZJh5STZtvHJpTQe74HiWc0y6d4IfXqtdgBdKN6RV21zygPsDe8oyPVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929837;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929840;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=0/RWgiQ3XQTb5GJnhUqz4E6kcmy2ka2CbvDhjBbA4hs=;
-	b=KjMc0nUNJr+0BttprW91IVtmReHxSp52oe0Zbe2ZmNBf20rKxv/oSjfcf3g4YzAka2Aq
-	 nic6GE2w3TIVT5ufvc+FSfHzhW3xzbT7pi7r5eA9xu1B7mJEdwl0psDo488UzA7fvsRJV
-	 ZIioMWgQiJp89BJwBh5zqsG1J2F1XsbBNLLAC2usESS6kGMWJIjCwY3hpN+8edHyx+T+S
-	 ClyVIHOe/4SjJeVo9ZqH5PG3P5i+F8zXnC9dg2xe+2uppd6poZVVXouLlDupwrlrujzvX
-	 zmewkq7kG/Iv8UdtRRcTRxa/UsNO7g9URSL3CBAljiJEJRd3Te0knK/AmwqRpyZZhCg==
+	bh=WpXbhV6dgIekXIp68xxRfBkF7EVHcp0PgMCVjk1KBhY=;
+	b=YV0sVXBwUcTOFFZxB1IJBjNb0FvMgkFjjEf5hRLmpn9jGP/7W3E38R8t0OtF61weblu+
+	 aIPa50jLnTRytKGSneHGy52p65Wxs7a+OzAC0ygBIWLp63EEk+jYAnfLH5xMFKzn5i5jB
+	 qetVT+AykNWcanP5wX+GFPCLYHOzw1+6lZY7LQ+DDfRHVd53Vfct7wUz0yX69pJ+N7CMR
+	 qDw30q3d+YwbUF2wFzn+6IPvGqIoJ4DxCYYJ24J531ECcCcaukmNkBjKx/p1YfkrMOHOS
+	 gN1v/jhOTZ21SXFig7cwkgNKlWRwi71sI5UTzJoPm5OhhJDVxzfqXF4w+Q97OcJzqpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KsIA9w7e;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="ZIAzOiI/";
 	arc=none smtp.remote-ip=198.175.65.15
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429FF606D81E;
-	Fri,  6 Nov 2026 01:50:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 429FF606D81E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D99606A33C;
+	Fri,  6 Nov 2026 01:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5D99606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KsIA9w7e
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZIAzOiI/
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793929836; x=1825465836;
+  t=1793929840; x=1825465840;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=u3Go4M+v2dqbCzqe7zRCRS7sqaB/eyOouSmra48BVLc=;
-  b=KsIA9w7eR9LNeeUCu09op7qWR+n4B8FbztZPUcCQAyX1tkC7JVyg8Ev5
-   IClzrqMK2KO/0y3dIUp4ZVHRWbLd2EbcW4+SEoGtns349VX803+MMU7+C
-   NGRKt3WJ3i7YINfZA8z1OlsnRyqTVfEWISCd8e53JevAllj7FRjuBT14B
-   ogcIDcvMl1MRxbLFmK2TgRibtzETfeuC+81aGTn+ogScMbK+3vHeKcIIO
-   wZaEvFscwyki8HGbATpyvJJwiay65DerLei1G5vNquoViHXQkLBdCKRww
-   KUC5ojsMcvjfINZLd+i9Q+LP3LVEc2SB7Guwrff79MZN3cPEcgS6NysIU
-   w==;
-X-CSE-ConnectionGUID: nxdsd+coTN22hNe1NBlmJQ==
-X-CSE-MsgGUID: Inu2QEQCSE2GPQsaAtLSSw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740163"
+  bh=jsLVoTmoo8dCjPYSEn1fAOqAvSefpK3VybltluqKH94=;
+  b=ZIAzOiI/zcTm5MGRq2JZIVsC2zNdXKuNEoq90xLYkqbkzc93+aBzdF0R
+   gvf6ZVjKqMaQ+0hDlAjMuuu3BKUHpg8yVuHbUDNdJb4J/K5H+J+ojNHyP
+   WyZjkBzWQifBfuEwZdCSL3VnfHIIuAslvRxRnNmB88yDA7jHeSBSHEE+O
+   1RdUglZ3q3gY15dXOPnUU8R8lvOjrECpmlKSyEfy0XIDkAgQrRbDDN86Z
+   QVeLb4Q1FJy85XbdLaZ5qcL3Lc9Vb2tPwwmvDhCjWO6lDy9tE/IbsXAeM
+   Fhis2P7U/THu092Kn6f+2TZMq7oY2WvGqKuGiDrwdrn2Hn730NSHdNRwv
+   A==;
+X-CSE-ConnectionGUID: LX7B99VhTW+oX1h/hXYhnA==
+X-CSE-MsgGUID: S/IosDJIR5WmykLOl5MmUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2740202"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2740163"
+   d="scan'208";a="2740202"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
-X-CSE-ConnectionGUID: e4cTVBV2RUmwIhixwhsHQg==
-X-CSE-MsgGUID: QaY1qjEcQYOsB3NyB9gAOw==
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:32 -0800
+X-CSE-ConnectionGUID: GIO8SfQORr6edrZ4UeTkXA==
+X-CSE-MsgGUID: eHEYFhc1QTCIF1lpbgYcqg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7067193"
+   d="scan'208";a="7067209"
 Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 17:50:31 -0800
 From: Zide Chen <zide.chen@intel.com>
@@ -77,9 +77,9 @@ Cc: kvm@vger.kernel.org,
 	Shukla Manali <Manali.Shukla@amd.com>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Xudong Hao <xudong.hao@intel.com>
-Subject: [PATCH v3 10/18] KVM: x86/pmu: Document GLOBAL_STATUS_RESET passthrough erratum
-Date: Thu,  5 Nov 2026 18:39:19 -0700
-Message-ID: <20261106013927.166209-11-zide.chen@intel.com>
+Subject: [PATCH v3 15/18] KVM: x86/pmu: Mask only OS/USR bits when filtering fixed counters
+Date: Thu,  5 Nov 2026 18:39:24 -0700
+Message-ID: <20261106013927.166209-16-zide.chen@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106013927.166209-1-zide.chen@intel.com>
 References: <20261106013927.166209-1-zide.chen@intel.com>
@@ -94,54 +94,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IA32_PERF_GLOBAL_STATUS_RESET, introduced in PerfMon version 4,
-inherits the MSR address and architecturally defined bits from
-IA32_PERF_GLOBAL_OVF_CTRL, while providing additional bits to clear
-new indicators in IA32_PERF_GLOBAL_STATUS.
+In preparation for supporting AnyThread deprecation and Fixed Counter 3,
+mask only INTEL_FIXED_0_KERNEL and INTEL_FIXED_0_USER when updating
+fixed_ctr_ctrl_hw in kvm_mediated_pmu_refresh_event_filter().
 
-From an emulation perspective, KVM handles it identically to the
-OVF_CTRL MSR: reads return zero, and intercepted writes are guarded
-against pmu->global_status_rsvd. No code changes are needed in KVM
-to emulate this MSR.
+Masking the full 0xf nibble would cause two issues:
 
-However, to reduce VM exits, KVM passes through this MSR in mediated
-PMU mode when GLOBAL_STATUS is also passed through. Consequently,
-writes to bits that are valid on the host but unvirtualized by KVM
-will not trigger a #GP (unlike when the MSR is intercepted). Except
-for the known limitation where host Intel PT in system mode can
-assert Trace_ToPA_PMI (bit 55), unvirtualized status bits are not set
-while the guest is running, so clearing them has no negative effects.
+1. AnyThread for Fixed Counters 0-2: When a counter is allowed, copying
+   the full nibble from guest-visible pmu->fixed_ctr_ctrl back into
+   hardware-visible pmu->fixed_ctr_ctrl_hw would resurrect AnyThread in
+   hardware, defeating SMT cross-VM isolation.
 
-Document this divergence in errata.rst.
+2. Metrics Clear for Fixed Counter 3: If an event filter denies Fixed
+   Counter 3, clearing 0xf inadvertently strips METRICS_CLEAR_EN from
+   hardware. If the guest sets METRICS_CLEAR_EN and executes native RDPMC,
+   metrics will remain un-cleared, returning stale data.
+
+This gates hardware counting without clobbering other control bits,
+matching general-purpose counter filtering which only masks the event
+ENABLE bit.
 
 Signed-off-by: Zide Chen <zide.chen@intel.com>
 ---
 v3:
-- New patch prompted by Jim and Yosry's review on unvirtualized
-  status bits.
+- New patch.
 ---
- Documentation/virt/kvm/x86/errata.rst | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ arch/x86/kvm/pmu.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/virt/kvm/x86/errata.rst b/Documentation/virt/kvm/x86/errata.rst
-index a9cf0e004651..161ba6d1beb4 100644
---- a/Documentation/virt/kvm/x86/errata.rst
-+++ b/Documentation/virt/kvm/x86/errata.rst
-@@ -84,4 +84,12 @@ memory.
+diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+index 2cb5bccc7044..afb3e18a9879 100644
+--- a/arch/x86/kvm/pmu.c
++++ b/arch/x86/kvm/pmu.c
+@@ -557,7 +557,9 @@ static void kvm_mediated_pmu_refresh_event_filter(struct kvm_pmc *pmc)
+ 			pmc->eventsel_hw |= pmc->eventsel &
+ 					    ARCH_PERFMON_EVENTSEL_ENABLE;
+ 	} else {
+-		u64 mask = intel_fixed_bits_by_idx(pmc->idx - KVM_FIXED_PMC_BASE_IDX, 0xf);
++		u64 mask = intel_fixed_bits_by_idx(pmc->idx - KVM_FIXED_PMC_BASE_IDX,
++						    INTEL_FIXED_0_KERNEL |
++						    INTEL_FIXED_0_USER);
  
- Note, this erratum does not affect AMD CPUs, which fully virtualize CR0.CD in
- hardware, i.e. put the CPU caches into "no fill" mode when CR0.CD=1, even when
--running in the guest.
-\ No newline at end of file
-+running in the guest.
-+
-+IA32_PERF_GLOBAL_STATUS_RESET
-+-----------------------------
-+To reduce VM-exits on performance-critical paths, KVM passes through writes
-+to IA32_PERF_GLOBAL_STATUS_RESET (0x390) in mediated PMU mode when the guest's
-+counters match hardware, without injecting #GP on unvirtualized bits.  Because
-+the MSR is read-as-zero and write-to-clear, this cannot leak host information
-+to the guest.
+ 		pmu->fixed_ctr_ctrl_hw &= ~mask;
+ 		if (allowed)
 -- 
 2.56.0
 
