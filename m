@@ -1,66 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953185;
-	b=327upb8N40K6AgYAhISSZJ4K9d+/GyULi0u/wkSPrXgTDydcpaRvlYNXDw1IrkL7Z6W7
-	 KyFsPbqrC94ideW6lxAdVEKlaCUB/nnVnQOvC7otcQklHkMA5IBMtBO6yYoS47/VRNozq
-	 MxwS3srFHD1bG/PmWY0RSRIpxdrFH+igXyQSRlP4QxHC2qE+tvGfJf2A56XL4go9eaFHQ
-	 oNgzbnxIOI8DlkN4i4gCUxfsJA+rEAB4iPoftiabUH/xnKhn4j3YKDiu7Vct0wh43ABZO
-	 TIQxlY0WoJBZ5cihZOBX0Zy2DALTDg+3gRHfrm6w8tjx9j26EmgE0DmPnYrjdIUPQ2w==
+	t=1793953250;
+	b=ubZKisebeimoeIX5T6nsOfARt4YzyBn4PWWSmUuAZqDthilUdwZsn4ZJ3mUWSP7abrUL
+	 iURJsvlre8H3kHk36UTwkpJ+VBupXWLHL2Be3ECtEPxqPPsrgdgoJsvj4HRB0eeO5pr6m
+	 9Ps7xHhfVUUQy/bc8+oahIdkOjRsYQ0VeYx+5XfWz01ArpBm4yFymhoCi1+Y+IOfTlkuM
+	 AisbK6TvQHkbanegIoiccpOSPcjwxegi0duSu14xu10RUa6IfX+st5CDsl6E43g3E4L4v
+	 3NsEufUvK7thSpl/ur55yOfllFxo6r2j/cCRhH2MIQepI0CVwEGD3+cf5QexN3Vb2Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953185;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=7Mbged9ohUTFh2gXoTA/NXT9Yb48UsIJy14kPrg0dDQ=;
-	b=hdXtkmjZRAdWyVHL1l6807NmqjKNPYw7F5nBjBaKvDo5+6z/m9aX2rRoSB3EtDCQAgnj
-	 otYtA52N4Yx4i5RSQ1Vq+6pww9ONy0TAn5n3qs5BKI69Ur1rMBB1gPUlRGjRDKYvwEbMr
-	 FtM4CP0PAiBArVgeEN4wlSqkp2bmUsibTFN2dsYyhk1Xd3Hjmu+oP7Ggr+M+zjF6m33nF
-	 TRVg3TKsZ4plbVA/y/8gJTvvmEP40/ZfIUVymUqfA9vE5AJD7ph1VMhCX3JLGfE7yhAN5
-	 HFyjAfGLV3HdMGzEVBWKFx2B3NIX0/TcFaKwj2FItn53cZJuUAWQG1RfcBBBkwBf2Xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953250;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=sjimZu/Y/vfHM2ZHLcATzWAft1nruP4f5emXh0QnSE8=;
+	b=VyvQsmufdh5PJtOqiblHA7jTNuUANIoQoFsxjiUmxELvT/julTuB5VEwzrDZmFkV/NH1
+	 8EcXhYr51yPruDLtbl/ZuvKyKxva4e4aRNut3aZPLbLOUM2GXd36KnNkYOYGb80qcc8e+
+	 pCag8BpcXPhwelrsK3+p0GwiR8ymvQxUu4BSFwAbmCm5rMBitB2cC7lVEN1c8/sdncFht
+	 Jmkf4ox5imJxmAvV/rdsebjgRqhREYFPIbNv6Vaa4yGvJLUH8RaBWxBsHfr2Q/T6jUCZj
+	 vhnx3XCxT4WvVsTtMqm2uuNAP5jrPRzk302bSNsJQWel3N8SmGXlwGue7F7dX5EQ+rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=GhqrO+LQ;
-	arc=none smtp.remote-ip=113.46.200.223
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.94.104
+Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82AE7606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:19:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82AE7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=GhqrO+LQ
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=7Mbged9ohUTFh2gXoTA/NXT9Yb48UsIJy14kPrg0dDQ=;
-	b=GhqrO+LQDITq5vbIGhEXVd9Ohnmlosd9tUiulCU4qU2Do3FHNTQ7PPHM1KYQ92H/aJMM6B7Nc
-	7XtUwK1O/8xCOhEe8ab3KXFkCYAAuzGl5KNYEEzTXE7egpJpGKyqYSo/pKI4j0B11vW8Xyu5ILl
-	n2bE6R8mff0SxXZLweK3PzU=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jLXCM64kgzmV8X;
-	Fri,  6 Nov 2026 16:19:27 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id C214B40561;
-	Fri,  6 Nov 2026 16:19:39 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 6 Nov
- 2026 16:19:39 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
-	<fenghuay@nvidia.com>, <gshan@redhat.com>, <jic23@kernel.org>,
-	<zengheng4@huawei.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v3] arm_mpam: resctrl: Limit num_rmids to the CLOSIDs in use
-Date: Fri, 6 Nov 2026 16:19:23 +0800
-Message-ID: <20261106081923.2333070-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C947606A328;
+	Fri,  6 Nov 2026 08:20:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C947606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jLXD62Gn0z1rqsk;
+	Fri,  6 Nov 2026 16:20:06 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id B078940614;
+	Fri,  6 Nov 2026 16:20:36 +0800 (CST)
+Received: from [10.174.178.164] (unknown [10.174.178.164])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgAnZvXTje1qRlQlDQ--.48330S3;
+	Fri, 06 Nov 2026 16:20:36 +0800 (CST)
+Message-ID: <ecaeda04-e90b-450b-a591-3cc3cc85fb5f@huaweicloud.com>
+Date: Fri, 6 Nov 2026 16:20:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,138 +51,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3 1/3] md/raid0: reject a takeover whose zones cannot
+ cover the array
+To: yukuai@fygo.io, song@kernel.org, magiclinan@didiglobal.com,
+ xiao@kernel.org, linux-raid@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, yangerkun@huawei.com,
+ chengzhihao1@huawei.com, wozizhi@huawei.com
+References: <20261102083815.127751-1-wozizhi@huaweicloud.com>
+ <20261102083815.127751-2-wozizhi@huaweicloud.com>
+ <bc03d165-55fa-4029-b653-eb5359a2816c@fygo.io>
+From: Zizhi Wo <wozizhi@huaweicloud.com>
+In-Reply-To: <bc03d165-55fa-4029-b653-eb5359a2816c@fygo.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-CM-TRANSID:gCh0CgAnZvXTje1qRlQlDQ--.48330S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxtrWxCFWkKry5Xry8Jw47Arb_yoWxJryDp3
+	y0qFnIqr4kJryfAwnFqr1DGa4FyryrGr4UtF9xJ348Ww13Ar97GFy7G34Y9a4UCr95urWj
+	yw4UJrZFkF9YgFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyGb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7
+	CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8C
+	rVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4
+	IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0E
+	wIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E74
+	80Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0
+	I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04
+	k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7Cj
+	xVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU17KsUUUUUU==
+X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
-On MPAM an RMID is a PMG within a PARTID, so resctrl can only allocate
-the PMGs of the CLOSIDs it uses. info/L3_MON/num_rmids is instead set
-to the whole PARTID and PMG space when the monitors are initialised,
-and halved when CDP is enabled. It reports more RMIDs than resctrl can
-allocate in two cases:
+Hi，yukuai
 
-- With CDP each CLOSID takes two PARTIDs, and resctrl halves the
-  CLOSID count rounding down, while MPAM halves the whole RMID space.
-  With 5 PARTIDs and 2 PMGs resctrl has 2 CLOSIDs and 4 RMIDs, but
-  num_rmids reads 5. The count is too high whenever the number of
-  PARTIDs is odd and there is more than one PMG.
+在 2026/11/6 14:34, yu kuai 写道:
+> Hi,
+> 
+> 在 2026/11/2 16:38, Zizhi Wo 写道:
+>> From: Zizhi Wo <wozizhi@huawei.com>
+>>
+>> If a raid0 takeover builds strip zones that cover less than the advertised
+>> array size, the block layer still accepts I/O for the whole size.
+>> raid0_make_request() hands any request past the zones to the mapping code,
+>> which fails to map it and triggers a BUG_ON.
+>>
+>> The zones are built from the member sizes in rdev->sectors, which may not
+>> match the size the array already advertises, so the zones can come out
+>> covering less than it. The extreme case is a member with no size recorded
+>> at all: an array created without metadata imports its devices through
+>> md_import_device(dev, -1, -1), which never sets rdev->sectors, and
+>> bind_rdev_to_array() does not reject such a member either, because its
+>> check that mddev->dev_sectors fits inside a member is skipped when
+>> rdev->sectors is zero.
+>>
+>> Refuse a raid0 takeover when its zones cannot cover the size the gendisk
+>> advertises. This prevents the takeover from silently shrinking the array,
+>> mirroring the rule raid5_start_reshape() and raid10_start_reshape() apply
+>> to a reshape.
+>>
+>> The check iterates the same devices and uses the same rounding as
+>> create_strip_zones(). It does not skip devices with rdev->raid_disk < 0:
+>> such devices cannot be raid0 members, so counting them only overestimates
+>> the coverage and, if present, the takeover fails later in
+>> create_strip_zones() anyway.
+>>
+>> Fixes: 9af204cf720c ("md: Add support for Raid5->Raid0 and Raid10->Raid0 takeover")
+>> Fixes: fc3a08b85b7a ("Add raid1->raid0 takeover support")
+>> Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+>> ---
+>>    drivers/md/raid0.c | 37 +++++++++++++++++++++++++++++++++++++
+>>    1 file changed, 37 insertions(+)
+>>
+>> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+>> index 35e103f0c2c3..fccc62a5fecc 100644
+>> --- a/drivers/md/raid0.c
+>> +++ b/drivers/md/raid0.c
+>> @@ -643,6 +643,34 @@ static void raid0_error(struct mddev *mddev, struct md_rdev *rdev)
+>>    	}
+>>    }
+>>    
+>> +/*
+>> + * Refuse a takeover whose strip zones cannot cover the capacity the gendisk
+>> + * advertises: raid0 derives those zones from the sizes of its members, so
+>> + * find_zone() cannot map I/O that falls beyond them.
+>> + */
+>> +static int raid0_takeover_check(struct mddev *mddev, int chunk)
+>> +{
+>> +	sector_t capacity = get_capacity(mddev->gendisk);
+>> +	sector_t coverage = 0;
+>> +	struct md_rdev *rdev;
+>> +
+>> +	rdev_for_each(rdev, mddev) {
+>> +		sector_t sectors = rdev->sectors;
+>> +
+>> +		sector_div(sectors, chunk);
+>> +		coverage += sectors * chunk;
+>> +	}
+>> +
+>> +	if (coverage < capacity) {
+>> +		pr_warn("md/raid0:%s: refusing takeover, zones cover only %llu of %llu sectors\n",
+>> +			mdname(mddev), (unsigned long long)coverage,
+>> +			(unsigned long long)capacity);
+> 
+> Other than raid1, other levels already have mddev->chunk_secotrs set, and raid456/raid10 already
+> have a full functional raid0, their takeover can not fail.
+> 
+> Noted normally mdadm will set rdev->sectors and 1.x metadata will reject zero rdev->sectors in super_1_load.
+> However, it's still possible raid1 can be created with rdev->sectors be zero, this is the root cause of the
+> problem syzbot reported.
+> 
 
-- On a monitor-only system there are no control groups and resctrl
-  only uses the default CLOSID, but num_rmids still covers every
-  PARTID. With 5 PARTIDs and 2 PMGs it reads 10 while only 2 RMIDs
-  can be allocated.
+Please consider the following two cases, both of which reproduce the
+same BUG_ON locally for me:
 
-RMID allocation is limited to the CLOSIDs in use, so only the value
-reported to userspace is too high. Creating as many monitor groups as
-num_rmids allows fails with -ENOSPC before that number is reached.
+1. An array created without metadata leaves rdev->sectors at 0. This
+isn't raid1-specific — raid10 hits the same BUG_ON too. raid45 only
+escapes because raid0_takeover_raid45() overwrites rdev->sectors with
+mddev->dev_sectors first; raid0_takeover_raid10() doesn't.
 
-Work out the number of CLOSIDs with the rules resctrl applies when it
-is mounted: schemata_list_add() halves a resource's CLOSID count
-while CDP is enabled on it, rounding down, closid_init() takes the
-smallest across the resources, and a monitor-only system has only the
-default CLOSID. Report (pmg_max + 1) RMIDs for each of those CLOSIDs,
-counting at monitor initialisation and from
-resctrl_arch_set_cdp_enabled(), which resctrl calls whenever a mount
-or unmount enables or disables CDP.
+2. Even with valid non-zero rdev->sectors, growing the chunk of a
+running raid45 can make the post-takeover coverage smaller than the
+previously advertised gendisk capacity. E.g. create a raid5 with
+component_size=8K, chunk=4K, run it, then change chunk to 16K and run
+raid0_takeover_raid45().
 
-Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <stable@vger.kernel.org> # 7.1.x
-Cc: James Morse <james.morse@arm.com>
-Cc: Ben Horgan <ben.horgan@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Fenghua Yu <fenghuay@nvidia.com>
----
-v3:
-- Drop resctrl_arch_set_mon_rmid_count() and count the CLOSIDs in the
-  MPAM driver instead, as Ben suggested.
-- v2: https://lore.kernel.org/all/20261105123304.2281987-1-ruanjinjie@huawei.com/
-v2:
-- Also fix num_rmids on monitor-only systems, as Ben suggested.
-- Retitle from "arm_mpam: Round the CDP RMID count down to whole CLOSIDs".
-- v1: https://lore.kernel.org/all/20261104101622.563280-1-ruanjinjie@huawei.com/
----
- drivers/resctrl/mpam_resctrl.c | 45 +++++++++++++++++++++++-----------
- 1 file changed, 31 insertions(+), 14 deletions(-)
+So I think the real root cause is that the size changes across the
+takeover, and rdev->sectors == 0 is just one special case of it. That's
+why the patch compares coverage against the gendisk capacity on every
+takeover path.
 
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 5468367776e2..6859849f299b 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -191,6 +191,34 @@ static void mpam_resctrl_monitor_sync_abmc_vals(struct rdt_resource *l3)
- 	 */
- }
- 
-+/* The RMID count follows the CLOSIDs resctrl uses. */
-+static void mpam_resctrl_set_num_rmid(void)
-+{
-+	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_L3];
-+	struct rdt_resource *l3 = &res->resctrl_res;
-+	enum resctrl_res_level rid;
-+	u32 num_closid = UINT_MAX;
-+
-+	for_each_mpam_resctrl_control(res, rid) {
-+		u32 res_num_closid;
-+
-+		if (!res->resctrl_res.alloc_capable)
-+			continue;
-+
-+		res_num_closid = mpam_partid_max + 1;
-+		if (res->cdp_enabled)
-+			res_num_closid /= 2;
-+
-+		num_closid = min(num_closid, res_num_closid);
-+	}
-+
-+	/* Monitor-only systems have only the default CLOSID. */
-+	if (num_closid == UINT_MAX)
-+		num_closid = 1;
-+
-+	l3->mon.num_rmid = (mpam_pmg_max + 1) * num_closid;
-+}
-+
- int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
- {
- 	u32 partid_i = RESCTRL_RESERVED_CLOSID, partid_d = RESCTRL_RESERVED_CLOSID;
-@@ -217,11 +245,6 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
- 	cdp_enabled = enable;
- 	mpam_resctrl_controls[rid].cdp_enabled = enable;
- 
--	if (enable)
--		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx() / 2;
--	else
--		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
--
- 	/* The mbw_max feature can't hide cdp as it's a per-partid maximum. */
- 	if (cdp_enabled && !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
- 		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = false;
-@@ -238,6 +261,8 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
- 	if (!cdp_enabled && mpam_resctrl_controls[RDT_RESOURCE_MBA].class)
- 		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = true;
- 
-+	mpam_resctrl_set_num_rmid();
-+
- 	if (enable) {
- 		if (mpam_partid_max < 1)
- 			return -EINVAL;
-@@ -1344,15 +1369,7 @@ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
- 	l3->name = "L3";
- 	l3->mon_scope = RESCTRL_L3_CACHE;
- 
--	/*
--	 * num-rmid is the upper bound for the number of monitoring groups that
--	 * can exist simultaneously, including the default monitoring group for
--	 * each control group. Hence, advertise the whole rmid_idx space even
--	 * though each control group has its own pmg/rmid space. Unfortunately,
--	 * this does mean userspace needs to know the architecture to correctly
--	 * interpret this value.
--	 */
--	l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
-+	mpam_resctrl_set_num_rmid();
- 
- 	if (type == QOS_L3_MBM_TOTAL_EVENT_ID) {
- 		int err;
--- 
-2.34.1
+For case 2, the problem exists even without a takeover: if the chunk
+change shrinks the usable size, I/O from the upper filesystem will break
+just the same. So I'm now inclined to reject a chunk change in raid5/10
+when it would shrink the usable array size, and additionally check rdev-
+ >sectors for raid1/10 at the takeover path. What do you think?
+
+Thanks,
+Zizhi Wo
+
+> Although raid0_takeover_raid1() already calculate chunksect by mddev->array_sectors, which is exactly the
+> real rdev->sectors for raid1, and it should be guaranteed such takeover can succeed. However, as it's legacy
+> usage that rdev->sectors can be zero, I'll suggest just checking rdev->sectors in raid0_takeover_raid1() and
+> reject if it's 0.
+> 
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>    static void *raid0_takeover_raid45(struct mddev *mddev)
+>>    {
+>>    	struct md_rdev *rdev;
+>> @@ -665,6 +693,9 @@ static void *raid0_takeover_raid45(struct mddev *mddev)
+>>    		rdev->sectors = mddev->dev_sectors;
+>>    	}
+>>    
+>> +	if (raid0_takeover_check(mddev, mddev->chunk_sectors))
+>> +		return ERR_PTR(-EINVAL);
+>> +
+>>    	/* Set new parameters */
+>>    	mddev->new_level = 0;
+>>    	mddev->new_layout = 0;
+>> @@ -707,6 +738,9 @@ static void *raid0_takeover_raid10(struct mddev *mddev)
+>>    		return ERR_PTR(-EINVAL);
+>>    	}
+>>    
+>> +	if (raid0_takeover_check(mddev, mddev->chunk_sectors))
+>> +		return ERR_PTR(-EINVAL);
+>> +
+>>    	/* Set new parameters */
+>>    	mddev->new_level = 0;
+>>    	mddev->new_layout = 0;
+>> @@ -750,6 +784,9 @@ static void *raid0_takeover_raid1(struct mddev *mddev)
+>>    		/* array size does not allow a suitable chunk size */
+>>    		return ERR_PTR(-EINVAL);
+>>    
+>> +	if (raid0_takeover_check(mddev, chunksect))
+>> +		return ERR_PTR(-EINVAL);
+>> +
+>>    	/* Set new parameters */
+>>    	mddev->new_level = 0;
+>>    	mddev->new_layout = 0;
+> 
 
