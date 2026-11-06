@@ -1,104 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966417;
-	b=1eQFuv0aKqcLlqvZcwGSFIpmmxfvPQb58FXA//Ma1IjZ86uHIUTDlpvsrNq9+e7fTEJN
-	 KLKYCZ9Kcvp6erPeIuclbHCMtFLyb0vA2grZHlT/LXSK+lKLdN/1EndWjXUH0ckmAxneD
-	 fF6/HJ0tZhdR2UwQ6tNtgEmxCawmgtBX7Oim590JZcKMSElYLepRj/zTYX3Bhd9dqgORU
-	 3eGzHH47y2JtjhfDGnEN5Q2KEKDfwGzYO0tQsaCv/kLdVaHOngpgFMSaGTdluTx54el1s
-	 VdD1vhLSB+WzNtyFp7Zizk71SkfQqwAe+Jzs56eY+VxXpcqpEWOKbPx7TEtHXwwbp3w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966417;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793966474;
+	b=dc5l5rj78hRZDHa90+28c4sVkD7izu6ZY+A/TlC5jJwcKlvtxyjWKMCdU4FDdhaArBC+
+	 t8Jq8AGgBS5KOzwAtexdYx8DlbRUPXD4lbOW2wyYn36Zv2uM6sCFr1RgokymOHbN8hdrg
+	 88zyq35VfQIX+efl38zK5Yo1EjtOT87CwuWdsfW/6IF1SLFk6+tu6ATHKalAvfs2vYrz1
+	 YLZn4CjeCvVCDe+3nGbFlNNcXhHZAM/l2TvyLloKmeF1uayckB+f1VAM5j1AUwDaTSUxd
+	 GOJumfneY4nGbb7tz0fl6/8vLNQA6VeLNGImROtnpWWPYZKc6K5dgqophDYiFp1r8eg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966474;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=P6foIOXPcYLkNrEcUGT37O2aIkquLPqP2LnJ5l7DjDU=;
-	b=B5RTf078z2f0uQGDBH/f/FjH3AHQpBadTY+CaAG2BBTxc8VSuLu3JDe4z66w0g5IZ12X
-	 7uoxFin+dJabQzbyoqtjFnlwqPKCrD5ZCa/XQiPdbyJEMsxFLgwsE5FeAW4BoG1x7SKpC
-	 eoKroEZ6pSDk/YR5mQgehq42/MM18HaQg3gnRYTXbsk/H7SfDgyjkrZUzONKG+PgbT+v3
-	 cT+he0rFhW4C2B75XjhIcN06meKnatYtK+pVeSuYTSwFNNIJoyTFVji+gAxuJlcvEJW5o
-	 NDsZk8MwwlId/Y1O71N9HhPqVbr5UoLga7bZI0Dtd15jyUE8JczXikqAKnnskn/k7vw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xLJThMmD;
-	arc=none smtp.remote-ip=74.125.229.4
-Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=7Atkv8Av9+Ao+eHQuMY+XWjPUUdTG2IMTe5rVcJzpas=;
+	b=v47hLW5y3F8+x7+o/BiRPRNKZ9r9lua2069ufCpcRS0Wp01O8s8VcuGgd9OEI9eCT6qX
+	 NNFqWd5r/V+E2cidGvbJEa/XOycvCLa+sPFVpsWumCKHpeSaicAqnI3exndte7XX8FunU
+	 t5ShIUdAiDDls2LQrmYIdWPzdxTD5w5L6h+QrSeyMW3v8804OaSp2p7RcZhVbbCCYzgec
+	 h7y43OthKzuWlTYG3ByXSMksrmGZog/51lJBu8WdBuY836BALqLgBLab00qaRKLZY0Sa+
+	 a2oxeSXYQ9gai5w9Q/MJ1yheFrBGYaMRF/7ZTlR9Ao8o5HkEsXSYsOs5navg7Mzyniw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=janfabian.cz;
+	spf=none smtp.mailfrom=janfabian.cz;
+	dkim=pass header.d=janfabian-cz.20260707.gappssmtp.com header.i=@janfabian-cz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=m9WyR+EH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.175
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541F8606A32E
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:00:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 541F8606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290A1606A32E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 12:01:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 290A1606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=janfabian.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=janfabian.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xLJThMmD
-Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36e06480786so225200eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:00:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=janfabian-cz.20260707.gappssmtp.com header.i=@janfabian-cz.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=m9WyR+EH
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9441591aa5cso209206585a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 04:01:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793966473; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cy5bAaR7rpXMNyvGMkKSkkIwXOEgUATSX6rAb/6uuscY/PXQarCChNjfaEPFPpVcvP
+         c/PdCcVkRiGIwCfMmevh+cI74ckI3qY+taucQK7+3Uxsfyt5PRyIhdPyHZnuFGkfRF6J
+         IVvTg8IY3qawoQwSKg/FR7lDg20fGTC1v09bPKtn3v1sBBtAbq67rQrI+YvgVPt5Txh9
+         Edf+Ovthpe7mytCvkYfsYLnsY7biiNRa+AGAfxBf/pff5BV4uENs26jHZH43zcIPG/7Z
+         Jd2rry0Tvcsuw6XDXDl8OZSKWbBWPMerrR/2eFfKGrvWAqM2Iy3uwUZzTAcBTEkcPoL5
+         QXNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=7Atkv8Av9+Ao+eHQuMY+XWjPUUdTG2IMTe5rVcJzpas=;
+        fh=KaGWPdf2qxeZrwL/lK7A+tYrxN5StcBmniATkEM5Xyk=;
+        b=FdVYqdO4Lq+opxLSCS1S8yWkZlqFcti9+y8MIK59QKWVlIRxypscT9A65nv9HH+pte
+         v1ZYsWnLD4FySAbEPNFUhNRLACKLIq5E2YHb06y/oJNSaF21/SBMxKAjbnHXonqNgb+9
+         eZqxUqSU1iii1NBVyw8f/Q/G3q31kcJk2pndgOU2lPGh0pxx2PxewXaKdsPhMyoDS67G
+         /MXohr81thzdPZxaYqouJGDmbfbRpjNVwDzwglCg/khRhVPbLDInM8KbEjfs4Khc575H
+         KrEFkS2FOVpndbiYyz9RtoNVysuLo27sPYhLUjy7IPxbrlszkgNocUt87Z4rslGlunWK
+         13fA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793966416; x=1794571216; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P6foIOXPcYLkNrEcUGT37O2aIkquLPqP2LnJ5l7DjDU=;
-        b=xLJThMmD4xI2upLh1Eu/g8qH1kTLZtlIWqhzGWt997Ew+oqlCnN518rsFN8BNoNPi9
-         BZm/MgP1wugn8GO00tuKW0W5iIQhimnZvoocSIgkjSiFT7VkrS9ZefntMrzfeLrxj3B4
-         EaKAWVEVHWLO57DaJUVOQ9GcsXEbrqnH+ukR7CAfKHZzSKoeTlwaAwa+WvoOzJcOtDt5
-         Lziu6y68XAQFG2pNAkeOlfLIrY6mFxB6Se6hIShdfX96hFPHVi4gYgj47V9U0hUctkoQ
-         PSJdOBymX9vEVEGgpEHGMC42pUtLxiTLl7+jOe1/8SW5JlLymZW1K/0EX8sjW9PIOTMr
-         V9EQ==
+        d=janfabian-cz.20260707.gappssmtp.com; s=20260707; t=1793966473; x=1794571273; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7Atkv8Av9+Ao+eHQuMY+XWjPUUdTG2IMTe5rVcJzpas=;
+        b=m9WyR+EHYRDo2JoRU0miwDWW4tloiONj6mV5//vpPrT13wUC2RC07ROw+sj0IXP/kZ
+         gWf70A8DRbiIQgR/LedqAaAD47/bn6N88fwuARqVz1U0dy29akqg9a/IMvPuvo+Wr7hs
+         7VWaEpODH6rzz7ycrPVG7h62avoXiUDejWV4L+uc2LA1BRgoTxmcvChcxGDoIJdaVLNA
+         wIJiXevH9Q9dpwJsQ5h6quAobXG+KKWQUSbVPtCgOucYZpUdT5vV7Uxaaw2/SCIgSu1f
+         u4/tNWB13GzmBY7MUy/Fp2/Q0iI5YQkJvBogtjjrM7i7FK/6UbIlXVBB2OAwwvt7nABT
+         yKYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793966416; x=1794571216;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P6foIOXPcYLkNrEcUGT37O2aIkquLPqP2LnJ5l7DjDU=;
-        b=nFYy77+Y1CqCN8sfhPkl+JbSzecFeC/1w/G79cEp7Ghp4HhWVD7o175V7bGeiEHmKw
-         WWWyC8fv2KAVM7WnuujVlBgt8L84yRFr61wtqCO2AFKwWUPkvAP0isd6xzVot3wdMZkS
-         Gg5wswW0e2RhYWL7ZYmHeCODbGZuResYmVck8G//7POvKnSxQW8ihbC1O6m3D+NoCq0Z
-         4fkWKM5Z+YXVu9FXgk15LHpbqOiQyDWAJW7M9EzVb/QJ9RNmVAvXZPaCoAvh38AbDJu5
-         I2vJG/4cO2ORsMWuVAoaK9OatYVI4vnXC22YroPWpfGKSj+Dq9WYPKCh+nK3udaUXHbr
-         k6BA==
-X-Forwarded-Encrypted: i=1; AKwUvBw0LUN7fFzm0cTvwu0Qd1hUtKETm6DLhQJrctzczgHsLtHnI3khb0yRKcPV+y8/S3CdPjuHC2yVQ2wEidc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DraEXiYRzUzuw+8SMs5hCnuOVVhctxsBu9VZAIbdEr7F1Mzsi
-	7hlGtos03vU92POr25kRt3nP/8EoQUis19VNG3YT/jQFiBe4ytOQgi7ZbffK+IhToL4=
-X-Gm-Gg: AYBFou01E/5c3NKTJNgx0sDhWvBrN73vbB77vEUH6ABv8nh1lmsqg9BrNo4+NGO6jgj
-	vSYWNVCkbKDCisgXTK0RT5255ADP1/xkZ9EugkJBCxYtDDU/mxTJ6f9KKs4L+CDoWTbprnLfBRx
-	KDi357P9UpTPM1lcUqnAmTNmHd2j7+NSaEwnF7XYX0bryuJobDmOfP20qJkTvz73oTaGwV+RMiC
-	SmWyllz3HP3GI+WH5RzJFsOFkRzn7U+S1V6Wbjuh/ftR/9biNQn0cpqbNTdHk5sY/oGun5fMBoC
-	DYoWWhIZ0DIiJyp7UT7XCtrfzeJ0kxSIh9X3fZ7I+tUA+2C5YioezO4gOszzt8qk66WHcqtHEzv
-	SrzgrJ8TlM20ea6eVYLK7Debcueeao0qWdhUO3WVZjpqMi4xa4IwaVctUMAVmXjPp/tPBH3Qxxk
-	UxqoAgWnBqUkHHH5BHZdATYRzKRG+t2CfjN1Vm7Bc0lWirpv+RT36rDKtmLPMJ11w7Ph7DMN4bz
-	D6nZS3Xbqybto6kemNAh4Dv+GfOh6/ddwiq3VNoZVE8yAXFM/+E84xTUM9vS27U/QwcR8c8W0kx
-	4nJuwTFuQ7sdKMH/huRESfF2YCovPfUGVSMC49qqUQGpB93S4RVjEyinECbO5usI+46KRClqGs+
-	quuXl5pp3t90nvQQq2rqcHv9DFx/XSXhEFy1L6g==
-X-Received: by 2002:a05:7022:b0c6:b0:160:a80f:3ed2 with SMTP id a92af1059eb24-1b25d32e840mr2485484c88.10.1793966415992;
-        Fri, 06 Nov 2026 04:00:15 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b26294289dsm3510717c88.4.2026.11.06.04.00.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 04:00:15 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: hannes@cmpxchg.org
-Cc: surenb@google.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	cerasuolodomenico@gmail.com,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] sched/psi: Check CAP_SYS_RESOURCE in the initial user namespace
-Date: Fri,  6 Nov 2026 12:00:04 +0000
-Message-ID: <20261106120004.90041-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793966473; x=1794571273;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7Atkv8Av9+Ao+eHQuMY+XWjPUUdTG2IMTe5rVcJzpas=;
+        b=14QEez+TTHULnXKpGdhH4uvIvNpkPhEuDxbCUQoPwSprPuFag/skCke0Vvb+pNrPL4
+         XGBmz2g8GKjMV6vNtdwFHSPF07T3Vffl3xIz3Q4UxTXIdaZh9NGhF+UUB1kbLCZOBOJ4
+         RHpqzILAM0cF8dmMemxxgjT+crraL9nyTmRU6lNtTPAYMZeYI//wfY0TbihY9BhmQnt6
+         OwB6gWpLWJtc0mUqpV/X0MbyizmB2xKjmVOD0vtTYKZvMIidmYmGeOnFeueZ8zH3Tkj6
+         fsdsIawq4+bPU2aYgzUNsusSGkQp2P5N52JPg0mp9joR+54twviEjpbuhTvoUv4xZsZy
+         ZyZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzs2u/MfgacK+AUBC2YwtA7xODBHYgxlShNXEAcUeKXLd33ct5O68JBlBM7cC98INoOYR4hgdMpPR/3y8Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+3KipUYtRb5QM+7qmEUD+qTv0eGgi2NJ6n6StT6e+dKBufjlH
+	G15YA8BxcAHR6Y/hHPgXMuFQMCbTFBDf2Zxmw2ChecqHvO4z+tSFtwaVZXTgb/v74QipGjgieWp
+	8QMMPofB53/6rRjN62xIoVbwEU25jZN4oZ6gVo59vAA==
+X-Gm-Gg: AYBFou00MXMuqCOFacYfCZfcyGJ0J8oObsg7VSunk7MBEw54J8OGHi49tKXTwqbMYGK
+	LUU1N/0JPe+FJosRS2WJkIOc4ePIdGilDaRfqIoR0FA+npC3mc4jhwsRHJKgXNrWdQ5NstLZwYJ
+	kb9CTAG3X2sthlNrt/Irnqz7eQiRxvUfu9s0SBs6rSqPNa5uQJIeeeGoam41h8aOSkfbR/lbGP3
+	blb2O7elwCBaX3JpDRrRqqe6hNVRKLRbMGFKaUCqLJFBOrTqJujUjpmmUwuRlLdotvrOH/eEQ5C
+	slo2QACOKGO1b964HUie9jLn9URNTn2oUAE2BviNxOWY4mERnqUX4pbmg5WdNkNoGKBqQSGnzBn
+	cvOYSDDN4AE2p8vvhZZedLvJyYurkSbokmWjZDAIdr/8u5rRihNIFCyNWpxeP+sLAvBZETSX7De
+	2l9O6bAy2y+vIiZSHFY6foiQSzxvl8xJjySzCBQzgyKvBC0hmpDKOta7T3
+X-Received: by 2002:a05:620a:2794:b0:939:b0c8:b068 with SMTP id
+ af79cd13be357-945f34bc0a1mr254496385a.16.1793966472954; Fri, 06 Nov 2026
+ 04:01:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,49 +102,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Jan Fabian <mail@janfabian.cz>
+Date: Fri, 6 Nov 2026 13:01:01 +0100
+X-Gm-Features: AclHuK9A-2FTFvlKyzhSApeifYzSQH0lEyNG7mAx3QstJCDBSgdJAuxX-NobXGY
+Message-ID: <CAEwhnkgosQd5hnN0qkH_xVrxngfhCpnALR6Gi7M1j-4tnSEKOw@mail.gmail.com>
+Subject: Re: [REGRESSION] Speaker pop/chirp on Meteor Lake ALC287 (17aa:231e)
+ -- 6.12.73 to 6.12.85
+To: tiwai@suse.de
+Cc: kailang@realtek.com, linux-kernel@vger.kernel.org, 
+	linux-sound@vger.kernel.org, mikekarcic@protonmail.com, 
+	regressions@lists.linux.dev, sean@starlabs.systems, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Commit d82caa273565 ("sched/psi: Allow unprivileged polling of N*2s
-period") moved the CAP_SYS_RESOURCE check for psi triggers from the
-open() of the /proc/pressure files to psi_trigger_create(), so that the
-credentials of the opener decide whether a trigger is privileged. In
-doing so it replaced capable(CAP_SYS_RESOURCE) with a direct test of the
-opener's effective capability set:
+(Reply to https://lore.kernel.org/all/87jysdv4qg.wl-tiwai@suse.de/
+sent from webmail, so it may not thread automatically.)
 
-	privileged = cap_raised(file->f_cred->cap_effective, CAP_SYS_RESOURCE);
+Hi Takashi, Kailang,
 
-Unlike capable(), cap_raised() does not check against the initial user
-namespace and does not go through the LSM capable hook. A task that
-creates a user namespace has a full effective set inside it, so an
-unprivileged user gets privileged triggers on /proc/pressure/* and on
-delegated cgroup pressure files: windows that are not a multiple of 2s,
-served by the SCHED_FIFO psimon kthread, which the N*2s rule was meant
-to keep from unprivileged users. LSM policies that deny CAP_SYS_RESOURCE
-are not consulted either.
+Another data point from an X1 Carbon Gen 12 with the same codec and
+SSID, which behaves like Mike's: the pop is still there with
+46c862f5419e. Turning AMP silence detection back on at runtime removes
+it, with no kernel rebuild.
 
-Use file_ns_capable(), which checks the opener's credentials against the
-given user namespace through security_capable(). This brings back the
-user namespace and LSM checks of the capable() call it replaced.
+Hardware: ThinkPad X1 Carbon Gen 12 (21KC004TGE), BIOS N3YET86W (1.51),
+Core Ultra 7 155U. ALC287, vendor 0x10ec0287, subsystem 0x17aa231e,
+revision 0x100002.
 
-Fixes: d82caa273565 ("sched/psi: Allow unprivileged polling of N*2s period")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- kernel/sched/psi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Software: Ubuntu 26.04, kernel 7.0.0-42-generic (based on 7.0.14), SOF
+firmware 2.14.1.1 with sof-hda-generic-2ch.tplg, PipeWire 1.6.2,
+WirePlumber 0.5.13.
 
-diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
-index 7c5381423334..cf2593183b25 100644
---- a/kernel/sched/psi.c
-+++ b/kernel/sched/psi.c
-@@ -1347,7 +1347,7 @@ struct psi_trigger *psi_trigger_create(struct psi_group *group, char *buf,
- 	 * Checking the privilege here on file->f_cred implies that a privileged user
- 	 * could open the file and delegate the write to an unprivileged one.
- 	 */
--	privileged = cap_raised(file->f_cred->cap_effective, CAP_SYS_RESOURCE);
-+	privileged = file_ns_capable(file, &init_user_ns, CAP_SYS_RESOURCE);
+I checked the compiled module to confirm 46c862f5419e is in effect:
+alc287_alc1318_playback_pcm_hook only calls alc_write_coefex_idx, and
+alc287_fixup_lenovo_thinkpad_with_alc1318 calls alc_process_coef_fw
+twice. So dis_coefs runs once at probe, and en_coefs isn't present.
 
- 	if (sscanf(buf, "some %u %u", &threshold_us, &window_us) == 2)
- 		state = PSI_IO_SOME + res * 2;
---
-2.43.0
+Symptom: a pop about 5 s after any sound. The sink goes from idle to
+suspended exactly 5 s after playback ends, matching WirePlumber's
+default timeout. Setting session.suspend-timeout-seconds = 0 stops the
+pop, but costs roughly 1-2 W at idle on battery (about 4.4 W against
+2.4 W), so it isn't a good workaround here.
+
+Runtime test, writing the old en_coefs values:
+
+  for p in "0x24 0x0013" "0x25 0x0000" "0x26 0xC203" \
+           "0x28 0x0084" "0x29 0xb023"; do
+    set -- $p
+    hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX $1
+    hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF $2
+  done
+
+Results, by ear, on one boot:
+
+- Before the write: a pop about 5 s after a bell.
+- After the write: no pop after two bells, with the sink still
+  suspending normally.
+- The 630fbc6e870e scenario: a 13 s all-zero stream from one pw-play,
+  with three bells from a second pw-play starting 7 s in. All three
+  were audible, with no pop afterwards. That was one run, so it says
+  little about the original no-sound bug.
+- The write also works with the sink and codec runtime-suspended: no
+  pop after a bell in a later run.
+
+Not tested yet: whether the setting survives system suspend or
+hibernate.
+
+Since Kailang confirmed the same SSID shows different behaviour, is
+there something I can read from this machine that would separate the
+two groups, such as an amp revision? I'm also happy to test a patch.
+From a quick look, master still has the probe-time dis_coefs call as
+of late October.
+
+Thanks,
+JF
