@@ -1,55 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958318;
-	b=wtFm9MTQU319ySOxolNEDLWvPwZSg5PaH3CH1HC6SpjUwl5uf3NGGhbt0sBpp3oI07qo
-	 XttXT1mHQAvziahZ/mh9KW/odA9F+nv8e2vtWO3gHS64EoRAFkha0zEb2MPdhOKUXN6Ks
-	 mZDxSesMqG3hWQSBxGYkcj/WI5FSOMlA+9bbdP+S9zT1f/gwumOj1+fqmJ3E1iVPYr1e2
-	 NtOemaPPKYl6brWyNfC5wEfTQRFjX+G83Ni8y6H18LkcUdS9Wat0BZuXpfMZH0Ndmv+3n
-	 I1XUXKJtQXHaSwN/vhA1/rqojNq75UXPakaeyMOlDn7DgJ945N4wfGLC7taH59q99rA==
+	t=1793958337;
+	b=xziIGL5MvlJ8KN8N9lcdnYH+QRYFbZBnOMJ7XR9F+7DJaSwaVcp3ZFysF+MQ6e6gYdmz
+	 VBZgZhdmVpxrVy+Fqgj+WXM4owP01tl3Q842gXc0eNgTrUXwN2190vQ+qLbuRZ5Z0PUJl
+	 5W7Re0l61OSgg/381R03q+cZEq/Jf+a98BjbdopVAuQqDn+r/J5Pqi0zKH2eyF157jFYc
+	 oDtuFN9ABm8O6H3uIpM2LhESskBDPFWWuhwfzD4NwuVzJh+G5vjkEumYgFPe4hgReyv+C
+	 TNAf/yJxr3PM4pK1dEiDbt5eOvF5G8v+0R7VCZEgFT9X10vL2zOO9O2BMF8OjNxZbBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958318;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=9/DtOlqcnZlR+V7YT17eJeJ5DWSpW+gyRGTq+hXLQi4=;
-	b=eRnCU/aP7+FH9kpQcLgPHkB7my6NuGqTIfuKGCgHD3e81RhK4Oj0ZXdKR7/p5tdI3zkA
-	 kNXF4sHLcTgBuI4tc5CfPGW7ZOMGnRyI4yzfWvXiqcuQ3MkKtve1zD2dFGLmoutXZ9SIr
-	 f9Gqqu0KQ6jEYGNDi2bEKYgn0DMbE1x3konnYXCWsNWD1/ru6RNW7h/nej3aGc8HlvrWp
-	 GQqdo6qwrOPQr4TH8Tc/68SV04gyVGs6dr9UxRksFrkQ4/lmJvGBZE8s5Qm/35TVzaG1M
-	 CpX1jyadvkeZol517l0qHJVHfEECoROLUvEse2LzHFG5MMGrBIEzDUKUjx+0L0BnqGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958337;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dKZSeqgbkMQyFVAGTenY+vWDa9hVzBnn0+B7i3zsr7U=;
+	b=sKNpR4IthmaTW86D2Qk8dYQoAVP1eM2JraEcNdgmoc30aOVx2BAwHGnGHSp46xfX18ZW
+	 WtdviHYwH0JAQLJIj5hhgsrY1Ldcii4XzUnxgtYI8H2h0YgqZ2IMe2FmuK82VSzG4bH8+
+	 8nw4b0jpYQNVYF+cXUj1Bj8YY1w6hLKNG9fsOz2mxrims0y/UyN5LwvTYfEBYpkG0PyM0
+	 DhupPGopgRyZ2pvOLYdsRQ94xqQEiROBZupy4RC1qpx3hXTU05l2/9CPhg3rbbNzybCt+
+	 gvk7IAjO1V8kKiPX9EN+GiCSzUsqkcI1eAXB15Bj3UGpgVs7/SCy1tL5QsPfhVtBw2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=KfyeBrmR;
-	arc=none smtp.remote-ip=54.207.19.206
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q5LrCFsK;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2FB606A339;
-	Fri,  6 Nov 2026 09:45:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED2FB606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF05C606A32C
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:45:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF05C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=KfyeBrmR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793958203;
-	bh=9/DtOlqcnZlR+V7YT17eJeJ5DWSpW+gyRGTq+hXLQi4=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=KfyeBrmRxZC795BGZXcsb8GC8Xj4QqIV53wl1G+HcWaXH8fT4JR/bKrKAiaoDTHer
-	 qA6M4gFQFq8C5JniU6h30Cbw85wbTL9efCZx2Jpf/upGxFH8NmBJE0k4UECB3y7d46
-	 9kf4o/epgJ4egOOEx84801WS4bphWTBz8EwnujRk=
-X-QQ-mid: zesmtpgz5t1793958197tde09d153
-X-QQ-Originating-IP: SSnJYTmBN3BhoxreIb1kPVMxIhg0JADN7bMGfACzEgM=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 06 Nov 2026 17:43:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12871150989678230177
-EX-QQ-RecipientCnt: 19
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q5LrCFsK
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso210228a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:45:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793958336; x=1794563136; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dKZSeqgbkMQyFVAGTenY+vWDa9hVzBnn0+B7i3zsr7U=;
+        b=q5LrCFsK+e3dv8EdOMLzuHrfvQS2xsdL80z6yfvFGXSZmbEtDX3VHH/5htqLz9HKau
+         7fJfLLIVTe/lDA8VNI0dgITRCZzoDXiH87aRS8losW1jIRrCltrHQ1o1k8zw4AUcLDll
+         wzbbwhpjnXrabkiGte7wpzjDkVskdoGJKzZI6Jr3tC3ZMRLX3W8JurNygKhYRm9XbcxU
+         yC/PwT69rWmEva3zs59gJgZlA0nFfVbG4Nko7+yUTJllT7K5q3qVsTBAPQTdtgjmIdWt
+         XtJxE9K74A/CpLlj0k/nPJ0Ssu5JLp+N0pgDAeGqRolP/6+F9WNjQT92kDHRFNLFuoqY
+         lYlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793958336; x=1794563136;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dKZSeqgbkMQyFVAGTenY+vWDa9hVzBnn0+B7i3zsr7U=;
+        b=emWJCKAMurI9xGVgCp1Jr0Twikh4LWEhQk5o7SuO4xiiPQS0HtDAyLcneDlV42mGiv
+         v4wbdSUgRoTBXR1WSId0Kwrr4RgNorrd7YCZ1EKK1av9TfSRVbB5ZNY3olEqyIjTLOTE
+         ZnI1uNJrGYNvauuRQCx1nwyHotdKJDPGPWkX0pPmpY0Ru0kY3Z9sZJMX9+g5MC8yrZju
+         q5zX8cI3GKLR99WS6flWokemIZw6ZN1cT0wY5D3wX8CAip7vTtMvGQjGKBEPrMvsjXQl
+         QicY9ZuYzyGLbLU1FDJCR0zLcbFQ9Kv8HlJwP95JkYlZbmGbw4i0li/ejYBwifQQIt8D
+         j6Gg==
+X-Forwarded-Encrypted: i=1; AL+hErEpJMF1P2rqdYHsZ2IknpTV23bb45HAyvfIP1jyLgKug4W495xfzK2bOlTStBMxSfmw63Fqf5Qz0TxZUX8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88RILZLtteATkM7qSLRMVxhesNWKLimOhjj2FM60t9llcfa+jt
+	hlyl3KRYU4TQjJ8RcnYpyd6O5ggeUkPshRZIa+Y76PNze+Vg1wDvx0FrF6xMNmj+
+X-Gm-Gg: AYBFou18DTp52EbRg734J/+C1JsnmsvLytakX5KHrW/ED8jE7lwcBo5qLj3KuUJ3rhe
+	3yoCLCsLhrzHgN47h76fIEx/W2U48Z1V3PeLRdo7ctO1AIJrM0Ytq0ktYHlgK3tiVxt5BjyDSUl
+	h8JhGO8gKBx+vkudJAs4aEk7FVEWXYiDIfcW67Qr7SpL3rGspHyxPH7Kkevqll1tfULSnO3Borf
+	95pkLobBAja5CDOUIYH5mgLSh2UkkJs5tN3PT4uoM8VLcU3rzLLsZ3CGt7uLbwnIjvOIrRr3nXA
+	CkF5dftoN3WoRa82gbVXwQGYkrbYpSsy2ouMTzQeVLnPAKr870HE6suz5HYcRuUYVerOBZZeTQM
+	RaXHuUuImyY+bv5HAzKgYcztU02Sc9P488AJZ/IvlIWl0lFi4t59tS5SMVSKA04e2tQOixkWRtq
+	4SLDj0ciZSVMQkmDAacVqjdrrLl4xRVkZkAWquSre82gY8YIFS0jNRwEo3Ld0onVX5hHx7Y56nF
+	lMNCgTDVWxEDGnDRqfxFS4sMFb2ZYLKPLeuqkfKf65SaTRFc0lHlpWKWXi8vhpZnOZaG9viTZ3n
+	9CcCyX657T4KcTSwDsu2cs/M8z75u5Oc1cvA04HodcIg1j2+
+X-Received: by 2002:a17:90b:3892:b0:3ac:77c8:ac29 with SMTP id 98e67ed59e1d1-3b0db6d78bdmr1674541a91.15.1793958336106;
+        Fri, 06 Nov 2026 01:45:36 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32baf86sm7049969a91.17.2026.11.06.01.45.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 01:45:35 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Russell King <linux@armlinux.org.uk>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] adfs: bound big-directory entry name length to ADFS_FPLUS_NAME_LEN
+Date: Fri,  6 Nov 2026 18:45:16 +0900
+Message-ID: <20261106094516.2401170-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,84 +95,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=f1f8309b4664d3b53368ed8288ac3d7ae208ce6bdd6cde5c5354fa748c09;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Fri, 06 Nov 2026 09:43:13 +0000
-Message-Id: <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
-Cc: "Vadim Fedorenko" <vadim.fedorenko@linux.dev>, <netdev@vger.kernel.org>,
- "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Yixun Lan"
- <dlan@kernel.org>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
- "Vivian Wang" <wangruikang@iscas.ac.cn>, "Chukun Pan" <amadeus@jmu.edu.cn>,
- "Siddharth Vadapalli" <s-vadapalli@ti.com>, "Tomas Hlavacek"
- <tmshlvck@gmail.com>, "Muhammad Bilal" <meatuni001@gmail.com>, "Maxime
- Chevallier" <maxime.chevallier@bootlin.com>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
- emac_suspend()
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Ali Tariq" <alitariq45892@gmail.com>
-In-Reply-To: <20261105123441.2524171-1-alitariq45892@gmail.com>
-References: <20261105123441.2524171-1-alitariq45892@gmail.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MzZqz+taJMIt9SZKFNWImxRRAgVc+h7Ws1Z+YWOGTgzf/gAmB7h2Z+vC
-	7ya7owyEkVzrUS6OerFYKnbgmxjXklHiwTTHb3dQf4RCHpnfLKK/QQQ+DstHiyqVyXTXYCT
-	O7YyApiICUDpsFseMG8riEC06BCOdRPNHJT02dp2SoL/GPycejYAkMGqkEQxL5VTxKBqShf
-	V3TZfLBYx73ToV5BdVG/0RS4yrNVZ34KTH00OQ4pgtZSN6B2CQBKjFXq9Xr/Jf6W/KxwqMH
-	XGOe45P8P4l0505rUuFFS/G90MZZElpKrY57J0rpLR1e/BUv+5dodRv2NyjjUt/lTWAjLty
-	qDwB6p/xKfuIWDLbpgt5MWrOXIYoW+wsf9yFk60f/4IZ4q4zCwUrQkRFM6VJbxkSkT8AvNY
-	28JhO+5YJtR4oTQK8D+HtUJMpcWYQFvyvtdO4GvkKgs5JsTKse3o84eJpvhlRecjauUstpU
-	F1EKgFkBfC6F3b618T1hOfxNVscAbiN6pA8CUs4LONEdMYr3jn/hcFE1R+tfPyEfyYIHVej
-	WoejMGkDWnKc1d6QMb6S/7Z9YUZNCAndXbSVaq6gXYzstvfb5+SQSfFFqZJdONKc8BRZkbU
-	UWJ9gKe6bOT7o7XbxGHWOtfIBXqYZiXzUmV/y5J05UIHHj1ZvMDRSlzX4x4NzI9suSzKEFn
-	bk+ixysM3xUbgf9sSQAV3ZxWhZUKGYXRgqj+S9PmvohJlr47mUojyf5zOz5Z1k2T/u5Y1hp
-	8CZJq66eGxxbIXxpVXLle6t/RJPI5F4lKmq93wNGMRg2hkiswADVn6e6gOLcC2ECygsVc/J
-	Gv5yn8gez+SXvzwJmRIr33eTmoq//CTclwJaktkD9ShwaPea6MG0cnQGug6ZHkqbUhH2PY0
-	QwmkB0DYS776Fi3sL6dryr7Gsjg7koh5Dljxz27WSEH5MWPydnsiy2KAvIyj+hqFePgdmEk
-	sTpNstbhLE1UN/weZYoqghVQokVyqEWXL/xtwi66naaG3isWoVTOs9I8hM4KNSYLVTDZLX2
-	ymjMQONZKAvKsa+6g9fEvpZoL8sMZhjZf24ogIogUs2xReCa7oBgco8oh6N6sg2YIj1RAek
-	OBV5U/hBQY1
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
 
---f1f8309b4664d3b53368ed8288ac3d7ae208ce6bdd6cde5c5354fa748c09
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+From: Hyunjung Ko <hj351016@gmail.com>
 
-On Thu,  5 Nov 2026 17:34:37 +0500, Ali Tariq wrote:
-> @@ -2056,7 +2059,9 @@ static int emac_suspend(struct device *dev)
->  		return 0;
->  	}
-> =20
-> +	rtnl_lock();
->  	emac_stop(ndev);
-> +	rtnl_unlock();
-> =20
->  	clk_disable_unprepare(priv->bus_clk);
->  	netif_device_detach(ndev);
-This can deadlock. emac_stop() -> emac_down() calls
-cancel_work_sync(&priv->tx_timeout_task) with RTNL now held, while
-emac_tx_timeout_task() starts with rtnl_lock().=20
+adfs_fplus_getnext() reads a directory entry's name length straight from
+the on-disk big-directory entry and uses it, unchecked, as the length of
+a copy into the fixed-size name buffer of the on-stack struct object_info:
 
---=20
-Troy Mitchell
+	obj->name_len = le32_to_cpu(bde.bigdirobnamelen);
 
---f1f8309b4664d3b53368ed8288ac3d7ae208ce6bdd6cde5c5354fa748c09
-Content-Type: application/pgp-signature; name="signature.asc"
+	offset = adfs_fplus_offset(h, le32_to_cpu(h->bigdirentries));
+	offset += le32_to_cpu(bde.bigdirobnameptr);
 
------BEGIN PGP SIGNATURE-----
+	ret = adfs_dir_copyfrom(obj->name, dir, offset, obj->name_len);
 
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCau2hMSEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC8JlQEAndRU8NMombSV
-ki0R8/v7iIuQ+4g0XE3owkq22upYmUgA/1pcBD9aP0bGv/WS5y8ksJFFjURLLOBw
-QJMXWHSubnoE
-=s+my
------END PGP SIGNATURE-----
+obj->name is char[ADFS_MAX_NAME_LEN] (260 bytes), but bigdirobnamelen is
+an attacker-controlled __le32 with no upper bound.  adfs_dir_copyfrom()
+only validates that the source offset+length stay within the directory
+buffers; it does not bound the length against the destination.  A crafted
+image whose directory holds enough data at the name offset therefore lets
+a single entry drive a copy of up to ~4 GiB into the 260-byte stack
+buffer, a stack out-of-bounds write (detected by CONFIG_STACKPROTECTOR as
+a corrupted canary, or by KASAN with CONFIG_KASAN_STACK).  The copy is
+reached from both readdir and ->lookup via adfs_dir_lookup_byname().
 
---f1f8309b4664d3b53368ed8288ac3d7ae208ce6bdd6cde5c5354fa748c09--
+The old-format directory parser (dir_f.c) already caps names at
+ADFS_F_NAME_LEN while reading them; the big-directory parser has no
+equivalent guard even though ADFS_FPLUS_NAME_LEN (255) is defined for
+exactly this limit and is used elsewhere (super.c, s_namelen).
+
+Reject entries whose name length exceeds ADFS_FPLUS_NAME_LEN before the
+copy.  255 bytes fit in the 260-byte buffer and still leave room for the
+4-byte ",xyz" filetype suffix that adfs_object_fixup() may append.
+
+To trigger: build an ADFS image with a valid F+ ("big") directory whose
+header, tail (BIGDIRENDNAME magic, matching masseq) and computed
+check byte all validate, containing one adfs_bigdirentry with
+bigdirobnamelen set to e.g. 300 and bigdirobnameptr pointing at 300 bytes
+of in-bounds directory data.  mount -o loop followed by ls (or opening a
+path under the mount) overflows obj->name.  The check byte is a computed
+checksum, which is why random fuzzing rarely reaches this code; a
+hand-crafted image does.
+
+Reproduced under KASAN on 7.3-rc3 and 7.4-rc1 by mounting a crafted
+ADFS image and running ls: KASAN reports a stack-out-of-bounds in the
+adfs_fplus_getnext() name copy path.
+
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ fs/adfs/dir_fplus.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/adfs/dir_fplus.c b/fs/adfs/dir_fplus.c
+--- a/fs/adfs/dir_fplus.c
++++ b/fs/adfs/dir_fplus.c
+@@ -191,6 +191,9 @@ adfs_fplus_getnext(struct adfs_dir *dir, struct object_info *obj)
+ 	obj->attr     = le32_to_cpu(bde.bigdirattr);
+ 	obj->name_len = le32_to_cpu(bde.bigdirobnamelen);
+
++	if (obj->name_len > ADFS_FPLUS_NAME_LEN)
++		return -EIO;
++
+ 	offset = adfs_fplus_offset(h, le32_to_cpu(h->bigdirentries));
+ 	offset += le32_to_cpu(bde.bigdirobnameptr);
+
+--
+2.43.0
