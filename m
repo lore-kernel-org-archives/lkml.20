@@ -1,113 +1,116 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974433;
-	b=N1R69VJPCVLb3FJdb7Avgca3DPtHoVHFG19070euL/tXL3e8GRURslVY+WZxxJ2SGym2
-	 X85nwkzzDlMf8kedpTZ/57Fk45xFduQORO4Wo/VrBMYI5O4FOlcJwaKbONfUxiElDwlWL
-	 UHHPZJNTZdxcO4U5oLKYutNoWqy6NA1xnEjkhBPqxK9dAwaifAKYoFZgq8QmeR6ZSZR73
-	 EdTtqTIoWyMlbYIbrlzORSWMtdedbQzPlrGkS5CR8iqgCUEjz/ecojMrUGLExbzuhM7la
-	 16GLePI8Nfq0Idz6X92Bw30TwfVXNo1i9ZIL04egrTw6fwBieu3eFxPm/Qmkzs6XRQQ==
+	t=1793974439;
+	b=DJZ52K1X3tL3icKtxnGyhV0WflI4osJgbeWUqn7iI6w7X6RBrgLJjk58a3gCjvEILz7r
+	 1uH5tyQiq1B8r5EtGMbsSRPmtKX3NMDYBSSSIjJ1Yl8WanoD5oETfsE9w/cik9tsb4iG8
+	 PmvgQNfiwAfQJKxns7fVI07J3uZbTR9C+Ec+eNM9j/+j87tgJnDJI8o9kSK85OG3guOsM
+	 9M4NO6CcCksjOg04eo1BZFlbHEin3B0KvIaqe28jX9IdUbDFMS0kIBku/gjGO/mmszzqx
+	 CqFzm9iDnH9D9RnPS2voHrf8rqe7cJPfy2QxTOYontkL7aNfGeT4HcWEHyn9t07xldQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974433;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974439;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
-	b=NJ8rkXPeDLzHkUnuqtVnFj4vaiPYn8HK1SWyqTG4BGMAO69ald56DkcM2ci9khCtXei5
-	 /Gu8JUJnZR32SLp4t69U12mEwJ3xmW8GISvzlg8xTBYuI7KDQAAyaDQkKl63GZ0UrR1e4
-	 Fqr2rXVEADCy5hg5HfvVeb5lMe0CutcMnoUSPvcOWdB1yX3uVynjiHIkruLdLQMtlWzt+
-	 AQegRyL8ArImDhD3l1z8ZR6paX2PePhqVNiENNYZpjL4n/auTRB7f894EEPfsGG3ogN2a
-	 1SCuKdkWQ7+z9vMMUnqB4N/KgE5aI4Znm8kh0wtUgVLuyz6cQ7f6SdKwvg2togmlmtQ==
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=6K30hVHhqXoPEaw21V0OV260X+ND3ARDmqWUfKNcc4g=;
+	b=fXFIwLpfcVQVmQuTGz3MgoMiQIfxG9FSSuh1CVDRxvwEFryqZ3no7U5l68tpPOsMmTRO
+	 bMmBvUvfTN8+PtaSDCAdozUDS/h36tJ1XQk82BzLwNQtwcDX7NIlMpIl3Tqxt6redz/ft
+	 3efMqBtmGMvYIYWt5REFwA8ywMzrgadxeQQ9V/vM/e2uQ5fIsiBRkAQPXK47FAFEkxFVi
+	 Ib/LUDnx+AZ4Ibz40igcRUASj61Eqb0W6DPiiNk9DLpu1uS/57Ln/9Ml2x3SWQo9WFlGN
+	 hwS608g4mIHju/NrHtnZBqDiUGT5MbOfQ2ekOVtV2m1dl6x7yMwpv+SPDOo//BEurvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=suse.cz;
 	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="pvRI/D8R";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AzVXIHVV;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="pvRI/D8R";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AzVXIHVV;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MdqF6m8E;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0FEKAcG7;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="cgcr/uF6";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EkMEKg6R;
 	arc=none smtp.remote-ip=195.135.223.130
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54171606A329
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 14:13:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54171606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F394606A329;
+	Fri,  6 Nov 2026 14:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F394606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=pvRI/D8R;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AzVXIHVV;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=pvRI/D8R;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AzVXIHVV
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MdqF6m8E;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=0FEKAcG7;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cgcr/uF6;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=EkMEKg6R
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A268E22130;
-	Fri,  6 Nov 2026 14:13:50 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3062B22130;
+	Fri,  6 Nov 2026 14:13:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793974430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793974437; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
-	b=pvRI/D8RopcbFtgNPfW+iZ2eH21pmmfyjNXaTBk2vE1ikaUyi5ZiBfpUI9DBHxSg056LZ/
-	bgaYzzIfmdjyGKdvkKYDTONndhOEEdBNMQoBgWoZ/a8TN+unCtfVpYKTENumVFgNiyx8PU
-	jzG6MUyNuwxCdK8tH73YdFpwQlrjj68=
+	bh=6K30hVHhqXoPEaw21V0OV260X+ND3ARDmqWUfKNcc4g=;
+	b=MdqF6m8E2qCtZh8P7amkkKG3Ce/2rxwsLs45P/KN26lJYHVec/x+r8QZ0bDTaQ1Q2ciLz3
+	genos76NXyeeY27gEBoAJiYLNHXpp878ok26i/jKIOWtjdHCon86hkG3lwvt/7+gRqOjT+
+	D2YlTMUxv71sUiAoFd+BgFn/qNxhqS4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793974430;
+	s=susede2_ed25519; t=1793974437;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
-	b=AzVXIHVVE8uagLfECKc27F9aiHHqwykOgSHiYeP032HqnsmkIBLN0HR+sxphwH+ZhZ+jLJ
-	ogoAPHclIxaMcyCQ==
+	bh=6K30hVHhqXoPEaw21V0OV260X+ND3ARDmqWUfKNcc4g=;
+	b=0FEKAcG7j5y2RE5+msUbcCwmOQmH9FD8Z0YCUr5v+JQr6cfEiJwUQwLFpnGl9f31cU6n3d
+	Fmo/560AICUlZFAg==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793974430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793974436; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
-	b=pvRI/D8RopcbFtgNPfW+iZ2eH21pmmfyjNXaTBk2vE1ikaUyi5ZiBfpUI9DBHxSg056LZ/
-	bgaYzzIfmdjyGKdvkKYDTONndhOEEdBNMQoBgWoZ/a8TN+unCtfVpYKTENumVFgNiyx8PU
-	jzG6MUyNuwxCdK8tH73YdFpwQlrjj68=
+	bh=6K30hVHhqXoPEaw21V0OV260X+ND3ARDmqWUfKNcc4g=;
+	b=cgcr/uF6oMgxvfsar8cZ5Jm8xurU+djim4hT3s/6PNpNSQiKatXoCAhli9efi/MkfxC+lg
+	KHOvpCNrITX288ebnO9YEy+ngRw8ikjC8TyWBYCXuNyOdDGPS/VsJwNvqy7LtO8Un5m9QN
+	vmlLw96VbbOtiyTgWSLpMdRk98zzWCU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793974430;
+	s=susede2_ed25519; t=1793974436;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DbWVk74jXjpvpjgKYrK4/CAQhS2u1tHZBMZnBzvHIS8=;
-	b=AzVXIHVVE8uagLfECKc27F9aiHHqwykOgSHiYeP032HqnsmkIBLN0HR+sxphwH+ZhZ+jLJ
-	ogoAPHclIxaMcyCQ==
+	bh=6K30hVHhqXoPEaw21V0OV260X+ND3ARDmqWUfKNcc4g=;
+	b=EkMEKg6Rq7p6T2dAdlddo3Ddu/SzdnzzrfxfyG6Ijczc+5rZ3K5bTuHeAykb2gOAV+NQOh
+	nwP2LvPTuOqyGtCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7AC9C134E9;
-	Fri,  6 Nov 2026 14:13:50 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 098D5134E9;
+	Fri,  6 Nov 2026 14:13:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Ao+wFZ7g7WoTZAAAD6G6ig
-	(envelope-from <jbohac@suse.cz>); Fri, 06 Nov 2026 14:13:50 +0000
-Date: Fri, 6 Nov 2026 15:13:50 +0100
-From: Jiri Bohac <jbohac@suse.cz>
-To: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Dave Young <ruirui.yang@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Usama Arif <usama.arif@linux.dev>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kdump: Give crashkernel CMA areas unique names
-Message-ID: <au3gnsckVTK6tUs5@dwarf.suse.cz>
-References: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
+	id ELg4NqPg7WofZAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 06 Nov 2026 14:13:56 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 9003021B7D; Fri, 06 Nov 2026 15:13:40 +0100 (CET)
+Date: Fri, 6 Nov 2026 15:13:40 +0100
+From: Jan Kara <jack@suse.cz>
+To: Bence =?utf-8?B?Q3PDs2vDoXM=?= <bence.csokas@arm.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/2] Add scope-based cleanup capability to eventfd_ctx
+Message-ID: <sp6gvawt6petvrlky7g6pqaqsp3jwouu6ixarevis5m5vd7fwe@xjxeakzi3nn3>
+References: <20261027-efd-autofree-v3-0-caa2442e1beb@arm.com>
+ <20261106-hinein-lagebericht-abbezahlen-cb826d68d175@brauner>
+ <bba04255-5dee-4dd2-a877-5e169edceadc@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,65 +120,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261106104309.3669583-1-zaslonko@linux.ibm.com>
-X-Spamd-Result: default: False [-13.30 / 50.00];
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <bba04255-5dee-4dd2-a877-5e169edceadc@arm.com>
+X-Spamd-Result: default: False [-12.80 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
 	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
 	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,zeniv.linux.org.uk,suse.cz,linux.intel.com,suse.de,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
 	TO_DN_SOME(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.30
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.80
 X-Spam-Level: 
 X-Spam-Flag: NO
 
-On Fri, Nov 06, 2026 at 11:43:09AM +0100, Mikhail Zaslonko wrote:
-> reserve_crashkernel_cma() names every CMA area it reserves
-> "crashkernel". If the requested size can't be reserved in one piece,
-> it falls back to several smaller areas, all with the same name.
-> With CONFIG_CMA_SYSFS, cma_sysfs_init() then fails to create the second
-> directory:
-> 
->   sysfs: cannot create duplicate filename '/kernel/mm/cma/crashkernel'
-> 
-> and the error path removes the sysfs entries of all CMA areas.
-> 
-> With CONFIG_CMA_DEBUGFS, debugfs refuses the duplicate directories as
-> well:
-> 
->   debugfs: 'crashkernel' already exists in 'cma'
-> 
-> so only the first area shows up in debugfs.
-> 
-> Keep the name of the first area and add the index to the others:
-> crashkernel, crashkernel1, crashkernel2, ...
-> 
-> Fixes: ab475510e042 ("kdump: implement reserve_crashkernel_cma")
-> Signed-off-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+Hi!
 
-Thanks for fixing this.
+On Fri 06-11-26 10:31:58, Bence Csókás wrote:
+> On 2026. 11. 06. 10:05, Christian Brauner wrote:
+> > On Tue, Oct 27, 2026 at 05:22:00PM +0100, Bence Csokas wrote:
+> > > Add __free() support to eventfd and update drm_syncobj to use it as an
+> > > example consumer.
+> > > 
+> > > A minor discrepancy I encountered is whether to put a semicolon after
+> > > DEFINE_FREE(). It seems some in-tree code does, some doesn't. In the end,
+> > > I followed the example set in core-api/cleanup.rst, and omitted it.
+> > > 
+> > > Signed-off-by: Bence Csokas <bence.csokas@arm.com>
+> > > ---
+> > 
+> > I'm really having trouble seeing how this improves anything
+> > significantly. Probably others have the same impression which is why
+> > this doesn't get a lot of review.
+> 
+> The goal of the __free() API is to reduce the number of goto-based error
+> paths. Normally, you'd have to keep the state of every local in your head
+> for every early return. (Has it been initialized? Has it been consumed? Or
+> does it need to be freed?) Then you need to arrange your "goto tree" (error
+> labels) in a way that frees everything, and then for every early exit, jump
+> to the correct one. This can be quite complex for some functions. Look at
+> KVM or HyperV eventfd code, for example.
+> 
+> By contrast, you just mark the local var with _free() and an appropriate
+> destructor snippet, and the consumption point (the point after which we
+> don't need to free it on a return) with no_free_ptr(), and the compiler
+> instruments every early return accordingly.
 
-I don't think we really need the special case for crashk_cma_cnt == 0 
-and that "crashkernel0" would be fine. But I don't mind either way.
+Sure, but there's also the other side about which you don't speak: unless
+the destructor is trivial (like kfree()), there are implications about
+locking, when resources (such as references held by the object) get
+released etc. So it can also be more complex to wrap your head around
+__free usage than around standard cleanup code.
 
-Acked-by: Jiri Bohac <jbohac@suse.cz>
+So unless __free is providing a noticeable simplification of some goto
+hell, cleanup in many functions or similar, I generally don't find it worth
+it...
 
+								Honza
 -- 
-Jiri Bohac <jbohac@suse.cz>
-SUSE Labs, Prague, Czechia
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
