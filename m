@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957781;
-	b=TYPGWOQbHWkkZcrsamskzqfNP+n9gqEMbvE8EzeGnOOMrH83m3EqOFCudx/XtQsAs95g
-	 m43UtJzp+nI8z3hkrWFttQ8TShj8CTDfW3jVSqwrFGmDCakepYM8rETGhJ80qSVU8vb9A
-	 yF6xXvBapsodZsTA5LSUdRtVjkchdL4YDAU+nAZyVnVpMwmhG0VmfiD77AhE06ldzrf8F
-	 0CakRPbOoY66ixoBV1oBr1gTveTINY//3WFXtz1Nec4t+dxwjK7Ebrg/uF+2mda52xxIe
-	 Isi4z5yjXQIw9awFJr0zH03iUpfDW8/dkgWSaLir1zcg+i9If8VCUUDuhrUQpSvmC7A==
+	t=1793957764;
+	b=zi534BRH4pN9Jkguw9fscHJmzmCfPBHQrOr+w90RmGrYpMEn+8xzux2/6CDuVjOj3Gng
+	 qu2bh0eR1tkKVXognPbarCsQCrNQHznQwYULVErRXekmiDUlnNpabOa6ju6PLmRVPMsMJ
+	 MWyp8P6O3V1xRB089mN881N/FPBbos5g6bDhgsjUwuXOKdJuTSMvW5/CjnjMr2vXrkRgn
+	 yjttxF2RtKEkiuPiHPuWYdmJg1ZAwHP/WUT/3340+INDi0Q81ukHvi/TDakuW1BWiRcCI
+	 j7C4XfRgY/AFPZZ/Zz1A9LGPyAE4BnVhIT3OgBJglbVLADiZFJemWg5ulurpa/sV9JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957781;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957764;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=QLo167q3nGoocWx7FH0z1zrfFpK50+DGT6fbszYKB9I=;
-	b=Mo3hrv1U1c37I98UAU2vhE6YJJbNdxiCqa030+Q/hvJuPjBdzJ0Tx5tYbpN/DXpufyIf
-	 81H2ls69gkyKiV8Wq74OD/pLzpgy+oabIz0kvya8gX6D/NK51shDTb+QwgWpixXPLrUH4
-	 wa3R3k8DOpc96X2GNwaCEqpJRc1BfWJ4ESapcUA8rYQPOVAee2K0FIdwh8/VIGbS+51rS
-	 Ug/3Ylt0kYJ2RItNHXEGpGauLzLd8XPi8EfgwKe8DoUbv3Ut6DHZrEvJRuZ0UgVDf6uda
-	 SMd9OvDcMZOZDnAOExSVNr0Z88+OyQwaEeKpgJX9NcWU5HEprD5xlhLYfYktW3/Atxg==
+	bh=TAVF0dkKb0/UBrr4Bmd1xlp6JH0qxzS72yOop0oTpX0=;
+	b=Wp9ZbzDoBzgKim38wf54B7bgKOMDyjQKCoU2dsj5lq/P9MGNDovNX72BHYYR+GmJf075
+	 t4lUcKw4p4ib27vUa7Lq1RFYTnJfwSa8iOC6/HTkN42uvNiiR1VkIN+TR8NkZRzAFrmhM
+	 eYQenoguzXaQKCWyNOXvXuKFq3zUVq63rY7ZR2rbvqIv79UTzKppcQ2Oe8Iek5PbrKTCp
+	 9LryWpUFBgw6sFMP/3U4bG3OyShUd+caI6c5z4Z8I4vOtptst0fDvSmlKMy2XZpxtTGaM
+	 5oxIX5kxMv5BeH5wzgLgDnatmn1qMRZL/0T565YDuFKik70gjqVWEaPST50pvE6N3/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Y0FRZVYr;
-	arc=none smtp.remote-ip=209.85.214.226
-Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ee8Hz7YU;
+	arc=none smtp.remote-ip=209.85.219.100
+Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com [209.85.219.100])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77473606A920
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:36:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77473606A920
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C1460A3836
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:36:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C1460A3836
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Y0FRZVYr
-Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2e9eb579c0eso2413135ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:36:20 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ee8Hz7YU
+Received: by mail-qv1-f100.google.com with SMTP id 6a1803df08f44-91c719669a8so4504506d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:36:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793957780; x=1794562580;
+        d=1e100.net; s=20260707; t=1793957762; x=1794562562;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QLo167q3nGoocWx7FH0z1zrfFpK50+DGT6fbszYKB9I=;
-        b=t/tW46ayH6utXZEivSSHk5vI/Qbb8QjkfldNkrDGefkBTtS2B++O8R6YkUlqQ6G5xn
-         1AMGeiFwQF8zh8jsjgrgw3aKFm3fMxfp9AP8bVAVVZFDowhX5Xi643riy9Rt9pPEUe9I
-         becTgY748ivOA/3zdQDVlpevv4sNTDyeg8Y1V1MeyPHdnQf5ONGz9q8chl87npSoDp5k
-         ptOLlwYNyefox5r4SC7rczwZfx4QbnFYANNimLR/QxJesvX0Gcsb5177PP0FCffimMKw
-         ThtCuUhrLb2uFlzy9bor23tS5RvadX5hMQDUljzmHVCfr/Zg5+flTtbEckah9bWjjkQK
-         haRA==
-X-Forwarded-Encrypted: i=1; AL+hErHhnJZaILkXiYvsSSqIjn3K30eyA2z6+hF9udGDAUAeeF15skeNycM2CMIhHw8q3egUKld6ko57vHpEGkY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8MLa7yBRbbVlnmu6HUVsO6fa2EiT57aaLI/CJD4XPCuCVFLJ7L
-	KIFjuvLejFOgLQfJp6BPy3y8hB6LUtndGyZ+xnHhR7GwTEq6EGRXy54moQDEg6BcrhGd50Jpve7
-	Gz840imsfUOw+R3tf/37gOkeGt6P1LlnSdP9gsMPkZAmdtFzpVZTqNVQkv9eNwv9sX0X2gNv+m9
-	anW6doSSCK6aYF+QpcOrX/oGItrMSs1RvZgv7VnHztenUJeiJcTmTwBIdIcInBaMhgmAcMPWbdo
-	lbOyudRjZhXJCgukg==
-X-Gm-Gg: AYBFou3zbL5Ll48l1ifcspXe6l5qTryi/5rF0EH4RribBG43cN6XXq+A4UQwfZaP4b8
-	JAFwjxqdAtX1lUm24YG5YXQE7bINRGLmInqcRlpcsntZ4Xfj9KbQieh89IyNc6aKVyXZljKysdd
-	yz+ajqkM9ObEJEdCM7QAE1Zq7jsmx3iapcRG8xPljjiTLHp/QDfxixMcqyPVufLJ0hOzo+UOyO9
-	RtDV85GBqtOXFJBBpGU8QvCoD4wyJyMaVZsP7qdq/QwKWO6kAAGuOAe/Jv//lPqum2K6QfRFwXx
-	gdw9IThM9zI+96HGeqWq8EKxohKe+jqIiTgiVtp/v9M79jYN5pPBZC4sgma8KEsu/Q0S8dBePFZ
-	GMdJ7nYzekidbPtFlXJOt7aA7EdsIyqpXK1u+WUVwiZEI8Lcw7EUQtr0NCGbR2cvyLwvgb6cpJb
-	gHH4GfPtWWWn3fkZ8snZHBMRzBDMKbvU17jg==
-X-Received: by 2002:a17:903:228a:b0:2ed:3c25:782 with SMTP id d9443c01a7336-2ed409890cbmr22902695ad.24.1793957779791;
-        Fri, 06 Nov 2026 01:36:19 -0800 (PST)
+        bh=TAVF0dkKb0/UBrr4Bmd1xlp6JH0qxzS72yOop0oTpX0=;
+        b=Cw5HmBWDtZxUYutRtm9hNj3ssMGwJmTyJuECL2JAlMEPJ+U1FYio/l3k/e9mZS8ax8
+         Pc4IBYw6Qu6BPprtu5tG5xtdS5AmgvEtHY+t5zXw/OLN41Y4N885Y5ReUok1gBY4WgN0
+         XQwQX4frpD5OyYk1NBduvzBVqKYu3/ClROdJcuqk3eP7rXmBWVQBy6WGdmYDQysna3Xc
+         ks8Wkn1LUwVvTkPqOPfO5SAkqatJHFDfViFWPPIOVj2rTgcJML13Ax4XVkdqFVM3Q2dR
+         QoG6oSWQjvtFMV3qxiGlo6zx0rQzzwqBzf9CxW9WDm1ds8Nr50RKwg9I58cxV3DVkvc4
+         S54g==
+X-Forwarded-Encrypted: i=1; AKwUvBxoF5AxnXzlfKmCwNm1f6viMN25zXmQDDChln7zmEDuGJMLkKFv7DpLzxd9Ky2vO97q5mfD7ElAwLz0DD0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RSXatSigDF6Hbll1B9bIUeOba52860P37gI2dr/WL6NyfFZWj
+	QIooNIDzzJVfRj6waJfyWTRHXpep8fDDsvh7mwlETiIoYadCby02kRNy9pnWaMYbB+KJiF07cb4
+	g/aEC8iWA/Kt5Kjji7JH/KTQIW3o7Zi9rZq3LxtkOJzpa2JjOagFoAurkd2RVuSnHm92INlc6o2
+	Ao2FcFuHNHAJhmUK00lpx6a3RjKRdM+9wy597RTXSomeYKVUYo/GoIGkHScvFcZZK+nUodmpaxV
+	dSLwoLeLj31+HdXzg==
+X-Gm-Gg: AYBFou1x9DOMcZQn/CMyvgf8YPpHfd1CoJx620/QJqOL75yuuv03PpWHMrf2sfxDOyY
+	IEOyG6EMWusP2B8WXZwivqT8RUQ15ObwCuScAQ5YGUG1j03lugLMWoEQBlXpY/pVgg0tvpCBu9Z
+	B3Q1Gf50UpXAGWmGtGZLn2l7e8l/bqqK3ZrINxTMEOasZOz91Y/207wNcwGYnvNG8q8iF9kzWxt
+	ZJ7GblyScXrMTt8VJIumb5A5AowH9cadlFCR6FO1FPQbId2W7gsRu3cq06KKK3LS+Ys8W8Qkt7V
+	xuE1I9GDe/Q71oRbRWCMr0ObR4qO5anlnNA+shq1DW0a3k4GklYLQIy4OspYacO5OpRq9P+0iLT
+	iItMu0L3GU6PVENMqQ3M5DQ484YVzNhHlWmUd87JlT9c25cVQgdOoND++szsfuDoejDn+c0ZT8j
+	ZsprKB1y51IkPg8NF06fAWKaJwQj+USFbLMw==
+X-Received: by 2002:a05:620a:4611:b0:93f:53d1:54c7 with SMTP id af79cd13be357-945f362b55amr267673085a.70.1793957762507;
+        Fri, 06 Nov 2026 01:36:02 -0800 (PST)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2ed47aadbd6sm357885ad.26.2026.11.06.01.36.18
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-945f5a9ddc9sm15035385a.8.2026.11.06.01.36.02
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 06 Nov 2026 01:36:19 -0800 (PST)
+        Fri, 06 Nov 2026 01:36:02 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so991190eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:36:18 -0800 (PST)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36efb506f29so1349583eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:36:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793957777; x=1794562577; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1793957761; x=1794562561; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QLo167q3nGoocWx7FH0z1zrfFpK50+DGT6fbszYKB9I=;
-        b=Y0FRZVYrchjY/pd5Hoa4qSjOLXBrsRiQQpY7g0vnExSPTmS4aFF61IxkjhItY9pjvk
-         laSfbaLZjGMonFOryZHQI5saKWtCoSdpYHPYxWIUTjRQ3WgRbe03+YpRQE+KhMrfe50Z
-         t6HFFaLkAzqbfJC+q0ui5qgjz6ZqXkotWKguc=
-X-Forwarded-Encrypted: i=1; AL+hErFupPtIUCXZJAbLjYPN9m1QYD7ROPtx3QznHcvmDSd3aJyxINZ4jvmQIhDhVdKME8ZkF8tiahuj3Ezjt20=@vger.kernel.org
-X-Received: by 2002:a05:7301:1810:b0:36a:4ea9:19ad with SMTP id 5a478bee46e88-36f7494d138mr2506541eec.9.1793957776931;
-        Fri, 06 Nov 2026 01:36:16 -0800 (PST)
-X-Received: by 2002:a05:7301:1810:b0:36a:4ea9:19ad with SMTP id 5a478bee46e88-36f7494d138mr2506493eec.9.1793957776062;
-        Fri, 06 Nov 2026 01:36:16 -0800 (PST)
+        bh=TAVF0dkKb0/UBrr4Bmd1xlp6JH0qxzS72yOop0oTpX0=;
+        b=ee8Hz7YUsAJzPIFneIbLVoQ0+u+OGnPyXVfYhbOyEpKZnDstdK42F/RYNVm7ss2oey
+         ln/OZHrayI5FCxoqIuY0BkDalZLN0bAobglBFeH1wXCn3b+aGV+VvoJEHkixuhT6gjJu
+         PS6ylYm1j2INgROJFolN7Zi2nCrscbP+Ub7RM=
+X-Forwarded-Encrypted: i=1; AKwUvByn7k8k04pwewo87kMYxfgozgm7rqg7Kka80s3Zn44qwnwauH8d4ioUoib3nZuyO7bpYqeRKAu/cbLBWW8=@vger.kernel.org
+X-Received: by 2002:a05:693c:2110:b0:356:7ddb:2e54 with SMTP id 5a478bee46e88-36f76c16579mr2930665eec.29.1793957760784;
+        Fri, 06 Nov 2026 01:36:00 -0800 (PST)
+X-Received: by 2002:a05:693c:2110:b0:356:7ddb:2e54 with SMTP id 5a478bee46e88-36f76c16579mr2930614eec.29.1793957759960;
+        Fri, 06 Nov 2026 01:35:59 -0800 (PST)
 Received: from H5-S1 ([192.19.203.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fc92fasm6447726eec.19.2026.11.06.01.36.11
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fc92fasm6447726eec.19.2026.11.06.01.35.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:36:15 -0800 (PST)
+        Fri, 06 Nov 2026 01:35:59 -0800 (PST)
 From: Vikas Gupta <vikas.gupta@broadcom.com>
 To: davem@davemloft.net,
 	edumazet@google.com,
@@ -109,9 +109,9 @@ Cc: netdev@vger.kernel.org,
 	dharmender.garg@broadcom.com,
 	ajit.khaparde@broadcom.com,
 	Vikas Gupta <vikas.gupta@broadcom.com>
-Subject: [PATCH net-next v6 08/10] bnge: add NTUPLE filter support in ethtool
-Date: Fri,  6 Nov 2026 15:05:22 +0530
-Message-ID: <20261106093524.838341-9-vikas.gupta@broadcom.com>
+Subject: [PATCH net-next v6 05/10] bnge: add ethtool support to manage RSS contexts
+Date: Fri,  6 Nov 2026 15:05:19 +0530
+Message-ID: <20261106093524.838341-6-vikas.gupta@broadcom.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20261106093524.838341-1-vikas.gupta@broadcom.com>
 References: <20261106093524.838341-1-vikas.gupta@broadcom.com>
@@ -127,1043 +127,674 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Introduce ethtool rx flow classification (rxnfc) operations for
-NTUPLE filter management.
+Introduce ethtool callbacks to manage RSS contexts.
 
-User filters stay in software while the interface is down.
-bnge_cfg_usr_fltrs() programs them in firmware again on open, and
-bnge_clear_usr_fltrs() deletes them when NTUPLE is turned off.
+Each context allocates a dedicated VNIC with its own RSS indirection
+table and hash key, configured with TPA settings matching those of the
+default VNIC.
 
-bnge_hwrm_l2_filter_alloc() sets CFA_L2_FILTER_ALLOC_REQ_FLAGS_TRAFFIC_L2
-only for user ETHER_FLOW ring rules. The default and unicast MAC
-filters keep the traffic type they had before this patch.
-
-User ETHER_FLOW rules and the unicast address filters share the L2
-filter table, so the result depends on the order in which a MAC is
-added. If the rule is added first, a later unicast address for the same
-MAC (a macvlan, for example) is left to the rule and is delivered only
-to the rule's ring, not through the default VNIC. If the unicast address
-is added first, adding a rule for the same MAC fails with -EEXIST.
-
-When such a rule is deleted, bnge_del_usr_l2_filter() programs the
-unicast filter of the MAC that the rule had been serving. If the
-firmware refuses it, a warning is logged and the address is left
-without a filter until its address list changes.
-
-The unicast address filters and the user ETHER_FLOW rules share the
-same L2 filters. After the old unicast filters are freed,
-bnge_cfg_rx_mode() counts the free L2 filters, and when the
-addresses do not fit it receives them in promiscuous mode, as
-it already does for more than BNGE_MAX_L2_FLTRS - 1 addresses.
-
-BNGE_MAX_UC_ADDRS (4) is removed. The per-VNIC l2_filters[] array and
-the uc_list buffer are sized by BNGE_MAX_L2_FLTRS, the number of L2
-filters of a function, because the unicast address filters and the user
-rules share that pool and the free-L2-filter check above is what limits
-them.
+The patch also changes existing behaviour:
+  - bnge_reserve_rings() no longer always resets bd->rss_indir_tbl when
+    the RX ring count drops. A user-configured default table is kept,
+    and ethtool_rxfh_indir_lost() is called when it no longer fits.
+  - bnge_fill_hw_rss_tbl() remaps out-of-range entries for every VNIC,
+    including the default one.
+  - bnge_del_one_rss_ctx() resets fw_rss_cos_lb_ctx[] and decrements
+    rsscos_nr_ctxs, and bnge_hwrm_realloc_rss_ctx_vnic() takes rss_lock.
+  - bnge_set_features() fails with -EBUSY when NTUPLE is cleared while
+    RSS contexts exist.
 
 Signed-off-by: Vikas Gupta <vikas.gupta@broadcom.com>
 Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
 ---
- .../net/ethernet/broadcom/bnge/bnge_ethtool.c | 621 ++++++++++++++++++
- .../net/ethernet/broadcom/bnge/bnge_filter.c  | 127 ++++
- .../net/ethernet/broadcom/bnge/bnge_filter.h  |   4 +
- .../ethernet/broadcom/bnge/bnge_hwrm_lib.c    |   9 +-
- .../net/ethernet/broadcom/bnge/bnge_netdev.c  |  44 +-
- .../net/ethernet/broadcom/bnge/bnge_vnic.h    |   5 +-
- 6 files changed, 803 insertions(+), 7 deletions(-)
+ .../net/ethernet/broadcom/bnge/bnge_ethtool.c | 173 ++++++++++++++++++
+ .../net/ethernet/broadcom/bnge/bnge_netdev.c  |   9 +
+ .../net/ethernet/broadcom/bnge/bnge_resc.c    |  94 +++++++++-
+ .../net/ethernet/broadcom/bnge/bnge_resc.h    |   2 +-
+ .../net/ethernet/broadcom/bnge/bnge_vnic.c    | 124 ++++++++++++-
+ .../net/ethernet/broadcom/bnge/bnge_vnic.h    |  16 +-
+ 6 files changed, 405 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c b/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
-index c370686e2b38..440e0c206aec 100644
+index 878fe4888160..c370686e2b38 100644
 --- a/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
 +++ b/drivers/net/ethernet/broadcom/bnge/bnge_ethtool.c
-@@ -7,6 +7,7 @@
- #include <net/devlink.h>
- #include <linux/ethtool.h>
- #include <linux/etherdevice.h>
-+#include <linux/if_vlan.h>
- #include <linux/ethtool_netlink.h>
- 
- #include "bnge.h"
-@@ -15,6 +16,7 @@
- #include "bnge_resc.h"
- #include "bnge_ethtool.h"
- #include "bnge_hwrm_lib.h"
-+#include "bnge_filter.h"
- 
- static int bnge_nway_reset(struct net_device *dev)
- {
-@@ -999,6 +1001,12 @@ static int bnge_set_rxfh_fields(struct net_device *dev,
- 		return -EBUSY;
- 	}
- 
-+	if (bnge_has_usr_ntp_fltr(bn)) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Delete user ntuple rules before changing the RSS hash fields");
-+		return -EBUSY;
-+	}
-+
- 	bd->rss_hash_cfg = rss_hash_cfg;
- 
- 	return 0;
-@@ -1060,6 +1068,12 @@ static int bnge_set_rxfh(struct net_device *dev,
- 		return -EBUSY;
- 	}
- 
-+	if (rxfh->key && bnge_has_usr_ntp_fltr(bn)) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Delete user ntuple rules before changing the RSS hash key");
-+		return -EBUSY;
-+	}
-+
- 	bnge_modify_rss(bn, NULL, NULL, rxfh);
- 
- 	return 0;
-@@ -1243,6 +1257,611 @@ static int bnge_remove_rxfh_context(struct net_device *dev,
- 	return 0;
+@@ -1073,6 +1073,176 @@ static u32 bnge_get_rx_ring_count(struct net_device *dev)
+ 	return bd->rx_nr_rings;
  }
  
-+#define BNGE_IP_PROTO_FULL_MASK	0xFF
-+#define BNGE_IP_PROTO_WILDCARD	0x0
-+
-+static int bnge_get_all_fltr_ids_rcu(struct bnge_net *bn,
-+				     struct hlist_head tbl[],
-+				     u32 tbl_size, u32 *ids, u32 start,
-+				     u32 id_cnt, u32 offset)
++static int bnge_rxfh_context_check(struct bnge_net *bn,
++				   const struct ethtool_rxfh_param *rxfh,
++				   struct netlink_ext_ack *extack)
 +{
-+	u32 i, j = start;
-+
-+	for (i = 0; i < tbl_size; i++) {
-+		struct bnge_filter_base *fltr;
-+		struct hlist_head *head;
-+
-+		head = &tbl[i];
-+		hlist_for_each_entry_rcu(fltr, head, hlist) {
-+			if (!fltr->flags ||
-+			    test_bit(BNGE_FLTR_FW_DELETED, &fltr->state))
-+				continue;
-+			if (j == id_cnt)
-+				return -EMSGSIZE;
-+			ids[j++] = fltr->sw_id + offset;
-+		}
++	if (rxfh->hfunc && rxfh->hfunc != ETH_RSS_HASH_TOP) {
++		NL_SET_ERR_MSG_MOD(extack, "RSS hash function not supported");
++		return -EOPNOTSUPP;
 +	}
-+	return j;
-+}
 +
-+static struct bnge_filter_base *bnge_get_one_fltr_rcu(struct bnge_net *bn,
-+						      struct hlist_head tbl[],
-+						      u32 tbl_size, u32 id,
-+						      u32 offset)
-+{
-+	u32 i;
-+
-+	for (i = 0; i < tbl_size; i++) {
-+		struct bnge_filter_base *fltr;
-+		struct hlist_head *head;
-+
-+		head = &tbl[i];
-+		hlist_for_each_entry_rcu(fltr, head, hlist) {
-+			if (fltr->flags && fltr->sw_id + offset == id)
-+				return fltr;
-+		}
++	if (!(bn->priv_flags & BNGE_NET_EN_NTUPLE)) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "Enable ntuple filtering before adding RSS contexts");
++		return -EOPNOTSUPP;
 +	}
-+	return NULL;
-+}
 +
-+static int bnge_grxclsrlall(struct bnge_net *bn, struct ethtool_rxnfc *cmd,
-+			    u32 *rule_locs)
-+{
-+	int count;
++	if (!netif_running(bn->netdev)) {
++		NL_SET_ERR_MSG_MOD(extack, "Unable to set RSS contexts when interface is down");
++		return -EAGAIN;
++	}
 +
-+	cmd->data = BNGE_MAX_L2_FLTRS + bn->bd->max_fltr;
-+	rcu_read_lock();
-+	count = bnge_get_all_fltr_ids_rcu(bn, bn->l2_fltr_hash_tbl,
-+					  BNGE_L2_FLTR_HASH_SIZE, rule_locs, 0,
-+					  cmd->rule_cnt, 0);
-+	if (count >= 0)
-+		count = bnge_get_all_fltr_ids_rcu(bn, bn->ntp_fltr_hash_tbl,
-+						  BNGE_NTP_FLTR_HASH_SIZE,
-+						  rule_locs, count,
-+						  cmd->rule_cnt,
-+						  BNGE_MAX_L2_FLTRS);
-+	rcu_read_unlock();
-+	if (count < 0)
-+		return count;
-+
-+	cmd->rule_cnt = count;
 +	return 0;
 +}
 +
-+static int bnge_grxclsrule(struct bnge_net *bn, struct ethtool_rxnfc *cmd)
++static int bnge_create_rxfh_context(struct net_device *dev,
++				    struct ethtool_rxfh_context *ctx,
++				    const struct ethtool_rxfh_param *rxfh,
++				    struct netlink_ext_ack *extack)
 +{
-+	struct ethtool_rx_flow_spec *fs =
-+		(struct ethtool_rx_flow_spec *)&cmd->fs;
-+	struct bnge_filter_base *fltr_base;
-+	struct bnge_ntuple_filter *fltr;
-+	struct bnge_flow_masks *fmasks;
-+	struct bnge_dev *bd = bn->bd;
-+	struct flow_keys *fkeys;
-+	int rc = -EINVAL;
-+
-+	if (fs->location >= BNGE_MAX_L2_FLTRS + bd->max_fltr)
-+		return rc;
-+
-+	rcu_read_lock();
-+	fltr_base = bnge_get_one_fltr_rcu(bn, bn->l2_fltr_hash_tbl,
-+					  BNGE_L2_FLTR_HASH_SIZE,
-+					  fs->location, 0);
-+	if (fltr_base) {
-+		struct ethhdr *h_ether = &fs->h_u.ether_spec;
-+		struct ethhdr *m_ether = &fs->m_u.ether_spec;
-+		struct bnge_l2_filter *l2_fltr;
-+		struct bnge_l2_key *l2_key;
-+
-+		l2_fltr = container_of(fltr_base, struct bnge_l2_filter, base);
-+		l2_key = &l2_fltr->l2_key;
-+		fs->flow_type = ETHER_FLOW;
-+		ether_addr_copy(h_ether->h_dest, l2_key->dst_mac_addr);
-+		eth_broadcast_addr(m_ether->h_dest);
-+		if (l2_key->vlan) {
-+			struct ethtool_flow_ext *m_ext = &fs->m_ext;
-+			struct ethtool_flow_ext *h_ext = &fs->h_ext;
-+
-+			fs->flow_type |= FLOW_EXT;
-+			m_ext->vlan_tci = htons(0xfff);
-+			h_ext->vlan_tci = htons(l2_key->vlan);
-+		}
-+		if (fltr_base->flags & BNGE_ACT_RING_DST)
-+			fs->ring_cookie = fltr_base->rxq;
-+		rcu_read_unlock();
-+		return 0;
-+	}
-+	fltr_base = bnge_get_one_fltr_rcu(bn, bn->ntp_fltr_hash_tbl,
-+					  BNGE_NTP_FLTR_HASH_SIZE,
-+					  fs->location, BNGE_MAX_L2_FLTRS);
-+	if (!fltr_base) {
-+		rcu_read_unlock();
-+		return rc;
-+	}
-+	fltr = container_of(fltr_base, struct bnge_ntuple_filter, base);
-+
-+	fkeys = &fltr->fkeys;
-+	fmasks = &fltr->fmasks;
-+	if (fkeys->basic.n_proto == htons(ETH_P_IP)) {
-+		if (fkeys->basic.ip_proto == BNGE_IP_PROTO_WILDCARD) {
-+			fs->flow_type = IP_USER_FLOW;
-+			fs->h_u.usr_ip4_spec.ip_ver = ETH_RX_NFC_IP4;
-+			fs->h_u.usr_ip4_spec.proto = BNGE_IP_PROTO_WILDCARD;
-+			fs->m_u.usr_ip4_spec.proto = 0;
-+		} else if (fkeys->basic.ip_proto == IPPROTO_ICMP) {
-+			fs->flow_type = IP_USER_FLOW;
-+			fs->h_u.usr_ip4_spec.ip_ver = ETH_RX_NFC_IP4;
-+			fs->h_u.usr_ip4_spec.proto = IPPROTO_ICMP;
-+			fs->m_u.usr_ip4_spec.proto = BNGE_IP_PROTO_FULL_MASK;
-+		} else if (fkeys->basic.ip_proto == IPPROTO_TCP) {
-+			fs->flow_type = TCP_V4_FLOW;
-+		} else if (fkeys->basic.ip_proto == IPPROTO_UDP) {
-+			fs->flow_type = UDP_V4_FLOW;
-+		} else {
-+			goto fltr_err;
-+		}
-+
-+		fs->h_u.tcp_ip4_spec.ip4src = fkeys->addrs.v4addrs.src;
-+		fs->m_u.tcp_ip4_spec.ip4src = fmasks->addrs.v4addrs.src;
-+		fs->h_u.tcp_ip4_spec.ip4dst = fkeys->addrs.v4addrs.dst;
-+		fs->m_u.tcp_ip4_spec.ip4dst = fmasks->addrs.v4addrs.dst;
-+		if (fs->flow_type == TCP_V4_FLOW ||
-+		    fs->flow_type == UDP_V4_FLOW) {
-+			fs->h_u.tcp_ip4_spec.psrc = fkeys->ports.src;
-+			fs->m_u.tcp_ip4_spec.psrc = fmasks->ports.src;
-+			fs->h_u.tcp_ip4_spec.pdst = fkeys->ports.dst;
-+			fs->m_u.tcp_ip4_spec.pdst = fmasks->ports.dst;
-+		}
-+	} else {
-+		if (fkeys->basic.ip_proto == BNGE_IP_PROTO_WILDCARD) {
-+			fs->flow_type = IPV6_USER_FLOW;
-+			fs->h_u.usr_ip6_spec.l4_proto =
-+				BNGE_IP_PROTO_WILDCARD;
-+			fs->m_u.usr_ip6_spec.l4_proto = 0;
-+		} else if (fkeys->basic.ip_proto == IPPROTO_ICMPV6) {
-+			fs->flow_type = IPV6_USER_FLOW;
-+			fs->h_u.usr_ip6_spec.l4_proto = IPPROTO_ICMPV6;
-+			fs->m_u.usr_ip6_spec.l4_proto =
-+				BNGE_IP_PROTO_FULL_MASK;
-+		} else if (fkeys->basic.ip_proto == IPPROTO_TCP) {
-+			fs->flow_type = TCP_V6_FLOW;
-+		} else if (fkeys->basic.ip_proto == IPPROTO_UDP) {
-+			fs->flow_type = UDP_V6_FLOW;
-+		} else {
-+			goto fltr_err;
-+		}
-+
-+		memcpy(fs->h_u.tcp_ip6_spec.ip6src,
-+		       &fkeys->addrs.v6addrs.src,
-+		       sizeof(struct in6_addr));
-+		memcpy(fs->m_u.tcp_ip6_spec.ip6src,
-+		       &fmasks->addrs.v6addrs.src,
-+		       sizeof(struct in6_addr));
-+		memcpy(fs->h_u.tcp_ip6_spec.ip6dst,
-+		       &fkeys->addrs.v6addrs.dst,
-+		       sizeof(struct in6_addr));
-+		memcpy(fs->m_u.tcp_ip6_spec.ip6dst,
-+		       &fmasks->addrs.v6addrs.dst,
-+		       sizeof(struct in6_addr));
-+
-+		if (fs->flow_type == TCP_V6_FLOW ||
-+		    fs->flow_type == UDP_V6_FLOW) {
-+			fs->h_u.tcp_ip6_spec.psrc = fkeys->ports.src;
-+			fs->m_u.tcp_ip6_spec.psrc = fmasks->ports.src;
-+			fs->h_u.tcp_ip6_spec.pdst = fkeys->ports.dst;
-+			fs->m_u.tcp_ip6_spec.pdst = fmasks->ports.dst;
-+		}
-+	}
-+
-+	if (fltr->base.flags & BNGE_ACT_DROP) {
-+		fs->ring_cookie = RX_CLS_FLOW_DISC;
-+	} else if (fltr->base.flags & BNGE_ACT_RSS_CTX) {
-+		fs->flow_type |= FLOW_RSS;
-+		fs->ring_cookie = fltr->base.rxq;
-+		cmd->rss_context = fltr->base.fw_vnic_id;
-+	} else {
-+		fs->ring_cookie = fltr->base.rxq;
-+	}
-+	rc = 0;
-+
-+fltr_err:
-+	rcu_read_unlock();
-+
-+	return rc;
-+}
-+
-+static bool bnge_verify_ntuple_ip4_flow(struct ethtool_usrip4_spec *ip_spec,
-+					struct ethtool_usrip4_spec *ip_mask)
-+{
-+	u8 mproto = ip_mask->proto;
-+	u8 sproto = ip_spec->proto;
-+
-+	if (ip_mask->l4_4_bytes || ip_mask->tos ||
-+	    ip_spec->ip_ver != ETH_RX_NFC_IP4 ||
-+	    (mproto && (mproto != BNGE_IP_PROTO_FULL_MASK ||
-+			sproto != IPPROTO_ICMP)))
-+		return false;
-+	return true;
-+}
-+
-+static bool bnge_verify_ntuple_ip6_flow(struct ethtool_usrip6_spec *ip_spec,
-+					struct ethtool_usrip6_spec *ip_mask)
-+{
-+	u8 mproto = ip_mask->l4_proto;
-+	u8 sproto = ip_spec->l4_proto;
-+
-+	if (ip_mask->l4_4_bytes || ip_mask->tclass ||
-+	    (mproto && (mproto != BNGE_IP_PROTO_FULL_MASK ||
-+			sproto != IPPROTO_ICMPV6)))
-+		return false;
-+	return true;
-+}
-+
-+static int bnge_add_ntuple_cls_rule(struct bnge_net *bn,
-+				    struct ethtool_rxnfc *cmd)
-+{
-+	struct ethtool_rx_flow_spec *fs = &cmd->fs;
-+	struct bnge_ntuple_filter *new_fltr, *fltr;
-+	u32 flow_type = fs->flow_type & 0xff;
-+	struct bnge_l2_filter *l2_fltr;
-+	struct bnge_flow_masks *fmasks;
-+	struct flow_keys *fkeys;
-+	u32 idx;
++	struct bnge_net *bn = netdev_priv(dev);
++	struct bnge_rss_ctx *rss_ctx;
++	struct bnge_vnic_info *vnic;
 +	int rc;
 +
-+	if (!bn->vnic_info)
-+		return -EAGAIN;
-+
-+	if (fs->flow_type & (FLOW_MAC_EXT | FLOW_EXT))
-+		return -EOPNOTSUPP;
-+
-+	if (fs->ring_cookie != RX_CLS_FLOW_DISC &&
-+	    ethtool_get_flow_spec_ring_vf(fs->ring_cookie))
-+		return -EOPNOTSUPP;
-+
-+	if (flow_type == IP_USER_FLOW) {
-+		if (!bnge_verify_ntuple_ip4_flow(&fs->h_u.usr_ip4_spec,
-+						 &fs->m_u.usr_ip4_spec))
-+			return -EOPNOTSUPP;
-+	}
-+
-+	if (flow_type == IPV6_USER_FLOW) {
-+		if (!bnge_verify_ntuple_ip6_flow(&fs->h_u.usr_ip6_spec,
-+						 &fs->m_u.usr_ip6_spec))
-+			return -EOPNOTSUPP;
-+	}
-+
-+	new_fltr = kzalloc_obj(*new_fltr, GFP_KERNEL);
-+	if (!new_fltr)
-+		return -ENOMEM;
-+
-+	l2_fltr = bn->vnic_info[BNGE_VNIC_DEFAULT].l2_filters[0];
-+	new_fltr->l2_filter_id = l2_fltr->base.filter_id;
-+	fmasks = &new_fltr->fmasks;
-+	fkeys = &new_fltr->fkeys;
-+
-+	rc = -EOPNOTSUPP;
-+	switch (flow_type) {
-+	case IP_USER_FLOW: {
-+		struct ethtool_usrip4_spec *ip_spec = &fs->h_u.usr_ip4_spec;
-+		struct ethtool_usrip4_spec *ip_mask = &fs->m_u.usr_ip4_spec;
-+
-+		fkeys->basic.ip_proto = ip_mask->proto ? ip_spec->proto
-+						       : BNGE_IP_PROTO_WILDCARD;
-+		fkeys->basic.n_proto = htons(ETH_P_IP);
-+		fkeys->addrs.v4addrs.src = ip_spec->ip4src;
-+		fmasks->addrs.v4addrs.src = ip_mask->ip4src;
-+		fkeys->addrs.v4addrs.dst = ip_spec->ip4dst;
-+		fmasks->addrs.v4addrs.dst = ip_mask->ip4dst;
-+		break;
-+	}
-+	case TCP_V4_FLOW:
-+	case UDP_V4_FLOW: {
-+		struct ethtool_tcpip4_spec *ip_spec = &fs->h_u.tcp_ip4_spec;
-+		struct ethtool_tcpip4_spec *ip_mask = &fs->m_u.tcp_ip4_spec;
-+
-+		if (ip_mask->tos)
-+			goto err_free_fltr;
-+
-+		fkeys->basic.ip_proto = IPPROTO_TCP;
-+		if (flow_type == UDP_V4_FLOW)
-+			fkeys->basic.ip_proto = IPPROTO_UDP;
-+		fkeys->basic.n_proto = htons(ETH_P_IP);
-+		fkeys->addrs.v4addrs.src = ip_spec->ip4src;
-+		fmasks->addrs.v4addrs.src = ip_mask->ip4src;
-+		fkeys->addrs.v4addrs.dst = ip_spec->ip4dst;
-+		fmasks->addrs.v4addrs.dst = ip_mask->ip4dst;
-+		fkeys->ports.src = ip_spec->psrc;
-+		fmasks->ports.src = ip_mask->psrc;
-+		fkeys->ports.dst = ip_spec->pdst;
-+		fmasks->ports.dst = ip_mask->pdst;
-+		break;
-+	}
-+	case IPV6_USER_FLOW: {
-+		struct ethtool_usrip6_spec *ip_spec = &fs->h_u.usr_ip6_spec;
-+		struct ethtool_usrip6_spec *ip_mask = &fs->m_u.usr_ip6_spec;
-+
-+		fkeys->basic.ip_proto = ip_mask->l4_proto ? ip_spec->l4_proto
-+					: BNGE_IP_PROTO_WILDCARD;
-+		fkeys->basic.n_proto = htons(ETH_P_IPV6);
-+
-+		memcpy(&fkeys->addrs.v6addrs.src, ip_spec->ip6src,
-+		       sizeof(struct in6_addr));
-+		memcpy(&fmasks->addrs.v6addrs.src, ip_mask->ip6src,
-+		       sizeof(struct in6_addr));
-+		memcpy(&fkeys->addrs.v6addrs.dst, ip_spec->ip6dst,
-+		       sizeof(struct in6_addr));
-+		memcpy(&fmasks->addrs.v6addrs.dst, ip_mask->ip6dst,
-+		       sizeof(struct in6_addr));
-+		break;
-+	}
-+	case TCP_V6_FLOW:
-+	case UDP_V6_FLOW: {
-+		struct ethtool_tcpip6_spec *ip_spec = &fs->h_u.tcp_ip6_spec;
-+		struct ethtool_tcpip6_spec *ip_mask = &fs->m_u.tcp_ip6_spec;
-+
-+		if (ip_mask->tclass)
-+			goto err_free_fltr;
-+
-+		fkeys->basic.ip_proto = IPPROTO_TCP;
-+		if (flow_type == UDP_V6_FLOW)
-+			fkeys->basic.ip_proto = IPPROTO_UDP;
-+		fkeys->basic.n_proto = htons(ETH_P_IPV6);
-+
-+		memcpy(&fkeys->addrs.v6addrs.src, ip_spec->ip6src,
-+		       sizeof(struct in6_addr));
-+		memcpy(&fmasks->addrs.v6addrs.src, ip_mask->ip6src,
-+		       sizeof(struct in6_addr));
-+		memcpy(&fkeys->addrs.v6addrs.dst, ip_spec->ip6dst,
-+		       sizeof(struct in6_addr));
-+		memcpy(&fmasks->addrs.v6addrs.dst, ip_mask->ip6dst,
-+		       sizeof(struct in6_addr));
-+
-+		fkeys->ports.src = ip_spec->psrc;
-+		fmasks->ports.src = ip_mask->psrc;
-+		fkeys->ports.dst = ip_spec->pdst;
-+		fmasks->ports.dst = ip_mask->pdst;
-+		break;
-+	}
-+	default:
-+		rc = -EOPNOTSUPP;
-+		goto err_free_fltr;
-+	}
-+	/* A rule with no address or port mask is accepted only as an ICMP or
-+	 * ICMPv6 protocol match; the verify helpers above admit no other
-+	 * protocol-only rule.
-+	 */
-+	if (!memcmp(&BNGE_FLOW_MASK_NONE, fmasks, sizeof(*fmasks)) &&
-+	    !((flow_type == IP_USER_FLOW || flow_type == IPV6_USER_FLOW) &&
-+	      fkeys->basic.ip_proto))
-+		goto err_free_fltr;
-+
-+	idx = bnge_get_ntp_filter_idx(bn, fkeys, NULL);
-+	rcu_read_lock();
-+	fltr = bnge_lookup_ntp_filter_from_idx(bn, new_fltr, idx);
-+	if (fltr) {
-+		rcu_read_unlock();
-+		rc = -EEXIST;
-+		goto err_free_fltr;
-+	}
-+	rcu_read_unlock();
-+
-+	new_fltr->base.flags = BNGE_ACT_NO_AGING;
-+	if (fs->flow_type & FLOW_RSS) {
-+		struct bnge_rss_ctx *rss_ctx;
-+
-+		new_fltr->base.fw_vnic_id = 0;
-+		new_fltr->base.flags |= BNGE_ACT_RSS_CTX;
-+		rss_ctx = bnge_get_rss_ctx_from_index(bn, cmd->rss_context);
-+		if (rss_ctx) {
-+			new_fltr->base.fw_vnic_id = rss_ctx->index;
-+		} else {
-+			rc = -EINVAL;
-+			goto err_free_fltr;
-+		}
-+	}
-+	if (fs->ring_cookie == RX_CLS_FLOW_DISC)
-+		new_fltr->base.flags |= BNGE_ACT_DROP;
-+	else
-+		new_fltr->base.rxq = ethtool_get_flow_spec_ring(fs->ring_cookie);
-+	__set_bit(BNGE_FLTR_VALID, &new_fltr->base.state);
-+	rc = bnge_insert_ntp_filter(bn, new_fltr, idx);
-+	if (!rc) {
-+		rc = bnge_hwrm_cfa_ntuple_filter_alloc(bn->bd, new_fltr);
-+		if (rc) {
-+			bnge_del_ntp_filter_rcu(bn, new_fltr);
-+			return rc;
-+		}
-+		fs->location = BNGE_MAX_L2_FLTRS + new_fltr->base.sw_id;
-+		return 0;
-+	}
-+
-+err_free_fltr:
-+	kfree(new_fltr);
-+	return rc;
-+}
-+
-+static int bnge_add_l2_cls_rule(struct bnge_net *bn,
-+				struct ethtool_rx_flow_spec *fs)
-+{
-+	u32 ring = ethtool_get_flow_spec_ring(fs->ring_cookie);
-+	struct ethhdr *h_ether = &fs->h_u.ether_spec;
-+	struct ethhdr *m_ether = &fs->m_u.ether_spec;
-+	struct bnge_l2_filter *fltr;
-+	struct bnge_l2_key key;
-+	u16 vnic_id;
-+	u8 flags;
-+	int rc;
-+
-+	if (ethtool_get_flow_spec_ring_vf(fs->ring_cookie))
-+		return -EOPNOTSUPP;
-+
-+	if (!is_broadcast_ether_addr(m_ether->h_dest))
-+		return -EINVAL;
-+
-+	if (!is_zero_ether_addr(m_ether->h_source) || m_ether->h_proto)
-+		return -EOPNOTSUPP;
-+
-+	if (is_broadcast_ether_addr(h_ether->h_dest) ||
-+	    is_multicast_ether_addr(h_ether->h_dest))
-+		return -EINVAL;
-+
-+	ether_addr_copy(key.dst_mac_addr, h_ether->h_dest);
-+	key.vlan = 0;
-+	if (fs->flow_type & FLOW_EXT) {
-+		struct ethtool_flow_ext *m_ext = &fs->m_ext;
-+		struct ethtool_flow_ext *h_ext = &fs->h_ext;
-+
-+		if (m_ext->vlan_etype || m_ext->data[0] || m_ext->data[1])
-+			return -EOPNOTSUPP;
-+
-+		key.vlan = ntohs(h_ext->vlan_tci) & VLAN_VID_MASK;
-+		if (m_ext->vlan_tci != htons(VLAN_VID_MASK) || !key.vlan)
-+			return -EINVAL;
-+	}
-+
-+	flags = BNGE_ACT_RING_DST;
-+	vnic_id = bn->vnic_info[BNGE_VNIC_NTUPLE].fw_vnic_id;
-+
-+	fltr = bnge_alloc_user_l2_filter(bn, &key, flags);
-+	if (IS_ERR(fltr))
-+		return PTR_ERR(fltr);
-+
-+	fltr->base.fw_vnic_id = vnic_id;
-+	fltr->base.rxq = ring;
-+	rc = bnge_hwrm_l2_filter_alloc(bn->bd, fltr);
++	rc = bnge_rxfh_context_check(bn, rxfh, extack);
 +	if (rc)
-+		bnge_del_l2_filter_rcu(bn, fltr);
-+	else
-+		fs->location = fltr->base.sw_id;
-+	return rc;
-+}
++		return rc;
 +
-+static int bnge_srxclsrlins(struct bnge_net *bn, struct ethtool_rxnfc *cmd)
-+{
-+	struct ethtool_rx_flow_spec *fs = &cmd->fs;
-+	struct bnge_dev *bd = bn->bd;
-+	u32 ring, flow_type;
-+	int rc;
-+
-+	if (!netif_running(bn->netdev))
-+		return -EAGAIN;
-+	if (!(bn->priv_flags & BNGE_NET_EN_NTUPLE))
-+		return -EPERM;
-+	if (fs->location != RX_CLS_LOC_ANY)
-+		return -EINVAL;
-+
-+	flow_type = fs->flow_type;
-+
-+	if (flow_type & FLOW_MAC_EXT)
-+		return -EINVAL;
-+
-+	flow_type &= ~FLOW_EXT;
-+
-+	if (fs->ring_cookie == RX_CLS_FLOW_DISC && flow_type != ETHER_FLOW)
-+		return bnge_add_ntuple_cls_rule(bn, cmd);
-+
-+	ring = ethtool_get_flow_spec_ring(fs->ring_cookie);
-+	if (ring >= bd->rx_nr_rings)
-+		return -EINVAL;
-+
-+	if (flow_type == ETHER_FLOW)
-+		rc = bnge_add_l2_cls_rule(bn, fs);
-+	else
-+		rc = bnge_add_ntuple_cls_rule(bn, cmd);
-+	return rc;
-+}
-+
-+static int bnge_srxclsrldel(struct bnge_net *bn, struct ethtool_rxnfc *cmd)
-+{
-+	struct ethtool_rx_flow_spec *fs = &cmd->fs;
-+	struct bnge_filter_base *fltr_base;
-+	struct bnge_ntuple_filter *fltr;
-+	u32 id = fs->location;
-+
-+	rcu_read_lock();
-+	fltr_base = bnge_get_one_fltr_rcu(bn, bn->l2_fltr_hash_tbl,
-+					  BNGE_L2_FLTR_HASH_SIZE, id, 0);
-+	if (fltr_base) {
-+		struct bnge_l2_filter *l2_fltr;
-+
-+		l2_fltr = container_of(fltr_base, struct bnge_l2_filter, base);
-+		rcu_read_unlock();
-+		/* The firmware filter is gone once the interface is closed. */
-+		if (test_bit(BNGE_FLTR_VALID, &l2_fltr->base.state))
-+			bnge_hwrm_l2_filter_free(bn->bd, l2_fltr);
-+		bnge_del_usr_l2_filter(bn, l2_fltr);
-+		return 0;
-+	}
-+	fltr_base = bnge_get_one_fltr_rcu(bn, bn->ntp_fltr_hash_tbl,
-+					  BNGE_NTP_FLTR_HASH_SIZE, id,
-+					  BNGE_MAX_L2_FLTRS);
-+	if (!fltr_base) {
-+		rcu_read_unlock();
-+		return -ENOENT;
-+	}
-+
-+	fltr = container_of(fltr_base, struct bnge_ntuple_filter, base);
-+	if (!(fltr->base.flags & BNGE_ACT_NO_AGING)) {
-+		rcu_read_unlock();
++	if (bn->num_rss_ctx >= BNGE_MAX_ETH_RSS_CTX) {
++		NL_SET_ERR_MSG_FMT_MOD(extack, "Out of RSS contexts, maximum %u",
++				       BNGE_MAX_ETH_RSS_CTX);
 +		return -EINVAL;
 +	}
-+	rcu_read_unlock();
-+	bnge_hwrm_cfa_ntuple_filter_free(bn->bd, fltr);
-+	bnge_del_ntp_filter_rcu(bn, fltr);
++
++	if (!bnge_rss_ctx_capable(bn->bd)) {
++		NL_SET_ERR_MSG_MOD(extack, "Out of hardware resources");
++		return -ENOMEM;
++	}
++
++	rss_ctx = ethtool_rxfh_context_priv(ctx);
++
++	bn->num_rss_ctx++;
++
++	vnic = &rss_ctx->vnic;
++
++	bnge_init_vnic_mem(vnic);
++
++	vnic->rss_ctx = ctx;
++	vnic->flags |= BNGE_VNIC_RSSCTX_FLAG;
++	rc = bnge_alloc_vnic_rss_table(bn, vnic);
++	if (rc)
++		goto err_del_rss_ctx;
++
++	/* Populate defaults in the context */
++	bnge_set_dflt_rss_indir_tbl(bn->bd, ctx);
++	ctx->hfunc = ETH_RSS_HASH_TOP;
++	memcpy(vnic->rss_hash_key, bn->rss_hash_key, HW_HASH_KEY_SIZE);
++	memcpy(ethtool_rxfh_context_key(ctx),
++	       bn->rss_hash_key, HW_HASH_KEY_SIZE);
++
++	rc = bnge_hwrm_vnic_alloc(bn->bd, vnic, bn->bd->rx_nr_rings);
++	if (rc) {
++		NL_SET_ERR_MSG_MOD(extack, "Unable to allocate VNIC");
++		goto err_del_rss_ctx;
++	}
++
++	rc = bnge_hwrm_vnic_set_tpa(bn->bd, vnic,
++				    bn->priv_flags & BNGE_NET_EN_TPA);
++	if (rc) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "Unable to set TPA settings to vnic");
++		goto err_del_rss_ctx;
++	}
++	bnge_modify_rss(bn, ctx, rss_ctx, rxfh);
++
++	rc = bnge_setup_vnic(bn, vnic);
++	if (rc) {
++		NL_SET_ERR_MSG_MOD(extack, "Unable to setup vnic");
++		goto err_del_rss_ctx;
++	}
++
++	rss_ctx->index = rxfh->rss_context;
 +	return 0;
-+}
 +
-+static int bnge_get_rxnfc(struct net_device *dev, struct ethtool_rxnfc *cmd,
-+			  u32 *rule_locs)
-+{
-+	struct bnge_net *bn = netdev_priv(dev);
-+	struct bnge_dev *bd = bn->bd;
-+	int rc = 0;
-+
-+	switch (cmd->cmd) {
-+	case ETHTOOL_GRXCLSRLCNT:
-+		cmd->rule_cnt = bn->user_fltr_count;
-+		cmd->data = (BNGE_MAX_L2_FLTRS + bd->max_fltr) |
-+			    RX_CLS_LOC_SPECIAL;
-+		break;
-+
-+	case ETHTOOL_GRXCLSRLALL:
-+		rc = bnge_grxclsrlall(bn, cmd, (u32 *)rule_locs);
-+		break;
-+
-+	case ETHTOOL_GRXCLSRULE:
-+		rc = bnge_grxclsrule(bn, cmd);
-+		break;
-+
-+	default:
-+		rc = -EOPNOTSUPP;
-+		break;
-+	}
-+
++err_del_rss_ctx:
++	bnge_del_one_rss_ctx(bn, rss_ctx, true);
 +	return rc;
 +}
 +
-+static int bnge_set_rxnfc(struct net_device *dev, struct ethtool_rxnfc *cmd)
++static int bnge_modify_rxfh_context(struct net_device *dev,
++				    struct ethtool_rxfh_context *ctx,
++				    const struct ethtool_rxfh_param *rxfh,
++				    struct netlink_ext_ack *extack)
 +{
 +	struct bnge_net *bn = netdev_priv(dev);
++	u8 old_key[HW_HASH_KEY_SIZE];
++	struct bnge_rss_ctx *rss_ctx;
++	u32 *old_indir = NULL;
++	u32 tbl_size;
 +	int rc;
 +
-+	switch (cmd->cmd) {
-+	case ETHTOOL_SRXCLSRLINS:
-+		rc = bnge_srxclsrlins(bn, cmd);
-+		break;
++	rc = bnge_rxfh_context_check(bn, rxfh, extack);
++	if (rc)
++		return rc;
 +
-+	case ETHTOOL_SRXCLSRLDEL:
-+		rc = bnge_srxclsrldel(bn, cmd);
-+		break;
++	rss_ctx = ethtool_rxfh_context_priv(ctx);
++	tbl_size = bnge_get_rxfh_indir_size(bn->bd);
 +
-+	default:
-+		rc = -EOPNOTSUPP;
-+		break;
++	if (ctx->indir_size != tbl_size) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "RSS context indirection table size mismatch");
++		return -EINVAL;
 +	}
++
++	/* Snapshot the software state so it can be restored if the hardware
++	 * update fails, keeping the reported config consistent with the
++	 * hardware.
++	 */
++	if (rxfh->key)
++		memcpy(old_key, rss_ctx->vnic.rss_hash_key, HW_HASH_KEY_SIZE);
++	if (rxfh->indir) {
++		old_indir = kmemdup(ethtool_rxfh_context_indir(ctx),
++				    tbl_size * sizeof(*old_indir), GFP_KERNEL);
++		if (!old_indir)
++			return -ENOMEM;
++	}
++
++	bnge_modify_rss(bn, ctx, rss_ctx, rxfh);
++
++	rc = bnge_hwrm_vnic_rss_cfg(bn, &rss_ctx->vnic);
++	if (rc) {
++		if (rxfh->key)
++			memcpy(rss_ctx->vnic.rss_hash_key, old_key,
++			       HW_HASH_KEY_SIZE);
++		if (rxfh->indir)
++			memcpy(ethtool_rxfh_context_indir(ctx), old_indir,
++			       tbl_size * sizeof(*old_indir));
++		/* Part of the update may have reached the device */
++		if (bnge_hwrm_vnic_rss_cfg(bn, &rss_ctx->vnic))
++			netdev_warn(dev, "Failed to restore RSS context %u\n",
++				    rss_ctx->index);
++	}
++
++	kfree(old_indir);
 +	return rc;
++}
++
++static int bnge_remove_rxfh_context(struct net_device *dev,
++				    struct ethtool_rxfh_context *ctx,
++				    u32 rss_context,
++				    struct netlink_ext_ack *extack)
++{
++	struct bnge_net *bn = netdev_priv(dev);
++	struct bnge_rss_ctx *rss_ctx;
++
++	rss_ctx = ethtool_rxfh_context_priv(ctx);
++
++	bnge_del_one_rss_ctx(bn, rss_ctx, true);
++	return 0;
 +}
 +
  static const struct ethtool_ops bnge_ethtool_ops = {
  	.cap_link_lanes_supported	= 1,
  	.get_link_ksettings	= bnge_get_link_ksettings,
-@@ -1275,6 +1894,8 @@ static const struct ethtool_ops bnge_ethtool_ops = {
- 	.create_rxfh_context	= bnge_create_rxfh_context,
- 	.modify_rxfh_context	= bnge_modify_rxfh_context,
- 	.remove_rxfh_context	= bnge_remove_rxfh_context,
-+	.get_rxnfc		= bnge_get_rxnfc,
-+	.set_rxnfc		= bnge_set_rxnfc,
+@@ -1102,6 +1272,9 @@ static const struct ethtool_ops bnge_ethtool_ops = {
+ 	.set_rxfh		= bnge_set_rxfh,
+ 	.get_rxfh_fields	= bnge_get_rxfh_fields,
+ 	.set_rxfh_fields	= bnge_set_rxfh_fields,
++	.create_rxfh_context	= bnge_create_rxfh_context,
++	.modify_rxfh_context	= bnge_modify_rxfh_context,
++	.remove_rxfh_context	= bnge_remove_rxfh_context,
  };
  
  void bnge_set_ethtool_ops(struct net_device *dev)
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
-index 3ebb3cae4829..6cf6531a2723 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.c
-@@ -584,3 +584,130 @@ int bnge_hwrm_set_vnic_filter(struct bnge_net *bn, u16 vnic_id, u16 idx,
- 	bnge_del_l2_filter_rcu(bn, fltr);
- 	return rc;
- }
-+
-+/* bnge_cfg_rx_mode() installs no filter for a unicast address that already
-+ * has a user L2 rule; reinstall it once the user rule is gone.
-+ */
-+void bnge_del_usr_l2_filter(struct bnge_net *bn, struct bnge_l2_filter *fltr)
-+{
-+	u8 mac[ETH_ALEN] __aligned(2);
-+	struct bnge_vnic_info *vnic;
-+	int i, off;
-+	bool vlan;
-+
-+	ether_addr_copy(mac, fltr->l2_key.dst_mac_addr);
-+	vlan = !!fltr->l2_key.vlan;
-+	bnge_del_l2_filter_rcu(bn, fltr);
-+
-+	if (vlan || !test_bit(BNGE_STATE_OPEN, &bn->bd->state))
-+		return;
-+
-+	vnic = &bn->vnic_info[BNGE_VNIC_DEFAULT];
-+	for (i = 1, off = 0; i < vnic->uc_filter_count; i++, off += ETH_ALEN) {
-+		if (vnic->l2_filters[i] ||
-+		    !ether_addr_equal(vnic->uc_list + off, mac))
-+			continue;
-+		if (bnge_hwrm_set_vnic_filter(bn, 0, i, vnic->uc_list + off))
-+			netdev_warn(bn->netdev,
-+				    "failed to restore uc filter %pM\n", mac);
-+		break;
-+	}
-+}
-+
-+static bool bnge_usr_fltr_ring_lost(struct bnge_net *bn,
-+				    struct bnge_filter_base *fltr)
-+{
-+	if (fltr->flags & (BNGE_ACT_DROP | BNGE_ACT_RSS_CTX) ||
-+	    fltr->rxq < bn->bd->rx_nr_rings)
-+		return false;
-+
-+	netdev_warn(bn->netdev, "filter id %d: rx ring %u no longer exists\n",
-+		    fltr->sw_id, fltr->rxq);
-+	return true;
-+}
-+
-+static void bnge_cfg_one_usr_fltr(struct bnge_net *bn,
-+				  struct bnge_filter_base *fltr)
-+{
-+	struct bnge_ntuple_filter *ntp_fltr;
-+	struct bnge_l2_filter *l2_fltr;
-+
-+	if (list_empty(&fltr->list_node))
-+		return;
-+
-+	if (fltr->type == BNGE_FLTR_TYPE_NTUPLE) {
-+		ntp_fltr = container_of(fltr, struct bnge_ntuple_filter, base);
-+		l2_fltr = bn->vnic_info[BNGE_VNIC_DEFAULT].l2_filters[0];
-+		ntp_fltr->l2_filter_id = l2_fltr->base.filter_id;
-+		if (bnge_usr_fltr_ring_lost(bn, fltr) ||
-+		    bnge_hwrm_cfa_ntuple_filter_alloc(bn->bd, ntp_fltr)) {
-+			netdev_err(bn->netdev,
-+				   "restoring previously configured ntuple filter id %d failed\n",
-+				   fltr->sw_id);
-+			bnge_del_ntp_filter_rcu(bn, ntp_fltr);
-+		}
-+	} else if (fltr->type == BNGE_FLTR_TYPE_L2) {
-+		l2_fltr = container_of(fltr, struct bnge_l2_filter, base);
-+		fltr->fw_vnic_id = bn->vnic_info[BNGE_VNIC_NTUPLE].fw_vnic_id;
-+		if (bnge_usr_fltr_ring_lost(bn, fltr) ||
-+		    bnge_hwrm_l2_filter_alloc(bn->bd, l2_fltr)) {
-+			netdev_err(bn->netdev,
-+				   "restoring previously configured l2 filter id %d failed\n",
-+				   fltr->sw_id);
-+			bnge_del_usr_l2_filter(bn, l2_fltr);
-+		}
-+	}
-+}
-+
-+void bnge_cfg_usr_fltrs(struct bnge_net *bn)
-+{
-+	struct bnge_filter_base *usr_fltr, *tmp;
-+
-+	list_for_each_entry_safe(usr_fltr, tmp, &bn->usr_fltr_list, list_node)
-+		bnge_cfg_one_usr_fltr(bn, usr_fltr);
-+}
-+
-+/* User ntuple rules are kept in the hash table across down/up, indexed by a
-+ * hash of the RSS key and hash fields. They are not rehashed, so the key and
-+ * fields must not change while any exists.
-+ */
-+bool bnge_has_usr_ntp_fltr(struct bnge_net *bn)
-+{
-+	struct bnge_filter_base *fltr;
-+
-+	list_for_each_entry(fltr, &bn->usr_fltr_list, list_node)
-+		if (fltr->type == BNGE_FLTR_TYPE_NTUPLE)
-+			return true;
-+
-+	return false;
-+}
-+
-+void bnge_clear_usr_fltrs(struct bnge_net *bn)
-+{
-+	struct bnge_filter_base *usr_fltr, *tmp;
-+	struct bnge_ntuple_filter *ntp_fltr;
-+	struct bnge_l2_filter *l2_fltr;
-+
-+	netdev_assert_locked(bn->netdev);
-+
-+	/* bnge_fix_features() ensures NTUPLE can only be toggled while the
-+	 * interface is administrative down (!netif_running). At this point,
-+	 * all NAPIs and softirqs are disabled, sp_task is locked out under
-+	 * netdev_lock() and gated by !BNGE_STATE_OPEN, and the device is
-+	 * closed with no active hardware filters in firmware. Therefore,
-+	 * synchronous deletion of retained software filter entries here has
-+	 * no concurrent readers and leaks no firmware filter resources.
-+	 */
-+	list_for_each_entry_safe(usr_fltr, tmp, &bn->usr_fltr_list, list_node) {
-+		if (usr_fltr->type == BNGE_FLTR_TYPE_NTUPLE) {
-+			ntp_fltr = container_of(usr_fltr,
-+						struct bnge_ntuple_filter,
-+						base);
-+			bnge_del_ntp_filter(bn, ntp_fltr);
-+		} else if (usr_fltr->type == BNGE_FLTR_TYPE_L2) {
-+			l2_fltr = container_of(usr_fltr, struct bnge_l2_filter,
-+					       base);
-+			bnge_del_l2_filter(bn, l2_fltr);
-+		}
-+	}
-+}
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_filter.h b/drivers/net/ethernet/broadcom/bnge/bnge_filter.h
-index 87d66266a9f5..27fab050565e 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_filter.h
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_filter.h
-@@ -106,6 +106,7 @@ bnge_lookup_ntp_filter_from_idx(struct bnge_net *bn,
- 				struct bnge_ntuple_filter *fltr, u32 idx);
- void bnge_del_l2_filter(struct bnge_net *bn, struct bnge_l2_filter *fltr);
- void bnge_del_l2_filter_rcu(struct bnge_net *bn, struct bnge_l2_filter *fltr);
-+void bnge_del_usr_l2_filter(struct bnge_net *bn, struct bnge_l2_filter *fltr);
- __le64 bnge_lookup_l2_filter_rcu(struct bnge_net *bn,
- 				 struct bnge_l2_key *key,
- 				 u32 idx);
-@@ -120,4 +121,7 @@ void bnge_del_ntp_filter(struct bnge_net *bn,
- 			 struct bnge_ntuple_filter *nfltr);
- void bnge_del_ntp_filter_rcu(struct bnge_net *bn,
- 			     struct bnge_ntuple_filter *fltr);
-+void bnge_cfg_usr_fltrs(struct bnge_net *bn);
-+void bnge_clear_usr_fltrs(struct bnge_net *bn);
-+bool bnge_has_usr_ntp_fltr(struct bnge_net *bn);
- #endif /* _BNGE_FILTER_H_ */
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
-index 33cbdd6d8276..bb6233351484 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
-@@ -906,15 +906,18 @@ int bnge_hwrm_l2_filter_alloc(struct bnge_dev *bd, struct bnge_l2_filter *fltr)
- {
- 	struct hwrm_cfa_l2_filter_alloc_output *resp;
- 	struct hwrm_cfa_l2_filter_alloc_input *req;
-+	u32 flags;
- 	int rc;
- 
- 	rc = bnge_hwrm_req_init(bd, req, HWRM_CFA_L2_FILTER_ALLOC);
- 	if (rc)
- 		return rc;
- 
--	req->flags = cpu_to_le32(CFA_L2_FILTER_ALLOC_REQ_FLAGS_PATH_RX);
--
--	req->flags |= cpu_to_le32(CFA_L2_FILTER_ALLOC_REQ_FLAGS_OUTERMOST);
-+	flags = CFA_L2_FILTER_ALLOC_REQ_FLAGS_PATH_RX |
-+		CFA_L2_FILTER_ALLOC_REQ_FLAGS_OUTERMOST;
-+	if (BNGE_L2_FLTR_IS_NTP_MAC(fltr))
-+		flags |= CFA_L2_FILTER_ALLOC_REQ_FLAGS_TRAFFIC_L2;
-+	req->flags = cpu_to_le32(flags);
- 	req->dst_id = cpu_to_le16(fltr->base.fw_vnic_id);
- 	req->enables =
- 		cpu_to_le32(CFA_L2_FILTER_ALLOC_REQ_ENABLES_L2_ADDR |
 diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-index ff6573b5e60e..94406d5ecb71 100644
+index 2e39b12a3323..02ee1da8d57b 100644
 --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
 +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-@@ -1108,7 +1108,7 @@ static int bnge_alloc_vnic_attributes(struct bnge_net *bn)
- 		vnic = &bn->vnic_info[i];
- 
- 		if (vnic->flags & BNGE_VNIC_UCAST_FLAG) {
--			int mem_size = (BNGE_MAX_UC_ADDRS - 1) * ETH_ALEN;
-+			int mem_size = (BNGE_MAX_L2_FLTRS - 1) * ETH_ALEN;
- 
- 			vnic->uc_list = kmalloc(mem_size, GFP_KERNEL);
- 			if (!vnic->uc_list)
-@@ -2056,6 +2056,7 @@ static int bnge_cfg_rx_mode(struct bnge_net *bn, struct netdev_hw_addr_list *uc,
- 	int i, off = 0, rc, uc_count = 0;
- 	struct bnge_dev *bd = bn->bd;
- 	struct netdev_hw_addr *ha;
-+	int l2_free;
- 
- 	if (!uc_update)
- 		goto skip_uc;
-@@ -2063,6 +2064,8 @@ static int bnge_cfg_rx_mode(struct bnge_net *bn, struct netdev_hw_addr_list *uc,
- 	for (i = 1; i < vnic->uc_filter_count; i++) {
- 		struct bnge_l2_filter *fltr = vnic->l2_filters[i];
- 
-+		if (!fltr)
-+			continue;
- 		bnge_hwrm_l2_filter_free(bd, fltr);
- 		bnge_del_l2_filter_rcu(bn, fltr);
- 	}
-@@ -2079,7 +2082,12 @@ static int bnge_cfg_rx_mode(struct bnge_net *bn, struct netdev_hw_addr_list *uc,
- 	netdev_hw_addr_list_for_each(ha, uc)
- 		if (!ether_addr_equal(ha->addr, dev->dev_addr))
- 			uc_count++;
--	if (uc_count > BNGE_MAX_UC_ADDRS - 1) {
-+	/* The unicast addresses and the user ETHER_FLOW rules share the L2
-+	 * filters. Receive the addresses that do not fit in promiscuous mode.
-+	 */
-+	l2_free = BNGE_MAX_L2_FLTRS -
-+		  bitmap_weight(bn->l2_fltr_bmap, BNGE_MAX_L2_FLTRS);
-+	if (uc_count > BNGE_MAX_L2_FLTRS - 1 || uc_count > l2_free) {
- 		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
- 	} else {
- 		netdev_hw_addr_list_for_each(ha, uc) {
-@@ -2095,6 +2103,11 @@ static int bnge_cfg_rx_mode(struct bnge_net *bn, struct netdev_hw_addr_list *uc,
- 
- 	for (i = 1, off = 0; i < vnic->uc_filter_count; i++, off += ETH_ALEN) {
- 		rc = bnge_hwrm_set_vnic_filter(bn, 0, i, vnic->uc_list + off);
-+		if (rc == -EEXIST) {
-+			/* Already delivered by a user L2 rule */
-+			vnic->l2_filters[i] = NULL;
-+			continue;
-+		}
- 		if (rc) {
- 			if (rc == -EAGAIN)
- 				netdev_warn(dev, "FW busy while setting vnic filter, will retry\n");
-@@ -2281,6 +2294,8 @@ static void bnge_hwrm_clear_vnic_filter(struct bnge_net *bn)
- 	for (i = 0; i < vnic->uc_filter_count; i++) {
- 		struct bnge_l2_filter *fltr = vnic->l2_filters[i];
- 
-+		if (!fltr)
-+			continue;
- 		bnge_hwrm_l2_filter_free(bn->bd, fltr);
- 		bnge_del_l2_filter_rcu(bn, fltr);
- 	}
-@@ -2288,8 +2303,29 @@ static void bnge_hwrm_clear_vnic_filter(struct bnge_net *bn)
- 	vnic->uc_filter_count = 0;
- }
- 
-+/* User ETHER_FLOW rules are L2 filters whose destination is the NTUPLE VNIC.
-+ * Free them in firmware before that VNIC goes away, as is done for the
-+ * default VNIC filters. The rules stay in usr_fltr_list and are programmed
-+ * again by bnge_cfg_usr_fltrs() on the next open.
-+ */
-+static void bnge_hwrm_clear_usr_l2_fltrs(struct bnge_net *bn)
-+{
-+	struct bnge_filter_base *fltr;
-+
-+	list_for_each_entry(fltr, &bn->usr_fltr_list, list_node) {
-+		if (fltr->type != BNGE_FLTR_TYPE_L2 ||
-+		    !test_and_clear_bit(BNGE_FLTR_VALID, &fltr->state))
-+			continue;
-+		bnge_hwrm_l2_filter_free(bn->bd,
-+					 container_of(fltr,
-+						      struct bnge_l2_filter,
-+						      base));
-+	}
-+}
-+
- static void bnge_clear_vnic(struct bnge_net *bn)
- {
-+	bnge_hwrm_clear_usr_l2_fltrs(bn);
- 	bnge_hwrm_clear_vnic_filter(bn);
- 	bnge_hwrm_vnic_free(bn);
- 	bnge_hwrm_vnic_ctx_free(bn);
-@@ -2805,6 +2841,7 @@ static int bnge_open_core(struct bnge_net *bn)
+@@ -2796,6 +2796,8 @@ static int bnge_open_core(struct bnge_net *bn)
+ 	/* Poll link status and check for SFP+ module status */
  	bnge_get_port_module_status(bn);
  
- 	bnge_hwrm_realloc_rss_ctx_vnic(bn);
-+	bnge_cfg_usr_fltrs(bn);
- 
++	bnge_hwrm_realloc_rss_ctx_vnic(bn);
++
  	return 0;
  
-@@ -3177,6 +3214,9 @@ static int bnge_set_features(struct net_device *dev, netdev_features_t features)
- 	    !(flags & BNGE_NET_EN_NTUPLE) && bn->num_rss_ctx)
- 		return -EBUSY;
+ err_free_irq:
+@@ -3013,7 +3015,10 @@ static void bnge_close_core(struct bnge_net *bn)
+ 	clear_bit(BNGE_STATE_OPEN, &bd->state);
  
-+	if (!(flags & BNGE_NET_EN_NTUPLE))
-+		bnge_clear_usr_fltrs(bn);
+ 	timer_delete_sync(&bn->timer);
++
++	bnge_clear_rss_ctxs(bn);
+ 	bnge_shutdown_nic(bn);
++
+ 	bnge_disable_napi(bn);
+ 
+ 	/* Save ring stats before shutdown */
+@@ -3145,6 +3150,10 @@ static int bnge_set_features(struct net_device *dev, netdev_features_t features)
+ 	if (flags == bn->priv_flags)
+ 		return 0;
+ 
++	if ((bn->priv_flags & BNGE_NET_EN_NTUPLE) &&
++	    !(flags & BNGE_NET_EN_NTUPLE) && bn->num_rss_ctx)
++		return -EBUSY;
 +
  	bn->priv_flags = flags;
  
  	return 0;
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
+index 55ba58c7b9b0..651939a95b1d 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
+@@ -178,6 +178,16 @@ static int bnge_adjust_rings(struct bnge_dev *bd, u16 *rx,
+ 	return bnge_fix_rings_count(rx, tx, max_nq, sh);
+ }
+ 
++static unsigned int bnge_get_max_func_rss_ctxs(struct bnge_dev *bd)
++{
++	return bd->hw_resc.max_rsscos_ctxs;
++}
++
++static unsigned int bnge_get_max_func_vnics(struct bnge_dev *bd)
++{
++	return bd->hw_resc.max_vnics;
++}
++
+ int bnge_cal_nr_rss_ctxs(u16 rx_rings)
+ {
+ 	if (!rx_rings)
+@@ -200,7 +210,15 @@ static u16 bnge_get_total_rss_ctxs(struct bnge_dev *bd,
+ 
+ static u16 bnge_get_total_vnics(struct bnge_dev *bd)
+ {
+-	return BNGE_BASE_VNICS;
++	u16 vnics = BNGE_BASE_VNICS;
++
++	if (bd->netdev) {
++		struct bnge_net *bn = netdev_priv(bd->netdev);
++
++		vnics += bn->num_rss_ctx;
++	}
++
++	return vnics;
+ }
+ 
+ u32 bnge_get_rxfh_indir_size(struct bnge_dev *bd)
+@@ -209,6 +227,19 @@ u32 bnge_get_rxfh_indir_size(struct bnge_dev *bd)
+ 	       BNGE_RSS_TABLE_ENTRIES;
+ }
+ 
++static u16 bnge_get_max_rss_ring(struct bnge_dev *bd)
++{
++	u32 i, tbl_size, max_ring = 0;
++
++	if (!bd->rss_indir_tbl)
++		return 0;
++
++	tbl_size = bnge_get_rxfh_indir_size(bd);
++	for (i = 0; i < tbl_size; i++)
++		max_ring = max_t(u32, max_ring, bd->rss_indir_tbl[i]);
++	return max_ring;
++}
++
+ static void bnge_copy_reserved_rings(struct bnge_dev *bd,
+ 				     struct bnge_hw_rings *hwr)
+ {
+@@ -269,6 +300,8 @@ int bnge_reserve_rings(struct bnge_dev *bd)
+ 	u16 rx_rings, old_rx_rings;
+ 	u16 nq = bd->nq_nr_rings;
+ 	u16 aux_msix = 0;
++	bool indir_lost = false;
++	bool rx_changed;
+ 	bool sh = false;
+ 	u16 tx_cp;
+ 	int rc;
+@@ -331,9 +364,17 @@ int bnge_reserve_rings(struct bnge_dev *bd)
+ 	hwr.nq = sh ? max_t(u16, tx_cp, rx_rings) : tx_cp + rx_rings;
+ 	bd->tx_nr_rings = hwr.tx;
+ 
+-	if (rx_rings != bd->rx_nr_rings)
++	rx_changed = rx_rings != bd->rx_nr_rings;
++	if (rx_changed) {
+ 		dev_warn(bd->dev, "RX rings resv reduced to %d than earlier %d requested\n",
+ 			 rx_rings, bd->rx_nr_rings);
++		indir_lost = bd->netdev &&
++			     netif_is_rxfh_configured(bd->netdev) &&
++			     (bnge_cal_nr_rss_ctxs(bd->rx_nr_rings) !=
++			      bnge_cal_nr_rss_ctxs(rx_rings) ||
++			      bnge_get_max_rss_ring(bd) >= rx_rings);
++		bnge_check_rss_ctxs_lost(bd, rx_rings);
++	}
+ 
+ 	bd->rx_nr_rings = rx_rings;
+ 	bd->nq_nr_rings = hwr.nq;
+@@ -345,8 +386,18 @@ int bnge_reserve_rings(struct bnge_dev *bd)
+ 	if (!bnge_rings_ok(&hwr))
+ 		return -ENOMEM;
+ 
+-	if (old_rx_rings != bd->hw_resc.resv_rx_rings)
+-		bnge_set_dflt_rss_indir_tbl(bd);
++	if (old_rx_rings != bd->hw_resc.resv_rx_rings || rx_changed) {
++		if (!bd->netdev || indir_lost ||
++		    !netif_is_rxfh_configured(bd->netdev))
++			bnge_set_dflt_rss_indir_tbl(bd, NULL);
++		bnge_refill_dflt_rss_ctxs(bd);
++	}
++
++	/* Notify only now, so the notification reports the new ring count
++	 * and the reset indirection table.
++	 */
++	if (indir_lost)
++		ethtool_rxfh_indir_lost(bd->netdev);
+ 
+ 	if (!bnge_aux_registered(bd)) {
+ 		u16 resv_msix, resv_ctx, aux_ctxs;
+@@ -412,7 +463,7 @@ int bnge_alloc_irqs(struct bnge_dev *bd)
+ 
+ 	/* The indirection table may point at rings that were just removed */
+ 	if (bd->rx_nr_rings != old_rx)
+-		bnge_set_dflt_rss_indir_tbl(bd);
++		bnge_set_dflt_rss_indir_tbl(bd, NULL);
+ 
+ 	tx_cp = bnge_num_tx_to_cp(bd, bd->tx_nr_rings);
+ 	bd->nq_nr_rings = (min == 1) ?
+@@ -585,6 +636,39 @@ static int bnge_alloc_rss_indir_tbl(struct bnge_dev *bd)
+ 	return 0;
+ }
+ 
++/* Check and reserve hardware resources for a new RSS context */
++bool bnge_rss_ctx_capable(struct bnge_dev *bd)
++{
++	struct bnge_hw_rings hwr = {};
++	int max_vnics, max_rss_ctxs;
++
++	hwr.grp = bd->rx_nr_rings;
++	hwr.vnic = bnge_get_total_vnics(bd) + 1;
++	/* The RSS context count scales with hwr.vnic, set it first */
++	hwr.rss_ctx = bnge_get_total_rss_ctxs(bd, &hwr);
++	max_vnics = bnge_get_max_func_vnics(bd);
++	max_rss_ctxs = bnge_get_max_func_rss_ctxs(bd);
++
++	if (hwr.vnic > max_vnics || hwr.rss_ctx > max_rss_ctxs) {
++		if (bd->rx_nr_rings > 1)
++			dev_warn(bd->dev,
++				 "Not enough resources to support RSS context\n");
++		return false;
++	}
++
++	if (hwr.vnic <= bd->hw_resc.resv_vnics &&
++	    hwr.rss_ctx <= bd->hw_resc.resv_rsscos_ctxs)
++		return true;
++
++	bnge_hwrm_reserve_rings(bd, &hwr);
++	if (hwr.vnic <= bd->hw_resc.resv_vnics &&
++	    hwr.rss_ctx <= bd->hw_resc.resv_rsscos_ctxs)
++		return true;
++
++	dev_warn(bd->dev, "Unable to reserve resources to support RSS context\n");
++	return false;
++}
++
+ int bnge_net_init_dflt_config(struct bnge_dev *bd)
+ {
+ 	struct bnge_hw_resc *hw_resc;
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_resc.h b/drivers/net/ethernet/broadcom/bnge/bnge_resc.h
+index 97e8ef08974c..278d98ea9da6 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_resc.h
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_resc.h
+@@ -75,7 +75,7 @@ void bnge_aux_init_dflt_config(struct bnge_dev *bd);
+ u32 bnge_get_rxfh_indir_size(struct bnge_dev *bd);
+ int bnge_cal_nr_rss_ctxs(u16 rx_rings);
+ bool bnge_aux_has_enough_resources(struct bnge_dev *bd);
+-bool bnge_arfs_capable(struct bnge_dev *bd, bool new_rss_ctx);
++bool bnge_rss_ctx_capable(struct bnge_dev *bd);
+ 
+ static inline u32
+ bnge_adjust_pow_two(u32 total_ent, u16 ent_per_blk)
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
+index a44971a7c74d..dae6dc2f3302 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.c
+@@ -12,21 +12,26 @@
+ #include "bnge_filter.h"
+ #include "bnge_resc.h"
+ 
+-void bnge_set_dflt_rss_indir_tbl(struct bnge_dev *bd)
++void bnge_set_dflt_rss_indir_tbl(struct bnge_dev *bd,
++				 struct ethtool_rxfh_context *rss_ctx)
+ {
+ 	u16 max_entries, pad;
+ 	u32 *rss_indir_tbl;
+ 	u16 i;
+ 
+ 	max_entries = bnge_get_rxfh_indir_size(bd);
+-	rss_indir_tbl = &bd->rss_indir_tbl[0];
++
++	if (rss_ctx)
++		rss_indir_tbl = ethtool_rxfh_context_indir(rss_ctx);
++	else
++		rss_indir_tbl = &bd->rss_indir_tbl[0];
+ 
+ 	for (i = 0; i < max_entries; i++)
+ 		rss_indir_tbl[i] = ethtool_rxfh_indir_default(i,
+ 							      bd->rx_nr_rings);
+ 
+ 	pad = bd->rss_indir_tbl_entries - max_entries;
+-	if (pad)
++	if (pad && !rss_ctx)
+ 		memset(&rss_indir_tbl[i], 0, pad * sizeof(*rss_indir_tbl));
+ }
+ 
+@@ -44,9 +49,18 @@ void bnge_fill_hw_rss_tbl(struct bnge_net *bn, struct bnge_vnic_info *vnic)
+ 
+ 		if (vnic->flags & BNGE_VNIC_NTUPLE_FLAG)
+ 			j = ethtool_rxfh_indir_default(i, bd->rx_nr_rings);
++		else if (vnic->flags & BNGE_VNIC_RSSCTX_FLAG)
++			j = ethtool_rxfh_context_indir(vnic->rss_ctx)[i];
+ 		else
+ 			j = bd->rss_indir_tbl[i];
+ 
++		/* Defensive fallback: custom contexts with stale indices are
++		 * invalidated via ethtool_rxfh_context_lost() during ring
++		 * reduction. Clamp here to prevent out-of-bounds array reads.
++		 */
++		if (j >= bd->rx_nr_rings)
++			j = ethtool_rxfh_indir_default(i, bd->rx_nr_rings);
++
+ 		rxr = &bn->rx_ring[j];
+ 
+ 		ring_id = rxr->rx_ring_struct.fw_ring_id;
+@@ -155,7 +169,7 @@ void bnge_modify_rss(struct bnge_net *bn, struct ethtool_rxfh_context *ctx,
+ 		for (i = 0; i < tbl_size; i++)
+ 			indir_tbl[i] = rxfh->indir[i];
+ 		pad = bd->rss_indir_tbl_entries - tbl_size;
+-		if (pad)
++		if (pad && !rss_ctx)
+ 			memset(&indir_tbl[i], 0, pad * sizeof(*indir_tbl));
+ 	}
+ }
+@@ -168,8 +182,11 @@ void bnge_del_one_rss_ctx(struct bnge_net *bn, struct bnge_rss_ctx *rss_ctx,
+ 
+ 	bnge_hwrm_vnic_free_one(bn->bd, &rss_ctx->vnic);
+ 	for (i = 0; i < BNGE_MAX_CTX_PER_VNIC; i++) {
+-		if (vnic->fw_rss_cos_lb_ctx[i] != INVALID_HW_RING_ID)
++		if (vnic->fw_rss_cos_lb_ctx[i] != INVALID_HW_RING_ID) {
+ 			bnge_hwrm_vnic_ctx_free_one(bn->bd, vnic, i);
++			vnic->fw_rss_cos_lb_ctx[i] = INVALID_HW_RING_ID;
++			bn->rsscos_nr_ctxs--;
++		}
+ 	}
+ 
+ 	if (!all)
+@@ -188,6 +205,10 @@ void bnge_hwrm_realloc_rss_ctx_vnic(struct bnge_net *bn)
+ 	struct ethtool_rxfh_context *ctx;
+ 	unsigned long context;
+ 
++	/* Erasing lost contexts touches netdev->ethtool->rss_ctx and calls
++	 * ethtool_rxfh_context_lost(), which requires the ethtool rss_lock.
++	 */
++	mutex_lock(&bn->netdev->ethtool->rss_lock);
+ 	xa_for_each(&bn->netdev->ethtool->rss_ctx, context, ctx) {
+ 		struct bnge_rss_ctx *rss_ctx = ethtool_rxfh_context_priv(ctx);
+ 		struct bnge_vnic_info *vnic = &rss_ctx->vnic;
+@@ -201,6 +222,88 @@ void bnge_hwrm_realloc_rss_ctx_vnic(struct bnge_net *bn)
+ 			ethtool_rxfh_context_lost(bn->netdev, rss_ctx->index);
+ 		}
+ 	}
++	mutex_unlock(&bn->netdev->ethtool->rss_lock);
++}
++
++void bnge_check_rss_ctxs_lost(struct bnge_dev *bd, u16 new_rx_rings)
++{
++	struct ethtool_rxfh_context *ctx;
++	unsigned long context;
++	struct bnge_net *bn;
++
++	if (!bd->netdev)
++		return;
++
++	bn = netdev_priv(bd->netdev);
++	mutex_lock(&bd->netdev->ethtool->rss_lock);
++	xa_for_each(&bd->netdev->ethtool->rss_ctx, context, ctx) {
++		struct bnge_rss_ctx *rss_ctx = ethtool_rxfh_context_priv(ctx);
++		u32 *indir = ethtool_rxfh_context_indir(ctx);
++		bool lost = false;
++		u32 i;
++
++		if (!ctx->indir_user_size)
++			continue;
++
++		if (bnge_cal_nr_rss_ctxs(bd->rx_nr_rings) !=
++		    bnge_cal_nr_rss_ctxs(new_rx_rings)) {
++			lost = true;
++		} else {
++			for (i = 0; i < ctx->indir_size; i++) {
++				if (indir[i] >= new_rx_rings) {
++					lost = true;
++					break;
++				}
++			}
++		}
++
++		if (lost) {
++			bnge_del_one_rss_ctx(bn, rss_ctx, true);
++			ethtool_rxfh_context_lost(bd->netdev, rss_ctx->index);
++		}
++	}
++	mutex_unlock(&bd->netdev->ethtool->rss_lock);
++}
++
++void bnge_refill_dflt_rss_ctxs(struct bnge_dev *bd)
++{
++	struct ethtool_rxfh_context *ctx;
++	unsigned long context;
++	bool resize = false;
++	u32 tbl_size;
++
++	if (!bd->netdev)
++		return;
++
++	tbl_size = bnge_get_rxfh_indir_size(bd);
++	mutex_lock(&bd->netdev->ethtool->rss_lock);
++	xa_for_each(&bd->netdev->ethtool->rss_ctx, context, ctx) {
++		if (ctx->indir_size != tbl_size) {
++			resize = true;
++			break;
++		}
++	}
++	mutex_unlock(&bd->netdev->ethtool->rss_lock);
++
++	/* Contexts with a user table that no longer fits were already
++	 * dropped by bnge_check_rss_ctxs_lost(); only default ones resize.
++	 */
++	if (resize) {
++		if (ethtool_rxfh_ctxs_can_resize(bd->netdev, tbl_size)) {
++			dev_warn(bd->dev,
++				 "RSS contexts cannot be resized to %u entries\n",
++				 tbl_size);
++			return;
++		}
++		ethtool_rxfh_ctxs_resize(bd->netdev, tbl_size);
++	}
++
++	mutex_lock(&bd->netdev->ethtool->rss_lock);
++	xa_for_each(&bd->netdev->ethtool->rss_ctx, context, ctx) {
++		if (!ctx->indir_user_size)
++			bnge_set_dflt_rss_indir_tbl(bd, ctx);
++	}
++	mutex_unlock(&bd->netdev->ethtool->rss_lock);
+ }
+ 
+ void bnge_clear_rss_ctxs(struct bnge_net *bn)
+@@ -242,3 +345,14 @@ int bnge_alloc_vnic_rss_table(struct bnge_net *bn,
+ 	vnic->rss_hash_key_dma_addr = vnic->rss_table_dma_addr + size;
+ 	return 0;
+ }
++
++void bnge_init_vnic_mem(struct bnge_vnic_info *vnic)
++{
++	int i;
++
++	vnic->fw_vnic_id = INVALID_HW_RING_ID;
++	vnic->vnic_id = BNGE_VNIC_ID_INVALID;
++
++	for (i = 0; i < BNGE_MAX_CTX_PER_VNIC; i++)
++		vnic->fw_rss_cos_lb_ctx[i] = INVALID_HW_RING_ID;
++}
 diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
-index 58f17579db3d..e615690e6b93 100644
+index d11bd33fe254..58f17579db3d 100644
 --- a/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
 +++ b/drivers/net/ethernet/broadcom/bnge/bnge_vnic.h
-@@ -4,6 +4,8 @@
- #ifndef _BNGE_VNIC_H_
- #define _BNGE_VNIC_H_
- 
-+#include "bnge_filter.h"
-+
- struct bnge_net;
- struct bnge_dev;
- struct bnge_l2_filter;
-@@ -20,7 +22,6 @@ struct bnge_l2_filter;
- #define BNGE_MAX_CTX_PER_VNIC	8
- 
+@@ -22,6 +22,11 @@ struct bnge_l2_filter;
  #define BNGE_MAX_MC_ADDRS	16
--#define BNGE_MAX_UC_ADDRS	4
+ #define BNGE_MAX_UC_ADDRS	4
  
- #define BNGE_VNIC_ID_INVALID	0xffffffff
++#define BNGE_VNIC_ID_INVALID	0xffffffff
++
++struct ethtool_rxfh_context;
++struct ethtool_rxfh_param;
++
+ enum {
+ 	BNGE_VNIC_DEFAULT	= 0,
+ 	BNGE_VNIC_NTUPLE	= 1,
+@@ -32,7 +37,8 @@ enum {
+ 	BNGE_VNIC_RSS_FLAG	= BIT(0),
+ 	BNGE_VNIC_MCAST_FLAG	= BIT(1),
+ 	BNGE_VNIC_UCAST_FLAG	= BIT(2),
+-	BNGE_VNIC_NTUPLE_FLAG	= BIT(3)
++	BNGE_VNIC_NTUPLE_FLAG	= BIT(3),
++	BNGE_VNIC_RSSCTX_FLAG	= BIT(4)
+ };
  
-@@ -46,7 +47,7 @@ struct bnge_vnic_info {
- 	u16		fw_rss_cos_lb_ctx[BNGE_MAX_CTX_PER_VNIC];
- 	u16		mru;
- 	/* index 0 always dev_addr */
--	struct bnge_l2_filter *l2_filters[BNGE_MAX_UC_ADDRS];
-+	struct bnge_l2_filter *l2_filters[BNGE_MAX_L2_FLTRS];
- 	u16		uc_filter_count;
- 	u8		*uc_list;
- 	dma_addr_t	rss_table_dma_addr;
+ struct bnge_vnic_info {
+@@ -57,6 +63,8 @@ struct bnge_vnic_info {
+ 
+ 	u32		flags;
+ 	u32		vnic_id;
++
++	struct ethtool_rxfh_context	*rss_ctx;
+ };
+ 
+ struct bnge_rss_ctx {
+@@ -68,7 +76,8 @@ void bnge_fill_hw_rss_tbl(struct bnge_net *bn, struct bnge_vnic_info *vnic);
+ int bnge_hwrm_vnic_rss_cfg(struct bnge_net *bn,
+ 			   struct bnge_vnic_info *vnic);
+ int bnge_setup_vnic(struct bnge_net *bn, struct bnge_vnic_info *vnic);
+-void bnge_set_dflt_rss_indir_tbl(struct bnge_dev *bd);
++void bnge_set_dflt_rss_indir_tbl(struct bnge_dev *bd,
++				 struct ethtool_rxfh_context *ctx);
+ int bnge_alloc_rfs_vnic(struct bnge_net *bn);
+ int bnge_alloc_vnic_rss_table(struct bnge_net *bn,
+ 			      struct bnge_vnic_info *vnic);
+@@ -78,6 +87,9 @@ void bnge_modify_rss(struct bnge_net *bn, struct ethtool_rxfh_context *ctx,
+ 		     const struct ethtool_rxfh_param *rxfh);
+ void bnge_del_one_rss_ctx(struct bnge_net *bn, struct bnge_rss_ctx *rss_ctx,
+ 			  bool all);
++void bnge_check_rss_ctxs_lost(struct bnge_dev *bd, u16 new_rx_rings);
++void bnge_refill_dflt_rss_ctxs(struct bnge_dev *bd);
+ void bnge_hwrm_realloc_rss_ctx_vnic(struct bnge_net *bn);
+ void bnge_clear_rss_ctxs(struct bnge_net *bn);
++void bnge_init_vnic_mem(struct bnge_vnic_info *vnic);
+ #endif /* _BNGE_VNIC_H_ */
 -- 
 2.52.0
 
